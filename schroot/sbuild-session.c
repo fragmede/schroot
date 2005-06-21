@@ -282,15 +282,36 @@ sbuild_session_require_auth (SbuildSession *session)
       else
 	groups = sbuild_chroot_get_groups(chroot);
 
-      if (groups)
+      if (session->ruid == 0) // root has universal access
+	{
+	  auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
+	}
+      else if (groups != NULL)
 	{
 	  for (guint y=0; groups[y] != 0; ++y)
 	    {
-	      if (is_group_member(groups[y]) == TRUE) // No auth required
-		auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
-	      else
-		auth = set_auth(auth, SBUILD_SESSION_AUTH_USER);
+	      session->ruid == session->uid) // same user, so don't authenticate
+	    {
+	      auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
 	    }
+	    else if (session->uid == 0) // changing to root
+	      {
+		if (is_group_member(groups[y]) == TRUE) // No auth required
+		  auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
+		else
+		  auth = set_auth(auth, SBUILD_SESSION_AUTH_USER);
+	      }
+	    else
+	      {
+		if (is_group_member(groups[y]) == TRUE) // Allowed to use chroot
+		  auth = set_auth(auth, SBUILD_SESSION_AUTH_USER);
+		else
+		  auth = set_auth(auth, SBUILD_SESSION_AUTH_FAIL);
+	      }
+	}
+      else // no groups means no access
+	{
+	  auth = set_auth(auth, SBUILD_SESSION_AUTH_FAIL);
 	}
     }
 
@@ -309,8 +330,10 @@ sbuild_session_pam_start (SbuildSession  *session,
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_STARTUP,
 		  "PAM error: %s", pam_strerror(session->pam, pam_status));
+      g_debug("pam_start FAIL");
       return FALSE;
     }
+  g_debug("pam_start OK");
   return TRUE;
 }
 
@@ -699,66 +722,60 @@ sbuild_session_run (SbuildSession  *session,
   GError *tmp_error = NULL;
 
   sbuild_session_pam_start(session, &tmp_error);
-  if (tmp_error != NULL)
+  if (tmp_error == NULL)
     {
-      g_propagate_error(error, tmp_error);
-      return FALSE;
-    }
-
-  sbuild_session_pam_auth(session, &tmp_error);
-  if (tmp_error != NULL)
-    {
-      g_propagate_error(error, tmp_error);
-      return FALSE;
-    }
-
-  sbuild_session_pam_account(session, &tmp_error);
-  if (tmp_error != NULL)
-    {
-      g_propagate_error(error, tmp_error);
-      return FALSE;
-    }
-
-  sbuild_session_pam_cred_establish(session, &tmp_error);
-  if (tmp_error != NULL)
-    {
-      g_propagate_error(error, tmp_error);
-      return FALSE;
-    }
-
-  const char *authuser = NULL;
-  pam_get_item(session->pam, PAM_USER, (const void **) &authuser);
-  g_printerr("PAM authentication succeeded for user %s\n", authuser);
-
-  for (guint x=0; session->chroots[x] != 0; ++x)
-    {
-      g_printerr("Running session in %s chroot:\n", session->chroots[x]);
-      SbuildChroot *chroot = sbuild_config_find_alias(session->config,
-						      session->chroots[x]);
-      sbuild_session_run_chroot(session, chroot, &tmp_error);
-      if (tmp_error != NULL)
+      sbuild_session_pam_auth(session, &tmp_error);
+      if (tmp_error == NULL)
 	{
-	  g_propagate_error(error, tmp_error);
-	  return FALSE;
-	}
-      /* TODO: On error, need to clean up PAM. */
-    }
+	  sbuild_session_pam_account(session, &tmp_error);
+	  if (tmp_error == NULL)
+	    {
+	      sbuild_session_pam_cred_establish(session, &tmp_error);
+	      if (tmp_error == NULL)
+		{
 
-  sbuild_session_pam_cred_delete(session, &tmp_error);
+		  const char *authuser = NULL;
+		  pam_get_item(session->pam, PAM_USER, (const void **) &authuser);
+		  g_debug("PAM authentication succeeded for user %s\n", authuser);
+
+		  for (guint x=0; session->chroots[x] != 0; ++x)
+		    {
+		      g_debug("Running session in %s chroot:\n", session->chroots[x]);
+		      SbuildChroot *chroot = sbuild_config_find_alias(session->config,
+							      session->chroots[x]);
+		      sbuild_session_run_chroot(session, chroot, &tmp_error);
+		      if (tmp_error != NULL)
+			break;
+		    }
+
+		  /* The session is now finished, either successfully
+		     or not.  All PAM operations are now for cleanup
+		     and shutdown, and we must clean up whether or not
+		     errors were raised at any previous point.  This
+		     means only the first error is reported back to
+		     the user. */
+
+		  /* Don't cope with failure, since we are now already bailing out,
+		     and an error may already have been raised*/
+		  sbuild_session_pam_cred_delete(session,
+						 (tmp_error != NULL) ? NULL : &tmp_error);
+
+		} // pam_cred_establish
+	    } // pam_account
+	} // pam_auth
+      /* Don't cope with failure, since we are now already bailing out,
+	 and an error may already have been raised*/
+      sbuild_session_pam_stop(session,
+			      (tmp_error != NULL) ? NULL : &tmp_error);
+    } // pam_start
+
   if (tmp_error != NULL)
     {
       g_propagate_error(error, tmp_error);
       return FALSE;
     }
-
-  sbuild_session_pam_stop(session, &tmp_error);
-  if (tmp_error != NULL)
-    {
-      g_propagate_error(error, tmp_error);
-      return FALSE;
-    }
-
-  return TRUE;
+  else
+    return TRUE;
 }
 
 static void
