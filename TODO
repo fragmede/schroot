@@ -2,7 +2,5 @@ TODO
 ----
 
 - log all non-PAM session activity with syslog.
-- Require root access to also require groups membership (in addition
-  to root-groups).
 - Add gtk-doc API reference.
 - Document source.

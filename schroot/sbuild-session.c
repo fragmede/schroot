@@ -52,8 +52,13 @@ sbuild_session_error_quark (void)
 enum
 {
   PROP_0,
+  PROP_UID,
+  PROP_GID,
   PROP_USER,
   PROP_COMMAND,
+  PROP_SHELL,
+  PROP_RUID,
+  PROP_RUSER,
   PROP_CONFIG,
   PROP_CHROOTS
 };
@@ -120,7 +125,7 @@ sbuild_session_set_user (SbuildSession *session,
       session->uid = pwent->pw_uid;
       session->gid = pwent->pw_gid;
       session->shell = g_strdup(pwent->pw_shell);
-      g_debug("session uid = %lu, gid = %lu\n", (unsigned long) session->uid,
+      g_debug("session uid = %lu, gid = %lu", (unsigned long) session->uid,
 	      (unsigned long) session->gid);
     }
   else
@@ -130,7 +135,10 @@ sbuild_session_set_user (SbuildSession *session,
       session->shell = g_strdup("/bin/false");
     }
 
+  g_object_notify(G_OBJECT(session), "uid");
+  g_object_notify(G_OBJECT(session), "gid");
   g_object_notify(G_OBJECT(session), "user");
+  g_object_notify(G_OBJECT(session), "shell");
 }
 
 char **
@@ -366,6 +374,7 @@ sbuild_session_pam_auth (SbuildSession  *session,
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
 		  "PAM set RUSER error: %s", pam_strerror(session->pam, pam_status));
+      g_debug("pam_set_item (PAM_RUSER) FAIL");
       return FALSE;
     }
 
@@ -377,6 +386,7 @@ sbuild_session_pam_auth (SbuildSession  *session,
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_HOSTNAME,
 		  "Failed to get hostname: %s\n", g_strerror(errno));
+      g_debug("gethostname FAIL");
       return FALSE;
     }
 
@@ -386,6 +396,7 @@ sbuild_session_pam_auth (SbuildSession  *session,
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
 		  "PAM set RHOST error: %s", pam_strerror(session->pam, pam_status));
+      g_debug("pam_set_item (PAM_RHOST) FAIL");
       return FALSE;
     }
 
@@ -401,6 +412,7 @@ sbuild_session_pam_auth (SbuildSession  *session,
 	  g_set_error(error,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
 		      "PAM set TTY error: %s", pam_strerror(session->pam, pam_status));
+	  g_debug("pam_set_item (PAM_TTY) FAIL");
 	  return FALSE;
 	}
     }
@@ -415,6 +427,7 @@ sbuild_session_pam_auth (SbuildSession  *session,
 	  g_set_error(error,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
 		      "PAM set USER error: %s", pam_strerror(session->pam, pam_status));
+	  g_debug("pam_set_item (PAM_USER) FAIL");
 	  return FALSE;
 	}
       break;
@@ -426,8 +439,10 @@ sbuild_session_pam_auth (SbuildSession  *session,
 	  g_set_error(error,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_AUTHENTICATE,
 		      "PAM authentication failed: %s\n", pam_strerror(session->pam, pam_status));
+	  g_debug("pam_authenticate FAIL");
 	  return FALSE;
 	}
+      g_debug("pam_authenticate OK");
       break;
 
     case SBUILD_SESSION_AUTH_FAIL:
@@ -435,6 +450,7 @@ sbuild_session_pam_auth (SbuildSession  *session,
 	  g_set_error(error,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_AUTHENTICATE,
 		      "PAM authentication failed prematurely due to configuration error");
+	  g_debug("PAM auth premature FAIL");
 	  return FALSE;
 	}
     default:
@@ -458,9 +474,11 @@ sbuild_session_pam_account (SbuildSession  *session,
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_ACCOUNT,
 		  "PAM error: %s\n", pam_strerror(session->pam, pam_status));
+      g_debug("pam_acct_mgmt FAIL");
       return FALSE;
     }
 
+  g_debug("pam_acct_mgmt OK");
   return TRUE;
 }
 
@@ -476,9 +494,11 @@ sbuild_session_pam_cred_establish (SbuildSession  *session,
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_CREDENTIALS,
 		  "PAM error: %s\n", pam_strerror(session->pam, pam_status));
+      g_debug("pam_setcred FAIL");
       return FALSE;
     }
 
+  g_debug("pam_setcred OK");
   return TRUE;
 }
 
@@ -495,8 +515,11 @@ sbuild_session_pam_open (SbuildSession  *session,
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SESSION_OPEN,
 		  "PAM error: %s", pam_strerror(session->pam, pam_status));
+      g_debug("pam_open_session FAIL");
       return FALSE;
     }
+
+  g_debug("pam_open_session OK");
   return TRUE;
 }
 
@@ -512,8 +535,11 @@ sbuild_session_pam_close (SbuildSession  *session,
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SESSION_CLOSE,
 		  "PAM error: %s", pam_strerror(session->pam, pam_status));
+      g_debug("pam_close_session FAIL");
       return FALSE;
     }
+
+  g_debug("pam_close_session OK");
   return TRUE;
 }
 
@@ -529,9 +555,11 @@ sbuild_session_pam_cred_delete (SbuildSession  *session,
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_DELETE_CREDENTIALS,
 		  "PAM error: %s", pam_strerror(session->pam, pam_status));
+      g_debug("pam_setcred (delete) FAIL");
       return FALSE;
     }
 
+      g_debug("pam_setcred (delete) OK");
   return TRUE;
 }
 
@@ -547,8 +575,11 @@ sbuild_session_pam_stop (SbuildSession  *session,
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SHUTDOWN,
 		  "PAM error: %s", pam_strerror(session->pam, pam_status));
+      g_debug("pam_end FAIL");
       return FALSE;
     }
+
+  g_debug("pam_end OK");
   return TRUE;
 }
 
@@ -626,12 +657,6 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	  exit (EXIT_FAILURE);
 	}
 
-      /* Set up environment */
-/*       if (pass->pw_dir) */
-/* 	setenv("HOME", pass->pw_dir, 1); */
-/*       else */
-/* 	setenv("HOME", "/", 1); */
-
       /* chdir to current directory */
       if (chdir (cwd))
 	{
@@ -640,9 +665,10 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	}
       g_free(cwd);
 
+      /* Set up environment */
       char **env = pam_getenvlist(session->pam);
-      // Can this fail?
-      g_assert (env != NULL);
+      g_assert (env != NULL); // Can this fail?  Make sure we don't find out the hard way.
+
 
       /* Run login shell */
       if ((session->command == NULL ||
@@ -820,6 +846,9 @@ sbuild_session_init (SbuildSession *session)
     }
   session->ruser = g_strdup(pwent->pw_name);
 
+  g_object_notify(G_OBJECT(session), "ruid");
+  g_object_notify(G_OBJECT(session), "ruser");
+
   /* By default, the session user is the same as the remote user. */
   sbuild_session_set_user(session, session->ruser);
 }
@@ -912,11 +941,20 @@ sbuild_session_get_property (GObject    *object,
 
   switch (param_id)
     {
+    case PROP_UID:
+      g_value_set_int(value, session->uid);
+      break;
     case PROP_USER:
       g_value_set_string(value, session->user);
       break;
     case PROP_COMMAND:
       g_value_set_boxed(value, session->command);
+      break;
+    case PROP_RUID:
+      g_value_set_int(value, session->ruid);
+      break;
+    case PROP_RUSER:
+      g_value_set_string(value, session->ruser);
       break;
     case PROP_CONFIG:
       g_value_set_object(value, session->config);
@@ -942,9 +980,17 @@ sbuild_session_class_init (SbuildSessionClass *klass)
 
   g_object_class_install_property
     (gobject_class,
+     PROP_UID,
+     g_param_spec_int ("uid", "UID",
+		       "The UID to run as in the chroot",
+		       0, G_MAXINT, 0,
+		       G_PARAM_READABLE));
+
+  g_object_class_install_property
+    (gobject_class,
      PROP_USER,
      g_param_spec_string ("user", "User",
-			  "The user to run as in the chroot",
+			  "The user login name to run as in the chroot",
 			  "",
 			  (G_PARAM_READABLE | G_PARAM_WRITABLE)));
 
@@ -955,6 +1001,30 @@ sbuild_session_class_init (SbuildSessionClass *klass)
 			 "The command to run in the chroot, or NULL for a login shell",
 			 G_TYPE_STRV,
 			 (G_PARAM_READABLE | G_PARAM_WRITABLE)));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_SHELL,
+     g_param_spec_string ("shell", "Shell",
+			  "The login shell for the user to run as in the chroot",
+			  "/bin/false",
+			  G_PARAM_READABLE));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_RUID,
+     g_param_spec_int ("ruid", "Remote UID",
+		       "The UID of the current user",
+		       0, G_MAXINT, 0,
+		       G_PARAM_READABLE));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_RUSER,
+     g_param_spec_string ("ruser", "Remote user",
+			  "The current user's login name",
+			  "",
+			  G_PARAM_READABLE));
 
   g_object_class_install_property
     (gobject_class,
