@@ -40,6 +40,8 @@ schroot_LDADD = $(GOBJECT_LIBS) $(PAM_LIBS)
 
 sysconf_DATA = schroot.conf
 
+man_MANS = schroot.1 schroot.conf.5
+
 EXTRA_DIST = $(sysconf_DATA)
 
 install-exec-hook:

@@ -1,0 +1,117 @@
+.\" $Id$
+.\" Copyright (C) 2005  Roger Leigh <rleigh@debian.org>
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2, or (at your option)
+.\" any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program; if not, write to the Free Software
+.\" Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+.TH SCHROOT.CONF 1 "17 Jun 2005" "Version @VERSION@" "Debian sbuild"
+.SH NAME
+schroot.conf \- chroot definition file for schroot
+.SH DESCRIPTION
+\fBsbuild.conf\fP is a plain UTF-8 text file, describing the chroots available
+for use with sbuild.
+.PP
+Comments are introduced following a \[oq]\f[CR]\[sh]\fP\[cq] (\[lq]hash\[rq])
+character at the beginning of a line, or following any other text.  All text
+right of the \[oq]\f[CR]\[sh]\fP\[cq] is treated as a comment.
+.PP
+A chroot is defined as a group of key-value pairs, which is started by a name
+in square brackets on a line by itself.  The file may contain multiple groups
+which therefore define multiple chroots.
+.PP
+A chroot definition is started by the name of the chroot in square brackets.
+For example,
+.IP
+\f[CR]\[lB]sid\[rB]
+.PP
+This is then followed by several key-value pairs:
+.TP
+.B description=\fIdescription\fP
+A short description of the chroot.
+.TP
+.B location=\fIdirectory\fP
+The directory containing the chroot environment.  This is where the root will
+be changed to when executing a login shell or a command.  The directory
+ must exist and have read and execute permissions to allow users' access to it.
+.TP
+.B groups=\fIgroup1,group2,...\fP
+A comma-separated list of groups which are allowed access to the chroot.  If
+empty or omitted, no users will be allowed access.
+.TP
+.B root\-groups=\fIgroup1,group2,...\fP
+A comma-separated list of groups which are allowed \fBpassword-less\fP root
+access to the chroot.  If empty or omitted, no users will be allowed root
+access without a password (but if a user's group is in \fBgroups\fP, they may
+gain access with a password).
+.TP
+.B aliases=\fIalias1,alias2,...\fP
+A comma-separated list of aliases (alternate names) for this chroot.  For
+example, a chroot named \[lq]sid\[rq] might have an \[lq]unstable\[rq] alias
+for convenience.
+.PP
+The configuration format is an INI-style format used by the GLib GKeyFile
+class, and is fully documented in the GLib API reference.  Here, only the
+features used and required by schroot are documented.
+.SH EXAMPLE
+.RS
+\f[CR]# Sample configuration\fP
+.br
+\f[CR]\fP
+.br
+\f[CR][sid]\fP
+.br
+\f[CR]description=Debian unstable\fP
+.br
+\f[CR]location=/srv/chroot/sid\fP
+.br
+\f[CR]groups=sbuild\fP
+.br
+\f[CR]root-groups=root\fP
+.br
+\f[CR]aliases=unstable,default\fP
+.br
+\f[CR]\fP
+.br
+\f[CR][etch]\fP
+.br
+\f[CR]description=Debian testing\fP
+.br
+\f[CR]location=/srv/chroot/etch\fP
+.br
+\f[CR]#groups=sbuild-security\fP
+.br
+\f[CR]aliases=testing\fP
+.br
+\f[CR].RE\fP
+.SH FILES
+.TP
+.I @prefix@/etc/schroot.conf
+The system-wide chroot definition file.  This file must be owned by the root
+user, and not be writable by other.
+.SH AUTHORS
+Roger Leigh.
+.SH COPYRIGHT
+Copyright \(co 2005  Roger Leigh <rleigh@debian.org>
+.PP
+This program is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option)
+any later version.
+.SH SEE ALSO
+.BR schroot (1).
+.\"#
+.\"# The following sets edit modes for GNU EMACS
+.\"# Local Variables:
+.\"# mode:nroff
+.\"# fill-column:79
+.\"# End:

@@ -290,24 +290,25 @@ sbuild_session_require_auth (SbuildSession *session)
 	{
 	  for (guint y=0; groups[y] != 0; ++y)
 	    {
-	      session->ruid == session->uid) // same user, so don't authenticate
-	    {
-	      auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
-	    }
-	    else if (session->uid == 0) // changing to root
-	      {
-		if (is_group_member(groups[y]) == TRUE) // No auth required
+	      if (session->ruid == session->uid) // same user, so don't authenticate
+		{
 		  auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
-		else
+		}
+	      else if (session->uid == 0) // changing to root
+		{
+		  if (is_group_member(groups[y]) == TRUE) // No auth required
+		    auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
+		  else
 		  auth = set_auth(auth, SBUILD_SESSION_AUTH_USER);
-	      }
-	    else
-	      {
-		if (is_group_member(groups[y]) == TRUE) // Allowed to use chroot
-		  auth = set_auth(auth, SBUILD_SESSION_AUTH_USER);
-		else
-		  auth = set_auth(auth, SBUILD_SESSION_AUTH_FAIL);
-	      }
+		}
+	      else
+		{
+		  if (is_group_member(groups[y]) == TRUE) // Allowed to use chroot
+		    auth = set_auth(auth, SBUILD_SESSION_AUTH_USER);
+		  else
+		    auth = set_auth(auth, SBUILD_SESSION_AUTH_FAIL);
+		}
+	    }
 	}
       else // no groups means no access
 	{

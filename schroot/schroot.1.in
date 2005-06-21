@@ -1,0 +1,93 @@
+.\" $Id$
+.\" Copyright (C) 2005  Roger Leigh <rleigh@debian.org>
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2, or (at your option)
+.\" any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program; if not, write to the Free Software
+.\" Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+.TH SCHROOT 1 "17 Jun 2005" "Version @VERSION@" "Debian sbuild"
+.SH NAME
+schroot \- securely enter a chroot environment
+.SH SYNOPSIS
+.B schroot
+[\fIOPTION\fP]... [\fICOMMAND\fP]
+.SH DESCRIPTION
+\fBsbuild\fP allows the user to run a command or a login shell in a chroot
+environment.  If no command is specified, a login shell will be started in the
+user's current working directory inside the chroot.
+.PP
+If the user is not a member of the allowed groups (or if changing to root, the
+allowed root groups) for the specified chroot(s), the user will be required to
+authenticate themselves (typically with a password, but this depends upon the
+PAM configuration).  All chroot usage will be logged in the system logs.
+.SH OPTIONS
+\fBschroot\fP accepts the following options:
+.TP
+.B \-a, \-\-all
+Use all chroots.  When a command has been specified, the command will be run in
+all chroots.  If \fB\-\-info\fP has been used, display information about all
+chroots.  This option does not make sense to use with a login shell (when no
+command has been specified).
+.TP
+.B \-c, \-\-chroot=\fIchroot\fP
+Specify a chroot to use.  This option may be used multiple times to specify
+more than one chroot, in which case its effect is similar to \fB\-\-all\fP.
+.TP
+.B \-u, \-\-user=\fIuser\fP
+Run as a different user.  The default is to run as the current user.  If
+required, the user may be required to authenticate themselves with a password.
+.TP
+.B \-l, \-\-list
+List all available chroots.
+.TP
+.B \-i, \-\-info
+Print detailed information about the specified chroots.
+.TP
+.B \-p, \-\-preserve\-environment
+Preserve the user's environment inside the chroot environment.  The default is
+to use a clean environment; this option copies the entire environment.  This
+option is not yet implemented.
+.TP
+.B \-q, \-\-quiet
+Print only essential messages.  This option is not yet implemented.
+.TP
+.B \-V, \-\-version
+Print version information.
+.SH BUGS
+None known at this time.
+.SH FILES
+.TP
+.I @prefix@/etc/schroot.conf
+The system-wide chroot definition file.  This file must be owned by the root
+user, and not be writable by other.
+.TP
+.I /etc/pam.d/schroot
+PAM configuration.
+.SH AUTHORS
+Roger Leigh.
+.SH COPYRIGHT
+Copyright \(co 2005  Roger Leigh <rleigh@debian.org>
+.PP
+This program is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option)
+any later version.
+.SH SEE ALSO
+.BR dchroot (1),
+.BR schroot.conf (5),
+.BR chroot (2).
+.\"#
+.\"# The following sets edit modes for GNU EMACS
+.\"# Local Variables:
+.\"# mode:nroff
+.\"# fill-column:79
+.\"# End:
