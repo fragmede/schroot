@@ -33,9 +33,9 @@
 #include "sbuild-session.h"
 
 static struct {
-  const char **chroots;
-  const char **command;
-  const char *user;
+  char **chroots;
+  char **command;
+  char *user;
   gboolean preserve;
   gboolean quiet;
   gboolean list;
@@ -97,12 +97,12 @@ get_chroot_options(SbuildConfig *config)
   if (opt.all == TRUE)
     {
       const GList *list = sbuild_config_get_chroots(config);
-      guint num_chroots = g_list_length(list);
+      guint num_chroots = g_list_length((GList *) list);
       chroots = g_new(char *, num_chroots + 1);
       chroots[num_chroots] = NULL;
       for (guint i=0; i < num_chroots; ++i)
 	{
-	  GList *node = g_list_nth(list, i);
+	  GList *node = g_list_nth((GList *) list, i);
 	  g_assert(node != NULL);
 	  SbuildChroot *chroot = node->data;
 	  chroots[i] = g_strdup(sbuild_chroot_get_name(chroot));
