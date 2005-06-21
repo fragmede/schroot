@@ -284,7 +284,14 @@ sbuild_session_set_chroots (SbuildSession  *session,
   g_object_notify(G_OBJECT(session), "chroots");
 }
 
-/* Check group membership */
+/**
+ * is_group_member:
+ * @group: the group to check for
+ *
+ * Check group membership.
+ *
+ * Returns TRUE if the user is a member of @group, otherwise FALSE.
+ */
 static gboolean
 is_group_member (const char *group)
 {
@@ -330,6 +337,17 @@ typedef enum
   SBUILD_SESSION_AUTH_FAIL
 } SbuildSessionAuthType;
 
+/**
+ * set_auth:
+ * @oldauth: the current authentication status
+ * @newauth: the new authentication status
+ *
+ * Set new authentication status.  If @newauth > @oldauth, @newauth is
+ * returned, otherwise @oldauth is returned.  This is to ensure the
+ * authentication status can never be decreased.
+ *
+ * Returns the new authentication status.
+ */
 static inline SbuildSessionAuthType
 set_auth (SbuildSessionAuthType oldauth,
 	  SbuildSessionAuthType newauth)
@@ -341,6 +359,17 @@ set_auth (SbuildSessionAuthType oldauth,
     return oldauth;
 }
 
+/**
+ * sbuild_session_require_auth:
+ * @session: an #SbuildSession
+ *
+ * Check if authentication is required for @session.  Group membership
+ * is checked for all chroots, and depending on which user will be run
+ * in the chroot, password authentication or no authentication may be
+ * required.
+ *
+ * Returns the authentication type.
+ */
 static SbuildSessionAuthType
 sbuild_session_require_auth (SbuildSession *session)
 {
@@ -419,6 +448,17 @@ sbuild_session_require_auth (SbuildSession *session)
   return auth;
 }
 
+/**
+ * sbuild_session_pam_start:
+ * @session: an #SbuildSession
+ * @error: a #GError
+ *
+ * Start the PAM system.  No other PAM functions may be called before
+ * calling this function.
+ *
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
+ */
 static gboolean
 sbuild_session_pam_start (SbuildSession  *session,
 			  GError        **error)
@@ -438,6 +478,17 @@ sbuild_session_pam_start (SbuildSession  *session,
   return TRUE;
 }
 
+/**
+ * sbuild_session_pam_auth:
+ * @session: an #SbuildSession
+ * @error: a #GError
+ *
+ * Perform PAM authentication.  If required, the user will be prompted
+ * to authenticate themselves.
+ *
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
+ */
 static gboolean
 sbuild_session_pam_auth (SbuildSession  *session,
 			 GError        **error)
@@ -546,6 +597,16 @@ sbuild_session_pam_auth (SbuildSession  *session,
   return TRUE;
 }
 
+/**
+ * sbuild_session_pam_account:
+ * @session: an #SbuildSession
+ * @error: a #GError
+ *
+ * Do PAM account management (authorisation).
+ *
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
+ */
 static gboolean
 sbuild_session_pam_account (SbuildSession  *session,
 			    GError        **error)
@@ -568,6 +629,16 @@ sbuild_session_pam_account (SbuildSession  *session,
   return TRUE;
 }
 
+/**
+ * sbuild_session_pam_cred_establish:
+ * @session: an #SbuildSession
+ * @error: a #GError
+ *
+ * Use PAM to establish credentials.
+ *
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
+ */
 static gboolean
 sbuild_session_pam_cred_establish (SbuildSession  *session,
 				   GError        **error)
@@ -589,6 +660,16 @@ sbuild_session_pam_cred_establish (SbuildSession  *session,
 }
 
 
+/**
+ * sbuild_session_pam_open:
+ * @session: an #SbuildSession
+ * @error: a #GError
+ *
+ * Start a PAM session.  This should be called in the child process.
+ *
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
+ */
 static gboolean
 sbuild_session_pam_open (SbuildSession  *session,
 			 GError        **error)
@@ -609,6 +690,16 @@ sbuild_session_pam_open (SbuildSession  *session,
   return TRUE;
 }
 
+/**
+ * sbuild_session_pam_close:
+ * @session: an #SbuildSession
+ * @error: a #GError
+ *
+ * Stop a PAM session.
+ *
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
+ */
 static gboolean
 sbuild_session_pam_close (SbuildSession  *session,
 			  GError        **error)
@@ -629,6 +720,16 @@ sbuild_session_pam_close (SbuildSession  *session,
   return TRUE;
 }
 
+/**
+ * sbuild_session_pam_cred_delete:
+ * @session: an #SbuildSession
+ * @error: a #GError
+ *
+ * Use PAM to delete credentials.
+ *
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
+ */
 static gboolean
 sbuild_session_pam_cred_delete (SbuildSession  *session,
 				GError        **error)
@@ -649,6 +750,17 @@ sbuild_session_pam_cred_delete (SbuildSession  *session,
   return TRUE;
 }
 
+/**
+ * sbuild_session_pam_stop:
+ * @session: an #SbuildSession
+ * @error: a #GError
+ *
+ * Stop the PAM system.  No other PAM functions may be used after
+ * calling this function.
+ *
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
+ */
 static gboolean
 sbuild_session_pam_stop (SbuildSession  *session,
 			 GError        **error)
@@ -669,7 +781,17 @@ sbuild_session_pam_stop (SbuildSession  *session,
   return TRUE;
 }
 
-/* Run command in chroot */
+/**
+ * sbuild_session_run_command:
+ * @session: an #SbuildSession
+ * @session_chroot: an #SbuildChroot (which must be present in the @session configuration)
+ * @error: a #GError
+ *
+ * Run the session command or login shell in the specified chroot.
+ *
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
+ */
 static gboolean
 sbuild_session_run_chroot (SbuildSession  *session,
 			   SbuildChroot   *session_chroot,
@@ -866,8 +988,8 @@ sbuild_session_run_chroot (SbuildSession  *session,
  * must be a member of the appropriate groups in order to satisfy the
  * groups and root-groups requirements in the chroot configuration.
  *
- * Returns TRUE on success, FALSE on failure (error will be set to
- * indicate why).
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
  */
 gboolean
 sbuild_session_run (SbuildSession  *session,

@@ -1,4 +1,6 @@
 TODO
 ----
 
-- Document non-user-visible internals.
+- Use -p option to preserve environment.
+- Use -q option to disable non-essential messages.
+- Return child error status.

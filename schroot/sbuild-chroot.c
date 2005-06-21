@@ -536,9 +536,6 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
   parent_class = g_type_class_peek_parent (klass);
 
-  /* Override the virtual finalize, set_property and
-     get_property methods in the GObject class vtable (which
-     is contained in CseCanvasClass). */
   gobject_class->finalize = (GObjectFinalizeFunc) sbuild_chroot_finalize;
   gobject_class->set_property = (GObjectSetPropertyFunc) sbuild_chroot_set_property;
   gobject_class->get_property = (GObjectGetPropertyFunc) sbuild_chroot_get_property;

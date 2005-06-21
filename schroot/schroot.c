@@ -32,6 +32,7 @@
 #include "sbuild-config.h"
 #include "sbuild-session.h"
 
+/* Stored command-line options. */
 static struct {
   char **chroots;
   char **command;
@@ -55,6 +56,7 @@ static struct {
     .version = FALSE
   };
 
+/* Command-line options. */
 static GOptionEntry entries[] =
 {
   { "all", 'a', 0, G_OPTION_ARG_NONE, &opt.all, "Run command in all chroots", NULL },
@@ -68,6 +70,14 @@ static GOptionEntry entries[] =
   { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &opt.command, NULL, NULL }
 };
 
+/**
+ * parse_options:
+ * @argc: the number of arguments
+ * @argv: argument vector
+ *
+ * Parse command-line options.  The options are places in the opt
+ * structure.
+ */
 static void
 parse_options(int   argc,
 	      char *argv[])
@@ -79,6 +89,12 @@ parse_options(int   argc,
   g_option_context_parse (context, &argc, &argv, &error);
 }
 
+/**
+ * print_version:
+ * @file: the file to print to
+ *
+ * Print version information.
+ */
 void
 print_version (FILE *file)
 {
@@ -89,6 +105,14 @@ print_version (FILE *file)
   g_fprintf(file, "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n");
 }
 
+/**
+ * get_chroot_options:
+ * @config: an #SbuildConfig
+ *
+ * Get a list of chroots based on the specified options (--all, --chroot).
+ *
+ * Returns a NULL-terminated string vector (GStrv).
+ */
 char **
 get_chroot_options(SbuildConfig *config)
 {
@@ -123,6 +147,15 @@ get_chroot_options(SbuildConfig *config)
   return chroots;
 }
 
+/**
+ * main:
+ * @argc: the number of arguments
+ * @argv: argument vector
+ *
+ * Main routine.
+ *
+ * Returns 0 on success, 1 on failure.
+ */
 int
 main (int   argc,
       char *argv[])
@@ -166,6 +199,7 @@ main (int   argc,
       exit (EXIT_SUCCESS);
     }
 
+  /* Create and run a session. */
   SbuildSession *session = sbuild_session_new(config, chroots);
   if (opt.user)
     sbuild_session_set_user(session, opt.user);
@@ -179,7 +213,6 @@ main (int   argc,
       g_printerr("Session failure: %s\n", session_error->message);
       exit (EXIT_FAILURE);
     }
-
 
   g_object_unref(G_OBJECT(session));
   g_object_unref(G_OBJECT(config));
