@@ -276,41 +276,57 @@ sbuild_session_require_auth (SbuildSession *session)
 	  auth = set_auth(auth, SBUILD_SESSION_AUTH_FAIL);
 	}
 
-      char **groups = NULL;
-      if (session->uid == 0)
-	groups = sbuild_chroot_get_root_groups(chroot);
-      else
-	groups = sbuild_chroot_get_groups(chroot);
+      char **groups = sbuild_chroot_get_groups(chroot);
+      char **root_groups = sbuild_chroot_get_root_groups(chroot);
 
       if (session->ruid == 0) // root has universal access
 	{
 	  auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
 	}
-      else if (groups != NULL)
+      else if ((session->ruid == 0 && groups != NULL && root_groups != NULL) ||
+	       (session->ruid != 0 && groups != NULL))
 	{
+	  gboolean in_groups = FALSE;
+	  gboolean in_root_groups = FALSE;
+
 	  for (guint y=0; groups[y] != 0; ++y)
+	    if (is_group_member(groups[y]) == TRUE)
+	      in_groups = TRUE;
+
+	  for (guint y=0; root_groups[y] != 0; ++y)
+	    if (is_group_member(root_groups[y]) == TRUE)
+	      in_root_groups = TRUE;
+
+	  if (session->uid == 0) // changing to root
 	    {
-	      if (session->ruid == session->uid) // same user, so don't authenticate
+	      if (in_groups == TRUE &&
+		  in_root_groups == TRUE) // No auth required
+		auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
+	      else if (in_groups == TRUE) // Auth required if not in root group
+		auth = set_auth(auth, SBUILD_SESSION_AUTH_USER);
+	      else // Not in any groups
+		auth = set_auth(auth, SBUILD_SESSION_AUTH_FAIL);
+	    }
+	  else // Non-root access
+	    {
+	      if (in_groups == TRUE) // Allowed to use chroot
 		{
-		  auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
-		}
-	      else if (session->uid == 0) // changing to root
-		{
-		  if (is_group_member(groups[y]) == TRUE) // No auth required
-		    auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
-		  else
-		  auth = set_auth(auth, SBUILD_SESSION_AUTH_USER);
-		}
-	      else
-		{
-		  if (is_group_member(groups[y]) == TRUE) // Allowed to use chroot
+		  if (session->ruid == session->uid) // same user, so don't authenticate
+		    {
+		      auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
+		    }
+		  else // Auth required
 		    auth = set_auth(auth, SBUILD_SESSION_AUTH_USER);
-		  else
-		    auth = set_auth(auth, SBUILD_SESSION_AUTH_FAIL);
 		}
+	      else // Not in any groups
+		auth = set_auth(auth, SBUILD_SESSION_AUTH_FAIL);
+	    }
+	  if (session->ruid == session->uid) // same user, so don't authenticate
+	    {
+	      auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
 	    }
 	}
-      else // no groups means no access
+      else // no groups entries means no access
 	{
 	  auth = set_auth(auth, SBUILD_SESSION_AUTH_FAIL);
 	}
