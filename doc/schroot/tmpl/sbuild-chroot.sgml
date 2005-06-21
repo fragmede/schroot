@@ -19,7 +19,7 @@ SbuildChroot
 
 <!-- ##### STRUCT SbuildChroot ##### -->
 <para>
-
+SbuildChroot object.
 </para>
 
 
@@ -55,7 +55,7 @@ SbuildChroot
 
 <!-- ##### STRUCT SbuildChrootClass ##### -->
 <para>
-
+SbuildChroot class.
 </para>
 
 @parent: 

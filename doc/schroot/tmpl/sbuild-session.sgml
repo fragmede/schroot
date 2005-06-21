@@ -19,32 +19,32 @@ SbuildSession
 
 <!-- ##### ENUM SbuildSessionError ##### -->
 <para>
-
+The errors which can occur while running a session.
 </para>
 
-@SBUILD_SESSION_ERROR_PAM_STARTUP: 
-@SBUILD_SESSION_ERROR_PAM_SET_ITEM: 
-@SBUILD_SESSION_ERROR_HOSTNAME: 
-@SBUILD_SESSION_ERROR_PAM_AUTHENTICATE: 
-@SBUILD_SESSION_ERROR_PAM_ACCOUNT: 
-@SBUILD_SESSION_ERROR_PAM_CREDENTIALS: 
-@SBUILD_SESSION_ERROR_PAM_SESSION_OPEN: 
-@SBUILD_SESSION_ERROR_PAM_SESSION_CLOSE: 
-@SBUILD_SESSION_ERROR_PAM_DELETE_CREDENTIALS: 
-@SBUILD_SESSION_ERROR_PAM_SHUTDOWN: 
-@SBUILD_SESSION_ERROR_FORK: 
-@SBUILD_SESSION_ERROR_CHILD: 
+@SBUILD_SESSION_ERROR_PAM_STARTUP: PAM failed to start up
+@SBUILD_SESSION_ERROR_PAM_SET_ITEM: PAM failed to set a configuration item
+@SBUILD_SESSION_ERROR_HOSTNAME: The hostname could not be obtained
+@SBUILD_SESSION_ERROR_PAM_AUTHENTICATE: PAM authentication failed
+@SBUILD_SESSION_ERROR_PAM_ACCOUNT: PAM account management failed
+@SBUILD_SESSION_ERROR_PAM_CREDENTIALS: PAM could not set user credentials
+@SBUILD_SESSION_ERROR_PAM_SESSION_OPEN: PAM could not open a session
+@SBUILD_SESSION_ERROR_PAM_SESSION_CLOSE: PAM could not close a session
+@SBUILD_SESSION_ERROR_PAM_DELETE_CREDENTIALS: PAM could not delete user credentials
+@SBUILD_SESSION_ERROR_PAM_SHUTDOWN: PAM could not shut down
+@SBUILD_SESSION_ERROR_FORK: A child process could not be created
+@SBUILD_SESSION_ERROR_CHILD: An error occured during execution of the child process
 
 <!-- ##### MACRO SBUILD_SESSION_ERROR ##### -->
 <para>
-
+The error domain for sbuild session errors.
 </para>
 
 
 
 <!-- ##### STRUCT SbuildSession ##### -->
 <para>
-
+SbuildSession object.
 </para>
 
 
@@ -90,7 +90,7 @@ SbuildSession
 
 <!-- ##### STRUCT SbuildSessionClass ##### -->
 <para>
-
+SbuildSession class.
 </para>
 
 @parent: 

@@ -23,8 +23,15 @@
  * @short_description: chroot object
  * @title: SbuildChroot
  *
+ * This object contains all of the metadata associated with a single
+ * chroot.  This is the in-core representation of a chroot definition
+ * in the configuration file, and may be initialised directly from an
+ * open #GKeyFile.
+ *
+ * This object is a container of information only.  The only things it
+ * can do are satisfying requests for information and printing its
+ * details.
  */
-
 
 #include "sbuild-chroot.h"
 
@@ -60,6 +67,7 @@ sbuild_chroot_new (void)
  * sbuild_chroot_new_from_keyfile:
  * @keyfile: the #GKeyFile containing the chroot configuration
  * @group: the group in @keyfile to use
+ *
  * Creates a new #SbuildChroot.
  *
  * Returns the newly created #SbuildChroot.
@@ -136,7 +144,7 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
 
 /**
  * sbuild_chroot_get_name:
- * @code_table: an #SbuildChroot
+ * @chroot: an #SbuildChroot
  *
  * Get the name of the chroot.
  *
@@ -153,7 +161,7 @@ sbuild_chroot_get_name (const SbuildChroot *restrict chroot)
 
 /**
  * sbuild_chroot_set_name:
- * @code_table: an #SbuildChroot.
+ * @chroot: an #SbuildChroot.
  * @name: the name to set.
  *
  * Set the name of a chroot.
@@ -174,7 +182,7 @@ sbuild_chroot_set_name (SbuildChroot *chroot,
 
 /**
  * sbuild_chroot_get_description:
- * @code_table: an #SbuildChroot
+ * @chroot: an #SbuildChroot
  *
  * Get the description of the chroot.
  *
@@ -191,7 +199,7 @@ sbuild_chroot_get_description (const SbuildChroot *restrict chroot)
 
 /**
  * sbuild_chroot_set_description:
- * @code_table: an #SbuildChroot.
+ * @chroot: an #SbuildChroot.
  * @description: the description to set.
  *
  * Set the description of a chroot.
@@ -212,7 +220,7 @@ sbuild_chroot_set_description (SbuildChroot *chroot,
 
 /**
  * sbuild_chroot_get_location:
- * @code_table: an #SbuildChroot
+ * @chroot: an #SbuildChroot
  *
  * Get the location of the chroot.
  *
@@ -229,7 +237,7 @@ sbuild_chroot_get_location (const SbuildChroot *restrict chroot)
 
 /**
  * sbuild_chroot_set_location:
- * @code_table: an #SbuildChroot.
+ * @chroot: an #SbuildChroot.
  * @location: the location to set.
  *
  * Set the location of a chroot.
@@ -250,7 +258,7 @@ sbuild_chroot_set_location (SbuildChroot *chroot,
 
 /**
  * sbuild_chroot_get_groups:
- * @code_table: an #SbuildChroot
+ * @chroot: an #SbuildChroot
  *
  * Get the groups of the chroot.
  *
@@ -267,7 +275,7 @@ sbuild_chroot_get_groups (const SbuildChroot *restrict chroot)
 
 /**
  * sbuild_chroot_set_groups:
- * @code_table: an #SbuildChroot.
+ * @chroot: an #SbuildChroot.
  * @groups: the groups to set.
  *
  * Set the groups of a chroot.
@@ -288,7 +296,7 @@ sbuild_chroot_set_groups (SbuildChroot  *chroot,
 
 /**
  * sbuild_chroot_get_root_groups:
- * @code_table: an #SbuildChroot
+ * @chroot: an #SbuildChroot
  *
  * Get the root groups of the chroot.
  *
@@ -305,7 +313,7 @@ sbuild_chroot_get_root_groups (const SbuildChroot *restrict chroot)
 
 /**
  * sbuild_chroot_set_root_groups:
- * @code_table: an #SbuildChroot.
+ * @chroot: an #SbuildChroot.
  * @groups: the groups to set.
  *
  * Set the groups of a chroot.
@@ -326,7 +334,7 @@ sbuild_chroot_set_root_groups (SbuildChroot  *chroot,
 
 /**
  * sbuild_chroot_get_aliases:
- * @code_table: an #SbuildChroot
+ * @chroot: an #SbuildChroot
  *
  * Get the aliases of the chroot.
  *
@@ -343,7 +351,7 @@ sbuild_chroot_get_aliases (const SbuildChroot *restrict chroot)
 
 /**
  * sbuild_chroot_set_aliases:
- * @code_table: an #SbuildChroot.
+ * @chroot: an #SbuildChroot.
  * @aliases: the aliases to set.
  *
  * Set the aliases of a chroot.
@@ -362,6 +370,14 @@ sbuild_chroot_set_aliases (SbuildChroot  *chroot,
   g_object_notify(G_OBJECT(chroot), "aliases");
 }
 
+/**
+ * sbuild_chroot_print_details:
+ * @chroot: an #SbuildChroot.
+ * @file: the file to output to.
+ *
+ * Print detailed information about @chroot to @file.  The information
+ * is printed in plain text with one line per property.
+ */
 void sbuild_chroot_print_details (SbuildChroot *chroot,
 				  FILE         *file)
 {

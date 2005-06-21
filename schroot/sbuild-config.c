@@ -23,6 +23,12 @@
  * @short_description: config object
  * @title: SbuildConfig
  *
+ * This class holds the configuration details from the configuration
+ * file.  Conceptually, it's an opaque container of #SbuildChroot
+ * objects.
+ *
+ * Methods are provided to query the available chroots and find
+ * specific chroots.
  */
 
 #define _GNU_SOURCE
@@ -37,6 +43,13 @@
 
 #include "sbuild-config.h"
 
+/**
+ * sbuild_config_file_error_quark:
+ *
+ * Get the SBUILD_CONFIG_FILE_ERROR domain number.
+ *
+ * Returns the domain.
+ */
 GQuark
 sbuild_config_file_error_quark (void)
 {
@@ -60,6 +73,7 @@ G_DEFINE_TYPE(SbuildConfig, sbuild_config, G_TYPE_OBJECT)
 
 /**
  * sbuild_config_new:
+ * @file: the filename to open.
  *
  * Creates a new #SbuildConfig.
  *
@@ -73,6 +87,17 @@ sbuild_config_new (const char *file)
 					NULL);
 }
 
+/**
+ * sbuild_config_check_security:
+ * @fd: the file descriptor to check.
+ * @error: the #GError to report errors.
+ *
+ * Check the permissions and ownership of the configuration file.  The
+ * file must be owned by root, not writable by other, and be a regular
+ * file.
+ *
+ * Returns TRUE if the checks succeed, FALSE on failure.
+ */
 static gboolean
 sbuild_config_check_security(int      fd,
 			     GError **error)
@@ -113,6 +138,16 @@ sbuild_config_check_security(int      fd,
   return TRUE;
 }
 
+/**
+ * sbuild_config_load:
+ * @file: the file to load.
+ *
+ * Load a configuration file.  If there are problems with the
+ * configuration file, the program will be aborted immediately.
+ *
+ * Returns a list of #SbuildChroot objects, or NULL if no chroots were
+ * found.
+ */
 static GList *
 sbuild_config_load (const char *file)
 {
@@ -183,9 +218,10 @@ sbuild_config_load (const char *file)
 /**
  * sbuild_config_set_name:
  * @config: an #SbuildConfig.
- * @name: the name to set.
+ * @file: the filename to set.
  *
- * Set the name of a config.
+ * Set the configuration filename.  The configuration file will be
+ * loaded as a side effect.
  */
 static void
 sbuild_config_set_config_file (SbuildConfig *config,
@@ -205,6 +241,15 @@ sbuild_config_set_config_file (SbuildConfig *config,
   g_object_notify(G_OBJECT(config), "config_file");
 }
 
+/**
+ * sbuild_config_get_chroots:
+ * @config: a #SbuildConfig
+ *
+ * Get a list of available chroots.
+ *
+ * Returns a list of available chroots, or NULL if no chroots are
+ * available.
+ */
 const GList *
 sbuild_config_get_chroots (SbuildConfig *config)
 {
@@ -213,6 +258,16 @@ sbuild_config_get_chroots (SbuildConfig *config)
   return config->chroots;
 }
 
+/**
+ * sbuild_config_find_generic:
+ * @config: a #SbuildConfig
+ * @name: the chroot name to find
+ * @func: the comparison function to use
+ *
+ * Find a chroot by name using the supplied comparison function.
+ *
+ * Returns the chroot on succes, or NULL if the chroot was not found.
+ */
 static SbuildChroot *
 sbuild_config_find_generic (SbuildConfig *config,
 			    const char   *name,
@@ -234,6 +289,15 @@ sbuild_config_find_generic (SbuildConfig *config,
     return NULL;
 }
 
+/**
+ * chroot_findfunc:
+ * @a: an #SbuildChroot
+ * @b: an #SbuildChroot
+ *
+ * Compare the names of the chroots.
+ *
+ * Return TRUE if the names are the same, otherwise FALSE.
+ */
 static gint
 chroot_findfunc (SbuildChroot *a,
 		 SbuildChroot *b)
@@ -242,7 +306,15 @@ chroot_findfunc (SbuildChroot *a,
 		sbuild_chroot_get_name(b));
 }
 
-
+/**
+ * sbuild_config_find_chroot:
+ * @config: an #SbuildConfig
+ * @name: the chroot name
+ *
+ * Find a chroot by its name.
+ *
+ * Returns the chroot if found, otherwise NULL.
+ */
 SbuildChroot *
 sbuild_config_find_chroot (SbuildConfig *config,
 			   const char   *name)
@@ -252,6 +324,15 @@ sbuild_config_find_chroot (SbuildConfig *config,
   return sbuild_config_find_generic(config, name, (GCompareFunc) chroot_findfunc);
 }
 
+/**
+ * alias_findfunc:
+ * @a: a #SbuildChroot
+ * @b: a #SbuildChroot
+ *
+ * Compare the aliases of @a with the name of @b.
+ *
+ * Return TRUE if one of the aliases matches the name, otherwise FALSE.
+ */
 static gint
 alias_findfunc (SbuildChroot *a,
 		SbuildChroot *b)
@@ -266,6 +347,15 @@ alias_findfunc (SbuildChroot *a,
 }
 
 
+/**
+ * sbuild_config_find_alias:
+ * @config: an #SbuildConfig
+ * @name: the chroot name
+ *
+ * Find a chroot by its name or an alias.
+ *
+ * Returns the chroot if found, otherwise NULL.
+ */
 SbuildChroot *
 sbuild_config_find_alias (SbuildConfig *config,
 			  const char   *name)
@@ -278,6 +368,13 @@ sbuild_config_find_alias (SbuildConfig *config,
   return chroot;
 }
 
+/**
+ * sbuild_config_get_chroot_list_foreach:
+ * @chroot: an #SbuildChroot
+ * @list: the list to append the names to
+ *
+ * Add the name and aliases of a chroot to @list.
+ */
 static void
 sbuild_config_get_chroot_list_foreach (SbuildChroot  *chroot,
 				       GList        **list)
@@ -289,6 +386,14 @@ sbuild_config_get_chroot_list_foreach (SbuildChroot  *chroot,
     *list = g_list_append(*list, aliases[i]);
 }
 
+/**
+ * sbuild_config_get_chroot_list:
+ * @config: an #SbuildConfig
+ *
+ * Get the names (including aliases) of all the available chroots.
+ *
+ * Returns the list, or NULL if no chroots are available.
+ */
 GList *
 sbuild_config_get_chroot_list (SbuildConfig *config)
 {
@@ -302,6 +407,13 @@ sbuild_config_get_chroot_list (SbuildConfig *config)
   return list;
 }
 
+/**
+ * sbuild_config_print_chroot_list_foreach:
+ * @name: the name to print
+ * @file: the file to print to
+ *
+ * Print a chroot name to the specified file.
+ */
 static void
 sbuild_config_print_chroot_list_foreach (const char *name,
 					 FILE       *file)
@@ -309,6 +421,13 @@ sbuild_config_print_chroot_list_foreach (const char *name,
   g_print("%s\n", name);
 }
 
+/**
+ * sbuild_config_print_chroot_list:
+ * @config: an #SbuildConfig
+ * @file: the file to print to
+ *
+ * Print all the available chroots to the specified file.
+ */
 void
 sbuild_config_print_chroot_list (SbuildConfig *config,
 				 FILE         *file)
@@ -318,6 +437,15 @@ sbuild_config_print_chroot_list (SbuildConfig *config,
   g_list_free(list);
 }
 
+/**
+ * sbuild_config_validate_chroots:
+ * @config: an #SbuildConfig
+ * @chroots: the chroots to validate
+ *
+ * Check that all the chroots specified by @chroots exist in @config.
+ *
+ * Returns TRUE if the validation succeeds, otherwise FALSE.
+ */
 gboolean
 sbuild_config_validate_chroots(SbuildConfig  *config,
 			       char         **chroots)

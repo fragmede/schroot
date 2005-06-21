@@ -34,6 +34,13 @@
 
 #include "sbuild-session.h"
 
+/**
+ * sbuild_session_error_quark:
+ *
+ * Get the SBUILD_SESSION_ERROR domain number.
+ *
+ * Returns the domain.
+ */
 GQuark
 sbuild_session_error_quark (void)
 {
@@ -70,8 +77,11 @@ static const struct pam_conv sbuild_session_pam_conv = {
 
 /**
  * sbuild_session_new:
+ * @config: an #SbuildConfig
+ * @chroots: the chroots to use
  *
- * Creates a new #SbuildSession.
+ * Creates a new #SbuildSession.  The session will use the provided
+ * configuration data, and will run in the list of chroots specified.
  *
  * Returns the newly created #SbuildSession.
  */
@@ -85,6 +95,16 @@ sbuild_session_new(SbuildConfig  *config,
 					NULL);
 }
 
+/**
+ * sbuild_session_get_user:
+ * @session: an #SbuildSession
+ *
+ * Get the name of the user.  This is the user to run as in the
+ * chroot.
+ *
+ * Returns a string. This string points to internally allocated
+ * storage in the chroot and must not be freed, modified or stored.
+ */
 const char *
 sbuild_session_get_user (const SbuildSession *restrict session)
 {
@@ -93,6 +113,17 @@ sbuild_session_get_user (const SbuildSession *restrict session)
   return session->user;
 }
 
+/**
+ * sbuild_session_set_user:
+ * @session: an #SbuildSession.
+ * @user: the name to set.
+ *
+ * Get the name of the user.  This is the user to run as in the
+ * chroot.
+ *
+ * As a side effect, the "uid", "gid" and "shell" properties will also
+ * be set.
+ */
 void
 sbuild_session_set_user (SbuildSession *session,
 			 const char   *user)
@@ -137,6 +168,16 @@ sbuild_session_set_user (SbuildSession *session,
   g_object_notify(G_OBJECT(session), "shell");
 }
 
+/**
+ * sbuild_session_get_command:
+ * @session: an #SbuildSession
+ *
+ * Get the command to run in the chroot.
+ *
+ * Returns a string vector. This string vector points to internally
+ * allocated storage in the chroot and must not be freed, modified or
+ * stored.
+ */
 char **
 sbuild_session_get_command (const SbuildSession *restrict session)
 {
@@ -145,6 +186,13 @@ sbuild_session_get_command (const SbuildSession *restrict session)
   return session->command;
 }
 
+/**
+ * sbuild_session_set_command:
+ * @session: an #SbuildSession.
+ * @command: the command to set.
+ *
+ * Set the command to run in the chroot.
+ */
 void
 sbuild_session_set_command (SbuildSession  *session,
 			    char          **command)
@@ -159,6 +207,14 @@ sbuild_session_set_command (SbuildSession  *session,
   g_object_notify(G_OBJECT(session), "command");
 }
 
+/**
+ * sbuild_session_get_config:
+ * @session: an #SbuildSession
+ *
+ * Get the configuration associated with @session.
+ *
+ * Returns an #SbuildConfig.
+ */
 SbuildConfig *
 sbuild_session_get_config (const SbuildSession *restrict session)
 {
@@ -167,6 +223,13 @@ sbuild_session_get_config (const SbuildSession *restrict session)
   return session->config;
 }
 
+/**
+ * sbuild_session_set_config:
+ * @session: an #SbuildSession
+ * @config: an #SbuildConfig
+ *
+ * Set the configuration associated with @session.
+ */
 void
 sbuild_session_set_config (SbuildSession *session,
 			   SbuildConfig  *config)
@@ -182,6 +245,16 @@ sbuild_session_set_config (SbuildSession *session,
   g_object_notify(G_OBJECT(session), "config");
 }
 
+/**
+ * sbuild_session_get_chroots:
+ * @session: an #SbuildSession
+ *
+ * Get the chroots to use in @session.
+ *
+ * Returns a string vector. This string vector points to internally
+ * allocated storage in the chroot and must not be freed, modified or
+ * stored.
+ */
 char **
 sbuild_session_get_chroots (const SbuildSession *restrict session)
 {
@@ -190,6 +263,13 @@ sbuild_session_get_chroots (const SbuildSession *restrict session)
   return session->chroots;
 }
 
+/**
+ * sbuild_session_set_chroots:
+ * @session: an #SbuildSession
+ * @chroots: the chroots to use
+ *
+ * Set the chroots to use in @session.
+ */
 void
 sbuild_session_set_chroots (SbuildSession  *session,
 			    char         **chroots)
@@ -772,6 +852,23 @@ sbuild_session_run_chroot (SbuildSession  *session,
   return TRUE;
 }
 
+/**
+ * sbuild_session_run:
+ * @session: an #SbuildSession
+ * @error: a #GError, or NULL to ignore errors.
+ *
+ * Run a session.  If a command has been specified, this will be run
+ * in each of the specified chroots.  If no command has been
+ * specified, a login shell will run in the specified chroot.
+ *
+ * If required, the user may be required to authenticate themselves.
+ * This usually occurs when running as a different user.  The user
+ * must be a member of the appropriate groups in order to satisfy the
+ * groups and root-groups requirements in the chroot configuration.
+ *
+ * Returns TRUE on success, FALSE on failure (error will be set to
+ * indicate why).
+ */
 gboolean
 sbuild_session_run (SbuildSession  *session,
 		    GError        **error)

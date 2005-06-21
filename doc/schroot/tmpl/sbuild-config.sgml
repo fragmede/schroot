@@ -19,24 +19,24 @@ SbuildConfig
 
 <!-- ##### ENUM SbuildConfigFileError ##### -->
 <para>
-
+The errors which can occur while loading a configuration file.
 </para>
 
-@SBUILD_CONFIG_FILE_ERROR_STAT_FAIL: 
-@SBUILD_CONFIG_FILE_ERROR_OWNERSHIP: 
-@SBUILD_CONFIG_FILE_ERROR_PERMISSIONS: 
-@SBUILD_CONFIG_FILE_ERROR_NOT_REGULAR: 
+@SBUILD_CONFIG_FILE_ERROR_STAT_FAIL: The file could not be fstat()ed
+@SBUILD_CONFIG_FILE_ERROR_OWNERSHIP: Ownership checks failed
+@SBUILD_CONFIG_FILE_ERROR_PERMISSIONS: Permissions checks failed
+@SBUILD_CONFIG_FILE_ERROR_NOT_REGULAR: Not a regular file
 
 <!-- ##### MACRO SBUILD_CONFIG_FILE_ERROR ##### -->
 <para>
-
+The error domain for sbuild configuration file errors.
 </para>
 
 
 
 <!-- ##### STRUCT SbuildConfig ##### -->
 <para>
-
+SbuildConfig object.
 </para>
 
 
@@ -47,7 +47,7 @@ SbuildConfig
 
 <!-- ##### STRUCT SbuildConfigClass ##### -->
 <para>
-
+SbuildConfig class.
 </para>
 
 @parent: 
