@@ -785,6 +785,7 @@ sbuild_session_pam_stop (SbuildSession  *session,
  * sbuild_session_run_command:
  * @session: an #SbuildSession
  * @session_chroot: an #SbuildChroot (which must be present in the @session configuration)
+ * @child_status: a location to place the child exit status
  * @error: a #GError
  *
  * Run the session command or login shell in the specified chroot.
@@ -795,6 +796,7 @@ sbuild_session_pam_stop (SbuildSession  *session,
 static gboolean
 sbuild_session_run_chroot (SbuildSession  *session,
 			   SbuildChroot   *session_chroot,
+			   int            *child_status,
 			   GError        **error)
 {
   g_return_val_if_fail(SBUILD_IS_SESSION(session), -1);
@@ -914,6 +916,8 @@ sbuild_session_run_chroot (SbuildSession  *session,
     }
   else
     {
+      *child_status = EXIT_FAILURE; // Default exit status
+
       int status;
       if (wait(&status) != pid)
 	{
@@ -958,12 +962,13 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	  return FALSE;
 	}
 
-      if (WEXITSTATUS(status))
+      *child_status = WEXITSTATUS(status);
+      if (*child_status)
 	{
 	  g_set_error(error,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
 		      "Child exited abnormally with status %d",
-		      WEXITSTATUS(status));
+		      *child_status);
 	  return FALSE;
 	}
 
@@ -977,7 +982,8 @@ sbuild_session_run_chroot (SbuildSession  *session,
 /**
  * sbuild_session_run:
  * @session: an #SbuildSession
- * @error: a #GError, or NULL to ignore errors.
+ * @child_status: a location to place the child exit status
+ * @error: a #GError, or NULL to ignore errors
  *
  * Run a session.  If a command has been specified, this will be run
  * in each of the specified chroots.  If no command has been
@@ -993,6 +999,7 @@ sbuild_session_run_chroot (SbuildSession  *session,
  */
 gboolean
 sbuild_session_run (SbuildSession  *session,
+		    int            *child_status,
 		    GError        **error)
 {
   /* PAM setup. */
@@ -1018,9 +1025,12 @@ sbuild_session_run (SbuildSession  *session,
 		  for (guint x=0; session->chroots[x] != 0; ++x)
 		    {
 		      g_debug("Running session in %s chroot:\n", session->chroots[x]);
-		      SbuildChroot *chroot = sbuild_config_find_alias(session->config,
-							      session->chroots[x]);
-		      sbuild_session_run_chroot(session, chroot, &tmp_error);
+		      SbuildChroot *chroot =
+			sbuild_config_find_alias(session->config,
+						 session->chroots[x]);
+		      sbuild_session_run_chroot(session, chroot,
+						child_status,
+						&tmp_error);
 		      if (tmp_error != NULL)
 			break;
 		    }

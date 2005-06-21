@@ -206,18 +206,16 @@ main (int   argc,
   if (opt.command)
     sbuild_session_set_command(session, opt.command);
 
+  int child_status = 0;
   GError *session_error = NULL;
-  sbuild_session_run(session, &session_error);
+  sbuild_session_run(session, &child_status, &session_error);
   if (session_error)
-    {
-      g_printerr("Session failure: %s\n", session_error->message);
-      exit (EXIT_FAILURE);
-    }
+    g_printerr("Session failure: %s\n", session_error->message);
 
   g_object_unref(G_OBJECT(session));
   g_object_unref(G_OBJECT(config));
 
   closelog();
 
-  exit (EXIT_SUCCESS);
+  exit (child_status);
 }

@@ -183,6 +183,7 @@ SbuildSession class.
 </para>
 
 @session: 
+@child_status: 
 @error: 
 @Returns: 
 

@@ -122,6 +122,7 @@ sbuild_session_set_chroots (SbuildSession  *session,
 
 gboolean
 sbuild_session_run (SbuildSession  *session,
+		    int            *child_status,
 		    GError        **error);
 
 #endif /* SBUILD_SESSION_H */
