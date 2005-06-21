@@ -1,0 +1,19 @@
+#!/bin/sh
+if [ -d scripts ]; then
+  :
+else
+  mkdir scripts
+fi
+echo "libtoolize"
+libtoolize --force --copy
+echo "gtkdocize"
+gtkdocize --copy --docdir scripts
+echo "aclocal"
+aclocal
+echo "autoheader"
+autoheader
+echo "automake"
+automake --add-missing --gnu --force --copy
+echo "autoconf"
+autoconf
+

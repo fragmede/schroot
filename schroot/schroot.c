@@ -18,6 +18,8 @@
  *
  *********************************************************************/
 
+#include <config.h>
+
 #define _GNU_SOURCE
 #include <stdlib.h>
 #include <stdio.h>
@@ -39,6 +41,7 @@ static struct {
   gboolean list;
   gboolean info;
   gboolean all;
+  gboolean version;
 } opt =
   {
     .chroots = NULL,
@@ -48,7 +51,8 @@ static struct {
     .quiet = FALSE,
     .list = FALSE,
     .info = FALSE,
-    .all = FALSE
+    .all = FALSE,
+    .version = FALSE
   };
 
 static GOptionEntry entries[] =
@@ -60,6 +64,7 @@ static GOptionEntry entries[] =
   { "info", 'i', 0, G_OPTION_ARG_NONE, &opt.info, "Show information about chroot", NULL },
   { "preserve-environment", 'p', 0, G_OPTION_ARG_NONE, &opt.preserve, "Preserve user environment", NULL },
   { "quiet", 'q', 0, G_OPTION_ARG_NONE, &opt.quiet, "Show less output", NULL },
+  { "version", 'V', 0, G_OPTION_ARG_NONE, &opt.version, "Print version information", NULL },
   { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &opt.command, NULL, NULL }
 };
 
@@ -72,6 +77,16 @@ parse_options(int   argc,
   GOptionContext *context = g_option_context_new ("- run command or shell in a chroot");
   g_option_context_add_main_entries (context, entries, NULL);
   g_option_context_parse (context, &argc, &argv, &error);
+}
+
+void
+print_version (FILE *file)
+{
+  g_fprintf(file, "schroot (Debian sbuild) %s\n", VERSION);
+  g_fprintf(file, "Written by Roger Leigh\n\n");
+  g_fprintf(file, "Copyright © 2004-2005 Roger Leigh\n");
+  g_fprintf(file, "This is free software; see the source for copying conditions.  There is NO\n");
+  g_fprintf(file, "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n");
 }
 
 char **
@@ -119,8 +134,14 @@ main (int   argc,
   /* Parse command-line options into opt structure. */
   parse_options(argc, argv);
 
+  if (opt.version == TRUE)
+    {
+      print_version(stdout);
+      exit(EXIT_SUCCESS);
+    }
+
   /* Initialise chroot configuration. */
-  SbuildConfig *config = sbuild_config_new("test.conf");
+  SbuildConfig *config = sbuild_config_new(SCHROOT_CONFIG_FILE);
   g_assert (config != NULL);
 
   /* Print chroot list (including aliases). */
