@@ -451,6 +451,7 @@ sbuild_session_require_auth (SbuildSession *session)
 {
   g_return_val_if_fail(SBUILD_IS_SESSION(session), SBUILD_SESSION_AUTH_FAIL);
   g_return_val_if_fail(session->chroots != NULL, SBUILD_SESSION_AUTH_FAIL);
+  g_return_val_if_fail(session->config != NULL, SBUILD_SESSION_AUTH_FAIL);
   g_return_val_if_fail(session->user != NULL, SBUILD_SESSION_AUTH_FAIL);
 
   SbuildSessionAuthType auth = SBUILD_SESSION_AUTH_NONE;
@@ -472,19 +473,24 @@ sbuild_session_require_auth (SbuildSession *session)
 	{
 	  auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
 	}
-      else if ((session->ruid == 0 && groups != NULL && root_groups != NULL) ||
-	       (session->ruid != 0 && groups != NULL))
+      else if (groups != NULL)
 	{
 	  gboolean in_groups = FALSE;
 	  gboolean in_root_groups = FALSE;
 
-	  for (guint y=0; groups[y] != 0; ++y)
-	    if (is_group_member(groups[y]) == TRUE)
-	      in_groups = TRUE;
+	  if (groups != NULL)
+	    {
+	      for (guint y=0; groups[y] != 0; ++y)
+		if (is_group_member(groups[y]) == TRUE)
+		  in_groups = TRUE;
+	    }
 
-	  for (guint y=0; root_groups[y] != 0; ++y)
-	    if (is_group_member(root_groups[y]) == TRUE)
-	      in_root_groups = TRUE;
+	  if (root_groups != NULL)
+	    {
+	      for (guint y=0; root_groups[y] != 0; ++y)
+		if (is_group_member(root_groups[y]) == TRUE)
+		  in_root_groups = TRUE;
+	    }
 
 	  if (session->uid == 0) // changing to root
 	    {
@@ -539,6 +545,10 @@ static gboolean
 sbuild_session_pam_start (SbuildSession  *session,
 			  GError        **error)
 {
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
+  g_return_val_if_fail(session->user != NULL, FALSE);
+  g_return_val_if_fail(session->pam == NULL, FALSE); // Don't initialise PAM twice
+
   int pam_status;
   if ((pam_status =
        pam_start("schroot", session->user,
@@ -569,6 +579,12 @@ static gboolean
 sbuild_session_pam_auth (SbuildSession  *session,
 			 GError        **error)
 {
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
+  g_return_val_if_fail(session->user != NULL, FALSE);
+  g_return_val_if_fail(session->config != NULL, FALSE);
+  g_return_val_if_fail(session->chroots != NULL, FALSE);
+  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
+
   int pam_status;
 
   if ((pam_status =
@@ -687,6 +703,9 @@ static gboolean
 sbuild_session_pam_setupenv (SbuildSession  *session,
 			     GError        **error)
 {
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
+  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
+
   int pam_status;
 
   if (session->environment)
@@ -725,6 +744,9 @@ static gboolean
 sbuild_session_pam_account (SbuildSession  *session,
 			    GError        **error)
 {
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
+  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
+
   int pam_status;
 
   if ((pam_status =
@@ -757,6 +779,9 @@ static gboolean
 sbuild_session_pam_cred_establish (SbuildSession  *session,
 				   GError        **error)
 {
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
+  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
+
   int pam_status;
 
   if ((pam_status =
@@ -788,6 +813,9 @@ static gboolean
 sbuild_session_pam_open (SbuildSession  *session,
 			 GError        **error)
 {
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
+  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
+
   int pam_status;
 
   if ((pam_status =
@@ -818,6 +846,9 @@ static gboolean
 sbuild_session_pam_close (SbuildSession  *session,
 			  GError        **error)
 {
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
+  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
+
   int pam_status;
 
   if ((pam_status =
@@ -848,6 +879,9 @@ static gboolean
 sbuild_session_pam_cred_delete (SbuildSession  *session,
 				GError        **error)
 {
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
+  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
+
   int pam_status;
 
   if ((pam_status =
@@ -879,6 +913,9 @@ static gboolean
 sbuild_session_pam_stop (SbuildSession  *session,
 			 GError        **error)
 {
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
+  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
+
   int pam_status;
 
   if ((pam_status =
@@ -913,8 +950,11 @@ sbuild_session_run_chroot (SbuildSession  *session,
 			   int            *child_status,
 			   GError        **error)
 {
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), -1);
-  g_return_val_if_fail(SBUILD_IS_CHROOT(session_chroot), -1);
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
+  g_return_val_if_fail(SBUILD_IS_CHROOT(session_chroot), FALSE);
+  g_return_val_if_fail(sbuild_chroot_get_name(session_chroot) != NULL, FALSE);
+  g_return_val_if_fail(sbuild_chroot_get_location(session_chroot) != NULL, FALSE);
+  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
 
   g_assert(session->user != NULL);
   g_assert(session->shell != NULL);
@@ -1139,6 +1179,10 @@ sbuild_session_run (SbuildSession  *session,
 		    int            *child_status,
 		    GError        **error)
 {
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
+  g_return_val_if_fail(session->config != NULL, FALSE);
+  g_return_val_if_fail(session->chroots != NULL, FALSE);
+
   /* PAM setup. */
   GError *tmp_error = NULL;
 

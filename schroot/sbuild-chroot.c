@@ -78,6 +78,8 @@ SbuildChroot *
 sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
 				const char *group)
 {
+  g_return_val_if_fail(group != NULL, NULL);
+
   GError *error = NULL;
 
   char *description =
@@ -433,7 +435,6 @@ sbuild_chroot_finalize (SbuildChroot *chroot)
       g_free (chroot->location);
       chroot->location = NULL;
     }
-
   if (chroot->groups)
     {
       g_strfreev(chroot->groups);

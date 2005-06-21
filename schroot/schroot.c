@@ -121,15 +121,19 @@ get_chroot_options(SbuildConfig *config)
   if (opt.all == TRUE)
     {
       const GList *list = sbuild_config_get_chroots(config);
-      guint num_chroots = g_list_length((GList *) list);
-      chroots = g_new(char *, num_chroots + 1);
-      chroots[num_chroots] = NULL;
-      for (guint i=0; i < num_chroots; ++i)
+      if (list != NULL)
 	{
-	  GList *node = g_list_nth((GList *) list, i);
-	  g_assert(node != NULL);
-	  SbuildChroot *chroot = node->data;
-	  chroots[i] = g_strdup(sbuild_chroot_get_name(chroot));
+	  guint num_chroots = g_list_length((GList *) list);
+	  chroots = g_new(char *, num_chroots + 1);
+	  chroots[num_chroots] = NULL;
+	  for (guint i=0; i < num_chroots; ++i)
+	    {
+	      GList *node = g_list_nth((GList *) list, i);
+	      g_assert(node != NULL);
+	      SbuildChroot *chroot = node->data;
+	      g_assert(sbuild_chroot_get_name(chroot) != NULL);
+	      chroots[i] = g_strdup(sbuild_chroot_get_name(chroot));
+	    }
 	}
     }
   else if (opt.chroots == NULL)
@@ -209,6 +213,11 @@ main (int   argc,
 
   /* Get list of chroots to use */
   char **chroots = get_chroot_options(config);
+  if (chroots == NULL)
+    {
+      g_printerr("No chroots defined in %s\n", SCHROOT_CONFIG_FILE);
+      exit (EXIT_FAILURE);
+    }
 
   /* Print chroot information for specified chroots. */
   if (opt.info == TRUE)

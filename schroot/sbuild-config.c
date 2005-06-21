@@ -237,7 +237,7 @@ sbuild_config_set_config_file (SbuildConfig *config,
     }
   config->file = g_strdup(file);
 
-  g_assert(config->chroots == NULL);
+  g_assert(config->chroots == NULL); // Only allow setting once
   config->chroots = sbuild_config_load(config->file);
 
   g_object_notify(G_OBJECT(config), "config_file");
@@ -268,7 +268,7 @@ sbuild_config_get_chroots (SbuildConfig *config)
  *
  * Find a chroot by name using the supplied comparison function.
  *
- * Returns the chroot on succes, or NULL if the chroot was not found.
+ * Returns the chroot on success, or NULL if the chroot was not found.
  */
 static SbuildChroot *
 sbuild_config_find_generic (SbuildConfig *config,
@@ -276,6 +276,7 @@ sbuild_config_find_generic (SbuildConfig *config,
 			    GCompareFunc  func)
 {
   g_return_val_if_fail(SBUILD_IS_CONFIG(config), NULL);
+  g_return_val_if_fail(config->chroots != NULL, NULL);
 
   SbuildChroot *example = sbuild_chroot_new();
   sbuild_chroot_set_name(example, name);
@@ -304,6 +305,13 @@ static gint
 chroot_findfunc (SbuildChroot *a,
 		 SbuildChroot *b)
 {
+  g_return_val_if_fail(SBUILD_IS_CHROOT(a), FALSE);
+  g_return_val_if_fail(SBUILD_IS_CHROOT(b), FALSE);
+
+  if (sbuild_chroot_get_name(a) == NULL ||
+      sbuild_chroot_get_name(b) == NULL)
+    return FALSE;
+
   return strcmp(sbuild_chroot_get_name(a),
 		sbuild_chroot_get_name(b));
 }
@@ -339,11 +347,21 @@ static gint
 alias_findfunc (SbuildChroot *a,
 		SbuildChroot *b)
 {
+  g_return_val_if_fail(SBUILD_IS_CHROOT(a), FALSE);
+  g_return_val_if_fail(SBUILD_IS_CHROOT(b), FALSE);
+
+  if (sbuild_chroot_get_name(a) == NULL ||
+      sbuild_chroot_get_name(b) == NULL)
+    return FALSE;
+
   gchar **aliases = sbuild_chroot_get_aliases(a);
-  for (guint i = 0; aliases[i] != NULL; ++i)
+  if (aliases)
     {
-      if (strcmp(aliases[i], sbuild_chroot_get_name(b)) == 0)
-	return 0;
+      for (guint i = 0; aliases[i] != NULL; ++i)
+	{
+	  if (strcmp(aliases[i], sbuild_chroot_get_name(b)) == 0)
+	    return 0;
+	}
     }
   return 1;
 }
@@ -381,11 +399,19 @@ static void
 sbuild_config_get_chroot_list_foreach (SbuildChroot  *chroot,
 				       GList        **list)
 {
+  g_return_if_fail(SBUILD_IS_CHROOT(chroot));
+
+  if (sbuild_chroot_get_name(chroot) == NULL)
+    return;
+
   *list = g_list_append(*list, (gpointer) sbuild_chroot_get_name(chroot));
 
   gchar **aliases = sbuild_chroot_get_aliases(chroot);
-  for (guint i = 0; aliases[i] != NULL; ++i)
-    *list = g_list_append(*list, aliases[i]);
+  if (aliases)
+    {
+      for (guint i = 0; aliases[i] != NULL; ++i)
+	*list = g_list_append(*list, aliases[i]);
+    }
 }
 
 /**
@@ -400,6 +426,7 @@ GList *
 sbuild_config_get_chroot_list (SbuildConfig *config)
 {
   g_return_val_if_fail(SBUILD_IS_CONFIG(config), NULL);
+  g_return_val_if_fail(config->chroots != NULL, NULL);
 
   GList *list = NULL;
 
@@ -434,9 +461,14 @@ void
 sbuild_config_print_chroot_list (SbuildConfig *config,
 				 FILE         *file)
 {
+  g_return_if_fail(SBUILD_IS_CONFIG(config));
+
   GList *list = sbuild_config_get_chroot_list(config);
-  g_list_foreach(list, (GFunc) sbuild_config_print_chroot_list_foreach, file);
-  g_list_free(list);
+  if (list != NULL)
+    {
+      g_list_foreach(list, (GFunc) sbuild_config_print_chroot_list_foreach, file);
+      g_list_free(list);
+    }
 }
 
 /**
@@ -452,6 +484,8 @@ gboolean
 sbuild_config_validate_chroots(SbuildConfig  *config,
 			       char         **chroots)
 {
+  g_return_if_fail(SBUILD_IS_CONFIG(config));
+
   gboolean success = TRUE;
   for (guint i=0; chroots[i] != NULL; ++i)
     {
