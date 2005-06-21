@@ -70,6 +70,8 @@ sbuild_session_get_config
 sbuild_session_set_config
 sbuild_session_get_chroots
 sbuild_session_set_chroots
+sbuild_session_get_quiet
+sbuild_session_set_quiet
 sbuild_session_run
 <SUBSECTION Standard>
 SBUILD_SESSION

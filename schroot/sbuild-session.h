@@ -79,6 +79,7 @@ struct _SbuildSession
   SbuildConfig  *config;
   char         **chroots;
   pam_handle_t  *pam;
+  gboolean       quiet;
 };
 
 struct _SbuildSessionClass
@@ -128,6 +129,13 @@ sbuild_session_get_chroots (const SbuildSession *restrict session);
 void
 sbuild_session_set_chroots (SbuildSession  *session,
 			    char         **chroots);
+
+gboolean
+sbuild_session_get_quiet (const SbuildSession *restrict session);
+
+void
+sbuild_session_set_quiet (SbuildSession  *session,
+			  gboolean        quiet);
 
 gboolean
 sbuild_session_run (SbuildSession  *session,

@@ -74,6 +74,11 @@ SbuildSession object.
 
 </para>
 
+<!-- ##### ARG SbuildSession:quiet ##### -->
+<para>
+
+</para>
+
 <!-- ##### ARG SbuildSession:ruid ##### -->
 <para>
 
@@ -204,6 +209,24 @@ SbuildSession class.
 
 @session: 
 @chroots: 
+
+
+<!-- ##### FUNCTION sbuild_session_get_quiet ##### -->
+<para>
+
+</para>
+
+@session: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_session_set_quiet ##### -->
+<para>
+
+</para>
+
+@session: 
+@quiet: 
 
 
 <!-- ##### FUNCTION sbuild_session_run ##### -->

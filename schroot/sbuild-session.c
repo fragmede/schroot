@@ -66,7 +66,8 @@ enum
   PROP_RUID,
   PROP_RUSER,
   PROP_CONFIG,
-  PROP_CHROOTS
+  PROP_CHROOTS,
+  PROP_QUIET
 };
 
 static GObjectClass *parent_class;
@@ -324,6 +325,39 @@ sbuild_session_set_chroots (SbuildSession  *session,
     }
   session->chroots = g_strdupv(chroots);
   g_object_notify(G_OBJECT(session), "chroots");
+}
+
+/**
+ * sbuild_session_get_quiet:
+ * @session: an #SbuildSession
+ *
+ * Get the message verbosity of @session.
+ *
+ * Returns TRUE if quiet messages are enabled, otherwise FALSE.
+ */
+gboolean
+sbuild_session_get_quiet (const SbuildSession *restrict session)
+{
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
+
+  return session->quiet;
+}
+
+/**
+ * sbuild_session_set_quiet:
+ * @session: an #SbuildSession
+ * @quiet: the quiet to use
+ *
+ * Set the message verbosity of @session.
+ */
+void
+sbuild_session_set_quiet (SbuildSession  *session,
+			  gboolean        quiet)
+{
+  g_return_if_fail(SBUILD_IS_SESSION(session));
+
+  session->quiet = quiet;
+  g_object_notify(G_OBJECT(session), "quiet");
 }
 
 /**
@@ -622,12 +656,12 @@ sbuild_session_pam_auth (SbuildSession  *session,
 	{
 	  g_set_error(error,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_AUTHENTICATE,
-		      "PAM authentication failed due to lack of authorisation");
+		      "access not authorised");
 	  g_debug("PAM auth premature FAIL");
-	  g_printerr("You do not have permission to access the specified chroots.");
+	  g_printerr("You do not have permission to access the specified chroots.\n");
 	  g_printerr("This failure will be reported.\n");
 	  char *chroots = g_strjoinv(", ", session->chroots);
-	  syslog(LOG_AUTH|LOG_WARNING, "[%s] %s:%s Unauthorised attempt to access to chroots",
+	  syslog(LOG_AUTH|LOG_WARNING, "[%s] %s:%s Unauthorised attempt to access chroots",
 		 chroots, session->ruser, session->user);
 	  g_free(chroots);
 	  return FALSE;
@@ -974,6 +1008,9 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] %s:%s Running login shell: %s",
 		 sbuild_chroot_get_name(session_chroot), session->ruser,
 		 session->user, session->shell);
+	  if (session->quiet == FALSE)
+	    g_printerr("[%s chroot] Running login shell: %s\n",
+		       sbuild_chroot_get_name(session_chroot), session->shell);
 	}
       else
 	{
@@ -982,6 +1019,9 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] %s:%s Running command: %s",
 		 sbuild_chroot_get_name(session_chroot), session->ruser,
 		 session->user, command);
+	  if (session->quiet == FALSE)
+	    g_printerr("[%s chroot] Running command: %s\n",
+		       sbuild_chroot_get_name(session_chroot), command);
 	  g_free(command);
 	}
 
@@ -1163,6 +1203,7 @@ sbuild_session_init (SbuildSession *session)
   session->config = NULL;
   session->chroots = NULL;
   session->pam = NULL;
+  session->quiet = FALSE;
 
   /* Current user's details. */
   session->ruid = getuid();
@@ -1252,6 +1293,9 @@ sbuild_session_set_property (GObject      *object,
     case PROP_CHROOTS:
       sbuild_session_set_chroots(session, g_value_get_boxed(value));
       break;
+    case PROP_QUIET:
+      sbuild_session_set_quiet(session, g_value_get_boolean(value));
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
       break;
@@ -1302,6 +1346,9 @@ sbuild_session_get_property (GObject    *object,
       break;
     case PROP_CHROOTS:
       g_value_set_boxed(value, session->chroots);
+      break;
+    case PROP_QUIET:
+      g_value_set_boolean(value, session->quiet);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -1398,6 +1445,15 @@ sbuild_session_class_init (SbuildSessionClass *klass)
                          "The chroots to use",
                          G_TYPE_STRV,
                          (G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_QUIET,
+     g_param_spec_boolean ("quiet", "Quiet",
+			   "Suppress non-essential messages",
+			   FALSE,
+			   G_PARAM_READABLE | G_PARAM_WRITABLE));
+
 }
 
 /*

@@ -1,4 +1,4 @@
 TODO
 ----
 
-- Use -q option to disable non-essential messages.
+- Add gettext support
