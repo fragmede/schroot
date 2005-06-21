@@ -21,9 +21,4 @@
 
 SUBDIRS = schroot doc
 
-$(srcdir)/ChangeLog:
-	tla changelog >$@
-
-.PHONY: ChangeLog
-
 EXTRA_DIST = debian

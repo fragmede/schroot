@@ -1,0 +1,483 @@
+2005-06-21  Roger Leigh  <rleigh@debian.org>
+
+	* Add ChangeLog to CVS
+	* No longer generate ChangeLog with "tla changelog".  It must now
+	  be edited manually.
+
+2005-06-20 23:06:04 GMT	Roger Leigh <rleigh@debian.org>	patch-1
+
+    Summary:
+      Add strict pointer checks and bump version
+    Revision:
+      schroot--mainline--0.1.1--patch-1
+
+    - Add strict pointer checks to all function arguments and before
+      dereferencing object members.
+    - Increase version number to 0.1.1.
+
+    modified files:
+     NEWS configure.ac debian/changelog schroot/sbuild-chroot.c
+     schroot/sbuild-config.c schroot/sbuild-session.c
+     schroot/schroot.c
+
+
+2005-06-20 15:45:19 GMT	Roger Leigh <rleigh@debian.org>	base-0
+
+    Summary:
+      tag of rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--version-0
+    Revision:
+      schroot--mainline--0.1.1--base-0
+
+    (automatically generated log message)
+
+    new patches:
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--base-0
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-1
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-2
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-3
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-4
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-5
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-6
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-7
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-8
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-9
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-10
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-11
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-12
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-13
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-14
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-15
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-16
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-17
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-18
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-19
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--patch-20
+     rleigh@debian.org--2005-debian/schroot--mainline--0.1.0--version-0
+
+
+2005-06-19 17:00:46 GMT	Roger Leigh <rleigh@debian.org>	version-0
+
+    Summary:
+      0.1.0 released.
+    Revision:
+      schroot--mainline--0.1.0--version-0
+
+    - Preparation for 0.1.0.
+
+    modified files:
+     AUTHORS NEWS debian/changelog
+
+
+2005-06-19 16:29:07 GMT	Roger Leigh <rleigh@debian.org>	patch-20
+
+    Summary:
+      Update configuration file
+    Revision:
+      schroot--mainline--0.1.0--patch-20
+
+    - Comment out all entries in the sample configuration file, so that
+      the installation is secure from the start.
+    - Add comments to the top of the configuration file.
+
+    modified files:
+     schroot/schroot.conf
+
+
+2005-06-19 15:55:26 GMT	Roger Leigh <rleigh@debian.org>	patch-19
+
+    Summary:
+      Add initial Debian packaging
+    Revision:
+      schroot--mainline--0.1.0--patch-19
+
+    - Add debian directory and initial files.
+    - Makefile.am: add debian to SUBDIRS.
+
+    new files:
+     debian/.arch-ids/=id debian/.arch-ids/README.Debian.id
+     debian/.arch-ids/changelog.id debian/.arch-ids/compat.id
+     debian/.arch-ids/conffiles.id debian/.arch-ids/control.id
+     debian/.arch-ids/copyright.id debian/.arch-ids/docs.id
+     debian/.arch-ids/rules.id debian/README.Debian
+     debian/changelog debian/compat debian/conffiles debian/control
+     debian/copyright debian/docs debian/rules
+
+    modified files:
+     Makefile.am
+
+    new directories:
+     debian debian/.arch-ids
+
+
+2005-06-19 14:06:22 GMT	Roger Leigh <rleigh@debian.org>	patch-18
+
+    Summary:
+      Run a real login shell
+    Revision:
+      schroot--mainline--0.1.0--patch-18
+
+    - SbuildSession: If no environment has been set, and no command has been
+      specified, run a real login shell by prefixing - to argv[0].
+
+    modified files:
+     schroot/sbuild-session.c
+
+
+2005-06-19 13:23:46 GMT	Roger Leigh <rleigh@debian.org>	patch-17
+
+    Summary:
+      Implement --quiet option
+    Revision:
+      schroot--mainline--0.1.0--patch-17
+
+    - SbuildSession
+      + Add "quiet" property, and get_quiet and set_quiet methods.
+      + Only print fatal error messages if quiet is true.
+    - schroot.c: If --quiet is used, set the session quiet status.
+
+    modified files:
+     TODO doc/schroot/schroot-sections.txt
+     doc/schroot/tmpl/sbuild-session.sgml schroot/sbuild-session.c
+     schroot/sbuild-session.h schroot/schroot.c
+
+
+2005-06-19 13:01:06 GMT	Roger Leigh <rleigh@debian.org>	patch-16
+
+    Summary:
+      Add --enable-debug configure option
+    Revision:
+      schroot--mainline--0.1.0--patch-16
+
+    - Add --enable-debug configure option
+    - All source files include <config.h> to detect if debugging is
+      enabled.
+    - schroot.c: If debugging is enabled, install a null log handler
+      for g_debug messages.
+    - SbuildSession: add a missing "gid" property.
+    - Add the initial project requirements file.
+
+    new files:
+     doc/.arch-ids/REQUIREMENTS.id doc/REQUIREMENTS
+
+    modified files:
+     configure.ac doc/schroot/tmpl/sbuild-session.sgml
+     schroot/sbuild-chroot.c schroot/sbuild-config.c
+     schroot/sbuild-session.c schroot/schroot.c
+
+
+2005-06-19 11:32:37 GMT	Roger Leigh <rleigh@debian.org>	patch-15
+
+    Summary:
+      Enable preservation of user environment
+    Revision:
+      schroot--mainline--0.1.0--patch-15
+
+    - SbuildSession:
+      + Add public get_environment and set_environment methods, and
+        an environment data member and property.
+      + Add private pam_setupenv method to copy environment into PAM.
+      + sbuild_session_run: After authentication has succeeded, call
+        pam_setupenv.
+    + schroot.c:
+      Call sbuild_session_set_environment if required.
+
+    modified files:
+     TODO doc/schroot/schroot-sections.txt
+     doc/schroot/tmpl/sbuild-session.sgml schroot/sbuild-session.c
+     schroot/sbuild-session.h schroot/schroot.1.in
+     schroot/schroot.c
+
+
+2005-06-19 10:47:54 GMT	Roger Leigh <rleigh@debian.org>	patch-14
+
+    Summary:
+      Return child exit status
+    Revision:
+      schroot--mainline--0.1.0--patch-14
+
+    - Propagate child exit status bacl to caller.
+    - Update TODO.
+
+    modified files:
+     TODO doc/schroot/tmpl/sbuild-session.sgml
+     schroot/sbuild-session.c schroot/sbuild-session.h
+     schroot/schroot.c
+
+
+2005-06-19 10:27:37 GMT	Roger Leigh <rleigh@debian.org>	patch-13
+
+    Summary:
+      Document internal API
+    Revision:
+      schroot--mainline--0.1.0--patch-13
+
+    - Document internals (private functions).
+    - Update TODO.
+
+    modified files:
+     TODO schroot/sbuild-chroot.c schroot/sbuild-config.c
+     schroot/sbuild-session.c schroot/schroot.c
+
+
+2005-06-18 23:37:36 GMT	Roger Leigh <rleigh@debian.org>	patch-12
+
+    Summary:
+      Update TODO
+    Revision:
+      schroot--mainline--0.1.0--patch-12
+
+    - Remove gtk-doc item.
+
+    modified files:
+     TODO
+
+
+2005-06-18 23:36:40 GMT	Roger Leigh <rleigh@debian.org>	patch-11
+
+    Summary:
+      Fix const correctness
+    Revision:
+      schroot--mainline--0.1.0--patch-11
+
+    - schroot.c:
+      + Cast const GList * to GList * to work around const-correctness
+        bugs in GLib.
+      + All options are non-const.
+
+    modified files:
+     schroot/schroot.c
+
+
+2005-06-18 23:32:14 GMT	Roger Leigh <rleigh@debian.org>	patch-10
+
+    Summary:
+      Document all user-visible symbols.
+    Revision:
+      schroot--mainline--0.1.0--patch-10
+
+    - Document all user-visible symbols with gtk-doc.
+
+    modified files:
+     doc/schroot/tmpl/sbuild-chroot.sgml
+     doc/schroot/tmpl/sbuild-config.sgml
+     doc/schroot/tmpl/sbuild-session.sgml schroot/sbuild-chroot.c
+     schroot/sbuild-config.c schroot/sbuild-session.c
+
+
+2005-06-18 21:45:22 GMT	Roger Leigh <rleigh@debian.org>	patch-9
+
+    Summary:
+      Add gtk-doc framework
+    Revision:
+      schroot--mainline--0.1.0--patch-9
+
+    - Added gtk-doc API reference to doc/schroot.
+    - Updated README.
+    - Updated TODO.
+
+    new files:
+     doc/.arch-ids/=id doc/.arch-ids/Makefile.am.id doc/Makefile.am
+     doc/schroot/.arch-ids/.arch-inventory.id
+     doc/schroot/.arch-ids/=id doc/schroot/.arch-ids/Makefile.am.id
+     doc/schroot/.arch-ids/schroot-docs.sgml.id
+     doc/schroot/.arch-ids/schroot-overrides.txt.id
+     doc/schroot/.arch-ids/schroot-sections.txt.id
+     doc/schroot/.arch-ids/schroot.types.id
+     doc/schroot/.arch-inventory doc/schroot/Makefile.am
+     doc/schroot/schroot-docs.sgml
+     doc/schroot/schroot-overrides.txt
+     doc/schroot/schroot-sections.txt doc/schroot/schroot.types
+     doc/schroot/tmpl/.arch-ids/=id
+     doc/schroot/tmpl/.arch-ids/sbuild-chroot.sgml.id
+     doc/schroot/tmpl/.arch-ids/sbuild-config.sgml.id
+     doc/schroot/tmpl/.arch-ids/sbuild-session.sgml.id
+     doc/schroot/tmpl/.arch-ids/schroot-unused.sgml.id
+     doc/schroot/tmpl/sbuild-chroot.sgml
+     doc/schroot/tmpl/sbuild-config.sgml
+     doc/schroot/tmpl/sbuild-session.sgml
+     doc/schroot/tmpl/schroot-unused.sgml
+
+    modified files:
+     Makefile.am README TODO configure.ac schroot/.arch-inventory
+     schroot/Makefile.am schroot/sbuild-session.c
+     schroot/sbuild-session.h
+
+    new directories:
+     doc doc/.arch-ids doc/schroot doc/schroot/.arch-ids
+     doc/schroot/tmpl doc/schroot/tmpl/.arch-ids
+
+
+2005-06-18 21:08:53 GMT	Roger Leigh <rleigh@debian.org>	patch-8
+
+    Summary:
+      Improve syslog support
+    Revision:
+      schroot--mainline--0.1.0--patch-8
+
+    - schroot.c:
+      + Use LOG_NDELAY with openlog(), otherwise messages in child processes
+        are not correctly logged.
+    - SbuildSession:
+      + Log command or shell being run.
+      + Log authentication or permissions failures.
+      + Call pam_open_session correctly.
+
+    modified files:
+     schroot/sbuild-session.c schroot/schroot.c
+
+
+2005-06-18 19:47:27 GMT	Roger Leigh <rleigh@debian.org>	patch-7
+
+    Summary:
+      Add session properties and PAM debugging statements
+    Revision:
+      schroot--mainline--0.1.0--patch-7
+
+    - SbuildSession
+      + Add read-only properties for uid, gid, shell, ruid and ruser.
+      + Add PAM debugging statements to track PAM failure paths.
+    - Updated TODO.
+
+    modified files:
+     TODO schroot/sbuild-session.c
+
+
+2005-06-18 19:13:21 GMT	Roger Leigh <rleigh@debian.org>	patch-6
+
+    Summary:
+      Tighten up root access
+    Revision:
+      schroot--mainline--0.1.0--patch-6
+
+    - sbuild_session_require_auth(): Check that the user is in both
+      groups and root_groups for all chroots before granting access.
+
+    modified files:
+     schroot/sbuild-session.c
+
+
+2005-06-18 12:30:50 GMT	Roger Leigh <rleigh@debian.org>	patch-5
+
+    Summary:
+      Add manual pages and TODO
+    Revision:
+      schroot--mainline--0.1.0--patch-5
+
+    - Add sbuild.1.in and sbuild.conf.5.in manual pages.
+    - Add TODO
+    - Fix typo in sbuild-session.c.
+
+    new files:
+     .arch-ids/TODO.id TODO schroot/.arch-ids/schroot.1.in.id
+     schroot/.arch-ids/schroot.conf.5.in.id schroot/schroot.1.in
+     schroot/schroot.conf.5.in
+
+    modified files:
+     configure.ac schroot/Makefile.am schroot/sbuild-session.c
+
+
+2005-06-18 12:20:34 GMT	Roger Leigh <rleigh@debian.org>	patch-4
+
+    Summary:
+      Improve session error handling and authorisation
+    Revision:
+      schroot--mainline--0.1.0--patch-4
+
+    - SbuildSession:
+      + Use GError checks with nested conditionals so that we can shut down
+        the PAM library in the correct order on failure.  The first failure
+        only is reported in the case of multiple errors being propagated.
+      + The root user is always granted unconditional access
+      + If the host and chroot user are the same, authentication is not
+        required.
+      + If the user is not in groups, they do not get any access, even
+        with a password.  root access still needs tighter checking.
+
+    modified files:
+     schroot/sbuild-session.c
+
+
+2005-06-18 10:37:12 GMT	Roger Leigh <rleigh@debian.org>	patch-3
+
+    Summary:
+      Split PAM calls into separate functions
+    Revision:
+      schroot--mainline--0.1.0--patch-3
+
+    - SbuildSession:
+      + Each PAM call (or related set of calls) is a separate function
+        (sbuild_session_pam_*).
+      + PAM errors are propagated back to the caller using GError.
+      + sbuild_session_run prototype changed to propagate any PAM or
+        session errors to the caller.
+    - SbuildConfig:
+      + sbuild.conf does not require root group ownership, to allow
+        more flexible administration.
+    - schroot.c: Use GError to detect any session errors.
+
+    modified files:
+     schroot/sbuild-config.c schroot/sbuild-session.c
+     schroot/sbuild-session.h schroot/schroot.c
+
+
+2005-06-17 22:00:59 GMT	Roger Leigh <rleigh@debian.org>	patch-2
+
+    Summary:
+      Add PAM configuration file
+    Revision:
+      schroot--mainline--0.1.0--patch-2
+
+    - Add schroot/pam/schroot containing a PAM configuration file to
+      install in /etc/pam.d/schroot.
+
+    new files:
+     schroot/pam/.arch-ids/=id schroot/pam/.arch-ids/Makefile.am.id
+     schroot/pam/.arch-ids/schroot.id schroot/pam/Makefile.am
+     schroot/pam/schroot
+
+    modified files:
+     configure.ac schroot/Makefile.am
+
+    new directories:
+     schroot/pam schroot/pam/.arch-ids
+
+
+2005-06-17 20:52:04 GMT	Roger Leigh <rleigh@debian.org>	patch-1
+
+    Summary:
+      Add autotools framework
+    Revision:
+      schroot--mainline--0.1.0--patch-1
+
+    - Add support for autoconf, automake and libtool.
+    - Add support for gtk-doc.
+    - Install schroot setuid root.
+    - Add --version option and embed version number in the output.
+    - Add AUTHORS and NEWS files.
+    - Generate ChangeLog with tla.
+
+    new files:
+     .arch-ids/AUTHORS.id .arch-ids/Makefile.am.id
+     .arch-ids/NEWS.id .arch-ids/bootstrap.id
+     .arch-ids/configure.ac.id AUTHORS Makefile.am NEWS bootstrap
+     configure.ac schroot/.arch-ids/Makefile.am.id
+     schroot/Makefile.am
+
+    modified files:
+     schroot/schroot.c
+
+
+2005-06-17 17:51:17 GMT	Roger Leigh <rleigh@debian.org>	base-0
+
+    Summary:
+      Initial import
+    Revision:
+      schroot--mainline--0.1.0--base-0
+
+    Initial import into GNU Arch.
+
+    new files:
+     COPYING README schroot/sbuild-chroot.c schroot/sbuild-chroot.h
+     schroot/sbuild-config.c schroot/sbuild-config.h
+     schroot/sbuild-session.c schroot/sbuild-session.h
+     schroot/schroot.c schroot/schroot.conf
