@@ -1,0 +1,19 @@
+schroot for Debian
+------------------
+
+Note that giving untrusted users root access to chroots is a bad idea.
+Although they will only have root access to files inside the chroot,
+in practice there are many obvious ways of breaking out of the chroot
+or distrupting services on the host system.  As always, this boils
+down to trust.  Don't give root access to chroots to users you would
+not trust with root access to the host system.
+
+Other alternative packages to schroot are dchroot and fakechroot.
+These serve different needs, and may be more appropriate.  schroot
+should be a drop-in replacement for dchroot, and offers much more
+functionality.  fakechroot may be more secure if users want to
+have some approximation of root access in a chroot, but you don't
+want to give them full root access.
+
+
+ -- Roger Leigh <rleigh@debian.org>, Sun, 19 Jun 2005 15:11:58 +0100

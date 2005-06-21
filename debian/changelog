@@ -1,0 +1,6 @@
+schroot (0.1.0-1) unstable; urgency=low
+
+  * Initial release Closes: #nnnn  (nnnn is the bug number of your ITP)
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 19 Jun 2005 15:11:58 +0100
+
