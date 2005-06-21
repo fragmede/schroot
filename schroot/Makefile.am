@@ -22,7 +22,7 @@
 SUBDIRS = pam
 
 AM_CFLAGS = -std=c99
-DEFS = -DSCHROOT_CONFIG_FILE="\"$(sysconfdir)/schroot.conf\""
+DEFS = -DSCHROOT_CONFIG_FILE="\"$(sysconfdir)/schroot.conf\"" -DG_LOG_DOMAIN=\"Schroot\"
 
 bin_PROGRAMS = schroot
 
@@ -37,6 +37,13 @@ schroot_SOURCES = \
 
 schroot_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
 schroot_LDADD = $(GOBJECT_LIBS) $(PAM_LIBS)
+
+if ENABLE_GTK_DOC
+noinst_LTLIBRARIES = libschroot.la
+libschroot_la_SOURCES = $(schroot_SOURCES)
+libschroot_la_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
+libschroot_la_LIBADD = $(GOBJECT_LIBS) $(PAM_LIBS)
+endif
 
 sysconf_DATA = schroot.conf
 

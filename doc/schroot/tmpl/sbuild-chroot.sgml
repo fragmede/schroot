@@ -1,0 +1,197 @@
+<!-- ##### SECTION Title ##### -->
+SbuildChroot
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT SbuildChroot ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ARG SbuildChroot:aliases ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG SbuildChroot:description ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG SbuildChroot:groups ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG SbuildChroot:location ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG SbuildChroot:name ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG SbuildChroot:root-groups ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT SbuildChrootClass ##### -->
+<para>
+
+</para>
+
+@parent: 
+
+<!-- ##### FUNCTION sbuild_chroot_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_new_from_keyfile ##### -->
+<para>
+
+</para>
+
+@keyfile: 
+@group: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_get_name ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_set_name ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@name: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_get_description ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_set_description ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@description: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_get_location ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_set_location ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@location: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_get_groups ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_set_groups ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@groups: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_get_root_groups ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_set_root_groups ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@groups: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_get_aliases ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_set_aliases ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@aliases: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_print_details ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@file: 
+
+

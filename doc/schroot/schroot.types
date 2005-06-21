@@ -1,0 +1,7 @@
+#include "sbuild-chroot.h"
+#include "sbuild-config.h"
+#include "sbuild-session.h"
+
+sbuild_chroot_get_type
+sbuild_config_get_type
+sbuild_session_get_type

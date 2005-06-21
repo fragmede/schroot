@@ -7,62 +7,22 @@ Build Dependencies
 ------------------
 libpam0g-dev
 libglib2.0-dev
+A C99 C compiler
 
-Building
---------
+Building and installation
+-------------------------
 
-"make".  There is not currently any autoconf/make setup, so a simple
-Makefile is used.
-
-Installation
-------------
-
-There is no installation; it only runs in the build directory.
-
-schroot must be owned by root:root and be setuid in order to chroot()
-and use PAM for authentication and authorisation.
-
-test.conf must be owned by root:root and NOT be writable by other.
+Please see the INSTALL file for generic installation instructions.
 
 Configuration
 -------------
 
-Edit test.conf to point to some chroots, and then try it out.
-
-The file format is as follows.  The format is documented in the GLib
-GKeyFile class.  Chroots start with a single line containing the chroot name:
-
-[unstable]
-
-followed by key-value pairs setting properties for the chroot:
-
-description=Debian unstable
-
-A text description of the chroot.
-
-location=/srv/chroot/sid
-
-The directory the chroot lives in.
-
-groups=sbuild
-
-A comma-separated list of users who are allowed to use the chroot
-(currently users not in the list are prompted for a password, but this
-will be tightened up).
-
-root-groups=root
-
-A comma-separated list of groups allowed unauthenticated root access
-in the chroot.
-
-aliases=sid,default
-
-Alternate names for the chroot.  They are interchangable with the main
-name.
-
+See schroot.conf(5).
 
 Running
 -------
+
+See schroot(1).
 
 $ ./schroot -l
 default

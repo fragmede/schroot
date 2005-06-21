@@ -1,0 +1,120 @@
+<!-- ##### SECTION Title ##### -->
+SbuildConfig
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### ENUM SbuildConfigFileError ##### -->
+<para>
+
+</para>
+
+@SBUILD_CONFIG_FILE_ERROR_STAT_FAIL: 
+@SBUILD_CONFIG_FILE_ERROR_OWNERSHIP: 
+@SBUILD_CONFIG_FILE_ERROR_PERMISSIONS: 
+@SBUILD_CONFIG_FILE_ERROR_NOT_REGULAR: 
+
+<!-- ##### MACRO SBUILD_CONFIG_FILE_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT SbuildConfig ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ARG SbuildConfig:config-file ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT SbuildConfigClass ##### -->
+<para>
+
+</para>
+
+@parent: 
+
+<!-- ##### FUNCTION sbuild_config_new ##### -->
+<para>
+
+</para>
+
+@file: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_config_get_chroots ##### -->
+<para>
+
+</para>
+
+@config: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_config_find_chroot ##### -->
+<para>
+
+</para>
+
+@config: 
+@name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_config_find_alias ##### -->
+<para>
+
+</para>
+
+@config: 
+@name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_config_get_chroot_list ##### -->
+<para>
+
+</para>
+
+@config: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_config_print_chroot_list ##### -->
+<para>
+
+</para>
+
+@config: 
+@file: 
+
+
+<!-- ##### FUNCTION sbuild_config_validate_chroots ##### -->
+<para>
+
+</para>
+
+@config: 
+@chroots: 
+@Returns: 
+
+

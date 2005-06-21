@@ -1,4 +1,4 @@
-# schroot Makefile template
+# uterm Makefile template
 #
 #
 # Copyright (C) 2004-2005  Roger Leigh <rleigh@debian.org>
@@ -19,9 +19,4 @@
 #
 #####################################################################
 
-SUBDIRS = schroot doc
-
-$(srcdir)/ChangeLog:
-	tla changelog >$@
-
-.PHONY: ChangeLog
+SUBDIRS = schroot
