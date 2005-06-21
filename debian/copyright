@@ -1,7 +1,11 @@
 This package was debianized by Roger Leigh <rleigh@debian.org> on
 Sun, 19 Jun 2005 15:11:58 +0100.
 
-It was downloaded from a local schroot arch repository.
+schroot is maintained by the Debian buildd-tools project.  It was
+downloaded from
+:pserver:anonymous@cvs.alioth.debian.org:/cvsroot/buildd-tools
+(module "schroot").  Full instructions are available here:
+https://alioth.debian.org/scm/?group_id=30471
 
 Copyright Holder: Roger Leigh <rleigh@debian.org>
 
@@ -19,4 +23,9 @@ General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+USA
+
+
+On Debian systems, the complete text of the GNU General Public
+License can be found in /usr/share/common-licenses/GPL file.

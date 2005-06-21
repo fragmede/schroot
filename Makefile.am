@@ -21,4 +21,8 @@
 
 SUBDIRS = schroot doc
 
+# Remove CVS directories from the generated tarball.
+dist-hook:
+	find $(distdir) -type d -name CVS -print0 | xargs -0 rm -rf
+
 EXTRA_DIST = debian

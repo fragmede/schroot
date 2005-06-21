@@ -1,8 +1,18 @@
 schroot (0.1.1-1) unstable; urgency=low
 
   * New upstream release.
+  * Initial Debian release (Closes: #315104).
+  * debian/control:
+    - Add Add buildd-tools developers to Uploaders.
+    - Remove unused ${misc:Depends}.
+  * Remove debian/conffiles, which is redundant with current versions of
+    debhelper.
+  * debian/copyright:
+    - Update the postal address of the FSF.
+    - Refer to /usr/share/common-licenses/GPL.
+    - Add new download location.
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 20 Jun 2005 23:47:36 +0100
+ -- Roger Leigh <rleigh@debian.org>  Tue, 21 Jun 2005 19:11:25 +0100
 
 schroot (0.1.0-1) unstable; urgency=low
 

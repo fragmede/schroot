@@ -1,13 +1,14 @@
 Source: schroot
 Section: admin
 Priority: optional
-Maintainer: Roger Leigh <rleigh@debian.org>
+Maintainer: Debian buildd-tools Developers <buildd-tools-devel@lists.alioth.debian.org>
+Uploaders: Michael Banck <mbanck@debian.org>, Roger Leigh <rleigh@debian.org>, Francesco Paolo Lovergine <frankie@debian.org>
 Build-Depends: debhelper (>= 4.0.0), autotools-dev, libpam0g-dev, libglib2.0-dev
 Standards-Version: 3.6.1
 
 Package: schroot
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}
 Description: Execute commands in a chroot environment
  schroot allows users to execute commands or interactive shells
  in different chroots.  Any number of named chroots may be
