@@ -69,6 +69,11 @@ SbuildSession object.
 
 </para>
 
+<!-- ##### ARG SbuildSession:gid ##### -->
+<para>
+
+</para>
+
 <!-- ##### ARG SbuildSession:ruid ##### -->
 <para>
 

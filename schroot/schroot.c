@@ -148,6 +148,24 @@ get_chroot_options(SbuildConfig *config)
 }
 
 /**
+ * debug_logfunc:
+ * @log_domain: the log domain
+ * @log_level: the logging level
+ * @message: the message to log
+ * @user_data: extra detail
+ *
+ * Log a debugging message.  This is a "NULL" message handler that
+ * does nothing, discarding all messages.
+ */
+void debug_logfunc (const gchar *log_domain,
+		    GLogLevelFlags log_level,
+		    const gchar *message,
+		    gpointer user_data)
+{
+  /* Discard all messages. */
+}
+
+/**
  * main:
  * @argc: the number of arguments
  * @argv: argument vector
@@ -161,6 +179,11 @@ main (int   argc,
       char *argv[])
 {
   g_type_init();
+
+#ifndef SBUILD_DEBUG
+  /* Discard g_debug output for this logging domain. */
+  g_log_set_handler (G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, debug_logfunc, NULL);
+#endif
 
   openlog("schroot", LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
 

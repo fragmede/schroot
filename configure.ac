@@ -17,6 +17,19 @@ AC_CONFIG_HEADER([config.h])
 dnl Initialise automake stuff.
 AM_INIT_AUTOMAKE(1.9 gnu check-news dist-bzip2 no-dist-gzip tar-pax)
 
+AC_MSG_CHECKING([whether to enable debugging messages])
+AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug], [Enable debugging messages])],
+              [ case "${enableval}" in
+                yes) enable_debug="yes" ; AC_MSG_RESULT([yes]) ;;
+                no)  enable_debug="no"  ; AC_MSG_RESULT([no]) ;;
+                unset)  enable_debug="no"  ; AC_MSG_RESULT([no]) ;;
+                *) AC_MSG_RESULT([unknown])
+                   AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;;
+                esac])
+if test "$enable_debug" = "yes"; then
+  AC_DEFINE_UNQUOTED([SBUILD_DEBUG], [1], [Enable debugging])
+fi
+
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC

@@ -33,6 +33,8 @@
  * details.
  */
 
+#include <config.h>
+
 #include "sbuild-chroot.h"
 
 enum

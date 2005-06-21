@@ -25,7 +25,9 @@
  *
  */
 
-#define _GNU_SOURCE 1
+#include <config.h>
+
+#define _GNU_SOURCE
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
@@ -1274,6 +1276,9 @@ sbuild_session_get_property (GObject    *object,
     case PROP_UID:
       g_value_set_int(value, session->uid);
       break;
+    case PROP_GID:
+      g_value_set_int(value, session->gid);
+      break;
     case PROP_USER:
       g_value_set_string(value, session->user);
       break;
@@ -1319,6 +1324,14 @@ sbuild_session_class_init (SbuildSessionClass *klass)
      PROP_UID,
      g_param_spec_int ("uid", "UID",
 		       "The UID to run as in the chroot",
+		       0, G_MAXINT, 0,
+		       G_PARAM_READABLE));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_GID,
+     g_param_spec_int ("gid", "GID",
+		       "The GID to run as in the chroot",
 		       0, G_MAXINT, 0,
 		       G_PARAM_READABLE));
 
