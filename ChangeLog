@@ -1,5 +1,15 @@
 2005-06-21  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.1.1.
+
+	* schroot/sbuild-config.c (sbuild_config_validate_chroots):
+	  use g_return_val_if_fail, not g_return_if_fail.
+
+	* configure.ac: Remove the automake "tar-pax" option, because the
+	  Debian build infrastructure can't cope with it yet.
+
+2005-06-21  Roger Leigh  <rleigh@debian.org>
+
 	* Change all GPL boilerplate to use the new FSF postal address.
 
 2005-06-21  Roger Leigh  <rleigh@debian.org>

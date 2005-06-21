@@ -485,7 +485,7 @@ gboolean
 sbuild_config_validate_chroots(SbuildConfig  *config,
 			       char         **chroots)
 {
-  g_return_if_fail(SBUILD_IS_CONFIG(config));
+  g_return_val_if_fail(SBUILD_IS_CONFIG(config), FALSE);
 
   gboolean success = TRUE;
   for (guint i=0; chroots[i] != NULL; ++i)
