@@ -30,6 +30,24 @@
 
 #include "sbuild-config.h"
 
+typedef enum
+{
+  SBUILD_SESSION_ERROR_PAM_STARTUP,
+  SBUILD_SESSION_ERROR_PAM_SET_ITEM,
+  SBUILD_SESSION_ERROR_HOSTNAME,
+  SBUILD_SESSION_ERROR_PAM_AUTHENTICATE,
+  SBUILD_SESSION_ERROR_PAM_ACCOUNT,
+  SBUILD_SESSION_ERROR_PAM_CREDENTIALS,
+  SBUILD_SESSION_ERROR_PAM_SESSION_OPEN,
+  SBUILD_SESSION_ERROR_PAM_SESSION_CLOSE,
+  SBUILD_SESSION_ERROR_PAM_DELETE_CREDENTIALS,
+  SBUILD_SESSION_ERROR_PAM_SHUTDOWN,
+  SBUILD_SESSION_ERROR_FORK,
+  SBUILD_SESSION_ERROR_CHILD
+} SbuildSessionError;
+
+#define SBUILD_SESSION_ERROR sbuild_session_error_quark()
+
 #define SBUILD_TYPE_SESSION		  (sbuild_session_get_type ())
 #define SBUILD_SESSION(obj)		  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SBUILD_TYPE_SESSION, SbuildSession))
 #define SBUILD_SESSION_CLASS(klass)	  (G_TYPE_CHECK_CLASS_CAST ((klass), SBUILD_TYPE_SESSION, SbuildSessionClass))
@@ -96,8 +114,9 @@ void
 sbuild_session_set_chroots (SbuildSession  *session,
 			    char         **chroots);
 
-void
-sbuild_session_run (SbuildSession *session);
+gboolean
+sbuild_session_run (SbuildSession  *session,
+		    GError        **error);
 
 #endif /* SBUILD_SESSION_H */
 

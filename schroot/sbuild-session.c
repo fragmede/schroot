@@ -28,6 +28,7 @@
 #define _GNU_SOURCE 1
 #include <errno.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -36,6 +37,17 @@
 #include <unistd.h>
 
 #include "sbuild-session.h"
+
+GQuark
+sbuild_session_error_quark (void)
+{
+  static GQuark error_quark = 0;
+
+  if (error_quark == 0)
+    error_quark = g_quark_from_static_string ("sbuild-session-error-quark");
+
+  return error_quark;
+}
 
 enum
 {
@@ -188,134 +200,6 @@ sbuild_session_set_chroots (SbuildSession  *session,
   g_object_notify(G_OBJECT(session), "chroots");
 }
 
-/* Run command in chroot */
-static int
-sbuild_session_run_chroot (SbuildSession *session,
-			   SbuildChroot  *session_chroot)
-{
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), -1);
-  g_return_val_if_fail(SBUILD_IS_CHROOT(session_chroot), -1);
-
-  g_assert(session->user != NULL);
-  g_assert(session->shell != NULL);
-
-  pid_t pid;
-  if ((pid = fork()) == -1)
-    {
-      fprintf (stderr, "Could not fork child: %s\n", g_strerror(errno));
-      exit (EXIT_FAILURE);
-    }
-  else if (pid == 0)
-    {
-      const char *location = sbuild_chroot_get_location(session_chroot);
-      char *cwd = g_get_current_dir();
-
-      /* Set group ID and supplementary groups */
-      if (setgid (session->gid))
-	{
-	  fprintf (stderr, "Could not set gid to %lu\n", (unsigned long) session->gid);
-	  exit (EXIT_FAILURE);
-	}
-      if (initgroups (session->user, session->gid))
-	{
-	  fprintf (stderr, "Could not set supplementary group IDs\n");
-	  exit (EXIT_FAILURE);
-	}
-
-      /* Enter the chroot */
-      if (chdir (location))
-	{
-	  fprintf (stderr, "Could not chdir to %s: %s\n", location,
-		   g_strerror (errno));
-	  exit (EXIT_FAILURE);
-	}
-      if (chroot (location))
-	{
-	  fprintf (stderr, "Could not chroot to %s: %s\n", location,
-		   g_strerror (errno));
-	  exit (EXIT_FAILURE);
-	}
-      /* printf ("Entered chroot: %s\n", location); */
-
-      /* Set uid and check we are not still root */
-      if (setuid (session->uid))
-	{
-	  fprintf (stderr, "Could not set uid to %lu\n", (unsigned long) session->uid);
-	  exit (EXIT_FAILURE);
-	}
-      if (!setuid (0) && session->uid)
-	{
-	  fprintf (stderr, "Failed to drop root permissions.\n");
-	  exit (EXIT_FAILURE);
-	}
-
-      /* Set up environment */
-/*       if (pass->pw_dir) */
-/* 	setenv("HOME", pass->pw_dir, 1); */
-/*       else */
-/* 	setenv("HOME", "/", 1); */
-
-      /* chdir to current directory */
-      if (chdir (cwd))
-	{
-	  fprintf (stderr, "warning: Could not chdir to %s: %s\n", cwd,
-		   g_strerror (errno));
-	}
-      g_free(cwd);
-
-      char **env = pam_getenvlist(session->pam);
-      // Can this fail?
-      g_assert (env != NULL);
-
-      /* Run login shell */
-      if ((session->command == NULL ||
-	   session->command[0] == NULL)) // No command
-	{
-	  g_assert (session->shell != NULL);
-
-	  session->command = g_new(char *, 2);
-	  session->command[0] = g_strdup(session->shell);
-	  session->command[1] = NULL;
-
-	  g_debug("Running login shell: %s", session->shell);
-	}
-      else
-	g_debug("Running command: %s", session->command[0]);
-
-      /* Execute */
-      if (execve (session->command[0], session->command, env))
-	{
-	  fprintf (stderr, "Could not exec %s: %s\n", session->command[0],
-		   g_strerror (errno));
-	  exit (EXIT_FAILURE);
-	}
-      /* This should never be reached */
-      exit(EXIT_FAILURE);
-    }
-  else
-    {
-      int status;
-      if (wait(&status) != pid)
-	{
-	  fprintf (stderr, "wait for child failed: %s\n", g_strerror (errno));
-	  exit (EXIT_FAILURE);
-	}
-
-      if (!WIFEXITED(status))
-	{
-	  g_print("Child exited abnormally\n");
-	  return -1;
-	}
-
-      if (WEXITSTATUS(status))
-	{
-	  g_print("Child exited abnormally\n");
-	}
-
-      return WEXITSTATUS(status);
-    }
-}
-
 /* Check group membership */
 static gboolean
 is_group_member (const char *group)
@@ -413,42 +297,56 @@ sbuild_session_require_auth (SbuildSession *session)
   return auth;
 }
 
-void
-sbuild_session_run (SbuildSession *session)
+static gboolean
+sbuild_session_pam_start (SbuildSession  *session,
+			  GError        **error)
 {
-  /* PAM setup. */
-
   int pam_status;
   if ((pam_status =
        pam_start("schroot", session->user,
 		 &sbuild_session_pam_conv, &session->pam)) != PAM_SUCCESS)
     {
-      g_printerr("PAM initialisation error: %s\n", pam_strerror(session->pam, pam_status));
-      exit (EXIT_FAILURE);
+      g_set_error(error,
+		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_STARTUP,
+		  "PAM error: %s", pam_strerror(session->pam, pam_status));
+      return FALSE;
     }
+  return TRUE;
+}
+
+static gboolean
+sbuild_session_pam_auth (SbuildSession  *session,
+			 GError        **error)
+{
+  int pam_status;
 
   if ((pam_status =
        pam_set_item(session->pam, PAM_RUSER, session->ruser)) != PAM_SUCCESS)
     {
-      g_printerr("PAM set RUSER failed: %s\n", pam_strerror(session->pam, pam_status));
-      exit (EXIT_FAILURE);
+      g_set_error(error,
+		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
+		  "PAM set RUSER error: %s", pam_strerror(session->pam, pam_status));
+      return FALSE;
     }
 
-
-  long hl = 256; /* BROKEN with libc6 sysconf(_SC_HOST_NAME_MAX); */
+  long hl = 256; /* sysconf(_SC_HOST_NAME_MAX); BROKEN with Debian libc6 2.3.2.ds1-22 */
 
   char *hostname = g_new(char, hl);
   if (gethostname(hostname, hl) != 0)
     {
-      g_printerr("failed to get hostname: %s\n", g_strerror(errno));
-      exit (EXIT_FAILURE);
+      g_set_error(error,
+		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_HOSTNAME,
+		  "Failed to get hostname: %s\n", g_strerror(errno));
+      return FALSE;
     }
 
   if ((pam_status =
        pam_set_item(session->pam, PAM_RHOST, hostname)) != PAM_SUCCESS)
     {
-      g_printerr("PAM set RHOST failed: %s\n", pam_strerror(session->pam, pam_status));
-      exit (EXIT_FAILURE);
+      g_set_error(error,
+		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
+		  "PAM set RHOST error: %s", pam_strerror(session->pam, pam_status));
+      return FALSE;
     }
 
   g_free(hostname);
@@ -460,8 +358,10 @@ sbuild_session_run (SbuildSession *session)
       if ((pam_status =
 	   pam_set_item(session->pam, PAM_TTY, tty)) != PAM_SUCCESS)
 	{
-	  g_printerr("PAM set TTY failed: %s\n", pam_strerror(session->pam, pam_status));
-	  exit (EXIT_FAILURE);
+	  g_set_error(error,
+		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
+		      "PAM set TTY error: %s", pam_strerror(session->pam, pam_status));
+	  return FALSE;
 	}
     }
 
@@ -472,8 +372,10 @@ sbuild_session_run (SbuildSession *session)
       if ((pam_status =
 	   pam_set_item(session->pam, PAM_USER, session->user)) != PAM_SUCCESS)
 	{
-	  g_printerr("PAM set USER failed: %s\n", pam_strerror(session->pam, pam_status));
-	  exit (EXIT_FAILURE);
+	  g_set_error(error,
+		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
+		      "PAM set USER error: %s", pam_strerror(session->pam, pam_status));
+	  return FALSE;
 	}
       break;
 
@@ -481,44 +383,347 @@ sbuild_session_run (SbuildSession *session)
       if ((pam_status =
 	   pam_authenticate(session->pam, 0)) != PAM_SUCCESS)
 	{
-	  g_printerr("PAM authentication failed: %s\n", pam_strerror(session->pam, pam_status));
-	  exit (EXIT_FAILURE);
+	  g_set_error(error,
+		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_AUTHENTICATE,
+		      "PAM authentication failed: %s\n", pam_strerror(session->pam, pam_status));
+	  return FALSE;
 	}
       break;
 
     case SBUILD_SESSION_AUTH_FAIL:
-      g_printerr("PAM authentication failed prematurely due to configuration error\n");
-      exit (EXIT_FAILURE);
+	{
+	  g_set_error(error,
+		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_AUTHENTICATE,
+		      "PAM authentication failed prematurely due to configuration error");
+	  return FALSE;
+	}
     default:
       break;
     }
+
+  return TRUE;
+}
+
+static gboolean
+sbuild_session_pam_account (SbuildSession  *session,
+			    GError        **error)
+{
+  int pam_status;
 
   if ((pam_status =
        pam_acct_mgmt(session->pam, 0)) != PAM_SUCCESS)
     {
       /* We don't handle changing expired passwords here, since we are
 	 not login or ssh. */
-      g_printerr("PAM account management failed: %s\n",
-		 pam_strerror(session->pam, pam_status));
-      exit (EXIT_FAILURE);
+      g_set_error(error,
+		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_ACCOUNT,
+		  "PAM error: %s\n", pam_strerror(session->pam, pam_status));
+      return FALSE;
     }
+
+  return TRUE;
+}
+
+static gboolean
+sbuild_session_pam_cred_establish (SbuildSession  *session,
+				   GError        **error)
+{
+  int pam_status;
 
   if ((pam_status =
        pam_setcred(session->pam, PAM_ESTABLISH_CRED)) != PAM_SUCCESS)
     {
-      /* We don't handle changing expired passwords here, since we are
-	 not login or ssh. */
-      g_printerr("PAM user credentials setup failed: %s\n",
-		 pam_strerror(session->pam, pam_status));
-      exit (EXIT_FAILURE);
+      g_set_error(error,
+		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_CREDENTIALS,
+		  "PAM error: %s\n", pam_strerror(session->pam, pam_status));
+      return FALSE;
     }
+
+  return TRUE;
+}
+
+
+static gboolean
+sbuild_session_pam_open (SbuildSession  *session,
+			 GError        **error)
+{
+  int pam_status;
 
   if ((pam_status =
        pam_open_session(session->pam, 0)) != PAM_SUCCESS)
     {
-      g_printerr("PAM open session failed: %s\n",
-		 pam_strerror(session->pam, pam_status));
-      exit (EXIT_FAILURE);
+      g_set_error(error,
+		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SESSION_OPEN,
+		  "PAM error: %s", pam_strerror(session->pam, pam_status));
+      return FALSE;
+    }
+  return TRUE;
+}
+
+static gboolean
+sbuild_session_pam_close (SbuildSession  *session,
+			  GError        **error)
+{
+  int pam_status;
+
+  if ((pam_status =
+       pam_close_session(session->pam, 0)) != PAM_SUCCESS)
+    {
+      g_set_error(error,
+		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SESSION_CLOSE,
+		  "PAM error: %s", pam_strerror(session->pam, pam_status));
+      return FALSE;
+    }
+  return TRUE;
+}
+
+static gboolean
+sbuild_session_pam_cred_delete (SbuildSession  *session,
+				GError        **error)
+{
+  int pam_status;
+
+  if ((pam_status =
+       pam_setcred(session->pam, PAM_DELETE_CRED)) != PAM_SUCCESS)
+    {
+      g_set_error(error,
+		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_DELETE_CREDENTIALS,
+		  "PAM error: %s", pam_strerror(session->pam, pam_status));
+      return FALSE;
+    }
+
+  return TRUE;
+}
+
+static gboolean
+sbuild_session_pam_stop (SbuildSession  *session,
+			 GError        **error)
+{
+  int pam_status;
+
+  if ((pam_status =
+       pam_end(session->pam, PAM_SUCCESS)) != PAM_SUCCESS)
+    {
+      g_set_error(error,
+		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SHUTDOWN,
+		  "PAM error: %s", pam_strerror(session->pam, pam_status));
+      return FALSE;
+    }
+  return TRUE;
+}
+
+/* Run command in chroot */
+static gboolean
+sbuild_session_run_chroot (SbuildSession  *session,
+			   SbuildChroot   *session_chroot,
+			   GError        **error)
+{
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), -1);
+  g_return_val_if_fail(SBUILD_IS_CHROOT(session_chroot), -1);
+
+  g_assert(session->user != NULL);
+  g_assert(session->shell != NULL);
+
+  pid_t pid;
+  if ((pid = fork()) == -1)
+    {
+      g_set_error(error,
+		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_FORK,
+		  "Failed to fork child: %s", g_strerror(errno));
+      return FALSE;
+    }
+  else if (pid == 0)
+    {
+      /* Child errors result in immediate exit().  Errors are not
+	 propagated back via a GError. */
+      GError *pam_error = NULL;
+      sbuild_session_pam_start(session, &pam_error);
+      if (pam_error != NULL)
+	{
+	  g_printerr("PAM error: %s\n", pam_error->message);
+	  exit (EXIT_FAILURE);
+	}
+
+      const char *location = sbuild_chroot_get_location(session_chroot);
+      char *cwd = g_get_current_dir();
+
+      /* Set group ID and supplementary groups */
+      if (setgid (session->gid))
+	{
+	  fprintf (stderr, "Could not set gid to %lu\n", (unsigned long) session->gid);
+	  exit (EXIT_FAILURE);
+	}
+      if (initgroups (session->user, session->gid))
+	{
+	  fprintf (stderr, "Could not set supplementary group IDs\n");
+	  exit (EXIT_FAILURE);
+	}
+
+      /* Enter the chroot */
+      if (chdir (location))
+	{
+	  fprintf (stderr, "Could not chdir to %s: %s\n", location,
+		   g_strerror (errno));
+	  exit (EXIT_FAILURE);
+	}
+      if (chroot (location))
+	{
+	  fprintf (stderr, "Could not chroot to %s: %s\n", location,
+		   g_strerror (errno));
+	  exit (EXIT_FAILURE);
+	}
+      /* printf ("Entered chroot: %s\n", location); */
+
+      /* Set uid and check we are not still root */
+      if (setuid (session->uid))
+	{
+	  fprintf (stderr, "Could not set uid to %lu\n", (unsigned long) session->uid);
+	  exit (EXIT_FAILURE);
+	}
+      if (!setuid (0) && session->uid)
+	{
+	  fprintf (stderr, "Failed to drop root permissions.\n");
+	  exit (EXIT_FAILURE);
+	}
+
+      /* Set up environment */
+/*       if (pass->pw_dir) */
+/* 	setenv("HOME", pass->pw_dir, 1); */
+/*       else */
+/* 	setenv("HOME", "/", 1); */
+
+      /* chdir to current directory */
+      if (chdir (cwd))
+	{
+	  fprintf (stderr, "warning: Could not chdir to %s: %s\n", cwd,
+		   g_strerror (errno));
+	}
+      g_free(cwd);
+
+      char **env = pam_getenvlist(session->pam);
+      // Can this fail?
+      g_assert (env != NULL);
+
+      /* Run login shell */
+      if ((session->command == NULL ||
+	   session->command[0] == NULL)) // No command
+	{
+	  g_assert (session->shell != NULL);
+
+	  session->command = g_new(char *, 2);
+	  session->command[0] = g_strdup(session->shell);
+	  session->command[1] = NULL;
+
+	  g_debug("Running login shell: %s", session->shell);
+	}
+      else
+	g_debug("Running command: %s", session->command[0]);
+
+      /* Execute */
+      if (execve (session->command[0], session->command, env))
+	{
+	  fprintf (stderr, "Could not exec %s: %s\n", session->command[0],
+		   g_strerror (errno));
+	  exit (EXIT_FAILURE);
+	}
+      /* This should never be reached */
+      exit(EXIT_FAILURE);
+    }
+  else
+    {
+      int status;
+      if (wait(&status) != pid)
+	{
+	  g_set_error(error,
+		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
+		      "wait for child failed: %s\n", g_strerror (errno));
+	  return FALSE;
+	}
+
+      GError *pam_error = NULL;
+      sbuild_session_pam_close(session, &pam_error);
+      if (pam_error != NULL)
+	{
+	  g_propagate_error(error, pam_error);
+	  return FALSE;
+	}
+
+      int pam_status;
+      if ((pam_status =
+	   pam_close_session(session->pam, 0)) != PAM_SUCCESS)
+	{
+	  g_set_error(error,
+		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SESSION_CLOSE,
+		      "PAM error: %s", pam_strerror(session->pam, pam_status));
+	  return FALSE;
+	}
+      if (!WIFEXITED(status))
+	{
+	  if (WIFSIGNALED(status))
+	    g_set_error(error,
+			SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
+			"Child terminated by signal %s",
+			strsignal(WTERMSIG(status)));
+	  else if (WCOREDUMP(status))
+	    g_set_error(error,
+			SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
+			"Child dumped core");
+	  else
+	    g_set_error(error,
+			SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
+			"Child exited abnormally (reason unknown; not a signal or core dump)");
+	  return FALSE;
+	}
+
+      if (WEXITSTATUS(status))
+	{
+	  g_set_error(error,
+		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
+		      "Child exited abnormally with status %d",
+		      WEXITSTATUS(status));
+	  return FALSE;
+	}
+
+      return TRUE;
+    }
+
+  /* Should never be reached. */
+  return TRUE;
+}
+
+gboolean
+sbuild_session_run (SbuildSession  *session,
+		    GError        **error)
+{
+  /* PAM setup. */
+  GError *tmp_error = NULL;
+
+  sbuild_session_pam_start(session, &tmp_error);
+  if (tmp_error != NULL)
+    {
+      g_propagate_error(error, tmp_error);
+      return FALSE;
+    }
+
+  sbuild_session_pam_auth(session, &tmp_error);
+  if (tmp_error != NULL)
+    {
+      g_propagate_error(error, tmp_error);
+      return FALSE;
+    }
+
+  sbuild_session_pam_account(session, &tmp_error);
+  if (tmp_error != NULL)
+    {
+      g_propagate_error(error, tmp_error);
+      return FALSE;
+    }
+
+  sbuild_session_pam_cred_establish(session, &tmp_error);
+  if (tmp_error != NULL)
+    {
+      g_propagate_error(error, tmp_error);
+      return FALSE;
     }
 
   const char *authuser = NULL;
@@ -530,32 +735,30 @@ sbuild_session_run (SbuildSession *session)
       g_printerr("Running session in %s chroot:\n", session->chroots[x]);
       SbuildChroot *chroot = sbuild_config_find_alias(session->config,
 						      session->chroots[x]);
-      sbuild_session_run_chroot(session, chroot);
+      sbuild_session_run_chroot(session, chroot, &tmp_error);
+      if (tmp_error != NULL)
+	{
+	  g_propagate_error(error, tmp_error);
+	  return FALSE;
+	}
+      /* TODO: On error, need to clean up PAM. */
     }
 
-  if ((pam_status =
-       pam_close_session(session->pam, 0)) != PAM_SUCCESS)
+  sbuild_session_pam_cred_delete(session, &tmp_error);
+  if (tmp_error != NULL)
     {
-      g_printerr("PAM close session failed: %s\n",
-		 pam_strerror(session->pam, pam_status));
-      exit (EXIT_FAILURE);
+      g_propagate_error(error, tmp_error);
+      return FALSE;
     }
 
-  if ((pam_status =
-       pam_setcred(session->pam, PAM_DELETE_CRED)) != PAM_SUCCESS)
+  sbuild_session_pam_stop(session, &tmp_error);
+  if (tmp_error != NULL)
     {
-      g_printerr("PAM user credentials deletion failed: %s\n",
-		 pam_strerror(session->pam, pam_status));
-      exit (EXIT_FAILURE);
+      g_propagate_error(error, tmp_error);
+      return FALSE;
     }
 
-  if ((pam_status =
-       pam_end(session->pam, PAM_SUCCESS)) != PAM_SUCCESS)
-    {
-      g_printerr("PAM finalisation failed: %s\n",
-		 pam_strerror(session->pam, pam_status));
-      exit (EXIT_FAILURE);
-    }
+  return TRUE;
 }
 
 static void

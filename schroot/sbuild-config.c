@@ -86,11 +86,11 @@ sbuild_config_check_security(int      fd,
       return FALSE;
     }
 
-  if (statbuf.st_uid != 0 || statbuf.st_gid != 0)
+  if (statbuf.st_uid != 0)
     {
       g_set_error(error,
 		  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_OWNERSHIP,
-		  "not owned by user and group root");
+		  "not owned by user root");
       return FALSE;
     }
 

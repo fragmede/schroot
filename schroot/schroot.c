@@ -172,7 +172,13 @@ main (int   argc,
   if (opt.command)
     sbuild_session_set_command(session, opt.command);
 
-  sbuild_session_run(session);
+  GError *session_error = NULL;
+  sbuild_session_run(session, &session_error);
+  if (session_error)
+    {
+      g_printerr("Session failure: %s\n", session_error->message);
+      exit (EXIT_FAILURE);
+    }
 
 
   g_object_unref(G_OBJECT(session));
