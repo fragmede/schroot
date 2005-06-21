@@ -42,6 +42,7 @@ typedef enum
   SBUILD_SESSION_ERROR_PAM_SET_ITEM,
   SBUILD_SESSION_ERROR_HOSTNAME,
   SBUILD_SESSION_ERROR_PAM_AUTHENTICATE,
+  SBUILD_SESSION_ERROR_PAM_PUTENV,
   SBUILD_SESSION_ERROR_PAM_ACCOUNT,
   SBUILD_SESSION_ERROR_PAM_CREDENTIALS,
   SBUILD_SESSION_ERROR_PAM_SESSION_OPEN,
@@ -72,6 +73,7 @@ struct _SbuildSession
   gchar         *user;
   gchar        **command;
   gchar         *shell;
+  gchar        **environment;
   uid_t          ruid;
   gchar         *ruser;
   SbuildConfig  *config;
@@ -112,6 +114,13 @@ sbuild_session_get_config (const SbuildSession *restrict session);
 void
 sbuild_session_set_config (SbuildSession *session,
 			   SbuildConfig  *config);
+
+char **
+sbuild_session_get_environment (const SbuildSession *restrict session);
+
+void
+sbuild_session_set_environment (SbuildSession  *session,
+				char         **environment);
 
 char **
 sbuild_session_get_chroots (const SbuildSession *restrict session);

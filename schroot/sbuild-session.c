@@ -60,6 +60,7 @@ enum
   PROP_USER,
   PROP_COMMAND,
   PROP_SHELL,
+  PROP_ENV,
   PROP_RUID,
   PROP_RUSER,
   PROP_CONFIG,
@@ -243,6 +244,45 @@ sbuild_session_set_config (SbuildSession *session,
   session->config = config;
   g_object_ref(G_OBJECT(session->config));
   g_object_notify(G_OBJECT(session), "config");
+}
+
+/**
+ * sbuild_session_get_environment:
+ * @session: an #SbuildSession
+ *
+ * Get the environment to use in @session.
+ *
+ * Returns a string vector. This string vector points to internally
+ * allocated storage in the chroot and must not be freed, modified or
+ * stored.
+ */
+char **
+sbuild_session_get_environment (const SbuildSession *restrict session)
+{
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), NULL);
+
+  return session->environment;
+}
+
+/**
+ * sbuild_session_set_environment:
+ * @session: an #SbuildSession
+ * @environment: the environment to use
+ *
+ * Set the environment to use in @session.
+ */
+void
+sbuild_session_set_environment (SbuildSession  *session,
+				char          **environment)
+{
+  g_return_if_fail(SBUILD_IS_SESSION(session));
+
+  if (session->environment)
+    {
+      g_strfreev(session->environment);
+    }
+  session->environment = g_strdupv(environment);
+  g_object_notify(G_OBJECT(session), "environment");
 }
 
 /**
@@ -598,6 +638,44 @@ sbuild_session_pam_auth (SbuildSession  *session,
 }
 
 /**
+ * sbuild_session_pam_setupenv:
+ * @session: an #SbuildSession
+ * @error: a #GError
+ *
+ * Import the user environment into PAM.
+ *
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
+ */
+static gboolean
+sbuild_session_pam_setupenv (SbuildSession  *session,
+			     GError        **error)
+{
+  int pam_status;
+
+  if (session->environment)
+    {
+      for (guint i=0; session->environment[i] != NULL; ++i)
+	{
+	  if ((pam_status =
+	       pam_putenv(session->pam, session->environment[i])) != PAM_SUCCESS)
+	    {
+	      /* We don't handle changing expired passwords here, since we are
+		 not login or ssh. */
+	      g_set_error(error,
+			  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_PUTENV,
+			  "PAM error: %s\n", pam_strerror(session->pam, pam_status));
+	      g_debug("pam_putenv FAIL");
+	      return FALSE;
+	    }
+	  g_debug("pam_putenv: set %s", session->environment[i]);
+	}
+    }
+  g_debug("pam_putenv OK");
+  return TRUE;
+}
+
+/**
  * sbuild_session_pam_account:
  * @session: an #SbuildSession
  * @error: a #GError
@@ -877,7 +955,8 @@ sbuild_session_run_chroot (SbuildSession  *session,
       /* Set up environment */
       char **env = pam_getenvlist(session->pam);
       g_assert (env != NULL); // Can this fail?  Make sure we don't find out the hard way.
-
+      for (guint i=0; env[i] != NULL; ++i)
+	g_debug("Set environment: %s", env[i]);
 
       /* Run login shell */
       if ((session->command == NULL ||
@@ -1011,44 +1090,47 @@ sbuild_session_run (SbuildSession  *session,
       sbuild_session_pam_auth(session, &tmp_error);
       if (tmp_error == NULL)
 	{
-	  sbuild_session_pam_account(session, &tmp_error);
+	  sbuild_session_pam_setupenv(session, &tmp_error);
 	  if (tmp_error == NULL)
 	    {
-	      sbuild_session_pam_cred_establish(session, &tmp_error);
+	      sbuild_session_pam_account(session, &tmp_error);
 	      if (tmp_error == NULL)
 		{
-
-		  const char *authuser = NULL;
-		  pam_get_item(session->pam, PAM_USER, (const void **) &authuser);
-		  g_debug("PAM authentication succeeded for user %s\n", authuser);
-
-		  for (guint x=0; session->chroots[x] != 0; ++x)
+		  sbuild_session_pam_cred_establish(session, &tmp_error);
+		  if (tmp_error == NULL)
 		    {
-		      g_debug("Running session in %s chroot:\n", session->chroots[x]);
-		      SbuildChroot *chroot =
-			sbuild_config_find_alias(session->config,
-						 session->chroots[x]);
-		      sbuild_session_run_chroot(session, chroot,
-						child_status,
-						&tmp_error);
-		      if (tmp_error != NULL)
-			break;
-		    }
+		      const char *authuser = NULL;
+		      pam_get_item(session->pam, PAM_USER, (const void **) &authuser);
+		      g_debug("PAM authentication succeeded for user %s\n", authuser);
 
-		  /* The session is now finished, either successfully
-		     or not.  All PAM operations are now for cleanup
-		     and shutdown, and we must clean up whether or not
-		     errors were raised at any previous point.  This
-		     means only the first error is reported back to
-		     the user. */
+		      for (guint x=0; session->chroots[x] != 0; ++x)
+			{
+			  g_debug("Running session in %s chroot:\n", session->chroots[x]);
+			  SbuildChroot *chroot =
+			    sbuild_config_find_alias(session->config,
+						     session->chroots[x]);
+			  sbuild_session_run_chroot(session, chroot,
+						    child_status,
+						    &tmp_error);
+			  if (tmp_error != NULL)
+			    break;
+			}
 
-		  /* Don't cope with failure, since we are now already bailing out,
-		     and an error may already have been raised*/
-		  sbuild_session_pam_cred_delete(session,
-						 (tmp_error != NULL) ? NULL : &tmp_error);
+		      /* The session is now finished, either successfully
+			 or not.  All PAM operations are now for cleanup
+			 and shutdown, and we must clean up whether or not
+			 errors were raised at any previous point.  This
+			 means only the first error is reported back to
+			 the user. */
 
-		} // pam_cred_establish
-	    } // pam_account
+		      /* Don't cope with failure, since we are now already bailing out,
+			 and an error may already have been raised*/
+		      sbuild_session_pam_cred_delete(session,
+						     (tmp_error != NULL) ? NULL : &tmp_error);
+
+		    } // pam_cred_establish
+		} // pam_account
+	    } // pam_setupenv
 	} // pam_auth
       /* Don't cope with failure, since we are now already bailing out,
 	 and an error may already have been raised*/
@@ -1075,6 +1157,7 @@ sbuild_session_init (SbuildSession *session)
   session->gid = 0;
   session->command = NULL;
   session->shell = NULL;
+  session->environment = NULL;
   session->config = NULL;
   session->chroots = NULL;
   session->pam = NULL;
@@ -1161,6 +1244,9 @@ sbuild_session_set_property (GObject      *object,
     case PROP_CONFIG:
       sbuild_session_set_config(session, g_value_get_object(value));
       break;
+    case PROP_ENV:
+      sbuild_session_set_environment(session, g_value_get_boxed(value));
+      break;
     case PROP_CHROOTS:
       sbuild_session_set_chroots(session, g_value_get_boxed(value));
       break;
@@ -1193,6 +1279,12 @@ sbuild_session_get_property (GObject    *object,
       break;
     case PROP_COMMAND:
       g_value_set_boxed(value, session->command);
+      break;
+    case PROP_SHELL:
+      g_value_set_string(value, session->shell);
+      break;
+    case PROP_ENV:
+      g_value_set_boxed(value, session->environment);
       break;
     case PROP_RUID:
       g_value_set_int(value, session->ruid);
@@ -1253,6 +1345,14 @@ sbuild_session_class_init (SbuildSessionClass *klass)
 			  "The login shell for the user to run as in the chroot",
 			  "/bin/false",
 			  G_PARAM_READABLE));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_CHROOTS,
+     g_param_spec_boxed ("environment", "Environment",
+                         "The user environment to set in the chroot",
+                         G_TYPE_STRV,
+                         (G_PARAM_READABLE | G_PARAM_WRITABLE)));
 
   g_object_class_install_property
     (gobject_class,

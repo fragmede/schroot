@@ -26,6 +26,7 @@ The errors which can occur while running a session.
 @SBUILD_SESSION_ERROR_PAM_SET_ITEM: PAM failed to set a configuration item
 @SBUILD_SESSION_ERROR_HOSTNAME: The hostname could not be obtained
 @SBUILD_SESSION_ERROR_PAM_AUTHENTICATE: PAM authentication failed
+@SBUILD_SESSION_ERROR_PAM_PUTENV: Setting PAM environment failed
 @SBUILD_SESSION_ERROR_PAM_ACCOUNT: PAM account management failed
 @SBUILD_SESSION_ERROR_PAM_CREDENTIALS: PAM could not set user credentials
 @SBUILD_SESSION_ERROR_PAM_SESSION_OPEN: PAM could not open a session
@@ -59,6 +60,11 @@ SbuildSession object.
 </para>
 
 <!-- ##### ARG SbuildSession:config ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG SbuildSession:environment ##### -->
 <para>
 
 </para>
@@ -139,6 +145,24 @@ SbuildSession class.
 
 @session: 
 @command: 
+
+
+<!-- ##### FUNCTION sbuild_session_get_environment ##### -->
+<para>
+
+</para>
+
+@session: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_session_set_environment ##### -->
+<para>
+
+</para>
+
+@session: 
+@environment: 
 
 
 <!-- ##### FUNCTION sbuild_session_get_config ##### -->

@@ -1,4 +1,3 @@
-.\" $Id$
 .\" Copyright (C) 2005  Roger Leigh <rleigh@debian.org>
 .\"
 .\" This program is free software; you can redistribute it and/or modify
@@ -54,8 +53,8 @@ Print detailed information about the specified chroots.
 .TP
 .B \-p, \-\-preserve\-environment
 Preserve the user's environment inside the chroot environment.  The default is
-to use a clean environment; this option copies the entire environment.  This
-option is not yet implemented.
+to use a clean environment; this option copies the entire user environment and
+sets it in the session.
 .TP
 .B \-q, \-\-quiet
 Print only essential messages.  This option is not yet implemented.

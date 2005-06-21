@@ -205,6 +205,8 @@ main (int   argc,
     sbuild_session_set_user(session, opt.user);
   if (opt.command)
     sbuild_session_set_command(session, opt.command);
+  if (opt.preserve)
+    sbuild_session_set_environment(session, environ);
 
   int child_status = 0;
   GError *session_error = NULL;

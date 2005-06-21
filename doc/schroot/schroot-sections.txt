@@ -64,6 +64,8 @@ sbuild_session_get_user
 sbuild_session_set_user
 sbuild_session_get_command
 sbuild_session_set_command
+sbuild_session_get_environment
+sbuild_session_set_environment
 sbuild_session_get_config
 sbuild_session_set_config
 sbuild_session_get_chroots
