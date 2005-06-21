@@ -36,6 +36,8 @@
 #include <pwd.h>
 #include <unistd.h>
 
+#include <syslog.h>
+
 #include "sbuild-session.h"
 
 GQuark
@@ -440,6 +442,10 @@ sbuild_session_pam_auth (SbuildSession  *session,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_AUTHENTICATE,
 		      "PAM authentication failed: %s\n", pam_strerror(session->pam, pam_status));
 	  g_debug("pam_authenticate FAIL");
+	  char *chroots = g_strjoinv(", ", session->chroots);
+	  syslog(LOG_AUTH|LOG_WARNING, "[%s] %s:%s Authentication failure",
+		 chroots, session->ruser, session->user);
+	  g_free(chroots);
 	  return FALSE;
 	}
       g_debug("pam_authenticate OK");
@@ -449,8 +455,14 @@ sbuild_session_pam_auth (SbuildSession  *session,
 	{
 	  g_set_error(error,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_AUTHENTICATE,
-		      "PAM authentication failed prematurely due to configuration error");
+		      "PAM authentication failed due to lack of authorisation");
 	  g_debug("PAM auth premature FAIL");
+	  g_printerr("You do not have permission to access the specified chroots.");
+	  g_printerr("This failure will be reported.\n");
+	  char *chroots = g_strjoinv(", ", session->chroots);
+	  syslog(LOG_AUTH|LOG_WARNING, "[%s] %s:%s Unauthorised attempt to access to chroots",
+		 chroots, session->ruser, session->user);
+	  g_free(chroots);
 	  return FALSE;
 	}
     default:
@@ -608,13 +620,12 @@ sbuild_session_run_chroot (SbuildSession  *session,
       /* Child errors result in immediate exit().  Errors are not
 	 propagated back via a GError. */
       GError *pam_error = NULL;
-      sbuild_session_pam_start(session, &pam_error);
+      sbuild_session_pam_open(session, &pam_error);
       if (pam_error != NULL)
 	{
 	  g_printerr("PAM error: %s\n", pam_error->message);
 	  exit (EXIT_FAILURE);
 	}
-
       const char *location = sbuild_chroot_get_location(session_chroot);
       char *cwd = g_get_current_dir();
 
@@ -681,9 +692,19 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	  session->command[1] = NULL;
 
 	  g_debug("Running login shell: %s", session->shell);
+	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] %s:%s Running login shell: %s",
+		 sbuild_chroot_get_name(session_chroot), session->ruser,
+		 session->user, session->shell);
 	}
       else
-	g_debug("Running command: %s", session->command[0]);
+	{
+	  char *command = g_strjoinv(" ", session->command);
+	  g_debug("Running command: %s", command);
+	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] %s:%s Running command: %s",
+		 sbuild_chroot_get_name(session_chroot), session->ruser,
+		 session->user, command);
+	  g_free(command);
+	}
 
       /* Execute */
       if (execve (session->command[0], session->command, env))

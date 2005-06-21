@@ -129,7 +129,7 @@ main (int   argc,
 {
   g_type_init();
 
-  openlog("schroot", LOG_PID, LOG_AUTHPRIV);
+  openlog("schroot", LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
 
   /* Parse command-line options into opt structure. */
   parse_options(argc, argv);
