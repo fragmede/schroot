@@ -995,13 +995,28 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	g_debug("Set environment: %s", env[i]);
 
       /* Run login shell */
+      char *file = NULL;
+
+      /* Altering session->command is OK since we forked */
       if ((session->command == NULL ||
 	   session->command[0] == NULL)) // No command
 	{
 	  g_assert (session->shell != NULL);
 
 	  session->command = g_new(char *, 2);
-	  session->command[0] = g_strdup(session->shell);
+	  file = g_strdup(session->shell);
+	  if (session->environment == NULL) // Not keeping environment; login shell
+	    {
+	      char *shellbase = g_path_get_basename(session->shell);
+	      char *shell = g_strconcat("-", shellbase, NULL);
+	      g_free(shellbase);
+	      session->command[0] = shell;
+	      g_debug("Login shell: %s", session->command[1]);
+	    }
+	  else
+	    {
+	      session->command[0] = g_strdup(session->shell);
+	    }
 	  session->command[1] = NULL;
 
 	  g_debug("Running login shell: %s", session->shell);
@@ -1014,6 +1029,7 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	}
       else
 	{
+	  file = g_strdup(session->command[0]);
 	  char *command = g_strjoinv(" ", session->command);
 	  g_debug("Running command: %s", command);
 	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] %s:%s Running command: %s",
@@ -1026,7 +1042,7 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	}
 
       /* Execute */
-      if (execve (session->command[0], session->command, env))
+      if (execve (file, session->command, env))
 	{
 	  fprintf (stderr, "Could not exec %s: %s\n", session->command[0],
 		   g_strerror (errno));
