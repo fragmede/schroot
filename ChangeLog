@@ -1,9 +1,13 @@
-2005-06-21  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2005-06-21  Roger Leigh  <rleigh@debian.org>
+
+	* Change all GPL boilerplate to use the new FSF postal address.
+
+2005-06-21  Roger Leigh  <rleigh@debian.org>
 
 	* debian/copyright:
 	  - Update the postal address of the FSF.
 	  - Refer to /usr/share/common-licenses/GPL.
-	  - Add new download location. 
+	  - Add new download location.
 
 	* Makefile.am: Remove CVS directories from the generated tarball.
 
