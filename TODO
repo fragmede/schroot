@@ -1,5 +1,4 @@
 TODO
 ----
 
-- Add gtk-doc API reference.
-- Document source.
+- Document non-user-visible internals.
