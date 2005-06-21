@@ -19,30 +19,9 @@
 #
 #####################################################################
 
-SUBDIRS = pam
+pamdir = /etc/pam.d
 
-AM_CFLAGS = -std=c99
-DEFS = -DSCHROOT_CONFIG_FILE="\"$(sysconfdir)/schroot.conf\""
+pam_DATA = schroot
 
-bin_PROGRAMS = schroot
-
-schroot_SOURCES = \
-	schroot.c \
-	sbuild-chroot.h \
-	sbuild-chroot.c \
-	sbuild-config.h \
-	sbuild-config.c \
-	sbuild-session.h \
-	sbuild-session.c
-
-schroot_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
-schroot_LDADD = $(GOBJECT_LIBS) $(PAM_LIBS)
-
-sysconf_DATA = schroot.conf
-
-EXTRA_DIST = $(sysconf_DATA)
-
-install-exec-hook:
-# Install setuid root.
-	chmod 4755 $(DESTDIR)$(bindir)/schroot
+EXTRA_DIST = $(pam_DATA)
 

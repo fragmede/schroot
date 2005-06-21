@@ -94,6 +94,7 @@ AC_DEFINE_UNQUOTED(SCHROOT_MODULEDIR, ["$SCHROOT_MODULEDIR"])
 
 dnl Configure which files to generate.
 AC_CONFIG_FILES([schroot/Makefile])
+AC_CONFIG_FILES([schroot/pam/Makefile])
 AC_CONFIG_FILES([Makefile])
 dnl Output the generated config.status script.
 AC_OUTPUT
