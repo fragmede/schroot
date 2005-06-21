@@ -1,5 +1,9 @@
 2005-06-21  Roger Leigh  <rleigh@debian.org>
 
+	* Add .cvsignore files to replace lost .arch-inventory files.
+
+2005-06-21  Roger Leigh  <rleigh@debian.org>
+
 	* Add ChangeLog to CVS
 	* No longer generate ChangeLog with "tla changelog".  It must now
 	  be edited manually.

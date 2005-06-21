@@ -1,0 +1,8 @@
+.deps
+.libs
+Makefile
+Makefile.in
+*.la
+*.lo
+schroot.1
+schroot.conf.5
