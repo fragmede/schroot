@@ -52,6 +52,8 @@ AC_PROG_CXX
 AC_PROG_CC
 dnl AC_PROG_CC_C99
 AC_PROG_LIBTOOL
+AM_GNU_GETTEXT_VERSION([0.14.5])
+AM_GNU_GETTEXT([external])
 AC_PATH_PROG([GLIB_MKENUMS], [glib-mkenums])
 AC_PATH_PROG([GLIB_GENMARSHAL], [glib-genmarshal])
 GTK_DOC_CHECK([1.2])
@@ -125,6 +127,7 @@ AC_DEFINE_UNQUOTED(SCHROOT_MODULEDIR, ["$SCHROOT_MODULEDIR"])
 dnl Configure which files to generate.
 AC_CONFIG_FILES([doc/Makefile])
 AC_CONFIG_FILES([doc/schroot/Makefile])
+AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([schroot/Makefile])
 AC_CONFIG_FILES([schroot/pam/Makefile])
 AC_CONFIG_FILES([schroot/schroot.1])

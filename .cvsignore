@@ -19,6 +19,7 @@ configure
 intl
 ltmain.sh
 libtool
+m4
 m4local
 stamp-h
 stamp-h*

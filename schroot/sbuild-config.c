@@ -44,6 +44,9 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#include <glib.h>
+#include <glib/gi18n.h>
+
 #include "sbuild-config.h"
 
 /**
@@ -110,7 +113,7 @@ sbuild_config_check_security(int      fd,
     {
       g_set_error(error,
 		  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_STAT_FAIL,
-		  "failed to stat file: %s", g_strerror(errno));
+		  _("failed to stat file: %s"), g_strerror(errno));
       return FALSE;
     }
 
@@ -118,7 +121,7 @@ sbuild_config_check_security(int      fd,
     {
       g_set_error(error,
 		  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_OWNERSHIP,
-		  "not owned by user root");
+		  _("not owned by user root"));
       return FALSE;
     }
 
@@ -126,7 +129,7 @@ sbuild_config_check_security(int      fd,
     {
       g_set_error(error,
 		  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_PERMISSIONS,
-		  "others have write permission");
+		  _("others have write permission"));
       return FALSE;
     }
 
@@ -134,7 +137,7 @@ sbuild_config_check_security(int      fd,
     {
       g_set_error(error,
 		  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_NOT_REGULAR,
-		  "not a regular file");
+		  _("not a regular file"));
       return FALSE;
     }
 
@@ -158,7 +161,7 @@ sbuild_config_load (const char *file)
   int fd = open(file, O_RDONLY|O_NOFOLLOW);
   if (fd < 0)
     {
-      g_printerr("%s: failed to load configuration: %s\n", file, g_strerror(errno));
+      g_printerr(_("%s: failed to load configuration: %s\n"), file, g_strerror(errno));
       exit (EXIT_FAILURE);
     }
 
@@ -166,7 +169,7 @@ sbuild_config_load (const char *file)
   sbuild_config_check_security(fd, &security_error);
   if (security_error)
     {
-      g_printerr("%s: security failure: %s\n", file, security_error->message);
+      g_printerr(_("%s: security failure: %s\n"), file, security_error->message);
       exit (EXIT_FAILURE);
     }
 
@@ -180,7 +183,7 @@ sbuild_config_load (const char *file)
   g_io_channel_read_to_end(channel, &data, &size, &read_error);
   if (read_error)
     {
-      g_printerr("%s: read failure: %s\n", file, read_error->message);
+      g_printerr(_("%s: read failure: %s\n"), file, read_error->message);
       exit (EXIT_FAILURE);
     }
 
@@ -188,7 +191,7 @@ sbuild_config_load (const char *file)
   g_io_channel_shutdown(channel, FALSE, &close_error);
   if (close_error)
     {
-      g_printerr("%s: close failure: %s\n", file, close_error->message);
+      g_printerr(_("%s: close failure: %s\n"), file, close_error->message);
       exit (EXIT_FAILURE);
     }
 
@@ -200,7 +203,7 @@ sbuild_config_load (const char *file)
 
   if (parse_error)
     {
-      g_printerr("%s: parse failure: %s\n", file, parse_error->message);
+      g_printerr(_("%s: parse failure: %s\n"), file, parse_error->message);
       exit (EXIT_FAILURE);
     }
 
@@ -493,7 +496,7 @@ sbuild_config_validate_chroots(SbuildConfig  *config,
       SbuildChroot *chroot = sbuild_config_find_alias(config, chroots[i]);
       if (chroot == NULL)
 	{
-	  g_printerr("%s: No such chroot\n", chroots[i]);
+	  g_printerr(_("%s: No such chroot\n"), chroots[i]);
 	  success = FALSE;
 	}
     }

@@ -20,7 +20,7 @@
 #
 #####################################################################
 
-SUBDIRS = schroot doc
+SUBDIRS = schroot doc po
 
 # Remove CVS directories from the generated tarball.
 dist-hook:

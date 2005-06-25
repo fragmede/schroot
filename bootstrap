@@ -6,6 +6,8 @@ else
 fi
 echo "libtoolize"
 libtoolize --force --copy
+echo "autopoint"
+autopoint --force
 echo "gtkdocize"
 gtkdocize --copy --docdir scripts
 echo "aclocal"

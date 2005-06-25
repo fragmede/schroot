@@ -4,5 +4,6 @@ Makefile
 Makefile.in
 *.la
 *.lo
+schroot
 schroot.1
 schroot.conf.5

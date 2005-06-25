@@ -22,8 +22,10 @@
 
 SUBDIRS = pam
 
+localedir = $(datadir)/locale
+
 AM_CFLAGS = -std=c99
-DEFS = -DSCHROOT_CONFIG_FILE="\"$(sysconfdir)/schroot.conf\"" -DG_LOG_DOMAIN=\"Schroot\"
+DEFS = -DSCHROOT_CONFIG_FILE="\"$(sysconfdir)/schroot.conf\"" -DG_LOG_DOMAIN=\"Schroot\" -DGETTEXT_PACKAGE=\"schroot\" -DLOCALEDIR=\"$(localedir)\"
 
 bin_PROGRAMS = schroot
 
@@ -37,7 +39,7 @@ schroot_SOURCES = \
 	sbuild-session.c
 
 schroot_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
-schroot_LDADD = $(GOBJECT_LIBS) $(PAM_LIBS)
+schroot_LDADD = $(GOBJECT_LIBS) $(PAM_LIBS) $(LIBINTL)
 
 if ENABLE_GTK_DOC
 noinst_LTLIBRARIES = libschroot.la

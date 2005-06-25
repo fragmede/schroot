@@ -36,6 +36,9 @@
 
 #include <config.h>
 
+#include <glib.h>
+#include <glib/gi18n.h>
+
 #include "sbuild-chroot.h"
 
 enum
@@ -386,17 +389,18 @@ sbuild_chroot_set_aliases (SbuildChroot  *chroot,
 void sbuild_chroot_print_details (SbuildChroot *chroot,
 				  FILE         *file)
 {
-  g_fprintf(file, "Name: %s\nDescription: %s\nLocation: %s\n",
-	    chroot->name, chroot->description, chroot->location);
-  g_fprintf(file, "Groups:");
+  g_fprintf(file, _("Name: %s\n"), chroot->name);
+  g_fprintf(file, _("Description: %s\n"), chroot->description);
+  g_fprintf(file, _("Location: %s\n"), chroot->location);
+  g_fprintf(file, _("Groups:"));
   if (chroot->groups)
     for (guint i=0; chroot->groups[i] != NULL; ++i)
       g_fprintf(file, " %s", chroot->groups[i]);
-  g_fprintf(file, "\nRoot Groups:");
+  g_fprintf(file, "\n%s", _( "Root Groups:"));
   if (chroot->root_groups)
     for (guint i=0; chroot->root_groups[i] != NULL; ++i)
       g_fprintf(file, " %s", chroot->root_groups[i]);
-  g_fprintf(file, "\nAliases:");
+  g_fprintf(file, "\n%s", _( "Aliases:"));
   if (chroot->aliases)
     for (guint i=0; chroot->aliases[i] != NULL; ++i)
       g_fprintf(file, " %s", chroot->aliases[i]);

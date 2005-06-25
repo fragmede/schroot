@@ -1,3 +1,26 @@
+2005-06-25  Roger Leigh  <rleigh@debian.org>
+
+	* Remove UCS characters from string literals.  For the time being,
+	gettext will have to handle this.
+
+	* Update .cvsignore files.
+
+	* TODO: Remove gettext item.
+
+	* po/en.po: Add an English translation, to make use of UTF-8
+	characters.
+
+	* schroot/Makefile.am, schroot/*.c: Mark up strings for
+	translation with gettext, and add gettext and locale
+	initialisation code to main().
+
+	* Add po/POTFILES.in with all C source files included.
+
+	* Add additional options to po/Makevars, to make xgettext read
+	the source as UTF-8.
+
+	* bootstrap, configure.ac, Makefile.am: add GNU gettext support.
+
 2005-06-21  Roger Leigh  <rleigh@debian.org>
 
 	* Version 0.1.1.

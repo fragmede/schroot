@@ -27,7 +27,10 @@
 
 #include <syslog.h>
 
+#include <libintl.h>
+
 #include <glib.h>
+#include <glib/gi18n.h>
 
 #include "sbuild-chroot.h"
 #include "sbuild-config.h"
@@ -60,14 +63,14 @@ static struct {
 /* Command-line options. */
 static GOptionEntry entries[] =
 {
-  { "all", 'a', 0, G_OPTION_ARG_NONE, &opt.all, "Run command in all chroots", NULL },
-  { "chroot", 'c', 0, G_OPTION_ARG_STRING_ARRAY, &opt.chroots, "Use specified chroot", "chroot" },
-  { "user", 'u', 0, G_OPTION_ARG_STRING, &opt.user, "Username (default current user)", "user" },
-  { "list", 'l', 0, G_OPTION_ARG_NONE, &opt.list, "List available chroots", NULL },
-  { "info", 'i', 0, G_OPTION_ARG_NONE, &opt.info, "Show information about chroot", NULL },
-  { "preserve-environment", 'p', 0, G_OPTION_ARG_NONE, &opt.preserve, "Preserve user environment", NULL },
-  { "quiet", 'q', 0, G_OPTION_ARG_NONE, &opt.quiet, "Show less output", NULL },
-  { "version", 'V', 0, G_OPTION_ARG_NONE, &opt.version, "Print version information", NULL },
+  { "all", 'a', 0, G_OPTION_ARG_NONE, &opt.all, N_("Run command in all chroots"), NULL },
+  { "chroot", 'c', 0, G_OPTION_ARG_STRING_ARRAY, &opt.chroots, N_("Use specified chroot"), "chroot" },
+  { "user", 'u', 0, G_OPTION_ARG_STRING, &opt.user, N_("Username (default current user)"), "user" },
+  { "list", 'l', 0, G_OPTION_ARG_NONE, &opt.list, N_("List available chroots"), NULL },
+  { "info", 'i', 0, G_OPTION_ARG_NONE, &opt.info, N_("Show information about chroot"), NULL },
+  { "preserve-environment", 'p', 0, G_OPTION_ARG_NONE, &opt.preserve, N_("Preserve user environment"), NULL },
+  { "quiet", 'q', 0, G_OPTION_ARG_NONE, &opt.quiet, N_("Show less output"), NULL },
+  { "version", 'V', 0, G_OPTION_ARG_NONE, &opt.version, N_("Print version information"), NULL },
   { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &opt.command, NULL, NULL }
 };
 
@@ -85,8 +88,8 @@ parse_options(int   argc,
 {
   GError *error = NULL;
 
-  GOptionContext *context = g_option_context_new ("- run command or shell in a chroot");
-  g_option_context_add_main_entries (context, entries, NULL);
+  GOptionContext *context = g_option_context_new (_("- run command or shell in a chroot"));
+  g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
   g_option_context_parse (context, &argc, &argv, &error);
 }
 
@@ -99,11 +102,11 @@ parse_options(int   argc,
 void
 print_version (FILE *file)
 {
-  g_fprintf(file, "schroot (Debian sbuild) %s\n", VERSION);
-  g_fprintf(file, "Written by Roger Leigh\n\n");
-  g_fprintf(file, "Copyright © 2004-2005 Roger Leigh\n");
-  g_fprintf(file, "This is free software; see the source for copying conditions.  There is NO\n");
-  g_fprintf(file, "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n");
+  g_fprintf(file, _("schroot (Debian sbuild) %s\n"), VERSION);
+  g_fprintf(file, _("Written by Roger Leigh\n\n"));
+  g_fprintf(file, _("Copyright (C) 2004-2005 Roger Leigh\n"));
+  g_fprintf(file, _("This is free software; see the source for copying conditions.  There is NO\n"
+		    "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"));
 }
 
 /**
@@ -139,7 +142,7 @@ get_chroot_options(SbuildConfig *config)
     }
   else if (opt.chroots == NULL)
     {
-      g_printerr("No chroot specified.  Use --chroot or --all.\n");
+      g_printerr(_("No chroot specified.  Use --chroot or --all.\n"));
       exit (EXIT_FAILURE);
     }
   else
@@ -185,6 +188,11 @@ main (int   argc,
 {
   g_type_init();
 
+  setlocale (LC_ALL, "");
+
+  bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
+  textdomain (GETTEXT_PACKAGE);
+
 #ifndef SBUILD_DEBUG
   /* Discard g_debug output for this logging domain. */
   g_log_set_handler (G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, debug_logfunc, NULL);
@@ -216,7 +224,7 @@ main (int   argc,
   char **chroots = get_chroot_options(config);
   if (chroots == NULL)
     {
-      g_printerr("No chroots defined in %s\n", SCHROOT_CONFIG_FILE);
+      g_printerr(_("No chroots defined in %s\n"), SCHROOT_CONFIG_FILE);
       exit (EXIT_FAILURE);
     }
 
@@ -247,7 +255,7 @@ main (int   argc,
   GError *session_error = NULL;
   sbuild_session_run(session, &child_status, &session_error);
   if (session_error)
-    g_printerr("Session failure: %s\n", session_error->message);
+    g_printerr(_("Session failure: %s\n"), session_error->message);
 
   g_object_unref(G_OBJECT(session));
   g_object_unref(G_OBJECT(config));

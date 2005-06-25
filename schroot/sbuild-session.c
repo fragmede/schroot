@@ -35,6 +35,9 @@
 
 #include <syslog.h>
 
+#include <glib.h>
+#include <glib/gi18n.h>
+
 #include "sbuild-session.h"
 
 /**
@@ -151,7 +154,7 @@ sbuild_session_set_user (SbuildSession *session,
       struct passwd *pwent = getpwnam(session->user);
       if (pwent == NULL)
 	{
-	  g_printerr("%s: user not found: %s\n", session->user, g_strerror(errno));
+	  g_printerr(_("%s: user not found: %s\n"), session->user, g_strerror(errno));
 	  exit (EXIT_FAILURE);
 	}
       session->uid = pwent->pw_uid;
@@ -377,22 +380,22 @@ is_group_member (const char *group)
   if (groupbuf == NULL)
     {
       if (errno == 0)
-	g_printerr("%s: group not found\n", group);
+	g_printerr(_("%s: group not found\n"), group);
       else
-	g_printerr("%s: group not found: %s\n", group, g_strerror(errno));
+	g_printerr(_("%s: group not found: %s\n"), group, g_strerror(errno));
       exit (EXIT_FAILURE);
     }
 
   int supp_group_count = getgroups(0, NULL);
   if (supp_group_count < 0)
     {
-      g_printerr("can't get supplementary group count: %s\n", g_strerror(errno));
+      g_printerr(_("can't get supplementary group count: %s\n"), g_strerror(errno));
       exit (EXIT_FAILURE);
     }
   gid_t supp_groups[supp_group_count];
   if (getgroups(supp_group_count, supp_groups) < 1)
     {
-      g_printerr("can't get supplementary groups: %s\n", g_strerror(errno));
+      g_printerr(_("can't get supplementary groups: %s\n"), g_strerror(errno));
       exit (EXIT_FAILURE);
     }
 
@@ -463,7 +466,7 @@ sbuild_session_require_auth (SbuildSession *session)
 						      session->chroots[i]);
       if (chroot == NULL) // Should never happen, but cater for it anyway.
 	{
-	  g_warning("No chroot found matching alias %s", session->chroots[i]);
+	  g_warning(_("No chroot found matching alias '%s'"), session->chroots[i]);
 	  auth = set_auth(auth, SBUILD_SESSION_AUTH_FAIL);
 	}
 
@@ -557,7 +560,7 @@ sbuild_session_pam_start (SbuildSession  *session,
     {
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_STARTUP,
-		  "PAM error: %s", pam_strerror(session->pam, pam_status));
+		  _("PAM error: %s"), pam_strerror(session->pam, pam_status));
       g_debug("pam_start FAIL");
       return FALSE;
     }
@@ -593,7 +596,7 @@ sbuild_session_pam_auth (SbuildSession  *session,
     {
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
-		  "PAM set RUSER error: %s", pam_strerror(session->pam, pam_status));
+		  _("PAM set RUSER error: %s"), pam_strerror(session->pam, pam_status));
       g_debug("pam_set_item (PAM_RUSER) FAIL");
       return FALSE;
     }
@@ -605,7 +608,7 @@ sbuild_session_pam_auth (SbuildSession  *session,
     {
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_HOSTNAME,
-		  "Failed to get hostname: %s\n", g_strerror(errno));
+		  _("Failed to get hostname: %s\n"), g_strerror(errno));
       g_debug("gethostname FAIL");
       return FALSE;
     }
@@ -615,7 +618,7 @@ sbuild_session_pam_auth (SbuildSession  *session,
     {
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
-		  "PAM set RHOST error: %s", pam_strerror(session->pam, pam_status));
+		  _("PAM set RHOST error: %s"), pam_strerror(session->pam, pam_status));
       g_debug("pam_set_item (PAM_RHOST) FAIL");
       return FALSE;
     }
@@ -631,7 +634,7 @@ sbuild_session_pam_auth (SbuildSession  *session,
 	{
 	  g_set_error(error,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
-		      "PAM set TTY error: %s", pam_strerror(session->pam, pam_status));
+		      _("PAM set TTY error: %s"), pam_strerror(session->pam, pam_status));
 	  g_debug("pam_set_item (PAM_TTY) FAIL");
 	  return FALSE;
 	}
@@ -646,7 +649,7 @@ sbuild_session_pam_auth (SbuildSession  *session,
 	{
 	  g_set_error(error,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
-		      "PAM set USER error: %s", pam_strerror(session->pam, pam_status));
+		      _("PAM set USER error: %s"), pam_strerror(session->pam, pam_status));
 	  g_debug("pam_set_item (PAM_USER) FAIL");
 	  return FALSE;
 	}
@@ -658,10 +661,10 @@ sbuild_session_pam_auth (SbuildSession  *session,
 	{
 	  g_set_error(error,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_AUTHENTICATE,
-		      "PAM authentication failed: %s\n", pam_strerror(session->pam, pam_status));
+		      _("PAM authentication failed: %s\n"), pam_strerror(session->pam, pam_status));
 	  g_debug("pam_authenticate FAIL");
 	  char *chroots = g_strjoinv(", ", session->chroots);
-	  syslog(LOG_AUTH|LOG_WARNING, "[%s] %s:%s Authentication failure",
+	  syslog(LOG_AUTH|LOG_WARNING, "[%s] %s->%s Authentication failure",
 		 chroots, session->ruser, session->user);
 	  g_free(chroots);
 	  return FALSE;
@@ -673,12 +676,13 @@ sbuild_session_pam_auth (SbuildSession  *session,
 	{
 	  g_set_error(error,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_AUTHENTICATE,
-		      "access not authorised");
+		      _("access not authorised"));
 	  g_debug("PAM auth premature FAIL");
-	  g_printerr("You do not have permission to access the specified chroots.\n");
-	  g_printerr("This failure will be reported.\n");
+	  g_printerr(_("You do not have permission to access the specified chroots.\n"));
+	  g_printerr(_("This failure will be reported.\n"));
 	  char *chroots = g_strjoinv(", ", session->chroots);
-	  syslog(LOG_AUTH|LOG_WARNING, "[%s] %s:%s Unauthorised attempt to access chroots",
+	  syslog(LOG_AUTH|LOG_WARNING,
+		 "[%s] %s->%s Unauthorised attempt to access chroots",
 		 chroots, session->ruser, session->user);
 	  g_free(chroots);
 	  return FALSE;
@@ -720,7 +724,7 @@ sbuild_session_pam_setupenv (SbuildSession  *session,
 		 not login or ssh. */
 	      g_set_error(error,
 			  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_PUTENV,
-			  "PAM error: %s\n", pam_strerror(session->pam, pam_status));
+			  _("PAM error: %s\n"), pam_strerror(session->pam, pam_status));
 	      g_debug("pam_putenv FAIL");
 	      return FALSE;
 	    }
@@ -757,7 +761,7 @@ sbuild_session_pam_account (SbuildSession  *session,
 	 not login or ssh. */
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_ACCOUNT,
-		  "PAM error: %s\n", pam_strerror(session->pam, pam_status));
+		  _("PAM error: %s\n"), pam_strerror(session->pam, pam_status));
       g_debug("pam_acct_mgmt FAIL");
       return FALSE;
     }
@@ -790,7 +794,7 @@ sbuild_session_pam_cred_establish (SbuildSession  *session,
     {
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_CREDENTIALS,
-		  "PAM error: %s\n", pam_strerror(session->pam, pam_status));
+		  _("PAM error: %s\n"), pam_strerror(session->pam, pam_status));
       g_debug("pam_setcred FAIL");
       return FALSE;
     }
@@ -824,7 +828,7 @@ sbuild_session_pam_open (SbuildSession  *session,
     {
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SESSION_OPEN,
-		  "PAM error: %s", pam_strerror(session->pam, pam_status));
+		  _("PAM error: %s"), pam_strerror(session->pam, pam_status));
       g_debug("pam_open_session FAIL");
       return FALSE;
     }
@@ -857,7 +861,7 @@ sbuild_session_pam_close (SbuildSession  *session,
     {
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SESSION_CLOSE,
-		  "PAM error: %s", pam_strerror(session->pam, pam_status));
+		  _("PAM error: %s"), pam_strerror(session->pam, pam_status));
       g_debug("pam_close_session FAIL");
       return FALSE;
     }
@@ -890,7 +894,7 @@ sbuild_session_pam_cred_delete (SbuildSession  *session,
     {
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_DELETE_CREDENTIALS,
-		  "PAM error: %s", pam_strerror(session->pam, pam_status));
+		  _("PAM error: %s"), pam_strerror(session->pam, pam_status));
       g_debug("pam_setcred (delete) FAIL");
       return FALSE;
     }
@@ -924,7 +928,7 @@ sbuild_session_pam_stop (SbuildSession  *session,
     {
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SHUTDOWN,
-		  "PAM error: %s", pam_strerror(session->pam, pam_status));
+		  _("PAM error: %s"), pam_strerror(session->pam, pam_status));
       g_debug("pam_end FAIL");
       return FALSE;
     }
@@ -965,7 +969,7 @@ sbuild_session_run_chroot (SbuildSession  *session,
     {
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_FORK,
-		  "Failed to fork child: %s", g_strerror(errno));
+		  _("Failed to fork child: %s"), g_strerror(errno));
       return FALSE;
     }
   else if (pid == 0)
@@ -976,7 +980,7 @@ sbuild_session_run_chroot (SbuildSession  *session,
       sbuild_session_pam_open(session, &pam_error);
       if (pam_error != NULL)
 	{
-	  g_printerr("PAM error: %s\n", pam_error->message);
+	  g_printerr(_("PAM error: %s\n"), pam_error->message);
 	  exit (EXIT_FAILURE);
 	}
       const char *location = sbuild_chroot_get_location(session_chroot);
@@ -985,46 +989,46 @@ sbuild_session_run_chroot (SbuildSession  *session,
       /* Set group ID and supplementary groups */
       if (setgid (session->gid))
 	{
-	  fprintf (stderr, "Could not set gid to %lu\n", (unsigned long) session->gid);
+	  fprintf (stderr, _("Could not set gid to '%lu'\n"), (unsigned long) session->gid);
 	  exit (EXIT_FAILURE);
 	}
       if (initgroups (session->user, session->gid))
 	{
-	  fprintf (stderr, "Could not set supplementary group IDs\n");
+	  fprintf (stderr, _("Could not set supplementary group IDs\n"));
 	  exit (EXIT_FAILURE);
 	}
 
       /* Enter the chroot */
       if (chdir (location))
 	{
-	  fprintf (stderr, "Could not chdir to %s: %s\n", location,
+	  fprintf (stderr, _("Could not chdir to '%s': %s\n"), location,
 		   g_strerror (errno));
 	  exit (EXIT_FAILURE);
 	}
       if (chroot (location))
 	{
-	  fprintf (stderr, "Could not chroot to %s: %s\n", location,
+	  fprintf (stderr, _("Could not chroot to '%s': %s\n"), location,
 		   g_strerror (errno));
 	  exit (EXIT_FAILURE);
 	}
-      /* printf ("Entered chroot: %s\n", location); */
+      /* printf (_("Entered chroot: %s\n"), location); */
 
       /* Set uid and check we are not still root */
       if (setuid (session->uid))
 	{
-	  fprintf (stderr, "Could not set uid to %lu\n", (unsigned long) session->uid);
+	  fprintf (stderr, _("Could not set uid to '%lu'\n"), (unsigned long) session->uid);
 	  exit (EXIT_FAILURE);
 	}
       if (!setuid (0) && session->uid)
 	{
-	  fprintf (stderr, "Failed to drop root permissions.\n");
+	  fprintf (stderr, _("Failed to drop root permissions.\n"));
 	  exit (EXIT_FAILURE);
 	}
 
       /* chdir to current directory */
       if (chdir (cwd))
 	{
-	  fprintf (stderr, "warning: Could not chdir to %s: %s\n", cwd,
+	  fprintf (stderr, _("warning: Could not chdir to '%s': %s\n"), cwd,
 		   g_strerror (errno));
 	}
       g_free(cwd);
@@ -1061,31 +1065,46 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	  session->command[1] = NULL;
 
 	  g_debug("Running login shell: %s", session->shell);
-	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] %s:%s Running login shell: %s",
+	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running login shell: \"%s\"",
 		 sbuild_chroot_get_name(session_chroot), session->ruser,
 		 session->user, session->shell);
 	  if (session->quiet == FALSE)
-	    g_printerr("[%s chroot] Running login shell: %s\n",
-		       sbuild_chroot_get_name(session_chroot), session->shell);
+	    {
+	      if (session->ruid == session->uid)
+		g_printerr(_("[%s chroot] Running login shell: \"%s\"\n"),
+			   sbuild_chroot_get_name(session_chroot), session->shell);
+	      else
+		g_printerr(_("[%s chroot] (%s->%s) Running login shell: \"%s\"\n"),
+			   sbuild_chroot_get_name(session_chroot),
+			   session->ruser, session->user, session->shell);
+
+	    }
 	}
       else
 	{
 	  file = g_strdup(session->command[0]);
 	  char *command = g_strjoinv(" ", session->command);
 	  g_debug("Running command: %s", command);
-	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] %s:%s Running command: %s",
+	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
 		 sbuild_chroot_get_name(session_chroot), session->ruser,
 		 session->user, command);
 	  if (session->quiet == FALSE)
-	    g_printerr("[%s chroot] Running command: %s\n",
-		       sbuild_chroot_get_name(session_chroot), command);
+	    {
+	      if (session->ruid == session->uid)
+		g_printerr(_("[%s chroot] Running command: \"%s\"\n"),
+			   sbuild_chroot_get_name(session_chroot), command);
+	      else
+		g_printerr(_("[%s chroot] (%s->%s) Running command: \"%s\"\n"),
+			   sbuild_chroot_get_name(session_chroot),
+			   session->ruser, session->user, command);
+	    }
 	  g_free(command);
 	}
 
       /* Execute */
       if (execve (file, session->command, env))
 	{
-	  fprintf (stderr, "Could not exec %s: %s\n", session->command[0],
+	  fprintf (stderr, _("Could not exec \"%s\": %s\n"), session->command[0],
 		   g_strerror (errno));
 	  exit (EXIT_FAILURE);
 	}
@@ -1101,7 +1120,7 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	{
 	  g_set_error(error,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
-		      "wait for child failed: %s\n", g_strerror (errno));
+		      _("wait for child failed: %s\n"), g_strerror (errno));
 	  return FALSE;
 	}
 
@@ -1119,7 +1138,7 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	{
 	  g_set_error(error,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SESSION_CLOSE,
-		      "PAM error: %s", pam_strerror(session->pam, pam_status));
+		      _("PAM error: %s"), pam_strerror(session->pam, pam_status));
 	  return FALSE;
 	}
       if (!WIFEXITED(status))
@@ -1127,16 +1146,16 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	  if (WIFSIGNALED(status))
 	    g_set_error(error,
 			SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
-			"Child terminated by signal %s",
+			_("Child terminated by signal '%s'"),
 			strsignal(WTERMSIG(status)));
 	  else if (WCOREDUMP(status))
 	    g_set_error(error,
 			SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
-			"Child dumped core");
+			_("Child dumped core"));
 	  else
 	    g_set_error(error,
 			SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
-			"Child exited abnormally (reason unknown; not a signal or core dump)");
+			_("Child exited abnormally (reason unknown; not a signal or core dump)"));
 	  return FALSE;
 	}
 
@@ -1145,7 +1164,7 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	{
 	  g_set_error(error,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
-		      "Child exited abnormally with status %d",
+		      _("Child exited abnormally with status '%d'"),
 		      *child_status);
 	  return FALSE;
 	}
@@ -1271,7 +1290,7 @@ sbuild_session_init (SbuildSession *session)
   struct passwd *pwent = getpwuid(session->ruid);
   if (pwent == NULL)
     {
-      g_printerr("%lu: user not found: %s\n", (unsigned long) session->ruid,
+      g_printerr(_("%lu: user not found: %s\n"), (unsigned long) session->ruid,
 		 g_strerror(errno));
       exit (EXIT_FAILURE);
     }
