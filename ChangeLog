@@ -1,4 +1,9 @@
-2005-06-25  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2005-06-25  Roger Leigh  <rleigh@debian.org>
+
+	* debian/control (Standards-Version): Upgrade to Standards-Version
+	3.6.2.
+
+2005-06-25  Roger Leigh  <rleigh@debian.org>
 
 	* configure.ac, NEWS, debian/changelog: Increase version number to
 	0.1.2.
