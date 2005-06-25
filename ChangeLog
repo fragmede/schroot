@@ -1,3 +1,8 @@
+2005-06-25  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* configure.ac, NEWS, debian/changelog: Increase version number to
+	0.1.2.
+
 2005-06-25  Roger Leigh  <rleigh@debian.org>
 
 	* Remove UCS characters from string literals.  For the time being,
