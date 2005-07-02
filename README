@@ -9,6 +9,15 @@ libpam0g-dev
 libglib2.0-dev
 A C99 C compiler
 
+Translation
+-----------
+
+If you would like to see the schroot messages output in your own
+language, please consider translating the pot file (po/schroot.pot).
+You will need to join the appropriate language team at the Free
+Translation Project (http://www.iro.umontreal.ca/translation/) in
+order to submit your translation.
+
 Building and installation
 -------------------------
 
@@ -24,14 +33,14 @@ Running
 
 See schroot(1).
 
-$ ./schroot -l
+$ schroot -l
 default
 etch
 sid
 testing
 unstable
 
-$ ./schroot -i -c sid
+$ schroot -i -c sid
 Name: sid
 Description: Debian unstable
 Location: /srv/chroot/sid
@@ -41,26 +50,18 @@ Aliases: unstable default
 
 (use --all or -c multiple times to use multiple chroots)
 
-$ ./schroot -c sid /bin/ls
-** (schroot:13021): DEBUG: session uid = 1000, gid = 1000
+$ schroot -c sid /bin/ls
+[sid chroot] Running command: “/bin/ls”
+CVS          sbuild-chroot.c   sbuild-session.h  schroot.conf.5
+Makefile     sbuild-chroot.h   schroot.1         schroot.conf.5.in
+Makefile.am  sbuild-config.c   schroot.1.in
+Makefile.in  sbuild-config.h   schroot.c
+pam          sbuild-session.c  schroot.conf
 
-PAM authentication succeeded for user rleigh
-Running session in sid chroot:
-** (schroot:13022): DEBUG: Running command: /bin/ls
-#README#         sbuild-chroot.h  sbuild-config.h   sbuild-session.h  schroot.c
-Makefile         sbuild-chroot.o  sbuild-config.o   sbuild-session.o  schroot.o
-sbuild-chroot.c  sbuild-config.c  sbuild-session.c  schroot           test.conf
-
-$ ./schroot -c sid -u root
-** (schroot:13031): DEBUG: session uid = 1000, gid = 1000
-
-** (schroot:13031): DEBUG: session uid = 0, gid = 0
-
+$ schroot -c sid -u root
 Password:
-PAM authentication succeeded for user root
-Running session in sid chroot:
-** (schroot:13032): DEBUG: Running login shell: /bin/bash
+[sid chroot] (rleigh→root) Running login shell: “/bin/bash”
 
 (if I was in root-groups in test.conf, I would be granted root access
 without authentication, but the PAM authorisation step is still
-applied; see sbuild_session_run() in sbuild-session.c).
+applied; see sbuild_session_run() in sbuild-session.c.)
