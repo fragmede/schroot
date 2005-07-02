@@ -63,7 +63,6 @@ The configuration format is an INI-style format used by the GLib GKeyFile
 class, and is fully documented in the GLib API reference.  Here, only the
 features used and required by schroot are documented.
 .SH EXAMPLE
-.RS
 \f[CR]# Sample configuration\fP
 .br
 \f[CR]\fP
@@ -91,8 +90,6 @@ features used and required by schroot are documented.
 \f[CR]#groups=sbuild-security\fP
 .br
 \f[CR]aliases=testing\fP
-.br
-\f[CR].RE\fP
 .SH FILES
 .TP
 .I @prefix@/etc/schroot.conf

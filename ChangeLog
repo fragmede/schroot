@@ -1,5 +1,13 @@
 2005-07-02  Roger Leigh  <rleigh@debian.org>
 
+	* README: Remove usage examples.
+
+	* schroot/schroot.conf.5.in: Don't indent example.
+
+	* schroot/schroot.1.in: Add usage examples.
+
+2005-07-02  Roger Leigh  <rleigh@debian.org>
+
 	* Updated README (translation and usage examples).
 
 	* po/en_GB.po: Add British English translation.

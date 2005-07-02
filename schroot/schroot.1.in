@@ -58,10 +58,68 @@ to use a clean environment; this option copies the entire user environment and
 sets it in the session.
 .TP
 .B \-q, \-\-quiet
-Print only essential messages.  This option is not yet implemented.
+Print only essential messages.
 .TP
 .B \-V, \-\-version
 Print version information.
+.SH EXAMPLES
+\f[CR]$ \f[CB]schroot -l\fP\fP
+.br
+\f[CR]default\fP
+.br
+\f[CR]etch\fP
+.br
+\f[CR]sid\fP
+.br
+\f[CR]testing\fP
+.br
+\f[CR]unstable\fP
+.br
+\f[CR]\fP
+.br
+.PP
+\f[CR]$ \f[CB]schroot -i -c sid\fP\fP
+.br
+\f[CR]Name: sid\fP
+.br
+\f[CR]Description: Debian unstable\fP
+.br
+\f[CR]Location: /srv/chroot/sid\fP
+.br
+\f[CR]Groups: sbuild\fP
+.br
+\f[CR]Root Groups: root\fP
+.br
+\f[CR]Aliases: unstable default\fP
+.LP
+Use \-\-all or \-c multiple times to use all or multiple chroots, respectively.
+.PP
+\f[CR]$ \f[CB]schroot -c sid /bin/ls\fP\fP
+.br
+\f[CR][sid chroot] Running command: \[lq]/bin/ls\[rq]\fP
+.br
+\f[CR]CVS          sbuild-chroot.c   sbuild-session.h  schroot.conf.5\fP
+.br
+\f[CR]Makefile     sbuild-chroot.h   schroot.1         schroot.conf.5.in\fP
+.br
+\f[CR]Makefile.am  sbuild-config.c   schroot.1.in\fP
+.br
+\f[CR]Makefile.in  sbuild-config.h   schroot.c\fP
+.br
+\f[CR]pam          sbuild-session.c  schroot.conf\fP
+.br
+.PP
+\f[CR]$ \f[CB]schroot -c sid -u root\fP\fP
+.br
+\f[CR]Password:\FP
+.br
+\f[CR][sid chroot] (rleigh\[->]root) Running login shell: \[lq]/bin/bash\[rq]\fP
+.br
+\f[CR]# \fP
+.LP
+If the user \[lq]rleigh\[rq] was in \fIroot\-groups\fP in \fIschroot.conf\fP,
+they would be granted root access without authentication, but the PAM
+authorisation step is still applied.
 .SH BUGS
 None known at this time.
 .SH FILES
