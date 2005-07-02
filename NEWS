@@ -8,6 +8,8 @@ building and configuration.
 
   1) Support for gettext has been added, to allow localisation into
      any language.
+  2) If a command is specified, it will be searched for in $PATH.
+     Previously, an absolute path was always required.
 
 * Major changes in 0.1.1:
 

@@ -63,7 +63,7 @@ Print only essential messages.
 .B \-V, \-\-version
 Print version information.
 .SH EXAMPLES
-\f[CR]$ \f[CB]schroot -l\fP\fP
+\f[CR]$ \f[CB]schroot \-l\fP\fP
 .br
 \f[CR]default\fP
 .br
@@ -76,9 +76,8 @@ Print version information.
 \f[CR]unstable\fP
 .br
 \f[CR]\fP
-.br
 .PP
-\f[CR]$ \f[CB]schroot -i -c sid\fP\fP
+\f[CR]$ \f[CB]schroot \-i \-c sid\fP\fP
 .br
 \f[CR]Name: sid\fP
 .br
@@ -94,22 +93,43 @@ Print version information.
 .LP
 Use \-\-all or \-c multiple times to use all or multiple chroots, respectively.
 .PP
-\f[CR]$ \f[CB]schroot -c sid /bin/ls\fP\fP
+\f[CR]$ \f[CB]schroot \-c sid /bin/ls\fP\fP
 .br
 \f[CR][sid chroot] Running command: \[lq]/bin/ls\[rq]\fP
 .br
-\f[CR]CVS          sbuild-chroot.c   sbuild-session.h  schroot.conf.5\fP
+\f[CR]CVS          sbuild\-chroot.c   sbuild\-session.h  schroot.conf.5\fP
 .br
-\f[CR]Makefile     sbuild-chroot.h   schroot.1         schroot.conf.5.in\fP
+\f[CR]Makefile     sbuild\-chroot.h   schroot.1         schroot.conf.5.in\fP
 .br
-\f[CR]Makefile.am  sbuild-config.c   schroot.1.in\fP
+\f[CR]Makefile.am  sbuild\-config.c   schroot.1.in\fP
 .br
-\f[CR]Makefile.in  sbuild-config.h   schroot.c\fP
+\f[CR]Makefile.in  sbuild\-config.h   schroot.c\fP
 .br
-\f[CR]pam          sbuild-session.c  schroot.conf\fP
-.br
+\f[CR]pam          sbuild\-session.c  schroot.conf\fP
 .PP
-\f[CR]$ \f[CB]schroot -c sid -u root\fP\fP
+\f[CR]$ \f[CB]schroot \-c sid \-\- ls \-1 | head \-n 5\fP\fP
+.br
+\f[CR][sid chroot] Running command: \[lq]ls \-1\[rq]\fP
+.br
+\f[CR]ABOUT-NLS\fP
+.br
+\f[CR]AUTHORS\fP
+.br
+\f[CR]COPYING\fP
+.br
+\f[CR]ChangeLog\fP
+.br
+\f[CR]INSTALL\fP
+.LP
+Use \fB\-\-\fP to allow options beginning with \[oq]\-\[cq] or \[oq]\-\-\[cq]
+in the command to run in the chroot.  This prevents them being interpreted as
+options for schroot itself.  Note that the top line was echoed to standard
+error, and the remaining lines to standard output.  This is intentional, so
+that program output from commands run in the chroot may be piped and redirected
+as required; the data will be the same as if the command was run directly on
+the host system.
+.PP
+\f[CR]$ \f[CB]schroot \-c sid \-u root\fP\fP
 .br
 \f[CR]Password:\FP
 .br

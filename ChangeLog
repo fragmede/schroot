@@ -1,5 +1,17 @@
 2005-07-02  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.1.2.
+
+	* schroot/sbuild-session.c
+	(sbuild_session_pam_setupenv): If no environment was specified,
+	create an initial environment containing PATH and TERM.
+	(sbuild_session_run_chroot): Search PATH for the specified
+	command, in case the user didn't use an absolute path.
+
+	* schroot/schroot.1.in: Add additional usage examples.
+
+2005-07-02  Roger Leigh  <rleigh@debian.org>
+
 	* README: Remove usage examples.
 
 	* schroot/schroot.conf.5.in: Don't indent example.

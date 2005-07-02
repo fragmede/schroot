@@ -699,7 +699,9 @@ sbuild_session_pam_auth (SbuildSession  *session,
  * @session: an #SbuildSession
  * @error: a #GError
  *
- * Import the user environment into PAM.
+ * Import the user environment into PAM.  If no environment was
+ * specified with #sbuild_session_set_environment, a minimal
+ * environment will be created containing PATH and TERM.
  *
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
@@ -713,24 +715,37 @@ sbuild_session_pam_setupenv (SbuildSession  *session,
 
   int pam_status;
 
-  if (session->environment)
+  /* Initial environment to set, used if the environment was not
+     specified. */
+  char **newenv = g_new(char *, 3); // Size must be at least max envvars + 1
+  guint i = 0;
+  if (session->uid == 0)
+    newenv[i++] = g_strdup_printf("PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11");
+  else
+    newenv[i++] = g_strdup("PATH=/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games");
+  {
+    const char *term = g_getenv("TERM");
+    if (term)
+      newenv[i++] = g_strdup_printf("TERM=%s", term);
+  }
+  newenv[i] = NULL;
+
+
+  char **environment = session->environment != NULL ? session->environment : newenv;
+  for (guint i=0; environment[i] != NULL; ++i)
     {
-      for (guint i=0; session->environment[i] != NULL; ++i)
+      if ((pam_status =
+	   pam_putenv(session->pam, environment[i])) != PAM_SUCCESS)
 	{
-	  if ((pam_status =
-	       pam_putenv(session->pam, session->environment[i])) != PAM_SUCCESS)
-	    {
-	      /* We don't handle changing expired passwords here, since we are
-		 not login or ssh. */
-	      g_set_error(error,
-			  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_PUTENV,
-			  _("PAM error: %s\n"), pam_strerror(session->pam, pam_status));
-	      g_debug("pam_putenv FAIL");
-	      return FALSE;
-	    }
-	  g_debug("pam_putenv: set %s", session->environment[i]);
+	  g_set_error(error,
+		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_PUTENV,
+		      _("PAM error: %s\n"), pam_strerror(session->pam, pam_status));
+	  g_debug("pam_putenv FAIL");
+	  return FALSE;
 	}
+      g_debug("pam_putenv: set %s", environment[i]);
     }
+
   g_debug("pam_putenv OK");
   return TRUE;
 }
@@ -1082,7 +1097,10 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	}
       else
 	{
-	  file = g_strdup(session->command[0]);
+	  /* Search for program in path. */
+	  file = g_find_program_in_path(session->command[0]);
+	  if (file == NULL)
+	    file = g_strdup(session->command[0]);
 	  char *command = g_strjoinv(" ", session->command);
 	  g_debug("Running command: %s", command);
 	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
