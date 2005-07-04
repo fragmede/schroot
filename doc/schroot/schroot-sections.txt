@@ -83,3 +83,8 @@ SBUILD_IS_SESSION_CLASS
 SBUILD_SESSION_GET_CLASS
 </SECTION>
 
+<SECTION>
+<FILE>sbuild-marshallers</FILE>
+<TITLE>Closure Marshallers</TITLE>
+sbuild_cclosure_marshal_ENUM__VOID
+</SECTION>

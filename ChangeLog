@@ -1,3 +1,19 @@
+2005-07-04  Roger Leigh  <rleigh@debian.org>
+
+	* doc/schroot/schroot-docs.sgml: Include marshallers section.
+
+	* doc/schroot/schroot-sections.txt: Add marshallers section.
+
+	* schroot/schroot.h: New header.  This includes all other headers,
+	and is used by glib-mkenums.
+
+	* schroot/sbuild-marshallers.list: New file.  Generate a
+	marshaller returning an enum and taking no arguments
+	(sbuild_cclosure_marshal_ENUM__VOID).
+
+	* schroot/Makefile.am: Generate GObject closure marshallers and
+	GType typebuiltins.  Distribute the generated code.
+
 2005-07-03  Roger Leigh  <rleigh@debian.org>
 
 	* configure.ac, NEWS, debian/changelog: Increase version number to

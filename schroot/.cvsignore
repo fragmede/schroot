@@ -7,3 +7,8 @@ Makefile.in
 schroot
 schroot.1
 schroot.conf.5
+sbuild-marshallers.c
+sbuild-marshallers.h
+sbuild-typebuiltins.c
+sbuild-typebuiltins.h
+

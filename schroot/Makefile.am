@@ -29,14 +29,30 @@ DEFS = -DSCHROOT_CONFIG_FILE="\"$(sysconfdir)/schroot.conf\"" -DG_LOG_DOMAIN=\"S
 
 bin_PROGRAMS = schroot
 
-schroot_SOURCES = \
-	schroot.c \
-	sbuild-chroot.h \
-	sbuild-chroot.c \
-	sbuild-config.h \
-	sbuild-config.c \
-	sbuild-session.h \
+schroot_public_h_sources =	\
+	sbuild-config.h		\
+	sbuild-chroot.h		\
+	sbuild-session.h
+
+schroot_public_c_sources =	\
+	sbuild-chroot.c		\
+	sbuild-config.c		\
 	sbuild-session.c
+
+schroot_built_sources =		\
+	sbuild-marshallers.c	\
+	sbuild-marshallers.h	\
+	sbuild-typebuiltins.c	\
+	sbuild-typebuiltins.h
+
+BUILT_SOURCES = $(schroot_built_sources)
+
+schroot_SOURCES =			\
+	$(schroot_public_h_sources)	\
+	$(schroot_public_c_sources)	\
+	$(schroot_built_sources)	\
+	schroot.h			\
+	schroot.c
 
 schroot_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
 schroot_LDADD = $(GOBJECT_LIBS) $(PAM_LIBS) $(LIBINTL)
@@ -52,7 +68,38 @@ sysconf_DATA = schroot.conf
 
 man_MANS = schroot.1 schroot.conf.5
 
-EXTRA_DIST = $(sysconf_DATA)
+sbuild-marshallers.c : sbuild-marshallers.list $(GLIB_GENMARSHAL)
+	$(GLIB_GENMARSHAL) $< --body --prefix=sbuild_cclosure_marshal > $@.tmp
+	echo '/* This file has been automatically generated.  Do not edit.  */' >$@
+	echo '#include "'$*.h'"' >>$@
+	cat $@.tmp >>$@
+	rm -f $@.tmp
+
+sbuild-marshallers.h : sbuild-marshallers.list $(GLIB_GENMARSHAL)
+	$(GLIB_GENMARSHAL) $< --header --prefix=sbuild_cclosure_marshal > $@
+
+$(srcdir)/sbuild-typebuiltins.c: $(schroot_public_h_sources) $(typebuiltins_extra_deps) $(GLIB_MKENUMS)
+	( cd $(srcdir) && $(GLIB_MKENUMS) \
+		--fhead "#include \"schroot.h\"" \
+		--fprod "\n/* enumerations from \"@filename@\" */" \
+		--vhead "GType\n@enum_name@_get_type (void)\n{\n  static GType etype = 0;\n  if (etype == 0) {\n    static const G@Type@Value values[] = {" \
+		--vprod "      { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
+		--vtail "      { 0, NULL, NULL }\n    };\n    etype = g_@type@_register_static (\"@EnumName@\", values);\n  }\n  return etype;\n}\n" \
+		$(schroot_public_h_sources) ) > $@
+
+$(srcdir)/sbuild-typebuiltins.h: $(schroot_public_h_sources) $(typebuiltins_extra_deps) $(GLIB_MKENUMS)
+	( cd $(srcdir) && $(GLIB_MKENUMS) \
+		--fhead "#ifndef SBUILD_TYPE_BUILTINS_H\n#define SBUILD_TYPE_BUILTINS_H\n\n#include <glib-object.h>\n\nG_BEGIN_DECLS\n" \
+		--fprod "/* enumerations from \"@filename@\" */\n" \
+		--vhead "GType @enum_name@_get_type (void);\n#define SBUILD_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n" \
+		--ftail "G_END_DECLS\n\n#endif /* SBUILD_TYPE_BUILTINS_H */" \
+		$(schroot_public_h_sources) ) > $@
+
+
+EXTRA_DIST =				\
+	$(sysconf_DATA)			\
+	$(schroot_built_sources)	\
+	sbuild-marshallers.list
 
 install-exec-hook:
 # Install setuid root.
