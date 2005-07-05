@@ -1,3 +1,7 @@
+2005-07-05  Roger Leigh  <rleigh@debian.org>
+
+	* po/.cvsignore: Ignore generated files.
+
 2005-07-04  Roger Leigh  <rleigh@debian.org>
 
 	* doc/schroot/schroot-docs.sgml: Include marshallers section.
