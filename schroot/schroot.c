@@ -22,12 +22,11 @@
 #include <config.h>
 
 #define _GNU_SOURCE
+#include <locale.h>
 #include <stdlib.h>
 #include <stdio.h>
 
 #include <syslog.h>
-
-#include <libintl.h>
 
 #include <glib.h>
 #include <glib/gi18n.h>
@@ -61,7 +60,7 @@ static struct {
   };
 
 /* Command-line options. */
-static GOptionEntry entries[] =
+static const GOptionEntry entries[] =
 {
   { "all", 'a', 0, G_OPTION_ARG_NONE, &opt.all, N_("Run command in all chroots"), NULL },
   { "chroot", 'c', 0, G_OPTION_ARG_STRING_ARRAY, &opt.chroots, N_("Use specified chroot"), "chroot" },
@@ -91,6 +90,11 @@ parse_options(int   argc,
   GOptionContext *context = g_option_context_new (_("- run command or shell in a chroot"));
   g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
   g_option_context_parse (context, &argc, &argv, &error);
+  if (error != NULL)
+    {
+      g_printerr(_("Error parsing options: %s\n"), error->message);
+      exit (EXIT_FAILURE);
+    }
 }
 
 /**
