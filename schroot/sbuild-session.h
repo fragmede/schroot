@@ -56,6 +56,9 @@ typedef enum
 
 #define SBUILD_SESSION_ERROR sbuild_session_error_quark()
 
+GQuark
+sbuild_session_error_quark (void);
+
 #define SBUILD_TYPE_SESSION		  (sbuild_session_get_type ())
 #define SBUILD_SESSION(obj)		  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SBUILD_TYPE_SESSION, SbuildSession))
 #define SBUILD_SESSION_CLASS(klass)	  (G_TYPE_CHECK_CLASS_CAST ((klass), SBUILD_TYPE_SESSION, SbuildSessionClass))

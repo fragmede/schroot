@@ -1,5 +1,10 @@
 2005-07-07  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-session.h, schroot/sbuild-config.h: Make error
+	quark functions publicly visible.
+
+2005-07-07  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.c
 	(entries): Make entries const, to fix compiliation with gcc-4.0.
 	(parse_options): Check for parse errors, and exit on error.

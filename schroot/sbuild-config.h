@@ -38,6 +38,9 @@ typedef enum
 
 #define SBUILD_CONFIG_FILE_ERROR sbuild_config_file_error_quark()
 
+GQuark
+sbuild_config_file_error_quark (void);
+
 #define SBUILD_TYPE_CONFIG		  (sbuild_config_get_type ())
 #define SBUILD_CONFIG(obj)		  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SBUILD_TYPE_CONFIG, SbuildConfig))
 #define SBUILD_CONFIG_CLASS(klass)	  (G_TYPE_CHECK_CLASS_CAST ((klass), SBUILD_TYPE_CONFIG, SbuildConfigClass))
