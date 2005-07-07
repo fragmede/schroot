@@ -1,3 +1,9 @@
+2005-07-07  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-error.c, schroot/sbuild-error.h: Wrap GError as a
+	GType (SBUILD_TYPE_ERROR and SBUILD_TYPE_ERROR_POINTER) for use
+	with signals (GError * may be used as an "out" argument).
+
 2005-07-05  Roger Leigh  <rleigh@debian.org>
 
 	* po/.cvsignore: Ignore generated files.
