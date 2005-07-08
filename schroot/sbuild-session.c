@@ -61,27 +61,14 @@ sbuild_session_error_quark (void)
 enum
 {
   PROP_0,
-  PROP_UID,
-  PROP_GID,
-  PROP_USER,
-  PROP_COMMAND,
-  PROP_SHELL,
-  PROP_ENV,
-  PROP_RUID,
-  PROP_RUSER,
   PROP_CONFIG,
   PROP_CHROOTS,
-  PROP_QUIET
+  PROP_CHILD_STATUS
 };
 
 static GObjectClass *parent_class;
 
-G_DEFINE_TYPE(SbuildSession, sbuild_session, G_TYPE_OBJECT)
-
-static const struct pam_conv sbuild_session_pam_conv = {
-        misc_conv,
-        NULL
-};
+G_DEFINE_TYPE(SbuildSession, sbuild_session, SBUILD_TYPE_AUTH)
 
 /**
  * sbuild_session_new:
@@ -101,118 +88,6 @@ sbuild_session_new(SbuildConfig  *config,
 					"config", config,
 					"chroots", chroots,
 					NULL);
-}
-
-/**
- * sbuild_session_get_user:
- * @session: an #SbuildSession
- *
- * Get the name of the user.  This is the user to run as in the
- * chroot.
- *
- * Returns a string. This string points to internally allocated
- * storage in the chroot and must not be freed, modified or stored.
- */
-const char *
-sbuild_session_get_user (const SbuildSession *restrict session)
-{
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), NULL);
-
-  return session->user;
-}
-
-/**
- * sbuild_session_set_user:
- * @session: an #SbuildSession.
- * @user: the name to set.
- *
- * Get the name of the user.  This is the user to run as in the
- * chroot.
- *
- * As a side effect, the "uid", "gid" and "shell" properties will also
- * be set.
- */
-void
-sbuild_session_set_user (SbuildSession *session,
-			 const char   *user)
-{
-  g_return_if_fail(SBUILD_IS_SESSION(session));
-
-  if (session->user)
-    {
-      g_free(session->user);
-    }
-  session->user = g_strdup(user);
-  if (session->shell)
-    {
-      g_free(session->shell);
-      session->shell = NULL;
-    }
-
-  if (user != NULL)
-    {
-      struct passwd *pwent = getpwnam(session->user);
-      if (pwent == NULL)
-	{
-	  g_printerr(_("%s: user not found: %s\n"), session->user, g_strerror(errno));
-	  exit (EXIT_FAILURE);
-	}
-      session->uid = pwent->pw_uid;
-      session->gid = pwent->pw_gid;
-      session->shell = g_strdup(pwent->pw_shell);
-      g_debug("session uid = %lu, gid = %lu", (unsigned long) session->uid,
-	      (unsigned long) session->gid);
-    }
-  else
-    {
-      session->uid = 0;
-      session->gid = 0;
-      session->shell = g_strdup("/bin/false");
-    }
-
-  g_object_notify(G_OBJECT(session), "uid");
-  g_object_notify(G_OBJECT(session), "gid");
-  g_object_notify(G_OBJECT(session), "user");
-  g_object_notify(G_OBJECT(session), "shell");
-}
-
-/**
- * sbuild_session_get_command:
- * @session: an #SbuildSession
- *
- * Get the command to run in the chroot.
- *
- * Returns a string vector. This string vector points to internally
- * allocated storage in the chroot and must not be freed, modified or
- * stored.
- */
-char **
-sbuild_session_get_command (const SbuildSession *restrict session)
-{
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), NULL);
-
-  return session->command;
-}
-
-/**
- * sbuild_session_set_command:
- * @session: an #SbuildSession.
- * @command: the command to set.
- *
- * Set the command to run in the chroot.
- */
-void
-sbuild_session_set_command (SbuildSession  *session,
-			    char          **command)
-{
-  g_return_if_fail(SBUILD_IS_SESSION(session));
-
-  if (session->command)
-    {
-      g_strfreev(session->command);
-    }
-  session->command = g_strdupv(command);
-  g_object_notify(G_OBJECT(session), "command");
 }
 
 /**
@@ -254,45 +129,6 @@ sbuild_session_set_config (SbuildSession *session,
 }
 
 /**
- * sbuild_session_get_environment:
- * @session: an #SbuildSession
- *
- * Get the environment to use in @session.
- *
- * Returns a string vector. This string vector points to internally
- * allocated storage in the chroot and must not be freed, modified or
- * stored.
- */
-char **
-sbuild_session_get_environment (const SbuildSession *restrict session)
-{
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), NULL);
-
-  return session->environment;
-}
-
-/**
- * sbuild_session_set_environment:
- * @session: an #SbuildSession
- * @environment: the environment to use
- *
- * Set the environment to use in @session.
- */
-void
-sbuild_session_set_environment (SbuildSession  *session,
-				char          **environment)
-{
-  g_return_if_fail(SBUILD_IS_SESSION(session));
-
-  if (session->environment)
-    {
-      g_strfreev(session->environment);
-    }
-  session->environment = g_strdupv(environment);
-  g_object_notify(G_OBJECT(session), "environment");
-}
-
-/**
  * sbuild_session_get_chroots:
  * @session: an #SbuildSession
  *
@@ -329,39 +165,6 @@ sbuild_session_set_chroots (SbuildSession  *session,
     }
   session->chroots = g_strdupv(chroots);
   g_object_notify(G_OBJECT(session), "chroots");
-}
-
-/**
- * sbuild_session_get_quiet:
- * @session: an #SbuildSession
- *
- * Get the message verbosity of @session.
- *
- * Returns TRUE if quiet messages are enabled, otherwise FALSE.
- */
-gboolean
-sbuild_session_get_quiet (const SbuildSession *restrict session)
-{
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
-
-  return session->quiet;
-}
-
-/**
- * sbuild_session_set_quiet:
- * @session: an #SbuildSession
- * @quiet: the quiet to use
- *
- * Set the message verbosity of @session.
- */
-void
-sbuild_session_set_quiet (SbuildSession  *session,
-			  gboolean        quiet)
-{
-  g_return_if_fail(SBUILD_IS_SESSION(session));
-
-  session->quiet = quiet;
-  g_object_notify(G_OBJECT(session), "quiet");
 }
 
 /**
@@ -410,33 +213,21 @@ is_group_member (const char *group)
   return group_member;
 }
 
-typedef enum
-{
-  SBUILD_SESSION_AUTH_NONE,
-  SBUILD_SESSION_AUTH_USER,
-  SBUILD_SESSION_AUTH_FAIL
-} SbuildSessionAuthType;
-
 /**
- * set_auth:
- * @oldauth: the current authentication status
- * @newauth: the new authentication status
+ * sbuild_session_get_child_status:
+ * @session: an #SbuildSession
  *
- * Set new authentication status.  If @newauth > @oldauth, @newauth is
- * returned, otherwise @oldauth is returned.  This is to ensure the
- * authentication status can never be decreased.
+ * Get the exit (wait) status of the last child process to run in this
+ * session.
  *
- * Returns the new authentication status.
+ * Returns the exit status.
  */
-static inline SbuildSessionAuthType
-set_auth (SbuildSessionAuthType oldauth,
-	  SbuildSessionAuthType newauth)
+int
+sbuild_session_get_child_status (SbuildSession *session)
 {
-  /* Ensure auth level always escalates. */
-  if (newauth > oldauth)
-    return newauth;
-  else
-    return oldauth;
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), EXIT_FAILURE);
+
+  return session->child_status;
 }
 
 /**
@@ -450,15 +241,15 @@ set_auth (SbuildSessionAuthType oldauth,
  *
  * Returns the authentication type.
  */
-static SbuildSessionAuthType
+static SbuildAuthStatus
 sbuild_session_require_auth (SbuildSession *session)
 {
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), SBUILD_SESSION_AUTH_FAIL);
-  g_return_val_if_fail(session->chroots != NULL, SBUILD_SESSION_AUTH_FAIL);
-  g_return_val_if_fail(session->config != NULL, SBUILD_SESSION_AUTH_FAIL);
-  g_return_val_if_fail(session->user != NULL, SBUILD_SESSION_AUTH_FAIL);
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), SBUILD_AUTH_STATUS_FAIL);
+  g_return_val_if_fail(session->chroots != NULL, SBUILD_AUTH_STATUS_FAIL);
+  g_return_val_if_fail(session->config != NULL, SBUILD_AUTH_STATUS_FAIL);
 
-  SbuildSessionAuthType auth = SBUILD_SESSION_AUTH_NONE;
+  SbuildAuth *auth = SBUILD_AUTH(session);
+  SbuildAuthStatus status = SBUILD_AUTH_STATUS_NONE;
 
   for (guint i=0; session->chroots[i] != NULL; ++i)
     {
@@ -467,15 +258,15 @@ sbuild_session_require_auth (SbuildSession *session)
       if (chroot == NULL) // Should never happen, but cater for it anyway.
 	{
 	  g_warning(_("No chroot found matching alias '%s'"), session->chroots[i]);
-	  auth = set_auth(auth, SBUILD_SESSION_AUTH_FAIL);
+	  status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_FAIL);
 	}
 
       char **groups = sbuild_chroot_get_groups(chroot);
       char **root_groups = sbuild_chroot_get_root_groups(chroot);
 
-      if (session->ruid == 0) // root has universal access
+      if (auth->ruid == 0) // root has universal access
 	{
-	  auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
+	  status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_NONE);
 	}
       else if (groups != NULL)
 	{
@@ -496,467 +287,48 @@ sbuild_session_require_auth (SbuildSession *session)
 		  in_root_groups = TRUE;
 	    }
 
-	  if (session->uid == 0) // changing to root
+	  if (auth->uid == 0) // changing to root
 	    {
 	      if (in_groups == TRUE &&
 		  in_root_groups == TRUE) // No auth required
-		auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
+		status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_NONE);
 	      else if (in_groups == TRUE) // Auth required if not in root group
-		auth = set_auth(auth, SBUILD_SESSION_AUTH_USER);
+		status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_USER);
 	      else // Not in any groups
-		auth = set_auth(auth, SBUILD_SESSION_AUTH_FAIL);
+		status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_FAIL);
 	    }
 	  else // Non-root access
 	    {
 	      if (in_groups == TRUE) // Allowed to use chroot
 		{
-		  if (session->ruid == session->uid) // same user, so don't authenticate
+		  if (auth->ruid == auth->uid) // same user, so don't authenticate
 		    {
-		      auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
+		      status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_NONE);
 		    }
 		  else // Auth required
-		    auth = set_auth(auth, SBUILD_SESSION_AUTH_USER);
+		    status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_USER);
 		}
 	      else // Not in any groups
-		auth = set_auth(auth, SBUILD_SESSION_AUTH_FAIL);
+		status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_FAIL);
 	    }
-	  if (session->ruid == session->uid) // same user, so don't authenticate
+	  if (auth->ruid == auth->uid) // same user, so don't authenticate
 	    {
-	      auth = set_auth(auth, SBUILD_SESSION_AUTH_NONE);
+	      status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_NONE);
 	    }
 	}
       else // no groups entries means no access
 	{
-	  auth = set_auth(auth, SBUILD_SESSION_AUTH_FAIL);
+	  status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_FAIL);
 	}
     }
 
-  return auth;
-}
-
-/**
- * sbuild_session_pam_start:
- * @session: an #SbuildSession
- * @error: a #GError
- *
- * Start the PAM system.  No other PAM functions may be called before
- * calling this function.
- *
- * Returns TRUE on success, FALSE on failure (@error will be set to
- * indicate the cause of the failure).
- */
-static gboolean
-sbuild_session_pam_start (SbuildSession  *session,
-			  GError        **error)
-{
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
-  g_return_val_if_fail(session->user != NULL, FALSE);
-  g_return_val_if_fail(session->pam == NULL, FALSE); // Don't initialise PAM twice
-
-  int pam_status;
-  if ((pam_status =
-       pam_start("schroot", session->user,
-		 &sbuild_session_pam_conv, &session->pam)) != PAM_SUCCESS)
-    {
-      g_set_error(error,
-		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_STARTUP,
-		  _("PAM error: %s"), pam_strerror(session->pam, pam_status));
-      g_debug("pam_start FAIL");
-      return FALSE;
-    }
-  g_debug("pam_start OK");
-  return TRUE;
-}
-
-/**
- * sbuild_session_pam_auth:
- * @session: an #SbuildSession
- * @error: a #GError
- *
- * Perform PAM authentication.  If required, the user will be prompted
- * to authenticate themselves.
- *
- * Returns TRUE on success, FALSE on failure (@error will be set to
- * indicate the cause of the failure).
- */
-static gboolean
-sbuild_session_pam_auth (SbuildSession  *session,
-			 GError        **error)
-{
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
-  g_return_val_if_fail(session->user != NULL, FALSE);
-  g_return_val_if_fail(session->config != NULL, FALSE);
-  g_return_val_if_fail(session->chroots != NULL, FALSE);
-  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
-
-  int pam_status;
-
-  if ((pam_status =
-       pam_set_item(session->pam, PAM_RUSER, session->ruser)) != PAM_SUCCESS)
-    {
-      g_set_error(error,
-		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
-		  _("PAM set RUSER error: %s"), pam_strerror(session->pam, pam_status));
-      g_debug("pam_set_item (PAM_RUSER) FAIL");
-      return FALSE;
-    }
-
-  long hl = 256; /* sysconf(_SC_HOST_NAME_MAX); BROKEN with Debian libc6 2.3.2.ds1-22 */
-
-  char *hostname = g_new(char, hl);
-  if (gethostname(hostname, hl) != 0)
-    {
-      g_set_error(error,
-		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_HOSTNAME,
-		  _("Failed to get hostname: %s\n"), g_strerror(errno));
-      g_debug("gethostname FAIL");
-      return FALSE;
-    }
-
-  if ((pam_status =
-       pam_set_item(session->pam, PAM_RHOST, hostname)) != PAM_SUCCESS)
-    {
-      g_set_error(error,
-		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
-		  _("PAM set RHOST error: %s"), pam_strerror(session->pam, pam_status));
-      g_debug("pam_set_item (PAM_RHOST) FAIL");
-      return FALSE;
-    }
-
-  g_free(hostname);
-  hostname = NULL;
-
-  const char *tty = ttyname(STDIN_FILENO);
-  if (tty)
-    {
-      if ((pam_status =
-	   pam_set_item(session->pam, PAM_TTY, tty)) != PAM_SUCCESS)
-	{
-	  g_set_error(error,
-		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
-		      _("PAM set TTY error: %s"), pam_strerror(session->pam, pam_status));
-	  g_debug("pam_set_item (PAM_TTY) FAIL");
-	  return FALSE;
-	}
-    }
-
-  /* Authenticate as required. */
-  switch (sbuild_session_require_auth (session))
-    {
-    case SBUILD_SESSION_AUTH_NONE:
-      if ((pam_status =
-	   pam_set_item(session->pam, PAM_USER, session->user)) != PAM_SUCCESS)
-	{
-	  g_set_error(error,
-		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SET_ITEM,
-		      _("PAM set USER error: %s"), pam_strerror(session->pam, pam_status));
-	  g_debug("pam_set_item (PAM_USER) FAIL");
-	  return FALSE;
-	}
-      break;
-
-    case SBUILD_SESSION_AUTH_USER:
-      if ((pam_status =
-	   pam_authenticate(session->pam, 0)) != PAM_SUCCESS)
-	{
-	  g_set_error(error,
-		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_AUTHENTICATE,
-		      _("PAM authentication failed: %s\n"), pam_strerror(session->pam, pam_status));
-	  g_debug("pam_authenticate FAIL");
-	  char *chroots = g_strjoinv(", ", session->chroots);
-	  syslog(LOG_AUTH|LOG_WARNING, "[%s] %s->%s Authentication failure",
-		 chroots, session->ruser, session->user);
-	  g_free(chroots);
-	  return FALSE;
-	}
-      g_debug("pam_authenticate OK");
-      break;
-
-    case SBUILD_SESSION_AUTH_FAIL:
-	{
-	  g_set_error(error,
-		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_AUTHENTICATE,
-		      _("access not authorised"));
-	  g_debug("PAM auth premature FAIL");
-	  g_printerr(_("You do not have permission to access the specified chroots.\n"));
-	  g_printerr(_("This failure will be reported.\n"));
-	  char *chroots = g_strjoinv(", ", session->chroots);
-	  syslog(LOG_AUTH|LOG_WARNING,
-		 "[%s] %s->%s Unauthorised attempt to access chroots",
-		 chroots, session->ruser, session->user);
-	  g_free(chroots);
-	  return FALSE;
-	}
-    default:
-      break;
-    }
-
-  return TRUE;
-}
-
-/**
- * sbuild_session_pam_setupenv:
- * @session: an #SbuildSession
- * @error: a #GError
- *
- * Import the user environment into PAM.  If no environment was
- * specified with #sbuild_session_set_environment, a minimal
- * environment will be created containing PATH and TERM.
- *
- * Returns TRUE on success, FALSE on failure (@error will be set to
- * indicate the cause of the failure).
- */
-static gboolean
-sbuild_session_pam_setupenv (SbuildSession  *session,
-			     GError        **error)
-{
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
-  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
-
-  int pam_status;
-
-  /* Initial environment to set, used if the environment was not
-     specified. */
-  char **newenv = g_new(char *, 3); // Size must be at least max envvars + 1
-  guint i = 0;
-  if (session->uid == 0)
-    newenv[i++] = g_strdup_printf("PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11");
-  else
-    newenv[i++] = g_strdup("PATH=/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games");
-  {
-    const char *term = g_getenv("TERM");
-    if (term)
-      newenv[i++] = g_strdup_printf("TERM=%s", term);
-  }
-  newenv[i] = NULL;
-
-
-  char **environment = session->environment != NULL ? session->environment : newenv;
-  for (guint i=0; environment[i] != NULL; ++i)
-    {
-      if ((pam_status =
-	   pam_putenv(session->pam, environment[i])) != PAM_SUCCESS)
-	{
-	  g_set_error(error,
-		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_PUTENV,
-		      _("PAM error: %s\n"), pam_strerror(session->pam, pam_status));
-	  g_debug("pam_putenv FAIL");
-	  return FALSE;
-	}
-      g_debug("pam_putenv: set %s", environment[i]);
-    }
-
-  g_debug("pam_putenv OK");
-  return TRUE;
-}
-
-/**
- * sbuild_session_pam_account:
- * @session: an #SbuildSession
- * @error: a #GError
- *
- * Do PAM account management (authorisation).
- *
- * Returns TRUE on success, FALSE on failure (@error will be set to
- * indicate the cause of the failure).
- */
-static gboolean
-sbuild_session_pam_account (SbuildSession  *session,
-			    GError        **error)
-{
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
-  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
-
-  int pam_status;
-
-  if ((pam_status =
-       pam_acct_mgmt(session->pam, 0)) != PAM_SUCCESS)
-    {
-      /* We don't handle changing expired passwords here, since we are
-	 not login or ssh. */
-      g_set_error(error,
-		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_ACCOUNT,
-		  _("PAM error: %s\n"), pam_strerror(session->pam, pam_status));
-      g_debug("pam_acct_mgmt FAIL");
-      return FALSE;
-    }
-
-  g_debug("pam_acct_mgmt OK");
-  return TRUE;
-}
-
-/**
- * sbuild_session_pam_cred_establish:
- * @session: an #SbuildSession
- * @error: a #GError
- *
- * Use PAM to establish credentials.
- *
- * Returns TRUE on success, FALSE on failure (@error will be set to
- * indicate the cause of the failure).
- */
-static gboolean
-sbuild_session_pam_cred_establish (SbuildSession  *session,
-				   GError        **error)
-{
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
-  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
-
-  int pam_status;
-
-  if ((pam_status =
-       pam_setcred(session->pam, PAM_ESTABLISH_CRED)) != PAM_SUCCESS)
-    {
-      g_set_error(error,
-		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_CREDENTIALS,
-		  _("PAM error: %s\n"), pam_strerror(session->pam, pam_status));
-      g_debug("pam_setcred FAIL");
-      return FALSE;
-    }
-
-  g_debug("pam_setcred OK");
-  return TRUE;
-}
-
-
-/**
- * sbuild_session_pam_open:
- * @session: an #SbuildSession
- * @error: a #GError
- *
- * Start a PAM session.  This should be called in the child process.
- *
- * Returns TRUE on success, FALSE on failure (@error will be set to
- * indicate the cause of the failure).
- */
-static gboolean
-sbuild_session_pam_open (SbuildSession  *session,
-			 GError        **error)
-{
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
-  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
-
-  int pam_status;
-
-  if ((pam_status =
-       pam_open_session(session->pam, 0)) != PAM_SUCCESS)
-    {
-      g_set_error(error,
-		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SESSION_OPEN,
-		  _("PAM error: %s"), pam_strerror(session->pam, pam_status));
-      g_debug("pam_open_session FAIL");
-      return FALSE;
-    }
-
-  g_debug("pam_open_session OK");
-  return TRUE;
-}
-
-/**
- * sbuild_session_pam_close:
- * @session: an #SbuildSession
- * @error: a #GError
- *
- * Stop a PAM session.
- *
- * Returns TRUE on success, FALSE on failure (@error will be set to
- * indicate the cause of the failure).
- */
-static gboolean
-sbuild_session_pam_close (SbuildSession  *session,
-			  GError        **error)
-{
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
-  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
-
-  int pam_status;
-
-  if ((pam_status =
-       pam_close_session(session->pam, 0)) != PAM_SUCCESS)
-    {
-      g_set_error(error,
-		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SESSION_CLOSE,
-		  _("PAM error: %s"), pam_strerror(session->pam, pam_status));
-      g_debug("pam_close_session FAIL");
-      return FALSE;
-    }
-
-  g_debug("pam_close_session OK");
-  return TRUE;
-}
-
-/**
- * sbuild_session_pam_cred_delete:
- * @session: an #SbuildSession
- * @error: a #GError
- *
- * Use PAM to delete credentials.
- *
- * Returns TRUE on success, FALSE on failure (@error will be set to
- * indicate the cause of the failure).
- */
-static gboolean
-sbuild_session_pam_cred_delete (SbuildSession  *session,
-				GError        **error)
-{
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
-  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
-
-  int pam_status;
-
-  if ((pam_status =
-       pam_setcred(session->pam, PAM_DELETE_CRED)) != PAM_SUCCESS)
-    {
-      g_set_error(error,
-		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_DELETE_CREDENTIALS,
-		  _("PAM error: %s"), pam_strerror(session->pam, pam_status));
-      g_debug("pam_setcred (delete) FAIL");
-      return FALSE;
-    }
-
-      g_debug("pam_setcred (delete) OK");
-  return TRUE;
-}
-
-/**
- * sbuild_session_pam_stop:
- * @session: an #SbuildSession
- * @error: a #GError
- *
- * Stop the PAM system.  No other PAM functions may be used after
- * calling this function.
- *
- * Returns TRUE on success, FALSE on failure (@error will be set to
- * indicate the cause of the failure).
- */
-static gboolean
-sbuild_session_pam_stop (SbuildSession  *session,
-			 GError        **error)
-{
-  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
-  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
-
-  int pam_status;
-
-  if ((pam_status =
-       pam_end(session->pam, PAM_SUCCESS)) != PAM_SUCCESS)
-    {
-      g_set_error(error,
-		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SHUTDOWN,
-		  _("PAM error: %s"), pam_strerror(session->pam, pam_status));
-      g_debug("pam_end FAIL");
-      return FALSE;
-    }
-
-  g_debug("pam_end OK");
-  return TRUE;
+  return status;
 }
 
 /**
  * sbuild_session_run_command:
  * @session: an #SbuildSession
  * @session_chroot: an #SbuildChroot (which must be present in the @session configuration)
- * @child_status: a location to place the child exit status
  * @error: a #GError
  *
  * Run the session command or login shell in the specified chroot.
@@ -967,17 +339,18 @@ sbuild_session_pam_stop (SbuildSession  *session,
 static gboolean
 sbuild_session_run_chroot (SbuildSession  *session,
 			   SbuildChroot   *session_chroot,
-			   int            *child_status,
 			   GError        **error)
 {
   g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
   g_return_val_if_fail(SBUILD_IS_CHROOT(session_chroot), FALSE);
   g_return_val_if_fail(sbuild_chroot_get_name(session_chroot) != NULL, FALSE);
   g_return_val_if_fail(sbuild_chroot_get_location(session_chroot) != NULL, FALSE);
-  g_return_val_if_fail(session->pam != NULL, FALSE); // PAM must be initialised
 
-  g_assert(session->user != NULL);
-  g_assert(session->shell != NULL);
+  SbuildAuth *auth = SBUILD_AUTH(session);
+
+  g_return_val_if_fail(sbuild_auth_get_user(auth) != NULL, FALSE);
+  g_return_val_if_fail(sbuild_auth_get_shell(auth) != NULL, FALSE);
+  g_return_val_if_fail(auth->pam != NULL, FALSE); // PAM must be initialised
 
   pid_t pid;
   if ((pid = fork()) == -1)
@@ -989,25 +362,35 @@ sbuild_session_run_chroot (SbuildSession  *session,
     }
   else if (pid == 0)
     {
+      uid_t uid = sbuild_auth_get_uid(auth);
+      gid_t gid = sbuild_auth_get_gid(auth);
+      const char *user = sbuild_auth_get_user(auth);
+      uid_t ruid = sbuild_auth_get_ruid(auth);
+      const char *ruser = sbuild_auth_get_ruser(auth);
+      const char *shell = sbuild_auth_get_shell(auth);
+      char **command = g_strdupv(sbuild_auth_get_command(auth));
+      char **environment = sbuild_auth_get_environment(auth);
+
+      const char *location = sbuild_chroot_get_location(session_chroot);
+      char *cwd = g_get_current_dir();
       /* Child errors result in immediate exit().  Errors are not
-	 propagated back via a GError. */
+	 propagated back via a GError, because there is no longer any
+	 higher-level handler to catch them. */
       GError *pam_error = NULL;
-      sbuild_session_pam_open(session, &pam_error);
+      sbuild_auth_open_session(SBUILD_AUTH(session), &pam_error);
       if (pam_error != NULL)
 	{
 	  g_printerr(_("PAM error: %s\n"), pam_error->message);
 	  exit (EXIT_FAILURE);
 	}
-      const char *location = sbuild_chroot_get_location(session_chroot);
-      char *cwd = g_get_current_dir();
 
       /* Set group ID and supplementary groups */
-      if (setgid (session->gid))
+      if (setgid (gid))
 	{
-	  fprintf (stderr, _("Could not set gid to '%lu'\n"), (unsigned long) session->gid);
+	  fprintf (stderr, _("Could not set gid to '%lu'\n"), (unsigned long) gid);
 	  exit (EXIT_FAILURE);
 	}
-      if (initgroups (session->user, session->gid))
+      if (initgroups (user, gid))
 	{
 	  fprintf (stderr, _("Could not set supplementary group IDs\n"));
 	  exit (EXIT_FAILURE);
@@ -1026,15 +409,14 @@ sbuild_session_run_chroot (SbuildSession  *session,
 		   g_strerror (errno));
 	  exit (EXIT_FAILURE);
 	}
-      /* printf (_("Entered chroot: %s\n"), location); */
 
       /* Set uid and check we are not still root */
-      if (setuid (session->uid))
+      if (setuid (uid))
 	{
-	  fprintf (stderr, _("Could not set uid to '%lu'\n"), (unsigned long) session->uid);
+	  fprintf (stderr, _("Could not set uid to '%lu'\n"), (unsigned long) uid);
 	  exit (EXIT_FAILURE);
 	}
-      if (!setuid (0) && session->uid)
+      if (!setuid (0) && uid)
 	{
 	  fprintf (stderr, _("Failed to drop root permissions.\n"));
 	  exit (EXIT_FAILURE);
@@ -1049,7 +431,7 @@ sbuild_session_run_chroot (SbuildSession  *session,
       g_free(cwd);
 
       /* Set up environment */
-      char **env = pam_getenvlist(session->pam);
+      char **env = sbuild_auth_get_pam_environment(auth);
       g_assert (env != NULL); // Can this fail?  Make sure we don't find out the hard way.
       for (guint i=0; env[i] != NULL; ++i)
 	g_debug("Set environment: %s", env[i]);
@@ -1057,72 +439,69 @@ sbuild_session_run_chroot (SbuildSession  *session,
       /* Run login shell */
       char *file = NULL;
 
-      /* Altering session->command is OK since we forked */
-      if ((session->command == NULL ||
-	   session->command[0] == NULL)) // No command
+      if ((command == NULL ||
+	   command[0] == NULL)) // No command
 	{
-	  g_assert (session->shell != NULL);
+	  g_assert (shell != NULL);
 
-	  session->command = g_new(char *, 2);
-	  file = g_strdup(session->shell);
-	  if (session->environment == NULL) // Not keeping environment; login shell
+	  g_strfreev(command);
+	  command = g_new(char *, 2);
+	  file = g_strdup(shell);
+	  if (environment == NULL) // Not keeping environment; login shell
 	    {
-	      char *shellbase = g_path_get_basename(session->shell);
-	      char *shell = g_strconcat("-", shellbase, NULL);
+	      char *shellbase = g_path_get_basename(shell);
+	      char *loginshell = g_strconcat("-", shellbase, NULL);
 	      g_free(shellbase);
-	      session->command[0] = shell;
-	      g_debug("Login shell: %s", session->command[1]);
+	      command[0] = loginshell;
+	      g_debug("Login shell: %s", command[1]);
 	    }
 	  else
 	    {
-	      session->command[0] = g_strdup(session->shell);
+	      command[0] = g_strdup(shell);
 	    }
-	  session->command[1] = NULL;
+	  command[1] = NULL;
 
-	  g_debug("Running login shell: %s", session->shell);
+	  g_debug("Running login shell: %s", shell);
 	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running login shell: \"%s\"",
-		 sbuild_chroot_get_name(session_chroot), session->ruser,
-		 session->user, session->shell);
-	  if (session->quiet == FALSE)
+		 sbuild_chroot_get_name(session_chroot), ruser, user, shell);
+	  if (sbuild_auth_get_quiet(auth) == FALSE)
 	    {
-	      if (session->ruid == session->uid)
+	      if (ruid == uid)
 		g_printerr(_("[%s chroot] Running login shell: \"%s\"\n"),
-			   sbuild_chroot_get_name(session_chroot), session->shell);
+			   sbuild_chroot_get_name(session_chroot), shell);
 	      else
 		g_printerr(_("[%s chroot] (%s->%s) Running login shell: \"%s\"\n"),
-			   sbuild_chroot_get_name(session_chroot),
-			   session->ruser, session->user, session->shell);
+			   sbuild_chroot_get_name(session_chroot), ruser, user, shell);
 
 	    }
 	}
       else
 	{
 	  /* Search for program in path. */
-	  file = g_find_program_in_path(session->command[0]);
+	  file = g_find_program_in_path(command[0]);
 	  if (file == NULL)
-	    file = g_strdup(session->command[0]);
-	  char *command = g_strjoinv(" ", session->command);
-	  g_debug("Running command: %s", command);
+	    file = g_strdup(command[0]);
+	  char *commandstring = g_strjoinv(" ", command);
+	  g_debug("Running command: %s", commandstring);
 	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
-		 sbuild_chroot_get_name(session_chroot), session->ruser,
-		 session->user, command);
-	  if (session->quiet == FALSE)
+		 sbuild_chroot_get_name(session_chroot), ruser, user, commandstring);
+	  if (sbuild_auth_get_quiet(auth) == FALSE)
 	    {
-	      if (session->ruid == session->uid)
+	      if (ruid == uid)
 		g_printerr(_("[%s chroot] Running command: \"%s\"\n"),
-			   sbuild_chroot_get_name(session_chroot), command);
+			   sbuild_chroot_get_name(session_chroot), commandstring);
 	      else
 		g_printerr(_("[%s chroot] (%s->%s) Running command: \"%s\"\n"),
 			   sbuild_chroot_get_name(session_chroot),
-			   session->ruser, session->user, command);
+			   ruser, user, commandstring);
 	    }
-	  g_free(command);
+	  g_free(commandstring);
 	}
 
       /* Execute */
-      if (execve (file, session->command, env))
+      if (execve (file, command, env))
 	{
-	  fprintf (stderr, _("Could not exec \"%s\": %s\n"), session->command[0],
+	  fprintf (stderr, _("Could not exec \"%s\": %s\n"), command[0],
 		   g_strerror (errno));
 	  exit (EXIT_FAILURE);
 	}
@@ -1131,7 +510,7 @@ sbuild_session_run_chroot (SbuildSession  *session,
     }
   else
     {
-      *child_status = EXIT_FAILURE; // Default exit status
+      session->child_status = EXIT_FAILURE; // Default exit status
 
       int status;
       if (wait(&status) != pid)
@@ -1143,22 +522,13 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	}
 
       GError *pam_error = NULL;
-      sbuild_session_pam_close(session, &pam_error);
+      sbuild_auth_close_session(SBUILD_AUTH(session), &pam_error);
       if (pam_error != NULL)
 	{
 	  g_propagate_error(error, pam_error);
 	  return FALSE;
 	}
 
-      int pam_status;
-      if ((pam_status =
-	   pam_close_session(session->pam, 0)) != PAM_SUCCESS)
-	{
-	  g_set_error(error,
-		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_PAM_SESSION_CLOSE,
-		      _("PAM error: %s"), pam_strerror(session->pam, pam_status));
-	  return FALSE;
-	}
       if (!WIFEXITED(status))
 	{
 	  if (WIFSIGNALED(status))
@@ -1177,13 +547,13 @@ sbuild_session_run_chroot (SbuildSession  *session,
 	  return FALSE;
 	}
 
-      *child_status = WEXITSTATUS(status);
-      if (*child_status)
+      session->child_status = WEXITSTATUS(status);
+      if (session->child_status)
 	{
 	  g_set_error(error,
 		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
 		      _("Child exited abnormally with status '%d'"),
-		      *child_status);
+		      session->child_status);
 	  return FALSE;
 	}
 
@@ -1197,7 +567,6 @@ sbuild_session_run_chroot (SbuildSession  *session,
 /**
  * sbuild_session_run:
  * @session: an #SbuildSession
- * @child_status: a location to place the child exit status
  * @error: a #GError, or NULL to ignore errors
  *
  * Run a session.  If a command has been specified, this will be run
@@ -1212,71 +581,36 @@ sbuild_session_run_chroot (SbuildSession  *session,
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
  */
-gboolean
+static gboolean
 sbuild_session_run (SbuildSession  *session,
-		    int            *child_status,
 		    GError        **error)
 {
   g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
   g_return_val_if_fail(session->config != NULL, FALSE);
   g_return_val_if_fail(session->chroots != NULL, FALSE);
 
-  /* PAM setup. */
+  /* TODO: set child status elsewhere... */
   GError *tmp_error = NULL;
 
-  sbuild_session_pam_start(session, &tmp_error);
-  if (tmp_error == NULL)
+  for (guint x=0; session->chroots[x] != 0; ++x)
     {
-      sbuild_session_pam_auth(session, &tmp_error);
-      if (tmp_error == NULL)
+      g_debug("Running session in %s chroot:\n", session->chroots[x]);
+      SbuildChroot *chroot =
+	sbuild_config_find_alias(session->config,
+				 session->chroots[x]);
+
+      if (chroot == NULL) // Should never happen, but cater for it anyway.
 	{
-	  sbuild_session_pam_setupenv(session, &tmp_error);
-	  if (tmp_error == NULL)
-	    {
-	      sbuild_session_pam_account(session, &tmp_error);
-	      if (tmp_error == NULL)
-		{
-		  sbuild_session_pam_cred_establish(session, &tmp_error);
-		  if (tmp_error == NULL)
-		    {
-		      const char *authuser = NULL;
-		      pam_get_item(session->pam, PAM_USER, (const void **) &authuser);
-		      g_debug("PAM authentication succeeded for user %s\n", authuser);
+	  g_set_error(&tmp_error,
+		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHROOT,
+		      _("%s: Failed to find chroot"), session->chroots[x]);
+	}
+      else
+	sbuild_session_run_chroot(session, chroot, &tmp_error);
 
-		      for (guint x=0; session->chroots[x] != 0; ++x)
-			{
-			  g_debug("Running session in %s chroot:\n", session->chroots[x]);
-			  SbuildChroot *chroot =
-			    sbuild_config_find_alias(session->config,
-						     session->chroots[x]);
-			  sbuild_session_run_chroot(session, chroot,
-						    child_status,
-						    &tmp_error);
-			  if (tmp_error != NULL)
-			    break;
-			}
-
-		      /* The session is now finished, either successfully
-			 or not.  All PAM operations are now for cleanup
-			 and shutdown, and we must clean up whether or not
-			 errors were raised at any previous point.  This
-			 means only the first error is reported back to
-			 the user. */
-
-		      /* Don't cope with failure, since we are now already bailing out,
-			 and an error may already have been raised*/
-		      sbuild_session_pam_cred_delete(session,
-						     (tmp_error != NULL) ? NULL : &tmp_error);
-
-		    } // pam_cred_establish
-		} // pam_account
-	    } // pam_setupenv
-	} // pam_auth
-      /* Don't cope with failure, since we are now already bailing out,
-	 and an error may already have been raised*/
-      sbuild_session_pam_stop(session,
-			      (tmp_error != NULL) ? NULL : &tmp_error);
-    } // pam_start
+      if (tmp_error != NULL)
+	break;
+    }
 
   if (tmp_error != NULL)
     {
@@ -1292,33 +626,9 @@ sbuild_session_init (SbuildSession *session)
 {
   g_return_if_fail(SBUILD_IS_SESSION(session));
 
-  session->user = NULL;
-  session->uid = 0;
-  session->gid = 0;
-  session->command = NULL;
-  session->shell = NULL;
-  session->environment = NULL;
   session->config = NULL;
   session->chroots = NULL;
-  session->pam = NULL;
-  session->quiet = FALSE;
-
-  /* Current user's details. */
-  session->ruid = getuid();
-  struct passwd *pwent = getpwuid(session->ruid);
-  if (pwent == NULL)
-    {
-      g_printerr(_("%lu: user not found: %s\n"), (unsigned long) session->ruid,
-		 g_strerror(errno));
-      exit (EXIT_FAILURE);
-    }
-  session->ruser = g_strdup(pwent->pw_name);
-
-  g_object_notify(G_OBJECT(session), "ruid");
-  g_object_notify(G_OBJECT(session), "ruser");
-
-  /* By default, the session user is the same as the remote user. */
-  sbuild_session_set_user(session, session->ruser);
+  session->child_status = EXIT_FAILURE;
 }
 
 static void
@@ -1326,26 +636,6 @@ sbuild_session_finalize (SbuildSession *session)
 {
   g_return_if_fail(SBUILD_IS_SESSION(session));
 
-  if (session->user)
-    {
-      g_free (session->user);
-      session->user = NULL;
-    }
-  if (session->command)
-    {
-      g_strfreev (session->command);
-      session->command = NULL;
-    }
-  if (session->shell)
-    {
-      g_free (session->shell);
-      session->shell = NULL;
-    }
-  if (session->ruser)
-    {
-      g_free (session->ruser);
-      session->ruser = NULL;
-    }
   if (session->config)
     {
       g_object_unref (session->config);
@@ -1376,23 +666,11 @@ sbuild_session_set_property (GObject      *object,
 
   switch (param_id)
     {
-    case PROP_USER:
-      sbuild_session_set_user(session, g_value_get_string(value));
-      break;
-    case PROP_COMMAND:
-      sbuild_session_set_command(session, g_value_get_boxed(value));
-      break;
     case PROP_CONFIG:
       sbuild_session_set_config(session, g_value_get_object(value));
       break;
-    case PROP_ENV:
-      sbuild_session_set_environment(session, g_value_get_boxed(value));
-      break;
     case PROP_CHROOTS:
       sbuild_session_set_chroots(session, g_value_get_boxed(value));
-      break;
-    case PROP_QUIET:
-      sbuild_session_set_quiet(session, g_value_get_boolean(value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -1415,38 +693,14 @@ sbuild_session_get_property (GObject    *object,
 
   switch (param_id)
     {
-    case PROP_UID:
-      g_value_set_int(value, session->uid);
-      break;
-    case PROP_GID:
-      g_value_set_int(value, session->gid);
-      break;
-    case PROP_USER:
-      g_value_set_string(value, session->user);
-      break;
-    case PROP_COMMAND:
-      g_value_set_boxed(value, session->command);
-      break;
-    case PROP_SHELL:
-      g_value_set_string(value, session->shell);
-      break;
-    case PROP_ENV:
-      g_value_set_boxed(value, session->environment);
-      break;
-    case PROP_RUID:
-      g_value_set_int(value, session->ruid);
-      break;
-    case PROP_RUSER:
-      g_value_set_string(value, session->ruser);
-      break;
     case PROP_CONFIG:
       g_value_set_object(value, session->config);
       break;
     case PROP_CHROOTS:
       g_value_set_boxed(value, session->chroots);
       break;
-    case PROP_QUIET:
-      g_value_set_boolean(value, session->quiet);
+    case PROP_CHILD_STATUS:
+      g_value_set_int(value, session->child_status);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -1457,76 +711,16 @@ sbuild_session_get_property (GObject    *object,
 static void
 sbuild_session_class_init (SbuildSessionClass *klass)
 {
+  SbuildAuthClass *auth_class = SBUILD_AUTH_CLASS(klass);
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
   parent_class = g_type_class_peek_parent (klass);
+
+  auth_class->require_auth = (SbuildAuthRequireAuthFunc) sbuild_session_require_auth;
+  auth_class->session_run = (SbuildAuthSessionRunFunc) sbuild_session_run;
 
   gobject_class->finalize = (GObjectFinalizeFunc) sbuild_session_finalize;
   gobject_class->set_property = (GObjectSetPropertyFunc) sbuild_session_set_property;
   gobject_class->get_property = (GObjectGetPropertyFunc) sbuild_session_get_property;
-
-  g_object_class_install_property
-    (gobject_class,
-     PROP_UID,
-     g_param_spec_int ("uid", "UID",
-		       "The UID to run as in the chroot",
-		       0, G_MAXINT, 0,
-		       G_PARAM_READABLE));
-
-  g_object_class_install_property
-    (gobject_class,
-     PROP_GID,
-     g_param_spec_int ("gid", "GID",
-		       "The GID to run as in the chroot",
-		       0, G_MAXINT, 0,
-		       G_PARAM_READABLE));
-
-  g_object_class_install_property
-    (gobject_class,
-     PROP_USER,
-     g_param_spec_string ("user", "User",
-			  "The user login name to run as in the chroot",
-			  "",
-			  (G_PARAM_READABLE | G_PARAM_WRITABLE)));
-
-  g_object_class_install_property
-    (gobject_class,
-     PROP_COMMAND,
-     g_param_spec_boxed ("command", "Command",
-			 "The command to run in the chroot, or NULL for a login shell",
-			 G_TYPE_STRV,
-			 (G_PARAM_READABLE | G_PARAM_WRITABLE)));
-
-  g_object_class_install_property
-    (gobject_class,
-     PROP_SHELL,
-     g_param_spec_string ("shell", "Shell",
-			  "The login shell for the user to run as in the chroot",
-			  "/bin/false",
-			  G_PARAM_READABLE));
-
-  g_object_class_install_property
-    (gobject_class,
-     PROP_CHROOTS,
-     g_param_spec_boxed ("environment", "Environment",
-                         "The user environment to set in the chroot",
-                         G_TYPE_STRV,
-                         (G_PARAM_READABLE | G_PARAM_WRITABLE)));
-
-  g_object_class_install_property
-    (gobject_class,
-     PROP_RUID,
-     g_param_spec_int ("ruid", "Remote UID",
-		       "The UID of the current user",
-		       0, G_MAXINT, 0,
-		       G_PARAM_READABLE));
-
-  g_object_class_install_property
-    (gobject_class,
-     PROP_RUSER,
-     g_param_spec_string ("ruser", "Remote user",
-			  "The current user's login name",
-			  "",
-			  G_PARAM_READABLE));
 
   g_object_class_install_property
     (gobject_class,
@@ -1546,12 +740,11 @@ sbuild_session_class_init (SbuildSessionClass *klass)
 
   g_object_class_install_property
     (gobject_class,
-     PROP_QUIET,
-     g_param_spec_boolean ("quiet", "Quiet",
-			   "Suppress non-essential messages",
-			   FALSE,
-			   G_PARAM_READABLE | G_PARAM_WRITABLE));
-
+     PROP_CHILD_STATUS,
+     g_param_spec_int ("child-status", "Child Status",
+		       "The exit (wait) status of the child process",
+		       0, G_MAXINT, 0,
+		       (G_PARAM_READABLE)));
 }
 
 /*

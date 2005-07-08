@@ -1,2 +1,11 @@
 TODO
 ----
+
+Handle no-chroots in config file use case.
+
+
+SECURITY
+--------
+
+Should schroot be converted to C++ for security, or is glib secure
+enough?  Please get in touch if you have any thoughts.

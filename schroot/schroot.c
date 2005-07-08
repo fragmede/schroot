@@ -247,24 +247,25 @@ main (int   argc,
   /* Create and run a session. */
   SbuildSession *session = sbuild_session_new(config, chroots);
   if (opt.user)
-    sbuild_session_set_user(session, opt.user);
+    sbuild_auth_set_user(SBUILD_AUTH(session), opt.user);
   if (opt.command)
-    sbuild_session_set_command(session, opt.command);
+    sbuild_auth_set_command(SBUILD_AUTH(session), opt.command);
   if (opt.preserve)
-    sbuild_session_set_environment(session, environ);
+    sbuild_auth_set_environment(SBUILD_AUTH(session), environ);
   if (opt.quiet)
-    sbuild_session_set_quiet(session, TRUE);
+    sbuild_auth_set_quiet(SBUILD_AUTH(session), TRUE);
 
-  int child_status = 0;
   GError *session_error = NULL;
-  sbuild_session_run(session, &child_status, &session_error);
+  sbuild_auth_run(SBUILD_AUTH(session), &session_error);
   if (session_error)
     g_printerr(_("Session failure: %s\n"), session_error->message);
+
+  int exit_status = sbuild_session_get_child_status(session);
 
   g_object_unref(G_OBJECT(session));
   g_object_unref(G_OBJECT(config));
 
   closelog();
 
-  exit (child_status);
+  exit (exit_status);
 }

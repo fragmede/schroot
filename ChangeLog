@@ -1,5 +1,18 @@
 2005-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Update.
+
+	* schroot/schroot.c (main): Use new SBUILD_AUTH casts and methods,
+	to replace the corresponding SBUILD_SESSION types and methods.
+
+	* SbuildSession derives from SbuildAuth.
+	  - The duplicated functionality has been removed from
+	    SbuildSession.
+	  - SbuildSession overrides the SbuildAuth virtual functions
+	    require_auth and session_run.
+
+2005-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.h: Add sbuild-auth.[ch].
 
 	* schroot/sbuild-marshallers.list: Add new marshaller

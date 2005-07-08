@@ -28,30 +28,18 @@
 #include <pwd.h>
 #include <unistd.h>
 
-#include <security/pam_appl.h>
-#include <security/pam_misc.h>
-
 #include <glib.h>
 #include <glib/gprintf.h>
 #include <glib-object.h>
 
+#include "sbuild-auth.h"
 #include "sbuild-config.h"
 
 typedef enum
 {
-  SBUILD_SESSION_ERROR_PAM_STARTUP,
-  SBUILD_SESSION_ERROR_PAM_SET_ITEM,
-  SBUILD_SESSION_ERROR_HOSTNAME,
-  SBUILD_SESSION_ERROR_PAM_AUTHENTICATE,
-  SBUILD_SESSION_ERROR_PAM_PUTENV,
-  SBUILD_SESSION_ERROR_PAM_ACCOUNT,
-  SBUILD_SESSION_ERROR_PAM_CREDENTIALS,
-  SBUILD_SESSION_ERROR_PAM_SESSION_OPEN,
-  SBUILD_SESSION_ERROR_PAM_SESSION_CLOSE,
-  SBUILD_SESSION_ERROR_PAM_DELETE_CREDENTIALS,
-  SBUILD_SESSION_ERROR_PAM_SHUTDOWN,
   SBUILD_SESSION_ERROR_FORK,
-  SBUILD_SESSION_ERROR_CHILD
+  SBUILD_SESSION_ERROR_CHILD,
+  SBUILD_SESSION_ERROR_CHROOT
 } SbuildSessionError;
 
 #define SBUILD_SESSION_ERROR sbuild_session_error_quark()
@@ -71,24 +59,15 @@ typedef struct _SbuildSessionClass SbuildSessionClass;
 
 struct _SbuildSession
 {
-  GObject        parent;
-  uid_t          uid;
-  gid_t          gid;
-  gchar         *user;
-  gchar        **command;
-  gchar         *shell;
-  gchar        **environment;
-  uid_t          ruid;
-  gchar         *ruser;
+  SbuildAuth     parent;
   SbuildConfig  *config;
   char         **chroots;
-  pam_handle_t  *pam;
-  gboolean       quiet;
+  int            child_status;
 };
 
 struct _SbuildSessionClass
 {
-  GObjectClass parent;
+  SbuildAuthClass parent;
 };
 
 
@@ -99,20 +78,6 @@ SbuildSession *
 sbuild_session_new(SbuildConfig  *config,
 		   char         **chroots);
 
-const char *
-sbuild_session_get_user (const SbuildSession *restrict session);
-
-void
-sbuild_session_set_user (SbuildSession *session,
-			 const char   *user);
-
-char **
-sbuild_session_get_command (const SbuildSession *restrict session);
-
-void
-sbuild_session_set_command (SbuildSession  *session,
-			    char          **command);
-
 SbuildConfig *
 sbuild_session_get_config (const SbuildSession *restrict session);
 
@@ -121,30 +86,14 @@ sbuild_session_set_config (SbuildSession *session,
 			   SbuildConfig  *config);
 
 char **
-sbuild_session_get_environment (const SbuildSession *restrict session);
-
-void
-sbuild_session_set_environment (SbuildSession  *session,
-				char         **environment);
-
-char **
 sbuild_session_get_chroots (const SbuildSession *restrict session);
 
 void
 sbuild_session_set_chroots (SbuildSession  *session,
 			    char         **chroots);
 
-gboolean
-sbuild_session_get_quiet (const SbuildSession *restrict session);
-
-void
-sbuild_session_set_quiet (SbuildSession  *session,
-			  gboolean        quiet);
-
-gboolean
-sbuild_session_run (SbuildSession  *session,
-		    int            *child_status,
-		    GError        **error);
+int
+sbuild_session_get_child_status (SbuildSession *session);
 
 #endif /* SBUILD_SESSION_H */
 
