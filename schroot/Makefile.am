@@ -30,12 +30,14 @@ DEFS = -DSCHROOT_CONFIG_FILE="\"$(sysconfdir)/schroot.conf\"" -DG_LOG_DOMAIN=\"S
 bin_PROGRAMS = schroot
 
 schroot_public_h_sources =	\
+	sbuild-auth.h		\
 	sbuild-chroot.h		\
 	sbuild-config.h		\
 	sbuild-error.h		\
 	sbuild-session.h
 
 schroot_public_c_sources =	\
+	sbuild-auth.c		\
 	sbuild-chroot.c		\
 	sbuild-config.c		\
 	sbuild-error.c		\

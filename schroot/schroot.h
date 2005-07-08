@@ -22,6 +22,7 @@
 #ifndef SBUILD_SCHROOT_H
 #define SBUILD_SCHROOT_H
 
+#include "sbuild-auth.h"
 #include "sbuild-config.h"
 #include "sbuild-chroot.h"
 #include "sbuild-session.h"

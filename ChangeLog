@@ -1,3 +1,15 @@
+2005-07-08  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot.h: Add sbuild-auth.[ch].
+
+	* schroot/sbuild-marshallers.list: Add new marshaller
+	(sbuild_cclosure_marshal_BOOLEAN__BOXED).
+
+	* Split SbuildSession PAM functionality into a separate SbuildAuth
+	class, from which SbuildSession is derived.  SbuildAuth handles
+	authentication and authorisation using PAM, with hooks for
+	customising its behaviour.
+
 2005-07-07  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-session.h, schroot/sbuild-config.h: Make error
