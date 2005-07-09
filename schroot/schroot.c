@@ -59,20 +59,6 @@ static struct {
     .version = FALSE
   };
 
-/* Command-line options. */
-static const GOptionEntry entries[] =
-{
-  { "all", 'a', 0, G_OPTION_ARG_NONE, &opt.all, N_("Run command in all chroots"), NULL },
-  { "chroot", 'c', 0, G_OPTION_ARG_STRING_ARRAY, &opt.chroots, N_("Use specified chroot"), "chroot" },
-  { "user", 'u', 0, G_OPTION_ARG_STRING, &opt.user, N_("Username (default current user)"), "user" },
-  { "list", 'l', 0, G_OPTION_ARG_NONE, &opt.list, N_("List available chroots"), NULL },
-  { "info", 'i', 0, G_OPTION_ARG_NONE, &opt.info, N_("Show information about chroot"), NULL },
-  { "preserve-environment", 'p', 0, G_OPTION_ARG_NONE, &opt.preserve, N_("Preserve user environment"), NULL },
-  { "quiet", 'q', 0, G_OPTION_ARG_NONE, &opt.quiet, N_("Show less output"), NULL },
-  { "version", 'V', 0, G_OPTION_ARG_NONE, &opt.version, N_("Print version information"), NULL },
-  { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &opt.command, NULL, NULL }
-};
-
 /**
  * parse_options:
  * @argc: the number of arguments
@@ -85,6 +71,30 @@ static void
 parse_options(int   argc,
 	      char *argv[])
 {
+  /* Command-line options. */
+  static const GOptionEntry entries[] =
+    {
+      { "all", 'a', 0, G_OPTION_ARG_NONE, &opt.all,
+	N_("Run command in all chroots"), NULL },
+      { "chroot", 'c', 0, G_OPTION_ARG_STRING_ARRAY, &opt.chroots,
+	N_("Use specified chroot"), "chroot" },
+      { "user", 'u', 0, G_OPTION_ARG_STRING, &opt.user,
+	N_("Username (default current user)"), "user" },
+      { "list", 'l', 0, G_OPTION_ARG_NONE, &opt.list,
+	N_("List available chroots"), NULL },
+      { "info", 'i', 0, G_OPTION_ARG_NONE, &opt.info,
+	N_("Show information about chroot"), NULL },
+      { "preserve-environment", 'p', 0, G_OPTION_ARG_NONE, &opt.preserve,
+	N_("Preserve user environment"), NULL },
+      { "quiet", 'q', 0, G_OPTION_ARG_NONE, &opt.quiet,
+	N_("Show less output"), NULL },
+      { "version", 'V', 0, G_OPTION_ARG_NONE, &opt.version,
+	N_("Print version information"), NULL },
+      { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &opt.command,
+	NULL, NULL },
+      { NULL }
+    };
+
   GError *error = NULL;
 
   GOptionContext *context = g_option_context_new (_("- run command or shell in a chroot"));

@@ -1,3 +1,10 @@
+2005-07-09  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot.c (parse_options): Move the option entries[]
+	array into the function as a static const variable.  Make sure the
+	array is terminated by a null option entry, to prevent a segfault
+	when parsing the options.
+
 2005-07-08  Roger Leigh  <rleigh@debian.org>
 
 	* TODO: Update.
