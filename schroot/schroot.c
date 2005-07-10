@@ -227,6 +227,12 @@ main (int   argc,
   SbuildConfig *config = sbuild_config_new(SCHROOT_CONFIG_FILE);
   g_assert (config != NULL);
 
+  if (sbuild_config_get_chroots(config) == NULL)
+    {
+      g_printerr(_("No chroots are defined in %s\n"), SCHROOT_CONFIG_FILE);
+      exit (EXIT_FAILURE);
+    }
+
   /* Print chroot list (including aliases). */
   if (opt.list == TRUE)
     {
@@ -238,7 +244,7 @@ main (int   argc,
   char **chroots = get_chroot_options(config);
   if (chroots == NULL)
     {
-      g_printerr(_("No chroots defined in %s\n"), SCHROOT_CONFIG_FILE);
+      g_printerr(_("The specified chroots are not defined in %s\n"), SCHROOT_CONFIG_FILE);
       exit (EXIT_FAILURE);
     }
 

@@ -1,3 +1,8 @@
+2005-07-10  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot.c (main): Abort earlier if no chroots are
+	defined in schroot.conf.
+
 2005-07-09  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot.c (parse_options): Move the option entries[]
