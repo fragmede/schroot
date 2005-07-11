@@ -24,6 +24,13 @@
  * @short_description: session object
  * @title: SbuildSession
  *
+ * This object provides the session handling for schroot.  It derives
+ * from SbuildAuth, which performs all the necessary PAM actions,
+ * specialising it by overriding its virtual functions.  This allows
+ * more sophisticated handling of user authorisation (groups and
+ * root-groups membership in the configuration file) and session
+ * management (setting up the session, entering the chroot and running
+ * the requested commands or shell).
  */
 
 #include <config.h>

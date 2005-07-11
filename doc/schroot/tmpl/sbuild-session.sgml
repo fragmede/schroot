@@ -22,19 +22,9 @@ SbuildSession
 The errors which can occur while running a session.
 </para>
 
-@SBUILD_SESSION_ERROR_PAM_STARTUP: PAM failed to start up
-@SBUILD_SESSION_ERROR_PAM_SET_ITEM: PAM failed to set a configuration item
-@SBUILD_SESSION_ERROR_HOSTNAME: The hostname could not be obtained
-@SBUILD_SESSION_ERROR_PAM_AUTHENTICATE: PAM authentication failed
-@SBUILD_SESSION_ERROR_PAM_PUTENV: Setting PAM environment failed
-@SBUILD_SESSION_ERROR_PAM_ACCOUNT: PAM account management failed
-@SBUILD_SESSION_ERROR_PAM_CREDENTIALS: PAM could not set user credentials
-@SBUILD_SESSION_ERROR_PAM_SESSION_OPEN: PAM could not open a session
-@SBUILD_SESSION_ERROR_PAM_SESSION_CLOSE: PAM could not close a session
-@SBUILD_SESSION_ERROR_PAM_DELETE_CREDENTIALS: PAM could not delete user credentials
-@SBUILD_SESSION_ERROR_PAM_SHUTDOWN: PAM could not shut down
 @SBUILD_SESSION_ERROR_FORK: A child process could not be created
 @SBUILD_SESSION_ERROR_CHILD: An error occured during execution of the child process
+@SBUILD_SESSION_ERROR_CHROOT: An error occured finding the chroot
 
 <!-- ##### MACRO SBUILD_SESSION_ERROR ##### -->
 <para>
@@ -49,12 +39,12 @@ SbuildSession object.
 </para>
 
 
-<!-- ##### ARG SbuildSession:chroots ##### -->
+<!-- ##### ARG SbuildSession:child-status ##### -->
 <para>
 
 </para>
 
-<!-- ##### ARG SbuildSession:command ##### -->
+<!-- ##### ARG SbuildSession:chroots ##### -->
 <para>
 
 </para>
@@ -64,52 +54,12 @@ SbuildSession object.
 
 </para>
 
-<!-- ##### ARG SbuildSession:environment ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG SbuildSession:gid ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG SbuildSession:quiet ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG SbuildSession:ruid ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG SbuildSession:ruser ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG SbuildSession:shell ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG SbuildSession:uid ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG SbuildSession:user ##### -->
-<para>
-
-</para>
-
 <!-- ##### STRUCT SbuildSessionClass ##### -->
 <para>
 SbuildSession class.
 </para>
 
-@parent: 
+@parent: the parent class
 
 <!-- ##### FUNCTION sbuild_session_new ##### -->
 <para>
@@ -119,60 +69,6 @@ SbuildSession class.
 @config: 
 @chroots: 
 @Returns: 
-
-
-<!-- ##### FUNCTION sbuild_session_get_user ##### -->
-<para>
-
-</para>
-
-@session: 
-@Returns: 
-
-
-<!-- ##### FUNCTION sbuild_session_set_user ##### -->
-<para>
-
-</para>
-
-@session: 
-@user: 
-
-
-<!-- ##### FUNCTION sbuild_session_get_command ##### -->
-<para>
-
-</para>
-
-@session: 
-@Returns: 
-
-
-<!-- ##### FUNCTION sbuild_session_set_command ##### -->
-<para>
-
-</para>
-
-@session: 
-@command: 
-
-
-<!-- ##### FUNCTION sbuild_session_get_environment ##### -->
-<para>
-
-</para>
-
-@session: 
-@Returns: 
-
-
-<!-- ##### FUNCTION sbuild_session_set_environment ##### -->
-<para>
-
-</para>
-
-@session: 
-@environment: 
 
 
 <!-- ##### FUNCTION sbuild_session_get_config ##### -->
@@ -211,32 +107,12 @@ SbuildSession class.
 @chroots: 
 
 
-<!-- ##### FUNCTION sbuild_session_get_quiet ##### -->
+<!-- ##### FUNCTION sbuild_session_get_child_status ##### -->
 <para>
 
 </para>
 
 @session: 
-@Returns: 
-
-
-<!-- ##### FUNCTION sbuild_session_set_quiet ##### -->
-<para>
-
-</para>
-
-@session: 
-@quiet: 
-
-
-<!-- ##### FUNCTION sbuild_session_run ##### -->
-<para>
-
-</para>
-
-@session: 
-@child_status: 
-@error: 
 @Returns: 
 
 

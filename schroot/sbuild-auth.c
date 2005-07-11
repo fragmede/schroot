@@ -21,9 +21,38 @@
 
 /**
  * SECTION:sbuild-auth
- * @short_description: auth object
+ * @short_description: authentication handler
  * @title: SbuildAuth
  *
+ * SbuildAuth handles user authentication, authorisation and session
+ * management using the Pluggable Authentication Modules (PAM)
+ * library.  It is essentially a GObject wrapper around PAM.
+ *
+ * In order to use PAM correctly, it is important to call several of
+ * the methods in the correct order.  For example, it is not possible
+ * to authorise a user before authenticating a user, and a session may
+ * not be started before either of these have occured.
+ *
+ * The correct order is
+ * - sbuild_auth_start
+ * - sbuild_auth_authenticate
+ * - sbuild_auth_setupenv
+ * - sbuild_auth_account
+ * - sbuild_auth_cred_establish
+ * - sbuild_auth_close_session
+ *
+ * After the session has finished, or if an error occured, the
+ * corresponding cleanup methods should be called
+ * - sbuild_auth_close_session
+ * - sbuild
+ * - sbuild_auth_cred_delete
+ * - sbuild_auth_stop
+ *
+ * The function sbuild_auth_run will handle all this.  The session_run
+ * vfunc or "session-run" signal should be used to provide a session
+ * handler to open and close the session for the user.
+ * sbuild_auth_open_session and sbuild_auth_close_session must still
+ * be used.
  */
 
 #include <config.h>
@@ -840,7 +869,7 @@ sbuild_auth_open_session (SbuildAuth  *auth,
 }
 
 /**
- * sbuild_auth_close:
+ * sbuild_auth_close_session:
  * @auth: an #SbuildAuth
  * @error: a #GError
  *
@@ -1219,6 +1248,21 @@ sbuild_auth_class_init (SbuildAuthClass *klass)
                   G_TYPE_BOOLEAN, 1, SBUILD_TYPE_ERROR_POINTER);
 }
 
+/**
+ * sbuild_auth_require_auth_accumulator:
+ * @ihint: an invocation hint
+ * @return_accu: a GValue to return to the caller
+ * @handler_return: a GValue containing the return value of the last signal handler.
+ * @data: user data
+ *
+ * Accumulate the results of "require-auth" checking.  This uses
+ * sbuild_auth_change_auth to alter the authentication status.
+ *
+ * Returns FALSE if @return_accu is set to SBUILD_AUTH_STATUS_FAIL,
+ * because continuing the signal emission is pointless, otherwise it
+ * returns TRUE to continue signal emission.
+ *
+ */
 static gboolean
 sbuild_auth_require_auth_accumulator (GSignalInvocationHint *ihint,
 				      GValue                *return_accu,
@@ -1239,6 +1283,19 @@ sbuild_auth_require_auth_accumulator (GSignalInvocationHint *ihint,
     return TRUE;
 }
 
+/**
+ * sbuild_auth_boolean_accumulator:
+ * @ihint: an invocation hint
+ * @return_accu: a GValue to return to the caller
+ * @handler_return: a GValue containing the return value of the last signal handler.
+ * @data: user data
+ *
+ * Check if signal emission should continue.
+ *
+ * Returns FALSE if @handler return is set to FALSE, ending signal
+ * emission, or TRUE if @handler return is set to TRUE, continuing
+ * signal emission.
+ */
 static gboolean
 sbuild_auth_boolean_accumulator (GSignalInvocationHint *ihint,
 				 GValue                *return_accu,

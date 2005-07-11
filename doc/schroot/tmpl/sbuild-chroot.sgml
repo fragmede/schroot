@@ -58,7 +58,7 @@ SbuildChroot object.
 SbuildChroot class.
 </para>
 
-@parent: 
+@parent: the parent class
 
 <!-- ##### FUNCTION sbuild_chroot_new ##### -->
 <para>

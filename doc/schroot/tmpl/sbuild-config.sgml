@@ -50,7 +50,7 @@ SbuildConfig object.
 SbuildConfig class.
 </para>
 
-@parent: 
+@parent: the parent class
 
 <!-- ##### FUNCTION sbuild_config_new ##### -->
 <para>

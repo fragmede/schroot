@@ -43,6 +43,9 @@ sbuild_config_get_chroot_list
 sbuild_config_print_chroot_list
 sbuild_config_validate_chroots
 <SUBSECTION Standard>
+SBUILD_TYPE_CONFIG_FILE_ERROR
+sbuild_config_file_error_get_type
+sbuild_config_file_error_quark
 SBUILD_CONFIG
 SBUILD_IS_CONFIG
 SBUILD_TYPE_CONFIG
@@ -53,6 +56,56 @@ SBUILD_CONFIG_GET_CLASS
 </SECTION>
 
 <SECTION>
+<FILE>sbuild-auth</FILE>
+SbuildAuthError
+SBUILD_AUTH_ERROR
+<TITLE>SbuildAuth</TITLE>
+SbuildAuth
+SbuildAuthRequireAuthFunc
+SbuildAuthSessionRunFunc
+SbuildAuthClass
+SbuildAuthStatus
+sbuild_auth_new
+sbuild_auth_get_uid
+sbuild_auth_get_gid
+sbuild_auth_get_user
+sbuild_auth_set_user
+sbuild_auth_get_shell
+sbuild_auth_get_command
+sbuild_auth_set_command
+sbuild_auth_get_environment
+sbuild_auth_set_environment
+sbuild_auth_get_pam_environment
+sbuild_auth_get_ruid
+sbuild_auth_get_ruser
+sbuild_auth_get_quiet
+sbuild_auth_set_quiet
+sbuild_auth_start
+sbuild_auth_stop
+sbuild_auth_authenticate
+sbuild_auth_account
+sbuild_auth_cred_establish
+sbuild_auth_cred_delete
+sbuild_auth_open_session
+sbuild_auth_close_session
+sbuild_auth_setupenv
+sbuild_auth_run
+<SUBSECTION Standard>
+SBUILD_TYPE_AUTH_ERROR
+sbuild_auth_error_get_type
+sbuild_auth_error_quark
+SBUILD_TYPE_AUTH_STATUS
+sbuild_auth_status_get_type
+SBUILD_AUTH
+SBUILD_IS_AUTH
+SBUILD_TYPE_AUTH
+sbuild_auth_get_type
+SBUILD_AUTH_CLASS
+SBUILD_IS_AUTH_CLASS
+SBUILD_AUTH_GET_CLASS
+</SECTION>
+
+<SECTION>
 <FILE>sbuild-session</FILE>
 SbuildSessionError
 SBUILD_SESSION_ERROR
@@ -60,20 +113,16 @@ SBUILD_SESSION_ERROR
 SbuildSession
 SbuildSessionClass
 sbuild_session_new
-sbuild_session_get_user
-sbuild_session_set_user
-sbuild_session_get_command
-sbuild_session_set_command
-sbuild_session_get_environment
-sbuild_session_set_environment
 sbuild_session_get_config
 sbuild_session_set_config
 sbuild_session_get_chroots
 sbuild_session_set_chroots
-sbuild_session_get_quiet
-sbuild_session_set_quiet
 sbuild_session_run
+sbuild_session_get_child_status
 <SUBSECTION Standard>
+SBUILD_TYPE_SESSION_ERROR
+sbuild_session_error_get_type
+sbuild_session_error_quark
 SBUILD_SESSION
 SBUILD_IS_SESSION
 SBUILD_TYPE_SESSION
@@ -87,4 +136,16 @@ SBUILD_SESSION_GET_CLASS
 <FILE>sbuild-marshallers</FILE>
 <TITLE>Closure Marshallers</TITLE>
 sbuild_cclosure_marshal_ENUM__VOID
+sbuild_cclosure_marshal_BOOLEAN__BOXED
+</SECTION>
+
+<SECTION>
+<FILE>sbuild-error</FILE>
+<TITLE>Error handling</TITLE>
+SbuildErrorPointer
+SBUILD_TYPE_ERROR
+SBUILD_TYPE_ERROR_POINTER
+<SUBSECTION Standard>
+sbuild_error_pointer_get_type
+sbuild_error_get_type
 </SECTION>
