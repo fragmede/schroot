@@ -1,5 +1,11 @@
 2005-07-17  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-auth.c (sbuild_auth_setupenv): Add USER and
+	LOGNAME to the list of environment variables to set if not
+	preserving the old environment.
+
+2005-07-17  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-auth.c
 	(sbuild_auth_get_home): Add home directory property and get
 	function for the session user.

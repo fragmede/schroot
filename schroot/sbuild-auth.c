@@ -706,8 +706,8 @@ sbuild_auth_authenticate (SbuildAuth  *auth,
  * @error: a #GError
  *
  * Import the user environment into PAM.  If no environment was
- * specified with #sbuild_auth_set_environment, a minimal
- * environment will be created containing HOME, PATH and TERM.
+ * specified with #sbuild_auth_set_environment, a minimal environment
+ * will be created containing HOME, LOGNAME, PATH, TERM and LOGNAME.
  *
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
@@ -723,7 +723,7 @@ sbuild_auth_setupenv (SbuildAuth  *auth,
 
   /* Initial environment to set, used if the environment was not
      specified. */
-  char **newenv = g_new(char *, 4); // Size must be at least max envvars + 1
+  char **newenv = g_new(char *, 6); // Size must be at least max envvars + 1
   guint i = 0;
 
   if (auth->uid == 0)
@@ -735,7 +735,11 @@ sbuild_auth_setupenv (SbuildAuth  *auth,
     newenv[i++] = g_strdup_printf("HOME=%s", auth->home);
   else
     newenv[i++] = g_strdup_printf("HOME=%s", "/");
-
+  if (auth->user)
+    {
+      newenv[i++] = g_strdup_printf("LOGNAME=%s", auth->user);
+      newenv[i++] = g_strdup_printf("USER=%s", auth->user);
+    }
   {
     const char *term = g_getenv("TERM");
     if (term)
