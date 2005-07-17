@@ -84,6 +84,7 @@ struct _SbuildAuth
   gid_t             gid;
   gchar            *user;
   gchar           **command;
+  gchar            *home;
   gchar            *shell;
   gchar           **environment;
   uid_t             ruid;
@@ -126,6 +127,9 @@ sbuild_auth_get_command (const SbuildAuth *restrict auth);
 void
 sbuild_auth_set_command (SbuildAuth  *auth,
 			 char       **command);
+
+const char *
+sbuild_auth_get_home (const SbuildAuth *restrict auth);
 
 const char *
 sbuild_auth_get_shell (const SbuildAuth *restrict auth);

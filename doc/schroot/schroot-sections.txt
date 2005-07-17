@@ -70,6 +70,7 @@ sbuild_auth_get_uid
 sbuild_auth_get_gid
 sbuild_auth_get_user
 sbuild_auth_set_user
+sbuild_auth_get_home
 sbuild_auth_get_shell
 sbuild_auth_get_command
 sbuild_auth_set_command

@@ -1,4 +1,12 @@
-2005-07-16  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2005-07-17  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-auth.c
+	(sbuild_auth_get_home): Add home directory property and get
+	function for the session user.
+	(sbuild_auth_setupenv): Add HOME to the list of environment
+	variables to set if not preserving the old environment.
+
+2005-07-16  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-session.c
 	(sbuild_session_run_chroot): Split into two separate functions,

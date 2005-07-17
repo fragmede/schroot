@@ -109,6 +109,7 @@ enum
   PROP_GID,
   PROP_USER,
   PROP_COMMAND,
+  PROP_HOME,
   PROP_SHELL,
   PROP_ENV,
   PROP_RUID,
@@ -206,8 +207,8 @@ sbuild_auth_get_user (const SbuildAuth *restrict auth)
  * Get the name of the user.  This is the user to run as in the
  * session.
  *
- * As a side effect, the "uid", "gid" and "shell" properties will also
- * be set.
+ * As a side effect, the "uid", "gid", "home" and "shell" properties
+ * will also be set.
  */
 void
 sbuild_auth_set_user (SbuildAuth *auth,
@@ -236,6 +237,7 @@ sbuild_auth_set_user (SbuildAuth *auth,
 	}
       auth->uid = pwent->pw_uid;
       auth->gid = pwent->pw_gid;
+      auth->home = g_strdup(pwent->pw_dir);
       auth->shell = g_strdup(pwent->pw_shell);
       g_debug("auth uid = %lu, gid = %lu", (unsigned long) auth->uid,
 	      (unsigned long) auth->gid);
@@ -244,12 +246,14 @@ sbuild_auth_set_user (SbuildAuth *auth,
     {
       auth->uid = 0;
       auth->gid = 0;
+      auth->home = g_strdup("/");
       auth->shell = g_strdup("/bin/false");
     }
 
   g_object_notify(G_OBJECT(auth), "uid");
   g_object_notify(G_OBJECT(auth), "gid");
   g_object_notify(G_OBJECT(auth), "user");
+  g_object_notify(G_OBJECT(auth), "home");
   g_object_notify(G_OBJECT(auth), "shell");
 }
 
@@ -289,6 +293,24 @@ sbuild_auth_set_command (SbuildAuth  *auth,
     }
   auth->command = g_strdupv(command);
   g_object_notify(G_OBJECT(auth), "command");
+}
+
+/**
+ * sbuild_auth_get_home:
+ * @auth: an #SbuildAuth
+ *
+ * Get the home directory.  This is the $HOME to set in the session,
+ * if the user environment is not being preserved.
+ *
+ * Returns a string.  This string points to internally allocated
+ * storage and must not be freed, modified or stored.
+ */
+const char *
+sbuild_auth_get_home (const SbuildAuth *restrict auth)
+{
+  g_return_val_if_fail(SBUILD_IS_AUTH(auth), NULL);
+
+  return auth->home;
 }
 
 /**
@@ -685,7 +707,7 @@ sbuild_auth_authenticate (SbuildAuth  *auth,
  *
  * Import the user environment into PAM.  If no environment was
  * specified with #sbuild_auth_set_environment, a minimal
- * environment will be created containing PATH and TERM.
+ * environment will be created containing HOME, PATH and TERM.
  *
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
@@ -701,19 +723,26 @@ sbuild_auth_setupenv (SbuildAuth  *auth,
 
   /* Initial environment to set, used if the environment was not
      specified. */
-  char **newenv = g_new(char *, 3); // Size must be at least max envvars + 1
+  char **newenv = g_new(char *, 4); // Size must be at least max envvars + 1
   guint i = 0;
+
   if (auth->uid == 0)
     newenv[i++] = g_strdup_printf("PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11");
   else
     newenv[i++] = g_strdup("PATH=/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games");
+
+  if (auth->home)
+    newenv[i++] = g_strdup_printf("HOME=%s", auth->home);
+  else
+    newenv[i++] = g_strdup_printf("HOME=%s", "/");
+
   {
     const char *term = g_getenv("TERM");
     if (term)
       newenv[i++] = g_strdup_printf("TERM=%s", term);
   }
-  newenv[i] = NULL;
 
+  newenv[i] = NULL;
 
   char **environment = auth->environment != NULL ? auth->environment : newenv;
   for (guint j=0; environment[j] != NULL; ++j)
@@ -1008,6 +1037,7 @@ sbuild_auth_init (SbuildAuth *auth)
   auth->uid = 0;
   auth->gid = 0;
   auth->command = NULL;
+  auth->home = NULL;
   auth->shell = NULL;
   auth->environment = NULL;
   auth->pam = NULL;
@@ -1047,6 +1077,11 @@ sbuild_auth_finalize (SbuildAuth *auth)
     {
       g_strfreev (auth->command);
       auth->command = NULL;
+    }
+  if (auth->home)
+    {
+      g_free (auth->home);
+      auth->home = NULL;
     }
   if (auth->shell)
     {
@@ -1123,6 +1158,9 @@ sbuild_auth_get_property (GObject    *object,
     case PROP_COMMAND:
       g_value_set_boxed(value, auth->command);
       break;
+    case PROP_HOME:
+      g_value_set_string(value, auth->home);
+      break;
     case PROP_SHELL:
       g_value_set_string(value, auth->shell);
       break;
@@ -1188,6 +1226,14 @@ sbuild_auth_class_init (SbuildAuthClass *klass)
 			 "The command to run in the session, or NULL for a login shell",
 			 G_TYPE_STRV,
 			 (G_PARAM_READABLE | G_PARAM_WRITABLE)));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_HOME,
+     g_param_spec_string ("home", "Home",
+			  "The home directory for the user in the session",
+			  "/bin/false",
+			  G_PARAM_READABLE));
 
   g_object_class_install_property
     (gobject_class,

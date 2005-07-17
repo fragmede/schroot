@@ -82,6 +82,11 @@ error (@error must be set appropriately).
 
 </para>
 
+<!-- ##### ARG SbuildAuth:home ##### -->
+<para>
+
+</para>
+
 <!-- ##### ARG SbuildAuth:quiet ##### -->
 <para>
 
@@ -198,6 +203,15 @@ The status of the authentication process.
 
 @auth: 
 @user: 
+
+
+<!-- ##### FUNCTION sbuild_auth_get_home ##### -->
+<para>
+
+</para>
+
+@auth: 
+@Returns: 
 
 
 <!-- ##### FUNCTION sbuild_auth_get_shell ##### -->
