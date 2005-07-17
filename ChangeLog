@@ -1,3 +1,11 @@
+2005-07-16  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* schroot/sbuild-session.c
+	(sbuild_session_run_chroot): Split into two separate functions,
+	sbuild_session_run_child() and sbuild_session_wait_for_child().
+	(sbuild_session_wait_for_child): Notify the "child-status"
+	property on change.
+
 2005-07-11  Roger Leigh  <rleigh@debian.org>
 
 	* TODO: Update.

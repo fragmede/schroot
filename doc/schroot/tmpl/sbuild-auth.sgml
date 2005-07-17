@@ -135,7 +135,6 @@ function.
 error (@error must be set appropriately).
 
 
-
 <!-- ##### STRUCT SbuildAuthClass ##### -->
 <para>
 SbuildAuth class.

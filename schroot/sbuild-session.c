@@ -333,6 +333,247 @@ sbuild_session_require_auth (SbuildSession *session)
 }
 
 /**
+ * sbuild_session_run_child:
+ * @session: an #SbuildSession
+ * @session_chroot: an #SbuildChroot (which must be present in the @session configuration)
+ *
+ * Run a command or login shell as a child process in the specified chroot.
+ *
+ */
+static void
+sbuild_session_run_child (SbuildSession  *session,
+			  SbuildChroot   *session_chroot)
+{
+  g_assert(SBUILD_IS_SESSION(session));
+  g_assert(SBUILD_IS_CHROOT(session_chroot));
+  g_assert(sbuild_chroot_get_name(session_chroot) != NULL);
+  g_assert(sbuild_chroot_get_location(session_chroot) != NULL);
+
+  SbuildAuth *auth = SBUILD_AUTH(session);
+
+  g_assert(sbuild_auth_get_user(auth) != NULL);
+  g_assert(sbuild_auth_get_shell(auth) != NULL);
+  g_assert(auth->pam != NULL); // PAM must be initialised
+
+  uid_t uid = sbuild_auth_get_uid(auth);
+  gid_t gid = sbuild_auth_get_gid(auth);
+  const char *user = sbuild_auth_get_user(auth);
+  uid_t ruid = sbuild_auth_get_ruid(auth);
+  const char *ruser = sbuild_auth_get_ruser(auth);
+  const char *shell = sbuild_auth_get_shell(auth);
+  char **command = g_strdupv(sbuild_auth_get_command(auth));
+  char **environment = sbuild_auth_get_environment(auth);
+
+  const char *location = sbuild_chroot_get_location(session_chroot);
+  char *cwd = g_get_current_dir();
+  /* Child errors result in immediate exit().  Errors are not
+     propagated back via a GError, because there is no longer any
+     higher-level handler to catch them. */
+  GError *pam_error = NULL;
+  sbuild_auth_open_session(SBUILD_AUTH(session), &pam_error);
+  if (pam_error != NULL)
+    {
+      g_printerr(_("PAM error: %s\n"), pam_error->message);
+      exit (EXIT_FAILURE);
+    }
+
+  /* Set group ID and supplementary groups */
+  if (setgid (gid))
+    {
+      fprintf (stderr, _("Could not set gid to '%lu'\n"), (unsigned long) gid);
+      exit (EXIT_FAILURE);
+    }
+  if (initgroups (user, gid))
+    {
+      fprintf (stderr, _("Could not set supplementary group IDs\n"));
+      exit (EXIT_FAILURE);
+    }
+
+  /* Enter the chroot */
+  if (chdir (location))
+    {
+      fprintf (stderr, _("Could not chdir to '%s': %s\n"), location,
+	       g_strerror (errno));
+      exit (EXIT_FAILURE);
+    }
+  if (chroot (location))
+    {
+      fprintf (stderr, _("Could not chroot to '%s': %s\n"), location,
+	       g_strerror (errno));
+      exit (EXIT_FAILURE);
+    }
+
+  /* Set uid and check we are not still root */
+  if (setuid (uid))
+    {
+      fprintf (stderr, _("Could not set uid to '%lu'\n"), (unsigned long) uid);
+      exit (EXIT_FAILURE);
+    }
+  if (!setuid (0) && uid)
+    {
+      fprintf (stderr, _("Failed to drop root permissions.\n"));
+      exit (EXIT_FAILURE);
+    }
+
+  /* chdir to current directory */
+  if (chdir (cwd))
+    {
+      fprintf (stderr, _("warning: Could not chdir to '%s': %s\n"), cwd,
+	       g_strerror (errno));
+    }
+  g_free(cwd);
+
+  /* Set up environment */
+  char **env = sbuild_auth_get_pam_environment(auth);
+  g_assert (env != NULL); // Can this fail?  Make sure we don't find out the hard way.
+  for (guint i=0; env[i] != NULL; ++i)
+    g_debug("Set environment: %s", env[i]);
+
+  /* Run login shell */
+  char *file = NULL;
+
+  if ((command == NULL ||
+       command[0] == NULL)) // No command
+    {
+      g_assert (shell != NULL);
+
+      g_strfreev(command);
+      command = g_new(char *, 2);
+      file = g_strdup(shell);
+      if (environment == NULL) // Not keeping environment; login shell
+	{
+	  char *shellbase = g_path_get_basename(shell);
+	  char *loginshell = g_strconcat("-", shellbase, NULL);
+	  g_free(shellbase);
+	  command[0] = loginshell;
+	  g_debug("Login shell: %s", command[1]);
+	}
+      else
+	{
+	  command[0] = g_strdup(shell);
+	}
+      command[1] = NULL;
+
+      g_debug("Running login shell: %s", shell);
+      syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running login shell: \"%s\"",
+	     sbuild_chroot_get_name(session_chroot), ruser, user, shell);
+      if (sbuild_auth_get_quiet(auth) == FALSE)
+	{
+	  if (ruid == uid)
+	    g_printerr(_("[%s chroot] Running login shell: \"%s\"\n"),
+		       sbuild_chroot_get_name(session_chroot), shell);
+	  else
+	    g_printerr(_("[%s chroot] (%s->%s) Running login shell: \"%s\"\n"),
+		       sbuild_chroot_get_name(session_chroot), ruser, user, shell);
+	}
+    }
+  else
+    {
+      /* Search for program in path. */
+      file = g_find_program_in_path(command[0]);
+      if (file == NULL)
+	file = g_strdup(command[0]);
+      char *commandstring = g_strjoinv(" ", command);
+      g_debug("Running command: %s", commandstring);
+      syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
+	     sbuild_chroot_get_name(session_chroot), ruser, user, commandstring);
+      if (sbuild_auth_get_quiet(auth) == FALSE)
+	{
+	  if (ruid == uid)
+	    g_printerr(_("[%s chroot] Running command: \"%s\"\n"),
+		       sbuild_chroot_get_name(session_chroot), commandstring);
+	  else
+	    g_printerr(_("[%s chroot] (%s->%s) Running command: \"%s\"\n"),
+		       sbuild_chroot_get_name(session_chroot),
+		       ruser, user, commandstring);
+	}
+      g_free(commandstring);
+    }
+
+  /* Execute */
+  if (execve (file, command, env))
+    {
+      fprintf (stderr, _("Could not exec \"%s\": %s\n"), command[0],
+	       g_strerror (errno));
+      exit (EXIT_FAILURE);
+    }
+  /* This should never be reached */
+  exit(EXIT_FAILURE);
+}
+
+/**
+ * sbuild_session_wait_for_child:
+ * @session: an #SbuildSession
+ * @error: a #GError
+ *
+ * Wait for a child process to complete, and check its exit status.
+ *
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
+ */
+static gboolean
+sbuild_session_wait_for_child (SbuildSession  *session,
+			       int             pid,
+			       GError        **error)
+{
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
+
+  session->child_status = EXIT_FAILURE; // Default exit status
+
+  int status;
+  if (wait(&status) != pid)
+    {
+      g_set_error(error,
+		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
+		  _("wait for child failed: %s\n"), g_strerror (errno));
+      return FALSE;
+    }
+
+  GError *pam_error = NULL;
+  sbuild_auth_close_session(SBUILD_AUTH(session), &pam_error);
+  if (pam_error != NULL)
+    {
+      g_propagate_error(error, pam_error);
+      return FALSE;
+    }
+
+  if (!WIFEXITED(status))
+    {
+      if (WIFSIGNALED(status))
+	g_set_error(error,
+		    SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
+		    _("Child terminated by signal '%s'"),
+		    strsignal(WTERMSIG(status)));
+      else if (WCOREDUMP(status))
+	g_set_error(error,
+		    SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
+		    _("Child dumped core"));
+      else
+	g_set_error(error,
+		    SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
+		    _("Child exited abnormally (reason unknown; not a signal or core dump)"));
+      return FALSE;
+    }
+
+  session->child_status = WEXITSTATUS(status);
+  g_object_notify(G_OBJECT(session), "child-status");
+
+  if (session->child_status)
+    {
+      g_set_error(error,
+		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
+		  _("Child exited abnormally with status '%d'"),
+		  session->child_status);
+      return FALSE;
+    }
+
+  return TRUE;
+
+  /* Should never be reached. */
+  return TRUE;
+}
+
+/**
  * sbuild_session_run_command:
  * @session: an #SbuildSession
  * @session_chroot: an #SbuildChroot (which must be present in the @session configuration)
@@ -353,12 +594,6 @@ sbuild_session_run_chroot (SbuildSession  *session,
   g_return_val_if_fail(sbuild_chroot_get_name(session_chroot) != NULL, FALSE);
   g_return_val_if_fail(sbuild_chroot_get_location(session_chroot) != NULL, FALSE);
 
-  SbuildAuth *auth = SBUILD_AUTH(session);
-
-  g_return_val_if_fail(sbuild_auth_get_user(auth) != NULL, FALSE);
-  g_return_val_if_fail(sbuild_auth_get_shell(auth) != NULL, FALSE);
-  g_return_val_if_fail(auth->pam != NULL, FALSE); // PAM must be initialised
-
   pid_t pid;
   if ((pid = fork()) == -1)
     {
@@ -369,206 +604,21 @@ sbuild_session_run_chroot (SbuildSession  *session,
     }
   else if (pid == 0)
     {
-      uid_t uid = sbuild_auth_get_uid(auth);
-      gid_t gid = sbuild_auth_get_gid(auth);
-      const char *user = sbuild_auth_get_user(auth);
-      uid_t ruid = sbuild_auth_get_ruid(auth);
-      const char *ruser = sbuild_auth_get_ruser(auth);
-      const char *shell = sbuild_auth_get_shell(auth);
-      char **command = g_strdupv(sbuild_auth_get_command(auth));
-      char **environment = sbuild_auth_get_environment(auth);
-
-      const char *location = sbuild_chroot_get_location(session_chroot);
-      char *cwd = g_get_current_dir();
-      /* Child errors result in immediate exit().  Errors are not
-	 propagated back via a GError, because there is no longer any
-	 higher-level handler to catch them. */
-      GError *pam_error = NULL;
-      sbuild_auth_open_session(SBUILD_AUTH(session), &pam_error);
-      if (pam_error != NULL)
-	{
-	  g_printerr(_("PAM error: %s\n"), pam_error->message);
-	  exit (EXIT_FAILURE);
-	}
-
-      /* Set group ID and supplementary groups */
-      if (setgid (gid))
-	{
-	  fprintf (stderr, _("Could not set gid to '%lu'\n"), (unsigned long) gid);
-	  exit (EXIT_FAILURE);
-	}
-      if (initgroups (user, gid))
-	{
-	  fprintf (stderr, _("Could not set supplementary group IDs\n"));
-	  exit (EXIT_FAILURE);
-	}
-
-      /* Enter the chroot */
-      if (chdir (location))
-	{
-	  fprintf (stderr, _("Could not chdir to '%s': %s\n"), location,
-		   g_strerror (errno));
-	  exit (EXIT_FAILURE);
-	}
-      if (chroot (location))
-	{
-	  fprintf (stderr, _("Could not chroot to '%s': %s\n"), location,
-		   g_strerror (errno));
-	  exit (EXIT_FAILURE);
-	}
-
-      /* Set uid and check we are not still root */
-      if (setuid (uid))
-	{
-	  fprintf (stderr, _("Could not set uid to '%lu'\n"), (unsigned long) uid);
-	  exit (EXIT_FAILURE);
-	}
-      if (!setuid (0) && uid)
-	{
-	  fprintf (stderr, _("Failed to drop root permissions.\n"));
-	  exit (EXIT_FAILURE);
-	}
-
-      /* chdir to current directory */
-      if (chdir (cwd))
-	{
-	  fprintf (stderr, _("warning: Could not chdir to '%s': %s\n"), cwd,
-		   g_strerror (errno));
-	}
-      g_free(cwd);
-
-      /* Set up environment */
-      char **env = sbuild_auth_get_pam_environment(auth);
-      g_assert (env != NULL); // Can this fail?  Make sure we don't find out the hard way.
-      for (guint i=0; env[i] != NULL; ++i)
-	g_debug("Set environment: %s", env[i]);
-
-      /* Run login shell */
-      char *file = NULL;
-
-      if ((command == NULL ||
-	   command[0] == NULL)) // No command
-	{
-	  g_assert (shell != NULL);
-
-	  g_strfreev(command);
-	  command = g_new(char *, 2);
-	  file = g_strdup(shell);
-	  if (environment == NULL) // Not keeping environment; login shell
-	    {
-	      char *shellbase = g_path_get_basename(shell);
-	      char *loginshell = g_strconcat("-", shellbase, NULL);
-	      g_free(shellbase);
-	      command[0] = loginshell;
-	      g_debug("Login shell: %s", command[1]);
-	    }
-	  else
-	    {
-	      command[0] = g_strdup(shell);
-	    }
-	  command[1] = NULL;
-
-	  g_debug("Running login shell: %s", shell);
-	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running login shell: \"%s\"",
-		 sbuild_chroot_get_name(session_chroot), ruser, user, shell);
-	  if (sbuild_auth_get_quiet(auth) == FALSE)
-	    {
-	      if (ruid == uid)
-		g_printerr(_("[%s chroot] Running login shell: \"%s\"\n"),
-			   sbuild_chroot_get_name(session_chroot), shell);
-	      else
-		g_printerr(_("[%s chroot] (%s->%s) Running login shell: \"%s\"\n"),
-			   sbuild_chroot_get_name(session_chroot), ruser, user, shell);
-
-	    }
-	}
-      else
-	{
-	  /* Search for program in path. */
-	  file = g_find_program_in_path(command[0]);
-	  if (file == NULL)
-	    file = g_strdup(command[0]);
-	  char *commandstring = g_strjoinv(" ", command);
-	  g_debug("Running command: %s", commandstring);
-	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
-		 sbuild_chroot_get_name(session_chroot), ruser, user, commandstring);
-	  if (sbuild_auth_get_quiet(auth) == FALSE)
-	    {
-	      if (ruid == uid)
-		g_printerr(_("[%s chroot] Running command: \"%s\"\n"),
-			   sbuild_chroot_get_name(session_chroot), commandstring);
-	      else
-		g_printerr(_("[%s chroot] (%s->%s) Running command: \"%s\"\n"),
-			   sbuild_chroot_get_name(session_chroot),
-			   ruser, user, commandstring);
-	    }
-	  g_free(commandstring);
-	}
-
-      /* Execute */
-      if (execve (file, command, env))
-	{
-	  fprintf (stderr, _("Could not exec \"%s\": %s\n"), command[0],
-		   g_strerror (errno));
-	  exit (EXIT_FAILURE);
-	}
-      /* This should never be reached */
-      exit(EXIT_FAILURE);
+      sbuild_session_run_child(session, session_chroot);
+      exit (EXIT_FAILURE); /* Should never be reached. */
     }
   else
     {
-      session->child_status = EXIT_FAILURE; // Default exit status
+      GError *tmp_error = NULL;
+      sbuild_session_wait_for_child(session, pid, &tmp_error);
 
-      int status;
-      if (wait(&status) != pid)
+      if (tmp_error != NULL)
 	{
-	  g_set_error(error,
-		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
-		      _("wait for child failed: %s\n"), g_strerror (errno));
+	  g_propagate_error(error, tmp_error);
 	  return FALSE;
 	}
-
-      GError *pam_error = NULL;
-      sbuild_auth_close_session(SBUILD_AUTH(session), &pam_error);
-      if (pam_error != NULL)
-	{
-	  g_propagate_error(error, pam_error);
-	  return FALSE;
-	}
-
-      if (!WIFEXITED(status))
-	{
-	  if (WIFSIGNALED(status))
-	    g_set_error(error,
-			SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
-			_("Child terminated by signal '%s'"),
-			strsignal(WTERMSIG(status)));
-	  else if (WCOREDUMP(status))
-	    g_set_error(error,
-			SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
-			_("Child dumped core"));
-	  else
-	    g_set_error(error,
-			SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
-			_("Child exited abnormally (reason unknown; not a signal or core dump)"));
-	  return FALSE;
-	}
-
-      session->child_status = WEXITSTATUS(status);
-      if (session->child_status)
-	{
-	  g_set_error(error,
-		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
-		      _("Child exited abnormally with status '%d'"),
-		      session->child_status);
-	  return FALSE;
-	}
-
       return TRUE;
     }
-
-  /* Should never be reached. */
-  return TRUE;
 }
 
 /**
