@@ -6,6 +6,14 @@ building and configuration.
 
 * Major changes in 0.1.3:
 
+  1) HOME, LOGNAME and USER are set in the environment if the old
+     environment is not being preserved.
+  2) schroot now aborts earlier if no chroots are defined in
+     schroot.conf, rather than failing with a confusing failed
+     assertion error.
+  3) An option parsing bug which could sometimes cause a crash has
+     been fixed.
+
 * Major changes in 0.1.2:
 
   1) Support for gettext has been added, to allow localisation into
