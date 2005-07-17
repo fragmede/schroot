@@ -1,5 +1,11 @@
 2005-07-17  Roger Leigh  <rleigh@debian.org>
 
+	* debian/control (Build-Depends): Add gettext.
+
+	* Bump version numbers to 0.1.4.
+
+2005-07-17  Roger Leigh  <rleigh@debian.org>
+
 	* Version 0.1.3.
 
 	* NEWS: Update for 0.1.3.

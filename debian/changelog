@@ -1,3 +1,11 @@
+schroot (0.1.4-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/control:
+    - Add gettext to Build-Depends.
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 17 Jul 2005 18:14:32 +0100
+
 schroot (0.1.3-1) unstable; urgency=low
 
   * New upstream release.
@@ -16,7 +24,7 @@ schroot (0.1.1-1) unstable; urgency=low
   * New upstream release.
   * Initial Debian release (Closes: #315104).
   * debian/control:
-    - Add Add buildd-tools developers to Uploaders.
+    - Add buildd-tools developers to Uploaders.
     - Remove unused ${misc:Depends}.
   * Remove debian/conffiles, which is redundant with current versions of
     debhelper.
