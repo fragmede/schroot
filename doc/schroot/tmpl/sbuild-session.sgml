@@ -66,6 +66,7 @@ SbuildSession class.
 
 </para>
 
+@service: 
 @config: 
 @chroots: 
 @Returns: 

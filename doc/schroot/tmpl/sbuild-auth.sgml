@@ -102,6 +102,11 @@ error (@error must be set appropriately).
 
 </para>
 
+<!-- ##### ARG SbuildAuth:service ##### -->
+<para>
+
+</para>
+
 <!-- ##### ARG SbuildAuth:shell ##### -->
 <para>
 

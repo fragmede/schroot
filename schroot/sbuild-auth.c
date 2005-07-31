@@ -105,6 +105,7 @@ sbuild_auth_error_quark (void)
 enum
 {
   PROP_0,
+  PROP_SERVICE,
   PROP_UID,
   PROP_GID,
   PROP_USER,
@@ -143,6 +144,50 @@ sbuild_auth_new (void)
   /* TODO: add service property */
   return (SbuildAuth *) g_object_new(SBUILD_TYPE_AUTH,
 				     NULL);
+}
+
+/**
+ * sbuild_auth_get_service:
+ * @auth: an #SbuildAuth
+ *
+ * Get the PAM service name.  This is passed to pam_start() when
+ * initialising PAM.  It must be set during object construction, and
+ * MUST be a hard-coded (constant) string literal for security
+ * reasons.
+ *
+ * Returns a string. This string points to internally allocated
+ * storage in the chroot and must not be freed, modified or stored.
+ */
+const gchar *
+sbuild_auth_get_service (const SbuildAuth *restrict auth)
+{
+  g_return_val_if_fail(SBUILD_IS_AUTH(auth), 0);
+
+  return auth->service;
+}
+
+/**
+ * sbuild_auth_set_service:
+ * @auth: an #SbuildAuth
+ *
+ * Set the PAM service name.  This is passed to pam_start() when
+ * initialising PAM.  It must be set during object construction, and
+ * MUST be a hard-coded (constant) string literal for security
+ * reasons.
+ *
+ * Returns a string. This string points to internally allocated
+ * storage in the chroot and must not be freed, modified or stored.
+ */
+static void
+sbuild_auth_set_service (SbuildAuth  *auth,
+			 const gchar *service)
+{
+  g_return_if_fail(SBUILD_IS_AUTH(auth));
+
+  if (auth->service)
+    g_free(auth->service);
+  auth->service = g_strdup(service);
+  g_object_notify(G_OBJECT(auth), "service");
 }
 
 /**
@@ -503,8 +548,6 @@ sbuild_auth_require_auth (SbuildAuth *auth)
   g_return_val_if_fail(SBUILD_IS_AUTH(auth), SBUILD_AUTH_STATUS_FAIL);
   g_return_val_if_fail(auth->user != NULL, SBUILD_AUTH_STATUS_FAIL);
 
-  SbuildAuthClass *klass = SBUILD_AUTH_CLASS(SBUILD_AUTH_GET_CLASS(auth));
-
   SbuildAuthStatus status;
   g_signal_emit(auth, auth_signals[SIGNAL_REQUIRE_AUTH],
 		0, &status);
@@ -529,11 +572,28 @@ sbuild_auth_start (SbuildAuth  *auth,
 {
   g_return_val_if_fail(SBUILD_IS_AUTH(auth), FALSE);
   g_return_val_if_fail(auth->user != NULL, FALSE);
-  g_return_val_if_fail(auth->pam == NULL, FALSE); // Don't initialise PAM twice
+
+  if (auth->pam != NULL)
+    {
+      g_set_error(error,
+		  SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_STARTUP,
+		  _("PAM error: PAM is already initialised"));
+      g_debug("pam_start FAIL (already initialised)");
+      return FALSE;
+    }
+
+  if (auth->service == NULL)
+    {
+      g_set_error(error,
+		  SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_STARTUP,
+		  _("PAM error: No service specified"));
+      g_debug("pam_start FAIL (no service specified)");
+      return FALSE;
+    }
 
   int pam_status;
   if ((pam_status =
-       pam_start("schroot", auth->user,
+       pam_start(auth->service, auth->user,
 		 &auth->conv, &auth->pam)) != PAM_SUCCESS)
     {
       g_set_error(error,
@@ -1037,6 +1097,7 @@ sbuild_auth_init (SbuildAuth *auth)
 {
   g_return_if_fail(SBUILD_IS_AUTH(auth));
 
+  auth->service = NULL;
   auth->user = NULL;
   auth->uid = 0;
   auth->gid = 0;
@@ -1072,6 +1133,11 @@ sbuild_auth_finalize (SbuildAuth *auth)
 {
   g_return_if_fail(SBUILD_IS_AUTH(auth));
 
+  if (auth->service)
+    {
+      g_free(auth->service);
+      auth->service = NULL;
+    }
   if (auth->user)
     {
       g_free (auth->user);
@@ -1117,6 +1183,9 @@ sbuild_auth_set_property (GObject      *object,
 
   switch (param_id)
     {
+    case PROP_SERVICE:
+      sbuild_auth_set_service(auth, g_value_get_string(value));
+      break;
     case PROP_USER:
       sbuild_auth_set_user(auth, g_value_get_string(value));
       break;
@@ -1150,6 +1219,8 @@ sbuild_auth_get_property (GObject    *object,
 
   switch (param_id)
     {
+    case PROP_SERVICE:
+      g_value_set_string(value, auth->service);
     case PROP_UID:
       g_value_set_int(value, auth->uid);
       break;
@@ -1198,6 +1269,14 @@ sbuild_auth_class_init (SbuildAuthClass *klass)
   gobject_class->finalize = (GObjectFinalizeFunc) sbuild_auth_finalize;
   gobject_class->set_property = (GObjectSetPropertyFunc) sbuild_auth_set_property;
   gobject_class->get_property = (GObjectGetPropertyFunc) sbuild_auth_get_property;
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_SERVICE,
+     g_param_spec_string ("service", "Service",
+			  "The PAM service name",
+			  "",
+			  (G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY)));
 
   g_object_class_install_property
     (gobject_class,

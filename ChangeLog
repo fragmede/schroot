@@ -1,5 +1,19 @@
 2005-07-31  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.c (main): Set the service name to "schroot".
+
+	* schroot/sbuild-session.c (sbuild_session_new): Set the
+	SbuildAuth "service" construction property.
+
+	* schroot/sbuild-auth.h (struct _SbuildAuth): Add service member.
+
+	* schroot/sbuild-auth.c: Don't hardcode the PAM service name:
+	(sbuild_auth_get_service): New function.
+	(sbuild_auth_set_service): New function.
+	(sbuild_auth_start): Use the service member when initialising PAM.
+
+2005-07-31  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.1.in: Include priority in the examples.
 
 	* schroot/schroot.conf.5.in: Document new priority option and

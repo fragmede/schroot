@@ -80,6 +80,7 @@ typedef gboolean (*SbuildAuthSessionRunFunc)(SbuildAuth *auth, GError **error);
 struct _SbuildAuth
 {
   GObject           parent;
+  gchar            *service;
   uid_t             uid;
   gid_t             gid;
   gchar            *user;
@@ -107,6 +108,9 @@ sbuild_auth_get_type (void);
 
 SbuildAuth *
 sbuild_auth_new (void);
+
+const gchar *
+sbuild_auth_get_service (const SbuildAuth *restrict auth);
 
 uid_t
 sbuild_auth_get_uid (const SbuildAuth *restrict auth);

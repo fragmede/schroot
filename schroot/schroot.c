@@ -261,7 +261,7 @@ main (int   argc,
     }
 
   /* Create and run a session. */
-  SbuildSession *session = sbuild_session_new(config, chroots);
+  SbuildSession *session = sbuild_session_new("schroot", config, chroots);
   if (opt.user)
     sbuild_auth_set_user(SBUILD_AUTH(session), opt.user);
   if (opt.command)

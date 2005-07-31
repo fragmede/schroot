@@ -75,7 +75,8 @@ GType
 sbuild_session_get_type (void);
 
 SbuildSession *
-sbuild_session_new(SbuildConfig  *config,
+sbuild_session_new(const char    *service,
+		   SbuildConfig  *config,
 		   char         **chroots);
 
 SbuildConfig *

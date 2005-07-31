@@ -88,10 +88,12 @@ G_DEFINE_TYPE(SbuildSession, sbuild_session, SBUILD_TYPE_AUTH)
  * Returns the newly created #SbuildSession.
  */
 SbuildSession *
-sbuild_session_new(SbuildConfig  *config,
+sbuild_session_new(const char    *service,
+		   SbuildConfig  *config,
 		   char         **chroots)
 {
   return (SbuildSession *) g_object_new(SBUILD_TYPE_SESSION,
+					"service", service,
 					"config", config,
 					"chroots", chroots,
 					NULL);
