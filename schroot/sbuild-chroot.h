@@ -42,6 +42,7 @@ struct _SbuildChroot
   gchar    *name;
   gchar    *description;
   gchar    *location;
+  guint     priority;
   char    **groups;
   char    **root_groups;
   char    **aliases;
@@ -83,6 +84,13 @@ sbuild_chroot_get_location (const SbuildChroot *restrict chroot);
 void
 sbuild_chroot_set_location (SbuildChroot *chroot,
 			    const char   *location);
+
+guint
+sbuild_chroot_get_priority (const SbuildChroot *restrict chroot);
+
+void
+sbuild_chroot_set_priority (SbuildChroot *chroot,
+			    guint         priority);
 
 char **
 sbuild_chroot_get_groups (const SbuildChroot *restrict chroot);

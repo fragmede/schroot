@@ -47,6 +47,7 @@ enum
   PROP_NAME,
   PROP_DESCRIPTION,
   PROP_LOCATION,
+  PROP_PRIORITY,
   PROP_GROUPS,
   PROP_ROOT_GROUPS,
   PROP_ALIASES
@@ -104,6 +105,17 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
       location = NULL;
     }
 
+  gint priority =
+    g_key_file_get_integer(keyfile, group, "priority", &error);
+  if (error != NULL)
+    {
+      g_clear_error(&error);
+      error = NULL;
+      priority = 0;
+    }
+  if (priority < 0)
+    priority = 0;
+
   char **groups =
     g_key_file_get_string_list(keyfile, group, "groups", NULL, &error);
   if (error != NULL)
@@ -136,6 +148,7 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
      "name", group,
      "description", description,
      "location", location,
+     "priority", (guint) priority,
      "groups", groups,
      "root-groups", root_groups,
      "aliases", aliases,
@@ -262,6 +275,44 @@ sbuild_chroot_set_location (SbuildChroot *chroot,
     }
   chroot->location = g_strdup(location);
   g_object_notify(G_OBJECT(chroot), "location");
+}
+
+/**
+ * sbuild_chroot_get_priority:
+ * @chroot: an #SbuildChroot
+ *
+ * Get the priority of the chroot.  This is a number indicating
+ * whether than a ditribution is older than another.
+ *
+ * Returns the priority.
+ */
+guint
+sbuild_chroot_get_priority (const SbuildChroot *restrict chroot)
+{
+  g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), 0);
+
+  return chroot->priority;
+}
+
+/**
+ * sbuild_chroot_set_priority:
+ * @chroot: an #SbuildChroot.
+ * @priority: the priority to set.
+ *
+ * Set the priority of a chroot.  This is a number indicating whether
+ * a distribution is older than another.  For example, "oldstable" and
+ * "oldstable-security" might be 0, while "stable" and
+ * "stable-security" 1, "testing" 2 and "unstable" 3.  The values are
+ * not important, but the difference between them is.
+ */
+void
+sbuild_chroot_set_priority (SbuildChroot *chroot,
+			    guint         priority)
+{
+  g_return_if_fail(SBUILD_IS_CHROOT(chroot));
+
+  chroot->priority = priority;
+  g_object_notify(G_OBJECT(chroot), "priority");
 }
 
 /**
@@ -392,6 +443,7 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
   g_fprintf(file, _("Name: %s\n"), chroot->name);
   g_fprintf(file, _("Description: %s\n"), chroot->description);
   g_fprintf(file, _("Location: %s\n"), chroot->location);
+  g_fprintf(file, _("Priority: %u\n"), chroot->priority);
   g_fprintf(file, _("Groups:"));
   if (chroot->groups)
     for (guint i=0; chroot->groups[i] != NULL; ++i)
@@ -415,6 +467,7 @@ sbuild_chroot_init (SbuildChroot *chroot)
   chroot->name = NULL;
   chroot->description = NULL;
   chroot->location = NULL;
+  chroot->priority = 0;
   chroot->groups = NULL;
   chroot->root_groups = NULL;
   chroot->aliases = NULL;
@@ -484,6 +537,9 @@ sbuild_chroot_set_property (GObject      *object,
     case PROP_LOCATION:
       sbuild_chroot_set_location(chroot, g_value_get_string(value));
       break;
+    case PROP_PRIORITY:
+      sbuild_chroot_set_priority(chroot, g_value_get_uint(value));
+      break;
     case PROP_GROUPS:
       sbuild_chroot_set_groups(chroot, g_value_get_boxed(value));
       break;
@@ -522,6 +578,9 @@ sbuild_chroot_get_property (GObject    *object,
       break;
     case PROP_LOCATION:
       g_value_set_string(value, chroot->location);
+      break;
+    case PROP_PRIORITY:
+      g_value_set_uint(value, chroot->priority);
       break;
     case PROP_GROUPS:
       g_value_set_boxed(value, chroot->groups);
@@ -571,6 +630,14 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
 			  "The location (path) of the chroot",
 			  "",
 			  (G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_PRIORITY,
+     g_param_spec_uint ("priority", "Priority",
+			"The priority of the chroot distribution, the lower the older the distribution",
+			0, G_MAXUINT, 0,
+			(G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
 
   g_object_class_install_property
     (gobject_class,

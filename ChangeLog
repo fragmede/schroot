@@ -1,5 +1,20 @@
 2005-07-31  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.1.in: Include priority in the examples.
+
+	* schroot/schroot.conf.5.in: Document new priority option and
+	include it in the examples.
+
+	* schroot/sbuild-chroot.h (struct _SbuildChroot): Add priority
+	member.
+
+	* schroot/sbuild-chroot.c
+	(sbuild_chroot_get_priority): New function
+	(sbuild_chroot_set_priority): New function
+	(sbuild_chroot_new_from_keyfile): Parse priority
+
+2005-07-31  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.c (parse_options): Fix typo in documentation.
 
 	* schroot/sbuild-session.c (sbuild_session_require_auth): Simplify

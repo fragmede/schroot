@@ -44,6 +44,14 @@ The directory containing the chroot environment.  This is where the root will
 be changed to when executing a login shell or a command.  The directory
  must exist and have read and execute permissions to allow users' access to it.
 .TP
+.B priority=\fInumber\fP
+Set the priority of a chroot.  \fInumber\fP is a positive integer indicating
+whether a distribution is older than another.  For example, \[lq]oldstable\[rq]
+and \[lq]oldstable-security\[rq] might be 0, while \[lq]stable\[rq] and
+\[lq]stable-security\[rq] 1, \[lq]testing\[rq] 2 and \[lq]unstable\[rq] 3.  The
+values are not important, but the difference between them is.  This is used by
+sbuild when using the schroot chroot mode.
+.TP
 .B groups=\fIgroup1,group2,...\fP
 A comma-separated list of groups which are allowed access to the chroot.  If
 empty or omitted, no users will be allowed access.
@@ -73,6 +81,8 @@ features used and required by schroot are documented.
 .br
 \f[CR]location=/srv/chroot/sid\fP
 .br
+\f[CR]priority=3\fP
+.br
 \f[CR]groups=sbuild\fP
 .br
 \f[CR]root-groups=root\fP
@@ -86,6 +96,8 @@ features used and required by schroot are documented.
 \f[CR]description=Debian testing\fP
 .br
 \f[CR]location=/srv/chroot/etch\fP
+.br
+\f[CR]priority=2\fP
 .br
 \f[CR]#groups=sbuild-security\fP
 .br
@@ -105,6 +117,7 @@ under the terms of the GNU General Public License as published by the Free
 Software Foundation; either version 2 of the License, or (at your option)
 any later version.
 .SH SEE ALSO
+.BR sbuild (1),
 .BR schroot (1).
 .\"#
 .\"# The following sets edit modes for GNU EMACS

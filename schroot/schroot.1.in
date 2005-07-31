@@ -85,6 +85,8 @@ Print version information.
 .br
 \f[CR]Location: /srv/chroot/sid\fP
 .br
+\f[CR]Priority: 3\fP
+.br
 \f[CR]Groups: sbuild\fP
 .br
 \f[CR]Root Groups: root\fP
@@ -161,8 +163,9 @@ Software Foundation; either version 2 of the License, or (at your option)
 any later version.
 .SH SEE ALSO
 .BR dchroot (1),
-.BR schroot.conf (5),
-.BR chroot (2).
+.BR sbuild (1),
+.BR chroot (2),
+.BR schroot.conf (5).
 .\"#
 .\"# The following sets edit modes for GNU EMACS
 .\"# Local Variables:

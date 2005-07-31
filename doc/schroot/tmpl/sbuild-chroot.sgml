@@ -48,6 +48,11 @@ SbuildChroot object.
 
 </para>
 
+<!-- ##### ARG SbuildChroot:priority ##### -->
+<para>
+
+</para>
+
 <!-- ##### ARG SbuildChroot:root-groups ##### -->
 <para>
 
