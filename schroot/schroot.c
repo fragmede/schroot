@@ -64,7 +64,7 @@ static struct {
  * @argc: the number of arguments
  * @argv: argument vector
  *
- * Parse command-line options.  The options are places in the opt
+ * Parse command-line options.  The options are placed in the opt
  * structure.
  */
 static void

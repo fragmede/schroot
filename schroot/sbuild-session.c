@@ -294,34 +294,14 @@ sbuild_session_require_auth (SbuildSession *session)
 		  in_root_groups = TRUE;
 	    }
 
-	  if (auth->uid == 0) // changing to root
-	    {
-	      if (in_groups == TRUE &&
-		  in_root_groups == TRUE) // No auth required
-		status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_NONE);
-	      else if (in_groups == TRUE) // Auth required if not in root group
-		status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_USER);
-	      else // Not in any groups
-		status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_FAIL);
-	    }
-	  else // Non-root access
-	    {
-	      if (in_groups == TRUE) // Allowed to use chroot
-		{
-		  if (auth->ruid == auth->uid) // same user, so don't authenticate
-		    {
-		      status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_NONE);
-		    }
-		  else // Auth required
-		    status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_USER);
-		}
-	      else // Not in any groups
-		status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_FAIL);
-	    }
-	  if (auth->ruid == auth->uid) // same user, so don't authenticate
-	    {
-	      status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_NONE);
-	    }
+	  if (in_groups == TRUE &&                           // No auth required if
+	      ((auth->uid == 0 && in_root_groups == TRUE) || // already root, or if the
+	       (auth->ruid == auth->uid)))                   // uid is not changing.
+	    status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_NONE);
+	  else if (in_groups == TRUE) // Auth required if not in root group
+	    status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_USER);
+	  else // Not in any groups
+	    status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_FAIL);
 	}
       else // no groups entries means no access
 	{
