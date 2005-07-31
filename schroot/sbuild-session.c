@@ -79,11 +79,14 @@ G_DEFINE_TYPE(SbuildSession, sbuild_session, SBUILD_TYPE_AUTH)
 
 /**
  * sbuild_session_new:
+ * @service: the PAM service name
  * @config: an #SbuildConfig
  * @chroots: the chroots to use
  *
  * Creates a new #SbuildSession.  The session will use the provided
  * configuration data, and will run in the list of chroots specified.
+ * @service MUST be a constant string literal, for security reasons;
+ * the application service name should be hard-coded.
  *
  * Returns the newly created #SbuildSession.
  */
@@ -436,17 +439,39 @@ sbuild_session_run_child (SbuildSession  *session,
 	}
       command[1] = NULL;
 
-      g_debug("Running login shell: %s", shell);
-      syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running login shell: \"%s\"",
-	     sbuild_chroot_get_name(session_chroot), ruser, user, shell);
+      if (environment == NULL)
+	{
+	  g_debug("Running login shell: %s", shell);
+	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running login shell: \"%s\"",
+		 sbuild_chroot_get_name(session_chroot), ruser, user, shell);
+	}
+      else
+	{
+	  g_debug("Running shell: %s", shell);
+	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running shell: \"%s\"",
+		 sbuild_chroot_get_name(session_chroot), ruser, user, shell);
+	}
+
       if (sbuild_auth_get_quiet(auth) == FALSE)
 	{
 	  if (ruid == uid)
-	    g_printerr(_("[%s chroot] Running login shell: \"%s\"\n"),
-		       sbuild_chroot_get_name(session_chroot), shell);
+	    {
+	      if (environment == NULL)
+		g_printerr(_("[%s chroot] Running login shell: \"%s\"\n"),
+			   sbuild_chroot_get_name(session_chroot), shell);
+	      else
+		g_printerr(_("[%s chroot] Running shell: \"%s\"\n"),
+			   sbuild_chroot_get_name(session_chroot), shell);
+	    }
 	  else
-	    g_printerr(_("[%s chroot] (%s->%s) Running login shell: \"%s\"\n"),
-		       sbuild_chroot_get_name(session_chroot), ruser, user, shell);
+	    {
+	      if (environment == NULL)
+		g_printerr(_("[%s chroot] (%s->%s) Running login shell: \"%s\"\n"),
+			   sbuild_chroot_get_name(session_chroot), ruser, user, shell);
+	      else
+		g_printerr(_("[%s chroot] (%s->%s) Running shell: \"%s\"\n"),
+			   sbuild_chroot_get_name(session_chroot), ruser, user, shell);
+	    }
 	}
     }
   else
