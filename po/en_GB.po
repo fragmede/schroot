@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2005-07-31 17:03+0100\n"
-"PO-Revision-Date: 2005-07-02 18:02+0100\n"
+"PO-Revision-Date: 2005-07-31 17:53+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "Location: %s\n"
 #: schroot/sbuild-chroot.c:446
 #, c-format
 msgid "Priority: %u\n"
-msgstr ""
+msgstr "Priority: %u\n"
 
 #: schroot/sbuild-chroot.c:447
 msgid "Groups:"
@@ -165,9 +165,9 @@ msgid "[%s chroot] Running login shell: \"%s\"\n"
 msgstr "[%s chroot] Running login shell: “%s”\n"
 
 #: schroot/sbuild-session.c:463
-#, fuzzy, c-format
+#, c-format
 msgid "[%s chroot] Running shell: \"%s\"\n"
-msgstr "[%s chroot] Running login shell: “%s”\n"
+msgstr "[%s chroot] Running shell: “%s”\n"
 
 #: schroot/sbuild-session.c:469
 #, c-format
@@ -175,9 +175,9 @@ msgid "[%s chroot] (%s->%s) Running login shell: \"%s\"\n"
 msgstr "[%s chroot] (%s→%s) Running login shell: “%s”\n"
 
 #: schroot/sbuild-session.c:472
-#, fuzzy, c-format
+#, c-format
 msgid "[%s chroot] (%s->%s) Running shell: \"%s\"\n"
-msgstr "[%s chroot] (%s→%s) Running login shell: “%s”\n"
+msgstr "[%s chroot] (%s→%s) Running shell: “%s”\n"
 
 #: schroot/sbuild-session.c:490
 #, c-format
@@ -225,7 +225,7 @@ msgstr "Failed to fork child: %s"
 #: schroot/sbuild-session.c:670
 #, c-format
 msgid "%s: Failed to find chroot"
-msgstr ""
+msgstr "%s: Failed to find chroot"
 
 #: schroot/schroot.c:78
 msgid "Run command in all chroots"
@@ -266,7 +266,7 @@ msgstr "- run command or shell in a chroot"
 #: schroot/schroot.c:105
 #, c-format
 msgid "Error parsing options: %s\n"
-msgstr ""
+msgstr "Error parsing options: %s\n"
 
 #: schroot/schroot.c:119
 #, c-format
@@ -298,52 +298,16 @@ msgid "No chroot specified.  Use --chroot or --all.\n"
 msgstr "No chroot specified.  Use --chroot or --all.\n"
 
 #: schroot/schroot.c:232
-#, fuzzy, c-format
+#, c-format
 msgid "No chroots are defined in %s\n"
-msgstr "No chroots defined in %s\n"
+msgstr "No chroots are defined in %s\n"
 
 #: schroot/schroot.c:247
-#, fuzzy, c-format
+#, c-format
 msgid "The specified chroots are not defined in %s\n"
-msgstr "No chroots defined in %s\n"
+msgstr "The specified chroots are not defined in %s\n"
 
 #: schroot/schroot.c:277
 #, c-format
 msgid "Session failure: %s\n"
 msgstr "Session failure: %s\n"
-
-#~ msgid "%s: user not found: %s\n"
-#~ msgstr "%s: user not found: %s\n"
-
-#~ msgid "PAM error: %s"
-#~ msgstr "PAM error: %s"
-
-#~ msgid "PAM set RUSER error: %s"
-#~ msgstr "PAM set RUSER error: %s"
-
-#~ msgid "Failed to get hostname: %s\n"
-#~ msgstr "Failed to get hostname: %s\n"
-
-#~ msgid "PAM set RHOST error: %s"
-#~ msgstr "PAM set RHOST error: %s"
-
-#~ msgid "PAM set TTY error: %s"
-#~ msgstr "PAM set TTY error: %s"
-
-#~ msgid "PAM set USER error: %s"
-#~ msgstr "PAM set USER error: %s"
-
-#~ msgid "PAM authentication failed: %s\n"
-#~ msgstr "PAM authentication failed: %s\n"
-
-#~ msgid "access not authorised"
-#~ msgstr "access not authorised"
-
-#~ msgid "You do not have permission to access the specified chroots.\n"
-#~ msgstr "You do not have permission to access the specified chroots.\n"
-
-#~ msgid "This failure will be reported.\n"
-#~ msgstr "This failure will be reported.\n"
-
-#~ msgid "%lu: user not found: %s\n"
-#~ msgstr "%lu: user not found: %s\n"
