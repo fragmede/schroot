@@ -23,6 +23,9 @@
 #define SBUILD_SCHROOT_H
 
 #include "sbuild-auth.h"
+#include "sbuild-auth-conv.h"
+#include "sbuild-auth-conv-tty.h"
+#include "sbuild-auth-message.h"
 #include "sbuild-config.h"
 #include "sbuild-chroot.h"
 #include "sbuild-session.h"

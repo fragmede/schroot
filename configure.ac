@@ -22,7 +22,7 @@ dnl The minimum version of autoconf required.
 AC_PREREQ(2.59)
 dnl Initialise automake with the package name, version and
 dnl bug-reporting address.
-AC_INIT([schroot], [0.1.4], [rleigh@debian.org])
+AC_INIT([schroot], [0.1.5], [rleigh@debian.org])
 dnl For safety, check we are in the right directory by
 dnl checking for a known unique file.
 AC_CONFIG_SRCDIR([schroot/sbuild-session.c])
@@ -72,9 +72,6 @@ AC_HEADER_STDBOOL
 AC_CHECK_LIB([pam], [pam_authenticate],
              [PAM_LIBS="-lpam"],
 	     [AC_MSG_ERROR([Linux-PAM is not installed, but is required by schroot])])
-AC_CHECK_LIB([pam_misc], [pam_getenvlist],
-             [PAM_LIBS="${PAM_LIBS} -lpam_misc"],
-             [AC_MSG_ERROR([Linux-PAM is not installed, but is required by schroot])])
 AC_SUBST([PAM_LIBS]) 
 
 dnl Set PACKAGE_LOCALE_DIR in config.h

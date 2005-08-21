@@ -260,7 +260,7 @@ main (int   argc,
       exit (EXIT_SUCCESS);
     }
 
-  /* Create and run a session. */
+  /* Create a session. */
   SbuildSession *session = sbuild_session_new("schroot", config, chroots);
   if (opt.user)
     sbuild_auth_set_user(SBUILD_AUTH(session), opt.user);
@@ -271,6 +271,15 @@ main (int   argc,
   if (opt.quiet)
     sbuild_auth_set_quiet(SBUILD_AUTH(session), TRUE);
 
+  /* Set up authentication timeouts. */
+  SbuildAuthConv *conv = sbuild_auth_conv_tty_new();
+  time_t curtime = 0;
+  time(&curtime);
+  sbuild_auth_conv_set_warning_timeout(conv, curtime + 15);
+  sbuild_auth_conv_set_fatal_timeout(conv, curtime + 20);
+  sbuild_auth_set_conv(SBUILD_AUTH(session), conv);
+
+  /* Run session. */
   GError *session_error = NULL;
   sbuild_auth_run(SBUILD_AUTH(session), &session_error);
   if (session_error)

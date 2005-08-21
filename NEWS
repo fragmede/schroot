@@ -1,8 +1,13 @@
-Welcome to schroot 0.1.4.  Please read these release notes carefully.
+Welcome to schroot 0.1.5.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.
 The README file also contains more specific notes regarding
 building and configuration.
+
+* Major changes in 0.1.5:
+
+  1) The authentication system has been extended to remove the
+     dependency upon libpam_misc.  There are no user-visible changes.
 
 * Major changes in 0.1.4:
 

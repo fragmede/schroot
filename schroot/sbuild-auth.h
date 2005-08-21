@@ -35,6 +35,8 @@
 #include <glib/gprintf.h>
 #include <glib-object.h>
 
+#include "sbuild-auth-conv.h"
+#include "sbuild-auth-conv-tty.h"
 #include "sbuild-config.h"
 
 typedef enum
@@ -90,8 +92,8 @@ struct _SbuildAuth
   gchar           **environment;
   uid_t             ruid;
   gchar            *ruser;
+  SbuildAuthConv   *conv;
   pam_handle_t     *pam;
-  struct pam_conv   conv;
   gboolean          quiet;
 };
 
@@ -160,6 +162,14 @@ sbuild_auth_get_quiet (const SbuildAuth *restrict auth);
 void
 sbuild_auth_set_quiet (SbuildAuth  *auth,
 		       gboolean     quiet);
+
+SbuildAuthConv *
+sbuild_auth_get_conv (const SbuildAuth *restrict auth);
+
+void
+sbuild_auth_set_conv (SbuildAuth     *auth,
+		      SbuildAuthConv *conv);
+
 
 gboolean
 sbuild_auth_run (SbuildAuth  *auth,

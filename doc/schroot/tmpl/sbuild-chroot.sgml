@@ -137,6 +137,24 @@ SbuildChroot class.
 @location: 
 
 
+<!-- ##### FUNCTION sbuild_chroot_get_priority ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_set_priority ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@priority: 
+
+
 <!-- ##### FUNCTION sbuild_chroot_get_groups ##### -->
 <para>
 

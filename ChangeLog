@@ -1,4 +1,42 @@
-2005-07-31  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2005-08-21  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/Makefile.am: Added new source files.
+
+	* schroot/schroot.c (main): Add support for SbuildAuthConv
+	timeouts.
+
+	* schroot/schroot.h: Added new headers.
+
+	* schroot/sbuild-marshallers.list: Added new marshaller
+	BOOLEAN:UINT,BOXED.
+
+	* configure.ac: Remove check for libpam_misc.  Bump version to
+	0.1.5
+
+	* schroot/sbuild-auth.c: Add support for the conv member as a
+	GObject property:
+	(sbuild_auth_get_conv): New function.
+	(sbuild_auth_set_conv): New function.
+	(sbuild_auth_conv): New function; glue to interface PAM to
+	SbuildAuthConv.
+	(sbuild_auth_start): Create a custom pam_conv which uses
+	sbuild_auth_conv to hook back into SbuildAuthConv from PAM.
+
+	* schroot/sbuild-auth.h: Add conv member to _SbuildAuthConv and
+	sbuild_auth_get_conv and sbuild_auth_set_conv getters and setters,
+	used to get and set the SbuildAuthConv interface used.
+
+	* schroot/sbuild-auth-conv-tty.[ch]: New files, adding the
+	SbuildAuthConvTty implementation of SbuildAuthConv.
+
+	* schroot/sbuild-auth-conv.[ch]: New files, adding the
+	SbuildAuthConv GInterface.
+
+	* schroot/sbuild-auth-message.[ch] New files, adding the
+	SbuildAuthMessagea and SbuildAuthMessageVector structures
+	(registered as GBoxed types).
+
+2005-07-31  Roger Leigh  <rleigh@debian.org>
 
 	* Version 0.1.4.
 

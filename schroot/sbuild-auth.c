@@ -68,6 +68,7 @@
 #include <glib/gi18n.h>
 
 #include "sbuild-auth.h"
+#include "sbuild-auth-message.h"
 #include "sbuild-error.h"
 #include "sbuild-marshallers.h"
 #include "sbuild-typebuiltins.h"
@@ -115,7 +116,8 @@ enum
   PROP_ENV,
   PROP_RUID,
   PROP_RUSER,
-  PROP_QUIET
+  PROP_QUIET,
+  PROP_CONV
 };
 
 enum
@@ -156,7 +158,7 @@ sbuild_auth_new (void)
  * reasons.
  *
  * Returns a string. This string points to internally allocated
- * storage in the chroot and must not be freed, modified or stored.
+ * storage  and must not be freed, modified or stored.
  */
 const gchar *
 sbuild_auth_get_service (const SbuildAuth *restrict auth)
@@ -176,7 +178,7 @@ sbuild_auth_get_service (const SbuildAuth *restrict auth)
  * reasons.
  *
  * Returns a string. This string points to internally allocated
- * storage in the chroot and must not be freed, modified or stored.
+ * storage and must not be freed, modified or stored.
  */
 static void
 sbuild_auth_set_service (SbuildAuth  *auth,
@@ -501,6 +503,44 @@ sbuild_auth_set_quiet (SbuildAuth  *auth,
 }
 
 /**
+ * sbuild_auth_get_conv:
+ * @auth: an #SbuildAuth
+ *
+ * Get the conversation handler for @auth.
+ *
+ * Returns the handler object.
+ */
+SbuildAuthConv *
+sbuild_auth_get_conv (const SbuildAuth *restrict auth)
+{
+  g_return_val_if_fail(SBUILD_IS_AUTH(auth), FALSE);
+
+  return auth->conv;
+}
+
+/**
+ * sbuild_auth_set_conv:
+ * @auth: an #SbuildAuth
+ * @conv: the conversation handler to use
+ *
+ * Set the conversation handler for @auth.
+ */
+void
+sbuild_auth_set_conv (SbuildAuth     *auth,
+		      SbuildAuthConv *conv)
+{
+  g_return_if_fail(SBUILD_IS_AUTH(auth));
+  g_return_if_fail(SBUILD_IS_AUTH_CONV(conv));
+
+  if (auth->conv)
+    g_object_unref(G_OBJECT(auth->conv));
+  auth->conv = conv;
+  g_object_ref(G_OBJECT(auth->conv));
+
+  g_object_notify(G_OBJECT(auth), "conv");
+}
+
+/**
  * sbuild_auth_require_auth_impl:
  * @auth: an #SbuildAuth
  *
@@ -555,6 +595,60 @@ sbuild_auth_require_auth (SbuildAuth *auth)
   return status;
 }
 
+/* This is the glue to link PAM user interaction with GObject. */
+static int
+sbuild_auth_conv (int                        num_msg,
+		  const struct pam_message **msgm,
+		  struct pam_response      **response,
+		  void                      *appdata_ptr)
+{
+  if (appdata_ptr != NULL && !SBUILD_IS_AUTH_CONV(appdata_ptr))
+    return PAM_CONV_ERR;
+
+  SbuildAuthConv *conv = SBUILD_AUTH_CONV(appdata_ptr);
+  g_assert (conv != NULL);
+
+  /* Construct a message vector */
+  SbuildAuthMessageVector *messages = sbuild_auth_message_vector_new(num_msg + 1);
+  for (guint i = 0; i < num_msg; ++i)
+    {
+      const struct pam_message *source = msgm[i];
+
+      messages->messages[i]->type = source->msg_style;
+      messages->messages[i]->message = source->msg;
+      messages->messages[i]->response = NULL;
+      messages->messages[i]->user_data = NULL;
+
+    }
+  messages->messages[num_msg] = NULL;
+
+  /* Do the conversation */
+  gboolean status = sbuild_auth_conv_conversation(conv, num_msg, messages);
+
+  if (status == TRUE)
+    {
+      /* Copy response into **reponse */
+      struct pam_response *reply = g_new0(struct pam_response, num_msg);
+
+      for (guint i = 0; i < num_msg; ++i)
+	{
+	  reply[i].resp_retcode = 0;
+	  reply[i].resp = g_strdup(messages->messages[i]->response);
+	}
+
+      *response = reply;
+      reply = NULL;
+    }
+
+  /* Free conversation data */
+  sbuild_auth_message_vector_free(messages);
+
+  if (status == TRUE)
+    return PAM_SUCCESS;
+  else
+    return PAM_CONV_ERR;
+}
+
 /**
  * sbuild_auth_start:
  * @auth: an #SbuildAuth
@@ -591,10 +685,16 @@ sbuild_auth_start (SbuildAuth  *auth,
       return FALSE;
     }
 
+  struct pam_conv conv_hook =
+    {
+      .conv = sbuild_auth_conv,
+      .appdata_ptr = (gpointer) auth->conv
+    };
+
   int pam_status;
   if ((pam_status =
        pam_start(auth->service, auth->user,
-		 &auth->conv, &auth->pam)) != PAM_SUCCESS)
+		 &conv_hook, &auth->pam)) != PAM_SUCCESS)
     {
       g_set_error(error,
 		  SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_STARTUP,
@@ -746,7 +846,8 @@ sbuild_auth_authenticate (SbuildAuth  *auth,
 		      SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_AUTHENTICATE,
 		      _("access not authorised"));
 	  g_debug("PAM auth premature FAIL");
-	  g_printerr(_("You do not have permission to access the specified chroots.\n"));
+	  g_printerr(_("You do not have permission to access the %s service.\n"),
+		     auth->service);
 	  g_printerr(_("This failure will be reported.\n"));
 	  syslog(LOG_AUTH|LOG_WARNING,
 		 "%s->%s Unauthorised",
@@ -1001,10 +1102,9 @@ sbuild_auth_close_session (SbuildAuth  *auth,
  *
  * Run the authentication process.
  *
- * If required, the user may be required to authenticate themselves.
- * This usually occurs when running as a different user.  The user
- * must be a member of the appropriate groups in order to satisfy the
- * groups and root-groups requirements in the chroot configuration.
+ * The user may be required to authenticate themselves, depending upon
+ * the result of the require_auth vfunc (the "require-auth" signal),
+ * called by sbuild_auth_require_auth().
  *
  * If authentication and authorisation succeed, the "session-run"
  * signal will be emitted.  Derived classes should override the
@@ -1054,7 +1154,7 @@ sbuild_auth_run (SbuildAuth  *auth,
 
 		      /* Don't cope with failure, since we are now
 			 already bailing out, and an error may already
-			 have been raised*/
+			 have been raised */
 		      sbuild_auth_cred_delete(auth,
 					      (tmp_error != NULL) ? NULL : &tmp_error);
 
@@ -1063,7 +1163,7 @@ sbuild_auth_run (SbuildAuth  *auth,
 	    } // pam_setupenv
 	} // pam_auth
       /* Don't cope with failure, since we are now already bailing out,
-	 and an error may already have been raised*/
+	 and an error may already have been raised */
       sbuild_auth_stop(auth,
 		       (tmp_error != NULL) ? NULL : &tmp_error);
     } // pam_start
@@ -1106,8 +1206,7 @@ sbuild_auth_init (SbuildAuth *auth)
   auth->shell = NULL;
   auth->environment = NULL;
   auth->pam = NULL;
-  auth->conv.conv = misc_conv;
-  auth->conv.appdata_ptr = (gpointer) auth;
+  auth->conv = SBUILD_AUTH_CONV(sbuild_auth_conv_tty_new());
   auth->quiet = FALSE;
 
   /* Current user's details. */
@@ -1163,6 +1262,13 @@ sbuild_auth_finalize (SbuildAuth *auth)
       g_free (auth->ruser);
       auth->ruser = NULL;
     }
+  if (auth->conv)
+    {
+      g_object_unref(G_OBJECT(auth->conv));
+      auth->conv = NULL;
+    }
+
+  /* TODO: shutdown PAM? */
 
   if (parent_class->finalize)
     parent_class->finalize(G_OBJECT(auth));
@@ -1197,6 +1303,9 @@ sbuild_auth_set_property (GObject      *object,
       break;
     case PROP_QUIET:
       sbuild_auth_set_quiet(auth, g_value_get_boolean(value));
+      break;
+    case PROP_CONV:
+      sbuild_auth_set_conv(auth, g_value_get_object(value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -1250,6 +1359,9 @@ sbuild_auth_get_property (GObject    *object,
       break;
     case PROP_QUIET:
       g_value_set_boolean(value, auth->quiet);
+      break;
+    case PROP_CONV:
+      g_value_set_object(value, auth->conv);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -1357,6 +1469,14 @@ sbuild_auth_class_init (SbuildAuthClass *klass)
 			   "Suppress non-essential messages",
 			   FALSE,
 			   G_PARAM_READABLE | G_PARAM_WRITABLE));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_CONV,
+     g_param_spec_object ("conv", "Conv",
+			  "Conversation handler",
+			  SBUILD_TYPE_AUTH_CONV,
+			  (G_PARAM_READABLE | G_PARAM_WRITABLE)));
 
   auth_signals[SIGNAL_REQUIRE_AUTH] =
     g_signal_new ("require-auth",

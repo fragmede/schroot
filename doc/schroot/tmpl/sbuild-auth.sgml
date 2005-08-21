@@ -72,6 +72,11 @@ error (@error must be set appropriately).
 
 </para>
 
+<!-- ##### ARG SbuildAuth:conv ##### -->
+<para>
+
+</para>
+
 <!-- ##### ARG SbuildAuth:environment ##### -->
 <para>
 
@@ -172,6 +177,15 @@ The status of the authentication process.
 <!-- # Unused Parameters # -->
 @config: 
 @chroots: 
+
+
+<!-- ##### FUNCTION sbuild_auth_get_service ##### -->
+<para>
+
+</para>
+
+@auth: 
+@Returns: 
 
 
 <!-- ##### FUNCTION sbuild_auth_get_uid ##### -->
@@ -307,6 +321,24 @@ The status of the authentication process.
 
 @auth: 
 @quiet: 
+
+
+<!-- ##### FUNCTION sbuild_auth_get_conv ##### -->
+<para>
+
+</para>
+
+@auth: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_auth_set_conv ##### -->
+<para>
+
+</para>
+
+@auth: 
+@conv: 
 
 
 <!-- ##### FUNCTION sbuild_auth_start ##### -->

@@ -31,6 +31,9 @@ bin_PROGRAMS = schroot
 
 schroot_public_h_sources =	\
 	sbuild-auth.h		\
+	sbuild-auth-conv.h	\
+	sbuild-auth-conv-tty.h	\
+	sbuild-auth-message.h   \
 	sbuild-chroot.h		\
 	sbuild-config.h		\
 	sbuild-error.h		\
@@ -38,6 +41,9 @@ schroot_public_h_sources =	\
 
 schroot_public_c_sources =	\
 	sbuild-auth.c		\
+	sbuild-auth-conv.c	\
+	sbuild-auth-conv-tty.c	\
+	sbuild-auth-message.c   \
 	sbuild-chroot.c		\
 	sbuild-config.c		\
 	sbuild-error.c		\

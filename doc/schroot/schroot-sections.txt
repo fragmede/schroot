@@ -11,6 +11,8 @@ sbuild_chroot_get_description
 sbuild_chroot_set_description
 sbuild_chroot_get_location
 sbuild_chroot_set_location
+sbuild_chroot_get_priority
+sbuild_chroot_set_priority
 sbuild_chroot_get_groups
 sbuild_chroot_set_groups
 sbuild_chroot_get_root_groups
@@ -66,6 +68,7 @@ SbuildAuthSessionRunFunc
 SbuildAuthClass
 SbuildAuthStatus
 sbuild_auth_new
+sbuild_auth_get_service
 sbuild_auth_get_uid
 sbuild_auth_get_gid
 sbuild_auth_get_user
@@ -81,6 +84,8 @@ sbuild_auth_get_ruid
 sbuild_auth_get_ruser
 sbuild_auth_get_quiet
 sbuild_auth_set_quiet
+sbuild_auth_get_conv
+sbuild_auth_set_conv
 sbuild_auth_start
 sbuild_auth_stop
 sbuild_auth_authenticate
@@ -104,6 +109,70 @@ sbuild_auth_get_type
 SBUILD_AUTH_CLASS
 SBUILD_IS_AUTH_CLASS
 SBUILD_AUTH_GET_CLASS
+</SECTION>
+
+<SECTION>
+<FILE>sbuild-auth-message</FILE>
+<TITLE>SbuildAuthMessage</TITLE>
+SbuildAuthMessage
+SbuildAuthMessageVector
+SbuildAuthMessageType
+sbuild_auth_message_copy
+sbuild_auth_message_free
+sbuild_auth_message_vector_new
+sbuild_auth_message_vector_copy
+sbuild_auth_message_vector_free
+<SUBSECTION Standard>
+SBUILD_TYPE_AUTH_MESSAGE
+sbuild_auth_message_get_type
+SBUILD_TYPE_AUTH_MESSAGE_VECTOR
+sbuild_auth_message_vector_get_type
+SBUILD_TYPE_AUTH_MESSAGE_TYPE
+sbuild_auth_message_type_get_type
+</SECTION>
+
+<SECTION>
+<FILE>sbuild-auth-conv</FILE>
+SbuildAuthConvError
+SBUILD_AUTH_CONV_ERROR
+<TITLE>SbuildAuthConv</TITLE>
+SbuildAuthConv
+SbuildAuthConvInterface
+SbuildAuthConvGetWarningTimeoutFunc
+SbuildAuthConvSetWarningTimeoutFunc
+SbuildAuthConvGetFatalTimeoutFunc
+SbuildAuthConvSetFatalTimeoutFunc
+SbuildAuthConvConversationFunc
+sbuild_auth_conv_get_warning_timeout
+sbuild_auth_conv_set_warning_timeout
+sbuild_auth_conv_get_fatal_timeout
+sbuild_auth_conv_set_fatal_timeout
+sbuild_auth_conv_conversation
+<SUBSECTION Standard>
+SBUILD_TYPE_AUTH_CONV_ERROR
+sbuild_auth_conv_error_get_type
+sbuild_auth_conv_error_quark
+SBUILD_TYPE_AUTH_CONV
+sbuild_auth_conv_get_type
+SBUILD_AUTH_CONV
+SBUILD_IS_AUTH_CONV
+SBUILD_AUTH_CONV_GET_INTERFACE
+</SECTION>
+
+<SECTION>
+<FILE>sbuild-auth-conv-tty</FILE>
+<TITLE>SbuildAuthConvTty</TITLE>
+SbuildAuthConvTty
+SbuildAuthConvTtyClass
+sbuild_auth_conv_tty_new
+<SUBSECTION Standard>
+SBUILD_TYPE_AUTH_CONV_TTY
+SBUILD_IS_AUTH_CONV_TTY
+SBUILD_AUTH_CONV_TTY
+sbuild_auth_conv_tty_get_type
+SBUILD_AUTH_CONV_TTY_CLASS
+SBUILD_IS_AUTH_CONV_TTY_CLASS
+SBUILD_AUTH_CONV_TTY_GET_CLASS
 </SECTION>
 
 <SECTION>
@@ -138,6 +207,7 @@ SBUILD_SESSION_GET_CLASS
 <TITLE>Closure Marshallers</TITLE>
 sbuild_cclosure_marshal_ENUM__VOID
 sbuild_cclosure_marshal_BOOLEAN__BOXED
+sbuild_cclosure_marshal_BOOLEAN__UINT_BOXED
 </SECTION>
 
 <SECTION>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2005-07-31 17:03+0100\n"
+"POT-Creation-Date: 2005-08-21 13:43+0100\n"
 "PO-Revision-Date: 2005-07-31 17:53+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -307,7 +307,7 @@ msgstr "No chroots are defined in %s\n"
 msgid "The specified chroots are not defined in %s\n"
 msgstr "The specified chroots are not defined in %s\n"
 
-#: schroot/schroot.c:277
+#: schroot/schroot.c:286
 #, c-format
 msgid "Session failure: %s\n"
 msgstr "Session failure: %s\n"

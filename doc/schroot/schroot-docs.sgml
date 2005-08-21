@@ -11,6 +11,9 @@
     <xi:include href="xml/sbuild-chroot.xml"/>
     <xi:include href="xml/sbuild-config.xml"/>
     <xi:include href="xml/sbuild-auth.xml"/>
+    <xi:include href="xml/sbuild-auth-message.xml"/>
+    <xi:include href="xml/sbuild-auth-conv.xml"/>
+    <xi:include href="xml/sbuild-auth-conv-tty.xml"/>
     <xi:include href="xml/sbuild-session.xml"/>
     <xi:include href="xml/sbuild-marshallers.xml"/>
     <xi:include href="xml/sbuild-error.xml"/>
