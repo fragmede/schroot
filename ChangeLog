@@ -1,3 +1,11 @@
+2005-08-22  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-auth.c (sbuild_auth_require_auth_impl): Remove
+	special root priveleges.
+
+	* schroot/sbuild-session.c (sbuild_session_require_auth): Remove
+	special root priveleges.
+
 2005-08-21  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/Makefile.am: Added new source files.

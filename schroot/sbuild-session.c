@@ -276,11 +276,7 @@ sbuild_session_require_auth (SbuildSession *session)
       char **groups = sbuild_chroot_get_groups(chroot);
       char **root_groups = sbuild_chroot_get_root_groups(chroot);
 
-      if (auth->ruid == 0) // root has universal access
-	{
-	  status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_NONE);
-	}
-      else if (groups != NULL)
+      if (groups != NULL)
 	{
 	  gboolean in_groups = FALSE;
 	  gboolean in_root_groups = FALSE;
@@ -299,16 +295,27 @@ sbuild_session_require_auth (SbuildSession *session)
 		  in_root_groups = TRUE;
 	    }
 
-	  if (in_groups == TRUE &&                           // No auth required if
-	      ((auth->uid == 0 && in_root_groups == TRUE) || // already root, or if the
-	       (auth->ruid == auth->uid)))                   // uid is not changing.
-	    status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_NONE);
+	  /*
+	   * No auth required if in root groups and changing to root,
+	   * or if the uid is not changing.  If not in a group,
+	   * authentication fails immediately.
+	   */
+	  if (in_groups == TRUE &&
+	      ((auth->uid == 0 && in_root_groups == TRUE) ||
+	       (auth->ruid == auth->uid)))
+	    {
+	      status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_NONE);
+	    }
 	  else if (in_groups == TRUE) // Auth required if not in root group
-	    status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_USER);
+	    {
+	      status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_USER);
+	    }
 	  else // Not in any groups
-	    status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_FAIL);
+	    {
+	      status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_FAIL);
+	    }
 	}
-      else // no groups entries means no access
+      else // No available groups entries means no access to anyone
 	{
 	  status = sbuild_auth_change_auth(status, SBUILD_AUTH_STATUS_FAIL);
 	}

@@ -1,4 +1,4 @@
-Welcome to schroot 0.1.5.  Please read these release notes carefully.
+Welcome to schroot 0.1.5.  Please read these release notes carefully.    -*- outline -*-
 
 Full installation instructions are provided in the INSTALL file.
 The README file also contains more specific notes regarding
@@ -8,6 +8,16 @@ building and configuration.
 
   1) The authentication system has been extended to remove the
      dependency upon libpam_misc.  There are no user-visible changes.
+
+  2) The root user (uid 0) no longer has special priveleges during
+     authentication.  If the root user should have special priveleges
+     (such as not requiring authentication to change to any other
+     user), do the following:
+
+     - uncomment the pam_rootok.so line in pam.d/schroot.  This will
+       disable the requirement for root authentication.
+     - add root to groups (root_groups membership is redundant), so
+       that root is allowed access.
 
 * Major changes in 0.1.4:
 

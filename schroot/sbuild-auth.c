@@ -544,9 +544,8 @@ sbuild_auth_set_conv (SbuildAuth     *auth,
  * sbuild_auth_require_auth_impl:
  * @auth: an #SbuildAuth
  *
- * Check if authentication is required for @auth.  If the user is root
- * (uid 0), no authentication is required, otherwise authentication is
- * always required.
+ * Check if authentication is required for @auth.  This default
+ * implementation always requires authentication.
  *
  * Returns the authentication type.
  */
@@ -557,12 +556,7 @@ sbuild_auth_require_auth_impl (SbuildAuth *auth)
 
   SbuildAuthStatus authtype = SBUILD_AUTH_STATUS_NONE;
 
-  if (auth->ruid == 0) // root has universal access
-    authtype = sbuild_auth_change_auth(authtype, SBUILD_AUTH_STATUS_NONE);
-  else if (auth->uid == 0) // changing to root
-    authtype = sbuild_auth_change_auth(authtype, SBUILD_AUTH_STATUS_USER);
-  else // non-root access
-    authtype = sbuild_auth_change_auth(authtype, SBUILD_AUTH_STATUS_USER);
+  authtype = sbuild_auth_change_auth(authtype, SBUILD_AUTH_STATUS_USER);
 
   return authtype;
 }
