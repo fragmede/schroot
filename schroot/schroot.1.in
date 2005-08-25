@@ -146,7 +146,7 @@ authorisation step is still applied.
 None known at this time.
 .SH FILES
 .TP
-.I @prefix@/etc/schroot.conf
+.I @SCHROOT_CONF@
 The system-wide chroot definition file.  This file must be owned by the root
 user, and not be writable by other.
 .TP

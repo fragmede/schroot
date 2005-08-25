@@ -1,8 +1,10 @@
 schroot (0.1.5-1) unstable; urgency=low
 
   * New upstream release.
+  * Compute the location of schroot.conf properly in schroot.1 and
+    schroot.conf.5 (Closes: #324914).
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 21 Aug 2005 13:41:10 +0100
+ -- Roger Leigh <rleigh@debian.org>  Thu, 25 Aug 2005 19:20:25 +0100
 
 schroot (0.1.4-1) unstable; urgency=low
 

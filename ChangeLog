@@ -1,3 +1,20 @@
+2005-08-25  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot.c (main): Replace SCHROOT_CONFIG_FILE with
+	SCHROOT_CONF.
+
+	* schroot/Makefile.am (DEFS): Remove SCHROOT_CONFIG_FILE.
+
+	* schroot/schroot.conf.5.in: Use @SCHROOT_CONF@, rather than the
+	incorrect @prefix@/etc/schroot.conf.
+
+	* schroot/schroot.1.in: Use @SCHROOT_CONF@, rather than the
+	incorrect @prefix@/etc/schroot.conf.
+
+	* configure.ac (PACKAGE_SYSCONF_DIR): Compute the final value of
+	$sysconfdir before configure ends, and substitute and define
+	SCHROOT_CONF with the location of schroot.conf.
+
 2005-08-22  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-auth.c (sbuild_auth_require_auth_impl): Remove

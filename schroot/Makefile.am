@@ -25,7 +25,7 @@ SUBDIRS = pam
 localedir = $(datadir)/locale
 
 AM_CFLAGS = -std=c99
-DEFS = -DSCHROOT_CONFIG_FILE="\"$(sysconfdir)/schroot.conf\"" -DG_LOG_DOMAIN=\"Schroot\" -DGETTEXT_PACKAGE=\"schroot\" -DLOCALEDIR=\"$(localedir)\"
+DEFS = -DG_LOG_DOMAIN=\"Schroot\" -DGETTEXT_PACKAGE=\"schroot\" -DLOCALEDIR=\"$(localedir)\"
 
 bin_PROGRAMS = schroot
 

@@ -104,7 +104,7 @@ features used and required by schroot are documented.
 \f[CR]aliases=testing\fP
 .SH FILES
 .TP
-.I @prefix@/etc/schroot.conf
+.I @SCHROOT_CONF@
 The system-wide chroot definition file.  This file must be owned by the root
 user, and not be writable by other.
 .SH AUTHORS

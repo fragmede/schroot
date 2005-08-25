@@ -112,6 +112,24 @@ else
   PACKAGE_LIB_DIR="${libdir}/${PACKAGE}"
 fi
 
+dnl Set PACKAGE_SYSCONF_DIR in config.h.
+AH_TEMPLATE(PACKAGE_SYSCONF_DIR,, [Package system configuration directory])
+if test "x${sysconfdir}" = 'x${prefix}/etc'; then
+  if test "x${prefix}" = "xNONE"; then
+    PACKAGE_SYSCONF_DIR="${ac_default_prefix}/etc"
+  else
+    PACKAGE_SYSCONF_DIR="${prefix}/etc"
+  fi
+else
+  PACKAGE_SYSCONF_DIR="${sysconfdir}"
+fi
+
+SCHROOT_CONF="${PACKAGE_SYSCONF_DIR}/schroot.conf"
+AC_SUBST([SCHROOT_CONF])
+
+AH_TEMPLATE(SCHROOT_CONF,, [schroot config file path])
+AC_DEFINE_UNQUOTED(SCHROOT_CONF, ["$SCHROOT_CONF"])
+
 AH_TEMPLATE(SCHROOT_DATADIR,, [Package  data directory])
 SCHROOT_DATADIR="${PACKAGE_DATA_DIR}/${PACKAGE_VERSION}"
 AC_DEFINE_UNQUOTED(SCHROOT_DATADIR, ["$SCHROOT_DATADIR"], )
@@ -119,7 +137,6 @@ AC_DEFINE_UNQUOTED(SCHROOT_DATADIR, ["$SCHROOT_DATADIR"], )
 AH_TEMPLATE(SCHROOT_MODULEDIR,, [Package module directory])
 SCHROOT_MODULEDIR="${PACKAGE_LIB_DIR}/${PACKAGE_VERSION}/modules"
 AC_DEFINE_UNQUOTED(SCHROOT_MODULEDIR, ["$SCHROOT_MODULEDIR"])
-
 
 dnl Configure which files to generate.
 AC_CONFIG_FILES([doc/Makefile])
