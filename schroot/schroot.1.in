@@ -60,6 +60,9 @@ sets it in the session.
 .B \-q, \-\-quiet
 Print only essential messages.
 .TP
+.B \-v, \-\-verbose
+Print all messages.
+.TP
 .B \-V, \-\-version
 Print version information.
 .SH EXAMPLES
@@ -171,9 +174,10 @@ files into the chroot.
 AUTH_USER
 The username of the user the command in the chroot will run as.
 .TP
-AUTH_QUIET
-Set to \[lq]true\[rq] if only error messages should be printed, or
-\[lq]false\[rq] if other messages may be printed as well.
+AUTH_VERBOSITY
+Set to \[lq]quiet\[rq] if only error messages should be printed,
+\[lq]normal\[rq] if other messages may be printed as well, and
+\[lq]verbose\[rq] if all messages may be printed.
 .RE
 .PP
 The scripts are run in name order, like those run by

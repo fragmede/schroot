@@ -116,7 +116,7 @@ enum
   PROP_ENV,
   PROP_RUID,
   PROP_RUSER,
-  PROP_QUIET,
+  PROP_VERBOSITY,
   PROP_CONV
 };
 
@@ -470,36 +470,36 @@ sbuild_auth_get_ruser (const SbuildAuth *restrict auth)
 }
 
 /**
- * sbuild_auth_get_quiet:
+ * sbuild_auth_get_verbosity:
  * @auth: an #SbuildAuth
  *
  * Get the message verbosity of @auth.
  *
- * Returns TRUE if quiet messages are enabled, otherwise FALSE.
+ * Returns the #SbuildAuthVerbosity verbosity level.
  */
-gboolean
-sbuild_auth_get_quiet (const SbuildAuth *restrict auth)
+SbuildAuthVerbosity
+sbuild_auth_get_verbosity (const SbuildAuth *restrict auth)
 {
   g_return_val_if_fail(SBUILD_IS_AUTH(auth), FALSE);
 
-  return auth->quiet;
+  return auth->verbosity;
 }
 
 /**
- * sbuild_auth_set_quiet:
+ * sbuild_auth_set_verbosity:
  * @auth: an #SbuildAuth
- * @quiet: the quiet to use
+ * @verbosity: the verbosity level to use
  *
  * Set the message verbosity of @auth.
  */
 void
-sbuild_auth_set_quiet (SbuildAuth  *auth,
-		       gboolean        quiet)
+sbuild_auth_set_verbosity (SbuildAuth          *auth,
+			   SbuildAuthVerbosity  verbosity)
 {
   g_return_if_fail(SBUILD_IS_AUTH(auth));
 
-  auth->quiet = quiet;
-  g_object_notify(G_OBJECT(auth), "quiet");
+  auth->verbosity = verbosity;
+  g_object_notify(G_OBJECT(auth), "verbosity");
 }
 
 /**
@@ -1201,7 +1201,7 @@ sbuild_auth_init (SbuildAuth *auth)
   auth->environment = NULL;
   auth->pam = NULL;
   auth->conv = SBUILD_AUTH_CONV(sbuild_auth_conv_tty_new());
-  auth->quiet = FALSE;
+  auth->verbosity = SBUILD_AUTH_VERBOSITY_NORMAL;
 
   /* Current user's details. */
   auth->ruid = getuid();
@@ -1295,8 +1295,8 @@ sbuild_auth_set_property (GObject      *object,
     case PROP_ENV:
       sbuild_auth_set_environment(auth, g_value_get_boxed(value));
       break;
-    case PROP_QUIET:
-      sbuild_auth_set_quiet(auth, g_value_get_boolean(value));
+    case PROP_VERBOSITY:
+      sbuild_auth_set_verbosity(auth, g_value_get_enum(value));
       break;
     case PROP_CONV:
       sbuild_auth_set_conv(auth, g_value_get_object(value));
@@ -1351,8 +1351,8 @@ sbuild_auth_get_property (GObject    *object,
     case PROP_RUSER:
       g_value_set_string(value, auth->ruser);
       break;
-    case PROP_QUIET:
-      g_value_set_boolean(value, auth->quiet);
+    case PROP_VERBOSITY:
+      g_value_set_enum(value, auth->verbosity);
       break;
     case PROP_CONV:
       g_value_set_object(value, auth->conv);
@@ -1458,11 +1458,12 @@ sbuild_auth_class_init (SbuildAuthClass *klass)
 
   g_object_class_install_property
     (gobject_class,
-     PROP_QUIET,
-     g_param_spec_boolean ("quiet", "Quiet",
-			   "Suppress non-essential messages",
-			   FALSE,
-			   G_PARAM_READABLE | G_PARAM_WRITABLE));
+     PROP_VERBOSITY,
+     g_param_spec_enum ("verbosity", "Verbosity",
+			"Message verbosity level",
+			SBUILD_TYPE_AUTH_VERBOSITY,
+			SBUILD_AUTH_VERBOSITY_NORMAL,
+			G_PARAM_READABLE | G_PARAM_WRITABLE));
 
   g_object_class_install_property
     (gobject_class,

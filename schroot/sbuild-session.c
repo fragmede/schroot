@@ -340,7 +340,7 @@ sbuild_session_require_auth (SbuildSession *session)
  * Setup a chroot.  This runs all of the commands in setup.d.
  *
  * The environment variables CHROOT_NAME, CHROOT_DESCRIPTION,
- * CHROOT_LOCATION, AUTH_USER and AUTH_QUIET are set for use in
+ * CHROOT_LOCATION, AUTH_USER and AUTH_VERBOSITY are set for use in
  * setup scripts.
  *
  * Returns TRUE on success, FALSE on failure (@error will be set to
@@ -364,8 +364,9 @@ sbuild_session_setup_chroot (SbuildSession                 *session,
     guint i = 0;
     argv[i++] = g_strdup(RUN_PARTS); // Run run-parts(8)
     /* TODO: Add an extra level of verbosity before enabling this. */
-/*     if (sbuild_auth_get_quiet(SBUILD_AUTH(session)) == FALSE) */
-/*       argv[i++] = g_strdup("--verbose"); */
+    if (sbuild_auth_get_verbosity(SBUILD_AUTH(session)) ==
+	SBUILD_AUTH_VERBOSITY_VERBOSE)
+      argv[i++] = g_strdup("--verbose");
     argv[i++] = g_strdup("--lsbsysinit");
     argv[i++] = g_strdup("--exit-on-error");
     if (setup_type == SBUILD_SESSION_CHROOT_SETUP_STOP)
@@ -389,9 +390,27 @@ sbuild_session_setup_chroot (SbuildSession                 *session,
 				sbuild_chroot_get_location(session_chroot));
     envp[i++] = g_strdup_printf("AUTH_USER=%s",
 				sbuild_auth_get_user(SBUILD_AUTH(session)));
-    envp[i++] = g_strdup_printf("AUTH_QUIET=%s",
-				(sbuild_auth_get_quiet(SBUILD_AUTH(session)) == TRUE) ?
-				"true" : "false");
+
+    const char *verbosity = NULL;
+    SbuildAuthVerbosity v = sbuild_auth_get_verbosity(SBUILD_AUTH(session));
+    switch (v)
+      {
+      case SBUILD_AUTH_VERBOSITY_QUIET:
+	verbosity = "quiet";
+	break;
+      case SBUILD_AUTH_VERBOSITY_NORMAL:
+	verbosity = "normal";
+	break;
+      case SBUILD_AUTH_VERBOSITY_VERBOSE:
+	verbosity = "verbose";
+	break;
+      default:
+	g_warning("Invalid verbosity level: %d, falling back to \"normal\"", v);
+	verbosity = "normal";
+	break;
+      }
+
+    envp[i++] = g_strdup_printf("AUTH_VERBOSE=%s", verbosity);
     envp[i++] = NULL;
   }
 
@@ -567,7 +586,7 @@ sbuild_session_run_child (SbuildSession  *session,
 		 sbuild_chroot_get_name(session_chroot), ruser, user, shell);
 	}
 
-      if (sbuild_auth_get_quiet(auth) == FALSE)
+      if (sbuild_auth_get_verbosity(auth) != SBUILD_AUTH_VERBOSITY_QUIET)
 	{
 	  if (ruid == uid)
 	    {
@@ -599,7 +618,7 @@ sbuild_session_run_child (SbuildSession  *session,
       g_debug("Running command: %s", commandstring);
       syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
 	     sbuild_chroot_get_name(session_chroot), ruser, user, commandstring);
-      if (sbuild_auth_get_quiet(auth) == FALSE)
+      if (sbuild_auth_get_verbosity(auth) != SBUILD_AUTH_VERBOSITY_QUIET)
 	{
 	  if (ruid == uid)
 	    g_printerr(_("[%s chroot] Running command: \"%s\"\n"),

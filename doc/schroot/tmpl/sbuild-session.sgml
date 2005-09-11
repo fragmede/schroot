@@ -25,7 +25,7 @@ The errors which can occur while running a session.
 @SBUILD_SESSION_ERROR_FORK: A child process could not be created
 @SBUILD_SESSION_ERROR_CHILD: An error occured during execution of the child process
 @SBUILD_SESSION_ERROR_CHROOT: An error occured finding the chroot
-@SBUILD_SESSION_ERROR_CHROOT_SETUP: 
+@SBUILD_SESSION_ERROR_CHROOT_SETUP: An error occured while running the setup scripts
 
 <!-- ##### MACRO SBUILD_SESSION_ERROR ##### -->
 <para>

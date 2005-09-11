@@ -66,6 +66,13 @@ typedef enum
   SBUILD_AUTH_STATUS_FAIL
 } SbuildAuthStatus;
 
+typedef enum
+{
+  SBUILD_AUTH_VERBOSITY_QUIET,
+  SBUILD_AUTH_VERBOSITY_NORMAL,
+  SBUILD_AUTH_VERBOSITY_VERBOSE
+} SbuildAuthVerbosity;
+
 #define SBUILD_TYPE_AUTH		  (sbuild_auth_get_type ())
 #define SBUILD_AUTH(obj)		  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SBUILD_TYPE_AUTH, SbuildAuth))
 #define SBUILD_AUTH_CLASS(klass)	  (G_TYPE_CHECK_CLASS_CAST ((klass), SBUILD_TYPE_AUTH, SbuildAuthClass))
@@ -81,20 +88,20 @@ typedef gboolean (*SbuildAuthSessionRunFunc)(SbuildAuth *auth, GError **error);
 
 struct _SbuildAuth
 {
-  GObject           parent;
-  gchar            *service;
-  uid_t             uid;
-  gid_t             gid;
-  gchar            *user;
-  gchar           **command;
-  gchar            *home;
-  gchar            *shell;
-  gchar           **environment;
-  uid_t             ruid;
-  gchar            *ruser;
-  SbuildAuthConv   *conv;
-  pam_handle_t     *pam;
-  gboolean          quiet;
+  GObject             parent;
+  gchar              *service;
+  uid_t               uid;
+  gid_t               gid;
+  gchar              *user;
+  gchar             **command;
+  gchar              *home;
+  gchar              *shell;
+  gchar             **environment;
+  uid_t               ruid;
+  gchar              *ruser;
+  SbuildAuthConv     *conv;
+  pam_handle_t       *pam;
+  SbuildAuthVerbosity verbosity;
 };
 
 struct _SbuildAuthClass
@@ -156,12 +163,12 @@ sbuild_auth_get_ruid (const SbuildAuth *restrict auth);
 const char *
 sbuild_auth_get_ruser (const SbuildAuth *restrict auth);
 
-gboolean
-sbuild_auth_get_quiet (const SbuildAuth *restrict auth);
+SbuildAuthVerbosity
+sbuild_auth_get_verbosity (const SbuildAuth *restrict auth);
 
 void
-sbuild_auth_set_quiet (SbuildAuth  *auth,
-		       gboolean     quiet);
+sbuild_auth_set_verbosity (SbuildAuth          *auth,
+			   SbuildAuthVerbosity  verbosity);
 
 SbuildAuthConv *
 sbuild_auth_get_conv (const SbuildAuth *restrict auth);

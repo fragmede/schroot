@@ -92,11 +92,6 @@ error (@error must be set appropriately).
 
 </para>
 
-<!-- ##### ARG SbuildAuth:quiet ##### -->
-<para>
-
-</para>
-
 <!-- ##### ARG SbuildAuth:ruid ##### -->
 <para>
 
@@ -123,6 +118,11 @@ error (@error must be set appropriately).
 </para>
 
 <!-- ##### ARG SbuildAuth:user ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG SbuildAuth:verbosity ##### -->
 <para>
 
 </para>
@@ -167,6 +167,15 @@ The status of the authentication process.
 @SBUILD_AUTH_STATUS_NONE: No authentication is required.
 @SBUILD_AUTH_STATUS_USER: User authentication is required.
 @SBUILD_AUTH_STATUS_FAIL: Authentication has failed.
+
+<!-- ##### ENUM SbuildAuthVerbosity ##### -->
+<para>
+The verbosity level of printed messages.
+</para>
+
+@SBUILD_AUTH_VERBOSITY_QUIET: Only print errors and warnings.
+@SBUILD_AUTH_VERBOSITY_NORMAL: Print errors, warnings and important messages.
+@SBUILD_AUTH_VERBOSITY_VERBOSE: Print everything.
 
 <!-- ##### FUNCTION sbuild_auth_new ##### -->
 <para>
@@ -305,7 +314,7 @@ The status of the authentication process.
 @Returns: 
 
 
-<!-- ##### FUNCTION sbuild_auth_get_quiet ##### -->
+<!-- ##### FUNCTION sbuild_auth_get_verbosity ##### -->
 <para>
 
 </para>
@@ -314,13 +323,13 @@ The status of the authentication process.
 @Returns: 
 
 
-<!-- ##### FUNCTION sbuild_auth_set_quiet ##### -->
+<!-- ##### FUNCTION sbuild_auth_set_verbosity ##### -->
 <para>
 
 </para>
 
 @auth: 
-@quiet: 
+@verbosity: 
 
 
 <!-- ##### FUNCTION sbuild_auth_get_conv ##### -->

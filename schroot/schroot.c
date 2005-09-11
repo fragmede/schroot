@@ -42,6 +42,7 @@ static struct {
   char *user;
   gboolean preserve;
   gboolean quiet;
+  gboolean verbose;
   gboolean list;
   gboolean info;
   gboolean all;
@@ -53,6 +54,7 @@ static struct {
     .user = NULL,
     .preserve = FALSE,
     .quiet = FALSE,
+    .verbose = FALSE,
     .list = FALSE,
     .info = FALSE,
     .all = FALSE,
@@ -88,6 +90,8 @@ parse_options(int   argc,
 	N_("Preserve user environment"), NULL },
       { "quiet", 'q', 0, G_OPTION_ARG_NONE, &opt.quiet,
 	N_("Show less output"), NULL },
+      { "verbose", 'v', 0, G_OPTION_ARG_NONE, &opt.verbose,
+	N_("Show more output"), NULL },
       { "version", 'V', 0, G_OPTION_ARG_NONE, &opt.version,
 	N_("Print version information"), NULL },
       { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &opt.command,
@@ -268,8 +272,14 @@ main (int   argc,
     sbuild_auth_set_command(SBUILD_AUTH(session), opt.command);
   if (opt.preserve)
     sbuild_auth_set_environment(SBUILD_AUTH(session), environ);
+  if (opt.quiet && opt.verbose)
+    g_printerr(_("--quiet and --verbose may not be used at the same time!\nUsing verbose output.\n"));
+  SbuildAuthVerbosity verbosity = SBUILD_AUTH_VERBOSITY_NORMAL;
   if (opt.quiet)
-    sbuild_auth_set_quiet(SBUILD_AUTH(session), TRUE);
+    verbosity = SBUILD_AUTH_VERBOSITY_QUIET;
+  else if (opt.verbose)
+    verbosity = SBUILD_AUTH_VERBOSITY_VERBOSE;
+  sbuild_auth_set_verbosity(SBUILD_AUTH(session), verbosity);
 
   /* Set up authentication timeouts. */
   SbuildAuthConv *conv = sbuild_auth_conv_tty_new();

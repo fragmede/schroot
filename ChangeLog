@@ -1,5 +1,34 @@
 2005-09-11  Roger Leigh  <rleigh@debian.org>
 
+	* Update API reference.
+
+	* schroot/schroot.1.in: Document new option, and the
+	AUTH_VERBOSITY environment variable used in setup scripts.
+
+	* schroot/schroot.c
+	(parse_options): Add a new --verbose option.
+	(main): Set requested verbosity level.
+
+	* schroot/sbuild-session.c
+	(sbuild_session_setup_chroot): Check verbosity level to set in the
+	environment, and to pass to run-parts.
+	(sbuild_session_run_child): Check verbosity level when printing
+	information about the command being run.
+
+	* schroot/sbuild-auth.c
+	(sbuild_auth_get_verbosity): Replacement for
+	sbuild_auth_get_quiet.
+	(sbuild_auth_set_verbosity): Replacement for
+	sbuild_auth_set_quiet.
+	(sbuild_auth_class_init): Replace "quiet" property with
+	"verbosity" property.
+
+	* schroot/sbuild-auth.h:
+	Add SbuildAuthVerbosity enum to specify	message verbosity.
+	(struct _SbuildAuth): Replace quiet member with verbosity member.
+
+2005-09-11  Roger Leigh  <rleigh@debian.org>
+
 	* Version 0.1.5.
 
 	* po/en_GB.po: Update.
