@@ -282,7 +282,7 @@ main (int   argc,
   sbuild_auth_set_verbosity(SBUILD_AUTH(session), verbosity);
 
   /* Set up authentication timeouts. */
-  SbuildAuthConv *conv = sbuild_auth_conv_tty_new();
+  SbuildAuthConv *conv = SBUILD_AUTH_CONV(sbuild_auth_conv_tty_new());
   time_t curtime = 0;
   time(&curtime);
   sbuild_auth_conv_set_warning_timeout(conv, curtime + 15);

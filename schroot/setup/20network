@@ -1,6 +1,10 @@
 #!/bin/sh
 
+if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+  VERBOSE="--verbose"
+fi
+
 if [ $1 = "start" ]; then
-  cp /etc/resolv.conf "${CHROOT_LOCATION}/etc/resolv.conf"
+  cp $VERBOSE /etc/resolv.conf "${CHROOT_LOCATION}/etc/resolv.conf"
 fi
 

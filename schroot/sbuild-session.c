@@ -410,7 +410,7 @@ sbuild_session_setup_chroot (SbuildSession                 *session,
 	break;
       }
 
-    envp[i++] = g_strdup_printf("AUTH_VERBOSE=%s", verbosity);
+    envp[i++] = g_strdup_printf("AUTH_VERBOSITY=%s", verbosity);
     envp[i++] = NULL;
   }
 

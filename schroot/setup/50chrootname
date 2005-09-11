@@ -1,6 +1,9 @@
 #!/bin/sh
 
 if [ $1 = "start" ]; then
+  if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+    echo "Setting chroot name to ${CHROOT_NAME}"
+  fi
   echo "${CHROOT_NAME}" > "${CHROOT_LOCATION}/etc/debian_chroot"
 fi
 
