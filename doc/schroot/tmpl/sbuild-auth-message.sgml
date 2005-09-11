@@ -25,7 +25,7 @@ SBuildAuth message structure.
 @type: the type of message.
 @message: the message to display or use as a prompt.
 @response: the response (if any) to return.
-@user_data: #SbuilAuthConv implementation-dependent data.
+@user_data: #SbuildAuthConv implementation-dependent data.
 
 <!-- ##### STRUCT SbuildAuthMessageVector ##### -->
 <para>

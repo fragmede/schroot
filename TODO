@@ -12,28 +12,29 @@ TODO
   - snapshot from LVM logical volumes
   - Xen hosts (also LVM snapshots).
 
+* Add a "type" member to the config file format.  This can be used
+  in a factory function when creating the SbuildChroot object from
+  the config file.  The specialised chroot object e.g.
+  SbuildChrootSnapshot might also read additional keys from the
+  configuration.  We might also want to consider specialising
+  SbuildSession as well, or moving type-specific handling into the
+  chroot object.
+
 * Alternate chroots will require hook scripts to customise them.
   For example, network setup.  Xen in particular will require
   DHCP or static IP configuration and a dynamic hostname in order
   to connect.
 
-  - /etc/schroot/setup.d           General setup scripts
+  Now we have /etc/schroot/setup.d, do we need other directories
+  for other chroot types, or is this sufficient?  We can always
+  selectively set additional environment variables for different
+  chroot types (e.g. LVM LV names).
+
   - /etc/schroot/plain.d           Plain chroot setup scripts
   - /etc/schroot/lvmsnapshot.d     LVM snapshot setup
   - /etc/schroot/xenlvmsnapshot.d  Xen LVM snapshot setup
   - /usr/libexec/schroot           schroot setup programs }
   - /usr/share/schroot/setup       schroot setup scripts  }
-
-  Scripts will need to be called with options for
-  - chroot device name (for mounting)
-  - chroot mount location (for setup)
-  - chroot name/hostname (for setup)
-  - action (start, stop)
-
-11/09/05:
-  schroot now has run-parts support.  This is currently used for copying
-  passwd/shadow/group and resolv.conf into the chroot.  The scripts are
-  called with "start" or "stop" arguments.
 
 * Currently, a session consists of authentication/authorisation, followed
   by session setup, entering a chroot and running commands.  When using a
@@ -64,10 +65,6 @@ TODO
 * LVM snapshots would allow a daily update and dist-upgrade of the master
   chroot, without interfering with sessions running in snapshots.
 
-* We need at least 3 levels of verbosity:
-  quiet (no messages except errors and warnings)
-  normal (errors, warnings and normal messages and script messages)
-  verbose (all the above plus run-parts messages and extra script messages)
 
 SECURITY
 --------

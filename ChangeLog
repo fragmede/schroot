@@ -1,5 +1,11 @@
 2005-09-11  Roger Leigh  <rleigh@debian.org>
 
+	* Fixed minor typos in API reference.
+
+	* Updated TODO.
+
+2005-09-11  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-session.c (sbuild_session_setup_chroot): Set
 	AUTH_VERBOSITY, not AUTH_VERBOSE.
 

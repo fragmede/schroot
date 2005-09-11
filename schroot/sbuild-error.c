@@ -27,7 +27,7 @@
  * GError is not registered as a GType.  Here, it is registered as a
  * GBoxed boxed type, and GError* is also boxed, for use as an out
  * parameter in callbacks.  Hopefully this will someday be included in
- * libgobect itself.  See glib bug #300610
+ * libgobject itself.  See glib bug #300610
  * (http://bugzilla.gnome.org/show_bug.cgi?id=300610)
  */
 
