@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2005-09-11 15:36+0100\n"
-"PO-Revision-Date: 2005-07-31 17:53+0100\n"
+"PO-Revision-Date: 2005-09-11 16:28+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -122,7 +122,7 @@ msgstr "No chroot found matching alias ‘%s’"
 #: schroot/sbuild-session.c:427
 #, c-format
 msgid "Chroot setup failed during chroot %s\n"
-msgstr ""
+msgstr "Chroot setup failed during chroot %s\n"
 
 #: schroot/sbuild-session.c:476
 #, c-format

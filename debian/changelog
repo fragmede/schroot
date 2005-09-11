@@ -3,8 +3,12 @@ schroot (0.1.5-1) unstable; urgency=low
   * New upstream release.
   * Compute the location of schroot.conf properly in schroot.1 and
     schroot.conf.5 (Closes: #324914).
+  * debian/postinst: If present, move /etc/schroot.conf to
+    /etc/schroot/schroot.conf.
+  * debian/rules, debian/schroot.lintian-overrides: Install
+    lintian override for setuid-binary warning.
 
- -- Roger Leigh <rleigh@debian.org>  Thu, 25 Aug 2005 19:20:25 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 11 Sep 2005 16:25:47 +0100
 
 schroot (0.1.4-1) unstable; urgency=low
 

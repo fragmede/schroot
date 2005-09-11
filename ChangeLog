@@ -1,5 +1,13 @@
 2005-09-11  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.1.5.
+
+	* po/en_GB.po: Update.
+
+	* debian/changelog: Update.
+
+2005-09-11  Roger Leigh  <rleigh@debian.org>
+
 	* debian/rules: Install the lintian override.
 
 	* debian/schroot.lintian-overrides: New file to override
