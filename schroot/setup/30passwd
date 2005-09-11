@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ $1 = "start" ]; then
+  cp /etc/passwd "${CHROOT_LOCATION}/etc/passwd"
+  cp /etc/shadow "${CHROOT_LOCATION}/etc/shadow"
+  cp /etc/group "${CHROOT_LOCATION}/etc/group"
+fi
+

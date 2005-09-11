@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if [ $1 = "start" ]; then
+  echo "${CHROOT_NAME}" > "${CHROOT_LOCATION}/etc/debian_chroot"
+fi
+

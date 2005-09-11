@@ -1,3 +1,36 @@
+2005-09-11  Roger Leigh  <rleigh@debian.org>
+
+	* configure.ac:
+	Check for run-parts.
+	Define $PACKAGE_SYSCONF_DIR as the location for configuration files.
+	Define $SCHROOT_CONF_SETUP_D as the location for setup scripts.
+
+	* schroot/Makefile.am (pkgsysconfdir): Install schroot.conf into
+	$(PACKAGE_SYSCONF_DIR).
+
+	* schroot/schroot.conf.5.in: Update date.
+
+	* schroot/schroot.1.in: Add setup.d to FILES.  Update date.
+
+	* schroot/setup/Makefile.am: Distribute and install 20network,
+	30passwd and 50chrootname into $sysconfdir/schroot/setup.d.
+
+	* schroot/setup/50chrootname: New file to set up chroot name in
+	/etc/debian_chroot.
+
+	* schroot/setup/30passwd: New file to set up passwd, shadow and
+	group.
+
+	* schroot/setup/20network: New file to set up resolv.conf.
+
+	* schroot/sbuild-session.h: Add SBUILD_SESSION_ERROR_CHROOT_SETUP
+	GError enum.
+
+	* schroot/sbuild-session.c
+	(sbuild_session_setup_chroot): New function to call run-parts(8).
+	(sbuild_session_run): Call sbuild_session_setup_chroot before and
+	after running the session command or shell.
+
 2005-08-25  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot.c (main): Replace SCHROOT_CONFIG_FILE with

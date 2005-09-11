@@ -20,7 +20,7 @@
 #
 #####################################################################
 
-SUBDIRS = pam
+SUBDIRS = pam setup
 
 localedir = $(datadir)/locale
 
@@ -74,7 +74,8 @@ libschroot_la_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
 libschroot_la_LIBADD = $(GOBJECT_LIBS) $(PAM_LIBS)
 endif
 
-sysconf_DATA = schroot.conf
+pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
+pkgsysconf_DATA = schroot.conf
 
 man_MANS = schroot.1 schroot.conf.5
 

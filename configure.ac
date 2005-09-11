@@ -54,6 +54,9 @@ dnl AC_PROG_CC_C99
 AC_PROG_LIBTOOL
 AM_GNU_GETTEXT_VERSION([0.14.5])
 AM_GNU_GETTEXT([external])
+AC_PATH_PROG([RUN_PARTS], [run-parts])
+AH_TEMPLATE(RUN_PARTS,, [run-parts binary])
+AC_DEFINE_UNQUOTED(RUN_PARTS, ["$RUN_PARTS"], )
 AC_PATH_PROG([GLIB_MKENUMS], [glib-mkenums])
 AC_PATH_PROG([GLIB_GENMARSHAL], [glib-genmarshal])
 GTK_DOC_CHECK([1.2])
@@ -123,12 +126,20 @@ if test "x${sysconfdir}" = 'x${prefix}/etc'; then
 else
   PACKAGE_SYSCONF_DIR="${sysconfdir}"
 fi
+PACKAGE_SYSCONF_DIR="${PACKAGE_SYSCONF_DIR}/schroot"
+AC_SUBST([PACKAGE_SYSCONF_DIR])
 
 SCHROOT_CONF="${PACKAGE_SYSCONF_DIR}/schroot.conf"
 AC_SUBST([SCHROOT_CONF])
 
 AH_TEMPLATE(SCHROOT_CONF,, [schroot config file path])
 AC_DEFINE_UNQUOTED(SCHROOT_CONF, ["$SCHROOT_CONF"])
+
+SCHROOT_CONF_SETUP_D="${PACKAGE_SYSCONF_DIR}/setup.d"
+AC_SUBST([SCHROOT_CONF_SETUP_D])
+
+AH_TEMPLATE(SCHROOT_CONF_SETUP_D,, [schroot config chroot setup directory])
+AC_DEFINE_UNQUOTED(SCHROOT_CONF_SETUP_D, ["$SCHROOT_CONF_SETUP_D"])
 
 AH_TEMPLATE(SCHROOT_DATADIR,, [Package  data directory])
 SCHROOT_DATADIR="${PACKAGE_DATA_DIR}/${PACKAGE_VERSION}"
@@ -144,6 +155,7 @@ AC_CONFIG_FILES([doc/schroot/Makefile])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([schroot/Makefile])
 AC_CONFIG_FILES([schroot/pam/Makefile])
+AC_CONFIG_FILES([schroot/setup/Makefile])
 AC_CONFIG_FILES([schroot/schroot.1])
 AC_CONFIG_FILES([schroot/schroot.conf.5])
 AC_CONFIG_FILES([Makefile])

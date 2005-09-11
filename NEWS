@@ -19,6 +19,15 @@ building and configuration.
      - add root to groups (root_groups membership is redundant), so
        that root is allowed access.
 
+  3) The configuration file, /etc/schroot.conf has been moved to
+     /etc/schroot/schroot.conf.  This should be moved automatically
+     when upgrading the Debian package.
+
+  4) A new directory, /etc/schroot/setup.d has been added.  This
+     contains scripts to perform setup and cleanup tasks in the
+     chroot, which are run with run-parts(8).  This provides an
+     easy was to configure and customise chroots.
+
 * Major changes in 0.1.4:
 
   1) A new chroot configuration option, "priority", has been added.
