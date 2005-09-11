@@ -108,7 +108,7 @@ $(srcdir)/sbuild-typebuiltins.h: $(schroot_public_h_sources) $(typebuiltins_extr
 
 
 EXTRA_DIST =				\
-	$(sysconf_DATA)			\
+	$(pkgsysconf_DATA)		\
 	$(schroot_built_sources)	\
 	sbuild-marshallers.list
 

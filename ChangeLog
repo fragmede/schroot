@@ -1,5 +1,12 @@
 2005-09-11  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/Makefile.am (EXTRA_DIST): Correctly distribute
+	schroot.conf.
+
+	* debian/copyright (License): Update the FSF address.
+
+2005-09-11  Roger Leigh  <rleigh@debian.org>
+
 	* configure.ac:
 	Check for run-parts.
 	Define $PACKAGE_SYSCONF_DIR as the location for configuration files.
