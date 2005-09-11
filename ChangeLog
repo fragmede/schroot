@@ -1,5 +1,12 @@
 2005-09-11  Roger Leigh  <rleigh@debian.org>
 
+	* debian/rules: Install the lintian override.
+
+	* debian/schroot.lintian-overrides: New file to override
+	setuid-binary lintian warning.
+
+2005-09-11  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/Makefile.am (EXTRA_DIST): Correctly distribute
 	schroot.conf.
 

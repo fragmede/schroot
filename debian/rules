@@ -62,7 +62,8 @@ install: build
 	# Add here commands to install the package into debian/schroot.
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/schroot
 	rm -rf $(CURDIR)/debian/schroot/usr/share/gtk-doc
-
+	mkdir -p $(CURDIR)/debian/schroot/usr/share/lintian/overrides
+	cp $(CURDIR)/debian/schroot.lintian-overrides $(CURDIR)/debian/schroot/usr/share/lintian/overrides/schroot
 
 # Build architecture-independent files here.
 binary-indep: build install
