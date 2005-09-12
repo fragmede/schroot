@@ -440,6 +440,8 @@ sbuild_chroot_set_aliases (SbuildChroot  *chroot,
 void sbuild_chroot_print_details (SbuildChroot *chroot,
 				  FILE         *file)
 {
+  g_return_if_fail(SBUILD_IS_CHROOT(chroot));
+
   g_fprintf(file, _("Name: %s\n"), chroot->name);
   g_fprintf(file, _("Description: %s\n"), chroot->description);
   g_fprintf(file, _("Location: %s\n"), chroot->location);
@@ -456,7 +458,44 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
   if (chroot->aliases)
     for (guint i=0; chroot->aliases[i] != NULL; ++i)
       g_fprintf(file, " %s", chroot->aliases[i]);
-  g_fprintf(file, "\n\n");
+  g_fprintf(file, "\n");
+
+  SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
+  if (klass->print_details)
+    klass->print_details(chroot, file);
+}
+
+/**
+ * sbuild_chroot_setup:
+ * @chroot: an #SbuildChroot.
+ * @env: the environment to set.
+ *
+ * Set up a chroot by runnning setup scripts.  This function is used
+ * to set the environment that the scripts will see during execution.
+ * Environment variables should be added to @env as "key=value"
+ * strings (the format expected by execve envp).  These strings should
+ * be allocated with g_free (or related allocation functions such as
+ * g_strdup), and they must not be freed.
+ */
+void sbuild_chroot_setup (SbuildChroot  *chroot,
+			  GList        **env)
+{
+  g_return_if_fail(SBUILD_IS_CHROOT(chroot));
+  g_return_if_fail(env != NULL);
+
+  *env = g_list_append(*env,
+		       g_strdup_printf("CHROOT_NAME=%s",
+				       sbuild_chroot_get_name(chroot)));
+  *env = g_list_append(*env,
+		       g_strdup_printf("CHROOT_DESCRIPTION=%s",
+				       sbuild_chroot_get_description(chroot)));
+  *env = g_list_append(*env,
+		       g_strdup_printf("CHROOT_LOCATION=%s",
+				       sbuild_chroot_get_location(chroot)));
+
+  SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
+  if (klass->setup)
+    klass->setup(chroot, env);
 }
 
 static void
@@ -606,6 +645,9 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
   gobject_class->finalize = (GObjectFinalizeFunc) sbuild_chroot_finalize;
   gobject_class->set_property = (GObjectSetPropertyFunc) sbuild_chroot_set_property;
   gobject_class->get_property = (GObjectGetPropertyFunc) sbuild_chroot_get_property;
+
+  klass->print_details = NULL;
+  klass->setup = NULL;
 
   g_object_class_install_property
     (gobject_class,

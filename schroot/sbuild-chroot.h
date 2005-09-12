@@ -36,6 +36,11 @@
 typedef struct _SbuildChroot SbuildChroot;
 typedef struct _SbuildChrootClass SbuildChrootClass;
 
+typedef void (*SbuildChrootPrintDetailsFunc)(SbuildChroot *chroot,
+					     FILE         *file);
+typedef void (*SbuildChrootSetupFunc)(SbuildChroot  *chroot,
+				      GList        **env);
+
 struct _SbuildChroot
 {
   GObject   parent;
@@ -50,7 +55,9 @@ struct _SbuildChroot
 
 struct _SbuildChrootClass
 {
-  GObjectClass parent;
+  GObjectClass                 parent;
+  SbuildChrootPrintDetailsFunc print_details;
+  SbuildChrootSetupFunc        setup;
 };
 
 
@@ -115,6 +122,9 @@ sbuild_chroot_set_aliases (SbuildChroot  *chroot,
 
 void sbuild_chroot_print_details (SbuildChroot *chroot,
 				  FILE         *file);
+
+void sbuild_chroot_setup (SbuildChroot  *chroot,
+			  GList        **env);
 
 #endif /* SBUILD_CHROOT_H */
 

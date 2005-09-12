@@ -64,6 +64,35 @@ SbuildChroot class.
 </para>
 
 @parent: the parent class
+@print_details: vfunc to print additional chroot details
+@setup: vfunc to set additional environment variables for chroot setup
+
+
+<!-- ##### USER_FUNCTION SbuildChrootPrintDetailsFunc ##### -->
+<para>
+Print detailed information about @chroot to @file.  The information
+is printed in plain text with one line per property.  This should
+print additional detail in derived #SbuildChroot classes.
+</para>
+
+@chroot: an #SbuildChroot
+@file: the file to output to.
+
+
+<!-- ##### USER_FUNCTION SbuildChrootSetupFunc ##### -->
+<para>
+This function is used to set the environment that the scripts will see
+during execution.  Environment variables should be added to @env as
+"key=value" strings (the format expected by execve envp).  These
+strings should be allocated with g_free (or related allocation
+functions such as g_strdup), and they must not be freed.  This should
+be used to set additional environment variables in derived
+#SbuildChroot classes.
+</para>
+
+@chroot: an #SbuildChroot
+@env: A #GList containing environment "key=value" strings.
+
 
 <!-- ##### FUNCTION sbuild_chroot_new ##### -->
 <para>
@@ -207,14 +236,5 @@ SbuildChroot class.
 
 @chroot: 
 @aliases: 
-
-
-<!-- ##### FUNCTION sbuild_chroot_print_details ##### -->
-<para>
-
-</para>
-
-@chroot: 
-@file: 
 
 

@@ -1,3 +1,20 @@
+2005-09-12  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-session.c (sbuild_session_setup_chroot): Call
+	sbuild_chroot_setup to get chroot environment variables, and add
+	additional auth environment variables to the same linked list.
+	Convert the linked list into a vector.
+
+	* schroot/sbuild-chroot.c (sbuild_chroot_print_details): Call
+	print_details vfunc.
+	(sbuild_chroot_setup): New function, used to set the environment
+	in setup scripts.  It calls the setup vfunc to allow derived
+	classes to set additional environment variables.
+
+	* schroot/sbuild-chroot.h:
+	(struct _SbuildChrootClass): New print_details and setup virtual
+	functions.
+
 2005-09-11  Roger Leigh  <rleigh@debian.org>
 
 	* Fixed minor typos in API reference.

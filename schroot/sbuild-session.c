@@ -363,7 +363,6 @@ sbuild_session_setup_chroot (SbuildSession                 *session,
   {
     guint i = 0;
     argv[i++] = g_strdup(RUN_PARTS); // Run run-parts(8)
-    /* TODO: Add an extra level of verbosity before enabling this. */
     if (sbuild_auth_get_verbosity(SBUILD_AUTH(session)) ==
 	SBUILD_AUTH_VERBOSITY_VERBOSE)
       argv[i++] = g_strdup("--verbose");
@@ -379,17 +378,15 @@ sbuild_session_setup_chroot (SbuildSession                 *session,
     argv[i++] = NULL;
   }
 
-  gchar **envp = g_new(gchar *, 6);
+  /* Get a complete list of environment variables to set.  We need to
+     query the chroot here, since this can vary depending upon the
+     chroot type. */
+  GList *env = NULL;
+  sbuild_chroot_setup(session_chroot, &env);
   {
-    guint i = 0;
-    envp[i++] = g_strdup_printf("CHROOT_NAME=%s",
-				sbuild_chroot_get_name(session_chroot));
-    envp[i++] = g_strdup_printf("CHROOT_DESCRIPTION=%s",
-				sbuild_chroot_get_description(session_chroot));
-    envp[i++] = g_strdup_printf("CHROOT_LOCATION=%s",
-				sbuild_chroot_get_location(session_chroot));
-    envp[i++] = g_strdup_printf("AUTH_USER=%s",
-				sbuild_auth_get_user(SBUILD_AUTH(session)));
+    env = g_list_append(env,
+			g_strdup_printf("AUTH_USER=%s",
+					sbuild_auth_get_user(SBUILD_AUTH(session))));
 
     const char *verbosity = NULL;
     SbuildAuthVerbosity v = sbuild_auth_get_verbosity(SBUILD_AUTH(session));
@@ -410,9 +407,26 @@ sbuild_session_setup_chroot (SbuildSession                 *session,
 	break;
       }
 
-    envp[i++] = g_strdup_printf("AUTH_VERBOSITY=%s", verbosity);
-    envp[i++] = NULL;
+    env = g_list_append(env,
+			g_strdup_printf("AUTH_VERBOSITY=%s", verbosity));
   }
+
+  /* Move the strings into the envp vector. */
+  gchar **envp = NULL;
+  if (env)
+    {
+      guint num_vars = g_list_length(env);
+      envp = g_new(gchar *, num_vars + 1);
+
+      for (guint i = 0; i < num_vars; ++i)
+	{
+	  GList *node = g_list_nth(env, i);
+	  g_assert(node != NULL);
+	  envp[i] = (gchar *) node->data;
+	}
+      envp[num_vars] = NULL;
+    }
+  g_list_free(env);
 
   gint exit_status = 0;
   GError *tmp_error = NULL;

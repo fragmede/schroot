@@ -3,6 +3,8 @@
 <TITLE>SbuildChroot</TITLE>
 SbuildChroot
 SbuildChrootClass
+SbuildChrootPrintDetailsFunc
+SbuildChrootSetupFunc
 sbuild_chroot_new
 sbuild_chroot_new_from_keyfile
 sbuild_chroot_get_name
@@ -20,6 +22,7 @@ sbuild_chroot_set_root_groups
 sbuild_chroot_get_aliases
 sbuild_chroot_set_aliases
 sbuild_chroot_print_details
+sbuild_chroot_setup
 <SUBSECTION Standard>
 SBUILD_CHROOT
 SBUILD_IS_CHROOT
