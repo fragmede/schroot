@@ -402,7 +402,7 @@ sbuild_session_setup_chroot (SbuildSession                 *session,
 	verbosity = "verbose";
 	break;
       default:
-	g_warning("Invalid verbosity level: %d, falling back to \"normal\"", v);
+	g_warning(_("Invalid verbosity level: %d, falling back to \"normal\""), v);
 	verbosity = "normal";
 	break;
       }

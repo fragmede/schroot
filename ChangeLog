@@ -1,3 +1,15 @@
+2005-09-13  Roger Leigh  <rleigh@debian.org>
+
+	* Translate g_warning messages.
+
+	* schroot/schroot.c (main): When printing detailed chroot
+	information, add a blank line between chroots.
+
+	* schroot/sbuild-chroot.c (sbuild_chroot_new_from_keyfile): Parse
+	options automatically by introspecting the GObject properties for
+	a given chroot GType.  This will allow for automatic extension of
+	the file format as new chroot types are added.
+
 2005-09-12  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-session.c (sbuild_session_setup_chroot): Call

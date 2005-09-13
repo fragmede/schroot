@@ -67,7 +67,6 @@ SbuildChroot class.
 @print_details: vfunc to print additional chroot details
 @setup: vfunc to set additional environment variables for chroot setup
 
-
 <!-- ##### USER_FUNCTION SbuildChrootPrintDetailsFunc ##### -->
 <para>
 Print detailed information about @chroot to @file.  The information
@@ -236,5 +235,23 @@ be used to set additional environment variables in derived
 
 @chroot: 
 @aliases: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_print_details ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@file: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_setup ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@env: 
 
 

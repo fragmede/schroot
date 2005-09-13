@@ -259,7 +259,11 @@ main (int   argc,
 	{
 	  SbuildChroot *chroot = sbuild_config_find_alias(config, chroots[i]);
 	  if (chroot)
-	    sbuild_chroot_print_details(chroot, stdout);
+	    {
+	      sbuild_chroot_print_details(chroot, stdout);
+	      if (chroots[i+1] != NULL)
+		g_fprintf(stdout, "\n");
+	    }
 	}
       exit (EXIT_SUCCESS);
     }

@@ -85,80 +85,123 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
 {
   g_return_val_if_fail(group != NULL, NULL);
 
-  GError *error = NULL;
+  GType chroot_type = 0;
+  GObjectClass *klass;
+  GParameter *params = NULL;
+  guint n_params = 0;
+  guint n_alloc_params = 16;
 
-  char *description =
-    g_key_file_get_locale_string(keyfile, group, "description", NULL, &error);
-  if (error != NULL)
+  gchar **keys = g_key_file_get_keys(keyfile, group, NULL, NULL);
+  if (keys)
     {
-      g_clear_error(&error);
-      error = NULL;
-      description = NULL;
+      /* TODO: register module types and look up "type" name here. */
+      chroot_type = SBUILD_TYPE_CHROOT;
+      klass = g_type_class_ref (chroot_type);
+
+      params = g_new (GParameter, n_alloc_params);
+
+      params[n_params].name = "name";
+      params[n_params].value.g_type = 0;
+      g_value_init (&params[n_params].value,
+		    G_TYPE_STRING);
+      g_value_set_string(&params[n_params].value, group);
+      ++n_params;
+
+      for (guint i = 0; keys[i] != NULL; ++i)
+	{
+	  gchar *key = keys[i];
+
+	  GError *error = NULL;
+	  GParamSpec *pspec = g_object_class_find_property(klass, key);
+
+	  if (!pspec)
+	    {
+	      /* TODO: Use proper schroot type description, rather
+		 than the GType name. */
+	      g_warning (_("%s chroot: chroot type '%s' has no property named '%s'"),
+			 group,
+			 g_type_name (chroot_type),
+			 key);
+	      continue; // TODO: Should a config file error be fatal?
+	    }
+
+	  if (n_params >= n_alloc_params)
+	    {
+	      n_alloc_params += 16;
+	      params = g_renew (GParameter, params, n_alloc_params);
+	    }
+
+	  if (G_PARAM_SPEC_VALUE_TYPE(pspec) == G_TYPE_UINT)
+	    {
+	      gint num =
+		g_key_file_get_integer(keyfile, group, key, &error);
+
+	      if (error != NULL)
+		g_clear_error(&error);
+	      else
+		{
+		  params[n_params].name = key;
+		  params[n_params].value.g_type = 0;
+		  g_value_init (&params[n_params].value,
+				G_PARAM_SPEC_VALUE_TYPE (pspec));
+		  g_value_set_uint(&params[n_params].value, (guint) num);
+		  ++n_params;
+		}
+	    }
+	  else if (G_PARAM_SPEC_VALUE_TYPE(pspec) == G_TYPE_STRING)
+	    {
+	      char *str =
+		g_key_file_get_locale_string(keyfile, group, key, NULL, &error);
+
+	      if (error != NULL)
+		g_clear_error(&error);
+	      else
+		{
+		  params[n_params].name = key;
+		  params[n_params].value.g_type = 0;
+		  g_value_init (&params[n_params].value,
+				G_PARAM_SPEC_VALUE_TYPE (pspec));
+		  g_value_set_string(&params[n_params].value, str);
+		  g_free(str);
+		  ++n_params;
+		}
+	    }
+	  else if (G_PARAM_SPEC_VALUE_TYPE(pspec) == G_TYPE_STRV)
+	    {
+	      char **strv =
+		g_key_file_get_string_list(keyfile, group, key, NULL, &error);
+
+	      if (error != NULL)
+		g_clear_error(&error);
+	      else
+		{
+		  params[n_params].name = key;
+		  params[n_params].value.g_type = 0;
+		  g_value_init (&params[n_params].value,
+				G_PARAM_SPEC_VALUE_TYPE (pspec));
+		  g_value_set_boxed(&params[n_params].value, strv);
+		  g_strfreev(strv);
+		  ++n_params;
+		}
+	    }
+	  else
+	    {
+	      g_warning (_("%s chroot: property '%s' has unsupported type '%s'"),
+			 group,
+			 key,
+			 g_type_name (G_PARAM_SPEC_VALUE_TYPE(pspec)));
+	    }
+	}
+      g_type_class_unref (klass);
     }
 
-  char *location =
-    g_key_file_get_string(keyfile, group, "location", &error);
-  if (error != NULL)
-    {
-      g_clear_error(&error);
-      error = NULL;
-      location = NULL;
-    }
+  SbuildChroot *chroot = NULL;
+  if (chroot_type != 0)
+    chroot =  (SbuildChroot *) g_object_newv(chroot_type, n_params, params);
 
-  gint priority =
-    g_key_file_get_integer(keyfile, group, "priority", &error);
-  if (error != NULL)
-    {
-      g_clear_error(&error);
-      error = NULL;
-      priority = 0;
-    }
-  if (priority < 0)
-    priority = 0;
-
-  char **groups =
-    g_key_file_get_string_list(keyfile, group, "groups", NULL, &error);
-  if (error != NULL)
-    {
-      g_clear_error(&error);
-      error = NULL;
-      groups = NULL;
-    }
-
-  char **root_groups =
-    g_key_file_get_string_list(keyfile, group, "root-groups", NULL, &error);
-  if (error != NULL)
-    {
-      g_clear_error(&error);
-      error = NULL;
-      root_groups = NULL;
-    }
-
-  char **aliases =
-    g_key_file_get_string_list(keyfile, group, "aliases", NULL, &error);
-  if (error != NULL)
-    {
-      g_clear_error(&error);
-      error = NULL;
-      aliases = NULL;
-    }
-
-  SbuildChroot *chroot =  (SbuildChroot *) g_object_new
-    (SBUILD_TYPE_CHROOT,
-     "name", group,
-     "description", description,
-     "location", location,
-     "priority", (guint) priority,
-     "groups", groups,
-     "root-groups", root_groups,
-     "aliases", aliases,
-     NULL);
-
-  g_free(description);
-  g_free(location);
-  g_strfreev(groups);
-  g_strfreev(root_groups);
-  g_strfreev(aliases);
+  while (n_params--)
+    g_value_unset (&params[n_params].value);
+  g_free (params);
 
   return chroot;
 }
