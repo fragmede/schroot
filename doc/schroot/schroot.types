@@ -4,5 +4,7 @@ sbuild_auth_get_type
 sbuild_auth_conv_get_type
 sbuild_auth_conv_tty_get_type
 sbuild_chroot_get_type
+sbuild_chroot_plain_get_type
+sbuild_chroot_block_device_get_type
 sbuild_config_get_type
 sbuild_session_get_type

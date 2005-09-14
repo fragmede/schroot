@@ -5,6 +5,6 @@ if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 fi
 
 if [ $1 = "start" ]; then
-  cp $VERBOSE /etc/resolv.conf "${CHROOT_LOCATION}/etc/resolv.conf"
+  cp $VERBOSE /etc/resolv.conf "${CHROOT_MOUNT_LOCATION}/etc/resolv.conf"
 fi
 

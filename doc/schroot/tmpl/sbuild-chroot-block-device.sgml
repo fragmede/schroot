@@ -1,0 +1,55 @@
+<!-- ##### SECTION Title ##### -->
+SbuildChrootBlockDevice
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT SbuildChrootBlockDevice ##### -->
+<para>
+SbuildChrootBlockDevice object.
+</para>
+
+
+<!-- ##### ARG SbuildChrootBlockDevice:device ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT SbuildChrootBlockDeviceClass ##### -->
+<para>
+SbuildChrootDevice class.
+</para>
+
+@parent: 
+
+<!-- ##### FUNCTION sbuild_chroot_block_device_get_device ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_block_device_set_device ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@device: 
+
+

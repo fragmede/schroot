@@ -38,7 +38,7 @@ SbuildChroot object.
 
 </para>
 
-<!-- ##### ARG SbuildChroot:location ##### -->
+<!-- ##### ARG SbuildChroot:mount-location ##### -->
 <para>
 
 </para>
@@ -66,6 +66,7 @@ SbuildChroot class.
 @parent: the parent class
 @print_details: vfunc to print additional chroot details
 @setup: vfunc to set additional environment variables for chroot setup
+@get_chroot_type: vfunc to get the user visible chroot type name
 
 <!-- ##### USER_FUNCTION SbuildChrootPrintDetailsFunc ##### -->
 <para>
@@ -91,6 +92,17 @@ be used to set additional environment variables in derived
 
 @chroot: an #SbuildChroot
 @env: A #GList containing environment "key=value" strings.
+
+
+<!-- ##### USER_FUNCTION SbuildChrootGetChrootTypeFunc ##### -->
+<para>
+This function is ised to get the name of the chroot type subclassed
+from this type.  This is a user-friendly form of the registered type
+name of the class, for use in messages and configuration files.
+</para>
+
+@chroot: an #SbuildChroot
+@Returns: the type name
 
 
 <!-- ##### FUNCTION sbuild_chroot_new ##### -->
@@ -145,24 +157,6 @@ be used to set additional environment variables in derived
 
 @chroot: 
 @description: 
-
-
-<!-- ##### FUNCTION sbuild_chroot_get_location ##### -->
-<para>
-
-</para>
-
-@chroot: 
-@Returns: 
-
-
-<!-- ##### FUNCTION sbuild_chroot_set_location ##### -->
-<para>
-
-</para>
-
-@chroot: 
-@location: 
 
 
 <!-- ##### FUNCTION sbuild_chroot_get_priority ##### -->
@@ -235,6 +229,33 @@ be used to set additional environment variables in derived
 
 @chroot: 
 @aliases: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_get_mount_location ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_set_mount_location ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@location: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_get_chroot_type ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
 
 
 <!-- ##### FUNCTION sbuild_chroot_print_details ##### -->

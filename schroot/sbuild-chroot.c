@@ -36,21 +36,25 @@
 
 #include <config.h>
 
+#include <string.h>
+
 #include <glib.h>
 #include <glib/gi18n.h>
 
 #include "sbuild-chroot.h"
+#include "sbuild-chroot-plain.h"
+#include "sbuild-chroot-block-device.h"
 
 enum
 {
   PROP_0,
   PROP_NAME,
   PROP_DESCRIPTION,
-  PROP_LOCATION,
   PROP_PRIORITY,
   PROP_GROUPS,
   PROP_ROOT_GROUPS,
-  PROP_ALIASES
+  PROP_ALIASES,
+  PROP_MOUNT_LOCATION,
 };
 
 static GObjectClass *parent_class;
@@ -94,8 +98,35 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
   gchar **keys = g_key_file_get_keys(keyfile, group, NULL, NULL);
   if (keys)
     {
-      /* TODO: register module types and look up "type" name here. */
-      chroot_type = SBUILD_TYPE_CHROOT;
+      /* Find out which chroot type we want.  These are all linked
+	 statically, for reasons of security, because we don't want
+	 random modules loading outside our control. */
+      {
+	GError *error = NULL;
+	char *type =
+	  g_key_file_get_string(keyfile, group, "type", &error);
+
+	if (error != NULL)
+	  {
+	    g_clear_error(&error);
+	    chroot_type = SBUILD_TYPE_CHROOT_PLAIN;
+	  }
+	else
+	  {
+	    if (strcmp(type, "plain") == 0)
+	      chroot_type = SBUILD_TYPE_CHROOT_PLAIN;
+	    else if (strcmp(type, "block-device") == 0)
+	      chroot_type = SBUILD_TYPE_CHROOT_BLOCK_DEVICE;
+	    else // Invalid chroot type
+	      {
+		g_warning (_("%s chroot: chroot type '%s' is invalid"),
+			   group, type);
+		chroot_type = 0;
+	      }
+	    g_free(type);
+	  }
+      }
+
       klass = g_type_class_ref (chroot_type);
 
       params = g_new (GParameter, n_alloc_params);
@@ -111,6 +142,9 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
 	{
 	  gchar *key = keys[i];
 
+	  if (strcmp(key, "type") == 0) // Used previously
+	    continue;
+
 	  GError *error = NULL;
 	  GParamSpec *pspec = g_object_class_find_property(klass, key);
 
@@ -122,6 +156,13 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
 			 group,
 			 g_type_name (chroot_type),
 			 key);
+	      continue; // TODO: Should a config file error be fatal?
+	    }
+
+	  if ((pspec->flags & (G_PARAM_WRITABLE|G_PARAM_CONSTRUCT)) == 0)
+	    {
+	      g_warning (_("%s chroot: property '%s' is not user-settable"),
+			 group, key);
 	      continue; // TODO: Should a config file error be fatal?
 	    }
 
@@ -283,41 +324,41 @@ sbuild_chroot_set_description (SbuildChroot *chroot,
 }
 
 /**
- * sbuild_chroot_get_location:
+ * sbuild_chroot_get_mount_location:
  * @chroot: an #SbuildChroot
  *
- * Get the location of the chroot.
+ * Get the mount location of the chroot.
  *
  * Returns a string. This string points to internally allocated
  * storage in the chroot and must not be freed, modified or stored.
  */
 const char *
-sbuild_chroot_get_location (const SbuildChroot *restrict chroot)
+sbuild_chroot_get_mount_location (const SbuildChroot *restrict chroot)
 {
   g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), NULL);
 
-  return chroot->location;
+  return chroot->mount_location;
 }
 
 /**
- * sbuild_chroot_set_location:
+ * sbuild_chroot_set_mount_location:
  * @chroot: an #SbuildChroot.
- * @location: the location to set.
+ * @location: the mount location to set.
  *
- * Set the location of a chroot.
+ * Set the mount location of a chroot.
  */
 void
-sbuild_chroot_set_location (SbuildChroot *chroot,
-			    const char   *location)
+sbuild_chroot_set_mount_location (SbuildChroot *chroot,
+				  const char   *location)
 {
   g_return_if_fail(SBUILD_IS_CHROOT(chroot));
 
-  if (chroot->location)
+  if (chroot->mount_location)
     {
-      g_free(chroot->location);
+      g_free(chroot->mount_location);
     }
-  chroot->location = g_strdup(location);
-  g_object_notify(G_OBJECT(chroot), "location");
+  chroot->mount_location = g_strdup(location);
+  g_object_notify(G_OBJECT(chroot), "mount-location");
 }
 
 /**
@@ -473,6 +514,33 @@ sbuild_chroot_set_aliases (SbuildChroot  *chroot,
 }
 
 /**
+ * sbuild_chroot_get_chroot_type:
+ * @chroot: an #SbuildChroot
+ *
+ * Get the type of the chroot.  This returns a user-readable string
+ * which is equivalant to the type name of the subclassed
+ * #SbuildChroot.
+ *
+ * Returns a string. This string points to internally allocated
+ * storage in the chroot and must not be freed, modified or stored.
+ */
+const gchar *
+sbuild_chroot_get_chroot_type (const SbuildChroot  *chroot)
+{
+  g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), NULL);
+
+  SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
+  if (klass->get_chroot_type)
+    return klass->get_chroot_type(chroot);
+  else
+    {
+      g_error(_("%s chroot: chroot type is unset; error in derived class\n"),
+	      chroot->name);
+      return NULL;
+    }
+}
+
+/**
  * sbuild_chroot_print_details:
  * @chroot: an #SbuildChroot.
  * @file: the file to output to.
@@ -487,7 +555,6 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
 
   g_fprintf(file, _("Name: %s\n"), chroot->name);
   g_fprintf(file, _("Description: %s\n"), chroot->description);
-  g_fprintf(file, _("Location: %s\n"), chroot->location);
   g_fprintf(file, _("Priority: %u\n"), chroot->priority);
   g_fprintf(file, _("Groups:"));
   if (chroot->groups)
@@ -506,6 +573,11 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
   if (klass->print_details)
     klass->print_details(chroot, file);
+
+  /* Non user-settable properties are listed last. */
+  if (chroot->mount_location)
+    g_fprintf(file, _("Mount Location: %s\n"), chroot->mount_location);
+
 }
 
 /**
@@ -527,14 +599,17 @@ void sbuild_chroot_setup (SbuildChroot  *chroot,
   g_return_if_fail(env != NULL);
 
   *env = g_list_append(*env,
+		       g_strdup_printf("CHROOT_TYPE=%s",
+				       sbuild_chroot_get_chroot_type(chroot)));
+  *env = g_list_append(*env,
 		       g_strdup_printf("CHROOT_NAME=%s",
 				       sbuild_chroot_get_name(chroot)));
   *env = g_list_append(*env,
 		       g_strdup_printf("CHROOT_DESCRIPTION=%s",
 				       sbuild_chroot_get_description(chroot)));
   *env = g_list_append(*env,
-		       g_strdup_printf("CHROOT_LOCATION=%s",
-				       sbuild_chroot_get_location(chroot)));
+		       g_strdup_printf("CHROOT_MOUNT_LOCATION=%s",
+				       sbuild_chroot_get_mount_location(chroot)));
 
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
   if (klass->setup)
@@ -548,7 +623,7 @@ sbuild_chroot_init (SbuildChroot *chroot)
 
   chroot->name = NULL;
   chroot->description = NULL;
-  chroot->location = NULL;
+  chroot->mount_location = NULL;
   chroot->priority = 0;
   chroot->groups = NULL;
   chroot->root_groups = NULL;
@@ -570,10 +645,10 @@ sbuild_chroot_finalize (SbuildChroot *chroot)
       g_free (chroot->description);
       chroot->description = NULL;
     }
-  if (chroot->location)
+  if (chroot->mount_location)
     {
-      g_free (chroot->location);
-      chroot->location = NULL;
+      g_free (chroot->mount_location);
+      chroot->mount_location = NULL;
     }
   if (chroot->groups)
     {
@@ -616,8 +691,8 @@ sbuild_chroot_set_property (GObject      *object,
     case PROP_DESCRIPTION:
       sbuild_chroot_set_description(chroot, g_value_get_string(value));
       break;
-    case PROP_LOCATION:
-      sbuild_chroot_set_location(chroot, g_value_get_string(value));
+    case PROP_MOUNT_LOCATION:
+      sbuild_chroot_set_mount_location(chroot, g_value_get_string(value));
       break;
     case PROP_PRIORITY:
       sbuild_chroot_set_priority(chroot, g_value_get_uint(value));
@@ -658,8 +733,8 @@ sbuild_chroot_get_property (GObject    *object,
     case PROP_DESCRIPTION:
       g_value_set_string(value, chroot->description);
       break;
-    case PROP_LOCATION:
-      g_value_set_string(value, chroot->location);
+    case PROP_MOUNT_LOCATION:
+      g_value_set_string(value, chroot->mount_location);
       break;
     case PROP_PRIORITY:
       g_value_set_uint(value, chroot->priority);
@@ -691,6 +766,7 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
 
   klass->print_details = NULL;
   klass->setup = NULL;
+  klass->get_chroot_type = NULL;
 
   g_object_class_install_property
     (gobject_class,
@@ -710,11 +786,11 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
 
   g_object_class_install_property
     (gobject_class,
-     PROP_LOCATION,
-     g_param_spec_string ("location", "Location",
-			  "The location (path) of the chroot",
+     PROP_MOUNT_LOCATION,
+     g_param_spec_string ("mount-location", "Mount Location",
+			  "The mounted location (path) of the chroot",
 			  "",
-			  (G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
+			  (G_PARAM_READABLE | G_PARAM_WRITABLE)));
 
   g_object_class_install_property
     (gobject_class,

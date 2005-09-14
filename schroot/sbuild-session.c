@@ -331,6 +331,24 @@ sbuild_session_require_auth (SbuildSession *session)
 }
 
 /**
+ * sbuild_session_setup_chroot_child_setup:
+ * @session: an #SbuildSession
+ *
+ * A helper to make sure the child process is real and effective root
+ * before running run-parts.
+ */
+void
+sbuild_session_setup_chroot_child_setup (SbuildSession *session)
+{
+  /* This is required to ensure the scripts run with uid=0 and gid=0,
+     otherwise setuid programs such as mount(8) will fail.  This
+     should always succeed, because our euid=0 and egid=0.*/
+  setuid(0);
+  setgid(0);
+  initgroups("root", 0);
+}
+
+/**
  * sbuild_session_setup_chroot:
  * @session: an #SbuildSession
  * @session_chroot: an #SbuildChroot (which must be present in the @session configuration)
@@ -355,9 +373,13 @@ sbuild_session_setup_chroot (SbuildSession                 *session,
   g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
   g_return_val_if_fail(SBUILD_IS_CHROOT(session_chroot), FALSE);
   g_return_val_if_fail(sbuild_chroot_get_name(session_chroot) != NULL, FALSE);
-  g_return_val_if_fail(sbuild_chroot_get_location(session_chroot) != NULL, FALSE);
   g_return_val_if_fail(setup_type == SBUILD_SESSION_CHROOT_SETUP_START ||
 		       setup_type == SBUILD_SESSION_CHROOT_SETUP_STOP, FALSE);
+
+  /* If a chroot location has not yet been set, fall back to /mnt.
+     TODO: This should be set with the session key. */
+  if (sbuild_chroot_get_mount_location(session_chroot) == NULL)
+    sbuild_chroot_set_mount_location(session_chroot, "/mnt");
 
   gchar **argv = g_new(gchar *, 8);
   {
@@ -435,8 +457,9 @@ sbuild_session_setup_chroot (SbuildSession                 *session,
 	       argv,         // arguments
 	       envp,         // environment
 	       0,            // spawn flags
-	       NULL,         // child_setup
-	       NULL,         // child_setup user_data
+	       (GSpawnChildSetupFunc)
+	         sbuild_session_setup_chroot_child_setup, // child_setup
+	       (gpointer) session, // child_setup user_data
 	       NULL,         // standard_output
 	       NULL,         // standard_error
 	       &exit_status, // child exit status
@@ -480,7 +503,7 @@ sbuild_session_run_child (SbuildSession  *session,
   g_assert(SBUILD_IS_SESSION(session));
   g_assert(SBUILD_IS_CHROOT(session_chroot));
   g_assert(sbuild_chroot_get_name(session_chroot) != NULL);
-  g_assert(sbuild_chroot_get_location(session_chroot) != NULL);
+  g_assert(sbuild_chroot_get_mount_location(session_chroot) != NULL);
 
   SbuildAuth *auth = SBUILD_AUTH(session);
 
@@ -497,7 +520,7 @@ sbuild_session_run_child (SbuildSession  *session,
   char **command = g_strdupv(sbuild_auth_get_command(auth));
   char **environment = sbuild_auth_get_environment(auth);
 
-  const char *location = sbuild_chroot_get_location(session_chroot);
+  const char *location = sbuild_chroot_get_mount_location(session_chroot);
   char *cwd = g_get_current_dir();
   /* Child errors result in immediate exit().  Errors are not
      propagated back via a GError, because there is no longer any
@@ -747,7 +770,6 @@ sbuild_session_run_chroot (SbuildSession  *session,
   g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
   g_return_val_if_fail(SBUILD_IS_CHROOT(session_chroot), FALSE);
   g_return_val_if_fail(sbuild_chroot_get_name(session_chroot) != NULL, FALSE);
-  g_return_val_if_fail(sbuild_chroot_get_location(session_chroot) != NULL, FALSE);
 
   pid_t pid;
   if ((pid = fork()) == -1)

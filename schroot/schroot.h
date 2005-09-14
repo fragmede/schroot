@@ -28,6 +28,8 @@
 #include "sbuild-auth-message.h"
 #include "sbuild-config.h"
 #include "sbuild-chroot.h"
+#include "sbuild-chroot-plain.h"
+#include "sbuild-chroot-block-device.h"
 #include "sbuild-session.h"
 
 #endif /* SBUILD_SCHROOT_H */

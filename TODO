@@ -12,13 +12,7 @@ TODO
   - snapshot from LVM logical volumes
   - Xen hosts (also LVM snapshots).
 
-* Add a "type" member to the config file format.  This can be used
-  in a factory function when creating the SbuildChroot object from
-  the config file.  The specialised chroot object e.g.
-  SbuildChrootSnapshot might also read additional keys from the
-  configuration.  We might also want to consider specialising
-  SbuildSession as well, or moving type-specific handling into the
-  chroot object.
+* Add mount-options property to SbuildChrootDevice to use in 10mount.
 
 * Alternate chroots will require hook scripts to customise them.
   For example, network setup.  Xen in particular will require
@@ -61,7 +55,7 @@ TODO
   connect as many times as necessary while user 1 remains connected, but
   idle, and then teardown would take place when the last session exited
   (e.g. using semaphores).
-  
+
 * LVM snapshots would allow a daily update and dist-upgrade of the master
   chroot, without interfering with sessions running in snapshots.
 

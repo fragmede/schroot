@@ -1,0 +1,38 @@
+#!/bin/sh
+
+set -e
+
+if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+  VERBOSE="-v"
+#  FSCK_VERBOSE="-V"
+fi
+
+if [ "$CHROOT_TYPE" = "block-device" ]; then
+
+    if [ $1 = "start" ]; then
+
+        # fsck doesn't like being run non-interactively
+	#/sbin/fsck $FSCK_VERBOSE -n "$CHROOT_DEVICE"
+
+	mount $VERBOSE $CHROOT_MOUNT_OPTIONS "$CHROOT_DEVICE" "$CHROOT_MOUNT_LOCATION"
+
+	mount $VERBOSE -t proc    proc     "${CHROOT_MOUNT_LOCATION}/proc"
+	mount $VERBOSE -o rw,bind /dev/pts "${CHROOT_MOUNT_LOCATION}/dev/pts"
+	mount $VERBOSE -t tmpfs   tmpfs    "${CHROOT_MOUNT_LOCATION}/dev/shm"
+	mount $VERBOSE -o rw,bind /home    "${CHROOT_MOUNT_LOCATION}/home"
+	mount $VERBOSE -o rw,bind /tmp     "${CHROOT_MOUNT_LOCATION}/tmp"
+
+    elif [ $1 = "stop" ]; then
+
+	umount $VERBOSE "${CHROOT_MOUNT_LOCATION}/tmp" || true
+	umount $VERBOSE "${CHROOT_MOUNT_LOCATION}/home" || true
+	umount $VERBOSE "${CHROOT_MOUNT_LOCATION}/dev/shm" || true
+	umount $VERBOSE "${CHROOT_MOUNT_LOCATION}/dev/pts" || true
+	umount $VERBOSE "${CHROOT_MOUNT_LOCATION}/proc" || true
+
+	umount $VERBOSE "$CHROOT_MOUNT_LOCATION" || true
+
+    fi
+
+fi
+

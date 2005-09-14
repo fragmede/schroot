@@ -1,0 +1,55 @@
+<!-- ##### SECTION Title ##### -->
+SbuildChrootPlain
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT SbuildChrootPlain ##### -->
+<para>
+SbuildChrootPlain object.
+</para>
+
+
+<!-- ##### ARG SbuildChrootPlain:location ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT SbuildChrootPlainClass ##### -->
+<para>
+SbuildChrootPlain class.
+</para>
+
+@parent: 
+
+<!-- ##### FUNCTION sbuild_chroot_plain_get_location ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_plain_set_location ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@location: 
+
+

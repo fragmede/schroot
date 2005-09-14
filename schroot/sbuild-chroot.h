@@ -40,24 +40,26 @@ typedef void (*SbuildChrootPrintDetailsFunc)(SbuildChroot *chroot,
 					     FILE         *file);
 typedef void (*SbuildChrootSetupFunc)(SbuildChroot  *chroot,
 				      GList        **env);
+typedef const gchar *(*SbuildChrootGetChrootTypeFunc)(const SbuildChroot  *chroot);
 
 struct _SbuildChroot
 {
   GObject   parent;
   gchar    *name;
   gchar    *description;
-  gchar    *location;
   guint     priority;
   char    **groups;
   char    **root_groups;
   char    **aliases;
+  gchar    *mount_location;
 };
 
 struct _SbuildChrootClass
 {
-  GObjectClass                 parent;
-  SbuildChrootPrintDetailsFunc print_details;
-  SbuildChrootSetupFunc        setup;
+  GObjectClass                  parent;
+  SbuildChrootPrintDetailsFunc  print_details;
+  SbuildChrootSetupFunc         setup;
+  SbuildChrootGetChrootTypeFunc get_chroot_type;
 };
 
 
@@ -86,11 +88,11 @@ sbuild_chroot_set_description (SbuildChroot *chroot,
 			       const char   *description);
 
 const char *
-sbuild_chroot_get_location (const SbuildChroot *restrict chroot);
+sbuild_chroot_get_mount_location (const SbuildChroot *restrict chroot);
 
 void
-sbuild_chroot_set_location (SbuildChroot *chroot,
-			    const char   *location);
+sbuild_chroot_set_mount_location (SbuildChroot *chroot,
+				  const char   *location);
 
 guint
 sbuild_chroot_get_priority (const SbuildChroot *restrict chroot);
@@ -120,11 +122,18 @@ void
 sbuild_chroot_set_aliases (SbuildChroot  *chroot,
 			   char         **aliases);
 
-void sbuild_chroot_print_details (SbuildChroot *chroot,
-				  FILE         *file);
+const gchar *
+sbuild_chroot_get_chroot_type (const SbuildChroot  *chroot);
 
-void sbuild_chroot_setup (SbuildChroot  *chroot,
-			  GList        **env);
+void
+sbuild_chroot_print_details (SbuildChroot *chroot,
+			     FILE         *file);
+
+void
+sbuild_chroot_setup (SbuildChroot  *chroot,
+		     GList        **env);
+
+
 
 #endif /* SBUILD_CHROOT_H */
 

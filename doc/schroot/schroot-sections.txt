@@ -5,14 +5,13 @@ SbuildChroot
 SbuildChrootClass
 SbuildChrootPrintDetailsFunc
 SbuildChrootSetupFunc
+SbuildChrootGetChrootTypeFunc
 sbuild_chroot_new
 sbuild_chroot_new_from_keyfile
 sbuild_chroot_get_name
 sbuild_chroot_set_name
 sbuild_chroot_get_description
 sbuild_chroot_set_description
-sbuild_chroot_get_location
-sbuild_chroot_set_location
 sbuild_chroot_get_priority
 sbuild_chroot_set_priority
 sbuild_chroot_get_groups
@@ -21,6 +20,9 @@ sbuild_chroot_get_root_groups
 sbuild_chroot_set_root_groups
 sbuild_chroot_get_aliases
 sbuild_chroot_set_aliases
+sbuild_chroot_get_mount_location
+sbuild_chroot_set_mount_location
+sbuild_chroot_get_chroot_type
 sbuild_chroot_print_details
 sbuild_chroot_setup
 <SUBSECTION Standard>
@@ -31,6 +33,40 @@ sbuild_chroot_get_type
 SBUILD_CHROOT_CLASS
 SBUILD_IS_CHROOT_CLASS
 SBUILD_CHROOT_GET_CLASS
+</SECTION>
+
+<SECTION>
+<FILE>sbuild-chroot-plain</FILE>
+<TITLE>SbuildChrootPlain</TITLE>
+SbuildChrootPlain
+SbuildChrootPlainClass
+sbuild_chroot_plain_get_location
+sbuild_chroot_plain_set_location
+<SUBSECTION Standard>
+SBUILD_TYPE_CHROOT_PLAIN
+sbuild_chroot_plain_get_type
+SBUILD_CHROOT_PLAIN
+SBUILD_CHROOT_PLAIN_CLASS
+SBUILD_CHROOT_PLAIN_GET_CLASS
+SBUILD_IS_CHROOT_PLAIN
+SBUILD_IS_CHROOT_PLAIN_CLASS
+</SECTION>
+
+<SECTION>
+<FILE>sbuild-chroot-block-device</FILE>
+<TITLE>SbuildChrootBlockDevice</TITLE>
+SbuildChrootBlockDevice
+SbuildChrootBlockDeviceClass
+sbuild_chroot_block_device_get_device
+sbuild_chroot_block_device_set_device
+<SUBSECTION Standard>
+SBUILD_TYPE_CHROOT_BLOCK_DEVICE
+sbuild_chroot_block_device_get_type
+SBUILD_CHROOT_BLOCK_DEVICE
+SBUILD_CHROOT_BLOCK_DEVICE_CLASS
+SBUILD_CHROOT_BLOCK_DEVICE_GET_CLASS
+SBUILD_IS_CHROOT_BLOCK_DEVICE
+SBUILD_IS_CHROOT_BLOCK_DEVICE_CLASS
 </SECTION>
 
 <SECTION>

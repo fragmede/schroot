@@ -1,3 +1,56 @@
+2005-09-14  Roger Leigh  <rleigh@debian.org>
+
+	* Updated documentation.
+
+	* schroot/setup/30passwd: Use $CHROOT_MOUNT_LOCATION.
+
+	* schroot/setup/20network: Use $CHROOT_MOUNT_LOCATION.
+
+	* schroot/setup/10mount: New script to mount block devices.
+
+	* schroot/setup/00check: New script to do sanity checking before
+	other scripts are run, and print the environment when run in
+	verbose mode.
+
+	* schroot/sbuild-session.c
+	(sbuild_session_setup_chroot): Fall back to "/mnt" if no mount
+	location is available.  This is temporary.
+	(sbuild_session_setup_chroot): Set the environment correctly for
+	subclassed SbuildChroot objects.
+	(sbuild_session_setup_chroot_child_setup): New helper function to
+	ensure that the setup scripts run as real and effective user and
+	group root.
+
+	* schroot/sbuild-chroot.c
+	(sbuild_chroot_get_chroot_type): New function, which calls the
+	get_type vfunc.
+	(sbuild_chroot_class_init): Renamed "location" property to
+	"mount-location", and updated all methods accordingly.  "location"
+	is now implemented only in SbuildChrootPlain.
+	(sbuild_chroot_new_from_keyfile): Check the GKeyFile "type" key to
+	check which SbuildChroot subclass to instantiate.  Add stricter
+	checking of GKeyFile keys, by validating names and types against
+	the registered properties for the GObjectClass, as well as
+	checking if the properties are constructible and writable.
+
+	* schroot/sbuild-chroot.h (struct _SbuildChrootClass): Added new
+	get_type vfunc, for getting the type name of the chroot.
+
+	* schroot/sbuild-chroot-block-device.[ch]: New files, implementing
+	SbuildChrootBlockDevice, an object representing a chroot on a
+	block device mounted on demand, derived from SbuildChroot.
+
+	* schroot/sbuild-chroot-plain.[ch]: New files, implementing
+	SbuildChrootPlain, an object representing a simple filesystem
+	chroot, derived from SbuildChroot.
+
+	* NEWS: Bump version to 0.1.6.
+
+	* configure.ac: Bump version to 0.1.6.
+
+	* schroot/sbuild-chroot.c (sbuild_chroot_new_from_keyfile): Warn
+	if not constructible or writable types are used.
+
 2005-09-13  Roger Leigh  <rleigh@debian.org>
 
 	* Translate g_warning messages.

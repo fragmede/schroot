@@ -1,0 +1,43 @@
+#!/bin/sh
+
+if [ $1 = "start" ]; then
+
+    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	echo "AUTH_USER=$AUTH_USER"
+	echo "AUTH_VERBOSITY=$AUTH_VERBOSITY"
+	echo "CHROOT_TYPE=$CHROOT_TYPE"
+	echo "CHROOT_NAME=$CHROOT_NAME"
+	echo "CHROOT_DESCRIPTION=$CHROOT_DESCRIPTION"
+	echo "CHROOT_MOUNT_LOCATION=$CHROOT_MOUNT_LOCATION"
+	if [ "$CHROOT_TYPE" = "plain" ]; then
+	    echo "CHROOT_LOCATION=$CHROOT_LOCATION"
+	elif [ "$CHROOT_TYPE" = "block-device" ]; then
+	    echo "CHROOT_DEVICE=$CHROOT_DEVICE"
+	fi
+    fi
+
+    case "$CHROOT_TYPE" in
+	plain)
+	    if [ ! -d "$CHROOT_LOCATION" ]; then
+		echo "$CHROOT_LOCATION does not exist"
+		exit 1
+	    fi
+	    ;;
+	block-device)
+	    if [ ! -b "$CHROOT_DEVICE" ]; then
+		echo "$CHROOT_DEVICE does not exist"
+		exit 1
+	    fi
+	    ;;
+	*)
+	    echo "Unknown chroot type $CHROOT_TYPE"
+	    exit 1
+	    ;;
+    esac
+
+    if [ -z "$CHROOT_MOUNT_LOCATION" -o "$CHROOT_MOUNT_LOCATION" = "/" ]; then
+	echo "Invalid chroot mount location: '$CHROOT_MOUNT_LOCATION'"
+	exit 1
+    fi
+
+fi

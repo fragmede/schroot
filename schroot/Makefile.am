@@ -29,24 +29,28 @@ DEFS = -DG_LOG_DOMAIN=\"Schroot\" -DGETTEXT_PACKAGE=\"schroot\" -DLOCALEDIR=\"$(
 
 bin_PROGRAMS = schroot
 
-schroot_public_h_sources =	\
-	sbuild-auth.h		\
-	sbuild-auth-conv.h	\
-	sbuild-auth-conv-tty.h	\
-	sbuild-auth-message.h   \
-	sbuild-chroot.h		\
-	sbuild-config.h		\
-	sbuild-error.h		\
+schroot_public_h_sources =		\
+	sbuild-auth.h			\
+	sbuild-auth-conv.h		\
+	sbuild-auth-conv-tty.h		\
+	sbuild-auth-message.h   	\
+	sbuild-chroot.h			\
+	sbuild-chroot-block-device.h	\
+	sbuild-chroot-plain.h		\
+	sbuild-config.h			\
+	sbuild-error.h			\
 	sbuild-session.h
 
-schroot_public_c_sources =	\
-	sbuild-auth.c		\
-	sbuild-auth-conv.c	\
-	sbuild-auth-conv-tty.c	\
-	sbuild-auth-message.c   \
-	sbuild-chroot.c		\
-	sbuild-config.c		\
-	sbuild-error.c		\
+schroot_public_c_sources =		\
+	sbuild-auth.c			\
+	sbuild-auth-conv.c		\
+	sbuild-auth-conv-tty.c		\
+	sbuild-auth-message.c   	\
+	sbuild-chroot.c			\
+	sbuild-chroot-block-device.c	\
+	sbuild-chroot-plain.c		\
+	sbuild-config.c			\
+	sbuild-error.c			\
 	sbuild-session.c
 
 schroot_built_sources =		\

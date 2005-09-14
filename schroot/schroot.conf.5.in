@@ -25,6 +25,12 @@ Comments are introduced following a \[oq]\f[CR]\[sh]\fP\[cq] (\[lq]hash\[rq])
 character at the beginning of a line, or following any other text.  All text
 right of the \[oq]\f[CR]\[sh]\fP\[cq] is treated as a comment.
 .PP
+The configuration format is an INI-style format used by the GLib GKeyFile
+class, and is fully documented in the GLib API reference.  Here, only the
+features used and required by schroot are documented.
+.SS
+General options
+.PP
 A chroot is defined as a group of key-value pairs, which is started by a name
 in square brackets on a line by itself.  The file may contain multiple groups
 which therefore define multiple chroots.
@@ -36,13 +42,13 @@ For example,
 .PP
 This is then followed by several key-value pairs:
 .TP
+.B type=\fItype\fP
+The type of the chroot.  Valid types are \[lq]plain\[rq] and
+\[lq]block\-device\[rq].  If empty or omitted, the default type is
+\[lq]plain\[rq].
+.TP
 .B description=\fIdescription\fP
 A short description of the chroot.
-.TP
-.B location=\fIdirectory\fP
-The directory containing the chroot environment.  This is where the root will
-be changed to when executing a login shell or a command.  The directory
- must exist and have read and execute permissions to allow users' access to it.
 .TP
 .B priority=\fInumber\fP
 Set the priority of a chroot.  \fInumber\fP is a positive integer indicating
@@ -66,10 +72,26 @@ gain access with a password).
 A comma-separated list of aliases (alternate names) for this chroot.  For
 example, a chroot named \[lq]sid\[rq] might have an \[lq]unstable\[rq] alias
 for convenience.
+.SS
+Plain chroots
 .PP
-The configuration format is an INI-style format used by the GLib GKeyFile
-class, and is fully documented in the GLib API reference.  Here, only the
-features used and required by schroot are documented.
+Chroots of type \[lq]plain\[rq] are directories accessible in the filesystem.
+They have an additional (mandatory) configuration option:
+.TP
+.B location=\fIdirectory\fP
+The directory containing the chroot environment.  This is where the root will
+be changed to when executing a login shell or a command.  The directory must
+exist and have read and execute permissions to allow users' access to it.
+.SS
+Block device chroots
+.PP
+Chroots of type \[lq]block\-device\[rq] are a filesystem available on an
+unmounted block device.  The device will be mounted and unmounted on demand.
+They have an additional (mandatory) configuration option:
+.TP
+.B device=\fIdevice\fP
+This is the device name of the block device, including the absolute path.  For
+example, \[lq]/dev/sda5\[rq].
 .SH EXAMPLE
 \f[CR]# Sample configuration\fP
 .br
