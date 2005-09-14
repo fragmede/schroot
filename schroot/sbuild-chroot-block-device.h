@@ -42,6 +42,7 @@ struct _SbuildChrootBlockDevice
 {
   SbuildChroot  parent;
   gchar        *device;
+  gchar        *mount_options;
 };
 
 struct _SbuildChrootBlockDeviceClass
@@ -58,7 +59,16 @@ sbuild_chroot_block_device_get_device (const SbuildChrootBlockDevice *restrict c
 
 void
 sbuild_chroot_block_device_set_device (SbuildChrootBlockDevice *chroot,
-				       const char   *device);
+				       const char              *device);
+
+const char *
+sbuild_chroot_block_device_get_mount_options
+(const SbuildChrootBlockDevice *restrict chroot);
+
+void
+sbuild_chroot_block_device_set_mount_options
+(SbuildChrootBlockDevice *chroot,
+ const char              *device);
 
 #endif /* SBUILD_CHROOT_BLOCK_DEVICE_H */
 

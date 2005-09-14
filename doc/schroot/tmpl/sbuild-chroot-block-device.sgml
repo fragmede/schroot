@@ -28,6 +28,11 @@ SbuildChrootBlockDevice object.
 
 </para>
 
+<!-- ##### ARG SbuildChrootBlockDevice:mount-options ##### -->
+<para>
+
+</para>
+
 <!-- ##### STRUCT SbuildChrootBlockDeviceClass ##### -->
 <para>
 SbuildChrootDevice class.

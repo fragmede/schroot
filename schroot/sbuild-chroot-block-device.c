@@ -38,7 +38,8 @@
 enum
 {
   PROP_0,
-  PROP_DEVICE
+  PROP_DEVICE,
+  PROP_MOUNT_OPTIONS
 };
 
 static GObjectClass *parent_class;
@@ -84,6 +85,45 @@ sbuild_chroot_block_device_set_device (SbuildChrootBlockDevice *chroot,
   g_object_notify(G_OBJECT(chroot), "device");
 }
 
+/**
+ * sbuild_chroot_block_device_get_mount_options:
+ * @chroot: an #SbuildChrootBlockDevice
+ *
+ * Get the filesystem mount_options of the chroot block device.
+ *
+ * Returns a string. This string points to internally allocated
+ * storage in the chroot and must not be freed, modified or stored.
+ */
+const char *
+sbuild_chroot_block_device_get_mount_options (const SbuildChrootBlockDevice *restrict chroot)
+{
+  g_return_val_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot), NULL);
+
+  return chroot->mount_options;
+}
+
+/**
+ * sbuild_chroot_block_device_set_mount_options:
+ * @chroot: an #SbuildChrootBlockDevice.
+ * @mount_options: the device to set.
+ *
+ * Set the filesystem mount_options of a chroot block device.  These
+ * will be passed to mount(8) when mounting the device.
+ */
+void
+sbuild_chroot_block_device_set_mount_options (SbuildChrootBlockDevice *chroot,
+					      const char              *mount_options)
+{
+  g_return_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot));
+
+  if (chroot->mount_options)
+    {
+      g_free(chroot->mount_options);
+    }
+  chroot->mount_options = g_strdup(mount_options);
+  g_object_notify(G_OBJECT(chroot), "mount-options");
+}
+
 static void
 sbuild_chroot_block_device_print_details (SbuildChrootBlockDevice *chroot,
 					  FILE         *file)
@@ -91,6 +131,7 @@ sbuild_chroot_block_device_print_details (SbuildChrootBlockDevice *chroot,
   g_return_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot));
 
   g_fprintf(file, _("Device: %s\n"), chroot->device);
+  g_fprintf(file, _("Mount Options: %s\n"), chroot->mount_options);
 }
 
 void sbuild_chroot_block_device_setup (SbuildChrootBlockDevice  *chroot,
@@ -102,6 +143,9 @@ void sbuild_chroot_block_device_setup (SbuildChrootBlockDevice  *chroot,
   *env = g_list_append(*env,
 		       g_strdup_printf("CHROOT_DEVICE=%s",
 				       chroot->device));
+  *env = g_list_append(*env,
+		       g_strdup_printf("CHROOT_MOUNT_OPTIONS=%s",
+				       chroot->mount_options));
 }
 
 static const gchar *
@@ -117,7 +161,8 @@ sbuild_chroot_block_device_init (SbuildChrootBlockDevice *chroot)
 {
   g_return_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot));
 
-  chroot->device= NULL;
+  chroot->device = NULL;
+  chroot->mount_options = NULL;
 }
 
 static void
@@ -129,6 +174,11 @@ sbuild_chroot_block_device_finalize (SbuildChrootBlockDevice *chroot)
     {
       g_free (chroot->device);
       chroot->device = NULL;
+    }
+  if (chroot->mount_options)
+    {
+      g_free (chroot->mount_options);
+      chroot->mount_options = NULL;
     }
 
   if (parent_class->finalize)
@@ -153,6 +203,10 @@ sbuild_chroot_block_device_set_property (GObject      *object,
     case PROP_DEVICE:
       sbuild_chroot_block_device_set_device(chroot, g_value_get_string(value));
       break;
+    case PROP_MOUNT_OPTIONS:
+      sbuild_chroot_block_device_set_mount_options(chroot,
+						   g_value_get_string(value));
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
       break;
@@ -176,6 +230,9 @@ sbuild_chroot_block_device_get_property (GObject    *object,
     {
     case PROP_DEVICE:
       g_value_set_string(value, chroot->device);
+      break;
+    case PROP_MOUNT_OPTIONS:
+      g_value_set_string(value, chroot->mount_options);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -206,6 +263,14 @@ sbuild_chroot_block_device_class_init (SbuildChrootBlockDeviceClass *klass)
      PROP_DEVICE,
      g_param_spec_string ("device", "Device",
 			  "The block device name of the chroot",
+			  "",
+			  (G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_MOUNT_OPTIONS,
+     g_param_spec_string ("mount-options", "Mount Options",
+			  "The filesystem mount options for the chroot block device",
 			  "",
 			  (G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
 }

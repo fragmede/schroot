@@ -13,6 +13,7 @@ if [ $1 = "start" ]; then
 	    echo "CHROOT_LOCATION=$CHROOT_LOCATION"
 	elif [ "$CHROOT_TYPE" = "block-device" ]; then
 	    echo "CHROOT_DEVICE=$CHROOT_DEVICE"
+	    echo "CHROOT_MOUNT_OPTIONS=$CHROOT_MOUNT_OPTIONS"
 	fi
     fi
 

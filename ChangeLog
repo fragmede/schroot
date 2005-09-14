@@ -1,5 +1,18 @@
 2005-09-14  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.conf.5.in: Document "mount-options".
+
+	* schroot/setup/00check: Report $CHROOT_MOUNT_OPTIONS.
+
+	* schroot/sbuild-chroot-block-device.c
+	(sbuild_chroot_block_device_class_init): Added a "mount-options"
+	property and associated accessors.
+
+	* schroot/sbuild-chroot-block-device.h (struct
+	_SbuildChrootBlockDevice): Added a mount_options member.
+
+2005-09-14  Roger Leigh  <rleigh@debian.org>
+
 	* Updated documentation.
 
 	* schroot/setup/30passwd: Use $CHROOT_MOUNT_LOCATION.
