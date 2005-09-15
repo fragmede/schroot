@@ -23,6 +23,8 @@
 setupdir = $(SCHROOT_CONF_SETUP_D)
 
 setup_SCRIPTS =		\
+	00check		\
+	10mount		\
 	20network	\
 	30passwd	\
 	50chrootname

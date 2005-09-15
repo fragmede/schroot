@@ -1,5 +1,10 @@
 2005-09-15  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/setup/Makefile.am (setup_SCRIPTS): Distribute 00check
+	and 10mount.
+
+2005-09-15  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/setup/10mount: Use $CHROOT_MOUNT_DEVICE.
 
 	* schroot/setup/00check: Report $CHROOT_MOUNT_DEVICE.
