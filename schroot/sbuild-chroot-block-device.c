@@ -69,11 +69,13 @@ sbuild_chroot_block_device_get_device (const SbuildChrootBlockDevice *restrict c
  * @chroot: an #SbuildChrootBlockDevice.
  * @device: the device to set.
  *
- * Set the block device of a chroot.
+ * Set the block device of a chroot.  This is the "source" device.  It
+ * may be the case that the real device is different (for example, an
+ * LVM snapshot PV), but by default will be the device to mount.
  */
 void
 sbuild_chroot_block_device_set_device (SbuildChrootBlockDevice *chroot,
-				       const char   *device)
+				       const char              *device)
 {
   g_return_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot));
 
@@ -83,6 +85,22 @@ sbuild_chroot_block_device_set_device (SbuildChrootBlockDevice *chroot,
     }
   chroot->device = g_strdup(device);
   g_object_notify(G_OBJECT(chroot), "device");
+}
+
+/**
+ * sbuild_chroot_block_device_set_mount_location:
+ * @chroot: an #SbuildChrootBlockDevice.
+ *
+ * Set the mount block device of a chroot.  In this case, it is bound
+ * to the value of the "device" property.  In derived classes, the two
+ * may differ.
+ */
+static void
+sbuild_chroot_block_device_set_mount_device (SbuildChrootBlockDevice *chroot)
+{
+  g_return_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot));
+
+  sbuild_chroot_set_mount_device(SBUILD_CHROOT(chroot), chroot->device);
 }
 
 /**
@@ -126,7 +144,7 @@ sbuild_chroot_block_device_set_mount_options (SbuildChrootBlockDevice *chroot,
 
 static void
 sbuild_chroot_block_device_print_details (SbuildChrootBlockDevice *chroot,
-					  FILE         *file)
+					  FILE                    *file)
 {
   g_return_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot));
 
@@ -135,7 +153,7 @@ sbuild_chroot_block_device_print_details (SbuildChrootBlockDevice *chroot,
 }
 
 void sbuild_chroot_block_device_setup (SbuildChrootBlockDevice  *chroot,
-			  GList        **env)
+				       GList                   **env)
 {
   g_return_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot));
   g_return_if_fail(env != NULL);
@@ -163,6 +181,9 @@ sbuild_chroot_block_device_init (SbuildChrootBlockDevice *chroot)
 
   chroot->device = NULL;
   chroot->mount_options = NULL;
+
+  g_signal_connect(G_OBJECT(chroot), "notify::device",
+		   G_CALLBACK(sbuild_chroot_block_device_set_mount_device), NULL);
 }
 
 static void

@@ -12,9 +12,9 @@ if [ "$CHROOT_TYPE" = "block-device" ]; then
     if [ $1 = "start" ]; then
 
         # fsck doesn't like being run non-interactively
-	#/sbin/fsck $FSCK_VERBOSE -n "$CHROOT_DEVICE"
+	#/sbin/fsck $FSCK_VERBOSE -n "$CHROOT_MOUNT_DEVICE"
 
-	mount $VERBOSE $CHROOT_MOUNT_OPTIONS "$CHROOT_DEVICE" "$CHROOT_MOUNT_LOCATION"
+	mount $VERBOSE $CHROOT_MOUNT_OPTIONS "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
 
 	mount $VERBOSE -t proc    proc     "${CHROOT_MOUNT_LOCATION}/proc"
 	mount $VERBOSE -o rw,bind /dev/pts "${CHROOT_MOUNT_LOCATION}/dev/pts"

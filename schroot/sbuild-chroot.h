@@ -52,6 +52,7 @@ struct _SbuildChroot
   char    **root_groups;
   char    **aliases;
   gchar    *mount_location;
+  gchar    *mount_device;
 };
 
 struct _SbuildChrootClass
@@ -93,6 +94,13 @@ sbuild_chroot_get_mount_location (const SbuildChroot *restrict chroot);
 void
 sbuild_chroot_set_mount_location (SbuildChroot *chroot,
 				  const char   *location);
+
+const char *
+sbuild_chroot_get_mount_device (const SbuildChroot *restrict chroot);
+
+void
+sbuild_chroot_set_mount_device (SbuildChroot *chroot,
+				const char   *device);
 
 guint
 sbuild_chroot_get_priority (const SbuildChroot *restrict chroot);

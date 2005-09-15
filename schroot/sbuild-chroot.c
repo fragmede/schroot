@@ -55,6 +55,7 @@ enum
   PROP_ROOT_GROUPS,
   PROP_ALIASES,
   PROP_MOUNT_LOCATION,
+  PROP_MOUNT_DEVICE,
 };
 
 static GObjectClass *parent_class;
@@ -362,6 +363,44 @@ sbuild_chroot_set_mount_location (SbuildChroot *chroot,
 }
 
 /**
+ * sbuild_chroot_get_mount_device:
+ * @chroot: an #SbuildChroot
+ *
+ * Get the mount device of the chroot.
+ *
+ * Returns a string. This string points to internally allocated
+ * storage in the chroot and must not be freed, modified or stored.
+ */
+const char *
+sbuild_chroot_get_mount_device (const SbuildChroot *restrict chroot)
+{
+  g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), NULL);
+
+  return chroot->mount_device;
+}
+
+/**
+ * sbuild_chroot_set_mount_device:
+ * @chroot: an #SbuildChroot.
+ * @device: the mount device to set.
+ *
+ * Set the mount device of a chroot.
+ */
+void
+sbuild_chroot_set_mount_device (SbuildChroot *chroot,
+				const char   *device)
+{
+  g_return_if_fail(SBUILD_IS_CHROOT(chroot));
+
+  if (chroot->mount_device)
+    {
+      g_free(chroot->mount_device);
+    }
+  chroot->mount_device = g_strdup(device);
+  g_object_notify(G_OBJECT(chroot), "mount-device");
+}
+
+/**
  * sbuild_chroot_get_priority:
  * @chroot: an #SbuildChroot
  *
@@ -577,6 +616,8 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
   /* Non user-settable properties are listed last. */
   if (chroot->mount_location)
     g_fprintf(file, _("Mount Location: %s\n"), chroot->mount_location);
+  if (chroot->mount_device)
+    g_fprintf(file, _("Mount Device: %s\n"), chroot->mount_device);
 
 }
 
@@ -610,6 +651,9 @@ void sbuild_chroot_setup (SbuildChroot  *chroot,
   *env = g_list_append(*env,
 		       g_strdup_printf("CHROOT_MOUNT_LOCATION=%s",
 				       sbuild_chroot_get_mount_location(chroot)));
+  *env = g_list_append(*env,
+		       g_strdup_printf("CHROOT_MOUNT_DEVICE=%s",
+				       sbuild_chroot_get_mount_device(chroot)));
 
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
   if (klass->setup)
@@ -623,11 +667,12 @@ sbuild_chroot_init (SbuildChroot *chroot)
 
   chroot->name = NULL;
   chroot->description = NULL;
-  chroot->mount_location = NULL;
   chroot->priority = 0;
   chroot->groups = NULL;
   chroot->root_groups = NULL;
   chroot->aliases = NULL;
+  chroot->mount_location = NULL;
+  chroot->mount_device = NULL;
 }
 
 static void
@@ -645,11 +690,6 @@ sbuild_chroot_finalize (SbuildChroot *chroot)
       g_free (chroot->description);
       chroot->description = NULL;
     }
-  if (chroot->mount_location)
-    {
-      g_free (chroot->mount_location);
-      chroot->mount_location = NULL;
-    }
   if (chroot->groups)
     {
       g_strfreev(chroot->groups);
@@ -664,6 +704,16 @@ sbuild_chroot_finalize (SbuildChroot *chroot)
     {
       g_strfreev(chroot->aliases);
       chroot->aliases = NULL;
+    }
+  if (chroot->mount_location)
+    {
+      g_free (chroot->mount_location);
+      chroot->mount_location = NULL;
+    }
+  if (chroot->mount_device)
+    {
+      g_free (chroot->mount_device);
+      chroot->mount_device = NULL;
     }
 
   if (parent_class->finalize)
@@ -691,9 +741,6 @@ sbuild_chroot_set_property (GObject      *object,
     case PROP_DESCRIPTION:
       sbuild_chroot_set_description(chroot, g_value_get_string(value));
       break;
-    case PROP_MOUNT_LOCATION:
-      sbuild_chroot_set_mount_location(chroot, g_value_get_string(value));
-      break;
     case PROP_PRIORITY:
       sbuild_chroot_set_priority(chroot, g_value_get_uint(value));
       break;
@@ -705,6 +752,12 @@ sbuild_chroot_set_property (GObject      *object,
       break;
     case PROP_ALIASES:
       sbuild_chroot_set_aliases(chroot, g_value_get_boxed(value));
+      break;
+    case PROP_MOUNT_LOCATION:
+      sbuild_chroot_set_mount_location(chroot, g_value_get_string(value));
+      break;
+    case PROP_MOUNT_DEVICE:
+      sbuild_chroot_set_mount_device(chroot, g_value_get_string(value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -733,9 +786,6 @@ sbuild_chroot_get_property (GObject    *object,
     case PROP_DESCRIPTION:
       g_value_set_string(value, chroot->description);
       break;
-    case PROP_MOUNT_LOCATION:
-      g_value_set_string(value, chroot->mount_location);
-      break;
     case PROP_PRIORITY:
       g_value_set_uint(value, chroot->priority);
       break;
@@ -747,6 +797,12 @@ sbuild_chroot_get_property (GObject    *object,
       break;
     case PROP_ALIASES:
       g_value_set_boxed(value, chroot->aliases);
+      break;
+    case PROP_MOUNT_LOCATION:
+      g_value_set_string(value, chroot->mount_location);
+      break;
+    case PROP_MOUNT_DEVICE:
+      g_value_set_string(value, chroot->mount_device);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -786,14 +842,6 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
 
   g_object_class_install_property
     (gobject_class,
-     PROP_MOUNT_LOCATION,
-     g_param_spec_string ("mount-location", "Mount Location",
-			  "The mounted location (path) of the chroot",
-			  "",
-			  (G_PARAM_READABLE | G_PARAM_WRITABLE)));
-
-  g_object_class_install_property
-    (gobject_class,
      PROP_PRIORITY,
      g_param_spec_uint ("priority", "Priority",
 			"The priority of the chroot distribution, the lower the older the distribution",
@@ -823,6 +871,22 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
                          "Alternate names for this chroot",
                          G_TYPE_STRV,
                          (G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_MOUNT_LOCATION,
+     g_param_spec_string ("mount-location", "Mount Location",
+			  "The mounted location (path) of the chroot",
+			  "",
+			  (G_PARAM_READABLE | G_PARAM_WRITABLE)));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_MOUNT_DEVICE,
+     g_param_spec_string ("mount-device", "Mount Device",
+			  "The block device for of the chroot",
+			  "",
+			  (G_PARAM_READABLE | G_PARAM_WRITABLE)));
 }
 
 /*

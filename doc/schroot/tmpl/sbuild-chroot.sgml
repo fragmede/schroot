@@ -38,6 +38,11 @@ SbuildChroot object.
 
 </para>
 
+<!-- ##### ARG SbuildChroot:mount-device ##### -->
+<para>
+
+</para>
+
 <!-- ##### ARG SbuildChroot:mount-location ##### -->
 <para>
 

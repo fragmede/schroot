@@ -1,5 +1,25 @@
 2005-09-15  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/setup/10mount: Use $CHROOT_MOUNT_DEVICE.
+
+	* schroot/setup/00check: Report $CHROOT_MOUNT_DEVICE.
+
+	* schroot/sbuild-chroot-plain.c: Minor indentation fixes.
+
+	* schroot/sbuild-chroot-block-device.c
+	(sbuild_chroot_block_device_set_mount_device): New function to
+	slave the "device" property to the parent class "mount-device"
+	property.
+	Minor indentation fixes.
+
+	* schroot/sbuild-chroot.c (sbuild_chroot_class_init): Added
+	"mount-location" property and associated accessors.
+
+	* schroot/sbuild-chroot.h (struct _SbuildChroot): Added
+	mount_location member.
+
+2005-09-15  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/setup/50chrootname: Use ${CHROOT_MOUNT_LOCATION}.
 
 2005-09-14  Roger Leigh  <rleigh@debian.org>

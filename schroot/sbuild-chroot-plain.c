@@ -71,7 +71,7 @@ sbuild_chroot_plain_get_location (const SbuildChrootPlain *restrict chroot)
  */
 void
 sbuild_chroot_plain_set_location (SbuildChrootPlain *chroot,
-				const char   *location)
+				  const char        *location)
 {
   g_return_if_fail(SBUILD_IS_CHROOT_PLAIN(chroot));
 
@@ -100,7 +100,7 @@ sbuild_chroot_plain_set_mount_location (SbuildChrootPlain *chroot)
 
 static void
 sbuild_chroot_plain_print_details (SbuildChrootPlain *chroot,
-				   FILE         *file)
+				   FILE              *file)
 {
   g_return_if_fail(SBUILD_IS_CHROOT_PLAIN(chroot));
 
