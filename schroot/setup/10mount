@@ -7,7 +7,14 @@ if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 #  FSCK_VERBOSE="-V"
 fi
 
-if [ "$CHROOT_TYPE" = "block-device" ]; then
+if [ "$CHROOT_TYPE" = "block-device" -o "$CHROOT_TYPE" = "lvm-snapshot" ]; then
+
+    # Until session management is introduced, the snapshot name is
+    # static.  It should be fixed in SbuildSession.
+
+    if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
+	CHROOT_MOUNT_DEVICE="${CHROOT_DEVICE}-snapshot"
+    fi
 
     if [ $1 = "start" ]; then
 

@@ -30,6 +30,7 @@
 #include "sbuild-chroot.h"
 #include "sbuild-chroot-plain.h"
 #include "sbuild-chroot-block-device.h"
+#include "sbuild-chroot-lvm-snapshot.h"
 #include "sbuild-session.h"
 
 #endif /* SBUILD_SCHROOT_H */

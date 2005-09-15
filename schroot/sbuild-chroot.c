@@ -44,6 +44,7 @@
 #include "sbuild-chroot.h"
 #include "sbuild-chroot-plain.h"
 #include "sbuild-chroot-block-device.h"
+#include "sbuild-chroot-lvm-snapshot.h"
 
 enum
 {
@@ -118,6 +119,8 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
 	      chroot_type = SBUILD_TYPE_CHROOT_PLAIN;
 	    else if (strcmp(type, "block-device") == 0)
 	      chroot_type = SBUILD_TYPE_CHROOT_BLOCK_DEVICE;
+	    else if (strcmp(type, "lvm-snapshot") == 0)
+	      chroot_type = SBUILD_TYPE_CHROOT_LVM_SNAPSHOT;
 	    else // Invalid chroot type
 	      {
 		g_warning (_("%s chroot: chroot type '%s' is invalid"),

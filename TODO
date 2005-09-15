@@ -5,30 +5,12 @@ TODO
   concurrent users (defaulting to 1).  This could be implemented
   with POSIX semaphores using sem_open()/sem_trywait()/sem_close().
 
-* As an alternative to "plain" chroots, also support chroots which
-  are
-
-  - mounted on demand
-  - snapshot from LVM logical volumes
-  - Xen hosts (also LVM snapshots).
-
-* Add mount-options property to SbuildChrootDevice to use in 10mount.
+* Add a SbuildChrootXen chroot type for Xen hosts.
 
 * Alternate chroots will require hook scripts to customise them.
   For example, network setup.  Xen in particular will require
   DHCP or static IP configuration and a dynamic hostname in order
   to connect.
-
-  Now we have /etc/schroot/setup.d, do we need other directories
-  for other chroot types, or is this sufficient?  We can always
-  selectively set additional environment variables for different
-  chroot types (e.g. LVM LV names).
-
-  - /etc/schroot/plain.d           Plain chroot setup scripts
-  - /etc/schroot/lvmsnapshot.d     LVM snapshot setup
-  - /etc/schroot/xenlvmsnapshot.d  Xen LVM snapshot setup
-  - /usr/libexec/schroot           schroot setup programs }
-  - /usr/share/schroot/setup       schroot setup scripts  }
 
 * Currently, a session consists of authentication/authorisation, followed
   by session setup, entering a chroot and running commands.  When using a
@@ -37,7 +19,7 @@ TODO
   - initial chroot setup
   - chroot entry/access, possibly over a network
   - running commands, independently, each with their own exit status
-    (sbuild)
+    (e.g. sbuild)
   - chroot exit
   - final chroot teardown
 
@@ -47,7 +29,7 @@ TODO
   preserving it while running multiple commands.
 
   Chroot entry and exit might be done at the same time as setup/teardown,
-  bit it might equally involve e.g. ssh connections, and if running
+  but it might equally involve e.g. ssh connections, and if running
   several commands, it's important not to tear down the chroot between
   commands.
 
@@ -56,8 +38,9 @@ TODO
   idle, and then teardown would take place when the last session exited
   (e.g. using semaphores).
 
-* LVM snapshots would allow a daily update and dist-upgrade of the master
-  chroot, without interfering with sessions running in snapshots.
+* Allow direct access to the original LV of a snapshot chroot type.
+  This should acquire a lock to prevent taking a snapshot during
+  modification.  Perhaps we need separate setup and session locks.
 
 
 SECURITY

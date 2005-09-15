@@ -1,0 +1,55 @@
+<!-- ##### SECTION Title ##### -->
+SbuildChrootLvmSnapshot
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### STRUCT SbuildChrootLvmSnapshot ##### -->
+<para>
+SbuildChrootLvmSnapshot object.
+</para>
+
+
+<!-- ##### ARG SbuildChrootLvmSnapshot:lvm-snapshot-options ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT SbuildChrootLvmSnapshotClass ##### -->
+<para>
+SbuildChrootLvmSnapshot class.
+</para>
+
+@parent: 
+
+<!-- ##### FUNCTION sbuild_chroot_lvm_snapshot_get_snapshot_options ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_lvm_snapshot_set_snapshot_options ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@device: 
+
+

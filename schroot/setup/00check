@@ -12,9 +12,12 @@ if [ $1 = "start" ]; then
 	echo "CHROOT_MOUNT_DEVICE=$CHROOT_MOUNT_DEVICE"
 	if [ "$CHROOT_TYPE" = "plain" ]; then
 	    echo "CHROOT_LOCATION=$CHROOT_LOCATION"
-	elif [ "$CHROOT_TYPE" = "block-device" ]; then
+	elif [ "$CHROOT_TYPE" = "block-device" -o "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 	    echo "CHROOT_DEVICE=$CHROOT_DEVICE"
 	    echo "CHROOT_MOUNT_OPTIONS=$CHROOT_MOUNT_OPTIONS"
+	    if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
+		echo "CHROOT_LVM_SNAPSHOT_OPTIONS=$CHROOT_LVM_SNAPSHOT_OPTIONS"
+	    fi
 	fi
     fi
 
@@ -25,7 +28,7 @@ if [ $1 = "start" ]; then
 		exit 1
 	    fi
 	    ;;
-	block-device)
+	block-device | lvm-snapshot)
 	    if [ ! -b "$CHROOT_DEVICE" ]; then
 		echo "$CHROOT_DEVICE does not exist"
 		exit 1

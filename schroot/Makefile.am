@@ -36,6 +36,7 @@ schroot_public_h_sources =		\
 	sbuild-auth-message.h   	\
 	sbuild-chroot.h			\
 	sbuild-chroot-block-device.h	\
+	sbuild-chroot-lvm-snapshot.h	\
 	sbuild-chroot-plain.h		\
 	sbuild-config.h			\
 	sbuild-error.h			\
@@ -48,6 +49,7 @@ schroot_public_c_sources =		\
 	sbuild-auth-message.c   	\
 	sbuild-chroot.c			\
 	sbuild-chroot-block-device.c	\
+	sbuild-chroot-lvm-snapshot.c	\
 	sbuild-chroot-plain.c		\
 	sbuild-config.c			\
 	sbuild-error.c			\

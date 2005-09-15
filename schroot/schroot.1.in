@@ -159,17 +159,7 @@ when a chroot is entered and left, used to set up and then clean up the chroot
 environment.  During script execution, the following environment variables are
 defined:
 .RS
-.TP
-CHROOT_NAME
-The name of the chroot.  This is useful for restricting a setup task to a
-particular chroot, or set of chroots.
-.TP
-CHROOT_DESCRIPTION
-The description of the chroot.
-.TP
-CHROOT_LOCATION
-The location of the chroot.  This is useful for creating files, or copying
-files into the chroot.
+.SS General variables
 .TP
 AUTH_USER
 The username of the user the command in the chroot will run as.
@@ -178,6 +168,45 @@ AUTH_VERBOSITY
 Set to \[lq]quiet\[rq] if only error messages should be printed,
 \[lq]normal\[rq] if other messages may be printed as well, and
 \[lq]verbose\[rq] if all messages may be printed.
+.TP
+CHROOT_TYPE
+The type of the chroot.  This is useful for restricting a setup task to
+particular types of chroot (e.g. only block devices or LVM snapshots).
+.TP
+CHROOT_NAME
+The name of the chroot.  This is useful for restricting a setup task to a
+particular chroot, or set of chroots.
+.TP
+CHROOT_DESCRIPTION
+The description of the chroot.
+.TP
+CHROOT_MOUNT_LOCATION
+The location to mount the chroot (or, in the case of plain chroots, where it
+already exists).
+.TP
+CHROOT_MOUNT_DEVICE
+The device containing the chroot root filesystem.  This is only set for chroots
+which require mounting.
+.SS Plain chroot variables
+.TP
+CHROOT_LOCATION
+The location of the chroot.  This is useful for creating files, or copying
+files into the chroot.
+.SS Block device variables
+.TP
+CHROOT_DEVICE
+The device containing the chroot root filesystem.  This usually, but not
+necessarily the device which will be mounted.  For example, an LVM snapshot
+this will be the original logical volume.
+.TP
+CHROOT_MOUNT_OPTIONS
+Options to pass to
+.BR mount (8).
+.SS LVM snapshot variables
+.TP
+CHROOT_LVM_SNAPSHOT_OPTIONS
+Options to pass to
+.BR lvcreate (8).
 .RE
 .PP
 The scripts are run in name order, like those run by

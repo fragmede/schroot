@@ -22,6 +22,8 @@ sbuild_chroot_get_aliases
 sbuild_chroot_set_aliases
 sbuild_chroot_get_mount_location
 sbuild_chroot_set_mount_location
+sbuild_chroot_get_mount_device
+sbuild_chroot_set_mount_device
 sbuild_chroot_get_chroot_type
 sbuild_chroot_print_details
 sbuild_chroot_setup
@@ -67,6 +69,23 @@ SBUILD_CHROOT_BLOCK_DEVICE_CLASS
 SBUILD_CHROOT_BLOCK_DEVICE_GET_CLASS
 SBUILD_IS_CHROOT_BLOCK_DEVICE
 SBUILD_IS_CHROOT_BLOCK_DEVICE_CLASS
+</SECTION>
+
+<SECTION>
+<FILE>sbuild-chroot-lvm-snapshot</FILE>
+<TITLE>SbuildChrootLvmSnapshot</TITLE>
+SbuildChrootLvmSnapshot
+SbuildChrootLvmSnapshotClass
+sbuild_chroot_lvm_snapshot_get_snapshot_options
+sbuild_chroot_lvm_snapshot_set_snapshot_options
+<SUBSECTION Standard>
+SBUILD_TYPE_CHROOT_LVM_SNAPSHOT
+sbuild_chroot_lvm_snapshot_get_type
+SBUILD_CHROOT_LVM_SNAPSHOT
+SBUILD_CHROOT_LVM_SNAPSHOT_CLASS
+SBUILD_CHROOT_LVM_SNAPSHOT_GET_CLASS
+SBUILD_IS_CHROOT_LVM_SNAPSHOT
+SBUILD_IS_CHROOT_LVM_SNAPSHOT_CLASS
 </SECTION>
 
 <SECTION>

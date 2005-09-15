@@ -43,9 +43,9 @@ For example,
 This is then followed by several key-value pairs:
 .TP
 .B type=\fItype\fP
-The type of the chroot.  Valid types are \[lq]plain\[rq] and
-\[lq]block\-device\[rq].  If empty or omitted, the default type is
-\[lq]plain\[rq].
+The type of the chroot.  Valid types are \[lq]plain\[rq],
+\[lq]block\-device\[rq] and \[lq]lvm\-snapshot\[rq].  If empty or omitted, the
+default type is \[lq]plain\[rq].
 .TP
 .B description=\fIdescription\fP
 A short description of the chroot.
@@ -96,6 +96,22 @@ example, \[lq]/dev/sda5\[rq].
 .B mount-options=\fImount_options\fP
 Mount options for the block device.  These are additional options to pass to
 mount(8).  For example, \[lq]\-o atime,sync,user_xattr\[rq].
+.SS
+LVM snapshot chroots
+.PP
+Chroots of type \[lq]lvm\-snapshot\[rq] are a filesystem available on an LVM
+logical volume (LV).  A snapshot LV will be created from this LV on demand, and
+then the snapshot will be mounted.  At the end of the session, the snapshot LV
+will be unmounted and removed.  All of the options for \[lq]block\-device\[rq]
+are available, plus an additional option:
+.TP
+.B lvm-snapshot-options=\fIsnapshot_options\fP
+Snapshot options.  These are additional options to pass to lvcreate(8).  For
+example, \[lq]\-L 2g\[rq] to create a snapshot 2 GiB in size.
+.B Note:
+the LV name (\[lq]\-n\[rq]), the snapshot option (\[lq]\-s\[rq]) and the
+original LV path may not be specfied here; they are set automatically by
+schroot.
 .SH EXAMPLE
 \f[CR]# Sample configuration\fP
 .br

@@ -35,7 +35,7 @@ SbuildChrootBlockDevice object.
 
 <!-- ##### STRUCT SbuildChrootBlockDeviceClass ##### -->
 <para>
-SbuildChrootDevice class.
+SbuildChrootBlockDevice class.
 </para>
 
 @parent: 

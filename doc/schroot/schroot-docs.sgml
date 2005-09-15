@@ -11,6 +11,7 @@
     <xi:include href="xml/sbuild-chroot.xml"/>
     <xi:include href="xml/sbuild-chroot-plain.xml"/>
     <xi:include href="xml/sbuild-chroot-block-device.xml"/>
+    <xi:include href="xml/sbuild-chroot-lvm-snapshot.xml"/>
     <xi:include href="xml/sbuild-config.xml"/>
     <xi:include href="xml/sbuild-auth.xml"/>
     <xi:include href="xml/sbuild-auth-message.xml"/>

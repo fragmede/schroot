@@ -1,5 +1,30 @@
 2005-09-15  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Update.
+
+	* schroot/schroot.1.in: Document LVM snapshot script variables.
+
+	* schroot/schroot.conf.5.in: Document LVM snapshot options.
+
+	* schroot/setup/10mount: Hack LVM snapshot device name until it's
+	supported by the session code.
+
+	* schroot/setup/05lvm: New script to create and remove LVM
+	snapshots.  Hack LVM snapshot device name until it's supported by
+	the session code.
+
+	* schroot/setup/00check: Report $CHROOT_LVM_SNAPSHOT_OPTIONS.
+
+	* schroot/sbuild-chroot.c (sbuild_chroot_new_from_keyfile): Allow
+	creation from type "lvm-snapshot".
+
+	* schroot/sbuild-chroot-lvm-snapshot.[ch]: New files, implementing
+	SbuildChrootLvmSnapshot, an object representing a chroot on a LVM
+	logical volume which has a snapshot LV taken on demand, derived
+	from SbuildChrootBlockDevice.
+
+2005-09-15  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/setup/Makefile.am (setup_SCRIPTS): Distribute 00check
 	and 10mount.
 

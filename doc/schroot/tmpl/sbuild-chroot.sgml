@@ -254,6 +254,24 @@ name of the class, for use in messages and configuration files.
 @location: 
 
 
+<!-- ##### FUNCTION sbuild_chroot_get_mount_device ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_set_mount_device ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@device: 
+
+
 <!-- ##### FUNCTION sbuild_chroot_get_chroot_type ##### -->
 <para>
 
