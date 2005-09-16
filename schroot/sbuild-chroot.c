@@ -163,7 +163,9 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
 	      continue; // TODO: Should a config file error be fatal?
 	    }
 
-	  if ((pspec->flags & (G_PARAM_WRITABLE|G_PARAM_CONSTRUCT)) == 0)
+	  /* Only construction properties may be set. */
+	  if ((pspec->flags & (G_PARAM_WRITABLE|G_PARAM_CONSTRUCT)) !=
+	      (G_PARAM_WRITABLE|G_PARAM_CONSTRUCT))
 	    {
 	      g_warning (_("%s chroot: property '%s' is not user-settable"),
 			 group, key);
@@ -597,6 +599,7 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
 
   g_fprintf(file, _("Name: %s\n"), chroot->name);
   g_fprintf(file, _("Description: %s\n"), chroot->description);
+  g_fprintf(file, _("Type: %s\n"), sbuild_chroot_get_chroot_type(chroot));
   g_fprintf(file, _("Priority: %u\n"), chroot->priority);
   g_fprintf(file, _("Groups:"));
   if (chroot->groups)

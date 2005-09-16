@@ -1,3 +1,8 @@
+2005-09-16  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-chroot.c (sbuild_chroot_new_from_keyfile):
+	Require settable properties to be both constructible and writable.
+
 2005-09-15  Roger Leigh  <rleigh@debian.org>
 
 	* TODO: Update.

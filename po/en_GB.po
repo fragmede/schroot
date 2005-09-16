@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2005-09-15 19:27+0100\n"
+"POT-Creation-Date: 2005-09-15 22:33+0100\n"
 "PO-Revision-Date: 2005-09-11 16:28+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -15,64 +15,64 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: schroot/sbuild-chroot.c:123
+#: schroot/sbuild-chroot.c:126
 #, c-format
 msgid "%s chroot: chroot type '%s' is invalid"
 msgstr ""
 
-#: schroot/sbuild-chroot.c:156
+#: schroot/sbuild-chroot.c:159
 #, c-format
 msgid "%s chroot: chroot type '%s' has no property named '%s'"
 msgstr ""
 
-#: schroot/sbuild-chroot.c:165
+#: schroot/sbuild-chroot.c:168
 #, c-format
 msgid "%s chroot: property '%s' is not user-settable"
 msgstr ""
 
-#: schroot/sbuild-chroot.c:231
+#: schroot/sbuild-chroot.c:234
 #, c-format
 msgid "%s chroot: property '%s' has unsupported type '%s'"
 msgstr ""
 
-#: schroot/sbuild-chroot.c:576
+#: schroot/sbuild-chroot.c:579
 #, c-format
 msgid "%s chroot: chroot type is unset; error in derived class\n"
 msgstr ""
 
-#: schroot/sbuild-chroot.c:595
+#: schroot/sbuild-chroot.c:598
 #, c-format
 msgid "Name: %s\n"
 msgstr "Name: %s\n"
 
-#: schroot/sbuild-chroot.c:596
+#: schroot/sbuild-chroot.c:599
 #, c-format
 msgid "Description: %s\n"
 msgstr "Description: %s\n"
 
-#: schroot/sbuild-chroot.c:597
+#: schroot/sbuild-chroot.c:600
 #, c-format
 msgid "Priority: %u\n"
 msgstr "Priority: %u\n"
 
-#: schroot/sbuild-chroot.c:598
+#: schroot/sbuild-chroot.c:601
 msgid "Groups:"
 msgstr "Groups:"
 
-#: schroot/sbuild-chroot.c:602
+#: schroot/sbuild-chroot.c:605
 msgid "Root Groups:"
 msgstr "Root Groups:"
 
-#: schroot/sbuild-chroot.c:606
+#: schroot/sbuild-chroot.c:609
 msgid "Aliases:"
 msgstr "Aliases:"
 
-#: schroot/sbuild-chroot.c:618
+#: schroot/sbuild-chroot.c:621
 #, fuzzy, c-format
 msgid "Mount Location: %s\n"
 msgstr "Location: %s\n"
 
-#: schroot/sbuild-chroot.c:620
+#: schroot/sbuild-chroot.c:623
 #, c-format
 msgid "Mount Device: %s\n"
 msgstr ""
