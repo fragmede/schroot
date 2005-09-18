@@ -32,6 +32,8 @@
 #include <glib/gprintf.h>
 #include <glib-object.h>
 
+#include <uuid/uuid.h>
+
 #include "sbuild-auth.h"
 #include "sbuild-config.h"
 
@@ -64,6 +66,7 @@ struct _SbuildSession
   SbuildConfig  *config;
   char         **chroots;
   int            child_status;
+  uuid_t         session_id;
 };
 
 struct _SbuildSessionClass
@@ -93,6 +96,13 @@ sbuild_session_get_chroots (const SbuildSession *restrict session);
 void
 sbuild_session_set_chroots (SbuildSession  *session,
 			    char         **chroots);
+
+gchar *
+sbuild_session_get_session_id (const SbuildSession  *restrict session);
+
+void
+sbuild_session_set_session_id (SbuildSession  *session,
+			       const gchar    *session_id);
 
 int
 sbuild_session_get_child_status (SbuildSession *session);

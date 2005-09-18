@@ -96,6 +96,19 @@ sbuild_chroot_lvm_snapshot_print_details (SbuildChrootLvmSnapshot *chroot,
   g_fprintf(file, _("LVM Snapshot Options: %s\n"), chroot->snapshot_options);
 }
 
+static void
+sbuild_chroot_lvm_snapshot_print_config (SbuildChrootLvmSnapshot *chroot,
+					 FILE                    *file)
+{
+  g_return_if_fail(SBUILD_IS_CHROOT_LVM_SNAPSHOT(chroot));
+
+  SbuildChrootClass *klass = SBUILD_CHROOT_CLASS(parent_class);
+  if (klass->print_details)
+    klass->print_details(SBUILD_CHROOT(chroot), file);
+
+  g_fprintf(file, _("lvm-snapshot-options=%s\n"), chroot->snapshot_options);
+}
+
 void sbuild_chroot_lvm_snapshot_setup (SbuildChrootLvmSnapshot  *chroot,
 				       GList                   **env)
 {
@@ -204,6 +217,8 @@ sbuild_chroot_lvm_snapshot_class_init (SbuildChrootLvmSnapshotClass *klass)
 
   chroot_class->print_details = (SbuildChrootPrintDetailsFunc)
     sbuild_chroot_lvm_snapshot_print_details;
+  chroot_class->print_config = (SbuildChrootPrintConfigFunc)
+    sbuild_chroot_lvm_snapshot_print_config;
   chroot_class->setup = (SbuildChrootSetupFunc)
     sbuild_chroot_lvm_snapshot_setup;
   chroot_class->get_chroot_type = (SbuildChrootGetChrootTypeFunc)

@@ -1,3 +1,71 @@
+2005-09-18  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-session.c (sbuild_session_class_init): Add a new
+	session-id property and associated accessors, which handle
+	conversions between a string and uuid_t.
+
+	* schroot/sbuild-session.h (struct _SbuildSession): Add a new
+	session_id member containing the session UUID.
+
+	* schroot/sbuild-config.c
+	(sbuild_config_new_from_file): New function to replace
+	sbuild_config_new.
+	(sbuild_config_new_from_directory): New function to load a set of
+	configuration files from a directory.
+	(sbuild_config_class_init): config-file property is no longer
+	readable.  Added new contruct only and write-only config-directory
+	property.
+	(sbuild_config_set_config_directory): New function to read a
+	directory and load config files.
+	(sbuild_config_load): Pass back the chroot list as an OUT
+	parameter rather than a return value, to allow reusing the same
+	list.
+	(sbuild_config_set_config_file): Remove the restriction on loading
+	a single config file.
+
+	* schroot/sbuild-chroot-lvm-snapshot.c
+	(sbuild_chroot_lvm_snapshot_print_config): New virtual function to
+	print additional configuration details.
+
+	* schroot/sbuild-chroot-block-device.c
+	(sbuild_chroot_block_device_print_config): New virtual function to
+	print additional configuration details.
+
+	* schroot/sbuild-chroot-plain.c
+	(sbuild_chroot_plain_print_config): New virtual function to print
+	additional configuration details.
+
+	* schroot/sbuild-chroot.c
+	(sbuild_chroot_class_init): Added current-users, max-users and
+	active properties, and associated accessors.
+	(sbuild_chroot_new_from_keyfile): Add additional active parameter
+	which is TRUE if reloading an existing session configuration.
+	This relaxes permissions checks to allow setting of writable but
+	not construction parameters.
+	(sbuild_chroot_print_details): Print new properties.
+	(sbuild_chroot_print_config): New function to write out current
+	session state to a a configuration file for later restoration.
+	(sbuild_chroot_setup): Set new properties as environment
+	variables, except for active, since this is implicit in running a
+	session).
+
+	* schroot/sbuild-chroot.h
+	(struct _SbuildChroot): Add current_users, max_users and active
+	members.
+	(struct _SbuildChrootClass): Add print_config vfunc.
+
+	* debian/control (Build-Depends): Build-depend upon uuid-dev
+
+	* schroot/Makefile.am
+	(schroot_LDADD): Link with libuuid.
+	(install-data-hook): Make SCHROOT_LOCK_DIR and
+	SCHROOT_SESSION_DIR.
+
+	* configure.ac:
+	Check for libuuid and add UUID_CFLAGS to SCHROOT_CFLAGS.
+	Add substitutions and defines for SCHROOT_LOCK_DIR and
+	SCHROOT_SESSION_DIR.
+
 2005-09-16  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-chroot.c (sbuild_chroot_new_from_keyfile):

@@ -62,8 +62,9 @@ AC_PATH_PROG([GLIB_GENMARSHAL], [glib-genmarshal])
 GTK_DOC_CHECK([1.2])
 # Checks for libraries.
 PKG_CHECK_MODULES([GOBJECT], [gobject-2.0 >= 2.4.0])
+PKG_CHECK_MODULES([UUID], [uuid])
 
-SCHROOT_CFLAGS="$GOBJECT_CFLAGS"
+SCHROOT_CFLAGS="$GOBJECT_CFLAGS $UUID_CFLAGS"
 AC_SUBST([SCHROOT_CFLAGS])
 
 # Checks for header files (none at the moment).
@@ -75,7 +76,7 @@ AC_HEADER_STDBOOL
 AC_CHECK_LIB([pam], [pam_authenticate],
              [PAM_LIBS="-lpam"],
 	     [AC_MSG_ERROR([Linux-PAM is not installed, but is required by schroot])])
-AC_SUBST([PAM_LIBS]) 
+AC_SUBST([PAM_LIBS])
 
 dnl Set PACKAGE_LOCALE_DIR in config.h
 AH_TEMPLATE(PACKAGE_LOCALE_DIR,, [Package locale directory])
@@ -115,6 +116,32 @@ else
   PACKAGE_LIB_DIR="${libdir}/${PACKAGE}"
 fi
 
+dnl Set PACKAGE_LOCALSTATE_DIR in config.h.
+AH_TEMPLATE(PACKAGE_LOCALSTATE_DIR,, [Package localstate directory])
+if test "x${localstatedir}" = 'x${prefix}/var'; then
+  if test "x${prefix}" = "xNONE"; then
+    if test "x${prefix}" = "xNONE"; then
+      PACKAGE_LOCALSTATE_DIR="${ac_default_prefix}/var/"
+    else
+      PACKAGE_LOCALSTATE_DIR="${prefix}/var/"
+    fi
+  else
+    PACKAGE_LOCALSTATE_DIR="${prefix}/var"
+  fi
+else
+  PACKAGE_LOCALSTATE_DIR="${localstatedir}"
+fi
+
+SCHROOT_LOCK_DIR="${PACKAGE_LOCALSTATE_DIR}/lock/${PACKAGE}"
+AC_SUBST([SCHROOT_LOCK_DIR])
+AH_TEMPLATE(SCHROOT_LOCK_DIR,, [schroot session lock directory])
+AC_DEFINE_UNQUOTED(SCHROOT_LOCK_DIR, ["$SCHROOT_LOCK_DIR"])
+
+SCHROOT_SESSION_DIR="${PACKAGE_LOCALSTATE_DIR}/lib/${PACKAGE}/session"
+AC_SUBST([SCHROOT_SESSION_DIR])
+AH_TEMPLATE(SCHROOT_SESSION_DIR,, [schroot session directory])
+AC_DEFINE_UNQUOTED(SCHROOT_SESSION_DIR, ["$SCHROOT_SESSION_DIR"])
+
 dnl Set PACKAGE_SYSCONF_DIR in config.h.
 AH_TEMPLATE(PACKAGE_SYSCONF_DIR,, [Package system configuration directory])
 if test "x${sysconfdir}" = 'x${prefix}/etc'; then
@@ -143,7 +170,7 @@ AC_DEFINE_UNQUOTED(SCHROOT_CONF_SETUP_D, ["$SCHROOT_CONF_SETUP_D"])
 
 AH_TEMPLATE(SCHROOT_DATADIR,, [Package  data directory])
 SCHROOT_DATADIR="${PACKAGE_DATA_DIR}/${PACKAGE_VERSION}"
-AC_DEFINE_UNQUOTED(SCHROOT_DATADIR, ["$SCHROOT_DATADIR"], )
+AC_DEFINE_UNQUOTED(SCHROOT_DATADIR, ["$SCHROOT_DATADIR"])
 
 AH_TEMPLATE(SCHROOT_MODULEDIR,, [Package module directory])
 SCHROOT_MODULEDIR="${PACKAGE_LIB_DIR}/${PACKAGE_VERSION}/modules"

@@ -228,7 +228,7 @@ main (int   argc,
     }
 
   /* Initialise chroot configuration. */
-  SbuildConfig *config = sbuild_config_new(SCHROOT_CONF);
+  SbuildConfig *config = sbuild_config_new_from_file(SCHROOT_CONF);
   g_assert (config != NULL);
 
   if (sbuild_config_get_chroots(config) == NULL)

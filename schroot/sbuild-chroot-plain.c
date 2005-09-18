@@ -107,6 +107,15 @@ sbuild_chroot_plain_print_details (SbuildChrootPlain *chroot,
   g_fprintf(file, _("Location: %s\n"), chroot->location);
 }
 
+static void
+sbuild_chroot_plain_print_config (SbuildChrootPlain *chroot,
+				  FILE              *file)
+{
+  g_return_if_fail(SBUILD_IS_CHROOT_PLAIN(chroot));
+
+  g_fprintf(file, _("location=%s\n"), chroot->location);
+}
+
 void sbuild_chroot_plain_setup (SbuildChrootPlain  *chroot,
 				GList        **env)
 {
@@ -213,6 +222,8 @@ sbuild_chroot_plain_class_init (SbuildChrootPlainClass *klass)
 
   chroot_class->print_details = (SbuildChrootPrintDetailsFunc)
     sbuild_chroot_plain_print_details;
+  chroot_class->print_config = (SbuildChrootPrintConfigFunc)
+    sbuild_chroot_plain_print_config;
   chroot_class->setup = (SbuildChrootSetupFunc)
     sbuild_chroot_plain_setup;
   chroot_class->get_chroot_type = (SbuildChrootGetChrootTypeFunc)

@@ -152,6 +152,16 @@ sbuild_chroot_block_device_print_details (SbuildChrootBlockDevice *chroot,
   g_fprintf(file, _("Mount Options: %s\n"), chroot->mount_options);
 }
 
+static void
+sbuild_chroot_block_device_print_config (SbuildChrootBlockDevice *chroot,
+					 FILE                    *file)
+{
+  g_return_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot));
+
+  g_fprintf(file, _("device=%s\n"), chroot->device);
+  g_fprintf(file, _("mount-options=%s\n"), chroot->mount_options);
+}
+
 void sbuild_chroot_block_device_setup (SbuildChrootBlockDevice  *chroot,
 				       GList                   **env)
 {
@@ -274,6 +284,8 @@ sbuild_chroot_block_device_class_init (SbuildChrootBlockDeviceClass *klass)
 
   chroot_class->print_details = (SbuildChrootPrintDetailsFunc)
     sbuild_chroot_block_device_print_details;
+  chroot_class->print_config = (SbuildChrootPrintConfigFunc)
+    sbuild_chroot_block_device_print_config;
   chroot_class->setup = (SbuildChrootSetupFunc)
     sbuild_chroot_block_device_setup;
   chroot_class->get_chroot_type = (SbuildChrootGetChrootTypeFunc)

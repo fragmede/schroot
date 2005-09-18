@@ -40,6 +40,11 @@ SbuildConfig object.
 </para>
 
 
+<!-- ##### ARG SbuildConfig:config-directory ##### -->
+<para>
+
+</para>
+
 <!-- ##### ARG SbuildConfig:config-file ##### -->
 <para>
 
@@ -51,15 +56,6 @@ SbuildConfig class.
 </para>
 
 @parent: the parent class
-
-<!-- ##### FUNCTION sbuild_config_new ##### -->
-<para>
-
-</para>
-
-@file: 
-@Returns: 
-
 
 <!-- ##### FUNCTION sbuild_config_get_chroots ##### -->
 <para>

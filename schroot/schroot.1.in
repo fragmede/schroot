@@ -187,6 +187,12 @@ already exists).
 CHROOT_MOUNT_DEVICE
 The device containing the chroot root filesystem.  This is only set for chroots
 which require mounting.
+.TP
+CHROOT_CURRENT_USERS
+The number of users currently using the chroot.
+.TP
+CHROOT_MAX_USERS
+The maximum number of users able to use the chroot.
 .SS Plain chroot variables
 .TP
 CHROOT_LOCATION

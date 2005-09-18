@@ -46,6 +46,9 @@
 #include "sbuild-chroot-block-device.h"
 #include "sbuild-chroot-lvm-snapshot.h"
 
+static void
+sbuild_chroot_set_active (SbuildChroot *chroot);
+
 enum
 {
   PROP_0,
@@ -57,6 +60,9 @@ enum
   PROP_ALIASES,
   PROP_MOUNT_LOCATION,
   PROP_MOUNT_DEVICE,
+  PROP_CURRENT_USERS,
+  PROP_MAX_USERS,
+  PROP_ACTIVE
 };
 
 static GObjectClass *parent_class;
@@ -87,7 +93,8 @@ sbuild_chroot_new (void)
  */
 SbuildChroot *
 sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
-				const char *group)
+				const char *group,
+				gboolean    active)
 {
   g_return_val_if_fail(group != NULL, NULL);
 
@@ -163,9 +170,15 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
 	      continue; // TODO: Should a config file error be fatal?
 	    }
 
-	  /* Only construction properties may be set. */
-	  if ((pspec->flags & (G_PARAM_WRITABLE|G_PARAM_CONSTRUCT)) !=
-	      (G_PARAM_WRITABLE|G_PARAM_CONSTRUCT))
+	  /* Only construction properties may be set if reading from a
+	     configuration file, otherwise if reloading an active
+	     session, writable properties may also be set. */
+	  if ((active == TRUE &&
+	       ((pspec->flags & G_PARAM_WRITABLE) !=
+		G_PARAM_WRITABLE)) ||
+	      (active == FALSE &&
+	       ((pspec->flags & (G_PARAM_WRITABLE|G_PARAM_CONSTRUCT)) !=
+		(G_PARAM_WRITABLE|G_PARAM_CONSTRUCT))))
 	    {
 	      g_warning (_("%s chroot: property '%s' is not user-settable"),
 			 group, key);
@@ -249,6 +262,9 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
   while (n_params--)
     g_value_unset (&params[n_params].value);
   g_free (params);
+
+  if (active == TRUE)
+    sbuild_chroot_set_active(chroot);
 
   return chroot;
 }
@@ -558,6 +574,88 @@ sbuild_chroot_set_aliases (SbuildChroot  *chroot,
 }
 
 /**
+ * sbuild_chroot_get_current_users:
+ * @chroot: an #SbuildChroot
+ *
+ * Get the current number of users of the chroot.
+ *
+ * Returns the current number of users.
+ */
+guint
+sbuild_chroot_get_current_users (const SbuildChroot *restrict chroot)
+{
+  g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), 0);
+
+  return chroot->current_users;
+}
+
+/**
+ * sbuild_chroot_set_current_users:
+ * @chroot: an #SbuildChroot.
+ * @current_users: the current_users to set.
+ *
+ * Set the current number of users of a chroot.
+ */
+void
+sbuild_chroot_set_current_users (SbuildChroot *chroot,
+				 guint         current_users)
+{
+  g_return_if_fail(SBUILD_IS_CHROOT(chroot));
+
+  chroot->current_users = current_users;
+  g_object_notify(G_OBJECT(chroot), "current-users");
+}
+
+/**
+ * sbuild_chroot_get_max_users:
+ * @chroot: an #SbuildChroot
+ *
+ * Get the maximum number of users of the chroot.
+ *
+ * Returns the max number of users.
+ */
+guint
+sbuild_chroot_get_max_users (const SbuildChroot *restrict chroot)
+{
+  g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), 0);
+
+  return chroot->max_users;
+}
+
+/**
+ * sbuild_chroot_set_max_users:
+ * @chroot: an #SbuildChroot.
+ * @max_users: the max_users to set.
+ *
+ * Set the maximum number of users of a chroot.
+ */
+void
+sbuild_chroot_set_max_users (SbuildChroot *chroot,
+				 guint         max_users)
+{
+  g_return_if_fail(SBUILD_IS_CHROOT(chroot));
+
+  chroot->max_users = max_users;
+  g_object_notify(G_OBJECT(chroot), "max-users");
+}
+
+/**
+ * sbuild_chroot_set_current_users:
+ * @chroot: an #SbuildChroot.
+ * @current_users: the current_users to set.
+ *
+ * Set the current number of users of a chroot.
+ */
+static void
+sbuild_chroot_set_active (SbuildChroot *chroot)
+{
+  g_return_if_fail(SBUILD_IS_CHROOT(chroot));
+
+  chroot->active = TRUE;
+  g_object_notify(G_OBJECT(chroot), "active");
+}
+
+/**
  * sbuild_chroot_get_chroot_type:
  * @chroot: an #SbuildChroot
  *
@@ -614,17 +712,74 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
     for (guint i=0; chroot->aliases[i] != NULL; ++i)
       g_fprintf(file, " %s", chroot->aliases[i]);
   g_fprintf(file, "\n");
+  g_fprintf(file, _("Maximum Users: %u\n"), chroot->max_users);
 
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
   if (klass->print_details)
     klass->print_details(chroot, file);
 
   /* Non user-settable properties are listed last. */
-  if (chroot->mount_location)
-    g_fprintf(file, _("Mount Location: %s\n"), chroot->mount_location);
-  if (chroot->mount_device)
-    g_fprintf(file, _("Mount Device: %s\n"), chroot->mount_device);
+  if (chroot->active == TRUE)
+    {
+      if (chroot->mount_location)
+	g_fprintf(file, _("Mount Location: %s\n"), chroot->mount_location);
+      if (chroot->mount_device)
+	g_fprintf(file, _("Mount Device: %s\n"), chroot->mount_device);
+      g_fprintf(file, _("Current Users: %u\n"), chroot->current_users);
+    }
+}
 
+/**
+ * sbuild_chroot_print_config:
+ * @chroot: an #SbuildChroot.
+ * @file: the file to output to.
+ *
+ * Print the configuration group for a chroot in the format required
+ * by schrootc.conf.
+ */
+void sbuild_chroot_print_config (SbuildChroot *chroot,
+				  FILE         *file)
+{
+  g_return_if_fail(SBUILD_IS_CHROOT(chroot));
+
+  g_fprintf(file, "[%s]\n", chroot->name);
+  g_fprintf(file, "description=%s\n", chroot->description);
+  g_fprintf(file, "type=%s\n", sbuild_chroot_get_chroot_type(chroot));
+  g_fprintf(file, "priority=%u\n", chroot->priority);
+
+  if (chroot->groups)
+    {
+      char *group_list = g_strjoinv(",", chroot->groups);
+      g_fprintf(file, "groups=%s\n", group_list);
+      g_free(group_list);
+    }
+
+  if (chroot->root_groups)
+    {
+      char *root_group_list = g_strjoinv(",", chroot->root_groups);
+      g_fprintf(file, "root-groups=%s\n", root_group_list);
+      g_free(root_group_list);
+    }
+
+  if (chroot->aliases)
+    {
+      char *alias_list = g_strjoinv(",", chroot->aliases);
+      g_fprintf(file, "aliases=%s\n", alias_list);
+      g_free(alias_list);
+    }
+
+  g_fprintf(file, "max-users=%u\n", chroot->max_users);
+
+  SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
+  if (klass->print_config)
+    klass->print_config(chroot, file);
+
+  /* Non user-settable properties are listed last. */
+  if (chroot->mount_location)
+    g_fprintf(file, "mount-location=%s\n", chroot->mount_location);
+  if (chroot->mount_device)
+    g_fprintf(file, "mount-device%s\n", chroot->mount_device);
+  g_fprintf(file, "current-users=%u\n", chroot->current_users);
 }
 
 /**
@@ -660,6 +815,12 @@ void sbuild_chroot_setup (SbuildChroot  *chroot,
   *env = g_list_append(*env,
 		       g_strdup_printf("CHROOT_MOUNT_DEVICE=%s",
 				       sbuild_chroot_get_mount_device(chroot)));
+  *env = g_list_append(*env,
+		       g_strdup_printf("CHROOT_CURRENT_USERS=%u",
+				       chroot->current_users));
+  *env = g_list_append(*env,
+		       g_strdup_printf("CHROOT_MAX_USERS=%u",
+				       chroot->max_users));
 
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
   if (klass->setup)
@@ -679,6 +840,9 @@ sbuild_chroot_init (SbuildChroot *chroot)
   chroot->aliases = NULL;
   chroot->mount_location = NULL;
   chroot->mount_device = NULL;
+  chroot->current_users = 0;
+  chroot->max_users = 0;
+  chroot->active = FALSE;
 }
 
 static void
@@ -765,6 +929,12 @@ sbuild_chroot_set_property (GObject      *object,
     case PROP_MOUNT_DEVICE:
       sbuild_chroot_set_mount_device(chroot, g_value_get_string(value));
       break;
+    case PROP_CURRENT_USERS:
+      sbuild_chroot_set_current_users(chroot, g_value_get_uint(value));
+      break;
+    case PROP_MAX_USERS:
+      sbuild_chroot_set_max_users(chroot, g_value_get_uint(value));
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
       break;
@@ -810,6 +980,15 @@ sbuild_chroot_get_property (GObject    *object,
     case PROP_MOUNT_DEVICE:
       g_value_set_string(value, chroot->mount_device);
       break;
+    case PROP_CURRENT_USERS:
+      g_value_set_uint(value, chroot->current_users);
+      break;
+    case PROP_MAX_USERS:
+      g_value_set_uint(value, chroot->max_users);
+      break;
+    case PROP_ACTIVE:
+      g_value_set_boolean(value, chroot->active);
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
       break;
@@ -827,6 +1006,7 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
   gobject_class->get_property = (GObjectGetPropertyFunc) sbuild_chroot_get_property;
 
   klass->print_details = NULL;
+  klass->print_config = NULL;
   klass->setup = NULL;
   klass->get_chroot_type = NULL;
 
@@ -893,6 +1073,30 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
 			  "The block device for of the chroot",
 			  "",
 			  (G_PARAM_READABLE | G_PARAM_WRITABLE)));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_CURRENT_USERS,
+     g_param_spec_uint ("current-users", "Current Users",
+			"The number of users currently using this chroot",
+			0, G_MAXUINT, 1,
+			(G_PARAM_READABLE | G_PARAM_WRITABLE)));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_MAX_USERS,
+     g_param_spec_uint ("max-users", "Maximum Users",
+			"The maximum number of users able to use this chroot",
+			1, G_MAXUINT, 1,
+			(G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_ACTIVE,
+     g_param_spec_boolean ("active", "Active",
+			   "Is the chroot currently in use?",
+			   FALSE,
+			   (G_PARAM_READABLE)));
 }
 
 /*

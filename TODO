@@ -1,9 +1,38 @@
 TODO
 ----
 
+* Add the session UUID to the environment and update documentation.
+
 * chroot access should be restricted to a certain number of
   concurrent users (defaulting to 1).  This could be implemented
   with POSIX semaphores using sem_open()/sem_trywait()/sem_close().
+
+  - Semaphores are not the right structure.  Use simple file locks
+    opened with O_CREAT|O_EXCL to control access to the session
+    config.  Maintain the user count in the session config.  Locks to
+    control block device access are still needed.
+
+  Chroot creation
+  ---------------
+
+  - Create a lock on the source blockdev or directory using a semaphore:
+    /schroot-block-major-minor or /schroot-directory-major-minor-inode
+  - run chroot setup scripts
+  - unlock the semaphore
+
+  Session run
+  -----------
+
+  Create a lock on the chroot directory using a semaphore.  This is of the form
+  /schroot-directory-major-minor-inode, and is used to track the usage
+  count of the chroot.  For PVs and devices, use
+  /schroot-block-major-minor.
+
+  Chroot teardown
+  ---------------
+
+  Re-acquire the chroot lock.
+
 
 * Add a SbuildChrootXen chroot type for Xen hosts.
 

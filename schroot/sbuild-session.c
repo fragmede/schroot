@@ -45,6 +45,8 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 
+#include <uuid/uuid.h>
+
 #include "sbuild-session.h"
 
 typedef enum
@@ -76,6 +78,7 @@ enum
   PROP_0,
   PROP_CONFIG,
   PROP_CHROOTS,
+  PROP_SESSION_ID,
   PROP_CHILD_STATUS
 };
 
@@ -144,6 +147,35 @@ sbuild_session_set_config (SbuildSession *session,
   session->config = config;
   g_object_ref(G_OBJECT(session->config));
   g_object_notify(G_OBJECT(session), "config");
+}
+
+/* Caller must free string */
+gchar *
+sbuild_session_get_session_id (const SbuildSession  *restrict session)
+{
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), NULL);
+
+  gchar *session_id = g_new(gchar, 37);
+  uuid_unparse(session->session_id, session_id);
+
+  return session_id;
+}
+
+void
+sbuild_session_set_session_id (SbuildSession  *session,
+			       const gchar    *session_id)
+{
+  g_return_if_fail(SBUILD_IS_SESSION(session));
+
+  if (session_id == NULL || strlen(session_id) == 0)
+    uuid_clear(session->session_id);
+  else if (uuid_parse(session_id, session->session_id) != 0)
+    {
+      g_warning("Invalid session-id UUID %s", session_id);
+      return;
+    }
+
+  g_object_notify(G_OBJECT(session), "session-id");
 }
 
 /**
@@ -876,6 +908,7 @@ sbuild_session_init (SbuildSession *session)
 
   session->config = NULL;
   session->chroots = NULL;
+  uuid_clear(session->session_id);
   session->child_status = EXIT_FAILURE;
 }
 
@@ -894,6 +927,7 @@ sbuild_session_finalize (SbuildSession *session)
       g_strfreev(session->chroots);
       session->chroots = NULL;
     }
+  uuid_clear(session->session_id);
 
   if (parent_class->finalize)
     parent_class->finalize(G_OBJECT(session));
@@ -919,6 +953,9 @@ sbuild_session_set_property (GObject      *object,
       break;
     case PROP_CHROOTS:
       sbuild_session_set_chroots(session, g_value_get_boxed(value));
+      break;
+    case PROP_SESSION_ID:
+      sbuild_session_set_session_id(session, g_value_get_string(value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -946,6 +983,13 @@ sbuild_session_get_property (GObject    *object,
       break;
     case PROP_CHROOTS:
       g_value_set_boxed(value, session->chroots);
+      break;
+    case PROP_SESSION_ID:
+      {
+	gchar *session_id = sbuild_session_get_session_id(session);
+	g_value_set_string(value, session_id);
+	g_free(session_id);
+      }
       break;
     case PROP_CHILD_STATUS:
       g_value_set_int(value, session->child_status);
@@ -993,6 +1037,14 @@ sbuild_session_class_init (SbuildSessionClass *klass)
 		       "The exit (wait) status of the child process",
 		       0, G_MAXINT, 0,
 		       (G_PARAM_READABLE)));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_SESSION_ID,
+     g_param_spec_string ("session-id", "Session ID",
+			  "The unique session identifier (UUID) for this session",
+			  "",
+			  (G_PARAM_READABLE)));
 }
 
 /*

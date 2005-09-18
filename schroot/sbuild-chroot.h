@@ -38,6 +38,8 @@ typedef struct _SbuildChrootClass SbuildChrootClass;
 
 typedef void (*SbuildChrootPrintDetailsFunc)(SbuildChroot *chroot,
 					     FILE         *file);
+typedef void (*SbuildChrootPrintConfigFunc)(SbuildChroot *chroot,
+					    FILE         *file);
 typedef void (*SbuildChrootSetupFunc)(SbuildChroot  *chroot,
 				      GList        **env);
 typedef const gchar *(*SbuildChrootGetChrootTypeFunc)(const SbuildChroot  *chroot);
@@ -53,12 +55,16 @@ struct _SbuildChroot
   char    **aliases;
   gchar    *mount_location;
   gchar    *mount_device;
+  guint     current_users;
+  guint     max_users;
+  gboolean  active;
 };
 
 struct _SbuildChrootClass
 {
   GObjectClass                  parent;
   SbuildChrootPrintDetailsFunc  print_details;
+  SbuildChrootPrintConfigFunc   print_config;
   SbuildChrootSetupFunc         setup;
   SbuildChrootGetChrootTypeFunc get_chroot_type;
 };
@@ -72,7 +78,8 @@ sbuild_chroot_new (void);
 
 SbuildChroot *
 sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
-				const char *group);
+				const char *group,
+				gboolean    active);
 
 const char *
 sbuild_chroot_get_name (const SbuildChroot *restrict chroot);
@@ -130,12 +137,30 @@ void
 sbuild_chroot_set_aliases (SbuildChroot  *chroot,
 			   char         **aliases);
 
+guint
+sbuild_chroot_get_current_users (const SbuildChroot *restrict chroot);
+
+void
+sbuild_chroot_set_current_users (SbuildChroot *chroot,
+				 guint         current_users);
+
+guint
+sbuild_chroot_get_max_users (const SbuildChroot *restrict chroot);
+
+void
+sbuild_chroot_set_max_users (SbuildChroot *chroot,
+			     guint         max_users);
+
 const gchar *
 sbuild_chroot_get_chroot_type (const SbuildChroot  *chroot);
 
 void
 sbuild_chroot_print_details (SbuildChroot *chroot,
 			     FILE         *file);
+
+void
+sbuild_chroot_print_config (SbuildChroot *chroot,
+			    FILE         *file);
 
 void
 sbuild_chroot_setup (SbuildChroot  *chroot,

@@ -55,6 +55,11 @@ SbuildSession object.
 
 </para>
 
+<!-- ##### ARG SbuildSession:session-id ##### -->
+<para>
+
+</para>
+
 <!-- ##### STRUCT SbuildSessionClass ##### -->
 <para>
 SbuildSession class.

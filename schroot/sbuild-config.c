@@ -41,6 +41,7 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <dirent.h>
 #include <fcntl.h>
 #include <unistd.h>
 
@@ -70,7 +71,8 @@ sbuild_config_file_error_quark (void)
 enum
 {
   PROP_0,
-  PROP_CONFIG_FILE
+  PROP_CONFIG_FILE,
+  PROP_CONFIG_DIR
 };
 
 static GObjectClass *parent_class;
@@ -78,7 +80,7 @@ static GObjectClass *parent_class;
 G_DEFINE_TYPE(SbuildConfig, sbuild_config, G_TYPE_OBJECT)
 
 /**
- * sbuild_config_new:
+ * sbuild_config_new_from_file:
  * @file: the filename to open.
  *
  * Creates a new #SbuildConfig.
@@ -86,10 +88,26 @@ G_DEFINE_TYPE(SbuildConfig, sbuild_config, G_TYPE_OBJECT)
  * Returns the newly created #SbuildConfig.
  */
 SbuildConfig *
-sbuild_config_new (const char *file)
+sbuild_config_new_from_file (const char *file)
 {
   return (SbuildConfig *) g_object_new (SBUILD_TYPE_CONFIG,
 					"config-file", file,
+					NULL);
+}
+
+/**
+ * sbuild_config_new_from_file:
+ * @dir: the directory to open.
+ *
+ * Creates a new #SbuildConfig from a directory of files.
+ *
+ * Returns the newly created #SbuildConfig.
+ */
+SbuildConfig *
+sbuild_config_new_from_directory (const char *dir)
+{
+  return (SbuildConfig *) g_object_new (SBUILD_TYPE_CONFIG,
+					"config-directory", dir,
 					NULL);
 }
 
@@ -147,16 +165,16 @@ sbuild_config_check_security(int      fd,
 /**
  * sbuild_config_load:
  * @file: the file to load.
+ * @list: a list to append the #SbuildChroot objects to.
  *
  * Load a configuration file.  If there are problems with the
  * configuration file, the program will be aborted immediately.
- *
- * Returns a list of #SbuildChroot objects, or NULL if no chroots were
- * found.
  */
-static GList *
-sbuild_config_load (const char *file)
+void
+sbuild_config_load (const char  *file,
+		    GList      **list)
 {
+
   /* Use a UNIX fd, for security (no races) */
   int fd = open(file, O_RDONLY|O_NOFOLLOW);
   if (fd < 0)
@@ -209,20 +227,17 @@ sbuild_config_load (const char *file)
 
   /* Create SbuildChroot objects from key file */
   char **groups = g_key_file_get_groups(keyfile, NULL);
-  GList *list = NULL;
   for (guint i=0; groups[i] != NULL; ++i)
     {
-      SbuildChroot *chroot = sbuild_chroot_new_from_keyfile(keyfile, groups[i]);
+      SbuildChroot *chroot = sbuild_chroot_new_from_keyfile(keyfile, groups[i], FALSE);
       //      sbuild_chroot_print_details(chroot, stdout);
-      list = g_list_append(list, chroot);
+      *list = g_list_append(*list, chroot);
     }
   g_strfreev(groups);
-
-  return list;
 }
 
 /**
- * sbuild_config_set_name:
+ * sbuild_config_set_config_file:
  * @config: an #SbuildConfig.
  * @file: the filename to set.
  *
@@ -235,16 +250,71 @@ sbuild_config_set_config_file (SbuildConfig *config,
 {
   g_return_if_fail(SBUILD_IS_CONFIG(config));
 
+  if (file == NULL || strlen(file) == 0)
+    return;
+
   if (config->file)
     {
       g_free(config->file);
     }
   config->file = g_strdup(file);
 
-  g_assert(config->chroots == NULL); // Only allow setting once
-  config->chroots = sbuild_config_load(config->file);
+  sbuild_config_load(config->file, &config->chroots);
 
-  g_object_notify(G_OBJECT(config), "config_file");
+  g_object_notify(G_OBJECT(config), "config-file");
+}
+
+/**
+ * sbuild_config_set_config_directory:
+ * @config: an #SbuildConfig.
+ * @file: the filename to set.
+ *
+ * Set the configuration directory.  The configuration files will be
+ * loaded as a side effect.
+ */
+static void
+sbuild_config_set_config_directory (SbuildConfig *config,
+				    const char   *dir)
+{
+  g_return_if_fail(SBUILD_IS_CONFIG(config));
+
+  if (dir == NULL || strlen(dir) == 0)
+    return;
+
+  DIR *d = opendir(dir);
+  if (d == NULL)
+    {
+      g_printerr(_("%s: failed to open directory: %s\n"), d, g_strerror(errno));
+      exit (EXIT_FAILURE);
+    }
+
+  struct dirent *de = NULL;
+  while ((de = readdir(d)) != NULL)
+    {
+      char *filename = g_strconcat(dir, "/", &de->d_name[0], NULL);
+
+      struct stat statbuf;
+      if (stat(filename, &statbuf) < 0)
+	{
+	  g_printerr(_("%s: failed to stat file: %s"), filename, g_strerror(errno));
+	  g_free(filename);
+	  continue;
+	}
+
+      if (!S_ISREG(statbuf.st_mode))
+	{
+	  if (!(strcmp(de->d_name, ".") == 0 ||
+		strcmp(de->d_name, "..") == 0))
+	    g_printerr(_("%s: failed to stat file: %s"), filename, g_strerror(errno));
+	  g_free(filename);
+	  continue;
+	}
+
+      sbuild_config_load(filename, &config->chroots);
+      g_free(filename);
+    }
+
+  g_object_notify(G_OBJECT(config), "config-directory");
 }
 
 /**
@@ -550,6 +620,9 @@ sbuild_config_set_property (GObject      *object,
     case PROP_CONFIG_FILE:
       sbuild_config_set_config_file(config, g_value_get_string(value));
       break;
+    case PROP_CONFIG_DIR:
+      sbuild_config_set_config_directory(config, g_value_get_string(value));
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
       break;
@@ -571,9 +644,6 @@ sbuild_config_get_property (GObject    *object,
 
   switch (param_id)
     {
-    case PROP_CONFIG_FILE:
-      g_value_set_string(value, config->file);
-      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
       break;
@@ -596,7 +666,15 @@ sbuild_config_class_init (SbuildConfigClass *klass)
      g_param_spec_string ("config-file", "Configuration File",
 			  "The file containing the chroot configuration",
 			  "",
-			  (G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY)));
+			  (G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY)));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_CONFIG_DIR,
+     g_param_spec_string ("config-directory", "Configuration Directory",
+			  "The directory containing the chroot configuration files",
+			  "",
+			  (G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY)));
 }
 
 /*

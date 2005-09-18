@@ -71,13 +71,13 @@ schroot_SOURCES =			\
 	schroot.c
 
 schroot_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
-schroot_LDADD = $(GOBJECT_LIBS) $(PAM_LIBS) $(LIBINTL)
+schroot_LDADD = $(GOBJECT_LIBS) $(UUID_LIBS) $(PAM_LIBS) $(LIBINTL)
 
 if ENABLE_GTK_DOC
 noinst_LTLIBRARIES = libschroot.la
 libschroot_la_SOURCES = $(schroot_SOURCES)
-libschroot_la_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
-libschroot_la_LIBADD = $(GOBJECT_LIBS) $(PAM_LIBS)
+libschroot_la_CFLAGS = $(schroot_CFLAGS)
+libschroot_la_LIBADD = $(schroot_LDADD)
 endif
 
 pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
@@ -122,3 +122,6 @@ install-exec-hook:
 # Install setuid root.
 	chmod 4755 $(DESTDIR)$(bindir)/schroot
 
+install-data-hook:
+	$(MKINSTALLDIRS) $(DESTDIR)$(SCHROOT_LOCK_DIR)
+	$(MKINSTALLDIRS) $(DESTDIR)$(SCHROOT_SESSION_DIR)

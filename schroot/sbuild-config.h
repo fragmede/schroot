@@ -68,7 +68,10 @@ GType
 sbuild_config_get_type (void);
 
 SbuildConfig *
-sbuild_config_new (const char *file);
+sbuild_config_new_from_file (const char *file);
+
+SbuildConfig *
+sbuild_config_new_from_directory (const char *dir);
 
 const GList *
 sbuild_config_get_chroots (SbuildConfig *config);

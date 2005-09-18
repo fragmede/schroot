@@ -23,7 +23,17 @@ SbuildChroot object.
 </para>
 
 
+<!-- ##### ARG SbuildChroot:active ##### -->
+<para>
+
+</para>
+
 <!-- ##### ARG SbuildChroot:aliases ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG SbuildChroot:current-users ##### -->
 <para>
 
 </para>
@@ -34,6 +44,11 @@ SbuildChroot object.
 </para>
 
 <!-- ##### ARG SbuildChroot:groups ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG SbuildChroot:max-users ##### -->
 <para>
 
 </para>
@@ -70,6 +85,7 @@ SbuildChroot class.
 
 @parent: the parent class
 @print_details: vfunc to print additional chroot details
+@print_config: 
 @setup: vfunc to set additional environment variables for chroot setup
 @get_chroot_type: vfunc to get the user visible chroot type name
 
@@ -125,6 +141,7 @@ name of the class, for use in messages and configuration files.
 
 @keyfile: 
 @group: 
+@active: 
 @Returns: 
 
 
