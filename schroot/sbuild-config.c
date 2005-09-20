@@ -230,8 +230,8 @@ sbuild_config_load (const char  *file,
   for (guint i=0; groups[i] != NULL; ++i)
     {
       SbuildChroot *chroot = sbuild_chroot_new_from_keyfile(keyfile, groups[i], FALSE);
-      //      sbuild_chroot_print_details(chroot, stdout);
-      *list = g_list_append(*list, chroot);
+      if (chroot)
+	*list = g_list_append(*list, chroot);
     }
   g_strfreev(groups);
 }

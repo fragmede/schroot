@@ -1,3 +1,14 @@
+2005-09-20  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* schroot/sbuild-chroot.c
+	(sbuild_chroot_new_from_keyfile): Fix a memory leak during chroot
+	type identification.  Reorganise code to make layout more logical.
+	(sbuild_chroot_print_details): Format detail listing to make it
+	more readable, in the same style as used by the LVM tools.
+
+	* schroot/sbuild-config.c (sbuild_config_load): Only add chroots
+	to the SbuildConfig if they were successfully constructed.
+
 2005-09-18  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-session.c (sbuild_session_class_init): Add a new

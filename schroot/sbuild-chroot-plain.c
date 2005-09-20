@@ -104,7 +104,7 @@ sbuild_chroot_plain_print_details (SbuildChrootPlain *chroot,
 {
   g_return_if_fail(SBUILD_IS_CHROOT_PLAIN(chroot));
 
-  g_fprintf(file, _("Location: %s\n"), chroot->location);
+  g_fprintf(file, "  %-22s%s\n", _("Location"), chroot->location);
 }
 
 static void

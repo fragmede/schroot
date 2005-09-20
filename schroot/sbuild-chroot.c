@@ -104,50 +104,53 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
   guint n_params = 0;
   guint n_alloc_params = 16;
 
+  /* Find out which chroot type we want.  These are all linked
+     statically, for reasons of security, because we don't want
+     random modules loading outside our control. */
+  {
+    GError *error = NULL;
+    char *type =
+      g_key_file_get_string(keyfile, group, "type", &error);
+
+    if (error != NULL)
+      {
+	g_clear_error(&error);
+	chroot_type = SBUILD_TYPE_CHROOT_PLAIN;
+      }
+    else
+      {
+	if (strcmp(type, "plain") == 0)
+	  chroot_type = SBUILD_TYPE_CHROOT_PLAIN;
+	else if (strcmp(type, "block-device") == 0)
+	  chroot_type = SBUILD_TYPE_CHROOT_BLOCK_DEVICE;
+	else if (strcmp(type, "lvm-snapshot") == 0)
+	  chroot_type = SBUILD_TYPE_CHROOT_LVM_SNAPSHOT;
+	else // Invalid chroot type
+	  {
+	    g_warning (_("%s chroot: chroot type '%s' is invalid"),
+		       group, type);
+	    chroot_type = 0;
+	  }
+      }
+    g_free(type);
+  }
+
+  if (chroot_type == 0)
+    return NULL;
+
+  params = g_new (GParameter, n_alloc_params);
+
+  params[n_params].name = "name";
+  params[n_params].value.g_type = 0;
+  g_value_init (&params[n_params].value,
+		G_TYPE_STRING);
+  g_value_set_string(&params[n_params].value, group);
+  ++n_params;
+
   gchar **keys = g_key_file_get_keys(keyfile, group, NULL, NULL);
   if (keys)
     {
-      /* Find out which chroot type we want.  These are all linked
-	 statically, for reasons of security, because we don't want
-	 random modules loading outside our control. */
-      {
-	GError *error = NULL;
-	char *type =
-	  g_key_file_get_string(keyfile, group, "type", &error);
-
-	if (error != NULL)
-	  {
-	    g_clear_error(&error);
-	    chroot_type = SBUILD_TYPE_CHROOT_PLAIN;
-	  }
-	else
-	  {
-	    if (strcmp(type, "plain") == 0)
-	      chroot_type = SBUILD_TYPE_CHROOT_PLAIN;
-	    else if (strcmp(type, "block-device") == 0)
-	      chroot_type = SBUILD_TYPE_CHROOT_BLOCK_DEVICE;
-	    else if (strcmp(type, "lvm-snapshot") == 0)
-	      chroot_type = SBUILD_TYPE_CHROOT_LVM_SNAPSHOT;
-	    else // Invalid chroot type
-	      {
-		g_warning (_("%s chroot: chroot type '%s' is invalid"),
-			   group, type);
-		chroot_type = 0;
-	      }
-	    g_free(type);
-	  }
-      }
-
       klass = g_type_class_ref (chroot_type);
-
-      params = g_new (GParameter, n_alloc_params);
-
-      params[n_params].name = "name";
-      params[n_params].value.g_type = 0;
-      g_value_init (&params[n_params].value,
-		    G_TYPE_STRING);
-      g_value_set_string(&params[n_params].value, group);
-      ++n_params;
 
       for (guint i = 0; keys[i] != NULL; ++i)
 	{
@@ -695,24 +698,29 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
 {
   g_return_if_fail(SBUILD_IS_CHROOT(chroot));
 
-  g_fprintf(file, _("Name: %s\n"), chroot->name);
-  g_fprintf(file, _("Description: %s\n"), chroot->description);
-  g_fprintf(file, _("Type: %s\n"), sbuild_chroot_get_chroot_type(chroot));
-  g_fprintf(file, _("Priority: %u\n"), chroot->priority);
-  g_fprintf(file, _("Groups:"));
-  if (chroot->groups)
-    for (guint i=0; chroot->groups[i] != NULL; ++i)
-      g_fprintf(file, " %s", chroot->groups[i]);
-  g_fprintf(file, "\n%s", _( "Root Groups:"));
-  if (chroot->root_groups)
-    for (guint i=0; chroot->root_groups[i] != NULL; ++i)
-      g_fprintf(file, " %s", chroot->root_groups[i]);
-  g_fprintf(file, "\n%s", _( "Aliases:"));
-  if (chroot->aliases)
-    for (guint i=0; chroot->aliases[i] != NULL; ++i)
-      g_fprintf(file, " %s", chroot->aliases[i]);
-  g_fprintf(file, "\n");
-  g_fprintf(file, _("Maximum Users: %u\n"), chroot->max_users);
+  g_fprintf(file, _("  --- Chroot ---\n"));
+  g_fprintf(file, "  %-22s%s\n", _("Name"), chroot->name);
+  g_fprintf(file, "  %-22s%s\n", _("Description"), chroot->description);
+  g_fprintf(file, "  %-22s%s\n", _("Type"), sbuild_chroot_get_chroot_type(chroot));
+  g_fprintf(file, "  %-22s%u\n", _("Priority"), chroot->priority);
+
+  char *group_list = (chroot->groups) ? g_strjoinv(" ", chroot->groups) : NULL;
+  g_fprintf(file, "  %-22s%s\n", _("Groups"),
+	    (group_list) ? group_list : "");
+  g_free(group_list);
+
+  char *root_group_list = (chroot->root_groups) ?
+    g_strjoinv(" ", chroot->root_groups) : NULL;
+  g_fprintf(file, "  %-22s%s\n", _("Root Groups"),
+	    (root_group_list) ? root_group_list : NULL);
+  g_free(root_group_list);
+
+  char *alias_list = (chroot->aliases) ? g_strjoinv(" ", chroot->aliases) : NULL;
+  g_fprintf(file, "  %-22s%s\n", _("Aliases"),
+	    (alias_list) ? alias_list : NULL);
+  g_free(alias_list);
+
+  g_fprintf(file, _("  %-22s%u\n"), _("Maximum Users"), chroot->max_users);
 
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
   if (klass->print_details)
@@ -722,10 +730,10 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
   if (chroot->active == TRUE)
     {
       if (chroot->mount_location)
-	g_fprintf(file, _("Mount Location: %s\n"), chroot->mount_location);
+	g_fprintf(file, "  %-22s%s\n", _("Mount Location"), chroot->mount_location);
       if (chroot->mount_device)
-	g_fprintf(file, _("Mount Device: %s\n"), chroot->mount_device);
-      g_fprintf(file, _("Current Users: %u\n"), chroot->current_users);
+	g_fprintf(file, "  %-22s%s\n", _("Mount Device"), chroot->mount_device);
+      g_fprintf(file, _("  %-22s%u\n"), _("Current Users"), chroot->current_users);
     }
 }
 

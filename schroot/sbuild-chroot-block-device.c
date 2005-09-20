@@ -148,8 +148,8 @@ sbuild_chroot_block_device_print_details (SbuildChrootBlockDevice *chroot,
 {
   g_return_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot));
 
-  g_fprintf(file, _("Device: %s\n"), chroot->device);
-  g_fprintf(file, _("Mount Options: %s\n"), chroot->mount_options);
+  g_fprintf(file, _("  %-22s%s\n"), _("Device"), chroot->device);
+  g_fprintf(file, _("  %-22s%s\n"), _("Mount Options"), chroot->mount_options);
 }
 
 static void

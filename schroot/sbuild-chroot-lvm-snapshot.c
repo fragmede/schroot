@@ -93,7 +93,7 @@ sbuild_chroot_lvm_snapshot_print_details (SbuildChrootLvmSnapshot *chroot,
   if (klass->print_details)
     klass->print_details(SBUILD_CHROOT(chroot), file);
 
-  g_fprintf(file, _("LVM Snapshot Options: %s\n"), chroot->snapshot_options);
+  g_fprintf(file, _("  %-22s%s\n"), _("LVM Snapshot Options"), chroot->snapshot_options);
 }
 
 static void
