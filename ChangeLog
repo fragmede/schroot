@@ -1,4 +1,24 @@
-2005-09-20  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2005-09-21  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* debian/changelog: Bump version to 0.1.6.  Document run-setup
+	changes for Debian Bug #329403.
+
+	* schroot/schroot.conf.5.in: Document "run-setup" configuration
+	option.
+
+	* schroot/sbuild-session.c (sbuild_session_run): Only run setup
+	scripts if enabled in the chroot configuration.
+
+	* schroot/sbuild-chroot.c
+	(sbuild_chroot_class_init): Add "run-setup" property, and
+	associated accessors.
+	(sbuild_chroot_new_from_keyfile): Add support for G_TYPE_BOOLEAN
+	properties as configuration options.
+
+	* schroot/sbuild-chroot.h (struct _SbuildChroot): Add run_setup
+	member.
+
+2005-09-20  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-chroot.c
 	(sbuild_chroot_new_from_keyfile): Fix a memory leak during chroot

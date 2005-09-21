@@ -874,18 +874,20 @@ sbuild_session_run (SbuildSession  *session,
       else
 	{
 	  /* Run chroot setup scripts. */
-	  sbuild_session_setup_chroot(session, chroot,
-				      SBUILD_SESSION_CHROOT_SETUP_START,
-				      &tmp_error);
+	  if (sbuild_chroot_get_run_setup(chroot) == TRUE)
+	    sbuild_session_setup_chroot(session, chroot,
+					SBUILD_SESSION_CHROOT_SETUP_START,
+					&tmp_error);
 
 	  /* Run session if setup succeeded. */
 	  if (tmp_error == NULL)
 	    sbuild_session_run_chroot(session, chroot, &tmp_error);
 
 	  /* Run clean up scripts whether or not there was an error. */
-	  sbuild_session_setup_chroot(session, chroot,
-				      SBUILD_SESSION_CHROOT_SETUP_STOP,
-				      (tmp_error != NULL) ? NULL : &tmp_error);
+	  if (sbuild_chroot_get_run_setup(chroot) == TRUE)
+	    sbuild_session_setup_chroot(session, chroot,
+					SBUILD_SESSION_CHROOT_SETUP_STOP,
+					(tmp_error != NULL) ? NULL : &tmp_error);
 	}
 
       if (tmp_error != NULL)

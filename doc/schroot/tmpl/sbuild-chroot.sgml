@@ -78,6 +78,11 @@ SbuildChroot object.
 
 </para>
 
+<!-- ##### ARG SbuildChroot:run-setup ##### -->
+<para>
+
+</para>
+
 <!-- ##### STRUCT SbuildChrootClass ##### -->
 <para>
 SbuildChroot class.

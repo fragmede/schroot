@@ -76,6 +76,10 @@ for convenience.
 .B max-users=\fInumber\fP
 Set the maximum number of users allowed to use the chroot.  The default is 1
 user, and the minimum is also 1.
+.TP
+.B run-setup=\fItrue\fP|\fIfalse\fP
+Set whether chroot setup scripts will be run.  The default is not to run setup
+scripts (\[lq]false\[rq]).
 .SS
 Plain chroots
 .PP
