@@ -408,11 +408,6 @@ sbuild_session_setup_chroot (SbuildSession                 *session,
   g_return_val_if_fail(setup_type == SBUILD_SESSION_CHROOT_SETUP_START ||
 		       setup_type == SBUILD_SESSION_CHROOT_SETUP_STOP, FALSE);
 
-  /* If a chroot location has not yet been set, fall back to /mnt.
-     TODO: This should be set with the session key. */
-  if (sbuild_chroot_get_mount_location(session_chroot) == NULL)
-    sbuild_chroot_set_mount_location(session_chroot, "/mnt");
-
   gchar **argv = g_new(gchar *, 8);
   {
     guint i = 0;
@@ -873,6 +868,11 @@ sbuild_session_run (SbuildSession  *session,
 	}
       else
 	{
+	  /* If a chroot location has not yet been set, fall back to /mnt.
+	     TODO: This should be set with the session key. */
+	  if (sbuild_chroot_get_mount_location(chroot) == NULL)
+	    sbuild_chroot_set_mount_location(chroot, "/mnt");
+
 	  /* Run chroot setup scripts. */
 	  if (sbuild_chroot_get_run_setup(chroot) == TRUE)
 	    sbuild_session_setup_chroot(session, chroot,

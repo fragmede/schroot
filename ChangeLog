@@ -1,4 +1,11 @@
-2005-09-21  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2005-09-22  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-session.c (sbuild_session_run): Move chroot mount
+	location fallback from sbuild_session_setup_chroot.
+
+	* schroot/schroot.conf.5.in: Add additional "run-setup" notes.
+
+2005-09-21  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Bump version to 0.1.6.  Document run-setup
 	changes for Debian Bug #329403.

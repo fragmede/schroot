@@ -79,7 +79,11 @@ user, and the minimum is also 1.
 .TP
 .B run-setup=\fItrue\fP|\fIfalse\fP
 Set whether chroot setup scripts will be run.  The default is not to run setup
-scripts (\[lq]false\[rq]).
+scripts (\[lq]false\[rq]), for safety reasons (so it won't clobber your passwd
+and other critical files).  However, if \fItype\fP is set to a value other than
+\[lq]plain\[rq], setup scripts are \fBrequired\fP to mount and configure the
+chroot environment.  If your chroots are exclusively controlled by schroot, set
+to \[lq]true\[rq].
 .SS
 Plain chroots
 .PP
