@@ -1,4 +1,8 @@
-2005-09-24  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2005-09-24  Roger Leigh  <rleigh@debian.org>
+
+	* debian/rules (config.status): Set $localstatedir when running configure.
+
+2005-09-24  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot.1.in: Document new setup script parameters.
 

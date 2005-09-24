@@ -10,8 +10,9 @@ schroot (0.1.6-1) unstable; urgency=low
     /etc/schroot/schroot.conf, by checking the md5sum to
     detect local modifictions.  If not modified, delete and
     replace with the package version.
+  * debian/rules: Set $localstatedir when running configure.
 
- -- Roger Leigh <rleigh@debian.org>  Thu, 22 Sep 2005 23:35:02 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 24 Sep 2005 21:58:42 +0100
 
 schroot (0.1.5-1) unstable; urgency=low
 
