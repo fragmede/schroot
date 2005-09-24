@@ -1,3 +1,10 @@
+2005-09-24  Roger Leigh  <rleigh@debian.org>
+
+	* debian/preinst, debian/postinst: Preserve schroot.conf changes
+	correctly when moving to /etc/schroot/schroot.conf, by checking
+	the md5sum to detect local modifictions.  If not modified, delete
+	and replace with the package version.
+
 2005-09-22  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-session.c (sbuild_session_run): Move chroot mount

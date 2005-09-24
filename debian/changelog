@@ -6,8 +6,12 @@ schroot (0.1.6-1) unstable; urgency=low
     option has been added to configure the running of setup
     scripts, which are disabled by default for safety
     (Closes: #329403).
+  * Preserve schroot.conf changes correctly when moving to
+    /etc/schroot/schroot.conf, by checking the md5sum to
+    detect local modifictions.  If not modified, delete and
+    replace with the package version.
 
- -- Roger Leigh <rleigh@debian.org>  Wed, 21 Sep 2005 20:46:30 +0100
+ -- Roger Leigh <rleigh@debian.org>  Thu, 22 Sep 2005 23:35:02 +0100
 
 schroot (0.1.5-1) unstable; urgency=low
 
