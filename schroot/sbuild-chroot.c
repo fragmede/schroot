@@ -100,10 +100,6 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
   g_return_val_if_fail(group != NULL, NULL);
 
   GType chroot_type = 0;
-  GObjectClass *klass;
-  GParameter *params = NULL;
-  guint n_params = 0;
-  guint n_alloc_params = 16;
 
   /* Find out which chroot type we want.  These are all linked
      statically, for reasons of security, because we don't want
@@ -136,22 +132,71 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
     g_free(type);
   }
 
-  if (chroot_type == 0)
-    return NULL;
+  SbuildChroot *chroot = NULL;
+  if (chroot_type != 0)
+    chroot =  (SbuildChroot *) g_object_new(chroot_type,
+					    "name", group,
+					    NULL);
 
-  params = g_new (GParameter, n_alloc_params);
+  if (chroot)
+    {
+      if (active == TRUE)
+	sbuild_chroot_set_active(chroot);
+      sbuild_chroot_set_properties_from_keyfile(chroot, keyfile);
+    }
 
-  params[n_params].name = "name";
-  params[n_params].value.g_type = 0;
-  g_value_init (&params[n_params].value,
-		G_TYPE_STRING);
-  g_value_set_string(&params[n_params].value, group);
-  ++n_params;
+  return chroot;
+}
 
-  gchar **keys = g_key_file_get_keys(keyfile, group, NULL, NULL);
+/**
+ * sbuild_chroot_set_properties_from_keyfile:
+ * @keyfile: the #GKeyFile containing the chroot configuration
+ *
+ * Sets the properties of an existing #SbuildChroot from a #GKeyFile.
+ *
+ * Returns TRUE on success, FALSE on failure.
+ */
+gboolean
+sbuild_chroot_set_properties_from_keyfile (SbuildChroot *chroot,
+					   GKeyFile     *keyfile)
+{
+  g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), FALSE);
+  g_return_val_if_fail(chroot->name != NULL, FALSE);
+
+  GObjectClass *klass;
+  GParameter *params = NULL;
+  guint n_params = 0;
+  guint n_alloc_params = 16;
+
+  /* Find out which chroot type we want.  These are all linked
+     statically, for reasons of security, because we don't want
+     random modules loading outside our control. */
+  {
+    GError *error = NULL;
+    char *type =
+      g_key_file_get_string(keyfile, chroot->name, "type", &error);
+
+    if (error != NULL)
+      {
+	g_clear_error(&error);
+	type = g_strdup("plain");
+      }
+
+    if (strcmp(type, sbuild_chroot_get_chroot_type(chroot)) != 0)
+      {
+	g_warning("%s chroot: chroot type \"%s\" does not match keyfile type \"%s\"",
+		  chroot->name, sbuild_chroot_get_chroot_type(chroot), type);
+	g_free(type);
+	return FALSE;
+      }
+
+    g_free(type);
+  }
+
+  gchar **keys = g_key_file_get_keys(keyfile, chroot->name, NULL, NULL);
   if (keys)
     {
-      klass = g_type_class_ref (chroot_type);
+      klass = G_OBJECT_CLASS(SBUILD_CHROOT_GET_CLASS(chroot));
 
       for (guint i = 0; keys[i] != NULL; ++i)
 	{
@@ -165,11 +210,9 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
 
 	  if (!pspec)
 	    {
-	      /* TODO: Use proper schroot type description, rather
-		 than the GType name. */
 	      g_warning (_("%s chroot: chroot type '%s' has no property named '%s'"),
-			 group,
-			 g_type_name (chroot_type),
+			 chroot->name,
+			 sbuild_chroot_get_chroot_type(chroot),
 			 key);
 	      continue; // TODO: Should a config file error be fatal?
 	    }
@@ -177,117 +220,68 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
 	  /* Only construction properties may be set if reading from a
 	     configuration file, otherwise if reloading an active
 	     session, writable properties may also be set. */
-	  if ((active == TRUE &&
+	  if ((chroot->active == TRUE &&
 	       ((pspec->flags & G_PARAM_WRITABLE) !=
 		G_PARAM_WRITABLE)) ||
-	      (active == FALSE &&
+	      (chroot->active == FALSE &&
 	       ((pspec->flags & (G_PARAM_WRITABLE|G_PARAM_CONSTRUCT)) !=
 		(G_PARAM_WRITABLE|G_PARAM_CONSTRUCT))))
 	    {
 	      g_warning (_("%s chroot: property '%s' is not user-settable"),
-			 group, key);
+			 chroot->name, key);
 	      continue; // TODO: Should a config file error be fatal?
-	    }
-
-	  if (n_params >= n_alloc_params)
-	    {
-	      n_alloc_params += 16;
-	      params = g_renew (GParameter, params, n_alloc_params);
 	    }
 
 	  if (G_PARAM_SPEC_VALUE_TYPE(pspec) == G_TYPE_BOOLEAN)
 	    {
 	      gboolean value =
-		g_key_file_get_boolean(keyfile, group, key, &error);
+		g_key_file_get_boolean(keyfile, chroot->name, key, &error);
 
 	      if (error != NULL)
 		g_clear_error(&error);
 	      else
-		{
-		  params[n_params].name = key;
-		  params[n_params].value.g_type = 0;
-		  g_value_init (&params[n_params].value,
-				G_PARAM_SPEC_VALUE_TYPE (pspec));
-		  g_value_set_boolean(&params[n_params].value, value);
-		  ++n_params;
-		}
+		g_object_set(chroot, key, value, NULL);
 	    }
 	  else if (G_PARAM_SPEC_VALUE_TYPE(pspec) == G_TYPE_UINT)
 	    {
 	      gint num =
-		g_key_file_get_integer(keyfile, group, key, &error);
+		g_key_file_get_integer(keyfile, chroot->name, key, &error);
 
 	      if (error != NULL)
 		g_clear_error(&error);
 	      else
-		{
-		  params[n_params].name = key;
-		  params[n_params].value.g_type = 0;
-		  g_value_init (&params[n_params].value,
-				G_PARAM_SPEC_VALUE_TYPE (pspec));
-		  g_value_set_uint(&params[n_params].value, (guint) num);
-		  ++n_params;
-		}
+		g_object_set(chroot, key, num, NULL);
 	    }
 	  else if (G_PARAM_SPEC_VALUE_TYPE(pspec) == G_TYPE_STRING)
 	    {
 	      char *str =
-		g_key_file_get_locale_string(keyfile, group, key, NULL, &error);
+		g_key_file_get_locale_string(keyfile, chroot->name, key, NULL, &error);
 
 	      if (error != NULL)
 		g_clear_error(&error);
 	      else
-		{
-		  params[n_params].name = key;
-		  params[n_params].value.g_type = 0;
-		  g_value_init (&params[n_params].value,
-				G_PARAM_SPEC_VALUE_TYPE (pspec));
-		  g_value_set_string(&params[n_params].value, str);
-		  g_free(str);
-		  ++n_params;
-		}
+		g_object_set(chroot, key, str, NULL);
 	    }
 	  else if (G_PARAM_SPEC_VALUE_TYPE(pspec) == G_TYPE_STRV)
 	    {
 	      char **strv =
-		g_key_file_get_string_list(keyfile, group, key, NULL, &error);
+		g_key_file_get_string_list(keyfile, chroot->name, key, NULL, &error);
 
 	      if (error != NULL)
 		g_clear_error(&error);
 	      else
-		{
-		  params[n_params].name = key;
-		  params[n_params].value.g_type = 0;
-		  g_value_init (&params[n_params].value,
-				G_PARAM_SPEC_VALUE_TYPE (pspec));
-		  g_value_set_boxed(&params[n_params].value, strv);
-		  g_strfreev(strv);
-		  ++n_params;
-		}
+		g_object_set(chroot, key, strv, NULL);
 	    }
 	  else
 	    {
 	      g_warning (_("%s chroot: property '%s' has unsupported type '%s'"),
-			 group,
+			 chroot->name,
 			 key,
 			 g_type_name (G_PARAM_SPEC_VALUE_TYPE(pspec)));
 	    }
 	}
-      g_type_class_unref (klass);
     }
-
-  SbuildChroot *chroot = NULL;
-  if (chroot_type != 0)
-    chroot =  (SbuildChroot *) g_object_newv(chroot_type, n_params, params);
-
-  while (n_params--)
-    g_value_unset (&params[n_params].value);
-  g_free (params);
-
-  if (active == TRUE)
-    sbuild_chroot_set_active(chroot);
-
-  return chroot;
+  return TRUE;
 }
 
 /**

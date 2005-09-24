@@ -82,6 +82,10 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
 				const char *group,
 				gboolean    active);
 
+gboolean
+sbuild_chroot_set_properties_from_keyfile (SbuildChroot *chroot,
+					   GKeyFile     *keyfile);
+
 const char *
 sbuild_chroot_get_name (const SbuildChroot *restrict chroot);
 

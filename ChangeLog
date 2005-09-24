@@ -1,5 +1,13 @@
 2005-09-24  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-chroot.c
+	(sbuild_chroot_set_properties_from_keyfile): Split keyfile
+	property code out from sbuild_chroot_new_from_keyfile.  This will
+	allow re-reading chroot configuration from disk for session
+	handling.
+
+2005-09-24  Roger Leigh  <rleigh@debian.org>
+
 	* debian/preinst, debian/postinst: Preserve schroot.conf changes
 	correctly when moving to /etc/schroot/schroot.conf, by checking
 	the md5sum to detect local modifictions.  If not modified, delete
