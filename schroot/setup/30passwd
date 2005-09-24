@@ -4,7 +4,7 @@ if [ "$AUTH_VERBOSITY" = "verbose" ]; then
   VERBOSE="--verbose"
 fi
 
-if [ $1 = "start" ]; then
+if [ $1 = "setup-start" ]; then
   cp $VERBOSE /etc/passwd "${CHROOT_MOUNT_LOCATION}/etc/passwd"
   cp $VERBOSE /etc/shadow "${CHROOT_MOUNT_LOCATION}/etc/shadow"
   cp $VERBOSE /etc/group  "${CHROOT_MOUNT_LOCATION}/etc/group"

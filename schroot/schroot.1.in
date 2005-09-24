@@ -218,9 +218,13 @@ Options to pass to
 The scripts are run in name order, like those run by
 .BR init (8),
 by using
-.BR run-parts (8)
-with a single option, \[lq]start\[rq].  When ending the session, the scripts
-are run in reverse order with a single option, \[lq]stop\[rq].
+.BR run-parts (8).
+When a session is first started, the chroot is set up by running the scripts
+with the \[lq]setup-start\[rq] option.  When a command or shell is run in the
+configured chroot, the scripts are run again with the \[lq]session-start\[rq]
+option.  After the command or command has completed, the scripts are run in
+reverse order with the \[lq]session-stop\[rq] option.  Finally, when the
+session is ended, the scripts are run with the \[lq]setup-stop\[rq] option.
 .TP
 .I /etc/pam.d/schroot
 PAM configuration.

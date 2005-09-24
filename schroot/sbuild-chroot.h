@@ -33,6 +33,14 @@
 #define SBUILD_IS_CHROOT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SBUILD_TYPE_CHROOT))
 #define SBUILD_CHROOT_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), SBUILD_TYPE_CHROOT, SbuildChrootClass))
 
+typedef enum
+{
+  SBUILD_CHROOT_SETUP_START,
+  SBUILD_CHROOT_SETUP_STOP,
+  SBUILD_CHROOT_SESSION_START,
+  SBUILD_CHROOT_SESSION_STOP
+} SbuildChrootSetupType;
+
 typedef struct _SbuildChroot SbuildChroot;
 typedef struct _SbuildChrootClass SbuildChrootClass;
 

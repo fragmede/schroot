@@ -16,7 +16,7 @@ if [ "$CHROOT_TYPE" = "block-device" -o "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 	CHROOT_MOUNT_DEVICE="${CHROOT_DEVICE}-snapshot"
     fi
 
-    if [ $1 = "start" ]; then
+    if [ $1 = "setup-start" ]; then
 
         # fsck doesn't like being run non-interactively
 	#/sbin/fsck $FSCK_VERBOSE -n "$CHROOT_MOUNT_DEVICE"
@@ -29,7 +29,7 @@ if [ "$CHROOT_TYPE" = "block-device" -o "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 	mount $VERBOSE -o rw,bind /home    "${CHROOT_MOUNT_LOCATION}/home"
 	mount $VERBOSE -o rw,bind /tmp     "${CHROOT_MOUNT_LOCATION}/tmp"
 
-    elif [ $1 = "stop" ]; then
+    elif [ $1 = "setup-stop" ]; then
 
 	umount $VERBOSE "${CHROOT_MOUNT_LOCATION}/tmp" || true
 	umount $VERBOSE "${CHROOT_MOUNT_LOCATION}/home" || true
