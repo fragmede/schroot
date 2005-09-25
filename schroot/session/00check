@@ -1,0 +1,29 @@
+#!/bin/sh
+
+if [ $1 = "session-start" -o $1 = "session-start" ]; then
+
+    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	echo "AUTH_USER=$AUTH_USER"
+	echo "AUTH_VERBOSITY=$AUTH_VERBOSITY"
+	echo "CHROOT_TYPE=$CHROOT_TYPE"
+	echo "CHROOT_NAME=$CHROOT_NAME"
+	echo "CHROOT_DESCRIPTION=$CHROOT_DESCRIPTION"
+	echo "CHROOT_MOUNT_LOCATION=$CHROOT_MOUNT_LOCATION"
+	echo "CHROOT_MOUNT_DEVICE=$CHROOT_MOUNT_DEVICE"
+	if [ "$CHROOT_TYPE" = "plain" ]; then
+	    echo "CHROOT_LOCATION=$CHROOT_LOCATION"
+	elif [ "$CHROOT_TYPE" = "block-device" -o "$CHROOT_TYPE" = "lvm-snapshot" ]; then
+	    echo "CHROOT_DEVICE=$CHROOT_DEVICE"
+	    echo "CHROOT_MOUNT_OPTIONS=$CHROOT_MOUNT_OPTIONS"
+	    if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
+		echo "CHROOT_LVM_SNAPSHOT_OPTIONS=$CHROOT_LVM_SNAPSHOT_OPTIONS"
+	    fi
+	fi
+    fi
+
+    if [ ! -d "$CHROOT_MOUNT_LOCATION" ]; then
+	echo "$CHROOT_MOUNT_LOCATION does not exist"
+	exit 1
+    fi
+
+fi

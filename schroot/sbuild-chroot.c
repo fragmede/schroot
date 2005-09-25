@@ -63,7 +63,8 @@ enum
   PROP_CURRENT_USERS,
   PROP_MAX_USERS,
   PROP_ACTIVE,
-  PROP_RUN_SETUP
+  PROP_RUN_SETUP_SCRIPTS,
+  PROP_RUN_SESSION_SCRIPTS
 };
 
 static GObjectClass *parent_class;
@@ -673,7 +674,7 @@ sbuild_chroot_set_active (SbuildChroot *chroot)
 }
 
 /**
- * sbuild_chroot_get_run_setup:
+ * sbuild_chroot_get_run_setup_scripts:
  * @chroot: an #SbuildChroot
  *
  * Check if chroot setup scripts will be run.
@@ -681,28 +682,61 @@ sbuild_chroot_set_active (SbuildChroot *chroot)
  * Returns TRUE if setup scripts will be run, otherwise FALSE.
  */
 gboolean
-sbuild_chroot_get_run_setup (const SbuildChroot *restrict chroot)
+sbuild_chroot_get_run_setup_scripts (const SbuildChroot *restrict chroot)
 {
   g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), FALSE);
 
-  return chroot->run_setup;
+  return chroot->run_setup_scripts;
 }
 
 /**
- * sbuild_chroot_set_run_setup:
+ * sbuild_chroot_set_run_setup_scripts:
  * @chroot: an #SbuildChroot.
- * @run_setup: TRUE to run setup scripts, otherwise FALSE.
+ * @run_setup_scripts: TRUE to run setup scripts, otherwise FALSE.
  *
  * Set whether chroot setup scripts should be run or not.
  */
 void
-sbuild_chroot_set_run_setup (SbuildChroot *chroot,
-			     gboolean      run_setup)
+sbuild_chroot_set_run_setup_scripts (SbuildChroot *chroot,
+				     gboolean      run_setup_scripts)
 {
   g_return_if_fail(SBUILD_IS_CHROOT(chroot));
 
-  chroot->run_setup = run_setup;
-  g_object_notify(G_OBJECT(chroot), "run-setup");
+  chroot->run_setup_scripts = run_setup_scripts;
+  g_object_notify(G_OBJECT(chroot), "run-setup-scripts");
+}
+
+/**
+ * sbuild_chroot_get_run_session_scripts:
+ * @chroot: an #SbuildChroot
+ *
+ * Check if chroot session scripts will be run.
+ *
+ * Returns TRUE if session scripts will be run, otherwise FALSE.
+ */
+gboolean
+sbuild_chroot_get_run_session_scripts (const SbuildChroot *restrict chroot)
+{
+  g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), FALSE);
+
+  return chroot->run_session_scripts;
+}
+
+/**
+ * sbuild_chroot_set_run_session_scripts:
+ * @chroot: an #SbuildChroot.
+ * @run_session_scripts: TRUE to run session scripts, otherwise FALSE.
+ *
+ * Set whether chroot session scripts should be run or not.
+ */
+void
+sbuild_chroot_set_run_session_scripts (SbuildChroot *chroot,
+				       gboolean      run_session_scripts)
+{
+  g_return_if_fail(SBUILD_IS_CHROOT(chroot));
+
+  chroot->run_session_scripts = run_session_scripts;
+  g_object_notify(G_OBJECT(chroot), "run-session-scripts");
 }
 
 /**
@@ -793,8 +827,10 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
   g_free(alias_list);
 
   g_fprintf(file, _("  %-22s%u\n"), _("Maximum Users"), chroot->max_users);
-  g_fprintf(file, _("  %-22s%s\n"), _("Run Setup"),
-	    (chroot->run_setup == TRUE) ? "true" : "false");
+  g_fprintf(file, _("  %-22s%s\n"), _("Run Setup Scripts"),
+	    (chroot->run_setup_scripts == TRUE) ? "true" : "false");
+  g_fprintf(file, _("  %-22s%s\n"), _("Run Session Scripts"),
+	    (chroot->run_session_scripts == TRUE) ? "true" : "false");
 
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
   if (klass->print_details)
@@ -851,8 +887,10 @@ void sbuild_chroot_print_config (SbuildChroot *chroot,
     }
 
   g_fprintf(file, "max-users=%u\n", chroot->max_users);
-  g_fprintf(file, _("run-setup=%s\n"),
-	    (chroot->run_setup == TRUE) ? "true" : "false");
+  g_fprintf(file, _("run-setup-scripts=%s\n"),
+	    (chroot->run_setup_scripts == TRUE) ? "true" : "false");
+  g_fprintf(file, _("run-session-scripts=%s\n"),
+	    (chroot->run_session_scripts == TRUE) ? "true" : "false");
 
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
   if (klass->print_config)
@@ -927,7 +965,8 @@ sbuild_chroot_init (SbuildChroot *chroot)
   chroot->current_users = 0;
   chroot->max_users = 0;
   chroot->active = FALSE;
-  chroot->run_setup = FALSE;
+  chroot->run_setup_scripts = FALSE;
+  chroot->run_session_scripts = TRUE ;
 }
 
 static void
@@ -1020,8 +1059,11 @@ sbuild_chroot_set_property (GObject      *object,
     case PROP_MAX_USERS:
       sbuild_chroot_set_max_users(chroot, g_value_get_uint(value));
       break;
-    case PROP_RUN_SETUP:
-      sbuild_chroot_set_run_setup(chroot, g_value_get_boolean(value));
+    case PROP_RUN_SETUP_SCRIPTS:
+      sbuild_chroot_set_run_setup_scripts(chroot, g_value_get_boolean(value));
+      break;
+    case PROP_RUN_SESSION_SCRIPTS:
+      sbuild_chroot_set_run_session_scripts(chroot, g_value_get_boolean(value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -1077,8 +1119,11 @@ sbuild_chroot_get_property (GObject    *object,
     case PROP_ACTIVE:
       g_value_set_boolean(value, chroot->active);
       break;
-    case PROP_RUN_SETUP:
-      g_value_set_boolean(value, chroot->run_setup);
+    case PROP_RUN_SETUP_SCRIPTS:
+      g_value_set_boolean(value, chroot->run_setup_scripts);
+      break;
+    case PROP_RUN_SESSION_SCRIPTS:
+      g_value_set_boolean(value, chroot->run_session_scripts);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -1192,10 +1237,18 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
 
   g_object_class_install_property
     (gobject_class,
-     PROP_RUN_SETUP,
-     g_param_spec_boolean ("run-setup", "Run Setup",
+     PROP_RUN_SETUP_SCRIPTS,
+     g_param_spec_boolean ("run-setup-scripts", "Run Setup Scripts",
 			   "Run chroot setup scripts?",
 			   FALSE,
+			   (G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_RUN_SESSION_SCRIPTS,
+     g_param_spec_boolean ("run-session-scripts", "Run Session Scripts",
+			   "Run chroot session scripts?",
+			   TRUE ,
 			   (G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
 }
 

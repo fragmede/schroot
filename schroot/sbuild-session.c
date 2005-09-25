@@ -515,7 +515,11 @@ sbuild_session_setup_chroot (SbuildSession          *session,
 	setup_type == SBUILD_CHROOT_SESSION_STOP)
       argv[i++] = g_strdup("--reverse");
     argv[i++] = g_strdup_printf("--arg=%s", setup_type_string);
-    argv[i++] = g_strdup(SCHROOT_CONF_SETUP_D); // Setup directory
+    if (setup_type == SBUILD_CHROOT_SETUP_START ||
+	setup_type == SBUILD_CHROOT_SETUP_STOP)
+      argv[i++] = g_strdup(SCHROOT_CONF_SETUP_D); // Setup directory
+    else
+      argv[i++] = g_strdup(SCHROOT_CONF_SESSION_D); // Session directory
     argv[i++] = NULL;
   }
 
@@ -965,11 +969,11 @@ sbuild_session_run (SbuildSession  *session,
 	    sbuild_chroot_set_mount_location(chroot, "/mnt");
 
 	  /* Run chroot setup scripts. */
-	  if (sbuild_chroot_get_run_setup(chroot) == TRUE)
+	  if (sbuild_chroot_get_run_setup_scripts(chroot) == TRUE)
 	    sbuild_session_setup_chroot(session, chroot,
 					SBUILD_CHROOT_SETUP_START,
 					&tmp_error);
-	  if (sbuild_chroot_get_run_setup(chroot) == TRUE)
+	  if (sbuild_chroot_get_run_session_scripts(chroot) == TRUE)
 	    sbuild_session_setup_chroot(session, chroot,
 					SBUILD_CHROOT_SESSION_START,
 					&tmp_error);
@@ -979,13 +983,13 @@ sbuild_session_run (SbuildSession  *session,
 	    sbuild_session_run_chroot(session, chroot, &tmp_error);
 
 	  /* Run clean up scripts whether or not there was an error. */
-	  if (sbuild_chroot_get_run_setup(chroot) == TRUE)
-	    sbuild_session_setup_chroot(session, chroot,
-					SBUILD_CHROOT_SETUP_STOP,
-					(tmp_error != NULL) ? NULL : &tmp_error);
-	  if (sbuild_chroot_get_run_setup(chroot) == TRUE)
+	  if (sbuild_chroot_get_run_session_scripts(chroot) == TRUE)
 	    sbuild_session_setup_chroot(session, chroot,
 					SBUILD_CHROOT_SESSION_STOP,
+					(tmp_error != NULL) ? NULL : &tmp_error);
+	  if (sbuild_chroot_get_run_setup_scripts(chroot) == TRUE)
+	    sbuild_session_setup_chroot(session, chroot,
+					SBUILD_CHROOT_SETUP_STOP,
 					(tmp_error != NULL) ? NULL : &tmp_error);
 	}
 

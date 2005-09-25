@@ -74,7 +74,8 @@ struct _SbuildChroot
   guint     current_users;
   guint     max_users;
   gboolean  active;
-  gboolean  run_setup;
+  gboolean  run_setup_scripts;
+  gboolean  run_session_scripts;
 };
 
 struct _SbuildChrootClass
@@ -174,11 +175,18 @@ sbuild_chroot_set_max_users (SbuildChroot *chroot,
 			     guint         max_users);
 
 gboolean
-sbuild_chroot_get_run_setup (const SbuildChroot *restrict chroot);
+sbuild_chroot_get_run_setup_scripts (const SbuildChroot *restrict chroot);
 
 void
-sbuild_chroot_set_run_setup (SbuildChroot *chroot,
-			     gboolean      run_setup);
+sbuild_chroot_set_run_setup_scripts (SbuildChroot *chroot,
+				     gboolean      run_setup_scripts);
+
+gboolean
+sbuild_chroot_get_run_session_scripts (const SbuildChroot *restrict chroot);
+
+void
+sbuild_chroot_set_run_session_scripts (SbuildChroot *chroot,
+				       gboolean      run_session_scripts);
 
 const gchar *
 sbuild_chroot_get_chroot_type (const SbuildChroot  *chroot);

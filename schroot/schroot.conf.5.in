@@ -77,13 +77,17 @@ for convenience.
 Set the maximum number of users allowed to use the chroot.  The default is 1
 user, and the minimum is also 1.
 .TP
-.B run-setup=\fItrue\fP|\fIfalse\fP
+.B run-setup-scripts=\fItrue\fP|\fIfalse\fP
 Set whether chroot setup scripts will be run.  The default is not to run setup
 scripts (\[lq]false\[rq]), for safety reasons (so it won't clobber your passwd
 and other critical files).  However, if \fItype\fP is set to a value other than
 \[lq]plain\[rq], setup scripts are \fBrequired\fP to mount and configure the
 chroot environment.  If your chroots are exclusively controlled by schroot, set
 to \[lq]true\[rq].
+.TP
+.B run-session-scripts=\fItrue\fP|\fIfalse\fP
+Set whether chroot session scripts will be run.  The default is to run session
+scripts (\[lq]true\[rq]).
 .SS
 Plain chroots
 .PP

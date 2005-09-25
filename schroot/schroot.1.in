@@ -181,10 +181,12 @@ The system-wide chroot definition file.  This file must be owned by the root
 user, and not be writable by other.
 .TP
 .I @SCHROOT_CONF_SETUP_D@
-The system-wide chroot setup directory.  This directory contains scripts run
-when a chroot is entered and left, used to set up and then clean up the chroot
-environment.  During script execution, the following environment variables are
-defined:
+.TP
+.I @SCHROOT_CONF_SESSION_D@
+The system-wide chroot setup and session directories.  These directories
+contain scripts run when a chroot is created and destroyed, and entered and
+left, respectively, used to set up and then clean up the chroot environment.
+During script execution, the following environment variables are defined:
 .RS
 .SS General variables
 .TP
@@ -246,12 +248,14 @@ The scripts are run in name order, like those run by
 .BR init (8),
 by using
 .BR run-parts (8).
-When a session is first started, the chroot is set up by running the scripts
-with the \[lq]setup-start\[rq] option.  When a command or shell is run in the
-configured chroot, the scripts are run again with the \[lq]session-start\[rq]
-option.  After the command or command has completed, the scripts are run in
-reverse order with the \[lq]session-stop\[rq] option.  Finally, when the
-session is ended, the scripts are run with the \[lq]setup-stop\[rq] option.
+When a session is first started, the chroot is set up by running the scripts in
+@SCHROOT_CONF_SETUP_D@ with the \[lq]setup-start\[rq] option.  When a command
+or shell is run in the configured chroot, the scripts in
+@SCHROOT_CONF_SESSION_D@ are run with the \[lq]session-start\[rq] option.
+After the command or command has completed, the scripts are run in reverse
+order with the \[lq]session-stop\[rq] option.  Finally, when the session is
+ended, the scripts in @SCHROOT_CONF_SETUP_D@ are run in reverse order with the
+\[lq]setup-stop\[rq] option.
 .TP
 .I /etc/pam.d/schroot
 PAM configuration.

@@ -20,7 +20,7 @@
 #
 #####################################################################
 
-SUBDIRS = pam setup
+SUBDIRS = pam session setup
 
 localedir = $(datadir)/locale
 

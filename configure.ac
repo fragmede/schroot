@@ -168,6 +168,12 @@ AC_SUBST([SCHROOT_CONF_SETUP_D])
 AH_TEMPLATE(SCHROOT_CONF_SETUP_D,, [schroot config chroot setup directory])
 AC_DEFINE_UNQUOTED(SCHROOT_CONF_SETUP_D, ["$SCHROOT_CONF_SETUP_D"])
 
+SCHROOT_CONF_SESSION_D="${PACKAGE_SYSCONF_DIR}/session.d"
+AC_SUBST([SCHROOT_CONF_SESSION_D])
+
+AH_TEMPLATE(SCHROOT_CONF_SESSION_D,, [schroot config chroot session directory])
+AC_DEFINE_UNQUOTED(SCHROOT_CONF_SESSION_D, ["$SCHROOT_CONF_SESSION_D"])
+
 AH_TEMPLATE(SCHROOT_DATADIR,, [Package  data directory])
 SCHROOT_DATADIR="${PACKAGE_DATA_DIR}/${PACKAGE_VERSION}"
 AC_DEFINE_UNQUOTED(SCHROOT_DATADIR, ["$SCHROOT_DATADIR"])
@@ -182,6 +188,7 @@ AC_CONFIG_FILES([doc/schroot/Makefile])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([schroot/Makefile])
 AC_CONFIG_FILES([schroot/pam/Makefile])
+AC_CONFIG_FILES([schroot/session/Makefile])
 AC_CONFIG_FILES([schroot/setup/Makefile])
 AC_CONFIG_FILES([schroot/schroot.1])
 AC_CONFIG_FILES([schroot/schroot.conf.5])

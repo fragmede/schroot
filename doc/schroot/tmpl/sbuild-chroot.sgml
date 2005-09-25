@@ -78,7 +78,12 @@ SbuildChroot object.
 
 </para>
 
-<!-- ##### ARG SbuildChroot:run-setup ##### -->
+<!-- ##### ARG SbuildChroot:run-session-scripts ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG SbuildChroot:run-setup-scripts ##### -->
 <para>
 
 </para>
@@ -308,7 +313,7 @@ The type of chroot setup operation
 @aliases: 
 
 
-<!-- ##### FUNCTION sbuild_chroot_get_run_setup ##### -->
+<!-- ##### FUNCTION sbuild_chroot_get_run_setup_scripts ##### -->
 <para>
 
 </para>
@@ -317,13 +322,31 @@ The type of chroot setup operation
 @Returns: 
 
 
-<!-- ##### FUNCTION sbuild_chroot_set_run_setup ##### -->
+<!-- ##### FUNCTION sbuild_chroot_set_run_setup_scripts ##### -->
 <para>
 
 </para>
 
 @chroot: 
-@run_setup: 
+@run_setup_scripts: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_get_run_session_scripts ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_set_run_session_scripts ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@run_session_scripts: 
 
 
 <!-- ##### FUNCTION sbuild_chroot_get_max_users ##### -->

@@ -1,3 +1,30 @@
+2005-09-25  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* schroot/schroot.1.in: Document new session.d directory.
+
+	* schroot/schroot.conf.5.in: Document run-setup-scripts and
+	run-session-scripts options.
+
+	* schroot/sbuild-chroot.c (sbuild_chroot_class_init): Replace
+	run-setup property and associated accessors with two new
+	properties, run-setup-scripts and run-session-scripts and
+	associated accessors.  Setup script are not run by default,
+	whereas session scripts are.
+
+	* schroot/sbuild-chroot.h (struct _SbuildChroot): Replace
+	run_setup with two members, run_setup_scripts and
+	run_session_scripts.
+
+	* schroot/Makefile.am (SUBDIRS): Add session.
+
+	* schroot/session/00check: New session script.
+
+	* schroot/session/Makefile.am: New file for installing session
+	scripts.
+
+	* configure.ac (SCHROOT_CONF_SETUP_D): New define and substitution
+	variable.
+
 2005-09-25  Roger Leigh  <rleigh@debian.org>
 
 	* Update API reference.
