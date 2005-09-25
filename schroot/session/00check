@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $1 = "session-start" -o $1 = "session-start" ]; then
+if [ $1 = "session-start" ]; then
 
     if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 	echo "AUTH_USER=$AUTH_USER"

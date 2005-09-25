@@ -1,4 +1,13 @@
-2005-09-25  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2005-09-25  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/setup/00check: Remove "session-start" check.
+
+	* schroot/session/00check: Remove duplicate "session-start" check.
+
+	* schroot/session/50sbuild: New script to set up sbuild build
+	directory and fix its ownership and permissions.
+
+2005-09-25  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot.1.in: Document new session.d directory.
 
