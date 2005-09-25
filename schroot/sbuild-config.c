@@ -96,7 +96,7 @@ sbuild_config_new_from_file (const char *file)
 }
 
 /**
- * sbuild_config_new_from_file:
+ * sbuild_config_new_from_directory:
  * @dir: the directory to open.
  *
  * Creates a new #SbuildConfig from a directory of files.

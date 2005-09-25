@@ -1,5 +1,5 @@
 <!-- ##### SECTION Title ##### -->
-SbuildConfig
+
 
 <!-- ##### SECTION Short_Description ##### -->
 
@@ -56,6 +56,24 @@ SbuildConfig class.
 </para>
 
 @parent: the parent class
+
+<!-- ##### FUNCTION sbuild_config_new_from_file ##### -->
+<para>
+
+</para>
+
+@file: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_config_new_from_directory ##### -->
+<para>
+
+</para>
+
+@dir: 
+@Returns: 
+
 
 <!-- ##### FUNCTION sbuild_config_get_chroots ##### -->
 <para>

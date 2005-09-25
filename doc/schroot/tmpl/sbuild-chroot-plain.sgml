@@ -1,5 +1,5 @@
 <!-- ##### SECTION Title ##### -->
-SbuildChrootPlain
+
 
 <!-- ##### SECTION Short_Description ##### -->
 
@@ -33,7 +33,7 @@ SbuildChrootPlain object.
 SbuildChrootPlain class.
 </para>
 
-@parent: 
+@parent: the parent class
 
 <!-- ##### FUNCTION sbuild_chroot_plain_get_location ##### -->
 <para>

@@ -1,3 +1,51 @@
+2005-09-25  Roger Leigh  <rleigh@debian.org>
+
+	* Update API reference.
+
+	* schroot/schroot.1.in: Document new command-line options.
+
+	* schroot/schroot.c: Add new session_opt struct, with operation,
+	id and force members.
+	(parse_options): Add new command line options: -b/--begin-session,
+	-r/--run-session, -e/--end-session and --force in a new "session"
+	option group.  These options do not currently have any effect.
+	(parse_session_options): New helper function to parse session
+	options.
+	(main): Set session operation when creating a new session.  Set
+	additional session properties (session-id, force) after
+	construction.
+
+	* schroot/sbuild-session.c (sbuild_session_class_init): Added new
+	"operation" and "force" properties, and associated accessors.
+	(sbuild_session_new): Add operation argument, and set the
+	operation contruction property.
+
+	* schroot/sbuild-session.h: Added SbuildSessionOperation enum to
+	specify session operations.
+	(struct _SbuildSession): Added new operation and force members.
+
+	* schroot/sbuild-chroot-lvm-snapshot.c
+	(sbuild_chroot_lvm_snapshot_get_session_flags): New virtual
+	function to get session flags.
+
+	* schroot/sbuild-chroot-block-device.c
+	(sbuild_chroot_block_device_get_session_flags): New virtual
+	function to get session flags.
+
+	* schroot/sbuild-chroot-plain.c
+	(sbuild_chroot_plain_get_session_flags): New virtual function to
+	get session flags.
+
+	* schroot/sbuild-chroot.c
+	(sbuild_chroot_get_session_flags): New function.  Calls
+	get_session_flags vfunc.
+	(sbuild_chroot_class_init): get_session_flags is pure virtual, so
+	must be implemented in derived classes.
+
+	* schroot/sbuild-chroot.h: Add SbuildChrootSessionFlags enum to
+	specify chroot session behaviour.
+	(struct _SbuildChrootClass): Added get_session_flags vfunc.
+
 2005-09-24  Roger Leigh  <rleigh@debian.org>
 
 	* debian/rules (config.status): Set $localstatedir when running configure.

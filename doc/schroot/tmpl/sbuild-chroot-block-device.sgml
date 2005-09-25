@@ -1,5 +1,5 @@
 <!-- ##### SECTION Title ##### -->
-SbuildChrootBlockDevice
+
 
 <!-- ##### SECTION Short_Description ##### -->
 
@@ -38,7 +38,7 @@ SbuildChrootBlockDevice object.
 SbuildChrootBlockDevice class.
 </para>
 
-@parent: 
+@parent: the parent class
 
 <!-- ##### FUNCTION sbuild_chroot_block_device_get_device ##### -->
 <para>

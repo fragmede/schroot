@@ -1,5 +1,5 @@
 <!-- ##### SECTION Title ##### -->
-SbuildChrootLvmSnapshot
+
 
 <!-- ##### SECTION Short_Description ##### -->
 
@@ -33,7 +33,7 @@ SbuildChrootLvmSnapshot object.
 SbuildChrootLvmSnapshot class.
 </para>
 
-@parent: 
+@parent: the parent class
 
 <!-- ##### FUNCTION sbuild_chroot_lvm_snapshot_get_snapshot_options ##### -->
 <para>
@@ -50,6 +50,8 @@ SbuildChrootLvmSnapshot class.
 </para>
 
 @chroot: 
+@snapshot_options: 
+<!-- # Unused Parameters # -->
 @device: 
 
 

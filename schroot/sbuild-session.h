@@ -47,6 +47,14 @@ typedef enum
 
 #define SBUILD_SESSION_ERROR sbuild_session_error_quark()
 
+typedef enum
+{
+  SBUILD_SESSION_OPERATION_AUTOMATIC,
+  SBUILD_SESSION_OPERATION_BEGIN,
+  SBUILD_SESSION_OPERATION_END,
+  SBUILD_SESSION_OPERATION_RUN
+} SbuildSessionOperation;
+
 GQuark
 sbuild_session_error_quark (void);
 
@@ -62,11 +70,13 @@ typedef struct _SbuildSessionClass SbuildSessionClass;
 
 struct _SbuildSession
 {
-  SbuildAuth     parent;
-  SbuildConfig  *config;
-  char         **chroots;
-  int            child_status;
-  uuid_t         session_id;
+  SbuildAuth               parent;
+  SbuildConfig            *config;
+  char                   **chroots;
+  int                      child_status;
+  SbuildSessionOperation   operation;
+  uuid_t                   session_id;
+  gboolean                 force;
 };
 
 struct _SbuildSessionClass
@@ -79,9 +89,10 @@ GType
 sbuild_session_get_type (void);
 
 SbuildSession *
-sbuild_session_new(const char    *service,
-		   SbuildConfig  *config,
-		   char         **chroots);
+sbuild_session_new(const char              *service,
+		   SbuildConfig            *config,
+		   SbuildSessionOperation  operation,
+		   char                   **chroots);
 
 SbuildConfig *
 sbuild_session_get_config (const SbuildSession *restrict session);
@@ -97,12 +108,26 @@ void
 sbuild_session_set_chroots (SbuildSession  *session,
 			    char         **chroots);
 
+SbuildSessionOperation
+sbuild_session_get_operation (const SbuildSession  *restrict session);
+
+void
+sbuild_session_set_operation (SbuildSession          *session,
+			      SbuildSessionOperation  operation);
+
 gchar *
 sbuild_session_get_session_id (const SbuildSession  *restrict session);
 
 void
 sbuild_session_set_session_id (SbuildSession  *session,
 			       const gchar    *session_id);
+
+gboolean
+sbuild_session_get_force (const SbuildSession *restrict session);
+
+void
+sbuild_session_set_force (SbuildSession *session,
+			  gboolean       force);
 
 int
 sbuild_session_get_child_status (SbuildSession *session);

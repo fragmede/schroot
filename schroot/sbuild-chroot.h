@@ -41,6 +41,13 @@ typedef enum
   SBUILD_CHROOT_SESSION_STOP
 } SbuildChrootSetupType;
 
+typedef enum
+{
+  SBUILD_CHROOT_SESSION_AUTOCREATE = 1 << 0,
+  SBUILD_CHROOT_SESSION_PERSISTENT = 1 << 1,
+  SBUILD_CHROOT_SESSION_MULTIUSER  = 1 << 2
+} SbuildChrootSessionFlags;
+
 typedef struct _SbuildChroot SbuildChroot;
 typedef struct _SbuildChrootClass SbuildChrootClass;
 
@@ -51,6 +58,7 @@ typedef void (*SbuildChrootPrintConfigFunc)(SbuildChroot *chroot,
 typedef void (*SbuildChrootSetupFunc)(SbuildChroot  *chroot,
 				      GList        **env);
 typedef const gchar *(*SbuildChrootGetChrootTypeFunc)(const SbuildChroot  *chroot);
+typedef SbuildChrootSessionFlags (*SbuildChrootGetSessionFlagsFunc)(const SbuildChroot  *chroot);
 
 struct _SbuildChroot
 {
@@ -71,11 +79,12 @@ struct _SbuildChroot
 
 struct _SbuildChrootClass
 {
-  GObjectClass                  parent;
-  SbuildChrootPrintDetailsFunc  print_details;
-  SbuildChrootPrintConfigFunc   print_config;
-  SbuildChrootSetupFunc         setup;
-  SbuildChrootGetChrootTypeFunc get_chroot_type;
+  GObjectClass                    parent;
+  SbuildChrootPrintDetailsFunc    print_details;
+  SbuildChrootPrintConfigFunc     print_config;
+  SbuildChrootSetupFunc           setup;
+  SbuildChrootGetChrootTypeFunc   get_chroot_type;
+  SbuildChrootGetSessionFlagsFunc get_session_flags;
 };
 
 
@@ -173,6 +182,9 @@ sbuild_chroot_set_run_setup (SbuildChroot *chroot,
 
 const gchar *
 sbuild_chroot_get_chroot_type (const SbuildChroot  *chroot);
+
+SbuildChrootSessionFlags
+sbuild_chroot_get_session_flags (const SbuildChroot  *chroot);
 
 void
 sbuild_chroot_print_details (SbuildChroot *chroot,

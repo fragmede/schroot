@@ -135,6 +135,14 @@ sbuild_chroot_plain_get_chroot_type (const SbuildChrootPlain *chroot)
   return "plain";
 }
 
+static SbuildChrootSessionFlags
+sbuild_chroot_plain_get_session_flags (const SbuildChrootPlain *chroot)
+{
+  g_return_val_if_fail(SBUILD_IS_CHROOT_PLAIN(chroot), 0);
+
+  return SBUILD_CHROOT_SESSION_AUTOCREATE | SBUILD_CHROOT_SESSION_MULTIUSER;
+}
+
 static void
 sbuild_chroot_plain_init (SbuildChrootPlain *chroot)
 {
@@ -228,6 +236,8 @@ sbuild_chroot_plain_class_init (SbuildChrootPlainClass *klass)
     sbuild_chroot_plain_setup;
   chroot_class->get_chroot_type = (SbuildChrootGetChrootTypeFunc)
     sbuild_chroot_plain_get_chroot_type;
+  chroot_class->get_session_flags = (SbuildChrootGetSessionFlagsFunc)
+    sbuild_chroot_plain_get_session_flags;
 
   g_object_class_install_property
     (gobject_class,

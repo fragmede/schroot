@@ -35,18 +35,26 @@
 #include "sbuild-config.h"
 #include "sbuild-session.h"
 
+static gboolean
+parse_session_options(const gchar  *option_name,
+		      const gchar  *value,
+		      gpointer      data,
+		      GError      **error);
+
 /* Stored command-line options. */
 static struct {
-  char **chroots;
-  char **command;
-  char *user;
-  gboolean preserve;
-  gboolean quiet;
-  gboolean verbose;
-  gboolean list;
-  gboolean info;
-  gboolean all;
-  gboolean version;
+  char     **chroots;
+  char     **command;
+  char      *user;
+  gboolean   preserve;
+  gboolean   quiet;
+  gboolean   verbose;
+  gboolean   list;
+  gboolean   info;
+  gboolean   all;
+  gboolean   version;
+  char      *session_id;
+  gboolean   session_force;
 } opt =
   {
     .chroots = NULL,
@@ -58,7 +66,20 @@ static struct {
     .list = FALSE,
     .info = FALSE,
     .all = FALSE,
-    .version = FALSE
+    .version = FALSE,
+    .session_id = NULL,
+    .session_force = FALSE
+  };
+
+static struct {
+  SbuildSessionOperation  operation;
+  char                   *id;
+  gboolean                force;
+} session_opt =
+  {
+    .operation = SBUILD_SESSION_OPERATION_AUTOMATIC,
+    .id = NULL,
+    .force = FALSE
   };
 
 /**
@@ -99,16 +120,82 @@ parse_options(int   argc,
       { NULL }
     };
 
+  static const GOptionEntry session_entries[] =
+    {
+      { "begin-session", 'b', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
+	parse_session_options,
+	N_("Begin a session; returns a session UUID"), NULL },
+      { "run-session", 'r', 0, G_OPTION_ARG_CALLBACK,
+	parse_session_options,
+	N_("Run an existing session"), "UUID" },
+      { "end-session", 'e', 0, G_OPTION_ARG_CALLBACK,
+	parse_session_options,
+	N_("End an existing session"), "UUID" },
+      { "force", 'f', 0, G_OPTION_ARG_NONE, &session_opt.force,
+	N_("Force operation, even if it fails"), NULL },
+      { NULL }
+    };
+
   GError *error = NULL;
 
   GOptionContext *context = g_option_context_new (_("- run command or shell in a chroot"));
   g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
+
+  GOptionGroup* session_group =
+    g_option_group_new("session", N_("Session Options"),
+		       N_("Session management options"), NULL, NULL);
+  g_option_group_set_translation_domain(session_group, GETTEXT_PACKAGE);
+  g_option_group_add_entries (session_group, session_entries);
+  g_option_context_add_group(context, session_group);
+
   g_option_context_parse (context, &argc, &argv, &error);
   if (error != NULL)
     {
       g_printerr(_("Error parsing options: %s\n"), error->message);
       exit (EXIT_FAILURE);
     }
+}
+
+/**
+ * parse_session_options:
+ *
+ * Parse command-line session options.  The options are placed in the
+ * session_opt structure.  This is a #GOptionArgFunc.
+ *
+ * Returns TRUE on success, FALSE on failure (and error will also be
+ * set).
+ */
+static gboolean
+parse_session_options(const gchar  *option_name,
+		      const gchar  *value,
+		      gpointer      data,
+		      GError      **error)
+{
+  if (strcmp(option_name, "-b") == 0 ||
+      strcmp(option_name, "--begin-session") == 0)
+    {
+      session_opt.operation = SBUILD_SESSION_OPERATION_BEGIN;
+    }
+  else if (strcmp(option_name, "-r") == 0 ||
+	   strcmp(option_name, "--run-session") == 0)
+    {
+      session_opt.operation = SBUILD_SESSION_OPERATION_RUN;
+      session_opt.id = g_strdup(value);
+    }
+  else if (strcmp(option_name, "-e") == 0 ||
+	   strcmp(option_name, "--end-session") == 0)
+    {
+      session_opt.operation = SBUILD_SESSION_OPERATION_END;
+      session_opt.id = g_strdup(value);
+    }
+  else
+    {
+      g_set_error(error,
+		  G_OPTION_ERROR, G_OPTION_ERROR_FAILED,
+		  _("Invalid session option %s"), option_name);
+      return FALSE;
+    }
+  return TRUE;
 }
 
 /**
@@ -269,13 +356,25 @@ main (int   argc,
     }
 
   /* Create a session. */
-  SbuildSession *session = sbuild_session_new("schroot", config, chroots);
+  SbuildSession *session = sbuild_session_new("schroot", config,
+					      session_opt.operation, chroots);
   if (opt.user)
     sbuild_auth_set_user(SBUILD_AUTH(session), opt.user);
   if (opt.command)
     sbuild_auth_set_command(SBUILD_AUTH(session), opt.command);
   if (opt.preserve)
     sbuild_auth_set_environment(SBUILD_AUTH(session), environ);
+  sbuild_session_set_force(session, session_opt.force);
+  if (session_opt.id)
+    {
+      uuid_t tmp_uuid;
+      if (uuid_parse(session_opt.id, tmp_uuid) != 0)
+	{
+	  g_printerr(_("%s: Invalid session UUID\n"), session_opt.id);
+	  exit (EXIT_FAILURE);
+	}
+      sbuild_session_set_session_id(session, session_opt.id);
+    }
   if (opt.quiet && opt.verbose)
     g_printerr(_("--quiet and --verbose may not be used at the same time!\nUsing verbose output.\n"));
   SbuildAuthVerbosity verbosity = SBUILD_AUTH_VERBOSITY_NORMAL;

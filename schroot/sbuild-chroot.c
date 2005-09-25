@@ -87,6 +87,7 @@ sbuild_chroot_new (void)
  * sbuild_chroot_new_from_keyfile:
  * @keyfile: the #GKeyFile containing the chroot configuration
  * @group: the group in @keyfile to use
+ * @active: TRUE if the chroot is an active session, otherwise FALSE
  *
  * Creates a new #SbuildChroot.
  *
@@ -150,6 +151,7 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
 
 /**
  * sbuild_chroot_set_properties_from_keyfile:
+ * @chroot: an #SbuildChroot.
  * @keyfile: the #GKeyFile containing the chroot configuration
  *
  * Sets the properties of an existing #SbuildChroot from a #GKeyFile.
@@ -731,6 +733,31 @@ sbuild_chroot_get_chroot_type (const SbuildChroot  *chroot)
 }
 
 /**
+ * sbuild_chroot_get_session_flags:
+ * @chroot: an #SbuildChroot
+ *
+ * Get the session flags of the chroot.  These determine how the
+ * #SbuildSession controlling the chroot will operate.
+ *
+ * Returns the #SbuildChrootSessionFlags.
+ */
+SbuildChrootSessionFlags
+sbuild_chroot_get_session_flags (const SbuildChroot  *chroot)
+{
+  g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), 0);
+
+  SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
+  if (klass->get_session_flags)
+    return klass->get_session_flags(chroot);
+  else
+    {
+      g_error(_("%s chroot: chroot session flags unset; error in derived class\n"),
+	      chroot->name);
+      return 0;
+    }
+}
+
+/**
  * sbuild_chroot_print_details:
  * @chroot: an #SbuildChroot.
  * @file: the file to output to.
@@ -790,7 +817,7 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
  * @file: the file to output to.
  *
  * Print the configuration group for a chroot in the format required
- * by schrootc.conf.
+ * by schroot.conf.
  */
 void sbuild_chroot_print_config (SbuildChroot *chroot,
 				  FILE         *file)
@@ -1073,6 +1100,7 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
   klass->print_config = NULL;
   klass->setup = NULL;
   klass->get_chroot_type = NULL;
+  klass->get_session_flags = NULL;
 
   g_object_class_install_property
     (gobject_class,

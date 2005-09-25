@@ -184,6 +184,14 @@ sbuild_chroot_block_device_get_chroot_type (const SbuildChrootBlockDevice *chroo
   return "block-device";
 }
 
+static SbuildChrootSessionFlags
+sbuild_chroot_block_device_get_session_flags (const SbuildChrootBlockDevice *chroot)
+{
+  g_return_val_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot), 0);
+
+  return SBUILD_CHROOT_SESSION_AUTOCREATE;
+}
+
 static void
 sbuild_chroot_block_device_init (SbuildChrootBlockDevice *chroot)
 {
@@ -290,6 +298,8 @@ sbuild_chroot_block_device_class_init (SbuildChrootBlockDeviceClass *klass)
     sbuild_chroot_block_device_setup;
   chroot_class->get_chroot_type = (SbuildChrootGetChrootTypeFunc)
     sbuild_chroot_block_device_get_chroot_type;
+  chroot_class->get_session_flags = (SbuildChrootGetSessionFlagsFunc)
+    sbuild_chroot_block_device_get_session_flags;
 
   g_object_class_install_property
     (gobject_class,

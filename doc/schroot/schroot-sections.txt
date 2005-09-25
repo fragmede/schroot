@@ -6,8 +6,13 @@ SbuildChrootClass
 SbuildChrootPrintDetailsFunc
 SbuildChrootSetupFunc
 SbuildChrootGetChrootTypeFunc
+SbuildChrootGetSessionFlagsFunc
+SbuildChrootPrintConfigFunc
+SbuildChrootSessionFlags
+SbuildChrootSetupType
 sbuild_chroot_new
 sbuild_chroot_new_from_keyfile
+sbuild_chroot_set_properties_from_keyfile
 sbuild_chroot_get_name
 sbuild_chroot_set_name
 sbuild_chroot_get_description
@@ -20,14 +25,26 @@ sbuild_chroot_get_root_groups
 sbuild_chroot_set_root_groups
 sbuild_chroot_get_aliases
 sbuild_chroot_set_aliases
+sbuild_chroot_get_run_setup
+sbuild_chroot_set_run_setup
+sbuild_chroot_get_max_users
+sbuild_chroot_set_max_users
+sbuild_chroot_get_current_users
+sbuild_chroot_set_current_users
 sbuild_chroot_get_mount_location
 sbuild_chroot_set_mount_location
 sbuild_chroot_get_mount_device
 sbuild_chroot_set_mount_device
-sbuild_chroot_get_chroot_type
 sbuild_chroot_print_details
+sbuild_chroot_print_config
+sbuild_chroot_get_chroot_type
+sbuild_chroot_get_session_flags
 sbuild_chroot_setup
 <SUBSECTION Standard>
+SBUILD_TYPE_CHROOT_SETUP_TYPE
+sbuild_chroot_setup_type_get_type
+SBUILD_TYPE_CHROOT_SESSION_FLAGS
+sbuild_chroot_session_flags_get_type
 SBUILD_CHROOT
 SBUILD_IS_CHROOT
 SBUILD_TYPE_CHROOT
@@ -95,7 +112,8 @@ SBUILD_CONFIG_FILE_ERROR
 <TITLE>SbuildConfig</TITLE>
 SbuildConfig
 SbuildConfigClass
-sbuild_config_new
+sbuild_config_new_from_file
+sbuild_config_new_from_directory
 sbuild_config_get_chroots
 sbuild_config_find_chroot
 sbuild_config_find_alias
@@ -194,8 +212,6 @@ sbuild_auth_message_type_get_type
 
 <SECTION>
 <FILE>sbuild-auth-conv</FILE>
-SbuildAuthConvError
-SBUILD_AUTH_CONV_ERROR
 <TITLE>SbuildAuthConv</TITLE>
 SbuildAuthConv
 SbuildAuthConvInterface
@@ -210,9 +226,6 @@ sbuild_auth_conv_get_fatal_timeout
 sbuild_auth_conv_set_fatal_timeout
 sbuild_auth_conv_conversation
 <SUBSECTION Standard>
-SBUILD_TYPE_AUTH_CONV_ERROR
-sbuild_auth_conv_error_get_type
-sbuild_auth_conv_error_quark
 SBUILD_TYPE_AUTH_CONV
 sbuild_auth_conv_get_type
 SBUILD_AUTH_CONV
@@ -238,21 +251,29 @@ SBUILD_AUTH_CONV_TTY_GET_CLASS
 
 <SECTION>
 <FILE>sbuild-session</FILE>
-SbuildSessionError
-SBUILD_SESSION_ERROR
 <TITLE>SbuildSession</TITLE>
 SbuildSession
 SbuildSessionClass
+SbuildSessionError
+SbuildSessionOperation
+SBUILD_SESSION_ERROR
 sbuild_session_new
 sbuild_session_get_config
 sbuild_session_set_config
+sbuild_session_get_operation
+sbuild_session_set_operation
+sbuild_session_get_session_id
+sbuild_session_set_session_id
+sbuild_session_get_force
+sbuild_session_set_force
 sbuild_session_get_chroots
 sbuild_session_set_chroots
-sbuild_session_run
 sbuild_session_get_child_status
 <SUBSECTION Standard>
 SBUILD_TYPE_SESSION_ERROR
 sbuild_session_error_get_type
+SBUILD_TYPE_SESSION_OPERATION
+sbuild_session_operation_get_type
 sbuild_session_error_quark
 SBUILD_SESSION
 SBUILD_IS_SESSION

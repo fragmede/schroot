@@ -1,5 +1,5 @@
 <!-- ##### SECTION Title ##### -->
-SbuildChroot
+
 
 <!-- ##### SECTION Short_Description ##### -->
 
@@ -90,9 +90,10 @@ SbuildChroot class.
 
 @parent: the parent class
 @print_details: vfunc to print additional chroot details
-@print_config: 
+@print_config: vfunc to print the config file group for this chroot
 @setup: vfunc to set additional environment variables for chroot setup
 @get_chroot_type: vfunc to get the user visible chroot type name
+@get_session_flags: vfunc to get the session flags for this chroot type
 
 <!-- ##### USER_FUNCTION SbuildChrootPrintDetailsFunc ##### -->
 <para>
@@ -122,7 +123,7 @@ be used to set additional environment variables in derived
 
 <!-- ##### USER_FUNCTION SbuildChrootGetChrootTypeFunc ##### -->
 <para>
-This function is ised to get the name of the chroot type subclassed
+This function is used to get the name of the chroot type subclassed
 from this type.  This is a user-friendly form of the registered type
 name of the class, for use in messages and configuration files.
 </para>
@@ -130,6 +131,45 @@ name of the class, for use in messages and configuration files.
 @chroot: an #SbuildChroot
 @Returns: the type name
 
+
+<!-- ##### USER_FUNCTION SbuildChrootGetSessionFlagsFunc ##### -->
+<para>
+This function is used to get the session flags of the chroot. These
+determine how the #SbuildSession controlling the chroot will operate.
+</para>
+
+@chroot: an #SbuildChroot
+@Returns: the #SbuildChrootSessionFlags
+
+
+<!-- ##### USER_FUNCTION SbuildChrootPrintConfigFunc ##### -->
+<para>
+Print the configuration group for a chroot in the format required
+by schroot.conf.
+</para>
+
+@chroot: an #SbuildChroot.
+@file: the file to output to.
+
+
+<!-- ##### ENUM SbuildChrootSessionFlags ##### -->
+<para>
+The session options for a given chroot type
+</para>
+
+@SBUILD_CHROOT_SESSION_AUTOCREATE: Create a session automatically, otherwise the session must be requested explicitly.
+@SBUILD_CHROOT_SESSION_PERSISTENT: The session persists once schroot terminates, otherwise is ephemeral and automatically removed.
+@SBUILD_CHROOT_SESSION_MULTIUSER: The chroot may have multiple users, otherwise only a single user is permitted.  The current-users and max-users properties are only valid if this is set.
+
+<!-- ##### ENUM SbuildChrootSetupType ##### -->
+<para>
+The type of chroot setup operation
+</para>
+
+@SBUILD_CHROOT_SETUP_START: Set up a new chroot, preparing it for use
+@SBUILD_CHROOT_SETUP_STOP: Clean up an existing chroot, possibly deleting it
+@SBUILD_CHROOT_SESSION_START: Start a new session in an existing chroot
+@SBUILD_CHROOT_SESSION_STOP: End a session in an existing chroot
 
 <!-- ##### FUNCTION sbuild_chroot_new ##### -->
 <para>
@@ -147,6 +187,16 @@ name of the class, for use in messages and configuration files.
 @keyfile: 
 @group: 
 @active: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_set_properties_from_keyfile ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@keyfile: 
 @Returns: 
 
 
@@ -258,6 +308,60 @@ name of the class, for use in messages and configuration files.
 @aliases: 
 
 
+<!-- ##### FUNCTION sbuild_chroot_get_run_setup ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_set_run_setup ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@run_setup: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_get_max_users ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_set_max_users ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@max_users: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_get_current_users ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_set_current_users ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@current_users: 
+
+
 <!-- ##### FUNCTION sbuild_chroot_get_mount_location ##### -->
 <para>
 
@@ -294,6 +398,24 @@ name of the class, for use in messages and configuration files.
 @device: 
 
 
+<!-- ##### FUNCTION sbuild_chroot_print_details ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@file: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_print_config ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@file: 
+
+
 <!-- ##### FUNCTION sbuild_chroot_get_chroot_type ##### -->
 <para>
 
@@ -303,13 +425,13 @@ name of the class, for use in messages and configuration files.
 @Returns: 
 
 
-<!-- ##### FUNCTION sbuild_chroot_print_details ##### -->
+<!-- ##### FUNCTION sbuild_chroot_get_session_flags ##### -->
 <para>
 
 </para>
 
 @chroot: 
-@file: 
+@Returns: 
 
 
 <!-- ##### FUNCTION sbuild_chroot_setup ##### -->

@@ -47,6 +47,7 @@
 
 #include <uuid/uuid.h>
 
+#include "sbuild-typebuiltins.h"
 #include "sbuild-session.h"
 
 /**
@@ -72,7 +73,9 @@ enum
   PROP_0,
   PROP_CONFIG,
   PROP_CHROOTS,
+  PROP_OPERATION,
   PROP_SESSION_ID,
+  PROP_FORCE,
   PROP_CHILD_STATUS
 };
 
@@ -84,6 +87,7 @@ G_DEFINE_TYPE(SbuildSession, sbuild_session, SBUILD_TYPE_AUTH)
  * sbuild_session_new:
  * @service: the PAM service name
  * @config: an #SbuildConfig
+ * @operation: the #SbuildSessionOperation to perform
  * @chroots: the chroots to use
  *
  * Creates a new #SbuildSession.  The session will use the provided
@@ -94,13 +98,15 @@ G_DEFINE_TYPE(SbuildSession, sbuild_session, SBUILD_TYPE_AUTH)
  * Returns the newly created #SbuildSession.
  */
 SbuildSession *
-sbuild_session_new(const char    *service,
-		   SbuildConfig  *config,
-		   char         **chroots)
+sbuild_session_new(const char              *service,
+		   SbuildConfig            *config,
+		   SbuildSessionOperation   operation,
+		   char                   **chroots)
 {
   return (SbuildSession *) g_object_new(SBUILD_TYPE_SESSION,
 					"service", service,
 					"config", config,
+					"operation", operation,
 					"chroots", chroots,
 					NULL);
 }
@@ -143,7 +149,49 @@ sbuild_session_set_config (SbuildSession *session,
   g_object_notify(G_OBJECT(session), "config");
 }
 
-/* Caller must free string */
+/**
+ * sbuild_session_get_operation:
+ * @session: an #SbuildSession
+ *
+ * Get the operation @session will perform.
+ *
+ * Returns an #SbuildConfig.
+ */
+SbuildSessionOperation
+sbuild_session_get_operation (const SbuildSession  *restrict session)
+{
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), SBUILD_SESSION_OPERATION_AUTOMATIC);
+
+  return session->operation;
+}
+
+/**
+ * sbuild_session_set_operation:
+ * @session: an #SbuildSession
+ * @operation: an #SbuildSessionOperation
+ *
+ * Set the operation @session will perform.
+ */
+void
+sbuild_session_set_operation (SbuildSession          *session,
+			      SbuildSessionOperation operation)
+{
+  g_return_if_fail(SBUILD_IS_SESSION(session));
+
+  session->operation = operation;
+  g_object_notify(G_OBJECT(session), "operation");
+}
+
+
+/**
+ * sbuild_session_get_session_id:
+ * @session: an #SbuildSession
+ *
+ * Get the session identifier (UUID).  The session identifier is a
+ * unique identifier for a session.
+ *
+ * Returns a string.  The string must be freed by the caller.
+ */
 gchar *
 sbuild_session_get_session_id (const SbuildSession  *restrict session)
 {
@@ -155,6 +203,13 @@ sbuild_session_get_session_id (const SbuildSession  *restrict session)
   return session_id;
 }
 
+/**
+ * sbuild_session_set_session_id:
+ * @session: an #SbuildSession
+ * @session_id: an string containing a valid session UUID
+ *
+ * Set the session identifier (UUID) for @session.
+ */
 void
 sbuild_session_set_session_id (SbuildSession  *session,
 			       const gchar    *session_id)
@@ -170,6 +225,39 @@ sbuild_session_set_session_id (SbuildSession  *session,
     }
 
   g_object_notify(G_OBJECT(session), "session-id");
+}
+
+/**
+ * sbuild_session_get_force:
+ * @session: an #SbuildSession
+ *
+ * Get the force status of @session.
+ *
+ * Returns TRUE if operation will be forced, otherwise FALSE.
+ */
+gboolean
+sbuild_session_get_force (const SbuildSession *restrict session)
+{
+  g_return_val_if_fail(SBUILD_IS_SESSION(session), FALSE);
+
+  return session->force;
+}
+
+/**
+ * sbuild_session_set_force:
+ * @session: an #SbuildSession
+ * @force: TRUE to force session operation, otherwise FALSE
+ *
+ * Set the force status of @session.
+ */
+void
+sbuild_session_set_force (SbuildSession *session,
+			  gboolean       force)
+{
+  g_return_if_fail(SBUILD_IS_SESSION(session));
+
+  session->force = force;
+  g_object_notify(G_OBJECT(session), "force");
 }
 
 /**
@@ -922,6 +1010,8 @@ sbuild_session_init (SbuildSession *session)
   session->config = NULL;
   session->chroots = NULL;
   uuid_clear(session->session_id);
+  session->operation = SBUILD_SESSION_OPERATION_AUTOMATIC;
+  session->force = FALSE;
   session->child_status = EXIT_FAILURE;
 }
 
@@ -967,8 +1057,14 @@ sbuild_session_set_property (GObject      *object,
     case PROP_CHROOTS:
       sbuild_session_set_chroots(session, g_value_get_boxed(value));
       break;
+    case PROP_OPERATION:
+      sbuild_session_set_operation(session, g_value_get_enum(value));
+      break;
     case PROP_SESSION_ID:
       sbuild_session_set_session_id(session, g_value_get_string(value));
+      break;
+    case PROP_FORCE:
+      sbuild_session_set_force(session, g_value_get_boolean(value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -997,12 +1093,18 @@ sbuild_session_get_property (GObject    *object,
     case PROP_CHROOTS:
       g_value_set_boxed(value, session->chroots);
       break;
+    case PROP_OPERATION:
+      g_value_set_enum(value, session->operation);
+      break;
     case PROP_SESSION_ID:
       {
 	gchar *session_id = sbuild_session_get_session_id(session);
 	g_value_set_string(value, session_id);
 	g_free(session_id);
       }
+      break;
+    case PROP_FORCE:
+      g_value_set_boolean(value, session->force);
       break;
     case PROP_CHILD_STATUS:
       g_value_set_int(value, session->child_status);
@@ -1045,11 +1147,12 @@ sbuild_session_class_init (SbuildSessionClass *klass)
 
   g_object_class_install_property
     (gobject_class,
-     PROP_CHILD_STATUS,
-     g_param_spec_int ("child-status", "Child Status",
-		       "The exit (wait) status of the child process",
-		       0, G_MAXINT, 0,
-		       (G_PARAM_READABLE)));
+     PROP_OPERATION,
+     g_param_spec_enum ("operation", "Operation",
+			"The control operation for this session",
+			SBUILD_TYPE_SESSION_OPERATION,
+			SBUILD_SESSION_OPERATION_AUTOMATIC,
+			(G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
 
   g_object_class_install_property
     (gobject_class,
@@ -1057,7 +1160,23 @@ sbuild_session_class_init (SbuildSessionClass *klass)
      g_param_spec_string ("session-id", "Session ID",
 			  "The unique session identifier (UUID) for this session",
 			  "",
-			  (G_PARAM_READABLE)));
+			  (G_PARAM_READABLE | G_PARAM_WRITABLE)));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_FORCE,
+     g_param_spec_boolean ("force", "Force",
+			   "Force session operation?",
+			   FALSE,
+			   (G_PARAM_READABLE | G_PARAM_WRITABLE)));
+
+  g_object_class_install_property
+    (gobject_class,
+     PROP_CHILD_STATUS,
+     g_param_spec_int ("child-status", "Child Status",
+		       "The exit (wait) status of the child process",
+		       0, G_MAXINT, 0,
+		       (G_PARAM_READABLE)));
 }
 
 /*

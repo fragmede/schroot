@@ -58,7 +58,7 @@ sbuild_chroot_lvm_snapshot_get_snapshot_options (const SbuildChrootLvmSnapshot *
 
 void
 sbuild_chroot_lvm_snapshot_set_snapshot_options (SbuildChrootLvmSnapshot *chroot,
-						 const char              *device);
+						 const char              *snapshot_options);
 
 #endif /* SBUILD_CHROOT_LVM_SNAPSHOT_H */
 

@@ -132,6 +132,14 @@ sbuild_chroot_lvm_snapshot_get_chroot_type (const SbuildChrootLvmSnapshot *chroo
   return "lvm-snapshot";
 }
 
+static SbuildChrootSessionFlags
+sbuild_chroot_lvm_snapshot_get_session_flags (const SbuildChrootLvmSnapshot *chroot)
+{
+  g_return_val_if_fail(SBUILD_IS_CHROOT_LVM_SNAPSHOT(chroot), 0);
+
+  return SBUILD_CHROOT_SESSION_PERSISTENT | SBUILD_CHROOT_SESSION_MULTIUSER;
+}
+
 static void
 sbuild_chroot_lvm_snapshot_init (SbuildChrootLvmSnapshot *chroot)
 {
@@ -223,6 +231,8 @@ sbuild_chroot_lvm_snapshot_class_init (SbuildChrootLvmSnapshotClass *klass)
     sbuild_chroot_lvm_snapshot_setup;
   chroot_class->get_chroot_type = (SbuildChrootGetChrootTypeFunc)
     sbuild_chroot_lvm_snapshot_get_chroot_type;
+  chroot_class->get_session_flags = (SbuildChrootGetSessionFlagsFunc)
+    sbuild_chroot_lvm_snapshot_get_session_flags;
 
   g_object_class_install_property
     (gobject_class,
