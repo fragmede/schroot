@@ -33,13 +33,9 @@
 #define _GNU_SOURCE
 #include <errno.h>
 #include <stdlib.h>
-#include <string.h>
 
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <sys/time.h>
-#include <time.h>
-#include <dirent.h>
+#include <sys/types.h>
 #include <signal.h>
 
 #include <glib.h>
@@ -72,7 +68,7 @@ sbuild_lock_error_quark (void)
  * Handle the SIGALRM signal.
  */
 static void
-sbuild_lock_alarm_handler (gint ignore)
+sbuild_lock_alarm_handler (int ignore)
 {
   /* Do nothing.  This only exists so that system calls get
      interrupted. */
@@ -82,8 +78,7 @@ sbuild_lock_alarm_handler (gint ignore)
  * sbuild_lock_clear_alarm:
  * @orig_sa: the original signal handler.
  *
- * Restore the state of SIGALRM prior to the starting lock
- * acquisition.
+ * Restore the state of SIGALRM prior to starting lock acquisition.
  */
 static void
 sbuild_lock_clear_alarm (struct sigaction *orig_sa)
@@ -96,8 +91,8 @@ sbuild_lock_clear_alarm (struct sigaction *orig_sa)
  * sbuild_lock_set_alarm:
  * @orig_sa: the original signal handler
  *
- * Set the SIGALARM handler, and set the timeout to @delay seconds.
- * The old signal handler is stored in @orig_sa.
+ * Set the SIGALARM handler.  The old signal handler is stored in
+ * @orig_sa.
  */
 static gboolean
 sbuild_lock_set_alarm (struct sigaction *orig_sa)
@@ -175,7 +170,7 @@ sbuild_lock_set_lock (int              fd,
     {
       g_set_error(error,
 		  SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_SETUP,
-		  _("failed to set timeout handler:  %s\n"),
+		  _("failed to set timeout handler: %s\n"),
 		  g_strerror(errno));
       return FALSE;
     }
@@ -184,19 +179,17 @@ sbuild_lock_set_lock (int              fd,
     {
       g_set_error(error,
 		  SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_SETUP,
-		  _("failed to set timeout:  %s\n"),
+		  _("failed to set timeout: %s\n"),
 		  g_strerror(errno));
       return FALSE;
     }
 
   /* Now the signal handler and itimer are set, the function can't
-     return without stopping the timer and resetting the signal
+     return without stopping the timer and restoring the signal
      handler to its original state. */
 
   /* Wait on lock until interrupted by a signal if a timeout was set,
      otherwise return immediately. */
-  g_printerr("Using lock: %s\n", (timeout != 0) ? "F_SETLKW" : "F_SETLK");
-
   if (fcntl(fd,
 	    (timeout != 0) ? F_SETLKW : F_SETLK,
 	    &read_lock) == -1)
@@ -208,7 +201,7 @@ sbuild_lock_set_lock (int              fd,
       else
 	g_set_error(error,
 		    SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_FAIL,
-		    _("failed to acquire read lock: %s\n"), g_strerror(errno));
+		    _("failed to acquire lock: %s\n"), g_strerror(errno));
     }
 
   if (setitimer(ITIMER_REAL, &disable_timer, NULL) == -1)
@@ -216,7 +209,7 @@ sbuild_lock_set_lock (int              fd,
       if (*error == NULL) /* Don't set error if already set. */
 	g_set_error(error,
 		    SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_SETUP,
-		    _("failed to unset timeout:  %s\n"),
+		    _("failed to unset timeout: %s\n"),
 		    g_strerror(errno));
     }
 

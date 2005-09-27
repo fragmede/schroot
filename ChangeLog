@@ -1,5 +1,10 @@
 2005-09-27  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-lock.c: Minor documentation and error message
+	tidying.
+
+2005-09-27  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-config.c (sbuild_config_load): Report GError
 	messages propagated by locking failure.
 
