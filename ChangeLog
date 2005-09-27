@@ -1,3 +1,17 @@
+2005-09-27  Roger Leigh  <rleigh@debian.org>
+
+	* Update documentation.
+
+	* schroot/sbuild-config.c (sbuild_config_load): Acquire a read
+	lock while reading schroot.conf.
+
+	* schroot/schroot.h: Add sbuild-lock.h.
+
+	* schroot/Makefile.am: Add sbuild-lock.[ch].
+
+	* schroot/sbuild-lock.[ch]: New file, implementing simple
+	whole-file advisory locking primitives.
+
 2005-09-25  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/setup/00check: Remove "session-start" check.

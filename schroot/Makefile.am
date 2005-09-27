@@ -40,6 +40,7 @@ schroot_public_h_sources =		\
 	sbuild-chroot-plain.h		\
 	sbuild-config.h			\
 	sbuild-error.h			\
+	sbuild-lock.h			\
 	sbuild-session.h
 
 schroot_public_c_sources =		\
@@ -53,6 +54,7 @@ schroot_public_c_sources =		\
 	sbuild-chroot-plain.c		\
 	sbuild-config.c			\
 	sbuild-error.c			\
+	sbuild-lock.c			\
 	sbuild-session.c
 
 schroot_built_sources =		\

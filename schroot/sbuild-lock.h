@@ -1,4 +1,4 @@
-/* schroot - global header
+/* sbuild-lock - sbuild advisory locking
  *
  * Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
@@ -19,22 +19,31 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_SCHROOT_H
-#define SBUILD_SCHROOT_H
+#ifndef SBUILD_LOCK_H
+#define SBUILD_LOCK_H
 
-#include "sbuild-auth.h"
-#include "sbuild-auth-conv.h"
-#include "sbuild-auth-conv-tty.h"
-#include "sbuild-auth-message.h"
-#include "sbuild-config.h"
-#include "sbuild-chroot.h"
-#include "sbuild-chroot-plain.h"
-#include "sbuild-chroot-block-device.h"
-#include "sbuild-chroot-lvm-snapshot.h"
-#include "sbuild-lock.h"
-#include "sbuild-session.h"
+#include <unistd.h>
+#include <fcntl.h>
 
-#endif /* SBUILD_SCHROOT_H */
+#include <glib.h>
+
+typedef enum
+{
+  SBUILD_LOCK_SHARED    = F_RDLCK,
+  SBUILD_LOCK_EXCLUSIVE = F_WRLCK,
+  SBUILD_LOCK_NONE      = F_UNLCK
+} SbuildLockType;
+
+void
+sbuild_lock_set_lock (int            fd,
+		      SbuildLockType lock_type,
+		      guint          timeout);
+
+void
+sbuild_lock_unset_lock (int fd);
+
+
+#endif /* SBUILD_LOCK_H */
 
 /*
  * Local Variables:

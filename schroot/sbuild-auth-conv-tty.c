@@ -199,7 +199,7 @@ sbuild_auth_conv_tty_reset_alarm (struct sigaction *orig_sa)
 
 /**
  * sbuild_auth_conv_tty_alarm_handler:
- * @conv_tty: an #SbuildAuthConvTty.
+ * @ignore: the signal number.
  *
  * Handle the SIGALRM signal.
  */

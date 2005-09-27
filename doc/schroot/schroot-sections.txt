@@ -304,3 +304,14 @@ SBUILD_TYPE_ERROR_POINTER
 sbuild_error_pointer_get_type
 sbuild_error_get_type
 </SECTION>
+
+<SECTION>
+<FILE>sbuild-lock</FILE>
+<TITLE>Advisory Locking</TITLE>
+SbuildLockType
+sbuild_lock_set_lock
+sbuild_lock_unset_lock
+<SUBSECTION Standard>
+SBUILD_TYPE_LOCK_TYPE
+sbuild_lock_type_get_type
+</SECTION>

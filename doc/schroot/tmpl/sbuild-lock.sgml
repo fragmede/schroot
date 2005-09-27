@@ -1,0 +1,51 @@
+<!-- ##### SECTION Title ##### -->
+
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### ENUM SbuildLockType ##### -->
+<para>
+The type of lock.  A shared lock may be held simultaneously by many
+processes, whereas an exclusive lock may only be held by only one
+process.  If a shared lock is already held by another process, a
+shared lock may be acquired, but not an exclusive lock.  If an
+exclusive lock is held by another process, both shared and exclusive
+lock acquisition will fail.
+</para>
+
+@SBUILD_LOCK_SHARED: A shared (read) lock.
+@SBUILD_LOCK_EXCLUSIVE: An exclusive (write) lock.
+@SBUILD_LOCK_NONE: No lock.
+
+<!-- ##### FUNCTION sbuild_lock_set_lock ##### -->
+<para>
+
+</para>
+
+@fd: 
+@lock_type: 
+@timeout: 
+
+
+<!-- ##### FUNCTION sbuild_lock_unset_lock ##### -->
+<para>
+
+</para>
+
+@fd: 
+
+

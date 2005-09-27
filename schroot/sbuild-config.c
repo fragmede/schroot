@@ -49,6 +49,7 @@
 #include <glib/gi18n.h>
 
 #include "sbuild-config.h"
+#include "sbuild-lock.h"
 
 /**
  * sbuild_config_file_error_quark:
@@ -183,6 +184,8 @@ sbuild_config_load (const char  *file,
       exit (EXIT_FAILURE);
     }
 
+  sbuild_lock_set_lock(fd, SBUILD_LOCK_SHARED, 2);
+
   GError *security_error = NULL;
   sbuild_config_check_security(fd, &security_error);
   if (security_error)
@@ -204,6 +207,8 @@ sbuild_config_load (const char  *file,
       g_printerr(_("%s: read failure: %s\n"), file, read_error->message);
       exit (EXIT_FAILURE);
     }
+
+  sbuild_lock_unset_lock(fd);
 
   GError *close_error = NULL;
   g_io_channel_shutdown(channel, FALSE, &close_error);
