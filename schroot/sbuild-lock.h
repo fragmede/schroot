@@ -29,19 +29,32 @@
 
 typedef enum
 {
+  SBUILD_LOCK_ERROR_SETUP,
+  SBUILD_LOCK_ERROR_TIMEOUT,
+  SBUILD_LOCK_ERROR_FAIL
+} SbuildLockError;
+
+#define SBUILD_LOCK_ERROR sbuild_lock_error_quark()
+
+GQuark
+sbuild_auth_error_quark (void);
+
+typedef enum
+{
   SBUILD_LOCK_SHARED    = F_RDLCK,
   SBUILD_LOCK_EXCLUSIVE = F_WRLCK,
   SBUILD_LOCK_NONE      = F_UNLCK
 } SbuildLockType;
 
-void
-sbuild_lock_set_lock (int            fd,
-		      SbuildLockType lock_type,
-		      guint          timeout);
+gboolean
+sbuild_lock_set_lock (int              fd,
+		      SbuildLockType   lock_type,
+		      guint            timeout,
+		      GError         **error);
 
-void
-sbuild_lock_unset_lock (int fd);
-
+gboolean
+sbuild_lock_unset_lock (int      fd,
+			GError **error);
 
 #endif /* SBUILD_LOCK_H */
 

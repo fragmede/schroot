@@ -17,30 +17,6 @@
 <!-- ##### SECTION Stability_Level ##### -->
 
 
-<!-- ##### ENUM SbuildAuthError ##### -->
-<para>
-The errors which can occur while loading a configuration file.
-</para>
-
-@SBUILD_AUTH_ERROR_PAM_STARTUP: PAM startup failed.
-@SBUILD_AUTH_ERROR_PAM_SET_ITEM: PAM failed to set a configuration item.
-@SBUILD_AUTH_ERROR_HOSTNAME: The system hostname could not be resolved.
-@SBUILD_AUTH_ERROR_PAM_AUTHENTICATE: PAM user authentication failed.
-@SBUILD_AUTH_ERROR_PAM_PUTENV: PAM failed to set an environment variable.
-@SBUILD_AUTH_ERROR_PAM_ACCOUNT: PAM user authorisation failed.
-@SBUILD_AUTH_ERROR_PAM_CREDENTIALS: PAM failed to establish the user's credentials.
-@SBUILD_AUTH_ERROR_PAM_SESSION_OPEN: PAM failed to open a session.
-@SBUILD_AUTH_ERROR_PAM_SESSION_CLOSE: PAM failed to close a session.
-@SBUILD_AUTH_ERROR_PAM_DELETE_CREDENTIALS: PAM failed to delete the user's credentials.
-@SBUILD_AUTH_ERROR_PAM_SHUTDOWN: PAM shutdown failed.
-
-<!-- ##### MACRO SBUILD_AUTH_ERROR ##### -->
-<para>
-The error domain for sbuild authentication errors.
-</para>
-
-
-
 <!-- ##### STRUCT SbuildAuth ##### -->
 <para>
 SbuildAuth object.
@@ -176,6 +152,30 @@ The verbosity level of printed messages.
 @SBUILD_AUTH_VERBOSITY_QUIET: Only print errors and warnings.
 @SBUILD_AUTH_VERBOSITY_NORMAL: Print errors, warnings and important messages.
 @SBUILD_AUTH_VERBOSITY_VERBOSE: Print everything.
+
+<!-- ##### ENUM SbuildAuthError ##### -->
+<para>
+The errors which can occur while loading a configuration file.
+</para>
+
+@SBUILD_AUTH_ERROR_PAM_STARTUP: PAM startup failed.
+@SBUILD_AUTH_ERROR_PAM_SET_ITEM: PAM failed to set a configuration item.
+@SBUILD_AUTH_ERROR_HOSTNAME: The system hostname could not be resolved.
+@SBUILD_AUTH_ERROR_PAM_AUTHENTICATE: PAM user authentication failed.
+@SBUILD_AUTH_ERROR_PAM_PUTENV: PAM failed to set an environment variable.
+@SBUILD_AUTH_ERROR_PAM_ACCOUNT: PAM user authorisation failed.
+@SBUILD_AUTH_ERROR_PAM_CREDENTIALS: PAM failed to establish the user's credentials.
+@SBUILD_AUTH_ERROR_PAM_SESSION_OPEN: PAM failed to open a session.
+@SBUILD_AUTH_ERROR_PAM_SESSION_CLOSE: PAM failed to close a session.
+@SBUILD_AUTH_ERROR_PAM_DELETE_CREDENTIALS: PAM failed to delete the user's credentials.
+@SBUILD_AUTH_ERROR_PAM_SHUTDOWN: PAM shutdown failed.
+
+<!-- ##### MACRO SBUILD_AUTH_ERROR ##### -->
+<para>
+The error domain for sbuild authentication errors.
+</para>
+
+
 
 <!-- ##### FUNCTION sbuild_auth_new ##### -->
 <para>

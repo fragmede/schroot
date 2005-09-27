@@ -48,6 +48,24 @@
 #include "sbuild-lock.h"
 
 /**
+ * sbuild_lock_error_quark:
+ *
+ * Get the SBUILD_LOCK_ERROR domain number.
+ *
+ * Returns the domain.
+ */
+GQuark
+sbuild_lock_error_quark (void)
+{
+  static GQuark error_quark = 0;
+
+  if (error_quark == 0)
+    error_quark = g_quark_from_static_string ("sbuild-lock-error-quark");
+
+  return error_quark;
+}
+
+/**
  * sbuild_lock_alarm_handler:
  * @ignore: the signal number.
  *
@@ -102,14 +120,19 @@ sbuild_lock_set_alarm (struct sigaction *orig_sa)
  * @fd: the file descriptor to lock.
  * @lock_type: the type of lock to set.
  * @timeout: the time in seconds to wait for the lock.
+ * @error: a #GError.
  *
  * Set an advisory lock on a file.  A byte region lock is placed on
  * the entire file, regardless of size, using fcntl.
+ *
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
  */
-void
-sbuild_lock_set_lock (int            fd,
-		      SbuildLockType lock_type,
-		      guint          timeout)
+gboolean
+sbuild_lock_set_lock (int              fd,
+		      SbuildLockType   lock_type,
+		      guint            timeout,
+		      GError         **error)
 {
   struct flock read_lock =
     {
@@ -150,55 +173,78 @@ sbuild_lock_set_lock (int            fd,
   struct sigaction saved_signals;
   if (sbuild_lock_set_alarm(&saved_signals) == FALSE)
     {
-      g_printerr(_("Failed to set timeout handler: %s\n"), g_strerror(errno));
-      exit (EXIT_FAILURE);
+      g_set_error(error,
+		  SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_SETUP,
+		  _("failed to set timeout handler:  %s\n"),
+		  g_strerror(errno));
+      return FALSE;
     }
 
   if (setitimer(ITIMER_REAL, &timeout_timer, NULL) == -1)
     {
-      g_printerr(_("Failed to set timeout: %s\n"), g_strerror(errno));
-      exit (EXIT_FAILURE);
+      g_set_error(error,
+		  SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_SETUP,
+		  _("failed to set timeout:  %s\n"),
+		  g_strerror(errno));
+      return FALSE;
     }
 
-  while (1)
+  /* Now the signal handler and itimer are set, the function can't
+     return without stopping the timer and resetting the signal
+     handler to its original state. */
+
+  /* Wait on lock until interrupted by a signal if a timeout was set,
+     otherwise return immediately. */
+  g_printerr("Using lock: %s\n", (timeout != 0) ? "F_SETLKW" : "F_SETLK");
+
+  if (fcntl(fd,
+	    (timeout != 0) ? F_SETLKW : F_SETLK,
+	    &read_lock) == -1)
     {
-      if (fcntl(fd, F_SETLKW, &read_lock) == -1)
-	{
-	  if (errno == EINTR)
-	    {
-	      g_printerr(_("Failed to acquire read lock (timeout after %u seconds)\n"), timeout);
-	      exit (EXIT_FAILURE);
-	    }
-	  /* Avoid infinite loop if no timeout was set. */
-	  if (timeout != 0 && (errno == EACCES || errno == EAGAIN))
-	    {
-	      continue;
-	    }
-	  g_printerr(_("Failed to acquire read lock: %s\n"), g_strerror(errno));
-	  exit (EXIT_FAILURE);
-	}
-      break;
+      if (errno == EINTR)
+	g_set_error(error,
+		    SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_TIMEOUT,
+		    _("failed to acquire lock (timeout after %u seconds)\n"), timeout);
+      else
+	g_set_error(error,
+		    SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_FAIL,
+		    _("failed to acquire read lock: %s\n"), g_strerror(errno));
     }
 
   if (setitimer(ITIMER_REAL, &disable_timer, NULL) == -1)
     {
-      g_printerr(_("Failed to unset timeout: %s\n"), g_strerror(errno));
-      exit (EXIT_FAILURE);
+      if (*error == NULL) /* Don't set error if already set. */
+	g_set_error(error,
+		    SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_SETUP,
+		    _("failed to unset timeout:  %s\n"),
+		    g_strerror(errno));
     }
 
   sbuild_lock_clear_alarm(&saved_signals);
+
+  if (*error)
+    return FALSE;
+  else
+    return TRUE;
 }
 
 /**
  * sbuild_lock_unset_lock:
  * @fd: the file descriptor to unlock.
+ * @error: a #GError.
  *
- * Remove an advisory lock on a file.
+ * Remove an advisory lock on a file.  This is equivalent to calling
+ * sbuild_lock_set_lock with a lock type of SBUILD_LOCK_NONE and a
+ * timeout of 0.
+ *
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
  */
-void
-sbuild_lock_unset_lock (int fd)
+gboolean
+sbuild_lock_unset_lock (int      fd,
+			GError **error)
 {
-  sbuild_lock_set_lock(fd, SBUILD_LOCK_NONE, 0);
+  return sbuild_lock_set_lock(fd, SBUILD_LOCK_NONE, 0, error);
 }
 
 

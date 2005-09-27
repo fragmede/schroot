@@ -17,6 +17,22 @@
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### MACRO SBUILD_LOCK_ERROR ##### -->
+<para>
+The error domain for sbuild lock errors.
+</para>
+
+
+
+<!-- ##### ENUM SbuildLockError ##### -->
+<para>
+The errors which can occur while acquiring a lock.
+</para>
+
+@SBUILD_LOCK_ERROR_SETUP: An error occured while setting up timeout handling.
+@SBUILD_LOCK_ERROR_TIMEOUT: A timeout occured while waiting on the lock.
+@SBUILD_LOCK_ERROR_FAIL: Lock acquisition failed.
+
 <!-- ##### ENUM SbuildLockType ##### -->
 <para>
 The type of lock.  A shared lock may be held simultaneously by many
@@ -39,6 +55,8 @@ lock acquisition will fail.
 @fd: 
 @lock_type: 
 @timeout: 
+@error: 
+@Returns: 
 
 
 <!-- ##### FUNCTION sbuild_lock_unset_lock ##### -->
@@ -47,5 +65,7 @@ lock acquisition will fail.
 </para>
 
 @fd: 
+@error: 
+@Returns: 
 
 

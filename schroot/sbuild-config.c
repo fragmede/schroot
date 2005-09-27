@@ -184,7 +184,13 @@ sbuild_config_load (const char  *file,
       exit (EXIT_FAILURE);
     }
 
-  sbuild_lock_set_lock(fd, SBUILD_LOCK_SHARED, 2);
+  GError *lock_error = NULL;
+  sbuild_lock_set_lock(fd, SBUILD_LOCK_SHARED, 2, &lock_error);
+  if (lock_error)
+    {
+      g_printerr(_("%s: lock acquisition failure: %s\n"), file, lock_error->message);
+      exit (EXIT_FAILURE);
+    }
 
   GError *security_error = NULL;
   sbuild_config_check_security(fd, &security_error);
@@ -208,7 +214,13 @@ sbuild_config_load (const char  *file,
       exit (EXIT_FAILURE);
     }
 
-  sbuild_lock_unset_lock(fd);
+  GError *unlock_error = NULL;
+  sbuild_lock_unset_lock(fd, &unlock_error);
+  if (unlock_error)
+    {
+      g_printerr(_("%s: lock discard failure: %s\n"), file, unlock_error->message);
+      exit (EXIT_FAILURE);
+    }
 
   GError *close_error = NULL;
   g_io_channel_shutdown(channel, FALSE, &close_error);

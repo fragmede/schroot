@@ -109,11 +109,11 @@ SBUILD_IS_CHROOT_LVM_SNAPSHOT_CLASS
 
 <SECTION>
 <FILE>sbuild-config</FILE>
-SbuildConfigFileError
-SBUILD_CONFIG_FILE_ERROR
 <TITLE>SbuildConfig</TITLE>
 SbuildConfig
 SbuildConfigClass
+SbuildConfigFileError
+SBUILD_CONFIG_FILE_ERROR
 sbuild_config_new_from_file
 sbuild_config_new_from_directory
 sbuild_config_get_chroots
@@ -137,8 +137,6 @@ SBUILD_CONFIG_GET_CLASS
 
 <SECTION>
 <FILE>sbuild-auth</FILE>
-SbuildAuthError
-SBUILD_AUTH_ERROR
 <TITLE>SbuildAuth</TITLE>
 SbuildAuth
 SbuildAuthRequireAuthFunc
@@ -146,6 +144,8 @@ SbuildAuthSessionRunFunc
 SbuildAuthClass
 SbuildAuthStatus
 SbuildAuthVerbosity
+SbuildAuthError
+SBUILD_AUTH_ERROR
 sbuild_auth_new
 sbuild_auth_get_service
 sbuild_auth_get_uid
@@ -308,10 +308,14 @@ sbuild_error_get_type
 <SECTION>
 <FILE>sbuild-lock</FILE>
 <TITLE>Advisory Locking</TITLE>
+SBUILD_LOCK_ERROR
+SbuildLockError
 SbuildLockType
 sbuild_lock_set_lock
 sbuild_lock_unset_lock
 <SUBSECTION Standard>
+SBUILD_TYPE_LOCK_ERROR
+sbuild_lock_error_get_type
 SBUILD_TYPE_LOCK_TYPE
 sbuild_lock_type_get_type
 </SECTION>

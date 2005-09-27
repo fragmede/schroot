@@ -1,5 +1,20 @@
 2005-09-27  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-config.c (sbuild_config_load): Report GError
+	messages propagated by locking failure.
+
+	* schroot/sbuild-lock.c
+	(sbuild_lock_set_lock): Return errors as a GError, rather than
+	aborting.  Don't run fcntl in a while loop now that timeouts are
+	implemented with an itimer.
+	(sbuild_lock_unset_lock): Return errors as a GError.
+	(sbuild_lock_error_quark): New function.
+
+	* schroot/sbuild-lock.h (SBUILD_LOCK_ERROR): Add error domain.
+	Add locking errors as SbuildLockError enum.
+
+2005-09-27  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.conf.5.in: Update documentation.
 
 	* schroot/sbuild-chroot.c (sbuild_chroot_class_init): The
