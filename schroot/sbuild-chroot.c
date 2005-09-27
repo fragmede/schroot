@@ -966,7 +966,7 @@ sbuild_chroot_init (SbuildChroot *chroot)
   chroot->max_users = 0;
   chroot->active = FALSE;
   chroot->run_setup_scripts = FALSE;
-  chroot->run_session_scripts = TRUE ;
+  chroot->run_session_scripts = FALSE;
 }
 
 static void
@@ -1248,7 +1248,7 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
      PROP_RUN_SESSION_SCRIPTS,
      g_param_spec_boolean ("run-session-scripts", "Run Session Scripts",
 			   "Run chroot session scripts?",
-			   TRUE ,
+			   FALSE,
 			   (G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
 }
 

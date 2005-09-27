@@ -86,8 +86,8 @@ chroot environment.  If your chroots are exclusively controlled by schroot, set
 to \[lq]true\[rq].
 .TP
 .B run-session-scripts=\fItrue\fP|\fIfalse\fP
-Set whether chroot session scripts will be run.  The default is to run session
-scripts (\[lq]true\[rq]).
+Set whether chroot session scripts will be run.  The default is to not run
+session scripts (\[lq]false\[rq]).
 .SS
 Plain chroots
 .PP

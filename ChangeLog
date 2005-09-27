@@ -1,5 +1,13 @@
 2005-09-27  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.conf.5.in: Update documentation.
+
+	* schroot/sbuild-chroot.c (sbuild_chroot_class_init): The
+	run-session-scripts property defaults to FALSE, for compatibility
+	with dchroot out-of-the-box.
+
+2005-09-27  Roger Leigh  <rleigh@debian.org>
+
 	* Update documentation.
 
 	* schroot/sbuild-config.c (sbuild_config_load): Acquire a read
