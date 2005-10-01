@@ -24,11 +24,12 @@ setupdir = $(SCHROOT_CONF_SETUP_D)
 
 setup_SCRIPTS =		\
 	00check		\
+	05lvm		\
 	10mount		\
 	20network	\
 	30passwd	\
 	50chrootname
 
-EXTRA_DIST =				\
+EXTRA_DIST =			\
 	$(setup_SCRIPTS)
 

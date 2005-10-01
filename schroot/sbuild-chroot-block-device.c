@@ -30,6 +30,13 @@
 
 #include <config.h>
 
+#define _GNU_SOURCE
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/sysmacros.h>
+#include <unistd.h>
+
 #include <glib.h>
 #include <glib/gi18n.h>
 
@@ -88,7 +95,7 @@ sbuild_chroot_block_device_set_device (SbuildChrootBlockDevice *chroot,
 }
 
 /**
- * sbuild_chroot_block_device_set_mount_location:
+ * sbuild_chroot_block_device_set_mount_device:
  * @chroot: an #SbuildChrootBlockDevice.
  *
  * Set the mount block device of a chroot.  In this case, it is bound
@@ -148,8 +155,10 @@ sbuild_chroot_block_device_print_details (SbuildChrootBlockDevice *chroot,
 {
   g_return_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot));
 
-  g_fprintf(file, _("  %-22s%s\n"), _("Device"), chroot->device);
-  g_fprintf(file, _("  %-22s%s\n"), _("Mount Options"), chroot->mount_options);
+  if (chroot->device)
+    g_fprintf(file, _("  %-22s%s\n"), _("Device"), chroot->device);
+  if (chroot->mount_options)
+    g_fprintf(file, _("  %-22s%s\n"), _("Mount Options"), chroot->mount_options);
 }
 
 static void
@@ -158,8 +167,9 @@ sbuild_chroot_block_device_print_config (SbuildChrootBlockDevice *chroot,
 {
   g_return_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot));
 
-  g_fprintf(file, _("device=%s\n"), chroot->device);
-  g_fprintf(file, _("mount-options=%s\n"), chroot->mount_options);
+  g_fprintf(file, _("device=%s\n"), (chroot->device) ? chroot->device : "");
+  g_fprintf(file, _("mount-options=%s\n"),
+	    (chroot->mount_options) ? chroot->mount_options : "");
 }
 
 void sbuild_chroot_block_device_setup (SbuildChrootBlockDevice  *chroot,
@@ -170,10 +180,11 @@ void sbuild_chroot_block_device_setup (SbuildChrootBlockDevice  *chroot,
 
   *env = g_list_append(*env,
 		       g_strdup_printf("CHROOT_DEVICE=%s",
-				       chroot->device));
+				       (chroot->device) ? chroot->device : ""));
   *env = g_list_append(*env,
 		       g_strdup_printf("CHROOT_MOUNT_OPTIONS=%s",
-				       chroot->mount_options));
+				       (chroot->mount_options) ?
+				       chroot->mount_options : ""));
 }
 
 static const gchar *
@@ -182,6 +193,32 @@ sbuild_chroot_block_device_get_chroot_type (const SbuildChrootBlockDevice *chroo
   g_return_val_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot), NULL);
 
   return "block-device";
+}
+
+static gchar *
+sbuild_chroot_block_device_get_setup_name (const SbuildChrootBlockDevice *chroot,
+					   SbuildChrootSetupType          type)
+{
+  struct stat statbuf;
+
+  if (stat(chroot->device, &statbuf) == -1)
+    {
+      g_printerr(_("%s chroot: failed to stat device %s: %s\n"),
+		 sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
+		 chroot->device, g_strerror(errno));
+      return NULL;
+    }
+  if (!S_ISBLK(statbuf.st_mode))
+    {
+      g_printerr(_("%s chroot: %s is not a block device\n"),
+		 sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
+		 chroot->device);
+      return NULL;
+    }
+
+  return g_strdup_printf("block-%llu-%llu\n",
+			 (unsigned long long) gnu_dev_major(statbuf.st_rdev),
+			 (unsigned long long) gnu_dev_major(statbuf.st_rdev));
 }
 
 static SbuildChrootSessionFlags
@@ -298,6 +335,8 @@ sbuild_chroot_block_device_class_init (SbuildChrootBlockDeviceClass *klass)
     sbuild_chroot_block_device_setup;
   chroot_class->get_chroot_type = (SbuildChrootGetChrootTypeFunc)
     sbuild_chroot_block_device_get_chroot_type;
+  chroot_class->get_setup_name = (SbuildChrootGetSetupNameFunc)
+    sbuild_chroot_block_device_get_setup_name;
   chroot_class->get_session_flags = (SbuildChrootGetSessionFlagsFunc)
     sbuild_chroot_block_device_get_session_flags;
 

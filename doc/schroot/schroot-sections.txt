@@ -6,6 +6,7 @@ SbuildChrootClass
 SbuildChrootPrintDetailsFunc
 SbuildChrootSetupFunc
 SbuildChrootGetChrootTypeFunc
+SbuildChrootGetSetupNameFunc
 SbuildChrootGetSessionFlagsFunc
 SbuildChrootPrintConfigFunc
 SbuildChrootSessionFlags
@@ -40,6 +41,7 @@ sbuild_chroot_set_mount_device
 sbuild_chroot_print_details
 sbuild_chroot_print_config
 sbuild_chroot_get_chroot_type
+sbuild_chroot_get_setup_name
 sbuild_chroot_get_session_flags
 sbuild_chroot_setup
 <SUBSECTION Standard>

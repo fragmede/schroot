@@ -98,6 +98,7 @@ SbuildChroot class.
 @print_config: vfunc to print the config file group for this chroot
 @setup: vfunc to set additional environment variables for chroot setup
 @get_chroot_type: vfunc to get the user visible chroot type name
+@get_setup_name: vfunc to get the setup lock name for a given setup type
 @get_session_flags: vfunc to get the session flags for this chroot type
 
 <!-- ##### USER_FUNCTION SbuildChrootPrintDetailsFunc ##### -->
@@ -135,6 +136,17 @@ name of the class, for use in messages and configuration files.
 
 @chroot: an #SbuildChroot
 @Returns: the type name
+
+
+<!-- ##### USER_FUNCTION SbuildChrootGetSetupNameFunc ##### -->
+<para>
+Get setup name (lock name) of the chroot. This may vary depending upon
+the setup stage.
+</para>
+
+@chroot: an #SbuildChroot
+@type:  the type of setup being performed
+@Returns: a string
 
 
 <!-- ##### USER_FUNCTION SbuildChrootGetSessionFlagsFunc ##### -->
@@ -445,6 +457,16 @@ The type of chroot setup operation
 </para>
 
 @chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_get_setup_name ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@type: 
 @Returns: 
 
 

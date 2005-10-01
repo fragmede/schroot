@@ -198,6 +198,13 @@ Set to \[lq]quiet\[rq] if only error messages should be printed,
 \[lq]normal\[rq] if other messages may be printed as well, and
 \[lq]verbose\[rq] if all messages may be printed.
 .TP
+MOUNT_DIR
+The directory under which non-filesystem chroots are mounted (e.g. block
+devices and LVM snapshots).
+.TP
+SESSION_ID
+The session identifier.
+.TP
 CHROOT_TYPE
 The type of the chroot.  This is useful for restricting a setup task to
 particular types of chroot (e.g. only block devices or LVM snapshots).
@@ -238,6 +245,13 @@ CHROOT_MOUNT_OPTIONS
 Options to pass to
 .BR mount (8).
 .SS LVM snapshot variables
+.TP
+CHROOT_LVM_SNAPSHOT_NAME
+Snapshot name to pass to
+.BR lvcreate (8).
+.TP
+CHROOT_LVM_SNAPSHOT_DEVICE
+The name of the LVM snapshot device.
 .TP
 CHROOT_LVM_SNAPSHOT_OPTIONS
 Options to pass to

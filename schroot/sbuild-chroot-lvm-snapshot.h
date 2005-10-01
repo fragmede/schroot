@@ -41,6 +41,7 @@ typedef struct _SbuildChrootLvmSnapshotClass SbuildChrootLvmSnapshotClass;
 struct _SbuildChrootLvmSnapshot
 {
   SbuildChrootBlockDevice  parent;
+  gchar                   *snapshot_device;
   gchar                   *snapshot_options;
 };
 
@@ -52,6 +53,13 @@ struct _SbuildChrootLvmSnapshotClass
 
 GType
 sbuild_chroot_lvm_snapshot_get_type (void);
+
+const char *
+sbuild_chroot_lvm_snapshot_get_snapshot_device (const SbuildChrootLvmSnapshot *restrict chroot);
+
+void
+sbuild_chroot_lvm_snapshot_set_snapshot_device (SbuildChrootLvmSnapshot *chroot,
+						const char              *snapshot_device);
 
 const char *
 sbuild_chroot_lvm_snapshot_get_snapshot_options (const SbuildChrootLvmSnapshot *restrict chroot);

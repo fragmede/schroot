@@ -918,6 +918,8 @@ sbuild_auth_setupenv (SbuildAuth  *auth,
       g_debug("pam_putenv: set %s", environment[j]);
     }
 
+  g_strfreev(newenv);
+
   g_debug("pam_putenv OK");
   return TRUE;
 }

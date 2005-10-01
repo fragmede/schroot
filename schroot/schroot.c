@@ -31,6 +31,8 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 
+#include <uuid/uuid.h>
+
 #include "sbuild-chroot.h"
 #include "sbuild-config.h"
 #include "sbuild-session.h"
@@ -149,6 +151,7 @@ parse_options(int   argc,
   g_option_context_add_group(context, session_group);
 
   g_option_context_parse (context, &argc, &argv, &error);
+  g_option_context_free (context);
   if (error != NULL)
     {
       g_printerr(_("Error parsing options: %s\n"), error->message);
@@ -367,13 +370,16 @@ main (int   argc,
   sbuild_session_set_force(session, session_opt.force);
   if (session_opt.id)
     {
-      uuid_t tmp_uuid;
-      if (uuid_parse(session_opt.id, tmp_uuid) != 0)
-	{
-	  g_printerr(_("%s: Invalid session UUID\n"), session_opt.id);
-	  exit (EXIT_FAILURE);
-	}
       sbuild_session_set_session_id(session, session_opt.id);
+    }
+  else
+    {
+      uuid_t uuid;
+      gchar session_id[37];
+      uuid_generate(uuid);
+      uuid_unparse(uuid, session_id);
+      uuid_clear(uuid);
+      sbuild_session_set_session_id(session, session_id);
     }
   if (opt.quiet && opt.verbose)
     g_printerr(_("--quiet and --verbose may not be used at the same time!\nUsing verbose output.\n"));
@@ -402,6 +408,7 @@ main (int   argc,
 
   g_object_unref(G_OBJECT(session));
   g_object_unref(G_OBJECT(config));
+  g_strfreev(chroots);
 
   closelog();
 

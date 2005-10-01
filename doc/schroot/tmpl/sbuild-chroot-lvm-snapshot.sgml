@@ -23,6 +23,11 @@ SbuildChrootLvmSnapshot object.
 </para>
 
 
+<!-- ##### ARG SbuildChrootLvmSnapshot:lvm-snapshot-device ##### -->
+<para>
+
+</para>
+
 <!-- ##### ARG SbuildChrootLvmSnapshot:lvm-snapshot-options ##### -->
 <para>
 

@@ -167,9 +167,6 @@ sbuild_chroot_set_properties_from_keyfile (SbuildChroot *chroot,
   g_return_val_if_fail(chroot->name != NULL, FALSE);
 
   GObjectClass *klass;
-  GParameter *params = NULL;
-  guint n_params = 0;
-  guint n_alloc_params = 16;
 
   /* Find out which chroot type we want.  These are all linked
      statically, for reasons of security, because we don't want
@@ -263,7 +260,10 @@ sbuild_chroot_set_properties_from_keyfile (SbuildChroot *chroot,
 	      if (error != NULL)
 		g_clear_error(&error);
 	      else
-		g_object_set(chroot, key, str, NULL);
+		{
+		  g_object_set(chroot, key, str, NULL);
+		  g_free(str);
+		}
 	    }
 	  else if (G_PARAM_SPEC_VALUE_TYPE(pspec) == G_TYPE_STRV)
 	    {
@@ -273,7 +273,10 @@ sbuild_chroot_set_properties_from_keyfile (SbuildChroot *chroot,
 	      if (error != NULL)
 		g_clear_error(&error);
 	      else
-		g_object_set(chroot, key, strv, NULL);
+		{
+		  g_object_set(chroot, key, strv, NULL);
+		  g_strfreev(strv);
+		}
 	    }
 	  else
 	    {
@@ -283,6 +286,7 @@ sbuild_chroot_set_properties_from_keyfile (SbuildChroot *chroot,
 			 g_type_name (G_PARAM_SPEC_VALUE_TYPE(pspec)));
 	    }
 	}
+      g_strfreev(keys);
     }
   return TRUE;
 }
@@ -767,6 +771,35 @@ sbuild_chroot_get_chroot_type (const SbuildChroot  *chroot)
 }
 
 /**
+ * sbuild_chroot_get_setup_name:
+ * @chroot: an #SbuildChroot
+ * @type: the type of setup being performed
+ *
+ * Get setup name (lock name) of the chroot.  This may vary depending
+ * upon the setup stage.  For example, during creation a block device
+ * might require locking, but afterwards this will change to the new
+ * block device or directory.
+ *
+ * Returns a string.  This must be freed by the caller.
+ */
+gchar *
+sbuild_chroot_get_setup_name (const SbuildChroot    *chroot,
+			      SbuildChrootSetupType  type)
+{
+  g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), NULL);
+
+  SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
+  if (klass->get_setup_name)
+    return klass->get_setup_name(chroot, type);
+  else
+    {
+      g_error(_("%s chroot: chroot setup name is unset; error in derived class\n"),
+	      chroot->name);
+      return NULL;
+    }
+}
+
+/**
  * sbuild_chroot_get_session_flags:
  * @chroot: an #SbuildChroot
  *
@@ -804,9 +837,13 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
 {
   g_return_if_fail(SBUILD_IS_CHROOT(chroot));
 
-  g_fprintf(file, _("  --- Chroot ---\n"));
+  if (chroot->active == TRUE)
+    g_fprintf(file, _("  --- Session ---\n"));
+  else
+    g_fprintf(file, _("  --- Chroot ---\n"));
   g_fprintf(file, "  %-22s%s\n", _("Name"), chroot->name);
-  g_fprintf(file, "  %-22s%s\n", _("Description"), chroot->description);
+  g_fprintf(file, "  %-22s%s\n", _("Description"),
+	    (chroot->description) ? chroot->description : "");
   g_fprintf(file, "  %-22s%s\n", _("Type"), sbuild_chroot_get_chroot_type(chroot));
   g_fprintf(file, "  %-22s%u\n", _("Priority"), chroot->priority);
 
@@ -818,12 +855,12 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
   char *root_group_list = (chroot->root_groups) ?
     g_strjoinv(" ", chroot->root_groups) : NULL;
   g_fprintf(file, "  %-22s%s\n", _("Root Groups"),
-	    (root_group_list) ? root_group_list : NULL);
+	    (root_group_list) ? root_group_list : "");
   g_free(root_group_list);
 
   char *alias_list = (chroot->aliases) ? g_strjoinv(" ", chroot->aliases) : NULL;
   g_fprintf(file, "  %-22s%s\n", _("Aliases"),
-	    (alias_list) ? alias_list : NULL);
+	    (alias_list) ? alias_list : "");
   g_free(alias_list);
 
   g_fprintf(file, _("  %-22s%u\n"), _("Maximum Users"), chroot->max_users);
@@ -861,7 +898,8 @@ void sbuild_chroot_print_config (SbuildChroot *chroot,
   g_return_if_fail(SBUILD_IS_CHROOT(chroot));
 
   g_fprintf(file, "[%s]\n", chroot->name);
-  g_fprintf(file, "description=%s\n", chroot->description);
+  if (chroot->description)
+    g_fprintf(file, "description=%s\n", chroot->description);
   g_fprintf(file, "type=%s\n", sbuild_chroot_get_chroot_type(chroot));
   g_fprintf(file, "priority=%u\n", chroot->priority);
 
@@ -904,6 +942,32 @@ void sbuild_chroot_print_config (SbuildChroot *chroot,
   g_fprintf(file, "current-users=%u\n", chroot->current_users);
 }
 
+static inline void
+setup_env_string (GList       **env,
+		  const gchar  *name,
+		  const gchar  *value)
+{
+  g_assert (env != NULL);
+  g_assert (name != NULL);
+
+  *env = g_list_append(*env,
+		       g_strdup_printf("%s=%s",
+				       name, (value) ? value : ""));
+}
+
+static inline void
+setup_env_unsigned (GList       **env,
+		    const gchar  *name,
+		    guint         value)
+{
+  g_assert (env != NULL);
+  g_assert (name != NULL);
+
+  *env = g_list_append(*env,
+		       g_strdup_printf("%s=%u",
+				       name, value));
+}
+
 /**
  * sbuild_chroot_setup:
  * @chroot: an #SbuildChroot.
@@ -922,27 +986,19 @@ void sbuild_chroot_setup (SbuildChroot  *chroot,
   g_return_if_fail(SBUILD_IS_CHROOT(chroot));
   g_return_if_fail(env != NULL);
 
-  *env = g_list_append(*env,
-		       g_strdup_printf("CHROOT_TYPE=%s",
-				       sbuild_chroot_get_chroot_type(chroot)));
-  *env = g_list_append(*env,
-		       g_strdup_printf("CHROOT_NAME=%s",
-				       sbuild_chroot_get_name(chroot)));
-  *env = g_list_append(*env,
-		       g_strdup_printf("CHROOT_DESCRIPTION=%s",
-				       sbuild_chroot_get_description(chroot)));
-  *env = g_list_append(*env,
-		       g_strdup_printf("CHROOT_MOUNT_LOCATION=%s",
-				       sbuild_chroot_get_mount_location(chroot)));
-  *env = g_list_append(*env,
-		       g_strdup_printf("CHROOT_MOUNT_DEVICE=%s",
-				       sbuild_chroot_get_mount_device(chroot)));
-  *env = g_list_append(*env,
-		       g_strdup_printf("CHROOT_CURRENT_USERS=%u",
-				       chroot->current_users));
-  *env = g_list_append(*env,
-		       g_strdup_printf("CHROOT_MAX_USERS=%u",
-				       chroot->max_users));
+  setup_env_string(env, "CHROOT_TYPE",
+		   sbuild_chroot_get_chroot_type(chroot));
+  setup_env_string(env, "CHROOT_NAME",
+		   sbuild_chroot_get_name(chroot));
+  setup_env_string(env, "CHROOT_DESCRIPTION",
+		   sbuild_chroot_get_description(chroot));
+  setup_env_string(env, "CHROOT_MOUNT_LOCATION",
+		   sbuild_chroot_get_mount_location(chroot));
+  setup_env_string(env, "CHROOT_MOUNT_DEVICE",
+		   sbuild_chroot_get_mount_device(chroot));
+
+  setup_env_unsigned(env, "CHROOT_CURRENT_USERS", chroot->current_users);
+  setup_env_unsigned(env, "CHROOT_MAX_USERS", chroot->max_users);
 
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
   if (klass->setup)
@@ -1145,6 +1201,7 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
   klass->print_config = NULL;
   klass->setup = NULL;
   klass->get_chroot_type = NULL;
+  klass->get_setup_name = NULL;
   klass->get_session_flags = NULL;
 
   g_object_class_install_property

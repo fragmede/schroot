@@ -45,10 +45,9 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 
-#include <uuid/uuid.h>
-
 #include "sbuild-typebuiltins.h"
 #include "sbuild-session.h"
+#include "sbuild-chroot-lvm-snapshot.h"
 
 /**
  * sbuild_session_error_quark:
@@ -187,8 +186,8 @@ sbuild_session_set_operation (SbuildSession          *session,
  * sbuild_session_get_session_id:
  * @session: an #SbuildSession
  *
- * Get the session identifier (UUID).  The session identifier is a
- * unique identifier for a session.
+ * Get the session identifier.  The session identifier is a unique
+ * string to identify a session.
  *
  * Returns a string.  The string must be freed by the caller.
  */
@@ -197,18 +196,15 @@ sbuild_session_get_session_id (const SbuildSession  *restrict session)
 {
   g_return_val_if_fail(SBUILD_IS_SESSION(session), NULL);
 
-  gchar *session_id = g_new(gchar, 37);
-  uuid_unparse(session->session_id, session_id);
-
-  return session_id;
+  return session->session_id;
 }
 
 /**
  * sbuild_session_set_session_id:
  * @session: an #SbuildSession
- * @session_id: an string containing a valid session UUID
+ * @session_id: an string containing a valid session id
  *
- * Set the session identifier (UUID) for @session.
+ * Set the session identifier for @session.
  */
 void
 sbuild_session_set_session_id (SbuildSession  *session,
@@ -216,14 +212,11 @@ sbuild_session_set_session_id (SbuildSession  *session,
 {
   g_return_if_fail(SBUILD_IS_SESSION(session));
 
-  if (session_id == NULL || strlen(session_id) == 0)
-    uuid_clear(session->session_id);
-  else if (uuid_parse(session_id, session->session_id) != 0)
+  if (session->session_id)
     {
-      g_warning("Invalid session-id UUID %s", session_id);
-      return;
+      g_free(session->session_id);
     }
-
+  session->session_id = g_strdup(session_id);
   g_object_notify(G_OBJECT(session), "session-id");
 }
 
@@ -492,6 +485,7 @@ sbuild_session_setup_chroot (SbuildSession          *session,
 		       setup_type == SBUILD_CHROOT_SESSION_START ||
 		       setup_type == SBUILD_CHROOT_SESSION_STOP, FALSE);
 
+  /* TODO: Locking during setup */
   gchar *setup_type_string = NULL;
   if (setup_type == SBUILD_CHROOT_SETUP_START)
     setup_type_string = "setup-start";
@@ -555,6 +549,11 @@ sbuild_session_setup_chroot (SbuildSession          *session,
     env = g_list_append(env,
 			g_strdup_printf("AUTH_VERBOSITY=%s", verbosity));
   }
+
+  env = g_list_append(env,
+		      g_strdup_printf("MOUNT_DIR=%s", SCHROOT_MOUNT_DIR));
+  env = g_list_append(env,
+		      g_strdup_printf("SESSION_ID=%s", session->session_id));
 
   /* Move the strings into the envp vector. */
   gchar **envp = NULL;
@@ -963,30 +962,53 @@ sbuild_session_run (SbuildSession  *session,
 	}
       else
 	{
-	  /* If a chroot location has not yet been set, fall back to /mnt.
-	     TODO: This should be set with the session key. */
+	  /* If a chroot mount location has not yet been set, set one
+	     with the session id. */
 	  if (sbuild_chroot_get_mount_location(chroot) == NULL)
-	    sbuild_chroot_set_mount_location(chroot, "/mnt");
+	    {
+	      gchar *location = g_strconcat(SCHROOT_MOUNT_DIR, "/",
+					    session->session_id, NULL);
+	      sbuild_chroot_set_mount_location(chroot, location);
+	      g_free(location);
+	    }
+
+	  /* LVM devices need the snapshot device name specifying. */
+	  if (SBUILD_IS_CHROOT_LVM_SNAPSHOT(chroot))
+	    {
+	      gchar *dir =
+		g_path_get_dirname(sbuild_chroot_block_device_get_device
+				   (SBUILD_CHROOT_BLOCK_DEVICE(chroot)));
+	      gchar *device = g_strconcat(dir, "/",
+					  session->session_id, NULL);
+	      sbuild_chroot_lvm_snapshot_set_snapshot_device
+		(SBUILD_CHROOT_LVM_SNAPSHOT(chroot), device);
+	      g_free(device);
+	      g_free(dir);
+	    }
 
 	  /* Run chroot setup scripts. */
 	  if (sbuild_chroot_get_run_setup_scripts(chroot) == TRUE)
 	    sbuild_session_setup_chroot(session, chroot,
 					SBUILD_CHROOT_SETUP_START,
 					&tmp_error);
-	  if (sbuild_chroot_get_run_session_scripts(chroot) == TRUE)
-	    sbuild_session_setup_chroot(session, chroot,
-					SBUILD_CHROOT_SESSION_START,
-					&tmp_error);
-
-	  /* Run session if setup succeeded. */
 	  if (tmp_error == NULL)
-	    sbuild_session_run_chroot(session, chroot, &tmp_error);
+	    {
+	      if (sbuild_chroot_get_run_session_scripts(chroot) == TRUE)
+		sbuild_session_setup_chroot(session, chroot,
+					    SBUILD_CHROOT_SESSION_START,
+					    &tmp_error);
 
-	  /* Run clean up scripts whether or not there was an error. */
-	  if (sbuild_chroot_get_run_session_scripts(chroot) == TRUE)
-	    sbuild_session_setup_chroot(session, chroot,
-					SBUILD_CHROOT_SESSION_STOP,
-					(tmp_error != NULL) ? NULL : &tmp_error);
+	      /* Run session if setup succeeded. */
+	      if (tmp_error == NULL)
+		sbuild_session_run_chroot(session, chroot, &tmp_error);
+
+	      /* Run clean up scripts whether or not there was an error. */
+	      if (sbuild_chroot_get_run_session_scripts(chroot) == TRUE)
+		sbuild_session_setup_chroot(session, chroot,
+					    SBUILD_CHROOT_SESSION_STOP,
+					    (tmp_error != NULL) ? NULL : &tmp_error);
+	    }
+
 	  if (sbuild_chroot_get_run_setup_scripts(chroot) == TRUE)
 	    sbuild_session_setup_chroot(session, chroot,
 					SBUILD_CHROOT_SETUP_STOP,
@@ -1013,7 +1035,7 @@ sbuild_session_init (SbuildSession *session)
 
   session->config = NULL;
   session->chroots = NULL;
-  uuid_clear(session->session_id);
+  session->session_id = NULL;
   session->operation = SBUILD_SESSION_OPERATION_AUTOMATIC;
   session->force = FALSE;
   session->child_status = EXIT_FAILURE;
@@ -1034,7 +1056,11 @@ sbuild_session_finalize (SbuildSession *session)
       g_strfreev(session->chroots);
       session->chroots = NULL;
     }
-  uuid_clear(session->session_id);
+  if (session->session_id)
+    {
+      g_free(session->session_id);
+      session->session_id = NULL;
+    }
 
   if (parent_class->finalize)
     parent_class->finalize(G_OBJECT(session));
@@ -1101,11 +1127,7 @@ sbuild_session_get_property (GObject    *object,
       g_value_set_enum(value, session->operation);
       break;
     case PROP_SESSION_ID:
-      {
-	gchar *session_id = sbuild_session_get_session_id(session);
-	g_value_set_string(value, session_id);
-	g_free(session_id);
-      }
+      g_value_set_string(value, session->session_id);
       break;
     case PROP_FORCE:
       g_value_set_boolean(value, session->force);
@@ -1162,7 +1184,7 @@ sbuild_session_class_init (SbuildSessionClass *klass)
     (gobject_class,
      PROP_SESSION_ID,
      g_param_spec_string ("session-id", "Session ID",
-			  "The unique session identifier (UUID) for this session",
+			  "The unique session identifier for this session",
 			  "",
 			  (G_PARAM_READABLE | G_PARAM_WRITABLE)));
 

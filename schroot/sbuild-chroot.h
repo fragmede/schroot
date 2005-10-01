@@ -58,6 +58,8 @@ typedef void (*SbuildChrootPrintConfigFunc)(SbuildChroot *chroot,
 typedef void (*SbuildChrootSetupFunc)(SbuildChroot  *chroot,
 				      GList        **env);
 typedef const gchar *(*SbuildChrootGetChrootTypeFunc)(const SbuildChroot  *chroot);
+typedef gchar *(*SbuildChrootGetSetupNameFunc)(const SbuildChroot    *chroot,
+					       SbuildChrootSetupType  type);
 typedef SbuildChrootSessionFlags (*SbuildChrootGetSessionFlagsFunc)(const SbuildChroot  *chroot);
 
 struct _SbuildChroot
@@ -85,6 +87,7 @@ struct _SbuildChrootClass
   SbuildChrootPrintConfigFunc     print_config;
   SbuildChrootSetupFunc           setup;
   SbuildChrootGetChrootTypeFunc   get_chroot_type;
+  SbuildChrootGetSetupNameFunc    get_setup_name;
   SbuildChrootGetSessionFlagsFunc get_session_flags;
 };
 
@@ -190,6 +193,10 @@ sbuild_chroot_set_run_session_scripts (SbuildChroot *chroot,
 
 const gchar *
 sbuild_chroot_get_chroot_type (const SbuildChroot  *chroot);
+
+gchar *
+sbuild_chroot_get_setup_name (const SbuildChroot    *chroot,
+			      SbuildChrootSetupType  type);
 
 SbuildChrootSessionFlags
 sbuild_chroot_get_session_flags (const SbuildChroot  *chroot);

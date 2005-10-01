@@ -32,8 +32,6 @@
 #include <glib/gprintf.h>
 #include <glib-object.h>
 
-#include <uuid/uuid.h>
-
 #include "sbuild-auth.h"
 #include "sbuild-config.h"
 
@@ -72,10 +70,10 @@ struct _SbuildSession
 {
   SbuildAuth               parent;
   SbuildConfig            *config;
-  char                   **chroots;
+  gchar                  **chroots;
   int                      child_status;
   SbuildSessionOperation   operation;
-  uuid_t                   session_id;
+  gchar                   *session_id;
   gboolean                 force;
 };
 

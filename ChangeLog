@@ -1,3 +1,103 @@
+2005-10-01  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/setup/Makefile.am: Distribute 05lvm.
+
+	* schroot/setup/10mount: Use new LVM variables, so snapshot names
+	and mount locations are as set by the session.  Remove mount
+	directory after unmounting, but only if it's under $MOUNT_DIR.
+
+	* schroot/setup/05lvm: Use new LVM variables, so snapshot names
+	and mount locations are as set by the session.
+
+	* schroot/setup/00check, schroot/session/00check: Add MOUNT_DIR,
+	SESSION_ID, CHROOT_LVM_SNAPSHOT_NAME and
+	CHROOT_LVM_SNAPSHOT_DEVICE.
+
+	* schroot/schroot.c
+	(parse_options): Free the option context after use.
+	(main): If a session ID was not specified, generate a UUID for the
+	session.
+	(main): Free the chroot list to make valgrind happy.
+
+	* schroot/schroot.1.in: Document MOUNT_DIR, SESSION_ID,
+	CHROOT_LVM_SNAPSHOT_NAME and CHROOT_LVM_SNAPSHOT_DEVICE
+	environment variables.
+
+	* schroot/sbuild-session.c
+	(sbuild_session_get_session_id): session-id is no longer required
+	to be a UUID.
+	(sbuild_session_set_session_id): session-id is no longer required
+	to be a UUID.  Allow setting of arbitrary strings.
+	(sbuild_session_setup_chroot): Export MOUNT_DIR and SESSION_ID in
+	the environment.
+	(sbuild_session_run): Set the chroot mount location if the chroot
+	did not already do so.
+	(sbuild_session_run): For LVM snapshot chroots, set the snapshot
+	name to the session ID.
+	(sbuild_session_run): Cascade error handling properly on failure.
+	(sbuild_session_class_init): Update session-id documentation now
+	it is no longer a strict UUID.
+
+	* schroot/sbuild-session.h (struct _SbuildSession): Change
+	session_id type from uuid_t to gchar *.
+
+	* schroot/sbuild-config.c (sbuild_config_load): Free GIOChannel,
+	file data buffer and GKeyFile structure after use.
+
+	* schroot/sbuild-chroot-lvm-snapshot.c
+	(sbuild_chroot_lvm_snapshot_print_config): Don't print NULL
+	values.
+	(sbuild_chroot_lvm_snapshot_setup): Don't set NULL values.  Set
+	snapshot device name (path stripped) as CHROOT_LVM_SNAPSHOT_NAME.
+	(sbuild_chroot_lvm_snapshot_get_setup_name): Implement
+	get_setup_name vfunc.  This is of the form block-major-minor,
+	obtained by stat()ing the block device.  For setup-start, this is
+	the source LV, but for all other cases is the snapshot LV.
+	(sbuild_chroot_lvm_snapshot_class_init): Added new
+	"snapshot-device" property.  The "device" property is slaved to
+	this value, and indirectly, the "device" property is also slaved.
+
+	* schroot/sbuild-chroot-lvm-snapshot.h (struct
+	_SbuildChrootLvmSnapshot): New snapshot_device member.
+
+	* schroot/sbuild-chroot-block-device.c
+	(sbuild_chroot_block_device_print_details): Don't print NULL
+	values.
+	(sbuild_chroot_block_device_print_config): Don't print NULL
+	values.
+	(sbuild_chroot_block_device_setup): Don't set NULL values.
+	(sbuild_chroot_block_device_get_setup_name): Implement
+	get_setup_name vfunc.  This is of the form block-major-minor,
+	obtained by stat()ing the block device.
+
+	* schroot/sbuild-chroot-plain.c
+	(sbuild_chroot_plain_print_details): Don't print NULL values.
+	(sbuild_chroot_plain_print_config): Don't print NULL values.
+	(sbuild_chroot_plain_setup): Don't set NULL values.
+	(sbuild_chroot_plain_get_setup_name): Implement get_setup_name
+	vfunc.  This is of the form directory-major-minor-inode, obtained
+	by stat()ing the mount location.
+
+	* schroot/sbuild-chroot.c
+	(sbuild_chroot_set_properties_from_keyfile): Don't leak GKeyFile
+	string and string vector values.
+	(sbuild_chroot_get_setup_name): New function.  Get the name for
+	e.g. locking during setup.
+	(sbuild_chroot_print_details): Don't print NULL values.
+	(sbuild_chroot_print_config): Don't print NULL values.
+	(setup_env_string): New helper function to build environment list.
+	(setup_env_unsigned): New helper function to build environment list.
+
+	* schroot/sbuild-chroot.h (struct _SbuildChrootClass): Add
+	get_setup_name vfunc.
+
+	* schroot/sbuild-auth.c (sbuild_auth_setupenv): Don't leak new
+	environment.
+
+	* schroot/Makefile.am (install-data-hook): Create mount directory.
+
+	* configure.ac (SCHROOT_MOUNT_DIR): Add mount directory.
+
 2005-09-27  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-lock.c: Minor documentation and error message

@@ -5,11 +5,14 @@ TODO
   session locking, it should also allow block device and inode lock
   names.
 
-* Add the session name to the environment and update documentation.
+* Session operations only operate on one chroot.  Check only one is set.
+
+* Replace chroot "active" property with one to indicate it is in a
+  session.  Print "Session" rather than "Chroot" if in a session.
 
 * chroot access should be restricted to a certain number of
-  concurrent users (defaulting to 1).  This could be implemented
-  with POSIX semaphores using sem_open()/sem_trywait()/sem_close().
+  concurrent users (defaulting to 1).  This uses session file locking
+  to maintain a user count.
 
   Chroot creation
   ---------------

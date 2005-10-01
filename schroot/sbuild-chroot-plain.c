@@ -29,6 +29,13 @@
 
 #include <config.h>
 
+#define _GNU_SOURCE
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/sysmacros.h>
+#include <unistd.h>
+
 #include <glib.h>
 #include <glib/gi18n.h>
 
@@ -104,7 +111,8 @@ sbuild_chroot_plain_print_details (SbuildChrootPlain *chroot,
 {
   g_return_if_fail(SBUILD_IS_CHROOT_PLAIN(chroot));
 
-  g_fprintf(file, "  %-22s%s\n", _("Location"), chroot->location);
+  if (chroot->location)
+    g_fprintf(file, "  %-22s%s\n", _("Location"), chroot->location);
 }
 
 static void
@@ -113,7 +121,7 @@ sbuild_chroot_plain_print_config (SbuildChrootPlain *chroot,
 {
   g_return_if_fail(SBUILD_IS_CHROOT_PLAIN(chroot));
 
-  g_fprintf(file, _("location=%s\n"), chroot->location);
+  g_fprintf(file, _("location=%s\n"), (chroot->location) ? chroot->location : "");
 }
 
 void sbuild_chroot_plain_setup (SbuildChrootPlain  *chroot,
@@ -124,7 +132,7 @@ void sbuild_chroot_plain_setup (SbuildChrootPlain  *chroot,
 
   *env = g_list_append(*env,
 		       g_strdup_printf("CHROOT_LOCATION=%s",
-				       sbuild_chroot_plain_get_location(chroot)));
+				       (chroot->location) ? chroot->location : ""));
 }
 
 static const gchar *
@@ -133,6 +141,33 @@ sbuild_chroot_plain_get_chroot_type (const SbuildChrootPlain *chroot)
   g_return_val_if_fail(SBUILD_IS_CHROOT_PLAIN(chroot), NULL);
 
   return "plain";
+}
+
+static gchar *
+sbuild_chroot_plain_get_setup_name (const SbuildChrootPlain *chroot,
+				    SbuildChrootSetupType    type)
+{
+  struct stat statbuf;
+
+  if (stat(chroot->location, &statbuf) == -1)
+    {
+      g_printerr(_("%s chroot: failed to stat directory %s: %s\n"),
+		 sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
+		 chroot->location, g_strerror(errno));
+      return NULL;
+    }
+  if (!S_ISDIR(statbuf.st_mode))
+    {
+      g_printerr(_("%s chroot: %s is not a directory\n"),
+		 sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
+		 chroot->location);
+      return NULL;
+    }
+
+  return g_strdup_printf("directory-%llu-%llu-%llu\n",
+			 (unsigned long long) gnu_dev_major(statbuf.st_dev),
+			 (unsigned long long) gnu_dev_major(statbuf.st_dev),
+			 (unsigned long long) statbuf.st_ino);
 }
 
 static SbuildChrootSessionFlags
@@ -236,6 +271,8 @@ sbuild_chroot_plain_class_init (SbuildChrootPlainClass *klass)
     sbuild_chroot_plain_setup;
   chroot_class->get_chroot_type = (SbuildChrootGetChrootTypeFunc)
     sbuild_chroot_plain_get_chroot_type;
+  chroot_class->get_setup_name = (SbuildChrootGetSetupNameFunc)
+    sbuild_chroot_plain_get_setup_name;
   chroot_class->get_session_flags = (SbuildChrootGetSessionFlagsFunc)
     sbuild_chroot_plain_get_session_flags;
 

@@ -8,28 +8,22 @@ fi
 
 if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 
-    # Until session management is introduced, the snapshot name is
-    # static.  It should be fixed in SbuildSession.
-
-    SNAPSHOT_NAME=`basename $CHROOT_DEVICE`-snapshot
-    SNAPSHOT_ABSNAME="${CHROOT_DEVICE}-snapshot"
-
     if [ $1 = "setup-start" ]; then
 
 	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 	    lvcreate $VERBOSE $CHROOT_LVM_SNAPSHOT_OPTIONS --snapshot \
-		--name "$SNAPSHOT_NAME" "$CHROOT_DEVICE"
+		--name "$CHROOT_LVM_SNAPSHOT_NAME" "$CHROOT_DEVICE"
 	else
 	    lvcreate $VERBOSE $CHROOT_LVM_SNAPSHOT_OPTIONS --snapshot \
-		--name "$SNAPSHOT_NAME" "$CHROOT_DEVICE" > /dev/null
+		--name "$CHROOT_LVM_SNAPSHOT_NAME" "$CHROOT_DEVICE" > /dev/null
 	fi
 
     elif [ $1 = "setup-stop" ]; then
 
 	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-	    lvremove $VERBOSE -f "$SNAPSHOT_ABSNAME" || true
+	    lvremove $VERBOSE -f "$CHROOT_LVM_SNAPSHOT_DEVICE" || true
 	else
-	    lvremove $VERBOSE -f "$SNAPSHOT_ABSNAME" > /dev/null || true
+	    lvremove $VERBOSE -f "$CHROOT_LVM_SNAPSHOT_DEVICE" > /dev/null || true
 	fi
 
     fi

@@ -229,12 +229,15 @@ sbuild_config_load (const char  *file,
       g_printerr(_("%s: close failure: %s\n"), file, close_error->message);
       exit (EXIT_FAILURE);
     }
+  g_io_channel_unref(channel);
 
   /* Create key file */
   GKeyFile *keyfile = g_key_file_new();
   g_key_file_set_list_separator(keyfile, ',');
   GError *parse_error = NULL;
   g_key_file_load_from_data(keyfile, data, size, G_KEY_FILE_NONE, &parse_error);
+  g_free(data);
+  data = NULL;
 
   if (parse_error)
     {
@@ -251,6 +254,7 @@ sbuild_config_load (const char  *file,
 	*list = g_list_append(*list, chroot);
     }
   g_strfreev(groups);
+  g_key_file_free(keyfile);
 }
 
 /**
