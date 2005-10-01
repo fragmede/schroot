@@ -1,5 +1,16 @@
 2005-10-01  Roger Leigh  <rleigh@debian.org>
 
+	* configure.ac: Output schroot-setup.5
+
+	* schroot/Makefile.am (man_MANS): Add schroot-setup.5
+
+	* schroot/schroot.1.in: Remove setup script documentation.
+
+	* schroot/schroot-setup.5.in: New file, documenting setup script
+	environment.
+
+2005-10-01  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/setup/Makefile.am: Distribute 05lvm.
 
 	* schroot/setup/10mount: Use new LVM variables, so snapshot names

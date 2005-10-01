@@ -1,0 +1,134 @@
+.\" Copyright © 2005  Roger Leigh <rleigh@debian.org>
+.\"
+.\" schroot is free software; you can redistribute it and/or modify it
+.\" under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" schroot is distributed in the hope that it will be useful, but
+.\" WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program; if not, write to the Free Software
+.\" Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+.\" MA  02111-1307  USA
+.TH SCHROOT-SETUP 1 "11 Sep 2005" "Version @VERSION@" "Debian sbuild"
+.SH NAME
+schroot-setup \- schroot chroot setup scripts
+.SH DESCRIPTION
+\fBschroot\fP uses scripts to to set up and then clean up the chroot
+environment.  The directories @SCHROOT_CONF_SETUP_D@ and
+@SCHROOT_CONF_SESSION_D@ contain scripts run when a chroot is created and
+destroyed, and entered and left, respectively.  Several environment variables
+are set while the scripts are being run, which allows their behaviour to be
+customised, depending upon, for example, the type of chroot in use.
+.PP
+The scripts are run in name order, like those run by
+.BR init (8),
+by using
+.BR run-parts (8).
+When a session is first started, the chroot is set up by running the scripts in
+@SCHROOT_CONF_SETUP_D@ with the \[lq]setup-start\[rq] option.  When a command
+or shell is run in the configured chroot, the scripts in
+@SCHROOT_CONF_SESSION_D@ are run with the \[lq]session-start\[rq] option.
+After the command or command has completed, the scripts are run in reverse
+order with the \[lq]session-stop\[rq] option.  Finally, when the session is
+ended, the scripts in @SCHROOT_CONF_SETUP_D@ are run in reverse order with the
+\[lq]setup-stop\[rq] option.
+.SH
+ENVIRONMENT
+.SS General variables
+.TP
+AUTH_USER
+The username of the user the command in the chroot will run as.
+.TP
+AUTH_VERBOSITY
+Set to \[lq]quiet\[rq] if only error messages should be printed,
+\[lq]normal\[rq] if other messages may be printed as well, and
+\[lq]verbose\[rq] if all messages may be printed.
+.TP
+MOUNT_DIR
+The directory under which non-filesystem chroots are mounted (e.g. block
+devices and LVM snapshots).
+.TP
+SESSION_ID
+The session identifier.
+.TP
+CHROOT_TYPE
+The type of the chroot.  This is useful for restricting a setup task to
+particular types of chroot (e.g. only block devices or LVM snapshots).
+.TP
+CHROOT_NAME
+The name of the chroot.  This is useful for restricting a setup task to a
+particular chroot, or set of chroots.
+.TP
+CHROOT_DESCRIPTION
+The description of the chroot.
+.TP
+CHROOT_MOUNT_LOCATION
+The location to mount the chroot (or, in the case of plain chroots, where it
+already exists).
+.TP
+CHROOT_MOUNT_DEVICE
+The device containing the chroot root filesystem.  This is only set for chroots
+which require mounting.
+.TP
+CHROOT_CURRENT_USERS
+The number of users currently using the chroot.
+.TP
+CHROOT_MAX_USERS
+The maximum number of users able to use the chroot.
+.SS Plain chroot variables
+.TP
+CHROOT_LOCATION
+The location of the chroot.  This is useful for creating files, or copying
+files into the chroot.
+.SS Block device variables
+.TP
+CHROOT_DEVICE
+The device containing the chroot root filesystem.  This usually, but not
+necessarily the device which will be mounted.  For example, an LVM snapshot
+this will be the original logical volume.
+.TP
+CHROOT_MOUNT_OPTIONS
+Options to pass to
+.BR mount (8).
+.SS LVM snapshot variables
+.TP
+CHROOT_LVM_SNAPSHOT_NAME
+Snapshot name to pass to
+.BR lvcreate (8).
+.TP
+CHROOT_LVM_SNAPSHOT_DEVICE
+The name of the LVM snapshot device.
+.TP
+CHROOT_LVM_SNAPSHOT_OPTIONS
+Options to pass to
+.BR lvcreate (8).
+.SH FILES
+.TP
+.I @SCHROOT_CONF_SETUP_D@
+.TP
+.I @SCHROOT_CONF_SESSION_D@
+The system-wide chroot setup and session directories.
+.SH AUTHORS
+Roger Leigh.
+.SH COPYRIGHT
+Copyright \(co 2005  Roger Leigh <rleigh@debian.org>
+.PP
+This program is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option)
+any later version.
+.SH SEE ALSO
+.BR sbuild (1),
+.BR schroot.conf (5),
+.BR run-parts (8).
+.\"#
+.\"# The following sets edit modes for GNU EMACS
+.\"# Local Variables:
+.\"# mode:nroff
+.\"# fill-column:79
+.\"# End:

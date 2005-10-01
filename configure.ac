@@ -196,6 +196,7 @@ AC_CONFIG_FILES([schroot/pam/Makefile])
 AC_CONFIG_FILES([schroot/session/Makefile])
 AC_CONFIG_FILES([schroot/setup/Makefile])
 AC_CONFIG_FILES([schroot/schroot.1])
+AC_CONFIG_FILES([schroot/schroot-setup.5])
 AC_CONFIG_FILES([schroot/schroot.conf.5])
 AC_CONFIG_FILES([Makefile])
 dnl Output the generated config.status script.

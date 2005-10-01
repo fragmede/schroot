@@ -21,7 +21,7 @@ schroot \- securely enter a chroot environment
 .B schroot
 [\fIOPTION\fP]... [\fICOMMAND\fP]
 .SH DESCRIPTION
-\fBsbuild\fP allows the user to run a command or a login shell in a chroot
+\fBschroot\fP allows the user to run a command or a login shell in a chroot
 environment.  If no command is specified, a login shell will be started in the
 user's current working directory inside the chroot.
 .PP
@@ -183,93 +183,8 @@ user, and not be writable by other.
 .I @SCHROOT_CONF_SETUP_D@
 .TP
 .I @SCHROOT_CONF_SESSION_D@
-The system-wide chroot setup and session directories.  These directories
-contain scripts run when a chroot is created and destroyed, and entered and
-left, respectively, used to set up and then clean up the chroot environment.
-During script execution, the following environment variables are defined:
-.RS
-.SS General variables
-.TP
-AUTH_USER
-The username of the user the command in the chroot will run as.
-.TP
-AUTH_VERBOSITY
-Set to \[lq]quiet\[rq] if only error messages should be printed,
-\[lq]normal\[rq] if other messages may be printed as well, and
-\[lq]verbose\[rq] if all messages may be printed.
-.TP
-MOUNT_DIR
-The directory under which non-filesystem chroots are mounted (e.g. block
-devices and LVM snapshots).
-.TP
-SESSION_ID
-The session identifier.
-.TP
-CHROOT_TYPE
-The type of the chroot.  This is useful for restricting a setup task to
-particular types of chroot (e.g. only block devices or LVM snapshots).
-.TP
-CHROOT_NAME
-The name of the chroot.  This is useful for restricting a setup task to a
-particular chroot, or set of chroots.
-.TP
-CHROOT_DESCRIPTION
-The description of the chroot.
-.TP
-CHROOT_MOUNT_LOCATION
-The location to mount the chroot (or, in the case of plain chroots, where it
-already exists).
-.TP
-CHROOT_MOUNT_DEVICE
-The device containing the chroot root filesystem.  This is only set for chroots
-which require mounting.
-.TP
-CHROOT_CURRENT_USERS
-The number of users currently using the chroot.
-.TP
-CHROOT_MAX_USERS
-The maximum number of users able to use the chroot.
-.SS Plain chroot variables
-.TP
-CHROOT_LOCATION
-The location of the chroot.  This is useful for creating files, or copying
-files into the chroot.
-.SS Block device variables
-.TP
-CHROOT_DEVICE
-The device containing the chroot root filesystem.  This usually, but not
-necessarily the device which will be mounted.  For example, an LVM snapshot
-this will be the original logical volume.
-.TP
-CHROOT_MOUNT_OPTIONS
-Options to pass to
-.BR mount (8).
-.SS LVM snapshot variables
-.TP
-CHROOT_LVM_SNAPSHOT_NAME
-Snapshot name to pass to
-.BR lvcreate (8).
-.TP
-CHROOT_LVM_SNAPSHOT_DEVICE
-The name of the LVM snapshot device.
-.TP
-CHROOT_LVM_SNAPSHOT_OPTIONS
-Options to pass to
-.BR lvcreate (8).
-.RE
-.PP
-The scripts are run in name order, like those run by
-.BR init (8),
-by using
-.BR run-parts (8).
-When a session is first started, the chroot is set up by running the scripts in
-@SCHROOT_CONF_SETUP_D@ with the \[lq]setup-start\[rq] option.  When a command
-or shell is run in the configured chroot, the scripts in
-@SCHROOT_CONF_SESSION_D@ are run with the \[lq]session-start\[rq] option.
-After the command or command has completed, the scripts are run in reverse
-order with the \[lq]session-stop\[rq] option.  Finally, when the session is
-ended, the scripts in @SCHROOT_CONF_SETUP_D@ are run in reverse order with the
-\[lq]setup-stop\[rq] option.
+The system-wide chroot setup and session directories.  See
+.BR schroot-setup (5).
 .TP
 .I /etc/pam.d/schroot
 PAM configuration.
@@ -286,6 +201,7 @@ any later version.
 .BR dchroot (1),
 .BR sbuild (1),
 .BR chroot (2),
+.BR schroot-setup (5),
 .BR schroot.conf (5).
 .\"#
 .\"# The following sets edit modes for GNU EMACS

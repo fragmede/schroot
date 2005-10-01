@@ -10,6 +10,10 @@ TODO
 * Replace chroot "active" property with one to indicate it is in a
   session.  Print "Session" rather than "Chroot" if in a session.
 
+* Document the setup and session scripts.
+
+* Make "session" naming more consistent.
+
 * chroot access should be restricted to a certain number of
   concurrent users (defaulting to 1).  This uses session file locking
   to maintain a user count.

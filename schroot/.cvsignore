@@ -6,6 +6,7 @@ Makefile.in
 *.lo
 schroot
 schroot.1
+schroot-setup.5
 schroot.conf.5
 sbuild-marshallers.c
 sbuild-marshallers.h

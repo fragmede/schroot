@@ -85,7 +85,7 @@ endif
 pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
 pkgsysconf_DATA = schroot.conf
 
-man_MANS = schroot.1 schroot.conf.5
+man_MANS = schroot.1 schroot-setup.5 schroot.conf.5
 
 sbuild-marshallers.c : sbuild-marshallers.list $(GLIB_GENMARSHAL)
 	$(GLIB_GENMARSHAL) $< --body --prefix=sbuild_cclosure_marshal > $@.tmp
