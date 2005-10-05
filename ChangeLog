@@ -1,3 +1,10 @@
+2005-10-05  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Manual pages say "schroot" rather than
+	"sbuild".  Closes Debian Bug #331550.
+
+	* schroot/schroot.conf.5.in: Use "schroot" rather than "sbuild".
+
 2005-10-01  Roger Leigh  <rleigh@debian.org>
 
 	* configure.ac: Output schroot-setup.5

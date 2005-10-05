@@ -6,13 +6,14 @@ schroot (0.1.6-1) unstable; urgency=low
     option has been added to configure the running of setup
     scripts, which are disabled by default for safety
     (Closes: #329403).
+  * Manual pages say "schroot" rather than "sbuild" (Closes: #331550).
   * Preserve schroot.conf changes correctly when moving to
     /etc/schroot/schroot.conf, by checking the md5sum to
     detect local modifictions.  If not modified, delete and
     replace with the package version.
   * debian/rules: Set $localstatedir when running configure.
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 24 Sep 2005 21:58:42 +0100
+ -- Roger Leigh <rleigh@debian.org>  Wed,  5 Oct 2005 19:33:17 +0100
 
 schroot (0.1.5-1) unstable; urgency=low
 

@@ -18,7 +18,7 @@
 .SH NAME
 schroot.conf \- chroot definition file for schroot
 .SH DESCRIPTION
-\fBsbuild.conf\fP is a plain UTF-8 text file, describing the chroots available
+\fBschroot.conf\fP is a plain UTF-8 text file, describing the chroots available
 for use with sbuild.
 .PP
 Comments are introduced following a \[oq]\f[CR]\[sh]\fP\[cq] (\[lq]hash\[rq])
