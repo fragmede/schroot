@@ -1,5 +1,24 @@
 2005-10-12  Roger Leigh  <rleigh@debian.org>
 
+	* All manpages updated to document the new names and directory
+	locations.
+
+	* schroot/sbuild-chroot.h: Rename SBUILD_CHROOT_SETUP_START and
+	SBUILD_CHROOT_SETUP_STOP to SBUILD_CHROOT_RUN_START and
+	SBUILD_CHROOT_RUN_STOP.  Users of the enum changed to use the new
+	names.
+
+	* session.d script "session-start" and "session-stop" script
+	arguments renamed to "run-start" and "run-stop".  All scripts
+	changed to use the new names, and sbuild-session.c runs the
+	scripts with the new new names.
+
+	* Rename schroot/session to schroot/run.  Install scripts into
+	$sysconfdir/schroot/run.d.  Update configure.ac, and
+	schroot/Makefile.am.
+
+2005-10-12  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-session.c (sbuild_session_setup_chroot): Use new
 	function names.
 

@@ -14,7 +14,7 @@
 .\" along with this program; if not, write to the Free Software
 .\" Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 .\" MA  02111-1307  USA
-.TH SCHROOT 1 "11 Sep 2005" "Version @VERSION@" "Debian sbuild"
+.TH SCHROOT 1 "12 Oct 2005" "Version @VERSION@" "Debian sbuild"
 .SH NAME
 schroot \- securely enter a chroot environment
 .SH SYNOPSIS
@@ -182,8 +182,8 @@ user, and not be writable by other.
 .TP
 .I @SCHROOT_CONF_SETUP_D@
 .TP
-.I @SCHROOT_CONF_SESSION_D@
-The system-wide chroot setup and session directories.  See
+.I @SCHROOT_CONF_RUN_D@
+The system-wide chroot setup and run directories.  See
 .BR schroot-setup (5).
 .TP
 .I /etc/pam.d/schroot

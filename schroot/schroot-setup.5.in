@@ -14,29 +14,29 @@
 .\" along with this program; if not, write to the Free Software
 .\" Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 .\" MA  02111-1307  USA
-.TH SCHROOT-SETUP 1 "11 Sep 2005" "Version @VERSION@" "Debian sbuild"
+.TH SCHROOT-SETUP 5 "12 Oct 2005" "Version @VERSION@" "Debian sbuild"
 .SH NAME
 schroot-setup \- schroot chroot setup scripts
 .SH DESCRIPTION
 \fBschroot\fP uses scripts to to set up and then clean up the chroot
-environment.  The directories @SCHROOT_CONF_SETUP_D@ and
-@SCHROOT_CONF_SESSION_D@ contain scripts run when a chroot is created and
-destroyed, and entered and left, respectively.  Several environment variables
-are set while the scripts are being run, which allows their behaviour to be
-customised, depending upon, for example, the type of chroot in use.
+environment.  The directories @SCHROOT_CONF_SETUP_D@ and @SCHROOT_CONF_RUN_D@
+contain scripts run when a chroot is created and destroyed, and entered and
+left, respectively.  Several environment variables are set while the scripts
+are being run, which allows their behaviour to be customised, depending upon,
+for example, the type of chroot in use.
 .PP
 The scripts are run in name order, like those run by
 .BR init (8),
 by using
 .BR run-parts (8).
 When a session is first started, the chroot is set up by running the scripts in
-@SCHROOT_CONF_SETUP_D@ with the \[lq]setup-start\[rq] option.  When a command
-or shell is run in the configured chroot, the scripts in
-@SCHROOT_CONF_SESSION_D@ are run with the \[lq]session-start\[rq] option.
-After the command or command has completed, the scripts are run in reverse
-order with the \[lq]session-stop\[rq] option.  Finally, when the session is
-ended, the scripts in @SCHROOT_CONF_SETUP_D@ are run in reverse order with the
-\[lq]setup-stop\[rq] option.
+@SCHROOT_CONF_SETUP_D@ with the \[lq]setup\-start\[rq] option.  When a command
+or shell is run in the configured chroot, the scripts in @SCHROOT_CONF_RUN_D@
+are run with the \[lq]run\-start\[rq] option.  After the command or command has
+completed, the scripts are run in reverse order with the \[lq]run\-stop\[rq]
+option.  Finally, when the session is ended, the scripts in
+@SCHROOT_CONF_SETUP_D@ are run in reverse order with the \[lq]setup\-stop\[rq]
+option.
 .SH
 ENVIRONMENT
 .SS General variables
@@ -111,8 +111,8 @@ Options to pass to
 .TP
 .I @SCHROOT_CONF_SETUP_D@
 .TP
-.I @SCHROOT_CONF_SESSION_D@
-The system-wide chroot setup and session directories.
+.I @SCHROOT_CONF_RUN_D@
+The system-wide chroot setup and run directories.
 .SH AUTHORS
 Roger Leigh.
 .SH COPYRIGHT

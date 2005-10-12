@@ -482,8 +482,8 @@ sbuild_session_setup_chroot (SbuildSession          *session,
   g_return_val_if_fail(sbuild_chroot_get_name(session_chroot) != NULL, FALSE);
   g_return_val_if_fail(setup_type == SBUILD_CHROOT_SETUP_START ||
 		       setup_type == SBUILD_CHROOT_SETUP_STOP ||
-		       setup_type == SBUILD_CHROOT_SESSION_START ||
-		       setup_type == SBUILD_CHROOT_SESSION_STOP, FALSE);
+		       setup_type == SBUILD_CHROOT_RUN_START ||
+		       setup_type == SBUILD_CHROOT_RUN_STOP, FALSE);
 
   /* TODO: Locking during setup */
   gchar *setup_type_string = NULL;
@@ -491,10 +491,10 @@ sbuild_session_setup_chroot (SbuildSession          *session,
     setup_type_string = "setup-start";
   else if (setup_type == SBUILD_CHROOT_SETUP_STOP)
     setup_type_string = "setup-stop";
-  else if (setup_type == SBUILD_CHROOT_SESSION_START)
-    setup_type_string = "session-start";
-  else if (setup_type == SBUILD_CHROOT_SESSION_STOP)
-    setup_type_string = "session-stop";
+  else if (setup_type == SBUILD_CHROOT_RUN_START)
+    setup_type_string = "run-start";
+  else if (setup_type == SBUILD_CHROOT_RUN_STOP)
+    setup_type_string = "run-stop";
 
   gchar **argv = g_new(gchar *, 8);
   {
@@ -506,14 +506,14 @@ sbuild_session_setup_chroot (SbuildSession          *session,
     argv[i++] = g_strdup("--lsbsysinit");
     argv[i++] = g_strdup("--exit-on-error");
     if (setup_type == SBUILD_CHROOT_SETUP_STOP ||
-	setup_type == SBUILD_CHROOT_SESSION_STOP)
+	setup_type == SBUILD_CHROOT_RUN_STOP)
       argv[i++] = g_strdup("--reverse");
     argv[i++] = g_strdup_printf("--arg=%s", setup_type_string);
     if (setup_type == SBUILD_CHROOT_SETUP_START ||
 	setup_type == SBUILD_CHROOT_SETUP_STOP)
       argv[i++] = g_strdup(SCHROOT_CONF_SETUP_D); // Setup directory
     else
-      argv[i++] = g_strdup(SCHROOT_CONF_SESSION_D); // Session directory
+      argv[i++] = g_strdup(SCHROOT_CONF_RUN_D); // Run directory
     argv[i++] = NULL;
   }
 
@@ -995,7 +995,7 @@ sbuild_session_run (SbuildSession  *session,
 	    {
 	      if (sbuild_chroot_get_run_session_scripts(chroot) == TRUE)
 		sbuild_session_setup_chroot(session, chroot,
-					    SBUILD_CHROOT_SESSION_START,
+					    SBUILD_CHROOT_RUN_START,
 					    &tmp_error);
 
 	      /* Run session if setup succeeded. */
@@ -1005,7 +1005,7 @@ sbuild_session_run (SbuildSession  *session,
 	      /* Run clean up scripts whether or not there was an error. */
 	      if (sbuild_chroot_get_run_session_scripts(chroot) == TRUE)
 		sbuild_session_setup_chroot(session, chroot,
-					    SBUILD_CHROOT_SESSION_STOP,
+					    SBUILD_CHROOT_RUN_STOP,
 					    (tmp_error != NULL) ? NULL : &tmp_error);
 	    }
 

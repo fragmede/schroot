@@ -96,9 +96,9 @@ SbuildChroot class.
 @parent: the parent class
 @print_details: vfunc to print additional chroot details
 @print_config: vfunc to print the config file group for this chroot
-@setup: vfunc to set additional environment variables for chroot setup
+@setup_env: 
 @get_chroot_type: vfunc to get the user visible chroot type name
-@get_setup_name: vfunc to get the setup lock name for a given setup type
+@setup_lock: 
 @get_session_flags: vfunc to get the session flags for this chroot type
 
 <!-- ##### USER_FUNCTION SbuildChrootPrintDetailsFunc ##### -->
@@ -112,21 +112,6 @@ print additional detail in derived #SbuildChroot classes.
 @file: the file to output to.
 
 
-<!-- ##### USER_FUNCTION SbuildChrootSetupFunc ##### -->
-<para>
-This function is used to set the environment that the scripts will see
-during execution.  Environment variables should be added to @env as
-"key=value" strings (the format expected by execve envp).  These
-strings should be allocated with g_free (or related allocation
-functions such as g_strdup), and they must not be freed.  This should
-be used to set additional environment variables in derived
-#SbuildChroot classes.
-</para>
-
-@chroot: an #SbuildChroot
-@env: A #GList containing environment "key=value" strings.
-
-
 <!-- ##### USER_FUNCTION SbuildChrootGetChrootTypeFunc ##### -->
 <para>
 This function is used to get the name of the chroot type subclassed
@@ -136,17 +121,6 @@ name of the class, for use in messages and configuration files.
 
 @chroot: an #SbuildChroot
 @Returns: the type name
-
-
-<!-- ##### USER_FUNCTION SbuildChrootGetSetupNameFunc ##### -->
-<para>
-Get setup name (lock name) of the chroot. This may vary depending upon
-the setup stage.
-</para>
-
-@chroot: an #SbuildChroot
-@type:  the type of setup being performed
-@Returns: a string
 
 
 <!-- ##### USER_FUNCTION SbuildChrootGetSessionFlagsFunc ##### -->
@@ -185,8 +159,8 @@ The type of chroot setup operation
 
 @SBUILD_CHROOT_SETUP_START: Set up a new chroot, preparing it for use
 @SBUILD_CHROOT_SETUP_STOP: Clean up an existing chroot, possibly deleting it
-@SBUILD_CHROOT_SESSION_START: Start a new session in an existing chroot
-@SBUILD_CHROOT_SESSION_STOP: End a session in an existing chroot
+@SBUILD_CHROOT_RUN_START: Start running a command in an existing chroot
+@SBUILD_CHROOT_RUN_STOP: Stop running a command in an existing chroot
 
 <!-- ##### FUNCTION sbuild_chroot_new ##### -->
 <para>
@@ -460,16 +434,6 @@ The type of chroot setup operation
 @Returns: 
 
 
-<!-- ##### FUNCTION sbuild_chroot_get_setup_name ##### -->
-<para>
-
-</para>
-
-@chroot: 
-@type: 
-@Returns: 
-
-
 <!-- ##### FUNCTION sbuild_chroot_get_session_flags ##### -->
 <para>
 
@@ -477,14 +441,5 @@ The type of chroot setup operation
 
 @chroot: 
 @Returns: 
-
-
-<!-- ##### FUNCTION sbuild_chroot_setup ##### -->
-<para>
-
-</para>
-
-@chroot: 
-@env: 
 
 

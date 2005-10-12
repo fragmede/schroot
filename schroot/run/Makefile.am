@@ -20,11 +20,12 @@
 #
 #####################################################################
 
-sessiondir = $(SCHROOT_CONF_SESSION_D)
+rundir = $(SCHROOT_CONF_RUN_D)
 
-session_SCRIPTS =		\
-	00check
+run_SCRIPTS =		\
+	00check		\
+	50sbuild
 
 EXTRA_DIST =				\
-	$(session_SCRIPTS)
+	$(run_SCRIPTS)
 

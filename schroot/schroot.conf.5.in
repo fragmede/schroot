@@ -14,7 +14,7 @@
 .\" along with this program; if not, write to the Free Software
 .\" Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 .\" MA  02111-1307  USA
-.TH SCHROOT.CONF 5 "11 Sep 2005" "Version @VERSION@" "Debian sbuild"
+.TH SCHROOT.CONF 5 "12 Oct 2005" "Version @VERSION@" "Debian sbuild"
 .SH NAME
 schroot.conf \- chroot definition file for schroot
 .SH DESCRIPTION
