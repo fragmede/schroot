@@ -14,6 +14,9 @@ TODO
 
 * Document the setup and session scripts.
 
+* Add examples of new chroot types to schroot.conf, using all
+  available options.
+
 * Make "session" naming more consistent.
 
 * chroot access should be restricted to a certain number of

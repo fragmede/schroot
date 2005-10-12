@@ -1,3 +1,17 @@
+2005-10-13  Roger Leigh  <rleigh@debian.org>
+
+	* Version 0.1.6.
+
+	* debian/changelog: Update
+
+	* TODO: Update.
+
+	* NEWS: Update.
+
+	* schroot/schroot.1.in: Remove unused session options.
+
+	* schroot/schroot.c: Disable unused session options.
+
 2005-10-12  Roger Leigh  <rleigh@debian.org>
 
 	* All manpages updated to document the new names and directory

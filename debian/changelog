@@ -13,7 +13,7 @@ schroot (0.1.6-1) unstable; urgency=low
     replace with the package version.
   * debian/rules: Set $localstatedir when running configure.
 
- -- Roger Leigh <rleigh@debian.org>  Wed,  5 Oct 2005 19:33:17 +0100
+ -- Roger Leigh <rleigh@debian.org>  Thu, 13 Oct 2005 00:16:06 +0100
 
 schroot (0.1.5-1) unstable; urgency=low
 

@@ -6,15 +6,17 @@ building and configuration.
 
 * Major changes in 0.1.6:
 
-  1) Setup scripts may be run on startup and shutdown in order to
-     perform setup tasks such as configuring the chroot and mounting
-     filesystems.  These are stored in /etc/schroot/setup.d, and run
+  1) Setup scripts may be run on startup and shutdown and before and
+     after a command in order to perform setup tasks such as
+     configuring the chroot and mounting filesystems.  These are
+     stored in /etc/schroot/setup.d and /etc/schroot/run.d, and run
      using run-parts(8).  New scripts may easily be added by the
-     system administrator.
+     system administrator.  See schroot-setup(5).
 
   2) Different types of chroots are now supported.  The current types
      are "plain" (the default, which is the type supported by previous
-     releases) and "block-device", a block device mounted on the fly.
+     releases), "block-device" (a block device mounted on the fly) and
+     "lvm-snapshot" (and LVM snapshot of an LV made on the fly).
 
 * Major changes in 0.1.5:
 
