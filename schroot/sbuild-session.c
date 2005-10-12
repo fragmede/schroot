@@ -521,7 +521,7 @@ sbuild_session_setup_chroot (SbuildSession          *session,
      query the chroot here, since this can vary depending upon the
      chroot type. */
   GList *env = NULL;
-  sbuild_chroot_setup(session_chroot, &env);
+  sbuild_chroot_setup_env(session_chroot, &env);
   {
     env = g_list_append(env,
 			g_strdup_printf("AUTH_USER=%s",

@@ -172,8 +172,8 @@ sbuild_chroot_block_device_print_config (SbuildChrootBlockDevice *chroot,
 	    (chroot->mount_options) ? chroot->mount_options : "");
 }
 
-void sbuild_chroot_block_device_setup (SbuildChrootBlockDevice  *chroot,
-				       GList                   **env)
+void sbuild_chroot_block_device_setup_env (SbuildChrootBlockDevice  *chroot,
+					   GList                   **env)
 {
   g_return_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot));
   g_return_if_fail(env != NULL);
@@ -195,30 +195,37 @@ sbuild_chroot_block_device_get_chroot_type (const SbuildChrootBlockDevice *chroo
   return "block-device";
 }
 
-static gchar *
-sbuild_chroot_block_device_get_setup_name (const SbuildChrootBlockDevice *chroot,
-					   SbuildChrootSetupType          type)
+static gboolean
+sbuild_chroot_block_device_setup_lock (const SbuildChrootBlockDevice *chroot,
+				       SbuildChrootSetupType          type,
+				       gboolean                       lock)
 {
+  g_return_val_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot), FALSE);
+
   struct stat statbuf;
+
+  /* TODO: Use liblockdev. */
 
   if (stat(chroot->device, &statbuf) == -1)
     {
       g_printerr(_("%s chroot: failed to stat device %s: %s\n"),
 		 sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
 		 chroot->device, g_strerror(errno));
-      return NULL;
+      return FALSE;
     }
   if (!S_ISBLK(statbuf.st_mode))
     {
       g_printerr(_("%s chroot: %s is not a block device\n"),
 		 sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
 		 chroot->device);
-      return NULL;
+      return FALSE;
     }
 
-  return g_strdup_printf("block-%llu-%llu\n",
-			 (unsigned long long) gnu_dev_major(statbuf.st_rdev),
-			 (unsigned long long) gnu_dev_major(statbuf.st_rdev));
+/*   return g_strdup_printf("block-%llu-%llu\n", */
+/* 			 (unsigned long long) gnu_dev_major(statbuf.st_rdev), */
+/* 			 (unsigned long long) gnu_dev_major(statbuf.st_rdev)); */
+
+  return TRUE;
 }
 
 static SbuildChrootSessionFlags
@@ -331,12 +338,12 @@ sbuild_chroot_block_device_class_init (SbuildChrootBlockDeviceClass *klass)
     sbuild_chroot_block_device_print_details;
   chroot_class->print_config = (SbuildChrootPrintConfigFunc)
     sbuild_chroot_block_device_print_config;
-  chroot_class->setup = (SbuildChrootSetupFunc)
-    sbuild_chroot_block_device_setup;
+  chroot_class->setup_env = (SbuildChrootSetupEnvFunc)
+    sbuild_chroot_block_device_setup_env;
   chroot_class->get_chroot_type = (SbuildChrootGetChrootTypeFunc)
     sbuild_chroot_block_device_get_chroot_type;
-  chroot_class->get_setup_name = (SbuildChrootGetSetupNameFunc)
-    sbuild_chroot_block_device_get_setup_name;
+  chroot_class->setup_lock = (SbuildChrootSetupLockFunc)
+    sbuild_chroot_block_device_setup_lock;
   chroot_class->get_session_flags = (SbuildChrootGetSessionFlagsFunc)
     sbuild_chroot_block_device_get_session_flags;
 

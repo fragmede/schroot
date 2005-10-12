@@ -1,3 +1,29 @@
+2005-10-12  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-session.c (sbuild_session_setup_chroot): Use new
+	function names.
+
+	* schroot/sbuild-chroot-lvm-snapshot.c: Use new vfunc names.
+	(sbuild_chroot_lvm_snapshot_setup_lock): stat devices, but still
+	needs liblockdev support for full locking.
+
+	* schroot/sbuild-chroot-block-device.c: Use new vfunc names.
+	(sbuild_chroot_block_device_setup_lock): stat devices, but still
+	needs liblockdev support for full locking.
+
+	* schroot/sbuild-chroot-plain.c: Use new vfunc names.
+	(sbuild_chroot_plain_setup_lock): Do no locking by default.
+
+	* schroot/sbuild-chroot.c
+	(sbuild_chroot_setup_lock): Renamed from
+	setup_chroot_get_setup_name.
+	(sbuild_chroot_setup_env): Renamed from sbuild_chroot_setup.
+	(sbuild_chroot_class_init): Use new vfunc names.
+
+	* schroot/sbuild-chroot.h (struct _SbuildChrootClass): Rename
+	setup to setup_env and get_setup_name to setup_lock, which now
+	returns gboolean on lock failure.
+
 2005-10-05  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Manual pages say "schroot" rather than

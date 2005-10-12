@@ -55,11 +55,12 @@ typedef void (*SbuildChrootPrintDetailsFunc)(SbuildChroot *chroot,
 					     FILE         *file);
 typedef void (*SbuildChrootPrintConfigFunc)(SbuildChroot *chroot,
 					    FILE         *file);
-typedef void (*SbuildChrootSetupFunc)(SbuildChroot  *chroot,
-				      GList        **env);
 typedef const gchar *(*SbuildChrootGetChrootTypeFunc)(const SbuildChroot  *chroot);
-typedef gchar *(*SbuildChrootGetSetupNameFunc)(const SbuildChroot    *chroot,
-					       SbuildChrootSetupType  type);
+typedef void (*SbuildChrootSetupEnvFunc)(SbuildChroot  *chroot,
+					 GList        **env);
+typedef gboolean (*SbuildChrootSetupLockFunc)(const SbuildChroot    *chroot,
+					      SbuildChrootSetupType  type,
+					      gboolean               lock);
 typedef SbuildChrootSessionFlags (*SbuildChrootGetSessionFlagsFunc)(const SbuildChroot  *chroot);
 
 struct _SbuildChroot
@@ -85,9 +86,9 @@ struct _SbuildChrootClass
   GObjectClass                    parent;
   SbuildChrootPrintDetailsFunc    print_details;
   SbuildChrootPrintConfigFunc     print_config;
-  SbuildChrootSetupFunc           setup;
+  SbuildChrootSetupEnvFunc        setup_env;
   SbuildChrootGetChrootTypeFunc   get_chroot_type;
-  SbuildChrootGetSetupNameFunc    get_setup_name;
+  SbuildChrootSetupLockFunc       setup_lock;
   SbuildChrootGetSessionFlagsFunc get_session_flags;
 };
 
@@ -194,9 +195,14 @@ sbuild_chroot_set_run_session_scripts (SbuildChroot *chroot,
 const gchar *
 sbuild_chroot_get_chroot_type (const SbuildChroot  *chroot);
 
-gchar *
-sbuild_chroot_get_setup_name (const SbuildChroot    *chroot,
-			      SbuildChrootSetupType  type);
+void
+sbuild_chroot_setup_env (SbuildChroot  *chroot,
+			 GList        **env);
+
+gboolean
+sbuild_chroot_setup_lock (const SbuildChroot    *chroot,
+			  SbuildChrootSetupType  type,
+			  gboolean               lock);
 
 SbuildChrootSessionFlags
 sbuild_chroot_get_session_flags (const SbuildChroot  *chroot);
@@ -208,12 +214,6 @@ sbuild_chroot_print_details (SbuildChroot *chroot,
 void
 sbuild_chroot_print_config (SbuildChroot *chroot,
 			    FILE         *file);
-
-void
-sbuild_chroot_setup (SbuildChroot  *chroot,
-		     GList        **env);
-
-
 
 #endif /* SBUILD_CHROOT_H */
 

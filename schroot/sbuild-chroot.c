@@ -771,31 +771,33 @@ sbuild_chroot_get_chroot_type (const SbuildChroot  *chroot)
 }
 
 /**
- * sbuild_chroot_get_setup_name:
+ * sbuild_chroot_setup_lock:
  * @chroot: an #SbuildChroot
  * @type: the type of setup being performed
+ * @lock: TRUE to lock, FALSE to unlock
  *
- * Get setup name (lock name) of the chroot.  This may vary depending
- * upon the setup stage.  For example, during creation a block device
- * might require locking, but afterwards this will change to the new
- * block device or directory.
+ * Lock a chroot during setup.  The locking technique (if any) may
+ * vary depending upon the chroot type and setup stage.  For example,
+ * during creation a block device might require locking, but
+ * afterwards this will change to the new block device or directory.
  *
- * Returns a string.  This must be freed by the caller.
+ * Returns TRUE on success, FALSE on failure
  */
-gchar *
-sbuild_chroot_get_setup_name (const SbuildChroot    *chroot,
-			      SbuildChrootSetupType  type)
+gboolean
+sbuild_chroot_setup_lock (const SbuildChroot    *chroot,
+			  SbuildChrootSetupType  type,
+			  gboolean               lock)
 {
-  g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), NULL);
+  g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), FALSE);
 
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
-  if (klass->get_setup_name)
-    return klass->get_setup_name(chroot, type);
+  if (klass->setup_lock)
+    return klass->setup_lock(chroot, type, lock);
   else
     {
       g_error(_("%s chroot: chroot setup name is unset; error in derived class\n"),
 	      chroot->name);
-      return NULL;
+      return FALSE;
     }
 }
 
@@ -969,19 +971,18 @@ setup_env_unsigned (GList       **env,
 }
 
 /**
- * sbuild_chroot_setup:
+ * sbuild_chroot_setup_env:
  * @chroot: an #SbuildChroot.
  * @env: the environment to set.
  *
- * Set up a chroot by runnning setup scripts.  This function is used
- * to set the environment that the scripts will see during execution.
- * Environment variables should be added to @env as "key=value"
- * strings (the format expected by execve envp).  These strings should
- * be allocated with g_free (or related allocation functions such as
- * g_strdup), and they must not be freed.
+ * This function is used to set the environment that the setup scripts
+ * will see during execution.  Environment variables should be added
+ * to @env as "key=value" strings (the format expected by execve
+ * envp).  These strings should be allocated with g_free (or related
+ * allocation functions such as g_strdup), and they must not be freed.
  */
-void sbuild_chroot_setup (SbuildChroot  *chroot,
-			  GList        **env)
+void sbuild_chroot_setup_env (SbuildChroot  *chroot,
+			      GList        **env)
 {
   g_return_if_fail(SBUILD_IS_CHROOT(chroot));
   g_return_if_fail(env != NULL);
@@ -1001,8 +1002,8 @@ void sbuild_chroot_setup (SbuildChroot  *chroot,
   setup_env_unsigned(env, "CHROOT_MAX_USERS", chroot->max_users);
 
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
-  if (klass->setup)
-    klass->setup(chroot, env);
+  if (klass->setup_env)
+    klass->setup_env(chroot, env);
 }
 
 static void
@@ -1199,9 +1200,9 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
 
   klass->print_details = NULL;
   klass->print_config = NULL;
-  klass->setup = NULL;
+  klass->setup_env = NULL;
   klass->get_chroot_type = NULL;
-  klass->get_setup_name = NULL;
+  klass->setup_lock = NULL;
   klass->get_session_flags = NULL;
 
   g_object_class_install_property

@@ -124,8 +124,8 @@ sbuild_chroot_plain_print_config (SbuildChrootPlain *chroot,
   g_fprintf(file, _("location=%s\n"), (chroot->location) ? chroot->location : "");
 }
 
-void sbuild_chroot_plain_setup (SbuildChrootPlain  *chroot,
-				GList        **env)
+void sbuild_chroot_plain_setup_env (SbuildChrootPlain  *chroot,
+				    GList        **env)
 {
   g_return_if_fail(SBUILD_IS_CHROOT_PLAIN(chroot));
   g_return_if_fail(env != NULL);
@@ -143,31 +143,15 @@ sbuild_chroot_plain_get_chroot_type (const SbuildChrootPlain *chroot)
   return "plain";
 }
 
-static gchar *
-sbuild_chroot_plain_get_setup_name (const SbuildChrootPlain *chroot,
-				    SbuildChrootSetupType    type)
+static gboolean
+sbuild_chroot_plain_setup_lock (const SbuildChrootPlain *chroot,
+				SbuildChrootSetupType    type,
+				gboolean                 lock)
 {
-  struct stat statbuf;
+  g_return_val_if_fail(SBUILD_IS_CHROOT_PLAIN(chroot), FALSE);
 
-  if (stat(chroot->location, &statbuf) == -1)
-    {
-      g_printerr(_("%s chroot: failed to stat directory %s: %s\n"),
-		 sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
-		 chroot->location, g_strerror(errno));
-      return NULL;
-    }
-  if (!S_ISDIR(statbuf.st_mode))
-    {
-      g_printerr(_("%s chroot: %s is not a directory\n"),
-		 sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
-		 chroot->location);
-      return NULL;
-    }
-
-  return g_strdup_printf("directory-%llu-%llu-%llu\n",
-			 (unsigned long long) gnu_dev_major(statbuf.st_dev),
-			 (unsigned long long) gnu_dev_major(statbuf.st_dev),
-			 (unsigned long long) statbuf.st_ino);
+  /* By default, plain chroots do no locking. */
+  return TRUE;
 }
 
 static SbuildChrootSessionFlags
@@ -267,12 +251,12 @@ sbuild_chroot_plain_class_init (SbuildChrootPlainClass *klass)
     sbuild_chroot_plain_print_details;
   chroot_class->print_config = (SbuildChrootPrintConfigFunc)
     sbuild_chroot_plain_print_config;
-  chroot_class->setup = (SbuildChrootSetupFunc)
-    sbuild_chroot_plain_setup;
+  chroot_class->setup_env = (SbuildChrootSetupEnvFunc)
+    sbuild_chroot_plain_setup_env;
   chroot_class->get_chroot_type = (SbuildChrootGetChrootTypeFunc)
     sbuild_chroot_plain_get_chroot_type;
-  chroot_class->get_setup_name = (SbuildChrootGetSetupNameFunc)
-    sbuild_chroot_plain_get_setup_name;
+  chroot_class->setup_lock = (SbuildChrootSetupLockFunc)
+    sbuild_chroot_plain_setup_lock;
   chroot_class->get_session_flags = (SbuildChrootGetSessionFlagsFunc)
     sbuild_chroot_plain_get_session_flags;
 

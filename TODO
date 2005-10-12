@@ -5,6 +5,8 @@ TODO
   session locking, it should also allow block device and inode lock
   names.
 
+* Use liblockdev for block device locking.
+
 * Session operations only operate on one chroot.  Check only one is set.
 
 * Replace chroot "active" property with one to indicate it is in a

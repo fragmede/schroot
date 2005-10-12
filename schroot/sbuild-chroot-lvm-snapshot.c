@@ -97,7 +97,7 @@ sbuild_chroot_lvm_snapshot_set_snapshot_device (SbuildChrootLvmSnapshot *chroot,
 
 /**
  * sbuild_chroot_lvm_snapshot_set_mount_device:
- * @chroot: an #SbuildChrootBlockDevice.
+ * @chroot: an #SbuildChrootLvmSnapshot.
  *
  * Set the mount block device of a chroot.  In this case, it is bound
  * to the value of the "snapshot-device" property.  In derived
@@ -184,15 +184,15 @@ sbuild_chroot_lvm_snapshot_print_config (SbuildChrootLvmSnapshot *chroot,
 	      (chroot->snapshot_options) ? chroot->snapshot_options : "");
 }
 
-void sbuild_chroot_lvm_snapshot_setup (SbuildChrootLvmSnapshot  *chroot,
-				       GList                   **env)
+void sbuild_chroot_lvm_snapshot_setup_env (SbuildChrootLvmSnapshot  *chroot,
+					   GList                   **env)
 {
   g_return_if_fail(SBUILD_IS_CHROOT_LVM_SNAPSHOT(chroot));
   g_return_if_fail(env != NULL);
 
   SbuildChrootClass *klass = SBUILD_CHROOT_CLASS(parent_class);
-  if (klass->setup)
-    klass->setup(SBUILD_CHROOT(chroot), env);
+  if (klass->setup_env)
+    klass->setup_env(SBUILD_CHROOT(chroot), env);
 
   gchar *name = g_path_get_basename(chroot->snapshot_device);
   *env = g_list_append(*env,
@@ -218,10 +218,13 @@ sbuild_chroot_lvm_snapshot_get_chroot_type (const SbuildChrootLvmSnapshot *chroo
   return "lvm-snapshot";
 }
 
-static gchar *
-sbuild_chroot_lvm_snapshot_get_setup_name (const SbuildChrootLvmSnapshot *chroot,
-					   SbuildChrootSetupType          type)
+static gboolean
+sbuild_chroot_lvm_snapshot_setup_lock (const SbuildChrootLvmSnapshot *chroot,
+				       SbuildChrootSetupType          type,
+				       gboolean                       lock)
 {
+  g_return_val_if_fail(SBUILD_IS_CHROOT_LVM_SNAPSHOT(chroot), FALSE);
+
   const char *device;
   struct stat statbuf;
 
@@ -233,26 +236,28 @@ sbuild_chroot_lvm_snapshot_get_setup_name (const SbuildChrootLvmSnapshot *chroot
   if (device == NULL)
     {
       g_error(_("%s chroot: device name not set\n"));
-      return NULL;
+      return FALSE;
     }
   if (stat(device, &statbuf) == -1)
     {
       g_printerr(_("%s chroot: failed to stat device %s: %s\n"),
 		 sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
 		 device, g_strerror(errno));
-      return NULL;
+      return FALSE;
     }
   if (!S_ISBLK(statbuf.st_mode))
     {
       g_printerr(_("%s chroot: %s is not a block device\n"),
 		 sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
 		 device);
-      return NULL;
+      return FALSE;
     }
 
-  return g_strdup_printf("block-%llu-%llu\n",
-			 (unsigned long long) gnu_dev_major(statbuf.st_rdev),
-			 (unsigned long long) gnu_dev_major(statbuf.st_rdev));
+/*   return g_strdup_printf("block-%llu-%llu\n", */
+/* 			 (unsigned long long) gnu_dev_major(statbuf.st_rdev), */
+/* 			 (unsigned long long) gnu_dev_major(statbuf.st_rdev)); */
+
+  return TRUE;
 }
 
 static SbuildChrootSessionFlags
@@ -369,12 +374,12 @@ sbuild_chroot_lvm_snapshot_class_init (SbuildChrootLvmSnapshotClass *klass)
     sbuild_chroot_lvm_snapshot_print_details;
   chroot_class->print_config = (SbuildChrootPrintConfigFunc)
     sbuild_chroot_lvm_snapshot_print_config;
-  chroot_class->setup = (SbuildChrootSetupFunc)
-    sbuild_chroot_lvm_snapshot_setup;
+  chroot_class->setup_env = (SbuildChrootSetupEnvFunc)
+    sbuild_chroot_lvm_snapshot_setup_env;
   chroot_class->get_chroot_type = (SbuildChrootGetChrootTypeFunc)
     sbuild_chroot_lvm_snapshot_get_chroot_type;
-  chroot_class->get_setup_name = (SbuildChrootGetSetupNameFunc)
-    sbuild_chroot_lvm_snapshot_get_setup_name;
+  chroot_class->setup_lock = (SbuildChrootSetupLockFunc)
+    sbuild_chroot_lvm_snapshot_setup_lock;
   chroot_class->get_session_flags = (SbuildChrootGetSessionFlagsFunc)
     sbuild_chroot_lvm_snapshot_get_session_flags;
 
