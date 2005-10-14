@@ -73,7 +73,7 @@ schroot_SOURCES =			\
 	schroot.c
 
 schroot_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
-schroot_LDADD = $(GOBJECT_LIBS) $(UUID_LIBS) $(PAM_LIBS) $(LIBINTL)
+schroot_LDADD = $(GOBJECT_LIBS) $(UUID_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(LIBINTL)
 
 if ENABLE_GTK_DOC
 noinst_LTLIBRARIES = libschroot.la

@@ -1,5 +1,17 @@
 2005-10-14  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Bump version to 0.1.7.
+
+	* debian/control (Build-Depends): Add liblockdev1-dev.
+
+	* schroot/Makefile.am (schroot_LDADD): Add $(LOCKDEV_LIBS).
+
+	* configure.ac: Check for liblockdev.
+
+	* Bump version to 0.1.7.
+
+2005-10-14  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.1.in: Restore session options.
 
 	* schroot/schroot.c (parse_options): Restore session options.
