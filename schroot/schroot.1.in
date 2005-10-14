@@ -36,6 +36,12 @@ PAM configuration).  All chroot usage will be logged in the system logs.
 .B \-?, \-\-help
 Show help summary.
 .TP
+.B \-\-help\-all
+Show all help, including advanced options.
+.TP
+.B \-\-help\-session
+Show session options.
+.TP
 .B \-a, \-\-all
 Use all chroots.  When a command has been specified, the command will be run in
 all chroots.  If \fB\-\-info\fP has been used, display information about all
@@ -69,6 +75,23 @@ Print all messages.
 .TP
 .B \-V, \-\-version
 Print version information.
+.SS Session options
+.TP
+.B \-b, \-\-begin\-session
+Begin a session.  A unique session identifier (UUID) is returned on standard
+output.  The UUID is required to use the other session options.
+.TP
+.B \-r, \-\-run\-session=\fIUUID\fP
+Run an existing session.
+.TP
+.B \-e, \-\-end\-session=\fIUUID\fP
+End an existing session.
+.TP
+.B \-f, \-\-force
+Force a session operation, even if it would otherwise fail.  This may be used
+to forcibly end a session, even if it has active users.  This does not
+guarantee that the session will be ended cleanly; filesystems may not be
+unmounted, for example.
 .SH EXAMPLES
 \f[CR]$ \f[CB]schroot \-l\fP\fP
 .br

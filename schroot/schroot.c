@@ -143,12 +143,12 @@ parse_options(int   argc,
   GOptionContext *context = g_option_context_new (_("- run command or shell in a chroot"));
   g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
 
-/*   GOptionGroup* session_group = */
-/*     g_option_group_new("session", N_("Session Options"), */
-/* 		       N_("Session management options"), NULL, NULL); */
-/*   g_option_group_set_translation_domain(session_group, GETTEXT_PACKAGE); */
-/*   g_option_group_add_entries (session_group, session_entries); */
-/*   g_option_context_add_group(context, session_group); */
+  GOptionGroup* session_group =
+    g_option_group_new("session", N_("Session Options"),
+		       N_("Session management options"), NULL, NULL);
+  g_option_group_set_translation_domain(session_group, GETTEXT_PACKAGE);
+  g_option_group_add_entries (session_group, session_entries);
+  g_option_context_add_group(context, session_group);
 
   g_option_context_parse (context, &argc, &argv, &error);
   g_option_context_free (context);

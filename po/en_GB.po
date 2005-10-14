@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2005-10-12 23:43+0100\n"
+"POT-Creation-Date: 2005-10-13 00:27+0100\n"
 "PO-Revision-Date: 2005-09-11 16:28+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -404,15 +404,6 @@ msgstr ""
 msgid "- run command or shell in a chroot"
 msgstr "- run command or shell in a chroot"
 
-#: schroot/schroot.c:147
-#, fuzzy
-msgid "Session Options"
-msgstr "Description: %s\n"
-
-#: schroot/schroot.c:148
-msgid "Session management options"
-msgstr ""
-
 #: schroot/schroot.c:157
 #, c-format
 msgid "Error parsing options: %s\n"
@@ -472,3 +463,7 @@ msgstr ""
 #, c-format
 msgid "Session failure: %s\n"
 msgstr "Session failure: %s\n"
+
+#, fuzzy
+#~ msgid "Session Options"
+#~ msgstr "Description: %s\n"
