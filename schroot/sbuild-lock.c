@@ -393,9 +393,6 @@ sbuild_lock_set_device_lock (const gchar     *device,
 
   sbuild_lock_clear_alarm(&saved_signals);
 
-  g_printerr("Lock: device=%s\n", device);
-  sleep(10);
-
   if (*error)
     return FALSE;
   else
