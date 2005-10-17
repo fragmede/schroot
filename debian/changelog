@@ -2,8 +2,9 @@ schroot (0.1.7-1) unstable; urgency=low
 
   * New upstream release.
   * debian/control: Add liblockdev to Build-Depends.
+  * debian/rules: Use --libexecdir when running configure.
 
- -- Roger Leigh <rleigh@debian.org>  Fri, 14 Oct 2005 22:11:13 +0100
+ -- Roger Leigh <rleigh@debian.org>  Mon, 17 Oct 2005 23:57:35 +0100
 
 schroot (0.1.6-1) unstable; urgency=low
 

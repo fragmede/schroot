@@ -23,11 +23,13 @@
 SUBDIRS = pam run setup
 
 localedir = $(datadir)/locale
+pkglibexecdir = $(SCHROOT_LIBEXEC_DIR)
 
 AM_CFLAGS = -std=c99
 DEFS = -DG_LOG_DOMAIN=\"Schroot\" -DGETTEXT_PACKAGE=\"schroot\" -DLOCALEDIR=\"$(localedir)\"
 
 bin_PROGRAMS = schroot
+pkglibexec_PROGRAMS = schroot-releaselock
 
 schroot_public_h_sources =		\
 	sbuild-auth.h			\
@@ -81,6 +83,11 @@ libschroot_la_SOURCES = $(schroot_SOURCES)
 libschroot_la_CFLAGS = $(schroot_CFLAGS)
 libschroot_la_LIBADD = $(schroot_LDADD)
 endif
+
+schroot_releaselock_SOURCES = \
+	schroot-releaselock.c
+schroot_releaselock_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
+schroot_releaselock_LDADD = $(GOBJECT_LIBS) $(LOCKDEV_LIBS) $(LIBINTL)
 
 pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
 pkgsysconf_DATA = schroot.conf

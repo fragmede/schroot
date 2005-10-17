@@ -562,6 +562,10 @@ sbuild_session_setup_chroot (SbuildSession          *session,
   env = g_list_append(env,
 		      g_strdup_printf("MOUNT_DIR=%s", SCHROOT_MOUNT_DIR));
   env = g_list_append(env,
+		      g_strdup_printf("LIBEXEC_DIR=%s", SCHROOT_LIBEXEC_DIR));
+  env = g_list_append(env,
+		      g_strdup_printf("PID=%d", getpid()));
+  env = g_list_append(env,
 		      g_strdup_printf("SESSION_ID=%s", session->session_id));
 
   /* Move the strings into the envp vector. */

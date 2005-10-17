@@ -53,6 +53,12 @@ MOUNT_DIR
 The directory under which non-filesystem chroots are mounted (e.g. block
 devices and LVM snapshots).
 .TP
+LIBEXEC_DIR
+The directory under which helper programs are located.
+.TP
+PID
+The process ID of the schroot process.
+.TP
 SESSION_ID
 The session identifier.
 .TP

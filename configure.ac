@@ -121,6 +121,27 @@ else
   PACKAGE_LIB_DIR="${libdir}/${PACKAGE}"
 fi
 
+dnl Set PACKAGE_LIBEXEC_DIR in config.h.
+AH_TEMPLATE(PACKAGE_LIBEXEC_DIR,, [Package libexec directory])
+if test "x${libexecdir}" = 'x${exec_prefix}/libexec'; then
+  if test "x${exec_prefix}" = "xNONE"; then
+    if test "x${prefix}" = "xNONE"; then
+      PACKAGE_LIBEXEC_DIR="${ac_default_prefix}/libexec/${PACKAGE}"
+    else
+      PACKAGE_LIBEXEC_DIR="${prefix}/libexec/${PACKAGE}"
+    fi
+  else
+    PACKAGE_LIBEXEC_DIR="${exec_prefix}/libexec/${PACKAGE}"
+  fi
+else
+  PACKAGE_LIBEXEC_DIR="${libexecdir}/${PACKAGE}"
+fi
+
+SCHROOT_LIBEXEC_DIR="${PACKAGE_LIBEXEC_DIR}"
+AC_SUBST(SCHROOT_LIBEXEC_DIR)
+AH_TEMPLATE(SCHROOT_LIBEXEC_DIR,, [Package libexec directory])
+AC_DEFINE_UNQUOTED(SCHROOT_LIBEXEC_DIR, ["$SCHROOT_LIBEXEC_DIR"])
+
 dnl Set PACKAGE_LOCALSTATE_DIR in config.h.
 AH_TEMPLATE(PACKAGE_LOCALSTATE_DIR,, [Package localstate directory])
 if test "x${localstatedir}" = 'x${prefix}/var'; then

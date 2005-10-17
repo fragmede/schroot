@@ -229,6 +229,11 @@ sbuild_chroot_lvm_snapshot_setup_lock (SbuildChrootLvmSnapshot *chroot,
   const char *device;
   struct stat statbuf;
 
+  /* Lock is removed by setup script on setup stop.  Unlocking here
+     would fail: the LVM snapshot device no longer exists. */
+  if (type == SBUILD_CHROOT_SETUP_STOP && lock == FALSE)
+    return TRUE;
+
   if (type == SBUILD_CHROOT_SETUP_START)
     device = sbuild_chroot_block_device_get_device(SBUILD_CHROOT_BLOCK_DEVICE(chroot));
   else

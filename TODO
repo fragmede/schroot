@@ -1,13 +1,10 @@
+
 TODO
 ----
 
 * The session names should not be restricted to a UUID.  For automatic
   session locking, it should also allow block device and inode lock
   names.
-
-* LVM snapshot device locks must be dropped during setup-stop
-  immediately prior to snapshot removal.  This requires a helper
-  binary.
 
 * Session operations only operate on one chroot.  Check only one is set.
 

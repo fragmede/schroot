@@ -1,3 +1,33 @@
+2005-10-18  Roger Leigh  <rleigh@debian.org>
+
+	* debian/rules (config.status): Add --libexecdir option to
+	configure.
+
+	* schroot/run/00check: Print new environment variables.
+
+	* schroot/setup/05lvm: Use schroot-releaselock to release snapshot
+	device lock just prior to snapshot removal.
+
+	* schroot/setup/00check: Print new environment variables.
+
+	* schroot/schroot-setup.5.in: Document new environment variables.
+
+	* schroot/sbuild-session.c (sbuild_session_setup_chroot): Add
+	LIBEXEC_DIR and PID setup environment variables.
+
+	* schroot/sbuild-chroot-lvm-snapshot.c
+	(sbuild_chroot_lvm_snapshot_setup_lock): Don't unlock device at
+	setup stop.
+
+	* schroot/Makefile.am
+	(pkglibexecdir): Set to $(SCHROOT_LIBEXEC_DIR).
+	(pkglibexec_PROGRAMS): Add schroot-releaselock.
+
+	* schroot/schroot-releaselock.c: New program to release device
+	lock files using liblockdev.
+
+	* configure.ac: Add SCHROOT_LIBEXEC_DIR define and substvar.
+
 2005-10-17  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-lock.c (sbuild_lock_set_device_lock): Remove
