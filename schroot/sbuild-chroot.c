@@ -60,8 +60,6 @@ enum
   PROP_ALIASES,
   PROP_MOUNT_LOCATION,
   PROP_MOUNT_DEVICE,
-  PROP_CURRENT_USERS,
-  PROP_MAX_USERS,
   PROP_ACTIVE,
   PROP_RUN_SETUP_SCRIPTS,
   PROP_RUN_SESSION_SCRIPTS
@@ -596,77 +594,10 @@ sbuild_chroot_set_aliases (SbuildChroot  *chroot,
 }
 
 /**
- * sbuild_chroot_get_current_users:
- * @chroot: an #SbuildChroot
- *
- * Get the current number of users of the chroot.
- *
- * Returns the current number of users.
- */
-guint
-sbuild_chroot_get_current_users (const SbuildChroot *restrict chroot)
-{
-  g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), 0);
-
-  return chroot->current_users;
-}
-
-/**
- * sbuild_chroot_set_current_users:
+ * sbuild_chroot_set_active:
  * @chroot: an #SbuildChroot.
- * @current_users: the current_users to set.
  *
- * Set the current number of users of a chroot.
- */
-void
-sbuild_chroot_set_current_users (SbuildChroot *chroot,
-				 guint         current_users)
-{
-  g_return_if_fail(SBUILD_IS_CHROOT(chroot));
-
-  chroot->current_users = current_users;
-  g_object_notify(G_OBJECT(chroot), "current-users");
-}
-
-/**
- * sbuild_chroot_get_max_users:
- * @chroot: an #SbuildChroot
- *
- * Get the maximum number of users of the chroot.
- *
- * Returns the max number of users.
- */
-guint
-sbuild_chroot_get_max_users (const SbuildChroot *restrict chroot)
-{
-  g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), 0);
-
-  return chroot->max_users;
-}
-
-/**
- * sbuild_chroot_set_max_users:
- * @chroot: an #SbuildChroot.
- * @max_users: the max_users to set.
- *
- * Set the maximum number of users of a chroot.
- */
-void
-sbuild_chroot_set_max_users (SbuildChroot *chroot,
-				 guint         max_users)
-{
-  g_return_if_fail(SBUILD_IS_CHROOT(chroot));
-
-  chroot->max_users = max_users;
-  g_object_notify(G_OBJECT(chroot), "max-users");
-}
-
-/**
- * sbuild_chroot_set_current_users:
- * @chroot: an #SbuildChroot.
- * @current_users: the current_users to set.
- *
- * Set the current number of users of a chroot.
+ * Set the activity status of the chroot.
  */
 static void
 sbuild_chroot_set_active (SbuildChroot *chroot)
@@ -781,7 +712,7 @@ sbuild_chroot_get_chroot_type (const SbuildChroot  *chroot)
  * during creation a block device might require locking, but
  * afterwards this will change to the new block device or directory.
  *
- * Returns TRUE on success, FALSE on failure
+ * Returns TRUE on success, FALSE on failure.
  */
 gboolean
 sbuild_chroot_setup_lock (SbuildChroot          *chroot,
@@ -865,7 +796,6 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
 	    (alias_list) ? alias_list : "");
   g_free(alias_list);
 
-  g_fprintf(file, _("  %-22s%u\n"), _("Maximum Users"), chroot->max_users);
   g_fprintf(file, _("  %-22s%s\n"), _("Run Setup Scripts"),
 	    (chroot->run_setup_scripts == TRUE) ? "true" : "false");
   g_fprintf(file, _("  %-22s%s\n"), _("Run Session Scripts"),
@@ -882,7 +812,6 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
 	g_fprintf(file, "  %-22s%s\n", _("Mount Location"), chroot->mount_location);
       if (chroot->mount_device)
 	g_fprintf(file, "  %-22s%s\n", _("Mount Device"), chroot->mount_device);
-      g_fprintf(file, _("  %-22s%u\n"), _("Current Users"), chroot->current_users);
     }
 }
 
@@ -926,7 +855,6 @@ void sbuild_chroot_print_config (SbuildChroot *chroot,
       g_free(alias_list);
     }
 
-  g_fprintf(file, "max-users=%u\n", chroot->max_users);
   g_fprintf(file, _("run-setup-scripts=%s\n"),
 	    (chroot->run_setup_scripts == TRUE) ? "true" : "false");
   g_fprintf(file, _("run-session-scripts=%s\n"),
@@ -941,7 +869,6 @@ void sbuild_chroot_print_config (SbuildChroot *chroot,
     g_fprintf(file, "mount-location=%s\n", chroot->mount_location);
   if (chroot->mount_device)
     g_fprintf(file, "mount-device%s\n", chroot->mount_device);
-  g_fprintf(file, "current-users=%u\n", chroot->current_users);
 }
 
 static inline void
@@ -998,9 +925,6 @@ void sbuild_chroot_setup_env (SbuildChroot  *chroot,
   setup_env_string(env, "CHROOT_MOUNT_DEVICE",
 		   sbuild_chroot_get_mount_device(chroot));
 
-  setup_env_unsigned(env, "CHROOT_CURRENT_USERS", chroot->current_users);
-  setup_env_unsigned(env, "CHROOT_MAX_USERS", chroot->max_users);
-
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
   if (klass->setup_env)
     klass->setup_env(chroot, env);
@@ -1019,8 +943,6 @@ sbuild_chroot_init (SbuildChroot *chroot)
   chroot->aliases = NULL;
   chroot->mount_location = NULL;
   chroot->mount_device = NULL;
-  chroot->current_users = 0;
-  chroot->max_users = 0;
   chroot->active = FALSE;
   chroot->run_setup_scripts = FALSE;
   chroot->run_session_scripts = FALSE;
@@ -1110,12 +1032,6 @@ sbuild_chroot_set_property (GObject      *object,
     case PROP_MOUNT_DEVICE:
       sbuild_chroot_set_mount_device(chroot, g_value_get_string(value));
       break;
-    case PROP_CURRENT_USERS:
-      sbuild_chroot_set_current_users(chroot, g_value_get_uint(value));
-      break;
-    case PROP_MAX_USERS:
-      sbuild_chroot_set_max_users(chroot, g_value_get_uint(value));
-      break;
     case PROP_RUN_SETUP_SCRIPTS:
       sbuild_chroot_set_run_setup_scripts(chroot, g_value_get_boolean(value));
       break;
@@ -1166,12 +1082,6 @@ sbuild_chroot_get_property (GObject    *object,
       break;
     case PROP_MOUNT_DEVICE:
       g_value_set_string(value, chroot->mount_device);
-      break;
-    case PROP_CURRENT_USERS:
-      g_value_set_uint(value, chroot->current_users);
-      break;
-    case PROP_MAX_USERS:
-      g_value_set_uint(value, chroot->max_users);
       break;
     case PROP_ACTIVE:
       g_value_set_boolean(value, chroot->active);
@@ -1268,22 +1178,6 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
 			  "The block device for of the chroot",
 			  "",
 			  (G_PARAM_READABLE | G_PARAM_WRITABLE)));
-
-  g_object_class_install_property
-    (gobject_class,
-     PROP_CURRENT_USERS,
-     g_param_spec_uint ("current-users", "Current Users",
-			"The number of users currently using this chroot",
-			0, G_MAXUINT, 1,
-			(G_PARAM_READABLE | G_PARAM_WRITABLE)));
-
-  g_object_class_install_property
-    (gobject_class,
-     PROP_MAX_USERS,
-     g_param_spec_uint ("max-users", "Maximum Users",
-			"The maximum number of users able to use this chroot",
-			1, G_MAXUINT, 1,
-			(G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
 
   g_object_class_install_property
     (gobject_class,

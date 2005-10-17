@@ -74,8 +74,6 @@ struct _SbuildChroot
   char     **aliases;
   gchar     *mount_location;
   gchar     *mount_device;
-  guint      current_users;
-  guint      max_users;
   gboolean   active;
   gboolean   run_setup_scripts;
   gboolean   run_session_scripts;
@@ -163,20 +161,6 @@ sbuild_chroot_get_aliases (const SbuildChroot *restrict chroot);
 void
 sbuild_chroot_set_aliases (SbuildChroot  *chroot,
 			   char         **aliases);
-
-guint
-sbuild_chroot_get_current_users (const SbuildChroot *restrict chroot);
-
-void
-sbuild_chroot_set_current_users (SbuildChroot *chroot,
-				 guint         current_users);
-
-guint
-sbuild_chroot_get_max_users (const SbuildChroot *restrict chroot);
-
-void
-sbuild_chroot_set_max_users (SbuildChroot *chroot,
-			     guint         max_users);
 
 gboolean
 sbuild_chroot_get_run_setup_scripts (const SbuildChroot *restrict chroot);

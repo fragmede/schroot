@@ -33,22 +33,12 @@ SbuildChroot object.
 
 </para>
 
-<!-- ##### ARG SbuildChroot:current-users ##### -->
-<para>
-
-</para>
-
 <!-- ##### ARG SbuildChroot:description ##### -->
 <para>
 
 </para>
 
 <!-- ##### ARG SbuildChroot:groups ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG SbuildChroot:max-users ##### -->
 <para>
 
 </para>
@@ -141,6 +131,33 @@ by schroot.conf.
 
 @chroot: an #SbuildChroot.
 @file: the file to output to.
+
+
+<!-- ##### USER_FUNCTION SbuildChrootSetupEnvFunc ##### -->
+<para>
+This function is used to set the environment that the setup scripts
+will see during execution.  Environment variables should be added to
+@env as "key=value" strings (the format expected by execve envp).
+These strings should be allocated with g_free (or related allocation
+functions such as g_strdup), and they must not be freed.
+</para>
+
+@chroot: an #SbuildChroot.
+@env: the environment to set.
+
+
+<!-- ##### USER_FUNCTION SbuildChrootSetupLockFunc ##### -->
+<para>
+Lock a chroot during setup.  The locking technique (if any) may vary
+depending upon the chroot type and setup stage.  For example, during
+creation a block device might require locking, but afterwards this
+will change to the new block device or directory.
+</para>
+
+@chroot: an #SbuildChroot.
+@type: the type of setup being performed
+@lock: TRUE to lock, FALSE to unlock
+@Returns: TRUE on success, FALSE on failure
 
 
 <!-- ##### ENUM SbuildChrootSessionFlags ##### -->
@@ -335,42 +352,6 @@ The type of chroot setup operation
 @run_session_scripts: 
 
 
-<!-- ##### FUNCTION sbuild_chroot_get_max_users ##### -->
-<para>
-
-</para>
-
-@chroot: 
-@Returns: 
-
-
-<!-- ##### FUNCTION sbuild_chroot_set_max_users ##### -->
-<para>
-
-</para>
-
-@chroot: 
-@max_users: 
-
-
-<!-- ##### FUNCTION sbuild_chroot_get_current_users ##### -->
-<para>
-
-</para>
-
-@chroot: 
-@Returns: 
-
-
-<!-- ##### FUNCTION sbuild_chroot_set_current_users ##### -->
-<para>
-
-</para>
-
-@chroot: 
-@current_users: 
-
-
 <!-- ##### FUNCTION sbuild_chroot_get_mount_location ##### -->
 <para>
 
@@ -440,6 +421,26 @@ The type of chroot setup operation
 </para>
 
 @chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_setup_env ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@env: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_setup_lock ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@type: 
+@lock: 
 @Returns: 
 
 

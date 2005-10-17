@@ -73,10 +73,6 @@ A comma-separated list of aliases (alternate names) for this chroot.  For
 example, a chroot named \[lq]sid\[rq] might have an \[lq]unstable\[rq] alias
 for convenience.
 .TP
-.B max-users=\fInumber\fP
-Set the maximum number of users allowed to use the chroot.  The default is 1
-user, and the minimum is also 1.
-.TP
 .B run-setup-scripts=\fItrue\fP|\fIfalse\fP
 Set whether chroot setup scripts will be run.  The default is not to run setup
 scripts (\[lq]false\[rq]), for safety reasons (so it won't clobber your passwd

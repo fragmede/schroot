@@ -40,6 +40,24 @@ SbuildChrootLvmSnapshot class.
 
 @parent: the parent class
 
+<!-- ##### FUNCTION sbuild_chroot_lvm_snapshot_get_snapshot_device ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_lvm_snapshot_set_snapshot_device ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@snapshot_device: 
+
+
 <!-- ##### FUNCTION sbuild_chroot_lvm_snapshot_get_snapshot_options ##### -->
 <para>
 

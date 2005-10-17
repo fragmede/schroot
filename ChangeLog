@@ -1,5 +1,13 @@
 2005-10-17  Roger Leigh  <rleigh@debian.org>
 
+	* Update documentation.
+
+	* schroot/sbuild-chroot.c (sbuild_chroot_class_init): Remove the
+	"current-users" and "max-users" properties, and associated object
+	members and methods.
+
+2005-10-17  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-chroot-lvm-snapshot.c
 	(sbuild_chroot_lvm_snapshot_setup_lock): The device lock is held
 	on the source device during snapshotting (setup start), and on the
