@@ -56,6 +56,16 @@ gboolean
 sbuild_lock_unset_lock (int      fd,
 			GError **error);
 
+gboolean
+sbuild_lock_set_device_lock (const gchar     *device,
+			     SbuildLockType   lock_type,
+			     guint            timeout,
+			     GError         **error);
+
+gboolean
+sbuild_lock_unset_device_lock (const gchar  *device,
+			       GError      **error);
+
 #endif /* SBUILD_LOCK_H */
 
 /*

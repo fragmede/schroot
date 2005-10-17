@@ -784,7 +784,7 @@ sbuild_chroot_get_chroot_type (const SbuildChroot  *chroot)
  * Returns TRUE on success, FALSE on failure
  */
 gboolean
-sbuild_chroot_setup_lock (const SbuildChroot    *chroot,
+sbuild_chroot_setup_lock (SbuildChroot          *chroot,
 			  SbuildChrootSetupType  type,
 			  gboolean               lock)
 {

@@ -315,6 +315,8 @@ SbuildLockError
 SbuildLockType
 sbuild_lock_set_lock
 sbuild_lock_unset_lock
+sbuild_lock_set_device_lock
+sbuild_lock_unset_device_lock
 <SUBSECTION Standard>
 SBUILD_TYPE_LOCK_ERROR
 sbuild_lock_error_get_type

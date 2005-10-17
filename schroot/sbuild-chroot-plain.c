@@ -144,9 +144,9 @@ sbuild_chroot_plain_get_chroot_type (const SbuildChrootPlain *chroot)
 }
 
 static gboolean
-sbuild_chroot_plain_setup_lock (const SbuildChrootPlain *chroot,
-				SbuildChrootSetupType    type,
-				gboolean                 lock)
+sbuild_chroot_plain_setup_lock (SbuildChrootPlain     *chroot,
+				SbuildChrootSetupType  type,
+				gboolean               lock)
 {
   g_return_val_if_fail(SBUILD_IS_CHROOT_PLAIN(chroot), FALSE);
 

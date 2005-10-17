@@ -69,3 +69,25 @@ lock acquisition will fail.
 @Returns: 
 
 
+<!-- ##### FUNCTION sbuild_lock_set_device_lock ##### -->
+<para>
+
+</para>
+
+@device: 
+@lock_type: 
+@timeout: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_lock_unset_device_lock ##### -->
+<para>
+
+</para>
+
+@device: 
+@error: 
+@Returns: 
+
+

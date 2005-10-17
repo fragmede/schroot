@@ -33,10 +33,12 @@
 #define _GNU_SOURCE
 #include <errno.h>
 #include <stdlib.h>
-
 #include <sys/time.h>
 #include <sys/types.h>
 #include <signal.h>
+#include <unistd.h>
+
+#include <lockdev.h>
 
 #include <glib.h>
 #include <glib/gi18n.h>
@@ -61,6 +63,8 @@ sbuild_lock_error_quark (void)
   return error_quark;
 }
 
+static volatile gboolean lock_timeout = FALSE;
+
 /**
  * sbuild_lock_alarm_handler:
  * @ignore: the signal number.
@@ -70,8 +74,10 @@ sbuild_lock_error_quark (void)
 static void
 sbuild_lock_alarm_handler (int ignore)
 {
-  /* Do nothing.  This only exists so that system calls get
-     interrupted. */
+  /* This exists so that system calls get interrupted. */
+  /* lock_timeout is used for polling for a timeout, rather than
+     interruption. */
+  lock_timeout = TRUE;
 }
 
 /**
@@ -238,6 +244,181 @@ sbuild_lock_unset_lock (int      fd,
 			GError **error)
 {
   return sbuild_lock_set_lock(fd, SBUILD_LOCK_NONE, 0, error);
+}
+
+/**
+ * sbuild_lock_set_device_lock:
+ * @device: the device to lock (full pathname).
+ * @lock_type: the type of lock to set.
+ * @timeout: the time in seconds to wait for the lock.
+ * @error: a #GError.
+ *
+ * Set an advisory lock on a device.  The lock is acquired using
+ * liblockdev lock_dev().  Note that a @lock_type of
+ * SBUILD_LOCK_SHARED is equivalent to SBUILD_LOCK_EXCLUSIVE, because
+ * this lock type does not support shared locks.
+ *
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
+ */
+gboolean
+sbuild_lock_set_device_lock (const gchar     *device,
+			     SbuildLockType   lock_type,
+			     guint            timeout,
+			     GError         **error)
+{
+  struct itimerval timeout_timer =
+    {
+      .it_interval =
+      {
+	.tv_sec = 0,
+	.tv_usec = 0
+      },
+      .it_value =
+      {
+	.tv_sec = timeout,
+	.tv_usec = 0
+      }
+    };
+
+  struct itimerval disable_timer =
+    {
+      .it_interval =
+      {
+	.tv_sec = 0,
+	.tv_usec = 0
+      },
+      .it_value =
+      {
+	.tv_sec = 0,
+	.tv_usec = 0
+      }
+    };
+
+  lock_timeout = FALSE;
+
+  struct sigaction saved_signals;
+  if (sbuild_lock_set_alarm(&saved_signals) == FALSE)
+    {
+      g_set_error(error,
+		  SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_SETUP,
+		  _("failed to set timeout handler: %s\n"),
+		  g_strerror(errno));
+      return FALSE;
+    }
+
+  if (setitimer(ITIMER_REAL, &timeout_timer, NULL) == -1)
+    {
+      g_set_error(error,
+		  SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_SETUP,
+		  _("failed to set timeout: %s\n"),
+		  g_strerror(errno));
+      return FALSE;
+    }
+
+  /* Now the signal handler and itimer are set, the function can't
+     return without stopping the timer and restoring the signal
+     handler to its original state. */
+
+  /* Wait on lock until interrupted by a signal if a timeout was set,
+     otherwise return immediately. */
+  pid_t status;
+  while (lock_timeout == FALSE)
+    {
+      if (lock_type == SBUILD_LOCK_SHARED || lock_type == SBUILD_LOCK_EXCLUSIVE)
+	{
+	  status = dev_lock(device);
+	  if (status == 0) // Success
+	    break;
+	  else if (status < 0) // Failure
+	    {
+	      g_set_error(error,
+			  SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_FAIL,
+			  _("failed to acquire device lock"));
+	      break;
+	    }
+	}
+      else
+	{
+	  pid_t cur_lock_pid = dev_testlock(device);
+	  if (cur_lock_pid < 0) // Test failure
+	    {
+	      g_set_error(error,
+			  SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_FAIL,
+			  _("failed to test device lock"));
+	      break;
+	    }
+	  else if (cur_lock_pid > 0 && cur_lock_pid != getpid()) // Another process owns the lock
+	    {
+	      g_set_error(error,
+			  SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_FAIL,
+			  _("failed to release device lock held by pid %d"),
+			  cur_lock_pid);
+	      break;
+	    }
+	  status = dev_unlock(device, getpid());
+	  if (status == 0) // Success
+	    break;
+	  else if (status < 0) // Failure
+	    {
+	      g_set_error(error,
+			  SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_FAIL,
+			  _("failed to release device lock"));
+	      break;
+	    }
+	}
+    }
+
+  if (lock_timeout)
+    {
+      g_set_error(error,
+		  SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_TIMEOUT,
+		  (lock_type == SBUILD_LOCK_SHARED ||
+		   lock_type == SBUILD_LOCK_EXCLUSIVE) ?
+		  _("failed to acquire device lock held by pid %d "
+		    "(timeout after %u seconds)\n") :
+		  _("failed to release device lock held by pid %d "
+		    "(timeout after %u seconds)\n"),
+		  status, timeout);
+    }
+
+  if (setitimer(ITIMER_REAL, &disable_timer, NULL) == -1)
+    {
+      if (*error == NULL) /* Don't set error if already set. */
+	g_set_error(error,
+		    SBUILD_LOCK_ERROR, SBUILD_LOCK_ERROR_SETUP,
+		    _("failed to unset timeout: %s\n"),
+		    g_strerror(errno));
+    }
+
+  sbuild_lock_clear_alarm(&saved_signals);
+
+  g_printerr("Lock: device=%s\n", device);
+  sleep(10);
+
+  if (*error)
+    return FALSE;
+  else
+    return TRUE;
+}
+
+/**
+ * sbuild_lock_unset_device_lock:
+ * @device: the device to unlock (full pathname).
+ * @error: a #GError.
+ *
+ * Remove an advisory lock on a device.  This is equivalent to calling
+ * sbuild_lock_set_lock with a lock type of SBUILD_LOCK_NONE and a
+ * timeout of 0.
+ *
+ * Returns TRUE on success, FALSE on failure (@error will be set to
+ * indicate the cause of the failure).
+ */
+gboolean
+sbuild_lock_unset_device_lock (const gchar  *device,
+			       GError      **error)
+{
+  return sbuild_lock_set_device_lock(device, SBUILD_LOCK_NONE, 0, error);
 }
 
 

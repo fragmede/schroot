@@ -41,6 +41,7 @@
 #include <glib/gi18n.h>
 
 #include "sbuild-chroot-lvm-snapshot.h"
+#include "sbuild-lock.h"
 
 static void
 sbuild_chroot_lvm_snapshot_set_mount_device (SbuildChrootLvmSnapshot *chroot);
@@ -219,9 +220,9 @@ sbuild_chroot_lvm_snapshot_get_chroot_type (const SbuildChrootLvmSnapshot *chroo
 }
 
 static gboolean
-sbuild_chroot_lvm_snapshot_setup_lock (const SbuildChrootLvmSnapshot *chroot,
-				       SbuildChrootSetupType          type,
-				       gboolean                       lock)
+sbuild_chroot_lvm_snapshot_setup_lock (SbuildChrootLvmSnapshot *chroot,
+				       SbuildChrootSetupType    type,
+				       gboolean                 lock)
 {
   g_return_val_if_fail(SBUILD_IS_CHROOT_LVM_SNAPSHOT(chroot), FALSE);
 
@@ -253,9 +254,34 @@ sbuild_chroot_lvm_snapshot_setup_lock (const SbuildChrootLvmSnapshot *chroot,
       return FALSE;
     }
 
-/*   return g_strdup_printf("block-%llu-%llu\n", */
-/* 			 (unsigned long long) gnu_dev_major(statbuf.st_rdev), */
-/* 			 (unsigned long long) gnu_dev_major(statbuf.st_rdev)); */
+  /* Lock is preserved while running a command. */
+  if (type == SBUILD_CHROOT_RUN_START && lock == FALSE ||
+      type == SBUILD_CHROOT_RUN_STOP && lock == TRUE)
+    return TRUE;
+
+  GError *error = NULL;
+  if (lock)
+    {
+      if (sbuild_lock_set_device_lock(device,
+				      SBUILD_LOCK_EXCLUSIVE,
+				      15,
+				      &error) == FALSE)
+	{
+	  g_printerr(_("%s: failed to lock device: %s\n"),
+		     device, error->message);
+	  return FALSE;
+	}
+    }
+  else
+    {
+      if (sbuild_lock_unset_device_lock(device,
+					&error) == FALSE)
+	{
+	  g_printerr(_("%s: failed to unlock device: %s\n"),
+		     device, error->message);
+	  return FALSE;
+	}
+    }
 
   return TRUE;
 }

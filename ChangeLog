@@ -1,3 +1,27 @@
+2005-10-17  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-chroot-lvm-snapshot.c
+	(sbuild_chroot_lvm_snapshot_setup_lock): The device lock is held
+	on the source device during snapshotting (setup start), and on the
+	snapshot device from run start to run stop and then during setup
+	stop while the chroot is destroyed.
+
+	* schroot/sbuild-chroot-block-device.c
+	(sbuild_chroot_block_device_setup_lock): The device lock is held
+	throughout the entire session.  It is acquired at setup start and
+	released at setup stop.  This uses the new sbuild-lock device
+	locking primitives.
+
+	* schroot/sbuild-chroot.h: SbuildChrootSetupLockFunc uses a
+	mutable chroot object.  All implementations of the setup_lock
+	vfunc have been changed accordingly.
+
+	* schroot/sbuild-lock.c
+	(sbuild_lock_set_device_lock): New function.  Lock a device using
+	liblockdev.
+	(sbuild_lock_unset_device_lock): New function.  Unlock a device
+	using liblockdev.
+
 2005-10-14  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Bump version to 0.1.7.

@@ -58,27 +58,27 @@ typedef void (*SbuildChrootPrintConfigFunc)(SbuildChroot *chroot,
 typedef const gchar *(*SbuildChrootGetChrootTypeFunc)(const SbuildChroot  *chroot);
 typedef void (*SbuildChrootSetupEnvFunc)(SbuildChroot  *chroot,
 					 GList        **env);
-typedef gboolean (*SbuildChrootSetupLockFunc)(const SbuildChroot    *chroot,
+typedef gboolean (*SbuildChrootSetupLockFunc)(SbuildChroot          *chroot,
 					      SbuildChrootSetupType  type,
 					      gboolean               lock);
 typedef SbuildChrootSessionFlags (*SbuildChrootGetSessionFlagsFunc)(const SbuildChroot  *chroot);
 
 struct _SbuildChroot
 {
-  GObject   parent;
-  gchar    *name;
-  gchar    *description;
-  guint     priority;
-  char    **groups;
-  char    **root_groups;
-  char    **aliases;
-  gchar    *mount_location;
-  gchar    *mount_device;
-  guint     current_users;
-  guint     max_users;
-  gboolean  active;
-  gboolean  run_setup_scripts;
-  gboolean  run_session_scripts;
+  GObject    parent;
+  gchar     *name;
+  gchar     *description;
+  guint      priority;
+  char     **groups;
+  char     **root_groups;
+  char     **aliases;
+  gchar     *mount_location;
+  gchar     *mount_device;
+  guint      current_users;
+  guint      max_users;
+  gboolean   active;
+  gboolean   run_setup_scripts;
+  gboolean   run_session_scripts;
 };
 
 struct _SbuildChrootClass
@@ -200,7 +200,7 @@ sbuild_chroot_setup_env (SbuildChroot  *chroot,
 			 GList        **env);
 
 gboolean
-sbuild_chroot_setup_lock (const SbuildChroot    *chroot,
+sbuild_chroot_setup_lock (SbuildChroot          *chroot,
 			  SbuildChrootSetupType  type,
 			  gboolean               lock);
 

@@ -5,7 +5,9 @@ TODO
   session locking, it should also allow block device and inode lock
   names.
 
-* Use liblockdev for block device locking.
+* LVM snapshot device locks must be dropped during setup-stop
+  immediately prior to snapshot removal.  This requires a helper
+  binary.
 
 * Session operations only operate on one chroot.  Check only one is set.
 

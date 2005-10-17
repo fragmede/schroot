@@ -32,6 +32,7 @@
 
 #define _GNU_SOURCE
 #include <errno.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/sysmacros.h>
@@ -41,6 +42,7 @@
 #include <glib/gi18n.h>
 
 #include "sbuild-chroot-block-device.h"
+#include "sbuild-lock.h"
 
 enum
 {
@@ -196,15 +198,22 @@ sbuild_chroot_block_device_get_chroot_type (const SbuildChrootBlockDevice *chroo
 }
 
 static gboolean
-sbuild_chroot_block_device_setup_lock (const SbuildChrootBlockDevice *chroot,
-				       SbuildChrootSetupType          type,
-				       gboolean                       lock)
+sbuild_chroot_block_device_setup_lock (SbuildChrootBlockDevice *chroot,
+				       SbuildChrootSetupType    type,
+				       gboolean                 lock)
 {
   g_return_val_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot), FALSE);
 
   struct stat statbuf;
 
-  /* TODO: Use liblockdev. */
+  /* Only lock during setup, not run. */
+  if (type == SBUILD_CHROOT_RUN_START || type == SBUILD_CHROOT_RUN_STOP)
+    return TRUE;
+
+  /* Lock is preserved through the entire session. */
+  if (type == SBUILD_CHROOT_SETUP_START && lock == FALSE ||
+      type == SBUILD_CHROOT_SETUP_STOP && lock == TRUE)
+    return TRUE;
 
   if (stat(chroot->device, &statbuf) == -1)
     {
@@ -221,9 +230,29 @@ sbuild_chroot_block_device_setup_lock (const SbuildChrootBlockDevice *chroot,
       return FALSE;
     }
 
-/*   return g_strdup_printf("block-%llu-%llu\n", */
-/* 			 (unsigned long long) gnu_dev_major(statbuf.st_rdev), */
-/* 			 (unsigned long long) gnu_dev_major(statbuf.st_rdev)); */
+  GError *error = NULL;
+  if (lock)
+    {
+      if (sbuild_lock_set_device_lock(chroot->device,
+				      SBUILD_LOCK_EXCLUSIVE,
+				      15,
+				      &error) == FALSE)
+	{
+	  g_printerr(_("%s: failed to lock device: %s\n"),
+		     chroot->device, error->message);
+	  return FALSE;
+	}
+    }
+  else
+    {
+      if (sbuild_lock_unset_device_lock(chroot->device,
+					&error) == FALSE)
+	{
+	  g_printerr(_("%s: failed to unlock device: %s\n"),
+		     chroot->device, error->message);
+	  return FALSE;
+	}
+    }
 
   return TRUE;
 }

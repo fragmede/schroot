@@ -96,9 +96,9 @@ SbuildChroot class.
 @parent: the parent class
 @print_details: vfunc to print additional chroot details
 @print_config: vfunc to print the config file group for this chroot
-@setup_env: 
+@setup_env: vfunc to set the environment that the setup scripts will see during execution
 @get_chroot_type: vfunc to get the user visible chroot type name
-@setup_lock: 
+@setup_lock: vfunc to lock a chroot during setup
 @get_session_flags: vfunc to get the session flags for this chroot type
 
 <!-- ##### USER_FUNCTION SbuildChrootPrintDetailsFunc ##### -->
