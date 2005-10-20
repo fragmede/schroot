@@ -995,11 +995,14 @@ sbuild_session_run (SbuildSession  *session,
 	      g_free(location);
 	    }
 
-	  /* LVM devices need the snapshot device name specifying. */
-	  if (SBUILD_IS_CHROOT_LVM_SNAPSHOT(chroot))
-	    {
+	  /* Chroot types which create a session (e.g. LVM devices)
+	     need the chroot name respecifying. */
+	  if (sbuild_chroot_get_session_flags(chroot) & SBUILD_CHROOT_SESSION_CREATE)
 	      sbuild_chroot_set_name(chroot, session->session_id);
 
+	  /* LVM devices need the snapshot device name specifying. */
+	  if (SBUILD_IS_CHROOT_LVM_SNAPSHOT(chroot))
+	  {
 	      gchar *dir =
 		g_path_get_dirname(sbuild_chroot_block_device_get_device
 				   (SBUILD_CHROOT_BLOCK_DEVICE(chroot)));

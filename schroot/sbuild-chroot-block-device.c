@@ -262,7 +262,7 @@ sbuild_chroot_block_device_get_session_flags (const SbuildChrootBlockDevice *chr
 {
   g_return_val_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot), 0);
 
-  return SBUILD_CHROOT_SESSION_AUTOCREATE;
+  return 0;
 }
 
 static void

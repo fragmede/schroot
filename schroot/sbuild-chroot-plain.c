@@ -159,7 +159,7 @@ sbuild_chroot_plain_get_session_flags (const SbuildChrootPlain *chroot)
 {
   g_return_val_if_fail(SBUILD_IS_CHROOT_PLAIN(chroot), 0);
 
-  return SBUILD_CHROOT_SESSION_AUTOCREATE | SBUILD_CHROOT_SESSION_MULTIUSER;
+  return 0;
 }
 
 static void

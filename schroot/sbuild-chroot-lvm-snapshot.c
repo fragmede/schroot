@@ -365,7 +365,7 @@ sbuild_chroot_lvm_snapshot_get_session_flags (const SbuildChrootLvmSnapshot *chr
 {
   g_return_val_if_fail(SBUILD_IS_CHROOT_LVM_SNAPSHOT(chroot), 0);
 
-  return SBUILD_CHROOT_SESSION_PERSISTENT | SBUILD_CHROOT_SESSION_MULTIUSER;
+  return SBUILD_CHROOT_SESSION_CREATE;
 }
 
 static void

@@ -43,9 +43,7 @@ typedef enum
 
 typedef enum
 {
-  SBUILD_CHROOT_SESSION_AUTOCREATE = 1 << 0,
-  SBUILD_CHROOT_SESSION_PERSISTENT = 1 << 1,
-  SBUILD_CHROOT_SESSION_MULTIUSER  = 1 << 2
+  SBUILD_CHROOT_SESSION_CREATE = 1 << 0
 } SbuildChrootSessionFlags;
 
 typedef struct _SbuildChroot SbuildChroot;

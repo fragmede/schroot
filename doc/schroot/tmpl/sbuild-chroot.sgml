@@ -165,9 +165,8 @@ will change to the new block device or directory.
 The session options for a given chroot type
 </para>
 
-@SBUILD_CHROOT_SESSION_AUTOCREATE: Create a session automatically, otherwise the session must be requested explicitly.
-@SBUILD_CHROOT_SESSION_PERSISTENT: The session persists once schroot terminates, otherwise is ephemeral and automatically removed.
-@SBUILD_CHROOT_SESSION_MULTIUSER: The chroot may have multiple users, otherwise only a single user is permitted.  The current-users and max-users properties are only valid if this is set.
+@SBUILD_CHROOT_SESSION_CREATE: The session persists once schroot
+terminates, so a session file must be created.
 
 <!-- ##### ENUM SbuildChrootSetupType ##### -->
 <para>
