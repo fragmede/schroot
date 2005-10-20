@@ -97,8 +97,7 @@ sbuild_chroot_new (void);
 
 SbuildChroot *
 sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
-				const char *group,
-				gboolean    active);
+				const char *group);
 
 gboolean
 sbuild_chroot_set_properties_from_keyfile (SbuildChroot *chroot,
@@ -162,6 +161,13 @@ sbuild_chroot_set_aliases (SbuildChroot  *chroot,
 
 gboolean
 sbuild_chroot_get_run_setup_scripts (const SbuildChroot *restrict chroot);
+
+gboolean
+sbuild_chroot_get_active (const SbuildChroot *restrict chroot);
+
+void
+sbuild_chroot_set_active (SbuildChroot *chroot,
+			  gboolean      active);
 
 void
 sbuild_chroot_set_run_setup_scripts (SbuildChroot *chroot,

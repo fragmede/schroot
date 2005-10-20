@@ -985,6 +985,9 @@ sbuild_session_run (SbuildSession  *session,
 	}
       else
 	{
+	  /* Activate chroot. */
+	  sbuild_chroot_set_active(chroot, TRUE);
+
 	  /* If a chroot mount location has not yet been set, set one
 	     with the session id. */
 	  if (sbuild_chroot_get_mount_location(chroot) == NULL)
@@ -1041,6 +1044,9 @@ sbuild_session_run (SbuildSession  *session,
 	    sbuild_session_setup_chroot(session, chroot,
 					SBUILD_CHROOT_SETUP_STOP,
 					(tmp_error != NULL) ? NULL : &tmp_error);
+
+	  /* Deactivate chroot. */
+	  sbuild_chroot_set_active(chroot, FALSE);
 	}
 
       if (tmp_error != NULL)

@@ -6,9 +6,6 @@ TODO
 
 * Refactor LVM snapshot session file locking.
 
-* sbuild-session set_chroot_name should check for chroots that support
-  sessions, rather than being specific to LVM snapshots.
-
 * When (re-)loading a session, set session ID from chroot name.
 
 * The session names should not be restricted to a UUID.  For automatic
@@ -16,9 +13,6 @@ TODO
   names.
 
 * Session operations only operate on one chroot.  Check only one is set.
-
-* Replace chroot "active" property with one to indicate it is in a
-  session.  Print "Session" rather than "Chroot" if in a session.
 
 * Document the setup and session scripts.
 

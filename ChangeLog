@@ -1,5 +1,18 @@
 2005-10-20  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-session.c (sbuild_session_run): Set and unset the
+	chroot "active" property before and after running a session.
+
+	* schroot/sbuild-config.c (sbuild_config_load): Remove active
+	argument from sbuild_chroot_new_from_keyfile call.
+
+	* schroot/sbuild-chroot.c
+	(sbuild_chroot_class_init): Make "active" property writable, and
+	add methods to get and set the active property.
+	(sbuild_chroot_new_from_keyfile): Remove active argument.
+
+2005-10-20  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-session.c (sbuild_session_run): If a chroot sets
 	SBUILD_CHROOT_SESSION_CREATE, update the chroot name with the
 	session name.

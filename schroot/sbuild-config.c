@@ -249,7 +249,7 @@ sbuild_config_load (const char  *file,
   char **groups = g_key_file_get_groups(keyfile, NULL);
   for (guint i=0; groups[i] != NULL; ++i)
     {
-      SbuildChroot *chroot = sbuild_chroot_new_from_keyfile(keyfile, groups[i], FALSE);
+      SbuildChroot *chroot = sbuild_chroot_new_from_keyfile(keyfile, groups[i]);
       if (chroot)
 	*list = g_list_append(*list, chroot);
     }

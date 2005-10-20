@@ -46,9 +46,6 @@
 #include "sbuild-chroot-block-device.h"
 #include "sbuild-chroot-lvm-snapshot.h"
 
-static void
-sbuild_chroot_set_active (SbuildChroot *chroot);
-
 enum
 {
   PROP_0,
@@ -86,7 +83,6 @@ sbuild_chroot_new (void)
  * sbuild_chroot_new_from_keyfile:
  * @keyfile: the #GKeyFile containing the chroot configuration
  * @group: the group in @keyfile to use
- * @active: TRUE if the chroot is an active session, otherwise FALSE
  *
  * Creates a new #SbuildChroot.
  *
@@ -94,8 +90,7 @@ sbuild_chroot_new (void)
  */
 SbuildChroot *
 sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
-				const char *group,
-				gboolean    active)
+				const char *group)
 {
   g_return_val_if_fail(group != NULL, NULL);
 
@@ -140,8 +135,6 @@ sbuild_chroot_new_from_keyfile (GKeyFile   *keyfile,
 
   if (chroot)
     {
-      if (active == TRUE)
-	sbuild_chroot_set_active(chroot);
       sbuild_chroot_set_properties_from_keyfile(chroot, keyfile);
     }
 
@@ -594,17 +587,35 @@ sbuild_chroot_set_aliases (SbuildChroot  *chroot,
 }
 
 /**
+ * sbuild_chroot_get_active:
+ * @chroot: an #SbuildChroot
+ *
+ * Get the activity status of the chroot.
+ *
+ * Returns TRUE if active, FALSE if inactive.
+ */
+gboolean
+sbuild_chroot_get_active (const SbuildChroot *restrict chroot)
+{
+  g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), FALSE);
+
+  return chroot->active;
+}
+
+/**
  * sbuild_chroot_set_active:
  * @chroot: an #SbuildChroot.
+ * @active: TRUE if active, FALSE if inactive.
  *
  * Set the activity status of the chroot.
  */
-static void
-sbuild_chroot_set_active (SbuildChroot *chroot)
+void
+sbuild_chroot_set_active (SbuildChroot *chroot,
+			  gboolean      active)
 {
   g_return_if_fail(SBUILD_IS_CHROOT(chroot));
 
-  chroot->active = TRUE;
+  chroot->active = active;
   g_object_notify(G_OBJECT(chroot), "active");
 }
 
@@ -1185,7 +1196,7 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
      g_param_spec_boolean ("active", "Active",
 			   "Is the chroot currently in use?",
 			   FALSE,
-			   (G_PARAM_READABLE)));
+			   (G_PARAM_READABLE | G_PARAM_WRITABLE)));
 
   g_object_class_install_property
     (gobject_class,
