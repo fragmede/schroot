@@ -2,6 +2,15 @@
 TODO
 ----
 
+* Chroot locking should return a GError.
+
+* Refactor LVM snapshot session file locking.
+
+* sbuild-session set_chroot_name should check for chroots that support
+  sessions, rather than being specific to LVM snapshots.
+
+* When (re-)loading a session, set session ID from chroot name.
+
 * The session names should not be restricted to a UUID.  For automatic
   session locking, it should also allow block device and inode lock
   names.
@@ -17,10 +26,6 @@ TODO
   available options.
 
 * Make "session" naming more consistent.
-
-* chroot access should be restricted to a certain number of
-  concurrent users (defaulting to 1).  This uses session file locking
-  to maintain a user count.
 
   Chroot creation
   ---------------

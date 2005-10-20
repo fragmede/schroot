@@ -1,3 +1,12 @@
+2005-10-20  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-session.c (sbuild_session_run): For LVM
+	snapshots, set the chroot name to the session name.
+
+	* schroot/sbuild-chroot-lvm-snapshot.c
+	(sbuild_chroot_lvm_snapshot_setup_lock): Write out a session file
+	on session startup, and remove it when stopping the session.
+
 2005-10-18  Roger Leigh  <rleigh@debian.org>
 
 	* debian/rules (config.status): Add --libexecdir option to

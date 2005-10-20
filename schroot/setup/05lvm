@@ -28,7 +28,7 @@ if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 	fi
         "$LIBEXEC_DIR/schroot-releaselock" \
 	    --device="$CHROOT_LVM_SNAPSHOT_DEVICE" \
-	    --pid=$PID
+	    --pid=$PID || true
 
 	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 	    lvremove $VERBOSE -f "$CHROOT_LVM_SNAPSHOT_DEVICE" || true

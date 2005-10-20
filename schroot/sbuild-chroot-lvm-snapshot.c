@@ -231,61 +231,130 @@ sbuild_chroot_lvm_snapshot_setup_lock (SbuildChrootLvmSnapshot *chroot,
 
   /* Lock is removed by setup script on setup stop.  Unlocking here
      would fail: the LVM snapshot device no longer exists. */
-  if (type == SBUILD_CHROOT_SETUP_STOP && lock == FALSE)
-    return TRUE;
-
-  if (type == SBUILD_CHROOT_SETUP_START)
-    device = sbuild_chroot_block_device_get_device(SBUILD_CHROOT_BLOCK_DEVICE(chroot));
-  else
-    device = chroot->snapshot_device;
-
-  if (device == NULL)
+  if (!(type == SBUILD_CHROOT_SETUP_STOP && lock == FALSE))
     {
-      g_error(_("%s chroot: device name not set\n"));
-      return FALSE;
-    }
-  if (stat(device, &statbuf) == -1)
-    {
-      g_printerr(_("%s chroot: failed to stat device %s: %s\n"),
-		 sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
-		 device, g_strerror(errno));
-      return FALSE;
-    }
-  if (!S_ISBLK(statbuf.st_mode))
-    {
-      g_printerr(_("%s chroot: %s is not a block device\n"),
-		 sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
-		 device);
-      return FALSE;
-    }
+      if (type == SBUILD_CHROOT_SETUP_START)
+	device = sbuild_chroot_block_device_get_device(SBUILD_CHROOT_BLOCK_DEVICE(chroot));
+      else
+	device = chroot->snapshot_device;
 
-  /* Lock is preserved while running a command. */
-  if (type == SBUILD_CHROOT_RUN_START && lock == FALSE ||
-      type == SBUILD_CHROOT_RUN_STOP && lock == TRUE)
-    return TRUE;
-
-  GError *error = NULL;
-  if (lock)
-    {
-      if (sbuild_lock_set_device_lock(device,
-				      SBUILD_LOCK_EXCLUSIVE,
-				      15,
-				      &error) == FALSE)
+      if (device == NULL)
 	{
-	  g_printerr(_("%s: failed to lock device: %s\n"),
-		     device, error->message);
+	  g_error(_("%s chroot: device name not set\n"));
 	  return FALSE;
 	}
-    }
-  else
-    {
-      if (sbuild_lock_unset_device_lock(device,
-					&error) == FALSE)
+      if (stat(device, &statbuf) == -1)
 	{
-	  g_printerr(_("%s: failed to unlock device: %s\n"),
-		     device, error->message);
+	  g_printerr(_("%s chroot: failed to stat device %s: %s\n"),
+		     sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
+		     device, g_strerror(errno));
 	  return FALSE;
 	}
+      if (!S_ISBLK(statbuf.st_mode))
+	{
+	  g_printerr(_("%s chroot: %s is not a block device\n"),
+		     sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
+		     device);
+	  return FALSE;
+	}
+
+      /* Lock is preserved while running a command. */
+      if (type == SBUILD_CHROOT_RUN_START && lock == FALSE ||
+	  type == SBUILD_CHROOT_RUN_STOP && lock == TRUE)
+	return TRUE;
+
+      GError *error = NULL;
+      if (lock)
+	{
+	  if (sbuild_lock_set_device_lock(device,
+					  SBUILD_LOCK_EXCLUSIVE,
+					  15,
+					  &error) == FALSE)
+	    {
+	      g_printerr(_("%s: failed to lock device: %s\n"),
+			 device, error->message);
+	      return FALSE;
+	    }
+	}
+      else
+	{
+	  if (sbuild_lock_unset_device_lock(device,
+					    &error) == FALSE)
+	    {
+	      g_printerr(_("%s: failed to unlock device: %s\n"),
+			 device, error->message);
+	      return FALSE;
+	    }
+	}
+    }
+
+  /* Create or unlink session information. */
+  if (type == SBUILD_CHROOT_SETUP_START && lock == TRUE ||
+      type == SBUILD_CHROOT_SETUP_STOP && lock == FALSE)
+    {
+      char *file = g_strconcat(SCHROOT_SESSION_DIR, "/",
+			       sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
+			       NULL);
+      int fd;
+
+      if (type == SBUILD_CHROOT_SETUP_START)
+	fd = open(file, O_CREAT|O_EXCL|O_WRONLY, 0664);
+      else
+	fd = open(file, O_WRONLY);
+      if (fd < 0)
+	{
+	  g_printerr(_("%s: failed to create session file: %s\n"), file, g_strerror(errno));
+	  g_free(file);
+	  return FALSE;
+	}
+
+      GError *lock_error = NULL;
+      sbuild_lock_set_lock(fd, SBUILD_LOCK_EXCLUSIVE, 2, &lock_error);
+      if (lock_error)
+	{
+	  g_printerr(_("%s: lock acquisition failure: %s\n"), file, lock_error->message);
+	  g_free(file);
+	  return FALSE;
+	}
+
+      FILE *sess_file = fdopen(fd, "w");
+      if (file == NULL)
+	{
+	  g_printerr(_("%s: failed to create FILE from fd: %s\n"), file, g_strerror(errno));
+	  g_free(file);
+	  return FALSE;
+	}
+
+      if (type == SBUILD_CHROOT_SETUP_START)
+	sbuild_chroot_print_details(SBUILD_CHROOT(chroot), sess_file);
+      else
+	{
+	  if (unlink(file) != 0)
+	    {
+	      g_printerr(_("%s: failed to unlink session file: %s\n"),
+			 file, g_strerror(errno));
+	      g_free(file);
+	      return FALSE;
+	    }
+	}
+
+      GError *unlock_error = NULL;
+      sbuild_lock_unset_lock(fd, &unlock_error);
+      if (unlock_error)
+	{
+	  g_printerr(_("%s: lock discard failure: %s\n"), file, unlock_error->message);
+	  g_free(file);
+	  return FALSE;
+	}
+
+      if (fclose(sess_file) != 0)
+	{
+	  g_printerr(_("%s: failed to close session file: %s\n"), file, g_strerror(errno));
+	  g_free(file);
+	  return FALSE;
+	}
+
+      g_free(file);
     }
 
   return TRUE;
