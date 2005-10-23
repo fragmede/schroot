@@ -1,3 +1,67 @@
+2005-10-23  Roger Leigh  <rleigh@debian.org>
+
+	* po/en_GB.po: Updated translation.
+
+	* TODO: Update.  All locking and session items removed now that
+	they are implemented.
+
+	* schroot/schroot.1.in: Document new "--all-chroots" and
+	"--all-sessions" options.
+
+	* schroot/schroot.c: Add "--all-chroots" and "--all-sessions"
+	command-line options.
+	(get_chroot_options): Use new "--all" options.
+	(get_chroot_options): Print a list of invalid chroots found during
+	chroot validation.
+	(main): Create the configuration using sbuild_config_new(), and
+	add the approprate configuration and session configuration
+	depending on the command-line options used.
+
+	* schroot/sbuild-session.c
+	(sbuild_session_run): When restoring a session, set the session ID
+	from the chroot name.
+	(sbuild_session_run): The session operations are only run if
+	specified in the session operations.
+
+	* schroot/sbuild-config.c
+	(sbuild_config_new): New function.  This does not load any
+	configuration files.
+	(sbuild_config_add_config_file): New function, renamed from
+	sbuild_config_set_config_file.  This now exported.
+	(sbuild_config_add_config_directory): New function, renamed from
+	sbuild_config_set_config_directory.  This now exported.
+	(sbuild_config_find_generic): Cope with the case that no chroots
+	exist.
+	(sbuild_config_get_chroot_list): Cope with the case that no
+	chroots exist.
+	(sbuild_config_validate_chroots): Return a list of invalid chroot
+	names, rather than FALSE.
+	(sbuild_config_class_init): "config-file" and "config-directory"
+	are no longer construct-only.  Both properties are now completely
+	virtual, with no corresponding member data (a single filename no
+	longer makes sense when multiple configuration files may be added
+	at any time).
+
+	* schroot/sbuild-config.h (struct _SbuildConfig): Removed file
+	member.
+
+	* schroot/sbuild-chroot.h: Fix function misordering.
+
+	* schroot/sbuild-chroot.c
+	(sbuild_chroot_print_config): Print "active" property, don't
+	translate any option names, and format "mount-device" correctly.
+	(sbuild_chroot_set_property): Add the PROP_ACTIVE property.
+	(sbuild_chroot_class_init): Make "active" a construction property;
+	this is not documented, as it is not intended for use by users; it
+	is for session recovery.
+
+	* schroot/sbuild-chroot-lvm-snapshot.c
+	(sbuild_chroot_lvm_snapshot_print_config): Chain up using the
+	print_config vfunc.
+	(sbuild_chroot_lvm_snapshot_setup_lock): Use
+	sbuild_chroot_print_config rather than
+	sbuild_chroot_print_details.
+
 2005-10-20  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-session.c (sbuild_session_run): Set and unset the

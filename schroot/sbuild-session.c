@@ -486,7 +486,6 @@ sbuild_session_setup_chroot (SbuildSession          *session,
 		       setup_type == SBUILD_CHROOT_RUN_STOP, FALSE);
 
   /* TODO: setup_lock error propagation. */
-  GError *lock_error;
   if (sbuild_chroot_setup_lock(session_chroot, setup_type, TRUE) == FALSE)
     {
       g_set_error(error,
@@ -985,6 +984,12 @@ sbuild_session_run (SbuildSession  *session,
 	}
       else
 	{
+	  /* If restoring a session, set the session ID from the
+	     chroot name. */
+	  if (sbuild_chroot_get_active(chroot))
+	    sbuild_session_set_session_id(session,
+					  sbuild_chroot_get_name(chroot));
+
 	  /* Activate chroot. */
 	  sbuild_chroot_set_active(chroot, TRUE);
 
@@ -1017,13 +1022,23 @@ sbuild_session_run (SbuildSession  *session,
 	      g_free(dir);
 	    }
 
-	  /* Run chroot setup scripts. */
-	  if (sbuild_chroot_get_run_setup_scripts(chroot) == TRUE)
-	    sbuild_session_setup_chroot(session, chroot,
-					SBUILD_CHROOT_SETUP_START,
-					&tmp_error);
-	  if (tmp_error == NULL)
+	  /* Run setup-start chroot setup scripts. */
+	  if (session->operation == SBUILD_SESSION_OPERATION_AUTOMATIC ||
+	      session->operation == SBUILD_SESSION_OPERATION_BEGIN)
 	    {
+	      if (sbuild_chroot_get_run_setup_scripts(chroot) == TRUE)
+		sbuild_session_setup_chroot(session, chroot,
+					    SBUILD_CHROOT_SETUP_START,
+					    &tmp_error);
+	      if (session->operation == SBUILD_SESSION_OPERATION_BEGIN)
+		g_fprintf(stdout, "%s\n", session->session_id);
+	    }
+
+	  if (tmp_error == NULL &&
+	      (session->operation == SBUILD_SESSION_OPERATION_AUTOMATIC ||
+	       session->operation == SBUILD_SESSION_OPERATION_RUN))
+	    {
+	      /* Run run-start scripts. */
 	      if (sbuild_chroot_get_run_session_scripts(chroot) == TRUE)
 		sbuild_session_setup_chroot(session, chroot,
 					    SBUILD_CHROOT_RUN_START,
@@ -1033,17 +1048,24 @@ sbuild_session_run (SbuildSession  *session,
 	      if (tmp_error == NULL)
 		sbuild_session_run_chroot(session, chroot, &tmp_error);
 
-	      /* Run clean up scripts whether or not there was an error. */
+	      /* Run run-stop scripts whether or not there was an
+		 error. */
 	      if (sbuild_chroot_get_run_session_scripts(chroot) == TRUE)
 		sbuild_session_setup_chroot(session, chroot,
 					    SBUILD_CHROOT_RUN_STOP,
 					    (tmp_error != NULL) ? NULL : &tmp_error);
 	    }
 
-	  if (sbuild_chroot_get_run_setup_scripts(chroot) == TRUE)
-	    sbuild_session_setup_chroot(session, chroot,
-					SBUILD_CHROOT_SETUP_STOP,
-					(tmp_error != NULL) ? NULL : &tmp_error);
+	  /* Run setup-stop chroot setup scripts whether or not there
+	     was an error. */
+	  if (session->operation == SBUILD_SESSION_OPERATION_AUTOMATIC ||
+	      session->operation == SBUILD_SESSION_OPERATION_END)
+	    {
+	      if (sbuild_chroot_get_run_setup_scripts(chroot) == TRUE)
+		sbuild_session_setup_chroot(session, chroot,
+					    SBUILD_CHROOT_SETUP_STOP,
+					    (tmp_error != NULL) ? NULL : &tmp_error);
+	    }
 
 	  /* Deactivate chroot. */
 	  sbuild_chroot_set_active(chroot, FALSE);

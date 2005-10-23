@@ -316,6 +316,24 @@ The type of chroot setup operation
 @aliases: 
 
 
+<!-- ##### FUNCTION sbuild_chroot_get_active ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@Returns: 
+
+
+<!-- ##### FUNCTION sbuild_chroot_set_active ##### -->
+<para>
+
+</para>
+
+@chroot: 
+@active: 
+
+
 <!-- ##### FUNCTION sbuild_chroot_get_run_setup_scripts ##### -->
 <para>
 

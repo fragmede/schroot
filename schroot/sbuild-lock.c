@@ -322,7 +322,7 @@ sbuild_lock_set_device_lock (const gchar     *device,
 
   /* Wait on lock until interrupted by a signal if a timeout was set,
      otherwise return immediately. */
-  pid_t status;
+  pid_t status = 0;
   while (lock_timeout == FALSE)
     {
       if (lock_type == SBUILD_LOCK_SHARED || lock_type == SBUILD_LOCK_EXCLUSIVE)

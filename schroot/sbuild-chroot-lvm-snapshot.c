@@ -174,8 +174,8 @@ sbuild_chroot_lvm_snapshot_print_config (SbuildChrootLvmSnapshot *chroot,
   g_return_if_fail(SBUILD_IS_CHROOT_LVM_SNAPSHOT(chroot));
 
   SbuildChrootClass *klass = SBUILD_CHROOT_CLASS(parent_class);
-  if (klass->print_details)
-    klass->print_details(SBUILD_CHROOT(chroot), file);
+  if (klass->print_config)
+    klass->print_config(SBUILD_CHROOT(chroot), file);
 
   if (chroot->snapshot_device)
     g_fprintf(file, _("lvm-snapshot-device=%s\n"),
@@ -259,8 +259,8 @@ sbuild_chroot_lvm_snapshot_setup_lock (SbuildChrootLvmSnapshot *chroot,
 	}
 
       /* Lock is preserved while running a command. */
-      if (type == SBUILD_CHROOT_RUN_START && lock == FALSE ||
-	  type == SBUILD_CHROOT_RUN_STOP && lock == TRUE)
+      if ((type == SBUILD_CHROOT_RUN_START && lock == FALSE) ||
+	  (type == SBUILD_CHROOT_RUN_STOP && lock == TRUE))
 	return TRUE;
 
       GError *error = NULL;
@@ -289,8 +289,8 @@ sbuild_chroot_lvm_snapshot_setup_lock (SbuildChrootLvmSnapshot *chroot,
     }
 
   /* Create or unlink session information. */
-  if (type == SBUILD_CHROOT_SETUP_START && lock == TRUE ||
-      type == SBUILD_CHROOT_SETUP_STOP && lock == FALSE)
+  if ((type == SBUILD_CHROOT_SETUP_START && lock == TRUE) ||
+      (type == SBUILD_CHROOT_SETUP_STOP && lock == FALSE))
     {
       char *file = g_strconcat(SCHROOT_SESSION_DIR, "/",
 			       sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
@@ -326,7 +326,7 @@ sbuild_chroot_lvm_snapshot_setup_lock (SbuildChrootLvmSnapshot *chroot,
 	}
 
       if (type == SBUILD_CHROOT_SETUP_START)
-	sbuild_chroot_print_details(SBUILD_CHROOT(chroot), sess_file);
+	sbuild_chroot_print_config(SBUILD_CHROOT(chroot), sess_file);
       else
 	{
 	  if (unlink(file) != 0)

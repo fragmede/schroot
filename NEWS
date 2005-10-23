@@ -1,11 +1,26 @@
-Welcome to schroot 0.1.7.  Please read these release notes carefully.    -*- outline -*-
+NEWS                                                             -*- outline -*-
+----
 
-Full installation instructions are provided in the INSTALL file.
-The README file also contains more specific notes regarding
-building and configuration.
+Welcome to schroot 0.1.7.  Please read these release notes carefully.
+
+Full installation instructions are provided in the INSTALL file.  The
+README file also contains more specific notes regarding building and
+configuration.
 
 * Major changes in 0.1.7:
 
+  1) The chroots now implement locking to restrict access to chroots
+     which are already in use.
+
+  2) The "current-users" and "max-users" configuration options have
+     been removed.  These have been obsoleted by chroot locking.
+
+  3) The command-line options "--all-chroots" and "--all-sessions"
+     have been added, which have similar behaviour to "--all", but
+     selects all chroots and all active sessions, respectively.
+
+  4) Session creation, use and removal is now available for LVM
+     snapshot chroots, using the options documented in schroot(1).
 
 * Major changes in 0.1.6:
 

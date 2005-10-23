@@ -807,9 +807,9 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
 	    (alias_list) ? alias_list : "");
   g_free(alias_list);
 
-  g_fprintf(file, _("  %-22s%s\n"), _("Run Setup Scripts"),
+  g_fprintf(file, "  %-22s%s\n", _("Run Setup Scripts"),
 	    (chroot->run_setup_scripts == TRUE) ? "true" : "false");
-  g_fprintf(file, _("  %-22s%s\n"), _("Run Session Scripts"),
+  g_fprintf(file, "  %-22s%s\n", _("Run Session Scripts"),
 	    (chroot->run_session_scripts == TRUE) ? "true" : "false");
 
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
@@ -840,6 +840,9 @@ void sbuild_chroot_print_config (SbuildChroot *chroot,
   g_return_if_fail(SBUILD_IS_CHROOT(chroot));
 
   g_fprintf(file, "[%s]\n", chroot->name);
+  if (chroot->active)
+    g_fprintf(file, "active=%s\n",
+	      (chroot->active == TRUE) ? "true" : "false");
   if (chroot->description)
     g_fprintf(file, "description=%s\n", chroot->description);
   g_fprintf(file, "type=%s\n", sbuild_chroot_get_chroot_type(chroot));
@@ -866,9 +869,9 @@ void sbuild_chroot_print_config (SbuildChroot *chroot,
       g_free(alias_list);
     }
 
-  g_fprintf(file, _("run-setup-scripts=%s\n"),
+  g_fprintf(file, "run-setup-scripts=%s\n",
 	    (chroot->run_setup_scripts == TRUE) ? "true" : "false");
-  g_fprintf(file, _("run-session-scripts=%s\n"),
+  g_fprintf(file, "run-session-scripts=%s\n",
 	    (chroot->run_session_scripts == TRUE) ? "true" : "false");
 
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
@@ -879,7 +882,7 @@ void sbuild_chroot_print_config (SbuildChroot *chroot,
   if (chroot->mount_location)
     g_fprintf(file, "mount-location=%s\n", chroot->mount_location);
   if (chroot->mount_device)
-    g_fprintf(file, "mount-device%s\n", chroot->mount_device);
+    g_fprintf(file, "mount-device=%s\n", chroot->mount_device);
 }
 
 static inline void
@@ -1043,6 +1046,9 @@ sbuild_chroot_set_property (GObject      *object,
     case PROP_MOUNT_DEVICE:
       sbuild_chroot_set_mount_device(chroot, g_value_get_string(value));
       break;
+    case PROP_ACTIVE:
+      sbuild_chroot_set_active(chroot, g_value_get_boolean(value));
+      break;
     case PROP_RUN_SETUP_SCRIPTS:
       sbuild_chroot_set_run_setup_scripts(chroot, g_value_get_boolean(value));
       break;
@@ -1196,7 +1202,7 @@ sbuild_chroot_class_init (SbuildChrootClass *klass)
      g_param_spec_boolean ("active", "Active",
 			   "Is the chroot currently in use?",
 			   FALSE,
-			   (G_PARAM_READABLE | G_PARAM_WRITABLE)));
+			   (G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
 
   g_object_class_install_property
     (gobject_class,

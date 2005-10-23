@@ -54,7 +54,6 @@ typedef struct _SbuildConfigClass SbuildConfigClass;
 struct _SbuildConfig
 {
   GObject  parent;
-  char    *file;
   GList   *chroots;
 };
 
@@ -68,10 +67,21 @@ GType
 sbuild_config_get_type (void);
 
 SbuildConfig *
+sbuild_config_new (void);
+
+SbuildConfig *
 sbuild_config_new_from_file (const char *file);
 
 SbuildConfig *
 sbuild_config_new_from_directory (const char *dir);
+
+void
+sbuild_config_add_config_file (SbuildConfig *config,
+			       const char   *file);
+
+void
+sbuild_config_add_config_directory (SbuildConfig *config,
+				    const char   *dir);
 
 const GList *
 sbuild_config_get_chroots (SbuildConfig *config);
@@ -91,7 +101,7 @@ void
 sbuild_config_print_chroot_list (SbuildConfig *config,
 				 FILE         *file);
 
-gboolean
+char **
 sbuild_config_validate_chroots(SbuildConfig  *config,
 			       char         **chroots);
 

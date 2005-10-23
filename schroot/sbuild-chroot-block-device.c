@@ -211,8 +211,8 @@ sbuild_chroot_block_device_setup_lock (SbuildChrootBlockDevice *chroot,
     return TRUE;
 
   /* Lock is preserved through the entire session. */
-  if (type == SBUILD_CHROOT_SETUP_START && lock == FALSE ||
-      type == SBUILD_CHROOT_SETUP_STOP && lock == TRUE)
+  if ((type == SBUILD_CHROOT_SETUP_START && lock == FALSE) ||
+      (type == SBUILD_CHROOT_SETUP_STOP && lock == TRUE))
     return TRUE;
 
   if (stat(chroot->device, &statbuf) == -1)

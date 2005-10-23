@@ -81,6 +81,19 @@ static GObjectClass *parent_class;
 G_DEFINE_TYPE(SbuildConfig, sbuild_config, G_TYPE_OBJECT)
 
 /**
+ * sbuild_config_new:
+ *
+ * Creates a new #SbuildConfig.
+ *
+ * Returns the newly created #SbuildConfig.
+ */
+SbuildConfig *
+sbuild_config_new (void)
+{
+  return (SbuildConfig *) g_object_new (SBUILD_TYPE_CONFIG, NULL);
+}
+
+/**
  * sbuild_config_new_from_file:
  * @file: the filename to open.
  *
@@ -258,15 +271,15 @@ sbuild_config_load (const char  *file,
 }
 
 /**
- * sbuild_config_set_config_file:
+ * sbuild_config_add_config_file:
  * @config: an #SbuildConfig.
- * @file: the filename to set.
+ * @file: the filename to add.
  *
- * Set the configuration filename.  The configuration file will be
- * loaded as a side effect.
+ * Add the configuration filename.  The configuration file specified
+ * will be loaded.
  */
-static void
-sbuild_config_set_config_file (SbuildConfig *config,
+void
+sbuild_config_add_config_file (SbuildConfig *config,
 			       const char   *file)
 {
   g_return_if_fail(SBUILD_IS_CONFIG(config));
@@ -274,27 +287,21 @@ sbuild_config_set_config_file (SbuildConfig *config,
   if (file == NULL || strlen(file) == 0)
     return;
 
-  if (config->file)
-    {
-      g_free(config->file);
-    }
-  config->file = g_strdup(file);
-
-  sbuild_config_load(config->file, &config->chroots);
+  sbuild_config_load(file, &config->chroots);
 
   g_object_notify(G_OBJECT(config), "config-file");
 }
 
 /**
- * sbuild_config_set_config_directory:
+ * sbuild_config_add_config_directory:
  * @config: an #SbuildConfig.
- * @file: the filename to set.
+ * @dir: the directory to add.
  *
- * Set the configuration directory.  The configuration files will be
- * loaded as a side effect.
+ * Add the configuration directory.  The configuration files in the
+ * directory will be loaded.
  */
-static void
-sbuild_config_set_config_directory (SbuildConfig *config,
+void
+sbuild_config_add_config_directory (SbuildConfig *config,
 				    const char   *dir)
 {
   g_return_if_fail(SBUILD_IS_CONFIG(config));
@@ -371,20 +378,22 @@ sbuild_config_find_generic (SbuildConfig *config,
 			    GCompareFunc  func)
 {
   g_return_val_if_fail(SBUILD_IS_CONFIG(config), NULL);
-  g_return_val_if_fail(config->chroots != NULL, NULL);
 
-  SbuildChroot *example = sbuild_chroot_new();
-  sbuild_chroot_set_name(example, name);
+  if (config->chroots)
+    {
+      SbuildChroot *example = sbuild_chroot_new();
+      sbuild_chroot_set_name(example, name);
 
-  GList *elem = g_list_find_custom(config->chroots, example, (GCompareFunc) func);
+      GList *elem = g_list_find_custom(config->chroots, example, (GCompareFunc) func);
 
-  g_object_unref(example);
-  example = NULL;
+      g_object_unref(example);
+      example = NULL;
 
-  if (elem)
-    return (SbuildChroot *) elem->data;
-  else
-    return NULL;
+      if (elem)
+	return (SbuildChroot *) elem->data;
+    }
+
+  return NULL;
 }
 
 /**
@@ -521,14 +530,17 @@ GList *
 sbuild_config_get_chroot_list (SbuildConfig *config)
 {
   g_return_val_if_fail(SBUILD_IS_CONFIG(config), NULL);
-  g_return_val_if_fail(config->chroots != NULL, NULL);
 
-  GList *list = NULL;
+  if (config->chroots)
+    {
+      GList *list = NULL;
 
-  g_list_foreach(config->chroots, (GFunc) sbuild_config_get_chroot_list_foreach, &list);
-  list = g_list_sort(list, (GCompareFunc) strcmp);
+      g_list_foreach(config->chroots, (GFunc) sbuild_config_get_chroot_list_foreach, &list);
+      list = g_list_sort(list, (GCompareFunc) strcmp);
+      return list;
+    }
 
-  return list;
+  return NULL;
 }
 
 /**
@@ -573,25 +585,41 @@ sbuild_config_print_chroot_list (SbuildConfig *config,
  *
  * Check that all the chroots specified by @chroots exist in @config.
  *
- * Returns TRUE if the validation succeeds, otherwise FALSE.
+ * Returns NULL if all chroots are valid, or else a vector of invalid
+ * chroots.
  */
-gboolean
+char **
 sbuild_config_validate_chroots(SbuildConfig  *config,
 			       char         **chroots)
 {
   g_return_val_if_fail(SBUILD_IS_CONFIG(config), FALSE);
 
-  gboolean success = TRUE;
+  GList *invalid_list = NULL;
+
   for (guint i=0; chroots[i] != NULL; ++i)
     {
       SbuildChroot *chroot = sbuild_config_find_alias(config, chroots[i]);
       if (chroot == NULL)
 	{
-	  g_printerr(_("%s: No such chroot\n"), chroots[i]);
-	  success = FALSE;
+	  invalid_list = g_list_append(invalid_list, chroots[i]);
 	}
     }
-  return success;
+
+  char **return_list = NULL;
+
+  if (invalid_list)
+    {
+      return_list = g_new(char *, g_list_length(invalid_list) + 1);
+
+      GList *iter = invalid_list;
+      for (guint i = 0; iter != NULL; iter = g_list_next(iter), ++i)
+	return_list[i] = g_strdup((const char *) iter->data);
+      return_list[g_list_length(invalid_list)] = NULL;
+
+      g_list_free(invalid_list);
+    }
+
+  return return_list;
 }
 
 static void
@@ -599,7 +627,6 @@ sbuild_config_init (SbuildConfig *config)
 {
   g_return_if_fail(SBUILD_IS_CONFIG(config));
 
-  config->file = NULL;
   config->chroots = NULL;
 }
 
@@ -608,11 +635,6 @@ sbuild_config_finalize (SbuildConfig *config)
 {
   g_return_if_fail(SBUILD_IS_CONFIG(config));
 
-  if (config->file)
-    {
-      g_free (config->file);
-      config->file = NULL;
-    }
   if (config->chroots)
     {
       g_list_foreach(config->chroots, (GFunc) g_object_unref, NULL);
@@ -639,10 +661,10 @@ sbuild_config_set_property (GObject      *object,
   switch (param_id)
     {
     case PROP_CONFIG_FILE:
-      sbuild_config_set_config_file(config, g_value_get_string(value));
+      sbuild_config_add_config_file(config, g_value_get_string(value));
       break;
     case PROP_CONFIG_DIR:
-      sbuild_config_set_config_directory(config, g_value_get_string(value));
+      sbuild_config_add_config_directory(config, g_value_get_string(value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -687,7 +709,7 @@ sbuild_config_class_init (SbuildConfigClass *klass)
      g_param_spec_string ("config-file", "Configuration File",
 			  "The file containing the chroot configuration",
 			  "",
-			  (G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY)));
+			  (G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
 
   g_object_class_install_property
     (gobject_class,
@@ -695,7 +717,7 @@ sbuild_config_class_init (SbuildConfigClass *klass)
      g_param_spec_string ("config-directory", "Configuration Directory",
 			  "The directory containing the chroot configuration files",
 			  "",
-			  (G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY)));
+			  (G_PARAM_WRITABLE | G_PARAM_CONSTRUCT)));
 }
 
 /*

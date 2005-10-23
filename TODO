@@ -1,4 +1,4 @@
-
+                                                                 -*- outline -*-
 TODO
 ----
 
@@ -6,106 +6,37 @@ TODO
 
 * Refactor LVM snapshot session file locking.
 
-* When (re-)loading a session, set session ID from chroot name.
+* The session names should include the source chroot name.
 
-* The session names should not be restricted to a UUID.  For automatic
-  session locking, it should also allow block device and inode lock
-  names.
-
-* Session operations only operate on one chroot.  Check only one is set.
+* Session operations only operate on one chroot.
+  Check only one is set.
 
 * Document the setup and session scripts.
+  Include all scripts and ordering.
 
-* Add examples of new chroot types to schroot.conf, using all
-  available options.
+* Add examples of new chroot types to schroot.conf.
+  Use all available options.
 
 * Make "session" naming more consistent.
 
-  Chroot creation
-  ---------------
+* config: add methods to clear and reload configuration.
+  This will require a file and directory list to be stored.
 
-  - Create a lock on the source blockdev or directory using an
-    exclusive lock:
-    /schroot-block-major-minor or /schroot-directory-major-minor-inode
+* If no chroot is specified, fall back to "default" chroot.
 
-  - create file with O_WRONLY|O_CREAT|O_EXCL
-  - acquire exclusive write lock
-  - run setup scripts [start]
-  - write session file
-  - unlock
-
-  Session run
-  -----------
-
-  Create a lock on the chroot directory using a read and then write
-  lock.  This is of the form
-  /schroot-directory-major-minor-inode, and is used to track the usage
-  count of the chroot.  For PVs and devices, use
-  /schroot-block-major-minor.
-
-  - open file with O_RDWR
-
-  - acquire exclusive write lock
-  - read session file
-  - truncate and write session file
-  - unlock
-
-  - run session scripts [start]
-  - run session
-  - run session scripts [stop]
-
-  - acquire exclusive write lock
-  - read session file
-  - truncate and write session file
-  - unlock
-
-  Chroot teardown
-  ---------------
-
-  - open O_RDWR
-  - acquire exclusive write lock
-  - read session file
-  - run setup scripts [stop]
-  - unlink
-  - unlock
-  - close
+* Add a "recover" option to setup scripts
+  Existing session filesystems must be remounted after a reboot.
 
 * Add a SbuildChrootXen chroot type for Xen hosts.
 
-* Alternate chroots will require hook scripts to customise them.
-  For example, network setup.  Xen in particular will require
-  DHCP or static IP configuration and a dynamic hostname in order
-  to connect.
-
-* Currently, a session consists of authentication/authorisation, followed
-  by session setup, entering a chroot and running commands.  When using a
-  non-chroot setups, we also need to consider:
-
-  - initial chroot setup
-  - chroot entry/access, possibly over a network
-  - running commands, independently, each with their own exit status
-    (e.g. sbuild)
-  - chroot exit
-  - final chroot teardown
-
-  We also need to consider concurrent access to the chroot during this
-  time.  Chroot setup/teardown might be expensive, and should only be
-  done once per session.  Therefore there must be a mechanism of
-  preserving it while running multiple commands.
-
-  Chroot entry and exit might be done at the same time as setup/teardown,
-  but it might equally involve e.g. ssh connections, and if running
-  several commands, it's important not to tear down the chroot between
-  commands.
-
-  If maxusers=2, user 1 could initiate the session, leaving user 2 to
-  connect as many times as necessary while user 1 remains connected, but
-  idle, and then teardown would take place when the last session exited
-  (e.g. using semaphores).
+  This will require setup scripts for e.g. hostname and network setup.
+  It will require DHCP or static IP configuration and a dynamic
+  hostname in order to connect.
 
 * Allow direct access to the original LV of a snapshot chroot type.
-  This should acquire a lock to prevent taking a snapshot during
-  modification.  Perhaps we need separate setup and session locks.
+  This is possible now we are using lockdev.  Could the block-device
+  chroot be created automatically, appending "-master" or "-source" to
+  the lvm-snapshot chroot name?
 
 
 SECURITY

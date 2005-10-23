@@ -43,10 +43,19 @@ Show all help, including advanced options.
 Show session options.
 .TP
 .B \-a, \-\-all
-Use all chroots.  When a command has been specified, the command will be run in
-all chroots.  If \fB\-\-info\fP has been used, display information about all
-chroots.  This option does not make sense to use with a login shell (when no
-command has been specified).
+Select all chroots and active sessions.  When a command has been specified, the
+command will be run in all chroots and active sessions.  If \fB\-\-info\fP has
+been used, display information about all chroots.  This option does not make
+sense to use with a login shell (when no command has been specified).  This
+option is equivalent to \fB\-\-all\-chroots\fP \fB\-\-all\-sessions\fP.
+.TP
+.B \-a, \-\-all\-chroots
+Select all chroots.  Identical to \fB\-\-all\fP, but active sessions are not
+considered.
+.TP
+.B \-a, \-\-all\-chroots
+Select all active sessions.  Identical to \fB\-\-all\fP, but chroots are not
+considered.
 .TP
 .B \-c, \-\-chroot=\fIchroot\fP
 Specify a chroot to use.  This option may be used multiple times to specify

@@ -26,6 +26,8 @@ sbuild_chroot_get_root_groups
 sbuild_chroot_set_root_groups
 sbuild_chroot_get_aliases
 sbuild_chroot_set_aliases
+sbuild_chroot_get_active
+sbuild_chroot_set_active
 sbuild_chroot_get_run_setup_scripts
 sbuild_chroot_set_run_setup_scripts
 sbuild_chroot_get_run_session_scripts
@@ -114,8 +116,11 @@ SbuildConfig
 SbuildConfigClass
 SbuildConfigFileError
 SBUILD_CONFIG_FILE_ERROR
+sbuild_config_new
 sbuild_config_new_from_file
 sbuild_config_new_from_directory
+sbuild_config_add_config_file
+sbuild_config_add_config_directory
 sbuild_config_get_chroots
 sbuild_config_find_chroot
 sbuild_config_find_alias

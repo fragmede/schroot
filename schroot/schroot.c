@@ -54,9 +54,9 @@ static struct {
   gboolean   list;
   gboolean   info;
   gboolean   all;
+  gboolean   all_chroots;
+  gboolean   all_sessions;
   gboolean   version;
-  char      *session_id;
-  gboolean   session_force;
 } opt =
   {
     .chroots = NULL,
@@ -68,19 +68,17 @@ static struct {
     .list = FALSE,
     .info = FALSE,
     .all = FALSE,
+    .all_chroots = FALSE,
+    .all_sessions = FALSE,
     .version = FALSE,
-    .session_id = NULL,
-    .session_force = FALSE
   };
 
 static struct {
   SbuildSessionOperation  operation;
-  char                   *id;
   gboolean                force;
 } session_opt =
   {
     .operation = SBUILD_SESSION_OPERATION_AUTOMATIC,
-    .id = NULL,
     .force = FALSE
   };
 
@@ -100,7 +98,11 @@ parse_options(int   argc,
   static const GOptionEntry entries[] =
     {
       { "all", 'a', 0, G_OPTION_ARG_NONE, &opt.all,
-	N_("Run command in all chroots"), NULL },
+	N_("Select all chroots and active sessions"), NULL },
+      { "all-chroots", 0, 0, G_OPTION_ARG_NONE, &opt.all_chroots,
+	N_("Select all chroots"), NULL },
+      { "all-sessions", 0, 0, G_OPTION_ARG_NONE, &opt.all_sessions,
+	N_("Select all active sessions"), NULL },
       { "chroot", 'c', 0, G_OPTION_ARG_STRING_ARRAY, &opt.chroots,
 	N_("Use specified chroot"), "chroot" },
       { "user", 'u', 0, G_OPTION_ARG_STRING, &opt.user,
@@ -127,10 +129,10 @@ parse_options(int   argc,
       { "begin-session", 'b', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
 	parse_session_options,
 	N_("Begin a session; returns a session UUID"), NULL },
-      { "run-session", 'r', 0, G_OPTION_ARG_CALLBACK,
+      { "run-session", 'r', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
 	parse_session_options,
 	N_("Run an existing session"), "UUID" },
-      { "end-session", 'e', 0, G_OPTION_ARG_CALLBACK,
+      { "end-session", 'e', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
 	parse_session_options,
 	N_("End an existing session"), "UUID" },
       { "force", 'f', 0, G_OPTION_ARG_NONE, &session_opt.force,
@@ -183,13 +185,11 @@ parse_session_options(const gchar  *option_name,
 	   strcmp(option_name, "--run-session") == 0)
     {
       session_opt.operation = SBUILD_SESSION_OPERATION_RUN;
-      session_opt.id = g_strdup(value);
     }
   else if (strcmp(option_name, "-e") == 0 ||
 	   strcmp(option_name, "--end-session") == 0)
     {
       session_opt.operation = SBUILD_SESSION_OPERATION_END;
-      session_opt.id = g_strdup(value);
     }
   else
     {
@@ -230,22 +230,31 @@ get_chroot_options(SbuildConfig *config)
 {
   char **chroots = NULL;
 
-  if (opt.all == TRUE)
+  if (opt.all == TRUE || opt.all_chroots == TRUE || opt.all_sessions == TRUE)
     {
-      const GList *list = sbuild_config_get_chroots(config);
+      const GList *list = NULL;
+      guint list_len = 0;
+
+      list = sbuild_config_get_chroots(config);
+      list_len = g_list_length((GList *) list);
+      chroots = g_new(char *, list_len + 1);
+
       if (list != NULL)
 	{
-	  guint num_chroots = g_list_length((GList *) list);
-	  chroots = g_new(char *, num_chroots + 1);
-	  chroots[num_chroots] = NULL;
-	  for (guint i=0; i < num_chroots; ++i)
+	  guint pos=0;
+	  for (guint i=0; i < list_len; ++i)
 	    {
 	      GList *node = g_list_nth((GList *) list, i);
 	      g_assert(node != NULL);
 	      SbuildChroot *chroot = node->data;
 	      g_assert(sbuild_chroot_get_name(chroot) != NULL);
-	      chroots[i] = g_strdup(sbuild_chroot_get_name(chroot));
+	      gboolean active = sbuild_chroot_get_active(chroot);
+ 	      if ((active == FALSE && opt.all == FALSE && opt.all_chroots == FALSE) ||
+ 		  (active == TRUE && opt.all == FALSE && opt.all_sessions == FALSE))
+		continue;
+	      chroots[pos++] = g_strdup(sbuild_chroot_get_name(chroot));
 	    }
+	  chroots[pos] = NULL;
 	}
     }
   else if (opt.chroots == NULL)
@@ -255,8 +264,17 @@ get_chroot_options(SbuildConfig *config)
     }
   else
     {
-      if (sbuild_config_validate_chroots(config, opt.chroots) == FALSE)
-	exit(EXIT_FAILURE);
+      char **invalid_chroots =
+	sbuild_config_validate_chroots(config, opt.chroots);
+
+      if (invalid_chroots)
+	{
+	  for (guint i = 0; invalid_chroots[i] != NULL; ++i)
+	    g_printerr(_("%s: No such chroot\n"), invalid_chroots[i]);
+	  g_strfreev(invalid_chroots);
+	  exit(EXIT_FAILURE);
+	}
+      g_strfreev(invalid_chroots);
       chroots = g_strdupv(opt.chroots);
     }
 
@@ -318,8 +336,20 @@ main (int   argc,
     }
 
   /* Initialise chroot configuration. */
-  SbuildConfig *config = sbuild_config_new_from_file(SCHROOT_CONF);
+  SbuildConfig *config = sbuild_config_new();
   g_assert (config != NULL);
+  /* The normal chroot list is used when starting a session or running
+     a non-session chroot type, or displaying chroot information. */
+  if (opt.list == TRUE || opt.info == TRUE ||
+      (session_opt.operation != SBUILD_SESSION_OPERATION_RUN &&
+       session_opt.operation != SBUILD_SESSION_OPERATION_END))
+    sbuild_config_add_config_file(config, SCHROOT_CONF);
+  /* The session chroot list is used when running or ending an
+     existing session, or displaying chroot information. */
+  if (opt.list == TRUE || opt.info == TRUE ||
+      session_opt.operation == SBUILD_SESSION_OPERATION_RUN ||
+      session_opt.operation == SBUILD_SESSION_OPERATION_END)
+    sbuild_config_add_config_directory(config, SCHROOT_SESSION_DIR);
 
   if (sbuild_config_get_chroots(config) == NULL)
     {
@@ -359,8 +389,11 @@ main (int   argc,
     }
 
   /* Create a session. */
-  SbuildSession *session = sbuild_session_new("schroot", config,
-					      session_opt.operation, chroots);
+  SbuildSession *session =
+    sbuild_session_new("schroot",
+		       config,
+		       session_opt.operation,
+		       chroots);
   if (opt.user)
     sbuild_auth_set_user(SBUILD_AUTH(session), opt.user);
   if (opt.command)
@@ -368,11 +401,9 @@ main (int   argc,
   if (opt.preserve)
     sbuild_auth_set_environment(SBUILD_AUTH(session), environ);
   sbuild_session_set_force(session, session_opt.force);
-  if (session_opt.id)
-    {
-      sbuild_session_set_session_id(session, session_opt.id);
-    }
-  else
+  /* The session ID is set from the chroot if recovering a session. */
+  if (session_opt.operation != SBUILD_SESSION_OPERATION_RUN &&
+      session_opt.operation != SBUILD_SESSION_OPERATION_END)
     {
       uuid_t uuid;
       gchar session_id[37];

@@ -57,6 +57,16 @@ The error domain for sbuild configuration file errors.
 
 
 
+<!-- ##### FUNCTION sbuild_config_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+<!-- # Unused Parameters # -->
+@file: 
+
+
 <!-- ##### FUNCTION sbuild_config_new_from_file ##### -->
 <para>
 
@@ -73,6 +83,24 @@ The error domain for sbuild configuration file errors.
 
 @dir: 
 @Returns: 
+
+
+<!-- ##### FUNCTION sbuild_config_add_config_file ##### -->
+<para>
+
+</para>
+
+@config: 
+@file: 
+
+
+<!-- ##### FUNCTION sbuild_config_add_config_directory ##### -->
+<para>
+
+</para>
+
+@config: 
+@dir: 
 
 
 <!-- ##### FUNCTION sbuild_config_get_chroots ##### -->
