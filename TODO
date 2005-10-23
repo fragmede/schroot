@@ -22,8 +22,6 @@ TODO
 * config: add methods to clear and reload configuration.
   This will require a file and directory list to be stored.
 
-* If no chroot is specified, fall back to "default" chroot.
-
 * Add a "recover" option to setup scripts
   Existing session filesystems must be remounted after a reboot.
 

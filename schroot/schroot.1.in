@@ -29,6 +29,9 @@ If the user is not a member of the allowed groups (or if changing to root, the
 allowed root groups) for the specified chroot(s), the user will be required to
 authenticate themselves (typically with a password, but this depends upon the
 PAM configuration).  All chroot usage will be logged in the system logs.
+.PP
+If no chroot is specified, the chroot name or alias \fBdefault\fP will be used
+as a fallback.  This is equivalent to \[lq]\-\-chroot=default\[rq].
 .SH OPTIONS
 \fBschroot\fP accepts the following options:
 .SS Basic options

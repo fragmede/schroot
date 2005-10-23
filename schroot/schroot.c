@@ -257,13 +257,16 @@ get_chroot_options(SbuildConfig *config)
 	  chroots[pos] = NULL;
 	}
     }
-  else if (opt.chroots == NULL)
-    {
-      g_printerr(_("No chroot specified.  Use --chroot or --all.\n"));
-      exit (EXIT_FAILURE);
-    }
   else
     {
+      /* If no chroot was specified, fall back to the "default" chroot. */
+      if (opt.chroots == NULL)
+	{
+	  opt.chroots = g_new(char *, 2);
+	  opt.chroots[0] = g_strdup("default");
+	  opt.chroots[1] = NULL;
+	}
+
       char **invalid_chroots =
 	sbuild_config_validate_chroots(config, opt.chroots);
 

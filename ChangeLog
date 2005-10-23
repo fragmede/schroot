@@ -1,5 +1,14 @@
 2005-10-23  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Remove chroot default item.
+
+	* schroot/schroot.1.in: Document default fallback.
+
+	* schroot/schroot.c (get_chroot_options): Fall back to "default"
+	chroot if no chroot was specified.
+
+2005-10-23  Roger Leigh  <rleigh@debian.org>
+
 	* po/en_GB.po: Updated translation.
 
 	* TODO: Update.  All locking and session items removed now that
