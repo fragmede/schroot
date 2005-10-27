@@ -346,6 +346,38 @@ sbuild_config_add_config_directory (SbuildConfig *config,
 }
 
 /**
+ * sbuild_config_clear_chroot_list:
+ * @list: a pointer to a pointer to a #GList
+ *
+ * Clear chroot list.
+ */
+static inline void
+sbuild_config_clear_chroot_list (GList **list)
+{
+  if (*list)
+    {
+      g_list_foreach(*list, (GFunc) g_object_unref, NULL);
+      g_list_free(*list);
+      *list = NULL;
+    }
+}
+
+/**
+ * sbuild_config_clear:
+ * @config: a #SbuildConfig
+ *
+ * Clear available chroots.  All loaded chroot configuration details
+ * are cleared.
+ */
+void
+sbuild_config_clear (SbuildConfig *config)
+{
+  g_return_if_fail(SBUILD_IS_CONFIG(config));
+
+  sbuild_config_clear_chroot_list(&config->chroots);
+}
+
+/**
  * sbuild_config_get_chroots:
  * @config: a #SbuildConfig
  *
@@ -635,11 +667,7 @@ sbuild_config_finalize (SbuildConfig *config)
 {
   g_return_if_fail(SBUILD_IS_CONFIG(config));
 
-  if (config->chroots)
-    {
-      g_list_foreach(config->chroots, (GFunc) g_object_unref, NULL);
-      g_list_free(config->chroots);
-    }
+  sbuild_config_clear_chroot_list(&config->chroots);
 
   if (parent_class->finalize)
     parent_class->finalize(G_OBJECT(config));

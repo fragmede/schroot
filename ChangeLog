@@ -1,3 +1,12 @@
+2005-10-27  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-config.c
+	(sbuild_config_clear_chroot_list): New helper function to clear
+	stored chroot list.
+	(sbuild_config_clear): New function; uses
+	sbuild_config_clear_chroot_list.
+	(sbuild_config_finalize): Use sbuild_config_clear_chroot_list.
+
 2005-10-23  Roger Leigh  <rleigh@debian.org>
 
 	* TODO: Remove chroot default item.

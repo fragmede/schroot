@@ -10,6 +10,9 @@ TODO
 
 * Session operations only operate on one chroot.
   Check only one is set.
+  creation: 1 chroot
+  run: any session chroot
+  end: any session chroot
 
 * Document the setup and session scripts.
   Include all scripts and ordering.
@@ -19,7 +22,7 @@ TODO
 
 * Make "session" naming more consistent.
 
-* config: add methods to clear and reload configuration.
+* config: add method to reload configuration.
   This will require a file and directory list to be stored.
 
 * Add a "recover" option to setup scripts
