@@ -31,8 +31,6 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 
-#include <uuid/uuid.h>
-
 #include "sbuild-chroot.h"
 #include "sbuild-config.h"
 #include "sbuild-session.h"
@@ -131,10 +129,10 @@ parse_options(int   argc,
 	N_("Begin a session; returns a session UUID"), NULL },
       { "run-session", 'r', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
 	parse_session_options,
-	N_("Run an existing session"), "UUID" },
+	N_("Run an existing session"), NULL },
       { "end-session", 'e', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
 	parse_session_options,
-	N_("End an existing session"), "UUID" },
+	N_("End an existing session"), NULL },
       { "force", 'f', 0, G_OPTION_ARG_NONE, &session_opt.force,
 	N_("Force operation, even if it fails"), NULL },
       { NULL }
@@ -404,17 +402,6 @@ main (int   argc,
   if (opt.preserve)
     sbuild_auth_set_environment(SBUILD_AUTH(session), environ);
   sbuild_session_set_force(session, session_opt.force);
-  /* The session ID is set from the chroot if recovering a session. */
-  if (session_opt.operation != SBUILD_SESSION_OPERATION_RUN &&
-      session_opt.operation != SBUILD_SESSION_OPERATION_END)
-    {
-      uuid_t uuid;
-      gchar session_id[37];
-      uuid_generate(uuid);
-      uuid_unparse(uuid, session_id);
-      uuid_clear(uuid);
-      sbuild_session_set_session_id(session, session_id);
-    }
   if (opt.quiet && opt.verbose)
     g_printerr(_("--quiet and --verbose may not be used at the same time!\nUsing verbose output.\n"));
   SbuildAuthVerbosity verbosity = SBUILD_AUTH_VERBOSITY_NORMAL;

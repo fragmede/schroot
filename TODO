@@ -2,8 +2,6 @@
 TODO
 ----
 
-* The session names should include the source chroot name.
-
 * Session operations only operate on one chroot.
   Check only one is set.
   creation: 1 chroot

@@ -1,4 +1,15 @@
-2005-10-27  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2005-10-28  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot.c
+	(parse_options): Remove unused "UUID" argument description for
+	running and ending sessions.
+	(main): Don't set the session id.
+
+	* schroot/sbuild-session.c
+	(sbuild_session_run): If not running or ending a session, generate
+	a session ID in the form "chroot_name-uuid".
+
+2005-10-27  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-session.c
 	(sbuild_session_setup_chroot): Propagate GError from

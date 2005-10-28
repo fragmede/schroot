@@ -45,6 +45,8 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 
+#include <uuid/uuid.h>
+
 #include "sbuild-typebuiltins.h"
 #include "sbuild-session.h"
 #include "sbuild-chroot-lvm-snapshot.h"
@@ -990,10 +992,23 @@ sbuild_session_run (SbuildSession  *session,
       else
 	{
 	  /* If restoring a session, set the session ID from the
-	     chroot name. */
+	     chroot name, or else generate it. */
 	  if (sbuild_chroot_get_active(chroot))
-	    sbuild_session_set_session_id(session,
-					  sbuild_chroot_get_name(chroot));
+	    {
+	      sbuild_session_set_session_id(session,
+					    sbuild_chroot_get_name(chroot));
+	    }
+	  else
+	    {
+	      uuid_t uuid;
+	      gchar uuid_str[37];
+	      uuid_generate(uuid);
+	      uuid_unparse(uuid, uuid_str);
+	      uuid_clear(uuid);
+	      gchar *session_id = g_strconcat(sbuild_chroot_get_name(chroot), "-", uuid_str, NULL);
+	      sbuild_session_set_session_id(session, session_id);
+	      g_free(session_id);
+	    }
 
 	  /* Activate chroot. */
 	  sbuild_chroot_set_active(chroot, TRUE);
