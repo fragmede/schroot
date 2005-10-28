@@ -2,10 +2,6 @@
 TODO
 ----
 
-* Chroot locking should return a GError.
-
-* Refactor LVM snapshot session file locking.
-
 * The session names should include the source chroot name.
 
 * Session operations only operate on one chroot.
@@ -21,6 +17,7 @@ TODO
   Use all available options.
 
 * Make "session" naming more consistent.
+  "run-session-scripts" should be "run-scripts".
 
 * config: add method to reload configuration.
   This will require a file and directory list to be stored.

@@ -485,12 +485,15 @@ sbuild_session_setup_chroot (SbuildSession          *session,
 		       setup_type == SBUILD_CHROOT_RUN_START ||
 		       setup_type == SBUILD_CHROOT_RUN_STOP, FALSE);
 
-  /* TODO: setup_lock error propagation. */
-  if (sbuild_chroot_setup_lock(session_chroot, setup_type, TRUE) == FALSE)
+  GError *setup_lock_error = NULL;
+  if (sbuild_chroot_setup_lock(session_chroot, setup_type,
+			       TRUE, &setup_lock_error) == FALSE)
     {
       g_set_error(error,
 		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHROOT_SETUP,
-		  _("Chroot setup failed to lock chroot"));
+		  _("Chroot setup failed to lock chroot: %s"),
+		  setup_lock_error->message);
+      g_error_free(setup_lock_error);
       return FALSE;
     }
 
@@ -604,14 +607,16 @@ sbuild_session_setup_chroot (SbuildSession          *session,
   g_strfreev(envp);
   envp = NULL;
 
-
-  /* TODO: Fix up error propagation here */
-  if (sbuild_chroot_setup_lock(session_chroot, setup_type, FALSE) == FALSE)
+  GError *setup_unlock_error = NULL;
+  if (sbuild_chroot_setup_lock(session_chroot, setup_type,
+			       FALSE, &setup_unlock_error) == FALSE)
     {
-      if (error == NULL)
+      if (tmp_error == NULL)
 	g_set_error(&tmp_error,
 		    SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHROOT_SETUP,
-		    _("Chroot setup failed to unlock chroot"));
+		    _("Chroot setup failed to unlock chroot: %s"),
+		    setup_unlock_error->message);
+      g_error_free(setup_unlock_error);
     }
 
   if (tmp_error != NULL)

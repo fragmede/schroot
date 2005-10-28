@@ -1,3 +1,32 @@
+2005-10-27  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* schroot/sbuild-session.c
+	(sbuild_session_setup_chroot): Propagate GError from
+	sbuild_chroot_setup_lock.
+
+	* schroot/sbuild-chroot-lvm-snapshot.c
+	(sbuild_chroot_lvm_snapshot_setup_lock): Use GError.  Refactor to
+	propagate GError on failure, and reduce the number of return
+	points.
+	(sbuild_chroot_lvm_snapshot_setup_session_info): New function,
+	split out from sbuild_chroot_lvm_snapshot_setup_lock to increase
+	readability.
+
+	* schroot/sbuild-chroot-block-device.c
+	(sbuild_chroot_block_device_setup_lock): Use GError.  Refactor to
+	propagate GError on failure, and reduce the number of return
+	points.
+
+	* schroot/sbuild-chroot-plain.c
+	(sbuild_chroot_plain_setup_lock): Use GError.
+
+	* schroot/sbuild-chroot.c
+	(sbuild_chroot_error_quark): New function.
+
+	* schroot/sbuild-chroot.h
+	(SbuildChrootError): Add error enum.
+	(SbuildChrootSetupLockFunc): Add a GError.
+
 2005-10-27  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-config.c

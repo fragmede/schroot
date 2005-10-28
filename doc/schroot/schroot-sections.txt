@@ -11,6 +11,8 @@ SbuildChrootSetupEnvFunc
 SbuildChrootSetupLockFunc
 SbuildChrootSessionFlags
 SbuildChrootSetupType
+SbuildChrootError
+SBUILD_CHROOT_ERROR
 sbuild_chroot_new
 sbuild_chroot_new_from_keyfile
 sbuild_chroot_set_properties_from_keyfile
@@ -43,6 +45,9 @@ sbuild_chroot_get_session_flags
 sbuild_chroot_setup_env
 sbuild_chroot_setup_lock
 <SUBSECTION Standard>
+SBUILD_TYPE_CHROOT_ERROR
+sbuild_chroot_error_get_type
+sbuild_chroot_error_quark
 SBUILD_TYPE_CHROOT_SETUP_TYPE
 sbuild_chroot_setup_type_get_type
 SBUILD_TYPE_CHROOT_SESSION_FLAGS

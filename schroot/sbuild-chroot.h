@@ -26,6 +26,16 @@
 #include <glib/gprintf.h>
 #include <glib-object.h>
 
+typedef enum
+{
+  SBUILD_CHROOT_ERROR_LOCK
+} SbuildChrootError;
+
+#define SBUILD_CHROOT_ERROR sbuild_chroot_error_quark()
+
+GQuark
+sbuild_chroot_error_quark (void);
+
 #define SBUILD_TYPE_CHROOT		  (sbuild_chroot_get_type ())
 #define SBUILD_CHROOT(obj)		  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SBUILD_TYPE_CHROOT, SbuildChroot))
 #define SBUILD_CHROOT_CLASS(klass)	  (G_TYPE_CHECK_CLASS_CAST ((klass), SBUILD_TYPE_CHROOT, SbuildChrootClass))
@@ -56,9 +66,10 @@ typedef void (*SbuildChrootPrintConfigFunc)(SbuildChroot *chroot,
 typedef const gchar *(*SbuildChrootGetChrootTypeFunc)(const SbuildChroot  *chroot);
 typedef void (*SbuildChrootSetupEnvFunc)(SbuildChroot  *chroot,
 					 GList        **env);
-typedef gboolean (*SbuildChrootSetupLockFunc)(SbuildChroot          *chroot,
-					      SbuildChrootSetupType  type,
-					      gboolean               lock);
+typedef gboolean (*SbuildChrootSetupLockFunc)(SbuildChroot           *chroot,
+					      SbuildChrootSetupType   type,
+					      gboolean                lock,
+					      GError                **error);
 typedef SbuildChrootSessionFlags (*SbuildChrootGetSessionFlagsFunc)(const SbuildChroot  *chroot);
 
 struct _SbuildChroot
@@ -188,9 +199,10 @@ sbuild_chroot_setup_env (SbuildChroot  *chroot,
 			 GList        **env);
 
 gboolean
-sbuild_chroot_setup_lock (SbuildChroot          *chroot,
-			  SbuildChrootSetupType  type,
-			  gboolean               lock);
+sbuild_chroot_setup_lock (SbuildChroot           *chroot,
+			  SbuildChrootSetupType   type,
+			  gboolean                lock,
+			  GError                **error);
 
 SbuildChrootSessionFlags
 sbuild_chroot_get_session_flags (const SbuildChroot  *chroot);

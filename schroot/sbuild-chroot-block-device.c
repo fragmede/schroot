@@ -198,9 +198,10 @@ sbuild_chroot_block_device_get_chroot_type (const SbuildChrootBlockDevice *chroo
 }
 
 static gboolean
-sbuild_chroot_block_device_setup_lock (SbuildChrootBlockDevice *chroot,
-				       SbuildChrootSetupType    type,
-				       gboolean                 lock)
+sbuild_chroot_block_device_setup_lock (SbuildChrootBlockDevice  *chroot,
+				       SbuildChrootSetupType     type,
+				       gboolean                  lock,
+				       GError                  **error)
 {
   g_return_val_if_fail(SBUILD_IS_CHROOT_BLOCK_DEVICE(chroot), FALSE);
 
@@ -217,44 +218,55 @@ sbuild_chroot_block_device_setup_lock (SbuildChrootBlockDevice *chroot,
 
   if (stat(chroot->device, &statbuf) == -1)
     {
-      g_printerr(_("%s chroot: failed to stat device %s: %s\n"),
-		 sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
-		 chroot->device, g_strerror(errno));
-      return FALSE;
+      g_set_error(error,
+		  SBUILD_CHROOT_ERROR, SBUILD_CHROOT_ERROR_LOCK,
+		  _("%s chroot: failed to stat device %s: %s\n"),
+		  sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
+		  chroot->device, g_strerror(errno));
     }
-  if (!S_ISBLK(statbuf.st_mode))
+  else if (!S_ISBLK(statbuf.st_mode))
     {
-      g_printerr(_("%s chroot: %s is not a block device\n"),
-		 sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
-		 chroot->device);
-      return FALSE;
-    }
-
-  GError *error = NULL;
-  if (lock)
-    {
-      if (sbuild_lock_set_device_lock(chroot->device,
-				      SBUILD_LOCK_EXCLUSIVE,
-				      15,
-				      &error) == FALSE)
-	{
-	  g_printerr(_("%s: failed to lock device: %s\n"),
-		     chroot->device, error->message);
-	  return FALSE;
-	}
+      g_set_error(error,
+		  SBUILD_CHROOT_ERROR, SBUILD_CHROOT_ERROR_LOCK,
+		  _("%s chroot: %s is not a block device\n"),
+		  sbuild_chroot_get_name(SBUILD_CHROOT(chroot)),
+		  chroot->device);
     }
   else
     {
-      if (sbuild_lock_unset_device_lock(chroot->device,
-					&error) == FALSE)
+      GError *tmp_error = NULL;
+      if (lock)
 	{
-	  g_printerr(_("%s: failed to unlock device: %s\n"),
-		     chroot->device, error->message);
-	  return FALSE;
+	  if (sbuild_lock_set_device_lock(chroot->device,
+					  SBUILD_LOCK_EXCLUSIVE,
+					  15,
+					  &tmp_error) == FALSE)
+	    {
+	      g_set_error(error,
+			  SBUILD_CHROOT_ERROR, SBUILD_CHROOT_ERROR_LOCK,
+			  _("%s: failed to lock device: %s\n"),
+			  chroot->device, tmp_error->message);
+	      g_error_free(tmp_error);
+	    }
+	}
+      else
+	{
+	  if (sbuild_lock_unset_device_lock(chroot->device,
+					    &tmp_error) == FALSE)
+	    {
+	      g_set_error(error,
+			  SBUILD_CHROOT_ERROR, SBUILD_CHROOT_ERROR_LOCK,
+			  _("%s: failed to unlock device: %s\n"),
+			  chroot->device, tmp_error->message);
+	      g_error_free(tmp_error);
+	    }
 	}
     }
 
-  return TRUE;
+  if (*error)
+    return FALSE;
+  else
+    return TRUE;
 }
 
 static SbuildChrootSessionFlags

@@ -46,6 +46,24 @@
 #include "sbuild-chroot-block-device.h"
 #include "sbuild-chroot-lvm-snapshot.h"
 
+/**
+ * sbuild_chroot_error_quark:
+ *
+ * Get the SBUILD_CHROOT_ERROR domain number.
+ *
+ * Returns the domain.
+ */
+GQuark
+sbuild_chroot_error_quark (void)
+{
+  static GQuark error_quark = 0;
+
+  if (error_quark == 0)
+    error_quark = g_quark_from_static_string ("sbuild-chroot-error-quark");
+
+  return error_quark;
+}
+
 enum
 {
   PROP_0,
@@ -717,6 +735,7 @@ sbuild_chroot_get_chroot_type (const SbuildChroot  *chroot)
  * @chroot: an #SbuildChroot
  * @type: the type of setup being performed
  * @lock: TRUE to lock, FALSE to unlock
+ * @error: a #GError.
  *
  * Lock a chroot during setup.  The locking technique (if any) may
  * vary depending upon the chroot type and setup stage.  For example,
@@ -726,21 +745,18 @@ sbuild_chroot_get_chroot_type (const SbuildChroot  *chroot)
  * Returns TRUE on success, FALSE on failure.
  */
 gboolean
-sbuild_chroot_setup_lock (SbuildChroot          *chroot,
-			  SbuildChrootSetupType  type,
-			  gboolean               lock)
+sbuild_chroot_setup_lock (SbuildChroot           *chroot,
+			  SbuildChrootSetupType   type,
+			  gboolean                lock,
+			  GError                **error)
 {
   g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), FALSE);
 
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
-  if (klass->setup_lock)
-    return klass->setup_lock(chroot, type, lock);
-  else
-    {
-      g_error(_("%s chroot: chroot setup name is unset; error in derived class\n"),
-	      chroot->name);
-      return FALSE;
-    }
+
+  g_assert (klass->setup_lock != NULL);
+
+  return klass->setup_lock(chroot, type, lock, error);
 }
 
 /**
@@ -758,14 +774,9 @@ sbuild_chroot_get_session_flags (const SbuildChroot  *chroot)
   g_return_val_if_fail(SBUILD_IS_CHROOT(chroot), 0);
 
   SbuildChrootClass *klass = SBUILD_CHROOT_GET_CLASS(chroot);
-  if (klass->get_session_flags)
-    return klass->get_session_flags(chroot);
-  else
-    {
-      g_error(_("%s chroot: chroot session flags unset; error in derived class\n"),
-	      chroot->name);
-      return 0;
-    }
+  g_assert (klass->get_session_flags != NULL);
+
+  return klass->get_session_flags(chroot);
 }
 
 /**
@@ -835,7 +846,7 @@ void sbuild_chroot_print_details (SbuildChroot *chroot,
  * by schroot.conf.
  */
 void sbuild_chroot_print_config (SbuildChroot *chroot,
-				  FILE         *file)
+			         FILE         *file)
 {
   g_return_if_fail(SBUILD_IS_CHROOT(chroot));
 

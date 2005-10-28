@@ -157,6 +157,7 @@ will change to the new block device or directory.
 @chroot: an #SbuildChroot.
 @type: the type of setup being performed
 @lock: TRUE to lock, FALSE to unlock
+@error: a #GError
 @Returns: TRUE on success, FALSE on failure
 
 
@@ -177,6 +178,20 @@ The type of chroot setup operation
 @SBUILD_CHROOT_SETUP_STOP: Clean up an existing chroot, possibly deleting it
 @SBUILD_CHROOT_RUN_START: Start running a command in an existing chroot
 @SBUILD_CHROOT_RUN_STOP: Stop running a command in an existing chroot
+
+<!-- ##### ENUM SbuildChrootError ##### -->
+<para>
+The errors which can occur during chroot operations.
+</para>
+
+@SBUILD_CHROOT_ERROR_LOCK: A locking operation failed.
+
+<!-- ##### MACRO SBUILD_CHROOT_ERROR ##### -->
+<para>
+The error domain for sbuild chroot errors.
+</para>
+
+
 
 <!-- ##### FUNCTION sbuild_chroot_new ##### -->
 <para>
@@ -459,6 +474,7 @@ The type of chroot setup operation
 @chroot: 
 @type: 
 @lock: 
+@error: 
 @Returns: 
 
 
