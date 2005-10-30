@@ -93,6 +93,11 @@ Print version information.
 Begin a session.  A unique session identifier (UUID) is returned on standard
 output.  The UUID is required to use the other session options.
 .TP
+.TP
+.B \-\-recover\-session
+Recover an existing session.  If an existing session has become unavailable,
+for example becoming unmounted due to a reboot, this option will make the
+session available for use again, for example by remounting it.
 .B \-r, \-\-run\-session=\fIUUID\fP
 Run an existing session.
 .TP

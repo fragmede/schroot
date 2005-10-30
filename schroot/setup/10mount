@@ -2,6 +2,37 @@
 
 set -e
 
+# Mount a filesystem
+# $1: mount options
+# $2: mount device
+# $3: mount location
+function do_mount()
+{
+    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	echo "Mounting $2 on $3"
+    fi
+    mount $VERBOSE $1 "$2" "$3"
+}
+
+# Unmount a filesystem
+# $1: mount location
+function do_umount()
+{
+    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	echo "Unmounting $1"
+    fi
+    umount "$1" || true
+}
+
+# Unmount all filesystem under specified location
+# $1: mount base location
+function do_umount_all
+{
+    for dir in $(mount | grep $1 | sed -e 's/.* on \(.*\) type.*/\1/' | sort -r); do
+	do_umount "$dir"
+    done
+}
+
 if [ "$AUTH_VERBOSITY" = "verbose" ]; then
   VERBOSE="-v"
 #  FSCK_VERBOSE="-V"
@@ -16,7 +47,7 @@ if [ "$CHROOT_TYPE" = "block-device" -o "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 	CHROOT_MOUNT_DEVICE="$CHROOT_LVM_SNAPSHOT_DEVICE"
     fi
 
-    if [ $1 = "setup-start" ]; then
+    if [ $1 = "setup-start" -o $1 = "setup-recover" ]; then
 
         # fsck doesn't like being run non-interactively
 	#/sbin/fsck $FSCK_VERBOSE -n "$CHROOT_MOUNT_DEVICE"
@@ -29,23 +60,29 @@ if [ "$CHROOT_TYPE" = "block-device" -o "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 	    exit 1
 	fi
 
-	mount $VERBOSE $CHROOT_MOUNT_OPTIONS "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
+        # If recovering, we want to remount all filesystems to ensure
+        # a sane state.
+	if [ $1 = "setup-recover" ]; then
+	    do_umount_all "$CHROOT_MOUNT_LOCATION"
+	fi
 
-	mount $VERBOSE -t proc    proc     "${CHROOT_MOUNT_LOCATION}/proc"
-	mount $VERBOSE -o rw,bind /dev/pts "${CHROOT_MOUNT_LOCATION}/dev/pts"
-	mount $VERBOSE -t tmpfs   tmpfs    "${CHROOT_MOUNT_LOCATION}/dev/shm"
-	mount $VERBOSE -o rw,bind /home    "${CHROOT_MOUNT_LOCATION}/home"
-	mount $VERBOSE -o rw,bind /tmp     "${CHROOT_MOUNT_LOCATION}/tmp"
+	do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
+
+	do_mount "-t proc"    "proc"     "${CHROOT_MOUNT_LOCATION}/proc"
+	do_mount "-o rw,bind" "/dev/pts" "${CHROOT_MOUNT_LOCATION}/dev/pts"
+	do_mount "-t tmpfs"   "tmpfs"    "${CHROOT_MOUNT_LOCATION}/dev/shm"
+	do_mount "-o rw,bind" "/home"    "${CHROOT_MOUNT_LOCATION}/home"
+	do_mount "-o rw,bind" "/tmp"     "${CHROOT_MOUNT_LOCATION}/tmp"
 
     elif [ $1 = "setup-stop" ]; then
 
-	umount $VERBOSE "${CHROOT_MOUNT_LOCATION}/tmp" || true
-	umount $VERBOSE "${CHROOT_MOUNT_LOCATION}/home" || true
-	umount $VERBOSE "${CHROOT_MOUNT_LOCATION}/dev/shm" || true
-	umount $VERBOSE "${CHROOT_MOUNT_LOCATION}/dev/pts" || true
-	umount $VERBOSE "${CHROOT_MOUNT_LOCATION}/proc" || true
+	do_umount "${CHROOT_MOUNT_LOCATION}/tmp"
+	do_umount "${CHROOT_MOUNT_LOCATION}/home"
+	do_umount "${CHROOT_MOUNT_LOCATION}/dev/shm"
+	do_umount "${CHROOT_MOUNT_LOCATION}/dev/pts"
+	do_umount "${CHROOT_MOUNT_LOCATION}/proc"
 
-	umount $VERBOSE "$CHROOT_MOUNT_LOCATION" || true
+	do_umount "$CHROOT_MOUNT_LOCATION"
 
         if echo "$CHROOT_MOUNT_LOCATION" | grep -q "^$MOUNT_DIR/"; then
 	    rmdir "$CHROOT_MOUNT_LOCATION" || true

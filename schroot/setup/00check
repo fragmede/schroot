@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $1 = "setup-start" ]; then
+if [ $1 = "setup-start" -o $1 = "setup-recover" ]; then
 
     if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 	echo "AUTH_USER=$AUTH_USER"
@@ -46,6 +46,8 @@ if [ $1 = "setup-start" ]; then
 	    ;;
     esac
 
+    # A basic safety check, so that the root filesystem doesn't get
+    # toasted by accident.
     if [ -z "$CHROOT_MOUNT_LOCATION" -o "$CHROOT_MOUNT_LOCATION" = "/" ]; then
 	echo "Invalid chroot mount location: '$CHROOT_MOUNT_LOCATION'"
 	exit 1

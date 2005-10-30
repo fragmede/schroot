@@ -127,6 +127,9 @@ parse_options(int   argc,
       { "begin-session", 'b', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
 	parse_session_options,
 	N_("Begin a session; returns a session UUID"), NULL },
+      { "recover-session", 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
+	parse_session_options,
+	N_("Recover an existing session"), NULL },
       { "run-session", 'r', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
 	parse_session_options,
 	N_("Run an existing session"), NULL },
@@ -178,6 +181,10 @@ parse_session_options(const gchar  *option_name,
       strcmp(option_name, "--begin-session") == 0)
     {
       session_opt.operation = SBUILD_SESSION_OPERATION_BEGIN;
+    }
+  else if (strcmp(option_name, "--recover-session") == 0)
+    {
+      session_opt.operation = SBUILD_SESSION_OPERATION_RECOVER;
     }
   else if (strcmp(option_name, "-r") == 0 ||
 	   strcmp(option_name, "--run-session") == 0)
@@ -345,6 +352,7 @@ main (int   argc,
   /* The session chroot list is used when running or ending an
      existing session, or displaying chroot information. */
   if (opt.list == TRUE || opt.info == TRUE ||
+      session_opt.operation == SBUILD_SESSION_OPERATION_RECOVER ||
       session_opt.operation == SBUILD_SESSION_OPERATION_RUN ||
       session_opt.operation == SBUILD_SESSION_OPERATION_END)
     sbuild_config_add_config_directory(config, SCHROOT_SESSION_DIR);

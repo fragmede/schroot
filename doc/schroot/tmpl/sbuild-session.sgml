@@ -77,8 +77,9 @@ The operation to perform when the session is run.
 
 @SBUILD_SESSION_OPERATION_AUTOMATIC: Create, run and end the session automatically
 @SBUILD_SESSION_OPERATION_BEGIN: Create a session and return the session id
-@SBUILD_SESSION_OPERATION_END: End a session using the current session id
-@SBUILD_SESSION_OPERATION_RUN: Run a session using the current session id
+@SBUILD_SESSION_OPERATION_RECOVER: Recover a session
+@SBUILD_SESSION_OPERATION_END: End a session
+@SBUILD_SESSION_OPERATION_RUN: Run a session
 
 <!-- ##### MACRO SBUILD_SESSION_ERROR ##### -->
 <para>

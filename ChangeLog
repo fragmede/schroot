@@ -1,5 +1,30 @@
 2005-10-30  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.1.in: Document --recover-session.
+
+	* schroot/setup/*: Add support to setup scripts for
+	"setup-recover" option.  In particular, filesystems are all
+	remounted, and all "setup-start" tasks are performed, except for
+	snapshotting.
+
+	* schroot/schroot.c
+	(parse_options): Add "--recover-session" session option.
+	(parse_session_options): Parse "--recover-session".
+	(main): Update configuration file loading to account for recovery.
+
+	* schroot/sbuild-session.c
+	(sbuild_session_setup_chroot): Add support for "setup-recover"
+	argument in scripts.
+	(sbuild_session_run): Add support for session recovery option.
+
+	* schroot/sbuild-session.h
+	(SbuildSessionOperation): Add SBUILD_SESSION_OPERATION_RECOVER.
+
+	* schroot/sbuild-chroot.h
+	(SbuildChrootSetupType): Add SBUILD_CHROOT_SETUP_RECOVER.
+
+2005-10-30  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.c
 	(main): Allow selection of non-session chroots as sessions, in
 	order to allow session-like behaviour for all chroots, even those

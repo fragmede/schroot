@@ -483,6 +483,7 @@ sbuild_session_setup_chroot (SbuildSession          *session,
   g_return_val_if_fail(SBUILD_IS_CHROOT(session_chroot), FALSE);
   g_return_val_if_fail(sbuild_chroot_get_name(session_chroot) != NULL, FALSE);
   g_return_val_if_fail(setup_type == SBUILD_CHROOT_SETUP_START ||
+		       setup_type == SBUILD_CHROOT_SETUP_RECOVER ||
 		       setup_type == SBUILD_CHROOT_SETUP_STOP ||
 		       setup_type == SBUILD_CHROOT_RUN_START ||
 		       setup_type == SBUILD_CHROOT_RUN_STOP, FALSE);
@@ -502,6 +503,8 @@ sbuild_session_setup_chroot (SbuildSession          *session,
   gchar *setup_type_string = NULL;
   if (setup_type == SBUILD_CHROOT_SETUP_START)
     setup_type_string = "setup-start";
+  else if (setup_type == SBUILD_CHROOT_SETUP_RECOVER)
+    setup_type_string = "setup-recover";
   else if (setup_type == SBUILD_CHROOT_SETUP_STOP)
     setup_type_string = "setup-stop";
   else if (setup_type == SBUILD_CHROOT_RUN_START)
@@ -523,6 +526,7 @@ sbuild_session_setup_chroot (SbuildSession          *session,
       argv[i++] = g_strdup("--reverse");
     argv[i++] = g_strdup_printf("--arg=%s", setup_type_string);
     if (setup_type == SBUILD_CHROOT_SETUP_START ||
+	setup_type == SBUILD_CHROOT_SETUP_RECOVER ||
 	setup_type == SBUILD_CHROOT_SETUP_STOP)
       argv[i++] = g_strdup(SCHROOT_CONF_SETUP_D); // Setup directory
     else
@@ -1055,6 +1059,15 @@ sbuild_session_run (SbuildSession  *session,
 					    &tmp_error);
 	      if (session->operation == SBUILD_SESSION_OPERATION_BEGIN)
 		g_fprintf(stdout, "%s\n", session->session_id);
+	    }
+
+	  /* Run recover scripts. */
+	  if (session->operation == SBUILD_SESSION_OPERATION_RECOVER)
+	    {
+	      if (sbuild_chroot_get_run_setup_scripts(chroot) == TRUE)
+		sbuild_session_setup_chroot(session, chroot,
+					    SBUILD_CHROOT_SETUP_RECOVER,
+					    &tmp_error);
 	    }
 
 	  if (tmp_error == NULL &&

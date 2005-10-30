@@ -175,6 +175,7 @@ The type of chroot setup operation
 </para>
 
 @SBUILD_CHROOT_SETUP_START: Set up a new chroot, preparing it for use
+@SBUILD_CHROOT_SETUP_RECOVER: Recover an existing, but inactive, chroot
 @SBUILD_CHROOT_SETUP_STOP: Clean up an existing chroot, possibly deleting it
 @SBUILD_CHROOT_RUN_START: Start running a command in an existing chroot
 @SBUILD_CHROOT_RUN_STOP: Stop running a command in an existing chroot

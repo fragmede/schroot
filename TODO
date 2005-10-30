@@ -5,6 +5,12 @@ TODO
 * Document the setup and session scripts.
   Include all scripts and ordering.
 
+* Restrict -l options to use --all-*
+  Allow listing of just sessions or chroots.
+
+* Add init script to autorecover sessions.
+  Run --recover-session on all sessions.
+
 * Add examples of new chroot types to schroot.conf.
   Use all available options.
 
@@ -13,9 +19,6 @@ TODO
 
 * config: add method to reload configuration.
   This will require a file and directory list to be stored.
-
-* Add a "recover" option to setup scripts
-  Existing session filesystems must be remounted after a reboot.
 
 * Add a SbuildChrootXen chroot type for Xen hosts.
 
