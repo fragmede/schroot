@@ -340,11 +340,8 @@ main (int   argc,
   SbuildConfig *config = sbuild_config_new();
   g_assert (config != NULL);
   /* The normal chroot list is used when starting a session or running
-     a non-session chroot type, or displaying chroot information. */
-  if (opt.list == TRUE || opt.info == TRUE ||
-      (session_opt.operation != SBUILD_SESSION_OPERATION_RUN &&
-       session_opt.operation != SBUILD_SESSION_OPERATION_END))
-    sbuild_config_add_config_file(config, SCHROOT_CONF);
+     any chroot type or session, or displaying chroot information. */
+  sbuild_config_add_config_file(config, SCHROOT_CONF);
   /* The session chroot list is used when running or ending an
      existing session, or displaying chroot information. */
   if (opt.list == TRUE || opt.info == TRUE ||

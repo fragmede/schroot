@@ -1,5 +1,16 @@
 2005-10-30  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.c
+	(main): Allow selection of non-session chroots as sessions, in
+	order to allow session-like behaviour for all chroots, even those
+	that can't natively support sessions.
+
+	* schroot/sbuild-session.c
+	(sbuild_session_run): Don't append a UUID to the session ID if the
+	chroot does not support session creation.
+
+2005-10-30  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.c (main): Abort if more than one chroot is
 	specified when starting a session.
 

@@ -992,8 +992,11 @@ sbuild_session_run (SbuildSession  *session,
       else
 	{
 	  /* If restoring a session, set the session ID from the
-	     chroot name, or else generate it. */
-	  if (sbuild_chroot_get_active(chroot))
+	     chroot name, or else generate it.  Only chroots which
+	     support session creation append a UUID to the session
+	     ID. */
+	  if (sbuild_chroot_get_active(chroot) ||
+	      !(sbuild_chroot_get_session_flags(chroot) & SBUILD_CHROOT_SESSION_CREATE))
 	    {
 	      sbuild_session_set_session_id(session,
 					    sbuild_chroot_get_name(chroot));
