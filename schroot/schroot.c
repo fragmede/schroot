@@ -389,6 +389,13 @@ main (int   argc,
       exit (EXIT_SUCCESS);
     }
 
+  if (session_opt.operation == SBUILD_SESSION_OPERATION_BEGIN &&
+      chroots[0] != NULL && chroots[1] != NULL)
+    {
+      g_printerr(_("Only one chroot may be specified when beginning a session\n"));
+      exit (EXIT_FAILURE);
+    }
+
   /* Create a session. */
   SbuildSession *session =
     sbuild_session_new("schroot",
