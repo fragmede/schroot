@@ -71,6 +71,8 @@ schroot_SOURCES =			\
 	$(schroot_public_h_sources)	\
 	$(schroot_public_c_sources)	\
 	$(schroot_built_sources)	\
+	schroot-options.h		\
+	schroot-options.c		\
 	schroot.h			\
 	schroot.c
 

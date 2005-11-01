@@ -35,176 +35,7 @@
 #include "sbuild-config.h"
 #include "sbuild-session.h"
 
-static gboolean
-parse_session_options(const gchar  *option_name,
-		      const gchar  *value,
-		      gpointer      data,
-		      GError      **error);
-
-/* Stored command-line options. */
-static struct {
-  char     **chroots;
-  char     **command;
-  char      *user;
-  gboolean   preserve;
-  gboolean   quiet;
-  gboolean   verbose;
-  gboolean   list;
-  gboolean   info;
-  gboolean   all;
-  gboolean   all_chroots;
-  gboolean   all_sessions;
-  gboolean   version;
-} opt =
-  {
-    .chroots = NULL,
-    .command = NULL,
-    .user = NULL,
-    .preserve = FALSE,
-    .quiet = FALSE,
-    .verbose = FALSE,
-    .list = FALSE,
-    .info = FALSE,
-    .all = FALSE,
-    .all_chroots = FALSE,
-    .all_sessions = FALSE,
-    .version = FALSE,
-  };
-
-static struct {
-  SbuildSessionOperation  operation;
-  gboolean                force;
-} session_opt =
-  {
-    .operation = SBUILD_SESSION_OPERATION_AUTOMATIC,
-    .force = FALSE
-  };
-
-/**
- * parse_options:
- * @argc: the number of arguments
- * @argv: argument vector
- *
- * Parse command-line options.  The options are placed in the opt
- * structure.
- */
-static void
-parse_options(int   argc,
-	      char *argv[])
-{
-  /* Command-line options. */
-  static const GOptionEntry entries[] =
-    {
-      { "all", 'a', 0, G_OPTION_ARG_NONE, &opt.all,
-	N_("Select all chroots and active sessions"), NULL },
-      { "all-chroots", 0, 0, G_OPTION_ARG_NONE, &opt.all_chroots,
-	N_("Select all chroots"), NULL },
-      { "all-sessions", 0, 0, G_OPTION_ARG_NONE, &opt.all_sessions,
-	N_("Select all active sessions"), NULL },
-      { "chroot", 'c', 0, G_OPTION_ARG_STRING_ARRAY, &opt.chroots,
-	N_("Use specified chroot"), "chroot" },
-      { "user", 'u', 0, G_OPTION_ARG_STRING, &opt.user,
-	N_("Username (default current user)"), "user" },
-      { "list", 'l', 0, G_OPTION_ARG_NONE, &opt.list,
-	N_("List available chroots"), NULL },
-      { "info", 'i', 0, G_OPTION_ARG_NONE, &opt.info,
-	N_("Show information about chroot"), NULL },
-      { "preserve-environment", 'p', 0, G_OPTION_ARG_NONE, &opt.preserve,
-	N_("Preserve user environment"), NULL },
-      { "quiet", 'q', 0, G_OPTION_ARG_NONE, &opt.quiet,
-	N_("Show less output"), NULL },
-      { "verbose", 'v', 0, G_OPTION_ARG_NONE, &opt.verbose,
-	N_("Show more output"), NULL },
-      { "version", 'V', 0, G_OPTION_ARG_NONE, &opt.version,
-	N_("Print version information"), NULL },
-      { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &opt.command,
-	NULL, NULL },
-      { NULL }
-    };
-
-  static const GOptionEntry session_entries[] =
-    {
-      { "begin-session", 'b', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
-	parse_session_options,
-	N_("Begin a session; returns a session UUID"), NULL },
-      { "recover-session", 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
-	parse_session_options,
-	N_("Recover an existing session"), NULL },
-      { "run-session", 'r', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
-	parse_session_options,
-	N_("Run an existing session"), NULL },
-      { "end-session", 'e', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
-	parse_session_options,
-	N_("End an existing session"), NULL },
-      { "force", 'f', 0, G_OPTION_ARG_NONE, &session_opt.force,
-	N_("Force operation, even if it fails"), NULL },
-      { NULL }
-    };
-
-  GError *error = NULL;
-
-  GOptionContext *context = g_option_context_new (_("- run command or shell in a chroot"));
-  g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
-
-  GOptionGroup* session_group =
-    g_option_group_new("session", N_("Session Options"),
-		       N_("Session management options"), NULL, NULL);
-  g_option_group_set_translation_domain(session_group, GETTEXT_PACKAGE);
-  g_option_group_add_entries (session_group, session_entries);
-  g_option_context_add_group(context, session_group);
-
-  g_option_context_parse (context, &argc, &argv, &error);
-  g_option_context_free (context);
-  if (error != NULL)
-    {
-      g_printerr(_("Error parsing options: %s\n"), error->message);
-      exit (EXIT_FAILURE);
-    }
-}
-
-/**
- * parse_session_options:
- *
- * Parse command-line session options.  The options are placed in the
- * session_opt structure.  This is a #GOptionArgFunc.
- *
- * Returns TRUE on success, FALSE on failure (and error will also be
- * set).
- */
-static gboolean
-parse_session_options(const gchar  *option_name,
-		      const gchar  *value,
-		      gpointer      data,
-		      GError      **error)
-{
-  if (strcmp(option_name, "-b") == 0 ||
-      strcmp(option_name, "--begin-session") == 0)
-    {
-      session_opt.operation = SBUILD_SESSION_OPERATION_BEGIN;
-    }
-  else if (strcmp(option_name, "--recover-session") == 0)
-    {
-      session_opt.operation = SBUILD_SESSION_OPERATION_RECOVER;
-    }
-  else if (strcmp(option_name, "-r") == 0 ||
-	   strcmp(option_name, "--run-session") == 0)
-    {
-      session_opt.operation = SBUILD_SESSION_OPERATION_RUN;
-    }
-  else if (strcmp(option_name, "-e") == 0 ||
-	   strcmp(option_name, "--end-session") == 0)
-    {
-      session_opt.operation = SBUILD_SESSION_OPERATION_END;
-    }
-  else
-    {
-      g_set_error(error,
-		  G_OPTION_ERROR, G_OPTION_ERROR_FAILED,
-		  _("Invalid session option %s"), option_name);
-      return FALSE;
-    }
-  return TRUE;
-}
+#include "schroot-options.h"
 
 /**
  * print_version:
@@ -225,17 +56,19 @@ print_version (FILE *file)
 /**
  * get_chroot_options:
  * @config: an #SbuildConfig
+ * @options: an #SchrootOptions
  *
  * Get a list of chroots based on the specified options (--all, --chroot).
  *
  * Returns a NULL-terminated string vector (GStrv).
  */
 char **
-get_chroot_options(SbuildConfig *config)
+get_chroot_options(SbuildConfig   *config,
+		   SchrootOptions *options)
 {
   char **chroots = NULL;
 
-  if (opt.all == TRUE || opt.all_chroots == TRUE || opt.all_sessions == TRUE)
+  if (options->all_chroots == TRUE || options->all_sessions == TRUE)
     {
       const GList *list = NULL;
       guint list_len = 0;
@@ -254,8 +87,8 @@ get_chroot_options(SbuildConfig *config)
 	      SbuildChroot *chroot = node->data;
 	      g_assert(sbuild_chroot_get_name(chroot) != NULL);
 	      gboolean active = sbuild_chroot_get_active(chroot);
- 	      if ((active == FALSE && opt.all == FALSE && opt.all_chroots == FALSE) ||
- 		  (active == TRUE && opt.all == FALSE && opt.all_sessions == FALSE))
+ 	      if ((active == FALSE && options->all_chroots == FALSE) ||
+ 		  (active == TRUE && options->all_sessions == FALSE))
 		continue;
 	      chroots[pos++] = g_strdup(sbuild_chroot_get_name(chroot));
 	    }
@@ -264,16 +97,8 @@ get_chroot_options(SbuildConfig *config)
     }
   else
     {
-      /* If no chroot was specified, fall back to the "default" chroot. */
-      if (opt.chroots == NULL)
-	{
-	  opt.chroots = g_new(char *, 2);
-	  opt.chroots[0] = g_strdup("default");
-	  opt.chroots[1] = NULL;
-	}
-
       char **invalid_chroots =
-	sbuild_config_validate_chroots(config, opt.chroots);
+	sbuild_config_validate_chroots(config, options->chroots);
 
       if (invalid_chroots)
 	{
@@ -283,7 +108,7 @@ get_chroot_options(SbuildConfig *config)
 	  exit(EXIT_FAILURE);
 	}
       g_strfreev(invalid_chroots);
-      chroots = g_strdupv(opt.chroots);
+      chroots = g_strdupv(options->chroots);
     }
 
   return chroots;
@@ -335,9 +160,9 @@ main (int   argc,
   openlog("schroot", LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
 
   /* Parse command-line options into opt structure. */
-  parse_options(argc, argv);
+  SchrootOptions *options = schroot_options_parse(argc, argv);
 
-  if (opt.version == TRUE)
+  if (options->version == TRUE)
     {
       print_version(stdout);
       exit(EXIT_SUCCESS);
@@ -346,15 +171,16 @@ main (int   argc,
   /* Initialise chroot configuration. */
   SbuildConfig *config = sbuild_config_new();
   g_assert (config != NULL);
+
   /* The normal chroot list is used when starting a session or running
      any chroot type or session, or displaying chroot information. */
-  sbuild_config_add_config_file(config, SCHROOT_CONF);
+  if ((options->list == FALSE && options->info == FALSE) ||
+      options->all_chroots == TRUE)
+    sbuild_config_add_config_file(config, SCHROOT_CONF);
   /* The session chroot list is used when running or ending an
      existing session, or displaying chroot information. */
-  if (opt.list == TRUE || opt.info == TRUE ||
-      session_opt.operation == SBUILD_SESSION_OPERATION_RECOVER ||
-      session_opt.operation == SBUILD_SESSION_OPERATION_RUN ||
-      session_opt.operation == SBUILD_SESSION_OPERATION_END)
+  if ((options->list == FALSE && options->info == FALSE) ||
+      options->all_sessions == TRUE)
     sbuild_config_add_config_directory(config, SCHROOT_SESSION_DIR);
 
   if (sbuild_config_get_chroots(config) == NULL)
@@ -364,14 +190,14 @@ main (int   argc,
     }
 
   /* Print chroot list (including aliases). */
-  if (opt.list == TRUE)
+  if (options->list == TRUE)
     {
       sbuild_config_print_chroot_list(config, stdout);
       exit(EXIT_SUCCESS);
     }
 
   /* Get list of chroots to use */
-  char **chroots = get_chroot_options(config);
+  char **chroots = get_chroot_options(config, options);
   if (chroots == NULL)
     {
       g_printerr(_("The specified chroots are not defined in %s\n"), SCHROOT_CONF);
@@ -379,7 +205,7 @@ main (int   argc,
     }
 
   /* Print chroot information for specified chroots. */
-  if (opt.info == TRUE)
+  if (options->info == TRUE)
     {
       for (guint i=0; chroots[i] != NULL; ++i)
 	{
@@ -394,7 +220,7 @@ main (int   argc,
       exit (EXIT_SUCCESS);
     }
 
-  if (session_opt.operation == SBUILD_SESSION_OPERATION_BEGIN &&
+  if (options->session_operation == SBUILD_SESSION_OPERATION_BEGIN &&
       chroots[0] != NULL && chroots[1] != NULL)
     {
       g_printerr(_("Only one chroot may be specified when beginning a session\n"));
@@ -405,21 +231,21 @@ main (int   argc,
   SbuildSession *session =
     sbuild_session_new("schroot",
 		       config,
-		       session_opt.operation,
+		       options->session_operation,
 		       chroots);
-  if (opt.user)
-    sbuild_auth_set_user(SBUILD_AUTH(session), opt.user);
-  if (opt.command)
-    sbuild_auth_set_command(SBUILD_AUTH(session), opt.command);
-  if (opt.preserve)
+  if (options->user)
+    sbuild_auth_set_user(SBUILD_AUTH(session), options->user);
+  if (options->command)
+    sbuild_auth_set_command(SBUILD_AUTH(session), options->command);
+  if (options->preserve)
     sbuild_auth_set_environment(SBUILD_AUTH(session), environ);
-  sbuild_session_set_force(session, session_opt.force);
-  if (opt.quiet && opt.verbose)
+  sbuild_session_set_force(session, options->session_force);
+  if (options->quiet && options->verbose)
     g_printerr(_("--quiet and --verbose may not be used at the same time!\nUsing verbose output.\n"));
   SbuildAuthVerbosity verbosity = SBUILD_AUTH_VERBOSITY_NORMAL;
-  if (opt.quiet)
+  if (options->quiet)
     verbosity = SBUILD_AUTH_VERBOSITY_QUIET;
-  else if (opt.verbose)
+  else if (options->verbose)
     verbosity = SBUILD_AUTH_VERBOSITY_VERBOSE;
   sbuild_auth_set_verbosity(SBUILD_AUTH(session), verbosity);
 
@@ -442,6 +268,8 @@ main (int   argc,
   g_object_unref(G_OBJECT(session));
   g_object_unref(G_OBJECT(config));
   g_strfreev(chroots);
+
+  schroot_options_free(options);
 
   closelog();
 

@@ -1,0 +1,65 @@
+<!-- ##### SECTION Title ##### -->
+SchrootOptions
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### FUNCTION schroot_options_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION schroot_options_parse ##### -->
+<para>
+
+</para>
+
+@argc: 
+@argv: 
+@Returns: 
+
+
+<!-- ##### FUNCTION schroot_options_free ##### -->
+<para>
+
+</para>
+
+@options: 
+
+
+<!-- ##### STRUCT SchrootOptions ##### -->
+<para>
+
+</para>
+
+@chroots: 
+@command: 
+@user: 
+@preserve: 
+@quiet: 
+@verbose: 
+@list: 
+@info: 
+@all: 
+@all_chroots: 
+@all_sessions: 
+@version: 
+@session_operation: 
+@session_force: 
+

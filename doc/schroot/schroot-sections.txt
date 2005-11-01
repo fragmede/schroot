@@ -331,3 +331,12 @@ sbuild_lock_error_get_type
 SBUILD_TYPE_LOCK_TYPE
 sbuild_lock_type_get_type
 </SECTION>
+
+<SECTION>
+<FILE>schroot-options</FILE>
+<TITLE>SchrootOptions</TITLE>
+schroot_options_new
+schroot_options_parse
+schroot_options_free
+SchrootOptions
+</SECTION>

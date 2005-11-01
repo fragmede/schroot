@@ -1,3 +1,17 @@
+2005-11-01  Roger Leigh  <rleigh@debian.org>
+
+	* Updated documentation.
+
+	* schroot/schroot.c: Update to use the new SchrootOptions option
+	parsing:
+	(get_chroot_options): An SchrootOptions struct is passed as an
+	argument, since the options are no longer global.
+	(main): Create and free an SchrootOptions struct.
+
+	* schroot/schroot-options.[ch]: New files.  The command-line
+	option parsing has been split out of schroot.c, with an new
+	SchrootOptions struct to contain the parsed options.
+
 2005-10-30  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot.1.in: Document --recover-session.

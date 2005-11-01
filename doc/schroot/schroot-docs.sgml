@@ -21,5 +21,6 @@
     <xi:include href="xml/sbuild-marshallers.xml"/>
     <xi:include href="xml/sbuild-error.xml"/>
     <xi:include href="xml/sbuild-lock.xml"/>
+    <xi:include href="xml/schroot-options.xml"/>
   </chapter>
 </book>
