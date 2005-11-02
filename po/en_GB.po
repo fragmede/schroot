@@ -7,98 +7,88 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2005-10-23 19:22+0100\n"
-"PO-Revision-Date: 2005-10-23 23:59+0100\n"
+"POT-Creation-Date: 2005-11-02 22:52+0000\n"
+"PO-Revision-Date: 2005-11-02 23:31+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: schroot/sbuild-chroot.c:122
+#: schroot/sbuild-chroot.c:140
 #, c-format
 msgid "%s chroot: chroot type '%s' is invalid"
 msgstr "%s chroot: chroot type ‘%s’ is invalid"
 
-#: schroot/sbuild-chroot.c:204
+#: schroot/sbuild-chroot.c:222
 #, c-format
 msgid "%s chroot: chroot type '%s' has no property named '%s'"
 msgstr "%s chroot: chroot type ‘%s’ has no property named ‘%s’"
 
-#: schroot/sbuild-chroot.c:221
+#: schroot/sbuild-chroot.c:239
 #, c-format
 msgid "%s chroot: property '%s' is not user-settable"
 msgstr "%s chroot: property ‘%s’ is not user-settable"
 
-#: schroot/sbuild-chroot.c:274
+#: schroot/sbuild-chroot.c:292
 #, c-format
 msgid "%s chroot: property '%s' has unsupported type '%s'"
 msgstr "%s chroot: property ‘%s’ has unsupported type ‘%s’"
 
-#: schroot/sbuild-chroot.c:709
+#: schroot/sbuild-chroot.c:727
 #, c-format
 msgid "%s chroot: chroot type is unset; error in derived class\n"
 msgstr "%s chroot: chroot type is unset; error in derived class\n"
 
-#: schroot/sbuild-chroot.c:740
-#, c-format
-msgid "%s chroot: chroot setup name is unset; error in derived class\n"
-msgstr "%s chroot: chroot setup name is unset; error in derived class\n"
-
-#: schroot/sbuild-chroot.c:765
-#, c-format
-msgid "%s chroot: chroot session flags unset; error in derived class\n"
-msgstr "%s chroot: chroot session flags unset; error in derived class\n"
-
-#: schroot/sbuild-chroot.c:785
+#: schroot/sbuild-chroot.c:796
 msgid "  --- Session ---\n"
 msgstr "  ——— Session ———\n"
 
-#: schroot/sbuild-chroot.c:787
+#: schroot/sbuild-chroot.c:798
 msgid "  --- Chroot ---\n"
 msgstr "  ——— Chroot ———\n"
 
-#: schroot/sbuild-chroot.c:788
+#: schroot/sbuild-chroot.c:799
 msgid "Name"
 msgstr "Name"
 
-#: schroot/sbuild-chroot.c:789
+#: schroot/sbuild-chroot.c:800
 msgid "Description"
 msgstr "Description"
 
-#: schroot/sbuild-chroot.c:791
+#: schroot/sbuild-chroot.c:802
 msgid "Type"
 msgstr "Type"
 
-#: schroot/sbuild-chroot.c:792
+#: schroot/sbuild-chroot.c:803
 msgid "Priority"
 msgstr "Priority"
 
-#: schroot/sbuild-chroot.c:795
+#: schroot/sbuild-chroot.c:806
 msgid "Groups"
 msgstr "Groups"
 
-#: schroot/sbuild-chroot.c:801
+#: schroot/sbuild-chroot.c:812
 msgid "Root Groups"
 msgstr "Root Groups"
 
-#: schroot/sbuild-chroot.c:806
+#: schroot/sbuild-chroot.c:817
 msgid "Aliases"
 msgstr "Aliases"
 
-#: schroot/sbuild-chroot.c:810
+#: schroot/sbuild-chroot.c:821
 msgid "Run Setup Scripts"
 msgstr "Run Setup Scripts"
 
-#: schroot/sbuild-chroot.c:812
+#: schroot/sbuild-chroot.c:823
 msgid "Run Session Scripts"
 msgstr "Run Session Scripts"
 
-#: schroot/sbuild-chroot.c:823
+#: schroot/sbuild-chroot.c:834
 msgid "Mount Location"
 msgstr "Mount Location"
 
-#: schroot/sbuild-chroot.c:825
+#: schroot/sbuild-chroot.c:836
 msgid "Mount Device"
 msgstr "Mount Device"
 
@@ -164,284 +154,204 @@ msgstr "%s: failed to open directory: %s\n"
 msgid "%s: failed to stat file: %s"
 msgstr "%s: failed to stat file: %s"
 
-#: schroot/sbuild-session.c:311
-#, c-format
-msgid "%s: group not found\n"
-msgstr "%s: group not found\n"
-
-#: schroot/sbuild-session.c:313
-#, c-format
-msgid "%s: group not found: %s\n"
-msgstr "%s: group not found: %s\n"
-
-#: schroot/sbuild-session.c:320
-#, c-format
-msgid "can't get supplementary group count: %s\n"
-msgstr "can't get supplementary group count: %s\n"
-
-#: schroot/sbuild-session.c:326
-#, c-format
-msgid "can't get supplementary groups: %s\n"
-msgstr "can't get supplementary groups: %s\n"
-
-#: schroot/sbuild-session.c:385
-#, c-format
-msgid "No chroot found matching alias '%s'"
-msgstr "No chroot found matching alias ‘%s’"
-
-#: schroot/sbuild-session.c:494
-msgid "Chroot setup failed to lock chroot"
-msgstr "Chroot setup failed to lock chroot"
-
-#: schroot/sbuild-session.c:553
-#, c-format
-msgid "Invalid verbosity level: %d, falling back to \"normal\""
-msgstr "Invalid verbosity level: %d, falling back to “normal”"
-
-#: schroot/sbuild-session.c:615
-msgid "Chroot setup failed to unlock chroot"
-msgstr "Chroot setup failed to unlock chroot"
-
-#: schroot/sbuild-session.c:628
-#, c-format
-msgid "Chroot setup failed during chroot %s"
-msgstr "Chroot setup failed during chroot %s"
-
-#: schroot/sbuild-session.c:677
-#, c-format
-msgid "PAM error: %s\n"
-msgstr "PAM error: %s\n"
-
-#: schroot/sbuild-session.c:684
-#, c-format
-msgid "Could not set gid to '%lu'\n"
-msgstr "Could not set gid to ‘%lu’\n"
-
-#: schroot/sbuild-session.c:689
-#, c-format
-msgid "Could not set supplementary group IDs\n"
-msgstr "Could not set supplementary group IDs\n"
-
-#: schroot/sbuild-session.c:696
-#, c-format
-msgid "Could not chdir to '%s': %s\n"
-msgstr "Could not chdir to ‘%s’: %s\n"
-
-#: schroot/sbuild-session.c:702
-#, c-format
-msgid "Could not chroot to '%s': %s\n"
-msgstr "Could not chroot to ‘%s’: %s\n"
-
-#: schroot/sbuild-session.c:710
-#, c-format
-msgid "Could not set uid to '%lu'\n"
-msgstr "Could not set uid to ‘%lu’\n"
-
-#: schroot/sbuild-session.c:715
-#, c-format
-msgid "Failed to drop root permissions.\n"
-msgstr "Failed to drop root permissions.\n"
-
-#: schroot/sbuild-session.c:722
-#, c-format
-msgid "warning: Could not chdir to '%s': %s\n"
-msgstr "warning: Could not chdir to ‘%s’: %s\n"
-
-#: schroot/sbuild-session.c:776
-#, c-format
-msgid "[%s chroot] Running login shell: \"%s\"\n"
-msgstr "[%s chroot] Running login shell: “%s”\n"
-
-#: schroot/sbuild-session.c:779
-#, c-format
-msgid "[%s chroot] Running shell: \"%s\"\n"
-msgstr "[%s chroot] Running shell: “%s”\n"
-
-#: schroot/sbuild-session.c:785
-#, c-format
-msgid "[%s chroot] (%s->%s) Running login shell: \"%s\"\n"
-msgstr "[%s chroot] (%s→%s) Running login shell: “%s”\n"
-
-#: schroot/sbuild-session.c:788
-#, c-format
-msgid "[%s chroot] (%s->%s) Running shell: \"%s\"\n"
-msgstr "[%s chroot] (%s→%s) Running shell: “%s”\n"
-
-#: schroot/sbuild-session.c:806
-#, c-format
-msgid "[%s chroot] Running command: \"%s\"\n"
-msgstr "[%s chroot] Running command: “%s”\n"
-
-#: schroot/sbuild-session.c:809
-#, c-format
-msgid "[%s chroot] (%s->%s) Running command: \"%s\"\n"
-msgstr "[%s chroot] (%s→%s) Running command: “%s”\n"
-
-#: schroot/sbuild-session.c:819
-#, c-format
-msgid "Could not exec \"%s\": %s\n"
-msgstr "Could not exec “%s”: %s\n"
-
-#: schroot/sbuild-session.c:851
-#, c-format
-msgid "wait for child failed: %s\n"
-msgstr "wait for child failed: %s\n"
-
-#: schroot/sbuild-session.c:868
-#, c-format
-msgid "Child terminated by signal '%s'"
-msgstr "Child terminated by signal ‘%s’"
-
-#: schroot/sbuild-session.c:873
-msgid "Child dumped core"
-msgstr "Child dumped core"
-
-#: schroot/sbuild-session.c:877
-msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
-msgstr "Child exited abnormally (reason unknown; not a signal or core dump)"
-
-#: schroot/sbuild-session.c:888
-#, c-format
-msgid "Child exited abnormally with status '%d'"
-msgstr "Child exited abnormally with status ‘%d’"
-
-#: schroot/sbuild-session.c:924
-#, c-format
-msgid "Failed to fork child: %s"
-msgstr "Failed to fork child: %s"
-
-#: schroot/sbuild-session.c:984
-#, c-format
-msgid "%s: Failed to find chroot"
-msgstr "%s: Failed to find chroot"
-
-#: schroot/schroot.c:101
-msgid "Select all chroots and active sessions"
-msgstr "Select all chroots and active sessions"
-
-#: schroot/schroot.c:103
-msgid "Select all chroots"
-msgstr "Select all chroots"
-
-#: schroot/schroot.c:105
-msgid "Select all active sessions"
-msgstr "Select all active sessions"
-
-#: schroot/schroot.c:107
-msgid "Use specified chroot"
-msgstr "Use specified chroot"
-
-#: schroot/schroot.c:109
-msgid "Username (default current user)"
-msgstr "Username (default current user)"
-
-#: schroot/schroot.c:111
-msgid "List available chroots"
-msgstr "List available chroots"
-
-#: schroot/schroot.c:113
-msgid "Show information about chroot"
-msgstr "Show information about chroot"
-
-#: schroot/schroot.c:115
-msgid "Preserve user environment"
-msgstr "Preserve user environment"
-
-#: schroot/schroot.c:117
-msgid "Show less output"
-msgstr "Show less output"
-
-#: schroot/schroot.c:119
-msgid "Show more output"
-msgstr "Show more output"
-
-#: schroot/schroot.c:121
-msgid "Print version information"
-msgstr "Print version information"
-
-#: schroot/schroot.c:131
-msgid "Begin a session; returns a session UUID"
-msgstr "Begin a session; returns a session UUID"
-
-#: schroot/schroot.c:134
-msgid "Run an existing session"
-msgstr "Run an existing session"
-
-#: schroot/schroot.c:137
-msgid "End an existing session"
-msgstr "End an existing session"
-
-#: schroot/schroot.c:139
-msgid "Force operation, even if it fails"
-msgstr "Force operation, even if it fails"
-
-#: schroot/schroot.c:145
-msgid "- run command or shell in a chroot"
-msgstr "- run command or shell in a chroot"
-
-#: schroot/schroot.c:149
-msgid "Session Options"
-msgstr "Session Options"
-
-#: schroot/schroot.c:150
-msgid "Session management options"
-msgstr "Session management options"
-
-#: schroot/schroot.c:159
-#, c-format
-msgid "Error parsing options: %s\n"
-msgstr "Error parsing options: %s\n"
-
-#: schroot/schroot.c:198
-#, c-format
-msgid "Invalid session option %s"
-msgstr "Invalid session option %s"
-
-#: schroot/schroot.c:213
-#, c-format
-msgid "schroot (Debian sbuild) %s\n"
-msgstr "schroot (Debian sbuild) %s\n"
-
-#: schroot/schroot.c:214
-msgid ""
-"Written by Roger Leigh\n"
-"\n"
-msgstr ""
-"Written by Roger Leigh\n"
-"\n"
-
-#: schroot/schroot.c:215
-msgid "Copyright (C) 2004-2005 Roger Leigh\n"
-msgstr "Copyright © 2004-2005 Roger Leigh\n"
-
-#: schroot/schroot.c:216
-msgid ""
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
-msgstr ""
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
-
-#: schroot/schroot.c:262
-msgid "No chroot specified.  Use --chroot or --all.\n"
-msgstr "No chroot specified.  Use --chroot or --all.\n"
-
-#: schroot/schroot.c:273
+#: schroot/sbuild-config.c:639 schroot/schroot.c:106
 #, c-format
 msgid "%s: No such chroot\n"
 msgstr "%s: No such chroot\n"
 
-#: schroot/schroot.c:356
+#: schroot/sbuild-session.c:313
+#, c-format
+msgid "%s: group not found\n"
+msgstr "%s: group not found\n"
+
+#: schroot/sbuild-session.c:315
+#, c-format
+msgid "%s: group not found: %s\n"
+msgstr "%s: group not found: %s\n"
+
+#: schroot/sbuild-session.c:322
+#, c-format
+msgid "can't get supplementary group count: %s\n"
+msgstr "can't get supplementary group count: %s\n"
+
+#: schroot/sbuild-session.c:328
+#, c-format
+msgid "can't get supplementary groups: %s\n"
+msgstr "can't get supplementary groups: %s\n"
+
+#: schroot/sbuild-session.c:387
+#, c-format
+msgid "No chroot found matching alias '%s'"
+msgstr "No chroot found matching alias ‘%s’"
+
+#: schroot/sbuild-session.c:497
+#, c-format
+msgid "Chroot setup failed to lock chroot: %s"
+msgstr "Chroot setup failed to lock chroot: %s"
+
+#: schroot/sbuild-session.c:561
+#, c-format
+msgid "Invalid verbosity level: %d, falling back to \"normal\""
+msgstr "Invalid verbosity level: %d, falling back to “normal”"
+
+#: schroot/sbuild-session.c:623
+#, c-format
+msgid "Chroot setup failed to unlock chroot: %s"
+msgstr "Chroot setup failed to unlock chroot: %s"
+
+#: schroot/sbuild-session.c:638
+#, c-format
+msgid "Chroot setup failed during chroot %s"
+msgstr "Chroot setup failed during chroot %s"
+
+#: schroot/sbuild-session.c:687
+#, c-format
+msgid "PAM error: %s\n"
+msgstr "PAM error: %s\n"
+
+#: schroot/sbuild-session.c:694
+#, c-format
+msgid "Could not set gid to '%lu'\n"
+msgstr "Could not set gid to ‘%lu’\n"
+
+#: schroot/sbuild-session.c:699
+#, c-format
+msgid "Could not set supplementary group IDs\n"
+msgstr "Could not set supplementary group IDs\n"
+
+#: schroot/sbuild-session.c:706
+#, c-format
+msgid "Could not chdir to '%s': %s\n"
+msgstr "Could not chdir to ‘%s’: %s\n"
+
+#: schroot/sbuild-session.c:712
+#, c-format
+msgid "Could not chroot to '%s': %s\n"
+msgstr "Could not chroot to ‘%s’: %s\n"
+
+#: schroot/sbuild-session.c:720
+#, c-format
+msgid "Could not set uid to '%lu'\n"
+msgstr "Could not set uid to ‘%lu’\n"
+
+#: schroot/sbuild-session.c:725
+#, c-format
+msgid "Failed to drop root permissions.\n"
+msgstr "Failed to drop root permissions.\n"
+
+#: schroot/sbuild-session.c:732
+#, c-format
+msgid "warning: Could not chdir to '%s': %s\n"
+msgstr "warning: Could not chdir to ‘%s’: %s\n"
+
+#: schroot/sbuild-session.c:786
+#, c-format
+msgid "[%s chroot] Running login shell: \"%s\"\n"
+msgstr "[%s chroot] Running login shell: “%s”\n"
+
+#: schroot/sbuild-session.c:789
+#, c-format
+msgid "[%s chroot] Running shell: \"%s\"\n"
+msgstr "[%s chroot] Running shell: “%s”\n"
+
+#: schroot/sbuild-session.c:795
+#, c-format
+msgid "[%s chroot] (%s->%s) Running login shell: \"%s\"\n"
+msgstr "[%s chroot] (%s→%s) Running login shell: “%s”\n"
+
+#: schroot/sbuild-session.c:798
+#, c-format
+msgid "[%s chroot] (%s->%s) Running shell: \"%s\"\n"
+msgstr "[%s chroot] (%s→%s) Running shell: “%s”\n"
+
+#: schroot/sbuild-session.c:816
+#, c-format
+msgid "[%s chroot] Running command: \"%s\"\n"
+msgstr "[%s chroot] Running command: “%s”\n"
+
+#: schroot/sbuild-session.c:819
+#, c-format
+msgid "[%s chroot] (%s->%s) Running command: \"%s\"\n"
+msgstr "[%s chroot] (%s→%s) Running command: “%s”\n"
+
+#: schroot/sbuild-session.c:829
+#, c-format
+msgid "Could not exec \"%s\": %s\n"
+msgstr "Could not exec “%s”: %s\n"
+
+#: schroot/sbuild-session.c:861
+#, c-format
+msgid "wait for child failed: %s\n"
+msgstr "wait for child failed: %s\n"
+
+#: schroot/sbuild-session.c:878
+#, c-format
+msgid "Child terminated by signal '%s'"
+msgstr "Child terminated by signal ‘%s’"
+
+#: schroot/sbuild-session.c:883
+msgid "Child dumped core"
+msgstr "Child dumped core"
+
+#: schroot/sbuild-session.c:887
+msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
+msgstr "Child exited abnormally (reason unknown; not a signal or core dump)"
+
+#: schroot/sbuild-session.c:898
+#, c-format
+msgid "Child exited abnormally with status '%d'"
+msgstr "Child exited abnormally with status ‘%d’"
+
+#: schroot/sbuild-session.c:932
+#, c-format
+msgid "Failed to fork child: %s"
+msgstr "Failed to fork child: %s"
+
+#: schroot/sbuild-session.c:992
+#, c-format
+msgid "%s: Failed to find chroot"
+msgstr "%s: Failed to find chroot"
+
+#: schroot/schroot.c:49
+#, c-format
+msgid "schroot (Debian sbuild) %s\n"
+msgstr "schroot (Debian sbuild) %s\n"
+
+#: schroot/schroot.c:50
+msgid ""
+"Written by Roger Leigh\n"
+"\n"
+msgstr ""
+"Written by Roger Leigh\n"
+"\n"
+
+#: schroot/schroot.c:51
+msgid "Copyright (C) 2004-2005 Roger Leigh\n"
+msgstr "Copyright © 2004-2005 Roger Leigh\n"
+
+#: schroot/schroot.c:52
+msgid ""
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+
+#: schroot/schroot.c:186
 #, c-format
 msgid "No chroots are defined in %s\n"
 msgstr "No chroots are defined in %s\n"
 
-#: schroot/schroot.c:371
+#: schroot/schroot.c:201
 #, c-format
 msgid "The specified chroots are not defined in %s\n"
 msgstr "The specified chroots are not defined in %s\n"
 
-#: schroot/schroot.c:416
+#: schroot/schroot.c:215
+msgid "Only one chroot may be specified when beginning a session\n"
+msgstr "Only one chroot may be specified when beginning a session\n"
+
+#: schroot/schroot.c:233
 msgid ""
 "--quiet and --verbose may not be used at the same time!\n"
 "Using verbose output.\n"
@@ -449,10 +359,79 @@ msgstr ""
 "--quiet and --verbose may not be used at the same time!\n"
 "Using verbose output.\n"
 
-#: schroot/schroot.c:436
+#: schroot/schroot.c:253
 #, c-format
 msgid "Session failure: %s\n"
 msgstr "Session failure: %s\n"
+
+#~ msgid "%s chroot: chroot setup name is unset; error in derived class\n"
+#~ msgstr "%s chroot: chroot setup name is unset; error in derived class\n"
+
+#~ msgid "%s chroot: chroot session flags unset; error in derived class\n"
+#~ msgstr "%s chroot: chroot session flags unset; error in derived class\n"
+
+#~ msgid "Select all chroots and active sessions"
+#~ msgstr "Select all chroots and active sessions"
+
+#~ msgid "Select all chroots"
+#~ msgstr "Select all chroots"
+
+#~ msgid "Select all active sessions"
+#~ msgstr "Select all active sessions"
+
+#~ msgid "Use specified chroot"
+#~ msgstr "Use specified chroot"
+
+#~ msgid "Username (default current user)"
+#~ msgstr "Username (default current user)"
+
+#~ msgid "List available chroots"
+#~ msgstr "List available chroots"
+
+#~ msgid "Show information about chroot"
+#~ msgstr "Show information about chroot"
+
+#~ msgid "Preserve user environment"
+#~ msgstr "Preserve user environment"
+
+#~ msgid "Show less output"
+#~ msgstr "Show less output"
+
+#~ msgid "Show more output"
+#~ msgstr "Show more output"
+
+#~ msgid "Print version information"
+#~ msgstr "Print version information"
+
+#~ msgid "Begin a session; returns a session UUID"
+#~ msgstr "Begin a session; returns a session UUID"
+
+#~ msgid "Run an existing session"
+#~ msgstr "Run an existing session"
+
+#~ msgid "End an existing session"
+#~ msgstr "End an existing session"
+
+#~ msgid "Force operation, even if it fails"
+#~ msgstr "Force operation, even if it fails"
+
+#~ msgid "- run command or shell in a chroot"
+#~ msgstr "- run command or shell in a chroot"
+
+#~ msgid "Session Options"
+#~ msgstr "Session Options"
+
+#~ msgid "Session management options"
+#~ msgstr "Session management options"
+
+#~ msgid "Error parsing options: %s\n"
+#~ msgstr "Error parsing options: %s\n"
+
+#~ msgid "Invalid session option %s"
+#~ msgstr "Invalid session option %s"
+
+#~ msgid "No chroot specified.  Use --chroot or --all.\n"
+#~ msgstr "No chroot specified.  Use --chroot or --all.\n"
 
 #~ msgid "  %-22s%s\n"
 #~ msgstr "  %-22s%s\n"

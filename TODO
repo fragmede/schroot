@@ -5,9 +5,6 @@ TODO
 * Document the setup and session scripts.
   Include all scripts and ordering.
 
-* Add init script to autorecover sessions.
-  Run --recover-session on all sessions.
-
 * Add examples of new chroot types to schroot.conf.
   Use all available options.
 

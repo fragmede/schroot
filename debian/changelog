@@ -2,9 +2,13 @@ schroot (0.1.7-1) unstable; urgency=low
 
   * New upstream release.
   * debian/control: Add liblockdev to Build-Depends.
-  * debian/rules: Use --libexecdir when running configure.
+  * debian/rules:
+    - Use --libexecdir when running configure
+    - Use dh_installinit to install init script.
+  * debian/schroot.init: New init script, used for session
+    recovery at system startup.
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 17 Oct 2005 23:57:35 +0100
+ -- Roger Leigh <rleigh@debian.org>  Wed,  2 Nov 2005 22:37:30 +0000
 
 schroot (0.1.6-1) unstable; urgency=low
 

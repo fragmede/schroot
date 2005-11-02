@@ -900,8 +900,6 @@ sbuild_session_wait_for_child (SbuildSession  *session,
       return FALSE;
     }
 
-  return TRUE;
-
   /* Should never be reached. */
   return TRUE;
 }
@@ -1114,6 +1112,10 @@ sbuild_session_run (SbuildSession  *session,
   if (tmp_error != NULL)
     {
       g_propagate_error(error, tmp_error);
+      /* If a command was not run, but something failed, the exit
+	 status still needs setting. */
+      if (session->child_status == 0)
+	session->child_status = EXIT_FAILURE;
       return FALSE;
     }
   else
@@ -1130,7 +1132,7 @@ sbuild_session_init (SbuildSession *session)
   session->session_id = NULL;
   session->operation = SBUILD_SESSION_OPERATION_AUTOMATIC;
   session->force = FALSE;
-  session->child_status = EXIT_FAILURE;
+  session->child_status = EXIT_SUCCESS;
 }
 
 static void

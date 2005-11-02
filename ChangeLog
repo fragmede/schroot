@@ -1,5 +1,21 @@
 2005-11-02  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-session.c
+	(sbuild_session_run): Ensure child exit status is set to
+	EXIT_FAILURE on session failure.
+	(sbuild_session_init): Set child exit status to EXIT_SUCCESS by
+	default.
+
+	* debian/changelog: Document changes.
+
+	* debian/rules (binary-arch): Use dh_installinit to install init
+	script.
+
+	* debian/schroot.init (NAME): New init script to perform session
+	recovery at system startup.
+
+2005-11-02  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-options.c
 	(schroot_options_parse): Don't load all chroot configurations when
 	in list mode.

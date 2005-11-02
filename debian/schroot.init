@@ -1,0 +1,42 @@
+#! /bin/sh
+#
+# Recover schroot sessions.
+
+DAEMON=/usr/bin/schroot
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+NAME=schroot
+
+test -x $DAEMON || exit 0
+
+# Include #PACKAGE# defaults if available
+#if [ -f "/etc/default/$NAME" ] ; then
+#    . "/etc/default/$NAME"
+#fi
+
+set -e
+
+function recover_sessions()
+{
+    echo -n "Recovering schroot sessions... "
+    for chroot in `schroot --all-sessions --list`
+      do
+      schroot --chroot=$chroot --recover-session
+      echo -n "$chroot, "
+    done
+    echo "done."
+}
+
+case "$1" in
+    start|restart|force-reload)
+        recover_sessions
+	;;
+    stop)
+	;;
+    *)
+	N=/etc/init.d/$NAME
+	echo "Usage: $N {start|stop|restart|force-reload}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
