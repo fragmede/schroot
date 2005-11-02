@@ -1,5 +1,11 @@
 2005-11-02  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot-options.c
+	(schroot_options_parse): Don't load all chroot configurations when
+	in list mode.
+
+2005-11-02  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.c
 	(main): Delegate the decision about which chroot configuration
 	files to load to schroot_options_parse.  Use

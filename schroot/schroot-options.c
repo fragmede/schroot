@@ -203,7 +203,8 @@ schroot_options_parse(int   argc,
   /* Determine which chroots to load. */
   options->load_chroots = options->all_chroots;
   options->load_sessions = options->all_sessions;
-  if (options->chroots != NULL && options->chroots[0] != NULL)
+  if (options->list == FALSE &&
+      options->chroots != NULL && options->chroots[0] != NULL)
     options->load_chroots = options->load_sessions = TRUE;
 
   return options;

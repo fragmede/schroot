@@ -5,9 +5,6 @@ TODO
 * Document the setup and session scripts.
   Include all scripts and ordering.
 
-* Restrict -l options to use --all-*
-  Allow listing of just sessions or chroots.
-
 * Add init script to autorecover sessions.
   Run --recover-session on all sessions.
 
@@ -16,9 +13,6 @@ TODO
 
 * Make "session" naming more consistent.
   "run-session-scripts" should be "run-scripts".
-
-* config: add method to reload configuration.
-  This will require a file and directory list to be stored.
 
 * Add a SbuildChrootXen chroot type for Xen hosts.
 
