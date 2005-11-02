@@ -22,7 +22,7 @@
 /**
  * SECTION:schroot-options
  * @short_description: schroot options parser
- * @title: SbuildOptions
+ * @title: SchrootOptions
  *
  * This structure is used to contain the results of command-line
  * option parsing.
@@ -47,8 +47,6 @@ parse_session_options(const gchar  *option_name,
 
 /**
  * schroot_options_new:
- * @argc: the number of arguments
- * @argv: argument vector
  *
  * Parse command-line options.
  *
@@ -80,9 +78,8 @@ schroot_options_new (void)
 /**
  * schroot_options_free:
  * @options: the #SchrootOptions to free
- * @argv: argument vector
  *
- * Free an #SbuildOptions object.
+ * Free an #SchrootOptions object.
  */
 void
 schroot_options_free (SchrootOptions *options)
@@ -178,12 +175,17 @@ schroot_options_parse(int   argc,
     }
 
   /* Ensure there's something to list. */
-  if ((options->list == TRUE || options->info == TRUE) &&
-      (options->all == FALSE && options->all_chroots == FALSE &&
-       options->all_sessions == FALSE))
+  if ((options->list == TRUE &&
+       (options->all == FALSE && options->all_chroots == FALSE &&
+	options->all_sessions == FALSE)) ||
+      (options->info == TRUE &&
+       (options->all == FALSE && options->all_chroots == FALSE &&
+	options->all_sessions == FALSE &&
+	(options->chroots == NULL || options->chroots[0] == NULL))))
     {
       options->all = TRUE;
     }
+
   if (options->all == TRUE)
     {
       options->all_chroots = TRUE;
@@ -197,6 +199,12 @@ schroot_options_parse(int   argc,
       options->chroots[0] = g_strdup("default");
       options->chroots[1] = NULL;
     }
+
+  /* Determine which chroots to load. */
+  options->load_chroots = options->all_chroots;
+  options->load_sessions = options->all_sessions;
+  if (options->chroots != NULL && options->chroots[0] != NULL)
+    options->load_chroots = options->load_sessions = TRUE;
 
   return options;
 }

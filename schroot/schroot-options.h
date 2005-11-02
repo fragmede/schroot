@@ -39,6 +39,8 @@ struct _SchrootOptions
   gboolean                 all;
   gboolean                 all_chroots;
   gboolean                 all_sessions;
+  gboolean                 load_chroots;
+  gboolean                 load_sessions;
   gboolean                 version;
   SbuildSessionOperation   session_operation;
   gboolean                 session_force;

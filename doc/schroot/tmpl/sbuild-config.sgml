@@ -150,6 +150,16 @@ The error domain for sbuild configuration file errors.
 @file: 
 
 
+<!-- ##### FUNCTION sbuild_config_print_chroot_info ##### -->
+<para>
+
+</para>
+
+@config: 
+@chroots: 
+@file: 
+
+
 <!-- ##### FUNCTION sbuild_config_validate_chroots ##### -->
 <para>
 

@@ -611,6 +611,36 @@ sbuild_config_print_chroot_list (SbuildConfig *config,
 }
 
 /**
+ * sbuild_config_print_chroot_info:
+ * @config: an #SbuildConfig
+ * @chroots: the chroots to print
+ * @file: the file to print to
+ *
+ * Print information about the specified chroots to the specified
+ * file.
+ */
+void
+sbuild_config_print_chroot_info (SbuildConfig  *config,
+				 char         **chroots,
+				 FILE          *file)
+{
+  g_return_if_fail(SBUILD_IS_CONFIG(config));
+
+  for (guint i=0; chroots[i] != NULL; ++i)
+    {
+      SbuildChroot *chroot = sbuild_config_find_alias(config, chroots[i]);
+      if (chroot)
+	{
+	  sbuild_chroot_print_details(chroot, stdout);
+	  if (chroots[i+1] != NULL)
+	    g_fprintf(stdout, "\n");
+	}
+      else
+	g_printerr(_("%s: No such chroot\n"), chroots[i]);
+    }
+}
+
+/**
  * sbuild_config_validate_chroots:
  * @config: an #SbuildConfig
  * @chroots: the chroots to validate

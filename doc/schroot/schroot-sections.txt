@@ -131,6 +131,7 @@ sbuild_config_find_chroot
 sbuild_config_find_alias
 sbuild_config_get_chroot_list
 sbuild_config_print_chroot_list
+sbuild_config_print_chroot_info
 sbuild_config_validate_chroots
 <SUBSECTION Standard>
 SBUILD_TYPE_CONFIG_FILE_ERROR
@@ -335,8 +336,8 @@ sbuild_lock_type_get_type
 <SECTION>
 <FILE>schroot-options</FILE>
 <TITLE>SchrootOptions</TITLE>
+SchrootOptions
 schroot_options_new
 schroot_options_parse
 schroot_options_free
-SchrootOptions
 </SECTION>

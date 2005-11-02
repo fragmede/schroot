@@ -101,6 +101,11 @@ void
 sbuild_config_print_chroot_list (SbuildConfig *config,
 				 FILE         *file);
 
+void
+sbuild_config_print_chroot_info (SbuildConfig  *config,
+				 char         **chroots,
+				 FILE          *file);
+
 char **
 sbuild_config_validate_chroots(SbuildConfig  *config,
 			       char         **chroots);

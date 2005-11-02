@@ -1,3 +1,22 @@
+2005-11-02  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot.c
+	(main): Delegate the decision about which chroot configuration
+	files to load to schroot_options_parse.  Use
+	sbuild_config_print_chroot_info to print chroot information.
+
+	* schroot/schroot-options.h
+	(struct _SchrootOptions): Add load_chroots and load_sessions
+	members.
+
+	* schroot/schroot-options.c
+	(schroot_options_parse): Determine which chroot configuration
+	files to load more accurately.
+
+	* schroot/sbuild-config.c
+	(sbuild_config_print_chroot_info): New function, split out from
+	main() in schroot.c.
+
 2005-11-01  Roger Leigh  <rleigh@debian.org>
 
 	* Updated documentation.

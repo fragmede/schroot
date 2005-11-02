@@ -174,13 +174,11 @@ main (int   argc,
 
   /* The normal chroot list is used when starting a session or running
      any chroot type or session, or displaying chroot information. */
-  if ((options->list == FALSE && options->info == FALSE) ||
-      options->all_chroots == TRUE)
+  if (options->load_chroots == TRUE)
     sbuild_config_add_config_file(config, SCHROOT_CONF);
   /* The session chroot list is used when running or ending an
      existing session, or displaying chroot information. */
-  if ((options->list == FALSE && options->info == FALSE) ||
-      options->all_sessions == TRUE)
+  if (options->load_sessions == TRUE)
     sbuild_config_add_config_directory(config, SCHROOT_SESSION_DIR);
 
   if (sbuild_config_get_chroots(config) == NULL)
@@ -207,16 +205,7 @@ main (int   argc,
   /* Print chroot information for specified chroots. */
   if (options->info == TRUE)
     {
-      for (guint i=0; chroots[i] != NULL; ++i)
-	{
-	  SbuildChroot *chroot = sbuild_config_find_alias(config, chroots[i]);
-	  if (chroot)
-	    {
-	      sbuild_chroot_print_details(chroot, stdout);
-	      if (chroots[i+1] != NULL)
-		g_fprintf(stdout, "\n");
-	    }
-	}
+      sbuild_config_print_chroot_info(config, chroots, stdout);
       exit (EXIT_SUCCESS);
     }
 
