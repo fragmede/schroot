@@ -183,7 +183,8 @@ main (int   argc,
 
   if (sbuild_config_get_chroots(config) == NULL)
     {
-      g_printerr(_("No chroots are defined in %s\n"), SCHROOT_CONF);
+      if (options->quiet == FALSE)
+	g_printerr(_("No chroots are defined in %s\n"), SCHROOT_CONF);
       exit (EXIT_FAILURE);
     }
 
@@ -229,8 +230,6 @@ main (int   argc,
   if (options->preserve)
     sbuild_auth_set_environment(SBUILD_AUTH(session), environ);
   sbuild_session_set_force(session, options->session_force);
-  if (options->quiet && options->verbose)
-    g_printerr(_("--quiet and --verbose may not be used at the same time!\nUsing verbose output.\n"));
   SbuildAuthVerbosity verbosity = SBUILD_AUTH_VERBOSITY_NORMAL;
   if (options->quiet)
     verbosity = SBUILD_AUTH_VERBOSITY_QUIET;

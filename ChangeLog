@@ -1,3 +1,17 @@
+2005-11-03  Roger Leigh  <rleigh@debian.org>
+
+	* debian/schroot.init: Use --quiet option to suppress an
+	unnecessary error message.
+
+	* schroot/schroot.c
+	(main): If --quiet is used, don't print an error message if no
+	chroots are defined.  Remove check for --quiet and --verbose, now
+	moved to schroot_options_parse.
+
+	* schroot/schroot-options.c
+	(schroot_options_parse): Check if both --quiet and --verbose have
+	been specified.
+
 2005-11-02  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-session.c

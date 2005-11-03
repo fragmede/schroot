@@ -18,7 +18,7 @@ set -e
 function recover_sessions()
 {
     echo -n "Recovering schroot sessions... "
-    for chroot in `schroot --all-sessions --list`
+    for chroot in `schroot --all-sessions --list --quiet`
       do
       schroot --chroot=$chroot --recover-session
       echo -n "$chroot, "

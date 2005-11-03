@@ -174,6 +174,9 @@ schroot_options_parse(int   argc,
       exit (EXIT_FAILURE);
     }
 
+  if (options->quiet && options->verbose)
+    g_printerr(_("--quiet and --verbose may not be used at the same time!\nUsing verbose output.\n"));
+
   /* Ensure there's something to list. */
   if ((options->list == TRUE &&
        (options->all == FALSE && options->all_chroots == FALSE &&

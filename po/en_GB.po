@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2005-11-02 22:52+0000\n"
+"POT-Creation-Date: 2005-11-03 22:23+0000\n"
 "PO-Revision-Date: 2005-11-02 23:31+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -337,32 +337,31 @@ msgstr ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 
-#: schroot/schroot.c:186
+#: schroot/schroot.c:187
 #, c-format
 msgid "No chroots are defined in %s\n"
 msgstr "No chroots are defined in %s\n"
 
-#: schroot/schroot.c:201
+#: schroot/schroot.c:202
 #, c-format
 msgid "The specified chroots are not defined in %s\n"
 msgstr "The specified chroots are not defined in %s\n"
 
-#: schroot/schroot.c:215
+#: schroot/schroot.c:216
 msgid "Only one chroot may be specified when beginning a session\n"
 msgstr "Only one chroot may be specified when beginning a session\n"
 
-#: schroot/schroot.c:233
-msgid ""
-"--quiet and --verbose may not be used at the same time!\n"
-"Using verbose output.\n"
-msgstr ""
-"--quiet and --verbose may not be used at the same time!\n"
-"Using verbose output.\n"
-
-#: schroot/schroot.c:253
+#: schroot/schroot.c:252
 #, c-format
 msgid "Session failure: %s\n"
 msgstr "Session failure: %s\n"
+
+#~ msgid ""
+#~ "--quiet and --verbose may not be used at the same time!\n"
+#~ "Using verbose output.\n"
+#~ msgstr ""
+#~ "--quiet and --verbose may not be used at the same time!\n"
+#~ "Using verbose output.\n"
 
 #~ msgid "%s chroot: chroot setup name is unset; error in derived class\n"
 #~ msgstr "%s chroot: chroot setup name is unset; error in derived class\n"
