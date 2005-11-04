@@ -1,15 +1,21 @@
-                                                                 -*- outline -*-
-TODO
-----
+TODO                                                             -*- outline -*-
+====
 
-* Document the setup and session scripts.
-  Include all scripts and ordering.
 
-* Add examples of new chroot types to schroot.conf.
-  Use all available options.
+PENDING
+-------
 
 * Make "session" naming more consistent.
   "run-session-scripts" should be "run-scripts".
+
+* Allow direct access to the original LV of a snapshot chroot type.
+  This is possible now we are using lockdev.  Could the block-device
+  chroot be created automatically, appending "-master" or "-source" to
+  the lvm-snapshot chroot name?
+
+
+PLANNED
+-------
 
 * Add a SbuildChrootXen chroot type for Xen hosts.
 
@@ -17,10 +23,14 @@ TODO
   It will require DHCP or static IP configuration and a dynamic
   hostname in order to connect.
 
-* Allow direct access to the original LV of a snapshot chroot type.
-  This is possible now we are using lockdev.  Could the block-device
-  chroot be created automatically, appending "-master" or "-source" to
-  the lvm-snapshot chroot name?
+* Add a SbuildChrootFile chroot type for archived chroots.
+
+  Autodetect the file format (tar, tar.gz, tar.bz2, zip), and unpack
+  into a temporary location.  This type is session-based, like an LVM
+  snapshot.
+
+  Also consider an option for repacking on session-stop.  This must be
+  root-only/root-groups-only for security.
 
 
 SECURITY

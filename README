@@ -1,5 +1,5 @@
 schroot
--------
+=======
 
 Securely enter a chroot and run a command or login shell.
 
@@ -7,6 +7,8 @@ Build Dependencies
 ------------------
 libpam0g-dev
 libglib2.0-dev
+liblockdev1-dev
+libuuid-dev
 A C99 C compiler
 
 Translation

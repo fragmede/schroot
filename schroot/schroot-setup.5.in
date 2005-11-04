@@ -108,11 +108,39 @@ CHROOT_LVM_SNAPSHOT_OPTIONS
 Options to pass to
 .BR lvcreate (8).
 .SH FILES
+.SS \fI@SCHROOT_CONF_SETUP_D@\fP
+The system-wide chroot setup directory.
 .TP
-.I @SCHROOT_CONF_SETUP_D@
+.I 00check
+Print debugging diagnostics and perform basic sanity checking.
 .TP
-.I @SCHROOT_CONF_RUN_D@
-The system-wide chroot setup and run directories.
+.I 05lvm
+Create and remove LVM snapshots.
+.TP
+.I 10mount
+Mount and unmount filesystems.
+.TP
+.I 20network
+Configure networking by copying resolv.conf from the host system.
+.TP
+.I 30passwd
+Configure passwd, shadow and groups in the chroot.  This copies the files from
+the host system.
+.TP
+.I 50chrootname
+Set the chroot name (\fI/etc/debian_chroot\fP) in the chroot.  This may be used
+by the shell prompt to display the current chroot.
+.SS \fI@SCHROOT_CONF_RUN_D@\fP
+The system-wide chroot run directory.
+.TP
+.I 00check
+Print debugging diagnostics and perform basic sanity checking.
+.TP
+.I 50sbuild
+If
+.BR sbuild (1)
+is installed, set up the build directories, including ownership and
+permissions, inside the chroot for use by sbuild.
 .SH AUTHORS
 Roger Leigh.
 .SH COPYRIGHT
