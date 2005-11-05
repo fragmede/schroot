@@ -1,3 +1,11 @@
+2005-11-05  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* debian/changelog: Update.
+
+	* debian/rules (config.status): Use /usr/lib rather than
+	${prefix}/lib for libexecdir, to avoid unexpanded shell vars in
+	config.h.
+
 2005-11-05  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-session.c (is_group_member): Don't fail if the
