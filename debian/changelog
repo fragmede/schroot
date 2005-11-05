@@ -8,7 +8,7 @@ schroot (0.1.7-1) unstable; urgency=low
   * debian/schroot.init: New init script, used for session
     recovery at system startup.
 
- -- Roger Leigh <rleigh@debian.org>  Wed,  2 Nov 2005 22:37:30 +0000
+ -- Roger Leigh <rleigh@debian.org>  Fri,  4 Nov 2005 19:34:25 +0000
 
 schroot (0.1.6-1) unstable; urgency=low
 

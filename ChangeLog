@@ -1,5 +1,13 @@
 2005-11-04  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.1.7.
+
+	* debian/changelog: Update date.
+
+	* NEWS: Update.
+
+2005-11-04  Roger Leigh  <rleigh@debian.org>
+
 	* TODO: Remove completed items, and update new items.
 
 	* README: Document new build dependencies.

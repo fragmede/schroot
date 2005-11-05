@@ -22,6 +22,17 @@ configuration.
   4) Session creation, use and removal is now available for LVM
      snapshot chroots, using the options documented in schroot(1).
 
+  5) The session commands also work with non-session-based chroot
+     types (plain and block-device), but is equivalent to using the
+     chroot normally.
+
+  6) An init script is used to recover (restore) session chroots at
+     system startup.
+
+  7) If no chroot is specified, schroot will fall back to using the
+     "default" chroot.  Adding a "default" alias to an existing chroot
+     will make this chroot the default.
+
 * Major changes in 0.1.6:
 
   1) Setup scripts may be run on startup and shutdown and before and
