@@ -316,25 +316,34 @@ is_group_member (const char *group)
       exit (EXIT_FAILURE);
     }
 
-  int supp_group_count = getgroups(0, NULL);
-  if (supp_group_count < 0)
-    {
-      g_printerr(_("can't get supplementary group count: %s\n"), g_strerror(errno));
-      exit (EXIT_FAILURE);
-    }
-  gid_t supp_groups[supp_group_count];
-  if (getgroups(supp_group_count, supp_groups) < 1)
-    {
-      g_printerr(_("can't get supplementary groups: %s\n"), g_strerror(errno));
-      exit (EXIT_FAILURE);
-    }
-
   gboolean group_member = FALSE;
-
-  for (int i = 0; i < supp_group_count; ++i)
+  if (groupbuf->gr_gid == getgid())
     {
-      if (groupbuf->gr_gid == supp_groups[i])
-	group_member = TRUE;
+      group_member = TRUE;
+    }
+  else
+    {
+      int supp_group_count = getgroups(0, NULL);
+      if (supp_group_count < 0)
+	{
+	  g_printerr(_("can't get supplementary group count: %s\n"), g_strerror(errno));
+	  exit (EXIT_FAILURE);
+	}
+      if (supp_group_count > 0)
+	{
+	  gid_t supp_groups[supp_group_count];
+	  if (getgroups(supp_group_count, supp_groups) < 1)
+	    {
+	      g_printerr(_("can't get supplementary groups: %s\n"), g_strerror(errno));
+	      exit (EXIT_FAILURE);
+	    }
+
+	  for (int i = 0; i < supp_group_count; ++i)
+	    {
+	      if (groupbuf->gr_gid == supp_groups[i])
+		group_member = TRUE;
+	    }
+	}
     }
 
   return group_member;

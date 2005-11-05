@@ -1,5 +1,11 @@
 2005-11-05  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-session.c (is_group_member): Don't fail if the
+	supplementary group count is 0.  Also check the process' GID in
+	addition to the supplementary groups.
+
+2005-11-05  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Update for 0.1.8.
 
 	* NEWS: Update for 0.1.8.
