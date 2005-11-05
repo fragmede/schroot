@@ -1,11 +1,15 @@
 NEWS                                                             -*- outline -*-
 ----
 
-Welcome to schroot 0.1.7.  Please read these release notes carefully.
+Welcome to schroot 0.1.8.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 0.1.8:
+
+  Bugfixes only.
 
 * Major changes in 0.1.7:
 
