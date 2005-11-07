@@ -1,4 +1,10 @@
-2005-11-05  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2005-11-07  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Update.
+
+	* debian/schroot.init: Remove "function" bashism.
+
+2005-11-05  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Update.
 

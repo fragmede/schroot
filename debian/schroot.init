@@ -15,7 +15,7 @@ test -x $DAEMON || exit 0
 
 set -e
 
-function recover_sessions()
+recover_sessions()
 {
     echo -n "Recovering schroot sessions... "
     for chroot in `schroot --all-sessions --list --quiet`
