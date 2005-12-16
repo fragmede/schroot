@@ -22,6 +22,8 @@
 #ifndef SBUILD_LOCK_H
 #define SBUILD_LOCK_H
 
+#include <string>
+
 #include <unistd.h>
 #include <fcntl.h>
 
@@ -46,30 +48,65 @@ typedef enum
   SBUILD_LOCK_NONE      = F_UNLCK
 } SbuildLockType;
 
-gboolean
-sbuild_lock_set_lock (int              fd,
-		      SbuildLockType   lock_type,
-		      guint            timeout,
-		      GError         **error);
+namespace sbuild
+{
+  class Lock
+  {
+    virtual bool
+    set_lock (SbuildLockType   lock_type,
+	      guint            timeout,
+	      GError         **error) = 0;
 
-gboolean
-sbuild_lock_unset_lock (int      fd,
-			GError **error);
+    virtual bool
+    unset_lock (GError **error) = 0;
 
-gboolean
-sbuild_lock_set_device_lock (const gchar     *device,
-			     SbuildLockType   lock_type,
-			     guint            timeout,
-			     GError         **error);
+  protected:
+    Lock();
+    virtual ~Lock();
+  };
 
-gboolean
-sbuild_lock_unset_device_lock (const gchar  *device,
-			       GError      **error);
+  class FileLock : public Lock
+  {
+  public:
+    FileLock (int fd);
+    virtual ~FileLock();
+
+    bool
+      set_lock (SbuildLockType   lock_type,
+		guint            timeout,
+		GError         **error);
+
+    bool
+      unset_lock (GError **error);
+
+  private:
+    int fd;
+  };
+
+  class DeviceLock : public Lock
+  {
+  public:
+    DeviceLock (const std::string& device);
+    virtual ~DeviceLock();
+
+    bool
+      set_lock (SbuildLockType   lock_type,
+		guint            timeout,
+		GError         **error);
+
+    bool
+      unset_lock (GError **error);
+
+  private:
+    std::string device;
+  };
+
+}
 
 #endif /* SBUILD_LOCK_H */
 
 /*
  * Local Variables:
- * mode:C
+ * mode:C++
  * End:
  */

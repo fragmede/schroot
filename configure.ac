@@ -25,7 +25,7 @@ dnl bug-reporting address.
 AC_INIT([schroot], [0.1.8], [rleigh@debian.org])
 dnl For safety, check we are in the right directory by
 dnl checking for a known unique file.
-AC_CONFIG_SRCDIR([schroot/sbuild-session.c])
+AC_CONFIG_SRCDIR([schroot/sbuild-session.cc])
 dnl Place auxilliary scripts here.
 AC_CONFIG_AUX_DIR([scripts])
 dnl Put macro definitions here (though they aren't used).
@@ -49,8 +49,6 @@ fi
 
 # Checks for programs.
 AC_PROG_CXX
-AC_PROG_CC
-dnl AC_PROG_CC_C99
 AC_PROG_LIBTOOL
 AM_GNU_GETTEXT_VERSION([0.14.5])
 AM_GNU_GETTEXT([external])
@@ -63,8 +61,9 @@ GTK_DOC_CHECK([1.2])
 # Checks for libraries.
 PKG_CHECK_MODULES([GOBJECT], [gobject-2.0 >= 2.4.0])
 PKG_CHECK_MODULES([UUID], [uuid])
+PKG_CHECK_MODULES([SIGC], [sigc++-2.0])
 
-SCHROOT_CFLAGS="$GOBJECT_CFLAGS $UUID_CFLAGS"
+SCHROOT_CFLAGS="$GOBJECT_CFLAGS $UUID_CFLAGS $SIGC_CFLAGS"
 AC_SUBST([SCHROOT_CFLAGS])
 
 # Checks for header files (none at the moment).

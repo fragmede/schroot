@@ -22,44 +22,42 @@
 #ifndef SBUILD_SCHROOT_OPTIONS_H
 #define SBUILD_SCHROOT_OPTIONS_H
 
+#include <string>
+#include <vector>
+
 #include "sbuild-session.h"
 
-typedef struct _SchrootOptions SchrootOptions;
-
-struct _SchrootOptions
+class SchrootOptions
 {
-  char                   **chroots;
-  char                   **command;
-  char                    *user;
-  gboolean                 preserve;
-  gboolean                 quiet;
-  gboolean                 verbose;
-  gboolean                 list;
-  gboolean                 info;
-  gboolean                 all;
-  gboolean                 all_chroots;
-  gboolean                 all_sessions;
-  gboolean                 load_chroots;
-  gboolean                 load_sessions;
-  gboolean                 version;
+public:
+  typedef std::vector<std::string> string_list;
+
+  SchrootOptions(int argc,
+		 char *argv[]);
+  virtual ~SchrootOptions();
+
+  string_list              chroots;
+  string_list              command;
+  std::string              user;
+  bool                     preserve;
+  bool                     quiet;
+  bool                     verbose;
+  bool                     list;
+  bool                     info;
+  bool                     all;
+  bool                     all_chroots;
+  bool                     all_sessions;
+  bool                     load_chroots;
+  bool                     load_sessions;
+  bool                     version;
   SbuildSessionOperation   session_operation;
-  gboolean                 session_force;
+  bool                     session_force;
 };
-
-SchrootOptions *
-schroot_options_new (void);
-
-SchrootOptions *
-schroot_options_parse (int   argc,
-		       char *argv[]);
-
-void
-schroot_options_free (SchrootOptions *options);
 
 #endif /* SBUILD_SCHROOT_OPTIONS_H */
 
 /*
  * Local Variables:
- * mode:C
+ * mode:C++
  * End:
  */

@@ -22,64 +22,38 @@
 #ifndef SBUILD_AUTH_CONV_H
 #define SBUILD_AUTH_CONV_H
 
-#include <security/pam_appl.h>
+#include <sigc++/sigc++.h>
 
-#include <glib.h>
-#include <glib/gprintf.h>
-#include <glib-object.h>
+#include <security/pam_appl.h>
 
 #include "sbuild-auth-message.h"
 
-#define SBUILD_TYPE_AUTH_CONV                (sbuild_auth_conv_get_type ())
-#define SBUILD_AUTH_CONV(obj)                (G_TYPE_CHECK_INSTANCE_CAST ((obj),     SBUILD_TYPE_AUTH_CONV, SbuildAuthConv))
-#define SBUILD_IS_AUTH_CONV(obj)             (G_TYPE_CHECK_INSTANCE_TYPE ((obj),     SBUILD_TYPE_AUTH_CONV))
-#define SBUILD_AUTH_CONV_GET_INTERFACE(inst) (G_TYPE_INSTANCE_GET_INTERFACE ((inst), SBUILD_TYPE_AUTH_CONV, SbuildAuthConvInterface))
-
-typedef struct _SbuildAuthConv SbuildAuthConv;
-typedef struct _SbuildAuthConvInterface SbuildAuthConvInterface;
-
-typedef time_t (*SbuildAuthConvGetWarningTimeoutFunc)(SbuildAuthConv *auth_conv);
-typedef void (*SbuildAuthConvSetWarningTimeoutFunc)(SbuildAuthConv *auth_conv,
-						    time_t          timeout);
-typedef time_t (*SbuildAuthConvGetFatalTimeoutFunc)(SbuildAuthConv *auth_conv);
-typedef void (*SbuildAuthConvSetFatalTimeoutFunc)(SbuildAuthConv *auth_conv,
-						  time_t          timeout);
-typedef gboolean (*SbuildAuthConvConversationFunc)(SbuildAuthConv          *auth_conv,
-						   guint                    num_messages,
-						   SbuildAuthMessageVector *messages);
-
-struct _SbuildAuthConvInterface
+class SbuildAuthConv
 {
-  GTypeInterface                      parent;
-  SbuildAuthConvGetWarningTimeoutFunc get_warning_timeout;
-  SbuildAuthConvSetWarningTimeoutFunc set_warning_timeout;
-  SbuildAuthConvGetFatalTimeoutFunc   get_fatal_timeout;
-  SbuildAuthConvSetFatalTimeoutFunc   set_fatal_timeout;
-  SbuildAuthConvConversationFunc      conversation;
+public:
+  typedef std::vector<SbuildAuthMessage> message_list;
+
+  SbuildAuthConv();
+  virtual ~SbuildAuthConv();
+
+  virtual time_t get_warning_timeout () = 0;
+  virtual void set_warning_timeout (time_t timeout) = 0;
+
+  virtual time_t get_fatal_timeout () = 0;
+  virtual void set_fatal_timeout (time_t timeout) = 0;
+
+  bool conversation (message_list& messages);
+
+  sigc::signal<bool, message_list&> signal_conversation;
+
+protected:
+  virtual bool conversation_impl (std::vector<SbuildAuthMessage>& messages) = 0;
 };
-
-
-GType
-sbuild_auth_conv_get_type (void);
-
-time_t sbuild_auth_conv_get_warning_timeout (SbuildAuthConv *auth_conv);
-
-void sbuild_auth_conv_set_warning_timeout (SbuildAuthConv *auth_conv,
-					   time_t          timeout);
-
-time_t sbuild_auth_conv_get_fatal_timeout (SbuildAuthConv *auth_conv);
-
-void sbuild_auth_conv_set_fatal_timeout (SbuildAuthConv *auth_conv,
-					 time_t          timeout);
-
-gboolean sbuild_auth_conv_conversation (SbuildAuthConv          *auth_conv,
-					guint                    num_messages,
-					SbuildAuthMessageVector *messages);
 
 #endif /* SBUILD_AUTH_CONV_H */
 
 /*
  * Local Variables:
- * mode:C
+ * mode:C++
  * End:
  */

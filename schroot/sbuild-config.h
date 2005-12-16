@@ -22,6 +22,10 @@
 #ifndef SBUILD_CONFIG_H
 #define SBUILD_CONFIG_H
 
+#include <map>
+#include <vector>
+#include <string>
+
 #include <glib.h>
 #include <glib/gprintf.h>
 #include <glib-object.h>
@@ -41,79 +45,62 @@ typedef enum
 GQuark
 sbuild_config_file_error_quark (void);
 
-#define SBUILD_TYPE_CONFIG		  (sbuild_config_get_type ())
-#define SBUILD_CONFIG(obj)		  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SBUILD_TYPE_CONFIG, SbuildConfig))
-#define SBUILD_CONFIG_CLASS(klass)	  (G_TYPE_CHECK_CLASS_CAST ((klass), SBUILD_TYPE_CONFIG, SbuildConfigClass))
-#define SBUILD_IS_CONFIG(obj)	  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SBUILD_TYPE_CONFIG))
-#define SBUILD_IS_CONFIG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SBUILD_TYPE_CONFIG))
-#define SBUILD_CONFIG_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), SBUILD_TYPE_CONFIG, SbuildConfigClass))
-
-typedef struct _SbuildConfig SbuildConfig;
-typedef struct _SbuildConfigClass SbuildConfigClass;
-
-struct _SbuildConfig
+class SbuildConfig
 {
-  GObject  parent;
-  GList   *chroots;
+public:
+  typedef std::vector<std::string> string_list;
+  typedef std::vector<SbuildChroot *> chroot_list;
+  typedef std::map<std::string, std::string> string_map;
+  typedef std::map<std::string, SbuildChroot *> chroot_map;
+
+  SbuildConfig();
+  SbuildConfig(const std::string& file);
+  virtual ~SbuildConfig();
+
+  void
+  add_config_file (const std::string& file);
+
+  void
+  add_config_directory (const std::string& dir);
+
+  chroot_list
+  get_chroots () const;
+
+  const SbuildChroot *
+  find_chroot (const std::string& name) const;
+
+  const SbuildChroot *
+  find_alias (const std::string& name) const;
+
+  string_list
+  get_chroot_list () const;
+
+  void
+  print_chroot_list (FILE *file) const;
+
+  void
+  print_chroot_info (const string_list& chroots,
+		     FILE          *file) const;
+
+  string_list
+  validate_chroots(const string_list& chroots) const;
+
+private:
+  bool
+  check_security(int      fd,
+		 GError **error) const;
+
+  void
+  load (const std::string& file);
+
+  chroot_map chroots;
+  string_map aliases;
 };
-
-struct _SbuildConfigClass
-{
-  GObjectClass		     parent;
-};
-
-
-GType
-sbuild_config_get_type (void);
-
-SbuildConfig *
-sbuild_config_new (void);
-
-SbuildConfig *
-sbuild_config_new_from_file (const char *file);
-
-SbuildConfig *
-sbuild_config_new_from_directory (const char *dir);
-
-void
-sbuild_config_add_config_file (SbuildConfig *config,
-			       const char   *file);
-
-void
-sbuild_config_add_config_directory (SbuildConfig *config,
-				    const char   *dir);
-
-const GList *
-sbuild_config_get_chroots (SbuildConfig *config);
-
-SbuildChroot *
-sbuild_config_find_chroot (SbuildConfig *config,
-			   const char   *name);
-
-SbuildChroot *
-sbuild_config_find_alias (SbuildConfig *config,
-			  const char   *name);
-
-GList *
-sbuild_config_get_chroot_list (SbuildConfig *config);
-
-void
-sbuild_config_print_chroot_list (SbuildConfig *config,
-				 FILE         *file);
-
-void
-sbuild_config_print_chroot_info (SbuildConfig  *config,
-				 char         **chroots,
-				 FILE          *file);
-
-char **
-sbuild_config_validate_chroots(SbuildConfig  *config,
-			       char         **chroots);
 
 #endif /* SBUILD_CONFIG_H */
 
 /*
  * Local Variables:
- * mode:C
+ * mode:C++
  * End:
  */

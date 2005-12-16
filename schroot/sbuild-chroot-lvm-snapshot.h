@@ -24,54 +24,69 @@
 
 #include <glib.h>
 #include <glib/gprintf.h>
-#include <glib-object.h>
 
 #include "sbuild-chroot-block-device.h"
 
-#define SBUILD_TYPE_CHROOT_LVM_SNAPSHOT		  (sbuild_chroot_lvm_snapshot_get_type ())
-#define SBUILD_CHROOT_LVM_SNAPSHOT(obj)		  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SBUILD_TYPE_CHROOT_LVM_SNAPSHOT, SbuildChrootLvmSnapshot))
-#define SBUILD_CHROOT_LVM_SNAPSHOT_CLASS(klass)	  (G_TYPE_CHECK_CLASS_CAST ((klass), SBUILD_TYPE_CHROOT_LVM_SNAPSHOT, SbuildChrootLvmSnapshotClass))
-#define SBUILD_IS_CHROOT_LVM_SNAPSHOT(obj)	  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SBUILD_TYPE_CHROOT_LVM_SNAPSHOT))
-#define SBUILD_IS_CHROOT_LVM_SNAPSHOT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SBUILD_TYPE_CHROOT_LVM_SNAPSHOT))
-#define SBUILD_CHROOT_LVM_SNAPSHOT_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), SBUILD_TYPE_CHROOT_LVM_SNAPSHOT, SbuildChrootLvmSnapshotClass))
 
-typedef struct _SbuildChrootLvmSnapshot SbuildChrootLvmSnapshot;
-typedef struct _SbuildChrootLvmSnapshotClass SbuildChrootLvmSnapshotClass;
-
-struct _SbuildChrootLvmSnapshot
+class SbuildChrootLvmSnapshot : public SbuildChrootBlockDevice
 {
-  SbuildChrootBlockDevice  parent;
-  gchar                   *snapshot_device;
-  gchar                   *snapshot_options;
+public:
+  SbuildChrootLvmSnapshot();
+  SbuildChrootLvmSnapshot (GKeyFile   *keyfile,
+			   const std::string& group);
+  virtual ~SbuildChrootLvmSnapshot();
+
+  virtual SbuildChroot *
+  clone () const;
+
+  const std::string&
+  get_snapshot_device () const;
+
+  void
+  set_snapshot_device (const std::string& snapshot_device);
+
+  virtual const std::string&
+  get_mount_device () const;
+
+  const std::string&
+  get_snapshot_options () const;
+
+  void
+  set_snapshot_options (const std::string& snapshot_options);
+
+  virtual const std::string&
+  get_chroot_type () const;
+
+  virtual void
+  setup_env (env_list& env);
+
+  virtual bool
+  setup_lock (SbuildChrootSetupType   type,
+	      gboolean                lock,
+	      GError                **error);
+
+  virtual SbuildChrootSessionFlags
+  get_session_flags () const;
+
+  virtual void
+  print_details (FILE *file) const;
+
+  virtual void
+  print_config (FILE *file) const;
+
+private:
+  bool
+  setup_session_info (gboolean   start,
+		      GError   **error);
+
+  std::string snapshot_device;
+  std::string snapshot_options;
 };
-
-struct _SbuildChrootLvmSnapshotClass
-{
-  SbuildChrootBlockDeviceClass parent;
-};
-
-
-GType
-sbuild_chroot_lvm_snapshot_get_type (void);
-
-const char *
-sbuild_chroot_lvm_snapshot_get_snapshot_device (const SbuildChrootLvmSnapshot *restrict chroot);
-
-void
-sbuild_chroot_lvm_snapshot_set_snapshot_device (SbuildChrootLvmSnapshot *chroot,
-						const char              *snapshot_device);
-
-const char *
-sbuild_chroot_lvm_snapshot_get_snapshot_options (const SbuildChrootLvmSnapshot *restrict chroot);
-
-void
-sbuild_chroot_lvm_snapshot_set_snapshot_options (SbuildChrootLvmSnapshot *chroot,
-						 const char              *snapshot_options);
 
 #endif /* SBUILD_CHROOT_LVM_SNAPSHOT_H */
 
 /*
  * Local Variables:
- * mode:C
+ * mode:C++
  * End:
  */

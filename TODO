@@ -13,6 +13,20 @@ PENDING
   chroot be created automatically, appending "-master" or "-source" to
   the lvm-snapshot chroot name?
 
+* C++ transition
+
+** Remove all C/GLib type usage.
+
+** Remove all traces of GType.
+
+*** Convert GError to exceptions.
+
+** Write a C++ replacement for GKeyFile.
+
+** Enable C++ compiler warnings.
+
+** Convert inline docs into Doxygen format to replace gtk-doc.
+
 
 PLANNED
 -------
@@ -31,10 +45,3 @@ PLANNED
 
   Also consider an option for repacking on session-stop.  This must be
   root-only/root-groups-only for security.
-
-
-SECURITY
---------
-
-Should schroot be converted to C++ for security, or is glib secure
-enough?  Please get in touch if you have any thoughts.

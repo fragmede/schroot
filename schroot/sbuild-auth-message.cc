@@ -19,35 +19,33 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_AUTH_MESSAGE_H
-#define SBUILD_AUTH_MESSAGE_H
+/**
+ * SECTION:sbuild-auth-message
+ * @short_description: SbuildAuth messages
+ * @title: SbuildAuthMessage and SbuildAuthMessageVector
+ *
+ * When SbuildAuth needs to interact with the user, it does this by
+ * sending a set of #SbuildAuthMessage structures to an
+ * #SbuildAuthConv conversation object.  These messages tell the
+ * conversation object how to display the message to the user, and if
+ * necessary, whether or not to ask the user for some input.
+ */
 
-#include <string>
-#include <vector>
+#include <config.h>
 
-#include <security/pam_appl.h>
+#include "sbuild-auth-message.h"
 
-typedef enum
+SbuildAuthMessage::SbuildAuthMessage(SbuildAuthMessageType type,
+				     const std::string&    message):
+  type(type),
+  message(message),
+  response()
 {
-  SBUILD_AUTH_MESSAGE_PROMPT_NOECHO = PAM_PROMPT_ECHO_OFF,
-  SBUILD_AUTH_MESSAGE_PROMPT_ECHO = PAM_PROMPT_ECHO_ON,
-  SBUILD_AUTH_MESSAGE_ERROR = PAM_ERROR_MSG,
-  SBUILD_AUTH_MESSAGE_INFO = PAM_TEXT_INFO
-} SbuildAuthMessageType;
+}
 
-class SbuildAuthMessage
+SbuildAuthMessage::~SbuildAuthMessage()
 {
-public:
-  SbuildAuthMessage(SbuildAuthMessageType type,
-		    const std::string&    message);
-  virtual ~SbuildAuthMessage();
-
-  SbuildAuthMessageType  type;
-  std::string            message;
-  std::string            response;
-};
-
-#endif /* SBUILD_AUTH_MESSAGE_H */
+}
 
 /*
  * Local Variables:

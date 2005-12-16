@@ -1,3 +1,8 @@
+2005-12-16  Roger Leigh  <rleigh@debian.org>
+
+	* Convert all sources from GObject-based C to ISO C++.  This
+	conversion is not yet complete, but builds without error.
+
 2005-11-07  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Update.

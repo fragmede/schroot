@@ -25,8 +25,10 @@ SUBDIRS = pam run setup
 localedir = $(datadir)/locale
 pkglibexecdir = $(SCHROOT_LIBEXEC_DIR)
 
-AM_CFLAGS = -std=c99
-DEFS = -DG_LOG_DOMAIN=\"Schroot\" -DGETTEXT_PACKAGE=\"schroot\" -DLOCALEDIR=\"$(localedir)\"
+AM_CFLAGS = -std=c99 $(SCHROOT_CFLAGS)
+AM_CXXFLAGS = $(SCHROOT_CFLAGS)
+
+DEFS = -DG_LOG_DOMAIN=\"Schroot\" -DGETTEXT_PACKAGE=\"schroot\" -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
 
 bin_PROGRAMS = schroot
 pkglibexec_PROGRAMS = schroot-releaselock
@@ -43,51 +45,43 @@ schroot_public_h_sources =		\
 	sbuild-config.h			\
 	sbuild-error.h			\
 	sbuild-lock.h			\
-	sbuild-session.h
+	sbuild-session.h		\
+	sbuild-util.h
 
-schroot_public_c_sources =		\
-	sbuild-auth.c			\
-	sbuild-auth-conv.c		\
-	sbuild-auth-conv-tty.c		\
-	sbuild-auth-message.c   	\
-	sbuild-chroot.c			\
-	sbuild-chroot-block-device.c	\
-	sbuild-chroot-lvm-snapshot.c	\
-	sbuild-chroot-plain.c		\
-	sbuild-config.c			\
-	sbuild-error.c			\
-	sbuild-lock.c			\
-	sbuild-session.c
-
-schroot_built_sources =		\
-	sbuild-marshallers.c	\
-	sbuild-marshallers.h	\
-	sbuild-typebuiltins.c	\
-	sbuild-typebuiltins.h
-
-BUILT_SOURCES = $(schroot_built_sources)
+schroot_public_cc_sources =		\
+	sbuild-auth.cc			\
+	sbuild-auth-conv.cc		\
+	sbuild-auth-conv-tty.cc		\
+	sbuild-auth-message.cc		\
+	sbuild-chroot.cc		\
+	sbuild-chroot-block-device.cc	\
+	sbuild-chroot-lvm-snapshot.cc	\
+	sbuild-chroot-plain.cc		\
+	sbuild-config.cc		\
+	sbuild-error.cc			\
+	sbuild-lock.cc			\
+	sbuild-session.cc		\
+	sbuild-util.cc
 
 schroot_SOURCES =			\
 	$(schroot_public_h_sources)	\
-	$(schroot_public_c_sources)	\
-	$(schroot_built_sources)	\
+	$(schroot_public_cc_sources)	\
 	schroot-options.h		\
-	schroot-options.c		\
+	schroot-options.cc		\
 	schroot.h			\
-	schroot.c
+	schroot.cc
 
-schroot_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
-schroot_LDADD = $(GOBJECT_LIBS) $(UUID_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(LIBINTL)
+schroot_LDADD = $(GOBJECT_LIBS) $(UUID_LIBS) $(SIGC_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(LIBINTL)
 
-if ENABLE_GTK_DOC
-noinst_LTLIBRARIES = libschroot.la
-libschroot_la_SOURCES = $(schroot_SOURCES)
-libschroot_la_CFLAGS = $(schroot_CFLAGS)
-libschroot_la_LIBADD = $(schroot_LDADD)
-endif
+#if ENABLE_GTK_DOC
+#noinst_LTLIBRARIES = libschroot.la
+#libschroot_la_SOURCES = $(schroot_SOURCES)
+#libschroot_la_CFLAGS = $(schroot_CFLAGS)
+#libschroot_la_LIBADD = $(schroot_LDADD)
+#endif
 
 schroot_releaselock_SOURCES = \
-	schroot-releaselock.c
+	schroot-releaselock.cc
 schroot_releaselock_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
 schroot_releaselock_LDADD = $(GOBJECT_LIBS) $(LOCKDEV_LIBS) $(LIBINTL)
 
@@ -96,38 +90,8 @@ pkgsysconf_DATA = schroot.conf
 
 man_MANS = schroot.1 schroot-setup.5 schroot.conf.5
 
-sbuild-marshallers.c : sbuild-marshallers.list $(GLIB_GENMARSHAL)
-	$(GLIB_GENMARSHAL) $< --body --prefix=sbuild_cclosure_marshal > $@.tmp
-	echo '/* This file has been automatically generated.  Do not edit.  */' >$@
-	echo '#include "'$*.h'"' >>$@
-	cat $@.tmp >>$@
-	rm -f $@.tmp
-
-sbuild-marshallers.h : sbuild-marshallers.list $(GLIB_GENMARSHAL)
-	$(GLIB_GENMARSHAL) $< --header --prefix=sbuild_cclosure_marshal > $@
-
-$(srcdir)/sbuild-typebuiltins.c: $(schroot_public_h_sources) $(typebuiltins_extra_deps) $(GLIB_MKENUMS)
-	( cd $(srcdir) && $(GLIB_MKENUMS) \
-		--fhead "#include \"schroot.h\"" \
-		--fprod "\n/* enumerations from \"@filename@\" */" \
-		--vhead "GType\n@enum_name@_get_type (void)\n{\n  static GType etype = 0;\n  if (etype == 0) {\n    static const G@Type@Value values[] = {" \
-		--vprod "      { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
-		--vtail "      { 0, NULL, NULL }\n    };\n    etype = g_@type@_register_static (\"@EnumName@\", values);\n  }\n  return etype;\n}\n" \
-		$(schroot_public_h_sources) ) > $@
-
-$(srcdir)/sbuild-typebuiltins.h: $(schroot_public_h_sources) $(typebuiltins_extra_deps) $(GLIB_MKENUMS)
-	( cd $(srcdir) && $(GLIB_MKENUMS) \
-		--fhead "#ifndef SBUILD_TYPE_BUILTINS_H\n#define SBUILD_TYPE_BUILTINS_H\n\n#include <glib-object.h>\n\nG_BEGIN_DECLS\n" \
-		--fprod "/* enumerations from \"@filename@\" */\n" \
-		--vhead "GType @enum_name@_get_type (void);\n#define SBUILD_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n" \
-		--ftail "G_END_DECLS\n\n#endif /* SBUILD_TYPE_BUILTINS_H */" \
-		$(schroot_public_h_sources) ) > $@
-
-
 EXTRA_DIST =				\
-	$(pkgsysconf_DATA)		\
-	$(schroot_built_sources)	\
-	sbuild-marshallers.list
+	$(pkgsysconf_DATA)
 
 install-exec-hook:
 # Install setuid root.

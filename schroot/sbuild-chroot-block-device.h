@@ -24,56 +24,65 @@
 
 #include <glib.h>
 #include <glib/gprintf.h>
-#include <glib-object.h>
 
 #include "sbuild-chroot.h"
 
-#define SBUILD_TYPE_CHROOT_BLOCK_DEVICE		  (sbuild_chroot_block_device_get_type ())
-#define SBUILD_CHROOT_BLOCK_DEVICE(obj)		  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SBUILD_TYPE_CHROOT_BLOCK_DEVICE, SbuildChrootBlockDevice))
-#define SBUILD_CHROOT_BLOCK_DEVICE_CLASS(klass)	  (G_TYPE_CHECK_CLASS_CAST ((klass), SBUILD_TYPE_CHROOT_BLOCK_DEVICE, SbuildChrootBlockDeviceClass))
-#define SBUILD_IS_CHROOT_BLOCK_DEVICE(obj)	  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SBUILD_TYPE_CHROOT_BLOCK_DEVICE))
-#define SBUILD_IS_CHROOT_BLOCK_DEVICE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SBUILD_TYPE_CHROOT_BLOCK_DEVICE))
-#define SBUILD_CHROOT_BLOCK_DEVICE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), SBUILD_TYPE_CHROOT_BLOCK_DEVICE, SbuildChrootBlockDeviceClass))
-
-typedef struct _SbuildChrootBlockDevice SbuildChrootBlockDevice;
-typedef struct _SbuildChrootBlockDeviceClass SbuildChrootBlockDeviceClass;
-
-struct _SbuildChrootBlockDevice
+class SbuildChrootBlockDevice : public SbuildChroot
 {
-  SbuildChroot  parent;
-  gchar        *device;
-  gchar        *mount_options;
+public:
+  SbuildChrootBlockDevice();
+  SbuildChrootBlockDevice (GKeyFile   *keyfile,
+			   const std::string& group);
+  virtual ~SbuildChrootBlockDevice();
+
+  virtual SbuildChroot *
+  clone () const;
+
+  const std::string&
+  get_device () const;
+
+  void
+  set_device (const std::string& device);
+
+  virtual const std::string&
+  get_mount_device () const;
+
+  const std::string&
+  get_mount_options () const;
+
+  void
+  set_mount_options (const std::string& device);
+
+  virtual const std::string&
+  get_chroot_type () const;
+
+  virtual void
+  setup_env (env_list& env);
+
+  virtual bool
+  setup_lock (SbuildChrootSetupType   type,
+	      gboolean                lock,
+	      GError                **error);
+
+  virtual SbuildChrootSessionFlags
+  get_session_flags () const;
+
+  virtual void
+  print_details (FILE *file) const;
+
+  virtual void
+  print_config (FILE *file) const;
+
+private:
+  std::string device;
+  std::string mount_options;
 };
 
-struct _SbuildChrootBlockDeviceClass
-{
-  SbuildChrootClass parent;
-};
-
-
-GType
-sbuild_chroot_block_device_get_type (void);
-
-const char *
-sbuild_chroot_block_device_get_device (const SbuildChrootBlockDevice *restrict chroot);
-
-void
-sbuild_chroot_block_device_set_device (SbuildChrootBlockDevice *chroot,
-				       const char              *device);
-
-const char *
-sbuild_chroot_block_device_get_mount_options
-(const SbuildChrootBlockDevice *restrict chroot);
-
-void
-sbuild_chroot_block_device_set_mount_options
-(SbuildChrootBlockDevice *chroot,
- const char              *device);
 
 #endif /* SBUILD_CHROOT_BLOCK_DEVICE_H */
 
 /*
  * Local Variables:
- * mode:C
+ * mode:C++
  * End:
  */

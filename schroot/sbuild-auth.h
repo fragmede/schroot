@@ -22,18 +22,23 @@
 #ifndef SBUILD_AUTH_H
 #define SBUILD_AUTH_H
 
+#include <string>
+#include <vector>
+#include <tr1/memory>
+
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <grp.h>
 #include <pwd.h>
 #include <unistd.h>
 
+#include <sigc++/sigc++.h>
+
 #include <security/pam_appl.h>
 #include <security/pam_misc.h>
 
 #include <glib.h>
 #include <glib/gprintf.h>
-#include <glib-object.h>
 
 #include "sbuild-auth-conv.h"
 #include "sbuild-auth-conv-tty.h"
@@ -73,177 +78,156 @@ typedef enum
   SBUILD_AUTH_VERBOSITY_VERBOSE
 } SbuildAuthVerbosity;
 
-#define SBUILD_TYPE_AUTH		  (sbuild_auth_get_type ())
-#define SBUILD_AUTH(obj)		  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SBUILD_TYPE_AUTH, SbuildAuth))
-#define SBUILD_AUTH_CLASS(klass)	  (G_TYPE_CHECK_CLASS_CAST ((klass), SBUILD_TYPE_AUTH, SbuildAuthClass))
-#define SBUILD_IS_AUTH(obj)	  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SBUILD_TYPE_AUTH))
-#define SBUILD_IS_AUTH_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SBUILD_TYPE_AUTH))
-#define SBUILD_AUTH_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), SBUILD_TYPE_AUTH, SbuildAuthClass))
 
-typedef struct _SbuildAuth SbuildAuth;
-typedef struct _SbuildAuthClass SbuildAuthClass;
-
-typedef SbuildAuthStatus (*SbuildAuthRequireAuthFunc)(SbuildAuth *auth);
-typedef gboolean (*SbuildAuthSessionRunFunc)(SbuildAuth *auth, GError **error);
-
-struct _SbuildAuth
+class SbuildAuth
 {
-  GObject             parent;
-  gchar              *service;
-  uid_t               uid;
-  gid_t               gid;
-  gchar              *user;
-  gchar             **command;
-  gchar              *home;
-  gchar              *shell;
-  gchar             **environment;
-  uid_t               ruid;
-  gchar              *ruser;
-  SbuildAuthConv     *conv;
-  pam_handle_t       *pam;
+public:
+  typedef std::vector<std::string> string_list;
+  typedef std::pair<std::string,std::string> env;
+  typedef std::vector<env> env_list;
+
+  SbuildAuth(const std::string& service_name);
+  virtual ~SbuildAuth();
+
+  const std::string&
+  get_service () const;
+
+  uid_t
+  get_uid () const;
+
+  gid_t
+  get_gid () const;
+
+  const std::string&
+  get_user () const;
+
+  void
+  set_user (const std::string& user);
+
+  const string_list&
+  get_command () const;
+
+  void
+  set_command (const string_list& command);
+
+  const std::string&
+  get_home () const;
+
+  const std::string&
+  get_shell () const;
+
+  const env_list&
+  get_environment () const;
+
+  void
+  set_environment (char **environment);
+
+  void
+  set_environment (const env_list& environment);
+
+  env_list
+  get_pam_environment () const;
+
+  uid_t
+  get_ruid () const;
+
+  const std::string&
+  get_ruser () const;
+
+  SbuildAuthVerbosity
+  get_verbosity () const;
+
+  void
+  set_verbosity (SbuildAuthVerbosity  verbosity);
+
+  std::tr1::shared_ptr<SbuildAuthConv>&
+  get_conv ();
+
+  void
+  set_conv (std::tr1::shared_ptr<SbuildAuthConv>& conv);
+
+  gboolean
+  run (GError     **error);
+
+  gboolean
+  start (GError     **error);
+
+  gboolean
+  stop (GError     **error);
+
+  gboolean
+  authenticate (GError     **error);
+
+  gboolean
+  setupenv (GError     **error);
+
+  gboolean
+  account (GError     **error);
+
+  gboolean
+  cred_establish (GError     **error);
+
+  gboolean
+  cred_delete (GError     **error);
+
+  gboolean
+  open_session (GError     **error);
+
+  gboolean
+  close_session (GError     **error);
+
+protected:
+  virtual SbuildAuthStatus
+  get_auth_status () const;
+
+  virtual bool
+  run_impl (GError **error) = 0;
+
+public:
+  /**
+   * change_auth:
+   * @oldauth: the current authentication status
+   * @newauth: the new authentication status
+   *
+   * Set new authentication status.  If @newauth > @oldauth, @newauth is
+   * returned, otherwise @oldauth is returned.  This is to ensure the
+   * authentication status can never be decreased.
+   *
+   * Returns the new authentication status.
+   */
+  SbuildAuthStatus
+  change_auth (SbuildAuthStatus oldauth,
+	       SbuildAuthStatus newauth) const
+  {
+    /* Ensure auth level always escalates. */
+    if (newauth > oldauth)
+      return newauth;
+    else
+      return oldauth;
+  }
+
+protected:
+  pam_handle_t        *pam;
+
+private:
+  const std::string    service;
+  uid_t                uid;
+  gid_t                gid;
+  std::string          user;
+  string_list          command;
+  std::string          home;
+  std::string          shell;
+  env_list             environment;
+  uid_t                ruid;
+  std::string          ruser;
+  std::tr1::shared_ptr<SbuildAuthConv> conv;
   SbuildAuthVerbosity verbosity;
 };
-
-struct _SbuildAuthClass
-{
-  GObjectClass              parent;
-  SbuildAuthRequireAuthFunc require_auth;
-  SbuildAuthSessionRunFunc  session_run;
-};
-
-
-GType
-sbuild_auth_get_type (void);
-
-SbuildAuth *
-sbuild_auth_new (void);
-
-const gchar *
-sbuild_auth_get_service (const SbuildAuth *restrict auth);
-
-uid_t
-sbuild_auth_get_uid (const SbuildAuth *restrict auth);
-
-gid_t
-sbuild_auth_get_gid (const SbuildAuth *restrict auth);
-
-const char *
-sbuild_auth_get_user (const SbuildAuth *restrict auth);
-
-void
-sbuild_auth_set_user (SbuildAuth *auth,
-		      const char *user);
-
-char **
-sbuild_auth_get_command (const SbuildAuth *restrict auth);
-
-void
-sbuild_auth_set_command (SbuildAuth  *auth,
-			 char       **command);
-
-const char *
-sbuild_auth_get_home (const SbuildAuth *restrict auth);
-
-const char *
-sbuild_auth_get_shell (const SbuildAuth *restrict auth);
-
-char **
-sbuild_auth_get_environment (const SbuildAuth *restrict auth);
-
-void
-sbuild_auth_set_environment (SbuildAuth  *auth,
-			     char       **environment);
-
-char **
-sbuild_auth_get_pam_environment (const SbuildAuth *restrict auth);
-
-uid_t
-sbuild_auth_get_ruid (const SbuildAuth *restrict auth);
-
-const char *
-sbuild_auth_get_ruser (const SbuildAuth *restrict auth);
-
-SbuildAuthVerbosity
-sbuild_auth_get_verbosity (const SbuildAuth *restrict auth);
-
-void
-sbuild_auth_set_verbosity (SbuildAuth          *auth,
-			   SbuildAuthVerbosity  verbosity);
-
-SbuildAuthConv *
-sbuild_auth_get_conv (const SbuildAuth *restrict auth);
-
-void
-sbuild_auth_set_conv (SbuildAuth     *auth,
-		      SbuildAuthConv *conv);
-
-
-gboolean
-sbuild_auth_run (SbuildAuth  *auth,
-		 GError     **error);
-
-gboolean
-sbuild_auth_start (SbuildAuth  *auth,
-		   GError     **error);
-
-gboolean
-sbuild_auth_stop (SbuildAuth  *auth,
-		  GError     **error);
-
-gboolean
-sbuild_auth_authenticate (SbuildAuth  *auth,
-			  GError     **error);
-
-gboolean
-sbuild_auth_setupenv (SbuildAuth  *auth,
-		      GError     **error);
-
-gboolean
-sbuild_auth_account (SbuildAuth  *auth,
-		     GError     **error);
-
-gboolean
-sbuild_auth_cred_establish (SbuildAuth  *auth,
-			    GError     **error);
-
-gboolean
-sbuild_auth_cred_delete (SbuildAuth  *auth,
-			 GError     **error);
-
-gboolean
-sbuild_auth_open_session (SbuildAuth  *auth,
-			  GError     **error);
-
-gboolean
-sbuild_auth_close_session (SbuildAuth  *auth,
-			   GError     **error);
-
-/**
- * sbuild_auth_change_auth:
- * @oldauth: the current authentication status
- * @newauth: the new authentication status
- *
- * Set new authentication status.  If @newauth > @oldauth, @newauth is
- * returned, otherwise @oldauth is returned.  This is to ensure the
- * authentication status can never be decreased.
- *
- * Returns the new authentication status.
- */
-static inline SbuildAuthStatus
-sbuild_auth_change_auth (SbuildAuthStatus oldauth,
-			 SbuildAuthStatus newauth)
-{
-  /* Ensure auth level always escalates. */
-  if (newauth > oldauth)
-    return newauth;
-  else
-    return oldauth;
-}
 
 #endif /* SBUILD_AUTH_H */
 
 /*
  * Local Variables:
- * mode:C
+ * mode:C++
  * End:
  */

@@ -28,29 +28,37 @@
 #include <pwd.h>
 #include <unistd.h>
 
+#include <sigc++/sigc++.h>
+
 #include <security/pam_appl.h>
 #include <security/pam_misc.h>
 
 #include <glib.h>
 #include <glib/gprintf.h>
-#include <glib-object.h>
 
 #include "sbuild-auth-conv.h"
 #include "sbuild-config.h"
 
-#define SBUILD_TYPE_AUTH_CONV_TTY            (sbuild_auth_conv_tty_get_type ())
-#define SBUILD_AUTH_CONV_TTY(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SBUILD_TYPE_AUTH_CONV_TTY, SbuildAuthConvTty))
-#define SBUILD_AUTH_CONV_TTY_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass),  SBUILD_TYPE_AUTH_CONV_TTY, SbuildAuthConvTtyClass))
-#define SBUILD_IS_AUTH_CONV_TTY(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SBUILD_TYPE_AUTH_CONV_TTY))
-#define SBUILD_IS_AUTH_CONV_TTY_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  SBUILD_TYPE_AUTH_CONV_TTY))
-#define SBUILD_AUTH_CONV_TTY_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  SBUILD_TYPE_AUTH_CONV_TTY, SbuildAuthConvTtyClass))
-
-typedef struct _SbuildAuthConvTty SbuildAuthConvTty;
-typedef struct _SbuildAuthConvTtyClass SbuildAuthConvTtyClass;
-
-struct _SbuildAuthConvTty
+class SbuildAuthConvTty : public SbuildAuthConv, sigc::trackable
 {
-  GObject parent;
+public:
+  SbuildAuthConvTty();
+  virtual ~SbuildAuthConvTty();
+
+  virtual time_t get_warning_timeout ();
+  virtual void set_warning_timeout (time_t timeout);
+
+  virtual time_t get_fatal_timeout ();
+  virtual void set_fatal_timeout (time_t timeout);
+
+protected:
+  virtual bool conversation_impl (std::vector<SbuildAuthMessage>& messages);
+
+private:
+  int get_delay ();
+  std::string * read_string (std::string message,
+			     bool        echo);
+
   time_t  warning_timeout;
   time_t  fatal_timeout;
   time_t  start_time;
@@ -61,17 +69,10 @@ struct _SbuildAuthConvTtyClass
   GObjectClass parent;
 };
 
-
-GType
-sbuild_auth_conv_tty_get_type (void);
-
-SbuildAuthConvTty *
-sbuild_auth_conv_tty_new (void);
-
 #endif /* SBUILD_AUTH_CONV_TTY_H */
 
 /*
  * Local Variables:
- * mode:C
+ * mode:C++
  * End:
  */

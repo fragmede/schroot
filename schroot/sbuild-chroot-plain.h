@@ -24,46 +24,57 @@
 
 #include <glib.h>
 #include <glib/gprintf.h>
-#include <glib-object.h>
 
 #include "sbuild-chroot.h"
 
-#define SBUILD_TYPE_CHROOT_PLAIN		  (sbuild_chroot_plain_get_type ())
-#define SBUILD_CHROOT_PLAIN(obj)		  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SBUILD_TYPE_CHROOT_PLAIN, SbuildChrootPlain))
-#define SBUILD_CHROOT_PLAIN_CLASS(klass)	  (G_TYPE_CHECK_CLASS_CAST ((klass), SBUILD_TYPE_CHROOT_PLAIN, SbuildChrootPlainClass))
-#define SBUILD_IS_CHROOT_PLAIN(obj)	  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SBUILD_TYPE_CHROOT_PLAIN))
-#define SBUILD_IS_CHROOT_PLAIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SBUILD_TYPE_CHROOT_PLAIN))
-#define SBUILD_CHROOT_PLAIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), SBUILD_TYPE_CHROOT_PLAIN, SbuildChrootPlainClass))
-
-typedef struct _SbuildChrootPlain SbuildChrootPlain;
-typedef struct _SbuildChrootPlainClass SbuildChrootPlainClass;
-
-struct _SbuildChrootPlain
+class SbuildChrootPlain : public SbuildChroot
 {
-  SbuildChroot  parent;
-  gchar        *location;
+public:
+  SbuildChrootPlain();
+  SbuildChrootPlain (GKeyFile   *keyfile,
+		     const std::string& group);
+  virtual ~SbuildChrootPlain();
+
+  virtual SbuildChroot *
+  clone () const;
+
+  const std::string&
+  get_location () const;
+
+  void
+  set_location (const std::string& location);
+
+  virtual const std::string&
+  get_mount_location () const;
+
+  virtual const std::string&
+  get_chroot_type () const;
+
+  virtual void
+  setup_env (env_list& env);
+
+  virtual bool
+  setup_lock (SbuildChrootSetupType   type,
+	      gboolean                lock,
+	      GError                **error);
+
+  virtual SbuildChrootSessionFlags
+  get_session_flags () const;
+
+  virtual void
+  print_details (FILE *file) const;
+
+  virtual void
+  print_config (FILE *file) const;
+
+private:
+  std::string location;
 };
-
-struct _SbuildChrootPlainClass
-{
-  SbuildChrootClass parent;
-};
-
-
-GType
-sbuild_chroot_plain_get_type (void);
-
-const char *
-sbuild_chroot_plain_get_location (const SbuildChrootPlain *restrict chroot);
-
-void
-sbuild_chroot_plain_set_location (SbuildChrootPlain *chroot,
-				  const char   *location);
 
 #endif /* SBUILD_CHROOT_PLAIN_H */
 
 /*
  * Local Variables:
- * mode:C
+ * mode:C++
  * End:
  */

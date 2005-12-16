@@ -21,7 +21,6 @@
 
 #include <config.h>
 
-#define _GNU_SOURCE
 #include <errno.h>
 #include <locale.h>
 #include <stdlib.h>
@@ -36,22 +35,18 @@
 #include <glib/gprintf.h>
 #include <glib/gi18n.h>
 
-static gboolean
-parse_session_options(const gchar  *option_name,
-		      const gchar  *value,
-		      gpointer      data,
-		      GError      **error);
-
 /* Stored command-line options. */
-static struct {
-  char     *device;
-  gint      pid;
-  gboolean  version;
-} opt =
+struct options {
+  char *device;
+  int   pid;
+  bool  version;
+};
+
+options opt =
   {
-    .device = NULL,
-    .pid = 0,
-    .version = FALSE
+    NULL,
+    0,
+    FALSE
   };
 
 /**
@@ -197,3 +192,9 @@ main (int   argc,
 
   exit (EXIT_SUCCESS);
 }
+
+/*
+ * Local Variables:
+ * mode:C++
+ * End:
+ */

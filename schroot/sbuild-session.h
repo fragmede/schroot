@@ -22,6 +22,9 @@
 #ifndef SBUILD_SESSION_H
 #define SBUILD_SESSION_H
 
+#include <string>
+#include <tr1/memory>
+
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <grp.h>
@@ -30,7 +33,6 @@
 
 #include <glib.h>
 #include <glib/gprintf.h>
-#include <glib-object.h>
 
 #include "sbuild-auth.h"
 #include "sbuild-config.h"
@@ -57,84 +59,89 @@ typedef enum
 GQuark
 sbuild_session_error_quark (void);
 
-#define SBUILD_TYPE_SESSION		  (sbuild_session_get_type ())
-#define SBUILD_SESSION(obj)		  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SBUILD_TYPE_SESSION, SbuildSession))
-#define SBUILD_SESSION_CLASS(klass)	  (G_TYPE_CHECK_CLASS_CAST ((klass), SBUILD_TYPE_SESSION, SbuildSessionClass))
-#define SBUILD_IS_SESSION(obj)	  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SBUILD_TYPE_SESSION))
-#define SBUILD_IS_SESSION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SBUILD_TYPE_SESSION))
-#define SBUILD_SESSION_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), SBUILD_TYPE_SESSION, SbuildSessionClass))
-
-typedef struct _SbuildSession SbuildSession;
-typedef struct _SbuildSessionClass SbuildSessionClass;
-
-struct _SbuildSession
+class SbuildSession : public SbuildAuth
 {
-  SbuildAuth               parent;
-  SbuildConfig            *config;
-  gchar                  **chroots;
-  int                      child_status;
-  SbuildSessionOperation   operation;
-  gchar                   *session_id;
-  gboolean                 force;
+public:
+  SbuildSession (const std::string&                  service,
+		 std::tr1::shared_ptr<SbuildConfig>& config,
+		 SbuildSessionOperation              operation,
+		 string_list                         chroots);
+  virtual ~SbuildSession();
+
+  std::tr1::shared_ptr<SbuildConfig>&
+  get_config ();
+
+  void
+  set_config (std::tr1::shared_ptr<SbuildConfig>&);
+
+  const string_list&
+  get_chroots () const;
+
+  void
+  set_chroots (const string_list& chroots);
+
+  SbuildSessionOperation
+  get_operation () const;
+
+  void
+  set_operation (SbuildSessionOperation  operation);
+
+  const std::string&
+  get_session_id () const;
+
+  void
+  set_session_id (const std::string& session_id);
+
+  bool
+  get_force () const;
+
+  void
+  set_force (bool force);
+
+  int
+  get_child_status () const;
+
+  virtual SbuildAuthStatus
+  get_auth_status () const;
+
+  virtual bool
+  run_impl (GError **error);
+
+private:
+  int
+  exec (const std::string& file,
+	const string_list& command,
+	const env_list& env);
+
+
+  bool
+  setup_chroot (SbuildChroot&           session_chroot,
+		SbuildChrootSetupType   setup_type,
+		GError                **error);
+
+  bool
+  run_chroot (SbuildChroot&   session_chroot,
+	      GError        **error);
+
+  void
+  run_child (SbuildChroot& session_chroot);
+
+  bool
+  wait_for_child (int      pid,
+		  GError **error);
+
+  std::tr1::shared_ptr<SbuildConfig> config;
+  string_list                        chroots;
+  int                                child_status;
+  SbuildSessionOperation             operation;
+  std::string                        session_id;
+  bool                               force;
 };
-
-struct _SbuildSessionClass
-{
-  SbuildAuthClass parent;
-};
-
-
-GType
-sbuild_session_get_type (void);
-
-SbuildSession *
-sbuild_session_new(const char              *service,
-		   SbuildConfig            *config,
-		   SbuildSessionOperation  operation,
-		   char                   **chroots);
-
-SbuildConfig *
-sbuild_session_get_config (const SbuildSession *restrict session);
-
-void
-sbuild_session_set_config (SbuildSession *session,
-			   SbuildConfig  *config);
-
-char **
-sbuild_session_get_chroots (const SbuildSession *restrict session);
-
-void
-sbuild_session_set_chroots (SbuildSession  *session,
-			    char         **chroots);
-
-SbuildSessionOperation
-sbuild_session_get_operation (const SbuildSession  *restrict session);
-
-void
-sbuild_session_set_operation (SbuildSession          *session,
-			      SbuildSessionOperation  operation);
-
-gchar *
-sbuild_session_get_session_id (const SbuildSession  *restrict session);
-
-void
-sbuild_session_set_session_id (SbuildSession  *session,
-			       const gchar    *session_id);
-
-gboolean
-sbuild_session_get_force (const SbuildSession *restrict session);
-
-void
-sbuild_session_set_force (SbuildSession *session,
-			  gboolean       force);
-
-int
-sbuild_session_get_child_status (SbuildSession *session);
 
 #endif /* SBUILD_SESSION_H */
 
 /*
  * Local Variables:
- * mode:C
+ * mode:C++
  * End:
  */
