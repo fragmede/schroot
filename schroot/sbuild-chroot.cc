@@ -42,6 +42,7 @@
 #include <glib/gi18n.h>
 
 #include "sbuild-chroot.h"
+#include "sbuild-keyfile.h"
 
 /**
  * sbuild_chroot_error_quark:
@@ -554,6 +555,37 @@ void
 SbuildChroot::read_keyfile (GKeyFile   *keyfile,
 			    const std::string& group)
 {
+  bool active;
+  if (keyfile_read_bool(keyfile, group, "active", active))
+    set_active(active);
+
+  bool run_setup_scripts;
+  if (keyfile_read_bool(keyfile, group, "run-setup-scripts", run_setup_scripts))
+    set_run_setup_scripts(run_setup_scripts);
+
+  bool run_session_scripts;
+  if (keyfile_read_bool(keyfile, group, "run-session-scripts", run_session_scripts))
+    set_run_session_scripts(run_session_scripts);
+
+  string_list aliases;
+  if (keyfile_read_string_list(keyfile, group, "aliases", aliases))
+    set_aliases(aliases);
+
+  std::string description;
+  if (keyfile_read_string(keyfile, group, "description", description))
+    set_description(description);
+
+  std::string name;
+  if (keyfile_read_string(keyfile, group, "name", name))
+    set_name(name);
+
+  string_list groups;
+  if (keyfile_read_string_list(keyfile, group, "groups", groups))
+    set_groups(groups);
+
+  string_list root_groups;
+  if (keyfile_read_string_list(keyfile, group, "root-groups", root_groups))
+    set_root_groups(root_groups);
 }
 
 /*

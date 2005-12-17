@@ -71,9 +71,6 @@ public:
   virtual SbuildChroot *
   clone () const = 0;
 
-  gboolean
-  set_properties_from_keyfile (GKeyFile *keyfile);
-
   const std::string&
   get_name () const;
 
@@ -184,7 +181,7 @@ public:
   print_config (FILE *file) const;
 
 protected:
-  virtual void
+  void
   read_keyfile (GKeyFile   *keyfile,
 		const std::string& group);
 

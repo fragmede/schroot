@@ -1,3 +1,22 @@
+2005-12-17  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-config.cc (load): Add GKeyFile error checking.
+
+	* schroot/sbuild-chroot-lvm-snapshot.cc (read_keyfile): New
+	private method to read a GKeyFile.
+
+	* schroot/sbuild-chroot-block-device.cc (read_keyfile): New
+	private method to read a GKeyFile.
+
+	* schroot/sbuild-chroot-plain.cc (read_keyfile): New private
+	method to read a GKeyFile.
+
+	* schroot/sbuild-chroot.cc (read_keyfile): New private method to
+	read a GKeyFile.
+
+	* schroot/sbuild-keyfile.h: New file.  Simple wrapper funtions for
+	interfacing with GKeyFile.
+
 2005-12-16  Roger Leigh  <rleigh@debian.org>
 
 	* Convert all sources from GObject-based C to ISO C++.  This

@@ -68,6 +68,10 @@ public:
   print_config (FILE *file) const;
 
 private:
+  void
+  read_keyfile (GKeyFile   *keyfile,
+		const std::string& group);
+
   std::string location;
 };
 

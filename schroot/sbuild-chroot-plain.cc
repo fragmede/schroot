@@ -39,6 +39,7 @@
 #include <glib/gi18n.h>
 
 #include "sbuild-chroot-plain.h"
+#include "sbuild-keyfile.h"
 
 SbuildChrootPlain::SbuildChrootPlain():
   SbuildChroot(),
@@ -145,6 +146,16 @@ SbuildChrootPlain::print_config (FILE *file) const
 
   g_fprintf(file, _("location=%s\n"), this->location.c_str());
 }
+
+void
+SbuildChrootPlain::read_keyfile (GKeyFile   *keyfile,
+				 const std::string& group)
+{
+  std::string location;
+  if (keyfile_read_string(keyfile, group, "location", location))
+    set_location(location);
+}
+
 
 /*
  * Local Variables:

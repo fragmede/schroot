@@ -40,6 +40,7 @@
 #include <glib/gi18n.h>
 
 #include "sbuild-chroot-lvm-snapshot.h"
+#include "sbuild-keyfile.h"
 #include "sbuild-lock.h"
 #include "sbuild-util.h"
 
@@ -56,6 +57,7 @@ SbuildChrootLvmSnapshot::SbuildChrootLvmSnapshot (GKeyFile   *keyfile,
   snapshot_device(),
   snapshot_options()
 {
+  read_keyfile(keyfile, group);
 }
 
 SbuildChrootLvmSnapshot::~SbuildChrootLvmSnapshot()
@@ -373,6 +375,19 @@ SbuildChrootLvmSnapshot::print_config (FILE *file) const
     g_fprintf(file, _("lvm-snapshot-device=%s\n"), this->snapshot_device.c_str());
   if (!this->snapshot_options.empty())
     g_fprintf(file, _("lvm-snapshot-options=%s\n"), this->snapshot_options.c_str());
+}
+
+void
+SbuildChrootLvmSnapshot::read_keyfile (GKeyFile   *keyfile,
+				       const std::string& group)
+{
+  std::string snapshot_device;
+  if (keyfile_read_string(keyfile, group, "lvm-snapshot-device", snapshot_device))
+    set_snapshot_device(snapshot_device);
+
+  std::string snapshot_options;
+  if (keyfile_read_string(keyfile, group, "lvm-snapshot-options", snapshot_options))
+    set_snapshot_options(snapshot_options);
 }
 
 /*

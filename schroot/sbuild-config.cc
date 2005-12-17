@@ -464,8 +464,16 @@ SbuildConfig::load (const std::string& file)
   for (guint i=0; groups[i] != NULL; ++i)
     {
       /* TODO: Can't cope with error.  Replace ASAP. */
-      std::string type =
-	g_key_file_get_string(keyfile, groups[i], "type", 0);
+      std::string type;
+      {
+	GError *error = 0;
+	char *str = g_key_file_get_string(keyfile, groups[i], "type", &error);
+	if (error)
+	  type = "";
+	else
+	  type = str;
+	g_free(str);
+      }
       SbuildChroot *chroot = 0;
       if (type == "plain")
 	chroot = new SbuildChrootPlain(keyfile, groups[i]);

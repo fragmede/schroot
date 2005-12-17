@@ -44,6 +44,7 @@ schroot_public_h_sources =		\
 	sbuild-chroot-plain.h		\
 	sbuild-config.h			\
 	sbuild-error.h			\
+	sbuild-keyfile.h		\
 	sbuild-lock.h			\
 	sbuild-session.h		\
 	sbuild-util.h

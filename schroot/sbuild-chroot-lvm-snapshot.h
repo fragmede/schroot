@@ -75,6 +75,10 @@ public:
   print_config (FILE *file) const;
 
 private:
+  void
+  read_keyfile (GKeyFile   *keyfile,
+		const std::string& group);
+
   bool
   setup_session_info (gboolean   start,
 		      GError   **error);

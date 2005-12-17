@@ -41,6 +41,7 @@
 #include <glib/gi18n.h>
 
 #include "sbuild-chroot-block-device.h"
+#include "sbuild-keyfile.h"
 #include "sbuild-lock.h"
 
 SbuildChrootBlockDevice::SbuildChrootBlockDevice():
@@ -56,6 +57,7 @@ SbuildChrootBlockDevice::SbuildChrootBlockDevice (GKeyFile   *keyfile,
   device(),
   mount_options()
 {
+  read_keyfile(keyfile, group);
 }
 
 SbuildChrootBlockDevice::~SbuildChrootBlockDevice()
@@ -244,6 +246,19 @@ SbuildChrootBlockDevice::print_config (FILE *file) const
 
   g_fprintf(file, _("device=%s\n"), this->device.c_str());
   g_fprintf(file, _("mount-options=%s\n"), this->mount_options.c_str());
+}
+
+void
+SbuildChrootBlockDevice::read_keyfile (GKeyFile   *keyfile,
+				       const std::string& group)
+{
+  std::string device;
+  if (keyfile_read_string(keyfile, group, "device", device))
+    set_device(device);
+
+  std::string mount_options;
+  if (keyfile_read_string(keyfile, group, "mount-options", mount_options))
+    set_mount_options(mount_options);
 }
 
 /*
