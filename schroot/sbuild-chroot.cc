@@ -44,33 +44,17 @@
 #include "sbuild-chroot.h"
 #include "sbuild-keyfile.h"
 
-/**
- * sbuild_chroot_error_quark:
- *
- * Get the SBUILD_CHROOT_ERROR domain number.
- *
- * Returns the domain.
- */
-GQuark
-sbuild_chroot_error_quark (void)
-{
-  static GQuark error_quark = 0;
-
-  if (error_quark == 0)
-    error_quark = g_quark_from_static_string ("sbuild-chroot-error-quark");
-
-  return error_quark;
-}
+using namespace sbuild;
 
 namespace
 {
   std::string
-  string_list_to_string(const SbuildChroot::string_list& list,
-			const std::string&               separator)
+  string_list_to_string(const Chroot::string_list& list,
+			const std::string&         separator)
   {
     std::string ret;
 
-    for (SbuildChroot::string_list::const_iterator cur = list.begin();
+    for (Chroot::string_list::const_iterator cur = list.begin();
 	 cur != list.end();
 	 ++cur)
       {
@@ -86,11 +70,11 @@ namespace
 /**
  * sbuild_chroot_new:
  *
- * Creates a new #SbuildChroot.
+ * Creates a new #Chroot.
  *
- * Returns the newly created #SbuildChroot.
+ * Returns the newly created #Chroot.
  */
-SbuildChroot::SbuildChroot ():
+Chroot::Chroot ():
   name(),
   description(),
   priority(0),
@@ -105,8 +89,8 @@ SbuildChroot::SbuildChroot ():
 {
 }
 
-SbuildChroot::SbuildChroot (GKeyFile   *keyfile,
-			    const std::string& group):
+Chroot::Chroot (GKeyFile   *keyfile,
+		const std::string& group):
   name(),
   description(),
   priority(0),
@@ -122,13 +106,13 @@ SbuildChroot::SbuildChroot (GKeyFile   *keyfile,
   read_keyfile(keyfile, group);
 }
 
-SbuildChroot::~SbuildChroot()
+Chroot::~Chroot()
 {
 }
 
 /**
  * sbuild_chroot_get_name:
- * @chroot: an #SbuildChroot
+ * @chroot: an #Chroot
  *
  * Get the name of the chroot.
  *
@@ -136,27 +120,27 @@ SbuildChroot::~SbuildChroot()
  * storage in the chroot and must not be freed, modified or stored.
  */
 const std::string&
-SbuildChroot::get_name () const
+Chroot::get_name () const
 {
   return this->name;
 }
 
 /**
  * sbuild_chroot_set_name:
- * @chroot: an #SbuildChroot.
+ * @chroot: an #Chroot.
  * @name: the name to set.
  *
  * Set the name of a chroot.
  */
 void
-SbuildChroot::set_name (const std::string& name)
+Chroot::set_name (const std::string& name)
 {
   this->name = name;
 }
 
 /**
  * sbuild_chroot_get_description:
- * @chroot: an #SbuildChroot
+ * @chroot: an #Chroot
  *
  * Get the description of the chroot.
  *
@@ -164,27 +148,27 @@ SbuildChroot::set_name (const std::string& name)
  * storage in the chroot and must not be freed, modified or stored.
  */
 const std::string&
-SbuildChroot::get_description () const
+Chroot::get_description () const
 {
   return this->description;
 }
 
 /**
  * sbuild_chroot_set_description:
- * @chroot: an #SbuildChroot.
+ * @chroot: an #Chroot.
  * @description: the description to set.
  *
  * Set the description of a chroot.
  */
 void
-SbuildChroot::set_description (const std::string& description)
+Chroot::set_description (const std::string& description)
 {
   this->description = description;
 }
 
 /**
  * sbuild_chroot_get_mount_location:
- * @chroot: an #SbuildChroot
+ * @chroot: an #Chroot
  *
  * Get the mount location of the chroot.
  *
@@ -192,27 +176,27 @@ SbuildChroot::set_description (const std::string& description)
  * storage in the chroot and must not be freed, modified or stored.
  */
 const std::string&
-SbuildChroot::get_mount_location () const
+Chroot::get_mount_location () const
 {
   return this->mount_location;
 }
 
 /**
  * sbuild_chroot_set_mount_location:
- * @chroot: an #SbuildChroot.
+ * @chroot: an #Chroot.
  * @location: the mount location to set.
  *
  * Set the mount location of a chroot.
  */
 void
-SbuildChroot::set_mount_location (const std::string& location)
+Chroot::set_mount_location (const std::string& location)
 {
   this->mount_location = location;
 }
 
 /**
  * sbuild_chroot_get_mount_device:
- * @chroot: an #SbuildChroot
+ * @chroot: an #Chroot
  *
  * Get the mount device of the chroot.
  *
@@ -220,27 +204,27 @@ SbuildChroot::set_mount_location (const std::string& location)
  * storage in the chroot and must not be freed, modified or stored.
  */
 const std::string&
-SbuildChroot::get_mount_device () const
+Chroot::get_mount_device () const
 {
   return this->mount_device;
 }
 
 /**
  * sbuild_chroot_set_mount_device:
- * @chroot: an #SbuildChroot.
+ * @chroot: an #Chroot.
  * @device: the mount device to set.
  *
  * Set the mount device of a chroot.
  */
 void
-SbuildChroot::set_mount_device (const std::string& device)
+Chroot::set_mount_device (const std::string& device)
 {
   this->mount_device = device;
 }
 
 /**
  * sbuild_chroot_get_priority:
- * @chroot: an #SbuildChroot
+ * @chroot: an #Chroot
  *
  * Get the priority of the chroot.  This is a number indicating
  * whether than a ditribution is older than another.
@@ -248,14 +232,14 @@ SbuildChroot::set_mount_device (const std::string& device)
  * Returns the priority.
  */
 unsigned int
-SbuildChroot::get_priority () const
+Chroot::get_priority () const
 {
   return this->priority;
 }
 
 /**
  * sbuild_chroot_set_priority:
- * @chroot: an #SbuildChroot.
+ * @chroot: an #Chroot.
  * @priority: the priority to set.
  *
  * Set the priority of a chroot.  This is a number indicating whether
@@ -265,70 +249,70 @@ SbuildChroot::get_priority () const
  * not important, but the difference between them is.
  */
 void
-SbuildChroot::set_priority (unsigned int priority)
+Chroot::set_priority (unsigned int priority)
 {
   this->priority = priority;
 }
 
 /**
  * sbuild_chroot_get_groups:
- * @chroot: an #SbuildChroot
+ * @chroot: an #Chroot
  *
  * Get the groups of the chroot.
  *
  * Returns a string. This string points to internally allocated
  * storage in the chroot and must not be freed, modified or stored.
  */
-const SbuildChroot::string_list&
-SbuildChroot::get_groups () const
+const Chroot::string_list&
+Chroot::get_groups () const
 {
   return this->groups;
 }
 
 /**
  * sbuild_chroot_set_groups:
- * @chroot: an #SbuildChroot.
+ * @chroot: an #Chroot.
  * @groups: the groups to set.
  *
  * Set the groups of a chroot.
  */
 void
-SbuildChroot::set_groups (const SbuildChroot::string_list& groups)
+Chroot::set_groups (const Chroot::string_list& groups)
 {
   this->groups = groups;
 }
 
 /**
  * sbuild_chroot_get_root_groups:
- * @chroot: an #SbuildChroot
+ * @chroot: an #Chroot
  *
  * Get the root groups of the chroot.
  *
  * Returns a string. This string points to internally allocated
  * storage in the chroot and must not be freed, modified or stored.
  */
-const SbuildChroot::string_list&
-SbuildChroot::get_root_groups () const
+const Chroot::string_list&
+Chroot::get_root_groups () const
 {
   return this->root_groups;
 }
 
 /**
  * sbuild_chroot_set_root_groups:
- * @chroot: an #SbuildChroot.
+ * @chroot: an #Chroot.
  * @groups: the groups to set.
  *
  * Set the groups of a chroot.
  */
 void
-SbuildChroot::set_root_groups (const SbuildChroot::string_list& groups)
+Chroot::set_root_groups (const Chroot::string_list& groups)
 {
   this->root_groups = groups;
 }
 
 /**
  * sbuild_chroot_get_aliases:
- * @chroot: an #SbuildChroot
+ * @chroot: an #Chroot
  *
  * Get the aliases of the chroot.
  *
@@ -336,109 +320,109 @@ SbuildChroot::set_root_groups (const SbuildChroot::string_list& groups)
  * storage in the chroot and must not be freed, modified or stored.
  */
 
-const SbuildChroot::string_list&
-SbuildChroot::get_aliases () const
+const Chroot::string_list&
+Chroot::get_aliases () const
 {
   return this->aliases;
 }
 
 /**
  * sbuild_chroot_set_aliases:
- * @chroot: an #SbuildChroot.
+ * @chroot: an #Chroot.
  * @aliases: the aliases to set.
  *
  * Set the aliases of a chroot.
  */
 void
-SbuildChroot::set_aliases (const SbuildChroot::string_list& aliases)
+Chroot::set_aliases (const Chroot::string_list& aliases)
 {
   this->aliases = aliases;
 }
 
 /**
  * sbuild_chroot_get_active:
- * @chroot: an #SbuildChroot
+ * @chroot: an #Chroot
  *
  * Get the activity status of the chroot.
  *
  * Returns TRUE if active, FALSE if inactive.
  */
 bool
-SbuildChroot::get_active () const
+Chroot::get_active () const
 {
   return this->active;
 }
 
 /**
  * sbuild_chroot_set_active:
- * @chroot: an #SbuildChroot.
+ * @chroot: an #Chroot.
  * @active: TRUE if active, FALSE if inactive.
  *
  * Set the activity status of the chroot.
  */
 void
-SbuildChroot::set_active (bool active)
+Chroot::set_active (bool active)
 {
   this->active = active;
 }
 
 /**
  * sbuild_chroot_get_run_setup_scripts:
- * @chroot: an #SbuildChroot
+ * @chroot: an #Chroot
  *
  * Check if chroot setup scripts will be run.
  *
  * Returns TRUE if setup scripts will be run, otherwise FALSE.
  */
 bool
-SbuildChroot::get_run_setup_scripts () const
+Chroot::get_run_setup_scripts () const
 {
   return this->run_setup_scripts;
 }
 
 /**
  * sbuild_chroot_set_run_setup_scripts:
- * @chroot: an #SbuildChroot.
+ * @chroot: an #Chroot.
  * @run_setup_scripts: TRUE to run setup scripts, otherwise FALSE.
  *
  * Set whether chroot setup scripts should be run or not.
  */
 void
-SbuildChroot::set_run_setup_scripts (bool run_setup_scripts)
+Chroot::set_run_setup_scripts (bool run_setup_scripts)
 {
   this->run_setup_scripts = run_setup_scripts;
 }
 
 /**
  * sbuild_chroot_set_run_session_scripts:
- * @chroot: an #SbuildChroot.
+ * @chroot: an #Chroot.
  * @run_session_scripts: TRUE to run session scripts, otherwise FALSE.
  *
  * Set whether chroot session scripts should be run or not.
  */
 bool
-SbuildChroot::get_run_session_scripts () const
+Chroot::get_run_session_scripts () const
 {
   return this->run_session_scripts;
 }
 
 /**
  * sbuild_chroot_get_run_session_scripts:
- * @chroot: an #SbuildChroot
+ * @chroot: an #Chroot
  *
  * Check if chroot session scripts will be run.
  *
  * Returns TRUE if session scripts will be run, otherwise FALSE.
  */
 void
-SbuildChroot::set_run_session_scripts (bool run_session_scripts)
+Chroot::set_run_session_scripts (bool run_session_scripts)
 {
   this->run_session_scripts = run_session_scripts;
 }
 
 /**
  * sbuild_chroot_setup_env:
- * @chroot: an #SbuildChroot.
+ * @chroot: an #Chroot.
  * @env: the environment to set.
  *
  * This function is used to set the environment that the setup scripts
@@ -448,7 +432,7 @@ SbuildChroot::set_run_session_scripts (bool run_session_scripts)
  * allocation functions such as g_strdup), and they must not be freed.
  */
 void
-SbuildChroot::setup_env (SbuildChroot::env_list& env)
+Chroot::setup_env (Chroot::env_list& env)
 {
   setup_env_var(env, "CHROOT_TYPE",
 		get_chroot_type());
@@ -464,14 +448,14 @@ SbuildChroot::setup_env (SbuildChroot::env_list& env)
 
 /**
  * sbuild_chroot_print_details:
- * @chroot: an #SbuildChroot.
+ * @chroot: an #Chroot.
  * @file: the file to output to.
  *
  * Print detailed information about @chroot to @file.  The information
  * is printed in plain text with one line per property.
  */
 void
-SbuildChroot::print_details (FILE *file) const
+Chroot::print_details (FILE *file) const
 {
   if (this->active == TRUE)
     g_fprintf(file, _("  --- Session ---\n"));
@@ -506,14 +490,14 @@ SbuildChroot::print_details (FILE *file) const
 
 /**
  * sbuild_chroot_print_config:
- * @chroot: an #SbuildChroot.
+ * @chroot: an #Chroot.
  * @file: the file to output to.
  *
  * Print the configuration group for a chroot in the format required
  * by schroot.conf.
  */
 void
-SbuildChroot::print_config (FILE *file) const
+Chroot::print_config (FILE *file) const
 {
   g_fprintf(file, "[%s]\n", this->name.c_str());
   if (this->active)
@@ -552,8 +536,8 @@ SbuildChroot::print_config (FILE *file) const
 }
 
 void
-SbuildChroot::read_keyfile (GKeyFile   *keyfile,
-			    const std::string& group)
+Chroot::read_keyfile (GKeyFile   *keyfile,
+		      const std::string& group)
 {
   bool active;
   if (keyfile_read_bool(keyfile, group, "active", active))

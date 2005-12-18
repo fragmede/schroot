@@ -27,32 +27,37 @@
 
 #include "sbuild-session.h"
 
-class SchrootOptions
+namespace schroot
 {
-public:
-  typedef std::vector<std::string> string_list;
 
-  SchrootOptions(int argc,
-		 char *argv[]);
-  virtual ~SchrootOptions();
+  class Options
+  {
+  public:
+    typedef std::vector<std::string> string_list;
 
-  string_list              chroots;
-  string_list              command;
-  std::string              user;
-  bool                     preserve;
-  bool                     quiet;
-  bool                     verbose;
-  bool                     list;
-  bool                     info;
-  bool                     all;
-  bool                     all_chroots;
-  bool                     all_sessions;
-  bool                     load_chroots;
-  bool                     load_sessions;
-  bool                     version;
-  SbuildSessionOperation   session_operation;
-  bool                     session_force;
-};
+    Options(int   argc,
+	    char *argv[]);
+    virtual ~Options();
+
+    string_list          chroots;
+    string_list          command;
+    std::string          user;
+    bool                 preserve;
+    bool                 quiet;
+    bool                 verbose;
+    bool                 list;
+    bool                 info;
+    bool                 all;
+    bool                 all_chroots;
+    bool                 all_sessions;
+    bool                 load_chroots;
+    bool                 load_sessions;
+    bool                 version;
+    sbuild::Session::Operation  session_operation;
+    bool                 session_force;
+  };
+
+}
 
 #endif /* SBUILD_SCHROOT_OPTIONS_H */
 

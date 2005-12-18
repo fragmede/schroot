@@ -24,45 +24,63 @@
 
 #include <string>
 
-#include <unistd.h>
 #include <fcntl.h>
+#include <signal.h>
+#include <unistd.h>
 
-#include <glib.h>
-
-typedef enum
-{
-  SBUILD_LOCK_ERROR_SETUP,
-  SBUILD_LOCK_ERROR_TIMEOUT,
-  SBUILD_LOCK_ERROR_FAIL
-} SbuildLockError;
-
-#define SBUILD_LOCK_ERROR sbuild_lock_error_quark()
+#include "sbuild-error.h"
 
 GQuark
 sbuild_auth_error_quark (void);
 
-typedef enum
-{
-  SBUILD_LOCK_SHARED    = F_RDLCK,
-  SBUILD_LOCK_EXCLUSIVE = F_WRLCK,
-  SBUILD_LOCK_NONE      = F_UNLCK
-} SbuildLockType;
 
 namespace sbuild
 {
+
   class Lock
   {
-    virtual bool
-    set_lock (SbuildLockType   lock_type,
-	      guint            timeout,
-	      GError         **error) = 0;
+  public:
+    typedef enum
+      {
+	LOCK_SHARED    = F_RDLCK,
+	LOCK_EXCLUSIVE = F_WRLCK,
+	LOCK_NONE      = F_UNLCK
+      } Type;
 
-    virtual bool
-    unset_lock (GError **error) = 0;
+    typedef enum
+      {
+	LOCK_ERROR_SETUP,
+	LOCK_ERROR_TIMEOUT,
+	LOCK_ERROR_FAIL
+      } ErrorCode;
+
+    typedef Exception<ErrorCode> error;
+
+    virtual void
+    set_lock (Type  lock_type,
+	      guint timeout) = 0;
+
+    virtual void
+    unset_lock () = 0;
 
   protected:
     Lock();
     virtual ~Lock();
+
+    void
+    set_alarm ();
+
+    void
+    clear_alarm ();
+
+    void
+    set_timer(struct itimerval const& timer);
+
+    void
+    unset_timer();
+
+  private:
+    struct sigaction saved_signals;
   };
 
   class FileLock : public Lock
@@ -71,13 +89,12 @@ namespace sbuild
     FileLock (int fd);
     virtual ~FileLock();
 
-    bool
-      set_lock (SbuildLockType   lock_type,
-		guint            timeout,
-		GError         **error);
+    void
+    set_lock (Type  lock_type,
+	      guint timeout);
 
-    bool
-      unset_lock (GError **error);
+    void
+    unset_lock ();
 
   private:
     int fd;
@@ -89,13 +106,12 @@ namespace sbuild
     DeviceLock (const std::string& device);
     virtual ~DeviceLock();
 
-    bool
-      set_lock (SbuildLockType   lock_type,
-		guint            timeout,
-		GError         **error);
+    void
+    set_lock (Type  lock_type,
+	      guint timeout);
 
-    bool
-      unset_lock (GError **error);
+    void
+    unset_lock ();
 
   private:
     std::string device;

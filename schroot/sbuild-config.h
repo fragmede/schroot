@@ -28,74 +28,75 @@
 
 #include <glib.h>
 #include <glib/gprintf.h>
-#include <glib-object.h>
 
 #include "sbuild-chroot.h"
+#include "sbuild-error.h"
 
-typedef enum
+namespace sbuild
 {
-  SBUILD_CONFIG_FILE_ERROR_STAT_FAIL,
-  SBUILD_CONFIG_FILE_ERROR_OWNERSHIP,
-  SBUILD_CONFIG_FILE_ERROR_PERMISSIONS,
-  SBUILD_CONFIG_FILE_ERROR_NOT_REGULAR
-} SbuildConfigFileError;
 
-#define SBUILD_CONFIG_FILE_ERROR sbuild_config_file_error_quark()
+  class Config
+  {
+  public:
+    typedef std::vector<std::string> string_list;
+    typedef std::vector<Chroot *> chroot_list;
+    typedef std::map<std::string, std::string> string_map;
+    typedef std::map<std::string, Chroot *> chroot_map;
 
-GQuark
-sbuild_config_file_error_quark (void);
+    typedef enum
+      {
+	ERROR_STAT_FAIL,
+	ERROR_OWNERSHIP,
+	ERROR_PERMISSIONS,
+	ERROR_NOT_REGULAR
+      } ErrorCode;
 
-class SbuildConfig
-{
-public:
-  typedef std::vector<std::string> string_list;
-  typedef std::vector<SbuildChroot *> chroot_list;
-  typedef std::map<std::string, std::string> string_map;
-  typedef std::map<std::string, SbuildChroot *> chroot_map;
+    typedef Exception<ErrorCode> error;
 
-  SbuildConfig();
-  SbuildConfig(const std::string& file);
-  virtual ~SbuildConfig();
+    Config();
+    Config(const std::string& file);
+    virtual ~Config();
 
-  void
-  add_config_file (const std::string& file);
+    void
+    add_config_file (const std::string& file);
 
-  void
-  add_config_directory (const std::string& dir);
+    void
+    add_config_directory (const std::string& dir);
 
-  chroot_list
-  get_chroots () const;
+    chroot_list
+    get_chroots () const;
 
-  const SbuildChroot *
-  find_chroot (const std::string& name) const;
+    const Chroot *
+    find_chroot (const std::string& name) const;
 
-  const SbuildChroot *
-  find_alias (const std::string& name) const;
+    const Chroot *
+    find_alias (const std::string& name) const;
 
-  string_list
-  get_chroot_list () const;
+    string_list
+    get_chroot_list () const;
 
-  void
-  print_chroot_list (FILE *file) const;
+    void
+    print_chroot_list (FILE *file) const;
 
-  void
-  print_chroot_info (const string_list& chroots,
-		     FILE          *file) const;
+    void
+    print_chroot_info (const string_list& chroots,
+		       FILE          *file) const;
 
-  string_list
-  validate_chroots(const string_list& chroots) const;
+    string_list
+    validate_chroots(const string_list& chroots) const;
 
-private:
-  bool
-  check_security(int      fd,
-		 GError **error) const;
+  private:
+    void
+    check_security(int fd) const;
 
-  void
-  load (const std::string& file);
+    void
+    load (const std::string& file);
 
-  chroot_map chroots;
-  string_map aliases;
-};
+    chroot_map chroots;
+    string_map aliases;
+  };
+
+}
 
 #endif /* SBUILD_CONFIG_H */
 

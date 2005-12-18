@@ -27,25 +27,30 @@
 
 #include <security/pam_appl.h>
 
-typedef enum
+namespace sbuild
 {
-  SBUILD_AUTH_MESSAGE_PROMPT_NOECHO = PAM_PROMPT_ECHO_OFF,
-  SBUILD_AUTH_MESSAGE_PROMPT_ECHO = PAM_PROMPT_ECHO_ON,
-  SBUILD_AUTH_MESSAGE_ERROR = PAM_ERROR_MSG,
-  SBUILD_AUTH_MESSAGE_INFO = PAM_TEXT_INFO
-} SbuildAuthMessageType;
 
-class SbuildAuthMessage
-{
-public:
-  SbuildAuthMessage(SbuildAuthMessageType type,
-		    const std::string&    message);
-  virtual ~SbuildAuthMessage();
+  class AuthMessage
+  {
+  public:
+    typedef enum
+      {
+	MESSAGE_PROMPT_NOECHO = PAM_PROMPT_ECHO_OFF,
+	MESSAGE_PROMPT_ECHO = PAM_PROMPT_ECHO_ON,
+	MESSAGE_ERROR = PAM_ERROR_MSG,
+	MESSAGE_INFO = PAM_TEXT_INFO
+      } MessageType;
 
-  SbuildAuthMessageType  type;
-  std::string            message;
-  std::string            response;
-};
+    AuthMessage(MessageType        type,
+		const std::string& message);
+    virtual ~AuthMessage();
+
+    MessageType type;
+    std::string message;
+    std::string response;
+  };
+
+}
 
 #endif /* SBUILD_AUTH_MESSAGE_H */
 

@@ -54,24 +54,24 @@ print_version (FILE *file)
 
 /**
  * get_chroot_options:
- * @config: an #SbuildConfig
- * @options: an #SchrootOptions
+ * @config: an #sbuild::Config
+ * @options: an #schroot::Options
  *
  * Get a list of chroots based on the specified options (--all, --chroot).
  *
  * Returns a NULL-terminated string vector (GStrv).
  */
-SbuildConfig::string_list
-get_chroot_options(std::tr1::shared_ptr<SbuildConfig>& config,
-		   SchrootOptions&                     options)
+sbuild::Config::string_list
+get_chroot_options(std::tr1::shared_ptr<sbuild::Config>& config,
+		   schroot::Options&                     options)
 {
-  SbuildConfig::string_list ret;
+  sbuild::Config::string_list ret;
 
   if (options.all_chroots == true || options.all_sessions == true)
     {
-      const SbuildConfig::chroot_list& list = config->get_chroots();
+      const sbuild::Config::chroot_list& list = config->get_chroots();
 
-      for (SbuildConfig::chroot_list::const_iterator chroot = list.begin();
+      for (sbuild::Config::chroot_list::const_iterator chroot = list.begin();
 	   chroot != list.end();
 	   ++chroot)
 	{
@@ -83,12 +83,12 @@ get_chroot_options(std::tr1::shared_ptr<SbuildConfig>& config,
     }
   else
     {
-      SbuildConfig::string_list invalid_chroots =
+      sbuild::Config::string_list invalid_chroots =
 	config->validate_chroots(options.chroots);
 
       if (!invalid_chroots.empty())
 	{
-	  for (SbuildConfig::string_list::const_iterator chroot = invalid_chroots.begin();
+	  for (sbuild::Config::string_list::const_iterator chroot = invalid_chroots.begin();
 	       chroot != invalid_chroots.end();
 	       ++chroot)
 	    g_printerr(_("%s: No such chroot\n"), chroot->c_str());
@@ -131,9 +131,6 @@ int
 main (int   argc,
       char *argv[])
 {
-  // TODO: Remove GType.
-  g_type_init();
-
   setlocale (LC_ALL, "");
 
   bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
@@ -147,7 +144,7 @@ main (int   argc,
   openlog("schroot", LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
 
   /* Parse command-line options into opt structure. */
-  SchrootOptions options(argc, argv);
+  schroot::Options options(argc, argv);
 
   if (options.version == true)
     {
@@ -156,7 +153,7 @@ main (int   argc,
     }
 
   /* Initialise chroot configuration. */
-  std::tr1::shared_ptr<SbuildConfig> config(new SbuildConfig);
+  std::tr1::shared_ptr<sbuild::Config> config(new sbuild::Config);
 
   /* The normal chroot list is used when starting a session or running
      any chroot type or session, or displaying chroot information. */
@@ -182,7 +179,7 @@ main (int   argc,
     }
 
   /* Get list of chroots to use */
-  const SbuildChroot::string_list& chroots = get_chroot_options(config, options);
+  const sbuild::Chroot::string_list& chroots = get_chroot_options(config, options);
   if (chroots.empty())
     {
       g_printerr(_("The specified chroots are not defined in %s\n"), SCHROOT_CONF);
@@ -196,7 +193,7 @@ main (int   argc,
       exit (EXIT_SUCCESS);
     }
 
-  if (options.session_operation == SBUILD_SESSION_OPERATION_BEGIN &&
+  if (options.session_operation == sbuild::Session::OPERATION_BEGIN &&
       chroots.size() != 1)
     {
       g_printerr(_("Only one chroot may be specified when beginning a session\n"));
@@ -204,37 +201,42 @@ main (int   argc,
     }
 
   /* Create a session. */
-  SbuildSession session("schroot",
-			config,
-			options.session_operation,
-			chroots);
-  if (!options.user.empty())
-    session.set_user(options.user);
-  if (!options.command.empty())
-    session.set_command(options.command);
-  if (options.preserve)
-    session.set_environment(environ);
-  session.set_force(options.session_force);
-  SbuildAuthVerbosity verbosity = SBUILD_AUTH_VERBOSITY_NORMAL;
-  if (options.quiet)
-    verbosity = SBUILD_AUTH_VERBOSITY_QUIET;
-  else if (options.verbose)
-    verbosity = SBUILD_AUTH_VERBOSITY_VERBOSE;
-  session.set_verbosity(verbosity);
+  sbuild::Session session("schroot",
+			  config,
+			  options.session_operation,
+			  chroots);
+  try
+    {
+      if (!options.user.empty())
+	session.set_user(options.user);
+      if (!options.command.empty())
+	session.set_command(options.command);
+      if (options.preserve)
+	session.set_environment(environ);
+      session.set_force(options.session_force);
+      sbuild::Auth::Verbosity verbosity = sbuild::Auth::VERBOSITY_NORMAL;
+      if (options.quiet)
+	verbosity = sbuild::Auth::VERBOSITY_QUIET;
+      else if (options.verbose)
+	verbosity = sbuild::Auth::VERBOSITY_VERBOSE;
+      session.set_verbosity(verbosity);
 
-  /* Set up authentication timeouts. */
-  std::tr1::shared_ptr<SbuildAuthConv> conv(new SbuildAuthConvTty);
-  time_t curtime = 0;
-  time(&curtime);
-  conv->set_warning_timeout(curtime + 15);
-  conv->set_fatal_timeout(curtime + 20);
-  session.set_conv(conv);
+      /* Set up authentication timeouts. */
+      std::tr1::shared_ptr<sbuild::AuthConv> conv(new sbuild::AuthConvTty);
+      time_t curtime = 0;
+      time(&curtime);
+      conv->set_warning_timeout(curtime + 15);
+      conv->set_fatal_timeout(curtime + 20);
+      session.set_conv(conv);
 
-  /* Run session. */
-  GError *session_error = NULL;
-  session.run(&session_error);
-  if (session_error)
-    g_printerr(_("Session failure: %s\n"), session_error->message);
+      /* Run session. */
+      GError *session_error = NULL;
+      session.run();
+    }
+  catch (std::runtime_error& e)
+    {
+      g_printerr(_("Session failure: %s\n"), e.what());
+    }
 
   int exit_status = session.get_child_status();
 

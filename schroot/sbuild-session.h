@@ -36,107 +36,106 @@
 
 #include "sbuild-auth.h"
 #include "sbuild-config.h"
+#include "sbuild-error.h"
 
-typedef enum
+namespace sbuild
 {
-  SBUILD_SESSION_ERROR_FORK,
-  SBUILD_SESSION_ERROR_CHILD,
-  SBUILD_SESSION_ERROR_CHROOT,
-  SBUILD_SESSION_ERROR_CHROOT_SETUP
-} SbuildSessionError;
 
-#define SBUILD_SESSION_ERROR sbuild_session_error_quark()
+  class Session : public Auth
+  {
+  public:
+    typedef enum
+      {
+	OPERATION_AUTOMATIC,
+	OPERATION_BEGIN,
+	OPERATION_RECOVER,
+	OPERATION_END,
+	OPERATION_RUN
+      } Operation;
 
-typedef enum
-{
-  SBUILD_SESSION_OPERATION_AUTOMATIC,
-  SBUILD_SESSION_OPERATION_BEGIN,
-  SBUILD_SESSION_OPERATION_RECOVER,
-  SBUILD_SESSION_OPERATION_END,
-  SBUILD_SESSION_OPERATION_RUN
-} SbuildSessionOperation;
+    typedef enum
+      {
+	ERROR_FORK,
+	ERROR_CHILD,
+	ERROR_CHROOT,
+	ERROR_CHROOT_SETUP
+      } ErrorCode;
 
-GQuark
-sbuild_session_error_quark (void);
+    typedef Exception<ErrorCode> error;
 
-class SbuildSession : public SbuildAuth
-{
-public:
-  SbuildSession (const std::string&                  service,
-		 std::tr1::shared_ptr<SbuildConfig>& config,
-		 SbuildSessionOperation              operation,
-		 string_list                         chroots);
-  virtual ~SbuildSession();
+    Session (const std::string&            service,
+	     std::tr1::shared_ptr<Config>& config,
+	     Operation                     operation,
+	     string_list                   chroots);
+    virtual ~Session();
 
-  std::tr1::shared_ptr<SbuildConfig>&
-  get_config ();
+    std::tr1::shared_ptr<Config>&
+    get_config ();
 
-  void
-  set_config (std::tr1::shared_ptr<SbuildConfig>&);
+    void
+    set_config (std::tr1::shared_ptr<Config>&);
 
-  const string_list&
-  get_chroots () const;
+    const string_list&
+    get_chroots () const;
 
-  void
-  set_chroots (const string_list& chroots);
+    void
+    set_chroots (const string_list& chroots);
 
-  SbuildSessionOperation
-  get_operation () const;
+    Operation
+    get_operation () const;
 
-  void
-  set_operation (SbuildSessionOperation  operation);
+    void
+    set_operation (Operation operation);
 
-  const std::string&
-  get_session_id () const;
+    const std::string&
+    get_session_id () const;
 
-  void
-  set_session_id (const std::string& session_id);
+    void
+    set_session_id (const std::string& session_id);
 
-  bool
-  get_force () const;
+    bool
+    get_force () const;
 
-  void
-  set_force (bool force);
+    void
+    set_force (bool force);
 
-  int
-  get_child_status () const;
+    int
+    get_child_status () const;
 
-  virtual SbuildAuthStatus
-  get_auth_status () const;
+    virtual sbuild::Auth::Status
+    get_auth_status () const;
 
-  virtual bool
-  run_impl (GError **error);
+    virtual void
+    run_impl ();
 
-private:
-  int
-  exec (const std::string& file,
-	const string_list& command,
-	const env_list& env);
+  private:
+    int
+    exec (const std::string& file,
+	  const string_list& command,
+	  const env_list& env);
 
+    void
+    setup_chroot (Chroot&           session_chroot,
+		  Chroot::SetupType setup_type);
 
-  bool
-  setup_chroot (SbuildChroot&           session_chroot,
-		SbuildChrootSetupType   setup_type,
-		GError                **error);
+    void
+    run_chroot (Chroot& session_chroot);
 
-  bool
-  run_chroot (SbuildChroot&   session_chroot,
-	      GError        **error);
+    void
+    run_child (Chroot& session_chroot);
 
-  void
-  run_child (SbuildChroot& session_chroot);
+    void
+    wait_for_child (int pid);
 
-  bool
-  wait_for_child (int      pid,
-		  GError **error);
+    std::tr1::shared_ptr<Config> config;
+    string_list                  chroots;
+    int                          child_status;
+    Operation                    operation;
+    std::string                  session_id;
+    bool                         force;
+  };
 
-  std::tr1::shared_ptr<SbuildConfig> config;
-  string_list                        chroots;
-  int                                child_status;
-  SbuildSessionOperation             operation;
-  std::string                        session_id;
-  bool                               force;
-};
+}
 
 #endif /* SBUILD_SESSION_H */
 

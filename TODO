@@ -17,6 +17,8 @@ PENDING
 
 ** Remove all C/GLib type usage.
 
+** Remove all g_return_[val_]if_fail usage.
+
 ** Remove all traces of GType.
 
 *** Convert GError to exceptions.
@@ -26,6 +28,8 @@ PENDING
 ** Enable C++ compiler warnings.
 
 ** Convert inline docs into Doxygen format to replace gtk-doc.
+
+** const correctness of references.
 
 
 PLANNED

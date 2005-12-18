@@ -28,27 +28,32 @@
 
 #include "sbuild-auth-message.h"
 
-class SbuildAuthConv
+namespace sbuild
 {
-public:
-  typedef std::vector<SbuildAuthMessage> message_list;
 
-  SbuildAuthConv();
-  virtual ~SbuildAuthConv();
+  class AuthConv
+  {
+  public:
+    typedef std::vector<AuthMessage> message_list;
 
-  virtual time_t get_warning_timeout () = 0;
-  virtual void set_warning_timeout (time_t timeout) = 0;
+    AuthConv();
+    virtual ~AuthConv();
 
-  virtual time_t get_fatal_timeout () = 0;
-  virtual void set_fatal_timeout (time_t timeout) = 0;
+    virtual time_t get_warning_timeout () = 0;
+    virtual void set_warning_timeout (time_t timeout) = 0;
 
-  bool conversation (message_list& messages);
+    virtual time_t get_fatal_timeout () = 0;
+    virtual void set_fatal_timeout (time_t timeout) = 0;
 
-  sigc::signal<bool, message_list&> signal_conversation;
+    bool conversation (message_list& messages);
 
-protected:
-  virtual bool conversation_impl (std::vector<SbuildAuthMessage>& messages) = 0;
-};
+    sigc::signal<bool, message_list&> signal_conversation;
+
+  protected:
+    virtual bool conversation_impl (std::vector<AuthMessage>& messages) = 0;
+  };
+
+}
 
 #endif /* SBUILD_AUTH_CONV_H */
 

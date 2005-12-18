@@ -27,65 +27,67 @@
 
 #include "sbuild-chroot-block-device.h"
 
-
-class SbuildChrootLvmSnapshot : public SbuildChrootBlockDevice
+namespace sbuild
 {
-public:
-  SbuildChrootLvmSnapshot();
-  SbuildChrootLvmSnapshot (GKeyFile   *keyfile,
-			   const std::string& group);
-  virtual ~SbuildChrootLvmSnapshot();
 
-  virtual SbuildChroot *
-  clone () const;
+  class ChrootLvmSnapshot : public ChrootBlockDevice
+  {
+  public:
+    ChrootLvmSnapshot();
+    ChrootLvmSnapshot (GKeyFile           *keyfile,
+		       const std::string&  group);
+    virtual ~ChrootLvmSnapshot();
 
-  const std::string&
-  get_snapshot_device () const;
+    virtual Chroot *
+    clone () const;
 
-  void
-  set_snapshot_device (const std::string& snapshot_device);
+    const std::string&
+    get_snapshot_device () const;
 
-  virtual const std::string&
-  get_mount_device () const;
+    void
+    set_snapshot_device (const std::string& snapshot_device);
 
-  const std::string&
-  get_snapshot_options () const;
+    virtual const std::string&
+    get_mount_device () const;
 
-  void
-  set_snapshot_options (const std::string& snapshot_options);
+    const std::string&
+    get_snapshot_options () const;
 
-  virtual const std::string&
-  get_chroot_type () const;
+    void
+    set_snapshot_options (const std::string& snapshot_options);
 
-  virtual void
-  setup_env (env_list& env);
+    virtual const std::string&
+    get_chroot_type () const;
 
-  virtual bool
-  setup_lock (SbuildChrootSetupType   type,
-	      gboolean                lock,
-	      GError                **error);
+    virtual void
+    setup_env (env_list& env);
 
-  virtual SbuildChrootSessionFlags
-  get_session_flags () const;
+    virtual void
+    setup_lock (SetupType type,
+		bool      lock);
 
-  virtual void
-  print_details (FILE *file) const;
+    virtual SessionFlags
+    get_session_flags () const;
 
-  virtual void
-  print_config (FILE *file) const;
+    virtual void
+    print_details (FILE *file) const;
 
-private:
-  void
-  read_keyfile (GKeyFile   *keyfile,
-		const std::string& group);
+    virtual void
+    print_config (FILE *file) const;
 
-  bool
-  setup_session_info (gboolean   start,
-		      GError   **error);
+  private:
+    void
+    read_keyfile (GKeyFile           *keyfile,
+		  const std::string&  group);
 
-  std::string snapshot_device;
-  std::string snapshot_options;
-};
+    void
+    setup_session_info (bool start);
+
+    std::string snapshot_device;
+    std::string snapshot_options;
+  };
+
+}
 
 #endif /* SBUILD_CHROOT_LVM_SNAPSHOT_H */
 

@@ -27,61 +27,64 @@
 
 #include "sbuild-chroot.h"
 
-class SbuildChrootBlockDevice : public SbuildChroot
+namespace sbuild
 {
-public:
-  SbuildChrootBlockDevice();
-  SbuildChrootBlockDevice (GKeyFile   *keyfile,
-			   const std::string& group);
-  virtual ~SbuildChrootBlockDevice();
 
-  virtual SbuildChroot *
-  clone () const;
+  class ChrootBlockDevice : public Chroot
+  {
+  public:
+    ChrootBlockDevice();
+    ChrootBlockDevice (GKeyFile           *keyfile,
+		       const std::string&  group);
+    virtual ~ChrootBlockDevice();
 
-  const std::string&
-  get_device () const;
+    virtual Chroot *
+    clone () const;
 
-  void
-  set_device (const std::string& device);
+    const std::string&
+    get_device () const;
 
-  virtual const std::string&
-  get_mount_device () const;
+    void
+    set_device (const std::string& device);
 
-  const std::string&
-  get_mount_options () const;
+    virtual const std::string&
+    get_mount_device () const;
 
-  void
-  set_mount_options (const std::string& device);
+    const std::string&
+    get_mount_options () const;
 
-  virtual const std::string&
-  get_chroot_type () const;
+    void
+    set_mount_options (const std::string& device);
 
-  virtual void
-  setup_env (env_list& env);
+    virtual const std::string&
+    get_chroot_type () const;
 
-  virtual bool
-  setup_lock (SbuildChrootSetupType   type,
-	      gboolean                lock,
-	      GError                **error);
+    virtual void
+    setup_env (env_list& env);
 
-  virtual SbuildChrootSessionFlags
-  get_session_flags () const;
+    virtual void
+    setup_lock (SetupType type,
+		bool      lock);
 
-  virtual void
-  print_details (FILE *file) const;
+    virtual SessionFlags
+    get_session_flags () const;
 
-  virtual void
-  print_config (FILE *file) const;
+    virtual void
+    print_details (FILE *file) const;
 
-private:
-  void
-  read_keyfile (GKeyFile   *keyfile,
-		const std::string& group);
+    virtual void
+    print_config (FILE *file) const;
 
-  std::string device;
-  std::string mount_options;
-};
+  private:
+    void
+    read_keyfile (GKeyFile   *keyfile,
+		  const std::string& group);
 
+    std::string device;
+    std::string mount_options;
+  };
+
+}
 
 #endif /* SBUILD_CHROOT_BLOCK_DEVICE_H */
 

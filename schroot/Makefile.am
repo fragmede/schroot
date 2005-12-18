@@ -59,7 +59,6 @@ schroot_public_cc_sources =		\
 	sbuild-chroot-lvm-snapshot.cc	\
 	sbuild-chroot-plain.cc		\
 	sbuild-config.cc		\
-	sbuild-error.cc			\
 	sbuild-lock.cc			\
 	sbuild-session.cc		\
 	sbuild-util.cc

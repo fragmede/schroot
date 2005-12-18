@@ -19,71 +19,93 @@
  *
  *********************************************************************/
 
-inline bool keyfile_read_bool(GKeyFile   *keyfile,
-				const std::string& group,
-				const std::string& key,
-				bool&       value)
+#ifndef SBUILD_KEYFILE_H
+#define SBUILD_KEYFILE_H
+
+#include <string>
+
+#include <glib.h>
+
+#include "sbuild-chroot.h"
+
+namespace sbuild
 {
-  GError *error = 0;
-  bool b = g_key_file_get_boolean(keyfile, group.c_str(), key.c_str(), &error);
-  if (!error)
-    {
-      value = b;
-      return true;
-    }
-  else
-    return false;
+
+  inline bool keyfile_read_bool(GKeyFile           *keyfile,
+				const std::string&  group,
+				const std::string&  key,
+				bool&               value)
+  {
+    GError *error = 0;
+    bool b = g_key_file_get_boolean(keyfile, group.c_str(), key.c_str(), &error);
+    if (!error)
+      {
+	value = b;
+	return true;
+      }
+    else
+      return false;
+  }
+
+  inline bool keyfile_read_uint(GKeyFile           *keyfile,
+				const std::string&  group,
+				const std::string&  key,
+				unsigned int&       value)
+  {
+    GError *error = 0;
+    int num = g_key_file_get_integer(keyfile, group.c_str(), key.c_str(), &error);
+    if (!error)
+      {
+	value = num;
+	return true;
+      }
+    else
+      return false;
+  }
+
+  inline bool keyfile_read_string(GKeyFile   *keyfile,
+				  const std::string& group,
+				  const std::string& key,
+				  std::string&       value)
+  {
+    GError *error = 0;
+    char *str = g_key_file_get_string(keyfile, group.c_str(), key.c_str(), &error);
+    if (!error && str)
+      {
+	value = str;
+	g_free(str);
+	return true;
+      }
+    else
+      return false;
+  }
+
+  inline bool keyfile_read_string_list(GKeyFile             *keyfile,
+				       const std::string&    group,
+				       const std::string&    key,
+				       Chroot::string_list&  value)
+  {
+    GError *error = 0;
+    char **strv = g_key_file_get_string_list(keyfile, group.c_str(), key.c_str(), 0, &error);
+    if (!error && strv)
+      {
+	Chroot::string_list newlist;
+	for (char *pos = strv[0]; pos != 0; ++pos)
+	  newlist.push_back(pos);
+	value = newlist;
+	g_strfreev(strv);
+	return true;
+      }
+    else
+      return false;
+  }
+
 }
 
-inline bool keyfile_read_uint(GKeyFile   *keyfile,
-			      const std::string& group,
-			      const std::string& key,
-			      unsigned int&       value)
-{
-  GError *error = 0;
-  int num = g_key_file_get_integer(keyfile, group.c_str(), key.c_str(), &error);
-  if (!error)
-    {
-      value = num;
-      return true;
-    }
-  else
-    return false;
-}
+#endif /* SBUILD_KEYFILE_H */
 
-inline bool keyfile_read_string(GKeyFile   *keyfile,
-				const std::string& group,
-				const std::string& key,
-				std::string&       value)
-{
-  GError *error = 0;
-  char *str = g_key_file_get_string(keyfile, group.c_str(), key.c_str(), &error);
-  if (!error && str)
-    {
-      value = str;
-      g_free(str);
-      return true;
-    }
-  else
-    return false;
-}
-
-inline bool keyfile_read_string_list(GKeyFile   *keyfile,
-				     const std::string& group,
-				     const std::string& key,
-				     SbuildChroot::string_list& value)
-{
-  GError *error = 0;
-  char **strv = g_key_file_get_string_list(keyfile, group.c_str(), key.c_str(), 0, &error);
-  if (!error && strv)
-    {
-      SbuildChroot::string_list newlist;
-      for (char *pos = strv[0]; pos != 0; ++pos)
-	newlist.push_back(pos);
-      value = newlist;
-      g_strfreev(strv);
-      return true;
-    }
-  else
-    return false;
-}
+/*
+ * Local Variables:
+ * mode:C++
+ * End:
+ */

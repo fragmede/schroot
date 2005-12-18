@@ -22,10 +22,10 @@
 /**
  * SECTION:sbuild-session
  * @short_description: session object
- * @title: SbuildSession
+ * @title: Session
  *
  * This object provides the session handling for schroot.  It derives
- * from SbuildAuth, which performs all the necessary PAM actions,
+ * from Auth, which performs all the necessary PAM actions,
  * specialising it by overriding its virtual functions.  This allows
  * more sophisticated handling of user authorisation (groups and
  * root-groups membership in the configuration file) and session
@@ -51,16 +51,18 @@
 #include "sbuild-session.h"
 #include "sbuild-chroot-lvm-snapshot.h"
 
+using namespace sbuild;
+
 namespace
 {
   /* TODO: move to utils */
   std::string
-  string_list_to_string(const SbuildChroot::string_list& list,
-			const std::string&               separator)
+  string_list_to_string(const Chroot::string_list& list,
+			const std::string&         separator)
   {
     std::string ret;
 
-    for (SbuildChroot::string_list::const_iterator cur = list.begin();
+    for (Chroot::string_list::const_iterator cur = list.begin();
 	 cur != list.end();
 	 ++cur)
       {
@@ -73,11 +75,11 @@ namespace
   }
 
   char **
-  string_list_to_strv(const SbuildAuth::string_list& str)
+  string_list_to_strv(const Auth::string_list& str)
   {
     char **ret = new char *[str.size() + 1];
 
-    for (SbuildAuth::string_list::size_type i = 0;
+    for (Auth::string_list::size_type i = 0;
 	 i < str.size();
 	 ++i)
       {
@@ -90,11 +92,11 @@ namespace
   }
 
   char **
-  env_list_to_strv(const SbuildAuth::env_list& env)
+  env_list_to_strv(const Auth::env_list& env)
   {
     char **ret = new char *[env.size() + 1];
 
-    for (SbuildAuth::env_list::size_type i = 0;
+    for (Auth::env_list::size_type i = 0;
 	 i < env.size();
 	 ++i)
       {
@@ -175,7 +177,7 @@ namespace
 /**
  * sbuild_session_error_quark:
  *
- * Get the SBUILD_SESSION_ERROR domain number.
+ * Get the ERROR domain number.
  *
  * Returns the domain.
  */
@@ -190,53 +192,54 @@ sbuild_session_error_quark (void)
   return error_quark;
 }
 
-SbuildSession::SbuildSession (const std::string&                  service,
-			      std::tr1::shared_ptr<SbuildConfig>& config,
-			      SbuildSessionOperation              operation,
-			      string_list                         chroots):
-  SbuildAuth(service),
+Session::Session (const std::string&            service,
+		  std::tr1::shared_ptr<Config>& config,
+		  Operation                     operation,
+		  string_list                   chroots):
+  Auth(service),
   config(config),
   chroots(chroots),
   child_status(0),
+  operation(operation),
   session_id(),
   force(false)
 {
 }
 
-SbuildSession::~SbuildSession()
+Session::~Session()
 {
 }
 
 /**
  * sbuild_session_get_config:
- * @session: an #SbuildSession
+ * @session: an #Session
  *
  * Get the configuration associated with @session.
  *
- * Returns an #SbuildConfig.
+ * Returns an #Config.
  */
-std::tr1::shared_ptr<SbuildConfig>&
-SbuildSession::get_config ()
+std::tr1::shared_ptr<Config>&
+Session::get_config ()
 {
   return this->config;
 }
 
 /**
  * sbuild_session_set_config:
- * @session: an #SbuildSession
- * @config: an #SbuildConfig
+ * @session: an #Session
+ * @config: an #Config
  *
  * Set the configuration associated with @session.
  */
 void
-SbuildSession::set_config (std::tr1::shared_ptr<SbuildConfig>& config)
+Session::set_config (std::tr1::shared_ptr<Config>& config)
 {
   this->config = config;
 }
 
 /**
  * sbuild_session_get_chroots:
- * @session: an #SbuildSession
+ * @session: an #Session
  *
  * Get the chroots to use in @session.
  *
@@ -244,55 +247,55 @@ SbuildSession::set_config (std::tr1::shared_ptr<SbuildConfig>& config)
  * allocated storage in the chroot and must not be freed, modified or
  * stored.
  */
-const SbuildSession::string_list&
-SbuildSession::get_chroots () const
+const Session::string_list&
+Session::get_chroots () const
 {
   return this->chroots;
 }
 
 /**
  * sbuild_session_set_chroots:
- * @session: an #SbuildSession
+ * @session: an #Session
  * @chroots: the chroots to use
  *
  * Set the chroots to use in @session.
  */
 void
-SbuildSession::set_chroots (const SbuildSession::string_list& chroots)
+Session::set_chroots (const Session::string_list& chroots)
 {
   this->chroots = chroots;
 }
 
 /**
  * sbuild_session_get_operation:
- * @session: an #SbuildSession
+ * @session: an #Session
  *
  * Get the operation @session will perform.
  *
- * Returns an #SbuildConfig.
+ * Returns an #Config.
  */
-SbuildSessionOperation
-SbuildSession::get_operation () const
+Session::Operation
+Session::get_operation () const
 {
   return this->operation;
 }
 
 /**
  * sbuild_session_set_operation:
- * @session: an #SbuildSession
- * @operation: an #SbuildSessionOperation
+ * @session: an #Session
+ * @operation: an #Operation
  *
  * Set the operation @session will perform.
  */
 void
-SbuildSession::set_operation (SbuildSessionOperation  operation)
+Session::set_operation (Operation operation)
 {
   this->operation = operation;
 }
 
 /**
  * sbuild_session_get_session_id:
- * @session: an #SbuildSession
+ * @session: an #Session
  *
  * Get the session identifier.  The session identifier is a unique
  * string to identify a session.
@@ -300,54 +303,54 @@ SbuildSession::set_operation (SbuildSessionOperation  operation)
  * Returns a string.  The string must be freed by the caller.
  */
 const std::string&
-SbuildSession::get_session_id () const
+Session::get_session_id () const
 {
   return this->session_id;
 }
 
 /**
  * sbuild_session_set_session_id:
- * @session: an #SbuildSession
+ * @session: an #Session
  * @session_id: an string containing a valid session id
  *
  * Set the session identifier for @session.
  */
 void
-SbuildSession::set_session_id (const std::string& session_id)
+Session::set_session_id (const std::string& session_id)
 {
   this->session_id = session_id;
 }
 
 /**
  * sbuild_session_get_force:
- * @session: an #SbuildSession
+ * @session: an #Session
  *
  * Get the force status of @session.
  *
  * Returns TRUE if operation will be forced, otherwise FALSE.
  */
 bool
-SbuildSession::get_force () const
+Session::get_force () const
 {
   return this->force;
 }
 
 /**
  * sbuild_session_set_force:
- * @session: an #SbuildSession
+ * @session: an #Session
  * @force: TRUE to force session operation, otherwise FALSE
  *
  * Set the force status of @session.
  */
 void
-SbuildSession::set_force (bool force)
+Session::set_force (bool force)
 {
   this->force = force;
 }
 
 /**
  * sbuild_session_get_child_status:
- * @session: an #SbuildSession
+ * @session: an #Session
  *
  * Get the exit (wait) status of the last child process to run in this
  * session.
@@ -355,14 +358,14 @@ SbuildSession::set_force (bool force)
  * Returns the exit status.
  */
 int
-SbuildSession::get_child_status () const
+Session::get_child_status () const
 {
   return this->child_status;
 }
 
 /**
  * sbuild_session_require_auth:
- * @session: an #SbuildSession
+ * @session: an #Session
  *
  * Check if authentication is required for @session.  Group membership
  * is checked for all chroots, and depending on which user will be run
@@ -371,28 +374,28 @@ SbuildSession::get_child_status () const
  *
  * Returns the authentication type.
  */
-SbuildAuthStatus
-SbuildSession::get_auth_status () const
+Auth::Status
+Session::get_auth_status () const
 {
-  g_return_val_if_fail(!this->chroots.empty(), SBUILD_AUTH_STATUS_FAIL);
-  g_return_val_if_fail(this->config.get() != NULL, SBUILD_AUTH_STATUS_FAIL);
+  g_return_val_if_fail(!this->chroots.empty(), Auth::STATUS_FAIL);
+  g_return_val_if_fail(this->config.get() != NULL, Auth::STATUS_FAIL);
 
-  SbuildAuthStatus status = SBUILD_AUTH_STATUS_NONE;
+  Auth::Status status = Auth::STATUS_NONE;
 
   /* TODO set difference. */
   for (string_list::const_iterator cur = this->chroots.begin();
        cur != this->chroots.end();
        ++cur)
     {
-      const SbuildChroot *chroot = this->config->find_alias(*cur);
+      const Chroot *chroot = this->config->find_alias(*cur);
       if (chroot == NULL) // Should never happen, but cater for it anyway.
 	{
 	  g_warning(_("No chroot found matching alias '%s'"), cur->c_str());
-	  status = change_auth(status, SBUILD_AUTH_STATUS_FAIL);
+	  status = change_auth(status, Auth::STATUS_FAIL);
 	}
 
-      const SbuildChroot::string_list& groups = chroot->get_groups();
-      const SbuildChroot::string_list& root_groups = chroot->get_root_groups();
+      const Chroot::string_list& groups = chroot->get_groups();
+      const Chroot::string_list& root_groups = chroot->get_root_groups();
 
       if (!groups.empty())
 	{
@@ -401,7 +404,7 @@ SbuildSession::get_auth_status () const
 
 	  if (!groups.empty())
 	    {
-	      for (SbuildChroot::string_list::const_iterator gp = groups.begin();
+	      for (Chroot::string_list::const_iterator gp = groups.begin();
 		   gp != groups.end();
 		   ++gp)
 		if (is_group_member(*gp))
@@ -410,7 +413,7 @@ SbuildSession::get_auth_status () const
 
 	  if (!root_groups.empty())
 	    {
-	      for (SbuildChroot::string_list::const_iterator gp = root_groups.begin();
+	      for (Chroot::string_list::const_iterator gp = root_groups.begin();
 		   gp != root_groups.end();
 		   ++gp)
 		if (is_group_member(*gp))
@@ -426,20 +429,20 @@ SbuildSession::get_auth_status () const
 	      ((this->get_uid() == 0 && in_root_groups == TRUE) ||
 	       (this->get_ruid() == this->get_uid())))
 	    {
-	      status = change_auth(status, SBUILD_AUTH_STATUS_NONE);
+	      status = change_auth(status, Auth::STATUS_NONE);
 	    }
 	  else if (in_groups == TRUE) // Auth required if not in root group
 	    {
-	      status = change_auth(status, SBUILD_AUTH_STATUS_USER);
+	      status = change_auth(status, Auth::STATUS_USER);
 	    }
 	  else // Not in any groups
 	    {
-	      status = change_auth(status, SBUILD_AUTH_STATUS_FAIL);
+	      status = change_auth(status, Auth::STATUS_FAIL);
 	    }
 	}
       else // No available groups entries means no access to anyone
 	{
-	  status = change_auth(status, SBUILD_AUTH_STATUS_FAIL);
+	  status = change_auth(status, Auth::STATUS_FAIL);
 	}
     }
 
@@ -448,8 +451,7 @@ SbuildSession::get_auth_status () const
 
 /**
  * sbuild_session_run:
- * @session: an #SbuildSession
- * @error: a #GError, or NULL to ignore errors
+ * @session: an #Session
  *
  * Run a session.  If a command has been specified, this will be run
  * in each of the specified chroots.  If no command has been
@@ -463,160 +465,145 @@ SbuildSession::get_auth_status () const
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
  */
-bool
-SbuildSession::run_impl (GError **error)
+void
+Session::run_impl ()
 {
-  g_return_val_if_fail(this->config.get() != NULL, FALSE);
-  g_return_val_if_fail(!this->chroots.empty(), FALSE);
+  g_return_if_fail(this->config.get() != NULL);
+  g_return_if_fail(!this->chroots.empty());
 
-  GError *tmp_error = NULL;
+try
+  {
+    for (Chroot::string_list::const_iterator cur = this->chroots.begin();
+	 cur != this->chroots.end();
+	 ++cur)
+      {
+	g_debug("Running session in %s chroot:\n", cur->c_str());
+	const Chroot *ch = this->config->find_alias(*cur);
+	if (chroot == NULL) // Should never happen, but cater for it anyway.
+	  {
+	    throw error(*cur + _("Failed to find chroot"),
+			ERROR_CHROOT);
+	  }
+	else
+	  {
+	    std::auto_ptr<Chroot> chroot(ch->clone());
 
-  for (SbuildChroot::string_list::const_iterator cur = this->chroots.begin();
-       cur != this->chroots.end();
-       ++cur)
-    {
-      g_debug("Running session in %s chroot:\n", cur->c_str());
-      const SbuildChroot *ch = this->config->find_alias(*cur);
-      if (chroot == NULL) // Should never happen, but cater for it anyway.
-	{
-	  g_set_error(&tmp_error,
-		      SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHROOT,
-		      _("%s: Failed to find chroot"), cur->c_str());
-	}
-      else
-	{
-	  std::auto_ptr<SbuildChroot> chroot(ch->clone());
+	    /* If restoring a session, set the session ID from the
+	       chroot name, or else generate it.  Only chroots which
+	       support session creation append a UUID to the session
+	       ID. */
+	    if (chroot->get_active() ||
+		!(chroot->get_session_flags() & Chroot::SESSION_CREATE))
+	      {
+		set_session_id(chroot->get_name());
+	      }
+	    else
+	      {
+		uuid_t uuid;
+		gchar uuid_str[37];
+		uuid_generate(uuid);
+		uuid_unparse(uuid, uuid_str);
+		uuid_clear(uuid);
+		gchar *session_id = g_strconcat(chroot->get_name().c_str(), "-", uuid_str, NULL);
+		set_session_id(session_id);
+		g_free(session_id);
+	      }
 
-	  /* If restoring a session, set the session ID from the
-	     chroot name, or else generate it.  Only chroots which
-	     support session creation append a UUID to the session
-	     ID. */
-	  if (chroot->get_active() ||
-	      !(chroot->get_session_flags() & SBUILD_CHROOT_SESSION_CREATE))
-	    {
-	      set_session_id(chroot->get_name());
-	    }
-	  else
-	    {
-	      uuid_t uuid;
-	      gchar uuid_str[37];
-	      uuid_generate(uuid);
-	      uuid_unparse(uuid, uuid_str);
-	      uuid_clear(uuid);
-	      gchar *session_id = g_strconcat(chroot->get_name().c_str(), "-", uuid_str, NULL);
-	      set_session_id(session_id);
-	      g_free(session_id);
-	    }
+	    /* Activate chroot. */
+	    chroot->set_active(true);
 
-	  /* Activate chroot. */
-	  chroot->set_active(true);
+	    /* If a chroot mount location has not yet been set, set one
+	       with the session id. */
+	    if (chroot->get_mount_location().empty())
+	      {
+		gchar *location = g_strconcat(SCHROOT_MOUNT_DIR, "/",
+					      this->session_id.c_str(), NULL);
+		chroot->set_mount_location(location);
+		g_free(location);
+	      }
 
-	  /* If a chroot mount location has not yet been set, set one
-	     with the session id. */
-	  if (chroot->get_mount_location().empty())
-	    {
-	      gchar *location = g_strconcat(SCHROOT_MOUNT_DIR, "/",
+	    /* Chroot types which create a session (e.g. LVM devices)
+	       need the chroot name respecifying. */
+	    if (chroot->get_session_flags() & Chroot::SESSION_CREATE)
+	      chroot->set_name(this->session_id);
+
+	    /* LVM devices need the snapshot device name specifying. */
+	    ChrootLvmSnapshot *snapshot = 0;
+	    if ((snapshot = dynamic_cast<ChrootLvmSnapshot *>(chroot.get())) != 0)
+	      {
+		gchar *dir =
+		  g_path_get_dirname(snapshot->get_device().c_str());
+		gchar *device = g_strconcat(dir, "/",
 					    this->session_id.c_str(), NULL);
-	      chroot->set_mount_location(location);
-	      g_free(location);
-	    }
+		snapshot->set_snapshot_device(device);
+		g_free(device);
+		g_free(dir);
+	      }
 
-	  /* Chroot types which create a session (e.g. LVM devices)
-	     need the chroot name respecifying. */
-	  if (chroot->get_session_flags() & SBUILD_CHROOT_SESSION_CREATE)
-	    chroot->set_name(this->session_id);
+	    try
+	      {
+		/* Run setup-start chroot setup scripts. */
+		setup_chroot(*chroot, Chroot::SETUP_START);
+		if (this->operation == OPERATION_BEGIN)
+		  g_fprintf(stdout, "%s\n", this->session_id.c_str());
 
-	  /* LVM devices need the snapshot device name specifying. */
-	  SbuildChrootLvmSnapshot *snapshot = 0;
-	  if ((snapshot = dynamic_cast<SbuildChrootLvmSnapshot *>(chroot.get())) != 0)
-	    {
-	      gchar *dir =
-		g_path_get_dirname(snapshot->get_device().c_str());
-	      gchar *device = g_strconcat(dir, "/",
-					  this->session_id.c_str(), NULL);
-	      snapshot->set_snapshot_device(device);
-	      g_free(device);
-	      g_free(dir);
-	    }
+		/* Run recover scripts. */
+		setup_chroot(*chroot, Chroot::SETUP_RECOVER);
 
-	  /* Run setup-start chroot setup scripts. */
-	  if (this->operation == SBUILD_SESSION_OPERATION_AUTOMATIC ||
-	      this->operation == SBUILD_SESSION_OPERATION_BEGIN)
-	    {
-	      if (chroot->get_run_setup_scripts() == TRUE)
-		setup_chroot(*chroot,
-			     SBUILD_CHROOT_SETUP_START,
-			     &tmp_error);
-	      if (this->operation == SBUILD_SESSION_OPERATION_BEGIN)
-		g_fprintf(stdout, "%s\n", this->session_id.c_str());
-	    }
+		try
+		  {
+		    /* Run run-start scripts. */
+		    setup_chroot(*chroot, Chroot::RUN_START);
 
-	  /* Run recover scripts. */
-	  if (this->operation == SBUILD_SESSION_OPERATION_RECOVER)
-	    {
-	      if (chroot->get_run_setup_scripts() == TRUE)
-		setup_chroot(*chroot,
-			     SBUILD_CHROOT_SETUP_RECOVER,
-			     &tmp_error);
-	    }
+		    /* Run session if setup succeeded. */
+		    run_chroot(*chroot);
 
-	  if (tmp_error == NULL &&
-	      (this->operation == SBUILD_SESSION_OPERATION_AUTOMATIC ||
-	       this->operation == SBUILD_SESSION_OPERATION_RUN))
-	    {
-	      /* Run run-start scripts. */
-	      if (chroot->get_run_session_scripts() == TRUE)
-		setup_chroot(*chroot,
-			     SBUILD_CHROOT_RUN_START,
-			     &tmp_error);
+		    /* Run run-stop scripts whether or not there was an
+		       error. */
+		    setup_chroot(*chroot, Chroot::RUN_STOP);
+		  }
+		catch (const error& e)
+		  {
+		    setup_chroot(*chroot, Chroot::RUN_STOP);
+		    throw e;
+		  }
 
-	      /* Run session if setup succeeded. */
-	      if (tmp_error == NULL)
-		run_chroot(*chroot, &tmp_error);
+	    /* Run setup-stop chroot setup scripts whether or not there
+	       was an error. */
+		setup_chroot(*chroot, Chroot::SETUP_STOP);
+		chroot->set_active(false);
+	      }
+	    catch (const error& e)
+	      {
+		try
+		  {
+		    setup_chroot(*chroot, Chroot::SETUP_STOP);
+		  }
+		catch (const error& discard)
+		  {
+		  }
+		chroot->set_active(false);
+		throw e;
+	      }
 
-	      /* Run run-stop scripts whether or not there was an
-		 error. */
-	      if (chroot->get_run_session_scripts() == TRUE)
-		setup_chroot(*chroot,
-			     SBUILD_CHROOT_RUN_STOP,
-			     (tmp_error != NULL) ? NULL : &tmp_error);
-	    }
-
-	  /* Run setup-stop chroot setup scripts whether or not there
-	     was an error. */
-	  if (this->operation == SBUILD_SESSION_OPERATION_AUTOMATIC ||
-	      this->operation == SBUILD_SESSION_OPERATION_END)
-	    {
-	      if (chroot->get_run_setup_scripts() == TRUE)
-		setup_chroot(*chroot,
-			     SBUILD_CHROOT_SETUP_STOP,
-			     (tmp_error != NULL) ? NULL : &tmp_error);
-	    }
-
-	  /* Deactivate chroot. */
-	  chroot->set_active(false);
-	}
-
-      if (tmp_error != NULL)
-	break;
-    }
-
-  if (tmp_error != NULL)
-    {
-      g_propagate_error(error, tmp_error);
-      /* If a command was not run, but something failed, the exit
-	 status still needs setting. */
-      if (this->child_status == 0)
-	this->child_status = EXIT_FAILURE;
-      return FALSE;
-    }
-  else
-    return TRUE;
+	    /* Deactivate chroot. */
+	    chroot->set_active(false);
+	  }
+      }
+  }
+catch (const error& e)
+  {
+    /* If a command was not run, but something failed, the exit
+       status still needs setting. */
+    if (this->child_status == 0)
+      this->child_status = EXIT_FAILURE;
+    throw e;
+  }
 }
 
 /**
  * sbuild_session_setup_chroot_child_setup:
- * @session: an #SbuildSession
+ * @session: an #Session
  *
  * A helper to make sure the child process is real and effective root
  * before running run-parts.
@@ -634,10 +621,9 @@ sbuild_session_setup_chroot_child_setup ()
 
 /**
  * sbuild_session_setup_chroot:
- * @session: an #SbuildSession
- * @session_chroot: an #SbuildChroot (which must be present in the @session configuration)
- * @setup_type: an #SbuildChrootSetupType
- * @error: a #GError
+ * @session: an #Session
+ * @session_chroot: an #Chroot (which must be present in the @session configuration)
+ * @setup_type: an #ChrootSetupType
  *
  * Setup a chroot.  This runs all of the commands in setup.d.
  *
@@ -648,57 +634,75 @@ sbuild_session_setup_chroot_child_setup ()
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
  */
-bool
-SbuildSession::setup_chroot (SbuildChroot&           session_chroot,
-			     SbuildChrootSetupType   setup_type,
-			     GError                **error)
+void
+Session::setup_chroot (Chroot&           session_chroot,
+		       Chroot::SetupType setup_type)
 {
-  g_return_val_if_fail(!session_chroot.get_name().empty(), FALSE);
-  g_return_val_if_fail(setup_type == SBUILD_CHROOT_SETUP_START ||
-		       setup_type == SBUILD_CHROOT_SETUP_RECOVER ||
-		       setup_type == SBUILD_CHROOT_SETUP_STOP ||
-		       setup_type == SBUILD_CHROOT_RUN_START ||
-		       setup_type == SBUILD_CHROOT_RUN_STOP, FALSE);
+  g_return_if_fail(!session_chroot.get_name().empty());
 
-  GError *setup_lock_error = NULL;
-  if (session_chroot.setup_lock(setup_type,
-				TRUE, &setup_lock_error) == FALSE)
+  if (!((this->operation == OPERATION_BEGIN &&
+	 setup_type == Chroot::SETUP_START) ||
+	(this->operation == OPERATION_RECOVER &&
+	 setup_type == Chroot::SETUP_RECOVER) ||
+	(this->operation == OPERATION_END &&
+	 setup_type == Chroot::SETUP_STOP) ||
+	(this->operation == OPERATION_RUN &&
+	 (setup_type == Chroot::RUN_START ||
+	  setup_type == Chroot::RUN_STOP)) ||
+	(this->operation == OPERATION_AUTOMATIC &&
+	 (setup_type == Chroot::SETUP_START ||
+	  setup_type == Chroot::SETUP_STOP  ||
+	  setup_type == Chroot::SETUP_STOP  ||
+	  setup_type == Chroot::SETUP_STOP))))
+    return;
+
+  if (((setup_type == Chroot::SETUP_START   ||
+	setup_type == Chroot::SETUP_RECOVER ||
+	setup_type == Chroot::SETUP_STOP) &&
+       session_chroot.get_run_setup_scripts() == false) ||
+      ((setup_type == Chroot::RUN_START ||
+	setup_type == Chroot::RUN_STOP) &&
+       session_chroot.get_run_setup_scripts() == false))
+    return;
+
+  try
     {
-      g_set_error(error,
-		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHROOT_SETUP,
-		  _("Chroot setup failed to lock chroot: %s"),
-		  setup_lock_error->message);
-      g_error_free(setup_lock_error);
-      return FALSE;
+      session_chroot.setup_lock(setup_type, TRUE);
+    }
+  catch (const Chroot::error &e)
+    {
+      throw error(std::string(_("Chroot setup failed to lock chroot: %s"))
+		  + e.what(),
+		  ERROR_CHROOT_SETUP);
     }
 
   gchar *setup_type_string = NULL;
-  if (setup_type == SBUILD_CHROOT_SETUP_START)
+  if (setup_type == Chroot::SETUP_START)
     setup_type_string = "setup-start";
-  else if (setup_type == SBUILD_CHROOT_SETUP_RECOVER)
+  else if (setup_type == Chroot::SETUP_RECOVER)
     setup_type_string = "setup-recover";
-  else if (setup_type == SBUILD_CHROOT_SETUP_STOP)
+  else if (setup_type == Chroot::SETUP_STOP)
     setup_type_string = "setup-stop";
-  else if (setup_type == SBUILD_CHROOT_RUN_START)
+  else if (setup_type == Chroot::RUN_START)
     setup_type_string = "run-start";
-  else if (setup_type == SBUILD_CHROOT_RUN_STOP)
+  else if (setup_type == Chroot::RUN_STOP)
     setup_type_string = "run-stop";
 
   gchar **argv = g_new(gchar *, 8);
   {
     guint i = 0;
     argv[i++] = g_strdup(RUN_PARTS); // Run run-parts(8)
-    if (get_verbosity() == SBUILD_AUTH_VERBOSITY_VERBOSE)
+    if (get_verbosity() == Auth::VERBOSITY_VERBOSE)
       argv[i++] = g_strdup("--verbose");
     argv[i++] = g_strdup("--lsbsysinit");
     argv[i++] = g_strdup("--exit-on-error");
-    if (setup_type == SBUILD_CHROOT_SETUP_STOP ||
-	setup_type == SBUILD_CHROOT_RUN_STOP)
+    if (setup_type == Chroot::SETUP_STOP ||
+	setup_type == Chroot::RUN_STOP)
       argv[i++] = g_strdup("--reverse");
     argv[i++] = g_strdup_printf("--arg=%s", setup_type_string);
-    if (setup_type == SBUILD_CHROOT_SETUP_START ||
-	setup_type == SBUILD_CHROOT_SETUP_RECOVER ||
-	setup_type == SBUILD_CHROOT_SETUP_STOP)
+    if (setup_type == Chroot::SETUP_START ||
+	setup_type == Chroot::SETUP_RECOVER ||
+	setup_type == Chroot::SETUP_STOP)
       argv[i++] = g_strdup(SCHROOT_CONF_SETUP_D); // Setup directory
     else
       argv[i++] = g_strdup(SCHROOT_CONF_RUN_D); // Run directory
@@ -708,7 +712,7 @@ SbuildSession::setup_chroot (SbuildChroot&           session_chroot,
   /* Get a complete list of environment variables to set.  We need to
      query the chroot here, since this can vary depending upon the
      chroot type. */
-  SbuildChroot::env_list env;
+  Chroot::env_list env;
   session_chroot.setup_env(env);
   setup_env_var(env, "AUTH_USER",
 		get_user());
@@ -716,13 +720,13 @@ SbuildSession::setup_chroot (SbuildChroot&           session_chroot,
     const char *verbosity = NULL;
     switch (get_verbosity())
       {
-      case SBUILD_AUTH_VERBOSITY_QUIET:
+      case Auth::VERBOSITY_QUIET:
 	verbosity = "quiet";
 	break;
-      case SBUILD_AUTH_VERBOSITY_NORMAL:
+      case Auth::VERBOSITY_NORMAL:
 	verbosity = "normal";
 	break;
-      case SBUILD_AUTH_VERBOSITY_VERBOSE:
+      case Auth::VERBOSITY_VERBOSE:
 	verbosity = "verbose";
 	break;
       default:
@@ -772,64 +776,55 @@ SbuildSession::setup_chroot (SbuildChroot&           session_chroot,
   g_strfreev(envp);
   envp = NULL;
 
-  GError *setup_unlock_error = NULL;
-  if (session_chroot.setup_lock(setup_type,
-				FALSE, &setup_unlock_error) == FALSE)
-    {
-      if (tmp_error == NULL)
-	g_set_error(&tmp_error,
-		    SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHROOT_SETUP,
-		    _("Chroot setup failed to unlock chroot: %s"),
-		    setup_unlock_error->message);
-      g_error_free(setup_unlock_error);
-    }
+  // TODO: Check tmp_error
 
-  if (tmp_error != NULL)
+  try
     {
-      g_propagate_error(error, tmp_error);
-      return FALSE;
+      session_chroot.setup_lock(setup_type, false);
+    }
+  catch (const Chroot::error &e)
+    {
+      throw error(std::string(_("Chroot setup failed to unlock chroot: %s"))
+		  + e.what(),
+		  ERROR_CHROOT_SETUP);
     }
 
   if (exit_status != 0)
-    {
-      g_set_error(error,
-		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHROOT_SETUP,
-		  _("Chroot setup failed during chroot %s"),
-		  setup_type_string);
-      return FALSE;
-    }
-
-  return TRUE;
+    throw error(std::string(_("Chroot setup failed during chroot "))
+			    + setup_type_string,
+			    ERROR_CHROOT_SETUP);
 }
 
 /**
  * sbuild_session_run_child:
- * @session: an #SbuildSession
- * @session_chroot: an #SbuildChroot (which must be present in the @session configuration)
+ * @session: an #Session
+ * @session_chroot: an #Chroot (which must be present in the @session configuration)
  *
  * Run a command or login shell as a child process in the specified chroot.
  *
  */
 void
-SbuildSession::run_child (SbuildChroot& session_chroot)
+Session::run_child (Chroot& session_chroot)
 {
   g_assert(!session_chroot.get_name().empty());
   g_assert(!session_chroot.get_mount_location().empty());
 
   g_assert(!get_user().empty());
   g_assert(!get_shell().empty());
-  g_assert(SbuildAuth::pam != NULL); // PAM must be initialised
+  g_assert(Auth::pam != NULL); // PAM must be initialised
 
   const std::string& location = session_chroot.get_mount_location();
   char *cwd = g_get_current_dir();
   /* Child errors result in immediate exit().  Errors are not
-     propagated back via a GError, because there is no longer any
+     propagated back via an exception, because there is no longer any
      higher-level handler to catch them. */
-  GError *pam_error = NULL;
-  open_session(&pam_error);
-  if (pam_error != NULL)
+  try
     {
-      g_printerr(_("PAM error: %s\n"), pam_error->message);
+      open_session();
+    }
+  catch (const Auth::error& e)
+    {
+      g_printerr(_("PAM error: %s\n"), e.what());
       exit (EXIT_FAILURE);
     }
 
@@ -922,7 +917,7 @@ SbuildSession::run_child (SbuildChroot& session_chroot)
 		 session_chroot.get_name().c_str(), get_ruser().c_str(), get_user().c_str(), get_shell().c_str());
 	}
 
-      if (get_verbosity() != SBUILD_AUTH_VERBOSITY_QUIET)
+      if (get_verbosity() != Auth::VERBOSITY_QUIET)
 	{
 	  if (get_ruid() == get_uid())
 	    {
@@ -954,7 +949,7 @@ SbuildSession::run_child (SbuildChroot& session_chroot)
       g_debug("Running command: %s", commandstring.c_str());
       syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
 	     session_chroot.get_name().c_str(), get_ruser().c_str(), get_user().c_str(), commandstring.c_str());
-      if (get_verbosity() != SBUILD_AUTH_VERBOSITY_QUIET)
+      if (get_verbosity() != Auth::VERBOSITY_QUIET)
 	{
 	  if (get_ruid() == get_uid())
 	    g_printerr(_("[%s chroot] Running command: \"%s\"\n"),
@@ -979,94 +974,76 @@ SbuildSession::run_child (SbuildChroot& session_chroot)
 
 /**
  * sbuild_session_wait_for_child:
- * @session: an #SbuildSession
- * @error: a #GError
+ * @session: an #Session
  *
  * Wait for a child process to complete, and check its exit status.
  *
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
  */
-bool
-SbuildSession::wait_for_child (int             pid,
-			       GError        **error)
+void
+Session::wait_for_child (int pid)
 {
   this->child_status = EXIT_FAILURE; // Default exit status
 
   int status;
   if (wait(&status) != pid)
-    {
-      g_set_error(error,
-		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
-		  _("wait for child failed: %s\n"), g_strerror (errno));
-      return FALSE;
-    }
+    throw error(std::string(_("wait for child failed: ")) + g_strerror (errno),
+		ERROR_CHILD);
 
-  GError *pam_error = NULL;
-  close_session(&pam_error);
-  if (pam_error != NULL)
+  try
     {
-      g_propagate_error(error, pam_error);
-      return FALSE;
+      close_session();
+    }
+  catch (const Auth::error& e)
+    {
+      throw error(e.what(), ERROR_CHILD);
     }
 
   if (!WIFEXITED(status))
     {
       if (WIFSIGNALED(status))
-	g_set_error(error,
-		    SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
-		    _("Child terminated by signal '%s'"),
-		    strsignal(WTERMSIG(status)));
+	throw error(std::string(_("Child terminated by signal ")) + strsignal(WTERMSIG(status)),
+		    ERROR_CHILD);
       else if (WCOREDUMP(status))
-	g_set_error(error,
-		    SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
-		    _("Child dumped core"));
+	throw error(_("Child dumped core"), ERROR_CHILD);
       else
-	g_set_error(error,
-		    SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
-		    _("Child exited abnormally (reason unknown; not a signal or core dump)"));
-      return FALSE;
+	throw error(_("Child exited abnormally (reason unknown; not a signal or core dump)"),
+		    ERROR_CHILD);
     }
 
   this->child_status = WEXITSTATUS(status);
 
   if (this->child_status)
     {
-      g_set_error(error,
-		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_CHILD,
-		  _("Child exited abnormally with status '%d'"),
-		  this->child_status);
-      return FALSE;
+      char *gstr = g_strdup_printf(_("Child exited abnormally with status '%d'"),
+				   this->child_status);
+      std::string err(gstr);
+      g_free(gstr);
+      throw error(err, ERROR_CHILD);
     }
-
-  /* Should never be reached. */
-  return TRUE;
 }
 
 /**
  * sbuild_session_run_command:
- * @session: an #SbuildSession
- * @session_chroot: an #SbuildChroot (which must be present in the @session configuration)
- * @error: a #GError
+ * @session: an #Session
+ * @session_chroot: an #Chroot (which must be present in the @session configuration)
  *
  * Run the session command or login shell in the specified chroot.
  *
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
  */
-bool
-SbuildSession::run_chroot (SbuildChroot&   session_chroot,
-			   GError        **error)
+void
+Session::run_chroot (Chroot&   session_chroot)
 {
-  g_return_val_if_fail(!session_chroot.get_name().empty(), FALSE);
+  g_return_if_fail(!session_chroot.get_name().empty());
 
   pid_t pid;
   if ((pid = fork()) == -1)
     {
-      g_set_error(error,
-		  SBUILD_SESSION_ERROR, SBUILD_SESSION_ERROR_FORK,
-		  _("Failed to fork child: %s"), g_strerror(errno));
-      return FALSE;
+      throw error(std::string(_("Failed to fork child: ")) + g_strerror(errno),
+		  ERROR_FORK);
     }
   else if (pid == 0)
     {
@@ -1075,22 +1052,14 @@ SbuildSession::run_chroot (SbuildChroot&   session_chroot,
     }
   else
     {
-      GError *tmp_error = NULL;
-      wait_for_child(pid, &tmp_error);
-
-      if (tmp_error != NULL)
-	{
-	  g_propagate_error(error, tmp_error);
-	  return FALSE;
-	}
-      return TRUE;
+      wait_for_child(pid);
     }
 }
 
 int
-SbuildSession::exec (const std::string& file,
-		     const string_list& command,
-		     const env_list& env)
+Session::exec (const std::string& file,
+	       const string_list& command,
+	       const env_list&    env)
 {
   char **argv = string_list_to_strv(command);
   char **envp = env_list_to_strv(env);

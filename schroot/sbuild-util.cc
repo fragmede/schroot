@@ -21,6 +21,8 @@
 
 #include "sbuild-util.h"
 
+using namespace sbuild;
+
 namespace
 {
 
@@ -47,53 +49,56 @@ namespace
 
 }
 
-namespace Sbuild
+std::string
+sbuild::basename(std::string name,
+		 char        separator)
 {
+  // Remove trailing separators
+  std::string::size_type cur = name.length();
+  while (cur - 1 != 0 && name[cur - 1] == separator)
+    --cur;
+  name.resize(cur);
 
-  std::string basename(std::string name,
-		       char        separator)
-  {
-    // Remove trailing separators
-    std::string::size_type cur = name.length();
-    while (cur - 1 != 0 && name[cur - 1] == separator)
-      --cur;
-    name.resize(cur);
+  // Find last separator
+  std::string::size_type pos = name.rfind(separator);
 
-    // Find last separator
-    std::string::size_type pos = name.rfind(separator);
+  std::string ret;
+  if (pos == std::string::npos)
+    ret = name; // No separators
+  else if (pos == 0 && name.length() == 1 && name[0] == separator)
+    ret = separator; // Only separators
+  else
+    ret = name.substr(pos + 1); // Basename only
 
-    std::string ret;
-    if (pos == std::string::npos)
-      ret = name; // No separators
-    else if (pos == 0 && name.length() == 1 && name[0] == separator)
-      ret = separator; // Only separators
-    else
-      ret = name.substr(pos + 1); // Basename only
-
-    return remove_duplicates(ret, separator);
-  }
-
-  std::string dirname(std::string name,
-		      char        separator)
-  {
-    // Remove trailing separators
-    std::string::size_type cur = name.length();
-    while (cur - 1 != 0 && name[cur - 1] == separator)
-      --cur;
-    name.resize(cur);
-
-    // Find last separator
-    std::string::size_type pos = name.rfind(separator);
-
-    std::string ret;
-    if (pos == std::string::npos)
-      ret = "."; // No directory components
-    else if (pos == 0)
-      ret = separator;
-    else
-      ret =  name.substr(0, pos); // Dirname part
-
-    return remove_duplicates(ret, separator);
-  }
-
+  return remove_duplicates(ret, separator);
 }
+
+std::string
+sbuild::dirname(std::string name,
+		char        separator)
+{
+  // Remove trailing separators
+  std::string::size_type cur = name.length();
+  while (cur - 1 != 0 && name[cur - 1] == separator)
+    --cur;
+  name.resize(cur);
+
+  // Find last separator
+  std::string::size_type pos = name.rfind(separator);
+
+  std::string ret;
+  if (pos == std::string::npos)
+    ret = "."; // No directory components
+  else if (pos == 0)
+    ret = separator;
+  else
+    ret =  name.substr(0, pos); // Dirname part
+
+  return remove_duplicates(ret, separator);
+}
+
+/*
+ * Local Variables:
+ * mode:C++
+ * End:
+ */

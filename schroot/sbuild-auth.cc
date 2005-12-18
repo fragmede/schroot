@@ -70,6 +70,8 @@
 #include "sbuild-auth-message.h"
 #include "sbuild-error.h"
 
+using namespace sbuild;
+
 namespace
 {
   /* This is the glue to link PAM user interaction with SbuildAuthConv. */
@@ -82,16 +84,16 @@ namespace
     if (appdata_ptr == 0)
       return PAM_CONV_ERR;
 
-    SbuildAuthConv *conv = static_cast<SbuildAuthConv *>(appdata_ptr);
+    AuthConv *conv = static_cast<AuthConv *>(appdata_ptr);
     g_assert (conv != 0);
 
     /* Construct a message vector */
-    SbuildAuthConv::message_list messages;
+    AuthConv::message_list messages;
     for (guint i = 0; i < num_msg; ++i)
       {
 	const struct pam_message *source = msgm[i];
 
-	SbuildAuthMessage message(static_cast<SbuildAuthMessageType>(source->msg_style),
+	AuthMessage message(static_cast<AuthMessage::MessageType>(source->msg_style),
 				  source->msg);
 	messages.push_back(message);
 
@@ -128,10 +130,10 @@ namespace
     return key + "=" + value;
   }
 
-  SbuildAuth::env_list
+  Auth::env_list
   env_strv_to_env_list (char **env)
   {
-    SbuildAuth::env_list ret;
+    Auth::env_list ret;
 
     if (env)
       {
@@ -154,7 +156,7 @@ namespace
 }
 
 
-SbuildAuth::SbuildAuth(const std::string& service_name):
+Auth::Auth(const std::string& service_name):
   service(service_name),
   uid(0),
   gid(0),
@@ -165,9 +167,9 @@ SbuildAuth::SbuildAuth(const std::string& service_name):
   environment(),
   ruid(),
   ruser(),
-  conv(dynamic_cast<SbuildAuthConv *>(new SbuildAuthConvTty)),
+  conv(dynamic_cast<AuthConv *>(new AuthConvTty)),
   pam(),
-  verbosity(SBUILD_AUTH_VERBOSITY_NORMAL)
+  verbosity(VERBOSITY_NORMAL)
 {
   this->ruid = getuid();
   struct passwd *pwent = getpwuid(this->ruid);
@@ -183,14 +185,14 @@ SbuildAuth::SbuildAuth(const std::string& service_name):
   set_user(this->ruser);
 }
 
-SbuildAuth::~SbuildAuth()
+Auth::~Auth()
 {
   // TODO: Shutdown PAM?
 }
 
 /**
  * sbuild_auth_get_service:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  *
  * Get the PAM service name.  This is passed to pam_start() when
  * initialising PAM.  It must be set during object construction, and
@@ -201,14 +203,14 @@ SbuildAuth::~SbuildAuth()
  * storage  and must not be freed, modified or stored.
  */
 const std::string&
-SbuildAuth::get_service () const
+Auth::get_service () const
 {
   return this->service;
 }
 
 /**
  * sbuild_auth_get_uid:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  *
  * Get the uid of the user.  This is the uid to run as in the
  * session.
@@ -217,14 +219,14 @@ SbuildAuth::get_service () const
  * uid 0.
  */
 uid_t
-SbuildAuth::get_uid () const
+Auth::get_uid () const
 {
   return this->uid;
 }
 
 /**
  * sbuild_auth_get_gid:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  *
  * Get the gid of the user.  This is the gid to run as in the
  * session.
@@ -233,14 +235,14 @@ SbuildAuth::get_uid () const
  * gid 0.
  */
 gid_t
-SbuildAuth::get_gid () const
+Auth::get_gid () const
 {
   return this->gid;
 }
 
 /**
  * sbuild_auth_get_user:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  *
  * Get the name of the user.  This is the user to run as in the
  * session.
@@ -249,14 +251,14 @@ SbuildAuth::get_gid () const
  * storage and must not be freed, modified or stored.
  */
 const std::string&
-SbuildAuth::get_user () const
+Auth::get_user () const
 {
   return this->user;
 }
 
 /**
  * sbuild_auth_set_user:
- * @auth: an #SbuildAuth.
+ * @auth: an #Auth.
  * @user: the name to set.
  *
  * Get the name of the user.  This is the user to run as in the
@@ -266,7 +268,7 @@ SbuildAuth::get_user () const
  * will also be set.
  */
 void
-SbuildAuth::set_user (const std::string& user)
+Auth::set_user (const std::string& user)
 {
   this->uid = 0;
   this->gid = 0;
@@ -291,35 +293,35 @@ SbuildAuth::set_user (const std::string& user)
 
 /**
  * sbuild_auth_get_command:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  *
  * Get the command to run in the session.
  *
  * Returns a string vector.  This string vector points to internally
  * allocated storage and must not be freed, modified or stored.
  */
-const SbuildAuth::string_list&
-SbuildAuth::get_command () const
+const Auth::string_list&
+Auth::get_command () const
 {
   return this->command;
 }
 
 /**
  * sbuild_auth_set_command:
- * @auth: an #SbuildAuth.
+ * @auth: an #Auth.
  * @command: the command to set.
  *
  * Set the command to run in the session.
  */
 void
-SbuildAuth::set_command (const SbuildAuth::string_list& command)
+Auth::set_command (const Auth::string_list& command)
 {
   this->command = command;
 }
 
 /**
  * sbuild_auth_get_home:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  *
  * Get the home directory.  This is the $HOME to set in the session,
  * if the user environment is not being preserved.
@@ -328,14 +330,14 @@ SbuildAuth::set_command (const SbuildAuth::string_list& command)
  * storage and must not be freed, modified or stored.
  */
 const std::string&
-SbuildAuth::get_home () const
+Auth::get_home () const
 {
   return this->home;
 }
 
 /**
  * sbuild_auth_get_shell:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  *
  * Get the name of the shell.  This is the shell to run as in the
  * session.
@@ -344,56 +346,56 @@ SbuildAuth::get_home () const
  * storage and must not be freed, modified or stored.
  */
 const std::string&
-SbuildAuth::get_shell () const
+Auth::get_shell () const
 {
   return this->shell;
 }
 
 /**
  * sbuild_auth_get_environment:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  *
  * Get the environment to use in @auth.
  *
  * Returns a string vector.  This string vector points to internally
  * allocated storage and must not be freed, modified or stored.
  */
-const SbuildAuth::env_list&
-SbuildAuth::get_environment () const
+const Auth::env_list&
+Auth::get_environment () const
 {
   return this->environment;
 }
 
 void
-SbuildAuth::set_environment (char **environment)
+Auth::set_environment (char **environment)
 {
   set_environment(env_strv_to_env_list(environment));
 }
 
 /**
  * sbuild_auth_set_environment:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  * @environment: the environment to use
  *
  * Set the environment to use in @auth.
  */
 void
-SbuildAuth::set_environment (const SbuildAuth::env_list& environment)
+Auth::set_environment (const Auth::env_list& environment)
 {
   this->environment = environment;
 }
 
 /**
  * sbuild_auth_get_pam_environment:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  *
  * Get the PAM environment from @auth.
  *
  * Returns a string vector.  This string vector points to internally
  * allocated storage and must not be freed, modified or stored.
  */
-SbuildAuth::env_list
-SbuildAuth::get_pam_environment () const
+Auth::env_list
+Auth::get_pam_environment () const
 {
   char **env =  pam_getenvlist(this->pam);
 
@@ -402,7 +404,7 @@ SbuildAuth::get_pam_environment () const
 
 /**
  * sbuild_auth_get_ruid:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  *
  * Get the "remote uid" of the user.  This is the uid which is
  * requesting authentication.
@@ -410,14 +412,14 @@ SbuildAuth::get_pam_environment () const
  * Returns a uid.
  */
 uid_t
-SbuildAuth::get_ruid () const
+Auth::get_ruid () const
 {
   return this->ruid;
 }
 
 /**
  * sbuild_auth_get_ruser:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  *
  * Get the "remote" name of the user.  This is the user which is
  * requesting authentication.
@@ -426,126 +428,125 @@ SbuildAuth::get_ruid () const
  * storage and must not be freed, modified or stored.
  */
 const std::string&
-SbuildAuth::get_ruser () const
+Auth::get_ruser () const
 {
   return this->ruser;
 }
 
 /**
  * sbuild_auth_get_verbosity:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  *
  * Get the message verbosity of @auth.
  *
- * Returns the #SbuildAuthVerbosity verbosity level.
+ * Returns the #Verbosity verbosity level.
  */
-SbuildAuthVerbosity
-SbuildAuth::get_verbosity () const
+Auth::Verbosity
+Auth::get_verbosity () const
 {
   return this->verbosity;
 }
 
 /**
  * sbuild_auth_set_verbosity:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  * @verbosity: the verbosity level to use
  *
  * Set the message verbosity of @auth.
  */
 void
-SbuildAuth::set_verbosity (SbuildAuthVerbosity  verbosity)
+Auth::set_verbosity (Auth::Verbosity verbosity)
 {
   this->verbosity = verbosity;
 }
 
 /**
  * sbuild_auth_get_conv:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  *
  * Get the conversation handler for @auth.
  *
  * Returns the handler object.
  */
-std::tr1::shared_ptr<SbuildAuthConv>&
-SbuildAuth::get_conv ()
+std::tr1::shared_ptr<AuthConv>&
+Auth::get_conv ()
 {
   return this->conv;
 }
 
 /**
  * sbuild_auth_set_conv:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  * @conv: the conversation handler to use
  *
  * Set the conversation handler for @auth.
  */
 void
-SbuildAuth::set_conv (std::tr1::shared_ptr<SbuildAuthConv>& conv)
+Auth::set_conv (std::tr1::shared_ptr<AuthConv>& conv)
 {
   this->conv = conv;
 }
 
-gboolean
-SbuildAuth::run (GError     **error)
+void
+Auth::run ()
 {
-  gboolean retval;
-  GError *tmp_error = 0;
-
-  start(&tmp_error);
-  if (tmp_error == 0)
+  try
     {
-      authenticate(&tmp_error);
-      if (tmp_error == 0)
+      start();
+      authenticate();
+      setupenv();
+      account();
+      try
 	{
-	  setupenv(&tmp_error);
-	  if (tmp_error == 0)
+	  cred_establish();
+
+	  const char *authuser = 0;
+	  pam_get_item(this->pam, PAM_USER, (const void **) &authuser);
+	  g_debug("PAM authentication succeeded for user %s\n", authuser);
+
+	  run_impl();
+
+	  /* The session is now finished, either
+	     successfully or not.  All PAM operations are
+	     now for cleanup and shutdown, and we must
+	     clean up whether or not errors were raised at
+	     any previous point.  This means only the
+	     first error is reported back to the user. */
+
+	  /* Don't cope with failure, since we are now
+	     already bailing out, and an error may already
+	     have been raised */
+	}
+      catch (const error& e)
+	{
+	  try
 	    {
-	      account(&tmp_error);
-	      if (tmp_error == 0)
-		{
-		  cred_establish(&tmp_error);
-		  if (tmp_error == 0)
-		    {
-		      const char *authuser = 0;
-		      pam_get_item(this->pam, PAM_USER, (const void **) &authuser);
-		      g_debug("PAM authentication succeeded for user %s\n", authuser);
-
-		      /* TODO: emit a signal */
-		      retval = run_impl(&tmp_error);
-
-		      /* The session is now finished, either
-			 successfully or not.  All PAM operations are
-			 now for cleanup and shutdown, and we must
-			 clean up whether or not errors were raised at
-			 any previous point.  This means only the
-			 first error is reported back to the user. */
-
-		      /* Don't cope with failure, since we are now
-			 already bailing out, and an error may already
-			 have been raised */
-		      cred_delete((tmp_error != 0) ? 0 : &tmp_error);
-
-		    } // pam_cred_establish
-		} // pam_account
-	    } // pam_setupenv
-	} // pam_auth
-      /* Don't cope with failure, since we are now already bailing out,
-	 and an error may already have been raised */
-      stop((tmp_error != 0) ? 0 : &tmp_error);
-    } // pam_start
-
-  if (tmp_error != 0)
-    {
-      g_propagate_error(error, tmp_error);
-      return FALSE;
+	      cred_delete();
+	    }
+	  catch (const error& discard)
+	    {
+	      throw error(e);
+	    }
+	}
     }
-  else
-    return TRUE;
+  catch (const error& e)
+    {
+      try
+	{
+	  /* Don't cope with failure, since we are now already bailing out,
+	     and an error may already have been raised */
+	  stop();
+	}
+      catch (const error& discard)
+	{
+	  throw error(e);
+	}
+    }
 }
 
 /**
  * sbuild_auth_start:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  * @error: a #GError
  *
  * Start the PAM system.  No other PAM functions may be called before
@@ -554,18 +555,16 @@ SbuildAuth::run (GError     **error)
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
  */
-gboolean
-SbuildAuth::start (GError     **error)
+void
+Auth::start ()
 {
-  g_return_val_if_fail(this->user.empty(), FALSE);
+  g_return_if_fail(this->user.empty());
 
   if (this->pam != 0)
     {
-      g_set_error(error,
-		  SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_STARTUP,
-		  _("PAM error: PAM is already initialised"));
       g_debug("pam_start FAIL (already initialised)");
-      return FALSE;
+      throw error(_("PAM error: PAM is already initialised"),
+		  ERROR_PAM_STARTUP);
     }
 
   struct pam_conv conv_hook =
@@ -575,23 +574,22 @@ SbuildAuth::start (GError     **error)
     };
 
   int pam_status;
+
   if ((pam_status =
        pam_start(this->service.c_str(), this->user.c_str(),
 		 &conv_hook, &this->pam)) != PAM_SUCCESS)
     {
-      g_set_error(error,
-		  SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_STARTUP,
-		  _("PAM error: %s"), pam_strerror(this->pam, pam_status));
       g_debug("pam_start FAIL");
-      return FALSE;
+      throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
+		  ERROR_PAM_STARTUP);
     }
+
   g_debug("pam_start OK");
-  return TRUE;
 }
 
 /**
  * sbuild_auth_stop:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  * @error: a #GError
  *
  * Stop the PAM system.  No other PAM functions may be used after
@@ -600,30 +598,27 @@ SbuildAuth::start (GError     **error)
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
  */
-gboolean
-SbuildAuth::stop (GError     **error)
+void
+Auth::stop ()
 {
-  g_return_val_if_fail(this->pam != 0, FALSE); // PAM must be initialised
+  g_return_if_fail(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
   if ((pam_status =
        pam_end(this->pam, PAM_SUCCESS)) != PAM_SUCCESS)
     {
-      g_set_error(error,
-		  SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_SHUTDOWN,
-		  _("PAM error: %s"), pam_strerror(this->pam, pam_status));
       g_debug("pam_end FAIL");
-      return FALSE;
+      throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
+		  ERROR_PAM_SHUTDOWN);
     }
 
   g_debug("pam_end OK");
-  return TRUE;
 }
 
 /**
  * sbuild_auth_authenticate:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  * @error: a #GError
  *
  * Perform PAM authentication.  If required, the user will be prompted
@@ -632,22 +627,20 @@ SbuildAuth::stop (GError     **error)
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
  */
-gboolean
-SbuildAuth::authenticate (GError     **error)
+void
+Auth::authenticate ()
 {
-  g_return_val_if_fail(this->user.empty(), FALSE);
-  g_return_val_if_fail(this->pam != 0, FALSE); // PAM must be initialised
+  g_return_if_fail(this->user.empty());
+  g_return_if_fail(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
   if ((pam_status =
        pam_set_item(this->pam, PAM_RUSER, this->ruser.c_str())) != PAM_SUCCESS)
     {
-      g_set_error(error,
-		  SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_SET_ITEM,
-		  _("PAM set RUSER error: %s"), pam_strerror(this->pam, pam_status));
       g_debug("pam_set_item (PAM_RUSER) FAIL");
-      return FALSE;
+      throw error(std::string(_("PAM set RUSER error: ")) + pam_strerror(this->pam, pam_status),
+		  ERROR_PAM_SET_ITEM);
     }
 
   long hl = 256; /* sysconf(_SC_HOST_NAME_MAX); BROKEN with Debian libc6 2.3.2.ds1-22 */
@@ -655,21 +648,17 @@ SbuildAuth::authenticate (GError     **error)
   char *hostname = g_new(char, hl);
   if (gethostname(hostname, hl) != 0)
     {
-      g_set_error(error,
-		  SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_HOSTNAME,
-		  _("Failed to get hostname: %s\n"), g_strerror(errno));
       g_debug("gethostname FAIL");
-      return FALSE;
+      throw error(std::string(_("Failed to get hostname: ")) + g_strerror(errno),
+		  ERROR_HOSTNAME);
     }
 
   if ((pam_status =
        pam_set_item(this->pam, PAM_RHOST, hostname)) != PAM_SUCCESS)
     {
-      g_set_error(error,
-		  SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_SET_ITEM,
-		  _("PAM set RHOST error: %s"), pam_strerror(this->pam, pam_status));
       g_debug("pam_set_item (PAM_RHOST) FAIL");
-      return FALSE;
+      throw error(std::string(_("PAM set RHOST error: ")) + pam_strerror(this->pam, pam_status),
+		  ERROR_PAM_SET_ITEM);
     }
 
   g_free(hostname);
@@ -681,49 +670,40 @@ SbuildAuth::authenticate (GError     **error)
       if ((pam_status =
 	   pam_set_item(this->pam, PAM_TTY, tty)) != PAM_SUCCESS)
 	{
-	  g_set_error(error,
-		      SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_SET_ITEM,
-		      _("PAM set TTY error: %s"), pam_strerror(this->pam, pam_status));
 	  g_debug("pam_set_item (PAM_TTY) FAIL");
-	  return FALSE;
+	  throw error(std::string(_("PAM set TTY error: ")) + pam_strerror(this->pam, pam_status),
+		      ERROR_PAM_SET_ITEM);
 	}
     }
 
   /* Authenticate as required. */
   switch (get_auth_status())
     {
-    case SBUILD_AUTH_STATUS_NONE:
+    case STATUS_NONE:
       if ((pam_status =
 	   pam_set_item(this->pam, PAM_USER, this->user.c_str())) != PAM_SUCCESS)
 	{
-	  g_set_error(error,
-		      SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_SET_ITEM,
-		      _("PAM set USER error: %s"), pam_strerror(this->pam, pam_status));
 	  g_debug("pam_set_item (PAM_USER) FAIL");
-	  return FALSE;
+	  throw error(std::string(_("PAM set USER error: ")) + pam_strerror(this->pam, pam_status),
+		      ERROR_PAM_SET_ITEM);
 	}
       break;
 
-    case SBUILD_AUTH_STATUS_USER:
+    case STATUS_USER:
       if ((pam_status =
 	   pam_authenticate(this->pam, 0)) != PAM_SUCCESS)
 	{
-	  g_set_error(error,
-		      SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_AUTHENTICATE,
-		      _("PAM authentication failed: %s\n"), pam_strerror(this->pam, pam_status));
 	  g_debug("pam_authenticate FAIL");
 	  syslog(LOG_AUTH|LOG_WARNING, "%s->%s Authentication failure",
 		 this->ruser.c_str(), this->user.c_str());
-	  return FALSE;
+	  throw error(std::string(_("PAM authentication failed: ")) + pam_strerror(this->pam, pam_status),
+		      ERROR_PAM_AUTHENTICATE);
 	}
       g_debug("pam_authenticate OK");
       break;
 
-    case SBUILD_AUTH_STATUS_FAIL:
+    case STATUS_FAIL:
 	{
-	  g_set_error(error,
-		      SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_AUTHENTICATE,
-		      _("access not authorised"));
 	  g_debug("PAM auth premature FAIL");
 	  g_printerr(_("You do not have permission to access the %s service.\n"),
 		     this->service.c_str());
@@ -731,18 +711,17 @@ SbuildAuth::authenticate (GError     **error)
 	  syslog(LOG_AUTH|LOG_WARNING,
 		 "%s->%s Unauthorised",
 		 this->ruser.c_str(), this->user.c_str());
-	  return FALSE;
+	  throw error(_("access not authorised"),
+		      ERROR_PAM_AUTHENTICATE);
 	}
     default:
       break;
     }
-
-  return TRUE;
 }
 
 /**
  * sbuild_auth_setupenv:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  * @error: a #GError
  *
  * Import the user environment into PAM.  If no environment was
@@ -752,10 +731,10 @@ SbuildAuth::authenticate (GError     **error)
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
  */
-gboolean
-SbuildAuth::setupenv (GError     **error)
+void
+Auth::setupenv ()
 {
-  g_return_val_if_fail(this->pam != 0, FALSE); // PAM must be initialised
+  g_return_if_fail(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
@@ -792,22 +771,19 @@ SbuildAuth::setupenv (GError     **error)
       if ((pam_status =
 	   pam_putenv(this->pam, env_string.c_str())) != PAM_SUCCESS)
 	{
-	  g_set_error(error,
-		      SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_PUTENV,
-		      _("PAM error: %s\n"), pam_strerror(this->pam, pam_status));
 	  g_debug("pam_putenv FAIL");
-	  return FALSE;
+	  throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
+		      ERROR_PAM_PUTENV);
 	}
       g_debug("pam_putenv: set %s=%s", cur->first.c_str(), cur->second.c_str());
     }
 
   g_debug("pam_putenv OK");
-  return TRUE;
 }
 
 /**
  * sbuild_auth_account:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  * @error: a #GError
  *
  * Do PAM account management (authorisation).
@@ -815,10 +791,10 @@ SbuildAuth::setupenv (GError     **error)
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
  */
-gboolean
-SbuildAuth::account (GError     **error)
+void
+Auth::account ()
 {
-  g_return_val_if_fail(this->pam != 0, FALSE); // PAM must be initialised
+  g_return_if_fail(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
@@ -827,20 +803,17 @@ SbuildAuth::account (GError     **error)
     {
       /* We don't handle changing expired passwords here, since we are
 	 not login or ssh. */
-      g_set_error(error,
-		  SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_ACCOUNT,
-		  _("PAM error: %s\n"), pam_strerror(this->pam, pam_status));
       g_debug("pam_acct_mgmt FAIL");
-      return FALSE;
+      throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
+		  ERROR_PAM_ACCOUNT);
     }
 
   g_debug("pam_acct_mgmt OK");
-  return TRUE;
 }
 
 /**
  * sbuild_auth_cred_establish:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  * @error: a #GError
  *
  * Use PAM to establish credentials.
@@ -848,30 +821,27 @@ SbuildAuth::account (GError     **error)
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
  */
-gboolean
-SbuildAuth::cred_establish (GError     **error)
+void
+Auth::cred_establish ()
 {
-  g_return_val_if_fail(this->pam != 0, FALSE); // PAM must be initialised
+  g_return_if_fail(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
   if ((pam_status =
        pam_setcred(this->pam, PAM_ESTABLISH_CRED)) != PAM_SUCCESS)
     {
-      g_set_error(error,
-		  SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_CREDENTIALS,
-		  _("PAM error: %s\n"), pam_strerror(this->pam, pam_status));
       g_debug("pam_setcred FAIL");
-      return FALSE;
+      throw error(std::string(_("PAM error: \n")) + pam_strerror(this->pam, pam_status),
+		  ERROR_PAM_CREDENTIALS);
     }
 
   g_debug("pam_setcred OK");
-  return TRUE;
 }
 
 /**
  * sbuild_auth_cred_delete:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  * @error: a #GError
  *
  * Use PAM to delete credentials.
@@ -879,30 +849,27 @@ SbuildAuth::cred_establish (GError     **error)
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
  */
-gboolean
-SbuildAuth::cred_delete (GError     **error)
+void
+Auth::cred_delete ()
 {
-  g_return_val_if_fail(this->pam != 0, FALSE); // PAM must be initialised
+  g_return_if_fail(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
   if ((pam_status =
        pam_setcred(this->pam, PAM_DELETE_CRED)) != PAM_SUCCESS)
     {
-      g_set_error(error,
-		  SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_DELETE_CREDENTIALS,
-		  _("PAM error: %s"), pam_strerror(this->pam, pam_status));
       g_debug("pam_setcred (delete) FAIL");
-      return FALSE;
+      throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
+		  ERROR_PAM_DELETE_CREDENTIALS);
     }
 
-      g_debug("pam_setcred (delete) OK");
-  return TRUE;
+  g_debug("pam_setcred (delete) OK");
 }
 
 /**
  * sbuild_auth_open_session:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  * @error: a #GError
  *
  * Open a PAM session.  This should be called in the child process.
@@ -910,30 +877,27 @@ SbuildAuth::cred_delete (GError     **error)
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
  */
-gboolean
-SbuildAuth::open_session (GError     **error)
+void
+Auth::open_session ()
 {
-  g_return_val_if_fail(this->pam != 0, FALSE); // PAM must be initialised
+  g_return_if_fail(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
   if ((pam_status =
        pam_open_session(this->pam, 0)) != PAM_SUCCESS)
     {
-      g_set_error(error,
-		  SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_SESSION_OPEN,
-		  _("PAM error: %s"), pam_strerror(this->pam, pam_status));
       g_debug("pam_open_session FAIL");
-      return FALSE;
+      throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
+		  ERROR_PAM_SESSION_OPEN);
     }
 
   g_debug("pam_open_session OK");
-  return TRUE;
 }
 
 /**
  * sbuild_auth_close_session:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  * @error: a #GError
  *
  * Close a PAM session.
@@ -941,62 +905,41 @@ SbuildAuth::open_session (GError     **error)
  * Returns TRUE on success, FALSE on failure (@error will be set to
  * indicate the cause of the failure).
  */
-gboolean
-SbuildAuth::close_session (GError     **error)
+void
+Auth::close_session ()
 {
-  g_return_val_if_fail(this->pam != 0, FALSE); // PAM must be initialised
+  g_return_if_fail(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
   if ((pam_status =
        pam_close_session(this->pam, 0)) != PAM_SUCCESS)
     {
-      g_set_error(error,
-		  SBUILD_AUTH_ERROR, SBUILD_AUTH_ERROR_PAM_SESSION_CLOSE,
-		  _("PAM error: %s"), pam_strerror(this->pam, pam_status));
       g_debug("pam_close_session FAIL");
-      return FALSE;
+      throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
+		  ERROR_PAM_SESSION_CLOSE);
     }
 
   g_debug("pam_close_session OK");
-  return TRUE;
 }
 
 /**
  * sbuild_auth_require_auth_impl:
- * @auth: an #SbuildAuth
+ * @auth: an #Auth
  *
  * Check if authentication is required for @auth.  This default
  * implementation always requires authentication.
  *
  * Returns the authentication type.
  */
-SbuildAuthStatus
-SbuildAuth::get_auth_status () const
+Auth::Status
+Auth::get_auth_status () const
 {
-  SbuildAuthStatus authtype = SBUILD_AUTH_STATUS_NONE;
+  Status authtype = STATUS_NONE;
 
-  authtype = change_auth(authtype, SBUILD_AUTH_STATUS_USER);
+  authtype = change_auth(authtype, STATUS_USER);
 
   return authtype;
-}
-
-/**
- * sbuild_auth_error_quark:
- *
- * Get the SBUILD_AUTH_ERROR domain number.
- *
- * Returns the domain.
- */
-GQuark
-sbuild_auth_error_quark (void)
-{
-  static GQuark error_quark = 0;
-
-  if (error_quark == 0)
-    error_quark = g_quark_from_static_string ("sbuild-auth-error-quark");
-
-  return error_quark;
 }
 
 /*

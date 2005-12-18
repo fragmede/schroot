@@ -27,53 +27,57 @@
 
 #include "sbuild-chroot.h"
 
-class SbuildChrootPlain : public SbuildChroot
+namespace sbuild
 {
-public:
-  SbuildChrootPlain();
-  SbuildChrootPlain (GKeyFile   *keyfile,
-		     const std::string& group);
-  virtual ~SbuildChrootPlain();
 
-  virtual SbuildChroot *
-  clone () const;
+  class ChrootPlain : public Chroot
+  {
+  public:
+    ChrootPlain();
+    ChrootPlain (GKeyFile   *keyfile,
+		 const std::string& group);
+    virtual ~ChrootPlain();
 
-  const std::string&
-  get_location () const;
+    virtual Chroot *
+    clone () const;
 
-  void
-  set_location (const std::string& location);
+    const std::string&
+    get_location () const;
 
-  virtual const std::string&
-  get_mount_location () const;
+    void
+    set_location (const std::string& location);
 
-  virtual const std::string&
-  get_chroot_type () const;
+    virtual const std::string&
+    get_mount_location () const;
 
-  virtual void
-  setup_env (env_list& env);
+    virtual const std::string&
+    get_chroot_type () const;
 
-  virtual bool
-  setup_lock (SbuildChrootSetupType   type,
-	      gboolean                lock,
-	      GError                **error);
+    virtual void
+    setup_env (env_list& env);
 
-  virtual SbuildChrootSessionFlags
-  get_session_flags () const;
+    virtual void
+    setup_lock (SetupType type,
+		bool      lock);
 
-  virtual void
-  print_details (FILE *file) const;
+    virtual SessionFlags
+    get_session_flags () const;
 
-  virtual void
-  print_config (FILE *file) const;
+    virtual void
+    print_details (FILE *file) const;
 
-private:
-  void
-  read_keyfile (GKeyFile   *keyfile,
-		const std::string& group);
+    virtual void
+    print_config (FILE *file) const;
 
-  std::string location;
-};
+  private:
+    void
+    read_keyfile (GKeyFile   *keyfile,
+		  const std::string& group);
+
+    std::string location;
+  };
+
+}
 
 #endif /* SBUILD_CHROOT_PLAIN_H */
 

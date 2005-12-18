@@ -43,72 +43,73 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
-#include <glib-object.h>
 
 #include "sbuild-auth-conv-tty.h"
 #include "sbuild-error.h"
 
-SbuildAuthConvTty::SbuildAuthConvTty():
+using namespace sbuild;
+
+AuthConvTty::AuthConvTty():
   warning_timeout(0),
   fatal_timeout(0),
   start_time(0)
 {
 }
 
-SbuildAuthConvTty::~SbuildAuthConvTty()
+AuthConvTty::~AuthConvTty()
 {
 }
 
 /**
  * get_warning_timeout:
- * @conv_tty: an #SbuildAuthConvTty.
+ * @conv_tty: an #AuthConvTty.
  *
  * Get the warning timeout for @conv_tty.
  *
  * Returns the timeout.
  */
 time_t
-SbuildAuthConvTty::get_warning_timeout ()
+AuthConvTty::get_warning_timeout ()
 {
   return this->warning_timeout;
 }
 
 /**
  * set_warning_timeout:
- * @conv_tty: an #SbuildAuthConvTty.
+ * @conv_tty: an #AuthConvTty.
  * @timeout: the timeout to set.
  *
  * Set the warning timeout for @conv_tty.
  */
 void
-SbuildAuthConvTty::set_warning_timeout (time_t timeout)
+AuthConvTty::set_warning_timeout (time_t timeout)
 {
   this->warning_timeout = timeout;
 }
 
 /**
  * get_fatal_timeout:
- * @conv_tty: an #SbuildAuthConvTty.
+ * @conv_tty: an #AuthConvTty.
  *
  * Get the fatal timeout for @conv_tty.
  *
  * Returns the timeout.
  */
 time_t
-SbuildAuthConvTty::get_fatal_timeout ()
+AuthConvTty::get_fatal_timeout ()
 {
   return this->fatal_timeout;
 }
 
 /**
  * set_fatal_timeout:
- * @conv_tty: an #SbuildAuthConvTty.
+ * @conv_tty: an #AuthConvTty.
  * @timeout: the timeout to set.
  *
  * Set the fatal timeout for @conv_tty.
  */
 void
-SbuildAuthConvTty::set_fatal_timeout (time_t timeout)
+AuthConvTty::set_fatal_timeout (time_t timeout)
 {
   this->fatal_timeout = timeout;
 }
@@ -117,7 +118,7 @@ static volatile gboolean timer_expired = FALSE;
 
 /**
  * reset_alarm:
- * @conv_tty: an #SbuildAuthConvTty.
+ * @conv_tty: an #AuthConvTty.
  *
  * Cancel any alarm set previously, and restore the state of SIGALRM
  * prior to the conversation.
@@ -145,7 +146,7 @@ alarm_handler (gint ignore)
 
 /**
  * set_alarm:
- * @conv_tty: an #SbuildAuthConvTty.
+ * @conv_tty: an #AuthConvTty.
  * @orig_sa: the original signal handler
  *
  * Set the SIGALARM handler, and set the timeout to @delay seconds.
@@ -175,7 +176,7 @@ set_alarm (gint delay,
 
 /**
  * get_delay:
- * @conv_tty: an #SbuildAuthConvTty.
+ * @conv_tty: an #AuthConvTty.
  *
  * Get the time delay before the next SIGALRM signal.  If either the
  * warning timeout or the fatal timeout have expired, a message to
@@ -185,7 +186,7 @@ set_alarm (gint delay,
  * fatal timeout has expired.
  */
 int
-SbuildAuthConvTty::get_delay ()
+AuthConvTty::get_delay ()
 {
   timer_expired = 0;
   time (&this->start_time);
@@ -215,7 +216,7 @@ SbuildAuthConvTty::get_delay ()
 
 /**
  * read_string:
- * @conv_tty: an #SbuildAuthConvTty.
+ * @conv_tty: an #AuthConvTty.
  * @message: the message to prompt the user for input.
  * @echo: echo user input to screen
  *
@@ -233,8 +234,8 @@ SbuildAuthConvTty::get_delay ()
  * the caller.
  */
 std::string *
-SbuildAuthConvTty::read_string (std::string message,
-				bool        echo)
+AuthConvTty::read_string (std::string message,
+			  bool        echo)
 {
   struct termios orig_termios, noecho_termios;
   struct sigaction saved_signals;
@@ -328,7 +329,7 @@ SbuildAuthConvTty::read_string (std::string message,
 
 /**
  * conversation:
- * @conv_tty: an #SbuildAuthConvTty.
+ * @conv_tty: an #AuthConvTty.
  * @num_messages: the number of messages
  * @messages: the messages to display to the user
  *
@@ -337,9 +338,9 @@ SbuildAuthConvTty::read_string (std::string message,
  * Returns TRUE on success, FALSE on failure.
  */
 bool
-SbuildAuthConvTty::conversation_impl (std::vector<SbuildAuthMessage>& messages)
+AuthConvTty::conversation_impl (std::vector<AuthMessage>& messages)
 {
-  for (std::vector<SbuildAuthMessage>::iterator cur = messages.begin();
+  for (std::vector<AuthMessage>::iterator cur = messages.begin();
        cur != messages.end();
        ++cur)
     {
@@ -347,7 +348,7 @@ SbuildAuthConvTty::conversation_impl (std::vector<SbuildAuthMessage>& messages)
 
       switch (cur->type)
 	{
-	case SBUILD_AUTH_MESSAGE_PROMPT_NOECHO:
+	case AuthMessage::MESSAGE_PROMPT_NOECHO:
 	  str = read_string(cur->message, FALSE);
 	  if (str == 0)
 	    return FALSE;
@@ -355,7 +356,7 @@ SbuildAuthConvTty::conversation_impl (std::vector<SbuildAuthMessage>& messages)
 	  delete str;
 	  str = 0;
 	  break;
-	case SBUILD_AUTH_MESSAGE_PROMPT_ECHO:
+	case AuthMessage::MESSAGE_PROMPT_ECHO:
 	  str = read_string(cur->message, TRUE);
 	  if (str == 0)
 	    return FALSE;
@@ -363,11 +364,11 @@ SbuildAuthConvTty::conversation_impl (std::vector<SbuildAuthMessage>& messages)
 	  delete str;
 	  str = 0;
 	  break;
-	case SBUILD_AUTH_MESSAGE_ERROR:
+	case AuthMessage::MESSAGE_ERROR:
 	  if (fprintf(stderr, "%s\n", cur->message.c_str()) < 0)
 	    return FALSE;
 	  break;
-	case SBUILD_AUTH_MESSAGE_INFO:
+	case AuthMessage::MESSAGE_INFO:
 	  if (fprintf(stdout, "%s\n", cur->message.c_str()) < 0)
 	    return FALSE;
 	  break;

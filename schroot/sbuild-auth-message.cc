@@ -35,15 +35,17 @@
 
 #include "sbuild-auth-message.h"
 
-SbuildAuthMessage::SbuildAuthMessage(SbuildAuthMessageType type,
-				     const std::string&    message):
+using namespace sbuild;
+
+AuthMessage::AuthMessage(AuthMessage::MessageType type,
+			 const std::string&       message):
   type(type),
   message(message),
   response()
 {
 }
 
-SbuildAuthMessage::~SbuildAuthMessage()
+AuthMessage::~AuthMessage()
 {
 }
 

@@ -24,13 +24,17 @@
 
 #include <string>
 
-namespace Sbuild
+namespace sbuild
 {
-  std::string basename(std::string name,
-		       char        separator = '/');
 
-  std::string dirname(std::string name,
-		      char        separator = '/');
+  std::string
+  basename(std::string name,
+	   char        separator = '/');
+
+  std::string
+  dirname(std::string name,
+	  char        separator = '/');
+
 }
 
 #endif /* SBUILD_UTIL */

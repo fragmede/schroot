@@ -44,35 +44,37 @@
 #include "sbuild-keyfile.h"
 #include "sbuild-lock.h"
 
-SbuildChrootBlockDevice::SbuildChrootBlockDevice():
-  SbuildChroot(),
+using namespace sbuild;
+
+ChrootBlockDevice::ChrootBlockDevice():
+  Chroot(),
   device(),
   mount_options()
 {
 }
 
-SbuildChrootBlockDevice::SbuildChrootBlockDevice (GKeyFile   *keyfile,
-						  const std::string& group):
-  SbuildChroot(keyfile, group),
+ChrootBlockDevice::ChrootBlockDevice (GKeyFile           *keyfile,
+				      const std::string&  group):
+  Chroot(keyfile, group),
   device(),
   mount_options()
 {
   read_keyfile(keyfile, group);
 }
 
-SbuildChrootBlockDevice::~SbuildChrootBlockDevice()
+ChrootBlockDevice::~ChrootBlockDevice()
 {
 }
 
-SbuildChroot *
-SbuildChrootBlockDevice::clone () const
+Chroot *
+ChrootBlockDevice::clone () const
 {
-  return new SbuildChrootBlockDevice(*this);
+  return new ChrootBlockDevice(*this);
 }
 
 /**
  * sbuild_chroot_block_device_get_device:
- * @chroot: an #SbuildChrootBlockDevice
+ * @chroot: an #ChrootBlockDevice
  *
  * Get the block device of the chroot.
  *
@@ -80,14 +82,14 @@ SbuildChrootBlockDevice::clone () const
  * storage in the chroot and must not be freed, modified or stored.
  */
 const std::string&
-SbuildChrootBlockDevice::get_device () const
+ChrootBlockDevice::get_device () const
 {
   return this->device;
 }
 
 /**
  * sbuild_chroot_block_device_set_device:
- * @chroot: an #SbuildChrootBlockDevice.
+ * @chroot: an #ChrootBlockDevice.
  * @device: the device to set.
  *
  * Set the block device of a chroot.  This is the "source" device.  It
@@ -95,20 +97,20 @@ SbuildChrootBlockDevice::get_device () const
  * LVM snapshot PV), but by default will be the device to mount.
  */
 void
-SbuildChrootBlockDevice::set_device (const std::string& device)
+ChrootBlockDevice::set_device (const std::string& device)
 {
   this->device = device;
 }
 
 const std::string&
-SbuildChrootBlockDevice::get_mount_device () const
+ChrootBlockDevice::get_mount_device () const
 {
   return this->device;
 }
 
 /**
  * sbuild_chroot_block_device_get_mount_options:
- * @chroot: an #SbuildChrootBlockDevice
+ * @chroot: an #ChrootBlockDevice
  *
  * Get the filesystem mount_options of the chroot block device.
  *
@@ -116,27 +118,27 @@ SbuildChrootBlockDevice::get_mount_device () const
  * storage in the chroot and must not be freed, modified or stored.
  */
 const std::string&
-SbuildChrootBlockDevice::get_mount_options () const
+ChrootBlockDevice::get_mount_options () const
 {
   return this->mount_options;
 }
 
 /**
  * sbuild_chroot_block_device_set_mount_options:
- * @chroot: an #SbuildChrootBlockDevice.
+ * @chroot: an #ChrootBlockDevice.
  * @mount_options: the device to set.
  *
  * Set the filesystem mount_options of a chroot block device.  These
  * will be passed to mount(8) when mounting the device.
  */
 void
-SbuildChrootBlockDevice::set_mount_options (const std::string& mount_options)
+ChrootBlockDevice::set_mount_options (const std::string& mount_options)
 {
   this->mount_options = mount_options;
 }
 
 const std::string&
-SbuildChrootBlockDevice::get_chroot_type () const
+ChrootBlockDevice::get_chroot_type () const
 {
   static const std::string type("block-device");
 
@@ -144,9 +146,9 @@ SbuildChrootBlockDevice::get_chroot_type () const
 }
 
 void
-SbuildChrootBlockDevice::setup_env (env_list& env)
+ChrootBlockDevice::setup_env (env_list& env)
 {
-  this->SbuildChroot::setup_env(env);
+  this->Chroot::setup_env(env);
 
   setup_env_var(env, "CHROOT_DEVICE",
 		get_device());
@@ -154,84 +156,87 @@ SbuildChrootBlockDevice::setup_env (env_list& env)
 		get_mount_options());
 }
 
-bool
-SbuildChrootBlockDevice::setup_lock (SbuildChrootSetupType   type,
-				     gboolean                lock,
-				     GError                **error)
+void
+ChrootBlockDevice::setup_lock (Chroot::SetupType type,
+			       bool              lock)
 {
   struct stat statbuf;
 
   /* Only lock during setup, not run. */
-  if (type == SBUILD_CHROOT_RUN_START || type == SBUILD_CHROOT_RUN_STOP)
-    return TRUE;
+  if (type == RUN_START || type == RUN_STOP)
+    return;
 
   /* Lock is preserved through the entire session. */
-  if ((type == SBUILD_CHROOT_SETUP_START && lock == FALSE) ||
-      (type == SBUILD_CHROOT_SETUP_STOP && lock == TRUE))
-    return TRUE;
+  if ((type == SETUP_START && lock == FALSE) ||
+      (type == SETUP_STOP && lock == TRUE))
+    return;
 
   if (stat(this->device.c_str(), &statbuf) == -1)
     {
-      g_set_error(error,
-		  SBUILD_CHROOT_ERROR, SBUILD_CHROOT_ERROR_LOCK,
-		  _("%s chroot: failed to stat device %s: %s\n"),
-		  get_name().c_str(),
-		  this->device.c_str(), g_strerror(errno));
+      char *gstr = g_strdup_printf(_("%s chroot: failed to stat device %s: %s"),
+				    get_name().c_str(),
+				    this->device.c_str(), g_strerror(errno));
+      std::string err(gstr);
+      g_free(gstr);
+      throw error(err, ERROR_LOCK);
     }
   else if (!S_ISBLK(statbuf.st_mode))
     {
-      g_set_error(error,
-		  SBUILD_CHROOT_ERROR, SBUILD_CHROOT_ERROR_LOCK,
-		  _("%s chroot: %s is not a block device\n"),
-		  get_name().c_str(),
-		  this->device.c_str());
+      char *gstr = g_strdup_printf(_("%s chroot: %s is not a block device"),
+				   get_name().c_str(),
+				   this->device.c_str());
+      std::string err(gstr);
+      g_free(gstr);
+      throw error(err, ERROR_LOCK);
     }
   else
     {
-      GError *tmp_error = NULL;
       sbuild::DeviceLock dlock(this->device);
       if (lock)
 	{
-	  if (dlock.set_lock(SBUILD_LOCK_EXCLUSIVE,
-			    15,
-			    &tmp_error) == FALSE)
+	  try
 	    {
-	      g_set_error(error,
-			  SBUILD_CHROOT_ERROR, SBUILD_CHROOT_ERROR_LOCK,
-			  _("%s: failed to lock device: %s\n"),
-			  this->device.c_str(), tmp_error->message);
-	      g_error_free(tmp_error);
+	      dlock.set_lock(Lock::LOCK_EXCLUSIVE, 15);
+	    }
+	  catch (const sbuild::Lock::error& e)
+	    {
+	      char *gstr = g_strdup_printf(_("%s: failed to lock device: %s"),
+					     this->device.c_str(),
+					     e.what());
+	      std::string err(gstr);
+	      g_free(gstr);
+	      throw error(err, ERROR_LOCK);
 	    }
 	}
       else
 	{
-	  if (dlock.unset_lock(&tmp_error) == FALSE)
+	  try
 	    {
-	      g_set_error(error,
-			  SBUILD_CHROOT_ERROR, SBUILD_CHROOT_ERROR_LOCK,
-			  _("%s: failed to unlock device: %s\n"),
-			  this->device.c_str(), tmp_error->message);
-	      g_error_free(tmp_error);
+	      dlock.unset_lock();
+	    }
+	  catch (const sbuild::Lock::error& e)
+	    {
+	      char *gstr = g_strdup_printf(_("%s: failed to unlock device: %s"),
+					     this->device.c_str(),
+					     e.what());
+	      std::string err(gstr);
+	      g_free(gstr);
+	      throw error(err, ERROR_LOCK);
 	    }
 	}
     }
-
-  if (*error)
-    return FALSE;
-  else
-    return TRUE;
 }
 
-SbuildChrootSessionFlags
-SbuildChrootBlockDevice::get_session_flags () const
+Chroot::SessionFlags
+ChrootBlockDevice::get_session_flags () const
 {
-  return static_cast<SbuildChrootSessionFlags>(0);
+  return static_cast<SessionFlags>(0);
 }
 
 void
-SbuildChrootBlockDevice::print_details (FILE *file) const
+ChrootBlockDevice::print_details (FILE *file) const
 {
-  this->SbuildChroot::print_details(file);
+  this->Chroot::print_details(file);
 
   if (!this->device.empty())
     g_fprintf(file, _("  %-22s%s\n"), _("Device"), this->device.c_str());
@@ -240,17 +245,17 @@ SbuildChrootBlockDevice::print_details (FILE *file) const
 }
 
 void
-SbuildChrootBlockDevice::print_config (FILE *file) const
+ChrootBlockDevice::print_config (FILE *file) const
 {
-  this->SbuildChroot::print_config(file);
+  this->Chroot::print_config(file);
 
   g_fprintf(file, _("device=%s\n"), this->device.c_str());
   g_fprintf(file, _("mount-options=%s\n"), this->mount_options.c_str());
 }
 
 void
-SbuildChrootBlockDevice::read_keyfile (GKeyFile   *keyfile,
-				       const std::string& group)
+ChrootBlockDevice::read_keyfile (GKeyFile           *keyfile,
+				 const std::string&  group)
 {
   std::string device;
   if (keyfile_read_string(keyfile, group, "device", device))

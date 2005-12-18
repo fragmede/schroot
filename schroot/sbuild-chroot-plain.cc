@@ -22,7 +22,7 @@
 /**
  * SECTION:sbuild-chroot-plain
  * @short_description: simple chroot object
- * @title: SbuildChrootPlain
+ * @title: ChrootPlain
  *
  * This object represents a chroot located on a mounted filesystem.
  */
@@ -41,32 +41,34 @@
 #include "sbuild-chroot-plain.h"
 #include "sbuild-keyfile.h"
 
-SbuildChrootPlain::SbuildChrootPlain():
-  SbuildChroot(),
+using namespace sbuild;
+
+ChrootPlain::ChrootPlain():
+  Chroot(),
   location()
 {
 }
 
-SbuildChrootPlain::SbuildChrootPlain (GKeyFile   *keyfile,
-				      const std::string& group):
-  SbuildChroot(keyfile, group),
+ChrootPlain::ChrootPlain (GKeyFile           *keyfile,
+			  const std::string&  group):
+  Chroot(keyfile, group),
   location()
 {
 }
 
-SbuildChrootPlain::~SbuildChrootPlain()
+ChrootPlain::~ChrootPlain()
 {
 }
 
-SbuildChroot *
-SbuildChrootPlain::clone () const
+Chroot *
+ChrootPlain::clone () const
 {
-  return new SbuildChrootPlain(*this);
+  return new ChrootPlain(*this);
 }
 
 /**
  * sbuild_chroot_plain_get_location:
- * @chroot: an #SbuildChrootPlain
+ * @chroot: an #ChrootPlain
  *
  * Get the directory location of the chroot.
  *
@@ -74,32 +76,32 @@ SbuildChrootPlain::clone () const
  * storage in the chroot and must not be freed, modified or stored.
  */
 const std::string&
-SbuildChrootPlain::get_location () const
+ChrootPlain::get_location () const
 {
   return this->location;
 }
 
 /**
  * sbuild_chroot_plain_set_location:
- * @chroot: an #SbuildChrootPlain.
+ * @chroot: an #ChrootPlain.
  * @location: the location to set.
  *
  * Set the directory location of a chroot.
  */
 void
-SbuildChrootPlain::set_location (const std::string& location)
+ChrootPlain::set_location (const std::string& location)
 {
   this->location = location;
 }
 
 const std::string&
-SbuildChrootPlain::get_mount_location () const
+ChrootPlain::get_mount_location () const
 {
   return this->location;
 }
 
 const std::string&
-SbuildChrootPlain::get_chroot_type () const
+ChrootPlain::get_chroot_type () const
 {
   static const std::string type("plain");
 
@@ -107,49 +109,47 @@ SbuildChrootPlain::get_chroot_type () const
 }
 
 void
-SbuildChrootPlain::setup_env (env_list& env)
+ChrootPlain::setup_env (env_list& env)
 {
-  this->SbuildChroot::setup_env(env);
+  this->Chroot::setup_env(env);
 
   setup_env_var(env, "CHROOT_LOCATION",
 		get_location());
 }
 
-bool
-SbuildChrootPlain::setup_lock (SbuildChrootSetupType   type,
-			       gboolean                lock,
-			       GError                **error)
+void
+ChrootPlain::setup_lock (Chroot::SetupType type,
+			 bool              lock)
 {
   /* By default, plain chroots do no locking. */
-  return true;
 }
 
-SbuildChrootSessionFlags
-SbuildChrootPlain::get_session_flags () const
+Chroot::SessionFlags
+ChrootPlain::get_session_flags () const
 {
-  return static_cast<SbuildChrootSessionFlags>(0);
+  return static_cast<SessionFlags>(0);
 }
 
 void
-SbuildChrootPlain::print_details (FILE *file) const
+ChrootPlain::print_details (FILE *file) const
 {
-  this->SbuildChroot::print_details(file);
+  this->Chroot::print_details(file);
 
   if (!this->location.empty())
     g_fprintf(file, "  %-22s%s\n", _("Location"), this->location.c_str());
 }
 
 void
-SbuildChrootPlain::print_config (FILE *file) const
+ChrootPlain::print_config (FILE *file) const
 {
-  this->SbuildChroot::print_config(file);
+  this->Chroot::print_config(file);
 
   g_fprintf(file, _("location=%s\n"), this->location.c_str());
 }
 
 void
-SbuildChrootPlain::read_keyfile (GKeyFile   *keyfile,
-				 const std::string& group)
+ChrootPlain::read_keyfile (GKeyFile           *keyfile,
+			   const std::string&  group)
 {
   std::string location;
   if (keyfile_read_string(keyfile, group, "location", location))

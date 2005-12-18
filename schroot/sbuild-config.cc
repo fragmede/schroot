@@ -22,10 +22,10 @@
 /**
  * SECTION:sbuild-config
  * @short_description: config object
- * @title: SbuildConfig
+ * @title: Config
  *
  * This class holds the configuration details from the configuration
- * file.  Conceptually, it's an opaque container of #SbuildChroot
+ * file.  Conceptually, it's an opaque container of #Chroot
  * objects.
  *
  * Methods are provided to query the available chroots and find
@@ -54,31 +54,14 @@
 #include "sbuild-chroot-block-device.h"
 #include "sbuild-chroot-lvm-snapshot.h"
 
-/**
- * sbuild_config_file_error_quark:
- *
- * Get the SBUILD_CONFIG_FILE_ERROR domain number.
- *
- * Returns the domain.
- */
-GQuark
-sbuild_config_file_error_quark (void)
-{
-  static GQuark error_quark = 0;
+using namespace sbuild;
 
-  if (error_quark == 0)
-    error_quark = g_quark_from_static_string ("sbuild-config-file-error-quark");
-
-  return error_quark;
-}
-
-
-SbuildConfig::SbuildConfig():
+Config::Config():
   chroots()
 {
 }
 
-SbuildConfig::SbuildConfig(const std::string& file):
+Config::Config(const std::string& file):
   chroots()
 {
   struct stat statbuf;
@@ -94,35 +77,35 @@ SbuildConfig::SbuildConfig(const std::string& file):
     add_config_directory(file);
 }
 
-SbuildConfig::~SbuildConfig()
+Config::~Config()
 {
   // TODO: Delete chroots.
 }
 
 /**
  * sbuild_config_add_config_file:
- * @config: an #SbuildConfig.
+ * @config: an #Config.
  * @file: the filename to add.
  *
  * Add the configuration filename.  The configuration file specified
  * will be loaded.
  */
 void
-SbuildConfig::add_config_file (const std::string& file)
+Config::add_config_file (const std::string& file)
 {
   load(file);
 }
 
 /**
  * sbuild_config_add_config_directory:
- * @config: an #SbuildConfig.
+ * @config: an #Config.
  * @dir: the directory to add.
  *
  * Add the configuration directory.  The configuration files in the
  * directory will be loaded.
  */
 void
-SbuildConfig::add_config_directory (const std::string& dir)
+Config::add_config_directory (const std::string& dir)
 {
   if (dir.empty())
     return;
@@ -161,23 +144,23 @@ SbuildConfig::add_config_directory (const std::string& dir)
     }
 }
 
-static bool chroot_alphasort (SbuildChroot* const& c1,
-			      SbuildChroot* const& c2)
+static bool chroot_alphasort (Chroot* const& c1,
+			      Chroot* const& c2)
 {
   return c1->get_name() < c2->get_name();
 }
 
 /**
  * sbuild_config_get_chroots:
- * @config: a #SbuildConfig
+ * @config: a #Config
  *
  * Get a list of available chroots.
  *
  * Returns a list of available chroots, or NULL if no chroots are
  * available.
  */
-SbuildConfig::chroot_list
-SbuildConfig::get_chroots () const
+Config::chroot_list
+Config::get_chroots () const
 {
   chroot_list ret;
 
@@ -193,15 +176,15 @@ SbuildConfig::get_chroots () const
 
 /**
  * sbuild_config_find_chroot:
- * @config: an #SbuildConfig
+ * @config: an #Config
  * @name: the chroot name
  *
  * Find a chroot by its name.
  *
  * Returns the chroot if found, otherwise NULL.
  */
-const SbuildChroot *
-SbuildConfig::find_chroot (const std::string& name) const
+const Chroot *
+Config::find_chroot (const std::string& name) const
 {
   chroot_map::const_iterator pos = this->chroots.find(name);
 
@@ -213,15 +196,15 @@ SbuildConfig::find_chroot (const std::string& name) const
 
 /**
  * sbuild_config_find_alias:
- * @config: an #SbuildConfig
+ * @config: an #Config
  * @name: the chroot name
  *
  * Find a chroot by its name or an alias.
  *
  * Returns the chroot if found, otherwise NULL.
  */
-const SbuildChroot *
-SbuildConfig::find_alias (const std::string& name) const
+const Chroot *
+Config::find_alias (const std::string& name) const
 {
   string_map::const_iterator pos = this->aliases.find(name);
 
@@ -233,14 +216,14 @@ SbuildConfig::find_alias (const std::string& name) const
 
 /**
  * sbuild_config_get_chroot_list:
- * @config: an #SbuildConfig
+ * @config: an #Config
  *
  * Get the names (including aliases) of all the available chroots.
  *
  * Returns the list, or NULL if no chroots are available.
  */
-SbuildConfig::string_list
-SbuildConfig::get_chroot_list () const
+Config::string_list
+Config::get_chroot_list () const
 {
   string_list ret;
 
@@ -256,13 +239,13 @@ SbuildConfig::get_chroot_list () const
 
 /**
  * sbuild_config_print_chroot_list:
- * @config: an #SbuildConfig
+ * @config: an #Config
  * @file: the file to print to
  *
  * Print all the available chroots to the specified file.
  */
 void
-SbuildConfig::print_chroot_list (FILE *file) const
+Config::print_chroot_list (FILE *file) const
 {
   string_list chroots = get_chroot_list();
 
@@ -274,7 +257,7 @@ SbuildConfig::print_chroot_list (FILE *file) const
 
 /**
  * sbuild_config_print_chroot_info:
- * @config: an #SbuildConfig
+ * @config: an #Config
  * @chroots: the chroots to print
  * @file: the file to print to
  *
@@ -282,14 +265,14 @@ SbuildConfig::print_chroot_list (FILE *file) const
  * file.
  */
 void
-SbuildConfig::print_chroot_info (const string_list& chroots,
+Config::print_chroot_info (const string_list& chroots,
 				 FILE          *file) const
 {
   for (string_list::const_iterator pos = chroots.begin();
        pos != chroots.end();
        ++pos)
     {
-      const SbuildChroot *chroot = find_alias(*pos);
+      const Chroot *chroot = find_alias(*pos);
       if (chroot)
 	{
 	  chroot->print_details(file);
@@ -303,7 +286,7 @@ SbuildConfig::print_chroot_info (const string_list& chroots,
 
 /**
  * sbuild_config_validate_chroots:
- * @config: an #SbuildConfig
+ * @config: an #Config
  * @chroots: the chroots to validate
  *
  * Check that all the chroots specified by @chroots exist in @config.
@@ -311,8 +294,8 @@ SbuildConfig::print_chroot_info (const string_list& chroots,
  * Returns NULL if all chroots are valid, or else a vector of invalid
  * chroots.
  */
-SbuildConfig::string_list
-SbuildConfig::validate_chroots(const string_list& chroots) const
+Config::string_list
+Config::validate_chroots(const string_list& chroots) const
 {
   string_list bad_chroots;
 
@@ -320,7 +303,7 @@ SbuildConfig::validate_chroots(const string_list& chroots) const
        pos != chroots.end();
        ++pos)
     {
-      const SbuildChroot *chroot = find_alias(*pos);
+      const Chroot *chroot = find_alias(*pos);
       if (chroot == 0)
 	bad_chroots.push_back(*pos);
     }
@@ -337,58 +320,47 @@ SbuildConfig::validate_chroots(const string_list& chroots) const
  *
  * Returns TRUE if the checks succeed, FALSE on failure.
  */
-bool
-SbuildConfig::check_security(int      fd,
-			     GError **error) const
+void
+Config::check_security(int fd) const
 {
   struct stat statbuf;
   if (fstat(fd, &statbuf) < 0)
     {
-      g_set_error(error,
-		  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_STAT_FAIL,
-		  _("failed to stat file: %s"), g_strerror(errno));
-      return FALSE;
+      throw error(std::string(_("failed to stat file: ")) + g_strerror(errno),
+		  ERROR_STAT_FAIL);
     }
 
   if (statbuf.st_uid != 0)
     {
-      g_set_error(error,
-		  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_OWNERSHIP,
-		  _("not owned by user root"));
-      return FALSE;
+      throw error(_("not owned by user root"),
+		  ERROR_OWNERSHIP);
     }
 
   if (statbuf.st_mode & S_IWOTH)
     {
-      g_set_error(error,
-		  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_PERMISSIONS,
-		  _("others have write permission"));
-      return FALSE;
+      throw error(_("others have write permission: "),
+		  ERROR_PERMISSIONS);
     }
 
   if (!S_ISREG(statbuf.st_mode))
     {
-      g_set_error(error,
-		  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_NOT_REGULAR,
-		  _("not a regular file"));
-      return FALSE;
+      throw error(_("not a regular file: "),
+		  ERROR_NOT_REGULAR);
     }
-
-  return TRUE;
 }
 
 /**
  * sbuild_config_load:
  * @file: the file to load.
- * @list: a list to append the #SbuildChroot objects to.
+ * @list: a list to append the #Chroot objects to.
  *
  * Load a configuration file.  If there are problems with the
  * configuration file, the program will be aborted immediately.
  */
 void
-SbuildConfig::load (const std::string& file)
+Config::load (const std::string& file)
 {
-
+  // TODO: Move error handling out to top level.
   /* Use a UNIX fd, for security (no races) */
   int fd = open(file.c_str(), O_RDONLY|O_NOFOLLOW);
   if (fd < 0)
@@ -397,20 +369,24 @@ SbuildConfig::load (const std::string& file)
       exit (EXIT_FAILURE);
     }
 
-  GError *lock_error = NULL;
   sbuild::FileLock lock(fd);
-  lock.set_lock(SBUILD_LOCK_SHARED, 2, &lock_error);
-  if (lock_error)
+  try
     {
-      g_printerr(_("%s: lock acquisition failure: %s\n"), file.c_str(), lock_error->message);
+      lock.set_lock(Lock::LOCK_SHARED, 2);
+    }
+  catch (const Lock::error& e)
+    {
+      g_printerr(_("%s: lock acquisition failure: %s\n"), file.c_str(), e.what());
       exit (EXIT_FAILURE);
     }
 
-  GError *security_error = NULL;
-  check_security(fd, &security_error);
-  if (security_error)
+  try
     {
-      g_printerr(_("%s: security failure: %s\n"), file.c_str(), security_error->message);
+      check_security(fd);
+    }
+  catch (const error &e)
+    {
+      g_printerr(_("%s: security failure: %s\n"), file.c_str(), e.what());
       exit (EXIT_FAILURE);
     }
 
@@ -428,11 +404,13 @@ SbuildConfig::load (const std::string& file)
       exit (EXIT_FAILURE);
     }
 
-  GError *unlock_error = NULL;
-  lock.unset_lock(&unlock_error);
-  if (unlock_error)
+  try
     {
-      g_printerr(_("%s: lock discard failure: %s\n"), file.c_str(), unlock_error->message);
+      lock.unset_lock();
+    }
+  catch (const Lock::error& e)
+    {
+      g_printerr(_("%s: lock discard failure: %s\n"), file.c_str(), e.what());
       exit (EXIT_FAILURE);
     }
 
@@ -459,7 +437,7 @@ SbuildConfig::load (const std::string& file)
       exit (EXIT_FAILURE);
     }
 
-  /* Create SbuildChroot objects from key file */
+  /* Create Chroot objects from key file */
   char **groups = g_key_file_get_groups(keyfile, NULL);
   for (guint i=0; groups[i] != NULL; ++i)
     {
@@ -474,20 +452,20 @@ SbuildConfig::load (const std::string& file)
 	  type = str;
 	g_free(str);
       }
-      SbuildChroot *chroot = 0;
+      Chroot *chroot = 0;
       if (type == "plain")
-	chroot = new SbuildChrootPlain(keyfile, groups[i]);
+	chroot = new ChrootPlain(keyfile, groups[i]);
       else if (type == "block-device")
-	chroot = new SbuildChrootBlockDevice(keyfile, groups[i]);
+	chroot = new ChrootBlockDevice(keyfile, groups[i]);
       else if (type == "lvm-snapshot")
-	chroot = new SbuildChrootLvmSnapshot(keyfile, groups[i]);
+	chroot = new ChrootLvmSnapshot(keyfile, groups[i]);
       if (chroot)
 	{
 	  // TODO: error checking (did insertion work? was the alias a
 	  // duplicate?
 	  this->chroots.insert(std::make_pair(chroot->get_name(), chroot));
-	  const SbuildChroot::string_list& aliases = chroot->get_aliases();
-	  for (SbuildChroot::string_list::const_iterator pos = aliases.begin();
+	  const Chroot::string_list& aliases = chroot->get_aliases();
+	  for (Chroot::string_list::const_iterator pos = aliases.begin();
 	       pos != aliases.end();
 	       ++pos)
 	    this->aliases.insert(std::make_pair(*pos, chroot->get_name()));

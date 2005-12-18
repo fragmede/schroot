@@ -1,3 +1,21 @@
+2005-12-18  Roger Leigh  <rleigh@debian.org>
+
+	* All typedefs and enums have been moved into the class
+	declarations, with the Sbuild and Object prefixes removed.
+
+	* GError error propagation has been replaced with
+	sbuild::Exception<> in all code.  The catch blocks are still
+	local, simply replacing GError, but this will be fixed up later.
+
+	* All Sbuild objects are in the "sbuild" namespace, and Schroot
+	object are in the "schroot" namespace, with the prefix removed
+	from the class names.
+
+	* schroot/sbuild-error.h: Remove GError/GType glue, and replace
+	with a simple templated exception class derived from
+	std::runtime_error, initially to replace GError in a compatible
+	manner.
+
 2005-12-17  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-config.cc (load): Add GKeyFile error checking.

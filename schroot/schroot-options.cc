@@ -38,6 +38,8 @@
 
 #include "schroot-options.h"
 
+using namespace schroot;
+
 static gboolean
 parse_session_options(const gchar  *option_name,
 		      const gchar  *value,
@@ -51,8 +53,8 @@ parse_session_options(const gchar  *option_name,
  *
  * Returns a structure containing the options.
  */
-SchrootOptions::SchrootOptions(int argc,
-			       char *argv[]):
+Options::Options(int   argc,
+		 char *argv[]):
   chroots(),
   command(),
   user(),
@@ -65,7 +67,7 @@ SchrootOptions::SchrootOptions(int argc,
   all_chroots(false),
   all_sessions(false),
   version(false),
-  session_operation(SBUILD_SESSION_OPERATION_AUTOMATIC),
+  session_operation(sbuild::Session::OPERATION_AUTOMATIC),
   session_force(false)
 {
   char **chroots;
@@ -187,7 +189,7 @@ SchrootOptions::SchrootOptions(int argc,
     this->load_chroots = this->load_sessions = true;
 }
 
-SchrootOptions::~SchrootOptions()
+Options::~Options()
 {
 }
 
@@ -206,26 +208,26 @@ parse_session_options(const gchar  *option_name,
 		      gpointer      data,
 		      GError      **error)
 {
-  SchrootOptions *options = static_cast<SchrootOptions *>(data);
+  Options *options = static_cast<Options *>(data);
 
   if (strcmp(option_name, "-b") == 0 ||
       strcmp(option_name, "--begin-session") == 0)
     {
-      options->session_operation = SBUILD_SESSION_OPERATION_BEGIN;
+      options->session_operation = sbuild::Session::OPERATION_BEGIN;
     }
   else if (strcmp(option_name, "--recover-session") == 0)
     {
-      options->session_operation = SBUILD_SESSION_OPERATION_RECOVER;
+      options->session_operation = sbuild::Session::OPERATION_RECOVER;
     }
   else if (strcmp(option_name, "-r") == 0 ||
 	   strcmp(option_name, "--run-session") == 0)
     {
-      options->session_operation = SBUILD_SESSION_OPERATION_RUN;
+      options->session_operation = sbuild::Session::OPERATION_RUN;
     }
   else if (strcmp(option_name, "-e") == 0 ||
 	   strcmp(option_name, "--end-session") == 0)
     {
-      options->session_operation = SBUILD_SESSION_OPERATION_END;
+      options->session_operation = sbuild::Session::OPERATION_END;
     }
   else
     {

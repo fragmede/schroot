@@ -33,7 +33,7 @@
  * user during authentication.
  *
  * A simple implementation is provided in the form of
- * #SbuildAuthConvTty.  However, more complex implementations might
+ * #AuthConvTty.  However, more complex implementations might
  * hook into the GLib main loop, or implement it in a #GtkWidget.
  *
  * The interface allows the setting of optional warning timeout and
@@ -46,17 +46,19 @@
 
 #include "sbuild-auth-conv.h"
 
-SbuildAuthConv::SbuildAuthConv()
+using namespace sbuild;
+
+AuthConv::AuthConv()
 {
 }
 
-SbuildAuthConv::~SbuildAuthConv()
+AuthConv::~AuthConv()
 {
 }
 
 /**
  * sbuild_auth_conv_conversation:
- * @auth_conv: an #SbuildAuthConv.
+ * @auth_conv: an #AuthConv.
  * @num_messages: the number of messages
  * @messages: the messages to display to the user
  *
@@ -64,17 +66,17 @@ SbuildAuthConv::~SbuildAuthConv()
  *
  * Each of the messages detailed in @messages should be displayed to
  * the user, asking for input where required.  The type of message is
- * indicated in the type field of the #SbuildAuthMessage.  The
- * response field of the message vector #SbuildAuthMessage should be
+ * indicated in the type field of the #AuthMessage.  The
+ * response field of the message vector #AuthMessage should be
  * filled in if input is required.  This will be automatically freed
- * on success or failure.  The user_data field of #SbuildAuthMessage
- * is for the use of #SbuildAuthConv implementations, and will be
+ * on success or failure.  The user_data field of #AuthMessage
+ * is for the use of #AuthConv implementations, and will be
  * otherwise ignored.
  *
  * Returns TRUE on success, FALSE on failure.
  */
 bool
-SbuildAuthConv::conversation (SbuildAuthConv::message_list& messages)
+AuthConv::conversation (AuthConv::message_list& messages)
 {
   return this->signal_conversation(messages);
 }

@@ -39,35 +39,35 @@
 #include "sbuild-auth-conv.h"
 #include "sbuild-config.h"
 
-class SbuildAuthConvTty : public SbuildAuthConv, sigc::trackable
+namespace sbuild
 {
-public:
-  SbuildAuthConvTty();
-  virtual ~SbuildAuthConvTty();
 
-  virtual time_t get_warning_timeout ();
-  virtual void set_warning_timeout (time_t timeout);
+  class AuthConvTty : public AuthConv, sigc::trackable
+  {
+  public:
+    AuthConvTty();
+    virtual ~AuthConvTty();
 
-  virtual time_t get_fatal_timeout ();
-  virtual void set_fatal_timeout (time_t timeout);
+    virtual time_t get_warning_timeout ();
+    virtual void set_warning_timeout (time_t timeout);
 
-protected:
-  virtual bool conversation_impl (std::vector<SbuildAuthMessage>& messages);
+    virtual time_t get_fatal_timeout ();
+    virtual void set_fatal_timeout (time_t timeout);
 
-private:
-  int get_delay ();
-  std::string * read_string (std::string message,
-			     bool        echo);
+  protected:
+    virtual bool conversation_impl (std::vector<AuthMessage>& messages);
 
-  time_t  warning_timeout;
-  time_t  fatal_timeout;
-  time_t  start_time;
-};
+  private:
+    int get_delay ();
+    std::string * read_string (std::string message,
+			       bool        echo);
 
-struct _SbuildAuthConvTtyClass
-{
-  GObjectClass parent;
-};
+    time_t  warning_timeout;
+    time_t  fatal_timeout;
+    time_t  start_time;
+  };
+
+}
 
 #endif /* SBUILD_AUTH_CONV_TTY_H */
 

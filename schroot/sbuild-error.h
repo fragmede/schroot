@@ -22,23 +22,39 @@
 #ifndef SBUILD_ERROR_H
 #define SBUILD_ERROR_H
 
-#include <glib-object.h>
+#include <stdexcept>
 
-#define SBUILD_TYPE_ERROR (sbuild_error_get_type ())
-#define SBUILD_TYPE_ERROR_POINTER (sbuild_error_pointer_get_type ())
+namespace sbuild
+{
 
-typedef GError *SbuildErrorPointer;
+  template <typename T>
+  class Exception : public std::runtime_error
+  {
+  public:
+    Exception(const std::string& error,
+	      T                  error_code):
+      std::runtime_error(error),
+      error_code(error_code)
+    {}
 
-GType
-sbuild_error_get_type (void);
+    virtual ~Exception() throw ()
+    {}
 
-GType
-sbuild_error_pointer_get_type (void);
+    T code() const
+    {
+      return this->error_code;
+    }
+
+  private:
+    T error_code;
+  };
+
+}
 
 #endif /* SBUILD_ERROR_H */
 
 /*
  * Local Variables:
- * mode:C
+ * mode:C++
  * End:
  */
