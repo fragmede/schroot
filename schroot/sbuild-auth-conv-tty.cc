@@ -114,7 +114,7 @@ AuthConvTty::set_fatal_timeout (time_t timeout)
   this->fatal_timeout = timeout;
 }
 
-static volatile gboolean timer_expired = FALSE;
+static volatile sig_atomic_t timer_expired = false;
 
 /**
  * reset_alarm:
@@ -139,7 +139,7 @@ reset_alarm (struct sigaction *orig_sa)
  * Handle the SIGALRM signal.
  */
 static void
-alarm_handler (gint ignore)
+alarm_handler (int ignore)
 {
   timer_expired = TRUE;
 }
@@ -153,7 +153,7 @@ alarm_handler (gint ignore)
  * The old signal handler is stored in @orig_sa.
  */
 static bool
-set_alarm (gint delay,
+set_alarm (int delay,
 	   struct sigaction *orig_sa)
 {
   struct sigaction new_sa;
@@ -240,7 +240,7 @@ AuthConvTty::read_string (std::string message,
   struct termios orig_termios, noecho_termios;
   struct sigaction saved_signals;
   sigset_t old_sigs, new_sigs;
-  gboolean use_termios = FALSE;
+  bool use_termios = false;
   std::string *return_input = 0;
 
   if (isatty(STDIN_FILENO))
@@ -266,7 +266,7 @@ AuthConvTty::read_string (std::string message,
 
   char input[PAM_MAX_MSG_SIZE];
 
-  gint delay = get_delay();
+  int delay = get_delay();
 
   while (delay >= 0)
     {

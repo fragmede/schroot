@@ -110,9 +110,9 @@ get_chroot_options(std::tr1::shared_ptr<sbuild::Config>& config,
  * Log a debugging message.  This is a "NULL" message handler that
  * does nothing, discarding all messages.
  */
-void debug_logfunc (const gchar *log_domain,
+void debug_logfunc (const char *log_domain,
 		    GLogLevelFlags log_level,
-		    const gchar *message,
+		    const char *message,
 		    gpointer user_data)
 {
   /* Discard all messages. */

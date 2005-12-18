@@ -246,7 +246,7 @@ ChrootLvmSnapshot::setup_lock (Chroot::SetupType type,
   if ((type == SETUP_START && lock == TRUE) ||
       (type == SETUP_STOP && lock == FALSE))
     {
-      gboolean start = (type == SETUP_START);
+      bool start = (type == SETUP_START);
       setup_session_info(start);
     }
 }

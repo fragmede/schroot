@@ -392,7 +392,7 @@ Config::load (const std::string& file)
 
   /* Now create an IO Channel and read in the data */
   GIOChannel *channel = g_io_channel_unix_new(fd);
-  gchar *data = NULL;
+  char *data = NULL;
   gsize size = 0;
   GError *read_error = NULL;
 

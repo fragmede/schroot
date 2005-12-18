@@ -100,7 +100,7 @@ namespace
       }
 
     /* Do the conversation */
-    gboolean status = conv->conversation(messages);
+    bool status = conv->conversation(messages);
 
     if (status == TRUE)
       {

@@ -125,7 +125,7 @@ namespace
    *
    * Returns TRUE if the user is a member of @group, otherwise FALSE.
    */
-  static gboolean
+  static bool
   is_group_member (const std::string& group)
   {
     errno = 0;
@@ -139,7 +139,7 @@ namespace
 	exit (EXIT_FAILURE);
       }
 
-    gboolean group_member = FALSE;
+    bool group_member = FALSE;
     if (groupbuf->gr_gid == getgid())
       {
 	group_member = TRUE;
@@ -399,8 +399,8 @@ Session::get_auth_status () const
 
       if (!groups.empty())
 	{
-	  gboolean in_groups = FALSE;
-	  gboolean in_root_groups = FALSE;
+	  bool in_groups = FALSE;
+	  bool in_root_groups = FALSE;
 
 	  if (!groups.empty())
 	    {
@@ -500,11 +500,11 @@ try
 	    else
 	      {
 		uuid_t uuid;
-		gchar uuid_str[37];
+		char uuid_str[37];
 		uuid_generate(uuid);
 		uuid_unparse(uuid, uuid_str);
 		uuid_clear(uuid);
-		gchar *session_id = g_strconcat(chroot->get_name().c_str(), "-", uuid_str, NULL);
+		char *session_id = g_strconcat(chroot->get_name().c_str(), "-", uuid_str, NULL);
 		set_session_id(session_id);
 		g_free(session_id);
 	      }
@@ -516,8 +516,8 @@ try
 	       with the session id. */
 	    if (chroot->get_mount_location().empty())
 	      {
-		gchar *location = g_strconcat(SCHROOT_MOUNT_DIR, "/",
-					      this->session_id.c_str(), NULL);
+		char *location = g_strconcat(SCHROOT_MOUNT_DIR, "/",
+					     this->session_id.c_str(), NULL);
 		chroot->set_mount_location(location);
 		g_free(location);
 	      }
@@ -531,9 +531,9 @@ try
 	    ChrootLvmSnapshot *snapshot = 0;
 	    if ((snapshot = dynamic_cast<ChrootLvmSnapshot *>(chroot.get())) != 0)
 	      {
-		gchar *dir =
+		char *dir =
 		  g_path_get_dirname(snapshot->get_device().c_str());
-		gchar *device = g_strconcat(dir, "/",
+		char *device = g_strconcat(dir, "/",
 					    this->session_id.c_str(), NULL);
 		snapshot->set_snapshot_device(device);
 		g_free(device);
@@ -676,7 +676,7 @@ Session::setup_chroot (Chroot&           session_chroot,
 		  ERROR_CHROOT_SETUP);
     }
 
-  gchar *setup_type_string = NULL;
+  char *setup_type_string = NULL;
   if (setup_type == Chroot::SETUP_START)
     setup_type_string = "setup-start";
   else if (setup_type == Chroot::SETUP_RECOVER)
@@ -688,7 +688,7 @@ Session::setup_chroot (Chroot&           session_chroot,
   else if (setup_type == Chroot::RUN_STOP)
     setup_type_string = "run-stop";
 
-  gchar **argv = g_new(gchar *, 8);
+  char **argv = g_new(char *, 8);
   {
     guint i = 0;
     argv[i++] = g_strdup(RUN_PARTS); // Run run-parts(8)
@@ -743,11 +743,11 @@ Session::setup_chroot (Chroot&           session_chroot,
   setup_env_var(env, "SESSION_ID", this->session_id);
 
   /* Move the strings into the envp vector. */
-  gchar **envp = NULL;
+  char **envp = NULL;
   if (!env.empty())
     {
       guint num_vars = env.size();
-      envp = g_new(gchar *, num_vars + 1);
+      envp = g_new(char *, num_vars + 1);
 
       for (guint i = 0; i < num_vars; ++i)
 	{
@@ -756,7 +756,7 @@ Session::setup_chroot (Chroot&           session_chroot,
       envp[num_vars] = NULL;
     }
 
-  gint exit_status = 0;
+  int exit_status = 0;
   GError *tmp_error = NULL;
 
   g_spawn_sync("/",          // working directory

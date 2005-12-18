@@ -1,5 +1,10 @@
 2005-12-18  Roger Leigh  <rleigh@debian.org>
 
+	* Remove GLib types (gboolean, gchar, gint), and replace with
+	standard C++ types.
+
+2005-12-18  Roger Leigh  <rleigh@debian.org>
+
 	* All typedefs and enums have been moved into the class
 	declarations, with the Sbuild and Object prefixes removed.
 

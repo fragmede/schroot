@@ -40,11 +40,11 @@
 
 using namespace schroot;
 
-static gboolean
-parse_session_options(const gchar  *option_name,
-		      const gchar  *value,
-		      gpointer      data,
-		      GError      **error);
+static bool
+parse_session_options(const char  *option_name,
+		      const char  *value,
+		      gpointer     data,
+		      GError     **error);
 
 /**
  * schroot_options_new:
@@ -202,11 +202,11 @@ Options::~Options()
  * Returns true on success, false on failure (and error will also be
  * set).
  */
-static gboolean
-parse_session_options(const gchar  *option_name,
-		      const gchar  *value,
-		      gpointer      data,
-		      GError      **error)
+static bool
+parse_session_options(const char  *option_name,
+		      const char  *value,
+		      gpointer     data,
+		      GError     **error)
 {
   Options *options = static_cast<Options *>(data);
 
