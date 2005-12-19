@@ -66,8 +66,8 @@
 #include <syslog.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
 
+#include "sbuild-i18n.h"
 #include "sbuild-auth.h"
 #include "sbuild-auth-message.h"
 #include "sbuild-error.h"

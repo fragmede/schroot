@@ -40,8 +40,8 @@
 #include <lockdev.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
 
+#include "sbuild-i18n.h"
 #include "sbuild-lock.h"
 #include "sbuild-util.h"
 

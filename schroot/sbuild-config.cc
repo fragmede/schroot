@@ -45,8 +45,8 @@
 #include <unistd.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
 
+#include "sbuild-i18n.h"
 #include "sbuild-config.h"
 #include "sbuild-lock.h"
 #include "sbuild-chroot.h"

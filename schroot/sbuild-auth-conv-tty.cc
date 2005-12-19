@@ -43,8 +43,7 @@
 #include <termios.h>
 #include <unistd.h>
 
-#include <glib/gi18n.h>
-
+#include "sbuild-i18n.h"
 #include "sbuild-auth-conv-tty.h"
 #include "sbuild-error.h"
 #include "sbuild-util.h"

@@ -44,10 +44,10 @@
 #include <syslog.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
 
 #include <uuid/uuid.h>
 
+#include "sbuild-i18n.h"
 #include "sbuild-chroot-lvm-snapshot.h"
 #include "sbuild-session.h"
 #include "sbuild-util.h"

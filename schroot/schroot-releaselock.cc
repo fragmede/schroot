@@ -33,7 +33,8 @@
 
 #include <glib.h>
 #include <glib/gprintf.h>
-#include <glib/gi18n.h>
+
+#include "sbuild-i18n.h"
 
 /* Stored command-line options. */
 struct options {

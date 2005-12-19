@@ -34,7 +34,8 @@
 #include <stdio.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
+
+#include "sbuild-i18n.h"
 
 #include "schroot-options.h"
 

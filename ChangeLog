@@ -1,5 +1,11 @@
 2005-12-19  Roger Leigh  <rleigh@debian.org>
 
+	* Replace all use of glib/gi18n.h with sbuild-i18n.h.
+
+	* schroot/sbuild-i18n.h: New file: gettext macros.
+
+2005-12-19  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-auth-conv-tty.cc, sbuild-auth.cc: Add support for
 	iostream.
 

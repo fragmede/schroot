@@ -28,8 +28,8 @@
 #include <syslog.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
 
+#include "sbuild-i18n.h"
 #include "sbuild-chroot.h"
 #include "sbuild-config.h"
 #include "sbuild-session.h"

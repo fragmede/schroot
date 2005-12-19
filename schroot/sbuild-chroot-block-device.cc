@@ -38,8 +38,8 @@
 #include <unistd.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
 
+#include "sbuild-i18n.h"
 #include "sbuild-chroot-block-device.h"
 #include "sbuild-keyfile.h"
 #include "sbuild-lock.h"
