@@ -43,6 +43,7 @@
 #include "sbuild-chroot-block-device.h"
 #include "sbuild-keyfile.h"
 #include "sbuild-lock.h"
+#include "sbuild-util.h"
 
 using namespace sbuild;
 
@@ -173,21 +174,18 @@ ChrootBlockDevice::setup_lock (Chroot::SetupType type,
 
   if (stat(this->device.c_str(), &statbuf) == -1)
     {
-      char *gstr = g_strdup_printf(_("%s chroot: failed to stat device %s: %s"),
-				    get_name().c_str(),
-				    this->device.c_str(), g_strerror(errno));
-      std::string err(gstr);
-      g_free(gstr);
-      throw error(err, ERROR_LOCK);
+      throw error(format_string(_("%s chroot: failed to stat device %s: %s"),
+				get_name().c_str(),
+				this->device.c_str(),
+				g_strerror(errno)),
+		  ERROR_LOCK);
     }
   else if (!S_ISBLK(statbuf.st_mode))
     {
-      char *gstr = g_strdup_printf(_("%s chroot: %s is not a block device"),
-				   get_name().c_str(),
-				   this->device.c_str());
-      std::string err(gstr);
-      g_free(gstr);
-      throw error(err, ERROR_LOCK);
+      throw error(format_string(_("%s chroot: %s is not a block device"),
+				get_name().c_str(),
+				this->device.c_str()),
+		  ERROR_LOCK);
     }
   else
     {
@@ -200,12 +198,10 @@ ChrootBlockDevice::setup_lock (Chroot::SetupType type,
 	    }
 	  catch (const sbuild::Lock::error& e)
 	    {
-	      char *gstr = g_strdup_printf(_("%s: failed to lock device: %s"),
-					     this->device.c_str(),
-					     e.what());
-	      std::string err(gstr);
-	      g_free(gstr);
-	      throw error(err, ERROR_LOCK);
+	      throw error(format_string(_("%s: failed to lock device: %s"),
+					this->device.c_str(),
+					e.what()),
+			  ERROR_LOCK);
 	    }
 	}
       else
@@ -216,12 +212,10 @@ ChrootBlockDevice::setup_lock (Chroot::SetupType type,
 	    }
 	  catch (const sbuild::Lock::error& e)
 	    {
-	      char *gstr = g_strdup_printf(_("%s: failed to unlock device: %s"),
-					     this->device.c_str(),
-					     e.what());
-	      std::string err(gstr);
-	      g_free(gstr);
-	      throw error(err, ERROR_LOCK);
+	      throw error(format_string(_("%s: failed to unlock device: %s"),
+					this->device.c_str(),
+					e.what()),
+			  ERROR_LOCK);
 	    }
 	}
     }

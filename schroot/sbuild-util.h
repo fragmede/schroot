@@ -35,6 +35,9 @@ namespace sbuild
   dirname(std::string name,
 	  char        separator = '/');
 
+  std::string
+  format_string(const char*format, ...);
+
 }
 
 #endif /* SBUILD_UTIL */

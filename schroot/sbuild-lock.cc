@@ -43,6 +43,7 @@
 #include <glib/gi18n.h>
 
 #include "sbuild-lock.h"
+#include "sbuild-util.h"
 
 using namespace sbuild;
 
@@ -194,10 +195,9 @@ FileLock::set_lock (Lock::Type lock_type,
 	{
 	  if (errno == EINTR)
 	    {
-	      char *gstr = g_strdup_printf("failed to acquire lock (timeout after %u seconds)", timeout);
-	      std::string err(gstr);
-	      g_free(gstr);
-	      throw error(err, LOCK_ERROR_TIMEOUT);
+	      throw error(format_string("failed to acquire lock (timeout after %u seconds)",
+					timeout),
+			  LOCK_ERROR_TIMEOUT);
 	    }
 	  else
 	    throw error(std::string(_("failed to acquire lock: ")) + g_strerror(errno),
@@ -299,11 +299,9 @@ DeviceLock::set_lock (Lock::Type lock_type,
 		}
 	      else if (cur_lock_pid > 0 && cur_lock_pid != getpid()) // Another process owns the lock
 		{
-		  char *gstr = g_strdup_printf(_("failed to release device lock held by pid %d"),
-					       cur_lock_pid);
-		  std::string err(gstr);
-		  g_free(gstr);
-		  throw error(err, LOCK_ERROR_FAIL);
+		  throw error(format_string(_("failed to release device lock held by pid %d"),
+					    cur_lock_pid),
+			      LOCK_ERROR_FAIL);
 		}
 	      status = dev_unlock(this->device.c_str(), getpid());
 	      if (status == 0) // Success
@@ -318,21 +316,19 @@ DeviceLock::set_lock (Lock::Type lock_type,
 
       if (lock_timeout)
 	{
-	  char *gchr = 0;
+	  std::string err;
 	  if (lock_type == LOCK_SHARED ||
 	      lock_type == LOCK_EXCLUSIVE)
-	    gchr = g_strdup_printf(_("failed to acquire device lock held by pid %d "
-				     "(timeout after %u seconds)"),
-				   status, timeout);
+	    err = format_string(_("failed to acquire device lock held by pid %d "
+				  "(timeout after %u seconds)"),
+				status, timeout);
 	  else
 	    {
-	      char *gstr = g_strdup_printf(_("failed to release device lock held by pid %d "
-					     "(timeout after %u seconds)"),
-					   status, timeout);
-	      std::string err(gstr);
-	      g_free(gstr);
-	      throw error(err, LOCK_ERROR_TIMEOUT);
+	      err = format_string(_("failed to release device lock held by pid %d "
+				    "(timeout after %u seconds)"),
+				  status, timeout);
 	    }
+	  throw error(err, LOCK_ERROR_TIMEOUT);
 	}
       unset_timer();
     }

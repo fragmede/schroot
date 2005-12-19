@@ -19,6 +19,10 @@
  *
  *********************************************************************/
 
+#include <config.h>
+
+#include <stdarg.h>
+
 #include "sbuild-util.h"
 
 using namespace sbuild;
@@ -95,6 +99,44 @@ sbuild::dirname(std::string name,
     ret =  name.substr(0, pos); // Dirname part
 
   return remove_duplicates(ret, separator);
+}
+
+std::string
+sbuild::format_string(const char*format, ...)
+{
+  int buflen = 64;
+  char *buff = new char[buflen];
+  int bytes = 0;
+
+  std::string retval;
+
+  while (1)
+    {
+      va_list args;
+      va_start(args, format);
+      bytes = vsnprintf(buff, buflen, format, args);
+      va_end(args);
+      if (bytes >= 0 && bytes < buflen)
+	{
+	  retval = buff;
+	  break;
+	}
+      else if (bytes < 0) // error
+	{
+	  retval = "";
+	  break;
+	}
+      else // output truncated
+	{
+	  delete[] buff;
+	  buflen = bytes + 1;
+	  buff = new char[buflen];
+	}
+    }
+
+  delete[] buff;
+
+  return retval;
 }
 
 /*

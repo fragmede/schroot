@@ -38,15 +38,19 @@
 
 #include <config.h>
 
+#include <iostream>
+
 #include <termios.h>
 #include <unistd.h>
 
-#include <glib.h>
 #include <glib/gi18n.h>
 
 #include "sbuild-auth-conv-tty.h"
 #include "sbuild-error.h"
+#include "sbuild-util.h"
 
+using std::cerr;
+using std::endl;
 using namespace sbuild;
 
 AuthConvTty::AuthConvTty():
@@ -194,14 +198,14 @@ AuthConvTty::get_delay ()
   if (this->fatal_timeout != 0 &&
       this->start_time >= this->fatal_timeout)
     {
-      fprintf(stderr, _("Timed out\n"));
+      cerr << _("Timed out") << endl;
       return -1;
     }
 
   if (this->warning_timeout != 0 &&
       this->start_time >= this->warning_timeout)
     {
-      fprintf(stderr, _("Time is running out...\n"));
+      cerr << _("Time is running out...") << endl;
       return (this->fatal_timeout ?
 	      this->fatal_timeout - this->start_time : 0);
     }
@@ -270,7 +274,7 @@ AuthConvTty::read_string (std::string message,
 
   while (delay >= 0)
     {
-      fprintf(stderr, "%s", message.c_str());
+      cerr << message << endl;
 
       if (use_termios == TRUE)
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &noecho_termios);
@@ -284,7 +288,7 @@ AuthConvTty::read_string (std::string message,
 	    {
 	      tcsetattr(STDIN_FILENO, TCSADRAIN, &orig_termios);
 	      if (echo == FALSE && timer_expired == TRUE)
-		fprintf(stderr, "\n");
+		cerr << endl;
 	    }
 	  if (delay > 0)
 	    reset_alarm(&saved_signals);
@@ -295,7 +299,7 @@ AuthConvTty::read_string (std::string message,
 	  else if (nchars > 0)
 	    {
 	      if (echo == FALSE)
-		fprintf(stderr, "\n");
+		cerr << endl;
 
 	      if (input[nchars-1] == '\n')
 		input[--nchars] = '\0';
@@ -308,7 +312,7 @@ AuthConvTty::read_string (std::string message,
 	  else if (nchars == 0)
 	    {
 	      if (echo == FALSE)
-		fprintf(stderr, "\n");
+		cerr << endl;
 
 	      return_input = new std::string();
 	      break;
@@ -365,15 +369,15 @@ AuthConvTty::conversation_impl (std::vector<AuthMessage>& messages)
 	  str = 0;
 	  break;
 	case AuthMessage::MESSAGE_ERROR:
-	  if (fprintf(stderr, "%s\n", cur->message.c_str()) < 0)
-	    return FALSE;
+	  cerr << cur->message << endl;
 	  break;
 	case AuthMessage::MESSAGE_INFO:
-	  if (fprintf(stdout, "%s\n", cur->message.c_str()) < 0)
-	    return FALSE;
+	  cerr << cur->message << endl;
 	  break;
 	default:
-	  fprintf(stderr, "Unsupported conversation type %d\n", cur->type);
+	  cerr << format_string(_("Unsupported conversation type %d"),
+				cur->type)
+	       << endl;
 	  return FALSE;
 	  break;
 	}

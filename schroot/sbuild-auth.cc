@@ -57,6 +57,8 @@
 
 #include <config.h>
 
+#include <iostream>
+
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
@@ -69,7 +71,10 @@
 #include "sbuild-auth.h"
 #include "sbuild-auth-message.h"
 #include "sbuild-error.h"
+#include "sbuild-util.h"
 
+using std::cerr;
+using std::endl;
 using namespace sbuild;
 
 namespace
@@ -175,8 +180,10 @@ Auth::Auth(const std::string& service_name):
   struct passwd *pwent = getpwuid(this->ruid);
   if (pwent == 0)
     {
-      g_printerr(_("%lu: user not found: %s\n"), (unsigned long) this->ruid,
-		 g_strerror(errno));
+      cerr << format_string(_("%lu: user not found: %s\n"),
+			    (unsigned long) this->ruid,
+			    g_strerror(errno))
+	   << endl;
       exit (EXIT_FAILURE);
     }
   this->ruser = pwent->pw_name;
@@ -280,7 +287,10 @@ Auth::set_user (const std::string& user)
   struct passwd *pwent = getpwnam(this->user.c_str());
   if (pwent == 0)
     {
-      g_printerr(_("%s: user not found: %s\n"), this->user.c_str(), g_strerror(errno));
+      cerr << format_string(_("%s: user not found: %s\n"),
+			    this->user.c_str(),
+			    g_strerror(errno))
+	   << endl;
       exit (EXIT_FAILURE);
     }
   this->uid = pwent->pw_uid;
@@ -705,9 +715,11 @@ Auth::authenticate ()
     case STATUS_FAIL:
 	{
 	  g_debug("PAM auth premature FAIL");
-	  g_printerr(_("You do not have permission to access the %s service.\n"),
-		     this->service.c_str());
-	  g_printerr(_("This failure will be reported.\n"));
+	  cerr << format_string(_("You do not have permission to access the %s service.\n"),
+				this->service.c_str())
+	       << "\n"
+	       << _("This failure will be reported.")
+	       << endl;
 	  syslog(LOG_AUTH|LOG_WARNING,
 		 "%s->%s Unauthorised",
 		 this->ruser.c_str(), this->user.c_str());

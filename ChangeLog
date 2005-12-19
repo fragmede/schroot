@@ -1,3 +1,13 @@
+2005-12-19  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-auth-conv-tty.cc, sbuild-auth.cc: Add support for
+	iostream.
+
+	* Replace most uses of g_strdup_printf with format_string.
+
+	* schroot/sbuild-util.cc (format_string): New function to create a
+	std::string from a C-style format string.
+
 2005-12-18  Roger Leigh  <rleigh@debian.org>
 
 	* Remove GLib types (gboolean, gchar, gint), and replace with

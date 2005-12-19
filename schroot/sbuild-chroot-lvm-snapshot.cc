@@ -175,29 +175,23 @@ ChrootLvmSnapshot::setup_lock (Chroot::SetupType type,
 
       if (device.empty())
 	{
-	  char *gstr = g_strdup_printf(_("%s chroot: device name not set"),
-				       get_name().c_str());
-	  std::string err(gstr);
-	  g_free(gstr);
-	  throw error(err, ERROR_LOCK);
+	  throw error(format_string(_("%s chroot: device name not set"),
+				    get_name().c_str()),
+		      ERROR_LOCK);
 	}
       else if (stat(device.c_str(), &statbuf) == -1)
 	{
-	  char *gstr = g_strdup_printf(_("%s chroot: failed to stat device %s: %s"),
-				       get_name().c_str(),
-				       device.c_str(), g_strerror(errno));
-	  std::string err(gstr);
-	  g_free(gstr);
-	  throw error(err, ERROR_LOCK);
+	  throw error(format_string(_("%s chroot: failed to stat device %s: %s"),
+				    get_name().c_str(),
+				    device.c_str(), g_strerror(errno)),
+		      ERROR_LOCK);
 	}
       else if (!S_ISBLK(statbuf.st_mode))
 	{
-	  char *gstr = g_strdup_printf(_("%s chroot: %s is not a block device\n"),
-				       get_name().c_str(),
-				       device.c_str());
-	  std::string err(gstr);
-	  g_free(gstr);
-	  throw error(err, ERROR_LOCK);
+	  throw error(format_string(_("%s chroot: %s is not a block device\n"),
+				    get_name().c_str(),
+				    device.c_str()),
+		      ERROR_LOCK);
 	}
       else
 	{
@@ -215,12 +209,10 @@ ChrootLvmSnapshot::setup_lock (Chroot::SetupType type,
 		}
 	      catch (const sbuild::Lock::error &e)
 		{
-		  char *gstr = g_strdup_printf(_("%s: failed to lock device: %s"),
-					       device.c_str(),
-					       e.what());
-		  std::string err(gstr);
-		  g_free(gstr);
-		  throw error(err, ERROR_LOCK);
+		  throw error(format_string(_("%s: failed to lock device: %s"),
+					    device.c_str(),
+					    e.what()),
+			      ERROR_LOCK);
 		}
 	    }
 	  else
@@ -231,12 +223,10 @@ ChrootLvmSnapshot::setup_lock (Chroot::SetupType type,
 		}
 	      catch (const sbuild::Lock::error &e)
 		{
-		  char *gstr = g_strdup_printf(_("%s: failed to unlock device: %s"),
-					       device.c_str(),
-					       e.what());
-		  std::string err(gstr);
-		  g_free(gstr);
-		  throw error(err, ERROR_LOCK);
+		  throw error(format_string(_("%s: failed to unlock device: %s"),
+					    device.c_str(),
+					    e.what()),
+					    ERROR_LOCK);
 		}
 	    }
 	}
@@ -264,11 +254,9 @@ ChrootLvmSnapshot::setup_session_info (bool start)
       int fd = open(file.c_str(), O_CREAT|O_EXCL|O_WRONLY, 0664);
       if (fd < 0)
 	{
-	  char *gstr = g_strdup_printf(_("%s: failed to create session file: %s\n"),
-		      file.c_str(), g_strerror(errno));
-	  std::string err(gstr);
-	  g_free(gstr);
-	  throw error(err, ERROR_LOCK);
+	  throw error(format_string(_("%s: failed to create session file: %s\n"),
+				    file.c_str(), g_strerror(errno)),
+		      ERROR_LOCK);
 	}
 
       FILE *sess_file = fdopen(fd, "w");
@@ -277,11 +265,9 @@ ChrootLvmSnapshot::setup_session_info (bool start)
 	  if (close(fd) < 0) /* Can't set GError at this point. */
 	    g_printerr("%s: failed to close session file: %s\n",
 		       file.c_str(), g_strerror(errno));
-	  char *gstr = g_strdup_printf(_("%s: failed to create FILE from fd: %s\n"),
-				       file.c_str(), g_strerror(errno));
-	  std::string err(gstr);
-	  g_free(gstr);
-	  throw error(err, ERROR_LOCK);
+	  throw error(format_string(_("%s: failed to create FILE from fd: %s\n"),
+				    file.c_str(), g_strerror(errno)),
+		      ERROR_LOCK);
 	}
 
       try
@@ -293,11 +279,9 @@ ChrootLvmSnapshot::setup_session_info (bool start)
 	    }
 	  catch (const Lock::error& e)
 	    {
-	      char *gstr = g_strdup_printf(_("%s: lock acquisition failure: %s\n"),
-					   file.c_str(), e.what());
-	      std::string err(gstr);
-	      g_free(gstr);
-	      throw error(err, ERROR_LOCK);
+	      throw error(format_string(_("%s: lock acquisition failure: %s\n"),
+					file.c_str(), e.what()),
+			  ERROR_LOCK);
 	    }
 
 	  print_config(sess_file);
@@ -313,19 +297,15 @@ ChrootLvmSnapshot::setup_session_info (bool start)
 	    }
 	  catch (const Lock::error& e)
 	    {
-	      char *gstr = g_strdup_printf(_("%s: lock discard failure: %s\n"),
-					   file.c_str(), e.what());
-	      std::string err(gstr);
-	      g_free(gstr);
-	      throw error(err, ERROR_LOCK);
+	      throw error(format_string(_("%s: lock discard failure: %s\n"),
+					file.c_str(), e.what()),
+			  ERROR_LOCK);
 	    }
 	  if (fclose(sess_file) != 0)
 	    {
-	      char *gstr = g_strdup_printf(_("%s: failed to close session file: %s\n"),
-			    file.c_str(), g_strerror(errno));
-	      std::string err(gstr);
-	      g_free(gstr);
-	      throw error(err, ERROR_LOCK);
+	      throw error(format_string(_("%s: failed to close session file: %s\n"),
+					file.c_str(), g_strerror(errno)),
+			  ERROR_LOCK);
 	    }
 	}
       catch (const error& e)
@@ -338,11 +318,9 @@ ChrootLvmSnapshot::setup_session_info (bool start)
     {
       if (unlink(file.c_str()) != 0)
 	{
-	  char *gstr = g_strdup_printf(_("%s: failed to unlink session file: %s\n"),
-		      file.c_str(), g_strerror(errno));
-	  std::string err(gstr);
-	  g_free(gstr);
-	  throw error(err, ERROR_LOCK);
+	  throw error(format_string(_("%s: failed to unlink session file: %s\n"),
+				    file.c_str(), g_strerror(errno)),
+		      ERROR_LOCK);
 	}
     }
 }

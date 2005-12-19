@@ -48,8 +48,9 @@
 
 #include <uuid/uuid.h>
 
-#include "sbuild-session.h"
 #include "sbuild-chroot-lvm-snapshot.h"
+#include "sbuild-session.h"
+#include "sbuild-util.h"
 
 using namespace sbuild;
 
@@ -1016,11 +1017,9 @@ Session::wait_for_child (int pid)
 
   if (this->child_status)
     {
-      char *gstr = g_strdup_printf(_("Child exited abnormally with status '%d'"),
-				   this->child_status);
-      std::string err(gstr);
-      g_free(gstr);
-      throw error(err, ERROR_CHILD);
+      throw error(format_string(_("Child exited abnormally with status '%d'"),
+				   this->child_status),
+		  ERROR_CHILD);
     }
 }
 
