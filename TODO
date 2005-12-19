@@ -21,8 +21,6 @@ PENDING
 
 ** Remove all traces of GType.
 
-*** Convert GError to exceptions.
-
 ** Write a C++ replacement for GKeyFile.
 
 ** Enable C++ compiler warnings.

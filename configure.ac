@@ -59,11 +59,11 @@ AC_PATH_PROG([GLIB_MKENUMS], [glib-mkenums])
 AC_PATH_PROG([GLIB_GENMARSHAL], [glib-genmarshal])
 GTK_DOC_CHECK([1.2])
 # Checks for libraries.
-PKG_CHECK_MODULES([GOBJECT], [gobject-2.0 >= 2.4.0])
+PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.4.0])
 PKG_CHECK_MODULES([UUID], [uuid])
 PKG_CHECK_MODULES([SIGC], [sigc++-2.0])
 
-SCHROOT_CFLAGS="$GOBJECT_CFLAGS $UUID_CFLAGS $SIGC_CFLAGS"
+SCHROOT_CFLAGS="$GLIB_CFLAGS $UUID_CFLAGS $SIGC_CFLAGS"
 AC_SUBST([SCHROOT_CFLAGS])
 
 # Checks for header files (none at the moment).

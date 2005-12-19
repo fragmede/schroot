@@ -1,5 +1,14 @@
 2005-12-19  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/Makefile.am: Replace $(GOBJECT_LIBS) with $(GLIB_LIBS).
+
+	* configure.ac: Replace check for GObject with a check for GLib,
+	and adjust $SCHROOT_CFLAGS accordingly.
+
+	* Remove GObject support.
+
+2005-12-19  Roger Leigh  <rleigh@debian.org>
+
 	* Replace all use of glib/gi18n.h with sbuild-i18n.h.
 
 	* schroot/sbuild-i18n.h: New file: gettext macros.

@@ -71,7 +71,7 @@ schroot_SOURCES =			\
 	schroot.h			\
 	schroot.cc
 
-schroot_LDADD = $(GOBJECT_LIBS) $(UUID_LIBS) $(SIGC_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(LIBINTL)
+schroot_LDADD = $(GLIB_LIBS) $(UUID_LIBS) $(SIGC_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(LIBINTL)
 
 #if ENABLE_GTK_DOC
 #noinst_LTLIBRARIES = libschroot.la
@@ -83,7 +83,7 @@ schroot_LDADD = $(GOBJECT_LIBS) $(UUID_LIBS) $(SIGC_LIBS) $(PAM_LIBS) $(LOCKDEV_
 schroot_releaselock_SOURCES = \
 	schroot-releaselock.cc
 schroot_releaselock_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
-schroot_releaselock_LDADD = $(GOBJECT_LIBS) $(LOCKDEV_LIBS) $(LIBINTL)
+schroot_releaselock_LDADD = $(GLIB_LIBS) $(LOCKDEV_LIBS) $(LIBINTL)
 
 pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
 pkgsysconf_DATA = schroot.conf
