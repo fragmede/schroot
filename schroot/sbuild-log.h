@@ -1,13 +1,13 @@
-/* sbuild-util - sbuild utility functions
+/* sbuild-log - sbuild message logging
  *
  * Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
- * schroot is free software; you can redistribute it and/or modify it
+ * serror is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
  *
- * schroot is distributed in the hope that it will be useful, but
+ * serror is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
@@ -19,34 +19,40 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_UTIL_H
-#define SBUILD_UTIL_H
+#ifndef SBUILD_LOG_H
+#define SBUILD_LOG_H
 
-#include <string>
-
-#include "sbuild-types.h"
+#include <ostream>
 
 namespace sbuild
 {
 
-  std::string
-  basename(std::string name,
-	   char        separator = '/');
+  enum DebugLevel
+    {
+      DEBUG_NONE = -1,
+      DEBUG_NOTICE = 1,
+      DEBUG_INFO = 2,
+      DEBUG_WARNING = 3,
+      DEBUG_CRITICAL = 4
+    };
 
-  std::string
-  dirname(std::string name,
-	  char        separator = '/');
+  std::ostream&
+  log_info();
 
-  std::string
-  format_string(const char *format, ...);
+  std::ostream&
+  log_warning();
 
-  std::string
-  string_list_to_string(string_list const& list,
-			std::string const& separator);
+  std::ostream&
+  log_error();
+
+  std::ostream&
+  log_debug(DebugLevel level);
+
+  extern DebugLevel debug_level;
 
 }
 
-#endif /* SBUILD_UTIL_H */
+#endif /* SBUILD_LOG_H */
 
 /*
  * Local Variables:

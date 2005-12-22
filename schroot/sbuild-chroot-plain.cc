@@ -35,8 +35,6 @@
 #include <sys/sysmacros.h>
 #include <unistd.h>
 
-#include <glib.h>
-
 #include "sbuild-i18n.h"
 #include "sbuild-chroot-plain.h"
 #include "sbuild-keyfile.h"
@@ -49,8 +47,8 @@ ChrootPlain::ChrootPlain():
 {
 }
 
-ChrootPlain::ChrootPlain (GKeyFile           *keyfile,
-			  const std::string&  group):
+ChrootPlain::ChrootPlain (const keyfile&     keyfile,
+			  const std::string& group):
   Chroot(keyfile, group),
   location()
 {
@@ -131,31 +129,32 @@ ChrootPlain::get_session_flags () const
 }
 
 void
-ChrootPlain::print_details (FILE *file) const
+ChrootPlain::print_details (std::ostream& stream) const
 {
-  this->Chroot::print_details(file);
+  this->Chroot::print_details(stream);
 
   if (!this->location.empty())
-    g_fprintf(file, "  %-22s%s\n", _("Location"), this->location.c_str());
+    stream << format_detail_string(_("Location"), get_location());
+  stream << std::flush;
 }
 
 void
-ChrootPlain::print_config (FILE *file) const
+ChrootPlain::print_config (std::ostream& stream) const
 {
-  this->Chroot::print_config(file);
+  this->Chroot::print_config(stream);
 
-  g_fprintf(file, _("location=%s\n"), this->location.c_str());
+  stream << "location=" << get_location() << '\n';
+  stream << std::flush;
 }
 
 void
-ChrootPlain::read_keyfile (GKeyFile           *keyfile,
-			   const std::string&  group)
+ChrootPlain::read_keyfile (const keyfile&     keyfile,
+			   const std::string& group)
 {
   std::string location;
-  if (keyfile_read_string(keyfile, group, "location", location))
+  if (keyfile.get_value(group, "location", location))
     set_location(location);
 }
-
 
 /*
  * Local Variables:

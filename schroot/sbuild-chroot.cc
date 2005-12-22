@@ -36,36 +36,11 @@
 
 #include <config.h>
 
-#include <string.h>
-
-#include <glib.h>
-
 #include "sbuild-i18n.h"
 #include "sbuild-chroot.h"
 #include "sbuild-keyfile.h"
 
 using namespace sbuild;
-
-namespace
-{
-  std::string
-  string_list_to_string(const Chroot::string_list& list,
-			const std::string&         separator)
-  {
-    std::string ret;
-
-    for (Chroot::string_list::const_iterator cur = list.begin();
-	 cur != list.end();
-	 ++cur)
-      {
-	ret += *cur;
-	if (cur + 1 != list.end())
-	  ret += separator;
-      }
-
-    return ret;
-  }
-}
 
 /**
  * sbuild_chroot_new:
@@ -89,7 +64,7 @@ Chroot::Chroot ():
 {
 }
 
-Chroot::Chroot (GKeyFile   *keyfile,
+Chroot::Chroot (const keyfile&     keyfile,
 		const std::string& group):
   name(),
   description(),
@@ -263,7 +238,7 @@ Chroot::set_priority (unsigned int priority)
  * Returns a string. This string points to internally allocated
  * storage in the chroot and must not be freed, modified or stored.
  */
-const Chroot::string_list&
+const string_list&
 Chroot::get_groups () const
 {
   return this->groups;
@@ -277,7 +252,7 @@ Chroot::get_groups () const
  * Set the groups of a chroot.
  */
 void
-Chroot::set_groups (const Chroot::string_list& groups)
+Chroot::set_groups (const string_list& groups)
 {
   this->groups = groups;
 }
@@ -291,7 +266,7 @@ Chroot::set_groups (const Chroot::string_list& groups)
  * Returns a string. This string points to internally allocated
  * storage in the chroot and must not be freed, modified or stored.
  */
-const Chroot::string_list&
+const string_list&
 Chroot::get_root_groups () const
 {
   return this->root_groups;
@@ -305,7 +280,7 @@ Chroot::get_root_groups () const
  * Set the groups of a chroot.
  */
 void
-Chroot::set_root_groups (const Chroot::string_list& groups)
+Chroot::set_root_groups (const string_list& groups)
 {
   this->root_groups = groups;
 }
@@ -320,7 +295,7 @@ Chroot::set_root_groups (const Chroot::string_list& groups)
  * storage in the chroot and must not be freed, modified or stored.
  */
 
-const Chroot::string_list&
+const string_list&
 Chroot::get_aliases () const
 {
   return this->aliases;
@@ -334,7 +309,7 @@ Chroot::get_aliases () const
  * Set the aliases of a chroot.
  */
 void
-Chroot::set_aliases (const Chroot::string_list& aliases)
+Chroot::set_aliases (const string_list& aliases)
 {
   this->aliases = aliases;
 }
@@ -345,7 +320,7 @@ Chroot::set_aliases (const Chroot::string_list& aliases)
  *
  * Get the activity status of the chroot.
  *
- * Returns TRUE if active, FALSE if inactive.
+ * Returns true if active, false if inactive.
  */
 bool
 Chroot::get_active () const
@@ -356,7 +331,7 @@ Chroot::get_active () const
 /**
  * sbuild_chroot_set_active:
  * @chroot: an #Chroot.
- * @active: TRUE if active, FALSE if inactive.
+ * @active: true if active, false if inactive.
  *
  * Set the activity status of the chroot.
  */
@@ -372,7 +347,7 @@ Chroot::set_active (bool active)
  *
  * Check if chroot setup scripts will be run.
  *
- * Returns TRUE if setup scripts will be run, otherwise FALSE.
+ * Returns true if setup scripts will be run, otherwise false.
  */
 bool
 Chroot::get_run_setup_scripts () const
@@ -383,7 +358,7 @@ Chroot::get_run_setup_scripts () const
 /**
  * sbuild_chroot_set_run_setup_scripts:
  * @chroot: an #Chroot.
- * @run_setup_scripts: TRUE to run setup scripts, otherwise FALSE.
+ * @run_setup_scripts: true to run setup scripts, otherwise false.
  *
  * Set whether chroot setup scripts should be run or not.
  */
@@ -396,7 +371,7 @@ Chroot::set_run_setup_scripts (bool run_setup_scripts)
 /**
  * sbuild_chroot_set_run_session_scripts:
  * @chroot: an #Chroot.
- * @run_session_scripts: TRUE to run session scripts, otherwise FALSE.
+ * @run_session_scripts: true to run session scripts, otherwise false.
  *
  * Set whether chroot session scripts should be run or not.
  */
@@ -412,7 +387,7 @@ Chroot::get_run_session_scripts () const
  *
  * Check if chroot session scripts will be run.
  *
- * Returns TRUE if session scripts will be run, otherwise FALSE.
+ * Returns true if session scripts will be run, otherwise false.
  */
 void
 Chroot::set_run_session_scripts (bool run_session_scripts)
@@ -426,13 +401,10 @@ Chroot::set_run_session_scripts (bool run_session_scripts)
  * @env: the environment to set.
  *
  * This function is used to set the environment that the setup scripts
- * will see during execution.  Environment variables should be added
- * to @env as "key=value" strings (the format expected by execve
- * envp).  These strings should be allocated with g_free (or related
- * allocation functions such as g_strdup), and they must not be freed.
+ * will see during execution.
  */
 void
-Chroot::setup_env (Chroot::env_list& env)
+Chroot::setup_env (env_list& env)
 {
   setup_env_var(env, "CHROOT_TYPE",
 		get_chroot_type());
@@ -455,36 +427,31 @@ Chroot::setup_env (Chroot::env_list& env)
  * is printed in plain text with one line per property.
  */
 void
-Chroot::print_details (FILE *file) const
+Chroot::print_details (std::ostream& stream) const
 {
-  if (this->active == TRUE)
-    g_fprintf(file, _("  --- Session ---\n"));
+  if (this->active == true)
+    stream << _("  --- Session ---\n");
   else
-    g_fprintf(file, _("  --- Chroot ---\n"));
-  g_fprintf(file, "  %-22s%s\n", _("Name"), this->name.c_str());
-  g_fprintf(file, "  %-22s%s\n", _("Description"),
-	    this->description.c_str());
-  g_fprintf(file, "  %-22s%s\n", _("Type"), get_chroot_type().c_str());
-  g_fprintf(file, "  %-22s%u\n", _("Priority"), this->priority);
-
-  g_fprintf(file, "  %-22s%s\n", _("Groups"), string_list_to_string(this->groups, " ").c_str());
-
-  g_fprintf(file, "  %-22s%s\n", _("Root Groups"), string_list_to_string(this->root_groups, " ").c_str());
-
-  g_fprintf(file, "  %-22s%s\n", _("Aliases"), string_list_to_string(this->aliases, " ").c_str());
-
-  g_fprintf(file, "  %-22s%s\n", _("Run Setup Scripts"),
-	    (this->run_setup_scripts == TRUE) ? "true" : "false");
-  g_fprintf(file, "  %-22s%s\n", _("Run Session Scripts"),
-	    (this->run_session_scripts == TRUE) ? "true" : "false");
-
+    stream << _("  --- Chroot ---\n");
+  stream << format_detail_string(_("Name"), get_name())
+	 << format_detail_string(_("Description"), get_description())
+	 << format_detail_string(_("Type"), get_chroot_type())
+	 << format_detail_int(_("Priority"), get_priority())
+	 << format_detail_strv(_("Groups"), get_groups())
+	 << format_detail_strv(_("Root Groups"), get_root_groups())
+	 << format_detail_strv(_("Aliases"), get_aliases())
+	 << format_detail_bool(_("Run Setup Scripts"),
+			       get_run_setup_scripts())
+	 << format_detail_bool(_("Run Session Scripts"),
+			       get_run_session_scripts());
   /* Non user-settable properties are listed last. */
-  if (this->active == TRUE)
+  if (this->active == true)
     {
       if (!this->mount_location.empty())
-	g_fprintf(file, "  %-22s%s\n", _("Mount Location"), this->mount_location.c_str());
+	stream << format_detail_string(_("Mount Location"),
+				       get_mount_location());
       if (!this->mount_device.empty())
-	g_fprintf(file, "  %-22s%s\n", _("Mount Device"), this->mount_device.c_str());
+	stream << format_detail_string(_("Mount Device"), get_mount_device());
     }
 }
 
@@ -497,78 +464,81 @@ Chroot::print_details (FILE *file) const
  * by schroot.conf.
  */
 void
-Chroot::print_config (FILE *file) const
+Chroot::print_config (std::ostream& stream) const
 {
-  g_fprintf(file, "[%s]\n", this->name.c_str());
-  if (this->active)
-    g_fprintf(file, "active=%s\n",
-	      (this->active == TRUE) ? "true" : "false");
+  // TODO: Replace with proper serialisation code, once GKeyFile is
+  // gone.
+
+  stream << '[' << get_name() << "]\n";
+  if (get_active())
+    stream << "active=true\n";
   if (!this->description.empty())
-    g_fprintf(file, "description=%s\n", this->description.c_str());
-  g_fprintf(file, "type=%s\n", get_chroot_type().c_str());
-  g_fprintf(file, "priority=%u\n", this->priority);
+    stream << "description=" << this->description << '\n';
+  stream << "type=" << get_chroot_type() << '\n'
+	 << "priority=" << get_priority() << '\n';
 
   if (!this->groups.empty())
     {
-      g_fprintf(file, "groups=%s\n", string_list_to_string(this->groups, ",").c_str());
+      stream << "groups=" << string_list_to_string(this->groups, ",") << '\n';
     }
 
   if (!this->root_groups.empty())
     {
-      g_fprintf(file, "root-groups=%s\n", string_list_to_string(this->root_groups, ",").c_str());
+      stream << "root-groups=" << string_list_to_string(this->root_groups, ",")
+	     << '\n';
     }
 
   if (!this->aliases.empty())
     {
-      g_fprintf(file, "aliases=%s\n", string_list_to_string(this->aliases, ",").c_str());
+      stream << "aliases=" << string_list_to_string(this->aliases, ",") << '\n';
     }
 
-  g_fprintf(file, "run-setup-scripts=%s\n",
-	    (this->run_setup_scripts == TRUE) ? "true" : "false");
-  g_fprintf(file, "run-session-scripts=%s\n",
-	    (this->run_session_scripts == TRUE) ? "true" : "false");
+  const char *setup = (this->run_setup_scripts == true) ? "true" : "false";
+  const char *session = (this->run_session_scripts == true) ? "true" : "false";
+  stream << "run-setup-scripts=" << setup << '\n'
+	 << "run-session-scripts=" << session << '\n';
 
   /* Non user-settable properties are listed last. */
   if (!this->mount_location.empty())
-    g_fprintf(file, "mount-location=%s\n", this->mount_location.c_str());
+    stream << "mount-location=" << get_mount_location() << '\n';
   if (!this->mount_device.empty())
-    g_fprintf(file, "mount-device=%s\n", this->mount_device.c_str());
+    stream << "mount-device=" << get_mount_device() << '\n';
 }
 
 void
-Chroot::read_keyfile (GKeyFile   *keyfile,
+Chroot::read_keyfile (const keyfile&     keyfile,
 		      const std::string& group)
 {
   bool active;
-  if (keyfile_read_bool(keyfile, group, "active", active))
+  if (keyfile.get_value(group, "active", active))
     set_active(active);
 
   bool run_setup_scripts;
-  if (keyfile_read_bool(keyfile, group, "run-setup-scripts", run_setup_scripts))
+  if (keyfile.get_value(group, "run-setup-scripts", run_setup_scripts))
     set_run_setup_scripts(run_setup_scripts);
 
   bool run_session_scripts;
-  if (keyfile_read_bool(keyfile, group, "run-session-scripts", run_session_scripts))
+  if (keyfile.get_value(group, "run-session-scripts", run_session_scripts))
     set_run_session_scripts(run_session_scripts);
 
   string_list aliases;
-  if (keyfile_read_string_list(keyfile, group, "aliases", aliases))
+  if (keyfile.get_list_value(group, "aliases", aliases))
     set_aliases(aliases);
 
   std::string description;
-  if (keyfile_read_string(keyfile, group, "description", description))
+  if (keyfile.get_value(group, "description", description))
     set_description(description);
 
   std::string name;
-  if (keyfile_read_string(keyfile, group, "name", name))
+  if (keyfile.get_value(group, "name", name))
     set_name(name);
 
   string_list groups;
-  if (keyfile_read_string_list(keyfile, group, "groups", groups))
+  if (keyfile.get_list_value(group, "groups", groups))
     set_groups(groups);
 
   string_list root_groups;
-  if (keyfile_read_string_list(keyfile, group, "root-groups", root_groups))
+  if (keyfile.get_list_value(group, "root-groups", root_groups))
     set_root_groups(root_groups);
 }
 

@@ -23,11 +23,9 @@
 #define SBUILD_CONFIG_H
 
 #include <map>
+#include <ostream>
 #include <vector>
 #include <string>
-
-#include <glib.h>
-#include <glib/gprintf.h>
 
 #include "sbuild-chroot.h"
 #include "sbuild-error.h"
@@ -38,7 +36,6 @@ namespace sbuild
   class Config
   {
   public:
-    typedef std::vector<std::string> string_list;
     typedef std::vector<Chroot *> chroot_list;
     typedef std::map<std::string, std::string> string_map;
     typedef std::map<std::string, Chroot *> chroot_map;
@@ -76,11 +73,11 @@ namespace sbuild
     get_chroot_list () const;
 
     void
-    print_chroot_list (FILE *file) const;
+    print_chroot_list (std::ostream& stream) const;
 
     void
     print_chroot_info (const string_list& chroots,
-		       FILE          *file) const;
+		       std::ostream&      stream) const;
 
     string_list
     validate_chroots(const string_list& chroots) const;

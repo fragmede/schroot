@@ -22,8 +22,6 @@
 #ifndef SBUILD_AUTH_CONV_H
 #define SBUILD_AUTH_CONV_H
 
-#include <sigc++/sigc++.h>
-
 #include <security/pam_appl.h>
 
 #include "sbuild-auth-message.h"
@@ -47,10 +45,8 @@ namespace sbuild
 
     bool conversation (message_list& messages);
 
-    sigc::signal<bool, message_list&> signal_conversation;
-
   protected:
-    virtual bool conversation_impl (std::vector<AuthMessage>& messages) = 0;
+    virtual bool conversation_impl (message_list& messages) = 0;
   };
 
 }

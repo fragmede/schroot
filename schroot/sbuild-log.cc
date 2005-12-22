@@ -1,13 +1,13 @@
-/* sbuild-util - sbuild utility functions
+/* sbuild-log - sbuild message logging
  *
  * Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
- * schroot is free software; you can redistribute it and/or modify it
+ * serror is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
  *
- * schroot is distributed in the hope that it will be useful, but
+ * serror is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
@@ -19,34 +19,42 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_UTIL_H
-#define SBUILD_UTIL_H
+#include <config.h>
 
-#include <string>
+#include <iostream>
 
-#include "sbuild-types.h"
+#include "sbuild-log.h"
+#include "sbuild-nostream.h"
 
-namespace sbuild
+std::ostream&
+sbuild::log_info()
 {
-
-  std::string
-  basename(std::string name,
-	   char        separator = '/');
-
-  std::string
-  dirname(std::string name,
-	  char        separator = '/');
-
-  std::string
-  format_string(const char *format, ...);
-
-  std::string
-  string_list_to_string(string_list const& list,
-			std::string const& separator);
-
+  return std::cerr << "I: ";
 }
 
-#endif /* SBUILD_UTIL_H */
+std::ostream&
+sbuild::log_warning()
+{
+  return std::cerr << "W: ";
+}
+
+std::ostream&
+sbuild::log_error()
+{
+  return std::cerr << "E: ";
+}
+
+std::ostream&
+sbuild::log_debug(sbuild::DebugLevel level)
+{
+  if (debug_level > 0 &&
+      level >= debug_level)
+    return std::cerr << "D: ";
+  else
+    return sbuild::cnull;
+}
+
+sbuild::DebugLevel sbuild::debug_level = sbuild::DEBUG_NONE;
 
 /*
  * Local Variables:

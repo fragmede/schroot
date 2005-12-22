@@ -21,20 +21,25 @@
 
 #include <config.h>
 
+#include <iostream>
+
 #include <locale.h>
 #include <stdlib.h>
 #include <stdio.h>
 
 #include <syslog.h>
 
-#include <glib.h>
-
 #include "sbuild-i18n.h"
+#include "sbuild-auth-conv-tty.h"
 #include "sbuild-chroot.h"
 #include "sbuild-config.h"
+#include "sbuild-log.h"
 #include "sbuild-session.h"
+#include "sbuild-util.h"
 
 #include "schroot-options.h"
+
+using std::endl;
 
 /**
  * print_version:
@@ -43,13 +48,14 @@
  * Print version information.
  */
 void
-print_version (FILE *file)
+print_version (std::ostream& stream)
 {
-  g_fprintf(file, _("schroot (Debian sbuild) %s\n"), VERSION);
-  g_fprintf(file, _("Written by Roger Leigh\n\n"));
-  g_fprintf(file, _("Copyright (C) 2004-2005 Roger Leigh\n"));
-  g_fprintf(file, _("This is free software; see the source for copying conditions.  There is NO\n"
-		    "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"));
+  stream << sbuild::format_string(_("schroot (Debian sbuild) %s\n"), VERSION)
+	 << _("Written by Roger Leigh\n\n")
+	 << _("Copyright (C) 2004-2005 Roger Leigh\n")
+	 << _("This is free software; see the source for copying conditions.  There is NO\n"
+	      "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
+	 << std::flush;
 }
 
 /**
@@ -61,11 +67,11 @@ print_version (FILE *file)
  *
  * Returns a NULL-terminated string vector (GStrv).
  */
-sbuild::Config::string_list
+sbuild::string_list
 get_chroot_options(std::tr1::shared_ptr<sbuild::Config>& config,
 		   schroot::Options&                     options)
 {
-  sbuild::Config::string_list ret;
+  sbuild::string_list ret;
 
   if (options.all_chroots == true || options.all_sessions == true)
     {
@@ -83,39 +89,23 @@ get_chroot_options(std::tr1::shared_ptr<sbuild::Config>& config,
     }
   else
     {
-      sbuild::Config::string_list invalid_chroots =
+      sbuild::string_list invalid_chroots =
 	config->validate_chroots(options.chroots);
 
       if (!invalid_chroots.empty())
 	{
-	  for (sbuild::Config::string_list::const_iterator chroot = invalid_chroots.begin();
+	  for (sbuild::string_list::const_iterator chroot = invalid_chroots.begin();
 	       chroot != invalid_chroots.end();
 	       ++chroot)
-	    g_printerr(_("%s: No such chroot\n"), chroot->c_str());
+	    sbuild::log_error()
+	      << sbuild::format_string(_("%s: No such chroot"), chroot->c_str())
+	      << endl;
 	  exit(EXIT_FAILURE);
 	}
       ret = options.chroots;
     }
 
   return ret;
-}
-
-/**
- * debug_logfunc:
- * @log_domain: the log domain
- * @log_level: the logging level
- * @message: the message to log
- * @user_data: extra detail
- *
- * Log a debugging message.  This is a "NULL" message handler that
- * does nothing, discarding all messages.
- */
-void debug_logfunc (const char *log_domain,
-		    GLogLevelFlags log_level,
-		    const char *message,
-		    gpointer user_data)
-{
-  /* Discard all messages. */
 }
 
 /**
@@ -137,8 +127,9 @@ main (int   argc,
   textdomain (GETTEXT_PACKAGE);
 
 #ifndef SBUILD_DEBUG
-  /* Discard g_debug output for this logging domain. */
-  g_log_set_handler (G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, debug_logfunc, NULL);
+  sbuild::debug_level = sbuild::DEBUG_CRITICAL;
+#else
+  sbuild::debug_level = sbuild::DEBUG_NONE;
 #endif
 
   openlog("schroot", LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
@@ -148,7 +139,7 @@ main (int   argc,
 
   if (options.version == true)
     {
-      print_version(stdout);
+      print_version(std::cout);
       exit(EXIT_SUCCESS);
     }
 
@@ -167,36 +158,42 @@ main (int   argc,
   if (config->get_chroots().empty())
     {
       if (options.quiet == false)
-	g_printerr(_("No chroots are defined in %s\n"), SCHROOT_CONF);
+	sbuild::log_error()
+	  << sbuild::format_string(_("No chroots are defined in %s"), SCHROOT_CONF)
+	  << endl;
       exit (EXIT_FAILURE);
     }
 
   /* Print chroot list (including aliases). */
   if (options.list == true)
     {
-      config->print_chroot_list(stdout);
+      config->print_chroot_list(std::cout);
       exit(EXIT_SUCCESS);
     }
 
   /* Get list of chroots to use */
-  const sbuild::Chroot::string_list& chroots = get_chroot_options(config, options);
+  const sbuild::string_list& chroots = get_chroot_options(config, options);
   if (chroots.empty())
     {
-      g_printerr(_("The specified chroots are not defined in %s\n"), SCHROOT_CONF);
+      sbuild::log_error()
+	<< sbuild::format_string(_("The specified chroots are not defined in %s\n"), SCHROOT_CONF)
+	<< endl;
       exit (EXIT_FAILURE);
     }
 
   /* Print chroot information for specified chroots. */
   if (options.info == true)
     {
-      config->print_chroot_info(chroots, stdout);
+      config->print_chroot_info(chroots, std::cout);
       exit (EXIT_SUCCESS);
     }
 
   if (options.session_operation == sbuild::Session::OPERATION_BEGIN &&
       chroots.size() != 1)
     {
-      g_printerr(_("Only one chroot may be specified when beginning a session\n"));
+      sbuild::log_error()
+	<< _("Only one chroot may be specified when beginning a session")
+	<< endl;
       exit (EXIT_FAILURE);
     }
 
@@ -230,12 +227,13 @@ main (int   argc,
       session.set_conv(conv);
 
       /* Run session. */
-      GError *session_error = NULL;
       session.run();
     }
   catch (std::runtime_error& e)
     {
-      g_printerr(_("Session failure: %s\n"), e.what());
+      sbuild::log_error()
+	<< sbuild::format_string(_("Session failure: %s"), e.what())
+	<< endl;
     }
 
   int exit_status = session.get_child_status();

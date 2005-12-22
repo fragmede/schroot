@@ -21,49 +21,50 @@
 #####################################################################
 
 # The name of the module.
-DOC_MODULE=schroot
+#DOC_MODULE=schroot
 
 # The top-level SGML file.
-DOC_MAIN_SGML_FILE=schroot-docs.sgml
+#DOC_MAIN_SGML_FILE=schroot-docs.sgml
 
 # Extra options to supply to gtkdoc-scan
-SCAN_OPTIONS=
+#SCAN_OPTIONS=
 
 # The directory containing the source code. Relative to $(srcdir)
-DOC_SOURCE_DIR=../../schroot
+#DOC_SOURCE_DIR=../../schroot
 
-HFILE_GLOB=$(top_srcdir)/schroot/*.h
-CFILE_GLOB=$(top_srcdir)/schroot/*.c
+#HFILE_GLOB=$(top_srcdir)/schroot/*.h
+#CFILE_GLOB=$(top_srcdir)/schroot/*.c
 
 # CFLAGS and LDFLAGS for compiling scan program. Only needed
 # if $(DOC_MODULE).types is non-empty.
-INCLUDES = \
-	-std=c99			\
-	-I$(srcdir) 			\
-	-I$(top_srcdir) 		\
-	-I$(top_srcdir)/schroot		\
-	-I$(top_builddir) 		\
-	-I$(top_builddir)/schroot 	\
-	$(SCHROOT_CFLAGS)
+#INCLUDES = \
+#	-std=c99			\
+#	-I$(srcdir) 			\
+#	-I$(top_srcdir) 		\
+#	-I$(top_srcdir)/schroot		\
+#	-I$(top_builddir) 		\
+#	-I$(top_builddir)/schroot 	\
+#	$(SCHROOT_CFLAGS)
 
-GTKDOC_LIBS = \
-	$(top_builddir)/schroot/libschroot.la
+#GTKDOC_LIBS = \
+#	$(top_builddir)/schroot/libschroot.la
 
 # Extra options to supply to gtkdoc-mkdb
-MKDB_OPTIONS=
+#MKDB_OPTIONS=
 
 # Images to copy into HTML directory
-HTML_IMAGES =
+#HTML_IMAGES =
 
 # Extra SGML files that are included by $(DOC_MAIN_SGML_FILE)
-content_files =
+#content_files =
 
 # Extra options to supply to gtkdoc-fixref
-FIXXREF_OPTIONS=--extra-dir=$(srcdir)/../schroot/html
+#FIXXREF_OPTIONS=--extra-dir=$(srcdir)/../schroot/html
 
-include $(top_srcdir)/scripts/gtk-doc.make
+#include $(top_srcdir)/scripts/gtk-doc.make
+
 
 # Other files to distribute
-EXTRA_DIST +=
+#EXTRA_DIST +=
 
 ########################################################################

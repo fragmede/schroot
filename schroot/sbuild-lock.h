@@ -30,10 +30,6 @@
 
 #include "sbuild-error.h"
 
-GQuark
-sbuild_auth_error_quark (void);
-
-
 namespace sbuild
 {
 
@@ -57,8 +53,8 @@ namespace sbuild
     typedef Exception<ErrorCode> error;
 
     virtual void
-    set_lock (Type  lock_type,
-	      guint timeout) = 0;
+    set_lock (Type         lock_type,
+	      unsigned int timeout) = 0;
 
     virtual void
     unset_lock () = 0;
@@ -90,8 +86,8 @@ namespace sbuild
     virtual ~FileLock();
 
     void
-    set_lock (Type  lock_type,
-	      guint timeout);
+    set_lock (Type         lock_type,
+	      unsigned int timeout);
 
     void
     unset_lock ();
@@ -107,8 +103,8 @@ namespace sbuild
     virtual ~DeviceLock();
 
     void
-    set_lock (Type  lock_type,
-	      guint timeout);
+    set_lock (Type         lock_type,
+	      unsigned int timeout);
 
     void
     unset_lock ();

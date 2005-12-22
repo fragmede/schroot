@@ -30,15 +30,19 @@
 
 #include <config.h>
 
+#include <iostream>
+
 #include <stdlib.h>
-#include <stdio.h>
 
 #include <glib.h>
 
-#include "sbuild-i18n.h"
-
 #include "schroot-options.h"
 
+#include "sbuild-i18n.h"
+#include "sbuild-log.h"
+#include "sbuild-util.h"
+
+using std::endl;
 using namespace schroot;
 
 static bool
@@ -140,12 +144,20 @@ Options::Options(int   argc,
   g_option_context_free (context);
   if (error != NULL)
     {
-      g_printerr(_("Error parsing options: %s\n"), error->message);
+      sbuild::log_error()
+	<< sbuild::format_string(_("Error parsing options: %s\n"),
+				 error->message)
+	<< endl;
       exit (EXIT_FAILURE);
     }
 
   if (this->quiet && this->verbose)
-    g_printerr(_("--quiet and --verbose may not be used at the same time!\nUsing verbose output.\n"));
+    {
+      sbuild::log_warning()
+	<< _("--quiet and --verbose may not be used at the same time!")
+	<< endl;
+      sbuild::log_info() << _("Using verbose output.") << endl;
+    }
 
   for (char *chroot = chroots[0]; chroot != NULL; ++chroot)
     this->chroots.push_back(chroot);

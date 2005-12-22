@@ -39,8 +39,6 @@
 
 #include <lockdev.h>
 
-#include <glib.h>
-
 #include "sbuild-i18n.h"
 #include "sbuild-lock.h"
 #include "sbuild-util.h"
@@ -93,7 +91,7 @@ Lock::set_alarm ()
   new_sa.sa_handler = alarm_handler;
 
   if (sigaction(SIGALRM, &new_sa, &this->saved_signals) != 0)
-    throw error(std::string(_("failed to set timeout handler: ")) + g_strerror(errno),
+    throw error(std::string(_("failed to set timeout handler: ")) + strerror(errno),
 		LOCK_ERROR_SETUP);
 }
 
@@ -118,7 +116,7 @@ Lock::set_timer(struct itimerval const& timer)
   if (setitimer(ITIMER_REAL, &timer, NULL) == -1)
     {
       clear_alarm();
-      throw error(std::string(_("failed to set timeout: ")) + g_strerror(errno),
+      throw error(std::string(_("failed to set timeout: ")) + strerror(errno),
 		  LOCK_ERROR_SETUP);
     }
 }
@@ -133,7 +131,7 @@ Lock::unset_timer()
   if (setitimer(ITIMER_REAL, &disable_timer, NULL) == -1)
     {
       clear_alarm();
-      throw error(std::string(_("failed to unset timeout: ")) + g_strerror(errno),
+      throw error(std::string(_("failed to unset timeout: ")) + strerror(errno),
 		  LOCK_ERROR_SETUP);
     }
 
@@ -160,12 +158,12 @@ FileLock::~FileLock()
  * Set an advisory lock on a file.  A byte region lock is placed on
  * the entire file, regardless of size, using fcntl.
  *
- * Returns TRUE on success, FALSE on failure (@error will be set to
+ * Returns true on success, false on failure (@error will be set to
  * indicate the cause of the failure).
  */
 void
-FileLock::set_lock (Lock::Type lock_type,
-		    guint      timeout)
+FileLock::set_lock (Lock::Type   lock_type,
+		    unsigned int timeout)
 {
   try
     {
@@ -200,7 +198,7 @@ FileLock::set_lock (Lock::Type lock_type,
 			  LOCK_ERROR_TIMEOUT);
 	    }
 	  else
-	    throw error(std::string(_("failed to acquire lock: ")) + g_strerror(errno),
+	    throw error(std::string(_("failed to acquire lock: ")) + strerror(errno),
 			LOCK_ERROR_FAIL);
 	}
       unset_timer();
@@ -221,7 +219,7 @@ FileLock::set_lock (Lock::Type lock_type,
  * sbuild_lock_set_lock with a lock type of LOCK_NONE and a
  * timeout of 0.
  *
- * Returns TRUE on success, FALSE on failure (@error will be set to
+ * Returns true on success, false on failure (@error will be set to
  * indicate the cause of the failure).
  */
 void
@@ -252,12 +250,12 @@ DeviceLock::~DeviceLock()
  * LOCK_SHARED is equivalent to LOCK_EXCLUSIVE, because
  * this lock type does not support shared locks.
  *
- * Returns TRUE on success, FALSE on failure (@error will be set to
+ * Returns true on success, false on failure (@error will be set to
  * indicate the cause of the failure).
  */
 void
-DeviceLock::set_lock (Lock::Type lock_type,
-		      guint      timeout)
+DeviceLock::set_lock (Lock::Type   lock_type,
+		      unsigned int timeout)
 {
   try
     {
@@ -348,7 +346,7 @@ DeviceLock::set_lock (Lock::Type lock_type,
  * sbuild_lock_set_lock with a lock type of LOCK_NONE and a
  * timeout of 0.
  *
- * Returns TRUE on success, FALSE on failure (@error will be set to
+ * Returns true on success, false on failure (@error will be set to
  * indicate the cause of the failure).
  */
 void

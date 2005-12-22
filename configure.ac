@@ -49,21 +49,18 @@ fi
 
 # Checks for programs.
 AC_PROG_CXX
+AC_DISABLE_SHARED
 AC_PROG_LIBTOOL
 AM_GNU_GETTEXT_VERSION([0.14.5])
 AM_GNU_GETTEXT([external])
 AC_PATH_PROG([RUN_PARTS], [run-parts])
 AH_TEMPLATE(RUN_PARTS,, [run-parts binary])
 AC_DEFINE_UNQUOTED(RUN_PARTS, ["$RUN_PARTS"], )
-AC_PATH_PROG([GLIB_MKENUMS], [glib-mkenums])
-AC_PATH_PROG([GLIB_GENMARSHAL], [glib-genmarshal])
-GTK_DOC_CHECK([1.2])
 # Checks for libraries.
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.4.0])
 PKG_CHECK_MODULES([UUID], [uuid])
-PKG_CHECK_MODULES([SIGC], [sigc++-2.0])
 
-SCHROOT_CFLAGS="$GLIB_CFLAGS $UUID_CFLAGS $SIGC_CFLAGS"
+SCHROOT_CFLAGS="$GLIB_CFLAGS $UUID_CFLAGS"
 AC_SUBST([SCHROOT_CFLAGS])
 
 # Checks for header files (none at the moment).

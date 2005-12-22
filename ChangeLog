@@ -1,3 +1,44 @@
+2005-12-22  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-chroot.h (sbuild::Chroot::format_detail):
+	template helper class to simplify streaming outout of chroot
+	details.  Used by all derived chroot classes.
+
+	* All Glib string functions have been replaced with the C++ or C99
+	equivalent.
+
+	* All uses of g_return[_val]_if_fail have been replaced with
+	conditionals or static assertions.
+
+	* All Glib logging and message functions have been replaced with
+	the new logging functions and standard C++ streams.
+
+	* All Glib types have been completely removed, with the exception
+	of one instance of GError, and two uses of GOption.
+
+	* Support for gtk-doc has been disabled and partially removed.
+
+	* The dependency upon libsigc++ has been removed.  Virtual
+	functions are used instead, which will provide more safety and
+	security.
+
+	* schroot/sbuild-keyfile.(cc|h): New class sbuild::keyfile, a
+	replacement for GKeyFile.  Unlike GKeyFile, it uses templated
+	methods to allow its use with any streamable type, in a type-safe
+	manner.  The existing GKeyFile helper functions have been removed.
+
+	* schroot/sbuild-log.(cc|h): New file: logging functions to
+	replace the Glib print and logging utility functions.  Unlike the
+	Glib types, these are based around ostreams.
+
+	* schroot/sbuild-nostream.(cc|h): New class sbuild::basic_nostream
+	with nostream and wnostream typedefs.  This is a "null ostream",
+	which is a bit-bucket stream which discards all input.
+
+	* schroot/sbuild-types.h: New file: commonly-used types.
+
+	* Continue purge of Glib.
+
 2005-12-19  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/Makefile.am: Replace $(GOBJECT_LIBS) with $(GLIB_LIBS).

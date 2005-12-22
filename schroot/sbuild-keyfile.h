@@ -22,83 +22,323 @@
 #ifndef SBUILD_KEYFILE_H
 #define SBUILD_KEYFILE_H
 
+#include <cassert>
+#include <iostream>
+#include <map>
 #include <string>
+#include <sstream>
+#include <tr1/tuple>
 
-#include <glib.h>
-
-#include "sbuild-chroot.h"
+#include "sbuild-error.h"
+#include "sbuild-i18n.h"
+#include "sbuild-types.h"
+#include "sbuild-util.h"
 
 namespace sbuild
 {
 
-  inline bool keyfile_read_bool(GKeyFile           *keyfile,
-				const std::string&  group,
-				const std::string&  key,
-				bool&               value)
+  class keyfile
   {
-    GError *error = 0;
-    bool b = g_key_file_get_boolean(keyfile, group.c_str(), key.c_str(), &error);
-    if (!error)
-      {
-	value = b;
-	return true;
-      }
-    else
-      return false;
-  }
+  private:
+    // key, value, comment
+    typedef std::tr1::tuple<std::string,std::string,std::string> item_type;
 
-  inline bool keyfile_read_uint(GKeyFile           *keyfile,
-				const std::string&  group,
-				const std::string&  key,
-				unsigned int&       value)
-  {
-    GError *error = 0;
-    int num = g_key_file_get_integer(keyfile, group.c_str(), key.c_str(), &error);
-    if (!error)
-      {
-	value = num;
-	return true;
-      }
-    else
-      return false;
-  }
+    typedef std::map<std::string,item_type> item_map_type;
 
-  inline bool keyfile_read_string(GKeyFile   *keyfile,
-				  const std::string& group,
-				  const std::string& key,
-				  std::string&       value)
-  {
-    GError *error = 0;
-    char *str = g_key_file_get_string(keyfile, group.c_str(), key.c_str(), &error);
-    if (!error && str)
-      {
-	value = str;
-	g_free(str);
-	return true;
-      }
-    else
-      return false;
-  }
+    // group, items, comment
+    typedef std::tr1::tuple<std::string,item_map_type,std::string> group_type;
 
-  inline bool keyfile_read_string_list(GKeyFile             *keyfile,
-				       const std::string&    group,
-				       const std::string&    key,
-				       Chroot::string_list&  value)
-  {
-    GError *error = 0;
-    char **strv = g_key_file_get_string_list(keyfile, group.c_str(), key.c_str(), 0, &error);
-    if (!error && strv)
+    typedef std::map<std::string,group_type> group_map_type;
+
+  public:
+    enum ErrorCode
       {
-	Chroot::string_list newlist;
-	for (char *pos = strv[0]; pos != 0; ++pos)
-	  newlist.push_back(pos);
-	value = newlist;
-	g_strfreev(strv);
-	return true;
-      }
-    else
+	ERROR_PARSE,
+	ERROR_FILE_NOT_FOUND
+      };
+
+    typedef Exception<ErrorCode> error;
+
+    keyfile(const std::string& file);
+    keyfile(std::istream& stream);
+    virtual ~keyfile();
+
+    string_list
+    get_groups() const;
+
+    string_list
+    get_keys(const std::string& group) const;
+
+    bool
+    has_group(const std::string& group) const;
+
+    bool
+    has_key(const std::string& group,
+	    const std::string& key) const;
+
+    template <typename T>
+    bool
+    get_value(const std::string& group,
+	      const std::string& key,
+	      T& value) const
+    {
+      const item_type *found_item = find_item(group, key);
+      if (found_item)
+	{
+	  const std::string& strval(std::tr1::get<1>(*found_item));
+	  std::istringstream is(strval);
+	  T tmpval;
+	  is >> tmpval;
+	  if (!is.bad())
+	    {
+	      value = tmpval;
+	      return true;
+	    }
+	}
       return false;
-  }
+    }
+
+    template <typename T, template <typename T> class C>
+    bool
+    get_list_value(const std::string& group,
+		   const std::string& key,
+		   C<T>& value) const
+    {
+      std::string item_value;
+      if (get_value(group, key, item_value))
+	{
+	  C<T> tmplist;
+	  string_list items = get_list_items(item_value);
+	  for (string_list::const_iterator pos = items.begin();
+	       pos != items.end();
+	       ++pos
+	       )
+	    {
+	      std::istringstream is(*pos);
+	      T tmpval;
+	      is >> tmpval;
+	      if (!is)
+		return false;
+	      tmplist.push_back(tmpval);
+	    }
+	  value = tmplist;
+	}
+      return false;
+    }
+
+    // Plus locale strings and string lists...
+    // Support for comments?
+
+    template <typename T>
+    void
+    set_value(const std::string& group,
+	      const std::string& key,
+	      const T& value)
+    {
+      std::ostringstream os;
+      os << value;
+
+      if (!has_group(group))
+	this->groups.insert
+	  (group_map_type::value_type(group,
+				      group_type(group,
+						 item_map_type(),
+						 std::string())));
+      group_type *found_group = find_group(group);
+      assert (found_group != 0); // should not fail
+
+      item_map_type& items = std::tr1::get<1>(*found_group);
+
+      item_map_type::iterator pos = items.find(key);
+      if (pos != items.end())
+	items.erase(pos);
+
+      items.insert
+	(item_map_type::value_type(key,
+				   item_type(key, value, std::string())));
+
+    }
+
+    template <typename T, template <typename T> class C>
+    void
+    set_list_value(const std::string& group,
+		   const std::string& key,
+		   const C<T>& value)
+    {
+      std::string strval;
+
+      for (typename C<T>::const_iterator pos = value.begin();
+	   pos != value.end();
+	   ++ pos)
+	{
+	  std::ostringstream os;
+	  os << *pos;
+	  if (os)
+	    {
+	      strval += os.str();
+	      if (pos += 1 != value.end())
+		strval += this->separator;
+	    }
+	}
+
+      set_value (group, key, strval);
+    }
+
+    void
+    remove_group(const std::string& group);
+
+    void
+    remove_key(const std::string& group,
+	       const std::string& key);
+
+    template <class charT, class traits>
+    friend
+    std::basic_istream<charT,traits>&
+    operator >> (std::basic_istream<charT,traits>& stream, keyfile& kf)
+    {
+      size_t linecount = 0;
+      std::string line;
+      std::string group;
+      std::string group_comment;
+      std::string comment;
+      std::string key;
+      std::string value;
+
+      while (std::getline(stream, line))
+      {
+	if (line[0] == '#') // Comment line
+	  {
+	    if (!comment.empty())
+	      comment += '\n';
+	    comment += line.substr(1);
+	  }
+	else if (line[0] == '[') // Group
+	  {
+	    std::string::size_type fpos = line.find_first_of(']');
+	    std::string::size_type lpos = line.find_last_of(']');
+	    if (fpos == std::string::npos || fpos != lpos)
+	      throw error(format_string(_("Line %lu: invalid group entry: %s"),
+					static_cast<unsigned long>(linecount),
+					line.c_str()),
+			  ERROR_PARSE);
+	    group = line.substr(1, fpos - 2);
+
+	    if (!comment.empty())
+	      {
+		if (!group_comment.empty())
+		  group_comment += '\n';
+		group_comment += comment;
+		comment.clear();
+	      }
+	    // Add group
+	    // Add group comment
+	    // Check if group already inserted, and append comments if needed.
+	  }
+	else if (line.length() == 0)
+	  {
+	    // Do nothing.
+	  }
+	else
+	  {
+	    std::string::size_type pos = line.find_first_of('=');
+	    if (pos == std::string::npos)
+	      throw error(format_string(_("Line %lu: invalid line: %s"),
+					static_cast<unsigned long>(linecount),
+					line.c_str()),
+			  ERROR_PARSE);
+	    if (pos == 0)
+	      throw error(format_string(_("Line %lu: no key specified: %s"),
+					static_cast<unsigned long>(linecount),
+					line.c_str()),
+			  ERROR_PARSE);
+	    key = line.substr(0, pos - 1);
+	    if (pos == line.length() - 1)
+	      value = "";
+	    else
+	      value = line.substr(pos + 1);
+
+	    // Insert item
+	    kf.set_value(group, key, value);
+	    // Set item comment
+	    // Set group comment?
+	  }
+
+	linecount++;
+      }
+
+      return stream;
+    }
+
+  private:
+    void
+    print_comment(const std::string& comment,
+		  std::ostream&      stream) const;
+
+  public:
+    template <class charT, class traits>
+    friend
+    std::basic_ostream<charT,traits>&
+    operator << (std::basic_ostream<charT,traits>& stream, const keyfile& kf)
+    {
+      unsigned int group_count = 0;
+
+      for (group_map_type::const_iterator gp = kf.groups.begin();
+	   gp != kf.groups.end();
+	   ++gp, ++group_count)
+	{
+	  if (group_count > 0)
+	    stream << '\n';
+
+	  const group_type& group = gp->second;
+	  const std::string& groupname = std::tr1::get<0>(group);
+	  const std::string& comment = std::tr1::get<2>(group);
+
+	  if (comment.length() > 0)
+	    print_comment(comment, stream);
+
+	  stream << '[' << groupname << ']' << '\n';
+
+	  const item_map_type& items(std::tr1::get<1>(group));
+	  for (item_map_type::const_iterator it = items.begin();
+	       it != items.end();
+	       ++it)
+	    {
+	      const item_type& item = it->second;
+	      const std::string& key(std::tr1::get<0>(item));
+	      const std::string& value(std::tr1::get<1>(item));
+	      const std::string& comment(std::tr1::get<2>(item));
+
+	      if (comment.length() > 0)
+		print_comment(comment, stream);
+
+	      stream << key << '=' << value;
+	    }
+	}
+
+      return stream;
+    }
+
+  private:
+    const group_type *
+    find_group(const std::string& group) const;
+
+    group_type *
+    find_group(const std::string& group);
+
+    const item_type *
+    find_item(const std::string& group,
+	      const std::string& key) const;
+
+    item_type *
+    find_item(const std::string& group,
+	      const std::string& key);
+
+    string_list
+    get_list_items(const std::string& value) const;
+
+    group_map_type groups;
+    char           separator;
+  };
 
 }
 

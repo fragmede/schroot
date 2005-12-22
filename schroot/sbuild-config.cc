@@ -34,6 +34,10 @@
 
 #include <config.h>
 
+#include <iostream>
+
+#include <ext/stdio_filebuf.h>
+
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
@@ -44,16 +48,18 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#include <glib.h>
-
 #include "sbuild-i18n.h"
 #include "sbuild-config.h"
 #include "sbuild-lock.h"
+#include "sbuild-log.h"
 #include "sbuild-chroot.h"
 #include "sbuild-chroot-plain.h"
 #include "sbuild-chroot-block-device.h"
 #include "sbuild-chroot-lvm-snapshot.h"
+#include "sbuild-keyfile.h"
+#include "sbuild-util.h"
 
+using std::endl;
 using namespace sbuild;
 
 Config::Config():
@@ -113,20 +119,25 @@ Config::add_config_directory (const std::string& dir)
   DIR *d = opendir(dir.c_str());
   if (d == NULL)
     {
-      g_printerr(_("%s: failed to open directory: %s\n"), dir.c_str(), g_strerror(errno));
+      log_error() << format_string(_("%s: failed to open directory: %s\n"),
+				   dir.c_str(),
+				   strerror(errno))
+		  << endl;
       exit (EXIT_FAILURE);
     }
 
   struct dirent *de = NULL;
   while ((de = readdir(d)) != NULL)
     {
-      char *filename = g_strconcat(dir.c_str(), "/", &de->d_name[0], NULL);
+      std::string filename = dir + "/" + de->d_name;
 
       struct stat statbuf;
-      if (stat(filename, &statbuf) < 0)
+      if (stat(filename.c_str(), &statbuf) < 0)
 	{
-	  g_printerr(_("%s: failed to stat file: %s"), filename, g_strerror(errno));
-	  g_free(filename);
+	  log_error() << format_string(_("%s: failed to stat file: %s"),
+				       filename.c_str(),
+				       strerror(errno))
+		      << endl;
 	  continue;
 	}
 
@@ -134,13 +145,14 @@ Config::add_config_directory (const std::string& dir)
 	{
 	  if (!(strcmp(de->d_name, ".") == 0 ||
 		strcmp(de->d_name, "..") == 0))
-	    g_printerr(_("%s: failed to stat file: %s"), filename, g_strerror(errno));
-	  g_free(filename);
+	    log_error() << format_string(_("%s: failed to stat file: %s"),
+					 filename.c_str(),
+					 strerror(errno))
+			<< endl;
 	  continue;
 	}
 
       load(filename);
-      g_free(filename);
     }
 }
 
@@ -222,7 +234,7 @@ Config::find_alias (const std::string& name) const
  *
  * Returns the list, or NULL if no chroots are available.
  */
-Config::string_list
+string_list
 Config::get_chroot_list () const
 {
   string_list ret;
@@ -245,14 +257,15 @@ Config::get_chroot_list () const
  * Print all the available chroots to the specified file.
  */
 void
-Config::print_chroot_list (FILE *file) const
+Config::print_chroot_list (std::ostream& stream) const
 {
   string_list chroots = get_chroot_list();
 
   for (string_list::const_iterator pos = chroots.begin();
        pos != chroots.end();
        ++pos)
-      g_print("%s\n", pos->c_str());
+    stream << *pos << "\n";
+  stream << std::flush;
 }
 
 /**
@@ -266,7 +279,7 @@ Config::print_chroot_list (FILE *file) const
  */
 void
 Config::print_chroot_info (const string_list& chroots,
-				 FILE          *file) const
+			   std::ostream&      stream) const
 {
   for (string_list::const_iterator pos = chroots.begin();
        pos != chroots.end();
@@ -275,12 +288,14 @@ Config::print_chroot_info (const string_list& chroots,
       const Chroot *chroot = find_alias(*pos);
       if (chroot)
 	{
-	  chroot->print_details(file);
+	  chroot->print_details(stream);
 	  if (pos + 1 != chroots.end())
-	    g_fprintf(stdout, "\n");
+	    stream << '\n';
 	}
       else
-	g_printerr(_("%s: No such chroot\n"), pos->c_str());
+	log_error() << format_string(_("%s: No such chroot\n"),
+				     pos->c_str())
+		    << endl;
     }
 }
 
@@ -294,7 +309,7 @@ Config::print_chroot_info (const string_list& chroots,
  * Returns NULL if all chroots are valid, or else a vector of invalid
  * chroots.
  */
-Config::string_list
+string_list
 Config::validate_chroots(const string_list& chroots) const
 {
   string_list bad_chroots;
@@ -318,7 +333,7 @@ Config::validate_chroots(const string_list& chroots) const
  * file must be owned by root, not writable by other, and be a regular
  * file.
  *
- * Returns TRUE if the checks succeed, FALSE on failure.
+ * Returns true if the checks succeed, false on failure.
  */
 void
 Config::check_security(int fd) const
@@ -326,7 +341,7 @@ Config::check_security(int fd) const
   struct stat statbuf;
   if (fstat(fd, &statbuf) < 0)
     {
-      throw error(std::string(_("failed to stat file: ")) + g_strerror(errno),
+      throw error(std::string(_("failed to stat file: ")) + strerror(errno),
 		  ERROR_STAT_FAIL);
     }
 
@@ -365,7 +380,10 @@ Config::load (const std::string& file)
   int fd = open(file.c_str(), O_RDONLY|O_NOFOLLOW);
   if (fd < 0)
     {
-      g_printerr(_("%s: failed to load configuration: %s\n"), file.c_str(), g_strerror(errno));
+      log_error() << format_string(_("%s: failed to load configuration: %s\n"),
+				   file.c_str(),
+				   strerror(errno))
+		  << endl;
       exit (EXIT_FAILURE);
     }
 
@@ -376,7 +394,10 @@ Config::load (const std::string& file)
     }
   catch (const Lock::error& e)
     {
-      g_printerr(_("%s: lock acquisition failure: %s\n"), file.c_str(), e.what());
+      log_error() << format_string(_("%s: lock acquisition failure: %s\n"),
+				   file.c_str(),
+				   e.what())
+		  << endl;
       exit (EXIT_FAILURE);
     }
 
@@ -386,23 +407,20 @@ Config::load (const std::string& file)
     }
   catch (const error &e)
     {
-      g_printerr(_("%s: security failure: %s\n"), file.c_str(), e.what());
+      log_error() << format_string(_("%s: security failure: %s\n"),
+				   file.c_str(),
+				   e.what())
+		  << endl;
       exit (EXIT_FAILURE);
     }
 
   /* Now create an IO Channel and read in the data */
-  GIOChannel *channel = g_io_channel_unix_new(fd);
-  char *data = NULL;
-  gsize size = 0;
-  GError *read_error = NULL;
+  __gnu_cxx::stdio_filebuf<char> fdbuf(fd, std::ios::in);
+  std::istream input(&fdbuf);
 
-  g_io_channel_set_encoding(channel, NULL, NULL);
-  g_io_channel_read_to_end(channel, &data, &size, &read_error);
-  if (read_error)
-    {
-      g_printerr(_("%s: read failure: %s\n"), file.c_str(), read_error->message);
-      exit (EXIT_FAILURE);
-    }
+  /* Create key file */
+  keyfile keyfile(input);
+  // TODO: Where should parse error exception be handled?
 
   try
     {
@@ -410,69 +428,42 @@ Config::load (const std::string& file)
     }
   catch (const Lock::error& e)
     {
-      g_printerr(_("%s: lock discard failure: %s\n"), file.c_str(), e.what());
-      exit (EXIT_FAILURE);
-    }
-
-  GError *close_error = NULL;
-  g_io_channel_shutdown(channel, FALSE, &close_error);
-  if (close_error)
-    {
-      g_printerr(_("%s: close failure: %s\n"), file.c_str(), close_error->message);
-      exit (EXIT_FAILURE);
-    }
-  g_io_channel_unref(channel);
-
-  /* Create key file */
-  GKeyFile *keyfile = g_key_file_new();
-  g_key_file_set_list_separator(keyfile, ',');
-  GError *parse_error = NULL;
-  g_key_file_load_from_data(keyfile, data, size, G_KEY_FILE_NONE, &parse_error);
-  g_free(data);
-  data = NULL;
-
-  if (parse_error)
-    {
-      g_printerr(_("%s: parse failure: %s\n"), file.c_str(), parse_error->message);
+      log_error() << format_string(_("%s: lock discard failure: %s\n"),
+				   file.c_str(),
+				   e.what())
+		  << endl;
       exit (EXIT_FAILURE);
     }
 
   /* Create Chroot objects from key file */
-  char **groups = g_key_file_get_groups(keyfile, NULL);
-  for (guint i=0; groups[i] != NULL; ++i)
+  string_list groups = keyfile.get_groups();
+  for (string_list::const_iterator group = groups.begin();
+       group != groups.end();
+       ++group)
     {
       /* TODO: Can't cope with error.  Replace ASAP. */
       std::string type;
-      {
-	GError *error = 0;
-	char *str = g_key_file_get_string(keyfile, groups[i], "type", &error);
-	if (error)
-	  type = "";
-	else
-	  type = str;
-	g_free(str);
-      }
+      if (!keyfile.get_value(*group, "type", type))
+	type = "";
       Chroot *chroot = 0;
       if (type == "plain")
-	chroot = new ChrootPlain(keyfile, groups[i]);
+	chroot = new ChrootPlain(keyfile, *group);
       else if (type == "block-device")
-	chroot = new ChrootBlockDevice(keyfile, groups[i]);
+	chroot = new ChrootBlockDevice(keyfile, *group);
       else if (type == "lvm-snapshot")
-	chroot = new ChrootLvmSnapshot(keyfile, groups[i]);
+	chroot = new ChrootLvmSnapshot(keyfile, *group);
       if (chroot)
 	{
 	  // TODO: error checking (did insertion work? was the alias a
 	  // duplicate?
 	  this->chroots.insert(std::make_pair(chroot->get_name(), chroot));
-	  const Chroot::string_list& aliases = chroot->get_aliases();
-	  for (Chroot::string_list::const_iterator pos = aliases.begin();
+	  const string_list& aliases = chroot->get_aliases();
+	  for (string_list::const_iterator pos = aliases.begin();
 	       pos != aliases.end();
 	       ++pos)
 	    this->aliases.insert(std::make_pair(*pos, chroot->get_name()));
 	}
     }
-  g_strfreev(groups);
-  g_key_file_free(keyfile);
 }
 
 /*

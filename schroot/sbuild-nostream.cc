@@ -1,13 +1,13 @@
-/* sbuild-util - sbuild utility functions
+/* sbuild-nstream - sbuild null ostream
  *
  * Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
- * schroot is free software; you can redistribute it and/or modify it
+ * serror is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
  *
- * schroot is distributed in the hope that it will be useful, but
+ * serror is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
@@ -19,34 +19,9 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_UTIL_H
-#define SBUILD_UTIL_H
+#include "sbuild-nostream.h"
 
-#include <string>
-
-#include "sbuild-types.h"
-
-namespace sbuild
-{
-
-  std::string
-  basename(std::string name,
-	   char        separator = '/');
-
-  std::string
-  dirname(std::string name,
-	  char        separator = '/');
-
-  std::string
-  format_string(const char *format, ...);
-
-  std::string
-  string_list_to_string(string_list const& list,
-			std::string const& separator);
-
-}
-
-#endif /* SBUILD_UTIL_H */
+sbuild::nostream sbuild::cnull;
 
 /*
  * Local Variables:

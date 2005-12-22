@@ -32,18 +32,11 @@
 #include <pwd.h>
 #include <unistd.h>
 
-#include <sigc++/sigc++.h>
-
 #include <security/pam_appl.h>
-#include <security/pam_misc.h>
-
-#include <glib.h>
-#include <glib/gprintf.h>
 
 #include "sbuild-auth-conv.h"
-#include "sbuild-auth-conv-tty.h"
-#include "sbuild-config.h"
 #include "sbuild-error.h"
+#include "sbuild-types.h"
 
 namespace sbuild
 {
@@ -51,10 +44,6 @@ namespace sbuild
   class Auth
   {
   public:
-    typedef std::vector<std::string> string_list;
-    typedef std::pair<std::string,std::string> env;
-    typedef std::vector<env> env_list;
-
     typedef enum
       {
 	STATUS_NONE,

@@ -22,9 +22,6 @@
 #ifndef SBUILD_CHROOT_BLOCK_DEVICE_H
 #define SBUILD_CHROOT_BLOCK_DEVICE_H
 
-#include <glib.h>
-#include <glib/gprintf.h>
-
 #include "sbuild-chroot.h"
 
 namespace sbuild
@@ -34,7 +31,7 @@ namespace sbuild
   {
   public:
     ChrootBlockDevice();
-    ChrootBlockDevice (GKeyFile           *keyfile,
+    ChrootBlockDevice (const keyfile&      keyfile,
 		       const std::string&  group);
     virtual ~ChrootBlockDevice();
 
@@ -70,14 +67,14 @@ namespace sbuild
     get_session_flags () const;
 
     virtual void
-    print_details (FILE *file) const;
+    print_details (std::ostream& stream) const;
 
     virtual void
-    print_config (FILE *file) const;
+    print_config (std::ostream& stream) const;
 
   private:
     void
-    read_keyfile (GKeyFile   *keyfile,
+    read_keyfile (const keyfile&     keyfile,
 		  const std::string& group);
 
     std::string device;

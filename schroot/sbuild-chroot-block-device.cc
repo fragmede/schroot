@@ -37,8 +37,6 @@
 #include <sys/sysmacros.h>
 #include <unistd.h>
 
-#include <glib.h>
-
 #include "sbuild-i18n.h"
 #include "sbuild-chroot-block-device.h"
 #include "sbuild-keyfile.h"
@@ -54,7 +52,7 @@ ChrootBlockDevice::ChrootBlockDevice():
 {
 }
 
-ChrootBlockDevice::ChrootBlockDevice (GKeyFile           *keyfile,
+ChrootBlockDevice::ChrootBlockDevice (const keyfile&      keyfile,
 				      const std::string&  group):
   Chroot(keyfile, group),
   device(),
@@ -168,8 +166,8 @@ ChrootBlockDevice::setup_lock (Chroot::SetupType type,
     return;
 
   /* Lock is preserved through the entire session. */
-  if ((type == SETUP_START && lock == FALSE) ||
-      (type == SETUP_STOP && lock == TRUE))
+  if ((type == SETUP_START && lock == false) ||
+      (type == SETUP_STOP && lock == true))
     return;
 
   if (stat(this->device.c_str(), &statbuf) == -1)
@@ -177,7 +175,7 @@ ChrootBlockDevice::setup_lock (Chroot::SetupType type,
       throw error(format_string(_("%s chroot: failed to stat device %s: %s"),
 				get_name().c_str(),
 				this->device.c_str(),
-				g_strerror(errno)),
+				strerror(errno)),
 		  ERROR_LOCK);
     }
   else if (!S_ISBLK(statbuf.st_mode))
@@ -228,35 +226,37 @@ ChrootBlockDevice::get_session_flags () const
 }
 
 void
-ChrootBlockDevice::print_details (FILE *file) const
+ChrootBlockDevice::print_details (std::ostream& stream) const
 {
-  this->Chroot::print_details(file);
+  this->Chroot::print_details(stream);
 
   if (!this->device.empty())
-    g_fprintf(file, _("  %-22s%s\n"), _("Device"), this->device.c_str());
+    stream << format_detail_string(_("Device"), get_device());
   if (!this->mount_options.empty())
-    g_fprintf(file, _("  %-22s%s\n"), _("Mount Options"), this->mount_options.c_str());
+    stream << format_detail_string(_("Mount Options"), get_mount_options());
+  stream << std::flush;
 }
 
 void
-ChrootBlockDevice::print_config (FILE *file) const
+ChrootBlockDevice::print_config (std::ostream& stream) const
 {
-  this->Chroot::print_config(file);
+  this->Chroot::print_config(stream);
 
-  g_fprintf(file, _("device=%s\n"), this->device.c_str());
-  g_fprintf(file, _("mount-options=%s\n"), this->mount_options.c_str());
+  stream << "device=" << get_device() << '\n'
+	 << "mount-options=" << get_mount_options() << '\n';
+  stream << std::flush;
 }
 
 void
-ChrootBlockDevice::read_keyfile (GKeyFile           *keyfile,
+ChrootBlockDevice::read_keyfile (const keyfile&      keyfile,
 				 const std::string&  group)
 {
   std::string device;
-  if (keyfile_read_string(keyfile, group, "device", device))
+  if (keyfile.get_value(group, "device", device))
     set_device(device);
 
   std::string mount_options;
-  if (keyfile_read_string(keyfile, group, "mount-options", mount_options))
+  if (keyfile.get_value(group, "mount-options", mount_options))
     set_mount_options(mount_options);
 }
 

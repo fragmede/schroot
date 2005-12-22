@@ -23,16 +23,12 @@
 #define SBUILD_SESSION_H
 
 #include <string>
-#include <tr1/memory>
 
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <grp.h>
 #include <pwd.h>
 #include <unistd.h>
-
-#include <glib.h>
-#include <glib/gprintf.h>
 
 #include "sbuild-auth.h"
 #include "sbuild-config.h"

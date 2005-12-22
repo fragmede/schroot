@@ -1,4 +1,4 @@
-/* schroot-options - schroot options parser
+/* sbuild-util - sbuild data types
  *
  * Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
@@ -19,51 +19,25 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_SCHROOT_OPTIONS_H
-#define SBUILD_SCHROOT_OPTIONS_H
+#ifndef SBUILD_TYPES_H
+#define SBUILD_TYPES_H
 
 #include <string>
 #include <vector>
 
-#include "sbuild-session.h"
-
-namespace schroot
+namespace sbuild
 {
 
-  class Options
-  {
-  public:
-    typedef std::vector<std::string> string_list;
-
-    Options(int   argc,
-	    char *argv[]);
-    virtual ~Options();
-
-    string_list          chroots;
-    string_list          command;
-    std::string          user;
-    bool                 preserve;
-    bool                 quiet;
-    bool                 verbose;
-    bool                 list;
-    bool                 info;
-    bool                 all;
-    bool                 all_chroots;
-    bool                 all_sessions;
-    bool                 load_chroots;
-    bool                 load_sessions;
-    bool                 version;
-    sbuild::Session::Operation  session_operation;
-    bool                 session_force;
-  };
+  typedef std::vector<std::string> string_list;
+  typedef std::pair<std::string,std::string> env;
+  typedef std::vector<env> env_list;
 
 }
 
-#endif /* SBUILD_SCHROOT_OPTIONS_H */
+#endif /* SBUILD_TYPES_H */
 
 /*
  * Local Variables:
  * mode:C++
  * End:
  */
-

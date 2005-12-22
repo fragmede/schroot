@@ -21,6 +21,8 @@
 
 #include <config.h>
 
+#include <iostream>
+
 #include <errno.h>
 #include <locale.h>
 #include <stdlib.h>
@@ -32,9 +34,12 @@
 #include <lockdev.h>
 
 #include <glib.h>
-#include <glib/gprintf.h>
 
 #include "sbuild-i18n.h"
+#include "sbuild-log.h"
+#include "sbuild-util.h"
+
+using std::endl;
 
 /* Stored command-line options. */
 struct options {
@@ -82,7 +87,10 @@ parse_options(int   argc,
   g_option_context_free (context);
   if (error != NULL)
     {
-      g_printerr(_("Error parsing options: %s\n"), error->message);
+      sbuild::log_error()
+	<< sbuild::format_string(_("Error parsing options: %s\n"),
+				 error->message)
+	<< endl;
       exit (EXIT_FAILURE);
     }
 }
@@ -94,31 +102,14 @@ parse_options(int   argc,
  * Print version information.
  */
 void
-print_version (FILE *file)
+print_version (std::ostream& stream)
 {
-  g_fprintf(file, _("schroot-releaselock (Debian sbuild) %s\n"), VERSION);
-  g_fprintf(file, _("Written by Roger Leigh\n\n"));
-  g_fprintf(file, _("Copyright (C) 2004-2005 Roger Leigh\n"));
-  g_fprintf(file, _("This is free software; see the source for copying conditions.  There is NO\n"
-		    "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"));
-}
-
-/**
- * debug_logfunc:
- * @log_domain: the log domain
- * @log_level: the logging level
- * @message: the message to log
- * @user_data: extra detail
- *
- * Log a debugging message.  This is a "NULL" message handler that
- * does nothing, discarding all messages.
- */
-void debug_logfunc (const char *log_domain,
-		    GLogLevelFlags log_level,
-		    const char *message,
-		    gpointer user_data)
-{
-  /* Discard all messages. */
+  stream << sbuild::format_string(_("schroot-releaselock (Debian sbuild) %s\n"), VERSION)
+	 << _("Written by Roger Leigh\n\n")
+	 << _("Copyright (C) 2004-2005 Roger Leigh\n")
+	 << _("This is free software; see the source for copying conditions.  There is NO\n"
+	      "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
+	 << std::flush;
 }
 
 /**
@@ -140,8 +131,9 @@ main (int   argc,
   textdomain (GETTEXT_PACKAGE);
 
 #ifndef SBUILD_DEBUG
-  /* Discard g_debug output for this logging domain. */
-  g_log_set_handler (G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, debug_logfunc, NULL);
+  sbuild::debug_level = sbuild::DEBUG_CRITICAL;
+#else
+  sbuild::debug_level = sbuild::DEBUG_NONE;
 #endif
 
   /* Parse command-line options into opt structure. */
@@ -149,45 +141,56 @@ main (int   argc,
 
   if (opt.version == TRUE)
     {
-      print_version(stdout);
+      print_version(std::cerr);
       exit(EXIT_SUCCESS);
     }
 
   if (opt.device == NULL)
     {
-      g_printerr(_("No device specified\n"));
+      sbuild::log_error() << _("No device specified") << endl;
       exit (EXIT_FAILURE);
     }
 
   if (opt.pid == 0)
     {
-      g_printerr(_("No pid specified; forcing release of lock\n"));
+      sbuild::log_error() << _("No pid specified; forcing release of lock")
+			  << endl;
     }
 
   struct stat statbuf;
 
   if (stat(opt.device, &statbuf) == -1)
     {
-      g_printerr(_("Failed to stat device %s: %s\n"), opt.device,
-		 g_strerror(errno));
+      sbuild::log_error()
+	<< sbuild::format_string(_("Failed to stat device %s: %s\n"),
+				 opt.device, strerror(errno))
+	<< endl;
       exit (EXIT_FAILURE);
     }
   if (!S_ISBLK(statbuf.st_mode))
     {
-      g_printerr(_("%s is not a block device\n"), opt.device);
+      sbuild::log_error()
+	<< sbuild::format_string(_("%s is not a block device\n"),
+				 opt.device)
+	<< endl;
       exit (EXIT_FAILURE);
     }
 
   pid_t status = dev_unlock(opt.device, opt.pid);
   if (status < 0) // Failure
     {
-      g_printerr(_("%s: failed to release device lock\n"), opt.device);
+      sbuild::log_error()
+	<< sbuild::format_string(_("%s: failed to release device lock\n"),
+				 opt.device)
+	<< endl;
       exit (EXIT_FAILURE);
     }
   else if (status > 0) // Owned
     {
-      g_printerr(_("%s: failed to release device lock owned by pid %d\n"),
-		 opt.device, status);
+      sbuild::log_error()
+	<< sbuild::format_string(_("%s: failed to release device lock owned by pid %d\n"),
+				 opt.device, status)
+	<< endl;
       exit (EXIT_FAILURE);
     }
 

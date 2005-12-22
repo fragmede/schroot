@@ -102,7 +102,7 @@ sbuild::dirname(std::string name,
 }
 
 std::string
-sbuild::format_string(const char*format, ...)
+sbuild::format_string(const char *format, ...)
 {
   int buflen = 64;
   char *buff = new char[buflen];
@@ -137,6 +137,24 @@ sbuild::format_string(const char*format, ...)
   delete[] buff;
 
   return retval;
+}
+
+std::string
+sbuild::string_list_to_string(sbuild::string_list const& list,
+			      std::string const&         separator)
+{
+  std::string ret;
+
+  for (string_list::const_iterator cur = list.begin();
+       cur != list.end();
+       ++cur)
+    {
+      ret += *cur;
+      if (cur + 1 != list.end())
+	ret += separator;
+    }
+
+  return ret;
 }
 
 /*

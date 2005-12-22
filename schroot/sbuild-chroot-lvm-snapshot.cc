@@ -30,20 +30,23 @@
 
 #include <config.h>
 
+#include <iostream>
+#include <ext/stdio_filebuf.h>
+
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/sysmacros.h>
 #include <unistd.h>
 
-#include <glib.h>
-
 #include "sbuild-i18n.h"
 #include "sbuild-chroot-lvm-snapshot.h"
 #include "sbuild-keyfile.h"
 #include "sbuild-lock.h"
+#include "sbuild-log.h"
 #include "sbuild-util.h"
 
+using std::endl;
 using namespace sbuild;
 
 ChrootLvmSnapshot::ChrootLvmSnapshot():
@@ -53,7 +56,7 @@ ChrootLvmSnapshot::ChrootLvmSnapshot():
 {
 }
 
-ChrootLvmSnapshot::ChrootLvmSnapshot (GKeyFile           *keyfile,
+ChrootLvmSnapshot::ChrootLvmSnapshot (const keyfile&      keyfile,
 				      const std::string&  group):
   ChrootBlockDevice(keyfile, group),
   snapshot_device(),
@@ -166,7 +169,7 @@ ChrootLvmSnapshot::setup_lock (Chroot::SetupType type,
 
   /* Lock is removed by setup script on setup stop.  Unlocking here
      would fail: the LVM snapshot device no longer exists. */
-  if (!(type == SETUP_STOP && lock == FALSE))
+  if (!(type == SETUP_STOP && lock == false))
     {
       if (type == SETUP_START)
 	device = get_device();
@@ -183,7 +186,7 @@ ChrootLvmSnapshot::setup_lock (Chroot::SetupType type,
 	{
 	  throw error(format_string(_("%s chroot: failed to stat device %s: %s"),
 				    get_name().c_str(),
-				    device.c_str(), g_strerror(errno)),
+				    device.c_str(), strerror(errno)),
 		      ERROR_LOCK);
 	}
       else if (!S_ISBLK(statbuf.st_mode))
@@ -196,8 +199,8 @@ ChrootLvmSnapshot::setup_lock (Chroot::SetupType type,
       else
 	{
 	  /* Lock is preserved while running a command. */
-	  if ((type == RUN_START && lock == FALSE) ||
-	      (type == RUN_STOP && lock == TRUE))
+	  if ((type == RUN_START && lock == false) ||
+	      (type == RUN_STOP && lock == true))
 	    return;
 
 	  sbuild::DeviceLock dlock(device);
@@ -233,8 +236,8 @@ ChrootLvmSnapshot::setup_lock (Chroot::SetupType type,
     }
 
   /* Create or unlink session information. */
-  if ((type == SETUP_START && lock == TRUE) ||
-      (type == SETUP_STOP && lock == FALSE))
+  if ((type == SETUP_START && lock == true) ||
+      (type == SETUP_STOP && lock == false))
     {
       bool start = (type == SETUP_START);
       setup_session_info(start);
@@ -247,79 +250,57 @@ ChrootLvmSnapshot::setup_session_info (bool start)
   /* Create or unlink session information. */
   std::string file = std::string(SCHROOT_SESSION_DIR) + "/" + get_name();
 
-  FILE *sess_file = NULL;
-
   if (start)
     {
       int fd = open(file.c_str(), O_CREAT|O_EXCL|O_WRONLY, 0664);
       if (fd < 0)
 	{
 	  throw error(format_string(_("%s: failed to create session file: %s\n"),
-				    file.c_str(), g_strerror(errno)),
+				    file.c_str(), strerror(errno)),
 		      ERROR_LOCK);
 	}
 
-      FILE *sess_file = fdopen(fd, "w");
-      if (sess_file == NULL)
+      // Create a stream buffer from the file descriptor.  The fd will
+      // be closed when the buffer is destroyed.
+      __gnu_cxx::stdio_filebuf<char> fdbuf(fd, std::ios::out);
+      std::ostream output(&fdbuf);
+
+      sbuild::FileLock lock(fd);
+      try
 	{
-	  if (close(fd) < 0) /* Can't set GError at this point. */
-	    g_printerr("%s: failed to close session file: %s\n",
-		       file.c_str(), g_strerror(errno));
-	  throw error(format_string(_("%s: failed to create FILE from fd: %s\n"),
-				    file.c_str(), g_strerror(errno)),
+	  lock.set_lock(Lock::LOCK_EXCLUSIVE, 2);
+	}
+      catch (const Lock::error& e)
+	{
+	  throw error(format_string(_("%s: lock acquisition failure: %s\n"),
+				    file.c_str(), e.what()),
 		      ERROR_LOCK);
 	}
+
+      print_config(output);
+      /* 		  if (fflush(sess_file) != 0) */
+      /* 		    g_set_error(error, */
+      /* 				ERROR, ERROR_LOCK, */
+      /* 				_("%s: failed to flush session file: %s\n"), */
+      /* 				file, strerror(errno)); */
 
       try
 	{
-	  sbuild::FileLock lock(fd);
-	  try
-	    {
-	      lock.set_lock(Lock::LOCK_EXCLUSIVE, 2);
-	    }
-	  catch (const Lock::error& e)
-	    {
-	      throw error(format_string(_("%s: lock acquisition failure: %s\n"),
-					file.c_str(), e.what()),
-			  ERROR_LOCK);
-	    }
-
-	  print_config(sess_file);
-	  /* 		  if (fflush(sess_file) != 0) */
-	  /* 		    g_set_error(error, */
-	  /* 				ERROR, ERROR_LOCK, */
-	  /* 				_("%s: failed to flush session file: %s\n"), */
-	  /* 				file, g_strerror(errno)); */
-
-	  try
-	    {
-	      lock.unset_lock();
-	    }
-	  catch (const Lock::error& e)
-	    {
-	      throw error(format_string(_("%s: lock discard failure: %s\n"),
-					file.c_str(), e.what()),
-			  ERROR_LOCK);
-	    }
-	  if (fclose(sess_file) != 0)
-	    {
-	      throw error(format_string(_("%s: failed to close session file: %s\n"),
-					file.c_str(), g_strerror(errno)),
-			  ERROR_LOCK);
-	    }
+	  lock.unset_lock();
 	}
-      catch (const error& e)
+      catch (const Lock::error& e)
 	{
-	  fclose(sess_file);
-	  throw error(e);
+	  throw error(format_string(_("%s: lock discard failure: %s\n"),
+				    file.c_str(), e.what()),
+		      ERROR_LOCK);
 	}
     }
-  else /* start == FALSE */
+  else /* start == false */
     {
       if (unlink(file.c_str()) != 0)
 	{
 	  throw error(format_string(_("%s: failed to unlink session file: %s\n"),
-				    file.c_str(), g_strerror(errno)),
+				    file.c_str(), strerror(errno)),
 		      ERROR_LOCK);
 	}
     }
@@ -332,39 +313,41 @@ ChrootLvmSnapshot::get_session_flags () const
 }
 
 void
-ChrootLvmSnapshot::print_details (FILE *file) const
+ChrootLvmSnapshot::print_details (std::ostream& stream) const
 {
-  this->ChrootBlockDevice::print_details(file);
+  this->ChrootBlockDevice::print_details(stream);
 
   if (!this->snapshot_device.empty())
-    g_fprintf(file, "  %-22s%s\n", _("LVM Snapshot Device"),
-	      this->snapshot_device.c_str());
+    stream << format_detail_string(_("LVM Snapshot Device"),
+				   get_snapshot_device());
   if (!this->snapshot_options.empty())
-    g_fprintf(file, "  %-22s%s\n", _("LVM Snapshot Options"),
-	      this->snapshot_options.c_str());
+    stream << format_detail_string(_("LVM Snapshot Options"),
+				   get_snapshot_options());
+  stream << std::flush;
 }
 
 void
-ChrootLvmSnapshot::print_config (FILE *file) const
+ChrootLvmSnapshot::print_config (std::ostream& stream) const
 {
-  this->ChrootBlockDevice::print_config(file);
+  this->ChrootBlockDevice::print_config(stream);
 
   if (!this->snapshot_device.empty())
-    g_fprintf(file, _("lvm-snapshot-device=%s\n"), this->snapshot_device.c_str());
+    stream << "lvm-snapshot-device=" << get_snapshot_device() << '\n';
   if (!this->snapshot_options.empty())
-    g_fprintf(file, _("lvm-snapshot-options=%s\n"), this->snapshot_options.c_str());
+    stream << "lvm-snapshot-options=" << get_snapshot_options() << '\n';
+  stream << std::flush;
 }
 
 void
-ChrootLvmSnapshot::read_keyfile (GKeyFile           *keyfile,
+ChrootLvmSnapshot::read_keyfile (const keyfile&      keyfile,
 				 const std::string&  group)
 {
   std::string snapshot_device;
-  if (keyfile_read_string(keyfile, group, "lvm-snapshot-device", snapshot_device))
+  if (keyfile.get_value(group, "lvm-snapshot-device", snapshot_device))
     set_snapshot_device(snapshot_device);
 
   std::string snapshot_options;
-  if (keyfile_read_string(keyfile, group, "lvm-snapshot-options", snapshot_options))
+  if (keyfile.get_value(group, "lvm-snapshot-options", snapshot_options))
     set_snapshot_options(snapshot_options);
 }
 

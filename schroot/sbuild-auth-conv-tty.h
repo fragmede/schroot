@@ -28,21 +28,15 @@
 #include <pwd.h>
 #include <unistd.h>
 
-#include <sigc++/sigc++.h>
-
 #include <security/pam_appl.h>
 #include <security/pam_misc.h>
 
-#include <glib.h>
-#include <glib/gprintf.h>
-
 #include "sbuild-auth-conv.h"
-#include "sbuild-config.h"
 
 namespace sbuild
 {
 
-  class AuthConvTty : public AuthConv, sigc::trackable
+  class AuthConvTty : public AuthConv
   {
   public:
     AuthConvTty();
@@ -55,7 +49,7 @@ namespace sbuild
     virtual void set_fatal_timeout (time_t timeout);
 
   protected:
-    virtual bool conversation_impl (std::vector<AuthMessage>& messages);
+    virtual bool conversation_impl (message_list& messages);
 
   private:
     int get_delay ();

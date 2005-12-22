@@ -30,10 +30,11 @@ AM_CXXFLAGS = $(SCHROOT_CFLAGS)
 
 DEFS = -DG_LOG_DOMAIN=\"Schroot\" -DGETTEXT_PACKAGE=\"schroot\" -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
 
+lib_LTLIBRARIES = libsbuild.la
 bin_PROGRAMS = schroot
 pkglibexec_PROGRAMS = schroot-releaselock
 
-schroot_public_h_sources =		\
+sbuild_public_h_sources =		\
 	sbuild-auth.h			\
 	sbuild-auth-conv.h		\
 	sbuild-auth-conv-tty.h		\
@@ -44,12 +45,16 @@ schroot_public_h_sources =		\
 	sbuild-chroot-plain.h		\
 	sbuild-config.h			\
 	sbuild-error.h			\
+	sbuild-i18n.h			\
 	sbuild-keyfile.h		\
 	sbuild-lock.h			\
+	sbuild-log.h			\
+	sbuild-nostream.h		\
 	sbuild-session.h		\
+	sbuild-types.h			\
 	sbuild-util.h
 
-schroot_public_cc_sources =		\
+sbuild_public_cc_sources =		\
 	sbuild-auth.cc			\
 	sbuild-auth-conv.cc		\
 	sbuild-auth-conv-tty.cc		\
@@ -59,31 +64,31 @@ schroot_public_cc_sources =		\
 	sbuild-chroot-lvm-snapshot.cc	\
 	sbuild-chroot-plain.cc		\
 	sbuild-config.cc		\
+	sbuild-keyfile.cc		\
 	sbuild-lock.cc			\
+	sbuild-log.cc			\
+	sbuild-nostream.cc		\
 	sbuild-session.cc		\
 	sbuild-util.cc
 
+libsbuild_la_SOURCES =			\
+	$(sbuild_public_h_sources)	\
+	$(sbuild_public_cc_sources)
+
+libsbuild_la_LIBADD = $(GLIB_LIBS) $(UUID_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(LIBINTL)
+
 schroot_SOURCES =			\
-	$(schroot_public_h_sources)	\
-	$(schroot_public_cc_sources)	\
 	schroot-options.h		\
 	schroot-options.cc		\
 	schroot.h			\
 	schroot.cc
 
-schroot_LDADD = $(GLIB_LIBS) $(UUID_LIBS) $(SIGC_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(LIBINTL)
-
-#if ENABLE_GTK_DOC
-#noinst_LTLIBRARIES = libschroot.la
-#libschroot_la_SOURCES = $(schroot_SOURCES)
-#libschroot_la_CFLAGS = $(schroot_CFLAGS)
-#libschroot_la_LIBADD = $(schroot_LDADD)
-#endif
+schroot_LDADD = libsbuild.la
 
 schroot_releaselock_SOURCES = \
 	schroot-releaselock.cc
 schroot_releaselock_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
-schroot_releaselock_LDADD = $(GLIB_LIBS) $(LOCKDEV_LIBS) $(LIBINTL)
+schroot_releaselock_LDADD = libsbuild.la
 
 pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
 pkgsysconf_DATA = schroot.conf

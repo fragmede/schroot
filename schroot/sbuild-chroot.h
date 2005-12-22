@@ -22,14 +22,15 @@
 #ifndef SBUILD_CHROOT_H
 #define SBUILD_CHROOT_H
 
+#include <iomanip>
+#include <ostream>
 #include <string>
 #include <sstream>
 #include <vector>
 
-#include <glib.h>
-#include <glib/gprintf.h>
-
 #include "sbuild-error.h"
+#include "sbuild-keyfile.h"
+#include "sbuild-util.h"
 
 namespace sbuild
 {
@@ -37,10 +38,6 @@ namespace sbuild
   class Chroot
   {
   public:
-    typedef std::vector<std::string> string_list;
-    typedef std::pair<std::string,std::string> env;
-    typedef std::vector<env> env_list;
-
     typedef enum
       {
 	SETUP_START,
@@ -64,8 +61,8 @@ namespace sbuild
 
     Chroot ();
 
-    Chroot (GKeyFile   *keyfile,
-		  const std::string& group);
+    Chroot (const keyfile&     keyfile,
+	    const std::string& group);
 
     virtual ~Chroot();
 
@@ -175,15 +172,61 @@ namespace sbuild
     get_session_flags () const = 0;
 
     virtual void
-    print_details (FILE *file) const;
+    print_details (std::ostream& stream) const;
 
     virtual void
-    print_config (FILE *file) const;
+    print_config (std::ostream& stream) const;
 
   protected:
     void
-    read_keyfile (GKeyFile   *keyfile,
+    read_keyfile (const keyfile&     keyfile,
 		  const std::string& group);
+
+    template<typename T>
+    class format_detail
+    {
+    public:
+      format_detail(std::string const& name,
+		    T const&           value):
+	name(name),
+	value(value)
+      {}
+
+      friend std::ostream& operator << (std::ostream& stream,
+					const format_detail<T>& rhs)
+      {
+	return stream << "  " << std::setw(22) << rhs.name
+		      << rhs.value << '\n';
+      }
+
+      friend std::ostream& operator << (std::ostream& stream,
+					const format_detail<bool>& rhs)
+      {
+	const char *desc = 0;
+	if (rhs.value)
+	  desc =  _("true");
+	else
+	  desc = _("false");
+	return stream << format_detail<std::string>(rhs.name, desc);
+      }
+
+      friend std::ostream& operator << (std::ostream& stream,
+					const format_detail<string_list>& rhs)
+      {
+	return stream <<
+	  format_detail<std::string>(rhs.name,
+				     string_list_to_string(rhs.value, " "));
+      }
+
+    private:
+      std::string const& name;
+      T const&           value;
+    };
+
+    typedef format_detail<std::string> format_detail_string;
+    typedef format_detail<int> format_detail_int;
+    typedef format_detail<bool> format_detail_bool;
+    typedef format_detail<string_list> format_detail_strv;
 
   private:
     std::string   name;
@@ -199,12 +242,13 @@ namespace sbuild
     bool          run_session_scripts;
   };
 
-  // TODO: move into separate environment class.
+  // TODO: move into separate environment class, and drop sstream
+  // header.
   template<typename T>
   void
-  setup_env_var(Chroot::env_list& env,
+  setup_env_var(env_list&          env,
 		const std::string& name,
-		const T& var)
+		const T&           var)
   {
     std::ostringstream varstring;
     varstring << var;

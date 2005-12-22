@@ -57,6 +57,7 @@
 
 #include <config.h>
 
+#include <cassert>
 #include <iostream>
 
 #include <errno.h>
@@ -65,12 +66,12 @@
 
 #include <syslog.h>
 
-#include <glib.h>
-
 #include "sbuild-i18n.h"
 #include "sbuild-auth.h"
+#include "sbuild-auth-conv-tty.h"
 #include "sbuild-auth-message.h"
 #include "sbuild-error.h"
+#include "sbuild-log.h"
 #include "sbuild-util.h"
 
 using std::cerr;
@@ -90,11 +91,11 @@ namespace
       return PAM_CONV_ERR;
 
     AuthConv *conv = static_cast<AuthConv *>(appdata_ptr);
-    g_assert (conv != 0);
+    assert (conv != 0);
 
     /* Construct a message vector */
     AuthConv::message_list messages;
-    for (guint i = 0; i < num_msg; ++i)
+    for (unsigned int i = 0; i < num_msg; ++i)
       {
 	const struct pam_message *source = msgm[i];
 
@@ -107,22 +108,24 @@ namespace
     /* Do the conversation */
     bool status = conv->conversation(messages);
 
-    if (status == TRUE)
+    if (status == true)
       {
 	/* Copy response into **reponse */
-	struct pam_response *reply = g_new0(struct pam_response, num_msg);
+	struct pam_response *reply =
+	  static_cast<struct pam_response *>
+	  (malloc(sizeof(struct pam_response) * num_msg));
 
-	for (guint i = 0; i < num_msg; ++i)
+	for (unsigned int i = 0; i < num_msg; ++i)
 	  {
 	    reply[i].resp_retcode = 0;
-	    reply[i].resp = g_strdup(messages[i].response.c_str());
+	    reply[i].resp = strdup(messages[i].response.c_str());
 	  }
 
 	*response = reply;
 	reply = 0;
       }
 
-    if (status == TRUE)
+    if (status == true)
       return PAM_SUCCESS;
     else
       return PAM_CONV_ERR;
@@ -135,10 +138,10 @@ namespace
     return key + "=" + value;
   }
 
-  Auth::env_list
+  env_list
   env_strv_to_env_list (char **env)
   {
-    Auth::env_list ret;
+    env_list ret;
 
     if (env)
       {
@@ -182,7 +185,7 @@ Auth::Auth(const std::string& service_name):
     {
       cerr << format_string(_("%lu: user not found: %s\n"),
 			    (unsigned long) this->ruid,
-			    g_strerror(errno))
+			    strerror(errno))
 	   << endl;
       exit (EXIT_FAILURE);
     }
@@ -289,7 +292,7 @@ Auth::set_user (const std::string& user)
     {
       cerr << format_string(_("%s: user not found: %s\n"),
 			    this->user.c_str(),
-			    g_strerror(errno))
+			    strerror(errno))
 	   << endl;
       exit (EXIT_FAILURE);
     }
@@ -297,8 +300,10 @@ Auth::set_user (const std::string& user)
   this->gid = pwent->pw_gid;
   this->home = pwent->pw_dir;
   this->shell = pwent->pw_shell;
-  g_debug("auth uid = %lu, gid = %lu", (unsigned long) this->uid,
-	  (unsigned long) this->gid);
+  log_debug(DEBUG_INFO)
+    << format_string("auth uid = %lu, gid = %lu",
+		     (unsigned long) this->uid, (unsigned long) this->gid)
+    << endl;
 }
 
 /**
@@ -310,7 +315,7 @@ Auth::set_user (const std::string& user)
  * Returns a string vector.  This string vector points to internally
  * allocated storage and must not be freed, modified or stored.
  */
-const Auth::string_list&
+const string_list&
 Auth::get_command () const
 {
   return this->command;
@@ -324,7 +329,7 @@ Auth::get_command () const
  * Set the command to run in the session.
  */
 void
-Auth::set_command (const Auth::string_list& command)
+Auth::set_command (const string_list& command)
 {
   this->command = command;
 }
@@ -370,7 +375,7 @@ Auth::get_shell () const
  * Returns a string vector.  This string vector points to internally
  * allocated storage and must not be freed, modified or stored.
  */
-const Auth::env_list&
+const env_list&
 Auth::get_environment () const
 {
   return this->environment;
@@ -390,7 +395,7 @@ Auth::set_environment (char **environment)
  * Set the environment to use in @auth.
  */
 void
-Auth::set_environment (const Auth::env_list& environment)
+Auth::set_environment (const env_list& environment)
 {
   this->environment = environment;
 }
@@ -404,7 +409,7 @@ Auth::set_environment (const Auth::env_list& environment)
  * Returns a string vector.  This string vector points to internally
  * allocated storage and must not be freed, modified or stored.
  */
-Auth::env_list
+env_list
 Auth::get_pam_environment () const
 {
   char **env =  pam_getenvlist(this->pam);
@@ -512,7 +517,10 @@ Auth::run ()
 
 	  const char *authuser = 0;
 	  pam_get_item(this->pam, PAM_USER, (const void **) &authuser);
-	  g_debug("PAM authentication succeeded for user %s\n", authuser);
+	  log_debug(DEBUG_INFO)
+	    << format_string("PAM authentication succeeded for user %s\n",
+			     authuser)
+	    << endl;
 
 	  run_impl();
 
@@ -562,17 +570,18 @@ Auth::run ()
  * Start the PAM system.  No other PAM functions may be called before
  * calling this function.
  *
- * Returns TRUE on success, FALSE on failure (@error will be set to
+ * Returns true on success, false on failure (@error will be set to
  * indicate the cause of the failure).
  */
 void
 Auth::start ()
 {
-  g_return_if_fail(this->user.empty());
+  assert(this->user.empty());
 
   if (this->pam != 0)
     {
-      g_debug("pam_start FAIL (already initialised)");
+      log_debug(DEBUG_CRITICAL)
+	<< "pam_start FAIL (already initialised)" << endl;
       throw error(_("PAM error: PAM is already initialised"),
 		  ERROR_PAM_STARTUP);
     }
@@ -589,12 +598,12 @@ Auth::start ()
        pam_start(this->service.c_str(), this->user.c_str(),
 		 &conv_hook, &this->pam)) != PAM_SUCCESS)
     {
-      g_debug("pam_start FAIL");
+      log_debug(DEBUG_WARNING) << "pam_start FAIL" << endl;
       throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
 		  ERROR_PAM_STARTUP);
     }
 
-  g_debug("pam_start OK");
+  log_debug(DEBUG_NOTICE) << "pam_start OK" << endl;
 }
 
 /**
@@ -605,25 +614,25 @@ Auth::start ()
  * Stop the PAM system.  No other PAM functions may be used after
  * calling this function.
  *
- * Returns TRUE on success, FALSE on failure (@error will be set to
+ * Returns true on success, false on failure (@error will be set to
  * indicate the cause of the failure).
  */
 void
 Auth::stop ()
 {
-  g_return_if_fail(this->pam != 0); // PAM must be initialised
+  assert(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
   if ((pam_status =
        pam_end(this->pam, PAM_SUCCESS)) != PAM_SUCCESS)
     {
-      g_debug("pam_end FAIL");
+      log_debug(DEBUG_WARNING) << "pam_end FAIL" << endl;
       throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
 		  ERROR_PAM_SHUTDOWN);
     }
 
-  g_debug("pam_end OK");
+  log_debug(DEBUG_NOTICE) << "pam_end OK" << endl;
 }
 
 /**
@@ -634,44 +643,44 @@ Auth::stop ()
  * Perform PAM authentication.  If required, the user will be prompted
  * to authenticate themselves.
  *
- * Returns TRUE on success, FALSE on failure (@error will be set to
+ * Returns true on success, false on failure (@error will be set to
  * indicate the cause of the failure).
  */
 void
 Auth::authenticate ()
 {
-  g_return_if_fail(this->user.empty());
-  g_return_if_fail(this->pam != 0); // PAM must be initialised
+  assert(this->user.empty());
+  assert(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
   if ((pam_status =
        pam_set_item(this->pam, PAM_RUSER, this->ruser.c_str())) != PAM_SUCCESS)
     {
-      g_debug("pam_set_item (PAM_RUSER) FAIL");
+      log_debug(DEBUG_WARNING) << "pam_set_item (PAM_RUSER) FAIL" << endl;
       throw error(std::string(_("PAM set RUSER error: ")) + pam_strerror(this->pam, pam_status),
 		  ERROR_PAM_SET_ITEM);
     }
 
   long hl = 256; /* sysconf(_SC_HOST_NAME_MAX); BROKEN with Debian libc6 2.3.2.ds1-22 */
 
-  char *hostname = g_new(char, hl);
+  char *hostname = new char[hl];
   if (gethostname(hostname, hl) != 0)
     {
-      g_debug("gethostname FAIL");
-      throw error(std::string(_("Failed to get hostname: ")) + g_strerror(errno),
+      log_debug(DEBUG_CRITICAL) << "gethostname FAIL" << endl;
+      throw error(std::string(_("Failed to get hostname: ")) + strerror(errno),
 		  ERROR_HOSTNAME);
     }
 
   if ((pam_status =
        pam_set_item(this->pam, PAM_RHOST, hostname)) != PAM_SUCCESS)
     {
-      g_debug("pam_set_item (PAM_RHOST) FAIL");
+      log_debug(DEBUG_WARNING) << "pam_set_item (PAM_RHOST) FAIL" << endl;
       throw error(std::string(_("PAM set RHOST error: ")) + pam_strerror(this->pam, pam_status),
 		  ERROR_PAM_SET_ITEM);
     }
 
-  g_free(hostname);
+  delete[] hostname;
   hostname = 0;
 
   const char *tty = ttyname(STDIN_FILENO);
@@ -680,7 +689,7 @@ Auth::authenticate ()
       if ((pam_status =
 	   pam_set_item(this->pam, PAM_TTY, tty)) != PAM_SUCCESS)
 	{
-	  g_debug("pam_set_item (PAM_TTY) FAIL");
+	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_TTY) FAIL" << endl;
 	  throw error(std::string(_("PAM set TTY error: ")) + pam_strerror(this->pam, pam_status),
 		      ERROR_PAM_SET_ITEM);
 	}
@@ -693,7 +702,7 @@ Auth::authenticate ()
       if ((pam_status =
 	   pam_set_item(this->pam, PAM_USER, this->user.c_str())) != PAM_SUCCESS)
 	{
-	  g_debug("pam_set_item (PAM_USER) FAIL");
+	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_USER) FAIL" << endl;
 	  throw error(std::string(_("PAM set USER error: ")) + pam_strerror(this->pam, pam_status),
 		      ERROR_PAM_SET_ITEM);
 	}
@@ -703,18 +712,18 @@ Auth::authenticate ()
       if ((pam_status =
 	   pam_authenticate(this->pam, 0)) != PAM_SUCCESS)
 	{
-	  g_debug("pam_authenticate FAIL");
+	  log_debug(DEBUG_INFO) << "pam_authenticate FAIL" << endl;
 	  syslog(LOG_AUTH|LOG_WARNING, "%s->%s Authentication failure",
 		 this->ruser.c_str(), this->user.c_str());
 	  throw error(std::string(_("PAM authentication failed: ")) + pam_strerror(this->pam, pam_status),
 		      ERROR_PAM_AUTHENTICATE);
 	}
-      g_debug("pam_authenticate OK");
+      log_debug(DEBUG_NOTICE) << "pam_authenticate OK" << endl;
       break;
 
     case STATUS_FAIL:
 	{
-	  g_debug("PAM auth premature FAIL");
+	  log_debug(DEBUG_INFO) << "PAM auth premature FAIL" << endl;
 	  cerr << format_string(_("You do not have permission to access the %s service.\n"),
 				this->service.c_str())
 	       << "\n"
@@ -740,13 +749,13 @@ Auth::authenticate ()
  * specified with #sbuild_auth_set_environment, a minimal environment
  * will be created containing HOME, LOGNAME, PATH, TERM and LOGNAME.
  *
- * Returns TRUE on success, FALSE on failure (@error will be set to
+ * Returns true on success, false on failure (@error will be set to
  * indicate the cause of the failure).
  */
 void
 Auth::setupenv ()
 {
-  g_return_if_fail(this->pam != 0); // PAM must be initialised
+  assert(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
@@ -769,7 +778,7 @@ Auth::setupenv ()
       newenv.push_back(std::make_pair("USER", this->user));
     }
   {
-    const char *term = g_getenv("TERM");
+    const char *term = getenv("TERM");
     if (term)
       newenv.push_back(std::make_pair("TERM", term));
   }
@@ -783,14 +792,17 @@ Auth::setupenv ()
       if ((pam_status =
 	   pam_putenv(this->pam, env_string.c_str())) != PAM_SUCCESS)
 	{
-	  g_debug("pam_putenv FAIL");
+	  log_debug(DEBUG_WARNING) << "pam_putenv FAIL" << endl;
 	  throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
 		      ERROR_PAM_PUTENV);
 	}
-      g_debug("pam_putenv: set %s=%s", cur->first.c_str(), cur->second.c_str());
+	  log_debug(DEBUG_INFO)
+	    << format_string("pam_putenv: set %s=%s",
+			     cur->first.c_str(), cur->second.c_str())
+	    << endl;
     }
 
-  g_debug("pam_putenv OK");
+  log_debug(DEBUG_NOTICE) << "pam_putenv OK" << endl;
 }
 
 /**
@@ -800,13 +812,13 @@ Auth::setupenv ()
  *
  * Do PAM account management (authorisation).
  *
- * Returns TRUE on success, FALSE on failure (@error will be set to
+ * Returns true on success, false on failure (@error will be set to
  * indicate the cause of the failure).
  */
 void
 Auth::account ()
 {
-  g_return_if_fail(this->pam != 0); // PAM must be initialised
+  assert(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
@@ -815,12 +827,12 @@ Auth::account ()
     {
       /* We don't handle changing expired passwords here, since we are
 	 not login or ssh. */
-      g_debug("pam_acct_mgmt FAIL");
+      log_debug(DEBUG_WARNING) << "pam_acct_mgmt FAIL" << endl;
       throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
 		  ERROR_PAM_ACCOUNT);
     }
 
-  g_debug("pam_acct_mgmt OK");
+  log_debug(DEBUG_NOTICE) << "pam_acct_mgmt OK" << endl;
 }
 
 /**
@@ -830,25 +842,25 @@ Auth::account ()
  *
  * Use PAM to establish credentials.
  *
- * Returns TRUE on success, FALSE on failure (@error will be set to
+ * Returns true on success, false on failure (@error will be set to
  * indicate the cause of the failure).
  */
 void
 Auth::cred_establish ()
 {
-  g_return_if_fail(this->pam != 0); // PAM must be initialised
+  assert(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
   if ((pam_status =
        pam_setcred(this->pam, PAM_ESTABLISH_CRED)) != PAM_SUCCESS)
     {
-      g_debug("pam_setcred FAIL");
+      log_debug(DEBUG_WARNING) << "pam_setcred FAIL" << endl;
       throw error(std::string(_("PAM error: \n")) + pam_strerror(this->pam, pam_status),
 		  ERROR_PAM_CREDENTIALS);
     }
 
-  g_debug("pam_setcred OK");
+  log_debug(DEBUG_NOTICE) << "pam_setcred OK" << endl;
 }
 
 /**
@@ -858,25 +870,25 @@ Auth::cred_establish ()
  *
  * Use PAM to delete credentials.
  *
- * Returns TRUE on success, FALSE on failure (@error will be set to
+ * Returns true on success, false on failure (@error will be set to
  * indicate the cause of the failure).
  */
 void
 Auth::cred_delete ()
 {
-  g_return_if_fail(this->pam != 0); // PAM must be initialised
+  assert(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
   if ((pam_status =
        pam_setcred(this->pam, PAM_DELETE_CRED)) != PAM_SUCCESS)
     {
-      g_debug("pam_setcred (delete) FAIL");
+      log_debug(DEBUG_WARNING) << "pam_setcred (delete) FAIL" << endl;
       throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
 		  ERROR_PAM_DELETE_CREDENTIALS);
     }
 
-  g_debug("pam_setcred (delete) OK");
+  log_debug(DEBUG_NOTICE) << "pam_setcred (delete) OK" << endl;
 }
 
 /**
@@ -886,25 +898,25 @@ Auth::cred_delete ()
  *
  * Open a PAM session.  This should be called in the child process.
  *
- * Returns TRUE on success, FALSE on failure (@error will be set to
+ * Returns true on success, false on failure (@error will be set to
  * indicate the cause of the failure).
  */
 void
 Auth::open_session ()
 {
-  g_return_if_fail(this->pam != 0); // PAM must be initialised
+  assert(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
   if ((pam_status =
        pam_open_session(this->pam, 0)) != PAM_SUCCESS)
     {
-      g_debug("pam_open_session FAIL");
+      log_debug(DEBUG_WARNING) << "pam_open_session FAIL" << endl;
       throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
 		  ERROR_PAM_SESSION_OPEN);
     }
 
-  g_debug("pam_open_session OK");
+  log_debug(DEBUG_NOTICE) << "pam_open_session OK" << endl;
 }
 
 /**
@@ -914,25 +926,25 @@ Auth::open_session ()
  *
  * Close a PAM session.
  *
- * Returns TRUE on success, FALSE on failure (@error will be set to
+ * Returns true on success, false on failure (@error will be set to
  * indicate the cause of the failure).
  */
 void
 Auth::close_session ()
 {
-  g_return_if_fail(this->pam != 0); // PAM must be initialised
+  assert(this->pam != 0); // PAM must be initialised
 
   int pam_status;
 
   if ((pam_status =
        pam_close_session(this->pam, 0)) != PAM_SUCCESS)
     {
-      g_debug("pam_close_session FAIL");
+      log_debug(DEBUG_WARNING) << "pam_close_session FAIL" << endl;
       throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
 		  ERROR_PAM_SESSION_CLOSE);
     }
 
-  g_debug("pam_close_session OK");
+  log_debug(DEBUG_NOTICE) << "pam_close_session OK" << endl;
 }
 
 /**

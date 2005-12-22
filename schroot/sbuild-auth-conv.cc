@@ -78,7 +78,7 @@ AuthConv::~AuthConv()
 bool
 AuthConv::conversation (AuthConv::message_list& messages)
 {
-  return this->signal_conversation(messages);
+  return this->conversation_impl(messages);
 }
 
 /*

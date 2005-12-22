@@ -46,6 +46,7 @@
 #include "sbuild-i18n.h"
 #include "sbuild-auth-conv-tty.h"
 #include "sbuild-error.h"
+#include "sbuild-log.h"
 #include "sbuild-util.h"
 
 using std::cerr;
@@ -144,7 +145,7 @@ reset_alarm (struct sigaction *orig_sa)
 static void
 alarm_handler (int ignore)
 {
-  timer_expired = TRUE;
+  timer_expired = true;
 }
 
 /**
@@ -166,15 +167,15 @@ set_alarm (int delay,
 
   if (sigaction(SIGALRM, &new_sa, orig_sa) != 0)
     {
-      return FALSE;
+      return false;
     }
   if (alarm(delay) != 0)
     {
       sigaction(SIGALRM, orig_sa, NULL);
-      return FALSE;
+      return false;
     }
 
-  return TRUE;
+  return true;
 }
 
 /**
@@ -224,8 +225,8 @@ AuthConvTty::get_delay ()
  * @echo: echo user input to screen
  *
  * Read user input from standard input.  The prompt @message is
- * printed to prompt the user for input.  If @echo is TRUE, the user
- * input it echoed back to the terminal, but if FALSE, echoing is
+ * printed to prompt the user for input.  If @echo is true, the user
+ * input it echoed back to the terminal, but if false, echoing is
  * suppressed using termios(3).
  *
  * If the SIGALRM timer expires while waiting for input, this is
@@ -248,17 +249,17 @@ AuthConvTty::read_string (std::string message,
 
   if (isatty(STDIN_FILENO))
     {
-      use_termios = TRUE;
+      use_termios = true;
 
       if (tcgetattr(STDIN_FILENO, &orig_termios) != 0)
 	{
-	  g_error("Failed to get terminal settings");
+	  log_error() << _("Failed to get terminal settings") << endl;
 	  return NULL;
 	}
 
       memcpy(&noecho_termios, &orig_termios, sizeof(struct termios));
 
-      if (echo == FALSE)
+      if (echo == false)
 	noecho_termios.c_lflag &= ~(ECHO);
 
       sigemptyset(&new_sigs);
@@ -275,10 +276,10 @@ AuthConvTty::read_string (std::string message,
     {
       cerr << message << endl;
 
-      if (use_termios == TRUE)
+      if (use_termios == true)
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &noecho_termios);
 
-      if (delay > 0 && set_alarm(delay, &saved_signals) == FALSE)
+      if (delay > 0 && set_alarm(delay, &saved_signals) == false)
 	break;
       else
 	{
@@ -286,18 +287,18 @@ AuthConvTty::read_string (std::string message,
 	  if (use_termios)
 	    {
 	      tcsetattr(STDIN_FILENO, TCSADRAIN, &orig_termios);
-	      if (echo == FALSE && timer_expired == TRUE)
+	      if (echo == false && timer_expired == true)
 		cerr << endl;
 	    }
 	  if (delay > 0)
 	    reset_alarm(&saved_signals);
-	  if (timer_expired == TRUE)
+	  if (timer_expired == true)
 	    {
 	      delay = get_delay();
 	    }
 	  else if (nchars > 0)
 	    {
-	      if (echo == FALSE)
+	      if (echo == false)
 		cerr << endl;
 
 	      if (input[nchars-1] == '\n')
@@ -310,7 +311,7 @@ AuthConvTty::read_string (std::string message,
 	    }
 	  else if (nchars == 0)
 	    {
-	      if (echo == FALSE)
+	      if (echo == false)
 		cerr << endl;
 
 	      return_input = new std::string();
@@ -321,7 +322,7 @@ AuthConvTty::read_string (std::string message,
 
   memset(input, 0, sizeof(input));
 
-  if (use_termios == TRUE)
+  if (use_termios == true)
     {
       sigprocmask(SIG_SETMASK, &old_sigs, NULL);
       tcsetattr(STDIN_FILENO, TCSADRAIN, &orig_termios);
@@ -338,10 +339,10 @@ AuthConvTty::read_string (std::string message,
  *
  * Hold a conversation with the user.
  *
- * Returns TRUE on success, FALSE on failure.
+ * Returns true on success, false on failure.
  */
 bool
-AuthConvTty::conversation_impl (std::vector<AuthMessage>& messages)
+AuthConvTty::conversation_impl (AuthConv::message_list& messages)
 {
   for (std::vector<AuthMessage>::iterator cur = messages.begin();
        cur != messages.end();
@@ -352,17 +353,17 @@ AuthConvTty::conversation_impl (std::vector<AuthMessage>& messages)
       switch (cur->type)
 	{
 	case AuthMessage::MESSAGE_PROMPT_NOECHO:
-	  str = read_string(cur->message, FALSE);
+	  str = read_string(cur->message, false);
 	  if (str == 0)
-	    return FALSE;
+	    return false;
 	  cur->response = *str;
 	  delete str;
 	  str = 0;
 	  break;
 	case AuthMessage::MESSAGE_PROMPT_ECHO:
-	  str = read_string(cur->message, TRUE);
+	  str = read_string(cur->message, true);
 	  if (str == 0)
-	    return FALSE;
+	    return false;
 	  cur->response = *str;
 	  delete str;
 	  str = 0;
@@ -377,12 +378,12 @@ AuthConvTty::conversation_impl (std::vector<AuthMessage>& messages)
 	  cerr << format_string(_("Unsupported conversation type %d"),
 				cur->type)
 	       << endl;
-	  return FALSE;
+	  return false;
 	  break;
 	}
     }
 
-  return TRUE;
+  return true;
 }
 
 /*
