@@ -169,29 +169,6 @@ keyfile::find_item(const std::string& group,
   return 0;
 }
 
-string_list
-keyfile::get_list_items(const std::string& value) const
-{
-  string_list ret;
-
-  // Skip any separators at the start
-  std::string::size_type last_pos =
-    value.find_first_not_of(this->separator, 0);
-  // Find first separator.
-  std::string::size_type pos = value.find_first_of(this->separator, last_pos);
-
-  while (pos !=std::string::npos || last_pos != std::string::npos)
-    {
-      // Add to list
-      ret.push_back(value.substr(last_pos, pos - last_pos));
-      // Find next
-      last_pos = value.find_first_not_of(this->separator, pos);
-      pos = value.find_first_of(this->separator, last_pos);
-    }
-
-  return ret;
-}
-
 void
 keyfile::print_comment(const std::string& comment,
 		       std::ostream&      stream) const

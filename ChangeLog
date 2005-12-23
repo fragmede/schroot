@@ -1,3 +1,28 @@
+2005-12-23  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-session.cc:
+	(sbuild_session_setup_chroot_child_setup): Remove.
+	(setup_chroot): Replace g_spawn_sync with fork(), exec() and
+	wait().  The uid, gid and group list are set prior to calling
+	exec, as with sbuild_session_setup_chroot_child_setup previously.
+	(run_child): Replace g_get_current_dir with GNU libc getcwd, and
+	replace g_find_program_in_path with find_program_in_path.
+	(wait_for_child): The variable to store the child exit status is
+	passed in by reference, rather than being fixed.
+
+	* schroot/sbuild-keyfile.h (keyfile::get_list_value): Use
+	split_string instead of get_list_items.
+
+	* schroot/sbuild-keyfile.cc (get_list_items): remove.
+
+	* schroot/sbuild-util.cc
+	(split_string): New function to split a string into a string_list,
+	based upon sbuild::keyfile::get_list_value, but allows
+	specification of a custom split character.  *
+	(find_program_in_path): New function to search for an executable
+	in $PATH.  A replacement for g_find_program_in_path.
+
+
 2005-12-22  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-chroot.h (sbuild::Chroot::format_detail):

@@ -22,6 +22,9 @@
 #include <config.h>
 
 #include <stdarg.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include "sbuild-util.h"
 
@@ -155,6 +158,56 @@ sbuild::string_list_to_string(sbuild::string_list const& list,
     }
 
   return ret;
+}
+
+string_list
+sbuild::split_string(const std::string& value,
+		     char               separator)
+{
+  string_list ret;
+
+  // Skip any separators at the start
+  std::string::size_type last_pos =
+    value.find_first_not_of(separator, 0);
+  // Find first separator.
+  std::string::size_type pos = value.find_first_of(separator, last_pos);
+
+  while (pos !=std::string::npos || last_pos != std::string::npos)
+    {
+      // Add to list
+      ret.push_back(value.substr(last_pos, pos - last_pos));
+      // Find next
+      last_pos = value.find_first_not_of(separator, pos);
+      pos = value.find_first_of(separator, last_pos);
+    }
+
+  return ret;
+}
+
+std::string
+sbuild::find_program_in_path(const std::string& program)
+{
+  if (program.find_first_of('/') != std::string::npos)
+    return program;
+
+  char *path = getenv("PATH");
+  string_list dirs = split_string(path, '/');
+
+  for (string_list::const_iterator dir = dirs.begin();
+       dir != dirs.end();
+       ++dir)
+    {
+      std::string absname = *dir + '/' + program;
+      struct stat statbuf;
+      if (!stat(absname.c_str(), &statbuf))
+	{
+	  if (S_ISREG(statbuf.st_mode) &&
+	      access (absname.c_str(), X_OK) == 0)
+	    return absname;
+	}
+    }
+
+  return "";
 }
 
 /*

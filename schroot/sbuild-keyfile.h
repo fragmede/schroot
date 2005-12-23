@@ -108,7 +108,7 @@ namespace sbuild
       if (get_value(group, key, item_value))
 	{
 	  C<T> tmplist;
-	  string_list items = get_list_items(item_value);
+	  string_list items = split_string(item_value, this->separator);
 	  for (string_list::const_iterator pos = items.begin();
 	       pos != items.end();
 	       ++pos
@@ -332,9 +332,6 @@ namespace sbuild
     item_type *
     find_item(const std::string& group,
 	      const std::string& key);
-
-    string_list
-    get_list_items(const std::string& value) const;
 
     group_map_type groups;
     char           separator;

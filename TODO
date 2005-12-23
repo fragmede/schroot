@@ -17,12 +17,6 @@ PENDING
 
 ** Remove all C/GLib type usage.
 
-** Remove all g_return_[val_]if_fail usage.
-
-** Remove all traces of GType.
-
-** Write a C++ replacement for GKeyFile.
-
 ** Enable C++ compiler warnings.
 
 ** Convert inline docs into Doxygen format to replace gtk-doc.
@@ -30,6 +24,9 @@ PENDING
 ** const correctness of references.
 
 ** Message newlines and warning levels.
+
+** Use Boost.Format to do type-safe message formatting, replacing
+   the sbuild::format_string vsnprintf() wrapper.
 
 PLANNED
 -------

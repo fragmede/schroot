@@ -121,7 +121,8 @@ namespace sbuild
     run_child (Chroot& session_chroot);
 
     void
-    wait_for_child (int pid);
+    wait_for_child (int  pid,
+		    int& child_status);
 
     std::tr1::shared_ptr<Config> config;
     string_list                  chroots;

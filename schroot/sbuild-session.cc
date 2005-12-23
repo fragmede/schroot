@@ -42,10 +42,9 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include <syslog.h>
-
-#include <glib.h>
 
 #include <uuid/uuid.h>
 
@@ -591,24 +590,6 @@ catch (const error& e)
 }
 
 /**
- * sbuild_session_setup_chroot_child_setup:
- * @session: an #Session
- *
- * A helper to make sure the child process is real and effective root
- * before running run-parts.
- */
-void
-sbuild_session_setup_chroot_child_setup ()
-{
-  /* This is required to ensure the scripts run with uid=0 and gid=0,
-     otherwise setuid programs such as mount(8) will fail.  This
-     should always succeed, because our euid=0 and egid=0.*/
-  setuid(0);
-  setgid(0);
-  initgroups("root", 0);
-}
-
-/**
  * sbuild_session_setup_chroot:
  * @session: an #Session
  * @session_chroot: an #Chroot (which must be present in the @session configuration)
@@ -728,28 +709,37 @@ Session::setup_chroot (Chroot&           session_chroot,
   setup_env_var(env, "PID", getpid());
   setup_env_var(env, "SESSION_ID", this->session_id);
 
-  char **argv = string_list_to_strv(arg_list);
-  char **envp = env_list_to_strv(env);
-
   int exit_status = 0;
-  GError *tmp_error = NULL;
+  pid_t pid;
 
-  g_spawn_sync("/",          // working directory
-	       argv,         // arguments
-	       envp,         // environment
-	       static_cast<GSpawnFlags>(0), // spawn flags
-	       (GSpawnChildSetupFunc)
-	         sbuild_session_setup_chroot_child_setup, // child_setup
-	       NULL,         // child_setup user_data
-	       NULL,         // standard_output
-	       NULL,         // standard_error
-	       &exit_status, // child exit status
-	       &tmp_error);  // error
-
-  strv_delete(argv);
-  strv_delete(envp);
-
-  // TODO: Check tmp_error
+  if ((pid = fork()) == -1)
+    {
+      throw error(std::string(_("Failed to fork child: ")) + strerror(errno),
+		  ERROR_FORK);
+    }
+  else if (pid == 0)
+    {
+      chdir("/");
+      /* This is required to ensure the scripts run with uid=0 and gid=0,
+	 otherwise setuid programs such as mount(8) will fail.  This
+	 should always succeed, because our euid=0 and egid=0.*/
+      setuid(0);
+      setgid(0);
+      initgroups("root", 0);
+      if (exec (arg_list[0], arg_list, env))
+	{
+	  log_error() << format_string(_("Could not exec \"%s\": %s"),
+				       arg_list[0].c_str(),
+				       strerror (errno))
+		      << endl;
+	  exit (EXIT_FAILURE);
+	}
+      exit (EXIT_FAILURE); /* Should never be reached. */
+    }
+  else
+    {
+      wait_for_child(pid, exit_status);
+    }
 
   try
     {
@@ -787,7 +777,15 @@ Session::run_child (Chroot& session_chroot)
   assert(Auth::pam != NULL); // PAM must be initialised
 
   const std::string& location = session_chroot.get_mount_location();
-  char *cwd = g_get_current_dir();
+  std::string cwd;
+  {
+    char *raw_cwd = getcwd (NULL, 0);
+    if (raw_cwd)
+      cwd = raw_cwd;
+    else
+      cwd = "/";
+    free(raw_cwd);
+  }
   /* Child errors result in immediate exit().  Errors are not
      propagated back via an exception, because there is no longer any
      higher-level handler to catch them. */
@@ -849,13 +847,12 @@ Session::run_child (Chroot& session_chroot)
     }
 
   /* chdir to current directory */
-  if (chdir (cwd))
+  if (chdir (cwd.c_str()))
     {
       log_error() << format_string(_("warning: Could not chdir to '%s': %s\n"),
-				  cwd, strerror (errno))
+				  cwd.c_str(), strerror (errno))
 		 << endl;
     }
-  g_free(cwd);
 
   /* Set up environment */
   env_list env = get_pam_environment();
@@ -943,12 +940,9 @@ Session::run_child (Chroot& session_chroot)
   else
     {
       /* Search for program in path. */
-      char *prog = g_find_program_in_path(command[0].c_str());
-      if (prog == NULL)
+      file = find_program_in_path(command[0]);
+      if (file.empty())
 	file = command[0];
-      else
-	file = prog;
-      g_free(prog);
       std::string commandstring = string_list_to_string(command, " ");
       log_debug(DEBUG_NOTICE)
 	<< format_string("Running command: %s", commandstring.c_str())
@@ -973,7 +967,6 @@ Session::run_child (Chroot& session_chroot)
     }
 
   /* Execute */
-  /* TODO: wrap execve. */
   if (exec (file, command, env))
     {
       log_error() << format_string(_("Could not exec \"%s\": %s"),
@@ -996,7 +989,8 @@ Session::run_child (Chroot& session_chroot)
  * indicate the cause of the failure).
  */
 void
-Session::wait_for_child (int pid)
+Session::wait_for_child (int  pid,
+			 int& child_status)
 {
   this->child_status = EXIT_FAILURE; // Default exit status
 
@@ -1026,12 +1020,12 @@ Session::wait_for_child (int pid)
 		    ERROR_CHILD);
     }
 
-  this->child_status = WEXITSTATUS(status);
+  child_status = WEXITSTATUS(status);
 
-  if (this->child_status)
+  if (child_status)
     {
       throw error(format_string(_("Child exited abnormally with status '%d'"),
-				   this->child_status),
+				   child_status),
 		  ERROR_CHILD);
     }
 }
@@ -1064,7 +1058,7 @@ Session::run_chroot (Chroot&   session_chroot)
     }
   else
     {
-      wait_for_child(pid);
+      wait_for_child(pid, this->child_status);
     }
 }
 

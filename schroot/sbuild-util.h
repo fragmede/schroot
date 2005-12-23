@@ -44,6 +44,13 @@ namespace sbuild
   string_list_to_string(string_list const& list,
 			std::string const& separator);
 
+  string_list
+  split_string(const std::string& value,
+	       char               separator);
+
+  std::string
+  find_program_in_path(const std::string& program);
+
 }
 
 #endif /* SBUILD_UTIL_H */
