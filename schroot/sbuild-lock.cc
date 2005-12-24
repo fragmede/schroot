@@ -37,12 +37,15 @@
 #include <signal.h>
 #include <unistd.h>
 
+#include <boost/format.hpp>
+
 #include <lockdev.h>
 
 #include "sbuild-i18n.h"
 #include "sbuild-lock.h"
 #include "sbuild-util.h"
 
+using boost::format;
 using namespace sbuild;
 
 namespace
@@ -91,8 +94,11 @@ Lock::set_alarm ()
   new_sa.sa_handler = alarm_handler;
 
   if (sigaction(SIGALRM, &new_sa, &this->saved_signals) != 0)
-    throw error(std::string(_("failed to set timeout handler: ")) + strerror(errno),
-		LOCK_ERROR_SETUP);
+    {
+      format fmt(_("failed to set timeout handler: %1%"));
+      fmt % strerror(errno);
+      throw error(fmt, LOCK_ERROR_SETUP);
+    }
 }
 
 /**
@@ -116,8 +122,9 @@ Lock::set_timer(struct itimerval const& timer)
   if (setitimer(ITIMER_REAL, &timer, NULL) == -1)
     {
       clear_alarm();
-      throw error(std::string(_("failed to set timeout: ")) + strerror(errno),
-		  LOCK_ERROR_SETUP);
+      format fmt(_("failed to set timeout: %1%"));
+      fmt % strerror(errno);
+      throw error(fmt, LOCK_ERROR_SETUP);
     }
 }
 
@@ -131,8 +138,9 @@ Lock::unset_timer()
   if (setitimer(ITIMER_REAL, &disable_timer, NULL) == -1)
     {
       clear_alarm();
-      throw error(std::string(_("failed to unset timeout: ")) + strerror(errno),
-		  LOCK_ERROR_SETUP);
+      format fmt(_("failed to unset timeout: %1%"));
+      fmt % strerror(errno);
+      throw error(fmt, LOCK_ERROR_SETUP);
     }
 
   clear_alarm();
@@ -193,13 +201,16 @@ FileLock::set_lock (Lock::Type   lock_type,
 	{
 	  if (errno == EINTR)
 	    {
-	      throw error(format_string("failed to acquire lock (timeout after %u seconds)",
-					timeout),
-			  LOCK_ERROR_TIMEOUT);
+	      format fmt (_("failed to acquire lock (timeout after %1% seconds)"));
+	      fmt % timeout;
+	      throw error(fmt, LOCK_ERROR_TIMEOUT);
 	    }
 	  else
-	    throw error(std::string(_("failed to acquire lock: ")) + strerror(errno),
-			LOCK_ERROR_FAIL);
+	    {
+	      format fmt(_("failed to acquire lock: %1%"));
+	      fmt % strerror(errno);
+	      throw error(fmt, LOCK_ERROR_FAIL);
+	    }
 	}
       unset_timer();
     }
@@ -297,9 +308,9 @@ DeviceLock::set_lock (Lock::Type   lock_type,
 		}
 	      else if (cur_lock_pid > 0 && cur_lock_pid != getpid()) // Another process owns the lock
 		{
-		  throw error(format_string(_("failed to release device lock held by pid %d"),
-					    cur_lock_pid),
-			      LOCK_ERROR_FAIL);
+		  format fmt(_("failed to release device lock held by pid %1%"));
+		  fmt % cur_lock_pid;
+		  throw error(fmt, LOCK_ERROR_FAIL);
 		}
 	      status = dev_unlock(this->device.c_str(), getpid());
 	      if (status == 0) // Success
@@ -314,19 +325,14 @@ DeviceLock::set_lock (Lock::Type   lock_type,
 
       if (lock_timeout)
 	{
-	  std::string err;
-	  if (lock_type == LOCK_SHARED ||
-	      lock_type == LOCK_EXCLUSIVE)
-	    err = format_string(_("failed to acquire device lock held by pid %d "
-				  "(timeout after %u seconds)"),
-				status, timeout);
-	  else
-	    {
-	      err = format_string(_("failed to release device lock held by pid %d "
-				    "(timeout after %u seconds)"),
-				  status, timeout);
-	    }
-	  throw error(err, LOCK_ERROR_TIMEOUT);
+	  format fmt((lock_type == LOCK_SHARED ||
+		      lock_type == LOCK_EXCLUSIVE) ?
+		     _("failed to acquire device lock held by pid %1% "
+		       "(timeout after %2% seconds)") :
+		     _("failed to release device lock held by pid %1% "
+		       "(timeout after %2% seconds)"));
+	  fmt %	status % timeout;
+	  throw error(fmt, LOCK_ERROR_TIMEOUT);
 	}
       unset_timer();
     }

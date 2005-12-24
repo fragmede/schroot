@@ -23,8 +23,11 @@
 
 #include <fstream>
 
+#include <boost/format.hpp>
+
 #include "sbuild-keyfile.h"
 
+using boost::format;
 using namespace sbuild;
 
 keyfile::keyfile(const std::string& file):
@@ -36,8 +39,12 @@ keyfile::keyfile(const std::string& file):
     {
       fs >> *this;
     }
-  else throw error(std::string(_("Can't open configuration file ")) + file,
-		   ERROR_FILE_NOT_FOUND);
+  else
+    {
+      format fmt(_("Can't open configuration file %1%"));
+      fmt % file;
+      throw error(fmt, ERROR_FILE_NOT_FOUND);
+    }
 }
 
 keyfile::keyfile(std::istream& stream):

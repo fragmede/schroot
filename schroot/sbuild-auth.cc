@@ -66,6 +66,8 @@
 
 #include <syslog.h>
 
+#include <boost/format.hpp>
+
 #include "sbuild-i18n.h"
 #include "sbuild-auth.h"
 #include "sbuild-auth-conv-tty.h"
@@ -76,6 +78,7 @@
 
 using std::cerr;
 using std::endl;
+using boost::format;
 using namespace sbuild;
 
 namespace
@@ -183,9 +186,9 @@ Auth::Auth(const std::string& service_name):
   struct passwd *pwent = getpwuid(this->ruid);
   if (pwent == 0)
     {
-      cerr << format_string(_("%lu: user not found: %s\n"),
-			    (unsigned long) this->ruid,
-			    strerror(errno))
+      cerr << format(_("%1%: user not found: %2%"))
+	% this->ruid
+	% strerror(errno)
 	   << endl;
       exit (EXIT_FAILURE);
     }
@@ -290,9 +293,9 @@ Auth::set_user (const std::string& user)
   struct passwd *pwent = getpwnam(this->user.c_str());
   if (pwent == 0)
     {
-      cerr << format_string(_("%s: user not found: %s\n"),
-			    this->user.c_str(),
-			    strerror(errno))
+      cerr << format(_("%1%: user not found: %2%"))
+	% this->user.c_str()
+	% strerror(errno)
 	   << endl;
       exit (EXIT_FAILURE);
     }
@@ -301,8 +304,7 @@ Auth::set_user (const std::string& user)
   this->home = pwent->pw_dir;
   this->shell = pwent->pw_shell;
   log_debug(DEBUG_INFO)
-    << format_string("auth uid = %lu, gid = %lu",
-		     (unsigned long) this->uid, (unsigned long) this->gid)
+    << format("auth uid = %1%, gid = %2%") % this->uid % this->gid
     << endl;
 }
 
@@ -518,8 +520,7 @@ Auth::run ()
 	  const char *authuser = 0;
 	  pam_get_item(this->pam, PAM_USER, (const void **) &authuser);
 	  log_debug(DEBUG_INFO)
-	    << format_string("PAM authentication succeeded for user %s\n",
-			     authuser)
+	    << format("PAM authentication succeeded for user %1%") % authuser
 	    << endl;
 
 	  run_impl();
@@ -599,8 +600,9 @@ Auth::start ()
 		 &conv_hook, &this->pam)) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_start FAIL" << endl;
-      throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
-		  ERROR_PAM_STARTUP);
+      format fmt(_("PAM error: %1%"));
+      fmt % pam_strerror(this->pam, pam_status);
+      throw error(fmt, ERROR_PAM_STARTUP);
     }
 
   log_debug(DEBUG_NOTICE) << "pam_start OK" << endl;
@@ -628,8 +630,9 @@ Auth::stop ()
        pam_end(this->pam, PAM_SUCCESS)) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_end FAIL" << endl;
-      throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
-		  ERROR_PAM_SHUTDOWN);
+      format fmt(_("PAM error: %1%"));
+      fmt % pam_strerror(this->pam, pam_status);
+      throw error(fmt, ERROR_PAM_SHUTDOWN);
     }
 
   log_debug(DEBUG_NOTICE) << "pam_end OK" << endl;
@@ -658,8 +661,9 @@ Auth::authenticate ()
        pam_set_item(this->pam, PAM_RUSER, this->ruser.c_str())) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_set_item (PAM_RUSER) FAIL" << endl;
-      throw error(std::string(_("PAM set RUSER error: ")) + pam_strerror(this->pam, pam_status),
-		  ERROR_PAM_SET_ITEM);
+      format fmt(_("PAM set RUSER error: %1%"));
+      fmt % pam_strerror(this->pam, pam_status);
+      throw error(fmt, ERROR_PAM_SET_ITEM);
     }
 
   long hl = 256; /* sysconf(_SC_HOST_NAME_MAX); BROKEN with Debian libc6 2.3.2.ds1-22 */
@@ -668,16 +672,18 @@ Auth::authenticate ()
   if (gethostname(hostname, hl) != 0)
     {
       log_debug(DEBUG_CRITICAL) << "gethostname FAIL" << endl;
-      throw error(std::string(_("Failed to get hostname: ")) + strerror(errno),
-		  ERROR_HOSTNAME);
+      format fmt(_("Failed to get hostname: %1%"));
+      fmt % pam_strerror(this->pam, pam_status);
+      throw error(fmt, ERROR_HOSTNAME);
     }
 
   if ((pam_status =
        pam_set_item(this->pam, PAM_RHOST, hostname)) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_set_item (PAM_RHOST) FAIL" << endl;
-      throw error(std::string(_("PAM set RHOST error: ")) + pam_strerror(this->pam, pam_status),
-		  ERROR_PAM_SET_ITEM);
+      format fmt(_("PAM set RHOST error: %1%"));
+      fmt % pam_strerror(this->pam, pam_status);
+      throw error(fmt, ERROR_PAM_SET_ITEM);
     }
 
   delete[] hostname;
@@ -690,8 +696,9 @@ Auth::authenticate ()
 	   pam_set_item(this->pam, PAM_TTY, tty)) != PAM_SUCCESS)
 	{
 	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_TTY) FAIL" << endl;
-	  throw error(std::string(_("PAM set TTY error: ")) + pam_strerror(this->pam, pam_status),
-		      ERROR_PAM_SET_ITEM);
+	  format fmt(_("PAM set TTY error: %1%"));
+	  fmt % pam_strerror(this->pam, pam_status);
+	  throw error(fmt, ERROR_PAM_SET_ITEM);
 	}
     }
 
@@ -703,8 +710,9 @@ Auth::authenticate ()
 	   pam_set_item(this->pam, PAM_USER, this->user.c_str())) != PAM_SUCCESS)
 	{
 	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_USER) FAIL" << endl;
-	  throw error(std::string(_("PAM set USER error: ")) + pam_strerror(this->pam, pam_status),
-		      ERROR_PAM_SET_ITEM);
+	  format fmt(_("PAM set USER error: %1%"));
+	  fmt % pam_strerror(this->pam, pam_status);
+	  throw error(fmt, ERROR_PAM_SET_ITEM);
 	}
       break;
 
@@ -715,8 +723,9 @@ Auth::authenticate ()
 	  log_debug(DEBUG_INFO) << "pam_authenticate FAIL" << endl;
 	  syslog(LOG_AUTH|LOG_WARNING, "%s->%s Authentication failure",
 		 this->ruser.c_str(), this->user.c_str());
-	  throw error(std::string(_("PAM authentication failed: ")) + pam_strerror(this->pam, pam_status),
-		      ERROR_PAM_AUTHENTICATE);
+	  format fmt(_("PAM authentication failed: %1%"));
+	  fmt % pam_strerror(this->pam, pam_status);
+	  throw error(fmt, ERROR_PAM_AUTHENTICATE);
 	}
       log_debug(DEBUG_NOTICE) << "pam_authenticate OK" << endl;
       break;
@@ -724,9 +733,9 @@ Auth::authenticate ()
     case STATUS_FAIL:
 	{
 	  log_debug(DEBUG_INFO) << "PAM auth premature FAIL" << endl;
-	  cerr << format_string(_("You do not have permission to access the %s service.\n"),
-				this->service.c_str())
-	       << "\n"
+	  cerr << format(_("You do not have permission to access the %1% service."))
+	    % this->service
+	       << '\n'
 	       << _("This failure will be reported.")
 	       << endl;
 	  syslog(LOG_AUTH|LOG_WARNING,
@@ -793,13 +802,13 @@ Auth::setupenv ()
 	   pam_putenv(this->pam, env_string.c_str())) != PAM_SUCCESS)
 	{
 	  log_debug(DEBUG_WARNING) << "pam_putenv FAIL" << endl;
-	  throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
-		      ERROR_PAM_PUTENV);
+	  format fmt(_("PAM error: %1%"));
+	  fmt % pam_strerror(this->pam, pam_status);
+	  throw error(fmt, ERROR_PAM_PUTENV);
 	}
-	  log_debug(DEBUG_INFO)
-	    << format_string("pam_putenv: set %s=%s",
-			     cur->first.c_str(), cur->second.c_str())
-	    << endl;
+      log_debug(DEBUG_INFO)
+	<< format("pam_putenv: set %1%=%2%") % cur->first % cur->second
+	<< endl;
     }
 
   log_debug(DEBUG_NOTICE) << "pam_putenv OK" << endl;
@@ -828,8 +837,9 @@ Auth::account ()
       /* We don't handle changing expired passwords here, since we are
 	 not login or ssh. */
       log_debug(DEBUG_WARNING) << "pam_acct_mgmt FAIL" << endl;
-      throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
-		  ERROR_PAM_ACCOUNT);
+      format fmt(_("PAM error: %1%"));
+      fmt % pam_strerror(this->pam, pam_status);
+      throw error(fmt, ERROR_PAM_ACCOUNT);
     }
 
   log_debug(DEBUG_NOTICE) << "pam_acct_mgmt OK" << endl;
@@ -856,8 +866,9 @@ Auth::cred_establish ()
        pam_setcred(this->pam, PAM_ESTABLISH_CRED)) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_setcred FAIL" << endl;
-      throw error(std::string(_("PAM error: \n")) + pam_strerror(this->pam, pam_status),
-		  ERROR_PAM_CREDENTIALS);
+      format fmt(_("PAM error: %1%"));
+      fmt % pam_strerror(this->pam, pam_status);
+      throw error(fmt, ERROR_PAM_CREDENTIALS);
     }
 
   log_debug(DEBUG_NOTICE) << "pam_setcred OK" << endl;
@@ -884,8 +895,9 @@ Auth::cred_delete ()
        pam_setcred(this->pam, PAM_DELETE_CRED)) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_setcred (delete) FAIL" << endl;
-      throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
-		  ERROR_PAM_DELETE_CREDENTIALS);
+      format fmt(_("PAM error: %1%"));
+      fmt % pam_strerror(this->pam, pam_status);
+      throw error(fmt, ERROR_PAM_DELETE_CREDENTIALS);
     }
 
   log_debug(DEBUG_NOTICE) << "pam_setcred (delete) OK" << endl;
@@ -912,8 +924,9 @@ Auth::open_session ()
        pam_open_session(this->pam, 0)) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_open_session FAIL" << endl;
-      throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
-		  ERROR_PAM_SESSION_OPEN);
+      format fmt(_("PAM error: %1%"));
+      fmt % pam_strerror(this->pam, pam_status);
+      throw error(fmt, ERROR_PAM_SESSION_OPEN);
     }
 
   log_debug(DEBUG_NOTICE) << "pam_open_session OK" << endl;
@@ -940,8 +953,9 @@ Auth::close_session ()
        pam_close_session(this->pam, 0)) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_close_session FAIL" << endl;
-      throw error(std::string(_("PAM error: ")) + pam_strerror(this->pam, pam_status),
-		  ERROR_PAM_SESSION_CLOSE);
+      format fmt(_("PAM error: %1%"));
+      fmt % pam_strerror(this->pam, pam_status);
+      throw error(fmt, ERROR_PAM_SESSION_CLOSE);
     }
 
   log_debug(DEBUG_NOTICE) << "pam_close_session OK" << endl;

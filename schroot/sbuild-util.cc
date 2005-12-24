@@ -105,44 +105,6 @@ sbuild::dirname(std::string name,
 }
 
 std::string
-sbuild::format_string(const char *format, ...)
-{
-  int buflen = 64;
-  char *buff = new char[buflen];
-  int bytes = 0;
-
-  std::string retval;
-
-  while (1)
-    {
-      va_list args;
-      va_start(args, format);
-      bytes = vsnprintf(buff, buflen, format, args);
-      va_end(args);
-      if (bytes >= 0 && bytes < buflen)
-	{
-	  retval = buff;
-	  break;
-	}
-      else if (bytes < 0) // error
-	{
-	  retval = "";
-	  break;
-	}
-      else // output truncated
-	{
-	  delete[] buff;
-	  buflen = bytes + 1;
-	  buff = new char[buflen];
-	}
-    }
-
-  delete[] buff;
-
-  return retval;
-}
-
-std::string
 sbuild::string_list_to_string(sbuild::string_list const& list,
 			      std::string const&         separator)
 {

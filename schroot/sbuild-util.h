@@ -38,9 +38,6 @@ namespace sbuild
 	  char        separator = '/');
 
   std::string
-  format_string(const char *format, ...);
-
-  std::string
   string_list_to_string(string_list const& list,
 			std::string const& separator);
 

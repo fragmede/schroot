@@ -46,6 +46,8 @@
 
 #include <syslog.h>
 
+#include <boost/format.hpp>
+
 #include <uuid/uuid.h>
 
 #include "sbuild-i18n.h"
@@ -56,6 +58,7 @@
 
 using std::cout;
 using std::endl;
+using boost::format;
 using namespace sbuild;
 
 namespace
@@ -138,10 +141,10 @@ namespace
     if (groupbuf == NULL)
       {
 	if (errno == 0)
-	  log_error() << format_string(_("%s: group not found\n"), group.c_str())
-		      << endl;
+	  log_error() << format(_("%1%: group not found")) % group << endl;
 	else
-	  log_error() << format_string(_("%s: group not found: %s\n"), group.c_str(), strerror(errno))
+	  log_error() << format(_("%1%: group not found: %2%"))
+	    % group % strerror(errno)
 		      << endl;
 	exit (EXIT_FAILURE);
       }
@@ -156,7 +159,8 @@ namespace
 	int supp_group_count = getgroups(0, NULL);
 	if (supp_group_count < 0)
 	  {
-	    log_error() << format_string(_("can't get supplementary group count: %s"), strerror(errno))
+	    log_error() << format(_("can't get supplementary group count: %1%"))
+	      % strerror(errno)
 			<< endl;
 	    exit (EXIT_FAILURE);
 	  }
@@ -165,7 +169,8 @@ namespace
 	    gid_t supp_groups[supp_group_count];
 	    if (getgroups(supp_group_count, supp_groups) < 1)
 	      {
-		log_error() << format_string(_("can't get supplementary groups: %s\n"), strerror(errno))
+		log_error() << format(_("can't get supplementary groups: %1%"))
+		  % strerror(errno)
 			    << endl;
 		exit (EXIT_FAILURE);
 	      }
@@ -381,7 +386,8 @@ Session::get_auth_status () const
       const Chroot *chroot = this->config->find_alias(*cur);
       if (chroot == NULL) // Should never happen, but cater for it anyway.
 	{
-	  log_warning() << format_string(_("No chroot found matching alias '%s'"), cur->c_str())
+	  log_warning() << format(_("No chroot found matching alias '%1%'"))
+	    % *cur
 			<< endl;
 	  status = change_auth(status, Auth::STATUS_FAIL);
 	}
@@ -470,7 +476,7 @@ try
 	 ++cur)
       {
 	log_debug(DEBUG_NOTICE)
-	  << format_string("Running session in %s chroot:\n", cur->c_str())
+	  << format("Running session in %1% chroot:") % *cur
 	  << endl;
 	const Chroot *ch = this->config->find_alias(*cur);
 	if (chroot == NULL) // Should never happen, but cater for it anyway.
@@ -667,7 +673,9 @@ Session::setup_chroot (Chroot&           session_chroot,
   if (setup_type == Chroot::SETUP_STOP ||
       setup_type == Chroot::RUN_STOP)
     arg_list.push_back("--reverse");
-  arg_list.push_back(format_string("--arg=%s", setup_type_string));
+  format arg_fmt("--arg=%1%");
+  arg_fmt % setup_type_string;
+  arg_list.push_back(arg_fmt.str());
   if (setup_type == Chroot::SETUP_START ||
       setup_type == Chroot::SETUP_RECOVER ||
       setup_type == Chroot::SETUP_STOP)
@@ -696,7 +704,8 @@ Session::setup_chroot (Chroot&           session_chroot,
 	verbosity = "verbose";
 	break;
       default:
-	log_debug(DEBUG_CRITICAL) << format_string(_("Invalid verbosity level: %d, falling back to \"normal\""), static_cast<int>(get_verbosity()))
+	log_debug(DEBUG_CRITICAL) << format(_("Invalid verbosity level: %1%, falling back to \"normal\""))
+	  % static_cast<int>(get_verbosity())
 		     << endl;
 	verbosity = "normal";
 	break;
@@ -714,8 +723,9 @@ Session::setup_chroot (Chroot&           session_chroot,
 
   if ((pid = fork()) == -1)
     {
-      throw error(std::string(_("Failed to fork child: ")) + strerror(errno),
-		  ERROR_FORK);
+      format fmt(_("Failed to fork child: %1%"));
+      fmt % strerror(errno);
+      throw error(fmt, ERROR_FORK);
     }
   else if (pid == 0)
     {
@@ -728,9 +738,8 @@ Session::setup_chroot (Chroot&           session_chroot,
       initgroups("root", 0);
       if (exec (arg_list[0], arg_list, env))
 	{
-	  log_error() << format_string(_("Could not exec \"%s\": %s"),
-				       arg_list[0].c_str(),
-				       strerror (errno))
+	  log_error() << format(_("Could not exec \"%1%\": %2%"))
+	    % arg_list[0] % strerror(errno)
 		      << endl;
 	  exit (EXIT_FAILURE);
 	}
@@ -795,7 +804,7 @@ Session::run_child (Chroot& session_chroot)
     }
   catch (const Auth::error& e)
     {
-      log_error() << format_string(_("PAM error: %s\n"), e.what())
+      log_error() << format(_("PAM error: %1%")) % e.what()
 		  << endl;
       exit (EXIT_FAILURE);
     }
@@ -803,7 +812,7 @@ Session::run_child (Chroot& session_chroot)
   /* Set group ID and supplementary groups */
   if (setgid (get_gid()))
     {
-      log_error() << format_string(_("Could not set gid to '%lu'"), (unsigned long) get_gid())
+      log_error() << format(_("Could not set gid to '%1%'")) % get_gid()
 		  << endl;
       exit (EXIT_FAILURE);
     }
@@ -816,17 +825,15 @@ Session::run_child (Chroot& session_chroot)
   /* Enter the chroot */
   if (chdir (location.c_str()))
     {
-      log_error() << format_string(_("Could not chdir to '%s': %s"),
-				   location.c_str(),
-				   strerror (errno))
+      log_error() << format(_("Could not chdir to '%1%': %2%"))
+	% location % strerror(errno)
 		  << endl;
       exit (EXIT_FAILURE);
     }
   if (chroot (location.c_str()))
     {
-      log_error() << format_string(_("Could not chroot to '%s': %s"),
-				   location.c_str(),
-				   strerror (errno))
+      log_error() << format(_("Could not chroot to '%1%': %2%"))
+	% location % strerror(errno)
 		  << endl;
       exit (EXIT_FAILURE);
     }
@@ -834,8 +841,7 @@ Session::run_child (Chroot& session_chroot)
   /* Set uid and check we are not still root */
   if (setuid (get_uid()))
     {
-      log_error() << format_string(_("Could not set uid to '%lu'"),
-				   (unsigned long) get_uid())
+      log_error() << format(_("Could not set uid to '%1%'")) % get_uid()
 		  << endl;
       exit (EXIT_FAILURE);
     }
@@ -849,8 +855,8 @@ Session::run_child (Chroot& session_chroot)
   /* chdir to current directory */
   if (chdir (cwd.c_str()))
     {
-      log_error() << format_string(_("warning: Could not chdir to '%s': %s\n"),
-				  cwd.c_str(), strerror (errno))
+      log_error() << format(_("warning: Could not chdir to '%1%': %2%"))
+	% cwd % strerror(errno)
 		 << endl;
     }
 
@@ -860,8 +866,7 @@ Session::run_child (Chroot& session_chroot)
        cur != env.end();
        ++cur)
     log_debug(DEBUG_INFO)
-      << format_string("Set environment: %s=%s",
-		       cur->first.c_str(), cur->second.c_str())
+      << format("Set environment: %1%=%2%") % cur->first % cur->second
       << endl;
 
   /* Run login shell */
@@ -880,7 +885,7 @@ Session::run_child (Chroot& session_chroot)
 	  std::string loginshell = "-" + shellbase;
 	  command.push_back(loginshell);
 	  log_debug(DEBUG_INFO)
-	    << format_string("Login shell: %s", command[1].c_str()) << endl;
+	    << format("Login shell: %1%") % command[1] << endl;
 	}
       else
 	{
@@ -890,15 +895,14 @@ Session::run_child (Chroot& session_chroot)
       if (get_environment().empty())
 	{
 	  log_debug(DEBUG_NOTICE)
-	    << format_string("Running login shell: %s", get_shell().c_str())
-	    << endl;
+	    << format("Running login shell: %1%") % get_shell() << endl;
 	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running login shell: \"%s\"",
 		 session_chroot.get_name().c_str(), get_ruser().c_str(), get_user().c_str(), get_shell().c_str());
 	}
       else
 	{
 	  log_debug(DEBUG_NOTICE)
-	    << format_string("Running shell: %s", get_shell().c_str()) << endl;
+	    << format("Running shell: %1%") % get_shell() << endl;
 	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running shell: \"%s\"",
 		 session_chroot.get_name().c_str(), get_ruser().c_str(), get_user().c_str(), get_shell().c_str());
 	}
@@ -906,35 +910,21 @@ Session::run_child (Chroot& session_chroot)
       if (get_verbosity() != Auth::VERBOSITY_QUIET)
 	{
 	  if (get_ruid() == get_uid())
-	    {
-	      if (get_environment().empty())
-		log_error() << format_string(_("[%s chroot] Running login shell: \"%s\"\n"),
-					     session_chroot.get_name().c_str(),
-					     get_shell().c_str())
-			    << endl;
-	      else
-		log_error() << format_string(_("[%s chroot] Running shell: \"%s\"\n"),
-					     session_chroot.get_name().c_str(),
-					     get_shell().c_str())
-			    << endl;
-	    }
+	    log_info()
+	      << format(_(get_environment().empty() ?
+			  "[%1% chroot] Running login shell: \"%2%\"" :
+			  "[%1% chroot] Running shell: \"%2%\""))
+	      % session_chroot.get_name() % get_shell()
+	      << endl;
 	  else
-	    {
-	      if (get_environment().empty())
-		log_error() << format_string(_("[%s chroot] (%s->%s) Running login shell: \"%s\"\n"),
-					     session_chroot.get_name().c_str(),
-					     get_ruser().c_str(),
-					     get_user().c_str(),
-					     get_shell().c_str())
-			    << endl;
-	      else
-		log_error() << format_string(_("[%s chroot] (%s->%s) Running shell: \"%s\"\n"),
-					     session_chroot.get_name().c_str(),
-					     get_ruser().c_str(),
-					     get_user().c_str(),
-					     get_shell().c_str())
-			    << endl;
-	    }
+	    log_info()
+	      << format(_(get_environment().empty() ?
+			  "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\"" :
+			  "[%1% chroot] (%2%->%3%) Running shell: \"%4%\""))
+	      % session_chroot.get_name()
+	      % get_ruser() % get_user()
+	      % get_shell()
+	      << endl;
 	}
     }
   else
@@ -945,33 +935,29 @@ Session::run_child (Chroot& session_chroot)
 	file = command[0];
       std::string commandstring = string_list_to_string(command, " ");
       log_debug(DEBUG_NOTICE)
-	<< format_string("Running command: %s", commandstring.c_str())
-	<< endl;
+	<< format("Running command: %1%") % commandstring << endl;
       syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
 	     session_chroot.get_name().c_str(), get_ruser().c_str(), get_user().c_str(), commandstring.c_str());
       if (get_verbosity() != Auth::VERBOSITY_QUIET)
 	{
 	  if (get_ruid() == get_uid())
-	    log_error() << format_string(_("[%s chroot] Running command: \"%s\""),
-					 session_chroot.get_name().c_str(),
-					 commandstring.c_str())
-			<< endl;
+	    log_info() << format(_("[%1% chroot] Running command: \"%2%\""))
+	      % session_chroot.get_name() % commandstring
+		       << endl;
 	  else
-	    log_error() << format_string(_("[%s chroot] (%s->%s) Running command: \"%s\""),
-					 session_chroot.get_name().c_str(),
-					 get_ruser().c_str(),
-					 get_user().c_str(),
-					 commandstring.c_str())
-			<< endl;
+	    log_info() << format(_("[%1% chroot] (%2%->%3%) Running command: \"%4%\""))
+	      % session_chroot.get_name()
+	      % get_ruser() % get_user()
+	      % commandstring
+		       << endl;
 	}
     }
 
   /* Execute */
   if (exec (file, command, env))
     {
-      log_error() << format_string(_("Could not exec \"%s\": %s"),
-				   command[0].c_str(),
-				   strerror (errno))
+      log_error() << format(_("Could not exec \"%1%\": %2%"))
+	% command[0] % strerror(errno)
 		  << endl;
       exit (EXIT_FAILURE);
     }
@@ -996,8 +982,11 @@ Session::wait_for_child (int  pid,
 
   int status;
   if (wait(&status) != pid)
-    throw error(std::string(_("wait for child failed: ")) + strerror (errno),
-		ERROR_CHILD);
+    {
+      format fmt(_("wait for child failed: %1%"));
+      fmt % strerror(errno);
+      throw error(fmt, ERROR_CHILD);
+    }
 
   try
     {
@@ -1011,8 +1000,11 @@ Session::wait_for_child (int  pid,
   if (!WIFEXITED(status))
     {
       if (WIFSIGNALED(status))
-	throw error(std::string(_("Child terminated by signal ")) + strsignal(WTERMSIG(status)),
-		    ERROR_CHILD);
+	{
+	  format fmt(_("Child terminated by signal %1%"));
+	  fmt % strsignal(WTERMSIG(status));
+	  throw error(fmt, ERROR_CHILD);
+	}
       else if (WCOREDUMP(status))
 	throw error(_("Child dumped core"), ERROR_CHILD);
       else
@@ -1024,9 +1016,9 @@ Session::wait_for_child (int  pid,
 
   if (child_status)
     {
-      throw error(format_string(_("Child exited abnormally with status '%d'"),
-				   child_status),
-		  ERROR_CHILD);
+      format fmt(_("Child exited abnormally with status '%1%'"));
+      fmt % child_status;
+      throw error(fmt, ERROR_CHILD);
     }
 }
 
@@ -1048,8 +1040,9 @@ Session::run_chroot (Chroot&   session_chroot)
   pid_t pid;
   if ((pid = fork()) == -1)
     {
-      throw error(std::string(_("Failed to fork child: ")) + strerror(errno),
-		  ERROR_FORK);
+      format fmt(_("Failed to fork child: %1%"));
+      fmt % strerror(errno);
+      throw error(fmt, ERROR_FORK);
     }
   else if (pid == 0)
     {

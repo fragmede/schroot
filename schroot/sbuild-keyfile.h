@@ -29,6 +29,8 @@
 #include <sstream>
 #include <tr1/tuple>
 
+#include <boost/format.hpp>
+
 #include "sbuild-error.h"
 #include "sbuild-i18n.h"
 #include "sbuild-types.h"
@@ -217,10 +219,11 @@ namespace sbuild
 	    std::string::size_type fpos = line.find_first_of(']');
 	    std::string::size_type lpos = line.find_last_of(']');
 	    if (fpos == std::string::npos || fpos != lpos)
-	      throw error(format_string(_("Line %lu: invalid group entry: %s"),
-					static_cast<unsigned long>(linecount),
-					line.c_str()),
-			  ERROR_PARSE);
+	      {
+		boost::format fmt(_("Line %1%: invalid group entry: %2%"));
+		fmt % linecount % line;
+		throw error(fmt, ERROR_PARSE);
+	      }
 	    group = line.substr(1, fpos - 2);
 
 	    if (!comment.empty())
@@ -242,15 +245,17 @@ namespace sbuild
 	  {
 	    std::string::size_type pos = line.find_first_of('=');
 	    if (pos == std::string::npos)
-	      throw error(format_string(_("Line %lu: invalid line: %s"),
-					static_cast<unsigned long>(linecount),
-					line.c_str()),
-			  ERROR_PARSE);
+	      {
+		boost::format fmt(_("Line %1%: invalid line: %2%"));
+		fmt % linecount % line;
+		throw error(fmt, ERROR_PARSE);
+	      }
 	    if (pos == 0)
-	      throw error(format_string(_("Line %lu: no key specified: %s"),
-					static_cast<unsigned long>(linecount),
-					line.c_str()),
-			  ERROR_PARSE);
+	      {
+		boost::format fmt(_("Line %1%: no key specified: %2%"));
+		fmt % linecount % line;
+		throw error(fmt, ERROR_PARSE);
+	      }
 	    key = line.substr(0, pos - 1);
 	    if (pos == line.length() - 1)
 	      value = "";

@@ -36,6 +36,8 @@
 
 #include <glib.h>
 
+#include <boost/format.hpp>
+
 #include "schroot-options.h"
 
 #include "sbuild-i18n.h"
@@ -43,6 +45,7 @@
 #include "sbuild-util.h"
 
 using std::endl;
+using boost::format;
 using namespace schroot;
 
 static bool
@@ -75,9 +78,9 @@ Options::Options(int   argc,
   session_operation(sbuild::Session::OPERATION_AUTOMATIC),
   session_force(false)
 {
-  char **chroots;
-  char **command;
-  char *user;
+  char **chroots = 0;
+  char **command = 0;
+  char *user = 0;
 
   GOptionEntry entries[] =
     {
@@ -145,9 +148,7 @@ Options::Options(int   argc,
   if (error != NULL)
     {
       sbuild::log_error()
-	<< sbuild::format_string(_("Error parsing options: %s\n"),
-				 error->message)
-	<< endl;
+	<< format(_("Error parsing options: %1%")) % error->message << endl;
       exit (EXIT_FAILURE);
     }
 
@@ -159,15 +160,22 @@ Options::Options(int   argc,
       sbuild::log_info() << _("Using verbose output.") << endl;
     }
 
-  for (char *chroot = chroots[0]; chroot != NULL; ++chroot)
-    this->chroots.push_back(chroot);
+  if (chroots)
+    {
+      for (char *chroot = chroots[0]; chroot != NULL; ++chroot)
+	this->chroots.push_back(chroot);
+    }
   g_strfreev(chroots);
 
-  this->user = user;
+  if (user)
+    this->user = user;
   g_free(user);
 
-  for (char *command_part = command[0]; command_part != NULL; ++command_part)
-    this->command.push_back(command_part);
+  if (command)
+    {
+      for (char *command_part = command[0]; command_part != NULL; ++command_part)
+	this->command.push_back(command_part);
+    }
   g_strfreev(command);
 
   /* Ensure there's something to list. */

@@ -1,5 +1,14 @@
 2005-12-24  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-util.cc: Remove format_string.
+
+	* Convert all uses of sbuild::format_string to boost::format.
+
+	* schroot/sbuild-error.h (sbuild): Add a constructor which gets
+	its message from a boost::format, rather than a std::string.
+
+2005-12-24  Roger Leigh  <rleigh@debian.org>
+
 	* debian/control (Build-Depends): Add libboost-dev and
 	libboost-program-options.
 

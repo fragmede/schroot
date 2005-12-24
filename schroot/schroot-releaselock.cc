@@ -31,6 +31,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include <boost/format.hpp>
+
 #include <lockdev.h>
 
 #include <glib.h>
@@ -40,6 +42,7 @@
 #include "sbuild-util.h"
 
 using std::endl;
+using boost::format;
 
 /* Stored command-line options. */
 struct options {
@@ -88,9 +91,7 @@ parse_options(int   argc,
   if (error != NULL)
     {
       sbuild::log_error()
-	<< sbuild::format_string(_("Error parsing options: %s\n"),
-				 error->message)
-	<< endl;
+	<< format(_("Error parsing options: %1%")) % error->message << endl;
       exit (EXIT_FAILURE);
     }
 }
@@ -104,7 +105,7 @@ parse_options(int   argc,
 void
 print_version (std::ostream& stream)
 {
-  stream << sbuild::format_string(_("schroot-releaselock (Debian sbuild) %s\n"), VERSION)
+  stream << format(_("schroot-releaselock (Debian sbuild) %1%\n")) % VERSION
 	 << _("Written by Roger Leigh\n\n")
 	 << _("Copyright (C) 2004-2005 Roger Leigh\n")
 	 << _("This is free software; see the source for copying conditions.  There is NO\n"
@@ -162,17 +163,15 @@ main (int   argc,
   if (stat(opt.device, &statbuf) == -1)
     {
       sbuild::log_error()
-	<< sbuild::format_string(_("Failed to stat device %s: %s\n"),
-				 opt.device, strerror(errno))
+	<< format(_("Failed to stat device %1%: %2%"))
+	% opt.device % strerror(errno)
 	<< endl;
       exit (EXIT_FAILURE);
     }
   if (!S_ISBLK(statbuf.st_mode))
     {
       sbuild::log_error()
-	<< sbuild::format_string(_("%s is not a block device\n"),
-				 opt.device)
-	<< endl;
+	<< format(_("%1% is not a block device")) % opt.device << endl;
       exit (EXIT_FAILURE);
     }
 
@@ -180,16 +179,15 @@ main (int   argc,
   if (status < 0) // Failure
     {
       sbuild::log_error()
-	<< sbuild::format_string(_("%s: failed to release device lock\n"),
-				 opt.device)
+	<< format(_("%1%: failed to release device lock")) % opt.device
 	<< endl;
       exit (EXIT_FAILURE);
     }
   else if (status > 0) // Owned
     {
       sbuild::log_error()
-	<< sbuild::format_string(_("%s: failed to release device lock owned by pid %d\n"),
-				 opt.device, status)
+	<< format(_("%1%: failed to release device lock owned by pid %2%"))
+	% opt.device % status
 	<< endl;
       exit (EXIT_FAILURE);
     }

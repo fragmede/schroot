@@ -27,6 +27,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include <boost/format.hpp>
+
 #include <syslog.h>
 
 #include "sbuild-i18n.h"
@@ -40,6 +42,7 @@
 #include "schroot-options.h"
 
 using std::endl;
+using boost::format;
 
 /**
  * print_version:
@@ -50,7 +53,7 @@ using std::endl;
 void
 print_version (std::ostream& stream)
 {
-  stream << sbuild::format_string(_("schroot (Debian sbuild) %s\n"), VERSION)
+  stream << format(_("schroot (Debian sbuild) %1%\n")) % VERSION
 	 << _("Written by Roger Leigh\n\n")
 	 << _("Copyright (C) 2004-2005 Roger Leigh\n")
 	 << _("This is free software; see the source for copying conditions.  There is NO\n"
@@ -97,9 +100,8 @@ get_chroot_options(std::tr1::shared_ptr<sbuild::Config>& config,
 	  for (sbuild::string_list::const_iterator chroot = invalid_chroots.begin();
 	       chroot != invalid_chroots.end();
 	       ++chroot)
-	    sbuild::log_error()
-	      << sbuild::format_string(_("%s: No such chroot"), chroot->c_str())
-	      << endl;
+	    sbuild::log_error() << format(_("%1%: No such chroot")) % *chroot
+				<< endl;
 	  exit(EXIT_FAILURE);
 	}
       ret = options.chroots;
@@ -159,7 +161,7 @@ main (int   argc,
     {
       if (options.quiet == false)
 	sbuild::log_error()
-	  << sbuild::format_string(_("No chroots are defined in %s"), SCHROOT_CONF)
+	  << format(_("No chroots are defined in %1%")) % SCHROOT_CONF
 	  << endl;
       exit (EXIT_FAILURE);
     }
@@ -176,7 +178,8 @@ main (int   argc,
   if (chroots.empty())
     {
       sbuild::log_error()
-	<< sbuild::format_string(_("The specified chroots are not defined in %s\n"), SCHROOT_CONF)
+	<< format(_("The specified chroots are not defined in %1%"))
+	% SCHROOT_CONF
 	<< endl;
       exit (EXIT_FAILURE);
     }
@@ -232,8 +235,7 @@ main (int   argc,
   catch (std::runtime_error& e)
     {
       sbuild::log_error()
-	<< sbuild::format_string(_("Session failure: %s"), e.what())
-	<< endl;
+	<< format(_("Session failure: %1%")) % e.what() << endl;
     }
 
   int exit_status = session.get_child_status();

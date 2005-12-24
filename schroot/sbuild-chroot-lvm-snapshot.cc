@@ -39,6 +39,8 @@
 #include <sys/sysmacros.h>
 #include <unistd.h>
 
+#include <boost/format.hpp>
+
 #include "sbuild-i18n.h"
 #include "sbuild-chroot-lvm-snapshot.h"
 #include "sbuild-keyfile.h"
@@ -47,6 +49,7 @@
 #include "sbuild-util.h"
 
 using std::endl;
+using boost::format;
 using namespace sbuild;
 
 ChrootLvmSnapshot::ChrootLvmSnapshot():
@@ -178,23 +181,21 @@ ChrootLvmSnapshot::setup_lock (Chroot::SetupType type,
 
       if (device.empty())
 	{
-	  throw error(format_string(_("%s chroot: device name not set"),
-				    get_name().c_str()),
-		      ERROR_LOCK);
+	  format fmt(_("%1% chroot: device name not set"));
+	  fmt % get_name();
+	  throw error(fmt, ERROR_LOCK);
 	}
       else if (stat(device.c_str(), &statbuf) == -1)
 	{
-	  throw error(format_string(_("%s chroot: failed to stat device %s: %s"),
-				    get_name().c_str(),
-				    device.c_str(), strerror(errno)),
-		      ERROR_LOCK);
+	  format fmt(_("%1% chroot: failed to stat device %2%: %3%"));
+	  fmt % get_name() % device % strerror(errno);
+	  throw error(fmt, ERROR_LOCK);
 	}
       else if (!S_ISBLK(statbuf.st_mode))
 	{
-	  throw error(format_string(_("%s chroot: %s is not a block device\n"),
-				    get_name().c_str(),
-				    device.c_str()),
-		      ERROR_LOCK);
+	  format fmt(_("%1% chroot: %2% is not a block device\n"));
+	  fmt % get_name() % device;
+	  throw error(fmt, ERROR_LOCK);
 	}
       else
 	{
@@ -212,10 +213,9 @@ ChrootLvmSnapshot::setup_lock (Chroot::SetupType type,
 		}
 	      catch (const sbuild::Lock::error &e)
 		{
-		  throw error(format_string(_("%s: failed to lock device: %s"),
-					    device.c_str(),
-					    e.what()),
-			      ERROR_LOCK);
+		  format fmt(_("%1%: failed to lock device: %2%"));
+		  fmt % device % e.what();
+		  throw error(fmt, ERROR_LOCK);
 		}
 	    }
 	  else
@@ -226,10 +226,9 @@ ChrootLvmSnapshot::setup_lock (Chroot::SetupType type,
 		}
 	      catch (const sbuild::Lock::error &e)
 		{
-		  throw error(format_string(_("%s: failed to unlock device: %s"),
-					    device.c_str(),
-					    e.what()),
-					    ERROR_LOCK);
+		  format fmt(_("%1%: failed to unlock device: %2%"));
+		  fmt % device % e.what();
+		  throw error(fmt, ERROR_LOCK);
 		}
 	    }
 	}
@@ -255,9 +254,9 @@ ChrootLvmSnapshot::setup_session_info (bool start)
       int fd = open(file.c_str(), O_CREAT|O_EXCL|O_WRONLY, 0664);
       if (fd < 0)
 	{
-	  throw error(format_string(_("%s: failed to create session file: %s\n"),
-				    file.c_str(), strerror(errno)),
-		      ERROR_LOCK);
+	  format fmt(_("%1%: failed to create session file: %2%\n"));
+	  fmt % file % strerror(errno);
+	  throw error(fmt, ERROR_LOCK);
 	}
 
       // Create a stream buffer from the file descriptor.  The fd will
@@ -272,17 +271,12 @@ ChrootLvmSnapshot::setup_session_info (bool start)
 	}
       catch (const Lock::error& e)
 	{
-	  throw error(format_string(_("%s: lock acquisition failure: %s\n"),
-				    file.c_str(), e.what()),
-		      ERROR_LOCK);
+	  format fmt(_("%1%: lock acquisition failure: %2%\n"));
+	  fmt % file % e.what();
+	  throw error(fmt, ERROR_LOCK);
 	}
 
       print_config(output);
-      /* 		  if (fflush(sess_file) != 0) */
-      /* 		    g_set_error(error, */
-      /* 				ERROR, ERROR_LOCK, */
-      /* 				_("%s: failed to flush session file: %s\n"), */
-      /* 				file, strerror(errno)); */
 
       try
 	{
@@ -290,18 +284,18 @@ ChrootLvmSnapshot::setup_session_info (bool start)
 	}
       catch (const Lock::error& e)
 	{
-	  throw error(format_string(_("%s: lock discard failure: %s\n"),
-				    file.c_str(), e.what()),
-		      ERROR_LOCK);
+	  format fmt(_("%1%: lock discard failure: %2%\n"));
+	  fmt % file % e.what();
+	  throw error(fmt, ERROR_LOCK);
 	}
     }
   else /* start == false */
     {
       if (unlink(file.c_str()) != 0)
 	{
-	  throw error(format_string(_("%s: failed to unlink session file: %s\n"),
-				    file.c_str(), strerror(errno)),
-		      ERROR_LOCK);
+	  format fmt(_("%1%: failed to unlink session file: %2%\n"));
+	  fmt % file % strerror(errno);
+	  throw error(fmt, ERROR_LOCK);
 	}
     }
 }

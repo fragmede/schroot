@@ -37,12 +37,15 @@
 #include <sys/sysmacros.h>
 #include <unistd.h>
 
+#include <boost/format.hpp>
+
 #include "sbuild-i18n.h"
 #include "sbuild-chroot-block-device.h"
 #include "sbuild-keyfile.h"
 #include "sbuild-lock.h"
 #include "sbuild-util.h"
 
+using boost::format;
 using namespace sbuild;
 
 ChrootBlockDevice::ChrootBlockDevice():
@@ -172,18 +175,15 @@ ChrootBlockDevice::setup_lock (Chroot::SetupType type,
 
   if (stat(this->device.c_str(), &statbuf) == -1)
     {
-      throw error(format_string(_("%s chroot: failed to stat device %s: %s"),
-				get_name().c_str(),
-				this->device.c_str(),
-				strerror(errno)),
-		  ERROR_LOCK);
+      format fmt(_("%1% chroot: failed to stat device %2%: %3%"));
+      fmt % get_name() % get_device() % strerror(errno);
+      throw error(fmt, ERROR_LOCK);
     }
   else if (!S_ISBLK(statbuf.st_mode))
     {
-      throw error(format_string(_("%s chroot: %s is not a block device"),
-				get_name().c_str(),
-				this->device.c_str()),
-		  ERROR_LOCK);
+      format fmt(_("%1% chroot: %2% is not a block device"));
+      fmt % get_name() % get_device();
+      throw error(fmt, ERROR_LOCK);
     }
   else
     {
@@ -196,10 +196,9 @@ ChrootBlockDevice::setup_lock (Chroot::SetupType type,
 	    }
 	  catch (const sbuild::Lock::error& e)
 	    {
-	      throw error(format_string(_("%s: failed to lock device: %s"),
-					this->device.c_str(),
-					e.what()),
-			  ERROR_LOCK);
+	      format fmt(_("%1%: failed to lock device: %2%"));
+	      fmt % get_device() % e.what();
+	      throw error(fmt, ERROR_LOCK);
 	    }
 	}
       else
@@ -210,10 +209,9 @@ ChrootBlockDevice::setup_lock (Chroot::SetupType type,
 	    }
 	  catch (const sbuild::Lock::error& e)
 	    {
-	      throw error(format_string(_("%s: failed to unlock device: %s"),
-					this->device.c_str(),
-					e.what()),
-			  ERROR_LOCK);
+	      format fmt(_("%1%: failed to unlock device: %2%"));
+	      fmt % get_device() % e.what();
+	      throw error(fmt, ERROR_LOCK);
 	    }
 	}
     }

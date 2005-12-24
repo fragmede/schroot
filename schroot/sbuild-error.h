@@ -24,6 +24,8 @@
 
 #include <stdexcept>
 
+#include <boost/format.hpp>
+
 namespace sbuild
 {
 
@@ -34,6 +36,12 @@ namespace sbuild
     Exception(const std::string& error,
 	      T                  error_code):
       std::runtime_error(error),
+      error_code(error_code)
+    {}
+
+    Exception(const boost::format& error,
+	      T                    error_code):
+      std::runtime_error(error.str()),
       error_code(error_code)
     {}
 

@@ -48,6 +48,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#include <boost/format.hpp>
+
 #include "sbuild-i18n.h"
 #include "sbuild-config.h"
 #include "sbuild-lock.h"
@@ -60,6 +62,7 @@
 #include "sbuild-util.h"
 
 using std::endl;
+using boost::format;
 using namespace sbuild;
 
 Config::Config():
@@ -119,9 +122,8 @@ Config::add_config_directory (const std::string& dir)
   DIR *d = opendir(dir.c_str());
   if (d == NULL)
     {
-      log_error() << format_string(_("%s: failed to open directory: %s\n"),
-				   dir.c_str(),
-				   strerror(errno))
+      log_error() << format(_("%1%: failed to open directory: %2%"))
+	% dir % strerror(errno)
 		  << endl;
       exit (EXIT_FAILURE);
     }
@@ -134,9 +136,8 @@ Config::add_config_directory (const std::string& dir)
       struct stat statbuf;
       if (stat(filename.c_str(), &statbuf) < 0)
 	{
-	  log_error() << format_string(_("%s: failed to stat file: %s"),
-				       filename.c_str(),
-				       strerror(errno))
+	  log_error() << format(_("%1%: failed to stat file: %2%"))
+	    % filename % strerror(errno)
 		      << endl;
 	  continue;
 	}
@@ -145,9 +146,8 @@ Config::add_config_directory (const std::string& dir)
 	{
 	  if (!(strcmp(de->d_name, ".") == 0 ||
 		strcmp(de->d_name, "..") == 0))
-	    log_error() << format_string(_("%s: failed to stat file: %s"),
-					 filename.c_str(),
-					 strerror(errno))
+	    log_error() << format(_("%1%: failed to stat file: %2%"))
+	      % filename % strerror(errno)
 			<< endl;
 	  continue;
 	}
@@ -293,8 +293,7 @@ Config::print_chroot_info (const string_list& chroots,
 	    stream << '\n';
 	}
       else
-	log_error() << format_string(_("%s: No such chroot\n"),
-				     pos->c_str())
+	log_error() << format(_("%1%: No such chroot")) % *pos
 		    << endl;
     }
 }
@@ -341,8 +340,9 @@ Config::check_security(int fd) const
   struct stat statbuf;
   if (fstat(fd, &statbuf) < 0)
     {
-      throw error(std::string(_("failed to stat file: ")) + strerror(errno),
-		  ERROR_STAT_FAIL);
+      format fmt(_("failed to stat file: %1%"));
+      fmt % strerror(errno);
+      throw error(fmt, ERROR_STAT_FAIL);
     }
 
   if (statbuf.st_uid != 0)
@@ -380,9 +380,8 @@ Config::load (const std::string& file)
   int fd = open(file.c_str(), O_RDONLY|O_NOFOLLOW);
   if (fd < 0)
     {
-      log_error() << format_string(_("%s: failed to load configuration: %s\n"),
-				   file.c_str(),
-				   strerror(errno))
+      log_error() << format(_("%1%: failed to load configuration: %2%"))
+	% file % strerror(errno)
 		  << endl;
       exit (EXIT_FAILURE);
     }
@@ -394,9 +393,8 @@ Config::load (const std::string& file)
     }
   catch (const Lock::error& e)
     {
-      log_error() << format_string(_("%s: lock acquisition failure: %s\n"),
-				   file.c_str(),
-				   e.what())
+      log_error() << format(_("%1%: lock acquisition failure: %2%"))
+	% file % e.what()
 		  << endl;
       exit (EXIT_FAILURE);
     }
@@ -407,9 +405,8 @@ Config::load (const std::string& file)
     }
   catch (const error &e)
     {
-      log_error() << format_string(_("%s: security failure: %s\n"),
-				   file.c_str(),
-				   e.what())
+      log_error() << format(_("%1%: security failure: %2%"))
+	% file % e.what()
 		  << endl;
       exit (EXIT_FAILURE);
     }
@@ -428,9 +425,8 @@ Config::load (const std::string& file)
     }
   catch (const Lock::error& e)
     {
-      log_error() << format_string(_("%s: lock discard failure: %s\n"),
-				   file.c_str(),
-				   e.what())
+      log_error() << format(_("%1%: lock discard failure: %2%"))
+	% file % e.what()
 		  << endl;
       exit (EXIT_FAILURE);
     }

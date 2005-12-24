@@ -43,6 +43,8 @@
 #include <termios.h>
 #include <unistd.h>
 
+#include <boost/format.hpp>
+
 #include "sbuild-i18n.h"
 #include "sbuild-auth-conv-tty.h"
 #include "sbuild-error.h"
@@ -51,6 +53,7 @@
 
 using std::cerr;
 using std::endl;
+using boost::format;
 using namespace sbuild;
 
 AuthConvTty::AuthConvTty():
@@ -375,8 +378,7 @@ AuthConvTty::conversation_impl (AuthConv::message_list& messages)
 	  cerr << cur->message << endl;
 	  break;
 	default:
-	  cerr << format_string(_("Unsupported conversation type %d"),
-				cur->type)
+	  cerr << format(_("Unsupported conversation type %1%")) % cur->type
 	       << endl;
 	  return false;
 	  break;
