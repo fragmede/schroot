@@ -49,6 +49,7 @@ fi
 
 # Checks for programs.
 AC_PROG_CXX
+AC_LANG([C++])
 AC_DISABLE_SHARED
 AC_PROG_LIBTOOL
 AM_GNU_GETTEXT_VERSION([0.14.5])
@@ -64,6 +65,8 @@ SCHROOT_CFLAGS="$GLIB_CFLAGS $UUID_CFLAGS"
 AC_SUBST([SCHROOT_CFLAGS])
 
 # Checks for header files (none at the moment).
+AC_CHECK_HEADER([boost/format.hpp],, [AC_MSG_ERROR([Boost.Format (Boost C++ Libraries) is not installed, but is required by schroot])])
+AC_CHECK_HEADER([boost/program_options.hpp],, [AC_MSG_ERROR([Boost.Program_options (Boost C++ Libraries) is not installed, but is required by schroot])])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
@@ -71,13 +74,23 @@ AC_HEADER_STDBOOL
 # Checks for library functions.
 AC_CHECK_LIB([pam], [pam_authenticate],
              [PAM_LIBS="-lpam"],
-	     [AC_MSG_ERROR([libpam (Linux-PAM) is not installed, but is required by schroot])])
+	     [AC_MSG_FAILURE([libpam (Linux-PAM) is not installed, but is required by schroot])])
 AC_SUBST([PAM_LIBS])
 AC_CHECK_LIB([lockdev], [dev_lock],
              [LOCKDEV_LIBS="-llockdev"],
-             [AC_MSG_ERROR([liblockdev (lockdev) is not installed, but is required by schroot])])
+             [AC_MSG_FAILURE([liblockdev (lockdev) is not installed, but is required by schroot])])
 AC_SUBST([LOCKDEV_LIBS])
-
+AC_MSG_CHECKING([for boost::program_options::variables_map in -lboost_program_options])
+saved_ldflags="${LDFLAGS}"
+LDFLAGS="${LDFLAGS} -lboost_program_options"
+AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
+                               [boost::program_options::variables_map::variables_map dummy()])],
+               [AC_MSG_RESULT([yes])
+	        BOOST_LIBS="-lboost_program_options"],
+               [AC_MSG_RESULT([no])
+	        AC_MSG_FAILURE([libboost_program_options (Boost C++ Libraries) is not installed, but is required by schroot])])
+LDFLAGS="${saved_ldflags}"
+AC_SUBST([BOOST_LIBS])
 
 dnl Set PACKAGE_LOCALE_DIR in config.h
 AH_TEMPLATE(PACKAGE_LOCALE_DIR,, [Package locale directory])

@@ -1,3 +1,13 @@
+2005-12-24  Roger Leigh  <rleigh@debian.org>
+
+	* debian/control (Build-Depends): Add libboost-dev and
+	libboost-program-options.
+
+	* schroot/Makefile.am (libsbuild_la_LIBADD): Add BOOST_LIBS.
+
+	* configure.ac: Add checks for Boost.Format and
+	Boost.Program_options headers and shared libraries.
+
 2005-12-23  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-session.cc:
