@@ -1,3 +1,16 @@
+2005-12-25  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* configure.ac: Remove checks for Glib.  Glib is now completely
+	removed from the sources.
+
+	* schroot/Makefile.am (libsbuild_la_LIBADD): Remove Glib library.
+
+	* schroot/schroot-releaselock.cc: Convert from GOption to
+	Boost.Program_options.
+
+	* schroot/schroot-options.cc: Convert from GOption to
+	Boost.Program_options.
+
 2005-12-24  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-util.cc: Remove format_string.

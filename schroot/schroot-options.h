@@ -26,6 +26,7 @@
 #include <vector>
 
 #include "sbuild-session.h"
+#include "sbuild-types.h"
 
 namespace schroot
 {
@@ -39,8 +40,8 @@ namespace schroot
 	    char *argv[]);
     virtual ~Options();
 
-    string_list          chroots;
-    string_list          command;
+    sbuild::string_list  chroots;
+    sbuild::string_list  command;
     std::string          user;
     bool                 preserve;
     bool                 quiet;
@@ -55,6 +56,10 @@ namespace schroot
     bool                 version;
     sbuild::Session::Operation  session_operation;
     bool                 session_force;
+
+  private:
+    void
+    set_session_operation (sbuild::Session::Operation operation);
   };
 
 }

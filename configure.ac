@@ -58,10 +58,9 @@ AC_PATH_PROG([RUN_PARTS], [run-parts])
 AH_TEMPLATE(RUN_PARTS,, [run-parts binary])
 AC_DEFINE_UNQUOTED(RUN_PARTS, ["$RUN_PARTS"], )
 # Checks for libraries.
-PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.4.0])
 PKG_CHECK_MODULES([UUID], [uuid])
 
-SCHROOT_CFLAGS="$GLIB_CFLAGS $UUID_CFLAGS"
+SCHROOT_CFLAGS="$UUID_CFLAGS"
 AC_SUBST([SCHROOT_CFLAGS])
 
 # Checks for header files (none at the moment).

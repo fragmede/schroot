@@ -34,9 +34,8 @@
 
 #include <stdlib.h>
 
-#include <glib.h>
-
 #include <boost/format.hpp>
+#include <boost/program_options.hpp>
 
 #include "schroot-options.h"
 
@@ -46,13 +45,8 @@
 
 using std::endl;
 using boost::format;
+namespace opt = boost::program_options;
 using namespace schroot;
-
-static bool
-parse_session_options(const char  *option_name,
-		      const char  *value,
-		      gpointer     data,
-		      GError     **error);
 
 /**
  * schroot_options_new:
@@ -78,79 +72,109 @@ Options::Options(int   argc,
   session_operation(sbuild::Session::OPERATION_AUTOMATIC),
   session_force(false)
 {
-  char **chroots = 0;
-  char **command = 0;
-  char *user = 0;
 
-  GOptionEntry entries[] =
+  opt::options_description general(_("General options"));
+  general.add_options()
+    ("help,?",
+     _("Show help options"))
+    ("version,V",
+     _("Print version information"))
+    ("quiet,q",
+     _("Show less output"))
+    ("verbose,v",
+     _("Show more output"))
+    ("list,l",
+     _("List available chroots"))
+    ("info,i",
+     _("Show information about selected chroots"));
+
+  opt::options_description chroot(_("Chroot selection"));
+  chroot.add_options()
+    ("chroot,c", opt::value<sbuild::string_list>(&this->chroots),
+     _("Use specified chroot"))
+    ("all,a",
+     _("Select all chroots and active sessions"))
+    ("all-chroots",
+     _("Select all chroots"))
+    ("all-sessions",
+     _("Select all active sessions"));
+
+  opt::options_description chrootenv(_("Chroot environment"));
+  chrootenv.add_options()
+    ("user,u", opt::value<std::string>(&this->user),
+     _("Username (default current user)"))
+    ("preserve-environment,p",
+     _("Preserve user environment"));
+
+  opt::options_description session(_("Session management"));
+  session.add_options()
+    ("begin-session,b",
+     _("Begin a session; returns a session ID"))
+    ("recover-session",
+     _("Recover an existing session"))
+    ("run-session,r",
+     _("Run an existing session"))
+    ("end-session,e",
+     _("End an existing session"))
+    ("force,f",
+     _("Force operation, even if it fails"));
+
+  opt::options_description hidden(_("Hidden options"));
+  hidden.add_options()
+    ("command", opt::value<string_list>(&this->command),
+     _("Command to run"));
+
+  opt::options_description visible;
+  visible.add(general).add(chroot).add(chrootenv).add(session);
+
+  opt::options_description global;
+  global.add(general).add(chroot).add(chrootenv).add(session).add(hidden);
+
+  opt::variables_map vm;
+  opt::store(opt::parse_command_line(argc, argv, global), vm);
+  //  opt::store(opt::parse_command_line(argc, argv, session), vm);
+  opt::notify(vm);
+
+  if (vm.count("help"))
     {
-      { "all", 'a', 0, G_OPTION_ARG_NONE, &this->all,
-	N_("Select all chroots and active sessions"), NULL },
-      { "all-chroots", 0, 0, G_OPTION_ARG_NONE, &this->all_chroots,
-	N_("Select all chroots"), NULL },
-      { "all-sessions", 0, 0, G_OPTION_ARG_NONE, &this->all_sessions,
-	N_("Select all active sessions"), NULL },
-      { "chroot", 'c', 0, G_OPTION_ARG_STRING_ARRAY, &chroots,
-	N_("Use specified chroot"), "chroot" },
-      { "user", 'u', 0, G_OPTION_ARG_STRING, &user,
-	N_("Username (default current user)"), "user" },
-      { "list", 'l', 0, G_OPTION_ARG_NONE, &this->list,
-	N_("List available chroots"), NULL },
-      { "info", 'i', 0, G_OPTION_ARG_NONE, &this->info,
-	N_("Show information about chroot"), NULL },
-      { "preserve-environment", 'p', 0, G_OPTION_ARG_NONE, &this->preserve,
-	N_("Preserve user environment"), NULL },
-      { "quiet", 'q', 0, G_OPTION_ARG_NONE, &this->quiet,
-	N_("Show less output"), NULL },
-      { "verbose", 'v', 0, G_OPTION_ARG_NONE, &this->verbose,
-	N_("Show more output"), NULL },
-      { "version", 'V', 0, G_OPTION_ARG_NONE, &this->version,
-	N_("Print version information"), NULL },
-      { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &command,
-	NULL, NULL },
-      { NULL }
-    };
-
-  GOptionEntry session_entries[] =
-    {
-      { "begin-session", 'b', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
-	(void *) parse_session_options,
-	N_("Begin a session; returns a session UUID"), NULL },
-      { "recover-session", 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
-	(void *) parse_session_options,
-	N_("Recover an existing session"), NULL },
-      { "run-session", 'r', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
-	(void *) parse_session_options,
-	N_("Run an existing session"), NULL },
-      { "end-session", 'e', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK,
-	(void *) parse_session_options,
-	N_("End an existing session"), NULL },
-      { "force", 'f', 0, G_OPTION_ARG_NONE, &this->session_force,
-	N_("Force operation, even if it fails"), NULL },
-      { NULL }
-    };
-
-  GError *error = NULL;
-
-  GOptionContext *context = g_option_context_new (_("- run command or shell in a chroot"));
-  g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
-
-  GOptionGroup* session_group =
-    g_option_group_new("session", N_("Session Options"),
-		       N_("Session management options"),
-		       static_cast<void *>(this), NULL);
-  g_option_group_set_translation_domain(session_group, GETTEXT_PACKAGE);
-  g_option_group_add_entries (session_group, session_entries);
-  g_option_context_add_group(context, session_group);
-
-  g_option_context_parse (context, &argc, &argv, &error);
-  g_option_context_free (context);
-  if (error != NULL)
-    {
-      sbuild::log_error()
-	<< format(_("Error parsing options: %1%")) % error->message << endl;
-      exit (EXIT_FAILURE);
+      std::cout
+	<< _("Usage:") << '\n'
+	<< _("  schroot [OPTION...] - run command or shell in a chroot") << '\n'
+	<< visible << std::flush;
+      exit(EXIT_SUCCESS);
     }
+
+  if (vm.count("version"))
+    this->version = true;
+  if (vm.count("list"))
+    this->list = true;
+  if (vm.count("info"))
+    this->info = true;
+
+  if (vm.count("all"))
+    this->all = true;
+  if (vm.count("all-chroots"))
+    this->all_chroots = true;
+  if (vm.count("all-sessions"))
+    this->all_sessions = true;
+
+  if (vm.count("preserve-environment"))
+    this->preserve = true;
+  if (vm.count("quiet"))
+    this->quiet = true;
+  if (vm.count("verbose"))
+    this->verbose = true;
+
+  if (vm.count("begin-session"))
+    set_session_operation(sbuild::Session::OPERATION_BEGIN);
+  if (vm.count("recover-session"))
+    set_session_operation(sbuild::Session::OPERATION_RECOVER);
+  if (vm.count("run-session"))
+    set_session_operation(sbuild::Session::OPERATION_RUN);
+  if (vm.count("end-session"))
+    set_session_operation(sbuild::Session::OPERATION_END);
+  if (vm.count("force"))
+    this->session_force = true;
 
   if (this->quiet && this->verbose)
     {
@@ -159,24 +183,6 @@ Options::Options(int   argc,
 	<< endl;
       sbuild::log_info() << _("Using verbose output.") << endl;
     }
-
-  if (chroots)
-    {
-      for (char *chroot = chroots[0]; chroot != NULL; ++chroot)
-	this->chroots.push_back(chroot);
-    }
-  g_strfreev(chroots);
-
-  if (user)
-    this->user = user;
-  g_free(user);
-
-  if (command)
-    {
-      for (char *command_part = command[0]; command_part != NULL; ++command_part)
-	this->command.push_back(command_part);
-    }
-  g_strfreev(command);
 
   /* Ensure there's something to list. */
   if ((this->list == true &&
@@ -214,52 +220,15 @@ Options::~Options()
 {
 }
 
-/**
- * parse_session_options:
- *
- * Parse command-line session options.  The options are placed in the
- * session_opt structure.  This is a #GOptionArgFunc.
- *
- * Returns true on success, false on failure (and error will also be
- * set).
- */
-static bool
-parse_session_options(const char  *option_name,
-		      const char  *value,
-		      gpointer     data,
-		      GError     **error)
+void
+Options::set_session_operation (sbuild::Session::Operation operation)
 {
-  Options *options = static_cast<Options *>(data);
+  if (this->session_operation != sbuild::Session::OPERATION_AUTOMATIC)
+    throw opt::validation_error(_("Only one session operation may be specified"));
 
-  if (strcmp(option_name, "-b") == 0 ||
-      strcmp(option_name, "--begin-session") == 0)
-    {
-      options->session_operation = sbuild::Session::OPERATION_BEGIN;
-    }
-  else if (strcmp(option_name, "--recover-session") == 0)
-    {
-      options->session_operation = sbuild::Session::OPERATION_RECOVER;
-    }
-  else if (strcmp(option_name, "-r") == 0 ||
-	   strcmp(option_name, "--run-session") == 0)
-    {
-      options->session_operation = sbuild::Session::OPERATION_RUN;
-    }
-  else if (strcmp(option_name, "-e") == 0 ||
-	   strcmp(option_name, "--end-session") == 0)
-    {
-      options->session_operation = sbuild::Session::OPERATION_END;
-    }
-  else
-    {
-      g_set_error(error,
-		  G_OPTION_ERROR, G_OPTION_ERROR_FAILED,
-		  _("Invalid session option %s"), option_name);
-      return false;
-    }
-
-  return true;
+  this->session_operation = operation;
 }
+
 
 /*
  * Local Variables:

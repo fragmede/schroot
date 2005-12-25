@@ -75,7 +75,7 @@ libsbuild_la_SOURCES =			\
 	$(sbuild_public_h_sources)	\
 	$(sbuild_public_cc_sources)
 
-libsbuild_la_LIBADD = $(GLIB_LIBS) $(UUID_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(BOOST_LIBS) $(LIBINTL)
+libsbuild_la_LIBADD = $(UUID_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(BOOST_LIBS) $(LIBINTL)
 
 schroot_SOURCES =			\
 	schroot-options.h		\

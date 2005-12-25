@@ -32,10 +32,9 @@
 #include <unistd.h>
 
 #include <boost/format.hpp>
+#include <boost/program_options.hpp>
 
 #include <lockdev.h>
-
-#include <glib.h>
 
 #include "sbuild-i18n.h"
 #include "sbuild-log.h"
@@ -43,19 +42,20 @@
 
 using std::endl;
 using boost::format;
+namespace opt = boost::program_options;
 
 /* Stored command-line options. */
 struct options {
-  char *device;
-  int   pid;
-  bool  version;
+  std::string device;
+  int         pid;
+  bool        version;
 };
 
-options opt =
+options opts =
   {
-    NULL,
+    "",
     0,
-    FALSE
+    false
   };
 
 /**
@@ -70,30 +70,38 @@ static void
 parse_options(int   argc,
 	      char *argv[])
 {
-  /* Command-line options. */
-  static const GOptionEntry entries[] =
-    {
-      { "device", 'd', 0, G_OPTION_ARG_STRING, &opt.device,
-	N_("Device to unlock (full path)"), "device" },
-      { "pid", 'p', 0, G_OPTION_ARG_INT, &opt.pid,
-	N_("Process owning the lock"), "pid" },
-      { "version", 'V', 0, G_OPTION_ARG_NONE, &opt.version,
-	N_("Print version information"), NULL },
-      { NULL }
-    };
+  opt::options_description general(_("General options"));
+  general.add_options()
+    ("help,?", _("Show help options"))
+    ("version,V",
+     _("Print version information"));
 
-  GError *error = NULL;
+  opt::options_description lock(_("Lock options"));
+  lock.add_options()
+    ("device,d", opt::value<std::string>(&opts.device),
+     _("Device to unlock (full path)"))
+    ("pid,p", opt::value<int>(&opts.pid),
+     _("Process ID owning the lock"));
 
-  GOptionContext *context = g_option_context_new (_("- release a device lock"));
-  g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
-  g_option_context_parse (context, &argc, &argv, &error);
-  g_option_context_free (context);
-  if (error != NULL)
+
+  opt::options_description global;
+  global.add(general).add(lock);
+
+  opt::variables_map vm;
+  opt::store(opt::parse_command_line(argc, argv, global), vm);
+  opt::notify(vm);
+
+  if (vm.count("help"))
     {
-      sbuild::log_error()
-	<< format(_("Error parsing options: %1%")) % error->message << endl;
-      exit (EXIT_FAILURE);
-    }
+      std::cout
+	<< _("Usage:") << '\n'
+	<< _("  schroot-releaselock [OPTION...] - release a device lock") << '\n'
+	<< global << std::flush;
+      exit(EXIT_SUCCESS);
+}
+
+  if (vm.count("version"))
+    opts.version = true;
 }
 
 /**
@@ -140,19 +148,19 @@ main (int   argc,
   /* Parse command-line options into opt structure. */
   parse_options(argc, argv);
 
-  if (opt.version == TRUE)
+  if (opts.version)
     {
       print_version(std::cerr);
       exit(EXIT_SUCCESS);
     }
 
-  if (opt.device == NULL)
+  if (opts.device.empty())
     {
       sbuild::log_error() << _("No device specified") << endl;
       exit (EXIT_FAILURE);
     }
 
-  if (opt.pid == 0)
+  if (opts.pid == 0)
     {
       sbuild::log_error() << _("No pid specified; forcing release of lock")
 			  << endl;
@@ -160,26 +168,26 @@ main (int   argc,
 
   struct stat statbuf;
 
-  if (stat(opt.device, &statbuf) == -1)
+  if (stat(opts.device.c_str(), &statbuf) == -1)
     {
       sbuild::log_error()
 	<< format(_("Failed to stat device %1%: %2%"))
-	% opt.device % strerror(errno)
+	% opts.device % strerror(errno)
 	<< endl;
       exit (EXIT_FAILURE);
     }
   if (!S_ISBLK(statbuf.st_mode))
     {
       sbuild::log_error()
-	<< format(_("%1% is not a block device")) % opt.device << endl;
+	<< format(_("%1% is not a block device")) % opts.device << endl;
       exit (EXIT_FAILURE);
     }
 
-  pid_t status = dev_unlock(opt.device, opt.pid);
+  pid_t status = dev_unlock(opts.device.c_str(), opts.pid);
   if (status < 0) // Failure
     {
       sbuild::log_error()
-	<< format(_("%1%: failed to release device lock")) % opt.device
+	<< format(_("%1%: failed to release device lock")) % opts.device
 	<< endl;
       exit (EXIT_FAILURE);
     }
@@ -187,7 +195,7 @@ main (int   argc,
     {
       sbuild::log_error()
 	<< format(_("%1%: failed to release device lock owned by pid %2%"))
-	% opt.device % status
+	% opts.device % status
 	<< endl;
       exit (EXIT_FAILURE);
     }
