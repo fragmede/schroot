@@ -482,8 +482,9 @@ try
 	const Chroot *ch = this->config->find_alias(*cur);
 	if (chroot == NULL) // Should never happen, but cater for it anyway.
 	  {
-	    throw error(*cur + _("Failed to find chroot"),
-			ERROR_CHROOT);
+	    format fmt(_("%1%: Failed to find chroot"));
+	    fmt % *cur;
+	    throw error(fmt, ERROR_CHROOT);
 	  }
 	else
 	  {
@@ -648,9 +649,9 @@ Session::setup_chroot (Chroot&           session_chroot,
     }
   catch (const Chroot::error &e)
     {
-      throw error(std::string(_("Chroot setup failed to lock chroot: %s"))
-		  + e.what(),
-		  ERROR_CHROOT_SETUP);
+      format fmt(_("Chroot setup failed to lock chroot: %1%"));
+      fmt % e.what();
+      throw error(fmt, ERROR_CHROOT_SETUP);
     }
 
   std::string setup_type_string;
@@ -757,15 +758,17 @@ Session::setup_chroot (Chroot&           session_chroot,
     }
   catch (const Chroot::error &e)
     {
-      throw error(std::string(_("Chroot setup failed to unlock chroot: %s"))
-		  + e.what(),
-		  ERROR_CHROOT_SETUP);
+      format fmt(_("Chroot setup failed to unlock chroot: %1%"));
+      fmt % e.what();
+      throw error(fmt, ERROR_CHROOT_SETUP);
     }
 
   if (exit_status != 0)
-    throw error(std::string(_("Chroot setup failed during chroot "))
-			    + setup_type_string,
-			    ERROR_CHROOT_SETUP);
+    {
+      format fmt(_("Chroot setup failed during chroot \"%1%\" stage"));
+      fmt % setup_type_string;
+      throw error(fmt, ERROR_CHROOT_SETUP);
+    }
 }
 
 /**

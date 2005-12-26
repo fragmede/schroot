@@ -1,5 +1,10 @@
 2005-12-26  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-session.c:
+	(run_impl, setup_chroot): Add mising format strings.
+
+2005-12-26  Roger Leigh  <rleigh@debian.org>
+
 	* Remove typedef'd enums in favour of plain enums.
 
 2005-12-26  Roger Leigh  <rleigh@debian.org>
