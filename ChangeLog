@@ -1,5 +1,9 @@
 2005-12-26  Roger Leigh  <rleigh@debian.org>
 
+	* Remove typedef'd enums in favour of plain enums.
+
+2005-12-26  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-session.cc (is_group_member): Use new rather than
 	C99 VLAs.
 	(setup_chroot): setup_type_string is a std::string, rather than a

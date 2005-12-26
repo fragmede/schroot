@@ -33,13 +33,13 @@ namespace sbuild
   class AuthMessage
   {
   public:
-    typedef enum
+    enum MessageType
       {
 	MESSAGE_PROMPT_NOECHO = PAM_PROMPT_ECHO_OFF,
 	MESSAGE_PROMPT_ECHO = PAM_PROMPT_ECHO_ON,
 	MESSAGE_ERROR = PAM_ERROR_MSG,
 	MESSAGE_INFO = PAM_TEXT_INFO
-      } MessageType;
+      };
 
     AuthMessage(MessageType        type,
 		const std::string& message);

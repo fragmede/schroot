@@ -44,21 +44,21 @@ namespace sbuild
   class Auth
   {
   public:
-    typedef enum
+    enum Status
       {
 	STATUS_NONE,
 	STATUS_USER,
 	STATUS_FAIL
-      } Status;
+      };
 
-    typedef enum
+    enum Verbosity
       {
 	VERBOSITY_QUIET,
 	VERBOSITY_NORMAL,
 	VERBOSITY_VERBOSE
-      } Verbosity;
+      };
 
-    typedef enum
+    enum ErrorCode
       {
 	ERROR_PAM_STARTUP,
 	ERROR_PAM_SET_ITEM,
@@ -71,7 +71,7 @@ namespace sbuild
 	ERROR_PAM_SESSION_CLOSE,
 	ERROR_PAM_DELETE_CREDENTIALS,
 	ERROR_PAM_SHUTDOWN
-      } ErrorCode;
+      };
 
     typedef Exception<ErrorCode> error;
 

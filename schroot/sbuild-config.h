@@ -40,13 +40,13 @@ namespace sbuild
     typedef std::map<std::string, std::string> string_map;
     typedef std::map<std::string, Chroot *> chroot_map;
 
-    typedef enum
+    enum ErrorCode
       {
 	ERROR_STAT_FAIL,
 	ERROR_OWNERSHIP,
 	ERROR_PERMISSIONS,
 	ERROR_NOT_REGULAR
-      } ErrorCode;
+      };
 
     typedef Exception<ErrorCode> error;
 

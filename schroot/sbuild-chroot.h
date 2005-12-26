@@ -38,24 +38,24 @@ namespace sbuild
   class Chroot
   {
   public:
-    typedef enum
+    enum SetupType
       {
 	SETUP_START,
 	SETUP_RECOVER,
 	SETUP_STOP,
 	RUN_START,
 	RUN_STOP
-      } SetupType;
+      };
 
-    typedef enum
+    enum SessionFlags
       {
 	SESSION_CREATE = 1 << 0
-      } SessionFlags;
+      };
 
-    typedef enum
+    enum ErrorCode
       {
 	ERROR_LOCK
-      } ErrorCode;
+      };
 
     typedef Exception<ErrorCode> error;
 

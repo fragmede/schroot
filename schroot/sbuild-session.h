@@ -40,22 +40,22 @@ namespace sbuild
   class Session : public Auth
   {
   public:
-    typedef enum
+    enum Operation
       {
 	OPERATION_AUTOMATIC,
 	OPERATION_BEGIN,
 	OPERATION_RECOVER,
 	OPERATION_END,
 	OPERATION_RUN
-      } Operation;
+      };
 
-    typedef enum
+    enum ErrorCode
       {
 	ERROR_FORK,
 	ERROR_CHILD,
 	ERROR_CHROOT,
 	ERROR_CHROOT_SETUP
-      } ErrorCode;
+      };
 
     typedef Exception<ErrorCode> error;
 

@@ -36,19 +36,19 @@ namespace sbuild
   class Lock
   {
   public:
-    typedef enum
+    enum Type
       {
 	LOCK_SHARED    = F_RDLCK,
 	LOCK_EXCLUSIVE = F_WRLCK,
 	LOCK_NONE      = F_UNLCK
-      } Type;
+      };
 
-    typedef enum
+    enum ErrorCode
       {
 	LOCK_ERROR_SETUP,
 	LOCK_ERROR_TIMEOUT,
 	LOCK_ERROR_FAIL
-      } ErrorCode;
+      };
 
     typedef Exception<ErrorCode> error;
 
