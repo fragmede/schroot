@@ -49,15 +49,7 @@ namespace sbuild
 	OPERATION_RUN
       };
 
-    enum ErrorCode
-      {
-	ERROR_FORK,
-	ERROR_CHILD,
-	ERROR_CHROOT,
-	ERROR_CHROOT_SETUP
-      };
-
-    typedef Exception<ErrorCode> error;
+    typedef runtime_error_custom<Session> error;
 
     Session (const std::string&            service,
 	     std::tr1::shared_ptr<Config>& config,

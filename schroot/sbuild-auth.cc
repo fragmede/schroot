@@ -583,8 +583,7 @@ Auth::start ()
     {
       log_debug(DEBUG_CRITICAL)
 	<< "pam_start FAIL (already initialised)" << endl;
-      throw error(_("PAM error: PAM is already initialised"),
-		  ERROR_PAM_STARTUP);
+      throw error(_("PAM error: PAM is already initialised"));
     }
 
   struct pam_conv conv_hook =
@@ -602,7 +601,7 @@ Auth::start ()
       log_debug(DEBUG_WARNING) << "pam_start FAIL" << endl;
       format fmt(_("PAM error: %1%"));
       fmt % pam_strerror(this->pam, pam_status);
-      throw error(fmt, ERROR_PAM_STARTUP);
+      throw error(fmt);
     }
 
   log_debug(DEBUG_NOTICE) << "pam_start OK" << endl;
@@ -632,7 +631,7 @@ Auth::stop ()
       log_debug(DEBUG_WARNING) << "pam_end FAIL" << endl;
       format fmt(_("PAM error: %1%"));
       fmt % pam_strerror(this->pam, pam_status);
-      throw error(fmt, ERROR_PAM_SHUTDOWN);
+      throw error(fmt);
     }
 
   log_debug(DEBUG_NOTICE) << "pam_end OK" << endl;
@@ -663,7 +662,7 @@ Auth::authenticate ()
       log_debug(DEBUG_WARNING) << "pam_set_item (PAM_RUSER) FAIL" << endl;
       format fmt(_("PAM set RUSER error: %1%"));
       fmt % pam_strerror(this->pam, pam_status);
-      throw error(fmt, ERROR_PAM_SET_ITEM);
+      throw error(fmt);
     }
 
   long hl = 256; /* sysconf(_SC_HOST_NAME_MAX); BROKEN with Debian libc6 2.3.2.ds1-22 */
@@ -674,7 +673,7 @@ Auth::authenticate ()
       log_debug(DEBUG_CRITICAL) << "gethostname FAIL" << endl;
       format fmt(_("Failed to get hostname: %1%"));
       fmt % pam_strerror(this->pam, pam_status);
-      throw error(fmt, ERROR_HOSTNAME);
+      throw error(fmt);
     }
 
   if ((pam_status =
@@ -683,7 +682,7 @@ Auth::authenticate ()
       log_debug(DEBUG_WARNING) << "pam_set_item (PAM_RHOST) FAIL" << endl;
       format fmt(_("PAM set RHOST error: %1%"));
       fmt % pam_strerror(this->pam, pam_status);
-      throw error(fmt, ERROR_PAM_SET_ITEM);
+      throw error(fmt);
     }
 
   delete[] hostname;
@@ -698,7 +697,7 @@ Auth::authenticate ()
 	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_TTY) FAIL" << endl;
 	  format fmt(_("PAM set TTY error: %1%"));
 	  fmt % pam_strerror(this->pam, pam_status);
-	  throw error(fmt, ERROR_PAM_SET_ITEM);
+	  throw error(fmt);
 	}
     }
 
@@ -712,7 +711,7 @@ Auth::authenticate ()
 	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_USER) FAIL" << endl;
 	  format fmt(_("PAM set USER error: %1%"));
 	  fmt % pam_strerror(this->pam, pam_status);
-	  throw error(fmt, ERROR_PAM_SET_ITEM);
+	  throw error(fmt);
 	}
       break;
 
@@ -725,7 +724,7 @@ Auth::authenticate ()
 		 this->ruser.c_str(), this->user.c_str());
 	  format fmt(_("PAM authentication failed: %1%"));
 	  fmt % pam_strerror(this->pam, pam_status);
-	  throw error(fmt, ERROR_PAM_AUTHENTICATE);
+	  throw error(fmt);
 	}
       log_debug(DEBUG_NOTICE) << "pam_authenticate OK" << endl;
       break;
@@ -741,8 +740,7 @@ Auth::authenticate ()
 	  syslog(LOG_AUTH|LOG_WARNING,
 		 "%s->%s Unauthorised",
 		 this->ruser.c_str(), this->user.c_str());
-	  throw error(_("access not authorised"),
-		      ERROR_PAM_AUTHENTICATE);
+	  throw error(_("access not authorised"));
 	}
     default:
       break;
@@ -804,7 +802,7 @@ Auth::setupenv ()
 	  log_debug(DEBUG_WARNING) << "pam_putenv FAIL" << endl;
 	  format fmt(_("PAM error: %1%"));
 	  fmt % pam_strerror(this->pam, pam_status);
-	  throw error(fmt, ERROR_PAM_PUTENV);
+	  throw error(fmt);
 	}
       log_debug(DEBUG_INFO)
 	<< format("pam_putenv: set %1%=%2%") % cur->first % cur->second
@@ -839,7 +837,7 @@ Auth::account ()
       log_debug(DEBUG_WARNING) << "pam_acct_mgmt FAIL" << endl;
       format fmt(_("PAM error: %1%"));
       fmt % pam_strerror(this->pam, pam_status);
-      throw error(fmt, ERROR_PAM_ACCOUNT);
+      throw error(fmt);
     }
 
   log_debug(DEBUG_NOTICE) << "pam_acct_mgmt OK" << endl;
@@ -868,7 +866,7 @@ Auth::cred_establish ()
       log_debug(DEBUG_WARNING) << "pam_setcred FAIL" << endl;
       format fmt(_("PAM error: %1%"));
       fmt % pam_strerror(this->pam, pam_status);
-      throw error(fmt, ERROR_PAM_CREDENTIALS);
+      throw error(fmt);
     }
 
   log_debug(DEBUG_NOTICE) << "pam_setcred OK" << endl;
@@ -897,7 +895,7 @@ Auth::cred_delete ()
       log_debug(DEBUG_WARNING) << "pam_setcred (delete) FAIL" << endl;
       format fmt(_("PAM error: %1%"));
       fmt % pam_strerror(this->pam, pam_status);
-      throw error(fmt, ERROR_PAM_DELETE_CREDENTIALS);
+      throw error(fmt);
     }
 
   log_debug(DEBUG_NOTICE) << "pam_setcred (delete) OK" << endl;
@@ -926,7 +924,7 @@ Auth::open_session ()
       log_debug(DEBUG_WARNING) << "pam_open_session FAIL" << endl;
       format fmt(_("PAM error: %1%"));
       fmt % pam_strerror(this->pam, pam_status);
-      throw error(fmt, ERROR_PAM_SESSION_OPEN);
+      throw error(fmt);
     }
 
   log_debug(DEBUG_NOTICE) << "pam_open_session OK" << endl;
@@ -955,7 +953,7 @@ Auth::close_session ()
       log_debug(DEBUG_WARNING) << "pam_close_session FAIL" << endl;
       format fmt(_("PAM error: %1%"));
       fmt % pam_strerror(this->pam, pam_status);
-      throw error(fmt, ERROR_PAM_SESSION_CLOSE);
+      throw error(fmt);
     }
 
   log_debug(DEBUG_NOTICE) << "pam_close_session OK" << endl;

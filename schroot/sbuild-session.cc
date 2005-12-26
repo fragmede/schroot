@@ -484,7 +484,7 @@ try
 	  {
 	    format fmt(_("%1%: Failed to find chroot"));
 	    fmt % *cur;
-	    throw error(fmt, ERROR_CHROOT);
+	    throw error(fmt);
 	  }
 	else
 	  {
@@ -651,7 +651,7 @@ Session::setup_chroot (Chroot&           session_chroot,
     {
       format fmt(_("Chroot setup failed to lock chroot: %1%"));
       fmt % e.what();
-      throw error(fmt, ERROR_CHROOT_SETUP);
+      throw error(fmt);
     }
 
   std::string setup_type_string;
@@ -727,7 +727,7 @@ Session::setup_chroot (Chroot&           session_chroot,
     {
       format fmt(_("Failed to fork child: %1%"));
       fmt % strerror(errno);
-      throw error(fmt, ERROR_FORK);
+      throw error(fmt);
     }
   else if (pid == 0)
     {
@@ -760,14 +760,14 @@ Session::setup_chroot (Chroot&           session_chroot,
     {
       format fmt(_("Chroot setup failed to unlock chroot: %1%"));
       fmt % e.what();
-      throw error(fmt, ERROR_CHROOT_SETUP);
+      throw error(fmt);
     }
 
   if (exit_status != 0)
     {
       format fmt(_("Chroot setup failed during chroot \"%1%\" stage"));
       fmt % setup_type_string;
-      throw error(fmt, ERROR_CHROOT_SETUP);
+      throw error(fmt);
     }
 }
 
@@ -989,7 +989,7 @@ Session::wait_for_child (int  pid,
     {
       format fmt(_("wait for child failed: %1%"));
       fmt % strerror(errno);
-      throw error(fmt, ERROR_CHILD);
+      throw error(fmt);
     }
 
   try
@@ -998,7 +998,7 @@ Session::wait_for_child (int  pid,
     }
   catch (const Auth::error& e)
     {
-      throw error(e.what(), ERROR_CHILD);
+      throw error(e.what());
     }
 
   if (!WIFEXITED(status))
@@ -1007,13 +1007,12 @@ Session::wait_for_child (int  pid,
 	{
 	  format fmt(_("Child terminated by signal %1%"));
 	  fmt % strsignal(WTERMSIG(status));
-	  throw error(fmt, ERROR_CHILD);
+	  throw error(fmt);
 	}
       else if (WCOREDUMP(status))
-	throw error(_("Child dumped core"), ERROR_CHILD);
+	throw error(_("Child dumped core"));
       else
-	throw error(_("Child exited abnormally (reason unknown; not a signal or core dump)"),
-		    ERROR_CHILD);
+	throw error(_("Child exited abnormally (reason unknown; not a signal or core dump)"));
     }
 
   child_status = WEXITSTATUS(status);
@@ -1022,7 +1021,7 @@ Session::wait_for_child (int  pid,
     {
       format fmt(_("Child exited abnormally with status '%1%'"));
       fmt % child_status;
-      throw error(fmt, ERROR_CHILD);
+      throw error(fmt);
     }
 }
 
@@ -1046,7 +1045,7 @@ Session::run_chroot (Chroot&   session_chroot)
     {
       format fmt(_("Failed to fork child: %1%"));
       fmt % strerror(errno);
-      throw error(fmt, ERROR_FORK);
+      throw error(fmt);
     }
   else if (pid == 0)
     {

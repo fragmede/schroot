@@ -29,32 +29,31 @@
 namespace sbuild
 {
 
-  template <typename T>
-  class Exception : public std::runtime_error
+  class runtime_error : public std::runtime_error
   {
   public:
-    Exception(const std::string& error,
-	      T                  error_code):
-      std::runtime_error(error),
-      error_code(error_code)
+    runtime_error(const std::string& error):
+      std::runtime_error(error)
     {}
 
-    Exception(const boost::format& error,
-	      T                    error_code):
-      std::runtime_error(error.str()),
-      error_code(error_code)
+    virtual ~runtime_error() throw ()
+    {}
+  };
+
+  template <typename T>
+  class runtime_error_custom : public runtime_error
+  {
+  public:
+    runtime_error_custom(const std::string& error):
+      runtime_error(error)
     {}
 
-    virtual ~Exception() throw ()
+    runtime_error_custom(const boost::format& error):
+      runtime_error(error.str())
     {}
 
-    T code() const
-    {
-      return this->error_code;
-    }
-
-  private:
-    T error_code;
+    virtual ~runtime_error_custom() throw ()
+    {}
   };
 
 }

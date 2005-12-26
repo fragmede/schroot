@@ -43,7 +43,7 @@ keyfile::keyfile(const std::string& file):
     {
       format fmt(_("Can't open configuration file %1%"));
       fmt % file;
-      throw error(fmt, ERROR_FILE_NOT_FOUND);
+      throw error(fmt);
     }
 }
 

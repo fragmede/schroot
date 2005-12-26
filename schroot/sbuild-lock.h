@@ -43,14 +43,7 @@ namespace sbuild
 	LOCK_NONE      = F_UNLCK
       };
 
-    enum ErrorCode
-      {
-	LOCK_ERROR_SETUP,
-	LOCK_ERROR_TIMEOUT,
-	LOCK_ERROR_FAIL
-      };
-
-    typedef Exception<ErrorCode> error;
+    typedef runtime_error_custom<Lock> error;
 
     virtual void
     set_lock (Type         lock_type,

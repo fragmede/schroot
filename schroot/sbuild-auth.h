@@ -58,22 +58,7 @@ namespace sbuild
 	VERBOSITY_VERBOSE
       };
 
-    enum ErrorCode
-      {
-	ERROR_PAM_STARTUP,
-	ERROR_PAM_SET_ITEM,
-	ERROR_HOSTNAME,
-	ERROR_PAM_AUTHENTICATE,
-	ERROR_PAM_PUTENV,
-	ERROR_PAM_ACCOUNT,
-	ERROR_PAM_CREDENTIALS,
-	ERROR_PAM_SESSION_OPEN,
-	ERROR_PAM_SESSION_CLOSE,
-	ERROR_PAM_DELETE_CREDENTIALS,
-	ERROR_PAM_SHUTDOWN
-      };
-
-    typedef Exception<ErrorCode> error;
+    typedef runtime_error_custom<Auth> error;
 
     Auth(const std::string& service_name);
     virtual ~Auth();

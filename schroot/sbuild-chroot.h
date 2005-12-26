@@ -52,12 +52,7 @@ namespace sbuild
 	SESSION_CREATE = 1 << 0
       };
 
-    enum ErrorCode
-      {
-	ERROR_LOCK
-      };
-
-    typedef Exception<ErrorCode> error;
+    typedef runtime_error_custom<Chroot> error;
 
     Chroot ();
 

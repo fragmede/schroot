@@ -344,25 +344,22 @@ Config::check_security(int fd) const
     {
       format fmt(_("failed to stat file: %1%"));
       fmt % strerror(errno);
-      throw error(fmt, ERROR_STAT_FAIL);
+      throw error(fmt);
     }
 
   if (statbuf.st_uid != 0)
     {
-      throw error(_("not owned by user root"),
-		  ERROR_OWNERSHIP);
+      throw error(_("not owned by user root"));
     }
 
   if (statbuf.st_mode & S_IWOTH)
     {
-      throw error(_("others have write permission: "),
-		  ERROR_PERMISSIONS);
+      throw error(_("others have write permission: "));
     }
 
   if (!S_ISREG(statbuf.st_mode))
     {
-      throw error(_("not a regular file: "),
-		  ERROR_NOT_REGULAR);
+      throw error(_("not a regular file: "));
     }
 }
 

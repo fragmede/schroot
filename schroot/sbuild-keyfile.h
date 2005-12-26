@@ -53,13 +53,7 @@ namespace sbuild
     typedef std::map<std::string,group_type> group_map_type;
 
   public:
-    enum ErrorCode
-      {
-	ERROR_PARSE,
-	ERROR_FILE_NOT_FOUND
-      };
-
-    typedef Exception<ErrorCode> error;
+    typedef runtime_error_custom<keyfile> error;
 
     keyfile(const std::string& file);
     keyfile(std::istream& stream);
@@ -222,7 +216,7 @@ namespace sbuild
 	      {
 		boost::format fmt(_("Line %1%: invalid group entry: %2%"));
 		fmt % linecount % line;
-		throw error(fmt, ERROR_PARSE);
+		throw error(fmt);
 	      }
 	    group = line.substr(1, fpos - 2);
 
@@ -248,13 +242,13 @@ namespace sbuild
 	      {
 		boost::format fmt(_("Line %1%: invalid line: %2%"));
 		fmt % linecount % line;
-		throw error(fmt, ERROR_PARSE);
+		throw error(fmt);
 	      }
 	    if (pos == 0)
 	      {
 		boost::format fmt(_("Line %1%: no key specified: %2%"));
 		fmt % linecount % line;
-		throw error(fmt, ERROR_PARSE);
+		throw error(fmt);
 	      }
 	    key = line.substr(0, pos - 1);
 	    if (pos == line.length() - 1)

@@ -1,5 +1,16 @@
 2005-12-26  Roger Leigh  <rleigh@debian.org>
 
+	* Convert all classes to use runtime_error_custom, and remove all
+	error code enums.
+
+	* schroot/sbuild-error.h: Remove Exception class, and replace with
+	a runtime_error base class, and runtime_error_custom<> template
+	class (templated on class using it), which no longer has an error
+	code member (the error code was a GError holdover which was not
+	used).
+
+2005-12-26  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-session.c:
 	(run_impl, setup_chroot): Add mising format strings.
 

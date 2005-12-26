@@ -40,15 +40,7 @@ namespace sbuild
     typedef std::map<std::string, std::string> string_map;
     typedef std::map<std::string, Chroot *> chroot_map;
 
-    enum ErrorCode
-      {
-	ERROR_STAT_FAIL,
-	ERROR_OWNERSHIP,
-	ERROR_PERMISSIONS,
-	ERROR_NOT_REGULAR
-      };
-
-    typedef Exception<ErrorCode> error;
+    typedef runtime_error_custom<Config> error;
 
     Config();
     Config(const std::string& file);

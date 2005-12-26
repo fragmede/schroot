@@ -97,7 +97,7 @@ Lock::set_alarm ()
     {
       format fmt(_("failed to set timeout handler: %1%"));
       fmt % strerror(errno);
-      throw error(fmt, LOCK_ERROR_SETUP);
+      throw error(fmt);
     }
 }
 
@@ -124,7 +124,7 @@ Lock::set_timer(struct itimerval const& timer)
       clear_alarm();
       format fmt(_("failed to set timeout: %1%"));
       fmt % strerror(errno);
-      throw error(fmt, LOCK_ERROR_SETUP);
+      throw error(fmt);
     }
 }
 
@@ -140,7 +140,7 @@ Lock::unset_timer()
       clear_alarm();
       format fmt(_("failed to unset timeout: %1%"));
       fmt % strerror(errno);
-      throw error(fmt, LOCK_ERROR_SETUP);
+      throw error(fmt);
     }
 
   clear_alarm();
@@ -203,13 +203,13 @@ FileLock::set_lock (Lock::Type   lock_type,
 	    {
 	      format fmt (_("failed to acquire lock (timeout after %1% seconds)"));
 	      fmt % timeout;
-	      throw error(fmt, LOCK_ERROR_TIMEOUT);
+	      throw error(fmt);
 	    }
 	  else
 	    {
 	      format fmt(_("failed to acquire lock: %1%"));
 	      fmt % strerror(errno);
-	      throw error(fmt, LOCK_ERROR_FAIL);
+	      throw error(fmt);
 	    }
 	}
       unset_timer();
@@ -294,8 +294,7 @@ DeviceLock::set_lock (Lock::Type   lock_type,
 		break;
 	      else if (status < 0) // Failure
 		{
-		  throw error(_("failed to acquire device lock"),
-			      LOCK_ERROR_FAIL);
+		  throw error(_("failed to acquire device lock"));
 		}
 	    }
 	  else
@@ -303,22 +302,20 @@ DeviceLock::set_lock (Lock::Type   lock_type,
 	      pid_t cur_lock_pid = dev_testlock(this->device.c_str());
 	      if (cur_lock_pid < 0) // Test failure
 		{
-		  throw error(_("failed to test device lock"),
-			      LOCK_ERROR_FAIL);
+		  throw error(_("failed to test device lock"));
 		}
 	      else if (cur_lock_pid > 0 && cur_lock_pid != getpid()) // Another process owns the lock
 		{
 		  format fmt(_("failed to release device lock held by pid %1%"));
 		  fmt % cur_lock_pid;
-		  throw error(fmt, LOCK_ERROR_FAIL);
+		  throw error(fmt);
 		}
 	      status = dev_unlock(this->device.c_str(), getpid());
 	      if (status == 0) // Success
 		break;
 	      else if (status < 0) // Failure
 		{
-		  throw error(_("failed to release device lock"),
-			      LOCK_ERROR_FAIL);
+		  throw error(_("failed to release device lock"));
 		}
 	    }
 	}
@@ -332,7 +329,7 @@ DeviceLock::set_lock (Lock::Type   lock_type,
 		     _("failed to release device lock held by pid %1% "
 		       "(timeout after %2% seconds)"));
 	  fmt %	status % timeout;
-	  throw error(fmt, LOCK_ERROR_TIMEOUT);
+	  throw error(fmt);
 	}
       unset_timer();
     }

@@ -177,13 +177,13 @@ ChrootBlockDevice::setup_lock (Chroot::SetupType type,
     {
       format fmt(_("%1% chroot: failed to stat device %2%: %3%"));
       fmt % get_name() % get_device() % strerror(errno);
-      throw error(fmt, ERROR_LOCK);
+      throw error(fmt);
     }
   else if (!S_ISBLK(statbuf.st_mode))
     {
       format fmt(_("%1% chroot: %2% is not a block device"));
       fmt % get_name() % get_device();
-      throw error(fmt, ERROR_LOCK);
+      throw error(fmt);
     }
   else
     {
@@ -198,7 +198,7 @@ ChrootBlockDevice::setup_lock (Chroot::SetupType type,
 	    {
 	      format fmt(_("%1%: failed to lock device: %2%"));
 	      fmt % get_device() % e.what();
-	      throw error(fmt, ERROR_LOCK);
+	      throw error(fmt);
 	    }
 	}
       else
@@ -211,7 +211,7 @@ ChrootBlockDevice::setup_lock (Chroot::SetupType type,
 	    {
 	      format fmt(_("%1%: failed to unlock device: %2%"));
 	      fmt % get_device() % e.what();
-	      throw error(fmt, ERROR_LOCK);
+	      throw error(fmt);
 	    }
 	}
     }
