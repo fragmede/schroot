@@ -509,15 +509,15 @@ void
 Chroot::read_keyfile (const keyfile&     keyfile,
 		      const std::string& group)
 {
-  bool active;
+  bool active(false);
   if (keyfile.get_value(group, "active", active))
     set_active(active);
 
-  bool run_setup_scripts;
+  bool run_setup_scripts(false);
   if (keyfile.get_value(group, "run-setup-scripts", run_setup_scripts))
     set_run_setup_scripts(run_setup_scripts);
 
-  bool run_session_scripts;
+  bool run_session_scripts(false);
   if (keyfile.get_value(group, "run-session-scripts", run_session_scripts))
     set_run_session_scripts(run_session_scripts);
 

@@ -70,7 +70,7 @@ namespace sbuild
 	ERROR_PAM_SESSION_OPEN,
 	ERROR_PAM_SESSION_CLOSE,
 	ERROR_PAM_DELETE_CREDENTIALS,
-	ERROR_PAM_SHUTDOWN,
+	ERROR_PAM_SHUTDOWN
       } ErrorCode;
 
     typedef Exception<ErrorCode> error;

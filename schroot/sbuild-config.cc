@@ -321,6 +321,8 @@ Config::validate_chroots(const string_list& chroots) const
       if (chroot == 0)
 	bad_chroots.push_back(*pos);
     }
+
+  return bad_chroots;
 }
 
 /**

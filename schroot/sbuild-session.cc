@@ -166,7 +166,7 @@ namespace
 	  }
 	if (supp_group_count > 0)
 	  {
-	    gid_t supp_groups[supp_group_count];
+	    gid_t *supp_groups = new gid_t[supp_group_count];
 	    if (getgroups(supp_group_count, supp_groups) < 1)
 	      {
 		log_error() << format(_("can't get supplementary groups: %1%"))
@@ -180,6 +180,7 @@ namespace
 		if (groupbuf->gr_gid == supp_groups[i])
 		  group_member = true;
 	      }
+	    delete[] supp_groups;
 	  }
       }
 
@@ -652,7 +653,7 @@ Session::setup_chroot (Chroot&           session_chroot,
 		  ERROR_CHROOT_SETUP);
     }
 
-  char *setup_type_string = NULL;
+  std::string setup_type_string;
   if (setup_type == Chroot::SETUP_START)
     setup_type_string = "setup-start";
   else if (setup_type == Chroot::SETUP_RECOVER)

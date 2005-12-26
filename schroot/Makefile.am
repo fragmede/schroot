@@ -26,7 +26,7 @@ localedir = $(datadir)/locale
 pkglibexecdir = $(SCHROOT_LIBEXEC_DIR)
 
 AM_CFLAGS = -std=c99 $(SCHROOT_CFLAGS)
-AM_CXXFLAGS = $(SCHROOT_CFLAGS)
+AM_CXXFLAGS = $(SCHROOT_CFLAGS) -Wall -Wcast-align -Wwrite-strings -pedantic -Wcast-qual -Wredundant-decls
 
 DEFS = -DG_LOG_DOMAIN=\"Schroot\" -DGETTEXT_PACKAGE=\"schroot\" -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
 

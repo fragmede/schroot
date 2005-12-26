@@ -1,4 +1,26 @@
-2005-12-25  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2005-12-26  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-session.cc (is_group_member): Use new rather than
+	C99 VLAs.
+	(setup_chroot): setup_type_string is a std::string, rather than a
+	char *.
+
+	* schroot/sbuild-config.cc (validate_chroots): Return bad_chroots.
+
+	* schroot/sbuild-chroot.cc (read_keyfile): Initialise bool values
+	to quell compiler warning.
+
+	* schroot/sbuild-auth.h (ErrorCode): Remove trailing comma.
+
+	* schroot/sbuild-auth.cc
+	(auth_conv): Use signed rather than unsigned int in for loops.
+	(Auth::Auth): Correct member initialisation order.
+
+	* schroot/Makefile.am (AM_CXXFLAGS): Add additional flags: -Wall
+	-Wcast-align -Wwrite-strings -pedantic -Wcast-qual
+	-Wredundant-decls.
+
+2005-12-25  Roger Leigh  <rleigh@debian.org>
 
 	* configure.ac: Remove checks for Glib.  Glib is now completely
 	removed from the sources.

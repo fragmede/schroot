@@ -98,7 +98,7 @@ namespace
 
     /* Construct a message vector */
     AuthConv::message_list messages;
-    for (unsigned int i = 0; i < num_msg; ++i)
+    for (int i = 0; i < num_msg; ++i)
       {
 	const struct pam_message *source = msgm[i];
 
@@ -118,7 +118,7 @@ namespace
 	  static_cast<struct pam_response *>
 	  (malloc(sizeof(struct pam_response) * num_msg));
 
-	for (unsigned int i = 0; i < num_msg; ++i)
+	for (int i = 0; i < num_msg; ++i)
 	  {
 	    reply[i].resp_retcode = 0;
 	    reply[i].resp = strdup(messages[i].response.c_str());
@@ -168,6 +168,7 @@ namespace
 
 
 Auth::Auth(const std::string& service_name):
+  pam(),
   service(service_name),
   uid(0),
   gid(0),
@@ -179,7 +180,6 @@ Auth::Auth(const std::string& service_name):
   ruid(),
   ruser(),
   conv(dynamic_cast<AuthConv *>(new AuthConvTty)),
-  pam(),
   verbosity(VERBOSITY_NORMAL)
 {
   this->ruid = getuid();
