@@ -1,4 +1,9 @@
-2005-12-28  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2005-12-28  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot-options.cc: Always qualify string_list with
+	sbuild::.
+
+2005-12-28  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-auth-conv-tty.h: (sbuild::AuthConvTty): Rename
 	conversation_impl to conversation.

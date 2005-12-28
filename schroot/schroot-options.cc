@@ -121,7 +121,7 @@ Options::Options(int   argc,
 
   opt::options_description hidden(_("Hidden options"));
   hidden.add_options()
-    ("command", opt::value<string_list>(&this->command),
+    ("command", opt::value<sbuild::string_list>(&this->command),
      _("Command to run"));
 
   opt::options_description visible;
