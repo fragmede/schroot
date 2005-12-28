@@ -17,11 +17,10 @@ PENDING
 
 ** Enable C++ compiler warnings.
 
-** Convert inline docs into Doxygen format to replace gtk-doc.
+** Add doxygen docs to doc/Makefile.am.
 
 ** const correctness of references.
 
-** Message newlines and warning levels.
 
 PLANNED
 -------

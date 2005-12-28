@@ -100,20 +100,8 @@ namespace sbuild
      * responses to return to the caller.
      * @returns true on success, false on failure.
      */
-    bool conversation (message_list& messages);
-
-  protected:
-    /**
-     * Actual conversation handler.
-     *
-     * @param messages the messages to display to the user, and
-     * responses to return to the caller.
-     * @returns true on success, false on failure.
-     *
-     * @todo Remove this method, and replace with conversation.  It's
-     * no longer required now signals are not used.
-     */
-    virtual bool conversation_impl (message_list& messages) = 0;
+    virtual bool
+    conversation (message_list& messages) = 0;
   };
 
 }

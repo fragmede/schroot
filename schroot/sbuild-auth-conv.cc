@@ -31,12 +31,6 @@ AuthConv::~AuthConv()
 {
 }
 
-bool
-AuthConv::conversation (AuthConv::message_list& messages)
-{
-  return this->conversation_impl(messages);
-}
-
 /*
  * Local Variables:
  * mode:C++

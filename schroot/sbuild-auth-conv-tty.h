@@ -60,8 +60,7 @@ namespace sbuild
     virtual time_t get_fatal_timeout ();
     virtual void set_fatal_timeout (time_t timeout);
 
-  protected:
-    virtual bool conversation_impl (message_list& messages);
+    virtual bool conversation (message_list& messages);
 
   private:
     /**

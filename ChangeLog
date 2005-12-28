@@ -1,3 +1,11 @@
+2005-12-28  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* schroot/sbuild-auth-conv-tty.h: (sbuild::AuthConvTty): Rename
+	conversation_impl to conversation.
+
+	* schroot/sbuild-auth-conv.h (sbuild::AuthConv): Remove
+	conversation_impl method, replacing it with conversation.
+
 2005-12-28  Roger Leigh  <rleigh@debian.org>
 
 	* Document remaining undocumented functions and typedefs.
