@@ -1,6 +1,4 @@
-/* sbuild-log - sbuild message logging
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * serror is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -27,27 +25,52 @@
 namespace sbuild
 {
 
+  /// Debugging level.
   enum DebugLevel
     {
-      DEBUG_NONE = -1,
-      DEBUG_NOTICE = 1,
-      DEBUG_INFO = 2,
-      DEBUG_WARNING = 3,
-      DEBUG_CRITICAL = 4
+      DEBUG_NONE = -1,   ///< No debugging.
+      DEBUG_NOTICE = 1,  ///< Notification messages.
+      DEBUG_INFO = 2,    ///< Informational messages.
+      DEBUG_WARNING = 3, ///< Warning messages.
+      DEBUG_CRITICAL = 4 ///< Critical messages.
     };
 
+  /**
+   * Log an informational message.
+   *
+   * @returns an ostream.
+   */
   std::ostream&
   log_info();
 
+  /**
+   * Log a warning message.
+   *
+   * @returns an ostream.
+   */
   std::ostream&
   log_warning();
 
+  /**
+   * Log an error message.
+   *
+   * @returns an ostream.
+   */
   std::ostream&
   log_error();
 
+  /**
+   * Log a debug message.
+   *
+   * @param level the debug level of the message being logged.
+   * @returns an ostream.  This will be a valid stream if level is
+   * greater or equal to debug_level, or else a null stream will be
+   * returned, resulting in no output.
+   */
   std::ostream&
   log_debug(DebugLevel level);
 
+  /// The debugging level in use.
   extern DebugLevel debug_level;
 
 }

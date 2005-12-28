@@ -37,8 +37,6 @@ namespace schroot
   class Options
   {
   public:
-    typedef std::vector<std::string> string_list;
-
     /**
      * The constructor.
      *

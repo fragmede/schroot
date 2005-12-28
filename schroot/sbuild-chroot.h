@@ -59,6 +59,7 @@ namespace sbuild
 	SESSION_CREATE = 1 << 0 ///< The chroot supports session creation.
       };
 
+    /// Exception type.
     typedef runtime_error_custom<Chroot> error;
 
     /// The constructor.
@@ -360,6 +361,8 @@ namespace sbuild
        * @param name the name of the property to format.
        * @param value the value of the property to format.  The value
        * type must support output to an ostream.
+       *
+       * @todo Replace convenience typedefs with a templated function.
        */
     public:
       format_detail(std::string const& name,
@@ -405,13 +408,19 @@ namespace sbuild
       }
 
     private:
+      /// The name of the property.
       std::string const& name;
+      /// The value of the property.
       T const&           value;
     };
 
+    /// Convenience type to format a string.
     typedef format_detail<std::string> format_detail_string;
+    /// Convenience type to format an integer.
     typedef format_detail<int> format_detail_int;
+    /// Convenience type to format a bool.
     typedef format_detail<bool> format_detail_bool;
+    /// Convenience type to format a string list.
     typedef format_detail<string_list> format_detail_strv;
 
   private:

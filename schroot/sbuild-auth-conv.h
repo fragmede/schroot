@@ -30,11 +30,11 @@ namespace sbuild
   /**
    * @brief Authentication conversation handler interface.
    *
-   * AuthConv is an interface which should be implemented by objects
-   * which handle interaction with the user during authentication.
+   * This interface should be implemented by objects which handle
+   * interaction with the user during authentication.
    *
    * This is a wrapper around the struct pam_conv PAM conversation
-   * interface, and is used by #Auth when interacting with the user
+   * interface, and is used by Auth when interacting with the user
    * during authentication.
    *
    * A simple implementation is provided in the form of AuthConvTty.
@@ -45,9 +45,6 @@ namespace sbuild
    * fatal timeout values, which should default to 0 (not enabled).
    * This is an absolute time after which a warning is displayed or
    * the conversation ends with an error.
-   *
-   * @todo Remove conversation_impl, no longer required now that
-   * signals are no longer used.
    */
   class AuthConv
   {
@@ -106,6 +103,16 @@ namespace sbuild
     bool conversation (message_list& messages);
 
   protected:
+    /**
+     * Actual conversation handler.
+     *
+     * @param messages the messages to display to the user, and
+     * responses to return to the caller.
+     * @returns true on success, false on failure.
+     *
+     * @todo Remove this method, and replace with conversation.  It's
+     * no longer required now signals are not used.
+     */
     virtual bool conversation_impl (message_list& messages) = 0;
   };
 

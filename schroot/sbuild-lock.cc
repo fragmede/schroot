@@ -132,7 +132,7 @@ FileLock::~FileLock()
 }
 
 void
-FileLock::set_lock (Lock::Type   lock_type,
+FileLock::set_lock (Type         lock_type,
 		    unsigned int timeout)
 {
   try
@@ -200,7 +200,7 @@ DeviceLock::~DeviceLock()
 }
 
 void
-DeviceLock::set_lock (Lock::Type   lock_type,
+DeviceLock::set_lock (Type         lock_type,
 		      unsigned int timeout)
 {
   try

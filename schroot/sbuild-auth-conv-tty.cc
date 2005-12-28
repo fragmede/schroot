@@ -244,7 +244,7 @@ AuthConvTty::read_string (std::string message,
 }
 
 bool
-AuthConvTty::conversation_impl (AuthConv::message_list& messages)
+AuthConvTty::conversation_impl (message_list& messages)
 {
   for (std::vector<AuthMessage>::iterator cur = messages.begin();
        cur != messages.end();

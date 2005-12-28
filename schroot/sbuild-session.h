@@ -59,7 +59,11 @@ namespace sbuild
 	OPERATION_RUN        ///< Run a command in an existing session.
       };
 
+    /// Exception type.
     typedef runtime_error_custom<Session> error;
+
+    /// A shared_ptr to a Config object.
+    typedef std::tr1::shared_ptr<Config> config_ptr;
 
     /**
      * The constructor.
@@ -69,10 +73,10 @@ namespace sbuild
      * @param operation the session operation to perform.
      * @param chroots the chroots to act upon.
      */
-    Session (const std::string&            service,
-	     std::tr1::shared_ptr<Config>& config,
-	     Operation                     operation,
-	     string_list                   chroots);
+    Session (const std::string& service,
+	     config_ptr&        config,
+	     Operation          operation,
+	     string_list        chroots);
 
     /// The destructor.
     virtual ~Session();
@@ -82,7 +86,7 @@ namespace sbuild
      *
      * @returns a shared_ptr to the configuration.
      */
-    std::tr1::shared_ptr<Config>&
+    config_ptr&
     get_config ();
 
     /**
@@ -91,7 +95,7 @@ namespace sbuild
      * @param config a shared_ptr to the configuration.
      */
     void
-    set_config (std::tr1::shared_ptr<Config>& config);
+    set_config (config_ptr& config);
 
     /**
      * Get the chroots to use in this session.
@@ -191,6 +195,9 @@ namespace sbuild
      * pathname), using command and env as the argv and environment,
      * respectively.
      *
+     * @param file the program to execute.
+     * @param command the arguments to pass to the executable.
+     * @param env the environment.
      * @returns the return value of the execve system call on failure.
      */
     int
@@ -249,18 +256,18 @@ namespace sbuild
 		    int& child_status);
 
     /// The chroot configuration.
-    std::tr1::shared_ptr<Config> config;
+    config_ptr  config;
     /// The chroots to run the session operation in.
-    string_list                  chroots;
+    string_list chroots;
     /// The child exit status.
     /// @todo Remove child exit status.
-    int                          child_status;
+    int         child_status;
     /// The session operation to perform.
-    Operation                    operation;
+    Operation   operation;
     /// The session identifier.
-    std::string                  session_id;
+    std::string session_id;
     /// The session force status.
-    bool                         force;
+    bool        force;
   };
 
 }

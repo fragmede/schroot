@@ -113,8 +113,8 @@ ChrootBlockDevice::setup_env (env_list& env)
 }
 
 void
-ChrootBlockDevice::setup_lock (Chroot::SetupType type,
-			       bool              lock)
+ChrootBlockDevice::setup_lock (SetupType type,
+			       bool      lock)
 {
   struct stat statbuf;
 

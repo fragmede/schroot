@@ -68,6 +68,8 @@ namespace schroot_releaselock
     };
 }
 
+using namespace schroot_releaselock;
+
 /*
  * parse_options:
  * @argc: the number of arguments

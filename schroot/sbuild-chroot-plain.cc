@@ -90,8 +90,8 @@ ChrootPlain::setup_env (env_list& env)
 }
 
 void
-ChrootPlain::setup_lock (Chroot::SetupType type,
-			 bool              lock)
+ChrootPlain::setup_lock (SetupType type,
+			 bool      lock)
 {
   /* By default, plain chroots do no locking. */
 }

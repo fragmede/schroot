@@ -46,6 +46,7 @@ namespace sbuild
 	LOCK_NONE      = F_UNLCK  ///< No lock.
       };
 
+    /// Exception type.
     typedef runtime_error_custom<Lock> error;
 
     /**
@@ -103,8 +104,6 @@ namespace sbuild
      * SIGALRM handler (using clear_alarm).
      *
      * An error will be thrown on failure.
-     *
-     * @param timer the timeout to set.
      */
     void
     unset_timer();

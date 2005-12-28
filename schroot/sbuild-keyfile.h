@@ -49,17 +49,20 @@ namespace sbuild
   class keyfile
   {
   private:
-    // key, value, comment
+    /// Key-value-comment tuple.
     typedef std::tr1::tuple<std::string,std::string,std::string> item_type;
 
+    /// Map between key name and key-value-comment tuple.
     typedef std::map<std::string,item_type> item_map_type;
 
-    // group, items, comment
+    /// Group-items-comment tuple.
     typedef std::tr1::tuple<std::string,item_map_type,std::string> group_type;
 
+    /// Map between group name and group-items-comment tuple.
     typedef std::map<std::string,group_type> group_map_type;
 
   public:
+    /// Exception type.
     typedef runtime_error_custom<keyfile> error;
 
     /**
@@ -111,7 +114,7 @@ namespace sbuild
      * Check if a key exists.
      *
      * @param group the group the key is in.
-     * @param group the key to check for.
+     * @param key the key to check for.
      * @returns true if the key exists, otherwise false.
      */
     bool
@@ -122,7 +125,7 @@ namespace sbuild
      * Get a key value.
      *
      * @param group the group the key is in.
-     * @param group the key to get.
+     * @param key the key to get.
      * @param value the value to store the key's value in.  This must
      * be settable from an istream and be copyable.
      * @returns true if the key was found, otherwise false (in which
@@ -154,7 +157,7 @@ namespace sbuild
      * Get a key value as a list.
      *
      * @param group the group the key is in.
-     * @param group the key to get.
+     * @param key the key to get.
      * @param value the list value to store the key's value in.  The
      * value type must be settable from an istream and be copyable.
      * The list must be a container with a standard insert method.
@@ -193,7 +196,7 @@ namespace sbuild
      * Set a key value.
      *
      * @param group the group the key is in.
-     * @param group the key to set.
+     * @param key the key to set.
      * @param value the value to get the key's value from.  This must
      * allow output to an ostream.
      */
@@ -231,7 +234,7 @@ namespace sbuild
      * Set a key value from a list.
      *
      * @param group the group the key is in.
-     * @param group the key to set.
+     * @param key the key to set.
      * @param value the list value to get the key's value from.  The
      * value type must allow output to an ostream.  The list must be a
      * container with a standard forward iterator.

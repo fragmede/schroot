@@ -121,8 +121,8 @@ ChrootLvmSnapshot::setup_env (env_list& env)
 }
 
 void
-ChrootLvmSnapshot::setup_lock (Chroot::SetupType type,
-			       bool              lock)
+ChrootLvmSnapshot::setup_lock (SetupType type,
+			       bool      lock)
 {
   std::string device;
   struct stat statbuf;

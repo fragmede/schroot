@@ -43,10 +43,14 @@ namespace sbuild
  class Config
   {
   public:
+    /// A list of chroots.
     typedef std::vector<Chroot *> chroot_list;
+    /// A map between key-value string pairs.
     typedef std::map<std::string, std::string> string_map;
+    /// A map between a chroot name and a Chroot object.
     typedef std::map<std::string, Chroot *> chroot_map;
 
+    /// Exception type.
     typedef runtime_error_custom<Config> error;
 
     /// The constructor.
@@ -108,7 +112,7 @@ namespace sbuild
     const Chroot *
     find_alias (const std::string& name) const;
 
-    /*
+    /**
      * Get the names (including aliases) of all the available chroots,
      * sorted in alphabetical order.
      *

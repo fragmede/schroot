@@ -70,8 +70,6 @@ namespace sbuild
    * function should be used to provide a session handler to open and
    * close the session for the user.  open_session and close_session
    * must still be used.
-   *
-   * @todo Use "using std::tr1::shared_ptr" to simplify prototypes.
    */
   class Auth
   {
@@ -92,7 +90,11 @@ namespace sbuild
 	VERBOSITY_VERBOSE ///< Print all messages.
       };
 
+    /// Exception type.
     typedef runtime_error_custom<Auth> error;
+
+    /// A shared_ptr to an AuthConv object.
+    typedef std::tr1::shared_ptr<AuthConv> conv_ptr;
 
     /**
      * The constructor.
@@ -282,7 +284,7 @@ namespace sbuild
      *
      * @returns a shared_ptr to the handler.
      */
-    std::tr1::shared_ptr<AuthConv>&
+    conv_ptr&
     get_conv ();
 
     /**
@@ -291,7 +293,7 @@ namespace sbuild
      * @param conv a shared_ptr to the handler.
      */
     void
-    set_conv (std::tr1::shared_ptr<AuthConv>& conv);
+    set_conv (conv_ptr& conv);
 
     /**
      * Run a session.  The user will be asked for authentication if
@@ -417,33 +419,33 @@ protected:
 
   protected:
     /// The PAM handle.
-    pam_handle_t        *pam;
+    pam_handle_t      *pam;
 
   private:
     /// The PAM service name.
-    const std::string    service;
+    const std::string  service;
     /// The uid to run as.
-    uid_t                uid;
+    uid_t              uid;
     /// The gid to run as.
-    gid_t                gid;
+    gid_t              gid;
     /// The user name to run as.
-    std::string          user;
+    std::string        user;
     /// The command to run.
-    string_list          command;
+    string_list        command;
     /// The home directory to run in.
-    std::string          home;
+    std::string        home;
     /// The user shell to run.
-    std::string          shell;
+    std::string        shell;
     /// The user environment to set.
-    env_list             environment;
+    env_list           environment;
     /// The uid requesting authentication.
-    uid_t                ruid;
+    uid_t              ruid;
     /// The user name requesting authentication.
-    std::string          ruser;
+    std::string        ruser;
     /// The PAM conversation handler.
-    std::tr1::shared_ptr<AuthConv> conv;
+    conv_ptr           conv;
     /// The message verbosity.
-    Verbosity            verbosity;
+    Verbosity          verbosity;
   };
 
 }

@@ -291,14 +291,14 @@ Auth::set_verbosity (Auth::Verbosity verbosity)
   this->verbosity = verbosity;
 }
 
-std::tr1::shared_ptr<AuthConv>&
+Auth::conv_ptr&
 Auth::get_conv ()
 {
   return this->conv;
 }
 
 void
-Auth::set_conv (std::tr1::shared_ptr<AuthConv>& conv)
+Auth::set_conv (conv_ptr& conv)
 {
   this->conv = conv;
 }

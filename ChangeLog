@@ -1,5 +1,11 @@
 2005-12-28  Roger Leigh  <rleigh@debian.org>
 
+	* Document remaining undocumented functions and typedefs.
+	Implementations of pure virtual functions are not documented (a
+	doxygen bug, Debian bug #324117).
+
+2005-12-28  Roger Leigh  <rleigh@debian.org>
+
 	* Convert all inline gtk-doc documentation to Doxygen format, and
 	move it from the sources into the headers.
 

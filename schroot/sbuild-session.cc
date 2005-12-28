@@ -173,10 +173,10 @@ namespace
 
 }
 
-Session::Session (const std::string&            service,
-		  std::tr1::shared_ptr<Config>& config,
-		  Operation                     operation,
-		  string_list                   chroots):
+Session::Session (const std::string& service,
+		  config_ptr&        config,
+		  Operation          operation,
+		  string_list        chroots):
   Auth(service),
   config(config),
   chroots(chroots),
@@ -191,14 +191,14 @@ Session::~Session()
 {
 }
 
-std::tr1::shared_ptr<Config>&
+Session::config_ptr&
 Session::get_config ()
 {
   return this->config;
 }
 
 void
-Session::set_config (std::tr1::shared_ptr<Config>& config)
+Session::set_config (config_ptr& config)
 {
   this->config = config;
 }
