@@ -1,6 +1,4 @@
-/* sbuild-chroot-lvm-snapshot - sbuild chroot lvm snapshot object
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -18,15 +16,6 @@
  * MA  02111-1307  USA
  *
  *********************************************************************/
-
-/**
- * SECTION:sbuild-chroot-lvm-snapshot
- * @short_description: chroot lvm snapshot object
- * @title: SbuildChrootLvmSnapshot
- *
- * This object represents a chroot stored on an LVM logical volume
- * (LV).  A snapshot LV will be created and mounted on demand.
- */
 
 #include <config.h>
 
@@ -78,28 +67,12 @@ ChrootLvmSnapshot::clone () const
   return new ChrootLvmSnapshot(*this);
 }
 
-/**
- * sbuild_chroot_lvm_snapshot_get_snapshot_device:
- * @chroot: an #ChrootLvmSnapshot
- *
- * Get the logical volume snapshot device name, used by lvcreate.
- *
- * Returns a string. This string points to internally allocated
- * storage in the chroot and must not be freed, modified or stored.
- */
 const std::string&
 ChrootLvmSnapshot::get_snapshot_device () const
 {
   return this->snapshot_device;
 }
 
-/**
- * sbuild_chroot_lvm_snapshot_set_snapshot_device:
- * @chroot: an #ChrootLvmSnapshot.
- * @snapshot_device: the snapshot device to set.
- *
- * Set the logical volume snapshot device name, used by lvcreate.
- */
 void
 ChrootLvmSnapshot::set_snapshot_device (const std::string& snapshot_device)
 {
@@ -112,28 +85,12 @@ ChrootLvmSnapshot::get_mount_device () const
   return this->snapshot_device;
 }
 
-/**
- * sbuild_chroot_lvm_snapshot_get_snapshot_options:
- * @chroot: an #ChrootLvmSnapshot
- *
- * Get the logical volume snapshot options, used by lvcreate.
- *
- * Returns a string. This string points to internally allocated
- * storage in the chroot and must not be freed, modified or stored.
- */
 const std::string&
 ChrootLvmSnapshot::get_snapshot_options () const
 {
   return this->snapshot_options;
 }
 
-/**
- * sbuild_chroot_lvm_snapshot_set_snapshot_options:
- * @chroot: an #ChrootLvmSnapshot.
- * @snapshot_options: the snapshot options to set.
- *
- * Set the logical volume snapshot options, used by lvcreate.
- */
 void
 ChrootLvmSnapshot::set_snapshot_options (const std::string& snapshot_options)
 {

@@ -1,6 +1,4 @@
-/* sbuild-config - sbuild config object
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -33,7 +31,16 @@
 namespace sbuild
 {
 
-  class Config
+  /**
+   * Chroot configuration.
+   *
+   * This class holds the configuration details from the configuration
+   * file.  Conceptually, it's an opaque container of Chroot objects.
+   *
+   * Methods are provided to query the available chroots and find
+   * specific chroots.
+   */
+ class Config
   {
   public:
     typedef std::vector<Chroot *> chroot_list;
@@ -42,46 +49,129 @@ namespace sbuild
 
     typedef runtime_error_custom<Config> error;
 
+    /// The constructor.
     Config();
+
+    /**
+     * The constructor.
+     *
+     * @param file initialise using a configuration file or a whole
+     * directory containing configuration files.
+     */
     Config(const std::string& file);
+
+    /// The destructor.
     virtual ~Config();
 
+    /**
+     * Add a configuration file.  The configuration file specified
+     * will be loaded.
+     *
+     * @param file the file to load.
+     */
     void
     add_config_file (const std::string& file);
 
+    /**
+     * Add a configuration directory.  The configuration files in the
+     * directory specified will all be loaded.
+     *
+     * @param dir the directory containing the files to load.
+     */
     void
     add_config_directory (const std::string& dir);
 
+    /**
+     * Get a list of available chroots.
+     *
+     * @returns a list of available chroots.  The list will be empty
+     * if no chroots are available.
+     */
     chroot_list
     get_chroots () const;
 
+    /**
+     * Find a chroot by its name.
+     *
+     * @param name the chroot name
+     * @returns the chroot if found, otherwise 0.
+     */
     const Chroot *
     find_chroot (const std::string& name) const;
 
+    /**
+     * Find a chroot by its name or an alias.
+     *
+     * @param name the chroot name or alias.
+     * @returns the chroot if found, otherwise 0.
+     */
     const Chroot *
     find_alias (const std::string& name) const;
 
+    /*
+     * Get the names (including aliases) of all the available chroots,
+     * sorted in alphabetical order.
+     *
+     * @returns the list.  The list will be empty if no chroots are
+     * available.
+     */
     string_list
     get_chroot_list () const;
 
+    /**
+     * Print all the available chroots to the specified stream.
+     *
+     * @param stream the stream to output to.
+     */
     void
     print_chroot_list (std::ostream& stream) const;
 
+    /**
+     * Print information about the specified chroots to the specified
+     * stream.
+     *
+     * @param chroots a list of chroots to print.
+     * @param stream the stream to output to.
+     */
     void
     print_chroot_info (const string_list& chroots,
 		       std::ostream&      stream) const;
 
+    /**
+     * Check that all the chroots specified exist.
+     *
+     * @param chroots a list of chroots to validate.
+     * @returns a list of invalid chroots.  The list will be empty if
+     * all chroots are valid.
+     */
     string_list
     validate_chroots(const string_list& chroots) const;
 
   private:
+    /**
+     * Check the permissions and ownership of a configuration file.
+     * The file must be owned by root, not writable by other, and be a
+     * regular file.
+     *
+     * An error will be thrown on failure.
+     *
+     * @param fd the file descriptor to check.
+     */
     void
     check_security(int fd) const;
 
+    /**
+     * Load a configuration file.  If there are problems with the
+     * configuration file, the program will be aborted immediately.
+     *
+     * @param file the file to load.
+     */
     void
     load (const std::string& file);
 
+    /// A list of chroots (name->chroot mapping).
     chroot_map chroots;
+    /// A list of aliases (alias->name mapping).
     string_map aliases;
   };
 

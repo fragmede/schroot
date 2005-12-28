@@ -1,6 +1,4 @@
-/* sbuild-chroot-block-device - sbuild chroot block device object
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -27,31 +25,68 @@
 namespace sbuild
 {
 
+  /**
+   * A chroot stored on an unmounted block device.  The device will be
+   * mounted on demand.
+   */
   class ChrootBlockDevice : public Chroot
   {
   public:
+    /// The constructor.
     ChrootBlockDevice();
+
+    /**
+     * The constructor.  Initialise from an open keyfile.
+     *
+     * @param keyfile the configuration file
+     * @param group the keyfile group (chroot name)
+     */
     ChrootBlockDevice (const keyfile&      keyfile,
 		       const std::string&  group);
+
+    /// The destructor.
     virtual ~ChrootBlockDevice();
 
     virtual Chroot *
     clone () const;
 
+    /**
+     * Get the block device of the chroot.
+     *
+     * @returns the device.
+     */
     const std::string&
     get_device () const;
 
+    /**
+     * Set the block device of the chroot.This is the "source" device.
+     * It may be the case that the real device is different (for
+     * example, an LVM snapshot PV), but by default will be the device
+     * to mount.
+     *
+     * @param device the device.
+     */
     void
     set_device (const std::string& device);
 
     virtual const std::string&
     get_mount_device () const;
 
+    /**
+     * Get the filesystem mount_options of the chroot block device.
+     *
+     * @returns the mount options.
+     */
     const std::string&
     get_mount_options () const;
 
+    /**
+     * Set the filesystem mount_options of the chroot block device.
+     *
+     * @param mount_options the mount options.
+     */
     void
-    set_mount_options (const std::string& device);
+    set_mount_options (const std::string& mount_options);
 
     virtual const std::string&
     get_chroot_type () const;
@@ -73,11 +108,19 @@ namespace sbuild
     print_config (std::ostream& stream) const;
 
   private:
+    /**
+     * Read chroot configuration from a keyfile.
+     *
+     * @param keyfile the configuration file
+     * @param group the keyfile group (chroot name)
+     */
     void
     read_keyfile (const keyfile&     keyfile,
 		  const std::string& group);
 
+    /// The block device to use.
     std::string device;
+    /// The options to mount the device with.
     std::string mount_options;
   };
 

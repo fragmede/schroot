@@ -1,6 +1,4 @@
-/* sbuild-chroot-block-device - sbuild chroot block device object
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -18,15 +16,6 @@
  * MA  02111-1307  USA
  *
  *********************************************************************/
-
-/**
- * SECTION:sbuild-chroot-block-device
- * @short_description: chroot block device object
- * @title: SbuildChrootBlockDevice
- *
- * This object represents a chroot stored on an unmounted block
- * device.  The device will be mounted on demand.
- */
 
 #include <config.h>
 
@@ -74,30 +63,12 @@ ChrootBlockDevice::clone () const
   return new ChrootBlockDevice(*this);
 }
 
-/**
- * sbuild_chroot_block_device_get_device:
- * @chroot: an #ChrootBlockDevice
- *
- * Get the block device of the chroot.
- *
- * Returns a string. This string points to internally allocated
- * storage in the chroot and must not be freed, modified or stored.
- */
 const std::string&
 ChrootBlockDevice::get_device () const
 {
   return this->device;
 }
 
-/**
- * sbuild_chroot_block_device_set_device:
- * @chroot: an #ChrootBlockDevice.
- * @device: the device to set.
- *
- * Set the block device of a chroot.  This is the "source" device.  It
- * may be the case that the real device is different (for example, an
- * LVM snapshot PV), but by default will be the device to mount.
- */
 void
 ChrootBlockDevice::set_device (const std::string& device)
 {
@@ -110,29 +81,12 @@ ChrootBlockDevice::get_mount_device () const
   return this->device;
 }
 
-/**
- * sbuild_chroot_block_device_get_mount_options:
- * @chroot: an #ChrootBlockDevice
- *
- * Get the filesystem mount_options of the chroot block device.
- *
- * Returns a string. This string points to internally allocated
- * storage in the chroot and must not be freed, modified or stored.
- */
 const std::string&
 ChrootBlockDevice::get_mount_options () const
 {
   return this->mount_options;
 }
 
-/**
- * sbuild_chroot_block_device_set_mount_options:
- * @chroot: an #ChrootBlockDevice.
- * @mount_options: the device to set.
- *
- * Set the filesystem mount_options of a chroot block device.  These
- * will be passed to mount(8) when mounting the device.
- */
 void
 ChrootBlockDevice::set_mount_options (const std::string& mount_options)
 {

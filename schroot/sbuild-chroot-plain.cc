@@ -1,6 +1,4 @@
-/* sbuild-chroot-plain - sbuild simple chroot object
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -18,14 +16,6 @@
  * MA  02111-1307  USA
  *
  *********************************************************************/
-
-/**
- * SECTION:sbuild-chroot-plain
- * @short_description: simple chroot object
- * @title: ChrootPlain
- *
- * This object represents a chroot located on a mounted filesystem.
- */
 
 #include <config.h>
 
@@ -64,28 +54,12 @@ ChrootPlain::clone () const
   return new ChrootPlain(*this);
 }
 
-/**
- * sbuild_chroot_plain_get_location:
- * @chroot: an #ChrootPlain
- *
- * Get the directory location of the chroot.
- *
- * Returns a string. This string points to internally allocated
- * storage in the chroot and must not be freed, modified or stored.
- */
 const std::string&
 ChrootPlain::get_location () const
 {
   return this->location;
 }
 
-/**
- * sbuild_chroot_plain_set_location:
- * @chroot: an #ChrootPlain.
- * @location: the location to set.
- *
- * Set the directory location of a chroot.
- */
 void
 ChrootPlain::set_location (const std::string& location)
 {

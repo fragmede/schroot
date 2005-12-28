@@ -44,7 +44,7 @@
 using std::endl;
 using boost::format;
 
-/**
+/*
  * print_version:
  * @file: the file to print to
  *
@@ -61,7 +61,7 @@ print_version (std::ostream& stream)
 	 << std::flush;
 }
 
-/**
+/*
  * get_chroot_options:
  * @config: an #sbuild::Config
  * @options: an #schroot::Options
@@ -110,7 +110,7 @@ get_chroot_options(std::tr1::shared_ptr<sbuild::Config>& config,
   return ret;
 }
 
-/**
+/*
  * main:
  * @argc: the number of arguments
  * @argv: argument vector

@@ -1,6 +1,4 @@
-/* sbuild-session - sbuild session object
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -18,20 +16,6 @@
  * MA  02111-1307  USA
  *
  *********************************************************************/
-
-/**
- * SECTION:sbuild-session
- * @short_description: session object
- * @title: Session
- *
- * This object provides the session handling for schroot.  It derives
- * from Auth, which performs all the necessary PAM actions,
- * specialising it by overriding its virtual functions.  This allows
- * more sophisticated handling of user authorisation (groups and
- * root-groups membership in the configuration file) and session
- * management (setting up the session, entering the chroot and running
- * the requested commands or shell).
- */
 
 #include <config.h>
 
@@ -125,7 +109,7 @@ namespace
     delete[] strv;
   }
 
-  /**
+  /*
    * is_group_member:
    * @group: the group to check for
    *
@@ -207,170 +191,72 @@ Session::~Session()
 {
 }
 
-/**
- * sbuild_session_get_config:
- * @session: an #Session
- *
- * Get the configuration associated with @session.
- *
- * Returns an #Config.
- */
 std::tr1::shared_ptr<Config>&
 Session::get_config ()
 {
   return this->config;
 }
 
-/**
- * sbuild_session_set_config:
- * @session: an #Session
- * @config: an #Config
- *
- * Set the configuration associated with @session.
- */
 void
 Session::set_config (std::tr1::shared_ptr<Config>& config)
 {
   this->config = config;
 }
 
-/**
- * sbuild_session_get_chroots:
- * @session: an #Session
- *
- * Get the chroots to use in @session.
- *
- * Returns a string vector. This string vector points to internally
- * allocated storage in the chroot and must not be freed, modified or
- * stored.
- */
 const string_list&
 Session::get_chroots () const
 {
   return this->chroots;
 }
 
-/**
- * sbuild_session_set_chroots:
- * @session: an #Session
- * @chroots: the chroots to use
- *
- * Set the chroots to use in @session.
- */
 void
 Session::set_chroots (const string_list& chroots)
 {
   this->chroots = chroots;
 }
 
-/**
- * sbuild_session_get_operation:
- * @session: an #Session
- *
- * Get the operation @session will perform.
- *
- * Returns an #Config.
- */
 Session::Operation
 Session::get_operation () const
 {
   return this->operation;
 }
 
-/**
- * sbuild_session_set_operation:
- * @session: an #Session
- * @operation: an #Operation
- *
- * Set the operation @session will perform.
- */
 void
 Session::set_operation (Operation operation)
 {
   this->operation = operation;
 }
 
-/**
- * sbuild_session_get_session_id:
- * @session: an #Session
- *
- * Get the session identifier.  The session identifier is a unique
- * string to identify a session.
- *
- * Returns a string.  The string must be freed by the caller.
- */
 const std::string&
 Session::get_session_id () const
 {
   return this->session_id;
 }
 
-/**
- * sbuild_session_set_session_id:
- * @session: an #Session
- * @session_id: an string containing a valid session id
- *
- * Set the session identifier for @session.
- */
 void
 Session::set_session_id (const std::string& session_id)
 {
   this->session_id = session_id;
 }
 
-/**
- * sbuild_session_get_force:
- * @session: an #Session
- *
- * Get the force status of @session.
- *
- * Returns true if operation will be forced, otherwise false.
- */
 bool
 Session::get_force () const
 {
   return this->force;
 }
 
-/**
- * sbuild_session_set_force:
- * @session: an #Session
- * @force: true to force session operation, otherwise false
- *
- * Set the force status of @session.
- */
 void
 Session::set_force (bool force)
 {
   this->force = force;
 }
 
-/**
- * sbuild_session_get_child_status:
- * @session: an #Session
- *
- * Get the exit (wait) status of the last child process to run in this
- * session.
- *
- * Returns the exit status.
- */
 int
 Session::get_child_status () const
 {
   return this->child_status;
 }
 
-/**
- * sbuild_session_require_auth:
- * @session: an #Session
- *
- * Check if authentication is required for @session.  Group membership
- * is checked for all chroots, and depending on which user will be run
- * in the chroot, password authentication or no authentication may be
- * required.
- *
- * Returns the authentication type.
- */
 Auth::Status
 Session::get_auth_status () const
 {
@@ -448,22 +334,6 @@ Session::get_auth_status () const
   return status;
 }
 
-/**
- * sbuild_session_run:
- * @session: an #Session
- *
- * Run a session.  If a command has been specified, this will be run
- * in each of the specified chroots.  If no command has been
- * specified, a login shell will run in the specified chroot.
- *
- * If required, the user may be required to authenticate themselves.
- * This usually occurs when running as a different user.  The user
- * must be a member of the appropriate groups in order to satisfy the
- * groups and root-groups requirements in the chroot configuration.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 Session::run_impl ()
 {
@@ -597,21 +467,6 @@ catch (const error& e)
   }
 }
 
-/**
- * sbuild_session_setup_chroot:
- * @session: an #Session
- * @session_chroot: an #Chroot (which must be present in the @session configuration)
- * @setup_type: an #ChrootSetupType
- *
- * Setup a chroot.  This runs all of the commands in setup.d.
- *
- * The environment variables CHROOT_NAME, CHROOT_DESCRIPTION,
- * CHROOT_LOCATION, AUTH_USER and AUTH_VERBOSITY are set for use in
- * setup scripts.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 Session::setup_chroot (Chroot&           session_chroot,
 		       Chroot::SetupType setup_type)
@@ -771,14 +626,6 @@ Session::setup_chroot (Chroot&           session_chroot,
     }
 }
 
-/**
- * sbuild_session_run_child:
- * @session: an #Session
- * @session_chroot: an #Chroot (which must be present in the @session configuration)
- *
- * Run a command or login shell as a child process in the specified chroot.
- *
- */
 void
 Session::run_child (Chroot& session_chroot)
 {
@@ -969,15 +816,6 @@ Session::run_child (Chroot& session_chroot)
   exit(EXIT_FAILURE);
 }
 
-/**
- * sbuild_session_wait_for_child:
- * @session: an #Session
- *
- * Wait for a child process to complete, and check its exit status.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 Session::wait_for_child (int  pid,
 			 int& child_status)
@@ -1025,16 +863,6 @@ Session::wait_for_child (int  pid,
     }
 }
 
-/**
- * sbuild_session_run_command:
- * @session: an #Session
- * @session_chroot: an #Chroot (which must be present in the @session configuration)
- *
- * Run the session command or login shell in the specified chroot.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 Session::run_chroot (Chroot&   session_chroot)
 {

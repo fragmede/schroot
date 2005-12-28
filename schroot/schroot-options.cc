@@ -19,7 +19,7 @@
  *
  *********************************************************************/
 
-/**
+/*
  * SECTION:schroot-options
  * @short_description: schroot options parser
  * @title: SchrootOptions
@@ -48,7 +48,7 @@ using boost::format;
 namespace opt = boost::program_options;
 using namespace schroot;
 
-/**
+/*
  * schroot_options_new:
  *
  * Parse command-line options.

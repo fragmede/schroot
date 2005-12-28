@@ -1,6 +1,4 @@
-/* sbuild-config - sbuild config object
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -18,19 +16,6 @@
  * MA  02111-1307  USA
  *
  *********************************************************************/
-
-/**
- * SECTION:sbuild-config
- * @short_description: config object
- * @title: Config
- *
- * This class holds the configuration details from the configuration
- * file.  Conceptually, it's an opaque container of #Chroot
- * objects.
- *
- * Methods are provided to query the available chroots and find
- * specific chroots.
- */
 
 #include <config.h>
 
@@ -91,28 +76,12 @@ Config::~Config()
   // TODO: Delete chroots.
 }
 
-/**
- * sbuild_config_add_config_file:
- * @config: an #Config.
- * @file: the filename to add.
- *
- * Add the configuration filename.  The configuration file specified
- * will be loaded.
- */
 void
 Config::add_config_file (const std::string& file)
 {
   load(file);
 }
 
-/**
- * sbuild_config_add_config_directory:
- * @config: an #Config.
- * @dir: the directory to add.
- *
- * Add the configuration directory.  The configuration files in the
- * directory will be loaded.
- */
 void
 Config::add_config_directory (const std::string& dir)
 {
@@ -162,15 +131,6 @@ static bool chroot_alphasort (Chroot* const& c1,
   return c1->get_name() < c2->get_name();
 }
 
-/**
- * sbuild_config_get_chroots:
- * @config: a #Config
- *
- * Get a list of available chroots.
- *
- * Returns a list of available chroots, or NULL if no chroots are
- * available.
- */
 Config::chroot_list
 Config::get_chroots () const
 {
@@ -186,15 +146,6 @@ Config::get_chroots () const
   return ret;
 }
 
-/**
- * sbuild_config_find_chroot:
- * @config: an #Config
- * @name: the chroot name
- *
- * Find a chroot by its name.
- *
- * Returns the chroot if found, otherwise NULL.
- */
 const Chroot *
 Config::find_chroot (const std::string& name) const
 {
@@ -206,15 +157,6 @@ Config::find_chroot (const std::string& name) const
     return 0;
 }
 
-/**
- * sbuild_config_find_alias:
- * @config: an #Config
- * @name: the chroot name
- *
- * Find a chroot by its name or an alias.
- *
- * Returns the chroot if found, otherwise NULL.
- */
 const Chroot *
 Config::find_alias (const std::string& name) const
 {
@@ -226,14 +168,6 @@ Config::find_alias (const std::string& name) const
     return 0;
 }
 
-/**
- * sbuild_config_get_chroot_list:
- * @config: an #Config
- *
- * Get the names (including aliases) of all the available chroots.
- *
- * Returns the list, or NULL if no chroots are available.
- */
 string_list
 Config::get_chroot_list () const
 {
@@ -249,13 +183,6 @@ Config::get_chroot_list () const
   return ret;
 }
 
-/**
- * sbuild_config_print_chroot_list:
- * @config: an #Config
- * @file: the file to print to
- *
- * Print all the available chroots to the specified file.
- */
 void
 Config::print_chroot_list (std::ostream& stream) const
 {
@@ -268,15 +195,6 @@ Config::print_chroot_list (std::ostream& stream) const
   stream << std::flush;
 }
 
-/**
- * sbuild_config_print_chroot_info:
- * @config: an #Config
- * @chroots: the chroots to print
- * @file: the file to print to
- *
- * Print information about the specified chroots to the specified
- * file.
- */
 void
 Config::print_chroot_info (const string_list& chroots,
 			   std::ostream&      stream) const
@@ -298,16 +216,6 @@ Config::print_chroot_info (const string_list& chroots,
     }
 }
 
-/**
- * sbuild_config_validate_chroots:
- * @config: an #Config
- * @chroots: the chroots to validate
- *
- * Check that all the chroots specified by @chroots exist in @config.
- *
- * Returns NULL if all chroots are valid, or else a vector of invalid
- * chroots.
- */
 string_list
 Config::validate_chroots(const string_list& chroots) const
 {
@@ -325,17 +233,6 @@ Config::validate_chroots(const string_list& chroots) const
   return bad_chroots;
 }
 
-/**
- * sbuild_config_check_security:
- * @fd: the file descriptor to check.
- * @error: the #GError to report errors.
- *
- * Check the permissions and ownership of the configuration file.  The
- * file must be owned by root, not writable by other, and be a regular
- * file.
- *
- * Returns true if the checks succeed, false on failure.
- */
 void
 Config::check_security(int fd) const
 {
@@ -363,7 +260,7 @@ Config::check_security(int fd) const
     }
 }
 
-/**
+/*
  * sbuild_config_load:
  * @file: the file to load.
  * @list: a list to append the #Chroot objects to.

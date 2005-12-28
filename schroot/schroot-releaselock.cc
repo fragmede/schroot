@@ -44,21 +44,31 @@ using std::endl;
 using boost::format;
 namespace opt = boost::program_options;
 
-/* Stored command-line options. */
-struct options {
-  std::string device;
-  int         pid;
-  bool        version;
-};
+namespace schroot_releaselock
+{
 
-options opts =
-  {
-    "",
-    0,
-    false
+  /**
+   * schroot-releaselock command-line options.
+   * @todo Split out into a separate file.
+   */
+  struct options {
+    /// The device to unlock.
+    std::string device;
+    /// The PID holding the lock.
+    int         pid;
+    /// Display version information.
+    bool        version;
   };
 
-/**
+  options opts =
+    {
+      "",
+      0,
+      false
+    };
+}
+
+/*
  * parse_options:
  * @argc: the number of arguments
  * @argv: argument vector
@@ -104,7 +114,7 @@ parse_options(int   argc,
     opts.version = true;
 }
 
-/**
+/*
  * print_version:
  * @file: the file to print to
  *
@@ -121,7 +131,7 @@ print_version (std::ostream& stream)
 	 << std::flush;
 }
 
-/**
+/*
  * main:
  * @argc: the number of arguments
  * @argv: argument vector

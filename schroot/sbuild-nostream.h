@@ -1,6 +1,4 @@
-/* sbuild-nstream - sbuild null ostream
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * serror is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -28,31 +26,53 @@
 namespace sbuild
 {
 
+  /**
+   * Null stream buffer.  This stream buffer acts as a bit-bucket,
+   * discarding all input.
+   */
   template <class cT, class traits = std::char_traits<cT> >
-    class basic_nbuf: public std::basic_streambuf<cT, traits> {
-      typename traits::int_type overflow(typename traits::int_type c)
-      {
-	return traits::not_eof(c); // indicate success
-      }
-    };
+  class basic_nbuf: public std::basic_streambuf<cT, traits>
+  {
+    /**
+     * Output buffer.  EOF is never returned.
+     *
+     * @param c the character to output.
+     * @returns traits::not_eof is always returned, never traits::eof.
+     */
+    typename traits::int_type overflow(typename traits::int_type c)
+    {
+      return traits::not_eof(c); // indicate success
+    }
+  };
 
+  /**
+   * Null output stream.  This ostream discards all input, because it
+   * uses a basic_nbuf stream buffer.
+   */
   template <class cT, class traits = std::char_traits<cT> >
-    class basic_nostream: public std::basic_ostream<cT, traits> {
-      public:
-      basic_nostream():
-	std::basic_ios<cT, traits>(&m_sbuf),
-	std::basic_ostream<cT, traits>(&m_sbuf)
-      {
-	init(&m_sbuf);
-      }
+  class basic_nostream: public std::basic_ostream<cT, traits>
+  {
+  public:
+    /// The constructor.
+    basic_nostream():
+      std::basic_ios<cT, traits>(&m_sbuf),
+      std::basic_ostream<cT, traits>(&m_sbuf)
+    {
+      init(&m_sbuf);
+    }
 
-      private:
-      basic_nbuf<cT, traits> m_sbuf;
-    };
+  private:
+    /// The stream buffer.
+    /// @todo Remove m_ prefix.
+    basic_nbuf<cT, traits> m_sbuf;
+  };
 
+  /// A null ostream.
   typedef basic_nostream<char> nostream;
+  /// A wide null ostream.
   typedef basic_nostream<wchar_t> wnostream;
 
+  /// A null ostream.
   extern nostream cnull;
 
 }

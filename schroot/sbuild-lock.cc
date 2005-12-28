@@ -1,6 +1,4 @@
-/* sbuild-lock - sbuild advisory locking
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -18,15 +16,6 @@
  * MA  02111-1307  USA
  *
  *********************************************************************/
-
-/**
- * SECTION:sbuild-lock
- * @short_description: advisory locking
- * @title: Advisory Locking
- *
- * These functions implement simple whole-file shared and exclusive
- * advisory locking based upon POSIX fcntl byte region locks.
- */
 
 #include <config.h>
 
@@ -54,10 +43,9 @@ namespace
   volatile bool lock_timeout = false;
 
   /**
-   * sbuild_lock_alarm_handler:
-   * @ignore: the signal number.
-   *
    * Handle the SIGALRM signal.
+   *
+   * @param ignore the signal number.
    */
   static void
   alarm_handler (int ignore)
@@ -78,13 +66,6 @@ Lock::~Lock()
 {
 }
 
-/**
- * sbuild_lock_set_alarm:
- * @orig_sa: the original signal handler
- *
- * Set the SIGALARM handler.  The old signal handler is stored in
- * @orig_sa.
- */
 void
 Lock::set_alarm ()
 {
@@ -101,12 +82,6 @@ Lock::set_alarm ()
     }
 }
 
-/**
- * sbuild_lock_clear_alarm:
- * @orig_sa: the original signal handler.
- *
- * Restore the state of SIGALRM prior to starting lock acquisition.
- */
 void
 Lock::clear_alarm ()
 {
@@ -156,19 +131,6 @@ FileLock::~FileLock()
 {
 }
 
-/**
- * sbuild_lock_set_lock:
- * @fd: the file descriptor to lock.
- * @lock_type: the type of lock to set.
- * @timeout: the time in seconds to wait for the lock.
- * @error: a #GError.
- *
- * Set an advisory lock on a file.  A byte region lock is placed on
- * the entire file, regardless of size, using fcntl.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 FileLock::set_lock (Lock::Type   lock_type,
 		    unsigned int timeout)
@@ -221,18 +183,6 @@ FileLock::set_lock (Lock::Type   lock_type,
     }
 }
 
-/**
- * sbuild_lock_unset_lock:
- * @fd: the file descriptor to unlock.
- * @error: a #GError.
- *
- * Remove an advisory lock on a file.  This is equivalent to calling
- * sbuild_lock_set_lock with a lock type of LOCK_NONE and a
- * timeout of 0.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 FileLock::unset_lock ()
 {
@@ -249,21 +199,6 @@ DeviceLock::~DeviceLock()
 {
 }
 
-/**
- * sbuild_lock_set_device_lock:
- * @device: the device to lock (full pathname).
- * @lock_type: the type of lock to set.
- * @timeout: the time in seconds to wait for the lock.
- * @error: a #GError.
- *
- * Set an advisory lock on a device.  The lock is acquired using
- * liblockdev lock_dev().  Note that a @lock_type of
- * LOCK_SHARED is equivalent to LOCK_EXCLUSIVE, because
- * this lock type does not support shared locks.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 DeviceLock::set_lock (Lock::Type   lock_type,
 		      unsigned int timeout)
@@ -340,18 +275,6 @@ DeviceLock::set_lock (Lock::Type   lock_type,
     }
 }
 
-/**
- * sbuild_lock_unset_device_lock:
- * @device: the device to unlock (full pathname).
- * @error: a #GError.
- *
- * Remove an advisory lock on a device.  This is equivalent to calling
- * sbuild_lock_set_lock with a lock type of LOCK_NONE and a
- * timeout of 0.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 DeviceLock::unset_lock ()
 {

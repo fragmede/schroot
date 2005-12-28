@@ -29,29 +29,52 @@
 namespace sbuild
 {
 
+  /**
+   * Generic runtime error.
+   */
   class runtime_error : public std::runtime_error
   {
   public:
+    /**
+     * The constructor.
+     *
+     * @param error the error message.
+     */
     runtime_error(const std::string& error):
       std::runtime_error(error)
     {}
 
+    /// The destructor.
     virtual ~runtime_error() throw ()
     {}
   };
 
+  /**
+   * Runtime error specific to a class.
+   */
   template <typename T>
   class runtime_error_custom : public runtime_error
   {
   public:
+    /**
+     * The constructor.
+     *
+     * @param error the error message.
+     */
     runtime_error_custom(const std::string& error):
       runtime_error(error)
     {}
 
+    /**
+     * The constructor.
+     *
+     * @param error the error message (formatted).
+     */
     runtime_error_custom(const boost::format& error):
       runtime_error(error.str())
     {}
 
+    /// The destructor.
     virtual ~runtime_error_custom() throw ()
     {}
   };

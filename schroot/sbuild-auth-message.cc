@@ -1,6 +1,4 @@
-/* sbuild-auth-message - sbuild authentication messaging types
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * serror is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -18,18 +16,6 @@
  * MA  02111-1307  USA
  *
  *********************************************************************/
-
-/**
- * SECTION:sbuild-auth-message
- * @short_description: SbuildAuth messages
- * @title: SbuildAuthMessage and SbuildAuthMessageVector
- *
- * When SbuildAuth needs to interact with the user, it does this by
- * sending a set of #SbuildAuthMessage structures to an
- * #SbuildAuthConv conversation object.  These messages tell the
- * conversation object how to display the message to the user, and if
- * necessary, whether or not to ask the user for some input.
- */
 
 #include <config.h>
 

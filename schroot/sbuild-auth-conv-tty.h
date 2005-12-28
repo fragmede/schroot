@@ -1,6 +1,4 @@
-/* sbuild-auth-conv-tty - sbuild auth terminal conversation object
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -35,11 +33,25 @@
 
 namespace sbuild
 {
-
+  /**
+   * @brief Authentication conversation handler for terminal devices.
+   *
+   * This class is an implementation of the AuthConv interface, and is
+   * used to interact with the user on a terminal (TTY) interface.
+   *
+   * In order to implement timeouts, this class uses alarm(2).  This
+   * has some important implications.  Global state is modified by the
+   * object, so only one may be used at once in a single process.  In
+   * addition, no other part of the process may set or unset the
+   * SIGALRM handlers and the alarm(2) timer during the time PAM
+   * authentication is proceeding.
+   */
   class AuthConvTty : public AuthConv
   {
   public:
+    /// The constructor.
     AuthConvTty();
+    /// The destructor.
     virtual ~AuthConvTty();
 
     virtual time_t get_warning_timeout ();
@@ -52,12 +64,43 @@ namespace sbuild
     virtual bool conversation_impl (message_list& messages);
 
   private:
+    /**
+     * @brief Get the time delay before the next SIGALRM signal.
+     *
+     * If either the warning timeout or the fatal timeout have
+     * expired, a message to notify the user is printed to stderr.
+     *
+     * @returns the delay in seconds, 0 if no delay is set, or -1 if
+     * the fatal timeout has expired.
+     */
     int get_delay ();
+
+    /**
+     * @brief Read user input from standard input.
+     *
+     * The prompt message is printed to prompt the user for input.  If
+     * echo is true, the user input it echoed back to the terminal,
+     * but if false, echoing is suppressed using termios(3).
+     *
+     * If the SIGALRM timer expires while waiting for input, this is
+     * handled by re-checking the delay time which will warn the user
+     * or cause the input routine to terminate if the fatal timeout
+     * has expired.
+     *
+     * @param message the message to prompt the user for input.
+     * @param echo echo user input to screen.
+     * @returns a string, which is empty on failure.
+     * @todo Throw an exception on failure.
+     * @todo Remove start_time.
+     */
     std::string * read_string (std::string message,
 			       bool        echo);
 
+    /// The time to warn at.
     time_t  warning_timeout;
+    /// The time to end at.
     time_t  fatal_timeout;
+    /// The time the current delay was obtained at.
     time_t  start_time;
   };
 

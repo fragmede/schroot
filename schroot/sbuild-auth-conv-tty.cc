@@ -1,6 +1,4 @@
-/* sbuild-auth-conv-tty - sbuild auth terminal conversation object
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -18,23 +16,6 @@
  * MA  02111-1307  USA
  *
  *********************************************************************/
-
-/**
- * SECTION:sbuild-auth-conv-tty
- * @short_description: authentication terminal conversation object
- * @title: SbuildAuthConvTty
- *
- * This class is an implementation of the #SbuildAuthConv interface,
- * and is used to interact with the user on a terminal (TTY)
- * interface.
- *
- * In order to implement timeouts, this class uses alarm(2).  This has
- * some important implications.  Global state is modified by the
- * object, so only one may be used at once in a single process.  In
- * addition, no other part of the process may set or unset the SIGALRM
- * handlers and the alarm(2) timer during the time PAM authentication
- * is proceeding.
- */
 
 #include <config.h>
 
@@ -67,54 +48,24 @@ AuthConvTty::~AuthConvTty()
 {
 }
 
-/**
- * get_warning_timeout:
- * @conv_tty: an #AuthConvTty.
- *
- * Get the warning timeout for @conv_tty.
- *
- * Returns the timeout.
- */
 time_t
 AuthConvTty::get_warning_timeout ()
 {
   return this->warning_timeout;
 }
 
-/**
- * set_warning_timeout:
- * @conv_tty: an #AuthConvTty.
- * @timeout: the timeout to set.
- *
- * Set the warning timeout for @conv_tty.
- */
 void
 AuthConvTty::set_warning_timeout (time_t timeout)
 {
   this->warning_timeout = timeout;
 }
 
-/**
- * get_fatal_timeout:
- * @conv_tty: an #AuthConvTty.
- *
- * Get the fatal timeout for @conv_tty.
- *
- * Returns the timeout.
- */
 time_t
 AuthConvTty::get_fatal_timeout ()
 {
   return this->fatal_timeout;
 }
 
-/**
- * set_fatal_timeout:
- * @conv_tty: an #AuthConvTty.
- * @timeout: the timeout to set.
- *
- * Set the fatal timeout for @conv_tty.
- */
 void
 AuthConvTty::set_fatal_timeout (time_t timeout)
 {
@@ -123,26 +74,16 @@ AuthConvTty::set_fatal_timeout (time_t timeout)
 
 static volatile sig_atomic_t timer_expired = false;
 
-/**
- * reset_alarm:
- * @conv_tty: an #AuthConvTty.
- *
- * Cancel any alarm set previously, and restore the state of SIGALRM
- * prior to the conversation.
- */
 static void
 reset_alarm (struct sigaction *orig_sa)
 {
-  /* Stop alarm */
+  // Stop alarm
   alarm (0);
- /* Restore original handler */
+  // Restore original handler
   sigaction (SIGALRM, orig_sa, NULL);
 }
 
-/**
- * alarm_handler:
- * @ignore: the signal number.
- *
+/*
  * Handle the SIGALRM signal.
  */
 static void
@@ -151,13 +92,11 @@ alarm_handler (int ignore)
   timer_expired = true;
 }
 
-/**
- * set_alarm:
- * @conv_tty: an #AuthConvTty.
- * @orig_sa: the original signal handler
+/*
+ * orig_sa: the original signal handler
  *
  * Set the SIGALARM handler, and set the timeout to @delay seconds.
- * The old signal handler is stored in @orig_sa.
+ * The old signal handler is stored in orig_sa.
  */
 static bool
 set_alarm (int delay,
@@ -181,17 +120,6 @@ set_alarm (int delay,
   return true;
 }
 
-/**
- * get_delay:
- * @conv_tty: an #AuthConvTty.
- *
- * Get the time delay before the next SIGALRM signal.  If either the
- * warning timeout or the fatal timeout have expired, a message to
- * notify the user is printed to stderr.
- *
- * Returns the delay in seconds, 0 if no delay is set, or -1 if the
- * fatal timeout has expired.
- */
 int
 AuthConvTty::get_delay ()
 {
@@ -221,25 +149,6 @@ AuthConvTty::get_delay ()
     return 0;
 }
 
-/**
- * read_string:
- * @conv_tty: an #AuthConvTty.
- * @message: the message to prompt the user for input.
- * @echo: echo user input to screen
- *
- * Read user input from standard input.  The prompt @message is
- * printed to prompt the user for input.  If @echo is true, the user
- * input it echoed back to the terminal, but if false, echoing is
- * suppressed using termios(3).
- *
- * If the SIGALRM timer expires while waiting for input, this is
- * handled by re-checking the delay time which will warn the user or
- * cause the input routine to terminate if the fatal timeout has
- * expired.
- *
- * Returns a string, or NULL on failure.  The string must be freed by
- * the caller.
- */
 std::string *
 AuthConvTty::read_string (std::string message,
 			  bool        echo)
@@ -334,16 +243,6 @@ AuthConvTty::read_string (std::string message,
   return return_input;
 }
 
-/**
- * conversation:
- * @conv_tty: an #AuthConvTty.
- * @num_messages: the number of messages
- * @messages: the messages to display to the user
- *
- * Hold a conversation with the user.
- *
- * Returns true on success, false on failure.
- */
 bool
 AuthConvTty::conversation_impl (AuthConv::message_list& messages)
 {

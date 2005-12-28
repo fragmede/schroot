@@ -31,33 +31,66 @@
 namespace schroot
 {
 
+  /**
+   * schroot command-line options.
+   */
   class Options
   {
   public:
     typedef std::vector<std::string> string_list;
 
+    /**
+     * The constructor.
+     *
+     * @param argc the number of arguments.
+     * @param argv the list of arguments.
+     */
     Options(int   argc,
 	    char *argv[]);
+
+    /// The destructor.
     virtual ~Options();
 
+    /// Chroots to use.
     sbuild::string_list  chroots;
+    /// Command to run.
     sbuild::string_list  command;
+    /// User to run as.
     std::string          user;
+    /// Preserve environment.
     bool                 preserve;
+    /// Quiet messages.
     bool                 quiet;
+    /// Verbose messages.
     bool                 verbose;
+    /// List chroots.
     bool                 list;
+    /// Display chroot information.
     bool                 info;
+    /// Use all chroots and sessions.
     bool                 all;
+    /// Use all chroots.
     bool                 all_chroots;
+    /// Use all sessions.
     bool                 all_sessions;
+    /// Load chroots.
     bool                 load_chroots;
+    /// Load sessions.
     bool                 load_sessions;
+    /// Display version information.
     bool                 version;
+    /// Session operation to perform.
     sbuild::Session::Operation  session_operation;
+    /// Force session operations.
     bool                 session_force;
 
   private:
+    /**
+     * Set session operation.  This detects if an operation has
+     * already been set (only one operation may be specified at once).
+     *
+     * @param operation the operation to set.
+     */
     void
     set_session_operation (sbuild::Session::Operation operation);
   };

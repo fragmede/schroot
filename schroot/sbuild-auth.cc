@@ -1,6 +1,4 @@
-/* sbuild-auth - sbuild auth object
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -18,42 +16,6 @@
  * MA  02111-1307  USA
  *
  *********************************************************************/
-
-/**
- * SECTION:sbuild-auth
- * @short_description: authentication handler
- * @title: SbuildAuth
- *
- * SbuildAuth handles user authentication, authorisation and session
- * management using the Pluggable Authentication Modules (PAM)
- * library.  It is essentially a GObject wrapper around PAM.
- *
- * In order to use PAM correctly, it is important to call several of
- * the methods in the correct order.  For example, it is not possible
- * to authorise a user before authenticating a user, and a session may
- * not be started before either of these have occured.
- *
- * The correct order is
- * - sbuild_auth_start
- * - sbuild_auth_authenticate
- * - sbuild_auth_setupenv
- * - sbuild_auth_account
- * - sbuild_auth_cred_establish
- * - sbuild_auth_close_session
- *
- * After the session has finished, or if an error occured, the
- * corresponding cleanup methods should be called
- * - sbuild_auth_close_session
- * - sbuild
- * - sbuild_auth_cred_delete
- * - sbuild_auth_stop
- *
- * The function sbuild_auth_run will handle all this.  The session_run
- * vfunc or "session-run" signal should be used to provide a session
- * handler to open and close the session for the user.
- * sbuild_auth_open_session and sbuild_auth_close_session must still
- * be used.
- */
 
 #include <config.h>
 
@@ -203,83 +165,30 @@ Auth::~Auth()
   // TODO: Shutdown PAM?
 }
 
-/**
- * sbuild_auth_get_service:
- * @auth: an #Auth
- *
- * Get the PAM service name.  This is passed to pam_start() when
- * initialising PAM.  It must be set during object construction, and
- * MUST be a hard-coded (constant) string literal for security
- * reasons.
- *
- * Returns a string. This string points to internally allocated
- * storage  and must not be freed, modified or stored.
- */
 const std::string&
 Auth::get_service () const
 {
   return this->service;
 }
 
-/**
- * sbuild_auth_get_uid:
- * @auth: an #Auth
- *
- * Get the uid of the user.  This is the uid to run as in the
- * session.
- *
- * Returns a uid.  This will be 0 if no user was set, or the user is
- * uid 0.
- */
 uid_t
 Auth::get_uid () const
 {
   return this->uid;
 }
 
-/**
- * sbuild_auth_get_gid:
- * @auth: an #Auth
- *
- * Get the gid of the user.  This is the gid to run as in the
- * session.
- *
- * Returns a gid.  This will be 0 if no user was set, or the user is
- * gid 0.
- */
 gid_t
 Auth::get_gid () const
 {
   return this->gid;
 }
 
-/**
- * sbuild_auth_get_user:
- * @auth: an #Auth
- *
- * Get the name of the user.  This is the user to run as in the
- * session.
- *
- * Returns a string.  This string points to internally allocated
- * storage and must not be freed, modified or stored.
- */
 const std::string&
 Auth::get_user () const
 {
   return this->user;
 }
 
-/**
- * sbuild_auth_set_user:
- * @auth: an #Auth.
- * @user: the name to set.
- *
- * Get the name of the user.  This is the user to run as in the
- * session.
- *
- * As a side effect, the "uid", "gid", "home" and "shell" properties
- * will also be set.
- */
 void
 Auth::set_user (const std::string& user)
 {
@@ -308,75 +217,30 @@ Auth::set_user (const std::string& user)
     << endl;
 }
 
-/**
- * sbuild_auth_get_command:
- * @auth: an #Auth
- *
- * Get the command to run in the session.
- *
- * Returns a string vector.  This string vector points to internally
- * allocated storage and must not be freed, modified or stored.
- */
 const string_list&
 Auth::get_command () const
 {
   return this->command;
 }
 
-/**
- * sbuild_auth_set_command:
- * @auth: an #Auth.
- * @command: the command to set.
- *
- * Set the command to run in the session.
- */
 void
 Auth::set_command (const string_list& command)
 {
   this->command = command;
 }
 
-/**
- * sbuild_auth_get_home:
- * @auth: an #Auth
- *
- * Get the home directory.  This is the $HOME to set in the session,
- * if the user environment is not being preserved.
- *
- * Returns a string.  This string points to internally allocated
- * storage and must not be freed, modified or stored.
- */
 const std::string&
 Auth::get_home () const
 {
   return this->home;
 }
 
-/**
- * sbuild_auth_get_shell:
- * @auth: an #Auth
- *
- * Get the name of the shell.  This is the shell to run as in the
- * session.
- *
- * Returns a string.  This string points to internally allocated
- * storage and must not be freed, modified or stored.
- */
 const std::string&
 Auth::get_shell () const
 {
   return this->shell;
 }
 
-/**
- * sbuild_auth_get_environment:
- * @auth: an #Auth
- *
- * Get the environment to use in @auth.
- *
- * Returns a string vector.  This string vector points to internally
- * allocated storage and must not be freed, modified or stored.
- */
 const env_list&
 Auth::get_environment () const
 {
@@ -389,28 +253,12 @@ Auth::set_environment (char **environment)
   set_environment(env_strv_to_env_list(environment));
 }
 
-/**
- * sbuild_auth_set_environment:
- * @auth: an #Auth
- * @environment: the environment to use
- *
- * Set the environment to use in @auth.
- */
 void
 Auth::set_environment (const env_list& environment)
 {
   this->environment = environment;
 }
 
-/**
- * sbuild_auth_get_pam_environment:
- * @auth: an #Auth
- *
- * Get the PAM environment from @auth.
- *
- * Returns a string vector.  This string vector points to internally
- * allocated storage and must not be freed, modified or stored.
- */
 env_list
 Auth::get_pam_environment () const
 {
@@ -419,85 +267,36 @@ Auth::get_pam_environment () const
   return env_strv_to_env_list(env);
 }
 
-/**
- * sbuild_auth_get_ruid:
- * @auth: an #Auth
- *
- * Get the "remote uid" of the user.  This is the uid which is
- * requesting authentication.
- *
- * Returns a uid.
- */
 uid_t
 Auth::get_ruid () const
 {
   return this->ruid;
 }
 
-/**
- * sbuild_auth_get_ruser:
- * @auth: an #Auth
- *
- * Get the "remote" name of the user.  This is the user which is
- * requesting authentication.
- *
- * Returns a string.  This string points to internally allocated
- * storage and must not be freed, modified or stored.
- */
 const std::string&
 Auth::get_ruser () const
 {
   return this->ruser;
 }
 
-/**
- * sbuild_auth_get_verbosity:
- * @auth: an #Auth
- *
- * Get the message verbosity of @auth.
- *
- * Returns the #Verbosity verbosity level.
- */
 Auth::Verbosity
 Auth::get_verbosity () const
 {
   return this->verbosity;
 }
 
-/**
- * sbuild_auth_set_verbosity:
- * @auth: an #Auth
- * @verbosity: the verbosity level to use
- *
- * Set the message verbosity of @auth.
- */
 void
 Auth::set_verbosity (Auth::Verbosity verbosity)
 {
   this->verbosity = verbosity;
 }
 
-/**
- * sbuild_auth_get_conv:
- * @auth: an #Auth
- *
- * Get the conversation handler for @auth.
- *
- * Returns the handler object.
- */
 std::tr1::shared_ptr<AuthConv>&
 Auth::get_conv ()
 {
   return this->conv;
 }
 
-/**
- * sbuild_auth_set_conv:
- * @auth: an #Auth
- * @conv: the conversation handler to use
- *
- * Set the conversation handler for @auth.
- */
 void
 Auth::set_conv (std::tr1::shared_ptr<AuthConv>& conv)
 {
@@ -563,17 +362,6 @@ Auth::run ()
     }
 }
 
-/**
- * sbuild_auth_start:
- * @auth: an #Auth
- * @error: a #GError
- *
- * Start the PAM system.  No other PAM functions may be called before
- * calling this function.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 Auth::start ()
 {
@@ -607,17 +395,6 @@ Auth::start ()
   log_debug(DEBUG_NOTICE) << "pam_start OK" << endl;
 }
 
-/**
- * sbuild_auth_stop:
- * @auth: an #Auth
- * @error: a #GError
- *
- * Stop the PAM system.  No other PAM functions may be used after
- * calling this function.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 Auth::stop ()
 {
@@ -637,17 +414,6 @@ Auth::stop ()
   log_debug(DEBUG_NOTICE) << "pam_end OK" << endl;
 }
 
-/**
- * sbuild_auth_authenticate:
- * @auth: an #Auth
- * @error: a #GError
- *
- * Perform PAM authentication.  If required, the user will be prompted
- * to authenticate themselves.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 Auth::authenticate ()
 {
@@ -747,18 +513,6 @@ Auth::authenticate ()
     }
 }
 
-/**
- * sbuild_auth_setupenv:
- * @auth: an #Auth
- * @error: a #GError
- *
- * Import the user environment into PAM.  If no environment was
- * specified with #sbuild_auth_set_environment, a minimal environment
- * will be created containing HOME, LOGNAME, PATH, TERM and LOGNAME.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 Auth::setupenv ()
 {
@@ -812,16 +566,6 @@ Auth::setupenv ()
   log_debug(DEBUG_NOTICE) << "pam_putenv OK" << endl;
 }
 
-/**
- * sbuild_auth_account:
- * @auth: an #Auth
- * @error: a #GError
- *
- * Do PAM account management (authorisation).
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 Auth::account ()
 {
@@ -843,16 +587,6 @@ Auth::account ()
   log_debug(DEBUG_NOTICE) << "pam_acct_mgmt OK" << endl;
 }
 
-/**
- * sbuild_auth_cred_establish:
- * @auth: an #Auth
- * @error: a #GError
- *
- * Use PAM to establish credentials.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 Auth::cred_establish ()
 {
@@ -872,16 +606,6 @@ Auth::cred_establish ()
   log_debug(DEBUG_NOTICE) << "pam_setcred OK" << endl;
 }
 
-/**
- * sbuild_auth_cred_delete:
- * @auth: an #Auth
- * @error: a #GError
- *
- * Use PAM to delete credentials.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 Auth::cred_delete ()
 {
@@ -901,16 +625,6 @@ Auth::cred_delete ()
   log_debug(DEBUG_NOTICE) << "pam_setcred (delete) OK" << endl;
 }
 
-/**
- * sbuild_auth_open_session:
- * @auth: an #Auth
- * @error: a #GError
- *
- * Open a PAM session.  This should be called in the child process.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 Auth::open_session ()
 {
@@ -930,16 +644,6 @@ Auth::open_session ()
   log_debug(DEBUG_NOTICE) << "pam_open_session OK" << endl;
 }
 
-/**
- * sbuild_auth_close_session:
- * @auth: an #Auth
- * @error: a #GError
- *
- * Close a PAM session.
- *
- * Returns true on success, false on failure (@error will be set to
- * indicate the cause of the failure).
- */
 void
 Auth::close_session ()
 {
@@ -959,15 +663,6 @@ Auth::close_session ()
   log_debug(DEBUG_NOTICE) << "pam_close_session OK" << endl;
 }
 
-/**
- * sbuild_auth_require_auth_impl:
- * @auth: an #Auth
- *
- * Check if authentication is required for @auth.  This default
- * implementation always requires authentication.
- *
- * Returns the authentication type.
- */
 Auth::Status
 Auth::get_auth_status () const
 {

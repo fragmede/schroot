@@ -1,6 +1,4 @@
-/* sbuild-keyfile - sbuild GKeyFile wrapper
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -39,6 +37,15 @@
 namespace sbuild
 {
 
+  /**
+   * Configuration file parser.  This class loads an INI-style
+   * configuration file from disk.  The format is documented in
+   * schroot.conf(5).  It is based upon the Glib GKeyFile class, which
+   * it is intended to replace.
+   *
+   * @todo Add support for locale strings.
+   * @todo Add support for comments.
+   */
   class keyfile
   {
   private:
@@ -55,23 +62,72 @@ namespace sbuild
   public:
     typedef runtime_error_custom<keyfile> error;
 
+    /**
+     * The constructor.
+     *
+     * @param file the file to load the configuration from.
+     */
     keyfile(const std::string& file);
+
+    /**
+     * The constructor.
+     *
+     * @param stream the stream to load the configuration from.
+     */
     keyfile(std::istream& stream);
+
+    /// The destructor.
     virtual ~keyfile();
 
+    /**
+     * Get a list of groups.
+     *
+     * @returns a list of groups in the keyfile.  If no groups exist,
+     * the list will be empty.
+     */
     string_list
     get_groups() const;
 
+    /**
+     * Get a list of keys in a group.
+     *
+     * @param group the group to use.
+     * @returns a list of keys in a group.  If no keys exist in the
+     * group, or the group does not exist, the list will be empty.
+     */
     string_list
     get_keys(const std::string& group) const;
 
+    /**
+     * Check if a group exists.
+     *
+     * @param group the group to check for.
+     * @returns true if the group exists, otherwise false.
+     */
     bool
     has_group(const std::string& group) const;
 
+    /**
+     * Check if a key exists.
+     *
+     * @param group the group the key is in.
+     * @param group the key to check for.
+     * @returns true if the key exists, otherwise false.
+     */
     bool
     has_key(const std::string& group,
 	    const std::string& key) const;
 
+    /**
+     * Get a key value.
+     *
+     * @param group the group the key is in.
+     * @param group the key to get.
+     * @param value the value to store the key's value in.  This must
+     * be settable from an istream and be copyable.
+     * @returns true if the key was found, otherwise false (in which
+     * case value will be unchanged).
+     */
     template <typename T>
     bool
     get_value(const std::string& group,
@@ -94,6 +150,17 @@ namespace sbuild
       return false;
     }
 
+    /**
+     * Get a key value as a list.
+     *
+     * @param group the group the key is in.
+     * @param group the key to get.
+     * @param value the list value to store the key's value in.  The
+     * value type must be settable from an istream and be copyable.
+     * The list must be a container with a standard insert method.
+     * @returns true if the key was found, otherwise false (in which
+     * case value will be unchanged).
+     */
     template <typename T, template <typename T> class C>
     bool
     get_list_value(const std::string& group,
@@ -122,9 +189,14 @@ namespace sbuild
       return false;
     }
 
-    // Plus locale strings and string lists...
-    // Support for comments?
-
+    /**
+     * Set a key value.
+     *
+     * @param group the group the key is in.
+     * @param group the key to set.
+     * @param value the value to get the key's value from.  This must
+     * allow output to an ostream.
+     */
     template <typename T>
     void
     set_value(const std::string& group,
@@ -155,6 +227,15 @@ namespace sbuild
 
     }
 
+    /**
+     * Set a key value from a list.
+     *
+     * @param group the group the key is in.
+     * @param group the key to set.
+     * @param value the list value to get the key's value from.  The
+     * value type must allow output to an ostream.  The list must be a
+     * container with a standard forward iterator.
+     */
     template <typename T, template <typename T> class C>
     void
     set_list_value(const std::string& group,
@@ -180,13 +261,27 @@ namespace sbuild
       set_value (group, key, strval);
     }
 
+    /**
+     * Remove a group.
+     *
+     * @param group the group to remove.
+     */
     void
     remove_group(const std::string& group);
 
+    /**
+     * Remove a key.
+     *
+     * @param group the group the key is in.
+     * @param key the key to remove.
+     */
     void
     remove_key(const std::string& group,
 	       const std::string& key);
 
+    /**
+     * keyfile initialisation from an istream.
+     */
     template <class charT, class traits>
     friend
     std::basic_istream<charT,traits>&
@@ -269,11 +364,21 @@ namespace sbuild
     }
 
   private:
+    /**
+     * Print a comment to a stream.  The comment will have hash ('#')
+     * marks printed at the start of each line.
+     *
+     * @param comment the comment to print.
+     * @param stream the stream to output to.
+     */
     void
     print_comment(const std::string& comment,
 		  std::ostream&      stream) const;
 
   public:
+    /**
+     * keyfile output to an ostream.
+     */
     template <class charT, class traits>
     friend
     std::basic_ostream<charT,traits>&
@@ -318,21 +423,49 @@ namespace sbuild
     }
 
   private:
+    /**
+     * Find a group by it's name.
+     *
+     * @param group the group to find.
+     * @returns the group, or 0 if not found.
+     */
     const group_type *
     find_group(const std::string& group) const;
 
+    /**
+     * Find a group by it's name.
+     *
+     * @param group the group to find.
+     * @returns the group, or 0 if not found.
+     */
     group_type *
     find_group(const std::string& group);
 
+    /**
+     * Find a key by it's group and name.
+     *
+     * @param group the group the key is in.
+     * @param key the key to find
+     * @returns the key, or 0 if not found.
+     */
     const item_type *
     find_item(const std::string& group,
 	      const std::string& key) const;
 
+    /**
+     * Find a key by it's group and name.
+     *
+     * @param group the group the key is in.
+     * @param key the key to find
+     * @returns the key, or 0 if not found.
+     */
     item_type *
     find_item(const std::string& group,
 	      const std::string& key);
 
+    /// The top-level groups.
     group_map_type groups;
+    /// The separator used as a list item delimiter.
     char           separator;
   };
 

@@ -27,29 +27,67 @@
 namespace sbuild
 {
 
+  /**
+   * A chroot stored on an LVM logical volume (LV).  A snapshot LV
+   * will be created and mounted on demand.
+   */
   class ChrootLvmSnapshot : public ChrootBlockDevice
   {
   public:
+    /// The constructor.
     ChrootLvmSnapshot();
+
+    /**
+     * The constructor.  Initialise from an open keyfile.
+     *
+     * @param keyfile the configuration file
+     * @param group the keyfile group (chroot name)
+     */
     ChrootLvmSnapshot (const keyfile&      keyfile,
 		       const std::string&  group);
+
+    /// The destructor.
     virtual ~ChrootLvmSnapshot();
 
     virtual Chroot *
     clone () const;
 
+    /**
+     * Get the logical volume snapshot device name.  This is used by
+     * lvcreate.
+     *
+     * @returns the device name.
+     */
     const std::string&
     get_snapshot_device () const;
 
+    /**
+     * Set the logical volume snapshot device name.  This is used by
+     * lvcreate.
+     *
+     * @param snapshot_device the device name.
+     */
     void
     set_snapshot_device (const std::string& snapshot_device);
 
     virtual const std::string&
     get_mount_device () const;
 
+    /**
+     * Get the logical volume snapshot options.  These are used by
+     * lvcreate.
+     *
+     * @returns the options.
+     */
     const std::string&
     get_snapshot_options () const;
 
+    /**
+     * Set the logical volume snapshot options.  These are used by
+     * lvcreate.
+     *
+     * @param snapshot_options the options.
+     */
     void
     set_snapshot_options (const std::string& snapshot_options);
 
@@ -73,14 +111,27 @@ namespace sbuild
     print_config (std::ostream& stream) const;
 
   private:
+    /**
+     * Read chroot configuration from a keyfile.
+     *
+     * @param keyfile the configuration file
+     * @param group the keyfile group (chroot name)
+     */
     void
     read_keyfile (const keyfile&      keyfile,
 		  const std::string&  group);
 
+    /**
+     * Set up persistent session information.
+     *
+     * @param start true if startion, or false if ending a session.
+     */
     void
     setup_session_info (bool start);
 
+    /// LVM snapshot device name for lvcreate.
     std::string snapshot_device;
+    /// LVM snapshot options for lvcreate.
     std::string snapshot_options;
   };
 

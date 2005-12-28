@@ -1,6 +1,4 @@
-/* sbuild-chroot-plain - sbuild simple chroot object
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -27,20 +25,43 @@
 namespace sbuild
 {
 
+  /**
+   * A chroot located on a mounted filesystem.
+   */
   class ChrootPlain : public Chroot
   {
   public:
+    /// The constructor.
     ChrootPlain();
+
+    /**
+     * The constructor.  Initialise from an open keyfile.
+     *
+     * @param keyfile the configuration file
+     * @param group the keyfile group (chroot name)
+     */
     ChrootPlain (const keyfile&     keyfile,
 		 const std::string& group);
+
+    /// The destructor.
     virtual ~ChrootPlain();
 
     virtual Chroot *
     clone () const;
 
+    /**
+     * Get the directory location of the chroot.
+     *
+     * @returns the location.
+     */
     const std::string&
     get_location () const;
 
+    /**
+     * Set the directory location of the chroot.
+     *
+     * @param location the location.
+     */
     void
     set_location (const std::string& location);
 
@@ -67,10 +88,17 @@ namespace sbuild
     print_config (std::ostream& stream) const;
 
   private:
+    /**
+     * Read chroot configuration from a keyfile.
+     *
+     * @param keyfile the configuration file
+     * @param group the keyfile group (chroot name)
+     */
     void
     read_keyfile (const keyfile&     keyfile,
 		  const std::string& group);
 
+    /// The directory location of the chroot.
     std::string location;
   };
 
