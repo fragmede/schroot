@@ -33,6 +33,9 @@ schroot-stamp: schroot.dox $(top_srcdir)/configure
 	$(DOXYGEN) schroot.dox
 	touch $@
 
+CLEANFILES = \
+	schroot.log
+
 maintainer-clean-local:
 	$(RM) -r schroot
 

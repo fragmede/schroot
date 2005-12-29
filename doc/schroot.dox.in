@@ -23,7 +23,7 @@ PROJECT_NAME           = schroot
 # This could be handy for archiving the generated documentation or 
 # if some version control system is used.
 
-PROJECT_NUMBER         = 
+PROJECT_NUMBER         = @VERSION@
 
 # The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute) 
 # base path where the generated documentation will be put. 
@@ -448,7 +448,7 @@ WARN_FORMAT            = "$file:$line: $text"
 # and error messages should be written. If left blank the output is written 
 # to stderr.
 
-WARN_LOGFILE           = 
+WARN_LOGFILE           = schroot.log
 
 #---------------------------------------------------------------------------
 # configuration options related to the input files

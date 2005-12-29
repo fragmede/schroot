@@ -1,5 +1,11 @@
 2005-12-29  Roger Leigh  <rleigh@debian.org>
 
+	* doc/schroot.dox.in
+	(PROJECT_NUMBER): Use @VERSION@.
+	(WARN_LOGFILE): Log to schroot.log.
+
+2005-12-29  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-nostream.h: Rename m_sbuf to nbuf.
 
 2005-12-29  Roger Leigh  <rleigh@debian.org>
