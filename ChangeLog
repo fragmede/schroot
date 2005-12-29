@@ -1,3 +1,8 @@
+2005-12-29  Roger Leigh  <rleigh@debian.org>
+
+	* configure.ac: Bump version to 0.2.0, following the C++ and
+	doxygen work.
+
 2005-12-28  Roger Leigh  <rleigh@debian.org>
 
 	* Add doxygen support to configure and doc/Makefile.am, and

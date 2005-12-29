@@ -17,8 +17,6 @@ PENDING
 
 ** Enable C++ compiler warnings.
 
-** Add doxygen docs to doc/Makefile.am.
-
 ** const correctness of references.
 
 
