@@ -1,15 +1,15 @@
 NEWS                                                             -*- outline -*-
 ----
 
-Welcome to schroot 0.1.8.  Please read these release notes carefully.
+Welcome to schroot 0.2.0.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
 
-* Major changes in 0.1.8:
+* Major changes in 0.2.0:
 
-  Bugfixes only.
+  The source has been rewritten in C++, and documented with Doxygen.
 
 * Major changes in 0.1.7:
 

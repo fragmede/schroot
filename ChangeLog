@@ -1,5 +1,9 @@
 2005-12-29  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Bump version to 2.0
+
+2005-12-29  Roger Leigh  <rleigh@debian.org>
+
 	* doc/schroot.dox.in
 	(PROJECT_NUMBER): Use @VERSION@.
 	(WARN_LOGFILE): Log to schroot.log.
