@@ -1,5 +1,9 @@
 2005-12-29  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-nostream.h: Rename m_sbuf to nbuf.
+
+2005-12-29  Roger Leigh  <rleigh@debian.org>
+
 	* configure.ac: Bump version to 0.2.0, following the C++ and
 	doxygen work.
 

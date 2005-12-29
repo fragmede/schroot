@@ -55,16 +55,15 @@ namespace sbuild
   public:
     /// The constructor.
     basic_nostream():
-      std::basic_ios<cT, traits>(&m_sbuf),
-      std::basic_ostream<cT, traits>(&m_sbuf)
+      std::basic_ios<cT, traits>(&nbuf),
+      std::basic_ostream<cT, traits>(&nbuf)
     {
-      init(&m_sbuf);
+      init(&nbuf);
     }
 
   private:
     /// The stream buffer.
-    /// @todo Remove m_ prefix.
-    basic_nbuf<cT, traits> m_sbuf;
+    basic_nbuf<cT, traits> nbuf;
   };
 
   /// A null ostream.
