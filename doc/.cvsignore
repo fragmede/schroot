@@ -2,3 +2,4 @@ Makefile
 Makefile.in
 schroot
 schroot.dox
+schroot-stamp
