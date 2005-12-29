@@ -54,6 +54,8 @@ AC_DISABLE_SHARED
 AC_PROG_LIBTOOL
 AM_GNU_GETTEXT_VERSION([0.14.5])
 AM_GNU_GETTEXT([external])
+AC_PATH_PROG([DOXYGEN], [doxygen])
+AM_CONDITIONAL([USE_DOXYGEN], [test -n "$DOXYGEN"])
 AC_PATH_PROG([RUN_PARTS], [run-parts])
 AH_TEMPLATE(RUN_PARTS,, [run-parts binary])
 AC_DEFINE_UNQUOTED(RUN_PARTS, ["$RUN_PARTS"], )
@@ -223,7 +225,7 @@ AC_DEFINE_UNQUOTED(SCHROOT_MODULEDIR, ["$SCHROOT_MODULEDIR"])
 
 dnl Configure which files to generate.
 AC_CONFIG_FILES([doc/Makefile])
-AC_CONFIG_FILES([doc/schroot/Makefile])
+AC_CONFIG_FILES([doc/schroot.dox])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([schroot/Makefile])
 AC_CONFIG_FILES([schroot/pam/Makefile])

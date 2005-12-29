@@ -20,3 +20,26 @@
 #
 #####################################################################
 
+all-local: schroot
+
+if USE_DOXYGEN
+schroot: schroot-stamp
+else
+schroot:
+endif
+
+schroot-stamp: schroot.dox $(top_srcdir)/configure
+	$(RM) -rf schroot/html
+	$(DOXYGEN) schroot.dox
+	touch $@
+
+maintainer-clean-local:
+	$(RM) -r schroot
+
+MAINTAINERCLEANFILES = \
+	schroot-stamp
+
+EXTRA_DIST = \
+	schroot
+
+.PHONY: schroot
