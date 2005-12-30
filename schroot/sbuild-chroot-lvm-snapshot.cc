@@ -269,11 +269,11 @@ ChrootLvmSnapshot::print_details (std::ostream& stream) const
   this->ChrootBlockDevice::print_details(stream);
 
   if (!this->snapshot_device.empty())
-    stream << format_detail_string(_("LVM Snapshot Device"),
-				   get_snapshot_device());
+    stream << format_details(_("LVM Snapshot Device"),
+			     get_snapshot_device());
   if (!this->snapshot_options.empty())
-    stream << format_detail_string(_("LVM Snapshot Options"),
-				   get_snapshot_options());
+    stream << format_details(_("LVM Snapshot Options"),
+			     get_snapshot_options());
   stream << std::flush;
 }
 

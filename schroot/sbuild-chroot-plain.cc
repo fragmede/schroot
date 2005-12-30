@@ -108,7 +108,7 @@ ChrootPlain::print_details (std::ostream& stream) const
   this->Chroot::print_details(stream);
 
   if (!this->location.empty())
-    stream << format_detail_string(_("Location"), get_location());
+    stream << format_details(_("Location"), get_location());
   stream << std::flush;
 }
 

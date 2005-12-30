@@ -257,25 +257,24 @@ Chroot::print_details (std::ostream& stream) const
     stream << _("  --- Session ---\n");
   else
     stream << _("  --- Chroot ---\n");
-  stream << format_detail_string(_("Name"), get_name())
-	 << format_detail_string(_("Description"), get_description())
-	 << format_detail_string(_("Type"), get_chroot_type())
-	 << format_detail_int(_("Priority"), get_priority())
-	 << format_detail_strv(_("Groups"), get_groups())
-	 << format_detail_strv(_("Root Groups"), get_root_groups())
-	 << format_detail_strv(_("Aliases"), get_aliases())
-	 << format_detail_bool(_("Run Setup Scripts"),
-			       get_run_setup_scripts())
-	 << format_detail_bool(_("Run Session Scripts"),
-			       get_run_session_scripts());
+  stream << format_details(_("Name"), get_name())
+	 << format_details(_("Description"), get_description())
+	 << format_details(_("Type"), get_chroot_type())
+	 << format_details(_("Priority"), get_priority())
+	 << format_details(_("Groups"), get_groups())
+	 << format_details(_("Root Groups"), get_root_groups())
+	 << format_details(_("Aliases"), get_aliases())
+	 << format_details(_("Run Setup Scripts"), get_run_setup_scripts())
+	 << format_details(_("Run Session Scripts"),
+			   get_run_session_scripts());
   /* Non user-settable properties are listed last. */
   if (this->active == true)
     {
       if (!this->mount_location.empty())
-	stream << format_detail_string(_("Mount Location"),
+	stream << format_details(_("Mount Location"),
 				       get_mount_location());
       if (!this->mount_device.empty())
-	stream << format_detail_string(_("Mount Device"), get_mount_device());
+	stream << format_details(_("Mount Device"), get_mount_device());
     }
 }
 

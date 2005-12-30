@@ -183,9 +183,9 @@ ChrootBlockDevice::print_details (std::ostream& stream) const
   this->Chroot::print_details(stream);
 
   if (!this->device.empty())
-    stream << format_detail_string(_("Device"), get_device());
+    stream << format_details(_("Device"), get_device());
   if (!this->mount_options.empty())
-    stream << format_detail_string(_("Mount Options"), get_mount_options());
+    stream << format_details(_("Mount Options"), get_mount_options());
   stream << std::flush;
 }
 

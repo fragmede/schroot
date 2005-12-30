@@ -1,5 +1,13 @@
 2005-12-30  Roger Leigh  <rleigh@debian.org>
 
+	* Replace all format_detail_* typedef usage with format_details.
+
+	* schroot/sbuild-chroot.h (format_details): Templated member
+	function to construct the correct format_details class template.
+	This replaces all the format_detail_* typedefs.
+
+2005-12-30  Roger Leigh  <rleigh@debian.org>
+
 	* All code updated to use Chroot::chroot_ptr.
 
 	* schroot/sbuild-config.cc (load): Create chroots from keyfile
