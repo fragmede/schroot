@@ -47,7 +47,7 @@ sbuild::log_debug(sbuild::DebugLevel level)
 {
   if (debug_level > 0 &&
       level >= debug_level)
-    return std::cerr << "D: ";
+    return std::cerr << "D(" << level << "): ";
   else
     return sbuild::cnull;
 }

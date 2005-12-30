@@ -61,8 +61,9 @@ Config::Config(const std::string& file):
   struct stat statbuf;
   if (stat(file.c_str(), &statbuf) < 0)
     {
-      /* TODO: throw exception or print warning. */
-      return;
+      format fmt(_("%1%: failed to stat file: %2%"));
+      fmt % file % strerror(errno);
+      throw error(fmt);
     }
 
   if (S_ISDIR(statbuf.st_mode))
@@ -115,8 +116,7 @@ Config::add_config_directory (const std::string& dir)
 	{
 	  if (!(strcmp(de->d_name, ".") == 0 ||
 		strcmp(de->d_name, "..") == 0))
-	    log_error() << format(_("%1%: failed to stat file: %2%"))
-	      % filename % strerror(errno)
+	    log_error() << format(_("%1%: not a regular file")) % filename
 			<< endl;
 	  continue;
 	}
@@ -312,7 +312,7 @@ Config::load (const std::string& file)
   std::istream input(&fdbuf);
 
   /* Create key file */
-  keyfile keyfile(input);
+  keyfile kconfig(input);
   // TODO: Where should parse error exception be handled?
 
   try
@@ -328,22 +328,24 @@ Config::load (const std::string& file)
     }
 
   /* Create Chroot objects from key file */
-  string_list groups = keyfile.get_groups();
+  string_list const& groups = kconfig.get_groups();
   for (string_list::const_iterator group = groups.begin();
        group != groups.end();
        ++group)
     {
-      /* TODO: Can't cope with error.  Replace ASAP. */
-      std::string type;
-      if (!keyfile.get_value(*group, "type", type))
-	type = "";
+      std::string type = "plain"; // "plain" is the default type.
       Chroot *chroot = 0;
+
+      // TODO: Move this into a factory function in Config.
+      // TODO: Check if creation fails, and refuse to insert.
+      kconfig.get_value(*group, "type", type);
       if (type == "plain")
-	chroot = new ChrootPlain(keyfile, *group);
+	chroot = new ChrootPlain(kconfig, *group);
       else if (type == "block-device")
-	chroot = new ChrootBlockDevice(keyfile, *group);
+	chroot = new ChrootBlockDevice(kconfig, *group);
       else if (type == "lvm-snapshot")
-	chroot = new ChrootLvmSnapshot(keyfile, *group);
+	chroot = new ChrootLvmSnapshot(kconfig, *group);
+
       if (chroot)
 	{
 	  // TODO: error checking (did insertion work? was the alias a
@@ -354,6 +356,13 @@ Config::load (const std::string& file)
 	       pos != aliases.end();
 	       ++pos)
 	    this->aliases.insert(std::make_pair(*pos, chroot->get_name()));
+	}
+      else
+	{
+	  log_warning()
+	    << format(_("%1% chroot: No such chroot type \"%2%\""))
+	    % *group % type
+	    << endl;
 	}
     }
 }

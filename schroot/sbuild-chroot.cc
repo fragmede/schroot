@@ -288,36 +288,42 @@ void
 Chroot::read_keyfile (const keyfile&     keyfile,
 		      const std::string& group)
 {
+  set_name(group);
+
+  /// @todo Restrict setting to session schroots
   bool active(false);
-  if (keyfile.get_value(group, "active", active))
+  if (keyfile.get_value(group, "active",
+			keyfile::PRIORITY_OPTIONAL, active))
     set_active(active);
 
   bool run_setup_scripts(false);
-  if (keyfile.get_value(group, "run-setup-scripts", run_setup_scripts))
+  if (keyfile.get_value(group, "run-setup-scripts",
+			keyfile::PRIORITY_OPTIONAL, run_setup_scripts))
     set_run_setup_scripts(run_setup_scripts);
 
   bool run_session_scripts(false);
-  if (keyfile.get_value(group, "run-session-scripts", run_session_scripts))
+  if (keyfile.get_value(group, "run-session-scripts",
+			keyfile::PRIORITY_OPTIONAL, run_session_scripts))
     set_run_session_scripts(run_session_scripts);
 
   string_list aliases;
-  if (keyfile.get_list_value(group, "aliases", aliases))
+  if (keyfile.get_list_value(group, "aliases",
+			     keyfile::PRIORITY_OPTIONAL, aliases))
     set_aliases(aliases);
 
   std::string description;
-  if (keyfile.get_value(group, "description", description))
+  if (keyfile.get_value(group, "description",
+			keyfile::PRIORITY_OPTIONAL, description))
     set_description(description);
 
-  std::string name;
-  if (keyfile.get_value(group, "name", name))
-    set_name(name);
-
   string_list groups;
-  if (keyfile.get_list_value(group, "groups", groups))
+  if (keyfile.get_list_value(group, "groups",
+			     keyfile::PRIORITY_REQUIRED, groups))
     set_groups(groups);
 
   string_list root_groups;
-  if (keyfile.get_list_value(group, "root-groups", root_groups))
+  if (keyfile.get_list_value(group, "root-groups",
+			     keyfile::PRIORITY_OPTIONAL, root_groups))
     set_root_groups(root_groups);
 }
 

@@ -294,11 +294,13 @@ ChrootLvmSnapshot::read_keyfile (const keyfile&      keyfile,
 				 const std::string&  group)
 {
   std::string snapshot_device;
-  if (keyfile.get_value(group, "lvm-snapshot-device", snapshot_device))
+  if (keyfile.get_value(group, "lvm-snapshot-device",
+			keyfile::PRIORITY_REQUIRED, snapshot_device))
     set_snapshot_device(snapshot_device);
 
   std::string snapshot_options;
-  if (keyfile.get_value(group, "lvm-snapshot-options", snapshot_options))
+  if (keyfile.get_value(group, "lvm-snapshot-options",
+			keyfile::PRIORITY_REQUIRED, snapshot_options))
     set_snapshot_options(snapshot_options);
 }
 

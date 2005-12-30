@@ -126,7 +126,8 @@ ChrootPlain::read_keyfile (const keyfile&     keyfile,
 			   const std::string& group)
 {
   std::string location;
-  if (keyfile.get_value(group, "location", location))
+  if (keyfile.get_value(group, "location",
+			keyfile::PRIORITY_REQUIRED, location))
     set_location(location);
 }
 

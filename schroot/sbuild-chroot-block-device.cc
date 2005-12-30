@@ -204,11 +204,13 @@ ChrootBlockDevice::read_keyfile (const keyfile&      keyfile,
 				 const std::string&  group)
 {
   std::string device;
-  if (keyfile.get_value(group, "device", device))
+  if (keyfile.get_value(group, "device",
+			keyfile::PRIORITY_REQUIRED, device))
     set_device(device);
 
   std::string mount_options;
-  if (keyfile.get_value(group, "mount-options", mount_options))
+  if (keyfile.get_value(group, "mount-options",
+			keyfile::PRIORITY_OPTIONAL, mount_options))
     set_mount_options(mount_options);
 }
 

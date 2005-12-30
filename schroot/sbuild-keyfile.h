@@ -31,6 +31,7 @@
 
 #include "sbuild-error.h"
 #include "sbuild-i18n.h"
+#include "sbuild-log.h"
 #include "sbuild-types.h"
 #include "sbuild-util.h"
 
@@ -62,6 +63,16 @@ namespace sbuild
     typedef std::map<std::string,group_type> group_map_type;
 
   public:
+    /// Configuration parameter priority.
+    enum priority
+      {
+	PRIORITY_OPTIONAL,   ///< The parameter is optional.
+	PRIORITY_REQUIRED,   ///< The parameter is required.
+	PRIORITY_DISALLOWED, ///< The parameter is not allowed in this context.
+	PRIORITY_DEPRECATED, ///< The parameter is deprecated, but functional.
+	PRIORITY_OBSOLETE    ///< The parameter is obsolete, and not functional.
+      };
+
     /// Exception type.
     typedef runtime_error_custom<keyfile> error;
 
@@ -121,6 +132,66 @@ namespace sbuild
     has_key(const std::string& group,
 	    const std::string& key) const;
 
+
+  private:
+    /**
+     * Parse a key value and set the value of the specified value type.
+     *
+     * @param string val the key value.
+     * @param value the value type to store the parsed value in.
+     * @returns true on success, false on failure.
+     */
+    template <typename T>
+    bool
+    parse_value (std::string const& stringval,
+		 T&                 value) const
+    {
+      std::istringstream is(stringval);
+      T tmpval;
+      is >> tmpval;
+      if (!is.bad())
+	{
+	  value = tmpval;
+	  log_debug(DEBUG_NOTICE) << "value=" << value << std::endl;
+	  return true;
+	}
+      log_debug(DEBUG_NOTICE) << "parse error" << std::endl;
+      return false;
+    }
+
+    bool
+    parse_value (std::string const& stringval,
+		 bool&              value) const
+    {
+      if (stringval == "true" || stringval == "yes" || stringval == "1")
+	value = true;
+      else if (stringval == "false" || stringval == "no" || stringval == "0")
+	value = true;
+      else
+	return false;
+
+      // TODO: throw exception on parse failure.
+
+      log_debug(DEBUG_NOTICE) << "value=" << value << std::endl;
+      return true;
+    }
+
+    bool
+    parse_value (std::string const& stringval,
+		 std::string&       value) const
+    {
+      value = stringval;
+      log_debug(DEBUG_NOTICE) << "value=" << value << std::endl;
+      return true;
+    }
+
+    void
+    check_priority (const std::string& group,
+		    const std::string& key,
+		    priority           priority,
+		    bool               valid) const;
+
+  public:
     /**
      * Get a key value.
      *
@@ -135,22 +206,42 @@ namespace sbuild
     bool
     get_value(const std::string& group,
 	      const std::string& key,
-	      T& value) const
+	      T&                 value) const
     {
+      log_debug(DEBUG_INFO) << "Getting keyfile group=" << group
+			    << ", key=" << key << std::endl;
       const item_type *found_item = find_item(group, key);
       if (found_item)
 	{
 	  const std::string& strval(std::tr1::get<1>(*found_item));
-	  std::istringstream is(strval);
-	  T tmpval;
-	  is >> tmpval;
-	  if (!is.bad())
-	    {
-	      value = tmpval;
-	      return true;
-	    }
+	  return parse_value(strval, value);
 	}
+      log_debug(DEBUG_NOTICE) << "key not found" << std::endl;
       return false;
+    }
+
+    /**
+     * Get a key value.  If the value does not exist, is deprecated or
+     * obsolete, warn appropriately.
+     *
+     * @param group the group the key is in.
+     * @param key the key to get.
+     * @param priority the priority of the option.
+     * @param value the value to store the key's value in.  This must
+     * be settable from an istream and be copyable.
+     * @returns true if the key was found, otherwise false (in which
+     * case value will be unchanged).
+     */
+    template <typename T>
+    bool
+    get_value(const std::string& group,
+	      const std::string& key,
+	      priority           priority,
+	      T&                 value) const
+    {
+      bool status = get_value(group, key, value);
+      check_priority(group, key, priority, status);
+      return status;
     }
 
     /**
@@ -168,7 +259,7 @@ namespace sbuild
     bool
     get_list_value(const std::string& group,
 		   const std::string& key,
-		   C<T>& value) const
+		   C<T>&              value) const
     {
       std::string item_value;
       if (get_value(group, key, item_value))
@@ -180,16 +271,40 @@ namespace sbuild
 	       ++pos
 	       )
 	    {
-	      std::istringstream is(*pos);
 	      T tmpval;
-	      is >> tmpval;
-	      if (!is)
+	      if (parse_value(*pos, tmpval) == false)
 		return false;
 	      tmplist.push_back(tmpval);
 	    }
 	  value = tmplist;
+	  return true;
 	}
       return false;
+    }
+
+    /**
+     * Get a key value as a list.  If the value does not exist, is
+     * deprecated or obsolete, warn appropriately.
+     *
+     * @param group the group the key is in.
+     * @param key the key to get.
+     * @param priority the priority of the option.
+     * @param value the list value to store the key's value in.  The
+     * value type must be settable from an istream and be copyable.
+     * The list must be a container with a standard insert method.
+     * @returns true if the key was found, otherwise false (in which
+     * case value will be unchanged).
+     */
+    template <typename T, template <typename T> class C>
+    bool
+    get_list_value(const std::string& group,
+		   const std::string& key,
+		   priority           priority,
+		   C<T>&              value) const
+    {
+      bool status = get_list_value(group, key, value);
+      check_priority(group, key, priority, status);
+      return status;
     }
 
     /**
@@ -199,6 +314,8 @@ namespace sbuild
      * @param key the key to set.
      * @param value the value to get the key's value from.  This must
      * allow output to an ostream.
+     *
+     * @todo Imbue C locale into ostringstream.
      */
     template <typename T>
     void
@@ -207,7 +324,7 @@ namespace sbuild
 	      const T& value)
     {
       std::ostringstream os;
-      os << value;
+      os << std::boolalpha << value;
 
       if (!has_group(group))
 	this->groups.insert
@@ -238,6 +355,8 @@ namespace sbuild
      * @param value the list value to get the key's value from.  The
      * value type must allow output to an ostream.  The list must be a
      * container with a standard forward iterator.
+     *
+     * @todo Imbue C locale into ostringstream.
      */
     template <typename T, template <typename T> class C>
     void
@@ -252,7 +371,7 @@ namespace sbuild
 	   ++ pos)
 	{
 	  std::ostringstream os;
-	  os << *pos;
+	  os << std::boolalpha << *pos;
 	  if (os)
 	    {
 	      strval += os.str();
@@ -316,7 +435,7 @@ namespace sbuild
 		fmt % linecount % line;
 		throw error(fmt);
 	      }
-	    group = line.substr(1, fpos - 2);
+	    group = line.substr(1, fpos - 1);
 
 	    if (!comment.empty())
 	      {
@@ -348,7 +467,7 @@ namespace sbuild
 		fmt % linecount % line;
 		throw error(fmt);
 	      }
-	    key = line.substr(0, pos - 1);
+	    key = line.substr(0, pos);
 	    if (pos == line.length() - 1)
 	      value = "";
 	    else

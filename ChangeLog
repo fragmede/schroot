@@ -1,3 +1,42 @@
+2005-12-30  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* schroot/sbuild-chroot-plain.cc (read_keyfile): Use keyfile
+	priorities.
+
+	* schroot/sbuild-chroot-block-device.cc (read_keyfile): Use
+	keyfile priorities.
+
+	* schroot/sbuild-chroot.cc (read_keyfile): Set chroot name from
+	group name, and use keyfile priorities.
+
+	* schroot/sbuild-keyfile.h
+	(parse_value): New templated method to parse a key value and set
+	the value of the specified value type.
+	(get_value): Use parse_value, and add debugging messages.  Add
+	overloaded method to check key priority.
+	(get_list_value): Use parse_value.  Add overloaded method to check
+	key priority.
+	(set_list, set_list_value): Use std::boolalpha to get text
+	representation of bool.
+	(operator >>): Correct off-by-one errors with substring lengths.
+
+	* schroot/sbuild-keyfile.cc (check_priority): New method to check
+	if a key is required, optional, deprecated or obsolete.  Log a
+	warning or error message if a key is missing or present when it
+	should not be.
+
+	* schroot/sbuild-config.cc
+	(Config): Throw error if construction fails.
+	(add_config_directory): Correct error message.
+	(load): Chroot type defaults to "plain".  Log a warning if the
+	chroot type is incorrect.
+
+	* schroot/sbuild-log.cc (log_debug): Report the debug level when
+	printing messages.
+
+	* schroot/schroot.cc (main): Set the default debugging level to
+	DEBUG_NOTICE.
+
 2005-12-29  Roger Leigh  <rleigh@debian.org>
 
 	* NEWS: Bump version to 2.0

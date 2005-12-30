@@ -190,6 +190,52 @@ keyfile::print_comment(const std::string& comment,
     }
 }
 
+void
+keyfile::check_priority (const std::string& group,
+			 const std::string& key,
+			 priority priority,
+			 bool     valid) const
+{
+  if (valid == false)
+    {
+      switch (priority)
+	{
+	case PRIORITY_REQUIRED:
+	  log_error()
+	    << boost::format(_("%1% chroot: A required parameter \"%2%\" is missing."))
+	    % group % key
+	    << std::endl;
+	  break;
+	default:
+	  break;
+	}
+    }
+  else
+    {
+      switch (priority)
+	{
+	case PRIORITY_DEPRECATED:
+	  log_warning()
+	    << boost::format(_("%1% chroot: A deprecated parameter \"%2%\" has been specified."))
+	    % group % key
+	    << std::endl;
+	  log_info()
+	    << _("This option will be removed in the future.") << std::endl;
+	  break;
+	case PRIORITY_OBSOLETE:
+	  log_warning()
+	    << boost::format(_("%1% chroot: An obsolete parameter \"%2%\" has been specified."))
+	    % group % key
+	    << std::endl;
+	  log_info()
+	    << _("This option has been removed, and no longer has any effect.") << std::endl;
+	  break;
+	    default:
+	      break;
+	}
+    }
+}
+
 /*
  * Local Variables:
  * mode:C++

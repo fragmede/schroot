@@ -128,8 +128,8 @@ main (int   argc,
   bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
   textdomain (GETTEXT_PACKAGE);
 
-#ifndef SBUILD_DEBUG
-  sbuild::debug_level = sbuild::DEBUG_CRITICAL;
+#ifdef SBUILD_DEBUG
+  sbuild::debug_level = sbuild::DEBUG_NOTICE;
 #else
   sbuild::debug_level = sbuild::DEBUG_NONE;
 #endif
