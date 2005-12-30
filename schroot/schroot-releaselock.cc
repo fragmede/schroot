@@ -40,81 +40,13 @@
 #include "sbuild-log.h"
 #include "sbuild-util.h"
 
+#include "schroot-releaselock-options.h"
+
 using std::endl;
 using boost::format;
 namespace opt = boost::program_options;
 
-namespace schroot_releaselock
-{
-
-  /**
-   * schroot-releaselock command-line options.
-   * @todo Split out into a separate file.
-   */
-  struct options {
-    /// The device to unlock.
-    std::string device;
-    /// The PID holding the lock.
-    int         pid;
-    /// Display version information.
-    bool        version;
-  };
-
-  options opts =
-    {
-      "",
-      0,
-      false
-    };
-}
-
 using namespace schroot_releaselock;
-
-/*
- * parse_options:
- * @argc: the number of arguments
- * @argv: argument vector
- *
- * Parse command-line options.  The options are placed in the opt
- * structure.
- */
-static void
-parse_options(int   argc,
-	      char *argv[])
-{
-  opt::options_description general(_("General options"));
-  general.add_options()
-    ("help,?", _("Show help options"))
-    ("version,V",
-     _("Print version information"));
-
-  opt::options_description lock(_("Lock options"));
-  lock.add_options()
-    ("device,d", opt::value<std::string>(&opts.device),
-     _("Device to unlock (full path)"))
-    ("pid,p", opt::value<int>(&opts.pid),
-     _("Process ID owning the lock"));
-
-
-  opt::options_description global;
-  global.add(general).add(lock);
-
-  opt::variables_map vm;
-  opt::store(opt::parse_command_line(argc, argv, global), vm);
-  opt::notify(vm);
-
-  if (vm.count("help"))
-    {
-      std::cout
-	<< _("Usage:") << '\n'
-	<< _("  schroot-releaselock [OPTION...] - release a device lock") << '\n'
-	<< global << std::flush;
-      exit(EXIT_SUCCESS);
-}
-
-  if (vm.count("version"))
-    opts.version = true;
-}
 
 /*
  * print_version:
@@ -157,8 +89,8 @@ main (int   argc,
   sbuild::debug_level = sbuild::DEBUG_NONE;
 #endif
 
-  /* Parse command-line options into opt structure. */
-  parse_options(argc, argv);
+  // Parse command-line options.
+  options opts(argc, argv);
 
   if (opts.version)
     {

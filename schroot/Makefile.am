@@ -85,7 +85,9 @@ schroot_SOURCES =			\
 
 schroot_LDADD = libsbuild.la
 
-schroot_releaselock_SOURCES = \
+schroot_releaselock_SOURCES = 		\
+	schroot-releaselock-options.h	\
+	schroot-releaselock-options.cc	\
 	schroot-releaselock.cc
 schroot_releaselock_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
 schroot_releaselock_LDADD = libsbuild.la

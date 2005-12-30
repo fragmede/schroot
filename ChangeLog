@@ -1,5 +1,14 @@
 2005-12-30  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot-options.h: Fix include guard naming scheme.
+
+	* schroot/schroot-releaselock-options.(cc|h): New class for
+	schroot-releaselock options parsing.  The options structure has
+	been split out from schroot-releaselock.cc to create this new
+	class.
+
+2005-12-30  Roger Leigh  <rleigh@debian.org>
+
 	* Replace all format_detail_* typedef usage with format_details.
 
 	* schroot/sbuild-chroot.h (format_details): Templated member

@@ -19,8 +19,8 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_SCHROOT_OPTIONS_H
-#define SBUILD_SCHROOT_OPTIONS_H
+#ifndef SCHROOT_OPTIONS_H
+#define SCHROOT_OPTIONS_H
 
 #include <string>
 #include <vector>
@@ -95,7 +95,7 @@ namespace schroot
 
 }
 
-#endif /* SBUILD_SCHROOT_OPTIONS_H */
+#endif /* SCHROOT_OPTIONS_H */
 
 /*
  * Local Variables:

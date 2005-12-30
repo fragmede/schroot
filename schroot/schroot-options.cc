@@ -19,15 +19,6 @@
  *
  *********************************************************************/
 
-/*
- * SECTION:schroot-options
- * @short_description: schroot options parser
- * @title: SchrootOptions
- *
- * This structure is used to contain the results of command-line
- * option parsing.
- */
-
 #include <config.h>
 
 #include <iostream>
