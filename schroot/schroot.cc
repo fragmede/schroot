@@ -43,6 +43,7 @@
 
 using std::endl;
 using boost::format;
+using namespace schroot;
 
 /*
  * print_version:
@@ -123,126 +124,140 @@ int
 main (int   argc,
       char *argv[])
 {
-  setlocale (LC_ALL, "");
-
-  bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
-  textdomain (GETTEXT_PACKAGE);
-
-#ifdef SBUILD_DEBUG
-  sbuild::debug_level = sbuild::DEBUG_NOTICE;
-#else
-  sbuild::debug_level = sbuild::DEBUG_NONE;
-#endif
-
-  openlog("schroot", LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
-
-  /* Parse command-line options into opt structure. */
-  schroot::Options options(argc, argv);
-
-  if (options.version == true)
-    {
-      print_version(std::cout);
-      exit(EXIT_SUCCESS);
-    }
-
-  /* Initialise chroot configuration. */
-  std::tr1::shared_ptr<sbuild::Config> config(new sbuild::Config);
-
-  /* The normal chroot list is used when starting a session or running
-     any chroot type or session, or displaying chroot information. */
-  if (options.load_chroots == true)
-    config->add_config_file(SCHROOT_CONF);
-  /* The session chroot list is used when running or ending an
-     existing session, or displaying chroot information. */
-  if (options.load_sessions == true)
-    config->add_config_directory(SCHROOT_SESSION_DIR);
-
-  if (config->get_chroots().empty())
-    {
-      if (options.quiet == false)
-	sbuild::log_error()
-	  << format(_("No chroots are defined in %1%")) % SCHROOT_CONF
-	  << endl;
-      exit (EXIT_FAILURE);
-    }
-
-  /* Print chroot list (including aliases). */
-  if (options.list == true)
-    {
-      config->print_chroot_list(std::cout);
-      exit(EXIT_SUCCESS);
-    }
-
-  /* Get list of chroots to use */
-  const sbuild::string_list& chroots = get_chroot_options(config, options);
-  if (chroots.empty())
-    {
-      sbuild::log_error()
-	<< format(_("The specified chroots are not defined in %1%"))
-	% SCHROOT_CONF
-	<< endl;
-      exit (EXIT_FAILURE);
-    }
-
-  /* Print chroot information for specified chroots. */
-  if (options.info == true)
-    {
-      config->print_chroot_info(chroots, std::cout);
-      exit (EXIT_SUCCESS);
-    }
-
-  if (options.session_operation == sbuild::Session::OPERATION_BEGIN &&
-      chroots.size() != 1)
-    {
-      sbuild::log_error()
-	<< _("Only one chroot may be specified when beginning a session")
-	<< endl;
-      exit (EXIT_FAILURE);
-    }
-
-  /* Create a session. */
-  sbuild::Session session("schroot",
-			  config,
-			  options.session_operation,
-			  chroots);
   try
     {
-      if (!options.user.empty())
-	session.set_user(options.user);
-      if (!options.command.empty())
-	session.set_command(options.command);
-      if (options.preserve)
-	session.set_environment(environ);
-      session.set_force(options.session_force);
-      sbuild::Auth::Verbosity verbosity = sbuild::Auth::VERBOSITY_NORMAL;
-      if (options.quiet)
-	verbosity = sbuild::Auth::VERBOSITY_QUIET;
-      else if (options.verbose)
-	verbosity = sbuild::Auth::VERBOSITY_VERBOSE;
-      session.set_verbosity(verbosity);
+      setlocale (LC_ALL, "");
 
-      /* Set up authentication timeouts. */
-      std::tr1::shared_ptr<sbuild::AuthConv> conv(new sbuild::AuthConvTty);
-      time_t curtime = 0;
-      time(&curtime);
-      conv->set_warning_timeout(curtime + 15);
-      conv->set_fatal_timeout(curtime + 20);
-      session.set_conv(conv);
+      bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
+      textdomain (GETTEXT_PACKAGE);
 
-      /* Run session. */
-      session.run();
+#ifdef SBUILD_DEBUG
+      sbuild::debug_level = sbuild::DEBUG_NOTICE;
+#else
+      sbuild::debug_level = sbuild::DEBUG_NONE;
+#endif
+
+      openlog("schroot", LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
+
+      /* Parse command-line options into opt structure. */
+      Options options(argc, argv);
+
+      if (options.action == Options::ACTION_VERSION)
+	{
+	  print_version(std::cout);
+	  exit(EXIT_SUCCESS);
+	}
+
+      /* Initialise chroot configuration. */
+      std::tr1::shared_ptr<sbuild::Config> config(new sbuild::Config);
+
+      /* The normal chroot list is used when starting a session or running
+	 any chroot type or session, or displaying chroot information. */
+      if (options.load_chroots == true)
+	config->add_config_file(SCHROOT_CONF);
+      /* The session chroot list is used when running or ending an
+	 existing session, or displaying chroot information. */
+      if (options.load_sessions == true)
+	config->add_config_directory(SCHROOT_SESSION_DIR);
+
+      if (config->get_chroots().empty())
+	{
+	  if (options.quiet == false)
+	    sbuild::log_error()
+	      << format(_("No chroots are defined in %1%")) % SCHROOT_CONF
+	      << endl;
+	  exit (EXIT_FAILURE);
+	}
+
+      /* Print chroot list (including aliases). */
+      if (options.action == Options::ACTION_LIST)
+	{
+	  config->print_chroot_list(std::cout);
+	  exit(EXIT_SUCCESS);
+	}
+
+      /* Get list of chroots to use */
+      const sbuild::string_list& chroots = get_chroot_options(config, options);
+      if (chroots.empty())
+	{
+	  sbuild::log_error()
+	    << format(_("The specified chroots are not defined in %1%"))
+	    % SCHROOT_CONF
+	    << endl;
+	  exit (EXIT_FAILURE);
+	}
+
+      /* Print chroot information for specified chroots. */
+      if (options.action == Options::ACTION_INFO)
+	{
+	  config->print_chroot_info(chroots, std::cout);
+	  exit (EXIT_SUCCESS);
+	}
+
+      if (options.action == Options::ACTION_SESSION_BEGIN &&
+	  chroots.size() != 1)
+	{
+	  sbuild::log_error()
+	    << _("Only one chroot may be specified when beginning a session")
+	    << endl;
+	  exit (EXIT_FAILURE);
+	}
+
+      /* Create a session. */
+      sbuild::Session::Operation sess_op(sbuild::Session::OPERATION_AUTOMATIC);
+      if (options.action == Options::ACTION_SESSION_BEGIN)
+	sess_op = sbuild::Session::OPERATION_BEGIN;
+      else if (options.action == Options::ACTION_SESSION_RECOVER)
+	sess_op = sbuild::Session::OPERATION_RECOVER;
+      else if (options.action == Options::ACTION_SESSION_RUN)
+	sess_op = sbuild::Session::OPERATION_RUN;
+      else if (options.action == Options::ACTION_SESSION_END)
+	sess_op = sbuild::Session::OPERATION_END;
+
+      sbuild::Session session("schroot", config, sess_op, chroots);
+      try
+	{
+	  if (!options.user.empty())
+	    session.set_user(options.user);
+	  if (!options.command.empty())
+	    session.set_command(options.command);
+	  if (options.preserve)
+	    session.set_environment(environ);
+	  session.set_force(options.session_force);
+	  sbuild::Auth::Verbosity verbosity = sbuild::Auth::VERBOSITY_NORMAL;
+	  if (options.quiet)
+	    verbosity = sbuild::Auth::VERBOSITY_QUIET;
+	  else if (options.verbose)
+	    verbosity = sbuild::Auth::VERBOSITY_VERBOSE;
+	  session.set_verbosity(verbosity);
+
+	  /* Set up authentication timeouts. */
+	  std::tr1::shared_ptr<sbuild::AuthConv> conv(new sbuild::AuthConvTty);
+	  time_t curtime = 0;
+	  time(&curtime);
+	  conv->set_warning_timeout(curtime + 15);
+	  conv->set_fatal_timeout(curtime + 20);
+	  session.set_conv(conv);
+
+	  /* Run session. */
+	  session.run();
+	}
+      catch (std::runtime_error& e)
+	{
+	  sbuild::log_error()
+	    << format(_("Session failure: %1%")) % e.what() << endl;
+	}
+
+      closelog();
+      exit(session.get_child_status());
     }
-  catch (std::runtime_error& e)
+  catch (const std::exception& e)
     {
-      sbuild::log_error()
-	<< format(_("Session failure: %1%")) % e.what() << endl;
+      sbuild::log_error() << e.what() << endl;
+
+      closelog();
+      exit(EXIT_FAILURE);
     }
-
-  int exit_status = session.get_child_status();
-
-  closelog();
-
-  exit (exit_status);
 }
 
 /*

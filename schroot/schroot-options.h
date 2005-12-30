@@ -37,6 +37,18 @@ namespace schroot
   class Options
   {
   public:
+    enum action_type
+      {
+	ACTION_SESSION_AUTO,
+	ACTION_SESSION_BEGIN,
+	ACTION_SESSION_RECOVER,
+	ACTION_SESSION_RUN,
+	ACTION_SESSION_END,
+	ACTION_VERSION,
+	ACTION_LIST,
+	ACTION_INFO
+      };
+
     /**
      * The constructor.
      *
@@ -49,6 +61,8 @@ namespace schroot
     /// The destructor.
     virtual ~Options();
 
+    /// The action to perform.
+    action_type          action;
     /// Chroots to use.
     sbuild::string_list  chroots;
     /// Command to run.
@@ -61,10 +75,6 @@ namespace schroot
     bool                 quiet;
     /// Verbose messages.
     bool                 verbose;
-    /// List chroots.
-    bool                 list;
-    /// Display chroot information.
-    bool                 info;
     /// Use all chroots and sessions.
     bool                 all;
     /// Use all chroots.
@@ -75,22 +85,19 @@ namespace schroot
     bool                 load_chroots;
     /// Load sessions.
     bool                 load_sessions;
-    /// Display version information.
-    bool                 version;
-    /// Session operation to perform.
-    sbuild::Session::Operation  session_operation;
     /// Force session operations.
     bool                 session_force;
 
   private:
     /**
-     * Set session operation.  This detects if an operation has
-     * already been set (only one operation may be specified at once).
+     * Set action.  This detects if an action has already been set
+     * (only one action may be specified at once).
      *
-     * @param operation the operation to set.
+     * @param action the action to set.
      */
     void
-    set_session_operation (sbuild::Session::Operation operation);
+    set_action (action_type action);
+
   };
 
 }

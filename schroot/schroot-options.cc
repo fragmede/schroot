@@ -48,22 +48,18 @@ using namespace schroot;
  */
 Options::Options(int   argc,
 		 char *argv[]):
+  action(ACTION_SESSION_AUTO),
   chroots(),
   command(),
   user(),
   preserve(false),
   quiet(false),
   verbose(false),
-  list(false),
-  info(false),
   all(false),
   all_chroots(false),
   all_sessions(false),
-  version(false),
-  session_operation(sbuild::Session::OPERATION_AUTOMATIC),
   session_force(false)
 {
-
   opt::options_description general(_("General options"));
   general.add_options()
     ("help,?",
@@ -136,11 +132,11 @@ Options::Options(int   argc,
     }
 
   if (vm.count("version"))
-    this->version = true;
+    set_action(ACTION_VERSION);
   if (vm.count("list"))
-    this->list = true;
+    set_action(ACTION_LIST);
   if (vm.count("info"))
-    this->info = true;
+    set_action(ACTION_INFO);
 
   if (vm.count("all"))
     this->all = true;
@@ -157,13 +153,13 @@ Options::Options(int   argc,
     this->verbose = true;
 
   if (vm.count("begin-session"))
-    set_session_operation(sbuild::Session::OPERATION_BEGIN);
+    set_action(ACTION_SESSION_BEGIN);
   if (vm.count("recover-session"))
-    set_session_operation(sbuild::Session::OPERATION_RECOVER);
+    set_action(ACTION_SESSION_RECOVER);
   if (vm.count("run-session"))
-    set_session_operation(sbuild::Session::OPERATION_RUN);
+    set_action(ACTION_SESSION_RUN);
   if (vm.count("end-session"))
-    set_session_operation(sbuild::Session::OPERATION_END);
+    set_action(ACTION_SESSION_END);
   if (vm.count("force"))
     this->session_force = true;
 
@@ -176,10 +172,10 @@ Options::Options(int   argc,
     }
 
   /* Ensure there's something to list. */
-  if ((this->list == true &&
+  if ((this->action == ACTION_LIST &&
        (this->all == false && this->all_chroots == false &&
 	this->all_sessions == false)) ||
-      (this->info == true &&
+      (this->action == ACTION_INFO == true &&
        (this->all == false && this->all_chroots == false &&
 	this->all_sessions == false &&
 	(this->chroots.empty()))))
@@ -202,7 +198,7 @@ Options::Options(int   argc,
   /* Determine which chroots to load. */
   this->load_chroots = this->all_chroots;
   this->load_sessions = this->all_sessions;
-  if (this->list == false &&
+  if (this->action == ACTION_LIST &&
       this->chroots.empty())
     this->load_chroots = this->load_sessions = true;
 }
@@ -212,14 +208,14 @@ Options::~Options()
 }
 
 void
-Options::set_session_operation (sbuild::Session::Operation operation)
+Options::set_action (action_type action)
 {
-  if (this->session_operation != sbuild::Session::OPERATION_AUTOMATIC)
-    throw opt::validation_error(_("Only one session operation may be specified"));
+  if (this->action != ACTION_SESSION_AUTO)
+    throw opt::validation_error(_("Only one action may be specified"));
 
-  this->session_operation = operation;
+  this->action = action;
+
 }
-
 
 /*
  * Local Variables:

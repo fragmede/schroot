@@ -1,5 +1,22 @@
 2005-12-30  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.cc (main): Use actions rather than old bool
+	values.  Compute the session operation using the action type.
+	Surround the entire function in a try/catch block, so that
+	exceptions thrown during program execution are reported nicely.
+
+	* schroot/schroot-options.cc
+	(set_action): Only allow one action to be specified.
+	(Options): Set the appropriate actions when parsing.  Session
+	operations are represented within the action member.
+
+	* schroot/schroot-options.h (schroot): Add action_type enum.  This
+	is used to represent all actions the user may specify, rather than
+	using a separate bool for each.  Remove the session operation
+	member.
+
+2005-12-30  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-options.h: Fix include guard naming scheme.
 
 	* schroot/schroot-releaselock-options.(cc|h): New class for
