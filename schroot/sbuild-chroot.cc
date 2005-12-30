@@ -21,6 +21,9 @@
 
 #include "sbuild-i18n.h"
 #include "sbuild-chroot.h"
+#include "sbuild-chroot-plain.h"
+#include "sbuild-chroot-block-device.h"
+#include "sbuild-chroot-lvm-snapshot.h"
 #include "sbuild-keyfile.h"
 
 using namespace sbuild;
@@ -60,6 +63,37 @@ Chroot::Chroot (const keyfile&     keyfile,
 Chroot::~Chroot()
 {
 }
+
+Chroot::chroot_ptr
+Chroot::create (const std::string& type)
+{
+  Chroot *new_chroot = 0;
+  if (type == "plain")
+    new_chroot = new ChrootPlain();
+  else if (type == "block-device")
+    new_chroot = new ChrootBlockDevice();
+  else if (type == "lvm-snapshot")
+    new_chroot = new ChrootLvmSnapshot();
+  return chroot_ptr(new_chroot);
+}
+
+Chroot::chroot_ptr
+Chroot::create (const keyfile&     keyfile,
+		const std::string& group)
+{
+  std::string type = "plain"; // "plain" is the default type.
+  keyfile.get_value(group, "type", type);
+
+  Chroot *new_chroot = 0;
+  if (type == "plain")
+    new_chroot = new ChrootPlain(keyfile, group);
+  else if (type == "block-device")
+    new_chroot = new ChrootBlockDevice(keyfile, group);
+  else if (type == "lvm-snapshot")
+    new_chroot = new ChrootLvmSnapshot(keyfile, group);
+  return chroot_ptr(new_chroot);
+}
+
 
 const std::string&
 Chroot::get_name () const

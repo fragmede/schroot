@@ -270,8 +270,8 @@ Session::get_auth_status () const
        cur != this->chroots.end();
        ++cur)
     {
-      const Chroot *chroot = this->config->find_alias(*cur);
-      if (chroot == NULL) // Should never happen, but cater for it anyway.
+      const Chroot::chroot_ptr chroot = this->config->find_alias(*cur);
+      if (chroot) // Should never happen, but cater for it anyway.
 	{
 	  log_warning() << format(_("No chroot found matching alias '%1%'"))
 	    % *cur
@@ -349,8 +349,8 @@ try
 	log_debug(DEBUG_NOTICE)
 	  << format("Running session in %1% chroot:") % *cur
 	  << endl;
-	const Chroot *ch = this->config->find_alias(*cur);
-	if (chroot == NULL) // Should never happen, but cater for it anyway.
+	const Chroot::chroot_ptr ch = this->config->find_alias(*cur);
+	if (ch) // Should never happen, but cater for it anyway.
 	  {
 	    format fmt(_("%1%: Failed to find chroot"));
 	    fmt % *cur;
@@ -358,7 +358,7 @@ try
 	  }
 	else
 	  {
-	    std::auto_ptr<Chroot> chroot(ch->clone());
+	    Chroot::chroot_ptr chroot(ch->clone());
 
 	    /* If restoring a session, set the session ID from the
 	       chroot name, or else generate it.  Only chroots which
@@ -409,41 +409,41 @@ try
 	    try
 	      {
 		/* Run setup-start chroot setup scripts. */
-		setup_chroot(*chroot, Chroot::SETUP_START);
+		setup_chroot(chroot, Chroot::SETUP_START);
 		if (this->operation == OPERATION_BEGIN)
 		  cout << this->session_id << endl;
 
 		/* Run recover scripts. */
-		setup_chroot(*chroot, Chroot::SETUP_RECOVER);
+		setup_chroot(chroot, Chroot::SETUP_RECOVER);
 
 		try
 		  {
 		    /* Run run-start scripts. */
-		    setup_chroot(*chroot, Chroot::RUN_START);
+		    setup_chroot(chroot, Chroot::RUN_START);
 
 		    /* Run session if setup succeeded. */
-		    run_chroot(*chroot);
+		    run_chroot(chroot);
 
 		    /* Run run-stop scripts whether or not there was an
 		       error. */
-		    setup_chroot(*chroot, Chroot::RUN_STOP);
+		    setup_chroot(chroot, Chroot::RUN_STOP);
 		  }
 		catch (const error& e)
 		  {
-		    setup_chroot(*chroot, Chroot::RUN_STOP);
+		    setup_chroot(chroot, Chroot::RUN_STOP);
 		    throw e;
 		  }
 
 	    /* Run setup-stop chroot setup scripts whether or not there
 	       was an error. */
-		setup_chroot(*chroot, Chroot::SETUP_STOP);
+		setup_chroot(chroot, Chroot::SETUP_STOP);
 		chroot->set_active(false);
 	      }
 	    catch (const error& e)
 	      {
 		try
 		  {
-		    setup_chroot(*chroot, Chroot::SETUP_STOP);
+		    setup_chroot(chroot, Chroot::SETUP_STOP);
 		  }
 		catch (const error& discard)
 		  {
@@ -468,10 +468,10 @@ catch (const error& e)
 }
 
 void
-Session::setup_chroot (Chroot&           session_chroot,
-		       Chroot::SetupType setup_type)
+Session::setup_chroot (Chroot::chroot_ptr& session_chroot,
+		       Chroot::SetupType   setup_type)
 {
-  assert(!session_chroot.get_name().empty());
+  assert(!session_chroot->get_name().empty());
 
   if (!((this->operation == OPERATION_BEGIN &&
 	 setup_type == Chroot::SETUP_START) ||
@@ -492,15 +492,15 @@ Session::setup_chroot (Chroot&           session_chroot,
   if (((setup_type == Chroot::SETUP_START   ||
 	setup_type == Chroot::SETUP_RECOVER ||
 	setup_type == Chroot::SETUP_STOP) &&
-       session_chroot.get_run_setup_scripts() == false) ||
+       session_chroot->get_run_setup_scripts() == false) ||
       ((setup_type == Chroot::RUN_START ||
 	setup_type == Chroot::RUN_STOP) &&
-       session_chroot.get_run_setup_scripts() == false))
+       session_chroot->get_run_setup_scripts() == false))
     return;
 
   try
     {
-      session_chroot.setup_lock(setup_type, true);
+      session_chroot->setup_lock(setup_type, true);
     }
   catch (const Chroot::error &e)
     {
@@ -544,7 +544,7 @@ Session::setup_chroot (Chroot&           session_chroot,
      query the chroot here, since this can vary depending upon the
      chroot type. */
   env_list env;
-  session_chroot.setup_env(env);
+  session_chroot->setup_env(env);
   setup_env_var(env, "AUTH_USER",
 		get_user());
   {
@@ -609,7 +609,7 @@ Session::setup_chroot (Chroot&           session_chroot,
 
   try
     {
-      session_chroot.setup_lock(setup_type, false);
+      session_chroot->setup_lock(setup_type, false);
     }
   catch (const Chroot::error &e)
     {
@@ -627,16 +627,16 @@ Session::setup_chroot (Chroot&           session_chroot,
 }
 
 void
-Session::run_child (Chroot& session_chroot)
+Session::run_child (Chroot::chroot_ptr& session_chroot)
 {
-  assert(!session_chroot.get_name().empty());
-  assert(!session_chroot.get_mount_location().empty());
+  assert(!session_chroot->get_name().empty());
+  assert(!session_chroot->get_mount_location().empty());
 
   assert(!get_user().empty());
   assert(!get_shell().empty());
   assert(Auth::pam != NULL); // PAM must be initialised
 
-  const std::string& location = session_chroot.get_mount_location();
+  const std::string& location = session_chroot->get_mount_location();
   std::string cwd;
   {
     char *raw_cwd = getcwd (NULL, 0);
@@ -748,14 +748,14 @@ Session::run_child (Chroot& session_chroot)
 	  log_debug(DEBUG_NOTICE)
 	    << format("Running login shell: %1%") % get_shell() << endl;
 	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running login shell: \"%s\"",
-		 session_chroot.get_name().c_str(), get_ruser().c_str(), get_user().c_str(), get_shell().c_str());
+		 session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), get_shell().c_str());
 	}
       else
 	{
 	  log_debug(DEBUG_NOTICE)
 	    << format("Running shell: %1%") % get_shell() << endl;
 	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running shell: \"%s\"",
-		 session_chroot.get_name().c_str(), get_ruser().c_str(), get_user().c_str(), get_shell().c_str());
+		 session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), get_shell().c_str());
 	}
 
       if (get_verbosity() != Auth::VERBOSITY_QUIET)
@@ -765,14 +765,14 @@ Session::run_child (Chroot& session_chroot)
 	      << format(_(get_environment().empty() ?
 			  "[%1% chroot] Running login shell: \"%2%\"" :
 			  "[%1% chroot] Running shell: \"%2%\""))
-	      % session_chroot.get_name() % get_shell()
+	      % session_chroot->get_name() % get_shell()
 	      << endl;
 	  else
 	    log_info()
 	      << format(_(get_environment().empty() ?
 			  "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\"" :
 			  "[%1% chroot] (%2%->%3%) Running shell: \"%4%\""))
-	      % session_chroot.get_name()
+	      % session_chroot->get_name()
 	      % get_ruser() % get_user()
 	      % get_shell()
 	      << endl;
@@ -788,16 +788,16 @@ Session::run_child (Chroot& session_chroot)
       log_debug(DEBUG_NOTICE)
 	<< format("Running command: %1%") % commandstring << endl;
       syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
-	     session_chroot.get_name().c_str(), get_ruser().c_str(), get_user().c_str(), commandstring.c_str());
+	     session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), commandstring.c_str());
       if (get_verbosity() != Auth::VERBOSITY_QUIET)
 	{
 	  if (get_ruid() == get_uid())
 	    log_info() << format(_("[%1% chroot] Running command: \"%2%\""))
-	      % session_chroot.get_name() % commandstring
+	      % session_chroot->get_name() % commandstring
 		       << endl;
 	  else
 	    log_info() << format(_("[%1% chroot] (%2%->%3%) Running command: \"%4%\""))
-	      % session_chroot.get_name()
+	      % session_chroot->get_name()
 	      % get_ruser() % get_user()
 	      % commandstring
 		       << endl;
@@ -864,9 +864,9 @@ Session::wait_for_child (int  pid,
 }
 
 void
-Session::run_chroot (Chroot&   session_chroot)
+Session::run_chroot (Chroot::chroot_ptr& session_chroot)
 {
-  assert(!session_chroot.get_name().empty());
+  assert(!session_chroot->get_name().empty());
 
   pid_t pid;
   if ((pid = fork()) == -1)

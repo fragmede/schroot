@@ -1,5 +1,17 @@
 2005-12-30  Roger Leigh  <rleigh@debian.org>
 
+	* All code updated to use Chroot::chroot_ptr.
+
+	* schroot/sbuild-config.cc (load): Create chroots from keyfile
+	using Chroot::create.
+
+	* schroot/sbuild-chroot.h: Chroots are created by a factory
+	function returning a shared_ptr (chroot_ptr).  All chroot types
+	have protected constructors, and must be created using the static
+	create methods.
+
+2005-12-30  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-chroot.h
 	(format_detail::operator <<): Fix justification.
 

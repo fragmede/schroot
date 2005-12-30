@@ -30,7 +30,7 @@ namespace sbuild
    */
   class ChrootPlain : public Chroot
   {
-  public:
+  protected:
     /// The constructor.
     ChrootPlain();
 
@@ -43,10 +43,13 @@ namespace sbuild
     ChrootPlain (const keyfile&     keyfile,
 		 const std::string& group);
 
+    friend class Chroot;
+
+  public:
     /// The destructor.
     virtual ~ChrootPlain();
 
-    virtual Chroot *
+    virtual Chroot::chroot_ptr
     clone () const;
 
     /**

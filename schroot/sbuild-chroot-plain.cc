@@ -48,10 +48,10 @@ ChrootPlain::~ChrootPlain()
 {
 }
 
-Chroot *
+Chroot::chroot_ptr
 ChrootPlain::clone () const
 {
-  return new ChrootPlain(*this);
+  return chroot_ptr(new ChrootPlain(*this));
 }
 
 const std::string&

@@ -44,11 +44,11 @@ namespace sbuild
   {
   public:
     /// A list of chroots.
-    typedef std::vector<Chroot *> chroot_list;
+    typedef std::vector<Chroot::chroot_ptr> chroot_list;
     /// A map between key-value string pairs.
     typedef std::map<std::string, std::string> string_map;
     /// A map between a chroot name and a Chroot object.
-    typedef std::map<std::string, Chroot *> chroot_map;
+    typedef std::map<std::string, Chroot::chroot_ptr> chroot_map;
 
     /// Exception type.
     typedef runtime_error_custom<Config> error;
@@ -100,7 +100,7 @@ namespace sbuild
      * @param name the chroot name
      * @returns the chroot if found, otherwise 0.
      */
-    const Chroot *
+    const Chroot::chroot_ptr
     find_chroot (const std::string& name) const;
 
     /**
@@ -109,7 +109,7 @@ namespace sbuild
      * @param name the chroot name or alias.
      * @returns the chroot if found, otherwise 0.
      */
-    const Chroot *
+    const Chroot::chroot_ptr
     find_alias (const std::string& name) const;
 
     /**

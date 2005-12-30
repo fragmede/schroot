@@ -61,10 +61,10 @@ ChrootLvmSnapshot::~ChrootLvmSnapshot()
 {
 }
 
-Chroot *
+Chroot::chroot_ptr
 ChrootLvmSnapshot::clone () const
 {
-  return new ChrootLvmSnapshot(*this);
+  return chroot_ptr(new ChrootLvmSnapshot(*this));
 }
 
 const std::string&

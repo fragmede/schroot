@@ -31,7 +31,7 @@ namespace sbuild
    */
   class ChrootBlockDevice : public Chroot
   {
-  public:
+  protected:
     /// The constructor.
     ChrootBlockDevice();
 
@@ -44,10 +44,13 @@ namespace sbuild
     ChrootBlockDevice (const keyfile&      keyfile,
 		       const std::string&  group);
 
+    friend class Chroot;
+
+  public:
     /// The destructor.
     virtual ~ChrootBlockDevice();
 
-    virtual Chroot *
+    virtual Chroot::chroot_ptr
     clone () const;
 
     /**

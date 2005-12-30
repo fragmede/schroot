@@ -33,7 +33,7 @@ namespace sbuild
    */
   class ChrootLvmSnapshot : public ChrootBlockDevice
   {
-  public:
+  protected:
     /// The constructor.
     ChrootLvmSnapshot();
 
@@ -46,10 +46,13 @@ namespace sbuild
     ChrootLvmSnapshot (const keyfile&      keyfile,
 		       const std::string&  group);
 
+    friend class Chroot;
+
+  public:
     /// The destructor.
     virtual ~ChrootLvmSnapshot();
 
-    virtual Chroot *
+    virtual Chroot::chroot_ptr
     clone () const;
 
     /**

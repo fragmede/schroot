@@ -40,9 +40,6 @@
 #include "sbuild-lock.h"
 #include "sbuild-log.h"
 #include "sbuild-chroot.h"
-#include "sbuild-chroot-plain.h"
-#include "sbuild-chroot-block-device.h"
-#include "sbuild-chroot-lvm-snapshot.h"
 #include "sbuild-keyfile.h"
 #include "sbuild-util.h"
 
@@ -125,8 +122,8 @@ Config::add_config_directory (const std::string& dir)
     }
 }
 
-static bool chroot_alphasort (Chroot* const& c1,
-			      Chroot* const& c2)
+static bool chroot_alphasort (Chroot::chroot_ptr const& c1,
+			      Chroot::chroot_ptr const& c2)
 {
   return c1->get_name() < c2->get_name();
 }
@@ -146,7 +143,7 @@ Config::get_chroots () const
   return ret;
 }
 
-const Chroot *
+const Chroot::chroot_ptr
 Config::find_chroot (const std::string& name) const
 {
   chroot_map::const_iterator pos = this->chroots.find(name);
@@ -154,10 +151,13 @@ Config::find_chroot (const std::string& name) const
   if (pos != this->chroots.end())
     return pos->second;
   else
-    return 0;
+    {
+      Chroot *null_chroot = 0;
+      return Chroot::chroot_ptr(null_chroot);
+    }
 }
 
-const Chroot *
+const Chroot::chroot_ptr
 Config::find_alias (const std::string& name) const
 {
   string_map::const_iterator pos = this->aliases.find(name);
@@ -165,7 +165,10 @@ Config::find_alias (const std::string& name) const
   if (pos != this->aliases.end())
     return find_chroot(pos->second);
   else
-    return 0;
+    {
+      Chroot *null_chroot = 0;
+      return Chroot::chroot_ptr(null_chroot);
+    }
 }
 
 string_list
@@ -203,7 +206,7 @@ Config::print_chroot_info (const string_list& chroots,
        pos != chroots.end();
        ++pos)
     {
-      const Chroot *chroot = find_alias(*pos);
+      const Chroot::chroot_ptr chroot = find_alias(*pos);
       if (chroot)
 	{
 	  chroot->print_details(stream);
@@ -225,8 +228,8 @@ Config::validate_chroots(const string_list& chroots) const
        pos != chroots.end();
        ++pos)
     {
-      const Chroot *chroot = find_alias(*pos);
-      if (chroot == 0)
+      const Chroot::chroot_ptr chroot = find_alias(*pos);
+      if (chroot)
 	bad_chroots.push_back(*pos);
     }
 
@@ -333,19 +336,10 @@ Config::load (const std::string& file)
        group != groups.end();
        ++group)
     {
-      std::string type = "plain"; // "plain" is the default type.
-      Chroot *chroot = 0;
-
-      // TODO: Move this into a factory function in Config.
       // TODO: Check if creation fails, and refuse to insert.
-      kconfig.get_value(*group, "type", type);
-      if (type == "plain")
-	chroot = new ChrootPlain(kconfig, *group);
-      else if (type == "block-device")
-	chroot = new ChrootBlockDevice(kconfig, *group);
-      else if (type == "lvm-snapshot")
-	chroot = new ChrootLvmSnapshot(kconfig, *group);
+      Chroot::chroot_ptr chroot = Chroot::create(kconfig, *group);
 
+      // TODO: Catch exception rather than null ptr check.
       if (chroot)
 	{
 	  // TODO: error checking (did insertion work? was the alias a
@@ -361,8 +355,7 @@ Config::load (const std::string& file)
       else
 	{
 	  log_warning()
-	    << format(_("%1% chroot: No such chroot type \"%2%\""))
-	    % *group % type
+	    << format(_("%1% chroot: Could not create chroot")) % *group
 	    << endl;
 	}
     }

@@ -25,6 +25,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <tr1/memory>
 
 #include "sbuild-error.h"
 #include "sbuild-keyfile.h"
@@ -62,6 +63,10 @@ namespace sbuild
     /// Exception type.
     typedef runtime_error_custom<Chroot> error;
 
+    /// A shared_ptr to an AuthConv object.
+    typedef std::tr1::shared_ptr<Chroot> chroot_ptr;
+
+  protected:
     /// The constructor.
     Chroot ();
 
@@ -73,16 +78,41 @@ namespace sbuild
      */
     Chroot (const keyfile&     keyfile,
 	    const std::string& group);
+  public:
 
     /// The destructor.
     virtual ~Chroot();
 
     /**
+     * Create a chroot.  This is a factory function.
+     *
+     * @param type the type of chroot to create.
+     * @returns a shared_ptr to the new chroot.
+     *
+     * @todo Throw exception if type is wrong.
+     */
+    static chroot_ptr
+    create (const std::string& type);
+
+    /**
+     * Create a chroot.  This is a factory function.
+     *
+     * @param keyfile the configuration file
+     * @param group the keyfile group (chroot name)
+     * @returns a shared_ptr to the new chroot.
+     *
+     * @todo Throw exception if type is wrong or construction fails.
+     */
+    static chroot_ptr
+    create (const keyfile&     keyfile,
+	    const std::string& group);
+
+    /**
      * Copy the chroot.  This is a virtual copy constructor.
      *
-     * @returns a copy of the chroot.
+     * @returns a shared_ptr to the new copy of the chroot.
      */
-    virtual Chroot *
+    virtual chroot_ptr
     clone () const = 0;
 
     /**

@@ -57,10 +57,10 @@ ChrootBlockDevice::~ChrootBlockDevice()
 {
 }
 
-Chroot *
+Chroot::chroot_ptr
 ChrootBlockDevice::clone () const
 {
-  return new ChrootBlockDevice(*this);
+  return chroot_ptr(new ChrootBlockDevice(*this));
 }
 
 const std::string&
