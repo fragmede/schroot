@@ -1,4 +1,9 @@
-2005-12-30  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2005-12-30  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-config.cc (load): Insert chroot name into alias
+	map in addition to alias names.
+
+2005-12-30  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-chroot-plain.cc (read_keyfile): Use keyfile
 	priorities.

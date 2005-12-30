@@ -351,6 +351,7 @@ Config::load (const std::string& file)
 	  // TODO: error checking (did insertion work? was the alias a
 	  // duplicate?
 	  this->chroots.insert(std::make_pair(chroot->get_name(), chroot));
+	  this->aliases.insert(std::make_pair(chroot->get_name(), chroot->get_name()));
 	  const string_list& aliases = chroot->get_aliases();
 	  for (string_list::const_iterator pos = aliases.begin();
 	       pos != aliases.end();
