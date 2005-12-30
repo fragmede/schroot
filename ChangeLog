@@ -1,5 +1,12 @@
 2005-12-30  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-chroot.h
+	(format_detail::operator <<): Fix justification.
+
+	* schroot/sbuild-chroot.cc (read_keyfile): Set chroot priority.
+
+2005-12-30  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-config.cc (load): Insert chroot name into alias
 	map in addition to alias names.
 

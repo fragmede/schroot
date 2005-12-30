@@ -377,7 +377,8 @@ namespace sbuild
       friend std::ostream& operator << (std::ostream& stream,
 					const format_detail<T>& rhs)
       {
-	return stream << "  " << std::setw(22) << rhs.name
+	return stream << "  "
+		      << std::setw(22) << std::left << rhs.name
 		      << rhs.value << '\n';
       }
 

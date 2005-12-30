@@ -306,6 +306,11 @@ Chroot::read_keyfile (const keyfile&     keyfile,
 			keyfile::PRIORITY_OPTIONAL, run_session_scripts))
     set_run_session_scripts(run_session_scripts);
 
+  int priority(0);
+  if (keyfile.get_value(group, "priority",
+			keyfile::PRIORITY_OPTIONAL, priority))
+    set_priority(priority);
+
   string_list aliases;
   if (keyfile.get_list_value(group, "aliases",
 			     keyfile::PRIORITY_OPTIONAL, aliases))
