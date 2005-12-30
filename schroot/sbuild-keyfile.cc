@@ -35,6 +35,7 @@ keyfile::keyfile(const std::string& file):
   std::ifstream fs(file.c_str());
   if (fs)
     {
+      fs.imbue(std::locale("C"));
       fs >> *this;
     }
   else

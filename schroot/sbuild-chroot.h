@@ -493,6 +493,7 @@ namespace sbuild
 		const T&           var)
   {
     std::ostringstream varstring;
+    varstring.imbue(std::locale("C"));
     varstring << var;
     env.push_back(std::make_pair(name, varstring.str()));
   }

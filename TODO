@@ -19,13 +19,6 @@ PENDING
 
 ** const correctness of references.
 
-* Use an "action" enum in schroot options, rather than boolean values.
-
-* Set up locale and imbue standard streams with locale.
-
-Make sure input and output for config files are not localised, and use
-the C locale.
-
 * Translation of strings in headers.
 
 PLANNED

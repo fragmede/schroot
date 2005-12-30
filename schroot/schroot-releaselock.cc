@@ -21,12 +21,11 @@
 
 #include <config.h>
 
+#include <cerrno>
+#include <cstdlib>
 #include <iostream>
+#include <locale>
 
-#include <errno.h>
-#include <locale.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -78,73 +77,85 @@ int
 main (int   argc,
       char *argv[])
 {
-  setlocale (LC_ALL, "");
+  try
+    {
+      // Set up locale.
+      std::locale::global(std::locale(""));
+      std::cout.imbue(std::locale());
+      std::cerr.imbue(std::locale());
 
-  bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
-  textdomain (GETTEXT_PACKAGE);
+      bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
+      textdomain (GETTEXT_PACKAGE);
 
 #ifndef SBUILD_DEBUG
-  sbuild::debug_level = sbuild::DEBUG_CRITICAL;
+      sbuild::debug_level = sbuild::DEBUG_CRITICAL;
 #else
-  sbuild::debug_level = sbuild::DEBUG_NONE;
+      sbuild::debug_level = sbuild::DEBUG_NONE;
 #endif
 
-  // Parse command-line options.
-  options opts(argc, argv);
+      // Parse command-line options.
+      options opts(argc, argv);
 
-  if (opts.version)
-    {
-      print_version(std::cerr);
-      exit(EXIT_SUCCESS);
-    }
+      if (opts.version)
+	{
+	  print_version(std::cerr);
+	  exit(EXIT_SUCCESS);
+	}
 
-  if (opts.device.empty())
-    {
-      sbuild::log_error() << _("No device specified") << endl;
-      exit (EXIT_FAILURE);
-    }
+      if (opts.device.empty())
+	{
+	  sbuild::log_error() << _("No device specified") << endl;
+	  exit (EXIT_FAILURE);
+	}
 
-  if (opts.pid == 0)
-    {
-      sbuild::log_error() << _("No pid specified; forcing release of lock")
-			  << endl;
-    }
+      if (opts.pid == 0)
+	{
+	  sbuild::log_error() << _("No pid specified; forcing release of lock")
+			      << endl;
+	}
 
-  struct stat statbuf;
+      struct stat statbuf;
 
-  if (stat(opts.device.c_str(), &statbuf) == -1)
-    {
-      sbuild::log_error()
-	<< format(_("Failed to stat device %1%: %2%"))
-	% opts.device % strerror(errno)
-	<< endl;
-      exit (EXIT_FAILURE);
-    }
-  if (!S_ISBLK(statbuf.st_mode))
-    {
-      sbuild::log_error()
-	<< format(_("%1% is not a block device")) % opts.device << endl;
-      exit (EXIT_FAILURE);
-    }
+      if (stat(opts.device.c_str(), &statbuf) == -1)
+	{
+	  sbuild::log_error()
+	    << format(_("Failed to stat device %1%: %2%"))
+	    % opts.device % strerror(errno)
+	    << endl;
+	  exit (EXIT_FAILURE);
+	}
+      if (!S_ISBLK(statbuf.st_mode))
+	{
+	  sbuild::log_error()
+	    << format(_("%1% is not a block device")) % opts.device << endl;
+	  exit (EXIT_FAILURE);
+	}
 
-  pid_t status = dev_unlock(opts.device.c_str(), opts.pid);
-  if (status < 0) // Failure
-    {
-      sbuild::log_error()
-	<< format(_("%1%: failed to release device lock")) % opts.device
-	<< endl;
-      exit (EXIT_FAILURE);
-    }
-  else if (status > 0) // Owned
-    {
-      sbuild::log_error()
-	<< format(_("%1%: failed to release device lock owned by pid %2%"))
-	% opts.device % status
-	<< endl;
-      exit (EXIT_FAILURE);
-    }
+      pid_t status = dev_unlock(opts.device.c_str(), opts.pid);
+      if (status < 0) // Failure
+	{
+	  sbuild::log_error()
+	    << format(_("%1%: failed to release device lock")) % opts.device
+	    << endl;
+	  exit (EXIT_FAILURE);
+	}
+      else if (status > 0) // Owned
+	{
+	  sbuild::log_error()
+	    << format(_("%1%: failed to release device lock owned by pid %2%"))
+	    % opts.device % status
+	    << endl;
+	  exit (EXIT_FAILURE);
+	}
 
-  exit (EXIT_SUCCESS);
+      exit (EXIT_SUCCESS);
+    }
+  catch (const std::exception& e)
+    {
+      sbuild::log_error() << e.what() << endl;
+
+      exit(EXIT_FAILURE);
+    }
 }
 
 /*

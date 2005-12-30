@@ -147,6 +147,7 @@ namespace sbuild
 		 T&                 value) const
     {
       std::istringstream is(stringval);
+      is.imbue(std::locale("C"));
       T tmpval;
       is >> tmpval;
       if (!is.bad())
@@ -314,8 +315,6 @@ namespace sbuild
      * @param key the key to set.
      * @param value the value to get the key's value from.  This must
      * allow output to an ostream.
-     *
-     * @todo Imbue C locale into ostringstream.
      */
     template <typename T>
     void
@@ -324,6 +323,7 @@ namespace sbuild
 	      const T& value)
     {
       std::ostringstream os;
+      os.imbue(std::locale("C"));
       os << std::boolalpha << value;
 
       if (!has_group(group))
@@ -355,8 +355,6 @@ namespace sbuild
      * @param value the list value to get the key's value from.  The
      * value type must allow output to an ostream.  The list must be a
      * container with a standard forward iterator.
-     *
-     * @todo Imbue C locale into ostringstream.
      */
     template <typename T, template <typename T> class C>
     void
@@ -371,6 +369,7 @@ namespace sbuild
 	   ++ pos)
 	{
 	  std::ostringstream os;
+	  os.imbue(std::locale("C"));
 	  os << std::boolalpha << *pos;
 	  if (os)
 	    {

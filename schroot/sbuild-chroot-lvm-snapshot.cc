@@ -220,6 +220,7 @@ ChrootLvmSnapshot::setup_session_info (bool start)
       // be closed when the buffer is destroyed.
       __gnu_cxx::stdio_filebuf<char> fdbuf(fd, std::ios::out);
       std::ostream output(&fdbuf);
+      output.imbue(std::locale("C"));
 
       sbuild::FileLock lock(fd);
       try

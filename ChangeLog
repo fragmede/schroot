@@ -1,5 +1,25 @@
 2005-12-30  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-chroot-lvm-snapshot.cc (setup_session_info):
+	Imbue ostream with "C" locale.
+
+	* schroot/sbuild-config.cc (load): Imbue istream with "C" locale.
+
+	* schroot/sbuild-keyfile.cc (keyfile): Imbue ifstream with "C"
+	locale.
+
+	* schroot/sbuild-chroot.h (setup_env_var): Imbue stringstream with
+	"C" locale.
+
+	* schroot/sbuild-keyfile.h: All stringstreams are imbued with the
+	"C" locale for locale-independent formatting.
+
+	* schroot/schroot-releaselock.cc (main): Use C++ locale setup.
+
+	* schroot/schroot.cc (main): Use C++ locale setup.
+
+2005-12-30  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.cc (main): Use actions rather than old bool
 	values.  Compute the session operation using the action type.
 	Surround the entire function in a try/catch block, so that

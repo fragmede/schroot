@@ -313,6 +313,7 @@ Config::load (const std::string& file)
   /* Now create an IO Channel and read in the data */
   __gnu_cxx::stdio_filebuf<char> fdbuf(fd, std::ios::in);
   std::istream input(&fdbuf);
+  input.imbue(std::locale("C"));
 
   /* Create key file */
   keyfile kconfig(input);
