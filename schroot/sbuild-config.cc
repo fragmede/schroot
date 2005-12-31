@@ -52,7 +52,7 @@ Config::Config():
 {
 }
 
-Config::Config(const std::string& file):
+Config::Config(std::string const& file):
   chroots()
 {
   struct stat statbuf;
@@ -75,13 +75,13 @@ Config::~Config()
 }
 
 void
-Config::add_config_file (const std::string& file)
+Config::add_config_file (std::string const& file)
 {
   load(file);
 }
 
 void
-Config::add_config_directory (const std::string& dir)
+Config::add_config_directory (std::string const& dir)
 {
   if (dir.empty())
     return;
@@ -144,7 +144,7 @@ Config::get_chroots () const
 }
 
 const Chroot::chroot_ptr
-Config::find_chroot (const std::string& name) const
+Config::find_chroot (std::string const& name) const
 {
   chroot_map::const_iterator pos = this->chroots.find(name);
 
@@ -158,7 +158,7 @@ Config::find_chroot (const std::string& name) const
 }
 
 const Chroot::chroot_ptr
-Config::find_alias (const std::string& name) const
+Config::find_alias (std::string const& name) const
 {
   string_map::const_iterator pos = this->aliases.find(name);
 
@@ -199,7 +199,7 @@ Config::print_chroot_list (std::ostream& stream) const
 }
 
 void
-Config::print_chroot_info (const string_list& chroots,
+Config::print_chroot_info (string_list const& chroots,
 			   std::ostream&      stream) const
 {
   for (string_list::const_iterator pos = chroots.begin();
@@ -220,7 +220,7 @@ Config::print_chroot_info (const string_list& chroots,
 }
 
 string_list
-Config::validate_chroots(const string_list& chroots) const
+Config::validate_chroots(string_list const& chroots) const
 {
   string_list bad_chroots;
 
@@ -272,7 +272,7 @@ Config::check_security(int fd) const
  * configuration file, the program will be aborted immediately.
  */
 void
-Config::load (const std::string& file)
+Config::load (std::string const& file)
 {
   // TODO: Move error handling out to top level.
   /* Use a UNIX fd, for security (no races) */
@@ -290,7 +290,7 @@ Config::load (const std::string& file)
     {
       lock.set_lock(Lock::LOCK_SHARED, 2);
     }
-  catch (const Lock::error& e)
+  catch (Lock::error const& e)
     {
       log_error() << format(_("%1%: lock acquisition failure: %2%"))
 	% file % e.what()
@@ -302,7 +302,7 @@ Config::load (const std::string& file)
     {
       check_security(fd);
     }
-  catch (const error &e)
+  catch (error const& e)
     {
       log_error() << format(_("%1%: security failure: %2%"))
 	% file % e.what()
@@ -323,7 +323,7 @@ Config::load (const std::string& file)
     {
       lock.unset_lock();
     }
-  catch (const Lock::error& e)
+  catch (Lock::error const& e)
     {
       log_error() << format(_("%1%: lock discard failure: %2%"))
 	% file % e.what()
@@ -347,7 +347,7 @@ Config::load (const std::string& file)
 	  // duplicate?
 	  this->chroots.insert(std::make_pair(chroot->get_name(), chroot));
 	  this->aliases.insert(std::make_pair(chroot->get_name(), chroot->get_name()));
-	  const string_list& aliases = chroot->get_aliases();
+	  string_list const& aliases = chroot->get_aliases();
 	  for (string_list::const_iterator pos = aliases.begin();
 	       pos != aliases.end();
 	       ++pos)

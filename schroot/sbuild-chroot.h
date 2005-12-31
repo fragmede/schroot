@@ -76,8 +76,8 @@ namespace sbuild
      * @param keyfile the configuration file
      * @param group the keyfile group (chroot name)
      */
-    Chroot (const keyfile&     keyfile,
-	    const std::string& group);
+    Chroot (keyfile const&     keyfile,
+	    std::string const& group);
   public:
 
     /// The destructor.
@@ -92,7 +92,7 @@ namespace sbuild
      * @todo Throw exception if type is wrong.
      */
     static chroot_ptr
-    create (const std::string& type);
+    create (std::string const& type);
 
     /**
      * Create a chroot.  This is a factory function.
@@ -104,8 +104,8 @@ namespace sbuild
      * @todo Throw exception if type is wrong or construction fails.
      */
     static chroot_ptr
-    create (const keyfile&     keyfile,
-	    const std::string& group);
+    create (keyfile const&     keyfile,
+	    std::string const& group);
 
     /**
      * Copy the chroot.  This is a virtual copy constructor.
@@ -120,7 +120,7 @@ namespace sbuild
      *
      * @returns the name.
      */
-    const std::string&
+    std::string const&
     get_name () const;
 
     /**
@@ -129,14 +129,14 @@ namespace sbuild
      * @param name the name.
      */
     void
-    set_name (const std::string& name);
+    set_name (std::string const& name);
 
     /**
      * Get the description of the chroot.
      *
      * @returns the description.
      */
-    const std::string&
+    std::string const&
     get_description () const;
 
     /**
@@ -145,14 +145,14 @@ namespace sbuild
      * @param description the description.
      */
     void
-    set_description (const std::string& description);
+    set_description (std::string const& description);
 
     /**
      * Get the mount location of the chroot.
      *
      * @returns the mount location.
      */
-    virtual const std::string&
+    virtual std::string const&
     get_mount_location () const;
 
     /**
@@ -161,14 +161,14 @@ namespace sbuild
      * @param location the mount location.
      */
     void
-    set_mount_location (const std::string& location);
+    set_mount_location (std::string const& location);
 
     /**
      * Get the mount device of the chroot.
      *
      * @returns the device.
      */
-    virtual const std::string&
+    virtual std::string const&
     get_mount_device () const;
 
     /**
@@ -177,7 +177,7 @@ namespace sbuild
      * @param device the device.
      */
     void
-    set_mount_device (const std::string& device);
+    set_mount_device (std::string const& device);
 
     /**
      * Get the priority of the chroot.  This is a number indicating
@@ -205,7 +205,7 @@ namespace sbuild
      *
      * @returns a list of groups.
      */
-    const string_list&
+    string_list const&
     get_groups () const;
 
     /**
@@ -214,7 +214,7 @@ namespace sbuild
      * @param groups a list of groups.
      */
     void
-    set_groups (const string_list& groups);
+    set_groups (string_list const& groups);
 
     /**
      * Get the groups allowed to access the chroot as root.  Mmebers
@@ -223,7 +223,7 @@ namespace sbuild
      *
      * @returns a list of groups.
      */
-    const string_list&
+    string_list const&
     get_root_groups () const;
 
     /**
@@ -234,7 +234,7 @@ namespace sbuild
      * @param groups a list of groups.
      */
     void
-    set_root_groups (const string_list& groups);
+    set_root_groups (string_list const& groups);
 
     /**
      * Get the aliases of the chroot.  These are alternative names for
@@ -242,7 +242,7 @@ namespace sbuild
      *
      * @returns a list of names.
      */
-    const string_list&
+    string_list const&
     get_aliases () const;
 
     /**
@@ -252,7 +252,7 @@ namespace sbuild
      * @param aliases a list of names.
      */
     void
-    set_aliases (const string_list& aliases);
+    set_aliases (string_list const& aliases);
 
     /**
      * Get the activity status of the chroot.
@@ -309,7 +309,7 @@ namespace sbuild
      *
      * @returns the chroot type.
      */
-    virtual const std::string&
+    virtual std::string const&
     get_chroot_type () const = 0;
 
     /**
@@ -376,8 +376,8 @@ namespace sbuild
      * @param group the keyfile group (chroot name)
      */
     void
-    read_keyfile (const keyfile&     keyfile,
-		  const std::string& group);
+    read_keyfile (keyfile const&     keyfile,
+		  std::string const& group);
 
     /**
      * Helper to perform formatting of chroot details.
@@ -402,8 +402,9 @@ namespace sbuild
       /**
        * Send format detail to an ostream.
        */
-      friend std::ostream& operator << (std::ostream& stream,
-					const format_detail<T>& rhs)
+      friend std::ostream&
+      operator << (std::ostream&           stream,
+		   format_detail<T> const& rhs)
       {
 	return stream << "  "
 		      << std::setw(22) << std::left << rhs.name
@@ -413,8 +414,9 @@ namespace sbuild
       /**
        * Send format detail to an ostream (special case for boolean values).
        */
-      friend std::ostream& operator << (std::ostream& stream,
-					const format_detail<bool>& rhs)
+      friend std::ostream&
+      operator << (std::ostream&              stream,
+		   format_detail<bool> const& rhs)
       {
 	const char *desc = 0;
 	if (rhs.value)
@@ -428,8 +430,9 @@ namespace sbuild
        * Send format detail to an ostream (special case for string_list).
        * @todo Is this redundant?
        */
-      friend std::ostream& operator << (std::ostream& stream,
-					const format_detail<string_list>& rhs)
+      friend std::ostream&
+      operator << (std::ostream&                     stream,
+		   format_detail<string_list> const& rhs)
       {
 	return stream <<
 	  format_detail<std::string>(rhs.name,
@@ -489,8 +492,8 @@ namespace sbuild
   template<typename T>
   void
   setup_env_var(env_list&          env,
-		const std::string& name,
-		const T&           var)
+		std::string const& name,
+		T const&           var)
   {
     std::ostringstream varstring;
     varstring.imbue(std::locale("C"));

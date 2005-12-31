@@ -43,8 +43,8 @@ Chroot::Chroot ():
 {
 }
 
-Chroot::Chroot (const keyfile&     keyfile,
-		const std::string& group):
+Chroot::Chroot (keyfile const&     keyfile,
+		std::string const& group):
   name(),
   description(),
   priority(0),
@@ -65,7 +65,7 @@ Chroot::~Chroot()
 }
 
 Chroot::chroot_ptr
-Chroot::create (const std::string& type)
+Chroot::create (std::string const& type)
 {
   Chroot *new_chroot = 0;
   if (type == "plain")
@@ -78,8 +78,8 @@ Chroot::create (const std::string& type)
 }
 
 Chroot::chroot_ptr
-Chroot::create (const keyfile&     keyfile,
-		const std::string& group)
+Chroot::create (keyfile const&     keyfile,
+		std::string const& group)
 {
   std::string type = "plain"; // "plain" is the default type.
   keyfile.get_value(group, "type", type);
@@ -95,50 +95,50 @@ Chroot::create (const keyfile&     keyfile,
 }
 
 
-const std::string&
+std::string const&
 Chroot::get_name () const
 {
   return this->name;
 }
 
 void
-Chroot::set_name (const std::string& name)
+Chroot::set_name (std::string const& name)
 {
   this->name = name;
 }
 
-const std::string&
+std::string const&
 Chroot::get_description () const
 {
   return this->description;
 }
 
 void
-Chroot::set_description (const std::string& description)
+Chroot::set_description (std::string const& description)
 {
   this->description = description;
 }
 
-const std::string&
+std::string const&
 Chroot::get_mount_location () const
 {
   return this->mount_location;
 }
 
 void
-Chroot::set_mount_location (const std::string& location)
+Chroot::set_mount_location (std::string const& location)
 {
   this->mount_location = location;
 }
 
-const std::string&
+std::string const&
 Chroot::get_mount_device () const
 {
   return this->mount_device;
 }
 
 void
-Chroot::set_mount_device (const std::string& device)
+Chroot::set_mount_device (std::string const& device)
 {
   this->mount_device = device;
 }
@@ -155,38 +155,38 @@ Chroot::set_priority (unsigned int priority)
   this->priority = priority;
 }
 
-const string_list&
+string_list const&
 Chroot::get_groups () const
 {
   return this->groups;
 }
 
 void
-Chroot::set_groups (const string_list& groups)
+Chroot::set_groups (string_list const& groups)
 {
   this->groups = groups;
 }
 
-const string_list&
+string_list const&
 Chroot::get_root_groups () const
 {
   return this->root_groups;
 }
 
 void
-Chroot::set_root_groups (const string_list& groups)
+Chroot::set_root_groups (string_list const& groups)
 {
   this->root_groups = groups;
 }
 
-const string_list&
+string_list const&
 Chroot::get_aliases () const
 {
   return this->aliases;
 }
 
 void
-Chroot::set_aliases (const string_list& aliases)
+Chroot::set_aliases (string_list const& aliases)
 {
   this->aliases = aliases;
 }
@@ -318,8 +318,8 @@ Chroot::print_config (std::ostream& stream) const
 }
 
 void
-Chroot::read_keyfile (const keyfile&     keyfile,
-		      const std::string& group)
+Chroot::read_keyfile (keyfile const&     keyfile,
+		      std::string const& group)
 {
   set_name(group);
 

@@ -62,7 +62,7 @@ namespace sbuild
      * @param file initialise using a configuration file or a whole
      * directory containing configuration files.
      */
-    Config(const std::string& file);
+    Config(std::string const& file);
 
     /// The destructor.
     virtual ~Config();
@@ -74,7 +74,7 @@ namespace sbuild
      * @param file the file to load.
      */
     void
-    add_config_file (const std::string& file);
+    add_config_file (std::string const& file);
 
     /**
      * Add a configuration directory.  The configuration files in the
@@ -83,7 +83,7 @@ namespace sbuild
      * @param dir the directory containing the files to load.
      */
     void
-    add_config_directory (const std::string& dir);
+    add_config_directory (std::string const& dir);
 
     /**
      * Get a list of available chroots.
@@ -101,7 +101,7 @@ namespace sbuild
      * @returns the chroot if found, otherwise 0.
      */
     const Chroot::chroot_ptr
-    find_chroot (const std::string& name) const;
+    find_chroot (std::string const& name) const;
 
     /**
      * Find a chroot by its name or an alias.
@@ -110,7 +110,7 @@ namespace sbuild
      * @returns the chroot if found, otherwise 0.
      */
     const Chroot::chroot_ptr
-    find_alias (const std::string& name) const;
+    find_alias (std::string const& name) const;
 
     /**
      * Get the names (including aliases) of all the available chroots,
@@ -138,7 +138,7 @@ namespace sbuild
      * @param stream the stream to output to.
      */
     void
-    print_chroot_info (const string_list& chroots,
+    print_chroot_info (string_list const& chroots,
 		       std::ostream&      stream) const;
 
     /**
@@ -149,7 +149,7 @@ namespace sbuild
      * all chroots are valid.
      */
     string_list
-    validate_chroots(const string_list& chroots) const;
+    validate_chroots(string_list const& chroots) const;
 
   private:
     /**
@@ -171,7 +171,7 @@ namespace sbuild
      * @param file the file to load.
      */
     void
-    load (const std::string& file);
+    load (std::string const& file);
 
     /// A list of chroots (name->chroot mapping).
     chroot_map chroots;

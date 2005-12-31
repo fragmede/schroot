@@ -41,8 +41,8 @@ namespace sbuild
      * @param keyfile the configuration file
      * @param group the keyfile group (chroot name)
      */
-    ChrootBlockDevice (const keyfile&      keyfile,
-		       const std::string&  group);
+    ChrootBlockDevice (keyfile const&     keyfile,
+		       std::string const& group);
 
     friend class Chroot;
 
@@ -58,7 +58,7 @@ namespace sbuild
      *
      * @returns the device.
      */
-    const std::string&
+    std::string const&
     get_device () const;
 
     /**
@@ -70,9 +70,9 @@ namespace sbuild
      * @param device the device.
      */
     void
-    set_device (const std::string& device);
+    set_device (std::string const& device);
 
-    virtual const std::string&
+    virtual std::string const&
     get_mount_device () const;
 
     /**
@@ -80,7 +80,7 @@ namespace sbuild
      *
      * @returns the mount options.
      */
-    const std::string&
+    std::string const&
     get_mount_options () const;
 
     /**
@@ -89,9 +89,9 @@ namespace sbuild
      * @param mount_options the mount options.
      */
     void
-    set_mount_options (const std::string& mount_options);
+    set_mount_options (std::string const& mount_options);
 
-    virtual const std::string&
+    virtual std::string const&
     get_chroot_type () const;
 
     virtual void
@@ -118,8 +118,8 @@ namespace sbuild
      * @param group the keyfile group (chroot name)
      */
     void
-    read_keyfile (const keyfile&     keyfile,
-		  const std::string& group);
+    read_keyfile (keyfile const&     keyfile,
+		  std::string const& group);
 
     /// The block device to use.
     std::string device;

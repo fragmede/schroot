@@ -28,7 +28,7 @@
 using boost::format;
 using namespace sbuild;
 
-keyfile::keyfile(const std::string& file):
+keyfile::keyfile(std::string const& file):
   groups(),
   separator(',')
 {
@@ -71,14 +71,14 @@ keyfile::get_groups() const
 }
 
 string_list
-keyfile::get_keys(const std::string& group) const
+keyfile::get_keys(std::string const& group) const
 {
   string_list ret;
 
   const group_type *found_group = find_group(group);
   if (found_group)
     {
-      const item_map_type& items(std::tr1::get<1>(*found_group));
+      item_map_type const& items(std::tr1::get<1>(*found_group));
       for (item_map_type::const_iterator pos = items.begin();
 	   pos != items.end();
 	   ++pos)
@@ -89,20 +89,20 @@ keyfile::get_keys(const std::string& group) const
 }
 
 bool
-keyfile::has_group(const std::string& group) const
+keyfile::has_group(std::string const& group) const
 {
   return (find_group(group) != 0);
 }
 
 bool
-keyfile::has_key(const std::string& group,
-		 const std::string& key) const
+keyfile::has_key(std::string const& group,
+		 std::string const& key) const
 {
   return (find_item(group, key) != 0);
 }
 
 void
-keyfile::remove_group(const std::string& group)
+keyfile::remove_group(std::string const& group)
 {
   group_map_type::iterator pos = this->groups.find(group);
   if (pos != this->groups.end())
@@ -110,8 +110,8 @@ keyfile::remove_group(const std::string& group)
 }
 
 void
-keyfile::remove_key(const std::string& group,
-		    const std::string& key)
+keyfile::remove_key(std::string const& group,
+		    std::string const& key)
 {
   group_type *found_group = find_group(group);
   if (found_group)
@@ -124,7 +124,7 @@ keyfile::remove_key(const std::string& group,
 }
 
 const keyfile::group_type *
-keyfile::find_group(const std::string& group) const
+keyfile::find_group(std::string const& group) const
 {
   group_map_type::const_iterator pos = this->groups.find(group);
   if (pos != this->groups.end())
@@ -134,7 +134,7 @@ keyfile::find_group(const std::string& group) const
 }
 
 keyfile::group_type *
-keyfile::find_group(const std::string& group)
+keyfile::find_group(std::string const& group)
 {
   group_map_type::iterator pos = this->groups.find(group);
   if (pos != this->groups.end())
@@ -144,13 +144,13 @@ keyfile::find_group(const std::string& group)
 }
 
 const keyfile::item_type *
-keyfile::find_item(const std::string& group,
-		   const std::string& key) const
+keyfile::find_item(std::string const& group,
+		   std::string const& key) const
 {
   const group_type *found_group = find_group(group);
   if (found_group)
     {
-      const item_map_type& items = std::tr1::get<1>(*found_group);
+      item_map_type const& items = std::tr1::get<1>(*found_group);
       item_map_type::const_iterator pos = items.find(key);
       if (pos != items.end())
 	return &pos->second;
@@ -160,8 +160,8 @@ keyfile::find_item(const std::string& group,
 }
 
 keyfile::item_type *
-keyfile::find_item(const std::string& group,
-		   const std::string& key)
+keyfile::find_item(std::string const& group,
+		   std::string const& key)
 {
   group_type *found_group = find_group(group);
   if (found_group)
@@ -176,7 +176,7 @@ keyfile::find_item(const std::string& group,
 }
 
 void
-keyfile::print_comment(const std::string& comment,
+keyfile::print_comment(std::string const& comment,
 		       std::ostream&      stream) const
 {
   std::string::size_type last_pos = 0;
@@ -192,8 +192,8 @@ keyfile::print_comment(const std::string& comment,
 }
 
 void
-keyfile::check_priority (const std::string& group,
-			 const std::string& key,
+keyfile::check_priority (std::string const& group,
+			 std::string const& key,
 			 priority priority,
 			 bool     valid) const
 {

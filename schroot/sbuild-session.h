@@ -73,7 +73,7 @@ namespace sbuild
      * @param operation the session operation to perform.
      * @param chroots the chroots to act upon.
      */
-    Session (const std::string& service,
+    Session (std::string const& service,
 	     config_ptr&        config,
 	     Operation          operation,
 	     string_list        chroots);
@@ -102,7 +102,7 @@ namespace sbuild
      *
      * @returns a list of chroots.
      */
-    const string_list&
+    string_list const&
     get_chroots () const;
 
     /**
@@ -111,7 +111,7 @@ namespace sbuild
      * @param chroots a list of chroots.
      */
     void
-    set_chroots (const string_list& chroots);
+    set_chroots (string_list const& chroots);
 
     /**
      * Get the operation this session will perform.
@@ -135,7 +135,7 @@ namespace sbuild
      *
      * @returns the session id.
      */
-    const std::string&
+    std::string const&
     get_session_id () const;
 
     /**
@@ -145,7 +145,7 @@ namespace sbuild
      * @param session_id the session id.
      */
     void
-    set_session_id (const std::string& session_id);
+    set_session_id (std::string const& session_id);
 
     /**
      * Get the force status of this session.
@@ -201,9 +201,9 @@ namespace sbuild
      * @returns the return value of the execve system call on failure.
      */
     int
-    exec (const std::string& file,
-	  const string_list& command,
-	  const env_list& env);
+    exec (std::string const& file,
+	  string_list const& command,
+	  env_list const& env);
     /**
      * Setup a chroot.  This runs all of the commands in setup.d or run.d.
      *

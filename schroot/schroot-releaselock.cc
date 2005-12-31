@@ -150,7 +150,7 @@ main (int   argc,
 
       exit (EXIT_SUCCESS);
     }
-  catch (const std::exception& e)
+  catch (std::exception const& e)
     {
       sbuild::log_error() << e.what() << endl;
 

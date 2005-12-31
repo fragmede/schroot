@@ -1,3 +1,8 @@
+2005-12-31  Roger Leigh  <rleigh@debian.org>
+
+	* Change all instances of "const T&" to "T const&" for
+	consistency.
+
 2005-12-30  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-chroot-lvm-snapshot.cc (setup_session_info):

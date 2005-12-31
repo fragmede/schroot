@@ -81,7 +81,7 @@ namespace sbuild
      *
      * @param file the file to load the configuration from.
      */
-    keyfile(const std::string& file);
+    keyfile(std::string const& file);
 
     /**
      * The constructor.
@@ -110,7 +110,7 @@ namespace sbuild
      * group, or the group does not exist, the list will be empty.
      */
     string_list
-    get_keys(const std::string& group) const;
+    get_keys(std::string const& group) const;
 
     /**
      * Check if a group exists.
@@ -119,7 +119,7 @@ namespace sbuild
      * @returns true if the group exists, otherwise false.
      */
     bool
-    has_group(const std::string& group) const;
+    has_group(std::string const& group) const;
 
     /**
      * Check if a key exists.
@@ -129,8 +129,8 @@ namespace sbuild
      * @returns true if the key exists, otherwise false.
      */
     bool
-    has_key(const std::string& group,
-	    const std::string& key) const;
+    has_key(std::string const& group,
+	    std::string const& key) const;
 
 
   private:
@@ -187,8 +187,8 @@ namespace sbuild
     }
 
     void
-    check_priority (const std::string& group,
-		    const std::string& key,
+    check_priority (std::string const& group,
+		    std::string const& key,
 		    priority           priority,
 		    bool               valid) const;
 
@@ -205,8 +205,8 @@ namespace sbuild
      */
     template <typename T>
     bool
-    get_value(const std::string& group,
-	      const std::string& key,
+    get_value(std::string const& group,
+	      std::string const& key,
 	      T&                 value) const
     {
       log_debug(DEBUG_INFO) << "Getting keyfile group=" << group
@@ -214,7 +214,7 @@ namespace sbuild
       const item_type *found_item = find_item(group, key);
       if (found_item)
 	{
-	  const std::string& strval(std::tr1::get<1>(*found_item));
+	  std::string const& strval(std::tr1::get<1>(*found_item));
 	  return parse_value(strval, value);
 	}
       log_debug(DEBUG_NOTICE) << "key not found" << std::endl;
@@ -235,8 +235,8 @@ namespace sbuild
      */
     template <typename T>
     bool
-    get_value(const std::string& group,
-	      const std::string& key,
+    get_value(std::string const& group,
+	      std::string const& key,
 	      priority           priority,
 	      T&                 value) const
     {
@@ -258,8 +258,8 @@ namespace sbuild
      */
     template <typename T, template <typename T> class C>
     bool
-    get_list_value(const std::string& group,
-		   const std::string& key,
+    get_list_value(std::string const& group,
+		   std::string const& key,
 		   C<T>&              value) const
     {
       std::string item_value;
@@ -298,8 +298,8 @@ namespace sbuild
      */
     template <typename T, template <typename T> class C>
     bool
-    get_list_value(const std::string& group,
-		   const std::string& key,
+    get_list_value(std::string const& group,
+		   std::string const& key,
 		   priority           priority,
 		   C<T>&              value) const
     {
@@ -318,9 +318,9 @@ namespace sbuild
      */
     template <typename T>
     void
-    set_value(const std::string& group,
-	      const std::string& key,
-	      const T& value)
+    set_value(std::string const& group,
+	      std::string const& key,
+	      T const&           value)
     {
       std::ostringstream os;
       os.imbue(std::locale("C"));
@@ -358,9 +358,9 @@ namespace sbuild
      */
     template <typename T, template <typename T> class C>
     void
-    set_list_value(const std::string& group,
-		   const std::string& key,
-		   const C<T>& value)
+    set_list_value(std::string const& group,
+		   std::string const& key,
+		   C<T> const&        value)
     {
       std::string strval;
 
@@ -388,7 +388,7 @@ namespace sbuild
      * @param group the group to remove.
      */
     void
-    remove_group(const std::string& group);
+    remove_group(std::string const& group);
 
     /**
      * Remove a key.
@@ -397,8 +397,8 @@ namespace sbuild
      * @param key the key to remove.
      */
     void
-    remove_key(const std::string& group,
-	       const std::string& key);
+    remove_key(std::string const& group,
+	       std::string const& key);
 
     /**
      * keyfile initialisation from an istream.
@@ -493,7 +493,7 @@ namespace sbuild
      * @param stream the stream to output to.
      */
     void
-    print_comment(const std::string& comment,
+    print_comment(std::string const& comment,
 		  std::ostream&      stream) const;
 
   public:
@@ -503,7 +503,7 @@ namespace sbuild
     template <class charT, class traits>
     friend
     std::basic_ostream<charT,traits>&
-    operator << (std::basic_ostream<charT,traits>& stream, const keyfile& kf)
+    operator << (std::basic_ostream<charT,traits>& stream, keyfile const& kf)
     {
       unsigned int group_count = 0;
 
@@ -514,24 +514,24 @@ namespace sbuild
 	  if (group_count > 0)
 	    stream << '\n';
 
-	  const group_type& group = gp->second;
-	  const std::string& groupname = std::tr1::get<0>(group);
-	  const std::string& comment = std::tr1::get<2>(group);
+	  group_type const& group = gp->second;
+	  std::string const& groupname = std::tr1::get<0>(group);
+	  std::string const& comment = std::tr1::get<2>(group);
 
 	  if (comment.length() > 0)
 	    print_comment(comment, stream);
 
 	  stream << '[' << groupname << ']' << '\n';
 
-	  const item_map_type& items(std::tr1::get<1>(group));
+	  item_map_type const& items(std::tr1::get<1>(group));
 	  for (item_map_type::const_iterator it = items.begin();
 	       it != items.end();
 	       ++it)
 	    {
-	      const item_type& item = it->second;
-	      const std::string& key(std::tr1::get<0>(item));
-	      const std::string& value(std::tr1::get<1>(item));
-	      const std::string& comment(std::tr1::get<2>(item));
+	      item_type const& item = it->second;
+	      std::string const& key(std::tr1::get<0>(item));
+	      std::string const& value(std::tr1::get<1>(item));
+	      std::string const& comment(std::tr1::get<2>(item));
 
 	      if (comment.length() > 0)
 		print_comment(comment, stream);
@@ -551,7 +551,7 @@ namespace sbuild
      * @returns the group, or 0 if not found.
      */
     const group_type *
-    find_group(const std::string& group) const;
+    find_group(std::string const& group) const;
 
     /**
      * Find a group by it's name.
@@ -560,7 +560,7 @@ namespace sbuild
      * @returns the group, or 0 if not found.
      */
     group_type *
-    find_group(const std::string& group);
+    find_group(std::string const& group);
 
     /**
      * Find a key by it's group and name.
@@ -570,8 +570,8 @@ namespace sbuild
      * @returns the key, or 0 if not found.
      */
     const item_type *
-    find_item(const std::string& group,
-	      const std::string& key) const;
+    find_item(std::string const& group,
+	      std::string const& key) const;
 
     /**
      * Find a key by it's group and name.
@@ -581,8 +581,8 @@ namespace sbuild
      * @returns the key, or 0 if not found.
      */
     item_type *
-    find_item(const std::string& group,
-	      const std::string& key);
+    find_item(std::string const& group,
+	      std::string const& key);
 
     /// The top-level groups.
     group_map_type groups;

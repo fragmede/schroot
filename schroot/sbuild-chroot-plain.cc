@@ -37,8 +37,8 @@ ChrootPlain::ChrootPlain():
 {
 }
 
-ChrootPlain::ChrootPlain (const keyfile&     keyfile,
-			  const std::string& group):
+ChrootPlain::ChrootPlain (keyfile const&     keyfile,
+			  std::string const& group):
   Chroot(keyfile, group),
   location()
 {
@@ -54,25 +54,25 @@ ChrootPlain::clone () const
   return chroot_ptr(new ChrootPlain(*this));
 }
 
-const std::string&
+std::string const&
 ChrootPlain::get_location () const
 {
   return this->location;
 }
 
 void
-ChrootPlain::set_location (const std::string& location)
+ChrootPlain::set_location (std::string const& location)
 {
   this->location = location;
 }
 
-const std::string&
+std::string const&
 ChrootPlain::get_mount_location () const
 {
   return this->location;
 }
 
-const std::string&
+std::string const&
 ChrootPlain::get_chroot_type () const
 {
   static const std::string type("plain");
@@ -122,8 +122,8 @@ ChrootPlain::print_config (std::ostream& stream) const
 }
 
 void
-ChrootPlain::read_keyfile (const keyfile&     keyfile,
-			   const std::string& group)
+ChrootPlain::read_keyfile (keyfile const&     keyfile,
+			   std::string const& group)
 {
   std::string location;
   if (keyfile.get_value(group, "location",

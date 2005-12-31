@@ -49,8 +49,8 @@ namespace
 {
   /* TODO: move to utils */
   std::string
-  string_list_to_string(const string_list& list,
-			const std::string&         separator)
+  string_list_to_string(string_list const& list,
+			std::string const& separator)
   {
     std::string ret;
 
@@ -67,7 +67,7 @@ namespace
   }
 
   char **
-  string_list_to_strv(const string_list& str)
+  string_list_to_strv(string_list const& str)
   {
     char **ret = new char *[str.size() + 1];
 
@@ -84,7 +84,7 @@ namespace
   }
 
   char **
-  env_list_to_strv(const env_list& env)
+  env_list_to_strv(env_list const& env)
   {
     char **ret = new char *[env.size() + 1];
 
@@ -118,7 +118,7 @@ namespace
    * Returns true if the user is a member of @group, otherwise false.
    */
   static bool
-  is_group_member (const std::string& group)
+  is_group_member (std::string const& group)
   {
     errno = 0;
     struct group *groupbuf = getgrnam(group.c_str());
@@ -173,7 +173,7 @@ namespace
 
 }
 
-Session::Session (const std::string& service,
+Session::Session (std::string const& service,
 		  config_ptr&        config,
 		  Operation          operation,
 		  string_list        chroots):
@@ -203,14 +203,14 @@ Session::set_config (config_ptr& config)
   this->config = config;
 }
 
-const string_list&
+string_list const&
 Session::get_chroots () const
 {
   return this->chroots;
 }
 
 void
-Session::set_chroots (const string_list& chroots)
+Session::set_chroots (string_list const& chroots)
 {
   this->chroots = chroots;
 }
@@ -227,14 +227,14 @@ Session::set_operation (Operation operation)
   this->operation = operation;
 }
 
-const std::string&
+std::string const&
 Session::get_session_id () const
 {
   return this->session_id;
 }
 
 void
-Session::set_session_id (const std::string& session_id)
+Session::set_session_id (std::string const& session_id)
 {
   this->session_id = session_id;
 }
@@ -279,8 +279,8 @@ Session::get_auth_status () const
 	  status = change_auth(status, Auth::STATUS_FAIL);
 	}
 
-      const string_list& groups = chroot->get_groups();
-      const string_list& root_groups = chroot->get_root_groups();
+      string_list const& groups = chroot->get_groups();
+      string_list const& root_groups = chroot->get_root_groups();
 
       if (!groups.empty())
 	{
@@ -428,7 +428,7 @@ try
 		       error. */
 		    setup_chroot(chroot, Chroot::RUN_STOP);
 		  }
-		catch (const error& e)
+		catch (error const& e)
 		  {
 		    setup_chroot(chroot, Chroot::RUN_STOP);
 		    throw e;
@@ -439,13 +439,13 @@ try
 		setup_chroot(chroot, Chroot::SETUP_STOP);
 		chroot->set_active(false);
 	      }
-	    catch (const error& e)
+	    catch (error const& e)
 	      {
 		try
 		  {
 		    setup_chroot(chroot, Chroot::SETUP_STOP);
 		  }
-		catch (const error& discard)
+		catch (error const& discard)
 		  {
 		  }
 		chroot->set_active(false);
@@ -457,7 +457,7 @@ try
 	  }
       }
   }
-catch (const error& e)
+catch (error const& e)
   {
     /* If a command was not run, but something failed, the exit
        status still needs setting. */
@@ -502,7 +502,7 @@ Session::setup_chroot (Chroot::chroot_ptr& session_chroot,
     {
       session_chroot->setup_lock(setup_type, true);
     }
-  catch (const Chroot::error &e)
+  catch (Chroot::error const& e)
     {
       format fmt(_("Chroot setup failed to lock chroot: %1%"));
       fmt % e.what();
@@ -611,7 +611,7 @@ Session::setup_chroot (Chroot::chroot_ptr& session_chroot,
     {
       session_chroot->setup_lock(setup_type, false);
     }
-  catch (const Chroot::error &e)
+  catch (Chroot::error const& e)
     {
       format fmt(_("Chroot setup failed to unlock chroot: %1%"));
       fmt % e.what();
@@ -636,7 +636,7 @@ Session::run_child (Chroot::chroot_ptr& session_chroot)
   assert(!get_shell().empty());
   assert(Auth::pam != NULL); // PAM must be initialised
 
-  const std::string& location = session_chroot->get_mount_location();
+  std::string const& location = session_chroot->get_mount_location();
   std::string cwd;
   {
     char *raw_cwd = getcwd (NULL, 0);
@@ -653,7 +653,7 @@ Session::run_child (Chroot::chroot_ptr& session_chroot)
     {
       open_session();
     }
-  catch (const Auth::error& e)
+  catch (Auth::error const& e)
     {
       log_error() << format(_("PAM error: %1%")) % e.what()
 		  << endl;
@@ -834,7 +834,7 @@ Session::wait_for_child (int  pid,
     {
       close_session();
     }
-  catch (const Auth::error& e)
+  catch (Auth::error const& e)
     {
       throw error(e.what());
     }
@@ -887,9 +887,9 @@ Session::run_chroot (Chroot::chroot_ptr& session_chroot)
 }
 
 int
-Session::exec (const std::string& file,
-	       const string_list& command,
-	       const env_list&    env)
+Session::exec (std::string const& file,
+	       string_list const& command,
+	       env_list const&    env)
 {
   char **argv = string_list_to_strv(command);
   char **envp = env_list_to_strv(env);

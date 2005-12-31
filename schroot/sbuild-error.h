@@ -40,7 +40,7 @@ namespace sbuild
      *
      * @param error the error message.
      */
-    runtime_error(const std::string& error):
+    runtime_error(std::string const& error):
       std::runtime_error(error)
     {}
 
@@ -61,7 +61,7 @@ namespace sbuild
      *
      * @param error the error message.
      */
-    runtime_error_custom(const std::string& error):
+    runtime_error_custom(std::string const& error):
       runtime_error(error)
     {}
 
@@ -70,7 +70,7 @@ namespace sbuild
      *
      * @param error the error message (formatted).
      */
-    runtime_error_custom(const boost::format& error):
+    runtime_error_custom(boost::format const& error):
       runtime_error(error.str())
     {}
 

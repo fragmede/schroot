@@ -17,8 +17,6 @@ PENDING
 
 ** Enable C++ compiler warnings.
 
-** const correctness of references.
-
 * Translation of strings in headers.
 
 PLANNED

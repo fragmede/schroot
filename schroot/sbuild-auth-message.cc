@@ -24,7 +24,7 @@
 using namespace sbuild;
 
 AuthMessage::AuthMessage(AuthMessage::MessageType type,
-			 const std::string&       message):
+			 std::string const&       message):
   type(type),
   message(message),
   response()

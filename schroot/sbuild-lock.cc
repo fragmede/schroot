@@ -176,7 +176,7 @@ FileLock::set_lock (Type         lock_type,
 	}
       unset_timer();
     }
-  catch (const error &e)
+  catch (error const& e)
     {
       unset_timer();
       throw error(e);
@@ -189,7 +189,7 @@ FileLock::unset_lock ()
   set_lock(LOCK_NONE, 0);
 }
 
-DeviceLock::DeviceLock (const std::string& device):
+DeviceLock::DeviceLock (std::string const& device):
   Lock(),
   device(device)
 {
@@ -268,7 +268,7 @@ DeviceLock::set_lock (Type         lock_type,
 	}
       unset_timer();
     }
-  catch (const error &e)
+  catch (error const& e)
     {
       unset_timer();
       throw error(e);

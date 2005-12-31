@@ -76,7 +76,7 @@ namespace sbuild
    * @returns a string_list.
    */
   string_list
-  split_string(const std::string& value,
+  split_string(std::string const& value,
 	       char               separator);
 
   /**
@@ -91,7 +91,7 @@ namespace sbuild
    * chroot to be used.
    */
   std::string
-  find_program_in_path(const std::string& program);
+  find_program_in_path(std::string const& program);
 
 }
 

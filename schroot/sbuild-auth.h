@@ -104,7 +104,7 @@ namespace sbuild
      * This is passed to pam_start() when initialising PAM, and is
      * used to load the correct configuration file from /etc/pam.d.
      */
-    Auth(const std::string& service_name);
+    Auth(std::string const& service_name);
 
     /**
      * The destructor.
@@ -118,7 +118,7 @@ namespace sbuild
      *
      * @returns the service name.
      */
-    const std::string&
+    std::string const&
     get_service () const;
 
     /**
@@ -147,7 +147,7 @@ namespace sbuild
      *
      * @returns the user's name.
      */
-    const std::string&
+    std::string const&
     get_user () const;
 
     /**
@@ -168,7 +168,7 @@ namespace sbuild
      * shell.  Only do this when user == ruser (and uid != 0) ??
      */
     void
-    set_user (const std::string& user);
+    set_user (std::string const& user);
 
     /**
      * Get the command to run in the session.
@@ -177,7 +177,7 @@ namespace sbuild
      * argument.  If no command has been specified, the list will be
      * empty.
      */
-    const string_list&
+    string_list const&
     get_command () const;
 
     /**
@@ -187,7 +187,7 @@ namespace sbuild
      * item being a separate argument.
      */
     void
-    set_command (const string_list& command);
+    set_command (string_list const& command);
 
     /**
      * Get the home directory.  This is the $HOME to set in the session,
@@ -195,7 +195,7 @@ namespace sbuild
      *
      * @returns the home directory.
      */
-    const std::string&
+    std::string const&
     get_home () const;
 
     /**
@@ -206,7 +206,7 @@ namespace sbuild
      * the executable name only should also work (the caller will have
      * to search for it).
      */
-    const std::string&
+    std::string const&
     get_shell () const;
 
     /**
@@ -216,7 +216,7 @@ namespace sbuild
      *
      * @todo: env_list should be changed to be a std::map.
      */
-    const env_list&
+    env_list const&
     get_environment () const;
 
     /**
@@ -234,7 +234,7 @@ namespace sbuild
      * @param environment an environment list.
      */
     void
-    set_environment (const env_list& environment);
+    set_environment (env_list const& environment);
 
     /**
      * Get the PAM environment.  This is the environment as set by PAM
@@ -260,7 +260,7 @@ namespace sbuild
      *
      * @returns a user name.
      */
-    const std::string&
+    std::string const&
     get_ruser () const;
 
     /**

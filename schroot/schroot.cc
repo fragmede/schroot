@@ -77,7 +77,7 @@ get_chroot_options(std::tr1::shared_ptr<sbuild::Config>& config,
 
   if (options.all_chroots == true || options.all_sessions == true)
     {
-      const sbuild::Config::chroot_list& list = config->get_chroots();
+      sbuild::Config::chroot_list const& list = config->get_chroots();
 
       for (sbuild::Config::chroot_list::const_iterator chroot = list.begin();
 	   chroot != list.end();
@@ -178,7 +178,7 @@ main (int   argc,
 	}
 
       /* Get list of chroots to use */
-      const sbuild::string_list& chroots = get_chroot_options(config, options);
+      sbuild::string_list const& chroots = get_chroot_options(config, options);
       if (chroots.empty())
 	{
 	  sbuild::log_error()
@@ -252,7 +252,7 @@ main (int   argc,
       closelog();
       exit(session.get_child_status());
     }
-  catch (const std::exception& e)
+  catch (std::exception const& e)
     {
       sbuild::log_error() << e.what() << endl;
 

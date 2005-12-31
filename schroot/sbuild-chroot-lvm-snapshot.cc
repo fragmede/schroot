@@ -48,8 +48,8 @@ ChrootLvmSnapshot::ChrootLvmSnapshot():
 {
 }
 
-ChrootLvmSnapshot::ChrootLvmSnapshot (const keyfile&      keyfile,
-				      const std::string&  group):
+ChrootLvmSnapshot::ChrootLvmSnapshot (keyfile const&     keyfile,
+				      std::string const& group):
   ChrootBlockDevice(keyfile, group),
   snapshot_device(),
   snapshot_options()
@@ -67,37 +67,37 @@ ChrootLvmSnapshot::clone () const
   return chroot_ptr(new ChrootLvmSnapshot(*this));
 }
 
-const std::string&
+std::string const&
 ChrootLvmSnapshot::get_snapshot_device () const
 {
   return this->snapshot_device;
 }
 
 void
-ChrootLvmSnapshot::set_snapshot_device (const std::string& snapshot_device)
+ChrootLvmSnapshot::set_snapshot_device (std::string const& snapshot_device)
 {
   this->snapshot_device = snapshot_device;
 }
 
-const std::string&
+std::string const&
 ChrootLvmSnapshot::get_mount_device () const
 {
   return this->snapshot_device;
 }
 
-const std::string&
+std::string const&
 ChrootLvmSnapshot::get_snapshot_options () const
 {
   return this->snapshot_options;
 }
 
 void
-ChrootLvmSnapshot::set_snapshot_options (const std::string& snapshot_options)
+ChrootLvmSnapshot::set_snapshot_options (std::string const& snapshot_options)
 {
   this->snapshot_options = snapshot_options;
 }
 
-const std::string&
+std::string const&
 ChrootLvmSnapshot::get_chroot_type () const
 {
   static const std::string type("lvm-snapshot");
@@ -168,7 +168,7 @@ ChrootLvmSnapshot::setup_lock (SetupType type,
 		{
 		  dlock.set_lock(Lock::LOCK_EXCLUSIVE, 15);
 		}
-	      catch (const sbuild::Lock::error &e)
+	      catch (sbuild::Lock::error const& e)
 		{
 		  format fmt(_("%1%: failed to lock device: %2%"));
 		  fmt % device % e.what();
@@ -181,7 +181,7 @@ ChrootLvmSnapshot::setup_lock (SetupType type,
 		{
 		  dlock.unset_lock();
 		}
-	      catch (const sbuild::Lock::error &e)
+	      catch (sbuild::Lock::error const& e)
 		{
 		  format fmt(_("%1%: failed to unlock device: %2%"));
 		  fmt % device % e.what();
@@ -227,7 +227,7 @@ ChrootLvmSnapshot::setup_session_info (bool start)
 	{
 	  lock.set_lock(Lock::LOCK_EXCLUSIVE, 2);
 	}
-      catch (const Lock::error& e)
+      catch (Lock::error const& e)
 	{
 	  format fmt(_("%1%: lock acquisition failure: %2%\n"));
 	  fmt % file % e.what();
@@ -240,7 +240,7 @@ ChrootLvmSnapshot::setup_session_info (bool start)
 	{
 	  lock.unset_lock();
 	}
-      catch (const Lock::error& e)
+      catch (Lock::error const& e)
 	{
 	  format fmt(_("%1%: lock discard failure: %2%\n"));
 	  fmt % file % e.what();
@@ -291,8 +291,8 @@ ChrootLvmSnapshot::print_config (std::ostream& stream) const
 }
 
 void
-ChrootLvmSnapshot::read_keyfile (const keyfile&      keyfile,
-				 const std::string&  group)
+ChrootLvmSnapshot::read_keyfile (keyfile const&     keyfile,
+				 std::string const& group)
 {
   std::string snapshot_device;
   if (keyfile.get_value(group, "lvm-snapshot-device",

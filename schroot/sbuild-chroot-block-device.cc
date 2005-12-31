@@ -44,8 +44,8 @@ ChrootBlockDevice::ChrootBlockDevice():
 {
 }
 
-ChrootBlockDevice::ChrootBlockDevice (const keyfile&      keyfile,
-				      const std::string&  group):
+ChrootBlockDevice::ChrootBlockDevice (keyfile const&     keyfile,
+				      std::string const& group):
   Chroot(keyfile, group),
   device(),
   mount_options()
@@ -63,37 +63,37 @@ ChrootBlockDevice::clone () const
   return chroot_ptr(new ChrootBlockDevice(*this));
 }
 
-const std::string&
+std::string const&
 ChrootBlockDevice::get_device () const
 {
   return this->device;
 }
 
 void
-ChrootBlockDevice::set_device (const std::string& device)
+ChrootBlockDevice::set_device (std::string const& device)
 {
   this->device = device;
 }
 
-const std::string&
+std::string const&
 ChrootBlockDevice::get_mount_device () const
 {
   return this->device;
 }
 
-const std::string&
+std::string const&
 ChrootBlockDevice::get_mount_options () const
 {
   return this->mount_options;
 }
 
 void
-ChrootBlockDevice::set_mount_options (const std::string& mount_options)
+ChrootBlockDevice::set_mount_options (std::string const& mount_options)
 {
   this->mount_options = mount_options;
 }
 
-const std::string&
+std::string const&
 ChrootBlockDevice::get_chroot_type () const
 {
   static const std::string type("block-device");
@@ -148,7 +148,7 @@ ChrootBlockDevice::setup_lock (SetupType type,
 	    {
 	      dlock.set_lock(Lock::LOCK_EXCLUSIVE, 15);
 	    }
-	  catch (const sbuild::Lock::error& e)
+	  catch (sbuild::Lock::error const& e)
 	    {
 	      format fmt(_("%1%: failed to lock device: %2%"));
 	      fmt % get_device() % e.what();
@@ -161,7 +161,7 @@ ChrootBlockDevice::setup_lock (SetupType type,
 	    {
 	      dlock.unset_lock();
 	    }
-	  catch (const sbuild::Lock::error& e)
+	  catch (sbuild::Lock::error const& e)
 	    {
 	      format fmt(_("%1%: failed to unlock device: %2%"));
 	      fmt % get_device() % e.what();
@@ -200,8 +200,8 @@ ChrootBlockDevice::print_config (std::ostream& stream) const
 }
 
 void
-ChrootBlockDevice::read_keyfile (const keyfile&      keyfile,
-				 const std::string&  group)
+ChrootBlockDevice::read_keyfile (keyfile const&     keyfile,
+				 std::string const& group)
 {
   std::string device;
   if (keyfile.get_value(group, "device",

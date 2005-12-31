@@ -33,7 +33,7 @@ using namespace sbuild;
 namespace
 {
 
-  std::string remove_duplicates(const std::string& str,
+  std::string remove_duplicates(std::string const& str,
 				char               dup)
   {
     std::string ret;
@@ -123,7 +123,7 @@ sbuild::string_list_to_string(sbuild::string_list const& list,
 }
 
 string_list
-sbuild::split_string(const std::string& value,
+sbuild::split_string(std::string const& value,
 		     char               separator)
 {
   string_list ret;
@@ -147,7 +147,7 @@ sbuild::split_string(const std::string& value,
 }
 
 std::string
-sbuild::find_program_in_path(const std::string& program)
+sbuild::find_program_in_path(std::string const& program)
 {
   if (program.find_first_of('/') != std::string::npos)
     return program;

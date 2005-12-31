@@ -156,7 +156,7 @@ namespace sbuild
      *
      * @param device the device to lock (full pathname).
      */
-    DeviceLock (const std::string& device);
+    DeviceLock (std::string const& device);
     virtual ~DeviceLock();
 
     void

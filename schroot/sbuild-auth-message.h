@@ -61,7 +61,7 @@ namespace sbuild
      * @param message the message to display.
      */
     AuthMessage(MessageType        type,
-		const std::string& message);
+		std::string const& message);
 
     /// The destructor.
     virtual ~AuthMessage();

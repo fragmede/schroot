@@ -43,8 +43,8 @@ namespace sbuild
      * @param keyfile the configuration file
      * @param group the keyfile group (chroot name)
      */
-    ChrootLvmSnapshot (const keyfile&      keyfile,
-		       const std::string&  group);
+    ChrootLvmSnapshot (keyfile const&     keyfile,
+		       std::string const& group);
 
     friend class Chroot;
 
@@ -61,7 +61,7 @@ namespace sbuild
      *
      * @returns the device name.
      */
-    const std::string&
+    std::string const&
     get_snapshot_device () const;
 
     /**
@@ -71,9 +71,9 @@ namespace sbuild
      * @param snapshot_device the device name.
      */
     void
-    set_snapshot_device (const std::string& snapshot_device);
+    set_snapshot_device (std::string const& snapshot_device);
 
-    virtual const std::string&
+    virtual std::string const&
     get_mount_device () const;
 
     /**
@@ -82,7 +82,7 @@ namespace sbuild
      *
      * @returns the options.
      */
-    const std::string&
+    std::string const&
     get_snapshot_options () const;
 
     /**
@@ -92,9 +92,9 @@ namespace sbuild
      * @param snapshot_options the options.
      */
     void
-    set_snapshot_options (const std::string& snapshot_options);
+    set_snapshot_options (std::string const& snapshot_options);
 
-    virtual const std::string&
+    virtual std::string const&
     get_chroot_type () const;
 
     virtual void
@@ -121,8 +121,8 @@ namespace sbuild
      * @param group the keyfile group (chroot name)
      */
     void
-    read_keyfile (const keyfile&      keyfile,
-		  const std::string&  group);
+    read_keyfile (keyfile const&      keyfile,
+		  std::string const&  group);
 
     /**
      * Set up persistent session information.

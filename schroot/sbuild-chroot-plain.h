@@ -40,8 +40,8 @@ namespace sbuild
      * @param keyfile the configuration file
      * @param group the keyfile group (chroot name)
      */
-    ChrootPlain (const keyfile&     keyfile,
-		 const std::string& group);
+    ChrootPlain (keyfile const&     keyfile,
+		 std::string const& group);
 
     friend class Chroot;
 
@@ -57,7 +57,7 @@ namespace sbuild
      *
      * @returns the location.
      */
-    const std::string&
+    std::string const&
     get_location () const;
 
     /**
@@ -66,12 +66,12 @@ namespace sbuild
      * @param location the location.
      */
     void
-    set_location (const std::string& location);
+    set_location (std::string const& location);
 
-    virtual const std::string&
+    virtual std::string const&
     get_mount_location () const;
 
-    virtual const std::string&
+    virtual std::string const&
     get_chroot_type () const;
 
     virtual void
@@ -98,8 +98,8 @@ namespace sbuild
      * @param group the keyfile group (chroot name)
      */
     void
-    read_keyfile (const keyfile&     keyfile,
-		  const std::string& group);
+    read_keyfile (keyfile const&     keyfile,
+		  std::string const& group);
 
     /// The directory location of the chroot.
     std::string location;

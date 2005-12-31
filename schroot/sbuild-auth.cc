@@ -97,8 +97,8 @@ namespace
   }
 
   std::string
-  env_string(const std::string& key,
-	     const std::string& value)
+  env_string(std::string const& key,
+	     std::string const& value)
   {
     return key + "=" + value;
   }
@@ -129,7 +129,7 @@ namespace
 }
 
 
-Auth::Auth(const std::string& service_name):
+Auth::Auth(std::string const& service_name):
   pam(),
   service(service_name),
   uid(0),
@@ -165,7 +165,7 @@ Auth::~Auth()
   // TODO: Shutdown PAM?
 }
 
-const std::string&
+std::string const&
 Auth::get_service () const
 {
   return this->service;
@@ -183,14 +183,14 @@ Auth::get_gid () const
   return this->gid;
 }
 
-const std::string&
+std::string const&
 Auth::get_user () const
 {
   return this->user;
 }
 
 void
-Auth::set_user (const std::string& user)
+Auth::set_user (std::string const& user)
 {
   this->uid = 0;
   this->gid = 0;
@@ -217,31 +217,31 @@ Auth::set_user (const std::string& user)
     << endl;
 }
 
-const string_list&
+string_list const&
 Auth::get_command () const
 {
   return this->command;
 }
 
 void
-Auth::set_command (const string_list& command)
+Auth::set_command (string_list const& command)
 {
   this->command = command;
 }
 
-const std::string&
+std::string const&
 Auth::get_home () const
 {
   return this->home;
 }
 
-const std::string&
+std::string const&
 Auth::get_shell () const
 {
   return this->shell;
 }
 
-const env_list&
+env_list const&
 Auth::get_environment () const
 {
   return this->environment;
@@ -254,7 +254,7 @@ Auth::set_environment (char **environment)
 }
 
 void
-Auth::set_environment (const env_list& environment)
+Auth::set_environment (env_list const& environment)
 {
   this->environment = environment;
 }
@@ -273,7 +273,7 @@ Auth::get_ruid () const
   return this->ruid;
 }
 
-const std::string&
+std::string const&
 Auth::get_ruser () const
 {
   return this->ruser;
@@ -335,19 +335,19 @@ Auth::run ()
 	     already bailing out, and an error may already
 	     have been raised */
 	}
-      catch (const error& e)
+      catch (error const& e)
 	{
 	  try
 	    {
 	      cred_delete();
 	    }
-	  catch (const error& discard)
+	  catch (error const& discard)
 	    {
 	      throw error(e);
 	    }
 	}
     }
-  catch (const error& e)
+  catch (error const& e)
     {
       try
 	{
@@ -355,7 +355,7 @@ Auth::run ()
 	     and an error may already have been raised */
 	  stop();
 	}
-      catch (const error& discard)
+      catch (error const& discard)
 	{
 	  throw error(e);
 	}
