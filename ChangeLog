@@ -1,5 +1,15 @@
 2005-12-31  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/Makefile.am (AM_CXXFLAGS): Add additional warning flags.
+
+	* schroot/sbuild-auth.cc (run): Use a static_cast instead of a
+	C-style cast.
+
+	* schroot/sbuild-lock.cc (set_lock): Initialise the l_pid member
+	of struct flock.
+
+2005-12-31  Roger Leigh  <rleigh@debian.org>
+
 	* Change all instances of "const T&" to "T const&" for
 	consistency.
 

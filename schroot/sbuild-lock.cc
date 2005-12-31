@@ -154,7 +154,8 @@ FileLock::set_lock (Type         lock_type,
 	  lock_type,
 	  SEEK_SET,
 	  0,
-	  0 // Lock entire file
+	  0, // Lock entire file
+	  0
 	};
 
       if (fcntl(this->fd,
