@@ -1,5 +1,9 @@
 2005-12-31  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-auth.cc (run): Fix casting to "const void **".
+
+2005-12-31  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/Makefile.am (AM_CXXFLAGS): Add additional warning flags.
 
 	* schroot/sbuild-auth.cc (run): Use a static_cast instead of a

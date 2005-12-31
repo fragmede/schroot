@@ -317,8 +317,8 @@ Auth::run ()
 	  cred_establish();
 
 	  const char *authuser = 0;
-	  pam_get_item(this->pam, PAM_USER,
-		       static_cast<const void **>(&authuser));
+	  const void *tmpcast = static_cast<const void *>(authuser);
+	  pam_get_item(this->pam, PAM_USER, &tmpcast);
 	  log_debug(DEBUG_INFO)
 	    << format("PAM authentication succeeded for user %1%") % authuser
 	    << endl;
