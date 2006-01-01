@@ -1,4 +1,4 @@
-/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2006  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -19,6 +19,8 @@
 
 #include <config.h>
 
+#include "sbuild.h"
+
 #include <cassert>
 #include <iostream>
 #include <memory>
@@ -33,12 +35,6 @@
 #include <boost/format.hpp>
 
 #include <uuid/uuid.h>
-
-#include "sbuild-i18n.h"
-#include "sbuild-chroot-lvm-snapshot.h"
-#include "sbuild-log.h"
-#include "sbuild-session.h"
-#include "sbuild-util.h"
 
 using std::cout;
 using std::endl;

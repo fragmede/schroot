@@ -1,4 +1,4 @@
-/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2006  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -19,15 +19,13 @@
 
 #include <config.h>
 
+#include "sbuild.h"
+
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/sysmacros.h>
 #include <unistd.h>
-
-#include "sbuild-i18n.h"
-#include "sbuild-chroot-plain.h"
-#include "sbuild-keyfile.h"
 
 using namespace sbuild;
 

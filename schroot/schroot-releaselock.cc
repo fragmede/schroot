@@ -1,6 +1,4 @@
-/* schroot-releaselock - release a device lock
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2006  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -35,9 +33,7 @@
 
 #include <lockdev.h>
 
-#include "sbuild-i18n.h"
-#include "sbuild-log.h"
-#include "sbuild-util.h"
+#include "sbuild.h"
 
 #include "schroot-releaselock-options.h"
 
@@ -58,7 +54,7 @@ print_version (std::ostream& stream)
 {
   stream << format(_("schroot-releaselock (Debian sbuild) %1%\n")) % VERSION
 	 << _("Written by Roger Leigh\n\n")
-	 << _("Copyright (C) 2004-2005 Roger Leigh\n")
+	 << _("Copyright (C) 2004-2006 Roger Leigh\n")
 	 << _("This is free software; see the source for copying conditions.  There is NO\n"
 	      "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
 	 << std::flush;

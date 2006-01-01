@@ -1,6 +1,4 @@
-/* schroot - global header
- *
- * Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2006  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -19,22 +17,29 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_SCHROOT_H
-#define SBUILD_SCHROOT_H
+#ifndef SBUILD_H
+#define SBUILD_H
 
-#include "sbuild-auth.h"
 #include "sbuild-auth-conv.h"
 #include "sbuild-auth-conv-tty.h"
+#include "sbuild-auth.h"
 #include "sbuild-auth-message.h"
-#include "sbuild-config.h"
-#include "sbuild-chroot.h"
-#include "sbuild-chroot-plain.h"
 #include "sbuild-chroot-block-device.h"
+#include "sbuild-chroot.h"
 #include "sbuild-chroot-lvm-snapshot.h"
+#include "sbuild-chroot-plain.h"
+#include "sbuild-config.h"
+#include "sbuild-error.h"
+#include "sbuild-i18n.h"
+#include "sbuild-keyfile.h"
 #include "sbuild-lock.h"
+#include "sbuild-log.h"
+#include "sbuild-nostream.h"
 #include "sbuild-session.h"
+#include "sbuild-types.h"
+#include "sbuild-util.h"
 
-#endif /* SBUILD_SCHROOT_H */
+#endif /* SBUILD_H */
 
 /*
  * Local Variables:

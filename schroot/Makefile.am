@@ -1,7 +1,7 @@
 # schroot Makefile template
 #
 #
-# Copyright © 2004-2005  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2006  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -35,7 +35,13 @@ lib_LTLIBRARIES = libsbuild.la
 bin_PROGRAMS = schroot
 pkglibexec_PROGRAMS = schroot-releaselock
 
+BUILT_SOURCES = sbuild.gch
+
+sbuild.gch: $(sbuild_public_h_sources)
+	$(CXXCOMPILE) -o $@ sbuild.h
+
 sbuild_public_h_sources =		\
+	sbuild.h			\
 	sbuild-auth.h			\
 	sbuild-auth-conv.h		\
 	sbuild-auth-conv-tty.h		\
@@ -81,7 +87,6 @@ libsbuild_la_LIBADD = $(UUID_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(BOOST_LIBS) $(L
 schroot_SOURCES =			\
 	schroot-options.h		\
 	schroot-options.cc		\
-	schroot.h			\
 	schroot.cc
 
 schroot_LDADD = libsbuild.la
@@ -97,6 +102,8 @@ pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
 pkgsysconf_DATA = schroot.conf
 
 man_MANS = schroot.1 schroot-setup.5 schroot.conf.5
+
+CLEANFILES = sbuild.gch
 
 EXTRA_DIST =				\
 	$(pkgsysconf_DATA)

@@ -1,4 +1,13 @@
-2005-12-31  Roger Leigh  <rleigh@debian.org>
+2006-01-01  Roger Leigh  <rleigh@debian.org>
+
+	* Updated copyright notices to include 2006 changes.
+
+	* schroot/Makefile.am: Generate a sbuild.gch precompiled header,
+	and include sbuild.h in all sources which previously included an
+	sbuild header.  This should improve compilation speed.
+
+	* Rename schroot.h to sbuild.h, and include all sbuild-*.h
+	headers.
 
 	* schroot/sbuild-auth.cc (run): Fix casting to "const void **".
 

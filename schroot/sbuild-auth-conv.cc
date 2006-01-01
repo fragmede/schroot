@@ -1,4 +1,4 @@
-/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2006  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 
 #include <config.h>
 
-#include "sbuild-auth-conv.h"
+#include "sbuild.h"
 
 using namespace sbuild;
 

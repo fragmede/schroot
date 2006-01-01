@@ -1,4 +1,4 @@
-/* Copyright © 2005  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2006  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -19,6 +19,8 @@
 
 #include <config.h>
 
+#include "sbuild.h"
+
 #include <errno.h>
 #include <string.h>
 #include <sys/types.h>
@@ -27,12 +29,6 @@
 #include <unistd.h>
 
 #include <boost/format.hpp>
-
-#include "sbuild-i18n.h"
-#include "sbuild-chroot-block-device.h"
-#include "sbuild-keyfile.h"
-#include "sbuild-lock.h"
-#include "sbuild-util.h"
 
 using boost::format;
 using namespace sbuild;
