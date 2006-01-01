@@ -4,13 +4,10 @@ Makefile
 Makefile.in
 *.la
 *.lo
+*.gch
 schroot
 schroot-releaselock
 schroot.1
 schroot-setup.5
 schroot.conf.5
-sbuild-marshallers.c
-sbuild-marshallers.h
-sbuild-typebuiltins.c
-sbuild-typebuiltins.h
 
