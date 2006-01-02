@@ -1,5 +1,9 @@
 2006-01-02  Roger Leigh  <rleigh@debian.org>
 
+	* Actually commit the new environment class.
+
+2006-01-02  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-options.cc (Options): Rewrite the checks which
 	decide which chroot configuration files should be read, depending
 	upon the action specified.
