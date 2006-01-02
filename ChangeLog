@@ -1,5 +1,21 @@
 2006-01-02  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot-options.cc (Options): Rewrite the checks which
+	decide which chroot configuration files should be read, depending
+	upon the action specified.
+
+	* schroot/schroot-options.h (all_used): new method to detect if
+	any of the --all* options are in effect.
+
+	* schroot/schroot.cc (main): If no chroots are available, warn
+	rather than exiting with an error, since for several commands
+	there may well not be any chroots defined.
+
+	* schroot/sbuild-config.cc (validate_chroots): Correct inverse
+	match which treated all correctly named chroots as being invalid.
+
+2006-01-02  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-types.h: Remove env and env_list typedefs.
 
 	* schroot/sbuild-session.cc: Remove env_list_to_strv helper,

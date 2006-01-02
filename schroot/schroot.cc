@@ -153,13 +153,20 @@ main (int   argc,
       if (options.load_sessions == true)
 	config->add_config_directory(SCHROOT_SESSION_DIR);
 
-      if (config->get_chroots().empty())
+      if (config->get_chroots().empty() && options.quiet == false)
 	{
-	  if (options.quiet == false)
-	    sbuild::log_error()
-	      << format(_("No chroots are defined in %1%")) % SCHROOT_CONF
+	  if (options.load_chroots == true && options.load_sessions == true)
+	    sbuild::log_warning()
+	      << format(_("No chroots are defined in %1% or %2%"))
+	      % SCHROOT_CONF % SCHROOT_SESSION_DIR
 	      << endl;
-	  exit (EXIT_FAILURE);
+	  else
+	    {
+	      const char *cfile = (options.load_sessions) ? SCHROOT_CONF : SCHROOT_SESSION_DIR;
+	    sbuild::log_warning()
+	      << format(_("No chroots are defined in %1%")) % cfile
+	      << endl;
+	    }
 	}
 
       /* Print chroot list (including aliases). */

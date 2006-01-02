@@ -162,21 +162,18 @@ Options::Options(int   argc,
   if (this->quiet && this->verbose)
     {
       sbuild::log_warning()
-	<< _("--quiet and --verbose may not be used at the same time!")
+	<< _("--quiet and --verbose may not be used at the same time")
 	<< endl;
-      sbuild::log_info() << _("Using verbose output.") << endl;
+      sbuild::log_info() << _("Using verbose output") << endl;
     }
 
-  /* Ensure there's something to list. */
-  if ((this->action == ACTION_LIST &&
-       (this->all == false && this->all_chroots == false &&
-	this->all_sessions == false)) ||
-      (this->action == ACTION_INFO == true &&
-       (this->all == false && this->all_chroots == false &&
-	this->all_sessions == false &&
-	(this->chroots.empty()))))
+  if (!this->chroots.empty() && all_used())
     {
-      this->all = true;
+      sbuild::log_warning()
+	<< _("--chroot and --all may not be used at the same time")
+	<< endl;
+      sbuild::log_info() << _("Using --chroots only") << endl;
+      this->all = this->all_chroots = this->all_sessions = false;
     }
 
   if (this->all == true)
@@ -185,18 +182,76 @@ Options::Options(int   argc,
       this->all_sessions = true;
     }
 
-  /* If no chroot was specified, fall back to the "default" chroot. */
-  if (this->chroots.empty())
+  /* Determine which chroots to load and use. */
+  switch (this->action)
     {
-      this->chroots.push_back("default");
-    }
+    case ACTION_SESSION_AUTO:
+      // Only allow normal chroots
+      this->load_chroots = true;
+      this->load_sessions = false;
+      this->all = this->all_sessions = false;
 
-  /* Determine which chroots to load. */
-  this->load_chroots = this->all_chroots;
-  this->load_sessions = this->all_sessions;
-  if (this->action == ACTION_LIST &&
-      this->chroots.empty())
-    this->load_chroots = this->load_sessions = true;
+      // If no chroot was specified, fall back to the "default" chroot.
+      if (this->chroots.empty() && all_used() == false)
+	this->chroots.push_back("default");
+
+      break;
+    case ACTION_SESSION_BEGIN:
+      // Only allow one session chroot
+      this->load_chroots = false;
+      this->load_sessions = true;
+      if (this->chroots.size() != 1 || all_used())
+	throw opt::validation_error(_("Only one chroot may be specified when recovering, running or ending a session"));
+
+      this->all = this->all_chroots = this->all_sessions = false;
+      break;
+    case ACTION_SESSION_RECOVER:
+    case ACTION_SESSION_RUN:
+    case ACTION_SESSION_END:
+      // Only allow one normal chroot
+      this->load_chroots = true;
+      this->load_sessions = false;
+      if (this->chroots.size() != 1 || all_used())
+	throw opt::validation_error(_("Only one chroot may be specified when begining a session"));
+      this->all = this->all_chroots = this->all_sessions = false;
+      break;
+    case ACTION_VERSION:
+      // Chroots don't make sense here.
+      this->load_chroots = this->load_sessions = false;
+      this->all = this->all_chroots = this->all_sessions = false;
+      break;
+    case ACTION_LIST:
+      // If not specified otherwise, load normal chroots, but allow
+      // --all options.
+      if (!all_used())
+	this->load_chroots = true;
+      if (this->all_chroots)
+	this->load_chroots = true;
+      if (this->all_sessions)
+	this->load_sessions = true;
+      if (!this->chroots.empty())
+	throw opt::validation_error(_("--chroot may not be used with --list"));
+      break;
+    case ACTION_INFO:
+      // If not specified otherwise, load normal chroots, but allow
+      // --all options.
+      if (!this->chroots.empty()) // chroot specified
+	this->load_chroots = this->load_sessions = true;
+      else if (!all_used()) // no chroots specified
+	{
+	  this->all_chroots = true;
+	  this->load_chroots = true;
+	}
+      if (this->all_chroots)
+	this->load_chroots = true;
+      if (this->all_sessions)
+	this->load_sessions = true;
+      break;
+    default: // Something went
+      this->load_chroots = this->load_sessions = false;
+      this->all = this->all_chroots = this->all_sessions = false;
+      throw opt::validation_error(_("Unknown action specified"));
+    }
 }
 
 Options::~Options()

@@ -223,7 +223,7 @@ Config::validate_chroots(string_list const& chroots) const
        ++pos)
     {
       const Chroot::chroot_ptr chroot = find_alias(*pos);
-      if (chroot)
+      if (!chroot)
 	bad_chroots.push_back(*pos);
     }
 

@@ -96,6 +96,12 @@ namespace schroot
     void
     set_action (action_type action);
 
+    bool
+    all_used() const
+    {
+      return (this->all || this->all_chroots || this->all_sessions);
+    }
+
   };
 
 }
