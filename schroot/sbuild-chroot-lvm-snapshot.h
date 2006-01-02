@@ -96,7 +96,7 @@ namespace sbuild
     get_chroot_type () const;
 
     virtual void
-    setup_env (env_list& env);
+    setup_env (environment& env);
 
     virtual void
     setup_lock (SetupType type,

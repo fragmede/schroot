@@ -33,6 +33,7 @@
 #include <security/pam_appl.h>
 
 #include "sbuild-auth-conv.h"
+#include "sbuild-environment.h"
 #include "sbuild-error.h"
 #include "sbuild-types.h"
 
@@ -213,10 +214,8 @@ namespace sbuild
      * Get the environment to use in the session.
      *
      * @returns an environment list (a list of key-value pairs).
-     *
-     * @todo: env_list should be changed to be a std::map.
      */
-    env_list const&
+    environment const&
     get_environment () const;
 
     /**
@@ -234,7 +233,7 @@ namespace sbuild
      * @param environment an environment list.
      */
     void
-    set_environment (env_list const& environment);
+    set_environment (environment const& environment);
 
     /**
      * Get the PAM environment.  This is the environment as set by PAM
@@ -242,7 +241,7 @@ namespace sbuild
      *
      * @returns an environment list.
      */
-    env_list
+    environment
     get_pam_environment () const;
 
     /**
@@ -437,7 +436,7 @@ protected:
     /// The user shell to run.
     std::string        shell;
     /// The user environment to set.
-    env_list           environment;
+    environment        user_environment;
     /// The uid requesting authentication.
     uid_t              ruid;
     /// The user name requesting authentication.

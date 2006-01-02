@@ -38,7 +38,7 @@ pkglibexec_PROGRAMS = schroot-releaselock
 BUILT_SOURCES = sbuild.gch
 
 sbuild.gch: $(sbuild_public_h_sources)
-	$(CXXCOMPILE) -o $@ sbuild.h
+	$(CXXCOMPILE) -o $@ -c sbuild.h
 
 sbuild_public_h_sources =		\
 	sbuild.h			\
@@ -51,6 +51,7 @@ sbuild_public_h_sources =		\
 	sbuild-chroot-lvm-snapshot.h	\
 	sbuild-chroot-plain.h		\
 	sbuild-config.h			\
+	sbuild-environment.h		\
 	sbuild-error.h			\
 	sbuild-i18n.h			\
 	sbuild-keyfile.h		\
@@ -71,6 +72,7 @@ sbuild_public_cc_sources =		\
 	sbuild-chroot-lvm-snapshot.cc	\
 	sbuild-chroot-plain.cc		\
 	sbuild-config.cc		\
+	sbuild-environment.cc		\
 	sbuild-keyfile.cc		\
 	sbuild-lock.cc			\
 	sbuild-log.cc			\

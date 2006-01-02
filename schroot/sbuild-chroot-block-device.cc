@@ -98,14 +98,12 @@ ChrootBlockDevice::get_chroot_type () const
 }
 
 void
-ChrootBlockDevice::setup_env (env_list& env)
+ChrootBlockDevice::setup_env (environment& env)
 {
   this->Chroot::setup_env(env);
 
-  setup_env_var(env, "CHROOT_DEVICE",
-		get_device());
-  setup_env_var(env, "CHROOT_MOUNT_OPTIONS",
-		get_mount_options());
+  env.add("CHROOT_DEVICE", get_device());
+  env.add("CHROOT_MOUNT_OPTIONS", get_mount_options());
 }
 
 void

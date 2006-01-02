@@ -39,6 +39,7 @@ using namespace sbuild;
 
 namespace
 {
+
   /* This is the glue to link PAM user interaction with SbuildAuthConv. */
   static int
   auth_conv (int                        num_msg,
@@ -90,36 +91,6 @@ namespace
       return PAM_CONV_ERR;
   }
 
-  std::string
-  env_string(std::string const& key,
-	     std::string const& value)
-  {
-    return key + "=" + value;
-  }
-
-  env_list
-  env_strv_to_env_list (char **env)
-  {
-    env_list ret;
-
-    if (env)
-      {
-	for (char *ev = env[0]; ev != 0; ++ev)
-	  {
-	    std::string evs(ev);
-	    std::string::size_type pos = evs.find('=');
-	    if (pos != std::string::npos && pos != 0)
-	      {
-		std::string key = evs.substr(0, pos);
-		std::string value = evs.substr(pos + 1);
-		ret.push_back(std::make_pair(key, value));
-	      }
-	  }
-      }
-
-    return ret;
-  }
-
 }
 
 
@@ -132,7 +103,7 @@ Auth::Auth(std::string const& service_name):
   command(),
   home(),
   shell(),
-  environment(),
+  user_environment(),
   ruid(),
   ruser(),
   conv(dynamic_cast<AuthConv *>(new AuthConvTty)),
@@ -235,30 +206,28 @@ Auth::get_shell () const
   return this->shell;
 }
 
-env_list const&
+environment const&
 Auth::get_environment () const
 {
-  return this->environment;
+  return this->user_environment;
 }
 
 void
 Auth::set_environment (char **environment)
 {
-  set_environment(env_strv_to_env_list(environment));
+  set_environment(sbuild::environment(environment));
 }
 
 void
-Auth::set_environment (env_list const& environment)
+Auth::set_environment (environment const& environment)
 {
-  this->environment = environment;
+  this->user_environment = environment;
 }
 
-env_list
+environment
 Auth::get_pam_environment () const
 {
-  char **env =  pam_getenvlist(this->pam);
-
-  return env_strv_to_env_list(env);
+  return environment(pam_getenvlist(this->pam));
 }
 
 uid_t
@@ -517,30 +486,30 @@ Auth::setupenv ()
 
   /* Initial environment to set, used if the environment was not
      specified. */
-  env_list newenv;
+  environment newenv;
 
   if (this->uid == 0)
-    newenv.push_back(std::make_pair("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11"));
+    newenv.add(std::make_pair("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11"));
   else
-    newenv.push_back(std::make_pair("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games"));
+    newenv.add(std::make_pair("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games"));
 
   if (!this->home.empty())
-    newenv.push_back(std::make_pair("HOME", this->home));
+    newenv.add(std::make_pair("HOME", this->home));
   else
-    newenv.push_back(std::make_pair("HOME", "/"));
+    newenv.add(std::make_pair("HOME", "/"));
   if (!this->user.empty())
     {
-      newenv.push_back(std::make_pair("LOGNAME", this->user));
-      newenv.push_back(std::make_pair("USER", this->user));
+      newenv.add(std::make_pair("LOGNAME", this->user));
+      newenv.add(std::make_pair("USER", this->user));
     }
   {
     const char *term = getenv("TERM");
     if (term)
-      newenv.push_back(std::make_pair("TERM", term));
+      newenv.add(std::make_pair("TERM", term));
   }
 
-  env_list environment = !this->environment.empty() ? this->environment : newenv;
-  for (env_list::const_iterator cur = environment.begin();
+  environment environment = !this->user_environment.empty() ? this->user_environment : newenv;
+  for (environment::const_iterator cur = environment.begin();
        cur != environment.end();
        ++cur)
     {

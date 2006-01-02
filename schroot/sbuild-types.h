@@ -27,8 +27,6 @@ namespace sbuild
 {
 
   typedef std::vector<std::string> string_list;
-  typedef std::pair<std::string,std::string> env;
-  typedef std::vector<env> env_list;
 
 }
 

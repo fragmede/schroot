@@ -223,18 +223,13 @@ Chroot::set_run_session_scripts (bool run_session_scripts)
 }
 
 void
-Chroot::setup_env (env_list& env)
+Chroot::setup_env (environment& env)
 {
-  setup_env_var(env, "CHROOT_TYPE",
-		get_chroot_type());
-  setup_env_var(env, "CHROOT_NAME",
-		get_name());
-  setup_env_var(env, "CHROOT_DESCRIPTION",
-		get_description());
-  setup_env_var(env, "CHROOT_MOUNT_LOCATION",
-		get_mount_location());
-  setup_env_var(env, "CHROOT_MOUNT_DEVICE",
-		get_mount_device());
+  env.add("CHROOT_TYPE", get_chroot_type());
+  env.add("CHROOT_NAME", get_name());
+  env.add("CHROOT_DESCRIPTION", get_description());
+  env.add("CHROOT_MOUNT_LOCATION", get_mount_location());
+  env.add("CHROOT_MOUNT_DEVICE", get_mount_device());
 }
 
 /*

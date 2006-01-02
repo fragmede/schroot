@@ -23,11 +23,11 @@
 #include <iomanip>
 #include <ostream>
 #include <string>
-#include <sstream>
 #include <vector>
 #include <tr1/memory>
 
 #include "sbuild-error.h"
+#include "sbuild-environment.h"
 #include "sbuild-keyfile.h"
 #include "sbuild-util.h"
 
@@ -319,7 +319,7 @@ namespace sbuild
      * @param env the environment to set.
      */
     virtual void
-    setup_env (env_list& env);
+    setup_env (environment& env);
 
     /**
      * Lock a chroot during setup.  The locking technique (if any) may
@@ -478,28 +478,6 @@ namespace sbuild
     /// Run session setup scripts?
     bool          run_session_scripts;
   };
-
-  /**
-   * Set up an environment variable.
-   *
-   * @param env the environment list to add to.
-   * @param name the name of the environment variable.
-   * @param var the value of the environment variable.
-   *
-   * @todo Move into separate environment class, and drop sstream
-   * header.
-   */
-  template<typename T>
-  void
-  setup_env_var(env_list&          env,
-		std::string const& name,
-		T const&           var)
-  {
-    std::ostringstream varstring;
-    varstring.imbue(std::locale("C"));
-    varstring << var;
-    env.push_back(std::make_pair(name, varstring.str()));
-  }
 
 }
 

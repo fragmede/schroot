@@ -1,3 +1,24 @@
+2006-01-02  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-types.h: Remove env and env_list typedefs.
+
+	* schroot/sbuild-session.cc: Remove env_list_to_strv helper,
+	replaced by environment::get_strv().  Replace setup_env_var
+	helper with environment add method.
+
+	* schroot/sbuild-chroot.h: Chroot::setup_env() uses environment
+	rather than env_list; derived classes also changed.  Removed
+	setup_env_var helper.
+
+	* schroot/sbuild-auth.h: Replace env_list with environment.
+	Rename Auth::environment member to user_environment.
+
+	* schroot/sbuild-auth.cc: Remove env_string helper.
+
+	* schroot/sbuild-environment.(cc|h): New class sbuild::environment
+	to replace sbuild::env_list and its associated helpers in a number
+	of classes.  This is a collection of environment variables.
+
 2006-01-01  Roger Leigh  <rleigh@debian.org>
 
 	* Updated copyright notices to include 2006 changes.

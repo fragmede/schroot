@@ -30,6 +30,7 @@
 #include "sbuild-chroot-plain.h"
 #include "sbuild-config.h"
 #include "sbuild-error.h"
+#include "sbuild-environment.h"
 #include "sbuild-i18n.h"
 #include "sbuild-keyfile.h"
 #include "sbuild-lock.h"

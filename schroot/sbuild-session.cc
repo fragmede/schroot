@@ -79,24 +79,6 @@ namespace
     return ret;
   }
 
-  char **
-  env_list_to_strv(env_list const& env)
-  {
-    char **ret = new char *[env.size() + 1];
-
-    for (env_list::size_type i = 0;
-	 i < env.size();
-	 ++i)
-      {
-	std::string envitem = env[i].first + "=" + env[i].second;
-	ret[i] = new char[envitem.length() + 1];
-	std::strcpy(ret[i], envitem.c_str());
-      }
-    ret[env.size()] = 0;
-
-    return ret;
-  }
-
   void
   strv_delete(char **strv)
   {
@@ -539,10 +521,9 @@ Session::setup_chroot (Chroot::chroot_ptr& session_chroot,
   /* Get a complete list of environment variables to set.  We need to
      query the chroot here, since this can vary depending upon the
      chroot type. */
-  env_list env;
+  environment env;
   session_chroot->setup_env(env);
-  setup_env_var(env, "AUTH_USER",
-		get_user());
+  env.add("AUTH_USER", get_user());
   {
     const char *verbosity = NULL;
     switch (get_verbosity())
@@ -563,13 +544,13 @@ Session::setup_chroot (Chroot::chroot_ptr& session_chroot,
 	verbosity = "normal";
 	break;
       }
-    setup_env_var(env, "AUTH_VERBOSITY", verbosity);
+    env.add("AUTH_VERBOSITY", verbosity);
   }
 
-  setup_env_var(env, "MOUNT_DIR", SCHROOT_MOUNT_DIR);
-  setup_env_var(env, "LIBEXEC_DIR", SCHROOT_LIBEXEC_DIR);
-  setup_env_var(env, "PID", getpid());
-  setup_env_var(env, "SESSION_ID", this->session_id);
+  env.add("MOUNT_DIR", SCHROOT_MOUNT_DIR);
+  env.add("LIBEXEC_DIR", SCHROOT_LIBEXEC_DIR);
+  env.add("PID", getpid());
+  env.add("SESSION_ID", this->session_id);
 
   int exit_status = 0;
   pid_t pid;
@@ -708,13 +689,9 @@ Session::run_child (Chroot::chroot_ptr& session_chroot)
     }
 
   /* Set up environment */
-  env_list env = get_pam_environment();
-  for (env_list::const_iterator cur = env.begin();
-       cur != env.end();
-       ++cur)
+  environment env = get_pam_environment();
     log_debug(DEBUG_INFO)
-      << format("Set environment: %1%=%2%") % cur->first % cur->second
-      << endl;
+      << "Set environment:\n" << env;
 
   /* Run login shell */
   std::string file;
@@ -885,10 +862,10 @@ Session::run_chroot (Chroot::chroot_ptr& session_chroot)
 int
 Session::exec (std::string const& file,
 	       string_list const& command,
-	       env_list const&    env)
+	       environment const& env)
 {
   char **argv = string_list_to_strv(command);
-  char **envp = env_list_to_strv(env);
+  char **envp = env.get_strv();
   int status;
 
   if ((status = execve(file.c_str(), argv, envp)) != 0)

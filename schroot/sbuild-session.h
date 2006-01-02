@@ -203,7 +203,7 @@ namespace sbuild
     int
     exec (std::string const& file,
 	  string_list const& command,
-	  env_list const& env);
+	  environment const& env);
     /**
      * Setup a chroot.  This runs all of the commands in setup.d or run.d.
      *

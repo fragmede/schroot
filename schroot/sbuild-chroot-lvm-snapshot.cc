@@ -101,18 +101,13 @@ ChrootLvmSnapshot::get_chroot_type () const
 }
 
 void
-ChrootLvmSnapshot::setup_env (env_list& env)
+ChrootLvmSnapshot::setup_env (environment& env)
 {
   this->ChrootBlockDevice::setup_env(env);
 
-  setup_env_var(env, "CHROOT_LVM_SNAPSHOT_NAME",
-		sbuild::basename(get_snapshot_device()));
-
-  setup_env_var(env, "CHROOT_LVM_SNAPSHOT_DEVICE",
-		get_snapshot_device());
-
-  setup_env_var(env, "CHROOT_LVM_SNAPSHOT_OPTIONS",
-		get_snapshot_options());
+  env.add("CHROOT_LVM_SNAPSHOT_NAME", sbuild::basename(get_snapshot_device()));
+  env.add("CHROOT_LVM_SNAPSHOT_DEVICE", get_snapshot_device());
+  env.add("CHROOT_LVM_SNAPSHOT_OPTIONS", get_snapshot_options());
 }
 
 void

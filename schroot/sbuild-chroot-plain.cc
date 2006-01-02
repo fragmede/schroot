@@ -79,12 +79,11 @@ ChrootPlain::get_chroot_type () const
 }
 
 void
-ChrootPlain::setup_env (env_list& env)
+ChrootPlain::setup_env (environment& env)
 {
   this->Chroot::setup_env(env);
 
-  setup_env_var(env, "CHROOT_LOCATION",
-		get_location());
+  env.add("CHROOT_LOCATION", get_location());
 }
 
 void
