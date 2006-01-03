@@ -113,7 +113,7 @@ Auth::Auth(std::string const& service_name):
   struct passwd *pwent = getpwuid(this->ruid);
   if (pwent == 0)
     {
-      cerr << format(_("%1%: user not found: %2%"))
+      log_error() << format(_("%1%: user not found: %2%"))
 	% this->ruid
 	% strerror(errno)
 	   << endl;
@@ -329,7 +329,7 @@ Auth::run ()
 void
 Auth::start ()
 {
-  assert(this->user.empty());
+  assert(!this->user.empty());
 
   if (this->pam != 0)
     {
@@ -381,7 +381,7 @@ Auth::stop ()
 void
 Auth::authenticate ()
 {
-  assert(this->user.empty());
+  assert(!this->user.empty());
   assert(this->pam != 0); // PAM must be initialised
 
   int pam_status;

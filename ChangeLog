@@ -1,3 +1,8 @@
+2006-01-03  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-auth.cc: Log a warning if construction fails.
+	Correct buggy user assertions.
+
 2006-01-02  Roger Leigh  <rleigh@debian.org>
 
 	* Actually commit the new environment class.
