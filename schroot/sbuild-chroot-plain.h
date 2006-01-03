@@ -91,16 +91,6 @@ namespace sbuild
     print_config (std::ostream& stream) const;
 
   private:
-    /**
-     * Read chroot configuration from a keyfile.
-     *
-     * @param keyfile the configuration file
-     * @param group the keyfile group (chroot name)
-     */
-    void
-    read_keyfile (keyfile const&     keyfile,
-		  std::string const& group);
-
     /// The directory location of the chroot.
     std::string location;
   };

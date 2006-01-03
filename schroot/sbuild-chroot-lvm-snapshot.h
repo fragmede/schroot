@@ -113,16 +113,6 @@ namespace sbuild
 
   private:
     /**
-     * Read chroot configuration from a keyfile.
-     *
-     * @param keyfile the configuration file
-     * @param group the keyfile group (chroot name)
-     */
-    void
-    read_keyfile (keyfile const&      keyfile,
-		  std::string const&  group);
-
-    /**
      * Set up persistent session information.
      *
      * @param start true if startion, or false if ending a session.

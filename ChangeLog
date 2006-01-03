@@ -1,5 +1,41 @@
 2006-01-03  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-session.cc
+	(unnamed namespace): Add child_wait variable to allow debugging of
+	child processes.
+	(get_auth_status): Correct checks for null chroot.
+	(run_impl): Correct checks for null chroot.
+	(setup_chroot): Call closelog in child before exec.
+	(run_child): Remove mount_location assertion, since for some
+	chroot types this will fail.
+	(run_child): Use command[0] rather than command[1], which may not
+	exist.  Call closelog in before exec.
+	(run_chroot): Loop on child_wait to allow a debugger to be
+	attached to the child, if debugging is enabled.
+
+	* schroot/sbuild-environment.cc (add): Use char ** for iterator
+	type, and add additional checks for null.
+	(add): Add stricter substring range checks
+	(remove): Add stricter substring range checks.
+
+	* schroot/sbuild-chroot.cc
+
+	* schroot/sbuild-chroot-plain.cc
+	(ChrootPlain): Move read_keyfile code into the constructor.
+
+	* schroot/sbuild-chroot-lvm-snapshot.cc
+	(ChrootLvmSnapshot): Move read_keyfile code into the constructor.
+
+	* schroot/sbuild-chroot-block-device.cc
+	(ChrootBlockDevice): Move read_keyfile code into the constructor.
+
+	* schroot/sbuild-chroot.cc
+	(Chroot): Move read_keyfile code into the constructor.
+	(print_details): Print mount_location and mount_device if set for
+	both session and non-session chroots.
+
+2006-01-03  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-auth.cc: Log a warning if construction fails.
 	Correct buggy user assertions.
 

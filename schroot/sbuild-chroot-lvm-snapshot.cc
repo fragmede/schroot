@@ -49,7 +49,15 @@ ChrootLvmSnapshot::ChrootLvmSnapshot (keyfile const&     keyfile,
   snapshot_device(),
   snapshot_options()
 {
-  read_keyfile(keyfile, group);
+  std::string snapshot_device;
+  if (keyfile.get_value(group, "lvm-snapshot-device",
+			keyfile::PRIORITY_REQUIRED, snapshot_device))
+    set_snapshot_device(snapshot_device);
+
+  std::string snapshot_options;
+  if (keyfile.get_value(group, "lvm-snapshot-options",
+			keyfile::PRIORITY_REQUIRED, snapshot_options))
+    set_snapshot_options(snapshot_options);
 }
 
 ChrootLvmSnapshot::~ChrootLvmSnapshot()
@@ -278,21 +286,6 @@ ChrootLvmSnapshot::print_config (std::ostream& stream) const
   if (!this->snapshot_options.empty())
     stream << "lvm-snapshot-options=" << get_snapshot_options() << '\n';
   stream << std::flush;
-}
-
-void
-ChrootLvmSnapshot::read_keyfile (keyfile const&     keyfile,
-				 std::string const& group)
-{
-  std::string snapshot_device;
-  if (keyfile.get_value(group, "lvm-snapshot-device",
-			keyfile::PRIORITY_REQUIRED, snapshot_device))
-    set_snapshot_device(snapshot_device);
-
-  std::string snapshot_options;
-  if (keyfile.get_value(group, "lvm-snapshot-options",
-			keyfile::PRIORITY_REQUIRED, snapshot_options))
-    set_snapshot_options(snapshot_options);
 }
 
 /*

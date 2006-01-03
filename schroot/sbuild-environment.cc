@@ -44,8 +44,8 @@ environment::add (char **environment)
 {
   if (environment)
     {
-      for (char *ev = environment[0]; ev != 0; ++ev)
-	add(std::string(ev));
+      for (char **ev = environment; ev != 0 && *ev != 0; ++ev)
+	add(std::string(*ev));
     }
 }
 
@@ -65,8 +65,10 @@ environment::add (std::string const& value)
   if (pos != std::string::npos && pos != 0)
     {
       std::string key = value.substr(0, pos);
-      std::string value = value.substr(pos + 1);
-      add(std::make_pair(key, value));
+      std::string val;
+      if (pos < value.length())
+	val = value.substr(pos + 1);
+      add(std::make_pair(key, val));
     }
   else
     {
@@ -109,8 +111,10 @@ environment::remove (std::string const& value)
   if (pos != std::string::npos && pos != 0)
     {
       std::string key = value.substr(0, pos);
-      std::string value = value.substr(pos + 1);
-      remove(std::make_pair(key, value));
+      std::string val;
+      if (pos < value.length())
+	val = value.substr(pos + 1);
+      remove(std::make_pair(key, val));
     }
   else
     {

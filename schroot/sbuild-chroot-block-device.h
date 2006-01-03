@@ -111,16 +111,6 @@ namespace sbuild
     print_config (std::ostream& stream) const;
 
   private:
-    /**
-     * Read chroot configuration from a keyfile.
-     *
-     * @param keyfile the configuration file
-     * @param group the keyfile group (chroot name)
-     */
-    void
-    read_keyfile (keyfile const&     keyfile,
-		  std::string const& group);
-
     /// The block device to use.
     std::string device;
     /// The options to mount the device with.

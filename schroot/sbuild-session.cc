@@ -149,6 +149,10 @@ namespace
     return group_member;
   }
 
+#ifdef SBUILD_DEBUG
+  static volatile bool child_wait = true;
+#endif
+
 }
 
 Session::Session (std::string const& service,
@@ -249,7 +253,7 @@ Session::get_auth_status () const
        ++cur)
     {
       const Chroot::chroot_ptr chroot = this->config->find_alias(*cur);
-      if (chroot) // Should never happen, but cater for it anyway.
+      if (!chroot) // Should never happen, but cater for it anyway.
 	{
 	  log_warning() << format(_("No chroot found matching alias '%1%'"))
 	    % *cur
@@ -328,7 +332,7 @@ try
 	  << format("Running session in %1% chroot:") % *cur
 	  << endl;
 	const Chroot::chroot_ptr ch = this->config->find_alias(*cur);
-	if (ch) // Should never happen, but cater for it anyway.
+	if (!ch) // Should never happen, but cater for it anyway.
 	  {
 	    format fmt(_("%1%: Failed to find chroot"));
 	    fmt % *cur;
@@ -563,6 +567,9 @@ Session::setup_chroot (Chroot::chroot_ptr& session_chroot,
     }
   else if (pid == 0)
     {
+      // The setup scripts don't use our syslog fd.
+      closelog();
+
       chdir("/");
       /* This is required to ensure the scripts run with uid=0 and gid=0,
 	 otherwise setuid programs such as mount(8) will fail.  This
@@ -607,7 +614,6 @@ void
 Session::run_child (Chroot::chroot_ptr& session_chroot)
 {
   assert(!session_chroot->get_name().empty());
-  assert(!session_chroot->get_mount_location().empty());
 
   assert(!get_user().empty());
   assert(!get_shell().empty());
@@ -709,7 +715,7 @@ Session::run_child (Chroot::chroot_ptr& session_chroot)
 	  std::string loginshell = "-" + shellbase;
 	  command.push_back(loginshell);
 	  log_debug(DEBUG_INFO)
-	    << format("Login shell: %1%") % command[1] << endl;
+	    << format("Login shell: %1%") % command[0] << endl;
 	}
       else
 	{
@@ -776,6 +782,9 @@ Session::run_child (Chroot::chroot_ptr& session_chroot)
 		       << endl;
 	}
     }
+
+  // The user's command does not use our syslog fd.
+  closelog();
 
   /* Execute */
   if (exec (file, command, env))
@@ -850,6 +859,10 @@ Session::run_chroot (Chroot::chroot_ptr& session_chroot)
     }
   else if (pid == 0)
     {
+#ifdef SBUILD_DEBUG
+      while (child_wait)
+	;
+#endif
       run_child(session_chroot);
       exit (EXIT_FAILURE); /* Should never be reached. */
     }

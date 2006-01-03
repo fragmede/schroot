@@ -370,16 +370,6 @@ namespace sbuild
 
   protected:
     /**
-     * Read chroot configuration from a keyfile.
-     *
-     * @param keyfile the configuration file
-     * @param group the keyfile group (chroot name)
-     */
-    void
-    read_keyfile (keyfile const&     keyfile,
-		  std::string const& group);
-
-    /**
      * Helper to perform formatting of chroot details.
      */
     template<typename T>
