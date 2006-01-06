@@ -1,0 +1,9 @@
+.deps
+.libs
+Makefile
+Makefile.in
+*.la
+*.lo
+*.gch
+sbuild-util
+

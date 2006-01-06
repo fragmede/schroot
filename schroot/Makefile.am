@@ -25,7 +25,6 @@ SUBDIRS = pam run setup
 localedir = $(datadir)/locale
 pkglibexecdir = $(SCHROOT_LIBEXEC_DIR)
 
-AM_CFLAGS = -std=c99 $(SCHROOT_CFLAGS)
 AM_CXXFLAGS = $(SCHROOT_CFLAGS) -pedantic -Wall -Wcast-align -Wextra -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
 #  -Weffc++ causes too many warnings in standard headers.
 

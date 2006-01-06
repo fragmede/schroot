@@ -151,7 +151,7 @@ sbuild::find_program_in_path(std::string const& program)
     return program;
 
   char *path = getenv("PATH");
-  string_list dirs = split_string(path, '/');
+  string_list dirs = split_string(path, ':');
 
   for (string_list::const_iterator dir = dirs.begin();
        dir != dirs.end();

@@ -20,10 +20,15 @@
 #
 #####################################################################
 
-SUBDIRS = schroot test doc po
+AM_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -pedantic -Wall -Wcast-align -Wextra -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
+#  -Weffc++ causes too many warnings in standard headers.
 
-# Remove CVS directories from the generated tarball.
-dist-hook:
-	find $(distdir) -type d -name CVS -print0 | xargs -0 rm -rf
+if USE_UNIT_TESTS
+noinst_PROGRAMS = 	\
+	sbuild-util
 
-EXTRA_DIST = debian
+TESTS = $(noinst_PROGRAMS)
+endif
+
+sbuild_util_SOURCES = testmain.cc sbuild-util.cc
+sbuild_util_LDADD = ../schroot/libsbuild.la $(CPPUNIT_LIBS)

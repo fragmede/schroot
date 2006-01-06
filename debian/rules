@@ -21,7 +21,6 @@ endif
 
 config.status: configure
 	dh_testdir
-	# Add here commands to configure the package.
 	CFLAGS="$(CFLAGS)" ./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --sysconfdir=/etc --libexecdir=/usr/lib --localstatedir=/var --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info
 
 
@@ -30,9 +29,7 @@ build: build-stamp
 build-stamp:  config.status
 	dh_testdir
 
-	# Add here commands to compile the package.
-	$(MAKE)
-	#docbook-to-man debian/schroot.sgml > schroot.1
+	$(MAKE) all check
 
 	touch build-stamp
 
@@ -41,7 +38,6 @@ clean:
 	dh_testroot
 	rm -f build-stamp 
 
-	# Add here commands to clean up after the build process.
 	-$(MAKE) distclean
 ifneq "$(wildcard /usr/share/misc/config.sub)" ""
 	cp -f /usr/share/misc/config.sub config.sub
@@ -59,7 +55,6 @@ install: build
 	dh_clean -k 
 	dh_installdirs
 
-	# Add here commands to install the package into debian/schroot.
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/schroot
 	rm -rf $(CURDIR)/debian/schroot/usr/share/gtk-doc
 	mkdir -p $(CURDIR)/debian/schroot/usr/share/lintian/overrides
@@ -90,4 +85,4 @@ binary-arch: build install
 	dh_builddeb
 
 binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install 
+.PHONY: build clean binary-indep binary-arch binary install

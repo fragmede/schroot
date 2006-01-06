@@ -61,6 +61,8 @@ AH_TEMPLATE(RUN_PARTS,, [run-parts binary])
 AC_DEFINE_UNQUOTED(RUN_PARTS, ["$RUN_PARTS"], )
 # Checks for libraries.
 PKG_CHECK_MODULES([UUID], [uuid])
+AM_PATH_CPPUNIT([1.10.0], [HAVE_CPPUNIT=true])
+AM_CONDITIONAL([USE_UNIT_TESTS], [test -n "$HAVE_CPPUNIT"])
 
 SCHROOT_CFLAGS="$UUID_CFLAGS"
 AC_SUBST([SCHROOT_CFLAGS])
@@ -234,6 +236,7 @@ AC_CONFIG_FILES([schroot/setup/Makefile])
 AC_CONFIG_FILES([schroot/schroot.1])
 AC_CONFIG_FILES([schroot/schroot-setup.5])
 AC_CONFIG_FILES([schroot/schroot.conf.5])
+AC_CONFIG_FILES([test/Makefile])
 AC_CONFIG_FILES([Makefile])
 dnl Output the generated config.status script.
 AC_OUTPUT

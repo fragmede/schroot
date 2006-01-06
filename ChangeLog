@@ -1,3 +1,20 @@
+2006-01-06  Roger Leigh  <rleigh@debian.org>
+
+	* debian/rules: Build and run the testsuite in the build target.
+
+	* debian/control (Build-Depends): Add libcppunit-dev.
+
+	* schroot/sbuild-util.cc
+	(find_program_in_path): Split PATH on ':' characters.
+
+	* test/sbuild-util.cc: New file: tests for sbuild-util functions.
+
+	* test/testmain.cc: New file: test runner for all tests.
+
+	* configure.ac: Add check and conditinal for CppUnit.
+
+	* Makefile.am (SUBDIRS): Add test directory.
+
 2006-01-03  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-session.cc
