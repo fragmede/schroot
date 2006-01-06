@@ -1,5 +1,17 @@
 2006-01-06  Roger Leigh  <rleigh@debian.org>
 
+	* doc/Makefile.am (all-local): Don't rebuild doxygen documentation
+	when not in maintainer mode.
+
+	* configure.ac: Enable maintainer mode.
+
+2006-01-06  Roger Leigh  <rleigh@debian.org>
+
+	* doc/Makefile.am (EXTRA_DIST): Distribute schroot-stamp, to
+	prevent documentation rebuild.
+
+2006-01-06  Roger Leigh  <rleigh@debian.org>
+
 	* debian/rules: Build and run the testsuite in the build target.
 
 	* debian/control (Build-Depends): Add libcppunit-dev.

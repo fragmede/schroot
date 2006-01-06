@@ -20,7 +20,9 @@
 #
 #####################################################################
 
+if MAINTAINER_MODE
 all-local: schroot
+endif
 
 if USE_DOXYGEN
 schroot: schroot-stamp
@@ -42,7 +44,8 @@ maintainer-clean-local:
 MAINTAINERCLEANFILES = \
 	schroot-stamp
 
-EXTRA_DIST = \
-	schroot
+EXTRA_DIST =		\
+	schroot		\
+	schroot-stamp
 
 .PHONY: schroot

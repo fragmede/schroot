@@ -33,6 +33,7 @@ AC_CONFIG_HEADER([config.h])
 
 dnl Initialise automake stuff.
 AM_INIT_AUTOMAKE(1.9 gnu check-news dist-bzip2 no-dist-gzip)
+AM_MAINTAINER_MODE
 
 AC_MSG_CHECKING([whether to enable debugging messages])
 AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug], [Enable debugging messages])],
