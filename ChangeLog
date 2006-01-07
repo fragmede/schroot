@@ -1,5 +1,9 @@
 2006-01-07  Roger Leigh  <rleigh@debian.org>
 
+	* po/sv.po: Add Swedish translation.
+
+2006-01-07  Roger Leigh  <rleigh@debian.org>
+
 	* Add copyright and GPL boilerplate to all testcase code.
 
 	* test/sbuild-chroot.cc: New testcase for sbuild::Chroot.
