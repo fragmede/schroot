@@ -25,10 +25,14 @@ AM_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -pedantic -Wall -Wcast-align -
 
 if USE_UNIT_TESTS
 noinst_PROGRAMS = 	\
+	sbuild-chroot	\
 	sbuild-util
 
 TESTS = $(noinst_PROGRAMS)
 endif
+
+sbuild_chroot_SOURCES = testmain.cc sbuild-chroot.cc
+sbuild_chroot_LDADD = ../schroot/libsbuild.la $(CPPUNIT_LIBS)
 
 sbuild_util_SOURCES = testmain.cc sbuild-util.cc
 sbuild_util_LDADD = ../schroot/libsbuild.la $(CPPUNIT_LIBS)

@@ -1,3 +1,19 @@
+2006-01-07  Roger Leigh  <rleigh@debian.org>
+
+	* Add copyright and GPL boilerplate to all testcase code.
+
+	* test/sbuild-chroot.cc: New testcase for sbuild::Chroot.
+
+	* schroot/sbuild-environment.cc (remove): For the "char **"
+	overloaded method, use the correct iterator type (the same as the
+	equivalent add function).
+
+	* schroot/sbuild-environment.h (add): Specialise templated method
+	for strings.
+
+	* schroot/sbuild-environment.h (get): New templated method to
+	retrieve the value of an environment variable by its name.
+
 2006-01-06  Roger Leigh  <rleigh@debian.org>
 
 	* doc/Makefile.am (all-local): Don't rebuild doxygen documentation

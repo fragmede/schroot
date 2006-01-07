@@ -24,6 +24,8 @@
 #include <string>
 #include <sstream>
 
+#include "sbuild-log.h"
+
 namespace sbuild
 {
 
@@ -57,6 +59,13 @@ namespace sbuild
     void
     add (value_type const& value);
 
+    void
+    add(std::string const& name,
+	std::string const& value)
+    {
+      add(std::make_pair(name, value));
+    }
+
     template<typename T>
     void
     add(std::string const& name,
@@ -82,6 +91,35 @@ namespace sbuild
 
     void
     remove (value_type const& value);
+
+    // @todo Optimise string access as for keyfile.
+    template <typename T>
+    bool
+    get (std::string const& name,
+	 T&                 value)
+    {
+      log_debug(DEBUG_INFO) << "Getting environment varriable=" << name
+			    << std::endl;
+      iterator pos = find(name);
+      if (pos != end())
+	{
+	  std::istringstream is(pos->second);
+	  is.imbue(std::locale("C"));
+	  T tmpval;
+	  is >> tmpval;
+	  if (!is.bad())
+	    {
+	      value = tmpval;
+	      log_debug(DEBUG_NOTICE) << "value=" << value << std::endl;
+	      return true;
+	    }
+	  log_debug(DEBUG_NOTICE) << "parse error" << std::endl;
+	}
+      else
+	log_debug(DEBUG_NOTICE) << "name not found: " << name << std::endl;
+
+      return false;
+    }
 
     char **
     get_strv() const;

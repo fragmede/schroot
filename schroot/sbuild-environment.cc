@@ -89,8 +89,8 @@ environment::remove (char **environment)
 {
   if (environment)
     {
-      for (char *ev = environment[0]; ev != 0; ++ev)
-	remove(std::string(ev));
+      for (char **ev = environment; ev != 0 && *ev != 0; ++ev)
+	remove(std::string(*ev));
     }
 }
 
