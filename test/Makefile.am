@@ -24,6 +24,8 @@ AM_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -pedantic -Wall -Wcast-align -
 #  -Weffc++ causes too many warnings in standard headers.
 
 if USE_UNIT_TESTS
+noinst_LTLIBRARIES = libtest.la
+
 noinst_PROGRAMS = 	\
 	sbuild-chroot	\
 	sbuild-util
@@ -31,8 +33,18 @@ noinst_PROGRAMS = 	\
 TESTS = $(noinst_PROGRAMS)
 endif
 
-sbuild_chroot_SOURCES = testmain.cc sbuild-chroot.cc
-sbuild_chroot_LDADD = ../schroot/libsbuild.la $(CPPUNIT_LIBS)
+libtest_la_SOURCES = 	\
+	test-helpers.h	\
+	testmain.cc
+libtest_la_LIBADD = $(CPPUNIT_LIBS)
 
-sbuild_util_SOURCES = testmain.cc sbuild-util.cc
-sbuild_util_LDADD = ../schroot/libsbuild.la $(CPPUNIT_LIBS)
+sbuild_chroot_SOURCES = 		\
+	sbuild-chroot.cc		\
+	sbuild-chroot-plain.cc		\
+	sbuild-chroot-block-device.cc	\
+	sbuild-chroot-lvm-snapshot.cc	\
+	test-sbuild-chroot.h
+sbuild_chroot_LDADD = ../schroot/libsbuild.la libtest.la
+
+sbuild_util_SOURCES = sbuild-util.cc
+sbuild_util_LDADD = ../schroot/libsbuild.la libtest.la

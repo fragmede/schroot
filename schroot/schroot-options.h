@@ -35,16 +35,17 @@ namespace schroot
   class Options
   {
   public:
+    /// The action to perform.
     enum action_type
       {
-	ACTION_SESSION_AUTO,
-	ACTION_SESSION_BEGIN,
-	ACTION_SESSION_RECOVER,
-	ACTION_SESSION_RUN,
-	ACTION_SESSION_END,
-	ACTION_VERSION,
-	ACTION_LIST,
-	ACTION_INFO
+	ACTION_SESSION_AUTO,    ///< Begin, run and end a session.
+	ACTION_SESSION_BEGIN,   ///< Begin a session.
+	ACTION_SESSION_RECOVER, ///< Recover an existing session.
+	ACTION_SESSION_RUN,     ///< Run an existing session.
+	ACTION_SESSION_END,     ///< End an existing session.
+	ACTION_VERSION,         ///< Display program version.
+	ACTION_LIST,            ///< Display a list of chroots.
+	ACTION_INFO             ///< Display chroot information.
       };
 
     /**
@@ -96,6 +97,12 @@ namespace schroot
     void
     set_action (action_type action);
 
+    /**
+     * Check if any of the --all options have been used.
+     *
+     * @returns true if any of the options have been used, otherwise
+     * false.
+     */
     bool
     all_used() const
     {

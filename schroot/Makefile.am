@@ -57,6 +57,7 @@ sbuild_public_h_sources =		\
 	sbuild-lock.h			\
 	sbuild-log.h			\
 	sbuild-nostream.h		\
+	sbuild-parse-value.h		\
 	sbuild-session.h		\
 	sbuild-types.h			\
 	sbuild-util.h
@@ -76,6 +77,7 @@ sbuild_public_cc_sources =		\
 	sbuild-lock.cc			\
 	sbuild-log.cc			\
 	sbuild-nostream.cc		\
+	sbuild-parse-value.cc		\
 	sbuild-session.cc		\
 	sbuild-util.cc
 

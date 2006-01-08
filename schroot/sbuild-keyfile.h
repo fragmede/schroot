@@ -32,6 +32,7 @@
 #include "sbuild-error.h"
 #include "sbuild-i18n.h"
 #include "sbuild-log.h"
+#include "sbuild-parse-value.h"
 #include "sbuild-types.h"
 #include "sbuild-util.h"
 
@@ -135,57 +136,13 @@ namespace sbuild
 
   private:
     /**
-     * Parse a key value and set the value of the specified value type.
+     * Check if a key is missing or present when not permitted.
      *
-     * @param string val the key value.
-     * @param value the value type to store the parsed value in.
-     * @returns true on success, false on failure.
+     * @param group the group the key is in.
+     * @param key the key to get.
+     * @param priority the key priority.
+     * @param valid true if key exists, false if not existing.
      */
-    template <typename T>
-    bool
-    parse_value (std::string const& stringval,
-		 T&                 value) const
-    {
-      std::istringstream is(stringval);
-      is.imbue(std::locale("C"));
-      T tmpval;
-      is >> tmpval;
-      if (!is.bad())
-	{
-	  value = tmpval;
-	  log_debug(DEBUG_NOTICE) << "value=" << value << std::endl;
-	  return true;
-	}
-      log_debug(DEBUG_NOTICE) << "parse error" << std::endl;
-      return false;
-    }
-
-    bool
-    parse_value (std::string const& stringval,
-		 bool&              value) const
-    {
-      if (stringval == "true" || stringval == "yes" || stringval == "1")
-	value = true;
-      else if (stringval == "false" || stringval == "no" || stringval == "0")
-	value = true;
-      else
-	return false;
-
-      // TODO: throw exception on parse failure.
-
-      log_debug(DEBUG_NOTICE) << "value=" << value << std::endl;
-      return true;
-    }
-
-    bool
-    parse_value (std::string const& stringval,
-		 std::string&       value) const
-    {
-      value = stringval;
-      log_debug(DEBUG_NOTICE) << "value=" << value << std::endl;
-      return true;
-    }
-
     void
     check_priority (std::string const& group,
 		    std::string const& key,

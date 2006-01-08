@@ -390,7 +390,11 @@ namespace sbuild
       {}
 
       /**
-       * Send format detail to an ostream.
+       * Output the formatted detail to an ostream.
+       *
+       * @param stream the stream to output to.
+       * @param rhs the formatted detail to output.
+       * @returns the stream.
        */
       friend std::ostream&
       operator << (std::ostream&           stream,
@@ -402,7 +406,12 @@ namespace sbuild
       }
 
       /**
-       * Send format detail to an ostream (special case for boolean values).
+       * Output the formatted detail to an ostream.  This is a special
+       * case for boolean values.
+       *
+       * @param stream the stream to output to.
+       * @param rhs the formatted detail to output.
+       * @returns the stream.
        */
       friend std::ostream&
       operator << (std::ostream&              stream,
@@ -417,8 +426,12 @@ namespace sbuild
       }
 
       /**
-       * Send format detail to an ostream (special case for string_list).
-       * @todo Is this redundant?
+       * Output the formatted detail to an ostream.  This is a special
+       * case for string_list values.
+       *
+       * @param stream the stream to output to.
+       * @param rhs the formatted detail to output.
+       * @returns the stream.
        */
       friend std::ostream&
       operator << (std::ostream&                     stream,
@@ -436,6 +449,14 @@ namespace sbuild
       T const&           value;
     };
 
+    /**
+     * Format a name-value pair for output.  This is a convenience
+     * wrapper to construct a format_detail of the appropriate type.
+     *
+     * @param name the name to output.
+     * @param value the value to output.
+     * @returns a format_detail of the appropriate type.
+     */
     template<typename T>
     format_detail<T>
     format_details(std::string const& name,

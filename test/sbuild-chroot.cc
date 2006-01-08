@@ -24,6 +24,9 @@
 
 #include <schroot/sbuild-chroot.h>
 
+#include "test-helpers.h"
+#include "test-sbuild-chroot.h"
+
 using namespace CppUnit;
 
 class basic_chroot : public sbuild::Chroot
@@ -66,7 +69,7 @@ public:
   { sbuild::Chroot::print_config(stream); }
 };
 
-class test_chroot : public TestFixture
+class test_chroot : public test_chroot_base<basic_chroot>
 {
   CPPUNIT_TEST_SUITE(test_chroot);
   CPPUNIT_TEST(test_name);
@@ -87,45 +90,35 @@ class test_chroot : public TestFixture
   CPPUNIT_TEST(test_print_config);
   CPPUNIT_TEST_SUITE_END();
 
-  sbuild::Chroot::chroot_ptr chroot;
-
 public:
   test_chroot():
-    chroot()
+    test_chroot_base<basic_chroot>()
   {}
-
-  void setUp()
-  {
-    this->chroot = sbuild::Chroot::chroot_ptr(new basic_chroot);
-  }
-
-  void tearDown()
-  {
-    this->chroot = sbuild::Chroot::chroot_ptr();
-  }
 
   void test_name()
   {
-    chroot->set_name("test-name");
-    CPPUNIT_ASSERT(chroot->get_name() == "test-name");
+    chroot->set_name("test-name-example");
+    CPPUNIT_ASSERT(chroot->get_name() == "test-name-example");
   }
 
   void test_description()
   {
-    chroot->set_description("test-description");
-    CPPUNIT_ASSERT(chroot->get_description() == "test-description");
+    chroot->set_description("test-description-example");
+    CPPUNIT_ASSERT(chroot->get_description() == "test-description-example");
   }
 
   void test_mount_location()
   {
-    chroot->set_mount_location("/mnt/mount-location");
-    CPPUNIT_ASSERT(chroot->get_mount_location() == "/mnt/mount-location");
+    chroot->set_mount_location("/mnt/mount-location/example");
+    CPPUNIT_ASSERT(chroot->get_mount_location() ==
+		   "/mnt/mount-location/example");
   }
 
   void test_mount_device()
   {
-    chroot->set_mount_device("/dev/device-to-mount");
-    CPPUNIT_ASSERT(chroot->get_mount_device() == "/dev/device-to-mount");
+    chroot->set_mount_device("/dev/device-to-mount/example");
+    CPPUNIT_ASSERT(chroot->get_mount_device() ==
+		   "/dev/device-to-mount/example");
   }
 
   void test_priority()
@@ -142,22 +135,10 @@ public:
     groups.push_back("fred");
     groups.push_back("users");
 
-    chroot->set_groups(groups);
-
-    // Check set groups exist, but make no assumptions about ordering.
-    sbuild::string_list const& set_groups = chroot->get_groups();
-    CPPUNIT_ASSERT(set_groups.size() == 4);
-    CPPUNIT_ASSERT(std::find(set_groups.begin(), set_groups.end(),
-			     std::string("schroot")) != set_groups.end());
-    CPPUNIT_ASSERT(std::find(set_groups.begin(), set_groups.end(),
-			     std::string("sbuild-users")) != set_groups.end());
-    CPPUNIT_ASSERT(std::find(set_groups.begin(), set_groups.end(),
-			     std::string("fred")) != set_groups.end());
-    CPPUNIT_ASSERT(std::find(set_groups.begin(), set_groups.end(),
-			     std::string("users")) != set_groups.end());
-    // Ensure the test is working.
-    CPPUNIT_ASSERT(std::find(set_groups.begin(), set_groups.end(),
-			     std::string("invalid")) == set_groups.end());
+    test_list(*chroot.get(),
+	      groups,
+	      &sbuild::Chroot::get_groups,
+	      &sbuild::Chroot::set_groups);
   }
 
   void test_root_groups()
@@ -167,20 +148,10 @@ public:
     groups.push_back("trusted");
     groups.push_back("root");
 
-    chroot->set_root_groups(groups);
-
-    // Check set groups exist, but make no assumptions about ordering.
-    sbuild::string_list const& set_groups = chroot->get_root_groups();
-    CPPUNIT_ASSERT(set_groups.size() == 3);
-    CPPUNIT_ASSERT(std::find(set_groups.begin(), set_groups.end(),
-			     std::string("schroot")) != set_groups.end());
-    CPPUNIT_ASSERT(std::find(set_groups.begin(), set_groups.end(),
-			     std::string("trusted")) != set_groups.end());
-    CPPUNIT_ASSERT(std::find(set_groups.begin(), set_groups.end(),
-			     std::string("root")) != set_groups.end());
-    // Ensure the test is working.
-    CPPUNIT_ASSERT(std::find(set_groups.begin(), set_groups.end(),
-			     std::string("invalid")) == set_groups.end());
+    test_list(*chroot.get(),
+	      groups,
+	      &sbuild::Chroot::get_root_groups,
+	      &sbuild::Chroot::set_root_groups);
   }
 
   void test_aliases()
@@ -189,18 +160,10 @@ public:
     aliases.push_back("alias1");
     aliases.push_back("alias2");
 
-    chroot->set_aliases(aliases);
-
-    // Check aliases exist, but make no assumptions about ordering.
-    sbuild::string_list const& set_aliases = chroot->get_aliases();
-    CPPUNIT_ASSERT(set_aliases.size() == 2);
-    CPPUNIT_ASSERT(std::find(set_aliases.begin(), set_aliases.end(),
-			     std::string("alias1")) != set_aliases.end());
-    CPPUNIT_ASSERT(std::find(set_aliases.begin(), set_aliases.end(),
-			     std::string("alias2")) != set_aliases.end());
-    // Ensure the test is working.
-    CPPUNIT_ASSERT(std::find(set_aliases.begin(), set_aliases.end(),
-			     std::string("invalid")) == set_aliases.end());
+    test_list(*chroot.get(),
+	      aliases,
+	      &sbuild::Chroot::get_aliases,
+	      &sbuild::Chroot::set_aliases);
   }
 
   void test_active()
@@ -237,65 +200,14 @@ public:
 
   void test_setup_env()
   {
-    chroot->set_name("test-name");
-    chroot->set_description("test-description");
-    chroot->set_mount_location("/mnt/mount-location");
-    chroot->set_mount_device("/dev/device-to-mount");
-    sbuild::environment env;
-    chroot->setup_env(env);
+    sbuild::environment expected;
+    expected.add("CHROOT_TYPE",           "test");
+    expected.add("CHROOT_NAME",           "test-name");
+    expected.add("CHROOT_DESCRIPTION",    "test-description");
+    expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
+    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/device-to-mount");
 
-    CPPUNIT_ASSERT(env.size() != 0);
-
-    std::set<std::string> expected;
-    expected.insert("CHROOT_TYPE");
-    expected.insert("CHROOT_NAME");
-    expected.insert("CHROOT_DESCRIPTION");
-    expected.insert("CHROOT_MOUNT_LOCATION");
-    expected.insert("CHROOT_MOUNT_DEVICE");
-
-    std::set<std::string> found;
-    for (sbuild::environment::const_iterator pos = env.begin();
-	 pos != env.end();
-	 ++pos)
-      found.insert(pos->first);
-
-    sbuild::string_list missing;
-    set_difference(expected.begin(), expected.end(),
-		   found.begin(), found.end(),
-		   std::back_inserter(missing));
-    if (!missing.empty())
-      {
-	for (sbuild::string_list::const_iterator pos = missing.begin();
-	     pos != missing.end();
-	     ++pos)
-	  std::cout << "Missing environment: " << *pos << std::endl;
-      }
-    CPPUNIT_ASSERT(missing.empty());
-
-    sbuild::string_list extra;
-    set_difference(found.begin(), found.end(),
-		   expected.begin(), expected.end(),
-		   std::back_inserter(extra));
-    if (!extra.empty())
-      {
-	for (sbuild::string_list::const_iterator pos = extra.begin();
-	     pos != extra.end();
-	     ++pos)
-	  std::cout << "Additional environment: " << *pos << std::endl;
-      }
-    CPPUNIT_ASSERT(extra.empty());
-
-    std::string checkval;
-    CPPUNIT_ASSERT(env.get("CHROOT_TYPE", checkval) == true &&
-		   checkval == "test");
-    CPPUNIT_ASSERT(env.get("CHROOT_NAME", checkval) == true &&
-		   checkval == "test-name");
-    CPPUNIT_ASSERT(env.get("CHROOT_DESCRIPTION", checkval) == true &&
-		   checkval == "test-description");
-    CPPUNIT_ASSERT(env.get("CHROOT_MOUNT_LOCATION", checkval) == true &&
-		   checkval == "/mnt/mount-location");
-    CPPUNIT_ASSERT(env.get("CHROOT_MOUNT_DEVICE", checkval) == true &&
-		   checkval == "/dev/device-to-mount");
+    test_chroot_base<basic_chroot>::test_setup_env(expected);
   }
 
   void test_session_flags()
@@ -322,3 +234,9 @@ public:
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_chroot);
+
+/*
+ * Local Variables:
+ * mode:C++
+ * End:
+ */

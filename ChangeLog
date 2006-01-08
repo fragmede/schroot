@@ -1,3 +1,34 @@
+2006-01-08  Roger Leigh  <rleigh@debian.org>
+
+	* Update API reference.
+
+	* test/sbuild-chroot-lvm-snapshot.cc: New file.  Tests for
+	ChrootLvmSnapshot.
+
+	* test/sbuild-chroot-block-device.cc: New file.  Tests for
+	ChrootBlockDevice.
+
+	* test/sbuild-chroot-plain.cc: New file. Tests for ChrootPlain.
+
+	* test/test-sbuild-chroot.h: New file.  Base class for all chroot
+	tests.
+
+	* test/test-helpers.h (test_list): New file of test helper
+	functions.  The initial function is a templated test for testing
+	string_list getters and setters.
+
+	* test/Makefile.am (noinst_LTLIBRARIES): Add libtest.la, a generic
+	test library that contains the generic test runner and links with
+	CppUnit.
+
+	* schroot/sbuild-keyfile.h: Remove parse_value.
+
+	* schroot/sbuild-environment.h (get): Use parse_value to parse
+	values.
+
+	* schroot/sbuild-parse-value.(cc|h): New files.  Split value
+	parsing out from sbuild-keyfile to allow reuse.
+
 2006-01-07  Roger Leigh  <rleigh@debian.org>
 
 	* po/sv.po: Add Swedish translation.

@@ -17,21 +17,35 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_TYPES_H
-#define SBUILD_TYPES_H
+#include <config.h>
 
-#include <string>
-#include <vector>
+#include "sbuild.h"
 
-namespace sbuild
+bool
+sbuild::parse_value (std::string const& stringval,
+		     bool&              value)
 {
+  if (stringval == "true" || stringval == "yes" || stringval == "1")
+    value = true;
+  else if (stringval == "false" || stringval == "no" || stringval == "0")
+    value = true;
+  else
+    return false;
 
-  /// A string vector.
-  typedef std::vector<std::string> string_list;
+  // TODO: throw exception on parse failure.
 
+  log_debug(DEBUG_NOTICE) << "value=" << value << std::endl;
+  return true;
 }
 
-#endif /* SBUILD_TYPES_H */
+bool
+sbuild::parse_value (std::string const& stringval,
+		     std::string&       value)
+{
+  value = stringval;
+  log_debug(DEBUG_NOTICE) << "value=" << value << std::endl;
+  return true;
+}
 
 /*
  * Local Variables:
