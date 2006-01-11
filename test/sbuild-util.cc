@@ -85,8 +85,9 @@ public:
 
   void test_find_program_in_path()
   {
-    CPPUNIT_ASSERT(sbuild::find_program_in_path("sh") == "/bin/sh");
-    CPPUNIT_ASSERT(sbuild::find_program_in_path("sed") == "/bin/sed");
+    std::string path("/usr/local/bin:/usr/bin:/bin");
+    CPPUNIT_ASSERT(sbuild::find_program_in_path("sh", path) == "/bin/sh");
+    CPPUNIT_ASSERT(sbuild::find_program_in_path("sed", path) == "/bin/sed");
   }
 
 };

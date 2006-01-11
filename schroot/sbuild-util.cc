@@ -145,12 +145,12 @@ sbuild::split_string(std::string const& value,
 }
 
 std::string
-sbuild::find_program_in_path(std::string const& program)
+sbuild::find_program_in_path(std::string const& program,
+			     std::string const& path)
 {
   if (program.find_first_of('/') != std::string::npos)
     return program;
 
-  char *path = getenv("PATH");
   string_list dirs = split_string(path, ':');
 
   for (string_list::const_iterator dir = dirs.begin();

@@ -34,8 +34,6 @@ namespace sbuild
    * @param name the filename to strip of its path.
    * @param separator the separation delimiting directories.
    * @returns the base name.
-   *
-   * @todo Regression test with basename(3) examples.
    */
   std::string
   basename(std::string name,
@@ -48,8 +46,6 @@ namespace sbuild
    * @param name the path to strip of its filename.
    * @param separator the separation delimiting directories.
    * @returns the directory name.
-   *
-   * @todo Regression test with dirname(3) examples.
    */
   std::string
   dirname(std::string name,
@@ -83,15 +79,13 @@ namespace sbuild
    * Find a program in the PATH search path.
    *
    * @param program the program to search for.
+   * @param path the search path; typically the value of $PATH.
    * @returns the absolute path of the program, or an empty string if
    * the program could not be found.
-   *
-   * @todo Add the path as an additional argument, rather than
-   * assuming $PATH.  This will allow the PATH to be set within the
-   * chroot to be used.
    */
   std::string
-  find_program_in_path(std::string const& program);
+  find_program_in_path(std::string const& program,
+		       std::string const& path);
 
 }
 

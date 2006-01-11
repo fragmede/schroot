@@ -759,8 +759,9 @@ Session::run_child (Chroot::chroot_ptr& session_chroot)
     }
   else
     {
+      /// @todo use search path inside chroot.
       /* Search for program in path. */
-      file = find_program_in_path(command[0]);
+      file = find_program_in_path(command[0], getenv("PATH"));
       if (file.empty())
 	file = command[0];
       std::string commandstring = string_list_to_string(command, " ");

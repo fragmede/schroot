@@ -1,3 +1,15 @@
+2006-01-11  Roger Leigh  <rleigh@debian.org>
+
+	* Remove completed and obsolete TODO items.
+
+	* test/sbuild-util.cc: Update testcase with fixed path.
+
+	* schroot/sbuild-session.cc (run_child): Use new
+	find_program_in_path syntax.
+
+	* schroot/sbuild-util.cc (find_program_in_path): Add path
+	argument, to allow use of paths other than $PATH.
+
 2006-01-08  Roger Leigh  <rleigh@debian.org>
 
 	* Update API reference.

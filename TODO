@@ -1,6 +1,9 @@
-TODO                                                             -*- outline -*-
+TODO                                                            -*- outline -*-
 ====
 
+
+All new TODO items are marked @todo in the source code and listed in
+the Doxygen-generated documentation in doc/schroot/html/todo.html
 
 PENDING
 -------
@@ -15,9 +18,7 @@ PENDING
 
 * C++ transition
 
-** Enable C++ compiler warnings.
-
-* Translation of strings in headers.
+** Translation of strings in headers.
 
 PLANNED
 -------

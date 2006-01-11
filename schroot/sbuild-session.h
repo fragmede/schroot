@@ -260,7 +260,6 @@ namespace sbuild
     /// The chroots to run the session operation in.
     string_list chroots;
     /// The child exit status.
-    /// @todo Remove child exit status.
     int         child_status;
     /// The session operation to perform.
     Operation   operation;
