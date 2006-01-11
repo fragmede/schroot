@@ -25,6 +25,7 @@
 #include <sstream>
 
 #include "sbuild-log.h"
+#include "sbuild-parse-value.h"
 
 namespace sbuild
 {
@@ -170,7 +171,7 @@ namespace sbuild
     get (std::string const& name,
 	 T&                 value)
     {
-      log_debug(DEBUG_INFO) << "Getting environment varriable=" << name
+      log_debug(DEBUG_INFO) << "Getting environment variable=" << name
 			    << std::endl;
       iterator pos = find(name);
       if (pos != end())
@@ -200,7 +201,7 @@ namespace sbuild
      */
     template <typename T>
     environment&
-    operator += (T const& rhs)
+    operator += (T& rhs)
     {
       add(rhs);
       return *this;
@@ -214,12 +215,11 @@ namespace sbuild
      */
     template <typename T>
     environment&
-    operator -= (T const& rhs)
+    operator -= (T& rhs)
     {
       remove(rhs);
       return *this;
     }
-
 
     /**
      * Add variables to the environment.
@@ -234,7 +234,7 @@ namespace sbuild
 		T const&           rhs)
     {
       environment ret(lhs);
-      lhs += rhs;
+      ret += rhs;
       return ret;
     }
 
@@ -251,7 +251,7 @@ namespace sbuild
 		T const&           rhs)
     {
       environment ret(lhs);
-      lhs -= rhs;
+      ret -= rhs;
       return ret;
     }
 

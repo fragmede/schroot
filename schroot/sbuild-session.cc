@@ -79,14 +79,6 @@ namespace
     return ret;
   }
 
-  void
-  strv_delete(char **strv)
-  {
-    for (char *cur = strv[0]; cur != 0; ++cur)
-      delete cur;
-    delete[] strv;
-  }
-
   /*
    * is_group_member:
    * @group: the group to check for

@@ -26,8 +26,9 @@ AM_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -pedantic -Wall -Wcast-align -
 if USE_UNIT_TESTS
 noinst_LTLIBRARIES = libtest.la
 
-noinst_PROGRAMS = 	\
-	sbuild-chroot	\
+noinst_PROGRAMS = 		\
+	sbuild-chroot		\
+	sbuild-environment	\
 	sbuild-util
 
 TESTS = $(noinst_PROGRAMS)
@@ -36,7 +37,7 @@ endif
 libtest_la_SOURCES = 	\
 	test-helpers.h	\
 	testmain.cc
-libtest_la_LIBADD = $(CPPUNIT_LIBS)
+libtest_la_LIBADD = ../schroot/libsbuild.la $(CPPUNIT_LIBS)
 
 sbuild_chroot_SOURCES = 		\
 	sbuild-chroot.cc		\
@@ -44,7 +45,10 @@ sbuild_chroot_SOURCES = 		\
 	sbuild-chroot-block-device.cc	\
 	sbuild-chroot-lvm-snapshot.cc	\
 	test-sbuild-chroot.h
-sbuild_chroot_LDADD = ../schroot/libsbuild.la libtest.la
+sbuild_chroot_LDADD =  libtest.la
+
+sbuild_environment_SOURCES = sbuild-environment.cc
+sbuild_environment_LDADD = libtest.la
 
 sbuild_util_SOURCES = sbuild-util.cc
-sbuild_util_LDADD = ../schroot/libsbuild.la libtest.la
+sbuild_util_LDADD = libtest.la

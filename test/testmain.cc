@@ -22,11 +22,19 @@
 #include <cppunit/ui/text/TestRunner.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
 
+#include <schroot/sbuild-log.h>
+
 using namespace CppUnit;
 
 int
 main()
 {
+#ifdef SBUILD_DEBUG
+      sbuild::debug_level = sbuild::DEBUG_NOTICE;
+#else
+      sbuild::debug_level = sbuild::DEBUG_NONE;
+#endif
+
   TextUi::TestRunner runner;
 
   TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();

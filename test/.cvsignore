@@ -6,4 +6,5 @@ Makefile.in
 *.lo
 *.gch
 sbuild-chroot
+sbuild-environment
 sbuild-util

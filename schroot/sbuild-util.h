@@ -87,6 +87,16 @@ namespace sbuild
   find_program_in_path(std::string const& program,
 		       std::string const& path);
 
+  /**
+   * Delete a string vector.  The strings in the vector, as well as
+   * the vector itself, must have been previously allocated with new,
+   * for example sbuild::environment::get_strv.
+   *
+   * @param strv the string vector to delete.
+   */
+  void
+  strv_delete(char **strv);
+
 }
 
 #endif /* SBUILD_UTIL_H */

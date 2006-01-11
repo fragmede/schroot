@@ -1,5 +1,22 @@
 2006-01-11  Roger Leigh  <rleigh@debian.org>
 
+	* test/sbuild-environment.cc: New file.  Tests for environment.
+
+	* test/testmain.cc (main): Add debugging checks.
+
+	* test/Makefile.am (libtest_la_LIBADD): Add libsbuild.la, and
+	remove from all binary LDADD lines.
+
+	* schroot/sbuild-util.cc (strv_delete): New function moved from
+	sbuild-session.cc, with the iterator type corrected.
+
+	* schroot/sbuild-session.cc: Remove strv_delete.
+
+	* schroot/sbuild-environment.h: Fix constness of overloaded
+	operators, and correct use of lvalue in binary operators.
+
+2006-01-11  Roger Leigh  <rleigh@debian.org>
+
 	* Remove completed and obsolete TODO items.
 
 	* test/sbuild-util.cc: Update testcase with fixed path.

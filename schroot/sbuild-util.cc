@@ -170,6 +170,14 @@ sbuild::find_program_in_path(std::string const& program,
   return "";
 }
 
+void
+sbuild::strv_delete(char **strv)
+{
+  for (char **pos = strv; pos != 0 && *pos != 0; ++pos)
+    delete *pos;
+  delete[] strv;
+}
+
 /*
  * Local Variables:
  * mode:C++
