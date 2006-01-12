@@ -28,6 +28,12 @@
 using boost::format;
 using namespace sbuild;
 
+keyfile::keyfile():
+  groups(),
+  separator(',')
+{
+}
+
 keyfile::keyfile(std::string const& file):
   groups(),
   separator(',')
@@ -177,7 +183,7 @@ keyfile::find_item(std::string const& group,
 
 void
 keyfile::print_comment(std::string const& comment,
-		       std::ostream&      stream) const
+		       std::ostream&      stream)
 {
   std::string::size_type last_pos = 0;
   std::string::size_type pos = comment.find_first_of('\n', last_pos);

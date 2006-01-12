@@ -77,6 +77,9 @@ namespace sbuild
     /// Exception type.
     typedef runtime_error_custom<keyfile> error;
 
+    /// The constructor.
+    keyfile();
+
     /**
      * The constructor.
      *
@@ -300,7 +303,7 @@ namespace sbuild
 
       items.insert
 	(item_map_type::value_type(key,
-				   item_type(key, value, std::string())));
+				   item_type(key, os.str(), std::string())));
 
     }
 
@@ -331,7 +334,7 @@ namespace sbuild
 	  if (os)
 	    {
 	      strval += os.str();
-	      if (pos += 1 != value.end())
+	      if (pos + 1 != value.end())
 		strval += this->separator;
 	    }
 	}
@@ -449,9 +452,9 @@ namespace sbuild
      * @param comment the comment to print.
      * @param stream the stream to output to.
      */
-    void
+    static void
     print_comment(std::string const& comment,
-		  std::ostream&      stream) const;
+		  std::ostream&      stream);
 
   public:
     /**
@@ -493,7 +496,7 @@ namespace sbuild
 	      if (comment.length() > 0)
 		print_comment(comment, stream);
 
-	      stream << key << '=' << value;
+	      stream << key << '=' << value << '\n';
 	    }
 	}
 

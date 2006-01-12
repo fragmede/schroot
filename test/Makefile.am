@@ -20,7 +20,7 @@
 #
 #####################################################################
 
-AM_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -pedantic -Wall -Wcast-align -Wextra -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
+AM_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -DSRCDIR='"$(srcdir)"' -pedantic -Wall -Wcast-align -Wextra -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
 #  -Weffc++ causes too many warnings in standard headers.
 
 if USE_UNIT_TESTS
@@ -29,6 +29,7 @@ noinst_LTLIBRARIES = libtest.la
 noinst_PROGRAMS = 		\
 	sbuild-chroot		\
 	sbuild-environment	\
+	sbuild-keyfile		\
 	sbuild-util
 
 TESTS = $(noinst_PROGRAMS)
@@ -49,6 +50,9 @@ sbuild_chroot_LDADD =  libtest.la
 
 sbuild_environment_SOURCES = sbuild-environment.cc
 sbuild_environment_LDADD = libtest.la
+
+sbuild_keyfile_SOURCES = sbuild-keyfile.cc
+sbuild_keyfile_LDADD = libtest.la
 
 sbuild_util_SOURCES = sbuild-util.cc
 sbuild_util_LDADD = libtest.la

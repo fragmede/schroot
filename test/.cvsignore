@@ -7,4 +7,5 @@ Makefile.in
 *.gch
 sbuild-chroot
 sbuild-environment
+sbuild-keyfile
 sbuild-util
