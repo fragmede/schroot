@@ -30,6 +30,7 @@ noinst_PROGRAMS = 		\
 	sbuild-chroot		\
 	sbuild-environment	\
 	sbuild-keyfile		\
+	sbuild-lock		\
 	sbuild-util
 
 TESTS = $(noinst_PROGRAMS)
@@ -54,5 +55,10 @@ sbuild_environment_LDADD = libtest.la
 sbuild_keyfile_SOURCES = sbuild-keyfile.cc
 sbuild_keyfile_LDADD = libtest.la
 
+sbuild_lock_SOURCES = sbuild-lock.cc
+sbuild_lock_LDADD = libtest.la
+
 sbuild_util_SOURCES = sbuild-util.cc
 sbuild_util_LDADD = libtest.la
+
+EXTRA_DIST = keyfile.ex1

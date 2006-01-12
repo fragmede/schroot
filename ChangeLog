@@ -1,5 +1,12 @@
 2006-01-12  Roger Leigh  <rleigh@debian.org>
 
+	* test/sbuild-lock.cc: New file.  Tests for locking.
+
+	* schroot/sbuild-lock.cc (set_lock): If the current process
+	doesn't own the lock, unlocking always succeeds.
+
+2006-01-12  Roger Leigh  <rleigh@debian.org>
+
 	* test/sbuild-keyfile.cc: New file.  Tests for keyfile.
 
 	* schroot/sbuild-keyfile.h

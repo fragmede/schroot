@@ -237,11 +237,11 @@ DeviceLock::set_lock (Type         lock_type,
 		{
 		  throw error(_("failed to test device lock"));
 		}
-	      else if (cur_lock_pid > 0 && cur_lock_pid != getpid()) // Another process owns the lock
+	      else if (cur_lock_pid > 0 && cur_lock_pid != getpid())
 		{
-		  format fmt(_("failed to release device lock held by pid %1%"));
-		  fmt % cur_lock_pid;
-		  throw error(fmt);
+		  // Another process owns the lock, so we successfully
+		  // "drop" our nonexistent lock.
+		  break;
 		}
 	      status = dev_unlock(this->device.c_str(), getpid());
 	      if (status == 0) // Success
