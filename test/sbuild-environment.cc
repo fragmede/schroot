@@ -92,7 +92,7 @@ public:
     sbuild::environment::size_type size = env.size();
     env.add(std::make_pair("TERM", "wy50"));
     env.add(std::make_pair("USER", "root"));
-    CPPUNIT_ASSERT(env.size() == size + 4);
+    CPPUNIT_ASSERT(env.size() == size + 2);
   }
 
   void tearDown()
