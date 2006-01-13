@@ -28,7 +28,7 @@ using namespace CppUnit;
 class test_nostream : public TestCase
 {
   CPPUNIT_TEST_SUITE(test_nostream);
-  CPPUNIT_TEST(test_stream  );
+  CPPUNIT_TEST(test_stream);
   CPPUNIT_TEST_SUITE_END();
 
 public:

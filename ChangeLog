@@ -1,5 +1,11 @@
 2006-01-13  Roger Leigh  <rleigh@debian.org>
 
+	* test/sbuild-log.cc: New file.  Test logging with stringbufs.
+
+	* test/sbuild-nostream.cc (test_nostream): Fix whitespace.
+
+2006-01-13  Roger Leigh  <rleigh@debian.org>
+
 	* test/sbuild-nostream.cc: New file.  Test for nostream.
 
 	* test/sbuild-environment.cc (add_simple_examples): Correct

@@ -9,5 +9,6 @@ sbuild-chroot
 sbuild-environment
 sbuild-keyfile
 sbuild-lock
+sbuild-log
 sbuild-nostream
 sbuild-util

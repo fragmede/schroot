@@ -31,6 +31,7 @@ noinst_PROGRAMS = 		\
 	sbuild-environment	\
 	sbuild-keyfile		\
 	sbuild-lock		\
+	sbuild-log		\
 	sbuild-nostream		\
 	sbuild-util
 
@@ -58,6 +59,9 @@ sbuild_keyfile_LDADD = libtest.la
 
 sbuild_lock_SOURCES = sbuild-lock.cc
 sbuild_lock_LDADD = libtest.la
+
+sbuild_log_SOURCES = sbuild-log.cc
+sbuild_log_LDADD = libtest.la
 
 sbuild_nostream_SOURCES = sbuild-nostream.cc
 sbuild_nostream_LDADD = libtest.la
