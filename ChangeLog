@@ -1,3 +1,7 @@
+2006-01-16  Roger Leigh  <rleigh@debian.org>
+
+	* po/vi.po: Add Vietnamese translation.
+
 2006-01-13  Roger Leigh  <rleigh@debian.org>
 
 	* test/sbuild-log.cc: New file.  Test logging with stringbufs.

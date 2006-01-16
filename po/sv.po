@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-01-06 15:58+0000\n"
+"POT-Creation-Date: 2006-01-16 10:35+0000\n"
 "PO-Revision-Date: 2006-01-07 11:01+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -28,7 +28,7 @@ msgstr ""
 #: schroot/sbuild-auth.cc:521 schroot/sbuild-auth.cc:546
 #: schroot/sbuild-auth.cc:565 schroot/sbuild-auth.cc:584
 #: schroot/sbuild-auth.cc:603 schroot/sbuild-auth.cc:622
-#: schroot/sbuild-session.cc:641
+#: schroot/sbuild-session.cc:633
 #, fuzzy, c-format
 msgid "PAM error: %1%"
 msgstr "PAM-fel: %s"
@@ -184,11 +184,11 @@ msgstr ""
 msgid "Mount Device"
 msgstr ""
 
-#: schroot/sbuild-chroot.h:413
+#: schroot/sbuild-chroot.h:422
 msgid "true"
 msgstr ""
 
-#: schroot/sbuild-chroot.h:415
+#: schroot/sbuild-chroot.h:424
 msgid "false"
 msgstr ""
 
@@ -299,45 +299,45 @@ msgstr "%s: fel vid stängning: %s\n"
 msgid "%1% chroot: Could not create chroot"
 msgstr ""
 
-#: schroot/sbuild-keyfile.cc:43
+#: schroot/sbuild-keyfile.cc:49
 #, c-format
 msgid "Can't open configuration file %1%"
 msgstr ""
 
-#: schroot/sbuild-keyfile.cc:206
+#: schroot/sbuild-keyfile.cc:212
 #, c-format
 msgid "%1% chroot: A required parameter \"%2%\" is missing."
 msgstr ""
 
-#: schroot/sbuild-keyfile.cc:220
+#: schroot/sbuild-keyfile.cc:226
 #, c-format
 msgid "%1% chroot: A deprecated parameter \"%2%\" has been specified."
 msgstr ""
 
-#: schroot/sbuild-keyfile.cc:224
+#: schroot/sbuild-keyfile.cc:230
 msgid "This option will be removed in the future."
 msgstr ""
 
-#: schroot/sbuild-keyfile.cc:228
+#: schroot/sbuild-keyfile.cc:234
 #, c-format
 msgid "%1% chroot: An obsolete parameter \"%2%\" has been specified."
 msgstr ""
 
-#: schroot/sbuild-keyfile.cc:232
+#: schroot/sbuild-keyfile.cc:238
 msgid "This option has been removed, and no longer has any effect."
 msgstr ""
 
-#: schroot/sbuild-keyfile.h:433
+#: schroot/sbuild-keyfile.h:393
 #, c-format
 msgid "Line %1%: invalid group entry: %2%"
 msgstr ""
 
-#: schroot/sbuild-keyfile.h:459
+#: schroot/sbuild-keyfile.h:419
 #, c-format
 msgid "Line %1%: invalid line: %2%"
 msgstr ""
 
-#: schroot/sbuild-keyfile.h:465
+#: schroot/sbuild-keyfile.h:425
 #, c-format
 msgid "Line %1%: no key specified: %2%"
 msgstr ""
@@ -376,11 +376,6 @@ msgstr ""
 msgid "failed to test device lock"
 msgstr "misslyckades att ta status på fil: %s"
 
-#: schroot/sbuild-lock.cc:242
-#, c-format
-msgid "failed to release device lock held by pid %1%"
-msgstr ""
-
 #: schroot/sbuild-lock.cc:251
 msgid "failed to release device lock"
 msgstr ""
@@ -397,154 +392,154 @@ msgid ""
 "failed to release device lock held by pid %1% (timeout after %2% seconds)"
 msgstr ""
 
-#: schroot/sbuild-session.cc:106
+#: schroot/sbuild-session.cc:98
 #, fuzzy, c-format
 msgid "%1%: group not found"
 msgstr "%s: grupp hittades inte\n"
 
-#: schroot/sbuild-session.cc:108
+#: schroot/sbuild-session.cc:100
 #, fuzzy, c-format
 msgid "%1%: group not found: %2%"
 msgstr "%s: grupp hittades inte: %s\n"
 
-#: schroot/sbuild-session.cc:124
+#: schroot/sbuild-session.cc:116
 #, fuzzy, c-format
 msgid "can't get supplementary group count: %1%"
 msgstr "kan inte hämta antalet tilläggsgrupper: %s\n"
 
-#: schroot/sbuild-session.cc:134
+#: schroot/sbuild-session.cc:126
 #, fuzzy, c-format
 msgid "can't get supplementary groups: %1%"
 msgstr "kan inte hämta tilläggsgrupper: %s\n"
 
-#: schroot/sbuild-session.cc:258
+#: schroot/sbuild-session.cc:250
 #, fuzzy, c-format
 msgid "No chroot found matching alias '%1%'"
 msgstr "Ingen chroot hittades som matchar alias \"%s\""
 
-#: schroot/sbuild-session.cc:337
+#: schroot/sbuild-session.cc:329
 #, c-format
 msgid "%1%: Failed to find chroot"
 msgstr ""
 
-#: schroot/sbuild-session.cc:489
+#: schroot/sbuild-session.cc:481
 #, c-format
 msgid "Chroot setup failed to lock chroot: %1%"
 msgstr ""
 
-#: schroot/sbuild-session.cc:545
+#: schroot/sbuild-session.cc:537
 #, c-format
 msgid "Invalid verbosity level: %1%, falling back to \"normal\""
 msgstr ""
 
-#: schroot/sbuild-session.cc:564 schroot/sbuild-session.cc:856
+#: schroot/sbuild-session.cc:556 schroot/sbuild-session.cc:849
 #, fuzzy, c-format
 msgid "Failed to fork child: %1%"
 msgstr "Misslyckades att dela barnprocess: %s"
 
-#: schroot/sbuild-session.cc:582 schroot/sbuild-session.cc:792
+#: schroot/sbuild-session.cc:574 schroot/sbuild-session.cc:785
 #, fuzzy, c-format
 msgid "Could not exec \"%1%\": %2%"
 msgstr "Kunde inte starta \"%s\": %s\n"
 
-#: schroot/sbuild-session.cc:600
+#: schroot/sbuild-session.cc:592
 #, c-format
 msgid "Chroot setup failed to unlock chroot: %1%"
 msgstr ""
 
-#: schroot/sbuild-session.cc:607
+#: schroot/sbuild-session.cc:599
 #, c-format
 msgid "Chroot setup failed during chroot \"%1%\" stage"
 msgstr ""
 
-#: schroot/sbuild-session.cc:649
+#: schroot/sbuild-session.cc:641
 #, fuzzy, c-format
 msgid "Could not set gid to '%1%'"
 msgstr "Kunde inte sätta gid till \"%lu\"\n"
 
-#: schroot/sbuild-session.cc:655
+#: schroot/sbuild-session.cc:647
 #, fuzzy
 msgid "Could not set supplementary group IDs"
 msgstr "Kunde inte sätta ID för tilläggsgrupper\n"
 
-#: schroot/sbuild-session.cc:662
+#: schroot/sbuild-session.cc:654
 #, fuzzy, c-format
 msgid "Could not chdir to '%1%': %2%"
 msgstr "Kunde inte byta katalog till \"%s\": %s\n"
 
-#: schroot/sbuild-session.cc:669
+#: schroot/sbuild-session.cc:661
 #, fuzzy, c-format
 msgid "Could not chroot to '%1%': %2%"
 msgstr "Kunde inte chroot till \"%s\": %s\n"
 
-#: schroot/sbuild-session.cc:678
+#: schroot/sbuild-session.cc:670
 #, fuzzy, c-format
 msgid "Could not set uid to '%1%'"
 msgstr "Kunde inte sätta uid till \"%lu\"\n"
 
-#: schroot/sbuild-session.cc:684
+#: schroot/sbuild-session.cc:676
 #, fuzzy
 msgid "Failed to drop root permissions."
 msgstr "Misslyckades att släppa root-rättigheter.\n"
 
-#: schroot/sbuild-session.cc:692
+#: schroot/sbuild-session.cc:684
 #, fuzzy, c-format
 msgid "warning: Could not chdir to '%1%': %2%"
 msgstr "varning: Kunde inte byta katalog till \"%s\": %s\n"
 
-#: schroot/sbuild-session.cc:745
+#: schroot/sbuild-session.cc:737
 #, fuzzy, c-format
 msgid "[%1% chroot] Running login shell: \"%2%\""
 msgstr "[%s chroot] Kör inloggningsskal: \"%s\"\n"
 
-#: schroot/sbuild-session.cc:746
+#: schroot/sbuild-session.cc:738
 #, fuzzy, c-format
 msgid "[%1% chroot] Running shell: \"%2%\""
 msgstr "[%s chroot] Kör inloggningsskal: \"%s\"\n"
 
-#: schroot/sbuild-session.cc:752
+#: schroot/sbuild-session.cc:744
 #, fuzzy, c-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\""
 msgstr "[%s chroot] (%s->%s) Kör inloggningsskal: \"%s\"\n"
 
-#: schroot/sbuild-session.cc:753
+#: schroot/sbuild-session.cc:745
 #, fuzzy, c-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: \"%4%\""
 msgstr "[%s chroot] (%s->%s) Kör inloggningsskal: \"%s\"\n"
 
-#: schroot/sbuild-session.cc:774
+#: schroot/sbuild-session.cc:767
 #, fuzzy, c-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%s chroot] Kör kommando: \"%s\"\n"
 
-#: schroot/sbuild-session.cc:778
+#: schroot/sbuild-session.cc:771
 #, fuzzy, c-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%s chroot] (%s->%s) Kör kommando: \"%s\"\n"
 
 # Detta är en luring
-#: schroot/sbuild-session.cc:810
+#: schroot/sbuild-session.cc:803
 #, fuzzy, c-format
 msgid "wait for child failed: %1%"
 msgstr "väntan på barnprocess misslyckades: %s\n"
 
-#: schroot/sbuild-session.cc:828
+#: schroot/sbuild-session.cc:821
 #, fuzzy, c-format
 msgid "Child terminated by signal %1%"
 msgstr "Barnprocess avslutad med signal \"%s"
 
-#: schroot/sbuild-session.cc:833
+#: schroot/sbuild-session.cc:826
 msgid "Child dumped core"
 msgstr "Barnprocess dumpade core"
 
 # coredump? Bättre ord?
-#: schroot/sbuild-session.cc:835
+#: schroot/sbuild-session.cc:828
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr ""
 "Barnprocess avslutades onormalt (anledning är okänd; inte en signal eller "
 "coredump)"
 
-#: schroot/sbuild-session.cc:842
+#: schroot/sbuild-session.cc:835
 #, fuzzy, c-format
 msgid "Child exited abnormally with status '%1%'"
 msgstr "Barnprocess avslutades onormalt med status \"%d"
