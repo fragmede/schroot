@@ -221,7 +221,8 @@ main (int   argc,
 	    session.set_user(options.user);
 	  if (!options.command.empty())
 	    session.set_command(options.command);
-	  if (options.preserve)
+	  /* The environment can be preserved only if not switching users. */
+	  if (options.preserve && session.get_ruid() == session.get_uid())
 	    session.set_environment(environ);
 	  session.set_force(options.session_force);
 	  sbuild::Auth::Verbosity verbosity = sbuild::Auth::VERBOSITY_NORMAL;

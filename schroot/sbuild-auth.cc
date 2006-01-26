@@ -113,11 +113,9 @@ Auth::Auth(std::string const& service_name):
   struct passwd *pwent = getpwuid(this->ruid);
   if (pwent == 0)
     {
-      log_error() << format(_("%1%: user not found: %2%"))
-	% this->ruid
-	% strerror(errno)
-	   << endl;
-      exit (EXIT_FAILURE);
+      format fmt(_("%1%: user not found: %2%"));
+      fmt % this->ruid% strerror(errno);
+      throw error(fmt);
     }
   this->ruser = pwent->pw_name;
 
@@ -174,11 +172,9 @@ Auth::set_user (std::string const& user)
   struct passwd *pwent = getpwnam(this->user.c_str());
   if (pwent == 0)
     {
-      cerr << format(_("%1%: user not found: %2%"))
-	% this->user.c_str()
-	% strerror(errno)
-	   << endl;
-      exit (EXIT_FAILURE);
+      format fmt(_("%1%: user not found: %2%"));
+      fmt % this->user.c_str() % strerror(errno);
+      throw error(fmt);
     }
   this->uid = pwent->pw_uid;
   this->gid = pwent->pw_gid;
@@ -502,7 +498,7 @@ Auth::setupenv ()
   else
     newenv.add(std::make_pair("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games"));
 
-  if (!this->home.empty())
+  if (!this->home.empty() )
     newenv.add(std::make_pair("HOME", this->home));
   else
     newenv.add(std::make_pair("HOME", "/"));
@@ -517,7 +513,13 @@ Auth::setupenv ()
       newenv.add(std::make_pair("TERM", term));
   }
 
-  environment environment = !this->user_environment.empty() ? this->user_environment : newenv;
+  // The environment can only be preserved if not switching to root.
+  environment environment;
+  if (!this->user_environment.empty())
+    environment = this->user_environment;
+  else
+    environment = newenv;
+
   for (environment::const_iterator cur = environment.begin();
        cur != environment.end();
        ++cur)

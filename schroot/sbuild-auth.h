@@ -158,13 +158,6 @@ namespace sbuild
      * now return meaningful values.
      *
      * @param user the name to set.
-     *
-     * @todo Return an error or throw an exception if the user does
-     * not exist, rather than silently setting a "sane" state.
-     *
-     * @todo If preserving the environment, respect $HOME when finding
-     * the user's home directory, and $SHELL when finding the user's
-     * shell.  Only do this when user == ruser (and uid != 0) ??
      */
     void
     set_user (std::string const& user);

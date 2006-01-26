@@ -1,5 +1,14 @@
 2006-01-26  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.cc (main): Only allow preservation of the user
+	environment if not switching users.
+
+	* schroot/sbuild-auth.cc (Auth, set_user): Throw exceptions rather
+	than exiting on failure.
+	(setupenv): Tidy up setting the environment.
+
+2006-01-26  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-auth.cc
 	(~Auth): Shut down PAM if currently active.
 
