@@ -50,17 +50,10 @@ Config::Config(std::string const& file):
   chroots()
 {
   struct stat statbuf;
-  if (stat(file.c_str(), &statbuf) < 0)
-    {
-      format fmt(_("%1%: failed to stat file: %2%"));
-      fmt % file % strerror(errno);
-      throw error(fmt);
-    }
-
-  if (S_ISDIR(statbuf.st_mode))
-    add_config_file(file);
-  else
+  if (stat(file.c_str(), &statbuf) == 0 && S_ISDIR(statbuf.st_mode))
     add_config_directory(file);
+  else
+    add_config_file(file);
 }
 
 Config::~Config()
@@ -83,10 +76,9 @@ Config::add_config_directory (std::string const& dir)
   DIR *d = opendir(dir.c_str());
   if (d == NULL)
     {
-      log_error() << format(_("%1%: failed to open directory: %2%"))
-	% dir % strerror(errno)
-		  << endl;
-      exit (EXIT_FAILURE);
+      format fmt(_("%1%: failed to open directory: %2%"));
+      fmt % dir % strerror(errno);
+      throw error(fmt);
     }
 
   struct dirent *de = NULL;
@@ -97,7 +89,7 @@ Config::add_config_directory (std::string const& dir)
       struct stat statbuf;
       if (stat(filename.c_str(), &statbuf) < 0)
 	{
-	  log_error() << format(_("%1%: failed to stat file: %2%"))
+	  log_warning() << format(_("%1%: failed to stat file: %2%"))
 	    % filename % strerror(errno)
 		      << endl;
 	  continue;
@@ -107,8 +99,8 @@ Config::add_config_directory (std::string const& dir)
 	{
 	  if (!(strcmp(de->d_name, ".") == 0 ||
 		strcmp(de->d_name, "..") == 0))
-	    log_error() << format(_("%1%: not a regular file")) % filename
-			<< endl;
+	    log_warning() << format(_("%1%: not a regular file")) % filename
+			  << endl;
 	  continue;
 	}
 
@@ -273,10 +265,9 @@ Config::load (std::string const& file)
   int fd = open(file.c_str(), O_RDONLY|O_NOFOLLOW);
   if (fd < 0)
     {
-      log_error() << format(_("%1%: failed to load configuration: %2%"))
-	% file % strerror(errno)
-		  << endl;
-      exit (EXIT_FAILURE);
+      format fmt(_("%1%: failed to load configuration: %2%"));
+      fmt % file % strerror(errno);
+      throw error(fmt);
     }
 
   sbuild::FileLock lock(fd);
@@ -286,10 +277,9 @@ Config::load (std::string const& file)
     }
   catch (Lock::error const& e)
     {
-      log_error() << format(_("%1%: lock acquisition failure: %2%"))
-	% file % e.what()
-		  << endl;
-      exit (EXIT_FAILURE);
+      format fmt(_("%1%: lock acquisition failure: %2%"));
+      fmt % file % e.what();
+      throw error(fmt);
     }
 
   try
@@ -298,10 +288,9 @@ Config::load (std::string const& file)
     }
   catch (error const& e)
     {
-      log_error() << format(_("%1%: security failure: %2%"))
-	% file % e.what()
-		  << endl;
-      exit (EXIT_FAILURE);
+      format fmt(_("%1%: security failure: %2%"));
+      fmt % file % e.what();
+      throw error(fmt);
     }
 
   /* Now create an IO Channel and read in the data */
@@ -319,10 +308,9 @@ Config::load (std::string const& file)
     }
   catch (Lock::error const& e)
     {
-      log_error() << format(_("%1%: lock discard failure: %2%"))
-	% file % e.what()
-		  << endl;
-      exit (EXIT_FAILURE);
+      format fmt(_("%1%: lock discard failure: %2%"));
+      fmt % file % e.what();
+      throw error(fmt);
     }
 
   /* Create Chroot objects from key file */

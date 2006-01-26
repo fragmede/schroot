@@ -2,7 +2,7 @@ TODO                                                            -*- outline -*-
 ====
 
 
-All new TODO items are marked @todo in the source code and listed in
+Most new TODO items are marked @todo in the source code and listed in
 the Doxygen-generated documentation in doc/schroot/html/todo.html
 
 PENDING
@@ -15,8 +15,6 @@ PENDING
   This is possible now we are using lockdev.  Could the block-device
   chroot be created automatically, appending "-master" or "-source" to
   the lvm-snapshot chroot name?
-
-* C++ transition
 
 ** Translation of strings in headers.
 
@@ -37,3 +35,19 @@ PLANNED
 
   Also consider an option for repacking on session-stop.  This must be
   root-only/root-groups-only for security.
+
+POTENTIAL
+---------
+
+* Add tests for
+
+** Auth
+** AuthConv
+** AuthConvTty
+** AuthMessage
+** Session
+** schroot::Options
+** schroot_releaselock::Options
+
+None of these are urgent and/or are difficult to test in an automated
+fashion.  expect might be useful for testing the PAM wrappers.

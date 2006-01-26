@@ -1,0 +1,30 @@
+# schroot chroot definitions.
+# See schroot.conf(5) for complete documentation of the file format.
+#
+# Please take note that you should not add untrusted users to
+# root-groups, because they will essentially have full root access
+# to your system.  They will only have root access inside the chroot,
+# but that's enough to cause malicious damage.
+#
+# The following lines are examples.  Uncomment and alter them to
+# customise schroot for your needs.
+#
+#
+#[woody]
+#description=Debian woody (oldstable)
+#location=/home/woody-chroot
+#groups=sbuild
+#aliases=oldstable
+
+[sarge]
+description=Debian sarge (stable)
+location=/srv/chroot/sarge
+priority=2
+groups=sbuild
+root-groups=root,sbuild
+#root-groups=root
+aliases=stable
+run-setup-scripts=true
+run-session-scripts=true
+run-session-scripts=true
+

@@ -1,3 +1,20 @@
+2006-01-26  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-keyfile.cc
+	(check_priority): Add support for PRIORITY_DISALLOWED.
+
+	* schroot/sbuild-config.cc: Convert to throw exception instead of
+	immediately terminating with an error.  This makes unit testing
+	possible, and errors are all caught correctly at the top-level.
+
+	* schroot/sbuild-chroot-lvm-snapshot.cc: When reading a keyfile,
+	only allow reading "lvm-snapshot-device" when restoring an active
+	chroot.
+
+	* configure.ac (AM_INIT_AUTOMAKE): Quote argument.
+
+	* test/sbuild-config.cc: New file.  Test for sbuild::Config.
+
 2006-01-16  Roger Leigh  <rleigh@debian.org>
 
 	* po/vi.po: Add Vietnamese translation.

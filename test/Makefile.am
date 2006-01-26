@@ -28,6 +28,7 @@ noinst_LTLIBRARIES = libtest.la
 
 noinst_PROGRAMS = 		\
 	sbuild-chroot		\
+	sbuild-config		\
 	sbuild-environment	\
 	sbuild-keyfile		\
 	sbuild-lock		\
@@ -50,6 +51,9 @@ sbuild_chroot_SOURCES = 		\
 	sbuild-chroot-lvm-snapshot.cc	\
 	test-sbuild-chroot.h
 sbuild_chroot_LDADD =  libtest.la
+
+sbuild_config_SOURCES = sbuild-config.cc
+sbuild_config_LDADD = libtest.la
 
 sbuild_environment_SOURCES = sbuild-environment.cc
 sbuild_environment_LDADD = libtest.la

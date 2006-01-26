@@ -1,0 +1,34 @@
+[sid]
+type=block-device
+description=Debian sid (unstable)
+#location=/srv/chroot/sid
+priority=3
+groups=sbuild,root
+root-groups=root,sbuild
+aliases=unstable,default
+device=/dev/hda_vg/sid_chroot
+mount-options=-o atime,sync,user_xattr
+run-setup-scripts=true
+run-session-scripts=true
+
+[sid-local]
+description=Debian sid (unstable)
+#location=/srv/chroot/sid
+priority=3
+groups=sbuild,root
+root-groups=root,sbuild
+location=/srv/chroot/sid
+
+[sid-snap]
+type=lvm-snapshot
+description=Debian sid snapshot
+#location=/srv/chroot/sid
+priority=3
+groups=sbuild,root
+root-groups=root,sbuild
+device=/dev/hda_vg/sid_chroot
+mount-options=-o atime,sync,user_xattr
+lvm-snapshot-options=--size 2G
+run-setup-scripts=true
+run-session-scripts=true
+

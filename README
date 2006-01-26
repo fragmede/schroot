@@ -24,11 +24,13 @@ Building and installation
 -------------------------
 
 Please see the INSTALL file for generic installation instructions.
+Note that the testsuite ("make check") should be run under fakeroot or
+real root in order to work correctly.
 
 Configuration
 -------------
 
-See schroot.conf(5).
+See schroot.conf(5) and schroot-setup(5).
 
 Running
 -------

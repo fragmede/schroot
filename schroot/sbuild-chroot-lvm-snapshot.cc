@@ -51,7 +51,10 @@ ChrootLvmSnapshot::ChrootLvmSnapshot (keyfile const&     keyfile,
 {
   std::string snapshot_device;
   if (keyfile.get_value(group, "lvm-snapshot-device",
-			keyfile::PRIORITY_REQUIRED, snapshot_device))
+			get_active() ?
+			keyfile::PRIORITY_REQUIRED :
+			keyfile::PRIORITY_DISALLOWED,
+			snapshot_device))
     set_snapshot_device(snapshot_device);
 
   std::string snapshot_options;

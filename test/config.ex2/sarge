@@ -1,0 +1,12 @@
+[sarge]
+description=Debian sarge (stable)
+location=/srv/chroot/sarge
+priority=2
+groups=sbuild
+root-groups=root,sbuild
+#root-groups=root
+aliases=stable
+run-setup-scripts=true
+run-session-scripts=true
+run-session-scripts=true
+

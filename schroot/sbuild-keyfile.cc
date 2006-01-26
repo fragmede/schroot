@@ -236,6 +236,13 @@ keyfile::check_priority (std::string const& group,
 	    << std::endl;
 	  log_info()
 	    << _("This option has been removed, and no longer has any effect.") << std::endl;
+	case PRIORITY_DISALLOWED:
+	  log_error()
+	    << boost::format(_("%1% chroot: A disallowed parameter \"%2%\" has been specified."))
+	    % group % key
+	    << std::endl;
+	  log_info()
+	    << _("This option is not allowed in this context.") << std::endl;
 	  break;
 	    default:
 	      break;
