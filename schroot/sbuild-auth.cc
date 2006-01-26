@@ -127,7 +127,14 @@ Auth::Auth(std::string const& service_name):
 
 Auth::~Auth()
 {
-  // TODO: Shutdown PAM?
+  // Shutdown PAM.
+  try
+    {
+      stop();
+    }
+  catch (...)
+    {
+    }
 }
 
 std::string const&
@@ -362,20 +369,22 @@ Auth::start ()
 void
 Auth::stop ()
 {
-  assert(this->pam != 0); // PAM must be initialised
+  if (this->pam); // PAM must be initialised
+  {
+    int pam_status;
 
-  int pam_status;
+    if ((pam_status =
+	 pam_end(this->pam, PAM_SUCCESS)) != PAM_SUCCESS)
+      {
+	log_debug(DEBUG_WARNING) << "pam_end FAIL" << endl;
+	format fmt(_("PAM error: %1%"));
+	fmt % pam_strerror(this->pam, pam_status);
+	throw error(fmt);
+      }
 
-  if ((pam_status =
-       pam_end(this->pam, PAM_SUCCESS)) != PAM_SUCCESS)
-    {
-      log_debug(DEBUG_WARNING) << "pam_end FAIL" << endl;
-      format fmt(_("PAM error: %1%"));
-      fmt % pam_strerror(this->pam, pam_status);
-      throw error(fmt);
-    }
-
-  log_debug(DEBUG_NOTICE) << "pam_end OK" << endl;
+    this->pam = 0;
+    log_debug(DEBUG_NOTICE) << "pam_end OK" << endl;
+  }
 }
 
 void

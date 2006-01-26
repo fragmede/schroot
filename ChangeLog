@@ -1,5 +1,10 @@
 2006-01-26  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-auth.cc
+	(~Auth): Shut down PAM if currently active.
+
+2006-01-26  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-keyfile.cc
 	(check_priority): Add support for PRIORITY_DISALLOWED.
 

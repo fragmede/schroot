@@ -109,8 +109,6 @@ namespace sbuild
 
     /**
      * The destructor.
-     *
-     * @todo Shut down PAM if currently active.
      */
     virtual ~Auth();
 
