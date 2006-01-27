@@ -1,5 +1,10 @@
 2006-01-27  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-environment.h: Remove completed TODO item about
+	recommending strv_delete().
+
+2006-01-27  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-auth-conv-tty.cc: Move static data and functions
 	into the unnamed namespace.
 

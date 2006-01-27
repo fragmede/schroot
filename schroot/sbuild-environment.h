@@ -185,10 +185,7 @@ namespace sbuild
      * suitable for use as an envp argument with execve, for example.
      *
      * @returns a newly-allocated string vector.  This is allocated
-     * with new, and should be freed by deleting all elements and then
-     * the array.
-     * @todo: Move strv_delete from sbuild-session.cc, and recommend
-     * its use.
+     * with new, and should be freed with strv_delete().
      */
     char **
     get_strv() const;
