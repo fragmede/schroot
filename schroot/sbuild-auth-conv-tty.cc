@@ -33,6 +33,59 @@ using std::endl;
 using boost::format;
 using namespace sbuild;
 
+namespace
+{
+
+  volatile sig_atomic_t timer_expired = false;
+
+  void
+  reset_alarm (struct sigaction *orig_sa)
+  {
+    // Stop alarm
+    alarm (0);
+    // Restore original handler
+    sigaction (SIGALRM, orig_sa, NULL);
+  }
+
+  /*
+   * Handle the SIGALRM signal.
+   */
+  void
+  alarm_handler (int ignore)
+  {
+    timer_expired = true;
+  }
+
+  /*
+   * orig_sa: the original signal handler
+   *
+   * Set the SIGALARM handler, and set the timeout to @delay seconds.
+   * The old signal handler is stored in orig_sa.
+   */
+  bool
+  set_alarm (int delay,
+	     struct sigaction *orig_sa)
+  {
+    struct sigaction new_sa;
+    sigemptyset(&new_sa.sa_mask);
+    new_sa.sa_flags = 0;
+    new_sa.sa_handler = alarm_handler;
+
+    if (sigaction(SIGALRM, &new_sa, orig_sa) != 0)
+      {
+	return false;
+      }
+    if (alarm(delay) != 0)
+      {
+	sigaction(SIGALRM, orig_sa, NULL);
+	return false;
+      }
+
+    return true;
+  }
+
+}
+
 AuthConvTty::AuthConvTty():
   warning_timeout(0),
   fatal_timeout(0),
@@ -66,54 +119,6 @@ void
 AuthConvTty::set_fatal_timeout (time_t timeout)
 {
   this->fatal_timeout = timeout;
-}
-
-static volatile sig_atomic_t timer_expired = false;
-
-static void
-reset_alarm (struct sigaction *orig_sa)
-{
-  // Stop alarm
-  alarm (0);
-  // Restore original handler
-  sigaction (SIGALRM, orig_sa, NULL);
-}
-
-/*
- * Handle the SIGALRM signal.
- */
-static void
-alarm_handler (int ignore)
-{
-  timer_expired = true;
-}
-
-/*
- * orig_sa: the original signal handler
- *
- * Set the SIGALARM handler, and set the timeout to @delay seconds.
- * The old signal handler is stored in orig_sa.
- */
-static bool
-set_alarm (int delay,
-	   struct sigaction *orig_sa)
-{
-  struct sigaction new_sa;
-  sigemptyset(&new_sa.sa_mask);
-  new_sa.sa_flags = 0;
-  new_sa.sa_handler = alarm_handler;
-
-  if (sigaction(SIGALRM, &new_sa, orig_sa) != 0)
-    {
-      return false;
-    }
-  if (alarm(delay) != 0)
-    {
-      sigaction(SIGALRM, orig_sa, NULL);
-      return false;
-    }
-
-  return true;
 }
 
 int

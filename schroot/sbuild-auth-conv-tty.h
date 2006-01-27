@@ -89,8 +89,9 @@ namespace sbuild
      * @param message the message to prompt the user for input.
      * @param echo echo user input to screen.
      * @returns a string, which is empty on failure.
-     * @todo Throw an exception on failure.
-     * @todo Remove start_time.
+     *
+     * @todo Throw an exception on failure, rather than returning 0
+     * and subsequently returning failure to the caller?
      */
     std::string * read_string (std::string message,
 			       bool        echo);
