@@ -65,8 +65,11 @@ namespace sbuild
      *
      * @param file initialise using a configuration file or a whole
      * directory containing configuration files.
+     * @param active true if the chroots in the configuration file are
+     * active sessions, otherwise false.
      */
-    Config(std::string const& file);
+    Config(std::string const& file,
+	   bool               active);
 
     /// The destructor.
     virtual ~Config();
@@ -76,18 +79,24 @@ namespace sbuild
      * will be loaded.
      *
      * @param file the file to load.
+     * @param active true if the chroots in the configuration file are
+     * active sessions, otherwise false.
      */
     void
-    add_config_file (std::string const& file);
+    add_config_file (std::string const& file,
+		     bool               active);
 
     /**
      * Add a configuration directory.  The configuration files in the
      * directory specified will all be loaded.
      *
      * @param dir the directory containing the files to load.
+     * @param active true if the chroots in the configuration file are
+     * active sessions, otherwise false.
      */
     void
-    add_config_directory (std::string const& dir);
+    add_config_directory (std::string const& dir,
+			  bool               active);
 
     /**
      * Get a list of available chroots.
@@ -173,9 +182,12 @@ namespace sbuild
      * configuration file, the program will be aborted immediately.
      *
      * @param file the file to load.
+     * @param active true if the chroots in the configuration file are
+     * active sessions, otherwise false.
      */
     void
-    load (std::string const& file);
+    load (std::string const& file,
+	  bool               active);
 
     /// A list of chroots (name->chroot mapping).
     chroot_map chroots;

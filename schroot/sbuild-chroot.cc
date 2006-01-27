@@ -54,10 +54,11 @@ Chroot::Chroot (keyfile const&     keyfile,
 {
   set_name(group);
 
-  /// @todo Restrict setting to session schroots
+  // This is set not in the configuration file, but set in the keyfile
+  // manually.  The user must not have the ability to set this option.
   bool active(false);
   if (keyfile.get_value(group, "active",
-			keyfile::PRIORITY_OPTIONAL, active))
+			keyfile::PRIORITY_REQUIRED, active))
     set_active(active);
 
   bool run_setup_scripts(false);

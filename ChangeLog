@@ -1,5 +1,17 @@
 2006-01-27  Roger Leigh  <rleigh@debian.org>
 
+	* test/sbuild-config.cc (class test_config): Update to use active
+	argument.
+
+	* schroot/schroot.cc (main): When loading chroot configuration,
+	specify if they are active sessions or not.
+
+	* schroot/sbuild-config.cc: All methods taking a file or directory
+	name also take an "active" argument to specify if the chroots
+	being loaded are active sessions or not.
+
+2006-01-27  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-environment.h: Remove completed TODO item about
 	recommending strv_delete().
 

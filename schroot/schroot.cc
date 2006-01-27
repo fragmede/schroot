@@ -147,11 +147,11 @@ main (int   argc,
       /* The normal chroot list is used when starting a session or running
 	 any chroot type or session, or displaying chroot information. */
       if (options.load_chroots == true)
-	config->add_config_file(SCHROOT_CONF);
+	config->add_config_file(SCHROOT_CONF, false);
       /* The session chroot list is used when running or ending an
 	 existing session, or displaying chroot information. */
       if (options.load_sessions == true)
-	config->add_config_directory(SCHROOT_SESSION_DIR);
+	config->add_config_directory(SCHROOT_SESSION_DIR, true);
 
       if (config->get_chroots().empty() && options.quiet == false)
 	{

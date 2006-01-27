@@ -46,14 +46,15 @@ Config::Config():
 {
 }
 
-Config::Config(std::string const& file):
+Config::Config(std::string const& file,
+	       bool               active):
   chroots()
 {
   struct stat statbuf;
   if (stat(file.c_str(), &statbuf) == 0 && S_ISDIR(statbuf.st_mode))
-    add_config_directory(file);
+    add_config_directory(file, active);
   else
-    add_config_file(file);
+    add_config_file(file, active);
 }
 
 Config::~Config()
@@ -62,13 +63,15 @@ Config::~Config()
 }
 
 void
-Config::add_config_file (std::string const& file)
+Config::add_config_file (std::string const& file,
+			 bool               active)
 {
-  load(file);
+  load(file, active);
 }
 
 void
-Config::add_config_directory (std::string const& dir)
+Config::add_config_directory (std::string const& dir,
+			      bool               active)
 {
   if (dir.empty())
     return;
@@ -104,7 +107,7 @@ Config::add_config_directory (std::string const& dir)
 	  continue;
 	}
 
-      load(filename);
+      load(filename, active);
     }
 }
 
@@ -249,16 +252,9 @@ Config::check_security(int fd) const
     }
 }
 
-/*
- * sbuild_config_load:
- * @file: the file to load.
- * @list: a list to append the #Chroot objects to.
- *
- * Load a configuration file.  If there are problems with the
- * configuration file, the program will be aborted immediately.
- */
 void
-Config::load (std::string const& file)
+Config::load (std::string const& file,
+	      bool               active)
 {
   // TODO: Move error handling out to top level.
   /* Use a UNIX fd, for security (no races) */
@@ -319,7 +315,8 @@ Config::load (std::string const& file)
        group != groups.end();
        ++group)
     {
-      // TODO: Check if creation fails, and refuse to insert.
+      // Set the active property for chroot creation.
+      kconfig.set_value(*group, "active", active);
       Chroot::chroot_ptr chroot = Chroot::create(kconfig, *group);
 
       // TODO: Catch exception rather than null ptr check.
