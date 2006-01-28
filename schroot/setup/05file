@@ -12,13 +12,13 @@ if [ "$CHROOT_TYPE" = "file" ]; then
 
     if [ $1 = "setup-start" ]; then
 
-	if eval "echo "$CHROOT_FILE" | egrep '.tar$'"; then
+	if echo "$CHROOT_FILE" | grep -q'.tar$'; then
 	    filetype="tar"
-        elif eval "echo "$CHROOT_FILE" | egrep '(.tar.gz|.tgz)$'"; then
+        elif echo "$CHROOT_FILE" | egrep -q '(.tar.gz|.tgz)$'; then
 	    filetype="tgz"
-        elif eval "echo "$CHROOT_FILE" | egrep '(.tar.bz2|.tbz)$'"; then
+        elif echo "$CHROOT_FILE" | egrep -q '(.tar.bz2|.tbz)$'; then
 	    filetype="tbz"
-	elif eval "echo "$CHROOT_FILE" | egrep '.zip$'"; then
+	elif echo "$CHROOT_FILE" | grep -q '.zip$'; then
 	    filetype="zip"
 	else
 	    echo "Unsupported filetype for $CHROOT_FILE"

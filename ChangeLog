@@ -1,5 +1,9 @@
 2006-01-28  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/setup/05file: Filetype checks are now quiet.
+
+2006-01-28  Roger Leigh  <rleigh@debian.org>
+
 	* Update documentation.
 
 	* schroot/setup/10mount: Add special cases for file chroots.
