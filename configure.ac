@@ -73,7 +73,6 @@ AC_CHECK_HEADER([boost/format.hpp],, [AC_MSG_ERROR([Boost.Format (Boost C++ Libr
 AC_CHECK_HEADER([boost/program_options.hpp],, [AC_MSG_ERROR([Boost.Program_options (Boost C++ Libraries) is not installed, but is required by schroot])])
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_HEADER_STDBOOL
 
 # Checks for library functions.
 AC_CHECK_LIB([pam], [pam_authenticate],

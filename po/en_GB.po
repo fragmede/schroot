@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-01-28 16:09+0000\n"
+"POT-Creation-Date: 2006-01-28 16:28+0000\n"
 "PO-Revision-Date: 2005-11-02 23:31+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -213,11 +213,11 @@ msgstr "Mount Location"
 msgid "Mount Device"
 msgstr "Mount Device"
 
-#: schroot/sbuild-chroot.h:426
+#: schroot/sbuild-chroot.h:428
 msgid "true"
 msgstr ""
 
-#: schroot/sbuild-chroot.h:428
+#: schroot/sbuild-chroot.h:430
 msgid "false"
 msgstr ""
 

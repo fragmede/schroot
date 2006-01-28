@@ -1,5 +1,9 @@
 2006-01-28  Roger Leigh  <rleigh@debian.org>
 
+	* configure.ac: Remove check for stdbool.h.
+
+2006-01-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-chroot.h: setup_session_info is protected and
 	virtual.
 
