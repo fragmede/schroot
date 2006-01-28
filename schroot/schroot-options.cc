@@ -58,7 +58,7 @@ Options::Options(int   argc,
 {
   opt::options_description general(_("General options"));
   general.add_options()
-    ("help,?",
+    ("help,h",
      _("Show help options"))
     ("version,V",
      _("Print version information"))
@@ -106,6 +106,8 @@ Options::Options(int   argc,
   hidden.add_options()
     ("command", opt::value<sbuild::string_list>(&this->command),
      _("Command to run"));
+  opt::positional_options_description pos;
+  pos.add("command", -1);
 
   opt::options_description visible;
   visible.add(general).add(chroot).add(chrootenv).add(session);
@@ -114,9 +116,12 @@ Options::Options(int   argc,
   global.add(general).add(chroot).add(chrootenv).add(session).add(hidden);
 
   opt::variables_map vm;
-  opt::store(opt::parse_command_line(argc, argv, global), vm);
-  //  opt::store(opt::parse_command_line(argc, argv, session), vm);
+  opt::store(opt::command_line_parser(argc, argv).
+	     options(global).positional(pos).run(), vm);
   opt::notify(vm);
+
+  std::cerr << "Command specified: " <<
+    sbuild::string_list_to_string(this->command, ",") << std::endl;
 
   if (vm.count("help"))
     {
@@ -265,7 +270,6 @@ Options::set_action (action_type action)
     throw opt::validation_error(_("Only one action may be specified"));
 
   this->action = action;
-
 }
 
 /*
