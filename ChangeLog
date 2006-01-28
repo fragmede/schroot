@@ -1,5 +1,14 @@
 2006-01-28  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-session.cc (run_child): Search for the program to
+	run inside the chroot, rather than on the root filesystem.
+
+	* schroot/sbuild-util.cc (find_program_in_path): Add a prefix
+	argument, to allow searching in non-root paths, for example inside
+	a chroot.
+
+2006-01-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-config.cc (load): Catch and handle exceptions if
 	chroot creation fails.
 

@@ -146,7 +146,8 @@ sbuild::split_string(std::string const& value,
 
 std::string
 sbuild::find_program_in_path(std::string const& program,
-			     std::string const& path)
+			     std::string const& path,
+			     std::string const& prefix)
 {
   if (program.find_first_of('/') != std::string::npos)
     return program;
@@ -157,7 +158,10 @@ sbuild::find_program_in_path(std::string const& program,
        dir != dirs.end();
        ++dir)
     {
-      std::string absname = *dir + '/' + program;
+      std::string absname;
+      if (prefix.length() > 0)
+	absname = prefix + '/';
+      absname += *dir + '/' + program;
       struct stat statbuf;
       if (!stat(absname.c_str(), &statbuf))
 	{

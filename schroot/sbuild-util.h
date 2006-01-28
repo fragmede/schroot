@@ -80,12 +80,15 @@ namespace sbuild
    *
    * @param program the program to search for.
    * @param path the search path; typically the value of $PATH.
+   * @param prefix a directory prefix the add to the search path.
+   * This may be left empty to search the root filesystem.
    * @returns the absolute path of the program, or an empty string if
    * the program could not be found.
    */
   std::string
   find_program_in_path(std::string const& program,
-		       std::string const& path);
+		       std::string const& path,
+		       std::string const& prefix);
 
   /**
    * Delete a string vector.  The strings in the vector, as well as
