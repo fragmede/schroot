@@ -1,5 +1,9 @@
 2006-01-28  Roger Leigh  <rleigh@debian.org>
 
+	* po/en_GB.po: Updated British English translation.
+
+2006-01-28  Roger Leigh  <rleigh@debian.org>
+
 	* configure.ac: Remove check for stdbool.h.
 
 2006-01-28  Roger Leigh  <rleigh@debian.org>

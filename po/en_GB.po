@@ -1,14 +1,13 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Roger Leigh <rleigh@debian.org>
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# schroot British English translation.
+# Copyright (C) 2005-2006 Roger Leigh <rleigh@debian.org>
+# This file is distributed under the same license as the schroot package.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2006-01-28 16:28+0000\n"
-"PO-Revision-Date: 2005-11-02 23:31+0000\n"
+"PO-Revision-Date: 2006-01-28 16:57+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,150 +15,147 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: schroot/sbuild-auth.cc:116 schroot/sbuild-auth.cc:175
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: user not found: %2%"
-msgstr "%s: group not found: %s\n"
+msgstr "%1%: user not found: %2%"
 
 #: schroot/sbuild-auth.cc:341
 msgid "PAM error: PAM is already initialised"
-msgstr ""
+msgstr "PAM error: PAM is already initialised"
 
 #: schroot/sbuild-auth.cc:357 schroot/sbuild-auth.cc:376
 #: schroot/sbuild-auth.cc:532 schroot/sbuild-auth.cc:557
 #: schroot/sbuild-auth.cc:576 schroot/sbuild-auth.cc:595
 #: schroot/sbuild-auth.cc:614 schroot/sbuild-auth.cc:633
 #: schroot/sbuild-session.cc:633
-#, fuzzy, c-format
+#, c-format
 msgid "PAM error: %1%"
-msgstr "PAM error: %s\n"
+msgstr "PAM error: %1%"
 
 #: schroot/sbuild-auth.cc:398
-#, fuzzy, c-format
+#, c-format
 msgid "PAM set RUSER error: %1%"
-msgstr "PAM error: %s\n"
+msgstr "PAM set RUSER error: %1%"
 
 #: schroot/sbuild-auth.cc:409
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to get hostname: %1%"
-msgstr "failed to stat file: %s"
+msgstr "Failed to get hostname: %1%"
 
 #: schroot/sbuild-auth.cc:418
-#, fuzzy, c-format
+#, c-format
 msgid "PAM set RHOST error: %1%"
-msgstr "PAM error: %s\n"
+msgstr "PAM set RHOST error: %1%"
 
 #: schroot/sbuild-auth.cc:433
-#, fuzzy, c-format
+#, c-format
 msgid "PAM set TTY error: %1%"
-msgstr "PAM error: %s\n"
+msgstr "PAM set TTY error: %1%"
 
 #: schroot/sbuild-auth.cc:447
-#, fuzzy, c-format
+#, c-format
 msgid "PAM set USER error: %1%"
-msgstr "PAM error: %s\n"
+msgstr "PAM set USER error: %1%"
 
 #: schroot/sbuild-auth.cc:460
 #, c-format
 msgid "PAM authentication failed: %1%"
-msgstr ""
+msgstr "PAM authentication failed: %1%"
 
 #: schroot/sbuild-auth.cc:470
 #, c-format
 msgid "You do not have permission to access the %1% service."
-msgstr ""
+msgstr "You do not have permission to access the %1% service."
 
 #: schroot/sbuild-auth.cc:473
 msgid "This failure will be reported."
-msgstr ""
+msgstr "This failure will be reported."
 
 #: schroot/sbuild-auth.cc:478
 msgid "access not authorised"
-msgstr ""
+msgstr "access not authorised"
 
 #: schroot/sbuild-auth-conv-tty.cc:133
 msgid "Timed out"
-msgstr ""
+msgstr "Timed out"
 
 #: schroot/sbuild-auth-conv-tty.cc:140
 msgid "Time is running out..."
-msgstr ""
+msgstr "Time is running out..."
 
 #: schroot/sbuild-auth-conv-tty.cc:169
-#, fuzzy
 msgid "Failed to get terminal settings"
-msgstr "Failed to drop root permissions.\n"
+msgstr "Failed to get terminal settings"
 
 #: schroot/sbuild-auth-conv-tty.cc:281
 #, c-format
 msgid "Unsupported conversation type %1%"
-msgstr ""
+msgstr "Unsupported conversation type %1%"
 
 #: schroot/sbuild-chroot-block-device.cc:134
 #: schroot/sbuild-chroot-lvm-snapshot.cc:147
-#, fuzzy, c-format
+#, c-format
 msgid "%1% chroot: failed to stat device %2%: %3%"
-msgstr "%s: failed to stat file: %s"
+msgstr "%1% chroot: failed to stat device %2%: %3%"
 
 #: schroot/sbuild-chroot-block-device.cc:140
-#, fuzzy, c-format
+#, c-format
 msgid "%1% chroot: %2% is not a block device"
-msgstr "%s chroot: property ‘%s’ is not user-settable"
+msgstr "%1% chroot: %2% is not a block device"
 
 #: schroot/sbuild-chroot-block-device.cc:155
 #: schroot/sbuild-chroot-lvm-snapshot.cc:173
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: failed to lock device: %2%"
-msgstr "%s: failed to stat file: %s"
+msgstr "%1%: failed to lock device: %2%"
 
 #: schroot/sbuild-chroot-block-device.cc:168
 #: schroot/sbuild-chroot-lvm-snapshot.cc:186
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: failed to unlock device: %2%"
-msgstr "%s: failed to stat file: %s"
+msgstr "%1%: failed to unlock device: %2%"
 
 #: schroot/sbuild-chroot-block-device.cc:188
-#, fuzzy
 msgid "Device"
-msgstr "Mount Device"
+msgstr "Device"
 
 #: schroot/sbuild-chroot-block-device.cc:190
-#, fuzzy
 msgid "Mount Options"
-msgstr "Mount Location"
+msgstr "Mount Options"
 
 #: schroot/sbuild-chroot.cc:123 schroot/sbuild-chroot.cc:151
 #, c-format
 msgid "unknown chroot type \"%1%\""
-msgstr ""
+msgstr "unknown chroot type “%1%”"
 
 #: schroot/sbuild-chroot.cc:129
 msgid "chroot creation failed"
-msgstr ""
+msgstr "chroot creation failed"
 
 #: schroot/sbuild-chroot.cc:158
-#, fuzzy, c-format
+#, c-format
 msgid "%1% chroot creation failed"
-msgstr "not a regular file"
+msgstr "%1% chroot creation failed"
 
 #: schroot/sbuild-chroot.cc:320
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: failed to create session file: %2%\n"
-msgstr "%s: failed to stat file: %s"
+msgstr "%1%: failed to create session file: %2%\n"
 
 #: schroot/sbuild-chroot.cc:338
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: lock acquisition failure: %2%\n"
-msgstr "%s: lock acquisition failure: %s\n"
+msgstr "%1%: lock acquisition failure: %2%\n"
 
 #: schroot/sbuild-chroot.cc:351
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: lock discard failure: %2%\n"
-msgstr "%s: lock discard failure: %s\n"
+msgstr "%1%: lock discard failure: %2%\n"
 
 #: schroot/sbuild-chroot.cc:360
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: failed to unlink session file: %2%\n"
-msgstr "%s: failed to stat file: %s"
+msgstr "%1%: failed to unlink session file: %2%\n"
 
 #: schroot/sbuild-chroot.cc:379
 msgid "  --- Session ---\n"
@@ -215,332 +211,326 @@ msgstr "Mount Device"
 
 #: schroot/sbuild-chroot.h:428
 msgid "true"
-msgstr ""
+msgstr "true"
 
 #: schroot/sbuild-chroot.h:430
 msgid "false"
-msgstr ""
+msgstr "false"
 
 #: schroot/sbuild-chroot-lvm-snapshot.cc:141
 #, c-format
 msgid "%1% chroot: device name not set"
-msgstr ""
+msgstr "%1% chroot: device name not set"
 
 #: schroot/sbuild-chroot-lvm-snapshot.cc:153
-#, fuzzy, c-format
+#, c-format
 msgid "%1% chroot: %2% is not a block device\n"
-msgstr "%s chroot: property ‘%s’ is not user-settable"
+msgstr "%1% chroot: %2% is not a block device\n"
 
 #: schroot/sbuild-chroot-lvm-snapshot.cc:215
-#, fuzzy
 msgid "LVM Snapshot Device"
-msgstr "Mount Device"
+msgstr "LVM Snapshot Device"
 
 #: schroot/sbuild-chroot-lvm-snapshot.cc:218
-#, fuzzy
 msgid "LVM Snapshot Options"
-msgstr "Session Options"
+msgstr "LVM Snapshot Options"
 
 #: schroot/sbuild-chroot-plain.cc:112
-#, fuzzy
 msgid "Location"
-msgstr "Mount Location"
+msgstr "Location"
 
 #: schroot/sbuild-config.cc:82
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: failed to open directory: %2%"
-msgstr "%s: failed to open directory: %s\n"
+msgstr "%1%: failed to open directory: %2%"
 
 #: schroot/sbuild-config.cc:95
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: failed to stat file: %2%"
-msgstr "%s: failed to stat file: %s"
+msgstr "%1%: failed to stat file: %2%"
 
 #: schroot/sbuild-config.cc:105
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: not a regular file"
-msgstr "not a regular file"
+msgstr "%1%: not a regular file"
 
 #: schroot/sbuild-config.cc:206 schroot/schroot.cc:94
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: No such chroot"
-msgstr "%s: No such chroot\n"
+msgstr "%1%: No such chroot"
 
 #: schroot/sbuild-config.cc:234
-#, fuzzy, c-format
+#, c-format
 msgid "failed to stat file: %1%"
-msgstr "failed to stat file: %s"
+msgstr "failed to stat file: %1%"
 
 #: schroot/sbuild-config.cc:241
 msgid "not owned by user root"
 msgstr "not owned by user root"
 
 #: schroot/sbuild-config.cc:246
-#, fuzzy
 msgid "others have write permission: "
-msgstr "others have write permission"
+msgstr "others have write permission: "
 
 #: schroot/sbuild-config.cc:251
-#, fuzzy
 msgid "not a regular file: "
-msgstr "not a regular file"
+msgstr "not a regular file: "
 
 #: schroot/sbuild-config.cc:264
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: failed to load configuration: %2%"
-msgstr "%s: failed to load configuration: %s\n"
+msgstr "%1%: failed to load configuration: %2%"
 
 #: schroot/sbuild-config.cc:276
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: lock acquisition failure: %2%"
-msgstr "%s: lock acquisition failure: %s\n"
+msgstr "%1%: lock acquisition failure: %2%"
 
 #: schroot/sbuild-config.cc:287
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: security failure: %2%"
-msgstr "%s: security failure: %s\n"
+msgstr "%1%: security failure: %2%"
 
 #: schroot/sbuild-config.cc:307
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: lock discard failure: %2%"
-msgstr "%s: lock discard failure: %s\n"
+msgstr "%1%: lock discard failure: %2%"
 
 #: schroot/sbuild-keyfile.cc:49
 #, c-format
 msgid "Can't open configuration file %1%"
-msgstr ""
+msgstr "Can't open configuration file %1%"
 
 #: schroot/sbuild-keyfile.cc:212
 #, c-format
 msgid "%1% chroot: A required parameter \"%2%\" is missing."
-msgstr ""
+msgstr "%1% chroot: A required parameter “%2%” is missing."
 
 #: schroot/sbuild-keyfile.cc:226
 #, c-format
 msgid "%1% chroot: A deprecated parameter \"%2%\" has been specified."
-msgstr ""
+msgstr "%1% chroot: A deprecated parameter “%2%” has been specified."
 
 #: schroot/sbuild-keyfile.cc:230
 msgid "This option will be removed in the future."
-msgstr ""
+msgstr "This option will be removed in the future."
 
 #: schroot/sbuild-keyfile.cc:234
 #, c-format
 msgid "%1% chroot: An obsolete parameter \"%2%\" has been specified."
-msgstr ""
+msgstr "%1% chroot: An obsolete parameter “%2%” has been specified."
 
 #: schroot/sbuild-keyfile.cc:238
 msgid "This option has been removed, and no longer has any effect."
-msgstr ""
+msgstr "This option has been removed, and no longer has any effect."
 
 #: schroot/sbuild-keyfile.cc:241
 #, c-format
 msgid "%1% chroot: A disallowed parameter \"%2%\" has been specified."
-msgstr ""
+msgstr "%1% chroot: A disallowed parameter “%2%” has been specified."
 
 #: schroot/sbuild-keyfile.cc:245
 msgid "This option is not allowed in this context."
-msgstr ""
+msgstr "This option is not allowed in this context."
 
 #: schroot/sbuild-keyfile.h:393
 #, c-format
 msgid "Line %1%: invalid group entry: %2%"
-msgstr ""
+msgstr "Line %1%: invalid group entry: %2%"
 
 #: schroot/sbuild-keyfile.h:419
 #, c-format
 msgid "Line %1%: invalid line: %2%"
-msgstr ""
+msgstr "Line %1%: invalid line: %2%"
 
 #: schroot/sbuild-keyfile.h:425
 #, c-format
 msgid "Line %1%: no key specified: %2%"
-msgstr ""
+msgstr "Line %1%: no key specified: %2%"
 
 #: schroot/sbuild-lock.cc:76
-#, fuzzy, c-format
+#, c-format
 msgid "failed to set timeout handler: %1%"
-msgstr "failed to stat file: %s"
+msgstr "failed to set timeout handler: %1%"
 
 #: schroot/sbuild-lock.cc:97
-#, fuzzy, c-format
+#, c-format
 msgid "failed to set timeout: %1%"
-msgstr "failed to stat file: %s"
+msgstr "failed to set timeout: %1%"
 
 #: schroot/sbuild-lock.cc:113
-#, fuzzy, c-format
+#, c-format
 msgid "failed to unset timeout: %1%"
-msgstr "failed to stat file: %s"
+msgstr "failed to unset timeout: %1%"
 
 #: schroot/sbuild-lock.cc:164
-#, fuzzy, c-format
+#, c-format
 msgid "failed to acquire lock (timeout after %1% seconds)"
-msgstr "failed to stat file: %s"
+msgstr "failed to acquire lock (timeout after %1% seconds)"
 
 #: schroot/sbuild-lock.cc:170
-#, fuzzy, c-format
+#, c-format
 msgid "failed to acquire lock: %1%"
-msgstr "failed to stat file: %s"
+msgstr "failed to acquire lock: %1%"
 
 #: schroot/sbuild-lock.cc:230
 msgid "failed to acquire device lock"
-msgstr ""
+msgstr "failed to acquire device lock"
 
 #: schroot/sbuild-lock.cc:238
-#, fuzzy
 msgid "failed to test device lock"
-msgstr "failed to stat file: %s"
+msgstr "failed to test device lock"
 
 #: schroot/sbuild-lock.cc:251
 msgid "failed to release device lock"
-msgstr ""
+msgstr "failed to release device lock"
 
 #: schroot/sbuild-lock.cc:260
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "failed to acquire device lock held by pid %1% (timeout after %2% seconds)"
-msgstr "%s: failed to open directory: %s\n"
+msgstr ""
+"failed to acquire device lock held by pid %1% (timeout after %2% seconds)"
 
 #: schroot/sbuild-lock.cc:262
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "failed to release device lock held by pid %1% (timeout after %2% seconds)"
-msgstr "%s: failed to open directory: %s\n"
+msgstr ""
+"failed to release device lock held by pid %1% (timeout after %2% seconds)"
 
 #: schroot/sbuild-session.cc:98
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: group not found"
-msgstr "%s: group not found\n"
+msgstr "%1%: group not found"
 
 #: schroot/sbuild-session.cc:100
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: group not found: %2%"
-msgstr "%s: group not found: %s\n"
+msgstr "%1%: group not found: %2%"
 
 #: schroot/sbuild-session.cc:116
-#, fuzzy, c-format
+#, c-format
 msgid "can't get supplementary group count: %1%"
-msgstr "can't get supplementary group count: %s\n"
+msgstr "can't get supplementary group count: %1%"
 
 #: schroot/sbuild-session.cc:126
-#, fuzzy, c-format
+#, c-format
 msgid "can't get supplementary groups: %1%"
-msgstr "can't get supplementary groups: %s\n"
+msgstr "can't get supplementary groups: %1%"
 
 #: schroot/sbuild-session.cc:250
-#, fuzzy, c-format
+#, c-format
 msgid "No chroot found matching alias '%1%'"
-msgstr "No chroot found matching alias ‘%s’"
+msgstr "No chroot found matching alias ‘%1%’"
 
 #: schroot/sbuild-session.cc:329
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: Failed to find chroot"
-msgstr "%s: Failed to find chroot"
+msgstr "%1%: Failed to find chroot"
 
 #: schroot/sbuild-session.cc:481
-#, fuzzy, c-format
+#, c-format
 msgid "Chroot setup failed to lock chroot: %1%"
-msgstr "Chroot setup failed to lock chroot: %s"
+msgstr "Chroot setup failed to lock chroot: %1%"
 
 #: schroot/sbuild-session.cc:537
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid verbosity level: %1%, falling back to \"normal\""
-msgstr "Invalid verbosity level: %d, falling back to “normal”"
+msgstr "Invalid verbosity level: %1%, falling back to “normal”"
 
 #: schroot/sbuild-session.cc:556 schroot/sbuild-session.cc:848
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to fork child: %1%"
-msgstr "Failed to fork child: %s"
+msgstr "Failed to fork child: %1%"
 
 #: schroot/sbuild-session.cc:574 schroot/sbuild-session.cc:784
-#, fuzzy, c-format
+#, c-format
 msgid "Could not exec \"%1%\": %2%"
-msgstr "Could not exec “%s”: %s\n"
+msgstr "Could not exec “%1%”: %2%"
 
 #: schroot/sbuild-session.cc:592
-#, fuzzy, c-format
+#, c-format
 msgid "Chroot setup failed to unlock chroot: %1%"
-msgstr "Chroot setup failed to unlock chroot: %s"
+msgstr "Chroot setup failed to unlock chroot: %1%"
 
 #: schroot/sbuild-session.cc:599
-#, fuzzy, c-format
+#, c-format
 msgid "Chroot setup failed during chroot \"%1%\" stage"
-msgstr "Chroot setup failed during chroot %s"
+msgstr "Chroot setup failed during chroot “%1%” stage"
 
 #: schroot/sbuild-session.cc:641
-#, fuzzy, c-format
+#, c-format
 msgid "Could not set gid to '%1%'"
-msgstr "Could not set gid to ‘%lu’\n"
+msgstr "Could not set gid to ‘%1%’"
 
 #: schroot/sbuild-session.cc:647
-#, fuzzy
 msgid "Could not set supplementary group IDs"
-msgstr "Could not set supplementary group IDs\n"
+msgstr "Could not set supplementary group IDs"
 
 #: schroot/sbuild-session.cc:654
-#, fuzzy, c-format
+#, c-format
 msgid "Could not chdir to '%1%': %2%"
-msgstr "Could not chdir to ‘%s’: %s\n"
+msgstr "Could not chdir to ‘%1%’: %2%"
 
 #: schroot/sbuild-session.cc:661
-#, fuzzy, c-format
+#, c-format
 msgid "Could not chroot to '%1%': %2%"
-msgstr "Could not chroot to ‘%s’: %s\n"
+msgstr "Could not chroot to ‘%1%’: %2%"
 
 #: schroot/sbuild-session.cc:670
-#, fuzzy, c-format
+#, c-format
 msgid "Could not set uid to '%1%'"
-msgstr "Could not set uid to ‘%lu’\n"
+msgstr "Could not set uid to ‘%1%’"
 
 #: schroot/sbuild-session.cc:676
-#, fuzzy
 msgid "Failed to drop root permissions."
-msgstr "Failed to drop root permissions.\n"
+msgstr "Failed to drop root permissions."
 
 #: schroot/sbuild-session.cc:684
-#, fuzzy, c-format
+#, c-format
 msgid "warning: Could not chdir to '%1%': %2%"
-msgstr "warning: Could not chdir to ‘%s’: %s\n"
+msgstr "warning: Could not chdir to ‘%1%’: %2%"
 
 #: schroot/sbuild-session.cc:737
-#, fuzzy, c-format
+#, c-format
 msgid "[%1% chroot] Running login shell: \"%2%\""
-msgstr "[%s chroot] Running login shell: “%s”\n"
+msgstr "[%1% chroot] Running login shell: “%2%”"
 
 #: schroot/sbuild-session.cc:738
-#, fuzzy, c-format
+#, c-format
 msgid "[%1% chroot] Running shell: \"%2%\""
-msgstr "[%s chroot] Running shell: “%s”\n"
+msgstr "[%1% chroot] Running shell: “%2%”"
 
 #: schroot/sbuild-session.cc:744
-#, fuzzy, c-format
+#, c-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\""
-msgstr "[%s chroot] (%s→%s) Running login shell: “%s”\n"
+msgstr "[%1% chroot] (%2%→%3%) Running login shell: “%4%”"
 
 #: schroot/sbuild-session.cc:745
-#, fuzzy, c-format
+#, c-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: \"%4%\""
-msgstr "[%s chroot] (%s→%s) Running shell: “%s”\n"
+msgstr "[%1% chroot] (%2%→%3%) Running shell: “%4%”"
 
 #: schroot/sbuild-session.cc:766
-#, fuzzy, c-format
+#, c-format
 msgid "[%1% chroot] Running command: \"%2%\""
-msgstr "[%s chroot] Running command: “%s”\n"
+msgstr "[%1% chroot] Running command: “%2%”"
 
 #: schroot/sbuild-session.cc:770
-#, fuzzy, c-format
+#, c-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
-msgstr "[%s chroot] (%s→%s) Running command: “%s”\n"
+msgstr "[%1% chroot] (%2%→%3%) Running command: “%4%”"
 
 #: schroot/sbuild-session.cc:802
-#, fuzzy, c-format
+#, c-format
 msgid "wait for child failed: %1%"
-msgstr "wait for child failed: %s\n"
+msgstr "wait for child failed: %1%"
 
 #: schroot/sbuild-session.cc:820
-#, fuzzy, c-format
+#, c-format
 msgid "Child terminated by signal %1%"
-msgstr "Child terminated by signal ‘%s’"
+msgstr "Child terminated by signal ‘%1%’"
 
 #: schroot/sbuild-session.cc:825
 msgid "Child dumped core"
@@ -551,14 +541,14 @@ msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr "Child exited abnormally (reason unknown; not a signal or core dump)"
 
 #: schroot/sbuild-session.cc:834
-#, fuzzy, c-format
+#, c-format
 msgid "Child exited abnormally with status '%1%'"
-msgstr "Child exited abnormally with status ‘%d’"
+msgstr "Child exited abnormally with status ‘%1%’"
 
 #: schroot/schroot.cc:47
-#, fuzzy, c-format
+#, c-format
 msgid "schroot (Debian sbuild) %1%\n"
-msgstr "schroot (Debian sbuild) %s\n"
+msgstr "schroot (Debian sbuild) %1%\n"
 
 #: schroot/schroot.cc:48 schroot/schroot-releaselock.cc:56
 msgid ""
@@ -569,9 +559,8 @@ msgstr ""
 "\n"
 
 #: schroot/schroot.cc:49 schroot/schroot-releaselock.cc:57
-#, fuzzy
 msgid "Copyright (C) 2004-2006 Roger Leigh\n"
-msgstr "Copyright © 2004-2005 Roger Leigh\n"
+msgstr "Copyright © 2004-2006 Roger Leigh\n"
 
 #: schroot/schroot.cc:50 schroot/schroot-releaselock.cc:58
 msgid ""
@@ -582,38 +571,36 @@ msgstr ""
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 
 #: schroot/schroot.cc:160
-#, fuzzy, c-format
+#, c-format
 msgid "No chroots are defined in %1% or %2%"
-msgstr "No chroots are defined in %s\n"
+msgstr "No chroots are defined in %1% or %2%"
 
 #: schroot/schroot.cc:167
-#, fuzzy, c-format
+#, c-format
 msgid "No chroots are defined in %1%"
-msgstr "No chroots are defined in %s\n"
+msgstr "No chroots are defined in %1%"
 
 #: schroot/schroot.cc:184
-#, fuzzy, c-format
+#, c-format
 msgid "The specified chroots are not defined in %1%"
-msgstr "The specified chroots are not defined in %s\n"
+msgstr "The specified chroots are not defined in %1%"
 
 #: schroot/schroot.cc:201
-#, fuzzy
 msgid "Only one chroot may be specified when beginning a session"
-msgstr "Only one chroot may be specified when beginning a session\n"
+msgstr "Only one chroot may be specified when beginning a session"
 
 #: schroot/schroot.cc:249
-#, fuzzy, c-format
+#, c-format
 msgid "Session failure: %1%"
-msgstr "Session failure: %s\n"
+msgstr "Session failure: %1%"
 
 #: schroot/schroot-options.cc:59 schroot/schroot-releaselock-options.cc:44
 msgid "General options"
-msgstr ""
+msgstr "General options"
 
 #: schroot/schroot-options.cc:62 schroot/schroot-releaselock-options.cc:46
-#, fuzzy
 msgid "Show help options"
-msgstr "Show less output"
+msgstr "Show help options"
 
 #: schroot/schroot-options.cc:64 schroot/schroot-releaselock-options.cc:48
 msgid "Print version information"
@@ -632,13 +619,12 @@ msgid "List available chroots"
 msgstr "List available chroots"
 
 #: schroot/schroot-options.cc:72
-#, fuzzy
 msgid "Show information about selected chroots"
-msgstr "Show information about chroot"
+msgstr "Show information about selected chroots"
 
 #: schroot/schroot-options.cc:74
 msgid "Chroot selection"
-msgstr ""
+msgstr "Chroot selection"
 
 #: schroot/schroot-options.cc:77
 msgid "Use specified chroot"
@@ -657,9 +643,8 @@ msgid "Select all active sessions"
 msgstr "Select all active sessions"
 
 #: schroot/schroot-options.cc:85
-#, fuzzy
 msgid "Chroot environment"
-msgstr "Preserve user environment"
+msgstr "Chroot environment"
 
 #: schroot/schroot-options.cc:88
 msgid "Username (default current user)"
@@ -670,19 +655,16 @@ msgid "Preserve user environment"
 msgstr "Preserve user environment"
 
 #: schroot/schroot-options.cc:92
-#, fuzzy
 msgid "Session management"
-msgstr "Session management options"
+msgstr "Session management"
 
 #: schroot/schroot-options.cc:95
-#, fuzzy
 msgid "Begin a session; returns a session ID"
-msgstr "Begin a session; returns a session UUID"
+msgstr "Begin a session; returns a session ID"
 
 #: schroot/schroot-options.cc:97
-#, fuzzy
 msgid "Recover an existing session"
-msgstr "Run an existing session"
+msgstr "Recover an existing session"
 
 #: schroot/schroot-options.cc:99
 msgid "Run an existing session"
@@ -697,180 +679,104 @@ msgid "Force operation, even if it fails"
 msgstr "Force operation, even if it fails"
 
 #: schroot/schroot-options.cc:105
-#, fuzzy
 msgid "Hidden options"
-msgstr "Session Options"
+msgstr "Hidden options"
 
 #: schroot/schroot-options.cc:108
 msgid "Command to run"
-msgstr ""
+msgstr "Command to run"
 
 #: schroot/schroot-options.cc:124 schroot/schroot-releaselock-options.cc:68
 msgid "Usage:"
-msgstr ""
+msgstr "Usage:"
 
 #: schroot/schroot-options.cc:125
-#, fuzzy
 msgid "  schroot [OPTION...] - run command or shell in a chroot"
-msgstr "- run command or shell in a chroot"
+msgstr "  schroot [OPTION...] - run command or shell in a chroot"
 
 #: schroot/schroot-options.cc:165
-#, fuzzy
 msgid "--quiet and --verbose may not be used at the same time"
-msgstr ""
-"--quiet and --verbose may not be used at the same time!\n"
-"Using verbose output.\n"
+msgstr "--quiet and --verbose may not be used at the same time"
 
 #: schroot/schroot-options.cc:167
 msgid "Using verbose output"
-msgstr ""
+msgstr "Using verbose output"
 
 #: schroot/schroot-options.cc:173
-#, fuzzy
 msgid "--chroot and --all may not be used at the same time"
-msgstr ""
-"--quiet and --verbose may not be used at the same time!\n"
-"Using verbose output.\n"
+msgstr "--chroot and --all may not be used at the same time"
 
 #: schroot/schroot-options.cc:175
 msgid "Using --chroots only"
-msgstr ""
+msgstr "Using --chroots only"
 
 #: schroot/schroot-options.cc:204
-#, fuzzy
 msgid ""
 "Only one chroot may be specified when recovering, running or ending a session"
-msgstr "Only one chroot may be specified when beginning a session\n"
+msgstr ""
+"Only one chroot may be specified when recovering, running or ending a session"
 
 #: schroot/schroot-options.cc:215
-#, fuzzy
 msgid "Only one chroot may be specified when begining a session"
-msgstr "Only one chroot may be specified when beginning a session\n"
+msgstr "Only one chroot may be specified when begining a session"
 
 #: schroot/schroot-options.cc:233
 msgid "--chroot may not be used with --list"
-msgstr ""
+msgstr "--chroot may not be used with --list"
 
 #: schroot/schroot-options.cc:253
 msgid "Unknown action specified"
-msgstr ""
+msgstr "Unknown action specified"
 
 #: schroot/schroot-options.cc:265
-#, fuzzy
 msgid "Only one action may be specified"
-msgstr "Only one chroot may be specified when beginning a session\n"
+msgstr "Only one action may be specified"
 
 #: schroot/schroot-releaselock.cc:55
-#, fuzzy, c-format
+#, c-format
 msgid "schroot-releaselock (Debian sbuild) %1%\n"
-msgstr "schroot (Debian sbuild) %s\n"
+msgstr "schroot-releaselock (Debian sbuild) %1%\n"
 
 #: schroot/schroot-releaselock.cc:103
 msgid "No device specified"
-msgstr ""
+msgstr "No device specified"
 
 #: schroot/schroot-releaselock.cc:109
 msgid "No pid specified; forcing release of lock"
-msgstr ""
+msgstr "No pid specified; forcing release of lock"
 
 #: schroot/schroot-releaselock.cc:118
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to stat device %1%: %2%"
-msgstr "failed to stat file: %s"
+msgstr "Failed to stat device %1%: %2%"
 
 #: schroot/schroot-releaselock.cc:126
-#, fuzzy, c-format
+#, c-format
 msgid "%1% is not a block device"
-msgstr "%s chroot: property ‘%s’ is not user-settable"
+msgstr "%1% is not a block device"
 
 #: schroot/schroot-releaselock.cc:134
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: failed to release device lock"
-msgstr "%s: failed to open directory: %s\n"
+msgstr "%1%: failed to release device lock"
 
 #: schroot/schroot-releaselock.cc:141
-#, fuzzy, c-format
+#, c-format
 msgid "%1%: failed to release device lock owned by pid %2%"
-msgstr "%s: failed to open directory: %s\n"
+msgstr "%1%: failed to release device lock owned by pid %2%"
 
 #: schroot/schroot-releaselock-options.cc:50
-#, fuzzy
 msgid "Lock options"
-msgstr "Mount Location"
+msgstr "Lock options"
 
 #: schroot/schroot-releaselock-options.cc:53
 msgid "Device to unlock (full path)"
-msgstr ""
+msgstr "Device to unlock (full path)"
 
 #: schroot/schroot-releaselock-options.cc:55
 msgid "Process ID owning the lock"
-msgstr ""
+msgstr "Process ID owning the lock"
 
 #: schroot/schroot-releaselock-options.cc:69
 msgid "  schroot-releaselock [OPTION...] - release a device lock"
-msgstr ""
-
-#, fuzzy
-#~ msgid "failed to release device lock held by pid %1%"
-#~ msgstr "%s: failed to open directory: %s\n"
-
-#, fuzzy
-#~ msgid "%1%: failed to close configuration: %2%"
-#~ msgstr "%s: failed to load configuration: %s\n"
-
-#, fuzzy
-#~ msgid "Error parsing options: %1%"
-#~ msgstr "Error parsing options: %s\n"
-
-#~ msgid "Invalid session option %s"
-#~ msgstr "Invalid session option %s"
-
-#, fuzzy
-#~ msgid "%lu: user not found: %s\n"
-#~ msgstr "%s: group not found: %s\n"
-
-#, fuzzy
-#~ msgid "PAM error: \n"
-#~ msgstr "PAM error: %s\n"
-
-#~ msgid "%s: No such chroot\n"
-#~ msgstr "%s: No such chroot\n"
-
-#~ msgid "PAM error: %s\n"
-#~ msgstr "PAM error: %s\n"
-
-#~ msgid "%s chroot: chroot type '%s' is invalid"
-#~ msgstr "%s chroot: chroot type ‘%s’ is invalid"
-
-#~ msgid "%s chroot: chroot type '%s' has no property named '%s'"
-#~ msgstr "%s chroot: chroot type ‘%s’ has no property named ‘%s’"
-
-#~ msgid "%s chroot: property '%s' has unsupported type '%s'"
-#~ msgstr "%s chroot: property ‘%s’ has unsupported type ‘%s’"
-
-#~ msgid "%s chroot: chroot type is unset; error in derived class\n"
-#~ msgstr "%s chroot: chroot type is unset; error in derived class\n"
-
-#~ msgid "%s: read failure: %s\n"
-#~ msgstr "%s: read failure: %s\n"
-
-#~ msgid "%s: close failure: %s\n"
-#~ msgstr "%s: close failure: %s\n"
-
-#~ msgid "%s: parse failure: %s\n"
-#~ msgstr "%s: parse failure: %s\n"
-
-#~ msgid "%s chroot: chroot setup name is unset; error in derived class\n"
-#~ msgstr "%s chroot: chroot setup name is unset; error in derived class\n"
-
-#~ msgid "%s chroot: chroot session flags unset; error in derived class\n"
-#~ msgstr "%s chroot: chroot session flags unset; error in derived class\n"
-
-#~ msgid "No chroot specified.  Use --chroot or --all.\n"
-#~ msgstr "No chroot specified.  Use --chroot or --all.\n"
-
-#~ msgid "  %-22s%s\n"
-#~ msgstr "  %-22s%s\n"
-
-#~ msgid "Run command in all chroots"
-#~ msgstr "Run command in all chroots"
+msgstr "  schroot-releaselock [OPTION...] - release a device lock"
