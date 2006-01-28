@@ -9,6 +9,7 @@ Standards-Version: 3.6.2
 Package: schroot
 Architecture: any
 Depends: ${shlibs:Depends}
+Suggests: unzip
 Description: Execute commands in a chroot environment
  schroot allows users to execute commands or interactive shells
  in different chroots.  Any number of named chroots may be

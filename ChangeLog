@@ -1,5 +1,13 @@
 2006-01-28  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Update for 0.2.0.
+
+	* debian/control: Suggest unzip.
+
+	* NEWS: Update for 0.2.0.
+
+2006-01-28  Roger Leigh  <rleigh@debian.org>
+
 	* po/en_GB.po: Updated British English translation.
 
 2006-01-28  Roger Leigh  <rleigh@debian.org>

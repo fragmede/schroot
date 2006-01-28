@@ -9,7 +9,14 @@ configuration.
 
 * Major changes in 0.2.0:
 
-  The source has been rewritten in C++, and documented with Doxygen.
+  1) A new chroot type, "file", has been added, to allow chroots to be
+     created by unpacking a file archive, such as a tar or zip file.
+
+  2) The source has been rewritten in C++, and documented with
+     Doxygen.
+
+  3) A testsuite has been added to unit test as much functionality as
+     is reasonably possible.
 
 * Major changes in 0.1.7:
 
