@@ -1,0 +1,53 @@
+#!/bin/sh
+
+set -e
+
+if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+    VERBOSE="-v"
+else
+    ZIP_VERBOSE="-q"
+fi
+
+if [ "$CHROOT_TYPE" = "file" ]; then
+
+    if [ $1 = "setup-start" ]; then
+
+	if eval "echo "$CHROOT_FILE" | egrep '.tar$'"; then
+	    filetype="tar"
+        elif eval "echo "$CHROOT_FILE" | egrep '(.tar.gz|.tgz)$'"; then
+	    filetype="tgz"
+        elif eval "echo "$CHROOT_FILE" | egrep '(.tar.bz2|.tbz)$'"; then
+	    filetype="tbz"
+	elif eval "echo "$CHROOT_FILE" | egrep '.zip$'"; then
+	    filetype="zip"
+	else
+	    echo "Unsupported filetype for $CHROOT_FILE"
+	    exit 1
+	fi
+
+        if [ ! -d "$CHROOT_MOUNT_LOCATION" ]; then
+	    mkdir -p "$CHROOT_MOUNT_LOCATION"
+        fi
+	cd "$CHROOT_MOUNT_LOCATION"
+
+	if [ "filetype" = "tar" ]; then
+	    tar $VERSBOSE -xf "$CHROOT_FILE"
+	elif [ "filetype" = "tgz" ]; then
+	    tar $VERSBOSE -xzf "$CHROOT_FILE"
+	elif [ "filetype" = "tbz" ]; then
+	    tar $VERSBOSE -xzf "$CHROOT_FILE"
+	elif [ "filetype" = "zip" ]; then
+	    unzip $ZIP_VERSBOSE "$CHROOT_FILE"
+	else
+	    echo "Unsupported filetype for $CHROOT_FILE"
+	    exit 1
+	fi
+
+    elif [ $1 = "setup-stop" ]; then
+
+	rm -rf "$CHROOT_MOUNT_LOCATION" || true
+
+    fi
+
+fi
+

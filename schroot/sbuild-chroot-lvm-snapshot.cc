@@ -21,10 +21,9 @@
 
 #include "sbuild.h"
 
+#include <cerrno>
 #include <iostream>
-#include <ext/stdio_filebuf.h>
 
-#include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/sysmacros.h>
@@ -198,64 +197,6 @@ ChrootLvmSnapshot::setup_lock (SetupType type,
     {
       bool start = (type == SETUP_START);
       setup_session_info(start);
-    }
-}
-
-void
-ChrootLvmSnapshot::setup_session_info (bool start)
-{
-  /* Create or unlink session information. */
-  std::string file = std::string(SCHROOT_SESSION_DIR) + "/" + get_name();
-
-  if (start)
-    {
-      int fd = open(file.c_str(), O_CREAT|O_EXCL|O_WRONLY, 0664);
-      if (fd < 0)
-	{
-	  format fmt(_("%1%: failed to create session file: %2%\n"));
-	  fmt % file % strerror(errno);
-	  throw error(fmt);
-	}
-
-      // Create a stream buffer from the file descriptor.  The fd will
-      // be closed when the buffer is destroyed.
-      __gnu_cxx::stdio_filebuf<char> fdbuf(fd, std::ios::out);
-      std::ostream output(&fdbuf);
-      output.imbue(std::locale("C"));
-
-      sbuild::FileLock lock(fd);
-      try
-	{
-	  lock.set_lock(Lock::LOCK_EXCLUSIVE, 2);
-	}
-      catch (Lock::error const& e)
-	{
-	  format fmt(_("%1%: lock acquisition failure: %2%\n"));
-	  fmt % file % e.what();
-	  throw error(fmt);
-	}
-
-      print_config(output);
-
-      try
-	{
-	  lock.unset_lock();
-	}
-      catch (Lock::error const& e)
-	{
-	  format fmt(_("%1%: lock discard failure: %2%\n"));
-	  fmt % file % e.what();
-	  throw error(fmt);
-	}
-    }
-  else /* start == false */
-    {
-      if (unlink(file.c_str()) != 0)
-	{
-	  format fmt(_("%1%: failed to unlink session file: %2%\n"));
-	  fmt % file % strerror(errno);
-	  throw error(fmt);
-	}
     }
 }
 

@@ -62,7 +62,7 @@ namespace sbuild
     get_device () const;
 
     /**
-     * Set the block device of the chroot.This is the "source" device.
+     * Set the block device of the chroot.  This is the "source" device.
      * It may be the case that the real device is different (for
      * example, an LVM snapshot PV), but by default will be the device
      * to mount.

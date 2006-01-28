@@ -14,7 +14,7 @@
 .\" along with this program; if not, write to the Free Software
 .\" Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 .\" MA  02111-1307  USA
-.TH SCHROOT-SETUP 5 "12 Oct 2005" "Version @VERSION@" "Debian sbuild"
+.TH SCHROOT-SETUP 5 "28 Jan 2006" "Version @VERSION@" "Debian sbuild"
 .SH NAME
 schroot-setup \- schroot chroot setup scripts
 .SH DESCRIPTION
@@ -85,6 +85,10 @@ which require mounting.
 CHROOT_LOCATION
 The location of the chroot.  This is useful for creating files, or copying
 files into the chroot.
+.SS File variables
+.TP
+CHROOT_FILE
+The file containing the chroot files.
 .SS Block device variables
 .TP
 CHROOT_DEVICE

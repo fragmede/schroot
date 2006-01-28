@@ -47,6 +47,7 @@ sbuild_public_h_sources =		\
 	sbuild-auth-message.h   	\
 	sbuild-chroot.h			\
 	sbuild-chroot-block-device.h	\
+	sbuild-chroot-file.h		\
 	sbuild-chroot-lvm-snapshot.h	\
 	sbuild-chroot-plain.h		\
 	sbuild-config.h			\
@@ -69,6 +70,7 @@ sbuild_public_cc_sources =		\
 	sbuild-auth-message.cc		\
 	sbuild-chroot.cc		\
 	sbuild-chroot-block-device.cc	\
+	sbuild-chroot-file.cc		\
 	sbuild-chroot-lvm-snapshot.cc	\
 	sbuild-chroot-plain.cc		\
 	sbuild-config.cc		\

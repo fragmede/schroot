@@ -17,23 +17,23 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_LVM_SNAPSHOT_H
-#define SBUILD_CHROOT_LVM_SNAPSHOT_H
+#ifndef SBUILD_CHROOT_FILE_H
+#define SBUILD_CHROOT_FILE_H
 
-#include "sbuild-chroot-block-device.h"
+#include "sbuild-chroot.h"
 
 namespace sbuild
 {
 
   /**
-   * A chroot stored on an LVM logical volume (LV).  A snapshot LV
-   * will be created and mounted on demand.
+   * A chroot stored in a file archive (tar or zip).  The archive will
+   * be unpacked on demand.
    */
-  class ChrootLvmSnapshot : public ChrootBlockDevice
+  class ChrootFile : public Chroot
   {
   protected:
     /// The constructor.
-    ChrootLvmSnapshot();
+    ChrootFile();
 
     /**
      * The constructor.  Initialise from an open keyfile.
@@ -41,56 +41,33 @@ namespace sbuild
      * @param keyfile the configuration file
      * @param group the keyfile group (chroot name)
      */
-    ChrootLvmSnapshot (keyfile const&     keyfile,
+    ChrootFile (keyfile const&     keyfile,
 		       std::string const& group);
 
     friend class Chroot;
 
   public:
     /// The destructor.
-    virtual ~ChrootLvmSnapshot();
+    virtual ~ChrootFile();
 
     virtual Chroot::chroot_ptr
     clone () const;
 
     /**
-     * Get the logical volume snapshot device name.  This is used by
-     * lvcreate.
+     * Get the file used by the chroot.
      *
-     * @returns the device name.
+     * @returns the file.
      */
     std::string const&
-    get_snapshot_device () const;
+    get_file () const;
 
     /**
-     * Set the logical volume snapshot device name.  This is used by
-     * lvcreate.
+     * Set the file used by the chroot.
      *
-     * @param snapshot_device the device name.
+     * @param file the file.
      */
     void
-    set_snapshot_device (std::string const& snapshot_device);
-
-    virtual std::string const&
-    get_mount_device () const;
-
-    /**
-     * Get the logical volume snapshot options.  These are used by
-     * lvcreate.
-     *
-     * @returns the options.
-     */
-    std::string const&
-    get_snapshot_options () const;
-
-    /**
-     * Set the logical volume snapshot options.  These are used by
-     * lvcreate.
-     *
-     * @param snapshot_options the options.
-     */
-    void
-    set_snapshot_options (std::string const& snapshot_options);
+    set_file (std::string const& file);
 
     virtual std::string const&
     get_chroot_type () const;
@@ -112,15 +89,13 @@ namespace sbuild
     print_config (std::ostream& stream) const;
 
   private:
-    /// LVM snapshot device name for lvcreate.
-    std::string snapshot_device;
-    /// LVM snapshot options for lvcreate.
-    std::string snapshot_options;
+    /// The file to use.
+    std::string file;
   };
 
 }
 
-#endif /* SBUILD_CHROOT_LVM_SNAPSHOT_H */
+#endif /* SBUILD_CHROOT_FILE_H */
 
 /*
  * Local Variables:

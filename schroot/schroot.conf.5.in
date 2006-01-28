@@ -14,7 +14,7 @@
 .\" along with this program; if not, write to the Free Software
 .\" Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 .\" MA  02111-1307  USA
-.TH SCHROOT.CONF 5 "12 Oct 2005" "Version @VERSION@" "Debian sbuild"
+.TH SCHROOT.CONF 5 "28 Jan 2006" "Version @VERSION@" "Debian sbuild"
 .SH NAME
 schroot.conf \- chroot definition file for schroot
 .SH DESCRIPTION
@@ -25,8 +25,8 @@ Comments are introduced following a \[oq]\f[CR]\[sh]\fP\[cq] (\[lq]hash\[rq])
 character at the beginning of a line, or following any other text.  All text
 right of the \[oq]\f[CR]\[sh]\fP\[cq] is treated as a comment.
 .PP
-The configuration format is an INI-style format used by the GLib GKeyFile
-class, and is fully documented in the GLib API reference.  Here, only the
+The configuration format is an INI-style format based upon the GLib GKeyFile
+parser, and is fully documented in the GLib API reference.  Here, only the
 features used and required by schroot are documented.
 .SS
 General options
@@ -43,7 +43,7 @@ For example,
 This is then followed by several key-value pairs:
 .TP
 .B type=\fItype\fP
-The type of the chroot.  Valid types are \[lq]plain\[rq],
+The type of the chroot.  Valid types are \[lq]plain\[rq], \[lq]file\[rq],
 \[lq]block\-device\[rq] and \[lq]lvm\-snapshot\[rq].  If empty or omitted, the
 default type is \[lq]plain\[rq].
 .TP
@@ -94,6 +94,18 @@ They have an additional (mandatory) configuration option:
 The directory containing the chroot environment.  This is where the root will
 be changed to when executing a login shell or a command.  The directory must
 exist and have read and execute permissions to allow users' access to it.
+.SS
+File chroots
+.PP
+Chroots of type \[lq]file\[rq] are files on the current filesystem containing
+an archive of the chroot files.
+They have an additional (mandatory) configuration option:
+.TP
+.B file=\fIfilename\fP
+The file containing the archived chroot environment.  This must be a tar (tape
+archive), optionally compressed with gzip or bzip2, or a zip archive.  The file
+extensions used to determine the type are are \fI.tar\fP, \fI.tar.gz\fP,
+\fI.tar.bz2\fP, \fI.tgz\fP, \fI.tbz\fP and \fI.zip\fP.
 .SS
 Block device chroots
 .PP
