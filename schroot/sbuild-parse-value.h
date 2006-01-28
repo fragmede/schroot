@@ -64,8 +64,7 @@ namespace sbuild
     std::istringstream is(stringval);
     is.imbue(std::locale("C"));
     T tmpval;
-    is >> tmpval;
-    if (!is.bad())
+    if (is >> tmpval)
       {
 	value = tmpval;
 	log_debug(DEBUG_NOTICE) << "value=" << value << std::endl;

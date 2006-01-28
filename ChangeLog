@@ -1,5 +1,15 @@
 2006-01-28  Roger Leigh  <rleigh@debian.org>
 
+	* test/sbuild-parse-value.cc: New file.  Tests for parse_value.
+
+	* schroot/sbuild-parse-value.h (parse_value): Check failbit rather
+	than badbit to catch parse errors.
+
+	* schroot/sbuild-parse-value.cc (parse_value): Correctly parse
+	false boolean values.
+
+2006-01-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-session.cc (run_child): Search for the program to
 	run inside the chroot, rather than on the root filesystem.
 

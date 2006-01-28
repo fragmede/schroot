@@ -12,4 +12,5 @@ sbuild-keyfile
 sbuild-lock
 sbuild-log
 sbuild-nostream
+sbuild-parse-value
 sbuild-util

@@ -28,7 +28,7 @@ sbuild::parse_value (std::string const& stringval,
   if (stringval == "true" || stringval == "yes" || stringval == "1")
     value = true;
   else if (stringval == "false" || stringval == "no" || stringval == "0")
-    value = true;
+    value = false;
   else
     return false;
 
