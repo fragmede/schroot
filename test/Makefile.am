@@ -77,4 +77,12 @@ sbuild_parse_value_LDADD = libtest.la
 sbuild_util_SOURCES = sbuild-util.cc
 sbuild_util_LDADD = libtest.la
 
-EXTRA_DIST = keyfile.ex1
+EXTRA_DIST = 			\
+	keyfile.ex1		\
+	config.ex1 		\
+	config.ex2/config	\
+	config.ex2/empty	\
+	config.ex2/experimental	\
+	config.ex2/sarge	\
+	config.ex2/sid		\
+	config.ex2/woody

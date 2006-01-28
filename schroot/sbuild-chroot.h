@@ -333,14 +333,16 @@ namespace sbuild
     setup_lock (SetupType type,
 		bool      lock) = 0;
 
+  protected:
     /**
      * Set up persistent session information.
      *
      * @param start true if startion, or false if ending a session.
      */
-    void
+    virtual void
     setup_session_info (bool start);
 
+  public:
     /**
      * Get the session flags of the chroot.  These determine how the
      * Session controlling the chroot will operate.

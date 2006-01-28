@@ -1,5 +1,12 @@
 2006-01-28  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-chroot.h: setup_session_info is protected and
+	virtual.
+
+	* test/Makefile.am: Distribute test data.
+
+2006-01-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/setup/05file: Filetype checks are now quiet.
 
 2006-01-28  Roger Leigh  <rleigh@debian.org>
