@@ -21,6 +21,9 @@
 
 #include "sbuild.h"
 
+#include <boost/format.hpp>
+
+using boost::format;
 using namespace sbuild;
 
 Chroot::Chroot ():
@@ -105,12 +108,23 @@ Chroot::chroot_ptr
 Chroot::create (std::string const& type)
 {
   Chroot *new_chroot = 0;
+
   if (type == "plain")
     new_chroot = new ChrootPlain();
   else if (type == "block-device")
     new_chroot = new ChrootBlockDevice();
   else if (type == "lvm-snapshot")
     new_chroot = new ChrootLvmSnapshot();
+  else
+    {
+      format fmt(_("unknown chroot type \"%1%\""));
+      fmt % type;
+      throw error(fmt);
+    }
+
+  if (new_chroot == 0)
+    throw error(_("chroot creation failed"));
+
   return chroot_ptr(new_chroot);
 }
 
@@ -122,12 +136,27 @@ Chroot::create (keyfile const&     keyfile,
   keyfile.get_value(group, "type", type);
 
   Chroot *new_chroot = 0;
+
   if (type == "plain")
     new_chroot = new ChrootPlain(keyfile, group);
   else if (type == "block-device")
     new_chroot = new ChrootBlockDevice(keyfile, group);
   else if (type == "lvm-snapshot")
     new_chroot = new ChrootLvmSnapshot(keyfile, group);
+  else
+    {
+      format fmt(_("unknown chroot type \"%1%\""));
+      fmt % type;
+      throw error(fmt);
+    }
+
+  if (new_chroot == 0)
+    {
+      format fmt(_("%1% chroot creation failed"));
+      fmt % group;
+      throw error(fmt);
+    }
+
   return chroot_ptr(new_chroot);
 }
 

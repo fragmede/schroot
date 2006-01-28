@@ -315,13 +315,12 @@ Config::load (std::string const& file,
        group != groups.end();
        ++group)
     {
-      // Set the active property for chroot creation.
-      kconfig.set_value(*group, "active", active);
-      Chroot::chroot_ptr chroot = Chroot::create(kconfig, *group);
-
-      // TODO: Catch exception rather than null ptr check.
-      if (chroot)
+      try
 	{
+	  // Set the active property for chroot creation.
+	  kconfig.set_value(*group, "active", active);
+	  Chroot::chroot_ptr chroot = Chroot::create(kconfig, *group);
+
 	  // TODO: error checking (did insertion work? was the alias a
 	  // duplicate?
 	  this->chroots.insert(std::make_pair(chroot->get_name(), chroot));
@@ -332,11 +331,9 @@ Config::load (std::string const& file,
 	       ++pos)
 	    this->aliases.insert(std::make_pair(*pos, chroot->get_name()));
 	}
-      else
+      catch (sbuild::runtime_error const& e)
 	{
-	  log_warning()
-	    << format(_("%1% chroot: Could not create chroot")) % *group
-	    << endl;
+	  log_warning() << e.what() << endl;
 	}
     }
 }

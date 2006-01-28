@@ -88,8 +88,6 @@ namespace sbuild
      *
      * @param type the type of chroot to create.
      * @returns a shared_ptr to the new chroot.
-     *
-     * @todo Throw exception if type is wrong.
      */
     static chroot_ptr
     create (std::string const& type);
@@ -100,8 +98,6 @@ namespace sbuild
      * @param keyfile the configuration file
      * @param group the keyfile group (chroot name)
      * @returns a shared_ptr to the new chroot.
-     *
-     * @todo Throw exception if type is wrong or construction fails.
      */
     static chroot_ptr
     create (keyfile const&     keyfile,

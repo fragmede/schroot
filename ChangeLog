@@ -1,5 +1,13 @@
 2006-01-28  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-config.cc (load): Catch and handle exceptions if
+	chroot creation fails.
+
+	* schroot/sbuild-chroot.cc (create): Throw an exception if
+	creation fails.
+
+2006-01-28  Roger Leigh  <rleigh@debian.org>
+
 	* configure.ac: Update maintainer email address.
 
 	* schroot/sbuild-config.h: Remove completed TODO item.
