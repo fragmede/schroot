@@ -1,5 +1,9 @@
 2006-01-28  Roger Leigh  <rleigh@debian.org>
 
+	* debian/rules: Don't run the testsuite.
+
+2006-01-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-options.cc: Store positional arguments correctly
 	using positional_options_description.
 

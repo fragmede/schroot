@@ -2,8 +2,10 @@ schroot (0.2.0-1) unstable; urgency=low
 
   * New upstream release.
   * debian/control: Suggest unzip, for use with file chroots.
+  * debian/rules: Don't run the testsuite, which requires root to run
+    successfully.
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 28 Jan 2006 17:34:01 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sat, 28 Jan 2006 18:32:23 +0000
 
 schroot (0.1.8-1) unstable; urgency=low
 

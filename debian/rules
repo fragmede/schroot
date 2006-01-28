@@ -29,14 +29,14 @@ build: build-stamp
 build-stamp:  config.status
 	dh_testdir
 
-	$(MAKE) all check
+	$(MAKE) all
 
 	touch build-stamp
 
 clean:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp 
+	rm -f build-stamp
 
 	-$(MAKE) distclean
 ifneq "$(wildcard /usr/share/misc/config.sub)" ""
