@@ -39,10 +39,6 @@ namespace sbuild
    *
    * Methods are provided to query the available chroots and find
    * specific chroots.
-   *
-   * @todo Specify whether a file/directory contains active chroots or
-   * not, in order to determine whether or not to allow the parsing of
-   * privileged options.
    */
  class Config
   {

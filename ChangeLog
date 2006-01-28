@@ -1,3 +1,9 @@
+2006-01-28  Roger Leigh  <rleigh@debian.org>
+
+	* configure.ac: Update maintainer email address.
+
+	* schroot/sbuild-config.h: Remove completed TODO item.
+
 2006-01-27  Roger Leigh  <rleigh@debian.org>
 
 	* test/sbuild-config.cc (class test_config): Update to use active
