@@ -21,7 +21,6 @@
 
 #include "sbuild.h"
 
-#include <stdarg.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -97,7 +96,7 @@ sbuild::dirname(std::string name,
   else if (pos == 0)
     ret = separator;
   else
-    ret =  name.substr(0, pos); // Dirname part
+    ret = name.substr(0, pos); // Dirname part
 
   return remove_duplicates(ret, separator);
 }
@@ -158,16 +157,22 @@ sbuild::find_program_in_path(std::string const& program,
        dir != dirs.end();
        ++dir)
     {
+      std::string realname = *dir + '/' + program;
       std::string absname;
       if (prefix.length() > 0)
-	absname = prefix + '/';
-      absname += *dir + '/' + program;
+	{
+	  absname = prefix;
+	  if (dir->length() > 0 && (*dir)[0] != '/')
+	    absname += '/';
+	}
+      absname += realname;
+
       struct stat statbuf;
-      if (!stat(absname.c_str(), &statbuf))
+      if (stat(absname.c_str(), &statbuf) == 0)
 	{
 	  if (S_ISREG(statbuf.st_mode) &&
 	      access (absname.c_str(), X_OK) == 0)
-	    return absname;
+	    return realname;
 	}
     }
 

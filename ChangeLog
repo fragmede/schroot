@@ -1,3 +1,16 @@
+2006-01-29  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-util.cc (find_program_in_path): Return the
+	program name without the absolute prefix.
+
+	* schroot/sbuild-session.cc (run_child): Don't prefix the program
+	search path (find_program_in_path), because it's already running
+	inside the chroot.
+
+	* schroot/Makefile.am (DEFS): Remove G_LOG_DOMAIN.
+
+	* schroot/schroot-options.cc: Remove debugging messages.
+
 2006-01-28  Roger Leigh  <rleigh@debian.org>
 
 	* debian/rules: Don't run the testsuite.

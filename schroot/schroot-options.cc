@@ -120,9 +120,6 @@ Options::Options(int   argc,
 	     options(global).positional(pos).run(), vm);
   opt::notify(vm);
 
-  std::cerr << "Command specified: " <<
-    sbuild::string_list_to_string(this->command, ",") << std::endl;
-
   if (vm.count("help"))
     {
       std::cout
