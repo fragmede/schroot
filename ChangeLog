@@ -1,5 +1,14 @@
 2006-01-29  Roger Leigh  <rleigh@debian.org>
 
+	* test/sbuild-chroot-file.cc: New file.  Unit test for ChrootFile.
+
+	* schroot/sbuild-util.cc (string_list_to_strv): New function,
+	moved from sbuild-session.cc.
+
+	* schroot/sbuild-session.cc: Remove string functions.
+
+2006-01-29  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-chroot.cc (create): Add support for "file" type
 	chroots.
 

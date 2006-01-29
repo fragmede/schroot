@@ -256,7 +256,6 @@ void
 Config::load (std::string const& file,
 	      bool               active)
 {
-  // TODO: Move error handling out to top level.
   /* Use a UNIX fd, for security (no races) */
   int fd = open(file.c_str(), O_RDONLY|O_NOFOLLOW);
   if (fd < 0)

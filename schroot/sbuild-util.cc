@@ -179,6 +179,24 @@ sbuild::find_program_in_path(std::string const& program,
   return "";
 }
 
+char **
+sbuild::string_list_to_strv(string_list const& str)
+{
+  char **ret = new char *[str.size() + 1];
+
+  for (string_list::size_type i = 0;
+       i < str.size();
+       ++i)
+    {
+      ret[i] = new char[str[i].length() + 1];
+      std::strcpy(ret[i], str[i].c_str());
+    }
+  ret[str.size()] = 0;
+
+  return ret;
+}
+
+
 void
 sbuild::strv_delete(char **strv)
 {

@@ -43,41 +43,6 @@ using namespace sbuild;
 
 namespace
 {
-  /* TODO: move to utils */
-  std::string
-  string_list_to_string(string_list const& list,
-			std::string const& separator)
-  {
-    std::string ret;
-
-    for (string_list::const_iterator cur = list.begin();
-	 cur != list.end();
-	 ++cur)
-      {
-	ret += *cur;
-	if (cur + 1 != list.end())
-	  ret += separator;
-      }
-
-    return ret;
-  }
-
-  char **
-  string_list_to_strv(string_list const& str)
-  {
-    char **ret = new char *[str.size() + 1];
-
-    for (string_list::size_type i = 0;
-	 i < str.size();
-	 ++i)
-      {
-	ret[i] = new char[str[i].length() + 1];
-	std::strcpy(ret[i], str[i].c_str());
-      }
-    ret[str.size()] = 0;
-
-    return ret;
-  }
 
   /*
    * is_group_member:
@@ -239,7 +204,8 @@ Session::get_auth_status () const
 
   Auth::Status status = Auth::STATUS_NONE;
 
-  /* TODO set difference. */
+  /* @todo Use set difference rather than iteration and
+     is_group_member. */
   for (string_list::const_iterator cur = this->chroots.begin();
        cur != this->chroots.end();
        ++cur)

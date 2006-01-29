@@ -28,6 +28,11 @@ namespace sbuild
   /**
    * A chroot stored in a file archive (tar or zip).  The archive will
    * be unpacked on demand.
+   *
+   * @todo Optionally mount and then unpack onto a tmpfs, to save
+   * using a lot of space under /var.  However, this will require
+   * careful checking and/or restrictions in order to prevent resource
+   * starvation (using all swap space, for example).
    */
   class ChrootFile : public Chroot
   {

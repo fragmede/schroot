@@ -91,6 +91,16 @@ namespace sbuild
 		       std::string const& prefix);
 
   /**
+   * Create a string vector from a string_list.  The strings in the
+   * vector, as well as the vector itself, are allocated with new, and
+   * should be freed as a whole with strv_delete.
+   *
+   * @param strv the string vector to delete.
+   */
+  char **
+  string_list_to_strv(string_list const& str);
+
+  /**
    * Delete a string vector.  The strings in the vector, as well as
    * the vector itself, must have been previously allocated with new,
    * for example sbuild::environment::get_strv.
