@@ -2,6 +2,40 @@
 
 set -e
 
+# Check file type
+function check_filetype()
+{
+    if echo "$CHROOT_FILE" | grep -q '.tar$'; then
+	filetype="tar"
+    elif echo "$CHROOT_FILE" | egrep -q '(.tar.gz|.tgz)$'; then
+	filetype="tgz"
+    elif echo "$CHROOT_FILE" | egrep -q '(.tar.bz2|.tbz)$'; then
+	filetype="tbz"
+    elif echo "$CHROOT_FILE" | grep -q '.zip$'; then
+	filetype="zip"
+    else
+	echo "Unsupported filetype for $CHROOT_FILE"
+	exit 1
+    fi
+}
+
+# Unpack archive
+function unpack_file()
+{
+	if [ "$filetype" = "tar" ]; then
+	    tar $VERBOSE -xf "$CHROOT_FILE"
+	elif [ "$filetype" = "tgz" ]; then
+	    tar $VERBOSE -xzf "$CHROOT_FILE"
+	elif [ "$filetype" = "tbz" ]; then
+	    tar $VERBOSE -xzf "$CHROOT_FILE"
+	elif [ "$filetype" = "zip" ]; then
+	    unzip $ZIP_VERBOSE "$CHROOT_FILE"
+	else
+	    echo "Unsupported filetype for $CHROOT_FILE"
+	    exit 1
+	fi
+}
+
 if [ "$AUTH_VERBOSITY" = "verbose" ]; then
     VERBOSE="-v"
 else
@@ -12,36 +46,14 @@ if [ "$CHROOT_TYPE" = "file" ]; then
 
     if [ $1 = "setup-start" ]; then
 
-	if echo "$CHROOT_FILE" | grep -q'.tar$'; then
-	    filetype="tar"
-        elif echo "$CHROOT_FILE" | egrep -q '(.tar.gz|.tgz)$'; then
-	    filetype="tgz"
-        elif echo "$CHROOT_FILE" | egrep -q '(.tar.bz2|.tbz)$'; then
-	    filetype="tbz"
-	elif echo "$CHROOT_FILE" | grep -q '.zip$'; then
-	    filetype="zip"
-	else
-	    echo "Unsupported filetype for $CHROOT_FILE"
-	    exit 1
-	fi
+	check_filetype
 
         if [ ! -d "$CHROOT_MOUNT_LOCATION" ]; then
 	    mkdir -p "$CHROOT_MOUNT_LOCATION"
         fi
 	cd "$CHROOT_MOUNT_LOCATION"
 
-	if [ "filetype" = "tar" ]; then
-	    tar $VERSBOSE -xf "$CHROOT_FILE"
-	elif [ "filetype" = "tgz" ]; then
-	    tar $VERSBOSE -xzf "$CHROOT_FILE"
-	elif [ "filetype" = "tbz" ]; then
-	    tar $VERSBOSE -xzf "$CHROOT_FILE"
-	elif [ "filetype" = "zip" ]; then
-	    unzip $ZIP_VERSBOSE "$CHROOT_FILE"
-	else
-	    echo "Unsupported filetype for $CHROOT_FILE"
-	    exit 1
-	fi
+	unpack_file
 
     elif [ $1 = "setup-stop" ]; then
 

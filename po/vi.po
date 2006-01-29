@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot-0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-01-28 16:28+0000\n"
+"POT-Creation-Date: 2006-01-29 18:26+0000\n"
 "PO-Revision-Date: 2006-01-15 16:32+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -127,94 +127,94 @@ msgstr ""
 msgid "Mount Options"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:123 schroot/sbuild-chroot.cc:151
+#: schroot/sbuild-chroot.cc:125 schroot/sbuild-chroot.cc:155
 #, c-format
 msgid "unknown chroot type \"%1%\""
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:129
+#: schroot/sbuild-chroot.cc:131
 msgid "chroot creation failed"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:158
+#: schroot/sbuild-chroot.cc:162
 #, fuzzy, c-format
 msgid "%1% chroot creation failed"
 msgstr "không phải là một tập tin chuẩn"
 
-#: schroot/sbuild-chroot.cc:320
+#: schroot/sbuild-chroot.cc:324
 #, fuzzy, c-format
 msgid "%1%: failed to create session file: %2%\n"
 msgstr "không thể lấy các thông tin về tập tin: %s"
 
-#: schroot/sbuild-chroot.cc:338
+#: schroot/sbuild-chroot.cc:342
 #, fuzzy, c-format
 msgid "%1%: lock acquisition failure: %2%\n"
 msgstr "%s: bảo mật thất bại: %s\n"
 
-#: schroot/sbuild-chroot.cc:351
+#: schroot/sbuild-chroot.cc:355
 #, fuzzy, c-format
 msgid "%1%: lock discard failure: %2%\n"
 msgstr "%s: đóng thất bại: %s\n"
 
-#: schroot/sbuild-chroot.cc:360
+#: schroot/sbuild-chroot.cc:364
 #, fuzzy, c-format
 msgid "%1%: failed to unlink session file: %2%\n"
 msgstr "không thể lấy các thông tin về tập tin: %s"
 
-#: schroot/sbuild-chroot.cc:379
+#: schroot/sbuild-chroot.cc:383
 msgid "  --- Session ---\n"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:381
-msgid "  --- Chroot ---\n"
-msgstr ""
-
-#: schroot/sbuild-chroot.cc:382
-#, fuzzy
-msgid "Name"
-msgstr "Tên: %s\n"
-
-#: schroot/sbuild-chroot.cc:383
-#, fuzzy
-msgid "Description"
-msgstr "Mô tả: %s\n"
-
-#: schroot/sbuild-chroot.cc:384
-msgid "Type"
-msgstr ""
-
 #: schroot/sbuild-chroot.cc:385
-msgid "Priority"
+msgid "  --- Chroot ---\n"
 msgstr ""
 
 #: schroot/sbuild-chroot.cc:386
 #, fuzzy
+msgid "Name"
+msgstr "Tên: %s\n"
+
+#: schroot/sbuild-chroot.cc:387
+#, fuzzy
+msgid "Description"
+msgstr "Mô tả: %s\n"
+
+#: schroot/sbuild-chroot.cc:388
+msgid "Type"
+msgstr ""
+
+#: schroot/sbuild-chroot.cc:389
+msgid "Priority"
+msgstr ""
+
+#: schroot/sbuild-chroot.cc:390
+#, fuzzy
 msgid "Groups"
 msgstr "Nhóm:"
 
-#: schroot/sbuild-chroot.cc:387
+#: schroot/sbuild-chroot.cc:391
 #, fuzzy
 msgid "Root Groups"
 msgstr "Nhóm chủ :"
 
-#: schroot/sbuild-chroot.cc:388
+#: schroot/sbuild-chroot.cc:392
 #, fuzzy
 msgid "Aliases"
 msgstr "Biệt hiệu:"
 
-#: schroot/sbuild-chroot.cc:389
+#: schroot/sbuild-chroot.cc:393
 msgid "Run Setup Scripts"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:390
+#: schroot/sbuild-chroot.cc:394
 msgid "Run Session Scripts"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:395
+#: schroot/sbuild-chroot.cc:399
 msgid "Mount Location"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:398
+#: schroot/sbuild-chroot.cc:402
 msgid "Mount Device"
 msgstr ""
 
@@ -711,49 +711,49 @@ msgstr ""
 msgid "Command to run"
 msgstr ""
 
-#: schroot/schroot-options.cc:124 schroot/schroot-releaselock-options.cc:68
+#: schroot/schroot-options.cc:126 schroot/schroot-releaselock-options.cc:68
 msgid "Usage:"
 msgstr ""
 
-#: schroot/schroot-options.cc:125
+#: schroot/schroot-options.cc:127
 #, fuzzy
 msgid "  schroot [OPTION...] - run command or shell in a chroot"
 msgstr "• chạy lệnh hay hệ vỏ trong chroot"
 
-#: schroot/schroot-options.cc:165
+#: schroot/schroot-options.cc:167
 msgid "--quiet and --verbose may not be used at the same time"
 msgstr ""
 
-#: schroot/schroot-options.cc:167
+#: schroot/schroot-options.cc:169
 msgid "Using verbose output"
 msgstr ""
 
-#: schroot/schroot-options.cc:173
+#: schroot/schroot-options.cc:175
 msgid "--chroot and --all may not be used at the same time"
 msgstr ""
 
-#: schroot/schroot-options.cc:175
+#: schroot/schroot-options.cc:177
 msgid "Using --chroots only"
 msgstr ""
 
-#: schroot/schroot-options.cc:204
+#: schroot/schroot-options.cc:206
 msgid ""
 "Only one chroot may be specified when recovering, running or ending a session"
 msgstr ""
 
-#: schroot/schroot-options.cc:215
+#: schroot/schroot-options.cc:217
 msgid "Only one chroot may be specified when begining a session"
 msgstr ""
 
-#: schroot/schroot-options.cc:233
+#: schroot/schroot-options.cc:235
 msgid "--chroot may not be used with --list"
 msgstr ""
 
-#: schroot/schroot-options.cc:253
+#: schroot/schroot-options.cc:255
 msgid "Unknown action specified"
 msgstr ""
 
-#: schroot/schroot-options.cc:265
+#: schroot/schroot-options.cc:267
 msgid "Only one action may be specified"
 msgstr ""
 

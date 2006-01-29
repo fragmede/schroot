@@ -114,6 +114,8 @@ Chroot::create (std::string const& type)
 
   if (type == "plain")
     new_chroot = new ChrootPlain();
+  else if (type == "file")
+    new_chroot = new ChrootFile();
   else if (type == "block-device")
     new_chroot = new ChrootBlockDevice();
   else if (type == "lvm-snapshot")
@@ -142,6 +144,8 @@ Chroot::create (keyfile const&     keyfile,
 
   if (type == "plain")
     new_chroot = new ChrootPlain(keyfile, group);
+  else if (type == "file")
+    new_chroot = new ChrootFile(keyfile, group);
   else if (type == "block-device")
     new_chroot = new ChrootBlockDevice(keyfile, group);
   else if (type == "lvm-snapshot")

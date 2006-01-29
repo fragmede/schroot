@@ -1,5 +1,21 @@
 2006-01-29  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-chroot.cc (create): Add support for "file" type
+	chroots.
+
+	* schroot/setup/05file: Split file type checking and unpacking
+	into shell functions.
+
+	* schroot/run/00check: Add support for file chroots.
+
+	* schroot/setup/00check: Add support for file chroots.
+
+	* schroot/setup/Makefile.am (setup_SCRIPTS): Add 05file.
+
+	* schroot/schroot.1.in: Update help options.
+
+2006-01-29  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-util.cc (find_program_in_path): Return the
 	program name without the absolute prefix.
 

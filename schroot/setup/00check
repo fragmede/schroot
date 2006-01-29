@@ -16,6 +16,8 @@ if [ $1 = "setup-start" -o $1 = "setup-recover" ]; then
 	echo "CHROOT_MOUNT_DEVICE=$CHROOT_MOUNT_DEVICE"
 	if [ "$CHROOT_TYPE" = "plain" ]; then
 	    echo "CHROOT_LOCATION=$CHROOT_LOCATION"
+	elif [ "$CHROOT_TYPE" = "file" ]; then
+	    echo "CHROOT_FILE=$CHROOT_FILE"
 	elif [ "$CHROOT_TYPE" = "block-device" -o "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 	    echo "CHROOT_DEVICE=$CHROOT_DEVICE"
 	    echo "CHROOT_MOUNT_OPTIONS=$CHROOT_MOUNT_OPTIONS"
@@ -31,6 +33,12 @@ if [ $1 = "setup-start" -o $1 = "setup-recover" ]; then
 	plain)
 	    if [ ! -d "$CHROOT_LOCATION" ]; then
 		echo "$CHROOT_LOCATION does not exist"
+		exit 1
+	    fi
+	    ;;
+	file)
+	    if [ ! -f "$CHROOT_FILE" ]; then
+		echo "$CHROOT_FILE does not exist"
 		exit 1
 	    fi
 	    ;;

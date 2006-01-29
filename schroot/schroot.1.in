@@ -36,7 +36,7 @@ as a fallback.  This is equivalent to \[lq]\-\-chroot=default\[rq].
 \fBschroot\fP accepts the following options:
 .SS Basic options
 .TP
-.B \-?, \-\-help
+.B \-h, \-\-help
 Show help summary.
 .TP
 .B \-\-help\-all
