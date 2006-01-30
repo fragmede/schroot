@@ -81,7 +81,7 @@ sbuild_util_LDADD = libtest.la
 EXTRA_DIST = 			\
 	keyfile.ex1		\
 	config.ex1 		\
-	config.ex2/config	\
+	config.ex2/file		\
 	config.ex2/empty	\
 	config.ex2/experimental	\
 	config.ex2/sarge	\

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot-0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-01-30 11:08+0000\n"
+"POT-Creation-Date: 2006-01-30 12:59+0000\n"
 "PO-Revision-Date: 2006-01-15 16:32+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -29,7 +29,7 @@ msgstr ""
 #: schroot/sbuild-auth.cc:532 schroot/sbuild-auth.cc:557
 #: schroot/sbuild-auth.cc:576 schroot/sbuild-auth.cc:595
 #: schroot/sbuild-auth.cc:614 schroot/sbuild-auth.cc:633
-#: schroot/sbuild-session.cc:599
+#: schroot/sbuild-session.cc:605
 #, fuzzy, c-format
 msgid "PAM error: %1%"
 msgstr "Lỗi PAM: %s"
@@ -460,122 +460,122 @@ msgstr "Không tìm thấy chroot khớp với biệt hiệu « %s »"
 msgid "%1%: Failed to find chroot"
 msgstr ""
 
-#: schroot/sbuild-session.cc:447
+#: schroot/sbuild-session.cc:453
 #, c-format
 msgid "Chroot setup failed to lock chroot: %1%"
 msgstr ""
 
-#: schroot/sbuild-session.cc:503
+#: schroot/sbuild-session.cc:509
 #, c-format
 msgid "Invalid verbosity level: %1%, falling back to \"normal\""
 msgstr ""
 
-#: schroot/sbuild-session.cc:522 schroot/sbuild-session.cc:814
+#: schroot/sbuild-session.cc:528 schroot/sbuild-session.cc:820
 #, fuzzy, c-format
 msgid "Failed to fork child: %1%"
 msgstr "Việc tạo tiến trình con bị lỗi: %s"
 
-#: schroot/sbuild-session.cc:540 schroot/sbuild-session.cc:750
+#: schroot/sbuild-session.cc:546 schroot/sbuild-session.cc:756
 #, fuzzy, c-format
 msgid "Could not exec \"%1%\": %2%"
 msgstr "Không thể thực hiện « %s »: %s\n"
 
-#: schroot/sbuild-session.cc:558
+#: schroot/sbuild-session.cc:564
 #, c-format
 msgid "Chroot setup failed to unlock chroot: %1%"
 msgstr ""
 
-#: schroot/sbuild-session.cc:565
+#: schroot/sbuild-session.cc:571
 #, c-format
 msgid "Chroot setup failed during chroot \"%1%\" stage"
 msgstr ""
 
-#: schroot/sbuild-session.cc:607
+#: schroot/sbuild-session.cc:613
 #, fuzzy, c-format
 msgid "Could not set gid to '%1%'"
 msgstr "Không thể lập GID thành « %lu »\n"
 
-#: schroot/sbuild-session.cc:613
+#: schroot/sbuild-session.cc:619
 #, fuzzy
 msgid "Could not set supplementary group IDs"
 msgstr "Không thể lập các ID nhóm phụ\n"
 
-#: schroot/sbuild-session.cc:620
+#: schroot/sbuild-session.cc:626
 #, fuzzy, c-format
 msgid "Could not chdir to '%1%': %2%"
 msgstr "Không thể chdir (chuyển đổi thư mục) sang « %s »: %s\n"
 
-#: schroot/sbuild-session.cc:627
+#: schroot/sbuild-session.cc:633
 #, fuzzy, c-format
 msgid "Could not chroot to '%1%': %2%"
 msgstr "Không thể chroot tới « %s »: %s\n"
 
-#: schroot/sbuild-session.cc:636
+#: schroot/sbuild-session.cc:642
 #, fuzzy, c-format
 msgid "Could not set uid to '%1%'"
 msgstr "Không thể lập UID thành « %lu »\n"
 
-#: schroot/sbuild-session.cc:642
+#: schroot/sbuild-session.cc:648
 #, fuzzy
 msgid "Failed to drop root permissions."
 msgstr "Việc bỏ quyền chủ bị lỗi.\n"
 
-#: schroot/sbuild-session.cc:650
+#: schroot/sbuild-session.cc:656
 #, fuzzy, c-format
 msgid "warning: Could not chdir to '%1%': %2%"
 msgstr "cảnh báo : không thể chdir (chuyển đổi thư mục) sang « %s »: %s\n"
 
-#: schroot/sbuild-session.cc:703
+#: schroot/sbuild-session.cc:709
 #, fuzzy, c-format
 msgid "[%1% chroot] Running login shell: \"%2%\""
 msgstr "[%s chroot] Đang chạy hệ vỏ đăng nhập: « %s »\n"
 
-#: schroot/sbuild-session.cc:704
+#: schroot/sbuild-session.cc:710
 #, fuzzy, c-format
 msgid "[%1% chroot] Running shell: \"%2%\""
 msgstr "[%s chroot] Đang chạy hệ vỏ đăng nhập: « %s »\n"
 
-#: schroot/sbuild-session.cc:710
+#: schroot/sbuild-session.cc:716
 #, fuzzy, c-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\""
 msgstr "[%s chroot] (%s->%s) Đang chạy hệ vỏ đăng nhập: « %s »\n"
 
-#: schroot/sbuild-session.cc:711
+#: schroot/sbuild-session.cc:717
 #, fuzzy, c-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: \"%4%\""
 msgstr "[%s chroot] (%s->%s) Đang chạy hệ vỏ đăng nhập: « %s »\n"
 
-#: schroot/sbuild-session.cc:732
+#: schroot/sbuild-session.cc:738
 #, fuzzy, c-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%s chroot] Đang chạy lệnh: « %s »\n"
 
-#: schroot/sbuild-session.cc:736
+#: schroot/sbuild-session.cc:742
 #, fuzzy, c-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%s chroot] (%s->%s) Đang chạy lệnh: « %s »\n"
 
-#: schroot/sbuild-session.cc:768
+#: schroot/sbuild-session.cc:774
 #, fuzzy, c-format
 msgid "wait for child failed: %1%"
 msgstr "việc đợi tiến trình con bị lỗi: %s\n"
 
-#: schroot/sbuild-session.cc:786
+#: schroot/sbuild-session.cc:792
 #, fuzzy, c-format
 msgid "Child terminated by signal %1%"
 msgstr "Tiến trình con bị chấm dứt do tín hiệu « %s »"
 
-#: schroot/sbuild-session.cc:791
+#: schroot/sbuild-session.cc:797
 msgid "Child dumped core"
 msgstr "Tiến trình con đã đổ lõi"
 
-#: schroot/sbuild-session.cc:793
+#: schroot/sbuild-session.cc:799
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr ""
 "Tiến trình con đã thoát bất thường (chưa biết sao; không phải là việc đổ tín "
 "hiệu hay lõi)"
 
-#: schroot/sbuild-session.cc:800
+#: schroot/sbuild-session.cc:806
 #, fuzzy, c-format
 msgid "Child exited abnormally with status '%1%'"
 msgstr "Tiến trình con đã thoát bất thường với trạng thái « %d »"
@@ -761,19 +761,19 @@ msgid ""
 "Only one chroot may be specified when recovering, running or ending a session"
 msgstr ""
 
-#: schroot/schroot-options.cc:217
+#: schroot/schroot-options.cc:216
 msgid "Only one chroot may be specified when begining a session"
 msgstr ""
 
-#: schroot/schroot-options.cc:235
+#: schroot/schroot-options.cc:234
 msgid "--chroot may not be used with --list"
 msgstr ""
 
-#: schroot/schroot-options.cc:255
+#: schroot/schroot-options.cc:254
 msgid "Unknown action specified"
 msgstr ""
 
-#: schroot/schroot-options.cc:267
+#: schroot/schroot-options.cc:266
 msgid "Only one action may be specified"
 msgstr ""
 

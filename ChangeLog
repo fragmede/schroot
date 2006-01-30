@@ -1,5 +1,16 @@
 2006-01-30  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.2.0.
+
+	* schroot/schroot.conf.5.in: Add example for file chroot.
+
+	* test/config.ex2/config: Removed (duplicated in
+	test/config.ex2/sarge).
+
+	* test/config.ex2/file: New file.  Test data for file chroots.
+
+2006-01-30  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-options.cc: Beginning a session only works with
 	normal chroots.  Session operations on active sessions load all
 	chroots, not just session chroots.

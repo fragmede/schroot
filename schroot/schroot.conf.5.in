@@ -174,7 +174,25 @@ schroot.
 \f[CR]device=/dev/hda_vg/etch_chroot\fP
 .br
 \f[CR]mount-options=-o atime\fP
-,br
+.br
+\f[CR]run-setup-scripts=true\fP
+.br
+\f[CR]run-session-scripts=true\fP
+.br
+\f[CR]\fP
+.br
+\f[CR][sid-file]\fP
+.br
+\f[CR]type=file\fP
+.br
+\f[CR]description=Debian sid file\-based chroot\fP
+.br
+\f[CR]priority=3\fP
+.br
+\f[CR]groups=sbuild\fP
+.br
+\f[CR]file=/srv/chroots/sid.tar.gz\fP
+.br
 \f[CR]run-setup-scripts=true\fP
 .br
 \f[CR]run-session-scripts=true\fP
