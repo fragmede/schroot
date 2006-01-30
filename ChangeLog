@@ -1,3 +1,22 @@
+2006-01-30  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot-options.cc: Beginning a session only works with
+	normal chroots.  Session operations on active sessions load all
+	chroots, not just session chroots.
+
+	* schroot/sbuild-session.cc
+	(run_impl): For persistent sessions, remove aliases prior to
+	writing out the session data, to prevent duplicate aliases.
+	(run_impl): Only run a command when performing the appropriate
+	operations, rather than all the time.
+	(setup_chroot): Correct bug in automatic operation which would
+	potentially prevent correct cleanup.
+
+	* schroot/sbuild-keyfile.h: Add TODO item for duplicate keys.
+
+	* schroot/sbuild-config.cc (load): Add warnings when chroots and
+	aliases names are duplicated.
+
 2006-01-29  Roger Leigh  <rleigh@debian.org>
 
 	* test/sbuild-chroot-file.cc: New file.  Unit test for ChrootFile.

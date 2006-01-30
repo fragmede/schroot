@@ -334,8 +334,12 @@ try
 
 	    /* Chroot types which create a session (e.g. LVM devices)
 	       need the chroot name respecifying. */
+	    /// @todo: Clone the chroot?
 	    if (chroot->get_session_flags() & Chroot::SESSION_CREATE)
-	      chroot->set_name(this->session_id);
+	      {
+		chroot->set_name(this->session_id);
+		chroot->set_aliases(string_list());
+	      }
 
 	    /* LVM devices need the snapshot device name specifying. */
 	    ChrootLvmSnapshot *snapshot = 0;
@@ -362,7 +366,9 @@ try
 		    setup_chroot(chroot, Chroot::RUN_START);
 
 		    /* Run session if setup succeeded. */
-		    run_chroot(chroot);
+		    if (this->operation == OPERATION_AUTOMATIC ||
+			this->operation == OPERATION_RUN)
+		      run_chroot(chroot);
 
 		    /* Run run-stop scripts whether or not there was an
 		       error. */
@@ -425,8 +431,8 @@ Session::setup_chroot (Chroot::chroot_ptr& session_chroot,
 	(this->operation == OPERATION_AUTOMATIC &&
 	 (setup_type == Chroot::SETUP_START ||
 	  setup_type == Chroot::SETUP_STOP  ||
-	  setup_type == Chroot::SETUP_STOP  ||
-	  setup_type == Chroot::SETUP_STOP))))
+	  setup_type == Chroot::RUN_START   ||
+	  setup_type == Chroot::RUN_STOP))))
     return;
 
   if (((setup_type == Chroot::SETUP_START   ||

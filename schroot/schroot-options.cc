@@ -200,8 +200,8 @@ Options::Options(int   argc,
       break;
     case ACTION_SESSION_BEGIN:
       // Only allow one session chroot
-      this->load_chroots = false;
-      this->load_sessions = true;
+      this->load_chroots = true;
+      this->load_sessions = false;
       if (this->chroots.size() != 1 || all_used())
 	throw opt::validation_error(_("Only one chroot may be specified when recovering, running or ending a session"));
 
@@ -210,9 +210,8 @@ Options::Options(int   argc,
     case ACTION_SESSION_RECOVER:
     case ACTION_SESSION_RUN:
     case ACTION_SESSION_END:
-      // Only allow one normal chroot
-      this->load_chroots = true;
-      this->load_sessions = false;
+      // Session operations work on all chroots.
+      this->load_chroots = this->load_sessions = true;
       if (this->chroots.size() != 1 || all_used())
 	throw opt::validation_error(_("Only one chroot may be specified when begining a session"));
       this->all = this->all_chroots = this->all_sessions = false;
@@ -249,7 +248,7 @@ Options::Options(int   argc,
       if (this->all_sessions)
 	this->load_sessions = true;
       break;
-    default: // Something went
+    default: // Something went wrong
       this->load_chroots = this->load_sessions = false;
       this->all = this->all_chroots = this->all_sessions = false;
       throw opt::validation_error(_("Unknown action specified"));

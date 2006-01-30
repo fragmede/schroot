@@ -47,6 +47,8 @@ namespace sbuild
    *
    * @todo Add support for locale strings.
    * @todo Add support for comments.
+   * @todo Duplicate groups within a keyfile are not currently
+   * detected; duplicates are silently discarded.
    */
   class keyfile
   {
