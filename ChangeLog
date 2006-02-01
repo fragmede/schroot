@@ -1,5 +1,15 @@
 2006-02-01  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-chroot.cc
+	(Chroot): Get "mount-location" and "mount-device" from session
+	keyfiles.
+	(print_details): Use the correct virtual functions to get
+	"Mount Location" and "Mount Device".
+	(print_config): Use the correct virtual functions to get
+	"mount-location" and "mount-device".
+
+2006-02-01  Roger Leigh  <rleigh@debian.org>
+
 	* Version 0.2.1.
 
 	* debian/changelog: Update for 0.2.1.

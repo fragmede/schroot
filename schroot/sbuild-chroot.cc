@@ -101,6 +101,20 @@ Chroot::Chroot (keyfile const&     keyfile,
   if (keyfile.get_list_value(group, "root-groups",
 			     keyfile::PRIORITY_OPTIONAL, root_groups))
     set_root_groups(root_groups);
+
+  std::string mount_location;
+  if (keyfile.get_value(group, "mount-location",
+			get_active() ?
+			keyfile::PRIORITY_REQUIRED : keyfile::PRIORITY_DISALLOWED,
+			mount_location))
+    set_mount_location(mount_location);
+
+  std::string mount_device;
+  if (keyfile.get_value(group, "mount-device",
+			get_active() ?
+			keyfile::PRIORITY_OPTIONAL : keyfile::PRIORITY_DISALLOWED,
+			mount_device))
+    set_mount_device(mount_device);
 }
 
 Chroot::~Chroot()
@@ -395,10 +409,10 @@ Chroot::print_details (std::ostream& stream) const
 			   get_run_session_scripts());
 
   /* Non user-settable properties are listed last. */
-  if (!this->mount_location.empty())
+  if (!get_mount_location().empty())
     stream << format_details(_("Mount Location"),
 			     get_mount_location());
-  if (!this->mount_device.empty())
+  if (!get_mount_device().empty())
     stream << format_details(_("Mount Device"), get_mount_device());
 }
 
@@ -435,9 +449,9 @@ Chroot::print_config (std::ostream& stream) const
 	 << "run-session-scripts=" << session << '\n';
 
   /* Non user-settable properties are listed last. */
-  if (!this->mount_location.empty())
+  if (!get_mount_location().empty())
     stream << "mount-location=" << get_mount_location() << '\n';
-  if (!this->mount_device.empty())
+  if (!get_mount_device().empty())
     stream << "mount-device=" << get_mount_device() << '\n';
 }
 
