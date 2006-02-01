@@ -1,5 +1,13 @@
 2006-02-01  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Update version to 0.2.2.
+
+	* NEWS: Update version to 0.2.2.
+
+	* configure.ac: Update version to 0.2.2.
+
+2006-02-01  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-chroot.cc
 	(Chroot): Get "mount-location" and "mount-device" from session
 	keyfiles.
