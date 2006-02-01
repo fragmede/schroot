@@ -1,3 +1,18 @@
+2006-02-01  Roger Leigh  <rleigh@debian.org>
+
+	* Version 0.2.1.
+
+	* debian/changelog: Update for 0.2.1.
+
+	* schroot/sbuild-session.cc (wait_for_child): Set child_status to
+	EXIT_FAILURE, rather than this->child_status.  This prevents a
+	non-zero exit status being returned at all times by child
+	processes.
+
+	* NEWS: Update for 0.2.1.
+
+	* configure.ac: Update version to 0.2.1.
+
 2006-01-30  Roger Leigh  <rleigh@debian.org>
 
 	* Version 0.2.0.

@@ -1,11 +1,14 @@
 NEWS                                                             -*- outline -*-
 ----
 
-Welcome to schroot 0.2.0.  Please read these release notes carefully.
+Welcome to schroot 0.2.1.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 0.2.1:
+  1) Creating a session now returns a zero exit status on success.
 
 * Major changes in 0.2.0:
 

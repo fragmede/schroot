@@ -766,7 +766,7 @@ void
 Session::wait_for_child (int  pid,
 			 int& child_status)
 {
-  this->child_status = EXIT_FAILURE; // Default exit status
+  child_status = EXIT_FAILURE; // Default exit status
 
   int status;
   if (wait(&status) != pid)
