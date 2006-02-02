@@ -1,5 +1,13 @@
 2006-02-02  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Update.
+
+	* debian/control (Build-Depends): Remove GLib.
+
+	* README: Update build-dependencies.
+
+2006-02-02  Roger Leigh  <rleigh@debian.org>
+
 	* Update TODO list.
 
 	* Update testcases.

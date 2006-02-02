@@ -1,6 +1,7 @@
 schroot (0.2.2-1) unstable; urgency=low
 
   * New upstream release.
+  * debian/control: Remove Glib from the build dependencies.
 
  --
 
