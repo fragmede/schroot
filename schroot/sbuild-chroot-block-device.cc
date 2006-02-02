@@ -46,15 +46,6 @@ ChrootBlockDevice::ChrootBlockDevice (keyfile const&     keyfile,
   device(),
   mount_options()
 {
-  std::string device;
-  if (keyfile.get_value(group, "device",
-			keyfile::PRIORITY_REQUIRED, device))
-    set_device(device);
-
-  std::string mount_options;
-  if (keyfile.get_value(group, "mount-options",
-			keyfile::PRIORITY_OPTIONAL, mount_options))
-    set_mount_options(mount_options);
 }
 
 ChrootBlockDevice::~ChrootBlockDevice()
@@ -192,13 +183,31 @@ ChrootBlockDevice::print_details (std::ostream& stream) const
 }
 
 void
-ChrootBlockDevice::print_config (std::ostream& stream) const
+ChrootBlockDevice::get_keyfile (keyfile& keyfile) const
 {
-  this->Chroot::print_config(stream);
+  Chroot::get_keyfile(keyfile);
 
-  stream << "device=" << get_device() << '\n'
-	 << "mount-options=" << get_mount_options() << '\n';
-  stream << std::flush;
+  keyfile.set_value(get_name(), "device",
+		    get_device());
+
+  keyfile.set_value(get_name(), "mount-options",
+		    get_mount_options());
+}
+
+void
+ChrootBlockDevice::set_keyfile (keyfile const& keyfile)
+{
+  Chroot::set_keyfile(keyfile);
+
+  std::string device;
+  if (keyfile.get_value(get_name(), "device",
+			keyfile::PRIORITY_REQUIRED, device))
+    set_device(device);
+
+  std::string mount_options;
+  if (keyfile.get_value(get_name(), "mount-options",
+			keyfile::PRIORITY_OPTIONAL, mount_options))
+    set_mount_options(mount_options);
 }
 
 /*

@@ -16,7 +16,7 @@ PENDING
   chroot be created automatically, appending "-master" or "-source" to
   the lvm-snapshot chroot name?
 
-** Translation of strings in headers.
+* Translation of strings in headers.
 
 PLANNED
 -------
@@ -27,17 +27,16 @@ PLANNED
   It will require DHCP or static IP configuration and a dynamic
   hostname in order to connect.
 
-* Add a SbuildChrootFile chroot type for archived chroots.
-
-  Autodetect the file format (tar, tar.gz, tar.bz2, zip), and unpack
-  into a temporary location.  This type is session-based, like an LVM
-  snapshot.
-
-  Also consider an option for repacking on session-stop.  This must be
-  root-only/root-groups-only for security.
 
 POTENTIAL
 ---------
+
+* Repacking session chroot on session-stop.
+
+  This must be root-only/root-groups-only for security.  For
+  ChrootFile, tar or zip the chroot in place of the old one.  For
+  LvmSnapshot chroots, this would require copying back the chroot
+  contents.
 
 * Add tests for
 

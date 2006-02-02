@@ -107,8 +107,12 @@ namespace sbuild
     virtual void
     print_details (std::ostream& stream) const;
 
+  protected:
     virtual void
-    print_config (std::ostream& stream) const;
+    get_keyfile (keyfile& keyfile) const;
+
+    virtual void
+    set_keyfile (keyfile const& keyfile);
 
   private:
     /// The block device to use.

@@ -44,10 +44,6 @@ ChrootFile::ChrootFile (keyfile const&     keyfile,
   Chroot(keyfile, group),
   file()
 {
-  std::string file;
-  if (keyfile.get_value(group, "file",
-			keyfile::PRIORITY_REQUIRED, file))
-    set_file(file);
 }
 
 ChrootFile::~ChrootFile()
@@ -119,12 +115,23 @@ ChrootFile::print_details (std::ostream& stream) const
 }
 
 void
-ChrootFile::print_config (std::ostream& stream) const
+ChrootFile::get_keyfile (keyfile& keyfile) const
 {
-  this->Chroot::print_config(stream);
+  Chroot::get_keyfile(keyfile);
 
-  stream << "file=" << get_file() << '\n';
-  stream << std::flush;
+  keyfile.set_value(get_name(), "file",
+		    get_file());
+}
+
+void
+ChrootFile::set_keyfile (keyfile const& keyfile)
+{
+  Chroot::set_keyfile(keyfile);
+
+  std::string file;
+  if (keyfile.get_value(get_name(), "file",
+			keyfile::PRIORITY_REQUIRED, file))
+    set_file(file);
 }
 
 /*

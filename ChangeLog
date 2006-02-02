@@ -1,4 +1,30 @@
-2006-02-02  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2006-02-02  Roger Leigh  <rleigh@debian.org>
+
+	* Update TODO list.
+
+	* Update testcases.
+
+	* schroot/sbuild-config.cc (load): Use the new Chroot keyfile
+	streaming functionality to initialise chroots.
+
+	* Implement all new virtual functions in Chroot in derived
+	classes.
+
+	* Remove all functions removed from Chroot in derived classes.
+
+	* schroot/sbuild-chroot.(cc|h)
+	(Chroot): Remove overloaded construction to initialise with a
+	keyfile.
+	(create): Remove overloaded method for creating from a keyfile.
+	(print_config): Remove.
+	(get_keyfile): New protected virtual method to serialise a chroot
+	to a keyfile.
+	(set_keyfile): New protected virtual method to initialise a chroot
+	from a keyfile.
+	(operator >>): New friend function to stream from a keyfile.
+	(operator <<): New friend function to stream to a keyfile.
+
+2006-02-02  Roger Leigh  <rleigh@debian.org>
 
 	* Simplify rethrow in catch blocks.
 

@@ -40,10 +40,6 @@ ChrootPlain::ChrootPlain (keyfile const&     keyfile,
   Chroot(keyfile, group),
   location()
 {
-  std::string location;
-  if (keyfile.get_value(group, "location",
-			keyfile::PRIORITY_REQUIRED, location))
-    set_location(location);
 }
 
 ChrootPlain::~ChrootPlain()
@@ -114,12 +110,23 @@ ChrootPlain::print_details (std::ostream& stream) const
 }
 
 void
-ChrootPlain::print_config (std::ostream& stream) const
+ChrootPlain::get_keyfile (keyfile& keyfile) const
 {
-  this->Chroot::print_config(stream);
+  Chroot::get_keyfile(keyfile);
 
-  stream << "location=" << get_location() << '\n';
-  stream << std::flush;
+  keyfile.set_value(get_name(), "location",
+		    get_location());
+}
+
+void
+ChrootPlain::set_keyfile (keyfile const& keyfile)
+{
+  Chroot::set_keyfile(keyfile);
+
+  std::string location;
+  if (keyfile.get_value(get_name(), "location",
+			keyfile::PRIORITY_REQUIRED, location))
+    set_location(location);
 }
 
 /*

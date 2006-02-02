@@ -93,17 +93,6 @@ namespace sbuild
     create (std::string const& type);
 
     /**
-     * Create a chroot.  This is a factory function.
-     *
-     * @param keyfile the configuration file
-     * @param group the keyfile group (chroot name)
-     * @returns a shared_ptr to the new chroot.
-     */
-    static chroot_ptr
-    create (keyfile const&     keyfile,
-	    std::string const& group);
-
-    /**
      * Copy the chroot.  This is a virtual copy constructor.
      *
      * @returns a shared_ptr to the new copy of the chroot.
@@ -363,16 +352,27 @@ namespace sbuild
     print_details (std::ostream& stream) const;
 
     /**
-     * Print the configuration group for a chroot in the format
-     * required by schroot.conf.
-     *
-     * @param stream the stream to output to.
-     *
-     * @todo Replace with proper serialisation code to stream to a
-     * keyfile.
+     * Chroot initialisation from a keyfile.
      */
-    virtual void
-    print_config (std::ostream& stream) const;
+    friend
+    keyfile const&
+    operator >> (keyfile const& keyfile, chroot_ptr& rhs)
+    {
+      rhs->set_keyfile(keyfile);
+      return keyfile;
+    }
+
+    /**
+     * Chroot serialisation to a keyfile.
+     */
+    friend
+    keyfile&
+    operator << (keyfile& keyfile, chroot_ptr const& rhs)
+    {
+      rhs->get_keyfile(keyfile);
+      return keyfile;
+    }
+
 
   protected:
     /**
@@ -470,6 +470,26 @@ namespace sbuild
     {
       return format_detail<T>(name, value);
     }
+
+    /**
+     * Copy the chroot properties into a keyfile.  The keyfile group
+     * with the name of the chroot will be set; if it already exists,
+     * it will be removed before setting it.
+     *
+     * @param keyfile the keyfile to use.
+     */
+    virtual void
+    get_keyfile (keyfile& keyfile) const;
+
+    /**
+     * Set the chroot properties from a keyfile.  The chroot name must
+     * have previously been set, so that the correct keyfile group may
+     * be determined.
+     *
+     * @param keyfile the keyfile to get the properties from.
+     */
+    virtual void
+    set_keyfile (keyfile const& keyfile);
 
   private:
     /// Chroot name.

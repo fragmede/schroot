@@ -129,7 +129,9 @@ public:
   void test_print_config()
   {
     std::ostringstream os;
-    chroot->print_config(os);
+    sbuild::keyfile config;
+    config << chroot;
+    os << config;
     // TODO: Compare output.
     CPPUNIT_ASSERT(!os.str().empty());
   }

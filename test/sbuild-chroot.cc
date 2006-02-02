@@ -64,9 +64,6 @@ public:
   print_details (std::ostream& stream) const
   { sbuild::Chroot::print_details(stream); }
 
-  virtual void
-  print_config (std::ostream& stream) const
-  { sbuild::Chroot::print_config(stream); }
 };
 
 class test_chroot : public test_chroot_base<basic_chroot>
@@ -227,7 +224,9 @@ public:
   void test_print_config()
   {
     std::ostringstream os;
-    chroot->print_config(os);
+    sbuild::keyfile config;
+    config << chroot;
+    os << config;
     // TODO: Compare output.
     CPPUNIT_ASSERT(!os.str().empty());
   }

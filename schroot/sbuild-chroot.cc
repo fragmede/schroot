@@ -59,62 +59,7 @@ Chroot::Chroot (keyfile const&     keyfile,
   run_session_scripts(false)
 {
   set_name(group);
-
-  // This is set not in the configuration file, but set in the keyfile
-  // manually.  The user must not have the ability to set this option.
-  bool active(false);
-  if (keyfile.get_value(group, "active",
-			keyfile::PRIORITY_REQUIRED, active))
-    set_active(active);
-
-  bool run_setup_scripts(false);
-  if (keyfile.get_value(group, "run-setup-scripts",
-			keyfile::PRIORITY_OPTIONAL, run_setup_scripts))
-    set_run_setup_scripts(run_setup_scripts);
-
-  bool run_session_scripts(false);
-  if (keyfile.get_value(group, "run-session-scripts",
-			keyfile::PRIORITY_OPTIONAL, run_session_scripts))
-    set_run_session_scripts(run_session_scripts);
-
-  int priority(0);
-  if (keyfile.get_value(group, "priority",
-			keyfile::PRIORITY_OPTIONAL, priority))
-    set_priority(priority);
-
-  string_list aliases;
-  if (keyfile.get_list_value(group, "aliases",
-			     keyfile::PRIORITY_OPTIONAL, aliases))
-    set_aliases(aliases);
-
-  std::string description;
-  if (keyfile.get_value(group, "description",
-			keyfile::PRIORITY_OPTIONAL, description))
-    set_description(description);
-
-  string_list groups;
-  if (keyfile.get_list_value(group, "groups",
-			     keyfile::PRIORITY_REQUIRED, groups))
-    set_groups(groups);
-
-  string_list root_groups;
-  if (keyfile.get_list_value(group, "root-groups",
-			     keyfile::PRIORITY_OPTIONAL, root_groups))
-    set_root_groups(root_groups);
-
-  std::string mount_location;
-  if (keyfile.get_value(group, "mount-location",
-			get_active() ?
-			keyfile::PRIORITY_REQUIRED : keyfile::PRIORITY_DISALLOWED,
-			mount_location))
-    set_mount_location(mount_location);
-
-  std::string mount_device;
-  if (keyfile.get_value(group, "mount-device",
-			get_active() ?
-			keyfile::PRIORITY_OPTIONAL : keyfile::PRIORITY_DISALLOWED,
-			mount_device))
-    set_mount_device(mount_device);
+  set_keyfile(keyfile);
 }
 
 Chroot::~Chroot()
@@ -146,41 +91,6 @@ Chroot::create (std::string const& type)
 
   return chroot_ptr(new_chroot);
 }
-
-Chroot::chroot_ptr
-Chroot::create (keyfile const&     keyfile,
-		std::string const& group)
-{
-  std::string type = "plain"; // "plain" is the default type.
-  keyfile.get_value(group, "type", type);
-
-  Chroot *new_chroot = 0;
-
-  if (type == "plain")
-    new_chroot = new ChrootPlain(keyfile, group);
-  else if (type == "file")
-    new_chroot = new ChrootFile(keyfile, group);
-  else if (type == "block-device")
-    new_chroot = new ChrootBlockDevice(keyfile, group);
-  else if (type == "lvm-snapshot")
-    new_chroot = new ChrootLvmSnapshot(keyfile, group);
-  else
-    {
-      format fmt(_("unknown chroot type \"%1%\""));
-      fmt % type;
-      throw error(fmt);
-    }
-
-  if (new_chroot == 0)
-    {
-      format fmt(_("%1% chroot creation failed"));
-      fmt % group;
-      throw error(fmt);
-    }
-
-  return chroot_ptr(new_chroot);
-}
-
 
 std::string const&
 Chroot::get_name () const
@@ -358,7 +268,9 @@ Chroot::setup_session_info (bool start)
 	  throw error(fmt);
 	}
 
-      print_config(output);
+      keyfile details;
+      get_keyfile(details);
+      output << details;
 
       try
 	{
@@ -417,42 +329,104 @@ Chroot::print_details (std::ostream& stream) const
 }
 
 void
-Chroot::print_config (std::ostream& stream) const
+Chroot::get_keyfile (keyfile& keyfile) const
 {
-  stream << '[' << get_name() << "]\n";
+  keyfile.remove_group(this->name);
+
+  keyfile.set_value(this->name, "type",
+		    get_chroot_type());
+
+  keyfile.set_value(this->name, "active",
+		    get_active());
+
+  keyfile.set_value(this->name, "run-setup-scripts",
+		    get_run_setup_scripts());
+
+  keyfile.set_value(this->name, "run-session-scripts",
+		    get_run_session_scripts());
+
+  keyfile.set_value(this->name, "priority",
+		    get_priority());
+
+  keyfile.set_list_value(this->name, "aliases",
+			 get_aliases());
+
+  keyfile.set_value(this->name, "description",
+		    get_description());
+
+  keyfile.set_list_value(this->name, "groups",
+			 get_groups());
+
+  keyfile.set_list_value(this->name, "root-groups",
+			 get_root_groups());
+
   if (get_active())
-    stream << "active=true\n";
-  if (!this->description.empty())
-    stream << "description=" << this->description << '\n';
-  stream << "type=" << get_chroot_type() << '\n'
-	 << "priority=" << get_priority() << '\n';
+    keyfile.set_value(this->name, "mount-location",
+		      get_mount_location());
 
-  if (!this->groups.empty())
-    {
-      stream << "groups=" << string_list_to_string(this->groups, ",") << '\n';
-    }
+  if (get_active())
+    keyfile.set_value(this->name, "mount-device",
+		      get_mount_device());
+}
 
-  if (!this->root_groups.empty())
-    {
-      stream << "root-groups=" << string_list_to_string(this->root_groups, ",")
-	     << '\n';
-    }
+void
+Chroot::set_keyfile (keyfile const& keyfile)
+{
+  // This is set not in the configuration file, but set in the keyfile
+  // manually.  The user must not have the ability to set this option.
+  bool active(false);
+  if (keyfile.get_value(this->name, "active",
+			keyfile::PRIORITY_REQUIRED, active))
+    set_active(active);
 
-  if (!this->aliases.empty())
-    {
-      stream << "aliases=" << string_list_to_string(this->aliases, ",") << '\n';
-    }
+  bool run_setup_scripts(false);
+  if (keyfile.get_value(this->name, "run-setup-scripts",
+			keyfile::PRIORITY_OPTIONAL, run_setup_scripts))
+    set_run_setup_scripts(run_setup_scripts);
 
-  const char *setup = (this->run_setup_scripts == true) ? "true" : "false";
-  const char *session = (this->run_session_scripts == true) ? "true" : "false";
-  stream << "run-setup-scripts=" << setup << '\n'
-	 << "run-session-scripts=" << session << '\n';
+  bool run_session_scripts(false);
+  if (keyfile.get_value(this->name, "run-session-scripts",
+			keyfile::PRIORITY_OPTIONAL, run_session_scripts))
+    set_run_session_scripts(run_session_scripts);
 
-  /* Non user-settable properties are listed last. */
-  if (!get_mount_location().empty())
-    stream << "mount-location=" << get_mount_location() << '\n';
-  if (!get_mount_device().empty())
-    stream << "mount-device=" << get_mount_device() << '\n';
+  int priority(0);
+  if (keyfile.get_value(this->name, "priority",
+			keyfile::PRIORITY_OPTIONAL, priority))
+    set_priority(priority);
+
+  string_list aliases;
+  if (keyfile.get_list_value(this->name, "aliases",
+			     keyfile::PRIORITY_OPTIONAL, aliases))
+    set_aliases(aliases);
+
+  std::string description;
+  if (keyfile.get_value(this->name, "description",
+			keyfile::PRIORITY_OPTIONAL, description))
+    set_description(description);
+
+  string_list groups;
+  if (keyfile.get_list_value(this->name, "groups",
+			     keyfile::PRIORITY_REQUIRED, groups))
+    set_groups(groups);
+
+  string_list root_groups;
+  if (keyfile.get_list_value(this->name, "root-groups",
+			     keyfile::PRIORITY_OPTIONAL, root_groups))
+    set_root_groups(root_groups);
+
+  std::string mount_location;
+  if (keyfile.get_value(this->name, "mount-location",
+			get_active() ?
+			keyfile::PRIORITY_REQUIRED : keyfile::PRIORITY_DISALLOWED,
+			mount_location))
+    set_mount_location(mount_location);
+
+  std::string mount_device;
+  if (keyfile.get_value(this->name, "mount-device",
+			get_active() ?
+			keyfile::PRIORITY_OPTIONAL : keyfile::PRIORITY_DISALLOWED,
+			mount_device))
+    set_mount_device(mount_device);
 }
 
 /*

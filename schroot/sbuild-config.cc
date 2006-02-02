@@ -317,7 +317,11 @@ Config::load (std::string const& file,
 	  // Set the active property for chroot creation, and create
 	  // the chroot.
 	  kconfig.set_value(*group, "active", active);
-	  Chroot::chroot_ptr chroot = Chroot::create(kconfig, *group);
+	  std::string type = "plain"; // "plain" is the default type.
+	  kconfig.get_value(*group, "type", type);
+	  Chroot::chroot_ptr chroot = Chroot::create(type);
+	  chroot->set_name(*group);
+	  kconfig >> chroot;
 
 	  // Make sure insertion will succeed.
 	  if (this->chroots.find(chroot->get_name()) == this->chroots.end() &&
