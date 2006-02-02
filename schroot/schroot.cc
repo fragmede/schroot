@@ -193,6 +193,11 @@ main (int   argc,
 	  config->print_chroot_info(chroots, std::cout);
 	  exit (EXIT_SUCCESS);
 	}
+      if (options.action == Options::ACTION_CONFIG)
+	{
+	  config->print_chroot_config(chroots, std::cout);
+	  exit (EXIT_SUCCESS);
+	}
 
       if (options.action == Options::ACTION_SESSION_BEGIN &&
 	  chroots.size() != 1)

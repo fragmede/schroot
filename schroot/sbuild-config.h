@@ -151,6 +151,17 @@ namespace sbuild
 		       std::ostream&      stream) const;
 
     /**
+     * Print configuration of the specified chroots to the specified
+     * stream.
+     *
+     * @param chroots a list of chroots to print.
+     * @param stream the stream to output to.
+     */
+    void
+    print_chroot_config (string_list const& chroots,
+			 std::ostream&      stream) const;
+
+    /**
      * Check that all the chroots specified exist.
      *
      * @param chroots a list of chroots to validate.
@@ -175,7 +186,7 @@ namespace sbuild
 
     /**
      * Load a configuration file.  If there are problems with the
-     * configuration file, the program will be aborted immediately.
+     * configuration file, an error will be thrown.
      *
      * @param file the file to load.
      * @param active true if the chroots in the configuration file are

@@ -69,7 +69,9 @@ Options::Options(int   argc,
     ("list,l",
      _("List available chroots"))
     ("info,i",
-     _("Show information about selected chroots"));
+     _("Show information about selected chroots"))
+    ("config",
+     _("Dump configuration of selected chroots"));
 
   opt::options_description chroot(_("Chroot selection"));
   chroot.add_options()
@@ -135,6 +137,8 @@ Options::Options(int   argc,
     set_action(ACTION_LIST);
   if (vm.count("info"))
     set_action(ACTION_INFO);
+  if (vm.count("config"))
+    set_action(ACTION_CONFIG);
 
   if (vm.count("all"))
     this->all = true;
@@ -234,6 +238,7 @@ Options::Options(int   argc,
 	throw opt::validation_error(_("--chroot may not be used with --list"));
       break;
     case ACTION_INFO:
+    case ACTION_CONFIG:
       // If not specified otherwise, load normal chroots, but allow
       // --all options.
       if (!this->chroots.empty()) // chroot specified

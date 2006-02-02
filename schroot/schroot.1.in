@@ -74,6 +74,9 @@ List all available chroots.
 .B \-i, \-\-info
 Print detailed information about the specified chroots.
 .TP
+.B \-\-config
+Print configuration of the specified chroots.
+.TP
 .B \-p, \-\-preserve\-environment
 Preserve the user's environment inside the chroot environment.  The default is
 to use a clean environment; this option copies the entire user environment and

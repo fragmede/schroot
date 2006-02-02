@@ -45,7 +45,8 @@ namespace schroot
 	ACTION_SESSION_END,     ///< End an existing session.
 	ACTION_VERSION,         ///< Display program version.
 	ACTION_LIST,            ///< Display a list of chroots.
-	ACTION_INFO             ///< Display chroot information.
+	ACTION_INFO,            ///< Display chroot information.
+	ACTION_CONFIG           ///< Display chroot configuration.
       };
 
     /**

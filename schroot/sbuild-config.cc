@@ -207,6 +207,29 @@ Config::print_chroot_info (string_list const& chroots,
     }
 }
 
+void
+Config::print_chroot_config (string_list const& chroots,
+			     std::ostream&      stream) const
+{
+  keyfile info;
+
+  for (string_list::const_iterator pos = chroots.begin();
+       pos != chroots.end();
+       ++pos)
+    {
+      const Chroot::chroot_ptr chroot = find_alias(*pos);
+      if (chroot)
+	{
+	  info << chroot;
+	}
+      else
+	log_error() << format(_("%1%: No such chroot")) % *pos
+		    << endl;
+    }
+
+  stream << info;
+}
+
 string_list
 Config::validate_chroots(string_list const& chroots) const
 {

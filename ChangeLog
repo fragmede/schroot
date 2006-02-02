@@ -1,5 +1,20 @@
 2006-02-02  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.1.in: Document new "--config" option.
+
+	* schroot/schroot.cc (main): Print configuration if "--config" is
+	specified.
+
+	* schroot/schroot-options.cc: Add "--config" option to set
+	ACTION_CONFIG.
+
+	* schroot/schroot-options.h: New action_type enum ACTION_CONFIG.
+
+	* schroot/sbuild-config.cc (print_chroot_config): New function to
+	print chroot configuration (keyfile format).
+
+2006-02-02  Roger Leigh  <rleigh@debian.org>
+
 	* Update testcases.
 
 	* schroot/sbuild-config.cc
