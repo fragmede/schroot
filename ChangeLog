@@ -1,5 +1,9 @@
 2006-02-02  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Update.
+
+2006-02-02  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.1.in: Document new "--config" option.
 
 	* schroot/schroot.cc (main): Print configuration if "--config" is
