@@ -1,3 +1,10 @@
+2006-02-02  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* Simplify rethrow in catch blocks.
+
+	* schroot/sbuild-session.cc (run_impl): Remove unneeded else
+	block, to simplify the code.
+
 2006-02-01  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Update version to 0.2.2.

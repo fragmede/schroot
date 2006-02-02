@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot-0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-01-30 12:59+0000\n"
+"POT-Creation-Date: 2006-02-01 19:36+0000\n"
 "PO-Revision-Date: 2006-01-15 16:32+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -127,94 +127,94 @@ msgstr ""
 msgid "Mount Options"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:125 schroot/sbuild-chroot.cc:155
+#: schroot/sbuild-chroot.cc:139 schroot/sbuild-chroot.cc:169
 #, c-format
 msgid "unknown chroot type \"%1%\""
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:131
+#: schroot/sbuild-chroot.cc:145
 msgid "chroot creation failed"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:162
+#: schroot/sbuild-chroot.cc:176
 #, fuzzy, c-format
 msgid "%1% chroot creation failed"
 msgstr "không phải là một tập tin chuẩn"
 
-#: schroot/sbuild-chroot.cc:324
+#: schroot/sbuild-chroot.cc:338
 #, fuzzy, c-format
 msgid "%1%: failed to create session file: %2%\n"
 msgstr "không thể lấy các thông tin về tập tin: %s"
 
-#: schroot/sbuild-chroot.cc:342
+#: schroot/sbuild-chroot.cc:356
 #, fuzzy, c-format
 msgid "%1%: lock acquisition failure: %2%\n"
 msgstr "%s: bảo mật thất bại: %s\n"
 
-#: schroot/sbuild-chroot.cc:355
+#: schroot/sbuild-chroot.cc:369
 #, fuzzy, c-format
 msgid "%1%: lock discard failure: %2%\n"
 msgstr "%s: đóng thất bại: %s\n"
 
-#: schroot/sbuild-chroot.cc:364
+#: schroot/sbuild-chroot.cc:378
 #, fuzzy, c-format
 msgid "%1%: failed to unlink session file: %2%\n"
 msgstr "không thể lấy các thông tin về tập tin: %s"
 
-#: schroot/sbuild-chroot.cc:383
+#: schroot/sbuild-chroot.cc:397
 msgid "  --- Session ---\n"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:385
+#: schroot/sbuild-chroot.cc:399
 msgid "  --- Chroot ---\n"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:386
+#: schroot/sbuild-chroot.cc:400
 #, fuzzy
 msgid "Name"
 msgstr "Tên: %s\n"
 
-#: schroot/sbuild-chroot.cc:387
+#: schroot/sbuild-chroot.cc:401
 #, fuzzy
 msgid "Description"
 msgstr "Mô tả: %s\n"
 
-#: schroot/sbuild-chroot.cc:388
+#: schroot/sbuild-chroot.cc:402
 msgid "Type"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:389
+#: schroot/sbuild-chroot.cc:403
 msgid "Priority"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:390
+#: schroot/sbuild-chroot.cc:404
 #, fuzzy
 msgid "Groups"
 msgstr "Nhóm:"
 
-#: schroot/sbuild-chroot.cc:391
+#: schroot/sbuild-chroot.cc:405
 #, fuzzy
 msgid "Root Groups"
 msgstr "Nhóm chủ :"
 
-#: schroot/sbuild-chroot.cc:392
+#: schroot/sbuild-chroot.cc:406
 #, fuzzy
 msgid "Aliases"
 msgstr "Biệt hiệu:"
 
-#: schroot/sbuild-chroot.cc:393
+#: schroot/sbuild-chroot.cc:407
 msgid "Run Setup Scripts"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:394
+#: schroot/sbuild-chroot.cc:408
 msgid "Run Session Scripts"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:399
+#: schroot/sbuild-chroot.cc:413
 msgid "Mount Location"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:402
+#: schroot/sbuild-chroot.cc:416
 msgid "Mount Device"
 msgstr ""
 

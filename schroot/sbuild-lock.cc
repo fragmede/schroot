@@ -177,7 +177,7 @@ FileLock::set_lock (Type         lock_type,
   catch (error const& e)
     {
       unset_timer();
-      throw error(e);
+      throw;
     }
 }
 
@@ -269,7 +269,7 @@ DeviceLock::set_lock (Type         lock_type,
   catch (error const& e)
     {
       unset_timer();
-      throw error(e);
+      throw;
     }
 }
 

@@ -310,8 +310,8 @@ Auth::run ()
 	    }
 	  catch (error const& discard)
 	    {
-	      throw error(e);
 	    }
+	  throw;
 	}
     }
   catch (error const& e)
@@ -324,8 +324,8 @@ Auth::run ()
 	}
       catch (error const& discard)
 	{
-	  throw error(e);
 	}
+      throw;
     }
 }
 

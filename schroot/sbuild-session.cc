@@ -296,111 +296,108 @@ try
 	    fmt % *cur;
 	    throw error(fmt);
 	  }
+
+	Chroot::chroot_ptr chroot(ch->clone());
+
+	/* If restoring a session, set the session ID from the
+	   chroot name, or else generate it.  Only chroots which
+	   support session creation append a UUID to the session
+	   ID. */
+	if (chroot->get_active() ||
+	    !(chroot->get_session_flags() & Chroot::SESSION_CREATE))
+	  {
+	    set_session_id(chroot->get_name());
+	  }
 	else
 	  {
-	    Chroot::chroot_ptr chroot(ch->clone());
+	    uuid_t uuid;
+	    char uuid_str[37];
+	    uuid_generate(uuid);
+	    uuid_unparse(uuid, uuid_str);
+	    uuid_clear(uuid);
+	    std::string session_id(chroot->get_name() + "-" + uuid_str);
+	    set_session_id(session_id);
+	  }
 
-	    /* If restoring a session, set the session ID from the
-	       chroot name, or else generate it.  Only chroots which
-	       support session creation append a UUID to the session
-	       ID. */
-	    if (chroot->get_active() ||
-		!(chroot->get_session_flags() & Chroot::SESSION_CREATE))
-	      {
-		set_session_id(chroot->get_name());
-	      }
-	    else
-	      {
-		uuid_t uuid;
-		char uuid_str[37];
-		uuid_generate(uuid);
-		uuid_unparse(uuid, uuid_str);
-		uuid_clear(uuid);
-		std::string session_id(chroot->get_name() + "-" + uuid_str);
-		set_session_id(session_id);
-	      }
+	/* Activate chroot. */
+	chroot->set_active(true);
 
-	    /* Activate chroot. */
-	    chroot->set_active(true);
+	/* If a chroot mount location has not yet been set, set one
+	   with the session id. */
+	if (chroot->get_mount_location().empty())
+	  {
+	    std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
+				 this->session_id);
+	    chroot->set_mount_location(location);
+	  }
 
-	    /* If a chroot mount location has not yet been set, set one
-	       with the session id. */
-	    if (chroot->get_mount_location().empty())
-	      {
-		std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
-				     this->session_id);
-		chroot->set_mount_location(location);
-	      }
+	/* Chroot types which create a session (e.g. LVM devices)
+	   need the chroot name respecifying. */
+	if (chroot->get_session_flags() & Chroot::SESSION_CREATE)
+	  {
+	    chroot->set_name(this->session_id);
+	    chroot->set_aliases(string_list());
+	  }
 
-	    /* Chroot types which create a session (e.g. LVM devices)
-	       need the chroot name respecifying. */
-	    /// @todo: Clone the chroot?
-	    if (chroot->get_session_flags() & Chroot::SESSION_CREATE)
-	      {
-		chroot->set_name(this->session_id);
-		chroot->set_aliases(string_list());
-	      }
+	/* LVM devices need the snapshot device name specifying. */
+	ChrootLvmSnapshot *snapshot = 0;
+	if ((snapshot = dynamic_cast<ChrootLvmSnapshot *>(chroot.get())) != 0)
+	  {
+	    std::string dir(dirname(snapshot->get_device(), '/'));
+	    std::string device(dir + "/" + this->session_id);
+	    snapshot->set_snapshot_device(device);
+	  }
 
-	    /* LVM devices need the snapshot device name specifying. */
-	    ChrootLvmSnapshot *snapshot = 0;
-	    if ((snapshot = dynamic_cast<ChrootLvmSnapshot *>(chroot.get())) != 0)
-	      {
-		std::string dir(dirname(snapshot->get_device(), '/'));
-		std::string device(dir + "/" + this->session_id);
-		snapshot->set_snapshot_device(device);
-	      }
+	try
+	  {
+	    /* Run setup-start chroot setup scripts. */
+	    setup_chroot(chroot, Chroot::SETUP_START);
+	    if (this->operation == OPERATION_BEGIN)
+	      cout << this->session_id << endl;
+
+	    /* Run recover scripts. */
+	    setup_chroot(chroot, Chroot::SETUP_RECOVER);
 
 	    try
 	      {
-		/* Run setup-start chroot setup scripts. */
-		setup_chroot(chroot, Chroot::SETUP_START);
-		if (this->operation == OPERATION_BEGIN)
-		  cout << this->session_id << endl;
+		/* Run run-start scripts. */
+		setup_chroot(chroot, Chroot::RUN_START);
 
-		/* Run recover scripts. */
-		setup_chroot(chroot, Chroot::SETUP_RECOVER);
+		/* Run session if setup succeeded. */
+		if (this->operation == OPERATION_AUTOMATIC ||
+		    this->operation == OPERATION_RUN)
+		  run_chroot(chroot);
 
-		try
-		  {
-		    /* Run run-start scripts. */
-		    setup_chroot(chroot, Chroot::RUN_START);
-
-		    /* Run session if setup succeeded. */
-		    if (this->operation == OPERATION_AUTOMATIC ||
-			this->operation == OPERATION_RUN)
-		      run_chroot(chroot);
-
-		    /* Run run-stop scripts whether or not there was an
-		       error. */
-		    setup_chroot(chroot, Chroot::RUN_STOP);
-		  }
-		catch (error const& e)
-		  {
-		    setup_chroot(chroot, Chroot::RUN_STOP);
-		    throw e;
-		  }
-
-	    /* Run setup-stop chroot setup scripts whether or not there
-	       was an error. */
-		setup_chroot(chroot, Chroot::SETUP_STOP);
-		chroot->set_active(false);
+		/* Run run-stop scripts whether or not there was an
+		   error. */
+		setup_chroot(chroot, Chroot::RUN_STOP);
 	      }
 	    catch (error const& e)
 	      {
-		try
-		  {
-		    setup_chroot(chroot, Chroot::SETUP_STOP);
-		  }
-		catch (error const& discard)
-		  {
-		  }
-		chroot->set_active(false);
-		throw e;
+		setup_chroot(chroot, Chroot::RUN_STOP);
+		throw;
 	      }
 
-	    /* Deactivate chroot. */
+	    /* Run setup-stop chroot setup scripts whether or not there
+	       was an error. */
+	    setup_chroot(chroot, Chroot::SETUP_STOP);
 	    chroot->set_active(false);
 	  }
+	catch (error const& e)
+	  {
+	    try
+	      {
+		setup_chroot(chroot, Chroot::SETUP_STOP);
+	      }
+	    catch (error const& discard)
+	      {
+	      }
+	    chroot->set_active(false);
+	    throw;
+	  }
+
+	/* Deactivate chroot. */
+	chroot->set_active(false);
       }
   }
 catch (error const& e)
@@ -409,7 +406,7 @@ catch (error const& e)
        status still needs setting. */
     if (this->child_status == 0)
       this->child_status = EXIT_FAILURE;
-    throw e;
+    throw;
   }
 }
 
