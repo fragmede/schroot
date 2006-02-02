@@ -347,9 +347,16 @@ namespace sbuild
      * property.
      *
      * @param stream the stream to output to.
+     * @param rhs the chroot to output.
+     * @returns the stream.
      */
-    virtual void
-    print_details (std::ostream& stream) const;
+    friend std::ostream&
+    operator << (std::ostream&     stream,
+		 chroot_ptr const& rhs)
+    {
+      rhs->print_details(stream);
+      return stream;
+    }
 
     /**
      * Chroot initialisation from a keyfile.
@@ -470,6 +477,16 @@ namespace sbuild
     {
       return format_detail<T>(name, value);
     }
+
+    /**
+     * Print detailed information about the chroot to a stream.  The
+     * information is printed in plain text with one line per
+     * property.
+     *
+     * @param stream the stream to output to.
+     */
+    virtual void
+    print_details (std::ostream& stream) const;
 
     /**
      * Copy the chroot properties into a keyfile.  The keyfile group

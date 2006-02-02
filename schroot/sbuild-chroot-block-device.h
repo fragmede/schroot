@@ -104,10 +104,10 @@ namespace sbuild
     virtual SessionFlags
     get_session_flags () const;
 
+  protected:
     virtual void
     print_details (std::ostream& stream) const;
 
-  protected:
     virtual void
     get_keyfile (keyfile& keyfile) const;
 

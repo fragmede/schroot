@@ -197,7 +197,7 @@ Config::print_chroot_info (string_list const& chroots,
       const Chroot::chroot_ptr chroot = find_alias(*pos);
       if (chroot)
 	{
-	  chroot->print_details(stream);
+	  stream << chroot;
 	  if (pos + 1 != chroots.end())
 	    stream << '\n';
 	}

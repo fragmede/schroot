@@ -1,5 +1,20 @@
 2006-02-02  Roger Leigh  <rleigh@debian.org>
 
+	* Update testcases.
+
+	* schroot/sbuild-config.cc
+	(print_chroot_info): Use new chroot streaming to output details to
+	an ostream.
+
+	* print_details is protected in all derived classes.
+
+	* schroot/sbuild-chroot.h
+	(print_details): Make protected.
+	(operator <<): New friend function to output chroot details to an
+	ostream.
+
+2006-02-02  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Update.
 
 	* debian/control (Build-Depends): Remove GLib.

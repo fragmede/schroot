@@ -100,7 +100,7 @@ public:
   void test_print_details()
   {
     std::ostringstream os;
-    chroot->print_details(os);
+    os << chroot;
     // TODO: Compare output.
     CPPUNIT_ASSERT(!os.str().empty());
   }
