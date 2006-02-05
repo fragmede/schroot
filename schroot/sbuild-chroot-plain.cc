@@ -29,49 +29,49 @@
 
 using namespace sbuild;
 
-ChrootPlain::ChrootPlain():
+chroot_plain::chroot_plain():
   chroot(),
   location()
 {
 }
 
-ChrootPlain::ChrootPlain (keyfile const&     keyfile,
-			  std::string const& group):
+chroot_plain::chroot_plain (keyfile const&     keyfile,
+			    std::string const& group):
   chroot(keyfile, group),
   location()
 {
 }
 
-ChrootPlain::~ChrootPlain()
+chroot_plain::~chroot_plain()
 {
 }
 
 sbuild::chroot::chroot_ptr
-ChrootPlain::clone () const
+chroot_plain::clone () const
 {
-  return chroot_ptr(new ChrootPlain(*this));
+  return chroot_ptr(new chroot_plain(*this));
 }
 
 std::string const&
-ChrootPlain::get_location () const
+chroot_plain::get_location () const
 {
   return this->location;
 }
 
 void
-ChrootPlain::set_location (std::string const& location)
+chroot_plain::set_location (std::string const& location)
 {
   this->location = location;
 }
 
 std::string const&
-ChrootPlain::get_mount_location () const
+chroot_plain::get_mount_location () const
 {
   return this->location;
 }
 
 std::string const&
-ChrootPlain::get_chroot_type () const
+chroot_plain::get_chroot_type () const
 {
   static const std::string type("plain");
 
@@ -79,7 +79,7 @@ ChrootPlain::get_chroot_type () const
 }
 
 void
-ChrootPlain::setup_env (environment& env)
+chroot_plain::setup_env (environment& env)
 {
   this->chroot::setup_env(env);
 
@@ -87,20 +87,20 @@ ChrootPlain::setup_env (environment& env)
 }
 
 void
-ChrootPlain::setup_lock (SetupType type,
+chroot_plain::setup_lock (SetupType type,
 			 bool      lock)
 {
   /* By default, plain chroots do no locking. */
 }
 
 sbuild::chroot::SessionFlags
-ChrootPlain::get_session_flags () const
+chroot_plain::get_session_flags () const
 {
   return static_cast<SessionFlags>(0);
 }
 
 void
-ChrootPlain::print_details (std::ostream& stream) const
+chroot_plain::print_details (std::ostream& stream) const
 {
   this->chroot::print_details(stream);
 
@@ -110,7 +110,7 @@ ChrootPlain::print_details (std::ostream& stream) const
 }
 
 void
-ChrootPlain::get_keyfile (keyfile& keyfile) const
+chroot_plain::get_keyfile (keyfile& keyfile) const
 {
   chroot::get_keyfile(keyfile);
 
@@ -119,7 +119,7 @@ ChrootPlain::get_keyfile (keyfile& keyfile) const
 }
 
 void
-ChrootPlain::set_keyfile (keyfile const& keyfile)
+chroot_plain::set_keyfile (keyfile const& keyfile)
 {
   chroot::set_keyfile(keyfile);
 

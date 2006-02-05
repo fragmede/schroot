@@ -1,5 +1,15 @@
 2006-02-05  Roger Leigh  <rleigh@debian.org>
 
+	* Rename sbuild::ChrootLvmSnapshot to sbuild::chroot_lvm_snapshot.
+
+	* Rename sbuild::ChrootBlockDevice to sbuild::chroot_block_device.
+
+	* Rename sbuild::ChrootFile to sbuild::chroot_file.
+
+	* Rename sbuild::ChrootPlain to sbuild::chroot_plain.
+
+2006-02-05  Roger Leigh  <rleigh@debian.org>
+
 	* Rename sbuild::Chroot to sbuild::chroot.
 
 	* test/config.ex2/sarge

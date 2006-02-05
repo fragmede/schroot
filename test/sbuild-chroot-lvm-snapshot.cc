@@ -30,11 +30,11 @@
 
 using namespace CppUnit;
 
-class chroot_lvm_snapshot : public sbuild::ChrootLvmSnapshot
+class chroot_lvm_snapshot : public sbuild::chroot_lvm_snapshot
 {
 public:
   chroot_lvm_snapshot():
-    sbuild::ChrootLvmSnapshot()
+    sbuild::chroot_lvm_snapshot()
   {}
 
   virtual ~chroot_lvm_snapshot()
@@ -60,7 +60,7 @@ public:
   void setUp()
   {
     test_chroot_base<chroot_lvm_snapshot>::setUp();
-    sbuild::ChrootLvmSnapshot *c = dynamic_cast<sbuild::ChrootLvmSnapshot *>(chroot.get());
+    sbuild::chroot_lvm_snapshot *c = dynamic_cast<sbuild::chroot_lvm_snapshot *>(chroot.get());
     c->set_device("/dev/testdev");
     c->set_mount_options("-t jfs -o quota,rw");
     c->set_snapshot_device("/dev/snaptestdev");
@@ -70,7 +70,7 @@ public:
   void
   test_snapshot_device()
   {
-    sbuild::ChrootLvmSnapshot *c = dynamic_cast<sbuild::ChrootLvmSnapshot *>(chroot.get());
+    sbuild::chroot_lvm_snapshot *c = dynamic_cast<sbuild::chroot_lvm_snapshot *>(chroot.get());
     CPPUNIT_ASSERT(c);
     c->set_snapshot_device("/dev/some/snapshot/device");
     CPPUNIT_ASSERT(c->get_snapshot_device() == "/dev/some/snapshot/device");
@@ -81,7 +81,7 @@ public:
   void
   test_snapshot_options()
   {
-    sbuild::ChrootLvmSnapshot *c = dynamic_cast<sbuild::ChrootLvmSnapshot *>(chroot.get());
+    sbuild::chroot_lvm_snapshot *c = dynamic_cast<sbuild::chroot_lvm_snapshot *>(chroot.get());
     CPPUNIT_ASSERT(c);
     c->set_snapshot_options("-o opt1,opt2");
     CPPUNIT_ASSERT(c->get_snapshot_options() == "-o opt1,opt2");
@@ -94,7 +94,7 @@ public:
 
   void test_setup_env()
   {
-    sbuild::ChrootLvmSnapshot *c = dynamic_cast<sbuild::ChrootLvmSnapshot *>(chroot.get());
+    sbuild::chroot_lvm_snapshot *c = dynamic_cast<sbuild::chroot_lvm_snapshot *>(chroot.get());
     CPPUNIT_ASSERT(c);
 
     sbuild::environment expected;

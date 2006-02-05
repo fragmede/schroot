@@ -34,11 +34,11 @@ namespace sbuild
    * careful checking and/or restrictions in order to prevent resource
    * starvation (using all swap space, for example).
    */
-  class ChrootFile : public chroot
+  class chroot_file : public chroot
   {
   protected:
     /// The constructor.
-    ChrootFile();
+    chroot_file();
 
     /**
      * The constructor.  Initialise from an open keyfile.
@@ -46,14 +46,14 @@ namespace sbuild
      * @param keyfile the configuration file
      * @param group the keyfile group (chroot name)
      */
-    ChrootFile (keyfile const&     keyfile,
-		       std::string const& group);
+    chroot_file (keyfile const&     keyfile,
+		 std::string const& group);
 
     friend class chroot;
 
   public:
     /// The destructor.
-    virtual ~ChrootFile();
+    virtual ~chroot_file();
 
     virtual chroot::chroot_ptr
     clone () const;

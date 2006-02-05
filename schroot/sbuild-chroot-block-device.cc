@@ -33,63 +33,63 @@
 using boost::format;
 using namespace sbuild;
 
-ChrootBlockDevice::ChrootBlockDevice():
+chroot_block_device::chroot_block_device():
   chroot(),
   device(),
   mount_options()
 {
 }
 
-ChrootBlockDevice::ChrootBlockDevice (keyfile const&     keyfile,
-				      std::string const& group):
+chroot_block_device::chroot_block_device (keyfile const&     keyfile,
+					  std::string const& group):
   chroot(keyfile, group),
   device(),
   mount_options()
 {
 }
 
-ChrootBlockDevice::~ChrootBlockDevice()
+chroot_block_device::~chroot_block_device()
 {
 }
 
 sbuild::chroot::chroot_ptr
-ChrootBlockDevice::clone () const
+chroot_block_device::clone () const
 {
-  return chroot_ptr(new ChrootBlockDevice(*this));
+  return chroot_ptr(new chroot_block_device(*this));
 }
 
 std::string const&
-ChrootBlockDevice::get_device () const
+chroot_block_device::get_device () const
 {
   return this->device;
 }
 
 void
-ChrootBlockDevice::set_device (std::string const& device)
+chroot_block_device::set_device (std::string const& device)
 {
   this->device = device;
 }
 
 std::string const&
-ChrootBlockDevice::get_mount_device () const
+chroot_block_device::get_mount_device () const
 {
   return this->device;
 }
 
 std::string const&
-ChrootBlockDevice::get_mount_options () const
+chroot_block_device::get_mount_options () const
 {
   return this->mount_options;
 }
 
 void
-ChrootBlockDevice::set_mount_options (std::string const& mount_options)
+chroot_block_device::set_mount_options (std::string const& mount_options)
 {
   this->mount_options = mount_options;
 }
 
 std::string const&
-ChrootBlockDevice::get_chroot_type () const
+chroot_block_device::get_chroot_type () const
 {
   static const std::string type("block-device");
 
@@ -97,7 +97,7 @@ ChrootBlockDevice::get_chroot_type () const
 }
 
 void
-ChrootBlockDevice::setup_env (environment& env)
+chroot_block_device::setup_env (environment& env)
 {
   this->chroot::setup_env(env);
 
@@ -106,8 +106,8 @@ ChrootBlockDevice::setup_env (environment& env)
 }
 
 void
-ChrootBlockDevice::setup_lock (SetupType type,
-			       bool      lock)
+chroot_block_device::setup_lock (SetupType type,
+				 bool      lock)
 {
   struct stat statbuf;
 
@@ -165,13 +165,13 @@ ChrootBlockDevice::setup_lock (SetupType type,
 }
 
 sbuild::chroot::SessionFlags
-ChrootBlockDevice::get_session_flags () const
+chroot_block_device::get_session_flags () const
 {
   return static_cast<SessionFlags>(0);
 }
 
 void
-ChrootBlockDevice::print_details (std::ostream& stream) const
+chroot_block_device::print_details (std::ostream& stream) const
 {
   this->chroot::print_details(stream);
 
@@ -183,7 +183,7 @@ ChrootBlockDevice::print_details (std::ostream& stream) const
 }
 
 void
-ChrootBlockDevice::get_keyfile (keyfile& keyfile) const
+chroot_block_device::get_keyfile (keyfile& keyfile) const
 {
   chroot::get_keyfile(keyfile);
 
@@ -195,7 +195,7 @@ ChrootBlockDevice::get_keyfile (keyfile& keyfile) const
 }
 
 void
-ChrootBlockDevice::set_keyfile (keyfile const& keyfile)
+chroot_block_device::set_keyfile (keyfile const& keyfile)
 {
   chroot::set_keyfile(keyfile);
 

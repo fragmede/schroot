@@ -29,11 +29,11 @@
 
 using namespace CppUnit;
 
-class chroot_block_device : public sbuild::ChrootBlockDevice
+class chroot_block_device : public sbuild::chroot_block_device
 {
 public:
   chroot_block_device():
-    sbuild::ChrootBlockDevice()
+    sbuild::chroot_block_device()
   {}
 
   virtual ~chroot_block_device()
@@ -59,7 +59,7 @@ public:
   void setUp()
   {
     test_chroot_base<chroot_block_device>::setUp();
-    sbuild::ChrootBlockDevice *c = dynamic_cast<sbuild::ChrootBlockDevice *>(chroot.get());
+    sbuild::chroot_block_device *c = dynamic_cast<sbuild::chroot_block_device *>(chroot.get());
     c->set_device("/dev/testdev");
     c->set_mount_options("-t jfs -o quota,rw");
   }
@@ -67,7 +67,7 @@ public:
   void
   test_device()
   {
-    sbuild::ChrootBlockDevice *c = dynamic_cast<sbuild::ChrootBlockDevice *>(chroot.get());
+    sbuild::chroot_block_device *c = dynamic_cast<sbuild::chroot_block_device *>(chroot.get());
     CPPUNIT_ASSERT(c);
     c->set_device("/dev/some/device");
     CPPUNIT_ASSERT(c->get_device() == "/dev/some/device");
@@ -78,7 +78,7 @@ public:
   void
   test_mount_options()
   {
-    sbuild::ChrootBlockDevice *c = dynamic_cast<sbuild::ChrootBlockDevice *>(chroot.get());
+    sbuild::chroot_block_device *c = dynamic_cast<sbuild::chroot_block_device *>(chroot.get());
     CPPUNIT_ASSERT(c);
     c->set_mount_options("-o opt1,opt2");
     CPPUNIT_ASSERT(c->get_mount_options() == "-o opt1,opt2");

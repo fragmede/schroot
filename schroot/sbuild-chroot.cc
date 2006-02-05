@@ -72,13 +72,13 @@ sbuild::chroot::create (std::string const& type)
   chroot *new_chroot = 0;
 
   if (type == "plain")
-    new_chroot = new ChrootPlain();
+    new_chroot = new chroot_plain();
   else if (type == "file")
-    new_chroot = new ChrootFile();
+    new_chroot = new chroot_file();
   else if (type == "block-device")
-    new_chroot = new ChrootBlockDevice();
+    new_chroot = new chroot_block_device();
   else if (type == "lvm-snapshot")
-    new_chroot = new ChrootLvmSnapshot();
+    new_chroot = new chroot_lvm_snapshot();
   else
     {
       format fmt(_("unknown chroot type \"%1%\""));

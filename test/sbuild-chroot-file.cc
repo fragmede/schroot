@@ -29,11 +29,11 @@
 
 using namespace CppUnit;
 
-class chroot_file : public sbuild::ChrootFile
+class chroot_file : public sbuild::chroot_file
 {
 public:
   chroot_file():
-    sbuild::ChrootFile()
+    sbuild::chroot_file()
   {}
 
   virtual ~chroot_file()
@@ -58,14 +58,14 @@ public:
   void setUp()
   {
     test_chroot_base<chroot_file>::setUp();
-    sbuild::ChrootFile *c = dynamic_cast<sbuild::ChrootFile *>(chroot.get());
+    sbuild::chroot_file *c = dynamic_cast<sbuild::chroot_file *>(chroot.get());
     c->set_file("/srv/chroot/example.tar.bz2");
   }
 
   void
   test_file()
   {
-    sbuild::ChrootFile *c = dynamic_cast<sbuild::ChrootFile *>(chroot.get());
+    sbuild::chroot_file *c = dynamic_cast<sbuild::chroot_file *>(chroot.get());
     CPPUNIT_ASSERT(c);
     c->set_file("/srv/chroot-images/unstable.tar.gz");
     CPPUNIT_ASSERT(c->get_file() == "/srv/chroot-images/unstable.tar.gz");

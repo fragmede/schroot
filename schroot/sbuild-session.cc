@@ -340,8 +340,8 @@ try
 	  }
 
 	/* LVM devices need the snapshot device name specifying. */
-	ChrootLvmSnapshot *snapshot = 0;
-	if ((snapshot = dynamic_cast<ChrootLvmSnapshot *>(chroot.get())) != 0)
+	chroot_lvm_snapshot *snapshot = 0;
+	if ((snapshot = dynamic_cast<chroot_lvm_snapshot *>(chroot.get())) != 0)
 	  {
 	    std::string dir(dirname(snapshot->get_device(), '/'));
 	    std::string device(dir + "/" + this->session_id);

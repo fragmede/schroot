@@ -29,11 +29,11 @@
 
 using namespace CppUnit;
 
-class chroot_plain : public sbuild::ChrootPlain
+class chroot_plain : public sbuild::chroot_plain
 {
 public:
   chroot_plain():
-    sbuild::ChrootPlain()
+    sbuild::chroot_plain()
   {}
 
   virtual ~chroot_plain()
@@ -58,14 +58,14 @@ public:
   void setUp()
   {
     test_chroot_base<chroot_plain>::setUp();
-    sbuild::ChrootPlain *c = dynamic_cast<sbuild::ChrootPlain *>(chroot.get());
+    sbuild::chroot_plain *c = dynamic_cast<sbuild::chroot_plain *>(chroot.get());
     c->set_location("/srv/chroot/example-chroot");
   }
 
   void
   test_location()
   {
-    sbuild::ChrootPlain *c = dynamic_cast<sbuild::ChrootPlain *>(chroot.get());
+    sbuild::chroot_plain *c = dynamic_cast<sbuild::chroot_plain *>(chroot.get());
     CPPUNIT_ASSERT(c);
     c->set_location("/mnt/mount-location/example");
     CPPUNIT_ASSERT(c->get_location() == "/mnt/mount-location/example");

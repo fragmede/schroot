@@ -35,63 +35,63 @@ using std::endl;
 using boost::format;
 using namespace sbuild;
 
-ChrootLvmSnapshot::ChrootLvmSnapshot():
-  ChrootBlockDevice(),
+chroot_lvm_snapshot::chroot_lvm_snapshot():
+  chroot_block_device(),
   snapshot_device(),
   snapshot_options()
 {
 }
 
-ChrootLvmSnapshot::ChrootLvmSnapshot (keyfile const&     keyfile,
-				      std::string const& group):
-  ChrootBlockDevice(keyfile, group),
+chroot_lvm_snapshot::chroot_lvm_snapshot (keyfile const&     keyfile,
+					  std::string const& group):
+  chroot_block_device(keyfile, group),
   snapshot_device(),
   snapshot_options()
 {
 }
 
-ChrootLvmSnapshot::~ChrootLvmSnapshot()
+chroot_lvm_snapshot::~chroot_lvm_snapshot()
 {
 }
 
 sbuild::chroot::chroot_ptr
-ChrootLvmSnapshot::clone () const
+chroot_lvm_snapshot::clone () const
 {
-  return chroot_ptr(new ChrootLvmSnapshot(*this));
+  return chroot_ptr(new chroot_lvm_snapshot(*this));
 }
 
 std::string const&
-ChrootLvmSnapshot::get_snapshot_device () const
+chroot_lvm_snapshot::get_snapshot_device () const
 {
   return this->snapshot_device;
 }
 
 void
-ChrootLvmSnapshot::set_snapshot_device (std::string const& snapshot_device)
+chroot_lvm_snapshot::set_snapshot_device (std::string const& snapshot_device)
 {
   this->snapshot_device = snapshot_device;
 }
 
 std::string const&
-ChrootLvmSnapshot::get_mount_device () const
+chroot_lvm_snapshot::get_mount_device () const
 {
   return this->snapshot_device;
 }
 
 std::string const&
-ChrootLvmSnapshot::get_snapshot_options () const
+chroot_lvm_snapshot::get_snapshot_options () const
 {
   return this->snapshot_options;
 }
 
 void
-ChrootLvmSnapshot::set_snapshot_options (std::string const& snapshot_options)
+chroot_lvm_snapshot::set_snapshot_options (std::string const& snapshot_options)
 {
   this->snapshot_options = snapshot_options;
 }
 
 std::string const&
-ChrootLvmSnapshot::get_chroot_type () const
+chroot_lvm_snapshot::get_chroot_type () const
 {
   static const std::string type("lvm-snapshot");
 
@@ -99,9 +99,9 @@ ChrootLvmSnapshot::get_chroot_type () const
 }
 
 void
-ChrootLvmSnapshot::setup_env (environment& env)
+chroot_lvm_snapshot::setup_env (environment& env)
 {
-  this->ChrootBlockDevice::setup_env(env);
+  this->chroot_block_device::setup_env(env);
 
   env.add("CHROOT_LVM_SNAPSHOT_NAME", sbuild::basename(get_snapshot_device()));
   env.add("CHROOT_LVM_SNAPSHOT_DEVICE", get_snapshot_device());
@@ -109,8 +109,8 @@ ChrootLvmSnapshot::setup_env (environment& env)
 }
 
 void
-ChrootLvmSnapshot::setup_lock (SetupType type,
-			       bool      lock)
+chroot_lvm_snapshot::setup_lock (SetupType type,
+				 bool      lock)
 {
   std::string device;
   struct stat statbuf;
@@ -189,15 +189,15 @@ ChrootLvmSnapshot::setup_lock (SetupType type,
 }
 
 sbuild::chroot::SessionFlags
-ChrootLvmSnapshot::get_session_flags () const
+chroot_lvm_snapshot::get_session_flags () const
 {
   return SESSION_CREATE;
 }
 
 void
-ChrootLvmSnapshot::print_details (std::ostream& stream) const
+chroot_lvm_snapshot::print_details (std::ostream& stream) const
 {
-  this->ChrootBlockDevice::print_details(stream);
+  this->chroot_block_device::print_details(stream);
 
   if (!this->snapshot_device.empty())
     stream << format_details(_("LVM Snapshot Device"),
@@ -209,9 +209,9 @@ ChrootLvmSnapshot::print_details (std::ostream& stream) const
 }
 
 void
-ChrootLvmSnapshot::get_keyfile (keyfile& keyfile) const
+chroot_lvm_snapshot::get_keyfile (keyfile& keyfile) const
 {
-  ChrootBlockDevice::get_keyfile(keyfile);
+  chroot_block_device::get_keyfile(keyfile);
 
   keyfile.set_value(get_name(), "lvm-snapshot-device",
 		    get_snapshot_device());
@@ -221,9 +221,9 @@ ChrootLvmSnapshot::get_keyfile (keyfile& keyfile) const
 }
 
 void
-ChrootLvmSnapshot::set_keyfile (keyfile const& keyfile)
+chroot_lvm_snapshot::set_keyfile (keyfile const& keyfile)
 {
-  ChrootBlockDevice::set_keyfile(keyfile);
+  chroot_block_device::set_keyfile(keyfile);
 
   std::string snapshot_device;
   if (keyfile.get_value(get_name(), "lvm-snapshot-device",

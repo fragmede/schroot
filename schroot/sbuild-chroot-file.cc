@@ -33,43 +33,43 @@
 using boost::format;
 using namespace sbuild;
 
-ChrootFile::ChrootFile():
+chroot_file::chroot_file():
   chroot(),
   file()
 {
 }
 
-ChrootFile::ChrootFile (keyfile const&     keyfile,
-			std::string const& group):
+chroot_file::chroot_file (keyfile const&     keyfile,
+			  std::string const& group):
   chroot(keyfile, group),
   file()
 {
 }
 
-ChrootFile::~ChrootFile()
+chroot_file::~chroot_file()
 {
 }
 
 sbuild::chroot::chroot_ptr
-ChrootFile::clone () const
+chroot_file::clone () const
 {
-  return chroot_ptr(new ChrootFile(*this));
+  return chroot_ptr(new chroot_file(*this));
 }
 
 std::string const&
-ChrootFile::get_file () const
+chroot_file::get_file () const
 {
   return this->file;
 }
 
 void
-ChrootFile::set_file (std::string const& file)
+chroot_file::set_file (std::string const& file)
 {
   this->file = file;
 }
 
 std::string const&
-ChrootFile::get_chroot_type () const
+chroot_file::get_chroot_type () const
 {
   static const std::string type("file");
 
@@ -77,7 +77,7 @@ ChrootFile::get_chroot_type () const
 }
 
 void
-ChrootFile::setup_env (environment& env)
+chroot_file::setup_env (environment& env)
 {
   this->chroot::setup_env(env);
 
@@ -85,8 +85,8 @@ ChrootFile::setup_env (environment& env)
 }
 
 void
-ChrootFile::setup_lock (SetupType type,
-			bool      lock)
+chroot_file::setup_lock (SetupType type,
+			 bool      lock)
 {
   /* By default, file chroots do no locking. */
   /* Create or unlink session information. */
@@ -99,13 +99,13 @@ ChrootFile::setup_lock (SetupType type,
 }
 
 sbuild::chroot::SessionFlags
-ChrootFile::get_session_flags () const
+chroot_file::get_session_flags () const
 {
   return SESSION_CREATE;
 }
 
 void
-ChrootFile::print_details (std::ostream& stream) const
+chroot_file::print_details (std::ostream& stream) const
 {
   this->chroot::print_details(stream);
 
@@ -115,7 +115,7 @@ ChrootFile::print_details (std::ostream& stream) const
 }
 
 void
-ChrootFile::get_keyfile (keyfile& keyfile) const
+chroot_file::get_keyfile (keyfile& keyfile) const
 {
   chroot::get_keyfile(keyfile);
 
@@ -124,7 +124,7 @@ ChrootFile::get_keyfile (keyfile& keyfile) const
 }
 
 void
-ChrootFile::set_keyfile (keyfile const& keyfile)
+chroot_file::set_keyfile (keyfile const& keyfile)
 {
   chroot::set_keyfile(keyfile);
 

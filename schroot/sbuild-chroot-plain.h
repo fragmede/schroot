@@ -28,11 +28,11 @@ namespace sbuild
   /**
    * A chroot located on a mounted filesystem.
    */
-  class ChrootPlain : public chroot
+  class chroot_plain : public chroot
   {
   protected:
     /// The constructor.
-    ChrootPlain();
+    chroot_plain();
 
     /**
      * The constructor.  Initialise from an open keyfile.
@@ -40,14 +40,14 @@ namespace sbuild
      * @param keyfile the configuration file
      * @param group the keyfile group (chroot name)
      */
-    ChrootPlain (keyfile const&     keyfile,
-		 std::string const& group);
+    chroot_plain (keyfile const&     keyfile,
+		  std::string const& group);
 
     friend class chroot;
 
   public:
     /// The destructor.
-    virtual ~ChrootPlain();
+    virtual ~chroot_plain();
 
     virtual chroot::chroot_ptr
     clone () const;
