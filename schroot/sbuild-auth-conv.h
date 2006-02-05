@@ -23,6 +23,7 @@
 #include <security/pam_appl.h>
 
 #include "sbuild-auth-message.h"
+#include "sbuild-error.h"
 
 namespace sbuild
 {
@@ -49,6 +50,9 @@ namespace sbuild
   class AuthConv
   {
   public:
+    /// Exception type.
+    typedef runtime_error_custom<AuthConv> error;
+
     /// A list of messages.
     typedef std::vector<AuthMessage> message_list;
 

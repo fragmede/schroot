@@ -1,5 +1,18 @@
 2006-02-05  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-auth-conv.h: Add an error exception typedef.
+
+	* schroot/sbuild-auth-conv-tty.cc
+	(get_delay): Throw an exception on fatal timeout.  Log a warning
+	rather than using std::cerr.
+	(read_string): Return a string rather than a pointer to an
+	allocated string.  Throw an exception on failure.
+	(read_string): Don't print a newline after the prompt message.
+	(conversation): Remove all string cleanup code and replace with a
+	single exception handler.
+
+2006-02-05  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-keyfile.h
 	(operator >>): Linecounting counts from line 1, rather than 0.
 	Fix error message capitalisation.  All parsed groups and keys are

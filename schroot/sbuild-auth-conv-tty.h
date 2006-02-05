@@ -67,10 +67,10 @@ namespace sbuild
      * @brief Get the time delay before the next SIGALRM signal.
      *
      * If either the warning timeout or the fatal timeout have
-     * expired, a message to notify the user is printed to stderr.
+     * expired, a message to notify the user is printed to stderr.  If
+     * the fatal timeout is reached, an exception is thrown.
      *
-     * @returns the delay in seconds, 0 if no delay is set, or -1 if
-     * the fatal timeout has expired.
+     * @returns the delay in seconds, or 0 if no delay is set.
      */
     int get_delay ();
 
@@ -89,12 +89,10 @@ namespace sbuild
      * @param message the message to prompt the user for input.
      * @param echo echo user input to screen.
      * @returns a string, which is empty on failure.
-     *
-     * @todo Throw an exception on failure, rather than returning 0
-     * and subsequently returning failure to the caller?
      */
-    std::string * read_string (std::string message,
-			       bool        echo);
+    std::string
+    read_string (std::string message,
+		 bool        echo);
 
     /// The time to warn at.
     time_t  warning_timeout;

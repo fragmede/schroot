@@ -38,6 +38,9 @@ namespace
 
   volatile sig_atomic_t timer_expired = false;
 
+  /**
+   * Disable the alarm and signal handler.
+   */
   void
   reset_alarm (struct sigaction *orig_sa)
   {
@@ -47,7 +50,7 @@ namespace
     sigaction (SIGALRM, orig_sa, NULL);
   }
 
-  /*
+  /**
    * Handle the SIGALRM signal.
    */
   void
@@ -56,10 +59,8 @@ namespace
     timer_expired = true;
   }
 
-  /*
-   * orig_sa: the original signal handler
-   *
-   * Set the SIGALARM handler, and set the timeout to @delay seconds.
+  /**
+   * Set the SIGALARM handler, and set the timeout to delay seconds.
    * The old signal handler is stored in orig_sa.
    */
   bool
@@ -129,15 +130,12 @@ AuthConvTty::get_delay ()
 
   if (this->fatal_timeout != 0 &&
       this->start_time >= this->fatal_timeout)
-    {
-      cerr << _("Timed out") << endl;
-      return -1;
-    }
+    throw error(_("Timed out"));
 
   if (this->warning_timeout != 0 &&
       this->start_time >= this->warning_timeout)
     {
-      cerr << _("Time is running out...") << endl;
+      log_warning() << _("Time is running out...") << endl;
       return (this->fatal_timeout ?
 	      this->fatal_timeout - this->start_time : 0);
     }
@@ -150,7 +148,7 @@ AuthConvTty::get_delay ()
     return 0;
 }
 
-std::string *
+std::string
 AuthConvTty::read_string (std::string message,
 			  bool        echo)
 {
@@ -158,17 +156,14 @@ AuthConvTty::read_string (std::string message,
   struct sigaction saved_signals;
   sigset_t old_sigs, new_sigs;
   bool use_termios = false;
-  std::string *return_input = 0;
+  std::string retval;
 
   if (isatty(STDIN_FILENO))
     {
       use_termios = true;
 
       if (tcgetattr(STDIN_FILENO, &orig_termios) != 0)
-	{
-	  log_error() << _("Failed to get terminal settings") << endl;
-	  return NULL;
-	}
+	throw error(_("Failed to get terminal settings"));
 
       memcpy(&noecho_termios, &orig_termios, sizeof(struct termios));
 
@@ -187,7 +182,7 @@ AuthConvTty::read_string (std::string message,
 
   while (delay >= 0)
     {
-      cerr << message << endl;
+      cerr << message;
 
       if (use_termios == true)
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &noecho_termios);
@@ -219,7 +214,7 @@ AuthConvTty::read_string (std::string message,
 	      else
 		input[nchars] = '\0';
 
-	      return_input = new std::string(input);
+	      retval = input;
 	      break;
 	    }
 	  else if (nchars == 0)
@@ -227,7 +222,7 @@ AuthConvTty::read_string (std::string message,
 	      if (echo == false)
 		cerr << endl;
 
-	      return_input = new std::string();
+	      retval = "";
 	      break;
 	    }
 	}
@@ -241,48 +236,45 @@ AuthConvTty::read_string (std::string message,
       tcsetattr(STDIN_FILENO, TCSADRAIN, &orig_termios);
     }
 
-  return return_input;
+  return retval;
 }
 
 bool
 AuthConvTty::conversation (message_list& messages)
 {
-  for (std::vector<AuthMessage>::iterator cur = messages.begin();
-       cur != messages.end();
-       ++cur)
+  try
     {
-      std::string *str = 0;
-
-      switch (cur->type)
+      for (std::vector<AuthMessage>::iterator cur = messages.begin();
+	   cur != messages.end();
+	   ++cur)
 	{
-	case AuthMessage::MESSAGE_PROMPT_NOECHO:
-	  str = read_string(cur->message, false);
-	  if (str == 0)
-	    return false;
-	  cur->response = *str;
-	  delete str;
-	  str = 0;
-	  break;
-	case AuthMessage::MESSAGE_PROMPT_ECHO:
-	  str = read_string(cur->message, true);
-	  if (str == 0)
-	    return false;
-	  cur->response = *str;
-	  delete str;
-	  str = 0;
-	  break;
-	case AuthMessage::MESSAGE_ERROR:
-	  cerr << cur->message << endl;
-	  break;
-	case AuthMessage::MESSAGE_INFO:
-	  cerr << cur->message << endl;
-	  break;
-	default:
-	  cerr << format(_("Unsupported conversation type %1%")) % cur->type
-	       << endl;
-	  return false;
-	  break;
+	  switch (cur->type)
+	    {
+	    case AuthMessage::MESSAGE_PROMPT_NOECHO:
+	      cur->response = read_string(cur->message, false);
+	      break;
+	    case AuthMessage::MESSAGE_PROMPT_ECHO:
+	      cur->response = read_string(cur->message, true);
+	      break;
+	    case AuthMessage::MESSAGE_ERROR:
+	      cerr << cur->message << endl;
+	      break;
+	    case AuthMessage::MESSAGE_INFO:
+	      cerr << cur->message << endl;
+	      break;
+	    default:
+	      cerr << format(_("Unsupported conversation type %1%"))
+		% cur->type
+		   << endl;
+	      return false;
+	      break;
+	    }
 	}
+    }
+  catch (error const& e)
+    {
+      log_error() << e.what() << std::endl;
+      return false;
     }
 
   return true;
