@@ -400,8 +400,8 @@ Chroot::set_keyfile (keyfile const& keyfile)
     set_aliases(aliases);
 
   std::string description;
-  if (keyfile.get_value(this->name, "description",
-			keyfile::PRIORITY_OPTIONAL, description))
+  if (keyfile.get_locale_string(this->name, "description",
+				keyfile::PRIORITY_OPTIONAL, description))
     set_description(description);
 
   string_list groups;

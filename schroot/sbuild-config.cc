@@ -335,68 +335,61 @@ Config::load (std::string const& file,
        group != groups.end();
        ++group)
     {
-      try
+      // Set the active property for chroot creation, and create
+      // the chroot.
+      kconfig.set_value(*group, "active", active);
+      std::string type = "plain"; // "plain" is the default type.
+      kconfig.get_value(*group, "type", type);
+      Chroot::chroot_ptr chroot = Chroot::create(type);
+      chroot->set_name(*group);
+      kconfig >> chroot;
+
+      // Make sure insertion will succeed.
+      if (this->chroots.find(chroot->get_name()) == this->chroots.end() &&
+	  this->aliases.find(chroot->get_name()) == this->aliases.end())
 	{
-	  // Set the active property for chroot creation, and create
-	  // the chroot.
-	  kconfig.set_value(*group, "active", active);
-	  std::string type = "plain"; // "plain" is the default type.
-	  kconfig.get_value(*group, "type", type);
-	  Chroot::chroot_ptr chroot = Chroot::create(type);
-	  chroot->set_name(*group);
-	  kconfig >> chroot;
+	  // Set up chroot.
+	  this->chroots.insert(std::make_pair(chroot->get_name(), chroot));
+	  this->aliases.insert(std::make_pair(chroot->get_name(),
+					      chroot->get_name()));
 
-	  // Make sure insertion will succeed.
-	  if (this->chroots.find(chroot->get_name()) == this->chroots.end() &&
-	      this->aliases.find(chroot->get_name()) == this->aliases.end())
+	  // Set up aliases.
+	  string_list const& aliases = chroot->get_aliases();
+	  for (string_list::const_iterator pos = aliases.begin();
+	       pos != aliases.end();
+	       ++pos)
 	    {
-	      // Set up chroot.
-	      this->chroots.insert(std::make_pair(chroot->get_name(), chroot));
-	      this->aliases.insert(std::make_pair(chroot->get_name(),
-						  chroot->get_name()));
-
-	      // Set up aliases.
-	      string_list const& aliases = chroot->get_aliases();
-	      for (string_list::const_iterator pos = aliases.begin();
-		   pos != aliases.end();
-		   ++pos)
+	      if (this->aliases.insert
+		  (std::make_pair(*pos, chroot->get_name()))
+		  .second == false)
 		{
-		  if (this->aliases.insert
-		      (std::make_pair(*pos, chroot->get_name()))
-		      .second == false)
-		    {
-		      string_map::const_iterator dup = this->aliases.find(*pos);
-		      if (dup != this->aliases.end())
-			log_warning() <<
-			  format(_("%1% chroot: "
-				   "alias '%2%' already associated with "
-				   "'%3%' chroot"))
-			  % chroot->get_name() % dup->first % dup->second
-				      << endl;
-		      else
-			log_warning() <<
-			  format(_("%1% chroot: "
-				   "alias '%2%' already associated with "
-				   "another chroot"))
-			  % chroot->get_name() % *pos
-				      << endl;
+		  string_map::const_iterator dup = this->aliases.find(*pos);
+		  if (dup != this->aliases.end())
+		    log_warning() <<
+		      format(_("%1% chroot: "
+			       "alias '%2%' already associated with "
+			       "'%3%' chroot"))
+		      % chroot->get_name() % dup->first % dup->second
+				  << endl;
+		  else
+		    log_warning() <<
+		      format(_("%1% chroot: "
+			       "alias '%2%' already associated with "
+			       "another chroot"))
+		      % chroot->get_name() % *pos
+				  << endl;
 
-		    }
 		}
 	    }
-	  else
-	    {
-	      log_warning() << format(_("%1% chroot: a chroot or alias already exists by this name"))
-		% chroot->get_name()
-			    << endl;
-	      log_warning() << format(_("%1% chroot: duplicate names are not allowed"))
-		% chroot->get_name()
-			    << endl;
-	    }
 	}
-      catch (sbuild::runtime_error const& e)
+      else
 	{
-	  log_warning() << e.what() << endl;
+	  log_warning() << format(_("%1% chroot: a chroot or alias already exists by this name"))
+	    % chroot->get_name()
+			<< endl;
+	  log_warning() << format(_("%1% chroot: duplicate names are not allowed"))
+	    % chroot->get_name()
+			<< endl;
 	}
     }
 }

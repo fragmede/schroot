@@ -140,6 +140,68 @@ keyfile::get_comment (std::string const& group,
     return std::string();
 }
 
+bool
+keyfile::get_locale_string(std::string const& group,
+			   std::string const& key,
+			   std::string&       value) const
+{
+  std::string localename = std::locale("").name();
+  std::string::size_type pos;
+  bool status = false;
+
+  // Strip off any charset.
+  if ((pos = localename.find_first_of('.')) != std::string::npos)
+    localename = localename.substr(0, pos);
+  status = get_locale_string(group, key, localename, value);
+
+  // Strip off territory.
+  if (status == false &&
+      (pos = localename.find_first_of('_')) != std::string::npos)
+    {
+      localename = localename.substr(0, pos);
+      status = get_locale_string(group, key, localename, value);
+    }
+
+  // Fall back to non-localised version.
+  if (status == false)
+    status = get_value(group, key, value);
+
+  return status;
+}
+
+bool
+keyfile::get_locale_string(std::string const& group,
+			   std::string const& key,
+			   priority           priority,
+			   std::string&       value) const
+{
+  bool status = get_locale_string(group, key, value);
+  check_priority(group, key, priority, status);
+  return status;
+}
+
+bool
+keyfile::get_locale_string(std::string const& group,
+			   std::string const& key,
+			   std::string const& locale,
+			   std::string&       value) const
+{
+  std::string lkey = key + '[' + locale + ']';
+  return get_value(group, lkey, value);
+}
+
+bool
+keyfile::get_locale_string(std::string const& group,
+			   std::string const& key,
+			   std::string const& locale,
+			   priority           priority,
+			   std::string&       value) const
+{
+  bool status = get_locale_string(group, key, locale, value);
+  check_priority(group, key, priority, status);
+  return status;
+}
+
 void
 keyfile::remove_group(std::string const& group)
 {
@@ -250,10 +312,11 @@ keyfile::check_priority (std::string const& group,
       switch (priority)
 	{
 	case PRIORITY_REQUIRED:
-	  log_error()
-	    << boost::format(_("%1% chroot: A required parameter \"%2%\" is missing."))
-	    % group % key
-	    << std::endl;
+	  {
+	    format fmt(_("%1% chroot: A required parameter \"%2%\" is missing."));
+	    fmt % group % key;
+	    throw error(fmt);
+	  }
 	  break;
 	default:
 	  break;
@@ -265,7 +328,7 @@ keyfile::check_priority (std::string const& group,
 	{
 	case PRIORITY_DEPRECATED:
 	  log_warning()
-	    << boost::format(_("%1% chroot: A deprecated parameter \"%2%\" has been specified."))
+	    << format(_("%1% chroot: A deprecated parameter \"%2%\" has been specified."))
 	    % group % key
 	    << std::endl;
 	  log_info()
@@ -273,18 +336,17 @@ keyfile::check_priority (std::string const& group,
 	  break;
 	case PRIORITY_OBSOLETE:
 	  log_warning()
-	    << boost::format(_("%1% chroot: An obsolete parameter \"%2%\" has been specified."))
+	    << format(_("%1% chroot: An obsolete parameter \"%2%\" has been specified."))
 	    % group % key
 	    << std::endl;
 	  log_info()
 	    << _("This option has been removed, and no longer has any effect.") << std::endl;
 	case PRIORITY_DISALLOWED:
-	  log_error()
-	    << boost::format(_("%1% chroot: A disallowed parameter \"%2%\" has been specified."))
-	    % group % key
-	    << std::endl;
-	  log_info()
-	    << _("This option is not allowed in this context.") << std::endl;
+	  {
+	    format fmt(_("%1% chroot: A disallowed parameter \"%2%\" has been specified."));
+	    fmt % group % key;
+	    throw error(fmt);
+	  }
 	  break;
 	    default:
 	      break;

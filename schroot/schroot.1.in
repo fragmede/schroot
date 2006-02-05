@@ -75,7 +75,9 @@ List all available chroots.
 Print detailed information about the specified chroots.
 .TP
 .B \-\-config
-Print configuration of the specified chroots.
+Print configuration of the specified chroots.  This is useful for testing that
+the configuration in use is the same as the configuration file.  Any comments
+in the original file will be missing.
 .TP
 .B \-p, \-\-preserve\-environment
 Preserve the user's environment inside the chroot environment.  The default is

@@ -41,11 +41,10 @@ namespace sbuild
 
   /**
    * Configuration file parser.  This class loads an INI-style
-   * configuration file from disk.  The format is documented in
-   * schroot.conf(5).  It is based upon the Glib GKeyFile class, which
-   * it is intended to replace.
+   * configuration file from a file or stream.  The format is
+   * documented in schroot.conf(5).  It is based upon the Glib
+   * GKeyFile class, which it is intended to replace.
    *
-   * @todo Add support for locale strings.
    * @todo Duplicate groups within a keyfile are not currently
    * detected; duplicates are silently discarded.
    */
@@ -236,6 +235,73 @@ namespace sbuild
       check_priority(group, key, priority, status);
       return status;
     }
+
+    /**
+     * Get a localised key string value.
+     *
+     * @param group the group the key is in.
+     * @param key the key to get.
+     * @param value the string to store the key's localised value in.
+     * @returns true if the key was found, otherwise false (in which
+     * case value will be unchanged).
+     */
+    bool
+    get_locale_string(std::string const& group,
+		      std::string const& key,
+		      std::string&       value) const;
+
+    /**
+     * Get a localised key string value.  If the value does not exist,
+     * is deprecated or obsolete, warn appropriately.
+     *
+     * @param group the group the key is in.
+     * @param key the key to get.
+     * @param priority the priority of the option.
+     * @param value the string to store the key's localised value in.
+     * @returns true if the key was found, otherwise false (in which
+     * case value will be unchanged).
+     */
+    bool
+    get_locale_string(std::string const& group,
+		      std::string const& key,
+		      priority           priority,
+		      std::string&       value) const;
+
+    /**
+     * Get a localised key string value for a specific locale.
+     *
+     * @param group the group the key is in.
+     * @param key the key to get.
+     * @param locale the locale to use.
+     * @param value the string to store the key's localised value in.
+     * @returns true if the key was found, otherwise false (in which
+     * case value will be unchanged).
+     */
+    bool
+    get_locale_string(std::string const& group,
+		      std::string const& key,
+		      std::string const& locale,
+		      std::string&       value) const;
+
+    /**
+     * Get a localised key string value for a specific locale.  If the
+     * value does not exist, is deprecated or obsolete, warn
+     * appropriately.
+     *
+     * @param group the group the key is in.
+     * @param key the key to get.
+     * @param locale the locale to use.
+     * @param priority the priority of the option.
+     * @param value the string to store the key's localised value in.
+     * @returns true if the key was found, otherwise false (in which
+     * case value will be unchanged).
+     */
+    bool
+    get_locale_string(std::string const& group,
+		      std::string const& key,
+		      std::string const& locale,
+		      priority           priority,
+		      std::string&       value) const;
 
     /**
      * Get a key value as a list.

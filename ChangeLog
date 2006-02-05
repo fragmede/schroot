@@ -1,5 +1,21 @@
 2006-02-05  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.1.in: Add better description for the use of
+	"--config".
+
+	* schroot/schroot.conf.5.in: Document localised strings.
+
+	* schroot/sbuild-config.cc (load): Exceptions thrown by keyfile
+	parsing are not caught and treated as warnings; they are fatal.
+
+	* schroot/sbuild-chroot.cc (set_keyfile): Get a localised value
+	for the "description" key.
+
+	* schroot/sbuild-keyfile.cc (get_locale_string): Add a set of
+	overloaded functions to get localised string values.
+
+2006-02-05  Roger Leigh  <rleigh@debian.org>
+
 	* test/sbuild-keyfile.cc: Update.
 
 	* schroot/sbuild-keyfile.h

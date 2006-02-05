@@ -48,7 +48,8 @@ The type of the chroot.  Valid types are \[lq]plain\[rq], \[lq]file\[rq],
 default type is \[lq]plain\[rq].
 .TP
 .B description=\fIdescription\fP
-A short description of the chroot.
+A short description of the chroot.  This may be localised for different
+languages; see the section \[lq]\fILocalisation\fP\[rq] below.
 .TP
 .B priority=\fInumber\fP
 Set the priority of a chroot.  \fInumber\fP is a positive integer indicating
@@ -136,6 +137,24 @@ example, \[lq]\-L 2g\[rq] to create a snapshot 2 GiB in size.
 the LV name (\[lq]\-n\[rq]), the snapshot option (\[lq]\-s\[rq]) and the
 original LV path may not be specfied here; they are set automatically by
 schroot.
+.SS Localisation
+.PP
+Some keys make be localised in multiple lanuages.  This is achieved by adding
+the locale name in square brackets after the key name.  For example:
+.br
+.RS
+\f[CR]description[en_GB]=\f[CI]British English translation\fP\fP
+.br
+.RE
+.PP
+This will localise the \fIdescription\fP key for the en_GB locale.
+.RS
+\f[CR]description[fr]=\f[CI]French translation\fP\fP
+.br
+.RE
+.PP
+This will localise the \fIdescription\fP key for all French locales.
+.br
 .SH EXAMPLE
 \f[CR]# Sample configuration\fP
 .br
@@ -146,6 +165,8 @@ schroot.
 \f[CR]type=plain\fP
 .br
 \f[CR]description=Debian unstable\fP
+.br
+\f[CR]description[fr_FR]=Debian instable\fP
 .br
 \f[CR]location=/srv/chroot/sid\fP
 .br
