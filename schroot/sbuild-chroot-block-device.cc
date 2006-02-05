@@ -134,14 +134,14 @@ chroot_block_device::setup_lock (SetupType type,
     }
   else
     {
-      sbuild::DeviceLock dlock(this->device);
+      sbuild::device_lock dlock(this->device);
       if (lock)
 	{
 	  try
 	    {
-	      dlock.set_lock(Lock::LOCK_EXCLUSIVE, 15);
+	      dlock.set_lock(lock::LOCK_EXCLUSIVE, 15);
 	    }
-	  catch (sbuild::Lock::error const& e)
+	  catch (sbuild::lock::error const& e)
 	    {
 	      format fmt(_("%1%: failed to lock device: %2%"));
 	      fmt % get_device() % e.what();
@@ -154,7 +154,7 @@ chroot_block_device::setup_lock (SetupType type,
 	    {
 	      dlock.unset_lock();
 	    }
-	  catch (sbuild::Lock::error const& e)
+	  catch (sbuild::lock::error const& e)
 	    {
 	      format fmt(_("%1%: failed to unlock device: %2%"));
 	      fmt % get_device() % e.what();

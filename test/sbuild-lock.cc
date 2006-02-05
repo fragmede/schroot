@@ -39,15 +39,15 @@ class test_file_lock : public TestFixture
   CPPUNIT_TEST(test_none_excl_lock);
   CPPUNIT_TEST(test_shr_none_lock);
   CPPUNIT_TEST(test_shr_shr_lock);
-  CPPUNIT_TEST_EXCEPTION(test_shr_excl_lock, sbuild::Lock::error);
+  CPPUNIT_TEST_EXCEPTION(test_shr_excl_lock, sbuild::lock::error);
   CPPUNIT_TEST(test_excl_none_lock);
-  CPPUNIT_TEST_EXCEPTION(test_excl_shr_lock, sbuild::Lock::error);
-  CPPUNIT_TEST_EXCEPTION(test_excl_excl_lock, sbuild::Lock::error);
+  CPPUNIT_TEST_EXCEPTION(test_excl_shr_lock, sbuild::lock::error);
+  CPPUNIT_TEST_EXCEPTION(test_excl_excl_lock, sbuild::lock::error);
   CPPUNIT_TEST_SUITE_END();
 
 protected:
   int fd;
-  sbuild::FileLock *lck;
+  sbuild::file_lock *lck;
 
 public:
   test_file_lock():
@@ -67,9 +67,9 @@ public:
     int fd = open(SRCDIR "/filelock.ex1", O_RDWR|O_EXCL|O_CREAT, 0600);
     CPPUNIT_ASSERT(write(fd,
 			 "This file exists in order to test "
-			 "sbuild::FileLock locking.\n", 60) == 60);
+			 "sbuild::file_lock locking.\n", 60) == 60);
     CPPUNIT_ASSERT(fd >= 0);
-    this->lck = new sbuild::FileLock(fd);
+    this->lck = new sbuild::file_lock(fd);
   }
 
   void tearDown()
@@ -80,8 +80,8 @@ public:
     CPPUNIT_ASSERT(unlink(SRCDIR "/filelock.ex1") == 0);
   }
 
-  void test(sbuild::Lock::Type initial,
-	    sbuild::Lock::Type establish)
+  void test(sbuild::lock::type initial,
+	    sbuild::lock::type establish)
   {
     this->lck->unset_lock();
     int pid = fork();
@@ -132,47 +132,47 @@ public:
 
   void test_none_none_lock()
   {
-    test(sbuild::Lock::LOCK_NONE, sbuild::Lock::LOCK_NONE);
+    test(sbuild::lock::LOCK_NONE, sbuild::lock::LOCK_NONE);
   }
 
   void test_none_shr_lock()
   {
-    test(sbuild::Lock::LOCK_NONE, sbuild::Lock::LOCK_SHARED);
+    test(sbuild::lock::LOCK_NONE, sbuild::lock::LOCK_SHARED);
   }
 
   void test_none_excl_lock()
   {
-    test(sbuild::Lock::LOCK_NONE, sbuild::Lock::LOCK_EXCLUSIVE);
+    test(sbuild::lock::LOCK_NONE, sbuild::lock::LOCK_EXCLUSIVE);
   }
 
   void test_shr_none_lock()
   {
-    test(sbuild::Lock::LOCK_SHARED, sbuild::Lock::LOCK_NONE);
+    test(sbuild::lock::LOCK_SHARED, sbuild::lock::LOCK_NONE);
   }
 
   void test_shr_shr_lock()
   {
-    test(sbuild::Lock::LOCK_SHARED, sbuild::Lock::LOCK_SHARED);
+    test(sbuild::lock::LOCK_SHARED, sbuild::lock::LOCK_SHARED);
   }
 
   void test_shr_excl_lock()
   {
-    test(sbuild::Lock::LOCK_SHARED, sbuild::Lock::LOCK_EXCLUSIVE);
+    test(sbuild::lock::LOCK_SHARED, sbuild::lock::LOCK_EXCLUSIVE);
   }
 
   void test_excl_none_lock()
   {
-    test(sbuild::Lock::LOCK_EXCLUSIVE, sbuild::Lock::LOCK_NONE);
+    test(sbuild::lock::LOCK_EXCLUSIVE, sbuild::lock::LOCK_NONE);
   }
 
   void test_excl_shr_lock()
   {
-    test(sbuild::Lock::LOCK_EXCLUSIVE, sbuild::Lock::LOCK_SHARED);
+    test(sbuild::lock::LOCK_EXCLUSIVE, sbuild::lock::LOCK_SHARED);
   }
 
   void test_excl_excl_lock()
   {
-    test(sbuild::Lock::LOCK_EXCLUSIVE, sbuild::Lock::LOCK_EXCLUSIVE);
+    test(sbuild::lock::LOCK_EXCLUSIVE, sbuild::lock::LOCK_EXCLUSIVE);
   }
 };
 
@@ -185,16 +185,16 @@ class test_dev_lock : public TestFixture
   CPPUNIT_TEST(test_none_shr_lock);
   CPPUNIT_TEST(test_none_excl_lock);
   CPPUNIT_TEST(test_shr_none_lock);
-  CPPUNIT_TEST_EXCEPTION(test_shr_shr_lock, sbuild::Lock::error);
-  CPPUNIT_TEST_EXCEPTION(test_shr_excl_lock, sbuild::Lock::error);
+  CPPUNIT_TEST_EXCEPTION(test_shr_shr_lock, sbuild::lock::error);
+  CPPUNIT_TEST_EXCEPTION(test_shr_excl_lock, sbuild::lock::error);
   CPPUNIT_TEST(test_excl_none_lock);
-  CPPUNIT_TEST_EXCEPTION(test_excl_shr_lock, sbuild::Lock::error);
-  CPPUNIT_TEST_EXCEPTION(test_excl_excl_lock, sbuild::Lock::error);
+  CPPUNIT_TEST_EXCEPTION(test_excl_shr_lock, sbuild::lock::error);
+  CPPUNIT_TEST_EXCEPTION(test_excl_excl_lock, sbuild::lock::error);
   CPPUNIT_TEST_SUITE_END();
 
 protected:
   int fd;
-  sbuild::DeviceLock *lck;
+  sbuild::device_lock *lck;
 
 public:
   test_dev_lock():
@@ -216,7 +216,7 @@ public:
   void setUp()
   {
     unlock();
-    this->lck = new sbuild::DeviceLock("/dev/null");
+    this->lck = new sbuild::device_lock("/dev/null");
   }
 
   void tearDown()
@@ -224,8 +224,8 @@ public:
     delete this->lck;
   }
 
-  void test(sbuild::Lock::Type initial,
-	    sbuild::Lock::Type establish)
+  void test(sbuild::lock::type initial,
+	    sbuild::lock::type establish)
   {
     unlock();
     int pid = fork();
@@ -277,47 +277,47 @@ public:
 
   void test_none_none_lock()
   {
-    test(sbuild::Lock::LOCK_NONE, sbuild::Lock::LOCK_NONE);
+    test(sbuild::lock::LOCK_NONE, sbuild::lock::LOCK_NONE);
   }
 
   void test_none_shr_lock()
   {
-    test(sbuild::Lock::LOCK_NONE, sbuild::Lock::LOCK_SHARED);
+    test(sbuild::lock::LOCK_NONE, sbuild::lock::LOCK_SHARED);
   }
 
   void test_none_excl_lock()
   {
-    test(sbuild::Lock::LOCK_NONE, sbuild::Lock::LOCK_EXCLUSIVE);
+    test(sbuild::lock::LOCK_NONE, sbuild::lock::LOCK_EXCLUSIVE);
   }
 
   void test_shr_none_lock()
   {
-    test(sbuild::Lock::LOCK_SHARED, sbuild::Lock::LOCK_NONE);
+    test(sbuild::lock::LOCK_SHARED, sbuild::lock::LOCK_NONE);
   }
 
   void test_shr_shr_lock()
   {
-    test(sbuild::Lock::LOCK_SHARED, sbuild::Lock::LOCK_SHARED);
+    test(sbuild::lock::LOCK_SHARED, sbuild::lock::LOCK_SHARED);
   }
 
   void test_shr_excl_lock()
   {
-    test(sbuild::Lock::LOCK_SHARED, sbuild::Lock::LOCK_EXCLUSIVE);
+    test(sbuild::lock::LOCK_SHARED, sbuild::lock::LOCK_EXCLUSIVE);
   }
 
   void test_excl_none_lock()
   {
-    test(sbuild::Lock::LOCK_EXCLUSIVE, sbuild::Lock::LOCK_NONE);
+    test(sbuild::lock::LOCK_EXCLUSIVE, sbuild::lock::LOCK_NONE);
   }
 
   void test_excl_shr_lock()
   {
-    test(sbuild::Lock::LOCK_EXCLUSIVE, sbuild::Lock::LOCK_SHARED);
+    test(sbuild::lock::LOCK_EXCLUSIVE, sbuild::lock::LOCK_SHARED);
   }
 
   void test_excl_excl_lock()
   {
-    test(sbuild::Lock::LOCK_EXCLUSIVE, sbuild::Lock::LOCK_EXCLUSIVE);
+    test(sbuild::lock::LOCK_EXCLUSIVE, sbuild::lock::LOCK_EXCLUSIVE);
   }
 };
 

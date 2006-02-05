@@ -54,17 +54,17 @@ namespace
   }
 }
 
-Lock::Lock():
+lock::lock():
   saved_signals()
 {
 }
 
-Lock::~Lock()
+lock::~lock()
 {
 }
 
 void
-Lock::set_alarm ()
+lock::set_alarm ()
 {
   struct sigaction new_sa;
   sigemptyset(&new_sa.sa_mask);
@@ -80,14 +80,14 @@ Lock::set_alarm ()
 }
 
 void
-Lock::clear_alarm ()
+lock::clear_alarm ()
 {
   /* Restore original handler */
   sigaction (SIGALRM, &this->saved_signals, NULL);
 }
 
 void
-Lock::set_timer(struct itimerval const& timer)
+lock::set_timer(struct itimerval const& timer)
 {
   set_alarm();
 
@@ -101,7 +101,7 @@ Lock::set_timer(struct itimerval const& timer)
 }
 
 void
-Lock::unset_timer()
+lock::unset_timer()
 {
   struct itimerval disable_timer;
   disable_timer.it_interval.tv_sec = disable_timer.it_interval.tv_usec = 0;
@@ -118,19 +118,19 @@ Lock::unset_timer()
   clear_alarm();
 }
 
-FileLock::FileLock (int fd):
-  Lock(),
+file_lock::file_lock (int fd):
+  lock(),
   fd(fd)
 {
 }
 
-FileLock::~FileLock()
+file_lock::~file_lock()
 {
 }
 
 void
-FileLock::set_lock (Type         lock_type,
-		    unsigned int timeout)
+file_lock::set_lock (type         lock_type,
+		     unsigned int timeout)
 {
   try
     {
@@ -182,24 +182,24 @@ FileLock::set_lock (Type         lock_type,
 }
 
 void
-FileLock::unset_lock ()
+file_lock::unset_lock ()
 {
   set_lock(LOCK_NONE, 0);
 }
 
-DeviceLock::DeviceLock (std::string const& device):
-  Lock(),
+device_lock::device_lock (std::string const& device):
+  lock(),
   device(device)
 {
 }
 
-DeviceLock::~DeviceLock()
+device_lock::~device_lock()
 {
 }
 
 void
-DeviceLock::set_lock (Type         lock_type,
-		      unsigned int timeout)
+device_lock::set_lock (type         lock_type,
+		       unsigned int timeout)
 {
   try
     {
@@ -274,7 +274,7 @@ DeviceLock::set_lock (Type         lock_type,
 }
 
 void
-DeviceLock::unset_lock ()
+device_lock::unset_lock ()
 {
   set_lock(LOCK_NONE, 0);
 }

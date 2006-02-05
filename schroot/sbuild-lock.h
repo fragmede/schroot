@@ -36,11 +36,11 @@ namespace sbuild
    * Advisory locking.  This class defines a simple interface for
    * shared and exclusive locks.
    */
-  class Lock
+  class lock
   {
   public:
     /// Lock type.
-    enum Type
+    enum type
       {
 	LOCK_SHARED    = F_RDLCK, ///< A shared (read) lock.
 	LOCK_EXCLUSIVE = F_WRLCK, ///< An exclusive (write) lock.
@@ -48,7 +48,7 @@ namespace sbuild
       };
 
     /// Exception type.
-    typedef runtime_error_custom<Lock> error;
+    typedef runtime_error_custom<lock> error;
 
     /**
      * Acquire a lock.
@@ -57,7 +57,7 @@ namespace sbuild
      * @param timeout the time in seconds to wait on the lock.
      */
     virtual void
-    set_lock (Type         lock_type,
+    set_lock (type         lock_type,
 	      unsigned int timeout) = 0;
 
     /**
@@ -69,9 +69,9 @@ namespace sbuild
 
   protected:
     /// The constructor.
-    Lock();
+    lock();
     /// The destructor.
-    virtual ~Lock();
+    virtual ~lock();
 
     /**
      * Set the SIGALARM handler.
@@ -115,10 +115,10 @@ namespace sbuild
   };
 
   /**
-   * File locks.  Simple whole-file shared and exclusive advisory
+   * File lock.  Simple whole-file shared and exclusive advisory
    * locking based upon POSIX fcntl byte region locks.
    */
-  class FileLock : public Lock
+  class file_lock : public lock
   {
   public:
     /**
@@ -126,13 +126,13 @@ namespace sbuild
      *
      * @param fd the file descriptor to lock.
      */
-    FileLock (int fd);
+    file_lock (int fd);
 
     /// The destructor.
-    virtual ~FileLock();
+    virtual ~file_lock();
 
     void
-    set_lock (Type         lock_type,
+    set_lock (type         lock_type,
 	      unsigned int timeout);
 
     void
@@ -144,12 +144,12 @@ namespace sbuild
   };
 
   /**
-   * Set an advisory lock on a device.  The lock is acquired using
-   * liblockdev lock_dev().  Note that a lock_type of LOCK_SHARED is
-   * equivalent to LOCK_EXCLUSIVE, because this lock type does not
-   * support shared locks.
+   * Device lock.  Set an advisory lock on a device.  The lock is
+   * acquired using liblockdev lock_dev().  Note that a lock_type of
+   * LOCK_SHARED is equivalent to LOCK_EXCLUSIVE, because this lock
+   * type does not support shared locks.
    */
-  class DeviceLock : public Lock
+  class device_lock : public lock
   {
   public:
     /**
@@ -157,11 +157,11 @@ namespace sbuild
      *
      * @param device the device to lock (full pathname).
      */
-    DeviceLock (std::string const& device);
-    virtual ~DeviceLock();
+    device_lock (std::string const& device);
+    virtual ~device_lock();
 
     void
-    set_lock (Type         lock_type,
+    set_lock (type         lock_type,
 	      unsigned int timeout);
 
     void

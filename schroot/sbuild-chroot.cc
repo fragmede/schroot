@@ -256,12 +256,12 @@ sbuild::chroot::setup_session_info (bool start)
       std::ostream output(&fdbuf);
       output.imbue(std::locale("C"));
 
-      sbuild::FileLock lock(fd);
+      sbuild::file_lock lock(fd);
       try
 	{
-	  lock.set_lock(Lock::LOCK_EXCLUSIVE, 2);
+	  lock.set_lock(lock::LOCK_EXCLUSIVE, 2);
 	}
-      catch (Lock::error const& e)
+      catch (lock::error const& e)
 	{
 	  format fmt(_("%1%: lock acquisition failure: %2%\n"));
 	  fmt % file % e.what();
@@ -276,7 +276,7 @@ sbuild::chroot::setup_session_info (bool start)
 	{
 	  lock.unset_lock();
 	}
-      catch (Lock::error const& e)
+      catch (lock::error const& e)
 	{
 	  format fmt(_("%1%: lock discard failure: %2%\n"));
 	  fmt % file % e.what();

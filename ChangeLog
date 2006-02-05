@@ -1,5 +1,10 @@
 2006-02-05  Roger Leigh  <rleigh@debian.org>
 
+	* Rename Sbuild::Lock to sbuild::lock, Sbuild::FileLock to
+	sbuild::file_lock, and Sbuild::DeviceLock to sbuild::device_lock.
+
+2006-02-05  Roger Leigh  <rleigh@debian.org>
+
 	* Rename sbuild-config.(cc|h) to sbuild-chroot-config.(cc|h).
 
 	* Rename sbuild::Config to sbuild::chroot_config.

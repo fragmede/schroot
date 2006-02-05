@@ -287,12 +287,12 @@ chroot_config::load (std::string const& file,
       throw error(fmt);
     }
 
-  sbuild::FileLock lock(fd);
+  sbuild::file_lock lock(fd);
   try
     {
-      lock.set_lock(Lock::LOCK_SHARED, 2);
+      lock.set_lock(lock::LOCK_SHARED, 2);
     }
-  catch (Lock::error const& e)
+  catch (lock::error const& e)
     {
       format fmt(_("%1%: lock acquisition failure: %2%"));
       fmt % file % e.what();
@@ -322,7 +322,7 @@ chroot_config::load (std::string const& file,
     {
       lock.unset_lock();
     }
-  catch (Lock::error const& e)
+  catch (lock::error const& e)
     {
       format fmt(_("%1%: lock discard failure: %2%"));
       fmt % file % e.what();

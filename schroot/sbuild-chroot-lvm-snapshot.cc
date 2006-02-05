@@ -149,14 +149,14 @@ chroot_lvm_snapshot::setup_lock (SetupType type,
 	      (type == RUN_STOP && lock == true))
 	    return;
 
-	  sbuild::DeviceLock dlock(device);
+	  sbuild::device_lock dlock(device);
 	  if (lock)
 	    {
 	      try
 		{
-		  dlock.set_lock(Lock::LOCK_EXCLUSIVE, 15);
+		  dlock.set_lock(lock::LOCK_EXCLUSIVE, 15);
 		}
-	      catch (sbuild::Lock::error const& e)
+	      catch (sbuild::lock::error const& e)
 		{
 		  format fmt(_("%1%: failed to lock device: %2%"));
 		  fmt % device % e.what();
@@ -169,7 +169,7 @@ chroot_lvm_snapshot::setup_lock (SetupType type,
 		{
 		  dlock.unset_lock();
 		}
-	      catch (sbuild::Lock::error const& e)
+	      catch (sbuild::lock::error const& e)
 		{
 		  format fmt(_("%1%: failed to unlock device: %2%"));
 		  fmt % device % e.what();
