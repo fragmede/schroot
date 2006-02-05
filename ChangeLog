@@ -1,5 +1,12 @@
 2006-02-05  Roger Leigh  <rleigh@debian.org>
 
+	* Rename sbuild::Chroot to sbuild::chroot.
+
+	* test/config.ex2/sarge
+	(run-session-scripts): Remove duplicate line.
+
+2006-02-05  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-auth-conv.h: Add an error exception typedef.
 
 	* schroot/sbuild-auth-conv-tty.cc

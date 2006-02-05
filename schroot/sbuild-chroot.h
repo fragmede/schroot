@@ -41,7 +41,7 @@ namespace sbuild
    * configuration file, and may be initialised directly from an open
    * keyfile.
    */
-  class Chroot
+  class chroot
   {
   public:
     /// Type of setup to perform.
@@ -61,14 +61,14 @@ namespace sbuild
       };
 
     /// Exception type.
-    typedef runtime_error_custom<Chroot> error;
+    typedef runtime_error_custom<chroot> error;
 
     /// A shared_ptr to an AuthConv object.
-    typedef std::tr1::shared_ptr<Chroot> chroot_ptr;
+    typedef std::tr1::shared_ptr<chroot> chroot_ptr;
 
   protected:
     /// The constructor.
-    Chroot ();
+    chroot ();
 
     /**
      * The constructor.  Initialise from an open keyfile.
@@ -76,12 +76,12 @@ namespace sbuild
      * @param keyfile the configuration file
      * @param group the keyfile group (chroot name)
      */
-    Chroot (keyfile const&     keyfile,
+    chroot (keyfile const&     keyfile,
 	    std::string const& group);
   public:
 
     /// The destructor.
-    virtual ~Chroot();
+    virtual ~chroot();
 
     /**
      * Create a chroot.  This is a factory function.

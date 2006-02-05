@@ -34,14 +34,14 @@ using boost::format;
 using namespace sbuild;
 
 ChrootFile::ChrootFile():
-  Chroot(),
+  chroot(),
   file()
 {
 }
 
 ChrootFile::ChrootFile (keyfile const&     keyfile,
-				      std::string const& group):
-  Chroot(keyfile, group),
+			std::string const& group):
+  chroot(keyfile, group),
   file()
 {
 }
@@ -50,7 +50,7 @@ ChrootFile::~ChrootFile()
 {
 }
 
-Chroot::chroot_ptr
+sbuild::chroot::chroot_ptr
 ChrootFile::clone () const
 {
   return chroot_ptr(new ChrootFile(*this));
@@ -79,7 +79,7 @@ ChrootFile::get_chroot_type () const
 void
 ChrootFile::setup_env (environment& env)
 {
-  this->Chroot::setup_env(env);
+  this->chroot::setup_env(env);
 
   env.add("CHROOT_FILE", get_file());
 }
@@ -98,7 +98,7 @@ ChrootFile::setup_lock (SetupType type,
     }
 }
 
-Chroot::SessionFlags
+sbuild::chroot::SessionFlags
 ChrootFile::get_session_flags () const
 {
   return SESSION_CREATE;
@@ -107,7 +107,7 @@ ChrootFile::get_session_flags () const
 void
 ChrootFile::print_details (std::ostream& stream) const
 {
-  this->Chroot::print_details(stream);
+  this->chroot::print_details(stream);
 
   if (!this->file.empty())
     stream << format_details(_("File"), get_file());
@@ -117,7 +117,7 @@ ChrootFile::print_details (std::ostream& stream) const
 void
 ChrootFile::get_keyfile (keyfile& keyfile) const
 {
-  Chroot::get_keyfile(keyfile);
+  chroot::get_keyfile(keyfile);
 
   keyfile.set_value(get_name(), "file",
 		    get_file());
@@ -126,7 +126,7 @@ ChrootFile::get_keyfile (keyfile& keyfile) const
 void
 ChrootFile::set_keyfile (keyfile const& keyfile)
 {
-  Chroot::set_keyfile(keyfile);
+  chroot::set_keyfile(keyfile);
 
   std::string file;
   if (keyfile.get_value(get_name(), "file",

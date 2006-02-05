@@ -34,7 +34,7 @@ using boost::format;
 using namespace sbuild;
 
 ChrootBlockDevice::ChrootBlockDevice():
-  Chroot(),
+  chroot(),
   device(),
   mount_options()
 {
@@ -42,7 +42,7 @@ ChrootBlockDevice::ChrootBlockDevice():
 
 ChrootBlockDevice::ChrootBlockDevice (keyfile const&     keyfile,
 				      std::string const& group):
-  Chroot(keyfile, group),
+  chroot(keyfile, group),
   device(),
   mount_options()
 {
@@ -52,7 +52,7 @@ ChrootBlockDevice::~ChrootBlockDevice()
 {
 }
 
-Chroot::chroot_ptr
+sbuild::chroot::chroot_ptr
 ChrootBlockDevice::clone () const
 {
   return chroot_ptr(new ChrootBlockDevice(*this));
@@ -99,7 +99,7 @@ ChrootBlockDevice::get_chroot_type () const
 void
 ChrootBlockDevice::setup_env (environment& env)
 {
-  this->Chroot::setup_env(env);
+  this->chroot::setup_env(env);
 
   env.add("CHROOT_DEVICE", get_device());
   env.add("CHROOT_MOUNT_OPTIONS", get_mount_options());
@@ -164,7 +164,7 @@ ChrootBlockDevice::setup_lock (SetupType type,
     }
 }
 
-Chroot::SessionFlags
+sbuild::chroot::SessionFlags
 ChrootBlockDevice::get_session_flags () const
 {
   return static_cast<SessionFlags>(0);
@@ -173,7 +173,7 @@ ChrootBlockDevice::get_session_flags () const
 void
 ChrootBlockDevice::print_details (std::ostream& stream) const
 {
-  this->Chroot::print_details(stream);
+  this->chroot::print_details(stream);
 
   if (!this->device.empty())
     stream << format_details(_("Device"), get_device());
@@ -185,7 +185,7 @@ ChrootBlockDevice::print_details (std::ostream& stream) const
 void
 ChrootBlockDevice::get_keyfile (keyfile& keyfile) const
 {
-  Chroot::get_keyfile(keyfile);
+  chroot::get_keyfile(keyfile);
 
   keyfile.set_value(get_name(), "device",
 		    get_device());
@@ -197,7 +197,7 @@ ChrootBlockDevice::get_keyfile (keyfile& keyfile) const
 void
 ChrootBlockDevice::set_keyfile (keyfile const& keyfile)
 {
-  Chroot::set_keyfile(keyfile);
+  chroot::set_keyfile(keyfile);
 
   std::string device;
   if (keyfile.get_value(get_name(), "device",

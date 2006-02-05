@@ -54,7 +54,7 @@ ChrootLvmSnapshot::~ChrootLvmSnapshot()
 {
 }
 
-Chroot::chroot_ptr
+sbuild::chroot::chroot_ptr
 ChrootLvmSnapshot::clone () const
 {
   return chroot_ptr(new ChrootLvmSnapshot(*this));
@@ -188,7 +188,7 @@ ChrootLvmSnapshot::setup_lock (SetupType type,
     }
 }
 
-Chroot::SessionFlags
+sbuild::chroot::SessionFlags
 ChrootLvmSnapshot::get_session_flags () const
 {
   return SESSION_CREATE;

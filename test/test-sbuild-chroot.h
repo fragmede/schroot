@@ -33,7 +33,7 @@ template <class T>
 class test_chroot_base : public TestFixture
 {
 protected:
-  sbuild::Chroot::chroot_ptr chroot;
+  sbuild::chroot::chroot_ptr chroot;
 
 public:
   test_chroot_base():
@@ -46,7 +46,7 @@ public:
 
   void setUp()
   {
-    this->chroot = sbuild::Chroot::chroot_ptr(new T);
+    this->chroot = sbuild::chroot::chroot_ptr(new T);
     chroot->set_name("test-name");
     chroot->set_description("test-description");
     chroot->set_mount_location("/mnt/mount-location");
@@ -55,7 +55,7 @@ public:
 
   void tearDown()
   {
-    this->chroot = sbuild::Chroot::chroot_ptr();
+    this->chroot = sbuild::chroot::chroot_ptr();
   }
 
   void test_setup_env(const sbuild::environment& test_environment)

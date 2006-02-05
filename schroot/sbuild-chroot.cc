@@ -29,7 +29,7 @@
 using boost::format;
 using namespace sbuild;
 
-Chroot::Chroot ():
+sbuild::chroot::chroot ():
   name(),
   description(),
   priority(0),
@@ -44,8 +44,8 @@ Chroot::Chroot ():
 {
 }
 
-Chroot::Chroot (keyfile const&     keyfile,
-		std::string const& group):
+sbuild::chroot::chroot (keyfile const&     keyfile,
+			std::string const& group):
   name(),
   description(),
   priority(0),
@@ -62,14 +62,14 @@ Chroot::Chroot (keyfile const&     keyfile,
   set_keyfile(keyfile);
 }
 
-Chroot::~Chroot()
+sbuild::chroot::~chroot()
 {
 }
 
-Chroot::chroot_ptr
-Chroot::create (std::string const& type)
+sbuild::chroot::chroot_ptr
+sbuild::chroot::create (std::string const& type)
 {
-  Chroot *new_chroot = 0;
+  chroot *new_chroot = 0;
 
   if (type == "plain")
     new_chroot = new ChrootPlain();
@@ -93,139 +93,139 @@ Chroot::create (std::string const& type)
 }
 
 std::string const&
-Chroot::get_name () const
+sbuild::chroot::get_name () const
 {
   return this->name;
 }
 
 void
-Chroot::set_name (std::string const& name)
+sbuild::chroot::set_name (std::string const& name)
 {
   this->name = name;
 }
 
 std::string const&
-Chroot::get_description () const
+sbuild::chroot::get_description () const
 {
   return this->description;
 }
 
 void
-Chroot::set_description (std::string const& description)
+sbuild::chroot::set_description (std::string const& description)
 {
   this->description = description;
 }
 
 std::string const&
-Chroot::get_mount_location () const
+sbuild::chroot::get_mount_location () const
 {
   return this->mount_location;
 }
 
 void
-Chroot::set_mount_location (std::string const& location)
+sbuild::chroot::set_mount_location (std::string const& location)
 {
   this->mount_location = location;
 }
 
 std::string const&
-Chroot::get_mount_device () const
+sbuild::chroot::get_mount_device () const
 {
   return this->mount_device;
 }
 
 void
-Chroot::set_mount_device (std::string const& device)
+sbuild::chroot::set_mount_device (std::string const& device)
 {
   this->mount_device = device;
 }
 
 unsigned int
-Chroot::get_priority () const
+sbuild::chroot::get_priority () const
 {
   return this->priority;
 }
 
 void
-Chroot::set_priority (unsigned int priority)
+sbuild::chroot::set_priority (unsigned int priority)
 {
   this->priority = priority;
 }
 
 string_list const&
-Chroot::get_groups () const
+sbuild::chroot::get_groups () const
 {
   return this->groups;
 }
 
 void
-Chroot::set_groups (string_list const& groups)
+sbuild::chroot::set_groups (string_list const& groups)
 {
   this->groups = groups;
 }
 
 string_list const&
-Chroot::get_root_groups () const
+sbuild::chroot::get_root_groups () const
 {
   return this->root_groups;
 }
 
 void
-Chroot::set_root_groups (string_list const& groups)
+sbuild::chroot::set_root_groups (string_list const& groups)
 {
   this->root_groups = groups;
 }
 
 string_list const&
-Chroot::get_aliases () const
+sbuild::chroot::get_aliases () const
 {
   return this->aliases;
 }
 
 void
-Chroot::set_aliases (string_list const& aliases)
+sbuild::chroot::set_aliases (string_list const& aliases)
 {
   this->aliases = aliases;
 }
 
 bool
-Chroot::get_active () const
+sbuild::chroot::get_active () const
 {
   return this->active;
 }
 
 void
-Chroot::set_active (bool active)
+sbuild::chroot::set_active (bool active)
 {
   this->active = active;
 }
 
 bool
-Chroot::get_run_setup_scripts () const
+sbuild::chroot::get_run_setup_scripts () const
 {
   return this->run_setup_scripts;
 }
 
 void
-Chroot::set_run_setup_scripts (bool run_setup_scripts)
+sbuild::chroot::set_run_setup_scripts (bool run_setup_scripts)
 {
   this->run_setup_scripts = run_setup_scripts;
 }
 
 bool
-Chroot::get_run_session_scripts () const
+sbuild::chroot::get_run_session_scripts () const
 {
   return this->run_session_scripts;
 }
 
 void
-Chroot::set_run_session_scripts (bool run_session_scripts)
+sbuild::chroot::set_run_session_scripts (bool run_session_scripts)
 {
   this->run_session_scripts = run_session_scripts;
 }
 
 void
-Chroot::setup_env (environment& env)
+sbuild::chroot::setup_env (environment& env)
 {
   env.add("CHROOT_TYPE", get_chroot_type());
   env.add("CHROOT_NAME", get_name());
@@ -235,7 +235,7 @@ Chroot::setup_env (environment& env)
 }
 
 void
-Chroot::setup_session_info (bool start)
+sbuild::chroot::setup_session_info (bool start)
 {
   /* Create or unlink session information. */
   std::string file = std::string(SCHROOT_SESSION_DIR) + "/" + get_name();
@@ -294,16 +294,8 @@ Chroot::setup_session_info (bool start)
     }
 }
 
-/*
- * sbuild_chroot_print_details:
- * @chroot: an #Chroot.
- * @file: the file to output to.
- *
- * Print detailed information about @chroot to @file.  The information
- * is printed in plain text with one line per property.
- */
 void
-Chroot::print_details (std::ostream& stream) const
+sbuild::chroot::print_details (std::ostream& stream) const
 {
   if (this->active == true)
     stream << _("  --- Session ---\n");
@@ -329,7 +321,7 @@ Chroot::print_details (std::ostream& stream) const
 }
 
 void
-Chroot::get_keyfile (keyfile& keyfile) const
+sbuild::chroot::get_keyfile (keyfile& keyfile) const
 {
   keyfile.remove_group(this->name);
 
@@ -370,7 +362,7 @@ Chroot::get_keyfile (keyfile& keyfile) const
 }
 
 void
-Chroot::set_keyfile (keyfile const& keyfile)
+sbuild::chroot::set_keyfile (keyfile const& keyfile)
 {
   // This is set not in the configuration file, but set in the keyfile
   // manually.  The user must not have the ability to set this option.

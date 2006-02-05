@@ -35,7 +35,7 @@ namespace sbuild
    * Chroot configuration.
    *
    * This class holds the configuration details from the configuration
-   * file.  Conceptually, it's an opaque container of Chroot objects.
+   * file.  Conceptually, it's an opaque container of chroot objects.
    *
    * Methods are provided to query the available chroots and find
    * specific chroots.
@@ -44,11 +44,11 @@ namespace sbuild
   {
   public:
     /// A list of chroots.
-    typedef std::vector<Chroot::chroot_ptr> chroot_list;
+    typedef std::vector<chroot::chroot_ptr> chroot_list;
     /// A map between key-value string pairs.
     typedef std::map<std::string, std::string> string_map;
-    /// A map between a chroot name and a Chroot object.
-    typedef std::map<std::string, Chroot::chroot_ptr> chroot_map;
+    /// A map between a chroot name and a chroot object.
+    typedef std::map<std::string, chroot::chroot_ptr> chroot_map;
 
     /// Exception type.
     typedef runtime_error_custom<Config> error;
@@ -109,7 +109,7 @@ namespace sbuild
      * @param name the chroot name
      * @returns the chroot if found, otherwise 0.
      */
-    const Chroot::chroot_ptr
+    const chroot::chroot_ptr
     find_chroot (std::string const& name) const;
 
     /**
@@ -118,7 +118,7 @@ namespace sbuild
      * @param name the chroot name or alias.
      * @returns the chroot if found, otherwise 0.
      */
-    const Chroot::chroot_ptr
+    const chroot::chroot_ptr
     find_alias (std::string const& name) const;
 
     /**

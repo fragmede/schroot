@@ -210,7 +210,7 @@ Session::get_auth_status () const
        cur != this->chroots.end();
        ++cur)
     {
-      const Chroot::chroot_ptr chroot = this->config->find_alias(*cur);
+      const chroot::chroot_ptr chroot = this->config->find_alias(*cur);
       if (!chroot) // Should never happen, but cater for it anyway.
 	{
 	  log_warning() << format(_("No chroot found matching alias '%1%'"))
@@ -289,7 +289,7 @@ try
 	log_debug(DEBUG_NOTICE)
 	  << format("Running session in %1% chroot:") % *cur
 	  << endl;
-	const Chroot::chroot_ptr ch = this->config->find_alias(*cur);
+	const chroot::chroot_ptr ch = this->config->find_alias(*cur);
 	if (!ch) // Should never happen, but cater for it anyway.
 	  {
 	    format fmt(_("%1%: Failed to find chroot"));
@@ -297,14 +297,14 @@ try
 	    throw error(fmt);
 	  }
 
-	Chroot::chroot_ptr chroot(ch->clone());
+	chroot::chroot_ptr chroot(ch->clone());
 
 	/* If restoring a session, set the session ID from the
 	   chroot name, or else generate it.  Only chroots which
 	   support session creation append a UUID to the session
 	   ID. */
 	if (chroot->get_active() ||
-	    !(chroot->get_session_flags() & Chroot::SESSION_CREATE))
+	    !(chroot->get_session_flags() & chroot::SESSION_CREATE))
 	  {
 	    set_session_id(chroot->get_name());
 	  }
@@ -333,7 +333,7 @@ try
 
 	/* Chroot types which create a session (e.g. LVM devices)
 	   need the chroot name respecifying. */
-	if (chroot->get_session_flags() & Chroot::SESSION_CREATE)
+	if (chroot->get_session_flags() & chroot::SESSION_CREATE)
 	  {
 	    chroot->set_name(this->session_id);
 	    chroot->set_aliases(string_list());
@@ -351,17 +351,17 @@ try
 	try
 	  {
 	    /* Run setup-start chroot setup scripts. */
-	    setup_chroot(chroot, Chroot::SETUP_START);
+	    setup_chroot(chroot, chroot::SETUP_START);
 	    if (this->operation == OPERATION_BEGIN)
 	      cout << this->session_id << endl;
 
 	    /* Run recover scripts. */
-	    setup_chroot(chroot, Chroot::SETUP_RECOVER);
+	    setup_chroot(chroot, chroot::SETUP_RECOVER);
 
 	    try
 	      {
 		/* Run run-start scripts. */
-		setup_chroot(chroot, Chroot::RUN_START);
+		setup_chroot(chroot, chroot::RUN_START);
 
 		/* Run session if setup succeeded. */
 		if (this->operation == OPERATION_AUTOMATIC ||
@@ -370,24 +370,24 @@ try
 
 		/* Run run-stop scripts whether or not there was an
 		   error. */
-		setup_chroot(chroot, Chroot::RUN_STOP);
+		setup_chroot(chroot, chroot::RUN_STOP);
 	      }
 	    catch (error const& e)
 	      {
-		setup_chroot(chroot, Chroot::RUN_STOP);
+		setup_chroot(chroot, chroot::RUN_STOP);
 		throw;
 	      }
 
 	    /* Run setup-stop chroot setup scripts whether or not there
 	       was an error. */
-	    setup_chroot(chroot, Chroot::SETUP_STOP);
+	    setup_chroot(chroot, chroot::SETUP_STOP);
 	    chroot->set_active(false);
 	  }
 	catch (error const& e)
 	  {
 	    try
 	      {
-		setup_chroot(chroot, Chroot::SETUP_STOP);
+		setup_chroot(chroot, chroot::SETUP_STOP);
 	      }
 	    catch (error const& discard)
 	      {
@@ -411,33 +411,33 @@ catch (error const& e)
 }
 
 void
-Session::setup_chroot (Chroot::chroot_ptr& session_chroot,
-		       Chroot::SetupType   setup_type)
+Session::setup_chroot (sbuild::chroot::chroot_ptr& session_chroot,
+		       sbuild::chroot::SetupType   setup_type)
 {
   assert(!session_chroot->get_name().empty());
 
   if (!((this->operation == OPERATION_BEGIN &&
-	 setup_type == Chroot::SETUP_START) ||
+	 setup_type == chroot::SETUP_START) ||
 	(this->operation == OPERATION_RECOVER &&
-	 setup_type == Chroot::SETUP_RECOVER) ||
+	 setup_type == chroot::SETUP_RECOVER) ||
 	(this->operation == OPERATION_END &&
-	 setup_type == Chroot::SETUP_STOP) ||
+	 setup_type == chroot::SETUP_STOP) ||
 	(this->operation == OPERATION_RUN &&
-	 (setup_type == Chroot::RUN_START ||
-	  setup_type == Chroot::RUN_STOP)) ||
+	 (setup_type == chroot::RUN_START ||
+	  setup_type == chroot::RUN_STOP)) ||
 	(this->operation == OPERATION_AUTOMATIC &&
-	 (setup_type == Chroot::SETUP_START ||
-	  setup_type == Chroot::SETUP_STOP  ||
-	  setup_type == Chroot::RUN_START   ||
-	  setup_type == Chroot::RUN_STOP))))
+	 (setup_type == chroot::SETUP_START ||
+	  setup_type == chroot::SETUP_STOP  ||
+	  setup_type == chroot::RUN_START   ||
+	  setup_type == chroot::RUN_STOP))))
     return;
 
-  if (((setup_type == Chroot::SETUP_START   ||
-	setup_type == Chroot::SETUP_RECOVER ||
-	setup_type == Chroot::SETUP_STOP) &&
+  if (((setup_type == chroot::SETUP_START   ||
+	setup_type == chroot::SETUP_RECOVER ||
+	setup_type == chroot::SETUP_STOP) &&
        session_chroot->get_run_setup_scripts() == false) ||
-      ((setup_type == Chroot::RUN_START ||
-	setup_type == Chroot::RUN_STOP) &&
+      ((setup_type == chroot::RUN_START ||
+	setup_type == chroot::RUN_STOP) &&
        session_chroot->get_run_setup_scripts() == false))
     return;
 
@@ -445,7 +445,7 @@ Session::setup_chroot (Chroot::chroot_ptr& session_chroot,
     {
       session_chroot->setup_lock(setup_type, true);
     }
-  catch (Chroot::error const& e)
+  catch (chroot::error const& e)
     {
       format fmt(_("Chroot setup failed to lock chroot: %1%"));
       fmt % e.what();
@@ -453,15 +453,15 @@ Session::setup_chroot (Chroot::chroot_ptr& session_chroot,
     }
 
   std::string setup_type_string;
-  if (setup_type == Chroot::SETUP_START)
+  if (setup_type == chroot::SETUP_START)
     setup_type_string = "setup-start";
-  else if (setup_type == Chroot::SETUP_RECOVER)
+  else if (setup_type == chroot::SETUP_RECOVER)
     setup_type_string = "setup-recover";
-  else if (setup_type == Chroot::SETUP_STOP)
+  else if (setup_type == chroot::SETUP_STOP)
     setup_type_string = "setup-stop";
-  else if (setup_type == Chroot::RUN_START)
+  else if (setup_type == chroot::RUN_START)
     setup_type_string = "run-start";
-  else if (setup_type == Chroot::RUN_STOP)
+  else if (setup_type == chroot::RUN_STOP)
     setup_type_string = "run-stop";
 
   string_list arg_list;
@@ -470,15 +470,15 @@ Session::setup_chroot (Chroot::chroot_ptr& session_chroot,
     arg_list.push_back("--verbose");
   arg_list.push_back("--lsbsysinit");
   arg_list.push_back("--exit-on-error");
-  if (setup_type == Chroot::SETUP_STOP ||
-      setup_type == Chroot::RUN_STOP)
+  if (setup_type == chroot::SETUP_STOP ||
+      setup_type == chroot::RUN_STOP)
     arg_list.push_back("--reverse");
   format arg_fmt("--arg=%1%");
   arg_fmt % setup_type_string;
   arg_list.push_back(arg_fmt.str());
-  if (setup_type == Chroot::SETUP_START ||
-      setup_type == Chroot::SETUP_RECOVER ||
-      setup_type == Chroot::SETUP_STOP)
+  if (setup_type == chroot::SETUP_START ||
+      setup_type == chroot::SETUP_RECOVER ||
+      setup_type == chroot::SETUP_STOP)
     arg_list.push_back(SCHROOT_CONF_SETUP_D); // Setup directory
   else
     arg_list.push_back(SCHROOT_CONF_RUN_D); // Run directory
@@ -556,7 +556,7 @@ Session::setup_chroot (Chroot::chroot_ptr& session_chroot,
     {
       session_chroot->setup_lock(setup_type, false);
     }
-  catch (Chroot::error const& e)
+  catch (chroot::error const& e)
     {
       format fmt(_("Chroot setup failed to unlock chroot: %1%"));
       fmt % e.what();
@@ -572,7 +572,7 @@ Session::setup_chroot (Chroot::chroot_ptr& session_chroot,
 }
 
 void
-Session::run_child (Chroot::chroot_ptr& session_chroot)
+Session::run_child (sbuild::chroot::chroot_ptr& session_chroot)
 {
   assert(!session_chroot->get_name().empty());
 
@@ -625,7 +625,7 @@ Session::run_child (Chroot::chroot_ptr& session_chroot)
 		  << endl;
       exit (EXIT_FAILURE);
     }
-  if (chroot (location.c_str()))
+  if (::chroot (location.c_str()))
     {
       log_error() << format(_("Could not chroot to '%1%': %2%"))
 	% location % strerror(errno)
@@ -807,7 +807,7 @@ Session::wait_for_child (int  pid,
 }
 
 void
-Session::run_chroot (Chroot::chroot_ptr& session_chroot)
+Session::run_chroot (sbuild::chroot::chroot_ptr& session_chroot)
 {
   assert(!session_chroot->get_name().empty());
 

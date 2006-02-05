@@ -28,7 +28,7 @@ namespace sbuild
   /**
    * A chroot located on a mounted filesystem.
    */
-  class ChrootPlain : public Chroot
+  class ChrootPlain : public chroot
   {
   protected:
     /// The constructor.
@@ -43,13 +43,13 @@ namespace sbuild
     ChrootPlain (keyfile const&     keyfile,
 		 std::string const& group);
 
-    friend class Chroot;
+    friend class chroot;
 
   public:
     /// The destructor.
     virtual ~ChrootPlain();
 
-    virtual Chroot::chroot_ptr
+    virtual chroot::chroot_ptr
     clone () const;
 
     /**

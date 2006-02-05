@@ -110,8 +110,8 @@ Config::add_config_directory (std::string const& dir,
     }
 }
 
-static bool chroot_alphasort (Chroot::chroot_ptr const& c1,
-			      Chroot::chroot_ptr const& c2)
+static bool chroot_alphasort (sbuild::chroot::chroot_ptr const& c1,
+			      sbuild::chroot::chroot_ptr const& c2)
 {
   return c1->get_name() < c2->get_name();
 }
@@ -131,7 +131,7 @@ Config::get_chroots () const
   return ret;
 }
 
-const Chroot::chroot_ptr
+const sbuild::chroot::chroot_ptr
 Config::find_chroot (std::string const& name) const
 {
   chroot_map::const_iterator pos = this->chroots.find(name);
@@ -140,12 +140,12 @@ Config::find_chroot (std::string const& name) const
     return pos->second;
   else
     {
-      Chroot *null_chroot = 0;
-      return Chroot::chroot_ptr(null_chroot);
+      chroot *null_chroot = 0;
+      return chroot::chroot_ptr(null_chroot);
     }
 }
 
-const Chroot::chroot_ptr
+const sbuild::chroot::chroot_ptr
 Config::find_alias (std::string const& name) const
 {
   string_map::const_iterator pos = this->aliases.find(name);
@@ -154,8 +154,8 @@ Config::find_alias (std::string const& name) const
     return find_chroot(pos->second);
   else
     {
-      Chroot *null_chroot = 0;
-      return Chroot::chroot_ptr(null_chroot);
+      chroot *null_chroot = 0;
+      return chroot::chroot_ptr(null_chroot);
     }
 }
 
@@ -194,7 +194,7 @@ Config::print_chroot_info (string_list const& chroots,
        pos != chroots.end();
        ++pos)
     {
-      const Chroot::chroot_ptr chroot = find_alias(*pos);
+      const chroot::chroot_ptr chroot = find_alias(*pos);
       if (chroot)
 	{
 	  stream << chroot;
@@ -217,7 +217,7 @@ Config::print_chroot_config (string_list const& chroots,
        pos != chroots.end();
        ++pos)
     {
-      const Chroot::chroot_ptr chroot = find_alias(*pos);
+      const chroot::chroot_ptr chroot = find_alias(*pos);
       if (chroot)
 	{
 	  info << chroot;
@@ -239,7 +239,7 @@ Config::validate_chroots(string_list const& chroots) const
        pos != chroots.end();
        ++pos)
     {
-      const Chroot::chroot_ptr chroot = find_alias(*pos);
+      const chroot::chroot_ptr chroot = find_alias(*pos);
       if (!chroot)
 	bad_chroots.push_back(*pos);
     }
@@ -329,7 +329,7 @@ Config::load (std::string const& file,
       throw error(fmt);
     }
 
-  /* Create Chroot objects from key file */
+  /* Create chroot objects from key file */
   string_list const& groups = kconfig.get_groups();
   for (string_list::const_iterator group = groups.begin();
        group != groups.end();
@@ -340,7 +340,7 @@ Config::load (std::string const& file,
       kconfig.set_value(*group, "active", active);
       std::string type = "plain"; // "plain" is the default type.
       kconfig.get_value(*group, "type", type);
-      Chroot::chroot_ptr chroot = Chroot::create(type);
+      chroot::chroot_ptr chroot = chroot::create(type);
       chroot->set_name(*group);
       kconfig >> chroot;
 

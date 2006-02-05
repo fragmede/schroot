@@ -29,7 +29,7 @@ namespace sbuild
    * A chroot stored on an unmounted block device.  The device will be
    * mounted on demand.
    */
-  class ChrootBlockDevice : public Chroot
+  class ChrootBlockDevice : public chroot
   {
   protected:
     /// The constructor.
@@ -44,13 +44,13 @@ namespace sbuild
     ChrootBlockDevice (keyfile const&     keyfile,
 		       std::string const& group);
 
-    friend class Chroot;
+    friend class chroot;
 
   public:
     /// The destructor.
     virtual ~ChrootBlockDevice();
 
-    virtual Chroot::chroot_ptr
+    virtual chroot::chroot_ptr
     clone () const;
 
     /**

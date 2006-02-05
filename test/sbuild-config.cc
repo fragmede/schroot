@@ -115,7 +115,7 @@ public:
 
   void test_find_chroot()
   {
-    sbuild::Chroot::chroot_ptr chroot;
+    sbuild::chroot::chroot_ptr chroot;
 
     chroot = this->cf->find_chroot("sid");
     CPPUNIT_ASSERT((chroot));
@@ -130,7 +130,7 @@ public:
 
   void test_find_alias()
   {
-    sbuild::Chroot::chroot_ptr chroot;
+    sbuild::chroot::chroot_ptr chroot;
 
     chroot = this->cf->find_alias("sid");
     CPPUNIT_ASSERT((chroot));

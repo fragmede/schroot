@@ -44,13 +44,13 @@ namespace sbuild
     ChrootLvmSnapshot (keyfile const&     keyfile,
 		       std::string const& group);
 
-    friend class Chroot;
+    friend class chroot;
 
   public:
     /// The destructor.
     virtual ~ChrootLvmSnapshot();
 
-    virtual Chroot::chroot_ptr
+    virtual chroot::chroot_ptr
     clone () const;
 
     /**

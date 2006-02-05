@@ -92,7 +92,7 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-		   sbuild::Chroot::SESSION_CREATE);
+		   sbuild::chroot::SESSION_CREATE);
   }
 
   void test_print_details()

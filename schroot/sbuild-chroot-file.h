@@ -34,7 +34,7 @@ namespace sbuild
    * careful checking and/or restrictions in order to prevent resource
    * starvation (using all swap space, for example).
    */
-  class ChrootFile : public Chroot
+  class ChrootFile : public chroot
   {
   protected:
     /// The constructor.
@@ -49,13 +49,13 @@ namespace sbuild
     ChrootFile (keyfile const&     keyfile,
 		       std::string const& group);
 
-    friend class Chroot;
+    friend class chroot;
 
   public:
     /// The destructor.
     virtual ~ChrootFile();
 
-    virtual Chroot::chroot_ptr
+    virtual chroot::chroot_ptr
     clone () const;
 
     /**

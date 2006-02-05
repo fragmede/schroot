@@ -8,5 +8,3 @@ root-groups=root,sbuild
 aliases=stable
 run-setup-scripts=true
 run-session-scripts=true
-run-session-scripts=true
-

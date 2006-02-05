@@ -30,14 +30,14 @@
 using namespace sbuild;
 
 ChrootPlain::ChrootPlain():
-  Chroot(),
+  chroot(),
   location()
 {
 }
 
 ChrootPlain::ChrootPlain (keyfile const&     keyfile,
 			  std::string const& group):
-  Chroot(keyfile, group),
+  chroot(keyfile, group),
   location()
 {
 }
@@ -46,7 +46,7 @@ ChrootPlain::~ChrootPlain()
 {
 }
 
-Chroot::chroot_ptr
+sbuild::chroot::chroot_ptr
 ChrootPlain::clone () const
 {
   return chroot_ptr(new ChrootPlain(*this));
@@ -81,7 +81,7 @@ ChrootPlain::get_chroot_type () const
 void
 ChrootPlain::setup_env (environment& env)
 {
-  this->Chroot::setup_env(env);
+  this->chroot::setup_env(env);
 
   env.add("CHROOT_LOCATION", get_location());
 }
@@ -93,7 +93,7 @@ ChrootPlain::setup_lock (SetupType type,
   /* By default, plain chroots do no locking. */
 }
 
-Chroot::SessionFlags
+sbuild::chroot::SessionFlags
 ChrootPlain::get_session_flags () const
 {
   return static_cast<SessionFlags>(0);
@@ -102,7 +102,7 @@ ChrootPlain::get_session_flags () const
 void
 ChrootPlain::print_details (std::ostream& stream) const
 {
-  this->Chroot::print_details(stream);
+  this->chroot::print_details(stream);
 
   if (!this->location.empty())
     stream << format_details(_("Location"), get_location());
@@ -112,7 +112,7 @@ ChrootPlain::print_details (std::ostream& stream) const
 void
 ChrootPlain::get_keyfile (keyfile& keyfile) const
 {
-  Chroot::get_keyfile(keyfile);
+  chroot::get_keyfile(keyfile);
 
   keyfile.set_value(get_name(), "location",
 		    get_location());
@@ -121,7 +121,7 @@ ChrootPlain::get_keyfile (keyfile& keyfile) const
 void
 ChrootPlain::set_keyfile (keyfile const& keyfile)
 {
-  Chroot::set_keyfile(keyfile);
+  chroot::set_keyfile(keyfile);
 
   std::string location;
   if (keyfile.get_value(get_name(), "location",

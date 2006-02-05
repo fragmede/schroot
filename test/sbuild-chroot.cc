@@ -29,11 +29,11 @@
 
 using namespace CppUnit;
 
-class basic_chroot : public sbuild::Chroot
+class basic_chroot : public sbuild::chroot
 {
 public:
   basic_chroot ():
-    sbuild::Chroot()
+    sbuild::chroot()
   {}
 
   virtual ~basic_chroot()
@@ -49,20 +49,20 @@ public:
 
   virtual void
   setup_env (sbuild::environment& env)
-  { this->sbuild::Chroot::setup_env(env); }
+  { this->sbuild::chroot::setup_env(env); }
 
   virtual void
   setup_lock (SetupType type,
 	      bool      lock)
   {}
 
-  virtual sbuild::Chroot::SessionFlags
+  virtual sbuild::chroot::SessionFlags
   get_session_flags () const
-  { return sbuild::Chroot::SESSION_CREATE; }
+  { return sbuild::chroot::SESSION_CREATE; }
 
   virtual void
   print_details (std::ostream& stream) const
-  { sbuild::Chroot::print_details(stream); }
+  { sbuild::chroot::print_details(stream); }
 
 };
 
@@ -134,8 +134,8 @@ public:
 
     test_list(*chroot.get(),
 	      groups,
-	      &sbuild::Chroot::get_groups,
-	      &sbuild::Chroot::set_groups);
+	      &sbuild::chroot::get_groups,
+	      &sbuild::chroot::set_groups);
   }
 
   void test_root_groups()
@@ -147,8 +147,8 @@ public:
 
     test_list(*chroot.get(),
 	      groups,
-	      &sbuild::Chroot::get_root_groups,
-	      &sbuild::Chroot::set_root_groups);
+	      &sbuild::chroot::get_root_groups,
+	      &sbuild::chroot::set_root_groups);
   }
 
   void test_aliases()
@@ -159,8 +159,8 @@ public:
 
     test_list(*chroot.get(),
 	      aliases,
-	      &sbuild::Chroot::get_aliases,
-	      &sbuild::Chroot::set_aliases);
+	      &sbuild::chroot::get_aliases,
+	      &sbuild::chroot::set_aliases);
   }
 
   void test_active()
@@ -210,7 +210,7 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-		   sbuild::Chroot::SESSION_CREATE);
+		   sbuild::chroot::SESSION_CREATE);
   }
 
   void test_print_details()
