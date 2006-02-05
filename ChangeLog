@@ -1,5 +1,20 @@
 2006-02-05  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-keyfile.h
+	(operator >>): Linecounting counts from line 1, rather than 0.
+	Fix error message capitalisation.  All parsed groups and keys are
+	added to a temporary keyfile, which is then assigned to the
+	current keyfile, to allow the correct catching of duplicate groups
+	and keys.
+
+	* schroot/sbuild-keyfile.cc
+	(operator +=): New function.  Add all of the keys in one keyfile
+	to another, overwriting keys on the lhs if already present.
+	Comments are carried across.
+	(operator +): New function.  Add two keyfiles together.
+
+2006-02-05  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.1.in: Add better description for the use of
 	"--config".
 

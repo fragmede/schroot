@@ -44,9 +44,6 @@ namespace sbuild
    * configuration file from a file or stream.  The format is
    * documented in schroot.conf(5).  It is based upon the Glib
    * GKeyFile class, which it is intended to replace.
-   *
-   * @todo Duplicate groups within a keyfile are not currently
-   * detected; duplicates are silently discarded.
    */
   class keyfile
   {
@@ -136,23 +133,6 @@ namespace sbuild
     has_key(std::string const& group,
 	    std::string const& key) const;
 
-
-  private:
-    /**
-     * Check if a key is missing or present when not permitted.
-     *
-     * @param group the group the key is in.
-     * @param key the key to get.
-     * @param priority the key priority.
-     * @param valid true if key exists, false if not existing.
-     */
-    void
-    check_priority (std::string const& group,
-		    std::string const& key,
-		    priority           priority,
-		    bool               valid) const;
-
-  public:
     /**
      *  Set a group.  The group will be created (and the comment set)
      *  only if the group does not already exist.
@@ -490,6 +470,26 @@ namespace sbuild
 	       std::string const& key);
 
     /**
+     * Add a keyfile to the keyfile.
+     *
+     * @param rhs the keyfile to add.
+     * @returns the modified keyfile.
+     */
+    keyfile&
+    operator += (keyfile const& rhs);
+
+    /**
+     * Add a keyfile to the keyfile.
+     *
+     * @param lhs the keyfile to add to.
+     * @param rhs the values to add.
+     * @returns the new keyfile.
+     */
+    friend keyfile
+    operator + (keyfile const& lhs,
+		keyfile const& rhs);
+
+    /**
      * keyfile initialisation from an istream.
      */
     template <class charT, class traits>
@@ -497,6 +497,7 @@ namespace sbuild
     std::basic_istream<charT,traits>&
     operator >> (std::basic_istream<charT,traits>& stream, keyfile& kf)
     {
+      keyfile tmp;
       size_t linecount = 0;
       std::string line;
       std::string group;
@@ -506,6 +507,8 @@ namespace sbuild
 
       while (std::getline(stream, line))
       {
+	linecount++;
+
 	if (line[0] == '#') // Comment line
 	  {
 	    if (!comment.empty())
@@ -518,19 +521,23 @@ namespace sbuild
 	    std::string::size_type lpos = line.find_last_of(']');
 	    if (fpos == std::string::npos || fpos != lpos)
 	      {
-		boost::format fmt(_("Line %1%: invalid group entry: %2%"));
+		boost::format fmt(_("line %1%: invalid group entry: %2%"));
 		fmt % linecount % line;
 		throw error(fmt);
 	      }
 	    group = line.substr(1, fpos - 1);
 
-	    //	    if (!comment.empty())
-	    //comment += '\n';
-
 	    // Insert group
-	    kf.set_group(group, comment);
+	    if (tmp.has_group(group))
+	      {
+		log_warning()
+		  << boost::format(_("line %1%: duplicate group entry: %2%"))
+		  % linecount % group
+		  << std::endl;
+	      }
+	    else
+	      tmp.set_group(group, comment);
 	    comment.clear();
-
 	  }
 	else if (line.length() == 0)
 	  {
@@ -541,13 +548,13 @@ namespace sbuild
 	    std::string::size_type pos = line.find_first_of('=');
 	    if (pos == std::string::npos)
 	      {
-		boost::format fmt(_("Line %1%: invalid line: %2%"));
+		boost::format fmt(_("line %1%: invalid line: %2%"));
 		fmt % linecount % line;
 		throw error(fmt);
 	      }
 	    if (pos == 0)
 	      {
-		boost::format fmt(_("Line %1%: no key specified: %2%"));
+		boost::format fmt(_("line %1%: no key specified: %2%"));
 		fmt % linecount % line;
 		throw error(fmt);
 	      }
@@ -557,21 +564,25 @@ namespace sbuild
 	    else
 	      value = line.substr(pos + 1);
 
-	    //	    if (!comment.empty())
-	    //comment += '\n';
-
 	    // Insert item
-	    kf.set_value(group, key, value, comment);
+	    if (tmp.has_key(group, key))
+	      {
+		log_warning()
+		  << boost::format(_("line %1%: group %2%: duplicate key entry: %3%"))
+		  % linecount % group % key
+		  << std::endl;
+	      }
+	    else
+	      tmp.set_value(group, key, value, comment);
 	    comment.clear();
 	  }
-
-	linecount++;
       }
+
+      kf += tmp;
 
       return stream;
     }
 
-  public:
     /**
      * keyfile output to an ostream.
      */
@@ -658,6 +669,20 @@ namespace sbuild
     item_type *
     find_item(std::string const& group,
 	      std::string const& key);
+
+    /**
+     * Check if a key is missing or present when not permitted.
+     *
+     * @param group the group the key is in.
+     * @param key the key to get.
+     * @param priority the key priority.
+     * @param valid true if key exists, false if not existing.
+     */
+    void
+    check_priority (std::string const& group,
+		    std::string const& key,
+		    priority           priority,
+		    bool               valid) const;
 
     /**
      * Print a comment to a stream.  The comment will have hash ('#')

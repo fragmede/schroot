@@ -224,6 +224,42 @@ keyfile::remove_key(std::string const& group,
     }
 }
 
+keyfile&
+keyfile::operator += (keyfile const& rhs)
+{
+  for (group_map_type::const_iterator gp = rhs.groups.begin();
+       gp != rhs.groups.end();
+       ++gp)
+    {
+      group_type const& group = gp->second;
+      std::string const& groupname = std::tr1::get<0>(group);
+      std::string const& comment = std::tr1::get<2>(group);
+      set_group(groupname, comment);
+
+      item_map_type const& items(std::tr1::get<1>(group));
+      for (item_map_type::const_iterator it = items.begin();
+	   it != items.end();
+	   ++it)
+	{
+	  item_type const& item = it->second;
+	  std::string const& key(std::tr1::get<0>(item));
+	  std::string const& value(std::tr1::get<1>(item));
+	  std::string const& comment(std::tr1::get<2>(item));
+	  set_value(groupname, key, value, comment);
+	}
+    }
+  return *this;
+}
+
+keyfile
+operator + (keyfile const& lhs,
+	    keyfile const& rhs)
+{
+  keyfile ret(lhs);
+  ret += rhs;
+  return ret;
+}
+
 const keyfile::group_type *
 keyfile::find_group(std::string const& group) const
 {
