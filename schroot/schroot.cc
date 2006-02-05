@@ -54,7 +54,7 @@ print_version (std::ostream& stream)
 
 /*
  * get_chroot_options:
- * @config: an #sbuild::Config
+ * @config: an #sbuild::chroot_config
  * @options: an #schroot::Options
  *
  * Get a list of chroots based on the specified options (--all, --chroot).
@@ -62,16 +62,16 @@ print_version (std::ostream& stream)
  * Returns a NULL-terminated string vector (GStrv).
  */
 sbuild::string_list
-get_chroot_options(std::tr1::shared_ptr<sbuild::Config>& config,
+get_chroot_options(std::tr1::shared_ptr<sbuild::chroot_config>& config,
 		   schroot::Options&                     options)
 {
   sbuild::string_list ret;
 
   if (options.all_chroots == true || options.all_sessions == true)
     {
-      sbuild::Config::chroot_list const& list = config->get_chroots();
+      sbuild::chroot_config::chroot_list const& list = config->get_chroots();
 
-      for (sbuild::Config::chroot_list::const_iterator chroot = list.begin();
+      for (sbuild::chroot_config::chroot_list::const_iterator chroot = list.begin();
 	   chroot != list.end();
 	   ++chroot)
 	{
@@ -142,7 +142,8 @@ main (int   argc,
 	}
 
       /* Initialise chroot configuration. */
-      std::tr1::shared_ptr<sbuild::Config> config(new sbuild::Config);
+      std::tr1::shared_ptr<sbuild::chroot_config>
+	config(new sbuild::chroot_config);
 
       /* The normal chroot list is used when starting a session or running
 	 any chroot type or session, or displaying chroot information. */

@@ -6,7 +6,7 @@ Makefile.in
 *.lo
 *.gch
 sbuild-chroot
-sbuild-config
+sbuild-chroot-config
 sbuild-environment
 sbuild-keyfile
 sbuild-lock

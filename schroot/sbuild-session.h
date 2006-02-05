@@ -29,7 +29,7 @@
 #include <unistd.h>
 
 #include "sbuild-auth.h"
-#include "sbuild-config.h"
+#include "sbuild-chroot-config.h"
 #include "sbuild-error.h"
 
 namespace sbuild
@@ -62,8 +62,8 @@ namespace sbuild
     /// Exception type.
     typedef runtime_error_custom<Session> error;
 
-    /// A shared_ptr to a Config object.
-    typedef std::tr1::shared_ptr<Config> config_ptr;
+    /// A shared_ptr to a chroot_config object.
+    typedef std::tr1::shared_ptr<chroot_config> config_ptr;
 
     /**
      * The constructor.

@@ -1,5 +1,11 @@
 2006-02-05  Roger Leigh  <rleigh@debian.org>
 
+	* Rename sbuild-config.(cc|h) to sbuild-chroot-config.(cc|h).
+
+	* Rename sbuild::Config to sbuild::chroot_config.
+
+2006-02-05  Roger Leigh  <rleigh@debian.org>
+
 	* Rename sbuild::ChrootLvmSnapshot to sbuild::chroot_lvm_snapshot.
 
 	* Rename sbuild::ChrootBlockDevice to sbuild::chroot_block_device.

@@ -41,13 +41,13 @@ using std::endl;
 using boost::format;
 using namespace sbuild;
 
-Config::Config():
+chroot_config::chroot_config():
   chroots()
 {
 }
 
-Config::Config(std::string const& file,
-	       bool               active):
+chroot_config::chroot_config(std::string const& file,
+			     bool               active):
   chroots()
 {
   struct stat statbuf;
@@ -57,20 +57,20 @@ Config::Config(std::string const& file,
     add_config_file(file, active);
 }
 
-Config::~Config()
+chroot_config::~chroot_config()
 {
 }
 
 void
-Config::add_config_file (std::string const& file,
-			 bool               active)
+chroot_config::add_config_file (std::string const& file,
+				bool               active)
 {
   load(file, active);
 }
 
 void
-Config::add_config_directory (std::string const& dir,
-			      bool               active)
+chroot_config::add_config_directory (std::string const& dir,
+				     bool               active)
 {
   if (dir.empty())
     return;
@@ -116,8 +116,8 @@ static bool chroot_alphasort (sbuild::chroot::chroot_ptr const& c1,
   return c1->get_name() < c2->get_name();
 }
 
-Config::chroot_list
-Config::get_chroots () const
+chroot_config::chroot_list
+chroot_config::get_chroots () const
 {
   chroot_list ret;
 
@@ -132,7 +132,7 @@ Config::get_chroots () const
 }
 
 const sbuild::chroot::chroot_ptr
-Config::find_chroot (std::string const& name) const
+chroot_config::find_chroot (std::string const& name) const
 {
   chroot_map::const_iterator pos = this->chroots.find(name);
 
@@ -146,7 +146,7 @@ Config::find_chroot (std::string const& name) const
 }
 
 const sbuild::chroot::chroot_ptr
-Config::find_alias (std::string const& name) const
+chroot_config::find_alias (std::string const& name) const
 {
   string_map::const_iterator pos = this->aliases.find(name);
 
@@ -160,7 +160,7 @@ Config::find_alias (std::string const& name) const
 }
 
 string_list
-Config::get_chroot_list () const
+chroot_config::get_chroot_list () const
 {
   string_list ret;
 
@@ -175,7 +175,7 @@ Config::get_chroot_list () const
 }
 
 void
-Config::print_chroot_list (std::ostream& stream) const
+chroot_config::print_chroot_list (std::ostream& stream) const
 {
   string_list chroots = get_chroot_list();
 
@@ -187,8 +187,8 @@ Config::print_chroot_list (std::ostream& stream) const
 }
 
 void
-Config::print_chroot_info (string_list const& chroots,
-			   std::ostream&      stream) const
+chroot_config::print_chroot_info (string_list const& chroots,
+				  std::ostream&      stream) const
 {
   for (string_list::const_iterator pos = chroots.begin();
        pos != chroots.end();
@@ -208,8 +208,8 @@ Config::print_chroot_info (string_list const& chroots,
 }
 
 void
-Config::print_chroot_config (string_list const& chroots,
-			     std::ostream&      stream) const
+chroot_config::print_chroot_config (string_list const& chroots,
+				    std::ostream&      stream) const
 {
   keyfile info;
 
@@ -231,7 +231,7 @@ Config::print_chroot_config (string_list const& chroots,
 }
 
 string_list
-Config::validate_chroots(string_list const& chroots) const
+chroot_config::validate_chroots(string_list const& chroots) const
 {
   string_list bad_chroots;
 
@@ -248,7 +248,7 @@ Config::validate_chroots(string_list const& chroots) const
 }
 
 void
-Config::check_security(int fd) const
+chroot_config::check_security(int fd) const
 {
   struct stat statbuf;
   if (fstat(fd, &statbuf) < 0)
@@ -275,8 +275,8 @@ Config::check_security(int fd) const
 }
 
 void
-Config::load (std::string const& file,
-	      bool               active)
+chroot_config::load (std::string const& file,
+		     bool               active)
 {
   /* Use a UNIX fd, for security (no races) */
   int fd = open(file.c_str(), O_RDONLY|O_NOFOLLOW);

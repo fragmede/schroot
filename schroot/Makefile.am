@@ -50,7 +50,7 @@ sbuild_public_h_sources =		\
 	sbuild-chroot-file.h		\
 	sbuild-chroot-lvm-snapshot.h	\
 	sbuild-chroot-plain.h		\
-	sbuild-config.h			\
+	sbuild-chroot-config.h		\
 	sbuild-environment.h		\
 	sbuild-error.h			\
 	sbuild-i18n.h			\
@@ -73,7 +73,7 @@ sbuild_public_cc_sources =		\
 	sbuild-chroot-file.cc		\
 	sbuild-chroot-lvm-snapshot.cc	\
 	sbuild-chroot-plain.cc		\
-	sbuild-config.cc		\
+	sbuild-chroot-config.cc		\
 	sbuild-environment.cc		\
 	sbuild-keyfile.cc		\
 	sbuild-lock.cc			\

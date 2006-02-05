@@ -40,7 +40,7 @@ namespace sbuild
    * Methods are provided to query the available chroots and find
    * specific chroots.
    */
- class Config
+ class chroot_config
   {
   public:
     /// A list of chroots.
@@ -51,10 +51,10 @@ namespace sbuild
     typedef std::map<std::string, chroot::chroot_ptr> chroot_map;
 
     /// Exception type.
-    typedef runtime_error_custom<Config> error;
+    typedef runtime_error_custom<chroot_config> error;
 
     /// The constructor.
-    Config();
+    chroot_config();
 
     /**
      * The constructor.
@@ -64,11 +64,11 @@ namespace sbuild
      * @param active true if the chroots in the configuration file are
      * active sessions, otherwise false.
      */
-    Config(std::string const& file,
-	   bool               active);
+    chroot_config(std::string const& file,
+		  bool               active);
 
     /// The destructor.
-    virtual ~Config();
+    virtual ~chroot_config();
 
     /**
      * Add a configuration file.  The configuration file specified

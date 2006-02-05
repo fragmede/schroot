@@ -23,7 +23,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-#include <schroot/sbuild-config.h>
+#include <schroot/sbuild-chroot-config.h>
 #include <schroot/sbuild-nostream.h>
 
 using namespace CppUnit;
@@ -33,11 +33,11 @@ class test_config : public TestFixture
   CPPUNIT_TEST_SUITE(test_config);
   CPPUNIT_TEST(test_construction_file);
   CPPUNIT_TEST(test_construction_dir);
-  CPPUNIT_TEST_EXCEPTION(test_construction_fail, sbuild::Config::error);
+  CPPUNIT_TEST_EXCEPTION(test_construction_fail, sbuild::chroot_config::error);
   CPPUNIT_TEST(test_add_file);
-  CPPUNIT_TEST_EXCEPTION(test_add_file_fail, sbuild::Config::error);
+  CPPUNIT_TEST_EXCEPTION(test_add_file_fail, sbuild::chroot_config::error);
   CPPUNIT_TEST(test_add_dir);
-  CPPUNIT_TEST_EXCEPTION(test_add_dir_fail, sbuild::Config::error);
+  CPPUNIT_TEST_EXCEPTION(test_add_dir_fail, sbuild::chroot_config::error);
   CPPUNIT_TEST(test_get_chroots);
   CPPUNIT_TEST(test_find_chroot);
   CPPUNIT_TEST(test_find_alias);
@@ -48,7 +48,7 @@ class test_config : public TestFixture
   CPPUNIT_TEST_SUITE_END();
 
 protected:
-  sbuild::Config *cf;
+  sbuild::chroot_config *cf;
 
 public:
   test_config():
@@ -61,7 +61,7 @@ public:
 
   void setUp()
   {
-    this->cf = new sbuild::Config(SRCDIR "/config.ex1", false);
+    this->cf = new sbuild::chroot_config(SRCDIR "/config.ex1", false);
   }
 
   void tearDown()
@@ -71,40 +71,40 @@ public:
 
   void test_construction_file()
   {
-    sbuild::Config c(SRCDIR "/config.ex1", false);
+    sbuild::chroot_config c(SRCDIR "/config.ex1", false);
   }
 
   void test_construction_dir()
   {
-    sbuild::Config c(SRCDIR "/config.ex2", false);
+    sbuild::chroot_config c(SRCDIR "/config.ex2", false);
   }
 
   void test_construction_fail()
   {
-    sbuild::Config c(SRCDIR "/config.nonexistent", false);
+    sbuild::chroot_config c(SRCDIR "/config.nonexistent", false);
   }
 
   void test_add_file()
   {
-    sbuild::Config c;
+    sbuild::chroot_config c;
     c.add_config_file(SRCDIR "/config.ex1", false);
   }
 
   void test_add_file_fail()
   {
-    sbuild::Config c;
+    sbuild::chroot_config c;
     c.add_config_file(SRCDIR "/config.nonexistent", false);
   }
 
   void test_add_dir()
   {
-    sbuild::Config c;
+    sbuild::chroot_config c;
     c.add_config_directory(SRCDIR "/config.ex2", false);
   }
 
   void test_add_dir_fail()
   {
-    sbuild::Config c;
+    sbuild::chroot_config c;
     c.add_config_directory(SRCDIR "/config.nonexistent", false);
   }
 
