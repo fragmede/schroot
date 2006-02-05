@@ -1,3 +1,20 @@
+2006-02-05  Roger Leigh  <rleigh@debian.org>
+
+	* test/sbuild-keyfile.cc: Update.
+
+	* schroot/sbuild-keyfile.h
+	(set_value): Overload to provide an optional comment.  Call
+	set_group to create nonexistent groups on the fly.
+	(set_list_value): Overload to provide an optional comment.
+	(operator >>): Parse comments.
+
+	* schroot/sbuild-keyfile.cc
+	(set_group): New function to add a group with a comment.
+	(get_comment): An overloaded function to get group and item
+	comments.
+	(print_comment): Split string to print on '\n', and correctly
+	reproduce whitespace.
+
 2006-02-02  Roger Leigh  <rleigh@debian.org>
 
 	* NEWS: Update.

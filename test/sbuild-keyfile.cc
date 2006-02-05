@@ -62,6 +62,9 @@ public:
 			  "[group1]\n"
 			  "name=Fred Walker\n"
 			  "age=32\n"
+			  "# Test item comment\n"
+			  "#\n"
+			  "# spanning multiple lines\n"
 			  "numbers=1,2,3,4,5,6\n"
 			  "\n"
 			  "[group2]\n"
@@ -225,9 +228,13 @@ public:
     os << *this->kf;
 
     CPPUNIT_ASSERT(os.str() ==
+		   "# Comment\n"
 		   "[group1]\n"
 		   "age=32\n"
 		   "name=Fred Walker\n"
+		   "# Test item comment\n"
+		   "#\n"
+		   "# spanning multiple lines\n"
 		   "numbers=1,2,3,4,5,6\n"
 		   "\n"
 		   "[group2]\n"

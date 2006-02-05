@@ -46,7 +46,6 @@ namespace sbuild
    * it is intended to replace.
    *
    * @todo Add support for locale strings.
-   * @todo Add support for comments.
    * @todo Duplicate groups within a keyfile are not currently
    * detected; duplicates are silently discarded.
    */
@@ -155,6 +154,37 @@ namespace sbuild
 		    bool               valid) const;
 
   public:
+    /**
+     *  Set a group.  The group will be created (and the comment set)
+     *  only if the group does not already exist.
+     *
+     * @param group the group to set.
+     * @param comment the comment to set.
+     */
+    void
+    set_group (std::string const& group,
+	       std::string const& comment);
+
+    /**
+     *  Get a group comment.
+     *
+     * @param group the group to find.
+     * @returns the comment.
+     */
+    std::string
+    get_comment (std::string const& group) const;
+
+    /**
+     *  Get a key comment.
+     *
+     * @param group the group to find.
+     * @param key the key to find.
+     * @returns the comment.
+     */
+    std::string
+    get_comment (std::string const& group,
+		 std::string const& group) const;
+
     /**
      * Get a key value.
      *
@@ -284,16 +314,29 @@ namespace sbuild
 	      std::string const& key,
 	      T const&           value)
     {
+      set_value(group, key, value, std::string());
+    }
+
+    /**
+     * Set a key value.
+     *
+     * @param group the group the key is in.
+     * @param key the key to set.
+     * @param value the value to get the key's value from.  This must
+     * allow output to an ostream.
+     */
+    template <typename T>
+    void
+    set_value(std::string const& group,
+	      std::string const& key,
+	      T const&           value,
+	      std::string const& comment)
+    {
       std::ostringstream os;
       os.imbue(std::locale("C"));
       os << std::boolalpha << value;
 
-      if (!has_group(group))
-	this->groups.insert
-	  (group_map_type::value_type(group,
-				      group_type(group,
-						 item_map_type(),
-						 std::string())));
+      set_group(group, "");
       group_type *found_group = find_group(group);
       assert (found_group != 0); // should not fail
 
@@ -305,8 +348,7 @@ namespace sbuild
 
       items.insert
 	(item_map_type::value_type(key,
-				   item_type(key, os.str(), std::string())));
-
+				   item_type(key, os.str(), comment)));
     }
 
     /**
@@ -323,6 +365,25 @@ namespace sbuild
     set_list_value(std::string const& group,
 		   std::string const& key,
 		   C<T> const&        value)
+    {
+      set_list_value(group, key, value, std::string());
+    }
+
+    /**
+     * Set a key value from a list.
+     *
+     * @param group the group the key is in.
+     * @param key the key to set.
+     * @param value the list value to get the key's value from.  The
+     * value type must allow output to an ostream.  The list must be a
+     * container with a standard forward iterator.
+     */
+    template <typename T, template <typename T> class C>
+    void
+    set_list_value(std::string const& group,
+		   std::string const& key,
+		   C<T> const&        value,
+		   std::string const& comment)
     {
       std::string strval;
 
@@ -341,7 +402,7 @@ namespace sbuild
 	    }
 	}
 
-      set_value (group, key, strval);
+      set_value (group, key, strval, comment);
     }
 
     /**
@@ -373,7 +434,6 @@ namespace sbuild
       size_t linecount = 0;
       std::string line;
       std::string group;
-      std::string group_comment;
       std::string comment;
       std::string key;
       std::string value;
@@ -398,22 +458,19 @@ namespace sbuild
 	      }
 	    group = line.substr(1, fpos - 1);
 
-	    if (!comment.empty())
-	      {
-		if (!group_comment.empty())
-		  group_comment += '\n';
-		group_comment += comment;
-		comment.clear();
-	      }
-	    // Add group
-	    // Add group comment
-	    // Check if group already inserted, and append comments if needed.
+	    //	    if (!comment.empty())
+	    //comment += '\n';
+
+	    // Insert group
+	    kf.set_group(group, comment);
+	    comment.clear();
+
 	  }
 	else if (line.length() == 0)
 	  {
-	    // Do nothing.
+	    // Empty line; do nothing.
 	  }
-	else
+	else // Item
 	  {
 	    std::string::size_type pos = line.find_first_of('=');
 	    if (pos == std::string::npos)
@@ -434,10 +491,12 @@ namespace sbuild
 	    else
 	      value = line.substr(pos + 1);
 
+	    //	    if (!comment.empty())
+	    //comment += '\n';
+
 	    // Insert item
-	    kf.set_value(group, key, value);
-	    // Set item comment
-	    // Set group comment?
+	    kf.set_value(group, key, value, comment);
+	    comment.clear();
 	  }
 
 	linecount++;
@@ -445,18 +504,6 @@ namespace sbuild
 
       return stream;
     }
-
-  private:
-    /**
-     * Print a comment to a stream.  The comment will have hash ('#')
-     * marks printed at the start of each line.
-     *
-     * @param comment the comment to print.
-     * @param stream the stream to output to.
-     */
-    static void
-    print_comment(std::string const& comment,
-		  std::ostream&      stream);
 
   public:
     /**
@@ -545,6 +592,17 @@ namespace sbuild
     item_type *
     find_item(std::string const& group,
 	      std::string const& key);
+
+    /**
+     * Print a comment to a stream.  The comment will have hash ('#')
+     * marks printed at the start of each line.
+     *
+     * @param comment the comment to print.
+     * @param stream the stream to output to.
+     */
+    static void
+    print_comment(std::string const& comment,
+		  std::ostream&      stream);
 
     /// The top-level groups.
     group_map_type groups;

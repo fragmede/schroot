@@ -108,6 +108,39 @@ keyfile::has_key(std::string const& group,
 }
 
 void
+keyfile::set_group (std::string const& group,
+		    std::string const& comment)
+{
+  if (!has_group(group))
+    this->groups.insert
+      (group_map_type::value_type(group,
+				  group_type(group,
+					     item_map_type(),
+					     comment)));
+}
+
+std::string
+keyfile::get_comment (std::string const& group) const
+{
+  const keyfile::group_type *found_group = find_group(group);
+  if (found_group)
+    return std::tr1::get<2>(*found_group);
+  else
+    return std::string();
+}
+
+std::string
+keyfile::get_comment (std::string const& group,
+		      std::string const& key) const
+{
+  const item_type *found_item = find_item(group, key);
+  if (found_item)
+      return std::tr1::get<2>(*found_item);
+  else
+    return std::string();
+}
+
+void
 keyfile::remove_group(std::string const& group)
 {
   group_map_type::iterator pos = this->groups.find(group);
@@ -188,12 +221,21 @@ keyfile::print_comment(std::string const& comment,
   std::string::size_type last_pos = 0;
   std::string::size_type pos = comment.find_first_of('\n', last_pos);
 
-  while (pos !=std::string::npos || last_pos != std::string::npos)
+  while (1)
     {
-      stream << '#' << comment.substr(last_pos, pos - last_pos);
+      if (last_pos == pos)
+	stream << "#\n";
+      else
+	stream << '#' << comment.substr(last_pos, pos - last_pos) << '\n';
+
       // Find next
-      last_pos = comment.find_first_not_of('\n', pos);
-      pos = comment.find_first_of('\n', last_pos);
+      if (pos < comment.length() - 1)
+	{
+	  last_pos = pos + 1;
+	  pos = comment.find_first_of('\n', last_pos);
+	}
+      else
+	break;
     }
 }
 
