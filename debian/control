@@ -3,7 +3,7 @@ Section: admin
 Priority: optional
 Maintainer: Debian buildd-tools Developers <buildd-tools-devel@lists.alioth.debian.org>
 Uploaders: Michael Banck <mbanck@debian.org>, Roger Leigh <rleigh@debian.org>, Francesco Paolo Lovergine <frankie@debian.org>
-Build-Depends: debhelper (>= 4.0.0), autotools-dev, libpam0g-dev, uuid-dev, liblockdev1-dev (>= 1.0.2-1), libboost-dev, libboost-program-options-dev, gettext, libcppunit-dev
+Build-Depends: debhelper (>= 4.0.0), autotools-dev, libpam0g-dev (>= 0.79-3.1), uuid-dev, liblockdev1-dev (>= 1.0.2-1), libboost-dev, libboost-program-options-dev, gettext, libcppunit-dev
 Standards-Version: 3.6.2
 
 Package: schroot

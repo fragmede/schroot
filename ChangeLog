@@ -1,5 +1,11 @@
 2006-02-06  Roger Leigh  <rleigh@debian.org>
 
+	* debian/control: Add versioned depends on libpam0g-dev >=
+	0.79-3.1, because earlier versions have broken headers, due to
+	redefining internal glibc/libstdc++ types.
+
+2006-02-06  Roger Leigh  <rleigh@debian.org>
+
 	* Remove all keyfile constructors from sbuild::chroot and derived
 	classes.
 

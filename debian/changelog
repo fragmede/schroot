@@ -2,6 +2,9 @@ schroot (0.2.2-1) unstable; urgency=low
 
   * New upstream release.
   * debian/control: Remove Glib from the build dependencies.
+  * debian/control: Add versioned depends on libpam0g-dev >= 0.79-3.1,
+    because earlier versions have broken headers, due to redefining
+    internal glibc/libstdc++ types.
 
  --
 
