@@ -38,13 +38,13 @@ namespace sbuild
   {
   protected:
     /// The constructor.
-    chroot_file();
+    chroot_file ();
 
     friend class chroot;
 
   public:
     /// The destructor.
-    virtual ~chroot_file();
+    virtual ~chroot_file ();
 
     virtual chroot::ptr
     clone () const;

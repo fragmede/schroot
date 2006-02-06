@@ -24,25 +24,25 @@
 #include <iostream>
 
 std::ostream&
-sbuild::log_info()
+sbuild::log_info ()
 {
   return std::cerr << "I: ";
 }
 
 std::ostream&
-sbuild::log_warning()
+sbuild::log_warning ()
 {
   return std::cerr << "W: ";
 }
 
 std::ostream&
-sbuild::log_error()
+sbuild::log_error ()
 {
   return std::cerr << "E: ";
 }
 
 std::ostream&
-sbuild::log_debug(sbuild::DebugLevel level)
+sbuild::log_debug (sbuild::DebugLevel level)
 {
   if (debug_level > 0 &&
       level >= debug_level)

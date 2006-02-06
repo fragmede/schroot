@@ -57,23 +57,25 @@ namespace sbuild
     typedef std::vector<auth_message> message_list;
 
     /// The constructor.
-    auth_conv();
+    auth_conv ();
     /// The destructor.
-    virtual ~auth_conv();
+    virtual ~auth_conv ();
 
     /**
      * @brief Get the time at which the user will be warned.
      *
      * @returns the time.
      */
-    virtual time_t get_warning_timeout () = 0;
+    virtual time_t
+    get_warning_timeout () = 0;
 
     /**
      * @brief Set the time at which the user will be warned.
      *
      * @param timeout the time to set.
      */
-    virtual void set_warning_timeout (time_t timeout) = 0;
+    virtual void
+    set_warning_timeout (time_t timeout) = 0;
 
     /**
      * @brief Get the time at which the conversation will be
@@ -81,7 +83,8 @@ namespace sbuild
      *
      * @returns the time.
      */
-    virtual time_t get_fatal_timeout () = 0;
+    virtual time_t
+    get_fatal_timeout () = 0;
 
     /**
      * @brief Set the time at which the conversation will be
@@ -89,7 +92,8 @@ namespace sbuild
      *
      * @param timeout the time to set.
      */
-    virtual void set_fatal_timeout (time_t timeout) = 0;
+    virtual void
+    set_fatal_timeout (time_t timeout) = 0;
 
     /**
      * @brief Hold a conversation with the user.

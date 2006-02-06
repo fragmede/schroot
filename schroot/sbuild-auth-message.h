@@ -60,11 +60,11 @@ namespace sbuild
      * @param type the type of message.
      * @param message the message to display.
      */
-    auth_message(type               message_type,
-		 std::string const& message);
+    auth_message (type               message_type,
+		  std::string const& message);
 
     /// The destructor.
-    virtual ~auth_message();
+    virtual ~auth_message ();
 
     /// The type of message.
     type        message_type;

@@ -40,6 +40,8 @@ namespace
 
   /**
    * Disable the alarm and signal handler.
+   *
+   * @param orig_sa the signal handler to restore.
    */
   void
   reset_alarm (struct sigaction *orig_sa)
@@ -52,6 +54,8 @@ namespace
 
   /**
    * Handle the SIGALRM signal.
+   *
+   * @param ignore the signal number (unused).
    */
   void
   alarm_handler (int ignore)
@@ -62,6 +66,10 @@ namespace
   /**
    * Set the SIGALARM handler, and set the timeout to delay seconds.
    * The old signal handler is stored in orig_sa.
+   *
+   * @param delay the delay (in seconds) before SIGALRM is raised.
+   * @param the location to store the original signal handler.
+   * @returns true on success, false on failure.
    */
   bool
   set_alarm (int delay,
@@ -87,14 +95,14 @@ namespace
 
 }
 
-auth_conv_tty::auth_conv_tty():
+auth_conv_tty::auth_conv_tty ():
   warning_timeout(0),
   fatal_timeout(0),
   start_time(0)
 {
 }
 
-auth_conv_tty::~auth_conv_tty()
+auth_conv_tty::~auth_conv_tty ()
 {
 }
 

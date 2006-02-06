@@ -62,8 +62,8 @@ print_version (std::ostream& stream)
  * Returns a NULL-terminated string vector (GStrv).
  */
 sbuild::string_list
-get_chroot_options(std::tr1::shared_ptr<sbuild::chroot_config>& config,
-		   schroot::options&                     options)
+get_chroot_options (std::tr1::shared_ptr<sbuild::chroot_config>& config,
+		    schroot::options&                     options)
 {
   sbuild::string_list ret;
 

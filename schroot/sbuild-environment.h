@@ -39,17 +39,17 @@ namespace sbuild
     using std::map<std::string, std::string>::value_type;
 
     /// The constructor.
-    environment();
+    environment ();
 
     /**
      * The constructor.
      *
      * @param environment the environment to set.
      */
-    environment(char **environment);
+    environment (char **environment);
 
     /// The destructor.
-    ~environment();
+    ~environment ();
 
     /**
      * Add environment variables.  Any existing variables sharing the
@@ -87,8 +87,8 @@ namespace sbuild
      * @param value the environment variable value to add.
      */
     void
-    add(std::string const& name,
-	std::string const& value)
+    add (std::string const& name,
+	 std::string const& value)
     {
       add(std::make_pair(name, value));
     }
@@ -102,8 +102,8 @@ namespace sbuild
      */
     template<typename T>
     void
-    add(std::string const& name,
-	T const&           value)
+    add (std::string const& name,
+	 T const&           value)
     {
       std::ostringstream varstring;
       varstring.imbue(std::locale("C"));
@@ -188,7 +188,7 @@ namespace sbuild
      * with new, and should be freed with strv_delete().
      */
     char **
-    get_strv() const;
+    get_strv () const;
 
     /**
      * Add variables to the environment.

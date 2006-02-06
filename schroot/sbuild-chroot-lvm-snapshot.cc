@@ -35,7 +35,7 @@ using std::endl;
 using boost::format;
 using namespace sbuild;
 
-chroot_lvm_snapshot::chroot_lvm_snapshot():
+chroot_lvm_snapshot::chroot_lvm_snapshot ():
   chroot_block_device(),
   snapshot_device(),
   snapshot_options()
@@ -44,7 +44,7 @@ chroot_lvm_snapshot::chroot_lvm_snapshot():
   set_run_session_scripts(true);
 }
 
-chroot_lvm_snapshot::~chroot_lvm_snapshot()
+chroot_lvm_snapshot::~chroot_lvm_snapshot ()
 {
 }
 

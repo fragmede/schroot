@@ -42,8 +42,8 @@ using namespace schroot;
  *
  * Returns a structure containing the options.
  */
-options::options(int   argc,
-		 char *argv[]):
+options::options (int   argc,
+		  char *argv[]):
   action(ACTION_SESSION_AUTO),
   chroots(),
   command(),
@@ -260,7 +260,7 @@ options::options(int   argc,
     }
 }
 
-options::~options()
+options::~options ()
 {
 }
 

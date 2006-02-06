@@ -41,7 +41,7 @@ namespace sbuild
    * @returns an ostream.
    */
   std::ostream&
-  log_info();
+  log_info ();
 
   /**
    * Log a warning message.
@@ -49,7 +49,7 @@ namespace sbuild
    * @returns an ostream.
    */
   std::ostream&
-  log_warning();
+  log_warning ();
 
   /**
    * Log an error message.
@@ -57,7 +57,7 @@ namespace sbuild
    * @returns an ostream.
    */
   std::ostream&
-  log_error();
+  log_error ();
 
   /**
    * Log a debug message.
@@ -68,7 +68,7 @@ namespace sbuild
    * returned, resulting in no output.
    */
   std::ostream&
-  log_debug(DebugLevel level);
+  log_debug (DebugLevel level);
 
   /// The debugging level in use.
   extern DebugLevel debug_level;

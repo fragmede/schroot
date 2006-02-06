@@ -33,14 +33,14 @@
 using boost::format;
 using namespace sbuild;
 
-chroot_block_device::chroot_block_device():
+chroot_block_device::chroot_block_device ():
   chroot(),
   device(),
   mount_options()
 {
 }
 
-chroot_block_device::~chroot_block_device()
+chroot_block_device::~chroot_block_device ()
 {
 }
 

@@ -36,11 +36,11 @@ namespace schroot_releaselock
      * @param argc the number of arguments.
      * @param argv the list of arguments.
      */
-    options(int   argc,
-	    char *argv[]);
+    options (int   argc,
+	     char *argv[]);
 
     /// The destructor.
-    virtual ~options();
+    virtual ~options ();
 
     /// The device to unlock.
     std::string device;

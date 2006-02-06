@@ -33,7 +33,7 @@
 using boost::format;
 using namespace sbuild;
 
-chroot_file::chroot_file():
+chroot_file::chroot_file ():
   chroot(),
   file()
 {
@@ -41,7 +41,7 @@ chroot_file::chroot_file():
   set_run_session_scripts(true);
 }
 
-chroot_file::~chroot_file()
+chroot_file::~chroot_file ()
 {
 }
 

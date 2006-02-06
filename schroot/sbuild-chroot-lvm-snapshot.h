@@ -33,13 +33,13 @@ namespace sbuild
   {
   protected:
     /// The constructor.
-    chroot_lvm_snapshot();
+    chroot_lvm_snapshot ();
 
     friend class chroot;
 
   public:
     /// The destructor.
-    virtual ~chroot_lvm_snapshot();
+    virtual ~chroot_lvm_snapshot ();
 
     virtual chroot::ptr
     clone () const;

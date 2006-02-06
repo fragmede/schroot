@@ -32,13 +32,13 @@ namespace sbuild
   {
   protected:
     /// The constructor.
-    chroot_plain();
+    chroot_plain ();
 
     friend class chroot;
 
   public:
     /// The destructor.
-    virtual ~chroot_plain();
+    virtual ~chroot_plain ();
 
     virtual chroot::ptr
     clone () const;

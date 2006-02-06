@@ -55,11 +55,11 @@ namespace schroot
      * @param argc the number of arguments.
      * @param argv the list of arguments.
      */
-    options(int   argc,
-	    char *argv[]);
+    options (int   argc,
+	     char *argv[]);
 
     /// The destructor.
-    virtual ~options();
+    virtual ~options ();
 
     /// The action to perform.
     action_type          action;
@@ -105,7 +105,7 @@ namespace schroot
      * false.
      */
     bool
-    all_used() const
+    all_used () const
     {
       return (this->all || this->all_chroots || this->all_sessions);
     }

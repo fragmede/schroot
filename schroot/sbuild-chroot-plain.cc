@@ -29,13 +29,13 @@
 
 using namespace sbuild;
 
-chroot_plain::chroot_plain():
+chroot_plain::chroot_plain ():
   chroot(),
   location()
 {
 }
 
-chroot_plain::~chroot_plain()
+chroot_plain::~chroot_plain ()
 {
 }
 

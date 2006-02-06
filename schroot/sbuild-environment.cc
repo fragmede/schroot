@@ -24,18 +24,18 @@
 using boost::format;
 using namespace sbuild;
 
-environment::environment():
+environment::environment ():
   std::map<std::string,std::string>()
 {
 }
 
-environment::environment(char **environment):
+environment::environment (char **environment):
   std::map<std::string,std::string>()
 {
   add(environment);
 }
 
-environment::~environment()
+environment::~environment ()
 {
 }
 
@@ -131,7 +131,7 @@ environment::remove (value_type const& value)
 }
 
 char **
-environment::get_strv() const
+environment::get_strv () const
 {
   char **ret = new char *[size() + 1];
 

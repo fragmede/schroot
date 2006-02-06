@@ -38,12 +38,12 @@ namespace sbuild
      *
      * @param error the error message.
      */
-    runtime_error(std::string const& error):
+    runtime_error (std::string const& error):
       std::runtime_error(error)
     {}
 
     /// The destructor.
-    virtual ~runtime_error() throw ()
+    virtual ~runtime_error () throw ()
     {}
   };
 
@@ -59,7 +59,7 @@ namespace sbuild
      *
      * @param error the error message.
      */
-    runtime_error_custom(std::string const& error):
+    runtime_error_custom (std::string const& error):
       runtime_error(error)
     {}
 
@@ -68,12 +68,12 @@ namespace sbuild
      *
      * @param error the error message (formatted).
      */
-    runtime_error_custom(boost::format const& error):
+    runtime_error_custom (boost::format const& error):
       runtime_error(error.str())
     {}
 
     /// The destructor.
-    virtual ~runtime_error_custom() throw ()
+    virtual ~runtime_error_custom () throw ()
     {}
   };
 

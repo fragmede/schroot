@@ -93,7 +93,7 @@ namespace
 }
 
 
-auth::auth(std::string const& service_name):
+auth::auth (std::string const& service_name):
   pam(),
   service(service_name),
   uid(0),
@@ -122,7 +122,7 @@ auth::auth(std::string const& service_name):
   set_user(this->ruser);
 }
 
-auth::~auth()
+auth::~auth ()
 {
   // Shutdown PAM.
   try

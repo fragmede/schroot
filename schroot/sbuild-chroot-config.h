@@ -54,7 +54,7 @@ namespace sbuild
     typedef runtime_error_custom<chroot_config> error;
 
     /// The constructor.
-    chroot_config();
+    chroot_config ();
 
     /**
      * The constructor.
@@ -64,11 +64,11 @@ namespace sbuild
      * @param active true if the chroots in the configuration file are
      * active sessions, otherwise false.
      */
-    chroot_config(std::string const& file,
-		  bool               active);
+    chroot_config (std::string const& file,
+		   bool               active);
 
     /// The destructor.
-    virtual ~chroot_config();
+    virtual ~chroot_config ();
 
     /**
      * Add a configuration file.  The configuration file specified
@@ -169,7 +169,7 @@ namespace sbuild
      * all chroots are valid.
      */
     string_list
-    validate_chroots(string_list const& chroots) const;
+    validate_chroots (string_list const& chroots) const;
 
   private:
     /**
@@ -182,7 +182,7 @@ namespace sbuild
      * @param fd the file descriptor to check.
      */
     void
-    check_security(int fd) const;
+    check_security (int fd) const;
 
     /**
      * Load a configuration file.  If there are problems with the

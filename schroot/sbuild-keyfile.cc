@@ -28,13 +28,13 @@
 using boost::format;
 using namespace sbuild;
 
-keyfile::keyfile():
+keyfile::keyfile ():
   groups(),
   separator(',')
 {
 }
 
-keyfile::keyfile(std::string const& file):
+keyfile::keyfile (std::string const& file):
   groups(),
   separator(',')
 {
@@ -52,7 +52,7 @@ keyfile::keyfile(std::string const& file):
     }
 }
 
-keyfile::keyfile(std::istream& stream):
+keyfile::keyfile (std::istream& stream):
   groups(),
   separator(',')
 {
@@ -64,7 +64,7 @@ keyfile::~keyfile()
 }
 
 string_list
-keyfile::get_groups() const
+keyfile::get_groups () const
 {
   string_list ret;
 
@@ -77,7 +77,7 @@ keyfile::get_groups() const
 }
 
 string_list
-keyfile::get_keys(std::string const& group) const
+keyfile::get_keys (std::string const& group) const
 {
   string_list ret;
 
@@ -95,14 +95,14 @@ keyfile::get_keys(std::string const& group) const
 }
 
 bool
-keyfile::has_group(std::string const& group) const
+keyfile::has_group (std::string const& group) const
 {
   return (find_group(group) != 0);
 }
 
 bool
-keyfile::has_key(std::string const& group,
-		 std::string const& key) const
+keyfile::has_key (std::string const& group,
+		  std::string const& key) const
 {
   return (find_item(group, key) != 0);
 }
@@ -141,9 +141,9 @@ keyfile::get_comment (std::string const& group,
 }
 
 bool
-keyfile::get_locale_string(std::string const& group,
-			   std::string const& key,
-			   std::string&       value) const
+keyfile::get_locale_string (std::string const& group,
+			    std::string const& key,
+			    std::string&       value) const
 {
   std::string localename = std::locale("").name();
   std::string::size_type pos;
@@ -170,10 +170,10 @@ keyfile::get_locale_string(std::string const& group,
 }
 
 bool
-keyfile::get_locale_string(std::string const& group,
-			   std::string const& key,
-			   priority           priority,
-			   std::string&       value) const
+keyfile::get_locale_string (std::string const& group,
+			    std::string const& key,
+			    priority           priority,
+			    std::string&       value) const
 {
   bool status = get_locale_string(group, key, value);
   check_priority(group, key, priority, status);
@@ -181,21 +181,21 @@ keyfile::get_locale_string(std::string const& group,
 }
 
 bool
-keyfile::get_locale_string(std::string const& group,
-			   std::string const& key,
-			   std::string const& locale,
-			   std::string&       value) const
+keyfile::get_locale_string (std::string const& group,
+			    std::string const& key,
+			    std::string const& locale,
+			    std::string&       value) const
 {
   std::string lkey = key + '[' + locale + ']';
   return get_value(group, lkey, value);
 }
 
 bool
-keyfile::get_locale_string(std::string const& group,
-			   std::string const& key,
-			   std::string const& locale,
-			   priority           priority,
-			   std::string&       value) const
+keyfile::get_locale_string (std::string const& group,
+			    std::string const& key,
+			    std::string const& locale,
+			    priority           priority,
+			    std::string&       value) const
 {
   bool status = get_locale_string(group, key, locale, value);
   check_priority(group, key, priority, status);
@@ -203,7 +203,7 @@ keyfile::get_locale_string(std::string const& group,
 }
 
 void
-keyfile::remove_group(std::string const& group)
+keyfile::remove_group (std::string const& group)
 {
   group_map_type::iterator pos = this->groups.find(group);
   if (pos != this->groups.end())
@@ -211,8 +211,8 @@ keyfile::remove_group(std::string const& group)
 }
 
 void
-keyfile::remove_key(std::string const& group,
-		    std::string const& key)
+keyfile::remove_key (std::string const& group,
+		     std::string const& key)
 {
   group_type *found_group = find_group(group);
   if (found_group)
@@ -261,7 +261,7 @@ operator + (keyfile const& lhs,
 }
 
 const keyfile::group_type *
-keyfile::find_group(std::string const& group) const
+keyfile::find_group (std::string const& group) const
 {
   group_map_type::const_iterator pos = this->groups.find(group);
   if (pos != this->groups.end())
@@ -271,7 +271,7 @@ keyfile::find_group(std::string const& group) const
 }
 
 keyfile::group_type *
-keyfile::find_group(std::string const& group)
+keyfile::find_group (std::string const& group)
 {
   group_map_type::iterator pos = this->groups.find(group);
   if (pos != this->groups.end())
@@ -281,8 +281,8 @@ keyfile::find_group(std::string const& group)
 }
 
 const keyfile::item_type *
-keyfile::find_item(std::string const& group,
-		   std::string const& key) const
+keyfile::find_item (std::string const& group,
+		    std::string const& key) const
 {
   const group_type *found_group = find_group(group);
   if (found_group)
@@ -297,8 +297,8 @@ keyfile::find_item(std::string const& group,
 }
 
 keyfile::item_type *
-keyfile::find_item(std::string const& group,
-		   std::string const& key)
+keyfile::find_item (std::string const& group,
+		    std::string const& key)
 {
   group_type *found_group = find_group(group);
   if (found_group)
@@ -313,8 +313,8 @@ keyfile::find_item(std::string const& group,
 }
 
 void
-keyfile::print_comment(std::string const& comment,
-		       std::ostream&      stream)
+keyfile::print_comment (std::string const& comment,
+			std::ostream&      stream)
 {
   std::string::size_type last_pos = 0;
   std::string::size_type pos = comment.find_first_of('\n', last_pos);

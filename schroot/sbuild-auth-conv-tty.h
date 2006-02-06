@@ -50,17 +50,24 @@ namespace sbuild
   {
   public:
     /// The constructor.
-    auth_conv_tty();
+    auth_conv_tty ();
     /// The destructor.
-    virtual ~auth_conv_tty();
+    virtual ~auth_conv_tty ();
 
-    virtual time_t get_warning_timeout ();
-    virtual void set_warning_timeout (time_t timeout);
+    virtual time_t
+    get_warning_timeout ();
 
-    virtual time_t get_fatal_timeout ();
-    virtual void set_fatal_timeout (time_t timeout);
+    virtual void
+    set_warning_timeout (time_t timeout);
 
-    virtual bool conversation (message_list& messages);
+    virtual time_t
+    get_fatal_timeout ();
+
+    virtual void
+    set_fatal_timeout (time_t timeout);
+
+    virtual bool
+    conversation (message_list& messages);
 
   private:
     /**

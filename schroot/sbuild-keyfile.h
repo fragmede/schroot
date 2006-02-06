@@ -75,24 +75,24 @@ namespace sbuild
     typedef runtime_error_custom<keyfile> error;
 
     /// The constructor.
-    keyfile();
+    keyfile ();
 
     /**
      * The constructor.
      *
      * @param file the file to load the configuration from.
      */
-    keyfile(std::string const& file);
+    keyfile (std::string const& file);
 
     /**
      * The constructor.
      *
      * @param stream the stream to load the configuration from.
      */
-    keyfile(std::istream& stream);
+    keyfile (std::istream& stream);
 
     /// The destructor.
-    virtual ~keyfile();
+    virtual ~keyfile ();
 
     /**
      * Get a list of groups.
@@ -101,7 +101,7 @@ namespace sbuild
      * the list will be empty.
      */
     string_list
-    get_groups() const;
+    get_groups () const;
 
     /**
      * Get a list of keys in a group.
@@ -111,7 +111,7 @@ namespace sbuild
      * group, or the group does not exist, the list will be empty.
      */
     string_list
-    get_keys(std::string const& group) const;
+    get_keys (std::string const& group) const;
 
     /**
      * Check if a group exists.
@@ -120,7 +120,7 @@ namespace sbuild
      * @returns true if the group exists, otherwise false.
      */
     bool
-    has_group(std::string const& group) const;
+    has_group (std::string const& group) const;
 
     /**
      * Check if a key exists.
@@ -130,8 +130,8 @@ namespace sbuild
      * @returns true if the key exists, otherwise false.
      */
     bool
-    has_key(std::string const& group,
-	    std::string const& key) const;
+    has_key (std::string const& group,
+	     std::string const& key) const;
 
     /**
      *  Set a group.  The group will be created (and the comment set)
@@ -176,9 +176,9 @@ namespace sbuild
      */
     template <typename T>
     bool
-    get_value(std::string const& group,
-	      std::string const& key,
-	      T&                 value) const
+    get_value (std::string const& group,
+	       std::string const& key,
+	       T&                 value) const
     {
       log_debug(DEBUG_INFO) << "Getting keyfile group=" << group
 			    << ", key=" << key << std::endl;
@@ -206,10 +206,10 @@ namespace sbuild
      */
     template <typename T>
     bool
-    get_value(std::string const& group,
-	      std::string const& key,
-	      priority           priority,
-	      T&                 value) const
+    get_value (std::string const& group,
+	       std::string const& key,
+	       priority           priority,
+	       T&                 value) const
     {
       bool status = get_value(group, key, value);
       check_priority(group, key, priority, status);
@@ -226,9 +226,9 @@ namespace sbuild
      * case value will be unchanged).
      */
     bool
-    get_locale_string(std::string const& group,
-		      std::string const& key,
-		      std::string&       value) const;
+    get_locale_string (std::string const& group,
+		       std::string const& key,
+		       std::string&       value) const;
 
     /**
      * Get a localised key string value.  If the value does not exist,
@@ -242,10 +242,10 @@ namespace sbuild
      * case value will be unchanged).
      */
     bool
-    get_locale_string(std::string const& group,
-		      std::string const& key,
-		      priority           priority,
-		      std::string&       value) const;
+    get_locale_string (std::string const& group,
+		       std::string const& key,
+		       priority           priority,
+		       std::string&       value) const;
 
     /**
      * Get a localised key string value for a specific locale.
@@ -258,10 +258,10 @@ namespace sbuild
      * case value will be unchanged).
      */
     bool
-    get_locale_string(std::string const& group,
-		      std::string const& key,
-		      std::string const& locale,
-		      std::string&       value) const;
+    get_locale_string (std::string const& group,
+		       std::string const& key,
+		       std::string const& locale,
+		       std::string&       value) const;
 
     /**
      * Get a localised key string value for a specific locale.  If the
@@ -277,11 +277,11 @@ namespace sbuild
      * case value will be unchanged).
      */
     bool
-    get_locale_string(std::string const& group,
-		      std::string const& key,
-		      std::string const& locale,
-		      priority           priority,
-		      std::string&       value) const;
+    get_locale_string (std::string const& group,
+		       std::string const& key,
+		       std::string const& locale,
+		       priority           priority,
+		       std::string&       value) const;
 
     /**
      * Get a key value as a list.
@@ -296,9 +296,9 @@ namespace sbuild
      */
     template <typename T, template <typename T> class C>
     bool
-    get_list_value(std::string const& group,
-		   std::string const& key,
-		   C<T>&              value) const
+    get_list_value (std::string const& group,
+		    std::string const& key,
+		    C<T>&              value) const
     {
       std::string item_value;
       if (get_value(group, key, item_value))
@@ -336,10 +336,10 @@ namespace sbuild
      */
     template <typename T, template <typename T> class C>
     bool
-    get_list_value(std::string const& group,
-		   std::string const& key,
-		   priority           priority,
-		   C<T>&              value) const
+    get_list_value (std::string const& group,
+		    std::string const& key,
+		    priority           priority,
+		    C<T>&              value) const
     {
       bool status = get_list_value(group, key, value);
       check_priority(group, key, priority, status);
@@ -356,9 +356,9 @@ namespace sbuild
      */
     template <typename T>
     void
-    set_value(std::string const& group,
-	      std::string const& key,
-	      T const&           value)
+    set_value (std::string const& group,
+	       std::string const& key,
+	       T const&           value)
     {
       set_value(group, key, value, std::string());
     }
@@ -373,10 +373,10 @@ namespace sbuild
      */
     template <typename T>
     void
-    set_value(std::string const& group,
-	      std::string const& key,
-	      T const&           value,
-	      std::string const& comment)
+    set_value (std::string const& group,
+	       std::string const& key,
+	       T const&           value,
+	       std::string const& comment)
     {
       std::ostringstream os;
       os.imbue(std::locale("C"));
@@ -408,9 +408,9 @@ namespace sbuild
      */
     template <typename T, template <typename T> class C>
     void
-    set_list_value(std::string const& group,
-		   std::string const& key,
-		   C<T> const&        value)
+    set_list_value (std::string const& group,
+		    std::string const& key,
+		    C<T> const&        value)
     {
       set_list_value(group, key, value, std::string());
     }
@@ -426,10 +426,10 @@ namespace sbuild
      */
     template <typename T, template <typename T> class C>
     void
-    set_list_value(std::string const& group,
-		   std::string const& key,
-		   C<T> const&        value,
-		   std::string const& comment)
+    set_list_value (std::string const& group,
+		    std::string const& key,
+		    C<T> const&        value,
+		    std::string const& comment)
     {
       std::string strval;
 
@@ -457,7 +457,7 @@ namespace sbuild
      * @param group the group to remove.
      */
     void
-    remove_group(std::string const& group);
+    remove_group (std::string const& group);
 
     /**
      * Remove a key.
@@ -466,8 +466,8 @@ namespace sbuild
      * @param key the key to remove.
      */
     void
-    remove_key(std::string const& group,
-	       std::string const& key);
+    remove_key (std::string const& group,
+		std::string const& key);
 
     /**
      * Add a keyfile to the keyfile.
@@ -495,7 +495,8 @@ namespace sbuild
     template <class charT, class traits>
     friend
     std::basic_istream<charT,traits>&
-    operator >> (std::basic_istream<charT,traits>& stream, keyfile& kf)
+    operator >> (std::basic_istream<charT,traits>& stream,
+		 keyfile&                          kf)
     {
       keyfile tmp;
       size_t linecount = 0;
@@ -589,7 +590,8 @@ namespace sbuild
     template <class charT, class traits>
     friend
     std::basic_ostream<charT,traits>&
-    operator << (std::basic_ostream<charT,traits>& stream, keyfile const& kf)
+    operator << (std::basic_ostream<charT,traits>& stream,
+		 keyfile const&                    kf)
     {
       unsigned int group_count = 0;
 
@@ -637,7 +639,7 @@ namespace sbuild
      * @returns the group, or 0 if not found.
      */
     const group_type *
-    find_group(std::string const& group) const;
+    find_group (std::string const& group) const;
 
     /**
      * Find a group by it's name.
@@ -646,7 +648,7 @@ namespace sbuild
      * @returns the group, or 0 if not found.
      */
     group_type *
-    find_group(std::string const& group);
+    find_group (std::string const& group);
 
     /**
      * Find a key by it's group and name.
@@ -656,8 +658,8 @@ namespace sbuild
      * @returns the key, or 0 if not found.
      */
     const item_type *
-    find_item(std::string const& group,
-	      std::string const& key) const;
+    find_item (std::string const& group,
+	       std::string const& key) const;
 
     /**
      * Find a key by it's group and name.
@@ -667,8 +669,8 @@ namespace sbuild
      * @returns the key, or 0 if not found.
      */
     item_type *
-    find_item(std::string const& group,
-	      std::string const& key);
+    find_item (std::string const& group,
+	       std::string const& key);
 
     /**
      * Check if a key is missing or present when not permitted.
@@ -692,8 +694,8 @@ namespace sbuild
      * @param stream the stream to output to.
      */
     static void
-    print_comment(std::string const& comment,
-		  std::ostream&      stream);
+    print_comment (std::string const& comment,
+		   std::ostream&      stream);
 
     /// The top-level groups.
     group_map_type groups;

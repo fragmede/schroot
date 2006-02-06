@@ -41,13 +41,13 @@ using std::endl;
 using boost::format;
 using namespace sbuild;
 
-chroot_config::chroot_config():
+chroot_config::chroot_config ():
   chroots()
 {
 }
 
-chroot_config::chroot_config(std::string const& file,
-			     bool               active):
+chroot_config::chroot_config (std::string const& file,
+			      bool               active):
   chroots()
 {
   struct stat statbuf;
@@ -57,7 +57,7 @@ chroot_config::chroot_config(std::string const& file,
     add_config_file(file, active);
 }
 
-chroot_config::~chroot_config()
+chroot_config::~chroot_config ()
 {
 }
 
@@ -231,7 +231,7 @@ chroot_config::print_chroot_config (string_list const& chroots,
 }
 
 string_list
-chroot_config::validate_chroots(string_list const& chroots) const
+chroot_config::validate_chroots (string_list const& chroots) const
 {
   string_list bad_chroots;
 
@@ -248,7 +248,7 @@ chroot_config::validate_chroots(string_list const& chroots) const
 }
 
 void
-chroot_config::check_security(int fd) const
+chroot_config::check_security (int fd) const
 {
   struct stat statbuf;
   if (fstat(fd, &statbuf) < 0)

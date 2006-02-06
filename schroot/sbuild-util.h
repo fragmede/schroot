@@ -36,8 +36,8 @@ namespace sbuild
    * @returns the base name.
    */
   std::string
-  basename(std::string name,
-	   char        separator = '/');
+  basename (std::string name,
+	    char        separator = '/');
 
   /**
    * Strip the fileame from a pathname.  This is similar to
@@ -48,8 +48,8 @@ namespace sbuild
    * @returns the directory name.
    */
   std::string
-  dirname(std::string name,
-	  char        separator = '/');
+  dirname (std::string name,
+	   char        separator = '/');
 
   /**
    * Convert a string_list into a string.  The strings are
@@ -60,8 +60,8 @@ namespace sbuild
    * @returns a string.
    */
   std::string
-  string_list_to_string(string_list const& list,
-			std::string const& separator);
+  string_list_to_string (string_list const& list,
+			 std::string const& separator);
 
   /**
    * Split a string into a string_list.  The string is split using
@@ -72,8 +72,8 @@ namespace sbuild
    * @returns a string_list.
    */
   string_list
-  split_string(std::string const& value,
-	       char               separator);
+  split_string (std::string const& value,
+		char               separator);
 
   /**
    * Find a program in the PATH search path.
@@ -86,9 +86,9 @@ namespace sbuild
    * the program could not be found.
    */
   std::string
-  find_program_in_path(std::string const& program,
-		       std::string const& path,
-		       std::string const& prefix);
+  find_program_in_path (std::string const& program,
+			std::string const& path,
+			std::string const& prefix);
 
   /**
    * Create a string vector from a string_list.  The strings in the
@@ -98,7 +98,7 @@ namespace sbuild
    * @param strv the string vector to delete.
    */
   char **
-  string_list_to_strv(string_list const& str);
+  string_list_to_strv (string_list const& str);
 
   /**
    * Delete a string vector.  The strings in the vector, as well as
@@ -108,7 +108,7 @@ namespace sbuild
    * @param strv the string vector to delete.
    */
   void
-  strv_delete(char **strv);
+  strv_delete (char **strv);
 
 }
 

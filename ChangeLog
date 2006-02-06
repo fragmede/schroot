@@ -1,5 +1,9 @@
 2006-02-06  Roger Leigh  <rleigh@debian.org>
 
+	* Use the same indentation style for all function prototypes.
+
+2006-02-06  Roger Leigh  <rleigh@debian.org>
+
 	* NEWS: Document updated defaults.
 
 	* schroot/schroot.conf.5.in: Document updated defaults.

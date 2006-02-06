@@ -79,7 +79,7 @@ namespace sbuild
 	     string_list        chroots);
 
     /// The destructor.
-    virtual ~session();
+    virtual ~session ();
 
     /**
      * Get the configuration associated with this session.

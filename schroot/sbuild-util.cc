@@ -30,8 +30,15 @@ using namespace sbuild;
 namespace
 {
 
-  std::string remove_duplicates(std::string const& str,
-				char               dup)
+  /**
+   * Remove duplicate adjacent characters from a string.
+   *
+   * @param str the string to check.
+   * @param dup the duplicate character to check for.
+   * @returns a string with any duplicates removed.
+   */
+  std::string remove_duplicates (std::string const& str,
+				 char               dup)
   {
     std::string ret;
 
@@ -54,8 +61,8 @@ namespace
 }
 
 std::string
-sbuild::basename(std::string name,
-		 char        separator)
+sbuild::basename (std::string name,
+		  char        separator)
 {
   // Remove trailing separators
   std::string::size_type cur = name.length();
@@ -78,8 +85,8 @@ sbuild::basename(std::string name,
 }
 
 std::string
-sbuild::dirname(std::string name,
-		char        separator)
+sbuild::dirname (std::string name,
+		 char        separator)
 {
   // Remove trailing separators
   std::string::size_type cur = name.length();
@@ -102,8 +109,8 @@ sbuild::dirname(std::string name,
 }
 
 std::string
-sbuild::string_list_to_string(sbuild::string_list const& list,
-			      std::string const&         separator)
+sbuild::string_list_to_string (sbuild::string_list const& list,
+			       std::string const&         separator)
 {
   std::string ret;
 
@@ -120,8 +127,8 @@ sbuild::string_list_to_string(sbuild::string_list const& list,
 }
 
 string_list
-sbuild::split_string(std::string const& value,
-		     char               separator)
+sbuild::split_string (std::string const& value,
+		      char               separator)
 {
   string_list ret;
 
@@ -144,9 +151,9 @@ sbuild::split_string(std::string const& value,
 }
 
 std::string
-sbuild::find_program_in_path(std::string const& program,
-			     std::string const& path,
-			     std::string const& prefix)
+sbuild::find_program_in_path (std::string const& program,
+			      std::string const& path,
+			      std::string const& prefix)
 {
   if (program.find_first_of('/') != std::string::npos)
     return program;
@@ -180,7 +187,7 @@ sbuild::find_program_in_path(std::string const& program,
 }
 
 char **
-sbuild::string_list_to_strv(string_list const& str)
+sbuild::string_list_to_strv (string_list const& str)
 {
   char **ret = new char *[str.size() + 1];
 
@@ -198,7 +205,7 @@ sbuild::string_list_to_strv(string_list const& str)
 
 
 void
-sbuild::strv_delete(char **strv)
+sbuild::strv_delete (char **strv)
 {
   for (char **pos = strv; pos != 0 && *pos != 0; ++pos)
     delete *pos;

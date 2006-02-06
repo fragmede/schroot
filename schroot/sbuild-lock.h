@@ -69,9 +69,9 @@ namespace sbuild
 
   protected:
     /// The constructor.
-    lock();
+    lock ();
     /// The destructor.
-    virtual ~lock();
+    virtual ~lock ();
 
     /**
      * Set the SIGALARM handler.
@@ -98,7 +98,7 @@ namespace sbuild
      * @param timer the timeout to set.
      */
     void
-    set_timer(struct itimerval const& timer);
+    set_timer (struct itimerval const& timer);
 
     /**
      * Remove any itimer currently set up.  This will clear any
@@ -107,7 +107,7 @@ namespace sbuild
      * An error will be thrown on failure.
      */
     void
-    unset_timer();
+    unset_timer ();
 
   private:
     /// Signals saved during timeout.
@@ -129,7 +129,7 @@ namespace sbuild
     file_lock (int fd);
 
     /// The destructor.
-    virtual ~file_lock();
+    virtual ~file_lock ();
 
     void
     set_lock (type         lock_type,
@@ -158,7 +158,9 @@ namespace sbuild
      * @param device the device to lock (full pathname).
      */
     device_lock (std::string const& device);
-    virtual ~device_lock();
+
+    /// The destructor.
+    virtual ~device_lock ();
 
     void
     set_lock (type         lock_type,

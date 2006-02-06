@@ -44,13 +44,11 @@ using namespace sbuild;
 namespace
 {
 
-  /*
-   * is_group_member:
-   * @group: the group to check for
-   *
+  /**
    * Check group membership.
    *
-   * Returns true if the user is a member of @group, otherwise false.
+   * @param group the group to check for.
+   * @returns true if the user is a member of group, otherwise false.
    */
   static bool
   is_group_member (std::string const& group)
@@ -126,7 +124,7 @@ session::session (std::string const& service,
 {
 }
 
-session::~session()
+session::~session ()
 {
 }
 

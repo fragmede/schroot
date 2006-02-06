@@ -33,13 +33,13 @@ namespace sbuild
   {
   protected:
     /// The constructor.
-    chroot_block_device();
+    chroot_block_device ();
 
     friend class chroot;
 
   public:
     /// The destructor.
-    virtual ~chroot_block_device();
+    virtual ~chroot_block_device ();
 
     virtual chroot::ptr
     clone () const;

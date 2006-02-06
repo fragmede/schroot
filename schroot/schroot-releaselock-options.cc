@@ -35,8 +35,8 @@ using boost::format;
 namespace opt = boost::program_options;
 using namespace schroot_releaselock;
 
-options::options(int   argc,
-		 char *argv[]):
+options::options (int   argc,
+		  char *argv[]):
   device(),
   pid(0),
   version(0)
@@ -75,7 +75,7 @@ options::options(int   argc,
     this->version = true;
 }
 
-options::~options()
+options::~options ()
 {
 }
 

@@ -71,9 +71,8 @@ namespace sbuild
     chroot ();
 
   public:
-
     /// The destructor.
-    virtual ~chroot();
+    virtual ~chroot ();
 
     /**
      * Create a chroot.  This is a factory function.
@@ -390,8 +389,8 @@ namespace sbuild
        * type must support output to an ostream.
        */
     public:
-      format_detail(std::string const& name,
-		    T const&           value):
+      format_detail (std::string const& name,
+		     T const&           value):
 	name(name),
 	value(value)
       {}
@@ -466,8 +465,8 @@ namespace sbuild
      */
     template<typename T>
     format_detail<T>
-    format_details(std::string const& name,
-		   T const&           value) const
+    format_details (std::string const& name,
+		    T const&           value) const
     {
       return format_detail<T>(name, value);
     }

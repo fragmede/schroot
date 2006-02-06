@@ -54,12 +54,12 @@ namespace
   }
 }
 
-lock::lock():
+lock::lock ():
   saved_signals()
 {
 }
 
-lock::~lock()
+lock::~lock ()
 {
 }
 
@@ -101,7 +101,7 @@ lock::set_timer(struct itimerval const& timer)
 }
 
 void
-lock::unset_timer()
+lock::unset_timer ()
 {
   struct itimerval disable_timer;
   disable_timer.it_interval.tv_sec = disable_timer.it_interval.tv_usec = 0;
@@ -124,7 +124,7 @@ file_lock::file_lock (int fd):
 {
 }
 
-file_lock::~file_lock()
+file_lock::~file_lock ()
 {
 }
 
@@ -193,7 +193,7 @@ device_lock::device_lock (std::string const& device):
 {
 }
 
-device_lock::~device_lock()
+device_lock::~device_lock ()
 {
 }
 

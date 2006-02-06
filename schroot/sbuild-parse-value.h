@@ -27,10 +27,6 @@
 namespace sbuild
 {
   /**
-   * @group Generic string parsing.
-   */
-
-  /**
    * Parse a boolean value.
    * @param stringval the string to parse.
    * @param value the variable to store the parsed value.

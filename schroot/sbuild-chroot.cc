@@ -44,7 +44,7 @@ sbuild::chroot::chroot ():
 {
 }
 
-sbuild::chroot::~chroot()
+sbuild::chroot::~chroot ()
 {
 }
 

@@ -105,12 +105,12 @@ namespace sbuild
      * This is passed to pam_start() when initialising PAM, and is
      * used to load the correct configuration file from /etc/pam.d.
      */
-    auth(std::string const& service_name);
+    auth (std::string const& service_name);
 
     /**
      * The destructor.
      */
-    virtual ~auth();
+    virtual ~auth ();
 
     /**
      * Get the PAM service name.

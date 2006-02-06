@@ -39,7 +39,8 @@ namespace sbuild
      * @param c the character to output.
      * @returns traits::not_eof is always returned, never traits::eof.
      */
-    typename traits::int_type overflow(typename traits::int_type c)
+    typename traits::int_type
+    overflow (typename traits::int_type c)
     {
       return traits::not_eof(c); // indicate success
     }
@@ -54,7 +55,7 @@ namespace sbuild
   {
   public:
     /// The constructor.
-    basic_nostream():
+    basic_nostream ():
       std::basic_ios<cT, traits>(&nbuf),
       std::basic_ostream<cT, traits>(&nbuf)
     {
