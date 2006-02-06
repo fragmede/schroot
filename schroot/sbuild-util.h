@@ -95,7 +95,7 @@ namespace sbuild
    * vector, as well as the vector itself, are allocated with new, and
    * should be freed as a whole with strv_delete.
    *
-   * @param strv the string vector to delete.
+   * @param str the string_list to use.
    */
   char **
   string_list_to_strv (string_list const& str);

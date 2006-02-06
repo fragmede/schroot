@@ -41,7 +41,7 @@ namespace
 {
 
   /* This is the glue to link PAM user interaction with auth_conv. */
-  static int
+  int
   auth_conv_hook (int                        num_msg,
 		  const struct pam_message **msgm,
 		  struct pam_response      **response,

@@ -162,7 +162,7 @@ namespace sbuild
      */
     std::string
     get_comment (std::string const& group,
-		 std::string const& group) const;
+		 std::string const& key) const;
 
     /**
      * Get a key value.
@@ -369,6 +369,7 @@ namespace sbuild
      * @param group the group the key is in.
      * @param key the key to set.
      * @param value the value to get the key's value from.  This must
+     * @param comment the comment for this key.
      * allow output to an ostream.
      */
     template <typename T>
@@ -423,6 +424,7 @@ namespace sbuild
      * @param value the list value to get the key's value from.  The
      * value type must allow output to an ostream.  The list must be a
      * container with a standard forward iterator.
+     * @param comment the comment for this key.
      */
     template <typename T, template <typename T> class C>
     void

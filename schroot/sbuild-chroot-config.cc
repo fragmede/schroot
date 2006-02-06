@@ -41,6 +41,17 @@ using std::endl;
 using boost::format;
 using namespace sbuild;
 
+namespace
+{
+
+  bool chroot_alphasort (sbuild::chroot::ptr const& c1,
+			 sbuild::chroot::ptr const& c2)
+  {
+    return c1->get_name() < c2->get_name();
+  }
+
+}
+
 chroot_config::chroot_config ():
   chroots()
 {
@@ -108,12 +119,6 @@ chroot_config::add_config_directory (std::string const& dir,
 
       load(filename, active);
     }
-}
-
-static bool chroot_alphasort (sbuild::chroot::ptr const& c1,
-			      sbuild::chroot::ptr const& c2)
-{
-  return c1->get_name() < c2->get_name();
 }
 
 chroot_config::chroot_list

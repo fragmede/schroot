@@ -68,7 +68,7 @@ namespace
    * The old signal handler is stored in orig_sa.
    *
    * @param delay the delay (in seconds) before SIGALRM is raised.
-   * @param the location to store the original signal handler.
+   * @param orig_sa the location to store the original signal handler.
    * @returns true on success, false on failure.
    */
   bool

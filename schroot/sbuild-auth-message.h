@@ -57,7 +57,7 @@ namespace sbuild
     /**
      * The constructor.
      *
-     * @param type the type of message.
+     * @param message_type the type of message.
      * @param message the message to display.
      */
     auth_message (type               message_type,

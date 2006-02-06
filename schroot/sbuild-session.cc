@@ -50,7 +50,7 @@ namespace
    * @param group the group to check for.
    * @returns true if the user is a member of group, otherwise false.
    */
-  static bool
+  bool
   is_group_member (std::string const& group)
   {
     errno = 0;
@@ -105,7 +105,7 @@ namespace
   }
 
 #ifdef SBUILD_DEBUG
-  static volatile bool child_wait = true;
+  volatile bool child_wait = true;
 #endif
 
 }

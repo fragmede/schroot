@@ -44,7 +44,7 @@ namespace
    *
    * @param ignore the signal number.
    */
-  static void
+  void
   alarm_handler (int ignore)
   {
     /* This exists so that system calls get interrupted. */

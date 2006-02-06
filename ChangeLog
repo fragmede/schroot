@@ -1,5 +1,14 @@
 2006-02-06  Roger Leigh  <rleigh@debian.org>
 
+	* Remove static qualifer from functions in the unnamed namespace.
+
+	* schroot/sbuild-chroot-config.cc
+	(chroot_alphashort): Move to unnamed namespace.
+
+	* Update doxygen documentation for file members.
+
+2006-02-06  Roger Leigh  <rleigh@debian.org>
+
 	* Use the same indentation style for all function prototypes.
 
 2006-02-06  Roger Leigh  <rleigh@debian.org>
