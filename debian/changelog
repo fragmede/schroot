@@ -6,7 +6,7 @@ schroot (0.2.2-1) unstable; urgency=low
     because earlier versions have broken headers, due to redefining
     internal glibc/libstdc++ types.
 
- --
+ -- Roger Leigh <rleigh@debian.org>  Mon,  6 Feb 2006 23:21:07 +0000
 
 schroot (0.2.1-1) unstable; urgency=low
 

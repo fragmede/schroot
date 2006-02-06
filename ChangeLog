@@ -1,5 +1,11 @@
 2006-02-06  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.2.2.
+
+	* debian/changelog: Update for 0.2.2.
+
+2006-02-06  Roger Leigh  <rleigh@debian.org>
+
 	* po/en_GB.po: Update.
 
 	* po/POTFILES.in: Update file list.
