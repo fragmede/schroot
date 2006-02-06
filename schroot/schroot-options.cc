@@ -42,7 +42,7 @@ using namespace schroot;
  *
  * Returns a structure containing the options.
  */
-Options::Options(int   argc,
+options::options(int   argc,
 		 char *argv[]):
   action(ACTION_SESSION_AUTO),
   chroots(),
@@ -260,12 +260,12 @@ Options::Options(int   argc,
     }
 }
 
-Options::~Options()
+options::~options()
 {
 }
 
 void
-Options::set_action (action_type action)
+options::set_action (action_type action)
 {
   if (this->action != ACTION_SESSION_AUTO)
     throw opt::validation_error(_("Only one action may be specified"));

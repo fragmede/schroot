@@ -32,7 +32,7 @@ namespace schroot
   /**
    * schroot command-line options.
    */
-  class Options
+  class options
   {
   public:
     /// The action to perform.
@@ -55,11 +55,11 @@ namespace schroot
      * @param argc the number of arguments.
      * @param argv the list of arguments.
      */
-    Options(int   argc,
+    options(int   argc,
 	    char *argv[]);
 
     /// The destructor.
-    virtual ~Options();
+    virtual ~options();
 
     /// The action to perform.
     action_type          action;

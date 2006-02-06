@@ -55,7 +55,7 @@ print_version (std::ostream& stream)
 /*
  * get_chroot_options:
  * @config: an #sbuild::chroot_config
- * @options: an #schroot::Options
+ * @options: an #schroot::options
  *
  * Get a list of chroots based on the specified options (--all, --chroot).
  *
@@ -63,7 +63,7 @@ print_version (std::ostream& stream)
  */
 sbuild::string_list
 get_chroot_options(std::tr1::shared_ptr<sbuild::chroot_config>& config,
-		   schroot::Options&                     options)
+		   schroot::options&                     options)
 {
   sbuild::string_list ret;
 
@@ -133,9 +133,9 @@ main (int   argc,
       openlog("schroot", LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
 
       /* Parse command-line options into opt structure. */
-      Options options(argc, argv);
+      options options(argc, argv);
 
-      if (options.action == Options::ACTION_VERSION)
+      if (options.action == options::ACTION_VERSION)
 	{
 	  print_version(std::cout);
 	  exit(EXIT_SUCCESS);
@@ -171,7 +171,7 @@ main (int   argc,
 	}
 
       /* Print chroot list (including aliases). */
-      if (options.action == Options::ACTION_LIST)
+      if (options.action == options::ACTION_LIST)
 	{
 	  config->print_chroot_list(std::cout);
 	  exit(EXIT_SUCCESS);
@@ -189,18 +189,18 @@ main (int   argc,
 	}
 
       /* Print chroot information for specified chroots. */
-      if (options.action == Options::ACTION_INFO)
+      if (options.action == options::ACTION_INFO)
 	{
 	  config->print_chroot_info(chroots, std::cout);
 	  exit (EXIT_SUCCESS);
 	}
-      if (options.action == Options::ACTION_CONFIG)
+      if (options.action == options::ACTION_CONFIG)
 	{
 	  config->print_chroot_config(chroots, std::cout);
 	  exit (EXIT_SUCCESS);
 	}
 
-      if (options.action == Options::ACTION_SESSION_BEGIN &&
+      if (options.action == options::ACTION_SESSION_BEGIN &&
 	  chroots.size() != 1)
 	{
 	  sbuild::log_error()
@@ -211,13 +211,13 @@ main (int   argc,
 
       /* Create a session. */
       sbuild::session::operation sess_op(sbuild::session::OPERATION_AUTOMATIC);
-      if (options.action == Options::ACTION_SESSION_BEGIN)
+      if (options.action == options::ACTION_SESSION_BEGIN)
 	sess_op = sbuild::session::OPERATION_BEGIN;
-      else if (options.action == Options::ACTION_SESSION_RECOVER)
+      else if (options.action == options::ACTION_SESSION_RECOVER)
 	sess_op = sbuild::session::OPERATION_RECOVER;
-      else if (options.action == Options::ACTION_SESSION_RUN)
+      else if (options.action == options::ACTION_SESSION_RUN)
 	sess_op = sbuild::session::OPERATION_RUN;
-      else if (options.action == Options::ACTION_SESSION_END)
+      else if (options.action == options::ACTION_SESSION_END)
 	sess_op = sbuild::session::OPERATION_END;
 
       sbuild::session session("schroot", config, sess_op, chroots);
