@@ -44,24 +44,6 @@ sbuild::chroot::chroot ():
 {
 }
 
-sbuild::chroot::chroot (keyfile const&     keyfile,
-			std::string const& group):
-  name(),
-  description(),
-  priority(0),
-  groups(),
-  root_groups(),
-  aliases(),
-  mount_location(),
-  mount_device(),
-  active(false),
-  run_setup_scripts(false),
-  run_session_scripts(false)
-{
-  set_name(group);
-  set_keyfile(keyfile);
-}
-
 sbuild::chroot::~chroot()
 {
 }

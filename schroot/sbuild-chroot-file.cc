@@ -39,13 +39,6 @@ chroot_file::chroot_file():
 {
 }
 
-chroot_file::chroot_file (keyfile const&     keyfile,
-			  std::string const& group):
-  chroot(keyfile, group),
-  file()
-{
-}
-
 chroot_file::~chroot_file()
 {
 }

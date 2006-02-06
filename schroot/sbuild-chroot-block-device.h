@@ -35,15 +35,6 @@ namespace sbuild
     /// The constructor.
     chroot_block_device();
 
-    /**
-     * The constructor.  Initialise from an open keyfile.
-     *
-     * @param keyfile the configuration file
-     * @param group the keyfile group (chroot name)
-     */
-    chroot_block_device (keyfile const&     keyfile,
-			 std::string const& group);
-
     friend class chroot;
 
   public:

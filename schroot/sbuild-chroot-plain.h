@@ -34,15 +34,6 @@ namespace sbuild
     /// The constructor.
     chroot_plain();
 
-    /**
-     * The constructor.  Initialise from an open keyfile.
-     *
-     * @param keyfile the configuration file
-     * @param group the keyfile group (chroot name)
-     */
-    chroot_plain (keyfile const&     keyfile,
-		  std::string const& group);
-
     friend class chroot;
 
   public:

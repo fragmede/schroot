@@ -40,14 +40,6 @@ chroot_block_device::chroot_block_device():
 {
 }
 
-chroot_block_device::chroot_block_device (keyfile const&     keyfile,
-					  std::string const& group):
-  chroot(keyfile, group),
-  device(),
-  mount_options()
-{
-}
-
 chroot_block_device::~chroot_block_device()
 {
 }

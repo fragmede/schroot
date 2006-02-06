@@ -42,14 +42,6 @@ chroot_lvm_snapshot::chroot_lvm_snapshot():
 {
 }
 
-chroot_lvm_snapshot::chroot_lvm_snapshot (keyfile const&     keyfile,
-					  std::string const& group):
-  chroot_block_device(keyfile, group),
-  snapshot_device(),
-  snapshot_options()
-{
-}
-
 chroot_lvm_snapshot::~chroot_lvm_snapshot()
 {
 }

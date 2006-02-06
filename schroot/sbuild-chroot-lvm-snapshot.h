@@ -35,15 +35,6 @@ namespace sbuild
     /// The constructor.
     chroot_lvm_snapshot();
 
-    /**
-     * The constructor.  Initialise from an open keyfile.
-     *
-     * @param keyfile the configuration file
-     * @param group the keyfile group (chroot name)
-     */
-    chroot_lvm_snapshot (keyfile const&     keyfile,
-			 std::string const& group);
-
     friend class chroot;
 
   public:

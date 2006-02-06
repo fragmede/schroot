@@ -1,5 +1,10 @@
 2006-02-06  Roger Leigh  <rleigh@debian.org>
 
+	* Remove all keyfile constructors from sbuild::chroot and derived
+	classes.
+
+2006-02-06  Roger Leigh  <rleigh@debian.org>
+
 	* doc/schroot.dox.in: Strip the build directory from file
 	pathnames, use built-in STL support, and sort classes by
 	namespace.

@@ -70,14 +70,6 @@ namespace sbuild
     /// The constructor.
     chroot ();
 
-    /**
-     * The constructor.  Initialise from an open keyfile.
-     *
-     * @param keyfile the configuration file
-     * @param group the keyfile group (chroot name)
-     */
-    chroot (keyfile const&     keyfile,
-	    std::string const& group);
   public:
 
     /// The destructor.

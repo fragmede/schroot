@@ -35,13 +35,6 @@ chroot_plain::chroot_plain():
 {
 }
 
-chroot_plain::chroot_plain (keyfile const&     keyfile,
-			    std::string const& group):
-  chroot(keyfile, group),
-  location()
-{
-}
-
 chroot_plain::~chroot_plain()
 {
 }
