@@ -52,10 +52,10 @@ chroot_block_device::~chroot_block_device()
 {
 }
 
-sbuild::chroot::chroot_ptr
+sbuild::chroot::ptr
 chroot_block_device::clone () const
 {
-  return chroot_ptr(new chroot_block_device(*this));
+  return ptr(new chroot_block_device(*this));
 }
 
 std::string const&
@@ -106,8 +106,8 @@ chroot_block_device::setup_env (environment& env)
 }
 
 void
-chroot_block_device::setup_lock (SetupType type,
-				 bool      lock)
+chroot_block_device::setup_lock (setup_type type,
+				 bool       lock)
 {
   struct stat statbuf;
 
@@ -164,10 +164,10 @@ chroot_block_device::setup_lock (SetupType type,
     }
 }
 
-sbuild::chroot::SessionFlags
+sbuild::chroot::session_flags
 chroot_block_device::get_session_flags () const
 {
-  return static_cast<SessionFlags>(0);
+  return static_cast<session_flags>(0);
 }
 
 void

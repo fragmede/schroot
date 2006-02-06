@@ -50,10 +50,10 @@ chroot_file::~chroot_file()
 {
 }
 
-sbuild::chroot::chroot_ptr
+sbuild::chroot::ptr
 chroot_file::clone () const
 {
-  return chroot_ptr(new chroot_file(*this));
+  return ptr(new chroot_file(*this));
 }
 
 std::string const&
@@ -85,8 +85,8 @@ chroot_file::setup_env (environment& env)
 }
 
 void
-chroot_file::setup_lock (SetupType type,
-			 bool      lock)
+chroot_file::setup_lock (setup_type type,
+			 bool       lock)
 {
   /* By default, file chroots do no locking. */
   /* Create or unlink session information. */
@@ -98,7 +98,7 @@ chroot_file::setup_lock (SetupType type,
     }
 }
 
-sbuild::chroot::SessionFlags
+sbuild::chroot::session_flags
 chroot_file::get_session_flags () const
 {
   return SESSION_CREATE;

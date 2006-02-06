@@ -39,9 +39,9 @@ public:
   virtual ~basic_chroot()
   {}
 
-  virtual chroot_ptr
+  virtual ptr
   clone () const
-  { return chroot_ptr(new basic_chroot(*this)); }
+  { return ptr(new basic_chroot(*this)); }
 
   virtual std::string const&
   get_chroot_type () const
@@ -52,11 +52,11 @@ public:
   { this->sbuild::chroot::setup_env(env); }
 
   virtual void
-  setup_lock (SetupType type,
-	      bool      lock)
+  setup_lock (setup_type type,
+	      bool       lock)
   {}
 
-  virtual sbuild::chroot::SessionFlags
+  virtual sbuild::chroot::session_flags
   get_session_flags () const
   { return sbuild::chroot::SESSION_CREATE; }
 

@@ -218,8 +218,8 @@ namespace sbuild
      * @param setup_type the type of setup to perform.
      */
     void
-    setup_chroot (chroot::chroot_ptr& session_chroot,
-		  chroot::SetupType   setup_type);
+    setup_chroot (chroot::ptr&       session_chroot,
+		  chroot::setup_type setup_type);
 
     /**
      * Run command or login shell in the specified chroot.
@@ -230,7 +230,7 @@ namespace sbuild
      * present in the chroot list and the chroot configuration object.
      */
     void
-    run_chroot (chroot::chroot_ptr& session_chroot);
+    run_chroot (chroot::ptr& session_chroot);
 
     /**
      * Run a command or login shell as a child process in the
@@ -241,7 +241,7 @@ namespace sbuild
      * present in the chroot list and the chroot configuration object.
      */
     void
-    run_child (chroot::chroot_ptr& session_chroot);
+    run_child (chroot::ptr& session_chroot);
 
     /**
      * Wait for a child process to complete, and check its exit status.

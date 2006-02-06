@@ -50,7 +50,7 @@ namespace sbuild
     /// The destructor.
     virtual ~chroot_block_device();
 
-    virtual chroot::chroot_ptr
+    virtual chroot::ptr
     clone () const;
 
     /**
@@ -98,10 +98,10 @@ namespace sbuild
     setup_env (environment& env);
 
     virtual void
-    setup_lock (SetupType type,
-		bool      lock);
+    setup_lock (setup_type type,
+		bool       lock);
 
-    virtual SessionFlags
+    virtual session_flags
     get_session_flags () const;
 
   protected:

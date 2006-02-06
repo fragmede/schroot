@@ -54,10 +54,10 @@ chroot_lvm_snapshot::~chroot_lvm_snapshot()
 {
 }
 
-sbuild::chroot::chroot_ptr
+sbuild::chroot::ptr
 chroot_lvm_snapshot::clone () const
 {
-  return chroot_ptr(new chroot_lvm_snapshot(*this));
+  return ptr(new chroot_lvm_snapshot(*this));
 }
 
 std::string const&
@@ -109,8 +109,8 @@ chroot_lvm_snapshot::setup_env (environment& env)
 }
 
 void
-chroot_lvm_snapshot::setup_lock (SetupType type,
-				 bool      lock)
+chroot_lvm_snapshot::setup_lock (setup_type type,
+				 bool       lock)
 {
   std::string device;
   struct stat statbuf;
@@ -188,7 +188,7 @@ chroot_lvm_snapshot::setup_lock (SetupType type,
     }
 }
 
-sbuild::chroot::SessionFlags
+sbuild::chroot::session_flags
 chroot_lvm_snapshot::get_session_flags () const
 {
   return SESSION_CREATE;

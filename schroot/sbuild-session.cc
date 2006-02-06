@@ -210,7 +210,7 @@ session::get_auth_status () const
        cur != this->chroots.end();
        ++cur)
     {
-      const chroot::chroot_ptr chroot = this->config->find_alias(*cur);
+      const chroot::ptr chroot = this->config->find_alias(*cur);
       if (!chroot) // Should never happen, but cater for it anyway.
 	{
 	  log_warning() << format(_("No chroot found matching alias '%1%'"))
@@ -289,7 +289,7 @@ try
 	log_debug(DEBUG_NOTICE)
 	  << format("Running session in %1% chroot:") % *cur
 	  << endl;
-	const chroot::chroot_ptr ch = this->config->find_alias(*cur);
+	const chroot::ptr ch = this->config->find_alias(*cur);
 	if (!ch) // Should never happen, but cater for it anyway.
 	  {
 	    format fmt(_("%1%: Failed to find chroot"));
@@ -297,7 +297,7 @@ try
 	    throw error(fmt);
 	  }
 
-	chroot::chroot_ptr chroot(ch->clone());
+	chroot::ptr chroot(ch->clone());
 
 	/* If restoring a session, set the session ID from the
 	   chroot name, or else generate it.  Only chroots which
@@ -411,8 +411,8 @@ catch (error const& e)
 }
 
 void
-session::setup_chroot (sbuild::chroot::chroot_ptr& session_chroot,
-		       sbuild::chroot::SetupType   setup_type)
+session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
+		       sbuild::chroot::setup_type setup_type)
 {
   assert(!session_chroot->get_name().empty());
 
@@ -572,7 +572,7 @@ session::setup_chroot (sbuild::chroot::chroot_ptr& session_chroot,
 }
 
 void
-session::run_child (sbuild::chroot::chroot_ptr& session_chroot)
+session::run_child (sbuild::chroot::ptr& session_chroot)
 {
   assert(!session_chroot->get_name().empty());
 
@@ -807,7 +807,7 @@ session::wait_for_child (int  pid,
 }
 
 void
-session::run_chroot (sbuild::chroot::chroot_ptr& session_chroot)
+session::run_chroot (sbuild::chroot::ptr& session_chroot)
 {
   assert(!session_chroot->get_name().empty());
 

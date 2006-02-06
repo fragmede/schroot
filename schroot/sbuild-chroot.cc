@@ -66,7 +66,7 @@ sbuild::chroot::~chroot()
 {
 }
 
-sbuild::chroot::chroot_ptr
+sbuild::chroot::ptr
 sbuild::chroot::create (std::string const& type)
 {
   chroot *new_chroot = 0;
@@ -89,7 +89,7 @@ sbuild::chroot::create (std::string const& type)
   if (new_chroot == 0)
     throw error(_("chroot creation failed"));
 
-  return chroot_ptr(new_chroot);
+  return ptr(new_chroot);
 }
 
 std::string const&

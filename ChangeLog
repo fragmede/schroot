@@ -1,5 +1,15 @@
 2006-02-06  Roger Leigh  <rleigh@debian.org>
 
+	* Rename sbuild::chroot::chroot_ptr to sbuild::chroot::ptr,
+	sbuild::chroot::SetupType to sbuild::chroot::setup_type, and
+	sbuild::chroot::SessionFlags to sbuild::chroot::session_flags.
+
+2006-02-06  Roger Leigh  <rleigh@debian.org>
+
+	* Rename schroot::Options to schroot::options.
+
+2006-02-06  Roger Leigh  <rleigh@debian.org>
+
 	* Rename sbuild::Session to sbuild::session.
 
 2006-02-06  Roger Leigh  <rleigh@debian.org>

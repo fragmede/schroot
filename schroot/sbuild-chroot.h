@@ -45,7 +45,7 @@ namespace sbuild
   {
   public:
     /// Type of setup to perform.
-    enum SetupType
+    enum setup_type
       {
 	SETUP_START,   ///< Activate a chroot.
 	SETUP_RECOVER, ///< Reactivate a chroot.
@@ -55,7 +55,7 @@ namespace sbuild
       };
 
     /// Chroot session properties
-    enum SessionFlags
+    enum session_flags
       {
 	SESSION_CREATE = 1 << 0 ///< The chroot supports session creation.
       };
@@ -64,7 +64,7 @@ namespace sbuild
     typedef runtime_error_custom<chroot> error;
 
     /// A shared_ptr to a chroot object.
-    typedef std::tr1::shared_ptr<chroot> chroot_ptr;
+    typedef std::tr1::shared_ptr<chroot> ptr;
 
   protected:
     /// The constructor.
@@ -89,7 +89,7 @@ namespace sbuild
      * @param type the type of chroot to create.
      * @returns a shared_ptr to the new chroot.
      */
-    static chroot_ptr
+    static ptr
     create (std::string const& type);
 
     /**
@@ -97,7 +97,7 @@ namespace sbuild
      *
      * @returns a shared_ptr to the new copy of the chroot.
      */
-    virtual chroot_ptr
+    virtual ptr
     clone () const = 0;
 
     /**
@@ -319,8 +319,8 @@ namespace sbuild
      * @param lock true to lock, false to unlock
      */
     virtual void
-    setup_lock (SetupType type,
-		bool      lock) = 0;
+    setup_lock (setup_type type,
+		bool       lock) = 0;
 
   protected:
     /**
@@ -338,7 +338,7 @@ namespace sbuild
      *
      * @returns the session flags.
      */
-    virtual SessionFlags
+    virtual session_flags
     get_session_flags () const = 0;
 
     /**
@@ -351,8 +351,8 @@ namespace sbuild
      * @returns the stream.
      */
     friend std::ostream&
-    operator << (std::ostream&     stream,
-		 chroot_ptr const& rhs)
+    operator << (std::ostream& stream,
+		 ptr const&    rhs)
     {
       rhs->print_details(stream);
       return stream;
@@ -363,7 +363,8 @@ namespace sbuild
      */
     friend
     keyfile const&
-    operator >> (keyfile const& keyfile, chroot_ptr& rhs)
+    operator >> (keyfile const& keyfile,
+		 ptr&           rhs)
     {
       rhs->set_keyfile(keyfile);
       return keyfile;
@@ -374,7 +375,8 @@ namespace sbuild
      */
     friend
     keyfile&
-    operator << (keyfile& keyfile, chroot_ptr const& rhs)
+    operator << (keyfile&   keyfile,
+		 ptr const& rhs)
     {
       rhs->get_keyfile(keyfile);
       return keyfile;

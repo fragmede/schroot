@@ -46,10 +46,10 @@ chroot_plain::~chroot_plain()
 {
 }
 
-sbuild::chroot::chroot_ptr
+sbuild::chroot::ptr
 chroot_plain::clone () const
 {
-  return chroot_ptr(new chroot_plain(*this));
+  return ptr(new chroot_plain(*this));
 }
 
 std::string const&
@@ -87,16 +87,16 @@ chroot_plain::setup_env (environment& env)
 }
 
 void
-chroot_plain::setup_lock (SetupType type,
-			 bool      lock)
+chroot_plain::setup_lock (setup_type type,
+			  bool       lock)
 {
   /* By default, plain chroots do no locking. */
 }
 
-sbuild::chroot::SessionFlags
+sbuild::chroot::session_flags
 chroot_plain::get_session_flags () const
 {
-  return static_cast<SessionFlags>(0);
+  return static_cast<session_flags>(0);
 }
 
 void
