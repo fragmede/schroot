@@ -14,6 +14,11 @@ configuration.
      manner as "--info".  This is useful to test if the configuration
      you put in schroot.conf is what schroot is actually parsing.
 
+  3) Session-managed chroot types ("file" and "lvm-snapshot") now run
+     setup and session scripts by default.  It was previously disabled
+     for all chroot types for safety reasons.  It's considered safe
+     for these types due to their ephemeral nature.
+
 * Major changes in 0.2.1:
   1) Creating a session now returns a zero exit status on success.
 

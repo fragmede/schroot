@@ -77,14 +77,15 @@ for convenience.
 .B run-setup-scripts=\fItrue\fP|\fIfalse\fP
 Set whether chroot setup scripts will be run.  The default is not to run setup
 scripts (\[lq]false\[rq]), for safety reasons (so it won't clobber your passwd
-and other critical files).  However, if \fItype\fP is set to a value other than
-\[lq]plain\[rq], setup scripts are \fBrequired\fP to mount and configure the
-chroot environment.  If your chroots are exclusively controlled by schroot, set
-to \[lq]true\[rq].
+and other critical files).  The default for session-managed chroots
+(\[lq]file\[rq] and \[lq]lvm\-snapshot\[rq]) is to run setup scripts.  If
+\fItype\fP is set to a value other than \[lq]plain\[rq], setup scripts are
+\fBrequired\fP to mount and configure the chroot environment.  If your chroots
+are exclusively controlled by schroot, set to \[lq]true\[rq].
 .TP
 .B run-session-scripts=\fItrue\fP|\fIfalse\fP
-Set whether chroot session scripts will be run.  The default is to not run
-session scripts (\[lq]false\[rq]).
+Set whether chroot session scripts will be run.  The default is are the same as
+for the \fIrun-setup-scripts\fP key.
 .SS
 Plain chroots
 .PP

@@ -37,6 +37,8 @@ chroot_file::chroot_file():
   chroot(),
   file()
 {
+  set_run_setup_scripts(true);
+  set_run_session_scripts(true);
 }
 
 chroot_file::~chroot_file()

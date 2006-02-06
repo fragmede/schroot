@@ -1,5 +1,18 @@
 2006-02-06  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Document updated defaults.
+
+	* schroot/schroot.conf.5.in: Document updated defaults.
+
+	* schroot/sbuild-chroot-lvm-snapshot.cc
+	(chroot_lvm_snapshot): Default to running setup and session
+	scripts.
+
+	* schroot/sbuild-chroot-file.cc
+	(chroot_file): Default to running setup and session scripts.
+
+2006-02-06  Roger Leigh  <rleigh@debian.org>
+
 	* debian/control: Add versioned depends on libpam0g-dev >=
 	0.79-3.1, because earlier versions have broken headers, due to
 	redefining internal glibc/libstdc++ types.
