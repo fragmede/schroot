@@ -23,11 +23,11 @@
 
 using namespace sbuild;
 
-AuthConv::AuthConv()
+auth_conv::auth_conv()
 {
 }
 
-AuthConv::~AuthConv()
+auth_conv::~auth_conv()
 {
 }
 

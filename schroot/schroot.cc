@@ -239,7 +239,8 @@ main (int   argc,
 	  session.set_verbosity(verbosity);
 
 	  /* Set up authentication timeouts. */
-	  std::tr1::shared_ptr<sbuild::AuthConv> conv(new sbuild::AuthConvTty);
+	  std::tr1::shared_ptr<sbuild::auth_conv>
+	    conv(new sbuild::auth_conv_tty);
 	  time_t curtime = 0;
 	  time(&curtime);
 	  conv->set_warning_timeout(curtime + 15);

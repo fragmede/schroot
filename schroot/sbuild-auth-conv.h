@@ -35,10 +35,10 @@ namespace sbuild
    * interaction with the user during authentication.
    *
    * This is a wrapper around the struct pam_conv PAM conversation
-   * interface, and is used by Auth when interacting with the user
+   * interface, and is used by auth when interacting with the user
    * during authentication.
    *
-   * A simple implementation is provided in the form of AuthConvTty.
+   * A simple implementation is provided in the form of auth_conv_tty.
    * However, more complex implementations might hook into an event
    * loop for GUI widget system.
    *
@@ -47,19 +47,19 @@ namespace sbuild
    * This is an absolute time after which a warning is displayed or
    * the conversation ends with an error.
    */
-  class AuthConv
+  class auth_conv
   {
   public:
     /// Exception type.
-    typedef runtime_error_custom<AuthConv> error;
+    typedef runtime_error_custom<auth_conv> error;
 
     /// A list of messages.
     typedef std::vector<auth_message> message_list;
 
     /// The constructor.
-    AuthConv();
+    auth_conv();
     /// The destructor.
-    virtual ~AuthConv();
+    virtual ~auth_conv();
 
     /**
      * @brief Get the time at which the user will be warned.

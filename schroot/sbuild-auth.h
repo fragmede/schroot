@@ -94,8 +94,8 @@ namespace sbuild
     /// Exception type.
     typedef runtime_error_custom<auth> error;
 
-    /// A shared_ptr to an AuthConv object.
-    typedef std::tr1::shared_ptr<AuthConv> conv_ptr;
+    /// A shared_ptr to an auth_conv object.
+    typedef std::tr1::shared_ptr<auth_conv> conv_ptr;
 
     /**
      * The constructor.

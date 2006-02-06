@@ -63,7 +63,7 @@ namespace sbuild
     /// Exception type.
     typedef runtime_error_custom<chroot> error;
 
-    /// A shared_ptr to an AuthConv object.
+    /// A shared_ptr to a chroot object.
     typedef std::tr1::shared_ptr<chroot> chroot_ptr;
 
   protected:

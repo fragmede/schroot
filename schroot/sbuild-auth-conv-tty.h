@@ -36,8 +36,8 @@ namespace sbuild
   /**
    * @brief Authentication conversation handler for terminal devices.
    *
-   * This class is an implementation of the AuthConv interface, and is
-   * used to interact with the user on a terminal (TTY) interface.
+   * This class is an implementation of the auth_conv interface, and
+   * is used to interact with the user on a terminal (TTY) interface.
    *
    * In order to implement timeouts, this class uses alarm(2).  This
    * has some important implications.  Global state is modified by the
@@ -46,13 +46,13 @@ namespace sbuild
    * SIGALRM handlers and the alarm(2) timer during the time PAM
    * authentication is proceeding.
    */
-  class AuthConvTty : public AuthConv
+  class auth_conv_tty : public auth_conv
   {
   public:
     /// The constructor.
-    AuthConvTty();
+    auth_conv_tty();
     /// The destructor.
-    virtual ~AuthConvTty();
+    virtual ~auth_conv_tty();
 
     virtual time_t get_warning_timeout ();
     virtual void set_warning_timeout (time_t timeout);

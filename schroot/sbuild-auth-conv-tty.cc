@@ -87,43 +87,43 @@ namespace
 
 }
 
-AuthConvTty::AuthConvTty():
+auth_conv_tty::auth_conv_tty():
   warning_timeout(0),
   fatal_timeout(0),
   start_time(0)
 {
 }
 
-AuthConvTty::~AuthConvTty()
+auth_conv_tty::~auth_conv_tty()
 {
 }
 
 time_t
-AuthConvTty::get_warning_timeout ()
+auth_conv_tty::get_warning_timeout ()
 {
   return this->warning_timeout;
 }
 
 void
-AuthConvTty::set_warning_timeout (time_t timeout)
+auth_conv_tty::set_warning_timeout (time_t timeout)
 {
   this->warning_timeout = timeout;
 }
 
 time_t
-AuthConvTty::get_fatal_timeout ()
+auth_conv_tty::get_fatal_timeout ()
 {
   return this->fatal_timeout;
 }
 
 void
-AuthConvTty::set_fatal_timeout (time_t timeout)
+auth_conv_tty::set_fatal_timeout (time_t timeout)
 {
   this->fatal_timeout = timeout;
 }
 
 int
-AuthConvTty::get_delay ()
+auth_conv_tty::get_delay ()
 {
   timer_expired = 0;
   time (&this->start_time);
@@ -149,8 +149,8 @@ AuthConvTty::get_delay ()
 }
 
 std::string
-AuthConvTty::read_string (std::string message,
-			  bool        echo)
+auth_conv_tty::read_string (std::string message,
+			    bool        echo)
 {
   struct termios orig_termios, noecho_termios;
   struct sigaction saved_signals;
@@ -240,7 +240,7 @@ AuthConvTty::read_string (std::string message,
 }
 
 bool
-AuthConvTty::conversation (message_list& messages)
+auth_conv_tty::conversation (message_list& messages)
 {
   try
     {

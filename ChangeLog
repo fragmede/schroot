@@ -1,5 +1,11 @@
 2006-02-06  Roger Leigh  <rleigh@debian.org>
 
+	* Rename sbuild::AuthConvTty to sbuild::auth_conv_tty.
+
+	* Rename sbuild::AuthConv to sbuild::auth_conv.
+
+2006-02-06  Roger Leigh  <rleigh@debian.org>
+
 	* Rename sbuild::AuthMessage to sbuild::auth_message.
 
 2006-02-06  Roger Leigh  <rleigh@debian.org>

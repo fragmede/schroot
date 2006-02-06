@@ -40,21 +40,21 @@ using namespace sbuild;
 namespace
 {
 
-  /* This is the glue to link PAM user interaction with SbuildAuthConv. */
+  /* This is the glue to link PAM user interaction with auth_conv. */
   static int
-  auth_conv (int                        num_msg,
-	     const struct pam_message **msgm,
-	     struct pam_response      **response,
-	     void                      *appdata_ptr)
+  auth_conv_hook (int                        num_msg,
+		  const struct pam_message **msgm,
+		  struct pam_response      **response,
+		  void                      *appdata_ptr)
   {
     if (appdata_ptr == 0)
       return PAM_CONV_ERR;
 
-    AuthConv *conv = static_cast<AuthConv *>(appdata_ptr);
+    auth_conv *conv = static_cast<auth_conv *>(appdata_ptr);
     assert (conv != 0);
 
     /* Construct a message vector */
-    AuthConv::message_list messages;
+    auth_conv::message_list messages;
     for (int i = 0; i < num_msg; ++i)
       {
 	const struct pam_message *source = msgm[i];
@@ -105,7 +105,7 @@ auth::auth(std::string const& service_name):
   user_environment(),
   ruid(),
   ruser(),
-  conv(dynamic_cast<AuthConv *>(new AuthConvTty)),
+  conv(dynamic_cast<auth_conv *>(new auth_conv_tty)),
   message_verbosity(VERBOSITY_NORMAL)
 {
   this->ruid = getuid();
@@ -342,7 +342,7 @@ auth::start ()
 
   struct pam_conv conv_hook =
     {
-      auth_conv,
+      auth_conv_hook,
       static_cast<void *>(this->conv.get())
     };
 
