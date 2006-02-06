@@ -31,18 +31,18 @@ namespace sbuild
   /**
    * Authentication messages.
    *
-   * When Auth needs to interact with the user, it does this by
-   * sending a list of AuthMessage objects to an AuthConv conversation
-   * object.  These messages tell the conversation object how to
-   * display the message to the user, and if necessary, whether or not
-   * to ask the user for some input.  They also store the user's
-   * input, if required.
+   * When auth needs to interact with the user, it does this by
+   * sending a list of auth_message objects to an AuthConv
+   * conversation object.  These messages tell the conversation object
+   * how to display the message to the user, and if necessary, whether
+   * or not to ask the user for some input.  They also store the
+   * user's input, if required.
    */
-  class AuthMessage
+  class auth_message
   {
   public:
     /// Message type
-    enum MessageType
+    enum type
       {
 	/// Display a prompt, with no echoing of user input.
 	MESSAGE_PROMPT_NOECHO = PAM_PROMPT_ECHO_OFF,
@@ -60,14 +60,14 @@ namespace sbuild
      * @param type the type of message.
      * @param message the message to display.
      */
-    AuthMessage(MessageType        type,
-		std::string const& message);
+    auth_message(type               message_type,
+		 std::string const& message);
 
     /// The destructor.
-    virtual ~AuthMessage();
+    virtual ~auth_message();
 
     /// The type of message.
-    MessageType type;
+    type        message_type;
     /// The message to display.
     std::string message;
     /// The user's response (if any).

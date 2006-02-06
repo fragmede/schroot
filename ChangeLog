@@ -1,5 +1,9 @@
 2006-02-06  Roger Leigh  <rleigh@debian.org>
 
+	* Rename sbuild::AuthMessage to sbuild::auth_message.
+
+2006-02-06  Roger Leigh  <rleigh@debian.org>
+
 	* Rename sbuild::Auth to sbuild::auth.
 
 2006-02-05  Roger Leigh  <rleigh@debian.org>

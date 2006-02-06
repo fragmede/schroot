@@ -54,7 +54,7 @@ namespace sbuild
     typedef runtime_error_custom<AuthConv> error;
 
     /// A list of messages.
-    typedef std::vector<AuthMessage> message_list;
+    typedef std::vector<auth_message> message_list;
 
     /// The constructor.
     AuthConv();
@@ -96,9 +96,9 @@ namespace sbuild
      *
      * Each of the messages detailed in messages should be displayed
      * to the user, asking for input where required.  The type of
-     * message is indicated in the AuthMessage::type field of the
-     * AuthMessage.  The AuthMessage::response field of the
-     * AuthMessage should be filled in if input is required.
+     * message is indicated in the auth_message::message_type field of
+     * the auth_message.  The auth_message::response field of the
+     * auth_message should be filled in if input is required.
      *
      * @param messages the messages to display to the user, and
      * responses to return to the caller.

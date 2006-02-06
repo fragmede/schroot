@@ -23,15 +23,15 @@
 
 using namespace sbuild;
 
-AuthMessage::AuthMessage(AuthMessage::MessageType type,
-			 std::string const&       message):
-  type(type),
+auth_message::auth_message(auth_message::type type,
+			   std::string const& message):
+  message_type(type),
   message(message),
   response()
 {
 }
 
-AuthMessage::~AuthMessage()
+auth_message::~auth_message()
 {
 }
 

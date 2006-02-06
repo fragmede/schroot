@@ -244,27 +244,27 @@ AuthConvTty::conversation (message_list& messages)
 {
   try
     {
-      for (std::vector<AuthMessage>::iterator cur = messages.begin();
+      for (std::vector<auth_message>::iterator cur = messages.begin();
 	   cur != messages.end();
 	   ++cur)
 	{
-	  switch (cur->type)
+	  switch (cur->message_type)
 	    {
-	    case AuthMessage::MESSAGE_PROMPT_NOECHO:
+	    case auth_message::MESSAGE_PROMPT_NOECHO:
 	      cur->response = read_string(cur->message, false);
 	      break;
-	    case AuthMessage::MESSAGE_PROMPT_ECHO:
+	    case auth_message::MESSAGE_PROMPT_ECHO:
 	      cur->response = read_string(cur->message, true);
 	      break;
-	    case AuthMessage::MESSAGE_ERROR:
+	    case auth_message::MESSAGE_ERROR:
 	      cerr << cur->message << endl;
 	      break;
-	    case AuthMessage::MESSAGE_INFO:
+	    case auth_message::MESSAGE_INFO:
 	      cerr << cur->message << endl;
 	      break;
 	    default:
 	      cerr << format(_("Unsupported conversation type %1%"))
-		% cur->type
+		% cur->message_type
 		   << endl;
 	      return false;
 	      break;
