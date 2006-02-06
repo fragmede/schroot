@@ -1,5 +1,11 @@
 2006-02-06  Roger Leigh  <rleigh@debian.org>
 
+	* doc/schroot.dox.in: Strip the build directory from file
+	pathnames, use built-in STL support, and sort classes by
+	namespace.
+
+2006-02-06  Roger Leigh  <rleigh@debian.org>
+
 	* Rename sbuild::chroot::chroot_ptr to sbuild::chroot::ptr,
 	sbuild::chroot::SetupType to sbuild::chroot::setup_type, and
 	sbuild::chroot::SessionFlags to sbuild::chroot::session_flags.
