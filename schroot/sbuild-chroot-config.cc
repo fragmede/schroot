@@ -264,19 +264,13 @@ chroot_config::check_security (int fd) const
     }
 
   if (statbuf.st_uid != 0)
-    {
-      throw error(_("not owned by user root"));
-    }
+    throw error(_("not owned by user root"));
 
   if (statbuf.st_mode & S_IWOTH)
-    {
-      throw error(_("others have write permission: "));
-    }
+    throw error(_("others have write permission: "));
 
   if (!S_ISREG(statbuf.st_mode))
-    {
-      throw error(_("not a regular file: "));
-    }
+    throw error(_("not a regular file: "));
 }
 
 void

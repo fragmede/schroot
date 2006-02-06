@@ -101,7 +101,6 @@ environment::remove (environment const& environment)
        pos != environment.end();
        ++pos)
     remove(*pos);
-
 }
 
 void

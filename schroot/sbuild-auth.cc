@@ -439,8 +439,8 @@ auth::authenticate ()
   switch (get_auth_status())
     {
     case STATUS_NONE:
-      if ((pam_status =
-	   pam_set_item(this->pam, PAM_USER, this->user.c_str())) != PAM_SUCCESS)
+      if ((pam_status = pam_set_item(this->pam, PAM_USER, this->user.c_str()))
+	  != PAM_SUCCESS)
 	{
 	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_USER) FAIL" << endl;
 	  format fmt(_("PAM set USER error: %1%"));
@@ -450,8 +450,7 @@ auth::authenticate ()
       break;
 
     case STATUS_USER:
-      if ((pam_status =
-	   pam_authenticate(this->pam, 0)) != PAM_SUCCESS)
+      if ((pam_status = pam_authenticate(this->pam, 0)) != PAM_SUCCESS)
 	{
 	  log_debug(DEBUG_INFO) << "pam_authenticate FAIL" << endl;
 	  syslog(LOG_AUTH|LOG_WARNING, "%s->%s Authentication failure",

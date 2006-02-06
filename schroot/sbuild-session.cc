@@ -588,6 +588,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
       cwd = "/";
     free(raw_cwd);
   }
+
   /* Child errors result in immediate exit().  Errors are not
      propagated back via an exception, because there is no longer any
      higher-level handler to catch them. */
