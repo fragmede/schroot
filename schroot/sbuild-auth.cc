@@ -59,10 +59,10 @@ namespace
       {
 	const struct pam_message *source = msgm[i];
 
-	AuthMessage message(static_cast<AuthMessage::MessageType>(source->msg_style),
-				  source->msg);
+	AuthMessage
+	  message(static_cast<AuthMessage::MessageType>(source->msg_style),
+		  source->msg);
 	messages.push_back(message);
-
       }
 
     /* Do the conversation */
@@ -83,10 +83,9 @@ namespace
 
 	*response = reply;
 	reply = 0;
-      }
 
-    if (status == true)
-      return PAM_SUCCESS;
+	return PAM_SUCCESS;
+      }
     else
       return PAM_CONV_ERR;
   }
@@ -94,7 +93,7 @@ namespace
 }
 
 
-Auth::Auth(std::string const& service_name):
+auth::auth(std::string const& service_name):
   pam(),
   service(service_name),
   uid(0),
@@ -107,7 +106,7 @@ Auth::Auth(std::string const& service_name):
   ruid(),
   ruser(),
   conv(dynamic_cast<AuthConv *>(new AuthConvTty)),
-  verbosity(VERBOSITY_NORMAL)
+  message_verbosity(VERBOSITY_NORMAL)
 {
   this->ruid = getuid();
   struct passwd *pwent = getpwuid(this->ruid);
@@ -123,7 +122,7 @@ Auth::Auth(std::string const& service_name):
   set_user(this->ruser);
 }
 
-Auth::~Auth()
+auth::~auth()
 {
   // Shutdown PAM.
   try
@@ -136,31 +135,31 @@ Auth::~Auth()
 }
 
 std::string const&
-Auth::get_service () const
+auth::get_service () const
 {
   return this->service;
 }
 
 uid_t
-Auth::get_uid () const
+auth::get_uid () const
 {
   return this->uid;
 }
 
 gid_t
-Auth::get_gid () const
+auth::get_gid () const
 {
   return this->gid;
 }
 
 std::string const&
-Auth::get_user () const
+auth::get_user () const
 {
   return this->user;
 }
 
 void
-Auth::set_user (std::string const& user)
+auth::set_user (std::string const& user)
 {
   this->uid = 0;
   this->gid = 0;
@@ -186,91 +185,91 @@ Auth::set_user (std::string const& user)
 }
 
 string_list const&
-Auth::get_command () const
+auth::get_command () const
 {
   return this->command;
 }
 
 void
-Auth::set_command (string_list const& command)
+auth::set_command (string_list const& command)
 {
   this->command = command;
 }
 
 std::string const&
-Auth::get_home () const
+auth::get_home () const
 {
   return this->home;
 }
 
 std::string const&
-Auth::get_shell () const
+auth::get_shell () const
 {
   return this->shell;
 }
 
 environment const&
-Auth::get_environment () const
+auth::get_environment () const
 {
   return this->user_environment;
 }
 
 void
-Auth::set_environment (char **environment)
+auth::set_environment (char **environment)
 {
   set_environment(sbuild::environment(environment));
 }
 
 void
-Auth::set_environment (environment const& environment)
+auth::set_environment (environment const& environment)
 {
   this->user_environment = environment;
 }
 
 environment
-Auth::get_pam_environment () const
+auth::get_pam_environment () const
 {
   return environment(pam_getenvlist(this->pam));
 }
 
 uid_t
-Auth::get_ruid () const
+auth::get_ruid () const
 {
   return this->ruid;
 }
 
 std::string const&
-Auth::get_ruser () const
+auth::get_ruser () const
 {
   return this->ruser;
 }
 
-Auth::Verbosity
-Auth::get_verbosity () const
+auth::verbosity
+auth::get_verbosity () const
 {
-  return this->verbosity;
+  return this->message_verbosity;
 }
 
 void
-Auth::set_verbosity (Auth::Verbosity verbosity)
+auth::set_verbosity (auth::verbosity verbosity)
 {
-  this->verbosity = verbosity;
+  this->message_verbosity = verbosity;
 }
 
-Auth::conv_ptr&
-Auth::get_conv ()
+auth::conv_ptr&
+auth::get_conv ()
 {
   return this->conv;
 }
 
 void
-Auth::set_conv (conv_ptr& conv)
+auth::set_conv (conv_ptr& conv)
 {
   this->conv = conv;
 }
 
 void
-Auth::run ()
+auth::run ()
 {
   try
     {
@@ -330,7 +329,7 @@ Auth::run ()
 }
 
 void
-Auth::start ()
+auth::start ()
 {
   assert(!this->user.empty());
 
@@ -363,7 +362,7 @@ Auth::start ()
 }
 
 void
-Auth::stop ()
+auth::stop ()
 {
   if (this->pam); // PAM must be initialised
   {
@@ -384,7 +383,7 @@ Auth::stop ()
 }
 
 void
-Auth::authenticate ()
+auth::authenticate ()
 {
   assert(!this->user.empty());
   assert(this->pam != 0); // PAM must be initialised
@@ -483,7 +482,7 @@ Auth::authenticate ()
 }
 
 void
-Auth::setupenv ()
+auth::setupenv ()
 {
   assert(this->pam != 0); // PAM must be initialised
 
@@ -542,7 +541,7 @@ Auth::setupenv ()
 }
 
 void
-Auth::account ()
+auth::account ()
 {
   assert(this->pam != 0); // PAM must be initialised
 
@@ -563,7 +562,7 @@ Auth::account ()
 }
 
 void
-Auth::cred_establish ()
+auth::cred_establish ()
 {
   assert(this->pam != 0); // PAM must be initialised
 
@@ -582,7 +581,7 @@ Auth::cred_establish ()
 }
 
 void
-Auth::cred_delete ()
+auth::cred_delete ()
 {
   assert(this->pam != 0); // PAM must be initialised
 
@@ -601,7 +600,7 @@ Auth::cred_delete ()
 }
 
 void
-Auth::open_session ()
+auth::open_session ()
 {
   assert(this->pam != 0); // PAM must be initialised
 
@@ -620,7 +619,7 @@ Auth::open_session ()
 }
 
 void
-Auth::close_session ()
+auth::close_session ()
 {
   assert(this->pam != 0); // PAM must be initialised
 
@@ -638,10 +637,10 @@ Auth::close_session ()
   log_debug(DEBUG_NOTICE) << "pam_close_session OK" << endl;
 }
 
-Auth::Status
-Auth::get_auth_status () const
+auth::status
+auth::get_auth_status () const
 {
-  Status authtype = STATUS_NONE;
+  status authtype = STATUS_NONE;
 
   authtype = change_auth(authtype, STATUS_USER);
 

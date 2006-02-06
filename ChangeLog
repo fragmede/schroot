@@ -1,7 +1,11 @@
+2006-02-06  Roger Leigh  <rleigh@debian.org>
+
+	* Rename sbuild::Auth to sbuild::auth.
+
 2006-02-05  Roger Leigh  <rleigh@debian.org>
 
-	* Rename Sbuild::Lock to sbuild::lock, Sbuild::FileLock to
-	sbuild::file_lock, and Sbuild::DeviceLock to sbuild::device_lock.
+	* Rename sbuild::Lock to sbuild::lock, sbuild::FileLock to
+	sbuild::file_lock, and sbuild::DeviceLock to sbuild::device_lock.
 
 2006-02-05  Roger Leigh  <rleigh@debian.org>
 

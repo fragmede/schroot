@@ -43,8 +43,8 @@ namespace sbuild
   /**
    * @brief Authentication handler.
    *
-   * Auth handles user authentication, authorisation and session
-   * management using the Pluggable Authentication Modules (PAM)
+   * auth handles user authentication, authorisation and session
+   * management using the Pluggable authentication Modules (PAM)
    * library.  It is essentially an object-oriented wrapper around PAM.
    *
    * In order to use PAM correctly, it is important to call several of
@@ -72,11 +72,11 @@ namespace sbuild
    * close the session for the user.  open_session and close_session
    * must still be used.
    */
-  class Auth
+  class auth
   {
   public:
     /// Authentication status
-    enum Status
+    enum status
       {
 	STATUS_NONE, ///< Authentication is not required.
 	STATUS_USER, ///< Authentication is required by the user.
@@ -84,7 +84,7 @@ namespace sbuild
       };
 
     /// Message verbosity
-    enum Verbosity
+    enum verbosity
       {
 	VERBOSITY_QUIET,  ///< Only print essential messages.
 	VERBOSITY_NORMAL, ///< Print messages (the default).
@@ -92,7 +92,7 @@ namespace sbuild
       };
 
     /// Exception type.
-    typedef runtime_error_custom<Auth> error;
+    typedef runtime_error_custom<auth> error;
 
     /// A shared_ptr to an AuthConv object.
     typedef std::tr1::shared_ptr<AuthConv> conv_ptr;
@@ -105,12 +105,12 @@ namespace sbuild
      * This is passed to pam_start() when initialising PAM, and is
      * used to load the correct configuration file from /etc/pam.d.
      */
-    Auth(std::string const& service_name);
+    auth(std::string const& service_name);
 
     /**
      * The destructor.
      */
-    virtual ~Auth();
+    virtual ~auth();
 
     /**
      * Get the PAM service name.
@@ -258,7 +258,7 @@ namespace sbuild
      *
      * Returns the verbosity level.
      */
-    Verbosity
+    verbosity
     get_verbosity () const;
 
     /**
@@ -267,7 +267,7 @@ namespace sbuild
      * @param verbosity the verbosity level.
      */
     void
-    set_verbosity (Verbosity verbosity);
+    set_verbosity (verbosity verbosity);
 
     /**
      * Get the conversation handler.
@@ -376,7 +376,7 @@ protected:
      * Check if authentication is required.  This default
      * implementation always requires authentication.
      */
-    virtual Status
+    virtual status
     get_auth_status () const;
 
     /**
@@ -396,9 +396,9 @@ protected:
      * @param newauth the new authentication status.
      * @returns the new authentication status.
      */
-    Status
-    change_auth (Status oldauth,
-		 Status newauth) const
+    status
+    change_auth (status oldauth,
+		 status newauth) const
     {
       /* Ensure auth level always escalates. */
       if (newauth > oldauth)
@@ -435,7 +435,7 @@ protected:
     /// The PAM conversation handler.
     conv_ptr           conv;
     /// The message verbosity.
-    Verbosity          verbosity;
+    verbosity          message_verbosity;
   };
 
 }

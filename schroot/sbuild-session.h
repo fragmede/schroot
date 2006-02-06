@@ -39,14 +39,14 @@ namespace sbuild
    * Session handler.
    *
    * This class provides the session handling for schroot.  It derives
-   * from Auth, which performs all the necessary PAM actions,
+   * from auth, which performs all the necessary PAM actions,
    * specialising it by overriding its virtual functions.  This allows
    * more sophisticated handling of user authorisation (groups and
    * root-groups membership in the configuration file) and session
    * management (setting up the session, entering the chroot and
    * running the requested command or shell).
    */
-  class Session : public Auth
+  class Session : public auth
   {
   public:
     /// Session operations.
@@ -176,7 +176,7 @@ namespace sbuild
      * Check if authentication is required, taking groups and
      * root-groups membership or all chroots specified into account.
      */
-    virtual sbuild::Auth::Status
+    virtual sbuild::auth::status
     get_auth_status () const;
 
     /**

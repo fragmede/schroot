@@ -116,7 +116,7 @@ Session::Session (std::string const& service,
 		  config_ptr&        config,
 		  Operation          operation,
 		  string_list        chroots):
-  Auth(service),
+  auth(service),
   config(config),
   chroots(chroots),
   child_status(0),
@@ -196,13 +196,13 @@ Session::get_child_status () const
   return this->child_status;
 }
 
-Auth::Status
+auth::status
 Session::get_auth_status () const
 {
   assert(!this->chroots.empty());
-  if (this->config.get() == 0) return Auth::STATUS_FAIL;
+  if (this->config.get() == 0) return auth::STATUS_FAIL;
 
-  Auth::Status status = Auth::STATUS_NONE;
+  auth::status status = auth::STATUS_NONE;
 
   /* @todo Use set difference rather than iteration and
      is_group_member. */
@@ -216,7 +216,7 @@ Session::get_auth_status () const
 	  log_warning() << format(_("No chroot found matching alias '%1%'"))
 	    % *cur
 			<< endl;
-	  status = change_auth(status, Auth::STATUS_FAIL);
+	  status = change_auth(status, auth::STATUS_FAIL);
 	}
 
       string_list const& groups = chroot->get_groups();
@@ -254,20 +254,20 @@ Session::get_auth_status () const
 	      ((this->get_uid() == 0 && in_root_groups == true) ||
 	       (this->get_ruid() == this->get_uid())))
 	    {
-	      status = change_auth(status, Auth::STATUS_NONE);
+	      status = change_auth(status, auth::STATUS_NONE);
 	    }
 	  else if (in_groups == true) // Auth required if not in root group
 	    {
-	      status = change_auth(status, Auth::STATUS_USER);
+	      status = change_auth(status, auth::STATUS_USER);
 	    }
 	  else // Not in any groups
 	    {
-	      status = change_auth(status, Auth::STATUS_FAIL);
+	      status = change_auth(status, auth::STATUS_FAIL);
 	    }
 	}
       else // No available groups entries means no access to anyone
 	{
-	  status = change_auth(status, Auth::STATUS_FAIL);
+	  status = change_auth(status, auth::STATUS_FAIL);
 	}
     }
 
@@ -466,7 +466,7 @@ Session::setup_chroot (sbuild::chroot::chroot_ptr& session_chroot,
 
   string_list arg_list;
   arg_list.push_back(RUN_PARTS); // Run run-parts(8)
-  if (get_verbosity() == Auth::VERBOSITY_VERBOSE)
+  if (get_verbosity() == auth::VERBOSITY_VERBOSE)
     arg_list.push_back("--verbose");
   arg_list.push_back("--lsbsysinit");
   arg_list.push_back("--exit-on-error");
@@ -493,13 +493,13 @@ Session::setup_chroot (sbuild::chroot::chroot_ptr& session_chroot,
     const char *verbosity = NULL;
     switch (get_verbosity())
       {
-      case Auth::VERBOSITY_QUIET:
+      case auth::VERBOSITY_QUIET:
 	verbosity = "quiet";
 	break;
-      case Auth::VERBOSITY_NORMAL:
+      case auth::VERBOSITY_NORMAL:
 	verbosity = "normal";
 	break;
-      case Auth::VERBOSITY_VERBOSE:
+      case auth::VERBOSITY_VERBOSE:
 	verbosity = "verbose";
 	break;
       default:
@@ -578,7 +578,7 @@ Session::run_child (sbuild::chroot::chroot_ptr& session_chroot)
 
   assert(!get_user().empty());
   assert(!get_shell().empty());
-  assert(Auth::pam != NULL); // PAM must be initialised
+  assert(auth::pam != NULL); // PAM must be initialised
 
   std::string const& location = session_chroot->get_mount_location();
   std::string cwd;
@@ -597,7 +597,7 @@ Session::run_child (sbuild::chroot::chroot_ptr& session_chroot)
     {
       open_session();
     }
-  catch (Auth::error const& e)
+  catch (auth::error const& e)
     {
       log_error() << format(_("PAM error: %1%")) % e.what()
 		  << endl;
@@ -698,7 +698,7 @@ Session::run_child (sbuild::chroot::chroot_ptr& session_chroot)
 		 session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), get_shell().c_str());
 	}
 
-      if (get_verbosity() != Auth::VERBOSITY_QUIET)
+      if (get_verbosity() != auth::VERBOSITY_QUIET)
 	{
 	  if (get_ruid() == get_uid())
 	    log_info()
@@ -729,7 +729,7 @@ Session::run_child (sbuild::chroot::chroot_ptr& session_chroot)
 	<< format("Running command: %1%") % commandstring << endl;
       syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
 	     session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), commandstring.c_str());
-      if (get_verbosity() != Auth::VERBOSITY_QUIET)
+      if (get_verbosity() != auth::VERBOSITY_QUIET)
 	{
 	  if (get_ruid() == get_uid())
 	    log_info() << format(_("[%1% chroot] Running command: \"%2%\""))
@@ -777,7 +777,7 @@ Session::wait_for_child (int  pid,
     {
       close_session();
     }
-  catch (Auth::error const& e)
+  catch (auth::error const& e)
     {
       throw error(e.what());
     }

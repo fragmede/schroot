@@ -231,11 +231,11 @@ main (int   argc,
 	  if (options.preserve && session.get_ruid() == session.get_uid())
 	    session.set_environment(environ);
 	  session.set_force(options.session_force);
-	  sbuild::Auth::Verbosity verbosity = sbuild::Auth::VERBOSITY_NORMAL;
+	  sbuild::auth::verbosity verbosity = sbuild::auth::VERBOSITY_NORMAL;
 	  if (options.quiet)
-	    verbosity = sbuild::Auth::VERBOSITY_QUIET;
+	    verbosity = sbuild::auth::VERBOSITY_QUIET;
 	  else if (options.verbose)
-	    verbosity = sbuild::Auth::VERBOSITY_VERBOSE;
+	    verbosity = sbuild::auth::VERBOSITY_VERBOSE;
 	  session.set_verbosity(verbosity);
 
 	  /* Set up authentication timeouts. */
