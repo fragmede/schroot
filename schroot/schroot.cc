@@ -210,17 +210,17 @@ main (int   argc,
 	}
 
       /* Create a session. */
-      sbuild::Session::Operation sess_op(sbuild::Session::OPERATION_AUTOMATIC);
+      sbuild::session::operation sess_op(sbuild::session::OPERATION_AUTOMATIC);
       if (options.action == Options::ACTION_SESSION_BEGIN)
-	sess_op = sbuild::Session::OPERATION_BEGIN;
+	sess_op = sbuild::session::OPERATION_BEGIN;
       else if (options.action == Options::ACTION_SESSION_RECOVER)
-	sess_op = sbuild::Session::OPERATION_RECOVER;
+	sess_op = sbuild::session::OPERATION_RECOVER;
       else if (options.action == Options::ACTION_SESSION_RUN)
-	sess_op = sbuild::Session::OPERATION_RUN;
+	sess_op = sbuild::session::OPERATION_RUN;
       else if (options.action == Options::ACTION_SESSION_END)
-	sess_op = sbuild::Session::OPERATION_END;
+	sess_op = sbuild::session::OPERATION_END;
 
-      sbuild::Session session("schroot", config, sess_op, chroots);
+      sbuild::session session("schroot", config, sess_op, chroots);
       try
 	{
 	  if (!options.user.empty())

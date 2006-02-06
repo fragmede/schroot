@@ -46,11 +46,11 @@ namespace sbuild
    * management (setting up the session, entering the chroot and
    * running the requested command or shell).
    */
-  class Session : public auth
+  class session : public auth
   {
   public:
     /// Session operations.
-    enum Operation
+    enum operation
       {
 	OPERATION_AUTOMATIC, ///< Begin, end and run a session automatically.
 	OPERATION_BEGIN,     ///< Begin a session.
@@ -60,7 +60,7 @@ namespace sbuild
       };
 
     /// Exception type.
-    typedef runtime_error_custom<Session> error;
+    typedef runtime_error_custom<session> error;
 
     /// A shared_ptr to a chroot_config object.
     typedef std::tr1::shared_ptr<chroot_config> config_ptr;
@@ -73,13 +73,13 @@ namespace sbuild
      * @param operation the session operation to perform.
      * @param chroots the chroots to act upon.
      */
-    Session (std::string const& service,
+    session (std::string const& service,
 	     config_ptr&        config,
-	     Operation          operation,
+	     operation          operation,
 	     string_list        chroots);
 
     /// The destructor.
-    virtual ~Session();
+    virtual ~session();
 
     /**
      * Get the configuration associated with this session.
@@ -118,7 +118,7 @@ namespace sbuild
      *
      * @returns the operation.
      */
-    Operation
+    operation
     get_operation () const;
 
     /**
@@ -127,7 +127,7 @@ namespace sbuild
      * @param operation the operation.
      */
     void
-    set_operation (Operation operation);
+    set_operation (operation operation);
 
     /**
      * Get the session identifier.  The session identifier is a unique
@@ -262,7 +262,7 @@ namespace sbuild
     /// The child exit status.
     int         child_status;
     /// The session operation to perform.
-    Operation   operation;
+    operation   session_operation;
     /// The session identifier.
     std::string session_id;
     /// The session force status.

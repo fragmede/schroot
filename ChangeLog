@@ -1,5 +1,9 @@
 2006-02-06  Roger Leigh  <rleigh@debian.org>
 
+	* Rename sbuild::Session to sbuild::session.
+
+2006-02-06  Roger Leigh  <rleigh@debian.org>
+
 	* Rename sbuild::AuthConvTty to sbuild::auth_conv_tty.
 
 	* Rename sbuild::AuthConv to sbuild::auth_conv.

@@ -112,92 +112,92 @@ namespace
 
 }
 
-Session::Session (std::string const& service,
+session::session (std::string const& service,
 		  config_ptr&        config,
-		  Operation          operation,
+		  operation          operation,
 		  string_list        chroots):
   auth(service),
   config(config),
   chroots(chroots),
   child_status(0),
-  operation(operation),
+  session_operation(operation),
   session_id(),
   force(false)
 {
 }
 
-Session::~Session()
+session::~session()
 {
 }
 
-Session::config_ptr&
-Session::get_config ()
+session::config_ptr&
+session::get_config ()
 {
   return this->config;
 }
 
 void
-Session::set_config (config_ptr& config)
+session::set_config (config_ptr& config)
 {
   this->config = config;
 }
 
 string_list const&
-Session::get_chroots () const
+session::get_chroots () const
 {
   return this->chroots;
 }
 
 void
-Session::set_chroots (string_list const& chroots)
+session::set_chroots (string_list const& chroots)
 {
   this->chroots = chroots;
 }
 
-Session::Operation
-Session::get_operation () const
+session::operation
+session::get_operation () const
 {
-  return this->operation;
+  return this->session_operation;
 }
 
 void
-Session::set_operation (Operation operation)
+session::set_operation (operation operation)
 {
-  this->operation = operation;
+  this->session_operation = operation;
 }
 
 std::string const&
-Session::get_session_id () const
+session::get_session_id () const
 {
   return this->session_id;
 }
 
 void
-Session::set_session_id (std::string const& session_id)
+session::set_session_id (std::string const& session_id)
 {
   this->session_id = session_id;
 }
 
 bool
-Session::get_force () const
+session::get_force () const
 {
   return this->force;
 }
 
 void
-Session::set_force (bool force)
+session::set_force (bool force)
 {
   this->force = force;
 }
 
 int
-Session::get_child_status () const
+session::get_child_status () const
 {
   return this->child_status;
 }
 
 auth::status
-Session::get_auth_status () const
+session::get_auth_status () const
 {
   assert(!this->chroots.empty());
   if (this->config.get() == 0) return auth::STATUS_FAIL;
@@ -275,7 +275,7 @@ Session::get_auth_status () const
 }
 
 void
-Session::run_impl ()
+session::run_impl ()
 {
   assert(this->config.get() != NULL);
   assert(!this->chroots.empty());
@@ -352,7 +352,7 @@ try
 	  {
 	    /* Run setup-start chroot setup scripts. */
 	    setup_chroot(chroot, chroot::SETUP_START);
-	    if (this->operation == OPERATION_BEGIN)
+	    if (this->session_operation == OPERATION_BEGIN)
 	      cout << this->session_id << endl;
 
 	    /* Run recover scripts. */
@@ -364,8 +364,8 @@ try
 		setup_chroot(chroot, chroot::RUN_START);
 
 		/* Run session if setup succeeded. */
-		if (this->operation == OPERATION_AUTOMATIC ||
-		    this->operation == OPERATION_RUN)
+		if (this->session_operation == OPERATION_AUTOMATIC ||
+		    this->session_operation == OPERATION_RUN)
 		  run_chroot(chroot);
 
 		/* Run run-stop scripts whether or not there was an
@@ -411,21 +411,21 @@ catch (error const& e)
 }
 
 void
-Session::setup_chroot (sbuild::chroot::chroot_ptr& session_chroot,
+session::setup_chroot (sbuild::chroot::chroot_ptr& session_chroot,
 		       sbuild::chroot::SetupType   setup_type)
 {
   assert(!session_chroot->get_name().empty());
 
-  if (!((this->operation == OPERATION_BEGIN &&
+  if (!((this->session_operation == OPERATION_BEGIN &&
 	 setup_type == chroot::SETUP_START) ||
-	(this->operation == OPERATION_RECOVER &&
+	(this->session_operation == OPERATION_RECOVER &&
 	 setup_type == chroot::SETUP_RECOVER) ||
-	(this->operation == OPERATION_END &&
+	(this->session_operation == OPERATION_END &&
 	 setup_type == chroot::SETUP_STOP) ||
-	(this->operation == OPERATION_RUN &&
+	(this->session_operation == OPERATION_RUN &&
 	 (setup_type == chroot::RUN_START ||
 	  setup_type == chroot::RUN_STOP)) ||
-	(this->operation == OPERATION_AUTOMATIC &&
+	(this->session_operation == OPERATION_AUTOMATIC &&
 	 (setup_type == chroot::SETUP_START ||
 	  setup_type == chroot::SETUP_STOP  ||
 	  setup_type == chroot::RUN_START   ||
@@ -572,7 +572,7 @@ Session::setup_chroot (sbuild::chroot::chroot_ptr& session_chroot,
 }
 
 void
-Session::run_child (sbuild::chroot::chroot_ptr& session_chroot)
+session::run_child (sbuild::chroot::chroot_ptr& session_chroot)
 {
   assert(!session_chroot->get_name().empty());
 
@@ -760,7 +760,7 @@ Session::run_child (sbuild::chroot::chroot_ptr& session_chroot)
 }
 
 void
-Session::wait_for_child (int  pid,
+session::wait_for_child (int  pid,
 			 int& child_status)
 {
   child_status = EXIT_FAILURE; // Default exit status
@@ -807,7 +807,7 @@ Session::wait_for_child (int  pid,
 }
 
 void
-Session::run_chroot (sbuild::chroot::chroot_ptr& session_chroot)
+session::run_chroot (sbuild::chroot::chroot_ptr& session_chroot)
 {
   assert(!session_chroot->get_name().empty());
 
@@ -834,7 +834,7 @@ Session::run_chroot (sbuild::chroot::chroot_ptr& session_chroot)
 }
 
 int
-Session::exec (std::string const& file,
+session::exec (std::string const& file,
 	       string_list const& command,
 	       environment const& env)
 {
