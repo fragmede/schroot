@@ -217,7 +217,7 @@ options::options (int   argc,
       // Session operations work on all chroots.
       this->load_chroots = this->load_sessions = true;
       if (this->chroots.size() != 1 || all_used())
-	throw opt::validation_error(_("Only one chroot may be specified when begining a session"));
+	throw opt::validation_error(_("Only one chroot may be specified when beginning a session"));
       this->all = this->all_chroots = this->all_sessions = false;
       break;
     case ACTION_VERSION:
