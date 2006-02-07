@@ -1,5 +1,15 @@
 2006-02-07  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Bump version to 0.2.3.
+
+	* debian/control (Build-Depends): Add pkg-config build dependency.
+
+	* NEWS: Bump version to 0.2.3.
+
+	* configure.ac: Bump version to 0.2.3.
+
+2006-02-07  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-setup.5.in: Document setup/05file.
 
 	* schroot/schroot.1.in: Fix typo in macro.
