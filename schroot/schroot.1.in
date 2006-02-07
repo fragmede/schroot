@@ -185,7 +185,7 @@ the host system.
 .PP
 \f[CR]$ \f[CB]schroot \-c sid \-u root\fP\fP
 .br
-\f[CR]Password:\FP
+\f[CR]Password:\fP
 .br
 \f[CR][sid chroot] (rleigh\[->]root) Running login shell: \[lq]/bin/bash\[rq]\fP
 .br

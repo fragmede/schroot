@@ -1,5 +1,11 @@
 2006-02-07  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot-setup.5.in: Document setup/05file.
+
+	* schroot/schroot.1.in: Fix typo in macro.
+
+2006-02-07  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-options.cc
 	(options): Fix typo (begining).  Thanks to Clytie Siddall at the
 	Free Translation Project for spotting it.

@@ -118,6 +118,9 @@ The system-wide chroot setup directory.
 .I 00check
 Print debugging diagnostics and perform basic sanity checking.
 .TP
+.I 05file
+Unpack and clean up file-based chroots.
+.TP
 .I 05lvm
 Create and remove LVM snapshots.
 .TP
