@@ -649,7 +649,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   /* chdir to current directory */
   if (chdir (cwd.c_str()))
     {
-      log_error() << format(_("warning: Could not chdir to '%1%': %2%"))
+      log_warning() << format(_("Could not chdir to '%1%': %2%"))
 	% cwd % strerror(errno)
 		 << endl;
     }
