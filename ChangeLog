@@ -1,5 +1,11 @@
 2006-02-16  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.cc (main): If --quiet is specified, don't log an
+	error if the session fails.  A non-zero exit status is still
+	returned.
+
+2006-02-16  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-session.cc (run_child): If it is not possible to
 	change into the correct directory inside the chroot, print a
 	warning rather than an error.

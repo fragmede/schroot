@@ -252,8 +252,9 @@ main (int   argc,
 	}
       catch (std::runtime_error& e)
 	{
-	  sbuild::log_error()
-	    << format(_("Session failure: %1%")) % e.what() << endl;
+	  if (!options.quiet)
+	    sbuild::log_error()
+	      << format(_("Session failure: %1%")) % e.what() << endl;
 	}
 
       closelog();
