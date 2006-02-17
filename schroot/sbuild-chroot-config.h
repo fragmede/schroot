@@ -53,6 +53,9 @@ namespace sbuild
     /// Exception type.
     typedef runtime_error_custom<chroot_config> error;
 
+    /// A shared_ptr to a chroot_config object.
+    typedef std::tr1::shared_ptr<chroot_config> ptr;
+
     /// The constructor.
     chroot_config ();
 
@@ -70,6 +73,20 @@ namespace sbuild
     /// The destructor.
     virtual ~chroot_config ();
 
+    /**
+     * Add a configuration file or directory.  The configuration file
+     * or directory specified will be loaded.
+     *
+     * @param file initialise using a configuration file or a whole
+     * directory containing configuration files.
+     * @param active true if the chroots in the configuration file are
+     * active sessions, otherwise false.
+     */
+    void
+    add (std::string const& location,
+	 bool               active);
+
+  private:
     /**
      * Add a configuration file.  The configuration file specified
      * will be loaded.
@@ -94,6 +111,7 @@ namespace sbuild
     add_config_directory (std::string const& dir,
 			  bool               active);
 
+  public:
     /**
      * Get a list of available chroots.
      *
@@ -193,8 +211,20 @@ namespace sbuild
      * active sessions, otherwise false.
      */
     void
-    load (std::string const& file,
-	  bool               active);
+    load_data (std::string const& file,
+	       bool               active);
+
+    /**
+     * Parse a loaded configuration file.  If there are problems with
+     * the configuration file, an error will be thrown.
+     *
+     * @param stream the data stream to parse.
+     * @param active true if the chroots in the configuration file are
+     * active sessions, otherwise false.
+     */
+    virtual void
+    parse_data (std::istream& stream,
+		bool          active);
 
     /// A list of chroots (name->chroot mapping).
     chroot_map chroots;

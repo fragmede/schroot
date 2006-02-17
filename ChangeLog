@@ -1,3 +1,24 @@
+2006-02-17  Roger Leigh  <rleigh@debian.org>
+
+	* test/sbuild-chroot-config.cc: Update tests.
+
+	* schroot/schroot.cc
+	(main): Use new chroot_config typedef, and use chroot_config::add
+	instead of add_config_file and add_config_directory.
+
+	* schroot/sbuild-chroot-config.h
+	(ptr): New typedef for a shared_ptr to a chroot_config.
+	(add_config_file: Now private.
+	(add_config_directory): Now private.
+
+	* schroot/sbuild-chroot-config.cc
+	(add): New method.  This replaces the file/directory detection in
+	the constructor, and then calls add_config_file or
+	add_config_directory as required.
+	(load_data): New function, renamed from load.
+	(parse_data): New virtual function, called from load_data.  This
+	parses the loaded data, and is split out from load.
+
 2006-02-16  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot.cc (main): If --quiet is specified, don't log an

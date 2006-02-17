@@ -61,11 +61,7 @@ chroot_config::chroot_config (std::string const& file,
 			      bool               active):
   chroots()
 {
-  struct stat statbuf;
-  if (stat(file.c_str(), &statbuf) == 0 && S_ISDIR(statbuf.st_mode))
-    add_config_directory(file, active);
-  else
-    add_config_file(file, active);
+  add(file, active);
 }
 
 chroot_config::~chroot_config ()
@@ -73,10 +69,21 @@ chroot_config::~chroot_config ()
 }
 
 void
+chroot_config::add (std::string const& location,
+		    bool               active)
+{
+  struct stat statbuf;
+  if (stat(location.c_str(), &statbuf) == 0 && S_ISDIR(statbuf.st_mode))
+    add_config_directory(location, active);
+  else
+    add_config_file(location, active);
+}
+
+void
 chroot_config::add_config_file (std::string const& file,
 				bool               active)
 {
-  load(file, active);
+  load_data(file, active);
 }
 
 void
@@ -117,7 +124,7 @@ chroot_config::add_config_directory (std::string const& dir,
 	  continue;
 	}
 
-      load(filename, active);
+      load_data(filename, active);
     }
 }
 
@@ -274,8 +281,8 @@ chroot_config::check_security (int fd) const
 }
 
 void
-chroot_config::load (std::string const& file,
-		     bool               active)
+chroot_config::load_data (std::string const& file,
+			  bool               active)
 {
   /* Use a UNIX fd, for security (no races) */
   int fd = open(file.c_str(), O_RDONLY|O_NOFOLLOW);
@@ -314,8 +321,7 @@ chroot_config::load (std::string const& file,
   std::istream input(&fdbuf);
   input.imbue(std::locale("C"));
 
-  /* Create key file */
-  keyfile kconfig(input);
+  parse_data(input, active);
 
   try
     {
@@ -327,6 +333,14 @@ chroot_config::load (std::string const& file,
       fmt % file % e.what();
       throw error(fmt);
     }
+}
+
+void
+chroot_config::parse_data (std::istream& stream,
+			   bool          active)
+{
+  /* Create key file */
+  keyfile kconfig(stream);
 
   /* Create chroot objects from key file */
   string_list const& groups = kconfig.get_groups();

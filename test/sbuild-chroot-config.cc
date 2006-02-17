@@ -35,9 +35,8 @@ class test_config : public TestFixture
   CPPUNIT_TEST(test_construction_dir);
   CPPUNIT_TEST_EXCEPTION(test_construction_fail, sbuild::chroot_config::error);
   CPPUNIT_TEST(test_add_file);
-  CPPUNIT_TEST_EXCEPTION(test_add_file_fail, sbuild::chroot_config::error);
   CPPUNIT_TEST(test_add_dir);
-  CPPUNIT_TEST_EXCEPTION(test_add_dir_fail, sbuild::chroot_config::error);
+  CPPUNIT_TEST_EXCEPTION(test_add_fail, sbuild::chroot_config::error);
   CPPUNIT_TEST(test_get_chroots);
   CPPUNIT_TEST(test_find_chroot);
   CPPUNIT_TEST(test_find_alias);
@@ -87,25 +86,19 @@ public:
   void test_add_file()
   {
     sbuild::chroot_config c;
-    c.add_config_file(SRCDIR "/config.ex1", false);
-  }
-
-  void test_add_file_fail()
-  {
-    sbuild::chroot_config c;
-    c.add_config_file(SRCDIR "/config.nonexistent", false);
+    c.add(SRCDIR "/config.ex1", false);
   }
 
   void test_add_dir()
   {
     sbuild::chroot_config c;
-    c.add_config_directory(SRCDIR "/config.ex2", false);
+    c.add(SRCDIR "/config.ex2", false);
   }
 
-  void test_add_dir_fail()
+  void test_add_fail()
   {
     sbuild::chroot_config c;
-    c.add_config_directory(SRCDIR "/config.nonexistent", false);
+    c.add(SRCDIR "/config.nonexistent", false);
   }
 
   void test_get_chroots()
