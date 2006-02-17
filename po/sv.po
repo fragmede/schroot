@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-02-06 21:50+0000\n"
+"POT-Creation-Date: 2006-02-17 19:10+0000\n"
 "PO-Revision-Date: 2006-01-07 11:01+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -127,82 +127,82 @@ msgstr ""
 msgid "Mount Options"
 msgstr ""
 
-#: schroot/sbuild-chroot-config.cc:92
+#: schroot/sbuild-chroot-config.cc:99
 #, fuzzy, c-format
 msgid "%1%: failed to open directory: %2%"
 msgstr "%s: misslyckades att läsa in konfiguration: %s\n"
 
-#: schroot/sbuild-chroot-config.cc:105
+#: schroot/sbuild-chroot-config.cc:112
 #, fuzzy, c-format
 msgid "%1%: failed to stat file: %2%"
 msgstr "misslyckades att ta status på fil: %s"
 
-#: schroot/sbuild-chroot-config.cc:115
+#: schroot/sbuild-chroot-config.cc:122
 #, fuzzy, c-format
 msgid "%1%: not a regular file"
 msgstr "inte en vanlig fil"
 
-#: schroot/sbuild-chroot-config.cc:210 schroot/sbuild-chroot-config.cc:231
+#: schroot/sbuild-chroot-config.cc:217 schroot/sbuild-chroot-config.cc:238
 #: schroot/schroot.cc:94
 #, fuzzy, c-format
 msgid "%1%: No such chroot"
 msgstr "%s: Inget sådant chroot\n"
 
-#: schroot/sbuild-chroot-config.cc:261
+#: schroot/sbuild-chroot-config.cc:268
 #, fuzzy, c-format
 msgid "failed to stat file: %1%"
 msgstr "misslyckades att ta status på fil: %s"
 
-#: schroot/sbuild-chroot-config.cc:267
+#: schroot/sbuild-chroot-config.cc:274
 msgid "not owned by user root"
 msgstr "ägs inte av användaren root"
 
-#: schroot/sbuild-chroot-config.cc:270
+#: schroot/sbuild-chroot-config.cc:277
 #, fuzzy
 msgid "others have write permission: "
 msgstr "andra har skrivrättighet"
 
-#: schroot/sbuild-chroot-config.cc:273
+#: schroot/sbuild-chroot-config.cc:280
 #, fuzzy
 msgid "not a regular file: "
 msgstr "inte en vanlig fil"
 
-#: schroot/sbuild-chroot-config.cc:284
+#: schroot/sbuild-chroot-config.cc:291
 #, fuzzy, c-format
 msgid "%1%: failed to load configuration: %2%"
 msgstr "%s: misslyckades att läsa in konfiguration: %s\n"
 
-#: schroot/sbuild-chroot-config.cc:296
+#: schroot/sbuild-chroot-config.cc:303
 #, fuzzy, c-format
 msgid "%1%: lock acquisition failure: %2%"
 msgstr "%s: säkerhetsfel: %s\n"
 
-#: schroot/sbuild-chroot-config.cc:307
+#: schroot/sbuild-chroot-config.cc:314
 #, fuzzy, c-format
 msgid "%1%: security failure: %2%"
 msgstr "%s: säkerhetsfel: %s\n"
 
-#: schroot/sbuild-chroot-config.cc:326
+#: schroot/sbuild-chroot-config.cc:332
 #, fuzzy, c-format
 msgid "%1%: lock discard failure: %2%"
 msgstr "%s: fel vid stängning: %s\n"
 
-#: schroot/sbuild-chroot-config.cc:368
+#: schroot/sbuild-chroot-config.cc:382
 #, c-format
 msgid "%1% chroot: alias '%2%' already associated with '%3%' chroot"
 msgstr ""
 
-#: schroot/sbuild-chroot-config.cc:375
+#: schroot/sbuild-chroot-config.cc:389
 #, c-format
 msgid "%1% chroot: alias '%2%' already associated with another chroot"
 msgstr ""
 
-#: schroot/sbuild-chroot-config.cc:386
+#: schroot/sbuild-chroot-config.cc:400
 #, c-format
 msgid "%1% chroot: a chroot or alias already exists by this name"
 msgstr ""
 
-#: schroot/sbuild-chroot-config.cc:389
+#: schroot/sbuild-chroot-config.cc:403
 #, fuzzy, c-format
 msgid "%1% chroot: duplicate names are not allowed"
 msgstr "Inga chroot angivna i %s\n"
@@ -506,7 +506,7 @@ msgstr "Kunde inte sätta gid till \"%lu\"\n"
 msgid "Could not set supplementary group IDs"
 msgstr "Kunde inte sätta ID för tilläggsgrupper\n"
 
-#: schroot/sbuild-session.cc:622
+#: schroot/sbuild-session.cc:622 schroot/sbuild-session.cc:652
 #, fuzzy, c-format
 msgid "Could not chdir to '%1%': %2%"
 msgstr "Kunde inte byta katalog till \"%s\": %s\n"
@@ -525,11 +525,6 @@ msgstr "Kunde inte sätta uid till \"%lu\"\n"
 #, fuzzy
 msgid "Failed to drop root permissions."
 msgstr "Misslyckades att släppa root-rättigheter.\n"
-
-#: schroot/sbuild-session.cc:652
-#, fuzzy, c-format
-msgid "warning: Could not chdir to '%1%': %2%"
-msgstr "varning: Kunde inte byta katalog till \"%s\": %s\n"
 
 #: schroot/sbuild-session.cc:705
 #, fuzzy, c-format
@@ -720,8 +715,8 @@ msgid ""
 "Only one chroot may be specified when recovering, running or ending a session"
 msgstr ""
 
-#: schroot/schroot-options.cc:220
-msgid "Only one chroot may be specified when begining a session"
+#: schroot/schroot-options.cc:220 schroot/schroot.cc:206
+msgid "Only one chroot may be specified when beginning a session"
 msgstr ""
 
 #: schroot/schroot-options.cc:238
@@ -813,29 +808,29 @@ msgstr ""
 msgid "schroot (Debian sbuild) %1%\n"
 msgstr "schroot (Debian sbuild) %s\n"
 
-#: schroot/schroot.cc:161
+#: schroot/schroot.cc:160
 #, fuzzy, c-format
 msgid "No chroots are defined in %1% or %2%"
 msgstr "Inga chroot angivna i %s\n"
 
-#: schroot/schroot.cc:168
+#: schroot/schroot.cc:167
 #, fuzzy, c-format
 msgid "No chroots are defined in %1%"
 msgstr "Inga chroot angivna i %s\n"
 
-#: schroot/schroot.cc:185
+#: schroot/schroot.cc:184
 #, fuzzy, c-format
 msgid "The specified chroots are not defined in %1%"
 msgstr "Inga chroot angivna i %s\n"
-
-#: schroot/schroot.cc:207
-msgid "Only one chroot may be specified when beginning a session"
-msgstr ""
 
 #: schroot/schroot.cc:256
 #, fuzzy, c-format
 msgid "Session failure: %1%"
 msgstr "Sessionsfel: %s\n"
+
+#, fuzzy
+#~ msgid "warning: Could not chdir to '%1%': %2%"
+#~ msgstr "varning: Kunde inte byta katalog till \"%s\": %s\n"
 
 #, fuzzy
 #~ msgid "%1% chroot creation failed"

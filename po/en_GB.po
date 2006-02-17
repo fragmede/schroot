@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-02-06 21:50+0000\n"
+"POT-Creation-Date: 2006-02-17 19:10+0000\n"
 "PO-Revision-Date: 2006-02-06 21:53+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -123,80 +123,80 @@ msgstr "Device"
 msgid "Mount Options"
 msgstr "Mount Options"
 
-#: schroot/sbuild-chroot-config.cc:92
+#: schroot/sbuild-chroot-config.cc:99
 #, c-format
 msgid "%1%: failed to open directory: %2%"
 msgstr "%1%: failed to open directory: %2%"
 
-#: schroot/sbuild-chroot-config.cc:105
+#: schroot/sbuild-chroot-config.cc:112
 #, c-format
 msgid "%1%: failed to stat file: %2%"
 msgstr "%1%: failed to stat file: %2%"
 
-#: schroot/sbuild-chroot-config.cc:115
+#: schroot/sbuild-chroot-config.cc:122
 #, c-format
 msgid "%1%: not a regular file"
 msgstr "%1%: not a regular file"
 
-#: schroot/sbuild-chroot-config.cc:210 schroot/sbuild-chroot-config.cc:231
+#: schroot/sbuild-chroot-config.cc:217 schroot/sbuild-chroot-config.cc:238
 #: schroot/schroot.cc:94
 #, c-format
 msgid "%1%: No such chroot"
 msgstr "%1%: No such chroot"
 
-#: schroot/sbuild-chroot-config.cc:261
+#: schroot/sbuild-chroot-config.cc:268
 #, c-format
 msgid "failed to stat file: %1%"
 msgstr "failed to stat file: %1%"
 
-#: schroot/sbuild-chroot-config.cc:267
+#: schroot/sbuild-chroot-config.cc:274
 msgid "not owned by user root"
 msgstr "not owned by user root"
 
-#: schroot/sbuild-chroot-config.cc:270
+#: schroot/sbuild-chroot-config.cc:277
 msgid "others have write permission: "
 msgstr "others have write permission: "
 
-#: schroot/sbuild-chroot-config.cc:273
+#: schroot/sbuild-chroot-config.cc:280
 msgid "not a regular file: "
 msgstr "not a regular file: "
 
-#: schroot/sbuild-chroot-config.cc:284
+#: schroot/sbuild-chroot-config.cc:291
 #, c-format
 msgid "%1%: failed to load configuration: %2%"
 msgstr "%1%: failed to load configuration: %2%"
 
-#: schroot/sbuild-chroot-config.cc:296
+#: schroot/sbuild-chroot-config.cc:303
 #, c-format
 msgid "%1%: lock acquisition failure: %2%"
 msgstr "%1%: lock acquisition failure: %2%"
 
-#: schroot/sbuild-chroot-config.cc:307
+#: schroot/sbuild-chroot-config.cc:314
 #, c-format
 msgid "%1%: security failure: %2%"
 msgstr "%1%: security failure: %2%"
 
-#: schroot/sbuild-chroot-config.cc:326
+#: schroot/sbuild-chroot-config.cc:332
 #, c-format
 msgid "%1%: lock discard failure: %2%"
 msgstr "%1%: lock discard failure: %2%"
 
-#: schroot/sbuild-chroot-config.cc:368
+#: schroot/sbuild-chroot-config.cc:382
 #, c-format
 msgid "%1% chroot: alias '%2%' already associated with '%3%' chroot"
 msgstr "%1% chroot: alias ‘%2%’ already associated with ‘%3%’chroot"
 
-#: schroot/sbuild-chroot-config.cc:375
+#: schroot/sbuild-chroot-config.cc:389
 #, c-format
 msgid "%1% chroot: alias '%2%' already associated with another chroot"
 msgstr "%1% chroot: alias ‘%2%’ already associated with another chroot"
 
-#: schroot/sbuild-chroot-config.cc:386
+#: schroot/sbuild-chroot-config.cc:400
 #, c-format
 msgid "%1% chroot: a chroot or alias already exists by this name"
 msgstr "%1% chroot: a chroot or alias already exists by this name"
 
-#: schroot/sbuild-chroot-config.cc:389
+#: schroot/sbuild-chroot-config.cc:403
 #, c-format
 msgid "%1% chroot: duplicate names are not allowed"
 msgstr "%1% chroot: duplicate names are not allowed"
@@ -494,7 +494,7 @@ msgstr "Could not set gid to ‘%1%’"
 msgid "Could not set supplementary group IDs"
 msgstr "Could not set supplementary group IDs"
 
-#: schroot/sbuild-session.cc:622
+#: schroot/sbuild-session.cc:622 schroot/sbuild-session.cc:652
 #, c-format
 msgid "Could not chdir to '%1%': %2%"
 msgstr "Could not chdir to ‘%1%’: %2%"
@@ -512,11 +512,6 @@ msgstr "Could not set uid to ‘%1%’"
 #: schroot/sbuild-session.cc:644
 msgid "Failed to drop root permissions."
 msgstr "Failed to drop root permissions."
-
-#: schroot/sbuild-session.cc:652
-#, c-format
-msgid "warning: Could not chdir to '%1%': %2%"
-msgstr "warning: Could not chdir to ‘%1%’: %2%"
 
 #: schroot/sbuild-session.cc:705
 #, c-format
@@ -697,9 +692,9 @@ msgid ""
 msgstr ""
 "Only one chroot may be specified when recovering, running or ending a session"
 
-#: schroot/schroot-options.cc:220
-msgid "Only one chroot may be specified when begining a session"
-msgstr "Only one chroot may be specified when begining a session"
+#: schroot/schroot-options.cc:220 schroot/schroot.cc:206
+msgid "Only one chroot may be specified when beginning a session"
+msgstr "Only one chroot may be specified when beginning a session"
 
 #: schroot/schroot-options.cc:238
 msgid "--chroot may not be used with --list"
@@ -787,29 +782,31 @@ msgstr "%1%: failed to release device lock owned by pid %2%"
 msgid "schroot (Debian sbuild) %1%\n"
 msgstr "schroot (Debian sbuild) %1%\n"
 
-#: schroot/schroot.cc:161
+#: schroot/schroot.cc:160
 #, c-format
 msgid "No chroots are defined in %1% or %2%"
 msgstr "No chroots are defined in %1% or %2%"
 
-#: schroot/schroot.cc:168
+#: schroot/schroot.cc:167
 #, c-format
 msgid "No chroots are defined in %1%"
 msgstr "No chroots are defined in %1%"
 
-#: schroot/schroot.cc:185
+#: schroot/schroot.cc:184
 #, c-format
 msgid "The specified chroots are not defined in %1%"
 msgstr "The specified chroots are not defined in %1%"
-
-#: schroot/schroot.cc:207
-msgid "Only one chroot may be specified when beginning a session"
-msgstr "Only one chroot may be specified when beginning a session"
 
 #: schroot/schroot.cc:256
 #, c-format
 msgid "Session failure: %1%"
 msgstr "Session failure: %1%"
+
+#~ msgid "warning: Could not chdir to '%1%': %2%"
+#~ msgstr "warning: Could not chdir to ‘%1%’: %2%"
+
+#~ msgid "Only one chroot may be specified when begining a session"
+#~ msgstr "Only one chroot may be specified when begining a session"
 
 #~ msgid "%1% chroot creation failed"
 #~ msgstr "%1% chroot creation failed"
