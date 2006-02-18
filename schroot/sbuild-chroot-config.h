@@ -17,8 +17,8 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CONFIG_H
-#define SBUILD_CONFIG_H
+#ifndef SBUILD_CHROOT_CONFIG_H
+#define SBUILD_CHROOT_CONFIG_H
 
 #include <map>
 #include <ostream>
@@ -110,6 +110,19 @@ namespace sbuild
     void
     add_config_directory (std::string const& dir,
 			  bool               active);
+
+  protected:
+    /**
+     * Add a chroot.  The lists of chroots and aliases will be
+     * updated.  If a chroot or alias by the same name exists, the
+     * chroot will not be added, and a warning will be logged.  Af any
+     * of the aliases already exist, a warning will be logged, and the
+     * alias will not be added.
+     *
+     * @param chroot the chroot to add.
+     */
+    void
+    add (chroot::ptr& chroot);
 
   public:
     /**
@@ -234,7 +247,7 @@ namespace sbuild
 
 }
 
-#endif /* SBUILD_CONFIG_H */
+#endif /* SBUILD_CHROOT_CONFIG_H */
 
 /*
  * Local Variables:

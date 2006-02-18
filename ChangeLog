@@ -1,3 +1,11 @@
+2006-02-18  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-chroot-config.h: Fix include guard naming.
+
+	* schroot/sbuild-chroot-config.cc (add): New overloaded protected
+	method to add a chroot, including checking for duplicates.  Split
+	out from parse_data.
+
 2006-02-17  Roger Leigh  <rleigh@debian.org>
 
 	* test/sbuild-chroot-config.cc: Update tests.

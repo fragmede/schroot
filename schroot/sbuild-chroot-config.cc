@@ -128,6 +128,57 @@ chroot_config::add_config_directory (std::string const& dir,
     }
 }
 
+void
+chroot_config::add (chroot::ptr& chroot)
+{
+  // Make sure insertion will succeed.
+  if (this->chroots.find(chroot->get_name()) == this->chroots.end() &&
+      this->aliases.find(chroot->get_name()) == this->aliases.end())
+    {
+      // Set up chroot.
+      this->chroots.insert(std::make_pair(chroot->get_name(), chroot));
+      this->aliases.insert(std::make_pair(chroot->get_name(),
+					  chroot->get_name()));
+
+      // Set up aliases.
+      string_list const& aliases = chroot->get_aliases();
+      for (string_list::const_iterator pos = aliases.begin();
+	   pos != aliases.end();
+	   ++pos)
+	{
+	  if (this->aliases.insert
+	      (std::make_pair(*pos, chroot->get_name()))
+	      .second == false)
+	    {
+	      string_map::const_iterator dup = this->aliases.find(*pos);
+	      if (dup != this->aliases.end())
+		log_warning() <<
+		  format(_("%1% chroot: "
+			   "alias '%2%' already associated with "
+			   "'%3%' chroot"))
+		  % chroot->get_name() % dup->first % dup->second
+			      << endl;
+	      else
+		log_warning() <<
+		  format(_("%1% chroot: "
+			   "alias '%2%' already associated with "
+			   "another chroot"))
+		  % chroot->get_name() % *pos
+			      << endl;
+	    }
+	}
+    }
+  else
+    {
+      log_warning() << format(_("%1% chroot: a chroot or alias already exists by this name"))
+	% chroot->get_name()
+		    << endl;
+      log_warning() << format(_("%1% chroot: duplicate names are not allowed"))
+	% chroot->get_name()
+		    << endl;
+    }
+}
+
 chroot_config::chroot_list
 chroot_config::get_chroots () const
 {
@@ -357,53 +408,7 @@ chroot_config::parse_data (std::istream& stream,
       chroot->set_name(*group);
       kconfig >> chroot;
 
-      // Make sure insertion will succeed.
-      if (this->chroots.find(chroot->get_name()) == this->chroots.end() &&
-	  this->aliases.find(chroot->get_name()) == this->aliases.end())
-	{
-	  // Set up chroot.
-	  this->chroots.insert(std::make_pair(chroot->get_name(), chroot));
-	  this->aliases.insert(std::make_pair(chroot->get_name(),
-					      chroot->get_name()));
-
-	  // Set up aliases.
-	  string_list const& aliases = chroot->get_aliases();
-	  for (string_list::const_iterator pos = aliases.begin();
-	       pos != aliases.end();
-	       ++pos)
-	    {
-	      if (this->aliases.insert
-		  (std::make_pair(*pos, chroot->get_name()))
-		  .second == false)
-		{
-		  string_map::const_iterator dup = this->aliases.find(*pos);
-		  if (dup != this->aliases.end())
-		    log_warning() <<
-		      format(_("%1% chroot: "
-			       "alias '%2%' already associated with "
-			       "'%3%' chroot"))
-		      % chroot->get_name() % dup->first % dup->second
-				  << endl;
-		  else
-		    log_warning() <<
-		      format(_("%1% chroot: "
-			       "alias '%2%' already associated with "
-			       "another chroot"))
-		      % chroot->get_name() % *pos
-				  << endl;
-
-		}
-	    }
-	}
-      else
-	{
-	  log_warning() << format(_("%1% chroot: a chroot or alias already exists by this name"))
-	    % chroot->get_name()
-			<< endl;
-	  log_warning() << format(_("%1% chroot: duplicate names are not allowed"))
-	    % chroot->get_name()
-			<< endl;
-	}
+      add(chroot);
     }
 }
 
