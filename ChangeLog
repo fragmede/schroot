@@ -1,5 +1,9 @@
 2006-02-18  Roger Leigh  <rleigh@debian.org>
 
+	* Updated sv.po and vi.po from the Free Translation Project.
+
+2006-02-18  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-chroot-config.h: Fix include guard naming.
 
 	* schroot/sbuild-chroot-config.cc (add): New overloaded protected

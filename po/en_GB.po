@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-02-17 19:10+0000\n"
+"POT-Creation-Date: 2006-02-18 19:13+0000\n"
 "PO-Revision-Date: 2006-02-06 21:53+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -138,68 +138,68 @@ msgstr "%1%: failed to stat file: %2%"
 msgid "%1%: not a regular file"
 msgstr "%1%: not a regular file"
 
-#: schroot/sbuild-chroot-config.cc:217 schroot/sbuild-chroot-config.cc:238
+#: schroot/sbuild-chroot-config.cc:156
+#, c-format
+msgid "%1% chroot: alias '%2%' already associated with '%3%' chroot"
+msgstr "%1% chroot: alias ‘%2%’ already associated with ‘%3%’chroot"
+
+#: schroot/sbuild-chroot-config.cc:163
+#, c-format
+msgid "%1% chroot: alias '%2%' already associated with another chroot"
+msgstr "%1% chroot: alias ‘%2%’ already associated with another chroot"
+
+#: schroot/sbuild-chroot-config.cc:173
+#, c-format
+msgid "%1% chroot: a chroot or alias already exists by this name"
+msgstr "%1% chroot: a chroot or alias already exists by this name"
+
+#: schroot/sbuild-chroot-config.cc:176
+#, c-format
+msgid "%1% chroot: duplicate names are not allowed"
+msgstr "%1% chroot: duplicate names are not allowed"
+
+#: schroot/sbuild-chroot-config.cc:268 schroot/sbuild-chroot-config.cc:289
 #: schroot/schroot.cc:94
 #, c-format
 msgid "%1%: No such chroot"
 msgstr "%1%: No such chroot"
 
-#: schroot/sbuild-chroot-config.cc:268
+#: schroot/sbuild-chroot-config.cc:319
 #, c-format
 msgid "failed to stat file: %1%"
 msgstr "failed to stat file: %1%"
 
-#: schroot/sbuild-chroot-config.cc:274
+#: schroot/sbuild-chroot-config.cc:325
 msgid "not owned by user root"
 msgstr "not owned by user root"
 
-#: schroot/sbuild-chroot-config.cc:277
+#: schroot/sbuild-chroot-config.cc:328
 msgid "others have write permission: "
 msgstr "others have write permission: "
 
-#: schroot/sbuild-chroot-config.cc:280
+#: schroot/sbuild-chroot-config.cc:331
 msgid "not a regular file: "
 msgstr "not a regular file: "
 
-#: schroot/sbuild-chroot-config.cc:291
+#: schroot/sbuild-chroot-config.cc:342
 #, c-format
 msgid "%1%: failed to load configuration: %2%"
 msgstr "%1%: failed to load configuration: %2%"
 
-#: schroot/sbuild-chroot-config.cc:303
+#: schroot/sbuild-chroot-config.cc:354
 #, c-format
 msgid "%1%: lock acquisition failure: %2%"
 msgstr "%1%: lock acquisition failure: %2%"
 
-#: schroot/sbuild-chroot-config.cc:314
+#: schroot/sbuild-chroot-config.cc:365
 #, c-format
 msgid "%1%: security failure: %2%"
 msgstr "%1%: security failure: %2%"
 
-#: schroot/sbuild-chroot-config.cc:332
+#: schroot/sbuild-chroot-config.cc:383
 #, c-format
 msgid "%1%: lock discard failure: %2%"
 msgstr "%1%: lock discard failure: %2%"
-
-#: schroot/sbuild-chroot-config.cc:382
-#, c-format
-msgid "%1% chroot: alias '%2%' already associated with '%3%' chroot"
-msgstr "%1% chroot: alias ‘%2%’ already associated with ‘%3%’chroot"
-
-#: schroot/sbuild-chroot-config.cc:389
-#, c-format
-msgid "%1% chroot: alias '%2%' already associated with another chroot"
-msgstr "%1% chroot: alias ‘%2%’ already associated with another chroot"
-
-#: schroot/sbuild-chroot-config.cc:400
-#, c-format
-msgid "%1% chroot: a chroot or alias already exists by this name"
-msgstr "%1% chroot: a chroot or alias already exists by this name"
-
-#: schroot/sbuild-chroot-config.cc:403
-#, c-format
-msgid "%1% chroot: duplicate names are not allowed"
-msgstr "%1% chroot: duplicate names are not allowed"
 
 #: schroot/sbuild-chroot-file.cc:108
 msgid "File"
