@@ -39,12 +39,6 @@ as a fallback.  This is equivalent to \[lq]\-\-chroot=default\[rq].
 .B \-h, \-\-help
 Show help summary.
 .TP
-.B \-\-help\-all
-Show all help, including advanced options.
-.TP
-.B \-\-help\-session
-Show session options.
-.TP
 .B \-a, \-\-all
 Select all chroots and active sessions.  When a command has been specified, the
 command will be run in all chroots and active sessions.  If \fB\-\-info\fP has
@@ -73,6 +67,11 @@ List all available chroots.
 .TP
 .B \-i, \-\-info
 Print detailed information about the specified chroots.
+.TP
+.B \-\-location
+Print location (path) of the specified chroots.  Note that chroot types which
+can only be used within a session will not have a location until they are
+active.
 .TP
 .B \-\-config
 Print configuration of the specified chroots.  This is useful for testing that
