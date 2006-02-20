@@ -65,6 +65,9 @@ namespace sbuild
     /// A shared_ptr to a chroot_config object.
     typedef std::tr1::shared_ptr<chroot_config> config_ptr;
 
+    /// A shared_ptr to a session object.
+    typedef std::tr1::shared_ptr<session> ptr;
+
     /**
      * The constructor.
      *

@@ -219,23 +219,25 @@ main (int   argc,
       else if (options.action == options::ACTION_SESSION_END)
 	sess_op = sbuild::session::OPERATION_END;
 
-      sbuild::session session("schroot", config, sess_op, chroots);
+      sbuild::session::ptr session = sbuild::session::ptr
+	(new sbuild::session("schroot", config, sess_op, chroots));
+
       try
 	{
 	  if (!options.user.empty())
-	    session.set_user(options.user);
+	    session->set_user(options.user);
 	  if (!options.command.empty())
-	    session.set_command(options.command);
+	    session->set_command(options.command);
 	  /* The environment can be preserved only if not switching users. */
-	  if (options.preserve && session.get_ruid() == session.get_uid())
-	    session.set_environment(environ);
-	  session.set_force(options.session_force);
+	  if (options.preserve && session->get_ruid() == session->get_uid())
+	    session->set_environment(environ);
+	  session->set_force(options.session_force);
 	  sbuild::auth::verbosity verbosity = sbuild::auth::VERBOSITY_NORMAL;
 	  if (options.quiet)
 	    verbosity = sbuild::auth::VERBOSITY_QUIET;
 	  else if (options.verbose)
 	    verbosity = sbuild::auth::VERBOSITY_VERBOSE;
-	  session.set_verbosity(verbosity);
+	  session->set_verbosity(verbosity);
 
 	  /* Set up authentication timeouts. */
 	  std::tr1::shared_ptr<sbuild::auth_conv>
@@ -244,10 +246,10 @@ main (int   argc,
 	  time(&curtime);
 	  conv->set_warning_timeout(curtime + 15);
 	  conv->set_fatal_timeout(curtime + 20);
-	  session.set_conv(conv);
+	  session->set_conv(conv);
 
 	  /* Run session. */
-	  session.run();
+	  session->run();
 	}
       catch (std::runtime_error& e)
 	{
@@ -257,7 +259,7 @@ main (int   argc,
 	}
 
       closelog();
-      exit(session.get_child_status());
+      exit(session->get_child_status());
     }
   catch (std::exception const& e)
     {
