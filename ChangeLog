@@ -1,4 +1,13 @@
-2006-02-20  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2006-02-20  Roger Leigh  <rleigh@debian.org>
+
+	* TODO: Add dchroot.
+
+	* configure.ac: Create schroot/dchroot.1.
+
+	* schroot/Makefile.am: If --enable-dchroot was used, build and
+	install dchroot and dchroot.1.
+
+2006-02-20  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-session.h (session): The contructor chroots
 	argument is a const reference rather than a value.

@@ -31,11 +31,17 @@ AM_CXXFLAGS = $(SCHROOT_CFLAGS) -pedantic -Wall -Wcast-align -Wextra -Wwrite-str
 DEFS = -DGETTEXT_PACKAGE=\"schroot\" -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
 
 lib_LTLIBRARIES = libsbuild.la
-bin_PROGRAMS = schroot
+
+if BUILD_DCHROOT
+dchroot = dchroot
+endif
+
+bin_PROGRAMS = $(dchroot) schroot
 pkglibexec_PROGRAMS = schroot-releaselock
 
 BUILT_SOURCES = sbuild.gch
 
+# GCC precompiled header
 sbuild.gch: $(sbuild_public_h_sources)
 	$(CXXCOMPILE) -o $@ -c sbuild.h
 
@@ -96,6 +102,18 @@ schroot_SOURCES =			\
 
 schroot_LDADD = libsbuild.la
 
+dchroot_SOURCES =			\
+	dchroot-chroot-config.h		\
+	dchroot-chroot-config.cc	\
+	dchroot-session.h		\
+	dchroot-session.cc		\
+	schroot-options.h		\
+	schroot-options.cc		\
+	schroot.cc
+
+dchroot_CXXFLAGS = -DSBUILD_DCHROOT_COMPAT
+dchroot_LDADD = libsbuild.la
+
 schroot_releaselock_SOURCES = 		\
 	schroot-releaselock-options.h	\
 	schroot-releaselock-options.cc	\
@@ -106,7 +124,11 @@ schroot_releaselock_LDADD = libsbuild.la
 pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
 pkgsysconf_DATA = schroot.conf
 
-man_MANS = schroot.1 schroot-setup.5 schroot.conf.5
+if BUILD_DCHROOT
+dchroot_mans = dchroot.1
+endif
+
+man_MANS = $(dchroot_mans) schroot.1 schroot-setup.5 schroot.conf.5
 
 CLEANFILES = sbuild.gch
 
