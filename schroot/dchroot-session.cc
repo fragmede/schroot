@@ -66,7 +66,7 @@ session::run_impl ()
 {
   if (get_ruid() != get_uid())
     {
-      format fmt(_("(%s->%s): dchroot sessions do not support user switching"));
+      format fmt(_("(%1%->%2%): dchroot sessions do not support user switching"));
       fmt % get_ruser().c_str() % get_user().c_str();
       throw error(fmt);
     }

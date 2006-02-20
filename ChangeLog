@@ -1,5 +1,10 @@
 2006-02-20  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/dchroot-session.cc (run_impl): Use boost::format rather
+	than printf specifiers.
+
+2006-02-20  Roger Leigh  <rleigh@debian.org>
+
 	* Update po files.
 
 	* po/POTFILES.in: Add dchroot files.

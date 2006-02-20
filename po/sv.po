@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.2.0\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-02-20 12:00+0000\n"
+"POT-Creation-Date: 2006-02-20 12:07+0000\n"
 "PO-Revision-Date: 2006-02-18 11:52+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -21,8 +21,7 @@ msgid "line %1%: invalid line: %2%"
 msgstr "Rad %1%: ogiltig rad: %2%"
 
 #: schroot/dchroot-session.cc:69
-#, c-format
-msgid "(%s->%s): dchroot sessions do not support user switching"
+msgid "(%1%->%2%): dchroot sessions do not support user switching"
 msgstr ""
 
 #: schroot/sbuild-auth-conv-tty.cc:141
