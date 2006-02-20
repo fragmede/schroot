@@ -1,5 +1,10 @@
 2006-02-20  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.cc (main): Use ACTION_LOCATION, not
+	ACTION_INFO_LOCATION.
+
+2006-02-20  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Update for version 0.2.3-1.
 
 	* debian/README.Debian: Update dchroot notes.

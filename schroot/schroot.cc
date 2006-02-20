@@ -263,7 +263,7 @@ main (int   argc,
 	  config->print_chroot_info(chroots, std::cout);
 	  exit (EXIT_SUCCESS);
 	}
-      if (options.action == options::ACTION_INFO_LOCATION)
+      if (options.action == options::ACTION_LOCATION)
 	{
 	  if (options.dchroot_compat)
 	    {
