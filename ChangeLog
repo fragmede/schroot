@@ -1,5 +1,14 @@
 2006-02-20  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-chroot-config.cc
+	(print_chroot_list_simple): New function to print the chroot list
+	on a single line, in the same style as dchroot (comma-separated,
+	with aliases in square brackets).
+	(print_chroot_location): New function to print the mount location
+	of the specified chroots.
+
+2006-02-20  Roger Leigh  <rleigh@debian.org>
+
 	* po/Makevars (XGETTEXT_OPTIONS): Add --boost so boost-format
 	strings are correctly extracted.
 

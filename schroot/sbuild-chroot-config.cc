@@ -250,6 +250,38 @@ chroot_config::print_chroot_list (std::ostream& stream) const
 }
 
 void
+chroot_config::print_chroot_list_simple (std::ostream& stream) const
+{
+  stream << _("Available chroots: ");
+
+  for (chroot_map::const_iterator pos = this->chroots.begin();
+       pos != this->chroots.end();
+       ++pos)
+    {
+      stream << pos->second->get_name();
+      string_list const& aliases = pos->second->get_aliases();
+      if (!aliases.empty())
+	{
+	  stream << " [";
+	  for (string_list::const_iterator alias = aliases.begin();
+	       alias != aliases.end();
+	       ++alias)
+	    {
+		  stream << *alias;
+		  if (alias + 1 != aliases.end())
+		    stream << ", ";
+	    }
+	  stream << ']';
+	}
+      chroot_map::const_iterator is_end(pos);
+      if ((++is_end) != chroots.end())
+	stream << ", ";
+    }
+
+  stream << endl;
+}
+
+void
 chroot_config::print_chroot_info (string_list const& chroots,
 				  std::ostream&      stream) const
 {
@@ -268,6 +300,27 @@ chroot_config::print_chroot_info (string_list const& chroots,
 	log_error() << format(_("%1%: No such chroot")) % *pos
 		    << endl;
     }
+}
+
+void
+chroot_config::print_chroot_location (string_list const& chroots,
+				      std::ostream&      stream) const
+{
+  for (string_list::const_iterator pos = chroots.begin();
+       pos != chroots.end();
+       ++pos)
+    {
+      const chroot::ptr chroot = find_alias(*pos);
+      if (chroot)
+	{
+	  stream << chroot->get_mount_location() << '\n';
+	}
+      else
+	log_error() << format(_("%1%: No such chroot")) % *pos
+		    << endl;
+    }
+
+  stream << std::flush;
 }
 
 void

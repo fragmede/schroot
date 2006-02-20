@@ -171,6 +171,15 @@ namespace sbuild
     print_chroot_list (std::ostream& stream) const;
 
     /**
+     * Print a single line of all the available chroots to the
+     * specified stream.
+     *
+     * @param stream the stream to output to.
+     */
+    void
+    print_chroot_list_simple (std::ostream& stream) const;
+
+    /**
      * Print information about the specified chroots to the specified
      * stream.
      *
@@ -180,6 +189,17 @@ namespace sbuild
     void
     print_chroot_info (string_list const& chroots,
 		       std::ostream&      stream) const;
+
+    /**
+     * Print location information about the specified chroots to the
+     * specified stream.
+     *
+     * @param chroots a list of chroots to print.
+     * @param stream the stream to output to.
+     */
+    void
+    print_chroot_location (string_list const& chroots,
+			   std::ostream&      stream) const;
 
     /**
      * Print configuration of the specified chroots to the specified
