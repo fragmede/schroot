@@ -31,20 +31,32 @@
 
 #include "schroot-options.h"
 
+#ifdef SBUILD_DCHROOT_COMPAT
+#include "dchroot-chroot-config.h"
+#include "dchroot-session.h"
+#endif
+
 using std::endl;
 using boost::format;
 using namespace schroot;
 
-/*
- * print_version:
- * @file: the file to print to
- *
+#ifdef SBUILD_DCHROOT_COMPAT
+#define DCHROOT_CONF "/etc/dchroot.conf"
+#endif
+
+/**
  * Print version information.
+ *
+ * @param stream the stream to output to.
+ * @param options the command line options.
  */
 void
-print_version (std::ostream& stream)
+print_version (std::ostream&     stream,
+	       schroot::options& options)
 {
-  stream << format(_("schroot (Debian sbuild) %1%\n")) % VERSION
+  stream << format(_("%1% (Debian sbuild) %2%\n"))
+    % (options.dchroot_compat ? "dchroot" : "schroot")
+    % VERSION
 	 << _("Written by Roger Leigh\n\n")
 	 << _("Copyright (C) 2004-2006 Roger Leigh\n")
 	 << _("This is free software; see the source for copying conditions.  There is NO\n"
@@ -135,23 +147,78 @@ main (int   argc,
       /* Parse command-line options into opt structure. */
       options options(argc, argv);
 
+      if (options.dchroot_compat && options.verbose)
+	{
+	  sbuild::log_warning()
+	    << _("Running schroot in dchroot compatibility mode")
+	    << endl;
+	  sbuild::log_info()
+	    << _("Run 'schroot' for full capability")
+	    << endl;
+	}
+
       if (options.action == options::ACTION_VERSION)
 	{
-	  print_version(std::cout);
+	  print_version(std::cout, options);
 	  exit(EXIT_SUCCESS);
 	}
 
       /* Initialise chroot configuration. */
-      sbuild::chroot_config::ptr config(new sbuild::chroot_config);
+#ifdef SBUILD_DCHROOT_COMPAT
+      bool use_dchroot_conf = false;
+      if (options.dchroot_compat)
+	{
+	  struct stat statbuf;
+	  if (stat(DCHROOT_CONF, &statbuf) == 0 && !S_ISDIR(statbuf.st_mode))
+	    {
+	      use_dchroot_conf = true;
 
-      /* The normal chroot list is used when starting a session or running
-	 any chroot type or session, or displaying chroot information. */
-      if (options.load_chroots == true)
-	config->add(SCHROOT_CONF, false);
-      /* The session chroot list is used when running or ending an
-	 existing session, or displaying chroot information. */
-      if (options.load_sessions == true)
-	config->add(SCHROOT_SESSION_DIR, true);
+	      if (options.verbose)
+		{
+		  sbuild::log_warning()
+		    << _("Using dchroot configuration file: ") << DCHROOT_CONF
+		    << endl;
+		  sbuild::log_info()
+		    << format(_("Run '%1%'"))
+		    % "dchroot --config >> " SCHROOT_CONF
+		    << endl;
+		  sbuild::log_info()
+		    << _("to migrate to a schroot configuration.")
+		    << endl;
+		  sbuild::log_info()
+		    << format(_("Edit '%1%' to add appropriate group access."))
+		    % SCHROOT_CONF
+		    << endl;
+		  sbuild::log_info()
+		    << format(_("Remove '%1%' to use the new configuration."))
+		    % DCHROOT_CONF
+		    << endl;
+		}
+	    }
+	}
+#endif
+
+      sbuild::chroot_config::ptr config;
+#ifdef SBUILD_DCHROOT_COMPAT
+      if (options.dchroot_compat && use_dchroot_conf)
+	{
+	  config = sbuild::chroot_config::ptr(new dchroot::chroot_config);
+	  if (options.load_chroots == true)
+	    config->add(DCHROOT_CONF, false);
+	}
+      else
+#endif
+	{
+	  config = sbuild::chroot_config::ptr(new sbuild::chroot_config);
+	  /* The normal chroot list is used when starting a session or running
+	     any chroot type or session, or displaying chroot information. */
+	  if (options.load_chroots == true)
+	    config->add(SCHROOT_CONF, false);
+	  /* The session chroot list is used when running or ending an
+	     existing session, or displaying chroot information. */
+	  if (options.load_sessions == true)
+	    config->add(SCHROOT_SESSION_DIR, true);
+	}
 
       if (config->get_chroots().empty() && options.quiet == false)
 	{
@@ -172,7 +239,10 @@ main (int   argc,
       /* Print chroot list (including aliases). */
       if (options.action == options::ACTION_LIST)
 	{
-	  config->print_chroot_list(std::cout);
+	  if (options.dchroot_compat)
+	    config->print_chroot_list_simple(std::cout);
+	  else
+	    config->print_chroot_list(std::cout);
 	  exit(EXIT_SUCCESS);
 	}
 
@@ -191,6 +261,20 @@ main (int   argc,
       if (options.action == options::ACTION_INFO)
 	{
 	  config->print_chroot_info(chroots, std::cout);
+	  exit (EXIT_SUCCESS);
+	}
+      if (options.action == options::ACTION_INFO_LOCATION)
+	{
+	  if (options.dchroot_compat)
+	    {
+	      sbuild::string_list chroot;
+	      chroot.push_back(options.chroot_path);
+	      config->print_chroot_location(chroot, std::cout);
+	    }
+	  else
+	    {
+	      config->print_chroot_location(chroots, std::cout);
+	    }
 	  exit (EXIT_SUCCESS);
 	}
       if (options.action == options::ACTION_CONFIG)
@@ -219,12 +303,22 @@ main (int   argc,
       else if (options.action == options::ACTION_SESSION_END)
 	sess_op = sbuild::session::OPERATION_END;
 
-      sbuild::session::ptr session = sbuild::session::ptr
-	(new sbuild::session("schroot", config, sess_op, chroots));
+      // Using dchroot.conf implies using dchroot_session, which does
+      // not require group access.  If loading schroot.conf, we always
+      // want normal session management.
+      sbuild::session::ptr session;
+#ifdef SBUILD_DCHROOT_COMPAT
+      if (options.dchroot_compat && use_dchroot_conf)
+	session = sbuild::session::ptr
+	  (new dchroot::session("schroot", config, sess_op, chroots));
+      else
+#endif
+	session = sbuild::session::ptr
+	  (new sbuild::session("schroot", config, sess_op, chroots));
 
       try
 	{
-	  if (!options.user.empty())
+	  if (!options.user.empty() && !options.dchroot_compat)
 	    session->set_user(options.user);
 	  if (!options.command.empty())
 	    session->set_command(options.command);

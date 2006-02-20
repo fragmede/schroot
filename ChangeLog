@@ -1,4 +1,11 @@
-2006-02-20  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2006-02-20  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot.cc: If SBUILD_DCHROOT_COMPAT is defined, run in
+	dchroot compatibility mode, using the alternate
+	dchroot::chroot_config and dchroot::session classes for reading
+	the configuration and session handling.
+
+2006-02-20  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot-options.cc
 	(options): Set dchroot_compat if SBUILD_DCHROOT_COMPAT is defined.
