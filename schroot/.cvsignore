@@ -5,8 +5,10 @@ Makefile.in
 *.la
 *.lo
 *.gch
+dchroot
 schroot
 schroot-releaselock
+dchroot.1
 schroot.1
 schroot-setup.5
 schroot.conf.5

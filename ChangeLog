@@ -1,5 +1,9 @@
 2006-02-20  Roger Leigh  <rleigh@debian.org>
 
+	* .cvsignore: Update for dchroot.
+
+2006-02-20  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.cc (main): Use ACTION_LOCATION, not
 	ACTION_INFO_LOCATION.
 
