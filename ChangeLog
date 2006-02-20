@@ -1,3 +1,16 @@
+2006-02-20  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* schroot/schroot-options.cc
+	(options): Set dchroot_compat if SBUILD_DCHROOT_COMPAT is defined.
+	(options): If dchroot_compat is set, use dchroot compatible
+	options, otherwise schroot options.
+
+	* schroot/schroot-options.h
+	(action_type): New action ACTION_LOCATION to print chroot
+	location.
+	(chroot_path): New member; chroot to print path.
+	(dchroot_compat): New member; dchroot compatibility mode.
+
 2006-02-20  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/dchroot-session.(cc|h): New class, dchroot::session,

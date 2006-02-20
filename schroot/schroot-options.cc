@@ -54,8 +54,13 @@ options::options (int   argc,
   all(false),
   all_chroots(false),
   all_sessions(false),
-  session_force(false)
+  session_force(false),
+  dchroot_compat(false)
 {
+#ifdef SBUILD_DCHROOT_COMPAT
+  this->dchroot_compat = true;
+#endif
+
   opt::options_description general(_("General options"));
   general.add_options()
     ("help,h",
@@ -69,27 +74,47 @@ options::options (int   argc,
     ("list,l",
      _("List available chroots"))
     ("info,i",
-     _("Show information about selected chroots"))
+     _("Show information about selected chroots"));
+    if (this->dchroot_compat)
+      general.add_options()
+	("path,p", opt::value<std::string>(&this->chroot_path),
+	 _("Print path to selected chroot"));
+    else
+      general.add_options()
+	("location",
+	 _("Print location of selected chroots"));
+  general.add_options()
     ("config",
      _("Dump configuration of selected chroots"));
 
   opt::options_description chroot(_("Chroot selection"));
   chroot.add_options()
     ("chroot,c", opt::value<sbuild::string_list>(&this->chroots),
-     _("Use specified chroot"))
-    ("all,a",
-     _("Select all chroots and active sessions"))
-    ("all-chroots",
-     _("Select all chroots"))
-    ("all-sessions",
-     _("Select all active sessions"));
+     _("Use specified chroot"));
+  if (this->dchroot_compat)
+    chroot.add_options()
+      ("all,a",
+       _("Select all chroots"));
+  else
+    chroot.add_options()
+      ("all,a",
+       _("Select all chroots and active sessions"))
+      ("all-chroots",
+       _("Select all chroots"))
+      ("all-sessions",
+       _("Select all active sessions"));
 
   opt::options_description chrootenv(_("Chroot environment"));
-  chrootenv.add_options()
+  if (this->dchroot_compat)
+    chrootenv.add_options()
+      ("preserve-environment,d",
+       _("Preserve user environment"));
+  else
+    chrootenv.add_options()
     ("user,u", opt::value<std::string>(&this->user),
      _("Username (default current user)"))
-    ("preserve-environment,p",
-     _("Preserve user environment"));
+      ("preserve-environment,p",
+       _("Preserve user environment"));
 
   opt::options_description session(_("Session management"));
   session.add_options()
@@ -112,10 +137,15 @@ options::options (int   argc,
   pos.add("command", -1);
 
   opt::options_description visible;
-  visible.add(general).add(chroot).add(chrootenv).add(session);
+  visible.add(general).add(chroot).add(chrootenv);
+  if (!this->dchroot_compat)
+    visible.add(session);
 
   opt::options_description global;
-  global.add(general).add(chroot).add(chrootenv).add(session).add(hidden);
+  global.add(general).add(chroot).add(chrootenv);
+  if (!this->dchroot_compat)
+    global.add(session);
+  global.add(hidden);
 
   opt::variables_map vm;
   opt::store(opt::command_line_parser(argc, argv).
@@ -125,8 +155,9 @@ options::options (int   argc,
   if (vm.count("help"))
     {
       std::cout
-	<< _("Usage:") << '\n'
-	<< _("  schroot [OPTION...] - run command or shell in a chroot") << '\n'
+	<< _("Usage:") << "\n  "
+	<< (dchroot_compat ? "dchroot" : "schroot")
+	<< _(" [OPTION...] [COMMAND] - run command or shell in a chroot") << '\n'
 	<< visible << std::flush;
       exit(EXIT_SUCCESS);
     }
@@ -137,11 +168,18 @@ options::options (int   argc,
     set_action(ACTION_LIST);
   if (vm.count("info"))
     set_action(ACTION_INFO);
+  if (vm.count("path") || vm.count("location"))
+    set_action(ACTION_LOCATION);
   if (vm.count("config"))
     set_action(ACTION_CONFIG);
 
   if (vm.count("all"))
-    this->all = true;
+    {
+      if (this->dchroot_compat)
+	this->all_chroots = true;
+      else
+	this->all = true;
+    }
   if (vm.count("all-chroots"))
     this->all_chroots = true;
   if (vm.count("all-sessions"))
@@ -238,6 +276,7 @@ options::options (int   argc,
 	throw opt::validation_error(_("--chroot may not be used with --list"));
       break;
     case ACTION_INFO:
+    case ACTION_LOCATION:
     case ACTION_CONFIG:
       // If not specified otherwise, load normal chroots, but allow
       // --all options.

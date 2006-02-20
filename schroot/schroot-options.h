@@ -46,6 +46,7 @@ namespace schroot
 	ACTION_VERSION,         ///< Display program version.
 	ACTION_LIST,            ///< Display a list of chroots.
 	ACTION_INFO,            ///< Display chroot information.
+	ACTION_LOCATION,        ///< Display chroot location information.
 	ACTION_CONFIG           ///< Display chroot configuration.
       };
 
@@ -65,6 +66,8 @@ namespace schroot
     action_type          action;
     /// Chroots to use.
     sbuild::string_list  chroots;
+    /// Chroot to print path.
+    std::string          chroot_path;
     /// Command to run.
     sbuild::string_list  command;
     /// User to run as.
@@ -87,6 +90,8 @@ namespace schroot
     bool                 load_sessions;
     /// Force session operations.
     bool                 session_force;
+    /// dchroot(1) compatibility mode.
+    bool                 dchroot_compat;
 
   private:
     /**
