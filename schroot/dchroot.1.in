@@ -184,7 +184,10 @@ used in preference to @SCHROOT_CONF@.
 .TP
 .I @SCHROOT_CONF@
 The system-wide \fBschroot\fP definition file.  This file must be owned by the
-root user, and not be writable by other.
+root user, and not be writable by other.  It is recommended that this file be
+used in preference to \fI/etc/dchroot.conf\fP, because the chroots can be used
+interchangeably with \fBschroot\fP, and the group security policies provided by
+\fBschroot\fP are also enforced.
 .SH AUTHORS
 Roger Leigh.
 .PP
