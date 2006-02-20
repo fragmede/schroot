@@ -1,5 +1,9 @@
 2006-02-20  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/dchroot.1.in: Document how to remove dchroot.conf.
+
+2006-02-20  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/dchroot.1.in: Document reasons why schroot.conf should
 	be used in preference to dchroot.conf.
 

@@ -139,7 +139,8 @@ See
 schroot.conf (5).
 .IP 3
 Remove \fI/etc/dchroot.conf\fP, so that \fBdchroot\fP will subsequently use
-\fI@SCHROOT_CONF@\fP for its configuration.
+\fI@SCHROOT_CONF@\fP for its configuration.  If the \fBdchroot\fP package is
+still installed, purge it, or else delete the file.
 .SH EXAMPLES
 \f[CR]$ schroot/dchroot -l\fP
 .br
