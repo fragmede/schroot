@@ -110,10 +110,10 @@ namespace
 
 }
 
-session::session (std::string const& service,
-		  config_ptr&        config,
-		  operation          operation,
-		  string_list        chroots):
+session::session (std::string const&         service,
+		  config_ptr&                config,
+		  operation                  operation,
+		  sbuild::string_list const& chroots):
   auth(service),
   config(config),
   chroots(chroots),

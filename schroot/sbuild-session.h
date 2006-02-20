@@ -79,7 +79,7 @@ namespace sbuild
     session (std::string const& service,
 	     config_ptr&        config,
 	     operation          operation,
-	     string_list        chroots);
+	     string_list const& chroots);
 
     /// The destructor.
     virtual ~session ();
