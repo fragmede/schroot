@@ -1,5 +1,9 @@
 2006-02-20  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Add dchroot.
+
+2006-02-20  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.1.in: Document new --location option.
 
 2006-02-20  Roger Leigh  <rleigh@debian.org>

@@ -9,6 +9,11 @@ configuration.
 
 * Major changes in 0.2.3:
 
+  1) A dchroot compatibility mode has been implemented.  This behaves
+     in the same manner as the dchroot program, and is useful for
+     backward compatibility with dhchroot, as well as migrating from
+     dchroot.
+
 * Major changes in 0.2.2:
   1) Session metadata is now correctly saved and restored.
 
