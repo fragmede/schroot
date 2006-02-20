@@ -1,8 +1,16 @@
 schroot (0.2.3-1) unstable; urgency=low
 
   * New upstream release.
+  * debian/control:
+    - Provide, Conflict and Replace dchroot.
+    - Enhances sbuild.
+    - Suggest lvm-common for LVM support.
+    - Update description.
+  * debian/rules: Add --enable-dchroot to configure, to package the dchroot
+    wrapper.
+  * debian/README.Debian: Update dchroot notes.
 
- --
+ -- Roger Leigh <rleigh@debian.org>  Mon, 20 Feb 2006 11:37:54 +0000
 
 schroot (0.2.2-2) unstable; urgency=low
 

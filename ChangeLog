@@ -1,5 +1,18 @@
 2006-02-20  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Update for version 0.2.3-1.
+
+	* debian/README.Debian: Update dchroot notes.
+
+	* debian/rules (config.status): Add --enable-dchroot to configure,
+	to package the dchroot + wrapper.
+
+	* debian/control (schroot): Provide, Conflict and Replace dchroot.
+	Enhances sbuild.  Suggest lvm-common for LVM support.  Update
+	description.
+
+2006-02-20  Roger Leigh  <rleigh@debian.org>
+
 	* NEWS: Add dchroot.
 
 2006-02-20  Roger Leigh  <rleigh@debian.org>
