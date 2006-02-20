@@ -1,3 +1,7 @@
+schroot/dchroot-chroot-config.cc
+schroot/dchroot-chroot-config.h
+schroot/dchroot-session.cc
+schroot/dchroot-session.h
 schroot/sbuild-auth-conv-tty.cc
 schroot/sbuild-auth-conv-tty.h
 schroot/sbuild-auth-conv.cc

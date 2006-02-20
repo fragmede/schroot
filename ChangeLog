@@ -1,5 +1,11 @@
 2006-02-20  Roger Leigh  <rleigh@debian.org>
 
+	* Update po files.
+
+	* po/POTFILES.in: Add dchroot files.
+
+2006-02-20  Roger Leigh  <rleigh@debian.org>
+
 	* .cvsignore: Update for dchroot.
 
 2006-02-20  Roger Leigh  <rleigh@debian.org>
