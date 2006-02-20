@@ -1,5 +1,10 @@
 2006-02-20  Roger Leigh  <rleigh@debian.org>
 
+	* configure.ac: Add --enable-dchroot check to enable dchroot
+	compatibility.
+
+2006-02-20  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.cc (main): Use the new session::ptr typedef.
 
 	* schroot/sbuild-session.h: Add a ptr typedef, a shared_ptr to a

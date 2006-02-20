@@ -35,15 +35,30 @@ dnl Initialise automake stuff.
 AM_INIT_AUTOMAKE([1.9 gnu check-news dist-bzip2 no-dist-gzip tar-ustar])
 AM_MAINTAINER_MODE
 
+AC_MSG_CHECKING([whether to enable dchroot compatibility])
+enable_dchroot_compat="no"
+AC_ARG_ENABLE([dchroot], [AS_HELP_STRING([--enable-dchroot], [Enable dchroot compatibility])],
+              [ case "${enableval}" in
+                yes) enable_dchroot_compat="yes" ;;
+                no)  enable_dchroot_compat="no" ;;
+                unset)  enable_dchroot_compat="no" ;;
+                *) AC_MSG_RESULT([unknown])
+                   AC_MSG_ERROR([bad value ${enableval} for --enable-dchroot]) ;;
+                esac])
+AC_MSG_RESULT([$enable_dchroot_compat])
+AM_CONDITIONAL([BUILD_DCHROOT], [test "$enable_dchroot_compat" = "yes"])
+
 AC_MSG_CHECKING([whether to enable debugging messages])
+enable_debug="no"
 AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug], [Enable debugging messages])],
               [ case "${enableval}" in
-                yes) enable_debug="yes" ; AC_MSG_RESULT([yes]) ;;
-                no)  enable_debug="no"  ; AC_MSG_RESULT([no]) ;;
-                unset)  enable_debug="no"  ; AC_MSG_RESULT([no]) ;;
+                yes) enable_debug="yes" ;;
+                no)  enable_debug="no" ;;
+                unset)  enable_debug="no" ;;
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;;
                 esac])
+AC_MSG_RESULT([$enable_debug])
 if test "$enable_debug" = "yes"; then
   AC_DEFINE_UNQUOTED([SBUILD_DEBUG], [1], [Enable debugging])
 fi
