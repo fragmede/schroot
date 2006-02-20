@@ -1,3 +1,8 @@
+2006-02-20  Roger Leigh  <rleigh@debian.org>
+
+	* po/Makevars (XGETTEXT_OPTIONS): Add --boost so boost-format
+	strings are correctly extracted.
+
 2006-02-18  Roger Leigh  <rleigh@debian.org>
 
 	* Updated sv.po and vi.po from the Free Translation Project.
