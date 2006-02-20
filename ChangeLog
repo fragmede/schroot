@@ -1,5 +1,15 @@
 2006-02-20  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/dchroot-session.(cc|h): New class, dchroot::session,
+	derived from sbuild::session.  This disables user authentication
+	(but not authorisation), and disables user switching.
+
+	* schroot/dchroot-chroot-config.(cc|h): New class,
+	dchroot::chroot_config, derived from sbuild::chroot_config.  This
+	parses the dchroot.conf configuration file.
+
+2006-02-20  Roger Leigh  <rleigh@debian.org>
+
 	* configure.ac: Add --enable-dchroot check to enable dchroot
 	compatibility.
 
