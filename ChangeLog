@@ -1,5 +1,11 @@
 2006-02-21  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.conf.5.in: Fix typo.
+
+	* schroot/dchroot.1.in: Fix syntax error.
+
+2006-02-21  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/Makefile.am: Install dchroot setuid.
 
 2006-02-21  Roger Leigh  <rleigh@debian.org>

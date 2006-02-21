@@ -135,8 +135,7 @@ Dump the \fBdchroot\fP configuration in \fBschroot\fP keyfile format to
 Edit \fI@SCHROOT_CONF@\fP to add access to the groups who are to be allowed to
 access the chroots, and make any other desired changes to the configuration.
 See
-.BI
-schroot.conf (5).
+.BR schroot.conf (5).
 .IP 3
 Remove \fI/etc/dchroot.conf\fP, so that \fBdchroot\fP will subsequently use
 \fI@SCHROOT_CONF@\fP for its configuration.  If the \fBdchroot\fP package is

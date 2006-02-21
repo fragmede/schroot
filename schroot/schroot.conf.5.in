@@ -146,7 +146,7 @@ schroot.
 .PP
 .SS Localisation
 .PP
-Some keys make be localised in multiple lanuages.  This is achieved by adding
+Some keys may be localised in multiple lanuages.  This is achieved by adding
 the locale name in square brackets after the key name.  For example:
 .br
 .RS
