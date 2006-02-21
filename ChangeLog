@@ -1,5 +1,9 @@
 2006-02-21  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/Makefile.am: Install dchroot setuid.
+
+2006-02-21  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Update
 
 	* debian/rules: dchroot must be installed setuid root.
