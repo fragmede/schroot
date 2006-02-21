@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-02-21 00:35+0000\n"
-"PO-Revision-Date: 2006-02-21 00:36+0000\n"
+"POT-Creation-Date: 2006-02-21 10:15+0000\n"
+"PO-Revision-Date: 2006-02-21 10:16+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -318,11 +318,16 @@ msgstr "Run Setup Scripts"
 msgid "Run Session Scripts"
 msgstr "Run Session Scripts"
 
-#: schroot/sbuild-chroot.cc:299
+#: schroot/sbuild-chroot.cc:296
+#, fuzzy
+msgid "Session Managed"
+msgstr "Session Managed"
+
+#: schroot/sbuild-chroot.cc:302
 msgid "Mount Location"
 msgstr "Mount Location"
 
-#: schroot/sbuild-chroot.cc:302
+#: schroot/sbuild-chroot.cc:305
 msgid "Mount Device"
 msgstr "Mount Device"
 

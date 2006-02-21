@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot-0.2.0\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-02-21 00:35+0000\n"
+"POT-Creation-Date: 2006-02-21 10:15+0000\n"
 "PO-Revision-Date: 2006-02-07 22:26+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -322,11 +322,16 @@ msgstr "Chạy các tập lệnh thiết lập"
 msgid "Run Session Scripts"
 msgstr "Chạy các tập lệnh phiên chạy"
 
-#: schroot/sbuild-chroot.cc:299
+#: schroot/sbuild-chroot.cc:296
+#, fuzzy
+msgid "Session Managed"
+msgstr "Quản lý phiên chạy"
+
+#: schroot/sbuild-chroot.cc:302
 msgid "Mount Location"
 msgstr "Địa điểm lắp"
 
-#: schroot/sbuild-chroot.cc:302
+#: schroot/sbuild-chroot.cc:305
 msgid "Mount Device"
 msgstr "Thiết bị lắp"
 

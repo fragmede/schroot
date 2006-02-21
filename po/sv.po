@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.2.0\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-02-21 00:35+0000\n"
+"POT-Creation-Date: 2006-02-21 10:15+0000\n"
 "PO-Revision-Date: 2006-02-18 11:52+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -323,11 +323,16 @@ msgstr "Kör konfigurationsskript"
 msgid "Run Session Scripts"
 msgstr "Kör sessionsskript"
 
-#: schroot/sbuild-chroot.cc:299
+#: schroot/sbuild-chroot.cc:296
+#, fuzzy
+msgid "Session Managed"
+msgstr "Sessionshantering"
+
+#: schroot/sbuild-chroot.cc:302
 msgid "Mount Location"
 msgstr "Montera plats"
 
-#: schroot/sbuild-chroot.cc:302
+#: schroot/sbuild-chroot.cc:305
 msgid "Mount Device"
 msgstr "Montera enhet"
 
