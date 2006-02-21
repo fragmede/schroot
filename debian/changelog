@@ -1,3 +1,10 @@
+schroot (0.2.3-2) unstable; urgency=low
+
+  * debian/rules: dchroot must be installed setuid root.
+  * debian/schroot.lintian-overrides: Add dchroot.
+
+ -- Roger Leigh <rleigh@debian.org>  Tue, 21 Feb 2006 13:38:32 +0000
+
 schroot (0.2.3-1) unstable; urgency=low
 
   * New upstream release.
