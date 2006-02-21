@@ -1,5 +1,15 @@
 2006-02-21  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.2.3.
+
+	* debian/changelog: Update for 0.2.3.
+
+	* NEWS: Document changed "--info" output.
+
+	* TODO: Update.
+
+2006-02-21  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-chroot.cc (print_details): Add a "Session
 	Managed" line if SESSION_CREATE is used.
 

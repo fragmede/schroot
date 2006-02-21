@@ -5,6 +5,8 @@ TODO                                                            -*- outline -*-
 Most new TODO items are marked @todo in the source code and listed in
 the Doxygen-generated documentation in doc/schroot/html/todo.html
 
+* Add tests for dchroot classes.
+
 PENDING
 -------
 

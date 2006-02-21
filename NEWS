@@ -19,7 +19,12 @@ configuration.
      chroot named "snap-source" is created for easy access to the
      source device.
 
+  3) The output of "--info" now includes a "Session Managed" line,
+     which is true if full session management is available, or false
+     otherwise.
+
 * Major changes in 0.2.2:
+
   1) Session metadata is now correctly saved and restored.
 
   2) New option "--config" to dump chroot configuration, in the same
@@ -32,6 +37,7 @@ configuration.
      for these types due to their ephemeral nature.
 
 * Major changes in 0.2.1:
+
   1) Creating a session now returns a zero exit status on success.
 
 * Major changes in 0.2.0:

@@ -10,7 +10,7 @@ schroot (0.2.3-1) unstable; urgency=low
     wrapper.
   * debian/README.Debian: Update dchroot notes.
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 20 Feb 2006 11:37:54 +0000
+ -- Roger Leigh <rleigh@debian.org>  Tue, 21 Feb 2006 10:01:31 +0000
 
 schroot (0.2.2-2) unstable; urgency=low
 
