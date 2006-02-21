@@ -1,3 +1,17 @@
+2006-02-21  Roger Leigh  <rleigh@debian.org>
+
+	* NEWS: Document automatic block-device creation for lvm-snapshot
+	chroots.
+
+	* TODO: Remove completed item.
+
+	* schroot/schroot.conf.5.in: Document automatic block-device
+	creation for lvm-snapshot chroots.
+
+	* schroot/sbuild-chroot-config.cc (parse_data): Create a
+	corresponding block-device chroot for each lvm-snapshot chroot.
+	"-source" is appended to the chroot name and its aliases.
+
 2006-02-20  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/dchroot.1.in: Document how to remove dchroot.conf.

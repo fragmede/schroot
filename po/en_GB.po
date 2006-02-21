@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-02-20 12:07+0000\n"
-"PO-Revision-Date: 2006-02-20 12:07+0000\n"
+"POT-Creation-Date: 2006-02-21 00:35+0000\n"
+"PO-Revision-Date: 2006-02-21 00:36+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -214,6 +214,10 @@ msgstr "%1%: security failure: %2%"
 #, boost-format
 msgid "%1%: lock discard failure: %2%"
 msgstr "%1%: lock discard failure: %2%"
+
+#: schroot/sbuild-chroot-config.cc:474
+msgid " (snapshot source device)"
+msgstr " (snapshot source device)"
 
 #: schroot/sbuild-chroot-file.cc:108
 msgid "File"

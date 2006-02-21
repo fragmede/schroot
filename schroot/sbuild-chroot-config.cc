@@ -462,6 +462,26 @@ chroot_config::parse_data (std::istream& stream,
       kconfig >> chroot;
 
       add(chroot);
+
+      if (type == "lvm-snapshot")
+	{
+	  chroot::ptr source_chroot
+	    (new chroot_block_device
+	     (*dynamic_cast<chroot_lvm_snapshot *>(chroot.get())));
+	  source_chroot->set_name(source_chroot->get_name() + "-source");
+	  source_chroot->set_description
+	    (source_chroot->get_description() +
+	     _(" (snapshot source device)"));
+
+	  string_list const& aliases = source_chroot->get_aliases();
+	  string_list source_aliases;
+	  for (string_list::const_iterator alias = aliases.begin();
+	       alias != aliases.end();
+	       ++alias)
+	    source_aliases.push_back(*alias + "-source");
+	  source_chroot->set_aliases(source_aliases);
+	  add(source_chroot);
+	}
     }
 }
 

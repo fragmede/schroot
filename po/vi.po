@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot-0.2.0\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-02-20 12:07+0000\n"
+"POT-Creation-Date: 2006-02-21 00:35+0000\n"
 "PO-Revision-Date: 2006-02-07 22:26+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -217,6 +217,11 @@ msgstr "%1%: bảo mật bị lỗi: %2%"
 #, boost-format
 msgid "%1%: lock discard failure: %2%"
 msgstr "%1%: việc vứt bỏ khoá bị lỗi: %2%"
+
+#: schroot/sbuild-chroot-config.cc:474
+#, fuzzy
+msgid " (snapshot source device)"
+msgstr "Thiết bị hiện trạng Bộ Quản lý Khối tin Hợp lý"
 
 #: schroot/sbuild-chroot-file.cc:108
 msgid "File"

@@ -14,6 +14,11 @@ configuration.
      backward compatibility with dhchroot, as well as migrating from
      dchroot.
 
+  2) Access to the source device of an "lvm-snapshot" type chroot is
+     simplified.  For a chroot named "snap", a "block-device" type
+     chroot named "snap-source" is created for easy access to the
+     source device.
+
 * Major changes in 0.2.2:
   1) Session metadata is now correctly saved and restored.
 

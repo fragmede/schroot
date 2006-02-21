@@ -128,7 +128,12 @@ LVM snapshot chroots
 Chroots of type \[lq]lvm\-snapshot\[rq] are a filesystem available on an LVM
 logical volume (LV).  A snapshot LV will be created from this LV on demand, and
 then the snapshot will be mounted.  At the end of the session, the snapshot LV
-will be unmounted and removed.  All of the options for \[lq]block\-device\[rq]
+will be unmounted and removed.  For each chroot of this type, a corresponding
+\[lq]block\-device\[rq] chroot will be created, with a \fI\-source\fP suffix
+appended to the chroot name and all its aliases; this is for convenient access
+to the source device.
+.PP
+All of the options for \[lq]block\-device\[rq]
 are available, plus an additional option:
 .TP
 .B lvm-snapshot-options=\fIsnapshot_options\fP
@@ -138,6 +143,7 @@ example, \[lq]\-L 2g\[rq] to create a snapshot 2 GiB in size.
 the LV name (\[lq]\-n\[rq]), the snapshot option (\[lq]\-s\[rq]) and the
 original LV path may not be specfied here; they are set automatically by
 schroot.
+.PP
 .SS Localisation
 .PP
 Some keys make be localised in multiple lanuages.  This is achieved by adding

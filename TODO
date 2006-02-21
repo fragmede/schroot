@@ -11,11 +11,6 @@ PENDING
 * Make "session" naming more consistent.
   "run-session-scripts" should be "run-scripts".
 
-* Allow direct access to the original LV of a snapshot chroot type.
-  This is possible now we are using lockdev.  Could the block-device
-  chroot be created automatically, appending "-master" or "-source" to
-  the lvm-snapshot chroot name?
-
 * Translation of strings in headers.
 
 PLANNED
