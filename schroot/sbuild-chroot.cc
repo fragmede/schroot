@@ -292,7 +292,10 @@ sbuild::chroot::print_details (std::ostream& stream) const
 	 << format_details(_("Aliases"), get_aliases())
 	 << format_details(_("Run Setup Scripts"), get_run_setup_scripts())
 	 << format_details(_("Run Session Scripts"),
-			   get_run_session_scripts());
+			   get_run_session_scripts())
+	 << format_details(_("Session Managed"),
+			   static_cast<bool>(get_session_flags() &
+					     chroot::SESSION_CREATE));
 
   /* Non user-settable properties are listed last. */
   if (!get_mount_location().empty())

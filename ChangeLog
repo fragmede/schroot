@@ -1,5 +1,10 @@
 2006-02-21  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-chroot.cc (print_details): Add a "Session
+	Managed" line if SESSION_CREATE is used.
+
+2006-02-21  Roger Leigh  <rleigh@debian.org>
+
 	* test/sbuild-chroot-config.cc: Account for additional -source
 	chroots.
 
