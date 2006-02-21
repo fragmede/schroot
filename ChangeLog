@@ -1,5 +1,10 @@
 2006-02-21  Roger Leigh  <rleigh@debian.org>
 
+	* test/sbuild-chroot-config.cc: Account for additional -source
+	chroots.
+
+2006-02-21  Roger Leigh  <rleigh@debian.org>
+
 	* NEWS: Document automatic block-device creation for lvm-snapshot
 	chroots.
 
