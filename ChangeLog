@@ -1,5 +1,9 @@
 2006-02-24  Roger Leigh  <rleigh@debian.org>
 
+	* po/en_GB.po: Add missing space.
+
+2006-02-24  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Bump version to 0.2.4.
 
 	* NEWS: Bump version to 0.2.4.

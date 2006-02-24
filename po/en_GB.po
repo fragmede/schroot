@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2006-02-21 10:15+0000\n"
-"PO-Revision-Date: 2006-02-21 10:16+0000\n"
+"PO-Revision-Date: 2006-02-24 12:47+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -151,7 +151,7 @@ msgstr "%1%: not a regular file"
 #: schroot/sbuild-chroot-config.cc:156
 #, boost-format
 msgid "%1% chroot: alias '%2%' already associated with '%3%' chroot"
-msgstr "%1% chroot: alias ‘%2%’ already associated with ‘%3%’chroot"
+msgstr "%1% chroot: alias ‘%2%’ already associated with ‘%3%’ chroot"
 
 #: schroot/sbuild-chroot-config.cc:163
 #, boost-format
