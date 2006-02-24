@@ -1,3 +1,9 @@
+schroot (0.2.4-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+
+ --
+
 schroot (0.2.3-2) unstable; urgency=low
 
   * debian/rules: dchroot must be installed setuid root.
