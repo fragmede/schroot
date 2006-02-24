@@ -59,6 +59,7 @@ public:
   {
     test_chroot_base<chroot_plain>::setUp();
     sbuild::chroot_plain *c = dynamic_cast<sbuild::chroot_plain *>(chroot.get());
+    c->set_mount_location("");
     c->set_location("/srv/chroot/example-chroot");
   }
 
@@ -69,8 +70,9 @@ public:
     CPPUNIT_ASSERT(c);
     c->set_location("/mnt/mount-location/example");
     CPPUNIT_ASSERT(c->get_location() == "/mnt/mount-location/example");
-    CPPUNIT_ASSERT(chroot->get_mount_location() ==
-		   "/mnt/mount-location/example");
+    CPPUNIT_ASSERT(chroot->get_location() == "/mnt/mount-location/example");
+    CPPUNIT_ASSERT(chroot->get_path() == "/mnt/mount-location/example");
+    CPPUNIT_ASSERT(chroot->get_mount_location() == "");
   }
 
   void test_chroot_type()
@@ -85,7 +87,7 @@ public:
     expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",    "test-description");
     expected.add("CHROOT_LOCATION",       "/srv/chroot/example-chroot");
-    expected.add("CHROOT_MOUNT_LOCATION", "/srv/chroot/example-chroot");
+    expected.add("CHROOT_PATH",           "/srv/chroot/example-chroot");
     expected.add("CHROOT_MOUNT_DEVICE",   "/dev/device-to-mount");
 
     test_chroot_base<chroot_plain>::test_setup_env(expected);

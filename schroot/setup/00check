@@ -13,9 +13,11 @@ if [ $1 = "setup-start" -o $1 = "setup-recover" ]; then
 	echo "CHROOT_NAME=$CHROOT_NAME"
 	echo "CHROOT_DESCRIPTION=$CHROOT_DESCRIPTION"
 	echo "CHROOT_MOUNT_LOCATION=$CHROOT_MOUNT_LOCATION"
+	echo "CHROOT_LOCATION=$CHROOT_LOCATION"
+	echo "CHROOT_PATH=$CHROOT_PATH"
 	echo "CHROOT_MOUNT_DEVICE=$CHROOT_MOUNT_DEVICE"
 	if [ "$CHROOT_TYPE" = "plain" ]; then
-	    echo "CHROOT_LOCATION=$CHROOT_LOCATION"
+	    :
 	elif [ "$CHROOT_TYPE" = "file" ]; then
 	    echo "CHROOT_FILE=$CHROOT_FILE"
 	elif [ "$CHROOT_TYPE" = "block-device" -o "$CHROOT_TYPE" = "lvm-snapshot" ]; then
@@ -31,8 +33,8 @@ if [ $1 = "setup-start" -o $1 = "setup-recover" ]; then
 
     case "$CHROOT_TYPE" in
 	plain)
-	    if [ ! -d "$CHROOT_LOCATION" ]; then
-		echo "$CHROOT_LOCATION does not exist"
+	    if [ ! -d "$CHROOT_PATH" ]; then
+		echo "$CHROOT_PATH does not exist"
 		exit 1
 	    fi
 	    ;;
@@ -56,8 +58,8 @@ if [ $1 = "setup-start" -o $1 = "setup-recover" ]; then
 
     # A basic safety check, so that the root filesystem doesn't get
     # toasted by accident.
-    if [ -z "$CHROOT_MOUNT_LOCATION" -o "$CHROOT_MOUNT_LOCATION" = "/" ]; then
-	echo "Invalid chroot mount location: '$CHROOT_MOUNT_LOCATION'"
+    if [ -z "$CHROOT_PATH" -o "$CHROOT_PATH" = "/" ]; then
+	echo "Invalid chroot mount location: '$CHROOT_PATH'"
 	exit 1
     fi
 

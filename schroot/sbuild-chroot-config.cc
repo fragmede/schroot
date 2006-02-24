@@ -313,7 +313,7 @@ chroot_config::print_chroot_location (string_list const& chroots,
       const chroot::ptr chroot = find_alias(*pos);
       if (chroot)
 	{
-	  stream << chroot->get_mount_location() << '\n';
+	  stream << chroot->get_path() << '\n';
 	}
       else
 	log_error() << format(_("%1%: No such chroot")) % *pos

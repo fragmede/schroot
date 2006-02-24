@@ -10,22 +10,22 @@ if [ $1 = "run-start" ]; then
 	sed -e 's/^\([^:]*\):.*$/\1/' | \
 	grep -q '^sbuild$'; then
 
-	if [ ! -d "${CHROOT_MOUNT_LOCATION}/build/${AUTH_USER}" ]; then
+	if [ ! -d "${CHROOT_PATH}/build/${AUTH_USER}" ]; then
 	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-		echo "Creating sbuild build directory: ${CHROOT_MOUNT_LOCATION}/build/${AUTH_USER}"
+		echo "Creating sbuild build directory: ${CHROOT_PATH}/build/${AUTH_USER}"
 	    fi
-	    mkdir -p "${CHROOT_MOUNT_LOCATION}/build/${AUTH_USER}"
+	    mkdir -p "${CHROOT_PATH}/build/${AUTH_USER}"
 	fi
 
 	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-	    echo "Setting ownership of ${CHROOT_MOUNT_LOCATION}/build/${AUTH_USER} to ${AUTH_USER}:sbuild"
+	    echo "Setting ownership of ${CHROOT_PATH}/build/${AUTH_USER} to ${AUTH_USER}:sbuild"
 	fi
-	chown "${AUTH_USER}:sbuild" "${CHROOT_MOUNT_LOCATION}/build/${AUTH_USER}"
+	chown "${AUTH_USER}:sbuild" "${CHROOT_PATH}/build/${AUTH_USER}"
 
 	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-	    echo "Setting permissions of ${CHROOT_MOUNT_LOCATION}/build/${AUTH_USER} to 770"
+	    echo "Setting permissions of ${CHROOT_PATH}/build/${AUTH_USER} to 770"
 	fi
-	chmod 770 "${CHROOT_MOUNT_LOCATION}/build/${AUTH_USER}"
+	chmod 770 "${CHROOT_PATH}/build/${AUTH_USER}"
 
     else
 

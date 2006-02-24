@@ -70,19 +70,19 @@ if [ "$CHROOT_TYPE" = "file" -o "$CHROOT_TYPE" = "block-device" -o "$CHROOT_TYPE
 	    do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
 	fi
 
-	do_mount "-t proc"    "proc"     "${CHROOT_MOUNT_LOCATION}/proc"
-	do_mount "-o rw,bind" "/dev/pts" "${CHROOT_MOUNT_LOCATION}/dev/pts"
-	do_mount "-t tmpfs"   "tmpfs"    "${CHROOT_MOUNT_LOCATION}/dev/shm"
-	do_mount "-o rw,bind" "/home"    "${CHROOT_MOUNT_LOCATION}/home"
-	do_mount "-o rw,bind" "/tmp"     "${CHROOT_MOUNT_LOCATION}/tmp"
+	do_mount "-t proc"    "proc"     "${CHROOT_PATH}/proc"
+	do_mount "-o rw,bind" "/dev/pts" "${CHROOT_PATH}/dev/pts"
+	do_mount "-t tmpfs"   "tmpfs"    "${CHROOT_PATH}/dev/shm"
+	do_mount "-o rw,bind" "/home"    "${CHROOT_PATH}/home"
+	do_mount "-o rw,bind" "/tmp"     "${CHROOT_PATH}/tmp"
 
     elif [ $1 = "setup-stop" ]; then
 
-	do_umount "${CHROOT_MOUNT_LOCATION}/tmp"
-	do_umount "${CHROOT_MOUNT_LOCATION}/home"
-	do_umount "${CHROOT_MOUNT_LOCATION}/dev/shm"
-	do_umount "${CHROOT_MOUNT_LOCATION}/dev/pts"
-	do_umount "${CHROOT_MOUNT_LOCATION}/proc"
+	do_umount "${CHROOT_PATH}/tmp"
+	do_umount "${CHROOT_PATH}/home"
+	do_umount "${CHROOT_PATH}/dev/shm"
+	do_umount "${CHROOT_PATH}/dev/pts"
+	do_umount "${CHROOT_PATH}/proc"
 
 	if [ "$CHROOT_TYPE" != "file" ]; then
 	    do_umount "$CHROOT_MOUNT_LOCATION"

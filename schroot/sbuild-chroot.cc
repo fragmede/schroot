@@ -37,6 +37,7 @@ sbuild::chroot::chroot ():
   root_groups(),
   aliases(),
   mount_location(),
+  location(),
   mount_device(),
   active(false),
   run_setup_scripts(false),
@@ -108,6 +109,24 @@ void
 sbuild::chroot::set_mount_location (std::string const& location)
 {
   this->mount_location = location;
+}
+
+std::string const&
+sbuild::chroot::get_location () const
+{
+  return this->location;
+}
+
+void
+sbuild::chroot::set_location (std::string const& location)
+{
+  this->location = location;
+}
+
+std::string
+sbuild::chroot::get_path () const
+{
+  return get_mount_location() + get_location();
 }
 
 std::string const&
@@ -212,7 +231,9 @@ sbuild::chroot::setup_env (environment& env)
   env.add("CHROOT_TYPE", get_chroot_type());
   env.add("CHROOT_NAME", get_name());
   env.add("CHROOT_DESCRIPTION", get_description());
+  env.add("CHROOT_LOCATION", get_location());
   env.add("CHROOT_MOUNT_LOCATION", get_mount_location());
+  env.add("CHROOT_PATH", get_path());
   env.add("CHROOT_MOUNT_DEVICE", get_mount_device());
 }
 
@@ -298,9 +319,15 @@ sbuild::chroot::print_details (std::ostream& stream) const
 					     chroot::SESSION_CREATE));
 
   /* Non user-settable properties are listed last. */
+  if (!get_location().empty())
+    stream << format_details(_("Location"),
+			     get_location());
   if (!get_mount_location().empty())
     stream << format_details(_("Mount Location"),
 			     get_mount_location());
+  if (!get_mount_location().empty())
+    stream << format_details(_("Path"),
+			     get_path());
   if (!get_mount_device().empty())
     stream << format_details(_("Mount Device"), get_mount_device());
 }

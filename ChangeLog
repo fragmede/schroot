@@ -1,5 +1,73 @@
 2006-02-24  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.conf.5.in: Document "location" for block-device
+	chroots.
+
+	* schroot/schroot-setup.5.in: Document CHROOT_LOCATION and
+	CHROOT_PATH.
+
+	* Update tests to check CHROOT_LOCATION and CHROOT_PATH.
+
+	* schroot/setup/50chrootname: Replace CHROOT_MOUNT_LOCATION with
+	CHROOT_PATH.
+
+	* schroot/setup/30passwd: Replace CHROOT_MOUNT_LOCATION with
+	CHROOT_PATH.
+
+	* schroot/setup/20network: Replace CHROOT_MOUNT_LOCATION with
+	CHROOT_PATH.
+
+	* schroot/setup/10mount: Replace CHROOT_MOUNT_LOCATION with
+	CHROOT_PATH.
+
+	* schroot/setup/00check: Add CHROOT_LOCATION and CHROOT_PATH.
+	Replace CHROOT_MOUNT_LOCATION with CHROOT_PATH.
+
+	* schroot/run/50sbuild: Replace CHROOT_MOUNT_LOCATION with
+	CHROOT_PATH.
+
+	* schroot/run/00check: Add CHROOT_LOCATION and CHROOT_PATH.
+
+	* schroot/sbuild-chroot-config.cc
+	(print_chroot_location): Use get_path() instead of
+	get_mount_location().
+
+	* schroot/sbuild-session.cc
+	(run_child): Use get_path() instead of get_mount_location().
+
+	* schroot/sbuild-chroot-plain.cc
+	(get_location): Chain up to base class implementation.
+	(set_location): Chain up to base class implementation.
+	(print_details): Remove printing of location detail.
+
+	* schroot/sbuild-chroot-plain.h
+	(get_location): Make virtual.
+	(set_location): Make virtual.
+	(get_mount_location): Remove virtual function.
+	(location): Remove member.
+
+	* schroot/sbuild-chroot-block-device.cc
+	(get_location): New method.  Get the location of a chroot on the
+	device filesystem.
+	(set_location): New method.  Set the location of a chroot on the
+	device filesystem.
+	(get_keyfile): Set location in keyfile.
+	(set_keyfile): Get optional location from keyfile.
+
+	* schroot/sbuild-chroot.cc
+	(get_location): New virtual method.
+	(set_location): New virtual method.
+	(get_path): New virtual method.  The default implementation
+	concatenates and returns the mount_location and the location.
+	(setup_env): Add CHROOT_LOCATION and CHROOT_PATH to the
+	environment.
+	(print_details): print Location and Path.
+
+	* schroot/sbuild-chroot.h:
+	(location): New member.
+
+2006-02-24  Roger Leigh  <rleigh@debian.org>
+
 	* po/en_GB.po: Add missing space.
 
 2006-02-24  Roger Leigh  <rleigh@debian.org>

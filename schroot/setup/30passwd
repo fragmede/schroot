@@ -5,8 +5,8 @@ if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 fi
 
 if [ $1 = "setup-start" -o $1 = "setup-recover" ]; then
-  cp $VERBOSE /etc/passwd "${CHROOT_MOUNT_LOCATION}/etc/passwd"
-  cp $VERBOSE /etc/shadow "${CHROOT_MOUNT_LOCATION}/etc/shadow"
-  cp $VERBOSE /etc/group  "${CHROOT_MOUNT_LOCATION}/etc/group"
+  cp $VERBOSE /etc/passwd "${CHROOT_PATH}/etc/passwd"
+  cp $VERBOSE /etc/shadow "${CHROOT_PATH}/etc/shadow"
+  cp $VERBOSE /etc/group  "${CHROOT_PATH}/etc/group"
 fi
 

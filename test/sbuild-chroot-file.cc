@@ -84,6 +84,7 @@ public:
     expected.add("CHROOT_DESCRIPTION",    "test-description");
     expected.add("CHROOT_FILE",           "/srv/chroot/example.tar.bz2");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
+    expected.add("CHROOT_PATH",           "/mnt/mount-location");
     expected.add("CHROOT_MOUNT_DEVICE",   "/dev/device-to-mount");
 
     test_chroot_base<chroot_file>::test_setup_env(expected);

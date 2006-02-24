@@ -122,6 +122,13 @@ example, \[lq]/dev/sda5\[rq].
 .B mount-options=\fImount_options\fP
 Mount options for the block device.  These are additional options to pass to
 mount(8).  For example, \[lq]\-o atime,sync,user_xattr\[rq].
+.TP
+.B location=\fIpath\fP
+This is the path to the chroot \fIinside\fP the filesystem on the device.  For
+example, if the filesystem contains a chroot in \fI/chroot/sid\fP, you would
+specify \fB/chroot/sid\fP here.  If the chroot is the only thing on the
+filesystem, i.e. \fI/\fP is the root filesystem for the chroot, this option
+should be left blank, or omitted entirely.
 .SS
 LVM snapshot chroots
 .PP

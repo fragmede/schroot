@@ -48,7 +48,7 @@ namespace sbuild
      *
      * @returns the location.
      */
-    std::string const&
+    virtual std::string const&
     get_location () const;
 
     /**
@@ -56,11 +56,8 @@ namespace sbuild
      *
      * @param location the location.
      */
-    void
+    virtual void
     set_location (std::string const& location);
-
-    virtual std::string const&
-    get_mount_location () const;
 
     virtual std::string const&
     get_chroot_type () const;
@@ -84,10 +81,6 @@ namespace sbuild
 
     virtual void
     set_keyfile (keyfile const& keyfile);
-
-  private:
-    /// The directory location of the chroot.
-    std::string location;
   };
 
 }

@@ -30,8 +30,7 @@
 using namespace sbuild;
 
 chroot_plain::chroot_plain ():
-  chroot(),
-  location()
+  chroot()
 {
 }
 
@@ -48,19 +47,13 @@ chroot_plain::clone () const
 std::string const&
 chroot_plain::get_location () const
 {
-  return this->location;
+  return chroot::get_location();
 }
 
 void
 chroot_plain::set_location (std::string const& location)
 {
-  this->location = location;
-}
-
-std::string const&
-chroot_plain::get_mount_location () const
-{
-  return this->location;
+  chroot::set_location(location);
 }
 
 std::string const&
@@ -97,8 +90,6 @@ chroot_plain::print_details (std::ostream& stream) const
 {
   this->chroot::print_details(stream);
 
-  if (!this->location.empty())
-    stream << format_details(_("Location"), get_location());
   stream << std::flush;
 }
 

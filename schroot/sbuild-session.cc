@@ -320,9 +320,11 @@ try
 	/* Activate chroot. */
 	chroot->set_active(true);
 
-	/* If a chroot mount location has not yet been set, set one
-	   with the session id. */
-	if (chroot->get_mount_location().empty())
+	/* If a chroot mount location has not yet been set, and the
+	   chroot is not a plain chroot, set a mount location with the
+	   session id. */
+	if (chroot->get_mount_location().empty() &&
+	    dynamic_cast<chroot_plain *>(chroot.get()) == 0)
 	  {
 	    std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
 				 this->session_id);
@@ -578,7 +580,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   assert(!get_shell().empty());
   assert(auth::pam != NULL); // PAM must be initialised
 
-  std::string const& location = session_chroot->get_mount_location();
+  std::string location(session_chroot->get_path());
   std::string cwd;
   {
     char *raw_cwd = getcwd (NULL, 0);

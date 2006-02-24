@@ -74,8 +74,17 @@ CHROOT_DESCRIPTION
 The description of the chroot.
 .TP
 CHROOT_MOUNT_LOCATION
-The location to mount the chroot (or, in the case of plain chroots, where it
-already exists).
+The location to mount the chroot.  It is used for mount point creation and
+mounting.
+.TP
+CHROOT_LOCATION
+The location of the chroot inside the mount point.  This is to allow multiple
+chroots on a single filesystem.
+.TP
+CHROOT_PATH
+The absolute path to the chroot.  This is typically CHROOT_MOUNT_LOCATION and
+CHROOT_LOCATION concatenated together.  This is the path which should be used
+to access the chroots.
 .TP
 CHROOT_MOUNT_DEVICE
 The device containing the chroot root filesystem.  This is only set for chroots
