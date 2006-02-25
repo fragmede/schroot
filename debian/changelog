@@ -4,6 +4,9 @@ schroot (0.2.4-1) UNRELEASED; urgency=low
   * Allow multiple chroots on a single filesystem for "block-device" and
     "lvm-snapshot" chroots.  Thanks to Adeodato Simó and Steve Langasek
     for this idea (Closes: #354237).
+  * Allow basic session management when "run-session-scripts" is enabled
+    for "plain" chroots, by using bind mounts.  This enables the setup
+    scripts to run properly (Closes: #354257).
 
  --
 

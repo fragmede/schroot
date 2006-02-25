@@ -56,6 +56,17 @@ chroot_plain::set_location (std::string const& location)
   chroot::set_location(location);
 }
 
+std::string
+chroot_plain::get_path () const
+{
+  // When running setup scripts, we are session-capable, so the path
+  // is the bind-mounted location, rather than the original location.
+  if (get_run_setup_scripts() == true)
+    return get_mount_location();
+  else
+    return get_location();
+}
+
 std::string const&
 chroot_plain::get_chroot_type () const
 {
@@ -77,12 +88,25 @@ chroot_plain::setup_lock (setup_type type,
 			  bool       lock)
 {
   /* By default, plain chroots do no locking. */
+  /* Create or unlink session information. */
+  if (get_run_setup_scripts() == true)
+    {
+      if ((type == SETUP_START && lock == true) ||
+	  (type == SETUP_STOP && lock == false))
+	{
+	  bool start = (type == SETUP_START);
+	  setup_session_info(start);
+	}
+    }
 }
 
 sbuild::chroot::session_flags
 chroot_plain::get_session_flags () const
 {
-  return static_cast<session_flags>(0);
+  if (get_run_setup_scripts() == true)
+    return SESSION_CREATE;
+  else
+    return static_cast<session_flags>(0);
 }
 
 void

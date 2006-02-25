@@ -48,6 +48,7 @@ class test_chroot_lvm_snapshot : public test_chroot_base<chroot_lvm_snapshot>
   CPPUNIT_TEST(test_snapshot_options);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
+  CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
   CPPUNIT_TEST_SUITE_END();

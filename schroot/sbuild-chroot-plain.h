@@ -59,6 +59,9 @@ namespace sbuild
     virtual void
     set_location (std::string const& location);
 
+    virtual std::string
+    get_path () const;
+
     virtual std::string const&
     get_chroot_type () const;
 

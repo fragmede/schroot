@@ -1,3 +1,35 @@
+2006-02-25  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Update.
+
+	* NEWS: Update.
+
+	* Update tests.
+
+	* schroot/schroot.conf.5.in: Document "run-setup-scripts"
+	behaviour for plain chroots.
+
+	* schroot/setup/10mount: Allow plain chroots to run the mount
+	script.  For plain chroots, bind mount LOCATION on MOUNT_LOCATION.
+
+	* schroot/setup/00check: For plain chroots, verify
+	CHROOT_LOCATION, rather than CHROOT_PATH (because CHROOT_PATH does
+	not exist at this point).
+
+	* schroot/sbuild-session.cc
+	(run_impl): In addition to all other chroot types, if chroot is a
+	chroot_plain chroot with setup scripts enabled, set the mount
+	location to the session id.
+
+	* schroot/sbuild-chroot-plain.cc
+	(get_path): New virtual method to override base class
+	implementation.  When setup scripts are enabled, return the mount
+	location, or else the location.
+	(setup_lock): When setup scripts are enabled, write out a session
+	metadata.
+	(get_session_flags): When setup scripts are enabled, enable
+	SESSION_CREATE, or else 0.
+
 2006-02-24  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot.conf.5.in: Document "location" for block-device

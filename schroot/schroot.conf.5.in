@@ -80,8 +80,10 @@ scripts (\[lq]false\[rq]), for safety reasons (so it won't clobber your passwd
 and other critical files).  The default for session-managed chroots
 (\[lq]file\[rq] and \[lq]lvm\-snapshot\[rq]) is to run setup scripts.  If
 \fItype\fP is set to a value other than \[lq]plain\[rq], setup scripts are
-\fBrequired\fP to mount and configure the chroot environment.  If your chroots
-are exclusively controlled by schroot, set to \[lq]true\[rq].
+\fBrequired\fP to mount and configure the chroot environment.  If enabled for a
+\[lq]plain\[rq] chroot, the chroot will support simple session management (not
+true session management, because it does not make a copy of the chroot).  If
+your chroots are exclusively controlled by schroot, set to \[lq]true\[rq].
 .TP
 .B run-session-scripts=\fItrue\fP|\fIfalse\fP
 Set whether chroot session scripts will be run.  The default is are the same as

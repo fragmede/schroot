@@ -9,6 +9,19 @@ configuration.
 
 * Major changes in 0.2.4:
 
+  1) For "block-device" and "lvm-snapshot" type chroots, it is now
+     possible to add a "location" configuration option to specify the
+     location of the chroot within the device filesystem, rather than
+     assuming the location is always the root.  This allows multiple
+     chroots to be stored on a single LVM LV, for example.
+
+  2) For "plain" chroots, if setup scripts (run-setup-scripts) is
+     enabled, session management is also enabled.  This is not true
+     session management, because it uses bind mounts rather than a
+     copy of the chroot, so should be used with caution, but will make
+     concurrent access to the chroot with session scripts enabled
+     rather more useful.
+
 * Major changes in 0.2.3:
 
   1) A dchroot compatibility mode has been implemented.  This behaves

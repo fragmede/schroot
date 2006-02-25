@@ -46,6 +46,7 @@ class test_chroot_file : public test_chroot_base<chroot_file>
   CPPUNIT_TEST(test_file);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
+  CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
   CPPUNIT_TEST_SUITE_END();

@@ -47,6 +47,7 @@ class test_chroot_block_device : public test_chroot_base<chroot_block_device>
   CPPUNIT_TEST(test_mount_options);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
+  CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
   CPPUNIT_TEST_SUITE_END();
@@ -107,7 +108,7 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-		   sbuild::chroot::SESSION_CREATE);
+		   static_cast<sbuild::chroot::session_flags>(0));
   }
 
   void test_print_details()

@@ -323,13 +323,16 @@ try
 	/* If a chroot mount location has not yet been set, and the
 	   chroot is not a plain chroot, set a mount location with the
 	   session id. */
-	if (chroot->get_mount_location().empty() &&
-	    dynamic_cast<chroot_plain *>(chroot.get()) == 0)
-	  {
-	    std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
-				 this->session_id);
-	    chroot->set_mount_location(location);
-	  }
+	{
+	  chroot_plain *plain = dynamic_cast<chroot_plain *>(chroot.get());
+	  if (chroot->get_mount_location().empty() &&
+	      (plain == 0 || plain->get_run_setup_scripts() == true))
+	    {
+	      std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
+				   this->session_id);
+	      chroot->set_mount_location(location);
+	    }
+	}
 
 	/* Chroot types which create a session (e.g. LVM devices)
 	   need the chroot name respecifying. */
