@@ -1,5 +1,9 @@
 2006-02-25  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Add acknowledgement for #354257.
+
+2006-02-25  Roger Leigh  <rleigh@debian.org>
+
 	* Version 0.2.4.
 
 	* debian/changelog: Update for 0.2.4.

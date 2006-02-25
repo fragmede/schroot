@@ -6,7 +6,8 @@ schroot (0.2.4-1) unstable; urgency=low
     for this idea (Closes: #354237).
   * Allow basic session management when "run-session-scripts" is enabled
     for "plain" chroots, by using bind mounts.  This enables the setup
-    scripts to run properly (Closes: #354257).
+    scripts to run properly.  Thanks to Adeodato Simó for this idea
+    (Closes: #354257).
 
  -- Roger Leigh <rleigh@debian.org>  Sat, 25 Feb 2006 13:03:28 +0000
 
