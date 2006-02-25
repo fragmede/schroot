@@ -28,12 +28,10 @@ PLANNED
 POTENTIAL
 ---------
 
-* Repacking session chroot on session-stop.
+* Repacking session chroot on setup-stop.
 
   This must be root-only/root-groups-only for security.  For
-  ChrootFile, tar or zip the chroot in place of the old one.  For
-  LvmSnapshot chroots, this would require copying back the chroot
-  contents.
+  chroot_file, tar or zip the chroot in place of the old one.
 
 * Add tests for
 

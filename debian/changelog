@@ -1,4 +1,4 @@
-schroot (0.2.4-1) UNRELEASED; urgency=low
+schroot (0.2.4-1) unstable; urgency=low
 
   * New upstream release.
   * Allow multiple chroots on a single filesystem for "block-device" and
@@ -8,7 +8,7 @@ schroot (0.2.4-1) UNRELEASED; urgency=low
     for "plain" chroots, by using bind mounts.  This enables the setup
     scripts to run properly (Closes: #354257).
 
- --
+ -- Roger Leigh <rleigh@debian.org>  Sat, 25 Feb 2006 13:03:28 +0000
 
 schroot (0.2.3-2) unstable; urgency=low
 
