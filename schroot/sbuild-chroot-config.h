@@ -77,8 +77,8 @@ namespace sbuild
      * Add a configuration file or directory.  The configuration file
      * or directory specified will be loaded.
      *
-     * @param file initialise using a configuration file or a whole
-     * directory containing configuration files.
+     * @param location initialise using a configuration file or a
+     * whole directory containing configuration files.
      * @param active true if the chroots in the configuration file are
      * active sessions, otherwise false.
      */

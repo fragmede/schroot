@@ -31,6 +31,8 @@ namespace sbuild
    * @param stringval the string to parse.
    * @param value the variable to store the parsed value.
    * @returns true on success, false on failure.
+   *
+   * @todo Throw exception on parse failure.
    */
   bool
   parse_value (std::string const& stringval,

@@ -29,7 +29,7 @@ sbuild::parse_value (std::string const& stringval,
     value = true;
   else if (stringval == "false" || stringval == "no" || stringval == "0")
     value = false;
-  else /// @todo Throw exception on parse failure.
+  else
     return false;
 
   log_debug(DEBUG_NOTICE) << "value=" << value << std::endl;

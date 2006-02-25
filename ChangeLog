@@ -1,5 +1,13 @@
 2006-02-25  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-chroot-config.h: Fix Doxygen warnings.
+
+	* schroot/sbuild-parse-value.cc: Fix Doxygen warnings.
+
+	* schroot/sbuild-parse-value.h: Fix Doxygen warnings.
+
+2006-02-25  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Update.
 
 	* NEWS: Update.

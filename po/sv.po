@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.2.0\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-02-24 14:54+0000\n"
+"POT-Creation-Date: 2006-02-25 12:28+0000\n"
 "PO-Revision-Date: 2006-02-18 11:52+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -55,7 +55,7 @@ msgstr "PAM-fel: PAM är redan initierad"
 #: schroot/sbuild-auth.cc:530 schroot/sbuild-auth.cc:555
 #: schroot/sbuild-auth.cc:574 schroot/sbuild-auth.cc:593
 #: schroot/sbuild-auth.cc:612 schroot/sbuild-auth.cc:631
-#: schroot/sbuild-session.cc:603
+#: schroot/sbuild-session.cc:606
 #, boost-format
 msgid "PAM error: %1%"
 msgstr "PAM-fel: %1%"
@@ -484,106 +484,106 @@ msgstr "Inget chroot hittades som matchar alias \"%1%\""
 msgid "%1%: Failed to find chroot"
 msgstr "%1%: Misslyckades att hitta chroot"
 
-#: schroot/sbuild-session.cc:450
+#: schroot/sbuild-session.cc:453
 #, boost-format
 msgid "Chroot setup failed to lock chroot: %1%"
 msgstr "Inställning av chroot misslyckades att låsa chroot: %1%"
 
-#: schroot/sbuild-session.cc:506
+#: schroot/sbuild-session.cc:509
 #, boost-format
 msgid "Invalid verbosity level: %1%, falling back to \"normal\""
 msgstr "Ogiltig informationsnivå: %1%, faller tillbaka till \"normal\""
 
-#: schroot/sbuild-session.cc:525 schroot/sbuild-session.cc:818
+#: schroot/sbuild-session.cc:528 schroot/sbuild-session.cc:821
 #, boost-format
 msgid "Failed to fork child: %1%"
 msgstr "Misslyckades att grena process: %1%"
 
-#: schroot/sbuild-session.cc:543 schroot/sbuild-session.cc:754
+#: schroot/sbuild-session.cc:546 schroot/sbuild-session.cc:757
 #, boost-format
 msgid "Could not exec \"%1%\": %2%"
 msgstr "Kunde inte starta \"%1%\": %2%"
 
-#: schroot/sbuild-session.cc:561
+#: schroot/sbuild-session.cc:564
 #, boost-format
 msgid "Chroot setup failed to unlock chroot: %1%"
 msgstr "Inställning av chroot misslyckades att låsa upp chroot: %1%"
 
-#: schroot/sbuild-session.cc:568
+#: schroot/sbuild-session.cc:571
 #, boost-format
 msgid "Chroot setup failed during chroot \"%1%\" stage"
 msgstr "Inställning av chroot misslyckades under steget \"%1%\""
 
-#: schroot/sbuild-session.cc:611
+#: schroot/sbuild-session.cc:614
 #, boost-format
 msgid "Could not set gid to '%1%'"
 msgstr "Kunde inte sätta gid till \"%1%\""
 
-#: schroot/sbuild-session.cc:617
+#: schroot/sbuild-session.cc:620
 msgid "Could not set supplementary group IDs"
 msgstr "Kunde inte sätta id för tilläggsgrupper"
 
-#: schroot/sbuild-session.cc:624 schroot/sbuild-session.cc:654
+#: schroot/sbuild-session.cc:627 schroot/sbuild-session.cc:657
 #, boost-format
 msgid "Could not chdir to '%1%': %2%"
 msgstr "Kunde inte byta katalog till \"%1%\": %2%"
 
-#: schroot/sbuild-session.cc:631
+#: schroot/sbuild-session.cc:634
 #, boost-format
 msgid "Could not chroot to '%1%': %2%"
 msgstr "Kunde inte chroot till \"%1%\": %2%"
 
-#: schroot/sbuild-session.cc:640
+#: schroot/sbuild-session.cc:643
 #, boost-format
 msgid "Could not set uid to '%1%'"
 msgstr "Kunde inte sätta uid till \"%1%"
 
-#: schroot/sbuild-session.cc:646
+#: schroot/sbuild-session.cc:649
 msgid "Failed to drop root permissions."
 msgstr "Misslyckades att släppa root-rättigheter."
 
-#: schroot/sbuild-session.cc:707
+#: schroot/sbuild-session.cc:710
 #, boost-format
 msgid "[%1% chroot] Running login shell: \"%2%\""
 msgstr "[%1% chroot] Kör inloggningsskal: \"%2%\""
 
-#: schroot/sbuild-session.cc:714
+#: schroot/sbuild-session.cc:717
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Kör inloggningsskal: \"%4%\""
 
-#: schroot/sbuild-session.cc:736
+#: schroot/sbuild-session.cc:739
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%1% chroot] Kör kommando: \"%2%\""
 
-#: schroot/sbuild-session.cc:740
+#: schroot/sbuild-session.cc:743
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Kör kommando: \"%4%\""
 
-#: schroot/sbuild-session.cc:772
+#: schroot/sbuild-session.cc:775
 #, boost-format
 msgid "wait for child failed: %1%"
 msgstr "väntan på barnprocess misslyckades: %1%"
 
-#: schroot/sbuild-session.cc:790
+#: schroot/sbuild-session.cc:793
 #, boost-format
 msgid "Child terminated by signal %1%"
 msgstr "Barnprocess terminerades av signal \"%1%\""
 
-#: schroot/sbuild-session.cc:795
+#: schroot/sbuild-session.cc:798
 msgid "Child dumped core"
 msgstr "Barnprocess dumpade core"
 
 # coredump? Bättre ord?
-#: schroot/sbuild-session.cc:797
+#: schroot/sbuild-session.cc:800
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr ""
 "Barnprocess avslutades onormalt (anledning är okänd; inte en signal eller "
 "coredump)"
 
-#: schroot/sbuild-session.cc:804
+#: schroot/sbuild-session.cc:807
 #, boost-format
 msgid "Child exited abnormally with status '%1%'"
 msgstr "Barnprocess avslutades onormalt med status \"%1%\""
