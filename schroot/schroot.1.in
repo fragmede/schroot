@@ -46,11 +46,11 @@ been used, display information about all chroots.  This option does not make
 sense to use with a login shell (when no command has been specified).  This
 option is equivalent to \fB\-\-all\-chroots\fP \fB\-\-all\-sessions\fP.
 .TP
-.B \-a, \-\-all\-chroots
+.B \-\-all\-chroots
 Select all chroots.  Identical to \fB\-\-all\fP, but active sessions are not
 considered.
 .TP
-.B \-a, \-\-all\-chroots
+.B \-\-all\-sessions
 Select all active sessions.  Identical to \fB\-\-all\fP, but chroots are not
 considered.
 .TP

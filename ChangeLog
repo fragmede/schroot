@@ -1,3 +1,8 @@
+2006-02-26  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot.1.in: Correct the --help options.  Thanks to
+	Clint Adams for this patch.
+
 2006-02-25  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Add acknowledgement for #354257.
