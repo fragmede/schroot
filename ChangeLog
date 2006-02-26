@@ -1,5 +1,15 @@
 2006-02-26  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Update.
+
+	* schroot/run/50sbuild: Create
+	${CHROOT_PATH}/var/lib/sbuild/srcdep-lock and set ownership and
+	permissions of all files under ${CHROOT_PATH}/var/lib/sbuild to
+	root:sbuild and 02775, respectively.  Thanks to Adeodato Simó for
+	this patch.
+
+2006-02-26  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.1.in: Correct the --help options.  Thanks to
 	Clint Adams for this patch.
 

@@ -1,3 +1,12 @@
+schroot (0.2.5-1) UNRELEASED; urgency=low
+
+  * schroot/run/50sbuild: Create ${CHROOT_PATH}/var/lib/sbuild/srcdep-lock
+    and set ownership and permissions of all files under
+    ${CHROOT_PATH}/var/lib/sbuild to root:sbuild and 02775, respectively.
+    Thanks to Adeodato Simó for this patch (Closes: #354462).
+
+ --
+
 schroot (0.2.4-1) unstable; urgency=low
 
   * New upstream release.

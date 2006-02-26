@@ -27,6 +27,23 @@ if [ $1 = "run-start" ]; then
 	fi
 	chmod 770 "${CHROOT_PATH}/build/${AUTH_USER}"
 
+	if [ ! -d "${CHROOT_PATH}/var/lib/sbuild/srcdep-lock" ]; then
+	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+		echo "Creating srcdep-lock directory: ${CHROOT_PATH}/var/lib/sbuild/srcdep-lock"
+	    fi
+	    mkdir -p "${CHROOT_PATH}/var/lib/sbuild/srcdep-lock"
+	fi
+
+	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	    echo "Setting ownership of ${CHROOT_PATH}/var/lib/sbuild to root:sbuild"
+	fi
+	chown -R root:sbuild "${CHROOT_PATH}/var/lib/sbuild"
+
+	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	    echo "Setting permissions of ${CHROOT_PATH}/var/lib/sbuild to 02775"
+	fi
+	chmod -R 02775 "${CHROOT_PATH}/var/lib/sbuild"
+
     else
 
 	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
