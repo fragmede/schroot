@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2006-02-25 12:28+0000\n"
-"PO-Revision-Date: 2006-02-24 14:56+0000\n"
+"PO-Revision-Date: 2006-02-26 21:41+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -847,21 +847,3 @@ msgstr "The specified chroots are not defined in %1%"
 #, boost-format
 msgid "Session failure: %1%"
 msgstr "Session failure: %1%"
-
-#~ msgid "[%1% chroot] Running shell: \"%2%\""
-#~ msgstr "[%1% chroot] Running shell: “%2%”"
-
-#~ msgid "[%1% chroot] (%2%->%3%) Running shell: \"%4%\""
-#~ msgstr "[%1% chroot] (%2%→%3%) Running shell: “%4%”"
-
-#~ msgid "warning: Could not chdir to '%1%': %2%"
-#~ msgstr "warning: Could not chdir to ‘%1%’: %2%"
-
-#~ msgid "Only one chroot may be specified when begining a session"
-#~ msgstr "Only one chroot may be specified when begining a session"
-
-#~ msgid "%1% chroot creation failed"
-#~ msgstr "%1% chroot creation failed"
-
-#~ msgid "This option is not allowed in this context."
-#~ msgstr "This option is not allowed in this context."

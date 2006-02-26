@@ -1,4 +1,4 @@
-schroot (0.2.5-1) UNRELEASED; urgency=low
+schroot (0.2.5-1) unstable; urgency=low
 
   * schroot/run/50sbuild: Create ${CHROOT_PATH}/var/lib/sbuild/srcdep-lock
     and set ownership and permissions of all files under
@@ -7,7 +7,7 @@ schroot (0.2.5-1) UNRELEASED; urgency=low
   * schroot/schroot.1.in: Correct mistakes in --help options.  Thanks to
     Clint Adams for this patch (Closes: #354477).
 
- --
+ -- Roger Leigh <rleigh@debian.org>  Sun, 26 Feb 2006 21:44:23 +0000
 
 schroot (0.2.4-1) unstable; urgency=low
 

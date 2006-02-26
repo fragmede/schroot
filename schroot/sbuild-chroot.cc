@@ -325,7 +325,7 @@ sbuild::chroot::print_details (std::ostream& stream) const
   if (!get_mount_location().empty())
     stream << format_details(_("Mount Location"),
 			     get_mount_location());
-  if (!get_mount_location().empty())
+  if (!get_path().empty())
     stream << format_details(_("Path"),
 			     get_path());
   if (!get_mount_device().empty())

@@ -1,5 +1,18 @@
 2006-02-26  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.2.5.
+
+	* configure.ac: Update for 0.2.5.
+
+	* debian/changelog: Update for 0.2.5.
+
+	* NEWS: Document "Path" line.  Update for 0.2.5.
+
+	* schroot/sbuild-chroot.cc (print_details): Output path
+	information if available.
+
+2006-02-26  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Update to close the --help options (Bug
 	#354477).
 
