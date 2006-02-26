@@ -4,6 +4,8 @@ schroot (0.2.5-1) UNRELEASED; urgency=low
     and set ownership and permissions of all files under
     ${CHROOT_PATH}/var/lib/sbuild to root:sbuild and 02775, respectively.
     Thanks to Adeodato Simó for this patch (Closes: #354462).
+  * schroot/schroot.1.in: Correct mistakes in --help options.  Thanks to
+    Clint Adams for this patch (Closes: #354477).
 
  --
 

@@ -1,5 +1,10 @@
 2006-02-26  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Update to close the --help options (Bug
+	#354477).
+
+2006-02-26  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Update.
 
 	* schroot/run/50sbuild: Create
