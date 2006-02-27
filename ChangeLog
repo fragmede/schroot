@@ -1,3 +1,9 @@
+2006-02-27  Roger Leigh  <rleigh@debian.org>
+
+	* Remove bashisms in all setup and run shell scripts (test "-o"
+	and "function" in shell functions).  Thanks to Clint Adams for
+	this patch.
+
 2006-02-26  Roger Leigh  <rleigh@debian.org>
 
 	* Version 0.2.5.

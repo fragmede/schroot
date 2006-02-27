@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $1 = "setup-start" -o $1 = "setup-recover" ]; then
+if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 
     if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 	echo "AUTH_USER=$AUTH_USER"
@@ -20,7 +20,7 @@ if [ $1 = "setup-start" -o $1 = "setup-recover" ]; then
 	    :
 	elif [ "$CHROOT_TYPE" = "file" ]; then
 	    echo "CHROOT_FILE=$CHROOT_FILE"
-	elif [ "$CHROOT_TYPE" = "block-device" -o "$CHROOT_TYPE" = "lvm-snapshot" ]; then
+	elif [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 	    echo "CHROOT_DEVICE=$CHROOT_DEVICE"
 	    echo "CHROOT_MOUNT_OPTIONS=$CHROOT_MOUNT_OPTIONS"
 	    if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
@@ -58,7 +58,7 @@ if [ $1 = "setup-start" -o $1 = "setup-recover" ]; then
 
     # A basic safety check, so that the root filesystem doesn't get
     # toasted by accident.
-    if [ -z "$CHROOT_PATH" -o "$CHROOT_PATH" = "/" ]; then
+    if [ -z "$CHROOT_PATH" ] || [ "$CHROOT_PATH" = "/" ]; then
 	echo "Invalid chroot mount location: '$CHROOT_PATH'"
 	exit 1
     fi

@@ -6,7 +6,7 @@ set -e
 # $1: mount options
 # $2: mount device
 # $3: mount location
-function do_mount()
+do_mount()
 {
     if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 	echo "Mounting $2 on $3"
@@ -16,7 +16,7 @@ function do_mount()
 
 # Unmount a filesystem
 # $1: mount location
-function do_umount()
+do_umount()
 {
     if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 	echo "Unmounting $1"
@@ -26,7 +26,7 @@ function do_umount()
 
 # Unmount all filesystem under specified location
 # $1: mount base location
-function do_umount_all
+do_umount_all()
 {
     for dir in $(mount | grep $1 | sed -e 's/.* on \(.*\) type.*/\1/' | sort -r); do
 	do_umount "$dir"
@@ -38,7 +38,7 @@ if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 #  FSCK_VERBOSE="-V"
 fi
 
-if [ "$CHROOT_TYPE" = "plain" -o "$CHROOT_TYPE" = "file" -o "$CHROOT_TYPE" = "block-device" -o "$CHROOT_TYPE" = "lvm-snapshot" ]; then
+if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 
     if [ "$CHROOT_TYPE" = "plain" ]; then
 	CHROOT_MOUNT_OPTIONS="--bind"
@@ -49,7 +49,7 @@ if [ "$CHROOT_TYPE" = "plain" -o "$CHROOT_TYPE" = "file" -o "$CHROOT_TYPE" = "bl
 	CHROOT_MOUNT_DEVICE="$CHROOT_LVM_SNAPSHOT_DEVICE"
     fi
 
-    if [ $1 = "setup-start" -o $1 = "setup-recover" ]; then
+    if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 
         # fsck doesn't like being run non-interactively
 	#/sbin/fsck $FSCK_VERBOSE -n "$CHROOT_MOUNT_DEVICE"

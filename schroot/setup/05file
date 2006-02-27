@@ -3,7 +3,7 @@
 set -e
 
 # Check file type
-function check_filetype()
+check_filetype()
 {
     if echo "$CHROOT_FILE" | grep -q '.tar$'; then
 	filetype="tar"
@@ -20,7 +20,7 @@ function check_filetype()
 }
 
 # Unpack archive
-function unpack_file()
+unpack_file()
 {
 	if [ "$filetype" = "tar" ]; then
 	    tar $VERBOSE -xf "$CHROOT_FILE"
