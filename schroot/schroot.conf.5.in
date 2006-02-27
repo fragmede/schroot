@@ -74,7 +74,7 @@ A comma-separated list of aliases (alternate names) for this chroot.  For
 example, a chroot named \[lq]sid\[rq] might have an \[lq]unstable\[rq] alias
 for convenience.
 .TP
-.B run-setup-scripts=\fItrue\fP|\fIfalse\fP
+.B run\-setup\-scripts=\fItrue\fP|\fIfalse\fP
 Set whether chroot setup scripts will be run.  The default is not to run setup
 scripts (\[lq]false\[rq]), for safety reasons (so it won't clobber your passwd
 and other critical files).  The default for session-managed chroots
@@ -85,9 +85,15 @@ and other critical files).  The default for session-managed chroots
 true session management, because it does not make a copy of the chroot).  If
 your chroots are exclusively controlled by schroot, set to \[lq]true\[rq].
 .TP
-.B run-session-scripts=\fItrue\fP|\fIfalse\fP
+.B run\-session\-scripts=\fItrue\fP|\fIfalse\fP
 Set whether chroot session scripts will be run.  The default is are the same as
 for the \fIrun-setup-scripts\fP key.
+.TP
+.B command\-prefix=\fIcommand,option1,option2,...\fP
+A comma-separated list of a command and the options for the command.  This
+command and its options will be prefixed to all commands run inside the chroot.
+For example, if set to \[lq]linux32\[rq], this will cause all commands run in
+the chroot to have a \fBlinux32\fP prefix added.
 .SS
 Plain chroots
 .PP

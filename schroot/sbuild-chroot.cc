@@ -41,7 +41,8 @@ sbuild::chroot::chroot ():
   mount_device(),
   active(false),
   run_setup_scripts(false),
-  run_session_scripts(false)
+  run_session_scripts(false),
+  command_prefix()
 {
 }
 
@@ -225,6 +226,18 @@ sbuild::chroot::set_run_session_scripts (bool run_session_scripts)
   this->run_session_scripts = run_session_scripts;
 }
 
+string_list const&
+sbuild::chroot::get_command_prefix () const
+{
+  return this->command_prefix;
+}
+
+void
+sbuild::chroot::set_command_prefix (string_list const& command_prefix)
+{
+  this->command_prefix = command_prefix;
+}
+
 void
 sbuild::chroot::setup_env (environment& env)
 {
@@ -318,6 +331,9 @@ sbuild::chroot::print_details (std::ostream& stream) const
 			   static_cast<bool>(get_session_flags() &
 					     chroot::SESSION_CREATE));
 
+  if (!get_command_prefix().empty())
+    stream << format_details(_("Command Prefix"), get_command_prefix());
+
   /* Non user-settable properties are listed last. */
   if (!get_location().empty())
     stream << format_details(_("Location"),
@@ -371,6 +387,9 @@ sbuild::chroot::get_keyfile (keyfile& keyfile) const
   if (get_active())
     keyfile.set_value(this->name, "mount-device",
 		      get_mount_device());
+
+  keyfile.set_list_value(this->name, "command-prefix",
+			 get_command_prefix());
 }
 
 void
@@ -431,6 +450,11 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 			keyfile::PRIORITY_OPTIONAL : keyfile::PRIORITY_DISALLOWED,
 			mount_device))
     set_mount_device(mount_device);
+
+  string_list command_prefix;
+  if (keyfile.get_list_value(this->name, "command-prefix",
+			     keyfile::PRIORITY_OPTIONAL, command_prefix))
+    set_command_prefix(command_prefix);
 }
 
 /*

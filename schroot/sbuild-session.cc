@@ -667,7 +667,13 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   /* Run login shell */
   std::string file;
 
-  string_list command = get_command();
+  string_list command(session_chroot->get_command_prefix());
+  string_list const& command_suffix = get_command();
+  for (string_list::const_iterator pos = command_suffix.begin();
+       pos != command_suffix.end();
+       ++pos)
+    command.push_back(*pos);
+
   if (command.empty() ||
       command[0].empty()) // No command
     {

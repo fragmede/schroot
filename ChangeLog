@@ -1,5 +1,24 @@
 2006-02-27  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Document "command-prefix" option.
+
+	* schroot/schroot.conf.5.in: Document "command-prefix" option.
+
+	* schroot/sbuild-session.cc
+	(run_child): Concatenate command_prefix and command to get the
+	command to run in the chroot.
+
+	* schroot/sbuild-chroot.cc
+	(get_command_prefix): New method to get command prefix.
+	(set_command_prefix): New method to set command prefix.
+	(print_details): Display command_prefix if set.
+	(get_keyfile): Set command-prefix in keyfile.
+	(set_keyfile): Get command-prefix from keyfile.
+
+	* schroot/sbuild-chroot.h: New member command_prefix.
+
+2006-02-27  Roger Leigh  <rleigh@debian.org>
+
 	* Remove bashisms in all setup and run shell scripts (test "-o"
 	and "function" in shell functions).  Thanks to Clint Adams for
 	this patch.

@@ -314,6 +314,24 @@ namespace sbuild
     set_run_session_scripts (bool run_session_scripts);
 
     /**
+     * Get the command_prefix for the chroot.  This is a command to
+     * prefix to any command run in the chroot.
+     *
+     * @returns the command prefix.
+     */
+    string_list const&
+    get_command_prefix () const;
+
+    /**
+     * Set the command_prefix for the chroot.  This is a command to
+     * prefix to any command run in the chroot.
+     *
+     * @param command_prefix the command prefix.
+     */
+    void
+    set_command_prefix (string_list const& command_prefix);
+
+    /**
      * Get the type of the chroot.
      *
      * @returns the chroot type.
@@ -559,6 +577,8 @@ namespace sbuild
     bool          run_setup_scripts;
     /// Run session setup scripts?
     bool          run_session_scripts;
+    /// Command prefix.
+    string_list   command_prefix;
   };
 
 }
