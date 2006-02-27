@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $1 = "run-start" ]; then
+if [ $1 = "setup-start" ]; then
 
     # If the session user is a member of the sbuild group, make sure
     # that the chroot environment has the sbuild build directory

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.2.0\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-02-25 12:28+0000\n"
+"POT-Creation-Date: 2006-02-27 21:57+0000\n"
 "PO-Revision-Date: 2006-02-18 11:52+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -246,105 +246,110 @@ msgstr "Enhet för LVM-snapshot"
 msgid "LVM Snapshot Options"
 msgstr "Flaggor för LVM-snapshot"
 
-#: schroot/sbuild-chroot.cc:67
+#: schroot/sbuild-chroot.cc:68
 #, boost-format
 msgid "unknown chroot type \"%1%\""
 msgstr "okänd chroot-typ \"%1%\""
 
-#: schroot/sbuild-chroot.cc:73
+#: schroot/sbuild-chroot.cc:74
 msgid "chroot creation failed"
 msgstr "skapandet av chroot misslyckades"
 
-#: schroot/sbuild-chroot.cc:251
+#: schroot/sbuild-chroot.cc:264
 #, boost-format
 msgid "%1%: failed to create session file: %2%\n"
 msgstr "%1%: misslyckades att skapa sessionsfil: %2%\n"
 
-#: schroot/sbuild-chroot.cc:269
+#: schroot/sbuild-chroot.cc:282
 #, boost-format
 msgid "%1%: lock acquisition failure: %2%\n"
 msgstr "%1%: fel vid övertagande av lås: %2%\n"
 
-#: schroot/sbuild-chroot.cc:284
+#: schroot/sbuild-chroot.cc:297
 #, boost-format
 msgid "%1%: lock discard failure: %2%\n"
 msgstr "%1%: fel vid kassering av lås: %2%\n"
 
-#: schroot/sbuild-chroot.cc:293
+#: schroot/sbuild-chroot.cc:306
 #, boost-format
 msgid "%1%: failed to unlink session file: %2%\n"
 msgstr "%1%: misslyckades att avlänka sessionsfil: %2%\n"
 
-#: schroot/sbuild-chroot.cc:304
+#: schroot/sbuild-chroot.cc:317
 msgid "  --- Session ---\n"
 msgstr "  --- Session ---\n"
 
-#: schroot/sbuild-chroot.cc:306
+#: schroot/sbuild-chroot.cc:319
 msgid "  --- Chroot ---\n"
 msgstr "  --- Chroot ---\n"
 
-#: schroot/sbuild-chroot.cc:307
+#: schroot/sbuild-chroot.cc:320
 msgid "Name"
 msgstr "Namn"
 
-#: schroot/sbuild-chroot.cc:308
+#: schroot/sbuild-chroot.cc:321
 msgid "Description"
 msgstr "Beskrivning"
 
-#: schroot/sbuild-chroot.cc:309
+#: schroot/sbuild-chroot.cc:322
 msgid "Type"
 msgstr "Typ"
 
-#: schroot/sbuild-chroot.cc:310
+#: schroot/sbuild-chroot.cc:323
 msgid "Priority"
 msgstr "Prioritet"
 
-#: schroot/sbuild-chroot.cc:311
+#: schroot/sbuild-chroot.cc:324
 msgid "Groups"
 msgstr "Grupper"
 
-#: schroot/sbuild-chroot.cc:312
+#: schroot/sbuild-chroot.cc:325
 msgid "Root Groups"
 msgstr "Rotgrupper"
 
-#: schroot/sbuild-chroot.cc:313
+#: schroot/sbuild-chroot.cc:326
 msgid "Aliases"
 msgstr "Alias"
 
-#: schroot/sbuild-chroot.cc:314
+#: schroot/sbuild-chroot.cc:327
 msgid "Run Setup Scripts"
 msgstr "Kör konfigurationsskript"
 
-#: schroot/sbuild-chroot.cc:315
+#: schroot/sbuild-chroot.cc:328
 msgid "Run Session Scripts"
 msgstr "Kör sessionsskript"
 
-#: schroot/sbuild-chroot.cc:317
+#: schroot/sbuild-chroot.cc:330
 #, fuzzy
 msgid "Session Managed"
 msgstr "Sessionshantering"
 
-#: schroot/sbuild-chroot.cc:323
+#: schroot/sbuild-chroot.cc:335
+#, fuzzy
+msgid "Command Prefix"
+msgstr "Kommando att köra"
+
+#: schroot/sbuild-chroot.cc:339
 msgid "Location"
 msgstr "Plats"
 
-#: schroot/sbuild-chroot.cc:326
+#: schroot/sbuild-chroot.cc:342
 msgid "Mount Location"
 msgstr "Montera plats"
 
-#: schroot/sbuild-chroot.cc:329
+#: schroot/sbuild-chroot.cc:345
 msgid "Path"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:332
+#: schroot/sbuild-chroot.cc:348
 msgid "Mount Device"
 msgstr "Montera enhet"
 
-#: schroot/sbuild-chroot.h:461
+#: schroot/sbuild-chroot.h:479
 msgid "true"
 msgstr "sant"
 
-#: schroot/sbuild-chroot.h:463
+#: schroot/sbuild-chroot.h:481
 msgid "false"
 msgstr "falskt"
 
@@ -494,12 +499,12 @@ msgstr "Inställning av chroot misslyckades att låsa chroot: %1%"
 msgid "Invalid verbosity level: %1%, falling back to \"normal\""
 msgstr "Ogiltig informationsnivå: %1%, faller tillbaka till \"normal\""
 
-#: schroot/sbuild-session.cc:528 schroot/sbuild-session.cc:821
+#: schroot/sbuild-session.cc:528 schroot/sbuild-session.cc:827
 #, boost-format
 msgid "Failed to fork child: %1%"
 msgstr "Misslyckades att grena process: %1%"
 
-#: schroot/sbuild-session.cc:546 schroot/sbuild-session.cc:757
+#: schroot/sbuild-session.cc:546 schroot/sbuild-session.cc:763
 #, boost-format
 msgid "Could not exec \"%1%\": %2%"
 msgstr "Kunde inte starta \"%1%\": %2%"
@@ -542,48 +547,48 @@ msgstr "Kunde inte sätta uid till \"%1%"
 msgid "Failed to drop root permissions."
 msgstr "Misslyckades att släppa root-rättigheter."
 
-#: schroot/sbuild-session.cc:710
+#: schroot/sbuild-session.cc:716
 #, boost-format
 msgid "[%1% chroot] Running login shell: \"%2%\""
 msgstr "[%1% chroot] Kör inloggningsskal: \"%2%\""
 
-#: schroot/sbuild-session.cc:717
+#: schroot/sbuild-session.cc:723
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Kör inloggningsskal: \"%4%\""
 
-#: schroot/sbuild-session.cc:739
+#: schroot/sbuild-session.cc:745
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%1% chroot] Kör kommando: \"%2%\""
 
-#: schroot/sbuild-session.cc:743
+#: schroot/sbuild-session.cc:749
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Kör kommando: \"%4%\""
 
-#: schroot/sbuild-session.cc:775
+#: schroot/sbuild-session.cc:781
 #, boost-format
 msgid "wait for child failed: %1%"
 msgstr "väntan på barnprocess misslyckades: %1%"
 
-#: schroot/sbuild-session.cc:793
+#: schroot/sbuild-session.cc:799
 #, boost-format
 msgid "Child terminated by signal %1%"
 msgstr "Barnprocess terminerades av signal \"%1%\""
 
-#: schroot/sbuild-session.cc:798
+#: schroot/sbuild-session.cc:804
 msgid "Child dumped core"
 msgstr "Barnprocess dumpade core"
 
 # coredump? Bättre ord?
-#: schroot/sbuild-session.cc:800
+#: schroot/sbuild-session.cc:806
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr ""
 "Barnprocess avslutades onormalt (anledning är okänd; inte en signal eller "
 "coredump)"
 
-#: schroot/sbuild-session.cc:807
+#: schroot/sbuild-session.cc:813
 #, boost-format
 msgid "Child exited abnormally with status '%1%'"
 msgstr "Barnprocess avslutades onormalt med status \"%1%\""

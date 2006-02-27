@@ -29,7 +29,8 @@ setup_SCRIPTS =		\
 	10mount		\
 	20network	\
 	30passwd	\
-	50chrootname
+	50chrootname	\
+	50sbuild
 
 EXTRA_DIST =			\
 	$(setup_SCRIPTS)

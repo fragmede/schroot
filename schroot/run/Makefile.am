@@ -23,9 +23,8 @@
 rundir = $(SCHROOT_CONF_RUN_D)
 
 run_SCRIPTS =		\
-	00check		\
-	50sbuild
+	00check
 
-EXTRA_DIST =				\
+EXTRA_DIST =		\
 	$(run_SCRIPTS)
 

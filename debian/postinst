@@ -41,6 +41,9 @@ configure)
     if dpkg --compare-versions "$2" le "0.1.4-1"; then
         mv_conffile "/etc/schroot.conf" "/etc/schroot/schroot.conf"
     fi
+    if dpkg --compare-versions "$2" le "0.2.6-1"; then
+        mv_conffile "/etc/schroot/run.d/50sbuild" "/etc/schroot/setup.d/50sbuild"
+    fi
 esac
 
 # dh_installdeb will replace this with shell code automatically

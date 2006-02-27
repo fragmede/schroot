@@ -1,5 +1,19 @@
 2006-02-27  Roger Leigh  <rleigh@debian.org>
 
+	* debian/postinst: Move /etc/schroot/run.d/50sbuild to
+	/etc/schroot/setup.d/50sbuild if modified locally.
+
+	* debian/preinst: Remove /etc/schroot/run.d/50sbuild if not
+	modified locally.
+
+	* schroot/schroot-setup.5.in: Update location of 50sbuild.
+
+	* Move 50sbuild from schroot/run.d to schroot/setup.d.
+
+	* schroot/setup/50sbuild: Move from schroot/run/50sbuild.
+
+2006-02-27  Roger Leigh  <rleigh@debian.org>
+
 	* configure.ac: Bump version to 0.2.6.
 
 2006-02-27  Roger Leigh  <rleigh@debian.org>
