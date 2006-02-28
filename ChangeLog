@@ -1,5 +1,10 @@
 2006-02-28  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-environment.h
+	(add): Use std::boolalpha to correctly represent boolean values.
+
+2006-02-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/exec/00check: Add check for CHROOT_FILE_REPACK.
 
 	* schroot/setup/00check: Add check for CHROOT_FILE_REPACK.

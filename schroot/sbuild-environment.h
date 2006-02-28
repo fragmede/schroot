@@ -107,7 +107,7 @@ namespace sbuild
     {
       std::ostringstream varstring;
       varstring.imbue(std::locale("C"));
-      varstring << value;
+      varstring << std::boolalpha << value;
       add(std::make_pair(name, varstring.str()));
     }
 
