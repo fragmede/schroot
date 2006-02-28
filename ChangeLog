@@ -1,3 +1,55 @@
+2006-02-28  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Update.
+
+	* debian/postinst: Move /etc/schroot/run.d/00check to
+	/etc/schroot/exec.d/00check if modified locally.
+
+	* debian/preinst: Remove /etc/schroot/run.d/00check if not
+	modified locally.
+
+	* Update tests.
+
+	* schroot/schroot.conf: Rename run-session-scripts to
+	run-exec-scripts.
+
+	* schroot/schroot.conf.5.in: Document new configuration
+	parameters, and deprecated parameters.
+
+	* schroot/schroot.1.in: Document new setup script locations.
+
+	* schroot/schroot-setup.5.in: Document new setup script locations
+	and parameters.
+
+	* schroot/Makefile.am (SUBDIRS): Rename run to exec.
+
+	* configure.ac: Rename SCHROOT_CONF_RUN_D to SCHROOT_CONF_EXEC_D.
+	Rename schroot/run/Makefile to schroot/exec/Makefile.  Tidy
+	comments.
+
+	* schroot/sbuild-session.cc: Use new chroot functions and enums.
+	Also use SCHROOT_CONF_EXEC_D rather than SCHROOT_CONF_RUN_D.
+	Execution scripts are called with "exec-start" and "exec-stop",
+	rather than "run-start: and "run-stop", respectively.
+
+	* Use new functions and enums in all derived chroot types.
+
+	* schroot/sbuild-chroot.cc
+	(get_run_exec_scripts): Rename from get_run_session_scripts.
+	(set_run_exec_scripts): Rename from set_run_session_scripts.
+	(print_details): Print "Run Execution Scripts" rather than "Run
+	Session Scripts".
+	(get_keyfile): Set "run-exec-scripts" in the keyfile.
+	(set_keyfile): Get "run-exec-scripts" in the keyfile.  Also get
+	"run-session-scripts" (now deprecated) for backward compatibility.
+
+	* schroot/sbuild-chroot.h
+	(setup_type): Rename RUN_START and RUN_STOP to EXEC_START and
+	EXEC_STOP.
+	(run_exec_scripts): Rename member from run_session_scripts.
+
+	* Rename schroot/run to schroot/exec.
+
 2006-02-27  Roger Leigh  <rleigh@debian.org>
 
 	* debian/postinst: Move /etc/schroot/run.d/50sbuild to

@@ -50,8 +50,8 @@ namespace sbuild
 	SETUP_START,   ///< Activate a chroot.
 	SETUP_RECOVER, ///< Reactivate a chroot.
 	SETUP_STOP,    ///< Deactivate a chroot.
-	RUN_START,     ///< Start running a command in an active chroot.
-	RUN_STOP       ///< End running a command in an active chroot.
+	EXEC_START,     ///< Start executing a command in an active chroot.
+	EXEC_STOP       ///< End executing a command in an active chroot.
       };
 
     /// Chroot session properties
@@ -297,21 +297,21 @@ namespace sbuild
     set_run_setup_scripts (bool run_setup_scripts);
 
     /**
-     * Check if chroot session scripts will be run.
+     * Check if chroot exec scripts will be run.
      *
-     * @returns true if session scripts will be run, otherwise false.
+     * @returns true if exec scripts will be run, otherwise false.
      */
     bool
-    get_run_session_scripts () const;
+    get_run_exec_scripts () const;
 
     /**
-     * Set whether chroot session scripts will be run.
+     * Set whether chroot exec scripts will be run.
      *
-     * @param run_session_scripts true if session scripts will be run,
+     * @param run_exec_scripts true if exec scripts will be run,
      * otherwise false.
      */
     void
-    set_run_session_scripts (bool run_session_scripts);
+    set_run_exec_scripts (bool run_exec_scripts);
 
     /**
      * Get the command_prefix for the chroot.  This is a command to
@@ -575,8 +575,8 @@ namespace sbuild
     bool          active;
     /// Run chroot setup scripts?
     bool          run_setup_scripts;
-    /// Run session setup scripts?
-    bool          run_session_scripts;
+    /// Run chroot exec scripts?
+    bool          run_exec_scripts;
     /// Command prefix.
     string_list   command_prefix;
   };

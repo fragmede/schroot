@@ -9,7 +9,7 @@ aliases=unstable,default
 device=/dev/hda_vg/sid_chroot
 mount-options=-o atime,sync,user_xattr
 run-setup-scripts=true
-run-session-scripts=true
+run-exec-scripts=true
 
 [sid-local]
 description=Debian sid (unstable)
@@ -30,5 +30,5 @@ device=/dev/hda_vg/sid_chroot
 mount-options=-o atime,sync,user_xattr
 lvm-snapshot-options=--size 2G
 run-setup-scripts=true
-run-session-scripts=true
+run-exec-scripts=true
 

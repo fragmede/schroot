@@ -20,7 +20,7 @@
 #
 #####################################################################
 
-SUBDIRS = pam run setup
+SUBDIRS = pam exec setup
 
 localedir = $(datadir)/locale
 pkglibexecdir = $(SCHROOT_LIBEXEC_DIR)

@@ -20,11 +20,11 @@
 #
 #####################################################################
 
-rundir = $(SCHROOT_CONF_RUN_D)
+executiondir = $(SCHROOT_CONF_EXEC_D)
 
-run_SCRIPTS =		\
+execution_SCRIPTS =	\
 	00check
 
 EXTRA_DIST =		\
-	$(run_SCRIPTS)
+	$(execution_SCRIPTS)
 

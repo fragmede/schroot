@@ -20,7 +20,7 @@
 #
 dnl The minimum version of autoconf required.
 AC_PREREQ(2.59)
-dnl Initialise automake with the package name, version and
+dnl Initialise autoconf with the package name, version and
 dnl bug-reporting address.
 AC_INIT([schroot], [0.2.6], [buildd-tools-devel@lists.alioth.debian.org])
 dnl For safety, check we are in the right directory by
@@ -28,7 +28,7 @@ dnl checking for a known unique file.
 AC_CONFIG_SRCDIR([schroot/sbuild-session.cc])
 dnl Place auxilliary scripts here.
 AC_CONFIG_AUX_DIR([scripts])
-dnl Put macro definitions here (though they aren't used).
+dnl Put macro definitions here.
 AC_CONFIG_HEADER([config.h])
 
 dnl Initialise automake stuff.
@@ -83,7 +83,7 @@ AM_CONDITIONAL([USE_UNIT_TESTS], [test -n "$HAVE_CPPUNIT"])
 SCHROOT_CFLAGS="$UUID_CFLAGS"
 AC_SUBST([SCHROOT_CFLAGS])
 
-# Checks for header files (none at the moment).
+# Checks for header files.
 AC_CHECK_HEADER([boost/format.hpp],, [AC_MSG_ERROR([Boost.Format (Boost C++ Libraries) is not installed, but is required by schroot])])
 AC_CHECK_HEADER([boost/program_options.hpp],, [AC_MSG_ERROR([Boost.Program_options (Boost C++ Libraries) is not installed, but is required by schroot])])
 
@@ -223,14 +223,14 @@ AC_DEFINE_UNQUOTED(SCHROOT_CONF, ["$SCHROOT_CONF"])
 SCHROOT_CONF_SETUP_D="${PACKAGE_SYSCONF_DIR}/setup.d"
 AC_SUBST([SCHROOT_CONF_SETUP_D])
 
-AH_TEMPLATE(SCHROOT_CONF_SETUP_D,, [schroot config chroot setup directory])
+AH_TEMPLATE(SCHROOT_CONF_SETUP_D,, [schroot chroot setup directory])
 AC_DEFINE_UNQUOTED(SCHROOT_CONF_SETUP_D, ["$SCHROOT_CONF_SETUP_D"])
 
-SCHROOT_CONF_RUN_D="${PACKAGE_SYSCONF_DIR}/run.d"
-AC_SUBST([SCHROOT_CONF_RUN_D])
+SCHROOT_CONF_EXEC_D="${PACKAGE_SYSCONF_DIR}/exec.d"
+AC_SUBST([SCHROOT_CONF_EXEC_D])
 
-AH_TEMPLATE(SCHROOT_CONF_RUN_D,, [schroot config chroot run directory])
-AC_DEFINE_UNQUOTED(SCHROOT_CONF_RUN_D, ["$SCHROOT_CONF_RUN_D"])
+AH_TEMPLATE(SCHROOT_CONF_EXEC_D,, [schroot chroot exec directory])
+AC_DEFINE_UNQUOTED(SCHROOT_CONF_EXEC_D, ["$SCHROOT_CONF_EXEC_D"])
 
 AH_TEMPLATE(SCHROOT_DATADIR,, [Package data directory])
 SCHROOT_DATADIR="${PACKAGE_DATA_DIR}/${PACKAGE_VERSION}"
@@ -246,7 +246,7 @@ AC_CONFIG_FILES([doc/schroot.dox])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([schroot/Makefile])
 AC_CONFIG_FILES([schroot/pam/Makefile])
-AC_CONFIG_FILES([schroot/run/Makefile])
+AC_CONFIG_FILES([schroot/exec/Makefile])
 AC_CONFIG_FILES([schroot/setup/Makefile])
 AC_CONFIG_FILES([schroot/dchroot.1])
 AC_CONFIG_FILES([schroot/schroot.1])

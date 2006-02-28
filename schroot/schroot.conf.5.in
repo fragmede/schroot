@@ -85,9 +85,10 @@ and other critical files).  The default for session-managed chroots
 true session management, because it does not make a copy of the chroot).  If
 your chroots are exclusively controlled by schroot, set to \[lq]true\[rq].
 .TP
-.B run\-session\-scripts=\fItrue\fP|\fIfalse\fP
-Set whether chroot session scripts will be run.  The default is are the same as
-for the \fIrun-setup-scripts\fP key.
+.B run\-exec\-scripts=\fItrue\fP|\fIfalse\fP
+Set whether chroot execution scripts will be run.  The default is are the same
+as for the \fIrun-setup-scripts\fP key.  This option was called
+\fIrun-setup-scripts\fP in releases up to version 0.2.5.
 .TP
 .B command\-prefix=\fIcommand,option1,option2,...\fP
 A comma-separated list of a command and the options for the command.  This
@@ -220,7 +221,7 @@ This will localise the \fIdescription\fP key for all French locales.
 .br
 \f[CR]run-setup-scripts=true\fP
 .br
-\f[CR]run-session-scripts=true\fP
+\f[CR]run-exec-scripts=true\fP
 .br
 \f[CR]\fP
 .br
@@ -238,7 +239,7 @@ This will localise the \fIdescription\fP key for all French locales.
 .br
 \f[CR]run-setup-scripts=true\fP
 .br
-\f[CR]run-session-scripts=true\fP
+\f[CR]run-exec-scripts=true\fP
 .br
 \f[CR]\fP
 .br
@@ -262,7 +263,7 @@ This will localise the \fIdescription\fP key for all French locales.
 .br
 \f[CR]run-setup-scripts=true\fP
 .br
-\f[CR]run-session-scripts=true\fP
+\f[CR]run-exec-scripts=true\fP
 .SH FILES
 .TP
 .I @SCHROOT_CONF@

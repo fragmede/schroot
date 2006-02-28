@@ -7,4 +7,4 @@ root-groups=root,sbuild
 #root-groups=root
 aliases=stable
 run-setup-scripts=true
-run-session-scripts=true
+run-exec-scripts=true

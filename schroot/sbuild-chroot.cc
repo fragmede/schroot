@@ -41,7 +41,7 @@ sbuild::chroot::chroot ():
   mount_device(),
   active(false),
   run_setup_scripts(false),
-  run_session_scripts(false),
+  run_exec_scripts(false),
   command_prefix()
 {
 }
@@ -215,15 +215,15 @@ sbuild::chroot::set_run_setup_scripts (bool run_setup_scripts)
 }
 
 bool
-sbuild::chroot::get_run_session_scripts () const
+sbuild::chroot::get_run_exec_scripts () const
 {
-  return this->run_session_scripts;
+  return this->run_exec_scripts;
 }
 
 void
-sbuild::chroot::set_run_session_scripts (bool run_session_scripts)
+sbuild::chroot::set_run_exec_scripts (bool run_exec_scripts)
 {
-  this->run_session_scripts = run_session_scripts;
+  this->run_exec_scripts = run_exec_scripts;
 }
 
 string_list const&
@@ -325,8 +325,8 @@ sbuild::chroot::print_details (std::ostream& stream) const
 	 << format_details(_("Root Groups"), get_root_groups())
 	 << format_details(_("Aliases"), get_aliases())
 	 << format_details(_("Run Setup Scripts"), get_run_setup_scripts())
-	 << format_details(_("Run Session Scripts"),
-			   get_run_session_scripts())
+	 << format_details(_("Run Execution Scripts"),
+			   get_run_exec_scripts())
 	 << format_details(_("Session Managed"),
 			   static_cast<bool>(get_session_flags() &
 					     chroot::SESSION_CREATE));
@@ -362,8 +362,8 @@ sbuild::chroot::get_keyfile (keyfile& keyfile) const
   keyfile.set_value(this->name, "run-setup-scripts",
 		    get_run_setup_scripts());
 
-  keyfile.set_value(this->name, "run-session-scripts",
-		    get_run_session_scripts());
+  keyfile.set_value(this->name, "run-exec-scripts",
+		    get_run_exec_scripts());
 
   keyfile.set_value(this->name, "priority",
 		    get_priority());
@@ -407,10 +407,13 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 			keyfile::PRIORITY_OPTIONAL, run_setup_scripts))
     set_run_setup_scripts(run_setup_scripts);
 
-  bool run_session_scripts(false);
+  bool run_exec_scripts(false);
   if (keyfile.get_value(this->name, "run-session-scripts",
-			keyfile::PRIORITY_OPTIONAL, run_session_scripts))
-    set_run_session_scripts(run_session_scripts);
+			keyfile::PRIORITY_DEPRECATED, run_exec_scripts))
+    set_run_exec_scripts(run_exec_scripts);
+  if (keyfile.get_value(this->name, "run-exec-scripts",
+			keyfile::PRIORITY_OPTIONAL, run_exec_scripts))
+    set_run_exec_scripts(run_exec_scripts);
 
   int priority(0);
   if (keyfile.get_value(this->name, "priority",

@@ -41,7 +41,7 @@ chroot_lvm_snapshot::chroot_lvm_snapshot ():
   snapshot_options()
 {
   set_run_setup_scripts(true);
-  set_run_session_scripts(true);
+  set_run_exec_scripts(true);
 }
 
 chroot_lvm_snapshot::~chroot_lvm_snapshot ()
@@ -139,8 +139,8 @@ chroot_lvm_snapshot::setup_lock (setup_type type,
       else
 	{
 	  /* Lock is preserved while running a command. */
-	  if ((type == RUN_START && lock == false) ||
-	      (type == RUN_STOP && lock == true))
+	  if ((type == EXEC_START && lock == false) ||
+	      (type == EXEC_STOP && lock == true))
 	    return;
 
 	  sbuild::device_lock dlock(device);

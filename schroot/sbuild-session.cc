@@ -363,21 +363,21 @@ try
 
 	    try
 	      {
-		/* Run run-start scripts. */
-		setup_chroot(chroot, chroot::RUN_START);
+		/* Run exec-start scripts. */
+		setup_chroot(chroot, chroot::EXEC_START);
 
 		/* Run session if setup succeeded. */
 		if (this->session_operation == OPERATION_AUTOMATIC ||
 		    this->session_operation == OPERATION_RUN)
 		  run_chroot(chroot);
 
-		/* Run run-stop scripts whether or not there was an
+		/* Run exec-stop scripts whether or not there was an
 		   error. */
-		setup_chroot(chroot, chroot::RUN_STOP);
+		setup_chroot(chroot, chroot::EXEC_STOP);
 	      }
 	    catch (error const& e)
 	      {
-		setup_chroot(chroot, chroot::RUN_STOP);
+		setup_chroot(chroot, chroot::EXEC_STOP);
 		throw;
 	      }
 
@@ -426,22 +426,22 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 	(this->session_operation == OPERATION_END &&
 	 setup_type == chroot::SETUP_STOP) ||
 	(this->session_operation == OPERATION_RUN &&
-	 (setup_type == chroot::RUN_START ||
-	  setup_type == chroot::RUN_STOP)) ||
+	 (setup_type == chroot::EXEC_START ||
+	  setup_type == chroot::EXEC_STOP)) ||
 	(this->session_operation == OPERATION_AUTOMATIC &&
 	 (setup_type == chroot::SETUP_START ||
 	  setup_type == chroot::SETUP_STOP  ||
-	  setup_type == chroot::RUN_START   ||
-	  setup_type == chroot::RUN_STOP))))
+	  setup_type == chroot::EXEC_START   ||
+	  setup_type == chroot::EXEC_STOP))))
     return;
 
   if (((setup_type == chroot::SETUP_START   ||
 	setup_type == chroot::SETUP_RECOVER ||
 	setup_type == chroot::SETUP_STOP) &&
        session_chroot->get_run_setup_scripts() == false) ||
-      ((setup_type == chroot::RUN_START ||
-	setup_type == chroot::RUN_STOP) &&
-       session_chroot->get_run_setup_scripts() == false))
+      ((setup_type == chroot::EXEC_START ||
+	setup_type == chroot::EXEC_STOP) &&
+       session_chroot->get_run_exec_scripts() == false))
     return;
 
   try
@@ -462,10 +462,10 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
     setup_type_string = "setup-recover";
   else if (setup_type == chroot::SETUP_STOP)
     setup_type_string = "setup-stop";
-  else if (setup_type == chroot::RUN_START)
-    setup_type_string = "run-start";
-  else if (setup_type == chroot::RUN_STOP)
-    setup_type_string = "run-stop";
+  else if (setup_type == chroot::EXEC_START)
+    setup_type_string = "exec-start";
+  else if (setup_type == chroot::EXEC_STOP)
+    setup_type_string = "exec-stop";
 
   string_list arg_list;
   arg_list.push_back(RUN_PARTS); // Run run-parts(8)
@@ -474,7 +474,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   arg_list.push_back("--lsbsysinit");
   arg_list.push_back("--exit-on-error");
   if (setup_type == chroot::SETUP_STOP ||
-      setup_type == chroot::RUN_STOP)
+      setup_type == chroot::EXEC_STOP)
     arg_list.push_back("--reverse");
   format arg_fmt("--arg=%1%");
   arg_fmt % setup_type_string;
@@ -484,7 +484,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
       setup_type == chroot::SETUP_STOP)
     arg_list.push_back(SCHROOT_CONF_SETUP_D); // Setup directory
   else
-    arg_list.push_back(SCHROOT_CONF_RUN_D); // Run directory
+    arg_list.push_back(SCHROOT_CONF_EXEC_D); // Run directory
 
   /* Get a complete list of environment variables to set.  We need to
      query the chroot here, since this can vary depending upon the

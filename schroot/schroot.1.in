@@ -203,8 +203,8 @@ user, and not be writable by other.
 .TP
 .I @SCHROOT_CONF_SETUP_D@
 .TP
-.I @SCHROOT_CONF_RUN_D@
-The system-wide chroot setup and run directories.  See
+.I @SCHROOT_CONF_EXEC_D@
+The system-wide chroot setup and execution directories.  See
 .BR schroot-setup (5).
 .TP
 .I /etc/pam.d/schroot

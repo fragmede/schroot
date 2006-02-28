@@ -22,8 +22,6 @@ set -e
 #     installation fails and the `postinst' is called with `abort-upgrade',
 #     `abort-remove' or `abort-deconfigure'.
 
-#s/^if\s+\[\s+"\$1"\s+=\s+"configure"\s+\];\s+then\s+ldconfig\b//m;
-
 # Move a conffile without triggering a dpkg question
 mv_conffile() {
     OLDCONFFILE="$1"
@@ -43,6 +41,7 @@ configure)
     fi
     if dpkg --compare-versions "$2" le "0.2.6-1"; then
         mv_conffile "/etc/schroot/run.d/50sbuild" "/etc/schroot/setup.d/50sbuild"
+        mv_conffile "/etc/schroot/run.d/00check" "/etc/schroot/exec.d/00check"
     fi
 esac
 

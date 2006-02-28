@@ -79,7 +79,7 @@ class test_chroot : public test_chroot_base<basic_chroot>
   CPPUNIT_TEST(test_aliases);
   CPPUNIT_TEST(test_active);
   CPPUNIT_TEST(test_run_setup_scripts);
-  CPPUNIT_TEST(test_run_session_scripts);
+  CPPUNIT_TEST(test_run_exec_scripts);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
   CPPUNIT_TEST(test_session_flags);
@@ -181,13 +181,13 @@ public:
     CPPUNIT_ASSERT(chroot->get_run_setup_scripts() == false);
   }
 
-  void test_run_session_scripts()
+  void test_run_exec_scripts()
   {
-    CPPUNIT_ASSERT(chroot->get_run_session_scripts() == false);
-    chroot->set_run_session_scripts(true);
-    CPPUNIT_ASSERT(chroot->get_run_session_scripts() == true);
-    chroot->set_run_session_scripts(false);
-    CPPUNIT_ASSERT(chroot->get_run_session_scripts() == false);
+    CPPUNIT_ASSERT(chroot->get_run_exec_scripts() == false);
+    chroot->set_run_exec_scripts(true);
+    CPPUNIT_ASSERT(chroot->get_run_exec_scripts() == true);
+    chroot->set_run_exec_scripts(false);
+    CPPUNIT_ASSERT(chroot->get_run_exec_scripts() == false);
   }
 
   void test_chroot_type()

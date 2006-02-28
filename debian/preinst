@@ -1,5 +1,5 @@
 #! /bin/sh
-# preinst script for gimp-print
+# preinst script for schroot
 #
 # see: dh_installdeb(1)
 
@@ -30,7 +30,8 @@ install|upgrade)
         prep_mv_conffile "/etc/schroot.conf"
     fi
     if dpkg --compare-versions "$2" le "0.2.6-1"; then
-        prep_mv_conffile "/etc/schroot/run.d/50sbuild"
+         prep_mv_conffile "/etc/schroot/run.d/50sbuild"
+         prep_mv_conffile "/etc/schroot/run.d/00check"
     fi
 esac
 

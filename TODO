@@ -10,9 +10,6 @@ the Doxygen-generated documentation in doc/schroot/html/todo.html
 PENDING
 -------
 
-* Make "session" naming more consistent.
-  "run-session-scripts" should be "run-scripts".
-
 * Translation of strings in headers.
 
 PLANNED

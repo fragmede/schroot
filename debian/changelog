@@ -7,9 +7,15 @@ schroot (0.2.6-1) unstable; urgency=low
   * Allow all commands run inside the chroot to be prefixed by another
     command (Closes: #354513).
   * Move 50sbuild from /etc/schroot/run.d to /etc/schroot/setup.d.
-  * debian/preinst: Remove /etc/schroot/run.d/50sbuild if not modified locally.
-  * debian/postinst: Move /etc/schroot/run.d/50sbuild to
-    /etc/schroot/setup.d/50sbuild if modified locally.
+  * Move 00check from /etc/schroot/run.d to /etc/schroot/exec.d.
+  * debian/preinst:
+    - Remove /etc/schroot/run.d/50sbuild if not modified locally.
+    - Remove /etc/schroot/run.d/00check if not modified locally.
+  * debian/postinst:
+    - Move /etc/schroot/run.d/50sbuild to /etc/schroot/setup.d/50sbuild if
+      modified locally.
+    - Move /etc/schroot/run.d/00check to /etc/schroot/exec.d/00check if
+      modified locally.
 
   --
 

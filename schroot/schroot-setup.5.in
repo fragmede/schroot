@@ -19,7 +19,7 @@
 schroot-setup \- schroot chroot setup scripts
 .SH DESCRIPTION
 \fBschroot\fP uses scripts to to set up and then clean up the chroot
-environment.  The directories @SCHROOT_CONF_SETUP_D@ and @SCHROOT_CONF_RUN_D@
+environment.  The directories @SCHROOT_CONF_SETUP_D@ and @SCHROOT_CONF_EXEC_D@
 contain scripts run when a chroot is created and destroyed, and entered and
 left, respectively.  Several environment variables are set while the scripts
 are being run, which allows their behaviour to be customised, depending upon,
@@ -31,12 +31,12 @@ by using
 .BR run-parts (8).
 When a session is first started, the chroot is set up by running the scripts in
 @SCHROOT_CONF_SETUP_D@ with the \[lq]setup\-start\[rq] option.  When a command
-or shell is run in the configured chroot, the scripts in @SCHROOT_CONF_RUN_D@
-are run with the \[lq]run\-start\[rq] option.  After the command or command has
-completed, the scripts are run in reverse order with the \[lq]run\-stop\[rq]
-option.  Finally, when the session is ended, the scripts in
-@SCHROOT_CONF_SETUP_D@ are run in reverse order with the \[lq]setup\-stop\[rq]
-option.
+or shell is run in the configured chroot, the scripts in @SCHROOT_CONF_EXEC_D@
+are run with the \[lq]exec\-start\[rq] option.  After the command or command
+has completed, the scripts are run in reverse order with the
+\[lq]exec\-stop\[rq] option.  Finally, when the session is ended, the scripts
+in @SCHROOT_CONF_SETUP_D@ are run in reverse order with the
+\[lq]setup\-stop\[rq] option.
 .SH
 ENVIRONMENT
 .SS General variables
@@ -152,8 +152,8 @@ If
 .BR sbuild (1)
 is installed, set up the build directories, including ownership and
 permissions, inside the chroot for use by sbuild.
-.SS \fI@SCHROOT_CONF_RUN_D@\fP
-The system-wide chroot run directory.
+.SS \fI@SCHROOT_CONF_EXEC_D@\fP
+The system-wide chroot execution directory
 .TP
 .I 00check
 Print debugging diagnostics and perform basic sanity checking.
