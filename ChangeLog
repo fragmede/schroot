@@ -1,6 +1,12 @@
 2006-02-28  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/setup/05file:
+	(unpack_file): Use a temporary file to prevent data loss, and use
+	trap to clean up on failure.
+
+2006-02-28  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/setup/05file:
 	(check_filetype): Correctly escape '.'.
 
 2006-02-28  Roger Leigh  <rleigh@debian.org>

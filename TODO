@@ -21,6 +21,12 @@ PLANNED
   It will require DHCP or static IP configuration and a dynamic
   hostname in order to connect.
 
+* File-based chroots:
+
+** Check permissions on original file to make sure it's safe.
+
+** Repacked file ownership and permissions should match the original file.
+
 
 POTENTIAL
 ---------

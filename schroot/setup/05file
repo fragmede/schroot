@@ -22,35 +22,43 @@ check_filetype()
 # Unpack archive
 unpack_file()
 {
-	if [ "$filetype" = "tar" ]; then
-	    tar $VERBOSE -xf "$CHROOT_FILE"
-	elif [ "$filetype" = "tgz" ]; then
-	    tar $VERBOSE -xzf "$CHROOT_FILE"
-	elif [ "$filetype" = "tbz" ]; then
-	    tar $VERBOSE -xjf "$CHROOT_FILE"
-	elif [ "$filetype" = "zip" ]; then
-	    unzip $ZIP_VERBOSE "$CHROOT_FILE"
-	else
-	    echo "Unsupported filetype for $CHROOT_FILE"
-	    exit 1
-	fi
+    if [ "$filetype" = "tar" ]; then
+	tar $VERBOSE -xf "$CHROOT_FILE"
+    elif [ "$filetype" = "tgz" ]; then
+	tar $VERBOSE -xzf "$CHROOT_FILE"
+    elif [ "$filetype" = "tbz" ]; then
+	tar $VERBOSE -xjf "$CHROOT_FILE"
+    elif [ "$filetype" = "zip" ]; then
+	unzip $ZIP_VERBOSE "$CHROOT_FILE"
+    else
+	echo "Unsupported filetype for $CHROOT_FILE"
+	exit 1
+    fi
 }
 
 # Repack archive
 repack_file()
 {
-	if [ "$filetype" = "tar" ]; then
-	    tar $VERBOSE -cf "$CHROOT_FILE" .
-	elif [ "$filetype" = "tgz" ]; then
-	    tar $VERBOSE -czf "$CHROOT_FILE" .
-	elif [ "$filetype" = "tbz" ]; then
-	    tar $VERBOSE -cjf "$CHROOT_FILE" .
-	elif [ "$filetype" = "zip" ]; then
-	    zip $ZIP_VERBOSE -r "$CHROOT_FILE" .
-	else
-	    echo "Unsupported filetype for $CHROOT_FILE"
-	    exit 1
-	fi
+    NEWFILE=`mktemp "${CHROOT_FILE}.XXXXXX"`
+
+    trap "if [ -f \"$NEWFILE\" ]; then rm -f \"$NEWFILE\"; fi" 0
+
+    if [ "$filetype" = "tar" ]; then
+	tar $VERBOSE -cf "$NEWFILE" .
+    elif [ "$filetype" = "tgz" ]; then
+	tar $VERBOSE -czf "$NEWFILE" .
+    elif [ "$filetype" = "tbz" ]; then
+	tar $VERBOSE -cjf "$NEWFILE" .
+    elif [ "$filetype" = "zip" ]; then
+	zip $ZIP_VERBOSE -r "$NEWFILE" .
+    else
+	echo "Unsupported filetype for $CHROOT_FILE"
+	exit 1
+    fi
+
+    mv "$NEWFILE" "$CHROOT_FILE"
+
+    trap "" 0
 }
 
 if [ "$AUTH_VERBOSITY" = "verbose" ]; then
