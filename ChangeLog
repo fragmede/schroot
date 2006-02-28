@@ -1,5 +1,10 @@
 2006-02-28  Roger Leigh  <rleigh@debian.org>
 
+	* All classes derived from sbuild::chroot use virtual public
+	inheritance (to allow for the use of sbuild::chroot_source).
+
+2006-02-28  Roger Leigh  <rleigh@debian.org>
+
 	* Makefile.am: Add sbuild-chroot-source.(cc|h).
 
 	* schroot/sbuild.h: Include sbuild-chroot-source.h.

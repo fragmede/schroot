@@ -34,7 +34,7 @@ namespace sbuild
    * careful checking and/or restrictions in order to prevent resource
    * starvation (using all swap space, for example).
    */
-  class chroot_file : public chroot
+  class chroot_file : virtual public chroot
   {
   protected:
     /// The constructor.

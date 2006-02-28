@@ -29,7 +29,7 @@ namespace sbuild
    * A chroot stored on an unmounted block device.  The device will be
    * mounted on demand.
    */
-  class chroot_block_device : public chroot
+  class chroot_block_device : virtual public chroot
   {
   protected:
     /// The constructor.
