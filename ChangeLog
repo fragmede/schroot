@@ -1,5 +1,23 @@
 2006-02-28  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-chroot-config.cc
+	(parse_data): Remove special case for lvm-snapshot chroots.
+	Instead, create and add a source chroot for any inactive chroot
+	implementing chroot_source.
+
+	* schroot/sbuild-chroot-lvm-snapshot.cc
+	(clone_source): Create a chroot_block_device source chroot.
+	(setup_env): Chain up to chroot_source method.
+	(print_details): Chain up to chroot_source method.
+	(get_keyfile): Chain up to chroot_source method.
+	(set_keyfile): Chain up to chroot_source method.
+
+	* schroot/sbuild-chroot-lvm-snapshot.h: Derive from
+	sbuild::chroot_source, and implement
+	sbuild::chroot_source::clone_source.
+
+2006-02-28  Roger Leigh  <rleigh@debian.org>
+
 	* All classes derived from sbuild::chroot use virtual public
 	inheritance (to allow for the use of sbuild::chroot_source).
 

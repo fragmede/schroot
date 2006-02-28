@@ -21,6 +21,7 @@
 #define SBUILD_CHROOT_LVM_SNAPSHOT_H
 
 #include "sbuild-chroot-block-device.h"
+#include "sbuild-chroot-source.h"
 
 namespace sbuild
 {
@@ -29,7 +30,8 @@ namespace sbuild
    * A chroot stored on an LVM logical volume (LV).  A snapshot LV
    * will be created and mounted on demand.
    */
-  class chroot_lvm_snapshot : public chroot_block_device
+  class chroot_lvm_snapshot : public chroot_block_device,
+			      public chroot_source
   {
   protected:
     /// The constructor.
@@ -43,6 +45,9 @@ namespace sbuild
 
     virtual chroot::ptr
     clone () const;
+
+    virtual chroot::ptr
+    clone_source () const;
 
     /**
      * Get the logical volume snapshot device name.  This is used by

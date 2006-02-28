@@ -37,6 +37,7 @@ using namespace sbuild;
 
 chroot_lvm_snapshot::chroot_lvm_snapshot ():
   chroot_block_device(),
+  chroot_source(),
   snapshot_device(),
   snapshot_options()
 {
@@ -52,6 +53,16 @@ sbuild::chroot::ptr
 chroot_lvm_snapshot::clone () const
 {
   return ptr(new chroot_lvm_snapshot(*this));
+}
+
+sbuild::chroot::ptr
+chroot_lvm_snapshot::clone_source () const
+{
+  ptr clone(new chroot_block_device(*this));
+
+  chroot_source::clone_source_setup(clone);
+
+  return clone;
 }
 
 std::string const&
@@ -95,7 +106,8 @@ chroot_lvm_snapshot::get_chroot_type () const
 void
 chroot_lvm_snapshot::setup_env (environment& env)
 {
-  this->chroot_block_device::setup_env(env);
+  chroot_block_device::setup_env(env);
+  chroot_source::setup_env(env);
 
   env.add("CHROOT_LVM_SNAPSHOT_NAME", sbuild::basename(get_snapshot_device()));
   env.add("CHROOT_LVM_SNAPSHOT_DEVICE", get_snapshot_device());
@@ -191,7 +203,8 @@ chroot_lvm_snapshot::get_session_flags () const
 void
 chroot_lvm_snapshot::print_details (std::ostream& stream) const
 {
-  this->chroot_block_device::print_details(stream);
+  chroot_block_device::print_details(stream);
+  chroot_source::print_details(stream);
 
   if (!this->snapshot_device.empty())
     stream << format_details(_("LVM Snapshot Device"),
@@ -206,6 +219,7 @@ void
 chroot_lvm_snapshot::get_keyfile (keyfile& keyfile) const
 {
   chroot_block_device::get_keyfile(keyfile);
+  chroot_source::get_keyfile(keyfile);
 
   keyfile.set_value(get_name(), "lvm-snapshot-device",
 		    get_snapshot_device());
@@ -218,6 +232,7 @@ void
 chroot_lvm_snapshot::set_keyfile (keyfile const& keyfile)
 {
   chroot_block_device::set_keyfile(keyfile);
+  chroot_source::set_keyfile(keyfile);
 
   std::string snapshot_device;
   if (keyfile.get_value(get_name(), "lvm-snapshot-device",
