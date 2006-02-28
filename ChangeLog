@@ -1,5 +1,13 @@
 2006-02-28  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Document new source chroots and file repacking.
+
+	* schroot/schroot-setup.5.in: Document CHROOT_FILE_REPACK.
+
+	* schroot/schroot.conf.5.in: Document source chroot options.
+
+2006-02-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/setup/05file:
 	(unpack_file): Use a temporary file to prevent data loss, and use
 	trap to clean up on failure.

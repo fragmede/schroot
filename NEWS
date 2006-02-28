@@ -24,6 +24,16 @@ configuration.
      "--end-session" now allow multiple chroots to be specified with
      "--chroot", rather than just one.
 
+  4) The "file" and "lvm-snapshot" chroot types both implement "source
+     chroots", to provide access to the source block device and
+     archive file, respectively.  The "source-groups" and
+     "source-root-groups" options have been added to set the "groups"
+     and "root-groups" options for the source chroot.
+
+  5) The "file" chroot, when accessed as a source chroot using the
+     "-source" suffix, will now automatically repack itself into a new
+     archive file on ending a session.
+
 * Major changes in 0.2.5:
 
   1) The output of "--info" now displays a "Path" line if available.

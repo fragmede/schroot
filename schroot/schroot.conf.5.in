@@ -109,8 +109,9 @@ exist and have read and execute permissions to allow users' access to it.
 File chroots
 .PP
 Chroots of type \[lq]file\[rq] are files on the current filesystem containing
-an archive of the chroot files.
-They have an additional (mandatory) configuration option:
+an archive of the chroot files.  They implement the \fBsource chroot\fP options
+(see \[lq]source chroot options\[rq], below) and have an additional (mandatory)
+configuration option:
 .TP
 .B file=\fIfilename\fP
 The file containing the archived chroot environment.  This must be a tar (tape
@@ -149,8 +150,9 @@ will be unmounted and removed.  For each chroot of this type, a corresponding
 appended to the chroot name and all its aliases; this is for convenient access
 to the source device.
 .PP
-All of the options for \[lq]block\-device\[rq]
-are available, plus an additional option:
+They implement the \fBsource chroot\fP options (see \[lq]source chroot
+options\[rq], below), and all the options for \[lq]block\-device\[rq], plus an
+additional option:
 .TP
 .B lvm-snapshot-options=\fIsnapshot_options\fP
 Snapshot options.  These are additional options to pass to lvcreate(8).  For
@@ -159,7 +161,25 @@ example, \[lq]\-L 2g\[rq] to create a snapshot 2 GiB in size.
 the LV name (\[lq]\-n\[rq]), the snapshot option (\[lq]\-s\[rq]) and the
 original LV path may not be specfied here; they are set automatically by
 schroot.
+.SS Source chroot options
 .PP
+Some chroots implement source chroots.  These are chroots which automatically
+create a copy of themselves before use, and are usually session managed.  These
+chroots also provide an additional chroot with a \fI\-source\fP suffix added to
+their name, to allow access to the original data, to aid in chroot maintenance.
+These chroots provide the following additional options:
+.TP
+.B source\-groups=\fIgroup1,group2,...\fP
+A comma-separated list of groups which are allowed access to the source chroot.
+If empty or omitted, no users will be allowed access.  This will become the
+\fIgroups\fP option in the source chroot.
+.TP
+.B source\-root\-groups=\fIgroup1,group2,...\fP
+A comma-separated list of groups which are allowed \fBpassword-less\fP root
+access to the source chroot.  If empty or omitted, no users will be allowed
+root access without a password (but if a user's group is in \fBgroups\fP, they
+may gain access with a password).  This will become the \fIroot\-groups\fP
+option in the source chroot.
 .SS Localisation
 .PP
 Some keys may be localised in multiple lanuages.  This is achieved by adding
