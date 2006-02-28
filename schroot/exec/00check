@@ -20,6 +20,7 @@ if [ $1 = "exec-start" ]; then
 	    :
 	elif [ "$CHROOT_TYPE" = "file" ]; then
 	    echo "CHROOT_FILE=$CHROOT_FILE"
+	    echo "CHROOT_FILE_REPACK=$CHROOT_FILE_REPACK"
 	elif [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 	    echo "CHROOT_DEVICE=$CHROOT_DEVICE"
 	    echo "CHROOT_MOUNT_OPTIONS=$CHROOT_MOUNT_OPTIONS"

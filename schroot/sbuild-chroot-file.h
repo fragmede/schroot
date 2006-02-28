@@ -21,6 +21,7 @@
 #define SBUILD_CHROOT_FILE_H
 
 #include "sbuild-chroot.h"
+#include "sbuild-chroot-source.h"
 
 namespace sbuild
 {
@@ -34,7 +35,8 @@ namespace sbuild
    * careful checking and/or restrictions in order to prevent resource
    * starvation (using all swap space, for example).
    */
-  class chroot_file : virtual public chroot
+  class chroot_file : virtual public chroot,
+		      public chroot_source
   {
   protected:
     /// The constructor.
@@ -48,6 +50,9 @@ namespace sbuild
 
     virtual chroot::ptr
     clone () const;
+
+    virtual chroot::ptr
+    clone_source () const;
 
     /**
      * Get the file used by the chroot.
@@ -91,6 +96,8 @@ namespace sbuild
   private:
     /// The file to use.
     std::string file;
+    /// Should the chroot be repacked?
+    bool repack;
   };
 
 }

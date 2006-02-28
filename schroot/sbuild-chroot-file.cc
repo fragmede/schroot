@@ -35,7 +35,9 @@ using namespace sbuild;
 
 chroot_file::chroot_file ():
   chroot(),
-  file()
+  chroot_source(),
+  file(),
+  repack(false)
 {
   set_run_setup_scripts(true);
   set_run_exec_scripts(true);
@@ -49,6 +51,18 @@ sbuild::chroot::ptr
 chroot_file::clone () const
 {
   return ptr(new chroot_file(*this));
+}
+
+sbuild::chroot::ptr
+chroot_file::clone_source () const
+{
+  chroot_file *clone_file = new chroot_file(*this);
+  ptr clone(clone_file);
+
+  chroot_source::clone_source_setup(clone);
+  clone_file->repack = true;
+
+  return clone;
 }
 
 std::string const&
@@ -74,9 +88,11 @@ chroot_file::get_chroot_type () const
 void
 chroot_file::setup_env (environment& env)
 {
-  this->chroot::setup_env(env);
+  chroot::setup_env(env);
+  chroot_source::setup_env(env);
 
   env.add("CHROOT_FILE", get_file());
+  env.add("CHROOT_FILE_REPACK", this->repack);
 }
 
 void
@@ -102,10 +118,12 @@ chroot_file::get_session_flags () const
 void
 chroot_file::print_details (std::ostream& stream) const
 {
-  this->chroot::print_details(stream);
+  chroot::print_details(stream);
+  chroot_source::print_details(stream);
 
   if (!this->file.empty())
     stream << format_details(_("File"), get_file());
+    stream << format_details(_("File Repack"), this->repack);
   stream << std::flush;
 }
 
@@ -113,20 +131,30 @@ void
 chroot_file::get_keyfile (keyfile& keyfile) const
 {
   chroot::get_keyfile(keyfile);
+  chroot_source::get_keyfile(keyfile);
 
   keyfile.set_value(get_name(), "file",
 		    get_file());
+
+  keyfile.set_value(get_name(), "file-repack",
+		    this->repack);
 }
 
 void
 chroot_file::set_keyfile (keyfile const& keyfile)
 {
   chroot::set_keyfile(keyfile);
+  chroot_source::set_keyfile(keyfile);
 
   std::string file;
   if (keyfile.get_value(get_name(), "file",
 			keyfile::PRIORITY_REQUIRED, file))
     set_file(file);
+
+  keyfile.get_value(get_name(), "file-repack",
+		    get_active() ?
+		    keyfile::PRIORITY_REQUIRED : keyfile::PRIORITY_DISALLOWED,
+		    this->repack);
 }
 
 /*

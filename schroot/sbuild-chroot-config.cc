@@ -468,9 +468,8 @@ chroot_config::parse_data (std::istream& stream,
 	if (source != 0 && !chroot->get_active())
 	  {
 	    chroot::ptr source_chroot = source->clone_source();
-	    (new chroot_block_device
-	     (*dynamic_cast<chroot_lvm_snapshot *>(chroot.get())));
-	    add(source_chroot);
+	    if (source_chroot)
+	      add(source_chroot);
 	  }
       }
     }

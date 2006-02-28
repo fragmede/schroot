@@ -1,5 +1,32 @@
 2006-02-28  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/exec/00check: Add check for CHROOT_FILE_REPACK.
+
+	* schroot/setup/00check: Add check for CHROOT_FILE_REPACK.
+
+	* schroot/sbuild-chroot-file.cc:
+	(chroot_file): repack member is false by default.
+	(clone_source): Create a chroot_block_device source chroot.  Set
+	repack to true.
+	(setup_env): Chain up to chroot_source method.  Add a
+	CHROOT_FILE_REPACK environment variable.
+	(print_details): Chain up to chroot_source method.
+	(get_keyfile): Chain up to chroot_source method.  Set a
+	"file-repack" key.
+	(set_keyfile): Chain up to chroot_source method.  Get a
+	"file-repack" key, but only when restoring an active session.
+
+	* schroot/sbuild-chroot-file.h: Derive from sbuild::chroot_source,
+	 and implement sbuild::chroot_source::clone_source.
+	(repack): New member to allow repacking of the chroot on session
+	ending.
+
+	* schroot/sbuild-chroot-config.cc (parse_data): Remove unneeded
+	dynamic_cast to chroot_lvm_snapshot *.  Make sure source chroot is
+	valid before adding it.
+
+2006-02-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-chroot-config.cc
 	(parse_data): Remove special case for lvm-snapshot chroots.
 	Instead, create and add a source chroot for any inactive chroot
