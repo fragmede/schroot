@@ -1,5 +1,13 @@
 2006-02-28  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Document changed behaviour of session operations.
+
+	* schroot/schroot-options.cc (options): Allow session recovery,
+	session running and session ending to be performed upon multiple
+	chroots, rather than one at once.
+
+2006-02-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-chroot-config.cc (parse_data): Don't create a
 	"-source" chroot for LVM snapshots if the chroot is active.
 

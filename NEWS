@@ -20,6 +20,10 @@ configuration.
      "run-exec-scripts".  This change was to reduce ambiguity in the
      naming, to make it easier to understand and configure.
 
+  3) The session operations "--recover-session", "--run-session", and
+     "--end-session" now allow multiple chroots to be specified with
+     "--chroot", rather than just one.
+
 * Major changes in 0.2.5:
 
   1) The output of "--info" now displays a "Path" line if available.
