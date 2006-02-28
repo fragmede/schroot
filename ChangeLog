@@ -1,5 +1,10 @@
 2006-02-28  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-chroot-config.cc (parse_data): Don't create a
+	"-source" chroot for LVM snapshots if the chroot is active.
+
+2006-02-28  Roger Leigh  <rleigh@debian.org>
+
 	* NEWS: Document exec.d and run-exec-scripts changes.
 
 2006-02-28  Roger Leigh  <rleigh@debian.org>

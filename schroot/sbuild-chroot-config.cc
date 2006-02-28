@@ -463,7 +463,7 @@ chroot_config::parse_data (std::istream& stream,
 
       add(chroot);
 
-      if (type == "lvm-snapshot")
+      if (type == "lvm-snapshot" && !chroot->get_active())
 	{
 	  chroot::ptr source_chroot
 	    (new chroot_block_device
