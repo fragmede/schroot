@@ -16,6 +16,10 @@ schroot (0.2.6-1) unstable; urgency=low
       modified locally.
     - Move /etc/schroot/run.d/00check to /etc/schroot/exec.d/00check if
       modified locally.
+  * debian/schroot.init:
+    - Rename $DAEMON to $SCHROOT.
+    - Don't exit with an error if session recovery for an individual chroot
+      fails.
 
   --
 

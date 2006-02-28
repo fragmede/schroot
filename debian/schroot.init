@@ -2,11 +2,11 @@
 #
 # Recover schroot sessions.
 
-DAEMON=/usr/bin/schroot
+SCHROOT=/usr/bin/schroot
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 NAME=schroot
 
-test -x $DAEMON || exit 0
+test -x $SCHROOT || exit 0
 
 # Include #PACKAGE# defaults if available
 #if [ -f "/etc/default/$NAME" ] ; then
@@ -18,9 +18,9 @@ set -e
 recover_sessions()
 {
     echo -n "Recovering schroot sessions... "
-    for chroot in `schroot --all-sessions --list --quiet`
+    for chroot in `$SCHROOT --all-sessions --list --quiet`
       do
-      schroot --chroot=$chroot --recover-session
+      $SCHROOT --chroot=$chroot --recover-session || true
       echo -n "$chroot, "
     done
     echo "done."

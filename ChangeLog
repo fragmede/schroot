@@ -1,5 +1,12 @@
 2006-02-28  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Update.
+
+	* debian/schroot.init: Rename $DAEMON to $SCHROOT.  Don't exit
+	with an error if session recovery for an individual chroot fails.
+
+2006-02-28  Roger Leigh  <rleigh@debian.org>
+
 	* NEWS: Document changed behaviour of session operations.
 
 	* schroot/schroot-options.cc (options): Allow session recovery,
