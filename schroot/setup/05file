@@ -5,13 +5,13 @@ set -e
 # Check file type
 check_filetype()
 {
-    if echo "$CHROOT_FILE" | grep -q '.tar$'; then
+    if echo "$CHROOT_FILE" | grep -q '\.tar$'; then
 	filetype="tar"
-    elif echo "$CHROOT_FILE" | egrep -q '(.tar.gz|.tgz)$'; then
+    elif echo "$CHROOT_FILE" | egrep -q '(\.tar\.gz|\.tgz)$'; then
 	filetype="tgz"
-    elif echo "$CHROOT_FILE" | egrep -q '(.tar.bz2|.tbz)$'; then
+    elif echo "$CHROOT_FILE" | egrep -q '(\.tar\.bz2|\.tbz)$'; then
 	filetype="tbz"
-    elif echo "$CHROOT_FILE" | grep -q '.zip$'; then
+    elif echo "$CHROOT_FILE" | grep -q '\.zip$'; then
 	filetype="zip"
     else
 	echo "Unsupported filetype for $CHROOT_FILE"

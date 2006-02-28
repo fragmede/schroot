@@ -1,5 +1,10 @@
 2006-02-28  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/setup/05file:
+	(check_filetype): Correctly escape '.'.
+
+2006-02-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/setup/05file: Fix incorrect comment.
 
 2006-02-28  Roger Leigh  <rleigh@debian.org>
