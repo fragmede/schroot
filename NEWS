@@ -13,6 +13,13 @@ configuration.
      This is a command to prefix to all commands run inside the
      chroot.
 
+  2) The scripts run before and after executing a command or shell in
+     the chroot have been moved from /etc/schroot/run.d to
+     /etc/schroot/exec.d.  The corresponding configuration option in
+     schroot.conf has been renamed from "run-session-scripts" to
+     "run-exec-scripts".  This change was to reduce ambiguity in the
+     naming, to make it easier to understand and configure.
+
 * Major changes in 0.2.5:
 
   1) The output of "--info" now displays a "Path" line if available.

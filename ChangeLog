@@ -1,5 +1,9 @@
 2006-02-28  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Document exec.d and run-exec-scripts changes.
+
+2006-02-28  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Update.
 
 	* debian/postinst: Move /etc/schroot/run.d/00check to
