@@ -1,5 +1,15 @@
 2006-02-28  Roger Leigh  <rleigh@debian.org>
 
+	* Makefile.am: Add sbuild-chroot-source.(cc|h).
+
+	* schroot/sbuild.h: Include sbuild-chroot-source.h.
+
+	* schroot/sbuild-chroot-source.(cc|h): New file.  This is an
+	interface class, to be implemented by chroots providing source
+	chroots in addition to normal chroots.
+
+2006-02-28  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Update.
 
 	* debian/schroot.init: Rename $DAEMON to $SCHROOT.  Don't exit

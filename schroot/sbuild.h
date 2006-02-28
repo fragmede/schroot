@@ -29,6 +29,7 @@
 #include "sbuild-chroot-file.h"
 #include "sbuild-chroot-lvm-snapshot.h"
 #include "sbuild-chroot-plain.h"
+#include "sbuild-chroot-source.h"
 #include "sbuild-chroot-config.h"
 #include "sbuild-error.h"
 #include "sbuild-environment.h"
