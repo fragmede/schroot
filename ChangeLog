@@ -1,5 +1,12 @@
 2006-02-28  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/setup/05file: Run check_filetype in all cases.
+	(unpack_file): Correctly unpack tar.bz2 files.
+	(repack_file): New function to pack up the chroot tree back into
+	an archive file.
+
+2006-02-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-environment.h
 	(add): Use std::boolalpha to correctly represent boolean values.
 

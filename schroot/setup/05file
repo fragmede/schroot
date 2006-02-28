@@ -27,9 +27,26 @@ unpack_file()
 	elif [ "$filetype" = "tgz" ]; then
 	    tar $VERBOSE -xzf "$CHROOT_FILE"
 	elif [ "$filetype" = "tbz" ]; then
-	    tar $VERBOSE -xzf "$CHROOT_FILE"
+	    tar $VERBOSE -xjf "$CHROOT_FILE"
 	elif [ "$filetype" = "zip" ]; then
 	    unzip $ZIP_VERBOSE "$CHROOT_FILE"
+	else
+	    echo "Unsupported filetype for $CHROOT_FILE"
+	    exit 1
+	fi
+}
+
+# Unpack archive
+repack_file()
+{
+	if [ "$filetype" = "tar" ]; then
+	    tar $VERBOSE -cf "$CHROOT_FILE" .
+	elif [ "$filetype" = "tgz" ]; then
+	    tar $VERBOSE -czf "$CHROOT_FILE" .
+	elif [ "$filetype" = "tbz" ]; then
+	    tar $VERBOSE -cjf "$CHROOT_FILE" .
+	elif [ "$filetype" = "zip" ]; then
+	    zip $ZIP_VERBOSE -r "$CHROOT_FILE" .
 	else
 	    echo "Unsupported filetype for $CHROOT_FILE"
 	    exit 1
@@ -44,9 +61,9 @@ fi
 
 if [ "$CHROOT_TYPE" = "file" ]; then
 
-    if [ $1 = "setup-start" ]; then
+    check_filetype
 
-	check_filetype
+    if [ $1 = "setup-start" ]; then
 
         if [ ! -d "$CHROOT_MOUNT_LOCATION" ]; then
 	    mkdir -p "$CHROOT_MOUNT_LOCATION"
@@ -56,6 +73,11 @@ if [ "$CHROOT_TYPE" = "file" ]; then
 	unpack_file
 
     elif [ $1 = "setup-stop" ]; then
+
+	if [ "$CHROOT_FILE_REPACK" = "true" ]; then
+	    cd "$CHROOT_MOUNT_LOCATION"
+	    repack_file
+	fi
 
 	rm -rf "$CHROOT_MOUNT_LOCATION" || true
 
