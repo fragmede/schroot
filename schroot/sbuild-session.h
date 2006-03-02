@@ -258,18 +258,36 @@ namespace sbuild
     wait_for_child (int  pid,
 		    int& child_status);
 
+    /**
+     * Set the SIGHUP handler.
+     *
+     * An error will be thrown on failure.
+     */
+    void
+    set_sighup_handler ();
+
+    /**
+     * Restore the state of SIGHUP prior to setting the handler.
+     */
+    void
+    clear_sighup_handler ();
+
     /// The chroot configuration.
-    config_ptr  config;
+    config_ptr       config;
     /// The chroots to run the session operation in.
-    string_list chroots;
+    string_list      chroots;
+    /// The current chroot status.
+    int              chroot_status;
     /// The child exit status.
-    int         child_status;
+    int              child_status;
     /// The session operation to perform.
-    operation   session_operation;
+    operation        session_operation;
     /// The session identifier.
-    std::string session_id;
+    std::string      session_id;
     /// The session force status.
-    bool        force;
+    bool             force;
+    /// Signals saved while sighup handler is set.
+    struct sigaction saved_signals;
   };
 
 }

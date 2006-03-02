@@ -104,6 +104,20 @@ namespace
     return group_member;
   }
 
+  volatile bool sighup_called = false;
+
+  /**
+   * Handle the SIGALRM signal.
+   *
+   * @param ignore the signal number.
+   */
+  void
+  sighup_handler (int ignore)
+  {
+    /* This exists so that system calls get interrupted. */
+    sighup_called = true;
+  }
+
 #ifdef SBUILD_DEBUG
   volatile bool child_wait = true;
 #endif
@@ -117,10 +131,12 @@ session::session (std::string const&         service,
   auth(service),
   config(config),
   chroots(chroots),
+  chroot_status(true),
   child_status(0),
   session_operation(operation),
   session_id(),
-  force(false)
+  force(false),
+  saved_signals()
 {
 }
 
@@ -280,6 +296,9 @@ session::run_impl ()
 
 try
   {
+    sighup_called = false;
+    set_sighup_handler();
+
     for (string_list::const_iterator cur = this->chroots.begin();
 	 cur != this->chroots.end();
 	 ++cur)
@@ -381,10 +400,6 @@ try
 		throw;
 	      }
 
-	    /* Run setup-stop chroot setup scripts whether or not there
-	       was an error. */
-	    setup_chroot(chroot, chroot::SETUP_STOP);
-	    chroot->set_active(false);
 	  }
 	catch (error const& e)
 	  {
@@ -399,12 +414,20 @@ try
 	    throw;
 	  }
 
+	/* Run setup-stop chroot setup scripts whether or not there
+	   was an error. */
+	setup_chroot(chroot, chroot::SETUP_STOP);
+
 	/* Deactivate chroot. */
 	chroot->set_active(false);
       }
+
+    clear_sighup_handler();
   }
 catch (error const& e)
   {
+    clear_sighup_handler();
+
     /* If a command was not run, but something failed, the exit
        status still needs setting. */
     if (this->child_status == 0)
@@ -444,12 +467,24 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
        session_chroot->get_run_exec_scripts() == false))
     return;
 
+  if (setup_type == chroot::SETUP_START)
+    this->chroot_status = true;
+
   try
     {
       session_chroot->setup_lock(setup_type, true);
     }
   catch (chroot::error const& e)
     {
+      this->chroot_status = false;
+      try
+	{
+	  // Release lock, which also removes session metadata.
+	  session_chroot->setup_lock(setup_type, false);
+	}
+      catch (chroot::error const& ignore)
+	{
+	}
       format fmt(_("Chroot setup failed to lock chroot: %1%"));
       fmt % e.what();
       throw error(fmt);
@@ -467,6 +502,12 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   else if (setup_type == chroot::EXEC_STOP)
     setup_type_string = "exec-stop";
 
+  std::string chroot_status_string;
+  if (this->chroot_status)
+    chroot_status_string = "ok";
+  else
+    chroot_status_string = "fail";
+
   string_list arg_list;
   arg_list.push_back(RUN_PARTS); // Run run-parts(8)
   if (get_verbosity() == auth::VERBOSITY_VERBOSE)
@@ -476,9 +517,12 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   if (setup_type == chroot::SETUP_STOP ||
       setup_type == chroot::EXEC_STOP)
     arg_list.push_back("--reverse");
-  format arg_fmt("--arg=%1%");
-  arg_fmt % setup_type_string;
-  arg_list.push_back(arg_fmt.str());
+  format arg_fmt1("--arg=%1%");
+  arg_fmt1 % setup_type_string;
+  arg_list.push_back(arg_fmt1.str());
+  format arg_fmt2("--arg=%1%");
+  arg_fmt2 % chroot_status_string;
+  arg_list.push_back(arg_fmt2.str());
   if (setup_type == chroot::SETUP_START ||
       setup_type == chroot::SETUP_RECOVER ||
       setup_type == chroot::SETUP_STOP)
@@ -525,6 +569,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 
   if ((pid = fork()) == -1)
     {
+      this->chroot_status = false;
       format fmt(_("Failed to fork child: %1%"));
       fmt % strerror(errno);
       throw error(fmt);
@@ -561,6 +606,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
     }
   catch (chroot::error const& e)
     {
+      this->chroot_status = false;
       format fmt(_("Chroot setup failed to unlock chroot: %1%"));
       fmt % e.what();
       throw error(fmt);
@@ -568,6 +614,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 
   if (exit_status != 0)
     {
+      this->chroot_status = false;
       format fmt(_("Chroot setup failed during chroot \"%1%\" stage"));
       fmt % setup_type_string;
       throw error(fmt);
@@ -776,11 +823,37 @@ session::wait_for_child (int  pid,
   child_status = EXIT_FAILURE; // Default exit status
 
   int status;
-  if (wait(&status) != pid)
+  bool child_killed = false;
+
+  while (1)
     {
-      format fmt(_("wait for child failed: %1%"));
-      fmt % strerror(errno);
-      throw error(fmt);
+      if (sighup_called && !child_killed)
+	{
+	  log_error() << _("caught hangup signal, terminating...")
+		      << endl;
+	  kill(pid, SIGHUP);
+	  this->chroot_status = false;
+	  child_killed = true;
+	}
+
+      if (wait(&status) != pid)
+	{
+	  if (errno == EINTR && sighup_called)
+	    continue; // Kill child and wait again.
+	  else
+	    {
+	      format fmt(_("wait for child failed: %1%"));
+	      fmt % strerror(errno);
+	      throw error(fmt);
+	    }
+	}
+      else if (sighup_called)
+	{
+	  sighup_called = false;
+	  throw error(_("caught hangup signal, terminating..."));
+	}
+      else
+	break;
     }
 
   try
@@ -859,6 +932,29 @@ session::exec (std::string const& file,
     }
 
   return status;
+}
+
+void
+session::set_sighup_handler ()
+{
+  struct sigaction new_sa;
+  sigemptyset(&new_sa.sa_mask);
+  new_sa.sa_flags = 0;
+  new_sa.sa_handler = sighup_handler;
+
+  if (sigaction(SIGHUP, &new_sa, &this->saved_signals) != 0)
+    {
+      format fmt(_("failed to set hangup handler: %1%"));
+      fmt % strerror(errno);
+      throw error(fmt);
+    }
+}
+
+void
+session::clear_sighup_handler ()
+{
+  /* Restore original handler */
+  sigaction (SIGHUP, &this->saved_signals, NULL);
 }
 
 /*

@@ -1,3 +1,37 @@
+2006-03-02  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Close #354780.
+
+	* schroot/setup/05file: If the chroot status is not "ok", don't
+	repack the file archive.
+
+	* schroot/schroot-setup.5.in: Document second argument to setup
+	and exec scripts (chroot status).
+
+	* schroot/schroot.cc (main): Save and restore termios, so that
+	abnormal session termination leaves the terminal in a usable
+	state.
+
+	* schroot/sbuild-session.cc
+	(sighup_called): New variable to flag SIGHUP.
+	(sighup_handler): New function to handle SIGHUP.
+	(run_impl): Enable and disable handler for SIGHUP.  Switch
+	chroot::SETUP_STOP action to after the catch block, to prevent it
+	being run twice on failure.
+	(setup_chroot): Set chroot_status to false on failure.  Use this
+	as the second argument to setup and exec scripts.  If chroot
+	locking fails, immediately unlock to ensure that any session
+	metadata files are unlinked.
+	(wait_for_child): If SIGHUP is caught, kill any child process and
+	throw an error.
+	(set_sighup_handler): Set a handler for SIGHUP.
+	(clear_sighup_handler): Restore the previous handler for SIGHUP.
+
+	* schroot/sbuild-session.h
+	(chroot_status): New member to track the state of the chroot.
+	(saved_signals): New member used to save and restore signals
+	handlers.
+
 2006-02-28  Roger Leigh  <rleigh@debian.org>
 
 	* NEWS: Document new source chroots and file repacking.

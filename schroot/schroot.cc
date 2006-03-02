@@ -23,6 +23,9 @@
 #include <iostream>
 #include <locale>
 
+#include <termios.h>
+#include <unistd.h>
+
 #include <boost/format.hpp>
 
 #include <syslog.h>
@@ -126,12 +129,29 @@ int
 main (int   argc,
       char *argv[])
 {
+  struct termios saved_termios;
+  bool termios_ok = false;
+
   try
     {
       // Set up locale.
       std::locale::global(std::locale(""));
       std::cout.imbue(std::locale());
       std::cerr.imbue(std::locale());
+
+      // Save terminal state.
+      if (isatty(STDIN_FILENO))
+	{
+	  if (tcgetattr(STDIN_FILENO, &saved_termios) < 0)
+	    {
+	      termios_ok = false;
+	      sbuild::log_warning()
+		<< _("Error saving terminal settings")
+		<< endl;
+	    }
+	  else
+	    termios_ok = true;
+	}
 
       bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
       textdomain (GETTEXT_PACKAGE);
@@ -353,6 +373,15 @@ main (int   argc,
 	}
 
       closelog();
+
+      if (isatty(STDIN_FILENO) && termios_ok)
+	{
+	  if (tcsetattr(STDIN_FILENO, TCSANOW, &saved_termios) < 0)
+	    sbuild::log_warning()
+	      << _("Error restoring terminal settings")
+	      << endl;
+	}
+
       exit(session->get_child_status());
     }
   catch (std::exception const& e)
@@ -360,6 +389,15 @@ main (int   argc,
       sbuild::log_error() << e.what() << endl;
 
       closelog();
+
+      if (isatty(STDIN_FILENO) && termios_ok)
+	{
+	  if (tcsetattr(STDIN_FILENO, TCSANOW, &saved_termios) < 0)
+	    sbuild::log_warning()
+	      << _("Error restoring terminal settings")
+	      << endl;
+	}
+
       exit(EXIT_FAILURE);
     }
 }

@@ -80,11 +80,10 @@ if [ "$CHROOT_TYPE" = "file" ]; then
 
 	unpack_file
 
-    elif [ $1 = "setup-stop" ]; then
+    elif [ "$1" = "setup-stop" ]; then
 
-	if [ "$CHROOT_FILE_REPACK" = "true" ]; then
-	    cd "$CHROOT_MOUNT_LOCATION"
-	    repack_file
+	if [ "$2" = "ok" ] && [ "$CHROOT_FILE_REPACK" = "true" ]; then
+	    cd "$CHROOT_MOUNT_LOCATION" && repack_file
 	fi
 
 	rm -rf "$CHROOT_MOUNT_LOCATION" || true

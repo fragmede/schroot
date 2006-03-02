@@ -29,6 +29,11 @@ The scripts are run in name order, like those run by
 .BR init (8),
 by using
 .BR run-parts (8).
+.PP
+The setup scripts are all invoked with two options:
+.IP 1
+The action to perform.
+.IP
 When a session is first started, the chroot is set up by running the scripts in
 @SCHROOT_CONF_SETUP_D@ with the \[lq]setup\-start\[rq] option.  When a command
 or shell is run in the configured chroot, the scripts in @SCHROOT_CONF_EXEC_D@
@@ -37,6 +42,12 @@ has completed, the scripts are run in reverse order with the
 \[lq]exec\-stop\[rq] option.  Finally, when the session is ended, the scripts
 in @SCHROOT_CONF_SETUP_D@ are run in reverse order with the
 \[lq]setup\-stop\[rq] option.
+.IP 2
+The chroot status.
+.IP
+This is either \[lq]ok\[rq] if there are no problems, or \[lq]fail\[rq] if
+something went wrong.  For example, particular actions may be skipped on
+failure.
 .SH
 ENVIRONMENT
 .SS General variables

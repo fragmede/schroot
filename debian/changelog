@@ -6,6 +6,7 @@ schroot (0.2.6-1) unstable; urgency=low
     (Closes: #354526).
   * Allow all commands run inside the chroot to be prefixed by another
     command (Closes: #354513).
+  * Clean up the current session when SIGHUP is caught (Closes: #354780).
   * Move 50sbuild from /etc/schroot/run.d to /etc/schroot/setup.d.
   * Move 00check from /etc/schroot/run.d to /etc/schroot/exec.d.
   * debian/preinst:
