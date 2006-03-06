@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-03-06 17:57+0000\n"
-"PO-Revision-Date: 2006-03-02 23:19+0000\n"
+"POT-Creation-Date: 2006-03-06 18:51+0000\n"
+"PO-Revision-Date: 2006-03-06 18:51+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -138,7 +138,7 @@ msgstr "Mount Options"
 msgid "%1%: failed to open directory: %2%"
 msgstr "%1%: failed to open directory: %2%"
 
-#: schroot/sbuild-chroot-config.cc:112
+#: schroot/sbuild-chroot-config.cc:112 schroot/sbuild-chroot-file.cc:108
 #, boost-format
 msgid "%1%: failed to stat file: %2%"
 msgstr "%1%: failed to stat file: %2%"
@@ -183,17 +183,17 @@ msgstr "%1%: No such chroot"
 msgid "failed to stat file: %1%"
 msgstr "failed to stat file: %1%"
 
-#: schroot/sbuild-chroot-config.cc:378
+#: schroot/sbuild-chroot-config.cc:378 schroot/sbuild-chroot-file.cc:115
 msgid "not owned by user root"
 msgstr "not owned by user root"
 
-#: schroot/sbuild-chroot-config.cc:381
-msgid "others have write permission: "
-msgstr "others have write permission: "
+#: schroot/sbuild-chroot-config.cc:381 schroot/sbuild-chroot-file.cc:117
+msgid "others have write permission"
+msgstr "others have write permission"
 
-#: schroot/sbuild-chroot-config.cc:384
-msgid "not a regular file: "
-msgstr "not a regular file: "
+#: schroot/sbuild-chroot-config.cc:384 schroot/sbuild-chroot-file.cc:119
+msgid "not a regular file"
+msgstr "not a regular file"
 
 #: schroot/sbuild-chroot-config.cc:395
 #, boost-format
@@ -215,11 +215,11 @@ msgstr "%1%: security failure: %2%"
 msgid "%1%: lock discard failure: %2%"
 msgstr "%1%: lock discard failure: %2%"
 
-#: schroot/sbuild-chroot-file.cc:125
+#: schroot/sbuild-chroot-file.cc:146
 msgid "File"
 msgstr "File"
 
-#: schroot/sbuild-chroot-file.cc:126
+#: schroot/sbuild-chroot-file.cc:147
 msgid "File Repack"
 msgstr "File Repack"
 

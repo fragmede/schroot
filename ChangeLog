@@ -1,5 +1,9 @@
 2006-03-06  Roger Leigh  <rleigh@debian.org>
 
+	* po/en_GB.po: Update translation.
+
+2006-03-06  Roger Leigh  <rleigh@debian.org>
+
 	* TODO: Update.
 
 	* schroot/schroot.conf.5.in: Document required ownership and
