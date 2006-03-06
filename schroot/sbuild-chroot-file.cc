@@ -99,11 +99,32 @@ void
 chroot_file::setup_lock (setup_type type,
 			 bool       lock)
 {
+  // Check ownership and permissions.
+  if (type == SETUP_START && lock == true)
+    {
+      struct stat statbuf;
+      if (stat(this->file.c_str(), &statbuf) < 0)
+	{
+	  format fmt(_("%1%: failed to stat file: %2%"));
+	  fmt % this->file % strerror(errno);
+	  throw error(fmt);
+	}
+
+      // NOTE: taken from chroot_config::check_security.
+      if (statbuf.st_uid != 0)
+	throw error(_("not owned by user root"));
+      if (statbuf.st_mode & S_IWOTH)
+	throw error(_("others have write permission"));
+      if (!S_ISREG(statbuf.st_mode))
+	throw error(_("not a regular file"));
+    }
+
   /* By default, file chroots do no locking. */
   /* Create or unlink session information. */
   if ((type == SETUP_START && lock == true) ||
       (type == SETUP_STOP && lock == false))
     {
+
       bool start = (type == SETUP_START);
       setup_session_info(start);
     }

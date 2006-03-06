@@ -1,5 +1,25 @@
 2006-03-06  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Update.
+
+	* schroot/schroot.conf.5.in: Document required ownership and
+	permissions for file archives.
+
+	* schroot/sbuild-chroot-file.cc
+	(setup_lock): Check ownership and permissions of file archive.
+
+	* schroot/sbuild-chroot-config.cc (check_security): Tidy error
+	message formatting.
+
+	* schroot/setup/10mount:
+	(do_umount): Only umount if the mountpoint exists.
+
+	* schroot/setup/05file:
+	(repack_file): Preserve ownership and permissions of the original
+	archive file.
+
+2006-03-06  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.1.in: Document environment sanitising.
 
 	* schroot/schroot.cc

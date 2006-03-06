@@ -117,7 +117,8 @@ configuration option:
 The file containing the archived chroot environment.  This must be a tar (tape
 archive), optionally compressed with gzip or bzip2, or a zip archive.  The file
 extensions used to determine the type are are \fI.tar\fP, \fI.tar.gz\fP,
-\fI.tar.bz2\fP, \fI.tgz\fP, \fI.tbz\fP and \fI.zip\fP.
+\fI.tar.bz2\fP, \fI.tgz\fP, \fI.tbz\fP and \fI.zip\fP.  This file must be owned
+by the root user, and not be writable by other.
 .SS
 Block device chroots
 .PP

@@ -21,7 +21,9 @@ do_umount()
     if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 	echo "Unmounting $1"
     fi
-    umount "$1" || true
+    if [ -d "$1" ]; then
+	umount "$1" || true
+    fi
 }
 
 # Unmount all filesystem under specified location
