@@ -342,8 +342,7 @@ main (int   argc,
 	    session->set_user(options.user);
 	  if (!options.command.empty())
 	    session->set_command(options.command);
-	  /* The environment can be preserved only if not switching users. */
-	  if (options.preserve && session->get_ruid() == session->get_uid())
+	  if (options.preserve)
 	    session->set_environment(environ);
 	  session->set_force(options.session_force);
 	  sbuild::auth::verbosity verbosity = sbuild::auth::VERBOSITY_NORMAL;

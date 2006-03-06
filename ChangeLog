@@ -1,5 +1,18 @@
 2006-03-06  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.1.in: Document environment sanitising.
+
+	* schroot/schroot.cc
+	(main): Allow the environment to be preserved even if changing
+	users.
+
+	* schroot/sbuild-auth.cc
+	(setupenv): Add SHELL to default environment.  Sanitise the
+	environment by removing dangerous variables (the same set used by
+	sudo).
+
+2006-03-06  Roger Leigh  <rleigh@debian.org>
+
 	* po/sv.po: Updated translated from the Free Translation Project.
 
 2006-03-02  Roger Leigh  <rleigh@debian.org>

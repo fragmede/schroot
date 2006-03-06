@@ -81,7 +81,8 @@ in the original file will be missing.
 .B \-p, \-\-preserve\-environment
 Preserve the user's environment inside the chroot environment.  The default is
 to use a clean environment; this option copies the entire user environment and
-sets it in the session.
+sets it in the session.  The environment variables allowed are subject to
+certain restrictions; see the section \[lq]\fIEnvironment\fP\[rq], below.
 .TP
 .B \-q, \-\-quiet
 Print only essential messages.
@@ -195,6 +196,15 @@ they would be granted root access without authentication, but the PAM
 authorisation step is still applied.
 .SH BUGS
 None known at this time.
+.SH ENVIRONMENT
+By default, the environment is not preserved, and the following environment
+variables are defined: HOME, LOGNAME, PATH, SHELL, TERM (preserved if already
+defined), and USER.
+.PP
+The following, potentially dangerous, environment variables are always removed
+for safety: BASH_ENV, CDPATH, ENV, HOSTALIASES, IFS, KRB5_CONFIG, KRBCONFDIR,
+KRBTKFILE, KRB_CONF, LD_.*, LOCALDOMAIN, NLSPATH, PATH_LOCALE, RES_OPTIONS,
+TERMINFO, TERMINFO_DIRS, and TERMPATH.
 .SH FILES
 .TP
 .I @SCHROOT_CONF@
