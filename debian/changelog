@@ -22,7 +22,7 @@ schroot (0.2.6-1) unstable; urgency=low
     - Don't exit with an error if session recovery for an individual chroot
       fails.
 
-  --
+ -- Roger Leigh <rleigh@debian.org>  Mon,  6 Mar 2006 18:54:30 +0000
 
 schroot (0.2.5-1) unstable; urgency=low
 

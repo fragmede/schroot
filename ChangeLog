@@ -1,5 +1,11 @@
 2006-03-06  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.2.6.
+
+	* debian/changelog: Update for 0.2.6.
+
+2006-03-06  Roger Leigh  <rleigh@debian.org>
+
 	* po/en_GB.po: Update translation.
 
 2006-03-06  Roger Leigh  <rleigh@debian.org>
