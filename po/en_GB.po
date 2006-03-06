@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-03-01 12:20+0000\n"
+"POT-Creation-Date: 2006-03-06 17:57+0000\n"
 "PO-Revision-Date: 2006-03-02 23:19+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -15,10 +15,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: schroot/dchroot-chroot-config.cc:99 schroot/sbuild-keyfile.h:554
+#, boost-format
 msgid "line %1%: invalid line: %2%"
 msgstr "line %1%: invalid line: %2%"
 
 #: schroot/dchroot-session.cc:69
+#, boost-format
 msgid "(%1%->%2%): dchroot sessions do not support user switching"
 msgstr "(%1%->%2%): dchroot sessions do not support user switching"
 
@@ -35,10 +37,12 @@ msgid "Failed to get terminal settings"
 msgstr "Failed to get terminal settings"
 
 #: schroot/sbuild-auth-conv-tty.cc:274
+#, boost-format
 msgid "Unsupported conversation type %1%"
 msgstr "Unsupported conversation type %1%"
 
 #: schroot/sbuild-auth.cc:115 schroot/sbuild-auth.cc:174
+#, boost-format
 msgid "%1%: user not found: %2%"
 msgstr "%1%: user not found: %2%"
 
@@ -47,38 +51,46 @@ msgid "PAM error: PAM is already initialised"
 msgstr "PAM error: PAM is already initialised"
 
 #: schroot/sbuild-auth.cc:356 schroot/sbuild-auth.cc:375
-#: schroot/sbuild-auth.cc:530 schroot/sbuild-auth.cc:555
-#: schroot/sbuild-auth.cc:574 schroot/sbuild-auth.cc:593
-#: schroot/sbuild-auth.cc:612 schroot/sbuild-auth.cc:631
+#: schroot/sbuild-auth.cc:564 schroot/sbuild-auth.cc:589
+#: schroot/sbuild-auth.cc:608 schroot/sbuild-auth.cc:627
+#: schroot/sbuild-auth.cc:646 schroot/sbuild-auth.cc:665
 #: schroot/sbuild-session.cc:653
+#, boost-format
 msgid "PAM error: %1%"
 msgstr "PAM error: %1%"
 
 #: schroot/sbuild-auth.cc:397
+#, boost-format
 msgid "PAM set RUSER error: %1%"
 msgstr "PAM set RUSER error: %1%"
 
 #: schroot/sbuild-auth.cc:408
+#, boost-format
 msgid "Failed to get hostname: %1%"
 msgstr "Failed to get hostname: %1%"
 
 #: schroot/sbuild-auth.cc:417
+#, boost-format
 msgid "PAM set RHOST error: %1%"
 msgstr "PAM set RHOST error: %1%"
 
 #: schroot/sbuild-auth.cc:432
+#, boost-format
 msgid "PAM set TTY error: %1%"
 msgstr "PAM set TTY error: %1%"
 
 #: schroot/sbuild-auth.cc:446
+#, boost-format
 msgid "PAM set USER error: %1%"
 msgstr "PAM set USER error: %1%"
 
 #: schroot/sbuild-auth.cc:458
+#, boost-format
 msgid "PAM authentication failed: %1%"
 msgstr "PAM authentication failed: %1%"
 
 #: schroot/sbuild-auth.cc:468
+#, boost-format
 msgid "You do not have permission to access the %1% service."
 msgstr "You do not have permission to access the %1% service."
 
@@ -92,20 +104,24 @@ msgstr "access not authorised"
 
 #: schroot/sbuild-chroot-block-device.cc:129
 #: schroot/sbuild-chroot-lvm-snapshot.cc:141
+#, boost-format
 msgid "%1% chroot: failed to stat device %2%: %3%"
 msgstr "%1% chroot: failed to stat device %2%: %3%"
 
 #: schroot/sbuild-chroot-block-device.cc:135
+#, boost-format
 msgid "%1% chroot: %2% is not a block device"
 msgstr "%1% chroot: %2% is not a block device"
 
 #: schroot/sbuild-chroot-block-device.cc:150
 #: schroot/sbuild-chroot-lvm-snapshot.cc:167
+#, boost-format
 msgid "%1%: failed to lock device: %2%"
 msgstr "%1%: failed to lock device: %2%"
 
 #: schroot/sbuild-chroot-block-device.cc:163
 #: schroot/sbuild-chroot-lvm-snapshot.cc:180
+#, boost-format
 msgid "%1%: failed to unlock device: %2%"
 msgstr "%1%: failed to unlock device: %2%"
 
@@ -118,30 +134,37 @@ msgid "Mount Options"
 msgstr "Mount Options"
 
 #: schroot/sbuild-chroot-config.cc:99
+#, boost-format
 msgid "%1%: failed to open directory: %2%"
 msgstr "%1%: failed to open directory: %2%"
 
 #: schroot/sbuild-chroot-config.cc:112
+#, boost-format
 msgid "%1%: failed to stat file: %2%"
 msgstr "%1%: failed to stat file: %2%"
 
 #: schroot/sbuild-chroot-config.cc:122
+#, boost-format
 msgid "%1%: not a regular file"
 msgstr "%1%: not a regular file"
 
 #: schroot/sbuild-chroot-config.cc:156
+#, boost-format
 msgid "%1% chroot: alias '%2%' already associated with '%3%' chroot"
 msgstr "%1% chroot: alias ‘%2%’ already associated with ‘%3%’ chroot"
 
 #: schroot/sbuild-chroot-config.cc:163
+#, boost-format
 msgid "%1% chroot: alias '%2%' already associated with another chroot"
 msgstr "%1% chroot: alias ‘%2%’ already associated with another chroot"
 
 #: schroot/sbuild-chroot-config.cc:173
+#, boost-format
 msgid "%1% chroot: a chroot or alias already exists by this name"
 msgstr "%1% chroot: a chroot or alias already exists by this name"
 
 #: schroot/sbuild-chroot-config.cc:176
+#, boost-format
 msgid "%1% chroot: duplicate names are not allowed"
 msgstr "%1% chroot: duplicate names are not allowed"
 
@@ -151,10 +174,12 @@ msgstr "Available chroots: "
 
 #: schroot/sbuild-chroot-config.cc:300 schroot/sbuild-chroot-config.cc:319
 #: schroot/sbuild-chroot-config.cc:342 schroot/schroot.cc:109
+#, boost-format
 msgid "%1%: No such chroot"
 msgstr "%1%: No such chroot"
 
 #: schroot/sbuild-chroot-config.cc:372
+#, boost-format
 msgid "failed to stat file: %1%"
 msgstr "failed to stat file: %1%"
 
@@ -171,18 +196,22 @@ msgid "not a regular file: "
 msgstr "not a regular file: "
 
 #: schroot/sbuild-chroot-config.cc:395
+#, boost-format
 msgid "%1%: failed to load configuration: %2%"
 msgstr "%1%: failed to load configuration: %2%"
 
 #: schroot/sbuild-chroot-config.cc:407
+#, boost-format
 msgid "%1%: lock acquisition failure: %2%"
 msgstr "%1%: lock acquisition failure: %2%"
 
 #: schroot/sbuild-chroot-config.cc:418
+#, boost-format
 msgid "%1%: security failure: %2%"
 msgstr "%1%: security failure: %2%"
 
 #: schroot/sbuild-chroot-config.cc:436
+#, boost-format
 msgid "%1%: lock discard failure: %2%"
 msgstr "%1%: lock discard failure: %2%"
 
@@ -195,10 +224,12 @@ msgid "File Repack"
 msgstr "File Repack"
 
 #: schroot/sbuild-chroot-lvm-snapshot.cc:135
+#, boost-format
 msgid "%1% chroot: device name not set"
 msgstr "%1% chroot: device name not set"
 
 #: schroot/sbuild-chroot-lvm-snapshot.cc:147
+#, boost-format
 msgid "%1% chroot: %2% is not a block device\n"
 msgstr "%1% chroot: %2% is not a block device\n"
 
@@ -211,6 +242,7 @@ msgid "LVM Snapshot Options"
 msgstr "LVM Snapshot Options"
 
 #: schroot/sbuild-chroot.cc:68
+#, boost-format
 msgid "unknown chroot type \"%1%\""
 msgstr "unknown chroot type “%1%”"
 
@@ -219,18 +251,22 @@ msgid "chroot creation failed"
 msgstr "chroot creation failed"
 
 #: schroot/sbuild-chroot.cc:264
+#, boost-format
 msgid "%1%: failed to create session file: %2%\n"
 msgstr "%1%: failed to create session file: %2%\n"
 
 #: schroot/sbuild-chroot.cc:282
+#, boost-format
 msgid "%1%: lock acquisition failure: %2%\n"
 msgstr "%1%: lock acquisition failure: %2%\n"
 
 #: schroot/sbuild-chroot.cc:297
+#, boost-format
 msgid "%1%: lock discard failure: %2%\n"
 msgstr "%1%: lock discard failure: %2%\n"
 
 #: schroot/sbuild-chroot.cc:306
+#, boost-format
 msgid "%1%: failed to unlink session file: %2%\n"
 msgstr "%1%: failed to unlink session file: %2%\n"
 
@@ -311,14 +347,17 @@ msgid "false"
 msgstr "false"
 
 #: schroot/sbuild-keyfile.cc:49
+#, boost-format
 msgid "Can't open configuration file %1%"
 msgstr "Can't open configuration file %1%"
 
 #: schroot/sbuild-keyfile.cc:352
+#, boost-format
 msgid "%1% chroot: A required parameter \"%2%\" is missing."
 msgstr "%1% chroot: A required parameter “%2%” is missing."
 
 #: schroot/sbuild-keyfile.cc:367
+#, boost-format
 msgid "%1% chroot: A deprecated parameter \"%2%\" has been specified."
 msgstr "%1% chroot: A deprecated parameter “%2%” has been specified."
 
@@ -327,6 +366,7 @@ msgid "This option will be removed in the future."
 msgstr "This option will be removed in the future."
 
 #: schroot/sbuild-keyfile.cc:375
+#, boost-format
 msgid "%1% chroot: An obsolete parameter \"%2%\" has been specified."
 msgstr "%1% chroot: An obsolete parameter “%2%” has been specified."
 
@@ -335,6 +375,7 @@ msgid "This option has been removed, and no longer has any effect."
 msgstr "This option has been removed, and no longer has any effect."
 
 #: schroot/sbuild-keyfile.cc:382
+#, boost-format
 msgid "%1% chroot: A disallowed parameter \"%2%\" has been specified."
 msgstr "%1% chroot: A disallowed parameter “%2%” has been specified."
 
@@ -355,22 +396,27 @@ msgid "line %1%: group %2%: duplicate key entry: %3%"
 msgstr "line %1%: group %2%: duplicate key entry: %3%"
 
 #: schroot/sbuild-lock.cc:76
+#, boost-format
 msgid "failed to set timeout handler: %1%"
 msgstr "failed to set timeout handler: %1%"
 
 #: schroot/sbuild-lock.cc:97
+#, boost-format
 msgid "failed to set timeout: %1%"
 msgstr "failed to set timeout: %1%"
 
 #: schroot/sbuild-lock.cc:113
+#, boost-format
 msgid "failed to unset timeout: %1%"
 msgstr "failed to unset timeout: %1%"
 
 #: schroot/sbuild-lock.cc:164
+#, boost-format
 msgid "failed to acquire lock (timeout after %1% seconds)"
 msgstr "failed to acquire lock (timeout after %1% seconds)"
 
 #: schroot/sbuild-lock.cc:170
+#, boost-format
 msgid "failed to acquire lock: %1%"
 msgstr "failed to acquire lock: %1%"
 
@@ -387,66 +433,81 @@ msgid "failed to release device lock"
 msgstr "failed to release device lock"
 
 #: schroot/sbuild-lock.cc:260
+#, boost-format
 msgid ""
 "failed to acquire device lock held by pid %1% (timeout after %2% seconds)"
 msgstr ""
 "failed to acquire device lock held by pid %1% (timeout after %2% seconds)"
 
 #: schroot/sbuild-lock.cc:262
+#, boost-format
 msgid ""
 "failed to release device lock held by pid %1% (timeout after %2% seconds)"
 msgstr ""
 "failed to release device lock held by pid %1% (timeout after %2% seconds)"
 
 #: schroot/sbuild-session.cc:61
+#, boost-format
 msgid "%1%: group not found"
 msgstr "%1%: group not found"
 
 #: schroot/sbuild-session.cc:63
+#, boost-format
 msgid "%1%: group not found: %2%"
 msgstr "%1%: group not found: %2%"
 
 #: schroot/sbuild-session.cc:79
+#, boost-format
 msgid "can't get supplementary group count: %1%"
 msgstr "can't get supplementary group count: %1%"
 
 #: schroot/sbuild-session.cc:89
+#, boost-format
 msgid "can't get supplementary groups: %1%"
 msgstr "can't get supplementary groups: %1%"
 
 #: schroot/sbuild-session.cc:230
+#, boost-format
 msgid "No chroot found matching alias '%1%'"
 msgstr "No chroot found matching alias ‘%1%’"
 
 #: schroot/sbuild-session.cc:312
+#, boost-format
 msgid "%1%: Failed to find chroot"
 msgstr "%1%: Failed to find chroot"
 
 #: schroot/sbuild-session.cc:488
+#, boost-format
 msgid "Chroot setup failed to lock chroot: %1%"
 msgstr "Chroot setup failed to lock chroot: %1%"
 
 #: schroot/sbuild-session.cc:553
+#, boost-format
 msgid "Invalid verbosity level: %1%, falling back to \"normal\""
 msgstr "Invalid verbosity level: %1%, falling back to “normal”"
 
 #: schroot/sbuild-session.cc:573 schroot/sbuild-session.cc:900
+#, boost-format
 msgid "Failed to fork child: %1%"
 msgstr "Failed to fork child: %1%"
 
 #: schroot/sbuild-session.cc:591 schroot/sbuild-session.cc:810
+#, boost-format
 msgid "Could not exec \"%1%\": %2%"
 msgstr "Could not exec “%1%”: %2%"
 
 #: schroot/sbuild-session.cc:610
+#, boost-format
 msgid "Chroot setup failed to unlock chroot: %1%"
 msgstr "Chroot setup failed to unlock chroot: %1%"
 
 #: schroot/sbuild-session.cc:618
+#, boost-format
 msgid "Chroot setup failed during chroot \"%1%\" stage"
 msgstr "Chroot setup failed during chroot “%1%” stage"
 
 #: schroot/sbuild-session.cc:661
+#, boost-format
 msgid "Could not set gid to '%1%'"
 msgstr "Could not set gid to ‘%1%’"
 
@@ -455,14 +516,17 @@ msgid "Could not set supplementary group IDs"
 msgstr "Could not set supplementary group IDs"
 
 #: schroot/sbuild-session.cc:674 schroot/sbuild-session.cc:704
+#, boost-format
 msgid "Could not chdir to '%1%': %2%"
 msgstr "Could not chdir to ‘%1%’: %2%"
 
 #: schroot/sbuild-session.cc:681
+#, boost-format
 msgid "Could not chroot to '%1%': %2%"
 msgstr "Could not chroot to ‘%1%’: %2%"
 
 #: schroot/sbuild-session.cc:690
+#, boost-format
 msgid "Could not set uid to '%1%'"
 msgstr "Could not set uid to ‘%1%’"
 
@@ -471,18 +535,22 @@ msgid "Failed to drop root permissions."
 msgstr "Failed to drop root permissions."
 
 #: schroot/sbuild-session.cc:763
+#, boost-format
 msgid "[%1% chroot] Running login shell: \"%2%\""
 msgstr "[%1% chroot] Running login shell: “%2%”"
 
 #: schroot/sbuild-session.cc:770
+#, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\""
 msgstr "[%1% chroot] (%2%→%3%) Running login shell: “%4%”"
 
 #: schroot/sbuild-session.cc:792
+#, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%1% chroot] Running command: “%2%”"
 
 #: schroot/sbuild-session.cc:796
+#, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%→%3%) Running command: “%4%”"
 
@@ -491,10 +559,12 @@ msgid "caught hangup signal, terminating..."
 msgstr "caught hangup signal, terminating..."
 
 #: schroot/sbuild-session.cc:845
+#, boost-format
 msgid "wait for child failed: %1%"
 msgstr "wait for child failed: %1%"
 
 #: schroot/sbuild-session.cc:872
+#, boost-format
 msgid "Child terminated by signal %1%"
 msgstr "Child terminated by signal ‘%1%’"
 
@@ -507,10 +577,12 @@ msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr "Child exited abnormally (reason unknown; not a signal or core dump)"
 
 #: schroot/sbuild-session.cc:886
+#, boost-format
 msgid "Child exited abnormally with status '%1%'"
 msgstr "Child exited abnormally with status ‘%1%’"
 
 #: schroot/sbuild-session.cc:947
+#, boost-format
 msgid "failed to set hangup handler: %1%"
 msgstr "failed to set hangup handler: %1%"
 
@@ -677,6 +749,7 @@ msgid "  schroot-releaselock [OPTION...] - release a device lock"
 msgstr "  schroot-releaselock [OPTION...] - release a device lock"
 
 #: schroot/schroot-releaselock.cc:55
+#, boost-format
 msgid "schroot-releaselock (Debian sbuild) %1%\n"
 msgstr "schroot-releaselock (Debian sbuild) %1%\n"
 
@@ -709,22 +782,27 @@ msgid "No pid specified; forcing release of lock"
 msgstr "No pid specified; forcing release of lock"
 
 #: schroot/schroot-releaselock.cc:118
+#, boost-format
 msgid "Failed to stat device %1%: %2%"
 msgstr "Failed to stat device %1%: %2%"
 
 #: schroot/schroot-releaselock.cc:126
+#, boost-format
 msgid "%1% is not a block device"
 msgstr "%1% is not a block device"
 
 #: schroot/schroot-releaselock.cc:134
+#, boost-format
 msgid "%1%: failed to release device lock"
 msgstr "%1%: failed to release device lock"
 
 #: schroot/schroot-releaselock.cc:141
+#, boost-format
 msgid "%1%: failed to release device lock owned by pid %2%"
 msgstr "%1%: failed to release device lock owned by pid %2%"
 
 #: schroot/schroot.cc:60
+#, boost-format
 msgid "%1% (Debian sbuild) %2%\n"
 msgstr "%1% (Debian sbuild) %2%\n"
 
@@ -745,6 +823,7 @@ msgid "Using dchroot configuration file: "
 msgstr "Using dchroot configuration file: "
 
 #: schroot/schroot.cc:202
+#, boost-format
 msgid "Run '%1%'"
 msgstr "Run ‘%1%’"
 
@@ -753,22 +832,27 @@ msgid "to migrate to a schroot configuration."
 msgstr "to migrate to a schroot configuration."
 
 #: schroot/schroot.cc:209
+#, boost-format
 msgid "Edit '%1%' to add appropriate group access."
 msgstr "Edit ‘%1%’ to add appropriate group access."
 
 #: schroot/schroot.cc:213
+#, boost-format
 msgid "Remove '%1%' to use the new configuration."
 msgstr "Remove ‘%1%’ to use the new configuration."
 
 #: schroot/schroot.cc:247
+#, boost-format
 msgid "No chroots are defined in %1% or %2%"
 msgstr "No chroots are defined in %1% or %2%"
 
 #: schroot/schroot.cc:254
+#, boost-format
 msgid "No chroots are defined in %1%"
 msgstr "No chroots are defined in %1%"
 
 #: schroot/schroot.cc:274
+#, boost-format
 msgid "The specified chroots are not defined in %1%"
 msgstr "The specified chroots are not defined in %1%"
 
@@ -776,10 +860,11 @@ msgstr "The specified chroots are not defined in %1%"
 msgid "Only one chroot may be specified when beginning a session"
 msgstr "Only one chroot may be specified when beginning a session"
 
-#: schroot/schroot.cc:372
+#: schroot/schroot.cc:371
+#, boost-format
 msgid "Session failure: %1%"
 msgstr "Session failure: %1%"
 
-#: schroot/schroot.cc:381 schroot/schroot.cc:397
+#: schroot/schroot.cc:380 schroot/schroot.cc:396
 msgid "Error restoring terminal settings"
 msgstr "Error restoring terminal settings"
