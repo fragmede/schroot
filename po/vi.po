@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot-0.2.0\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-03-06 18:51+0000\n"
+"POT-Creation-Date: 2006-03-07 11:01+0000\n"
 "PO-Revision-Date: 2006-02-07 22:26+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -53,9 +53,9 @@ msgid "PAM error: PAM is already initialised"
 msgstr "Lỗi PAM: PAM đã được sở khởi"
 
 #: schroot/sbuild-auth.cc:356 schroot/sbuild-auth.cc:375
-#: schroot/sbuild-auth.cc:564 schroot/sbuild-auth.cc:589
-#: schroot/sbuild-auth.cc:608 schroot/sbuild-auth.cc:627
-#: schroot/sbuild-auth.cc:646 schroot/sbuild-auth.cc:665
+#: schroot/sbuild-auth.cc:563 schroot/sbuild-auth.cc:588
+#: schroot/sbuild-auth.cc:607 schroot/sbuild-auth.cc:626
+#: schroot/sbuild-auth.cc:645 schroot/sbuild-auth.cc:664
 #: schroot/sbuild-session.cc:653
 #, boost-format
 msgid "PAM error: %1%"
@@ -498,12 +498,12 @@ msgstr "Thiết lập chroot không khoá chroot được: %1%"
 msgid "Invalid verbosity level: %1%, falling back to \"normal\""
 msgstr "Cấp chi tiết không hợp lệ: %1%, nên dùng « normal » (chuẩn)"
 
-#: schroot/sbuild-session.cc:573 schroot/sbuild-session.cc:900
+#: schroot/sbuild-session.cc:573 schroot/sbuild-session.cc:904
 #, boost-format
 msgid "Failed to fork child: %1%"
 msgstr "Việc tạo tiến trình con của điều con bị lỗi: %1%"
 
-#: schroot/sbuild-session.cc:591 schroot/sbuild-session.cc:810
+#: schroot/sbuild-session.cc:591 schroot/sbuild-session.cc:814
 #, boost-format
 msgid "Could not exec \"%1%\": %2%"
 msgstr "Không thể thực hiện « %1% »: %2%"
@@ -546,56 +546,66 @@ msgstr "Không thể lập UID thành « %1% »"
 msgid "Failed to drop root permissions."
 msgstr "Việc bỏ quyền chủ bị lỗi."
 
-#: schroot/sbuild-session.cc:763
+#: schroot/sbuild-session.cc:758
 #, boost-format
 msgid "[%1% chroot] Running login shell: \"%2%\""
 msgstr "[%1% chroot] Đang chạy hệ vỏ đăng nhập: « %2% »"
 
-#: schroot/sbuild-session.cc:770
+#: schroot/sbuild-session.cc:759
+#, boost-format
+msgid "[%1% chroot] Running shell: \"%2%\""
+msgstr "[%1% chroot] Đang chạy hệ vỏ đăng nhập: « %2% »"
+
+#: schroot/sbuild-session.cc:765
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy hệ vỏ đăng nhập: « %4% »"
 
-#: schroot/sbuild-session.cc:792
+#: schroot/sbuild-session.cc:766
+#, boost-format
+msgid "[%1% chroot] (%2%->%3%) Running shell: \"%4%\""
+msgstr "[%1% chroot] (%2%->%3%) Đang chạy hệ vỏ đăng nhập: « %4% »"
+
+#: schroot/sbuild-session.cc:787
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%1% chroot] Đang chạy lệnh: « %2% »"
 
-#: schroot/sbuild-session.cc:796
+#: schroot/sbuild-session.cc:791
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy lệnh: « %4% »"
 
-#: schroot/sbuild-session.cc:832 schroot/sbuild-session.cc:853
+#: schroot/sbuild-session.cc:836 schroot/sbuild-session.cc:857
 msgid "caught hangup signal, terminating..."
 msgstr ""
 
-#: schroot/sbuild-session.cc:845
+#: schroot/sbuild-session.cc:849
 #, boost-format
 msgid "wait for child failed: %1%"
 msgstr "việc đợi tiến trình con bị lỗi: %1%"
 
-#: schroot/sbuild-session.cc:872
+#: schroot/sbuild-session.cc:876
 #, boost-format
 msgid "Child terminated by signal %1%"
 msgstr "Tiến trình con bị chấm dứt do tín hiệu « %1% »"
 
-#: schroot/sbuild-session.cc:877
+#: schroot/sbuild-session.cc:881
 msgid "Child dumped core"
 msgstr "Tiến trình con đã đổ lõi"
 
-#: schroot/sbuild-session.cc:879
+#: schroot/sbuild-session.cc:883
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr ""
 "Tiến trình con đã thoát bất thường (chưa biết sao ; không phải là việc đổ "
 "tín hiệu hay lõi)"
 
-#: schroot/sbuild-session.cc:886
+#: schroot/sbuild-session.cc:890
 #, boost-format
 msgid "Child exited abnormally with status '%1%'"
 msgstr "Tiến trình con đã thoát bất thường với trạng thái « %1% »"
 
-#: schroot/sbuild-session.cc:947
+#: schroot/sbuild-session.cc:951
 #, fuzzy, boost-format
 msgid "failed to set hangup handler: %1%"
 msgstr "việc lập bộ quản lý thời hạn bị lỗi: %1%"
@@ -900,12 +910,6 @@ msgstr "Việc lấy thiết lập thiết bị cuối bị lỗi"
 #, fuzzy
 #~ msgid " (snapshot source device)"
 #~ msgstr "Thiết bị hiện trạng Bộ Quản lý Khối tin Hợp lý"
-
-#~ msgid "[%1% chroot] Running shell: \"%2%\""
-#~ msgstr "[%1% chroot] Đang chạy hệ vỏ đăng nhập: « %2% »"
-
-#~ msgid "[%1% chroot] (%2%->%3%) Running shell: \"%4%\""
-#~ msgstr "[%1% chroot] (%2%->%3%) Đang chạy hệ vỏ đăng nhập: « %4% »"
 
 #~ msgid "%1% chroot creation failed"
 #~ msgstr "%1% việc tạo chroot bị lỗi"

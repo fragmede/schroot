@@ -487,37 +487,36 @@ auth::setupenv ()
 
   int pam_status;
 
-  /* Initial environment to set, used if the environment was not
-     specified. */
-  environment newenv;
-
-  if (this->uid == 0)
-    newenv.add(std::make_pair("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11"));
-  else
-    newenv.add(std::make_pair("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games"));
-
-  if (!this->home.empty() )
-    newenv.add(std::make_pair("HOME", this->home));
-  else
-    newenv.add(std::make_pair("HOME", "/"));
-  if (!this->user.empty())
-    {
-      newenv.add(std::make_pair("LOGNAME", this->user));
-      newenv.add(std::make_pair("USER", this->user));
-    }
-  {
-    const char *term = getenv("TERM");
-    if (term)
-      newenv.add(std::make_pair("TERM", term));
-  }
-  if (!this->shell.empty())
-    newenv.add(std::make_pair("SHELL", this->shell));
-
   environment environment;
   if (!this->user_environment.empty())
     environment = this->user_environment;
-  else
-    environment = newenv;
+
+  // For security, PATH is always set to a sane state for root, but
+  // only set in other cases if not preserving the environment.
+  if (this->uid == 0)
+    environment.add(std::make_pair("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11"));
+  else if (this->user_environment.empty())
+    environment.add(std::make_pair("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games"));
+
+  if (this->user_environment.empty())
+    {
+      if (!this->home.empty() )
+	environment.add(std::make_pair("HOME", this->home));
+      else
+	environment.add(std::make_pair("HOME", "/"));
+      if (!this->user.empty())
+	{
+	  environment.add(std::make_pair("LOGNAME", this->user));
+	  environment.add(std::make_pair("USER", this->user));
+	}
+      {
+	const char *term = getenv("TERM");
+	if (term)
+	  environment.add(std::make_pair("TERM", term));
+      }
+      if (!this->shell.empty())
+	environment.add(std::make_pair("SHELL", this->shell));
+    }
 
   // Sanitise environment.
   environment.remove("BASH_ENV");

@@ -714,12 +714,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   /* Run login shell */
   std::string file;
 
-  string_list command(session_chroot->get_command_prefix());
-  string_list const& command_suffix = get_command();
-  for (string_list::const_iterator pos = command_suffix.begin();
-       pos != command_suffix.end();
-       ++pos)
-    command.push_back(*pos);
+  string_list command(get_command());
 
   if (command.empty() ||
       command[0].empty()) // No command
@@ -759,16 +754,16 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 	{
 	  if (get_ruid() == get_uid())
 	    log_info()
-	      << format(_(get_environment().empty() ?
-			  "[%1% chroot] Running login shell: \"%2%\"" :
-			  "[%1% chroot] Running shell: \"%2%\""))
+	      << format((get_environment().empty() ?
+			 _("[%1% chroot] Running login shell: \"%2%\"") :
+			 _("[%1% chroot] Running shell: \"%2%\"")))
 	      % session_chroot->get_name() % get_shell()
 	      << endl;
 	  else
 	    log_info()
-	      << format(_(get_environment().empty() ?
-			  "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\"" :
-			  "[%1% chroot] (%2%->%3%) Running shell: \"%4%\""))
+	      << format((get_environment().empty() ?
+			 _("[%1% chroot] (%2%->%3%) Running login shell: \"%4%\"") :
+			 _("[%1% chroot] (%2%->%3%) Running shell: \"%4%\"")))
 	      % session_chroot->get_name()
 	      % get_ruser() % get_user()
 	      % get_shell()
@@ -804,8 +799,17 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   // The user's command does not use our syslog fd.
   closelog();
 
+  // Add command prefix.
+  string_list full_command(session_chroot->get_command_prefix());
+  if (full_command.size() > 0)
+    file = full_command[0];
+  for (string_list::const_iterator pos = command.begin();
+       pos != command.end();
+       ++pos)
+    full_command.push_back(*pos);
+
   /* Execute */
-  if (exec (file, command, env))
+  if (exec (file, full_command, env))
     {
       log_error() << format(_("Could not exec \"%1%\": %2%"))
 	% command[0] % strerror(errno)

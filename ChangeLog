@@ -1,3 +1,23 @@
+2006-03-07  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Bump version to 0.2.7.
+
+	* NEWS: Bump version to 0.2.7.
+
+	* configure.ac: Bump version to 0.2.7.
+
+	* po/en_GB.po: Update translation.
+
+	* schroot/sbuild-auth.cc
+	(setupenv): For security, PATH is always set to a sane state for
+	root, but only set in other cases if not preserving the
+	environment.
+
+	* schroot/sbuild-session.cc
+	(run_child): When "command-prefix" has been specified, correctly
+	set the filename to pass to execve.  Mark four strings for
+	translation.
+
 2006-03-06  Roger Leigh  <rleigh@debian.org>
 
 	* Version 0.2.6.
