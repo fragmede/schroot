@@ -9,6 +9,8 @@ configuration.
 
 * Major changes in 0.2.7:
 
+  Bugfixes only.
+
 * Major changes in 0.2.6:
 
   1) For all chroot types, a "command-prefix" option has been added.
