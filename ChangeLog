@@ -1,5 +1,13 @@
 2006-03-08  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Version 0.2.7-2, released to fix a dchroot
+	crash.
+
+	* schroot/dchroot-session.cc
+	(run_impl): Correctly chain up to the base class.
+
+2006-03-08  Roger Leigh  <rleigh@debian.org>
+
 	* Version 0.2.7.
 
 	* debian/changelog: Update for 0.2.7.

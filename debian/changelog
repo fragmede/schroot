@@ -1,3 +1,11 @@
+schroot (0.2.7-2) unstable; urgency=low
+
+  * schroot/dchroot-session.cc (run_impl): Correctly chain up to the
+    parent method.  This prevents the infinite recursion which caused
+    dchroot to crash when using dchroot.conf (Closes: #355880).
+
+ -- Roger Leigh <rleigh@debian.org>  Wed,  8 Mar 2006 15:47:11 +0000
+
 schroot (0.2.7-1) unstable; urgency=low
 
   * New upstream release.

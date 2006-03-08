@@ -71,7 +71,7 @@ session::run_impl ()
       throw error(fmt);
     }
 
-  session::run_impl();
+  sbuild::session::run_impl();
 }
 
 
