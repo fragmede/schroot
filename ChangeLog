@@ -1,3 +1,9 @@
+2006-03-18  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-session.cc (run_child): Don't fix up argv for a
+	login shell if using a command-prefix, since this will not be a
+	valid command for command-prefix to execute.
+
 2006-03-08  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Version 0.2.7-2, released to fix a dchroot

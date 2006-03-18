@@ -722,7 +722,9 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
       assert (!get_shell().empty());
 
       file = get_shell();
-      if (get_environment().empty()) // Not keeping environment; login shell
+      if (get_environment().empty() &&
+	  session_chroot->get_command_prefix().empty())
+	// Not keeping environment and can setup argv correctly; login shell
 	{
 	  std::string shellbase = basename(get_shell(), '/');
 	  std::string loginshell = "-" + shellbase;
@@ -735,7 +737,8 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 	  command.push_back(get_shell());
 	}
 
-      if (get_environment().empty())
+      if (get_environment().empty() &&
+	  session_chroot->get_command_prefix().empty())
 	{
 	  log_debug(DEBUG_NOTICE)
 	    << format("Running login shell: %1%") % get_shell() << endl;
@@ -754,14 +757,16 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 	{
 	  if (get_ruid() == get_uid())
 	    log_info()
-	      << format((get_environment().empty() ?
+	      << format((get_environment().empty() &&
+			 session_chroot->get_command_prefix().empty() ?
 			 _("[%1% chroot] Running login shell: \"%2%\"") :
 			 _("[%1% chroot] Running shell: \"%2%\"")))
 	      % session_chroot->get_name() % get_shell()
 	      << endl;
 	  else
 	    log_info()
-	      << format((get_environment().empty() ?
+	      << format((get_environment().empty() &&
+			 session_chroot->get_command_prefix().empty() ?
 			 _("[%1% chroot] (%2%->%3%) Running login shell: \"%4%\"") :
 			 _("[%1% chroot] (%2%->%3%) Running shell: \"%4%\"")))
 	      % session_chroot->get_name()
