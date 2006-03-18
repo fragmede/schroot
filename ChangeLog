@@ -1,5 +1,13 @@
 2006-03-18  Roger Leigh  <rleigh@debian.org>
 
+	* configure.ac: Bump version to 0.2.8.
+
+	* NEWS: Bump version to 0.2.8.
+
+	* debian/changelog: Bump version to 0.2.8-1.
+
+2006-03-18  Roger Leigh  <rleigh@debian.org>
+
 	* po/vi.po: Update.
 
 	* po/sv.po: Update.

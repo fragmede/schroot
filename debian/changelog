@@ -1,3 +1,9 @@
+schroot (0.2.8-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+
+ --
+
 schroot (0.2.7-2) unstable; urgency=low
 
   * schroot/dchroot-session.cc (run_impl): Correctly chain up to the
