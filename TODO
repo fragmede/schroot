@@ -26,6 +26,8 @@ PLANNED
 POTENTIAL
 ---------
 
+* root group should not need to be in groups.
+
 * Repacking session chroot on setup-stop.
 
   This must be root-only/root-groups-only for security.  For
