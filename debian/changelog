@@ -1,8 +1,8 @@
-schroot (0.2.8-1) UNRELEASED; urgency=low
+schroot (0.2.8-1) unstable; urgency=low
 
   * New upstream release.
 
- --
+ -- Roger Leigh <rleigh@debian.org>  Sun, 19 Mar 2006 11:53:35 +0000
 
 schroot (0.2.7-2) unstable; urgency=low
 

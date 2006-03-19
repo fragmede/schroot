@@ -1,3 +1,9 @@
+2006-03-19  Roger Leigh  <rleigh@debian.org>
+
+	* Version 0.2.8.
+
+	* debian/changelog: Update for 0.2.8.
+
 2006-03-18  Roger Leigh  <rleigh@debian.org>
 
 	* configure.ac: Bump version to 0.2.8.
