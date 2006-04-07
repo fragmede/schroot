@@ -4,10 +4,10 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: schroot-0.2.3\n"
+"Project-Id-Version: schroot-0.2.8\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-03-18 22:05+0000\n"
-"PO-Revision-Date: 2006-03-09 22:26+1030\n"
+"POT-Creation-Date: 2006-04-07 11:41+0100\n"
+"PO-Revision-Date: 2006-04-07 18:18+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -120,7 +120,7 @@ msgstr "%1% chroot: %2% không phải là thiết bị khối"
 #: schroot/sbuild-chroot-lvm-snapshot.cc:167
 #, boost-format
 msgid "%1%: failed to lock device: %2%"
-msgstr "%1%: không khoá thiết bị được: %2% "
+msgstr "%1%: không khoá thiết bị được: %2%"
 
 #: schroot/sbuild-chroot-block-device.cc:163
 #: schroot/sbuild-chroot-lvm-snapshot.cc:180
@@ -191,12 +191,10 @@ msgid "not owned by user root"
 msgstr "người dùng chủ không sở hữu"
 
 #: schroot/sbuild-chroot-config.cc:381 schroot/sbuild-chroot-file.cc:117
-#, fuzzy
 msgid "others have write permission"
 msgstr "người khác có quyền ghi"
 
 #: schroot/sbuild-chroot-config.cc:384 schroot/sbuild-chroot-file.cc:119
-#, fuzzy
 msgid "not a regular file"
 msgstr "không phải là tập tin chuẩn"
 
@@ -226,7 +224,7 @@ msgstr "Tập tin"
 
 #: schroot/sbuild-chroot-file.cc:147
 msgid "File Repack"
-msgstr ""
+msgstr "Nén lại tập tin"
 
 #: schroot/sbuild-chroot-lvm-snapshot.cc:135
 #, boost-format
@@ -316,18 +314,16 @@ msgid "Run Setup Scripts"
 msgstr "Chạy các tập lệnh thiết lập"
 
 #: schroot/sbuild-chroot.cc:328
-#, fuzzy
 msgid "Run Execution Scripts"
-msgstr "Chạy các tập lệnh phiên chạy"
+msgstr "Chạy các tập lệnh thực hiện"
 
 #: schroot/sbuild-chroot.cc:330
 msgid "Session Managed"
 msgstr "Phiên chạy đã quản lý"
 
 #: schroot/sbuild-chroot.cc:335
-#, fuzzy
 msgid "Command Prefix"
-msgstr "Lệnh cần chạy"
+msgstr "Tiền tố lệnh"
 
 #: schroot/sbuild-chroot.cc:339
 msgid "Location"
@@ -339,7 +335,7 @@ msgstr "Địa điểm lắp"
 
 #: schroot/sbuild-chroot.cc:345
 msgid "Path"
-msgstr ""
+msgstr "Đường dẫn"
 
 #: schroot/sbuild-chroot.cc:348
 msgid "Mount Device"
@@ -573,7 +569,7 @@ msgstr "[%1% chroot] (%2%->%3%) Đang chạy lệnh: « %4% »"
 
 #: schroot/sbuild-session.cc:841 schroot/sbuild-session.cc:862
 msgid "caught hangup signal, terminating..."
-msgstr ""
+msgstr "mới bắt tín hiệu ngừng nói nên kết thúc..."
 
 #: schroot/sbuild-session.cc:854
 #, boost-format
@@ -601,9 +597,9 @@ msgid "Child exited abnormally with status '%1%'"
 msgstr "Tiến trình con đã thoát bất thường với trạng thái « %1% »"
 
 #: schroot/sbuild-session.cc:956
-#, fuzzy, boost-format
+#, boost-format
 msgid "failed to set hangup handler: %1%"
-msgstr "việc lập bộ quản lý thời hạn bị lỗi: %1%"
+msgstr "lỗi lập bộ quản lý ngừng nói : %1%"
 
 #: schroot/schroot-options.cc:64 schroot/schroot-releaselock-options.cc:44
 msgid "General options"
@@ -715,7 +711,7 @@ msgstr "Cách sử dụng:"
 
 #: schroot/schroot-options.cc:160
 msgid " [OPTION...] [COMMAND] - run command or shell in a chroot"
-msgstr "[TÙY_CHỌN...] [LỆNH] — chạy lệnh hoặc hệ vỏ trong một chroot"
+msgstr " [TÙY_CHỌN...] [LỆNH] — chạy lệnh hoặc hệ vỏ trong một chroot"
 
 #: schroot/schroot-options.cc:209
 msgid "--quiet and --verbose may not be used at the same time"
@@ -833,9 +829,8 @@ msgid "%1% (Debian sbuild) %2%\n"
 msgstr "%1% (Debian sbuild) %2%\n"
 
 #: schroot/schroot.cc:149
-#, fuzzy
 msgid "Error saving terminal settings"
-msgstr "Việc lấy thiết lập thiết bị cuối bị lỗi"
+msgstr "Gặp lỗi khi lưu thiết lập thiết bị cuối"
 
 #: schroot/schroot.cc:173
 msgid "Running schroot in dchroot compatibility mode"
@@ -893,9 +888,8 @@ msgid "Session failure: %1%"
 msgstr "Phiên bản bị lỗi: %1%"
 
 #: schroot/schroot.cc:380 schroot/schroot.cc:396
-#, fuzzy
 msgid "Error restoring terminal settings"
-msgstr "Việc lấy thiết lập thiết bị cuối bị lỗi"
+msgstr "Gặp lỗi khi phục hồi thiết lập thiết bị cuối"
 
 #~ msgid " (snapshot source device)"
 #~ msgstr " (thiết bị nguồn hiện trạng)"
