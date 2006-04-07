@@ -1,6 +1,8 @@
 schroot (0.2.9-1) unstable; urgency=low
 
   * New upstream release.
+  * debian/README.Debian: Move chroot safety advice to README
+    (Closes: #361108).
 
  --
 

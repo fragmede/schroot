@@ -1,4 +1,10 @@
-2006-04-07  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2006-04-07  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Close #361108.
+
+	* debian/README.Debian: Move chroot safety advice to README.
+
+2006-04-07  Roger Leigh  <rleigh@debian.org>
 
 	* configure.ac: Bump version to 0.2.9.
 
