@@ -1,5 +1,17 @@
 2006-04-08  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/Makefile.am
+	(sbuild_public_h_sources): Add sbuild-format-detail.h
+
+	* schroot/sbuild.h: Include sbuild-format-detail.h.
+
+	* schroot/sbuild-chroot.h: Remove sbuild::chroot::format_detail.
+
+	* schroot/sbuild-format-detail.h: New class,
+	sbuild::format_detail, moved from sbuild::chroot::format_detail.
+
+2006-04-08  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-keyfile.h: Use Boost if TR1 is not available.
 
 	* schroot/sbuild-chroot.h: Use Boost if TR1 is not available.

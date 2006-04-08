@@ -32,6 +32,7 @@
 #include "sbuild-chroot-source.h"
 #include "sbuild-chroot-config.h"
 #include "sbuild-error.h"
+#include "sbuild-format-detail.h"
 #include "sbuild-environment.h"
 #include "sbuild-i18n.h"
 #include "sbuild-keyfile.h"

@@ -62,6 +62,7 @@ sbuild_public_h_sources =		\
 	sbuild-chroot-config.h		\
 	sbuild-environment.h		\
 	sbuild-error.h			\
+	sbuild-format-detail.h		\
 	sbuild-i18n.h			\
 	sbuild-keyfile.h		\
 	sbuild-lock.h			\
