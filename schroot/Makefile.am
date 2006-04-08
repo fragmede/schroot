@@ -25,8 +25,9 @@ SUBDIRS = pam exec setup
 localedir = $(datadir)/locale
 pkglibexecdir = $(SCHROOT_LIBEXEC_DIR)
 
-AM_CXXFLAGS = $(SCHROOT_CFLAGS) -pedantic -Wall -Wcast-align -Wextra -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
-#  -Weffc++ causes too many warnings in standard headers.
+AM_CXXFLAGS = $(SCHROOT_CFLAGS) -pedantic -Wall -Wcast-align -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
+#  -Weffc++ causes too many warnings in standard headers; -Wextra is not
+#  supported by GCC 3.4.
 
 DEFS = -DGETTEXT_PACKAGE=\"schroot\" -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
 
@@ -39,11 +40,12 @@ endif
 bin_PROGRAMS = $(dchroot) schroot
 pkglibexec_PROGRAMS = schroot-releaselock
 
-BUILT_SOURCES = sbuild.gch
+#BUILT_SOURCES = sbuild.gch
+#CLEANFILES = sbuild.gch
 
 # GCC precompiled header
-sbuild.gch: $(sbuild_public_h_sources)
-	$(CXXCOMPILE) -o $@ -c sbuild.h
+#sbuild.gch: $(sbuild_public_h_sources)
+#	$(CXXCOMPILE) -o $@ -c sbuild.h
 
 sbuild_public_h_sources =		\
 	sbuild.h			\
@@ -95,6 +97,9 @@ libsbuild_la_SOURCES =			\
 	$(sbuild_public_h_sources)	\
 	$(sbuild_public_cc_sources)
 
+nodist_libsbuild_la_SOURCES =	\
+	sbuild-config.h
+
 libsbuild_la_LIBADD = $(UUID_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(BOOST_LIBS) $(LIBINTL)
 
 schroot_SOURCES =			\
@@ -132,9 +137,7 @@ endif
 
 man_MANS = $(dchroot_mans) schroot.1 schroot-setup.5 schroot.conf.5
 
-CLEANFILES = sbuild.gch
-
-EXTRA_DIST =				\
+EXTRA_DIST =			\
 	$(pkgsysconf_DATA)
 
 install-exec-hook:

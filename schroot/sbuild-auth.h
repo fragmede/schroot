@@ -20,9 +20,19 @@
 #ifndef SBUILD_AUTH_H
 #define SBUILD_AUTH_H
 
+#include "sbuild-config.h"
+
 #include <string>
 #include <vector>
+
+#ifdef HAVE_TR1_MEMORY
 #include <tr1/memory>
+#elif HAVE_BOOST_SHARED_PTR_HPP
+#include <boost/shared_ptr.hpp>
+namespace std { namespace tr1 { using boost::shared_ptr; } }
+#else
+#error A shared_ptr implementation is not available
+#endif
 
 #include <sys/types.h>
 #include <sys/wait.h>

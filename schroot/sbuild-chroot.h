@@ -20,11 +20,21 @@
 #ifndef SBUILD_CHROOT_H
 #define SBUILD_CHROOT_H
 
+#include "sbuild-config.h"
+
 #include <iomanip>
 #include <ostream>
 #include <string>
 #include <vector>
+
+#ifdef HAVE_TR1_MEMORY
 #include <tr1/memory>
+#elif HAVE_BOOST_SHARED_PTR_HPP
+#include <boost/shared_ptr.hpp>
+namespace std { namespace tr1 { using boost::shared_ptr; } }
+#else
+#error A shared_ptr implementation is not available
+#endif
 
 #include "sbuild-error.h"
 #include "sbuild-environment.h"

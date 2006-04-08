@@ -30,6 +30,7 @@ dnl Place auxilliary scripts here.
 AC_CONFIG_AUX_DIR([scripts])
 dnl Put macro definitions here.
 AC_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADER([schroot/sbuild-config.h])
 
 dnl Initialise automake stuff.
 AM_INIT_AUTOMAKE([1.9 gnu check-news dist-bzip2 no-dist-gzip tar-ustar])
@@ -84,8 +85,26 @@ SCHROOT_CFLAGS="$UUID_CFLAGS"
 AC_SUBST([SCHROOT_CFLAGS])
 
 # Checks for header files.
-AC_CHECK_HEADER([boost/format.hpp],, [AC_MSG_ERROR([Boost.Format (Boost C++ Libraries) is not installed, but is required by schroot])])
-AC_CHECK_HEADER([boost/program_options.hpp],, [AC_MSG_ERROR([Boost.Program_options (Boost C++ Libraries) is not installed, but is required by schroot])])
+AC_CHECK_HEADERS([tr1/memory])
+
+AC_CHECK_HEADERS([boost/shared_ptr.hpp],, [
+  if test $ac_cv_header_tr1_memory = yes; then
+    :
+  else
+    AC_MSG_ERROR([Boost.shared_ptr (Boost C++ Libraries) is not installed, but is required by schroot])
+  fi])
+
+AC_CHECK_HEADERS([tr1/tuple])
+
+AC_CHECK_HEADERS([boost/tuple/tuple.hpp],, [
+  if test $ac_cv_header_tr1_memory = yes; then
+    :
+  else
+    AC_MSG_ERROR([Boost.Tuple (Boost C++ Libraries) is not installed, but is required by schroot])
+  fi])
+
+AC_CHECK_HEADERS([boost/format.hpp],, [AC_MSG_ERROR([Boost.Format (Boost C++ Libraries) is not installed, but is required by schroot])])
+AC_CHECK_HEADERS([boost/program_options.hpp],, [AC_MSG_ERROR([Boost.Program_options (Boost C++ Libraries) is not installed, but is required by schroot])])
 
 # Checks for typedefs, structures, and compiler characteristics.
 
@@ -94,10 +113,12 @@ AC_CHECK_LIB([pam], [pam_authenticate],
              [PAM_LIBS="-lpam"],
 	     [AC_MSG_FAILURE([libpam (Linux-PAM) is not installed, but is required by schroot])])
 AC_SUBST([PAM_LIBS])
+
 AC_CHECK_LIB([lockdev], [dev_lock],
              [LOCKDEV_LIBS="-llockdev"],
              [AC_MSG_FAILURE([liblockdev (lockdev) is not installed, but is required by schroot])])
 AC_SUBST([LOCKDEV_LIBS])
+
 AC_MSG_CHECKING([for boost::program_options::variables_map in -lboost_program_options])
 saved_ldflags="${LDFLAGS}"
 LDFLAGS="${LDFLAGS} -lboost_program_options"

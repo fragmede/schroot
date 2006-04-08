@@ -1,3 +1,21 @@
+2006-04-08  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-keyfile.h: Use Boost if TR1 is not available.
+
+	* schroot/sbuild-chroot.h: Use Boost if TR1 is not available.
+
+	* schroot/sbuild-auth.h: Use Boost if TR1 is not available.
+
+	* schroot/Makefile.am:
+	(AM_CXXFLAGS): Remove -Wextra.
+	(BUILT_SOURCES): Don't build sbuild.gch.
+	(#CLEANFILES): Don't clean sbuild.gch.
+	(nodist_libsbuild_la_SOURCES): Add sbuild-config.h.
+
+	* configure.ac: Add a new header, schroot/sbuild-config.h.  Add
+	header checks for tr1/memory, boost/shared_ptr.hpp, tr1/tuple and
+	boost/tuple/tuple.hpp.
+
 2006-04-07  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Close #361108.
