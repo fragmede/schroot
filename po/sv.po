@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.2.3\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-04-26 12:35+0100\n"
+"POT-Creation-Date: 2006-04-26 18:41+0100\n"
 "PO-Revision-Date: 2006-03-09 19:24+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: schroot/dchroot-chroot-config.cc:99 schroot/sbuild-keyfile.h:564
+#: schroot/dchroot-chroot-config.cc:99 schroot/sbuild-keyfile.h:560
 #, boost-format
 msgid "line %1%: invalid line: %2%"
 msgstr "rad %1%: ogiltig rad: %2%"
@@ -246,102 +246,102 @@ msgstr "Enhet för LVM-snapshot"
 msgid "LVM Snapshot Options"
 msgstr "Flaggor för LVM-snapshot"
 
-#: schroot/sbuild-chroot.cc:68
+#: schroot/sbuild-chroot.cc:69
 #, boost-format
 msgid "unknown chroot type \"%1%\""
 msgstr "okänd chroot-typ \"%1%\""
 
-#: schroot/sbuild-chroot.cc:74
+#: schroot/sbuild-chroot.cc:75
 msgid "chroot creation failed"
 msgstr "skapandet av chroot misslyckades"
 
-#: schroot/sbuild-chroot.cc:264
+#: schroot/sbuild-chroot.cc:265
 #, boost-format
 msgid "%1%: failed to create session file: %2%\n"
 msgstr "%1%: misslyckades att skapa sessionsfil: %2%\n"
 
-#: schroot/sbuild-chroot.cc:282
+#: schroot/sbuild-chroot.cc:283
 #, boost-format
 msgid "%1%: lock acquisition failure: %2%\n"
 msgstr "%1%: fel när lås skulle tas: %2%\n"
 
-#: schroot/sbuild-chroot.cc:297
+#: schroot/sbuild-chroot.cc:298
 #, boost-format
 msgid "%1%: lock discard failure: %2%\n"
 msgstr "%1%: fel vid kassering av lås: %2%\n"
 
-#: schroot/sbuild-chroot.cc:306
+#: schroot/sbuild-chroot.cc:307
 #, boost-format
 msgid "%1%: failed to unlink session file: %2%\n"
 msgstr "%1%: misslyckades att avlänka sessionsfil: %2%\n"
 
-#: schroot/sbuild-chroot.cc:317
+#: schroot/sbuild-chroot.cc:318
 msgid "  --- Session ---\n"
 msgstr "  --- Session ---\n"
 
-#: schroot/sbuild-chroot.cc:319
+#: schroot/sbuild-chroot.cc:320
 msgid "  --- Chroot ---\n"
 msgstr "  --- Chroot ---\n"
 
-#: schroot/sbuild-chroot.cc:320
+#: schroot/sbuild-chroot.cc:321
 msgid "Name"
 msgstr "Namn"
 
-#: schroot/sbuild-chroot.cc:321
+#: schroot/sbuild-chroot.cc:322
 msgid "Description"
 msgstr "Beskrivning"
 
-#: schroot/sbuild-chroot.cc:322
+#: schroot/sbuild-chroot.cc:323
 msgid "Type"
 msgstr "Typ"
 
-#: schroot/sbuild-chroot.cc:323
+#: schroot/sbuild-chroot.cc:324
 msgid "Priority"
 msgstr "Prioritet"
 
-#: schroot/sbuild-chroot.cc:324
+#: schroot/sbuild-chroot.cc:325
 msgid "Groups"
 msgstr "Grupper"
 
-#: schroot/sbuild-chroot.cc:325
+#: schroot/sbuild-chroot.cc:326
 msgid "Root Groups"
 msgstr "Rotgrupper"
 
-#: schroot/sbuild-chroot.cc:326
+#: schroot/sbuild-chroot.cc:327
 msgid "Aliases"
 msgstr "Alias"
 
-#: schroot/sbuild-chroot.cc:327
+#: schroot/sbuild-chroot.cc:328
 msgid "Run Setup Scripts"
 msgstr "Kör konfigurationsskript"
 
-#: schroot/sbuild-chroot.cc:328
+#: schroot/sbuild-chroot.cc:329
 #, fuzzy
 msgid "Run Execution Scripts"
 msgstr "Kör sessionsskript"
 
-#: schroot/sbuild-chroot.cc:330
+#: schroot/sbuild-chroot.cc:331
 msgid "Session Managed"
 msgstr "Session hanterad"
 
-#: schroot/sbuild-chroot.cc:335
+#: schroot/sbuild-chroot.cc:336
 #, fuzzy
 msgid "Command Prefix"
 msgstr "Kommando att köra"
 
-#: schroot/sbuild-chroot.cc:339
+#: schroot/sbuild-chroot.cc:340
 msgid "Location"
 msgstr "Plats"
 
-#: schroot/sbuild-chroot.cc:342
+#: schroot/sbuild-chroot.cc:343
 msgid "Mount Location"
 msgstr "Montera plats"
 
-#: schroot/sbuild-chroot.cc:345
+#: schroot/sbuild-chroot.cc:346
 msgid "Path"
 msgstr ""
 
-#: schroot/sbuild-chroot.cc:348
+#: schroot/sbuild-chroot.cc:349
 msgid "Mount Device"
 msgstr "Montera enhet"
 
@@ -386,19 +386,19 @@ msgstr "Den här flaggan har tagits bort och har inte längre någon effekt."
 msgid "%1% chroot: A disallowed parameter \"%2%\" has been specified."
 msgstr "%1% chroot: En otillåten parameter \"%2%\" har angivits."
 
-#: schroot/sbuild-keyfile.h:537
+#: schroot/sbuild-keyfile.h:533
 msgid "line %1%: invalid group entry: %2%"
 msgstr "rad %1%: ogiltig gruppost: %2%"
 
-#: schroot/sbuild-keyfile.h:547
+#: schroot/sbuild-keyfile.h:543
 msgid "line %1%: duplicate group entry: %2%"
 msgstr "rad %1%: kopia av gruppost: %2%"
 
-#: schroot/sbuild-keyfile.h:570
+#: schroot/sbuild-keyfile.h:566
 msgid "line %1%: no key specified: %2%"
 msgstr "rad %1%: ingen nyckel angiven: %2%"
 
-#: schroot/sbuild-keyfile.h:584
+#: schroot/sbuild-keyfile.h:580
 msgid "line %1%: group %2%: duplicate key entry: %3%"
 msgstr "rad %1%: grupp %2%: kopia av nyckelpost: %3%"
 
