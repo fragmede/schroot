@@ -1,5 +1,10 @@
 2006-04-26  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/setup/10mount (do_mount) : Create directories for
+	mounting filesystems onto if they don't exist.
+
+2006-04-26  Roger Leigh  <rleigh@debian.org>
+
 	* po/POTFILES.in: Add schroot/sbuild-format-detail.h
 
 2006-04-26  Roger Leigh  <rleigh@debian.org>

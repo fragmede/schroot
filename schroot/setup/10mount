@@ -11,6 +11,15 @@ do_mount()
     if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 	echo "Mounting $2 on $3"
     fi
+
+    if [ ! -d "$3" ]; then
+	mkdir -p "$3"
+    fi
+    if [ ! -d "$3" ]; then
+	echo "$3 does not exist, and could not be created"
+	exit 1
+    fi
+
     mount $VERBOSE $1 "$2" "$3"
 }
 
