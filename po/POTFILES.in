@@ -25,6 +25,7 @@ schroot/sbuild-chroot.h
 schroot/sbuild-environment.cc
 schroot/sbuild-environment.h
 schroot/sbuild-error.h
+schroot/sbuild-format-detail.h
 schroot/sbuild-i18n.h
 schroot/sbuild-keyfile.cc
 schroot/sbuild-keyfile.h
