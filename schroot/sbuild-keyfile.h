@@ -304,28 +304,24 @@ namespace sbuild
      * @returns true if the key was found, otherwise false (in which
      * case value will be unchanged).
      */
-    template <typename T, template <typename T> class C>
+    template <typename C>
     bool
     get_list_value (std::string const& group,
 		    std::string const& key,
-		    C<T>&              value) const
+		    C&                 container) const
     {
       std::string item_value;
       if (get_value(group, key, item_value))
 	{
-	  C<T> tmplist;
 	  string_list items = split_string(item_value, this->separator);
 	  for (string_list::const_iterator pos = items.begin();
 	       pos != items.end();
 	       ++pos
 	       )
 	    {
-	      T tmpval;
-	      if (parse_value(*pos, tmpval) == false)
-		return false;
-	      tmplist.push_back(tmpval);
+	      container.push_back(static_cast<typename C::const_reference>(generic_value(*pos)));
+	      // TODO: exception thrown on parse failure.
 	    }
-	  value = tmplist;
 	  return true;
 	}
       return false;
@@ -344,14 +340,14 @@ namespace sbuild
      * @returns true if the key was found, otherwise false (in which
      * case value will be unchanged).
      */
-    template <typename T, template <typename T> class C>
+    template <typename C>
     bool
     get_list_value (std::string const& group,
 		    std::string const& key,
 		    priority           priority,
-		    C<T>&              value) const
+		    C&                 container) const
     {
-      bool status = get_list_value(group, key, value);
+      bool status = get_list_value(group, key, container);
       check_priority(group, key, priority, status);
       return status;
     }
@@ -417,13 +413,14 @@ namespace sbuild
      * value type must allow output to an ostream.  The list must be a
      * container with a standard forward iterator.
      */
-    template <typename T, template <typename T> class C>
+    template <typename I>
     void
     set_list_value (std::string const& group,
 		    std::string const& key,
-		    C<T> const&        value)
+		    I                  begin,
+		    I                  end)
     {
-      set_list_value(group, key, value, std::string());
+      set_list_value(group, key, begin, end, std::string());
     }
 
     /**
@@ -436,18 +433,17 @@ namespace sbuild
      * container with a standard forward iterator.
      * @param comment the comment for this key.
      */
-    template <typename T, template <typename T> class C>
+    template <typename I>
     void
     set_list_value (std::string const& group,
 		    std::string const& key,
-		    C<T> const&        value,
+		    I                  begin,
+		    I                  end,
 		    std::string const& comment)
     {
       std::string strval;
 
-      for (typename C<T>::const_iterator pos = value.begin();
-	   pos != value.end();
-	   ++ pos)
+      for (I pos = begin; pos != end; ++ pos)
 	{
 	  std::ostringstream os;
 	  os.imbue(std::locale("C"));
@@ -455,7 +451,7 @@ namespace sbuild
 	  if (os)
 	    {
 	      strval += os.str();
-	      if (pos + 1 != value.end())
+	      if (pos + 1 != end)
 		strval += this->separator;
 	    }
 	}

@@ -72,6 +72,27 @@ namespace sbuild
     return false;
   }
 
+  class generic_value
+  {
+  public:
+    generic_value (std::string const& value): value(value) {}
+    virtual ~generic_value () {}
+
+    template <typename T>
+    operator T (void)
+    {
+      T tmp;
+      parse_value(this->value, tmp);
+
+      // TODO: throw exception on parse failure.
+
+      return tmp;
+    }
+
+  private:
+    std::string value;
+  };
+
 }
 
 #endif /* SBUILD_PARSE_VALUE_H */

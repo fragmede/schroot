@@ -21,6 +21,7 @@
 
 #include "sbuild.h"
 
+#include <algorithm>
 #include <cerrno>
 #include <ext/stdio_filebuf.h>
 
@@ -368,17 +369,20 @@ sbuild::chroot::get_keyfile (keyfile& keyfile) const
   keyfile.set_value(this->name, "priority",
 		    get_priority());
 
+  string_list const& aliases = get_aliases();
   keyfile.set_list_value(this->name, "aliases",
-			 get_aliases());
+			 aliases.begin(), aliases.end());
 
   keyfile.set_value(this->name, "description",
 		    get_description());
 
+  string_list const& groups = get_groups();
   keyfile.set_list_value(this->name, "groups",
-			 get_groups());
+			 groups.begin(), groups.end());
 
+  string_list const& root_groups = get_root_groups();
   keyfile.set_list_value(this->name, "root-groups",
-			 get_root_groups());
+			 root_groups.begin(), root_groups.end());
 
   if (get_active())
     keyfile.set_value(this->name, "mount-location",
@@ -388,8 +392,9 @@ sbuild::chroot::get_keyfile (keyfile& keyfile) const
     keyfile.set_value(this->name, "mount-device",
 		      get_mount_device());
 
+  string_list const& command_prefix = get_command_prefix();
   keyfile.set_list_value(this->name, "command-prefix",
-			 get_command_prefix());
+			 command_prefix.begin(), command_prefix.end());
 }
 
 void
@@ -422,7 +427,8 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 
   string_list aliases;
   if (keyfile.get_list_value(this->name, "aliases",
-			     keyfile::PRIORITY_OPTIONAL, aliases))
+			     keyfile::PRIORITY_OPTIONAL,
+			     aliases))
     set_aliases(aliases);
 
   std::string description;
@@ -432,12 +438,14 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 
   string_list groups;
   if (keyfile.get_list_value(this->name, "groups",
-			     keyfile::PRIORITY_REQUIRED, groups))
+			     keyfile::PRIORITY_REQUIRED,
+			     groups))
     set_groups(groups);
 
   string_list root_groups;
   if (keyfile.get_list_value(this->name, "root-groups",
-			     keyfile::PRIORITY_OPTIONAL, root_groups))
+			     keyfile::PRIORITY_OPTIONAL,
+			     root_groups))
     set_root_groups(root_groups);
 
   std::string mount_location;
@@ -456,7 +464,8 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 
   string_list command_prefix;
   if (keyfile.get_list_value(this->name, "command-prefix",
-			     keyfile::PRIORITY_OPTIONAL, command_prefix))
+			     keyfile::PRIORITY_OPTIONAL,
+			     command_prefix))
     set_command_prefix(command_prefix);
 }
 

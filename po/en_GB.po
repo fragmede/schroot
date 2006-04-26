@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-03-18 22:05+0000\n"
+"POT-Creation-Date: 2006-04-26 12:35+0100\n"
 "PO-Revision-Date: 2006-03-07 11:03+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: schroot/dchroot-chroot-config.cc:99 schroot/sbuild-keyfile.h:554
+#: schroot/dchroot-chroot-config.cc:99 schroot/sbuild-keyfile.h:564
 #, boost-format
 msgid "line %1%: invalid line: %2%"
 msgstr "line %1%: invalid line: %2%"
@@ -338,11 +338,11 @@ msgstr "Path"
 msgid "Mount Device"
 msgstr "Mount Device"
 
-#: schroot/sbuild-chroot.h:479
+#: schroot/sbuild-format-detail.h:108
 msgid "true"
 msgstr "true"
 
-#: schroot/sbuild-chroot.h:481
+#: schroot/sbuild-format-detail.h:110
 msgid "false"
 msgstr "false"
 
@@ -379,19 +379,19 @@ msgstr "This option has been removed, and no longer has any effect."
 msgid "%1% chroot: A disallowed parameter \"%2%\" has been specified."
 msgstr "%1% chroot: A disallowed parameter “%2%” has been specified."
 
-#: schroot/sbuild-keyfile.h:527
+#: schroot/sbuild-keyfile.h:537
 msgid "line %1%: invalid group entry: %2%"
 msgstr "line %1%: invalid group entry: %2%"
 
-#: schroot/sbuild-keyfile.h:537
+#: schroot/sbuild-keyfile.h:547
 msgid "line %1%: duplicate group entry: %2%"
 msgstr "line %1%: duplicate group entry: %2%"
 
-#: schroot/sbuild-keyfile.h:560
+#: schroot/sbuild-keyfile.h:570
 msgid "line %1%: no key specified: %2%"
 msgstr "line %1%: no key specified: %2%"
 
-#: schroot/sbuild-keyfile.h:574
+#: schroot/sbuild-keyfile.h:584
 msgid "line %1%: group %2%: duplicate key entry: %3%"
 msgstr "line %1%: group %2%: duplicate key entry: %3%"
 

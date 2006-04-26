@@ -21,6 +21,8 @@
 
 #include "sbuild.h"
 
+#include <algorithm>
+
 #include <boost/format.hpp>
 
 using boost::format;
@@ -91,11 +93,13 @@ chroot_source::print_details (std::ostream& stream) const
 void
 chroot_source::get_keyfile (keyfile& keyfile) const
 {
+  string_list const& source_groups = get_source_groups();
   keyfile.set_list_value(get_name(), "source-groups",
-			 get_source_groups());
+			 source_groups.begin(), source_groups.end());
 
+  string_list const& source_root_groups = get_source_root_groups();
   keyfile.set_list_value(get_name(), "source-root-groups",
-			 get_source_root_groups());
+			 source_root_groups.begin(), source_root_groups.end());
 }
 
 void
@@ -103,12 +107,14 @@ chroot_source::set_keyfile (keyfile const& keyfile)
 {
   string_list source_groups;
   if (keyfile.get_list_value(get_name(), "source-groups",
-			     keyfile::PRIORITY_OPTIONAL, source_groups))
+			     keyfile::PRIORITY_OPTIONAL,
+			     source_groups))
     set_source_groups(source_groups);
 
   string_list source_root_groups;
   if (keyfile.get_list_value(get_name(), "source-root-groups",
-			     keyfile::PRIORITY_OPTIONAL, source_root_groups))
+			     keyfile::PRIORITY_OPTIONAL,
+			     source_root_groups))
     set_source_root_groups(source_root_groups);
 }
 

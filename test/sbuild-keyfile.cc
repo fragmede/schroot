@@ -188,7 +188,8 @@ public:
 
     std::vector<int> found;
 
-    this->kf->set_list_value("listgroup", "numbers2", expected);
+    this->kf->set_list_value("listgroup", "numbers2",
+			     expected.begin(), expected.end());
     CPPUNIT_ASSERT(this->kf->get_list_value("listgroup", "numbers2", found) == true);
     CPPUNIT_ASSERT(found == expected);
   }

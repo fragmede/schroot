@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot-0.2.8\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-04-07 11:41+0100\n"
+"POT-Creation-Date: 2006-04-26 12:35+0100\n"
 "PO-Revision-Date: 2006-04-07 18:18+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "X-Generator: LocFactoryEditor 1.6b36\n"
 
-#: schroot/dchroot-chroot-config.cc:99 schroot/sbuild-keyfile.h:554
+#: schroot/dchroot-chroot-config.cc:99 schroot/sbuild-keyfile.h:564
 #, boost-format
 msgid "line %1%: invalid line: %2%"
 msgstr "dòng %1%: dòng không hợp lệ: %2%"
@@ -341,11 +341,11 @@ msgstr "Đường dẫn"
 msgid "Mount Device"
 msgstr "Thiết bị lắp"
 
-#: schroot/sbuild-chroot.h:479
+#: schroot/sbuild-format-detail.h:108
 msgid "true"
 msgstr "đúng"
 
-#: schroot/sbuild-chroot.h:481
+#: schroot/sbuild-format-detail.h:110
 msgid "false"
 msgstr "sai"
 
@@ -382,19 +382,19 @@ msgstr "Tùy chọn này đã bị gỡ bỏ nên không còn có tác động n
 msgid "%1% chroot: A disallowed parameter \"%2%\" has been specified."
 msgstr "%1% chroot: một tham số bị cấm « %2% » đã được ghi rõ."
 
-#: schroot/sbuild-keyfile.h:527
+#: schroot/sbuild-keyfile.h:537
 msgid "line %1%: invalid group entry: %2%"
 msgstr "dòng %1%: mục nhập nhóm không hợp lệ: %2%"
 
-#: schroot/sbuild-keyfile.h:537
+#: schroot/sbuild-keyfile.h:547
 msgid "line %1%: duplicate group entry: %2%"
 msgstr "dòng %1%: mục nhập nhóm trùng: %2%"
 
-#: schroot/sbuild-keyfile.h:560
+#: schroot/sbuild-keyfile.h:570
 msgid "line %1%: no key specified: %2%"
 msgstr "dòng %1%: chưa ghi rõ khoá: %2%"
 
-#: schroot/sbuild-keyfile.h:574
+#: schroot/sbuild-keyfile.h:584
 msgid "line %1%: group %2%: duplicate key entry: %3%"
 msgstr "dòng %1%: nhóm %2%: mục nhập khoá trùng: %3%"
 
