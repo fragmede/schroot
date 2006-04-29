@@ -1,5 +1,9 @@
 2006-04-29  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-keyfile.h: Update documentation.
+
+2006-04-29  Roger Leigh  <rleigh@debian.org>
+
 	* TODO: Remove completed file repack item.
 
 2006-04-29  Roger Leigh  <rleigh@debian.org>

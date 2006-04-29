@@ -298,11 +298,12 @@ namespace sbuild
      *
      * @param group the group the key is in.
      * @param key the key to get.
-     * @param value the list value to store the key's value in.  The
-     * value type must be settable from an istream and be copyable.
-     * The list must be a container with a standard insert method.
+     * @param container the container to store the key's value in.
+     * The value type must be settable from an istream and be
+     * copyable.  The list must be a container with a standard insert
+     * method.
      * @returns true if the key was found, otherwise false (in which
-     * case value will be unchanged).
+     * case value will be undefined).
      */
     template <typename C>
     bool
@@ -334,11 +335,12 @@ namespace sbuild
      * @param group the group the key is in.
      * @param key the key to get.
      * @param priority the priority of the option.
-     * @param value the list value to store the key's value in.  The
-     * value type must be settable from an istream and be copyable.
-     * The list must be a container with a standard insert method.
+     * @param container the container to store the key's value in.
+     * The value type must be settable from an istream and be
+     * copyable.  The list must be a container with a standard insert
+     * method.
      * @returns true if the key was found, otherwise false (in which
-     * case value will be unchanged).
+     * case value will be undefined).
      */
     template <typename C>
     bool
@@ -409,9 +411,9 @@ namespace sbuild
      *
      * @param group the group the key is in.
      * @param key the key to set.
-     * @param value the list value to get the key's value from.  The
-     * value type must allow output to an ostream.  The list must be a
-     * container with a standard forward iterator.
+     * @param begin an iterator referring to the start of the
+     * list. The value type must allow output to an ostream.
+     * @param end an iterator referring to the end of the list.
      */
     template <typename I>
     void
@@ -428,9 +430,9 @@ namespace sbuild
      *
      * @param group the group the key is in.
      * @param key the key to set.
-     * @param value the list value to get the key's value from.  The
-     * value type must allow output to an ostream.  The list must be a
-     * container with a standard forward iterator.
+     * @param begin an iterator referring to the start of the
+     * list. The value type must allow output to an ostream.
+     * @param end an iterator referring to the end of the list.
      * @param comment the comment for this key.
      */
     template <typename I>
