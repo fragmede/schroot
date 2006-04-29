@@ -421,7 +421,11 @@ chroot_config::load_data (std::string const& file,
     }
 
   /* Now create an IO Channel and read in the data */
+#ifdef SCHROOT_FILEBUF_OLD
+  __gnu_cxx::stdio_filebuf<char> fdbuf(fd, std::ios::in, true, BUFSIZ);
+#else
   __gnu_cxx::stdio_filebuf<char> fdbuf(fd, std::ios::in);
+#endif
   std::istream input(&fdbuf);
   input.imbue(std::locale("C"));
 

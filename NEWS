@@ -9,7 +9,8 @@ configuration.
 
 * Major changes in 0.2.9:
 
-  Bugfixes only.
+  1) The package now compiles with older compilers, such as GCC 3.3
+     and 3.4.
 
 * Major changes in 0.2.8:
 

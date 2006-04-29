@@ -74,7 +74,7 @@ AM_GNU_GETTEXT([external])
 AC_PATH_PROG([DOXYGEN], [doxygen])
 AM_CONDITIONAL([USE_DOXYGEN], [test -n "$DOXYGEN"])
 AC_PATH_PROG([RUN_PARTS], [run-parts])
-AH_TEMPLATE(RUN_PARTS,, [run-parts binary])
+AH_TEMPLATE(RUN_PARTS, [run-parts binary])
 AC_DEFINE_UNQUOTED(RUN_PARTS, ["$RUN_PARTS"], )
 # Checks for libraries.
 PKG_CHECK_MODULES([UUID], [uuid])
@@ -106,6 +106,8 @@ AC_CHECK_HEADERS([boost/tuple/tuple.hpp],, [
 AC_CHECK_HEADERS([boost/format.hpp],, [AC_MSG_ERROR([Boost.Format (Boost C++ Libraries) is not installed, but is required by schroot])])
 AC_CHECK_HEADERS([boost/program_options.hpp],, [AC_MSG_ERROR([Boost.Program_options (Boost C++ Libraries) is not installed, but is required by schroot])])
 
+AC_CHECK_HEADERS([ext/stdio_filebuf.h],, [AC_MSG_ERROR([__gnu_cxx::stdio_filebuf (GNU libstdc++) is not installed, but is required by schroot])])
+
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
@@ -131,8 +133,26 @@ AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
 LDFLAGS="${saved_ldflags}"
 AC_SUBST([BOOST_LIBS])
 
+AC_MSG_CHECKING([__gnu_cxx::stdio_filebuf construction semantics])
+AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <ext/stdio_filebuf.h>
+#include <unistd.h>],
+                                [__gnu_cxx::stdio_filebuf<char> fdbuf(STDOUT_FILENO, std::ios::out)])],
+               [AC_MSG_RESULT([new (GCC >= 3.4)])
+	        STDIO_FILEBUF="new"],
+               [AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <ext/stdio_filebuf.h>
+#include <unistd.h>],
+		               [__gnu_cxx::stdio_filebuf<char> fdbuf(STDOUT_FILENO, std::ios::out, true, BUFSIZ)])],
+                               [AC_MSG_RESULT([old (GCC < 3.4)])
+	                        STDIO_FILEBUF="old"],
+                               [AC_MSG_FAILURE([__gnu_cxx::stdio_filebuf (GNU libstdc++) is not installed, but is required by schroot])])])
+
+AH_TEMPLATE(SCHROOT_FILEBUF_OLD, [Set if old __gnu_cxx::stdio_filebuf construction semantics are required])
+if test "$STDIO_FILEBUF" = "old"; then
+  AC_DEFINE(SCHROOT_FILEBUF_OLD, 1)
+fi
+
 dnl Set PACKAGE_LOCALE_DIR in config.h
-AH_TEMPLATE(PACKAGE_LOCALE_DIR,, [Package locale directory])
+AH_TEMPLATE(PACKAGE_LOCALE_DIR, [Package locale directory])
 if test "x${prefix}" = "xNONE"; then
   AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, ["${ac_default_prefix}/share/locale"])
 else
@@ -140,7 +160,7 @@ else
 fi
 
 dnl Set PACKAGE_DATA_DIR in config.h.
-AH_TEMPLATE(PACKAGE_DATA_DIR,, [Package data directory])
+AH_TEMPLATE(PACKAGE_DATA_DIR, [Package data directory])
 if test "x${datadir}" = 'x${prefix}/share'; then
   if test "x${prefix}" = "xNONE"; then
     PACKAGE_DATA_DIR="${ac_default_prefix}/share/${PACKAGE}"
@@ -154,7 +174,7 @@ fi
 AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${PACKAGE_DATA_DIR}")
 
 dnl Set PACKAGE_LIB_DIR in config.h.
-AH_TEMPLATE(PACKAGE_LIB_DIR,, [Package lib directory])
+AH_TEMPLATE(PACKAGE_LIB_DIR, [Package lib directory])
 if test "x${libdir}" = 'x${exec_prefix}/lib'; then
   if test "x${exec_prefix}" = "xNONE"; then
     if test "x${prefix}" = "xNONE"; then
@@ -170,7 +190,7 @@ else
 fi
 
 dnl Set PACKAGE_LIBEXEC_DIR in config.h.
-AH_TEMPLATE(PACKAGE_LIBEXEC_DIR,, [Package libexec directory])
+AH_TEMPLATE(PACKAGE_LIBEXEC_DIR, [Package libexec directory])
 if test "x${libexecdir}" = 'x${exec_prefix}/libexec'; then
   if test "x${exec_prefix}" = "xNONE"; then
     if test "x${prefix}" = "xNONE"; then
@@ -187,11 +207,11 @@ fi
 
 SCHROOT_LIBEXEC_DIR="${PACKAGE_LIBEXEC_DIR}"
 AC_SUBST(SCHROOT_LIBEXEC_DIR)
-AH_TEMPLATE(SCHROOT_LIBEXEC_DIR,, [Package libexec directory])
+AH_TEMPLATE(SCHROOT_LIBEXEC_DIR, [Package libexec directory])
 AC_DEFINE_UNQUOTED(SCHROOT_LIBEXEC_DIR, ["$SCHROOT_LIBEXEC_DIR"])
 
 dnl Set PACKAGE_LOCALSTATE_DIR in config.h.
-AH_TEMPLATE(PACKAGE_LOCALSTATE_DIR,, [Package localstate directory])
+AH_TEMPLATE(PACKAGE_LOCALSTATE_DIR, [Package localstate directory])
 if test "x${localstatedir}" = 'x${prefix}/var'; then
   if test "x${prefix}" = "xNONE"; then
     if test "x${prefix}" = "xNONE"; then
@@ -208,21 +228,21 @@ fi
 
 SCHROOT_LOCK_DIR="${PACKAGE_LOCALSTATE_DIR}/lock/${PACKAGE}"
 AC_SUBST([SCHROOT_LOCK_DIR])
-AH_TEMPLATE(SCHROOT_LOCK_DIR,, [schroot session lock directory])
+AH_TEMPLATE(SCHROOT_LOCK_DIR, [schroot session lock directory])
 AC_DEFINE_UNQUOTED(SCHROOT_LOCK_DIR, ["$SCHROOT_LOCK_DIR"])
 
 SCHROOT_MOUNT_DIR="${PACKAGE_LOCALSTATE_DIR}/lib/${PACKAGE}/mount"
 AC_SUBST([SCHROOT_MOUNT_DIR])
-AH_TEMPLATE(SCHROOT_MOUNT_DIR,, [schroot mount directory])
+AH_TEMPLATE(SCHROOT_MOUNT_DIR, [schroot mount directory])
 AC_DEFINE_UNQUOTED(SCHROOT_MOUNT_DIR, ["$SCHROOT_MOUNT_DIR"])
 
 SCHROOT_SESSION_DIR="${PACKAGE_LOCALSTATE_DIR}/lib/${PACKAGE}/session"
 AC_SUBST([SCHROOT_SESSION_DIR])
-AH_TEMPLATE(SCHROOT_SESSION_DIR,, [schroot session directory])
+AH_TEMPLATE(SCHROOT_SESSION_DIR, [schroot session directory])
 AC_DEFINE_UNQUOTED(SCHROOT_SESSION_DIR, ["$SCHROOT_SESSION_DIR"])
 
 dnl Set PACKAGE_SYSCONF_DIR in config.h.
-AH_TEMPLATE(PACKAGE_SYSCONF_DIR,, [Package system configuration directory])
+AH_TEMPLATE(PACKAGE_SYSCONF_DIR, [Package system configuration directory])
 if test "x${sysconfdir}" = 'x${prefix}/etc'; then
   if test "x${prefix}" = "xNONE"; then
     PACKAGE_SYSCONF_DIR="${ac_default_prefix}/etc"
@@ -238,26 +258,26 @@ AC_SUBST([PACKAGE_SYSCONF_DIR])
 SCHROOT_CONF="${PACKAGE_SYSCONF_DIR}/schroot.conf"
 AC_SUBST([SCHROOT_CONF])
 
-AH_TEMPLATE(SCHROOT_CONF,, [schroot config file path])
+AH_TEMPLATE(SCHROOT_CONF, [schroot config file path])
 AC_DEFINE_UNQUOTED(SCHROOT_CONF, ["$SCHROOT_CONF"])
 
 SCHROOT_CONF_SETUP_D="${PACKAGE_SYSCONF_DIR}/setup.d"
 AC_SUBST([SCHROOT_CONF_SETUP_D])
 
-AH_TEMPLATE(SCHROOT_CONF_SETUP_D,, [schroot chroot setup directory])
+AH_TEMPLATE(SCHROOT_CONF_SETUP_D, [schroot chroot setup directory])
 AC_DEFINE_UNQUOTED(SCHROOT_CONF_SETUP_D, ["$SCHROOT_CONF_SETUP_D"])
 
 SCHROOT_CONF_EXEC_D="${PACKAGE_SYSCONF_DIR}/exec.d"
 AC_SUBST([SCHROOT_CONF_EXEC_D])
 
-AH_TEMPLATE(SCHROOT_CONF_EXEC_D,, [schroot chroot exec directory])
+AH_TEMPLATE(SCHROOT_CONF_EXEC_D, [schroot chroot exec directory])
 AC_DEFINE_UNQUOTED(SCHROOT_CONF_EXEC_D, ["$SCHROOT_CONF_EXEC_D"])
 
-AH_TEMPLATE(SCHROOT_DATADIR,, [Package data directory])
+AH_TEMPLATE(SCHROOT_DATADIR, [Package data directory])
 SCHROOT_DATADIR="${PACKAGE_DATA_DIR}/${PACKAGE_VERSION}"
 AC_DEFINE_UNQUOTED(SCHROOT_DATADIR, ["$SCHROOT_DATADIR"])
 
-AH_TEMPLATE(SCHROOT_MODULEDIR,, [Package module directory])
+AH_TEMPLATE(SCHROOT_MODULEDIR, [Package module directory])
 SCHROOT_MODULEDIR="${PACKAGE_LIB_DIR}/${PACKAGE_VERSION}/modules"
 AC_DEFINE_UNQUOTED(SCHROOT_MODULEDIR, ["$SCHROOT_MODULEDIR"])
 

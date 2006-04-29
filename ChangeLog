@@ -1,3 +1,22 @@
+2006-04-29  Roger Leigh  <rleigh@debian.org>
+
+	* NEWS: Document GCC portability.
+
+	* test/Makefile.am (AM_CXXFLAGS): Remove -Wextra, for GCC 3.3/3.4
+	portability.
+
+	* schroot/sbuild-chroot-config.cc (load_data): Construct
+	__gnu_cxx::stdio_filebuf appropriately, depending on the required
+	construction semantics.
+
+	* schroot/sbuild-chroot.cc (setup_session_info): Construct
+	__gnu_cxx::stdio_filebuf appropriately, depending on the required
+	construction semantics.
+
+	* configure.ac: Check whether the old (GCC < 3.4) or new (GCC >=
+	3.4) __gnu_cxx::stdio_filebuf construction semantics are required,
+	for portability to older GCC versions.
+
 2006-04-26  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/setup/10mount (do_mount) : Create directories for
