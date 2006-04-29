@@ -84,6 +84,7 @@ public:
     expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",    "test-description");
     expected.add("CHROOT_FILE",           "/srv/chroot/example.tar.bz2");
+    expected.add("CHROOT_FILE_REPACK",    "false");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_PATH",           "/mnt/mount-location");
     expected.add("CHROOT_MOUNT_DEVICE",   "/dev/device-to-mount");

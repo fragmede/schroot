@@ -28,11 +28,6 @@ POTENTIAL
 
 * root group should not need to be in groups.
 
-* Repacking session chroot on setup-stop.
-
-  This must be root-only/root-groups-only for security.  For
-  chroot_file, tar or zip the chroot in place of the old one.
-
 * Add tests for
 
 ** Auth

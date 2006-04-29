@@ -1,5 +1,10 @@
 2006-04-29  Roger Leigh  <rleigh@debian.org>
 
+	* test/sbuild-chroot-file.cc (chroot_file>): Check for
+	CHROOT_FILE_REPACK in the environment.
+
+2006-04-29  Roger Leigh  <rleigh@debian.org>
+
 	* NEWS: Document GCC portability.
 
 	* test/Makefile.am (AM_CXXFLAGS): Remove -Wextra, for GCC 3.3/3.4
