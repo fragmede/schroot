@@ -1,5 +1,9 @@
 2006-04-29  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Remove completed file repack item.
+
+2006-04-29  Roger Leigh  <rleigh@debian.org>
+
 	* test/sbuild-chroot-file.cc (chroot_file>): Check for
 	CHROOT_FILE_REPACK in the environment.
 
