@@ -698,12 +698,38 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
       exit (EXIT_FAILURE);
     }
 
+  std::string file;
+
+  string_list command(get_command());
+
   /* chdir to current directory */
   if (chdir (cwd.c_str()))
     {
-      log_warning() << format(_("Could not chdir to '%1%': %2%"))
-	% cwd % strerror(errno)
-		 << endl;
+      /* Fall back to home directory, but only for a login shell,
+	 since for a command we require deterministic behaviour. */
+      if (command.empty() ||
+	  command[0].empty()) // No command
+	{
+	  log_warning() << format(_("Could not chdir to '%1%': %2%"))
+	    % cwd % strerror(errno)
+			<< endl;
+
+	  if (chdir (get_home().c_str()))
+	    log_warning() << format(_("Falling back to '%1%'"))
+	      % "/"
+			  << endl;
+	  else
+	    log_warning() << format(_("Falling back to home directory '%1%'"))
+	      % get_home()
+			  << endl;
+	}
+      else
+	{
+	  log_error() << format(_("Could not chdir to '%1%': %2%"))
+	    % cwd % strerror(errno)
+		      << endl;
+	  exit (EXIT_FAILURE);
+	}
     }
 
   /* Set up environment */
@@ -712,10 +738,6 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
       << "Set environment:\n" << env;
 
   /* Run login shell */
-  std::string file;
-
-  string_list command(get_command());
-
   if (command.empty() ||
       command[0].empty()) // No command
     {

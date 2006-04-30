@@ -1,5 +1,14 @@
 2006-04-30  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Document directory behaviour.
+
+	* schroot/sbuild-session.cc (run_child): If the current working
+	directory does not exist inside the chroot, change to the home
+	directory (for login shells), or fail with an error (for commands)
+	where the behaviour must be deterministic.
+
+2006-04-30  Roger Leigh  <rleigh@debian.org>
+
 	* test/sbuild-parse-value.cc: Update tests.
 
 	* schroot/sbuild-keyfile.h (get_value): Catch exceptions thrown by

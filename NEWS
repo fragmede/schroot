@@ -12,6 +12,12 @@ configuration.
   1) The package now compiles with older compilers, such as GCC 3.3
      and 3.4.
 
+  2) If the current working directory does not exist inside the
+     chroot, the user's home directory ($HOME, home directory in
+     passwd, or /) will be used when running a login shell.  If
+     running a command and the directory does not exist, schroot will
+     exit with an error.
+
 * Major changes in 0.2.8:
 
   Bugfixes only.
