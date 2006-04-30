@@ -1,5 +1,11 @@
 2006-04-30  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.cc: Update documentation.
+
+	* schroot/schroot-releaselock.cc: Update documentation.
+
+2006-04-30  Roger Leigh  <rleigh@debian.org>
+
 	* debian/control (Standards-Version): Upgrade to 3.7.0.
 
 2006-04-30  Roger Leigh  <rleigh@debian.org>

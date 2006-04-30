@@ -67,14 +67,13 @@ print_version (std::ostream&     stream,
 	 << std::flush;
 }
 
-/*
- * get_chroot_options:
- * @config: an #sbuild::chroot_config
- * @options: an #schroot::options
- *
+/**
  * Get a list of chroots based on the specified options (--all, --chroot).
  *
- * Returns a NULL-terminated string vector (GStrv).
+ * @param config the chroot configuration
+ * @param options the command-line options
+ *
+ * @returns a list of chroots.
  */
 sbuild::string_list
 get_chroot_options (std::tr1::shared_ptr<sbuild::chroot_config>& config,
@@ -116,14 +115,14 @@ get_chroot_options (std::tr1::shared_ptr<sbuild::chroot_config>& config,
   return ret;
 }
 
-/*
- * main:
- * @argc: the number of arguments
- * @argv: argument vector
- *
+/**
  * Main routine.
  *
- * Returns 0 on success, 1 on failure.
+ * @param argc the number of arguments
+ * @param argv argument vector
+ *
+ * @returns 0 on success, 1 on failure or the exit status of the
+ * chroot command.
  */
 int
 main (int   argc,

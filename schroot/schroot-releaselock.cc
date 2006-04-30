@@ -43,11 +43,10 @@ namespace opt = boost::program_options;
 
 using namespace schroot_releaselock;
 
-/*
- * print_version:
- * @file: the file to print to
- *
+/**
  * Print version information.
+ *
+ * @param stream the stream to output to.
  */
 void
 print_version (std::ostream& stream)
@@ -60,14 +59,14 @@ print_version (std::ostream& stream)
 	 << std::flush;
 }
 
-/*
- * main:
- * @argc: the number of arguments
- * @argv: argument vector
- *
+/**
  * Main routine.
  *
- * Returns 0 on success, 1 on failure.
+ * @param argc the number of arguments
+ * @param argv argument vector
+ *
+ * @returns 0 on success, 1 on failure or the exit status of the
+ * chroot command.
  */
 int
 main (int   argc,
