@@ -1,5 +1,9 @@
 2006-04-30  Roger Leigh  <rleigh@debian.org>
 
+	* Makefile.am (dist-hook): Don't distribute .svn directories.
+
+2006-04-30  Roger Leigh  <rleigh@debian.org>
+
 	* Version 0.2.9.
 
 	* debian/changelog: Update for 0.2.9.
