@@ -1,5 +1,9 @@
 2006-04-30  Roger Leigh  <rleigh@debian.org>
 
+	* Remove unused .cvsignore files.
+
+2006-04-30  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.cc: Update documentation.
 
 	* schroot/schroot-releaselock.cc: Update documentation.
