@@ -24,6 +24,8 @@
 #include <string>
 #include <sstream>
 
+#include <boost/format.hpp>
+
 #include "sbuild-log.h"
 #include "sbuild-parse-value.h"
 
@@ -162,7 +164,7 @@ namespace sbuild
      * Get the value of an environment variable.
      *
      * @param name the name of the environment variable.
-     * @param value the variable to store the value in.
+     * @param value the variable to store the value in on success.
      * @returns true on success, false if the variable does not exist,
      * or there is a parse error.
      */
@@ -175,7 +177,19 @@ namespace sbuild
 			    << std::endl;
       iterator pos = find(name);
       if (pos != end())
-	return parse_value(pos->second, value);
+	{
+	  try
+	    {
+	      value = static_cast<T const&>(parse_value(pos->second));
+	      return true;
+	    }
+	  catch (parse_value::error const& e)
+	    {
+	      log_warning() << boost::format("%1%: %2%\n")
+		% name % e.what();
+	      return false;
+	    }
+	}
       log_debug(DEBUG_NOTICE) << "name not found: " << name << std::endl;
       return false;
     }

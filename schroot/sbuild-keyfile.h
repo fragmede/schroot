@@ -196,7 +196,17 @@ namespace sbuild
       if (found_item)
 	{
 	  std::string const& strval(std::tr1::get<1>(*found_item));
-	  return parse_value(strval, value);
+	  try
+	    {
+	      value = static_cast<T const&>(parse_value(strval));
+	      return true;
+	    }
+	  catch (parse_value::error const& e)
+	    {
+	      log_warning() << boost::format("[%1%] %2%: %3%\n")
+		% group % key % e.what();
+	      return false;
+	    }
 	}
       log_debug(DEBUG_NOTICE) << "key not found" << std::endl;
       return false;
@@ -320,7 +330,7 @@ namespace sbuild
 	       ++pos
 	       )
 	    {
-	      container.push_back(static_cast<typename C::const_reference>(generic_value(*pos)));
+	      container.push_back(static_cast<typename C::const_reference>(parse_value(*pos)));
 	      // TODO: exception thrown on parse failure.
 	    }
 	  return true;

@@ -1,3 +1,24 @@
+2006-04-30  Roger Leigh  <rleigh@debian.org>
+
+	* test/sbuild-parse-value.cc: Update tests.
+
+	* schroot/sbuild-keyfile.h (get_value): Catch exceptions thrown by
+	parse errors and log a warning.
+
+	* schroot/sbuild-environment.h (get): Catch exceptions thrown by
+	parse errors and log a warning.
+
+	* schroot/sbuild-parse-value.cc (parse_value): Add class
+	constructor and destructor.
+	(parse): Parse functions use this->value rather than a string
+	value argument.
+
+	* schroot/sbuild-parse-value.h: Move parse_value functions into
+	the generic_value class as private parse methods; the string value
+	is taken directly from this->value, rather than passed as an
+	argument.  generic_value class renamed to parse_value.  On parse
+	failure, an exception is thrown.
+
 2006-04-29  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-keyfile.h: Update documentation.

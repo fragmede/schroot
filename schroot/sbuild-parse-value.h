@@ -22,74 +22,92 @@
 
 #include <string>
 
+#include <boost/format.hpp>
+
+#include "sbuild-error.h"
 #include "sbuild-log.h"
 
 namespace sbuild
 {
-  /**
-   * Parse a boolean value.
-   * @param stringval the string to parse.
-   * @param value the variable to store the parsed value.
-   * @returns true on success, false on failure.
-   *
-   * @todo Throw exception on parse failure.
-   */
-  bool
-  parse_value (std::string const& stringval,
-	       bool&              value);
 
   /**
-   * Parse a string value.
-   * @param stringval the string to parse.
-   * @param value the variable to store the parsed value.
-   * @returns true on success, false on failure.
+   * Parse a text string value.  This is a wrapper around a string
+   * value, to convert it into any desired type.
    */
-  bool
-  parse_value (std::string const& stringval,
-	       std::string&       value);
-
-  /**
-   * Parse a value.
-   * @param stringval the string to parse.
-   * @param value the variable to store the parsed value.
-   * @returns true on success, false on failure.
-   */
-  template <typename T>
-  bool
-  parse_value (std::string const& stringval,
-	       T&                 value)
-  {
-    std::istringstream is(stringval);
-    is.imbue(std::locale("C"));
-    T tmpval;
-    if (is >> tmpval)
-      {
-	value = tmpval;
-	log_debug(DEBUG_NOTICE) << "value=" << value << std::endl;
-	return true;
-      }
-    log_debug(DEBUG_NOTICE) << "parse error" << std::endl;
-    return false;
-  }
-
-  class generic_value
+  class parse_value
   {
   public:
-    generic_value (std::string const& value): value(value) {}
-    virtual ~generic_value () {}
+    /// Exception type.
+    typedef runtime_error_custom<parse_value> error;
 
+    /**
+     * The constructor.
+     * @param value the value to parse.
+     */
+    parse_value (std::string const& value);
+
+    /// The destructor.
+    virtual ~parse_value ();
+
+    /**
+     * Convert object into any type T.
+     * @returns an object of type T; an exception will be thrown on
+     * parse failure.
+     */
     template <typename T>
     operator T (void)
     {
       T tmp;
-      parse_value(this->value, tmp);
 
-      // TODO: throw exception on parse failure.
+      if (parse(tmp) == false)
+	{
+	  boost::format fmt("Could not parse value \"%1%\"");
+	  fmt % this->value;
+	  throw error(fmt);
+	}
 
       return tmp;
     }
 
   private:
+    /**
+     * Parse a boolean value.
+     * @param parsed_value the variable to store the parsed value.
+     * @returns true on success, false on failure.
+     */
+    bool
+    parse (bool& parsed_value) const;
+
+    /**
+     * Parse a string value.
+     * @param parsed_value the variable to store the parsed value.
+     * @returns true on success, false on failure.
+     */
+    bool
+    parse (std::string& parsed_value) const;
+
+    /**
+     * Parse a value of type T.
+     * @param parsed_value the variable to store the parsed value.
+     * @returns true on success, false on failure.
+     */
+    template <typename T>
+    bool
+    parse (T& parsed_value) const
+    {
+      std::istringstream is(this->value);
+      is.imbue(std::locale("C"));
+      T tmpval;
+      if (is >> tmpval)
+	{
+	  parsed_value = tmpval;
+	  log_debug(DEBUG_NOTICE) << "value=" << parsed_value << std::endl;
+	  return true;
+	}
+      log_debug(DEBUG_NOTICE) << "parse error" << std::endl;
+      return false;
+    }
+
     std::string value;
   };
 
