@@ -12,7 +12,10 @@ trust with root access to the host system.
 
 Build Dependencies
 ------------------
-An ISO C++ compiler supporting TR1 (e.g. GCC 4.0).
+
+An ISO C++ compiler supporting TR1 (e.g. GCC 4.0), or an ISO C++
+compiler and the Boost libraries
+libstdc++ (GNU libstdc++)
 libpam0g-dev (Linux-PAM)
 liblockdev1-dev
 libuuid-dev

@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-04-26 18:41+0100\n"
-"PO-Revision-Date: 2006-03-07 11:03+0000\n"
+"POT-Creation-Date: 2006-04-30 13:13+0100\n"
+"PO-Revision-Date: 2006-04-30 13:16+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: schroot/dchroot-chroot-config.cc:99 schroot/sbuild-keyfile.h:560
+#: schroot/dchroot-chroot-config.cc:99 schroot/sbuild-keyfile.h:572
 #, boost-format
 msgid "line %1%: invalid line: %2%"
 msgstr "line %1%: invalid line: %2%"
@@ -210,7 +210,7 @@ msgstr "%1%: lock acquisition failure: %2%"
 msgid "%1%: security failure: %2%"
 msgstr "%1%: security failure: %2%"
 
-#: schroot/sbuild-chroot-config.cc:436
+#: schroot/sbuild-chroot-config.cc:440
 #, boost-format
 msgid "%1%: lock discard failure: %2%"
 msgstr "%1%: lock discard failure: %2%"
@@ -255,86 +255,86 @@ msgstr "chroot creation failed"
 msgid "%1%: failed to create session file: %2%\n"
 msgstr "%1%: failed to create session file: %2%\n"
 
-#: schroot/sbuild-chroot.cc:283
+#: schroot/sbuild-chroot.cc:287
 #, boost-format
 msgid "%1%: lock acquisition failure: %2%\n"
 msgstr "%1%: lock acquisition failure: %2%\n"
 
-#: schroot/sbuild-chroot.cc:298
+#: schroot/sbuild-chroot.cc:302
 #, boost-format
 msgid "%1%: lock discard failure: %2%\n"
 msgstr "%1%: lock discard failure: %2%\n"
 
-#: schroot/sbuild-chroot.cc:307
+#: schroot/sbuild-chroot.cc:311
 #, boost-format
 msgid "%1%: failed to unlink session file: %2%\n"
 msgstr "%1%: failed to unlink session file: %2%\n"
 
-#: schroot/sbuild-chroot.cc:318
+#: schroot/sbuild-chroot.cc:322
 msgid "  --- Session ---\n"
 msgstr "  ——— Session ———\n"
 
-#: schroot/sbuild-chroot.cc:320
+#: schroot/sbuild-chroot.cc:324
 msgid "  --- Chroot ---\n"
 msgstr "  ——— Chroot ———\n"
 
-#: schroot/sbuild-chroot.cc:321
+#: schroot/sbuild-chroot.cc:325
 msgid "Name"
 msgstr "Name"
 
-#: schroot/sbuild-chroot.cc:322
+#: schroot/sbuild-chroot.cc:326
 msgid "Description"
 msgstr "Description"
 
-#: schroot/sbuild-chroot.cc:323
+#: schroot/sbuild-chroot.cc:327
 msgid "Type"
 msgstr "Type"
 
-#: schroot/sbuild-chroot.cc:324
+#: schroot/sbuild-chroot.cc:328
 msgid "Priority"
 msgstr "Priority"
 
-#: schroot/sbuild-chroot.cc:325
+#: schroot/sbuild-chroot.cc:329
 msgid "Groups"
 msgstr "Groups"
 
-#: schroot/sbuild-chroot.cc:326
+#: schroot/sbuild-chroot.cc:330
 msgid "Root Groups"
 msgstr "Root Groups"
 
-#: schroot/sbuild-chroot.cc:327
+#: schroot/sbuild-chroot.cc:331
 msgid "Aliases"
 msgstr "Aliases"
 
-#: schroot/sbuild-chroot.cc:328
+#: schroot/sbuild-chroot.cc:332
 msgid "Run Setup Scripts"
 msgstr "Run Setup Scripts"
 
-#: schroot/sbuild-chroot.cc:329
+#: schroot/sbuild-chroot.cc:333
 msgid "Run Execution Scripts"
 msgstr "Run Execution Scripts"
 
-#: schroot/sbuild-chroot.cc:331
+#: schroot/sbuild-chroot.cc:335
 msgid "Session Managed"
 msgstr "Session Managed"
 
-#: schroot/sbuild-chroot.cc:336
+#: schroot/sbuild-chroot.cc:340
 msgid "Command Prefix"
 msgstr "Command Prefix"
 
-#: schroot/sbuild-chroot.cc:340
+#: schroot/sbuild-chroot.cc:344
 msgid "Location"
 msgstr "Location"
 
-#: schroot/sbuild-chroot.cc:343
+#: schroot/sbuild-chroot.cc:347
 msgid "Mount Location"
 msgstr "Mount Location"
 
-#: schroot/sbuild-chroot.cc:346
+#: schroot/sbuild-chroot.cc:350
 msgid "Path"
 msgstr "Path"
 
-#: schroot/sbuild-chroot.cc:349
+#: schroot/sbuild-chroot.cc:353
 msgid "Mount Device"
 msgstr "Mount Device"
 
@@ -379,19 +379,19 @@ msgstr "This option has been removed, and no longer has any effect."
 msgid "%1% chroot: A disallowed parameter \"%2%\" has been specified."
 msgstr "%1% chroot: A disallowed parameter “%2%” has been specified."
 
-#: schroot/sbuild-keyfile.h:533
+#: schroot/sbuild-keyfile.h:545
 msgid "line %1%: invalid group entry: %2%"
 msgstr "line %1%: invalid group entry: %2%"
 
-#: schroot/sbuild-keyfile.h:543
+#: schroot/sbuild-keyfile.h:555
 msgid "line %1%: duplicate group entry: %2%"
 msgstr "line %1%: duplicate group entry: %2%"
 
-#: schroot/sbuild-keyfile.h:566
+#: schroot/sbuild-keyfile.h:578
 msgid "line %1%: no key specified: %2%"
 msgstr "line %1%: no key specified: %2%"
 
-#: schroot/sbuild-keyfile.h:580
+#: schroot/sbuild-keyfile.h:592
 msgid "line %1%: group %2%: duplicate key entry: %3%"
 msgstr "line %1%: group %2%: duplicate key entry: %3%"
 
@@ -486,12 +486,12 @@ msgstr "Chroot setup failed to lock chroot: %1%"
 msgid "Invalid verbosity level: %1%, falling back to \"normal\""
 msgstr "Invalid verbosity level: %1%, falling back to “normal”"
 
-#: schroot/sbuild-session.cc:573 schroot/sbuild-session.cc:909
+#: schroot/sbuild-session.cc:573 schroot/sbuild-session.cc:931
 #, boost-format
 msgid "Failed to fork child: %1%"
 msgstr "Failed to fork child: %1%"
 
-#: schroot/sbuild-session.cc:591 schroot/sbuild-session.cc:819
+#: schroot/sbuild-session.cc:591 schroot/sbuild-session.cc:841
 #, boost-format
 msgid "Could not exec \"%1%\": %2%"
 msgstr "Could not exec “%1%”: %2%"
@@ -515,7 +515,8 @@ msgstr "Could not set gid to ‘%1%’"
 msgid "Could not set supplementary group IDs"
 msgstr "Could not set supplementary group IDs"
 
-#: schroot/sbuild-session.cc:674 schroot/sbuild-session.cc:704
+#: schroot/sbuild-session.cc:674 schroot/sbuild-session.cc:713
+#: schroot/sbuild-session.cc:728
 #, boost-format
 msgid "Could not chdir to '%1%': %2%"
 msgstr "Could not chdir to ‘%1%’: %2%"
@@ -534,64 +535,74 @@ msgstr "Could not set uid to ‘%1%’"
 msgid "Failed to drop root permissions."
 msgstr "Failed to drop root permissions."
 
-#: schroot/sbuild-session.cc:762
+#: schroot/sbuild-session.cc:718
+#, boost-format
+msgid "Falling back to '%1%'"
+msgstr "Falling back to ‘%1%’"
+
+#: schroot/sbuild-session.cc:722
+#, boost-format
+msgid "Falling back to home directory '%1%'"
+msgstr "Falling back to home directory ‘%1%’"
+
+#: schroot/sbuild-session.cc:784
 #, boost-format
 msgid "[%1% chroot] Running login shell: \"%2%\""
 msgstr "[%1% chroot] Running login shell: “%2%”"
 
-#: schroot/sbuild-session.cc:763
+#: schroot/sbuild-session.cc:785
 #, boost-format
 msgid "[%1% chroot] Running shell: \"%2%\""
 msgstr "[%1% chroot] Running shell: “%2%”"
 
-#: schroot/sbuild-session.cc:770
+#: schroot/sbuild-session.cc:792
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\""
 msgstr "[%1% chroot] (%2%→%3%) Running login shell: “%4%”"
 
-#: schroot/sbuild-session.cc:771
+#: schroot/sbuild-session.cc:793
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: \"%4%\""
 msgstr "[%1% chroot] (%2%→%3%) Running shell: “%4%”"
 
-#: schroot/sbuild-session.cc:792
+#: schroot/sbuild-session.cc:814
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%1% chroot] Running command: “%2%”"
 
-#: schroot/sbuild-session.cc:796
+#: schroot/sbuild-session.cc:818
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%→%3%) Running command: “%4%”"
 
-#: schroot/sbuild-session.cc:841 schroot/sbuild-session.cc:862
+#: schroot/sbuild-session.cc:863 schroot/sbuild-session.cc:884
 msgid "caught hangup signal, terminating..."
 msgstr "caught hangup signal, terminating..."
 
-#: schroot/sbuild-session.cc:854
+#: schroot/sbuild-session.cc:876
 #, boost-format
 msgid "wait for child failed: %1%"
 msgstr "wait for child failed: %1%"
 
-#: schroot/sbuild-session.cc:881
+#: schroot/sbuild-session.cc:903
 #, boost-format
 msgid "Child terminated by signal %1%"
 msgstr "Child terminated by signal ‘%1%’"
 
-#: schroot/sbuild-session.cc:886
+#: schroot/sbuild-session.cc:908
 msgid "Child dumped core"
 msgstr "Child dumped core"
 
-#: schroot/sbuild-session.cc:888
+#: schroot/sbuild-session.cc:910
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr "Child exited abnormally (reason unknown; not a signal or core dump)"
 
-#: schroot/sbuild-session.cc:895
+#: schroot/sbuild-session.cc:917
 #, boost-format
 msgid "Child exited abnormally with status '%1%'"
 msgstr "Child exited abnormally with status ‘%1%’"
 
-#: schroot/sbuild-session.cc:956
+#: schroot/sbuild-session.cc:978
 #, boost-format
 msgid "failed to set hangup handler: %1%"
 msgstr "failed to set hangup handler: %1%"

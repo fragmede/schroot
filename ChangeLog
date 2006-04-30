@@ -1,5 +1,15 @@
 2006-04-30  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.2.9.
+
+	* debian/changelog: Update for 0.2.9.
+
+	* po/en_GB.po: Updated British English translation.
+
+	* README: Document new compiler requirements.
+
+2006-04-30  Roger Leigh  <rleigh@debian.org>
+
 	* NEWS: Document directory behaviour.
 
 	* schroot/sbuild-session.cc (run_child): If the current working

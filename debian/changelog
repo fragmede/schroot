@@ -1,10 +1,16 @@
 schroot (0.2.9-1) unstable; urgency=low
 
   * New upstream release.
+  * The package now builds cleanly with GCC 4.2 (Closes: #362205).
+  * schroot/setup/10mount: Create mountpoints if they do not exist
+    (Closes: #364332).
+  * schroot/sbuild-session.cc: Fall back to home directory instead of / if
+    the current working directory does not exist in the chroot
+    (Closes: #363475).
   * debian/README.Debian: Move chroot safety advice to README
     (Closes: #361108).
 
- --
+ -- Roger Leigh <rleigh@debian.org>  Sun, 30 Apr 2006 13:26:00 +0100
 
 schroot (0.2.8-1) unstable; urgency=low
 
