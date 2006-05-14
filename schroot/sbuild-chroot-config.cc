@@ -151,13 +151,17 @@ chroot_config::add (chroot::ptr& chroot)
 	      .second == false)
 	    {
 	      string_map::const_iterator dup = this->aliases.find(*pos);
+	      // Don't warn if alias is for chroot of same name.
 	      if (dup != this->aliases.end())
-		log_warning() <<
-		  format(_("%1% chroot: "
-			   "alias '%2%' already associated with "
-			   "'%3%' chroot"))
-		  % chroot->get_name() % dup->first % dup->second
-			      << endl;
+		{
+		  if (chroot->get_name() != dup->first)
+		    log_warning() <<
+		      format(_("%1% chroot: "
+			       "alias '%2%' already associated with "
+			       "'%3%' chroot"))
+		      % chroot->get_name() % dup->first % dup->second
+				  << endl;
+		}
 	      else
 		log_warning() <<
 		  format(_("%1% chroot: "

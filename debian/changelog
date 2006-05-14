@@ -2,6 +2,9 @@ schroot (0.2.10-1) UNRELEASED; urgency=low
 
   * New upstream release.
   * debian/control: Upgrade to Standards-Version 3.7.0.
+  * sbuild/sbuild-chroot-config.cc: If a chroot alias is the same as the
+    chroot name, don't warn about it, because the effect is still
+    unambiguous (Closes: #366608).
 
  --
 

@@ -1,3 +1,9 @@
+2006-05-14  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/sbuild-chroot-config.cc (add): If a chroot alias is the
+	same as the chroot name, don't warn about it, because the effect
+	is still unambiguous.
+
 2006-04-30  Roger Leigh  <rleigh@debian.org>
 
 	* Remove unused .cvsignore files.
