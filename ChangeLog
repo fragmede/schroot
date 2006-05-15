@@ -1,3 +1,7 @@
+2006-05-15  Roger Leigh  <rleigh@debian.org>
+
+	* po/sv.po: Updated translated from the Free Translation Project.
+
 2006-05-14  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-chroot-config.cc (add): If a chroot alias is the

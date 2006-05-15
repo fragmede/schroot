@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-04-30 13:13+0100\n"
+"POT-Creation-Date: 2006-05-15 09:31+0100\n"
 "PO-Revision-Date: 2006-04-30 13:16+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -148,69 +148,69 @@ msgstr "%1%: failed to stat file: %2%"
 msgid "%1%: not a regular file"
 msgstr "%1%: not a regular file"
 
-#: schroot/sbuild-chroot-config.cc:156
+#: schroot/sbuild-chroot-config.cc:159
 #, boost-format
 msgid "%1% chroot: alias '%2%' already associated with '%3%' chroot"
 msgstr "%1% chroot: alias ‘%2%’ already associated with ‘%3%’ chroot"
 
-#: schroot/sbuild-chroot-config.cc:163
+#: schroot/sbuild-chroot-config.cc:167
 #, boost-format
 msgid "%1% chroot: alias '%2%' already associated with another chroot"
 msgstr "%1% chroot: alias ‘%2%’ already associated with another chroot"
 
-#: schroot/sbuild-chroot-config.cc:173
+#: schroot/sbuild-chroot-config.cc:177
 #, boost-format
 msgid "%1% chroot: a chroot or alias already exists by this name"
 msgstr "%1% chroot: a chroot or alias already exists by this name"
 
-#: schroot/sbuild-chroot-config.cc:176
+#: schroot/sbuild-chroot-config.cc:180
 #, boost-format
 msgid "%1% chroot: duplicate names are not allowed"
 msgstr "%1% chroot: duplicate names are not allowed"
 
-#: schroot/sbuild-chroot-config.cc:255
+#: schroot/sbuild-chroot-config.cc:259
 msgid "Available chroots: "
 msgstr "Available chroots: "
 
-#: schroot/sbuild-chroot-config.cc:300 schroot/sbuild-chroot-config.cc:319
-#: schroot/sbuild-chroot-config.cc:342 schroot/schroot.cc:109
+#: schroot/sbuild-chroot-config.cc:304 schroot/sbuild-chroot-config.cc:323
+#: schroot/sbuild-chroot-config.cc:346 schroot/schroot.cc:108
 #, boost-format
 msgid "%1%: No such chroot"
 msgstr "%1%: No such chroot"
 
-#: schroot/sbuild-chroot-config.cc:372
+#: schroot/sbuild-chroot-config.cc:376
 #, boost-format
 msgid "failed to stat file: %1%"
 msgstr "failed to stat file: %1%"
 
-#: schroot/sbuild-chroot-config.cc:378 schroot/sbuild-chroot-file.cc:115
+#: schroot/sbuild-chroot-config.cc:382 schroot/sbuild-chroot-file.cc:115
 msgid "not owned by user root"
 msgstr "not owned by user root"
 
-#: schroot/sbuild-chroot-config.cc:381 schroot/sbuild-chroot-file.cc:117
+#: schroot/sbuild-chroot-config.cc:385 schroot/sbuild-chroot-file.cc:117
 msgid "others have write permission"
 msgstr "others have write permission"
 
-#: schroot/sbuild-chroot-config.cc:384 schroot/sbuild-chroot-file.cc:119
+#: schroot/sbuild-chroot-config.cc:388 schroot/sbuild-chroot-file.cc:119
 msgid "not a regular file"
 msgstr "not a regular file"
 
-#: schroot/sbuild-chroot-config.cc:395
+#: schroot/sbuild-chroot-config.cc:399
 #, boost-format
 msgid "%1%: failed to load configuration: %2%"
 msgstr "%1%: failed to load configuration: %2%"
 
-#: schroot/sbuild-chroot-config.cc:407
+#: schroot/sbuild-chroot-config.cc:411
 #, boost-format
 msgid "%1%: lock acquisition failure: %2%"
 msgstr "%1%: lock acquisition failure: %2%"
 
-#: schroot/sbuild-chroot-config.cc:418
+#: schroot/sbuild-chroot-config.cc:422
 #, boost-format
 msgid "%1%: security failure: %2%"
 msgstr "%1%: security failure: %2%"
 
-#: schroot/sbuild-chroot-config.cc:440
+#: schroot/sbuild-chroot-config.cc:444
 #, boost-format
 msgid "%1%: lock discard failure: %2%"
 msgstr "%1%: lock discard failure: %2%"
@@ -769,12 +769,12 @@ msgstr "Process ID owning the lock"
 msgid "  schroot-releaselock [OPTION...] - release a device lock"
 msgstr "  schroot-releaselock [OPTION...] - release a device lock"
 
-#: schroot/schroot-releaselock.cc:55
+#: schroot/schroot-releaselock.cc:54
 #, boost-format
 msgid "schroot-releaselock (Debian sbuild) %1%\n"
 msgstr "schroot-releaselock (Debian sbuild) %1%\n"
 
-#: schroot/schroot-releaselock.cc:56 schroot/schroot.cc:63
+#: schroot/schroot-releaselock.cc:55 schroot/schroot.cc:63
 msgid ""
 "Written by Roger Leigh\n"
 "\n"
@@ -782,11 +782,11 @@ msgstr ""
 "Written by Roger Leigh\n"
 "\n"
 
-#: schroot/schroot-releaselock.cc:57 schroot/schroot.cc:64
+#: schroot/schroot-releaselock.cc:56 schroot/schroot.cc:64
 msgid "Copyright (C) 2004-2006 Roger Leigh\n"
 msgstr "Copyright © 2004-2006 Roger Leigh\n"
 
-#: schroot/schroot-releaselock.cc:58 schroot/schroot.cc:65
+#: schroot/schroot-releaselock.cc:57 schroot/schroot.cc:65
 msgid ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
@@ -794,30 +794,30 @@ msgstr ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 
-#: schroot/schroot-releaselock.cc:103
+#: schroot/schroot-releaselock.cc:102
 msgid "No device specified"
 msgstr "No device specified"
 
-#: schroot/schroot-releaselock.cc:109
+#: schroot/schroot-releaselock.cc:108
 msgid "No pid specified; forcing release of lock"
 msgstr "No pid specified; forcing release of lock"
 
-#: schroot/schroot-releaselock.cc:118
+#: schroot/schroot-releaselock.cc:117
 #, boost-format
 msgid "Failed to stat device %1%: %2%"
 msgstr "Failed to stat device %1%: %2%"
 
-#: schroot/schroot-releaselock.cc:126
+#: schroot/schroot-releaselock.cc:125
 #, boost-format
 msgid "%1% is not a block device"
 msgstr "%1% is not a block device"
 
-#: schroot/schroot-releaselock.cc:134
+#: schroot/schroot-releaselock.cc:133
 #, boost-format
 msgid "%1%: failed to release device lock"
 msgstr "%1%: failed to release device lock"
 
-#: schroot/schroot-releaselock.cc:141
+#: schroot/schroot-releaselock.cc:140
 #, boost-format
 msgid "%1%: failed to release device lock owned by pid %2%"
 msgstr "%1%: failed to release device lock owned by pid %2%"
@@ -827,65 +827,65 @@ msgstr "%1%: failed to release device lock owned by pid %2%"
 msgid "%1% (Debian sbuild) %2%\n"
 msgstr "%1% (Debian sbuild) %2%\n"
 
-#: schroot/schroot.cc:149
+#: schroot/schroot.cc:148
 msgid "Error saving terminal settings"
 msgstr "Error saving terminal settings"
 
-#: schroot/schroot.cc:173
+#: schroot/schroot.cc:172
 msgid "Running schroot in dchroot compatibility mode"
 msgstr "Running schroot in dchroot compatibility mode"
 
-#: schroot/schroot.cc:176
+#: schroot/schroot.cc:175
 msgid "Run 'schroot' for full capability"
 msgstr "Run ‘schroot’ for full capability"
 
-#: schroot/schroot.cc:199
+#: schroot/schroot.cc:198
 msgid "Using dchroot configuration file: "
 msgstr "Using dchroot configuration file: "
 
-#: schroot/schroot.cc:202
+#: schroot/schroot.cc:201
 #, boost-format
 msgid "Run '%1%'"
 msgstr "Run ‘%1%’"
 
-#: schroot/schroot.cc:206
+#: schroot/schroot.cc:205
 msgid "to migrate to a schroot configuration."
 msgstr "to migrate to a schroot configuration."
 
-#: schroot/schroot.cc:209
+#: schroot/schroot.cc:208
 #, boost-format
 msgid "Edit '%1%' to add appropriate group access."
 msgstr "Edit ‘%1%’ to add appropriate group access."
 
-#: schroot/schroot.cc:213
+#: schroot/schroot.cc:212
 #, boost-format
 msgid "Remove '%1%' to use the new configuration."
 msgstr "Remove ‘%1%’ to use the new configuration."
 
-#: schroot/schroot.cc:247
+#: schroot/schroot.cc:246
 #, boost-format
 msgid "No chroots are defined in %1% or %2%"
 msgstr "No chroots are defined in %1% or %2%"
 
-#: schroot/schroot.cc:254
+#: schroot/schroot.cc:253
 #, boost-format
 msgid "No chroots are defined in %1%"
 msgstr "No chroots are defined in %1%"
 
-#: schroot/schroot.cc:274
+#: schroot/schroot.cc:273
 #, boost-format
 msgid "The specified chroots are not defined in %1%"
 msgstr "The specified chroots are not defined in %1%"
 
-#: schroot/schroot.cc:310
+#: schroot/schroot.cc:309
 msgid "Only one chroot may be specified when beginning a session"
 msgstr "Only one chroot may be specified when beginning a session"
 
-#: schroot/schroot.cc:371
+#: schroot/schroot.cc:370
 #, boost-format
 msgid "Session failure: %1%"
 msgstr "Session failure: %1%"
 
-#: schroot/schroot.cc:380 schroot/schroot.cc:396
+#: schroot/schroot.cc:379 schroot/schroot.cc:395
 msgid "Error restoring terminal settings"
 msgstr "Error restoring terminal settings"
