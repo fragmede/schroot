@@ -1,4 +1,4 @@
-schroot (0.2.10-1) UNRELEASED; urgency=low
+schroot (0.2.10-1) unstable; urgency=low
 
   * New upstream release.
   * debian/control: Upgrade to Standards-Version 3.7.0.
@@ -6,7 +6,7 @@ schroot (0.2.10-1) UNRELEASED; urgency=low
     chroot name, don't warn about it, because the effect is still
     unambiguous (Closes: #366608).
 
- --
+ -- Roger Leigh <rleigh@debian.org>  Sat, 27 May 2006 13:07:14 +0100
 
 schroot (0.2.9-1) unstable; urgency=low
 

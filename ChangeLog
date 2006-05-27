@@ -1,5 +1,11 @@
 2006-05-27  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.2.10.
+
+	* debian/changelog: Update for 0.2.10.
+
+2006-05-27  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/setup/50chrootname: Strip session UUID when writing
 	/etc/debian_chroot.
 
