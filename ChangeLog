@@ -1,3 +1,8 @@
+2006-05-27  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/setup/50chrootname: Strip session UUID when writing
+	/etc/debian_chroot.
+
 2006-05-15  Roger Leigh  <rleigh@debian.org>
 
 	* po/sv.po: Updated translated from the Free Translation Project.
