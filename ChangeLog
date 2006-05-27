@@ -1,5 +1,11 @@
 2006-05-27  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Update.
+
+	* debian/control (Standards-Version): Update to 3.7.2.
+
+2006-05-27  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Bump version to 0.2.11.
 
 	* NEWS: Bump version to 0.2.11.

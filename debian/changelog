@@ -1,6 +1,7 @@
 schroot (0.2.11-1) UNRELEASED; urgency=low
 
   * New upstream release.
+  * debian/control: Upgrade to Standards-Version 3.7.2.
 
  --
 
