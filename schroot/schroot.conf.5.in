@@ -86,8 +86,8 @@ true session management, because it does not make a copy of the chroot).  If
 your chroots are exclusively controlled by schroot, set to \[lq]true\[rq].
 .TP
 .B run\-exec\-scripts=\fItrue\fP|\fIfalse\fP
-Set whether chroot execution scripts will be run.  The default is are the same
-as for the \fIrun-setup-scripts\fP key.  This option was called
+Set whether chroot execution scripts will be run.  The default is the same as
+the default for the \fIrun-setup-scripts\fP key.  This option was called
 \fIrun-setup-scripts\fP in releases up to version 0.2.5.
 .TP
 .B command\-prefix=\fIcommand,option1,option2,...\fP

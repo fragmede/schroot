@@ -1,4 +1,5 @@
 .\" Copyright © 2005-2006  Roger Leigh <rleigh@debian.org>
+.\" Copyright © 2006       Andreas Bombe <aeb@debian.org>
 .\"
 .\" schroot is free software; you can redistribute it and/or modify it
 .\" under the terms of the GNU General Public License as published by
@@ -55,8 +56,9 @@ Select all active sessions.  Identical to \fB\-\-all\fP, but chroots are not
 considered.
 .TP
 .B \-c, \-\-chroot=\fIchroot\fP
-Specify a chroot to use.  This option may be used multiple times to specify
-more than one chroot, in which case its effect is similar to \fB\-\-all\fP.
+Specify a chroot or active session to use.  This option may be used multiple
+times to specify more than one chroot, in which case its effect is similar to
+\fB\-\-all\fP.
 .TP
 .B \-u, \-\-user=\fIuser\fP
 Run as a different user.  The default is to run as the current user.  If
@@ -95,19 +97,20 @@ Print version information.
 .SS Session options
 .TP
 .B \-b, \-\-begin\-session
-Begin a session.  A unique session identifier (UUID) is returned on standard
-output.  The UUID is required to use the other session options.
-.TP
+Begin a session.  A unique session identifier (session ID) is returned on
+standard output.  The session ID is required to use the other session options.
 .TP
 .B \-\-recover\-session
 Recover an existing session.  If an existing session has become unavailable,
 for example becoming unmounted due to a reboot, this option will make the
 session available for use again, for example by remounting it.
-.B \-r, \-\-run\-session=\fIUUID\fP
-Run an existing session.
+.B \-r, \-\-run\-session
+Run an existing session.  The session ID is specified with the
++\fB\-\-chroot\fP option.
 .TP
-.B \-e, \-\-end\-session=\fIUUID\fP
-End an existing session.
+.B \-e, \-\-end\-session
+End an existing session.  The session ID is specified with the
++\fB\-\-chroot\fP option.
 .TP
 .B \-f, \-\-force
 Force a session operation, even if it would otherwise fail.  This may be used

@@ -1,3 +1,14 @@
+2006-06-08  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Close #369633.
+
+	* AUTHORS: Add Andreas Bombe.
+
+	* schroot/schroot.conf.5.in: Correct typo.
+
+	* schroot/schroot.1.in: Correct ambiguity and mistakes in the
+	documentation relating to specifying session IDs.
+
 2006-05-27  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Update.
