@@ -88,7 +88,20 @@ if [ "$CHROOT_TYPE" = "file" ]; then
 	    cd "$CHROOT_MOUNT_LOCATION" && repack_file
 	fi
 
-	rm -rf "$CHROOT_MOUNT_LOCATION" || true
+	"$LIBEXEC_DIR/schroot-listmounts" -m "$CHROOT_MOUNT_LOCATION" |
+	while read mountloc; do
+	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+		echo "Not purging $CHROOT_MOUNT_LOCATION; filesystems are mounted:"
+		"$LIBEXEC_DIR/schroot-listmounts" -m "$CHROOT_MOUNT_LOCATION"
+	    fi
+	    exit 1
+	done || exit 1
+
+	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	    echo "Purging $CHROOT_MOUNT_LOCATION"
+	fi
+
+	rm -rf "$CHROOT_MOUNT_LOCATION"
 
     fi
 

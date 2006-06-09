@@ -23,25 +23,17 @@ do_mount()
     mount $VERBOSE $1 "$2" "$3"
 }
 
-# Unmount a filesystem
-# $1: mount location
-do_umount()
-{
-    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-	echo "Unmounting $1"
-    fi
-    if [ -d "$1" ]; then
-	umount "$1" || true
-    fi
-}
-
 # Unmount all filesystem under specified location
 # $1: mount base location
 do_umount_all()
 {
-    for dir in $(mount | grep $1 | sed -e 's/.* on \(.*\) type.*/\1/' | sort -r); do
-	do_umount "$dir"
-    done
+    "$LIBEXEC_DIR/schroot-listmounts" -m "$1" |
+    while read mountloc; do
+	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	    echo "Unmounting $mountloc"
+	fi
+	umount "$mountloc" || exit 1
+    done || exit 1
 }
 
 if [ "$AUTH_VERBOSITY" = "verbose" ]; then
@@ -91,17 +83,11 @@ if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYP
 
     elif [ $1 = "setup-stop" ]; then
 
-	do_umount "${CHROOT_PATH}/tmp"
-	do_umount "${CHROOT_PATH}/home"
-	do_umount "${CHROOT_PATH}/dev/shm"
-	do_umount "${CHROOT_PATH}/dev/pts"
-	do_umount "${CHROOT_PATH}/proc"
+	do_umount_all "$CHROOT_MOUNT_LOCATION"
 
 	if [ "$CHROOT_TYPE" != "file" ]; then
-	    do_umount "$CHROOT_MOUNT_LOCATION"
-
 	    if echo "$CHROOT_MOUNT_LOCATION" | grep -q "^$MOUNT_DIR/"; then
-		rmdir "$CHROOT_MOUNT_LOCATION" || true
+		rmdir "$CHROOT_MOUNT_LOCATION"
 	    fi
 	fi
 

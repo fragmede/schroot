@@ -111,7 +111,8 @@ chroot_block_device::setup_env (environment& env)
 
 void
 chroot_block_device::setup_lock (setup_type type,
-				 bool       lock)
+				 bool       lock,
+				 int        status)
 {
   struct stat statbuf;
 

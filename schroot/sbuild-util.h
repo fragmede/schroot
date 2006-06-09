@@ -52,6 +52,18 @@ namespace sbuild
 	   char        separator = '/');
 
   /**
+   * Normalise a pathname.  This strips all trailing separators, and
+   * duplicate separators within a path.
+   *
+   * @param name the path to normalise.
+   * @param separator the separation delimiting directories.
+   * @returns the normalised name.
+   */
+  std::string
+  normalname (std::string name,
+	      char        separator = '/');
+
+  /**
    * Convert a string_list into a string.  The strings are
    * concatenated using separator as a delimiter.
    *

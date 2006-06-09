@@ -316,6 +316,19 @@ sbuild::chroot::setup_session_info (bool start)
 }
 
 void
+sbuild::chroot::lock (setup_type type)
+{
+  setup_lock(type, true, 0);
+}
+
+void
+sbuild::chroot::unlock (setup_type type,
+			int        status)
+{
+  setup_lock(type, false, status);
+}
+
+void
 sbuild::chroot::print_details (std::ostream& stream) const
 {
   if (this->active == true)

@@ -38,7 +38,7 @@ dchroot = dchroot
 endif
 
 bin_PROGRAMS = $(dchroot) schroot
-pkglibexec_PROGRAMS = schroot-releaselock
+pkglibexec_PROGRAMS = schroot-releaselock schroot-listmounts
 
 #BUILT_SOURCES = sbuild.gch
 #CLEANFILES = sbuild.gch
@@ -128,6 +128,14 @@ schroot_releaselock_SOURCES = 		\
 	schroot-releaselock.cc
 schroot_releaselock_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
 schroot_releaselock_LDADD = libsbuild.la
+
+schroot_listmounts_SOURCES =		\
+	schroot-listmounts-options.h	\
+	schroot-listmounts-options.cc	\
+	schroot-listmounts.cc
+schroot_listmounts_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
+schroot_listmounts_LDADD = libsbuild.la
+
 
 pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
 pkgsysconf_DATA = schroot.conf

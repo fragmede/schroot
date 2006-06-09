@@ -85,14 +85,15 @@ chroot_plain::setup_env (environment& env)
 
 void
 chroot_plain::setup_lock (setup_type type,
-			  bool       lock)
+			  bool       lock,
+			  int        status)
 {
   /* By default, plain chroots do no locking. */
   /* Create or unlink session information. */
   if (get_run_setup_scripts() == true)
     {
       if ((type == SETUP_START && lock == true) ||
-	  (type == SETUP_STOP && lock == false))
+	  (type == SETUP_STOP && lock == false && status == 0))
 	{
 	  bool start = (type == SETUP_START);
 	  setup_session_info(start);

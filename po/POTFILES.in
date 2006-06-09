@@ -48,4 +48,7 @@ schroot/schroot-options.h
 schroot/schroot-releaselock-options.cc
 schroot/schroot-releaselock-options.h
 schroot/schroot-releaselock.cc
+schroot/schroot-listmounts-options.cc
+schroot/schroot-listmounts-options.h
+schroot/schroot-listmounts.cc
 schroot/schroot.cc

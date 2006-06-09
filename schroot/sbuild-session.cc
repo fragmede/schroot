@@ -472,7 +472,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 
   try
     {
-      session_chroot->setup_lock(setup_type, true);
+      session_chroot->lock(setup_type);
     }
   catch (chroot::error const& e)
     {
@@ -480,7 +480,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
       try
 	{
 	  // Release lock, which also removes session metadata.
-	  session_chroot->setup_lock(setup_type, false);
+	  session_chroot->unlock(setup_type, 0);
 	}
       catch (chroot::error const& ignore)
 	{
@@ -602,7 +602,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 
   try
     {
-      session_chroot->setup_lock(setup_type, false);
+      session_chroot->unlock(setup_type, exit_status);
     }
   catch (chroot::error const& e)
     {

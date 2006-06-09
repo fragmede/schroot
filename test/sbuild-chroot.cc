@@ -53,7 +53,8 @@ public:
 
   virtual void
   setup_lock (setup_type type,
-	      bool       lock)
+	      bool       lock,
+	      int        status)
   {}
 
   virtual sbuild::chroot::session_flags

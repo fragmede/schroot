@@ -368,11 +368,26 @@ namespace sbuild
      * An error will be thrown on failure.
      *
      * @param type the type of setup being performed
-     * @param lock true to lock, false to unlock
      */
-    virtual void
-    setup_lock (setup_type type,
-		bool       lock) = 0;
+    void
+    lock (setup_type type);
+
+    /**
+     * Unlock a chroot during setup.  The locking technique (if any) may
+     * vary depending upon the chroot type and setup stage.  For
+     * example, during creation of an LVM snapshot a block device
+     * might require locking, but afterwards this will change to the
+     * new block device.
+     *
+     * An error will be thrown on failure.
+     *
+     * @param type the type of setup being performed
+     * @param status the exit status of the setup commands (0 for
+     * success, nonzero for failure).
+     */
+    void
+    unlock (setup_type type,
+	    int        status);
 
   protected:
     /**
@@ -382,6 +397,25 @@ namespace sbuild
      */
     virtual void
     setup_session_info (bool start);
+
+    /**
+     * Unlock a chroot during setup.  The locking technique (if any) may
+     * vary depending upon the chroot type and setup stage.  For
+     * example, during creation of an LVM snapshot a block device
+     * might require locking, but afterwards this will change to the
+     * new block device.
+     *
+     * An error will be thrown on failure.
+     *
+     * @param type the type of setup being performed
+     * @param lock true to lock, false to unlock
+     * @param status the exit status of the setup commands (0 for
+     * success, nonzero for failure).
+     */
+    virtual void
+    setup_lock(setup_type type,
+	       bool       lock,
+	       int        status) = 0;
 
   public:
     /**

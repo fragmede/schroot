@@ -97,7 +97,8 @@ chroot_file::setup_env (environment& env)
 
 void
 chroot_file::setup_lock (setup_type type,
-			 bool       lock)
+			 bool       lock,
+			 int        status)
 {
   // Check ownership and permissions.
   if (type == SETUP_START && lock == true)
@@ -122,7 +123,7 @@ chroot_file::setup_lock (setup_type type,
   /* By default, file chroots do no locking. */
   /* Create or unlink session information. */
   if ((type == SETUP_START && lock == true) ||
-      (type == SETUP_STOP && lock == false))
+      (type == SETUP_STOP && lock == false && status == 0))
     {
 
       bool start = (type == SETUP_START);

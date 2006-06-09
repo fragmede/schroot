@@ -109,6 +109,19 @@ sbuild::dirname (std::string name,
 }
 
 std::string
+sbuild::normalname (std::string name,
+		    char        separator)
+{
+  // Remove trailing separators
+  std::string::size_type cur = name.length();
+  while (cur - 1 != 0 && name[cur - 1] == separator)
+    --cur;
+  name.resize(cur);
+
+  return remove_duplicates(name, separator);
+}
+
+std::string
 sbuild::string_list_to_string (sbuild::string_list const& list,
 			       std::string const&         separator)
 {

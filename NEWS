@@ -9,7 +9,15 @@ configuration.
 
 * Major changes in 0.2.11:
 
-  Bugfixes only.
+  1) The 10mount script, used to unmount filesystem in a chroot, will
+     exit with an error if unmounting fails (for safety).  It also
+     uses /proc/mounts (via a new program, schroot-listmounts) to
+     ensure all filesystems in the chroot are unmounted.
+
+  2) The 05file script, used to unpack and repack chroot archives,
+     will use schroot-listmounts to check if any filesystems are
+     mounted before purging the chroot.  This is in order to avoid
+     dataloss.
 
 * Major changes in 0.2.10:
 

@@ -1,3 +1,50 @@
+2006-06-09  Roger Leigh  <rleigh@debian.org>
+
+	* po/en_GB.po: Update translation.
+
+	* po/POTFILES.in: Add schroot-listmounts sources.
+
+	* debian/changelog: Close #369626.
+
+	* NEWS: Document 05file and 10mount changes.
+
+	* schroot/setup/05file: Use schroot-listmounts to check if there
+	are any mounted filesystems before purging the chroot.
+
+	* schroot/setup/10mount: Use schroot-listmounts to unmount all
+	filesystems in a chroot.  Exit with an error if unmounting fails.
+
+	* test/sbuild-chroot.cc: Implement the new form of
+	sbuild::chroot::setup_lock().
+
+	* schroot/schroot-listmounts-options.(cc|h): New files.  These are
+	the command-line option parser for schroot-listmounts.
+
+	* schroot/schroot-listmounts.cc: New file.  This is a program to
+	list all of the mounts under a given mountpoint.
+
+	* schroot/sbuild-session.cc (setup_chroot): Use the chroot lock
+	and unlock methods, in place of setup_lock.
+
+	* schroot/sbuild-chroot-plain.cc, schroot/sbuild-chroot-file.cc,
+	schroot/sbuild-chroot-block-device.cc,
+	schroot/sbuild-chroot-lvm-snapshot.cc: setup_lock only removes the
+	session (using setup_session_info) if the setup scripts succeeded.
+
+	* schroot/sbuild-chroot-plain.h, schroot/sbuild-chroot-file.h,
+	schroot/sbuild-chroot-block-device.h,
+	schroot/sbuild-chroot-lvm-snapshot.h: setup_lock is protected and
+	has an additional status argument.
+
+	* schroot/sbuild-chroot.cc
+	(lock): New function; calls setup_lock.
+	(unlock): New function; calls setup_lock.
+
+	* schroot/sbuild-chroot.h: Replace setup_lock with lock and unlock
+	methods.  Unlock takes a status argument which indicates if the
+	setup scripts failed or not.  setup_lock is now a protected
+	virtual method used by lock and unlock.
+
 2006-06-08  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Close #369633.

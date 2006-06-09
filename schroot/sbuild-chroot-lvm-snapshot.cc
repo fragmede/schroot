@@ -116,7 +116,8 @@ chroot_lvm_snapshot::setup_env (environment& env)
 
 void
 chroot_lvm_snapshot::setup_lock (setup_type type,
-				 bool       lock)
+				 bool       lock,
+				 int        status)
 {
   std::string device;
   struct stat statbuf;
@@ -187,7 +188,7 @@ chroot_lvm_snapshot::setup_lock (setup_type type,
 
   /* Create or unlink session information. */
   if ((type == SETUP_START && lock == true) ||
-      (type == SETUP_STOP && lock == false))
+      (type == SETUP_STOP && lock == false && status == 0))
     {
       bool start = (type == SETUP_START);
       setup_session_info(start);

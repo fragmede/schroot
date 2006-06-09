@@ -68,14 +68,15 @@ namespace sbuild
     virtual void
     setup_env (environment& env);
 
-    virtual void
-    setup_lock (setup_type type,
-		bool       lock);
-
     virtual session_flags
     get_session_flags () const;
 
   protected:
+    virtual void
+    setup_lock (setup_type type,
+		bool       lock,
+		int        status);
+
     virtual void
     print_details (std::ostream& stream) const;
 

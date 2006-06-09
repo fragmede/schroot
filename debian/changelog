@@ -5,6 +5,9 @@ schroot (0.2.11-1) UNRELEASED; urgency=low
   * schroot/schroot.1.in, schroot/schroot.conf.5.in: Correct ambiguity and
     mistakes in the documentation (Closes: #369633).  Thanks to Andreas
     Bombe.
+  * 05file and 10mount take additional steps to ensure that filesystems
+    are umounted correctly, and that no chroot will be purged if there are
+    mounted filesystems inside it (Closes: #369626).
 
  --
 
