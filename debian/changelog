@@ -8,6 +8,7 @@ schroot (0.2.11-1) UNRELEASED; urgency=low
   * 05file and 10mount take additional steps to ensure that filesystems
     are umounted correctly, and that no chroot will be purged if there are
     mounted filesystems inside it (Closes: #369626).
+  * Don't package the static libsbuild.a.
 
  --
 

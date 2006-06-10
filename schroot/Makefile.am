@@ -31,7 +31,7 @@ AM_CXXFLAGS = $(SCHROOT_CFLAGS) -pedantic -Wall -Wcast-align -Wwrite-strings -Ws
 
 DEFS = -DGETTEXT_PACKAGE=\"schroot\" -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
 
-lib_LTLIBRARIES = libsbuild.la
+noinst_LTLIBRARIES = libsbuild.la
 
 if BUILD_DCHROOT
 dchroot = dchroot
