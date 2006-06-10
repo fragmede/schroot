@@ -1,3 +1,10 @@
+2006-06-10  Roger Leigh  <rleigh@debian.org>
+
+	* NEWS: Document that scripts may now fail.
+
+	* schroot/schroot-setup.5.in: Document that scripts must be
+	idempotent.
+
 2006-06-09  Roger Leigh  <rleigh@debian.org>
 
 	* po/en_GB.po: Update translation.

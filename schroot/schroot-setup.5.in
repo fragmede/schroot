@@ -48,6 +48,10 @@ The chroot status.
 This is either \[lq]ok\[rq] if there are no problems, or \[lq]fail\[rq] if
 something went wrong.  For example, particular actions may be skipped on
 failure.
+.PP
+Note that the scripts should be \fIidempotent\fP.  They \fBmust\fP be
+idempotent during the \[lq]exec\-stop\[rq] and \[lq]setup\-stop\[rq] phases,
+because they may be run more than once.
 .SH
 ENVIRONMENT
 .SS General variables

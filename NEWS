@@ -19,6 +19,14 @@ configuration.
      mounted before purging the chroot.  This is in order to avoid
      dataloss.
 
+  3) Setup scripts can now abort on failure during cleanup (exec-stop
+     and setup-stop phases).  Previously the scripts continued in the
+     face of failure, and broken sessions were removed.  Broken
+     sessions which failed to clean up must now be removed by the
+     system administrator (which was required previously; it just
+     wasn't apparent), or the session can be ended again once the
+     problem has been rectified.
+
 * Major changes in 0.2.10:
 
   Bugfixes only.
