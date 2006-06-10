@@ -42,7 +42,7 @@ namespace schroot_listmounts
     /// The destructor.
     virtual ~options ();
 
-    /// The mountpoint to check..
+    /// The mountpoint to check.
     std::string mountpoint;
     /// Display version information.
     bool        version;

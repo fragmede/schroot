@@ -1,3 +1,15 @@
+2006-06-10  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* schroot/schroot-listmounts-options.h
+	(schroot_listmounts): Fix typo.
+
+2006-06-10  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Don't package libsbuild.la.
+
+	* schroot/Makefile.am (noinst_LTLIBRARIES): Do not install
+	libsbuild.la.
+
 2006-06-10  Roger Leigh  <rleigh@debian.org>
 
 	* NEWS: Document that scripts may now fail.
