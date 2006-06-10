@@ -1,4 +1,4 @@
-schroot (0.2.11-1) UNRELEASED; urgency=low
+schroot (0.2.11-1) unstable; urgency=high
 
   * New upstream release.
   * debian/control: Upgrade to Standards-Version 3.7.2.
@@ -10,7 +10,7 @@ schroot (0.2.11-1) UNRELEASED; urgency=low
     mounted filesystems inside it (Closes: #369626).
   * Don't package the static libsbuild.a.
 
- --
+ -- Roger Leigh <rleigh@debian.org>  Sat, 10 Jun 2006 09:50:06 +0100
 
 schroot (0.2.10-1) unstable; urgency=low
 

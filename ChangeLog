@@ -1,4 +1,10 @@
-2006-06-10  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2006-06-10  Roger Leigh  <rleigh@debian.org>
+
+	* Version 0.2.11.
+
+	* debian/changelog: Update for 0.2.11.
+
+2006-06-10  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot-listmounts-options.h
 	(schroot_listmounts): Fix typo.
