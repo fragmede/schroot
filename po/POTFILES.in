@@ -37,6 +37,8 @@ schroot/sbuild-nostream.cc
 schroot/sbuild-nostream.h
 schroot/sbuild-parse-value.cc
 schroot/sbuild-parse-value.h
+schroot/sbuild-personality.cc
+schroot/sbuild-personality.h
 schroot/sbuild-session.cc
 schroot/sbuild-session.h
 schroot/sbuild-types.h

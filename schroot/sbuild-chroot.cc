@@ -23,6 +23,9 @@
 
 #include <algorithm>
 #include <cerrno>
+#include <map>
+#include <set>
+#include <utility>
 #include <ext/stdio_filebuf.h>
 
 #include <boost/format.hpp>
@@ -43,7 +46,14 @@ sbuild::chroot::chroot ():
   active(false),
   run_setup_scripts(false),
   run_exec_scripts(false),
-  command_prefix()
+  command_prefix(),
+  persona(
+#ifdef __linux__
+	  personality("linux")
+#else
+	  personality("undefined")
+#endif
+	  )
 {
 }
 
@@ -239,6 +249,18 @@ sbuild::chroot::set_command_prefix (string_list const& command_prefix)
   this->command_prefix = command_prefix;
 }
 
+personality const&
+sbuild::chroot::get_persona () const
+{
+  return this->persona;
+}
+
+void
+sbuild::chroot::set_persona (personality const& persona)
+{
+  this->persona = persona;
+}
+
 void
 sbuild::chroot::setup_env (environment& env)
 {
@@ -352,6 +374,8 @@ sbuild::chroot::print_details (std::ostream& stream) const
   if (!get_command_prefix().empty())
     stream << format_details(_("Command Prefix"), get_command_prefix());
 
+  stream << format_details(_("Personality"), get_persona().get_name());
+
   /* Non user-settable properties are listed last. */
   if (!get_location().empty())
     stream << format_details(_("Location"),
@@ -412,6 +436,9 @@ sbuild::chroot::get_keyfile (keyfile& keyfile) const
   string_list const& command_prefix = get_command_prefix();
   keyfile.set_list_value(this->name, "command-prefix",
 			 command_prefix.begin(), command_prefix.end());
+
+  keyfile.set_value(this->name, "personality",
+		    get_persona().get_name());
 }
 
 void
@@ -484,6 +511,29 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 			     keyfile::PRIORITY_OPTIONAL,
 			     command_prefix))
     set_command_prefix(command_prefix);
+
+  std::string persona_name;
+  if (keyfile.get_value(this->name, "personality",
+			keyfile::PRIORITY_OPTIONAL,
+			persona_name))
+    {
+      personality persona (persona_name);
+
+      if (persona.get_name() == "undefined" &&
+	  persona.get_name() != persona_name)
+	{
+	  std::ostringstream plist;
+	  personality::print_personalities(plist);
+
+	  log_warning()
+	    << format(_("%1% chroot: personality \"%2%\" is unknown.\n"))
+	    % this->name % persona_name;
+	  log_info()
+	    << format(_("Valid personalities: %1%\n")) % plist.str();
+	}
+
+      set_persona(persona);
+    }
 }
 
 /*

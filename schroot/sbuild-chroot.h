@@ -39,6 +39,7 @@ namespace std { namespace tr1 { using boost::shared_ptr; } }
 #include "sbuild-error.h"
 #include "sbuild-environment.h"
 #include "sbuild-keyfile.h"
+#include "sbuild-personality.h"
 #include "sbuild-util.h"
 
 namespace sbuild
@@ -60,8 +61,8 @@ namespace sbuild
 	SETUP_START,   ///< Activate a chroot.
 	SETUP_RECOVER, ///< Reactivate a chroot.
 	SETUP_STOP,    ///< Deactivate a chroot.
-	EXEC_START,     ///< Start executing a command in an active chroot.
-	EXEC_STOP       ///< End executing a command in an active chroot.
+	EXEC_START,    ///< Start executing a command in an active chroot.
+	EXEC_STOP      ///< End executing a command in an active chroot.
       };
 
     /// Chroot session properties
@@ -342,6 +343,22 @@ namespace sbuild
     set_command_prefix (string_list const& command_prefix);
 
     /**
+     * Get the process execution domain for the chroot.
+     *
+     * @returns the command prefix.
+     */
+    personality const&
+    get_persona () const;
+
+    /**
+     * Set the process execution domain for the chroot.
+     *
+     * @param persona the command prefix.
+     */
+    void
+    set_persona (personality const& persona);
+
+    /**
      * Get the type of the chroot.
      *
      * @returns the chroot type.
@@ -527,6 +544,8 @@ namespace sbuild
     bool          run_exec_scripts;
     /// Command prefix.
     string_list   command_prefix;
+    /// Process execution domain (Linux only).
+    personality   persona;
   };
 
 }

@@ -1,4 +1,4 @@
-NEWS                                                             -*- outline -*-
+NEWS                                                            -*- outline -*-
 ----
 
 Welcome to schroot 0.99.0.  Please read these release notes carefully.
@@ -8,6 +8,11 @@ README file also contains more specific notes regarding building and
 configuration.
 
 * Major changes in 0.99.0:
+
+  1) In order to support running 32-bit chroots on 64-bit systems, a
+     "personality" option has been added.  This may be set to
+     "linux32" to run a 32-bit Linux chroot on an amd64 system, for
+     example.
 
 * Major changes in 0.2.11:
 

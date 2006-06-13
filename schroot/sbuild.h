@@ -39,6 +39,7 @@
 #include "sbuild-lock.h"
 #include "sbuild-log.h"
 #include "sbuild-nostream.h"
+#include "sbuild-personality.h"
 #include "sbuild-session.h"
 #include "sbuild-types.h"
 #include "sbuild-util.h"

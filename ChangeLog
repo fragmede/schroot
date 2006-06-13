@@ -1,3 +1,40 @@
+2006-06-13  Roger Leigh  <rleigh@debian.org>
+
+	* NEWS: Document new "personality" option.
+
+	* po/POTFILES.in: Add schroot/sbuild-personality.(cc|h).
+
+	* test/Makefile.am: Add sbuild-personality.cc.
+
+	* test/sbuild-personality.cc: Tests for sbuild::personality.
+
+	* schroot/schroot.conf.5.in: Document new "personality" key.
+
+	* schroot/Makefile.am: Add sbuild-personality.(cc|h).
+
+	* schroot/sbuild.h: Include sbuild-personality.h.
+
+	* schroot/sbuild-session.cc (run_child): Set the personality
+	before chrooting.
+
+	* schroot/sbuild-chroot.cc:
+	(chroot) When constructing a chroot, the persona defaults to
+	"linux" on Linux systems, and "undefined" on all other systems.
+	(get_persona): New method to get the persona.
+	(set_persona): New method to set the persona.
+	(print_details): Print the persona.
+	(get_keyfile): Set "personality" key.
+	(set_keyfile): Get "personality" key.
+
+	* schroot/sbuild-chroot.h: Include personality as a persona
+	member, and provide a getter and setter for it.
+
+	* schroot/sbuild-personality.(cc|h): New files.  This is a class
+	wrapping the functionality of personality(2) for changing the
+	process execution domain.  It includes a mapping from names to
+	personality enumarations, to allow user specification of
+	personalities.
+
 2006-06-12  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
 
 	* debian/changelog: Bump version to 0.99.0.

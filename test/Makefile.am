@@ -36,6 +36,7 @@ noinst_PROGRAMS = 		\
 	sbuild-log		\
 	sbuild-nostream		\
 	sbuild-parse-value	\
+	sbuild-personality	\
 	sbuild-util
 
 TESTS = $(noinst_PROGRAMS)
@@ -75,6 +76,9 @@ sbuild_nostream_LDADD = libtest.la
 
 sbuild_parse_value_SOURCES = sbuild-parse-value.cc
 sbuild_parse_value_LDADD = libtest.la
+
+sbuild_personality_SOURCES = sbuild-parse-value.cc
+sbuild_personality_LDADD = libtest.la
 
 sbuild_util_SOURCES = sbuild-util.cc
 sbuild_util_LDADD = libtest.la

@@ -22,12 +22,12 @@
 #include "sbuild.h"
 
 #include <cassert>
+#include <cerrno>
+#include <cstdlib>
+#include <cstring>
 #include <iostream>
 #include <memory>
 
-#include <errno.h>
-#include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 
 #include <syslog.h>
@@ -665,6 +665,17 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   if (initgroups (get_user().c_str(), get_gid()))
     {
       log_error() << _("Could not set supplementary group IDs") << endl;
+      exit (EXIT_FAILURE);
+    }
+
+  /* Set the process execution domain. */
+  try
+    {
+      session_chroot->get_persona().set();
+    }
+  catch (personality::error const& e)
+    {
+      log_error() << e.what() << endl;
       exit (EXIT_FAILURE);
     }
 
