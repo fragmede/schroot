@@ -1,5 +1,9 @@
 2006-06-13  Roger Leigh  <rleigh@debian.org>
 
+	* THANKS: New file.  Add Ben Hutchings.
+
+2006-06-13  Roger Leigh  <rleigh@debian.org>
+
 	* NEWS: Document new "personality" option.
 
 	* po/POTFILES.in: Add schroot/sbuild-personality.(cc|h).
