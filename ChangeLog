@@ -1,5 +1,13 @@
 2006-06-13  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/Makefile.am
+	(install-data-hook): Don't create $(SCHROOT_LOCK_DIR).
+
+	* configure.ac: Remove SCHROOT_LOCK_DIR, which is no longer used
+	now we use lockdev and fcntl locking.
+
+2006-06-13  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Close #372874.
 
 	* NEWS: Document dchroot.conf change.

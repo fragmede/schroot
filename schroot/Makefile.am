@@ -159,6 +159,5 @@ install-exec-hook:
 	chmod 4755 "$(DESTDIR)$(bindir)/schroot"
 
 install-data-hook:
-	$(MKINSTALLDIRS) $(DESTDIR)$(SCHROOT_LOCK_DIR)
 	$(MKINSTALLDIRS) $(DESTDIR)$(SCHROOT_MOUNT_DIR)
 	$(MKINSTALLDIRS) $(DESTDIR)$(SCHROOT_SESSION_DIR)
