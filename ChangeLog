@@ -1,5 +1,13 @@
 2006-06-13  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Close #354344.
+
+	* schroot/setup/10mount: Mount plain chroots with --rbind rather
+	than --bind.  This is safe now schroot-listmounts is used to
+	unmount all filesystems in the chroot.
+
+2006-06-13  Roger Leigh  <rleigh@debian.org>
+
 	* THANKS: New file.  Add Ben Hutchings.
 
 2006-06-13  Roger Leigh  <rleigh@debian.org>
