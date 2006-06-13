@@ -5,6 +5,9 @@ schroot (0.99.0-1) unstable; urgency=low
     (Closes: #354344).
   * root is no longer denied access when root is not in the groups or
     root_groups lists (Closes: #372569).
+  * schroot.conf supports a personality option to set the process
+    execution domain, and dchroot.conf supports an additional third
+    personality option to do the same (Closes: #372874).
 
  --
 

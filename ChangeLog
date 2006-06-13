@@ -1,5 +1,18 @@
 2006-06-13  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Close #372874.
+
+	* NEWS: Document dchroot.conf change.
+
+	* schroot/dchroot.1.in: Document the new personality field in
+	dchroot.conf.
+
+	* schroot/dchroot-chroot-config.cc (parse_data): Parse a third
+	optional "personality" field, and if present, set the chroot
+	personality.
+
+2006-06-13  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Close #372569.
 
 	* NEWS: Document changed authorisation behaviour.

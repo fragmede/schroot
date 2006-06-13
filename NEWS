@@ -14,8 +14,12 @@ configuration.
      "linux32" to run a 32-bit Linux chroot on an amd64 system, for
      example.
 
-  2) The root user can access all chroots, even when the root group is
-     ommitted from the groups or root_groups lists.  Authentication is
+  2) dchroot has an additional personality field in dchroot.conf.
+     This may also be set to linux32 to achieve the same effect as the
+     personality setting in schroot.conf.
+
+  3) The root user can access all chroots, even when the root group is
+     omitted from the groups or root_groups lists.  Authentication is
      still required, but by default is skipped due to using
      pam_rootok.so in the PAM configuration.
 
