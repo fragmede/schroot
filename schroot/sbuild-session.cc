@@ -216,6 +216,14 @@ session::get_auth_status () const
   assert(!this->chroots.empty());
   if (this->config.get() == 0) return auth::STATUS_FAIL;
 
+  /*
+   * Note that the root user can't escape authentication.  This is
+   * because pam_rootok.so should be used in the PAM configuration if
+   * root should automatically be granted access.  The only exception
+   * is that the root group doesn't need to be added to the groups or
+   * root groups lists.
+   */
+
   auth::status status = auth::STATUS_NONE;
 
   /* @todo Use set difference rather than iteration and
@@ -276,12 +284,18 @@ session::get_auth_status () const
 	    }
 	  else // Not in any groups
 	    {
-	      status = change_auth(status, auth::STATUS_FAIL);
+	      if (this->get_ruid() == 0)
+		status = change_auth(status, auth::STATUS_USER);
+	      else
+		status = change_auth(status, auth::STATUS_FAIL);
 	    }
 	}
       else // No available groups entries means no access to anyone
 	{
-	  status = change_auth(status, auth::STATUS_FAIL);
+	  if (this->get_ruid() == 0)
+	    status = change_auth(status, auth::STATUS_USER);
+	  else
+	    status = change_auth(status, auth::STATUS_FAIL);
 	}
     }
 

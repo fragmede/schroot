@@ -87,9 +87,14 @@ chroot_config::parse_data (std::istream& stream,
 								 cend);
 	  std::string::size_type lend = line.find_first_of(whitespace, lstart);
 
+	  // Get chroot personality
+	  std::string::size_type pstart = line.find_first_not_of(whitespace,
+								 lend);
+	  std::string::size_type pend = line.find_first_of(whitespace, pstart);
+
 	  // Check for trailing non-whitespace.
 	  std::string::size_type tstart = line.find_first_not_of(whitespace,
-								 lend);
+								 pend);
 
 	  if (cstart == std::string::npos ||
 	      cend == std::string::npos ||
@@ -103,12 +108,14 @@ chroot_config::parse_data (std::istream& stream,
 
 	  std::string chroot_name = line.substr(cstart, cend - cstart);
 	  std::string location = line.substr(lstart, lend - lstart);
+	  std::string personality = line.substr(pstart, pend - pstart);
 
 	  /* Create chroot object. */
 	  sbuild::chroot::ptr chroot = sbuild::chroot::create("plain");
 	  chroot->set_active(active);
 	  chroot->set_name(chroot_name);
 	  chroot->set_description(chroot_name + " chroot (dchroot compatibility)");
+	  chroot->set_persona(sbuild::personality(personality));
 
 	  sbuild::chroot_plain *plain =
 	    dynamic_cast<sbuild::chroot_plain *>(chroot.get());

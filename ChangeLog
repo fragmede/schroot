@@ -1,5 +1,15 @@
 2006-06-13  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Close #372569.
+
+	* NEWS: Document changed authorisation behaviour.
+
+	* schroot/sbuild-session.cc
+	(get_auth_status): If no groups are specified, root can still gain
+	access (but still requires authentication).
+
+2006-06-13  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Close #354344.
 
 	* schroot/setup/10mount: Mount plain chroots with --rbind rather

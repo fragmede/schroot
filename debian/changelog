@@ -3,6 +3,8 @@ schroot (0.99.0-1) unstable; urgency=low
   * New upstream release.
   * Bind mounts are now used for session-managed plain chroots
     (Closes: #354344).
+  * root is no longer denied access when root is not in the groups or
+    root_groups lists (Closes: #372569).
 
  --
 

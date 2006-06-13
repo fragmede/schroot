@@ -86,8 +86,9 @@ following format:
 .IP \[bu]
 Blank lines are ignored.
 .IP \[bu]
-Chroot definitions are a single line containing an \fIidentifier\fP and a
-\fIpath\fP, separated by whitespace.  The first chroot is also the default.
+Chroot definitions are a single line containing an \fIidentifier\fP,
+\fIpath\fP, and an optional \fIpersonality\fP separated by whitespace.  The
+first chroot is also the default.
 .PP
 An example file:
 .PP
@@ -98,13 +99,14 @@ An example file:
 .br
 \f[CR]sarge /srv/chroot/sarge\fP
 .br
-\f[CR]sid /srv/chroot/sid\fP
+\f[CR]sid /srv/chroot/sid linux32\fP
 .br
 .RE
 .PP
 This file defines a chroot called \[oq]sarge\[cq], located at
 \fI/srv/chroot/sarge\fP, and a second chroot called \[oq]sid\[cq], located at
-\fI/srv/chroot/sid\fP.
+\fI/srv/chroot/sid\fP.  The second chroot uses the \[lq]linux32\[rq]
+personality, which allows a 32-bit chroot to be used on a 64-bit system.
 .SH INCOMPATIBILITIES
 .IP \[bu]
 Log messages are worded and formatted differently.
