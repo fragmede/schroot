@@ -11,8 +11,8 @@ schroot (0.99.0-1) unstable; urgency=low
   * debian/control:
     - split dchroot into a separate package.
     - schroot conflicts with dchroot << 0.13.
-    - dchroot replaces and depends upon schroot, so it can take over
-      dchroot.conf and use the remaining schroot configuration.
+    - dchroot depends upon schroot to use the schroot configuration,
+      scripts and helper binaries.
     - dchroot and schroot Suggest debootstrap.
   * debian/rules:
     - Use dh_install

@@ -1,5 +1,9 @@
 2006-06-14  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: dchroot doesn't need to Replace schroot.
+
+2006-06-14  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/dchroot.1.in: Document incompatibilities with DSA
 	dchroot, and a few minor cleanups.
 

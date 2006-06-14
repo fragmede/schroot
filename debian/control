@@ -36,7 +36,6 @@ Package: dchroot
 Architecture: any
 Suggests: debootstrap
 Depends: schroot (= ${Source-Version}), ${shlibs:Depends}
-Replaces: schroot
 Description: Execute commands in a chroot environment
  schroot allows users to execute commands or interactive shells in
  different chroots.  A typical installation might provide 'stable',
