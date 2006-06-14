@@ -1,5 +1,9 @@
 2006-06-14  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Split dchroot into a separate package.
+
+2006-06-14  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.cc (main): Output configuration file with a help
 	message in comments, to help migrating dchroot.conf.
 

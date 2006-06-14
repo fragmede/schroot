@@ -9,11 +9,9 @@ Standards-Version: 3.7.2
 Package: schroot
 Architecture: any
 Depends: ${shlibs:Depends}
-Provides: dchroot
-Conflicts: dchroot
-Replaces: dchroot
+Conflicts: dchroot (<< 0.13)
 Enhances: sbuild
-Suggests: lvm-common, unzip
+Suggests: debootstrap, lvm-common, unzip
 Description: Execute commands in a chroot environment
  schroot allows users to execute commands or interactive shells
  in different chroots.  Any number of named chroots may be
@@ -32,5 +30,15 @@ Description: Execute commands in a chroot environment
  all supported chroot types, including sessions.
  .
  schroot shares most of its options with dchroot, but offers vastly
- more functionality.  A dchroot compatibility wrapper is also
- provided, offering the same functionality as the dchroot package.
+ more functionality.
+
+Package: dchroot
+Architecture: any
+Suggests: debootstrap
+Depends: schroot (= ${Source-Version}), ${shlibs:Depends}
+Replaces: schroot
+Description: Execute commands in a chroot environment
+ schroot allows users to execute commands or interactive shells in
+ different chroots.  A typical installation might provide 'stable',
+ 'testing' and 'unstable' chroots.  Users can move between chroots as
+ necessary.

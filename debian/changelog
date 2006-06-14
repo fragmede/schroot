@@ -8,6 +8,22 @@ schroot (0.99.0-1) unstable; urgency=low
   * schroot.conf supports a personality option to set the process
     execution domain, and dchroot.conf supports an additional third
     personality option to do the same (Closes: #372874).
+  * debian/control:
+    - split dchroot into a separate package.
+    - schroot conflicts with dchroot << 0.13.
+    - dchroot replaces and depends upon schroot, so it can take over
+      dchroot.conf and use the remaining schroot configuration.
+    - dchroot and schroot Suggest debootstrap.
+  * debian/rules:
+    - Use dh_install
+    - Install dchroot lintian override.
+  * debian/dchroot.install: New file.
+  * debian/schroot.install: New file.
+  * debian/schroot.lintian-overrides: Remove dchroot lintian override.
+  * debian/dchroot.lintian-overrides: Add dchroot lintian override.
+  * debian/schroot.preinst: Move from debian/preinst.
+  * debian/schroot.postinst: Move from debian/postinst.
+  * debian/dchroot.postrm: New file.  Remove /etc/dchroot.conf on purge.
 
  --
 
