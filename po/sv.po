@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.2.8\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-06-09 19:58+0100\n"
+"POT-Creation-Date: 2006-06-14 11:00+0100\n"
 "PO-Revision-Date: 2006-05-08 22:48+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: schroot/dchroot-chroot-config.cc:99 schroot/sbuild-keyfile.h:572
+#: schroot/dchroot-chroot-config.cc:104 schroot/sbuild-keyfile.h:572
 #, boost-format
 msgid "line %1%: invalid line: %2%"
 msgstr "rad %1%: ogiltig rad: %2%"
@@ -55,7 +55,7 @@ msgstr "PAM-fel: PAM är redan initierad"
 #: schroot/sbuild-auth.cc:563 schroot/sbuild-auth.cc:588
 #: schroot/sbuild-auth.cc:607 schroot/sbuild-auth.cc:626
 #: schroot/sbuild-auth.cc:645 schroot/sbuild-auth.cc:664
-#: schroot/sbuild-session.cc:653
+#: schroot/sbuild-session.cc:667
 #, boost-format
 msgid "PAM error: %1%"
 msgstr "PAM-fel: %1%"
@@ -244,103 +244,118 @@ msgstr "Enhet för LVM-snapshot"
 msgid "LVM Snapshot Options"
 msgstr "Flaggor för LVM-snapshot"
 
-#: schroot/sbuild-chroot.cc:69
+#: schroot/sbuild-chroot.cc:79
 #, boost-format
 msgid "unknown chroot type \"%1%\""
 msgstr "okänd chroot-typ \"%1%\""
 
-#: schroot/sbuild-chroot.cc:75
+#: schroot/sbuild-chroot.cc:85
 msgid "chroot creation failed"
 msgstr "skapandet av chroot misslyckades"
 
-#: schroot/sbuild-chroot.cc:265
+#: schroot/sbuild-chroot.cc:287
 #, boost-format
 msgid "%1%: failed to create session file: %2%\n"
 msgstr "%1%: misslyckades med att skapa sessionsfil: %2%\n"
 
-#: schroot/sbuild-chroot.cc:287
+#: schroot/sbuild-chroot.cc:309
 #, boost-format
 msgid "%1%: lock acquisition failure: %2%\n"
 msgstr "%1%: fel när lås skulle tas: %2%\n"
 
-#: schroot/sbuild-chroot.cc:302
+#: schroot/sbuild-chroot.cc:324
 #, boost-format
 msgid "%1%: lock discard failure: %2%\n"
 msgstr "%1%: fel vid kassering av lås: %2%\n"
 
-#: schroot/sbuild-chroot.cc:311
+#: schroot/sbuild-chroot.cc:333
 #, boost-format
 msgid "%1%: failed to unlink session file: %2%\n"
 msgstr "%1%: misslyckades med att avlänka sessionsfil: %2%\n"
 
-#: schroot/sbuild-chroot.cc:335
+#: schroot/sbuild-chroot.cc:357
 msgid "  --- Session ---\n"
 msgstr "  --- Session ---\n"
 
-#: schroot/sbuild-chroot.cc:337
+#: schroot/sbuild-chroot.cc:359
 msgid "  --- Chroot ---\n"
 msgstr "  --- Chroot ---\n"
 
-#: schroot/sbuild-chroot.cc:338
+#: schroot/sbuild-chroot.cc:360
 msgid "Name"
 msgstr "Namn"
 
-#: schroot/sbuild-chroot.cc:339
+#: schroot/sbuild-chroot.cc:361
 msgid "Description"
 msgstr "Beskrivning"
 
-#: schroot/sbuild-chroot.cc:340
+#: schroot/sbuild-chroot.cc:362
 msgid "Type"
 msgstr "Typ"
 
-#: schroot/sbuild-chroot.cc:341
+#: schroot/sbuild-chroot.cc:363
 msgid "Priority"
 msgstr "Prioritet"
 
-#: schroot/sbuild-chroot.cc:342
+#: schroot/sbuild-chroot.cc:364
 msgid "Groups"
 msgstr "Grupper"
 
-#: schroot/sbuild-chroot.cc:343
+#: schroot/sbuild-chroot.cc:365
 msgid "Root Groups"
 msgstr "Rotgrupper"
 
-#: schroot/sbuild-chroot.cc:344
+#: schroot/sbuild-chroot.cc:366
 msgid "Aliases"
 msgstr "Alias"
 
-#: schroot/sbuild-chroot.cc:345
+#: schroot/sbuild-chroot.cc:367
 msgid "Run Setup Scripts"
 msgstr "Kör konfigurationsskript"
 
 # Borde det bli "Kör körskript"? Kaka på kaka?
-#: schroot/sbuild-chroot.cc:346
+#: schroot/sbuild-chroot.cc:368
 msgid "Run Execution Scripts"
 msgstr "Kör skript"
 
-#: schroot/sbuild-chroot.cc:348
+#: schroot/sbuild-chroot.cc:370
 msgid "Session Managed"
 msgstr "Session hanterad"
 
-#: schroot/sbuild-chroot.cc:353
+#: schroot/sbuild-chroot.cc:375
 msgid "Command Prefix"
 msgstr "Kommandoprefix"
 
-#: schroot/sbuild-chroot.cc:357
+#: schroot/sbuild-chroot.cc:377
+#, fuzzy
+msgid "Personality"
+msgstr "Prioritet"
+
+#: schroot/sbuild-chroot.cc:381
 msgid "Location"
 msgstr "Plats"
 
-#: schroot/sbuild-chroot.cc:360
+#: schroot/sbuild-chroot.cc:384
 msgid "Mount Location"
 msgstr "Montera plats"
 
-#: schroot/sbuild-chroot.cc:363
+#: schroot/sbuild-chroot.cc:387
 msgid "Path"
 msgstr "Sökväg"
 
-#: schroot/sbuild-chroot.cc:366
+#: schroot/sbuild-chroot.cc:390
 msgid "Mount Device"
 msgstr "Montera enhet"
+
+#: schroot/sbuild-chroot.cc:529
+#, fuzzy, boost-format
+msgid "%1% chroot: personality \"%2%\" is unknown.\n"
+msgstr "%1% chroot: En nödvändig parameter \"%2%\" saknas."
+
+#: schroot/sbuild-chroot.cc:532
+#, boost-format
+msgid "Valid personalities: %1%\n"
+msgstr ""
 
 #: schroot/sbuild-format-detail.h:108
 msgid "true"
@@ -452,6 +467,11 @@ msgstr ""
 "misslyckades med att släppa enhetslås som hölls av pid %1% (tidsgräns är %2% "
 "sekunder)"
 
+#: schroot/sbuild-personality.cc:137
+#, fuzzy, boost-format
+msgid "Could not set personality to '%1%': %2%"
+msgstr "Kunde inte chroot till \"%1%\": %2%"
+
 #: schroot/sbuild-session.cc:61
 #, boost-format
 msgid "%1%: group not found"
@@ -472,146 +492,146 @@ msgstr "kan inte hämta antalet tilläggsgrupper: %1%"
 msgid "can't get supplementary groups: %1%"
 msgstr "kan inte hämta tilläggsgrupper: %1%"
 
-#: schroot/sbuild-session.cc:230
+#: schroot/sbuild-session.cc:238
 #, boost-format
 msgid "No chroot found matching alias '%1%'"
 msgstr "Inget chroot hittades som matchar alias \"%1%\""
 
-#: schroot/sbuild-session.cc:312
+#: schroot/sbuild-session.cc:326
 #, boost-format
 msgid "%1%: Failed to find chroot"
 msgstr "%1%: Misslyckades med att hitta chroot"
 
-#: schroot/sbuild-session.cc:488
+#: schroot/sbuild-session.cc:502
 #, boost-format
 msgid "Chroot setup failed to lock chroot: %1%"
 msgstr "Inställning av chroot misslyckades med att låsa chroot: %1%"
 
-#: schroot/sbuild-session.cc:553
+#: schroot/sbuild-session.cc:567
 #, boost-format
 msgid "Invalid verbosity level: %1%, falling back to \"normal\""
 msgstr "Ogiltig informationsnivå: %1%, faller tillbaka till \"normal\""
 
-#: schroot/sbuild-session.cc:573 schroot/sbuild-session.cc:931
+#: schroot/sbuild-session.cc:587 schroot/sbuild-session.cc:956
 #, boost-format
 msgid "Failed to fork child: %1%"
 msgstr "Misslyckades med att grena process: %1%"
 
-#: schroot/sbuild-session.cc:591 schroot/sbuild-session.cc:841
+#: schroot/sbuild-session.cc:605 schroot/sbuild-session.cc:866
 #, boost-format
 msgid "Could not exec \"%1%\": %2%"
 msgstr "Kunde inte starta \"%1%\": %2%"
 
-#: schroot/sbuild-session.cc:610
+#: schroot/sbuild-session.cc:624
 #, boost-format
 msgid "Chroot setup failed to unlock chroot: %1%"
 msgstr "Inställning av chroot misslyckades med att låsa upp chroot: %1%"
 
-#: schroot/sbuild-session.cc:618
+#: schroot/sbuild-session.cc:632
 #, boost-format
 msgid "Chroot setup failed during chroot \"%1%\" stage"
 msgstr "Inställning av chroot misslyckades under steget \"%1%\""
 
-#: schroot/sbuild-session.cc:661
+#: schroot/sbuild-session.cc:675
 #, boost-format
 msgid "Could not set gid to '%1%'"
 msgstr "Kunde inte sätta gid till \"%1%\""
 
-#: schroot/sbuild-session.cc:667
+#: schroot/sbuild-session.cc:681
 msgid "Could not set supplementary group IDs"
 msgstr "Kunde inte sätta id för tilläggsgrupper"
 
-#: schroot/sbuild-session.cc:674 schroot/sbuild-session.cc:713
-#: schroot/sbuild-session.cc:728
+#: schroot/sbuild-session.cc:699 schroot/sbuild-session.cc:738
+#: schroot/sbuild-session.cc:753
 #, boost-format
 msgid "Could not chdir to '%1%': %2%"
 msgstr "Kunde inte byta katalog till \"%1%\": %2%"
 
-#: schroot/sbuild-session.cc:681
+#: schroot/sbuild-session.cc:706
 #, boost-format
 msgid "Could not chroot to '%1%': %2%"
 msgstr "Kunde inte chroot till \"%1%\": %2%"
 
-#: schroot/sbuild-session.cc:690
+#: schroot/sbuild-session.cc:715
 #, boost-format
 msgid "Could not set uid to '%1%'"
 msgstr "Kunde inte sätta uid till \"%1%\""
 
-#: schroot/sbuild-session.cc:696
+#: schroot/sbuild-session.cc:721
 msgid "Failed to drop root permissions."
 msgstr "Misslyckades med att släppa root-rättigheter."
 
-#: schroot/sbuild-session.cc:718
+#: schroot/sbuild-session.cc:743
 #, boost-format
 msgid "Falling back to '%1%'"
 msgstr ""
 
-#: schroot/sbuild-session.cc:722
+#: schroot/sbuild-session.cc:747
 #, fuzzy, boost-format
 msgid "Falling back to home directory '%1%'"
 msgstr "%1%: misslyckades med att öppna katalog: %2%"
 
-#: schroot/sbuild-session.cc:784
+#: schroot/sbuild-session.cc:809
 #, boost-format
 msgid "[%1% chroot] Running login shell: \"%2%\""
 msgstr "[%1% chroot] Kör inloggningsskal: \"%2%\""
 
-#: schroot/sbuild-session.cc:785
+#: schroot/sbuild-session.cc:810
 #, boost-format
 msgid "[%1% chroot] Running shell: \"%2%\""
 msgstr "[%1% chroot] Kör skal: \"%2%\""
 
-#: schroot/sbuild-session.cc:792
+#: schroot/sbuild-session.cc:817
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Kör inloggningsskal: \"%4%\""
 
-#: schroot/sbuild-session.cc:793
+#: schroot/sbuild-session.cc:818
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Kör skal: \"%4%\""
 
-#: schroot/sbuild-session.cc:814
+#: schroot/sbuild-session.cc:839
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%1% chroot] Kör kommando: \"%2%\""
 
-#: schroot/sbuild-session.cc:818
+#: schroot/sbuild-session.cc:843
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Kör kommando: \"%4%\""
 
-#: schroot/sbuild-session.cc:863 schroot/sbuild-session.cc:884
+#: schroot/sbuild-session.cc:888 schroot/sbuild-session.cc:909
 msgid "caught hangup signal, terminating..."
 msgstr "fångade påläggningssignal, terminerar..."
 
-#: schroot/sbuild-session.cc:876
+#: schroot/sbuild-session.cc:901
 #, boost-format
 msgid "wait for child failed: %1%"
 msgstr "väntan på barnprocess misslyckades: %1%"
 
-#: schroot/sbuild-session.cc:903
+#: schroot/sbuild-session.cc:928
 #, boost-format
 msgid "Child terminated by signal %1%"
 msgstr "Barnprocess terminerades av signal \"%1%\""
 
-#: schroot/sbuild-session.cc:908
+#: schroot/sbuild-session.cc:933
 msgid "Child dumped core"
 msgstr "Barnprocess dumpade minnet"
 
 # coredump? Bättre ord?
-#: schroot/sbuild-session.cc:910
+#: schroot/sbuild-session.cc:935
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr ""
 "Barnprocess avslutades onormalt (anledning är okänd; inte en signal eller "
 "minnesdump)"
 
-#: schroot/sbuild-session.cc:917
+#: schroot/sbuild-session.cc:942
 #, boost-format
 msgid "Child exited abnormally with status '%1%'"
 msgstr "Barnprocess avslutades onormalt med status \"%1%\""
 
-#: schroot/sbuild-session.cc:978
+#: schroot/sbuild-session.cc:1003
 #, boost-format
 msgid "failed to set hangup handler: %1%"
 msgstr "misslyckades med att ställa in påläggningshanterare: %1%"
@@ -906,7 +926,7 @@ msgstr "för att migrera till en schroot-konfiguration."
 msgid "Edit '%1%' to add appropriate group access."
 msgstr "Redigera \"%1%\" för att lägga till lämplig gruppåtkomst."
 
-#: schroot/schroot.cc:212
+#: schroot/schroot.cc:212 schroot/schroot.cc:314
 #, boost-format
 msgid "Remove '%1%' to use the new configuration."
 msgstr "Ta bort \"%1%\" för att använda den nya konfigurationen."
@@ -926,16 +946,31 @@ msgstr "Inga chroot angivna i %1%"
 msgid "The specified chroots are not defined in %1%"
 msgstr "De angivna chroot finns inte angivna i %1%"
 
-#: schroot/schroot.cc:309
+#: schroot/schroot.cc:302
+#, fuzzy, boost-format
+msgid "schroot configuration generated by %1% %2%"
+msgstr "Använder dchroots konfigurationsfil: "
+
+#: schroot/schroot.cc:310
+msgid ""
+"To allow users access to the chroots, add their groups to the groups keys."
+msgstr ""
+
+#: schroot/schroot.cc:312
+msgid ""
+"To allow passwordless root access, add their groups to the root-groups keys."
+msgstr ""
+
+#: schroot/schroot.cc:327
 msgid "Only one chroot may be specified when beginning a session"
 msgstr "Endast en chroot får anges vid början av en session"
 
-#: schroot/schroot.cc:370
+#: schroot/schroot.cc:388
 #, boost-format
 msgid "Session failure: %1%"
 msgstr "Sessionsfel: %1%"
 
-#: schroot/schroot.cc:379 schroot/schroot.cc:395
+#: schroot/schroot.cc:397 schroot/schroot.cc:413
 msgid "Error restoring terminal settings"
 msgstr "Fel vid återställandet av terminalinställningar"
 
