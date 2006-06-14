@@ -1,3 +1,13 @@
+2006-06-14  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* schroot/sbuild-personality.cc
+	(personality): On Linux, default to initialising with the current
+	process' personality, otherwise initialise to "undefined".
+	(get_name): New method.  Return the current personality.
+
+	* schroot/sbuild-personality.h: Document constructors fully, and
+	add a get method to get the personality type.
+
 2006-06-14  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: dchroot doesn't need to Replace schroot.

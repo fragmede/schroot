@@ -47,16 +47,24 @@ namespace sbuild
     /// Exception type.
     typedef runtime_error_custom<personality> error;
 
-    /// The constructor.
+    /**
+     * The constructor.  On Linux systems, this is initialised with
+     * the current process' personality.  On non-Linux systems, it is
+     * initialised as "undefined".
+     */
     personality ();
 
     /**
      * The constructor.
+     *
+     * @param persona the persona to set.
      */
     personality (type persona);
 
     /**
      * The constructor.
+     *
+     * @param persona the persona to set.
      */
     personality (std::string const& persona);
 
@@ -71,7 +79,15 @@ namespace sbuild
     std::string const& get_name () const;
 
     /**
-     * Set personality.  This sets the personality (if valid) using
+     * Get the personality.
+     *
+     * @returns the personality.
+     */
+    type
+    get () const;
+
+    /**
+     * Set the process personality.  This sets the personality (if valid) using
      * the personality(2) system call.  If setting the personality
      * fails, an error is thown.
      */

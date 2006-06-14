@@ -76,7 +76,13 @@ sbuild::personality::personalities(initial_personalities,
 				   initial_personalities + (sizeof(initial_personalities) / sizeof(initial_personalities[0])));
 
 sbuild::personality::personality ():
-  persona(0xffffffff)
+  persona(
+#ifdef __linux__
+	  ::personality(0xffffffff)
+#else
+	  0xffffffff
+#endif
+	  )
 {
 }
 
@@ -124,6 +130,12 @@ std::string const&
 sbuild::personality::get_name () const
 {
   return find_personality(this->persona);
+}
+
+sbuild::personality::type
+sbuild::personality::get () const
+{
+  return this->persona;
 }
 
 void
