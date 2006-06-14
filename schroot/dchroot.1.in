@@ -107,7 +107,10 @@ This file defines a chroot called \[oq]sarge\[cq], located at
 \fI/srv/chroot/sarge\fP, and a second chroot called \[oq]sid\[cq], located at
 \fI/srv/chroot/sid\fP.  The second chroot uses the \[lq]linux32\[rq]
 personality, which allows a 32-bit chroot to be used on a 64-bit system.
+\[oq]sarge\[cq] is the default chroot, because it was listed first, which means
+if the \fI\-c\fP option is omitted, this chroot will be used.
 .SH INCOMPATIBILITIES
+.SS Debian dchroot
 .IP \[bu]
 Log messages are worded and formatted differently.
 .IP \[bu]
@@ -121,6 +124,27 @@ returns, vertical tabs and form feeds.
 still subject to \fBschroot\fP security checking, including PAM authentication
 and authorisation, and session management, for example, and hence may behave
 slightly differently to the original \fBdchroot\fP in some circumstances.
+.SS DSA dchroot
+Machines run by the Debian System Administrators for the Debian Project have a
+\fBdchroot-dsa\fP source package which also provides a \fBdchroot\fP package
+and binary.
+.IP \[bu]
+All the above incompatibilities apply.
+.IP \[bu]
+This version of dchroot has incompatible command-line options, and while some
+of those options are supported or have equivalent options by a different name,
+the \fI\-c\fP option is not required to specify a chroot, and this version of
+dchroot cannot implement this behaviour in a backward-compatible manner
+(because if \fI\-c\fP is omitted, the default chroot is used).  DSA dchroot
+uses the first non-option as the chroot to use, only allowing one chroot to be
+used at once.
+.IP \[bu]
+This version of dchroot has an incompatible format for \fIdchroot.conf\fP.
+While the first two fields are the same, the remaining fields are an optional
+list of users permitted to access the chroot, instead of the personality field
+allowed by this version.  If access restrictions are needed, please use
+\fIschroot.conf\fP and add the allowed users there, as shown in
+\[lq]\fIMigration\fP\[rq] below.
 .SH MIGRATION
 To migrate an existing \fBdchroot\fP configuration to \fBschroot\fP, perform
 the following steps:
@@ -143,13 +167,13 @@ Remove \fI/etc/dchroot.conf\fP, so that \fBdchroot\fP will subsequently use
 \fI@SCHROOT_CONF@\fP for its configuration.  If the \fBdchroot\fP package is
 still installed, purge it, or else delete the file.
 .SH EXAMPLES
-\f[CR]$ schroot/dchroot -l\fP
+\f[CR]$ dchroot -l\fP
 .br
 \f[CR]Available chroots: sarge [default], sid\fP
 .br
 \f[CR]\fP
 .br
-\f[CR]$ schroot/dchroot -p sid\fP
+\f[CR]$ dchroot -p sid\fP
 .br
 \f[CR]/srv/chroot/sid\fP
 .br
@@ -157,7 +181,7 @@ still installed, purge it, or else delete the file.
 .br
 \f[CR]$ dchroot -q -c sid -- uname -smr\fP
 .br
-\f[CR]Linux 2.6.15.4 ppc\fP
+\f[CR]Linux 2.6.16.17 ppc\fP
 .br
 \f[CR]\fP
 .br

@@ -1,5 +1,10 @@
 2006-06-14  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/dchroot.1.in: Document incompatibilities with DSA
+	dchroot, and a few minor cleanups.
+
+2006-06-14  Roger Leigh  <rleigh@debian.org>
+
 	* Update translations.
 
 2006-06-14  Roger Leigh  <rleigh@debian.org>
