@@ -1,3 +1,23 @@
+2006-06-15  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/Makefile.am" Add sbuild-parse-error.(cc|h).
+
+	* schroot/sbuild-keyfile.cc (keyfile, check_priority) Use
+	parse_error instead of runtime_error_custom for throwing on parse
+	failures.
+
+	* schroot/sbuild-keyfile.h: Use parse_error instead of
+	runtime_error_custom for throwing on parse failures, and also for
+	logging warnings.  Additionally, be stricter when parsing by
+	throwing a parse error when an empty group is specified, or a key
+	before a group definition.
+
+	* schroot/sbuild-parse-value.h: Throw a parse_error when parsing
+	fails.
+
+	* schroot/sbuild-parse-error.(cc|h): New files, providing an
+	exception class for reporting parse errors.
+
 2006-06-14  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
 
 	* schroot/sbuild-personality.cc

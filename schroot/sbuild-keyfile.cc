@@ -46,9 +46,7 @@ keyfile::keyfile (std::string const& file):
     }
   else
     {
-      format fmt(_("Can't open configuration file %1%"));
-      fmt % file;
-      throw error(fmt);
+      throw error(parse_error::BAD_FILE, file);
     }
 }
 
@@ -349,9 +347,7 @@ keyfile::check_priority (std::string const& group,
 	{
 	case PRIORITY_REQUIRED:
 	  {
-	    format fmt(_("%1% chroot: A required parameter \"%2%\" is missing."));
-	    fmt % group % key;
-	    throw error(fmt);
+	    throw error(group, parse_error::MISSING_KEY, key);
 	  }
 	  break;
 	default:
@@ -379,9 +375,7 @@ keyfile::check_priority (std::string const& group,
 	    << _("This option has been removed, and no longer has any effect.") << std::endl;
 	case PRIORITY_DISALLOWED:
 	  {
-	    format fmt(_("%1% chroot: A disallowed parameter \"%2%\" has been specified."));
-	    fmt % group % key;
-	    throw error(fmt);
+	    throw error(group, parse_error::DISALLOWED_KEY, key);
 	  }
 	  break;
 	    default:
@@ -389,9 +383,3 @@ keyfile::check_priority (std::string const& group,
 	}
     }
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

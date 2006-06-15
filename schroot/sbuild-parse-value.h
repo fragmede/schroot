@@ -22,9 +22,7 @@
 
 #include <string>
 
-#include <boost/format.hpp>
-
-#include "sbuild-error.h"
+#include "sbuild-parse-error.h"
 #include "sbuild-log.h"
 
 namespace sbuild
@@ -38,7 +36,7 @@ namespace sbuild
   {
   public:
     /// Exception type.
-    typedef runtime_error_custom<parse_value> error;
+    typedef parse_error error;
 
     /**
      * The constructor.
@@ -61,9 +59,7 @@ namespace sbuild
 
       if (parse(tmp) == false)
 	{
-	  boost::format fmt("Could not parse value \"%1%\"");
-	  fmt % this->value;
-	  throw error(fmt);
+	  throw error(parse_error::BAD_VALUE, this->value);
 	}
 
       return tmp;

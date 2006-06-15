@@ -42,6 +42,7 @@ namespace std { namespace tr1 { using boost::tuple; using boost::get; } }
 #include "sbuild-error.h"
 #include "sbuild-i18n.h"
 #include "sbuild-log.h"
+#include "sbuild-parse-error.h"
 #include "sbuild-parse-value.h"
 #include "sbuild-types.h"
 #include "sbuild-util.h"
@@ -82,7 +83,7 @@ namespace sbuild
       };
 
     /// Exception type.
-    typedef runtime_error_custom<keyfile> error;
+    typedef parse_error error;
 
     /// The constructor.
     keyfile ();
@@ -203,8 +204,8 @@ namespace sbuild
 	    }
 	  catch (parse_value::error const& e)
 	    {
-	      log_warning() << boost::format("[%1%] %2%: %3%\n")
-		% group % key % e.what();
+	      error ep(group, key, parse_error::NONE, e.what());
+	      log_warning() << ep.what() << std::endl;
 	      return false;
 	    }
 	}
@@ -530,7 +531,11 @@ namespace sbuild
       {
 	linecount++;
 
-	if (line[0] == '#') // Comment line
+	if (line.length() == 0)
+	  {
+	    // Empty line; do nothing.
+	  }
+	else if (line[0] == '#') // Comment line
 	  {
 	    if (!comment.empty())
 	      comment += '\n';
@@ -540,44 +545,38 @@ namespace sbuild
 	  {
 	    std::string::size_type fpos = line.find_first_of(']');
 	    std::string::size_type lpos = line.find_last_of(']');
-	    if (fpos == std::string::npos || fpos != lpos)
+	    if (fpos == std::string::npos || lpos == std::string::npos ||
+		fpos != lpos)
 	      {
-		boost::format fmt(_("line %1%: invalid group entry: %2%"));
-		fmt % linecount % line;
-		throw error(fmt);
+		throw error(linecount, parse_error::INVALID_GROUP, line);
 	      }
 	    group = line.substr(1, fpos - 1);
+
+	    if (group.length() == 0)
+	      {
+		throw error(linecount, parse_error::INVALID_GROUP, line);
+	      }
 
 	    // Insert group
 	    if (tmp.has_group(group))
 	      {
-		log_warning()
-		  << boost::format(_("line %1%: duplicate group entry: %2%"))
-		  % linecount % group
-		  << std::endl;
+		error e(linecount, parse_error::DUPLICATE_GROUP, group);
+		log_warning() << e.what() << std::endl;
 	      }
 	    else
 	      tmp.set_group(group, comment);
 	    comment.clear();
-	  }
-	else if (line.length() == 0)
-	  {
-	    // Empty line; do nothing.
 	  }
 	else // Item
 	  {
 	    std::string::size_type pos = line.find_first_of('=');
 	    if (pos == std::string::npos)
 	      {
-		boost::format fmt(_("line %1%: invalid line: %2%"));
-		fmt % linecount % line;
-		throw error(fmt);
+		throw error(linecount, parse_error::INVALID_LINE, line);
 	      }
 	    if (pos == 0)
 	      {
-		boost::format fmt(_("line %1%: no key specified: %2%"));
-		fmt % linecount % line;
-		throw error(fmt);
+		throw error(linecount, parse_error::NO_KEY, line);
 	      }
 	    key = line.substr(0, pos);
 	    if (pos == line.length() - 1)
@@ -585,13 +584,17 @@ namespace sbuild
 	    else
 	      value = line.substr(pos + 1);
 
+	    // No group specified
+	    if (group.empty())
+	      {
+		throw error(linecount, parse_error::NO_GROUP, line);
+	      }
+
 	    // Insert item
 	    if (tmp.has_key(group, key))
 	      {
-		log_warning()
-		  << boost::format(_("line %1%: group %2%: duplicate key entry: %3%"))
-		  % linecount % group % key
-		  << std::endl;
+		error e(linecount, group, parse_error::DUPLICATE_KEY, key);
+		log_warning() << e.what() << std::endl;
 	      }
 	    else
 	      tmp.set_value(group, key, value, comment);
