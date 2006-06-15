@@ -1,3 +1,12 @@
+2006-06-15  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* po/en_GB.po: Update British English translation.
+
+2006-06-15  Roger Leigh  <rleigh@debian.org>
+
+	* po/POTFILES.in: Update list of source files.  Remove all
+	headers.
+
 2006-06-15  Roger Leigh  <rleigh@debian.org>
 
 	* TODO: Remove completed items (translatable strings removed from
