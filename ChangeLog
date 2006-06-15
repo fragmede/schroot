@@ -1,4 +1,4 @@
-2006-06-15  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2006-06-15  Roger Leigh  <rleigh@debian.org>
 
 	* po/en_GB.po: Update British English translation.
 
@@ -23,7 +23,7 @@
 
 2006-06-15  Roger Leigh  <rleigh@debian.org>
 
-	* schroot/Makefile.am" Add sbuild-parse-error.(cc|h).
+	* schroot/Makefile.am: Add sbuild-parse-error.(cc|h).
 
 	* schroot/sbuild-keyfile.cc (keyfile, check_priority) Use
 	parse_error instead of runtime_error_custom for throwing on parse
