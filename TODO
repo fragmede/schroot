@@ -9,23 +9,19 @@ the Doxygen-generated documentation in doc/schroot/html/todo.html
 PENDING
 -------
 
-* Translation of strings in headers.
-
 PLANNED
 -------
-
-* Add a SbuildChrootXen chroot type for Xen hosts.
-
-  This will require setup scripts for e.g. hostname and network setup.
-  It will require DHCP or static IP configuration and a dynamic
-  hostname in order to connect.
 
 * Add API to run multiple commands to replace auth::run().
 
 POTENTIAL
 ---------
 
-* root group should not need to be in groups.
+* Add a SbuildChrootXen chroot type for Xen hosts.
+
+  This will require setup scripts for e.g. hostname and network setup.
+  It will require DHCP or static IP configuration and a dynamic
+  hostname in order to connect.
 
 * Add tests for
 

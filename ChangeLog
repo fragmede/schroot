@@ -1,5 +1,19 @@
 2006-06-15  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Remove completed items (translatable strings removed from
+	headers, and root no longer needs to be in groups or root groups).
+
+	* schroot/Makefile.am: Add sbuild-format-detail.cc.
+
+	* schroot/sbuild-format-detail.h: Remove ostream operator <<
+	format_detail<bool> specialisation.
+
+	* schroot/sbuild-format-detail.cc: New file.  Move ostream
+	operator << format_detail<bool> specialisation from the headers,
+	so translatable strings are not used in the header.
+
+2006-06-15  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/Makefile.am" Add sbuild-parse-error.(cc|h).
 
 	* schroot/sbuild-keyfile.cc (keyfile, check_priority) Use

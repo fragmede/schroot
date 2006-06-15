@@ -88,6 +88,7 @@ sbuild_public_cc_sources =		\
 	sbuild-chroot-source.cc		\
 	sbuild-chroot-config.cc		\
 	sbuild-environment.cc		\
+	sbuild-format-detail.cc		\
 	sbuild-keyfile.cc		\
 	sbuild-lock.cc			\
 	sbuild-log.cc			\
