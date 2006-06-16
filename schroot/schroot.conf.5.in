@@ -93,8 +93,6 @@ the default for the \fIrun-setup-scripts\fP key.  This option was called
 .B command\-prefix=\fIcommand,option1,option2,...\fP
 A comma-separated list of a command and the options for the command.  This
 command and its options will be prefixed to all commands run inside the chroot.
-For example, if set to \[lq]linux32\[rq], this will cause all commands run in
-the chroot to have a \fBlinux32\fP prefix added.
 .TP
 .B personality=\fIpersona\fP
 Set the personality (process execution domain) to use.  This option is useful

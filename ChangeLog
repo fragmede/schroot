@@ -1,3 +1,9 @@
+2006-06-16  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot.conf.5.in: Remove command-prefix example of
+	using linux32, now that the personality option is the recommended
+	method of changing personality.
+
 2006-06-15  Roger Leigh  <rleigh@debian.org>
 
 	* po/en_GB.po: Update British English translation.
