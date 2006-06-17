@@ -18,16 +18,21 @@ schroot (0.99.0-1) unstable; urgency=low
   * debian/rules:
     - Use dh_install
     - Install dchroot lintian override.
+    - Install init script into rcS, and don't restart on upgrade.  This
+      will ensure that running sessions are not disrupted on upgrade.
   * debian/dchroot.install: New file.
   * debian/schroot.install: New file.
   * debian/schroot.lintian-overrides: Remove dchroot lintian override.
   * debian/dchroot.lintian-overrides: Add dchroot lintian override.
   * debian/schroot.preinst: Move from debian/preinst.
-  * debian/schroot.postinst: Move from debian/postinst.
-  * debian/dchroot.postrm: New file.  Remove /etc/dchroot.conf on purge.
-  * debian/schroot.README.Debian:  Move from debian/README.Debian.  Remove
+  * debian/schroot.postinst:
+    - Move from debian/postinst.
+    - If upgrading from a version less than 0.99.0-1, remove the
+      rc.d symlinks, because rcS is used instead of the normal runlevels.
+  * debian/dchroot.postrm: New file. Remove /etc/dchroot.conf on purge.
+  * debian/schroot.README.Debian: Move from debian/README.Debian.  Remove
     outdated dchroot bits.
-  * debian/schroot.NEWS: New file.  Document the splitting out of dchroot.
+  * debian/schroot.NEWS: New file. Document the splitting out of dchroot.
 
  -- Roger Leigh <rleigh@debian.org>  Sat, 17 Jun 2006 09:40:39 +0100
 

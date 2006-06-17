@@ -76,7 +76,7 @@ binary-arch: build install
 	dh_installdocs
 	dh_installexamples
 	dh_installman
-	dh_installinit
+	dh_installinit --no-start --update-rcd-params='start 75 S .'
 	dh_link
 	dh_strip
 	dh_compress

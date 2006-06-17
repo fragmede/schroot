@@ -1,5 +1,13 @@
 2006-06-17  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Tidy up changes for release.
+
+	* debian/schroot.postinst: If upgrading from a version less than
+	0.99.0-1, remove the rc.d symlinks, because rcS is used instead of
+	the normal runlevels.
+
+2006-06-17  Roger Leigh  <rleigh@debian.org>
+
 	* debian/control: Add Luk Claes as a co-maintainer.
 
 2006-06-17  Roger Leigh  <rleigh@debian.org>
