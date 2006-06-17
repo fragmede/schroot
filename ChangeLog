@@ -1,5 +1,13 @@
 2006-06-17  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Bump version to 0.99.1.
+
+	* NEWS: Bump version to 0.99.1.
+
+	* configure.ac: Bump version to 0.99.1.
+
+2006-06-17  Roger Leigh  <rleigh@debian.org>
+
 	* Version 0.99.0.
 
 	* debian/changelog: Finalise for 0.99.0.
