@@ -1,3 +1,9 @@
+schroot (0.99.1-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+
+ --
+
 schroot (0.99.0-1) unstable; urgency=low
 
   * New upstream release.
