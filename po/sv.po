@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.2.8\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-06-15 19:34+0100\n"
+"POT-Creation-Date: 2006-06-17 00:21+0100\n"
 "PO-Revision-Date: 2006-05-08 22:48+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -16,14 +16,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: schroot/dchroot-chroot-config.cc:104
+#, boost-format
 msgid "line %1%: invalid line: %2%"
 msgstr "rad %1%: ogiltig rad: %2%"
 
 #: schroot/dchroot-session.cc:69
+#, boost-format
 msgid "(%1%->%2%): dchroot sessions do not support user switching"
 msgstr "(%1%->%2%): dchroot-sessioner har inte stöd för byte av användare"
 
 #: schroot/sbuild-auth.cc:115 schroot/sbuild-auth.cc:174
+#, boost-format
 msgid "%1%: user not found: %2%"
 msgstr "%1%: användaren hittades inte: %2%"
 
@@ -36,35 +39,43 @@ msgstr "PAM-fel: PAM är redan initierad"
 #: schroot/sbuild-auth.cc:607 schroot/sbuild-auth.cc:626
 #: schroot/sbuild-auth.cc:645 schroot/sbuild-auth.cc:664
 #: schroot/sbuild-session.cc:667
+#, boost-format
 msgid "PAM error: %1%"
 msgstr "PAM-fel: %1%"
 
 # Luring..
 #: schroot/sbuild-auth.cc:397
+#, boost-format
 msgid "PAM set RUSER error: %1%"
 msgstr "Fel när PAM ställde in RUSER: %1%"
 
 #: schroot/sbuild-auth.cc:408
+#, boost-format
 msgid "Failed to get hostname: %1%"
 msgstr "Misslyckades med att hämta värdnamn: %1%"
 
 #: schroot/sbuild-auth.cc:417
+#, boost-format
 msgid "PAM set RHOST error: %1%"
 msgstr "Fel när PAM ställde in RHOST: %1%"
 
 #: schroot/sbuild-auth.cc:432
+#, boost-format
 msgid "PAM set TTY error: %1%"
 msgstr "Fel när PAM ställde in TTY: %1%"
 
 #: schroot/sbuild-auth.cc:446
+#, boost-format
 msgid "PAM set USER error: %1%"
 msgstr "Fel när PAM ställde in USER: %1%"
 
 #: schroot/sbuild-auth.cc:458
+#, boost-format
 msgid "PAM authentication failed: %1%"
 msgstr "Autentisering via PAM misslyckades: %1%"
 
 #: schroot/sbuild-auth.cc:468
+#, boost-format
 msgid "You do not have permission to access the %1% service."
 msgstr "Du har inte behörighet att komma åt %1%-tjänsten."
 
@@ -89,25 +100,30 @@ msgid "Failed to get terminal settings"
 msgstr "Misslyckades med att få tag på terminalinställningar"
 
 #: schroot/sbuild-auth-conv-tty.cc:274
+#, boost-format
 msgid "Unsupported conversation type %1%"
 msgstr "Konversationstypen %1% stöds ej"
 
 #: schroot/sbuild-chroot-block-device.cc:130
 #: schroot/sbuild-chroot-lvm-snapshot.cc:142
+#, boost-format
 msgid "%1% chroot: failed to stat device %2%: %3%"
 msgstr "%1% chroot: misslyckades med att läsa status på enhet %2%: %3%"
 
 #: schroot/sbuild-chroot-block-device.cc:136
+#, boost-format
 msgid "%1% chroot: %2% is not a block device"
 msgstr "%1% chroot: %2% är inte en blockenhet"
 
 #: schroot/sbuild-chroot-block-device.cc:151
 #: schroot/sbuild-chroot-lvm-snapshot.cc:168
+#, boost-format
 msgid "%1%: failed to lock device: %2%"
 msgstr "%1%: misslyckades med att låsa enhet: %2%"
 
 #: schroot/sbuild-chroot-block-device.cc:164
 #: schroot/sbuild-chroot-lvm-snapshot.cc:181
+#, boost-format
 msgid "%1%: failed to unlock device: %2%"
 msgstr "%1%: misslyckades med att låsa upp enhet: %2%"
 
@@ -120,6 +136,7 @@ msgid "Mount Options"
 msgstr "Monteringsflaggor"
 
 #: schroot/sbuild-chroot.cc:79
+#, boost-format
 msgid "unknown chroot type \"%1%\""
 msgstr "okänd chroot-typ \"%1%\""
 
@@ -128,18 +145,22 @@ msgid "chroot creation failed"
 msgstr "skapandet av chroot misslyckades"
 
 #: schroot/sbuild-chroot.cc:287
+#, boost-format
 msgid "%1%: failed to create session file: %2%\n"
 msgstr "%1%: misslyckades med att skapa sessionsfil: %2%\n"
 
 #: schroot/sbuild-chroot.cc:309
+#, boost-format
 msgid "%1%: lock acquisition failure: %2%\n"
 msgstr "%1%: fel när lås skulle tas: %2%\n"
 
 #: schroot/sbuild-chroot.cc:324
+#, boost-format
 msgid "%1%: lock discard failure: %2%\n"
 msgstr "%1%: fel vid kassering av lås: %2%\n"
 
 #: schroot/sbuild-chroot.cc:333
+#, boost-format
 msgid "%1%: failed to unlink session file: %2%\n"
 msgstr "%1%: misslyckades med att avlänka sessionsfil: %2%\n"
 
@@ -218,39 +239,47 @@ msgid "Mount Device"
 msgstr "Montera enhet"
 
 #: schroot/sbuild-chroot.cc:529
-#, fuzzy
+#, fuzzy, boost-format
 msgid "%1% chroot: personality \"%2%\" is unknown.\n"
 msgstr "%1% chroot: En nödvändig parameter \"%2%\" saknas."
 
 #: schroot/sbuild-chroot.cc:532
+#, boost-format
 msgid "Valid personalities: %1%\n"
 msgstr ""
 
 #: schroot/sbuild-chroot-config.cc:99
+#, boost-format
 msgid "%1%: failed to open directory: %2%"
 msgstr "%1%: misslyckades med att öppna katalog: %2%"
 
 #: schroot/sbuild-chroot-config.cc:112 schroot/sbuild-chroot-file.cc:109
+#, boost-format
 msgid "%1%: failed to stat file: %2%"
 msgstr "%1%: misslyckades med att läsa status på fil: %2%"
 
 #: schroot/sbuild-chroot-config.cc:122
+#, boost-format
 msgid "%1%: not a regular file"
 msgstr "%1%: inte en vanlig fil"
 
 #: schroot/sbuild-chroot-config.cc:159
+#, boost-format
 msgid "%1% chroot: alias '%2%' already associated with '%3%' chroot"
 msgstr "%1% chroot: alias \"%2%\" är redan associerat med chroot \"%3%\""
 
 #: schroot/sbuild-chroot-config.cc:167
+#, boost-format
 msgid "%1% chroot: alias '%2%' already associated with another chroot"
 msgstr "%1% chroot: alias \"%2%\" är redan associerat med ett annat chroot"
 
 #: schroot/sbuild-chroot-config.cc:177
+#, boost-format
 msgid "%1% chroot: a chroot or alias already exists by this name"
 msgstr "%1% chroot: ett chroot eller alias existerar redan med det här namnet"
 
 #: schroot/sbuild-chroot-config.cc:180
+#, boost-format
 msgid "%1% chroot: duplicate names are not allowed"
 msgstr "%1% chroot: dubbletta namn tillåts inte"
 
@@ -260,10 +289,12 @@ msgstr "Tillgängliga chroot: "
 
 #: schroot/sbuild-chroot-config.cc:304 schroot/sbuild-chroot-config.cc:323
 #: schroot/sbuild-chroot-config.cc:346 schroot/schroot.cc:108
+#, boost-format
 msgid "%1%: No such chroot"
 msgstr "%1%: Inget sådant chroot"
 
 #: schroot/sbuild-chroot-config.cc:376
+#, boost-format
 msgid "failed to stat file: %1%"
 msgstr "misslyckades med att läsa status på fil: %1%"
 
@@ -280,18 +311,22 @@ msgid "not a regular file"
 msgstr "inte en vanlig fil"
 
 #: schroot/sbuild-chroot-config.cc:399
+#, boost-format
 msgid "%1%: failed to load configuration: %2%"
 msgstr "%1%: misslyckades med att läsa in konfiguration: %2%"
 
 #: schroot/sbuild-chroot-config.cc:411
+#, boost-format
 msgid "%1%: lock acquisition failure: %2%"
 msgstr "%1%: fel när lås skulle tas: %2%"
 
 #: schroot/sbuild-chroot-config.cc:422
+#, boost-format
 msgid "%1%: security failure: %2%"
 msgstr "%1%: säkerhetsfel: %2%"
 
 #: schroot/sbuild-chroot-config.cc:444
+#, boost-format
 msgid "%1%: lock discard failure: %2%"
 msgstr "%1%: fel vid kassering av lås: %2%"
 
@@ -304,10 +339,12 @@ msgid "File Repack"
 msgstr "Filompackning"
 
 #: schroot/sbuild-chroot-lvm-snapshot.cc:136
+#, boost-format
 msgid "%1% chroot: device name not set"
 msgstr "%1% chroot: enhetsnamn ej inställt"
 
 #: schroot/sbuild-chroot-lvm-snapshot.cc:148
+#, boost-format
 msgid "%1% chroot: %2% is not a block device\n"
 msgstr "%1% chroot: %2% är inte en blockenhet\n"
 
@@ -344,6 +381,7 @@ msgid "false"
 msgstr "falskt"
 
 #: schroot/sbuild-keyfile.cc:363
+#, boost-format
 msgid "%1% chroot: A deprecated parameter \"%2%\" has been specified."
 msgstr "%1% chroot: En gammal parameter \"%2%\" har angivits."
 
@@ -352,6 +390,7 @@ msgid "This option will be removed in the future."
 msgstr "Den här flaggan kommer att tas bort i framtiden."
 
 #: schroot/sbuild-keyfile.cc:371
+#, boost-format
 msgid "%1% chroot: An obsolete parameter \"%2%\" has been specified."
 msgstr "%1% chroot: En föråldrad parameter \"%2%\" har angivits."
 
@@ -360,22 +399,27 @@ msgid "This option has been removed, and no longer has any effect."
 msgstr "Den här flaggan har tagits bort och har inte längre någon effekt."
 
 #: schroot/sbuild-lock.cc:76
+#, boost-format
 msgid "failed to set timeout handler: %1%"
 msgstr "misslyckades med att ställa in tidsgränshandtag: %1%"
 
 #: schroot/sbuild-lock.cc:97
+#, boost-format
 msgid "failed to set timeout: %1%"
 msgstr "misslyckades med att ställa in tidsgräns: %1%"
 
 #: schroot/sbuild-lock.cc:113
+#, boost-format
 msgid "failed to unset timeout: %1%"
 msgstr "misslyckades med att ta bort tidsgräns: %1%"
 
 #: schroot/sbuild-lock.cc:164
+#, boost-format
 msgid "failed to acquire lock (timeout after %1% seconds)"
 msgstr "misslyckades med att skaffa ett lås (tidsgräns är %1% sekunder)"
 
 #: schroot/sbuild-lock.cc:170
+#, boost-format
 msgid "failed to acquire lock: %1%"
 msgstr "misslyckades med att skaffa ett lås: %1%"
 
@@ -392,6 +436,7 @@ msgid "failed to release device lock"
 msgstr "misslyckades med att släppa enhetslås"
 
 #: schroot/sbuild-lock.cc:260
+#, boost-format
 msgid ""
 "failed to acquire device lock held by pid %1% (timeout after %2% seconds)"
 msgstr ""
@@ -399,6 +444,7 @@ msgstr ""
 "%2% sekunder)"
 
 #: schroot/sbuild-lock.cc:262
+#, boost-format
 msgid ""
 "failed to release device lock held by pid %1% (timeout after %2% seconds)"
 msgstr ""
@@ -457,124 +503,152 @@ msgid "unknown error"
 msgstr ""
 
 #: schroot/sbuild-parse-error.cc:127
+#, boost-format
 msgid "%1% \"%2%\""
 msgstr ""
 
 #: schroot/sbuild-parse-error.cc:143
+#, boost-format
 msgid "line %1%: %3%"
 msgstr ""
 
 #: schroot/sbuild-parse-error.cc:144
+#, boost-format
 msgid "line %1%: %2% \"%3%\""
 msgstr ""
 
 #: schroot/sbuild-parse-error.cc:150
-#, fuzzy
+#, fuzzy, boost-format
 msgid "line %1%: %2%"
 msgstr "rad %1%: ogiltig rad: %2%"
 
 #: schroot/sbuild-parse-error.cc:165
+#, boost-format
 msgid "line %1% [%2%]: %4%"
 msgstr ""
 
 #: schroot/sbuild-parse-error.cc:166
+#, boost-format
 msgid "line %1% [%2%]: %3% \"%4%\""
 msgstr ""
 
 #: schroot/sbuild-parse-error.cc:172
+#, boost-format
 msgid "line %1% [%2%]: %3%"
 msgstr ""
 
 #: schroot/sbuild-parse-error.cc:188
+#, boost-format
 msgid "line %1% [%2%] %3%: %5%"
 msgstr ""
 
 #: schroot/sbuild-parse-error.cc:189
+#, boost-format
 msgid "line %1% [%2%] %3%: %4% \"%5%\""
 msgstr ""
 
 #: schroot/sbuild-parse-error.cc:195
+#, boost-format
 msgid "line %1% [%2%] %3%: %4%"
 msgstr ""
 
 #: schroot/sbuild-parse-error.cc:209
+#, boost-format
 msgid "[%1%]: %3%"
 msgstr ""
 
 #: schroot/sbuild-parse-error.cc:210
+#, boost-format
 msgid "[%1%]: %2% \"%3%\""
 msgstr ""
 
 #: schroot/sbuild-parse-error.cc:216
+#, boost-format
 msgid "[%1%]: %2%"
 msgstr ""
 
 #: schroot/sbuild-parse-error.cc:231
+#, boost-format
 msgid "[%1%] %2%: %4%"
 msgstr ""
 
 #: schroot/sbuild-parse-error.cc:232
+#, boost-format
 msgid "[%1%] %2%: %3% \"%4%\""
 msgstr ""
 
 #: schroot/sbuild-parse-error.cc:238
+#, boost-format
 msgid "[%1%] %2%: %3%"
 msgstr ""
 
 #: schroot/sbuild-personality.cc:149
-#, fuzzy
+#, fuzzy, boost-format
 msgid "Could not set personality to '%1%': %2%"
 msgstr "Kunde inte chroot till \"%1%\": %2%"
 
 #: schroot/sbuild-session.cc:61
+#, boost-format
 msgid "%1%: group not found"
 msgstr "%1%: grupp hittades inte"
 
 #: schroot/sbuild-session.cc:63
+#, boost-format
 msgid "%1%: group not found: %2%"
 msgstr "%1%: grupp hittades inte: %2%"
 
 #: schroot/sbuild-session.cc:79
+#, boost-format
 msgid "can't get supplementary group count: %1%"
 msgstr "kan inte hämta antalet tilläggsgrupper: %1%"
 
 #: schroot/sbuild-session.cc:89
+#, boost-format
 msgid "can't get supplementary groups: %1%"
 msgstr "kan inte hämta tilläggsgrupper: %1%"
 
 #: schroot/sbuild-session.cc:238
+#, boost-format
 msgid "No chroot found matching alias '%1%'"
 msgstr "Inget chroot hittades som matchar alias \"%1%\""
 
 #: schroot/sbuild-session.cc:326
+#, boost-format
 msgid "%1%: Failed to find chroot"
 msgstr "%1%: Misslyckades med att hitta chroot"
 
 #: schroot/sbuild-session.cc:502
+#, boost-format
 msgid "Chroot setup failed to lock chroot: %1%"
 msgstr "Inställning av chroot misslyckades med att låsa chroot: %1%"
 
 #: schroot/sbuild-session.cc:567
+#, boost-format
 msgid "Invalid verbosity level: %1%, falling back to \"normal\""
 msgstr "Ogiltig informationsnivå: %1%, faller tillbaka till \"normal\""
 
 #: schroot/sbuild-session.cc:587 schroot/sbuild-session.cc:956
+#, boost-format
 msgid "Failed to fork child: %1%"
 msgstr "Misslyckades med att grena process: %1%"
 
 #: schroot/sbuild-session.cc:605 schroot/sbuild-session.cc:866
+#, boost-format
 msgid "Could not exec \"%1%\": %2%"
 msgstr "Kunde inte starta \"%1%\": %2%"
 
 #: schroot/sbuild-session.cc:624
+#, boost-format
 msgid "Chroot setup failed to unlock chroot: %1%"
 msgstr "Inställning av chroot misslyckades med att låsa upp chroot: %1%"
 
 #: schroot/sbuild-session.cc:632
+#, boost-format
 msgid "Chroot setup failed during chroot \"%1%\" stage"
 msgstr "Inställning av chroot misslyckades under steget \"%1%\""
 
 #: schroot/sbuild-session.cc:675
+#, boost-format
 msgid "Could not set gid to '%1%'"
 msgstr "Kunde inte sätta gid till \"%1%\""
 
@@ -584,14 +658,17 @@ msgstr "Kunde inte sätta id för tilläggsgrupper"
 
 #: schroot/sbuild-session.cc:699 schroot/sbuild-session.cc:738
 #: schroot/sbuild-session.cc:753
+#, boost-format
 msgid "Could not chdir to '%1%': %2%"
 msgstr "Kunde inte byta katalog till \"%1%\": %2%"
 
 #: schroot/sbuild-session.cc:706
+#, boost-format
 msgid "Could not chroot to '%1%': %2%"
 msgstr "Kunde inte chroot till \"%1%\": %2%"
 
 #: schroot/sbuild-session.cc:715
+#, boost-format
 msgid "Could not set uid to '%1%'"
 msgstr "Kunde inte sätta uid till \"%1%\""
 
@@ -600,35 +677,42 @@ msgid "Failed to drop root permissions."
 msgstr "Misslyckades med att släppa root-rättigheter."
 
 #: schroot/sbuild-session.cc:743
+#, boost-format
 msgid "Falling back to '%1%'"
 msgstr ""
 
 #: schroot/sbuild-session.cc:747
-#, fuzzy
+#, fuzzy, boost-format
 msgid "Falling back to home directory '%1%'"
 msgstr "%1%: misslyckades med att öppna katalog: %2%"
 
 #: schroot/sbuild-session.cc:809
+#, boost-format
 msgid "[%1% chroot] Running login shell: \"%2%\""
 msgstr "[%1% chroot] Kör inloggningsskal: \"%2%\""
 
 #: schroot/sbuild-session.cc:810
+#, boost-format
 msgid "[%1% chroot] Running shell: \"%2%\""
 msgstr "[%1% chroot] Kör skal: \"%2%\""
 
 #: schroot/sbuild-session.cc:817
+#, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Kör inloggningsskal: \"%4%\""
 
 #: schroot/sbuild-session.cc:818
+#, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Kör skal: \"%4%\""
 
 #: schroot/sbuild-session.cc:839
+#, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%1% chroot] Kör kommando: \"%2%\""
 
 #: schroot/sbuild-session.cc:843
+#, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Kör kommando: \"%4%\""
 
@@ -637,10 +721,12 @@ msgid "caught hangup signal, terminating..."
 msgstr "fångade påläggningssignal, terminerar..."
 
 #: schroot/sbuild-session.cc:901
+#, boost-format
 msgid "wait for child failed: %1%"
 msgstr "väntan på barnprocess misslyckades: %1%"
 
 #: schroot/sbuild-session.cc:928
+#, boost-format
 msgid "Child terminated by signal %1%"
 msgstr "Barnprocess terminerades av signal \"%1%\""
 
@@ -656,14 +742,17 @@ msgstr ""
 "minnesdump)"
 
 #: schroot/sbuild-session.cc:942
+#, boost-format
 msgid "Child exited abnormally with status '%1%'"
 msgstr "Barnprocess avslutades onormalt med status \"%1%\""
 
 #: schroot/sbuild-session.cc:1003
+#, boost-format
 msgid "failed to set hangup handler: %1%"
 msgstr "misslyckades med att ställa in påläggningshanterare: %1%"
 
 #: schroot/schroot.cc:60
+#, boost-format
 msgid "%1% (Debian sbuild) %2%\n"
 msgstr "%1% (Debian sbuild) %2%\n"
 
@@ -708,6 +797,7 @@ msgid "Using dchroot configuration file: "
 msgstr "Använder dchroots konfigurationsfil: "
 
 #: schroot/schroot.cc:201
+#, boost-format
 msgid "Run '%1%'"
 msgstr "Kör \"%1%\""
 
@@ -716,27 +806,32 @@ msgid "to migrate to a schroot configuration."
 msgstr "för att migrera till en schroot-konfiguration."
 
 #: schroot/schroot.cc:208
+#, boost-format
 msgid "Edit '%1%' to add appropriate group access."
 msgstr "Redigera \"%1%\" för att lägga till lämplig gruppåtkomst."
 
 #: schroot/schroot.cc:212 schroot/schroot.cc:314
+#, boost-format
 msgid "Remove '%1%' to use the new configuration."
 msgstr "Ta bort \"%1%\" för att använda den nya konfigurationen."
 
 #: schroot/schroot.cc:246
+#, boost-format
 msgid "No chroots are defined in %1% or %2%"
 msgstr "Inga chroot angivna i %1% eller %2%"
 
 #: schroot/schroot.cc:253
+#, boost-format
 msgid "No chroots are defined in %1%"
 msgstr "Inga chroot angivna i %1%"
 
 #: schroot/schroot.cc:273
+#, boost-format
 msgid "The specified chroots are not defined in %1%"
 msgstr "De angivna chroot finns inte angivna i %1%"
 
 #: schroot/schroot.cc:302
-#, fuzzy
+#, fuzzy, boost-format
 msgid "schroot configuration generated by %1% %2%"
 msgstr "Använder dchroots konfigurationsfil: "
 
@@ -755,6 +850,7 @@ msgid "Only one chroot may be specified when beginning a session"
 msgstr "Endast en chroot får anges vid början av en session"
 
 #: schroot/schroot.cc:388
+#, boost-format
 msgid "Session failure: %1%"
 msgstr "Sessionsfel: %1%"
 
@@ -763,17 +859,17 @@ msgid "Error restoring terminal settings"
 msgstr "Fel vid återställandet av terminalinställningar"
 
 #: schroot/schroot-listmounts.cc:57
-#, fuzzy
+#, fuzzy, boost-format
 msgid "schroot-listmounts (Debian sbuild) %1%\n"
 msgstr "schroot-releaselock (Debian sbuild) %1%\n"
 
 #: schroot/schroot-listmounts.cc:82
-#, fuzzy
+#, fuzzy, boost-format
 msgid "%1%: Failed to open: %2%"
 msgstr "%1%: misslyckades med att öppna katalog: %2%"
 
 #: schroot/schroot-listmounts.cc:105
-#, fuzzy
+#, fuzzy, boost-format
 msgid "%1%: Failed to close: %2%"
 msgstr "%1%: misslyckades med att låsa enhet: %2%"
 
@@ -949,6 +1045,7 @@ msgid "Only one action may be specified"
 msgstr "Endast en åtgärd får anges"
 
 #: schroot/schroot-releaselock.cc:54
+#, boost-format
 msgid "schroot-releaselock (Debian sbuild) %1%\n"
 msgstr "schroot-releaselock (Debian sbuild) %1%\n"
 
@@ -961,18 +1058,22 @@ msgid "No pid specified; forcing release of lock"
 msgstr "Ingen pid angiven; tvingar släpp av lås"
 
 #: schroot/schroot-releaselock.cc:117
+#, boost-format
 msgid "Failed to stat device %1%: %2%"
 msgstr "Misslyckades med att läsa status på enhet %1%: %2%"
 
 #: schroot/schroot-releaselock.cc:125
+#, boost-format
 msgid "%1% is not a block device"
 msgstr "%1% är inte en blockenhet"
 
 #: schroot/schroot-releaselock.cc:133
+#, boost-format
 msgid "%1%: failed to release device lock"
 msgstr "%1%: misslyckades med att släppa enhetslås"
 
 #: schroot/schroot-releaselock.cc:140
+#, boost-format
 msgid "%1%: failed to release device lock owned by pid %2%"
 msgstr "%1%: misslyckades med att släppa enhetslås som ägs av pid %2%"
 
