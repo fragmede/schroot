@@ -1,5 +1,13 @@
 2006-06-17  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.99.0.
+
+	* debian/changelog: Finalise for 0.99.0.
+
+	* NEWS: Document init script changes.
+
+2006-06-17  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Tidy up changes for release.
 
 	* debian/schroot.postinst: If upgrading from a version less than
@@ -67,7 +75,7 @@
 	* schroot/sbuild-parse-error.(cc|h): New files, providing an
 	exception class for reporting parse errors.
 
-2006-06-14  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2006-06-14  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-personality.cc
 	(personality): On Linux, default to initialising with the current
@@ -179,7 +187,7 @@
 	personality enumarations, to allow user specification of
 	personalities.
 
-2006-06-12  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2006-06-12  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Bump version to 0.99.0.
 

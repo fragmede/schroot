@@ -23,6 +23,10 @@ configuration.
      still required, but by default is skipped due to using
      pam_rootok.so in the PAM configuration.
 
+  4) Session recovery is only performed at system startup, not on
+     upgrades.  This prevents upgrades interfering with active
+     sessions.
+
 * Major changes in 0.2.11:
 
   1) The 10mount script, used to unmount filesystem in a chroot, will
