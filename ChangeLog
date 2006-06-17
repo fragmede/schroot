@@ -1,3 +1,11 @@
+2006-06-17  Roger Leigh  <rleigh@debian.org>
+
+	* debian/schroot.README.Debian: Move from debian/README.Debian.
+	Remove outdated dchroot bits.
+
+	* debian/schroot.NEWS: New file.  Document the splitting out of
+	dchroot.
+
 2006-06-16  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot.conf.5.in: Remove command-prefix example of

@@ -1,0 +1,8 @@
+schroot (0.99.0-1) unstable; urgency=low
+
+  * The dchroot program has been moved into a separate dchroot package.
+    If you wish to continue using dchroot, please install the dchroot
+    package.
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 17 Jun 2006 09:34:12 +0100
+
