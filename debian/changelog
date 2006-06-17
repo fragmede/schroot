@@ -14,6 +14,7 @@ schroot (0.99.0-1) unstable; urgency=low
     - dchroot depends upon schroot to use the schroot configuration,
       scripts and helper binaries.
     - dchroot and schroot Suggest debootstrap.
+    - add Luk Claes as a co-maintainer.
   * debian/rules:
     - Use dh_install
     - Install dchroot lintian override.

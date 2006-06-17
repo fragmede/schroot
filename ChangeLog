@@ -1,5 +1,9 @@
 2006-06-17  Roger Leigh  <rleigh@debian.org>
 
+	* debian/control: Add Luk Claes as a co-maintainer.
+
+2006-06-17  Roger Leigh  <rleigh@debian.org>
+
 	* debian/schroot.README.Debian: Move from debian/README.Debian.
 	Remove outdated dchroot bits.
 
