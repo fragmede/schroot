@@ -1,5 +1,32 @@
 2006-06-19  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/dchroot-session.cc (run_impl): Throw a session_error in
+	place of a runtime_error_custom.
+
+	* schroot/sbuild-session.cc: Throw a session_error in place of a
+	runtime_error_custom.  Correct capitalisation of error messages.
+	Don't throw an exception when a child exits with a nonzero exit
+	status.
+
+	* schroot/sbuild-session.h: Use session_error as the error type.
+
+	* schroot/sbuild-auth.cc: Throw an auth_error in place of a
+	runtime_error_custom.
+	(pam_strerror): New private method to get a PAM error message.
+
+	* schroot/sbuild-auth.h: Use auth_error as the error type.
+
+	* schroot/Makefile.am: Add sbuild-auth-error.(cc|h) and
+	sbuild-session-error.(cc|h).
+
+	* schroot/sbuild-session-error.(cc|h): New files, providing an
+	exception class for reporting session errors.
+
+	* schroot/sbuild-auth-error.(cc|h): New files, providing an
+	exception class for reporting authentication errors.
+
+2006-06-19  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/setup/00check: Make sanity check errors more
 	descriptive.  Fix check for using / as a chroot location.
 

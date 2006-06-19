@@ -58,9 +58,9 @@ namespace
     if (groupbuf == NULL)
       {
 	if (errno == 0)
-	  log_error() << format(_("%1%: group not found")) % group << endl;
+	  log_error() << format(_("%1%: Group not found")) % group << endl;
 	else
-	  log_error() << format(_("%1%: group not found: %2%"))
+	  log_error() << format(_("%1%: Group not found: %2%"))
 	    % group % strerror(errno)
 		      << endl;
 	exit (EXIT_FAILURE);
@@ -76,7 +76,7 @@ namespace
 	int supp_group_count = getgroups(0, NULL);
 	if (supp_group_count < 0)
 	  {
-	    log_error() << format(_("can't get supplementary group count: %1%"))
+	    log_error() << format(_("Can't get supplementary group count: %1%"))
 	      % strerror(errno)
 			<< endl;
 	    exit (EXIT_FAILURE);
@@ -86,7 +86,7 @@ namespace
 	    gid_t *supp_groups = new gid_t[supp_group_count];
 	    if (getgroups(supp_group_count, supp_groups) < 1)
 	      {
-		log_error() << format(_("can't get supplementary groups: %1%"))
+		log_error() << format(_("Can't get supplementary groups: %1%"))
 		  % strerror(errno)
 			    << endl;
 		exit (EXIT_FAILURE);
@@ -323,9 +323,7 @@ try
 	const chroot::ptr ch = this->config->find_alias(*cur);
 	if (!ch) // Should never happen, but cater for it anyway.
 	  {
-	    format fmt(_("%1%: Failed to find chroot"));
-	    fmt % *cur;
-	    throw error(fmt);
+	    throw error(*cur, error::CHROOT_UNKNOWN);
 	  }
 
 	chroot::ptr chroot(ch->clone());
@@ -499,9 +497,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
       catch (chroot::error const& ignore)
 	{
 	}
-      format fmt(_("Chroot setup failed to lock chroot: %1%"));
-      fmt % e.what();
-      throw error(fmt);
+      throw error(session_chroot->get_name(), error::CHROOT_LOCK, e.what());
     }
 
   std::string setup_type_string;
@@ -584,9 +580,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   if ((pid = fork()) == -1)
     {
       this->chroot_status = false;
-      format fmt(_("Failed to fork child: %1%"));
-      fmt % strerror(errno);
-      throw error(fmt);
+      throw error(session_chroot->get_name(), error::CHILD_FORK, errno);
     }
   else if (pid == 0)
     {
@@ -621,17 +615,14 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   catch (chroot::error const& e)
     {
       this->chroot_status = false;
-      format fmt(_("Chroot setup failed to unlock chroot: %1%"));
-      fmt % e.what();
-      throw error(fmt);
+      throw error(session_chroot->get_name(), error::CHROOT_UNLOCK, e.what());
     }
 
   if (exit_status != 0)
     {
       this->chroot_status = false;
-      format fmt(_("Chroot setup failed during chroot \"%1%\" stage"));
-      fmt % setup_type_string;
-      throw error(fmt);
+      throw error(session_chroot->get_name(), error::CHROOT_SETUP,
+		  std::string("stage=") + setup_type_string);
     }
 }
 
@@ -885,7 +876,7 @@ session::wait_for_child (int  pid,
     {
       if (sighup_called && !child_killed)
 	{
-	  log_error() << _("caught hangup signal, terminating...")
+	  log_error() << _("Caught hangup signal, terminating...")
 		      << endl;
 	  kill(pid, SIGHUP);
 	  this->chroot_status = false;
@@ -898,15 +889,13 @@ session::wait_for_child (int  pid,
 	    continue; // Kill child and wait again.
 	  else
 	    {
-	      format fmt(_("wait for child failed: %1%"));
-	      fmt % strerror(errno);
-	      throw error(fmt);
+	      throw error(error::CHILD_WAIT, errno);
 	    }
 	}
       else if (sighup_called)
 	{
 	  sighup_called = false;
-	  throw error(_("caught hangup signal, terminating..."));
+	  throw error(error::SIGHUP_CATCH);
 	}
       else
 	break;
@@ -918,31 +907,22 @@ session::wait_for_child (int  pid,
     }
   catch (auth::error const& e)
     {
-      throw error(e.what());
+      throw error(error::NONE, e.what());
     }
 
   if (!WIFEXITED(status))
     {
       if (WIFSIGNALED(status))
 	{
-	  format fmt(_("Child terminated by signal %1%"));
-	  fmt % strsignal(WTERMSIG(status));
-	  throw error(fmt);
+	  throw error(error::CHILD_SIGNAL, strsignal(WTERMSIG(status)));
 	}
       else if (WCOREDUMP(status))
-	throw error(_("Child dumped core"));
+	throw error(error::CHILD_CORE);
       else
-	throw error(_("Child exited abnormally (reason unknown; not a signal or core dump)"));
+	throw error(error::CHILD_FAIL);
     }
 
   child_status = WEXITSTATUS(status);
-
-  if (child_status)
-    {
-      format fmt(_("Child exited abnormally with status '%1%'"));
-      fmt % child_status;
-      throw error(fmt);
-    }
 }
 
 void
@@ -953,9 +933,7 @@ session::run_chroot (sbuild::chroot::ptr& session_chroot)
   pid_t pid;
   if ((pid = fork()) == -1)
     {
-      format fmt(_("Failed to fork child: %1%"));
-      fmt % strerror(errno);
-      throw error(fmt);
+      throw error(error::CHILD_FORK, errno);
     }
   else if (pid == 0)
     {
@@ -1000,9 +978,7 @@ session::set_sighup_handler ()
 
   if (sigaction(SIGHUP, &new_sa, &this->saved_signals) != 0)
     {
-      format fmt(_("failed to set hangup handler: %1%"));
-      fmt % strerror(errno);
-      throw error(fmt);
+      throw error(error::SIGHUP_SET, errno);
     }
 }
 

@@ -43,6 +43,7 @@ namespace std { namespace tr1 { using boost::shared_ptr; } }
 #include <security/pam_appl.h>
 
 #include "sbuild-auth-conv.h"
+#include "sbuild-auth-error.h"
 #include "sbuild-environment.h"
 #include "sbuild-error.h"
 #include "sbuild-types.h"
@@ -102,7 +103,7 @@ namespace sbuild
       };
 
     /// Exception type.
-    typedef runtime_error_custom<auth> error;
+    typedef auth_error error;
 
     /// A shared_ptr to an auth_conv object.
     typedef std::tr1::shared_ptr<auth_conv> conv_ptr;
@@ -420,6 +421,15 @@ protected:
   protected:
     /// The PAM handle.
     pam_handle_t      *pam;
+
+    /**
+     * Get a description of a PAM error.
+     *
+     * @param pam_error the PAM error number.
+     * @returns the description.
+     */
+    const char *
+    pam_strerror (int pam_error);
 
   private:
     /// The PAM service name.

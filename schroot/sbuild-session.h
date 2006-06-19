@@ -30,7 +30,7 @@
 
 #include "sbuild-auth.h"
 #include "sbuild-chroot-config.h"
-#include "sbuild-error.h"
+#include "sbuild-session-error.h"
 
 namespace sbuild
 {
@@ -60,7 +60,7 @@ namespace sbuild
       };
 
     /// Exception type.
-    typedef runtime_error_custom<session> error;
+    typedef session_error error;
 
     /// A shared_ptr to a chroot_config object.
     typedef std::tr1::shared_ptr<chroot_config> config_ptr;
