@@ -89,7 +89,9 @@ if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYP
 
 	if [ "$CHROOT_TYPE" != "file" ]; then
 	    if echo "$CHROOT_MOUNT_LOCATION" | grep -q "^$MOUNT_DIR/"; then
-		rmdir "$CHROOT_MOUNT_LOCATION"
+		if [ -d "$CHROOT_MOUNT_LOCATION" ]; then
+		    rmdir "$CHROOT_MOUNT_LOCATION"
+		fi
 	    fi
 	fi
 
