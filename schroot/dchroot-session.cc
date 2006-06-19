@@ -68,7 +68,7 @@ session::run_impl ()
     {
       format fmt(_("(%1%->%2%): dchroot sessions do not support user switching"));
       fmt % get_ruser().c_str() % get_user().c_str();
-      throw error(fmt.str(), error::USER_SWITCH, _("dchroot session restriction"));
+      throw error(fmt.str(), USER_SWITCH, _("dchroot session restriction"));
     }
 
   sbuild::session::run_impl();

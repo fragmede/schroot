@@ -30,7 +30,7 @@
 
 #include "sbuild-auth.h"
 #include "sbuild-chroot-config.h"
-#include "sbuild-session-error.h"
+#include "sbuild-custom-error.h"
 
 namespace sbuild
 {
@@ -59,8 +59,25 @@ namespace sbuild
 	OPERATION_RUN        ///< Run a command in an existing session.
       };
 
+  enum error_code
+    {
+      NONE,           ///< No error occured.  Used for detail only.
+      CHROOT_UNKNOWN, ///< Failed to find chroot.
+      CHROOT_LOCK,    ///< Failed to lock chroot.
+      CHROOT_UNLOCK,  ///< Failed to unlock chroot.
+      CHROOT_SETUP,   ///< Setup failed.
+      SIGHUP_SET,     ///< Failed to set SIGHUP handler.
+      SIGHUP_CATCH,   ///< Hangup signal caught.
+      CHILD_FORK,     ///< Failed to fork child.
+      CHILD_WAIT,     ///< Wait for child failed.
+      CHILD_SIGNAL,   ///< Child terminated by signal.
+      CHILD_CORE,     ///< Child dumped core.
+      CHILD_FAIL,     ///< Child exited abnormally (reason unknown)
+      USER_SWITCH     ///< User switching is not permitted.
+    };
+
     /// Exception type.
-    typedef session_error error;
+    typedef custom_error<error_code> error;
 
     /// A shared_ptr to a chroot_config object.
     typedef std::tr1::shared_ptr<chroot_config> config_ptr;

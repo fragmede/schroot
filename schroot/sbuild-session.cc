@@ -44,6 +44,39 @@ using namespace sbuild;
 namespace
 {
 
+  typedef std::pair<sbuild::session::error_code,const char *> emap;
+
+  /**
+   * This is a list of the supported error codes.  It's used to
+   * construct the real error codes map.
+   */
+  emap init_errors[] =
+    {
+      emap(session::CHROOT_UNKNOWN, N_("Failed to find chroot")),
+      emap(session::CHROOT_LOCK,    N_("Failed to lock chroot")),
+      emap(session::CHROOT_UNLOCK,  N_("Failed to unlock chroot")),
+      emap(session::CHROOT_SETUP,   N_("Chroot setup failed")),
+      emap(session::SIGHUP_SET,     N_("Failed to set hangup signal handler")),
+      emap(session::SIGHUP_CATCH,   N_("Caught hangup signal")),
+      emap(session::CHILD_FORK,     N_("Failed to fork child")),
+      emap(session::CHILD_WAIT,     N_("Wait for child failed")),
+      emap(session::CHILD_SIGNAL,   N_("Child terminated by signal")),
+      emap(session::CHILD_CORE,     N_("Child dumped core")),
+      emap(session::CHILD_FAIL,     N_("Child exited abnormally (reason unknown; not a signal or core dump)")),
+      emap(session::USER_SWITCH,    N_("User switching is not permitted"))
+    };
+
+}
+
+template<>
+std::map<session::error_code,const char *>
+custom_error<session::error_code>::error_strings
+(init_errors,
+ init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+
+namespace
+{
+
   /**
    * Check group membership.
    *
@@ -323,7 +356,7 @@ try
 	const chroot::ptr ch = this->config->find_alias(*cur);
 	if (!ch) // Should never happen, but cater for it anyway.
 	  {
-	    throw error(*cur, error::CHROOT_UNKNOWN);
+	    throw error(*cur, CHROOT_UNKNOWN);
 	  }
 
 	chroot::ptr chroot(ch->clone());
@@ -497,7 +530,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
       catch (chroot::error const& ignore)
 	{
 	}
-      throw error(session_chroot->get_name(), error::CHROOT_LOCK, e.what());
+      throw error(session_chroot->get_name(), CHROOT_LOCK, e.what());
     }
 
   std::string setup_type_string;
@@ -580,7 +613,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   if ((pid = fork()) == -1)
     {
       this->chroot_status = false;
-      throw error(session_chroot->get_name(), error::CHILD_FORK, errno);
+      throw error(session_chroot->get_name(), CHILD_FORK, errno);
     }
   else if (pid == 0)
     {
@@ -615,14 +648,16 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   catch (chroot::error const& e)
     {
       this->chroot_status = false;
-      throw error(session_chroot->get_name(), error::CHROOT_UNLOCK, e.what());
+      throw error(session_chroot->get_name(), CHROOT_UNLOCK, e.what());
     }
 
   if (exit_status != 0)
     {
       this->chroot_status = false;
-      throw error(session_chroot->get_name(), error::CHROOT_SETUP,
-		  std::string("stage=") + setup_type_string);
+
+      format fmt(_("stage=%1%"));
+      fmt % setup_type_string;
+      throw error(session_chroot->get_name(), CHROOT_SETUP, fmt.str());
     }
 }
 
@@ -889,13 +924,13 @@ session::wait_for_child (int  pid,
 	    continue; // Kill child and wait again.
 	  else
 	    {
-	      throw error(error::CHILD_WAIT, errno);
+	      throw error(CHILD_WAIT, errno);
 	    }
 	}
       else if (sighup_called)
 	{
 	  sighup_called = false;
-	  throw error(error::SIGHUP_CATCH);
+	  throw error(SIGHUP_CATCH);
 	}
       else
 	break;
@@ -907,19 +942,20 @@ session::wait_for_child (int  pid,
     }
   catch (auth::error const& e)
     {
-      throw error(error::NONE, e.what());
+      // TODO: rethrow or don't catch.
+      throw error(e.what());
     }
 
   if (!WIFEXITED(status))
     {
       if (WIFSIGNALED(status))
 	{
-	  throw error(error::CHILD_SIGNAL, strsignal(WTERMSIG(status)));
+	  throw error(CHILD_SIGNAL, strsignal(WTERMSIG(status)));
 	}
       else if (WCOREDUMP(status))
-	throw error(error::CHILD_CORE);
+	throw error(CHILD_CORE);
       else
-	throw error(error::CHILD_FAIL);
+	throw error(CHILD_FAIL);
     }
 
   child_status = WEXITSTATUS(status);
@@ -933,7 +969,7 @@ session::run_chroot (sbuild::chroot::ptr& session_chroot)
   pid_t pid;
   if ((pid = fork()) == -1)
     {
-      throw error(error::CHILD_FORK, errno);
+      throw error(CHILD_FORK, errno);
     }
   else if (pid == 0)
     {
@@ -978,7 +1014,7 @@ session::set_sighup_handler ()
 
   if (sigaction(SIGHUP, &new_sa, &this->saved_signals) != 0)
     {
-      throw error(error::SIGHUP_SET, errno);
+      throw error(SIGHUP_SET, errno);
     }
 }
 

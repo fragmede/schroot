@@ -52,7 +52,6 @@ sbuild_public_h_sources =		\
 	sbuild-auth.h			\
 	sbuild-auth-conv.h		\
 	sbuild-auth-conv-tty.h		\
-	sbuild-auth-error.h		\
 	sbuild-auth-message.h   	\
 	sbuild-chroot.h			\
 	sbuild-chroot-block-device.h	\
@@ -61,6 +60,8 @@ sbuild_public_h_sources =		\
 	sbuild-chroot-plain.h		\
 	sbuild-chroot-source.h		\
 	sbuild-chroot-config.h		\
+	sbuild-custom-error.h		\
+	sbuild-custom-error.tcc		\
 	sbuild-environment.h		\
 	sbuild-error.h			\
 	sbuild-format-detail.h		\
@@ -73,7 +74,6 @@ sbuild_public_h_sources =		\
 	sbuild-parse-value.h		\
 	sbuild-personality.h		\
 	sbuild-session.h		\
-	sbuild-session-error.h		\
 	sbuild-types.h			\
 	sbuild-util.h
 
@@ -81,7 +81,6 @@ sbuild_public_cc_sources =		\
 	sbuild-auth.cc			\
 	sbuild-auth-conv.cc		\
 	sbuild-auth-conv-tty.cc		\
-	sbuild-auth-error.cc		\
 	sbuild-auth-message.cc		\
 	sbuild-chroot.cc		\
 	sbuild-chroot-block-device.cc	\
@@ -100,7 +99,6 @@ sbuild_public_cc_sources =		\
 	sbuild-parse-value.cc		\
 	sbuild-personality.cc		\
 	sbuild-session.cc		\
-	sbuild-session-error.cc		\
 	sbuild-util.cc
 
 libsbuild_la_SOURCES =			\

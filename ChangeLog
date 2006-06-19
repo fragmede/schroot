@@ -1,5 +1,19 @@
 2006-06-19  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-auth.(cc|h), schroot/sbuild-session.(cc|h),
+	schroot/dchroot-session.cc (run_impl): Use new templated exception
+	type.
+
+	* schroot/sbuild-session-error.(cc|h): Remove.
+
+	* schroot/sbuild-auth-error.(cc|h): Remove.
+
+	* schroot/sbuild-custom-error.(cc|h): New files, providing an
+	exception class templated on an error code enum.  It replaces the
+	auth_error and session_error exception classes.
+
+2006-06-19  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/dchroot-session.cc (run_impl): Throw a session_error in
 	place of a runtime_error_custom.
 

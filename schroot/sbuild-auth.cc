@@ -41,6 +41,33 @@ using namespace sbuild;
 namespace
 {
 
+  typedef std::pair<sbuild::auth::error_code,const char *> emap;
+
+  /**
+   * This is a list of the supported error codes.  It's used to
+   * construct the real error codes map.
+   */
+  emap init_errors[] =
+    {
+      emap(auth::HOSTNAME,        N_("Failed to get hostname")),
+      emap(auth::USER,            N_("User not found")),
+      emap(auth::AUTHENTICATION,  N_("Access not authorised")),
+      emap(auth::AUTHORISATION,   N_("Authentication failed")),
+      emap(auth::PAM_DOUBLE_INIT, N_("PAM is already initialised")),
+      emap(auth::PAM,             N_("PAM error"))
+    };
+
+}
+
+template<>
+custom_error<auth::error_code>::map_type
+custom_error<auth::error_code>::error_strings
+(init_errors,
+ init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+
+namespace
+{
+
   /* This is the glue to link PAM user interaction with auth_conv. */
   int
   auth_conv_hook (int                        num_msg,
@@ -116,7 +143,7 @@ auth::auth (std::string const& service_name):
       // TODO: Convert to using a lexical cast.
       std::ostringstream str;
       str << this->ruid;
-      throw error(str.str(), error::USER, errno);
+      throw error(str.str(), USER, errno);
     }
   this->ruser = pwent->pw_name;
 
@@ -173,7 +200,7 @@ auth::set_user (std::string const& user)
   struct passwd *pwent = getpwnam(this->user.c_str());
   if (pwent == 0)
     {
-      throw error(user, error::USER, errno);
+      throw error(user, USER, errno);
     }
   this->uid = pwent->pw_uid;
   this->gid = pwent->pw_gid;
@@ -337,7 +364,7 @@ auth::start ()
     {
       log_debug(DEBUG_CRITICAL)
 	<< "pam_start FAIL (already initialised)" << endl;
-      throw error("Init PAM", error::PAM_DOUBLE_INIT);
+      throw error("Init PAM", PAM_DOUBLE_INIT);
     }
 
   struct pam_conv conv_hook =
@@ -353,7 +380,7 @@ auth::start ()
 		 &conv_hook, &this->pam)) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_start FAIL" << endl;
-      throw error(error::PAM, pam_strerror(pam_status));
+      throw error(PAM, pam_strerror(pam_status));
     }
 
   log_debug(DEBUG_NOTICE) << "pam_start OK" << endl;
@@ -370,7 +397,7 @@ auth::stop ()
 	 pam_end(this->pam, PAM_SUCCESS)) != PAM_SUCCESS)
       {
 	log_debug(DEBUG_WARNING) << "pam_end FAIL" << endl;
-	throw error(error::PAM, pam_strerror(pam_status));
+	throw error(PAM, pam_strerror(pam_status));
       }
 
     this->pam = 0;
@@ -390,7 +417,7 @@ auth::authenticate ()
        pam_set_item(this->pam, PAM_RUSER, this->ruser.c_str())) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_set_item (PAM_RUSER) FAIL" << endl;
-      throw error(_("Set RUSER"), error::PAM, pam_strerror(pam_status));
+      throw error(_("Set RUSER"), PAM, pam_strerror(pam_status));
     }
 
   long hl = 256; /* sysconf(_SC_HOST_NAME_MAX); BROKEN with Debian libc6 2.3.2.ds1-22 */
@@ -399,14 +426,14 @@ auth::authenticate ()
   if (gethostname(hostname, hl) != 0)
     {
       log_debug(DEBUG_CRITICAL) << "gethostname FAIL" << endl;
-      throw error(error::HOSTNAME, errno);
+      throw error(HOSTNAME, errno);
     }
 
   if ((pam_status =
        pam_set_item(this->pam, PAM_RHOST, hostname)) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_set_item (PAM_RHOST) FAIL" << endl;
-      throw error(_("Set RHOST"), error::PAM, pam_strerror(pam_status));
+      throw error(_("Set RHOST"), PAM, pam_strerror(pam_status));
     }
 
   delete[] hostname;
@@ -419,7 +446,7 @@ auth::authenticate ()
 	   pam_set_item(this->pam, PAM_TTY, tty)) != PAM_SUCCESS)
 	{
 	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_TTY) FAIL" << endl;
-	  throw error(_("Set TTY"), error::PAM, pam_strerror(pam_status));
+	  throw error(_("Set TTY"), PAM, pam_strerror(pam_status));
 	}
     }
 
@@ -431,7 +458,7 @@ auth::authenticate ()
 	  != PAM_SUCCESS)
 	{
 	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_USER) FAIL" << endl;
-	  throw error(_("Set USER"), error::PAM, pam_strerror(pam_status));
+	  throw error(_("Set USER"), PAM, pam_strerror(pam_status));
 	}
       break;
 
@@ -441,7 +468,7 @@ auth::authenticate ()
 	  log_debug(DEBUG_INFO) << "pam_authenticate FAIL" << endl;
 	  syslog(LOG_AUTH|LOG_WARNING, "%s->%s Authentication failure",
 		 this->ruser.c_str(), this->user.c_str());
-	  throw error(error::AUTHENTICATION, pam_strerror(pam_status));
+	  throw error(AUTHENTICATION, pam_strerror(pam_status));
 	}
       log_debug(DEBUG_NOTICE) << "pam_authenticate OK" << endl;
       break;
@@ -457,7 +484,7 @@ auth::authenticate ()
 	  syslog(LOG_AUTH|LOG_WARNING,
 		 "%s->%s Unauthorised",
 		 this->ruser.c_str(), this->user.c_str());
-	  throw error(error::AUTHORISATION);
+	  throw error(AUTHORISATION);
 	}
     default:
       break;
@@ -544,7 +571,7 @@ auth::setupenv ()
 	   pam_putenv(this->pam, env_string.c_str())) != PAM_SUCCESS)
 	{
 	  log_debug(DEBUG_WARNING) << "pam_putenv FAIL" << endl;
-	  throw error(error::PAM, pam_strerror(pam_status));
+	  throw error(PAM, pam_strerror(pam_status));
 	}
       log_debug(DEBUG_INFO)
 	<< format("pam_putenv: set %1%=%2%") % cur->first % cur->second
@@ -567,7 +594,7 @@ auth::account ()
       /* We don't handle changing expired passwords here, since we are
 	 not login or ssh. */
       log_debug(DEBUG_WARNING) << "pam_acct_mgmt FAIL" << endl;
-      throw error(error::PAM, pam_strerror(pam_status));
+      throw error(PAM, pam_strerror(pam_status));
     }
 
   log_debug(DEBUG_NOTICE) << "pam_acct_mgmt OK" << endl;
@@ -584,7 +611,7 @@ auth::cred_establish ()
        pam_setcred(this->pam, PAM_ESTABLISH_CRED)) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_setcred FAIL" << endl;
-      throw error(error::PAM, pam_strerror(pam_status));
+      throw error(PAM, pam_strerror(pam_status));
     }
 
   log_debug(DEBUG_NOTICE) << "pam_setcred OK" << endl;
@@ -601,7 +628,7 @@ auth::cred_delete ()
        pam_setcred(this->pam, PAM_DELETE_CRED)) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_setcred (delete) FAIL" << endl;
-      throw error(error::PAM, pam_strerror(pam_status));
+      throw error(PAM, pam_strerror(pam_status));
     }
 
   log_debug(DEBUG_NOTICE) << "pam_setcred (delete) OK" << endl;
@@ -618,7 +645,7 @@ auth::open_session ()
        pam_open_session(this->pam, 0)) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_open_session FAIL" << endl;
-      throw error(error::PAM, pam_strerror(pam_status));
+      throw error(PAM, pam_strerror(pam_status));
     }
 
   log_debug(DEBUG_NOTICE) << "pam_open_session OK" << endl;
@@ -635,7 +662,7 @@ auth::close_session ()
        pam_close_session(this->pam, 0)) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_close_session FAIL" << endl;
-      throw error(error::PAM, pam_strerror(pam_status));
+      throw error(PAM, pam_strerror(pam_status));
     }
 
   log_debug(DEBUG_NOTICE) << "pam_close_session OK" << endl;

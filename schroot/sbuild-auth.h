@@ -43,9 +43,8 @@ namespace std { namespace tr1 { using boost::shared_ptr; } }
 #include <security/pam_appl.h>
 
 #include "sbuild-auth-conv.h"
-#include "sbuild-auth-error.h"
+#include "sbuild-custom-error.h"
 #include "sbuild-environment.h"
-#include "sbuild-error.h"
 #include "sbuild-types.h"
 
 namespace sbuild
@@ -102,8 +101,18 @@ namespace sbuild
 	VERBOSITY_VERBOSE ///< Print all messages.
       };
 
+    enum error_code
+      {
+	HOSTNAME,        ///< Failed to get hostname.
+	USER,            ///< User not found.
+	AUTHENTICATION,  ///< Authentication failed.
+	AUTHORISATION,   ///< Authorisation failed.
+	PAM_DOUBLE_INIT, ///< PAM was already initialised.
+	PAM              ///< PAM error.
+      };
+
     /// Exception type.
-    typedef auth_error error;
+    typedef custom_error<error_code> error;
 
     /// A shared_ptr to an auth_conv object.
     typedef std::tr1::shared_ptr<auth_conv> conv_ptr;
