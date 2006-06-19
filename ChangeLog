@@ -1,5 +1,10 @@
 2006-06-19  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/setup/00check: Make sanity check errors more
+	descriptive.  Fix check for using / as a chroot location.
+
+2006-06-19  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/setup/10mount: Only remove the mount location if it
 	exists (to quell a warning).
 

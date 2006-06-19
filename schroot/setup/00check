@@ -35,19 +35,19 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
     case "$CHROOT_TYPE" in
 	plain)
 	    if [ ! -d "$CHROOT_LOCATION" ]; then
-		echo "$CHROOT_LOCATION does not exist"
+		echo "Directory '$CHROOT_LOCATION' does not exist"
 		exit 1
 	    fi
 	    ;;
 	file)
 	    if [ ! -f "$CHROOT_FILE" ]; then
-		echo "$CHROOT_FILE does not exist"
+		echo "File '$CHROOT_FILE' does not exist"
 		exit 1
 	    fi
 	    ;;
 	block-device | lvm-snapshot)
 	    if [ ! -b "$CHROOT_DEVICE" ]; then
-		echo "$CHROOT_DEVICE does not exist"
+		echo "Device '$CHROOT_DEVICE' does not exist"
 		exit 1
 	    fi
 	    ;;
@@ -59,8 +59,8 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 
     # A basic safety check, so that the root filesystem doesn't get
     # toasted by accident.
-    if [ -z "$CHROOT_PATH" ] || [ "$CHROOT_PATH" = "/" ]; then
-	echo "Invalid chroot mount location: '$CHROOT_PATH'"
+    if [ -z "$CHROOT_PATH" ] || [ "$CHROOT_PATH" = "/" ] || [ "$CHROOT_LOCATION" = "/" ]; then
+	echo "Invalid chroot mount location: '$CHROOT_LOCATION'"
 	exit 1
     fi
 
