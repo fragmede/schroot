@@ -105,19 +105,15 @@ chroot_file::setup_lock (setup_type type,
     {
       struct stat statbuf;
       if (stat(this->file.c_str(), &statbuf) < 0)
-	{
-	  format fmt(_("%1%: failed to stat file: %2%"));
-	  fmt % this->file % strerror(errno);
-	  throw error(fmt);
-	}
+	throw error(this->file, FILE_STAT, errno);
 
       // NOTE: taken from chroot_config::check_security.
       if (statbuf.st_uid != 0)
-	throw error(_("not owned by user root"));
+	throw error(this->file, FILE_OWNER);
       if (statbuf.st_mode & S_IWOTH)
-	throw error(_("others have write permission"));
+	throw error(this->file, FILE_PERMS);
       if (!S_ISREG(statbuf.st_mode))
-	throw error(_("not a regular file"));
+	throw error(this->file, FILE_NOTREG);
     }
 
   /* By default, file chroots do no locking. */

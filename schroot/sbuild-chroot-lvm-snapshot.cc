@@ -133,21 +133,15 @@ chroot_lvm_snapshot::setup_lock (setup_type type,
 
       if (device.empty())
 	{
-	  format fmt(_("%1% chroot: device name not set"));
-	  fmt % get_name();
-	  throw error(fmt);
+	  throw error(CHROOT_DEVICE);
 	}
       else if (stat(device.c_str(), &statbuf) == -1)
 	{
-	  format fmt(_("%1% chroot: failed to stat device %2%: %3%"));
-	  fmt % get_name() % device % strerror(errno);
-	  throw error(fmt);
+	  throw error(get_device(), DEVICE_STAT, errno);
 	}
       else if (!S_ISBLK(statbuf.st_mode))
 	{
-	  format fmt(_("%1% chroot: %2% is not a block device\n"));
-	  fmt % get_name() % device;
-	  throw error(fmt);
+	  throw error(get_device(), DEVICE_NOTBLOCK);
 	}
       else
 	{
@@ -165,9 +159,7 @@ chroot_lvm_snapshot::setup_lock (setup_type type,
 		}
 	      catch (sbuild::lock::error const& e)
 		{
-		  format fmt(_("%1%: failed to lock device: %2%"));
-		  fmt % device % e.what();
-		  throw error(fmt);
+		  throw error(get_device(), DEVICE_LOCK, e.what());
 		}
 	    }
 	  else
@@ -178,9 +170,7 @@ chroot_lvm_snapshot::setup_lock (setup_type type,
 		}
 	      catch (sbuild::lock::error const& e)
 		{
-		  format fmt(_("%1%: failed to unlock device: %2%"));
-		  fmt % device % e.what();
-		  throw error(fmt);
+		  throw error(get_device(), DEVICE_UNLOCK, e.what());
 		}
 	    }
 	}

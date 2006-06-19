@@ -101,6 +101,7 @@ namespace sbuild
 	VERBOSITY_VERBOSE ///< Print all messages.
       };
 
+    /// Error codes.
     enum error_code
       {
 	HOSTNAME,        ///< Failed to get hostname.

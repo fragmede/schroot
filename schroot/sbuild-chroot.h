@@ -21,6 +21,7 @@
 #define SBUILD_CHROOT_H
 
 #include "sbuild-config.h"
+#include "sbuild-custom-error.h"
 
 #include <iomanip>
 #include <ostream>
@@ -71,8 +72,28 @@ namespace sbuild
 	SESSION_CREATE = 1 << 0 ///< The chroot supports session creation.
       };
 
+    /// Error codes.
+    enum error_code
+      {
+	CHROOT_TYPE,     ///< Unknown chroot type.
+	CHROOT_CREATE,   ///< Chroot creation failed.
+	CHROOT_DEVICE,   ///< Chroot device name not set.
+	SESSION_WRITE,   ///< Failed to write session file.
+	SESSION_UNLINK,  ///< Failed to unlink session file.
+	FILE_STAT,       ///< Failed to stat file.
+	FILE_OWNER,      ///< File is not owned by user root.
+	FILE_PERMS,      ///< File has write permissions for others.
+	FILE_NOTREG,     ///< File is not a regular file.
+	FILE_LOCK,       ///< Failed to acquire lock.
+	FILE_UNLOCK,     ///< Failed to discard lock.
+	DEVICE_STAT,     ///< Failed to stat device.
+	DEVICE_NOTBLOCK, ///< File is not a block device.
+	DEVICE_LOCK,     ///< Failed to lock device.
+	DEVICE_UNLOCK    ///< Failed to unlock device.
+      };
+
     /// Exception type.
-    typedef runtime_error_custom<chroot> error;
+    typedef custom_error<error_code> error;
 
     /// A shared_ptr to a chroot object.
     typedef std::tr1::shared_ptr<chroot> ptr;

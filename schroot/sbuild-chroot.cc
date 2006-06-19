@@ -33,6 +33,42 @@
 using boost::format;
 using namespace sbuild;
 
+namespace
+{
+
+  typedef std::pair<sbuild::chroot::error_code,const char *> emap;
+
+  /**
+   * This is a list of the supported error codes.  It's used to
+   * construct the real error codes map.
+   */
+  emap init_errors[] =
+    {
+      emap(sbuild::chroot::CHROOT_TYPE,     N_("Unknown chroot type")),
+      emap(sbuild::chroot::CHROOT_CREATE,   N_("Chroot creation failed")),
+      emap(sbuild::chroot::CHROOT_DEVICE,   N_("Device name not set")),
+      emap(sbuild::chroot::SESSION_WRITE,   N_("Failed to write session file")),
+      emap(sbuild::chroot::SESSION_UNLINK,  N_("Failed to unlink session file")),
+      emap(sbuild::chroot::FILE_STAT,       N_("Failed to stat file")),
+      emap(sbuild::chroot::FILE_OWNER,      N_("File is not owned by user root")),
+      emap(sbuild::chroot::FILE_PERMS,      N_("File has write permissions for others")),
+      emap(sbuild::chroot::FILE_NOTREG,     N_("File is not a regular file")),
+      emap(sbuild::chroot::FILE_LOCK,       N_("Failed to acquire file lock")),
+      emap(sbuild::chroot::FILE_UNLOCK,     N_("Failed to discard file lock")),
+      emap(sbuild::chroot::DEVICE_STAT,     N_("Failed to stat device")),
+      emap(sbuild::chroot::DEVICE_NOTBLOCK, N_("File is not a block device")),
+      emap(sbuild::chroot::DEVICE_LOCK,     N_("Failed to lock device")),
+      emap(sbuild::chroot::DEVICE_UNLOCK,   N_("Failed to unlock device"))
+    };
+
+}
+
+template<>
+custom_error<sbuild::chroot::error_code>::map_type
+custom_error<sbuild::chroot::error_code>::error_strings
+(init_errors,
+ init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+
 sbuild::chroot::chroot ():
   name(),
   description(),
@@ -75,14 +111,10 @@ sbuild::chroot::create (std::string const& type)
   else if (type == "lvm-snapshot")
     new_chroot = new chroot_lvm_snapshot();
   else
-    {
-      format fmt(_("unknown chroot type \"%1%\""));
-      fmt % type;
-      throw error(fmt);
-    }
+    throw error(type, CHROOT_TYPE);
 
   if (new_chroot == 0)
-    throw error(_("chroot creation failed"));
+    throw error(CHROOT_CREATE);
 
   return ptr(new_chroot);
 }
@@ -283,11 +315,7 @@ sbuild::chroot::setup_session_info (bool start)
     {
       int fd = open(file.c_str(), O_CREAT|O_EXCL|O_WRONLY, 0664);
       if (fd < 0)
-	{
-	  format fmt(_("%1%: failed to create session file: %2%\n"));
-	  fmt % file % strerror(errno);
-	  throw error(fmt);
-	}
+	throw error(file, SESSION_WRITE, errno);
 
       // Create a stream buffer from the file descriptor.  The fd will
       // be closed when the buffer is destroyed.
@@ -306,9 +334,7 @@ sbuild::chroot::setup_session_info (bool start)
 	}
       catch (lock::error const& e)
 	{
-	  format fmt(_("%1%: lock acquisition failure: %2%\n"));
-	  fmt % file % e.what();
-	  throw error(fmt);
+	  throw error(file, FILE_LOCK, e.what());
 	}
 
       keyfile details;
@@ -321,19 +347,13 @@ sbuild::chroot::setup_session_info (bool start)
 	}
       catch (lock::error const& e)
 	{
-	  format fmt(_("%1%: lock discard failure: %2%\n"));
-	  fmt % file % e.what();
-	  throw error(fmt);
+	  throw error(file, FILE_UNLOCK, e.what());
 	}
     }
   else /* start == false */
     {
       if (unlink(file.c_str()) != 0)
-	{
-	  format fmt(_("%1%: failed to unlink session file: %2%\n"));
-	  fmt % file % strerror(errno);
-	  throw error(fmt);
-	}
+	throw error(file, SESSION_UNLINK, errno);
     }
 }
 

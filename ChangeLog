@@ -1,5 +1,12 @@
 2006-06-19  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-chroot.(cc|h), schroot/sbuild-chroot-file.cc,
+	schroot/sbuild-chroot-block-device.cc,
+	schroot/sbuild-chroot-lvm-snapshot.cc: Use the custom_error
+	exception class.
+
+2006-06-19  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-auth.(cc|h), schroot/sbuild-session.(cc|h),
 	schroot/dchroot-session.cc (run_impl): Use new templated exception
 	type.
