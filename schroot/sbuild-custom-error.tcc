@@ -46,7 +46,7 @@ sbuild::custom_error<T>::format_error (std::string const& detail,
   if (detail.length() > 0)
     {
       boost::format fmt("%1%: %2%");
-      fmt % get_error(error) % detail;
+      fmt % detail % get_error(error);
       return fmt.str();
     }
   else
@@ -113,3 +113,9 @@ sbuild::custom_error<T>::format_error (std::string const& detail,
 }
 
 #endif /* SBUILD_CUSTOM_ERROR_TCC */
+
+/*
+ * Local Variables:
+ * mode:C++
+ * End:
+ */

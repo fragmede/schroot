@@ -44,6 +44,22 @@ using namespace sbuild;
 namespace
 {
 
+  typedef std::pair<chroot_config::error_code,const char *> emap;
+
+  /**
+   * This is a list of the supported error codes.  It's used to
+   * construct the real error codes map.
+   */
+  emap init_errors[] =
+    {
+      emap(chroot_config::DIR_OPEN,    N_("Failed to open directory")),
+      emap(chroot_config::FILE_STAT,   N_("Failed to stat file")),
+      emap(chroot_config::FILE_OPEN,   N_("Failed to open file")),
+      emap(chroot_config::FILE_OWNER,  N_("File is not owned by user root")),
+      emap(chroot_config::FILE_PERMS,  N_("File has write permissions for others")),
+      emap(chroot_config::FILE_NOTREG, N_("File is not a regular file"))
+    };
+
   bool chroot_alphasort (sbuild::chroot::ptr const& c1,
 			 sbuild::chroot::ptr const& c2)
   {
@@ -51,6 +67,12 @@ namespace
   }
 
 }
+
+template<>
+custom_error<chroot_config::error_code>::map_type
+custom_error<chroot_config::error_code>::error_strings
+(init_errors,
+ init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
 chroot_config::chroot_config ():
   chroots()
@@ -96,9 +118,7 @@ chroot_config::add_config_directory (std::string const& dir,
   DIR *d = opendir(dir.c_str());
   if (d == NULL)
     {
-      format fmt(_("%1%: failed to open directory: %2%"));
-      fmt % dir % strerror(errno);
-      throw error(fmt);
+      throw error(dir, DIR_OPEN, errno);
     }
 
   struct dirent *de = NULL;
@@ -109,9 +129,8 @@ chroot_config::add_config_directory (std::string const& dir,
       struct stat statbuf;
       if (stat(filename.c_str(), &statbuf) < 0)
 	{
-	  log_warning() << format(_("%1%: failed to stat file: %2%"))
-	    % filename % strerror(errno)
-		      << endl;
+	  error e(filename, FILE_STAT, errno);
+	  log_warning() << e.what() << endl;
 	  continue;
 	}
 
@@ -368,38 +387,13 @@ chroot_config::validate_chroots (string_list const& chroots) const
 }
 
 void
-chroot_config::check_security (int fd) const
-{
-  struct stat statbuf;
-  if (fstat(fd, &statbuf) < 0)
-    {
-      format fmt(_("failed to stat file: %1%"));
-      fmt % strerror(errno);
-      throw error(fmt);
-    }
-
-  if (statbuf.st_uid != 0)
-    throw error(_("not owned by user root"));
-
-  if (statbuf.st_mode & S_IWOTH)
-    throw error(_("others have write permission"));
-
-  if (!S_ISREG(statbuf.st_mode))
-    throw error(_("not a regular file"));
-}
-
-void
 chroot_config::load_data (std::string const& file,
 			  bool               active)
 {
   /* Use a UNIX fd, for security (no races) */
   int fd = open(file.c_str(), O_RDONLY|O_NOFOLLOW);
   if (fd < 0)
-    {
-      format fmt(_("%1%: failed to load configuration: %2%"));
-      fmt % file % strerror(errno);
-      throw error(fmt);
-    }
+    throw error(file, FILE_OPEN, errno);
 
   sbuild::file_lock lock(fd);
   try
@@ -408,21 +402,19 @@ chroot_config::load_data (std::string const& file,
     }
   catch (lock::error const& e)
     {
-      format fmt(_("%1%: lock acquisition failure: %2%"));
-      fmt % file % e.what();
-      throw error(fmt);
+      throw error(file, e.what());
     }
 
-  try
-    {
-      check_security(fd);
-    }
-  catch (error const& e)
-    {
-      format fmt(_("%1%: security failure: %2%"));
-      fmt % file % e.what();
-      throw error(fmt);
-    }
+  struct stat statbuf;
+  if (fstat(fd, &statbuf) < 0)
+    throw error(file, FILE_STAT, errno);
+
+  if (statbuf.st_uid != 0)
+    throw error(file, FILE_OWNER);
+  if (statbuf.st_mode & S_IWOTH)
+    throw error(file, FILE_PERMS);
+  if (!S_ISREG(statbuf.st_mode))
+    throw error(file, FILE_NOTREG);
 
   /* Now create an IO Channel and read in the data */
 #ifdef SCHROOT_FILEBUF_OLD
@@ -433,17 +425,21 @@ chroot_config::load_data (std::string const& file,
   std::istream input(&fdbuf);
   input.imbue(std::locale("C"));
 
-  parse_data(input, active);
-
+  try
+    {
+      parse_data(input, active);
+    }
+  catch (runtime_error const& e)
+    {
+      throw error(file, e.what());
+    }
   try
     {
       lock.unset_lock();
     }
   catch (lock::error const& e)
     {
-      format fmt(_("%1%: lock discard failure: %2%"));
-      fmt % file % e.what();
-      throw error(fmt);
+      throw error(file, e.what());
     }
 }
 

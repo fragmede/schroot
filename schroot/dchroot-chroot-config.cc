@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include "sbuild.h"
+#include "sbuild-parse-error.h"
 
 #include "dchroot-chroot-config.h"
 
@@ -32,6 +33,7 @@
 #include <boost/format.hpp>
 
 using std::endl;
+using sbuild::parse_error;
 using boost::format;
 using namespace dchroot;
 
@@ -52,7 +54,7 @@ chroot_config::~chroot_config ()
 
 void
 chroot_config::parse_data (std::istream& stream,
-			    bool          active)
+			   bool          active)
 {
   active = false; // dchroot does not support sessions.
 
@@ -101,9 +103,7 @@ chroot_config::parse_data (std::istream& stream,
 	      lstart == std::string::npos ||
 	      tstart != std::string::npos)
 	    {
-	      boost::format fmt(_("line %1%: invalid line: %2%"));
-	      fmt % linecount % line;
-	      throw error(fmt);
+	      throw parse_error(linecount, parse_error::INVALID_LINE, line);
 	    }
 
 	  std::string chroot_name = line.substr(cstart, cend - cstart);

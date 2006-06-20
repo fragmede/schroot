@@ -26,7 +26,7 @@
 #include <string>
 
 #include "sbuild-chroot.h"
-#include "sbuild-error.h"
+#include "sbuild-custom-error.h"
 
 namespace sbuild
 {
@@ -50,8 +50,19 @@ namespace sbuild
     /// A map between a chroot name and a chroot object.
     typedef std::map<std::string, chroot::ptr> chroot_map;
 
+    /// Error codes.
+    enum error_code
+      {
+	DIR_OPEN,   ///< Failed to open directory.
+	FILE_STAT,  ///< Failed to stat file.
+	FILE_OPEN,  ///< Failed to open file.
+	FILE_OWNER, ///< File is not owned by user root.
+	FILE_PERMS, ///< File has write permissions for others.
+	FILE_NOTREG ///< File is not a regular file.
+      };
+
     /// Exception type.
-    typedef runtime_error_custom<chroot_config> error;
+    typedef custom_error<error_code> error;
 
     /// A shared_ptr to a chroot_config object.
     typedef std::tr1::shared_ptr<chroot_config> ptr;
@@ -224,20 +235,9 @@ namespace sbuild
 
   private:
     /**
-     * Check the permissions and ownership of a configuration file.
-     * The file must be owned by root, not writable by other, and be a
-     * regular file.
-     *
-     * An error will be thrown on failure.
-     *
-     * @param fd the file descriptor to check.
-     */
-    void
-    check_security (int fd) const;
-
-    /**
      * Load a configuration file.  If there are problems with the
-     * configuration file, an error will be thrown.
+     * configuration file, an error will be thrown.  The file must be
+     * owned by root, not writable by other, and be a regular file.
      *
      * @param file the file to load.
      * @param active true if the chroots in the configuration file are
