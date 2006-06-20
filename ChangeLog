@@ -1,5 +1,9 @@
 2006-06-20  Roger Leigh  <rleigh@debian.org>
 
+	* Update translations.
+
+2006-06-20  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-error.h: Remove runtime_error_custom.
 
 	* schroot/sbuild-custom-error.h: Add virtual destructor.
