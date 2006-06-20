@@ -37,6 +37,37 @@ using namespace sbuild;
 namespace
 {
 
+  typedef std::pair<lock::error_code,const char *> emap;
+
+  /**
+   * This is a list of the supported error codes.  It's used to
+   * construct the real error codes map.
+   */
+  emap init_errors[] =
+    {
+      emap(lock::TIMEOUT_HANDLER,        N_("Failed to set timeout handler")),
+      emap(lock::TIMEOUT_SET,            N_("Failed to set timeout")),
+      emap(lock::TIMEOUT_CANCEL,         N_("Failed to cancel timeout")),
+      emap(lock::LOCK,                   N_("Failed to acquire lock (timed out)")),
+      emap(lock::LOCK_TIMEOUT,           N_("Failed to acquire lock")),
+      emap(lock::DEVICE_LOCK,            N_("Failed to acquire device lock")),
+      emap(lock::DEVICE_LOCK_TIMEOUT,    N_("Failed to acquire device lock (timed out)")),
+      emap(lock::DEVICE_TEST,            N_("Failed to test device lock")),
+      emap(lock::DEVICE_RELEASE,         N_("Failed to release device lock")),
+      emap(lock::DEVICE_RELEASE_TIMEOUT, N_("Failed to release device lock (timed out)"))
+    };
+
+}
+
+template<>
+custom_error<lock::error_code>::map_type
+custom_error<lock::error_code>::error_strings
+(init_errors,
+ init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+
+namespace
+{
+
   volatile bool lock_timeout = false;
 
   /**
@@ -72,11 +103,7 @@ lock::set_alarm ()
   new_sa.sa_handler = alarm_handler;
 
   if (sigaction(SIGALRM, &new_sa, &this->saved_signals) != 0)
-    {
-      format fmt(_("failed to set timeout handler: %1%"));
-      fmt % strerror(errno);
-      throw error(fmt);
-    }
+    throw error(TIMEOUT_HANDLER, errno);
 }
 
 void
@@ -94,9 +121,7 @@ lock::set_timer(struct itimerval const& timer)
   if (setitimer(ITIMER_REAL, &timer, NULL) == -1)
     {
       clear_alarm();
-      format fmt(_("failed to set timeout: %1%"));
-      fmt % strerror(errno);
-      throw error(fmt);
+      throw error(TIMEOUT_SET, errno);
     }
 }
 
@@ -110,9 +135,7 @@ lock::unset_timer ()
   if (setitimer(ITIMER_REAL, &disable_timer, NULL) == -1)
     {
       clear_alarm();
-      format fmt(_("failed to unset timeout: %1%"));
-      fmt % strerror(errno);
-      throw error(fmt);
+      throw error(TIMEOUT_CANCEL, errno);
     }
 
   clear_alarm();
@@ -160,17 +183,9 @@ file_lock::set_lock (type         lock_type,
 		&read_lock) == -1)
 	{
 	  if (errno == EINTR)
-	    {
-	      format fmt (_("failed to acquire lock (timeout after %1% seconds)"));
-	      fmt % timeout;
-	      throw error(fmt);
-	    }
+	    throw error(LOCK_TIMEOUT);
 	  else
-	    {
-	      format fmt(_("failed to acquire lock: %1%"));
-	      fmt % strerror(errno);
-	      throw error(fmt);
-	    }
+	    throw error(LOCK, errno);
 	}
       unset_timer();
     }
@@ -227,7 +242,7 @@ device_lock::set_lock (type         lock_type,
 		break;
 	      else if (status < 0) // Failure
 		{
-		  throw error(_("failed to acquire device lock"));
+		  throw error(DEVICE_LOCK);
 		}
 	    }
 	  else
@@ -235,7 +250,7 @@ device_lock::set_lock (type         lock_type,
 	      pid_t cur_lock_pid = dev_testlock(this->device.c_str());
 	      if (cur_lock_pid < 0) // Test failure
 		{
-		  throw error(_("failed to test device lock"));
+		  throw error(DEVICE_TEST);
 		}
 	      else if (cur_lock_pid > 0 && cur_lock_pid != getpid())
 		{
@@ -248,21 +263,19 @@ device_lock::set_lock (type         lock_type,
 		break;
 	      else if (status < 0) // Failure
 		{
-		  throw error(_("failed to release device lock"));
+		  throw error(DEVICE_RELEASE);
 		}
 	    }
 	}
 
       if (lock_timeout)
 	{
-	  format fmt((lock_type == LOCK_SHARED ||
-		      lock_type == LOCK_EXCLUSIVE) ?
-		     _("failed to acquire device lock held by pid %1% "
-		       "(timeout after %2% seconds)") :
-		     _("failed to release device lock held by pid %1% "
-		       "(timeout after %2% seconds)"));
-	  fmt %	status % timeout;
-	  throw error(fmt);
+
+	  format fmt(_("lock held by pid %1%"));
+	  fmt % status;
+	  throw error(((lock_type == LOCK_SHARED || lock_type == LOCK_EXCLUSIVE)
+		       ? DEVICE_LOCK_TIMEOUT : DEVICE_RELEASE_TIMEOUT),
+		      fmt.str());
 	}
       unset_timer();
     }

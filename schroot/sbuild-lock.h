@@ -27,7 +27,7 @@
 #include <signal.h>
 #include <unistd.h>
 
-#include "sbuild-error.h"
+#include "sbuild-custom-error.h"
 
 namespace sbuild
 {
@@ -47,8 +47,23 @@ namespace sbuild
 	LOCK_NONE      = F_UNLCK  ///< No lock.
       };
 
+    /// Error codes.
+    enum error_code
+      {
+	TIMEOUT_HANDLER,       ///< Failed to set timeout handler.
+	TIMEOUT_SET,           ///< Failed to set timeout.
+	TIMEOUT_CANCEL,        ///< Failed to cancel timeout.
+	LOCK,                  ///< Failed to acquire lock (timed out).
+	LOCK_TIMEOUT,          ///< Failed to acquire lock.
+	DEVICE_LOCK,           ///< Failed to acquire device lock.
+	DEVICE_LOCK_TIMEOUT,   ///< Failed to acquire device lock (timed out).
+	DEVICE_TEST,           ///< Failed to test device lock.
+	DEVICE_RELEASE,        ///< Failed to release device lock.
+	DEVICE_RELEASE_TIMEOUT ///< Failed to release device lock (timed out)
+      };
+
     /// Exception type.
-    typedef runtime_error_custom<lock> error;
+    typedef custom_error<error_code> error;
 
     /**
      * Acquire a lock.
