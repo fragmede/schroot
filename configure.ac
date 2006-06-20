@@ -49,6 +49,19 @@ AC_ARG_ENABLE([dchroot], [AS_HELP_STRING([--enable-dchroot], [Enable dchroot com
 AC_MSG_RESULT([$enable_dchroot_compat])
 AM_CONDITIONAL([BUILD_DCHROOT], [test "$enable_dchroot_compat" = "yes"])
 
+AC_MSG_CHECKING([whether to enable dchroot-dsa compatibility])
+enable_dchroot_dsa_compat="no"
+AC_ARG_ENABLE([dchroot-dsa], [AS_HELP_STRING([--enable-dchroot], [Enable dchroot-dsa compatibility])],
+              [ case "${enableval}" in
+                yes) enable_dchroot_dsa_compat="yes" ;;
+                no)  enable_dchroot_dsa_compat="no" ;;
+                unset)  enable_dchroot_dsa_compat="no" ;;
+                *) AC_MSG_RESULT([unknown])
+                   AC_MSG_ERROR([bad value ${enableval} for --enable-dchroot-dsa]) ;;
+                esac])
+AC_MSG_RESULT([$enable_dchroot_dsa_compat])
+AM_CONDITIONAL([BUILD_DCHROOT_DSA], [test "$enable_dchroot_dsa_compat" = "yes"])
+
 AC_MSG_CHECKING([whether to enable debugging messages])
 enable_debug="no"
 AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug], [Enable debugging messages])],

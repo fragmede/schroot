@@ -37,7 +37,11 @@ if BUILD_DCHROOT
 dchroot = dchroot
 endif
 
-bin_PROGRAMS = $(dchroot) schroot
+if BUILD_DCHROOT_DSA
+dchroot_dsa = dchroot-dsa
+endif
+
+bin_PROGRAMS = $(dchroot) $(dchroot_dsa) schroot
 pkglibexec_PROGRAMS = schroot-releaselock schroot-listmounts
 
 #BUILT_SOURCES = sbuild.gch
@@ -128,6 +132,18 @@ dchroot_SOURCES =			\
 
 dchroot_CXXFLAGS = -DSBUILD_DCHROOT_COMPAT
 dchroot_LDADD = libsbuild.la
+
+dchroot_dsa_SOURCES =			\
+	dchroot-chroot-config.h		\
+	dchroot-chroot-config.cc	\
+	dchroot-session.h		\
+	dchroot-session.cc		\
+	schroot-options.h		\
+	schroot-options.cc		\
+	schroot.cc
+
+dchroot_dsa_CXXFLAGS = -DSBUILD_DCHROOT_COMPAT -DSBUILD_DCHROOT_DSA_COMPAT
+dchroot_dsa_LDADD = libsbuild.la
 
 schroot_releaselock_SOURCES = 		\
 	schroot-releaselock-options.h	\

@@ -1,5 +1,11 @@
 2006-06-20  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/Makefile.am: Add rules for dchroot-dsa.
+
+	* configure.ac: Add enable option for dchroot-dsa.
+
+2006-06-20  Roger Leigh  <rleigh@debian.org>
+
 	* Update translations.
 
 2006-06-20  Roger Leigh  <rleigh@debian.org>
