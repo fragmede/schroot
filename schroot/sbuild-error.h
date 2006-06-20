@@ -47,36 +47,6 @@ namespace sbuild
     {}
   };
 
-  /**
-   * Runtime error specific to a class.
-   */
-  template <typename T>
-  class runtime_error_custom : public runtime_error
-  {
-  public:
-    /**
-     * The constructor.
-     *
-     * @param error the error message.
-     */
-    runtime_error_custom (std::string const& error):
-      runtime_error(error)
-    {}
-
-    /**
-     * The constructor.
-     *
-     * @param error the error message (formatted).
-     */
-    runtime_error_custom (boost::format const& error):
-      runtime_error(error.str())
-    {}
-
-    /// The destructor.
-    virtual ~runtime_error_custom () throw ()
-    {}
-  };
-
 }
 
 #endif /* SBUILD_ERROR_H */

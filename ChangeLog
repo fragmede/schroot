@@ -1,5 +1,11 @@
 2006-06-20  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-error.h: Remove runtime_error_custom.
+
+	* schroot/sbuild-custom-error.h: Add virtual destructor.
+
+2006-06-20  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-auth-conv.h: Remove error typedef.
 
 	* schroot/sbuild-auth-conv-tty.(cc|h): Use the custom_error

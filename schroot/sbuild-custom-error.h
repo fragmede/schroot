@@ -148,6 +148,10 @@ namespace sbuild
     {
     }
 
+    /// The destructor.
+    virtual ~custom_error () throw ()
+    {}
+
   private:
     /// Mapping between error code and string.
     static map_type error_strings;
