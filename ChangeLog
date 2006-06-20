@@ -1,5 +1,12 @@
 2006-06-20  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-auth-conv.h: Remove error typedef.
+
+	* schroot/sbuild-auth-conv-tty.(cc|h): Use the custom_error
+	exception class.
+
+2006-06-20  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-custom-error.tcc (format_error): detail and error
 	arguments were used in the wrong order in the two argument case.
 

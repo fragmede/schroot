@@ -50,9 +50,6 @@ namespace sbuild
   class auth_conv
   {
   public:
-    /// Exception type.
-    typedef runtime_error_custom<auth_conv> error;
-
     /// A list of messages.
     typedef std::vector<auth_message> message_list;
 

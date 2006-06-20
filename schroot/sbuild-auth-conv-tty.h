@@ -30,6 +30,7 @@
 #include <security/pam_misc.h>
 
 #include "sbuild-auth-conv.h"
+#include "sbuild-custom-error.h"
 
 namespace sbuild
 {
@@ -49,6 +50,18 @@ namespace sbuild
   class auth_conv_tty : public auth_conv
   {
   public:
+    /// Error codes.
+    enum error_code
+      {
+	TIMEOUT,         ///< Timed out.
+	TIMEOUT_PENDING, ///< Time is running out...
+	TERMIOS,         ///< Failed to get terminal settings.
+	CONV_TYPE        ///< Unsupported conversation type.
+      };
+
+    /// Exception type.
+    typedef custom_error<error_code> error;
+
     /// The constructor.
     auth_conv_tty ();
     /// The destructor.

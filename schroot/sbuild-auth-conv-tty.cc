@@ -36,6 +36,20 @@ using namespace sbuild;
 namespace
 {
 
+  typedef std::pair<auth_conv_tty::error_code,const char *> emap;
+
+  /**
+   * This is a list of the supported error codes.  It's used to
+   * construct the real error codes map.
+   */
+  emap init_errors[] =
+    {
+      emap(auth_conv_tty::TIMEOUT,         N_("Timed out")),
+      emap(auth_conv_tty::TIMEOUT_PENDING, N_("Time is running out...")),
+      emap(auth_conv_tty::TERMIOS,         N_("Failed to get terminal settings")),
+      emap(auth_conv_tty::CONV_TYPE,       N_("Unsupported conversation type"))
+    };
+
   volatile sig_atomic_t timer_expired = false;
 
   /**
@@ -95,6 +109,12 @@ namespace
 
 }
 
+template<>
+custom_error<auth_conv_tty::error_code>::map_type
+custom_error<auth_conv_tty::error_code>::error_strings
+(init_errors,
+ init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+
 auth_conv_tty::auth_conv_tty ():
   warning_timeout(0),
   fatal_timeout(0),
@@ -138,12 +158,13 @@ auth_conv_tty::get_delay ()
 
   if (this->fatal_timeout != 0 &&
       this->start_time >= this->fatal_timeout)
-    throw error(_("Timed out"));
+    throw error(TIMEOUT);
 
   if (this->warning_timeout != 0 &&
       this->start_time >= this->warning_timeout)
     {
-      log_warning() << _("Time is running out...") << endl;
+      error e(TIMEOUT_PENDING);
+      log_warning() << e.what() << endl;
       return (this->fatal_timeout ?
 	      this->fatal_timeout - this->start_time : 0);
     }
@@ -171,7 +192,7 @@ auth_conv_tty::read_string (std::string message,
       use_termios = true;
 
       if (tcgetattr(STDIN_FILENO, &orig_termios) != 0)
-	throw error(_("Failed to get terminal settings"));
+	throw error(TERMIOS);
 
       memcpy(&noecho_termios, &orig_termios, sizeof(struct termios));
 
@@ -271,10 +292,13 @@ auth_conv_tty::conversation (message_list& messages)
 	      cerr << cur->message << endl;
 	      break;
 	    default:
-	      cerr << format(_("Unsupported conversation type %1%"))
-		% cur->message_type
-		   << endl;
-	      return false;
+	      {
+		format fmt("%1%");
+		fmt % cur->message_type;
+		error e(fmt.str(), CONV_TYPE);
+		log_error() << e.what() << endl;
+		return false;
+	      }
 	      break;
 	    }
 	}
