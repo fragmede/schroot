@@ -37,6 +37,17 @@ using namespace sbuild;
 namespace
 {
 
+  typedef std::pair<sbuild::personality::error_code,const char *> emap;
+
+  /**
+   * This is a list of the supported error codes.  It's used to
+   * construct the real error codes map.
+   */
+  emap init_errors[] =
+    {
+      emap(sbuild::personality::SET, N_("Failed to set personality"))
+    };
+
   typedef std::pair<std::string,sbuild::personality::type> pmap;
 
   /**
@@ -70,6 +81,12 @@ namespace
     };
 
 }
+
+template<>
+std::map<sbuild::personality::error_code,const char *>
+custom_error<sbuild::personality::error_code>::error_strings
+(init_errors,
+ init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
 std::map<std::string,sbuild::personality::type>
 sbuild::personality::personalities(initial_personalities,
@@ -146,9 +163,7 @@ sbuild::personality::set () const
   if (this->persona != 0xffffffff &&
       ::personality (this->persona) < 0)
     {
-      format fmt(_("Could not set personality to '%1%': %2%"));
-      fmt % this->persona % strerror(errno);
-      throw error(fmt);
+      throw error(get_name(), SET, errno);
     }
 #endif
 }

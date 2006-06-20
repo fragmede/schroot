@@ -21,6 +21,7 @@
 #define SBUILD_PERSONALITY_H
 
 #include "sbuild-config.h"
+#include "sbuild-custom-error.h"
 
 #include <map>
 #include <ostream>
@@ -44,8 +45,14 @@ namespace sbuild
     /// Personality type.
     typedef unsigned long type;
 
+    /// Error codes.
+    enum error_code
+      {
+	SET ///< Could not set personality.
+      };
+
     /// Exception type.
-    typedef runtime_error_custom<personality> error;
+    typedef custom_error<error_code> error;
 
     /**
      * The constructor.  On Linux systems, this is initialised with

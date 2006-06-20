@@ -1,9 +1,14 @@
 2006-06-20  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-personality.(cc|h): Use the custom_error
+	exception class.
+
+2006-06-20  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/sbuild-session.h: Reindent error codes.
 
-	* schroot/sbuild-lock.(cc|h):Use the custom_error
-	exception class.
+	* schroot/sbuild-lock.(cc|h): Use the custom_error exception
+	class.
 
 2006-06-19  Roger Leigh  <rleigh@debian.org>
 
