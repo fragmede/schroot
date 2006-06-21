@@ -59,15 +59,28 @@ and \[lq]oldstable-security\[rq] might be 0, while \[lq]stable\[rq] and
 values are not important, but the difference between them is.  This is used by
 sbuild when using the schroot chroot mode.
 .TP
+.B users=\fIuser1,user2,...\fP
+A comma-separated list of users which are allowed access to the chroot.  If
+empty or omitted, no users will be allowed access (unless a group they belong
+to is also specified in \fBgroups\fP.
+.TP
 .B groups=\fIgroup1,group2,...\fP
 A comma-separated list of groups which are allowed access to the chroot.  If
-empty or omitted, no users will be allowed access.
+empty or omitted, no groups of users will be allowed access.
+.TP
+.B root\-users=\fIuser1,user2,...\fP
+A comma-separated list of users which are allowed \fBpassword-less\fP root
+access to the chroot.  If empty or omitted, no users will be allowed root
+access without a password (but if a user or a group they belong to is in
+\fBusers\fP or \fBgroups\fP, respectively, they may gain access with a
+password).
 .TP
 .B root\-groups=\fIgroup1,group2,...\fP
 A comma-separated list of groups which are allowed \fBpassword-less\fP root
 access to the chroot.  If empty or omitted, no users will be allowed root
-access without a password (but if a user's group is in \fBgroups\fP, they may
-gain access with a password).
+access without a password (but if a user or a group they belong to is in
+\fBusers\fP or \fBgroups\fP, respectively, they may gain access with a
+password).
 .TP
 .B aliases=\fIalias1,alias2,...\fP
 A comma-separated list of aliases (alternate names) for this chroot.  For
@@ -181,10 +194,22 @@ chroots also provide an additional chroot with a \fI\-source\fP suffix added to
 their name, to allow access to the original data, to aid in chroot maintenance.
 These chroots provide the following additional options:
 .TP
+.B source\-users=\fIuser1,user2,...\fP
+A comma-separated list of users which are allowed access to the source chroot.
+If empty or omitted, no users will be allowed access.  This will become the
+\fIusers\fP option in the source chroot.
+.TP
 .B source\-groups=\fIgroup1,group2,...\fP
 A comma-separated list of groups which are allowed access to the source chroot.
 If empty or omitted, no users will be allowed access.  This will become the
 \fIgroups\fP option in the source chroot.
+.TP
+.B source\-root\-users=\fIuser1,user2,...\fP
+A comma-separated list of users which are allowed \fBpassword-less\fP root
+access to the source chroot.  If empty or omitted, no users will be allowed
+root access without a password (but if a user's user is in \fBusers\fP, they
+may gain access with a password).  This will become the \fIroot\-users\fP
+option in the source chroot.
 .TP
 .B source\-root\-groups=\fIgroup1,group2,...\fP
 A comma-separated list of groups which are allowed \fBpassword-less\fP root

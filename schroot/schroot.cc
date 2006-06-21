@@ -319,12 +319,9 @@ main (int   argc,
 	  // Help text at head of new config.
 	  std::cout << "# " << endl
 		    << "# "
-		    << _("To allow users access to the chroots, add their groups to the groups keys.") << endl;
+		    << _("To allow users access to the chroots, use the users or groups keys.") << endl;
 	  std::cout << "# "
-		    << _("To allow passwordless root access, add their groups to the root-groups keys.") << endl;
-	  if (options.compat == options::COMPAT_DCHROOT_DSA)
-	    std::cout << "# "
-		      << _("Note that schroot uses groups, not users; check the group list!") << endl;
+		    << _("To allow passwordless root access, use the root-users or root-groups keys.") << endl;
 	  std::cout << "# "
 		    << format(_("Remove '%1%' to use the new configuration."))
 	    % DCHROOT_CONF

@@ -26,10 +26,11 @@ schroot \- securely enter a chroot environment
 environment.  If no command is specified, a login shell will be started in the
 user's current working directory inside the chroot.
 .PP
-If the user is not a member of the allowed groups (or if changing to root, the
-allowed root groups) for the specified chroot(s), the user will be required to
-authenticate themselves (typically with a password, but this depends upon the
-PAM configuration).  All chroot usage will be logged in the system logs.
+If the user is not a and allowed user, or amember of the allowed groups (or if
+changing to root, the allowed root users or allowed root groups) for the
+specified chroot(s), the user will be required to authenticate themselves
+(typically with a password, but this depends upon the PAM configuration).  All
+chroot usage will be logged in the system logs.
 .PP
 If no chroot is specified, the chroot name or alias \fBdefault\fP will be used
 as a fallback.  This is equivalent to \[lq]\-\-chroot=default\[rq].
@@ -194,9 +195,10 @@ the host system.
 .br
 \f[CR]# \fP
 .LP
-If the user \[lq]rleigh\[rq] was in \fIroot\-groups\fP in \fIschroot.conf\fP,
-they would be granted root access without authentication, but the PAM
-authorisation step is still applied.
+If the user \[lq]rleigh\[rq] was in \fIroot\-users\fP in \fIschroot.conf\fP, or
+one of the groups he belonged to was in \fIroot\-groups\fP, they would be
+granted root access without authentication, but the PAM authorisation step is
+still applied.
 .SH BUGS
 None known at this time.
 .SH ENVIRONMENT

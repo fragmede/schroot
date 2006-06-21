@@ -66,6 +66,22 @@ namespace sbuild
 
   public:
     /**
+     * Get the users allowed to access the source chroot.
+     *
+     * @returns a list of users.
+     */
+    virtual string_list const&
+    get_source_users () const;
+
+    /**
+     * Set the users allowed to access the source chroot.
+     *
+     * @param users a list of users.
+     */
+    virtual void
+    set_source_users (string_list const& users);
+
+    /**
      * Get the groups allowed to access the source chroot.
      *
      * @returns a list of groups.
@@ -80,6 +96,26 @@ namespace sbuild
      */
     virtual void
     set_source_groups (string_list const& groups);
+
+    /**
+     * Get the users allowed to access the source chroot as root.
+     * Mmebers of these users can switch to root without
+     * authenticating themselves.
+     *
+     * @returns a list of users.
+     */
+    virtual string_list const&
+    get_source_root_users () const;
+
+    /**
+     * Set the users allowed to access the source chroot as root.
+     * Mmebers of these users can switch to root without
+     * authenticating themselves.
+     *
+     * @param users a list of users.
+     */
+    virtual void
+    set_source_root_users (string_list const& users);
 
     /**
      * Get the groups allowed to access the source chroot as root.
@@ -115,8 +151,12 @@ namespace sbuild
     set_keyfile (keyfile const& keyfile);
 
   private:
+    /// Users allowed to access the source chroot.
+    string_list   source_users;
     /// Groups allowed to access the source chroot.
     string_list   source_groups;
+    /// Users allowed to access the source chroot as root.
+    string_list   source_root_users;
     /// Groups allowed to access the source chroot as root.
     string_list   source_root_groups;
   };

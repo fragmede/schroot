@@ -1,5 +1,39 @@
 2006-06-21  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.1.in: Document users and root-users.
+
+	* schroot/schroot.conf.5.in: Document "users", "root-users",
+	"source-users" and "source-root-users" keys.
+
+	* schroot/schroot.cc (main): Fix generated schroot.conf header to
+	document users and root-users.
+
+	* schroot/dchroot-session.cc (get_chroot_auth_status): New method
+	to replace get_auth_status.  This overrides the sbuild::session
+	implementation to provide the correct authorisation checks for
+	dchroot and dchroot-dsa.
+
+	* schroot/dchroot-chroot-config.cc (parse_data): Set users rather
+	than groups for dchroot-dsa allowed user list.
+
+	* schroot/sbuild-chroot-source.cc: Save and restore source-users
+	and source-root-users keyfile keys.
+
+	* schroot/sbuild-chroot-source.h: Add source_users and
+	source_root_users members and methods.
+
+	* schroot/sbuild-chroot.cc: Save and restore source-users
+	and source-root-users keyfile keys.
+
+	* schroot/sbuild-chroot.h: Add users and root_users members and
+	methods.
+
+	* schroot/sbuild-session.cc (get_chroot_auth_status): New
+	protected virtual function.  The chroot authorisation checks have
+	been split out from get_auth_status for reuse in derived classes.
+
+2006-06-21  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/Makefile.am: Install dchroot-dsa setuid root.
 
 2006-06-21  Roger Leigh  <rleigh@debian.org>

@@ -73,7 +73,9 @@ sbuild::chroot::chroot ():
   name(),
   description(),
   priority(0),
+  users(),
   groups(),
+  root_users(),
   root_groups(),
   aliases(),
   mount_location(),
@@ -198,6 +200,18 @@ sbuild::chroot::set_priority (unsigned int priority)
 }
 
 string_list const&
+sbuild::chroot::get_users () const
+{
+  return this->users;
+}
+
+void
+sbuild::chroot::set_users (string_list const& users)
+{
+  this->users = users;
+}
+
+string_list const&
 sbuild::chroot::get_groups () const
 {
   return this->groups;
@@ -207,6 +221,18 @@ void
 sbuild::chroot::set_groups (string_list const& groups)
 {
   this->groups = groups;
+}
+
+string_list const&
+sbuild::chroot::get_root_users () const
+{
+  return this->root_users;
+}
+
+void
+sbuild::chroot::set_root_users (string_list const& users)
+{
+  this->root_users = users;
 }
 
 string_list const&
@@ -381,7 +407,9 @@ sbuild::chroot::print_details (std::ostream& stream) const
 	 << format_details(_("Description"), get_description())
 	 << format_details(_("Type"), get_chroot_type())
 	 << format_details(_("Priority"), get_priority())
+	 << format_details(_("Users"), get_users())
 	 << format_details(_("Groups"), get_groups())
+	 << format_details(_("Root Users"), get_root_users())
 	 << format_details(_("Root Groups"), get_root_groups())
 	 << format_details(_("Aliases"), get_aliases())
 	 << format_details(_("Run Setup Scripts"), get_run_setup_scripts())
@@ -440,6 +468,14 @@ sbuild::chroot::get_keyfile (keyfile& keyfile) const
   string_list const& groups = get_groups();
   keyfile.set_list_value(this->name, "groups",
 			 groups.begin(), groups.end());
+
+  string_list const& users = get_users();
+  keyfile.set_list_value(this->name, "users",
+			 users.begin(), users.end());
+
+  string_list const& root_users = get_root_users();
+  keyfile.set_list_value(this->name, "root-users",
+			 root_users.begin(), root_users.end());
 
   string_list const& root_groups = get_root_groups();
   keyfile.set_list_value(this->name, "root-groups",
@@ -500,11 +536,23 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 				keyfile::PRIORITY_OPTIONAL, description))
     set_description(description);
 
+  string_list users;
+  if (keyfile.get_list_value(this->name, "users",
+			     keyfile::PRIORITY_OPTIONAL,
+			     users))
+    set_users(users);
+
   string_list groups;
   if (keyfile.get_list_value(this->name, "groups",
-			     keyfile::PRIORITY_REQUIRED,
+			     keyfile::PRIORITY_OPTIONAL,
 			     groups))
     set_groups(groups);
+
+  string_list root_users;
+  if (keyfile.get_list_value(this->name, "root-users",
+			     keyfile::PRIORITY_OPTIONAL,
+			     root_users))
+    set_root_users(root_users);
 
   string_list root_groups;
   if (keyfile.get_list_value(this->name, "root-groups",

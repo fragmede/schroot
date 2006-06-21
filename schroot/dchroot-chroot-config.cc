@@ -129,22 +129,28 @@ chroot_config::parse_data (std::istream& stream,
 	  if (pstart != std::string::npos)
 	    personality = line.substr(pstart, pend - pstart);
 #else /* DSA dchroot parses valid users. */
-	  sbuild::string_list groups;
+	  sbuild::string_list users;
 	  if (lend != std::string::npos)
-	    groups = sbuild::split_string(line.substr(lend), whitespace);
+	    users = sbuild::split_string(line.substr(lend), whitespace);
 #endif
 
 	  /* Create chroot object. */
 	  sbuild::chroot::ptr chroot = sbuild::chroot::create("plain");
 	  chroot->set_active(active);
 	  chroot->set_name(chroot_name);
-	  chroot->set_description(chroot_name + " chroot (dchroot compatibility)");
+	  chroot->set_description(chroot_name +
+#ifndef SBUILD_DCHROOT_DSA_COMPAT
+				  " chroot (dchroot compatibility)"
+#else
+				  " chroot (dchroot-dsa compatibility)"
+#endif
+				  );
 
 #ifndef SBUILD_DCHROOT_DSA_COMPAT
 	  if (pstart != std::string::npos)
 	    chroot->set_persona(sbuild::personality(personality));
-#else /* DSA dchroot set valid users in the groups list. */
-	  chroot->set_groups(groups);
+#else /* DSA dchroot set valid users in the user list. */
+	  chroot->set_users(users);
 #endif
 
 	  sbuild::chroot_plain *plain =

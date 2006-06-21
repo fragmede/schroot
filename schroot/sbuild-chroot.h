@@ -242,6 +242,22 @@ namespace sbuild
     set_priority (unsigned int priority);
 
     /**
+     * Get the users allowed to access the chroot.
+     *
+     * @returns a list of users.
+     */
+    string_list const&
+    get_users () const;
+
+    /**
+     * Set the users allowed to access the chroot.
+     *
+     * @param users a list of users.
+     */
+    void
+    set_users (string_list const& users);
+
+    /**
      * Get the groups allowed to access the chroot.
      *
      * @returns a list of groups.
@@ -250,12 +266,32 @@ namespace sbuild
     get_groups () const;
 
     /**
-     * Set the groups allowed to access the chroot.
+     * Set the users allowed to access the chroot.
      *
-     * @param groups a list of groups.
+     * @param users a list of users.
      */
     void
     set_groups (string_list const& groups);
+
+    /**
+     * Get the users allowed to access the chroot as root.  Mmebers
+     * of these users can switch to root without authenticating
+     * themselves.
+     *
+     * @returns a list of users.
+     */
+    string_list const&
+    get_root_users () const;
+
+    /**
+     * Set the users allowed to access the chroot as root.  Mmebers
+     * of these users can switch to root without authenticating
+     * themselves.
+     *
+     * @param users a list of users.
+     */
+    void
+    set_root_users (string_list const& users);
 
     /**
      * Get the groups allowed to access the chroot as root.  Mmebers
@@ -545,8 +581,12 @@ namespace sbuild
     std::string   description;
     /// Chroot prioroty.
     unsigned int  priority;
+    /// Users allowed to access the chroot.
+    string_list   users;
     /// Groups allowed to access the chroot.
     string_list   groups;
+    /// Users allowed to access the chroot as root.
+    string_list   root_users;
     /// Groups allowed to access the chroot as root.
     string_list   root_groups;
     /// Alternative names for the chroot.

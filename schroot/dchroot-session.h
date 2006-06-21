@@ -61,7 +61,8 @@ namespace dchroot
     virtual ~session ();
 
     virtual sbuild::auth::status
-    get_auth_status () const;
+    get_chroot_auth_status (sbuild::auth::status status,
+			    sbuild::chroot::ptr const& chroot) const;
 
     virtual void
     run_impl ();

@@ -56,46 +56,28 @@ session::~session ()
 }
 
 sbuild::auth::status
-session::get_auth_status () const
+session::get_chroot_auth_status (sbuild::auth::status status,
+				 sbuild::chroot::ptr const& chroot) const
 {
-  auth::status status = auth::STATUS_NONE;
-
-  /* @todo Use set difference rather than iteration and
-     is_group_member. */
-  for (sbuild::string_list::const_iterator cur = this->get_chroots().begin();
-       cur != this->get_chroots().end();
-       ++cur)
-    {
-      const sbuild::chroot::ptr chroot = this->get_config()->find_alias(*cur);
-      if (!chroot) // Should never happen, but cater for it anyway.
-	{
-	  sbuild::log_warning()
-	    << format(_("No chroot found matching alias '%1%'"))
-	    % *cur
-	    << endl;
-	  status = change_auth(status, auth::STATUS_FAIL);
-	}
-
-      if (this->get_ruid() == 0)
-	status = change_auth(status, auth::STATUS_NONE);
-
 #ifndef SBUILD_DCHROOT_DSA_COMPAT
-      status = change_auth(status, auth::STATUS_FAIL);
-#else /* DSA dchroot checks for a valid user in the groups list. */
-      sbuild::string_list const& groups = chroot->get_groups();
+  status = change_auth(status, auth::STATUS_NONE);
+#else
+  /* DSA dchroot checks for a valid user in the groups list, unless
+     the groups lists is empty in which case there are no
+     restrictions.  This only applies if not switching users (dchroot
+     does not support user switching) */
 
-      // If no users were specified, there are no restrictions.
-      if (groups.empty())
-	status = change_auth(status, auth::STATUS_FAIL);
+  sbuild::string_list const& users = chroot->get_users();
+  sbuild::string_list const& groups = chroot->get_groups();
 
-      sbuild::string_list::const_iterator pos =
-	find(groups.begin(), groups.end(), get_ruser());
-      if (pos == groups.end())
-	status = change_auth(status, auth::STATUS_NONE);
-      else
-	status = change_auth(status, auth::STATUS_FAIL);
+  if (this->get_ruid() == this->get_uid() &&
+      users.empty() && groups.empty())
+    status = change_auth(status, auth::STATUS_NONE);
+  else
+    status = change_auth(status,
+			 sbuild::session::get_chroot_auth_status(status,
+								 chroot));
 #endif
-    }
 
   return status;
 }

@@ -244,6 +244,80 @@ session::get_child_status () const
 }
 
 auth::status
+session::get_chroot_auth_status (auth::status status,
+				 chroot::ptr const& chroot) const
+{
+  string_list const& users = chroot->get_users();
+  string_list const& root_users = chroot->get_root_users();
+  string_list const& groups = chroot->get_groups();
+  string_list const& root_groups = chroot->get_root_groups();
+
+  bool in_users = false;
+  bool in_root_users = false;
+  bool in_groups = false;
+  bool in_root_groups = false;
+
+  sbuild::string_list::const_iterator upos =
+    find(users.begin(), users.end(), get_ruser());
+  if (upos != users.end())
+    in_users = true;
+
+  sbuild::string_list::const_iterator rupos =
+    find(root_users.begin(), root_users.end(), get_ruser());
+  if (rupos != root_users.end())
+    in_root_users = true;
+
+  if (!groups.empty())
+    {
+      for (string_list::const_iterator gp = groups.begin();
+	   gp != groups.end();
+	   ++gp)
+	if (is_group_member(*gp))
+	  in_groups = true;
+    }
+
+  if (!root_groups.empty())
+    {
+      for (string_list::const_iterator gp = root_groups.begin();
+	   gp != root_groups.end();
+	   ++gp)
+	if (is_group_member(*gp))
+	  in_root_groups = true;
+    }
+
+  /*
+   * No auth required if in root users or root groups and
+   * changing to root, or if the uid is not changing.  If not
+   * in user or group, authentication fails immediately.
+   */
+  if ((in_users == true || in_groups == true ||
+       in_root_users == true || in_root_groups == true) &&
+      this->get_ruid() == this->get_uid())
+    {
+      status = change_auth(status, auth::STATUS_NONE);
+    }
+  else if ((in_root_users == true || in_root_groups == true) &&
+	   this->get_uid() == 0)
+    {
+      status = change_auth(status, auth::STATUS_NONE);
+    }
+  else if (in_users == true || in_groups == true)
+    // Auth required if not in root group
+    {
+      status = change_auth(status, auth::STATUS_USER);
+    }
+  else // Not in any groups
+    {
+      if (this->get_ruid() == 0)
+	status = change_auth(status, auth::STATUS_USER);
+      else
+	status = change_auth(status, auth::STATUS_FAIL);
+    }
+
+  return status;
+}
+
+auth::status
 session::get_auth_status () const
 {
   assert(!this->chroots.empty());
@@ -274,62 +348,7 @@ session::get_auth_status () const
 	  status = change_auth(status, auth::STATUS_FAIL);
 	}
 
-      string_list const& groups = chroot->get_groups();
-      string_list const& root_groups = chroot->get_root_groups();
-
-      if (!groups.empty())
-	{
-	  bool in_groups = false;
-	  bool in_root_groups = false;
-
-	  if (!groups.empty())
-	    {
-	      for (string_list::const_iterator gp = groups.begin();
-		   gp != groups.end();
-		   ++gp)
-		if (is_group_member(*gp))
-		  in_groups = true;
-	    }
-
-	  if (!root_groups.empty())
-	    {
-	      for (string_list::const_iterator gp = root_groups.begin();
-		   gp != root_groups.end();
-		   ++gp)
-		if (is_group_member(*gp))
-		  in_root_groups = true;
-	    }
-
-	  /*
-	   * No auth required if in root groups and changing to root,
-	   * or if the uid is not changing.  If not in a group,
-	   * authentication fails immediately.
-	   */
-	  if (in_groups == true &&
-	      ((this->get_uid() == 0 && in_root_groups == true) ||
-	       (this->get_ruid() == this->get_uid())))
-	    {
-	      status = change_auth(status, auth::STATUS_NONE);
-	    }
-	  else if (in_groups == true) // Auth required if not in root group
-	    {
-	      status = change_auth(status, auth::STATUS_USER);
-	    }
-	  else // Not in any groups
-	    {
-	      if (this->get_ruid() == 0)
-		status = change_auth(status, auth::STATUS_USER);
-	      else
-		status = change_auth(status, auth::STATUS_FAIL);
-	    }
-	}
-      else // No available groups entries means no access to anyone
-	{
-	  if (this->get_ruid() == 0)
-	    status = change_auth(status, auth::STATUS_USER);
-	  else
-	    status = change_auth(status, auth::STATUS_FAIL);
-	}
+      status = change_auth(status, get_chroot_auth_status(status, chroot));
     }
 
   return status;
