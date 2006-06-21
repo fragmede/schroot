@@ -75,7 +75,7 @@ public:
   void test_split_string()
   {
     sbuild::string_list items =
-      sbuild::split_string("/usr/share/info", '/');
+      sbuild::split_string("/usr/share/info", "/");
 
     CPPUNIT_ASSERT(items.size() == 3 &&
 		   items[0] == "usr" &&

@@ -177,8 +177,8 @@ session::~session ()
 {
 }
 
-session::config_ptr&
-session::get_config ()
+session::config_ptr const&
+session::get_config () const
 {
   return this->config;
 }

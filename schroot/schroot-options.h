@@ -50,6 +50,13 @@ namespace schroot
 	ACTION_CONFIG           ///< Display chroot configuration.
       };
 
+    enum compatibility_type
+      {
+	COMPAT_SCHROOT,    ///< schroot compatibility.
+	COMPAT_DCHROOT,    ///< dchroot compatibility.
+	COMPAT_DCHROOT_DSA ///< dchroot-dsa compatibility.
+      };
+
     /**
      * The constructor.
      *
@@ -91,7 +98,7 @@ namespace schroot
     /// Force session operations.
     bool                 session_force;
     /// dchroot(1) compatibility mode.
-    bool                 dchroot_compat;
+    compatibility_type   compat;
 
   private:
     /**

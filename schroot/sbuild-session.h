@@ -106,8 +106,8 @@ namespace sbuild
      *
      * @returns a shared_ptr to the configuration.
      */
-    config_ptr&
-    get_config ();
+    config_ptr const&
+    get_config () const;
 
     /**
      * Set the configuration associated with this session.

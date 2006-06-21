@@ -55,12 +55,16 @@ options::options (int   argc,
   all_chroots(false),
   all_sessions(false),
   session_force(false),
-  dchroot_compat(false)
-{
-#ifdef SBUILD_DCHROOT_COMPAT
-  this->dchroot_compat = true;
+  compat(
+#ifdef SBUILD_DCHROOT_DSA_COMPAT
+	 COMPAT_DCHROOT_DSA
+#elif defined(SBUILD_DCHROOT_COMPAT)
+	 COMPAT_DCHROOT
+#else
+	 COMPAT_SCHROOT
 #endif
-
+	 )
+{
   opt::options_description general(_("General options"));
   general.add_options()
     ("help,h",
@@ -75,14 +79,18 @@ options::options (int   argc,
      _("List available chroots"))
     ("info,i",
      _("Show information about selected chroots"));
-    if (this->dchroot_compat)
-      general.add_options()
-	("path,p", opt::value<std::string>(&this->chroot_path),
-	 _("Print path to selected chroot"));
-    else
+    if (this->compat == COMPAT_SCHROOT)
       general.add_options()
 	("location",
 	 _("Print location of selected chroots"));
+    else if (this->compat == COMPAT_DCHROOT)
+      general.add_options()
+	("path,p", opt::value<std::string>(&this->chroot_path),
+	 _("Print path to selected chroot"));
+    else if (this->compat == COMPAT_DCHROOT_DSA)
+      general.add_options()
+	("listpaths,p",
+	 _("Print paths to available chroots"));
   general.add_options()
     ("config",
      _("Dump configuration of selected chroots"));
@@ -91,11 +99,7 @@ options::options (int   argc,
   chroot.add_options()
     ("chroot,c", opt::value<sbuild::string_list>(&this->chroots),
      _("Use specified chroot"));
-  if (this->dchroot_compat)
-    chroot.add_options()
-      ("all,a",
-       _("Select all chroots"));
-  else
+  if (this->compat == COMPAT_SCHROOT)
     chroot.add_options()
       ("all,a",
        _("Select all chroots and active sessions"))
@@ -103,17 +107,21 @@ options::options (int   argc,
        _("Select all chroots"))
       ("all-sessions",
        _("Select all active sessions"));
+  else
+    chroot.add_options()
+      ("all,a",
+       _("Select all chroots"));
 
   opt::options_description chrootenv(_("Chroot environment"));
-  if (this->dchroot_compat)
-    chrootenv.add_options()
-      ("preserve-environment,d",
-       _("Preserve user environment"));
-  else
+  if (this->compat == COMPAT_SCHROOT)
     chrootenv.add_options()
     ("user,u", opt::value<std::string>(&this->user),
      _("Username (default current user)"))
       ("preserve-environment,p",
+       _("Preserve user environment"));
+  else if (this->compat == COMPAT_DCHROOT)
+    chrootenv.add_options()
+      ("preserve-environment,d",
        _("Preserve user environment"));
 
   opt::options_description session(_("Session management"));
@@ -137,13 +145,19 @@ options::options (int   argc,
   pos.add("command", -1);
 
   opt::options_description visible;
-  visible.add(general).add(chroot).add(chrootenv);
-  if (!this->dchroot_compat)
+  visible.add(general);
+  visible.add(chroot);
+  if (this->compat != COMPAT_DCHROOT_DSA)
+    visible.add(chrootenv);
+  if (this->compat == COMPAT_SCHROOT)
     visible.add(session);
 
   opt::options_description global;
-  global.add(general).add(chroot).add(chrootenv);
-  if (!this->dchroot_compat)
+  global.add(general);
+  global.add(chroot);
+  if (this->compat != COMPAT_DCHROOT_DSA)
+    global.add(chrootenv);
+  if (this->compat == COMPAT_SCHROOT)
     global.add(session);
   global.add(hidden);
 
@@ -155,10 +169,20 @@ options::options (int   argc,
   if (vm.count("help"))
     {
       std::cout
-	<< _("Usage:") << "\n  "
-	<< (dchroot_compat ? "dchroot" : "schroot")
-	<< _(" [OPTION...] [COMMAND] - run command or shell in a chroot") << '\n'
-	<< visible << std::flush;
+	<< _("Usage:") << "\n  ";
+      if (this->compat == COMPAT_SCHROOT)
+	std::cout << "schroot";
+      else if (this->compat == COMPAT_DCHROOT)
+	std::cout << "dchroot";
+      else if (this->compat == COMPAT_DCHROOT_DSA)
+	std::cout << "dchroot-dsa";
+      if (this->compat != COMPAT_DCHROOT_DSA)
+	std::cout
+	  << _(" [OPTION...] [COMMAND] - run command or shell in a chroot") << '\n';
+      else
+	std::cout
+	  << _(" [OPTION...] chroot [COMMAND] - run command or shell in a chroot") << '\n';
+      std::cout << visible << std::flush;
       exit(EXIT_SUCCESS);
     }
 
@@ -168,17 +192,17 @@ options::options (int   argc,
     set_action(ACTION_LIST);
   if (vm.count("info"))
     set_action(ACTION_INFO);
-  if (vm.count("path") || vm.count("location"))
+  if (vm.count("location") || vm.count("path") || vm.count("listpaths"))
     set_action(ACTION_LOCATION);
   if (vm.count("config"))
     set_action(ACTION_CONFIG);
 
   if (vm.count("all"))
     {
-      if (this->dchroot_compat)
-	this->all_chroots = true;
-      else
+      if (this->compat == COMPAT_SCHROOT)
 	this->all = true;
+      else
+	this->all_chroots = true;
     }
   if (vm.count("all-chroots"))
     this->all_chroots = true;
@@ -186,6 +210,8 @@ options::options (int   argc,
     this->all_sessions = true;
 
   if (vm.count("preserve-environment"))
+    this->preserve = true;
+  if (this->compat == COMPAT_DCHROOT_DSA)
     this->preserve = true;
   if (vm.count("quiet"))
     this->quiet = true;
@@ -202,6 +228,16 @@ options::options (int   argc,
     set_action(ACTION_SESSION_END);
   if (vm.count("force"))
     this->session_force = true;
+
+  if (this->compat == COMPAT_DCHROOT_DSA)
+    {
+      // If no chroots specified, use the first non-option.
+      if (this->chroots.empty() && !this->command.empty())
+	{
+	  this->chroots.push_back(this->command[0]);
+	  this->command.erase(this->command.begin());
+	}
+    }
 
   if (this->quiet && this->verbose)
     {

@@ -62,8 +62,9 @@ chroot_config::parse_data (std::istream& stream,
   std::string line;
   std::string chroot_name;
   std::string chroot_location;
+#ifndef SBUILD_DCHROOT_DSA_COMPAT
   bool default_set = false;
-
+#endif
   while (std::getline(stream, line))
     {
       linecount++;
@@ -78,7 +79,13 @@ chroot_config::parse_data (std::istream& stream,
 	}
       else // Item
 	{
-	  static const char *whitespace = " \t";
+	  static const char *whitespace =
+#ifndef SBUILD_DCHROOT_DSA_COMPAT
+	    " \t"
+#else
+	    " \t:;,"
+#endif
+	    ;
 
 	  // Get chroot name
 	  std::string::size_type cstart = line.find_first_not_of(whitespace);
@@ -89,6 +96,7 @@ chroot_config::parse_data (std::istream& stream,
 								 cend);
 	  std::string::size_type lend = line.find_first_of(whitespace, lstart);
 
+#ifndef SBUILD_DCHROOT_DSA_COMPAT
 	  // Get chroot personality
 	  std::string::size_type pstart = line.find_first_not_of(whitespace,
 								 lend);
@@ -97,33 +105,54 @@ chroot_config::parse_data (std::istream& stream,
 	  // Check for trailing non-whitespace.
 	  std::string::size_type tstart = line.find_first_not_of(whitespace,
 								 pend);
+#endif
 
 	  if (cstart == std::string::npos ||
 	      cend == std::string::npos ||
-	      lstart == std::string::npos ||
-	      tstart != std::string::npos)
+	      lstart == std::string::npos)
 	    {
 	      throw parse_error(linecount, parse_error::INVALID_LINE, line);
 	    }
 
+#ifndef SBUILD_DCHROOT_DSA_COMPAT
+	  if (tstart != std::string::npos)
+	    {
+	      throw parse_error(linecount, parse_error::INVALID_LINE, line);
+	    }
+#endif
+
 	  std::string chroot_name = line.substr(cstart, cend - cstart);
 	  std::string location = line.substr(lstart, lend - lstart);
+
+#ifndef SBUILD_DCHROOT_DSA_COMPAT
 	  std::string personality;
 	  if (pstart != std::string::npos)
 	    personality = line.substr(pstart, pend - pstart);
+#else /* DSA dchroot parses valid users. */
+	  sbuild::string_list groups;
+	  if (lend != std::string::npos)
+	    groups = sbuild::split_string(line.substr(lend), whitespace);
+#endif
 
 	  /* Create chroot object. */
 	  sbuild::chroot::ptr chroot = sbuild::chroot::create("plain");
 	  chroot->set_active(active);
 	  chroot->set_name(chroot_name);
 	  chroot->set_description(chroot_name + " chroot (dchroot compatibility)");
+
+#ifndef SBUILD_DCHROOT_DSA_COMPAT
 	  if (pstart != std::string::npos)
 	    chroot->set_persona(sbuild::personality(personality));
+#else /* DSA dchroot set valid users in the groups list. */
+	  chroot->set_groups(groups);
+#endif
 
 	  sbuild::chroot_plain *plain =
 	    dynamic_cast<sbuild::chroot_plain *>(chroot.get());
 	  plain->set_location(location);
 
+#ifndef SBUILD_DCHROOT_DSA_COMPAT
+	  // DSA dchroot doesn't support a default chroot.
 	  if (!default_set)
 	    {
 	      sbuild::string_list aliases;
@@ -131,6 +160,7 @@ chroot_config::parse_data (std::istream& stream,
 	      chroot->set_aliases(aliases);
 	      default_set = true;
 	    }
+#endif
 
 	  add(chroot);
 	}

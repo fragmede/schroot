@@ -167,7 +167,11 @@ if BUILD_DCHROOT
 dchroot_mans = dchroot.1
 endif
 
-man_MANS = $(dchroot_mans) schroot.1 schroot-setup.5 schroot.conf.5
+if BUILD_DCHROOT_DSA
+dchroot_dsa_mans = dchroot-dsa.1
+endif
+
+man_MANS = $(dchroot_mans) $(dchroot_dsa_mans) schroot.1 schroot-setup.5 schroot.conf.5
 
 EXTRA_DIST =			\
 	$(pkgsysconf_DATA)

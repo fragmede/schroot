@@ -289,6 +289,22 @@ AH_TEMPLATE(SCHROOT_MODULEDIR, [Package module directory])
 SCHROOT_MODULEDIR="${PACKAGE_LIB_DIR}/${PACKAGE_VERSION}/modules"
 AC_DEFINE_UNQUOTED(SCHROOT_MODULEDIR, ["$SCHROOT_MODULEDIR"])
 
+if test "x${sysconfdir}" = 'x${prefix}/etc'; then
+  if test "x${prefix}" = "xNONE"; then
+    DCHROOT_SYSCONF_DIR="${ac_default_prefix}/etc"
+  else
+    DCHROOT_SYSCONF_DIR="${prefix}/etc"
+  fi
+else
+  DCHROOT_SYSCONF_DIR="${sysconfdir}"
+fi
+
+DCHROOT_CONF="${DCHROOT_SYSCONF_DIR}/dchroot.conf"
+AC_SUBST([DCHROOT_CONF])
+
+AH_TEMPLATE(DCHROOT_CONF, [dchroot config file path])
+AC_DEFINE_UNQUOTED(DCHROOT_CONF, ["$DCHROOT_CONF"])
+
 dnl Configure which files to generate.
 AC_CONFIG_FILES([doc/Makefile])
 AC_CONFIG_FILES([doc/schroot.dox])
@@ -298,6 +314,7 @@ AC_CONFIG_FILES([schroot/pam/Makefile])
 AC_CONFIG_FILES([schroot/exec/Makefile])
 AC_CONFIG_FILES([schroot/setup/Makefile])
 AC_CONFIG_FILES([schroot/dchroot.1])
+AC_CONFIG_FILES([schroot/dchroot-dsa.1])
 AC_CONFIG_FILES([schroot/schroot.1])
 AC_CONFIG_FILES([schroot/schroot-setup.5])
 AC_CONFIG_FILES([schroot/schroot.conf.5])

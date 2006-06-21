@@ -141,7 +141,7 @@ sbuild::string_list_to_string (sbuild::string_list const& list,
 
 string_list
 sbuild::split_string (std::string const& value,
-		      char               separator)
+		      std::string const& separator)
 {
   string_list ret;
 
@@ -171,7 +171,7 @@ sbuild::find_program_in_path (std::string const& program,
   if (program.find_first_of('/') != std::string::npos)
     return program;
 
-  string_list dirs = split_string(path, ':');
+  string_list dirs = split_string(path, std::string(1, ':'));
 
   for (string_list::const_iterator dir = dirs.begin();
        dir != dirs.end();

@@ -1,3 +1,48 @@
+2006-06-21  Roger Leigh  <rleigh@debian.org>
+
+	* configure.ac: Define and substiture DCHROOT_CONF.  Generate
+	dchroot-dsa man page.
+
+	* schroot/Makefile.am: Add dchroot-dsa man page.
+
+	* schroot/dchroot-dsa.1.in: New file.  Document dchroot-dsa.
+
+	* schroot/dchroot.1.in: Update documentation now dchroot is the
+	official dchroot package, and fix up minor formatting errors.
+	Document the --chroot option.  Use @DCHROOT_CONF@ in place of
+	/etc/dchroot.conf.
+
+	* schroot/schroot.cc: Don't hard-code DCHROOT_CONF.
+	(program_name): New function to get program name.
+	(print_version): Use program_name.
+	(main): Use new options::compat.  Add support for dchroot-dsa.
+
+	* schroot/dchroot-chroot-config.cc
+	(parse_data): When used by dchroot-dsa, extend the available
+	whitespace characters to " \t:;,", parse the third field as a user
+	list, and add to the chroot group list.  dchroot-dsa chroots don't
+	set the "default" chroot alias.
+
+	* schroot/dchroot-session.cc
+	(get_auth_status): Add user checks for dchroot-dsa.
+
+	* schroot/schroot-options.cc: Use compat to adapt to selected
+	compatibility mode, in place of dchroot_compat.  Add
+	specialisations for dchroot-dsa.
+
+	* schroot/schroot-options.h: Add compatibility_type enum
+	(for schroot, dchroot and dchroot-dsa).  Add compat member to
+	store current compatibility mode, in place of dchroot_compat.
+
+	* schroot/sbuild-session.h: get_config returns a const reference.
+
+	* test/sbuild-util.cc: Update test for split_string.
+
+	* schroot/sbuild-keyfile.h: Use new split_string argument type.
+
+	* schroot/sbuild-util.h: split_string uses a string as a list of
+	separators, instead of a single character.
+
 2006-06-20  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/Makefile.am: Add rules for dchroot-dsa.

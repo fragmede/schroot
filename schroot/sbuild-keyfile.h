@@ -325,7 +325,8 @@ namespace sbuild
       std::string item_value;
       if (get_value(group, key, item_value))
 	{
-	  string_list items = split_string(item_value, this->separator);
+	  string_list items = split_string(item_value,
+					   std::string(1, this->separator));
 	  for (string_list::const_iterator pos = items.begin();
 	       pos != items.end();
 	       ++pos

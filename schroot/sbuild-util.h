@@ -80,12 +80,12 @@ namespace sbuild
    * separator as a delimiter.
    *
    * @param value the string to split.
-   * @param separator the delimiting character.
+   * @param separator the delimiting character or characters.
    * @returns a string_list.
    */
   string_list
   split_string (std::string const& value,
-		char               separator);
+		std::string const& separator);
 
   /**
    * Find a program in the PATH search path.
