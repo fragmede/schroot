@@ -66,7 +66,7 @@ options::options (int   argc,
     {
       std::cout
 	<< _("Usage:") << '\n'
-	<< _("  schroot-releaselock [OPTION...] - release a device lock") << '\n'
+	<< "  " << _("schroot-releaselock [OPTION...] - release a device lock") << '\n'
 	<< global << std::flush;
       exit(EXIT_SUCCESS);
 }

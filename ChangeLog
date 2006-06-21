@@ -1,5 +1,22 @@
 2006-06-21  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.cc (program_name): For safety, return a string
+	if the enum is invalid.
+
+	* schroot/sbuild-chroot-config.cc, schroot/sbuild-parse-error.cc:
+	Reindent and capitalise translatable error strings.
+
+	* schroot/sbuild-chroot.cc, schroot/sbuild-chroot-source.cc,
+	schroot/schroot-options.cc, schroot/schroot-listmounts-options.cc
+	schroot/schroot-releaselock-options.cc: Remove whitespace from
+	translatable strings.
+
+	* schroot/sbuild-format-detail.h: Ensure that some whitespace
+	always separates name and value, even when the name is over 21
+	characters.
+
+2006-06-21  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.1.in: Document users and root-users.
 
 	* schroot/schroot.conf.5.in: Document "users", "root-users",

@@ -103,8 +103,8 @@ namespace sbuild
 	       format_detail<T> const& rhs)
   {
     return stream << "  "
-		  << std::setw(22) << std::left << rhs.name
-		  << rhs.value << '\n';
+		  << std::setw(21) << std::left << rhs.name
+		  << ' ' << rhs.value << '\n';
   }
 
   template<>

@@ -63,7 +63,7 @@ options::options (int   argc,
     {
       std::cout
 	<< _("Usage:") << '\n'
-	<< _("  schroot-listmounts [OPTION...] - list mounts") << '\n'
+	<< "  " << _("schroot-listmounts [OPTION...] - list mounts") << '\n'
 	<< global << std::flush;
       exit(EXIT_SUCCESS);
 }

@@ -38,17 +38,17 @@ namespace
    */
   emap init_errors[] =
     {
-      emap(parse_error::NONE, _("no error")),
-      emap(parse_error::BAD_FILE, N_("can't open file")),
-      emap(parse_error::BAD_VALUE, N_("could not parse value")),
-      emap(parse_error::INVALID_LINE, N_("invalid line")),
-      emap(parse_error::NO_GROUP, N_("no group specified")),
-      emap(parse_error::INVALID_GROUP, N_("invalid group")),
-      emap(parse_error::DUPLICATE_GROUP, N_("duplicate group")),
-      emap(parse_error::NO_KEY, N_("no key specified")),
-      emap(parse_error::DUPLICATE_KEY, N_("duplicate key")),
-      emap(parse_error::MISSING_KEY, N_("required key is missing")),
-      emap(parse_error::DISALLOWED_KEY, N_("disallowed key used"))
+      emap(parse_error::NONE,            N_("No error")),
+      emap(parse_error::BAD_FILE,        N_("Can't open file")),
+      emap(parse_error::BAD_VALUE,       N_("Could not parse value")),
+      emap(parse_error::INVALID_LINE,    N_("Invalid line")),
+      emap(parse_error::NO_GROUP,        N_("No group specified")),
+      emap(parse_error::INVALID_GROUP,   N_("Invalid group")),
+      emap(parse_error::DUPLICATE_GROUP, N_("Duplicate group")),
+      emap(parse_error::NO_KEY,          N_("No key specified")),
+      emap(parse_error::DUPLICATE_KEY,   N_("Duplicate key")),
+      emap(parse_error::MISSING_KEY,     N_("Required key is missing")),
+      emap(parse_error::DISALLOWED_KEY,  N_("Disallowed key used"))
     };
 
 }
@@ -113,7 +113,7 @@ parse_error::get_error (type error)
   if (pos != error_strings.end())
     return gettext(pos->second);
 
-  return _("unknown error");
+  return _("Unknown error");
 }
 
 std::string

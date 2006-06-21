@@ -138,8 +138,10 @@ chroot_config::add_config_directory (std::string const& dir,
 	{
 	  if (!(strcmp(de->d_name, ".") == 0 ||
 		strcmp(de->d_name, "..") == 0))
-	    log_warning() << format(_("%1%: not a regular file")) % filename
-			  << endl;
+	    {
+	      error e (filename, FILE_NOTREG);
+	      log_warning() << e.what() << endl;
+	    }
 	  continue;
 	}
 
@@ -176,7 +178,7 @@ chroot_config::add (chroot::ptr& chroot)
 		  if (chroot->get_name() != dup->first)
 		    log_warning() <<
 		      format(_("%1% chroot: "
-			       "alias '%2%' already associated with "
+			       "Alias '%2%' already associated with "
 			       "'%3%' chroot"))
 		      % chroot->get_name() % dup->first % dup->second
 				  << endl;
@@ -184,7 +186,7 @@ chroot_config::add (chroot::ptr& chroot)
 	      else
 		log_warning() <<
 		  format(_("%1% chroot: "
-			   "alias '%2%' already associated with "
+			   "Alias '%2%' already associated with "
 			   "another chroot"))
 		  % chroot->get_name() % *pos
 			      << endl;
@@ -193,10 +195,10 @@ chroot_config::add (chroot::ptr& chroot)
     }
   else
     {
-      log_warning() << format(_("%1% chroot: a chroot or alias already exists by this name"))
+      log_warning() << format(_("%1% chroot: A chroot or alias already exists by this name"))
 	% chroot->get_name()
 		    << endl;
-      log_warning() << format(_("%1% chroot: duplicate names are not allowed"))
+      log_warning() << format(_("%1% chroot: Duplicate names are not allowed"))
 	% chroot->get_name()
 		    << endl;
     }

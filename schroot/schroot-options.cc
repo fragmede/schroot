@@ -178,10 +178,14 @@ options::options (int   argc,
 	std::cout << "dchroot-dsa";
       if (this->compat != COMPAT_DCHROOT_DSA)
 	std::cout
-	  << _(" [OPTION...] [COMMAND] - run command or shell in a chroot") << '\n';
+	  << "  "
+	  << _("[OPTION...] [COMMAND] - run command or shell in a chroot")
+	  << '\n';
       else
 	std::cout
-	  << _(" [OPTION...] chroot [COMMAND] - run command or shell in a chroot") << '\n';
+	  << "  "
+	  << _("[OPTION...] chroot [COMMAND] - run command or shell in a chroot")
+	  << '\n';
       std::cout << visible << std::flush;
       exit(EXIT_SUCCESS);
     }

@@ -52,6 +52,7 @@ program_name (schroot::options& options)
     return "dchroot";
   else if (options.compat == options::COMPAT_DCHROOT_DSA)
     return "dchroot-dsa";
+  return "schroot";
 }
 
 /**

@@ -400,9 +400,9 @@ void
 sbuild::chroot::print_details (std::ostream& stream) const
 {
   if (this->active == true)
-    stream << _("  --- Session ---\n");
+    stream << "  " << _("--- Session ---\n");
   else
-    stream << _("  --- Chroot ---\n");
+    stream << "  " << _("--- Chroot ---\n");
   stream << format_details(_("Name"), get_name())
 	 << format_details(_("Description"), get_description())
 	 << format_details(_("Type"), get_chroot_type())

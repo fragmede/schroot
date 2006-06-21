@@ -726,7 +726,8 @@ msgstr "To allow users access to the chroots, use the users or groups keys."
 #: schroot/schroot.cc:324
 msgid ""
 "To allow passwordless root access, use the root-users or root-groups keys."
-msgstr "To allow passwordless root access, use the root-users or root-groups keys."
+msgstr ""
+"To allow passwordless root access, use the root-users or root-groups keys."
 
 #: schroot/schroot.cc:339
 msgid "Only one chroot may be specified when beginning a session"
