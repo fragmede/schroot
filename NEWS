@@ -9,6 +9,16 @@ configuration.
 
 * Major changes in 0.99.1:
 
+  1) A dchroot-dsa compatibility mode has been implemented.  This
+     behaves in the same manner as the DSA dchroot program, and is
+     useful for backward compatibility with DSA dchroot, as well as
+     migrating from DSA dchroot.
+
+  2) In addition to "groups" and "root-groups" options for controlling
+     chroot access, "users" and "root-users" have been added for finer
+     control over access.  Corresponding "source-users" and
+     "source-root-users" options have been added for source chroots.
+
 * Major changes in 0.99.0:
 
   1) In order to support running 32-bit chroots on 64-bit systems, a
@@ -123,7 +133,7 @@ configuration.
 
   1) A dchroot compatibility mode has been implemented.  This behaves
      in the same manner as the dchroot program, and is useful for
-     backward compatibility with dhchroot, as well as migrating from
+     backward compatibility with dchroot, as well as migrating from
      dchroot.
 
   2) Access to the source device of an "lvm-snapshot" type chroot is

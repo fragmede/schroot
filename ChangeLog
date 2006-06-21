@@ -1,5 +1,13 @@
 2006-06-21  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/sbuild-chroot-file.h: Remove dangerous TODO item.
+
+	* schroot/sbuild-keyfile.h: Remove completed TODO item.
+
+	* NEWS: Document dchroot-dsa and new user access controls.
+
+2006-06-21  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.cc (program_name): For safety, return a string
 	if the enum is invalid.
 

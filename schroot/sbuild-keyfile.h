@@ -333,7 +333,6 @@ namespace sbuild
 	       )
 	    {
 	      container.push_back(static_cast<typename C::const_reference>(parse_value(*pos)));
-	      // TODO: exception thrown on parse failure.
 	    }
 	  return true;
 	}
