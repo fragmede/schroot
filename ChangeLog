@@ -1,5 +1,9 @@
 2006-06-21  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/Makefile.am: Install dchroot-dsa setuid root.
+
+2006-06-21  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Add dchroot-dsa package.
 
 2006-06-21  Roger Leigh  <rleigh@debian.org>

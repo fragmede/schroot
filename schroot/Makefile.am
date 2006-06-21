@@ -181,6 +181,9 @@ install-exec-hook:
 	if [ -f "$(DESTDIR)$(bindir)/dchroot" ]; then \
 	  chmod 4755 "$(DESTDIR)$(bindir)/dchroot"; \
 	fi
+	if [ -f "$(DESTDIR)$(bindir)/dchroot-dsa" ]; then \
+	  chmod 4755 "$(DESTDIR)$(bindir)/dchroot-dsa"; \
+	fi
 	chmod 4755 "$(DESTDIR)$(bindir)/schroot"
 
 install-data-hook:
