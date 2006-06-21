@@ -1,5 +1,9 @@
 2006-06-21  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Add dchroot-dsa package.
+
+2006-06-21  Roger Leigh  <rleigh@debian.org>
+
 	* configure.ac: Define and substiture DCHROOT_CONF.  Generate
 	dchroot-dsa man page.
 

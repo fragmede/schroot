@@ -47,7 +47,6 @@ ifneq "$(wildcard /usr/share/misc/config.guess)" ""
 	cp -f /usr/share/misc/config.guess config.guess
 endif
 
-
 	dh_clean
 
 install: build
@@ -60,8 +59,10 @@ install: build
 	dh_install
 
 	mkdir -p $(CURDIR)/debian/dchroot/usr/share/lintian/overrides
+	mkdir -p $(CURDIR)/debian/dchroot-dsa/usr/share/lintian/overrides
 	mkdir -p $(CURDIR)/debian/schroot/usr/share/lintian/overrides
 	cp $(CURDIR)/debian/dchroot.lintian-overrides $(CURDIR)/debian/dchroot/usr/share/lintian/overrides/dchroot
+	cp $(CURDIR)/debian/dchroot-dsa.lintian-overrides $(CURDIR)/debian/dchroot-dsa/usr/share/lintian/overrides/dchroot-dsa
 	cp $(CURDIR)/debian/schroot.lintian-overrides $(CURDIR)/debian/schroot/usr/share/lintian/overrides/schroot
 
 # Build architecture-independent files here.
@@ -82,6 +83,7 @@ binary-arch: build install
 	dh_compress
 	dh_fixperms
 	chmod 4755 $(CURDIR)/debian/dchroot/usr/bin/dchroot
+	chmod 4755 $(CURDIR)/debian/dchroot-dsa/usr/bin/dchroot-dsa
 	chmod 4755 $(CURDIR)/debian/schroot/usr/bin/schroot
 	dh_installdeb
 	dh_shlibdeps

@@ -37,7 +37,22 @@ Architecture: any
 Suggests: debootstrap
 Depends: schroot (= ${Source-Version}), ${shlibs:Depends}
 Description: Execute commands in a chroot environment
- schroot allows users to execute commands or interactive shells in
+ dchroot allows users to execute commands or interactive shells in
  different chroots.  A typical installation might provide 'stable',
  'testing' and 'unstable' chroots.  Users can move between chroots as
  necessary.
+
+Package: dchroot-dsa
+Architecture: any
+Suggests: debootstrap
+Depends: schroot (= ${Source-Version}), ${shlibs:Depends}
+Description: Execute commands in a chroot environment
+ dchroot allows users to execute commands or interactive shells in
+ different chroots.  A typical installation might provide 'stable',
+ 'testing' and 'unstable' chroots.  Users can move between chroots as
+ necessary.
+ .
+ This package provides a dchroot-dsa binary which is compatible with
+ the command-line options and configuration file format used by the
+ dchroot-dsa dchroot maintained by the Debian System Administrators
+ used on machines administered for the Debian Project.
