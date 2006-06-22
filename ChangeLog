@@ -1,3 +1,7 @@
+2006-06-22  Luk Claes  <luk@debian.org>
+
+	* po/vi.po: Update Vietnamese translation.
+
 2006-06-22  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot-options.cc: dchroot and dchroot-dsa only permit

@@ -3,353 +3,379 @@
 # Clytie Siddall <clytie@riverland.net.au>, 2006.
 # 
 msgid ""
-msgstr ""
-"Project-Id-Version: schroot-0.2.8\n"
+""
+msgstr "Project-Id-Version: schroot-0.99.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-06-21 19:11+0100\n"
-"PO-Revision-Date: 2006-04-07 18:18+0930\n"
+"POT-Creation-Date: 2006-06-17 00:21+0100\n"
+"PO-Revision-Date: 2006-06-22 23:06+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
-"Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
+"Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: LocFactoryEditor 1.6b36\n"
+"X-Generator: LocFactoryEditor 1.6a7\n"
 
-#: schroot/dchroot-session.cc:90
+#: schroot/dchroot-chroot-config.cc:104
+#, boost-format
+msgid "line %1%: invalid line: %2%"
+msgstr "dòng %1%: dòng không hợp lệ: %2%"
+
+#: schroot/dchroot-session.cc:69
+#, boost-format
 msgid "(%1%->%2%): dchroot sessions do not support user switching"
-msgstr ""
-"(%1% → %2%): phiên chạy dchroot không hỗ trợ khả năng chuyển đổi người dùng."
+msgstr "(%1% → %2%): phiên chạy dchroot không hỗ trợ khả năng chuyển đổi người dùng."
 
-#: schroot/dchroot-session.cc:92
-#, fuzzy
-msgid "dchroot session restriction"
-msgstr "Chọn chroot"
-
-#: schroot/sbuild-auth.cc:52
-#, fuzzy
-msgid "Failed to get hostname"
-msgstr "Việc lấy tên máy bị lỗi: %1%"
-
-#: schroot/sbuild-auth.cc:53
-#, fuzzy
-msgid "User not found"
+#: schroot/sbuild-auth.cc:115
+#: schroot/sbuild-auth.cc:174
+#, boost-format
+msgid "%1%: user not found: %2%"
 msgstr "%1%: không tìm thấy người dùng: %2%"
 
-#: schroot/sbuild-auth.cc:54
-#, fuzzy
-msgid "Access not authorised"
-msgstr "không xác thực truy cập"
-
-#: schroot/sbuild-auth.cc:55
-#, fuzzy
-msgid "Authentication failed"
-msgstr "Việc xác thực kiểu PAM bị lỗi: %1%"
-
-#: schroot/sbuild-auth.cc:56
-#, fuzzy
-msgid "PAM is already initialised"
+#: schroot/sbuild-auth.cc:340
+msgid "PAM error: PAM is already initialised"
 msgstr "Lỗi PAM: PAM đã được sở khởi"
 
-#: schroot/sbuild-auth.cc:57
-#, fuzzy
-msgid "PAM error"
+#: schroot/sbuild-auth.cc:356
+#: schroot/sbuild-auth.cc:375
+#: schroot/sbuild-auth.cc:563
+#: schroot/sbuild-auth.cc:588
+#: schroot/sbuild-auth.cc:607
+#: schroot/sbuild-auth.cc:626
+#: schroot/sbuild-auth.cc:645
+#: schroot/sbuild-auth.cc:664
+#: schroot/sbuild-session.cc:667
+#, boost-format
+msgid "PAM error: %1%"
 msgstr "Lỗi PAM: %1%"
 
-#: schroot/sbuild-auth.cc:420
-msgid "Set RUSER"
-msgstr ""
+#: schroot/sbuild-auth.cc:397
+#, boost-format
+msgid "PAM set RUSER error: %1%"
+msgstr "Lỗi « PAM set RUSER » (lập máy ở xa): %1%"
 
-#: schroot/sbuild-auth.cc:436
-msgid "Set RHOST"
-msgstr ""
+#: schroot/sbuild-auth.cc:408
+#, boost-format
+msgid "Failed to get hostname: %1%"
+msgstr "Việc lấy tên máy bị lỗi: %1%"
 
-#: schroot/sbuild-auth.cc:449
-msgid "Set TTY"
-msgstr ""
+#: schroot/sbuild-auth.cc:417
+#, boost-format
+msgid "PAM set RHOST error: %1%"
+msgstr "Lỗi « PAM set RHOST » (lập người dùng ở xa): %1%"
 
-#: schroot/sbuild-auth.cc:461
-msgid "Set USER"
-msgstr ""
+#: schroot/sbuild-auth.cc:432
+#, boost-format
+msgid "PAM set TTY error: %1%"
+msgstr "Lỗi « PAM set TTY » (lập thiết bị báo đánh chữ): %1%"
 
-#: schroot/sbuild-auth.cc:479
+#: schroot/sbuild-auth.cc:446
+#, boost-format
+msgid "PAM set USER error: %1%"
+msgstr "Lỗi « PAM set USER » (lập người dùng): %1%"
+
+#: schroot/sbuild-auth.cc:458
+#, boost-format
+msgid "PAM authentication failed: %1%"
+msgstr "Việc xác thực kiểu PAM bị lỗi: %1%"
+
+#: schroot/sbuild-auth.cc:468
+#, boost-format
 msgid "You do not have permission to access the %1% service."
 msgstr "Bạn không có quyền truy cập dịch vụ %1%."
 
-#: schroot/sbuild-auth.cc:482
+#: schroot/sbuild-auth.cc:471
 msgid "This failure will be reported."
 msgstr "Sự thất bại này sẽ được thông báo."
 
-#: schroot/sbuild-auth-conv-tty.cc:47
+#: schroot/sbuild-auth.cc:476
+msgid "access not authorised"
+msgstr "không xác thực truy cập"
+
+#: schroot/sbuild-auth-conv-tty.cc:141
 msgid "Timed out"
 msgstr "Quá giờ"
 
-#: schroot/sbuild-auth-conv-tty.cc:48
+#: schroot/sbuild-auth-conv-tty.cc:146
 msgid "Time is running out..."
 msgstr "Gần thời hạn..."
 
-#: schroot/sbuild-auth-conv-tty.cc:49
+#: schroot/sbuild-auth-conv-tty.cc:174
 msgid "Failed to get terminal settings"
 msgstr "Việc lấy thiết lập thiết bị cuối bị lỗi"
 
-#: schroot/sbuild-auth-conv-tty.cc:50
-#, fuzzy
-msgid "Unsupported conversation type"
+#: schroot/sbuild-auth-conv-tty.cc:274
+#, boost-format
+msgid "Unsupported conversation type %1%"
 msgstr "Kiểu chuyển đổi không được hỗ trợ %1%"
 
-#: schroot/sbuild-chroot-block-device.cc:176
+#: schroot/sbuild-chroot-block-device.cc:130
+#: schroot/sbuild-chroot-lvm-snapshot.cc:142
+#, boost-format
+msgid "%1% chroot: failed to stat device %2%: %3%"
+msgstr "%1% chroot: việc lấy các thông tin về thiết bị %2% bị lỗi: %3%"
+
+#: schroot/sbuild-chroot-block-device.cc:136
+#, boost-format
+msgid "%1% chroot: %2% is not a block device"
+msgstr "%1% chroot: %2% không phải là thiết bị khối"
+
+#: schroot/sbuild-chroot-block-device.cc:151
+#: schroot/sbuild-chroot-lvm-snapshot.cc:168
+#, boost-format
+msgid "%1%: failed to lock device: %2%"
+msgstr "%1%: không khoá thiết bị được: %2%"
+
+#: schroot/sbuild-chroot-block-device.cc:164
+#: schroot/sbuild-chroot-lvm-snapshot.cc:181
+#, boost-format
+msgid "%1%: failed to unlock device: %2%"
+msgstr "%1%: không mở khoá thiết bị được: %2%"
+
+#: schroot/sbuild-chroot-block-device.cc:184
 msgid "Device"
 msgstr "Thiết bị"
 
-#: schroot/sbuild-chroot-block-device.cc:178
+#: schroot/sbuild-chroot-block-device.cc:186
 msgid "Mount Options"
 msgstr "Tùy chọn lắp"
 
-#: schroot/sbuild-chroot.cc:47
-#, fuzzy
-msgid "Unknown chroot type"
+#: schroot/sbuild-chroot.cc:79
+#, boost-format
+msgid "unknown chroot type \"%1%\""
 msgstr "không biết kiểu chroot « %1% »"
 
-#: schroot/sbuild-chroot.cc:48
-#, fuzzy
-msgid "Chroot creation failed"
+#: schroot/sbuild-chroot.cc:85
+msgid "chroot creation failed"
 msgstr "việc tạo chroot bị lỗi"
 
-#: schroot/sbuild-chroot.cc:49
-#, fuzzy
-msgid "Device name not set"
-msgstr "%1% chroot: chưa lập tên thiết bị"
-
-#: schroot/sbuild-chroot.cc:50
-#, fuzzy
-msgid "Failed to write session file"
+#: schroot/sbuild-chroot.cc:287
+#, boost-format
+msgid "%1%: failed to create session file: %2%\n"
 msgstr "%1%: việc tạo tập tin phiên chạy bị lỗi: %2%\n"
 
-#: schroot/sbuild-chroot.cc:51
-#, fuzzy
-msgid "Failed to unlink session file"
+#: schroot/sbuild-chroot.cc:309
+#, boost-format
+msgid "%1%: lock acquisition failure: %2%\n"
+msgstr "%1%: việc lấy khoá bị lỗi: %2%\n"
+
+#: schroot/sbuild-chroot.cc:324
+#, boost-format
+msgid "%1%: lock discard failure: %2%\n"
+msgstr "%1%: việc vứt bỏ khoá bị lỗi: %2%\n"
+
+#: schroot/sbuild-chroot.cc:333
+#, boost-format
+msgid "%1%: failed to unlink session file: %2%\n"
 msgstr "%1%: việc bỏ liên kết tập tin phiên chạy bị lỗi: %2%\n"
 
-#: schroot/sbuild-chroot.cc:52 schroot/sbuild-chroot-config.cc:56
-#, fuzzy
-msgid "Failed to stat file"
-msgstr "việc lấy các thông tin về tập tin bị lỗi: %1%"
-
-#: schroot/sbuild-chroot.cc:53 schroot/sbuild-chroot-config.cc:58
-#, fuzzy
-msgid "File is not owned by user root"
-msgstr "người dùng chủ không sở hữu"
-
-#: schroot/sbuild-chroot.cc:54 schroot/sbuild-chroot-config.cc:59
-#, fuzzy
-msgid "File has write permissions for others"
-msgstr "người khác có quyền ghi"
-
-#: schroot/sbuild-chroot.cc:55 schroot/sbuild-chroot-config.cc:60
-#, fuzzy
-msgid "File is not a regular file"
-msgstr "không phải là tập tin chuẩn"
-
-#: schroot/sbuild-chroot.cc:56
-#, fuzzy
-msgid "Failed to acquire file lock"
-msgstr "không lấy khoá thiết bị được"
-
-#: schroot/sbuild-chroot.cc:57
-#, fuzzy
-msgid "Failed to discard file lock"
-msgstr "không kiểm tra khoá thiết bị được"
-
-#: schroot/sbuild-chroot.cc:58
-#, fuzzy
-msgid "Failed to stat device"
-msgstr "Việc lấy các thông tin về thiết bị %1% bị lỗi: %2%"
-
-#: schroot/sbuild-chroot.cc:59
-#, fuzzy
-msgid "File is not a block device"
-msgstr "%1% không phải là thiết bị khối"
-
-#: schroot/sbuild-chroot.cc:60
-#, fuzzy
-msgid "Failed to lock device"
-msgstr "%1%: không khoá thiết bị được: %2%"
-
-#: schroot/sbuild-chroot.cc:61
-#, fuzzy
-msgid "Failed to unlock device"
-msgstr "%1%: không mở khoá thiết bị được: %2%"
-
-#: schroot/sbuild-chroot.cc:403
+#: schroot/sbuild-chroot.cc:357
 msgid "  --- Session ---\n"
 msgstr "  ━━━Phiên chạy ━━━\n"
 
-#: schroot/sbuild-chroot.cc:405
+#: schroot/sbuild-chroot.cc:359
 msgid "  --- Chroot ---\n"
 msgstr "  ━━━ Chroot ━━━\n"
 
-#: schroot/sbuild-chroot.cc:406
+#: schroot/sbuild-chroot.cc:360
 msgid "Name"
 msgstr "Tên"
 
-#: schroot/sbuild-chroot.cc:407
+#: schroot/sbuild-chroot.cc:361
 msgid "Description"
 msgstr "Mô tả"
 
-#: schroot/sbuild-chroot.cc:408
+#: schroot/sbuild-chroot.cc:362
 msgid "Type"
 msgstr "Kiểu"
 
-#: schroot/sbuild-chroot.cc:409
+#: schroot/sbuild-chroot.cc:363
 msgid "Priority"
 msgstr "Ưu tiên"
 
-#: schroot/sbuild-chroot.cc:410
-msgid "Users"
-msgstr ""
-
-#: schroot/sbuild-chroot.cc:411
+#: schroot/sbuild-chroot.cc:364
 msgid "Groups"
 msgstr "Nhóm"
 
-#: schroot/sbuild-chroot.cc:412
-#, fuzzy
-msgid "Root Users"
-msgstr "Nhóm chủ"
-
-#: schroot/sbuild-chroot.cc:413
+#: schroot/sbuild-chroot.cc:365
 msgid "Root Groups"
 msgstr "Nhóm chủ"
 
-#: schroot/sbuild-chroot.cc:414
+#: schroot/sbuild-chroot.cc:366
 msgid "Aliases"
 msgstr "Biệt hiệu"
 
-#: schroot/sbuild-chroot.cc:415
+#: schroot/sbuild-chroot.cc:367
 msgid "Run Setup Scripts"
 msgstr "Chạy các tập lệnh thiết lập"
 
-#: schroot/sbuild-chroot.cc:416
+#: schroot/sbuild-chroot.cc:368
 msgid "Run Execution Scripts"
 msgstr "Chạy các tập lệnh thực hiện"
 
-#: schroot/sbuild-chroot.cc:418
+#: schroot/sbuild-chroot.cc:370
 msgid "Session Managed"
 msgstr "Phiên chạy đã quản lý"
 
-#: schroot/sbuild-chroot.cc:423
+#: schroot/sbuild-chroot.cc:375
 msgid "Command Prefix"
 msgstr "Tiền tố lệnh"
 
-#: schroot/sbuild-chroot.cc:425
-#, fuzzy
+#: schroot/sbuild-chroot.cc:377
 msgid "Personality"
-msgstr "Ưu tiên"
+msgstr "Cá tính"
 
-#: schroot/sbuild-chroot.cc:429
+#: schroot/sbuild-chroot.cc:381
 msgid "Location"
 msgstr "Địa điểm"
 
-#: schroot/sbuild-chroot.cc:432
+#: schroot/sbuild-chroot.cc:384
 msgid "Mount Location"
 msgstr "Địa điểm lắp"
 
-#: schroot/sbuild-chroot.cc:435
+#: schroot/sbuild-chroot.cc:387
 msgid "Path"
 msgstr "Đường dẫn"
 
-#: schroot/sbuild-chroot.cc:438
+#: schroot/sbuild-chroot.cc:390
 msgid "Mount Device"
 msgstr "Thiết bị lắp"
 
-#: schroot/sbuild-chroot.cc:597
-#, fuzzy
+#: schroot/sbuild-chroot.cc:529
+#, boost-format
 msgid "%1% chroot: personality \"%2%\" is unknown.\n"
-msgstr "%1% chroot: thiếu một tham số cần thiết « %2% »."
+msgstr "%1% chroot: không biết cá tính « %2% ».\n"
 
-#: schroot/sbuild-chroot.cc:600
+#: schroot/sbuild-chroot.cc:532
+#, boost-format
 msgid "Valid personalities: %1%\n"
-msgstr ""
+msgstr "Cá tính hợp lệ: %1%\n"
 
-#: schroot/sbuild-chroot-config.cc:55
-#, fuzzy
-msgid "Failed to open directory"
+#: schroot/sbuild-chroot-config.cc:99
+#, boost-format
+msgid "%1%: failed to open directory: %2%"
 msgstr "%1%: việc mở thư mục bị lỗi: %2%"
 
-#: schroot/sbuild-chroot-config.cc:57
-#, fuzzy
-msgid "Failed to open file"
-msgstr "%1%: việc mở thư mục bị lỗi: %2%"
+#: schroot/sbuild-chroot-config.cc:112
+#: schroot/sbuild-chroot-file.cc:109
+#, boost-format
+msgid "%1%: failed to stat file: %2%"
+msgstr "%1%: việc lấy các thông tin về tập tin bị lỗi: %2%"
 
-#: schroot/sbuild-chroot-config.cc:141
+#: schroot/sbuild-chroot-config.cc:122
+#, boost-format
 msgid "%1%: not a regular file"
 msgstr "%1%: không phải là tập tin chuẩn"
 
-#: schroot/sbuild-chroot-config.cc:178
+#: schroot/sbuild-chroot-config.cc:159
+#, boost-format
 msgid "%1% chroot: alias '%2%' already associated with '%3%' chroot"
 msgstr "%1% chroot: biệt hiệu %2% đã tương ứng với chroot %3%"
 
-#: schroot/sbuild-chroot-config.cc:186
+#: schroot/sbuild-chroot-config.cc:167
+#, boost-format
 msgid "%1% chroot: alias '%2%' already associated with another chroot"
 msgstr "%1% chroot: biệt hiệu %2% đã tương ứng với chroot khác"
 
-#: schroot/sbuild-chroot-config.cc:196
+#: schroot/sbuild-chroot-config.cc:177
+#, boost-format
 msgid "%1% chroot: a chroot or alias already exists by this name"
 msgstr "%1% chroot: một chroot hay biệt hiệu tên này đã có"
 
-#: schroot/sbuild-chroot-config.cc:199
+#: schroot/sbuild-chroot-config.cc:180
+#, boost-format
 msgid "%1% chroot: duplicate names are not allowed"
 msgstr "%1% chroot: không cho phép tên trùng"
 
-#: schroot/sbuild-chroot-config.cc:278
+#: schroot/sbuild-chroot-config.cc:259
 msgid "Available chroots: "
 msgstr "Các chroot sẵn sàng: "
 
-#: schroot/sbuild-chroot-config.cc:323 schroot/sbuild-chroot-config.cc:342
-#: schroot/sbuild-chroot-config.cc:365 schroot/schroot.cc:117
+#: schroot/sbuild-chroot-config.cc:304
+#: schroot/sbuild-chroot-config.cc:323
+#: schroot/sbuild-chroot-config.cc:346
+#: schroot/schroot.cc:108
+#, boost-format
 msgid "%1%: No such chroot"
 msgstr "%1%: Không có chroot như vậy"
 
-#: schroot/sbuild-chroot-file.cc:143
+#: schroot/sbuild-chroot-config.cc:376
+#, boost-format
+msgid "failed to stat file: %1%"
+msgstr "việc lấy các thông tin về tập tin bị lỗi: %1%"
+
+#: schroot/sbuild-chroot-config.cc:382
+#: schroot/sbuild-chroot-file.cc:116
+msgid "not owned by user root"
+msgstr "người dùng chủ không sở hữu"
+
+#: schroot/sbuild-chroot-config.cc:385
+#: schroot/sbuild-chroot-file.cc:118
+msgid "others have write permission"
+msgstr "người khác có quyền ghi"
+
+#: schroot/sbuild-chroot-config.cc:388
+#: schroot/sbuild-chroot-file.cc:120
+msgid "not a regular file"
+msgstr "không phải là tập tin chuẩn"
+
+#: schroot/sbuild-chroot-config.cc:399
+#, boost-format
+msgid "%1%: failed to load configuration: %2%"
+msgstr "%1%: việc tải cấu hình bị lỗi: %2%"
+
+#: schroot/sbuild-chroot-config.cc:411
+#, boost-format
+msgid "%1%: lock acquisition failure: %2%"
+msgstr "%1%: việc lấy khoá bị lỗi: %2%"
+
+#: schroot/sbuild-chroot-config.cc:422
+#, boost-format
+msgid "%1%: security failure: %2%"
+msgstr "%1%: bảo mật bị lỗi: %2%"
+
+#: schroot/sbuild-chroot-config.cc:444
+#, boost-format
+msgid "%1%: lock discard failure: %2%"
+msgstr "%1%: việc vứt bỏ khoá bị lỗi: %2%"
+
+#: schroot/sbuild-chroot-file.cc:147
 msgid "File"
 msgstr "Tập tin"
 
-#: schroot/sbuild-chroot-file.cc:144
+#: schroot/sbuild-chroot-file.cc:148
 msgid "File Repack"
 msgstr "Nén lại tập tin"
 
-#: schroot/sbuild-chroot-lvm-snapshot.cc:201
+#: schroot/sbuild-chroot-lvm-snapshot.cc:136
+#, boost-format
+msgid "%1% chroot: device name not set"
+msgstr "%1% chroot: chưa lập tên thiết bị"
+
+#: schroot/sbuild-chroot-lvm-snapshot.cc:148
+#, boost-format
+msgid "%1% chroot: %2% is not a block device\n"
+msgstr "%1% chroot: %2% không phải là thiết bị khối\n"
+
+#: schroot/sbuild-chroot-lvm-snapshot.cc:211
 msgid "LVM Snapshot Device"
 msgstr "Thiết bị hiện trạng Bộ Quản lý Khối tin Hợp lý"
 
-#: schroot/sbuild-chroot-lvm-snapshot.cc:204
+#: schroot/sbuild-chroot-lvm-snapshot.cc:214
 msgid "LVM Snapshot Options"
 msgstr "Tùy chọn hiện trạng Bộ Quản lý Khối tin Hợp lý"
 
 #: schroot/sbuild-chroot-source.cc:45
-#, fuzzy
 msgid " (source chroot)"
-msgstr "%1%: Không có chroot như vậy"
+msgstr " (chroot nguồn)"
 
-#: schroot/sbuild-chroot-source.cc:115
-#, fuzzy
-msgid "Source Users"
-msgstr "Nhóm chủ"
-
-#: schroot/sbuild-chroot-source.cc:116
-#, fuzzy
+#: schroot/sbuild-chroot-source.cc:89
 msgid "Source Groups"
-msgstr "Nhóm chủ"
+msgstr "Nhóm nguồn"
 
-#: schroot/sbuild-chroot-source.cc:117
-#, fuzzy
-msgid "Source Root Users"
-msgstr "Nhóm chủ"
-
-#: schroot/sbuild-chroot-source.cc:118
-#, fuzzy
+#: schroot/sbuild-chroot-source.cc:90
 msgid "Source Root Groups"
-msgstr "Nhóm chủ"
+msgstr "Nhóm chủ nguồn"
 
 #: schroot/sbuild-format-detail.cc:34
 msgid "true"
@@ -360,6 +386,7 @@ msgid "false"
 msgstr "sai"
 
 #: schroot/sbuild-keyfile.cc:363
+#, boost-format
 msgid "%1% chroot: A deprecated parameter \"%2%\" has been specified."
 msgstr "%1% chroot: một tham số bị phản đối « %2% » đã được ghi rõ."
 
@@ -368,6 +395,7 @@ msgid "This option will be removed in the future."
 msgstr "Tùy chọn này sẽ bị gỡ bỏ trong tương lai."
 
 #: schroot/sbuild-keyfile.cc:371
+#, boost-format
 msgid "%1% chroot: An obsolete parameter \"%2%\" has been specified."
 msgstr "%1% chroot: một tham số cũ « %2% » đã được ghi rõ."
 
@@ -375,473 +403,496 @@ msgstr "%1% chroot: một tham số cũ « %2% » đã được ghi rõ."
 msgid "This option has been removed, and no longer has any effect."
 msgstr "Tùy chọn này đã bị gỡ bỏ nên không còn có tác động nào lại."
 
-#: schroot/sbuild-lock.cc:48
-#, fuzzy
-msgid "Failed to set timeout handler"
+#: schroot/sbuild-lock.cc:76
+#, boost-format
+msgid "failed to set timeout handler: %1%"
 msgstr "việc lập bộ quản lý thời hạn bị lỗi: %1%"
 
-#: schroot/sbuild-lock.cc:49
-#, fuzzy
-msgid "Failed to set timeout"
+#: schroot/sbuild-lock.cc:97
+#, boost-format
+msgid "failed to set timeout: %1%"
 msgstr "việc lập thời hạn bị lỗi: %1%"
 
-#: schroot/sbuild-lock.cc:50
-#, fuzzy
-msgid "Failed to cancel timeout"
+#: schroot/sbuild-lock.cc:113
+#, boost-format
+msgid "failed to unset timeout: %1%"
 msgstr "việc bỏ lập thời hạn bị lỗi: %1%"
 
-#: schroot/sbuild-lock.cc:51
-#, fuzzy
-msgid "Failed to acquire lock (timed out)"
+#: schroot/sbuild-lock.cc:164
+#, boost-format
+msgid "failed to acquire lock (timeout after %1% seconds)"
 msgstr "việc lấy khoá bị lỗi (quá thời sau %1% giây)"
 
-#: schroot/sbuild-lock.cc:52
-#, fuzzy
-msgid "Failed to acquire lock"
+#: schroot/sbuild-lock.cc:170
+#, boost-format
+msgid "failed to acquire lock: %1%"
 msgstr "việc lấy khoá bị lỗi: %1%"
 
-#: schroot/sbuild-lock.cc:53
-#, fuzzy
-msgid "Failed to acquire device lock"
+#: schroot/sbuild-lock.cc:230
+msgid "failed to acquire device lock"
 msgstr "không lấy khoá thiết bị được"
 
-#: schroot/sbuild-lock.cc:54
-#, fuzzy
-msgid "Failed to acquire device lock (timed out)"
-msgstr "không lấy khoá thiết bị được"
-
-#: schroot/sbuild-lock.cc:55
-#, fuzzy
-msgid "Failed to test device lock"
+#: schroot/sbuild-lock.cc:238
+msgid "failed to test device lock"
 msgstr "không kiểm tra khoá thiết bị được"
 
-#: schroot/sbuild-lock.cc:56
-#, fuzzy
-msgid "Failed to release device lock"
+#: schroot/sbuild-lock.cc:251
+msgid "failed to release device lock"
 msgstr "không nhả khoá thiết bị được"
 
-#: schroot/sbuild-lock.cc:57
-#, fuzzy
-msgid "Failed to release device lock (timed out)"
-msgstr "không nhả khoá thiết bị được"
+#: schroot/sbuild-lock.cc:260
+#, boost-format
+msgid ""
+"failed to acquire device lock held by pid %1% (timeout after %2% seconds)"
+msgstr "việc lấy khoá thiết bị được giữ do PID %1% bị lỗi (quá thời sau %2% giây)"
 
-#: schroot/sbuild-lock.cc:274
-msgid "lock held by pid %1%"
-msgstr ""
+#: schroot/sbuild-lock.cc:262
+#, boost-format
+msgid ""
+"failed to release device lock held by pid %1% (timeout after %2% seconds)"
+msgstr "việc nhả khoá thiết bị được giữ do PID %1% bị lỗi (quá thời sau %2% giây)"
 
 #: schroot/sbuild-parse-error.cc:41
 msgid "no error"
-msgstr ""
+msgstr "không có lỗi"
 
 #: schroot/sbuild-parse-error.cc:42
 msgid "can't open file"
-msgstr ""
+msgstr "không thể mở tập tin"
 
 #: schroot/sbuild-parse-error.cc:43
 msgid "could not parse value"
-msgstr ""
+msgstr "không thể phân tách giá trị"
 
 #: schroot/sbuild-parse-error.cc:44
-#, fuzzy
 msgid "invalid line"
-msgstr "dòng %1%: dòng không hợp lệ: %2%"
+msgstr "dòng không hợp lệ"
 
 #: schroot/sbuild-parse-error.cc:45
-#, fuzzy
 msgid "no group specified"
-msgstr "Chưa ghi rõ thiết bị"
+msgstr "chưa xác định nhóm"
 
 #: schroot/sbuild-parse-error.cc:46
 msgid "invalid group"
-msgstr ""
+msgstr "nhóm không hợp lệ"
 
 #: schroot/sbuild-parse-error.cc:47
 msgid "duplicate group"
-msgstr ""
+msgstr "nhóm trùng"
 
 #: schroot/sbuild-parse-error.cc:48
-#, fuzzy
 msgid "no key specified"
-msgstr "Chưa ghi rõ thiết bị"
+msgstr "chưa xác định khoá"
 
 #: schroot/sbuild-parse-error.cc:49
 msgid "duplicate key"
-msgstr ""
+msgstr "khoá trùng"
 
 #: schroot/sbuild-parse-error.cc:50
 msgid "required key is missing"
-msgstr ""
+msgstr "thiếu khoá cần thiết"
 
 #: schroot/sbuild-parse-error.cc:51
 msgid "disallowed key used"
-msgstr ""
+msgstr "dùng khoá bị cấm"
 
 #: schroot/sbuild-parse-error.cc:116
 msgid "unknown error"
-msgstr ""
+msgstr "lỗi không rõ"
 
 #: schroot/sbuild-parse-error.cc:127
+#, boost-format
 msgid "%1% \"%2%\""
-msgstr ""
+msgstr "%1% \"%2%\""
 
 #: schroot/sbuild-parse-error.cc:143
+#, boost-format
 msgid "line %1%: %3%"
-msgstr ""
+msgstr "dòng %1%: %3%"
 
 #: schroot/sbuild-parse-error.cc:144
+#, boost-format
 msgid "line %1%: %2% \"%3%\""
-msgstr ""
+msgstr "dòng %1%: %2% \"%3%\""
 
 #: schroot/sbuild-parse-error.cc:150
-#, fuzzy
+#, boost-format
 msgid "line %1%: %2%"
-msgstr "dòng %1%: dòng không hợp lệ: %2%"
+msgstr "dòng %1%: %2%"
 
 #: schroot/sbuild-parse-error.cc:165
+#, boost-format
 msgid "line %1% [%2%]: %4%"
-msgstr ""
+msgstr "dòng %1% [%2%]: %4%"
 
 #: schroot/sbuild-parse-error.cc:166
+#, boost-format
 msgid "line %1% [%2%]: %3% \"%4%\""
-msgstr ""
+msgstr "dòng %1% [%2%]: %3% \"%4%\""
 
 #: schroot/sbuild-parse-error.cc:172
+#, boost-format
 msgid "line %1% [%2%]: %3%"
-msgstr ""
+msgstr "dòng %1% [%2%]: %3%"
 
 #: schroot/sbuild-parse-error.cc:188
+#, boost-format
 msgid "line %1% [%2%] %3%: %5%"
-msgstr ""
+msgstr "dòng %1% [%2%] %3%: %5%"
 
 #: schroot/sbuild-parse-error.cc:189
+#, boost-format
 msgid "line %1% [%2%] %3%: %4% \"%5%\""
-msgstr ""
+msgstr "dòng %1% [%2%] %3%: %4% \"%5%\""
 
 #: schroot/sbuild-parse-error.cc:195
+#, boost-format
 msgid "line %1% [%2%] %3%: %4%"
-msgstr ""
+msgstr "dòng %1% [%2%] %3%: %4%"
 
 #: schroot/sbuild-parse-error.cc:209
+#, boost-format
 msgid "[%1%]: %3%"
-msgstr ""
+msgstr "[%1%]: %3%"
 
 #: schroot/sbuild-parse-error.cc:210
+#, boost-format
 msgid "[%1%]: %2% \"%3%\""
-msgstr ""
+msgstr "[%1%]: %2% \"%3%\""
 
 #: schroot/sbuild-parse-error.cc:216
+#, boost-format
 msgid "[%1%]: %2%"
-msgstr ""
+msgstr "[%1%]: %2%"
 
 #: schroot/sbuild-parse-error.cc:231
+#, boost-format
 msgid "[%1%] %2%: %4%"
-msgstr ""
+msgstr "[%1%] %2%: %4%"
 
 #: schroot/sbuild-parse-error.cc:232
+#, boost-format
 msgid "[%1%] %2%: %3% \"%4%\""
-msgstr ""
+msgstr "[%1%] %2%: %3% \"%4%\""
 
 #: schroot/sbuild-parse-error.cc:238
+#, boost-format
 msgid "[%1%] %2%: %3%"
-msgstr ""
+msgstr "[%1%] %2%: %3%"
 
-#: schroot/sbuild-personality.cc:48
-#, fuzzy
-msgid "Failed to set personality"
-msgstr "Việc lấy thiết lập thiết bị cuối bị lỗi"
-
-#: schroot/sbuild-session.cc:55
-#, fuzzy
-msgid "Failed to find chroot"
-msgstr "%1%: việc tìm chroot bị lỗi"
-
-#: schroot/sbuild-session.cc:56
-#, fuzzy
-msgid "Failed to lock chroot"
-msgstr "%1%: việc tìm chroot bị lỗi"
-
-#: schroot/sbuild-session.cc:57
-#, fuzzy
-msgid "Failed to unlock chroot"
-msgstr "%1%: việc tìm chroot bị lỗi"
-
-#: schroot/sbuild-session.cc:58
-#, fuzzy
-msgid "Chroot setup failed"
-msgstr "việc tạo chroot bị lỗi"
-
-#: schroot/sbuild-session.cc:59
-#, fuzzy
-msgid "Failed to set hangup signal handler"
-msgstr "lỗi lập bộ quản lý ngừng nói : %1%"
-
-#: schroot/sbuild-session.cc:60
-#, fuzzy
-msgid "Caught hangup signal"
-msgstr "mới bắt tín hiệu ngừng nói nên kết thúc..."
+#: schroot/sbuild-personality.cc:149
+#, boost-format
+msgid "Could not set personality to '%1%': %2%"
+msgstr "Không thể đặt cá tính thành « %1% »: %2%"
 
 #: schroot/sbuild-session.cc:61
-#, fuzzy
-msgid "Failed to fork child"
-msgstr "Việc tạo tiến trình con của điều con bị lỗi: %1%"
-
-#: schroot/sbuild-session.cc:62
-#, fuzzy
-msgid "Wait for child failed"
-msgstr "việc đợi tiến trình con bị lỗi: %1%"
-
-#: schroot/sbuild-session.cc:63
-#, fuzzy
-msgid "Child terminated by signal"
-msgstr "Tiến trình con bị chấm dứt do tín hiệu « %1% »"
-
-#: schroot/sbuild-session.cc:64
-msgid "Child dumped core"
-msgstr "Tiến trình con đã đổ lõi"
-
-#: schroot/sbuild-session.cc:65
-msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
-msgstr ""
-"Tiến trình con đã thoát bất thường (chưa biết sao ; không phải là việc đổ "
-"tín hiệu hay lõi)"
-
-#: schroot/sbuild-session.cc:66
-msgid "User switching is not permitted"
-msgstr ""
-
-#: schroot/sbuild-session.cc:94
-#, fuzzy
-msgid "%1%: Group not found"
+#, boost-format
+msgid "%1%: group not found"
 msgstr "%1%: không tìm thấy nhóm"
 
-#: schroot/sbuild-session.cc:96
-#, fuzzy
-msgid "%1%: Group not found: %2%"
+#: schroot/sbuild-session.cc:63
+#, boost-format
+msgid "%1%: group not found: %2%"
 msgstr "%1%: không tìm thấy nhóm: %2%"
 
-#: schroot/sbuild-session.cc:112
-#, fuzzy
-msgid "Can't get supplementary group count: %1%"
+#: schroot/sbuild-session.cc:79
+#, boost-format
+msgid "can't get supplementary group count: %1%"
 msgstr "không thể lấy số đếm nhóm phụ : %1%"
 
-#: schroot/sbuild-session.cc:122
-#, fuzzy
-msgid "Can't get supplementary groups: %1%"
+#: schroot/sbuild-session.cc:89
+#, boost-format
+msgid "can't get supplementary groups: %1%"
 msgstr "không thể lấy các nhóm phụ : %1%"
 
-#: schroot/sbuild-session.cc:345
+#: schroot/sbuild-session.cc:238
+#, boost-format
 msgid "No chroot found matching alias '%1%'"
 msgstr "Không tìm thấy chroot khớp với biệt hiệu « %1% »"
 
-#: schroot/sbuild-session.cc:615
+#: schroot/sbuild-session.cc:326
+#, boost-format
+msgid "%1%: Failed to find chroot"
+msgstr "%1%: việc tìm chroot bị lỗi"
+
+#: schroot/sbuild-session.cc:502
+#, boost-format
+msgid "Chroot setup failed to lock chroot: %1%"
+msgstr "Thiết lập chroot không khoá chroot được: %1%"
+
+#: schroot/sbuild-session.cc:567
+#, boost-format
 msgid "Invalid verbosity level: %1%, falling back to \"normal\""
 msgstr "Cấp chi tiết không hợp lệ: %1%, nên dùng « normal » (chuẩn)"
 
-#: schroot/sbuild-session.cc:651 schroot/sbuild-session.cc:911
+#: schroot/sbuild-session.cc:587
+#: schroot/sbuild-session.cc:956
+#, boost-format
+msgid "Failed to fork child: %1%"
+msgstr "Việc tạo tiến trình con của điều con bị lỗi: %1%"
+
+#: schroot/sbuild-session.cc:605
+#: schroot/sbuild-session.cc:866
+#, boost-format
 msgid "Could not exec \"%1%\": %2%"
 msgstr "Không thể thực hiện « %1% »: %2%"
 
-#: schroot/sbuild-session.cc:677
-msgid "stage=%1%"
-msgstr ""
+#: schroot/sbuild-session.cc:624
+#, boost-format
+msgid "Chroot setup failed to unlock chroot: %1%"
+msgstr "Thiết lập chroot không bỏ khoá chroot được: %1%"
 
-#: schroot/sbuild-session.cc:712
-msgid "PAM error: %1%"
-msgstr "Lỗi PAM: %1%"
+#: schroot/sbuild-session.cc:632
+#, boost-format
+msgid "Chroot setup failed during chroot \"%1%\" stage"
+msgstr "Thiết lập chroot bị lỗi trong giai đoạn chroot « %1% »"
 
-#: schroot/sbuild-session.cc:720
+#: schroot/sbuild-session.cc:675
+#, boost-format
 msgid "Could not set gid to '%1%'"
 msgstr "Không thể lập GID thành « %1% »"
 
-#: schroot/sbuild-session.cc:726
+#: schroot/sbuild-session.cc:681
 msgid "Could not set supplementary group IDs"
 msgstr "Không thể lập các ID nhóm phụ"
 
-#: schroot/sbuild-session.cc:744 schroot/sbuild-session.cc:783
-#: schroot/sbuild-session.cc:798
+#: schroot/sbuild-session.cc:699
+#: schroot/sbuild-session.cc:738
+#: schroot/sbuild-session.cc:753
+#, boost-format
 msgid "Could not chdir to '%1%': %2%"
 msgstr "Không thể chdir (chuyển đổi thư mục) sang « %1% »: %2%"
 
-#: schroot/sbuild-session.cc:751
+#: schroot/sbuild-session.cc:706
+#, boost-format
 msgid "Could not chroot to '%1%': %2%"
 msgstr "Không thể chroot tới « %1% »: %2%"
 
-#: schroot/sbuild-session.cc:760
+#: schroot/sbuild-session.cc:715
+#, boost-format
 msgid "Could not set uid to '%1%'"
 msgstr "Không thể lập UID thành « %1% »"
 
-#: schroot/sbuild-session.cc:766
+#: schroot/sbuild-session.cc:721
 msgid "Failed to drop root permissions."
 msgstr "Việc bỏ quyền chủ bị lỗi."
 
-#: schroot/sbuild-session.cc:788
+#: schroot/sbuild-session.cc:743
+#, boost-format
 msgid "Falling back to '%1%'"
-msgstr ""
+msgstr "Đang dự trữ về « %1 »"
 
-#: schroot/sbuild-session.cc:792
-#, fuzzy
+#: schroot/sbuild-session.cc:747
+#, boost-format
 msgid "Falling back to home directory '%1%'"
-msgstr "%1%: việc mở thư mục bị lỗi: %2%"
+msgstr "Đang dự trữ về thư mục chính « %1 »"
 
-#: schroot/sbuild-session.cc:854
+#: schroot/sbuild-session.cc:809
+#, boost-format
 msgid "[%1% chroot] Running login shell: \"%2%\""
 msgstr "[%1% chroot] Đang chạy hệ vỏ đăng nhập: « %2% »"
 
-#: schroot/sbuild-session.cc:855
+#: schroot/sbuild-session.cc:810
+#, boost-format
 msgid "[%1% chroot] Running shell: \"%2%\""
 msgstr "[%1% chroot] Đang chạy hệ vỏ đăng nhập: « %2% »"
 
-#: schroot/sbuild-session.cc:862
+#: schroot/sbuild-session.cc:817
+#, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy hệ vỏ đăng nhập: « %4% »"
 
-#: schroot/sbuild-session.cc:863
+#: schroot/sbuild-session.cc:818
+#, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy hệ vỏ đăng nhập: « %4% »"
 
-#: schroot/sbuild-session.cc:884
+#: schroot/sbuild-session.cc:839
+#, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%1% chroot] Đang chạy lệnh: « %2% »"
 
-#: schroot/sbuild-session.cc:888
+#: schroot/sbuild-session.cc:843
+#, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy lệnh: « %4% »"
 
-#: schroot/sbuild-session.cc:933
-#, fuzzy
-msgid "Caught hangup signal, terminating..."
+#: schroot/sbuild-session.cc:888
+#: schroot/sbuild-session.cc:909
+msgid "caught hangup signal, terminating..."
 msgstr "mới bắt tín hiệu ngừng nói nên kết thúc..."
 
-#: schroot/schroot.cc:67
+#: schroot/sbuild-session.cc:901
+#, boost-format
+msgid "wait for child failed: %1%"
+msgstr "việc đợi tiến trình con bị lỗi: %1%"
+
+#: schroot/sbuild-session.cc:928
+#, boost-format
+msgid "Child terminated by signal %1%"
+msgstr "Tiến trình con bị chấm dứt do tín hiệu « %1% »"
+
+#: schroot/sbuild-session.cc:933
+msgid "Child dumped core"
+msgstr "Tiến trình con đã đổ lõi"
+
+#: schroot/sbuild-session.cc:935
+msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
+msgstr "Tiến trình con đã thoát bất thường (chưa biết sao ; không phải là việc đổ tín hiệu hay lõi)"
+
+#: schroot/sbuild-session.cc:942
+#, boost-format
+msgid "Child exited abnormally with status '%1%'"
+msgstr "Tiến trình con đã thoát bất thường với trạng thái « %1% »"
+
+#: schroot/sbuild-session.cc:1003
+#, boost-format
+msgid "failed to set hangup handler: %1%"
+msgstr "lỗi lập bộ quản lý ngừng nói : %1%"
+
+#: schroot/schroot.cc:60
+#, boost-format
 msgid "%1% (Debian sbuild) %2%\n"
 msgstr "%1% (Debian sbuild) %2%\n"
 
-#: schroot/schroot.cc:72 schroot/schroot-listmounts.cc:58
+#: schroot/schroot.cc:63
+#: schroot/schroot-listmounts.cc:58
 #: schroot/schroot-releaselock.cc:55
 msgid ""
 "Written by Roger Leigh\n"
 "\n"
-msgstr ""
-"Do Roger Leigh tạo\n"
+msgstr "Do Roger Leigh tạo\n"
 "\n"
 
-#: schroot/schroot.cc:73 schroot/schroot-listmounts.cc:59
+#: schroot/schroot.cc:64
+#: schroot/schroot-listmounts.cc:59
 #: schroot/schroot-releaselock.cc:56
 msgid "Copyright (C) 2004-2006 Roger Leigh\n"
 msgstr "Bản quyền © năm 2004-2006 Roger Leigh\n"
 
-#: schroot/schroot.cc:74 schroot/schroot-listmounts.cc:60
+#: schroot/schroot.cc:65
+#: schroot/schroot-listmounts.cc:60
 #: schroot/schroot-releaselock.cc:57
 msgid ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
-msgstr ""
-"Đây là phần mềm tự do; hãy xem mã nguồn để tìm thấy điều kiện sao chép.\n"
+msgstr "Đây là phần mềm tự do; hãy xem mã nguồn để tìm thấy điều kiện sao chép.\n"
 "• Không bảo đảm gì cả, dù khă nang bán hay khả năng làm việc dứt khoát. •\n"
 
-#: schroot/schroot.cc:157
+#: schroot/schroot.cc:148
 msgid "Error saving terminal settings"
 msgstr "Gặp lỗi khi lưu thiết lập thiết bị cuối"
 
-#: schroot/schroot.cc:181
+#: schroot/schroot.cc:172
 msgid "Running schroot in dchroot compatibility mode"
 msgstr "Đang chạy schroot trong chế độ tương thích"
 
-#: schroot/schroot.cc:184
-#, fuzzy
-msgid "Run 'schroot' for full capabilities"
+#: schroot/schroot.cc:175
+msgid "Run 'schroot' for full capability"
 msgstr "Chạy « schroot » để có khả năng đầy đủ"
 
-#: schroot/schroot.cc:207
+#: schroot/schroot.cc:198
 msgid "Using dchroot configuration file: "
 msgstr "Đang dùng tập tin cấu hình dchroot: "
 
-#: schroot/schroot.cc:210
+#: schroot/schroot.cc:201
+#, boost-format
 msgid "Run '%1%'"
 msgstr "Chạy « %1% »"
 
-#: schroot/schroot.cc:214
+#: schroot/schroot.cc:205
 msgid "to migrate to a schroot configuration."
 msgstr "để nâng cấp lên một cấu hình schroot."
 
-#: schroot/schroot.cc:217
+#: schroot/schroot.cc:208
+#, boost-format
 msgid "Edit '%1%' to add appropriate group access."
 msgstr "Hiệu chỉnh « %1% » để thêm cách truy cập nhóm thích hợp."
 
-#: schroot/schroot.cc:221 schroot/schroot.cc:326
+#: schroot/schroot.cc:212
+#: schroot/schroot.cc:314
+#, boost-format
 msgid "Remove '%1%' to use the new configuration."
 msgstr "Gỡ bỏ « %1% » để sử dụng cấu hình mới."
 
-#: schroot/schroot.cc:255
+#: schroot/schroot.cc:246
+#, boost-format
 msgid "No chroots are defined in %1% or %2%"
 msgstr "Chưa định nghĩa chroot trong %1% hay trong %2%"
 
-#: schroot/schroot.cc:262
+#: schroot/schroot.cc:253
+#, boost-format
 msgid "No chroots are defined in %1%"
 msgstr "Chưa định nghĩa chroot trong %1%"
 
-#: schroot/schroot.cc:282
+#: schroot/schroot.cc:273
+#, boost-format
 msgid "The specified chroots are not defined in %1%"
 msgstr "Chưa định nghĩa những chroot đã ghi rõ trong %1%"
 
-#: schroot/schroot.cc:315
-#, fuzzy
+#: schroot/schroot.cc:302
+#, boost-format
 msgid "schroot configuration generated by %1% %2%"
-msgstr "Đang dùng tập tin cấu hình dchroot: "
+msgstr "Cấu hình schroot được tạo ra bởi %1% %2%"
 
-#: schroot/schroot.cc:322
-msgid "To allow users access to the chroots, use the users or groups keys."
-msgstr ""
-
-#: schroot/schroot.cc:324
+#: schroot/schroot.cc:310
 msgid ""
-"To allow passwordless root access, use the root-users or root-groups keys."
-msgstr ""
+"To allow users access to the chroots, add their groups to the groups keys."
+msgstr "Để cho phép người dùng truy cập những chroot này, hãy thêm các nhóm của họ vào những khoá nhóm (groups)."
 
-#: schroot/schroot.cc:339
+#: schroot/schroot.cc:312
+msgid ""
+"To allow passwordless root access, add their groups to the root-groups keys."
+msgstr "Để cho phép việc truy cập kiểu người chủ mà không cần mật khẩu, hãy thêm các nhóm của họ vào khoá nhóm chủ (root-groups)."
+
+#: schroot/schroot.cc:327
 msgid "Only one chroot may be specified when beginning a session"
 msgstr "Có thể ghi rõ chỉ một chroot khi khởi chạy phiên"
 
-#: schroot/schroot.cc:400
+#: schroot/schroot.cc:388
+#, boost-format
 msgid "Session failure: %1%"
 msgstr "Phiên bản bị lỗi: %1%"
 
-#: schroot/schroot.cc:409 schroot/schroot.cc:425
+#: schroot/schroot.cc:397
+#: schroot/schroot.cc:413
 msgid "Error restoring terminal settings"
 msgstr "Gặp lỗi khi phục hồi thiết lập thiết bị cuối"
 
 # Literal: don't translate / Nghĩa chữ: đừng dịch
 #: schroot/schroot-listmounts.cc:57
-#, fuzzy
+#, boost-format
 msgid "schroot-listmounts (Debian sbuild) %1%\n"
-msgstr "schroot-releaselock (Debian sbuild) %1%\n"
+msgstr "schroot-listmounts (Debian sbuild) %1%\n"
 
 #: schroot/schroot-listmounts.cc:82
-#, fuzzy
+#, boost-format
 msgid "%1%: Failed to open: %2%"
-msgstr "%1%: việc mở thư mục bị lỗi: %2%"
+msgstr "%1%: việc mở bị lỗi: %2%"
 
 #: schroot/schroot-listmounts.cc:105
-#, fuzzy
+#, boost-format
 msgid "%1%: Failed to close: %2%"
-msgstr "%1%: không khoá thiết bị được: %2%"
+msgstr "%1%: việc đóng bị lỗi: %2%"
 
 #: schroot/schroot-listmounts.cc:153
-#, fuzzy
 msgid "No mountpoint specified"
-msgstr "Chưa ghi rõ thiết bị"
+msgstr "Chưa xác định điểm lắp"
 
-#: schroot/schroot-listmounts-options.cc:43 schroot/schroot-options.cc:68
+#: schroot/schroot-listmounts-options.cc:43
+#: schroot/schroot-options.cc:64
 #: schroot/schroot-releaselock-options.cc:44
 msgid "General options"
 msgstr "Tùy chọn chung"
 
-#: schroot/schroot-listmounts-options.cc:45 schroot/schroot-options.cc:71
+#: schroot/schroot-listmounts-options.cc:45
+#: schroot/schroot-options.cc:67
 #: schroot/schroot-releaselock-options.cc:46
 msgid "Show help options"
 msgstr "Hiện tùy chọn trợ giúp"
 
-#: schroot/schroot-listmounts-options.cc:47 schroot/schroot-options.cc:73
+#: schroot/schroot-listmounts-options.cc:47
+#: schroot/schroot-options.cc:69
 #: schroot/schroot-releaselock-options.cc:48
 msgid "Print version information"
 msgstr "In ra thông tin phiên bản"
@@ -852,168 +903,153 @@ msgid "Lock options"
 msgstr "Tùy chọn khoá"
 
 #: schroot/schroot-listmounts-options.cc:52
-#, fuzzy
 msgid "Mountpoint to check (full path)"
-msgstr "Thiết bị cần bỏ khoá (đường dẫn đầy đủ)"
+msgstr "Điểm lắp cần kiểm tra (đường dẫn đầy đủ)"
 
-#: schroot/schroot-listmounts-options.cc:65 schroot/schroot-options.cc:172
+#: schroot/schroot-listmounts-options.cc:65
+#: schroot/schroot-options.cc:158
 #: schroot/schroot-releaselock-options.cc:68
 msgid "Usage:"
 msgstr "Cách sử dụng:"
 
 #: schroot/schroot-listmounts-options.cc:66
-#, fuzzy
 msgid "  schroot-listmounts [OPTION...] - list mounts"
-msgstr "  schroot-releaselock [TÙY_CHỌN...] — nhả khoá thiết bị"
+msgstr "  schroot-listmounts [TÙY_CHỌN...] — liệt kê các sự gắn kết"
 
-#: schroot/schroot-options.cc:75
+#: schroot/schroot-options.cc:71
 msgid "Show less output"
 msgstr "Xuất ít hơn"
 
-#: schroot/schroot-options.cc:77
+#: schroot/schroot-options.cc:73
 msgid "Show more output"
 msgstr "Xuất nhiều hơn"
 
-#: schroot/schroot-options.cc:79
+#: schroot/schroot-options.cc:75
 msgid "List available chroots"
 msgstr "Liệt kê các chroot sẵn sàng"
 
-#: schroot/schroot-options.cc:81
+#: schroot/schroot-options.cc:77
 msgid "Show information about selected chroots"
 msgstr "Hiện thông tin về các chroot được chọn"
+
+#: schroot/schroot-options.cc:81
+msgid "Print path to selected chroot"
+msgstr "In ra đường dẫn đến chroot đã chọn"
 
 #: schroot/schroot-options.cc:85
 msgid "Print location of selected chroots"
 msgstr "In ra địa điểm của các chroot đã chọn"
 
-#: schroot/schroot-options.cc:89
-msgid "Print path to selected chroot"
-msgstr "In ra đường dẫn đến chroot đã chọn"
-
-#: schroot/schroot-options.cc:93
-#, fuzzy
-msgid "Print paths to available chroots"
-msgstr "Liệt kê các chroot sẵn sàng"
-
-#: schroot/schroot-options.cc:96
+#: schroot/schroot-options.cc:88
 msgid "Dump configuration of selected chroots"
 msgstr "Đổ cấu hình của các chroot đã chọn"
 
-#: schroot/schroot-options.cc:98
+#: schroot/schroot-options.cc:90
 msgid "Chroot selection"
 msgstr "Chọn chroot"
 
-#: schroot/schroot-options.cc:101
+#: schroot/schroot-options.cc:93
 msgid "Use specified chroot"
 msgstr "Dùng chroot đã xác định"
 
-#: schroot/schroot-options.cc:105
-msgid "Select all chroots and active sessions"
-msgstr "Chọn mọi chroot và phiên chạy hoạt động đều"
-
-#: schroot/schroot-options.cc:107 schroot/schroot-options.cc:113
+#: schroot/schroot-options.cc:97
+#: schroot/schroot-options.cc:103
 msgid "Select all chroots"
 msgstr "Chọn mọi chroot"
 
-#: schroot/schroot-options.cc:109
+#: schroot/schroot-options.cc:101
+msgid "Select all chroots and active sessions"
+msgstr "Chọn mọi chroot và phiên chạy hoạt động đều"
+
+#: schroot/schroot-options.cc:105
 msgid "Select all active sessions"
 msgstr "Chọn mọi phiên chạy hoạt động"
 
-#: schroot/schroot-options.cc:115
+#: schroot/schroot-options.cc:107
 msgid "Chroot environment"
 msgstr "Môi trường chroot"
 
-#: schroot/schroot-options.cc:119
-msgid "Username (default current user)"
-msgstr "Tên người dùng (người dùng hiện thời mặc định)"
-
-#: schroot/schroot-options.cc:121 schroot/schroot-options.cc:125
+#: schroot/schroot-options.cc:111
+#: schroot/schroot-options.cc:117
 msgid "Preserve user environment"
 msgstr "Bảo tồn môi trường người dùng"
 
-#: schroot/schroot-options.cc:127
+#: schroot/schroot-options.cc:115
+msgid "Username (default current user)"
+msgstr "Tên người dùng (người dùng hiện thời mặc định)"
+
+#: schroot/schroot-options.cc:119
 msgid "Session management"
 msgstr "Quản lý phiên chạy"
 
-#: schroot/schroot-options.cc:130
+#: schroot/schroot-options.cc:122
 msgid "Begin a session; returns a session ID"
 msgstr "Khởi chạy phiên; gởi trả một mã nhận diện phiên chạy"
 
-#: schroot/schroot-options.cc:132
+#: schroot/schroot-options.cc:124
 msgid "Recover an existing session"
 msgstr "Phục hồi một phiên chạy đã có"
 
-#: schroot/schroot-options.cc:134
+#: schroot/schroot-options.cc:126
 msgid "Run an existing session"
 msgstr "Chạy một phiên chạy đã có"
 
-#: schroot/schroot-options.cc:136
+#: schroot/schroot-options.cc:128
 msgid "End an existing session"
 msgstr "Kết thúc một phiên chạy đã có"
 
-#: schroot/schroot-options.cc:138
+#: schroot/schroot-options.cc:130
 msgid "Force operation, even if it fails"
 msgstr "Ép buộc thao tác, thậm chí nếu nó bị lỗi"
 
-#: schroot/schroot-options.cc:140
+#: schroot/schroot-options.cc:132
 msgid "Hidden options"
 msgstr "Tùy chọn bị ẩn"
 
-#: schroot/schroot-options.cc:143
+#: schroot/schroot-options.cc:135
 msgid "Command to run"
 msgstr "Lệnh cần chạy"
 
-#: schroot/schroot-options.cc:181
+#: schroot/schroot-options.cc:160
 msgid " [OPTION...] [COMMAND] - run command or shell in a chroot"
 msgstr " [TÙY_CHỌN...] [LỆNH] — chạy lệnh hoặc hệ vỏ trong một chroot"
 
-#: schroot/schroot-options.cc:184
-#, fuzzy
-msgid " [OPTION...] chroot [COMMAND] - run command or shell in a chroot"
-msgstr " [TÙY_CHỌN...] [LỆNH] — chạy lệnh hoặc hệ vỏ trong một chroot"
-
-#: schroot/schroot-options.cc:245
+#: schroot/schroot-options.cc:209
 msgid "--quiet and --verbose may not be used at the same time"
-msgstr ""
-"Không cho phép sử dụng tùy chọn cả « --quiet » (xuất ít hơn) lẫn « --verbose "
-"» (xuất nhiều hơn) đều đồng thời."
+msgstr "Không cho phép sử dụng tùy chọn cả « --quiet » (xuất ít hơn) lẫn « --verbose » (xuất nhiều hơn) đều đồng thời."
 
-#: schroot/schroot-options.cc:247
+#: schroot/schroot-options.cc:211
 msgid "Using verbose output"
 msgstr "Đang xuất nhiều hơn"
 
-#: schroot/schroot-options.cc:253
+#: schroot/schroot-options.cc:217
 msgid "--chroot and --all may not be used at the same time"
-msgstr ""
-"Không cho phép sử dụng tùy chọn cả « --chroot » lẫn « --all » (tất cả) đều "
-"đồng thời."
+msgstr "Không cho phép sử dụng tùy chọn cả « --chroot » lẫn « --all » (tất cả) đều đồng thời."
 
-#: schroot/schroot-options.cc:255
+#: schroot/schroot-options.cc:219
 msgid "Using --chroots only"
 msgstr "Đang dùng chỉ tùy chọn « --chroots » thôi"
 
-#: schroot/schroot-options.cc:284
+#: schroot/schroot-options.cc:248
 msgid ""
 "Only one chroot may be specified when recovering, running or ending a session"
-msgstr ""
-"Có thể ghi rõ chỉ một chroot khi phục hồi, chạy hoặc kết thúc một phiên chạy"
+msgstr "Có thể ghi rõ chỉ một chroot khi phục hồi, chạy hoặc kết thúc một phiên chạy"
 
-#: schroot/schroot-options.cc:309
+#: schroot/schroot-options.cc:273
 msgid "--chroot may not be used with --list"
-msgstr ""
-"Không cho phép sử dụng tùy chọn cả « --chroot » lẫn « --list » (liệt kê) đều "
-"đồng thời."
+msgstr "Không cho phép sử dụng tùy chọn cả « --chroot » lẫn « --list » (liệt kê) đều đồng thời."
 
-#: schroot/schroot-options.cc:331
+#: schroot/schroot-options.cc:295
 msgid "Unknown action specified"
 msgstr "Đã ghi rõ một hành động không rõ"
 
-#: schroot/schroot-options.cc:343
+#: schroot/schroot-options.cc:307
 msgid "Only one action may be specified"
 msgstr "Có thể ghi rõ chỉ một hành động thôi"
 
 # Literal: don't translate / Nghĩa chữ: đừng dịch
 #: schroot/schroot-releaselock.cc:54
+#, boost-format
 msgid "schroot-releaselock (Debian sbuild) %1%\n"
 msgstr "schroot-releaselock (Debian sbuild) %1%\n"
 
@@ -1026,18 +1062,22 @@ msgid "No pid specified; forcing release of lock"
 msgstr "Chưa ghi rõ PID (mã nhận diện tiến trình) nên đang ép buộc nhả khoá"
 
 #: schroot/schroot-releaselock.cc:117
+#, boost-format
 msgid "Failed to stat device %1%: %2%"
 msgstr "Việc lấy các thông tin về thiết bị %1% bị lỗi: %2%"
 
 #: schroot/schroot-releaselock.cc:125
+#, boost-format
 msgid "%1% is not a block device"
 msgstr "%1% không phải là thiết bị khối"
 
 #: schroot/schroot-releaselock.cc:133
+#, boost-format
 msgid "%1%: failed to release device lock"
 msgstr "%1%: không nhả khoá thiết bị được"
 
 #: schroot/schroot-releaselock.cc:140
+#, boost-format
 msgid "%1%: failed to release device lock owned by pid %2%"
 msgstr "%1%: việc nhả khoá thiết bị do PID %2% sở hữư bị lỗi"
 
@@ -1052,77 +1092,6 @@ msgstr "Mã nhận diện tiến trình mà sở hữu khoá đó"
 #: schroot/schroot-releaselock-options.cc:69
 msgid "  schroot-releaselock [OPTION...] - release a device lock"
 msgstr "  schroot-releaselock [TÙY_CHỌN...] — nhả khoá thiết bị"
-
-#~ msgid "line %1%: invalid line: %2%"
-#~ msgstr "dòng %1%: dòng không hợp lệ: %2%"
-
-#~ msgid "PAM set RUSER error: %1%"
-#~ msgstr "Lỗi « PAM set RUSER » (lập máy ở xa): %1%"
-
-#~ msgid "PAM set RHOST error: %1%"
-#~ msgstr "Lỗi « PAM set RHOST » (lập người dùng ở xa): %1%"
-
-#~ msgid "PAM set TTY error: %1%"
-#~ msgstr "Lỗi « PAM set TTY » (lập thiết bị báo đánh chữ): %1%"
-
-#~ msgid "PAM set USER error: %1%"
-#~ msgstr "Lỗi « PAM set USER » (lập người dùng): %1%"
-
-#~ msgid "%1% chroot: failed to stat device %2%: %3%"
-#~ msgstr "%1% chroot: việc lấy các thông tin về thiết bị %2% bị lỗi: %3%"
-
-#~ msgid "%1% chroot: %2% is not a block device"
-#~ msgstr "%1% chroot: %2% không phải là thiết bị khối"
-
-#~ msgid "%1%: lock acquisition failure: %2%\n"
-#~ msgstr "%1%: việc lấy khoá bị lỗi: %2%\n"
-
-#~ msgid "%1%: lock discard failure: %2%\n"
-#~ msgstr "%1%: việc vứt bỏ khoá bị lỗi: %2%\n"
-
-#~ msgid "%1%: failed to stat file: %2%"
-#~ msgstr "%1%: việc lấy các thông tin về tập tin bị lỗi: %2%"
-
-#~ msgid "%1%: failed to load configuration: %2%"
-#~ msgstr "%1%: việc tải cấu hình bị lỗi: %2%"
-
-#~ msgid "%1%: lock acquisition failure: %2%"
-#~ msgstr "%1%: việc lấy khoá bị lỗi: %2%"
-
-#~ msgid "%1%: security failure: %2%"
-#~ msgstr "%1%: bảo mật bị lỗi: %2%"
-
-#~ msgid "%1%: lock discard failure: %2%"
-#~ msgstr "%1%: việc vứt bỏ khoá bị lỗi: %2%"
-
-#~ msgid "%1% chroot: %2% is not a block device\n"
-#~ msgstr "%1% chroot: %2% không phải là thiết bị khối\n"
-
-#~ msgid ""
-#~ "failed to acquire device lock held by pid %1% (timeout after %2% seconds)"
-#~ msgstr ""
-#~ "việc lấy khoá thiết bị được giữ do PID %1% bị lỗi (quá thời sau %2% giây)"
-
-#~ msgid ""
-#~ "failed to release device lock held by pid %1% (timeout after %2% seconds)"
-#~ msgstr ""
-#~ "việc nhả khoá thiết bị được giữ do PID %1% bị lỗi (quá thời sau %2% giây)"
-
-#, fuzzy
-#~ msgid "Could not set personality to '%1%': %2%"
-#~ msgstr "Không thể chroot tới « %1% »: %2%"
-
-#~ msgid "Chroot setup failed to lock chroot: %1%"
-#~ msgstr "Thiết lập chroot không khoá chroot được: %1%"
-
-#~ msgid "Chroot setup failed to unlock chroot: %1%"
-#~ msgstr "Thiết lập chroot không bỏ khoá chroot được: %1%"
-
-#~ msgid "Chroot setup failed during chroot \"%1%\" stage"
-#~ msgstr "Thiết lập chroot bị lỗi trong giai đoạn chroot « %1% »"
-
-#~ msgid "Child exited abnormally with status '%1%'"
-#~ msgstr "Tiến trình con đã thoát bất thường với trạng thái « %1% »"
 
 #~ msgid "Can't open configuration file %1%"
 #~ msgstr "Không thể mở tập tin cấu hình %1%"
