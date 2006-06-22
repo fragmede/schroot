@@ -66,6 +66,17 @@ namespace dchroot
 
     virtual void
     run_impl ();
+
+    virtual sbuild::string_list
+    get_login_directories () const;
+
+    virtual sbuild::string_list
+    get_command_directories () const;
+
+    virtual void
+    get_command (sbuild::chroot::ptr& session_chroot,
+		 std::string&         file,
+		 sbuild::string_list& command) const;
   };
 
 }

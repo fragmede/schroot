@@ -1,3 +1,44 @@
+2006-06-22  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot-options.cc: dchroot and dchroot-dsa only permit
+	a single command option.
+
+	* schroot/dchroot-session.cc
+	(get_login_directories): New virtual method.  For dchroot, use the
+	home directory and then / if not preserving the environment,
+	otherwise use the current working directory and /.  For
+	dchroot-dsa, always use the home directory and then /.
+	(get_command_directories): New virtual method.  This simply wraps
+	get_login_directories; dchroot and dchroot-dsa do not distinguish
+	between these two use cases.
+	(get_command): When running a login shell, this behaves similarly
+	to sbuild::session::get_command.  When running a command, dchroot
+	runs "sh -c command", and dchroot-dsa runs "command".
+
+	* schroot/sbuild-session.cc
+	(getcwd): New utility function, split out from run_child.
+	(get_login_directories): New protected virtual method.  Get a list
+	of directories to use (including fallbacks) when running a login
+	shell.  Use the current working directory, $HOME, passwd pw_dir
+	and / in that order.
+	(get_command_directories): New protected virtual method.  Get a
+	list of directories to use (including fallbacks) when running a
+	command.  This is currently only the current working directory;
+	there are no fallbacks.
+	(get_shell): New protected virtual method.  Get the program to run
+	as a shell, falling back to /bin/sh if unavailable.
+	(get_command): New protected virtual method.  Get the parameters
+	for calling exec with (file and argv).
+	(run_child): Use the new functions and methods getcwd,
+	get_login_directories, get_command_directories, get_shell and
+	get_command.  Handle directory fallbacks when changing directory
+	inside the chroot.
+	(run_chroot): If debugging is enabled, automatically set the debug
+	level to DEBUG_NOTICE.
+
+	* schroot/sbuild-session.h (sbuild): New protected member cwd, to
+	hold the current directory before entering the chroot.
+
 2006-06-21  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/sbuild-chroot-file.h: Remove dangerous TODO item.

@@ -202,7 +202,7 @@ namespace sbuild
     get_chroot_auth_status (auth::status status,
 			    chroot::ptr const& chroot) const;
 
-      public:
+  public:
     /**
      * Check if authentication is required, taking users, groups,
      * root-users and root-groups membership of all chroots specified
@@ -211,6 +211,7 @@ namespace sbuild
     virtual sbuild::auth::status
     get_auth_status () const;
 
+  protected:
     /**
      * Run a session.  If a command has been specified, this will be
      * run in each of the specified chroots.  If no command has been
@@ -220,6 +221,47 @@ namespace sbuild
      */
     virtual void
     run_impl ();
+
+    /**
+     * Get a list of directories to change to when running a login
+     * shell.  Multiple directories are used as fallbacks.
+     *
+     * @returns a list of directories
+     */
+    virtual string_list
+    get_login_directories () const;
+
+    /**
+     * Get a list of directories to change to when running a command
+     * Multiple directories are used as fallbacks.
+     *
+     * @returns a list of directories
+     */
+    virtual string_list
+    get_command_directories () const;
+
+    /**
+     * Get the shell to run.  This finds a suitable shell to run in
+     * the chroot, falling back to /bin/sh if necessary.  Note that it
+     * assumes it is inside the chroot when called.
+     *
+     * @returns the shell.
+     */
+    virtual std::string
+    get_shell () const;
+
+    /**
+     * Get the command to run.
+     *
+     * @param session_chroot the chroot to setup.  This must be
+     * present in the chroot list and the chroot configuration object.
+     * @param file the filename to pass to execve(2).
+     * @param command the argv to pass to execve(2).
+     */
+    virtual void
+    get_command (chroot::ptr& session_chroot,
+		 std::string& file,
+		 string_list& command) const;
 
   private:
     /**
@@ -317,6 +359,10 @@ namespace sbuild
     bool             force;
     /// Signals saved while sighup handler is set.
     struct sigaction saved_signals;
+
+  protected:
+    /// Current working directory.
+    std::string      cwd;
   };
 
 }

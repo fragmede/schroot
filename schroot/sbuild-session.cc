@@ -28,6 +28,8 @@
 #include <iostream>
 #include <memory>
 
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
 #include <syslog.h>
@@ -66,16 +68,26 @@ namespace
       emap(session::USER_SWITCH,    N_("User switching is not permitted"))
     };
 
-}
+  /**
+   * Get the current working directory.  If it can't be found, fall
+   * back to root.
+   *
+   * @returns the current working directory.
+   */
+  std::string
+  getcwd ()
+  {
+    std::string cwd;
 
-template<>
-std::map<session::error_code,const char *>
-custom_error<session::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+    char *raw_cwd = ::getcwd (NULL, 0);
+    if (raw_cwd)
+      cwd = raw_cwd;
+    else
+      cwd = "/";
+    free(raw_cwd);
 
-namespace
-{
+    return cwd;
+  }
 
   /**
    * Check group membership.
@@ -157,6 +169,12 @@ namespace
 
 }
 
+template<>
+std::map<session::error_code,const char *>
+custom_error<session::error_code>::error_strings
+(init_errors,
+ init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+
 session::session (std::string const&         service,
 		  config_ptr&                config,
 		  operation                  operation,
@@ -169,7 +187,8 @@ session::session (std::string const&         service,
   session_operation(operation),
   session_id(),
   force(false),
-  saved_signals()
+  saved_signals(),
+  cwd(getcwd())
 {
 }
 
@@ -372,6 +391,7 @@ try
 	log_debug(DEBUG_NOTICE)
 	  << format("Running session in %1% chroot:") % *cur
 	  << endl;
+
 	const chroot::ptr ch = this->config->find_alias(*cur);
 	if (!ch) // Should never happen, but cater for it anyway.
 	  {
@@ -498,6 +518,168 @@ catch (error const& e)
       this->child_status = EXIT_FAILURE;
     throw;
   }
+}
+
+string_list
+session::get_login_directories () const
+{
+  string_list ret;
+
+  // Set current working directory.
+  ret.push_back(this->cwd);
+
+  // Set $HOME.
+  environment env = get_pam_environment();
+  std::string home;
+  if (env.get("HOME", home) &&
+      std::find(ret.begin(), ret.end(), home) == ret.end())
+    ret.push_back(home);
+
+  // Set passwd home.
+  if (std::find(ret.begin(), ret.end(), get_home()) == ret.end())
+    ret.push_back(get_home());
+
+  // Final fallback to root.
+  if (std::find(ret.begin(), ret.end(), "/") == ret.end())
+  ret.push_back("/");
+
+  return ret;
+}
+
+string_list
+session::get_command_directories () const
+{
+  string_list ret;
+
+  // Set current working directory.
+  ret.push_back(this->cwd);
+
+  return ret;
+}
+
+std::string
+session::get_shell () const
+{
+  assert (!auth::get_shell().empty());
+  std::string shell = auth::get_shell();
+
+  struct stat statbuf;
+  if (stat(shell.c_str(), &statbuf) < 0)
+    {
+      if (shell != "/bin/sh")
+	{
+	  log_warning() << format(_("%1%: Shell not available: %2%"))
+	    % shell % strerror(errno) << endl;
+	  shell = "/bin/sh";
+	  log_warning() << format(_("Falling back to %1%"))
+	    % shell << endl;
+	}
+    }
+
+  return shell;
+}
+
+void
+session::get_command (sbuild::chroot::ptr& session_chroot,
+		      std::string&         file,
+		      string_list&         command) const
+{
+  /* Run login shell */
+  if (command.empty() ||
+      command[0].empty()) // No command
+    {
+      command.clear();
+
+      std::string shell = get_shell();
+      file = shell;
+
+      if (get_environment().empty() &&
+	  session_chroot->get_command_prefix().empty())
+	// Not keeping environment and can setup argv correctly; login shell
+	{
+	  std::string shellbase = basename(shell, '/');
+	  std::string loginshell = "-" + shellbase;
+	  command.push_back(loginshell);
+
+	  log_debug(DEBUG_NOTICE)
+	    << format("Running login shell: %1%") % shell << endl;
+	  syslog(LOG_USER|LOG_NOTICE,
+		 "[%s chroot] (%s->%s) Running login shell: \"%s\"",
+		 session_chroot->get_name().c_str(),
+		 get_ruser().c_str(), get_user().c_str(),
+		 shell.c_str());
+	}
+      else
+	{
+	  command.push_back(shell);
+	  log_debug(DEBUG_NOTICE)
+	    << format("Running shell: %1%") % shell << endl;
+	  syslog(LOG_USER|LOG_NOTICE,
+		 "[%s chroot] (%s->%s) Running shell: \"%s\"",
+		 session_chroot->get_name().c_str(),
+		 get_ruser().c_str(), get_user().c_str(),
+		 shell.c_str());
+	}
+
+      if (get_verbosity() != auth::VERBOSITY_QUIET)
+	{
+	  std::string format_string;
+	  if (get_ruid() == get_uid())
+	    {
+	      if (get_environment().empty() &&
+		  session_chroot->get_command_prefix().empty())
+		format_string = _("[%1% chroot] Running login shell: \"%4%\"");
+	      else
+		format_string = _("[%1% chroot] Running shell: \"%4%\"");
+	    }
+	  else
+	    {
+	      if (get_environment().empty() &&
+		  session_chroot->get_command_prefix().empty())
+		format_string = _("[%1% chroot] (%2%->%3%) Running login shell: \"%4%\"");
+	      else
+		format_string = _("[%1% chroot] (%2%->%3%) Running shell: \"%4%\"");
+	    }
+
+	  format fmt(format_string);
+	  fmt % session_chroot->get_name()
+	      % get_ruser() % get_user()
+	      % shell;
+	  log_info() << fmt << endl;
+	}
+    }
+  else
+    {
+      /* Search for program in path. */
+      environment env = get_pam_environment();
+      std::string path;
+      if (!env.get("PATH", path))
+	path.clear();
+
+      file = find_program_in_path(command[0], path, "");
+      if (file.empty())
+	file = command[0];
+      std::string commandstring = string_list_to_string(command, " ");
+      log_debug(DEBUG_NOTICE)
+	<< format("Running command: %1%") % commandstring << endl;
+      syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
+	     session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), commandstring.c_str());
+
+      if (get_verbosity() != auth::VERBOSITY_QUIET)
+	{
+	  std::string format_string;
+	  if (get_ruid() == get_uid())
+	    format_string = _("[%1% chroot] Running command: \"%4%\"");
+	  else
+	    format_string = (_("[%1% chroot] (%2%->%3%) Running command: \"%4%\""));
+
+	  format fmt(format_string);
+	  fmt % session_chroot->get_name()
+	      % get_ruser() % get_user()
+	      % commandstring;
+	  log_info() << fmt << endl;
+	}
+    }
 }
 
 void
@@ -689,16 +871,10 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   assert(!get_shell().empty());
   assert(auth::pam != NULL); // PAM must be initialised
 
+  // Store before chroot call.
+  this->cwd = getcwd();
+
   std::string location(session_chroot->get_path());
-  std::string cwd;
-  {
-    char *raw_cwd = getcwd (NULL, 0);
-    if (raw_cwd)
-      cwd = raw_cwd;
-    else
-      cwd = "/";
-    free(raw_cwd);
-  }
 
   /* Child errors result in immediate exit().  Errors are not
      propagated back via an exception, because there is no longer any
@@ -769,129 +945,50 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
     }
 
   std::string file;
+  string_list command(auth::get_command());
 
-  string_list command(get_command());
+  string_list dlist;
+  if (command.empty() ||
+      command[0].empty()) // No command
+    dlist = get_login_directories();
+  else
+    dlist = get_command_directories();
+  log_debug(DEBUG_NOTICE)
+    << format("Directory fallbacks: %1%") % string_list_to_string(dlist, ", ") << endl;
 
-  /* chdir to current directory */
-  if (chdir (cwd.c_str()))
+  /* Attempt to chdir to current directory. */
+  bool dir_changed = false;
+  for (string_list::const_iterator dpos = dlist.begin();
+       dpos != dlist.end();
+       ++dpos)
     {
-      /* Fall back to home directory, but only for a login shell,
-	 since for a command we require deterministic behaviour. */
-      if (command.empty() ||
-	  command[0].empty()) // No command
+      if (chdir ((*dpos).c_str()) < 0)
 	{
-	  log_warning() << format(_("Could not chdir to '%1%': %2%"))
-	    % cwd % strerror(errno)
-			<< endl;
-
-	  if (chdir (get_home().c_str()))
-	    log_warning() << format(_("Falling back to '%1%'"))
-	      % "/"
-			  << endl;
-	  else
-	    log_warning() << format(_("Falling back to home directory '%1%'"))
-	      % get_home()
-			  << endl;
+	  ((dpos + 1 == dlist.end()) ? log_error() : log_warning())
+	    << format(_("Could not chdir to '%1%': %2%"))
+	    % *dpos % strerror(errno)
+	    << endl;
 	}
       else
 	{
-	  log_error() << format(_("Could not chdir to '%1%': %2%"))
-	    % cwd % strerror(errno)
-		      << endl;
-	  exit (EXIT_FAILURE);
+	  if (dpos != dlist.begin())
+	    log_warning() << format(_("Falling back to '%1%'"))
+	      % *dpos
+			  << endl;
+	  dir_changed = true;
+	  break;
 	}
     }
+
+  if (dir_changed == false)
+    exit (EXIT_FAILURE); // Warning already logged.
+
+  /* Fix up the command for exec. */
+  get_command(session_chroot, file, command);
 
   /* Set up environment */
   environment env = get_pam_environment();
-    log_debug(DEBUG_INFO)
-      << "Set environment:\n" << env;
-
-  /* Run login shell */
-  if (command.empty() ||
-      command[0].empty()) // No command
-    {
-      assert (!get_shell().empty());
-
-      file = get_shell();
-      if (get_environment().empty() &&
-	  session_chroot->get_command_prefix().empty())
-	// Not keeping environment and can setup argv correctly; login shell
-	{
-	  std::string shellbase = basename(get_shell(), '/');
-	  std::string loginshell = "-" + shellbase;
-	  command.push_back(loginshell);
-	  log_debug(DEBUG_INFO)
-	    << format("Login shell: %1%") % command[0] << endl;
-	}
-      else
-	{
-	  command.push_back(get_shell());
-	}
-
-      if (get_environment().empty() &&
-	  session_chroot->get_command_prefix().empty())
-	{
-	  log_debug(DEBUG_NOTICE)
-	    << format("Running login shell: %1%") % get_shell() << endl;
-	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running login shell: \"%s\"",
-		 session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), get_shell().c_str());
-	}
-      else
-	{
-	  log_debug(DEBUG_NOTICE)
-	    << format("Running shell: %1%") % get_shell() << endl;
-	  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running shell: \"%s\"",
-		 session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), get_shell().c_str());
-	}
-
-      if (get_verbosity() != auth::VERBOSITY_QUIET)
-	{
-	  if (get_ruid() == get_uid())
-	    log_info()
-	      << format((get_environment().empty() &&
-			 session_chroot->get_command_prefix().empty() ?
-			 _("[%1% chroot] Running login shell: \"%2%\"") :
-			 _("[%1% chroot] Running shell: \"%2%\"")))
-	      % session_chroot->get_name() % get_shell()
-	      << endl;
-	  else
-	    log_info()
-	      << format((get_environment().empty() &&
-			 session_chroot->get_command_prefix().empty() ?
-			 _("[%1% chroot] (%2%->%3%) Running login shell: \"%4%\"") :
-			 _("[%1% chroot] (%2%->%3%) Running shell: \"%4%\"")))
-	      % session_chroot->get_name()
-	      % get_ruser() % get_user()
-	      % get_shell()
-	      << endl;
-	}
-    }
-  else
-    {
-      /* Search for program in path. */
-      file = find_program_in_path(command[0], getenv("PATH"), "");
-      if (file.empty())
-	file = command[0];
-      std::string commandstring = string_list_to_string(command, " ");
-      log_debug(DEBUG_NOTICE)
-	<< format("Running command: %1%") % commandstring << endl;
-      syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
-	     session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), commandstring.c_str());
-      if (get_verbosity() != auth::VERBOSITY_QUIET)
-	{
-	  if (get_ruid() == get_uid())
-	    log_info() << format(_("[%1% chroot] Running command: \"%2%\""))
-	      % session_chroot->get_name() % commandstring
-		       << endl;
-	  else
-	    log_info() << format(_("[%1% chroot] (%2%->%3%) Running command: \"%4%\""))
-	      % session_chroot->get_name()
-	      % get_ruser() % get_user()
-	      % commandstring
-		       << endl;
-	}
-    }
+  log_debug(DEBUG_INFO) << "Set environment:\n" << env;
 
   // The user's command does not use our syslog fd.
   closelog();
@@ -993,6 +1090,7 @@ session::run_chroot (sbuild::chroot::ptr& session_chroot)
   else if (pid == 0)
     {
 #ifdef SBUILD_DEBUG
+      sbuild::debug_level = sbuild::DEBUG_NOTICE;
       while (child_wait)
 	;
 #endif

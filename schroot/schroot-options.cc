@@ -141,6 +141,7 @@ options::options (int   argc,
   hidden.add_options()
     ("command", opt::value<sbuild::string_list>(&this->command),
      _("Command to run"));
+
   opt::positional_options_description pos;
   pos.add("command", -1);
 
@@ -242,6 +243,12 @@ options::options (int   argc,
 	  this->command.erase(this->command.begin());
 	}
     }
+
+  // dchroot and dchroot-dsa only allow one command.
+  if ((this->compat == COMPAT_DCHROOT ||
+       this->compat == COMPAT_DCHROOT_DSA) &&
+      this->command.size() > 1)
+    throw opt::validation_error(_("Only one command may be specified"));
 
   if (this->quiet && this->verbose)
     {
