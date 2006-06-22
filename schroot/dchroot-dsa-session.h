@@ -34,12 +34,14 @@ namespace dchroot_dsa
 {
 
   /**
-   * Session handler for dchroot sessions.
+   * Session handler for dchroot-dsa sessions.
    *
-   * This class provides the session handling for dchroot
-   * compatibility.  It derives from session, overriding the
-   * authentication checks to allow all users to access the service,
-   * and does not permit user switching.
+   * This class provides the session handling for dchroot-dsa
+   * compatibility.  It overrides the normal authentication checks to
+   * allow all users to access the service, but enforce dchroot-dsa
+   * user access controls when present, and it specialises the session
+   * behaviour to be compatible with the chdir and command execution
+   * behaviour of dchroot-dsa.
    */
   class session : public dchroot::session_base
   {

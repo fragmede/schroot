@@ -33,17 +33,21 @@ namespace sbuild
 {
 
   /**
+   * Format names and values for output.
+   */
+  template<typename T>
+  class format_detail;
+
+  /**
    * Output the formatted detail to an ostream.
    *
    * @param stream the stream to output to.
    * @param rhs the formatted detail to output.
    * @returns the stream.
    */
-  template<typename T>
-  class format_detail;
-
   template<typename T> std::ostream&
-  operator << (std::ostream&, format_detail<T> const&);
+  operator << (std::ostream&           stream,
+	       format_detail<T> const& rhs);
 
   /**
    * Output the formatted detail to an ostream.  This is a special
@@ -54,7 +58,8 @@ namespace sbuild
    * @returns the stream.
    */
   template<> std::ostream&
-  operator << (std::ostream&, format_detail<bool> const&);
+  operator << (std::ostream&              stream,
+	       format_detail<bool> const& rhs);
 
   /**
    * Output the formatted detail to an ostream.  This is a special
@@ -65,7 +70,8 @@ namespace sbuild
    * @returns the stream.
    */
   template<> std::ostream&
-  operator << (std::ostream&, format_detail<string_list> const&);
+  operator << (std::ostream&                     stream,
+	       format_detail<string_list> const& rhs);
 
   /**
    * Helper to perform formatting of chroot details.

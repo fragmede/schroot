@@ -1,5 +1,9 @@
 2006-06-22  Roger Leigh  <rleigh@debian.org>
 
+	* Update API reference.
+
+2006-06-22  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.1.in, schroot/dchroot.1.in,
 	schroot/dchroot-dsa.1.in: Document differences in command
 	arguments and chdir behaviour.

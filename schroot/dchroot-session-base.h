@@ -34,12 +34,12 @@ namespace dchroot
 {
 
   /**
-   * Session handler for dchroot sessions.
+   * Basic session handler for dchroot sessions.
    *
-   * This class provides the session handling for dchroot
-   * compatibility.  It derives from session, overriding the
-   * authentication checks to allow all users to access the service,
-   * and does not permit user switching.
+   * This class provides common session functionality for dchroot and
+   * dchroot-dsa, such as providing a schroot compatibility mode.  It
+   * also prevents user switching when running sessions, which is
+   * forbidden.
    */
   class session_base : public sbuild::session
   {

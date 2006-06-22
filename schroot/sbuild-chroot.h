@@ -268,7 +268,7 @@ namespace sbuild
     /**
      * Set the users allowed to access the chroot.
      *
-     * @param users a list of users.
+     * @param groups a list of groups.
      */
     void
     set_groups (string_list const& groups);
