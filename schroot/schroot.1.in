@@ -26,6 +26,18 @@ schroot \- securely enter a chroot environment
 environment.  If no command is specified, a login shell will be started in the
 user's current working directory inside the chroot.
 .PP
+The command is a program, plus as many optional arguments as required.  Each
+argument may be separately quoted.
+.PP
+A login shell is run in the current working directory inside the chroot.  If
+this is not available, it will try $HOME, the user's home directory inside the
+chroot, and / in turn.  When the \fI-d\fP option is used, it will attempt to
+use the current working directory inside the chroot, again falling back to / if
+it is not accessible.
+.PP
+A command is always run in the current working directory inside the chroot.  If
+this is not available, schroot will exit with an error status.
+.PP
 If the user is not a and allowed user, or amember of the allowed groups (or if
 changing to root, the allowed root users or allowed root groups) for the
 specified chroot(s), the user will be required to authenticate themselves

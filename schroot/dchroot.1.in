@@ -23,13 +23,23 @@ dchroot \- enter a chroot environment
 .SH DESCRIPTION
 \fBdchroot\fP allows the user to run a command or a login shell in a chroot
 environment.  If no command is specified, a login shell will be started in the
-user's current working directory inside the chroot.
+user's home directory inside the chroot.
+.PP
+The command is a single argument which will be run in the user's default shell
+using its \[lq]\-c\[rq] option.  As a result, shell code may be embedded in
+this argument.
+.PP
+Unless the \fI-d\fP option is used to preserve the environment, the login shell
+or command will run in the user's home directory inside the chroot, or / if the
+home directory is not available.  When the \fI-d\fP option is used, it will
+attempt to use the current working directory inside the chroot, again falling
+back to / if it is not accessible.
 .PP
 This version of \fBdchroot\fP is a compatibility wrapper around the
 .BR schroot (1)
 program.  It is provided for backward compatibility with the \fBdchroot\fP
 command-line options, but \fBschroot\fP is recommended for future use.  See the
-section \[lq]\fIMigration\fP\[rq] below for help migrating your existing
+section \[lq]\fIMigration\fP\[rq] below for help migrating an existing
 \fBdchroot\fP configuration to \fBschroot\fP.  See the section
 \[lq]\fIIncompatibilities\fP\[rq] below for known incompatibilities with
 \fBdchroot\fP.
@@ -123,6 +133,10 @@ characters (space and tab), which may cause a parse error during tokenising if
 the file contains odd characters as separators, such as carriage returns,
 vertical tabs and form feeds.
 .IP \[bu]
+su is no longer used to run commands in the chroot.  This is done by dchroot
+internally.  This change may cause subtle differences.  If you find an
+incompatibility, please report it so it can be corrected.
+.IP \[bu]
 \fBdchroot\fP provides a restricted subset of the functionality implemented by
 \fBschroot\fP, but is still \fBschroot\fP underneath.  Thus \fBdchroot\fP is
 still subject to \fBschroot\fP security checking, including PAM authentication
@@ -182,7 +196,7 @@ Remove \fI@DCHROOT_CONF@\fP, so that \fBdchroot\fP will subsequently use
 .br
 \f[CR]\fP
 .br
-\f[CR]$ dchroot \-q \-c sid \-\- uname \-smr\fP
+\f[CR]$ dchroot \-q \-c sid \-\- "uname \-smr"\fP
 .br
 \f[CR]Linux 2.6.16.17 ppc\fP
 .br

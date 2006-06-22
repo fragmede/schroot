@@ -23,9 +23,15 @@ dchroot\-dsa \- enter a chroot environment
 .SH DESCRIPTION
 \fBdchroot\-dsa\fP allows the user to run a command or a login shell in a
 chroot environment.  If no command is specified, a login shell will be started
-in the user's current working directory inside the chroot.
+in the user's home directory inside the chroot.
 .PP
 The user's environment will be preserved inside the chroot.
+.PP
+The command is a single argument which must be an absolute path to the program.
+Additional options are not permitted.
+.PP
+The login shell or command will run in the user's home directory inside the
+chroot, or / if the home directory is not available.
 .PP
 This version of \fBdchroot\-dsa\fP is a compatibility wrapper around the
 .BR schroot (1)
@@ -131,7 +137,8 @@ All the above incompatibilities apply.
 .IP \[bu]
 This version of dchroot has incompatible command-line options, and while some
 of those options are supported or have equivalent options by a different name,
-the \fI\-c\fP option is required to specify a chroot.
+the \fI\-c\fP option is required to specify a chroot.  It also allows a shell
+script to be used as the option instead of a single absolute path.
 .IP \[bu]
 This version of dchroot has an incompatible format for \fIdchroot.conf\fP.
 While the first two fields are the same, the third field is a optional
@@ -175,9 +182,9 @@ still installed, purge it, or else delete the file.
 .br
 \f[CR]\fP
 .br
-\f[CR]$ dchroot\-dsa \-q sid \-\- uname \-smr\fP
+\f[CR]$ dchroot\-dsa \-q sid \-\- /bin/uname\fP
 .br
-\f[CR]Linux 2.6.16.17 ppc\fP
+\f[CR]Linux\fP
 .br
 \f[CR]\fP
 .br
