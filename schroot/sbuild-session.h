@@ -263,6 +263,32 @@ namespace sbuild
 		 std::string& file,
 		 string_list& command) const;
 
+    /**
+     * Get the command to run a login shell.
+     *
+     * @param session_chroot the chroot to setup.  This must be
+     * present in the chroot list and the chroot configuration object.
+     * @param file the filename to pass to execve(2).
+     * @param command the argv to pass to execve(2).
+     */
+    virtual void
+    get_login_command (chroot::ptr& session_chroot,
+		       std::string& file,
+		       string_list& command) const;
+
+    /**
+     * Get the command to run a user command.
+     *
+     * @param session_chroot the chroot to setup.  This must be
+     * present in the chroot list and the chroot configuration object.
+     * @param file the filename to pass to execve(2).
+     * @param command the argv to pass to execve(2).
+     */
+    virtual void
+    get_user_command (chroot::ptr& session_chroot,
+		      std::string& file,
+		      string_list& command) const;
+
   private:
     /**
      * execve wrapper.  Run the command specified by file (an absolute

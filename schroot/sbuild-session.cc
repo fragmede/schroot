@@ -587,98 +587,110 @@ session::get_command (sbuild::chroot::ptr& session_chroot,
   /* Run login shell */
   if (command.empty() ||
       command[0].empty()) // No command
+    get_login_command(session_chroot, file, command);
+  else
+    get_user_command(session_chroot, file, command);
+}
+
+void
+session::get_login_command (sbuild::chroot::ptr& session_chroot,
+			    std::string&         file,
+			    string_list&         command) const
+{
+  command.clear();
+
+  std::string shell = get_shell();
+  file = shell;
+
+  if (get_environment().empty() &&
+      session_chroot->get_command_prefix().empty())
+    // Not keeping environment and can setup argv correctly; login shell
     {
-      command.clear();
+      std::string shellbase = basename(shell, '/');
+      std::string loginshell = "-" + shellbase;
+      command.push_back(loginshell);
 
-      std::string shell = get_shell();
-      file = shell;
-
-      if (get_environment().empty() &&
-	  session_chroot->get_command_prefix().empty())
-	// Not keeping environment and can setup argv correctly; login shell
-	{
-	  std::string shellbase = basename(shell, '/');
-	  std::string loginshell = "-" + shellbase;
-	  command.push_back(loginshell);
-
-	  log_debug(DEBUG_NOTICE)
-	    << format("Running login shell: %1%") % shell << endl;
-	  syslog(LOG_USER|LOG_NOTICE,
-		 "[%s chroot] (%s->%s) Running login shell: \"%s\"",
-		 session_chroot->get_name().c_str(),
-		 get_ruser().c_str(), get_user().c_str(),
-		 shell.c_str());
-	}
-      else
-	{
-	  command.push_back(shell);
-	  log_debug(DEBUG_NOTICE)
-	    << format("Running shell: %1%") % shell << endl;
-	  syslog(LOG_USER|LOG_NOTICE,
-		 "[%s chroot] (%s->%s) Running shell: \"%s\"",
-		 session_chroot->get_name().c_str(),
-		 get_ruser().c_str(), get_user().c_str(),
-		 shell.c_str());
-	}
-
-      if (get_verbosity() != auth::VERBOSITY_QUIET)
-	{
-	  std::string format_string;
-	  if (get_ruid() == get_uid())
-	    {
-	      if (get_environment().empty() &&
-		  session_chroot->get_command_prefix().empty())
-		format_string = _("[%1% chroot] Running login shell: \"%4%\"");
-	      else
-		format_string = _("[%1% chroot] Running shell: \"%4%\"");
-	    }
-	  else
-	    {
-	      if (get_environment().empty() &&
-		  session_chroot->get_command_prefix().empty())
-		format_string = _("[%1% chroot] (%2%->%3%) Running login shell: \"%4%\"");
-	      else
-		format_string = _("[%1% chroot] (%2%->%3%) Running shell: \"%4%\"");
-	    }
-
-	  format fmt(format_string);
-	  fmt % session_chroot->get_name()
-	      % get_ruser() % get_user()
-	      % shell;
-	  log_info() << fmt << endl;
-	}
+      log_debug(DEBUG_NOTICE)
+	<< format("Running login shell: %1%") % shell << endl;
+      syslog(LOG_USER|LOG_NOTICE,
+	     "[%s chroot] (%s->%s) Running login shell: \"%s\"",
+	     session_chroot->get_name().c_str(),
+	     get_ruser().c_str(), get_user().c_str(),
+	     shell.c_str());
     }
   else
     {
-      /* Search for program in path. */
-      environment env = get_pam_environment();
-      std::string path;
-      if (!env.get("PATH", path))
-	path.clear();
-
-      file = find_program_in_path(command[0], path, "");
-      if (file.empty())
-	file = command[0];
-      std::string commandstring = string_list_to_string(command, " ");
+      command.push_back(shell);
       log_debug(DEBUG_NOTICE)
-	<< format("Running command: %1%") % commandstring << endl;
-      syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
-	     session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), commandstring.c_str());
+	<< format("Running shell: %1%") % shell << endl;
+      syslog(LOG_USER|LOG_NOTICE,
+	     "[%s chroot] (%s->%s) Running shell: \"%s\"",
+	     session_chroot->get_name().c_str(),
+	     get_ruser().c_str(), get_user().c_str(),
+	     shell.c_str());
+    }
 
-      if (get_verbosity() != auth::VERBOSITY_QUIET)
+  if (get_verbosity() != auth::VERBOSITY_QUIET)
+    {
+      std::string format_string;
+      if (get_ruid() == get_uid())
 	{
-	  std::string format_string;
-	  if (get_ruid() == get_uid())
-	    format_string = _("[%1% chroot] Running command: \"%4%\"");
+	  if (get_environment().empty() &&
+	      session_chroot->get_command_prefix().empty())
+	    format_string = _("[%1% chroot] Running login shell: \"%4%\"");
 	  else
-	    format_string = (_("[%1% chroot] (%2%->%3%) Running command: \"%4%\""));
-
-	  format fmt(format_string);
-	  fmt % session_chroot->get_name()
-	      % get_ruser() % get_user()
-	      % commandstring;
-	  log_info() << fmt << endl;
+	    format_string = _("[%1% chroot] Running shell: \"%4%\"");
 	}
+      else
+	{
+	  if (get_environment().empty() &&
+	      session_chroot->get_command_prefix().empty())
+	    format_string = _("[%1% chroot] (%2%->%3%) Running login shell: \"%4%\"");
+	  else
+	    format_string = _("[%1% chroot] (%2%->%3%) Running shell: \"%4%\"");
+	}
+
+      format fmt(format_string);
+      fmt % session_chroot->get_name()
+	% get_ruser() % get_user()
+	% shell;
+      log_info() << fmt << endl;
+    }
+}
+
+void
+session::get_user_command (sbuild::chroot::ptr& session_chroot,
+			   std::string&         file,
+			   string_list&         command) const
+{
+  /* Search for program in path. */
+  environment env = get_pam_environment();
+  std::string path;
+  if (!env.get("PATH", path))
+    path.clear();
+
+  file = find_program_in_path(command[0], path, "");
+  if (file.empty())
+    file = command[0];
+  std::string commandstring = string_list_to_string(command, " ");
+  log_debug(DEBUG_NOTICE)
+    << format("Running command: %1%") % commandstring << endl;
+  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
+	 session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), commandstring.c_str());
+
+  if (get_verbosity() != auth::VERBOSITY_QUIET)
+    {
+      std::string format_string;
+      if (get_ruid() == get_uid())
+	format_string = _("[%1% chroot] Running command: \"%4%\"");
+      else
+	format_string = (_("[%1% chroot] (%2%->%3%) Running command: \"%4%\""));
+
+      format fmt(format_string);
+      fmt % session_chroot->get_name()
+	% get_ruser() % get_user()
+	% commandstring;
+      log_info() << fmt << endl;
     }
 }
 
@@ -1006,7 +1018,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   if (exec (file, full_command, env))
     {
       log_error() << format(_("Could not exec \"%1%\": %2%"))
-	% command[0] % strerror(errno)
+	% file % strerror(errno)
 		  << endl;
       exit (EXIT_FAILURE);
     }
@@ -1090,7 +1102,6 @@ session::run_chroot (sbuild::chroot::ptr& session_chroot)
   else if (pid == 0)
     {
 #ifdef SBUILD_DEBUG
-      sbuild::debug_level = sbuild::DEBUG_NOTICE;
       while (child_wait)
 	;
 #endif

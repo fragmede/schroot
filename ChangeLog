@@ -1,3 +1,40 @@
+2006-06-22  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot-options.cc: Add a --debug option to enable
+	debugging messages.
+
+	* schroot/Makefile.am
+	(dchroot_SOURCES): Add dchroot-session-base.(cc|h).
+	(dchroot_dsa_SOURCES): Add dchroot-session-base.(cc|h).  Use
+	dchroot-dsa-session.(cc|h) instead of dchroot-session.(cc|h).
+
+	* schroot/dchroot-dsa-session.(cc|h): New class, based upon
+	dchroot::session and derived from dchroot::session_base.  Remove
+	specialisations for dchroot.
+
+	* schroot/dchroot-session.(cc|h): Derive from
+	dchroot::session_base.  Remove specialisations for dchroot-dsa.
+
+	* schroot/dchroot-session-base.(cc|h): New class, split from
+	dchroot::session.  It includes functionality common to dchroot and
+	dchroot-dsa sessions, as well as recording a compatibility state
+	which influences session behaviour depending on whether
+	dchroot.conf or schroot.conf are used.
+
+	* schroot/schroot.cc: When building for dchroot-dsa, include the
+	dchroot-dsa-session.h header.
+	(main): When building for dchroot-dsa, create a
+	dchroot_dsa::session session.  dchroot-dsa and dchroot sessions
+	include a compatibility mode as a fifth argument.
+
+	* schroot/sbuild-session.cc
+	(get_login_command, get_user_command): Split the two parts of
+	get_command into separate protected virtual methods, so that they
+	may be independently overridden and chained up to by derived
+	session types.
+	(run_child): When reporting an exec error, use filename rather
+	than argv[0], which may differ for login shells.
+
 2006-06-22  Luk Claes  <luk@debian.org>
 
 	* po/vi.po: Update Vietnamese translation.

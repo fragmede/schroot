@@ -126,6 +126,8 @@ dchroot_SOURCES =			\
 	dchroot-chroot-config.cc	\
 	dchroot-session.h		\
 	dchroot-session.cc		\
+	dchroot-session-base.h		\
+	dchroot-session-base.cc		\
 	schroot-options.h		\
 	schroot-options.cc		\
 	schroot.cc
@@ -136,8 +138,10 @@ dchroot_LDADD = libsbuild.la
 dchroot_dsa_SOURCES =			\
 	dchroot-chroot-config.h		\
 	dchroot-chroot-config.cc	\
-	dchroot-session.h		\
-	dchroot-session.cc		\
+	dchroot-dsa-session.h		\
+	dchroot-dsa-session.cc		\
+	dchroot-session-base.h		\
+	dchroot-session-base.cc		\
 	schroot-options.h		\
 	schroot-options.cc		\
 	schroot.cc

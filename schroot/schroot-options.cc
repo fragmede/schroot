@@ -140,7 +140,9 @@ options::options (int   argc,
   opt::options_description hidden(_("Hidden options"));
   hidden.add_options()
     ("command", opt::value<sbuild::string_list>(&this->command),
-     _("Command to run"));
+     _("Command to run"))
+    ("debug",
+     _("Enable debugging messages"));
 
   opt::positional_options_description pos;
   pos.add("command", -1);
@@ -233,6 +235,11 @@ options::options (int   argc,
     set_action(ACTION_SESSION_END);
   if (vm.count("force"))
     this->session_force = true;
+
+  if (vm.count("debug"))
+    sbuild::debug_level = sbuild::DEBUG_NOTICE;
+  else
+    sbuild::debug_level = sbuild::DEBUG_NONE;
 
   if (this->compat == COMPAT_DCHROOT_DSA)
     {

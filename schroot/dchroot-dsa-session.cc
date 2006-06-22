@@ -21,7 +21,7 @@
 
 #include "sbuild.h"
 
-#include "dchroot-session.h"
+#include "dchroot-dsa-session.h"
 
 #include <cassert>
 #include <iostream>
@@ -42,14 +42,14 @@ using std::cout;
 using std::endl;
 using boost::format;
 using sbuild::string_list;
-using namespace dchroot;
+using namespace dchroot_dsa;
 
 session::session (std::string const& service,
 		  config_ptr&        config,
 		  operation          operation,
 		  string_list const& chroots,
 		  bool               compat):
-  session_base(service, config, operation, chroots, compat)
+  dchroot::session_base(service, config, operation, chroots, compat)
 {
 }
 
@@ -61,12 +61,30 @@ sbuild::auth::status
 session::get_chroot_auth_status (sbuild::auth::status status,
 				 sbuild::chroot::ptr const& chroot) const
 {
+  /* DSA dchroot checks for a valid user in the groups list, unless
+     the groups lists is empty in which case there are no
+     restrictions.  This only applies if not switching users (dchroot
+     does not support user switching) */
+
   if (get_compat() == true)
-    status = change_auth(status, auth::STATUS_NONE);
-  else
-    status = change_auth(status,
-			 sbuild::session::get_chroot_auth_status(status,
-								 chroot));
+    {
+      string_list const& users = chroot->get_users();
+      string_list const& groups = chroot->get_groups();
+
+      if (this->get_ruid() == this->get_uid() &&
+	  users.empty() && groups.empty())
+	status = change_auth(status, auth::STATUS_NONE);
+      else
+	status = change_auth(status,
+			     sbuild::session::get_chroot_auth_status(status,
+								     chroot));
+    }
+  else // schroot compatibility
+    {
+      status = change_auth(status,
+			   sbuild::session::get_chroot_auth_status(status,
+								   chroot));
+    }
 
   return status;
 }
@@ -76,12 +94,7 @@ session::get_login_directories () const
 {
   string_list ret;
 
-  // Set current working directory only if preserving environment.
-  // Only change to home if not preserving the environment.
-  if (!get_environment().empty())
-    ret.push_back(this->sbuild::session::cwd);
-  else
-    ret.push_back(get_home());
+  ret.push_back(get_home());
 
   // Final fallback to root.
   if (std::find(ret.begin(), ret.end(), "/") == ret.end())
@@ -96,15 +109,18 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
 			   string_list&         command) const
 {
   std::string programstring = command[0];
+  file = programstring;
 
-  command.clear();
-  command.push_back(get_shell());
-  command.push_back("-c");
-  command.push_back(programstring);
+  if (file.empty() ||
+      (file.size() >= 1 && file[0] != '/'))
+    {
+      sbuild::log_error()
+	<< format(_("%1%: Command must have an absolute path"))
+	% file
+	<< endl;
+      exit (EXIT_FAILURE);
+    }
 
-  file = command[0];
-
-  sbuild::log_debug(sbuild::DEBUG_NOTICE) << "file=" << file << endl;
 
   std::string commandstring = sbuild::string_list_to_string(command, " ");
   sbuild::log_debug(sbuild::DEBUG_NOTICE)

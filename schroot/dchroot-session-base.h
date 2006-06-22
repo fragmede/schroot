@@ -17,8 +17,8 @@
  *
  *********************************************************************/
 
-#ifndef DCHROOT_SESSION_H
-#define DCHROOT_SESSION_H
+#ifndef DCHROOT_SESSION_BASE_H
+#define DCHROOT_SESSION_BASE_H
 
 #include <string>
 
@@ -28,7 +28,7 @@
 #include <pwd.h>
 #include <unistd.h>
 
-#include "dchroot-session-base.h"
+#include "sbuild-session.h"
 
 namespace dchroot
 {
@@ -41,7 +41,7 @@ namespace dchroot
    * authentication checks to allow all users to access the service,
    * and does not permit user switching.
    */
-  class session : public session_base
+  class session_base : public sbuild::session
   {
   public:
     /**
@@ -54,31 +54,46 @@ namespace dchroot
      * @param compat true to enable full dchroot compatibility, or
      * false to enable schroot compatiblity (permissions checks).
      */
-    session (std::string const&         service,
-	     config_ptr&                config,
-	     operation                  operation,
-	     sbuild::string_list const& chroots,
-	     bool                       compat);
+    session_base (std::string const&         service,
+		  config_ptr&                config,
+		  operation                  operation,
+		  sbuild::string_list const& chroots,
+		  bool                       compat);
 
     /// The destructor.
-    virtual ~session ();
+    virtual ~session_base ();
 
-    virtual sbuild::auth::status
-    get_chroot_auth_status (sbuild::auth::status status,
-			    sbuild::chroot::ptr const& chroot) const;
+    /**
+     * Get the dchroot compatibility state.
+     *
+     * @returns the state.
+     */
+    bool
+    get_compat () const;
+
+    /**
+     * Set the dchroot compatibility state.
+     *
+     * @param state the dchroot compatibility state.
+     */
+    void
+    set_compat (bool state);
+
+  protected:
+    virtual void
+    run_impl ();
 
     virtual sbuild::string_list
-    get_login_directories () const;
+    get_command_directories () const;
 
-    virtual void
-    get_user_command (sbuild::chroot::ptr& session_chroot,
-		      std::string&         file,
-		      sbuild::string_list& command) const;
+  private:
+    /// dchroot compatibility enabled?
+    bool compat;
   };
 
 }
 
-#endif /* DCHROOT_SESSION_H */
+#endif /* DCHROOT_SESSION_BASE_H */
 
 /*
  * Local Variables:

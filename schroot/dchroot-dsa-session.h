@@ -17,8 +17,8 @@
  *
  *********************************************************************/
 
-#ifndef DCHROOT_SESSION_H
-#define DCHROOT_SESSION_H
+#ifndef DCHROOT_DSA_SESSION_H
+#define DCHROOT_DSA_SESSION_H
 
 #include <string>
 
@@ -30,7 +30,7 @@
 
 #include "dchroot-session-base.h"
 
-namespace dchroot
+namespace dchroot_dsa
 {
 
   /**
@@ -41,7 +41,7 @@ namespace dchroot
    * authentication checks to allow all users to access the service,
    * and does not permit user switching.
    */
-  class session : public session_base
+  class session : public dchroot::session_base
   {
   public:
     /**
@@ -78,7 +78,7 @@ namespace dchroot
 
 }
 
-#endif /* DCHROOT_SESSION_H */
+#endif /* DCHROOT_DSA_SESSION_H */
 
 /*
  * Local Variables:

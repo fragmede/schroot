@@ -38,6 +38,9 @@
 #include "dchroot-chroot-config.h"
 #include "dchroot-session.h"
 #endif
+#ifdef SBUILD_DCHROOT_DSA_COMPAT
+#include "dchroot-dsa-session.h"
+#endif
 
 using std::endl;
 using boost::format;
@@ -357,14 +360,16 @@ main (int   argc,
       // not require group access.  If loading schroot.conf, we always
       // want normal session management.
       sbuild::session::ptr session;
-#ifdef SBUILD_DCHROOT_COMPAT
-      if (options.compat != options::COMPAT_SCHROOT && use_dchroot_conf)
-	session = sbuild::session::ptr
-	  (new dchroot::session("schroot", config, sess_op, chroots));
-      else
+#if defined(SBUILD_DCHROOT_COMPAT) && !defined(SBUILD_DCHROOT_DSA_COMPAT)
+      session = sbuild::session::ptr
+	(new dchroot::session("schroot", config, sess_op, chroots, use_dchroot_conf));
+#elif defined(SBUILD_DCHROOT_DSA_COMPAT)
+      session = sbuild::session::ptr
+	(new dchroot_dsa::session("schroot", config, sess_op, chroots, use_dchroot_conf));
+#else
+      session = sbuild::session::ptr
+	(new sbuild::session("schroot", config, sess_op, chroots));
 #endif
-	session = sbuild::session::ptr
-	  (new sbuild::session("schroot", config, sess_op, chroots));
 
       try
 	{
