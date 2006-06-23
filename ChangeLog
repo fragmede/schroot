@@ -1,5 +1,9 @@
 2006-06-23  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Document dchroot compatibility fixes.
+
+2006-06-23  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-main.cc, schroot/schroot-listmounts.cc,
 	schroot/schroot-releaselock.cc: Add date to version output.
 
