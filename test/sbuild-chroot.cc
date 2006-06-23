@@ -17,15 +17,15 @@
  *
  *********************************************************************/
 
+#include <sbuild/sbuild-chroot.h>
+
+#include "test-helpers.h"
+#include "test-sbuild-chroot.h"
+
 #include <algorithm>
 #include <set>
 
 #include <cppunit/extensions/HelperMacros.h>
-
-#include <schroot/sbuild-chroot.h>
-
-#include "test-helpers.h"
-#include "test-sbuild-chroot.h"
 
 using namespace CppUnit;
 

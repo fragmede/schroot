@@ -19,11 +19,11 @@
 
 #include <config.h>
 
-#include "sbuild-error.h"
-#include "sbuild-i18n.h"
-#include "sbuild-log.h"
-#include "sbuild-types.h"
-#include "sbuild-util.h"
+#include <sbuild/sbuild-error.h>
+#include <sbuild/sbuild-i18n.h>
+#include <sbuild/sbuild-log.h>
+#include <sbuild/sbuild-types.h>
+#include <sbuild/sbuild-util.h>
 
 #include "schroot-listmounts-options.h"
 

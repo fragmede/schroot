@@ -17,9 +17,9 @@
  *
  *********************************************************************/
 
-#include <cppunit/extensions/HelperMacros.h>
+#include <sbuild/sbuild-parse-value.h>
 
-#include <schroot/sbuild-parse-value.h>
+#include <cppunit/extensions/HelperMacros.h>
 
 using namespace CppUnit;
 

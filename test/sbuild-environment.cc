@@ -17,13 +17,13 @@
  *
  *********************************************************************/
 
+#include <sbuild/sbuild-environment.h>
+#include <sbuild/sbuild-util.h>
+
 #include <iostream>
 #include <sstream>
 
 #include <cppunit/extensions/HelperMacros.h>
-
-#include <schroot/sbuild-environment.h>
-#include <schroot/sbuild-util.h>
 
 using namespace CppUnit;
 

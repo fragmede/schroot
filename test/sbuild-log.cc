@@ -17,13 +17,13 @@
  *
  *********************************************************************/
 
+#include <sbuild/sbuild-log.h>
+
 #include <iostream>
 #include <ios>
 #include <sstream>
 
 #include <cppunit/extensions/HelperMacros.h>
-
-#include <schroot/sbuild-log.h>
 
 using namespace CppUnit;
 

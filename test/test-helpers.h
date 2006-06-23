@@ -20,11 +20,11 @@
 #ifndef TEST_HELPERS_H
 #define TEST_HELPERS_H
 
+#include <sbuild/sbuild-types.h>
+
 #include <algorithm>
 
 #include <cppunit/extensions/HelperMacros.h>
-
-#include <schroot/sbuild-types.h>
 
 using namespace CppUnit;
 

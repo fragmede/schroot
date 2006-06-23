@@ -17,11 +17,11 @@
  *
  *********************************************************************/
 
+#include <sbuild/sbuild-nostream.h>
+
 #include <cstdlib>
 
 #include <cppunit/extensions/HelperMacros.h>
-
-#include <schroot/sbuild-nostream.h>
 
 using namespace CppUnit;
 

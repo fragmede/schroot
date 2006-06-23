@@ -17,12 +17,12 @@
  *
  *********************************************************************/
 
+#include <sbuild/sbuild-log.h>
+
 #include <cstdlib>
 
 #include <cppunit/ui/text/TestRunner.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
-
-#include <schroot/sbuild-log.h>
 
 using namespace CppUnit;
 

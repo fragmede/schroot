@@ -19,8 +19,8 @@
 
 #include <config.h>
 
-#include "sbuild-auth-conv.h"
-#include "sbuild-auth-conv-tty.h"
+#include <sbuild/sbuild-auth-conv.h>
+#include <sbuild/sbuild-auth-conv-tty.h>
 
 #include "schroot-main.h"
 

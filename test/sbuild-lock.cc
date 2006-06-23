@@ -17,17 +17,17 @@
  *
  *********************************************************************/
 
+#include <sbuild/sbuild-lock.h>
+
 #include <iostream>
 
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include <cppunit/extensions/HelperMacros.h>
-
 #include <lockdev.h>
 
-#include <schroot/sbuild-lock.h>
+#include <cppunit/extensions/HelperMacros.h>
 
 using namespace CppUnit;
 

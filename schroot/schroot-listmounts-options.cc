@@ -19,7 +19,7 @@
 
 #include <config.h>
 
-#include "sbuild-i18n.h"
+#include <sbuild/sbuild-i18n.h>
 
 #include "schroot-listmounts-options.h"
 

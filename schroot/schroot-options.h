@@ -20,7 +20,7 @@
 #ifndef SCHROOT_OPTIONS_H
 #define SCHROOT_OPTIONS_H
 
-#include "schroot-options-base.h"
+#include <schroot/schroot-options-base.h>
 
 namespace schroot
 {

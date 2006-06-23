@@ -17,13 +17,13 @@
  *
  *********************************************************************/
 
+#include <sbuild/sbuild-keyfile.h>
+
 #include <fstream>
 #include <sstream>
 #include <vector>
 
 #include <cppunit/extensions/HelperMacros.h>
-
-#include <schroot/sbuild-keyfile.h>
 
 using namespace CppUnit;
 

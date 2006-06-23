@@ -20,12 +20,12 @@
 #include <algorithm>
 #include <set>
 
-#include <cppunit/extensions/HelperMacros.h>
-
-#include <schroot/sbuild-chroot-block-device.h>
+#include <sbuild/sbuild-chroot-block-device.h>
 
 #include "test-helpers.h"
 #include "test-sbuild-chroot.h"
+
+#include <cppunit/extensions/HelperMacros.h>
 
 using namespace CppUnit;
 

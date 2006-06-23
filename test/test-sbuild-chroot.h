@@ -20,12 +20,12 @@
 #ifndef TEST_SBUILD_CHROOT_H
 #define TEST_SBUILD_CHROOT_H
 
+#include <sbuild/sbuild-chroot.h>
+
 #include <algorithm>
 #include <set>
 
 #include <cppunit/extensions/HelperMacros.h>
-
-#include <schroot/sbuild-chroot.h>
 
 using namespace CppUnit;
 

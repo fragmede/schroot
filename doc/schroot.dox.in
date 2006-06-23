@@ -459,7 +459,7 @@ WARN_LOGFILE           = schroot.log
 # directories like "/usr/src/myproject". Separate the files or directories 
 # with spaces.
 
-INPUT                  = @top_srcdir@/schroot
+INPUT                  = @top_srcdir@/sbuild @top_srcdir@/schroot @top_srcdir@/dchroot @top_srcdir@/dchroot-dsa
 
 # If the value of the INPUT tag contains directories, you can use the 
 # FILE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp 

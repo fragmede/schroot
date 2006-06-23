@@ -20,8 +20,8 @@
 #ifndef SCHROOT_OPTIONS_BASE_H
 #define SCHROOT_OPTIONS_BASE_H
 
-#include "sbuild-session.h"
-#include "sbuild-types.h"
+#include <sbuild/sbuild-session.h>
+#include <sbuild/sbuild-types.h>
 
 #include <string>
 #include <vector>

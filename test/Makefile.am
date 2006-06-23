@@ -55,7 +55,7 @@ endif
 libtest_la_SOURCES = 	\
 	test-helpers.h	\
 	testmain.cc
-libtest_la_LIBADD = ../schroot/libsbuild.la $(CPPUNIT_LIBS)
+libtest_la_LIBADD = $(top_builddir)/sbuild/libsbuild.la $(CPPUNIT_LIBS)
 
 sbuild_chroot_SOURCES = 		\
 	sbuild-chroot.cc		\

@@ -25,12 +25,12 @@ dnl bug-reporting address.
 AC_INIT([schroot], [0.99.1], [buildd-tools-devel@lists.alioth.debian.org])
 dnl For safety, check we are in the right directory by
 dnl checking for a known unique file.
-AC_CONFIG_SRCDIR([schroot/sbuild-session.cc])
+AC_CONFIG_SRCDIR([sbuild/sbuild-session.cc])
 dnl Place auxilliary scripts here.
 AC_CONFIG_AUX_DIR([scripts])
 dnl Put macro definitions here.
 AC_CONFIG_HEADER([config.h])
-AC_CONFIG_HEADER([schroot/sbuild-config.h])
+AC_CONFIG_HEADER([sbuild/sbuild-config.h])
 
 dnl Initialise automake stuff.
 AM_INIT_AUTOMAKE([1.9 gnu check-news dist-bzip2 no-dist-gzip tar-ustar])
@@ -62,6 +62,8 @@ AC_ARG_ENABLE([dchroot-dsa], [AS_HELP_STRING([--enable-dchroot], [Enable dchroot
                 esac])
 AC_MSG_RESULT([$enable_dchroot_dsa_compat])
 AM_CONDITIONAL([BUILD_DCHROOT_DSA], [test "$enable_dchroot_dsa_compat" = "yes"])
+AM_CONDITIONAL([BUILD_LIBDCHROOT], [test "$enable_dchroot_compat" = "yes" || test "$enable_dchroot_dsa_compat" = "yes"])
+
 
 AC_MSG_CHECKING([whether to enable debugging messages])
 enable_debug="no"
@@ -312,15 +314,18 @@ dnl Configure which files to generate.
 AC_CONFIG_FILES([doc/Makefile])
 AC_CONFIG_FILES([doc/schroot.dox])
 AC_CONFIG_FILES([po/Makefile.in])
+AC_CONFIG_FILES([sbuild/Makefile])
 AC_CONFIG_FILES([schroot/Makefile])
 AC_CONFIG_FILES([schroot/pam/Makefile])
 AC_CONFIG_FILES([schroot/exec/Makefile])
 AC_CONFIG_FILES([schroot/setup/Makefile])
-AC_CONFIG_FILES([schroot/dchroot.1])
-AC_CONFIG_FILES([schroot/dchroot-dsa.1])
 AC_CONFIG_FILES([schroot/schroot.1])
 AC_CONFIG_FILES([schroot/schroot-setup.5])
 AC_CONFIG_FILES([schroot/schroot.conf.5])
+AC_CONFIG_FILES([dchroot/Makefile])
+AC_CONFIG_FILES([dchroot/dchroot.1])
+AC_CONFIG_FILES([dchroot-dsa/Makefile])
+AC_CONFIG_FILES([dchroot-dsa/dchroot-dsa.1])
 AC_CONFIG_FILES([test/Makefile])
 AC_CONFIG_FILES([Makefile])
 dnl Output the generated config.status script.

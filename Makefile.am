@@ -20,7 +20,7 @@
 #
 #####################################################################
 
-SUBDIRS = schroot test doc po
+SUBDIRS = sbuild schroot dchroot dchroot-dsa test doc po
 
 # Remove junk from the generated tarball.
 dist-hook:

@@ -17,14 +17,14 @@
  *
  *********************************************************************/
 
+#include <sbuild/sbuild-chroot-config.h>
+#include <sbuild/sbuild-nostream.h>
+
 #include <fstream>
 #include <sstream>
 #include <vector>
 
 #include <cppunit/extensions/HelperMacros.h>
-
-#include <schroot/sbuild-chroot-config.h>
-#include <schroot/sbuild-nostream.h>
 
 using namespace CppUnit;
 

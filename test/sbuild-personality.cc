@@ -17,12 +17,12 @@
  *
  *********************************************************************/
 
+#include <sbuild/sbuild-personality.h>
+
 #include <iostream>
 #include <sstream>
 
 #include <cppunit/extensions/HelperMacros.h>
-
-#include <schroot/sbuild-personality.h>
 
 using namespace CppUnit;
 
