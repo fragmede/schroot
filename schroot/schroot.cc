@@ -39,7 +39,7 @@
 #include "dchroot-session.h"
 #include "dchroot-options.h"
 #elif defined(SBUILD_DCHROOT_DSA_COMPAT)
-#include "dchroot-chroot-config.h"
+#include "dchroot-dsa-chroot-config.h"
 #include "dchroot-dsa-session.h"
 #include "dchroot-dsa-options.h"
 #else
@@ -244,10 +244,18 @@ main (int   argc,
 #endif
 
       sbuild::chroot_config::ptr config;
-#ifdef SBUILD_DCHROOT_COMPAT
+#if defined(SBUILD_DCHROOT_COMPAT) && !defined(SBUILD_DCHROOT_DSA_COMPAT)
       if (options->compat != options_base::COMPAT_SCHROOT && use_dchroot_conf)
 	{
 	  config = sbuild::chroot_config::ptr(new dchroot::chroot_config);
+	  if (options->load_chroots == true)
+	    config->add(DCHROOT_CONF, false);
+	}
+      else
+#elif defined(SBUILD_DCHROOT_DSA_COMPAT)
+      if (options->compat != options_base::COMPAT_SCHROOT && use_dchroot_conf)
+	{
+	  config = sbuild::chroot_config::ptr(new dchroot_dsa::chroot_config);
 	  if (options->load_chroots == true)
 	    config->add(DCHROOT_CONF, false);
 	}

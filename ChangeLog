@@ -1,5 +1,16 @@
 2006-06-23  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.cc (main): When running dchroot-dsa, use
+	dchroot_dsa::chroot_config instead or dchroot::chroot_config.
+
+	* schroot/dchroot-chroot-config.(cc|h): New class.  Remove
+	dchroot-dsa specific parts.
+
+	* schroot/dchroot-dsa-chroot-config.(cc|h): New class.  Split
+	dchroot-dsa specific parts from dchroot::chroot_config.
+
+2006-06-23  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/Makefile.am: Build with new headers.
 
 	* schroot/dchroot-session.h: Update API documentation.

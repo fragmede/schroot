@@ -140,8 +140,8 @@ dchroot_CXXFLAGS = -DSBUILD_DCHROOT_COMPAT
 dchroot_LDADD = libsbuild.la
 
 dchroot_dsa_SOURCES =			\
-	dchroot-chroot-config.h		\
-	dchroot-chroot-config.cc	\
+	dchroot-dsa-chroot-config.h	\
+	dchroot-dsa-chroot-config.cc	\
 	dchroot-session-base.h		\
 	dchroot-session-base.cc		\
 	dchroot-dsa-session.h		\
