@@ -17,18 +17,18 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_OPTIONS_H
-#define SCHROOT_OPTIONS_H
+#ifndef DCHROOT_OPTIONS_H
+#define DCHROOT_OPTIONS_H
 
 #include "schroot-options-base.h"
 
-namespace schroot
+namespace dchroot
 {
 
   /**
-   * schroot command-line options.
+   * dchroot command-line options.
    */
-  class options : public options_base
+  class options : public schroot::options_base
   {
   public:
     /**
@@ -53,7 +53,7 @@ namespace schroot
 
 }
 
-#endif /* SCHROOT_OPTIONS_H */
+#endif /* DCHROOT_OPTIONS_H */
 
 /*
  * Local Variables:

@@ -32,28 +32,33 @@
 
 #include "sbuild.h"
 
-#include "schroot-options.h"
+#include "schroot-options-base.h"
 
-#ifdef SBUILD_DCHROOT_COMPAT
+#if defined(SBUILD_DCHROOT_COMPAT) && !defined(SBUILD_DCHROOT_DSA_COMPAT)
 #include "dchroot-chroot-config.h"
 #include "dchroot-session.h"
-#endif
-#ifdef SBUILD_DCHROOT_DSA_COMPAT
+#include "dchroot-options.h"
+#elif defined(SBUILD_DCHROOT_DSA_COMPAT)
+#include "dchroot-chroot-config.h"
 #include "dchroot-dsa-session.h"
+#include "dchroot-dsa-options.h"
+#else
+#include "schroot-options.h"
 #endif
+
 
 using std::endl;
 using boost::format;
 using namespace schroot;
 
 std::string
-program_name (schroot::options& options)
+program_name (options_base::ptr& options)
 {
-  if (options.compat == options::COMPAT_SCHROOT)
+  if (options->compat == options_base::COMPAT_SCHROOT)
     return "schroot";
-  else if (options.compat == options::COMPAT_DCHROOT)
+  else if (options->compat == options_base::COMPAT_DCHROOT)
     return "dchroot";
-  else if (options.compat == options::COMPAT_DCHROOT_DSA)
+  else if (options->compat == options_base::COMPAT_DCHROOT_DSA)
     return "dchroot-dsa";
   return "schroot";
 }
@@ -65,8 +70,8 @@ program_name (schroot::options& options)
  * @param options the command line options.
  */
 void
-print_version (std::ostream&     stream,
-	       schroot::options& options)
+print_version (std::ostream&      stream,
+	       options_base::ptr& options)
 {
   format fmt(_("%1% (Debian sbuild) %2%\n"));
   fmt % program_name(options);
@@ -90,11 +95,11 @@ print_version (std::ostream&     stream,
  */
 sbuild::string_list
 get_chroot_options (std::tr1::shared_ptr<sbuild::chroot_config>& config,
-		    schroot::options&                     options)
+		    options_base::ptr&                           options)
 {
   sbuild::string_list ret;
 
-  if (options.all_chroots == true || options.all_sessions == true)
+  if (options->all_chroots == true || options->all_sessions == true)
     {
       sbuild::chroot_config::chroot_list const& list = config->get_chroots();
 
@@ -102,8 +107,8 @@ get_chroot_options (std::tr1::shared_ptr<sbuild::chroot_config>& config,
 	   chroot != list.end();
 	   ++chroot)
 	{
-	  if (((*chroot)->get_active() == false && options.all_chroots == false) ||
-	      ((*chroot)->get_active() == true && options.all_sessions == false))
+	  if (((*chroot)->get_active() == false && options->all_chroots == false) ||
+	      ((*chroot)->get_active() == true && options->all_sessions == false))
 	    continue;
 	  ret.push_back((*chroot)->get_name());
 	}
@@ -111,7 +116,7 @@ get_chroot_options (std::tr1::shared_ptr<sbuild::chroot_config>& config,
   else
     {
       sbuild::string_list invalid_chroots =
-	config->validate_chroots(options.chroots);
+	config->validate_chroots(options->chroots);
 
       if (!invalid_chroots.empty())
 	{
@@ -122,7 +127,7 @@ get_chroot_options (std::tr1::shared_ptr<sbuild::chroot_config>& config,
 				<< endl;
 	  exit(EXIT_FAILURE);
 	}
-      ret = options.chroots;
+      ret = options->chroots;
     }
 
   return ret;
@@ -177,9 +182,17 @@ main (int   argc,
       openlog("schroot", LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
 
       /* Parse command-line options into opt structure. */
-      options options(argc, argv);
+      options_base::ptr options;
 
-      if (options.compat != options::COMPAT_SCHROOT && options.verbose)
+#if defined(SBUILD_DCHROOT_COMPAT) && !defined(SBUILD_DCHROOT_DSA_COMPAT)
+      options = options_base::ptr(new dchroot::options(argc, argv));
+#elif defined(SBUILD_DCHROOT_DSA_COMPAT)
+      options = options_base::ptr(new dchroot_dsa::options(argc, argv));
+#else
+      options = options_base::ptr(new schroot::options(argc, argv));
+#endif
+
+      if (options->compat != options_base::COMPAT_SCHROOT && options->verbose)
 	{
 	  sbuild::log_warning()
 	    << _("Running schroot in dchroot compatibility mode")
@@ -189,7 +202,7 @@ main (int   argc,
 	    << endl;
 	}
 
-      if (options.action == options::ACTION_VERSION)
+      if (options->action == options_base::ACTION_VERSION)
 	{
 	  print_version(std::cout, options);
 	  exit(EXIT_SUCCESS);
@@ -198,14 +211,14 @@ main (int   argc,
       /* Initialise chroot configuration. */
 #ifdef SBUILD_DCHROOT_COMPAT
       bool use_dchroot_conf = false;
-      if (options.compat != options::COMPAT_SCHROOT)
+      if (options->compat != options_base::COMPAT_SCHROOT)
 	{
 	  struct stat statbuf;
 	  if (stat(DCHROOT_CONF, &statbuf) == 0 && !S_ISDIR(statbuf.st_mode))
 	    {
 	      use_dchroot_conf = true;
 
-	      if (options.verbose)
+	      if (options->verbose)
 		{
 		  sbuild::log_warning()
 		    << _("Using dchroot configuration file: ") << DCHROOT_CONF
@@ -232,10 +245,10 @@ main (int   argc,
 
       sbuild::chroot_config::ptr config;
 #ifdef SBUILD_DCHROOT_COMPAT
-      if (options.compat != options::COMPAT_SCHROOT && use_dchroot_conf)
+      if (options->compat != options_base::COMPAT_SCHROOT && use_dchroot_conf)
 	{
 	  config = sbuild::chroot_config::ptr(new dchroot::chroot_config);
-	  if (options.load_chroots == true)
+	  if (options->load_chroots == true)
 	    config->add(DCHROOT_CONF, false);
 	}
       else
@@ -244,24 +257,24 @@ main (int   argc,
 	  config = sbuild::chroot_config::ptr(new sbuild::chroot_config);
 	  /* The normal chroot list is used when starting a session or running
 	     any chroot type or session, or displaying chroot information. */
-	  if (options.load_chroots == true)
+	  if (options->load_chroots == true)
 	    config->add(SCHROOT_CONF, false);
 	  /* The session chroot list is used when running or ending an
 	     existing session, or displaying chroot information. */
-	  if (options.load_sessions == true)
+	  if (options->load_sessions == true)
 	    config->add(SCHROOT_SESSION_DIR, true);
 	}
 
-      if (config->get_chroots().empty() && options.quiet == false)
+      if (config->get_chroots().empty() && options->quiet == false)
 	{
-	  if (options.load_chroots == true && options.load_sessions == true)
+	  if (options->load_chroots == true && options->load_sessions == true)
 	    sbuild::log_warning()
 	      << format(_("No chroots are defined in %1% or %2%"))
 	      % SCHROOT_CONF % SCHROOT_SESSION_DIR
 	      << endl;
 	  else
 	    {
-	      const char *cfile = (options.load_sessions) ? SCHROOT_CONF : SCHROOT_SESSION_DIR;
+	      const char *cfile = (options->load_sessions) ? SCHROOT_CONF : SCHROOT_SESSION_DIR;
 	    sbuild::log_warning()
 	      << format(_("No chroots are defined in %1%")) % cfile
 	      << endl;
@@ -269,9 +282,9 @@ main (int   argc,
 	}
 
       /* Print chroot list (including aliases). */
-      if (options.action == options::ACTION_LIST)
+      if (options->action == options_base::ACTION_LIST)
 	{
-	  if (options.compat == options::COMPAT_SCHROOT)
+	  if (options->compat == options_base::COMPAT_SCHROOT)
 	    config->print_chroot_list(std::cout);
 	  else
 	    config->print_chroot_list_simple(std::cout);
@@ -290,30 +303,30 @@ main (int   argc,
 	}
 
       /* Print chroot information for specified chroots. */
-      if (options.action == options::ACTION_INFO)
+      if (options->action == options_base::ACTION_INFO)
 	{
 	  config->print_chroot_info(chroots, std::cout);
 	  exit (EXIT_SUCCESS);
 	}
-      if (options.action == options::ACTION_LOCATION)
+      if (options->action == options_base::ACTION_LOCATION)
 	{
-	  if (options.compat == options::COMPAT_SCHROOT)
+	  if (options->compat == options_base::COMPAT_SCHROOT)
 	    {
 	      config->print_chroot_location(chroots, std::cout);
 	    }
-	  else if (options.compat == options::COMPAT_DCHROOT)
+	  else if (options->compat == options_base::COMPAT_DCHROOT)
 	    {
 	      sbuild::string_list chroot;
-	      chroot.push_back(options.chroot_path);
+	      chroot.push_back(options->chroot_path);
 	      config->print_chroot_location(chroot, std::cout);
 	    }
-	  else if (options.compat == options::COMPAT_DCHROOT_DSA)
+	  else if (options->compat == options_base::COMPAT_DCHROOT_DSA)
 	    {
 	      config->print_chroot_location(chroots, std::cout);
 	    }
 	  exit (EXIT_SUCCESS);
 	}
-      if (options.action == options::ACTION_CONFIG)
+      if (options->action == options_base::ACTION_CONFIG)
 	{
 	  std::cout << "# "
 		    << format(_("schroot configuration generated by %1% %2%"))
@@ -336,7 +349,7 @@ main (int   argc,
 	  exit (EXIT_SUCCESS);
 	}
 
-      if (options.action == options::ACTION_SESSION_BEGIN &&
+      if (options->action == options_base::ACTION_SESSION_BEGIN &&
 	  chroots.size() != 1)
 	{
 	  sbuild::log_error()
@@ -347,13 +360,13 @@ main (int   argc,
 
       /* Create a session. */
       sbuild::session::operation sess_op(sbuild::session::OPERATION_AUTOMATIC);
-      if (options.action == options::ACTION_SESSION_BEGIN)
+      if (options->action == options_base::ACTION_SESSION_BEGIN)
 	sess_op = sbuild::session::OPERATION_BEGIN;
-      else if (options.action == options::ACTION_SESSION_RECOVER)
+      else if (options->action == options_base::ACTION_SESSION_RECOVER)
 	sess_op = sbuild::session::OPERATION_RECOVER;
-      else if (options.action == options::ACTION_SESSION_RUN)
+      else if (options->action == options_base::ACTION_SESSION_RUN)
 	sess_op = sbuild::session::OPERATION_RUN;
-      else if (options.action == options::ACTION_SESSION_END)
+      else if (options->action == options_base::ACTION_SESSION_END)
 	sess_op = sbuild::session::OPERATION_END;
 
       // Using dchroot.conf implies using dchroot_session, which does
@@ -373,17 +386,18 @@ main (int   argc,
 
       try
 	{
-	  if (!options.user.empty() && options.compat == options::COMPAT_SCHROOT)
-	    session->set_user(options.user);
-	  if (!options.command.empty())
-	    session->set_command(options.command);
-	  if (options.preserve)
+	  if (!options->user.empty() &&
+	      options->compat == options_base::COMPAT_SCHROOT)
+	    session->set_user(options->user);
+	  if (!options->command.empty())
+	    session->set_command(options->command);
+	  if (options->preserve)
 	    session->set_environment(environ);
-	  session->set_force(options.session_force);
+	  session->set_force(options->session_force);
 	  sbuild::auth::verbosity verbosity = sbuild::auth::VERBOSITY_NORMAL;
-	  if (options.quiet)
+	  if (options->quiet)
 	    verbosity = sbuild::auth::VERBOSITY_QUIET;
-	  else if (options.verbose)
+	  else if (options->verbose)
 	    verbosity = sbuild::auth::VERBOSITY_VERBOSE;
 	  session->set_verbosity(verbosity);
 
@@ -401,7 +415,7 @@ main (int   argc,
 	}
       catch (std::runtime_error& e)
 	{
-	  if (!options.quiet)
+	  if (!options->quiet)
 	    sbuild::log_error()
 	      << format(_("Session failure: %1%")) % e.what() << endl;
 	}

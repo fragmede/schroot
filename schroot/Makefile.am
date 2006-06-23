@@ -115,6 +115,8 @@ nodist_libsbuild_la_SOURCES =	\
 libsbuild_la_LIBADD = $(UUID_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(BOOST_LIBS) $(LIBINTL)
 
 schroot_SOURCES =			\
+	schroot-options-base.h		\
+	schroot-options-base.cc		\
 	schroot-options.h		\
 	schroot-options.cc		\
 	schroot.cc
@@ -124,12 +126,14 @@ schroot_LDADD = libsbuild.la
 dchroot_SOURCES =			\
 	dchroot-chroot-config.h		\
 	dchroot-chroot-config.cc	\
-	dchroot-session.h		\
-	dchroot-session.cc		\
 	dchroot-session-base.h		\
 	dchroot-session-base.cc		\
-	schroot-options.h		\
-	schroot-options.cc		\
+	dchroot-session.h		\
+	dchroot-session.cc		\
+	schroot-options-base.h		\
+	schroot-options-base.cc		\
+	dchroot-options.h		\
+	dchroot-options.cc		\
 	schroot.cc
 
 dchroot_CXXFLAGS = -DSBUILD_DCHROOT_COMPAT
@@ -138,12 +142,14 @@ dchroot_LDADD = libsbuild.la
 dchroot_dsa_SOURCES =			\
 	dchroot-chroot-config.h		\
 	dchroot-chroot-config.cc	\
-	dchroot-dsa-session.h		\
-	dchroot-dsa-session.cc		\
 	dchroot-session-base.h		\
 	dchroot-session-base.cc		\
-	schroot-options.h		\
-	schroot-options.cc		\
+	dchroot-dsa-session.h		\
+	dchroot-dsa-session.cc		\
+	schroot-options-base.h		\
+	schroot-options-base.cc		\
+	dchroot-dsa-options.h		\
+	dchroot-dsa-options.cc		\
 	schroot.cc
 
 dchroot_dsa_CXXFLAGS = -DSBUILD_DCHROOT_COMPAT -DSBUILD_DCHROOT_DSA_COMPAT

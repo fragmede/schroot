@@ -1,3 +1,26 @@
+2006-06-23  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/Makefile.am: Build with new headers.
+
+	* schroot/dchroot-session.h: Update API documentation.
+
+	* schroot/schroot.cc: Include the new options headers.  The
+	options object is now a tr1::shared_ptr to the base_options
+	options base class.
+
+	* schroot/dchroot-dsa-options.(cc|h): dchroot-dsa-specific options
+	and parsing logic.
+
+	* schroot/dchroot-options.(cc|h): dchroot-specific options and
+	parsing logic.
+
+	* schroot/schroot-options.(cc|h): schroot-specific options and
+	parsing logic.
+
+	* schroot/schroot-options-base.(cc|h): New files.  Base class
+	containing generic options parsing functionality and common
+	options.
+
 2006-06-22  Roger Leigh  <rleigh@debian.org>
 
 	* Update API reference.

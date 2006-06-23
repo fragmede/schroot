@@ -37,9 +37,10 @@ namespace dchroot
    * Session handler for dchroot sessions.
    *
    * This class provides the session handling for dchroot
-   * compatibility.  It derives from session, overriding the
-   * authentication checks to allow all users to access the service,
-   * and does not permit user switching.
+   * compatibility.  It overrides the normal authentication checks to
+   * allow all users to access the service, and it specialises the
+   * session behaviour to be compatible with the chdir and command
+   * execution behaviour of dchroot.
    */
   class session : public session_base
   {

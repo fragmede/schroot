@@ -28,16 +28,16 @@
 
 #include "sbuild.h"
 
-#include "schroot-options.h"
+#include "dchroot-options.h"
 
 using std::endl;
 using boost::format;
 namespace opt = boost::program_options;
-using namespace schroot;
+using namespace dchroot;
 
 options::options (int   argc,
 		  char *argv[]):
-  options_base(argc, argv, COMPAT_SCHROOT)
+  schroot::options_base(argc, argv, schroot::options_base::COMPAT_DCHROOT)
 {
   add_options();
   parse_options(argc, argv);
@@ -52,39 +52,20 @@ options::~options ()
 void
 options::add_options ()
 {
-  options_base::add_options();
+  schroot::options_base::add_options();
 
   general.add_options()
-    ("location",
-     _("Print location of selected chroots"));
+    ("path,p", opt::value<std::string>(&this->chroot_path),
+     _("Print path to selected chroot"));
 
   chroot.add_options()
     ("all,a",
-     _("Select all chroots and active sessions"))
-    ("all-chroots",
-     _("Select all chroots"))
-    ("all-sessions",
-     _("Select all active sessions"));
+     _("Select all chroots"));
 
   chrootenv.add_options()
-    ("user,u", opt::value<std::string>(&this->user),
-     _("Username (default current user)"))
-    ("preserve-environment,p",
+    ("preserve-environment,d",
      _("Preserve user environment"));
-
-  session.add_options()
-    ("begin-session,b",
-     _("Begin a session; returns a session ID"))
-    ("recover-session",
-     _("Recover an existing session"))
-    ("run-session,r",
-     _("Run an existing session"))
-    ("end-session,e",
-     _("End an existing session"))
-    ("force,f",
-     _("Force operation, even if it fails"));
 }
-
 
 void
 options::check_options ()
@@ -93,7 +74,7 @@ options::check_options ()
     {
       std::cout
 	<< _("Usage:") << "\n  "
-	<< "schroot"
+	<< "dchroot"
 	<< "  "
 	<< _("[OPTION...] [COMMAND] - run command or shell in a chroot")
 	<< '\n';
@@ -101,31 +82,41 @@ options::check_options ()
       exit(EXIT_SUCCESS);
     }
 
-  options_base::check_options();
+  schroot::options_base::check_options();
 
-  if (vm.count("location"))
+  if (vm.count("path"))
     set_action(ACTION_LOCATION);
 
   if (vm.count("all"))
-    this->all = true;
-  if (vm.count("all-chroots"))
-    this->all_chroots = true;
-  if (vm.count("all-sessions"))
-    this->all_sessions = true;
+    {
+      this->all = false;
+      this->all_chroots = true;
+      this->all_sessions = false;
+    }
 
   if (vm.count("preserve-environment"))
     this->preserve = true;
 
-  if (vm.count("begin-session"))
-    set_action(ACTION_SESSION_BEGIN);
-  if (vm.count("recover-session"))
-    set_action(ACTION_SESSION_RECOVER);
-  if (vm.count("run-session"))
-    set_action(ACTION_SESSION_RUN);
-  if (vm.count("end-session"))
-    set_action(ACTION_SESSION_END);
-  if (vm.count("force"))
-    this->session_force = true;
+  // dchroot only allows one command.
+  if (this->command.size() > 1)
+    throw opt::validation_error(_("Only one command may be specified"));
+
+  if (this->quiet && this->verbose)
+    {
+      sbuild::log_warning()
+	<< _("--quiet and --verbose may not be used at the same time")
+	<< endl;
+      sbuild::log_info() << _("Using verbose output") << endl;
+    }
+
+  if (!this->chroots.empty() && all_used())
+    {
+      sbuild::log_warning()
+	<< _("--chroot and --all may not be used at the same time")
+	<< endl;
+      sbuild::log_info() << _("Using --chroots only") << endl;
+      this->all = this->all_chroots = this->all_sessions = false;
+    }
 
   if (this->all == true)
     {
@@ -133,3 +124,9 @@ options::check_options ()
       this->all_sessions = true;
     }
 }
+
+/*
+ * Local Variables:
+ * mode:C++
+ * End:
+ */
