@@ -37,7 +37,7 @@ using namespace schroot;
 
 options::options (int   argc,
 		  char *argv[]):
-  options_base(argc, argv, COMPAT_SCHROOT)
+  options_base(argc, argv)
 {
   add_options();
   parse_options(argc, argv);

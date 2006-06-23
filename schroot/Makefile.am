@@ -31,7 +31,7 @@ AM_CXXFLAGS = $(SCHROOT_CFLAGS) -pedantic -Wall -Wcast-align -Wwrite-strings -Ws
 
 DEFS = -DGETTEXT_PACKAGE=\"schroot\" -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
 
-noinst_LTLIBRARIES = libsbuild.la
+noinst_LTLIBRARIES = libsbuild.la libschroot.la libdchroot.la
 
 if BUILD_DCHROOT
 dchroot = dchroot
@@ -114,59 +114,58 @@ nodist_libsbuild_la_SOURCES =	\
 
 libsbuild_la_LIBADD = $(UUID_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(BOOST_LIBS) $(LIBINTL)
 
-schroot_SOURCES =			\
+libschroot_la_SOURCES =			\
 	schroot-options-base.h		\
 	schroot-options-base.cc		\
+	schroot-main.h			\
+	schroot-main.cc
+libschroot_la_LIBADD = libsbuild.la
+
+libdchroot_la_SOURCES =			\
+	dchroot-session-base.h		\
+	dchroot-session-base.cc
+libdchroot_la_LIBADD = libschroot.la
+
+schroot_SOURCES =			\
 	schroot-options.h		\
 	schroot-options.cc		\
 	schroot.cc
-
-schroot_LDADD = libsbuild.la
+schroot_LDADD = libschroot.la
 
 dchroot_SOURCES =			\
 	dchroot-chroot-config.h		\
 	dchroot-chroot-config.cc	\
-	dchroot-session-base.h		\
-	dchroot-session-base.cc		\
 	dchroot-session.h		\
 	dchroot-session.cc		\
-	schroot-options-base.h		\
-	schroot-options-base.cc		\
 	dchroot-options.h		\
 	dchroot-options.cc		\
-	schroot.cc
-
-dchroot_CXXFLAGS = -DSBUILD_DCHROOT_COMPAT
-dchroot_LDADD = libsbuild.la
+	dchroot-main.h			\
+	dchroot-main.cc			\
+	dchroot.cc
+dchroot_LDADD = libdchroot.la
 
 dchroot_dsa_SOURCES =			\
 	dchroot-dsa-chroot-config.h	\
 	dchroot-dsa-chroot-config.cc	\
-	dchroot-session-base.h		\
-	dchroot-session-base.cc		\
 	dchroot-dsa-session.h		\
 	dchroot-dsa-session.cc		\
-	schroot-options-base.h		\
-	schroot-options-base.cc		\
 	dchroot-dsa-options.h		\
 	dchroot-dsa-options.cc		\
-	schroot.cc
-
-dchroot_dsa_CXXFLAGS = -DSBUILD_DCHROOT_COMPAT -DSBUILD_DCHROOT_DSA_COMPAT
-dchroot_dsa_LDADD = libsbuild.la
+	dchroot-dsa-main.h		\
+	dchroot-dsa-main.cc		\
+	dchroot-dsa.cc
+dchroot_dsa_LDADD = libdchroot.la
 
 schroot_releaselock_SOURCES = 		\
 	schroot-releaselock-options.h	\
 	schroot-releaselock-options.cc	\
 	schroot-releaselock.cc
-schroot_releaselock_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
 schroot_releaselock_LDADD = libsbuild.la
 
 schroot_listmounts_SOURCES =		\
 	schroot-listmounts-options.h	\
 	schroot-listmounts-options.cc	\
 	schroot-listmounts.cc
-schroot_listmounts_CFLAGS = $(AM_CFLAGS) $(SCHROOT_CFLAGS)
 schroot_listmounts_LDADD = libsbuild.la
 
 

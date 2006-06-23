@@ -37,7 +37,7 @@ using namespace dchroot;
 
 options::options (int   argc,
 		  char *argv[]):
-  schroot::options_base(argc, argv, schroot::options_base::COMPAT_DCHROOT)
+  schroot::options_base(argc, argv)
 {
   add_options();
   parse_options(argc, argv);

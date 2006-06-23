@@ -135,8 +135,6 @@ main (int   argc,
 
 #ifndef SBUILD_DEBUG
       sbuild::debug_level = sbuild::DEBUG_CRITICAL;
-#else
-      sbuild::debug_level = sbuild::DEBUG_NONE;
 #endif
 
       // Parse command-line options.

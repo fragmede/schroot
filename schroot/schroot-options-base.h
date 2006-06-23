@@ -63,14 +63,6 @@ namespace schroot
 	ACTION_CONFIG           ///< Display chroot configuration.
       };
 
-    /// The compatibility mode.
-    enum compatibility_type
-      {
-	COMPAT_SCHROOT,    ///< schroot compatibility.
-	COMPAT_DCHROOT,    ///< dchroot compatibility.
-	COMPAT_DCHROOT_DSA ///< dchroot-dsa compatibility.
-      };
-
     /// A shared_ptr to an options_base object.
     typedef std::tr1::shared_ptr<options_base> ptr;
 
@@ -82,8 +74,7 @@ namespace schroot
      * @param compat the compatibility mode.
      */
     options_base (int                 argc,
-		  char               *argv[],
-		  compatibility_type  compat);
+		  char               *argv[]);
 
     /// The destructor.
     virtual ~options_base ();
@@ -116,8 +107,6 @@ namespace schroot
     bool                 load_sessions;
     /// Force session operations.
     bool                 session_force;
-    /// dchroot(1) compatibility mode.
-    compatibility_type   compat;
 
   protected:
     /**

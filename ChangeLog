@@ -1,5 +1,36 @@
 2006-06-23  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/Makefile.am: Add new files.  Additionally, build
+	schroot.la and dchroot.la static libraries to ease linking.
+
+	* schroot/dchroot-options.cc, schroot/dchroot-dsa-options.cc,
+	schroot/schroot-options.cc: Remove compatibility setup.
+
+	* schroot/schroot-options-base.(cc|h): Remove compatibility_type
+	and compat member.
+
+	* schroot/dchroot-main.(cc|h), schroot/dchroot-dsa-main.(cc|h):
+	New files.  These two classes derive from schroot::main, and
+	override its virtual methods to customise it for dchroot and
+	dchroot-dsa respectively.
+
+	* schroot/schroot-main.(cc|h): New files.  This new class contains
+	all the functionality of schroot.cc, but is separated into
+	separate methods, which may be overridden in other
+	implementations.
+
+	* dchroot.cc, dchroot-dsa.cc, schroot.cc: These files (two new)
+	are stubs to instantiate an appropriate main object and run it.
+
+	* schroot.cc: Move all functionality into schroot-main.cc.
+
+	* schroot/schroot.cc, schroot/schroot-listmounts.cc,
+	schroot/schroot-releaselock.cc (main): Don't disable debugging
+	messages if debugging is disabled.  It defaults to disabled
+	anyway, and this prevents --debug from working.
+
+2006-06-23  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.cc (main): When running dchroot-dsa, use
 	dchroot_dsa::chroot_config instead or dchroot::chroot_config.
 

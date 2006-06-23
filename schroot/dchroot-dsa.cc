@@ -27,8 +27,8 @@
 
 #include <syslog.h>
 
-#include "schroot-main.h"
-#include "schroot-options.h"
+#include "dchroot-dsa-main.h"
+#include "dchroot-dsa-options.h"
 
 using std::endl;
 using boost::format;
@@ -54,8 +54,8 @@ main (int   argc,
       std::cout.imbue(std::locale());
       std::cerr.imbue(std::locale());
 
-      schroot::options::ptr opts(new schroot::options(argc, argv));
-      schroot::main kit(opts);
+      dchroot_dsa::options::ptr opts(new dchroot_dsa::options(argc, argv));
+      dchroot_dsa::main kit(opts);
       exit (kit.run());
     }
   catch (std::exception const& e)

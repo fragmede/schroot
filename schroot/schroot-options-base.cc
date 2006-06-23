@@ -36,8 +36,7 @@ namespace opt = boost::program_options;
 using namespace schroot;
 
 options_base::options_base (int                 argc,
-			    char               *argv[],
-			    compatibility_type  compat):
+			    char               *argv[]):
   action(ACTION_SESSION_AUTO),
   chroots(),
   command(),
@@ -49,7 +48,6 @@ options_base::options_base (int                 argc,
   all_chroots(false),
   all_sessions(false),
   session_force(false),
-  compat(compat),
   general(_("General options")),
   chroot(_("Chroot selection")),
   chrootenv(_("Chroot environment")),
