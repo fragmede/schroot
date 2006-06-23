@@ -19,15 +19,17 @@
 
 #include <config.h>
 
-#include "sbuild.h"
+#include "sbuild-chroot.h"
+#include "sbuild-chroot-source.h"
+#include "sbuild-chroot-config.h"
+#include "sbuild-lock.h"
 
+#include <cerrno>
+#include <cstdlib>
+#include <cstring>
 #include <iostream>
 
 #include <ext/stdio_filebuf.h>
-
-#include <errno.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>

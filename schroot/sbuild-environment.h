@@ -20,14 +20,14 @@
 #ifndef SBUILD_ENVIRONMENT_H
 #define SBUILD_ENVIRONMENT_H
 
+#include "sbuild-log.h"
+#include "sbuild-parse-value.h"
+
 #include <map>
 #include <string>
 #include <sstream>
 
 #include <boost/format.hpp>
-
-#include "sbuild-log.h"
-#include "sbuild-parse-value.h"
 
 namespace sbuild
 {

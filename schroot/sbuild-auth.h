@@ -21,6 +21,10 @@
 #define SBUILD_AUTH_H
 
 #include "sbuild-config.h"
+#include "sbuild-auth-conv.h"
+#include "sbuild-custom-error.h"
+#include "sbuild-environment.h"
+#include "sbuild-types.h"
 
 #include <string>
 #include <vector>
@@ -41,11 +45,6 @@ namespace std { namespace tr1 { using boost::shared_ptr; } }
 #include <unistd.h>
 
 #include <security/pam_appl.h>
-
-#include "sbuild-auth-conv.h"
-#include "sbuild-custom-error.h"
-#include "sbuild-environment.h"
-#include "sbuild-types.h"
 
 namespace sbuild
 {

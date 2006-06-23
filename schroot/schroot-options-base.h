@@ -20,6 +20,9 @@
 #ifndef SCHROOT_OPTIONS_BASE_H
 #define SCHROOT_OPTIONS_BASE_H
 
+#include "sbuild-session.h"
+#include "sbuild-types.h"
+
 #include <string>
 #include <vector>
 
@@ -33,9 +36,6 @@ namespace std { namespace tr1 { using boost::shared_ptr; } }
 #endif
 
 #include <boost/program_options.hpp>
-
-#include "sbuild-session.h"
-#include "sbuild-types.h"
 
 namespace schroot
 {

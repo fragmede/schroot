@@ -20,13 +20,13 @@
 #ifndef SBUILD_PARSE_ERROR_H
 #define SBUILD_PARSE_ERROR_H
 
+#include "sbuild-error.h"
+#include "sbuild-log.h"
+
 #include <map>
 #include <string>
 
 #include <boost/format.hpp>
-
-#include "sbuild-error.h"
-#include "sbuild-log.h"
 
 namespace sbuild
 {

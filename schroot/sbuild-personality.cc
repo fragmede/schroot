@@ -19,7 +19,7 @@
 
 #include <config.h>
 
-#include "sbuild.h"
+#include "sbuild-personality.h"
 
 #include <cstring>
 #include <cerrno>

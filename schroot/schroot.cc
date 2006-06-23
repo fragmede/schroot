@@ -19,6 +19,9 @@
 
 #include <config.h>
 
+#include "schroot-main.h"
+#include "schroot-options.h"
+
 #include <cstdlib>
 #include <iostream>
 #include <locale>
@@ -26,9 +29,6 @@
 #include <boost/format.hpp>
 
 #include <syslog.h>
-
-#include "schroot-main.h"
-#include "schroot-options.h"
 
 using std::endl;
 using boost::format;

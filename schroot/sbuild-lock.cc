@@ -19,10 +19,11 @@
 
 #include <config.h>
 
-#include "sbuild.h"
+#include "sbuild-lock.h"
 
-#include <errno.h>
-#include <stdlib.h>
+#include <cerrno>
+#include <cstdlib>
+
 #include <sys/types.h>
 #include <signal.h>
 #include <unistd.h>

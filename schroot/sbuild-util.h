@@ -20,9 +20,9 @@
 #ifndef SBUILD_UTIL_H
 #define SBUILD_UTIL_H
 
-#include <string>
-
 #include "sbuild-types.h"
+
+#include <string>
 
 namespace sbuild
 {

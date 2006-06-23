@@ -19,7 +19,9 @@
 
 #include <config.h>
 
-#include "sbuild.h"
+#include "sbuild-chroot-lvm-snapshot.h"
+#include "sbuild-format-detail.h"
+#include "sbuild-lock.h"
 
 #include <cerrno>
 #include <iostream>

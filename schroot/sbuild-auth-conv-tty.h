@@ -20,6 +20,9 @@
 #ifndef SBUILD_AUTH_CONV_TTY_H
 #define SBUILD_AUTH_CONV_TTY_H
 
+#include "sbuild-auth-conv.h"
+#include "sbuild-custom-error.h"
+
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <grp.h>
@@ -28,9 +31,6 @@
 
 #include <security/pam_appl.h>
 #include <security/pam_misc.h>
-
-#include "sbuild-auth-conv.h"
-#include "sbuild-custom-error.h"
 
 namespace sbuild
 {

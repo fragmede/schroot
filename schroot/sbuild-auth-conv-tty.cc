@@ -19,7 +19,8 @@
 
 #include <config.h>
 
-#include "sbuild.h"
+#include "sbuild-auth-conv-tty.h"
+#include "sbuild-log.h"
 
 #include <iostream>
 

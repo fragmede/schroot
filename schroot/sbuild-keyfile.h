@@ -21,6 +21,13 @@
 #define SBUILD_KEYFILE_H
 
 #include "sbuild-config.h"
+#include "sbuild-error.h"
+#include "sbuild-i18n.h"
+#include "sbuild-log.h"
+#include "sbuild-parse-error.h"
+#include "sbuild-parse-value.h"
+#include "sbuild-types.h"
+#include "sbuild-util.h"
 
 #include <cassert>
 #include <iostream>
@@ -38,14 +45,6 @@ namespace std { namespace tr1 { using boost::tuple; using boost::get; } }
 #endif
 
 #include <boost/format.hpp>
-
-#include "sbuild-error.h"
-#include "sbuild-i18n.h"
-#include "sbuild-log.h"
-#include "sbuild-parse-error.h"
-#include "sbuild-parse-value.h"
-#include "sbuild-types.h"
-#include "sbuild-util.h"
 
 namespace sbuild
 {

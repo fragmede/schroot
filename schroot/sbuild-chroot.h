@@ -22,6 +22,11 @@
 
 #include "sbuild-config.h"
 #include "sbuild-custom-error.h"
+#include "sbuild-error.h"
+#include "sbuild-environment.h"
+#include "sbuild-keyfile.h"
+#include "sbuild-personality.h"
+#include "sbuild-util.h"
 
 #include <iomanip>
 #include <ostream>
@@ -36,12 +41,6 @@ namespace std { namespace tr1 { using boost::shared_ptr; } }
 #else
 #error A shared_ptr implementation is not available
 #endif
-
-#include "sbuild-error.h"
-#include "sbuild-environment.h"
-#include "sbuild-keyfile.h"
-#include "sbuild-personality.h"
-#include "sbuild-util.h"
 
 namespace sbuild
 {

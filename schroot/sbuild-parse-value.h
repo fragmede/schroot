@@ -20,10 +20,11 @@
 #ifndef SBUILD_PARSE_VALUE_H
 #define SBUILD_PARSE_VALUE_H
 
-#include <string>
-
 #include "sbuild-parse-error.h"
 #include "sbuild-log.h"
+
+#include <string>
+#include <sstream>
 
 namespace sbuild
 {

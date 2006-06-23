@@ -20,13 +20,13 @@
 #ifndef SBUILD_CHROOT_CONFIG_H
 #define SBUILD_CHROOT_CONFIG_H
 
+#include "sbuild-chroot.h"
+#include "sbuild-custom-error.h"
+
 #include <map>
 #include <ostream>
 #include <vector>
 #include <string>
-
-#include "sbuild-chroot.h"
-#include "sbuild-custom-error.h"
 
 namespace sbuild
 {

@@ -19,10 +19,13 @@
 
 #include <config.h>
 
-#include "sbuild.h"
+#include "sbuild-chroot-file.h"
+#include "sbuild-format-detail.h"
+#include "sbuild-lock.h"
 
-#include <errno.h>
-#include <string.h>
+#include <cerrno>
+#include <cstring>
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/sysmacros.h>

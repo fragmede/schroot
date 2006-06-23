@@ -20,6 +20,8 @@
 #ifndef DCHROOT_SESSION_H
 #define DCHROOT_SESSION_H
 
+#include "dchroot-session-base.h"
+
 #include <string>
 
 #include <sys/types.h>
@@ -27,8 +29,6 @@
 #include <grp.h>
 #include <pwd.h>
 #include <unistd.h>
-
-#include "dchroot-session-base.h"
 
 namespace dchroot
 {

@@ -19,7 +19,7 @@
 
 #include <config.h>
 
-#include "sbuild.h"
+#include "sbuild-environment.h"
 
 using boost::format;
 using namespace sbuild;

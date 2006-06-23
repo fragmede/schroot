@@ -20,12 +20,12 @@
 #ifndef SBUILD_CUSTOM_ERROR_H
 #define SBUILD_CUSTOM_ERROR_H
 
+#include "sbuild-error.h"
+
 #include <map>
 #include <string>
 
 #include <boost/format.hpp>
-
-#include "sbuild-error.h"
 
 namespace sbuild
 {

@@ -19,16 +19,15 @@
 
 #include <config.h>
 
-#include <iostream>
+#include "sbuild-i18n.h"
 
-#include <stdlib.h>
+#include "schroot-listmounts-options.h"
+
+#include <cstdlib>
+#include <iostream>
 
 #include <boost/format.hpp>
 #include <boost/program_options.hpp>
-
-#include "sbuild.h"
-
-#include "schroot-listmounts-options.h"
 
 using std::endl;
 using boost::format;

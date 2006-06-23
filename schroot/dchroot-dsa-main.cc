@@ -19,6 +19,10 @@
 
 #include <config.h>
 
+#include "dchroot-dsa-main.h"
+#include "dchroot-dsa-chroot-config.h"
+#include "dchroot-dsa-session.h"
+
 #include <cstdlib>
 #include <iostream>
 #include <locale>
@@ -29,12 +33,6 @@
 #include <boost/format.hpp>
 
 #include <syslog.h>
-
-#include "sbuild.h"
-
-#include "dchroot-dsa-main.h"
-#include "dchroot-dsa-chroot-config.h"
-#include "dchroot-dsa-session.h"
 
 using std::endl;
 using boost::format;

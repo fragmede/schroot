@@ -20,12 +20,12 @@
 #ifndef DCHROOT_DSA_CHROOT_CONFIG_H
 #define DCHROOT_DSA_CHROOT_CONFIG_H
 
+#include "sbuild-chroot-config.h"
+
 #include <map>
 #include <ostream>
 #include <vector>
 #include <string>
-
-#include "sbuild-chroot-config.h"
 
 namespace dchroot_dsa
 {

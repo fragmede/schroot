@@ -19,6 +19,12 @@
 
 #include <config.h>
 
+#include "sbuild-i18n.h"
+#include "sbuild-log.h"
+#include "sbuild-types.h"
+
+#include "schroot-releaselock-options.h"
+
 #include <cerrno>
 #include <cstdlib>
 #include <iostream>
@@ -32,10 +38,6 @@
 #include <boost/program_options.hpp>
 
 #include <lockdev.h>
-
-#include "sbuild.h"
-
-#include "schroot-releaselock-options.h"
 
 using std::endl;
 using boost::format;

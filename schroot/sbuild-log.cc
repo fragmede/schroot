@@ -19,7 +19,8 @@
 
 #include <config.h>
 
-#include "sbuild.h"
+#include "sbuild-log.h"
+#include "sbuild-nostream.h"
 
 #include <iostream>
 

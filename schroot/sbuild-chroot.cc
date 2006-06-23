@@ -19,14 +19,25 @@
 
 #include <config.h>
 
-#include "sbuild.h"
+#include "sbuild-chroot.h"
+#include "sbuild-chroot-plain.h"
+#include "sbuild-chroot-file.h"
+#include "sbuild-chroot-block-device.h"
+#include "sbuild-chroot-lvm-snapshot.h"
+#include "sbuild-format-detail.h"
+#include "sbuild-lock.h"
 
 #include <algorithm>
 #include <cerrno>
 #include <map>
 #include <set>
 #include <utility>
+
 #include <ext/stdio_filebuf.h>
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #include <boost/format.hpp>
 

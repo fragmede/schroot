@@ -1,5 +1,19 @@
 2006-06-23  Roger Leigh  <rleigh@debian.org>
 
+	* The include order of all includes has been reviewed.  Local
+	headers are included first to detect missing includes.  C++
+	headers are used instead of C headers.
+
+	* All sources include only the headers they need, rather than
+	using sbuild.h.
+
+	* schroot/sbuild.h: Remove.
+
+	* schroot/sbuild-types.h: date operator << uses "%b" rather than
+	"%B" in the date format string.
+
+2006-06-23  Roger Leigh  <rleigh@debian.org>
+
 	* NEWS: Document dchroot compatibility fixes.
 
 2006-06-23  Roger Leigh  <rleigh@debian.org>

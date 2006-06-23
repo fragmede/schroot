@@ -19,17 +19,15 @@
 
 #include <config.h>
 
-#include "sbuild.h"
-
 #include "dchroot-session-base.h"
 
 #include <cassert>
+#include <cerrno>
+#include <cstdlib>
+#include <cstring>
 #include <iostream>
 #include <memory>
 
-#include <errno.h>
-#include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 
 #include <syslog.h>

@@ -20,6 +20,10 @@
 #ifndef SBUILD_SESSION_H
 #define SBUILD_SESSION_H
 
+#include "sbuild-auth.h"
+#include "sbuild-chroot-config.h"
+#include "sbuild-custom-error.h"
+
 #include <string>
 
 #include <sys/types.h>
@@ -27,10 +31,6 @@
 #include <grp.h>
 #include <pwd.h>
 #include <unistd.h>
-
-#include "sbuild-auth.h"
-#include "sbuild-chroot-config.h"
-#include "sbuild-custom-error.h"
 
 namespace sbuild
 {

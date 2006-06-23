@@ -21,13 +21,12 @@
 #define SBUILD_FORMAT_DETAIL_H
 
 #include "sbuild-config.h"
+#include "sbuild-types.h"
+#include "sbuild-util.h"
 
 #include <iomanip>
 #include <ostream>
 #include <string>
-
-#include "sbuild-types.h"
-#include "sbuild-util.h"
 
 namespace sbuild
 {

@@ -19,6 +19,14 @@
 
 #include <config.h>
 
+#include "sbuild-error.h"
+#include "sbuild-i18n.h"
+#include "sbuild-log.h"
+#include "sbuild-types.h"
+#include "sbuild-util.h"
+
+#include "schroot-listmounts-options.h"
+
 #include <cerrno>
 #include <cstdlib>
 #include <cstdio>
@@ -35,10 +43,6 @@
 #include <boost/program_options.hpp>
 
 #include <lockdev.h>
-
-#include "sbuild.h"
-
-#include "schroot-listmounts-options.h"
 
 using std::endl;
 using boost::format;

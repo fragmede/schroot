@@ -19,7 +19,9 @@
 
 #include <config.h>
 
-#include "sbuild.h"
+#include "sbuild-chroot-plain.h"
+#include "sbuild-chroot-lvm-snapshot.h"
+#include "sbuild-session.h"
 
 #include <cassert>
 #include <cerrno>

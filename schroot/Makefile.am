@@ -44,15 +44,7 @@ endif
 bin_PROGRAMS = $(dchroot) $(dchroot_dsa) schroot
 pkglibexec_PROGRAMS = schroot-releaselock schroot-listmounts
 
-#BUILT_SOURCES = sbuild.gch
-#CLEANFILES = sbuild.gch
-
-# GCC precompiled header
-#sbuild.gch: $(sbuild_public_h_sources)
-#	$(CXXCOMPILE) -o $@ -c sbuild.h
-
 sbuild_public_h_sources =		\
-	sbuild.h			\
 	sbuild-auth.h			\
 	sbuild-auth-conv.h		\
 	sbuild-auth-conv-tty.h		\

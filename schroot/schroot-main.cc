@@ -19,6 +19,11 @@
 
 #include <config.h>
 
+#include "sbuild-auth-conv.h"
+#include "sbuild-auth-conv-tty.h"
+
+#include "schroot-main.h"
+
 #include <cstdlib>
 #include <iostream>
 #include <locale>
@@ -29,10 +34,6 @@
 #include <boost/format.hpp>
 
 #include <syslog.h>
-
-#include "sbuild.h"
-
-#include "schroot-main.h"
 
 using std::endl;
 using boost::format;

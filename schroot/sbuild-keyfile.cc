@@ -19,7 +19,7 @@
 
 #include <config.h>
 
-#include "sbuild.h"
+#include "sbuild-keyfile.h"
 
 #include <fstream>
 

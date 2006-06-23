@@ -19,7 +19,7 @@
 
 #include <config.h>
 
-#include "sbuild.h"
+#include "sbuild-util.h"
 
 #include <sys/types.h>
 #include <sys/stat.h>

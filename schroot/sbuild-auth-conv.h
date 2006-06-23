@@ -20,10 +20,10 @@
 #ifndef SBUILD_AUTH_CONV_H
 #define SBUILD_AUTH_CONV_H
 
-#include <security/pam_appl.h>
-
 #include "sbuild-auth-message.h"
 #include "sbuild-error.h"
+
+#include <security/pam_appl.h>
 
 namespace sbuild
 {

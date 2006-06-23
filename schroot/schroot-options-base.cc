@@ -19,16 +19,13 @@
 
 #include <config.h>
 
-#include <iostream>
+#include "schroot-options.h"
 
-#include <stdlib.h>
+#include <cstdlib>
+#include <iostream>
 
 #include <boost/format.hpp>
 #include <boost/program_options.hpp>
-
-#include "sbuild.h"
-
-#include "schroot-options.h"
 
 using std::endl;
 using boost::format;

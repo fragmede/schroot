@@ -19,16 +19,14 @@
 
 #include <config.h>
 
-#include "sbuild.h"
 #include "sbuild-parse-error.h"
 
 #include "dchroot-chroot-config.h"
 
+#include <cerrno>
+#include <cstdlib>
+#include <cstring>
 #include <iostream>
-
-#include <errno.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include <boost/format.hpp>
 

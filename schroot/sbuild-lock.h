@@ -20,14 +20,14 @@
 #ifndef SBUILD_LOCK_H
 #define SBUILD_LOCK_H
 
+#include "sbuild-custom-error.h"
+
 #include <string>
 
 #include <sys/time.h>
 #include <fcntl.h>
 #include <signal.h>
 #include <unistd.h>
-
-#include "sbuild-custom-error.h"
 
 namespace sbuild
 {

@@ -19,15 +19,16 @@
 
 #include <config.h>
 
-#include "sbuild.h"
+#include "sbuild-auth.h"
+#include "sbuild-auth-conv.h"
+#include "sbuild-auth-conv-tty.h"
 
 #include <cassert>
+#include <cerrno>
+#include <cstdlib>
+#include <cstring>
 #include <iostream>
 #include <sstream>
-
-#include <errno.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include <syslog.h>
 

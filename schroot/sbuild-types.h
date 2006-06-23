@@ -63,7 +63,7 @@ namespace sbuild
 	      typename std::basic_ostream<charT, traits>::sentry sentry(stream);
 	      if (sentry)
 		{
-		  const char nfmt[] = "%d %B %Y";
+		  const char nfmt[] = "%d %b %Y";
 		  charT wfmt[sizeof(nfmt)/sizeof(nfmt[0])];
 		  std::use_facet<std::ctype<charT> >(stream.getloc())
 		    .widen(nfmt, nfmt + (sizeof(nfmt)/sizeof(nfmt[0])) - 1, wfmt);

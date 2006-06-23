@@ -19,7 +19,7 @@
 
 #include <config.h>
 
-#include "sbuild.h"
+#include "sbuild-auth-message.h"
 
 using namespace sbuild;
 
