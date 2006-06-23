@@ -2,8 +2,11 @@ schroot (0.99.1-1) UNRELEASED; urgency=low
 
   * New upstream release.
   * debian/control: Add dchroot-dsa package.
-  * debian/rules: Install dchroot-dsa setuid root, and add dchroot-dsa
-    lintian override.
+  * debian/rules:
+    - install dchroot-dsa setuid root, and add dchroot-dsa lintian
+      override.
+    - run testsuite in build rule.
+    - copy config.sub and config.guest to the scripts directory.
   * debian/dchroot-dsa.install: New file.
   * debian/dchroot-dsa.postrm: New file.
   * debian/dchroot-dsa.lintian-overrides: New file.

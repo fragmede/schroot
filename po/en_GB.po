@@ -6,21 +6,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-06-21 19:11+0100\n"
-"PO-Revision-Date: 2006-06-21 19:12+0100\n"
+"POT-Creation-Date: 2006-06-23 16:39+0100\n"
+"PO-Revision-Date: 2006-06-23 16:45+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: schroot/dchroot-session.cc:90
-msgid "(%1%->%2%): dchroot sessions do not support user switching"
-msgstr "(%1%->%2%): dchroot sessions do not support user switching"
+#: schroot/dchroot-chroot-config.cc:124
+#, fuzzy
+msgid "%1% chroot (dchroot compatibility)"
+msgstr "Running schroot in dchroot compatibility mode"
 
-#: schroot/dchroot-session.cc:92
-msgid "dchroot session restriction"
-msgstr "dchroot session restriction"
+#: schroot/dchroot-session.cc:118
+msgid "[%1% chroot] Running command: \"%2%\""
+msgstr "[%1% chroot] Running command: “%2%”"
 
 #: schroot/sbuild-auth.cc:52
 msgid "Failed to get hostname"
@@ -155,11 +156,13 @@ msgid "Failed to unlock device"
 msgstr "Failed to unlock device"
 
 #: schroot/sbuild-chroot.cc:403
-msgid "  --- Session ---\n"
+#, fuzzy
+msgid "--- Session ---\n"
 msgstr "  ——— Session ———\n"
 
 #: schroot/sbuild-chroot.cc:405
-msgid "  --- Chroot ---\n"
+#, fuzzy
+msgid "--- Chroot ---\n"
 msgstr "  ——— Chroot ———\n"
 
 #: schroot/sbuild-chroot.cc:406
@@ -250,32 +253,32 @@ msgstr "Failed to open directory"
 msgid "Failed to open file"
 msgstr "Failed to open file"
 
-#: schroot/sbuild-chroot-config.cc:141
-msgid "%1%: not a regular file"
-msgstr "%1%: not a regular file"
-
-#: schroot/sbuild-chroot-config.cc:178
-msgid "%1% chroot: alias '%2%' already associated with '%3%' chroot"
+#: schroot/sbuild-chroot-config.cc:180
+#, fuzzy
+msgid "%1% chroot: Alias '%2%' already associated with '%3%' chroot"
 msgstr "%1% chroot: alias ‘%2%’ already associated with ‘%3%’ chroot"
 
-#: schroot/sbuild-chroot-config.cc:186
-msgid "%1% chroot: alias '%2%' already associated with another chroot"
+#: schroot/sbuild-chroot-config.cc:188
+#, fuzzy
+msgid "%1% chroot: Alias '%2%' already associated with another chroot"
 msgstr "%1% chroot: alias ‘%2%’ already associated with another chroot"
 
-#: schroot/sbuild-chroot-config.cc:196
-msgid "%1% chroot: a chroot or alias already exists by this name"
+#: schroot/sbuild-chroot-config.cc:198
+#, fuzzy
+msgid "%1% chroot: A chroot or alias already exists by this name"
 msgstr "%1% chroot: a chroot or alias already exists by this name"
 
-#: schroot/sbuild-chroot-config.cc:199
-msgid "%1% chroot: duplicate names are not allowed"
+#: schroot/sbuild-chroot-config.cc:201
+#, fuzzy
+msgid "%1% chroot: Duplicate names are not allowed"
 msgstr "%1% chroot: duplicate names are not allowed"
 
-#: schroot/sbuild-chroot-config.cc:278
+#: schroot/sbuild-chroot-config.cc:280
 msgid "Available chroots: "
 msgstr "Available chroots: "
 
-#: schroot/sbuild-chroot-config.cc:323 schroot/sbuild-chroot-config.cc:342
-#: schroot/sbuild-chroot-config.cc:365 schroot/schroot.cc:117
+#: schroot/sbuild-chroot-config.cc:325 schroot/sbuild-chroot-config.cc:344
+#: schroot/sbuild-chroot-config.cc:367
 msgid "%1%: No such chroot"
 msgstr "%1%: No such chroot"
 
@@ -296,7 +299,8 @@ msgid "LVM Snapshot Options"
 msgstr "LVM Snapshot Options"
 
 #: schroot/sbuild-chroot-source.cc:45
-msgid " (source chroot)"
+#, fuzzy
+msgid "(source chroot)"
 msgstr " (source chroot)"
 
 #: schroot/sbuild-chroot-source.cc:115
@@ -384,51 +388,63 @@ msgid "lock held by pid %1%"
 msgstr "lock held by pid %1%"
 
 #: schroot/sbuild-parse-error.cc:41
-msgid "no error"
+#, fuzzy
+msgid "No error"
 msgstr "no error"
 
 #: schroot/sbuild-parse-error.cc:42
-msgid "can't open file"
+#, fuzzy
+msgid "Can't open file"
 msgstr "can't open file"
 
 #: schroot/sbuild-parse-error.cc:43
-msgid "could not parse value"
+#, fuzzy
+msgid "Could not parse value"
 msgstr "could not parse value"
 
 #: schroot/sbuild-parse-error.cc:44
-msgid "invalid line"
+#, fuzzy
+msgid "Invalid line"
 msgstr "invalid line"
 
 #: schroot/sbuild-parse-error.cc:45
-msgid "no group specified"
+#, fuzzy
+msgid "No group specified"
 msgstr "no group specified"
 
 #: schroot/sbuild-parse-error.cc:46
-msgid "invalid group"
+#, fuzzy
+msgid "Invalid group"
 msgstr "invalid group"
 
 #: schroot/sbuild-parse-error.cc:47
-msgid "duplicate group"
+#, fuzzy
+msgid "Duplicate group"
 msgstr "duplicate group"
 
 #: schroot/sbuild-parse-error.cc:48
-msgid "no key specified"
+#, fuzzy
+msgid "No key specified"
 msgstr "no key specified"
 
 #: schroot/sbuild-parse-error.cc:49
-msgid "duplicate key"
+#, fuzzy
+msgid "Duplicate key"
 msgstr "duplicate key"
 
 #: schroot/sbuild-parse-error.cc:50
-msgid "required key is missing"
+#, fuzzy
+msgid "Required key is missing"
 msgstr "required key is missing"
 
 #: schroot/sbuild-parse-error.cc:51
-msgid "disallowed key used"
+#, fuzzy
+msgid "Disallowed key used"
 msgstr "disallowed key used"
 
 #: schroot/sbuild-parse-error.cc:116
-msgid "unknown error"
+#, fuzzy
+msgid "Unknown error"
 msgstr "unknown error"
 
 #: schroot/sbuild-parse-error.cc:127
@@ -499,251 +515,186 @@ msgstr "[%1%] %2%: %3%"
 msgid "Failed to set personality"
 msgstr "Failed to set personality"
 
-#: schroot/sbuild-session.cc:55
+#: schroot/sbuild-session.cc:57
 msgid "Failed to find chroot"
 msgstr "Failed to find chroot"
 
-#: schroot/sbuild-session.cc:56
+#: schroot/sbuild-session.cc:58
 msgid "Failed to lock chroot"
 msgstr "Failed to lock chroot"
 
-#: schroot/sbuild-session.cc:57
+#: schroot/sbuild-session.cc:59
 msgid "Failed to unlock chroot"
 msgstr "Failed to unlock chroot"
 
-#: schroot/sbuild-session.cc:58
+#: schroot/sbuild-session.cc:60
 msgid "Chroot setup failed"
 msgstr "Chroot setup failed"
 
-#: schroot/sbuild-session.cc:59
+#: schroot/sbuild-session.cc:61
 msgid "Failed to set hangup signal handler"
 msgstr "Failed to set hangup signal handler"
 
-#: schroot/sbuild-session.cc:60
+#: schroot/sbuild-session.cc:62
 msgid "Caught hangup signal"
 msgstr "Caught hangup signal"
 
-#: schroot/sbuild-session.cc:61
+#: schroot/sbuild-session.cc:63
 msgid "Failed to fork child"
 msgstr "Failed to fork child"
 
-#: schroot/sbuild-session.cc:62
+#: schroot/sbuild-session.cc:64
 msgid "Wait for child failed"
 msgstr "Wait for child failed"
 
-#: schroot/sbuild-session.cc:63
+#: schroot/sbuild-session.cc:65
 msgid "Child terminated by signal"
 msgstr "Child terminated by signal"
 
-#: schroot/sbuild-session.cc:64
+#: schroot/sbuild-session.cc:66
 msgid "Child dumped core"
 msgstr "Child dumped core"
 
-#: schroot/sbuild-session.cc:65
+#: schroot/sbuild-session.cc:67
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr "Child exited abnormally (reason unknown; not a signal or core dump)"
 
-#: schroot/sbuild-session.cc:66
+#: schroot/sbuild-session.cc:68
 msgid "User switching is not permitted"
 msgstr "User switching is not permitted"
 
-#: schroot/sbuild-session.cc:94
+#: schroot/sbuild-session.cc:106
 msgid "%1%: Group not found"
 msgstr "%1%: Group not found"
 
-#: schroot/sbuild-session.cc:96
+#: schroot/sbuild-session.cc:108
 msgid "%1%: Group not found: %2%"
 msgstr "%1%: Group not found: %2%"
 
-#: schroot/sbuild-session.cc:112
+#: schroot/sbuild-session.cc:124
 msgid "Can't get supplementary group count: %1%"
 msgstr "Can't get supplementary group count: %1%"
 
-#: schroot/sbuild-session.cc:122
+#: schroot/sbuild-session.cc:134
 msgid "Can't get supplementary groups: %1%"
 msgstr "Can't get supplementary groups: %1%"
 
-#: schroot/sbuild-session.cc:345
+#: schroot/sbuild-session.cc:364
 msgid "No chroot found matching alias '%1%'"
 msgstr "No chroot found matching alias ‘%1%’"
 
-#: schroot/sbuild-session.cc:615
-msgid "Invalid verbosity level: %1%, falling back to \"normal\""
-msgstr "Invalid verbosity level: %1%, falling back to “normal”"
+#: schroot/sbuild-session.cc:571
+msgid "%1%: Shell not available: %2%"
+msgstr "%1%: Shell not available: %2%"
 
-#: schroot/sbuild-session.cc:651 schroot/sbuild-session.cc:911
-msgid "Could not exec \"%1%\": %2%"
-msgstr "Could not exec “%1%”: %2%"
-
-#: schroot/sbuild-session.cc:677
-msgid "stage=%1%"
-msgstr "stage=%1%"
-
-#: schroot/sbuild-session.cc:712
-msgid "PAM error: %1%"
-msgstr "PAM error: %1%"
-
-#: schroot/sbuild-session.cc:720
-msgid "Could not set gid to '%1%'"
-msgstr "Could not set gid to ‘%1%’"
-
-#: schroot/sbuild-session.cc:726
-msgid "Could not set supplementary group IDs"
-msgstr "Could not set supplementary group IDs"
-
-#: schroot/sbuild-session.cc:744 schroot/sbuild-session.cc:783
-#: schroot/sbuild-session.cc:798
-msgid "Could not chdir to '%1%': %2%"
-msgstr "Could not chdir to ‘%1%’: %2%"
-
-#: schroot/sbuild-session.cc:751
-msgid "Could not chroot to '%1%': %2%"
-msgstr "Could not chroot to ‘%1%’: %2%"
-
-#: schroot/sbuild-session.cc:760
-msgid "Could not set uid to '%1%'"
-msgstr "Could not set uid to ‘%1%’"
-
-#: schroot/sbuild-session.cc:766
-msgid "Failed to drop root permissions."
-msgstr "Failed to drop root permissions."
-
-#: schroot/sbuild-session.cc:788
-msgid "Falling back to '%1%'"
+#: schroot/sbuild-session.cc:574
+#, fuzzy
+msgid "Falling back to %1%"
 msgstr "Falling back to ‘%1%’"
 
-#: schroot/sbuild-session.cc:792
-msgid "Falling back to home directory '%1%'"
-msgstr "Falling back to home directory ‘%1%’"
-
-#: schroot/sbuild-session.cc:854
-msgid "[%1% chroot] Running login shell: \"%2%\""
+#: schroot/sbuild-session.cc:640
+#, fuzzy
+msgid "[%1% chroot] Running login shell: \"%4%\""
 msgstr "[%1% chroot] Running login shell: “%2%”"
 
-#: schroot/sbuild-session.cc:855
-msgid "[%1% chroot] Running shell: \"%2%\""
+#: schroot/sbuild-session.cc:642
+#, fuzzy
+msgid "[%1% chroot] Running shell: \"%4%\""
 msgstr "[%1% chroot] Running shell: “%2%”"
 
-#: schroot/sbuild-session.cc:862
+#: schroot/sbuild-session.cc:648
 msgid "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\""
 msgstr "[%1% chroot] (%2%→%3%) Running login shell: “%4%”"
 
-#: schroot/sbuild-session.cc:863
+#: schroot/sbuild-session.cc:650
 msgid "[%1% chroot] (%2%->%3%) Running shell: \"%4%\""
 msgstr "[%1% chroot] (%2%→%3%) Running shell: “%4%”"
 
-#: schroot/sbuild-session.cc:884
-msgid "[%1% chroot] Running command: \"%2%\""
+#: schroot/sbuild-session.cc:685
+#, fuzzy
+msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Running command: “%2%”"
 
-#: schroot/sbuild-session.cc:888
+#: schroot/sbuild-session.cc:687
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%→%3%) Running command: “%4%”"
 
-#: schroot/sbuild-session.cc:933
+#: schroot/sbuild-session.cc:809
+msgid "Invalid verbosity level: %1%, falling back to \"normal\""
+msgstr "Invalid verbosity level: %1%, falling back to “normal”"
+
+#: schroot/sbuild-session.cc:845 schroot/sbuild-session.cc:1020
+msgid "Could not exec \"%1%\": %2%"
+msgstr "Could not exec “%1%”: %2%"
+
+#: schroot/sbuild-session.cc:871
+msgid "stage=%1%"
+msgstr "stage=%1%"
+
+#: schroot/sbuild-session.cc:900
+msgid "PAM error: %1%"
+msgstr "PAM error: %1%"
+
+#: schroot/sbuild-session.cc:908
+msgid "Could not set gid to '%1%'"
+msgstr "Could not set gid to ‘%1%’"
+
+#: schroot/sbuild-session.cc:914
+msgid "Could not set supplementary group IDs"
+msgstr "Could not set supplementary group IDs"
+
+#: schroot/sbuild-session.cc:932 schroot/sbuild-session.cc:980
+msgid "Could not chdir to '%1%': %2%"
+msgstr "Could not chdir to ‘%1%’: %2%"
+
+#: schroot/sbuild-session.cc:939
+msgid "Could not chroot to '%1%': %2%"
+msgstr "Could not chroot to ‘%1%’: %2%"
+
+#: schroot/sbuild-session.cc:948
+msgid "Could not set uid to '%1%'"
+msgstr "Could not set uid to ‘%1%’"
+
+#: schroot/sbuild-session.cc:954
+msgid "Failed to drop root permissions."
+msgstr "Failed to drop root permissions."
+
+#: schroot/sbuild-session.cc:987
+msgid "Falling back to '%1%'"
+msgstr "Falling back to ‘%1%’"
+
+#: schroot/sbuild-session.cc:1042
 msgid "Caught hangup signal, terminating..."
 msgstr "Caught hangup signal, terminating..."
 
-#: schroot/schroot.cc:67
-msgid "%1% (Debian sbuild) %2%\n"
-msgstr "%1% (Debian sbuild) %2%\n"
-
-#: schroot/schroot.cc:72 schroot/schroot-listmounts.cc:58
-#: schroot/schroot-releaselock.cc:55
-msgid ""
-"Written by Roger Leigh\n"
-"\n"
-msgstr ""
-"Written by Roger Leigh\n"
-"\n"
-
-#: schroot/schroot.cc:73 schroot/schroot-listmounts.cc:59
-#: schroot/schroot-releaselock.cc:56
-msgid "Copyright (C) 2004-2006 Roger Leigh\n"
-msgstr "Copyright © 2004-2006 Roger Leigh\n"
-
-#: schroot/schroot.cc:74 schroot/schroot-listmounts.cc:60
-#: schroot/schroot-releaselock.cc:57
-msgid ""
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
-msgstr ""
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
-
-#: schroot/schroot.cc:157
-msgid "Error saving terminal settings"
-msgstr "Error saving terminal settings"
-
-#: schroot/schroot.cc:181
-msgid "Running schroot in dchroot compatibility mode"
-msgstr "Running schroot in dchroot compatibility mode"
-
-#: schroot/schroot.cc:184
-msgid "Run 'schroot' for full capabilities"
-msgstr "Run ‘schroot’ for full capabilities"
-
-#: schroot/schroot.cc:207
-msgid "Using dchroot configuration file: "
-msgstr "Using dchroot configuration file: "
-
-#: schroot/schroot.cc:210
-msgid "Run '%1%'"
-msgstr "Run ‘%1%’"
-
-#: schroot/schroot.cc:214
-msgid "to migrate to a schroot configuration."
-msgstr "to migrate to a schroot configuration."
-
-#: schroot/schroot.cc:217
-msgid "Edit '%1%' to add appropriate group access."
-msgstr "Edit ‘%1%’ to add appropriate group access."
-
-#: schroot/schroot.cc:221 schroot/schroot.cc:326
-msgid "Remove '%1%' to use the new configuration."
-msgstr "Remove ‘%1%’ to use the new configuration."
-
-#: schroot/schroot.cc:255
-msgid "No chroots are defined in %1% or %2%"
-msgstr "No chroots are defined in %1% or %2%"
-
-#: schroot/schroot.cc:262
-msgid "No chroots are defined in %1%"
-msgstr "No chroots are defined in %1%"
-
-#: schroot/schroot.cc:282
-msgid "The specified chroots are not defined in %1%"
-msgstr "The specified chroots are not defined in %1%"
-
-#: schroot/schroot.cc:315
-msgid "schroot configuration generated by %1% %2%"
-msgstr "schroot configuration generated by %1% %2%"
-
-#: schroot/schroot.cc:322
-msgid "To allow users access to the chroots, use the users or groups keys."
-msgstr "To allow users access to the chroots, use the users or groups keys."
-
-#: schroot/schroot.cc:324
-msgid ""
-"To allow passwordless root access, use the root-users or root-groups keys."
-msgstr ""
-"To allow passwordless root access, use the root-users or root-groups keys."
-
-#: schroot/schroot.cc:339
-msgid "Only one chroot may be specified when beginning a session"
-msgstr "Only one chroot may be specified when beginning a session"
-
-#: schroot/schroot.cc:400
-msgid "Session failure: %1%"
-msgstr "Session failure: %1%"
-
-#: schroot/schroot.cc:409 schroot/schroot.cc:425
-msgid "Error restoring terminal settings"
-msgstr "Error restoring terminal settings"
+#: schroot/schroot.cc:68
+#, fuzzy
+msgid "An unknown exception occured"
+msgstr "Unknown action specified"
 
 #: schroot/schroot-listmounts.cc:57
 msgid "schroot-listmounts (Debian sbuild) %1%\n"
 msgstr "schroot-listmounts (Debian sbuild) %1%\n"
+
+#: schroot/schroot-listmounts.cc:58 schroot/schroot-releaselock.cc:55
+msgid ""
+"Written by Roger Leigh\n"
+"\n"
+msgstr ""
+"Written by Roger Leigh\n"
+"\n"
+
+#: schroot/schroot-listmounts.cc:59 schroot/schroot-releaselock.cc:56
+msgid "Copyright (C) 2004-2006 Roger Leigh\n"
+msgstr "Copyright © 2004-2006 Roger Leigh\n"
+
+#: schroot/schroot-listmounts.cc:60 schroot/schroot-releaselock.cc:57
+msgid ""
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 
 #: schroot/schroot-listmounts.cc:82
 msgid "%1%: Failed to open: %2%"
@@ -753,21 +704,21 @@ msgstr "%1%: failed to open directory: %2%"
 msgid "%1%: Failed to close: %2%"
 msgstr "%1%: Failed to close: %2%"
 
-#: schroot/schroot-listmounts.cc:153
+#: schroot/schroot-listmounts.cc:151
 msgid "No mountpoint specified"
 msgstr "No mountpoint specified"
 
-#: schroot/schroot-listmounts-options.cc:43 schroot/schroot-options.cc:68
+#: schroot/schroot-listmounts-options.cc:43
 #: schroot/schroot-releaselock-options.cc:44
 msgid "General options"
 msgstr "General options"
 
-#: schroot/schroot-listmounts-options.cc:45 schroot/schroot-options.cc:71
+#: schroot/schroot-listmounts-options.cc:45
 #: schroot/schroot-releaselock-options.cc:46
 msgid "Show help options"
 msgstr "Show help options"
 
-#: schroot/schroot-listmounts-options.cc:47 schroot/schroot-options.cc:73
+#: schroot/schroot-listmounts-options.cc:47
 #: schroot/schroot-releaselock-options.cc:48
 msgid "Print version information"
 msgstr "Print version information"
@@ -781,178 +732,90 @@ msgstr "Lock options"
 msgid "Mountpoint to check (full path)"
 msgstr "Mountpoint to check (full path)"
 
-#: schroot/schroot-listmounts-options.cc:65 schroot/schroot-options.cc:172
+#: schroot/schroot-listmounts-options.cc:65 schroot/schroot-options.cc:95
 #: schroot/schroot-releaselock-options.cc:68
 msgid "Usage:"
 msgstr "Usage:"
 
 #: schroot/schroot-listmounts-options.cc:66
-msgid "  schroot-listmounts [OPTION...] - list mounts"
+#, fuzzy
+msgid "schroot-listmounts [OPTION...] - list mounts"
 msgstr "  schroot-listmounts [OPTION...] - list mounts"
 
-#: schroot/schroot-options.cc:75
-msgid "Show less output"
-msgstr "Show less output"
-
-#: schroot/schroot-options.cc:77
-msgid "Show more output"
-msgstr "Show more output"
-
-#: schroot/schroot-options.cc:79
-msgid "List available chroots"
-msgstr "List available chroots"
-
-#: schroot/schroot-options.cc:81
-msgid "Show information about selected chroots"
-msgstr "Show information about selected chroots"
-
-#: schroot/schroot-options.cc:85
+#: schroot/schroot-options.cc:59
 msgid "Print location of selected chroots"
 msgstr "Print location of selected chroots"
 
-#: schroot/schroot-options.cc:89
-msgid "Print path to selected chroot"
-msgstr "Print path to selected chroot"
-
-#: schroot/schroot-options.cc:93
-msgid "Print paths to available chroots"
-msgstr "Print paths to available chroots"
-
-#: schroot/schroot-options.cc:96
-msgid "Dump configuration of selected chroots"
-msgstr "Dump configuration of selected chroots"
-
-#: schroot/schroot-options.cc:98
-msgid "Chroot selection"
-msgstr "Chroot selection"
-
-#: schroot/schroot-options.cc:101
-msgid "Use specified chroot"
-msgstr "Use specified chroot"
-
-#: schroot/schroot-options.cc:105
+#: schroot/schroot-options.cc:63
 msgid "Select all chroots and active sessions"
 msgstr "Select all chroots and active sessions"
 
-#: schroot/schroot-options.cc:107 schroot/schroot-options.cc:113
+#: schroot/schroot-options.cc:65
 msgid "Select all chroots"
 msgstr "Select all chroots"
 
-#: schroot/schroot-options.cc:109
+#: schroot/schroot-options.cc:67
 msgid "Select all active sessions"
 msgstr "Select all active sessions"
 
-#: schroot/schroot-options.cc:115
-msgid "Chroot environment"
-msgstr "Chroot environment"
-
-#: schroot/schroot-options.cc:119
+#: schroot/schroot-options.cc:71
 msgid "Username (default current user)"
 msgstr "Username (default current user)"
 
-#: schroot/schroot-options.cc:121 schroot/schroot-options.cc:125
+#: schroot/schroot-options.cc:73
 msgid "Preserve user environment"
 msgstr "Preserve user environment"
 
-#: schroot/schroot-options.cc:127
-msgid "Session management"
-msgstr "Session management"
-
-#: schroot/schroot-options.cc:130
+#: schroot/schroot-options.cc:77
 msgid "Begin a session; returns a session ID"
 msgstr "Begin a session; returns a session ID"
 
-#: schroot/schroot-options.cc:132
+#: schroot/schroot-options.cc:79
 msgid "Recover an existing session"
 msgstr "Recover an existing session"
 
-#: schroot/schroot-options.cc:134
+#: schroot/schroot-options.cc:81
 msgid "Run an existing session"
 msgstr "Run an existing session"
 
-#: schroot/schroot-options.cc:136
+#: schroot/schroot-options.cc:83
 msgid "End an existing session"
 msgstr "End an existing session"
 
-#: schroot/schroot-options.cc:138
+#: schroot/schroot-options.cc:85
 msgid "Force operation, even if it fails"
 msgstr "Force operation, even if it fails"
 
-#: schroot/schroot-options.cc:140
-msgid "Hidden options"
-msgstr "Hidden options"
-
-#: schroot/schroot-options.cc:143
-msgid "Command to run"
-msgstr "Command to run"
-
-#: schroot/schroot-options.cc:181
-msgid " [OPTION...] [COMMAND] - run command or shell in a chroot"
+#: schroot/schroot-options.cc:98
+#, fuzzy
+msgid "[OPTION...] [COMMAND] - run command or shell in a chroot"
 msgstr " [OPTION...] [COMMAND] - run command or shell in a chroot"
-
-#: schroot/schroot-options.cc:184
-msgid " [OPTION...] chroot [COMMAND] - run command or shell in a chroot"
-msgstr " [OPTION...] chroot [COMMAND] - run command or shell in a chroot"
-
-#: schroot/schroot-options.cc:245
-msgid "--quiet and --verbose may not be used at the same time"
-msgstr "--quiet and --verbose may not be used at the same time"
-
-#: schroot/schroot-options.cc:247
-msgid "Using verbose output"
-msgstr "Using verbose output"
-
-#: schroot/schroot-options.cc:253
-msgid "--chroot and --all may not be used at the same time"
-msgstr "--chroot and --all may not be used at the same time"
-
-#: schroot/schroot-options.cc:255
-msgid "Using --chroots only"
-msgstr "Using --chroots only"
-
-#: schroot/schroot-options.cc:284
-msgid ""
-"Only one chroot may be specified when recovering, running or ending a session"
-msgstr ""
-"Only one chroot may be specified when recovering, running or ending a session"
-
-#: schroot/schroot-options.cc:309
-msgid "--chroot may not be used with --list"
-msgstr "--chroot may not be used with --list"
-
-#: schroot/schroot-options.cc:331
-msgid "Unknown action specified"
-msgstr "Unknown action specified"
-
-#: schroot/schroot-options.cc:343
-msgid "Only one action may be specified"
-msgstr "Only one action may be specified"
 
 #: schroot/schroot-releaselock.cc:54
 msgid "schroot-releaselock (Debian sbuild) %1%\n"
 msgstr "schroot-releaselock (Debian sbuild) %1%\n"
 
-#: schroot/schroot-releaselock.cc:102
+#: schroot/schroot-releaselock.cc:100
 msgid "No device specified"
 msgstr "No device specified"
 
-#: schroot/schroot-releaselock.cc:108
+#: schroot/schroot-releaselock.cc:106
 msgid "No pid specified; forcing release of lock"
 msgstr "No pid specified; forcing release of lock"
 
-#: schroot/schroot-releaselock.cc:117
+#: schroot/schroot-releaselock.cc:115
 msgid "Failed to stat device %1%: %2%"
 msgstr "Failed to stat device %1%: %2%"
 
-#: schroot/schroot-releaselock.cc:125
+#: schroot/schroot-releaselock.cc:123
 msgid "%1% is not a block device"
 msgstr "%1% is not a block device"
 
-#: schroot/schroot-releaselock.cc:133
+#: schroot/schroot-releaselock.cc:131
 msgid "%1%: failed to release device lock"
 msgstr "%1%: failed to release device lock"
 
-#: schroot/schroot-releaselock.cc:140
+#: schroot/schroot-releaselock.cc:138
 msgid "%1%: failed to release device lock owned by pid %2%"
 msgstr "%1%: failed to release device lock owned by pid %2%"
 
@@ -965,5 +828,138 @@ msgid "Process ID owning the lock"
 msgstr "Process ID owning the lock"
 
 #: schroot/schroot-releaselock-options.cc:69
-msgid "  schroot-releaselock [OPTION...] - release a device lock"
+#, fuzzy
+msgid "schroot-releaselock [OPTION...] - release a device lock"
 msgstr "  schroot-releaselock [OPTION...] - release a device lock"
+
+#~ msgid "(%1%->%2%): dchroot sessions do not support user switching"
+#~ msgstr "(%1%->%2%): dchroot sessions do not support user switching"
+
+#~ msgid "dchroot session restriction"
+#~ msgstr "dchroot session restriction"
+
+#~ msgid "%1%: not a regular file"
+#~ msgstr "%1%: not a regular file"
+
+#~ msgid "Falling back to home directory '%1%'"
+#~ msgstr "Falling back to home directory ‘%1%’"
+
+#~ msgid "%1% (Debian sbuild) %2%\n"
+#~ msgstr "%1% (Debian sbuild) %2%\n"
+
+#~ msgid "Error saving terminal settings"
+#~ msgstr "Error saving terminal settings"
+
+#~ msgid "Run 'schroot' for full capabilities"
+#~ msgstr "Run ‘schroot’ for full capabilities"
+
+#~ msgid "Using dchroot configuration file: "
+#~ msgstr "Using dchroot configuration file: "
+
+#~ msgid "Run '%1%'"
+#~ msgstr "Run ‘%1%’"
+
+#~ msgid "to migrate to a schroot configuration."
+#~ msgstr "to migrate to a schroot configuration."
+
+#~ msgid "Edit '%1%' to add appropriate group access."
+#~ msgstr "Edit ‘%1%’ to add appropriate group access."
+
+#~ msgid "Remove '%1%' to use the new configuration."
+#~ msgstr "Remove ‘%1%’ to use the new configuration."
+
+#~ msgid "No chroots are defined in %1% or %2%"
+#~ msgstr "No chroots are defined in %1% or %2%"
+
+#~ msgid "No chroots are defined in %1%"
+#~ msgstr "No chroots are defined in %1%"
+
+#~ msgid "The specified chroots are not defined in %1%"
+#~ msgstr "The specified chroots are not defined in %1%"
+
+#~ msgid "schroot configuration generated by %1% %2%"
+#~ msgstr "schroot configuration generated by %1% %2%"
+
+#~ msgid "To allow users access to the chroots, use the users or groups keys."
+#~ msgstr "To allow users access to the chroots, use the users or groups keys."
+
+#~ msgid ""
+#~ "To allow passwordless root access, use the root-users or root-groups keys."
+#~ msgstr ""
+#~ "To allow passwordless root access, use the root-users or root-groups keys."
+
+#~ msgid "Only one chroot may be specified when beginning a session"
+#~ msgstr "Only one chroot may be specified when beginning a session"
+
+#~ msgid "Session failure: %1%"
+#~ msgstr "Session failure: %1%"
+
+#~ msgid "Error restoring terminal settings"
+#~ msgstr "Error restoring terminal settings"
+
+#~ msgid "Show less output"
+#~ msgstr "Show less output"
+
+#~ msgid "Show more output"
+#~ msgstr "Show more output"
+
+#~ msgid "List available chroots"
+#~ msgstr "List available chroots"
+
+#~ msgid "Show information about selected chroots"
+#~ msgstr "Show information about selected chroots"
+
+#~ msgid "Print path to selected chroot"
+#~ msgstr "Print path to selected chroot"
+
+#~ msgid "Print paths to available chroots"
+#~ msgstr "Print paths to available chroots"
+
+#~ msgid "Dump configuration of selected chroots"
+#~ msgstr "Dump configuration of selected chroots"
+
+#~ msgid "Chroot selection"
+#~ msgstr "Chroot selection"
+
+#~ msgid "Use specified chroot"
+#~ msgstr "Use specified chroot"
+
+#~ msgid "Chroot environment"
+#~ msgstr "Chroot environment"
+
+#~ msgid "Session management"
+#~ msgstr "Session management"
+
+#~ msgid "Hidden options"
+#~ msgstr "Hidden options"
+
+#~ msgid "Command to run"
+#~ msgstr "Command to run"
+
+#~ msgid " [OPTION...] chroot [COMMAND] - run command or shell in a chroot"
+#~ msgstr " [OPTION...] chroot [COMMAND] - run command or shell in a chroot"
+
+#~ msgid "--quiet and --verbose may not be used at the same time"
+#~ msgstr "--quiet and --verbose may not be used at the same time"
+
+#~ msgid "Using verbose output"
+#~ msgstr "Using verbose output"
+
+#~ msgid "--chroot and --all may not be used at the same time"
+#~ msgstr "--chroot and --all may not be used at the same time"
+
+#~ msgid "Using --chroots only"
+#~ msgstr "Using --chroots only"
+
+#~ msgid ""
+#~ "Only one chroot may be specified when recovering, running or ending a "
+#~ "session"
+#~ msgstr ""
+#~ "Only one chroot may be specified when recovering, running or ending a "
+#~ "session"
+
+#~ msgid "--chroot may not be used with --list"
+#~ msgstr "--chroot may not be used with --list"
+
+#~ msgid "Only one action may be specified"
+#~ msgstr "Only one action may be specified"

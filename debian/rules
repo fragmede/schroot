@@ -29,6 +29,7 @@ build-stamp:  config.status
 	dh_testdir
 
 	$(MAKE) all
+	$(MAKE) check
 
 	touch build-stamp
 
@@ -40,10 +41,10 @@ clean:
 
 	-$(MAKE) distclean
 ifneq "$(wildcard /usr/share/misc/config.sub)" ""
-	cp -f /usr/share/misc/config.sub config.sub
+	cp -f /usr/share/misc/config.sub scripts/config.sub
 endif
 ifneq "$(wildcard /usr/share/misc/config.guess)" ""
-	cp -f /usr/share/misc/config.guess config.guess
+	cp -f /usr/share/misc/config.guess scripts/config.guess
 endif
 
 	dh_clean
