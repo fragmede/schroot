@@ -54,9 +54,8 @@ main::~main ()
 void
 main::action_version (std::ostream& stream)
 {
-  format fmt(_("%1% (Debian sbuild) %2%\n"));
-  fmt % this->program_name;
-  fmt % VERSION;
+  format fmt(_("%1% (Debian sbuild) %2% (%3%)\n"));
+  fmt % this->program_name % VERSION % sbuild::date(RELEASE_DATE);
 
   stream << fmt
 	 << _("Written by Roger Leigh\n\n")

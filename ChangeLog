@@ -1,4 +1,15 @@
-2006-06-23  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2006-06-23  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot-main.cc, schroot/schroot-listmounts.cc,
+	schroot/schroot-releaselock.cc: Add date to version output.
+
+	* schroot/sbuild-types.h: Define a date class to format dates for
+	output.
+
+	* bootstrap: Generate m4/schroot_release.m4 with a unix time.
+
+	* scripts/schroot_release.m4.in: Define RELEASE_DATE as a unix
+	time.
 
 	* debian/changelog: Update rules.
 

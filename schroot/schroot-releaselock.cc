@@ -51,7 +51,10 @@ using namespace schroot_releaselock;
 void
 print_version (std::ostream& stream)
 {
-  stream << format(_("schroot-releaselock (Debian sbuild) %1%\n")) % VERSION
+  format fmt(_("%1% (Debian sbuild) %2% (%3%)\n"));
+  fmt % "schroot-releaselock" % VERSION % sbuild::date(RELEASE_DATE);
+
+  stream << fmt
 	 << _("Written by Roger Leigh\n\n")
 	 << _("Copyright (C) 2004-2006 Roger Leigh\n")
 	 << _("This is free software; see the source for copying conditions.  There is NO\n"
