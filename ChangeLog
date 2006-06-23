@@ -1,5 +1,19 @@
 2006-06-23  Roger Leigh  <rleigh@debian.org>
 
+	* API documentation additions.
+
+	* Add @RELEASE_DATE@ in place of hard-coded date in all manual
+	pages.
+
+	* configure.ac: Use SCHROOT_RELEASE_DATE.
+
+	* bootstrap: Generate autoconf macro with embedded release date.
+
+	* scripts/schroot_release.m4.in: New file.  Autoconf macro
+	template to define release date.
+
+2006-06-23  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/Makefile.am: Add new files.  Additionally, build
 	schroot.la and dchroot.la static libraries to ease linking.
 

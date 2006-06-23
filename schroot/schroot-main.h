@@ -25,6 +25,9 @@
 namespace schroot
 {
 
+  /**
+   * Frontend for schroot.  This class is used to "run" schroot.
+   */
   class main
   {
   public:

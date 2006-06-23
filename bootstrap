@@ -4,12 +4,14 @@ if [ -d scripts ]; then
 else
   mkdir scripts
 fi
+sed "s/@RELEASE_DATE@/`date '+%d %b %Y'`/" scripts/schroot_release.m4.in > m4/schroot_release.m4
+
 echo "libtoolize"
 libtoolize --force --copy
 echo "autopoint"
 autopoint --force
-echo "aclocal"
-aclocal
+echo "aclocal -I m4"
+aclocal -I m4
 echo "autoheader"
 autoheader
 echo "automake"

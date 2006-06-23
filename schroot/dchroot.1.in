@@ -14,7 +14,7 @@
 .\" along with this program; if not, write to the Free Software
 .\" Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 .\" MA  02111-1307  USA
-.TH DCHROOT 1 "28 Jan 2006" "Version @VERSION@" "Debian sbuild"
+.TH DCHROOT 1 "@RELEASE_DATE@" "Version @VERSION@" "Debian sbuild"
 .SH NAME
 dchroot \- enter a chroot environment
 .SH SYNOPSIS

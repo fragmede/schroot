@@ -25,6 +25,9 @@
 namespace dchroot
 {
 
+  /**
+   * Frontend for dchroot.  This class is used to "run" dchroot.
+   */
   class main : public schroot::main
   {
   public:

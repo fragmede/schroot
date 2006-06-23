@@ -25,6 +25,9 @@
 namespace dchroot_dsa
 {
 
+  /**
+   * Frontend for dchroot-dsa.  This class is used to "run" dchroot-dsa.
+   */
   class main : public schroot::main
   {
   public:

@@ -35,6 +35,7 @@ AC_CONFIG_HEADER([schroot/sbuild-config.h])
 dnl Initialise automake stuff.
 AM_INIT_AUTOMAKE([1.9 gnu check-news dist-bzip2 no-dist-gzip tar-ustar])
 AM_MAINTAINER_MODE
+SCHROOT_RELEASE_DATE
 
 AC_MSG_CHECKING([whether to enable dchroot compatibility])
 enable_dchroot_compat="no"
