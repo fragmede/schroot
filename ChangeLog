@@ -1,5 +1,19 @@
 2006-06-23  Roger Leigh  <rleigh@debian.org>
 
+	* test/Makefile.am
+	(TESTS): Remove sbuild-lock, because it can fail randomly on slow
+	or heavily loaded systems due to timing constraints.
+
+	* bootstrap: Create m4 directory if it doesn't exist.
+
+	* Makefile.am
+	(dist-hook): Remove junk from distdir such as temorary files.
+	(EXTRA_DIST): Distribute bootstrap and m4 macros and templates.
+
+	* configure.ac: Add checks for find and xargs.
+
+2006-06-23  Roger Leigh  <rleigh@debian.org>
+
 	* API documentation additions.
 
 	* Add @RELEASE_DATE@ in place of hard-coded date in all manual

@@ -1,4 +1,9 @@
 #!/bin/sh
+if [ -d m4 ]; then
+  :
+else
+  mkdir m4
+fi
 if [ -d scripts ]; then
   :
 else

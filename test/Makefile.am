@@ -39,7 +39,17 @@ noinst_PROGRAMS = 		\
 	sbuild-personality	\
 	sbuild-util
 
-TESTS = $(noinst_PROGRAMS)
+# sbuild-lock is excluded, because it is timing dependent and can fail
+# randomly on slow or heavily-loaded systems.
+TESTS = sbuild-chroot		\
+	sbuild-chroot-config	\
+	sbuild-environment	\
+	sbuild-keyfile		\
+	sbuild-log		\
+	sbuild-nostream		\
+	sbuild-parse-value	\
+	sbuild-personality	\
+	sbuild-util
 endif
 
 libtest_la_SOURCES = 	\

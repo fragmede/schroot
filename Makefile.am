@@ -22,8 +22,10 @@
 
 SUBDIRS = schroot test doc po
 
-# Remove CVS directories from the generated tarball.
+# Remove junk from the generated tarball.
 dist-hook:
-	find $(distdir) -type d -name .svn -print0 | xargs -0 rm -rf
+	$(FIND) $(distdir) -name '.*' -print | $(XARGS) xargs $(RM) -rf
+	$(FIND) $(distdir) -name '#*' -print | $(XARGS) $(RM) -rf
+	$(FIND) $(distdir) -name '*~' -print | $(XARGS) $(RM) -rf
 
-EXTRA_DIST = debian
+EXTRA_DIST = bootstrap debian scripts/schroot_release.m4.in m4
