@@ -202,6 +202,15 @@ standard error, and the remaining lines to standard output.  This is
 intentional, so that program output from commands run in the chroot may be
 piped and redirected as required; the data will be the same as if the command
 was run directly on the host system.
+.SH TROUBLESHOOTING
+If something is not working, and it's not clear from the error messages what is
+wrong, try using the \fB\-\-debug\fP option to turn on debugging messages.
+This gives a great deal more information.
+.PP
+If you are still having trouble, the developers may be contacted on the mailing
+list:
+.br
+Debian buildd-tools Developers <buildd-tools-devel@lists.alioth.debian.org>
 .SH BUGS
 None known at this time.
 .SH FILES

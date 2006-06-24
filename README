@@ -10,6 +10,10 @@ or disrupting services on the host system.  As always, this boils down
 to trust.  Don't give root access to chroots to users you would not
 trust with root access to the host system.
 
+For compatibility with existing tools and scripts, wrapper binaries
+for dchroot and DSA dchroot are provided.
+
+
 Build Dependencies
 ------------------
 
@@ -22,14 +26,17 @@ libuuid-dev
 libboost-dev                 } The Boost C++ libraries
 libboost-program-options-dev }
 
+If building from Subversion, you will also need:
+gettext (0.15)
+doxygen
+
+
 Translation
 -----------
 
 If you would like to see the schroot messages output in your own
 language, please consider translating the pot file (po/schroot.pot).
-You will need to join the appropriate language team at the Free
-Translation Project (http://www.iro.umontreal.ca/translation/) in
-order to submit your translation.
+
 
 Building and installation
 -------------------------
@@ -38,10 +45,12 @@ Please see the INSTALL file for generic installation instructions.
 Note that the testsuite ("make check") should be run under fakeroot or
 real root in order to work correctly.
 
+
 Configuration
 -------------
 
 See schroot.conf(5) and schroot-setup(5).
+
 
 Running
 -------

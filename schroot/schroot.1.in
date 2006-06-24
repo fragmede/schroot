@@ -211,6 +211,15 @@ If the user \[lq]rleigh\[rq] was in \fIroot\-users\fP in \fIschroot.conf\fP, or
 one of the groups he belonged to was in \fIroot\-groups\fP, they would be
 granted root access without authentication, but the PAM authorisation step is
 still applied.
+.SH TROUBLESHOOTING
+If something is not working, and it's not clear from the error messages what is
+wrong, try using the \fB\-\-debug\fP option to turn on debugging messages.
+This gives a great deal more information.
+.PP
+If you are still having trouble, the developers may be contacted on the mailing
+list:
+.br
+Debian buildd-tools Developers <buildd-tools-devel@lists.alioth.debian.org>
 .SH BUGS
 None known at this time.
 .SH ENVIRONMENT
