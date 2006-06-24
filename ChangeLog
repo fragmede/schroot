@@ -1,5 +1,13 @@
 2006-06-24  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-session.cc
+	(run_chroot): Log error and exit with failure status if run_child
+	throws an exception.
+	(run_child): Throw exception on failure, rather than exiting,
+	which simplifies the error handling.
+
+2006-06-24  Roger Leigh  <rleigh@debian.org>
+
 	* dchroot/Makefile.am (libdchroot_la_SOURCES): Add
 	dchroot-main-base.(cc|h).
 

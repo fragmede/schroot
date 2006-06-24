@@ -914,9 +914,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
     }
   catch (auth::error const& e)
     {
-      error e1(PAM, e.what());
-      log_error() << e1.what() << endl;
-      exit (EXIT_FAILURE);
+      throw error(PAM, e.what());
     }
 
   /* Set group ID and supplementary groups */
@@ -924,40 +922,25 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
     {
       std::ostringstream str;
       str << get_gid();
-      error e(str.str(), GROUP_SET, errno);
-      log_error() << e.what() << endl;
-      exit (EXIT_FAILURE);
+      throw error(str.str(), GROUP_SET, errno);
     }
   if (initgroups (get_user().c_str(), get_gid()))
     {
-      error e(GROUP_SET_SUP, errno);
-      log_error() << e.what() << endl;
-      exit (EXIT_FAILURE);
+      throw error(GROUP_SET_SUP, errno);
     }
 
   /* Set the process execution domain. */
-  try
-    {
-      session_chroot->get_persona().set();
-    }
-  catch (personality::error const& e)
-    {
-      log_error() << e.what() << endl;
-      exit (EXIT_FAILURE);
-    }
+  /* Will throw on failure. */
+  session_chroot->get_persona().set();
 
   /* Enter the chroot */
   if (chdir (location.c_str()))
     {
-      error e(location, CHDIR, errno);
-      log_error() << e.what() << endl;
-      exit (EXIT_FAILURE);
+      throw error(location, CHDIR, errno);
     }
   if (::chroot (location.c_str()))
     {
-      error e(location, CHROOT, errno);
-      log_error() << e.what() << endl;
-      exit (EXIT_FAILURE);
+      throw error(location, CHROOT, errno);
     }
 
   /* Set uid and check we are not still root */
@@ -965,15 +948,11 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
     {
       std::ostringstream str;
       str << get_uid();
-      error e(str.str(), USER_SET);
-      log_error() << e.what() << endl;
-      exit (EXIT_FAILURE);
+      throw error(str.str(), USER_SET);
     }
   if (!setuid (0) && get_uid())
     {
-      error e(ROOT_DROP);
-      log_error() << e.what() << endl;
-      exit (EXIT_FAILURE);
+      throw error(ROOT_DROP);
     }
 
   std::string file;
@@ -989,7 +968,6 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
     << format("Directory fallbacks: %1%") % string_list_to_string(dlist, ", ") << endl;
 
   /* Attempt to chdir to current directory. */
-  bool dir_changed = false;
   for (string_list::const_iterator dpos = dlist.begin();
        dpos != dlist.end();
        ++dpos)
@@ -998,8 +976,10 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 	{
 	  error e(*dpos, CHDIR, errno);
 
-	  ((dpos + 1 == dlist.end()) ? log_error() : log_warning())
-	    << e.what() << endl;
+	  if (dpos + 1 == dlist.end())
+	    throw e;
+	  else
+	    log_warning() << e.what() << endl;
 	}
       else
 	{
@@ -1008,13 +988,9 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 	      error e(CHDIR_FB, *dpos);
 	      log_warning() << e.what() << endl;
 	    }
-	  dir_changed = true;
 	  break;
 	}
     }
-
-  if (dir_changed == false)
-    exit (EXIT_FAILURE); // Warning already logged.
 
   /* Fix up the command for exec. */
   get_command(session_chroot, file, command);
@@ -1038,10 +1014,9 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   /* Execute */
   if (exec (file, full_command, env))
     {
-      error e(file, EXEC, errno);
-      log_error() << e.what() << endl;
-      exit (EXIT_FAILURE);
+      throw error(file, EXEC, errno);
     }
+
   /* This should never be reached */
   exit(EXIT_FAILURE);
 }
@@ -1125,8 +1100,15 @@ session::run_chroot (sbuild::chroot::ptr& session_chroot)
       while (child_wait)
 	;
 #endif
-      run_child(session_chroot);
-      exit (EXIT_FAILURE); /* Should never be reached. */
+      try
+	{
+	  run_child(session_chroot);
+	}
+      catch (sbuild::runtime_error const& e)
+	{
+	  log_error() << e.what() << endl;
+	}
+      exit (EXIT_FAILURE);
     }
   else
     {
