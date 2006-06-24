@@ -56,11 +56,11 @@ namespace
     {
       emap(chroot_config::CHROOT,      N_("No such chroot")),
       emap(chroot_config::DIR_OPEN,    N_("Failed to open directory")),
-      emap(chroot_config::FILE_NOTREG, N_("File is not a regular file"))
+      emap(chroot_config::FILE_NOTREG, N_("File is not a regular file")),
       emap(chroot_config::FILE_OPEN,   N_("Failed to open file")),
       emap(chroot_config::FILE_OWNER,  N_("File is not owned by user root")),
       emap(chroot_config::FILE_PERMS,  N_("File has write permissions for others")),
-      emap(chroot_config::FILE_STAT,   N_("Failed to stat file")),
+      emap(chroot_config::FILE_STAT,   N_("Failed to stat file"))
     };
 
   bool chroot_alphasort (sbuild::chroot::ptr const& c1,

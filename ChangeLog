@@ -1,5 +1,9 @@
 2006-06-24  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-chroot-config.(cc|h): Fix typos.
+
+2006-06-24  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-session.(cc|h): Use error codes for logging in
 	addition to thrown exceptions.
 
