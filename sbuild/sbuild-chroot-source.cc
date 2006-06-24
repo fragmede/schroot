@@ -112,12 +112,13 @@ chroot_source::setup_env (environment& env)
 }
 
 void
-chroot_source::print_details (std::ostream& stream) const
+chroot_source::get_details (format_detail& detail) const
 {
-  stream << format_details(_("Source Users"), get_source_users())
-	 << format_details(_("Source Groups"), get_source_groups())
-	 << format_details(_("Source Root Users"), get_source_root_users())
-	 << format_details(_("Source Root Groups"), get_source_root_groups());
+  detail
+    .add(_("Source Users"), get_source_users())
+    .add(_("Source Groups"), get_source_groups())
+    .add(_("Source Root Users"), get_source_root_users())
+    .add(_("Source Root Groups"), get_source_root_groups());
 }
 
 void

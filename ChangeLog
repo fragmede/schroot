@@ -1,3 +1,18 @@
+2006-06-25  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* All derived chroot types: Replace print_details with
+	get_details.
+
+	* sbuild/sbuild-chroot.cc
+	(get_details): New method to insert the chroot details into a
+	format_detail object.
+	(print_details): Create, fill and output a format_detail object.
+
+	* sbuild/sbuild-format-detail.(cc|h): Change the class from a
+	simple formatting wrapper into a container of key-value pairs for
+	formatting.  This uses wide stringstreams to align the output for
+	translated UTF-8 text.
+
 2006-06-24  Roger Leigh  <rleigh@debian.org>
 
 	* sbuild/sbuild-util.cc (widen_string, narrow_string): Fix bug in

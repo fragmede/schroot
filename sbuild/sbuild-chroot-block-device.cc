@@ -171,15 +171,14 @@ chroot_block_device::get_session_flags () const
 }
 
 void
-chroot_block_device::print_details (std::ostream& stream) const
+chroot_block_device::get_details (format_detail& detail) const
 {
-  this->chroot::print_details(stream);
+  this->chroot::get_details(detail);
 
   if (!this->device.empty())
-    stream << format_details(_("Device"), get_device());
+    detail.add(_("Device"), get_device());
   if (!this->mount_options.empty())
-    stream << format_details(_("Mount Options"), get_mount_options());
-  stream << std::flush;
+    detail.add(_("Mount Options"), get_mount_options());
 }
 
 void

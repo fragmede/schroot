@@ -24,6 +24,7 @@
 #include <sbuild/sbuild-custom-error.h>
 #include <sbuild/sbuild-error.h>
 #include <sbuild/sbuild-environment.h>
+#include <sbuild/sbuild-format-detail.h>
 #include <sbuild/sbuild-keyfile.h>
 #include <sbuild/sbuild-personality.h>
 #include <sbuild/sbuild-util.h>
@@ -544,13 +545,21 @@ namespace sbuild
 
   protected:
     /**
+     * Get detailed information about the chroot for output.
+     *
+     * @param detail the details to output to.
+     */
+    virtual void
+    get_details (format_detail& detail) const;
+
+    /**
      * Print detailed information about the chroot to a stream.  The
      * information is printed in plain text with one line per
      * property.
      *
      * @param stream the stream to output to.
      */
-    virtual void
+    void
     print_details (std::ostream& stream) const;
 
     /**

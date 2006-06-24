@@ -194,18 +194,15 @@ chroot_lvm_snapshot::get_session_flags () const
 }
 
 void
-chroot_lvm_snapshot::print_details (std::ostream& stream) const
+chroot_lvm_snapshot::get_details (format_detail& detail) const
 {
-  chroot_block_device::print_details(stream);
-  chroot_source::print_details(stream);
+  chroot_block_device::get_details(detail);
+  chroot_source::get_details(detail);
 
   if (!this->snapshot_device.empty())
-    stream << format_details(_("LVM Snapshot Device"),
-			     get_snapshot_device());
+    detail.add(_("LVM Snapshot Device"), get_snapshot_device());
   if (!this->snapshot_options.empty())
-    stream << format_details(_("LVM Snapshot Options"),
-			     get_snapshot_options());
-  stream << std::flush;
+    detail.add(_("LVM Snapshot Options"), get_snapshot_options());
 }
 
 void

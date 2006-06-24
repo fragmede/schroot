@@ -24,7 +24,6 @@
 #include "sbuild-chroot-file.h"
 #include "sbuild-chroot-block-device.h"
 #include "sbuild-chroot-lvm-snapshot.h"
-#include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
 
 #include <algorithm>
@@ -407,46 +406,51 @@ sbuild::chroot::unlock (setup_type type,
   setup_lock(type, false, status);
 }
 
+
 void
-sbuild::chroot::print_details (std::ostream& stream) const
+sbuild::chroot::get_details (format_detail& detail) const
 {
-  if (this->active == true)
-    stream << "  " << _("--- Session ---\n");
-  else
-    stream << "  " << _("--- Chroot ---\n");
-  stream << format_details(_("Name"), get_name())
-	 << format_details(_("Description"), get_description())
-	 << format_details(_("Type"), get_chroot_type())
-	 << format_details(_("Priority"), get_priority())
-	 << format_details(_("Users"), get_users())
-	 << format_details(_("Groups"), get_groups())
-	 << format_details(_("Root Users"), get_root_users())
-	 << format_details(_("Root Groups"), get_root_groups())
-	 << format_details(_("Aliases"), get_aliases())
-	 << format_details(_("Run Setup Scripts"), get_run_setup_scripts())
-	 << format_details(_("Run Execution Scripts"),
-			   get_run_exec_scripts())
-	 << format_details(_("Session Managed"),
-			   static_cast<bool>(get_session_flags() &
-					     chroot::SESSION_CREATE));
+  detail
+    .add(_("Name"), get_name())
+    .add(_("Description"), get_description())
+    .add(_("Type"), get_chroot_type())
+    .add(_("Priority"), get_priority())
+    .add(_("Users"), get_users())
+    .add(_("Groups"), get_groups())
+    .add(_("Root Users"), get_root_users())
+    .add(_("Root Groups"), get_root_groups())
+    .add(_("Aliases"), get_aliases())
+    .add(_("Run Setup Scripts"), get_run_setup_scripts())
+    .add(_("Run Execution Scripts"),
+	 get_run_exec_scripts())
+    .add(_("Session Managed"),
+	 static_cast<bool>(get_session_flags() & chroot::SESSION_CREATE));
 
   if (!get_command_prefix().empty())
-    stream << format_details(_("Command Prefix"), get_command_prefix());
+    detail.add(_("Command Prefix"), get_command_prefix());
 
-  stream << format_details(_("Personality"), get_persona().get_name());
+  detail.add(_("Personality"), get_persona().get_name());
 
   /* Non user-settable properties are listed last. */
   if (!get_location().empty())
-    stream << format_details(_("Location"),
-			     get_location());
+    detail.add(_("Location"), get_location());
   if (!get_mount_location().empty())
-    stream << format_details(_("Mount Location"),
-			     get_mount_location());
+    detail.add(_("Mount Location"), get_mount_location());
   if (!get_path().empty())
-    stream << format_details(_("Path"),
-			     get_path());
+    detail.add(_("Path"), get_path());
   if (!get_mount_device().empty())
-    stream << format_details(_("Mount Device"), get_mount_device());
+    detail.add(_("Mount Device"), get_mount_device());
+}
+
+void
+sbuild::chroot::print_details (std::ostream& stream) const
+{
+  format_detail fmt((this->active == true ? _("Session") : _("Chroot")),
+		    stream.getloc());
+
+  get_details(fmt);
+
+  stream << fmt;
 }
 
 void

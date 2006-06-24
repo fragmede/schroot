@@ -137,15 +137,15 @@ chroot_file::get_session_flags () const
 }
 
 void
-chroot_file::print_details (std::ostream& stream) const
+chroot_file::get_details (format_detail& detail) const
 {
-  chroot::print_details(stream);
-  chroot_source::print_details(stream);
+  chroot::get_details(detail);
+  chroot_source::get_details(detail);
 
   if (!this->file.empty())
-    stream << format_details(_("File"), get_file());
-    stream << format_details(_("File Repack"), this->repack);
-  stream << std::flush;
+    detail
+      .add(_("File"), get_file())
+      .add(_("File Repack"), this->repack);
 }
 
 void

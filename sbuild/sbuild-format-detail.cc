@@ -21,18 +21,74 @@
 
 #include "sbuild-format-detail.h"
 #include "sbuild-i18n.h"
+#include "sbuild-log.h"
+
+#include <boost/format.hpp>
 
 using namespace sbuild;
 
-template<>
-std::ostream&
-sbuild::operator << (std::ostream&              stream,
-		     format_detail<bool> const& rhs)
+format_detail::format_detail (std::string const& title,
+			      std::locale        locale):
+  title(title),
+  locale(locale),
+  items()
+{
+}
+
+format_detail::~format_detail ()
+{
+}
+
+format_detail&
+format_detail::add (std::string const& name,
+		    std::string const& value)
+{
+  for (list_type::iterator pos = this->items.begin();
+       pos != this->items.end();
+       ++pos)
+    {
+      if (pos->first == name)
+	{
+	  log_debug(DEBUG_WARNING) << "format_detail: name \""
+				   << name << "\" is already added"
+				   << std::endl;
+	  return *this;
+	}
+    }
+
+  this->items.push_back(value_type(name, value));
+  log_debug(DEBUG_INFO) << "format_detail: added name \""
+			<< name << "\""
+			<< std::endl;
+
+  return *this;
+}
+
+format_detail&
+format_detail::add (std::string const& name,
+		    bool               value)
 {
   const char *desc = 0;
-  if (rhs.value)
+  if (value)
     desc =  _("true");
   else
     desc = _("false");
-  return stream << format_detail<std::string>(rhs.name, desc);
+
+  return add(name, std::string(desc));
+}
+
+format_detail&
+format_detail::add (std::string const& name,
+		    string_list const& value)
+{
+  return add(name, string_list_to_string(value, " "));
+}
+
+std::string
+format_detail::get_title () const
+{
+  boost::format fmt(_("--- %1% ---"));
+  fmt %this->title;
+
+  return fmt.str();
 }

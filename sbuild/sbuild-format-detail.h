@@ -24,7 +24,9 @@
 #include <sbuild/sbuild-types.h>
 #include <sbuild/sbuild-util.h>
 
+#include <cwchar>
 #include <iomanip>
+#include <locale>
 #include <ostream>
 #include <sstream>
 #include <string>
@@ -35,50 +37,9 @@ namespace sbuild
   /**
    * Format names and values for output.
    */
-  template<typename T>
-  class format_detail;
-
-  /**
-   * Output the formatted detail to an ostream.
-   *
-   * @param stream the stream to output to.
-   * @param rhs the formatted detail to output.
-   * @returns the stream.
-   */
-  template<typename T> std::ostream&
-  operator << (std::ostream&           stream,
-	       format_detail<T> const& rhs);
-
-  /**
-   * Output the formatted detail to an ostream.  This is a special
-   * case for boolean values.
-   *
-   * @param stream the stream to output to.
-   * @param rhs the formatted detail to output.
-   * @returns the stream.
-   */
-  template<> std::ostream&
-  operator << (std::ostream&              stream,
-	       format_detail<bool> const& rhs);
-
-  /**
-   * Output the formatted detail to an ostream.  This is a special
-   * case for string_list values.
-   *
-   * @param stream the stream to output to.
-   * @param rhs the formatted detail to output.
-   * @returns the stream.
-   */
-  template<> std::ostream&
-  operator << (std::ostream&                     stream,
-	       format_detail<string_list> const& rhs);
-
-  /**
-   * Helper to perform formatting of chroot details.
-   */
-  template<typename T>
   class format_detail
   {
+  public:
     /**
      * The constructor.
      *
@@ -86,64 +47,109 @@ namespace sbuild
      * @param value the value of the property to format.  The value
      * type must support output to an ostream.
      */
-  public:
-    format_detail (std::string const& name,
-		   T const&           value):
-      name(name),
-      value(value)
-    {}
+    format_detail (const std::string& title,
+		   std::locale        locale);
 
-      friend std::ostream&
-      operator << <>(std::ostream&, format_detail<T> const&);
+    virtual ~format_detail ();
+
+    format_detail&
+    add (std::string const& name,
+	 std::string const& value);
+
+    format_detail&
+    add (std::string const& name,
+	 bool               value);
+
+    format_detail&
+    add (std::string const& name,
+	 string_list const& value);
+
+    template<typename T>
+    format_detail&
+    add (std::string const& name,
+	 T const&           value)
+    {
+      std::ostringstream varstring;
+      varstring.imbue(this->locale);
+      varstring << value;
+      return add(name, varstring.str());
+    }
 
   private:
-    /// The name of the property.
-    std::string const& name;
-    /// The value of the property.
-    T const&           value;
+    /**
+     * Get the title of the chroot.  The title is formatted for
+     * output.
+     *
+     * @returns the formatted title.
+     */
+    std::string
+    get_title () const;
+
+    /**
+     * Output the format_detail to an ostream.
+     *
+     * @param stream the stream to output to.
+     * @param rhs the format_detail to output.
+     * @returns the stream.
+     */
+    template <class charT, class traits>
+    friend
+    std::basic_ostream<charT,traits>&
+    operator << (std::basic_ostream<charT,traits>& stream,
+		 format_detail const& rhs)
+    {
+      std::locale loc = stream.getloc();
+      int max_width = 0;
+
+      for (format_detail::list_type::const_iterator pos = rhs.items.begin();
+	   pos != rhs.items.end();
+	   ++pos)
+	{
+	  std::wstring wide = widen_string(pos->first, loc);
+	  int width = wcswidth(wide.c_str(), wide.length());
+
+	  if (max_width < width)
+	    max_width = width;
+	}
+
+      if (max_width < 20)
+	max_width = 20;
+      // To ensure 2 spaces of separation between name and value
+      max_width += 2;
+
+      stream << "  " << rhs.get_title() << '\n';
+
+      for (format_detail::list_type::const_iterator pos = rhs.items.begin();
+	   pos != rhs.items.end();
+	   ++pos)
+	{
+	  std::wostringstream ws;
+	  ws.imbue(loc);
+
+	  std::wstring wide = widen_string(pos->first, loc);
+	  ws << L"  " << std::setw(max_width) << std::left << wide;
+
+	  stream << narrow_string(ws.str(), loc) << pos->second << '\n';
+	}
+
+      return stream;
+    }
+
+  private:
+    /// Name and value pairs.
+    typedef std::pair<std::string,std::string> value_type;
+    /// List of name and value pairs.
+    typedef std::vector<value_type> list_type;
+
+    /// The title of the items to format.
+    std::string title;
+
+    /// The locale to use for output.
+    std::locale locale;
+
+    /// The items to format;
+    list_type   items;
   };
-
-  template<typename T>
-  inline std::ostream&
-  operator << (std::ostream&           stream,
-	       format_detail<T> const& rhs)
-  {
-    std::locale loc = stream.getloc();
-    std::wostringstream ws;
-    ws.imbue(loc);
-    ws << L"  " <<
-      std::setw(21) << std::left << widen_string(rhs.name, loc);
-
-    return stream << narrow_string(ws.str(), loc)
-		  << ' ' << rhs.value << '\n';
-
-  }
-
-  template<>
-  inline std::ostream&
-  operator << (std::ostream&                     stream,
-	       format_detail<string_list> const& rhs)
-  {
-    return stream <<
-      format_detail<std::string>(rhs.name,
-				 string_list_to_string(rhs.value, " "));
-  }
-
-  /**
-   * Format a name-value pair for output.  This is a convenience
-   * wrapper to construct a format_detail of the appropriate type.
-   *
-   * @param name the name to output.
-   * @param value the value to output.
-   * @returns a format_detail of the appropriate type.
-   */
-  template<typename T>
-  inline format_detail<T>
-  format_details (std::string const& name,
-		  T const&           value)
-  {
-    return format_detail<T>(name, value);
-  }
 
 }
 

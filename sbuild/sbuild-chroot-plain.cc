@@ -114,11 +114,9 @@ chroot_plain::get_session_flags () const
 }
 
 void
-chroot_plain::print_details (std::ostream& stream) const
+chroot_plain::get_details (format_detail& detail) const
 {
-  this->chroot::print_details(stream);
-
-  stream << std::flush;
+  chroot::get_details(detail);
 }
 
 void

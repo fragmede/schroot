@@ -81,7 +81,7 @@ namespace sbuild
 		int        status);
 
     virtual void
-    print_details (std::ostream& stream) const;
+    get_details (format_detail& detail) const;
 
     virtual void
     get_keyfile (keyfile& keyfile) const;

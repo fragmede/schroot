@@ -141,8 +141,8 @@ namespace sbuild
     setup_env (environment& env);
 
   protected:
-    void
-    print_details (std::ostream& stream) const;
+    virtual void
+    get_details (format_detail& detail) const;
 
     void
     get_keyfile (keyfile& keyfile) const;
