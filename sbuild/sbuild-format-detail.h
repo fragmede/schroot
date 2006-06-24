@@ -26,6 +26,7 @@
 
 #include <iomanip>
 #include <ostream>
+#include <sstream>
 #include <string>
 
 namespace sbuild
@@ -107,9 +108,15 @@ namespace sbuild
   operator << (std::ostream&           stream,
 	       format_detail<T> const& rhs)
   {
-    return stream << "  "
-		  << std::setw(21) << std::left << rhs.name
+    std::locale loc = stream.getloc();
+    std::wostringstream ws;
+    ws.imbue(loc);
+    ws << L"  " <<
+      std::setw(21) << std::left << widen_string(rhs.name, loc);
+
+    return stream << narrow_string(ws.str(), loc)
 		  << ' ' << rhs.value << '\n';
+
   }
 
   template<>

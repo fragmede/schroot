@@ -1,5 +1,16 @@
 2006-06-24  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-format-detail.h: Use a wide string to get
+	consistent alignment when using a UTF-8 locale.
+
+	* sbuild/sbuild-util.cc
+	(widen_string): New function.  Convert a narrow string to a wide
+	string.
+	(narrow_string): New function.  Convert a wide string to a narrow
+	string.
+
+2006-06-24  Roger Leigh  <rleigh@debian.org>
+
 	* README: Add dchroot and dchroot-dsa.
 
 	* schroot/schroot.1.in: Add troubleshooting section.

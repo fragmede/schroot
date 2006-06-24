@@ -163,6 +163,96 @@ sbuild::split_string (std::string const& value,
   return ret;
 }
 
+std::wstring
+sbuild::widen_string (std::string const& str,
+		      std::locale        locale)
+{
+  typedef std::codecvt<wchar_t, char, mbstate_t> codecvt_type;
+  codecvt_type const& cvt = std::use_facet<codecvt_type>(locale);
+  mbstate_t state;
+  const char *cbegin = str.data(), *cend = str.data() + str.size(), *cnext;
+  wchar_t *wcnext;
+  wchar_t wcbuf[80];
+  std::wstring ret;
+
+  std::memset(&state, 0, sizeof(mbstate_t));
+
+  while (1)
+    {
+      std::codecvt_base::result res =
+	cvt.in(state,
+	       cbegin, cend, cnext,
+	       wcbuf, wcbuf + (sizeof(wcbuf) / sizeof(wcbuf[0])), wcnext);
+
+      if (res == std::codecvt_base::ok || std::codecvt_base::partial)
+	{
+	  ret += std::wstring(wcbuf, wcnext);
+	  if (cend == cnext)
+	    break;
+	}
+      else if (res == std::codecvt_base::noconv)
+	{
+	  ret += std::wstring(cbegin, cend);
+	  break;
+	}
+      else if (res == std::codecvt_base::error)
+	{
+	  break;
+	}
+      else
+	break;
+
+      cbegin = cnext;
+    }
+
+  return ret;
+}
+
+std::string
+sbuild::narrow_string (std::wstring const& str,
+		       std::locale         locale)
+{
+  typedef std::codecvt<wchar_t, char, mbstate_t> codecvt_type;
+  codecvt_type const& cvt = std::use_facet<codecvt_type>(locale);
+  mbstate_t state;
+  const wchar_t *wcbegin = str.data(), *wcend = str.data() + str.size(), *wcnext;
+  char *cnext;
+  char cbuf[80];
+  std::string ret;
+
+  std::memset(&state, 0, sizeof(mbstate_t));
+
+  while (1)
+    {
+      std::codecvt_base::result res =
+	cvt.out(state,
+		wcbegin, wcend, wcnext,
+		cbuf, cbuf + (sizeof(cbuf) / sizeof(cbuf[0])), cnext);
+
+      if (res == std::codecvt_base::ok || std::codecvt_base::partial)
+	{
+	  ret += std::string(cbuf, cnext);
+	  if (wcend == wcnext)
+	    break;
+	}
+      else if (res == std::codecvt_base::noconv)
+	{
+	  ret += std::string(wcbegin, wcend);
+	  break;
+	}
+      else if (res == std::codecvt_base::error)
+	{
+	  break;
+	}
+      else
+	break;
+
+      wcbegin = wcnext;
+    }
+
+  return ret;
+}
+
 std::string
 sbuild::find_program_in_path (std::string const& program,
 			      std::string const& path,

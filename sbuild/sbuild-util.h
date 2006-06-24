@@ -88,6 +88,32 @@ namespace sbuild
 		std::string const& separator);
 
   /**
+   * Widen a string.  The narrow string is converted into a wide
+   * string.  Note that any conversion error will cause the string to
+   * be clipped at the point of error.
+   *
+   * @param str the string to widen.
+   * @param locale the locale to use for the conversion.
+   * @returns a wide string.
+   */
+  std::wstring
+  widen_string (std::string const& str,
+		std::locale        locale);
+
+  /**
+   * Narrow a string.  The wide string is converted into a narrow
+   * string.  Note that any conversion error will cause the string to
+   * be clipped at the point of error.
+   *
+   * @param str the string to narrow.
+   * @param locale the locale to use for the conversion.
+   * @returns a narrow string.
+   */
+  std::string
+  narrow_string (std::wstring const& str,
+		 std::locale         locale);
+
+  /**
    * Find a program in the PATH search path.
    *
    * @param program the program to search for.
