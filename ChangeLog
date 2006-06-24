@@ -1,5 +1,20 @@
 2006-06-24  Roger Leigh  <rleigh@debian.org>
 
+	* dchroot/Makefile.am (libdchroot_la_SOURCES): Add
+	dchroot-main-base.(cc|h).
+
+	* dchroot-dsa/dchroot-dsa-main.(cc|h): Derive from
+	dchroot::main_base, and remove functionality shared with dchroot
+	contained in main_base.
+
+	* dchroot/dchroot-main.(cc|h):  Derive from main_base, and remove
+	functionality shared with dchroot-dsa contained in main_base.
+
+	* dchroot/dchroot-main-base.(cc|h): New files.  A class containing
+	functionality common to the main class of dchroot and dchroot-dsa.
+
+2006-06-24  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-chroot-config.(cc|h): Fix typos.
 
 2006-06-24  Roger Leigh  <rleigh@debian.org>

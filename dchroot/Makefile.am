@@ -40,6 +40,8 @@ endif
 bin_PROGRAMS = $(dchroot)
 
 libdchroot_la_SOURCES =			\
+	dchroot-main-base.h		\
+	dchroot-main-base.cc		\
 	dchroot-session-base.h		\
 	dchroot-session-base.cc
 libdchroot_la_LIBADD = $(top_builddir)/schroot/libschroot.la

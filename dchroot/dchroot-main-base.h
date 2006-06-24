@@ -17,18 +17,19 @@
  *
  *********************************************************************/
 
-#ifndef DCHROOT_MAIN_H
-#define DCHROOT_MAIN_H
+#ifndef DCHROOT_MAIN_BASE_H
+#define DCHROOT_MAIN_BASE_H
 
-#include <dchroot/dchroot-main-base.h>
+#include <schroot/schroot-main.h>
 
 namespace dchroot
 {
 
   /**
-   * Frontend for dchroot.  This class is used to "run" dchroot.
+   * Frontend base class for dchroot.  This class contains
+   * functionality common to dchroot and dchroot-dsa.
    */
-  class main : public dchroot::main_base
+  class main_base : public schroot::main
   {
   public:
     /**
@@ -36,25 +37,30 @@ namespace dchroot
      *
      * @param options the command-line options to use.
      */
-    main (schroot::options_base::ptr& options);
+    main_base (schroot::options_base::ptr& options);
 
     /// The destructor.
-    virtual ~main ();
+    virtual ~main_base ();
 
   protected:
-    virtual void
-    load_config();
+    void
+    check_dchroot_conf();
 
     virtual void
-    action_location ();
+    compat_check ();
 
     virtual void
-    create_session (sbuild::session::operation sess_op);
+    action_config ();
+
+    virtual void
+    action_list ();
+
+    bool use_dchroot_conf;
   };
 
 }
 
-#endif /* DCHROOT_MAIN_H */
+#endif /* DCHROOT_MAIN_BASE_H */
 
 /*
  * Local Variables:

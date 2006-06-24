@@ -20,7 +20,7 @@
 #ifndef DCHROOT_DSA_MAIN_H
 #define DCHROOT_DSA_MAIN_H
 
-#include <schroot/schroot-main.h>
+#include <dchroot/dchroot-main-base.h>
 
 namespace dchroot_dsa
 {
@@ -28,7 +28,7 @@ namespace dchroot_dsa
   /**
    * Frontend for dchroot-dsa.  This class is used to "run" dchroot-dsa.
    */
-  class main : public schroot::main
+  class main : public dchroot::main_base
   {
   public:
     /**
@@ -43,22 +43,10 @@ namespace dchroot_dsa
 
   protected:
     virtual void
-    compat_check ();
-
-    virtual void
     load_config();
 
     virtual void
-    action_config ();
-
-    virtual void
-    action_list ();
-
-    virtual void
     create_session (sbuild::session::operation sess_op);
-
-  private:
-    bool use_dchroot_conf;
   };
 
 }
