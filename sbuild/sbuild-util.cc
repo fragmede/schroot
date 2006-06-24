@@ -184,7 +184,7 @@ sbuild::widen_string (std::string const& str,
 	       cbegin, cend, cnext,
 	       wcbuf, wcbuf + (sizeof(wcbuf) / sizeof(wcbuf[0])), wcnext);
 
-      if (res == std::codecvt_base::ok || std::codecvt_base::partial)
+      if (res == std::codecvt_base::ok || res == std::codecvt_base::partial)
 	{
 	  ret += std::wstring(wcbuf, wcnext);
 	  if (cend == cnext)
@@ -229,7 +229,7 @@ sbuild::narrow_string (std::wstring const& str,
 		wcbegin, wcend, wcnext,
 		cbuf, cbuf + (sizeof(cbuf) / sizeof(cbuf[0])), cnext);
 
-      if (res == std::codecvt_base::ok || std::codecvt_base::partial)
+      if (res == std::codecvt_base::ok || res == std::codecvt_base::partial)
 	{
 	  ret += std::string(cbuf, cnext);
 	  if (wcend == wcnext)

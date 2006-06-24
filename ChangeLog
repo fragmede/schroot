@@ -1,5 +1,10 @@
 2006-06-24  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-util.cc (widen_string, narrow_string): Fix bug in
+	conditional which could cause an infinite loop in the C locale.
+
+2006-06-24  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-format-detail.h: Use a wide string to get
 	consistent alignment when using a UTF-8 locale.
 
