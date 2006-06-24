@@ -1,5 +1,9 @@
 2006-06-24  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Close #374713 and #374887.
+
+2006-06-24  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-session.cc
 	(run_chroot): Log error and exit with failure status if run_child
 	throws an exception.

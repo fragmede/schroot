@@ -1,6 +1,8 @@
 schroot (0.99.1-1) UNRELEASED; urgency=low
 
   * New upstream release.
+  * dchroot behaviour now matches the chdir and command execution
+    behaviour of the original dchroot (Closes: #374713, #374887).
   * debian/control: Add dchroot-dsa package.
   * debian/rules:
     - install dchroot-dsa setuid root, and add dchroot-dsa lintian
