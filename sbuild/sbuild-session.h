@@ -62,17 +62,32 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
-	CHROOT_UNKNOWN, ///< Failed to find chroot.
-	CHROOT_LOCK,    ///< Failed to lock chroot.
-	CHROOT_UNLOCK,  ///< Failed to unlock chroot.
-	CHROOT_SETUP,   ///< Setup failed.
-	SIGHUP_SET,     ///< Failed to set SIGHUP handler.
-	SIGHUP_CATCH,   ///< Hangup signal caught.
-	CHILD_FORK,     ///< Failed to fork child.
-	CHILD_WAIT,     ///< Wait for child failed.
-	CHILD_SIGNAL,   ///< Child terminated by signal.
+	CHDIR,          ///< Failed to change to directory.
+	CHDIR_FB,       ///< Falling back to directory.
 	CHILD_CORE,     ///< Child dumped core.
 	CHILD_FAIL,     ///< Child exited abnormally (reason unknown)
+	CHILD_FORK,     ///< Failed to fork child.
+	CHILD_SIGNAL,   ///< Child terminated by signal.
+	CHILD_WAIT,     ///< Wait for child failed.
+	CHROOT,         ///< Failed to change root to directory.
+	CHROOT_ALIAS,   ///< No chroot found matching alias.
+	CHROOT_LOCK,    ///< Failed to lock chroot.
+	CHROOT_SETUP,   ///< Setup failed.
+	CHROOT_UNKNOWN, ///< Failed to find chroot.
+	CHROOT_UNLOCK,  ///< Failed to unlock chroot.
+	EXEC,           ///< Failed to execute.
+	GROUP_GET_SUP,  ///< Failed to get supplementary groups.
+	GROUP_GET_SUPC, ///< Failed to get supplementary group count
+	GROUP_SET,      ///< Failed to set group.
+	GROUP_SET_SUP,  ///< Failed to set supplementary groups.
+	GROUP_UNKNOWN,  ///< Group not found.
+	PAM,            ///< PAM error.
+	ROOT_DROP,      ///< Failed to drop root permissions.
+	SHELL,          ///< Shell not available.
+	SHELL_FB,       ///< Falling back to shell.
+	SIGHUP_CATCH,   ///< Hangup signal caught.
+	SIGHUP_SET,     ///< Failed to set SIGHUP handler.
+	USER_SET,       ///< Failed to set user.
 	USER_SWITCH     ///< User switching is not permitted.
       };
 

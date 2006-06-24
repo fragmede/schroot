@@ -53,12 +53,13 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
+	CHROOT,     ///< No such chroot.
 	DIR_OPEN,   ///< Failed to open directory.
-	FILE_STAT,  ///< Failed to stat file.
+	FILE_NOTREG ///< File is not a regular file.
 	FILE_OPEN,  ///< Failed to open file.
 	FILE_OWNER, ///< File is not owned by user root.
 	FILE_PERMS, ///< File has write permissions for others.
-	FILE_NOTREG ///< File is not a regular file.
+	FILE_STAT,  ///< Failed to stat file.
       };
 
     /// Exception type.

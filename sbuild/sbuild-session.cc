@@ -56,18 +56,33 @@ namespace
    */
   emap init_errors[] =
     {
-      emap(session::CHROOT_UNKNOWN, N_("Failed to find chroot")),
-      emap(session::CHROOT_LOCK,    N_("Failed to lock chroot")),
-      emap(session::CHROOT_UNLOCK,  N_("Failed to unlock chroot")),
-      emap(session::CHROOT_SETUP,   N_("Chroot setup failed")),
-      emap(session::SIGHUP_SET,     N_("Failed to set hangup signal handler")),
-      emap(session::SIGHUP_CATCH,   N_("Caught hangup signal")),
-      emap(session::CHILD_FORK,     N_("Failed to fork child")),
-      emap(session::CHILD_WAIT,     N_("Wait for child failed")),
-      emap(session::CHILD_SIGNAL,   N_("Child terminated by signal")),
+      emap(session::CHDIR,          N_("Failed to change to directory")),
+      emap(session::CHDIR,          N_("Falling back to directory")),
       emap(session::CHILD_CORE,     N_("Child dumped core")),
       emap(session::CHILD_FAIL,     N_("Child exited abnormally (reason unknown; not a signal or core dump)")),
-      emap(session::USER_SWITCH,    N_("User switching is not permitted"))
+      emap(session::CHILD_FORK,     N_("Failed to fork child")),
+      emap(session::CHILD_SIGNAL,   N_("Child terminated by signal")),
+      emap(session::CHILD_WAIT,     N_("Wait for child failed")),
+      emap(session::CHROOT,         N_("Failed to change root to directory")),
+      emap(session::CHROOT_ALIAS,   N_("No chroot found matching alias")),
+      emap(session::CHROOT_LOCK,    N_("Failed to lock chroot")),
+      emap(session::CHROOT_SETUP,   N_("Chroot setup failed")),
+      emap(session::CHROOT_UNKNOWN, N_("Failed to find chroot")),
+      emap(session::CHROOT_UNLOCK,  N_("Failed to unlock chroot")),
+      emap(session::EXEC,           N_("Failed to execute")),
+      emap(session::GROUP_GET_SUP,  N_("Failed to get supplementary groups")),
+      emap(session::GROUP_GET_SUPC, N_("Failed to get supplementary group count")),
+      emap(session::GROUP_SET,      N_("Failed to set group")),
+      emap(session::GROUP_SET_SUP,  N_("Failed to set supplementary groups")),
+      emap(session::GROUP_UNKNOWN,  N_("Group not found")),
+      emap(session::PAM,            N_("PAM error")),
+      emap(session::ROOT_DROP,      N_("Failed to drop root permissions")),
+      emap(session::SHELL,          N_("Shell not available")),
+      emap(session::SHELL_FB,       N_("Falling back to shell")),
+      emap(session::SIGHUP_CATCH,   N_("Caught hangup signal")),
+      emap(session::SIGHUP_SET,     N_("Failed to set hangup signal handler")),
+      emap(session::USER_SET,       N_("Failed to set user")),
+      emap(session::USER_SWITCH,    N_("User switching is not permitted")),
     };
 
   /**
@@ -105,11 +120,15 @@ namespace
     if (groupbuf == NULL)
       {
 	if (errno == 0)
-	  log_error() << format(_("%1%: Group not found")) % group << endl;
+	  {
+	    session::error e(group, session::GROUP_UNKNOWN);
+	    log_error() << e.what() << endl;
+	  }
 	else
-	  log_error() << format(_("%1%: Group not found: %2%"))
-	    % group % strerror(errno)
-		      << endl;
+	  {
+	    session::error e(group, session::GROUP_UNKNOWN, errno);
+	    log_error() << e.what() << endl;
+	  }
 	exit (EXIT_FAILURE);
       }
 
@@ -123,9 +142,8 @@ namespace
 	int supp_group_count = getgroups(0, NULL);
 	if (supp_group_count < 0)
 	  {
-	    log_error() << format(_("Can't get supplementary group count: %1%"))
-	      % strerror(errno)
-			<< endl;
+	    session::error e(session::GROUP_GET_SUPC, errno);
+	    log_error() << e.what() << endl;
 	    exit (EXIT_FAILURE);
 	  }
 	if (supp_group_count > 0)
@@ -133,9 +151,8 @@ namespace
 	    gid_t *supp_groups = new gid_t[supp_group_count];
 	    if (getgroups(supp_group_count, supp_groups) < 1)
 	      {
-		log_error() << format(_("Can't get supplementary groups: %1%"))
-		  % strerror(errno)
-			    << endl;
+		session::error e(session::GROUP_GET_SUP, errno);
+		log_error() << e.what() << endl;
 		exit (EXIT_FAILURE);
 	      }
 
@@ -363,9 +380,8 @@ session::get_auth_status () const
       const chroot::ptr chroot = this->config->find_alias(*cur);
       if (!chroot) // Should never happen, but cater for it anyway.
 	{
-	  log_warning() << format(_("No chroot found matching alias '%1%'"))
-	    % *cur
-			<< endl;
+	  error e(*cur, CHROOT_ALIAS);
+	  log_warning() << e.what() << endl;
 	  status = change_auth(status, auth::STATUS_FAIL);
 	}
 
@@ -570,11 +586,11 @@ session::get_shell () const
     {
       if (shell != "/bin/sh")
 	{
-	  log_warning() << format(_("%1%: Shell not available: %2%"))
-	    % shell % strerror(errno) << endl;
+	  error e1(shell, SHELL, errno);
+	  log_warning() << e1.what() << endl;
 	  shell = "/bin/sh";
-	  log_warning() << format(_("Falling back to %1%"))
-	    % shell << endl;
+	  error e2(SHELL_FB, shell);
+	  log_warning() << e2.what() << endl;
 	}
     }
 
@@ -808,7 +824,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 	verbosity = "verbose";
 	break;
       default:
-	log_debug(DEBUG_CRITICAL) << format(_("Invalid verbosity level: %1%, falling back to \"normal\""))
+	log_debug(DEBUG_CRITICAL) << format("Invalid verbosity level: %1%, falling back to \"normal\"")
 	  % static_cast<int>(get_verbosity())
 		     << endl;
 	verbosity = "normal";
@@ -844,9 +860,8 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
       initgroups("root", 0);
       if (exec (arg_list[0], arg_list, env))
 	{
-	  log_error() << format(_("Could not exec \"%1%\": %2%"))
-	    % arg_list[0] % strerror(errno)
-		      << endl;
+	  error e(arg_list[0], EXEC, errno);
+	  log_error() << e.what() << endl;
 	  exit (EXIT_FAILURE);
 	}
       exit (EXIT_FAILURE); /* Should never be reached. */
@@ -899,21 +914,24 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
     }
   catch (auth::error const& e)
     {
-      log_error() << format(_("PAM error: %1%")) % e.what()
-		  << endl;
+      error e1(PAM, e.what());
+      log_error() << e1.what() << endl;
       exit (EXIT_FAILURE);
     }
 
   /* Set group ID and supplementary groups */
   if (setgid (get_gid()))
     {
-      log_error() << format(_("Could not set gid to '%1%'")) % get_gid()
-		  << endl;
+      std::ostringstream str;
+      str << get_gid();
+      error e(str.str(), GROUP_SET, errno);
+      log_error() << e.what() << endl;
       exit (EXIT_FAILURE);
     }
   if (initgroups (get_user().c_str(), get_gid()))
     {
-      log_error() << _("Could not set supplementary group IDs") << endl;
+      error e(GROUP_SET_SUP, errno);
+      log_error() << e.what() << endl;
       exit (EXIT_FAILURE);
     }
 
@@ -931,30 +949,30 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   /* Enter the chroot */
   if (chdir (location.c_str()))
     {
-      log_error() << format(_("Could not chdir to '%1%': %2%"))
-	% location % strerror(errno)
-		  << endl;
+      error e(location, CHDIR, errno);
+      log_error() << e.what() << endl;
       exit (EXIT_FAILURE);
     }
   if (::chroot (location.c_str()))
     {
-      log_error() << format(_("Could not chroot to '%1%': %2%"))
-	% location % strerror(errno)
-		  << endl;
+      error e(location, CHROOT, errno);
+      log_error() << e.what() << endl;
       exit (EXIT_FAILURE);
     }
 
   /* Set uid and check we are not still root */
   if (setuid (get_uid()))
     {
-      log_error() << format(_("Could not set uid to '%1%'")) % get_uid()
-		  << endl;
+      std::ostringstream str;
+      str << get_uid();
+      error e(str.str(), USER_SET);
+      log_error() << e.what() << endl;
       exit (EXIT_FAILURE);
     }
   if (!setuid (0) && get_uid())
     {
-      log_error() << _("Failed to drop root permissions.")
-		  << endl;
+      error e(ROOT_DROP);
+      log_error() << e.what() << endl;
       exit (EXIT_FAILURE);
     }
 
@@ -978,17 +996,18 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
     {
       if (chdir ((*dpos).c_str()) < 0)
 	{
+	  error e(*dpos, CHDIR, errno);
+
 	  ((dpos + 1 == dlist.end()) ? log_error() : log_warning())
-	    << format(_("Could not chdir to '%1%': %2%"))
-	    % *dpos % strerror(errno)
-	    << endl;
+	    << e.what() << endl;
 	}
       else
 	{
 	  if (dpos != dlist.begin())
-	    log_warning() << format(_("Falling back to '%1%'"))
-	      % *dpos
-			  << endl;
+	    {
+	      error e(CHDIR_FB, *dpos);
+	      log_warning() << e.what() << endl;
+	    }
 	  dir_changed = true;
 	  break;
 	}
@@ -1019,9 +1038,8 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   /* Execute */
   if (exec (file, full_command, env))
     {
-      log_error() << format(_("Could not exec \"%1%\": %2%"))
-	% file % strerror(errno)
-		  << endl;
+      error e(file, EXEC, errno);
+      log_error() << e.what() << endl;
       exit (EXIT_FAILURE);
     }
   /* This should never be reached */
@@ -1041,8 +1059,8 @@ session::wait_for_child (int  pid,
     {
       if (sighup_called && !child_killed)
 	{
-	  log_error() << _("Caught hangup signal, terminating...")
-		      << endl;
+	  error e(SIGHUP_CATCH, _("terminating immediately"));
+	  log_error() << e.what() << endl;
 	  kill(pid, SIGHUP);
 	  this->chroot_status = false;
 	  child_killed = true;
