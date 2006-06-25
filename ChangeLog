@@ -1,5 +1,11 @@
 2006-06-25  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.cc, dchroot/dchroot.cc,
+	dchroot-dsa/dchroot-dsa.cc: On an options parsing error, recommend
+	the user use --help.
+
+2006-06-25  Roger Leigh  <rleigh@debian.org>
+
 	* All headers using tr1::shared_ptr or tr1::tuple include
 	sbuild-tr1types.h.
 

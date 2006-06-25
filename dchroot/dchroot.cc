@@ -58,6 +58,15 @@ main (int   argc,
       dchroot::main kit(opts);
       exit (kit.run());
     }
+  catch (boost::program_options::error const& e)
+    {
+      sbuild::log_error() << e.what() << endl;
+      sbuild::log_info()
+	<< format(_("Run \"%1% --help\" to list usage example and all available options"))
+	% argv[0]
+	<< endl;
+      exit(EXIT_FAILURE);
+    }
   catch (std::exception const& e)
     {
       sbuild::log_error() << e.what() << endl;
