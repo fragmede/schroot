@@ -373,6 +373,7 @@ keyfile::check_priority (std::string const& group,
 	    << std::endl;
 	  log_info()
 	    << _("This option has been removed, and no longer has any effect.") << std::endl;
+	  break;
 	case PRIORITY_DISALLOWED:
 	  {
 	    throw error(group, parse_error::DISALLOWED_KEY, key);

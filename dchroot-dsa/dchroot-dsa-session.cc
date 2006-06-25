@@ -109,16 +109,8 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
   std::string programstring = command[0];
   file = programstring;
 
-  if (file.empty() ||
-      (file.size() >= 1 && file[0] != '/'))
-    {
-      sbuild::log_error()
-	<< format(_("%1%: Command must have an absolute path"))
-	% file
-	<< endl;
-      exit (EXIT_FAILURE);
-    }
-
+  if (!sbuild::is_absname(file))
+    throw error(file, COMMAND_ABS);
 
   std::string commandstring = sbuild::string_list_to_string(command, " ");
   sbuild::log_debug(sbuild::DEBUG_NOTICE)

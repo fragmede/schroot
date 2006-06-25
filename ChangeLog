@@ -1,4 +1,48 @@
-2006-06-25  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2006-06-25  Roger Leigh  <rleigh@debian.org>
+
+	* NEWS: Document strict absolute path checks.
+
+	* sbuild/sbuild-chroot-config.cc
+	(parse_data): Catch and report chroot deserialisation errors.
+
+	* sbuild/sbuild-chroot-plain.cc
+	(set_keyfile): "location" must be absolute.
+
+	* sbuild/sbuild-chroot-file.cc
+	(set_keyfile): "file" must be absolute.
+
+	* sbuild/sbuild-chroot.cc
+	(set_keyfile): "mount-device" and "mount-location" must be
+	absolute.
+
+	* sbuild/sbuild-chroot-lvm-snapshot.cc
+	(set_keyfile): "lvm-snapshot-device" must be absolute.
+
+	* sbuild/sbuild-chroot-block-device.cc
+	(get_location): Remove unused function
+	(set_location): Remove unused function
+	(get_keyfile): Remove "location".
+	(set_keyfile): Obsolete "location".  "device" must be absolute.
+
+	* sbuild/sbuild-chroot.h (sbuild): Add DEVICE_ABS, FILE_ABS and
+	LOCATION_ABS error codes.
+
+	* sbuild/sbuild-keyfile.cc (check_priority): Add missing break in
+	switch.
+
+	* dchroot-dsa/dchroot-dsa-session.cc (get_user_command): Throw a
+	COMMAND_ABS error if the command is not absolute.
+
+	* sbuild/sbuild-session.(cc|h): Add a COMMAND_ABS error code.
+
+	* dchroot-dsa/dchroot-dsa-options.cc (check_options): Throw an
+	error if the command is not an absolute path.  This optimisation
+	means a session is not set up if it is already known it will fail.
+
+	* sbuild/sbuild-util.cc (is_absname): New function.  This checks
+	if a path is absolute.
+
+2006-06-25  Roger Leigh  <rleigh@debian.org>
 
 	* All derived chroot types: Replace print_details with
 	get_details.

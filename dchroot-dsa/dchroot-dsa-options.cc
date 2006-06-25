@@ -21,6 +21,8 @@
 
 #include "dchroot-dsa-options.h"
 
+#include <sbuild/sbuild-util.h>
+
 #include <cstdlib>
 #include <iostream>
 
@@ -100,4 +102,8 @@ options::check_options ()
   // dchroot-dsa only allows one command.
   if (this->command.size() > 1)
     throw opt::validation_error(_("Only one command may be specified"));
+
+  if (!this->command.empty() &&
+      !sbuild::is_absname(this->command[0]))
+    throw opt::validation_error(_("Command must have an absolute path"));
 }

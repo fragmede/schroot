@@ -69,6 +69,7 @@ namespace
       emap(session::CHROOT_SETUP,   N_("Chroot setup failed")),
       emap(session::CHROOT_UNKNOWN, N_("Failed to find chroot")),
       emap(session::CHROOT_UNLOCK,  N_("Failed to unlock chroot")),
+      emap(session::COMMAND_ABS,    N_("Command must have an absolute path")),
       emap(session::EXEC,           N_("Failed to execute")),
       emap(session::GROUP_GET_SUP,  N_("Failed to get supplementary groups")),
       emap(session::GROUP_GET_SUPC, N_("Failed to get supplementary group count")),
@@ -905,9 +906,6 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 
   std::string location(session_chroot->get_path());
 
-  /* Child errors result in immediate exit().  Errors are not
-     propagated back via an exception, because there is no longer any
-     higher-level handler to catch them. */
   try
     {
       open_session();

@@ -64,6 +64,16 @@ namespace sbuild
 	      char        separator = '/');
 
   /**
+   * Check if a pathname is absolute.
+   *
+   * @param name the path to check.
+   * @returns true if the name is absolute or false if it is not, or
+   * if name is empty.
+   */
+  bool
+  is_absname (std::string const& name);
+
+  /**
    * Convert a string_list into a string.  The strings are
    * concatenated using separator as a delimiter.
    *

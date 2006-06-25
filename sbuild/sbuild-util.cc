@@ -121,6 +121,15 @@ sbuild::normalname (std::string name,
   return remove_duplicates(name, separator);
 }
 
+bool
+sbuild::is_absname (std::string const& name)
+{
+  if (name.empty() || name[0] != '/')
+    return false;
+  else
+    return true;
+}
+
 std::string
 sbuild::string_list_to_string (sbuild::string_list const& list,
 			       std::string const&         separator)

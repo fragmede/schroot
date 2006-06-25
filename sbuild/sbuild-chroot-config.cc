@@ -474,7 +474,17 @@ chroot_config::parse_data (std::istream& stream,
       kconfig.get_value(*group, "type", type);
       chroot::ptr chroot = chroot::create(type);
       chroot->set_name(*group);
-      kconfig >> chroot;
+
+      try
+	{
+	  kconfig >> chroot;
+	}
+      catch (const runtime_error& e)
+	{
+	  format fmt(_("%1% chroot"));
+	  fmt % *group;
+	  throw error(fmt.str(), e.what());
+	}
 
       add(chroot);
 

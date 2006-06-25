@@ -35,7 +35,7 @@ sbuild::custom_error<T>::get_error (error_type error)
     return gettext(pos->second);
 
   // Untranslated: it's a programming error to get this message.
-  return "unknown error";
+  return "Unknown error";
 }
 
 template <typename T>

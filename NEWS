@@ -24,6 +24,12 @@ configuration.
      control over access.  Corresponding "source-users" and
      "source-root-users" options have been added for source chroots.
 
+  4) Files, Devices and Locations in schroot.conf must be absolute
+     pathnames.  Relative names are a security risk, because the
+     behaviour may vary depending on the current working directory.
+     It was previously the sysadmin's responsibility to set these
+     correctly, but this rule is now strictly enforced.
+
 * Major changes in 0.99.0:
 
   1) In order to support running 32-bit chroots on 64-bit systems, a

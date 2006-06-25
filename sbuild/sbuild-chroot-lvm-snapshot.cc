@@ -230,7 +230,11 @@ chroot_lvm_snapshot::set_keyfile (keyfile const& keyfile)
 			keyfile::PRIORITY_REQUIRED :
 			keyfile::PRIORITY_DISALLOWED,
 			snapshot_device))
-    set_snapshot_device(snapshot_device);
+    {
+      if (!is_absname(snapshot_device))
+	throw error(snapshot_device, DEVICE_ABS);
+      set_snapshot_device(snapshot_device);
+    }
 
   std::string snapshot_options;
   if (keyfile.get_value(get_name(), "lvm-snapshot-options",

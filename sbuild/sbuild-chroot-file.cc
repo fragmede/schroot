@@ -170,7 +170,11 @@ chroot_file::set_keyfile (keyfile const& keyfile)
   std::string file;
   if (keyfile.get_value(get_name(), "file",
 			keyfile::PRIORITY_REQUIRED, file))
-    set_file(file);
+    {
+      if (!is_absname(file))
+	throw error(file, FILE_ABS);
+      set_file(file);
+    }
 
   keyfile.get_value(get_name(), "file-repack",
 		    get_active() ?

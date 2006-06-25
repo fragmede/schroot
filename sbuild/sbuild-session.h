@@ -75,6 +75,7 @@ namespace sbuild
 	CHROOT_SETUP,   ///< Setup failed.
 	CHROOT_UNKNOWN, ///< Failed to find chroot.
 	CHROOT_UNLOCK,  ///< Failed to unlock chroot.
+	COMMAND_ABS,    ///< Command must have an absolute path.
 	EXEC,           ///< Failed to execute.
 	GROUP_GET_SUP,  ///< Failed to get supplementary groups.
 	GROUP_GET_SUPC, ///< Failed to get supplementary group count

@@ -54,21 +54,24 @@ namespace
    */
   emap init_errors[] =
     {
-      emap(sbuild::chroot::CHROOT_TYPE,     N_("Unknown chroot type")),
       emap(sbuild::chroot::CHROOT_CREATE,   N_("Chroot creation failed")),
       emap(sbuild::chroot::CHROOT_DEVICE,   N_("Device name not set")),
-      emap(sbuild::chroot::SESSION_WRITE,   N_("Failed to write session file")),
-      emap(sbuild::chroot::SESSION_UNLINK,  N_("Failed to unlink session file")),
-      emap(sbuild::chroot::FILE_STAT,       N_("Failed to stat file")),
+      emap(sbuild::chroot::CHROOT_TYPE,     N_("Unknown chroot type")),
+      emap(sbuild::chroot::DEVICE_ABS,      N_("Device must have an absolute path")),
+      emap(sbuild::chroot::DEVICE_LOCK,     N_("Failed to lock device")),
+      emap(sbuild::chroot::DEVICE_NOTBLOCK, N_("File is not a block device")),
+      emap(sbuild::chroot::DEVICE_STAT,     N_("Failed to stat device")),
+      emap(sbuild::chroot::DEVICE_UNLOCK,   N_("Failed to unlock device")),
+      emap(sbuild::chroot::FILE_ABS,        N_("File must have an absolute path")),
+      emap(sbuild::chroot::FILE_LOCK,       N_("Failed to acquire file lock")),
+      emap(sbuild::chroot::FILE_NOTREG,     N_("File is not a regular file")),
       emap(sbuild::chroot::FILE_OWNER,      N_("File is not owned by user root")),
       emap(sbuild::chroot::FILE_PERMS,      N_("File has write permissions for others")),
-      emap(sbuild::chroot::FILE_NOTREG,     N_("File is not a regular file")),
-      emap(sbuild::chroot::FILE_LOCK,       N_("Failed to acquire file lock")),
+      emap(sbuild::chroot::FILE_STAT,       N_("Failed to stat file")),
       emap(sbuild::chroot::FILE_UNLOCK,     N_("Failed to discard file lock")),
-      emap(sbuild::chroot::DEVICE_STAT,     N_("Failed to stat device")),
-      emap(sbuild::chroot::DEVICE_NOTBLOCK, N_("File is not a block device")),
-      emap(sbuild::chroot::DEVICE_LOCK,     N_("Failed to lock device")),
-      emap(sbuild::chroot::DEVICE_UNLOCK,   N_("Failed to unlock device"))
+      emap(sbuild::chroot::LOCATION_ABS,    N_("Location must have an absolute path")),
+      emap(sbuild::chroot::SESSION_UNLINK,  N_("Failed to unlink session file")),
+      emap(sbuild::chroot::SESSION_WRITE,   N_("Failed to write session file"))
     };
 
 }
@@ -580,14 +583,22 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 			get_active() ?
 			keyfile::PRIORITY_REQUIRED : keyfile::PRIORITY_DISALLOWED,
 			mount_location))
-    set_mount_location(mount_location);
+    {
+      if (!is_absname(mount_location))
+	throw error(mount_location, LOCATION_ABS);
+      set_mount_location(mount_location);
+    }
 
   std::string mount_device;
   if (keyfile.get_value(this->name, "mount-device",
 			get_active() ?
 			keyfile::PRIORITY_OPTIONAL : keyfile::PRIORITY_DISALLOWED,
 			mount_device))
-    set_mount_device(mount_device);
+    {
+      if (!is_absname(mount_device))
+	throw error(mount_device, DEVICE_ABS);
+      set_mount_device(mount_device);
+    }
 
   string_list command_prefix;
   if (keyfile.get_list_value(this->name, "command-prefix",

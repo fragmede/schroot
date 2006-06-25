@@ -136,7 +136,11 @@ chroot_plain::set_keyfile (keyfile const& keyfile)
   std::string location;
   if (keyfile.get_value(get_name(), "location",
 			keyfile::PRIORITY_REQUIRED, location))
-    set_location(location);
+    {
+      if (!is_absname(location))
+	throw error(location, LOCATION_ABS);
+      set_location(location);
+    }
 }
 
 /*

@@ -82,24 +82,6 @@ namespace sbuild
     void
     set_mount_options (std::string const& mount_options);
 
-    /**
-     * Get the location.  This is a path to the chroot directory
-     * inside the LV (absolute path from the LV root).
-     *
-     * @returns the location.
-     */
-    virtual std::string const&
-    get_location () const;
-
-    /**
-     * Set the location.  This is a path to the chroot directory
-     * inside the LV (absolute path from the LV root).
-     *
-     * @param location the location.
-     */
-    virtual void
-    set_location (std::string const& location);
-
     virtual std::string const&
     get_chroot_type () const;
 
