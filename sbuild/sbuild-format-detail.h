@@ -20,7 +20,6 @@
 #ifndef SBUILD_FORMAT_DETAIL_H
 #define SBUILD_FORMAT_DETAIL_H
 
-#include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-types.h>
 #include <sbuild/sbuild-util.h>
 

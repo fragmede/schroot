@@ -20,24 +20,15 @@
 #ifndef SBUILD_CHROOT_H
 #define SBUILD_CHROOT_H
 
-#include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-custom-error.h>
 #include <sbuild/sbuild-environment.h>
 #include <sbuild/sbuild-format-detail.h>
 #include <sbuild/sbuild-keyfile.h>
 #include <sbuild/sbuild-personality.h>
+#include <sbuild/sbuild-tr1types.h>
 
 #include <ostream>
 #include <string>
-
-#ifdef HAVE_TR1_MEMORY
-#include <tr1/memory>
-#elif HAVE_BOOST_SHARED_PTR_HPP
-#include <boost/shared_ptr.hpp>
-namespace std { namespace tr1 { using boost::shared_ptr; } }
-#else
-#error A shared_ptr implementation is not available
-#endif
 
 namespace sbuild
 {

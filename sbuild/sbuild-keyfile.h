@@ -20,27 +20,18 @@
 #ifndef SBUILD_KEYFILE_H
 #define SBUILD_KEYFILE_H
 
-#include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-i18n.h>
 #include <sbuild/sbuild-log.h>
 #include <sbuild/sbuild-parse-error.h>
 #include <sbuild/sbuild-parse-value.h>
 #include <sbuild/sbuild-types.h>
+#include <sbuild/sbuild-tr1types.h>
 #include <sbuild/sbuild-util.h>
 
 #include <cassert>
 #include <map>
 #include <string>
 #include <sstream>
-
-#ifdef HAVE_TR1_TUPLE
-#include <tr1/tuple>
-#elif HAVE_BOOST_TUPLE_TUPLE_HPP
-#include <boost/tuple/tuple.hpp>
-namespace std { namespace tr1 { using boost::tuple; using boost::get; } }
-#else
-#error A shared_ptr implementation is not available
-#endif
 
 #include <boost/format.hpp>
 

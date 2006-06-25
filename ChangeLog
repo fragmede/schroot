@@ -1,5 +1,13 @@
 2006-06-25  Roger Leigh  <rleigh@debian.org>
 
+	* All headers using tr1::shared_ptr or tr1::tuple include
+	sbuild-tr1types.h.
+
+	* sbuild/sbuild-tr1types.h: New header.  Include tr1 or boost
+	shared_ptr and tuple headers into the tr1 namespace.
+
+2006-06-25  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-session.cc
 	(wait_for_child): pid is a pid_t, not int.
 

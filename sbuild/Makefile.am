@@ -57,6 +57,7 @@ sbuild_public_h_sources =		\
 	sbuild-personality.h		\
 	sbuild-session.h		\
 	sbuild-types.h			\
+	sbuild-tr1types.h		\
 	sbuild-util.h
 
 sbuild_public_cc_sources =		\
