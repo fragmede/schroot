@@ -45,6 +45,7 @@ chroot_source::clone_source_setup (chroot::ptr& clone) const
   clone->set_name(clone->get_name() + "-source");
   clone->set_description
     (clone->get_description() + ' ' + _("(source chroot)"));
+  clone->set_original(false);
   clone->set_users(this->get_source_users());
   clone->set_groups(this->get_source_groups());
   clone->set_root_users(this->get_source_root_users());

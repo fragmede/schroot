@@ -351,6 +351,22 @@ namespace sbuild
     set_active (bool active);
 
     /**
+     * Get the originality of the chroot.
+     *
+     * @returns true if original, false if generated.
+     */
+    bool
+    get_original () const;
+
+    /**
+     * Set the originality of the chroot.
+     *
+     * @param original true if original, false if geneated.
+     */
+    void
+    set_original (bool original);
+
+    /**
      * Check if chroot setup scripts will be run.
      *
      * @returns true if setup scripts will be run, otherwise false.
@@ -610,6 +626,8 @@ namespace sbuild
     std::string   mount_device;
     /// Chroot activity status.
     bool          active;
+    /// Was the chroot automatically generated?
+    bool          original;
     /// Run chroot setup scripts?
     bool          run_setup_scripts;
     /// Run chroot exec scripts?

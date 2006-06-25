@@ -366,9 +366,12 @@ chroot_config::print_chroot_config (string_list const& chroots,
        ++pos)
     {
       const chroot::ptr chroot = find_alias(*pos);
+
+      // Generated chroots (e.g. source chroots) are not printed.
       if (chroot)
 	{
-	  info << chroot;
+	  if (chroot->get_original())
+	    info << chroot;
 	}
       else
 	{

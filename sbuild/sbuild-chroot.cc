@@ -95,6 +95,7 @@ sbuild::chroot::chroot ():
   location(),
   mount_device(),
   active(false),
+  original(true),
   run_setup_scripts(false),
   run_exec_scripts(false),
   command_prefix(),
@@ -282,6 +283,18 @@ void
 sbuild::chroot::set_active (bool active)
 {
   this->active = active;
+}
+
+bool
+sbuild::chroot::get_original () const
+{
+  return this->original;
+}
+
+void
+sbuild::chroot::set_original (bool original)
+{
+  this->original = original;
 }
 
 bool
@@ -595,7 +608,7 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 			keyfile::PRIORITY_OPTIONAL : keyfile::PRIORITY_DISALLOWED,
 			mount_device))
     {
-      if (!is_absname(mount_device))
+      if (!mount_device.empty() && !is_absname(mount_device))
 	throw error(mount_device, DEVICE_ABS);
       set_mount_device(mount_device);
     }

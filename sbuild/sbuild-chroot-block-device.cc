@@ -84,6 +84,18 @@ chroot_block_device::set_mount_options (std::string const& mount_options)
 }
 
 std::string const&
+chroot_block_device::get_location () const
+{
+  return chroot::get_location();
+}
+
+void
+chroot_block_device::set_location (std::string const& location)
+{
+  chroot::set_location(location);
+}
+
+std::string const&
 chroot_block_device::get_chroot_type () const
 {
   static const std::string type("block-device");
@@ -179,6 +191,9 @@ chroot_block_device::get_keyfile (keyfile& keyfile) const
 
   keyfile.set_value(get_name(), "mount-options",
 		    get_mount_options());
+
+  keyfile.set_value(get_name(), "location",
+		    get_location());
 }
 
 void
@@ -201,8 +216,13 @@ chroot_block_device::set_keyfile (keyfile const& keyfile)
     set_mount_options(mount_options);
 
   std::string location;
-  keyfile.get_value(get_name(), "location",
-		    keyfile::PRIORITY_OBSOLETE, location);
+  if (keyfile.get_value(get_name(), "location",
+			keyfile::PRIORITY_OPTIONAL, location))
+    {
+      if (!location.empty() && !is_absname(location))
+	throw error(location, LOCATION_ABS);
+      set_location(location);
+    }
 }
 
 /*

@@ -1,3 +1,23 @@
+2006-06-25  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* sbuild/sbuild-chroot-block-device.cc
+	(get_location): Restore
+	(set_location): Restore
+	(get_keyfile): Restore "location".
+	(set_keyfile): Restore "location".  "location" (if specified) must
+	be absolute.
+
+	* sbuild/sbuild-chroot-config.cc (print_chroot_config): Don't
+	output generated chroots.
+
+	* sbuild/sbuild-chroot-source.cc (clone_source_setup): Set the
+	chroot originality to false when cloning.
+
+	* sbuild/sbuild-chroot.(cc|h): Add "original" member, plus getter
+	and setter.  This records if the chroot was automatically
+	generated or not.  Don't check of "mount-device" is absolute if
+	it's empty, since this is optional.
+
 2006-06-25  Roger Leigh  <rleigh@debian.org>
 
 	* NEWS: Document strict absolute path checks.
