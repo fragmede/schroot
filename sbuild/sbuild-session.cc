@@ -1020,8 +1020,8 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 }
 
 void
-session::wait_for_child (int  pid,
-			 int& child_status)
+session::wait_for_child (pid_t pid,
+			 int&  child_status)
 {
   child_status = EXIT_FAILURE; // Default exit status
 

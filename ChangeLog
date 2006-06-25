@@ -1,5 +1,10 @@
 2006-06-25  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-session.cc
+	(wait_for_child): pid is a pid_t, not int.
+
+2006-06-25  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-releaselock.cc (print_version): Use gmdate.
 
 	* schroot/schroot-listmounts.cc (print_version): Use gmdate.

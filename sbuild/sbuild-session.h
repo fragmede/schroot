@@ -365,8 +365,8 @@ namespace sbuild
      * @param child_status the place to store the child exit status.
      */
     void
-    wait_for_child (int  pid,
-		    int& child_status);
+    wait_for_child (pid_t pid,
+		    int&  child_status);
 
     /**
      * Set the SIGHUP handler.
