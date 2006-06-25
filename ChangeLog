@@ -1,5 +1,23 @@
 2006-06-25  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot-releaselock.cc (print_version): Use gmdate.
+
+	* schroot/schroot-listmounts.cc (print_version): Use gmdate.
+
+	* dchroot/dchroot-main-base.cc
+	(action_config): Add current date to header comment.  Print help
+	comments only if using dchroot.conf.
+
+	* schroot/schroot-main.cc
+	(action_version): Use gmdate.
+	(action_config): Add current date to header comment.
+
+	* sbuild/sbuild-types.h (sbuild): Split date into gmdate and date
+	clases for UTC and local dates respectively, with a date_base
+	class to handle common formatting.
+
+2006-06-25  Roger Leigh  <rleigh@debian.org>
+
 	* Remove redundant includes from all headers.
 
 2006-06-25  Roger Leigh  <rleigh@debian.org>

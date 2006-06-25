@@ -54,7 +54,7 @@ void
 print_version (std::ostream& stream)
 {
   format fmt(_("%1% (Debian sbuild) %2% (%3%)\n"));
-  fmt % "schroot-releaselock" % VERSION % sbuild::date(RELEASE_DATE);
+  fmt % "schroot-releaselock" % VERSION % sbuild::gmdate(RELEASE_DATE);
 
   stream << fmt
 	 << _("Written by Roger Leigh\n\n")

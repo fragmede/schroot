@@ -33,26 +33,30 @@ namespace sbuild
   typedef std::vector<std::string> string_list;
 
   /// A date representation.
-  class date
+  class date_base
   {
   public:
-    date (time_t unix_time):
-      unix_time(unix_time)
+    typedef std::tm *(*break_time_func)(const time_t *timep, std:: tm *result);
+
+    date_base (time_t          unix_time,
+	       break_time_func break_time):
+      unix_time(unix_time),
+      break_time(break_time)
     {}
 
-    ~date ()
+    ~date_base ()
     {}
 
     template <class charT, class traits>
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-		 date const&                       dt)
+		 date_base const&                  dt)
     {
       std::ios_base::iostate err = std::ios_base::goodbit;
 
       std::tm dtm;
-      if (gmtime_r(&dt.unix_time, &dtm) == 0)
+      if ((dt.break_time(&dt.unix_time, &dtm)) == 0)
 	{
 	  err = std::ios_base::badbit;
 	}
@@ -103,7 +107,30 @@ namespace sbuild
     }
 
   private:
-    time_t unix_time;
+    time_t          unix_time;
+    break_time_func break_time;
+  };
+
+  class gmdate : public date_base
+  {
+  public:
+    gmdate (time_t          unix_time):
+      date_base(unix_time, gmtime_r)
+    {}
+
+    ~gmdate ()
+    {}
+  };
+
+  class date : public date_base
+  {
+  public:
+    date (time_t          unix_time):
+      date_base(unix_time, localtime_r)
+    {}
+
+    ~date ()
+    {}
   };
 
 }
