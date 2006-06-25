@@ -26,11 +26,8 @@
 
 #include <string>
 
+#include <signal.h>
 #include <sys/types.h>
-#include <sys/wait.h>
-#include <grp.h>
-#include <pwd.h>
-#include <unistd.h>
 
 namespace sbuild
 {

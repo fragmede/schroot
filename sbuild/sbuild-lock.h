@@ -27,7 +27,6 @@
 #include <sys/time.h>
 #include <fcntl.h>
 #include <signal.h>
-#include <unistd.h>
 
 namespace sbuild
 {

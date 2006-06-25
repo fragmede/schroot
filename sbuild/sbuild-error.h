@@ -22,8 +22,6 @@
 
 #include <stdexcept>
 
-#include <boost/format.hpp>
-
 namespace sbuild
 {
 

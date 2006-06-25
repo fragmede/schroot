@@ -23,6 +23,7 @@
 #include <sbuild/sbuild-types.h>
 
 #include <algorithm>
+#include <iostream>
 
 #include <cppunit/extensions/HelperMacros.h>
 

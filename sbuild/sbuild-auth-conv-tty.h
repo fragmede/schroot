@@ -23,12 +23,6 @@
 #include <sbuild/sbuild-auth-conv.h>
 #include <sbuild/sbuild-custom-error.h>
 
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <grp.h>
-#include <pwd.h>
-#include <unistd.h>
-
 #include <security/pam_appl.h>
 #include <security/pam_misc.h>
 

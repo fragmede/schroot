@@ -22,17 +22,13 @@
 
 #include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-custom-error.h>
-#include <sbuild/sbuild-error.h>
 #include <sbuild/sbuild-environment.h>
 #include <sbuild/sbuild-format-detail.h>
 #include <sbuild/sbuild-keyfile.h>
 #include <sbuild/sbuild-personality.h>
-#include <sbuild/sbuild-util.h>
 
-#include <iomanip>
 #include <ostream>
 #include <string>
-#include <vector>
 
 #ifdef HAVE_TR1_MEMORY
 #include <tr1/memory>

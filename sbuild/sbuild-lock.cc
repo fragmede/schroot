@@ -24,8 +24,6 @@
 #include <cerrno>
 #include <cstdlib>
 
-#include <sys/types.h>
-#include <signal.h>
 #include <unistd.h>
 
 #include <boost/format.hpp>

@@ -24,7 +24,6 @@
 #include <sbuild/sbuild-types.h>
 
 #include <string>
-#include <vector>
 
 #ifdef HAVE_TR1_MEMORY
 #include <tr1/memory>

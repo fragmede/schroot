@@ -21,7 +21,6 @@
 #define SBUILD_KEYFILE_H
 
 #include <sbuild/sbuild-config.h>
-#include <sbuild/sbuild-error.h>
 #include <sbuild/sbuild-i18n.h>
 #include <sbuild/sbuild-log.h>
 #include <sbuild/sbuild-parse-error.h>
@@ -30,7 +29,6 @@
 #include <sbuild/sbuild-util.h>
 
 #include <cassert>
-#include <iostream>
 #include <map>
 #include <string>
 #include <sstream>

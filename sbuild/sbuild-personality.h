@@ -20,7 +20,6 @@
 #ifndef SBUILD_PERSONALITY_H
 #define SBUILD_PERSONALITY_H
 
-#include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-custom-error.h>
 
 #include <map>

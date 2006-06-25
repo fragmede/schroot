@@ -23,6 +23,8 @@
 #include <sbuild/sbuild-auth-message.h>
 #include <sbuild/sbuild-error.h>
 
+#include <vector>
+
 #include <security/pam_appl.h>
 
 namespace sbuild

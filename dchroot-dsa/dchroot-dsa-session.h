@@ -22,14 +22,6 @@
 
 #include <dchroot/dchroot-session-base.h>
 
-#include <string>
-
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <grp.h>
-#include <pwd.h>
-#include <unistd.h>
-
 namespace dchroot_dsa
 {
 

@@ -21,7 +21,6 @@
 #define SBUILD_AUTH_MESSAGE_H
 
 #include <string>
-#include <vector>
 
 #include <security/pam_appl.h>
 

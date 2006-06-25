@@ -25,8 +25,6 @@
 #include <map>
 #include <string>
 
-#include <boost/format.hpp>
-
 namespace sbuild
 {
 

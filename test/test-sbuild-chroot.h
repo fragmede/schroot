@@ -23,6 +23,7 @@
 #include <sbuild/sbuild-chroot.h>
 
 #include <algorithm>
+#include <iostream>
 #include <set>
 
 #include <cppunit/extensions/HelperMacros.h>

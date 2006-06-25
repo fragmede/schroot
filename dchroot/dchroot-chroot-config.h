@@ -22,11 +22,6 @@
 
 #include <sbuild/sbuild-chroot-config.h>
 
-#include <map>
-#include <ostream>
-#include <vector>
-#include <string>
-
 namespace dchroot
 {
 

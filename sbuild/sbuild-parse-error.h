@@ -21,12 +21,9 @@
 #define SBUILD_PARSE_ERROR_H
 
 #include <sbuild/sbuild-error.h>
-#include <sbuild/sbuild-log.h>
 
 #include <map>
 #include <string>
-
-#include <boost/format.hpp>
 
 namespace sbuild
 {
