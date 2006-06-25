@@ -43,7 +43,12 @@ Building and installation
 
 Please see the INSTALL file for generic installation instructions.
 Note that the testsuite ("make check") should be run under fakeroot or
-real root in order to work correctly.
+real root in order to work correctly.  There are the following
+additional options:
+
+  --enable-dchroot:      Build dchroot.
+  --enable-dchroot-dsa:  Build DSA dchroot
+  --enable-debug:        Enable debugging features (not recommended)
 
 
 Configuration

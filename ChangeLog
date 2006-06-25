@@ -1,4 +1,8 @@
-2006-06-25  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2006-06-25  Roger Leigh  <rleigh@debian.org>
+
+	* README: Document non-standard configure options.
+
+2006-06-25  Roger Leigh  <rleigh@debian.org>
 
 	* sbuild/sbuild-chroot-lvm-snapshot.cc
 	(get_keyfile): Don't save the "lvm-snapshot-device" attribute
