@@ -70,7 +70,6 @@ namespace schroot
      *
      * @param argc the number of arguments.
      * @param argv the list of arguments.
-     * @param compat the compatibility mode.
      */
     options_base (int                 argc,
 		  char               *argv[]);

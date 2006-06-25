@@ -42,9 +42,8 @@ namespace sbuild
     /**
      * The constructor.
      *
-     * @param name the name of the property to format.
-     * @param value the value of the property to format.  The value
-     * type must support output to an ostream.
+     * @param title the title of the set of name and value pairs.
+     * @param locale the locale to use for formatting the values.
      */
     format_detail (const std::string& title,
 		   std::locale        locale);

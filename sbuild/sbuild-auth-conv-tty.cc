@@ -279,7 +279,7 @@ auth_conv_tty::conversation (message_list& messages)
 	   cur != messages.end();
 	   ++cur)
 	{
-	  switch (cur->message_type)
+	  switch (cur->type)
 	    {
 	    case auth_message::MESSAGE_PROMPT_NOECHO:
 	      cur->response = read_string(cur->message, false);
@@ -296,7 +296,7 @@ auth_conv_tty::conversation (message_list& messages)
 	    default:
 	      {
 		format fmt("%1%");
-		fmt % cur->message_type;
+		fmt % cur->type;
 		error e(fmt.str(), CONV_TYPE);
 		log_error() << e.what() << endl;
 		return false;

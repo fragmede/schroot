@@ -1,5 +1,10 @@
 2006-06-25  Roger Leigh  <rleigh@debian.org>
 
+	* Update API reference, fixing a few undocumented members and
+	updating the doxygen config file.
+
+2006-06-25  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Close #373943.
 
 2006-06-25  Roger Leigh  <rleigh@debian.org>

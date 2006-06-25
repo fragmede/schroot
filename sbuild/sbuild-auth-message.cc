@@ -23,9 +23,9 @@
 
 using namespace sbuild;
 
-auth_message::auth_message (auth_message::type type,
+auth_message::auth_message (message_type       type,
 			    std::string const& message):
-  message_type(type),
+  type(type),
   message(message),
   response()
 {

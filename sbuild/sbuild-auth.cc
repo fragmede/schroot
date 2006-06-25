@@ -89,7 +89,7 @@ namespace
 	const struct pam_message *source = msgm[i];
 
 	auth_message
-	  message(static_cast<auth_message::type>(source->msg_style),
+	  message(static_cast<auth_message::message_type>(source->msg_style),
 		  source->msg);
 	messages.push_back(message);
       }

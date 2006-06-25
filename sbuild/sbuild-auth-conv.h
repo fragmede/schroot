@@ -99,8 +99,8 @@ namespace sbuild
      *
      * Each of the messages detailed in messages should be displayed
      * to the user, asking for input where required.  The type of
-     * message is indicated in the auth_message::message_type field of
-     * the auth_message.  The auth_message::response field of the
+     * message is indicated in the auth_message::type field of the
+     * auth_message.  The auth_message::response field of the
      * auth_message should be filled in if input is required.
      *
      * @param messages the messages to display to the user, and

@@ -41,7 +41,7 @@ namespace sbuild
   {
   public:
     /// Message type
-    enum type
+    enum message_type
       {
 	/// Display a prompt, with no echoing of user input.
 	MESSAGE_PROMPT_NOECHO = PAM_PROMPT_ECHO_OFF,
@@ -56,21 +56,21 @@ namespace sbuild
     /**
      * The constructor.
      *
-     * @param message_type the type of message.
+     * @param type the type of message.
      * @param message the message to display.
      */
-    auth_message (type               message_type,
+    auth_message (message_type       type,
 		  std::string const& message);
 
     /// The destructor.
     virtual ~auth_message ();
 
     /// The type of message.
-    type        message_type;
+    message_type type;
     /// The message to display.
-    std::string message;
+    std::string  message;
     /// The user's response (if any).
-    std::string response;
+    std::string  response;
   };
 
 }
