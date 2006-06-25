@@ -211,8 +211,9 @@ chroot_lvm_snapshot::get_keyfile (keyfile& keyfile) const
   chroot_block_device::get_keyfile(keyfile);
   chroot_source::get_keyfile(keyfile);
 
-  keyfile.set_value(get_name(), "lvm-snapshot-device",
-		    get_snapshot_device());
+  if (get_active())
+    keyfile.set_value(get_name(), "lvm-snapshot-device",
+		      get_snapshot_device());
 
   keyfile.set_value(get_name(), "lvm-snapshot-options",
 		    get_snapshot_options());

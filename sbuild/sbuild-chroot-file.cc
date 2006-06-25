@@ -157,8 +157,9 @@ chroot_file::get_keyfile (keyfile& keyfile) const
   keyfile.set_value(get_name(), "file",
 		    get_file());
 
-  keyfile.set_value(get_name(), "file-repack",
-		    this->repack);
+  if (get_active())
+    keyfile.set_value(get_name(), "file-repack",
+		      this->repack);
 }
 
 void

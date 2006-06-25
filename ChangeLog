@@ -1,5 +1,15 @@
 2006-06-25  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
 
+	* sbuild/sbuild-chroot-lvm-snapshot.cc
+	(get_keyfile): Don't save the "lvm-snapshot-device" attribute
+	unless the chroot is active.
+
+	* sbuild/sbuild-chroot-file.cc
+	(get_keyfile): Don't save the "file-repack" attribute unless the
+	chroot is active.
+
+2006-06-25  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-chroot-block-device.cc
 	(get_location): Restore
 	(set_location): Restore
