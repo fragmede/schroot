@@ -1,5 +1,9 @@
 2006-06-25  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Close #373943.
+
+2006-06-25  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.cc, dchroot/dchroot.cc,
 	dchroot-dsa/dchroot-dsa.cc: On an options parsing error, recommend
 	the user use --help.
