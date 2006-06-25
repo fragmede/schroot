@@ -1,5 +1,9 @@
 2006-06-25  Roger Leigh  <rleigh@debian.org>
 
+	* THANKS: Add adeodato, aeb, tbm and vorlon.
+
+2006-06-25  Roger Leigh  <rleigh@debian.org>
+
 	* README: Document non-standard configure options.
 
 2006-06-25  Roger Leigh  <rleigh@debian.org>

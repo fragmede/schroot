@@ -5,3 +5,11 @@ people:
 Ben Hutchings <benh@debian.org>
 	Help with many C++ problems, especially the intricacies of
 	templates and other obscure and annoying language features.
+
+Andreas Bombe <aeb@debian.org>
+Steve Langasek <vorlon@debian.org>
+Martin Michlmayr <tbm@debian.org>
+Adeodato Simó <adeodato@debian.org>
+	For many suggestions, feature requests and bug reports.
+	Without their destruction testing and help, schroot would not
+	have been pushed as far as it has.
