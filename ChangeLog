@@ -1,3 +1,9 @@
+2006-06-26  Roger Leigh  <rleigh@debian.org>
+
+	* dchroot-dsa/dchroot-dsa-options.cc
+	(check_options): Add check to ensure a chroot must be specified,
+	to prevent use of the "default" fallback.
+
 2006-06-25  Roger Leigh  <rleigh@debian.org>
 
 	* Update API reference, fixing a few undocumented members and

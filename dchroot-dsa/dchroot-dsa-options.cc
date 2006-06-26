@@ -106,4 +106,11 @@ options::check_options ()
   if (!this->command.empty() &&
       !sbuild::is_absname(this->command[0]))
     throw opt::validation_error(_("Command must have an absolute path"));
+
+  if (this->command.empty() && !all_used() &&
+      (this->action != ACTION_CONFIG &&
+       this->action != ACTION_LIST &&
+       this->action != ACTION_LOCATION &&
+       this->action != ACTION_VERSION))
+    throw opt::validation_error(_("No chroot specified"));
 }
