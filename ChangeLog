@@ -1,5 +1,10 @@
 2006-06-26  Roger Leigh  <rleigh@debian.org>
 
+	* scripts/setperms: New file.  Helper to set binaries setuid root
+	for testing.
+
+2006-06-26  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Bump version to 0.99.2.
 
 	* NEWS: Bump version to 0.99.2.
