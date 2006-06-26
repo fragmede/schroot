@@ -107,8 +107,9 @@ options::check_options ()
       !sbuild::is_absname(this->command[0]))
     throw opt::validation_error(_("Command must have an absolute path"));
 
-  if (this->command.empty() && !all_used() &&
+  if (this->chroots.empty() && !all_used() &&
       (this->action != ACTION_CONFIG &&
+       this->action != ACTION_INFO &&
        this->action != ACTION_LIST &&
        this->action != ACTION_LOCATION &&
        this->action != ACTION_VERSION))
