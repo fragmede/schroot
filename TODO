@@ -9,10 +9,73 @@ the Doxygen-generated documentation in doc/schroot/html/todo.html
 PENDING
 -------
 
+* Update documentation schroot.conf examples.
+
+* sbuild-session unnnamed namespace helper routines shouldn't exit
+
+  They should throw an exception instead.  Need to check suitable
+  catch blocks are in place.
+
+* Review quoting style.
+
+  Use of single and double quotes in strings is inconsistent.  Needs
+  the boost::format markup changes fixing first.  What are other
+  projects doing?
+
+* Handle charset conversion errors more gracefully.
+
+  sbuild-util widen_string and narrow_string.  Currently an error
+  occurs if in a C locale the string contains non-US-ASCII characters
+  or, in other locales if the gettext message catalogue has bad
+  strings.  The string is truncated to the point of error, or may be
+  empty depending where the error is.  We should error out a bit
+  better in this case.  Assertion, or exception?
+
+* Use boost::format markup in the standard error strings.
+
+  This will complete the i18n support for error translation.  It will
+  also allow templated exceptions which will simplify error reporting
+  for non-string types.
+
+* Suggest running with --help for helper binaries.
+
+  When options are incorrect, suggest running --help as for schroot,
+  dchroot and dchroot-dsa.  This depends on implementing frontend code
+  in helper binaries.
+
 PLANNED
 -------
 
+* Frontend code for helper binaries.
+
+  schroot-releaselock and schroot-listmounts should use a frontend
+  (main class) like schroot, dchroot and dchroot-dsa.
+
+* Replace run-parts(8) usage with internal reimplementation.
+
+  We don't need many of the run-parts features, and this is the only
+  Debian-specific feature
+
+* Move PAM open_session and close_session logic.
+
+  Move back from session to auth, or don't open the session in the
+  child process (because the open/close happen in different
+  processes).
+
+* Docstring argument namespace usage.
+
+  Doxygen is currently failing to parse correct C++ due to what looks
+  like namespace bugs in doxygen.  It would be great if we could fix
+  the code by fully qualifying the namespace where appropriate.
+
+* Chroot config errors should report the keyfile line number.
+
+  This is difficult, because the keyfile parsing is completed, and the
+  line numbers are lost.  Perhaps the keyfile should cache the line
+  numbers during read and recompute on write?
+
 * Add API to run multiple commands to replace auth::run().
+
 
 POTENTIAL
 ---------

@@ -187,10 +187,10 @@ namespace sbuild
 	  std::string const& strval(std::tr1::get<1>(*found_item));
 	  try
 	    {
-	      value = static_cast<T const&>(parse_value(strval));
+	      parse_value(strval, value);
 	      return true;
 	    }
-	  catch (parse_value::error const& e)
+	  catch (parse_error const& e)
 	    {
 	      error ep(group, key, parse_error::NONE, e.what());
 	      log_warning() << ep.what() << std::endl;
@@ -320,7 +320,20 @@ namespace sbuild
 	       ++pos
 	       )
 	    {
-	      container.push_back(static_cast<typename C::const_reference>(parse_value(*pos)));
+	      typename C::value_type tmp;
+
+	      try
+		{
+		  parse_value(*pos, tmp);
+		}
+	      catch (parse_error const& e)
+		{
+		  error ep(group, key, parse_error::NONE, e.what());
+		  log_warning() << ep.what() << std::endl;
+		  return false;
+		}
+
+	      container.push_back(tmp);
 	    }
 	  return true;
 	}

@@ -42,18 +42,24 @@ public:
     bool result;
 
     result = false;
-    CPPUNIT_ASSERT((result = sbuild::parse_value("true")) == true);
+    sbuild::parse_value("true", result);
+    CPPUNIT_ASSERT(result == true);
     result = false;
-    CPPUNIT_ASSERT((result = sbuild::parse_value("yes")) == true);
+    sbuild::parse_value("yes", result);
+    CPPUNIT_ASSERT(result == true);
     result = false;
-    CPPUNIT_ASSERT((result = sbuild::parse_value("1")) == true);
+    sbuild::parse_value("1", result);
+    CPPUNIT_ASSERT(result == true);
 
     result = true;
-    CPPUNIT_ASSERT((result = sbuild::parse_value("false")) == false);
+    sbuild::parse_value("false", result);
+    CPPUNIT_ASSERT(result == false);
     result = true;
-    CPPUNIT_ASSERT((result = sbuild::parse_value("no")) == false);
+    sbuild::parse_value("no", result);
+    CPPUNIT_ASSERT(result == false);
     result = true;
-    CPPUNIT_ASSERT((result = sbuild::parse_value("0")) == false);
+    sbuild::parse_value("0", result);
+    CPPUNIT_ASSERT(result == false);
   }
 
   void test_bool_fail()
@@ -62,9 +68,9 @@ public:
 
     try
       {
-	result = sbuild::parse_value("invalid");
+	sbuild::parse_value("invalid", result);
       }
-    catch (sbuild::parse_value::error const& e)
+    catch (sbuild::parse_error const& e)
       {
 	// Exception thown, and original value unmodified.
 	CPPUNIT_ASSERT(result == true);
@@ -77,8 +83,8 @@ public:
   void test_int()
   {
     int result = 0;
-
-    CPPUNIT_ASSERT((result = sbuild::parse_value("23")) == 23);
+    sbuild::parse_value("23", result);
+    CPPUNIT_ASSERT(result == 23);
   }
 
   void test_int_fail()
@@ -87,9 +93,9 @@ public:
 
     try
       {
-	result = sbuild::parse_value("invalid");
+	sbuild::parse_value("invalid", result);
       }
-    catch (sbuild::parse_value::error const& e)
+    catch (sbuild::parse_error const& e)
       {
 	// Exception thown, and original value unmodified.
 	CPPUNIT_ASSERT(result == 22);
@@ -103,8 +109,8 @@ public:
   {
     std::string result;
 
-    CPPUNIT_ASSERT((result = static_cast<std::string const&>(sbuild::parse_value("test string"))) ==
-      "test string");
+    sbuild::parse_value("test string", result);
+    CPPUNIT_ASSERT(result == "test string");
   }
 };
 

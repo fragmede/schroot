@@ -23,35 +23,29 @@
 
 using namespace sbuild;
 
-parse_value::parse_value (std::string const& value):
-  value(value)
+void
+sbuild::parse_value (std::string const& value,
+		     bool&              parsed_value)
 {
-}
-
-parse_value::~parse_value ()
-{
-}
-
-bool
-parse_value::parse (bool& parsed_value) const
-{
-  if (this->value == "true" || this->value == "yes" || this->value == "1")
+  if (value == "true" || value == "yes" || value == "1")
     parsed_value = true;
-  else if (this->value == "false" || this->value == "no" || this->value == "0")
+  else if (value == "false" || value == "no" || value == "0")
     parsed_value = false;
   else
-    return false;
+    {
+      log_debug(DEBUG_NOTICE) << "parse error" << std::endl;
+      throw parse_error(parse_error::BAD_VALUE, value);
+    }
 
   log_debug(DEBUG_NOTICE) << "value=" << parsed_value << std::endl;
-  return true;
 }
 
-bool
-parse_value::parse (std::string& parsed_value) const
+void
+sbuild::parse_value (std::string const& value,
+		     std::string&       parsed_value)
 {
-  parsed_value = this->value;
+  parsed_value = value;
   log_debug(DEBUG_NOTICE) << "value=" << parsed_value << std::endl;
-  return true;
 }
 
 /*

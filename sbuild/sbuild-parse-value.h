@@ -30,83 +30,50 @@ namespace sbuild
 {
 
   /**
-   * Parse a text string value.  This is a wrapper around a string
-   * value, to convert it into any desired type.
+   * Parse a boolean value.
+   * @param value the value to parse.
+   * @param parsed_value the variable to store the parsed value.
+   * @returns true on success, false on failure.
    */
-  class parse_value
+  void
+  parse_value (std::string const& value,
+	       bool&              parsed_value);
+
+  /**
+   * Parse a string value.
+   * @param value the value to parse.
+   * @param parsed_value the variable to store the parsed value.
+   * @returns true on success, false on failure.
+   */
+  void
+  parse_value (std::string const& value,
+	       std::string&       parsed_value);
+
+  /**
+   * Parse a value of type T.
+   * @param value the value to parse.
+   * @param parsed_value the variable to store the parsed value.
+   * @returns true on success, false on failure.
+   */
+  template <typename T>
+  void
+  parse_value (std::string const& value,
+	       T& parsed_value)
   {
-  public:
-    /// Exception type.
-    typedef parse_error error;
-
-    /**
-     * The constructor.
-     * @param value the value to parse.
-     */
-    parse_value (std::string const& value);
-
-    /// The destructor.
-    virtual ~parse_value ();
-
-    /**
-     * Convert object into any type T.
-     * @returns an object of type T; an exception will be thrown on
-     * parse failure.
-     */
-    template <typename T>
-    operator T (void)
-    {
-      T tmp;
-
-      if (parse(tmp) == false)
-	{
-	  throw error(parse_error::BAD_VALUE, this->value);
+    std::istringstream is(value);
+    is.imbue(std::locale("C"));
+    T tmpval;
+    if (is >> tmpval)
+      {
+	parsed_value = tmpval;
+	log_debug(DEBUG_NOTICE) << "value=" << parsed_value << std::endl;
+      }
+    else
+      {
+	log_debug(DEBUG_NOTICE) << "parse error" << std::endl;
+	throw parse_error(parse_error::BAD_VALUE, value);
 	}
-
-      return tmp;
-    }
-
-  private:
-    /**
-     * Parse a boolean value.
-     * @param parsed_value the variable to store the parsed value.
-     * @returns true on success, false on failure.
-     */
-    bool
-    parse (bool& parsed_value) const;
-
-    /**
-     * Parse a string value.
-     * @param parsed_value the variable to store the parsed value.
-     * @returns true on success, false on failure.
-     */
-    bool
-    parse (std::string& parsed_value) const;
-
-    /**
-     * Parse a value of type T.
-     * @param parsed_value the variable to store the parsed value.
-     * @returns true on success, false on failure.
-     */
-    template <typename T>
-    bool
-    parse (T& parsed_value) const
-    {
-      std::istringstream is(this->value);
-      is.imbue(std::locale("C"));
-      T tmpval;
-      if (is >> tmpval)
-	{
-	  parsed_value = tmpval;
-	  log_debug(DEBUG_NOTICE) << "value=" << parsed_value << std::endl;
-	  return true;
-	}
-      log_debug(DEBUG_NOTICE) << "parse error" << std::endl;
-      return false;
-    }
-
-    std::string value;
-  };
+  }
 
 }
 

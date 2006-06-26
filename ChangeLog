@@ -1,5 +1,22 @@
 2006-06-26  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Add TODO items for 1.0.
+
+	* test/sbuild-keyfile.cc: Update testcases.
+
+	* test/sbuild-parse-value.cc: Update testcases.
+
+	* sbuild/sbuild-environment.h: Use new parse_value syntax.
+
+	* sbuild/sbuild-keyfile.h: Use new parse_value syntax.
+	get_list_value now correctly reports parse errors in list values.
+
+	* sbuild/sbuild-parse-value.(cc|h): Convert from a class back into
+	separate functions.  This gets rid of annoying uninitialised value
+	errors.
+
+2006-06-26  Roger Leigh  <rleigh@debian.org>
+
 	* Version 0.99.1
 
 	* debian/changelog: Finalise for 0.99.1.

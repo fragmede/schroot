@@ -180,10 +180,10 @@ namespace sbuild
 	{
 	  try
 	    {
-	      value = static_cast<T const&>(parse_value(pos->second));
+	      parse_value(pos->second, value);
 	      return true;
 	    }
-	  catch (parse_value::error const& e)
+	  catch (parse_error const& e)
 	    {
 	      log_warning() << boost::format("%1%: %2%\n")
 		% name % e.what();

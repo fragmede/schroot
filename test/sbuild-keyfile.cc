@@ -36,7 +36,9 @@ class test_keyfile : public TestFixture
   CPPUNIT_TEST(test_get_groups);
   CPPUNIT_TEST(test_get_keys);
   CPPUNIT_TEST(test_get_value);
+  CPPUNIT_TEST(test_get_value_fail);
   CPPUNIT_TEST(test_get_list_value);
+  CPPUNIT_TEST(test_get_list_value_fail);
   CPPUNIT_TEST(test_set_value);
   CPPUNIT_TEST(test_set_list_value);
   CPPUNIT_TEST(test_remove_group);
@@ -139,6 +141,14 @@ public:
     CPPUNIT_ASSERT(ival == 11);
   }
 
+  void test_get_value_fail()
+  {
+    bool bval = false;
+
+    CPPUNIT_ASSERT(this->kf->get_value("group2", "age", bval) == false);
+    CPPUNIT_ASSERT(bval == false);
+  }
+
   void test_get_list_value()
   {
     std::vector<int> expected;
@@ -152,6 +162,21 @@ public:
     std::vector<int> found;
     CPPUNIT_ASSERT(this->kf->get_list_value("group1", "numbers", found) == true);
     CPPUNIT_ASSERT(found == expected);
+  }
+
+  void test_get_list_value_fail()
+  {
+    std::vector<int> expected;
+    expected.push_back(1);
+    expected.push_back(2);
+    expected.push_back(3);
+    expected.push_back(4);
+    expected.push_back(5);
+    expected.push_back(6);
+
+    std::vector<bool> found;
+    CPPUNIT_ASSERT(this->kf->get_list_value("group1", "numbers", found) == false);
+    CPPUNIT_ASSERT(found.size() == 1); // 1 converts to bool.
   }
 
   // TODO: Test priority.
