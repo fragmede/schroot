@@ -1,5 +1,10 @@
 2006-06-26  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-session.cc (is_group_member): Rather than exiting
+	with failure status, warn and return false, or throw an exception.
+
+2006-06-26  Roger Leigh  <rleigh@debian.org>
+
 	* debian/schroot.docs: Add.  Include THANKS.
 
 2006-06-26  Roger Leigh  <rleigh@debian.org>

@@ -123,14 +123,14 @@ namespace
 	if (errno == 0)
 	  {
 	    session::error e(group, session::GROUP_UNKNOWN);
-	    log_error() << e.what() << endl;
+	    log_warning() << e.what() << endl;
 	  }
 	else
 	  {
 	    session::error e(group, session::GROUP_UNKNOWN, errno);
-	    log_error() << e.what() << endl;
+	    log_warning() << e.what() << endl;
 	  }
-	exit (EXIT_FAILURE);
+	return false;
       }
 
     bool group_member = false;
@@ -142,20 +142,12 @@ namespace
       {
 	int supp_group_count = getgroups(0, NULL);
 	if (supp_group_count < 0)
-	  {
-	    session::error e(session::GROUP_GET_SUPC, errno);
-	    log_error() << e.what() << endl;
-	    exit (EXIT_FAILURE);
-	  }
+	  throw session::error(session::GROUP_GET_SUPC, errno);
 	if (supp_group_count > 0)
 	  {
 	    gid_t *supp_groups = new gid_t[supp_group_count];
 	    if (getgroups(supp_group_count, supp_groups) < 1)
-	      {
-		session::error e(session::GROUP_GET_SUP, errno);
-		log_error() << e.what() << endl;
-		exit (EXIT_FAILURE);
-	      }
+	      throw session::error(session::GROUP_GET_SUP, errno);
 
 	    for (int i = 0; i < supp_group_count; ++i)
 	      {

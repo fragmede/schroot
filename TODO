@@ -11,11 +11,6 @@ PENDING
 
 * Update documentation schroot.conf examples.
 
-* sbuild-session unnnamed namespace helper routines shouldn't exit
-
-  They should throw an exception instead.  Need to check suitable
-  catch blocks are in place.
-
 * Review quoting style.
 
   Use of single and double quotes in strings is inconsistent.  Needs
