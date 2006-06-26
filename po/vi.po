@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot-0.99.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-06-25 20:27+0100\n"
+"POT-Creation-Date: 2006-06-26 11:15+0100\n"
 "PO-Revision-Date: 2006-06-22 23:06+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -114,6 +114,11 @@ msgstr " [TÙY_CHỌN...] [LỆNH] — chạy lệnh hoặc hệ vỏ trong mộ
 #: dchroot-dsa/dchroot-dsa-options.cc:108 sbuild/sbuild-session.cc:72
 msgid "Command must have an absolute path"
 msgstr ""
+
+#: dchroot-dsa/dchroot-dsa-options.cc:116
+#, fuzzy
+msgid "No chroot specified"
+msgstr "chưa xác định nhóm"
 
 #: sbuild/sbuild-auth.cc:53
 #, fuzzy

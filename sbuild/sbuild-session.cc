@@ -57,7 +57,7 @@ namespace
   emap init_errors[] =
     {
       emap(session::CHDIR,          N_("Failed to change to directory")),
-      emap(session::CHDIR,          N_("Falling back to directory")),
+      emap(session::CHDIR_FB,       N_("Falling back to directory")),
       emap(session::CHILD_CORE,     N_("Child dumped core")),
       emap(session::CHILD_FAIL,     N_("Child exited abnormally (reason unknown; not a signal or core dump)")),
       emap(session::CHILD_FORK,     N_("Failed to fork child")),

@@ -230,9 +230,10 @@ interchangeably with \fBschroot\fP, and the group security policies provided by
 Roger Leigh.
 .PP
 This implementation of \fBdchroot\-dsa\fP uses the same command-line options as
-the original \fBdchroot\-dsa\fP found on machines run by the Debian System
-Administrators for the Debian Project have a \fBdchroot-dsa\fP source package
-which also provides a \fBdchroot\-dsa\fP package.
+the \fBdchroot\fP found on machines run by the Debian System Administrators for
+the Debian Project.  These machines have a \fBdchroot-dsa\fP source package
+which provides a \fBdchroot\-dsa\fP package, written by Ben Collins
+<bcollins@debian.org> and Martin Schulze <joey@debian.org>.
 .SH COPYRIGHT
 Copyright \(co 2005-2006  Roger Leigh <rleigh@debian.org>
 .PP

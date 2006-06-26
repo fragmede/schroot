@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-06-25 20:27+0100\n"
+"POT-Creation-Date: 2006-06-26 11:15+0100\n"
 "PO-Revision-Date: 2006-06-17 22:13+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -108,6 +108,11 @@ msgstr " [FLAGGA...] [KOMMANDO] - kör kommando eller skal i ett chroot"
 #: dchroot-dsa/dchroot-dsa-options.cc:108 sbuild/sbuild-session.cc:72
 msgid "Command must have an absolute path"
 msgstr ""
+
+#: dchroot-dsa/dchroot-dsa-options.cc:116
+#, fuzzy
+msgid "No chroot specified"
+msgstr "ingen grupp angiven"
 
 #: sbuild/sbuild-auth.cc:53
 #, fuzzy

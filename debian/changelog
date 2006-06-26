@@ -1,4 +1,4 @@
-schroot (0.99.1-1) UNRELEASED; urgency=low
+schroot (0.99.1-1) unstable; urgency=low
 
   * New upstream release.
   * dchroot behaviour now matches the chdir and command execution
@@ -13,8 +13,9 @@ schroot (0.99.1-1) UNRELEASED; urgency=low
   * debian/dchroot-dsa.install: New file.
   * debian/dchroot-dsa.postrm: New file.
   * debian/dchroot-dsa.lintian-overrides: New file.
+  * debian/schroot.docs: New file.  Add THANKS.
 
- --
+ -- Roger Leigh <rleigh@debian.org>  Mon, 26 Jun 2006 11:10:24 +0100
 
 schroot (0.99.0-1) unstable; urgency=low
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-06-25 20:27+0100\n"
+"POT-Creation-Date: 2006-06-26 11:15+0100\n"
 "PO-Revision-Date: 2006-06-23 16:45+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -105,6 +105,11 @@ msgstr " [OPTION...] chroot [COMMAND] - run command or shell in a chroot"
 #: dchroot-dsa/dchroot-dsa-options.cc:108 sbuild/sbuild-session.cc:72
 msgid "Command must have an absolute path"
 msgstr ""
+
+#: dchroot-dsa/dchroot-dsa-options.cc:116
+#, fuzzy
+msgid "No chroot specified"
+msgstr "no group specified"
 
 #: sbuild/sbuild-auth.cc:53
 msgid "Failed to get hostname"

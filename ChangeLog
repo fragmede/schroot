@@ -1,5 +1,16 @@
 2006-06-26  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.99.1
+
+	* debian/changelog: Finalise for 0.99.1.
+
+	* sbuild/sbuild-session.cc: Document CHDIR_FB.
+
+	* dchroot-dsa/dchroot-dsa.1.in: Document original dchroot-dsa
+	authors.
+
+2006-06-26  Roger Leigh  <rleigh@debian.org>
+
 	* dchroot-dsa/dchroot-dsa-options.cc
 	(check_options): Add check to ensure a chroot must be specified,
 	to prevent use of the "default" fallback.

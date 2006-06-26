@@ -29,7 +29,6 @@ build-stamp:  config.status
 	dh_testdir
 
 	$(MAKE) all
-	$(MAKE) check
 
 	touch build-stamp
 
@@ -55,6 +54,7 @@ install: build
 	dh_clean -k
 	dh_installdirs
 
+	$(MAKE) check
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/install
 	dh_install
 
