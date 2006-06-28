@@ -60,10 +60,9 @@ main (int   argc,
       std::cout.imbue(std::locale());
       std::cerr.imbue(std::locale());
 
-      schroot_listmounts::options::ptr opts
-	(new schroot_listmounts::options(argc, argv));
+      schroot_listmounts::options::ptr opts(new schroot_listmounts::options);
       schroot_listmounts::main kit(opts);
-      exit (kit.run());
+      exit (kit.run(argc, argv));
     }
   catch (boost::program_options::error const& e)
     {

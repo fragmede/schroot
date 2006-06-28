@@ -49,14 +49,9 @@ main (int   argc,
 {
   try
     {
-      // Set up locale.
-      std::locale::global(std::locale(""));
-      std::cout.imbue(std::locale());
-      std::cerr.imbue(std::locale());
-
-      schroot::options::ptr opts(new schroot::options(argc, argv));
+      schroot::options::ptr opts(new schroot::options);
       schroot::main kit(opts);
-      exit (kit.run());
+      exit (kit.run(argc, argv));
     }
   catch (boost::program_options::error const& e)
     {

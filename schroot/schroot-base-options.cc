@@ -32,8 +32,7 @@ using boost::format;
 namespace opt = boost::program_options;
 using namespace schroot_base;
 
-options::options (int   argc,
-		  char *argv[]):
+options::options ():
   quiet(false),
   verbose(false),
   general(_("General options")),
@@ -56,6 +55,21 @@ options::get_visible_options() const
 }
 
 void
+options::parse (int   argc,
+		char *argv[])
+{
+  add_options();
+  add_option_groups();
+
+  opt::store(opt::command_line_parser(argc, argv).
+	     options(global).positional(positional).run(), vm);
+  opt::notify(vm);
+
+  check_options();
+  check_actions();
+}
+
+void
 options::add_options ()
 {
   general.add_options()
@@ -74,8 +88,7 @@ options::add_options ()
 }
 
 void
-options::parse_options (int   argc,
-			char *argv[])
+options::add_option_groups ()
 {
   if (!general.options().empty())
     {
@@ -84,10 +97,6 @@ options::parse_options (int   argc,
     }
   if (!hidden.options().empty())
     global.add(hidden);
-
-  opt::store(opt::command_line_parser(argc, argv).
-	     options(global).positional(positional).run(), vm);
-  opt::notify(vm);
 }
 
 void

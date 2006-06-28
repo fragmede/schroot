@@ -80,7 +80,8 @@ main::action_help (std::ostream& stream)
 }
 
 int
-main::run ()
+main::run (int   argc,
+	   char *argv[])
 {
   struct termios saved_termios;
   bool termios_ok = false;
@@ -109,6 +110,8 @@ main::run ()
       bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
       textdomain (GETTEXT_PACKAGE);
 
+      this->program_options->parse(argc, argv);
+
 #ifdef SBUILD_DEBUG
       sbuild::debug_level = sbuild::DEBUG_CRITICAL;
 #endif
@@ -133,6 +136,18 @@ main::run ()
     {
       sbuild::log_error() << e.what() << endl;
 
+      try
+	{
+	  dynamic_cast<boost::program_options::error const&>(e);
+	  sbuild::log_info()
+	    << format(_("Run \"%1% --help\" to list usage example and all available options"))
+	    % argv[0]
+	    << endl;
+	}
+      catch (std::bad_cast const& discard)
+	{
+	}
+
       closelog();
 
       if (isatty(STDIN_FILENO) && termios_ok)
@@ -143,6 +158,11 @@ main::run ()
 	      << endl;
 	}
 
+      exit(EXIT_FAILURE);
+    }
+  catch (...)
+    {
+      sbuild::log_error() << _("An unknown exception occured") << endl;
       exit(EXIT_FAILURE);
     }
 }

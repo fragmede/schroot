@@ -32,19 +32,9 @@ PENDING
   also allow templated exceptions which will simplify error reporting
   for non-string types.
 
-* Suggest running with --help for helper binaries.
-
-  When options are incorrect, suggest running --help as for schroot,
-  dchroot and dchroot-dsa.  This depends on implementing frontend code
-  in helper binaries.
 
 PLANNED
 -------
-
-* Frontend code for helper binaries.
-
-  schroot-releaselock and schroot-listmounts should use a frontend
-  (main class) like schroot, dchroot and dchroot-dsa.
 
 * Replace run-parts(8) usage with internal reimplementation.
 

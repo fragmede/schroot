@@ -34,17 +34,12 @@ using boost::format;
 namespace opt = boost::program_options;
 using namespace schroot_listmounts;
 
-options::options (int   argc,
-		  char *argv[]):
-  schroot_base::options(argc, argv),
+options::options ():
+  schroot_base::options(),
   action(ACTION_LISTMOUNTS),
   mountpoint(),
   mount(_("Mount"))
 {
-  add_options();
-  parse_options(argc, argv);
-  check_options();
-  check_actions();
 }
 
 options::~options ()
@@ -62,25 +57,15 @@ options::add_options ()
 }
 
 void
-options::parse_options (int   argc,
-			char *argv[])
+options::add_option_groups ()
 {
-  if (!general.options().empty())
-    {
-      visible.add(general);
-      global.add(general);
-    }
+  schroot_base::options::add_option_groups();
+
   if (!mount.options().empty())
     {
       visible.add(mount);
       global.add(mount);
     }
-  if (!hidden.options().empty())
-    global.add(hidden);
-
-  opt::store(opt::command_line_parser(argc, argv).
-	     options(global).positional(positional).run(), vm);
-  opt::notify(vm);
 }
 
 void

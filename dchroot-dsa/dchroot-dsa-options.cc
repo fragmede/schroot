@@ -34,14 +34,9 @@ using boost::format;
 namespace opt = boost::program_options;
 using namespace dchroot_dsa;
 
-options::options (int   argc,
-		  char *argv[]):
-  schroot::options_base(argc, argv)
+options::options ():
+  schroot::options_base()
 {
-  add_options();
-  parse_options(argc, argv);
-  check_options();
-  check_actions();
 }
 
 options::~options ()

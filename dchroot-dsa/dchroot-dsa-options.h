@@ -38,8 +38,7 @@ namespace dchroot_dsa
      * @param argc the number of arguments.
      * @param argv the list of arguments.
      */
-    options (int   argc,
-	     char *argv[]);
+    options ();
 
     /// The destructor.
     virtual ~options ();

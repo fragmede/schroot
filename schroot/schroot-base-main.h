@@ -50,11 +50,14 @@ namespace schroot_base
     /**
      * Run the program.
      *
+     * @param argc the number of arguments
+     * @param argv argument vector
      * @returns 0 on success, 1 on failure or the exit status of the
      * chroot command.
      */
     int
-    run ();
+    run (int   argc,
+	 char *argv[]);
 
     /**
      * Print help information.

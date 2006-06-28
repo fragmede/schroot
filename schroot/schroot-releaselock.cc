@@ -60,10 +60,9 @@ main (int   argc,
       std::cout.imbue(std::locale());
       std::cerr.imbue(std::locale());
 
-      schroot_releaselock::options::ptr opts
-	(new schroot_releaselock::options(argc, argv));
+      schroot_releaselock::options::ptr opts(new schroot_releaselock::options);
       schroot_releaselock::main kit(opts);
-      exit (kit.run());
+      exit (kit.run(argc, argv));
     }
   catch (boost::program_options::error const& e)
     {

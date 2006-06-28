@@ -57,11 +57,14 @@ namespace schroot_base
      * @param argc the number of arguments.
      * @param argv the list of arguments.
      */
-    options (int   argc,
-	     char *argv[]);
+    options ();
 
     /// The destructor.
     virtual ~options ();
+
+    void
+    parse (int   argc,
+	   char *argv[]);
 
     /// Quiet messages.
     bool                 quiet;
@@ -76,8 +79,7 @@ namespace schroot_base
     add_options ();
 
     virtual void
-    parse_options (int   argc,
-		   char *argv[]);
+    add_option_groups ();
 
     virtual void
     check_options ();

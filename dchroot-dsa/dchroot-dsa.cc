@@ -54,9 +54,9 @@ main (int   argc,
       std::cout.imbue(std::locale());
       std::cerr.imbue(std::locale());
 
-      dchroot_dsa::options::ptr opts(new dchroot_dsa::options(argc, argv));
+      dchroot_dsa::options::ptr opts(new dchroot_dsa::options);
       dchroot_dsa::main kit(opts);
-      exit (kit.run());
+      exit (kit.run(argc, argv));
     }
   catch (boost::program_options::error const& e)
     {

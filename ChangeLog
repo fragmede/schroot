@@ -1,5 +1,25 @@
 2006-06-28  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Remove completed items.
+
+	* schroot/schroot-base-main.cc
+	(run): This method takes argc and argv arguments, and calls the
+	option class parse method.  It also catches and handles parse
+	exceptions.
+
+	* schroot/schroot-base-option.cc
+	(parse): Renamed from parse_options, this method now takes argc
+	and argv as arguments and calls all the other class virtual
+	methods to set up and process the options.
+	(add_option_group): New virtual method.  The addition of option
+	groups is split out from the parse method.
+
+	* All option parsing classes have removed the argc and argv
+	arguments from their constructors.  The constructors now no longer
+	call any of the virtual methods.
+
+2006-06-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-listmounts-options.cc: Add set_action method to
 	ensure only one action is specified.
 

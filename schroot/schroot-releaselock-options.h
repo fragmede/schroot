@@ -50,8 +50,7 @@ namespace schroot_releaselock
      * @param argc the number of arguments.
      * @param argv the list of arguments.
      */
-    options (int   argc,
-	     char *argv[]);
+    options ();
 
     /// The destructor.
     virtual ~options ();
@@ -77,8 +76,7 @@ namespace schroot_releaselock
     add_options ();
 
     virtual void
-    parse_options (int   argc,
-		   char *argv[]);
+    add_option_groups ();
 
     virtual void
     check_options ();
