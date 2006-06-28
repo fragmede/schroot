@@ -67,9 +67,9 @@ namespace schroot_base
 	   char *argv[]);
 
     /// Quiet messages.
-    bool                 quiet;
+    bool quiet;
     /// Verbose messages.
-    bool                 verbose;
+    bool verbose;
 
     boost::program_options::options_description const&
     get_visible_options() const;
@@ -93,6 +93,10 @@ namespace schroot_base
     boost::program_options::options_description            visible;
     boost::program_options::options_description            global;
     boost::program_options::variables_map                  vm;
+
+  private:
+    /// Debug level string.
+    std::string debug_level;
   };
 
 }

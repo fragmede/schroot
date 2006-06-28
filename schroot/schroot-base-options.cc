@@ -83,7 +83,7 @@ options::add_options ()
      _("Show more output"));
 
   hidden.add_options()
-    ("debug",
+    ("debug", opt::value<std::string>(&this->debug_level),
      _("Enable debugging messages"));
 }
 
@@ -108,7 +108,20 @@ options::check_options ()
     this->verbose = true;
 
   if (vm.count("debug"))
-    sbuild::debug_level = sbuild::DEBUG_NOTICE;
+    {
+      if (this->debug_level == "none")
+	sbuild::debug_level = sbuild::DEBUG_NONE;
+      else if (this->debug_level == "notice")
+	sbuild::debug_level = sbuild::DEBUG_NOTICE;
+      else if (this->debug_level == "info")
+	sbuild::debug_level = sbuild::DEBUG_INFO;
+      else if (this->debug_level == "warning")
+	sbuild::debug_level = sbuild::DEBUG_WARNING;
+      else if (this->debug_level == "critical")
+	sbuild::debug_level = sbuild::DEBUG_CRITICAL;
+      else
+	throw opt::validation_error(_("Invalid debug level"));
+    }
   else
     sbuild::debug_level = sbuild::DEBUG_NONE;
 }

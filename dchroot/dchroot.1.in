@@ -218,8 +218,11 @@ piped and redirected as required; the data will be the same as if the command
 was run directly on the host system.
 .SH TROUBLESHOOTING
 If something is not working, and it's not clear from the error messages what is
-wrong, try using the \fB\-\-debug\fP option to turn on debugging messages.
-This gives a great deal more information.
+wrong, try using the \fB\-\-debug=\fP\fIlevel\fP option to turn on debugging
+messages.  This gives a great deal more information.  Valid debug levels are
+\[lq]none\[rq], and \[lq]notice\[rq], \[lq]info\[rq], \[lq]warning\[rq] and
+\[lq]critical\[rq] in order of increasing severity.  The lower the severity
+level, the more output.
 .PP
 If you are still having trouble, the developers may be contacted on the mailing
 list:

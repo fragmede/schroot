@@ -1,5 +1,13 @@
 2006-06-28  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.1.in, dchroot/dchroot.1.in,
+	dchroot-dsa/dchroot-dsa.1.in: Document debug levels.
+
+	* schroot/schroot-base-options.(cc|h)
+	(check_options): Check the debug level given with --debug.
+
+2006-06-28  Roger Leigh  <rleigh@debian.org>
+
 	* Clean up locale and exception handling in all main stub
 	routines.
 
