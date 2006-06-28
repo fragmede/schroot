@@ -41,9 +41,10 @@ using boost::format;
 using namespace dchroot_dsa;
 
 main::main (schroot::options_base::ptr& options):
-  dchroot::main_base(options)
+  main_base("dchroot-dsa",
+	    _("[OPTION...] chroot [COMMAND] - run command or shell in a chroot"),
+	    options)
 {
-  this->program_name = "dchroot-dsa";
 }
 
 main::~main ()
@@ -64,7 +65,7 @@ main::load_config ()
     }
   else
     {
-      schroot::main::load_config();
+      schroot::main_base::load_config();
     }
 }
 

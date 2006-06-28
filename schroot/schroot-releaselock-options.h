@@ -20,6 +20,8 @@
 #ifndef SCHROOT_RELEASELOCK_OPTIONS_H
 #define SCHROOT_RELEASELOCK_OPTIONS_H
 
+#include <schroot/schroot-base-options.h>
+
 #include <string>
 
 namespace schroot_releaselock
@@ -28,8 +30,20 @@ namespace schroot_releaselock
   /**
    * schroot-releaselock command-line options.
    */
-  class options {
+  class options : public schroot_base::options
+  {
   public:
+    /// A shared_ptr to an options object.
+    typedef std::tr1::shared_ptr<options> ptr;
+
+    /// The action to perform.
+    enum action_type
+      {
+	ACTION_RELEASELOCK, ///< Release lock.
+	ACTION_HELP,        ///< Display program help.
+	ACTION_VERSION      ///< Display program version.
+      };
+
     /**
      * The constructor.
      *
@@ -42,12 +56,25 @@ namespace schroot_releaselock
     /// The destructor.
     virtual ~options ();
 
+    /// The action to perform.
+    action_type          action;
     /// The device to unlock.
     std::string device;
     /// The PID holding the lock.
     int         pid;
-    /// Display version information.
-    bool        version;
+
+  protected:
+    virtual void
+    add_options ();
+
+    virtual void
+    parse_options (int   argc,
+		   char *argv[]);
+
+    virtual void
+    check_options ();
+
+    boost::program_options::options_description lock;
   };
 
 }

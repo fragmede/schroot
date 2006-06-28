@@ -41,11 +41,12 @@ using boost::format;
 using schroot::options_base;
 using namespace dchroot;
 
-main_base::main_base (options_base::ptr& options):
-  schroot::main(options),
+main_base::main_base (std::string const& program_name,
+		      std::string const& program_usage,
+		      schroot::options_base::ptr& options):
+  schroot::main_base(program_name, program_usage, options),
   use_dchroot_conf(false)
 {
-  this->program_name = "dchroot";
 }
 
 main_base::~main_base ()

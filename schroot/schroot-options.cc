@@ -86,18 +86,6 @@ options::add_options ()
 void
 options::check_options ()
 {
-  if (vm.count("help"))
-    {
-      std::cout
-	<< _("Usage:") << "\n  "
-	<< "schroot"
-	<< "  "
-	<< _("[OPTION...] [COMMAND] - run command or shell in a chroot")
-	<< '\n';
-      std::cout << visible << std::flush;
-      exit(EXIT_SUCCESS);
-    }
-
   options_base::check_options();
 
   if (vm.count("location"))

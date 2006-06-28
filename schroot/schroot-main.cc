@@ -19,9 +19,6 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-auth-conv.h>
-#include <sbuild/sbuild-auth-conv-tty.h>
-
 #include "schroot-main.h"
 
 #include <cstdlib>
@@ -41,30 +38,14 @@ using boost::format;
 using namespace schroot;
 
 main::main (options_base::ptr& options):
-  program_name("schroot"),
-  options(options),
-  config(),
-  chroots(),
-  session()
+  main_base("schroot",
+	    _("[OPTION...] [COMMAND] - run command or shell in a chroot"),
+	    options)
 {
 }
 
 main::~main ()
 {
-}
-
-void
-main::action_version (std::ostream& stream)
-{
-  format fmt(_("%1% (Debian sbuild) %2% (%3%)\n"));
-  fmt % this->program_name % VERSION % sbuild::gmdate(RELEASE_DATE);
-
-  stream << fmt
-	 << _("Written by Roger Leigh\n\n")
-	 << _("Copyright (C) 2004-2006 Roger Leigh\n")
-	 << _("This is free software; see the source for copying conditions.  There is NO\n"
-	      "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
-	 << std::flush;
 }
 
 void
@@ -85,82 +66,6 @@ main::action_list ()
 }
 
 void
-main::action_info ()
-{
-  this->config->print_chroot_info(this->chroots, std::cout);
-}
-
-void
-main::action_location ()
-{
-  this->config->print_chroot_location(this->chroots, std::cout);
-}
-
-void
-main::compat_check ()
-{
-}
-
-sbuild::string_list
-main::get_chroot_options ()
-{
-  sbuild::string_list ret;
-
-  if (this->options->all_chroots == true ||
-      this->options->all_sessions == true)
-    {
-      sbuild::chroot_config::chroot_list const& list =
-	this->config->get_chroots();
-
-      for (sbuild::chroot_config::chroot_list::const_iterator chroot =
-	     list.begin();
-	   chroot != list.end();
-	   ++chroot)
-	{
-	  if (((*chroot)->get_active() == false &&
-	       this->options->all_chroots == false) ||
-	      ((*chroot)->get_active() == true &&
-	       this->options->all_sessions == false))
-	    continue;
-	  ret.push_back((*chroot)->get_name());
-	}
-    }
-  else
-    {
-      sbuild::string_list invalid_chroots =
-	this->config->validate_chroots(this->options->chroots);
-
-      if (!invalid_chroots.empty())
-	{
-	  for (sbuild::string_list::const_iterator chroot =
-		 invalid_chroots.begin();
-	       chroot != invalid_chroots.end();
-	       ++chroot)
-	    sbuild::log_error() << format(_("%1%: No such chroot")) % *chroot
-				<< endl;
-	  exit(EXIT_FAILURE);
-	}
-      ret = this->options->chroots;
-    }
-
-  return ret;
-}
-
-void
-main::load_config ()
-{
-  this->config = sbuild::chroot_config::ptr(new sbuild::chroot_config);
-  /* The normal chroot list is used when starting a session or running
-     any chroot type or session, or displaying chroot information. */
-  if (this->options->load_chroots == true)
-    this->config->add(SCHROOT_CONF, false);
-  /* The session chroot list is used when running or ending an
-     existing session, or displaying chroot information. */
-  if (this->options->load_sessions == true)
-    this->config->add(SCHROOT_SESSION_DIR, true);
-}
-
-void
 main::create_session(sbuild::session::operation sess_op)
 {
   sbuild::log_debug(sbuild::DEBUG_INFO) << "Creating schroot session" << endl;
@@ -170,191 +75,6 @@ main::create_session(sbuild::session::operation sess_op)
 
   if (!this->options->user.empty())
     this->session->set_user(this->options->user);
-}
-
-int
-main::run ()
-{
-  struct termios saved_termios;
-  bool termios_ok = false;
-
-  try
-    {
-      // Set up locale.
-      std::locale::global(std::locale(""));
-      std::cout.imbue(std::locale());
-      std::cerr.imbue(std::locale());
-
-      // Save terminal state.
-      if (isatty(STDIN_FILENO))
-	{
-	  if (tcgetattr(STDIN_FILENO, &saved_termios) < 0)
-	    {
-	      termios_ok = false;
-	      sbuild::log_warning()
-		<< _("Error saving terminal settings")
-		<< endl;
-	    }
-	  else
-	    termios_ok = true;
-	}
-
-      bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
-      textdomain (GETTEXT_PACKAGE);
-
-#ifdef SBUILD_DEBUG
-      sbuild::debug_level = sbuild::DEBUG_CRITICAL;
-#endif
-
-      openlog("schroot", LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
-
-      compat_check();
-
-      if (this->options->action == options_base::ACTION_VERSION)
-	{
-	  action_version(std::cout);
-	  exit(EXIT_SUCCESS);
-	}
-
-      /* Initialise chroot configuration. */
-      load_config();
-
-  if (this->config->get_chroots().empty() && this->options->quiet == false)
-    {
-      if (this->options->load_chroots == true &&
-	  this->options->load_sessions == true)
-	sbuild::log_warning()
-	  << format(_("No chroots are defined in %1% or %2%"))
-	  % SCHROOT_CONF % SCHROOT_SESSION_DIR
-	  << endl;
-      else
-	{
-	  const char *cfile = (this->options->load_sessions)
-	    ? SCHROOT_CONF : SCHROOT_SESSION_DIR;
-	  sbuild::log_warning()
-	    << format(_("No chroots are defined in %1%")) % cfile
-	    << endl;
-	}
-    }
-
-      /* Print chroot list (including aliases). */
-      if (this->options->action == options_base::ACTION_LIST)
-	{
-	  action_list();
-	  exit(EXIT_SUCCESS);
-	}
-
-      /* Get list of chroots to use */
-      chroots = get_chroot_options();
-      if (this->chroots.empty())
-	{
-	  sbuild::log_error()
-	    << format(_("The specified chroots are not defined in %1%"))
-	    % SCHROOT_CONF
-	    << endl;
-	  exit (EXIT_FAILURE);
-	}
-
-      /* Print chroot information for specified chroots. */
-      if (this->options->action == options_base::ACTION_INFO)
-	{
-	  action_info();
-	  exit (EXIT_SUCCESS);
-	}
-      if (this->options->action == options_base::ACTION_LOCATION)
-	{
-	  action_location();
-	  exit (EXIT_SUCCESS);
-	}
-      if (this->options->action == options_base::ACTION_CONFIG)
-	{
-	  action_config();
-	  exit (EXIT_SUCCESS);
-	}
-
-      if (this->options->action == options_base::ACTION_SESSION_BEGIN &&
-	  this->chroots.size() != 1)
-	{
-	  sbuild::log_error()
-	    << _("Only one chroot may be specified when beginning a session")
-	    << endl;
-	  exit (EXIT_FAILURE);
-	}
-
-      /* Create a session. */
-      sbuild::session::operation sess_op(sbuild::session::OPERATION_AUTOMATIC);
-      if (this->options->action == options_base::ACTION_SESSION_BEGIN)
-	sess_op = sbuild::session::OPERATION_BEGIN;
-      else if (this->options->action == options_base::ACTION_SESSION_RECOVER)
-	sess_op = sbuild::session::OPERATION_RECOVER;
-      else if (this->options->action == options_base::ACTION_SESSION_RUN)
-	sess_op = sbuild::session::OPERATION_RUN;
-      else if (this->options->action == options_base::ACTION_SESSION_END)
-	sess_op = sbuild::session::OPERATION_END;
-
-
-      try
-	{
-	  create_session(sess_op);
-
-	  if (!this->options->command.empty())
-	    this->session->set_command(this->options->command);
-	  if (this->options->preserve)
-	    this->session->set_environment(environ);
-	  this->session->set_force(this->options->session_force);
-	  sbuild::auth::verbosity verbosity = sbuild::auth::VERBOSITY_NORMAL;
-	  if (this->options->quiet)
-	    verbosity = sbuild::auth::VERBOSITY_QUIET;
-	  else if (this->options->verbose)
-	    verbosity = sbuild::auth::VERBOSITY_VERBOSE;
-	  this->session->set_verbosity(verbosity);
-
-	  /* Set up authentication timeouts. */
-	  std::tr1::shared_ptr<sbuild::auth_conv>
-	    conv(new sbuild::auth_conv_tty);
-	  time_t curtime = 0;
-	  time(&curtime);
-	  conv->set_warning_timeout(curtime + 15);
-	  conv->set_fatal_timeout(curtime + 20);
-	  this->session->set_conv(conv);
-
-	  /* Run session. */
-	  this->session->run();
-	}
-      catch (std::runtime_error& e)
-	{
-	  if (!this->options->quiet)
-	    sbuild::log_error() << e.what() << endl;
-	}
-
-      closelog();
-
-      if (isatty(STDIN_FILENO) && termios_ok)
-	{
-	  if (tcsetattr(STDIN_FILENO, TCSANOW, &saved_termios) < 0)
-	    sbuild::log_warning()
-	      << _("Error restoring terminal settings")
-	      << endl;
-	}
-
-      exit(this->session->get_child_status());
-    }
-  catch (std::exception const& e)
-    {
-      sbuild::log_error() << e.what() << endl;
-
-      closelog();
-
-      if (isatty(STDIN_FILENO) && termios_ok)
-	{
-	  if (tcsetattr(STDIN_FILENO, TCSANOW, &saved_termios) < 0)
-	    sbuild::log_warning()
-	      << _("Error restoring terminal settings")
-	      << endl;
-	}
-
-      exit(EXIT_FAILURE);
-    }
 }
 
 /*

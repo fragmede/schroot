@@ -19,9 +19,7 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-i18n.h>
-
-#include "schroot-listmounts-options.h"
+#include "schroot-options.h"
 
 #include <cstdlib>
 #include <iostream>
@@ -32,33 +30,47 @@
 using std::endl;
 using boost::format;
 namespace opt = boost::program_options;
-using namespace schroot_listmounts;
+using namespace schroot_base;
 
 options::options (int   argc,
 		  char *argv[]):
-  schroot_base::options(argc, argv),
-  action(ACTION_LISTMOUNTS),
-  mountpoint(),
-  mount(_("Mount"))
+  quiet(false),
+  verbose(false),
+  general(_("General options")),
+  hidden(_("Hidden options")),
+  positional(),
+  visible(),
+  global(),
+  vm()
 {
-  add_options();
-  parse_options(argc, argv);
-  check_options();
-  check_actions();
 }
 
 options::~options ()
 {
 }
 
+boost::program_options::options_description const&
+options::get_visible_options() const
+{
+  return this->visible;
+}
+
 void
 options::add_options ()
 {
-  schroot_base::options::add_options();
+  general.add_options()
+    ("help,h",
+     _("Show help options"))
+    ("version,V",
+     _("Print version information"))
+    ("quiet,q",
+     _("Show less output"))
+    ("verbose,v",
+     _("Show more output"));
 
-  mount.add_options()
-    ("mountpoint,m", opt::value<std::string>(&this->mountpoint),
-     _("Mountpoint to check (full path)"));
+  hidden.add_options()
+    ("debug",
+     _("Enable debugging messages"));
 }
 
 void
@@ -69,11 +81,6 @@ options::parse_options (int   argc,
     {
       visible.add(general);
       global.add(general);
-    }
-  if (!mount.options().empty())
-    {
-      visible.add(mount);
-      global.add(mount);
     }
   if (!hidden.options().empty())
     global.add(hidden);
@@ -86,18 +93,20 @@ options::parse_options (int   argc,
 void
 options::check_options ()
 {
-  schroot_base::options::check_options();
+  if (vm.count("quiet"))
+    this->quiet = true;
+  if (vm.count("verbose"))
+    this->verbose = true;
 
-  if (vm.count("help"))
-    this->action = ACTION_HELP;
+  if (vm.count("debug"))
+    sbuild::debug_level = sbuild::DEBUG_NOTICE;
+  else
+    sbuild::debug_level = sbuild::DEBUG_NONE;
+}
 
-  if (vm.count("version"))
-    this->action = ACTION_VERSION;
-
-  if (this->mountpoint.empty() &&
-      this->action != ACTION_HELP &&
-      this->action != ACTION_VERSION)
-    throw opt::validation_error(_("No mount point specified"));
+void
+options::check_actions ()
+{
 }
 
 /*

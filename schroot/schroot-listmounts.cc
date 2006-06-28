@@ -19,103 +19,26 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-error.h>
 #include <sbuild/sbuild-i18n.h>
 #include <sbuild/sbuild-log.h>
 #include <sbuild/sbuild-types.h>
-#include <sbuild/sbuild-util.h>
 
 #include "schroot-listmounts-options.h"
+#include "schroot-listmounts-main.h"
 
-#include <cerrno>
 #include <cstdlib>
-#include <cstdio>
-#include <cstring>
 #include <iostream>
 #include <locale>
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <mntent.h>
 
 #include <boost/format.hpp>
 #include <boost/program_options.hpp>
 
-#include <lockdev.h>
 
 using std::endl;
 using boost::format;
 namespace opt = boost::program_options;
 
 using namespace schroot_listmounts;
-
-/**
- * Print version information.
- *
- * @param stream the stream to output to.
- */
-void
-print_version (std::ostream& stream)
-{
-  format fmt(_("%1% (Debian sbuild) %2% (%3%)\n"));
-  fmt % "schroot-listmounts" % VERSION % sbuild::gmdate(RELEASE_DATE);
-
-  stream << fmt
-	 << _("Written by Roger Leigh\n\n")
-	 << _("Copyright (C) 2004-2006 Roger Leigh\n")
-	 << _("This is free software; see the source for copying conditions.  There is NO\n"
-	      "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
-	 << std::flush;
-}
-
-/**
- * List mounts.
- *
- * @param mountfile the file containing the database of mounted filesystems.
- * @param mountpoint the mount point to check for.
- */
-sbuild::string_list
-list_mounts (std::string const& mountfile,
-	     std::string const& mountpoint)
-{
-  sbuild::string_list ret;
-
-  std::string to_find = sbuild::normalname(mountpoint);
-
-  std::FILE *mntdb = std::fopen(mountfile.c_str(), "r");
-  if (mntdb == 0)
-    {
-      format fmt(_("%1%: Failed to open: %2%"));
-      fmt % mountfile % std::strerror(errno);
-      throw sbuild::runtime_error(fmt.str());
-    }
-
-  mntent *mount;
-  while ((mount = getmntent(mntdb)) != 0)
-    {
-      std::string mount_dir(mount->mnt_dir);
-      if (to_find == "/" ||
-	  (mount_dir.find(to_find) == 0 &&
-	   (// Names are the same.
-	    mount_dir.size() == to_find.size() ||
-	    // Must have a following /, or not the same directory.
-	    (mount_dir.size() > to_find.size() &&
-	     mount_dir[to_find.size()] == '/'))))
-	ret.push_back(mount_dir);
-    }
-
-  std::cout << std::flush;
-
-  if (std::fclose(mntdb) == EOF)
-    {
-      format fmt(_("%1%: Failed to close: %2%"));
-      fmt % mountfile % std::strerror(errno);
-      throw sbuild::runtime_error(fmt.str());
-    }
-
-  return ret;
-}
 
 /**
  * Main routine.
@@ -137,44 +60,28 @@ main (int   argc,
       std::cout.imbue(std::locale());
       std::cerr.imbue(std::locale());
 
-      bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
-      textdomain (GETTEXT_PACKAGE);
-
-#ifndef SBUILD_DEBUG
-      sbuild::debug_level = sbuild::DEBUG_CRITICAL;
-#endif
-
-      // Parse command-line options.
-      options opts(argc, argv);
-
-      if (opts.version)
-	{
-	  print_version(std::cerr);
-	  exit(EXIT_SUCCESS);
-	}
-
-      if (opts.mountpoint.empty())
-	{
-	  sbuild::log_error() << _("No mountpoint specified") << endl;
-	  exit (EXIT_FAILURE);
-	}
-
-      // Check mounts.
-      sbuild::string_list mounts =
-	list_mounts("/proc/mounts", opts.mountpoint);
-
-      for (sbuild::string_list::const_reverse_iterator pos = mounts.rbegin();
-	   pos != mounts.rend();
-	   ++pos)
-	std::cout << *pos << '\n';
-      std::cout << std::flush;
-
-      exit (EXIT_SUCCESS);
+      schroot_listmounts::options::ptr opts
+	(new schroot_listmounts::options(argc, argv));
+      schroot_listmounts::main kit(opts);
+      exit (kit.run());
+    }
+  catch (boost::program_options::error const& e)
+    {
+      sbuild::log_error() << e.what() << endl;
+      sbuild::log_info()
+	<< format(_("Run \"%1% --help\" to list usage example and all available options"))
+	% argv[0]
+	<< endl;
+      exit(EXIT_FAILURE);
     }
   catch (std::exception const& e)
     {
       sbuild::log_error() << e.what() << endl;
-
+      exit(EXIT_FAILURE);
+    }
+  catch (...)
+    {
+      sbuild::log_error() << _("An unknown exception occured") << endl;
       exit(EXIT_FAILURE);
     }
 }

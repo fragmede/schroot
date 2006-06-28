@@ -17,19 +17,19 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_MAIN_H
-#define SCHROOT_MAIN_H
+#ifndef SCHROOT_RELEASELOCK_MAIN_H
+#define SCHROOT_RELEASELOCK_MAIN_H
 
-#include <schroot/schroot-main-base.h>
-#include <schroot/schroot-options-base.h>
+#include <schroot/schroot-base-main.h>
+#include <schroot/schroot-releaselock-options.h>
 
-namespace schroot
+namespace schroot_releaselock
 {
 
   /**
    * Frontend for schroot.  This class is used to "run" schroot.
    */
-  class main : public main_base
+  class main : public schroot_base::main
   {
   public:
     /**
@@ -37,34 +37,35 @@ namespace schroot
      *
      * @param options the command-line options to use.
      */
-    main (options_base::ptr& options);
+    main (options::ptr& options);
 
     /// The destructor.
     virtual ~main ();
 
     /**
-     * List chroots.
+     * Release lock.
+     *
+     * @param stream the stream to output to.
      */
     virtual void
-    action_list ();
+    action_releaselock ();
 
     /**
-     * Dump configuration file for chroots.
+     * Run the program.
+     *
+     * @returns 0 on success, 1 on failure or the exit status of the
+     * chroot command.
      */
-    virtual void
-    action_config ();
+    virtual int
+    run_impl ();
 
-  protected:
-    /**
-     * Create a session.  This sets the session member.
-     */
-    virtual void
-    create_session(sbuild::session::operation sess_op);
+    /// The program options.
+    options::ptr options;
   };
 
 }
 
-#endif /* SCHROOT_MAIN_H */
+#endif /* SCHROOT_RELEASELOCK_MAIN_H */
 
 /*
  * Local Variables:

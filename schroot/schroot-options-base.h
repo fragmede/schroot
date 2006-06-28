@@ -23,6 +23,8 @@
 #include <sbuild/sbuild-session.h>
 #include <sbuild/sbuild-types.h>
 
+#include <schroot/schroot-base-options.h>
+
 #include <string>
 
 #ifdef HAVE_TR1_MEMORY
@@ -42,9 +44,10 @@ namespace schroot
   /**
    * Basic schroot command-line options.  This is specialised by the
    * frontends to suit their particular command-line options and
-   * behaviour.
+   * behaviour.  This class contains functionality and options common
+   * to all schroot programs (schroot, dchroot, dchroot-dsa).
    */
-  class options_base
+  class options_base : public schroot_base::options
   {
   public:
     /// The action to perform.
@@ -55,6 +58,7 @@ namespace schroot
 	ACTION_SESSION_RECOVER, ///< Recover an existing session.
 	ACTION_SESSION_RUN,     ///< Run an existing session.
 	ACTION_SESSION_END,     ///< End an existing session.
+	ACTION_HELP,            ///< Display program help.
 	ACTION_VERSION,         ///< Display program version.
 	ACTION_LIST,            ///< Display a list of chroots.
 	ACTION_INFO,            ///< Display chroot information.
@@ -71,8 +75,8 @@ namespace schroot
      * @param argc the number of arguments.
      * @param argv the list of arguments.
      */
-    options_base (int                 argc,
-		  char               *argv[]);
+    options_base (int   argc,
+		  char *argv[]);
 
     /// The destructor.
     virtual ~options_base ();
@@ -89,10 +93,6 @@ namespace schroot
     std::string          user;
     /// Preserve environment.
     bool                 preserve;
-    /// Quiet messages.
-    bool                 quiet;
-    /// Verbose messages.
-    bool                 verbose;
     /// Use all chroots and sessions.
     bool                 all;
     /// Use all chroots.
@@ -141,15 +141,9 @@ namespace schroot
     virtual void
     check_actions ();
 
-    boost::program_options::options_description            general;
-    boost::program_options::options_description            chroot;
-    boost::program_options::options_description            chrootenv;
-    boost::program_options::options_description            session;
-    boost::program_options::options_description            hidden;
-    boost::program_options::positional_options_description positional;
-    boost::program_options::options_description            visible;
-    boost::program_options::options_description            global;
-    boost::program_options::variables_map                  vm;
+    boost::program_options::options_description chroot;
+    boost::program_options::options_description chrootenv;
+    boost::program_options::options_description session;
   };
 
 }

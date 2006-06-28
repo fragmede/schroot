@@ -65,18 +65,6 @@ options::add_options ()
 void
 options::check_options ()
 {
-  if (vm.count("help"))
-    {
-      std::cout
-	<< _("Usage:") << "\n  "
-	<< "dchroot-dsa"
-	<< "  "
-	<< _("[OPTION...] chroot [COMMAND] - run command or shell in a chroot")
-	<< '\n';
-      std::cout << visible << std::flush;
-      exit(EXIT_SUCCESS);
-    }
-
   schroot::options_base::check_options();
 
   if (vm.count("listpaths"))
@@ -112,6 +100,7 @@ options::check_options ()
        this->action != ACTION_INFO &&
        this->action != ACTION_LIST &&
        this->action != ACTION_LOCATION &&
+       this->action != ACTION_HELP &&
        this->action != ACTION_VERSION))
     throw opt::validation_error(_("No chroot specified"));
 }

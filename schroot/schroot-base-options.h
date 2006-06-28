@@ -17,32 +17,39 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_LISTMOUNTS_OPTIONS_H
-#define SCHROOT_LISTMOUNTS_OPTIONS_H
+#ifndef SCHROOT_BASE_OPTIONS_H
+#define SCHROOT_BASE_OPTIONS_H
 
-#include <schroot/schroot-base-options.h>
+#include <sbuild/sbuild-session.h>
+#include <sbuild/sbuild-types.h>
 
 #include <string>
 
-namespace schroot_listmounts
+#ifdef HAVE_TR1_MEMORY
+#include <tr1/memory>
+#elif HAVE_BOOST_SHARED_PTR_HPP
+#include <boost/shared_ptr.hpp>
+namespace std { namespace tr1 { using boost::shared_ptr; } }
+#else
+#error A shared_ptr implementation is not available
+#endif
+
+#include <boost/program_options.hpp>
+
+namespace schroot_base
 {
 
   /**
-   * schroot-listmounts command-line options.
+   * Basic schroot command-line options.  This is specialised by the
+   * frontends to suit their particular command-line options and
+   * behaviour.  This class implements the functionality common to all
+   * options parsing classes.
    */
-  class options : public schroot_base::options
+  class options
   {
   public:
     /// A shared_ptr to an options object.
     typedef std::tr1::shared_ptr<options> ptr;
-
-    /// The action to perform.
-    enum action_type
-      {
-	ACTION_LISTMOUNTS, ///< List mount points.
-	ACTION_HELP,       ///< Display program help.
-	ACTION_VERSION     ///< Display program version.
-      };
 
     /**
      * The constructor.
@@ -56,10 +63,13 @@ namespace schroot_listmounts
     /// The destructor.
     virtual ~options ();
 
-    /// The action to perform.
-    action_type          action;
-    /// The mountpoint to check.
-    std::string mountpoint;
+    /// Quiet messages.
+    bool                 quiet;
+    /// Verbose messages.
+    bool                 verbose;
+
+    boost::program_options::options_description const&
+    get_visible_options() const;
 
   protected:
     virtual void
@@ -72,15 +82,24 @@ namespace schroot_listmounts
     virtual void
     check_options ();
 
-    boost::program_options::options_description mount;
+    virtual void
+    check_actions ();
+
+    boost::program_options::options_description            general;
+    boost::program_options::options_description            hidden;
+    boost::program_options::positional_options_description positional;
+    boost::program_options::options_description            visible;
+    boost::program_options::options_description            global;
+    boost::program_options::variables_map                  vm;
   };
 
 }
 
-#endif /* SCHROOT_LISTMOUNTS_OPTIONS_H */
+#endif /* SCHROOT_BASE_OPTIONS_H */
 
 /*
  * Local Variables:
  * mode:C++
  * End:
  */
+

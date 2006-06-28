@@ -1,3 +1,71 @@
+2006-06-28  Roger Leigh  <rleigh@debian.org>
+
+	* dchroot-dsa/dchroot-dsa-main.cc: Use new constructor argmuments,
+	and chain up to the new parent class.
+
+	* dchroot-dsa/dchroot-dsa-options.cc: Remove help check, which is
+	handled in the base class.  Handle help action in sanity checks.
+
+	* dchroot/dchroot-main.cc: Use new constructor argmuments, and
+	chain up to the new parent class.
+
+	* dchroot/dchroot-main-base.(cc|h): Derive from
+	schroot::main_base.
+
+	* dchroot/dchroot-options.cc: Remove help check, which is handled
+	in the base class.
+
+	* schroot/schroot-main.(cc|h): Derive from main_base.  Remove
+	functionality moved to the base class.
+
+	* schroot/schroot-options-base.(cc|h): Derive from
+	schroot_base::options.  Remove functionality moved to the base
+	class.  Add help action.
+
+	* schroot/schroot-options.cc: Remove help check, which is handled
+	in the base class.
+
+	* schroot/schroot-listmounts.cc: Move functionality into
+	schroot_listmounts::main.
+
+	* schroot/schroot-listmounts-options.(cc|h): Derive from
+	schroot_base::options and implement actions.
+
+	* schroot/schroot-releaselock.cc: Move functionality into
+	schroot_releaselock::main.
+
+	* schroot/schroot-releaselock-options.(cc.h): Derive from
+	schroot_base::options and implement actions.
+
+	* schroot/Makefile.am: Add schroot_base::main and
+	schroot_base::options to a new libschroot-base.la library.
+	libschroot and the helper binaries use this base library.
+
+	* schroot/schroot-main-base.(cc|h): New files.  This class
+	contains functionality common to all schroot programs (schroot,
+	dchroot, dchroot-dsa), split out from schroot/schroot-main.cc.  It
+	is derived from schroot_base::main.
+
+	* schroot/schroot-listmounts-main.(cc|h): New files.  This class
+	implements the frontend for schroot-listmounts.  It contains logic
+	moved from schroot/schroot-listmounts.cc.  It is derived from
+	schroot_base::main.
+
+	* schroot/schroot-releaselock-main.(cc|h): New files.  This class
+	implements the frontend for schroot-releaselock.  It contains
+	logic moved from schroot/schroot-releaselock.cc.  It is derived
+	from schroot_base::main.
+
+	* schroot/schroot-base-options.(cc|h): New files.  This class
+	implements the functionality common to all options parsing
+	classes.
+
+	* schroot/schroot-base-main.(cc|h): New files.  Frontend base for
+	schroot programs.  This class is used to "run" schroot programs.
+	It contains functionality common to all * programs, such as help
+	and version output.
+
+
 2006-06-26  Roger Leigh  <rleigh@debian.org>
 
 	* sbuild/sbuild-session.cc (is_group_member): Rather than exiting

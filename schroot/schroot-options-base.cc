@@ -32,28 +32,21 @@ using boost::format;
 namespace opt = boost::program_options;
 using namespace schroot;
 
-options_base::options_base (int                 argc,
-			    char               *argv[]):
+options_base::options_base (int   argc,
+			    char *argv[]):
+  schroot_base::options (argc, argv),
   action(ACTION_SESSION_AUTO),
   chroots(),
   command(),
   user(),
   preserve(false),
-  quiet(false),
-  verbose(false),
   all(false),
   all_chroots(false),
   all_sessions(false),
   session_force(false),
-  general(_("General options")),
   chroot(_("Chroot selection")),
   chrootenv(_("Chroot environment")),
-  session(_("Session management")),
-  hidden(_("Hidden options")),
-  positional(),
-  visible(),
-  global(),
-  vm()
+  session(_("Session management"))
 {
 }
 
@@ -64,15 +57,9 @@ options_base::~options_base ()
 void
 options_base::add_options ()
 {
+  schroot_base::options::add_options();
+
   general.add_options()
-    ("help,h",
-     _("Show help options"))
-    ("version,V",
-     _("Print version information"))
-    ("quiet,q",
-     _("Show less output"))
-    ("verbose,v",
-     _("Show more output"))
     ("list,l",
      _("List available chroots"))
     ("info,i",
@@ -86,9 +73,7 @@ options_base::add_options ()
 
   hidden.add_options()
     ("command", opt::value<sbuild::string_list>(&this->command),
-     _("Command to run"))
-    ("debug",
-     _("Enable debugging messages"));
+     _("Command to run"));
 
   positional.add("command", -1);
 }
@@ -117,7 +102,7 @@ options_base::parse_options (int   argc,
       visible.add(session);
       global.add(session);
     }
-  if (!global.options().empty())
+  if (!hidden.options().empty())
     global.add(hidden);
 
   opt::store(opt::command_line_parser(argc, argv).
@@ -128,6 +113,10 @@ options_base::parse_options (int   argc,
 void
 options_base::check_options ()
 {
+  schroot_base::options::check_options();
+
+  if (vm.count("help"))
+    set_action(ACTION_HELP);
   if (vm.count("version"))
     set_action(ACTION_VERSION);
   if (vm.count("list"))
@@ -136,16 +125,6 @@ options_base::check_options ()
     set_action(ACTION_INFO);
   if (vm.count("config"))
     set_action(ACTION_CONFIG);
-
-  if (vm.count("quiet"))
-    this->quiet = true;
-  if (vm.count("verbose"))
-    this->verbose = true;
-
-  if (vm.count("debug"))
-    sbuild::debug_level = sbuild::DEBUG_NOTICE;
-  else
-    sbuild::debug_level = sbuild::DEBUG_NONE;
 }
 
 void
@@ -197,6 +176,7 @@ options_base::check_actions ()
       // Session operations work on all chroots.
       this->load_chroots = this->load_sessions = true;
       break;
+    case ACTION_HELP:
     case ACTION_VERSION:
       // Chroots don't make sense here.
       this->load_chroots = this->load_sessions = false;

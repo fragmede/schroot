@@ -17,19 +17,19 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_MAIN_H
-#define SCHROOT_MAIN_H
+#ifndef SCHROOT_LISTMOUNTS_MAIN_H
+#define SCHROOT_LISTMOUNTS_MAIN_H
 
-#include <schroot/schroot-main-base.h>
-#include <schroot/schroot-options-base.h>
+#include <schroot/schroot-base-main.h>
+#include <schroot/schroot-listmounts-options.h>
 
-namespace schroot
+namespace schroot_listmounts
 {
 
   /**
    * Frontend for schroot.  This class is used to "run" schroot.
    */
-  class main : public main_base
+  class main : public schroot_base::main
   {
   public:
     /**
@@ -37,34 +37,44 @@ namespace schroot
      *
      * @param options the command-line options to use.
      */
-    main (options_base::ptr& options);
+    main (options::ptr& options);
 
     /// The destructor.
     virtual ~main ();
 
     /**
-     * List chroots.
+     * List mounts.
+     *
+     * @param mountfile the file containing the database of mounted filesystems.
+     * @param mountpoint the mount point to check for.
      */
-    virtual void
-    action_list ();
+    sbuild::string_list
+    list_mounts (std::string const& mountfile) const;
 
     /**
-     * Dump configuration file for chroots.
+     * Release lock.
+     *
+     * @param stream the stream to output to.
      */
     virtual void
-    action_config ();
+    action_listmounts ();
 
-  protected:
     /**
-     * Create a session.  This sets the session member.
+     * Run the program.
+     *
+     * @returns 0 on success, 1 on failure or the exit status of the
+     * chroot command.
      */
-    virtual void
-    create_session(sbuild::session::operation sess_op);
+    virtual int
+    run_impl ();
+
+    /// The program options.
+    options::ptr options;
   };
 
 }
 
-#endif /* SCHROOT_MAIN_H */
+#endif /* SCHROOT_LISTMOUNTS_MAIN_H */
 
 /*
  * Local Variables:

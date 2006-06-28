@@ -42,9 +42,10 @@ using schroot::options_base;
 using namespace dchroot;
 
 main::main (options_base::ptr& options):
-  main_base(options)
+  main_base("dchroot",
+	    _("[OPTION...] [COMMAND] - run command or shell in a chroot"),
+	    options)
 {
-  this->program_name = "dchroot";
 }
 
 main::~main ()
@@ -72,7 +73,7 @@ main::load_config ()
     }
   else
     {
-      schroot::main::load_config();
+      schroot::main_base::load_config();
     }
 }
 

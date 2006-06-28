@@ -36,46 +36,71 @@ using namespace schroot_releaselock;
 
 options::options (int   argc,
 		  char *argv[]):
+  schroot_base::options(argc, argv),
+  action(ACTION_RELEASELOCK),
   device(),
   pid(0),
-  version(0)
+  lock(_("Lock"))
 {
-  opt::options_description general(_("General options"));
-  general.add_options()
-    ("help,?", _("Show help options"))
-    ("version,V",
-     _("Print version information"));
+  add_options();
+  parse_options(argc, argv);
+  check_options();
+  check_actions();
+}
 
-  opt::options_description lock(_("Lock options"));
+options::~options ()
+{
+}
+
+void
+options::add_options ()
+{
+  schroot_base::options::add_options();
+
   lock.add_options()
     ("device,d", opt::value<std::string>(&this->device),
      _("Device to unlock (full path)"))
     ("pid,p", opt::value<int>(&this->pid),
      _("Process ID owning the lock"));
+}
 
+void
+options::parse_options (int   argc,
+			char *argv[])
+{
+  if (!general.options().empty())
+    {
+      visible.add(general);
+      global.add(general);
+    }
+  if (!lock.options().empty())
+    {
+      visible.add(lock);
+      global.add(lock);
+    }
+  if (!hidden.options().empty())
+    global.add(hidden);
 
-  opt::options_description global;
-  global.add(general).add(lock);
-
-  opt::variables_map vm;
-  opt::store(opt::parse_command_line(argc, argv, global), vm);
+  opt::store(opt::command_line_parser(argc, argv).
+	     options(global).positional(positional).run(), vm);
   opt::notify(vm);
+}
+
+void
+options::check_options ()
+{
+  schroot_base::options::check_options();
 
   if (vm.count("help"))
-    {
-      std::cout
-	<< _("Usage:") << '\n'
-	<< "  " << _("schroot-releaselock [OPTION...] - release a device lock") << '\n'
-	<< global << std::flush;
-      exit(EXIT_SUCCESS);
-}
+    this->action = ACTION_HELP;
 
   if (vm.count("version"))
-    this->version = true;
-}
+    this->action = ACTION_VERSION;
 
-options::~options ()
-{
+  if (this->device.empty() &&
+      this->action != ACTION_HELP &&
+      this->action != ACTION_VERSION)
+    throw opt::validation_error(_("No device specified"));
 }
 
 /*
