@@ -1,5 +1,10 @@
 2006-06-28  Roger Leigh  <rleigh@debian.org>
 
+	* Clean up locale and exception handling in all main stub
+	routines.
+
+2006-06-28  Roger Leigh  <rleigh@debian.org>
+
 	* TODO: Remove completed items.
 
 	* schroot/schroot-base-main.cc

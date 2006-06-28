@@ -23,8 +23,6 @@
 #include "schroot-options.h"
 
 #include <cstdlib>
-#include <iostream>
-#include <locale>
 
 #include <boost/format.hpp>
 
@@ -52,15 +50,6 @@ main (int   argc,
       schroot::options::ptr opts(new schroot::options);
       schroot::main kit(opts);
       exit (kit.run(argc, argv));
-    }
-  catch (boost::program_options::error const& e)
-    {
-      sbuild::log_error() << e.what() << endl;
-      sbuild::log_info()
-	<< format(_("Run \"%1% --help\" to list usage example and all available options"))
-	% argv[0]
-	<< endl;
-      exit(EXIT_FAILURE);
     }
   catch (std::exception const& e)
     {

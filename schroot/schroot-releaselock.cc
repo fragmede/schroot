@@ -27,8 +27,6 @@
 #include "schroot-releaselock-main.h"
 
 #include <cstdlib>
-#include <iostream>
-#include <locale>
 
 #include <boost/format.hpp>
 #include <boost/program_options.hpp>
@@ -55,23 +53,9 @@ main (int   argc,
 {
   try
     {
-      // Set up locale.
-      std::locale::global(std::locale(""));
-      std::cout.imbue(std::locale());
-      std::cerr.imbue(std::locale());
-
       schroot_releaselock::options::ptr opts(new schroot_releaselock::options);
       schroot_releaselock::main kit(opts);
       exit (kit.run(argc, argv));
-    }
-  catch (boost::program_options::error const& e)
-    {
-      sbuild::log_error() << e.what() << endl;
-      sbuild::log_info()
-	<< format(_("Run \"%1% --help\" to list usage example and all available options"))
-	% argv[0]
-	<< endl;
-      exit(EXIT_FAILURE);
     }
   catch (std::exception const& e)
     {
