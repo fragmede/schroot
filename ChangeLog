@@ -1,5 +1,12 @@
 2006-06-28  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Remove completed item.
+
+	* sbuild/sbuild-util.cc (narrow_string, widen_string): Throw a
+	runtime_error on conversion failure.
+
+2006-06-28  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-auth.cc: Fix switched authentication and
 	authorisation messages.
 

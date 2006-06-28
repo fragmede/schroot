@@ -17,15 +17,6 @@ PENDING
   the boost::format markup changes fixing first.  What are other
   projects doing?
 
-* Handle charset conversion errors more gracefully.
-
-  sbuild-util widen_string and narrow_string.  Currently an error
-  occurs if in a C locale the string contains non-US-ASCII characters
-  or, in other locales if the gettext message catalogue has bad
-  strings.  The string is truncated to the point of error, or may be
-  empty depending where the error is.  We should error out a bit
-  better in this case.  Assertion, or exception?
-
 * Use boost::format markup in the standard error strings.
 
   This will complete the i18n support for error translation.  It will

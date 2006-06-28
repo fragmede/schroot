@@ -19,6 +19,7 @@
 
 #include <config.h>
 
+#include "sbuild-error.h"
 #include "sbuild-util.h"
 
 #include <sys/types.h>
@@ -206,6 +207,8 @@ sbuild::widen_string (std::string const& str,
 	}
       else if (res == std::codecvt_base::error)
 	{
+	  throw runtime_error
+	    ("A character set conversion failed.  Please report this bug.");
 	  break;
 	}
       else
@@ -251,6 +254,8 @@ sbuild::narrow_string (std::wstring const& str,
 	}
       else if (res == std::codecvt_base::error)
 	{
+	  throw runtime_error
+	    ("A character set conversion failed.  Please report this bug.");
 	  break;
 	}
       else
