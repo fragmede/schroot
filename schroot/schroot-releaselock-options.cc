@@ -92,15 +92,24 @@ options::check_options ()
   schroot_base::options::check_options();
 
   if (vm.count("help"))
-    this->action = ACTION_HELP;
+    set_action(ACTION_HELP);
 
   if (vm.count("version"))
-    this->action = ACTION_VERSION;
+    set_action(ACTION_VERSION);
 
   if (this->device.empty() &&
       this->action != ACTION_HELP &&
       this->action != ACTION_VERSION)
     throw opt::validation_error(_("No device specified"));
+}
+
+void
+options::set_action (action_type action)
+{
+  if (this->action != ACTION_RELEASELOCK)
+    throw opt::validation_error(_("Only one action may be specified"));
+
+  this->action = action;
 }
 
 /*

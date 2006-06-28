@@ -64,6 +64,15 @@ namespace schroot_releaselock
     int         pid;
 
   protected:
+    /**
+     * Set action.  This detects if an action has already been set
+     * (only one action may be specified at once).
+     *
+     * @param action the action to set.
+     */
+    void
+    set_action (action_type action);
+
     virtual void
     add_options ();
 

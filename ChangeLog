@@ -1,5 +1,13 @@
 2006-06-28  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot-listmounts-options.cc: Add set_action method to
+	ensure only one action is specified.
+
+	* schroot/schroot-releaselock-options.cc: Add set_action method to
+	ensure only one action is specified.
+
+2006-06-28  Roger Leigh  <rleigh@debian.org>
+
 	* dchroot-dsa/dchroot-dsa-main.cc: Use new constructor argmuments,
 	and chain up to the new parent class.
 
