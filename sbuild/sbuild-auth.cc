@@ -52,8 +52,8 @@ namespace
     {
       emap(auth::HOSTNAME,        N_("Failed to get hostname")),
       emap(auth::USER,            N_("User not found")),
-      emap(auth::AUTHENTICATION,  N_("Access not authorised")),
-      emap(auth::AUTHORISATION,   N_("Authentication failed")),
+      emap(auth::AUTHENTICATION,  N_("Authentication failed")),
+      emap(auth::AUTHORISATION,   N_("Access not authorised")),
       emap(auth::PAM_DOUBLE_INIT, N_("PAM is already initialised")),
       emap(auth::PAM,             N_("PAM error"))
     };

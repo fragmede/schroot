@@ -1,5 +1,10 @@
 2006-06-28  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-auth.cc: Fix switched authentication and
+	authorisation messages.
+
+2006-06-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.1.in, dchroot/dchroot.1.in,
 	dchroot-dsa/dchroot-dsa.1.in: Document debug levels.
 
