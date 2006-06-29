@@ -65,6 +65,25 @@ namespace sbuild
     void
     set_file (std::string const& file);
 
+    /**
+     * Get the repack status.  This is true if the unpacked archive
+     * file will be repacked.
+     *
+     * @returns the repack status.
+     */
+    bool
+    get_file_repack () const;
+
+    /**
+     * Set the file repack status.  Set to true if the unpacked
+     * archive file will be repacked on session cleanup, or false to
+     * discard.
+     *
+     * @param repack the repack status.
+     */
+    void
+    set_file_repack (bool repack);
+
     virtual std::string const&
     get_chroot_type () const;
 

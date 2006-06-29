@@ -44,12 +44,6 @@ PLANNED
   like namespace bugs in doxygen.  It would be great if we could fix
   the code by fully qualifying the namespace where appropriate.
 
-* Chroot config errors should report the keyfile line number.
-
-  This is difficult, because the keyfile parsing is completed, and the
-  line numbers are lost.  Perhaps the keyfile should cache the line
-  numbers during read and recompute on write?
-
 * Add API to run multiple commands to replace auth::run().
 
 

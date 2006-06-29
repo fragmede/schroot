@@ -782,6 +782,291 @@ namespace sbuild
     group_map_type groups;
     /// The separator used as a list item delimiter.
     char           separator;
+
+  public:
+    /**
+     * Set a key value from an object method return value.  This is
+     * the same as calling set_value directly, but handles exceptions
+     * being thrown by the object method, which are turned into
+     * parse_error exceptions.
+     *
+     * @param object the object to use.
+     * @param method the object method to call.
+     * @param keyfile the keyfile to use.
+     * @param group the group the key is in.
+     * @param key the key to set.
+     */
+    template<class C, typename T>
+    static void
+    set_object_value (C const&            object,
+		      T             (C::* method)() const,
+		      keyfile&            keyfile,
+		      std::string const&  group,
+		      std::string const&  key)
+    {
+      try
+	{
+	  keyfile.set_value(group, key, (object.*method)());
+	}
+      catch (runtime_error const& e)
+	{
+	  throw parse_error(group, key, parse_error::NONE, e.what());
+	}
+    }
+
+    /**
+     * Set a key value from an object method return value reference.
+     * This is the same as calling set_value directly, but handles
+     * exceptions being thrown by the object method, which are turned
+     * into parse_error exceptions.
+     *
+     * @param object the object to use.
+     * @param method the object method to call.
+     * @param keyfile the keyfile to use.
+     * @param group the group the key is in.
+     * @param key the key to set.
+     */
+    template<class C, typename T>
+    static void
+    set_object_value (C const&            object,
+		      T const&      (C::* method)() const,
+		      keyfile&            keyfile,
+		      std::string const&  group,
+		      std::string const&  key)
+    {
+      try
+	{
+	  keyfile.set_value(group, key, (object.*method)());
+	}
+      catch (runtime_error const& e)
+	{
+	  throw parse_error(group, key, parse_error::NONE, e.what());
+	}
+    }
+
+    /**
+     * Set a key list value from an object method return value.  The
+     * method must return a container with begin() and end() methods
+     * which return forward iterators.  This is the same as calling
+     * set_list_value directly, but handles exceptions being thrown by
+     * the object method, which are turned into parse_error
+     * exceptions.
+     *
+     * @param object the object to use.
+     * @param method the object method to call.
+     * @param keyfile the keyfile to use.
+     * @param group the group the key is in.
+     * @param key the key to set.
+     */
+    template<class C, typename T>
+    static void
+    set_object_list_value (C const&            object,
+			   T             (C::* method)() const,
+			   keyfile&            keyfile,
+			   std::string const&  group,
+			   std::string const&  key)
+    {
+      try
+	{
+	  keyfile.set_list_value(group, key,
+				 (object.*method)().begin(),
+				 (object.*method)().end());
+	}
+      catch (runtime_error const& e)
+	{
+	  throw parse_error(group, key, parse_error::NONE, e.what());
+	}
+    }
+
+    /**
+     * Set a key list value from an object method return value.  The
+     * method must return a container reference with begin() and end()
+     * methods which return forward iterators.  This is the same as
+     * calling set_list_value directly, but handles exceptions being
+     * thrown by the object method, which are turned into parse_error
+     * exceptions.
+     *
+     * @param object the object to use.
+     * @param method the object method to call.
+     * @param keyfile the keyfile to use.
+     * @param group the group the key is in.
+     * @param key the key to set.
+     */
+    template<class C, typename T>
+    static void
+    set_object_list_value (C const&            object,
+			   T const&      (C::* method)() const,
+			   keyfile&            keyfile,
+			   std::string const&  group,
+			   std::string const&  key)
+    {
+      try
+	{
+	  keyfile.set_list_value(group, key,
+				 (object.*method)().begin(),
+				 (object.*method)().end());
+	}
+      catch (runtime_error const& e)
+	{
+	  throw parse_error(group, key, parse_error::NONE, e.what());
+	}
+    }
+
+    /**
+     * Get a key value and set it in an object using an object method.
+     * This is the same as calling get_value directly, but handles
+     * exceptions being thrown by the object method, and
+     * deserialisation errors, which are turned into parse_error
+     * exceptions pointing to the group, key and line number in the
+     * input file.
+     *
+     * @param object the object to use.
+     * @param method the object method to call.
+     * @param keyfile the keyfile to use.
+     * @param group the group the key is in.
+     * @param key the key to set.
+     * @param priority the key priority.
+     */
+    template<class C, typename T>
+    static void
+    get_object_value (C&                  object,
+		      void          (C::* method)(T param),
+		      keyfile const&      keyfile,
+		      std::string const&  group,
+		      std::string const&  key,
+		      keyfile::priority   priority)
+    {
+      T value;
+      if (keyfile.get_value(group, key, priority, value))
+	{
+	  try
+	    {
+	      (object.*method)(value);
+	    }
+	  catch (runtime_error const& e)
+	    {
+	      throw parse_error(keyfile.get_line(group, key),
+				group, key, parse_error::NONE, e.what());
+	    }
+	}
+    }
+
+    /**
+     * Get a key value and set it by reference in an object using an
+     * object method.  This is the same as calling get_value directly,
+     * but handles exceptions being thrown by the object method, and
+     * deserialisation errors, which are turned into parse_error
+     * exceptions pointing to the group, key and line number in the
+     * input file.
+     *
+     * @param object the object to use.
+     * @param method the object method to call.
+     * @param keyfile the keyfile to use.
+     * @param group the group the key is in.
+     * @param key the key to set.
+     * @param priority the key priority.
+     */
+    template<class C, typename T>
+    static void
+    get_object_value (C&                  object,
+		      void          (C::* method)(T const& param),
+		      keyfile const&      keyfile,
+		      std::string const&  group,
+		      std::string const&  key,
+		      keyfile::priority   priority)
+    {
+      T value;
+      if (keyfile.get_value(group, key, priority, value))
+	{
+	  try
+	    {
+	      (object.*method)(value);
+	    }
+	  catch (runtime_error const& e)
+	    {
+	      throw parse_error(keyfile.get_line(group, key),
+				group, key, parse_error::NONE, e.what());
+	    }
+	}
+    }
+
+    /**
+     * Get a key list value and set it in an object using an object
+     * method.  This is the same as calling get_list_value directly,
+     * but handles exceptions being thrown by the object method, and
+     * deserialisation errors, which are turned into parse_error
+     * exceptions pointing to the group, key and line number in the
+     * input file.
+     *
+     * @param object the object to use.
+     * @param method the object method to call.
+     * @param keyfile the keyfile to use.
+     * @param group the group the key is in.
+     * @param key the key to set.
+     * @param priority the key priority.
+     */
+    template<class C, typename T>
+    static void
+    get_object_list_value (C&                  object,
+			   void          (C::* method)(T param),
+			   keyfile const&      keyfile,
+			   std::string const&  group,
+			   std::string const&  key,
+			   keyfile::priority   priority)
+    {
+      T value;
+      if (keyfile.get_list_value(group, key, priority, value))
+	{
+	  try
+	    {
+	      (object.*method)(value);
+	    }
+	  catch (runtime_error const& e)
+	    {
+	      throw parse_error(keyfile.get_line(group, key),
+				group, key, parse_error::NONE, e.what());
+	    }
+	}
+    }
+
+    /**
+     * Get a key list value and set it by reference in an object using
+     * an object method.  This is the same as calling get_list_value
+     * directly, but handles exceptions being thrown by the object
+     * method, and deserialisation errors, which are turned into
+     * parse_error exceptions pointing to the group, key and line
+     * number in the input file.
+     *
+     * @param object the object to use.
+     * @param method the object method to call.
+     * @param keyfile the keyfile to use.
+     * @param group the group the key is in.
+     * @param key the key to set.
+     * @param priority the key priority.
+     */
+    template<class C, typename T>
+    static void
+    get_object_list_value (C&                  object,
+			   void          (C::* method)(T const& param),
+			   keyfile const&      keyfile,
+			   std::string const&  group,
+			   std::string const&  key,
+			   keyfile::priority   priority)
+    {
+      T value;
+      if (keyfile.get_list_value(group, key, priority, value))
+	{
+	  try
+	    {
+	      (object.*method)(value);
+	    }
+	  catch (runtime_error const& e)
+	    {
+	      throw parse_error(keyfile.get_line(group, key),
+				group, key, parse_error::NONE, e.what());
+	    }
+	}
+    }
   };
 
 }

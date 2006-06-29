@@ -76,6 +76,9 @@ chroot_lvm_snapshot::get_snapshot_device () const
 void
 chroot_lvm_snapshot::set_snapshot_device (std::string const& snapshot_device)
 {
+  if (!is_absname(snapshot_device))
+    throw error(snapshot_device, DEVICE_ABS);
+
   this->snapshot_device = snapshot_device;
 }
 
@@ -212,11 +215,11 @@ chroot_lvm_snapshot::get_keyfile (keyfile& keyfile) const
   chroot_source::get_keyfile(keyfile);
 
   if (get_active())
-    keyfile.set_value(get_name(), "lvm-snapshot-device",
-		      get_snapshot_device());
+    keyfile::set_object_value(*this, &chroot_lvm_snapshot::get_snapshot_device,
+			      keyfile, get_name(), "lvm-snapshot-device");
 
-  keyfile.set_value(get_name(), "lvm-snapshot-options",
-		    get_snapshot_options());
+  keyfile::set_object_value(*this, &chroot_lvm_snapshot::get_snapshot_options,
+			    keyfile, get_name(), "lvm-snapshot-options");
 }
 
 void
@@ -225,22 +228,15 @@ chroot_lvm_snapshot::set_keyfile (keyfile const& keyfile)
   chroot_block_device::set_keyfile(keyfile);
   chroot_source::set_keyfile(keyfile);
 
-  std::string snapshot_device;
-  if (keyfile.get_value(get_name(), "lvm-snapshot-device",
-			get_active() ?
-			keyfile::PRIORITY_REQUIRED :
-			keyfile::PRIORITY_DISALLOWED,
-			snapshot_device))
-    {
-      if (!is_absname(snapshot_device))
-	throw error(snapshot_device, DEVICE_ABS);
-      set_snapshot_device(snapshot_device);
-    }
+  keyfile::get_object_value(*this, &chroot_lvm_snapshot::set_snapshot_device,
+			    keyfile, get_name(), "lvm-snapshot-device",
+			    get_active() ?
+			    keyfile::PRIORITY_REQUIRED :
+			    keyfile::PRIORITY_DISALLOWED);
 
-  std::string snapshot_options;
-  if (keyfile.get_value(get_name(), "lvm-snapshot-options",
-			keyfile::PRIORITY_REQUIRED, snapshot_options))
-    set_snapshot_options(snapshot_options);
+  keyfile::get_object_value(*this, &chroot_lvm_snapshot::set_snapshot_options,
+			    keyfile, get_name(), "lvm-snapshot-options",
+			    keyfile::PRIORITY_REQUIRED);
 }
 
 /*

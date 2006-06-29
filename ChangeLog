@@ -1,5 +1,24 @@
 2006-06-29  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Remove completed item.
+
+	* sbuild/sbuild-chroot-config.cc
+	(parse_data): Remove exception wrapper, now that sbuild::keyfile
+	throws exceptions containing more detailed information.
+
+	* sbuild/sbuild-chroot-file.cc
+	(get_file_repack, set_file_repack): New methods to get and set
+	file repack status.
+
+	* All chroot get_keyfile and set_keyfile methods are implemented
+	in terms of the new keyfile::[gs]et_object_(list_)value methods.
+
+	* sbuild/sbuild-keyfile.h: Add templated static methods for
+	getting and setting key values and list values using pointers to
+	methods of other objects.
+
+2006-06-29  Roger Leigh  <rleigh@debian.org>
+
 	* test/sbuild-keyfile.cc: Add test for getting line numbers.
 
 	* sbuild/sbuild-keyfile.h:

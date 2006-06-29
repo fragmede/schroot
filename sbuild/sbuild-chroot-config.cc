@@ -478,16 +478,7 @@ chroot_config::parse_data (std::istream& stream,
       chroot::ptr chroot = chroot::create(type);
       chroot->set_name(*group);
 
-      try
-	{
-	  kconfig >> chroot;
-	}
-      catch (const runtime_error& e)
-	{
-	  format fmt(_("%1% chroot"));
-	  fmt % *group;
-	  throw error(fmt.str(), e.what());
-	}
+      kconfig >> chroot;
 
       add(chroot);
 

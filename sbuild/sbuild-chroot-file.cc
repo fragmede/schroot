@@ -77,7 +77,22 @@ chroot_file::get_file () const
 void
 chroot_file::set_file (std::string const& file)
 {
+  if (!is_absname(file))
+    throw error(file, FILE_ABS);
+
   this->file = file;
+}
+
+bool
+chroot_file::get_file_repack () const
+{
+  return this->repack;
+}
+
+void
+chroot_file::set_file_repack (bool repack)
+{
+  this->repack = repack;
 }
 
 std::string const&
@@ -154,12 +169,12 @@ chroot_file::get_keyfile (keyfile& keyfile) const
   chroot::get_keyfile(keyfile);
   chroot_source::get_keyfile(keyfile);
 
-  keyfile.set_value(get_name(), "file",
-		    get_file());
+  keyfile::set_object_value(*this, &chroot_file::get_file,
+			    keyfile, get_name(), "file");
 
   if (get_active())
-    keyfile.set_value(get_name(), "file-repack",
-		      this->repack);
+  keyfile::set_object_value(*this, &chroot_file::get_file_repack,
+			    keyfile, get_name(), "file-repack");
 }
 
 void
@@ -168,19 +183,15 @@ chroot_file::set_keyfile (keyfile const& keyfile)
   chroot::set_keyfile(keyfile);
   chroot_source::set_keyfile(keyfile);
 
-  std::string file;
-  if (keyfile.get_value(get_name(), "file",
-			keyfile::PRIORITY_REQUIRED, file))
-    {
-      if (!is_absname(file))
-	throw error(file, FILE_ABS);
-      set_file(file);
-    }
+  keyfile::get_object_value(*this, &chroot_file::set_file,
+			    keyfile, get_name(), "file",
+			    keyfile::PRIORITY_REQUIRED);
 
-  keyfile.get_value(get_name(), "file-repack",
-		    get_active() ?
-		    keyfile::PRIORITY_REQUIRED : keyfile::PRIORITY_DISALLOWED,
-		    this->repack);
+  keyfile::get_object_value(*this, &chroot_file::set_file_repack,
+			    keyfile, get_name(), "file-repack",
+			    get_active() ?
+			    keyfile::PRIORITY_REQUIRED :
+			    keyfile::PRIORITY_DISALLOWED);
 }
 
 /*

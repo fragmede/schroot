@@ -56,6 +56,9 @@ chroot_plain::get_location () const
 void
 chroot_plain::set_location (std::string const& location)
 {
+  if (!is_absname(location))
+    throw error(location, LOCATION_ABS);
+
   chroot::set_location(location);
 }
 
@@ -124,8 +127,8 @@ chroot_plain::get_keyfile (keyfile& keyfile) const
 {
   chroot::get_keyfile(keyfile);
 
-  keyfile.set_value(get_name(), "location",
-		    get_location());
+  keyfile::set_object_value(*this, &chroot_plain::get_location,
+			    keyfile, get_name(), "location");
 }
 
 void
@@ -133,14 +136,9 @@ chroot_plain::set_keyfile (keyfile const& keyfile)
 {
   chroot::set_keyfile(keyfile);
 
-  std::string location;
-  if (keyfile.get_value(get_name(), "location",
-			keyfile::PRIORITY_REQUIRED, location))
-    {
-      if (!is_absname(location))
-	throw error(location, LOCATION_ABS);
-      set_location(location);
-    }
+  keyfile::get_object_value(*this, &chroot_plain::set_location,
+			    keyfile, get_name(), "location",
+			    keyfile::PRIORITY_REQUIRED);
 }
 
 /*

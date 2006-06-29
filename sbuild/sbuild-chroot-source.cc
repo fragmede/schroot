@@ -125,49 +125,37 @@ chroot_source::get_details (format_detail& detail) const
 void
 chroot_source::get_keyfile (keyfile& keyfile) const
 {
-  string_list const& source_users = get_source_users();
-  keyfile.set_list_value(get_name(), "source-users",
-			 source_users.begin(), source_users.end());
+  keyfile::set_object_list_value(*this, &chroot_source::get_source_users,
+				 keyfile, get_name(), "source-users");
 
-  string_list const& source_groups = get_source_groups();
-  keyfile.set_list_value(get_name(), "source-groups",
-			 source_groups.begin(), source_groups.end());
+  keyfile::set_object_list_value(*this, &chroot_source::get_source_groups,
+				 keyfile, get_name(), "source-groups");
 
-  string_list const& source_root_groups = get_source_root_groups();
-  keyfile.set_list_value(get_name(), "source-root-groups",
-			 source_root_groups.begin(), source_root_groups.end());
+  keyfile::set_object_list_value(*this, &chroot_source::get_source_root_users,
+				 keyfile, get_name(), "source-root-users");
 
-  string_list const& source_root_users = get_source_root_users();
-  keyfile.set_list_value(get_name(), "source-root-users",
-			 source_root_users.begin(), source_root_users.end());
+  keyfile::set_object_list_value(*this, &chroot_source::get_source_root_groups,
+				 keyfile, get_name(), "source-root-groups");
 }
 
 void
 chroot_source::set_keyfile (keyfile const& keyfile)
 {
-  string_list source_users;
-  if (keyfile.get_list_value(get_name(), "source-users",
-			     keyfile::PRIORITY_OPTIONAL,
-			     source_users))
-    set_source_users(source_users);
+  keyfile::get_object_list_value(*this, &chroot_source::set_source_users,
+				 keyfile, get_name(), "source-users",
+				 keyfile::PRIORITY_OPTIONAL);
 
-  string_list source_groups;
-  if (keyfile.get_list_value(get_name(), "source-groups",
-			     keyfile::PRIORITY_OPTIONAL,
-			     source_groups))
-    set_source_groups(source_groups);
+  keyfile::get_object_list_value(*this, &chroot_source::set_source_groups,
+				 keyfile, get_name(), "source-groups",
+				 keyfile::PRIORITY_OPTIONAL);
 
-  string_list source_root_users;
-  if (keyfile.get_list_value(get_name(), "source-root-users",
-			     keyfile::PRIORITY_OPTIONAL,
-			     source_root_users))
-    set_source_root_users(source_root_users);
+  keyfile::get_object_list_value(*this, &chroot_source::set_source_root_users,
+				 keyfile, get_name(), "source-root-users",
+				 keyfile::PRIORITY_OPTIONAL);
 
-  string_list source_root_groups;
-  if (keyfile.get_list_value(get_name(), "source-root-groups",
-			     keyfile::PRIORITY_OPTIONAL,
-			     source_root_groups))
-    set_source_root_groups(source_root_groups);
+  keyfile::get_object_list_value(*this, &chroot_source::set_source_root_groups,
+				 keyfile, get_name(), "source-root-groups",
+				 keyfile::PRIORITY_OPTIONAL);
 }
 
 /*

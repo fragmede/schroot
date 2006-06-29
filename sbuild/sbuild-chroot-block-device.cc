@@ -62,6 +62,9 @@ chroot_block_device::get_device () const
 void
 chroot_block_device::set_device (std::string const& device)
 {
+  if (!is_absname(device))
+    throw error(device, DEVICE_ABS);
+
   this->device = device;
 }
 
@@ -92,6 +95,9 @@ chroot_block_device::get_location () const
 void
 chroot_block_device::set_location (std::string const& location)
 {
+  if (!location.empty() && !is_absname(location))
+    throw error(location, LOCATION_ABS);
+
   chroot::set_location(location);
 }
 
@@ -186,14 +192,14 @@ chroot_block_device::get_keyfile (keyfile& keyfile) const
 {
   chroot::get_keyfile(keyfile);
 
-  keyfile.set_value(get_name(), "device",
-		    get_device());
+  keyfile::set_object_value(*this, &chroot_block_device::get_device,
+			    keyfile, get_name(), "device");
 
-  keyfile.set_value(get_name(), "mount-options",
-		    get_mount_options());
+  keyfile::set_object_value(*this, &chroot_block_device::get_mount_options,
+			    keyfile, get_name(), "mount-options");
 
-  keyfile.set_value(get_name(), "location",
-		    get_location());
+  keyfile::set_object_value(*this, &chroot_block_device::get_location,
+			    keyfile, get_name(), "location");
 }
 
 void
@@ -201,28 +207,17 @@ chroot_block_device::set_keyfile (keyfile const& keyfile)
 {
   chroot::set_keyfile(keyfile);
 
-  std::string device;
-  if (keyfile.get_value(get_name(), "device",
-			keyfile::PRIORITY_REQUIRED, device))
-    {
-      if (!is_absname(device))
-	throw error(device, DEVICE_ABS);
-      set_device(device);
-    }
+  keyfile::get_object_value(*this, &chroot_block_device::set_device,
+			    keyfile, get_name(), "device",
+			    keyfile::PRIORITY_REQUIRED);
 
-  std::string mount_options;
-  if (keyfile.get_value(get_name(), "mount-options",
-			keyfile::PRIORITY_OPTIONAL, mount_options))
-    set_mount_options(mount_options);
+  keyfile::get_object_value(*this, &chroot_block_device::set_mount_options,
+			    keyfile, get_name(), "mount-options",
+			    keyfile::PRIORITY_OPTIONAL);
 
-  std::string location;
-  if (keyfile.get_value(get_name(), "location",
-			keyfile::PRIORITY_OPTIONAL, location))
-    {
-      if (!location.empty() && !is_absname(location))
-	throw error(location, LOCATION_ABS);
-      set_location(location);
-    }
+  keyfile::get_object_value(*this, &chroot_block_device::set_location,
+			    keyfile, get_name(), "location",
+			    keyfile::PRIORITY_OPTIONAL);
 }
 
 /*

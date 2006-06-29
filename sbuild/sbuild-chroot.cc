@@ -168,6 +168,8 @@ sbuild::chroot::get_mount_location () const
 void
 sbuild::chroot::set_mount_location (std::string const& location)
 {
+  if (!location.empty() && !is_absname(location))
+    throw error(location, LOCATION_ABS);
   this->mount_location = location;
 }
 
@@ -180,6 +182,9 @@ sbuild::chroot::get_location () const
 void
 sbuild::chroot::set_location (std::string const& location)
 {
+  if (!is_absname(location))
+    throw error(location, LOCATION_ABS);
+
   this->location = location;
 }
 
@@ -198,6 +203,8 @@ sbuild::chroot::get_mount_device () const
 void
 sbuild::chroot::set_mount_device (std::string const& device)
 {
+  if (!device.empty() && !is_absname(device))
+    throw error(device, DEVICE_ABS);
   this->mount_device = device;
 }
 
@@ -472,59 +479,54 @@ sbuild::chroot::print_details (std::ostream& stream) const
 void
 sbuild::chroot::get_keyfile (keyfile& keyfile) const
 {
-  keyfile.remove_group(this->name);
+  keyfile.remove_group(get_name());
 
-  keyfile.set_value(this->name, "type",
-		    get_chroot_type());
+  keyfile::set_object_value(*this, &chroot::get_chroot_type,
+			    keyfile, get_name(), "type");
 
-  keyfile.set_value(this->name, "active",
-		    get_active());
+  keyfile::set_object_value(*this, &chroot::get_active,
+			    keyfile, get_name(), "active");
 
-  keyfile.set_value(this->name, "run-setup-scripts",
-		    get_run_setup_scripts());
+  keyfile::set_object_value(*this, &chroot::get_run_setup_scripts,
+			    keyfile, get_name(), "run-setup-scripts");
 
-  keyfile.set_value(this->name, "run-exec-scripts",
-		    get_run_exec_scripts());
+  keyfile::set_object_value(*this, &chroot::get_run_exec_scripts,
+			    keyfile, get_name(), "run-exec-scripts");
 
-  keyfile.set_value(this->name, "priority",
-		    get_priority());
+  keyfile::set_object_value(*this, &chroot::get_priority,
+			    keyfile, get_name(), "priority");
 
-  string_list const& aliases = get_aliases();
-  keyfile.set_list_value(this->name, "aliases",
-			 aliases.begin(), aliases.end());
+  keyfile::set_object_list_value(*this, &chroot::get_aliases,
+				 keyfile, get_name(), "aliases");
 
-  keyfile.set_value(this->name, "description",
-		    get_description());
+  keyfile::set_object_value(*this, &chroot::get_description,
+			    keyfile, get_name(), "description");
 
-  string_list const& groups = get_groups();
-  keyfile.set_list_value(this->name, "groups",
-			 groups.begin(), groups.end());
+  keyfile::set_object_list_value(*this, &chroot::get_users,
+				 keyfile, get_name(), "users");
 
-  string_list const& users = get_users();
-  keyfile.set_list_value(this->name, "users",
-			 users.begin(), users.end());
+  keyfile::set_object_list_value(*this, &chroot::get_groups,
+				 keyfile, get_name(), "groups");
 
-  string_list const& root_users = get_root_users();
-  keyfile.set_list_value(this->name, "root-users",
-			 root_users.begin(), root_users.end());
+  keyfile::set_object_list_value(*this, &chroot::get_root_users,
+				 keyfile, get_name(), "root-users");
 
-  string_list const& root_groups = get_root_groups();
-  keyfile.set_list_value(this->name, "root-groups",
-			 root_groups.begin(), root_groups.end());
+  keyfile::set_object_list_value(*this, &chroot::get_root_groups,
+				 keyfile, get_name(), "root-groups");
 
   if (get_active())
-    keyfile.set_value(this->name, "mount-location",
-		      get_mount_location());
+    keyfile::set_object_value(*this, &chroot::get_mount_location,
+			      keyfile, get_name(), "mount-location");
 
   if (get_active())
-    keyfile.set_value(this->name, "mount-device",
-		      get_mount_device());
+    keyfile::set_object_value(*this, &chroot::get_mount_device,
+			      keyfile, get_name(), "mount-device");
 
-  string_list const& command_prefix = get_command_prefix();
-  keyfile.set_list_value(this->name, "command-prefix",
-			 command_prefix.begin(), command_prefix.end());
+  keyfile::set_object_list_value(*this, &chroot::get_command_prefix,
+				 keyfile, get_name(), "command-prefix");
 
-  keyfile.set_value(this->name, "personality",
+  // TODO: Add stream operators to persona.
+  keyfile.set_value(get_name(), "personality",
 		    get_persona().get_name());
 }
 
@@ -533,94 +535,68 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 {
   // This is set not in the configuration file, but set in the keyfile
   // manually.  The user must not have the ability to set this option.
-  bool active(false);
-  if (keyfile.get_value(this->name, "active",
-			keyfile::PRIORITY_REQUIRED, active))
-    set_active(active);
+  keyfile::get_object_value(*this, &chroot::set_active,
+			    keyfile, get_name(), "active",
+			    keyfile::PRIORITY_REQUIRED);
 
-  bool run_setup_scripts(false);
-  if (keyfile.get_value(this->name, "run-setup-scripts",
-			keyfile::PRIORITY_OPTIONAL, run_setup_scripts))
-    set_run_setup_scripts(run_setup_scripts);
+  keyfile::get_object_value(*this, &chroot::set_run_setup_scripts,
+			    keyfile, get_name(), "run-setup-scripts",
+			    keyfile::PRIORITY_OPTIONAL);
 
-  bool run_exec_scripts(false);
-  if (keyfile.get_value(this->name, "run-session-scripts",
-			keyfile::PRIORITY_DEPRECATED, run_exec_scripts))
-    set_run_exec_scripts(run_exec_scripts);
-  if (keyfile.get_value(this->name, "run-exec-scripts",
-			keyfile::PRIORITY_OPTIONAL, run_exec_scripts))
-    set_run_exec_scripts(run_exec_scripts);
+  keyfile::get_object_value(*this, &chroot::set_run_exec_scripts,
+			    keyfile, get_name(), "run-session-scripts",
+			    keyfile::PRIORITY_DEPRECATED);
+  keyfile::get_object_value(*this, &chroot::set_run_exec_scripts,
+			    keyfile, get_name(), "run-exec-scripts",
+			    keyfile::PRIORITY_OPTIONAL);
 
-  int priority(0);
-  if (keyfile.get_value(this->name, "priority",
-			keyfile::PRIORITY_OPTIONAL, priority))
-    set_priority(priority);
+  keyfile::get_object_value(*this, &chroot::set_priority,
+			    keyfile, get_name(), "priority",
+			    keyfile::PRIORITY_OPTIONAL);
 
-  string_list aliases;
-  if (keyfile.get_list_value(this->name, "aliases",
-			     keyfile::PRIORITY_OPTIONAL,
-			     aliases))
-    set_aliases(aliases);
+  keyfile::get_object_list_value(*this, &chroot::set_aliases,
+				 keyfile, get_name(), "aliases",
+				 keyfile::PRIORITY_OPTIONAL);
 
-  std::string description;
-  if (keyfile.get_locale_string(this->name, "description",
-				keyfile::PRIORITY_OPTIONAL, description))
-    set_description(description);
+  keyfile::get_object_value(*this, &chroot::set_description,
+			    keyfile, get_name(), "description",
+			    keyfile::PRIORITY_OPTIONAL);
 
-  string_list users;
-  if (keyfile.get_list_value(this->name, "users",
-			     keyfile::PRIORITY_OPTIONAL,
-			     users))
-    set_users(users);
+  keyfile::get_object_list_value(*this, &chroot::set_users,
+				 keyfile, get_name(), "users",
+				 keyfile::PRIORITY_OPTIONAL);
 
-  string_list groups;
-  if (keyfile.get_list_value(this->name, "groups",
-			     keyfile::PRIORITY_OPTIONAL,
-			     groups))
-    set_groups(groups);
+  keyfile::get_object_list_value(*this, &chroot::set_groups,
+				 keyfile, get_name(), "groups",
+				 keyfile::PRIORITY_OPTIONAL);
 
-  string_list root_users;
-  if (keyfile.get_list_value(this->name, "root-users",
-			     keyfile::PRIORITY_OPTIONAL,
-			     root_users))
-    set_root_users(root_users);
+  keyfile::get_object_list_value(*this, &chroot::set_root_users,
+				 keyfile, get_name(), "root-users",
+				 keyfile::PRIORITY_OPTIONAL);
 
-  string_list root_groups;
-  if (keyfile.get_list_value(this->name, "root-groups",
-			     keyfile::PRIORITY_OPTIONAL,
-			     root_groups))
-    set_root_groups(root_groups);
+  keyfile::get_object_list_value(*this, &chroot::set_root_groups,
+				 keyfile, get_name(), "root-groups",
+				 keyfile::PRIORITY_OPTIONAL);
 
-  std::string mount_location;
-  if (keyfile.get_value(this->name, "mount-location",
-			get_active() ?
-			keyfile::PRIORITY_REQUIRED : keyfile::PRIORITY_DISALLOWED,
-			mount_location))
-    {
-      if (!is_absname(mount_location))
-	throw error(mount_location, LOCATION_ABS);
-      set_mount_location(mount_location);
-    }
+  keyfile::get_object_value(*this, &chroot::set_mount_location,
+			    keyfile, get_name(), "mount-location",
+			    get_active() ?
+			    keyfile::PRIORITY_REQUIRED :
+			    keyfile::PRIORITY_DISALLOWED);
 
-  std::string mount_device;
-  if (keyfile.get_value(this->name, "mount-device",
-			get_active() ?
-			keyfile::PRIORITY_OPTIONAL : keyfile::PRIORITY_DISALLOWED,
-			mount_device))
-    {
-      if (!mount_device.empty() && !is_absname(mount_device))
-	throw error(mount_device, DEVICE_ABS);
-      set_mount_device(mount_device);
-    }
+  keyfile::get_object_value(*this, &chroot::set_mount_device,
+			    keyfile, get_name(), "mount-device",
+			    get_active() ?
+			    keyfile::PRIORITY_OPTIONAL :
+			    keyfile::PRIORITY_DISALLOWED);
 
-  string_list command_prefix;
-  if (keyfile.get_list_value(this->name, "command-prefix",
-			     keyfile::PRIORITY_OPTIONAL,
-			     command_prefix))
-    set_command_prefix(command_prefix);
+  keyfile::get_object_list_value(*this, &chroot::set_command_prefix,
+				 keyfile, get_name(), "command-prefix",
+				 keyfile::PRIORITY_OPTIONAL);
 
+  // TODO: Add stream operators to persona.
   std::string persona_name;
-  if (keyfile.get_value(this->name, "personality",
+  if (keyfile.get_value(get_name(), "personality",
 			keyfile::PRIORITY_OPTIONAL,
 			persona_name))
     {
@@ -634,7 +610,7 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 
 	  log_warning()
 	    << format(_("%1% chroot: personality \"%2%\" is unknown.\n"))
-	    % this->name % persona_name;
+	    % get_name() % persona_name;
 	  log_info()
 	    << format(_("Valid personalities: %1%\n")) % plist.str();
 	}
