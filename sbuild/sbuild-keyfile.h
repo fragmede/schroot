@@ -47,14 +47,15 @@ namespace sbuild
   class keyfile
   {
   private:
-    /// Key-value-comment tuple.
-    typedef std::tr1::tuple<std::string,std::string,std::string> item_type;
+    /// Key-value-comment-line tuple.
+    typedef std::tr1::tuple<std::string,std::string,std::string,unsigned int>
+    item_type;
 
     /// Map between key name and key-value-comment tuple.
     typedef std::map<std::string,item_type> item_map_type;
 
-    /// Group-items-comment tuple.
-    typedef std::tr1::tuple<std::string,item_map_type,std::string> group_type;
+    /// Group-items-comment-line tuple.
+    typedef std::tr1::tuple<std::string,item_map_type,std::string,unsigned int> group_type;
 
     /// Map between group name and group-items-comment tuple.
     typedef std::map<std::string,group_type> group_map_type;
@@ -133,8 +134,8 @@ namespace sbuild
 	     std::string const& key) const;
 
     /**
-     *  Set a group.  The group will be created (and the comment set)
-     *  only if the group does not already exist.
+     * Set a group.  The group will be created (and the comment set)
+     * only if the group does not already exist.
      *
      * @param group the group to set.
      * @param comment the comment to set.
@@ -143,8 +144,23 @@ namespace sbuild
     set_group (std::string const& group,
 	       std::string const& comment);
 
+  private:
     /**
-     *  Get a group comment.
+     * Set a group.  The group will be created (and the comment set)
+     * only if the group does not already exist.
+     *
+     * @param group the group to set.
+     * @param comment the comment to set.
+     * @param line the line number in the input file, or 0 otherwise.
+     */
+    void
+    set_group (std::string const& group,
+	       std::string const& comment,
+	       unsigned int       line);
+
+  public:
+    /**
+     * Get a group comment.
      *
      * @param group the group to find.
      * @returns the comment.
@@ -153,7 +169,7 @@ namespace sbuild
     get_comment (std::string const& group) const;
 
     /**
-     *  Get a key comment.
+     * Get a key comment.
      *
      * @param group the group to find.
      * @param key the key to find.
@@ -162,6 +178,26 @@ namespace sbuild
     std::string
     get_comment (std::string const& group,
 		 std::string const& key) const;
+
+    /**
+     * Get a group line number.
+     *
+     * @param group the group to find.
+     * @returns the line number, or 0 if not available.
+     */
+    unsigned int
+    get_line (std::string const& group) const;
+
+    /**
+     * Get a key line number.
+     *
+     * @param group the group to find.
+     * @param key the key to find.
+     * @returns the line number, or 0 if not available.
+     */
+    unsigned int
+    get_line (std::string const& group,
+	      std::string const& key) const;
 
     /**
      * Get a key value.
@@ -403,6 +439,27 @@ namespace sbuild
       os.imbue(std::locale("C"));
       os << std::boolalpha << value;
 
+      set_value(group, key, os.str(), comment, 0);
+    }
+
+  private:
+    /**
+     * Set a key value.
+     *
+     * @param group the group the key is in.
+     * @param key the key to set.
+     * @param value the value to get the key's value from.  This must
+     * @param comment the comment for this key.
+     * @param line the line number in the input file, or 0 otherwise.
+     * allow output to an ostream.
+     */
+    void
+    set_value (std::string const& group,
+	       std::string const& key,
+	       std::string const& value,
+	       std::string const& comment,
+	       unsigned int       line)
+    {
       set_group(group, "");
       group_type *found_group = find_group(group);
       assert (found_group != 0); // should not fail
@@ -412,12 +469,12 @@ namespace sbuild
       item_map_type::iterator pos = items.find(key);
       if (pos != items.end())
 	items.erase(pos);
-
       items.insert
 	(item_map_type::value_type(key,
-				   item_type(key, os.str(), comment)));
+				   item_type(key, value, comment, line)));
     }
 
+  public:
     /**
      * Set a key value from a list.
      *
@@ -565,7 +622,7 @@ namespace sbuild
 		log_warning() << e.what() << std::endl;
 	      }
 	    else
-	      tmp.set_group(group, comment);
+	      tmp.set_group(group, comment, linecount);
 	    comment.clear();
 	  }
 	else // Item
@@ -598,7 +655,7 @@ namespace sbuild
 		log_warning() << e.what() << std::endl;
 	      }
 	    else
-	      tmp.set_value(group, key, value, comment);
+	      tmp.set_value(group, key, value, comment, linecount);
 	    comment.clear();
 	  }
       }

@@ -39,6 +39,7 @@ class test_keyfile : public TestFixture
   CPPUNIT_TEST(test_get_value_fail);
   CPPUNIT_TEST(test_get_list_value);
   CPPUNIT_TEST(test_get_list_value_fail);
+  CPPUNIT_TEST(test_get_line);
   CPPUNIT_TEST(test_set_value);
   CPPUNIT_TEST(test_set_list_value);
   CPPUNIT_TEST(test_remove_group);
@@ -181,6 +182,13 @@ public:
 
   // TODO: Test priority.
   // TODO: Test comments, when available.
+
+  void test_get_line()
+  {
+    CPPUNIT_ASSERT(this->kf->get_line("group2") == 10);
+    CPPUNIT_ASSERT(this->kf->get_line("group1", "age") == 4);
+    CPPUNIT_ASSERT(this->kf->get_line("group2", "name") == 11);
+  }
 
   void test_set_value()
   {

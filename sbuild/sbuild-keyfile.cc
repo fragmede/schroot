@@ -109,12 +109,21 @@ void
 keyfile::set_group (std::string const& group,
 		    std::string const& comment)
 {
+  set_group(group, comment, 0);
+}
+
+void
+keyfile::set_group (std::string const& group,
+		    std::string const& comment,
+		    unsigned int       line)
+{
   if (!has_group(group))
     this->groups.insert
       (group_map_type::value_type(group,
 				  group_type(group,
 					     item_map_type(),
-					     comment)));
+					     comment,
+					     line)));
 }
 
 std::string
@@ -136,6 +145,27 @@ keyfile::get_comment (std::string const& group,
       return std::tr1::get<2>(*found_item);
   else
     return std::string();
+}
+
+unsigned int
+keyfile::get_line (std::string const& group) const
+{
+  const keyfile::group_type *found_group = find_group(group);
+  if (found_group)
+    return std::tr1::get<3>(*found_group);
+  else
+    return 0;
+}
+
+unsigned int
+keyfile::get_line (std::string const& group,
+		   std::string const& key) const
+{
+  const item_type *found_item = find_item(group, key);
+  if (found_item)
+      return std::tr1::get<3>(*found_item);
+  else
+    return 0;
 }
 
 bool
@@ -232,7 +262,8 @@ keyfile::operator += (keyfile const& rhs)
       group_type const& group = gp->second;
       std::string const& groupname = std::tr1::get<0>(group);
       std::string const& comment = std::tr1::get<2>(group);
-      set_group(groupname, comment);
+      unsigned int const& line = std::tr1::get<3>(group);
+      set_group(groupname, comment, line);
 
       item_map_type const& items(std::tr1::get<1>(group));
       for (item_map_type::const_iterator it = items.begin();
@@ -243,7 +274,8 @@ keyfile::operator += (keyfile const& rhs)
 	  std::string const& key(std::tr1::get<0>(item));
 	  std::string const& value(std::tr1::get<1>(item));
 	  std::string const& comment(std::tr1::get<2>(item));
-	  set_value(groupname, key, value, comment);
+	  unsigned int const& line(std::tr1::get<3>(item));
+	  set_value(groupname, key, value, comment, line);
 	}
     }
   return *this;
