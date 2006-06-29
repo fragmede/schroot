@@ -1,3 +1,19 @@
+2006-06-29  Roger Leigh  <rleigh@debian.org>
+
+	* test/sbuild-keyfile.cc: Add test for getting line numbers.
+
+	* sbuild/sbuild-keyfile.h:
+	(item_type, group_type): Add line number to both tuples.
+	(set_value): Add overloaded private method which adds a line
+	number to its arguments.
+	(operator >>): Set line numbers when deserialising.
+
+	* sbuild/sbuild-keyfile.cc
+	(get_line): New methods for getting the line numbers of groups and
+	keys.
+	(set_group): Add overloaded private method which adds a line
+	number to its arguments.
+
 2006-06-28  Roger Leigh  <rleigh@debian.org>
 
 	* TODO: Remove completed item.
