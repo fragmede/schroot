@@ -44,6 +44,7 @@ sbuild_public_h_sources =		\
 	sbuild-chroot-config.h		\
 	sbuild-custom-error.h		\
 	sbuild-custom-error.tcc		\
+	sbuild-dirstream.h		\
 	sbuild-environment.h		\
 	sbuild-error.h			\
 	sbuild-format-detail.h		\
@@ -72,6 +73,7 @@ sbuild_public_cc_sources =		\
 	sbuild-chroot-plain.cc		\
 	sbuild-chroot-source.cc		\
 	sbuild-chroot-config.cc		\
+	sbuild-dirstream.cc		\
 	sbuild-environment.cc		\
 	sbuild-format-detail.cc		\
 	sbuild-keyfile.cc		\

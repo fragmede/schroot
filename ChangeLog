@@ -1,3 +1,11 @@
+2006-07-01  Roger Leigh  <rleigh@debian.org>
+
+	* test/sbuild-dirstream.cc: New file.  Tests for
+	sbuild::dirstream.
+
+	* sbuild/sbuild-dirstream.(cc.h): New files.  This class provides
+	a "directory stream" interface to the SUS directory functions.
+
 2006-06-29  Roger Leigh  <rleigh@debian.org>
 
 	* TODO: Remove completed item.

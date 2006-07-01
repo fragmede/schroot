@@ -31,6 +31,7 @@ noinst_PROGRAMS = 		\
 	sbuild-chroot		\
 	sbuild-chroot-config	\
 	sbuild-environment	\
+	sbuild-dirstream	\
 	sbuild-keyfile		\
 	sbuild-lock		\
 	sbuild-log		\
@@ -43,6 +44,7 @@ noinst_PROGRAMS = 		\
 # randomly on slow or heavily-loaded systems.
 TESTS = sbuild-chroot		\
 	sbuild-chroot-config	\
+	sbuild-dirstream	\
 	sbuild-environment	\
 	sbuild-keyfile		\
 	sbuild-log		\
@@ -68,6 +70,9 @@ sbuild_chroot_LDADD =  libtest.la
 
 sbuild_chroot_config_SOURCES = sbuild-chroot-config.cc
 sbuild_chroot_config_LDADD = libtest.la
+
+sbuild_dirstream_SOURCES = sbuild-dirstream.cc
+sbuild_dirstream_LDADD = libtest.la
 
 sbuild_environment_SOURCES = sbuild-environment.cc
 sbuild_environment_LDADD = libtest.la
