@@ -20,6 +20,7 @@
 #ifndef SBUILD_UTIL_H
 #define SBUILD_UTIL_H
 
+#include <sbuild/sbuild-environment.h>
 #include <sbuild/sbuild-types.h>
 
 #include <string>
@@ -158,6 +159,20 @@ namespace sbuild
   void
   strv_delete (char **strv);
 
+  /**
+   * execve wrapper.  Run the command specified by file (an absolute
+   * pathname), using command and env as the argv and environment,
+   * respectively.
+   *
+   * @param file the program to execute.
+   * @param command the arguments to pass to the executable.
+   * @param env the environment.
+   * @returns the return value of the execve system call on failure.
+   */
+  int
+  exec (std::string const& file,
+	string_list const& command,
+	environment const& env);
 }
 
 #endif /* SBUILD_UTIL_H */

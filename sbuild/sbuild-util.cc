@@ -329,6 +329,24 @@ sbuild::strv_delete (char **strv)
   delete[] strv;
 }
 
+int
+sbuild::exec (std::string const& file,
+	      string_list const& command,
+	      environment const& env)
+{
+  char **argv = string_list_to_strv(command);
+  char **envp = env.get_strv();
+  int status;
+
+  if ((status = execve(file.c_str(), argv, envp)) != 0)
+    {
+      strv_delete(argv);
+      strv_delete(envp);
+    }
+
+  return status;
+}
+
 /*
  * Local Variables:
  * mode:C++

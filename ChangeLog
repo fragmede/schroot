@@ -1,5 +1,22 @@
 2006-07-03  Roger Leigh  <rleigh@debian.org>
 
+	* test/sbuild-run-parts.cc: Add run-parts tests.
+
+	* test/run-parts.ex?: Add run-parts test scripts.
+
+	* configure.ac: Add check for libboost_regex.
+
+	* sbuild/Makefile.am: Add sbuild-run-parts sources.
+
+	* sbuild/sbuild-run-parts.(cc|h): New files.  This class
+	reproduces the functionality of run-parts(8).
+
+	* sbuild/sbuild-util.cc (exec): Add (moved from sbuild-session).
+
+	* sbuild/sbuild-session.cc (exec): Remove.
+
+2006-07-03  Roger Leigh  <rleigh@debian.org>
+
 	* test/sbuild-personality.cc: Sync tests with current personality
 	behaviour.
 

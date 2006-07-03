@@ -22,6 +22,7 @@
 #include "sbuild-chroot-plain.h"
 #include "sbuild-chroot-lvm-snapshot.h"
 #include "sbuild-session.h"
+#include "sbuild-util.h"
 
 #include <cassert>
 #include <cerrno>
@@ -1104,24 +1105,6 @@ session::run_chroot (sbuild::chroot::ptr& session_chroot)
     {
       wait_for_child(pid, this->child_status);
     }
-}
-
-int
-session::exec (std::string const& file,
-	       string_list const& command,
-	       environment const& env)
-{
-  char **argv = string_list_to_strv(command);
-  char **envp = env.get_strv();
-  int status;
-
-  if ((status = execve(file.c_str(), argv, envp)) != 0)
-    {
-      strv_delete(argv);
-      strv_delete(envp);
-    }
-
-  return status;
 }
 
 void

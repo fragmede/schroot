@@ -38,6 +38,7 @@ noinst_PROGRAMS = 		\
 	sbuild-nostream		\
 	sbuild-parse-value	\
 	sbuild-personality	\
+	sbuild-run-parts	\
 	sbuild-util
 
 # sbuild-lock is excluded, because it is timing dependent and can fail
@@ -51,6 +52,7 @@ TESTS = sbuild-chroot		\
 	sbuild-nostream		\
 	sbuild-parse-value	\
 	sbuild-personality	\
+	sbuild-run-parts	\
 	sbuild-util
 endif
 
@@ -95,6 +97,9 @@ sbuild_parse_value_LDADD = libtest.la
 sbuild_personality_SOURCES = sbuild-personality.cc
 sbuild_personality_LDADD = libtest.la
 
+sbuild_run_parts_SOURCES = sbuild-run-parts.cc
+sbuild_run_parts_LDADD = libtest.la
+
 sbuild_util_SOURCES = sbuild-util.cc
 sbuild_util_LDADD = libtest.la
 
@@ -106,4 +111,9 @@ EXTRA_DIST = 			\
 	config.ex2/experimental	\
 	config.ex2/sarge	\
 	config.ex2/sid		\
-	config.ex2/woody
+	config.ex2/woody	\
+	run-parts.ex1/10test1	\
+	run-parts.ex1/20test2	\
+	run-parts.ex1/30test3	\
+	run-parts.ex2		\
+	run-parts.ex3/50invalid

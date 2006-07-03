@@ -56,6 +56,7 @@ sbuild_public_h_sources =		\
 	sbuild-parse-error.h		\
 	sbuild-parse-value.h		\
 	sbuild-personality.h		\
+	sbuild-run-parts.h		\
 	sbuild-session.h		\
 	sbuild-types.h			\
 	sbuild-tr1types.h		\
@@ -83,6 +84,7 @@ sbuild_public_cc_sources =		\
 	sbuild-parse-error.cc		\
 	sbuild-parse-value.cc		\
 	sbuild-personality.cc		\
+	sbuild-run-parts.cc		\
 	sbuild-session.cc		\
 	sbuild-util.cc
 

@@ -145,10 +145,22 @@ LDFLAGS="${LDFLAGS} -lboost_program_options"
 AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
                                [boost::program_options::variables_map::variables_map dummy()])],
                [AC_MSG_RESULT([yes])
-	        BOOST_LIBS="-lboost_program_options"],
+	        BOOST_LIBS="${BOOST_LIBS} -lboost_program_options"],
                [AC_MSG_RESULT([no])
 	        AC_MSG_FAILURE([libboost_program_options (Boost C++ Libraries) is not installed, but is required by schroot])])
 LDFLAGS="${saved_ldflags}"
+
+AC_MSG_CHECKING([for boost::regex in -lboost_regex])
+saved_ldflags="${LDFLAGS}"
+LDFLAGS="${LDFLAGS} -lboost_regex"
+AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/regex.hpp>],
+                               [boost::regex("^foo[bar]$")])],
+               [AC_MSG_RESULT([yes])
+	        BOOST_LIBS="${BOOST_LIBS} -lboost_regex"],
+               [AC_MSG_RESULT([no])
+	        AC_MSG_FAILURE([libboost_regex (Boost C++ Libraries) is not installed, but is required by schroot])])
+LDFLAGS="${saved_ldflags}"
+
 AC_SUBST([BOOST_LIBS])
 
 AC_MSG_CHECKING([__gnu_cxx::stdio_filebuf construction semantics])
