@@ -42,14 +42,18 @@ public:
   void
   test_construction()
   {
-    sbuild::personality p1();
-    CPPUNIT_ASSERT(p.get_name() == "undefined");
+    sbuild::personality p1;
+#ifdef __linux__
+    CPPUNIT_ASSERT(p1.get_name() == "linux");
+#else
+    CPPUNIT_ASSERT(p1.get_name() == "undefined");
+#endif
 
     sbuild::personality p2(0xffffffff);
-    CPPUNIT_ASSERT(p2.get_name() == "unknown");
+    CPPUNIT_ASSERT(p2.get_name() == "undefined");
 
     sbuild::personality p3("invalid_personality");
-    CPPUNIT_ASSERT(p3.get_name() == "unknown");
+    CPPUNIT_ASSERT(p3.get_name() == "undefined");
 
     sbuild::personality p4("linux");
 #ifdef __linux__

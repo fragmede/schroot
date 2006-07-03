@@ -35,13 +35,8 @@ class test_dirstream : public TestCase
   CPPUNIT_TEST(test_read);
   CPPUNIT_TEST_SUITE_END();
 
-protected:
-  sbuild::dirstream *env;
-  sbuild::dirstream *half_env;
-
 public:
-  test_dirstream():
-    env()
+  test_dirstream()
   {}
 
   virtual ~test_dirstream()
@@ -61,7 +56,6 @@ public:
     CPPUNIT_ASSERT(!str);
   }
 
-#include <iostream>
   void test_read()
   {
     std::set<std::string> expected;

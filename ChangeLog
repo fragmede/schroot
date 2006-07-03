@@ -1,3 +1,13 @@
+2006-07-03  Roger Leigh  <rleigh@debian.org>
+
+	* test/sbuild-personality.cc: Sync tests with current personality
+	behaviour.
+
+	* test/sbuild-dirstream.cc: Remove unused environment members, and
+	an unused header.
+
+	* test/Makefile.am (sbuild_personality_SOURCES): Correct sources.
+
 2006-07-01  Roger Leigh  <rleigh@debian.org>
 
 	* test/sbuild-dirstream.cc: New file.  Tests for
