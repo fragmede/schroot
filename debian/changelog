@@ -1,6 +1,7 @@
 schroot (0.99.2-1) UNRELEASED; urgency=low
 
   * New upstream release.
+  * debian/control: Build-Depends on libboost-regex-dev.
 
  -- Roger Leigh <rleigh@debian.org>  Mon, 26 Jun 2006 22:11:29 +0100
 
