@@ -1,5 +1,16 @@
 2006-07-03  Roger Leigh  <rleigh@debian.org>
 
+	* README: Document new Boost build dependency.
+
+	* TODO: Remove completed item.
+
+	* sbuild/sbuild-session.cc
+	(setup_chroot): Use sbuild::run_parts in place of run-parts(8).
+
+	* configure.ac: Remove run-parts(8) checks.
+
+2006-07-03  Roger Leigh  <rleigh@debian.org>
+
 	* test/sbuild-run-parts.cc: Add run-parts tests.
 
 	* test/run-parts.ex?: Add run-parts test scripts.

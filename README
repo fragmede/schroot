@@ -23,8 +23,9 @@ libstdc++ (GNU libstdc++)
 libpam0g-dev (Linux-PAM)
 liblockdev1-dev
 libuuid-dev
-libboost-dev                 } The Boost C++ libraries
-libboost-program-options-dev }
+libboost-dev                 }
+libboost-program-options-dev } The Boost C++ libraries
+libboost-regex-dev           }
 
 If building from Subversion, you will also need:
 gettext (0.15)

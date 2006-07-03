@@ -27,11 +27,6 @@ PENDING
 PLANNED
 -------
 
-* Replace run-parts(8) usage with internal reimplementation.
-
-  We don't need many of the run-parts features, and this is the only
-  Debian-specific feature
-
 * Move PAM open_session and close_session logic.
 
   Move back from session to auth, or don't open the session in the

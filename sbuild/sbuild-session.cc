@@ -21,6 +21,7 @@
 
 #include "sbuild-chroot-plain.h"
 #include "sbuild-chroot-lvm-snapshot.h"
+#include "sbuild-run-parts.h"
 #include "sbuild-session.h"
 #include "sbuild-util.h"
 
@@ -777,26 +778,8 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
     chroot_status_string = "fail";
 
   string_list arg_list;
-  arg_list.push_back(RUN_PARTS); // Run run-parts(8)
-  if (get_verbosity() == auth::VERBOSITY_VERBOSE)
-    arg_list.push_back("--verbose");
-  arg_list.push_back("--lsbsysinit");
-  arg_list.push_back("--exit-on-error");
-  if (setup_type == chroot::SETUP_STOP ||
-      setup_type == chroot::EXEC_STOP)
-    arg_list.push_back("--reverse");
-  format arg_fmt1("--arg=%1%");
-  arg_fmt1 % setup_type_string;
-  arg_list.push_back(arg_fmt1.str());
-  format arg_fmt2("--arg=%1%");
-  arg_fmt2 % chroot_status_string;
-  arg_list.push_back(arg_fmt2.str());
-  if (setup_type == chroot::SETUP_START ||
-      setup_type == chroot::SETUP_RECOVER ||
-      setup_type == chroot::SETUP_STOP)
-    arg_list.push_back(SCHROOT_CONF_SETUP_D); // Setup directory
-  else
-    arg_list.push_back(SCHROOT_CONF_EXEC_D); // Run directory
+  arg_list.push_back(setup_type_string);
+  arg_list.push_back(chroot_status_string);
 
   /* Get a complete list of environment variables to set.  We need to
      query the chroot here, since this can vary depending upon the
@@ -832,6 +815,18 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   env.add("PID", getpid());
   env.add("SESSION_ID", this->session_id);
 
+  run_parts rp((setup_type == chroot::SETUP_START ||
+		setup_type == chroot::SETUP_RECOVER ||
+		setup_type == chroot::SETUP_STOP)
+	       ? SCHROOT_CONF_SETUP_D // Setup directory
+	       : SCHROOT_CONF_EXEC_D, // Run directory
+	       true, true, 022);
+  rp.set_reverse((setup_type == chroot::SETUP_STOP ||
+		  setup_type == chroot::EXEC_STOP));
+  rp.set_verbose(get_verbosity() == auth::VERBOSITY_VERBOSE);
+
+  log_debug(DEBUG_INFO) << rp << std::endl;
+
   int exit_status = 0;
   pid_t pid;
 
@@ -852,13 +847,10 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
       setuid(0);
       setgid(0);
       initgroups("root", 0);
-      if (exec (arg_list[0], arg_list, env))
-	{
-	  error e(arg_list[0], EXEC, errno);
-	  log_error() << e.what() << endl;
-	  exit (EXIT_FAILURE);
-	}
-      exit (EXIT_FAILURE); /* Should never be reached. */
+
+      int status = rp.run(arg_list, env);
+
+      exit (status);
     }
   else
     {
