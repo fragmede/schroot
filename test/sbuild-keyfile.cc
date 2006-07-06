@@ -85,13 +85,13 @@ public:
   void
   test_construction_file()
   {
-    sbuild::keyfile k(SRCDIR "/keyfile.ex1");
+    sbuild::keyfile k(TESTDATADIR "/keyfile.ex1");
   }
 
   void
   test_construction_stream()
   {
-    std::ifstream strm(SRCDIR "/keyfile.ex1");
+    std::ifstream strm(TESTDATADIR "/keyfile.ex1");
     CPPUNIT_ASSERT(strm);
     sbuild::keyfile k(strm);
   }
@@ -99,7 +99,7 @@ public:
   void
   test_construction_fail()
   {
-    sbuild::keyfile k(SRCDIR "/nonexistent-keyfile-will-throw-exception");
+    sbuild::keyfile k(TESTDATADIR "/nonexistent-keyfile-will-throw-exception");
   }
 
   void test_get_groups()

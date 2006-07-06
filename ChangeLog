@@ -1,3 +1,19 @@
+2006-07-06  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* test/*.cc: Replace SRCDIR with TESTDATADIR.
+
+	* test/Makefile.am
+	(AM_CXXFLAGS): Replace SRCDIR with TESTDATADIR.
+	(TESTS): Run setup-test-data and cleanup-test-data at the start
+	and end of testing, respectively.
+	(EXTRA_DIST): Distribute setup-test-data and cleanup-test-data.
+	(clean-local): Run cleanup-test-data.
+
+	* test/cleanup-test-data: New file.  Remove testdata directory.
+
+	* test/setup-test-data: New file.  Copy test data to testdata
+	directory and change the ownership to root.
+
 2006-07-03  Roger Leigh  <rleigh@debian.org>
 
 	* README: Document new Boost build dependency.

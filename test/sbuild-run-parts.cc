@@ -66,18 +66,18 @@ public:
   void
   test_construction()
   {
-    sbuild::run_parts rp(SRCDIR "/run-parts.ex1");
+    sbuild::run_parts rp(TESTDATADIR "/run-parts.ex1");
   }
 
   void
   test_construction_fail()
   {
-    sbuild::run_parts rp(SRCDIR "/invalid_dir");
+    sbuild::run_parts rp(TESTDATADIR "/invalid_dir");
   }
 
   void test_run()
   {
-    sbuild::run_parts rp(SRCDIR "/run-parts.ex1");
+    sbuild::run_parts rp(TESTDATADIR "/run-parts.ex1");
 
     int status;
 
@@ -101,7 +101,7 @@ public:
 
   void test_run2()
   {
-    sbuild::run_parts rp(SRCDIR "/run-parts.ex2");
+    sbuild::run_parts rp(TESTDATADIR "/run-parts.ex2");
 
     int status;
 
@@ -115,7 +115,7 @@ public:
 
   void test_run3()
   {
-    sbuild::run_parts rp(SRCDIR "/run-parts.ex3");
+    sbuild::run_parts rp(TESTDATADIR "/run-parts.ex3");
 
     int status;
 

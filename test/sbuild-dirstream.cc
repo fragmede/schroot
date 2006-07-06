@@ -45,14 +45,14 @@ public:
   void
   test_construction()
   {
-    sbuild::dirstream str(SRCDIR);
+    sbuild::dirstream str(TESTDATADIR);
     CPPUNIT_ASSERT(str);
   }
 
   void
   test_construction_fail()
   {
-    sbuild::dirstream str(SRCDIR "/invalid_dir");
+    sbuild::dirstream str(TESTDATADIR "/invalid_dir");
     CPPUNIT_ASSERT(!str);
   }
 
@@ -70,7 +70,7 @@ public:
     expected.insert("sid");
     expected.insert("woody");
 
-    sbuild::dirstream str(SRCDIR "/config.ex2");
+    sbuild::dirstream str(TESTDATADIR "/config.ex2");
 
     sbuild::direntry e;
     while (str >> e)

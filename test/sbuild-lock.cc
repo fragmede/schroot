@@ -56,7 +56,7 @@ public:
     lck()
   {
     // Remove test file if it exists.
-    unlink(SRCDIR "/filelock.ex1");
+    unlink(TESTDATADIR "/filelock.ex1");
   }
 
   virtual ~test_file_lock()
@@ -64,7 +64,7 @@ public:
 
   void setUp()
   {
-    int fd = open(SRCDIR "/filelock.ex1", O_RDWR|O_EXCL|O_CREAT, 0600);
+    int fd = open(TESTDATADIR "/filelock.ex1", O_RDWR|O_EXCL|O_CREAT, 0600);
     CPPUNIT_ASSERT(write(fd,
 			 "This file exists in order to test "
 			 "sbuild::file_lock locking.\n", 60) == 60);
@@ -77,7 +77,7 @@ public:
     this->lck->unset_lock();
     delete this->lck;
     CPPUNIT_ASSERT(close(fd) < 0);
-    CPPUNIT_ASSERT(unlink(SRCDIR "/filelock.ex1") == 0);
+    CPPUNIT_ASSERT(unlink(TESTDATADIR "/filelock.ex1") == 0);
   }
 
   void test(sbuild::lock::type initial,

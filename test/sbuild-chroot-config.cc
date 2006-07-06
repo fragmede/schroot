@@ -60,7 +60,7 @@ public:
 
   void setUp()
   {
-    this->cf = new sbuild::chroot_config(SRCDIR "/config.ex1", false);
+    this->cf = new sbuild::chroot_config(TESTDATADIR "/config.ex1", false);
   }
 
   void tearDown()
@@ -70,35 +70,35 @@ public:
 
   void test_construction_file()
   {
-    sbuild::chroot_config c(SRCDIR "/config.ex1", false);
+    sbuild::chroot_config c(TESTDATADIR "/config.ex1", false);
   }
 
   void test_construction_dir()
   {
-    sbuild::chroot_config c(SRCDIR "/config.ex2", false);
+    sbuild::chroot_config c(TESTDATADIR "/config.ex2", false);
   }
 
   void test_construction_fail()
   {
-    sbuild::chroot_config c(SRCDIR "/config.nonexistent", false);
+    sbuild::chroot_config c(TESTDATADIR "/config.nonexistent", false);
   }
 
   void test_add_file()
   {
     sbuild::chroot_config c;
-    c.add(SRCDIR "/config.ex1", false);
+    c.add(TESTDATADIR "/config.ex1", false);
   }
 
   void test_add_dir()
   {
     sbuild::chroot_config c;
-    c.add(SRCDIR "/config.ex2", false);
+    c.add(TESTDATADIR "/config.ex2", false);
   }
 
   void test_add_fail()
   {
     sbuild::chroot_config c;
-    c.add(SRCDIR "/config.nonexistent", false);
+    c.add(TESTDATADIR "/config.nonexistent", false);
   }
 
   void test_get_chroots()

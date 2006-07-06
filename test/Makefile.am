@@ -20,7 +20,7 @@
 #
 #####################################################################
 
-AM_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -DSRCDIR='"$(srcdir)"' -pedantic -Wall -Wcast-align -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
+AM_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -DTESTDATADIR='"./testdata"' -pedantic -Wall -Wcast-align -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
 #  -Weffc++ causes too many warnings in standard headers; -Wextra is not
 #  supported by GCC 3.4.
 
@@ -43,7 +43,8 @@ noinst_PROGRAMS = 		\
 
 # sbuild-lock is excluded, because it is timing dependent and can fail
 # randomly on slow or heavily-loaded systems.
-TESTS = sbuild-chroot		\
+TESTS = setup-test-data		\
+	sbuild-chroot		\
 	sbuild-chroot-config	\
 	sbuild-dirstream	\
 	sbuild-environment	\
@@ -53,7 +54,8 @@ TESTS = sbuild-chroot		\
 	sbuild-parse-value	\
 	sbuild-personality	\
 	sbuild-run-parts	\
-	sbuild-util
+	sbuild-util		\
+	cleanup-test-data
 endif
 
 libtest_la_SOURCES = 	\
@@ -116,4 +118,9 @@ EXTRA_DIST = 			\
 	run-parts.ex1/20test2	\
 	run-parts.ex1/30test3	\
 	run-parts.ex2		\
-	run-parts.ex3/50invalid
+	run-parts.ex3/50invalid	\
+	setup-test-data		\
+	cleanup-test-data
+
+clean-local:
+	$(srcdir)/cleanup-test-data
