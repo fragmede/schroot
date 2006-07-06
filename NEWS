@@ -9,6 +9,15 @@ configuration.
 
 * Major changes in 0.99.2:
 
+  1) A --debug option has been added to all programs.  Its use is
+     documented in the manual pages.
+
+  2) When errors are found in the chroot configuration, the line
+     number in the configuration file is now reported.
+
+  3) The use of run-parts(8) is no longer needed.  This should make
+     the package portable to non-Debian systems.
+
 * Major changes in 0.99.1:
 
   1) A dchroot-dsa compatibility mode has been implemented.  This

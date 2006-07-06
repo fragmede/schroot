@@ -1,4 +1,8 @@
-2006-07-06  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2006-07-06  Roger Leigh  <rleigh@debian.org>
+
+	* NEWS: Document new features.
+
+2006-07-06  Roger Leigh  <rleigh@debian.org>
 
 	* test/*.cc: Replace SRCDIR with TESTDATADIR.
 
