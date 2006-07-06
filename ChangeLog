@@ -1,5 +1,11 @@
 2006-07-06  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.99.2
+
+	* debian/changelog: Finalise for 0.99.2.
+
+2006-07-06  Roger Leigh  <rleigh@debian.org>
+
 	* README: Update build dependencies.
 
 2006-07-06  Roger Leigh  <rleigh@debian.org>
