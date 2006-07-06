@@ -22,10 +22,10 @@ compiler and the Boost libraries
 libstdc++ (GNU libstdc++)
 libpam0g-dev (Linux-PAM)
 liblockdev1-dev
-libuuid-dev
 libboost-dev                 }
 libboost-program-options-dev } The Boost C++ libraries
 libboost-regex-dev           }
+uuid-dev (e2fsprogs)
 
 If building from Subversion, you will also need:
 gettext (0.15)
