@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot-0.99.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-07-03 23:11+0100\n"
+"POT-Creation-Date: 2006-07-04 00:17+0100\n"
 "PO-Revision-Date: 2006-06-22 23:06+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -101,7 +101,7 @@ msgstr " [TÙY_CHỌN...] [LỆNH] — chạy lệnh hoặc hệ vỏ trong mộ
 msgid "Print paths to available chroots"
 msgstr "Liệt kê các chroot sẵn sàng"
 
-#: dchroot-dsa/dchroot-dsa-options.cc:91 sbuild/sbuild-session.cc:73
+#: dchroot-dsa/dchroot-dsa-options.cc:91 sbuild/sbuild-session.cc:74
 msgid "Command must have an absolute path"
 msgstr ""
 
@@ -135,7 +135,7 @@ msgstr "không xác thực truy cập"
 msgid "PAM is already initialised"
 msgstr "Lỗi PAM: PAM đã được sở khởi"
 
-#: sbuild/sbuild-auth.cc:58 sbuild/sbuild-session.cc:80
+#: sbuild/sbuild-auth.cc:58 sbuild/sbuild-session.cc:81
 #, fuzzy
 msgid "PAM error"
 msgstr "Lỗi PAM: %1%"
@@ -678,171 +678,171 @@ msgstr "[%1%] %2%: %3%"
 msgid "Failed to set personality"
 msgstr "Việc lấy thiết lập thiết bị cuối bị lỗi"
 
-#: sbuild/sbuild-session.cc:60
+#: sbuild/sbuild-session.cc:61
 #, fuzzy
 msgid "Failed to change to directory"
 msgstr "%1%: việc mở thư mục bị lỗi: %2%"
 
-#: sbuild/sbuild-session.cc:61
+#: sbuild/sbuild-session.cc:62
 #, fuzzy
 msgid "Falling back to directory"
 msgstr "Đang dự trữ về thư mục chính « %1 »"
 
-#: sbuild/sbuild-session.cc:62
+#: sbuild/sbuild-session.cc:63
 msgid "Child dumped core"
 msgstr "Tiến trình con đã đổ lõi"
 
-#: sbuild/sbuild-session.cc:63
+#: sbuild/sbuild-session.cc:64
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr ""
 "Tiến trình con đã thoát bất thường (chưa biết sao ; không phải là việc đổ "
 "tín hiệu hay lõi)"
 
-#: sbuild/sbuild-session.cc:64
+#: sbuild/sbuild-session.cc:65
 #, fuzzy
 msgid "Failed to fork child"
 msgstr "Việc tạo tiến trình con của điều con bị lỗi: %1%"
 
-#: sbuild/sbuild-session.cc:65
+#: sbuild/sbuild-session.cc:66
 #, fuzzy
 msgid "Child terminated by signal"
 msgstr "Tiến trình con bị chấm dứt do tín hiệu « %1% »"
 
-#: sbuild/sbuild-session.cc:66
+#: sbuild/sbuild-session.cc:67
 #, fuzzy
 msgid "Wait for child failed"
 msgstr "việc đợi tiến trình con bị lỗi: %1%"
 
-#: sbuild/sbuild-session.cc:67
+#: sbuild/sbuild-session.cc:68
 #, fuzzy
 msgid "Failed to change root to directory"
 msgstr "%1%: việc mở thư mục bị lỗi: %2%"
 
-#: sbuild/sbuild-session.cc:68
+#: sbuild/sbuild-session.cc:69
 #, fuzzy
 msgid "No chroot found matching alias"
 msgstr "Không tìm thấy chroot khớp với biệt hiệu « %1% »"
 
-#: sbuild/sbuild-session.cc:69
+#: sbuild/sbuild-session.cc:70
 #, fuzzy
 msgid "Failed to lock chroot"
 msgstr "%1%: việc tìm chroot bị lỗi"
 
-#: sbuild/sbuild-session.cc:70
+#: sbuild/sbuild-session.cc:71
 #, fuzzy
 msgid "Chroot setup failed"
 msgstr "việc tạo chroot bị lỗi"
 
-#: sbuild/sbuild-session.cc:71
+#: sbuild/sbuild-session.cc:72
 #, fuzzy
 msgid "Failed to find chroot"
 msgstr "%1%: việc tìm chroot bị lỗi"
 
-#: sbuild/sbuild-session.cc:72
+#: sbuild/sbuild-session.cc:73
 #, fuzzy
 msgid "Failed to unlock chroot"
 msgstr "%1%: việc tìm chroot bị lỗi"
 
-#: sbuild/sbuild-session.cc:74
+#: sbuild/sbuild-session.cc:75
 #, fuzzy
 msgid "Failed to execute"
 msgstr "việc lập thời hạn bị lỗi: %1%"
 
-#: sbuild/sbuild-session.cc:75
+#: sbuild/sbuild-session.cc:76
 #, fuzzy
 msgid "Failed to get supplementary groups"
 msgstr "Không thể lập các ID nhóm phụ"
 
-#: sbuild/sbuild-session.cc:76
+#: sbuild/sbuild-session.cc:77
 #, fuzzy
 msgid "Failed to get supplementary group count"
 msgstr "không thể lấy số đếm nhóm phụ : %1%"
 
-#: sbuild/sbuild-session.cc:77
+#: sbuild/sbuild-session.cc:78
 #, fuzzy
 msgid "Failed to set group"
 msgstr "việc lập thời hạn bị lỗi: %1%"
 
-#: sbuild/sbuild-session.cc:78
+#: sbuild/sbuild-session.cc:79
 #, fuzzy
 msgid "Failed to set supplementary groups"
 msgstr "Không thể lập các ID nhóm phụ"
 
-#: sbuild/sbuild-session.cc:79
+#: sbuild/sbuild-session.cc:80
 #, fuzzy
 msgid "Group not found"
 msgstr "%1%: không tìm thấy nhóm"
 
-#: sbuild/sbuild-session.cc:81
+#: sbuild/sbuild-session.cc:82
 #, fuzzy
 msgid "Failed to drop root permissions"
 msgstr "Việc bỏ quyền chủ bị lỗi."
 
-#: sbuild/sbuild-session.cc:82
+#: sbuild/sbuild-session.cc:83
 #, fuzzy
 msgid "Shell not available"
 msgstr "%1%: việc lấy các thông tin về tập tin bị lỗi: %2%"
 
-#: sbuild/sbuild-session.cc:83
+#: sbuild/sbuild-session.cc:84
 #, fuzzy
 msgid "Falling back to shell"
 msgstr "Đang dự trữ về « %1 »"
 
-#: sbuild/sbuild-session.cc:84
+#: sbuild/sbuild-session.cc:85
 #, fuzzy
 msgid "Caught hangup signal"
 msgstr "mới bắt tín hiệu ngừng nói nên kết thúc..."
 
-#: sbuild/sbuild-session.cc:85
+#: sbuild/sbuild-session.cc:86
 #, fuzzy
 msgid "Failed to set hangup signal handler"
 msgstr "lỗi lập bộ quản lý ngừng nói : %1%"
 
-#: sbuild/sbuild-session.cc:86
+#: sbuild/sbuild-session.cc:87
 #, fuzzy
 msgid "Failed to set user"
 msgstr "việc lập thời hạn bị lỗi: %1%"
 
-#: sbuild/sbuild-session.cc:87
+#: sbuild/sbuild-session.cc:88
 msgid "User switching is not permitted"
 msgstr ""
 
-#: sbuild/sbuild-session.cc:652
+#: sbuild/sbuild-session.cc:653
 #, fuzzy, boost-format
 msgid "[%1% chroot] Running login shell: \"%4%\""
 msgstr "[%1% chroot] Đang chạy hệ vỏ đăng nhập: « %2% »"
 
-#: sbuild/sbuild-session.cc:654
+#: sbuild/sbuild-session.cc:655
 #, fuzzy, boost-format
 msgid "[%1% chroot] Running shell: \"%4%\""
 msgstr "[%1% chroot] Đang chạy hệ vỏ đăng nhập: « %2% »"
 
-#: sbuild/sbuild-session.cc:660
+#: sbuild/sbuild-session.cc:661
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy hệ vỏ đăng nhập: « %4% »"
 
-#: sbuild/sbuild-session.cc:662
+#: sbuild/sbuild-session.cc:663
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy hệ vỏ đăng nhập: « %4% »"
 
-#: sbuild/sbuild-session.cc:697
+#: sbuild/sbuild-session.cc:698
 #, fuzzy, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Đang chạy lệnh: « %2% »"
 
-#: sbuild/sbuild-session.cc:699
+#: sbuild/sbuild-session.cc:700
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy lệnh: « %4% »"
 
-#: sbuild/sbuild-session.cc:882
+#: sbuild/sbuild-session.cc:874
 #, boost-format
 msgid "stage=%1%"
 msgstr ""
 
-#: sbuild/sbuild-session.cc:1028
+#: sbuild/sbuild-session.cc:1020
 msgid "terminating immediately"
 msgstr ""
 
