@@ -44,7 +44,9 @@ public:
   {
     sbuild::personality p1;
 #ifdef __linux__
-    CPPUNIT_ASSERT(p1.get_name() == "linux");
+    CPPUNIT_ASSERT(p1.get_name() == "linux" ||
+		   p1.get_name() == "linux_32bit" ||
+		   p1.get_name() == "linux32");
 #else
     CPPUNIT_ASSERT(p1.get_name() == "undefined");
 #endif
