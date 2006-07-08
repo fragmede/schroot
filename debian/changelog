@@ -1,6 +1,10 @@
 schroot (0.99.3-1) UNRELEASED; urgency=low
 
   * New upstream release.
+  * sbuild/sbuild-dirstream.h: The dirstream extraction operator is
+    declared outside the class, in addition to the friend declaration.
+    This fixes a compilation error with GCC 4.2 (Closes: #377433).  Thanks
+    to Martin Michlmayr for reporting this.
 
  -- Roger Leigh <rleigh@debian.org>  Thu,  6 Jul 2006 19:07:25 +0100
 

@@ -196,10 +196,6 @@ namespace sbuild
       bool
       operator ! ();
 
-      /**
-       * The overloaded extraction operator.  This is used to pull
-       * direntries from a dirstream.
-       */
       friend dirstream&
       operator >> (dirstream& stream,
 		   direntry&  entry);
@@ -232,6 +228,14 @@ namespace sbuild
       /// End of File status.
       bool eof_status;
   };
+
+  /**
+   * The overloaded extraction operator.  This is used to pull
+   * direntries from a dirstream.
+   */
+  dirstream&
+  operator >> (dirstream& stream,
+	       direntry&  entry);
 
 }
 

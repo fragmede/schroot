@@ -1,3 +1,12 @@
+2006-07-09  Roger Leigh  <rleigh@debian.org>
+
+	* sbuild/sbuild-dirstream.h: The dirstream extraction operator is
+	declared outside the class, in addition to the friend declaration.
+	This fixes a compilation error with GCC 4.2.  Thanks to Martin
+	Michlmayr for reporting this.
+
+	* debian/changelog: Close #377433.
+
 2006-07-07  Roger Leigh  <rleigh@debian.org>
 
 	* test/sbuild-personality.cc: Update test to cope with Linux
