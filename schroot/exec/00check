@@ -16,7 +16,7 @@ if [ $1 = "exec-start" ]; then
 	echo "CHROOT_LOCATION=$CHROOT_LOCATION"
 	echo "CHROOT_PATH=$CHROOT_PATH"
 	echo "CHROOT_MOUNT_DEVICE=$CHROOT_MOUNT_DEVICE"
-	if [ "$CHROOT_TYPE" = "plain" ]; then
+	if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ]; then
 	    :
 	elif [ "$CHROOT_TYPE" = "file" ]; then
 	    echo "CHROOT_FILE=$CHROOT_FILE"

@@ -43,9 +43,9 @@ For example,
 This is then followed by several key-value pairs:
 .TP
 .B type=\fItype\fP
-The type of the chroot.  Valid types are \[lq]plain\[rq], \[lq]file\[rq],
-\[lq]block\-device\[rq] and \[lq]lvm\-snapshot\[rq].  If empty or omitted, the
-default type is \[lq]plain\[rq].
+The type of the chroot.  Valid types are \[lq]plain\[rq], \[lq]directory\[rq],
+\[lq]file\[rq], \[lq]block\-device\[rq] and \[lq]lvm\-snapshot\[rq].  If empty
+or omitted, the default type is \[lq]plain\[rq].
 .TP
 .B description=\fIdescription\fP
 A short description of the chroot.  This may be localised for different
@@ -92,11 +92,12 @@ Set whether chroot setup scripts will be run.  The default is not to run setup
 scripts (\[lq]false\[rq]), for safety reasons (so it won't clobber your passwd
 and other critical files).  The default for session-managed chroots
 (\[lq]file\[rq] and \[lq]lvm\-snapshot\[rq]) is to run setup scripts.  If
-\fItype\fP is set to a value other than \[lq]plain\[rq], setup scripts are
-\fBrequired\fP to mount and configure the chroot environment.  If enabled for a
-\[lq]plain\[rq] chroot, the chroot will support simple session management (not
-true session management, because it does not make a copy of the chroot).  If
-your chroots are exclusively controlled by schroot, set to \[lq]true\[rq].
+\fItype\fP is set to a value other than \[lq]plain\[rq] or \[lq]directory\[rq],
+setup scripts are \fBrequired\fP to mount and configure the chroot environment.
+If enabled for a \[lq]plain\[rq] or \[lq]directory\[rq] chroot, the chroot will
+support simple session management (not true session management, because it does
+not make a copy of the chroot).  If your chroots are exclusively controlled by
+schroot, set to \[lq]true\[rq].
 .TP
 .B run\-exec\-scripts=\fItrue\fP|\fIfalse\fP
 Set whether chroot execution scripts will be run.  The default is the same as
@@ -120,10 +121,13 @@ Linux are \[lq]bsd\[rq], \[lq]hpux\[rq], \[lq]irix32\[rq], \[lq]irix64\[rq],
 \[lq]linux32\[rq], is the option required.  The only valid option for non-Linux
 systems is \[lq]undefined\[rq].  The default value is \[lq]undefined\[rq].
 .SS
-Plain chroots
+Plain and directory chroots
 .PP
-Chroots of type \[lq]plain\[rq] are directories accessible in the filesystem.
-They have an additional (mandatory) configuration option:
+Chroots of type \[lq]plain\[rq] or \[lq]directory\[rq] are directories
+accessible in the filesystem.  The two types are equivalent except for the fact
+that if \fIrun-setup-scripts\fP is set to \[lq]true\[rq] for plain chroots,
+filesystem mounting is disabled.  They have an additional (mandatory)
+configuration option:
 .TP
 .B location=\fIdirectory\fP
 The directory containing the chroot environment.  This is where the root will

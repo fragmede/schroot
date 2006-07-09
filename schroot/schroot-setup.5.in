@@ -104,7 +104,7 @@ to access the chroots.
 CHROOT_MOUNT_DEVICE
 The device containing the chroot root filesystem.  This is only set for chroots
 which require mounting.
-.SS Plain chroot variables
+.SS Plain and directory chroot variables
 .TP
 CHROOT_LOCATION
 The location of the chroot.  This is useful for creating files, or copying

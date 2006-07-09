@@ -9,6 +9,10 @@ configuration.
 
 * Major changes in 0.99.3:
 
+  1) A new chroot type, "directory", has been added.  This is the same
+     as the "plain" type, but additionally allows filesystem mounting
+     when setup scripts are enabled.
+
 * Major changes in 0.99.2:
 
   1) A --debug option has been added to all programs.  Its use is

@@ -16,7 +16,7 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 	echo "CHROOT_LOCATION=$CHROOT_LOCATION"
 	echo "CHROOT_PATH=$CHROOT_PATH"
 	echo "CHROOT_MOUNT_DEVICE=$CHROOT_MOUNT_DEVICE"
-	if [ "$CHROOT_TYPE" = "plain" ]; then
+	if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ]; then
 	    :
 	elif [ "$CHROOT_TYPE" = "file" ]; then
 	    echo "CHROOT_FILE=$CHROOT_FILE"
@@ -33,7 +33,7 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
     fi
 
     case "$CHROOT_TYPE" in
-	plain)
+	plain | directory)
 	    if [ ! -d "$CHROOT_LOCATION" ]; then
 		echo "Directory '$CHROOT_LOCATION' does not exist"
 		exit 1

@@ -17,39 +17,79 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_PLAIN_H
-#define SBUILD_CHROOT_PLAIN_H
+#ifndef SBUILD_CHROOT_DIRECTORY_H
+#define SBUILD_CHROOT_DIRECTORY_H
 
-#include <sbuild/sbuild-chroot-directory.h>
+#include <sbuild/sbuild-chroot.h>
 
 namespace sbuild
 {
 
   /**
-   * A chroot located on a mounted filesystem (mounts disabled).
+   * A chroot located on a mounted filesystem.
    */
-  class chroot_plain : public chroot_directory
+  class chroot_directory : virtual public chroot
   {
   protected:
     /// The constructor.
-    chroot_plain ();
+    chroot_directory ();
 
     friend class chroot;
 
   public:
     /// The destructor.
-    virtual ~chroot_plain ();
+    virtual ~chroot_directory ();
 
     virtual chroot::ptr
     clone () const;
 
+    /**
+     * Get the directory location of the chroot.
+     *
+     * @returns the location.
+     */
+    virtual std::string const&
+    get_location () const;
+
+    /**
+     * Set the directory location of the chroot.
+     *
+     * @param location the location.
+     */
+    virtual void
+    set_location (std::string const& location);
+
+    virtual std::string
+    get_path () const;
+
     virtual std::string const&
     get_chroot_type () const;
+
+    virtual void
+    setup_env (environment& env);
+
+    virtual session_flags
+    get_session_flags () const;
+
+  protected:
+    virtual void
+    setup_lock (setup_type type,
+		bool       lock,
+		int        status);
+
+    virtual void
+    get_details (format_detail& detail) const;
+
+    virtual void
+    get_keyfile (keyfile& keyfile) const;
+
+    virtual void
+    set_keyfile (keyfile const& keyfile);
   };
 
 }
 
-#endif /* SBUILD_CHROOT_PLAIN_H */
+#endif /* SBUILD_CHROOT_DIRECTORY_H */
 
 /*
  * Local Variables:

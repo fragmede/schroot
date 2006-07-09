@@ -1,5 +1,30 @@
 2006-07-09  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Document the new "directory" chroot type.
+
+	* schroot/schroot.conf.5.in, schroot/schroot-setup.5.in: Document
+	new "directory" chroot type.
+
+	* schroot/setup/00check, schroot/setup/10mount,
+	schroot/setup/00check: Add logic for "directory" CHROOT_TYPE.  The
+	"directory" type will mount the chroot location with --rbind, like
+	"plain", but will additionally mount filesystems like all other
+	chroot types.
+
+	* sbuild/Makefile.am: Add sbuild-chroot-directory.(cc|h).
+
+	* sbuild/sbuild-chroot.cc (create): Add support for the
+	"directory" chroot type.
+
+	* sbuild/sbuild-chroot-plain.(cc|h): chroot_plain derives from
+	chroot_directory.  It is exactly the same as directory except for
+	the chroot name.
+
+	* sbuild/sbuild-chroot-directory.(cc|h): New files.  The directory
+	class is based upon the "plain" chroot type.
+
+2006-07-09  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-dirstream.h: The dirstream extraction operator is
 	declared outside the class, in addition to the friend declaration.
 	This fixes a compilation error with GCC 4.2.  Thanks to Martin
