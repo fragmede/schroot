@@ -73,7 +73,7 @@ binary-indep: build install
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-	dh_installchangelogs
+	dh_installchangelogs ChangeLog
 	dh_installdocs
 	rm -rf $(CURDIR)/debian/dchroot/usr/share/doc/dchroot
 	ln -sf schroot $(CURDIR)/debian/dchroot/usr/share/doc/dchroot
