@@ -21,13 +21,17 @@ endif
 
 config.status: configure
 	dh_testdir
-	CFLAGS="$(CFLAGS)" ./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --sysconfdir=/etc --libexecdir=/usr/lib --localstatedir=/var --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info --enable-dchroot --enable-dchroot-dsa
+
+	mkdir debian/build; \
+	cd debian/build; \
+	CFLAGS="$(CFLAGS)" ../../configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --sysconfdir=/etc --libexecdir=/usr/lib --localstatedir=/var --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info --enable-dchroot --enable-dchroot-dsa
 
 build: build-stamp
 
 build-stamp:  config.status
 	dh_testdir
 
+	cd debian/build; \
 	$(MAKE) all
 
 	touch build-stamp
@@ -35,10 +39,10 @@ build-stamp:  config.status
 clean:
 	dh_testdir
 	dh_testroot
+	rm -rf debian/build
 	rm -rf debian/install
 	rm -f build-stamp
 
-	-$(MAKE) distclean
 ifneq "$(wildcard /usr/share/misc/config.sub)" ""
 	cp -f /usr/share/misc/config.sub scripts/config.sub
 endif
@@ -54,7 +58,10 @@ install: build
 	dh_clean -k
 	dh_installdirs
 
+	cd debian/build; \
 	$(MAKE) check
+
+	cd debian/build; \
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/install
 	dh_install
 

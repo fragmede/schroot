@@ -1,5 +1,11 @@
 2006-07-10  Roger Leigh  <rleigh@debian.org>
 
+	* debian/rules: Build in debian/build using VPATH.
+
+	* debian/changelog: Add VPATH build.
+
+2006-07-10  Roger Leigh  <rleigh@debian.org>
+
 	* All Makefile.ams: include global.mk.
 
 	* scripts/global.mk: New file.  Global Makefile options.

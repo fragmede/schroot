@@ -7,8 +7,10 @@ schroot (0.99.3-1) UNRELEASED; urgency=low
     to Martin Michlmayr for reporting this.
   * debian/schroot.docs: Add the contents of debian/docs.
   * debian/docs: Remove.
-  * debian/rules: The /usr/share/doc directories for dchroot and
-    dchroot-dsa are symlinks to schroot.
+  * debian/rules:
+    - The /usr/share/doc directories for dchroot and dchroot-dsa are
+      symlinks to schroot.
+    - Build in debian/build using VPATH.
   * debian/dchroot.preinst: New file.  Remove /usr/share/doc/dchroot.
   * debian/dchroot-dsa.preinst: New file.  Remove
     /usr/share/doc/dchroot-dsa.
