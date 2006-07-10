@@ -1,3 +1,20 @@
+2006-07-10  Roger Leigh  <rleigh@debian.org>
+
+	* debian/schroot.docs: Add the contents of debian/docs.
+
+	* debian/docs: Remove.
+
+	* debian/rules: The /usr/share/doc directories for dchroot and
+	dchroot-dsa are symlinks to schroot.
+
+	* debian/dchroot.preinst: New file.  Remove
+	/usr/share/doc/dchroot.
+
+	* debian/dchroot-dsa.preinst: New file.  Remove
+	 /usr/share/doc/dchroot-dsa.
+
+	* debian/changelog: Update.
+
 2006-07-09  Roger Leigh  <rleigh@debian.org>
 
 	* NEWS: Document the new "directory" chroot type.

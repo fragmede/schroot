@@ -73,8 +73,12 @@ binary-indep: build install
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-	dh_installchangelogs ChangeLog
+	dh_installchangelogs
 	dh_installdocs
+	rm -rf $(CURDIR)/debian/dchroot/usr/share/doc/dchroot
+	ln -sf schroot $(CURDIR)/debian/dchroot/usr/share/doc/dchroot
+	rm -rf $(CURDIR)/debian/dchroot-dsa/usr/share/doc/dchroot-dsa
+	ln -sf schroot $(CURDIR)/debian/dchroot-dsa/usr/share/doc/dchroot-dsa
 	dh_installexamples
 	dh_installman
 	dh_installinit --no-start --update-rcd-params='start 75 S .'

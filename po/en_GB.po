@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-07-04 00:17+0100\n"
+"POT-Creation-Date: 2006-07-10 09:19+0100\n"
 "PO-Revision-Date: 2006-07-06 11:10+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -169,164 +169,164 @@ msgstr "Device"
 msgid "Mount Options"
 msgstr "Mount Options"
 
-#: sbuild/sbuild-chroot.cc:57
+#: sbuild/sbuild-chroot.cc:58
 msgid "Chroot creation failed"
 msgstr "Chroot creation failed"
 
-#: sbuild/sbuild-chroot.cc:58
+#: sbuild/sbuild-chroot.cc:59
 msgid "Device name not set"
 msgstr "Device name not set"
 
-#: sbuild/sbuild-chroot.cc:59
+#: sbuild/sbuild-chroot.cc:60
 msgid "Unknown chroot type"
 msgstr "Unknown chroot type"
 
-#: sbuild/sbuild-chroot.cc:60
+#: sbuild/sbuild-chroot.cc:61
 msgid "Device must have an absolute path"
 msgstr "Device must have an absolute path"
 
-#: sbuild/sbuild-chroot.cc:61
+#: sbuild/sbuild-chroot.cc:62
 msgid "Failed to lock device"
 msgstr "Failed to lock device"
 
-#: sbuild/sbuild-chroot.cc:62
+#: sbuild/sbuild-chroot.cc:63
 msgid "File is not a block device"
 msgstr "File is not a block device"
 
-#: sbuild/sbuild-chroot.cc:63
+#: sbuild/sbuild-chroot.cc:64
 msgid "Failed to stat device"
 msgstr "Failed to stat device"
 
-#: sbuild/sbuild-chroot.cc:64
+#: sbuild/sbuild-chroot.cc:65
 msgid "Failed to unlock device"
 msgstr "Failed to unlock device"
 
-#: sbuild/sbuild-chroot.cc:65
+#: sbuild/sbuild-chroot.cc:66
 msgid "File must have an absolute path"
 msgstr "File must have an absolute path"
 
-#: sbuild/sbuild-chroot.cc:66
+#: sbuild/sbuild-chroot.cc:67
 msgid "Failed to acquire file lock"
 msgstr "Failed to acquire file lock"
 
-#: sbuild/sbuild-chroot.cc:67 sbuild/sbuild-chroot-config.cc:59
+#: sbuild/sbuild-chroot.cc:68 sbuild/sbuild-chroot-config.cc:59
 msgid "File is not a regular file"
 msgstr "File is not a regular file"
 
-#: sbuild/sbuild-chroot.cc:68 sbuild/sbuild-chroot-config.cc:61
+#: sbuild/sbuild-chroot.cc:69 sbuild/sbuild-chroot-config.cc:61
 msgid "File is not owned by user root"
 msgstr "File is not owned by user root"
 
-#: sbuild/sbuild-chroot.cc:69 sbuild/sbuild-chroot-config.cc:62
+#: sbuild/sbuild-chroot.cc:70 sbuild/sbuild-chroot-config.cc:62
 msgid "File has write permissions for others"
 msgstr "File has write permissions for others"
 
-#: sbuild/sbuild-chroot.cc:70 sbuild/sbuild-chroot-config.cc:63
+#: sbuild/sbuild-chroot.cc:71 sbuild/sbuild-chroot-config.cc:63
 msgid "Failed to stat file"
 msgstr "Failed to stat file"
 
-#: sbuild/sbuild-chroot.cc:71
+#: sbuild/sbuild-chroot.cc:72
 msgid "Failed to discard file lock"
 msgstr "Failed to discard file lock"
 
-#: sbuild/sbuild-chroot.cc:72
+#: sbuild/sbuild-chroot.cc:73
 msgid "Location must have an absolute path"
 msgstr "Location must have an absolute path"
 
-#: sbuild/sbuild-chroot.cc:73
+#: sbuild/sbuild-chroot.cc:74
 msgid "Failed to unlink session file"
 msgstr "Failed to unlink session file"
 
-#: sbuild/sbuild-chroot.cc:74
+#: sbuild/sbuild-chroot.cc:75
 msgid "Failed to write session file"
 msgstr "Failed to write session file"
 
-#: sbuild/sbuild-chroot.cc:437
+#: sbuild/sbuild-chroot.cc:440
 msgid "Name"
 msgstr "Name"
 
-#: sbuild/sbuild-chroot.cc:438
+#: sbuild/sbuild-chroot.cc:441
 msgid "Description"
 msgstr "Description"
 
-#: sbuild/sbuild-chroot.cc:439
+#: sbuild/sbuild-chroot.cc:442
 msgid "Type"
 msgstr "Type"
 
-#: sbuild/sbuild-chroot.cc:440
+#: sbuild/sbuild-chroot.cc:443
 msgid "Priority"
 msgstr "Priority"
 
-#: sbuild/sbuild-chroot.cc:441
+#: sbuild/sbuild-chroot.cc:444
 msgid "Users"
 msgstr "Users"
 
-#: sbuild/sbuild-chroot.cc:442
+#: sbuild/sbuild-chroot.cc:445
 msgid "Groups"
 msgstr "Groups"
 
-#: sbuild/sbuild-chroot.cc:443
+#: sbuild/sbuild-chroot.cc:446
 msgid "Root Users"
 msgstr "Root Users"
 
-#: sbuild/sbuild-chroot.cc:444
+#: sbuild/sbuild-chroot.cc:447
 msgid "Root Groups"
 msgstr "Root Groups"
 
-#: sbuild/sbuild-chroot.cc:445
+#: sbuild/sbuild-chroot.cc:448
 msgid "Aliases"
 msgstr "Aliases"
 
-#: sbuild/sbuild-chroot.cc:446
+#: sbuild/sbuild-chroot.cc:449
 msgid "Run Setup Scripts"
 msgstr "Run Setup Scripts"
 
-#: sbuild/sbuild-chroot.cc:447
+#: sbuild/sbuild-chroot.cc:450
 msgid "Run Execution Scripts"
 msgstr "Run Execution Scripts"
 
-#: sbuild/sbuild-chroot.cc:449
+#: sbuild/sbuild-chroot.cc:452
 msgid "Session Managed"
 msgstr "Session Managed"
 
-#: sbuild/sbuild-chroot.cc:453
+#: sbuild/sbuild-chroot.cc:456
 msgid "Command Prefix"
 msgstr "Command Prefix"
 
-#: sbuild/sbuild-chroot.cc:455
+#: sbuild/sbuild-chroot.cc:458
 msgid "Personality"
 msgstr "Personality"
 
-#: sbuild/sbuild-chroot.cc:459
+#: sbuild/sbuild-chroot.cc:462
 msgid "Location"
 msgstr "Location"
 
-#: sbuild/sbuild-chroot.cc:461
+#: sbuild/sbuild-chroot.cc:464
 msgid "Mount Location"
 msgstr "Mount Location"
 
-#: sbuild/sbuild-chroot.cc:463
+#: sbuild/sbuild-chroot.cc:466
 msgid "Path"
 msgstr "Path"
 
-#: sbuild/sbuild-chroot.cc:465
+#: sbuild/sbuild-chroot.cc:468
 msgid "Mount Device"
 msgstr "Mount Device"
 
-#: sbuild/sbuild-chroot.cc:471
+#: sbuild/sbuild-chroot.cc:474
 msgid "Session"
 msgstr "Session"
 
-#: sbuild/sbuild-chroot.cc:471
+#: sbuild/sbuild-chroot.cc:474
 msgid "Chroot"
 msgstr "Chroot"
 
-#: sbuild/sbuild-chroot.cc:612
+#: sbuild/sbuild-chroot.cc:615
 #, boost-format
 msgid "%1% chroot: personality \"%2%\" is unknown.\n"
 msgstr "%1% chroot: personality “%2%” is unknown.\n"
 
-#: sbuild/sbuild-chroot.cc:615
+#: sbuild/sbuild-chroot.cc:618
 #, boost-format
 msgid "Valid personalities: %1%\n"
 msgstr "Valid personalities: %1%\n"
