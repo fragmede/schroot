@@ -20,6 +20,8 @@
 #
 #####################################################################
 
+include $(top_srcdir)/scripts/global.mk
+
 executiondir = $(SCHROOT_CONF_EXEC_D)
 
 execution_SCRIPTS =	\

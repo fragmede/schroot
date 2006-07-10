@@ -20,9 +20,9 @@
 #
 #####################################################################
 
-AM_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -DTESTDATADIR='"./testdata"' -pedantic -Wall -Wcast-align -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
-#  -Weffc++ causes too many warnings in standard headers; -Wextra is not
-#  supported by GCC 3.4.
+include $(top_srcdir)/scripts/global.mk
+
+LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -DTESTDATADIR='"./testdata"'
 
 if USE_UNIT_TESTS
 noinst_LTLIBRARIES = libtest.la

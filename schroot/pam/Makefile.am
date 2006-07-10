@@ -20,6 +20,8 @@
 #
 #####################################################################
 
+include $(top_srcdir)/scripts/global.mk
+
 pamdir = /etc/pam.d
 
 pam_DATA = schroot

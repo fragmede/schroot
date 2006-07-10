@@ -20,6 +20,8 @@
 #
 #####################################################################
 
+include $(top_srcdir)/scripts/global.mk
+
 setupdir = $(SCHROOT_CONF_SETUP_D)
 
 setup_SCRIPTS =		\

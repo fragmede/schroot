@@ -20,6 +20,8 @@
 #
 #####################################################################
 
+include $(top_srcdir)/scripts/global.mk
+
 SUBDIRS = sbuild schroot dchroot dchroot-dsa test doc po
 
 # Remove junk from the generated tarball.

@@ -20,34 +20,6 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
+# Global options for use in all Makefiles.
+AM_CXXFLAGS = -I$(top_srcdir) $(LOCAL_CXXFLAGS) -pedantic -Wall -Wcast-align -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
 
-if MAINTAINER_MODE
-all-local: schroot
-endif
-
-if USE_DOXYGEN
-schroot: schroot-stamp
-else
-schroot:
-endif
-
-schroot-stamp: schroot.dox $(top_srcdir)/configure
-	$(RM) -rf schroot/html
-	$(DOXYGEN) schroot.dox
-	touch $@
-
-CLEANFILES = \
-	schroot.log
-
-maintainer-clean-local:
-	$(RM) -r schroot
-
-MAINTAINERCLEANFILES = \
-	schroot-stamp
-
-EXTRA_DIST =		\
-	schroot		\
-	schroot-stamp
-
-.PHONY: schroot
