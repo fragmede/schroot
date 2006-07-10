@@ -26,8 +26,6 @@
 
 #include <boost/format.hpp>
 
-#include <syslog.h>
-
 using std::endl;
 using boost::format;
 using namespace schroot;

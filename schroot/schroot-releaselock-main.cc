@@ -33,8 +33,6 @@
 
 #include <boost/format.hpp>
 
-#include <syslog.h>
-
 #include <lockdev.h>
 
 using std::endl;

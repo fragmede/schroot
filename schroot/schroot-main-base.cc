@@ -32,8 +32,6 @@
 #include <termios.h>
 #include <unistd.h>
 
-#include <syslog.h>
-
 #include <boost/format.hpp>
 
 using std::endl;

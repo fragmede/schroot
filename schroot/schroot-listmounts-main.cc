@@ -35,7 +35,6 @@
 #include <boost/format.hpp>
 
 #include <mntent.h>
-#include <syslog.h>
 
 #include <lockdev.h>
 
