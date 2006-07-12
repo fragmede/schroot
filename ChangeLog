@@ -1,5 +1,11 @@
 2006-07-12  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-custom-error.tcc
+	(format_error): Never pass more arguments than the format string
+	specifies.
+
+2006-07-12  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-chroot-config.cc
 	(load_data): Use new error contructor.
 

@@ -51,37 +51,52 @@ sbuild::custom_error<T>::format_error (A const&   context1,
   std::string msg(get_error(error));
   unsigned int nargs(0);
 
-  if (typeid(context1) != typeid(null) &&
-      msg.find("%1%") == std::string::npos)
+  if (msg.find("%1%") != std::string::npos)
+    {
+      nargs = 1;
+    }
+  else if(typeid(context1) != typeid(null))
     {
       format += "%1%: ";
       nargs = 1;
+    }
 
-      if (typeid(context2) != typeid(null) &&
-	  msg.find("%2%") == std::string::npos)
-	{
-	  format += "%2%: ";
-	  nargs = 2;
-	}
+  if (msg.find("%2%") != std::string::npos)
+    {
+      nargs = 2;
+    }
+  else if (typeid(context2) != typeid(null))
+    {
+      format += "%2%: ";
+      nargs = 2;
     }
 
   format += msg;
 
-  if (typeid(detail1) != typeid(null) &&
-      msg.find("%3%") == std::string::npos)
+  if (msg.find("%3%") != std::string::npos)
+    {
+      nargs = 3;
+    }
+  else if (typeid(detail1) != typeid(null))
     {
       if (msg.empty())
 	format += "%3%";
       else
 	format += ": %3%";
       nargs = 3;
+    }
 
-      if (typeid(detail2) != typeid(null) &&
-	  msg.find("%4%") == std::string::npos)
-	{
-	  format += ": %4%";
-	  nargs = 4;
-	}
+  if (msg.find("%4%") != std::string::npos)
+    {
+      nargs = 4;
+    }
+  else if (typeid(detail2) != typeid(null))
+    {
+      if (msg.empty() && nargs < 3)
+	format += "%4%";
+      else
+	format += ": %4%";
+      nargs = 4;
     }
 
   boost::format fmt(format);
@@ -114,12 +129,12 @@ sbuild::custom_error<T>::format_error (A const&   context1,
     {
       format += "%1%: ";
       nargs = 1;
+    }
 
-      if (typeid(context2) != typeid(null))
-	{
-	  format += "%2%: ";
-	  nargs = 2;
-	}
+  if (typeid(context2) != typeid(null))
+    {
+      format += "%2%: ";
+      nargs = 2;
     }
 
   format += msg;
@@ -132,11 +147,15 @@ sbuild::custom_error<T>::format_error (A const&   context1,
 	format += ": %3%";
       nargs = 3;
 
-      if (typeid(detail2) != typeid(null))
-	{
-	  format += ": %4%";
-	  nargs = 4;
-	}
+    }
+
+  if (typeid(detail2) != typeid(null))
+    {
+      if (msg.empty() && nargs < 3)
+	format += "%4%";
+      else
+	format += ": %4%";
+      nargs = 4;
     }
 
   boost::format fmt(format);
