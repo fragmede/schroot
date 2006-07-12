@@ -1,6 +1,12 @@
 2006-07-12  Roger Leigh  <rleigh@debian.org>
 
 	* sbuild/sbuild-custom-error.tcc
+	(format_error): Add a third context argument, for use with keyfile
+	errors.
+
+2006-07-12  Roger Leigh  <rleigh@debian.org>
+
+	* sbuild/sbuild-custom-error.tcc
 	(format_error): Never pass more arguments than the format string
 	specifies.
 

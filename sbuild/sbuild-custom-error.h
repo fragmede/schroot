@@ -64,7 +64,7 @@ namespace sbuild
      * @param error the error code.
      */
     custom_error (error_type error):
-      runtime_error(format_error(null(), null(), error, null(), null()))
+      runtime_error(format_error(null(), null(), null(), error, null(), null()))
     {
     }
 
@@ -76,7 +76,7 @@ namespace sbuild
      */
     custom_error (std::string const& detail,
 		   error_type error):
-      runtime_error(format_error(detail, null(), error, null(), null()))
+      runtime_error(format_error(detail, null(), null(), error, null(), null()))
     {
     }
 
@@ -88,7 +88,7 @@ namespace sbuild
      */
     custom_error (error_type         error,
 		  std::string const& error_string):
-      runtime_error(format_error(null(), null(), error, error_string, null()))
+      runtime_error(format_error(null(), null(), null(), error, error_string, null()))
     {
     }
 
@@ -102,7 +102,7 @@ namespace sbuild
     custom_error (std::string const& detail,
 		  error_type         error,
 		  std::string const& error_string):
-      runtime_error(format_error(detail, null(), error, error_string, null()))
+      runtime_error(format_error(detail, null(), null(), error, error_string, null()))
     {
     }
 
@@ -113,7 +113,7 @@ namespace sbuild
      * @param error the error code.
      */
     custom_error (std::runtime_error const& error):
-      runtime_error(format_error(null(), null(), error, null(), null()))
+      runtime_error(format_error(null(), null(), null(), error, null(), null()))
     {
     }
 
@@ -125,7 +125,7 @@ namespace sbuild
      */
     custom_error (std::string const&        detail,
 		  std::runtime_error const& error):
-      runtime_error(format_error(detail, null(), error, null(), null()))
+      runtime_error(format_error(detail, null(), null(), error, null(), null()))
     {
     }
 
@@ -146,41 +146,46 @@ namespace sbuild
     static const char *
     get_error (error_type error);
 
+  protected:
     /**
      * Format an error message.
      *
      * @param context1 context of the error.
      * @param context2 additional context of the error.
+     * @param context3 additional context of the error.
      * @param error the error code.
      * @param detail1 details of the error.
      * @param detail2 additional details of the error.
      * @returns a translated error message.
      */
-    template <typename A, typename B, typename C, typename D>
+    template <typename A, typename B, typename C, typename D, typename E>
     std::string
     format_error (A const&   context1,
 		  B const&   context2,
+		  C const&   context3,
 		  error_type error,
-		  C const&   detail1,
-		  D const&   detail2);
+		  D const&   detail1,
+		  E const&   detail2);
 
     /**
      * Format an error message.
      *
      * @param context1 context of the error.
      * @param context2 additional context of the error.
+     * @param context3 additional context of the error.
      * @param error the error code.
      * @param detail1 details of the error.
      * @param detail2 additional details of the error.
      * @returns a translated error message.
      */
-    template <typename A, typename B, typename C, typename D>
+    template <typename A, typename B, typename C, typename D, typename E>
     std::string
     format_error (A const&                  context1,
 		  B const&                  context2,
+		  C const&                  context3,
 		  std::runtime_error const& error,
-		  C const&                  detail1,
-		  D const&                  detail2);
+		  D const&                  detail1,
+		  E const&                  detail2);
   };
 
 }

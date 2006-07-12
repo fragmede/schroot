@@ -39,13 +39,14 @@ sbuild::custom_error<T>::get_error (error_type error)
 }
 
 template <typename T>
-template <typename A, typename B, typename C, typename D>
+template <typename A, typename B, typename C, typename D, typename E>
 std::string
 sbuild::custom_error<T>::format_error (A const&   context1,
 				       B const&   context2,
+				       C const&   context3,
 				       error_type error,
-				       C const&   detail1,
-				       D const&   detail2)
+				       D const&   detail1,
+				       E const&   detail2)
 {
   std::string format;
   std::string msg(get_error(error));
@@ -71,32 +72,42 @@ sbuild::custom_error<T>::format_error (A const&   context1,
       nargs = 2;
     }
 
-  format += msg;
-
   if (msg.find("%3%") != std::string::npos)
     {
       nargs = 3;
     }
-  else if (typeid(detail1) != typeid(null))
+  else if (typeid(context3) != typeid(null))
     {
-      if (msg.empty())
-	format += "%3%";
-      else
-	format += ": %3%";
+      format += "%3%: ";
       nargs = 3;
     }
+
+  format += msg;
 
   if (msg.find("%4%") != std::string::npos)
     {
       nargs = 4;
     }
-  else if (typeid(detail2) != typeid(null))
+  else if (typeid(detail1) != typeid(null))
     {
-      if (msg.empty() && nargs < 3)
+      if (msg.empty())
 	format += "%4%";
       else
 	format += ": %4%";
       nargs = 4;
+    }
+
+  if (msg.find("%5%") != std::string::npos)
+    {
+      nargs = 5;
+    }
+  else if (typeid(detail2) != typeid(null))
+    {
+      if (msg.empty() && nargs < 4)
+	format += "%5%";
+      else
+	format += ": %5%";
+      nargs = 5;
     }
 
   boost::format fmt(format);
@@ -105,21 +116,24 @@ sbuild::custom_error<T>::format_error (A const&   context1,
   if (nargs >= 2)
     fmt % context2;
   if (nargs >= 3)
-    fmt % detail1;
+    fmt % context3;
   if (nargs >= 4)
+    fmt % detail1;
+  if (nargs >= 5)
     fmt % detail2;
 
   return fmt.str();
 }
 
 template <typename T>
-template <typename A, typename B, typename C, typename D>
+template <typename A, typename B, typename C, typename D, typename E>
 std::string
 sbuild::custom_error<T>::format_error (A const&   context1,
 				       B const&   context2,
+				       C const&   context3,
 				       std::runtime_error const& error,
-				       C const&   detail1,
-				       D const&   detail2)
+				       D const&   detail1,
+				       E const&   detail2)
 {
   std::string format;
   std::string msg(error.what());
@@ -137,25 +151,31 @@ sbuild::custom_error<T>::format_error (A const&   context1,
       nargs = 2;
     }
 
+  if (typeid(context3) != typeid(null))
+    {
+      format += "%3%: ";
+      nargs = 3;
+    }
+
   format += msg;
 
   if (typeid(detail1) != typeid(null))
     {
       if (msg.empty())
-	format += "%3%";
+	format += "%4%";
       else
-	format += ": %3%";
-      nargs = 3;
+	format += ": %4%";
+      nargs = 4;
 
     }
 
   if (typeid(detail2) != typeid(null))
     {
-      if (msg.empty() && nargs < 3)
-	format += "%4%";
+      if (msg.empty() && nargs < 4)
+	format += "%5%";
       else
-	format += ": %4%";
-      nargs = 4;
+	format += ": %5%";
+      nargs = 5;
     }
 
   boost::format fmt(format);
@@ -164,8 +184,10 @@ sbuild::custom_error<T>::format_error (A const&   context1,
   if (nargs >= 2)
     fmt % context2;
   if (nargs >= 3)
-    fmt % detail1;
+    fmt % context3;
   if (nargs >= 4)
+    fmt % detail1;
+  if (nargs >= 5)
     fmt % detail2;
 
   return fmt.str();
