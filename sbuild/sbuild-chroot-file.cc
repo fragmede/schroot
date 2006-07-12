@@ -123,7 +123,7 @@ chroot_file::setup_lock (setup_type type,
     {
       struct stat statbuf;
       if (stat(this->file.c_str(), &statbuf) < 0)
-	throw error(this->file, FILE_STAT, errno);
+	throw error(this->file, FILE_STAT, strerror(errno));
 
       // NOTE: taken from chroot_config::check_security.
       if (statbuf.st_uid != 0)

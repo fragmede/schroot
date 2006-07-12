@@ -121,7 +121,7 @@ chroot_config::add_config_directory (std::string const& dir,
   DIR *d = opendir(dir.c_str());
   if (d == NULL)
     {
-      throw error(dir, DIR_OPEN, errno);
+      throw error(dir, DIR_OPEN, strerror(errno));
     }
 
   struct dirent *de = NULL;
@@ -132,7 +132,7 @@ chroot_config::add_config_directory (std::string const& dir,
       struct stat statbuf;
       if (stat(filename.c_str(), &statbuf) < 0)
 	{
-	  error e(filename, FILE_STAT, errno);
+	  error e(filename, FILE_STAT, strerror(errno));
 	  log_warning() << e.what() << endl;
 	  continue;
 	}
@@ -407,7 +407,7 @@ chroot_config::load_data (std::string const& file,
   /* Use a UNIX fd, for security (no races) */
   int fd = open(file.c_str(), O_RDONLY|O_NOFOLLOW);
   if (fd < 0)
-    throw error(file, FILE_OPEN, errno);
+    throw error(file, FILE_OPEN, strerror(errno));
 
   sbuild::file_lock lock(fd);
   try
@@ -421,7 +421,7 @@ chroot_config::load_data (std::string const& file,
 
   struct stat statbuf;
   if (fstat(fd, &statbuf) < 0)
-    throw error(file, FILE_STAT, errno);
+    throw error(file, FILE_STAT, strerror(errno));
 
   if (statbuf.st_uid != 0)
     throw error(file, FILE_OWNER);

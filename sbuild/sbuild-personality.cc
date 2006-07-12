@@ -163,7 +163,7 @@ sbuild::personality::set () const
   if (this->persona != 0xffffffff &&
       ::personality (this->persona) < 0)
     {
-      throw error(get_name(), SET, errno);
+      throw error(get_name(), SET, strerror(errno));
     }
 #endif
 }

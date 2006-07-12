@@ -102,7 +102,7 @@ lock::set_alarm ()
   new_sa.sa_handler = alarm_handler;
 
   if (sigaction(SIGALRM, &new_sa, &this->saved_signals) != 0)
-    throw error(TIMEOUT_HANDLER, errno);
+    throw error(TIMEOUT_HANDLER, strerror(errno));
 }
 
 void
@@ -120,7 +120,7 @@ lock::set_timer(struct itimerval const& timer)
   if (setitimer(ITIMER_REAL, &timer, NULL) == -1)
     {
       clear_alarm();
-      throw error(TIMEOUT_SET, errno);
+      throw error(TIMEOUT_SET, strerror(errno));
     }
 }
 
@@ -134,7 +134,7 @@ lock::unset_timer ()
   if (setitimer(ITIMER_REAL, &disable_timer, NULL) == -1)
     {
       clear_alarm();
-      throw error(TIMEOUT_CANCEL, errno);
+      throw error(TIMEOUT_CANCEL, strerror(errno));
     }
 
   clear_alarm();
@@ -184,7 +184,7 @@ file_lock::set_lock (type         lock_type,
 	  if (errno == EINTR)
 	    throw error(LOCK_TIMEOUT);
 	  else
-	    throw error(LOCK, errno);
+	    throw error(LOCK, strerror(errno));
 	}
       unset_timer();
     }

@@ -74,44 +74,6 @@ namespace sbuild
      * The constructor.
      *
      * @param error the error code.
-     * @param error_number the error number.
-     */
-    custom_error (error_type error,
-		  int        error_number):
-      runtime_error(format_error(std::string(), error, error_number))
-    {
-    }
-
-    /**
-     * The constructor.
-     *
-     * @param detail the details of the error.
-     * @param error the error code.
-     * @param error_number the error number.
-     */
-    custom_error (std::string const& detail,
-		  error_type         error,
-		  int                error_number):
-      runtime_error(format_error(detail, error, error_number))
-    {
-    }
-
-    /**
-     * The constructor.
-     *
-     * @param detail the details of the error.
-     * @param error_number the error number.
-     */
-    custom_error (std::string const& detail,
-		  int                error_number):
-      runtime_error(format_error(detail, error_number))
-    {
-    }
-
-    /**
-     * The constructor.
-     *
-     * @param error the error code.
      * @param error_string the error string.
      */
     custom_error (error_type         error,

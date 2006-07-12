@@ -377,7 +377,7 @@ sbuild::chroot::setup_session_info (bool start)
     {
       int fd = open(file.c_str(), O_CREAT|O_EXCL|O_WRONLY, 0664);
       if (fd < 0)
-	throw error(file, SESSION_WRITE, errno);
+	throw error(file, SESSION_WRITE, strerror(errno));
 
       // Create a stream buffer from the file descriptor.  The fd will
       // be closed when the buffer is destroyed.
@@ -415,7 +415,7 @@ sbuild::chroot::setup_session_info (bool start)
   else /* start == false */
     {
       if (unlink(file.c_str()) != 0)
-	throw error(file, SESSION_UNLINK, errno);
+	throw error(file, SESSION_UNLINK, strerror(errno));
     }
 }
 

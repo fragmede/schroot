@@ -144,7 +144,7 @@ auth::auth (std::string const& service_name):
       // TODO: Convert to using a lexical cast.
       std::ostringstream str;
       str << this->ruid;
-      throw error(str.str(), USER, errno);
+      throw error(str.str(), USER, strerror(errno));
     }
   this->ruser = pwent->pw_name;
 
@@ -201,7 +201,7 @@ auth::set_user (std::string const& user)
   struct passwd *pwent = getpwnam(this->user.c_str());
   if (pwent == 0)
     {
-      throw error(user, USER, errno);
+      throw error(user, USER, strerror(errno));
     }
   this->uid = pwent->pw_uid;
   this->gid = pwent->pw_gid;
@@ -427,7 +427,7 @@ auth::authenticate ()
   if (gethostname(hostname, hl) != 0)
     {
       log_debug(DEBUG_CRITICAL) << "gethostname FAIL" << endl;
-      throw error(HOSTNAME, errno);
+      throw error(HOSTNAME, strerror(errno));
     }
 
   if ((pam_status =

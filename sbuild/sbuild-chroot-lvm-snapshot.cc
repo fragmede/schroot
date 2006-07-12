@@ -142,7 +142,7 @@ chroot_lvm_snapshot::setup_lock (setup_type type,
 	}
       else if (stat(device.c_str(), &statbuf) == -1)
 	{
-	  throw error(get_device(), DEVICE_STAT, errno);
+	  throw error(get_device(), DEVICE_STAT, strerror(errno));
 	}
       else if (!S_ISBLK(statbuf.st_mode))
 	{

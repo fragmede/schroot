@@ -167,7 +167,7 @@ run_parts::run_child (std::string const& file,
 
   if ((pid = fork()) == -1)
     {
-      throw error(CHILD_FORK, errno);
+      throw error(CHILD_FORK, strerror(errno));
     }
   else if (pid == 0)
     {
@@ -177,7 +177,7 @@ run_parts::run_child (std::string const& file,
 		   << std::endl;
       ::umask(this->umask);
       exec(this->directory + '/' + file, command, env);
-      error e(file, EXEC, errno);
+      error e(file, EXEC, strerror(errno));
       log_error() << e.what() << std::endl;
       exit(EXIT_FAILURE);
     }
@@ -204,7 +204,7 @@ run_parts::wait_for_child (pid_t pid,
 	  if (errno == EINTR)
 	    continue; // Wait again.
 	  else
-	    throw error(CHILD_WAIT, errno);
+	    throw error(CHILD_WAIT, strerror(errno));
 	}
       else
 	break;

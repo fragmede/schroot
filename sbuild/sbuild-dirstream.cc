@@ -75,7 +75,7 @@ dirstream::open(std::string const& dirname)
       this->dirname.clear();
       this->error_status = true;
       this->eof_status = true;
-      throw error(dirname, DIR_OPEN, errno);
+      throw error(dirname, DIR_OPEN, strerror(errno));
     }
   this->dirname = dirname;
   this->error_status = false;
@@ -103,7 +103,7 @@ dirstream::read(int quantity)
 	  if (errno) // error
 	    {
 	      this->error_status = true;
-	      throw error(this->dirname, DIR_READ, errno);
+	      throw error(this->dirname, DIR_READ, strerror(errno));
 	    }
 	  return;
 	}

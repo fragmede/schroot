@@ -129,7 +129,7 @@ namespace
 	  }
 	else
 	  {
-	    session::error e(group, session::GROUP_UNKNOWN, errno);
+	    session::error e(group, session::GROUP_UNKNOWN, strerror(errno));
 	    log_warning() << e.what() << endl;
 	  }
 	return false;
@@ -144,12 +144,12 @@ namespace
       {
 	int supp_group_count = getgroups(0, NULL);
 	if (supp_group_count < 0)
-	  throw session::error(session::GROUP_GET_SUPC, errno);
+	  throw session::error(session::GROUP_GET_SUPC, strerror(errno));
 	if (supp_group_count > 0)
 	  {
 	    gid_t *supp_groups = new gid_t[supp_group_count];
 	    if (getgroups(supp_group_count, supp_groups) < 1)
-	      throw session::error(session::GROUP_GET_SUP, errno);
+	      throw session::error(session::GROUP_GET_SUP, strerror(errno));
 
 	    for (int i = 0; i < supp_group_count; ++i)
 	      {
@@ -581,7 +581,7 @@ session::get_shell () const
     {
       if (shell != "/bin/sh")
 	{
-	  error e1(shell, SHELL, errno);
+	  error e1(shell, SHELL, strerror(errno));
 	  log_warning() << e1.what() << endl;
 	  shell = "/bin/sh";
 	  error e2(SHELL_FB, shell);
@@ -833,7 +833,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   if ((pid = fork()) == -1)
     {
       this->chroot_status = false;
-      throw error(session_chroot->get_name(), CHILD_FORK, errno);
+      throw error(session_chroot->get_name(), CHILD_FORK, strerror(errno));
     }
   else if (pid == 0)
     {
@@ -905,11 +905,11 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
     {
       std::ostringstream str;
       str << get_gid();
-      throw error(str.str(), GROUP_SET, errno);
+      throw error(str.str(), GROUP_SET, strerror(errno));
     }
   if (initgroups (get_user().c_str(), get_gid()))
     {
-      throw error(GROUP_SET_SUP, errno);
+      throw error(GROUP_SET_SUP, strerror(errno));
     }
 
   /* Set the process execution domain. */
@@ -919,11 +919,11 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   /* Enter the chroot */
   if (chdir (location.c_str()))
     {
-      throw error(location, CHDIR, errno);
+      throw error(location, CHDIR, strerror(errno));
     }
   if (::chroot (location.c_str()))
     {
-      throw error(location, CHROOT, errno);
+      throw error(location, CHROOT, strerror(errno));
     }
 
   /* Set uid and check we are not still root */
@@ -957,7 +957,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
     {
       if (chdir ((*dpos).c_str()) < 0)
 	{
-	  error e(*dpos, CHDIR, errno);
+	  error e(*dpos, CHDIR, strerror(errno));
 
 	  if (dpos + 1 == dlist.end())
 	    throw e;
@@ -997,7 +997,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   /* Execute */
   if (exec (file, full_command, env))
     {
-      throw error(file, EXEC, errno);
+      throw error(file, EXEC, strerror(errno));
     }
 
   /* This should never be reached */
@@ -1030,7 +1030,7 @@ session::wait_for_child (pid_t pid,
 	    continue; // Kill child and wait again.
 	  else
 	    {
-	      throw error(CHILD_WAIT, errno);
+	      throw error(CHILD_WAIT, strerror(errno));
 	    }
 	}
       else if (sighup_called)
@@ -1075,7 +1075,7 @@ session::run_chroot (sbuild::chroot::ptr& session_chroot)
   pid_t pid;
   if ((pid = fork()) == -1)
     {
-      throw error(CHILD_FORK, errno);
+      throw error(CHILD_FORK, strerror(errno));
     }
   else if (pid == 0)
     {
@@ -1109,7 +1109,7 @@ session::set_sighup_handler ()
 
   if (sigaction(SIGHUP, &new_sa, &this->saved_signals) != 0)
     {
-      throw error(SIGHUP_SET, errno);
+      throw error(SIGHUP_SET, strerror(errno));
     }
 }
 
