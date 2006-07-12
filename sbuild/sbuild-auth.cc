@@ -61,8 +61,8 @@ namespace
 }
 
 template<>
-custom_error<auth::error_code>::map_type
-custom_error<auth::error_code>::error_strings
+custom_error_base<auth::error_code>::map_type
+custom_error_base<auth::error_code>::error_strings
 (init_errors,
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 

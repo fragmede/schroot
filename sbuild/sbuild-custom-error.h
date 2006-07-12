@@ -29,14 +29,28 @@ namespace sbuild
 {
 
   /**
-   * Custom error.
+   * Custom error base.
    */
   template <typename T>
-  class custom_error : public runtime_error
+  class custom_error_base : public runtime_error
   {
   public:
     typedef T error_type;
     typedef std::map<error_type,const char *> map_type;
+
+    /**
+     * The constructor.
+     *
+     * @param error the error message.
+     */
+    custom_error_base(std::string const& error):
+      runtime_error(error)
+    {
+    }
+
+    /// The destructor.
+    virtual ~custom_error_base () throw ()
+    {}
 
     /**
      * Null class to represent an absence of context or detail in an
@@ -57,81 +71,6 @@ namespace sbuild
 	return stream;
       }
     };
-
-    /**
-     * The constructor.
-     *
-     * @param error the error code.
-     */
-    custom_error (error_type error):
-      runtime_error(format_error(null(), null(), null(), error, null(), null()))
-    {
-    }
-
-    /**
-     * The constructor.
-     *
-     * @param detail the details of the error.
-     * @param error the error code.
-     */
-    custom_error (std::string const& detail,
-		   error_type error):
-      runtime_error(format_error(detail, null(), null(), error, null(), null()))
-    {
-    }
-
-    /**
-     * The constructor.
-     *
-     * @param error the error code.
-     * @param error_string the error string.
-     */
-    custom_error (error_type         error,
-		  std::string const& error_string):
-      runtime_error(format_error(null(), null(), null(), error, error_string, null()))
-    {
-    }
-
-    /**
-     * The constructor.
-     *
-     * @param detail the details of the error.
-     * @param error the error code.
-     * @param error_string the error string.
-     */
-    custom_error (std::string const& detail,
-		  error_type         error,
-		  std::string const& error_string):
-      runtime_error(format_error(detail, null(), null(), error, error_string, null()))
-    {
-    }
-
-    /**
-     * The constructor.
-     *
-     * @param detail the details of the error.
-     * @param error the error code.
-     */
-    custom_error (std::runtime_error const& error):
-      runtime_error(format_error(null(), null(), null(), error, null(), null()))
-    {
-    }
-
-    /**
-     * The constructor.
-     *
-     * @param detail the details of the error.
-     * @param error the error code.
-     */
-    custom_error (std::string const&        detail,
-		  std::runtime_error const& error):
-      runtime_error(format_error(detail, null(), null(), error, null(), null()))
-    {
-    }
-
-    /// The destructor.
-    virtual ~custom_error () throw ()
-    {}
 
   private:
     /// Mapping between error code and string.
@@ -186,6 +125,94 @@ namespace sbuild
 		  std::runtime_error const& error,
 		  D const&                  detail1,
 		  E const&                  detail2);
+
+  };
+
+  /**
+   * Custom error.
+   */
+  template <typename T>
+  class custom_error : public custom_error_base<T>
+  {
+  public:
+    //    typedef custom_error_base<T>::error_type error_type;
+    typedef typename custom_error_base<T>::error_type error_type;
+    typedef typename custom_error_base<T>::null null;
+
+    /**
+     * The constructor.
+     *
+     * @param error the error code.
+     */
+    custom_error (error_type error):
+      custom_error_base<T>(format_error(null(), null(), null(), error, null(), null()))
+    {
+    }
+
+    /**
+     * The constructor.
+     *
+     * @param detail the details of the error.
+     * @param error the error code.
+     */
+    custom_error (std::string const& detail,
+		  error_type error):
+      custom_error_base<T>(format_error(detail, null(), null(), error, null(), null()))
+    {
+    }
+
+    /**
+     * The constructor.
+     *
+     * @param error the error code.
+     * @param error_string the error string.
+     */
+    custom_error (error_type         error,
+		  std::string const& error_string):
+      custom_error_base<T>(format_error(null(), null(), null(), error, error_string, null()))
+    {
+    }
+
+    /**
+     * The constructor.
+     *
+     * @param detail the details of the error.
+     * @param error the error code.
+     * @param error_string the error string.
+     */
+    custom_error (std::string const& detail,
+		  error_type         error,
+		  std::string const& error_string):
+      custom_error_base<T>(format_error(detail, null(), null(), error, error_string, null()))
+    {
+    }
+
+    /**
+     * The constructor.
+     *
+     * @param detail the details of the error.
+     * @param error the error code.
+     */
+    custom_error (std::runtime_error const& error):
+      custom_error_base<T>(format_error(null(), null(), null(), error, null(), null()))
+    {
+    }
+
+    /**
+     * The constructor.
+     *
+     * @param detail the details of the error.
+     * @param error the error code.
+     */
+    custom_error (std::string const&        detail,
+		  std::runtime_error const& error):
+      custom_error_base<T>(format_error(detail, null(), null(), error, null(), null()))
+    {
+    }
+
+    /// The destructor.
+    virtual ~custom_error () throw ()
+    {}
   };
 
 }

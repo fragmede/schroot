@@ -1,5 +1,14 @@
 2006-07-12  Roger Leigh  <rleigh@debian.org>
 
+	* All sources defining a custom_error<>::error_strings map define
+	a custom_error_base<>::error_strings map instead.
+
+	* sbuild/sbuild-custom-error.h: Split custom_error formatting
+	functions, typedefs and static members into a custom_error_base
+	class.
+
+2006-07-12  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-custom-error.tcc
 	(format_error): Add a third context argument, for use with keyfile
 	errors.

@@ -26,27 +26,14 @@
 #include <boost/format.hpp>
 
 template <typename T>
-const char *
-sbuild::custom_error<T>::get_error (error_type error)
-{
-  typename map_type::const_iterator pos = error_strings.find(error);
-
-  if (pos != error_strings.end())
-    return gettext(pos->second);
-
-  // Untranslated: it's a programming error to get this message.
-  return "Unknown error";
-}
-
-template <typename T>
 template <typename A, typename B, typename C, typename D, typename E>
 std::string
-sbuild::custom_error<T>::format_error (A const&   context1,
-				       B const&   context2,
-				       C const&   context3,
-				       error_type error,
-				       D const&   detail1,
-				       E const&   detail2)
+sbuild::custom_error_base<T>::format_error (A const&   context1,
+					    B const&   context2,
+					    C const&   context3,
+					    error_type error,
+					    D const&   detail1,
+					    E const&   detail2)
 {
   std::string format;
   std::string msg(get_error(error));
@@ -128,12 +115,12 @@ sbuild::custom_error<T>::format_error (A const&   context1,
 template <typename T>
 template <typename A, typename B, typename C, typename D, typename E>
 std::string
-sbuild::custom_error<T>::format_error (A const&   context1,
-				       B const&   context2,
-				       C const&   context3,
-				       std::runtime_error const& error,
-				       D const&   detail1,
-				       E const&   detail2)
+sbuild::custom_error_base<T>::format_error (A const&   context1,
+					    B const&   context2,
+					    C const&   context3,
+					    std::runtime_error const& error,
+					    D const&   detail1,
+					    E const&   detail2)
 {
   std::string format;
   std::string msg(error.what());
@@ -191,6 +178,19 @@ sbuild::custom_error<T>::format_error (A const&   context1,
     fmt % detail2;
 
   return fmt.str();
+}
+
+template <typename T>
+const char *
+sbuild::custom_error_base<T>::get_error (error_type error)
+{
+  typename map_type::const_iterator pos = error_strings.find(error);
+
+  if (pos != error_strings.end())
+    return gettext(pos->second);
+
+  // Untranslated: it's a programming error to get this message.
+  return "Unknown error";
 }
 
 #endif /* SBUILD_CUSTOM_ERROR_TCC */

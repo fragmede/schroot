@@ -53,8 +53,8 @@ namespace
 }
 
 template<>
-std::map<run_parts::error_code,const char *>
-custom_error<run_parts::error_code>::error_strings
+custom_error_base<run_parts::error_code>::map_type
+custom_error_base<run_parts::error_code>::error_strings
 (init_errors,
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 

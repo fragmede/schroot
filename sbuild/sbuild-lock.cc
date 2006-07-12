@@ -59,8 +59,8 @@ namespace
 }
 
 template<>
-custom_error<lock::error_code>::map_type
-custom_error<lock::error_code>::error_strings
+custom_error_base<lock::error_code>::map_type
+custom_error_base<lock::error_code>::error_strings
 (init_errors,
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 

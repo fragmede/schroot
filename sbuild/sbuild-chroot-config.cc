@@ -72,8 +72,8 @@ namespace
 }
 
 template<>
-custom_error<chroot_config::error_code>::map_type
-custom_error<chroot_config::error_code>::error_strings
+custom_error_base<chroot_config::error_code>::map_type
+custom_error_base<chroot_config::error_code>::error_strings
 (init_errors,
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
