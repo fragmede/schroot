@@ -416,7 +416,7 @@ chroot_config::load_data (std::string const& file,
     }
   catch (lock::error const& e)
     {
-      throw error(file, e.what());
+      throw error(file, e);
     }
 
   struct stat statbuf;
@@ -445,7 +445,7 @@ chroot_config::load_data (std::string const& file,
     }
   catch (runtime_error const& e)
     {
-      throw error(file, e.what());
+      throw error(file, e);
     }
   try
     {
@@ -453,7 +453,7 @@ chroot_config::load_data (std::string const& file,
     }
   catch (lock::error const& e)
     {
-      throw error(file, e.what());
+      throw error(file, e);
     }
 }
 

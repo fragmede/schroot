@@ -1,5 +1,22 @@
 2006-07-12  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-chroot-config.cc
+	(load_data): Use new error contructor.
+
+	* sbuild/sbuild-session.cc
+	(wait_for_child): Use new error contructor.
+
+	* sbuild/sbuild-custom-error.tcc
+	(format_error): Replace all overloaded functions with two
+	variants, one for an error_type enum, one for an exception (for
+	rethrowing an exception of a different type).
+
+	* sbuild/sbuild-custom-error.h: Add new custom_error<>::null
+	class, used to represent an absent context or detail item in an
+	error.  Add two new constructors for rethrowing exceptions.
+
+2006-07-12  Roger Leigh  <rleigh@debian.org>
+
 	* All sources use strerror(errno) in place of errno when creating
 	a custom_error<>.
 

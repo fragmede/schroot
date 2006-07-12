@@ -1049,7 +1049,7 @@ session::wait_for_child (pid_t pid,
   catch (auth::error const& e)
     {
       // TODO: rethrow or don't catch.
-      throw error(e.what());
+      throw error(e);
     }
 
   if (!WIFEXITED(status))

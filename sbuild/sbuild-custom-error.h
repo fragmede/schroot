@@ -39,12 +39,32 @@ namespace sbuild
     typedef std::map<error_type,const char *> map_type;
 
     /**
+     * Null class to represent an absence of context or detail in an
+     * error.
+     */
+    class null
+    {
+      /**
+       * null output to an ostream.
+       * @todo Output placeholder text.
+       */
+      template <class charT, class traits>
+      friend
+      std::basic_ostream<charT,traits>&
+      operator << (std::basic_ostream<charT,traits>& stream,
+		   null const&                       n)
+      {
+	return stream;
+      }
+    };
+
+    /**
      * The constructor.
      *
      * @param error the error code.
      */
     custom_error (error_type error):
-      runtime_error(format_error(std::string(), error))
+      runtime_error(format_error(null(), null(), error, null(), null()))
     {
     }
 
@@ -56,17 +76,7 @@ namespace sbuild
      */
     custom_error (std::string const& detail,
 		   error_type error):
-      runtime_error(format_error(detail, error))
-    {
-    }
-
-    /**
-     * The constructor.
-     *
-     * @param detail the details of the error.
-     */
-    custom_error (std::string const& detail):
-      runtime_error(detail)
+      runtime_error(format_error(detail, null(), error, null(), null()))
     {
     }
 
@@ -78,7 +88,7 @@ namespace sbuild
      */
     custom_error (error_type         error,
 		  std::string const& error_string):
-      runtime_error(format_error(std::string(), error, error_string))
+      runtime_error(format_error(null(), null(), error, error_string, null()))
     {
     }
 
@@ -92,7 +102,7 @@ namespace sbuild
     custom_error (std::string const& detail,
 		  error_type         error,
 		  std::string const& error_string):
-      runtime_error(format_error(detail, error, error_string))
+      runtime_error(format_error(detail, null(), error, error_string, null()))
     {
     }
 
@@ -100,11 +110,22 @@ namespace sbuild
      * The constructor.
      *
      * @param detail the details of the error.
-     * @param error_string the error string.
+     * @param error the error code.
      */
-    custom_error (std::string const& detail,
-		  std::string const& error_string):
-      runtime_error(format_error(detail, error_string))
+    custom_error (std::runtime_error const& error):
+      runtime_error(format_error(null(), null(), error, null(), null()))
+    {
+    }
+
+    /**
+     * The constructor.
+     *
+     * @param detail the details of the error.
+     * @param error the error code.
+     */
+    custom_error (std::string const&        detail,
+		  std::runtime_error const& error):
+      runtime_error(format_error(detail, null(), error, null(), null()))
     {
     }
 
@@ -128,63 +149,39 @@ namespace sbuild
     /**
      * Format an error message.
      *
+     * @param context1 context of the error.
+     * @param context2 additional context of the error.
      * @param error the error code.
-     * @param detail the details of the error.
+     * @param detail1 details of the error.
+     * @param detail2 additional details of the error.
      * @returns a translated error message.
      */
-    static std::string
-    format_error (std::string const& detail,
-		  error_type         error);
+    template <typename A, typename B, typename C, typename D>
+    std::string
+    format_error (A const&   context1,
+		  B const&   context2,
+		  error_type error,
+		  C const&   detail1,
+		  D const&   detail2);
 
     /**
      * Format an error message.
      *
-     * @param detail the details of the error.
+     * @param context1 context of the error.
+     * @param context2 additional context of the error.
      * @param error the error code.
-     * @param error_number the error number.
+     * @param detail1 details of the error.
+     * @param detail2 additional details of the error.
      * @returns a translated error message.
      */
-    static std::string
-    format_error (std::string const& detail,
-		  error_type         error,
-		  int                error_number);
-
-    /**
-     * Format an error message.
-     *
-     * @param detail the details of the error.
-     * @param error_number the error number.
-     * @returns a translated error message.
-     */
-    static std::string
-    format_error (std::string const& detail,
-		  int                error_number);
-
-    /**
-     * Format an error message.
-     *
-     * @param detail the details of the error.
-     * @param error the error code.
-     * @param error_string the error string.
-     * @returns a translated error message.
-     */
-    static std::string
-    format_error (std::string const& detail,
-		  error_type         error,
-		  std::string const& error_string);
-
-    /**
-     * Format an error message.
-     *
-     * @param detail the details of the error.
-     * @param error_string the error string.
-     * @returns a translated error message.
-     */
-    static std::string
-    format_error (std::string const& detail,
-		  std::string const& error_string);
+    template <typename A, typename B, typename C, typename D>
+    std::string
+    format_error (A const&                  context1,
+		  B const&                  context2,
+		  std::runtime_error const& error,
+		  C const&                  detail1,
+		  D const&                  detail2);
   };
-
 
 }
 
