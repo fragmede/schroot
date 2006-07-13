@@ -93,7 +93,7 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
 			   std::string&         file,
 			   string_list&         command) const
 {
-  std::string programstring = command[0];
+  std::string programstring = sbuild::string_list_to_string(command, " ");
 
   command.clear();
   command.push_back(get_shell());

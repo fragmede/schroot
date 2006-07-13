@@ -25,9 +25,12 @@ dchroot \- enter a chroot environment
 environment.  If no command is specified, a login shell will be started in the
 user's home directory inside the chroot.
 .PP
-The command is a single argument which will be run in the user's default shell
-using its \[lq]\-c\[rq] option.  As a result, shell code may be embedded in
-this argument.
+The command is one or more arguments which will be run in the user's default
+shell using its \[lq]\-c\[rq] option.  As a result, shell code may be embedded
+in this argument.  If multiple command options are used, they are concatenated
+together, separated by spaces.  Users should be aware of the shell quoting
+issues this presents, and should use \fBschroot\fP if necessary, which does not
+have any quoting issues.
 .PP
 Unless the \fI-d\fP option is used to preserve the environment, the login shell
 or command will run in the user's home directory inside the chroot, or / if the
@@ -196,9 +199,25 @@ Remove \fI@DCHROOT_CONF@\fP, so that \fBdchroot\fP will subsequently use
 .br
 \f[CR]\fP
 .br
+\f[CR]$ dchroot \-q \-c sid \-\- uname \-smr\fP
+.br
+\f[CR]Linux 2.6.16.17 ppc\fP
+.br
 \f[CR]$ dchroot \-q \-c sid \-\- "uname \-smr"\fP
 .br
 \f[CR]Linux 2.6.16.17 ppc\fP
+.br
+\f[CR]\fP
+.br
+\f[CR]$ dchroot -q -c sid "ls -1 / | tac | head -n 4"\fP
+.br
+\f[CR]var\fP
+.br
+\f[CR]usr\fP
+.br
+\f[CR]tmp\fP
+.br
+\f[CR]sys\fP
 .br
 \f[CR]\fP
 .br

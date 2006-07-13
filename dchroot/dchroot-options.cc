@@ -77,10 +77,6 @@ options::check_options ()
   if (vm.count("preserve-environment"))
     this->preserve = true;
 
-  // dchroot only allows one command.
-  if (this->command.size() > 1)
-    throw opt::validation_error(_("Only one command may be specified"));
-
   if (this->quiet && this->verbose)
     {
       sbuild::log_warning()

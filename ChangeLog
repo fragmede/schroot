@@ -1,3 +1,18 @@
+2006-07-13  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Close #378028.
+
+	* dchroot/dchroot.1.in: Document command option syntax.
+
+	* NEWS: Document dchroot command option syntax.
+
+	* dchroot/dchroot-session.cc
+	(get_user_command): Concatenate all command options into a single
+	command, separated by spaces.
+
+	* dchroot/dchroot-options.cc
+	(check_options): Allow any number of command options.
+
 2006-07-12  Roger Leigh  <rleigh@debian.org>
 
 	* All sources defining a custom_error<>::error_strings map define

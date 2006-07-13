@@ -5,6 +5,11 @@ schroot (0.99.3-1) UNRELEASED; urgency=low
     declared outside the class, in addition to the friend declaration.
     This fixes a compilation error with GCC 4.2 (Closes: #377433).  Thanks
     to Martin Michlmayr for reporting this.
+  * dchroot/dchroot-options.cc, dchroot/dchroot-session.cc: Allow any
+    number of command options, and concatenate all command options into a
+    single command, separated by spaces.  This restores compatibility with
+    dchroot 0.13 and earlier (Closes: #378028).  Thanks to David Liontooth
+    for reporting this.
   * debian/schroot.docs: Add the contents of debian/docs.
   * debian/docs: Remove.
   * debian/rules:
@@ -15,7 +20,7 @@ schroot (0.99.3-1) UNRELEASED; urgency=low
   * debian/dchroot-dsa.preinst: New file.  Remove
     /usr/share/doc/dchroot-dsa.
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 10 Jul 2006 09:09:05 +0100
+ -- Roger Leigh <rleigh@debian.org>  Thu, 13 Jul 2006 13:22:20 +0100
 
 schroot (0.99.2-1) unstable; urgency=low
 

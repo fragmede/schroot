@@ -13,6 +13,10 @@ configuration.
      as the "plain" type, but additionally allows filesystem mounting
      when setup scripts are enabled.
 
+  2) A further dchroot compatibility issue has been corrected.
+     Multiple command options specified on the command line are
+     concatenated into a single command, separated by spaces.
+
 * Major changes in 0.99.2:
 
   1) A --debug option has been added to all programs.  Its use is
