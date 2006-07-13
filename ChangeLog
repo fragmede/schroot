@@ -1,5 +1,45 @@
 2006-07-13  Roger Leigh  <rleigh@debian.org>
 
+	* test/sbuild-parse-value.cc: Use sbuild::parse_value_error in
+	place of sbuild::parse_error.
+
+	* dchroot/dchroot-chroot-config.cc,
+	dchroot-dsa/dchroot-dsa-chroot-config.cc: Use
+	sbuild::keyfile::error in place of sbuild::parse_error.
+
+	* sbuild/sbuild-environment.cc: Use parse_value_error in place of
+	parse_error.
+
+	* sbuild/sbuild-keyfile.cc: Add error strings.  Use error in place
+	of parse_error.
+
+	* sbuild/sbuild-keyfile.h: Add error_code enum and error typedef
+	specialisation of parse_error<>.  Use error and parse_value_error
+	in place of parse_error.  Include line numbers in all exceptions
+	where a line number is available.
+
+	* sbuild/sbuild-parse-value.cc: Add parse_value_error error
+	strings.  Use parse_value_error in place of parse_error.
+
+	* sbuild/sbuild-parse-value.h: Add parse_value_error_code enum and
+	parse_value_error typedef specialisation of parse_error<>.  Use
+	parse_value_error in place of parse_error.
+
+	* sbuild/sbuild-custom-error.tcc: format_error methods are inline.
+
+	* sbuild/sbuild-custom-error.h: format_error methods are static.
+	Remove commented-out typedef.
+
+	* sbuild/sbuild-parse-error.cc: Remove.
+
+	* sbuild/sbuild-parse-error.h: parse_error is now a templated
+	class, derived from custom_error_base<>.
+	custom_error_base<>::format_error is used for all formatting.
+	Methods for passing through exceptions of different types have
+	been added.
+
+2006-07-13  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Close #378028.
 
 	* dchroot/dchroot.1.in: Document command option syntax.

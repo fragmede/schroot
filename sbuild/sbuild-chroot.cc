@@ -611,6 +611,7 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 	  std::ostringstream plist;
 	  personality::print_personalities(plist);
 
+	  // TODO: include line numbers.
 	  log_warning()
 	    << format(_("%1% chroot: personality \"%2%\" is unknown.\n"))
 	    % get_name() % persona_name;

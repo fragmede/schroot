@@ -20,7 +20,7 @@
 #ifndef SBUILD_PARSE_ERROR_H
 #define SBUILD_PARSE_ERROR_H
 
-#include <sbuild/sbuild-error.h>
+#include <sbuild/sbuild-custom-error.h>
 
 #include <map>
 #include <string>
@@ -31,23 +31,25 @@ namespace sbuild
   /**
    * Parse error.
    */
-  class parse_error : public runtime_error
+  template<typename T>
+  class parse_error : public custom_error_base<T>
   {
   public:
-    enum type
-      {
-	NONE,            ///< No error occured.  Used for detail only.
-	BAD_FILE,        ///< The file to parse couldn't be opened.
-	BAD_VALUE,       ///< The value could not be parsed.
-	INVALID_LINE,    ///< The line is invalid.
-	NO_GROUP,        ///< No group was specified.
-	INVALID_GROUP,   ///< The group is invalid.
-	DUPLICATE_GROUP, ///< The group is a duplicate.
-	NO_KEY,          ///< No key was specified.
-	DUPLICATE_KEY,   ///< The key is a duplicate.
-	MISSING_KEY,     ///< The key is missing.
-	DISALLOWED_KEY   ///< The key is not allowed.
-      };
+    typedef typename custom_error_base<T>::error_type error_type;
+    typedef typename custom_error_base<T>::null null;
+
+    /**
+     * The constructor.
+     *
+     * @param context the context of the error.
+     * @param error the error code.
+     */
+    template<typename A>
+    parse_error (A const&   context,
+		 error_type error):
+      custom_error_base<T>(format_error(context, null(), null(), error, null(), null()))
+    {
+    }
 
     /**
      * The constructor.
@@ -55,8 +57,12 @@ namespace sbuild
      * @param error the error code.
      * @param detail the details of the error.
      */
-    parse_error (type               error,
-		 std::string const& detail);
+    template<typename A>
+    parse_error (error_type error,
+		 A const&   detail):
+      custom_error_base<T>(format_error(null(), null(), null(), error, detail, null()))
+    {
+    }
 
     /**
      * The constructor.
@@ -66,8 +72,11 @@ namespace sbuild
      * @param detail the details of the error.
      */
     parse_error (size_t             line,
-		 type               error,
-		 std::string const& detail);
+		 error_type         error,
+		 std::string const& detail):
+      custom_error_base<T>(format_error(line, null(), null(), error, detail, null()))
+    {
+    }
 
     /**
      * The constructor.
@@ -79,8 +88,11 @@ namespace sbuild
      */
     parse_error (size_t             line,
 		 std::string const& group,
-		 type               error,
-		 std::string const& detail);
+		 error_type         error,
+		 std::string const& detail):
+      custom_error_base<T>(format_error(line, group, null(), error, detail, null()))
+    {
+    }
 
     /**
      * The constructor.
@@ -94,8 +106,11 @@ namespace sbuild
     parse_error (size_t             line,
 		 std::string const& group,
 		 std::string const& key,
-		 type               error,
-		 std::string const& detail);
+		 error_type         error,
+		 std::string const& detail):
+      custom_error_base<T>(format_error(line, group, key, error, detail, null()))
+    {
+    }
 
     /**
      * The constructor.
@@ -105,8 +120,11 @@ namespace sbuild
      * @param detail the details of the error.
      */
     parse_error (std::string const& group,
-		 type               error,
-		 std::string const& detail);
+		 error_type         error,
+		 std::string const& detail):
+      custom_error_base<T>(format_error(group, null(), null(), error, detail, null()))
+    {
+    }
 
     /**
      * The constructor.
@@ -118,99 +136,93 @@ namespace sbuild
      */
     parse_error (std::string const& group,
 		 std::string const& key,
-		 type               error,
-		 std::string const& detail);
-
-  private:
-    /// Mapping between error code and string.
-    static std::map<type,const char *> error_strings;
+		 error_type         error,
+		 std::string const& detail):
+      custom_error_base<T>(format_error(group, key, null(), error, detail, null()))
+    {
+    }
 
     /**
-     * Get a translated error string.
+     * The constructor.
      *
+     * @param context the context of the error.
      * @param error the error code.
-     * @returns a translated error string.
      */
-    static const char *
-    get_error (type error);
+    template<typename A>
+    parse_error (A const&                  context,
+		 std::runtime_error const& error):
+      custom_error_base<T>(format_error(context, null(), null(), error, null(), null()))
+    {
+    }
 
     /**
-     * Format an error message.
-     *
-     * @param error the error code.
-     * @param detail the details of the error.
-     */
-    static std::string
-    format_error (type               error,
-		  std::string const& detail);
-
-    /**
-     * Format an error message.
+     * The constructor.
      *
      * @param line the line the error occured on.
-     * @param error the error code.
      * @param detail the details of the error.
      */
-    static std::string
-    format_error (size_t             line,
-		  type               error,
-		  std::string const& detail);
+    parse_error (size_t                    line,
+		 std::runtime_error const& error):
+      custom_error_base<T>(format_error(line, null(), null(), error, null(), null()))
+    {
+    }
 
     /**
-     * Format an error message.
+     * The constructor.
      *
      * @param line the line the error occured on.
      * @param group the group the error occured within.
      * @param error the error code.
-     * @param detail the details of the error.
      */
-    static std::string
-    format_error (size_t             line,
-		  std::string const& group,
-		  type               error,
-		  std::string const& detail);
+    parse_error (size_t                    line,
+		 std::string const&        group,
+		 std::runtime_error const& error):
+      custom_error_base<T>(format_error(line, group, null(), error, null(), null()))
+    {
+    }
 
     /**
-     * Format an error message.
+     * The constructor.
      *
      * @param line the line the error occured on.
      * @param group the group the error occured within.
      * @param key the key the error occured within.
      * @param error the error code.
-     * @param detail the details of the error.
      */
-    static std::string
-    format_error (size_t             line,
-		  std::string const& group,
-		  std::string const& key,
-		  type               error,
-		  std::string const& detail);
+    parse_error (size_t                    line,
+		 std::string const&        group,
+		 std::string const&        key,
+		 std::runtime_error const& error):
+      custom_error_base<T>(format_error(line, group, key, error, null(), null()))
+    {
+    }
 
     /**
-     * Format an error message.
+     * The constructor.
      *
      * @param group the group the error occured within.
      * @param error the error code.
-     * @param detail the details of the error.
      */
-    static std::string
-    format_error (std::string const& group,
-		  type               error,
-		  std::string const& detail);
+    parse_error (std::string const&        group,
+		 std::runtime_error const& error):
+      custom_error_base<T>(format_error(group, null(), null(), error, null(), null()))
+    {
+    }
 
     /**
-     * Format an error message.
+     * The constructor.
      *
      * @param group the group the error occured within.
      * @param key the key the error occured within.
      * @param error the error code.
-     * @param detail the details of the error.
      */
-    static std::string
-    format_error (std::string const& group,
-		  std::string const& key,
-		  type               error,
-		  std::string const& detail);
+    parse_error (std::string const&        group,
+		 std::string const&        key,
+		 std::runtime_error const& error):
+      custom_error_base<T>(format_error(group, key, null(), error, null(), null()))
+    {
+    }
+
   };
 
 }

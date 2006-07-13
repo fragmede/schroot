@@ -70,7 +70,7 @@ public:
       {
 	sbuild::parse_value("invalid", result);
       }
-    catch (sbuild::parse_error const& e)
+    catch (sbuild::parse_value_error const& e)
       {
 	// Exception thown, and original value unmodified.
 	CPPUNIT_ASSERT(result == true);
@@ -95,7 +95,7 @@ public:
       {
 	sbuild::parse_value("invalid", result);
       }
-    catch (sbuild::parse_error const& e)
+    catch (sbuild::parse_value_error const& e)
       {
 	// Exception thown, and original value unmodified.
 	CPPUNIT_ASSERT(result == 22);

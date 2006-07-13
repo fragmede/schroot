@@ -81,7 +81,6 @@ sbuild_public_cc_sources =		\
 	sbuild-lock.cc			\
 	sbuild-log.cc			\
 	sbuild-nostream.cc		\
-	sbuild-parse-error.cc		\
 	sbuild-parse-value.cc		\
 	sbuild-personality.cc		\
 	sbuild-run-parts.cc		\

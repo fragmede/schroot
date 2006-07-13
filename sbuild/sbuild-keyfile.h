@@ -71,8 +71,25 @@ namespace sbuild
 	PRIORITY_OBSOLETE    ///< The parameter is obsolete, and not functional.
       };
 
+    /// Error codes.
+    enum error_code
+      {
+	BAD_FILE,           ///< The file to parse couldn't be opened.
+	DISALLOWED_KEY,     ///< The key is not allowed.
+	DISALLOWED_KEY_NL,  ///< The key is not allowed (no line specified).
+	DUPLICATE_GROUP,    ///< The group is a duplicate.
+	DUPLICATE_KEY,      ///< The key is a duplicate.
+	INVALID_GROUP,      ///< The group is invalid.
+	INVALID_LINE,       ///< The line is invalid.
+	MISSING_KEY,        ///< The key is missing.
+	NO_GROUP,           ///< No group was specified.
+	NO_KEY,             ///< No key was specified.
+	PASSTHROUGH_GK,     ///< Pass through exception with group and key.
+	PASSTHROUGH_LGK     ///< Pass through exception with line, group and key.
+      };
+
     /// Exception type.
-    typedef parse_error error;
+    typedef parse_error<error_code> error;
 
     /// The constructor.
     keyfile ();
@@ -226,10 +243,19 @@ namespace sbuild
 	      parse_value(strval, value);
 	      return true;
 	    }
-	  catch (parse_error const& e)
+	  catch (parse_value_error const& e)
 	    {
-	      error ep(group, key, parse_error::NONE, e.what());
-	      log_warning() << ep.what() << std::endl;
+	      unsigned int line = get_line(group, key);
+	      if (line)
+		{
+		  error ep(line, group, key, PASSTHROUGH_LGK, e.what());
+		  log_warning() << ep.what() << std::endl;
+		}
+	      else
+		{
+		  error ep(group, key, PASSTHROUGH_GK, e.what());
+		  log_warning() << ep.what() << std::endl;
+		}
 	      return false;
 	    }
 	}
@@ -362,10 +388,19 @@ namespace sbuild
 		{
 		  parse_value(*pos, tmp);
 		}
-	      catch (parse_error const& e)
+	      catch (parse_value_error const& e)
 		{
-		  error ep(group, key, parse_error::NONE, e.what());
-		  log_warning() << ep.what() << std::endl;
+		  unsigned int line = get_line(group, key);
+		  if (line)
+		    {
+		      error ep(line, group, key, PASSTHROUGH_LGK, e.what());
+		      log_warning() << ep.what() << std::endl;
+		    }
+		  else
+		    {
+		      error ep(group, key, PASSTHROUGH_GK, e.what());
+		      log_warning() << ep.what() << std::endl;
+		    }
 		  return false;
 		}
 
@@ -606,19 +641,19 @@ namespace sbuild
 	    if (fpos == std::string::npos || lpos == std::string::npos ||
 		fpos != lpos)
 	      {
-		throw error(linecount, parse_error::INVALID_GROUP, line);
+		throw error(linecount, INVALID_GROUP, line);
 	      }
 	    group = line.substr(1, fpos - 1);
 
 	    if (group.length() == 0)
 	      {
-		throw error(linecount, parse_error::INVALID_GROUP, line);
+		throw error(linecount, INVALID_GROUP, line);
 	      }
 
 	    // Insert group
 	    if (tmp.has_group(group))
 	      {
-		error e(linecount, parse_error::DUPLICATE_GROUP, group);
+		error e(linecount, DUPLICATE_GROUP, group);
 		log_warning() << e.what() << std::endl;
 	      }
 	    else
@@ -630,11 +665,11 @@ namespace sbuild
 	    std::string::size_type pos = line.find_first_of('=');
 	    if (pos == std::string::npos)
 	      {
-		throw error(linecount, parse_error::INVALID_LINE, line);
+		throw error(linecount, INVALID_LINE, line);
 	      }
 	    if (pos == 0)
 	      {
-		throw error(linecount, parse_error::NO_KEY, line);
+		throw error(linecount, NO_KEY, line);
 	      }
 	    key = line.substr(0, pos);
 	    if (pos == line.length() - 1)
@@ -645,13 +680,13 @@ namespace sbuild
 	    // No group specified
 	    if (group.empty())
 	      {
-		throw error(linecount, parse_error::NO_GROUP, line);
+		throw error(linecount, NO_GROUP, line);
 	      }
 
 	    // Insert item
 	    if (tmp.has_key(group, key))
 	      {
-		error e(linecount, group, parse_error::DUPLICATE_KEY, key);
+		error e(linecount, group, DUPLICATE_KEY, key);
 		log_warning() << e.what() << std::endl;
 	      }
 	    else
@@ -787,8 +822,8 @@ namespace sbuild
     /**
      * Set a key value from an object method return value.  This is
      * the same as calling set_value directly, but handles exceptions
-     * being thrown by the object method, which are turned into
-     * parse_error exceptions.
+     * being thrown by the object method, which are turned into error
+     * exceptions.
      *
      * @param object the object to use.
      * @param method the object method to call.
@@ -810,7 +845,7 @@ namespace sbuild
 	}
       catch (runtime_error const& e)
 	{
-	  throw parse_error(group, key, parse_error::NONE, e.what());
+	  throw error(group, key, PASSTHROUGH_GK, e.what());
 	}
     }
 
@@ -818,7 +853,7 @@ namespace sbuild
      * Set a key value from an object method return value reference.
      * This is the same as calling set_value directly, but handles
      * exceptions being thrown by the object method, which are turned
-     * into parse_error exceptions.
+     * into error exceptions.
      *
      * @param object the object to use.
      * @param method the object method to call.
@@ -840,7 +875,7 @@ namespace sbuild
 	}
       catch (runtime_error const& e)
 	{
-	  throw parse_error(group, key, parse_error::NONE, e.what());
+	  throw error(group, key, PASSTHROUGH_GK, e.what());
 	}
     }
 
@@ -849,8 +884,7 @@ namespace sbuild
      * method must return a container with begin() and end() methods
      * which return forward iterators.  This is the same as calling
      * set_list_value directly, but handles exceptions being thrown by
-     * the object method, which are turned into parse_error
-     * exceptions.
+     * the object method, which are turned into error exceptions.
      *
      * @param object the object to use.
      * @param method the object method to call.
@@ -874,7 +908,7 @@ namespace sbuild
 	}
       catch (runtime_error const& e)
 	{
-	  throw parse_error(group, key, parse_error::NONE, e.what());
+	  throw error(group, key, PASSTHROUGH_GK, e.what());
 	}
     }
 
@@ -883,7 +917,7 @@ namespace sbuild
      * method must return a container reference with begin() and end()
      * methods which return forward iterators.  This is the same as
      * calling set_list_value directly, but handles exceptions being
-     * thrown by the object method, which are turned into parse_error
+     * thrown by the object method, which are turned into error
      * exceptions.
      *
      * @param object the object to use.
@@ -908,7 +942,7 @@ namespace sbuild
 	}
       catch (runtime_error const& e)
 	{
-	  throw parse_error(group, key, parse_error::NONE, e.what());
+	  throw error(group, key, PASSTHROUGH_GK, e.what());
 	}
     }
 
@@ -916,9 +950,8 @@ namespace sbuild
      * Get a key value and set it in an object using an object method.
      * This is the same as calling get_value directly, but handles
      * exceptions being thrown by the object method, and
-     * deserialisation errors, which are turned into parse_error
-     * exceptions pointing to the group, key and line number in the
-     * input file.
+     * deserialisation errors, which are turned into error exceptions
+     * pointing to the group, key and line number in the input file.
      *
      * @param object the object to use.
      * @param method the object method to call.
@@ -945,8 +978,11 @@ namespace sbuild
 	    }
 	  catch (runtime_error const& e)
 	    {
-	      throw parse_error(keyfile.get_line(group, key),
-				group, key, parse_error::NONE, e.what());
+	      unsigned int line = keyfile.get_line(group, key);
+	      if (line)
+		throw error(line, group, key, PASSTHROUGH_LGK, e.what());
+	      else
+		throw error(group, key, PASSTHROUGH_GK, e.what());
 	    }
 	}
     }
@@ -955,9 +991,8 @@ namespace sbuild
      * Get a key value and set it by reference in an object using an
      * object method.  This is the same as calling get_value directly,
      * but handles exceptions being thrown by the object method, and
-     * deserialisation errors, which are turned into parse_error
-     * exceptions pointing to the group, key and line number in the
-     * input file.
+     * deserialisation errors, which are turned into error exceptions
+     * pointing to the group, key and line number in the input file.
      *
      * @param object the object to use.
      * @param method the object method to call.
@@ -984,8 +1019,13 @@ namespace sbuild
 	    }
 	  catch (runtime_error const& e)
 	    {
-	      throw parse_error(keyfile.get_line(group, key),
-				group, key, parse_error::NONE, e.what());
+	      unsigned int line = keyfile.get_line(group, key);
+	      if (line)
+		throw error(line, group, key, PASSTHROUGH_LGK, e.what());
+	      else
+		throw error(group, key, PASSTHROUGH_GK, e.what());
+	      throw error(keyfile.get_line(group, key),
+			  group, key, e);
 	    }
 	}
     }
@@ -994,9 +1034,8 @@ namespace sbuild
      * Get a key list value and set it in an object using an object
      * method.  This is the same as calling get_list_value directly,
      * but handles exceptions being thrown by the object method, and
-     * deserialisation errors, which are turned into parse_error
-     * exceptions pointing to the group, key and line number in the
-     * input file.
+     * deserialisation errors, which are turned into error exceptions
+     * pointing to the group, key and line number in the input file.
      *
      * @param object the object to use.
      * @param method the object method to call.
@@ -1023,8 +1062,13 @@ namespace sbuild
 	    }
 	  catch (runtime_error const& e)
 	    {
-	      throw parse_error(keyfile.get_line(group, key),
-				group, key, parse_error::NONE, e.what());
+	      unsigned int line = keyfile.get_line(group, key);
+	      if (line)
+		throw error(line, group, key, PASSTHROUGH_LGK, e.what());
+	      else
+		throw error(group, key, PASSTHROUGH_GK, e.what());
+	      throw error(keyfile.get_line(group, key),
+			  group, key, e);
 	    }
 	}
     }
@@ -1033,9 +1077,9 @@ namespace sbuild
      * Get a key list value and set it by reference in an object using
      * an object method.  This is the same as calling get_list_value
      * directly, but handles exceptions being thrown by the object
-     * method, and deserialisation errors, which are turned into
-     * parse_error exceptions pointing to the group, key and line
-     * number in the input file.
+     * method, and deserialisation errors, which are turned into error
+     * exceptions pointing to the group, key and line number in the
+     * input file.
      *
      * @param object the object to use.
      * @param method the object method to call.
@@ -1062,8 +1106,13 @@ namespace sbuild
 	    }
 	  catch (runtime_error const& e)
 	    {
-	      throw parse_error(keyfile.get_line(group, key),
-				group, key, parse_error::NONE, e.what());
+	      unsigned int line = keyfile.get_line(group, key);
+	      if (line)
+		throw error(line, group, key, PASSTHROUGH_LGK, e.what());
+	      else
+		throw error(group, key, PASSTHROUGH_GK, e.what());
+	      throw error(keyfile.get_line(group, key),
+			  group, key, e);
 	    }
 	}
     }

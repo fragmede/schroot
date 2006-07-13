@@ -32,7 +32,7 @@
 #include <boost/format.hpp>
 
 using std::endl;
-using sbuild::parse_error;
+using sbuild::keyfile;
 using boost::format;
 using namespace dchroot_dsa;
 
@@ -91,7 +91,7 @@ chroot_config::parse_data (std::istream& stream,
 	      cend == std::string::npos ||
 	      lstart == std::string::npos)
 	    {
-	      throw parse_error(linecount, parse_error::INVALID_LINE, line);
+	      throw keyfile::error(linecount, keyfile::INVALID_LINE, line);
 	    }
 
 	  std::string chroot_name = line.substr(cstart, cend - cstart);

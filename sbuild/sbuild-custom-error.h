@@ -98,7 +98,7 @@ namespace sbuild
      * @returns a translated error message.
      */
     template <typename A, typename B, typename C, typename D, typename E>
-    std::string
+    static std::string
     format_error (A const&   context1,
 		  B const&   context2,
 		  C const&   context3,
@@ -118,7 +118,7 @@ namespace sbuild
      * @returns a translated error message.
      */
     template <typename A, typename B, typename C, typename D, typename E>
-    std::string
+    static std::string
     format_error (A const&                  context1,
 		  B const&                  context2,
 		  C const&                  context3,
@@ -135,7 +135,6 @@ namespace sbuild
   class custom_error : public custom_error_base<T>
   {
   public:
-    //    typedef custom_error_base<T>::error_type error_type;
     typedef typename custom_error_base<T>::error_type error_type;
     typedef typename custom_error_base<T>::null null;
 

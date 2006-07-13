@@ -29,6 +29,13 @@
 namespace sbuild
 {
 
+  enum parse_value_error_code
+    {
+      BAD_VALUE ///< The value could not be parsed.
+    };
+
+  typedef parse_error<parse_value_error_code> parse_value_error;
+
   /**
    * Parse a boolean value.
    * @param value the value to parse.
@@ -71,8 +78,8 @@ namespace sbuild
     else
       {
 	log_debug(DEBUG_NOTICE) << "parse error" << std::endl;
-	throw parse_error(parse_error::BAD_VALUE, value);
-	}
+	throw parse_value_error(value, BAD_VALUE);
+      }
   }
 
 }

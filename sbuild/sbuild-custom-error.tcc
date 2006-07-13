@@ -27,7 +27,7 @@
 
 template <typename T>
 template <typename A, typename B, typename C, typename D, typename E>
-std::string
+inline std::string
 sbuild::custom_error_base<T>::format_error (A const&   context1,
 					    B const&   context2,
 					    C const&   context3,
@@ -114,7 +114,7 @@ sbuild::custom_error_base<T>::format_error (A const&   context1,
 
 template <typename T>
 template <typename A, typename B, typename C, typename D, typename E>
-std::string
+inline std::string
 sbuild::custom_error_base<T>::format_error (A const&   context1,
 					    B const&   context2,
 					    C const&   context3,

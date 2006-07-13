@@ -183,7 +183,7 @@ namespace sbuild
 	      parse_value(pos->second, value);
 	      return true;
 	    }
-	  catch (parse_error const& e)
+	  catch (parse_value_error const& e)
 	    {
 	      log_warning() << boost::format("%1%: %2%\n")
 		% name % e.what();

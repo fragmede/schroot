@@ -28,6 +28,39 @@
 using boost::format;
 using namespace sbuild;
 
+namespace
+{
+
+  typedef std::pair<keyfile::error_code,const char *> emap;
+
+  /**
+   * This is a list of the supported error codes.  It's used to
+   * construct the real error codes map.
+   */
+  emap init_errors[] =
+    {
+      emap(keyfile::BAD_FILE,          N_("Can't open file")),
+      emap(keyfile::DISALLOWED_KEY,    N_("line %1% [%2%]: Disallowed key \"%4%\"used")),
+      emap(keyfile::DISALLOWED_KEY_NL, N_("[%2%]: Disallowed key \"%4%\"used")),
+      emap(keyfile::DUPLICATE_GROUP,   N_("line %1%: Duplicate group \"%4%\"")),
+      emap(keyfile::DUPLICATE_KEY,     N_("line %1% [%2%]: Duplicate key \"%4%\"")),
+      emap(keyfile::INVALID_GROUP,     N_("line %1%: Invalid group: \"%4%\"")),
+      emap(keyfile::INVALID_LINE,      N_("line %1%: Invalid line: \"%4%\"")),
+      emap(keyfile::MISSING_KEY,       N_("[%1%]: Required key \"%4%\" is missing")),
+      emap(keyfile::NO_GROUP,          N_("line %1%: No group specified: \"%4%\"")),
+      emap(keyfile::NO_KEY,            N_("line %1%: No key specified: \"%4%\"")),
+      emap(keyfile::PASSTHROUGH_GK,    N_("[%1%] %2%: %4%")),
+      emap(keyfile::PASSTHROUGH_LGK,   N_("line %1% [%2%] %3%: %4%"))
+    };
+
+}
+
+template<>
+custom_error_base<keyfile::error_code>::map_type
+custom_error_base<keyfile::error_code>::error_strings
+(init_errors,
+ init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+
 keyfile::keyfile ():
   groups(),
   separator(',')
@@ -46,7 +79,7 @@ keyfile::keyfile (std::string const& file):
     }
   else
     {
-      throw error(parse_error::BAD_FILE, file);
+      throw error(BAD_FILE, file);
     }
 }
 
@@ -379,7 +412,7 @@ keyfile::check_priority (std::string const& group,
 	{
 	case PRIORITY_REQUIRED:
 	  {
-	    throw error(group, parse_error::MISSING_KEY, key);
+	    throw error(group, MISSING_KEY, key);
 	  }
 	  break;
 	default:
@@ -408,7 +441,11 @@ keyfile::check_priority (std::string const& group,
 	  break;
 	case PRIORITY_DISALLOWED:
 	  {
-	    throw error(group, parse_error::DISALLOWED_KEY, key);
+	    unsigned int line = get_line(group, key);
+	    if (line)
+	      throw error(line, group, DISALLOWED_KEY, key);
+	    else
+	      throw error(group, DISALLOWED_KEY_NL, key);
 	  }
 	  break;
 	    default:
