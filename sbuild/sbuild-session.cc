@@ -184,8 +184,8 @@ namespace
 }
 
 template<>
-custom_error_base<session::error_code>::map_type
-custom_error_base<session::error_code>::error_strings
+error<session::error_code>::map_type
+error<session::error_code>::error_strings
 (init_errors,
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
@@ -1087,7 +1087,7 @@ session::run_chroot (sbuild::chroot::ptr& session_chroot)
 	{
 	  run_child(session_chroot);
 	}
-      catch (sbuild::runtime_error const& e)
+      catch (std::runtime_error const& e)
 	{
 	  log_error() << e.what() << endl;
 	}

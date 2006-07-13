@@ -72,8 +72,8 @@ namespace
 }
 
 template<>
-custom_error_base<chroot_config::error_code>::map_type
-custom_error_base<chroot_config::error_code>::error_strings
+error<chroot_config::error_code>::map_type
+error<chroot_config::error_code>::error_strings
 (init_errors,
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
@@ -443,7 +443,7 @@ chroot_config::load_data (std::string const& file,
     {
       parse_data(input, active);
     }
-  catch (runtime_error const& e)
+  catch (std::runtime_error const& e)
     {
       throw error(file, e);
     }

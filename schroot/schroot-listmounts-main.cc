@@ -66,7 +66,7 @@ main::list_mounts (std::string const& mountfile) const
     {
       format fmt(_("%1%: Failed to open: %2%"));
       fmt % mountfile % std::strerror(errno);
-      throw sbuild::runtime_error(fmt.str());
+      throw std::runtime_error(fmt.str());
     }
 
   mntent *mount;
@@ -89,7 +89,7 @@ main::list_mounts (std::string const& mountfile) const
     {
       format fmt(_("%1%: Failed to close: %2%"));
       fmt % mountfile % std::strerror(errno);
-      throw sbuild::runtime_error(fmt.str());
+      throw std::runtime_error(fmt.str());
     }
 
   return ret;

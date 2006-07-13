@@ -42,10 +42,10 @@ sbuild_public_h_sources =		\
 	sbuild-chroot-source.h		\
 	sbuild-chroot-config.h		\
 	sbuild-custom-error.h		\
-	sbuild-custom-error.tcc		\
 	sbuild-dirstream.h		\
 	sbuild-environment.h		\
 	sbuild-error.h			\
+	sbuild-error.tcc		\
 	sbuild-format-detail.h		\
 	sbuild-i18n.h			\
 	sbuild-keyfile.h		\

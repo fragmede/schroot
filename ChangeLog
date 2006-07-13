@@ -1,5 +1,15 @@
 2006-07-13  Roger Leigh  <rleigh@debian.org>
 
+	* All sources use error<> in place of custom_error_base<>, and
+	std::runtime_error in place of runtime_error.
+
+	* sbuild/sbuild-error.tcc: Renamed from sbuild-custom-error.tcc.
+
+	* sbuild/sbuild-error.h: Remove runtime_error.  Move
+	custom_error_base from sbuild/custom-error.h and rename to error.
+
+2006-07-13  Roger Leigh  <rleigh@debian.org>
+
 	* test/sbuild-parse-value.cc: Use sbuild::parse_value_error in
 	place of sbuild::parse_error.
 

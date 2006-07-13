@@ -20,32 +20,116 @@
 #ifndef SBUILD_ERROR_H
 #define SBUILD_ERROR_H
 
+#include <map>
 #include <stdexcept>
+#include <string>
 
 namespace sbuild
 {
 
   /**
-   * Generic runtime error.
+   * Error base class.
    */
-  class runtime_error : public std::runtime_error
+  template <typename T>
+  class error : public std::runtime_error
   {
   public:
+    typedef T error_type;
+    typedef std::map<error_type,const char *> map_type;
+
     /**
      * The constructor.
      *
      * @param error the error message.
      */
-    runtime_error (std::string const& error):
-      std::runtime_error(error)
-    {}
+    error(std::string const& error):
+      runtime_error(error)
+    {
+    }
 
     /// The destructor.
-    virtual ~runtime_error () throw ()
+    virtual ~error () throw ()
     {}
+
+    /**
+     * Null class to represent an absence of context or detail in an
+     * error.
+     */
+    class null
+    {
+      /**
+       * null output to an ostream.
+       * @todo Output placeholder text.
+       */
+      template <class charT, class traits>
+      friend
+      std::basic_ostream<charT,traits>&
+      operator << (std::basic_ostream<charT,traits>& stream,
+		   null const&                       n)
+      {
+	return stream;
+      }
+    };
+
+  private:
+    /// Mapping between error code and string.
+    static map_type error_strings;
+
+    /**
+     * Get a translated error string.
+     *
+     * @param error the error code.
+     * @returns a translated error string.
+     */
+    static const char *
+    get_error (error_type error);
+
+  protected:
+    /**
+     * Format an error message.
+     *
+     * @param context1 context of the error.
+     * @param context2 additional context of the error.
+     * @param context3 additional context of the error.
+     * @param error the error code.
+     * @param detail1 details of the error.
+     * @param detail2 additional details of the error.
+     * @returns a translated error message.
+     */
+    template <typename A, typename B, typename C, typename D, typename E>
+    static std::string
+    format_error (A const&   context1,
+		  B const&   context2,
+		  C const&   context3,
+		  error_type error,
+		  D const&   detail1,
+		  E const&   detail2);
+
+    /**
+     * Format an error message.
+     *
+     * @param context1 context of the error.
+     * @param context2 additional context of the error.
+     * @param context3 additional context of the error.
+     * @param error the error code.
+     * @param detail1 details of the error.
+     * @param detail2 additional details of the error.
+     * @returns a translated error message.
+     */
+    template <typename A, typename B, typename C, typename D, typename E>
+    static std::string
+    format_error (A const&                  context1,
+		  B const&                  context2,
+		  C const&                  context3,
+		  std::runtime_error const& error,
+		  D const&                  detail1,
+		  E const&                  detail2);
+
   };
 
 }
+
+#include "sbuild-error.tcc"
 
 #endif /* SBUILD_ERROR_H */
 

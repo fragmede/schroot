@@ -207,7 +207,7 @@ sbuild::widen_string (std::string const& str,
 	}
       else if (res == std::codecvt_base::error)
 	{
-	  throw runtime_error
+	  throw std::runtime_error
 	    ("A character set conversion failed.  Please report this bug.");
 	  break;
 	}
@@ -254,7 +254,7 @@ sbuild::narrow_string (std::wstring const& str,
 	}
       else if (res == std::codecvt_base::error)
 	{
-	  throw runtime_error
+	  throw std::runtime_error
 	    ("A character set conversion failed.  Please report this bug.");
 	  break;
 	}

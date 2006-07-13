@@ -843,7 +843,7 @@ namespace sbuild
 	{
 	  keyfile.set_value(group, key, (object.*method)());
 	}
-      catch (runtime_error const& e)
+      catch (std::runtime_error const& e)
 	{
 	  throw error(group, key, PASSTHROUGH_GK, e.what());
 	}
@@ -873,7 +873,7 @@ namespace sbuild
 	{
 	  keyfile.set_value(group, key, (object.*method)());
 	}
-      catch (runtime_error const& e)
+      catch (std::runtime_error const& e)
 	{
 	  throw error(group, key, PASSTHROUGH_GK, e.what());
 	}
@@ -906,7 +906,7 @@ namespace sbuild
 				 (object.*method)().begin(),
 				 (object.*method)().end());
 	}
-      catch (runtime_error const& e)
+      catch (std::runtime_error const& e)
 	{
 	  throw error(group, key, PASSTHROUGH_GK, e.what());
 	}
@@ -940,7 +940,7 @@ namespace sbuild
 				 (object.*method)().begin(),
 				 (object.*method)().end());
 	}
-      catch (runtime_error const& e)
+      catch (std::runtime_error const& e)
 	{
 	  throw error(group, key, PASSTHROUGH_GK, e.what());
 	}
@@ -976,7 +976,7 @@ namespace sbuild
 	    {
 	      (object.*method)(value);
 	    }
-	  catch (runtime_error const& e)
+	  catch (std::runtime_error const& e)
 	    {
 	      unsigned int line = keyfile.get_line(group, key);
 	      if (line)
@@ -1017,7 +1017,7 @@ namespace sbuild
 	    {
 	      (object.*method)(value);
 	    }
-	  catch (runtime_error const& e)
+	  catch (std::runtime_error const& e)
 	    {
 	      unsigned int line = keyfile.get_line(group, key);
 	      if (line)
@@ -1060,7 +1060,7 @@ namespace sbuild
 	    {
 	      (object.*method)(value);
 	    }
-	  catch (runtime_error const& e)
+	  catch (std::runtime_error const& e)
 	    {
 	      unsigned int line = keyfile.get_line(group, key);
 	      if (line)
@@ -1104,7 +1104,7 @@ namespace sbuild
 	    {
 	      (object.*method)(value);
 	    }
-	  catch (runtime_error const& e)
+	  catch (std::runtime_error const& e)
 	    {
 	      unsigned int line = keyfile.get_line(group, key);
 	      if (line)

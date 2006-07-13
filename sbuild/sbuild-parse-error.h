@@ -32,11 +32,11 @@ namespace sbuild
    * Parse error.
    */
   template<typename T>
-  class parse_error : public custom_error_base<T>
+  class parse_error : public error<T>
   {
   public:
-    typedef typename custom_error_base<T>::error_type error_type;
-    typedef typename custom_error_base<T>::null null;
+    typedef typename error<T>::error_type error_type;
+    typedef typename error<T>::null null;
 
     /**
      * The constructor.
@@ -47,7 +47,7 @@ namespace sbuild
     template<typename A>
     parse_error (A const&   context,
 		 error_type error):
-      custom_error_base<T>(format_error(context, null(), null(), error, null(), null()))
+      sbuild::error<T>(format_error(context, null(), null(), error, null(), null()))
     {
     }
 
@@ -60,7 +60,7 @@ namespace sbuild
     template<typename A>
     parse_error (error_type error,
 		 A const&   detail):
-      custom_error_base<T>(format_error(null(), null(), null(), error, detail, null()))
+      sbuild::error<T>(format_error(null(), null(), null(), error, detail, null()))
     {
     }
 
@@ -74,7 +74,7 @@ namespace sbuild
     parse_error (size_t             line,
 		 error_type         error,
 		 std::string const& detail):
-      custom_error_base<T>(format_error(line, null(), null(), error, detail, null()))
+      sbuild::error<T>(format_error(line, null(), null(), error, detail, null()))
     {
     }
 
@@ -90,7 +90,7 @@ namespace sbuild
 		 std::string const& group,
 		 error_type         error,
 		 std::string const& detail):
-      custom_error_base<T>(format_error(line, group, null(), error, detail, null()))
+      sbuild::error<T>(format_error(line, group, null(), error, detail, null()))
     {
     }
 
@@ -108,7 +108,7 @@ namespace sbuild
 		 std::string const& key,
 		 error_type         error,
 		 std::string const& detail):
-      custom_error_base<T>(format_error(line, group, key, error, detail, null()))
+      sbuild::error<T>(format_error(line, group, key, error, detail, null()))
     {
     }
 
@@ -122,7 +122,7 @@ namespace sbuild
     parse_error (std::string const& group,
 		 error_type         error,
 		 std::string const& detail):
-      custom_error_base<T>(format_error(group, null(), null(), error, detail, null()))
+      sbuild::error<T>(format_error(group, null(), null(), error, detail, null()))
     {
     }
 
@@ -138,7 +138,7 @@ namespace sbuild
 		 std::string const& key,
 		 error_type         error,
 		 std::string const& detail):
-      custom_error_base<T>(format_error(group, key, null(), error, detail, null()))
+      sbuild::error<T>(format_error(group, key, null(), error, detail, null()))
     {
     }
 
@@ -151,7 +151,7 @@ namespace sbuild
     template<typename A>
     parse_error (A const&                  context,
 		 std::runtime_error const& error):
-      custom_error_base<T>(format_error(context, null(), null(), error, null(), null()))
+      sbuild::error<T>(format_error(context, null(), null(), error, null(), null()))
     {
     }
 
@@ -163,7 +163,7 @@ namespace sbuild
      */
     parse_error (size_t                    line,
 		 std::runtime_error const& error):
-      custom_error_base<T>(format_error(line, null(), null(), error, null(), null()))
+      sbuild::error<T>(format_error(line, null(), null(), error, null(), null()))
     {
     }
 
@@ -177,7 +177,7 @@ namespace sbuild
     parse_error (size_t                    line,
 		 std::string const&        group,
 		 std::runtime_error const& error):
-      custom_error_base<T>(format_error(line, group, null(), error, null(), null()))
+      sbuild::error<T>(format_error(line, group, null(), error, null(), null()))
     {
     }
 
@@ -193,7 +193,7 @@ namespace sbuild
 		 std::string const&        group,
 		 std::string const&        key,
 		 std::runtime_error const& error):
-      custom_error_base<T>(format_error(line, group, key, error, null(), null()))
+      sbuild::error<T>(format_error(line, group, key, error, null(), null()))
     {
     }
 
@@ -205,7 +205,7 @@ namespace sbuild
      */
     parse_error (std::string const&        group,
 		 std::runtime_error const& error):
-      custom_error_base<T>(format_error(group, null(), null(), error, null(), null()))
+      sbuild::error<T>(format_error(group, null(), null(), error, null(), null()))
     {
     }
 
@@ -219,7 +219,7 @@ namespace sbuild
     parse_error (std::string const&        group,
 		 std::string const&        key,
 		 std::runtime_error const& error):
-      custom_error_base<T>(format_error(group, key, null(), error, null(), null()))
+      sbuild::error<T>(format_error(group, key, null(), error, null(), null()))
     {
     }
 
