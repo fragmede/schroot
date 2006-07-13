@@ -37,8 +37,8 @@ namespace
    */
   emap init_errors[] =
     {
-      emap(dirstream::DIR_OPEN,    N_("Failed to open directory")),
-      emap(dirstream::DIR_READ,    N_("Failed to read directory"))
+      emap(dirstream::DIR_OPEN,    N_("Failed to open directory \"%1%\"")),
+      emap(dirstream::DIR_READ,    N_("Failed to read directory \"%1%\""))
     };
 
 }

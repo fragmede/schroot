@@ -47,7 +47,7 @@ namespace
     {
       emap(run_parts::CHILD_FORK, N_("Failed to fork child")),
       emap(run_parts::CHILD_WAIT, N_("Wait for child failed")),
-      emap(run_parts::EXEC,       N_("Failed to execute"))
+      emap(run_parts::EXEC,       N_("Failed to execute \"%1%\""))
     };
 
 }

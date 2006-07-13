@@ -49,7 +49,7 @@ namespace
       emap(auth_conv_tty::TIMEOUT,         N_("Timed out")),
       emap(auth_conv_tty::TIMEOUT_PENDING, N_("Time is running out...")),
       emap(auth_conv_tty::TERMIOS,         N_("Failed to get terminal settings")),
-      emap(auth_conv_tty::CONV_TYPE,       N_("Unsupported conversation type"))
+      emap(auth_conv_tty::CONV_TYPE,       N_("Unsupported conversation type \"%1%\""))
     };
 
   volatile sig_atomic_t timer_expired = false;
@@ -295,9 +295,7 @@ auth_conv_tty::conversation (message_list& messages)
 	      break;
 	    default:
 	      {
-		format fmt("%1%");
-		fmt % cur->type;
-		error e(fmt.str(), CONV_TYPE);
+		error e(cur->type, CONV_TYPE);
 		log_error() << e.what() << endl;
 		return false;
 	      }

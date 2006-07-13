@@ -51,7 +51,7 @@ namespace
   emap init_errors[] =
     {
       emap(auth::HOSTNAME,        N_("Failed to get hostname")),
-      emap(auth::USER,            N_("User not found")),
+      emap(auth::USER,            N_("User \"%1%\" not found")),
       emap(auth::AUTHENTICATION,  N_("Authentication failed")),
       emap(auth::AUTHORISATION,   N_("Access not authorised")),
       emap(auth::PAM_DOUBLE_INIT, N_("PAM is already initialised")),
@@ -141,10 +141,10 @@ auth::auth (std::string const& service_name):
   struct passwd *pwent = getpwuid(this->ruid);
   if (pwent == 0)
     {
-      // TODO: Convert to using a lexical cast.
-      std::ostringstream str;
-      str << this->ruid;
-      throw error(str.str(), USER, strerror(errno));
+      if (errno)
+	throw error(this->ruid, USER, strerror(errno));
+      else
+	throw error(this->ruid, USER);
     }
   this->ruser = pwent->pw_name;
 
@@ -201,7 +201,10 @@ auth::set_user (std::string const& user)
   struct passwd *pwent = getpwnam(this->user.c_str());
   if (pwent == 0)
     {
-      throw error(user, USER, strerror(errno));
+      if (errno)
+	throw error(user, USER, strerror(errno));
+      else
+	throw error(user, USER);
     }
   this->uid = pwent->pw_uid;
   this->gid = pwent->pw_gid;

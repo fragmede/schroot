@@ -48,12 +48,13 @@ namespace sbuild
     /**
      * The constructor.
      *
-     * @param detail the details of the error.
+     * @param context the context of the error.
      * @param error the error code.
      */
-    custom_error (std::string const& detail,
+    template<typename C>
+    custom_error (C const&   context,
 		  error_type error):
-      sbuild::error<T>(format_error(detail, null(), null(), error, null(), null()))
+      sbuild::error<T>(format_error(context, null(), null(), error, null(), null()))
     {
     }
 
@@ -61,32 +62,65 @@ namespace sbuild
      * The constructor.
      *
      * @param error the error code.
-     * @param error_string the error string.
+     * @param detail the details of the error.
      */
-    custom_error (error_type         error,
-		  std::string const& error_string):
-      sbuild::error<T>(format_error(null(), null(), null(), error, error_string, null()))
+    template<typename D>
+    custom_error (error_type error,
+		  D const&   detail):
+      sbuild::error<T>(format_error(null(), null(), null(), error, detail, null()))
     {
     }
 
     /**
      * The constructor.
      *
-     * @param detail the details of the error.
      * @param error the error code.
-     * @param error_string the error string.
+     * @param detail the details of the error.
+     * @param detail2 additional details of the error.
      */
-    custom_error (std::string const& detail,
-		  error_type         error,
-		  std::string const& error_string):
-      sbuild::error<T>(format_error(detail, null(), null(), error, error_string, null()))
+    template<typename D, typename E>
+    custom_error (error_type error,
+		  D const&   detail,
+		  E const&   detail2):
+      sbuild::error<T>(format_error(null(), null(), null(), error, detail, detail2))
     {
     }
 
     /**
      * The constructor.
      *
+     * @param context the context of the error.
+     * @param error the error code.
      * @param detail the details of the error.
+     */
+    template<typename C, typename D>
+    custom_error (C const&   context,
+		  error_type error,
+		  D const&   detail):
+      sbuild::error<T>(format_error(context, null(), null(), error, detail, null()))
+    {
+    }
+
+    /**
+     * The constructor.
+     *
+     * @param context the context of the error.
+     * @param error the error code.
+     * @param detail the details of the error.
+     * @param detail2 additional details of the error.
+     */
+    template<typename C, typename D, typename E>
+    custom_error (C const&   context,
+		  error_type error,
+		  D const&   detail,
+		  E const&   detail2):
+      sbuild::error<T>(format_error(context, null(), null(), error, detail, detail2))
+    {
+    }
+
+    /**
+     * The constructor.
+     *
      * @param error the error code.
      */
     custom_error (std::runtime_error const& error):
@@ -97,12 +131,13 @@ namespace sbuild
     /**
      * The constructor.
      *
-     * @param detail the details of the error.
+     * @param context the context of the error.
      * @param error the error code.
      */
-    custom_error (std::string const&        detail,
+    template<typename C>
+    custom_error (C const&                  context,
 		  std::runtime_error const& error):
-      sbuild::error<T>(format_error(detail, null(), null(), error, null(), null()))
+      sbuild::error<T>(format_error(context, null(), null(), error, null(), null()))
     {
     }
 

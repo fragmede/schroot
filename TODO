@@ -17,12 +17,6 @@ PENDING
   the boost::format markup changes fixing first.  What are other
   projects doing?
 
-* Use boost::format markup in the standard error strings.
-
-  This will complete the i18n support for error translation.  It will
-  also allow templated exceptions which will simplify error reporting
-  for non-string types.
-
 
 PLANNED
 -------

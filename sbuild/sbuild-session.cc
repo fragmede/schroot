@@ -58,33 +58,33 @@ namespace
    */
   emap init_errors[] =
     {
-      emap(session::CHDIR,          N_("Failed to change to directory")),
-      emap(session::CHDIR_FB,       N_("Falling back to directory")),
+      emap(session::CHDIR,          N_("Failed to change to directory \"%1%\"")),
+      emap(session::CHDIR_FB,       N_("Falling back to directory \"%4%\"")),
       emap(session::CHILD_CORE,     N_("Child dumped core")),
       emap(session::CHILD_FAIL,     N_("Child exited abnormally (reason unknown; not a signal or core dump)")),
       emap(session::CHILD_FORK,     N_("Failed to fork child")),
-      emap(session::CHILD_SIGNAL,   N_("Child terminated by signal")),
+      emap(session::CHILD_SIGNAL,   N_("Child terminated by signal \"%4%\"")),
       emap(session::CHILD_WAIT,     N_("Wait for child failed")),
-      emap(session::CHROOT,         N_("Failed to change root to directory")),
-      emap(session::CHROOT_ALIAS,   N_("No chroot found matching alias")),
+      emap(session::CHROOT,         N_("Failed to change root to directory \"%1%\"")),
+      emap(session::CHROOT_ALIAS,   N_("No chroot found matching name or alias \"%1%\"")),
       emap(session::CHROOT_LOCK,    N_("Failed to lock chroot")),
       emap(session::CHROOT_SETUP,   N_("Chroot setup failed")),
-      emap(session::CHROOT_UNKNOWN, N_("Failed to find chroot")),
+      emap(session::CHROOT_UNKNOWN, N_("Failed to find chroot \"%1%\"")),
       emap(session::CHROOT_UNLOCK,  N_("Failed to unlock chroot")),
-      emap(session::COMMAND_ABS,    N_("Command must have an absolute path")),
-      emap(session::EXEC,           N_("Failed to execute")),
+      emap(session::COMMAND_ABS,    N_("Command \"%1%\" must have an absolute path")),
+      emap(session::EXEC,           N_("Failed to execute \"%1%\"")),
       emap(session::GROUP_GET_SUP,  N_("Failed to get supplementary groups")),
       emap(session::GROUP_GET_SUPC, N_("Failed to get supplementary group count")),
-      emap(session::GROUP_SET,      N_("Failed to set group")),
+      emap(session::GROUP_SET,      N_("Failed to set group \"%1%\"")),
       emap(session::GROUP_SET_SUP,  N_("Failed to set supplementary groups")),
-      emap(session::GROUP_UNKNOWN,  N_("Group not found")),
+      emap(session::GROUP_UNKNOWN,  N_("Group \"%1%\" not found")),
       emap(session::PAM,            N_("PAM error")),
       emap(session::ROOT_DROP,      N_("Failed to drop root permissions")),
-      emap(session::SHELL,          N_("Shell not available")),
-      emap(session::SHELL_FB,       N_("Falling back to shell")),
+      emap(session::SHELL,          N_("Shell \"%1%\" not available")),
+      emap(session::SHELL_FB,       N_("Falling back to shell \"%4%\"")),
       emap(session::SIGHUP_CATCH,   N_("Caught hangup signal")),
       emap(session::SIGHUP_SET,     N_("Failed to set hangup signal handler")),
-      emap(session::USER_SET,       N_("Failed to set user")),
+      emap(session::USER_SET,       N_("Failed to set user \"%1%\"")),
       emap(session::USER_SWITCH,    N_("User switching is not permitted")),
     };
 
@@ -903,9 +903,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   /* Set group ID and supplementary groups */
   if (setgid (get_gid()))
     {
-      std::ostringstream str;
-      str << get_gid();
-      throw error(str.str(), GROUP_SET, strerror(errno));
+      throw error(get_gid(), GROUP_SET, strerror(errno));
     }
   if (initgroups (get_user().c_str(), get_gid()))
     {
@@ -929,9 +927,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   /* Set uid and check we are not still root */
   if (setuid (get_uid()))
     {
-      std::ostringstream str;
-      str << get_uid();
-      throw error(str.str(), USER_SET);
+      throw error(get_uid(), USER_SET, strerror(errno));
     }
   if (!setuid (0) && get_uid())
     {
