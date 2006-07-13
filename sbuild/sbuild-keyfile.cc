@@ -40,8 +40,8 @@ namespace
   emap init_errors[] =
     {
       emap(keyfile::BAD_FILE,          N_("Can't open file \"%4%\"")),
-      emap(keyfile::DISALLOWED_KEY,    N_("line %1% [%2%]: Disallowed key \"%4%\"used")),
-      emap(keyfile::DISALLOWED_KEY_NL, N_("[%2%]: Disallowed key \"%4%\"used")),
+      emap(keyfile::DISALLOWED_KEY,    N_("line %1% [%2%]: Disallowed key \"%4%\" used")),
+      emap(keyfile::DISALLOWED_KEY_NL, N_("[%2%]: Disallowed key \"%4%\" used")),
       emap(keyfile::DUPLICATE_GROUP,   N_("line %1%: Duplicate group \"%4%\"")),
       emap(keyfile::DUPLICATE_KEY,     N_("line %1% [%2%]: Duplicate key \"%4%\"")),
       emap(keyfile::INVALID_GROUP,     N_("line %1%: Invalid group: \"%4%\"")),

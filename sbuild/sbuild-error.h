@@ -51,26 +51,6 @@ namespace sbuild
     virtual ~error () throw ()
     {}
 
-    /**
-     * Null class to represent an absence of context or detail in an
-     * error.
-     */
-    class null
-    {
-      /**
-       * null output to an ostream.
-       * @todo Output placeholder text.
-       */
-      template <class charT, class traits>
-      friend
-      std::basic_ostream<charT,traits>&
-      operator << (std::basic_ostream<charT,traits>& stream,
-		   null const&                       n)
-      {
-	return stream;
-      }
-    };
-
   private:
     /// Mapping between error code and string.
     static map_type error_strings;

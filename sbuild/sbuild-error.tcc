@@ -20,8 +20,9 @@
 #ifndef SBUILD_CUSTOM_ERROR_TCC
 #define SBUILD_CUSTOM_ERROR_TCC
 
-#include "sbuild-i18n.h"
-#include "sbuild-custom-error.h"
+#include <sbuild/sbuild-i18n.h>
+#include <sbuild/sbuild-custom-error.h>
+#include <sbuild/sbuild-null.h>
 
 #include <boost/format.hpp>
 
@@ -43,7 +44,7 @@ sbuild::error<T>::format_error (A const&   context1,
     {
       nargs = 1;
     }
-  else if(typeid(context1) != typeid(null))
+  else if(typeid(context1) != typeid(sbuild::null))
     {
       format += "%1%: ";
       nargs = 1;
@@ -53,7 +54,7 @@ sbuild::error<T>::format_error (A const&   context1,
     {
       nargs = 2;
     }
-  else if (typeid(context2) != typeid(null))
+  else if (typeid(context2) != typeid(sbuild::null))
     {
       format += "%2%: ";
       nargs = 2;
@@ -63,7 +64,7 @@ sbuild::error<T>::format_error (A const&   context1,
     {
       nargs = 3;
     }
-  else if (typeid(context3) != typeid(null))
+  else if (typeid(context3) != typeid(sbuild::null))
     {
       format += "%3%: ";
       nargs = 3;
@@ -75,7 +76,7 @@ sbuild::error<T>::format_error (A const&   context1,
     {
       nargs = 4;
     }
-  else if (typeid(detail1) != typeid(null))
+  else if (typeid(detail1) != typeid(sbuild::null))
     {
       if (msg.empty())
 	format += "%4%";
@@ -88,7 +89,7 @@ sbuild::error<T>::format_error (A const&   context1,
     {
       nargs = 5;
     }
-  else if (typeid(detail2) != typeid(null))
+  else if (typeid(detail2) != typeid(sbuild::null))
     {
       if (msg.empty() && nargs < 4)
 	format += "%5%";
@@ -126,19 +127,19 @@ sbuild::error<T>::format_error (A const&   context1,
   std::string msg(error.what());
   unsigned int nargs(0);
 
-  if (typeid(context1) != typeid(null))
+  if (typeid(context1) != typeid(sbuild::null))
     {
       format += "%1%: ";
       nargs = 1;
     }
 
-  if (typeid(context2) != typeid(null))
+  if (typeid(context2) != typeid(sbuild::null))
     {
       format += "%2%: ";
       nargs = 2;
     }
 
-  if (typeid(context3) != typeid(null))
+  if (typeid(context3) != typeid(sbuild::null))
     {
       format += "%3%: ";
       nargs = 3;
@@ -146,7 +147,7 @@ sbuild::error<T>::format_error (A const&   context1,
 
   format += msg;
 
-  if (typeid(detail1) != typeid(null))
+  if (typeid(detail1) != typeid(sbuild::null))
     {
       if (msg.empty())
 	format += "%4%";
@@ -156,7 +157,7 @@ sbuild::error<T>::format_error (A const&   context1,
 
     }
 
-  if (typeid(detail2) != typeid(null))
+  if (typeid(detail2) != typeid(sbuild::null))
     {
       if (msg.empty() && nargs < 4)
 	format += "%5%";

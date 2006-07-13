@@ -21,6 +21,7 @@
 #define SBUILD_PARSE_ERROR_H
 
 #include <sbuild/sbuild-custom-error.h>
+#include <sbuild/sbuild-null.h>
 
 #include <map>
 #include <string>
@@ -36,7 +37,6 @@ namespace sbuild
   {
   public:
     typedef typename error<T>::error_type error_type;
-    typedef typename error<T>::null null;
 
     /**
      * The constructor.
@@ -151,7 +151,7 @@ namespace sbuild
     template<typename A>
     parse_error (A const&                  context,
 		 std::runtime_error const& error):
-      sbuild::error<T>(format_error(context, null(), null(), error, null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(context, null(), null(), error, null(), null()))
     {
     }
 
@@ -163,7 +163,7 @@ namespace sbuild
      */
     parse_error (size_t                    line,
 		 std::runtime_error const& error):
-      sbuild::error<T>(format_error(line, null(), null(), error, null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(line, null(), null(), error, null(), null()))
     {
     }
 
@@ -177,7 +177,7 @@ namespace sbuild
     parse_error (size_t                    line,
 		 std::string const&        group,
 		 std::runtime_error const& error):
-      sbuild::error<T>(format_error(line, group, null(), error, null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(line, group, null(), error, null(), null()))
     {
     }
 
@@ -193,7 +193,7 @@ namespace sbuild
 		 std::string const&        group,
 		 std::string const&        key,
 		 std::runtime_error const& error):
-      sbuild::error<T>(format_error(line, group, key, error, null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(line, group, key, error, null(), null()))
     {
     }
 
@@ -205,7 +205,7 @@ namespace sbuild
      */
     parse_error (std::string const&        group,
 		 std::runtime_error const& error):
-      sbuild::error<T>(format_error(group, null(), null(), error, null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(group, null(), null(), error, null(), null()))
     {
     }
 
@@ -219,7 +219,7 @@ namespace sbuild
     parse_error (std::string const&        group,
 		 std::string const&        key,
 		 std::runtime_error const& error):
-      sbuild::error<T>(format_error(group, key, null(), error, null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(group, key, null(), error, null(), null()))
     {
     }
 

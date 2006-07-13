@@ -1,5 +1,14 @@
 2006-07-13  Roger Leigh  <rleigh@debian.org>
 
+	* Update sources to use new header.
+
+	* sbuild/Makefile.am: Add sbuild-null.(cc|h).
+
+	* sbuild/sbuild-null.(cc|h): New file.  Split out null class from
+	sbuild/sbuild-error.h
+
+2006-07-13  Roger Leigh  <rleigh@debian.org>
+
 	* TODO: Remove completed error string markup item.
 
 	* Add boost::format markup to error strings.

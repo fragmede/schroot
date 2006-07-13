@@ -21,6 +21,7 @@
 #define SBUILD_CUSTOM_ERROR_H
 
 #include <sbuild/sbuild-error.h>
+#include <sbuild/sbuild-null.h>
 
 namespace sbuild
 {
@@ -33,7 +34,6 @@ namespace sbuild
   {
   public:
     typedef typename error<T>::error_type error_type;
-    typedef typename error<T>::null null;
 
     /**
      * The constructor.
@@ -124,7 +124,7 @@ namespace sbuild
      * @param error the error code.
      */
     custom_error (std::runtime_error const& error):
-      sbuild::error<T>(format_error(null(), null(), null(), error, null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(null(), null(), null(), error, null(), null()))
     {
     }
 
@@ -137,7 +137,7 @@ namespace sbuild
     template<typename C>
     custom_error (C const&                  context,
 		  std::runtime_error const& error):
-      sbuild::error<T>(format_error(context, null(), null(), error, null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(context, null(), null(), error, null(), null()))
     {
     }
 
