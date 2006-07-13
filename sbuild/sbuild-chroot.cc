@@ -356,6 +356,28 @@ sbuild::chroot::set_persona (personality const& persona)
 }
 
 void
+sbuild::chroot::set_persona (std::string const& persona)
+{
+  personality new_persona (persona);
+
+  if (new_persona.get_name() == "undefined" &&
+      new_persona.get_name() != persona)
+    {
+      std::ostringstream plist;
+      personality::print_personalities(plist);
+
+      // TODO: include line numbers by throwing an exception.
+      log_warning()
+	<< format(_("%1% chroot: personality \"%2%\" is unknown.\n"))
+	% get_name() % persona;
+      log_info()
+	<< format(_("Valid personalities: %1%\n")) % plist.str();
+    }
+
+  set_persona(new_persona);
+}
+
+void
 sbuild::chroot::setup_env (environment& env)
 {
   env.add("CHROOT_TYPE", get_chroot_type());
@@ -597,30 +619,12 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 				 keyfile, get_name(), "command-prefix",
 				 keyfile::PRIORITY_OPTIONAL);
 
-  // TODO: Add stream operators to persona.
-  std::string persona_name;
-  if (keyfile.get_value(get_name(), "personality",
-			keyfile::PRIORITY_OPTIONAL,
-			persona_name))
-    {
-      personality persona (persona_name);
+  void (chroot::* pptr)(std::string const& persona);
+  pptr = &chroot::set_persona;
+  keyfile::get_object_value(*this, pptr,
+			    keyfile, get_name(), "personality",
+			    keyfile::PRIORITY_OPTIONAL);
 
-      if (persona.get_name() == "undefined" &&
-	  persona.get_name() != persona_name)
-	{
-	  std::ostringstream plist;
-	  personality::print_personalities(plist);
-
-	  // TODO: include line numbers.
-	  log_warning()
-	    << format(_("%1% chroot: personality \"%2%\" is unknown.\n"))
-	    % get_name() % persona_name;
-	  log_info()
-	    << format(_("Valid personalities: %1%\n")) % plist.str();
-	}
-
-      set_persona(persona);
-    }
 }
 
 /*

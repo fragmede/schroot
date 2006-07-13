@@ -408,7 +408,7 @@ namespace sbuild
     /**
      * Get the process execution domain for the chroot.
      *
-     * @returns the command prefix.
+     * @returns the personality.
      */
     personality const&
     get_persona () const;
@@ -416,10 +416,18 @@ namespace sbuild
     /**
      * Set the process execution domain for the chroot.
      *
-     * @param persona the command prefix.
+     * @param persona the personality.
      */
     void
     set_persona (personality const& persona);
+
+    /**
+     * Set the process execution domain for the chroot.
+     *
+     * @param persona the personality.
+     */
+    void
+    set_persona (std::string const& persona);
 
     /**
      * Get the type of the chroot.
