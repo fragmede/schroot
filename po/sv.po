@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-07-14 12:11+0100\n"
+"POT-Creation-Date: 2006-07-14 18:24+0100\n"
 "PO-Revision-Date: 2006-06-17 22:13+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -15,8 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: dchroot/dchroot.cc:59 dchroot-dsa/dchroot-dsa.cc:59
-#: schroot/schroot-base-main.cc:165 schroot/schroot.cc:61
+#: dchroot/dchroot.cc:59 dchroot-dsa/dchroot-dsa.cc:59 schroot/schroot.cc:61
 #: schroot/schroot-listmounts.cc:67 schroot/schroot-releaselock.cc:67
 #, fuzzy
 msgid "An unknown exception occured"
@@ -115,17 +114,17 @@ msgstr "--chroot och --all kan inte användas samtidigt"
 msgid "Using --chroots only"
 msgstr "Använder endast --chroots"
 
-#: dchroot/dchroot-session-base.cc:76
+#: dchroot/dchroot-session-base.cc:75
 #, boost-format
 msgid "(%1%->%2%): dchroot sessions do not support user switching"
 msgstr "(%1%->%2%): dchroot-sessioner har inte stöd för byte av användare"
 
-#: dchroot/dchroot-session-base.cc:78
+#: dchroot/dchroot-session-base.cc:77
 #, fuzzy
 msgid "dchroot session restriction"
 msgstr "Val av chroot"
 
-#: dchroot/dchroot-session.cc:116 dchroot-dsa/dchroot-dsa-session.cc:124
+#: dchroot/dchroot-session.cc:115 dchroot-dsa/dchroot-dsa-session.cc:123
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%1% chroot] Kör kommando: \"%2%\""
@@ -263,12 +262,12 @@ msgstr ""
 msgid "Failed to lock device"
 msgstr "%1%: misslyckades med att låsa enhet: %2%"
 
-#: sbuild/sbuild-chroot.cc:63
+#: sbuild/sbuild-chroot.cc:63 schroot/schroot-releaselock-main.cc:53
 #, fuzzy
 msgid "File is not a block device"
 msgstr "%1% är inte en blockenhet"
 
-#: sbuild/sbuild-chroot.cc:64
+#: sbuild/sbuild-chroot.cc:64 schroot/schroot-releaselock-main.cc:56
 #, fuzzy
 msgid "Failed to stat device"
 msgstr "Misslyckades med att läsa status på enhet %1%: %2%"
@@ -643,7 +642,7 @@ msgstr ""
 msgid "Failed to test device lock"
 msgstr "misslyckades med att testa enhetslås"
 
-#: sbuild/sbuild-lock.cc:55
+#: sbuild/sbuild-lock.cc:55 schroot/schroot-releaselock-main.cc:55
 #, fuzzy
 msgid "Failed to release device lock"
 msgstr "misslyckades med att släppa enhetslås"
@@ -817,42 +816,42 @@ msgstr "misslyckades med att ställa in tidsgräns: %1%"
 msgid "User switching is not permitted"
 msgstr ""
 
-#: sbuild/sbuild-session.cc:653
+#: sbuild/sbuild-session.cc:665
 #, fuzzy, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[%1% chroot] Kör inloggningsskal: \"%2%\""
 
-#: sbuild/sbuild-session.cc:655
+#: sbuild/sbuild-session.cc:667
 #, fuzzy, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[%1% chroot] Kör skal: \"%2%\""
 
-#: sbuild/sbuild-session.cc:661
+#: sbuild/sbuild-session.cc:673
 #, fuzzy, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Kör inloggningsskal: \"%4%\""
 
-#: sbuild/sbuild-session.cc:663
+#: sbuild/sbuild-session.cc:675
 #, fuzzy, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Kör skal: \"%4%\""
 
-#: sbuild/sbuild-session.cc:698
+#: sbuild/sbuild-session.cc:710
 #, fuzzy, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Kör kommando: \"%2%\""
 
-#: sbuild/sbuild-session.cc:700
+#: sbuild/sbuild-session.cc:712
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Kör kommando: \"%4%\""
 
-#: sbuild/sbuild-session.cc:874
+#: sbuild/sbuild-session.cc:886
 #, boost-format
 msgid "stage=%1%"
 msgstr ""
 
-#: sbuild/sbuild-session.cc:1016
+#: sbuild/sbuild-session.cc:1019
 msgid "terminating immediately"
 msgstr ""
 
@@ -966,29 +965,30 @@ msgstr "Ingen monteringspunkt angiven"
 msgid "Only one action may be specified"
 msgstr "Endast en åtgärd får anges"
 
-#: schroot/schroot-main-base.cc:106
-#, boost-format
-msgid "%1%: No such chroot"
-msgstr "%1%: Inget sådant chroot"
-
-#: schroot/schroot-main-base.cc:155
+#: schroot/schroot-main-base.cc:52
 #, fuzzy, boost-format
-msgid "No chroots are defined in '%1%' or '%2%'"
-msgstr "Inga chroot angivna i %1% eller %2%"
+msgid "%1%: Chroots not found"
+msgstr "%1%: grupp hittades inte: %2%"
 
-#: schroot/schroot-main-base.cc:163
-#, fuzzy, boost-format
-msgid "No chroots are defined in '%1%'"
-msgstr "Inga chroot angivna i %1%"
-
-#: schroot/schroot-main-base.cc:180
+#: schroot/schroot-main-base.cc:54
 #, fuzzy, boost-format
 msgid "The specified chroots are not defined in '%1%'"
 msgstr "De angivna chroot finns inte angivna i %1%"
 
-#: schroot/schroot-main-base.cc:207
-msgid "Only one chroot may be specified when beginning a session"
-msgstr "Endast en chroot får anges vid början av en session"
+#: schroot/schroot-main-base.cc:55
+#, fuzzy, boost-format
+msgid "%1%: Chroot not found"
+msgstr "%1%: grupp hittades inte: %2%"
+
+#: schroot/schroot-main-base.cc:186
+#, fuzzy, boost-format
+msgid "No chroots are defined in '%1%' or '%2%'"
+msgstr "Inga chroot angivna i %1% eller %2%"
+
+#: schroot/schroot-main-base.cc:194
+#, fuzzy, boost-format
+msgid "No chroots are defined in '%1%'"
+msgstr "Inga chroot angivna i %1%"
 
 #: schroot/schroot-options-base.cc:46
 msgid "Chroot selection"
@@ -1023,11 +1023,8 @@ msgid "Command to run"
 msgstr "Kommando att köra"
 
 #: schroot/schroot-options-base.cc:158
-msgid ""
-"Only one chroot may be specified when recovering, running or ending a session"
-msgstr ""
-"Endast ett chroot får anges vid återhämtning, körning eller avslutning av en "
-"session"
+msgid "Only one chroot may be specified when beginning a session"
+msgstr "Endast en chroot får anges vid början av en session"
 
 #: schroot/schroot-options-base.cc:184
 msgid "--chroot may not be used with --list"
@@ -1074,34 +1071,19 @@ msgstr "Avsluta en existerande session"
 msgid "Force operation, even if it fails"
 msgstr "Tvinga operation, även om den misslyckas"
 
-#: schroot/schroot-releaselock-main.cc:44
+#: schroot/schroot-releaselock-main.cc:54
+#, fuzzy, boost-format
+msgid "Failed to release device lock (lock held by PID %4%)"
+msgstr "%1%: misslyckades med att släppa enhetslås som ägs av pid %2%"
+
+#: schroot/schroot-releaselock-main.cc:69
 #, fuzzy
 msgid "[OPTION...] - release a device lock"
 msgstr "  schroot-releaselock [FLAGGA...] - släpp ett enhetslås"
 
-#: schroot/schroot-releaselock-main.cc:59
+#: schroot/schroot-releaselock-main.cc:84
 msgid "No pid specified; forcing release of lock"
 msgstr "Ingen pid angiven; tvingar släpp av lås"
-
-#: schroot/schroot-releaselock-main.cc:68
-#, fuzzy, boost-format
-msgid "Failed to stat device '%1%': %2%"
-msgstr "Misslyckades med att läsa status på enhet %1%: %2%"
-
-#: schroot/schroot-releaselock-main.cc:76
-#, fuzzy, boost-format
-msgid "'%1%' is not a block device"
-msgstr "%1% är inte en blockenhet"
-
-#: schroot/schroot-releaselock-main.cc:85
-#, boost-format
-msgid "%1%: failed to release device lock"
-msgstr "%1%: misslyckades med att släppa enhetslås"
-
-#: schroot/schroot-releaselock-main.cc:93
-#, boost-format
-msgid "%1%: failed to release device lock owned by pid %2%"
-msgstr "%1%: misslyckades med att släppa enhetslås som ägs av pid %2%"
 
 #: schroot/schroot-releaselock-options.cc:42
 msgid "Lock"
@@ -1118,6 +1100,27 @@ msgstr "Process-id som äger låset"
 #: schroot/schroot-releaselock-options.cc:88
 msgid "No device specified"
 msgstr "Ingen enhet angiven"
+
+#~ msgid "%1%: No such chroot"
+#~ msgstr "%1%: Inget sådant chroot"
+
+#~ msgid ""
+#~ "Only one chroot may be specified when recovering, running or ending a "
+#~ "session"
+#~ msgstr ""
+#~ "Endast ett chroot får anges vid återhämtning, körning eller avslutning av "
+#~ "en session"
+
+#, fuzzy
+#~ msgid "Failed to stat device '%1%': %2%"
+#~ msgstr "Misslyckades med att läsa status på enhet %1%: %2%"
+
+#, fuzzy
+#~ msgid "'%1%' is not a block device"
+#~ msgstr "%1% är inte en blockenhet"
+
+#~ msgid "%1%: failed to release device lock"
+#~ msgstr "%1%: misslyckades med att släppa enhetslås"
 
 #, fuzzy
 #~ msgid "Failed to acquire device lock (timed out)"
@@ -1188,10 +1191,6 @@ msgstr "Ingen enhet angiven"
 #, fuzzy
 #~ msgid "--- Session ---\n"
 #~ msgstr "  --- Session ---\n"
-
-#, fuzzy
-#~ msgid "%1%: Group not found: %2%"
-#~ msgstr "%1%: grupp hittades inte: %2%"
 
 #, fuzzy
 #~ msgid "Can't get supplementary groups: %1%"

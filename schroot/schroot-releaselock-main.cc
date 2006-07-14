@@ -51,7 +51,7 @@ namespace
   emap init_errors[] =
     {
       emap(main::DEVICE_NOTBLOCK, N_("File is not a block device")),
-      emap(main::DEVICE_OWNED,    N_("Failed to release device lock (lock held by PID %4%")),
+      emap(main::DEVICE_OWNED,    N_("Failed to release device lock (lock held by PID %4%)")),
       emap(main::DEVICE_RELEASE,  N_("Failed to release device lock")),
       emap(main::DEVICE_STAT,     N_("Failed to stat device"))
 };

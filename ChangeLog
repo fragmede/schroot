@@ -1,5 +1,13 @@
 2006-07-14  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.99.3
+
+	* debian/changelog: Finalise for 0.99.3.
+
+	* schroot/schroot-releaselock-main.cc: Fix typo.
+
+2006-07-14  Roger Leigh  <rleigh@debian.org>
+
 	* HACKING: Document manual chroot fallback testing.
 
 2006-07-14  Roger Leigh  <rleigh@debian.org>
