@@ -155,7 +155,7 @@ options_base::check_actions ()
       this->load_chroots = true;
       this->load_sessions = false;
       if (this->chroots.size() != 1 || all_used())
-	throw opt::validation_error(_("Only one chroot may be specified when recovering, running or ending a session"));
+	throw opt::validation_error(_("Only one chroot may be specified when beginning a session"));
 
       this->all = this->all_chroots = this->all_sessions = false;
       break;

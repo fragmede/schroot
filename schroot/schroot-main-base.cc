@@ -38,6 +38,31 @@ using std::endl;
 using boost::format;
 using namespace schroot;
 
+namespace
+{
+
+  typedef std::pair<main_base::error_code,const char *> emap;
+
+  /**
+   * This is a list of the supported error codes.  It's used to
+   * construct the real error codes map.
+   */
+  emap init_errors[] =
+    {
+      emap(main_base::CHROOTS_NOTFOUND, N_("%1%: Chroots not found")),
+      emap(main_base::CHROOT_NOTDEFINED,
+	   N_("The specified chroots are not defined in '%1%'")),
+      emap(main_base::CHROOT_NOTFOUND,  N_("%1%: Chroot not found"))
+    };
+
+}
+
+template<>
+sbuild::error<main_base::error_code>::map_type
+sbuild::error<main_base::error_code>::error_strings
+(init_errors,
+ init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+
 main_base::main_base (std::string const& program_name,
 		      std::string const& program_usage,
 		      options_base::ptr& options):
@@ -99,13 +124,19 @@ main_base::get_chroot_options ()
 
       if (!invalid_chroots.empty())
 	{
+	  std::string invalid_list;
 	  for (sbuild::string_list::const_iterator chroot =
 		 invalid_chroots.begin();
 	       chroot != invalid_chroots.end();
 	       ++chroot)
-	    sbuild::log_error() << format(_("%1%: No such chroot")) % *chroot
-				<< endl;
-	  exit(EXIT_FAILURE);
+	    {
+	      invalid_list += *chroot;
+	      if (chroot + 1 != invalid_chroots.end())
+		invalid_list += ", ";
+	    }
+	  throw error(invalid_list,
+		      (invalid_chroots.size() == 1)
+		      ? CHROOT_NOTFOUND : CHROOTS_NOTFOUND);
 	}
       ret = this->options->chroots;
     }
@@ -135,13 +166,13 @@ main_base::run_impl ()
   if (this->options->action == options_base::ACTION_HELP)
     {
       action_help(std::cout);
-      exit(EXIT_SUCCESS);
+      return EXIT_SUCCESS;
     }
 
   if (this->options->action == options_base::ACTION_VERSION)
     {
       action_version(std::cout);
-      exit(EXIT_SUCCESS);
+      return EXIT_SUCCESS;
     }
 
   /* Initialise chroot configuration. */
@@ -169,44 +200,29 @@ main_base::run_impl ()
   if (this->options->action == options_base::ACTION_LIST)
     {
       action_list();
-      exit(EXIT_SUCCESS);
+      return EXIT_SUCCESS;
     }
 
   /* Get list of chroots to use */
   chroots = get_chroot_options();
   if (this->chroots.empty())
-    {
-      sbuild::log_error()
-	<< format(_("The specified chroots are not defined in '%1%'"))
-	% SCHROOT_CONF
-	<< endl;
-      exit (EXIT_FAILURE);
-    }
+    throw error(SCHROOT_CONF, CHROOT_NOTDEFINED);
 
   /* Print chroot information for specified chroots. */
   if (this->options->action == options_base::ACTION_INFO)
     {
       action_info();
-      exit (EXIT_SUCCESS);
+      return EXIT_SUCCESS;
     }
   if (this->options->action == options_base::ACTION_LOCATION)
     {
       action_location();
-      exit (EXIT_SUCCESS);
+      return EXIT_SUCCESS;
     }
   if (this->options->action == options_base::ACTION_CONFIG)
     {
       action_config();
-      exit (EXIT_SUCCESS);
-    }
-
-  if (this->options->action == options_base::ACTION_SESSION_BEGIN &&
-      this->chroots.size() != 1)
-    {
-      sbuild::log_error()
-	<< _("Only one chroot may be specified when beginning a session")
-	<< endl;
-      exit (EXIT_FAILURE);
+      return EXIT_SUCCESS;
     }
 
   /* Create a session. */
@@ -255,9 +271,9 @@ main_base::run_impl ()
     }
 
   if (this->session)
-    exit(this->session->get_child_status());
+    return this->session->get_child_status();
   else
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
 }
 
 /*

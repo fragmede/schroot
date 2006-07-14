@@ -997,7 +997,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
     }
 
   /* This should never be reached */
-  exit(EXIT_FAILURE);
+  _exit(EXIT_FAILURE);
 }
 
 void
@@ -1087,7 +1087,7 @@ session::run_chroot (sbuild::chroot::ptr& session_chroot)
 	{
 	  log_error() << e.what() << endl;
 	}
-      exit (EXIT_FAILURE);
+      _exit (EXIT_FAILURE);
     }
   else
     {

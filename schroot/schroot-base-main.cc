@@ -160,11 +160,6 @@ main::run (int   argc,
 
       exit(EXIT_FAILURE);
     }
-  catch (...)
-    {
-      sbuild::log_error() << _("An unknown exception occured") << endl;
-      exit(EXIT_FAILURE);
-    }
 }
 
 /*

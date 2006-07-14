@@ -1,5 +1,30 @@
 2006-07-14  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Close #378152.
+
+	* Having a single exit point now means terminal settings are
+	always restored correctly.
+
+	* sbuild/sbuild-run-parts.cc: Use _exit rather than exit when
+	terminating a child process when execve has failed.
+
+	* sbuild/sbuild-session.cc: Use _exit rather than exit when
+	terminating a child process when execve has failed.
+
+	* schroot/schroot-releaselock-main.(cc|h): Add error_code enum and
+	error typedef for sbuild::custom_error.  Throw error in place of
+	exiting with EXIT_FAILURE.
+
+	* schroot/schroot-main-base.(cc|h): Add error_code enum and error
+	typedef for sbuild::custom_error.  Throw error in place of exiting
+	with EXIT_FAILURE.  Don't ever exit successfully; return a success
+	status.
+
+	* schroot/schroot-base-main.cc (run): Don't catch "..."; it's
+	handled by the main() stubs.
+
+2006-07-14  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-chroot-directory.cc (setup_env): Remove.
 	CHROOT_LOCATION is already set in the parent class.
 

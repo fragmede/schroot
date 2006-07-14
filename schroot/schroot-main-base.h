@@ -23,6 +23,8 @@
 #include <schroot/schroot-base-main.h>
 #include <schroot/schroot-options-base.h>
 
+#include <sbuild/sbuild-custom-error.h>
+
 namespace schroot
 {
 
@@ -34,6 +36,17 @@ namespace schroot
   class main_base : public schroot_base::main
   {
   public:
+    /// Error codes.
+    enum error_code
+      {
+	CHROOTS_NOTFOUND,       ///< Chroots not found.
+	CHROOT_NOTDEFINED,      ///< The specified chroots are not defined.
+	CHROOT_NOTFOUND         ///< Chroot not found.
+      };
+
+    /// Exception type.
+    typedef sbuild::custom_error<error_code> error;
+
     /**
      * The constructor.
      *

@@ -23,6 +23,8 @@
 #include <schroot/schroot-base-main.h>
 #include <schroot/schroot-releaselock-options.h>
 
+#include <sbuild/sbuild-custom-error.h>
+
 namespace schroot_releaselock
 {
 
@@ -32,6 +34,18 @@ namespace schroot_releaselock
   class main : public schroot_base::main
   {
   public:
+    /// Error codes.
+    enum error_code
+      {
+	DEVICE_NOTBLOCK, ///< File is not a block device.
+	DEVICE_OWNED,    ///< Failed to release device lock (lock held by PID).
+	DEVICE_RELEASE,  ///< Failed to release device lock.
+	DEVICE_STAT      ///< Failed to stat device.
+      };
+
+    /// Exception type.
+    typedef sbuild::custom_error<error_code> error;
+
     /**
      * The constructor.
      *

@@ -39,6 +39,31 @@ using std::endl;
 using boost::format;
 using namespace schroot_releaselock;
 
+namespace
+{
+
+  typedef std::pair<main::error_code,const char *> emap;
+
+  /**
+   * This is a list of the supported error codes.  It's used to
+   * construct the real error codes map.
+   */
+  emap init_errors[] =
+    {
+      emap(main::DEVICE_NOTBLOCK, N_("File is not a block device")),
+      emap(main::DEVICE_OWNED,    N_("Failed to release device lock (lock held by PID %4%")),
+      emap(main::DEVICE_RELEASE,  N_("Failed to release device lock")),
+      emap(main::DEVICE_STAT,     N_("Failed to stat device"))
+};
+
+}
+
+template<>
+sbuild::error<main::error_code>::map_type
+sbuild::error<main::error_code>::error_strings
+(init_errors,
+ init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+
 main::main (options::ptr& options):
   schroot_base::main("schroot-releaselock",
 		     _("[OPTION...] - release a device lock"),
@@ -63,38 +88,16 @@ main::action_releaselock ()
   struct stat statbuf;
 
   if (stat(this->options->device.c_str(), &statbuf) == -1)
-    {
-      sbuild::log_error()
-	<< format(_("Failed to stat device '%1%': %2%"))
-	% this->options->device % strerror(errno)
-	<< endl;
-      exit (EXIT_FAILURE);
-    }
+    throw error(this->options->device, DEVICE_STAT, strerror(errno));
+
   if (!S_ISBLK(statbuf.st_mode))
-    {
-      sbuild::log_error()
-	<< format(_("'%1%' is not a block device")) % this->options->device
-	<< endl;
-      exit (EXIT_FAILURE);
-    }
+    throw error(this->options->device, DEVICE_NOTBLOCK);
 
   pid_t status = dev_unlock(this->options->device.c_str(), this->options->pid);
   if (status < 0) // Failure
-    {
-      sbuild::log_error()
-	<< format(_("%1%: failed to release device lock"))
-	% this->options->device
-	<< endl;
-      exit (EXIT_FAILURE);
-    }
+    throw error(this->options->device, DEVICE_RELEASE);
   else if (status > 0) // Owned
-    {
-      sbuild::log_error()
-	<< format(_("%1%: failed to release device lock owned by pid %2%"))
-	% this->options->device % status
-	<< endl;
-      exit (EXIT_FAILURE);
-    }
+    throw error(this->options->device, DEVICE_OWNED, status);
 }
 
 int

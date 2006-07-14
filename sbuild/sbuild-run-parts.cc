@@ -179,7 +179,7 @@ run_parts::run_child (std::string const& file,
       exec(this->directory + '/' + file, command, env);
       error e(file, EXEC, strerror(errno));
       log_error() << e.what() << std::endl;
-      exit(EXIT_FAILURE);
+      _exit(EXIT_FAILURE);
     }
   else
     {
