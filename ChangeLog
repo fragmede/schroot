@@ -1,5 +1,9 @@
 2006-07-14  Roger Leigh  <rleigh@debian.org>
 
+	* HACKING: Document manual chroot fallback testing.
+
+2006-07-14  Roger Leigh  <rleigh@debian.org>
+
 	* TODO: Add remaining items for 1.0.
 
 2006-07-14  Roger Leigh  <rleigh@debian.org>

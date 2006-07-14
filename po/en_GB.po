@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2006-07-14 12:11+0100\n"
-"PO-Revision-Date: 2006-07-14 12:12+0100\n"
+"PO-Revision-Date: 2006-07-14 18:07+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -109,7 +109,7 @@ msgstr "Using --chroots only"
 #: dchroot/dchroot-session-base.cc:76
 #, boost-format
 msgid "(%1%->%2%): dchroot sessions do not support user switching"
-msgstr "(%1%->%2%): dchroot sessions do not support user switching"
+msgstr "(%1%→%2%): dchroot sessions do not support user switching"
 
 #: dchroot/dchroot-session-base.cc:78
 msgid "dchroot session restriction"
