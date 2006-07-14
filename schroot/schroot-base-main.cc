@@ -130,7 +130,7 @@ main::run (int   argc,
 	      << endl;
 	}
 
-      exit(status);
+      return status;
     }
   catch (std::exception const& e)
     {
@@ -158,7 +158,7 @@ main::run (int   argc,
 	      << endl;
 	}
 
-      exit(EXIT_FAILURE);
+      return EXIT_FAILURE;
     }
 }
 

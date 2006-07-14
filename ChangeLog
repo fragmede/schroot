@@ -1,5 +1,10 @@
 2006-07-14  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot-base-main.cc
+	(run): Return rather than calling exit.
+
+2006-07-14  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Close #378152.
 
 	* Having a single exit point now means terminal settings are
