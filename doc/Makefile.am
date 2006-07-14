@@ -37,8 +37,23 @@ schroot-stamp: schroot.dox $(top_srcdir)/configure
 	$(DOXYGEN) schroot.dox
 	touch $@
 
-CLEANFILES = \
-	schroot.log
+PS_DEPS = \
+	$(top_builddir)/schroot/schroot.1		\
+	$(top_builddir)/schroot/schroot.conf.5		\
+	$(top_builddir)/schroot/schroot-setup.5		\
+	$(top_builddir)/dchroot/dchroot.1		\
+	$(top_builddir)/dchroot-dsa/dchroot-dsa.1
+
+schroot.ps: $(PS_DEPS)
+	tbl $(PS_DEPS) | groff -T ps -man > $@
+
+schroot.pdf: schroot.ps
+	ps2pdf $< $@
+
+CLEANFILES =		\
+	schroot.log	\
+	schroot.ps	\
+	schroot.pdf
 
 maintainer-clean-local:
 	$(RM) -r schroot

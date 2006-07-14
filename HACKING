@@ -10,7 +10,9 @@ Documentation
 
 All the documentation is in UNIX manual page format.  GNU roff
 extensions are permitted, as is use of tbl.  Make sure the printed
-output is as good as terminal display.
+output is as good as terminal display.  Run "make ps" or "make pdf" to
+build the printed documentation.
+
 
 The following styles are used:
 
@@ -28,4 +30,3 @@ The following styles are used:
   Cross references       Italics in double quotes  \[lq]\fI...\fP\[rq]
   Verbatim examples      Courier                   \f[CR]
   Verbatim user input    Courier bold              \f[CB]
-

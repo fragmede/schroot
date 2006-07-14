@@ -36,3 +36,11 @@ EXTRA_DIST =				\
 	scripts/schroot_release.m4.in	\
 	m4				\
 	HACKING
+
+ps:
+	$(MAKE) -C doc schroot.ps
+
+pdf:
+	$(MAKE) -C doc schroot.pdf
+
+.PHONY: ps pdf

@@ -1,5 +1,13 @@
 2006-07-14  Roger Leigh  <rleigh@debian.org>
 
+	* HACKING: Document how to build the printed documentation.
+
+	* Makefile.am: Add ps and pdf phony targets.
+
+	* doc/Makefile.am: Add rules to make PS and PDF manuals.
+
+2006-07-14  Roger Leigh  <rleigh@debian.org>
+
 	* Update all documentation to use the style guidelines.
 
 	* Makefile.am: Distribute HACKING.
