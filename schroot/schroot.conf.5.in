@@ -256,9 +256,11 @@ This will localise the \f[CI]description\fP key for all French locales.
 .br
 \f[CR]priority=3\fP
 .br
+\f[CR]users=jim\fP
+.br
 \f[CR]groups=sbuild\fP
 .br
-\f[CR]root-groups=root\fP
+\f[CR]root-users=rleigh\fP
 .br
 \f[CR]aliases=unstable,default\fP
 .br
@@ -268,9 +270,11 @@ This will localise the \f[CI]description\fP key for all French locales.
 .br
 \f[CR]type=block-device\fP
 .br
-\f[CR]description=Debian testing\fP
+\f[CR]description=Debian testing (32-bit)\fP
 .br
 \f[CR]priority=2\fP
+.br
+\f[CR]groups=users\fP
 .br
 \f[CR]#groups=sbuild-security\fP
 .br
@@ -279,6 +283,8 @@ This will localise the \f[CI]description\fP key for all French locales.
 \f[CR]device=/dev/hda_vg/etch_chroot\fP
 .br
 \f[CR]mount-options=-o atime\fP
+.br
+\f[CR]personality=linux32\fP
 .br
 \f[CR]run-setup-scripts=true\fP
 .br
@@ -314,7 +320,11 @@ This will localise the \f[CI]description\fP key for all French locales.
 .br
 \f[CR]groups=sbuild\fP
 .br
-\f[CR]root-groups=root\fP
+\f[CR]users=rleigh\fP
+.br
+\f[CR]source-root-users=rleigh\fP
+.br
+\f[CR]source-root-groups=admin\fP
 .br
 \f[CR]device=/dev/hda_vg/sid_chroot\fP
 .br

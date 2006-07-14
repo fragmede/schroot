@@ -2,6 +2,14 @@
 
 	* TODO: Remove completed item.
 
+	* schroot/schroot.conf.5.in: Add undocumented features.
+
+	* schroot/schroot.conf: Add undocumented features.
+
+2006-07-14  Roger Leigh  <rleigh@debian.org>
+
+	* TODO: Remove completed item.
+
 	* THANKS: Add Simon Richter.
 
 	* sbuild/sbuild-session.cc
