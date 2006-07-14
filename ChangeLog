@@ -2,6 +2,16 @@
 
 	* TODO: Remove completed item.
 
+	* THANKS: Add Simon Richter.
+
+	* sbuild/sbuild-session.cc
+	(run_impl): Move session opening and closing here.  The session is
+	opened and closed outside the chroot as root.
+
+2006-07-14  Roger Leigh  <rleigh@debian.org>
+
+	* TODO: Remove completed item.
+
 	* Update doxygen API reference.
 
 2006-07-14  Roger Leigh  <rleigh@debian.org>

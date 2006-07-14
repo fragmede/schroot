@@ -15,12 +15,6 @@ PENDING
 PLANNED
 -------
 
-* Move PAM open_session and close_session logic.
-
-  Move back from session to auth, or don't open the session in the
-  child process (because the open/close happen in different
-  processes).
-
 * Add API to run multiple commands to replace auth::run().
 
 

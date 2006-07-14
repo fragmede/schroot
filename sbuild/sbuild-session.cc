@@ -485,7 +485,19 @@ try
 		/* Run session if setup succeeded. */
 		if (this->session_operation == OPERATION_AUTOMATIC ||
 		    this->session_operation == OPERATION_RUN)
-		  run_chroot(chroot);
+		  {
+		    try
+		      {
+			open_session();
+			run_chroot(chroot);
+		      }
+		    catch (std::runtime_error const& e)
+		      {
+			close_session();
+			throw;
+		      }
+		    close_session();
+		  }
 
 		/* Run exec-stop scripts whether or not there was an
 		   error. */
@@ -891,15 +903,6 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 
   std::string location(session_chroot->get_path());
 
-  try
-    {
-      open_session();
-    }
-  catch (auth::error const& e)
-    {
-      throw error(PAM, e.what());
-    }
-
   /* Set group ID and supplementary groups */
   if (setgid (get_gid()))
     {
@@ -1036,16 +1039,6 @@ session::wait_for_child (pid_t pid,
 	}
       else
 	break;
-    }
-
-  try
-    {
-      close_session();
-    }
-  catch (auth::error const& e)
-    {
-      // TODO: rethrow or don't catch.
-      throw error(e);
     }
 
   if (!WIFEXITED(status))
