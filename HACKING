@@ -1,0 +1,31 @@
+Working on schroot                           -*- text -*-
+==================
+
+This document is a short guide to the conventions used in the schroot
+project.
+
+
+Documentation
+-------------
+
+All the documentation is in UNIX manual page format.  GNU roff
+extensions are permitted, as is use of tbl.  Make sure the printed
+output is as good as terminal display.
+
+The following styles are used:
+
+  Style                  Formatting                Syntax
+  --------------------------------------------------------------------
+  New term               Bold                      .B or \fB
+  Option definition      Bold, args in italic      .BR and \fI
+  Option reference       Italic                    .I or \fI
+  File definition        Bold italic               \f[BI]
+  File reference         Italic                    .I or \fI
+  Config key definition  Courier bold italic       \f[CBI]
+  Config key reference   Courier italic            \f[CI]
+  Values                 Single quotes             \[oq] and \[cq]
+  Example text           Double quotes             \[lq] and \[rq]
+  Cross references       Italics in double quotes  \[lq]\fI...\fP\[rq]
+  Verbatim examples      Courier                   \f[CR]
+  Verbatim user input    Courier bold              \f[CB]
+

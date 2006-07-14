@@ -30,4 +30,9 @@ dist-hook:
 	$(FIND) $(distdir) -name '#*' -print | $(XARGS) $(RM) -rf
 	$(FIND) $(distdir) -name '*~' -print | $(XARGS) $(RM) -rf
 
-EXTRA_DIST = bootstrap debian scripts/schroot_release.m4.in m4
+EXTRA_DIST =				\
+	bootstrap			\
+	debian				\
+	scripts/schroot_release.m4.in	\
+	m4				\
+	HACKING

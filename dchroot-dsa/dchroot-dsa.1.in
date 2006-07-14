@@ -31,71 +31,71 @@ The command is a single argument which must be an absolute path to the program.
 Additional options are not permitted.
 .PP
 The login shell or command will run in the user's home directory inside the
-chroot, or / if the home directory is not available.
+chroot, or \fI/\fP if the home directory is not available.
 .PP
-This version of \fBdchroot\-dsa\fP is a compatibility wrapper around the
+This version of dchroot\-dsa is a compatibility wrapper around the
 .BR schroot (1)
-program.  It is provided for backward compatibility with the \fBdchroot\-dsa\fP
-command-line options, but \fBschroot\fP is recommended for future use.  See the
+program.  It is provided for backward compatibility with the dchroot\-dsa
+command-line options, but schroot is recommended for future use.  See the
 section \[lq]\fIMigration\fP\[rq] below for help migrating your existing
-\fBdchroot\-dsa\fP configuration to \fBschroot\fP.  See the section
-\[lq]\fIIncompatibilities\fP\[rq] below for known incompatibilities with
-\fBdchroot\-dsa\fP.
+dchroot\-dsa configuration to schroot.  See the section
+\[lq]\fIIncompatibilities\fP\[rq] below for known incompatibilities with older
+versions of dchroot\-dsa.
 .PP
 .SH OPTIONS
 \fBdchroot\-dsa\fP accepts the following options:
 .SS Basic options
 .TP
-.B \-h, \-\-help
+.BR \-h ", " \-\-help
 Show help summary.
 .TP
-.B \-a, \-\-all
-Select all chroots.  Note that the original \fBdchroot\-dsa\fP did not include
+.BR \-a ", " \-\-all
+Select all chroots.  Note that earlier versions of dchroot\-dsa did not include
 this option.
 .TP
-.B \-c, \-\-chroot=\fIchroot\fP
+.BR \-c ", " \-\-chroot=\fIchroot\fP
 Specify a chroot to use.  This option may be used multiple times to specify
-more than one chroot, in which case its effect is similar to \fB\-\-all\fP.  If
+more than one chroot, in which case its effect is similar to \fI\-\-all\fP.  If
 this option is not used, the first non-option argument specified the chroot to
-use.  Note that the original \fBdchroot\-dsa\fP did not include this option.
+use.  Note that earlier versions of dchroot\-dsa did not include this option.
 .TP
-.B \-l, \-\-list
+.BR \-l ", " \-\-list
 List all available chroots.
 .TP
-.B \-i, \-\-info
-Print detailed information about the available chroots.  Note that the original
-\fBdchroot\-dsa\fP did not include this option.
+.BR \-i ", " \-\-info
+Print detailed information about the available chroots.  Note that earlier
+versions of dchroot\-dsa did not include this option.
 .TP
-.B \-p, \-\-listpaths
+.BR \-p ", " \-\-listpaths
 Print absolute locations (paths) of the available chroots.
 .TP
-.B \-\-config
+.BR \-\-config
 Print configuration of the available chroots.  This is useful for testing that
 the configuration in use is the same as the configuration file.  Any comments
-in the original file will be missing.  Note that the original
-\fBdchroot\-dsa\fP did not include this option.
+in the original file will be missing.  Note that earlier versions of
+dchroot\-dsa did not include this option.
 .TP
-.B \-q, \-\-quiet
-Print only essential messages.  Note that the original \fBdchroot\-dsa\fP did
+.BR \-q ", " \-\-quiet
+Print only essential messages.  Note that earlier versions of dchroot\-dsa did
 not include this option.
 .TP
-.B \-v, \-\-verbose
-Print all messages.  Note that the original \fBdchroot\-dsa\fP did not include
+.BR \-v ", " \-\-verbose
+Print all messages.  Note that earlier versions of dchroot\-dsa did not include
 this option.
 .TP
-.B \-V, \-\-version
+.BR \-V ", " \-\-version
 Print version information.
 .SH CONFIGURATION
-The original \fBdchroot\-dsa\fP configuration file, \fI@DCHROOT_CONF@\fP has
-the following format:
+The original \fBdchroot\-dsa\fP configuration file, \fI@DCHROOT_CONF@\fP, used
+by earlier versions of dchroot\-dsa, has the following format:
 .IP \[bu]
 \[oq]#\[cq] starts a comment line.
 .IP \[bu]
 Blank lines are ignored.
 .IP \[bu]
-Chroot definitions are a single line containing an \fIidentifier\fP,
-\fIpath\fP, and an optional \fIuser list\fP separated by whitespace (space and
-tab), or a colon (\[oq]:\[cq]), semicolon (\[oq];\[cq]), or comma
+Chroot definitions are a single line containing an \f[CBI]identifier\fP,
+\f[CBI]path\fP, and an optional \f[CBI]user list\fP separated by whitespace
+(space and tab), or a colon (\[oq]:\[cq]), semicolon (\[oq];\[cq]), or comma
 (\[oq],\[cq]).
 .PP
 An example file:
@@ -116,41 +116,37 @@ This file defines a chroot called \[oq]sarge\[cq], located at
 \fI/srv/chroot/sid\fP.  The second chroot specifies that it may only be used by
 the users \[lq]rleigh\[rq] and \[lq]fred\[rq].
 .SH INCOMPATIBILITIES
-.SS DSA dchroot
+.SS DSA dchroot 
 .IP \[bu]
 Log messages are worded and formatted differently.
 .IP \[bu]
-\fBdchroot\-dsa\fP provides a restricted subset of the functionality
-implemented by \fBschroot\fP, but is still \fBschroot\fP underneath.  Thus
-\fBdchroot\-dsa\fP is still subject to \fBschroot\fP security checking,
-including PAM authentication and authorisation, and session management, for
-example, and hence may behave slightly differently to the original
-\fBdchroot\-dsa\fP in some circumstances.
-.IP \[bu]
-The command argument in this version may be absolute or relative, and may
-contain as many options as desired.  The original version only allowed a single
-absolute program name and no options.
+dchroot\-dsa provides a restricted subset of the functionality implemented by
+\fBschroot\fP, but is still schroot underneath.  Thus dchroot\-dsa is still
+subject to schroot security checking, including PAM authentication and
+authorisation, and session management, for example, and hence may behave
+slightly differently to earlier versions of dchroot\-dsa in some circumstances.
 .SS Debian dchroot
-A \fBdchroot\fP package provides an alternative \fBdchroot\fP implementation.
+A \fBdchroot\fP package provides an alternative dchroot implementation.
 .IP \[bu]
 All the above incompatibilities apply.
 .IP \[bu]
 This version of dchroot has incompatible command-line options, and while some
 of those options are supported or have equivalent options by a different name,
 the \fI\-c\fP option is required to specify a chroot.  It also allows a shell
-script to be used as the option instead of a single absolute path.
+script to be used as the option instead of a single absolute path, and allows
+multiple command options instead of a single option.
 .IP \[bu]
 This version of dchroot has an incompatible format for \fIdchroot.conf\fP.
 While the first two fields are the same, the third field is a optional
-personality, instead of the list of users permitted to access the chroot
-allowed by this version.  If personality support is needed, please use
-\fIschroot.conf\fP and add the allowed users there, as shown in
+\f[CBI]personality\fP, instead of the \f[CI]user list\fP of users permitted to
+access the chroot allowed by this version.  If personality support is needed,
+please use \fIschroot.conf\fP and add the allowed users there, as shown in
 \[lq]\fIMigration\fP\[rq] below.
 .SH MIGRATION
 To migrate an existing \fBdchroot\-dsa\fP configuration to \fBschroot\fP,
 perform the following steps:
 .IP 1
-Dump the \fBdchroot\-dsa\fP configuration in \fBschroot\fP keyfile format to
+Dump the dchroot\-dsa configuration in schroot keyfile format to
 \fI@SCHROOT_CONF@\fP.
 .PP
 .RS
@@ -159,22 +155,21 @@ Dump the \fBdchroot\-dsa\fP configuration in \fBschroot\fP keyfile format to
 .RE
 .PP
 .IP 2
-Edit \fI@SCHROOT_CONF@\fP to add access to the groups who are to be allowed to
-access the chroots, and make any other desired changes to the configuration.
-See
+Edit \fI@SCHROOT_CONF@\fP to add access to the users and/or groups who are to
+be allowed to access the chroots, and make any other desired changes to the
+configuration.  See
 .BR schroot.conf (5).
 .IP 3
-Remove \fI@DCHROOT_CONF@\fP, so that \fBdchroot\-dsa\fP will subsequently use
-\fI@SCHROOT_CONF@\fP for its configuration.  If the \fBdchroot\fP package is
-still installed, purge it, or else delete the file.
+Remove \fI@DCHROOT_CONF@\fP, so that dchroot\-dsa will subsequently use
+\fI@SCHROOT_CONF@\fP for its configuration.
 .SH EXAMPLES
-\f[CR]$ dchroot\-dsa -l\fP
+\f[CR]$ \f[CB]dchroot\-dsa -l\fP\fP
 .br
 \f[CR]Available chroots: sarge, sid\fP
 .br
 \f[CR]\fP
 .br
-\f[CR]$ dchroot\-dsa \-\-listpaths\fP
+\f[CR]$ \f[CB]dchroot\-dsa \-\-listpaths\fP\fP
 .br
 \f[CR]/srv/chroot/sarge\fP
 .br
@@ -182,63 +177,62 @@ still installed, purge it, or else delete the file.
 .br
 \f[CR]\fP
 .br
-\f[CR]$ dchroot\-dsa \-q sid \-\- /bin/uname\fP
+\f[CR]$ \f[CB]dchroot\-dsa \-q sid \-\- /bin/uname\fP\fP
 .br
 \f[CR]Linux\fP
 .br
 \f[CR]\fP
 .br
-\f[CR]$ dchroot\-dsa sid\fP
+\f[CR]$ \f[CB]dchroot\-dsa sid\fP\fP
 .br
 \f[CR]I: [sid chroot] Running login shell: \[lq]/bin/bash\[rq]\fP
 .br
 \f[CR]$ \fP
 .br
 .LP
-Use \fB\-\-\fP to allow options beginning with \[oq]\-\[cq] or \[oq]\-\-\[cq]
-in the command to run in the chroot.  This prevents them being interpreted as
-options for \fBschroot\fP itself.  Note that the top line was echoed to
-standard error, and the remaining lines to standard output.  This is
-intentional, so that program output from commands run in the chroot may be
-piped and redirected as required; the data will be the same as if the command
-was run directly on the host system.
+Note that the top line was echoed to standard error, and the remaining lines to
+standard output.  This is intentional, so that program output from commands run
+in the chroot may be piped and redirected as required; the data will be the
+same as if the command was run directly on the host system.
 .SH TROUBLESHOOTING
 If something is not working, and it's not clear from the error messages what is
 wrong, try using the \fB\-\-debug=\fP\fIlevel\fP option to turn on debugging
 messages.  This gives a great deal more information.  Valid debug levels are
-\[lq]none\[rq], and \[lq]notice\[rq], \[lq]info\[rq], \[lq]warning\[rq] and
-\[lq]critical\[rq] in order of increasing severity.  The lower the severity
+\[oq]none\[cq], and \[oq]notice\[cq], \[oq]info\[cq], \[oq]warning\[cq] and
+\[oq]critical\[cq] in order of increasing severity.  The lower the severity
 level, the more output.
 .PP
 If you are still having trouble, the developers may be contacted on the mailing
 list:
 .br
-Debian buildd-tools Developers <buildd-tools-devel@lists.alioth.debian.org>
+\f[CR]Debian\ buildd-tools\ Developers
+.br
+<buildd-tools-devel@lists.alioth.debian.org>\fP
 .SH BUGS
 None known at this time.
 .SH FILES
 .TP
-.I @DCHROOT_CONF@
+\f[BI]@DCHROOT_CONF@\fP
 The system-wide \fBdchroot\-dsa\fP chroot definition file.  This file must be
 owned by the root user, and not be writable by other.  If present, this file
-will be used in preference to @SCHROOT_CONF@.
+will be used in preference to \fI@SCHROOT_CONF@\fP.
 .TP
-.I @SCHROOT_CONF@
+\f[BI]@SCHROOT_CONF@\fP
 The system-wide \fBschroot\fP definition file.  This file must be owned by the
 root user, and not be writable by other.  It is recommended that this file be
 used in preference to \fI@DCHROOT_CONF@\fP, because the chroots can be used
-interchangeably with \fBschroot\fP, and the group security policies provided by
-\fBschroot\fP are also enforced.
+interchangeably with schroot, and the user and group security policies provided
+by schroot are also enforced.
 .SH AUTHORS
 Roger Leigh.
 .PP
-This implementation of \fBdchroot\-dsa\fP uses the same command-line options as
+This implementation of dchroot\-dsa uses the same command-line options as
 the \fBdchroot\fP found on machines run by the Debian System Administrators for
 the Debian Project.  These machines have a \fBdchroot-dsa\fP source package
 which provides a \fBdchroot\-dsa\fP package, written by Ben Collins
-<bcollins@debian.org> and Martin Schulze <joey@debian.org>.
+\f[CR]<bcollins@debian.org>\fP and Martin Schulze \f[CR]<joey@debian.org>\fP.
 .SH COPYRIGHT
-Copyright \(co 2005-2006  Roger Leigh <rleigh@debian.org>
+Copyright \(co 2005\-2006  Roger Leigh \f[CR]<rleigh@debian.org>\fP
 .PP
 This program is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free

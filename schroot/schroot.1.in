@@ -44,88 +44,87 @@ specified chroot(s), the user will be required to authenticate themselves
 (typically with a password, but this depends upon the PAM configuration).  All
 chroot usage will be logged in the system logs.
 .PP
-If no chroot is specified, the chroot name or alias \fBdefault\fP will be used
-as a fallback.  This is equivalent to \[lq]\-\-chroot=default\[rq].
+If no chroot is specified, the chroot name or alias \[oq]default\[cq] will be
+used as a fallback.  This is equivalent to \[lq]\-\-chroot=default\[rq].
 .SH OPTIONS
 \fBschroot\fP accepts the following options:
 .SS Basic options
 .TP
-.B \-h, \-\-help
+.BR \-h ", " \-\-help
 Show help summary.
 .TP
-.B \-a, \-\-all
+.BR \-a ", " \-\-all
 Select all chroots and active sessions.  When a command has been specified, the
-command will be run in all chroots and active sessions.  If \fB\-\-info\fP has
+command will be run in all chroots and active sessions.  If \fI\-\-info\fP has
 been used, display information about all chroots.  This option does not make
 sense to use with a login shell (when no command has been specified).  This
-option is equivalent to \fB\-\-all\-chroots\fP \fB\-\-all\-sessions\fP.
+option is equivalent to \[lq]\-\-all\-chroots \-\-all\-sessions\[rq].
 .TP
-.B \-\-all\-chroots
-Select all chroots.  Identical to \fB\-\-all\fP, but active sessions are not
-considered.
+.BR \-\-all\-chroots
+Select all chroots.  Identical to \fI\-\-all\fP, except that active sessions
+are not considered.
 .TP
-.B \-\-all\-sessions
-Select all active sessions.  Identical to \fB\-\-all\fP, but chroots are not
-considered.
+.BR \-\-all\-sessions
+Select all active sessions.  Identical to \fI\-\-all\fP, except that chroots
+are not considered.
 .TP
-.B \-c, \-\-chroot=\fIchroot\fP
+.BR \-c ", " \-\-chroot=\fIchroot\fP
 Specify a chroot or active session to use.  This option may be used multiple
 times to specify more than one chroot, in which case its effect is similar to
-\fB\-\-all\fP.
+\fI\-\-all\fP.
 .TP
-.B \-u, \-\-user=\fIuser\fP
+.BR \-u ", " \-\-user=\fIuser\fP
 Run as a different user.  The default is to run as the current user.  If
 required, the user may be required to authenticate themselves with a password.
 .TP
-.B \-l, \-\-list
+.BR \-l ", " \-\-list
 List all available chroots.
 .TP
-.B \-i, \-\-info
+.BR \-i ", " \-\-info
 Print detailed information about the specified chroots.
 .TP
-.B \-\-location
+.BR \-\-location
 Print location (path) of the specified chroots.  Note that chroot types which
 can only be used within a session will not have a location until they are
 active.
 .TP
-.B \-\-config
+.BR \-\-config
 Print configuration of the specified chroots.  This is useful for testing that
 the configuration in use is the same as the configuration file.  Any comments
 in the original file will be missing.
 .TP
-.B \-p, \-\-preserve\-environment
+.BR \-p ", " \-\-preserve\-environment
 Preserve the user's environment inside the chroot environment.  The default is
 to use a clean environment; this option copies the entire user environment and
 sets it in the session.  The environment variables allowed are subject to
 certain restrictions; see the section \[lq]\fIEnvironment\fP\[rq], below.
 .TP
-.B \-q, \-\-quiet
+.BR \-q ", " \-\-quiet
 Print only essential messages.
 .TP
-.B \-v, \-\-verbose
+.BR \-v ", " \-\-verbose
 Print all messages.
 .TP
-.B \-V, \-\-version
+.BR \-V ", " \-\-version
 Print version information.
 .SS Session options
 .TP
-.B \-b, \-\-begin\-session
+.BR \-b ", " \-\-begin\-session
 Begin a session.  A unique session identifier (session ID) is returned on
 standard output.  The session ID is required to use the other session options.
 .TP
-.B \-\-recover\-session
+.BR \-\-recover\-session
 Recover an existing session.  If an existing session has become unavailable,
 for example becoming unmounted due to a reboot, this option will make the
 session available for use again, for example by remounting it.
-.B \-r, \-\-run\-session
-Run an existing session.  The session ID is specified with the
-+\fB\-\-chroot\fP option.
 .TP
-.B \-e, \-\-end\-session
-End an existing session.  The session ID is specified with the
-+\fB\-\-chroot\fP option.
+.BR \-r ", " \-\-run\-session
+Run an existing session.  The session ID is specified with the \fI\-\-chroot\fP option.
 .TP
-.B \-f, \-\-force
+.BR \-e ", " \-\-end\-session
+End an existing session.  The session ID is specified with the \fI\-\-chroot\fP option.
+.TP
+.BR \-f ", " \-\-force
 Force a session operation, even if it would otherwise fail.  This may be used
 to forcibly end a session, even if it has active users.  This does not
 guarantee that the session will be ended cleanly; filesystems may not be
@@ -161,7 +160,8 @@ unmounted, for example.
 .br
 \f[CR]Aliases: unstable default\fP
 .LP
-Use \-\-all or \-c multiple times to use all or multiple chroots, respectively.
+Use \fI\-\-all\fP or \fI\-c\fP multiple times to use all or multiple chroots,
+respectively.
 .PP
 \f[CR]$ \f[CB]schroot \-c sid /bin/ls\fP\fP
 .br
@@ -191,7 +191,7 @@ Use \-\-all or \-c multiple times to use all or multiple chroots, respectively.
 .br
 \f[CR]INSTALL\fP
 .LP
-Use \fB\-\-\fP to allow options beginning with \[oq]\-\[cq] or \[oq]\-\-\[cq]
+Use \fI\-\-\fP to allow options beginning with \[oq]\-\[cq] or \[oq]\-\-\[cq]
 in the command to run in the chroot.  This prevents them being interpreted as
 options for schroot itself.  Note that the top line was echoed to standard
 error, and the remaining lines to standard output.  This is intentional, so
@@ -207,22 +207,24 @@ the host system.
 .br
 \f[CR]# \fP
 .LP
-If the user \[lq]rleigh\[rq] was in \fIroot\-users\fP in \fIschroot.conf\fP, or
-one of the groups he belonged to was in \fIroot\-groups\fP, they would be
-granted root access without authentication, but the PAM authorisation step is
-still applied.
+If the user \[oq]rleigh\[cq] was in \f[CI]root\-users\fP in
+\fI@SCHROOT_CONF@\fP, or one of the groups he belonged to was in
+\f[CI]root\-groups\fP, they would be granted root access without
+authentication, but the PAM authorisation step is still applied.
 .SH TROUBLESHOOTING
 If something is not working, and it's not clear from the error messages what is
 wrong, try using the \fB\-\-debug=\fP\fIlevel\fP option to turn on debugging
 messages.  This gives a great deal more information.  Valid debug levels are
-\[lq]none\[rq], and \[lq]notice\[rq], \[lq]info\[rq], \[lq]warning\[rq] and
-\[lq]critical\[rq] in order of increasing severity.  The lower the severity
+\[oq]none\[cq], and \[oq]notice\[cq], \[oq]info\[cq], \[oq]warning\[cq] and
+\[oq]critical\[cq] in order of increasing severity.  The lower the severity
 level, the more output.
 .PP
 If you are still having trouble, the developers may be contacted on the mailing
 list:
 .br
-Debian buildd-tools Developers <buildd-tools-devel@lists.alioth.debian.org>
+\f[CR]Debian\ buildd-tools\ Developers
+.br
+<buildd-tools-devel@lists.alioth.debian.org>\fP
 .SH BUGS
 None known at this time.
 .SH ENVIRONMENT
@@ -236,22 +238,22 @@ KRBTKFILE, KRB_CONF, LD_.*, LOCALDOMAIN, NLSPATH, PATH_LOCALE, RES_OPTIONS,
 TERMINFO, TERMINFO_DIRS, and TERMPATH.
 .SH FILES
 .TP
-.I @SCHROOT_CONF@
+\f[BI]@SCHROOT_CONF@\fP
 The system-wide chroot definition file.  This file must be owned by the root
 user, and not be writable by other.
 .TP
-.I @SCHROOT_CONF_SETUP_D@
+\f[BI]@SCHROOT_CONF_SETUP_D@\fP
 .TP
-.I @SCHROOT_CONF_EXEC_D@
+\f[BI]@SCHROOT_CONF_EXEC_D@\fP
 The system-wide chroot setup and execution directories.  See
 .BR schroot-setup (5).
 .TP
-.I /etc/pam.d/schroot
+\f[BI]/etc/pam.d/schroot\fP
 PAM configuration.
 .SH AUTHORS
 Roger Leigh.
 .SH COPYRIGHT
-Copyright \(co 2005-2006  Roger Leigh <rleigh@debian.org>
+Copyright \(co 2005\-2006  Roger Leigh \f[CR]<rleigh@debian.org>\fP
 .PP
 This program is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free

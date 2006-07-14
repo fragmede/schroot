@@ -1,3 +1,11 @@
+2006-07-14  Roger Leigh  <rleigh@debian.org>
+
+	* Update all documentation to use the style guidelines.
+
+	* Makefile.am: Distribute HACKING.
+
+	* HACKING: New file.  Document manual page style guidelines.
+
 2006-07-13  Roger Leigh  <rleigh@debian.org>
 
 	* Update sources to use new header.
