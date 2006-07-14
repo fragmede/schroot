@@ -1,5 +1,9 @@
 2006-07-14  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Add remaining items for 1.0.
+
+2006-07-14  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-null.h: Remove completed TODO item.
 
 2006-07-14  Roger Leigh  <rleigh@debian.org>

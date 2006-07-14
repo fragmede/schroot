@@ -9,6 +9,26 @@ the Doxygen-generated documentation in doc/schroot/html/todo.html
 PENDING
 -------
 
+* personality should include stream operators for serialisation.
+
+* Add error_base exception type
+
+  - include information additional to what(), for passing additional
+    explanatory text.
+
+* Add a function to display an exception
+
+  - include what() plus explanatory text (if present).
+
+* Remove all non error-map format strings.
+
+  - convert to error<> derived messages wherever possible.  This is
+    quite easy now error has good format string support.
+
+* Add more informative debugging messages
+
+  - in the critical parts of the session code.
+
 
 PLANNED
 -------
