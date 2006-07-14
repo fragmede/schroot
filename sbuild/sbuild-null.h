@@ -35,8 +35,7 @@ namespace sbuild
     {
     public:
       /**
-       * null output to an ostream.
-       * @todo Output placeholder text.
+       * Null output to an ostream.
        */
       template <class charT, class traits>
       friend
