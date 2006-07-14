@@ -61,8 +61,8 @@ main::action_version (std::ostream& stream)
   fmt % this->program_name % VERSION % sbuild::gmdate(RELEASE_DATE);
 
   stream << fmt
-	 << _("Written by Roger Leigh\n\n")
-	 << _("Copyright (C) 2004-2006 Roger Leigh\n")
+	 << _("Written by Roger Leigh") << '\n' << '\n'
+	 << _("Copyright (C) 2004-2006 Roger Leigh") << '\n'
 	 << _("This is free software; see the source for copying conditions.  There is NO\n"
 	      "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
 	 << std::flush;

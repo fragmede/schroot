@@ -39,14 +39,14 @@ namespace
    */
   emap init_errors[] =
     {
-      emap(keyfile::BAD_FILE,          N_("Can't open file \"%4%\"")),
-      emap(keyfile::DISALLOWED_KEY,    N_("line %1% [%2%]: Disallowed key \"%4%\" used")),
-      emap(keyfile::DISALLOWED_KEY_NL, N_("[%2%]: Disallowed key \"%4%\" used")),
-      emap(keyfile::DUPLICATE_GROUP,   N_("line %1%: Duplicate group \"%4%\"")),
-      emap(keyfile::DUPLICATE_KEY,     N_("line %1% [%2%]: Duplicate key \"%4%\"")),
+      emap(keyfile::BAD_FILE,          N_("Can't open file '%4%'")),
+      emap(keyfile::DISALLOWED_KEY,    N_("line %1% [%2%]: Disallowed key '%4%' used")),
+      emap(keyfile::DISALLOWED_KEY_NL, N_("[%2%]: Disallowed key '%4%' used")),
+      emap(keyfile::DUPLICATE_GROUP,   N_("line %1%: Duplicate group '%4%'")),
+      emap(keyfile::DUPLICATE_KEY,     N_("line %1% [%2%]: Duplicate key '%4%'")),
       emap(keyfile::INVALID_GROUP,     N_("line %1%: Invalid group: \"%4%\"")),
       emap(keyfile::INVALID_LINE,      N_("line %1%: Invalid line: \"%4%\"")),
-      emap(keyfile::MISSING_KEY,       N_("[%1%]: Required key \"%4%\" is missing")),
+      emap(keyfile::MISSING_KEY,       N_("[%1%]: Required key '%4%' is missing")),
       emap(keyfile::NO_GROUP,          N_("line %1%: No group specified: \"%4%\"")),
       emap(keyfile::NO_KEY,            N_("line %1%: No key specified: \"%4%\"")),
       emap(keyfile::PASSTHROUGH_GK,    N_("[%1%] %2%: %4%")),
@@ -425,7 +425,7 @@ keyfile::check_priority (std::string const& group,
 	{
 	case PRIORITY_DEPRECATED:
 	  log_warning()
-	    << format(_("%1% chroot: A deprecated parameter \"%2%\" has been specified."))
+	    << format(_("%1% chroot: A deprecated parameter '%2%' has been specified."))
 	    % group % key
 	    << std::endl;
 	  log_info()
@@ -433,7 +433,7 @@ keyfile::check_priority (std::string const& group,
 	  break;
 	case PRIORITY_OBSOLETE:
 	  log_warning()
-	    << format(_("%1% chroot: An obsolete parameter \"%2%\" has been specified."))
+	    << format(_("%1% chroot: An obsolete parameter '%2%' has been specified."))
 	    % group % key
 	    << std::endl;
 	  log_info()

@@ -30,3 +30,22 @@ The following styles are used:
   Cross references       Italics in double quotes  \[lq]\fI...\fP\[rq]
   Verbatim examples      Courier                   \f[CR]
   Verbatim user input    Courier bold              \f[CB]
+
+
+Format strings
+--------------
+
+The sources use boost::format for type-safe formatted output.  Make
+sure that the maximum number of options passed is the same as the
+highest %n% in the format string.
+
+The following styles are used
+
+  Style                  Formatting                Syntax
+  --------------------------------------------------------------------
+  Values                 Single quotes             '
+  Example text           Double quotes             \"
+  User input             Double quotes             \"
+
+These are transformed into proper UTF-8 quotes with gettext.
+

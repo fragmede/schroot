@@ -11,12 +11,6 @@ PENDING
 
 * Update documentation schroot.conf examples.
 
-* Review quoting style.
-
-  Use of single and double quotes in strings is inconsistent.  Needs
-  the boost::format markup changes fixing first.  What are other
-  projects doing?
-
 
 PLANNED
 -------

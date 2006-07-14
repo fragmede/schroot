@@ -64,7 +64,7 @@ main::list_mounts (std::string const& mountfile) const
   std::FILE *mntdb = std::fopen(mountfile.c_str(), "r");
   if (mntdb == 0)
     {
-      format fmt(_("%1%: Failed to open: %2%"));
+      format fmt(_("Failed to open '%1%': %2%"));
       fmt % mountfile % std::strerror(errno);
       throw std::runtime_error(fmt.str());
     }
@@ -87,7 +87,7 @@ main::list_mounts (std::string const& mountfile) const
 
   if (std::fclose(mntdb) == EOF)
     {
-      format fmt(_("%1%: Failed to close: %2%"));
+      format fmt(_("Failed to close '%1%': %2%"));
       fmt % mountfile % std::strerror(errno);
       throw std::runtime_error(fmt.str());
     }

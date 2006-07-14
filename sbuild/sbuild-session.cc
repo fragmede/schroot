@@ -58,33 +58,33 @@ namespace
    */
   emap init_errors[] =
     {
-      emap(session::CHDIR,          N_("Failed to change to directory \"%1%\"")),
-      emap(session::CHDIR_FB,       N_("Falling back to directory \"%4%\"")),
+      emap(session::CHDIR,          N_("Failed to change to directory '%1%'")),
+      emap(session::CHDIR_FB,       N_("Falling back to directory '%4%'")),
       emap(session::CHILD_CORE,     N_("Child dumped core")),
       emap(session::CHILD_FAIL,     N_("Child exited abnormally (reason unknown; not a signal or core dump)")),
       emap(session::CHILD_FORK,     N_("Failed to fork child")),
-      emap(session::CHILD_SIGNAL,   N_("Child terminated by signal \"%4%\"")),
+      emap(session::CHILD_SIGNAL,   N_("Child terminated by signal '%4%'")),
       emap(session::CHILD_WAIT,     N_("Wait for child failed")),
-      emap(session::CHROOT,         N_("Failed to change root to directory \"%1%\"")),
-      emap(session::CHROOT_ALIAS,   N_("No chroot found matching name or alias \"%1%\"")),
+      emap(session::CHROOT,         N_("Failed to change root to directory '%1%'")),
+      emap(session::CHROOT_ALIAS,   N_("No chroot found matching name or alias '%1%'")),
       emap(session::CHROOT_LOCK,    N_("Failed to lock chroot")),
       emap(session::CHROOT_SETUP,   N_("Chroot setup failed")),
-      emap(session::CHROOT_UNKNOWN, N_("Failed to find chroot \"%1%\"")),
+      emap(session::CHROOT_UNKNOWN, N_("Failed to find chroot '%1%'")),
       emap(session::CHROOT_UNLOCK,  N_("Failed to unlock chroot")),
       emap(session::COMMAND_ABS,    N_("Command \"%1%\" must have an absolute path")),
       emap(session::EXEC,           N_("Failed to execute \"%1%\"")),
       emap(session::GROUP_GET_SUP,  N_("Failed to get supplementary groups")),
       emap(session::GROUP_GET_SUPC, N_("Failed to get supplementary group count")),
-      emap(session::GROUP_SET,      N_("Failed to set group \"%1%\"")),
+      emap(session::GROUP_SET,      N_("Failed to set group '%1%'")),
       emap(session::GROUP_SET_SUP,  N_("Failed to set supplementary groups")),
-      emap(session::GROUP_UNKNOWN,  N_("Group \"%1%\" not found")),
+      emap(session::GROUP_UNKNOWN,  N_("Group '%1%' not found")),
       emap(session::PAM,            N_("PAM error")),
       emap(session::ROOT_DROP,      N_("Failed to drop root permissions")),
-      emap(session::SHELL,          N_("Shell \"%1%\" not available")),
-      emap(session::SHELL_FB,       N_("Falling back to shell \"%4%\"")),
+      emap(session::SHELL,          N_("Shell '%1%' not available")),
+      emap(session::SHELL_FB,       N_("Falling back to shell '%4%'")),
       emap(session::SIGHUP_CATCH,   N_("Caught hangup signal")),
       emap(session::SIGHUP_SET,     N_("Failed to set hangup signal handler")),
-      emap(session::USER_SET,       N_("Failed to set user \"%1%\"")),
+      emap(session::USER_SET,       N_("Failed to set user '%1%'")),
       emap(session::USER_SWITCH,    N_("User switching is not permitted")),
     };
 
@@ -626,7 +626,7 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
       log_debug(DEBUG_NOTICE)
 	<< format("Running login shell: %1%") % shell << endl;
       syslog(LOG_USER|LOG_NOTICE,
-	     "[%s chroot] (%s->%s) Running login shell: \"%s\"",
+	     "[%s chroot] (%s->%s) Running login shell: '%s'",
 	     session_chroot->get_name().c_str(),
 	     get_ruser().c_str(), get_user().c_str(),
 	     shell.c_str());
@@ -637,7 +637,7 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
       log_debug(DEBUG_NOTICE)
 	<< format("Running shell: %1%") % shell << endl;
       syslog(LOG_USER|LOG_NOTICE,
-	     "[%s chroot] (%s->%s) Running shell: \"%s\"",
+	     "[%s chroot] (%s->%s) Running shell: '%s'",
 	     session_chroot->get_name().c_str(),
 	     get_ruser().c_str(), get_user().c_str(),
 	     shell.c_str());
@@ -650,17 +650,17 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
 	{
 	  if (get_environment().empty() &&
 	      session_chroot->get_command_prefix().empty())
-	    format_string = _("[%1% chroot] Running login shell: \"%4%\"");
+	    format_string = _("[%1% chroot] Running login shell: '%4%'");
 	  else
-	    format_string = _("[%1% chroot] Running shell: \"%4%\"");
+	    format_string = _("[%1% chroot] Running shell: '%4%'");
 	}
       else
 	{
 	  if (get_environment().empty() &&
 	      session_chroot->get_command_prefix().empty())
-	    format_string = _("[%1% chroot] (%2%->%3%) Running login shell: \"%4%\"");
+	    format_string = _("[%1% chroot] (%2%->%3%) Running login shell: '%4%'");
 	  else
-	    format_string = _("[%1% chroot] (%2%->%3%) Running shell: \"%4%\"");
+	    format_string = _("[%1% chroot] (%2%->%3%) Running shell: '%4%'");
 	}
 
       format fmt(format_string);
@@ -801,7 +801,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 	verbosity = "verbose";
 	break;
       default:
-	log_debug(DEBUG_CRITICAL) << format("Invalid verbosity level: %1%, falling back to \"normal\"")
+	log_debug(DEBUG_CRITICAL) << format("Invalid verbosity level: %1%, falling back to 'normal'")
 	  % static_cast<int>(get_verbosity())
 		     << endl;
 	verbosity = "normal";

@@ -51,7 +51,7 @@ namespace
   emap init_errors[] =
     {
       emap(auth::HOSTNAME,        N_("Failed to get hostname")),
-      emap(auth::USER,            N_("User \"%1%\" not found")),
+      emap(auth::USER,            N_("User '%1%' not found")),
       emap(auth::AUTHENTICATION,  N_("Authentication failed")),
       emap(auth::AUTHORISATION,   N_("Access not authorised")),
       emap(auth::PAM_DOUBLE_INIT, N_("PAM is already initialised")),

@@ -65,7 +65,7 @@ main::action_releaselock ()
   if (stat(this->options->device.c_str(), &statbuf) == -1)
     {
       sbuild::log_error()
-	<< format(_("Failed to stat device %1%: %2%"))
+	<< format(_("Failed to stat device '%1%': %2%"))
 	% this->options->device % strerror(errno)
 	<< endl;
       exit (EXIT_FAILURE);
@@ -73,7 +73,7 @@ main::action_releaselock ()
   if (!S_ISBLK(statbuf.st_mode))
     {
       sbuild::log_error()
-	<< format(_("%1% is not a block device")) % this->options->device
+	<< format(_("'%1%' is not a block device")) % this->options->device
 	<< endl;
       exit (EXIT_FAILURE);
     }

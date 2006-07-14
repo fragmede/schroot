@@ -34,7 +34,7 @@ namespace
    */
   emap init_errors[] =
     {
-      emap(BAD_VALUE, N_("Could not parse value \"%1%\""))
+      emap(BAD_VALUE, N_("Could not parse value '%1%'"))
     };
 
 }

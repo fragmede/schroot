@@ -50,7 +50,7 @@ or omitted, the default type is \[oq]plain\[cq].
 A short description of the chroot.  This may be localised for different
 languages; see the section \[lq]\fILocalisation\fP\[rq] below.
 .TP
-\f[CBI] priority=\fP\f[CI]number\fP
+\f[CBI]priority=\fP\f[CI]number\fP
 Set the priority of a chroot.  \f[CI]number\fP is a positive integer indicating
 whether a distribution is older than another.  For example, \[lq]oldstable\[rq]
 and \[lq]oldstable-security\[rq] might be \[oq]0\[cq], while \[lq]stable\[rq]
@@ -59,35 +59,35 @@ and \[lq]unstable\[rq] is \[oq]3\[cq].  The values are not important, but the
 difference between them is.  This is used by sbuild when using the schroot
 chroot mode.
 .TP
-\f[CBI] users=\fP\f[CI]user1,user2,...\fP
+\f[CBI]users=\fP\f[CI]user1,user2,...\fP
 A comma-separated list of users which are allowed access to the chroot.  If
 empty or omitted, no users will be allowed access (unless a group they belong
 to is also specified in \f[CI]groups\fP).
 .TP
-\f[CBI] groups=\fP\f[CI]group1,group2,...\fP
+\f[CBI]groups=\fP\f[CI]group1,group2,...\fP
 A comma-separated list of groups which are allowed access to the chroot.  If
 empty or omitted, no groups of users will be allowed access.
 .TP
-\f[CBI] root\-users=\fP\f[CI]user1,user2,...\fP
+\f[CBI]root\-users=\fP\f[CI]user1,user2,...\fP
 A comma-separated list of users which are allowed \fBpassword-less\fP root
 access to the chroot.  If empty or omitted, no users will be allowed root
 access without a password (but if a user or a group they belong to is in
 \f[CI]users\fP or \f[CI]groups\fP, respectively, they may gain access with a
 password).
 .TP
-\f[CBI] root\-groups=\fP\f[CI]group1,group2,...\fP
+\f[CBI]root\-groups=\fP\f[CI]group1,group2,...\fP
 A comma-separated list of groups which are allowed \fBpassword-less\fP root
 access to the chroot.  If empty or omitted, no users will be allowed root
 access without a password (but if a user or a group they belong to is in
 \f[CI]users\fP or \f[CI]groups\fP, respectively, they may gain access with a
 password).
 .TP
-\f[CBI] aliases=\fP\f[CI]alias1,alias2,...\fP
+\f[CBI]aliases=\fP\f[CI]alias1,alias2,...\fP
 A comma-separated list of aliases (alternate names) for this chroot.  For
 example, a chroot named \[lq]sid\[rq] might have an \[oq]unstable\[cq] alias
 for convenience.
 .TP
-\f[CBI] run\-setup\-scripts=\fP\f[CI]true\fP|\f[CI]false\fP
+\f[CBI]run\-setup\-scripts=\fP\f[CI]true\fP|\f[CI]false\fP
 Set whether chroot setup scripts will be run.  The default is not to run setup
 scripts (\[oq]false\[cq]), for safety reasons (so it won't clobber your passwd
 and other critical files).  The default for session-managed chroots
@@ -99,16 +99,16 @@ the chroot environment.  If enabled for a \[oq]plain\[cq] or
 (not true session management, because it does not make a copy of the chroot).
 If your chroots are exclusively controlled by schroot, set to \[oq]true\[cq].
 .TP
-\f[CBI] run\-exec\-scripts=\fP\f[CI]true\fP|\f[CI]false\fP
+\f[CBI]run\-exec\-scripts=\fP\f[CI]true\fP|\f[CI]false\fP
 Set whether chroot execution scripts will be run.  The default is the same as
 the default for the \f[CI]run-setup-scripts\fP key.  This option was called
 \f[CI]run\-session\-scripts\fP in versions prior to 0.2.5.
 .TP
-\f[CBI] command\-prefix=\fP\f[CI]command,option1,option2,...\fP
+\f[CBI]command\-prefix=\fP\f[CI]command,option1,option2,...\fP
 A comma-separated list of a command and the options for the command.  This
 command and its options will be prefixed to all commands run inside the chroot.
 .TP
-\f[CBI] personality=\fP\f[CI]persona\fP
+\f[CBI]personality=\fP\f[CI]persona\fP
 Set the personality (process execution domain) to use.  This option is useful
 when using a 32-bit chroot on 64-bit system, for example.  Valid options on
 Linux are \[oq]bsd\[cq], \[oq]hpux\[cq], \[oq]irix32\[cq], \[oq]irix64\[cq],
@@ -130,7 +130,7 @@ that if \f[CI]run-setup-scripts\fP is set to \[oq]true\[cq] for \[oq]plain\[cq]
 chroots, filesystem mounting is disabled.  They have an additional (mandatory)
 configuration option:
 .TP
-\f[CBI] location=\fP\f[CI]directory\fP
+\f[CBI]location=\fP\f[CI]directory\fP
 The directory containing the chroot environment.  This is where the root will
 be changed to when executing a login shell or a command.  The directory must
 exist and have read and execute permissions to allow users access to it.
@@ -142,7 +142,7 @@ an archive of the chroot files.  They implement the \fBsource chroot\fP options
 (see \[lq]\fISource chroot options\fP\[rq], below) and have an additional
 (mandatory) configuration option:
 .TP
-\f[CBI] file=\fP\f[CI]filename\fP
+\f[CBI]file=\fP\f[CI]filename\fP
 The file containing the archived chroot environment.  This must be a tar (tape
 archive), optionally compressed with gzip or bzip2, or a zip archive.  The file
 extensions used to determine the type are are \fI.tar\fP, \fI.tar.gz\fP,
@@ -155,15 +155,15 @@ Chroots of type \[oq]block\-device\[cq] are a filesystem available on an
 unmounted block device.  The device will be mounted and unmounted on demand.
 They have additional options:
 .TP
-\f[CBI] device=\fP\f[CI]device\fP
+\f[CBI]device=\fP\f[CI]device\fP
 This is the device name of the block device, including the absolute path.  For
 example, \[lq]/dev/sda5\[rq].
 .TP
-\f[CBI] mount-options=\fP\f[CI]mount_options\fP
+\f[CBI]mount-options=\fP\f[CI]mount_options\fP
 Mount options for the block device.  These are additional options to pass to
 mount(8).  For example, \[lq]\-o atime,sync,user_xattr\[rq].
 .TP
-\f[CBI] location=\fP\f[CI]path\fP
+\f[CBI]location=\fP\f[CI]path\fP
 This is the path to the chroot \fIinside\fP the filesystem on the device.  For
 example, if the filesystem contains a chroot in \fI/chroot/sid\fP, you would
 specify \[lq]/chroot/sid\[rq] here.  If the chroot is the only thing on the
@@ -184,7 +184,7 @@ They implement the \fBsource chroot\fP options (see \[lq]\fISource chroot
 options\fP\[rq], below), and all the options for \[oq]block\-device\[cq], plus
 an additional option:
 .TP
-\f[CBI] lvm-snapshot-options=\fP\f[CI]snapshot_options\fP
+\f[CBI]lvm-snapshot-options=\fP\f[CI]snapshot_options\fP
 Snapshot options.  These are additional options to pass to lvcreate(8).  For
 example, \[lq]\-L 2g\[rq] to create a snapshot 2 GiB in size.
 .B Note:
@@ -198,24 +198,24 @@ chroots also provide an additional chroot with a \fI\-source\fP suffix added to
 their name, to allow access to the original data, and to aid in chroot
 maintenance.  These chroots provide the following additional options:
 .TP
-\f[CBI] source\-users=\fP\f[CI]user1,user2,...\fP
+\f[CBI]source\-users=\fP\f[CI]user1,user2,...\fP
 A comma-separated list of users which are allowed access to the source chroot.
 If empty or omitted, no users will be allowed access.  This will become the
 \f[CI]users\fP option in the source chroot.
 .TP
-\f[CBI] source\-groups=\fP\f[CI]group1,group2,...\fP
+\f[CBI]source\-groups=\fP\f[CI]group1,group2,...\fP
 A comma-separated list of groups which are allowed access to the source chroot.
 If empty or omitted, no users will be allowed access.  This will become the
 \f[CI]groups\fP option in the source chroot.
 .TP
-\f[CBI] source\-root\-users=\fP\f[CI]user1,user2,...\fP
+\f[CBI]source\-root\-users=\fP\f[CI]user1,user2,...\fP
  A comma-separated list of users which are allowed \fBpassword-less\fP root
 access to the source chroot.  If empty or omitted, no users will be allowed
 root access without a password (but if a user is in \f[CI]users\fP, they may
 gain access with a password).  This will become the \f[CI]root\-users\fP option
 in the source chroot.
 .TP
-\f[CBI] source\-root\-groups=\fP\f[CI]group1,group2,...\fP
+\f[CBI]source\-root\-groups=\fP\f[CI]group1,group2,...\fP
  A comma-separated list of groups which are allowed \fBpassword-less\fP root
 access to the source chroot.  If empty or omitted, no users will be allowed
 root access without a password (but if a user's group is in \f[CI]groups\fP,

@@ -152,7 +152,7 @@ main_base::run_impl ()
       if (this->options->load_chroots == true &&
 	  this->options->load_sessions == true)
 	sbuild::log_warning()
-	  << format(_("No chroots are defined in %1% or %2%"))
+	  << format(_("No chroots are defined in '%1%' or '%2%'"))
 	  % SCHROOT_CONF % SCHROOT_SESSION_DIR
 	  << endl;
       else
@@ -160,7 +160,7 @@ main_base::run_impl ()
 	  const char *cfile = (this->options->load_sessions)
 	    ? SCHROOT_CONF : SCHROOT_SESSION_DIR;
 	  sbuild::log_warning()
-	    << format(_("No chroots are defined in %1%")) % cfile
+	    << format(_("No chroots are defined in '%1%'")) % cfile
 	    << endl;
 	}
     }
@@ -177,7 +177,7 @@ main_base::run_impl ()
   if (this->chroots.empty())
     {
       sbuild::log_error()
-	<< format(_("The specified chroots are not defined in %1%"))
+	<< format(_("The specified chroots are not defined in '%1%'"))
 	% SCHROOT_CONF
 	<< endl;
       exit (EXIT_FAILURE);

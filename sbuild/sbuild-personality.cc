@@ -45,7 +45,7 @@ namespace
    */
   emap init_errors[] =
     {
-      emap(sbuild::personality::SET, N_("Failed to set personality \"%1%\""))
+      emap(sbuild::personality::SET, N_("Failed to set personality '%1%'"))
     };
 
   typedef std::pair<std::string,sbuild::personality::type> pmap;

@@ -67,7 +67,7 @@ main_base::action_config ()
 		<< "# "
 		<< _("To allow users access to the chroots, use the users or groups keys.") << endl;
       std::cout << "# "
-		<< _("To allow passwordless root access, use the root-users or root-groups keys.") << endl;
+		<< _("To allow password-less root access, use the root-users or root-groups keys.") << endl;
       std::cout << "# "
 		<< format(_("Remove '%1%' to use the new configuration."))
 	% DCHROOT_CONF
@@ -93,7 +93,7 @@ main_base::compat_check ()
 	% this->program_name
 	<< endl;
       sbuild::log_info()
-	<< _("Run 'schroot' for full capabilities")
+	<< _("Run \"schroot\" for full capabilities")
 	<< endl;
     }
 }
@@ -110,19 +110,18 @@ main_base::check_dchroot_conf ()
       if (this->options->verbose)
 	{
 	  sbuild::log_warning()
-	    << format(_("Using %1% configuration file: "))
-	    % this->program_name
-	    << DCHROOT_CONF
+	    << format(_("Using %1% configuration file: '%2%'"))
+	    % this->program_name % DCHROOT_CONF
 	    << endl;
 	  sbuild::log_info()
-	    << format(_("Run '%1%'"))
+	    << format(_("Run \"%1%\""))
 	    % "dchroot --config >> " SCHROOT_CONF
 	    << endl;
 	  sbuild::log_info()
 	    << _("to migrate to a schroot configuration.")
 	    << endl;
 	  sbuild::log_info()
-	    << format(_("Edit '%1%' to add appropriate group access."))
+	    << format(_("Edit '%1%' to add appropriate user and/or group access."))
 	    % SCHROOT_CONF
 	    << endl;
 	  sbuild::log_info()

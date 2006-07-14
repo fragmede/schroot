@@ -57,7 +57,7 @@ namespace
     {
       emap(sbuild::chroot::CHROOT_CREATE,   N_("Chroot creation failed")),
       emap(sbuild::chroot::CHROOT_DEVICE,   N_("Device name not set")),
-      emap(sbuild::chroot::CHROOT_TYPE,     N_("Unknown chroot type \"%1%\"")),
+      emap(sbuild::chroot::CHROOT_TYPE,     N_("Unknown chroot type '%1%'")),
       emap(sbuild::chroot::DEVICE_ABS,      N_("Device must have an absolute path")),
       emap(sbuild::chroot::DEVICE_LOCK,     N_("Failed to lock device")),
       emap(sbuild::chroot::DEVICE_NOTBLOCK, N_("File is not a block device")),
@@ -368,7 +368,7 @@ sbuild::chroot::set_persona (std::string const& persona)
 
       // TODO: include line numbers by throwing an exception.
       log_warning()
-	<< format(_("%1% chroot: personality \"%2%\" is unknown.\n"))
+	<< format(_("%1% chroot: personality '%2%' is unknown.\n"))
 	% get_name() % persona;
       log_info()
 	<< format(_("Valid personalities: %1%\n")) % plist.str();

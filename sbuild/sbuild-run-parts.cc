@@ -47,7 +47,7 @@ namespace
     {
       emap(run_parts::CHILD_FORK, N_("Failed to fork child")),
       emap(run_parts::CHILD_WAIT, N_("Wait for child failed")),
-      emap(run_parts::EXEC,       N_("Failed to execute \"%1%\""))
+      emap(run_parts::EXEC,       N_("Failed to execute '%1%'"))
     };
 
 }
@@ -172,7 +172,7 @@ run_parts::run_child (std::string const& file,
   else if (pid == 0)
     {
       if (this->verbose)
-	log_info() << format(_("Executing %1%"))
+	log_info() << format(_("Executing '%1%'"))
 	  % string_list_to_string(command, " ")
 		   << std::endl;
       ::umask(this->umask);
