@@ -1,11 +1,13 @@
 NEWS                                                            -*- outline -*-
 ----
 
-Welcome to schroot 0.99.3.  Please read these release notes carefully.
+Welcome to schroot 0.99.4.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 0.99.4:
 
 * Major changes in 0.99.3:
 
