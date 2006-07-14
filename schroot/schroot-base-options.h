@@ -51,12 +51,7 @@ namespace schroot_base
     /// A shared_ptr to an options object.
     typedef std::tr1::shared_ptr<options> ptr;
 
-    /**
-     * The constructor.
-     *
-     * @param argc the number of arguments.
-     * @param argv the list of arguments.
-     */
+    /// The constructor.
     options ();
 
     /// The destructor.

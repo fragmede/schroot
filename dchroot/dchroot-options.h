@@ -31,12 +31,7 @@ namespace dchroot
   class options : public schroot::options_base
   {
   public:
-    /**
-     * The constructor.
-     *
-     * @param argc the number of arguments.
-     * @param argv the list of arguments.
-     */
+    /// The constructor.
     options ();
 
     /// The destructor.

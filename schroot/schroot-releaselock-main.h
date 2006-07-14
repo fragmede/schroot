@@ -58,8 +58,6 @@ namespace schroot_releaselock
 
     /**
      * Release lock.
-     *
-     * @param stream the stream to output to.
      */
     virtual void
     action_releaselock ();

@@ -42,23 +42,23 @@ namespace schroot_listmounts
     /// The destructor.
     virtual ~main ();
 
+  private:
     /**
-     * List mounts.
+     * List mounts (internal helper).
      *
-     * @param mountfile the file containing the database of mounted filesystems.
-     * @param mountpoint the mount point to check for.
+     * @param mountfile the file containing the database of mounted
+     * filesystems.
      */
     sbuild::string_list
     list_mounts (std::string const& mountfile) const;
 
     /**
-     * Release lock.
-     *
-     * @param stream the stream to output to.
+     * List mounts.
      */
     virtual void
     action_listmounts ();
 
+  protected:
     /**
      * Run the program.
      *
@@ -68,6 +68,7 @@ namespace schroot_listmounts
     virtual int
     run_impl ();
 
+  private:
     /// The program options.
     options::ptr options;
   };

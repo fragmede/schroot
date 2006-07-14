@@ -39,14 +39,13 @@
 using std::cout;
 using std::endl;
 using boost::format;
-using sbuild::string_list;
 using namespace dchroot;
 
-session_base::session_base (std::string const& service,
-			    config_ptr&        config,
-			    operation          operation,
-			    string_list const& chroots,
-			    bool               compat):
+session_base::session_base (std::string const&  service,
+			    config_ptr&         config,
+			    operation           operation,
+			    sbuild::string_list const& chroots,
+			    bool                compat):
   sbuild::session(service, config, operation, chroots),
   compat(compat)
 {
@@ -81,7 +80,7 @@ session_base::run_impl ()
   sbuild::session::run_impl();
 }
 
-string_list
+sbuild::string_list
 session_base::get_command_directories () const
 {
   // dchroot does not treat logins differently from commands with

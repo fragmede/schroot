@@ -1,5 +1,11 @@
 2006-07-14  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Remove completed item.
+
+	* Update doxygen API reference.
+
+2006-07-14  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-base-main.cc
 	(run): Return rather than calling exit.
 

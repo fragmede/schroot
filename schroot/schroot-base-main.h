@@ -38,7 +38,9 @@ namespace schroot_base
     /**
      * The constructor.
      *
-     * @param program_name the name of the program.
+     * @param program_name the program name.
+     * @param program_usage the program usage message.
+     * @param program_options the command-line options to use.
      */
     main (std::string const&  program_name,
 	  std::string const&  program_usage,

@@ -44,12 +44,7 @@ namespace schroot_listmounts
 	ACTION_VERSION     ///< Display program version.
       };
 
-    /**
-     * The constructor.
-     *
-     * @param argc the number of arguments.
-     * @param argv the list of arguments.
-     */
+    /// The constructor.
     options ();
 
     /// The destructor.

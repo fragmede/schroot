@@ -146,7 +146,7 @@ namespace sbuild
      * The constructor.
      *
      * @param context the context of the error.
-     * @param error the error code.
+     * @param error the error.
      */
     template<typename A>
     parse_error (A const&                  context,
@@ -159,7 +159,7 @@ namespace sbuild
      * The constructor.
      *
      * @param line the line the error occured on.
-     * @param detail the details of the error.
+     * @param error the error.
      */
     parse_error (size_t                    line,
 		 std::runtime_error const& error):
@@ -172,7 +172,7 @@ namespace sbuild
      *
      * @param line the line the error occured on.
      * @param group the group the error occured within.
-     * @param error the error code.
+     * @param error the error.
      */
     parse_error (size_t                    line,
 		 std::string const&        group,
@@ -187,7 +187,7 @@ namespace sbuild
      * @param line the line the error occured on.
      * @param group the group the error occured within.
      * @param key the key the error occured within.
-     * @param error the error code.
+     * @param error the error.
      */
     parse_error (size_t                    line,
 		 std::string const&        group,
@@ -201,7 +201,7 @@ namespace sbuild
      * The constructor.
      *
      * @param group the group the error occured within.
-     * @param error the error code.
+     * @param error the error.
      */
     parse_error (std::string const&        group,
 		 std::runtime_error const& error):
@@ -214,7 +214,7 @@ namespace sbuild
      *
      * @param group the group the error occured within.
      * @param key the key the error occured within.
-     * @param error the error code.
+     * @param error the error.
      */
     parse_error (std::string const&        group,
 		 std::string const&        key,

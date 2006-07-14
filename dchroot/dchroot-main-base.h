@@ -35,6 +35,8 @@ namespace dchroot
     /**
      * The constructor.
      *
+     * @param program_name the program name.
+     * @param program_usage the program usage message.
      * @param options the command-line options to use.
      */
     main_base (std::string const& program_name,

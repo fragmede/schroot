@@ -39,7 +39,7 @@ using boost::format;
 using schroot::options_base;
 using namespace dchroot;
 
-main::main (options_base::ptr& options):
+main::main (schroot::options_base::ptr& options):
   main_base("dchroot",
 	    _("[OPTION...] [COMMAND] - run command or shell in a chroot"),
 	    options)

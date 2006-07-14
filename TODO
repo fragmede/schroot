@@ -21,12 +21,6 @@ PLANNED
   child process (because the open/close happen in different
   processes).
 
-* Docstring argument namespace usage.
-
-  Doxygen is currently failing to parse correct C++ due to what looks
-  like namespace bugs in doxygen.  It would be great if we could fix
-  the code by fully qualifying the namespace where appropriate.
-
 * Add API to run multiple commands to replace auth::run().
 
 

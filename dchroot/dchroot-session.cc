@@ -39,14 +39,13 @@
 using std::cout;
 using std::endl;
 using boost::format;
-using sbuild::string_list;
 using namespace dchroot;
 
-session::session (std::string const& service,
-		  config_ptr&        config,
-		  operation          operation,
-		  string_list const& chroots,
-		  bool               compat):
+session::session (std::string const&         service,
+		  config_ptr&                config,
+		  operation                  operation,
+		  sbuild::string_list const& chroots,
+		  bool                       compat):
   session_base(service, config, operation, chroots, compat)
 {
 }
@@ -69,10 +68,10 @@ session::get_chroot_auth_status (sbuild::auth::status status,
   return status;
 }
 
-string_list
+sbuild::string_list
 session::get_login_directories () const
 {
-  string_list ret;
+  sbuild::string_list ret;
 
   // Set current working directory only if preserving environment.
   // Only change to home if not preserving the environment.
@@ -91,7 +90,7 @@ session::get_login_directories () const
 void
 session::get_user_command (sbuild::chroot::ptr& session_chroot,
 			   std::string&         file,
-			   string_list&         command) const
+			   sbuild::string_list& command) const
 {
   std::string programstring = sbuild::string_list_to_string(command, " ");
 

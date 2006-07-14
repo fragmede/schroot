@@ -39,14 +39,13 @@
 using std::cout;
 using std::endl;
 using boost::format;
-using sbuild::string_list;
 using namespace dchroot_dsa;
 
-session::session (std::string const& service,
-		  config_ptr&        config,
-		  operation          operation,
-		  string_list const& chroots,
-		  bool               compat):
+session::session (std::string const&         service,
+		  config_ptr&                config,
+		  operation                  operation,
+		  sbuild::string_list const& chroots,
+		  bool                       compat):
   dchroot::session_base(service, config, operation, chroots, compat)
 {
 }
@@ -66,8 +65,8 @@ session::get_chroot_auth_status (sbuild::auth::status status,
 
   if (get_compat() == true)
     {
-      string_list const& users = chroot->get_users();
-      string_list const& groups = chroot->get_groups();
+      sbuild::string_list const& users = chroot->get_users();
+      sbuild::string_list const& groups = chroot->get_groups();
 
       if (this->get_ruid() == this->get_uid() &&
 	  users.empty() && groups.empty())
@@ -87,10 +86,10 @@ session::get_chroot_auth_status (sbuild::auth::status status,
   return status;
 }
 
-string_list
+sbuild::string_list
 session::get_login_directories () const
 {
-  string_list ret;
+  sbuild::string_list ret;
 
   ret.push_back(get_home());
 
@@ -104,7 +103,7 @@ session::get_login_directories () const
 void
 session::get_user_command (sbuild::chroot::ptr& session_chroot,
 			   std::string&         file,
-			   string_list&         command) const
+			   sbuild::string_list& command) const
 {
   std::string programstring = command[0];
   file = programstring;
