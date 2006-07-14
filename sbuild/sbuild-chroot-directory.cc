@@ -82,14 +82,6 @@ chroot_directory::get_chroot_type () const
 }
 
 void
-chroot_directory::setup_env (environment& env)
-{
-  this->chroot::setup_env(env);
-
-  env.add("CHROOT_LOCATION", get_location());
-}
-
-void
 chroot_directory::setup_lock (setup_type type,
 			      bool       lock,
 			      int        status)

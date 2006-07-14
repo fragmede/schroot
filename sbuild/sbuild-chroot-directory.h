@@ -65,9 +65,6 @@ namespace sbuild
     virtual std::string const&
     get_chroot_type () const;
 
-    virtual void
-    setup_env (environment& env);
-
     virtual session_flags
     get_session_flags () const;
 

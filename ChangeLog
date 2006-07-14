@@ -1,5 +1,10 @@
 2006-07-14  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-chroot-directory.cc (setup_env): Remove.
+	CHROOT_LOCATION is already set in the parent class.
+
+2006-07-14  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.conf.5.in: Minor whitespace cleanup.
 
 	* TODO: Remove completed item.
