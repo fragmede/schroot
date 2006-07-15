@@ -24,11 +24,12 @@ schroot (0.99.3-1) unstable; urgency=low
     - The /usr/share/doc directories for dchroot and dchroot-dsa are
       symlinks to schroot.
     - Build in debian/build using VPATH.
+    - Use debian/build/config.status in place of config.status.
   * debian/dchroot.preinst: New file.  Remove /usr/share/doc/dchroot.
   * debian/dchroot-dsa.preinst: New file.  Remove
     /usr/share/doc/dchroot-dsa.
 
- -- Roger Leigh <rleigh@debian.org>  Fri, 14 Jul 2006 18:25:19 +0100
+ -- Roger Leigh <rleigh@debian.org>  Fri, 14 Jul 2006 21:06:05 +0100
 
 schroot (0.99.2-1) unstable; urgency=low
 

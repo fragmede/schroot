@@ -19,7 +19,7 @@ else
 	CFLAGS += -O2
 endif
 
-config.status: configure
+debian/build/config.status: configure
 	dh_testdir
 
 	mkdir debian/build; \
@@ -28,7 +28,7 @@ config.status: configure
 
 build: build-stamp
 
-build-stamp:  config.status
+build-stamp: debian/build/config.status
 	dh_testdir
 
 	cd debian/build; \
