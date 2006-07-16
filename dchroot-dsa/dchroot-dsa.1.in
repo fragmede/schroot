@@ -19,7 +19,13 @@
 dchroot\-dsa \- enter a chroot environment
 .SH SYNOPSIS
 .B dchroot\-dsa
-[\fIOPTION\fP]... [chroot] [\fICOMMAND\fP]
+.RB [ \-h \[or] \-\-help " \[or] " \-V \[or] \-\-version
+.RB " \[or] " \-l \[or] \-\-list " \[or] " \-i \[or] \-\-info
+.RB " \[or] " \-\-config " \[or] " -p | \-\-listpaths ]
+.RB [ \-q \[or] \-\-quiet " \[or] " \-v \[or] \-\-verbose ]
+.RB [ "\-c \fIchroot\fP" \[or] "\-\-chroot=\fIchroot\fP"
+.RB " \[or] " \-\-all " \[or] " CHROOT]
+.RB [ COMMAND ]
 .SH DESCRIPTION
 \fBdchroot\-dsa\fP allows the user to run a command or a login shell in a
 chroot environment.  If no command is specified, a login shell will be started
@@ -155,9 +161,15 @@ Dump the dchroot\-dsa configuration in schroot keyfile format to
 .RE
 .PP
 .IP 2
+<<<<<<< .mine
+Edit \fI@SCHROOT_CONF@\fP to add access to the users and/or groups which are to
+be allowed to access the chroots, and make any other desired changes to the
+configuration.  See
+=======
 Edit \fI@SCHROOT_CONF@\fP to add access to the users and/or groups who are to
 be allowed to access the chroots, and make any other desired changes to the
 configuration.  See
+>>>>>>> .r857
 .BR schroot.conf (5).
 .IP 3
 Remove \fI@DCHROOT_CONF@\fP, so that dchroot\-dsa will subsequently use

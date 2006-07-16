@@ -20,7 +20,17 @@
 schroot \- securely enter a chroot environment
 .SH SYNOPSIS
 .B schroot
-[\fIOPTION\fP]... [\fICOMMAND\fP]
+.RB [ \-h \[or] \-\-help " \[or] " \-V \[or] \-\-version
+.RB " \[or] " \-l \[or] \-\-list " \[or] " \-i \[or] \-\-info
+.RB " \[or] " \-\-config " \[or] " \-\-location
+.RB " \[or] " \-b \[or] \-\-begin\-session " \[or] " \-\-recover\-session
+.RB " \[or] " \-r \[or] \-\-run\-session " \[or] " \-e \[or] \-\-end\-session ]
+.RB [ "\-u \fIuser\fP" \[or] "\-\-user=\fIuser\fP" ]
+.RB [ \-p \[or] \-\-preserve\-environment ]
+.RB [ \-q \[or] \-\-quiet " \[or] " \-v \[or] \-\-verbose ]
+.RB [ "\-c \fIchroot\fP" \[or] "\-\-chroot=\fIchroot\fP"
+.RB " \[or] " \-\-all " \[or] " \-\-all\-chroots " \[or] " \-\-all\-sessions ]
+.RB [ COMMAND " [ " ARG1 " [ " ARG2 " [ " ARGn ]]]]
 .SH DESCRIPTION
 \fBschroot\fP allows the user to run a command or a login shell in a chroot
 environment.  If no command is specified, a login shell will be started in the

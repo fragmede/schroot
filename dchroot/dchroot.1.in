@@ -19,7 +19,14 @@
 dchroot \- enter a chroot environment
 .SH SYNOPSIS
 .B dchroot
-[\fIOPTION\fP]... [\fICOMMAND\fP]
+.RB [ \-h \[or] \-\-help " \[or] " \-V \[or] \-\-version
+.RB " \[or] " \-l \[or] \-\-list " \[or] " \-i \[or] \-\-info
+.RB " \[or] " \-\-config " \[or] " \-\-location ]
+.RB [ \-d \[or] \-\-preserve\-environment ]
+.RB [ \-q \[or] \-\-quiet " \[or] " \-v \[or] \-\-verbose ]
+.RB [ "\-c \fIchroot\fP" \[or] "\-\-chroot=\fIchroot\fP"
+.RB " \[or] " \-\-all ]
+.RB [ COMMAND " [ " ARG1 " [ " ARG2 " [ " ARGn ]]]]
 .SH DESCRIPTION
 \fBdchroot\fP allows the user to run a command or a login shell in a chroot
 environment.  If no command is specified, a login shell will be started in the
@@ -180,9 +187,15 @@ Dump the dchroot configuration in schroot keyfile format to
 .RE
 .PP
 .IP 2
+<<<<<<< .mine
+Edit \fI@SCHROOT_CONF@\fP to add access to the users and/or groups which are to
+be allowed to access the chroots, and make any other desired changes to the
+configuration.  See
+=======
 Edit \fI@SCHROOT_CONF@\fP to add access to the users and/or groups who are to
 be allowed to access the chroots, and make any other desired changes to the
 configuration.  See
+>>>>>>> .r857
 .BR schroot.conf (5).
 .IP 3
 Remove \fI@DCHROOT_CONF@\fP, so that dchroot will subsequently use

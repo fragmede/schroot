@@ -1,3 +1,9 @@
+2006-07-16  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot.1.in, dchroot/dchroot.1.in,
+	dchroot-dsa/dchroot-dsa.1.in: Add all options to the synopsis
+	section.
+
 2006-07-15  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog, debian/rules: Fix problem in config.status
