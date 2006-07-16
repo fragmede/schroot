@@ -1,5 +1,11 @@
 2006-07-16  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.1.in: Use -p rather than -d in the description,
+	and remove incorrect directory fallback description.  Thanks to
+	Matthew Foulkes for reporting this.
+
+2006-07-16  Roger Leigh  <rleigh@debian.org>
+
 	* TODO: Remove completed items.
 
 	* All code logging exceptions with log_error() and e.what() use
