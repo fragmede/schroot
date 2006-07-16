@@ -23,15 +23,92 @@
 #include <map>
 #include <stdexcept>
 #include <string>
+#include <typeinfo>
+
+#include <boost/format.hpp>
+#include <boost/type_traits.hpp>
 
 namespace sbuild
 {
 
   /**
-   * Error base class.
+   * Error exception base class.
+   */
+  class error_base : public std::runtime_error
+  {
+  protected:
+    /**
+     * The constructor.
+     *
+     * @param error the error message.
+     */
+    error_base(std::string const& error):
+      runtime_error(error),
+      reason()
+    {
+    }
+
+    /**
+     * The constructor.
+     *
+     * @param error the error message.
+     * @param reason further information about the error
+     */
+    error_base(std::string const& error,
+	  std::string const& reason):
+      runtime_error(error),
+      reason(reason)
+    {
+    }
+
+  public:
+    /// The destructor.
+    virtual ~error_base () throw ()
+    {}
+
+    /**
+     * Get the reason for the error.
+     *
+     * @returns the reason.
+     */
+    virtual const char *
+    why () const throw ()
+    {
+      return this->reason.c_str();
+    }
+
+    /**
+     * Get the reason for the error.
+     *
+     * @returns the reason.
+     */
+    std::string const&
+    get_reason () const
+    {
+      return this->reason;
+    }
+
+    /**
+     * Set the reason for the error.
+     *
+     * @param reason further information about the error
+     */
+    void
+    set_reason (std::string const& reason)
+    {
+      this->reason = reason;
+    }
+
+  private:
+    /// The reason for the error.
+    std::string reason;
+  };
+
+  /**
+   * Error exception class.
    */
   template <typename T>
-  class error : public std::runtime_error
+  class error : public error_base
   {
   public:
     typedef T error_type;
@@ -43,7 +120,19 @@ namespace sbuild
      * @param error the error message.
      */
     error(std::string const& error):
-      runtime_error(error)
+      error_base(error)
+    {
+    }
+
+    /**
+     * The constructor.
+     *
+     * @param error the error message.
+     * @param reason further information about the error
+     */
+    error(std::string const& error,
+	  std::string const& reason):
+      error_base(error, reason)
     {
     }
 
@@ -104,6 +193,112 @@ namespace sbuild
 		  std::runtime_error const& error,
 		  D const&                  detail1,
 		  E const&                  detail2);
+
+    /**
+     * Format an reason string.
+     *
+     * @param context1 context of the error.
+     * @param context2 additional context of the error.
+     * @param context3 additional context of the error.
+     * @param error the error or error code.
+     * @param detail1 details of the error.
+     * @param detail2 additional details of the error.
+     * @returns a translated error message.
+     */
+    template <typename A, typename B, typename C, typename R, typename D, typename E>
+    static std::string
+    format_reason (A const&   context1,
+		   B const&   context2,
+		   C const&   context3,
+		   R const&   error,
+		   D const&   detail1,
+		   E const&   detail2);
+
+    /**
+     * Add detail to format string.
+     *
+     * @param fmt the format string.
+     * @param value the value to add.
+     */
+    template<typename A>
+    static void
+    add_detail(boost::format& fmt,
+	       A const&       value);
+
+    /**
+     * Helper class to add detail to format string.
+     * Used for non-exception types.
+     */
+    template<typename A, bool b>
+    struct add_detail_helper
+    {
+      add_detail_helper(boost::format& fmt,
+			A const&       value)
+      {
+	fmt % value;
+      }
+    };
+
+    /**
+     * Helper class to add detail to format string.
+     * Used for exception types.
+     */
+    template<typename A>
+    struct add_detail_helper<A, true>
+    {
+      add_detail_helper(boost::format& fmt,
+			A const&       value)
+      {
+	fmt % value.what();
+      }
+    };
+
+    /**
+     * Add reason to reason string.
+     *
+     * @param reason the reason string.
+     * @param value the value to add.
+     */
+    template<typename A>
+    static void
+    add_reason(std::string& reason,
+	       A const&     value);
+
+    /**
+     * Helper class to add reason to reason string.
+     * Used for non-exception types.
+     */
+    template<typename A, bool b>
+    struct add_reason_helper
+    {
+      add_reason_helper(std::string& reason,
+			A const&     value)
+      {
+      }
+    };
+
+    /**
+     * Helper class to add reason to reason string.
+     * Used for exception types.
+     */
+    template<typename A>
+    struct add_reason_helper<A, true>
+    {
+      add_reason_helper(std::string& reason,
+			A const&     value)
+      {
+	try
+	  {
+	    sbuild::error_base const& eb(dynamic_cast<sbuild::error_base const&>(value));
+	    if (!reason.empty())
+	      reason += '\n';
+	    reason += eb.why();
+	  }
+	catch (std::bad_cast const& discard)
+	  {
+	  }
+      }
+    };
 
   };
 

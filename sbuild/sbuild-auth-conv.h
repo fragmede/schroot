@@ -103,11 +103,12 @@ namespace sbuild
      * auth_message.  The auth_message::response field of the
      * auth_message should be filled in if input is required.
      *
+     * On error, an exception will be thrown.
+     *
      * @param messages the messages to display to the user, and
      * responses to return to the caller.
-     * @returns true on success, false on failure.
      */
-    virtual bool
+    virtual void
     conversation (message_list& messages) = 0;
   };
 

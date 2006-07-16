@@ -78,6 +78,7 @@ namespace sbuild
 	FILE_STAT,       ///< Failed to stat file.
 	FILE_UNLOCK,     ///< Failed to discard lock.
 	LOCATION_ABS,    ///< Location must have an absolute path.
+	PERSONALITY_BAD, ///< Personality is unknown.
 	SESSION_UNLINK,  ///< Failed to unlink session file.
 	SESSION_WRITE    ///< Failed to write session file.
       };

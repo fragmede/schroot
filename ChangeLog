@@ -1,5 +1,46 @@
 2006-07-16  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Remove completed items.
+
+	* All code logging exceptions with log_error() and e.what() use
+	log_exception.
+
+	* sbuild/sbuild-auth.cc (auth_conv_hook): In the PAM conversation
+	hook, catch and handle any exception thrown by a conversation
+	handler.
+
+	* sbuild/sbuild-auth-conv-tty.cc (conversation): Rather than
+	returning false on error, throw an exception.  Remove exception
+	catching logic; it's now handled in sbuild::auth.
+
+	* sbuild/sbuild-auth-conv.h (conversation): Rather than returning
+	false on error, throw an exception.
+
+	* sbuild/sbuild-log.(cc|h) (log_exception): New function.  This
+	helper function outputs an exception using log_error(), and
+	exception reasons using log_info().
+
+	* sbuild/sbuild-parse-error.h: All constructors add a call for
+	format_reason in addition to format_detail.  All detail arguments
+	are templated rather than strings (to allow use of exceptions as
+	detail).
+
+	* sbuild/sbuild-custom-error.h: All constructors add a call for
+	format_reason in addition to format_detail.
+
+	* sbuild/sbuild-error.h, sbuild/sbuild-error.tcc: Add error_base
+	class.  This contains a reason string with a why() method in
+	addition to the what() method provided by std::exception.  error<>
+	derives from error_base, and provides a format_reason helper with
+	similar behaviour to format_detail.  Both format_detail and
+	format_reason contain templated helper classes to allow conversion
+	of exceptions of any type, and the transfer of their reason (if
+	any).
+
+	* configure.ac: Add check for boost/type_traits.hpp.
+
+2006-07-16  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.1.in, dchroot/dchroot.1.in,
 	dchroot-dsa/dchroot-dsa.1.in: Add all options to the synopsis
 	section.

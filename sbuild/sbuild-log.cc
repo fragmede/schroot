@@ -19,8 +19,10 @@
 
 #include <config.h>
 
+#include "sbuild-error.h"
 #include "sbuild-log.h"
 #include "sbuild-nostream.h"
+#include "sbuild-util.h"
 
 #include <iostream>
 
@@ -50,6 +52,25 @@ sbuild::log_debug (sbuild::DebugLevel level)
     return std::cerr << "D(" << level << "): ";
   else
     return sbuild::cnull;
+}
+
+void
+sbuild::log_exception (std::exception const& e)
+{
+  log_error() << e.what() << std::endl;
+
+  try
+    {
+      sbuild::error_base const& eb(dynamic_cast<sbuild::error_base const&>(e));
+      string_list lines = split_string(eb.why(), "\n");
+      for (string_list::const_iterator line = lines.begin();
+	   line != lines.end();
+	   ++line)
+	log_info() << *line << std::endl;
+    }
+  catch (std::bad_cast const& discard)
+    {
+    }
 }
 
 sbuild::DebugLevel sbuild::debug_level = sbuild::DEBUG_NONE;

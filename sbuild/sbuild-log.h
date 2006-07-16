@@ -70,6 +70,14 @@ namespace sbuild
   std::ostream&
   log_debug (DebugLevel level);
 
+  /**
+   * Log an exception.
+   *
+   * @param e the exception to log.
+   */
+  void
+  log_exception (std::exception const& e);
+
   /// The debugging level in use.
   extern DebugLevel debug_level;
 

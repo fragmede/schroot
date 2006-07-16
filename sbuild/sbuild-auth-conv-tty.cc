@@ -270,46 +270,32 @@ auth_conv_tty::read_string (std::string message,
   return retval;
 }
 
-bool
+void
 auth_conv_tty::conversation (message_list& messages)
 {
-  try
+  for (std::vector<auth_message>::iterator cur = messages.begin();
+       cur != messages.end();
+       ++cur)
     {
-      for (std::vector<auth_message>::iterator cur = messages.begin();
-	   cur != messages.end();
-	   ++cur)
+      switch (cur->type)
 	{
-	  switch (cur->type)
-	    {
-	    case auth_message::MESSAGE_PROMPT_NOECHO:
-	      cur->response = read_string(cur->message, false);
-	      break;
-	    case auth_message::MESSAGE_PROMPT_ECHO:
-	      cur->response = read_string(cur->message, true);
-	      break;
-	    case auth_message::MESSAGE_ERROR:
-	      cerr << cur->message << endl;
-	      break;
-	    case auth_message::MESSAGE_INFO:
-	      cerr << cur->message << endl;
-	      break;
-	    default:
-	      {
-		error e(cur->type, CONV_TYPE);
-		log_error() << e.what() << endl;
-		return false;
-	      }
-	      break;
-	    }
+	case auth_message::MESSAGE_PROMPT_NOECHO:
+	  cur->response = read_string(cur->message, false);
+	  break;
+	case auth_message::MESSAGE_PROMPT_ECHO:
+	  cur->response = read_string(cur->message, true);
+	  break;
+	case auth_message::MESSAGE_ERROR:
+	  cerr << cur->message << endl;
+	  break;
+	case auth_message::MESSAGE_INFO:
+	  cerr << cur->message << endl;
+	  break;
+	default:
+	  throw error(cur->type, CONV_TYPE);
+	  break;
 	}
     }
-  catch (error const& e)
-    {
-      log_error() << e.what() << std::endl;
-      return false;
-    }
-
-  return true;
 }
 
 /*

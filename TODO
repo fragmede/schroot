@@ -11,15 +11,6 @@ PENDING
 
 * personality should include stream operators for serialisation.
 
-* Add error_base exception type
-
-  - include information additional to what(), for passing additional
-    explanatory text.
-
-* Add a function to display an exception
-
-  - include what() plus explanatory text (if present).
-
 * Remove all non error-map format strings.
 
   - convert to error<> derived messages wherever possible.  This is

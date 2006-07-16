@@ -164,7 +164,7 @@ chroot_lvm_snapshot::setup_lock (setup_type type,
 		}
 	      catch (sbuild::lock::error const& e)
 		{
-		  throw error(get_device(), DEVICE_LOCK, e.what());
+		  throw error(get_device(), DEVICE_LOCK, e);
 		}
 	    }
 	  else
@@ -175,7 +175,7 @@ chroot_lvm_snapshot::setup_lock (setup_type type,
 		}
 	      catch (sbuild::lock::error const& e)
 		{
-		  throw error(get_device(), DEVICE_UNLOCK, e.what());
+		  throw error(get_device(), DEVICE_UNLOCK, e);
 		}
 	    }
 	}

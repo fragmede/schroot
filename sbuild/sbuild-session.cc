@@ -768,7 +768,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
       catch (chroot::error const& ignore)
 	{
 	}
-      throw error(session_chroot->get_name(), CHROOT_LOCK, e.what());
+      throw error(session_chroot->get_name(), CHROOT_LOCK, e);
     }
 
   std::string setup_type_string;
@@ -876,7 +876,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   catch (chroot::error const& e)
     {
       this->chroot_status = false;
-      throw error(session_chroot->get_name(), CHROOT_UNLOCK, e.what());
+      throw error(session_chroot->get_name(), CHROOT_UNLOCK, e);
     }
 
   if (exit_status != 0)
@@ -1078,7 +1078,7 @@ session::run_chroot (sbuild::chroot::ptr& session_chroot)
 	}
       catch (std::runtime_error const& e)
 	{
-	  log_error() << e.what() << endl;
+	  log_exception(e);
 	}
       _exit (EXIT_FAILURE);
     }

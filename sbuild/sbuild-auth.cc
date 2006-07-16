@@ -76,29 +76,29 @@ namespace
 		  struct pam_response      **response,
 		  void                      *appdata_ptr)
   {
-    if (appdata_ptr == 0)
-      return PAM_CONV_ERR;
-
-    auth_conv *conv = static_cast<auth_conv *>(appdata_ptr);
-    assert (conv != 0);
-
-    /* Construct a message vector */
-    auth_conv::message_list messages;
-    for (int i = 0; i < num_msg; ++i)
+    try
       {
-	const struct pam_message *source = msgm[i];
+	if (appdata_ptr == 0)
+	  return PAM_CONV_ERR;
 
-	auth_message
-	  message(static_cast<auth_message::message_type>(source->msg_style),
-		  source->msg);
-	messages.push_back(message);
-      }
+	auth_conv *conv = static_cast<auth_conv *>(appdata_ptr);
+	assert (conv != 0);
 
-    /* Do the conversation */
-    bool status = conv->conversation(messages);
+	/* Construct a message vector */
+	auth_conv::message_list messages;
+	for (int i = 0; i < num_msg; ++i)
+	  {
+	    const struct pam_message *source = msgm[i];
 
-    if (status == true)
-      {
+	    auth_message
+	      message(static_cast<auth_message::message_type>(source->msg_style),
+		      source->msg);
+	    messages.push_back(message);
+	  }
+
+	/* Do the conversation; an exception will be thrown on failure */
+	conv->conversation(messages);
+
 	/* Copy response into **reponse */
 	struct pam_response *reply =
 	  static_cast<struct pam_response *>
@@ -115,8 +115,16 @@ namespace
 
 	return PAM_SUCCESS;
       }
-    else
-      return PAM_CONV_ERR;
+    catch (std::exception const& e)
+      {
+	sbuild::log_exception(e);
+      }
+    catch (...)
+      {
+	sbuild::log_error() << _("An unknown exception occured") << endl;
+      }
+
+    return PAM_CONV_ERR;
   }
 
 }

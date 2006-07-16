@@ -71,6 +71,7 @@ namespace
       emap(sbuild::chroot::FILE_STAT,       N_("Failed to stat file")),
       emap(sbuild::chroot::FILE_UNLOCK,     N_("Failed to discard file lock")),
       emap(sbuild::chroot::LOCATION_ABS,    N_("Location must have an absolute path")),
+      emap(sbuild::chroot::PERSONALITY_BAD, N_("Personality '%1%' is unknown")),
       emap(sbuild::chroot::SESSION_UNLINK,  N_("Failed to unlink session file")),
       emap(sbuild::chroot::SESSION_WRITE,   N_("Failed to write session file"))
     };
@@ -366,12 +367,12 @@ sbuild::chroot::set_persona (std::string const& persona)
       std::ostringstream plist;
       personality::print_personalities(plist);
 
-      // TODO: include line numbers by throwing an exception.
-      log_warning()
-	<< format(_("%1% chroot: personality '%2%' is unknown.\n"))
-	% get_name() % persona;
-      log_info()
-	<< format(_("Valid personalities: %1%\n")) % plist.str();
+      error e(persona, PERSONALITY_BAD);
+      format fmt(_("Valid personalities: %1%\n"));
+      fmt % plist.str();
+      e.set_reason(fmt.str());
+
+      throw e;
     }
 
   set_persona(new_persona);
@@ -418,7 +419,7 @@ sbuild::chroot::setup_session_info (bool start)
 	}
       catch (lock::error const& e)
 	{
-	  throw error(file, FILE_LOCK, e.what());
+	  throw error(file, FILE_LOCK, e);
 	}
 
       keyfile details;
@@ -431,7 +432,7 @@ sbuild::chroot::setup_session_info (bool start)
 	}
       catch (lock::error const& e)
 	{
-	  throw error(file, FILE_UNLOCK, e.what());
+	  throw error(file, FILE_UNLOCK, e);
 	}
     }
   else /* start == false */

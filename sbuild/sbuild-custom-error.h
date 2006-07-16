@@ -41,7 +41,8 @@ namespace sbuild
      * @param error the error code.
      */
     custom_error (error_type error):
-      sbuild::error<T>(format_error(null(), null(), null(), error, null(), null()))
+      sbuild::error<T>(format_error(null(), null(), null(), error, null(), null()),
+		       format_reason(null(), null(), null(), error, null(), null()))
     {
     }
 
@@ -54,7 +55,8 @@ namespace sbuild
     template<typename C>
     custom_error (C const&   context,
 		  error_type error):
-      sbuild::error<T>(format_error(context, null(), null(), error, null(), null()))
+      sbuild::error<T>(format_error(context, null(), null(), error, null(), null()),
+		       format_reason(context, null(), null(), error, null(), null()))
     {
     }
 
@@ -67,7 +69,8 @@ namespace sbuild
     template<typename D>
     custom_error (error_type error,
 		  D const&   detail):
-      sbuild::error<T>(format_error(null(), null(), null(), error, detail, null()))
+      sbuild::error<T>(format_error(null(), null(), null(), error, detail, null()),
+		       format_reason(null(), null(), null(), error, detail, null()))
     {
     }
 
@@ -82,7 +85,8 @@ namespace sbuild
     custom_error (error_type error,
 		  D const&   detail,
 		  E const&   detail2):
-      sbuild::error<T>(format_error(null(), null(), null(), error, detail, detail2))
+      sbuild::error<T>(format_error(null(), null(), null(), error, detail, detail2),
+		       format_reason(null(), null(), null(), error, detail, detail2))
     {
     }
 
@@ -97,7 +101,8 @@ namespace sbuild
     custom_error (C const&   context,
 		  error_type error,
 		  D const&   detail):
-      sbuild::error<T>(format_error(context, null(), null(), error, detail, null()))
+      sbuild::error<T>(format_error(context, null(), null(), error, detail, null()),
+		       format_reason(context, null(), null(), error, detail, null()))
     {
     }
 
@@ -114,17 +119,30 @@ namespace sbuild
 		  error_type error,
 		  D const&   detail,
 		  E const&   detail2):
-      sbuild::error<T>(format_error(context, null(), null(), error, detail, detail2))
+      sbuild::error<T>(format_error(context, null(), null(), error, detail, detail2),
+		       format_reason(context, null(), null(), error, detail, detail2))
     {
     }
 
     /**
      * The constructor.
      *
-     * @param error the error code.
+     * @param error the error.
      */
     custom_error (std::runtime_error const& error):
-      sbuild::error<T>(sbuild::error<T>::format_error(null(), null(), null(), error, null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(null(), null(), null(), error, null(), null()),
+		       sbuild::error<T>::format_reason(null(), null(), null(), error, null(), null()))
+    {
+    }
+
+    /**
+     * The constructor.
+     *
+     * @param error the error.
+     */
+    custom_error (error_base const& error):
+      sbuild::error<T>(sbuild::error<T>::format_error(null(), null(), null(), error, null(), null()),
+		       sbuild::error<T>::format_reason(null(), null(), null(), error, null(), null()))
     {
     }
 
@@ -132,12 +150,27 @@ namespace sbuild
      * The constructor.
      *
      * @param context the context of the error.
-     * @param error the error code.
+     * @param error the error.
      */
     template<typename C>
     custom_error (C const&                  context,
 		  std::runtime_error const& error):
-      sbuild::error<T>(sbuild::error<T>::format_error(context, null(), null(), error, null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(context, null(), null(), error, null(), null()),
+		       sbuild::error<T>::format_reason(context, null(), null(), error, null(), null()))
+    {
+    }
+
+    /**
+     * The constructor.
+     *
+     * @param context the context of the error.
+     * @param error the error.
+     */
+    template<typename C>
+    custom_error (C const&          context,
+		  error_base const& error):
+      sbuild::error<T>(sbuild::error<T>::format_error(context, null(), null(), error, null(), null()),
+		       sbuild::error<T>::format_reason(context, null(), null(), error, null(), null()))
     {
     }
 

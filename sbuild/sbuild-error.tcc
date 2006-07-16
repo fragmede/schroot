@@ -24,8 +24,6 @@
 #include <sbuild/sbuild-custom-error.h>
 #include <sbuild/sbuild-null.h>
 
-#include <boost/format.hpp>
-
 template <typename T>
 template <typename A, typename B, typename C, typename D, typename E>
 inline std::string
@@ -100,15 +98,15 @@ sbuild::error<T>::format_error (A const&   context1,
 
   boost::format fmt(format);
   if (nargs >= 1)
-    fmt % context1;
+    add_detail(fmt, context1);
   if (nargs >= 2)
-    fmt % context2;
+    add_detail(fmt, context2);
   if (nargs >= 3)
-    fmt % context3;
+    add_detail(fmt, context3);
   if (nargs >= 4)
-    fmt % detail1;
+    add_detail(fmt, detail1);
   if (nargs >= 5)
-    fmt % detail2;
+    add_detail(fmt, detail2);
 
   return fmt.str();
 }
@@ -168,21 +166,63 @@ sbuild::error<T>::format_error (A const&   context1,
 
   boost::format fmt(format);
   if (nargs >= 1)
-    fmt % context1;
+    add_detail(fmt, context1);
   if (nargs >= 2)
-    fmt % context2;
+    add_detail(fmt, context2);
   if (nargs >= 3)
-    fmt % context3;
+    add_detail(fmt, context3);
   if (nargs >= 4)
-    fmt % detail1;
+    add_detail(fmt, detail1);
   if (nargs >= 5)
-    fmt % detail2;
+    add_detail(fmt, detail2);
 
   return fmt.str();
 }
 
+template<typename T>
+template<typename A>
+inline void
+sbuild::error<T>::add_detail(boost::format& fmt,
+			     A const&       value)
+{
+  add_detail_helper<A, boost::is_base_and_derived<std::exception, A>::value>
+    (fmt, value);
+}
+
 template <typename T>
-const char *
+template <typename A, typename B, typename C, typename R, typename D, typename E>
+inline std::string
+sbuild::error<T>::format_reason (A const&   context1,
+				 B const&   context2,
+				 C const&   context3,
+				 R const&   error,
+				 D const&   detail1,
+				 E const&   detail2)
+{
+  std::string reason;
+
+  add_reason(reason, context1);
+  add_reason(reason, context2);
+  add_reason(reason, context3);
+  add_reason(reason, error);
+  add_reason(reason, detail1);
+  add_reason(reason, detail2);
+
+  return reason;
+}
+
+template<typename T>
+template<typename A>
+inline void
+sbuild::error<T>::add_reason(std::string& reason,
+			     A const&     value)
+{
+  add_reason_helper<A, boost::is_base_and_derived<std::exception, A>::value>
+    (reason, value);
+}
+
+template <typename T>
+inline const char *
 sbuild::error<T>::get_error (error_type error)
 {
   typename map_type::const_iterator pos = error_strings.find(error);

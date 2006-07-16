@@ -51,7 +51,7 @@ main (int   argc,
     }
   catch (std::exception const& e)
     {
-      sbuild::log_error() << e.what() << endl;
+      sbuild::log_exception(e);
       exit(EXIT_FAILURE);
     }
   catch (...)

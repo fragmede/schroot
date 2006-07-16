@@ -248,12 +248,12 @@ namespace sbuild
 	      unsigned int line = get_line(group, key);
 	      if (line)
 		{
-		  error ep(line, group, key, PASSTHROUGH_LGK, e.what());
+		  error ep(line, group, key, PASSTHROUGH_LGK, e);
 		  log_warning() << ep.what() << std::endl;
 		}
 	      else
 		{
-		  error ep(group, key, PASSTHROUGH_GK, e.what());
+		  error ep(group, key, PASSTHROUGH_GK, e);
 		  log_warning() << ep.what() << std::endl;
 		}
 	      return false;
@@ -393,12 +393,12 @@ namespace sbuild
 		  unsigned int line = get_line(group, key);
 		  if (line)
 		    {
-		      error ep(line, group, key, PASSTHROUGH_LGK, e.what());
+		      error ep(line, group, key, PASSTHROUGH_LGK, e);
 		      log_warning() << ep.what() << std::endl;
 		    }
 		  else
 		    {
-		      error ep(group, key, PASSTHROUGH_GK, e.what());
+		      error ep(group, key, PASSTHROUGH_GK, e);
 		      log_warning() << ep.what() << std::endl;
 		    }
 		  return false;
@@ -845,7 +845,7 @@ namespace sbuild
 	}
       catch (std::runtime_error const& e)
 	{
-	  throw error(group, key, PASSTHROUGH_GK, e.what());
+	  throw error(group, key, PASSTHROUGH_GK, e);
 	}
     }
 
@@ -875,7 +875,7 @@ namespace sbuild
 	}
       catch (std::runtime_error const& e)
 	{
-	  throw error(group, key, PASSTHROUGH_GK, e.what());
+	  throw error(group, key, PASSTHROUGH_GK, e);
 	}
     }
 
@@ -908,7 +908,7 @@ namespace sbuild
 	}
       catch (std::runtime_error const& e)
 	{
-	  throw error(group, key, PASSTHROUGH_GK, e.what());
+	  throw error(group, key, PASSTHROUGH_GK, e);
 	}
     }
 
@@ -942,7 +942,7 @@ namespace sbuild
 	}
       catch (std::runtime_error const& e)
 	{
-	  throw error(group, key, PASSTHROUGH_GK, e.what());
+	  throw error(group, key, PASSTHROUGH_GK, e);
 	}
     }
 
@@ -980,9 +980,9 @@ namespace sbuild
 	    {
 	      unsigned int line = keyfile.get_line(group, key);
 	      if (line)
-		throw error(line, group, key, PASSTHROUGH_LGK, e.what());
+		throw error(line, group, key, PASSTHROUGH_LGK, e);
 	      else
-		throw error(group, key, PASSTHROUGH_GK, e.what());
+		throw error(group, key, PASSTHROUGH_GK, e);
 	    }
 	}
     }
@@ -1021,11 +1021,9 @@ namespace sbuild
 	    {
 	      unsigned int line = keyfile.get_line(group, key);
 	      if (line)
-		throw error(line, group, key, PASSTHROUGH_LGK, e.what());
+		throw error(line, group, key, PASSTHROUGH_LGK, e);
 	      else
-		throw error(group, key, PASSTHROUGH_GK, e.what());
-	      throw error(keyfile.get_line(group, key),
-			  group, key, e);
+		throw error(group, key, PASSTHROUGH_GK, e);
 	    }
 	}
     }
@@ -1064,9 +1062,9 @@ namespace sbuild
 	    {
 	      unsigned int line = keyfile.get_line(group, key);
 	      if (line)
-		throw error(line, group, key, PASSTHROUGH_LGK, e.what());
+		throw error(line, group, key, PASSTHROUGH_LGK, e);
 	      else
-		throw error(group, key, PASSTHROUGH_GK, e.what());
+		throw error(group, key, PASSTHROUGH_GK, e);
 	      throw error(keyfile.get_line(group, key),
 			  group, key, e);
 	    }
@@ -1108,9 +1106,9 @@ namespace sbuild
 	    {
 	      unsigned int line = keyfile.get_line(group, key);
 	      if (line)
-		throw error(line, group, key, PASSTHROUGH_LGK, e.what());
+		throw error(line, group, key, PASSTHROUGH_LGK, e);
 	      else
-		throw error(group, key, PASSTHROUGH_GK, e.what());
+		throw error(group, key, PASSTHROUGH_GK, e);
 	      throw error(keyfile.get_line(group, key),
 			  group, key, e);
 	    }
