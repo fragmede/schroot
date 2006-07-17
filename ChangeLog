@@ -1,8 +1,16 @@
 2006-07-17  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot-main-base.cc: Add error code enum and string
+	map.
+	(run_impl): Throw custom exception using new error codes.
+
+	* configure.ac (PACKAGE_LOCALSTATE_DIR): Remove trailing /.
+
+2006-07-17  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-listmounts-main.cc: Add error code enum and
 	string map.
-	(list_mounts): Throw custom exception using new error codes.
+	(list_mounts) Throw custom exception using new error codes.
 
 2006-07-17  Roger Leigh  <rleigh@debian.org>
 

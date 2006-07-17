@@ -39,9 +39,11 @@ namespace schroot
     /// Error codes.
     enum error_code
       {
-	CHROOTS_NOTFOUND,       ///< Chroots not found.
-	CHROOT_NOTDEFINED,      ///< The specified chroots are not defined.
-	CHROOT_NOTFOUND         ///< Chroot not found.
+	CHROOTS_NOTFOUND,  ///< Chroots not found.
+	CHROOT_FILE,       ///< No chroots are defined in ....
+	CHROOT_FILE2,      ///< No chroots are defined in ... or ....
+	CHROOT_NOTDEFINED, ///< The specified chroots are not defined.
+	CHROOT_NOTFOUND    ///< Chroot not found.
       };
 
     /// Exception type.

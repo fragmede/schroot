@@ -49,10 +49,11 @@ namespace
    */
   emap init_errors[] =
     {
-      emap(main_base::CHROOTS_NOTFOUND, N_("%1%: Chroots not found")),
-      emap(main_base::CHROOT_NOTDEFINED,
-	   N_("The specified chroots are not defined in '%1%'")),
-      emap(main_base::CHROOT_NOTFOUND,  N_("%1%: Chroot not found"))
+      emap(main_base::CHROOTS_NOTFOUND,  N_("%1%: Chroots not found")),
+      emap(main_base::CHROOT_FILE,       N_("No chroots are defined in '%4%'")),
+      emap(main_base::CHROOT_FILE2,      N_("No chroots are defined in '%4%' or '%5%'")),
+      emap(main_base::CHROOT_NOTDEFINED, N_("The specified chroots are not defined in '%1%'")),
+      emap(main_base::CHROOT_NOTFOUND,   N_("%1%: Chroot not found"))
     };
 
 }
@@ -182,17 +183,13 @@ main_base::run_impl ()
     {
       if (this->options->load_chroots == true &&
 	  this->options->load_sessions == true)
-	sbuild::log_warning()
-	  << format(_("No chroots are defined in '%1%' or '%2%'"))
-	  % SCHROOT_CONF % SCHROOT_SESSION_DIR
-	  << endl;
+	log_exception_warning
+	  (error(CHROOT_FILE2, SCHROOT_CONF, SCHROOT_SESSION_DIR));
       else
 	{
 	  const char *cfile = (this->options->load_sessions)
-	    ? SCHROOT_CONF : SCHROOT_SESSION_DIR;
-	  sbuild::log_warning()
-	    << format(_("No chroots are defined in '%1%'")) % cfile
-	    << endl;
+	    ? SCHROOT_SESSION_DIR : SCHROOT_CONF;
+	  log_exception_warning(error(CHROOT_FILE, cfile));
 	}
     }
 

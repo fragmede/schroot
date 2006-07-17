@@ -243,9 +243,9 @@ AH_TEMPLATE(PACKAGE_LOCALSTATE_DIR, [Package localstate directory])
 if test "x${localstatedir}" = 'x${prefix}/var'; then
   if test "x${prefix}" = "xNONE"; then
     if test "x${prefix}" = "xNONE"; then
-      PACKAGE_LOCALSTATE_DIR="${ac_default_prefix}/var/"
+      PACKAGE_LOCALSTATE_DIR="${ac_default_prefix}/var"
     else
-      PACKAGE_LOCALSTATE_DIR="${prefix}/var/"
+      PACKAGE_LOCALSTATE_DIR="${prefix}/var"
     fi
   else
     PACKAGE_LOCALSTATE_DIR="${prefix}/var"
