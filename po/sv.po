@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-07-14 18:24+0100\n"
+"POT-Creation-Date: 2006-07-17 19:08+0100\n"
 "PO-Revision-Date: 2006-06-17 22:13+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -15,13 +15,14 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: dchroot/dchroot.cc:59 dchroot-dsa/dchroot-dsa.cc:59 schroot/schroot.cc:61
+#: dchroot/dchroot.cc:59 dchroot-dsa/dchroot-dsa.cc:59
+#: sbuild/sbuild-auth.cc:124 schroot/schroot.cc:61
 #: schroot/schroot-listmounts.cc:67 schroot/schroot-releaselock.cc:67
 #, fuzzy
 msgid "An unknown exception occured"
 msgstr "Okänd åtgärd angiven"
 
-#: dchroot/dchroot-chroot-config.cc:123
+#: dchroot/dchroot-chroot-config.cc:125
 #, fuzzy, boost-format
 msgid "%1% chroot (dchroot compatibility)"
 msgstr "Kör schroot i dchroot-kompatibelt läge"
@@ -115,11 +116,6 @@ msgid "Using --chroots only"
 msgstr "Använder endast --chroots"
 
 #: dchroot/dchroot-session-base.cc:75
-#, boost-format
-msgid "(%1%->%2%): dchroot sessions do not support user switching"
-msgstr "(%1%->%2%): dchroot-sessioner har inte stöd för byte av användare"
-
-#: dchroot/dchroot-session-base.cc:77
 #, fuzzy
 msgid "dchroot session restriction"
 msgstr "Val av chroot"
@@ -129,7 +125,7 @@ msgstr "Val av chroot"
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%1% chroot] Kör kommando: \"%2%\""
 
-#: dchroot-dsa/dchroot-dsa-chroot-config.cc:110
+#: dchroot-dsa/dchroot-dsa-chroot-config.cc:116
 #, fuzzy, boost-format
 msgid "%1% chroot (dchroot-dsa compatibility)"
 msgstr "Kör schroot i dchroot-kompatibelt läge"
@@ -188,28 +184,28 @@ msgstr "PAM-fel: PAM är redan initierad"
 msgid "PAM error"
 msgstr "PAM-fel: %1%"
 
-#: sbuild/sbuild-auth.cc:424
+#: sbuild/sbuild-auth.cc:432
 msgid "Set RUSER"
 msgstr ""
 
-#: sbuild/sbuild-auth.cc:440
+#: sbuild/sbuild-auth.cc:448
 msgid "Set RHOST"
 msgstr ""
 
-#: sbuild/sbuild-auth.cc:453
+#: sbuild/sbuild-auth.cc:461
 msgid "Set TTY"
 msgstr ""
 
-#: sbuild/sbuild-auth.cc:465
+#: sbuild/sbuild-auth.cc:473
 msgid "Set USER"
 msgstr ""
 
-#: sbuild/sbuild-auth.cc:483
+#: sbuild/sbuild-auth.cc:495
 #, boost-format
 msgid "You do not have permission to access the %1% service."
 msgstr "Du har inte behörighet att komma åt %1%-tjänsten."
 
-#: sbuild/sbuild-auth.cc:486
+#: sbuild/sbuild-auth.cc:495
 msgid "This failure will be reported."
 msgstr "Det här felet kommer att rapporteras."
 
@@ -257,7 +253,7 @@ msgstr "okänd chroot-typ \"%1%\""
 msgid "Device must have an absolute path"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:62
+#: sbuild/sbuild-chroot.cc:62 sbuild/sbuild-lock.cc:52
 #, fuzzy
 msgid "Failed to lock device"
 msgstr "%1%: misslyckades med att låsa enhet: %2%"
@@ -272,7 +268,7 @@ msgstr "%1% är inte en blockenhet"
 msgid "Failed to stat device"
 msgstr "Misslyckades med att läsa status på enhet %1%: %2%"
 
-#: sbuild/sbuild-chroot.cc:65
+#: sbuild/sbuild-chroot.cc:65 sbuild/sbuild-lock.cc:55
 #, fuzzy
 msgid "Failed to unlock device"
 msgstr "%1%: misslyckades med att låsa upp enhet: %2%"
@@ -286,22 +282,22 @@ msgstr ""
 msgid "Failed to acquire file lock"
 msgstr "misslyckades med att skaffa ett enhetslås"
 
-#: sbuild/sbuild-chroot.cc:68 sbuild/sbuild-chroot-config.cc:59
+#: sbuild/sbuild-chroot.cc:68 sbuild/sbuild-chroot-config.cc:61
 #, fuzzy
 msgid "File is not a regular file"
 msgstr "inte en vanlig fil"
 
-#: sbuild/sbuild-chroot.cc:69 sbuild/sbuild-chroot-config.cc:61
+#: sbuild/sbuild-chroot.cc:69 sbuild/sbuild-chroot-config.cc:63
 #, fuzzy
 msgid "File is not owned by user root"
 msgstr "ägs inte av användaren root"
 
-#: sbuild/sbuild-chroot.cc:70 sbuild/sbuild-chroot-config.cc:62
+#: sbuild/sbuild-chroot.cc:70 sbuild/sbuild-chroot-config.cc:64
 #, fuzzy
 msgid "File has write permissions for others"
 msgstr "andra har skrivrättighet"
 
-#: sbuild/sbuild-chroot.cc:71 sbuild/sbuild-chroot-config.cc:63
+#: sbuild/sbuild-chroot.cc:71 sbuild/sbuild-chroot-config.cc:65
 #, fuzzy
 msgid "Failed to stat file"
 msgstr "misslyckades med att läsa status på fil: %1%"
@@ -325,135 +321,120 @@ msgstr "%1%: misslyckades med att avlänka sessionsfil: %2%\n"
 msgid "Failed to write session file"
 msgstr "%1%: misslyckades med att skapa sessionsfil: %2%\n"
 
-#: sbuild/sbuild-chroot.cc:371
-#, fuzzy, boost-format
-msgid "%1% chroot: personality '%2%' is unknown.\n"
-msgstr "%1% chroot: personligheten \"%2%\" är okänd.\n"
-
-#: sbuild/sbuild-chroot.cc:374
-#, boost-format
-msgid "Valid personalities: %1%\n"
-msgstr "Giltiga personligheter: %1%\n"
-
-#: sbuild/sbuild-chroot.cc:462
+#: sbuild/sbuild-chroot.cc:440
 msgid "Name"
 msgstr "Namn"
 
-#: sbuild/sbuild-chroot.cc:463
+#: sbuild/sbuild-chroot.cc:441
 msgid "Description"
 msgstr "Beskrivning"
 
-#: sbuild/sbuild-chroot.cc:464
+#: sbuild/sbuild-chroot.cc:442
 msgid "Type"
 msgstr "Typ"
 
-#: sbuild/sbuild-chroot.cc:465
+#: sbuild/sbuild-chroot.cc:443
 msgid "Priority"
 msgstr "Prioritet"
 
-#: sbuild/sbuild-chroot.cc:466
+#: sbuild/sbuild-chroot.cc:444
 msgid "Users"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:467
+#: sbuild/sbuild-chroot.cc:445
 msgid "Groups"
 msgstr "Grupper"
 
-#: sbuild/sbuild-chroot.cc:468
+#: sbuild/sbuild-chroot.cc:446
 #, fuzzy
 msgid "Root Users"
 msgstr "Rotgrupper"
 
-#: sbuild/sbuild-chroot.cc:469
+#: sbuild/sbuild-chroot.cc:447
 msgid "Root Groups"
 msgstr "Rotgrupper"
 
-#: sbuild/sbuild-chroot.cc:470
+#: sbuild/sbuild-chroot.cc:448
 msgid "Aliases"
 msgstr "Alias"
 
-#: sbuild/sbuild-chroot.cc:471
+#: sbuild/sbuild-chroot.cc:449
 msgid "Run Setup Scripts"
 msgstr "Kör konfigurationsskript"
 
 # Borde det bli "Kör körskript"? Kaka på kaka?
-#: sbuild/sbuild-chroot.cc:472
+#: sbuild/sbuild-chroot.cc:450
 msgid "Run Execution Scripts"
 msgstr "Kör skript"
 
-#: sbuild/sbuild-chroot.cc:474
+#: sbuild/sbuild-chroot.cc:452
 msgid "Session Managed"
 msgstr "Session hanterad"
 
-#: sbuild/sbuild-chroot.cc:478
+#: sbuild/sbuild-chroot.cc:456
 msgid "Command Prefix"
 msgstr "Kommandoprefix"
 
-#: sbuild/sbuild-chroot.cc:480
+#: sbuild/sbuild-chroot.cc:458
 msgid "Personality"
 msgstr "Personlighet"
 
-#: sbuild/sbuild-chroot.cc:484
+#: sbuild/sbuild-chroot.cc:462
 msgid "Location"
 msgstr "Plats"
 
-#: sbuild/sbuild-chroot.cc:486
+#: sbuild/sbuild-chroot.cc:464
 msgid "Mount Location"
 msgstr "Montera plats"
 
-#: sbuild/sbuild-chroot.cc:488
+#: sbuild/sbuild-chroot.cc:466
 msgid "Path"
 msgstr "Sökväg"
 
-#: sbuild/sbuild-chroot.cc:490
+#: sbuild/sbuild-chroot.cc:468
 msgid "Mount Device"
 msgstr "Montera enhet"
 
-#: sbuild/sbuild-chroot.cc:496
+#: sbuild/sbuild-chroot.cc:474
 #, fuzzy
 msgid "Session"
 msgstr "Session hanterad"
 
-#: sbuild/sbuild-chroot.cc:496
+#: sbuild/sbuild-chroot.cc:474
 msgid "Chroot"
 msgstr ""
 
 #: sbuild/sbuild-chroot-config.cc:57
+#, fuzzy, boost-format
+msgid "Alias '%1%' already associated with '%4%' chroot"
+msgstr "%1% chroot: alias \"%2%\" är redan associerat med chroot \"%3%\""
+
+#: sbuild/sbuild-chroot-config.cc:58
 #, fuzzy
 msgid "No such chroot"
 msgstr "%1%: Inget sådant chroot"
 
-#: sbuild/sbuild-chroot-config.cc:58
+#: sbuild/sbuild-chroot-config.cc:59
+#, fuzzy, boost-format
+msgid "A chroot or alias '%1%' already exists by this name"
+msgstr "%1% chroot: ett chroot eller alias existerar redan med det här namnet"
+
+#: sbuild/sbuild-chroot-config.cc:60
 #, fuzzy
 msgid "Failed to open directory"
 msgstr "%1%: misslyckades med att öppna katalog: %2%"
 
-#: sbuild/sbuild-chroot-config.cc:60
+#: sbuild/sbuild-chroot-config.cc:62
 #, fuzzy
 msgid "Failed to open file"
 msgstr "kan inte öppna fil"
 
-#: sbuild/sbuild-chroot-config.cc:183
-#, fuzzy, boost-format
-msgid "%1% chroot: Alias '%2%' already associated with '%3%' chroot"
-msgstr "%1% chroot: alias \"%2%\" är redan associerat med chroot \"%3%\""
-
-#: sbuild/sbuild-chroot-config.cc:191
-#, fuzzy, boost-format
-msgid "%1% chroot: Alias '%2%' already associated with another chroot"
-msgstr "%1% chroot: alias \"%2%\" är redan associerat med ett annat chroot"
-
-#: sbuild/sbuild-chroot-config.cc:201
-#, fuzzy, boost-format
-msgid "%1% chroot: A chroot or alias already exists by this name"
-msgstr "%1% chroot: ett chroot eller alias existerar redan med det här namnet"
-
-#: sbuild/sbuild-chroot-config.cc:204
-#, fuzzy, boost-format
-msgid "%1% chroot: Duplicate names are not allowed"
+#: sbuild/sbuild-chroot-config.cc:230 sbuild/sbuild-chroot-config.cc:236
+#, fuzzy
+msgid "Duplicate names are not allowed"
 msgstr "%1% chroot: dubbletta namn tillåts inte"
 
-#: sbuild/sbuild-chroot-config.cc:283
+#: sbuild/sbuild-chroot-config.cc:315
 msgid "Available chroots: "
 msgstr "Tillgängliga chroot: "
 
@@ -527,75 +508,102 @@ msgstr "kan inte öppna fil"
 
 #: sbuild/sbuild-keyfile.cc:43
 #, fuzzy, boost-format
-msgid "line %1% [%2%]: Disallowed key '%4%' used"
+msgid "line %1% [%2%]: Deprecated key '%4%' used"
 msgstr "rad %1% [%2%]: %3% \"%4%\""
 
 #: sbuild/sbuild-keyfile.cc:44
 #, fuzzy, boost-format
-msgid "[%2%]: Disallowed key '%4%' used"
+msgid "[%2%]: Deprecated key '%4%' used"
 msgstr "ej tillåten nyckel användes"
 
 #: sbuild/sbuild-keyfile.cc:45
 #, fuzzy, boost-format
+msgid "line %1% [%2%]: Disallowed key '%4%' used"
+msgstr "rad %1% [%2%]: %3% \"%4%\""
+
+#: sbuild/sbuild-keyfile.cc:46
+#, fuzzy, boost-format
+msgid "[%2%]: Disallowed key '%4%' used"
+msgstr "ej tillåten nyckel användes"
+
+#: sbuild/sbuild-keyfile.cc:47
+#, fuzzy, boost-format
 msgid "line %1%: Duplicate group '%4%'"
 msgstr "dubblett av grupp"
 
-#: sbuild/sbuild-keyfile.cc:46
+#: sbuild/sbuild-keyfile.cc:48
 #, fuzzy, boost-format
 msgid "line %1% [%2%]: Duplicate key '%4%'"
 msgstr "rad %1% [%2%]: %3% \"%4%\""
 
-#: sbuild/sbuild-keyfile.cc:47
+#: sbuild/sbuild-keyfile.cc:49
 #, fuzzy, boost-format
 msgid "line %1%: Invalid group: \"%4%\""
 msgstr "rad %1%: ogiltig rad: %2%"
 
-#: sbuild/sbuild-keyfile.cc:48
+#: sbuild/sbuild-keyfile.cc:50
 #, fuzzy, boost-format
 msgid "line %1%: Invalid line: \"%4%\""
 msgstr "rad %1%: ogiltig rad: %2%"
 
-#: sbuild/sbuild-keyfile.cc:49
+#: sbuild/sbuild-keyfile.cc:51
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Required key '%4%' is missing"
+msgstr "nödvändig nyckel saknas"
+
+#: sbuild/sbuild-keyfile.cc:52
 #, fuzzy, boost-format
 msgid "[%1%]: Required key '%4%' is missing"
 msgstr "nödvändig nyckel saknas"
 
-#: sbuild/sbuild-keyfile.cc:50
+#: sbuild/sbuild-keyfile.cc:53
 #, fuzzy, boost-format
 msgid "line %1%: No group specified: \"%4%\""
 msgstr "ingen grupp angiven"
 
-#: sbuild/sbuild-keyfile.cc:51
+#: sbuild/sbuild-keyfile.cc:54
 #, fuzzy, boost-format
 msgid "line %1%: No key specified: \"%4%\""
 msgstr "ingen nyckel angiven"
 
-#: sbuild/sbuild-keyfile.cc:52
+#: sbuild/sbuild-keyfile.cc:55
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Obsolete key '%4%' used"
+msgstr "rad %1% [%2%]: %3% \"%4%\""
+
+#: sbuild/sbuild-keyfile.cc:56
+#, fuzzy, boost-format
+msgid "[%2%]: Obsolete key '%4%' used"
+msgstr "ej tillåten nyckel användes"
+
+#: sbuild/sbuild-keyfile.cc:57
+#, fuzzy, boost-format
+msgid "[%1%]: %4%"
+msgstr "[%1%]: %3%"
+
+#: sbuild/sbuild-keyfile.cc:58
 #, boost-format
 msgid "[%1%] %2%: %4%"
 msgstr "[%1%] %2%: %4%"
 
-#: sbuild/sbuild-keyfile.cc:53
+#: sbuild/sbuild-keyfile.cc:59
+#, boost-format
+msgid "line %1% [%2%]: %4%"
+msgstr "rad %1% [%2%]: %4%"
+
+#: sbuild/sbuild-keyfile.cc:60
 #, boost-format
 msgid "line %1% [%2%] %3%: %4%"
 msgstr "rad %1% [%2%] %3%: %4%"
 
-#: sbuild/sbuild-keyfile.cc:428
-#, fuzzy, boost-format
-msgid "%1% chroot: A deprecated parameter '%2%' has been specified."
-msgstr "%1% chroot: En gammal parameter \"%2%\" har angivits."
-
-#: sbuild/sbuild-keyfile.cc:432
-msgid "This option will be removed in the future."
+#: sbuild/sbuild-keyfile.cc:445 sbuild/sbuild-keyfile.cc:451
+#, fuzzy
+msgid "This option will be removed in the future"
 msgstr "Den här flaggan kommer att tas bort i framtiden."
 
-#: sbuild/sbuild-keyfile.cc:436
-#, fuzzy, boost-format
-msgid "%1% chroot: An obsolete parameter '%2%' has been specified."
-msgstr "%1% chroot: En föråldrad parameter \"%2%\" har angivits."
-
-#: sbuild/sbuild-keyfile.cc:440
-msgid "This option has been removed, and no longer has any effect."
+#: sbuild/sbuild-keyfile.cc:461 sbuild/sbuild-keyfile.cc:467
+#, fuzzy
+msgid "This option has been removed, and no longer has any effect"
 msgstr "Den här flaggan har tagits bort och har inte längre någon effekt."
 
 #: sbuild/sbuild-lock.cc:47
@@ -615,24 +623,18 @@ msgstr "misslyckades med att ta bort tidsgräns: %1%"
 
 #: sbuild/sbuild-lock.cc:50
 #, fuzzy
-msgid "Failed to acquire lock"
-msgstr "misslyckades med att skaffa ett lås: %1%"
+msgid "Failed to lock file"
+msgstr "%1%: misslyckades med att låsa enhet: %2%"
 
 #: sbuild/sbuild-lock.cc:51
 #, fuzzy, boost-format
-msgid "Failed to acquire lock (timed out after %4% seconds)"
+msgid "Failed to lock file (timed out after %4% seconds)"
 msgstr "misslyckades med att skaffa ett lås (tidsgräns är %1% sekunder)"
-
-#: sbuild/sbuild-lock.cc:52
-#, fuzzy
-msgid "Failed to acquire device lock"
-msgstr "misslyckades med att skaffa ett enhetslås"
 
 #: sbuild/sbuild-lock.cc:53
 #, fuzzy, boost-format
 msgid ""
-"Failed to acquire device lock (timed out after %4% seconds; lock held by PID "
-"%5%)"
+"Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
 msgstr ""
 "misslyckades med att skaffa ett enhetslås som hölls av pid %1% (tidsgräns är "
 "%2% sekunder)"
@@ -642,19 +644,13 @@ msgstr ""
 msgid "Failed to test device lock"
 msgstr "misslyckades med att testa enhetslås"
 
-#: sbuild/sbuild-lock.cc:55 schroot/schroot-releaselock-main.cc:55
-#, fuzzy
-msgid "Failed to release device lock"
-msgstr "misslyckades med att släppa enhetslås"
-
 #: sbuild/sbuild-lock.cc:56
 #, fuzzy, boost-format
 msgid ""
-"Failed to release device lock (timed out after %4% seconds; lock held by PID "
-"%5%)"
+"Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
 msgstr ""
-"misslyckades med att släppa enhetslås som hölls av pid %1% (tidsgräns är %2% "
-"sekunder)"
+"misslyckades med att skaffa ett enhetslås som hölls av pid %1% (tidsgräns är "
+"%2% sekunder)"
 
 #: sbuild/sbuild-null.cc:30
 #, fuzzy
@@ -668,8 +664,18 @@ msgstr "kunde inte tolka värde"
 
 #: sbuild/sbuild-personality.cc:48
 #, fuzzy, boost-format
+msgid "Personality '%1%' is unknown"
+msgstr "%1% chroot: personligheten \"%2%\" är okänd.\n"
+
+#: sbuild/sbuild-personality.cc:49
+#, fuzzy, boost-format
 msgid "Failed to set personality '%1%'"
 msgstr "Misslyckades med att få tag på terminalinställningar"
+
+#: sbuild/sbuild-personality.cc:175
+#, boost-format
+msgid "Valid personalities: %1%\n"
+msgstr "Giltiga personligheter: %1%\n"
 
 #: sbuild/sbuild-run-parts.cc:48 sbuild/sbuild-session.cc:65
 #, fuzzy
@@ -813,7 +819,8 @@ msgid "Failed to set user '%1%'"
 msgstr "misslyckades med att ställa in tidsgräns: %1%"
 
 #: sbuild/sbuild-session.cc:88
-msgid "User switching is not permitted"
+#, boost-format
+msgid "(%1%->%2%): User switching is not permitted"
 msgstr ""
 
 #: sbuild/sbuild-session.cc:665
@@ -852,7 +859,7 @@ msgid "stage=%1%"
 msgstr ""
 
 #: sbuild/sbuild-session.cc:1019
-msgid "terminating immediately"
+msgid "(terminating immediately)"
 msgstr ""
 
 #: schroot/schroot-base-main.cc:60
@@ -931,20 +938,20 @@ msgstr ""
 msgid "Invalid debug level"
 msgstr "ogiltig rad"
 
-#: schroot/schroot-listmounts-main.cc:47
+#: schroot/schroot-listmounts-main.cc:56
+#, fuzzy, boost-format
+msgid "Failed to open '%1%'"
+msgstr "%1%: Misslyckades med att öppna: %2%"
+
+#: schroot/schroot-listmounts-main.cc:57
+#, fuzzy, boost-format
+msgid "Failed to close '%1%'"
+msgstr "%1%: Misslyckades med att stänga: %2%"
+
+#: schroot/schroot-listmounts-main.cc:70
 #, fuzzy
 msgid "[OPTION...] - list mount points"
 msgstr "  schroot-listmounts [FLAGGA...] - lista monteringar"
-
-#: schroot/schroot-listmounts-main.cc:67
-#, fuzzy, boost-format
-msgid "Failed to open '%1%': %2%"
-msgstr "%1%: Misslyckades med att öppna: %2%"
-
-#: schroot/schroot-listmounts-main.cc:90
-#, fuzzy, boost-format
-msgid "Failed to close '%1%': %2%"
-msgstr "%1%: Misslyckades med att stänga: %2%"
 
 #: schroot/schroot-listmounts-options.cc:41
 msgid "Mount"
@@ -970,25 +977,25 @@ msgstr "Endast en åtgärd får anges"
 msgid "%1%: Chroots not found"
 msgstr "%1%: grupp hittades inte: %2%"
 
+#: schroot/schroot-main-base.cc:53
+#, fuzzy, boost-format
+msgid "No chroots are defined in '%4%'"
+msgstr "Inga chroot angivna i %1%"
+
 #: schroot/schroot-main-base.cc:54
+#, fuzzy, boost-format
+msgid "No chroots are defined in '%4%' or '%5%'"
+msgstr "Inga chroot angivna i %1% eller %2%"
+
+#: schroot/schroot-main-base.cc:55
 #, fuzzy, boost-format
 msgid "The specified chroots are not defined in '%1%'"
 msgstr "De angivna chroot finns inte angivna i %1%"
 
-#: schroot/schroot-main-base.cc:55
+#: schroot/schroot-main-base.cc:56
 #, fuzzy, boost-format
 msgid "%1%: Chroot not found"
 msgstr "%1%: grupp hittades inte: %2%"
-
-#: schroot/schroot-main-base.cc:186
-#, fuzzy, boost-format
-msgid "No chroots are defined in '%1%' or '%2%'"
-msgstr "Inga chroot angivna i %1% eller %2%"
-
-#: schroot/schroot-main-base.cc:194
-#, fuzzy, boost-format
-msgid "No chroots are defined in '%1%'"
-msgstr "Inga chroot angivna i %1%"
 
 #: schroot/schroot-options-base.cc:46
 msgid "Chroot selection"
@@ -1076,6 +1083,11 @@ msgstr "Tvinga operation, även om den misslyckas"
 msgid "Failed to release device lock (lock held by PID %4%)"
 msgstr "%1%: misslyckades med att släppa enhetslås som ägs av pid %2%"
 
+#: schroot/schroot-releaselock-main.cc:55
+#, fuzzy
+msgid "Failed to release device lock"
+msgstr "misslyckades med att släppa enhetslås"
+
 #: schroot/schroot-releaselock-main.cc:69
 #, fuzzy
 msgid "[OPTION...] - release a device lock"
@@ -1100,6 +1112,37 @@ msgstr "Process-id som äger låset"
 #: schroot/schroot-releaselock-options.cc:88
 msgid "No device specified"
 msgstr "Ingen enhet angiven"
+
+#~ msgid "(%1%->%2%): dchroot sessions do not support user switching"
+#~ msgstr "(%1%->%2%): dchroot-sessioner har inte stöd för byte av användare"
+
+#, fuzzy
+#~ msgid "%1% chroot: Alias '%2%' already associated with another chroot"
+#~ msgstr "%1% chroot: alias \"%2%\" är redan associerat med ett annat chroot"
+
+#, fuzzy
+#~ msgid "%1% chroot: A deprecated parameter '%2%' has been specified."
+#~ msgstr "%1% chroot: En gammal parameter \"%2%\" har angivits."
+
+#, fuzzy
+#~ msgid "%1% chroot: An obsolete parameter '%2%' has been specified."
+#~ msgstr "%1% chroot: En föråldrad parameter \"%2%\" har angivits."
+
+#, fuzzy
+#~ msgid "Failed to acquire lock"
+#~ msgstr "misslyckades med att skaffa ett lås: %1%"
+
+#, fuzzy
+#~ msgid "Failed to acquire device lock"
+#~ msgstr "misslyckades med att skaffa ett enhetslås"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to release device lock (timed out after %4% seconds; lock held by "
+#~ "PID %5%)"
+#~ msgstr ""
+#~ "misslyckades med att släppa enhetslås som hölls av pid %1% (tidsgräns är %"
+#~ "2% sekunder)"
 
 #~ msgid "%1%: No such chroot"
 #~ msgstr "%1%: Inget sådant chroot"
@@ -1154,9 +1197,6 @@ msgstr "Ingen enhet angiven"
 #~ msgid "line %1%: %2%"
 #~ msgstr "rad %1%: %2%"
 
-#~ msgid "line %1% [%2%]: %4%"
-#~ msgstr "rad %1% [%2%]: %4%"
-
 #~ msgid "line %1% [%2%]: %3%"
 #~ msgstr "rad %1% [%2%]: %3%"
 
@@ -1165,9 +1205,6 @@ msgstr "Ingen enhet angiven"
 
 #~ msgid "line %1% [%2%] %3%: %4% \"%5%\""
 #~ msgstr "rad %1% [%2%] %3%: %4% \"%5%\""
-
-#~ msgid "[%1%]: %3%"
-#~ msgstr "[%1%]: %3%"
 
 #~ msgid "[%1%]: %2% \"%3%\""
 #~ msgstr "[%1%]: %2% \"%3%\""

@@ -1,5 +1,11 @@
 2006-07-17  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Remove completed item.
+
+	* po/en_GB.po: Update translation.
+
+2006-07-17  Roger Leigh  <rleigh@debian.org>
+
 	* Use log_exception_error and log_exception_error in place of
 	log_error and log_warning.
 
