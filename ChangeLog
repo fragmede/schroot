@@ -1,5 +1,11 @@
 2006-07-17  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot-listmounts-main.cc: Add error code enum and
+	string map.
+	(list_mounts): Throw custom exception using new error codes.
+
+2006-07-17  Roger Leigh  <rleigh@debian.org>
+
 	* test/sbuild-personality.cc: Add tests for stream operators.
 
 2006-07-17  Roger Leigh  <rleigh@debian.org>
