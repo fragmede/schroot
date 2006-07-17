@@ -1,5 +1,9 @@
 2006-07-17  Roger Leigh  <rleigh@debian.org>
 
+	* test/sbuild-personality.cc: Add tests for stream operators.
+
+2006-07-17  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-lock.cc: Rename _RELEASE error codes to _UNLOCK
 	and reword error messages to be uniform with chroot error
 	messages.

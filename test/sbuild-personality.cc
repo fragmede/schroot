@@ -30,6 +30,9 @@ class test_personality : public TestCase
 {
   CPPUNIT_TEST_SUITE(test_personality);
   CPPUNIT_TEST(test_construction);
+  CPPUNIT_TEST(test_output);
+  CPPUNIT_TEST(test_input);
+  CPPUNIT_TEST_EXCEPTION(test_input_fail, sbuild::personality::error);
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -63,6 +66,60 @@ public:
 #else
     CPPUNIT_ASSERT(p4.get_name() == "unknown");
 #endif
+  }
+
+  void
+  test_output()
+  {
+    sbuild::personality p2(0xffffffff);
+    std::ostringstream ps2;
+    ps2 << p2;
+    CPPUNIT_ASSERT(ps2.str() == "undefined");
+
+    sbuild::personality p3("invalid_personality");
+    std::ostringstream ps3;
+    ps3 << p3;
+    CPPUNIT_ASSERT(ps3.str() == "undefined");
+
+    sbuild::personality p4("linux");
+    std::ostringstream ps4;
+    ps4 << p4;
+#ifdef __linux__
+    CPPUNIT_ASSERT(ps4.str() == "linux");
+#else
+    CPPUNIT_ASSERT(ps4.str() == "unknown");
+#endif
+  }
+
+  void
+  test_input()
+  {
+    sbuild::personality p2;
+    std::istringstream ps2("undefined");
+    ps2 >> p2;
+    CPPUNIT_ASSERT(p2.get_name() == "undefined");
+
+    sbuild::personality p4;
+#ifdef __linux__
+    std::istringstream ps4("linux");
+#else
+    std::istringstream ps4("unknown");
+#endif
+    ps4 >> p4;
+#ifdef __linux__
+    CPPUNIT_ASSERT(p4.get_name() == "linux");
+#else
+    CPPUNIT_ASSERT(p4.get_name() == "unknown");
+#endif
+  }
+
+  void
+  test_input_fail()
+  {
+    sbuild::personality p3;
+    std::istringstream ps3("invalid_personality");
+    ps3 >> p3;
+    CPPUNIT_ASSERT(p3.get_name() == "undefined");
   }
 
 };
