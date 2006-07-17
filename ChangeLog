@@ -1,5 +1,29 @@
 2006-07-17  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-chroot-config.cc
+	(add): Clean up error handling, and report config file line
+	number, group and key details.  A keyfile is passed as an
+	argument, to provide context for error details.
+	(load_keyfile): Pass keyfile as context when calling add.
+
+	* sbuild/sbuild-auth.cc
+	(authenticate): Authorisation failure information is set as an
+	exception reason.
+
+	* sbuild/sbuild-keyfile.cc: Add additional error codes for
+	passthrough, and deprecated and obsolete key warnings.
+	(check_priority): Use error codes and exception reasons rather
+	than hand-formatted error messages.
+
+	* sbuild/sbuild-session.cc
+	(wait_for_child): Tidy termination message.
+
+	* sbuild/sbuild-log.cc
+	(log_exception_warning): New method.  This behaves exactly the
+	same as log_exception, but uses log_warning rather than log_error.
+
+2006-07-17  Roger Leigh  <rleigh@debian.org>
+
 	* dchroot/dchroot-chroot-config.cc,
 	dchroot-dsa/dchroot-dsa-chroot-config.cc
 	(parse_data): Instead of creating a chroot and adding it, create a

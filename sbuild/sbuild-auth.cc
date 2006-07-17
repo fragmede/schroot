@@ -488,15 +488,14 @@ auth::authenticate ()
     case STATUS_FAIL:
 	{
 	  log_debug(DEBUG_INFO) << "PAM auth premature FAIL" << endl;
-	  cerr << format(_("You do not have permission to access the %1% service."))
-	    % this->service
-	       << '\n'
-	       << _("This failure will be reported.")
-	       << endl;
 	  syslog(LOG_AUTH|LOG_WARNING,
 		 "%s->%s Unauthorised",
 		 this->ruser.c_str(), this->user.c_str());
-	  throw error(AUTHORISATION);
+	  error e(AUTHORISATION);
+	  format fmt(std::string(_("You do not have permission to access the %1% service.")) + '\n' + _("This failure will be reported."));
+	  fmt % this->service;
+	  e.set_reason(fmt.str());
+	  throw e;
 	}
     default:
       break;

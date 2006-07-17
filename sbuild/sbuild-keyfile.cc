@@ -40,6 +40,8 @@ namespace
   emap init_errors[] =
     {
       emap(keyfile::BAD_FILE,          N_("Can't open file '%4%'")),
+      emap(keyfile::DEPRECATED_KEY,    N_("line %1% [%2%]: Deprecated key '%4%' used")),
+      emap(keyfile::DEPRECATED_KEY_NL, N_("[%2%]: Deprecated key '%4%' used")),
       emap(keyfile::DISALLOWED_KEY,    N_("line %1% [%2%]: Disallowed key '%4%' used")),
       emap(keyfile::DISALLOWED_KEY_NL, N_("[%2%]: Disallowed key '%4%' used")),
       emap(keyfile::DUPLICATE_GROUP,   N_("line %1%: Duplicate group '%4%'")),
@@ -49,7 +51,11 @@ namespace
       emap(keyfile::MISSING_KEY,       N_("[%1%]: Required key '%4%' is missing")),
       emap(keyfile::NO_GROUP,          N_("line %1%: No group specified: \"%4%\"")),
       emap(keyfile::NO_KEY,            N_("line %1%: No key specified: \"%4%\"")),
+      emap(keyfile::OBSOLETE_KEY,      N_("line %1% [%2%]: Obsolete key '%4%' used")),
+      emap(keyfile::OBSOLETE_KEY_NL,   N_("[%2%]: Obsolete key '%4%' used")),
+      emap(keyfile::PASSTHROUGH_G,     N_("[%1%]: %4%")),
       emap(keyfile::PASSTHROUGH_GK,    N_("[%1%] %2%: %4%")),
+      emap(keyfile::PASSTHROUGH_LG,    N_("line %1% [%2%]: %4%")),
       emap(keyfile::PASSTHROUGH_LGK,   N_("line %1% [%2%] %3%: %4%"))
     };
 
@@ -406,6 +412,8 @@ keyfile::check_priority (std::string const& group,
 			 priority priority,
 			 bool     valid) const
 {
+  unsigned int line = get_line(group, key);
+
   if (valid == false)
     {
       switch (priority)
@@ -424,32 +432,47 @@ keyfile::check_priority (std::string const& group,
       switch (priority)
 	{
 	case PRIORITY_DEPRECATED:
-	  log_warning()
-	    << format(_("%1% chroot: A deprecated parameter '%2%' has been specified."))
-	    % group % key
-	    << std::endl;
-	  log_info()
-	    << _("This option will be removed in the future.") << std::endl;
+	  {
+	    if (line)
+	      {
+		error e(line, group, DEPRECATED_KEY, key);
+		e.set_reason(_("This option will be removed in the future"));
+		log_exception_warning(e);
+	      }
+	    else
+	      {
+		error e(group, DEPRECATED_KEY_NL, key);
+		e.set_reason(_("This option will be removed in the future"));
+		log_exception_warning(e);
+	      }
+	  }
 	  break;
 	case PRIORITY_OBSOLETE:
-	  log_warning()
-	    << format(_("%1% chroot: An obsolete parameter '%2%' has been specified."))
-	    % group % key
-	    << std::endl;
-	  log_info()
-	    << _("This option has been removed, and no longer has any effect.") << std::endl;
+	  {
+	    if (line)
+	      {
+		error e(line, group, OBSOLETE_KEY, key);
+		e.set_reason(_("This option has been removed, and no longer has any effect"));
+		log_exception_warning(e);
+	      }
+	    else
+	      {
+		error e(group, OBSOLETE_KEY_NL, key);
+		e.set_reason(_("This option has been removed, and no longer has any effect"));
+		log_exception_warning(e);
+	      }
+	  }
 	  break;
 	case PRIORITY_DISALLOWED:
 	  {
-	    unsigned int line = get_line(group, key);
 	    if (line)
 	      throw error(line, group, DISALLOWED_KEY, key);
 	    else
 	      throw error(group, DISALLOWED_KEY_NL, key);
 	  }
 	  break;
-	    default:
-	      break;
+	default:
+	  break;
 	}
     }
 }

@@ -74,18 +74,24 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
-	BAD_FILE,           ///< The file to parse couldn't be opened.
-	DISALLOWED_KEY,     ///< The key is not allowed.
-	DISALLOWED_KEY_NL,  ///< The key is not allowed (no line specified).
-	DUPLICATE_GROUP,    ///< The group is a duplicate.
-	DUPLICATE_KEY,      ///< The key is a duplicate.
-	INVALID_GROUP,      ///< The group is invalid.
-	INVALID_LINE,       ///< The line is invalid.
-	MISSING_KEY,        ///< The key is missing.
-	NO_GROUP,           ///< No group was specified.
-	NO_KEY,             ///< No key was specified.
-	PASSTHROUGH_GK,     ///< Pass through exception with group and key.
-	PASSTHROUGH_LGK     ///< Pass through exception with line, group and key.
+	BAD_FILE,          ///< The file to parse couldn't be opened.
+	DEPRECATED_KEY,    ///< The key is deprecated.
+	DEPRECATED_KEY_NL, ///< The key is deprecated (no line specified).
+	DISALLOWED_KEY,    ///< The key is not allowed.
+	DISALLOWED_KEY_NL, ///< The key is not allowed (no line specified).
+	DUPLICATE_GROUP,   ///< The group is a duplicate.
+	DUPLICATE_KEY,     ///< The key is a duplicate.
+	INVALID_GROUP,     ///< The group is invalid.
+	INVALID_LINE,      ///< The line is invalid.
+	MISSING_KEY,       ///< The key is missing.
+	NO_GROUP,          ///< No group was specified.
+	NO_KEY,            ///< No key was specified.
+	OBSOLETE_KEY,      ///< The key is obsolete.
+	OBSOLETE_KEY_NL,   ///< The key is obsolete (no line specified).
+	PASSTHROUGH_G,     ///< Pass through exception with group.
+	PASSTHROUGH_GK,    ///< Pass through exception with group and key.
+	PASSTHROUGH_LG,    ///< Pass through exception with line and group.
+	PASSTHROUGH_LGK    ///< Pass through exception with line, group and key.
       };
 
     /// Exception type.

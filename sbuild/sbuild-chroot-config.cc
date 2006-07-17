@@ -54,13 +54,15 @@ namespace
    */
   emap init_errors[] =
     {
-      emap(chroot_config::CHROOT,      N_("No such chroot")),
-      emap(chroot_config::DIR_OPEN,    N_("Failed to open directory")),
-      emap(chroot_config::FILE_NOTREG, N_("File is not a regular file")),
-      emap(chroot_config::FILE_OPEN,   N_("Failed to open file")),
-      emap(chroot_config::FILE_OWNER,  N_("File is not owned by user root")),
-      emap(chroot_config::FILE_PERMS,  N_("File has write permissions for others")),
-      emap(chroot_config::FILE_STAT,   N_("Failed to stat file"))
+      emap(chroot_config::ALIAS_EXIST,  N_("Alias '%1%' already associated with '%4%' chroot")),
+      emap(chroot_config::CHROOT,       N_("No such chroot")),
+      emap(chroot_config::CHROOT_EXIST, N_("A chroot or alias '%1%' already exists by this name")),
+      emap(chroot_config::DIR_OPEN,     N_("Failed to open directory")),
+      emap(chroot_config::FILE_NOTREG,  N_("File is not a regular file")),
+      emap(chroot_config::FILE_OPEN,    N_("Failed to open file")),
+      emap(chroot_config::FILE_OWNER,   N_("File is not owned by user root")),
+      emap(chroot_config::FILE_PERMS,   N_("File has write permissions for others")),
+      emap(chroot_config::FILE_STAT,    N_("Failed to stat file"))
     };
 
   bool chroot_alphasort (sbuild::chroot::ptr const& c1,
@@ -153,16 +155,19 @@ chroot_config::add_config_directory (std::string const& dir,
 }
 
 void
-chroot_config::add (chroot::ptr& chroot)
+chroot_config::add (chroot::ptr&   chroot,
+		    keyfile const& kconfig)
 {
+  std::string const& name = chroot->get_name();
+
   // Make sure insertion will succeed.
-  if (this->chroots.find(chroot->get_name()) == this->chroots.end() &&
-      this->aliases.find(chroot->get_name()) == this->aliases.end())
+  if (this->chroots.find(name) == this->chroots.end() &&
+      this->aliases.find(name) == this->aliases.end())
     {
       // Set up chroot.
-      this->chroots.insert(std::make_pair(chroot->get_name(), chroot));
-      this->aliases.insert(std::make_pair(chroot->get_name(),
-					  chroot->get_name()));
+      this->chroots.insert(std::make_pair(name, chroot));
+      this->aliases.insert(std::make_pair(name,
+					  name));
 
       // Set up aliases.
       string_list const& aliases = chroot->get_aliases();
@@ -170,40 +175,67 @@ chroot_config::add (chroot::ptr& chroot)
 	   pos != aliases.end();
 	   ++pos)
 	{
-	  if (this->aliases.insert
-	      (std::make_pair(*pos, chroot->get_name()))
-	      .second == false)
+	  try
 	    {
-	      string_map::const_iterator dup = this->aliases.find(*pos);
-	      // Don't warn if alias is for chroot of same name.
-	      if (dup != this->aliases.end())
+	      if (this->aliases.insert
+		  (std::make_pair(*pos, name))
+		  .second == false)
 		{
-		  if (chroot->get_name() != dup->first)
-		    log_warning() <<
-		      format(_("%1% chroot: "
-			       "Alias '%2%' already associated with "
-			       "'%3%' chroot"))
-		      % chroot->get_name() % dup->first % dup->second
-				  << endl;
+		  string_map::const_iterator dup = this->aliases.find(*pos);
+		  // Don't warn if alias is for chroot of same name.
+		  if (dup == this->aliases.end() ||
+		      name != dup->first)
+		    {
+		      const char *const key("aliases");
+		      unsigned int line = kconfig.get_line(name, key);
+
+		      if (dup == this->aliases.end())
+			{
+			  error e(*pos, ALIAS_EXIST);
+			  if (line)
+			    throw keyfile::error(line, name, key,
+						 keyfile::PASSTHROUGH_LGK, e);
+			  else
+			    throw keyfile::error(name, key,
+						 keyfile::PASSTHROUGH_GK, e);
+			}
+		      else
+			{
+			  error e(dup->first, ALIAS_EXIST, dup->second);
+			  if (line)
+			    throw keyfile::error(line, name, key,
+						 keyfile::PASSTHROUGH_LGK, e);
+			  else
+			    throw keyfile::error(name, key,
+						 keyfile::PASSTHROUGH_GK, e);
+			}
+		    }
 		}
-	      else
-		log_warning() <<
-		  format(_("%1% chroot: "
-			   "Alias '%2%' already associated with "
-			   "another chroot"))
-		  % chroot->get_name() % *pos
-			      << endl;
+	    }
+	  catch (std::runtime_error const& e)
+	    {
+	      log_warning() << e.what() << endl;
 	    }
 	}
     }
   else
     {
-      log_warning() << format(_("%1% chroot: A chroot or alias already exists by this name"))
-	% chroot->get_name()
-		    << endl;
-      log_warning() << format(_("%1% chroot: Duplicate names are not allowed"))
-	% chroot->get_name()
-		    << endl;
+      unsigned int line = kconfig.get_line(name);
+
+      error e(name, CHROOT_EXIST);
+
+      if (line)
+	{
+	  keyfile::error ke(line, name, keyfile::PASSTHROUGH_LG, e);
+ 	  ke.set_reason(_("Duplicate names are not allowed"));
+	  throw ke;
+	}
+      else
+	{
+	  keyfile::error ke(name, keyfile::PASSTHROUGH_G, e);
+ 	  ke.set_reason(_("Duplicate names are not allowed"));
+	  throw ke;
+	}
     }
 }
 
@@ -487,7 +519,7 @@ chroot_config::load_keyfile (keyfile& kconfig,
 
       kconfig >> chroot;
 
-      add(chroot);
+      add(chroot, kconfig);
 
       {
 	chroot_source *source = dynamic_cast<chroot_source *>(chroot.get());
@@ -495,7 +527,7 @@ chroot_config::load_keyfile (keyfile& kconfig,
 	  {
 	    chroot::ptr source_chroot = source->clone_source();
 	    if (source_chroot)
-	      add(source_chroot);
+	      add(source_chroot, kconfig);
 	  }
       }
     }

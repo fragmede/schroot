@@ -53,13 +53,15 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
-	CHROOT,      ///< No such chroot.
-	DIR_OPEN,    ///< Failed to open directory.
-	FILE_NOTREG, ///< File is not a regular file.
-	FILE_OPEN,   ///< Failed to open file.
-	FILE_OWNER,  ///< File is not owned by user root.
-	FILE_PERMS,  ///< File has write permissions for others.
-	FILE_STAT    ///< Failed to stat file.
+	ALIAS_EXIST,  ///< Alias already associated with chroot.
+	CHROOT,       ///< No such chroot.
+	CHROOT_EXIST, ///< A chroot or alias already exists by this name.
+	DIR_OPEN,     ///< Failed to open directory.
+	FILE_NOTREG,  ///< File is not a regular file.
+	FILE_OPEN,    ///< Failed to open file.
+	FILE_OWNER,   ///< File is not owned by user root.
+	FILE_PERMS,   ///< File has write permissions for others.
+	FILE_STAT     ///< Failed to stat file.
       };
 
     /// Exception type.
@@ -132,9 +134,11 @@ namespace sbuild
      * alias will not be added.
      *
      * @param chroot the chroot to add.
+     * @param kconfig the chroot configuration.
      */
     void
-    add (chroot::ptr& chroot);
+    add (chroot::ptr&   chroot,
+	 keyfile const& kconfig);
 
   public:
     /**

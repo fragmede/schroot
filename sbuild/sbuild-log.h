@@ -71,6 +71,14 @@ namespace sbuild
   log_debug (DebugLevel level);
 
   /**
+   * Log an exception as a warning.
+   *
+   * @param e the exception to log.
+   */
+  void
+  log_exception_warning (std::exception const& e);
+
+  /**
    * Log an exception.
    *
    * @param e the exception to log.

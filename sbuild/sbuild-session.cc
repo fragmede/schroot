@@ -1016,7 +1016,7 @@ session::wait_for_child (pid_t pid,
     {
       if (sighup_called && !child_killed)
 	{
-	  error e(SIGHUP_CATCH, _("terminating immediately"));
+	  error e(SIGHUP_CATCH, _("(terminating immediately)"));
 	  log_error() << e.what() << endl;
 	  kill(pid, SIGHUP);
 	  this->chroot_status = false;
