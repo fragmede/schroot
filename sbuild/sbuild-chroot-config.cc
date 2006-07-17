@@ -135,7 +135,7 @@ chroot_config::add_config_directory (std::string const& dir,
       if (stat(filename.c_str(), &statbuf) < 0)
 	{
 	  error e(filename, FILE_STAT, strerror(errno));
-	  log_warning() << e.what() << endl;
+	  log_exception_warning(e);
 	  continue;
 	}
 
@@ -145,7 +145,7 @@ chroot_config::add_config_directory (std::string const& dir,
 		strcmp(de->d_name, "..") == 0))
 	    {
 	      error e (filename, FILE_NOTREG);
-	      log_warning() << e.what() << endl;
+	      log_exception_warning(e);
 	    }
 	  continue;
 	}
@@ -214,7 +214,7 @@ chroot_config::add (chroot::ptr&   chroot,
 	    }
 	  catch (std::runtime_error const& e)
 	    {
-	      log_warning() << e.what() << endl;
+	      log_exception_warning(e);
 	    }
 	}
     }
@@ -359,7 +359,7 @@ chroot_config::print_chroot_info (string_list const& chroots,
       else
 	{
 	  error e(*pos, CHROOT_NOTFOUND);
-	  log_error() << e.what() << endl;
+	  log_exception_error(e);
 	}
     }
 }
@@ -380,7 +380,7 @@ chroot_config::print_chroot_location (string_list const& chroots,
       else
 	{
 	  error e(*pos, CHROOT_NOTFOUND);
-	  log_error() << e.what() << endl;
+	  log_exception_error(e);
 	}
     }
 
@@ -408,7 +408,7 @@ chroot_config::print_chroot_config (string_list const& chroots,
       else
 	{
 	  error e(*pos, CHROOT_NOTFOUND);
-	  log_error() << e.what() << endl;
+	  log_exception_error(e);
 	}
     }
 

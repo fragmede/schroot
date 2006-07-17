@@ -166,7 +166,7 @@ auth_conv_tty::get_delay ()
       this->start_time >= this->warning_timeout)
     {
       error e(TIMEOUT_PENDING);
-      log_warning() << e.what() << endl;
+      log_warning_exception(e);
       return (this->fatal_timeout ?
 	      this->fatal_timeout - this->start_time : 0);
     }

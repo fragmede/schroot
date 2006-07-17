@@ -125,12 +125,12 @@ namespace
 	if (errno == 0)
 	  {
 	    session::error e(group, session::GROUP_UNKNOWN);
-	    log_warning() << e.what() << endl;
+	    log_exception_warning(e);
 	  }
 	else
 	  {
 	    session::error e(group, session::GROUP_UNKNOWN, strerror(errno));
-	    log_warning() << e.what() << endl;
+	    log_exception_warning(e);
 	  }
 	return false;
       }
@@ -376,7 +376,7 @@ session::get_auth_status () const
       if (!chroot) // Should never happen, but cater for it anyway.
 	{
 	  error e(*cur, CHROOT_ALIAS);
-	  log_warning() << e.what() << endl;
+	  log_exception_warning(e);
 	  status = change_auth(status, auth::STATUS_FAIL);
 	}
 
@@ -961,14 +961,14 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 	  if (dpos + 1 == dlist.end())
 	    throw e;
 	  else
-	    log_warning() << e.what() << endl;
+	    log_exception_warning(e);
 	}
       else
 	{
 	  if (dpos != dlist.begin())
 	    {
 	      error e(CHDIR_FB, *dpos);
-	      log_warning() << e.what() << endl;
+	      log_exception_warning(e);
 	    }
 	  break;
 	}
@@ -1017,7 +1017,7 @@ session::wait_for_child (pid_t pid,
       if (sighup_called && !child_killed)
 	{
 	  error e(SIGHUP_CATCH, _("(terminating immediately)"));
-	  log_error() << e.what() << endl;
+	  log_exception_error(e);
 	  kill(pid, SIGHUP);
 	  this->chroot_status = false;
 	  child_killed = true;

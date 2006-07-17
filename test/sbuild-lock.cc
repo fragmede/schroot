@@ -105,7 +105,7 @@ public:
 	    catch (std::exception const& ignore)
 	      {
 	      }
-	    std::cerr <<"Child fail: " << e.what() << std::endl;
+	    std::cerr << "Child fail: " << e.what() << std::endl;
 	    _exit(EXIT_FAILURE);
 	  }
 	_exit(EXIT_SUCCESS);
@@ -249,7 +249,7 @@ public:
 	    catch (std::exception const& ignore)
 	      {
 	      }
-	    std::cerr <<"Child fail: " << e.what() << std::endl;
+	    std::cerr << "Child fail: " << e.what() << std::endl;
 	    _exit(EXIT_FAILURE);
 	  }
 	_exit(EXIT_SUCCESS);

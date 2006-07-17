@@ -178,7 +178,7 @@ run_parts::run_child (std::string const& file,
       ::umask(this->umask);
       exec(this->directory + '/' + file, command, env);
       error e(file, EXEC, strerror(errno));
-      log_error() << e.what() << std::endl;
+      log_exception_error(e);
       _exit(EXIT_FAILURE);
     }
   else
