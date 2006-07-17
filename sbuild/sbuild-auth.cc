@@ -117,7 +117,7 @@ namespace
       }
     catch (std::exception const& e)
       {
-	sbuild::log_exception(e);
+	sbuild::log_exception_error(e);
       }
     catch (...)
       {

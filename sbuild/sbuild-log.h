@@ -79,12 +79,12 @@ namespace sbuild
   log_exception_warning (std::exception const& e);
 
   /**
-   * Log an exception.
+   * Log an exception as an error.
    *
    * @param e the exception to log.
    */
   void
-  log_exception (std::exception const& e);
+  log_exception_error (std::exception const& e);
 
   /// The debugging level in use.
   extern DebugLevel debug_level;

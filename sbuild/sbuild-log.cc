@@ -74,7 +74,7 @@ sbuild::log_exception_warning (std::exception const& e)
 }
 
 void
-sbuild::log_exception (std::exception const& e)
+sbuild::log_exception_error (std::exception const& e)
 {
   log_error() << e.what() << std::endl;
 

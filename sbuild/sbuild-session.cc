@@ -1078,7 +1078,7 @@ session::run_chroot (sbuild::chroot::ptr& session_chroot)
 	}
       catch (std::runtime_error const& e)
 	{
-	  log_exception(e);
+	  log_exception_error(e);
 	}
       _exit (EXIT_FAILURE);
     }

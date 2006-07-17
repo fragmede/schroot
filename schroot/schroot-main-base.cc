@@ -267,7 +267,7 @@ main_base::run_impl ()
   catch (std::runtime_error& e)
     {
       if (!this->options->quiet)
-	sbuild::log_exception(e);
+	sbuild::log_exception_error(e);
     }
 
   if (this->session)

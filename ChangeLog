@@ -1,5 +1,10 @@
 2006-07-17  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-log.cc
+	(log_exception_error): Rename from log_exception.
+
+2006-07-17  Roger Leigh  <rleigh@debian.org>
+
 	* Remove redundant emacs local variables use in C++ sources.
 
 2006-07-17  Roger Leigh  <rleigh@debian.org>
