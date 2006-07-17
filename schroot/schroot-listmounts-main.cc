@@ -42,6 +42,29 @@ using std::endl;
 using boost::format;
 using namespace schroot_listmounts;
 
+namespace
+{
+
+  typedef std::pair<main::error_code,const char *> emap;
+
+  /**
+   * This is a list of the supported error codes.  It's used to
+   * construct the real error codes map.
+   */
+  emap init_errors[] =
+    {
+      emap(main::OPEN,  N_("Failed to open '%1%'")),
+      emap(main::CLOSE, N_("Failed to close '%1%'"))
+    };
+
+}
+
+template<>
+sbuild::error<main::error_code>::map_type
+sbuild::error<main::error_code>::error_strings
+(init_errors,
+ init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+
 main::main (options::ptr& options):
   schroot_base::main("schroot-listmounts",
 		     _("[OPTION...] - list mount points"),
@@ -63,11 +86,7 @@ main::list_mounts (std::string const& mountfile) const
 
   std::FILE *mntdb = std::fopen(mountfile.c_str(), "r");
   if (mntdb == 0)
-    {
-      format fmt(_("Failed to open '%1%': %2%"));
-      fmt % mountfile % std::strerror(errno);
-      throw std::runtime_error(fmt.str());
-    }
+    throw error(mountfile, OPEN, strerror(errno));
 
   mntent *mount;
   while ((mount = getmntent(mntdb)) != 0)
@@ -86,11 +105,7 @@ main::list_mounts (std::string const& mountfile) const
   std::cout << std::flush;
 
   if (std::fclose(mntdb) == EOF)
-    {
-      format fmt(_("Failed to close '%1%': %2%"));
-      fmt % mountfile % std::strerror(errno);
-      throw std::runtime_error(fmt.str());
-    }
+    throw error(mountfile, CLOSE, strerror(errno));
 
   return ret;
 }

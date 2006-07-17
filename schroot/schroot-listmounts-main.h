@@ -23,6 +23,8 @@
 #include <schroot/schroot-base-main.h>
 #include <schroot/schroot-listmounts-options.h>
 
+#include <sbuild/sbuild-custom-error.h>
+
 namespace schroot_listmounts
 {
 
@@ -32,6 +34,16 @@ namespace schroot_listmounts
   class main : public schroot_base::main
   {
   public:
+    /// Error codes.
+    enum error_code
+      {
+	OPEN, ///< Failed to open file.
+	CLOSE ///< Failed to close file.
+      };
+
+    /// Exception type.
+    typedef sbuild::custom_error<error_code> error;
+
     /**
      * The constructor.
      *
