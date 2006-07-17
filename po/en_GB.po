@@ -585,7 +585,8 @@ msgstr "Failed to lock file (timed out after %4% seconds)"
 #, boost-format
 msgid ""
 "Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
-msgstr "Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
+msgstr ""
+"Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
 
 #: sbuild/sbuild-lock.cc:54
 msgid "Failed to test device lock"
@@ -595,7 +596,8 @@ msgstr "Failed to test device lock"
 #, boost-format
 msgid ""
 "Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
-msgstr "Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
+msgstr ""
+"Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
 
 #: sbuild/sbuild-null.cc:30
 msgid "unknown"
