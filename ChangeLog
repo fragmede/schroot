@@ -1,5 +1,10 @@
 2006-07-17  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-auth-conv-tty.cc
+	(get_delay): Fix incorrectly named function call.
+
+2006-07-17  Roger Leigh  <rleigh@debian.org>
+
 	* TODO: Remove completed item.
 
 	* po/en_GB.po: Update translation.
