@@ -127,6 +127,44 @@ namespace sbuild
     /**
      * The constructor.
      *
+     * @param context1 the context of the error.
+     * @param context2 additional context of the error.
+     * @param error the error code.
+     * @param detail the details of the error.
+     */
+    template<typename C, typename D, typename E>
+    custom_error (C const&   context1,
+		  D const&   context2,
+		  error_type error,
+		  E const&   detail):
+      sbuild::error<T>(format_error(context1, context2, null(), error, detail, null()),
+		       format_reason(context1, context2, null(), error, detail, null()))
+    {
+    }
+
+    /**
+     * The constructor.
+     *
+     * @param context1 the context of the error.
+     * @param context2 additional context of the error.
+     * @param error the error code.
+     * @param detail the details of the error.
+     * @param detail2 additional details of the error.
+     */
+    template<typename C, typename D, typename E, typename F>
+    custom_error (C const&   context1,
+		  D const&   context2,
+		  error_type error,
+		  E const&   detail,
+		  F const&   detail2):
+      sbuild::error<T>(format_error(context1, context2, null(), error, detail, detail2),
+		       format_reason(context1, context2, null(), error, detail, detail2))
+    {
+    }
+
+    /**
+     * The constructor.
+     *
      * @param error the error.
      */
     custom_error (std::runtime_error const& error):

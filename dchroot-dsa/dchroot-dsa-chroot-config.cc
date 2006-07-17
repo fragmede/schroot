@@ -106,12 +106,8 @@ chroot_config::parse_data (std::istream& stream,
 
 	  // Add details to keyfile.
 	  if (kconfig.has_group(chroot_name))
-	    {
-	      keyfile::error e(linecount, keyfile::DUPLICATE_GROUP,
-			       chroot_name);
-	      sbuild::log_warning() << e.what() << std::endl;
-	      continue;
-	    }
+	    throw keyfile::error(linecount, keyfile::DUPLICATE_GROUP,
+				 chroot_name);
 	  else
 	    kconfig.set_group(chroot_name, "", linecount);
 

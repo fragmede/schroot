@@ -254,12 +254,12 @@ namespace sbuild
 	      if (line)
 		{
 		  error ep(line, group, key, PASSTHROUGH_LGK, e);
-		  log_warning() << ep.what() << std::endl;
+		  log_exception_warning(ep);
 		}
 	      else
 		{
 		  error ep(group, key, PASSTHROUGH_GK, e);
-		  log_warning() << ep.what() << std::endl;
+		  log_exception_warning(ep);
 		}
 	      return false;
 	    }
@@ -399,12 +399,12 @@ namespace sbuild
 		  if (line)
 		    {
 		      error ep(line, group, key, PASSTHROUGH_LGK, e);
-		      log_warning() << ep.what() << std::endl;
+		      log_exception_warning(ep);
 		    }
 		  else
 		    {
 		      error ep(group, key, PASSTHROUGH_GK, e);
-		      log_warning() << ep.what() << std::endl;
+		      log_exception_warning(ep);
 		    }
 		  return false;
 		}
@@ -667,22 +667,15 @@ namespace sbuild
 	    std::string::size_type lpos = line.find_last_of(']');
 	    if (fpos == std::string::npos || lpos == std::string::npos ||
 		fpos != lpos)
-	      {
-		throw error(linecount, INVALID_GROUP, line);
-	      }
+	      throw error(linecount, INVALID_GROUP, line);
 	    group = line.substr(1, fpos - 1);
 
 	    if (group.length() == 0)
-	      {
-		throw error(linecount, INVALID_GROUP, line);
-	      }
+	      throw error(linecount, INVALID_GROUP, line);
 
 	    // Insert group
 	    if (tmp.has_group(group))
-	      {
-		error e(linecount, DUPLICATE_GROUP, group);
-		log_warning() << e.what() << std::endl;
-	      }
+	      throw error(linecount, DUPLICATE_GROUP, group);
 	    else
 	      tmp.set_group(group, comment, linecount);
 	    comment.clear();
@@ -691,13 +684,9 @@ namespace sbuild
 	  {
 	    std::string::size_type pos = line.find_first_of('=');
 	    if (pos == std::string::npos)
-	      {
-		throw error(linecount, INVALID_LINE, line);
-	      }
+	      throw error(linecount, INVALID_LINE, line);
 	    if (pos == 0)
-	      {
-		throw error(linecount, NO_KEY, line);
-	      }
+	      throw error(linecount, NO_KEY, line);
 	    key = line.substr(0, pos);
 	    if (pos == line.length() - 1)
 	      value = "";
@@ -706,16 +695,11 @@ namespace sbuild
 
 	    // No group specified
 	    if (group.empty())
-	      {
-		throw error(linecount, NO_GROUP, line);
-	      }
+	      throw error(linecount, NO_GROUP, line);
 
 	    // Insert item
 	    if (tmp.has_key(group, key))
-	      {
-		error e(linecount, group, DUPLICATE_KEY, key);
-		log_warning() << e.what() << std::endl;
-	      }
+	      throw error(linecount, group, DUPLICATE_KEY, key);
 	    else
 	      tmp.set_value(group, key, value, comment, linecount);
 	    comment.clear();

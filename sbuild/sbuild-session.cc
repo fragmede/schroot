@@ -85,7 +85,7 @@ namespace
       emap(session::SIGHUP_CATCH,   N_("Caught hangup signal")),
       emap(session::SIGHUP_SET,     N_("Failed to set hangup signal handler")),
       emap(session::USER_SET,       N_("Failed to set user '%1%'")),
-      emap(session::USER_SWITCH,    N_("User switching is not permitted")),
+      emap(session::USER_SWITCH,    N_("(%1%->%2%): User switching is not permitted")),
     };
 
   /**
