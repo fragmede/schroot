@@ -248,6 +248,7 @@ namespace sbuild
     load_data (std::string const& file,
 	       bool               active);
 
+  protected:
     /**
      * Parse a loaded configuration file.  If there are problems with
      * the configuration file, an error will be thrown.
@@ -259,6 +260,18 @@ namespace sbuild
     virtual void
     parse_data (std::istream& stream,
 		bool          active);
+
+    /**
+     * Load a keyfile.  If there are problems with the configuration
+     * file, an error will be thrown.
+     *
+     * @param kconfig the chroot configuration.
+     * @param active true if the chroots in the configuration file are
+     * active sessions, otherwise false.
+     */
+    virtual void
+    load_keyfile (keyfile& kconfig,
+		  bool     active);
 
     /// A list of chroots (name->chroot mapping).
     chroot_map chroots;

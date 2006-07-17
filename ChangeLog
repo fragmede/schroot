@@ -1,3 +1,19 @@
+2006-07-17  Roger Leigh  <rleigh@debian.org>
+
+	* dchroot/dchroot-chroot-config.cc,
+	dchroot-dsa/dchroot-dsa-chroot-config.cc
+	(parse_data): Instead of creating a chroot and adding it, create a
+	keyfile and load it.  This will allow accurate parse errors,
+	including line numbers.
+
+	* sbuild/sbuild-chroot-config.cc
+	(load_keyfile): New method, split from parse_data.  This allows
+	keyfile loaded in derived classes.
+
+	* sbuild/sbuild-keyfile.h: Methods to set values with line numbers
+	are now public, for use in dchroot.  Added method to set a list
+	value with a line number.
+
 2006-07-16  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot.1.in: Use -p rather than -d in the description,

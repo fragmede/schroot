@@ -464,6 +464,13 @@ chroot_config::parse_data (std::istream& stream,
   /* Create key file */
   keyfile kconfig(stream);
 
+  load_keyfile(kconfig, active);
+}
+
+void
+chroot_config::load_keyfile (keyfile& kconfig,
+			     bool     active)
+{
   /* Create chroot objects from key file */
   string_list const& groups = kconfig.get_groups();
   for (string_list::const_iterator group = groups.begin();

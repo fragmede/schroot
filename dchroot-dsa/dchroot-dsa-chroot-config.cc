@@ -62,6 +62,8 @@ chroot_config::parse_data (std::istream& stream,
   std::string chroot_name;
   std::string chroot_location;
 
+  sbuild::keyfile kconfig;
+
   while (std::getline(stream, line))
     {
       linecount++;
@@ -97,28 +99,27 @@ chroot_config::parse_data (std::istream& stream,
 	  std::string chroot_name = line.substr(cstart, cend - cstart);
 	  std::string location = line.substr(lstart, lend - lstart);
 
-	  /* DSA dchroot parses valid users. */
+	  // DSA dchroot parses valid users.
 	  sbuild::string_list users;
 	  if (lend != std::string::npos)
 	    users = sbuild::split_string(line.substr(lend), whitespace);
 
-	  /* Create chroot object. */
-	  sbuild::chroot::ptr chroot = sbuild::chroot::create("plain");
-	  chroot->set_active(active);
-	  chroot->set_name(chroot_name);
+	  // Add details to keyfile.
+	  kconfig.set_group(chroot_name, "", linecount);
+	  kconfig.set_value(chroot_name, "type", "plain", "", linecount);
 
 	  format fmt(_("%1% chroot (dchroot-dsa compatibility)"));
 	  fmt % chroot_name;
-	  chroot->set_description(fmt.str());
 
-	  /* DSA dchroot set valid users in the user list. */
-	  chroot->set_users(users);
+	  kconfig.set_value(chroot_name, "description", fmt, "", linecount);
 
-	  sbuild::chroot_plain *plain =
-	    dynamic_cast<sbuild::chroot_plain *>(chroot.get());
-	  plain->set_location(location);
+	  kconfig.set_value(chroot_name, "location", location, "", linecount);
 
-	  add(chroot);
+	  kconfig.set_list_value(chroot_name, "users",
+				 users.begin(), users.end(),
+				 "", linecount);
 	}
     }
+
+  load_keyfile(kconfig, active);
 }

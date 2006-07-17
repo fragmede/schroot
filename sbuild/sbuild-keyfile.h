@@ -161,7 +161,6 @@ namespace sbuild
     set_group (std::string const& group,
 	       std::string const& comment);
 
-  private:
     /**
      * Set a group.  The group will be created (and the comment set)
      * only if the group does not already exist.
@@ -175,7 +174,6 @@ namespace sbuild
 	       std::string const& comment,
 	       unsigned int       line);
 
-  public:
     /**
      * Get a group comment.
      *
@@ -460,8 +458,8 @@ namespace sbuild
      * @param group the group the key is in.
      * @param key the key to set.
      * @param value the value to get the key's value from.  This must
-     * @param comment the comment for this key.
      * allow output to an ostream.
+     * @param comment the comment for this key.
      */
     template <typename T>
     void
@@ -470,31 +468,31 @@ namespace sbuild
 	       T const&           value,
 	       std::string const& comment)
     {
-      std::ostringstream os;
-      os.imbue(std::locale("C"));
-      os << std::boolalpha << value;
-
-      set_value(group, key, os.str(), comment, 0);
+      set_value(group, key, value, comment, 0);
     }
 
-  private:
     /**
      * Set a key value.
      *
      * @param group the group the key is in.
      * @param key the key to set.
      * @param value the value to get the key's value from.  This must
+     * allow output to an ostream.
      * @param comment the comment for this key.
      * @param line the line number in the input file, or 0 otherwise.
-     * allow output to an ostream.
      */
+    template <typename T>
     void
     set_value (std::string const& group,
 	       std::string const& key,
-	       std::string const& value,
+	       T const&           value,
 	       std::string const& comment,
 	       unsigned int       line)
     {
+      std::ostringstream os;
+      os.imbue(std::locale("C"));
+      os << std::boolalpha << value;
+
       set_group(group, "");
       group_type *found_group = find_group(group);
       assert (found_group != 0); // should not fail
@@ -506,10 +504,9 @@ namespace sbuild
 	items.erase(pos);
       items.insert
 	(item_map_type::value_type(key,
-				   item_type(key, value, comment, line)));
+				   item_type(key, os.str(), comment, line)));
     }
 
-  public:
     /**
      * Set a key value from a list.
      *
@@ -547,6 +544,29 @@ namespace sbuild
 		    I                  end,
 		    std::string const& comment)
     {
+      set_list_value (group, key, begin, end, comment, 0);
+    }
+
+    /**
+     * Set a key value from a list.
+     *
+     * @param group the group the key is in.
+     * @param key the key to set.
+     * @param begin an iterator referring to the start of the
+     * list. The value type must allow output to an ostream.
+     * @param end an iterator referring to the end of the list.
+     * @param comment the comment for this key.
+     * @param line the line number in the input file, or 0 otherwise.
+     */
+    template <typename I>
+    void
+    set_list_value (std::string const& group,
+		    std::string const& key,
+		    I                  begin,
+		    I                  end,
+		    std::string const& comment,
+		    unsigned int       line)
+    {
       std::string strval;
 
       for (I pos = begin; pos != end; ++ pos)
@@ -562,7 +582,7 @@ namespace sbuild
 	    }
 	}
 
-      set_value (group, key, strval, comment);
+      set_value (group, key, strval, comment, line);
     }
 
     /**

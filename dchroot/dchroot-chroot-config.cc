@@ -63,6 +63,8 @@ chroot_config::parse_data (std::istream& stream,
   std::string chroot_location;
   bool default_set = false;
 
+  sbuild::keyfile kconfig;
+
   while (std::getline(stream, line))
     {
       linecount++;
@@ -115,21 +117,19 @@ chroot_config::parse_data (std::istream& stream,
 	  if (pstart != std::string::npos)
 	    personality = line.substr(pstart, pend - pstart);
 
-	  /* Create chroot object. */
-	  sbuild::chroot::ptr chroot = sbuild::chroot::create("plain");
-	  chroot->set_active(active);
-	  chroot->set_name(chroot_name);
+	  // Add details to keyfile.
+	  kconfig.set_group(chroot_name, "", linecount);
+	  kconfig.set_value(chroot_name, "type", "plain", "", linecount);
 
 	  format fmt(_("%1% chroot (dchroot compatibility)"));
 	  fmt % chroot_name;
-	  chroot->set_description(fmt.str());
+
+	  kconfig.set_value(chroot_name, "description", fmt, "", linecount);
+
+	  kconfig.set_value(chroot_name, "location", location, "", linecount);
 
 	  if (pstart != std::string::npos)
-	    chroot->set_persona(sbuild::personality(personality));
-
-	  sbuild::chroot_plain *plain =
-	    dynamic_cast<sbuild::chroot_plain *>(chroot.get());
-	  plain->set_location(location);
+	    kconfig.set_value(chroot_name, "personality", personality, "", linecount);
 
 	  if (chroot_name == "default")
 	    default_set = true;
@@ -139,13 +139,16 @@ chroot_config::parse_data (std::istream& stream,
 	    {
 	      sbuild::string_list aliases;
 	      aliases.push_back("default");
-	      chroot->set_aliases(aliases);
+	      kconfig.set_list_value(chroot_name, "aliases",
+				     aliases.begin(), aliases.end(),
+				     "", linecount);
 	      default_set = true;
 	    }
 
-	  add(chroot);
 	}
     }
+
+  load_keyfile(kconfig, active);
 }
 
 /*
