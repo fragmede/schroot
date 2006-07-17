@@ -161,15 +161,9 @@ Dump the dchroot\-dsa configuration in schroot keyfile format to
 .RE
 .PP
 .IP 2
-<<<<<<< .mine
 Edit \fI@SCHROOT_CONF@\fP to add access to the users and/or groups which are to
 be allowed to access the chroots, and make any other desired changes to the
 configuration.  See
-=======
-Edit \fI@SCHROOT_CONF@\fP to add access to the users and/or groups who are to
-be allowed to access the chroots, and make any other desired changes to the
-configuration.  See
->>>>>>> .r857
 .BR schroot.conf (5).
 .IP 3
 Remove \fI@DCHROOT_CONF@\fP, so that dchroot\-dsa will subsequently use
