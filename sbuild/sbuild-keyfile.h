@@ -84,6 +84,7 @@ namespace sbuild
 	INVALID_GROUP,     ///< The group is invalid.
 	INVALID_LINE,      ///< The line is invalid.
 	MISSING_KEY,       ///< The key is missing.
+	MISSING_KEY_NL,    ///< The key is missing (no line specified).
 	NO_GROUP,          ///< No group was specified.
 	NO_KEY,            ///< No key was specified.
 	OBSOLETE_KEY,      ///< The key is obsolete.

@@ -1,5 +1,21 @@
 2006-07-17  Roger Leigh  <rleigh@debian.org>
 
+	* dchroot/dchroot.1.in, dchroot-dsa/dchroot-dsa.1.in: Use "users"
+	instead of "user list", so that the user list name matches the
+	keyfile key name used in error messages.
+
+	* dchroot/dchroot-chroot-config.cc,
+	dchroot-dsa/dchroot-dsa-chroot-config.cc (parse_data): A missing
+	location is no longer an error (it gets reported with greater
+	detail when adding the keyfile).
+
+	* sbuild/sbuild-keyfile.cc: Add additional error code for missing
+	required key with no line information.
+	(check_priority): Report line information for missing required key
+	(when available).
+
+2006-07-17  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-chroot-config.cc
 	(add): Clean up error handling, and report config file line
 	number, group and key details.  A keyfile is passed as an

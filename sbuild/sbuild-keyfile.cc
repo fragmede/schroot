@@ -48,7 +48,8 @@ namespace
       emap(keyfile::DUPLICATE_KEY,     N_("line %1% [%2%]: Duplicate key '%4%'")),
       emap(keyfile::INVALID_GROUP,     N_("line %1%: Invalid group: \"%4%\"")),
       emap(keyfile::INVALID_LINE,      N_("line %1%: Invalid line: \"%4%\"")),
-      emap(keyfile::MISSING_KEY,       N_("[%1%]: Required key '%4%' is missing")),
+      emap(keyfile::MISSING_KEY,       N_("line %1% [%2%]: Required key '%4%' is missing")),
+      emap(keyfile::MISSING_KEY_NL,    N_("[%1%]: Required key '%4%' is missing")),
       emap(keyfile::NO_GROUP,          N_("line %1%: No group specified: \"%4%\"")),
       emap(keyfile::NO_KEY,            N_("line %1%: No key specified: \"%4%\"")),
       emap(keyfile::OBSOLETE_KEY,      N_("line %1% [%2%]: Obsolete key '%4%' used")),
@@ -412,15 +413,18 @@ keyfile::check_priority (std::string const& group,
 			 priority priority,
 			 bool     valid) const
 {
-  unsigned int line = get_line(group, key);
-
   if (valid == false)
     {
+      unsigned int gline = get_line(group);
+
       switch (priority)
 	{
 	case PRIORITY_REQUIRED:
 	  {
-	    throw error(group, MISSING_KEY, key);
+	    if (gline)
+	      throw error(gline, group, MISSING_KEY, key);
+	    else
+	      throw error(group, MISSING_KEY_NL, key);
 	  }
 	  break;
 	default:
@@ -429,6 +433,8 @@ keyfile::check_priority (std::string const& group,
     }
   else
     {
+      unsigned int line = get_line(group, key);
+
       switch (priority)
 	{
 	case PRIORITY_DEPRECATED:

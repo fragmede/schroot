@@ -170,9 +170,9 @@ used at once.
 .IP \[bu]
 This version of dchroot has an incompatible format for \fIdchroot.conf\fP.
 While the first two fields are the same, the remaining fields are an optional
-\f[CBI]user list\fP, a list of users permitted to access the chroot, instead of
-the \f[CI]personality\fP field allowed by this version.  If access restrictions
-are needed, please use \fI@SCHROOT_CONF@\fP and add the allowed users there, as
+\f[CBI]users\fP, a list of users permitted to access the chroot, instead of the
+\f[CI]personality\fP field allowed by this version.  If access restrictions are
+needed, please use \fI@SCHROOT_CONF@\fP and add the allowed users there, as
 shown in \[lq]\fIMigration\fP\[rq] below.
 .SH MIGRATION
 To migrate an existing \fBdchroot\fP configuration to \fBschroot\fP, perform

@@ -100,9 +100,9 @@ by earlier versions of dchroot\-dsa, has the following format:
 Blank lines are ignored.
 .IP \[bu]
 Chroot definitions are a single line containing an \f[CBI]identifier\fP,
-\f[CBI]path\fP, and an optional \f[CBI]user list\fP separated by whitespace
-(space and tab), or a colon (\[oq]:\[cq]), semicolon (\[oq];\[cq]), or comma
-(\[oq],\[cq]).
+\f[CBI]path\fP, and \f[CBI]users\fP, an optional user list separated by
+whitespace (space and tab), or a colon (\[oq]:\[cq]), semicolon (\[oq];\[cq]),
+or comma (\[oq],\[cq]).
 .PP
 An example file:
 .PP
@@ -144,7 +144,7 @@ multiple command options instead of a single option.
 .IP \[bu]
 This version of dchroot has an incompatible format for \fIdchroot.conf\fP.
 While the first two fields are the same, the third field is a optional
-\f[CBI]personality\fP, instead of the \f[CI]user list\fP of users permitted to
+\f[CBI]personality\fP, instead of the \f[CI]users\fP user list permitted to
 access the chroot allowed by this version.  If personality support is needed,
 please use \fIschroot.conf\fP and add the allowed users there, as shown in
 \[lq]\fIMigration\fP\[rq] below.

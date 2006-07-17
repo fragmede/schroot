@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <sbuild/sbuild-chroot-plain.h>
+#include <sbuild/sbuild-log.h>
 #include <sbuild/sbuild-parse-error.h>
 
 #include "dchroot-dsa-chroot-config.h"
@@ -89,15 +90,14 @@ chroot_config::parse_data (std::istream& stream,
 								 cend);
 	  std::string::size_type lend = line.find_first_of(whitespace, lstart);
 
-	  if (cstart == std::string::npos ||
-	      cend == std::string::npos ||
-	      lstart == std::string::npos)
-	    {
-	      throw keyfile::error(linecount, keyfile::INVALID_LINE, line);
-	    }
+	  if (cstart == std::string::npos)
+	    throw keyfile::error(linecount, keyfile::INVALID_LINE, line);
 
 	  std::string chroot_name = line.substr(cstart, cend - cstart);
-	  std::string location = line.substr(lstart, lend - lstart);
+
+	  std::string location;
+	  if (lstart != std::string::npos)
+	    location = line.substr(lstart, lend - lstart);
 
 	  // DSA dchroot parses valid users.
 	  sbuild::string_list users;
@@ -105,7 +105,16 @@ chroot_config::parse_data (std::istream& stream,
 	    users = sbuild::split_string(line.substr(lend), whitespace);
 
 	  // Add details to keyfile.
-	  kconfig.set_group(chroot_name, "", linecount);
+	  if (kconfig.has_group(chroot_name))
+	    {
+	      keyfile::error e(linecount, keyfile::DUPLICATE_GROUP,
+			       chroot_name);
+	      sbuild::log_warning() << e.what() << std::endl;
+	      continue;
+	    }
+	  else
+	    kconfig.set_group(chroot_name, "", linecount);
+
 	  kconfig.set_value(chroot_name, "type", "plain", "", linecount);
 
 	  format fmt(_("%1% chroot (dchroot-dsa compatibility)"));
@@ -113,7 +122,8 @@ chroot_config::parse_data (std::istream& stream,
 
 	  kconfig.set_value(chroot_name, "description", fmt, "", linecount);
 
-	  kconfig.set_value(chroot_name, "location", location, "", linecount);
+	  if (lstart != std::string::npos)
+	    kconfig.set_value(chroot_name, "location", location, "", linecount);
 
 	  kconfig.set_list_value(chroot_name, "users",
 				 users.begin(), users.end(),

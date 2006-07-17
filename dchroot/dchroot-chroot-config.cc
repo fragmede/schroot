@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <sbuild/sbuild-chroot-plain.h>
+#include <sbuild/sbuild-log.h>
 #include <sbuild/sbuild-parse-error.h>
 
 #include "dchroot-chroot-config.h"
@@ -99,26 +100,30 @@ chroot_config::parse_data (std::istream& stream,
 	  std::string::size_type tstart = line.find_first_not_of(whitespace,
 								 pend);
 	  if (cstart == std::string::npos ||
-	      cend == std::string::npos ||
-	      lstart == std::string::npos)
-	    {
-	      throw keyfile::error(linecount, keyfile::INVALID_LINE, line);
-	    }
-
-	  if (tstart != std::string::npos)
-	    {
-	      throw keyfile::error(linecount, keyfile::INVALID_LINE, line);
-	    }
+	      tstart != std::string::npos)
+	    throw keyfile::error(linecount, keyfile::INVALID_LINE, line);
 
 	  std::string chroot_name = line.substr(cstart, cend - cstart);
-	  std::string location = line.substr(lstart, lend - lstart);
+
+	  std::string location;
+	  if (lstart != std::string::npos)
+	    location = line.substr(lstart, lend - lstart);
 
 	  std::string personality;
 	  if (pstart != std::string::npos)
 	    personality = line.substr(pstart, pend - pstart);
 
 	  // Add details to keyfile.
-	  kconfig.set_group(chroot_name, "", linecount);
+	  if (kconfig.has_group(chroot_name))
+	    {
+	      keyfile::error e(linecount, keyfile::DUPLICATE_GROUP,
+			       chroot_name);
+	      sbuild::log_warning() << e.what() << std::endl;
+	      continue;
+	    }
+	  else
+	    kconfig.set_group(chroot_name, "", linecount);
+
 	  kconfig.set_value(chroot_name, "type", "plain", "", linecount);
 
 	  format fmt(_("%1% chroot (dchroot compatibility)"));
@@ -126,7 +131,8 @@ chroot_config::parse_data (std::istream& stream,
 
 	  kconfig.set_value(chroot_name, "description", fmt, "", linecount);
 
-	  kconfig.set_value(chroot_name, "location", location, "", linecount);
+	  if (lstart != std::string::npos)
+	    kconfig.set_value(chroot_name, "location", location, "", linecount);
 
 	  if (pstart != std::string::npos)
 	    kconfig.set_value(chroot_name, "personality", personality, "", linecount);
@@ -150,9 +156,3 @@ chroot_config::parse_data (std::istream& stream,
 
   load_keyfile(kconfig, active);
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */
