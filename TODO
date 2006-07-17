@@ -9,8 +9,6 @@ the Doxygen-generated documentation in doc/schroot/html/todo.html
 PENDING
 -------
 
-* personality should include stream operators for serialisation.
-
 * Remove all non error-map format strings.
 
   - convert to error<> derived messages wherever possible.  This is

@@ -1,5 +1,25 @@
 2006-07-17  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Remove completed item.
+
+	* sbuild/sbuild-chroot.cc
+	(set_persona): Remove method overloaded for a string.
+	(get_keyfile): Use keyfile::set_object_value for the personality.
+	(set_keyfile): Use keyfile::get_object_value for the personality.
+
+	* sbuild/sbuild-personality.cc: Add a BAD error code for when the
+	personality name is invalid.
+	(get_personalities): Renamed from print_personalities.  Create a
+	string, rather than printing to an ostream.
+
+	* sbuild/sbuild-personality.h: Add stream input operator, to set
+	the personality from a stream.
+
+	* sbuild/sbuild-keyfile.h: Move all logic in get_object_value into
+	the try block, to catch and report parse errors in T parsing.
+
+2006-07-17  Roger Leigh  <rleigh@debian.org>
+
 	* dchroot/dchroot.1.in, dchroot-dsa/dchroot-dsa.1.in: Use "users"
 	instead of "user list", so that the user list name matches the
 	keyfile key name used in error messages.

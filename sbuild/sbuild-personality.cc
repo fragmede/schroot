@@ -45,6 +45,7 @@ namespace
    */
   emap init_errors[] =
     {
+      emap(sbuild::personality::BAD, N_("Personality '%1%' is unknown")),
       emap(sbuild::personality::SET, N_("Failed to set personality '%1%'"))
     };
 
@@ -168,18 +169,25 @@ sbuild::personality::set () const
 #endif
 }
 
-void
-sbuild::personality::print_personalities (std::ostream& stream)
+std::string
+sbuild::personality::get_personalities ()
 {
+  format fmt(_("Valid personalities: %1%\n"));
+  std::string ps;
+
   for (std::map<std::string,type>::const_iterator pos = personalities.begin();
        pos != personalities.end();
        ++pos)
     {
-      stream << pos->first;
+      ps += pos->first;
       std::map<std::string,type>::const_iterator stpos = pos;
       if (++stpos != personalities.end())
-	stream << ", ";
+	ps += ", ";
     }
+
+  fmt % ps;
+
+  return fmt.str();
 }
 
 /*

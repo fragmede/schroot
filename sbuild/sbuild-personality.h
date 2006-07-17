@@ -47,7 +47,8 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
-	SET ///< Could not set personality.
+	BAD, ///< Personality is unknown.
+	SET  ///< Could not set personality.
       };
 
     /// Exception type.
@@ -103,10 +104,41 @@ namespace sbuild
     /**
      * Print a list of the available personalities.
      *
-     * @param stream the stream to output to.
+     * @returns a string of the available personalities.
      */
-    static void
-    print_personalities (std::ostream& stream);
+    static std::string
+    get_personalities ();
+
+    /**
+     * Get the personality name from a stream.
+     *
+     * @param stream the stream to get input from.
+     * @param rhs the personality to set.
+     * @returns the stream.
+     */
+    template <class charT, class traits>
+    friend
+    std::basic_istream<charT,traits>&
+    operator >> (std::basic_istream<charT,traits>& stream,
+		 personality&                      rhs)
+    {
+      std::string personality_name;
+
+      if (std::getline(stream, personality_name))
+	{
+	  rhs.persona = find_personality(personality_name);
+
+	  if (rhs.get_name() == "undefined" &&
+	      rhs.get_name() != personality_name)
+	    {
+	      personality::error e(personality_name, personality::BAD);
+	      e.set_reason(personality::get_personalities());
+	      throw e;
+	    }
+	}
+
+      return stream;
+    }
 
     /**
      * Print the personality name to a stream.
@@ -115,9 +147,11 @@ namespace sbuild
      * @param rhs the personality to output.
      * @returns the stream.
      */
-    friend std::ostream&
-    operator << (std::ostream&      stream,
-		 personality const& rhs)
+    template <class charT, class traits>
+    friend
+    std::basic_ostream<charT,traits>&
+    operator << (std::basic_ostream<charT,traits>& stream,
+		 personality const&                rhs)
     {
       return stream << find_personality(rhs.persona);
     }

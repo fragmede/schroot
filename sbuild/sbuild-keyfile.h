@@ -996,21 +996,19 @@ namespace sbuild
 		      std::string const&  key,
 		      keyfile::priority   priority)
     {
-      T value;
-      if (keyfile.get_value(group, key, priority, value))
+      try
 	{
-	  try
-	    {
-	      (object.*method)(value);
-	    }
-	  catch (std::runtime_error const& e)
-	    {
-	      unsigned int line = keyfile.get_line(group, key);
-	      if (line)
-		throw error(line, group, key, PASSTHROUGH_LGK, e);
-	      else
-		throw error(group, key, PASSTHROUGH_GK, e);
-	    }
+	  T value;
+	  if (keyfile.get_value(group, key, priority, value))
+	    (object.*method)(value);
+	}
+      catch (std::runtime_error const& e)
+	{
+	  unsigned int line = keyfile.get_line(group, key);
+	  if (line)
+	    throw error(line, group, key, PASSTHROUGH_LGK, e);
+	  else
+	    throw error(group, key, PASSTHROUGH_GK, e);
 	}
     }
 
@@ -1037,21 +1035,19 @@ namespace sbuild
 		      std::string const&  key,
 		      keyfile::priority   priority)
     {
-      T value;
-      if (keyfile.get_value(group, key, priority, value))
+      try
 	{
-	  try
-	    {
-	      (object.*method)(value);
-	    }
-	  catch (std::runtime_error const& e)
-	    {
-	      unsigned int line = keyfile.get_line(group, key);
-	      if (line)
-		throw error(line, group, key, PASSTHROUGH_LGK, e);
-	      else
-		throw error(group, key, PASSTHROUGH_GK, e);
-	    }
+	  T value;
+	  if (keyfile.get_value(group, key, priority, value))
+	    (object.*method)(value);
+	}
+      catch (std::runtime_error const& e)
+	{
+	  unsigned int line = keyfile.get_line(group, key);
+	  if (line)
+	    throw error(line, group, key, PASSTHROUGH_LGK, e);
+	  else
+	    throw error(group, key, PASSTHROUGH_GK, e);
 	}
     }
 
@@ -1078,23 +1074,21 @@ namespace sbuild
 			   std::string const&  key,
 			   keyfile::priority   priority)
     {
-      T value;
-      if (keyfile.get_list_value(group, key, priority, value))
+      try
 	{
-	  try
-	    {
-	      (object.*method)(value);
-	    }
-	  catch (std::runtime_error const& e)
-	    {
-	      unsigned int line = keyfile.get_line(group, key);
-	      if (line)
-		throw error(line, group, key, PASSTHROUGH_LGK, e);
-	      else
-		throw error(group, key, PASSTHROUGH_GK, e);
-	      throw error(keyfile.get_line(group, key),
-			  group, key, e);
-	    }
+	  T value;
+	  if (keyfile.get_list_value(group, key, priority, value))
+	    (object.*method)(value);
+	}
+      catch (std::runtime_error const& e)
+	{
+	  unsigned int line = keyfile.get_line(group, key);
+	  if (line)
+	    throw error(line, group, key, PASSTHROUGH_LGK, e);
+	  else
+	    throw error(group, key, PASSTHROUGH_GK, e);
+	  throw error(keyfile.get_line(group, key),
+		      group, key, e);
 	}
     }
 
@@ -1122,23 +1116,21 @@ namespace sbuild
 			   std::string const&  key,
 			   keyfile::priority   priority)
     {
-      T value;
-      if (keyfile.get_list_value(group, key, priority, value))
+      try
 	{
-	  try
-	    {
-	      (object.*method)(value);
-	    }
-	  catch (std::runtime_error const& e)
-	    {
-	      unsigned int line = keyfile.get_line(group, key);
-	      if (line)
-		throw error(line, group, key, PASSTHROUGH_LGK, e);
-	      else
-		throw error(group, key, PASSTHROUGH_GK, e);
-	      throw error(keyfile.get_line(group, key),
-			  group, key, e);
-	    }
+	  T value;
+	  if (keyfile.get_list_value(group, key, priority, value))
+	    (object.*method)(value);
+	}
+      catch (std::runtime_error const& e)
+	{
+	  unsigned int line = keyfile.get_line(group, key);
+	  if (line)
+	    throw error(line, group, key, PASSTHROUGH_LGK, e);
+	  else
+	    throw error(group, key, PASSTHROUGH_GK, e);
+	  throw error(keyfile.get_line(group, key),
+		      group, key, e);
 	}
     }
   };

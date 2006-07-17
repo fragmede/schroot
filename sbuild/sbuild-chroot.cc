@@ -71,7 +71,6 @@ namespace
       emap(sbuild::chroot::FILE_STAT,       N_("Failed to stat file")),
       emap(sbuild::chroot::FILE_UNLOCK,     N_("Failed to discard file lock")),
       emap(sbuild::chroot::LOCATION_ABS,    N_("Location must have an absolute path")),
-      emap(sbuild::chroot::PERSONALITY_BAD, N_("Personality '%1%' is unknown")),
       emap(sbuild::chroot::SESSION_UNLINK,  N_("Failed to unlink session file")),
       emap(sbuild::chroot::SESSION_WRITE,   N_("Failed to write session file"))
     };
@@ -357,28 +356,6 @@ sbuild::chroot::set_persona (personality const& persona)
 }
 
 void
-sbuild::chroot::set_persona (std::string const& persona)
-{
-  personality new_persona (persona);
-
-  if (new_persona.get_name() == "undefined" &&
-      new_persona.get_name() != persona)
-    {
-      std::ostringstream plist;
-      personality::print_personalities(plist);
-
-      error e(persona, PERSONALITY_BAD);
-      format fmt(_("Valid personalities: %1%\n"));
-      fmt % plist.str();
-      e.set_reason(fmt.str());
-
-      throw e;
-    }
-
-  set_persona(new_persona);
-}
-
-void
 sbuild::chroot::setup_env (environment& env)
 {
   env.add("CHROOT_TYPE", get_chroot_type());
@@ -551,9 +528,8 @@ sbuild::chroot::get_keyfile (keyfile& keyfile) const
   keyfile::set_object_list_value(*this, &chroot::get_command_prefix,
 				 keyfile, get_name(), "command-prefix");
 
-  // TODO: Add stream operators to persona.
-  keyfile.set_value(get_name(), "personality",
-		    get_persona().get_name());
+  keyfile::set_object_value(*this, &chroot::get_persona,
+			    keyfile, get_name(), "personality");
 }
 
 void
@@ -620,12 +596,9 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 				 keyfile, get_name(), "command-prefix",
 				 keyfile::PRIORITY_OPTIONAL);
 
-  void (chroot::* pptr)(std::string const& persona);
-  pptr = &chroot::set_persona;
-  keyfile::get_object_value(*this, pptr,
+  keyfile::get_object_value(*this, &chroot::set_persona,
 			    keyfile, get_name(), "personality",
 			    keyfile::PRIORITY_OPTIONAL);
-
 }
 
 /*
