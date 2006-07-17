@@ -118,9 +118,3 @@ public:
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_chroot_file);
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

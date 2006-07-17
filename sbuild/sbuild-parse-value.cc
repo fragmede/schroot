@@ -69,9 +69,3 @@ sbuild::parse_value (std::string const& value,
   parsed_value = value;
   log_debug(DEBUG_NOTICE) << "value=" << parsed_value << std::endl;
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

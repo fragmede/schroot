@@ -297,9 +297,3 @@ auth_conv_tty::conversation (message_list& messages)
 	}
     }
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

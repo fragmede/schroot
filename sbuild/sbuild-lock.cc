@@ -287,9 +287,3 @@ device_lock::unset_lock ()
 {
   set_lock(LOCK_NONE, 0);
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

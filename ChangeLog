@@ -1,5 +1,9 @@
 2006-07-17  Roger Leigh  <rleigh@debian.org>
 
+	* Remove redundant emacs local variables use in C++ sources.
+
+2006-07-17  Roger Leigh  <rleigh@debian.org>
+
 	* TODO: Remove completed item.
 
 	* sbuild/sbuild-chroot.cc

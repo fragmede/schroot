@@ -132,9 +132,3 @@ chroot_directory::set_keyfile (keyfile const& keyfile)
 			    keyfile, get_name(), "location",
 			    keyfile::PRIORITY_REQUIRED);
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

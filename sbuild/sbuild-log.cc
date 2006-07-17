@@ -93,9 +93,3 @@ sbuild::log_exception (std::exception const& e)
 }
 
 sbuild::DebugLevel sbuild::debug_level = sbuild::DEBUG_NONE;
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

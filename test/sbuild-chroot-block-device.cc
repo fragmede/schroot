@@ -131,9 +131,3 @@ public:
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_chroot_block_device);
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

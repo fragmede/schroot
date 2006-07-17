@@ -161,9 +161,3 @@ main::run (int   argc,
       return EXIT_FAILURE;
     }
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

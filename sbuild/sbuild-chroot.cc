@@ -600,9 +600,3 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 			    keyfile, get_name(), "personality",
 			    keyfile::PRIORITY_OPTIONAL);
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

@@ -694,9 +694,3 @@ auth::pam_strerror (int pam_error)
 {
   return ::pam_strerror (this->pam, pam_error);
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

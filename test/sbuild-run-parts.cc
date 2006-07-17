@@ -130,9 +130,3 @@ public:
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_run_parts);
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

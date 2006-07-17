@@ -42,9 +42,3 @@ public:
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_nostream);
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

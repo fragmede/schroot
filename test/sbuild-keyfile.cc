@@ -280,9 +280,3 @@ public:
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_keyfile);
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

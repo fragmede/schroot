@@ -20,9 +20,3 @@
 #include "sbuild-nostream.h"
 
 sbuild::nostream sbuild::cnull;
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

@@ -532,9 +532,3 @@ chroot_config::load_keyfile (keyfile& kconfig,
       }
     }
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

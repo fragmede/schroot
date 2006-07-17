@@ -140,9 +140,3 @@ public:
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_chroot_lvm_snapshot);
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

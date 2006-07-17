@@ -130,9 +130,3 @@ void
 options::check_actions ()
 {
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

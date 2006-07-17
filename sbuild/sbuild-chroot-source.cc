@@ -157,9 +157,3 @@ chroot_source::set_keyfile (keyfile const& keyfile)
 				 keyfile, get_name(), "source-root-groups",
 				 keyfile::PRIORITY_OPTIONAL);
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

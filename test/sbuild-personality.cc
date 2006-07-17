@@ -68,9 +68,3 @@ public:
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_personality);
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

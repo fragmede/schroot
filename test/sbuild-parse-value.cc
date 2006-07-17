@@ -115,9 +115,3 @@ public:
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_parse_value);
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

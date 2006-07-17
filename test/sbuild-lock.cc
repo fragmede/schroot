@@ -322,9 +322,3 @@ public:
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_dev_lock);
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

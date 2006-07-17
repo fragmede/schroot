@@ -189,9 +189,3 @@ sbuild::personality::get_personalities ()
 
   return fmt.str();
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

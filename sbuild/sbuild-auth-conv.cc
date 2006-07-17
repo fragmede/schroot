@@ -30,9 +30,3 @@ auth_conv::auth_conv ()
 auth_conv::~auth_conv ()
 {
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

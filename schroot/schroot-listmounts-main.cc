@@ -123,9 +123,3 @@ main::run_impl ()
 
   return EXIT_SUCCESS;
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

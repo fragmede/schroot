@@ -86,9 +86,3 @@ public:
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_dirstream);
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

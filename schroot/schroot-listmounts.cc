@@ -68,9 +68,3 @@ main (int   argc,
       exit(EXIT_FAILURE);
     }
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

@@ -275,9 +275,3 @@ main_base::run_impl ()
   else
     return EXIT_FAILURE;
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

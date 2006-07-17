@@ -193,9 +193,3 @@ chroot_file::set_keyfile (keyfile const& keyfile)
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_DISALLOWED);
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

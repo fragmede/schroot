@@ -1108,9 +1108,3 @@ session::clear_sighup_handler ()
   /* Restore original handler */
   sigaction (SIGHUP, &this->saved_signals, NULL);
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

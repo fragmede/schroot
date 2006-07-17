@@ -74,9 +74,3 @@ main::create_session(sbuild::session::operation sess_op)
   if (!this->options->user.empty())
     this->session->set_user(this->options->user);
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

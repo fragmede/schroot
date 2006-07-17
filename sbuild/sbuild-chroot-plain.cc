@@ -54,9 +54,3 @@ chroot_plain::get_chroot_type () const
 
   return type;
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

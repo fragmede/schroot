@@ -215,9 +215,3 @@ options_base::set_action (action_type action)
 
   this->action = action;
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

@@ -346,9 +346,3 @@ sbuild::exec (std::string const& file,
 
   return status;
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

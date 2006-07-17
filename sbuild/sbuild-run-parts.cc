@@ -245,9 +245,3 @@ run_parts::check_filename (std::string const& name)
 
   return match;
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

@@ -145,9 +145,3 @@ environment::get_strv () const
 
   return ret;
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

@@ -87,9 +87,3 @@ session_base::get_command_directories () const
   // respect to the cwd inside the chroot.
   return get_login_directories();
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

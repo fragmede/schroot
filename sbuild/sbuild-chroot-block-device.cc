@@ -219,9 +219,3 @@ chroot_block_device::set_keyfile (keyfile const& keyfile)
 			    keyfile, get_name(), "location",
 			    keyfile::PRIORITY_OPTIONAL);
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

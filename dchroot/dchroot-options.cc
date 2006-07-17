@@ -100,9 +100,3 @@ options::check_options ()
       this->all_sessions = true;
     }
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

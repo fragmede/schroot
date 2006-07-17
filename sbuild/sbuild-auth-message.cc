@@ -34,9 +34,3 @@ auth_message::auth_message (message_type       type,
 auth_message::~auth_message ()
 {
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */

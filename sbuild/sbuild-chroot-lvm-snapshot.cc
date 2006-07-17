@@ -238,9 +238,3 @@ chroot_lvm_snapshot::set_keyfile (keyfile const& keyfile)
 			    keyfile, get_name(), "lvm-snapshot-options",
 			    keyfile::PRIORITY_REQUIRED);
 }
-
-/*
- * Local Variables:
- * mode:C++
- * End:
- */
