@@ -54,15 +54,15 @@ namespace
    */
   emap init_errors[] =
     {
-      emap(chroot_config::ALIAS_EXIST,  N_("Alias '%1%' already associated with '%4%' chroot")),
-      emap(chroot_config::CHROOT,       N_("No such chroot")),
-      emap(chroot_config::CHROOT_EXIST, N_("A chroot or alias '%1%' already exists by this name")),
-      emap(chroot_config::DIR_OPEN,     N_("Failed to open directory")),
-      emap(chroot_config::FILE_NOTREG,  N_("File is not a regular file")),
-      emap(chroot_config::FILE_OPEN,    N_("Failed to open file")),
-      emap(chroot_config::FILE_OWNER,   N_("File is not owned by user root")),
-      emap(chroot_config::FILE_PERMS,   N_("File has write permissions for others")),
-      emap(chroot_config::FILE_STAT,    N_("Failed to stat file"))
+      emap(chroot_config::ALIAS_EXIST,     N_("Alias '%1%' already associated with '%4%' chroot")),
+      emap(chroot_config::CHROOT_NOTFOUND, N_("No such chroot")),
+      emap(chroot_config::CHROOT_EXIST,    N_("A chroot or alias '%1%' already exists by this name")),
+      emap(chroot_config::DIR_OPEN,        N_("Failed to open directory")),
+      emap(chroot_config::FILE_NOTREG,     N_("File is not a regular file")),
+      emap(chroot_config::FILE_OPEN,       N_("Failed to open file")),
+      emap(chroot_config::FILE_OWNER,      N_("File is not owned by user root")),
+      emap(chroot_config::FILE_PERMS,      N_("File has write permissions for others")),
+      emap(chroot_config::FILE_STAT,       N_("Failed to stat file"))
     };
 
   bool chroot_alphasort (sbuild::chroot::ptr const& c1,
@@ -358,7 +358,7 @@ chroot_config::print_chroot_info (string_list const& chroots,
 	}
       else
 	{
-	  error e(*pos, CHROOT);
+	  error e(*pos, CHROOT_NOTFOUND);
 	  log_error() << e.what() << endl;
 	}
     }
@@ -379,7 +379,7 @@ chroot_config::print_chroot_location (string_list const& chroots,
 	}
       else
 	{
-	  error e(*pos, CHROOT);
+	  error e(*pos, CHROOT_NOTFOUND);
 	  log_error() << e.what() << endl;
 	}
     }
@@ -407,7 +407,7 @@ chroot_config::print_chroot_config (string_list const& chroots,
 	}
       else
 	{
-	  error e(*pos, CHROOT);
+	  error e(*pos, CHROOT_NOTFOUND);
 	  log_error() << e.what() << endl;
 	}
     }

@@ -48,3 +48,15 @@ None of these are urgent and/or are difficult to test in an automated
 fashion.  expect might be useful for testing the PAM wrappers.
 
 * Add tests for dchroot classes.
+
+* Line reporting while parsing config files misses file name.
+
+  log_warning() is used, because we don't throw an exception.  The
+  code has no knowledge of the file name, so can't report it.
+  Outright errors throw, and the handler adds the needed context.
+
+* keyfile parsing doesn't error out on duplicated groups.
+
+  This is OK for keyfiles (warning only), but should it be stricter
+  for use in specifying chroots?  Both schroot.conf and dchroot.conf
+  warn about duplicates.

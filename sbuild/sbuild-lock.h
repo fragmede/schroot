@@ -49,16 +49,16 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
-	TIMEOUT_HANDLER,       ///< Failed to set timeout handler.
-	TIMEOUT_SET,           ///< Failed to set timeout.
-	TIMEOUT_CANCEL,        ///< Failed to cancel timeout.
-	LOCK,                  ///< Failed to acquire lock (timed out).
-	LOCK_TIMEOUT,          ///< Failed to acquire lock.
-	DEVICE_LOCK,           ///< Failed to acquire device lock.
-	DEVICE_LOCK_TIMEOUT,   ///< Failed to acquire device lock (timed out).
-	DEVICE_TEST,           ///< Failed to test device lock.
-	DEVICE_RELEASE,        ///< Failed to release device lock.
-	DEVICE_RELEASE_TIMEOUT ///< Failed to release device lock (timed out)
+	TIMEOUT_HANDLER,      ///< Failed to set timeout handler.
+	TIMEOUT_SET,          ///< Failed to set timeout.
+	TIMEOUT_CANCEL,       ///< Failed to cancel timeout.
+	LOCK,                 ///< Failed to lock file (timed out).
+	LOCK_TIMEOUT,         ///< Failed to lock file.
+	DEVICE_LOCK,          ///< Failed to lock device.
+	DEVICE_LOCK_TIMEOUT,  ///< Failed to lock device (timed out).
+	DEVICE_TEST,          ///< Failed to test device lock.
+	DEVICE_UNLOCK,        ///< Failed to unlock device.
+	DEVICE_UNLOCK_TIMEOUT ///< Failed to unlock device (timed out)
       };
 
     /// Exception type.

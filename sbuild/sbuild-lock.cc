@@ -47,13 +47,13 @@ namespace
       emap(lock::TIMEOUT_HANDLER,        N_("Failed to set timeout handler")),
       emap(lock::TIMEOUT_SET,            N_("Failed to set timeout")),
       emap(lock::TIMEOUT_CANCEL,         N_("Failed to cancel timeout")),
-      emap(lock::LOCK,                   N_("Failed to acquire lock")),
-      emap(lock::LOCK_TIMEOUT,           N_("Failed to acquire lock (timed out after %4% seconds)")),
-      emap(lock::DEVICE_LOCK,            N_("Failed to acquire device lock")),
-      emap(lock::DEVICE_LOCK_TIMEOUT,    N_("Failed to acquire device lock (timed out after %4% seconds; lock held by PID %5%)")),
+      emap(lock::LOCK,                   N_("Failed to lock file")),
+      emap(lock::LOCK_TIMEOUT,           N_("Failed to lock file (timed out after %4% seconds)")),
+      emap(lock::DEVICE_LOCK,            N_("Failed to lock device")),
+      emap(lock::DEVICE_LOCK_TIMEOUT,    N_("Failed to lock device (timed out after %4% seconds; lock held by PID %5%)")),
       emap(lock::DEVICE_TEST,            N_("Failed to test device lock")),
-      emap(lock::DEVICE_RELEASE,         N_("Failed to release device lock")),
-      emap(lock::DEVICE_RELEASE_TIMEOUT, N_("Failed to release device lock (timed out after %4% seconds; lock held by PID %5%)"))
+      emap(lock::DEVICE_UNLOCK,         N_("Failed to unlock device")),
+      emap(lock::DEVICE_UNLOCK, N_("Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"))
     };
 
 }
@@ -262,7 +262,7 @@ device_lock::set_lock (type         lock_type,
 		break;
 	      else if (status < 0) // Failure
 		{
-		  throw error(DEVICE_RELEASE);
+		  throw error(DEVICE_UNLOCK);
 		}
 	    }
 	}
@@ -270,7 +270,7 @@ device_lock::set_lock (type         lock_type,
       if (lock_timeout)
 	{
 	  throw error(((lock_type == LOCK_SHARED || lock_type == LOCK_EXCLUSIVE)
-		       ? DEVICE_LOCK_TIMEOUT : DEVICE_RELEASE_TIMEOUT),
+		       ? DEVICE_LOCK_TIMEOUT : DEVICE_UNLOCK_TIMEOUT),
 		      timeout, status);
 	}
       unset_timer();

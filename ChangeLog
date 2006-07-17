@@ -1,5 +1,14 @@
 2006-07-17  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-lock.cc: Rename _RELEASE error codes to _UNLOCK
+	and reword error messages to be uniform with chroot error
+	messages.
+
+	* sbuild/sbuild-chroot-config.cc: Rename CHROOT error to
+	CHROOT_NOTFOUND, to reduce ambiguity.
+
+2006-07-17  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-log.cc
 	(log_exception_error): Rename from log_exception.
 
