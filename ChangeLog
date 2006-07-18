@@ -1,3 +1,7 @@
+2006-07-18  Luk Claes  <luk@debian.org>
+
+	* po/sv.po: Update Swedish translation.
+
 2006-07-17  Roger Leigh  <rleigh@debian.org>
 
 	* dchroot/dchroot.1.in, dchroot-dsa/dchroot-dsa.1.in: Remove
