@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-07-19 13:37+0100\n"
+"POT-Creation-Date: 2006-07-19 22:08+0100\n"
 "PO-Revision-Date: 2006-07-19 13:36+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -171,7 +171,7 @@ msgstr "Access not authorised"
 msgid "PAM is already initialised"
 msgstr "PAM is already initialised"
 
-#: sbuild/sbuild-auth.cc:59 sbuild/sbuild-session.cc:91
+#: sbuild/sbuild-auth.cc:59 sbuild/sbuild-session.cc:93
 msgid "PAM error"
 msgstr "PAM error"
 
@@ -698,11 +698,11 @@ msgstr "Failed to set personality ‘%1%’"
 msgid "Valid personalities: %1%\n"
 msgstr "Valid personalities: %1%\n"
 
-#: sbuild/sbuild-run-parts.cc:48 sbuild/sbuild-session.cc:67
+#: sbuild/sbuild-run-parts.cc:48 sbuild/sbuild-session.cc:69
 msgid "Failed to fork child"
 msgstr "Failed to fork child"
 
-#: sbuild/sbuild-run-parts.cc:49 sbuild/sbuild-session.cc:70
+#: sbuild/sbuild-run-parts.cc:49 sbuild/sbuild-session.cc:72
 msgid "Wait for child failed"
 msgstr "Wait for child failed"
 
@@ -719,123 +719,123 @@ msgid "Executing '%1%'"
 msgstr "Executing ‘%1%’"
 
 #. TRANSLATORS: %1% = directory
-#: sbuild/sbuild-session.cc:62
+#: sbuild/sbuild-session.cc:64
 #, boost-format
 msgid "Failed to change to directory '%1%'"
 msgstr "Failed to change to directory ‘%1%’"
 
 #. TRANSLATORS: %4% = directory
-#: sbuild/sbuild-session.cc:64
+#: sbuild/sbuild-session.cc:66
 #, boost-format
 msgid "Falling back to directory '%4%'"
 msgstr "Falling back to directory ‘%4%’"
 
-#: sbuild/sbuild-session.cc:65
+#: sbuild/sbuild-session.cc:67
 msgid "Child dumped core"
 msgstr "Child dumped core"
 
-#: sbuild/sbuild-session.cc:66
+#: sbuild/sbuild-session.cc:68
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr "Child exited abnormally (reason unknown; not a signal or core dump)"
 
 #. TRANSLATORS: %4% = signal name
-#: sbuild/sbuild-session.cc:69
+#: sbuild/sbuild-session.cc:71
 #, boost-format
 msgid "Child terminated by signal '%4%'"
 msgstr "Child terminated by signal ‘%4%’"
 
 #. TRANSLATORS: %1% = directory
-#: sbuild/sbuild-session.cc:72
+#: sbuild/sbuild-session.cc:74
 #, boost-format
 msgid "Failed to change root to directory '%1%'"
 msgstr "Failed to change root to directory ‘%1%’"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-session.cc:74
+#: sbuild/sbuild-session.cc:76
 #, boost-format
 msgid "No chroot found matching name or alias '%1%'"
 msgstr "No chroot found matching name or alias ‘%1%’"
 
-#: sbuild/sbuild-session.cc:75
+#: sbuild/sbuild-session.cc:77
 msgid "Failed to lock chroot"
 msgstr "Failed to lock chroot"
 
-#: sbuild/sbuild-session.cc:76
+#: sbuild/sbuild-session.cc:78
 msgid "Chroot setup failed"
 msgstr "Chroot setup failed"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-session.cc:78
+#: sbuild/sbuild-session.cc:80
 #, boost-format
 msgid "Failed to find chroot '%1%'"
 msgstr "Failed to find chroot ‘%1%’"
 
-#: sbuild/sbuild-session.cc:79
+#: sbuild/sbuild-session.cc:81
 msgid "Failed to unlock chroot"
 msgstr "Failed to unlock chroot"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-session.cc:81
+#: sbuild/sbuild-session.cc:83
 #, boost-format
 msgid "Command \"%1%\" must have an absolute path"
 msgstr "Command “%1%” must have an absolute path"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-session.cc:83
+#: sbuild/sbuild-session.cc:85
 #, boost-format
 msgid "Failed to execute \"%1%\""
 msgstr "Failed to execute “%1%”"
 
-#: sbuild/sbuild-session.cc:84
+#: sbuild/sbuild-session.cc:86
 msgid "Failed to get supplementary groups"
 msgstr "Failed to get supplementary groups"
 
-#: sbuild/sbuild-session.cc:85
+#: sbuild/sbuild-session.cc:87
 msgid "Failed to get supplementary group count"
 msgstr "Failed to get supplementary group count"
 
 #. TRANSLATORS: %1% = integer group ID
-#: sbuild/sbuild-session.cc:87
+#: sbuild/sbuild-session.cc:89
 #, boost-format
 msgid "Failed to set group '%1%'"
 msgstr "Failed to set group ‘%1%’"
 
-#: sbuild/sbuild-session.cc:88
+#: sbuild/sbuild-session.cc:90
 msgid "Failed to set supplementary groups"
 msgstr "Failed to set supplementary groups"
 
 #. TRANSLATORS: %1% = group name
-#: sbuild/sbuild-session.cc:90
+#: sbuild/sbuild-session.cc:92
 #, boost-format
 msgid "Group '%1%' not found"
 msgstr "Group ‘%1%’ not found"
 
-#: sbuild/sbuild-session.cc:92
+#: sbuild/sbuild-session.cc:94
 msgid "Failed to drop root permissions"
 msgstr "Failed to drop root permissions"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-session.cc:94
+#: sbuild/sbuild-session.cc:96
 #, boost-format
 msgid "Shell '%1%' not available"
 msgstr "Shell ‘%1%’ not available"
 
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:96
+#: sbuild/sbuild-session.cc:98
 #, boost-format
 msgid "Falling back to shell '%4%'"
 msgstr "Falling back to shell ‘%4%’"
 
-#: sbuild/sbuild-session.cc:97
+#: sbuild/sbuild-session.cc:99
 msgid "Caught hangup signal"
 msgstr "Caught hangup signal"
 
-#: sbuild/sbuild-session.cc:98
+#: sbuild/sbuild-session.cc:100
 msgid "Failed to set hangup signal handler"
 msgstr "Failed to set hangup signal handler"
 
 #. TRANSLATORS: %1% = integer user ID
-#: sbuild/sbuild-session.cc:100
+#: sbuild/sbuild-session.cc:102
 #, boost-format
 msgid "Failed to set user '%1%'"
 msgstr "Failed to set user ‘%1%’"
@@ -843,21 +843,29 @@ msgstr "Failed to set user ‘%1%’"
 #. TRANSLATORS: %1% = user name
 #. TRANSLATORS: %2% = user name
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:104
+#: sbuild/sbuild-session.cc:106
 #, boost-format
 msgid "(%1%->%2%): User switching is not permitted"
 msgstr "(%1%→%2%): User switching is not permitted"
 
+#: sbuild/sbuild-session.cc:308
+msgid "Error saving terminal settings"
+msgstr "Error saving terminal settings"
+
+#: sbuild/sbuild-session.cc:330
+msgid "Error restoring terminal settings"
+msgstr "Error restoring terminal settings"
+
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:683
+#: sbuild/sbuild-session.cc:732
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[%1% chroot] Running login shell: ‘%4%’"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:687
+#: sbuild/sbuild-session.cc:736
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[%1% chroot] Running shell: ‘%4%’"
@@ -867,7 +875,7 @@ msgstr "[%1% chroot] Running shell: ‘%4%’"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:698
+#: sbuild/sbuild-session.cc:747
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[%1% chroot] (%2%→%3%) Running login shell: ‘%4%’"
@@ -877,14 +885,14 @@ msgstr "[%1% chroot] (%2%→%3%) Running login shell: ‘%4%’"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:705
+#: sbuild/sbuild-session.cc:754
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[%1% chroot] (%2%→%3%) Running shell: ‘%4%’"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:742
+#: sbuild/sbuild-session.cc:791
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Running command: “%4%”"
@@ -894,37 +902,37 @@ msgstr "[%1% chroot] Running command: “%4%”"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:749
+#: sbuild/sbuild-session.cc:798
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%→%3%) Running command: “%4%”"
 
-#: sbuild/sbuild-session.cc:923
+#: sbuild/sbuild-session.cc:972
 #, boost-format
 msgid "stage=%1%"
 msgstr "stage=%1%"
 
-#: sbuild/sbuild-session.cc:1056
+#: sbuild/sbuild-session.cc:1105
 msgid "(terminating immediately)"
 msgstr "(terminating immediately)"
 
 #. TRANSLATORS: %1% = program name
 #. TRANSLATORS: %2% = program version
 #. TRANSLATORS: %2% = release date
-#: schroot/schroot-base-main.cc:63
+#: schroot/schroot-base-main.cc:60
 #, boost-format
 msgid "%1% (Debian sbuild) %2% (%3%)\n"
 msgstr "%1% (Debian sbuild) %2% (%3%)\n"
 
-#: schroot/schroot-base-main.cc:67
+#: schroot/schroot-base-main.cc:64
 msgid "Written by Roger Leigh"
 msgstr "Written by Roger Leigh"
 
-#: schroot/schroot-base-main.cc:68
+#: schroot/schroot-base-main.cc:65
 msgid "Copyright (C) 2004-2006 Roger Leigh"
 msgstr "Copyright © 2004-2006 Roger Leigh"
 
-#: schroot/schroot-base-main.cc:69
+#: schroot/schroot-base-main.cc:66
 msgid ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
@@ -932,20 +940,12 @@ msgstr ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 
-#: schroot/schroot-base-main.cc:78
+#: schroot/schroot-base-main.cc:75
 msgid "Usage:"
 msgstr "Usage:"
 
-#: schroot/schroot-base-main.cc:106
-msgid "Error saving terminal settings"
-msgstr "Error saving terminal settings"
-
-#: schroot/schroot-base-main.cc:132 schroot/schroot-base-main.cc:161
-msgid "Error restoring terminal settings"
-msgstr "Error restoring terminal settings"
-
 #. TRANSLATORS: %1% = program name
-#: schroot/schroot-base-main.cc:147
+#: schroot/schroot-base-main.cc:119
 #, boost-format
 msgid "Run \"%1% --help\" to list usage example and all available options"
 msgstr "Run “%1% --help” to list usage example and all available options"

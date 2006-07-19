@@ -1,5 +1,21 @@
 2006-07-19  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Document terminal state save and restore behaviour.
+
+	* sbuild/sbuild-session.cc
+	(save_termios): New method.  Save terminal state.
+	(restore_termios): New method.  Restore terminal state.
+	(run_impl): Save and restore terminal state between opening and
+	closing the session.
+
+	* sbuild/sbuild-session.h: Add saved_termios and termios_ok
+	members.
+
+	* schroot/schroot-base-main.cc (run): Remove termios save and
+	restore.
+
+2006-07-19  Roger Leigh  <rleigh@debian.org>
+
 	* po/LINGUAS: Remove vi.
 
 	* po/vi.po: Remove currently unmaintained translation.

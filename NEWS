@@ -14,6 +14,12 @@ configuration.
 
   2) Duplicate groups and keys with groups are now treated as errors.
 
+  3) The terminal state is only saved and restored when running a
+     login shell.  It is no longer saved and restored when running
+     commands.  This is to correct the problem of schroot being
+     stopped when running in the background while restoring the
+     terminal settings.
+
 * Major changes in 0.99.3:
 
   1) A new chroot type, "directory", has been added.  This is the same

@@ -34,6 +34,8 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <fcntl.h>
+#include <termios.h>
 #include <unistd.h>
 
 #include <syslog.h>
@@ -218,6 +220,8 @@ session::session (std::string const&         service,
   session_id(),
   force(false),
   saved_signals(),
+  saved_termios(),
+  termios_ok(false),
   cwd(getcwd())
 {
 }
@@ -284,6 +288,48 @@ void
 session::set_force (bool force)
 {
   this->force = force;
+}
+
+void
+session::save_termios ()
+{
+  int ctty = open("/dev/tty", O_RDONLY|O_NOCTTY);
+  string_list const& command(auth::get_command());
+
+  this->termios_ok = false;
+
+  // Save if running a login shell and have a controlling terminal.
+  if (ctty >= 0 &&
+      (command.empty() || command[0].empty()))
+    {
+      if (tcgetattr(ctty, &this->saved_termios) < 0)
+	{
+	  sbuild::log_warning()
+	    << _("Error saving terminal settings")
+	    << endl;
+	}
+      else
+	this->termios_ok = true;
+    }
+}
+
+void
+session::restore_termios ()
+{
+  int ctty = open("/dev/tty", O_WRONLY|O_NOCTTY);
+  string_list const& command(auth::get_command());
+
+  // Restore if running a login shell and have a controlling terminal,
+  // and have previously saved the terminal state.
+  if (ctty >= 0 &&
+      (command.empty() || command[0].empty()) &&
+      termios_ok)
+    {
+      if (tcsetattr(ctty, TCSANOW, &this->saved_termios) < 0)
+	sbuild::log_warning()
+	  << _("Error restoring terminal settings")
+	  << endl;
+    }
 }
 
 int
@@ -505,13 +551,16 @@ try
 		    try
 		      {
 			open_session();
+			save_termios();
 			run_chroot(chroot);
 		      }
 		    catch (std::runtime_error const& e)
 		      {
+			restore_termios();
 			close_session();
 			throw;
 		      }
+		    restore_termios();
 		    close_session();
 		  }
 

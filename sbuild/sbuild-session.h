@@ -28,6 +28,8 @@
 
 #include <signal.h>
 #include <sys/types.h>
+#include <termios.h>
+#include <unistd.h>
 
 namespace sbuild
 {
@@ -195,6 +197,18 @@ namespace sbuild
      */
     void
     set_force (bool force);
+
+    /**
+     * Save terminal state.
+     */
+    void
+    save_termios ();
+
+    /**
+     * Restore terminal state.
+     */
+    void
+    restore_termios ();
 
     /**
      * Get the exit (wait) status of the last child process to run in this
@@ -384,6 +398,10 @@ namespace sbuild
     bool             force;
     /// Signals saved while sighup handler is set.
     struct sigaction saved_signals;
+    /// Saved terminal settings.
+    struct termios saved_termios;
+    /// Are the saved terminal settings valid?
+    bool termios_ok;
 
   protected:
     /// Current working directory.
