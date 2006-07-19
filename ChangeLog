@@ -1,5 +1,10 @@
 2006-07-19  Roger Leigh  <rleigh@debian.org>
 
+	* po/vi.po: Restore unmaintained translation, but leave out of
+	LINGUAS.
+
+2006-07-19  Roger Leigh  <rleigh@debian.org>
+
 	* po/sv.po: Update Swedish translation.
 
 2006-07-19  Roger Leigh  <rleigh@debian.org>
