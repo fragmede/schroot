@@ -1,3 +1,14 @@
+2006-07-19  Roger Leigh  <rleigh@debian.org>
+
+	* po/LINGUAS: Remove vi.
+
+	* po/vi.po: Remove currently unmaintained translation.
+
+	* po/en_GB.po: Update
+
+	* Add translation comments documenting all format string arguments
+	before all translatable strings with %n% format modifers.
+
 2006-07-18  Luk Claes  <luk@debian.org>
 
 	* po/sv.po: Update Swedish translation.

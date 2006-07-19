@@ -34,6 +34,7 @@ namespace
    */
   emap init_errors[] =
     {
+      // TRANSLATORS: %1% = value (arbitrary text)
       emap(BAD_VALUE, N_("Could not parse value '%1%'"))
     };
 

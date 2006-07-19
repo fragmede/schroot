@@ -113,6 +113,7 @@ chroot_config::parse_data (std::istream& stream,
 
 	  kconfig.set_value(chroot_name, "type", "plain", "", linecount);
 
+	  // TRANSLATORS: %1% = chroot name
 	  format fmt(_("%1% chroot (dchroot-dsa compatibility)"));
 	  fmt % chroot_name;
 

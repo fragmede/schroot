@@ -51,6 +51,7 @@ namespace
   emap init_errors[] =
     {
       emap(auth::HOSTNAME,        N_("Failed to get hostname")),
+      // TRANSLATORS: %1% = user name or user ID
       emap(auth::USER,            N_("User '%1%' not found")),
       emap(auth::AUTHENTICATION,  N_("Authentication failed")),
       emap(auth::AUTHORISATION,   N_("Access not authorised")),
@@ -492,6 +493,7 @@ auth::authenticate ()
 		 "%s->%s Unauthorised",
 		 this->ruser.c_str(), this->user.c_str());
 	  error e(AUTHORISATION);
+	  // TRANSLATORS: %1% = program name (PAM service name)
 	  format fmt(std::string(_("You do not have permission to access the %1% service.")) + '\n' + _("This failure will be reported."));
 	  fmt % this->service;
 	  e.set_reason(fmt.str());

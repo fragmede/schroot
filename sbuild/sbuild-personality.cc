@@ -45,7 +45,9 @@ namespace
    */
   emap init_errors[] =
     {
+      // TRANSLATORS: %1% = integer personality ID
       emap(sbuild::personality::BAD, N_("Personality '%1%' is unknown")),
+      // TRANSLATORS: %1% = personality name
       emap(sbuild::personality::SET, N_("Failed to set personality '%1%'"))
     };
 
@@ -172,6 +174,7 @@ sbuild::personality::set () const
 std::string
 sbuild::personality::get_personalities ()
 {
+  // TRANSLATORS: %1% = a comma-separated list of personality names
   format fmt(_("Valid personalities: %1%\n"));
   std::string ps;
 

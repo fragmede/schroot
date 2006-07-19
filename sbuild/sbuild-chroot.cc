@@ -57,6 +57,7 @@ namespace
     {
       emap(sbuild::chroot::CHROOT_CREATE,   N_("Chroot creation failed")),
       emap(sbuild::chroot::CHROOT_DEVICE,   N_("Device name not set")),
+      // TRANSLATORS: %1% = chroot type name
       emap(sbuild::chroot::CHROOT_TYPE,     N_("Unknown chroot type '%1%'")),
       emap(sbuild::chroot::DEVICE_ABS,      N_("Device must have an absolute path")),
       emap(sbuild::chroot::DEVICE_LOCK,     N_("Failed to lock device")),

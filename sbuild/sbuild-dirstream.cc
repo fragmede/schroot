@@ -37,7 +37,9 @@ namespace
    */
   emap init_errors[] =
     {
+      // TRANSLATORS: %1% = directory name
       emap(dirstream::DIR_OPEN,    N_("Failed to open directory '%1%'")),
+      // TRANSLATORS: %1% = directory name
       emap(dirstream::DIR_READ,    N_("Failed to read directory '%1%'"))
     };
 

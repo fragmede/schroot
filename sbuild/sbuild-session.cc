@@ -58,33 +58,49 @@ namespace
    */
   emap init_errors[] =
     {
+      // TRANSLATORS: %1% = directory
       emap(session::CHDIR,          N_("Failed to change to directory '%1%'")),
+      // TRANSLATORS: %4% = directory
       emap(session::CHDIR_FB,       N_("Falling back to directory '%4%'")),
       emap(session::CHILD_CORE,     N_("Child dumped core")),
       emap(session::CHILD_FAIL,     N_("Child exited abnormally (reason unknown; not a signal or core dump)")),
       emap(session::CHILD_FORK,     N_("Failed to fork child")),
+      // TRANSLATORS: %4% = signal name
       emap(session::CHILD_SIGNAL,   N_("Child terminated by signal '%4%'")),
       emap(session::CHILD_WAIT,     N_("Wait for child failed")),
+      // TRANSLATORS: %1% = directory
       emap(session::CHROOT,         N_("Failed to change root to directory '%1%'")),
+      // TRANSLATORS: %1% = chroot name
       emap(session::CHROOT_ALIAS,   N_("No chroot found matching name or alias '%1%'")),
       emap(session::CHROOT_LOCK,    N_("Failed to lock chroot")),
       emap(session::CHROOT_SETUP,   N_("Chroot setup failed")),
+      // TRANSLATORS: %1% = chroot name
       emap(session::CHROOT_UNKNOWN, N_("Failed to find chroot '%1%'")),
       emap(session::CHROOT_UNLOCK,  N_("Failed to unlock chroot")),
+      // TRANSLATORS: %1% = command
       emap(session::COMMAND_ABS,    N_("Command \"%1%\" must have an absolute path")),
+      // TRANSLATORS: %1% = command
       emap(session::EXEC,           N_("Failed to execute \"%1%\"")),
       emap(session::GROUP_GET_SUP,  N_("Failed to get supplementary groups")),
       emap(session::GROUP_GET_SUPC, N_("Failed to get supplementary group count")),
+      // TRANSLATORS: %1% = integer group ID
       emap(session::GROUP_SET,      N_("Failed to set group '%1%'")),
       emap(session::GROUP_SET_SUP,  N_("Failed to set supplementary groups")),
+      // TRANSLATORS: %1% = group name
       emap(session::GROUP_UNKNOWN,  N_("Group '%1%' not found")),
       emap(session::PAM,            N_("PAM error")),
       emap(session::ROOT_DROP,      N_("Failed to drop root permissions")),
+      // TRANSLATORS: %1% = command
       emap(session::SHELL,          N_("Shell '%1%' not available")),
+      // TRANSLATORS: %4% = command
       emap(session::SHELL_FB,       N_("Falling back to shell '%4%'")),
       emap(session::SIGHUP_CATCH,   N_("Caught hangup signal")),
       emap(session::SIGHUP_SET,     N_("Failed to set hangup signal handler")),
+      // TRANSLATORS: %1% = integer user ID
       emap(session::USER_SET,       N_("Failed to set user '%1%'")),
+      // TRANSLATORS: %1% = user name
+      // TRANSLATORS: %2% = user name
+      // TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
       emap(session::USER_SWITCH,    N_("(%1%->%2%): User switching is not permitted")),
     };
 
@@ -662,16 +678,30 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
 	{
 	  if (get_environment().empty() &&
 	      session_chroot->get_command_prefix().empty())
+	    // TRANSLATORS: %1% = chroot name
+	    // TRANSLATORS: %4% = command
 	    format_string = _("[%1% chroot] Running login shell: '%4%'");
 	  else
+	    // TRANSLATORS: %1% = chroot name
+	    // TRANSLATORS: %4% = command
 	    format_string = _("[%1% chroot] Running shell: '%4%'");
 	}
       else
 	{
 	  if (get_environment().empty() &&
 	      session_chroot->get_command_prefix().empty())
+	    // TRANSLATORS: %1% = chroot name
+	    // TRANSLATORS: %2% = user name
+	    // TRANSLATORS: %3% = user name
+	    // TRANSLATORS: %4% = command
+	    // TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
 	    format_string = _("[%1% chroot] (%2%->%3%) Running login shell: '%4%'");
 	  else
+	    // TRANSLATORS: %1% = chroot name
+	    // TRANSLATORS: %2% = user name
+	    // TRANSLATORS: %3% = user name
+	    // TRANSLATORS: %4% = command
+	    // TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
 	    format_string = _("[%1% chroot] (%2%->%3%) Running shell: '%4%'");
 	}
 
@@ -707,8 +737,15 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
     {
       std::string format_string;
       if (get_ruid() == get_uid())
+	// TRANSLATORS: %1% = chroot name
+	// TRANSLATORS: %4% = command
 	format_string = _("[%1% chroot] Running command: \"%4%\"");
       else
+	// TRANSLATORS: %1% = chroot name
+	// TRANSLATORS: %2% = user name
+	// TRANSLATORS: %3% = user name
+	// TRANSLATORS: %4% = command
+	// TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
 	format_string = (_("[%1% chroot] (%2%->%3%) Running command: \"%4%\""));
 
       format fmt(format_string);

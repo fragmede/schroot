@@ -53,7 +53,9 @@ namespace
    */
   emap init_errors[] =
     {
+      // TRANSLATORS: %1% = file
       emap(main::OPEN,  N_("Failed to open '%1%'")),
+      // TRANSLATORS: %1% = file
       emap(main::CLOSE, N_("Failed to close '%1%'"))
     };
 

@@ -49,10 +49,16 @@ namespace
    */
   emap init_errors[] =
     {
+      // TRANSLATORS: %1% = comma-separated list of chroot names
       emap(main_base::CHROOTS_NOTFOUND,  N_("%1%: Chroots not found")),
+      // TRANSLATORS: %4% = file
       emap(main_base::CHROOT_FILE,       N_("No chroots are defined in '%4%'")),
+      // TRANSLATORS: %4% = file
+      // TRANSLATORS: %5% = file
       emap(main_base::CHROOT_FILE2,      N_("No chroots are defined in '%4%' or '%5%'")),
+      // TRANSLATORS: %1% = file
       emap(main_base::CHROOT_NOTDEFINED, N_("The specified chroots are not defined in '%1%'")),
+      // TRANSLATORS: %1% = chroot name
       emap(main_base::CHROOT_NOTFOUND,   N_("%1%: Chroot not found"))
     };
 

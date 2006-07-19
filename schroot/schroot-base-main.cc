@@ -57,6 +57,9 @@ main::~main ()
 void
 main::action_version (std::ostream& stream)
 {
+  // TRANSLATORS: %1% = program name
+  // TRANSLATORS: %2% = program version
+  // TRANSLATORS: %2% = release date
   format fmt(_("%1% (Debian sbuild) %2% (%3%)\n"));
   fmt % this->program_name % VERSION % sbuild::gmdate(RELEASE_DATE);
 
@@ -140,6 +143,7 @@ main::run (int   argc,
 	{
 	  dynamic_cast<boost::program_options::error const&>(e);
 	  sbuild::log_info()
+	    // TRANSLATORS: %1% = program name
 	    << format(_("Run \"%1% --help\" to list usage example and all available options"))
 	    % argv[0]
 	    << endl;

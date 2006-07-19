@@ -48,11 +48,16 @@ namespace
       emap(lock::TIMEOUT_SET,            N_("Failed to set timeout")),
       emap(lock::TIMEOUT_CANCEL,         N_("Failed to cancel timeout")),
       emap(lock::LOCK,                   N_("Failed to lock file")),
+      // TRANSLATORS: %4% = time in seconds
       emap(lock::LOCK_TIMEOUT,           N_("Failed to lock file (timed out after %4% seconds)")),
       emap(lock::DEVICE_LOCK,            N_("Failed to lock device")),
+      // TRANSLATORS: %4% = time in seconds
+      // TRANSLATORS: %5% = integer process ID
       emap(lock::DEVICE_LOCK_TIMEOUT,    N_("Failed to lock device (timed out after %4% seconds; lock held by PID %5%)")),
       emap(lock::DEVICE_TEST,            N_("Failed to test device lock")),
       emap(lock::DEVICE_UNLOCK,         N_("Failed to unlock device")),
+      // TRANSLATORS: %4% = time in seconds
+      // TRANSLATORS: %5% = integer process ID
       emap(lock::DEVICE_UNLOCK, N_("Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"))
     };
 
