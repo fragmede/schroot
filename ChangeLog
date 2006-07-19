@@ -1,5 +1,9 @@
 2006-07-19  Roger Leigh  <rleigh@debian.org>
 
+	* po/sv.po: Update Swedish translation.
+
+2006-07-19  Roger Leigh  <rleigh@debian.org>
+
 	* po/en_GB.po: Update.
 
 	* Add translator comments for ellipsis (...) in translatable

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2006-07-19 22:39+0100\n"
-"PO-Revision-Date: 2006-07-18 12:40+0100\n"
+"PO-Revision-Date: 2006-07-19 23:13+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -489,9 +489,9 @@ msgstr "--- %1% ---"
 
 #. TRANSLATORS: %1% = file
 #: sbuild/sbuild-keyfile.cc:43
-#, fuzzy, boost-format
+#, boost-format
 msgid "Can't open file '%1%'"
-msgstr "Kan inte öppna filen \"%4%\""
+msgstr "Kan inte öppna filen \"%1%\""
 
 #. TRANSLATORS: %1% = line number
 #. TRANSLATORS: %2% = group name
@@ -504,9 +504,9 @@ msgstr "rad %1% [%2%]: Utfasade nyckeln \"%4%\" används"
 #. TRANSLATORS: %1% = group name
 #. TRANSLATORS: %4% = key name
 #: sbuild/sbuild-keyfile.cc:50
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1%]: Deprecated key '%4%' used"
-msgstr "[%2%]: Utfasade nyckeln \"%4%\" används"
+msgstr "[%1%]: Den utfasade nyckeln \"%4%\" används"
 
 #. TRANSLATORS: %1% = line number
 #. TRANSLATORS: %2% = group name
@@ -519,9 +519,9 @@ msgstr "rad %1% [%2%]: Otillåtna nyckeln \"%4%\" används"
 #. TRANSLATORS: %1% = group name
 #. TRANSLATORS: %4% = key name
 #: sbuild/sbuild-keyfile.cc:57
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1%]: Disallowed key '%4%' used"
-msgstr "[%2%]: Otillåtna nyckeln \"%4%\" används"
+msgstr "[%1%]: Den otillåtna nyckeln \"%4%\" används"
 
 #. TRANSLATORS: %1% = line number
 #. TRANSLATORS: %4% = group name
@@ -592,9 +592,9 @@ msgstr "rad %1% [%2%]: Föråldrade nyckeln \"%4%\" används"
 #. TRANSLATORS: %1% = group name
 #. TRANSLATORS: %4% = key name
 #: sbuild/sbuild-keyfile.cc:90
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1%]: Obsolete key '%4%' used"
-msgstr "[%2%]: Föråldrade nyckeln \"%4%\" används"
+msgstr "[%1%]: Den föråldrade nyckeln \"%4%\" används"
 
 #. TRANSLATORS: %1% = group name
 #. TRANSLATORS: %4% = additional details
