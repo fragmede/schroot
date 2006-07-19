@@ -40,6 +40,7 @@ using namespace dchroot_dsa;
 
 main::main (schroot::options_base::ptr& options):
   main_base("dchroot-dsa",
+	    // TRANSLATORS: Please use an ellipsis e.g. U+2026
 	    _("[OPTION...] chroot [COMMAND] - run command or shell in a chroot"),
 	    options)
 {

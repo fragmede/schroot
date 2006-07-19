@@ -1,5 +1,12 @@
 2006-07-19  Roger Leigh  <rleigh@debian.org>
 
+	* po/en_GB.po: Update.
+
+	* Add translator comments for ellipsis (...) in translatable
+	strings.
+
+2006-07-19  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Close #378469.
 
 2006-07-19  Roger Leigh  <rleigh@debian.org>

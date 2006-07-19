@@ -47,6 +47,7 @@ namespace
   emap init_errors[] =
     {
       emap(auth_conv_tty::TIMEOUT,         N_("Timed out")),
+      // TRANSLATORS: Please use an ellipsis e.g. U+2026
       emap(auth_conv_tty::TIMEOUT_PENDING, N_("Time is running out...")),
       emap(auth_conv_tty::TERMIOS,         N_("Failed to get terminal settings")),
       // TRANSLATORS: %1% = integer
