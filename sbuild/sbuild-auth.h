@@ -62,7 +62,6 @@ namespace sbuild
    * After the session has finished, or if an error occured, the
    * corresponding cleanup methods should be called
    * - close_session
-   * - sbuild
    * - cred_delete
    * - stop
    *

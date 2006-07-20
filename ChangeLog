@@ -1,5 +1,9 @@
 2006-07-20  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-auth.h: Remove incorrect comment.
+
+2006-07-20  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-session.cc
 	(run_impl): Make sure setup_chroot (for EXEC_STOP and SETUP_STOP),
 	clear_sigterm_handler, and clear sighup_handler are always called,
