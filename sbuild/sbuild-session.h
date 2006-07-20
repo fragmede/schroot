@@ -85,8 +85,8 @@ namespace sbuild
 	ROOT_DROP,      ///< Failed to drop root permissions.
 	SHELL,          ///< Shell not available.
 	SHELL_FB,       ///< Falling back to shell.
-	SIGHUP_CATCH,   ///< Hangup signal caught.
-	SIGHUP_SET,     ///< Failed to set SIGHUP handler.
+	SIGNAL_CATCH,   ///< Caught signal.
+	SIGNAL_SET,     ///< Failed to set signal handler.
 	USER_SET,       ///< Failed to set user.
 	USER_SWITCH     ///< User switching is not permitted.
       };
@@ -382,6 +382,44 @@ namespace sbuild
     void
     clear_sighup_handler ();
 
+    /**
+     * Set the SIGTERM handler.
+     *
+     * An error will be thrown on failure.
+     */
+    void
+    set_sigterm_handler ();
+
+    /**
+     * Restore the state of SIGTERM prior to setting the handler.
+     */
+    void
+    clear_sigterm_handler ();
+
+    /**
+     * Set a signal handler.
+     * An error will be thrown on failure.
+     *
+     * @param signal the signal number.
+     * @param saved_signal the location to save the current handler.
+     * @param handler the signal handler to install.
+     */
+    void
+    set_signal_handler (int                signal,
+			struct sigaction  *saved_signal,
+			void             (*handler)(int));
+
+    /**
+     * Restore the state of the signal prior to setting the handler.
+     *
+     * @param signal the signal number.
+     * @param saved_signal the location from which to restore the
+     * saved handler.
+     */
+    void
+    clear_signal_handler (int               signal,
+			  struct sigaction *saved_signal);
+
     /// The chroot configuration.
     config_ptr       config;
     /// The chroots to run the session operation in.
@@ -396,8 +434,10 @@ namespace sbuild
     std::string      session_id;
     /// The session force status.
     bool             force;
-    /// Signals saved while sighup handler is set.
-    struct sigaction saved_signals;
+    /// Signal saved while sighup handler is set.
+    struct sigaction saved_sighup_signal;
+    /// Signal saved while sigterm handler is set.
+    struct sigaction saved_sigterm_signal;
     /// Saved terminal settings.
     struct termios saved_termios;
     /// Are the saved terminal settings valid?

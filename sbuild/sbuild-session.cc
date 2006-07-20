@@ -96,8 +96,10 @@ namespace
       emap(session::SHELL,          N_("Shell '%1%' not available")),
       // TRANSLATORS: %4% = command
       emap(session::SHELL_FB,       N_("Falling back to shell '%4%'")),
-      emap(session::SIGHUP_CATCH,   N_("Caught hangup signal")),
-      emap(session::SIGHUP_SET,     N_("Failed to set hangup signal handler")),
+      // TRANSLATORS: %4% = signal name
+      emap(session::SIGNAL_CATCH,   N_("Caught signal '%4%'")),
+      // TRANSLATORS: %4% = signal name
+      emap(session::SIGNAL_SET,     N_("Failed to set signal handler '%4%'")),
       // TRANSLATORS: %1% = integer user ID
       emap(session::USER_SET,       N_("Failed to set user '%1%'")),
       // TRANSLATORS: %1% = user name
@@ -183,9 +185,10 @@ namespace
   }
 
   volatile bool sighup_called = false;
+  volatile bool sigterm_called = false;
 
   /**
-   * Handle the SIGALRM signal.
+   * Handle the SIGHUP signal.
    *
    * @param ignore the signal number.
    */
@@ -194,6 +197,18 @@ namespace
   {
     /* This exists so that system calls get interrupted. */
     sighup_called = true;
+  }
+
+  /**
+   * Handle the SIGTERM signal.
+   *
+   * @param ignore the signal number.
+   */
+  void
+  sigterm_handler (int ignore)
+  {
+    /* This exists so that system calls get interrupted. */
+    sigterm_called = true;
   }
 
 #ifdef SBUILD_DEBUG
@@ -220,7 +235,8 @@ session::session (std::string const&         service,
   session_operation(operation),
   session_id(),
   force(false),
-  saved_signals(),
+  saved_sighup_signal(),
+  saved_sigterm_signal(),
   saved_termios(),
   termios_ok(false),
   cwd(getcwd())
@@ -461,173 +477,177 @@ session::run_impl ()
   assert(this->config.get() != NULL);
   assert(!this->chroots.empty());
 
-try
-  {
-    sighup_called = false;
-    set_sighup_handler();
+  try
+    {
+      sighup_called = false;
+      set_sighup_handler();
+      sigterm_called = false;
+      set_sigterm_handler();
 
-    for (string_list::const_iterator cur = this->chroots.begin();
-	 cur != this->chroots.end();
-	 ++cur)
-      {
-	log_debug(DEBUG_NOTICE)
-	  << format("Running session in %1% chroot:") % *cur
-	  << endl;
-
-	const chroot::ptr ch = this->config->find_alias(*cur);
-	if (!ch) // Should never happen, but cater for it anyway.
-	  throw error(*cur, CHROOT_UNKNOWN);
-
-	chroot::ptr chroot(ch->clone());
-
-	/* If restoring a session, set the session ID from the
-	   chroot name, or else generate it.  Only chroots which
-	   support session creation append a UUID to the session
-	   ID. */
-	if (chroot->get_active() ||
-	    !(chroot->get_session_flags() & chroot::SESSION_CREATE))
-	  {
-	    set_session_id(chroot->get_name());
-	  }
-	else
-	  {
-	    uuid_t uuid;
-	    char uuid_str[37];
-	    uuid_generate(uuid);
-	    uuid_unparse(uuid, uuid_str);
-	    uuid_clear(uuid);
-	    std::string session_id(chroot->get_name() + "-" + uuid_str);
-	    set_session_id(session_id);
-	  }
-
-	log_debug(DEBUG_INFO)
-	  << format("Session ID: %1%") % get_session_id() << endl;
-
-	/* Activate chroot. */
-	chroot->set_active(true);
-
-	/* If a chroot mount location has not yet been set, and the
-	   chroot is not a plain chroot, set a mount location with the
-	   session id. */
+      for (string_list::const_iterator cur = this->chroots.begin();
+	   cur != this->chroots.end();
+	   ++cur)
 	{
-	  chroot_plain *plain = dynamic_cast<chroot_plain *>(chroot.get());
-	  if (chroot->get_mount_location().empty() &&
-	      (plain == 0 || plain->get_run_setup_scripts() == true))
+	  log_debug(DEBUG_NOTICE)
+	    << format("Running session in %1% chroot:") % *cur
+	    << endl;
+
+	  const chroot::ptr ch = this->config->find_alias(*cur);
+	  if (!ch) // Should never happen, but cater for it anyway.
+	    throw error(*cur, CHROOT_UNKNOWN);
+
+	  chroot::ptr chroot(ch->clone());
+
+	  /* If restoring a session, set the session ID from the
+	     chroot name, or else generate it.  Only chroots which
+	     support session creation append a UUID to the session
+	     ID. */
+	  if (chroot->get_active() ||
+	      !(chroot->get_session_flags() & chroot::SESSION_CREATE))
 	    {
-	      std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
-				   this->session_id);
-	      chroot->set_mount_location(location);
+	      set_session_id(chroot->get_name());
 	    }
+	  else
+	    {
+	      uuid_t uuid;
+	      char uuid_str[37];
+	      uuid_generate(uuid);
+	      uuid_unparse(uuid, uuid_str);
+	      uuid_clear(uuid);
+	      std::string session_id(chroot->get_name() + "-" + uuid_str);
+	      set_session_id(session_id);
+	    }
+
+	  log_debug(DEBUG_INFO)
+	    << format("Session ID: %1%") % get_session_id() << endl;
+
+	  /* Activate chroot. */
+	  chroot->set_active(true);
+
+	  /* If a chroot mount location has not yet been set, and the
+	     chroot is not a plain chroot, set a mount location with the
+	     session id. */
+	  {
+	    chroot_plain *plain = dynamic_cast<chroot_plain *>(chroot.get());
+	    if (chroot->get_mount_location().empty() &&
+		(plain == 0 || plain->get_run_setup_scripts() == true))
+	      {
+		std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
+				     this->session_id);
+		chroot->set_mount_location(location);
+	      }
+	  }
+
+	  log_debug(DEBUG_NOTICE)
+	    << format("Mount Location: %1%") % chroot->get_mount_location()
+	    << endl;
+
+	  /* Chroot types which create a session (e.g. LVM devices)
+	     need the chroot name respecifying. */
+	  if (chroot->get_session_flags() & chroot::SESSION_CREATE)
+	    {
+	      chroot->set_name(this->session_id);
+	      chroot->set_aliases(string_list());
+	    }
+
+	  /* LVM devices need the snapshot device name specifying. */
+	  chroot_lvm_snapshot *snapshot = 0;
+	  if ((snapshot = dynamic_cast<chroot_lvm_snapshot *>(chroot.get())) != 0)
+	    {
+	      std::string dir(dirname(snapshot->get_device(), '/'));
+	      std::string device(dir + "/" + this->session_id);
+	      snapshot->set_snapshot_device(device);
+	    }
+
+	  try
+	    {
+	      /* Run setup-start chroot setup scripts. */
+	      setup_chroot(chroot, chroot::SETUP_START);
+	      if (this->session_operation == OPERATION_BEGIN)
+		cout << this->session_id << endl;
+
+	      /* Run recover scripts. */
+	      setup_chroot(chroot, chroot::SETUP_RECOVER);
+
+	      try
+		{
+		  /* Run exec-start scripts. */
+		  setup_chroot(chroot, chroot::EXEC_START);
+
+		  /* Run session if setup succeeded. */
+		  if (this->session_operation == OPERATION_AUTOMATIC ||
+		      this->session_operation == OPERATION_RUN)
+		    {
+		      try
+			{
+			  open_session();
+			  save_termios();
+			  run_chroot(chroot);
+			}
+		      catch (std::runtime_error const& e)
+			{
+			  log_debug(DEBUG_WARNING)
+			    << "Chroot session failed" << endl;
+			  restore_termios();
+			  close_session();
+			  throw;
+			}
+		      restore_termios();
+		      close_session();
+		    }
+
+		}
+	      catch (error const& e)
+		{
+		  log_debug(DEBUG_WARNING)
+		    << "Chroot exec scripts or session failed" << endl;
+		  setup_chroot(chroot, chroot::EXEC_STOP);
+		  throw;
+		}
+
+	      /* Run exec-stop scripts whether or not there was an
+		 error. */
+	      setup_chroot(chroot, chroot::EXEC_STOP);
+	    }
+	  catch (error const& e)
+	    {
+	      log_debug(DEBUG_WARNING)
+		<< "Chroot setup scripts, exec scripts or session failed" << endl;
+	      try
+		{
+		  setup_chroot(chroot, chroot::SETUP_STOP);
+		}
+	      catch (error const& discard)
+		{
+		  log_debug(DEBUG_WARNING)
+		    << "Chroot setup scripts failed during stop" << endl;
+		}
+	      chroot->set_active(false);
+	      throw;
+	    }
+
+	  /* Run setup-stop chroot setup scripts whether or not there
+	     was an error. */
+	  setup_chroot(chroot, chroot::SETUP_STOP);
+
+	  /* Deactivate chroot. */
+	  chroot->set_active(false);
 	}
 
-	log_debug(DEBUG_NOTICE)
-	  << format("Mount Location: %1%") % chroot->get_mount_location()
-	  << endl;
+      clear_sigterm_handler();
+      clear_sighup_handler();
+    }
+  catch (error const& e)
+    {
+      clear_sigterm_handler();
+      clear_sighup_handler();
 
-	/* Chroot types which create a session (e.g. LVM devices)
-	   need the chroot name respecifying. */
-	if (chroot->get_session_flags() & chroot::SESSION_CREATE)
-	  {
-	    chroot->set_name(this->session_id);
-	    chroot->set_aliases(string_list());
-	  }
-
-	/* LVM devices need the snapshot device name specifying. */
-	chroot_lvm_snapshot *snapshot = 0;
-	if ((snapshot = dynamic_cast<chroot_lvm_snapshot *>(chroot.get())) != 0)
-	  {
-	    std::string dir(dirname(snapshot->get_device(), '/'));
-	    std::string device(dir + "/" + this->session_id);
-	    snapshot->set_snapshot_device(device);
-	  }
-
-	try
-	  {
-	    /* Run setup-start chroot setup scripts. */
-	    setup_chroot(chroot, chroot::SETUP_START);
-	    if (this->session_operation == OPERATION_BEGIN)
-	      cout << this->session_id << endl;
-
-	    /* Run recover scripts. */
-	    setup_chroot(chroot, chroot::SETUP_RECOVER);
-
-	    try
-	      {
-		/* Run exec-start scripts. */
-		setup_chroot(chroot, chroot::EXEC_START);
-
-		/* Run session if setup succeeded. */
-		if (this->session_operation == OPERATION_AUTOMATIC ||
-		    this->session_operation == OPERATION_RUN)
-		  {
-		    try
-		      {
-			open_session();
-			save_termios();
-			run_chroot(chroot);
-		      }
-		    catch (std::runtime_error const& e)
-		      {
-			log_debug(DEBUG_WARNING)
-			  << "Chroot session failed" << endl;
-			restore_termios();
-			close_session();
-			throw;
-		      }
-		    restore_termios();
-		    close_session();
-		  }
-
-	      }
-	    catch (error const& e)
-	      {
-		log_debug(DEBUG_WARNING)
-		  << "Chroot exec scripts or session failed" << endl;
-		setup_chroot(chroot, chroot::EXEC_STOP);
-		throw;
-	      }
-
-	    /* Run exec-stop scripts whether or not there was an
-	       error. */
-	    setup_chroot(chroot, chroot::EXEC_STOP);
-	  }
-	catch (error const& e)
-	  {
-	    log_debug(DEBUG_WARNING)
-	      << "Chroot setup scripts, exec scripts or session failed" << endl;
-	    try
-	      {
-		setup_chroot(chroot, chroot::SETUP_STOP);
-	      }
-	    catch (error const& discard)
-	      {
-		log_debug(DEBUG_WARNING)
-		  << "Chroot setup scripts failed during stop" << endl;
-	      }
-	    chroot->set_active(false);
-	    throw;
-	  }
-
-	/* Run setup-stop chroot setup scripts whether or not there
-	   was an error. */
-	setup_chroot(chroot, chroot::SETUP_STOP);
-
-	/* Deactivate chroot. */
-	chroot->set_active(false);
-      }
-
-    clear_sighup_handler();
-  }
-catch (error const& e)
-  {
-    clear_sighup_handler();
-
-    /* If a command was not run, but something failed, the exit
-       status still needs setting. */
-    if (this->child_status == 0)
-      this->child_status = EXIT_FAILURE;
-    throw;
-  }
+      /* If a command was not run, but something failed, the exit
+	 status still needs setting. */
+      if (this->child_status == 0)
+	this->child_status = EXIT_FAILURE;
+      throw;
+    }
 }
 
 string_list
@@ -1136,18 +1156,29 @@ session::wait_for_child (pid_t pid,
 
   while (1)
     {
-      if (sighup_called && !child_killed)
+      if ((sighup_called || sigterm_called) && !child_killed)
 	{
-	  error e(SIGHUP_CATCH, _("(terminating immediately)"));
-	  log_exception_error(e);
-	  kill(pid, SIGHUP);
+	  if (sighup_called)
+	    {
+	      error e(SIGNAL_CATCH, strsignal(SIGHUP),
+		      _("terminating immediately"));
+	      log_exception_error(e);
+	      kill(pid, SIGHUP);
+	    }
+	  else // SIGTERM
+	    {
+	      error e(SIGNAL_CATCH, strsignal(SIGTERM),
+		      _("terminating immediately"));
+	      log_exception_error(e);
+	      kill(pid, SIGTERM);
+	    }
 	  this->chroot_status = false;
 	  child_killed = true;
 	}
 
       if (wait(&status) != pid)
 	{
-	  if (errno == EINTR && sighup_called)
+	  if (errno == EINTR && (sighup_called || sigterm_called))
 	    continue; // Kill child and wait again.
 	  else
 	    {
@@ -1157,7 +1188,12 @@ session::wait_for_child (pid_t pid,
       else if (sighup_called)
 	{
 	  sighup_called = false;
-	  throw error(SIGHUP_CATCH);
+	  throw error(SIGNAL_CATCH, strsignal(SIGHUP));
+	}
+      else if (sigterm_called)
+	{
+	  sigterm_called = false;
+	  throw error(SIGNAL_CATCH, strsignal(SIGTERM));
 	}
       else
 	break;
@@ -1213,20 +1249,47 @@ session::run_chroot (sbuild::chroot::ptr& session_chroot)
 void
 session::set_sighup_handler ()
 {
-  struct sigaction new_sa;
-  sigemptyset(&new_sa.sa_mask);
-  new_sa.sa_flags = 0;
-  new_sa.sa_handler = sighup_handler;
-
-  if (sigaction(SIGHUP, &new_sa, &this->saved_signals) != 0)
-    {
-      throw error(SIGHUP_SET, strerror(errno));
-    }
+  set_signal_handler(SIGHUP, &this->saved_sighup_signal, sighup_handler);
 }
 
 void
 session::clear_sighup_handler ()
 {
+  clear_signal_handler(SIGHUP, &this->saved_sighup_signal);
+}
+
+void
+session::set_sigterm_handler ()
+{
+  set_signal_handler(SIGTERM, &this->saved_sigterm_signal, sigterm_handler);
+}
+
+void
+session::clear_sigterm_handler ()
+{
+  clear_signal_handler(SIGTERM, &this->saved_sigterm_signal);
+}
+
+void
+session::set_signal_handler (int                signal,
+			     struct sigaction  *saved_signal,
+			     void             (*handler)(int))
+{
+  struct sigaction new_sa;
+  sigemptyset(&new_sa.sa_mask);
+  new_sa.sa_flags = 0;
+  new_sa.sa_handler = handler;
+
+  if (sigaction(signal, &new_sa, saved_signal) != 0)
+    {
+      throw error(SIGNAL_SET, strsignal(signal), strerror(errno));
+    }
+}
+
+void
+session::clear_signal_handler (int               signal,
+			       struct sigaction *saved_signal)
+{
   /* Restore original handler */
-  sigaction (SIGHUP, &this->saved_signals, NULL);
+  sigaction (signal, saved_signal, NULL);
 }

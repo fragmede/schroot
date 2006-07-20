@@ -20,6 +20,9 @@ configuration.
      stopped when running in the background while restoring the
      terminal settings.
 
+  4) Child processes are now terminated when SIGTERM is received, in
+     addition to SIGHUP.
+
 * Major changes in 0.99.3:
 
   1) A new chroot type, "directory", has been added.  This is the same

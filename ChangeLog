@@ -1,5 +1,22 @@
 2006-07-20  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Document SIGTERM behaviour.
+
+	* sbuild/sbuild-session.cc
+	(set_signal_handler): New method for use by set_sighup_handler and
+	set_sigterm_handler.
+	(clear_signal_handler): New method for use by clear_sighup_handler
+	and clear_sigterm_handler.
+	(set_sighup_handler): Use set_signal_handler.
+	(clear_sighup_handler): Use clear_signal_handler.
+	(set_sigterm_handler): New method.
+	(clear_sigterm_handler): New method.
+
+	* sbuild/sbuild-session.h: Rename saved_signals member to
+	saved_sighup_signal, and add a saved_sigterm_signal member.
+
+2006-07-20  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-auth-conv-tty.cc (conversation): Log using
 	standard log functions rather than using std::cerr.
 
