@@ -1,5 +1,11 @@
 2006-07-20  Roger Leigh  <rleigh@debian.org>
 
+	* Version 0.99.4
+
+	* debian/changelog: Update for 0.99.4
+
+2006-07-20  Roger Leigh  <rleigh@debian.org>
+
 	* po/en_GB.po: Update translation.
 
 2006-07-20  Roger Leigh  <rleigh@debian.org>
