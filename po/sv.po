@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-07-20 12:22+0100\n"
+"POT-Creation-Date: 2006-07-20 13:37+0100\n"
 "PO-Revision-Date: 2006-07-19 23:13+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -954,7 +954,8 @@ msgid "stage=%1%"
 msgstr "steg=%1%"
 
 #: sbuild/sbuild-session.cc:1164 sbuild/sbuild-session.cc:1171
-msgid "(terminating immediately)"
+#, fuzzy
+msgid "terminating immediately"
 msgstr "(avslutar omedelbart)"
 
 #. TRANSLATORS: %1% = program name
