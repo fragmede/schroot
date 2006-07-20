@@ -1,5 +1,10 @@
 2006-07-20  Roger Leigh  <rleigh@debian.org>
 
+	* Don't translate program usage messages before the locale and
+	gettext have been initialised.
+
+2006-07-20  Roger Leigh  <rleigh@debian.org>
+
 	* NEWS: Document SIGTERM behaviour.
 
 	* sbuild/sbuild-session.cc

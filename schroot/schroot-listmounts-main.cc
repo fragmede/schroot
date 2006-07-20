@@ -70,7 +70,7 @@ sbuild::error<main::error_code>::error_strings
 main::main (options::ptr& options):
   schroot_base::main("schroot-listmounts",
 		     // TRANSLATORS: Please use an ellipsis e.g. U+2026
-		     _("[OPTION...] - list mount points"),
+		     N_("[OPTION...] - list mount points"),
 		     options),
   options(options)
 {

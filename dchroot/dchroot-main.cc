@@ -42,7 +42,7 @@ using namespace dchroot;
 main::main (schroot::options_base::ptr& options):
   main_base("dchroot",
 	    // TRANSLATORS: Please use an ellipsis e.g. U+2026
-	    _("[OPTION...] [COMMAND] - run command or shell in a chroot"),
+	    N_("[OPTION...] [COMMAND] - run command or shell in a chroot"),
 	    options)
 {
 }

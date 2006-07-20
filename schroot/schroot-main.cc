@@ -38,7 +38,7 @@ using namespace schroot;
 main::main (options_base::ptr& options):
   main_base("schroot",
 	    // TRANSLATORS: Please use an ellipsis e.g. U+2026
-	    _("[OPTION...] [COMMAND] - run command or shell in a chroot"),
+	    N_("[OPTION...] [COMMAND] - run command or shell in a chroot"),
 	    options)
 {
 }

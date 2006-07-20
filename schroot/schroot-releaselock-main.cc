@@ -68,7 +68,7 @@ sbuild::error<main::error_code>::error_strings
 main::main (options::ptr& options):
   schroot_base::main("schroot-releaselock",
 		     // TRANSLATORS: Please use an ellipsis e.g. U+2026
-		     _("[OPTION...] - release a device lock"),
+		     N_("[OPTION...] - release a device lock"),
 		     options),
   options(options)
 {

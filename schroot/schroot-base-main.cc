@@ -74,7 +74,7 @@ main::action_help (std::ostream& stream)
   stream
     << _("Usage:") << '\n'
     << "  " << this->program_name << "  "
-    << this->program_usage << std::endl;
+    << gettext(this->program_usage.c_str()) << std::endl;
 
   stream << this->program_options->get_visible_options() << std::flush;
 }
