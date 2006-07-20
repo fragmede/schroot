@@ -1,3 +1,9 @@
+2006-07-20  Roger Leigh  <rleigh@debian.org>
+
+	* TODO: Remove completed item.
+
+	* Added a number of debugging messages to important codepaths.
+
 2006-07-19  Roger Leigh  <rleigh@debian.org>
 
 	* po/vi.po: Restore unmaintained translation, but leave out of

@@ -166,6 +166,7 @@ namespace
 	if (supp_group_count > 0)
 	  {
 	    gid_t *supp_groups = new gid_t[supp_group_count];
+	    assert (supp_groups);
 	    if (getgroups(supp_group_count, supp_groups) < 1)
 	      throw session::error(session::GROUP_GET_SUP, strerror(errno));
 
@@ -380,6 +381,12 @@ session::get_chroot_auth_status (auth::status status,
 	  in_root_groups = true;
     }
 
+  log_debug(DEBUG_INFO)
+    << "In users: " << in_users << endl
+    << "In groups: " << in_groups << endl
+    << "In root-users: " << in_root_users << endl
+    << "In root-groups: " << in_root_groups << endl;
+
   /*
    * No auth required if in root users or root groups and
    * changing to root, or if the uid is not changing.  If not
@@ -469,9 +476,7 @@ try
 
 	const chroot::ptr ch = this->config->find_alias(*cur);
 	if (!ch) // Should never happen, but cater for it anyway.
-	  {
-	    throw error(*cur, CHROOT_UNKNOWN);
-	  }
+	  throw error(*cur, CHROOT_UNKNOWN);
 
 	chroot::ptr chroot(ch->clone());
 
@@ -495,6 +500,9 @@ try
 	    set_session_id(session_id);
 	  }
 
+	log_debug(DEBUG_INFO)
+	  << format("Session ID: %1%") % get_session_id() << endl;
+
 	/* Activate chroot. */
 	chroot->set_active(true);
 
@@ -511,6 +519,10 @@ try
 	      chroot->set_mount_location(location);
 	    }
 	}
+
+	log_debug(DEBUG_NOTICE)
+	  << format("Mount Location: %1%") % chroot->get_mount_location()
+	  << endl;
 
 	/* Chroot types which create a session (e.g. LVM devices)
 	   need the chroot name respecifying. */
@@ -556,6 +568,8 @@ try
 		      }
 		    catch (std::runtime_error const& e)
 		      {
+			log_debug(DEBUG_WARNING)
+			  << "Chroot session failed" << endl;
 			restore_termios();
 			close_session();
 			throw;
@@ -564,25 +578,31 @@ try
 		    close_session();
 		  }
 
-		/* Run exec-stop scripts whether or not there was an
-		   error. */
-		setup_chroot(chroot, chroot::EXEC_STOP);
 	      }
 	    catch (error const& e)
 	      {
+		log_debug(DEBUG_WARNING)
+		  << "Chroot exec scripts or session failed" << endl;
 		setup_chroot(chroot, chroot::EXEC_STOP);
 		throw;
 	      }
 
+	    /* Run exec-stop scripts whether or not there was an
+	       error. */
+	    setup_chroot(chroot, chroot::EXEC_STOP);
 	  }
 	catch (error const& e)
 	  {
+	    log_debug(DEBUG_WARNING)
+	      << "Chroot setup scripts, exec scripts or session failed" << endl;
 	    try
 	      {
 		setup_chroot(chroot, chroot::SETUP_STOP);
 	      }
 	    catch (error const& discard)
 	      {
+		log_debug(DEBUG_WARNING)
+		  << "Chroot setup scripts failed during stop" << endl;
 	      }
 	    chroot->set_active(false);
 	    throw;
@@ -986,42 +1006,53 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 
   // Store before chroot call.
   this->cwd = getcwd();
+  log_debug(DEBUG_INFO) << "CWD=" << this->cwd << std::endl;
 
   std::string location(session_chroot->get_path());
+  log_debug(DEBUG_INFO) << "location=" << location << std::endl;
 
   /* Set group ID and supplementary groups */
   if (setgid (get_gid()))
     {
       throw error(get_gid(), GROUP_SET, strerror(errno));
     }
+  log_debug(DEBUG_NOTICE) << "Set GID=" << get_gid() << std::endl;
   if (initgroups (get_user().c_str(), get_gid()))
     {
       throw error(GROUP_SET_SUP, strerror(errno));
     }
+  log_debug(DEBUG_NOTICE) << "Set supplementary groups" << std::endl;
 
   /* Set the process execution domain. */
   /* Will throw on failure. */
   session_chroot->get_persona().set();
+  log_debug(DEBUG_NOTICE) << "Set personality="
+			  << session_chroot->get_persona()<< std::endl;
 
   /* Enter the chroot */
   if (chdir (location.c_str()))
     {
       throw error(location, CHDIR, strerror(errno));
     }
+  log_debug(DEBUG_NOTICE) << "Changed directory to " << location << std::endl;
   if (::chroot (location.c_str()))
     {
       throw error(location, CHROOT, strerror(errno));
     }
+  log_debug(DEBUG_NOTICE) << "Changed root to " << location << std::endl;
 
   /* Set uid and check we are not still root */
   if (setuid (get_uid()))
     {
       throw error(get_uid(), USER_SET, strerror(errno));
     }
+  log_debug(DEBUG_NOTICE) << "Set UID=" << get_uid() << std::endl;
   if (!setuid (0) && get_uid())
     {
       throw error(ROOT_DROP);
     }
+  if (get_uid())
+    log_debug(DEBUG_NOTICE) << "Dropped root privileges" << std::endl;
 
   std::string file;
   string_list command(auth::get_command());
@@ -1032,7 +1063,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
     dlist = get_login_directories();
   else
     dlist = get_command_directories();
-  log_debug(DEBUG_NOTICE)
+  log_debug(DEBUG_INFO)
     << format("Directory fallbacks: %1%") % string_list_to_string(dlist, ", ") << endl;
 
   /* Attempt to chdir to current directory. */
@@ -1051,6 +1082,8 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 	}
       else
 	{
+	  log_debug(DEBUG_NOTICE) << "Changed directory to "
+				  << *dpos << std::endl;
 	  if (dpos != dlist.begin())
 	    {
 	      error e(CHDIR_FB, *dpos);
@@ -1062,6 +1095,9 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 
   /* Fix up the command for exec. */
   get_command(session_chroot, file, command);
+  log_debug(DEBUG_NOTICE) << "command="
+			  << string_list_to_string(command, ", ")
+			  << std::endl;
 
   /* Set up environment */
   environment env = get_pam_environment();

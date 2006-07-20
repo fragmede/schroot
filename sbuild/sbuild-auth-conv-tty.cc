@@ -275,6 +275,8 @@ auth_conv_tty::read_string (std::string message,
 void
 auth_conv_tty::conversation (message_list& messages)
 {
+  log_debug(DEBUG_NOTICE) << "PAM TTY conversation handler started" << endl;
+
   for (std::vector<auth_message>::iterator cur = messages.begin();
        cur != messages.end();
        ++cur)
@@ -282,15 +284,19 @@ auth_conv_tty::conversation (message_list& messages)
       switch (cur->type)
 	{
 	case auth_message::MESSAGE_PROMPT_NOECHO:
+	  log_debug(DEBUG_NOTICE) << "PAM TTY input prompt (noecho)" << endl;
 	  cur->response = read_string(cur->message, false);
 	  break;
 	case auth_message::MESSAGE_PROMPT_ECHO:
+	  log_debug(DEBUG_NOTICE) << "PAM TTY input prompt (echo)" << endl;
 	  cur->response = read_string(cur->message, true);
 	  break;
 	case auth_message::MESSAGE_ERROR:
+	  log_debug(DEBUG_NOTICE) << "PAM TTY output error" << endl;
 	  cerr << cur->message << endl;
 	  break;
 	case auth_message::MESSAGE_INFO:
+	  log_debug(DEBUG_NOTICE) << "PAM TTY output info" << endl;
 	  cerr << cur->message << endl;
 	  break;
 	default:
@@ -298,4 +304,6 @@ auth_conv_tty::conversation (message_list& messages)
 	  break;
 	}
     }
+
+  log_debug(DEBUG_NOTICE) << "PAM TTY conversation handler ended" << endl;
 }

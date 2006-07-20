@@ -77,6 +77,8 @@ namespace
 		  struct pam_response      **response,
 		  void                      *appdata_ptr)
   {
+    log_debug(DEBUG_NOTICE) << "PAM conversation hook started" << endl;
+
     try
       {
 	if (appdata_ptr == 0)

@@ -172,6 +172,9 @@ run_parts::run_child (std::string const& file,
     }
   else if (pid == 0)
     {
+      log_debug(DEBUG_INFO) << "run_parts: executing "
+			    << string_list_to_string(command, ", ")
+			    << std::endl;
       if (this->verbose)
 	// TRANSLATORS: %1% = command
 	log_info() << format(_("Executing '%1%'"))

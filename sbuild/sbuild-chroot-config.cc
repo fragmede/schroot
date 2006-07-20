@@ -113,6 +113,8 @@ void
 chroot_config::add_config_file (std::string const& file,
 				bool               active)
 {
+  log_debug(DEBUG_NOTICE) << "Loading config file: " << file << endl;
+
   load_data(file, active);
 }
 
@@ -120,6 +122,8 @@ void
 chroot_config::add_config_directory (std::string const& dir,
 				     bool               active)
 {
+  log_debug(DEBUG_NOTICE) << "Loading config directory: " << dir << endl;
+
   if (dir.empty())
     return;
 
@@ -439,6 +443,8 @@ void
 chroot_config::load_data (std::string const& file,
 			  bool               active)
 {
+  log_debug(DEBUG_NOTICE) << "Loading data file: " << file << endl;
+
   /* Use a UNIX fd, for security (no races) */
   int fd = open(file.c_str(), O_RDONLY|O_NOFOLLOW);
   if (fd < 0)

@@ -9,10 +9,6 @@ the Doxygen-generated documentation in doc/schroot/html/todo.html
 PENDING
 -------
 
-* Add more informative debugging messages
-
-  - in the critical parts of the session code.
-
 
 PLANNED
 -------
