@@ -1,5 +1,9 @@
 2006-07-20  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Add missing Debian-specific revisions.
+
+2006-07-20  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: debian/copyright updates.
 
 2006-07-20  Roger Leigh  <rleigh@debian.org>

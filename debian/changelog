@@ -41,6 +41,15 @@ schroot (0.99.3-1) unstable; urgency=low
 
  -- Roger Leigh <rleigh@debian.org>  Fri, 14 Jul 2006 21:06:05 +0100
 
+schroot (0.99.2-2) unstable; urgency=low
+
+  * test/sbuild-personality.h: Modify the test for automatic personality
+    detection, which breaks on the hppa architecture (it uses "linux32"
+    rather than "linux" by default).  It now allows "linux", "linux_32bit"
+    and "linux32" as valid personalities.
+
+ -- Roger Leigh <rleigh@debian.org>  Fri,  7 Jul 2006 18:46:49 +0100
+
 schroot (0.99.2-1) unstable; urgency=low
 
   * New upstream release.
@@ -274,6 +283,26 @@ schroot (0.1.8-1) unstable; urgency=low
   * debian/schroot.init: Remove "function" bashism.
 
  -- Roger Leigh <rleigh@debian.org>  Mon,  7 Nov 2005 19:41:42 +0000
+
+schroot (0.1.7-3) unstable; urgency=low
+
+  * debian/schroot.init: Remove "function" bashism.  Applied patch
+    from upstream CVS (Closes: #337761).  Thanks to Robert Luberda
+    for the patch.
+
+ -- Roger Leigh <rleigh@debian.org>  Mon,  7 Nov 2005 19:46:36 +0000
+
+schroot (0.1.7-2) unstable; urgency=low
+
+  * schroot/sbuild-sessions.c: Don't check for supplementary group
+    IDs if there are none available, and check the process' GID in
+    addition.  This allows session recovery at startup, since init
+    does not appear to set supplementary groups.  Applied patch
+    from upstream CVS (Closes: #337628).
+  * debian/rules: Use /usr/lib rather than ${prefix}/lib for
+    libexecdir, to avoid unexpanded shell vars in config.h.
+
+ -- Roger Leigh <rleigh@debian.org>  Sat,  5 Nov 2005 14:44:50 +0000
 
 schroot (0.1.7-1) unstable; urgency=low
 
