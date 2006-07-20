@@ -46,8 +46,3 @@ fashion.  expect might be useful for testing the PAM wrappers.
   code has no knowledge of the file name, so can't report it.
   Outright errors throw, and the handler adds the needed context.
 
-* keyfile parsing doesn't error out on duplicated groups.
-
-  This is OK for keyfiles (warning only), but should it be stricter
-  for use in specifying chroots?  Both schroot.conf and dchroot.conf
-  warn about duplicates.

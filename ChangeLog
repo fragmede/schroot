@@ -1,5 +1,10 @@
 2006-07-20  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Remove completed item (duplictes in conffiles should be an
+	error).
+
+2006-07-20  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-auth.h: Remove incorrect comment.
 
 2006-07-20  Roger Leigh  <rleigh@debian.org>
