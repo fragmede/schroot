@@ -1,5 +1,10 @@
 2006-07-20  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-run-parts.cc (run_child): Add child exit status
+	debugging output.
+
+2006-07-20  Roger Leigh  <rleigh@debian.org>
+
 	* Don't translate program usage messages before the locale and
 	gettext have been initialised.
 

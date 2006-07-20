@@ -191,6 +191,15 @@ run_parts::run_child (std::string const& file,
       wait_for_child(pid, exit_status);
     }
 
+  if (exit_status)
+    log_debug(DEBUG_INFO) << "run_parts: " << file
+			  << " failed with status " << exit_status
+			  << std::endl;
+  else
+    log_debug(DEBUG_INFO) << "run_parts: " << file
+			  << " succeeded"
+			  << std::endl;
+
   return exit_status;
 }
 
