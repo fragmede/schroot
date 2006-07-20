@@ -354,6 +354,7 @@ auth::run ()
 	    }
 	  throw;
 	}
+      cred_delete();
     }
   catch (error const& e)
     {
@@ -368,6 +369,7 @@ auth::run ()
 	}
       throw;
     }
+  stop();
 }
 
 void

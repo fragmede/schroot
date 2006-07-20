@@ -1,5 +1,16 @@
 2006-07-20  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-session.cc
+	(run_impl): Make sure setup_chroot (for EXEC_STOP and SETUP_STOP),
+	clear_sigterm_handler, and clear sighup_handler are always called,
+	and always called once only.
+
+	* sbuild/sbuild-auth.cc
+	(run): Make sure cred_delete and stop are always called, and
+	always called once only.
+
+2006-07-20  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-run-parts.cc (run_child): Add child exit status
 	debugging output.
 

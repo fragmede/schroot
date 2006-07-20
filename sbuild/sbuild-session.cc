@@ -633,9 +633,6 @@ session::run_impl ()
 	  /* Deactivate chroot. */
 	  chroot->set_active(false);
 	}
-
-      clear_sigterm_handler();
-      clear_sighup_handler();
     }
   catch (error const& e)
     {
@@ -648,6 +645,9 @@ session::run_impl ()
 	this->child_status = EXIT_FAILURE;
       throw;
     }
+
+  clear_sigterm_handler();
+  clear_sighup_handler();
 }
 
 string_list
