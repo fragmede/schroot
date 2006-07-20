@@ -59,7 +59,7 @@ sbuild::log_debug (sbuild::DebugLevel level)
       level >= debug_level)
     // TRANSLATORS: %1% = integer debug level
     // TRANSLATORS: "D" is an abbreviation of "Debug"
-    return std::cerr << format(_("D(%1%): ") % level;
+    return std::cerr << format(_("D(%1%): ")) % level;
   else
     return sbuild::cnull;
 }

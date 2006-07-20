@@ -185,6 +185,8 @@ std::string
 auth_conv_tty::read_string (std::string message,
 			    bool        echo)
 {
+  // TODO: Read from controlling TTY.
+
   struct termios orig_termios, noecho_termios;
   struct sigaction saved_signals;
   sigset_t old_sigs, new_sigs;
@@ -293,11 +295,13 @@ auth_conv_tty::conversation (message_list& messages)
 	  break;
 	case auth_message::MESSAGE_ERROR:
 	  log_debug(DEBUG_NOTICE) << "PAM TTY output error" << endl;
-	  cerr << cur->message << endl;
+	  // TODO: Log to controlling TTY.
+	  log_error() << cur->message << endl;
 	  break;
 	case auth_message::MESSAGE_INFO:
 	  log_debug(DEBUG_NOTICE) << "PAM TTY output info" << endl;
-	  cerr << cur->message << endl;
+	  // TODO: Log to controlling TTY.
+	  log_info() << cur->message << endl;
 	  break;
 	default:
 	  throw error(cur->type, CONV_TYPE);

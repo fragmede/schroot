@@ -1,5 +1,10 @@
 2006-07-20  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-auth-conv-tty.cc (conversation): Log using
+	standard log functions rather than using std::cerr.
+
+2006-07-20  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-log.cc: Add translator comments, and mark up log
 	abbreviations for translation.
 
