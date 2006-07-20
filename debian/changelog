@@ -1,6 +1,8 @@
 schroot (1.0.0-1) unstable; urgency=low
 
   * New upstream release.
+  * debian/copyright: Update with location of new SVN repository and
+    Alioth file download location.
 
  -- Roger Leigh <rleigh@debian.org>  Thu, 20 Jul 2006 18:20:04 +0100
 
