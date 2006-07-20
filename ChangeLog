@@ -1,3 +1,11 @@
+2006-07-20  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Bump version to 1.0.0.
+
+	* NEWS: Bump version to 1.0.0.
+
+	* configure.ac: Bump version to 1.0.0.
+
 2006-07-20  Luk Claes  <luk@debian.org>
 
 	* po/vi.po: Update Vietnamese translation.
