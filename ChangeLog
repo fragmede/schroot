@@ -1,5 +1,10 @@
 2006-07-20  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-log.cc: Add translator comments, and mark up log
+	abbreviations for translation.
+
+2006-07-20  Roger Leigh  <rleigh@debian.org>
+
 	* TODO: Remove completed item.
 
 	* Added a number of debugging messages to important codepaths.

@@ -20,28 +20,36 @@
 #include <config.h>
 
 #include "sbuild-error.h"
+#include "sbuild-i18n.h"
 #include "sbuild-log.h"
 #include "sbuild-nostream.h"
 #include "sbuild-util.h"
 
 #include <iostream>
 
+#include <boost/format.hpp>
+
+using boost::format;
+
 std::ostream&
 sbuild::log_info ()
 {
-  return std::cerr << "I: ";
+  // TRANSLATORS: "I" is an abbreviation of "Information"
+  return std::cerr << _("I: ");
 }
 
 std::ostream&
 sbuild::log_warning ()
 {
-  return std::cerr << "W: ";
+  // TRANSLATORS: "W" is an abbreviation of "Warning"
+  return std::cerr << _("W: ");
 }
 
 std::ostream&
 sbuild::log_error ()
 {
-  return std::cerr << "E: ";
+  // TRANSLATORS: "E" is an abbreviation of "Error"
+  return std::cerr << _("E: ");
 }
 
 std::ostream&
@@ -49,7 +57,9 @@ sbuild::log_debug (sbuild::DebugLevel level)
 {
   if (debug_level > 0 &&
       level >= debug_level)
-    return std::cerr << "D(" << level << "): ";
+    // TRANSLATORS: %1% = integer debug level
+    // TRANSLATORS: "D" is an abbreviation of "Debug"
+    return std::cerr << format(_("D(%1%): ") % level;
   else
     return sbuild::cnull;
 }
