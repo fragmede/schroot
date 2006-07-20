@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-07-20 13:37+0100\n"
-"PO-Revision-Date: 2006-07-19 22:39+0100\n"
+"POT-Creation-Date: 2006-07-20 15:59+0100\n"
+"PO-Revision-Date: 2006-07-20 16:00+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -177,29 +177,29 @@ msgstr "PAM is already initialised"
 msgid "PAM error"
 msgstr "PAM error"
 
-#: sbuild/sbuild-auth.cc:435
+#: sbuild/sbuild-auth.cc:437
 msgid "Set RUSER"
 msgstr "Set RUSER"
 
-#: sbuild/sbuild-auth.cc:451
+#: sbuild/sbuild-auth.cc:453
 msgid "Set RHOST"
 msgstr "Set RHOST"
 
-#: sbuild/sbuild-auth.cc:464
+#: sbuild/sbuild-auth.cc:466
 msgid "Set TTY"
 msgstr "Set TTY"
 
-#: sbuild/sbuild-auth.cc:476
+#: sbuild/sbuild-auth.cc:478
 msgid "Set USER"
 msgstr "Set USER"
 
 #. TRANSLATORS: %1% = program name (PAM service name)
-#: sbuild/sbuild-auth.cc:499
+#: sbuild/sbuild-auth.cc:501
 #, boost-format
 msgid "You do not have permission to access the %1% service."
 msgstr "You do not have permission to access the %1% service."
 
-#: sbuild/sbuild-auth.cc:499
+#: sbuild/sbuild-auth.cc:501
 msgid "This failure will be reported."
 msgstr "This failure will be reported."
 
@@ -676,24 +676,24 @@ msgstr ""
 #. TRANSLATORS: "I" is an abbreviation of "Information"
 #: sbuild/sbuild-log.cc:38
 msgid "I: "
-msgstr ""
+msgstr "I: "
 
 #. TRANSLATORS: "W" is an abbreviation of "Warning"
 #: sbuild/sbuild-log.cc:45
 msgid "W: "
-msgstr ""
+msgstr "W: "
 
 #. TRANSLATORS: "E" is an abbreviation of "Error"
 #: sbuild/sbuild-log.cc:52
 msgid "E: "
-msgstr ""
+msgstr "E: "
 
 #. TRANSLATORS: %1% = integer debug level
 #. TRANSLATORS: "D" is an abbreviation of "Debug"
 #: sbuild/sbuild-log.cc:62
 #, boost-format
 msgid "D(%1%): "
-msgstr ""
+msgstr "D(%1%): "
 
 #: sbuild/sbuild-null.cc:30
 msgid "unknown"
@@ -853,15 +853,15 @@ msgstr "Falling back to shell ‘%4%’"
 
 #. TRANSLATORS: %4% = signal name
 #: sbuild/sbuild-session.cc:100
-#, fuzzy, boost-format
+#, boost-format
 msgid "Caught signal '%4%'"
-msgstr "Caught hangup signal"
+msgstr "Caught signal ‘%4%’"
 
 #. TRANSLATORS: %4% = signal name
 #: sbuild/sbuild-session.cc:102
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to set signal handler '%4%'"
-msgstr "Failed to set hangup signal handler"
+msgstr "Failed to set signal handler ‘%4%’"
 
 #. TRANSLATORS: %1% = integer user ID
 #: sbuild/sbuild-session.cc:104
@@ -942,9 +942,8 @@ msgid "stage=%1%"
 msgstr "stage=%1%"
 
 #: sbuild/sbuild-session.cc:1164 sbuild/sbuild-session.cc:1171
-#, fuzzy
 msgid "terminating immediately"
-msgstr "(terminating immediately)"
+msgstr "terminating immediately"
 
 #. TRANSLATORS: %1% = program name
 #. TRANSLATORS: %2% = program version

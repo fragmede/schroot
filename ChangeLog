@@ -1,5 +1,9 @@
 2006-07-20  Roger Leigh  <rleigh@debian.org>
 
+	* po/en_GB.po: Update translation.
+
+2006-07-20  Roger Leigh  <rleigh@debian.org>
+
 	* TODO: Remove completed item (duplictes in conffiles should be an
 	error).
 

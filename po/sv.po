@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-07-20 13:37+0100\n"
+"POT-Creation-Date: 2006-07-20 15:59+0100\n"
 "PO-Revision-Date: 2006-07-19 23:13+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -182,29 +182,29 @@ msgstr "PAM är redan initierad"
 msgid "PAM error"
 msgstr "PAM-fel"
 
-#: sbuild/sbuild-auth.cc:435
+#: sbuild/sbuild-auth.cc:437
 msgid "Set RUSER"
 msgstr "Ställ in RUSER"
 
-#: sbuild/sbuild-auth.cc:451
+#: sbuild/sbuild-auth.cc:453
 msgid "Set RHOST"
 msgstr "Ställ in RHOST"
 
-#: sbuild/sbuild-auth.cc:464
+#: sbuild/sbuild-auth.cc:466
 msgid "Set TTY"
 msgstr "Ställ in TTY"
 
-#: sbuild/sbuild-auth.cc:476
+#: sbuild/sbuild-auth.cc:478
 msgid "Set USER"
 msgstr "Ställ in USER"
 
 #. TRANSLATORS: %1% = program name (PAM service name)
-#: sbuild/sbuild-auth.cc:499
+#: sbuild/sbuild-auth.cc:501
 #, boost-format
 msgid "You do not have permission to access the %1% service."
 msgstr "Du har inte behörighet att komma åt %1%-tjänsten."
 
-#: sbuild/sbuild-auth.cc:499
+#: sbuild/sbuild-auth.cc:501
 msgid "This failure will be reported."
 msgstr "Det här felet kommer att rapporteras."
 
