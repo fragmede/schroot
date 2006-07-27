@@ -117,7 +117,7 @@ void
 main::action_listmounts ()
 {
   // Check mounts.
-  sbuild::string_list mounts =
+  const sbuild::string_list mounts =
     list_mounts("/proc/mounts");
 
   for (sbuild::string_list::const_reverse_iterator pos = mounts.rbegin();

@@ -1,3 +1,9 @@
+2006-07-27  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot-listmounts-main.cc
+	(action_listmounts): mounts is const, to fix a GCC 4.0 compiler
+	bug.
+
 2006-07-20  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Add missing Debian-specific revisions.
