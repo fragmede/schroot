@@ -69,7 +69,7 @@ namespace sbuild
     /**
      * The constructor.
      *
-     * @param line the line the error occured on.
+     * @param line the line the error occurred on.
      * @param error the error code.
      * @param detail the details of the error.
      */
@@ -85,8 +85,8 @@ namespace sbuild
     /**
      * The constructor.
      *
-     * @param line the line the error occured on.
-     * @param group the group the error occured within.
+     * @param line the line the error occurred on.
+     * @param group the group the error occurred within.
      * @param error the error code.
      * @param detail the details of the error.
      */
@@ -103,9 +103,9 @@ namespace sbuild
     /**
      * The constructor.
      *
-     * @param line the line the error occured on.
-     * @param group the group the error occured within.
-     * @param key the key the error occured within.
+     * @param line the line the error occurred on.
+     * @param group the group the error occurred within.
+     * @param key the key the error occurred within.
      * @param error the error code.
      * @param detail the details of the error.
      */
@@ -123,7 +123,7 @@ namespace sbuild
     /**
      * The constructor.
      *
-     * @param group the group the error occured within.
+     * @param group the group the error occurred within.
      * @param error the error code.
      * @param detail the details of the error.
      */
@@ -139,8 +139,8 @@ namespace sbuild
     /**
      * The constructor.
      *
-     * @param group the group the error occured within.
-     * @param key the key the error occured within.
+     * @param group the group the error occurred within.
+     * @param key the key the error occurred within.
      * @param error the error code.
      * @param detail the details of the error.
      */
@@ -171,7 +171,7 @@ namespace sbuild
     /**
      * The constructor.
      *
-     * @param line the line the error occured on.
+     * @param line the line the error occurred on.
      * @param error the error.
      */
     parse_error (size_t                    line,
@@ -184,8 +184,8 @@ namespace sbuild
     /**
      * The constructor.
      *
-     * @param line the line the error occured on.
-     * @param group the group the error occured within.
+     * @param line the line the error occurred on.
+     * @param group the group the error occurred within.
      * @param error the error.
      */
     parse_error (size_t                    line,
@@ -199,9 +199,9 @@ namespace sbuild
     /**
      * The constructor.
      *
-     * @param line the line the error occured on.
-     * @param group the group the error occured within.
-     * @param key the key the error occured within.
+     * @param line the line the error occurred on.
+     * @param group the group the error occurred within.
+     * @param key the key the error occurred within.
      * @param error the error.
      */
     parse_error (size_t                    line,
@@ -216,7 +216,7 @@ namespace sbuild
     /**
      * The constructor.
      *
-     * @param group the group the error occured within.
+     * @param group the group the error occurred within.
      * @param error the error.
      */
     parse_error (std::string const&        group,
@@ -229,8 +229,8 @@ namespace sbuild
     /**
      * The constructor.
      *
-     * @param group the group the error occured within.
-     * @param key the key the error occured within.
+     * @param group the group the error occurred within.
+     * @param key the key the error occurred within.
      * @param error the error.
      */
     parse_error (std::string const&        group,

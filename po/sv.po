@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-07-27 11:15+0100\n"
+"POT-Creation-Date: 2006-07-27 20:42+0100\n"
 "PO-Revision-Date: 2006-07-19 23:13+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -18,7 +18,7 @@ msgstr ""
 #: dchroot/dchroot.cc:59 dchroot-dsa/dchroot-dsa.cc:59
 #: sbuild/sbuild-auth.cc:127 schroot/schroot.cc:61
 #: schroot/schroot-listmounts.cc:67 schroot/schroot-releaselock.cc:67
-msgid "An unknown exception occured"
+msgid "An unknown exception occurred"
 msgstr "Ett okänt undantag inträffade"
 
 #. TRANSLATORS: %1% = chroot name
@@ -204,7 +204,7 @@ msgstr "Ställ in USER"
 msgid "You do not have permission to access the %1% service."
 msgstr "Du har inte behörighet att komma åt %1%-tjänsten."
 
-#: sbuild/sbuild-auth.cc:503
+#: sbuild/sbuild-auth.cc:501
 msgid "This failure will be reported."
 msgstr "Det här felet kommer att rapporteras."
 

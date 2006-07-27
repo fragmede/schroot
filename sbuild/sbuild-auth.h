@@ -49,7 +49,7 @@ namespace sbuild
    * In order to use PAM correctly, it is important to call several of
    * the methods in the correct order.  For example, it is not possible
    * to authorise a user before authenticating a user, and a session may
-   * not be started before either of these have occured.
+   * not be started before either of these have occurred.
    *
    * The correct order is
    * - start
@@ -59,7 +59,7 @@ namespace sbuild
    * - cred_establish
    * - open_session
    *
-   * After the session has finished, or if an error occured, the
+   * After the session has finished, or if an error occurred, the
    * corresponding cleanup methods should be called
    * - close_session
    * - cred_delete

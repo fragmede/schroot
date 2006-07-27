@@ -1,5 +1,13 @@
 2006-07-27  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot-releaselock.cc, schroot/schroot.cc,
+	schroot/schroot-listmounts.cc, sbuild/sbuild-parse-error.h,
+	sbuild/sbuild-auth.cc, sbuild/sbuild-auth.h, dchroot/dchroot.cc,
+	dchroot-dsa/dchroot-dsa.cc: Fix typo (occured).  Thanks to Jens
+	Seidel <jensseidel@users.sf.net> for reporting this.
+
+2006-07-27  Roger Leigh  <rleigh@debian.org>
+
 	* po/LINGUAS: Add de.
 
 	* po/de.po: New file.  German translation from Jens Seidel.

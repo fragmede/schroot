@@ -124,7 +124,7 @@ namespace
       }
     catch (...)
       {
-	sbuild::log_error() << _("An unknown exception occured") << endl;
+	sbuild::log_error() << _("An unknown exception occurred") << endl;
       }
 
     return PAM_CONV_ERR;

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.99.4\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-07-27 11:15+0100\n"
+"POT-Creation-Date: 2006-07-27 20:42+0100\n"
 "PO-Revision-Date: 2006-07-23 22:17+0200\n"
 "Last-Translator: Jens Seidel <jensseidel@users.sf.net>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -18,7 +18,8 @@ msgstr ""
 #: dchroot/dchroot.cc:59 dchroot-dsa/dchroot-dsa.cc:59
 #: sbuild/sbuild-auth.cc:127 schroot/schroot.cc:61
 #: schroot/schroot-listmounts.cc:67 schroot/schroot-releaselock.cc:67
-msgid "An unknown exception occured"
+#, fuzzy
+msgid "An unknown exception occurred"
 msgstr "Eine unbekannte Ausnahme ist aufgetreten"
 
 #. TRANSLATORS: %1% = chroot name
@@ -214,7 +215,7 @@ msgstr "Setze USER"
 msgid "You do not have permission to access the %1% service."
 msgstr "Sie haben kein Recht, um auf den Dienst %1% zuzugreifen."
 
-#: sbuild/sbuild-auth.cc:503
+#: sbuild/sbuild-auth.cc:501
 msgid "This failure will be reported."
 msgstr "Dieser Misserfolg wird berichtet."
 
