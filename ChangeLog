@@ -1,5 +1,11 @@
 2006-07-27  Roger Leigh  <rleigh@debian.org>
 
+	* po/LINGUAS: Add de.
+
+	* po/de.po: New file.  German translation from Jens Seidel.
+
+2006-07-27  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-listmounts-main.cc
 	(action_listmounts): mounts is const, to fix a GCC 4.0 compiler
 	bug.
