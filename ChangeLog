@@ -1,5 +1,16 @@
 2006-07-27  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-auth.cc
+	(authenticate): Split string definition and appending of
+	additional parts into multiple statements, for GCC 3.3
+	compatibility.
+
+	* sbuild/sbuild-tr1types.h: If using boost::shared_ptr, import
+	static_pointer_cast, const_pointer_cast and dynamic_pointer_cast
+	into the std::tr1 namespace for GCC 3.3 and 3.4 compatibility.
+
+2006-07-27  Roger Leigh  <rleigh@debian.org>
+
 	* po/de.po: Update German translation.
 
 2006-07-27  Roger Leigh  <rleigh@debian.org>

@@ -498,7 +498,10 @@ auth::authenticate ()
 		 this->ruser.c_str(), this->user.c_str());
 	  error e(AUTHORISATION);
 	  // TRANSLATORS: %1% = program name (PAM service name)
-	  format fmt(std::string(_("You do not have permission to access the %1% service.")) + '\n' + _("This failure will be reported."));
+	  std::string reason(_("You do not have permission to access the %1% service."));
+	  reason += '\n';
+	  reason += _("This failure will be reported.");
+	  format fmt(reason);
 	  fmt % this->service;
 	  e.set_reason(fmt.str());
 	  throw e;

@@ -26,7 +26,14 @@
 #include <tr1/memory>
 #elif HAVE_BOOST_SHARED_PTR_HPP
 #include <boost/shared_ptr.hpp>
-namespace std { namespace tr1 { using boost::shared_ptr; } }
+namespace std {
+  namespace tr1 {
+    using boost::shared_ptr;
+    using boost::static_pointer_cast;
+    using boost::const_pointer_cast;
+    using boost::dynamic_pointer_cast;
+  }
+}
 #else
 #error A shared_ptr implementation is not available
 #endif
