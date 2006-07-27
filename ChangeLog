@@ -1,5 +1,9 @@
 2006-07-27  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-auth-conv.h: Update API documentation.
+
+2006-07-27  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-auth.cc
 	(authenticate): Split string definition and appending of
 	additional parts into multiple statements, for GCC 3.3

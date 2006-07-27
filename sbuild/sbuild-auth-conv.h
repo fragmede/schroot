@@ -41,8 +41,8 @@ namespace sbuild
    * during authentication.
    *
    * A simple implementation is provided in the form of auth_conv_tty.
-   * However, more complex implementations might hook into an event
-   * loop for GUI widget system.
+   * However, more complex implementations might hook into the event
+   * loop of a GUI widget system, for example.
    *
    * The interface allows the setting of optional warning timeout and
    * fatal timeout values, which should default to 0 (not enabled).
