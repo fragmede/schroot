@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: schroot 0.99.4\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2006-07-27 20:42+0100\n"
-"PO-Revision-Date: 2006-07-23 22:17+0200\n"
+"PO-Revision-Date: 2006-07-27 18:52+0200\n"
 "Last-Translator: Jens Seidel <jensseidel@users.sf.net>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,6 @@ msgstr ""
 #: dchroot/dchroot.cc:59 dchroot-dsa/dchroot-dsa.cc:59
 #: sbuild/sbuild-auth.cc:127 schroot/schroot.cc:61
 #: schroot/schroot-listmounts.cc:67 schroot/schroot-releaselock.cc:67
-#, fuzzy
 msgid "An unknown exception occurred"
 msgstr "Eine unbekannte Ausnahme ist aufgetreten"
 
@@ -701,24 +700,24 @@ msgstr ""
 #. TRANSLATORS: "I" is an abbreviation of "Information"
 #: sbuild/sbuild-log.cc:38
 msgid "I: "
-msgstr ""
+msgstr "I: "
 
 #. TRANSLATORS: "W" is an abbreviation of "Warning"
 #: sbuild/sbuild-log.cc:45
 msgid "W: "
-msgstr ""
+msgstr "W: "
 
 #. TRANSLATORS: "E" is an abbreviation of "Error"
 #: sbuild/sbuild-log.cc:52
 msgid "E: "
-msgstr ""
+msgstr "F: "
 
 #. TRANSLATORS: %1% = integer debug level
 #. TRANSLATORS: "D" is an abbreviation of "Debug"
 #: sbuild/sbuild-log.cc:62
 #, boost-format
 msgid "D(%1%): "
-msgstr ""
+msgstr "D(%1%): "
 
 #: sbuild/sbuild-null.cc:30
 msgid "unknown"
@@ -882,15 +881,15 @@ msgstr "Verwende stattdessen die Shell »%4%«"
 
 #. TRANSLATORS: %4% = signal name
 #: sbuild/sbuild-session.cc:100
-#, fuzzy, boost-format
+#, boost-format
 msgid "Caught signal '%4%'"
-msgstr "Aufhängen-Signal erhalten"
+msgstr "Signal »%4%« aufgefangen"
 
 #. TRANSLATORS: %4% = signal name
 #: sbuild/sbuild-session.cc:102
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to set signal handler '%4%'"
-msgstr "Konnte den Aufhängen-Signal-Handler nicht setzen"
+msgstr "Konnte den Signal-Handler »%4%« nicht setzen"
 
 #. TRANSLATORS: %1% = integer user ID
 #: sbuild/sbuild-session.cc:104
@@ -971,9 +970,8 @@ msgid "stage=%1%"
 msgstr "Schritt=%1%"
 
 #: sbuild/sbuild-session.cc:1164 sbuild/sbuild-session.cc:1171
-#, fuzzy
 msgid "terminating immediately"
-msgstr "(beende unverzüglich)"
+msgstr "beende unverzüglich"
 
 # CHECKME
 #. TRANSLATORS: %1% = program name
@@ -990,7 +988,7 @@ msgstr "Geschrieben von Roger Leigh"
 
 #: schroot/schroot-base-main.cc:65
 msgid "Copyright (C) 2004-2006 Roger Leigh"
-msgstr "Copyright (C) 2004-2006 Roger Leigh"
+msgstr "Copyright (C) 2004–2006 Roger Leigh"
 
 # CHECKME
 #: schroot/schroot-base-main.cc:66

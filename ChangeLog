@@ -1,5 +1,9 @@
 2006-07-27  Roger Leigh  <rleigh@debian.org>
 
+	* po/de.po: Update German translation.
+
+2006-07-27  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-releaselock.cc, schroot/schroot.cc,
 	schroot/schroot-listmounts.cc, sbuild/sbuild-parse-error.h,
 	sbuild/sbuild-auth.cc, sbuild/sbuild-auth.h, dchroot/dchroot.cc,
