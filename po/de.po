@@ -7,19 +7,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.99.4\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-07-27 20:42+0100\n"
+"POT-Creation-Date: 2006-07-28 18:04+0100\n"
 "PO-Revision-Date: 2006-07-27 18:52+0200\n"
 "Last-Translator: Jens Seidel <jensseidel@users.sf.net>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: dchroot/dchroot.cc:59 dchroot-dsa/dchroot-dsa.cc:59
-#: sbuild/sbuild-auth.cc:127 schroot/schroot.cc:61
-#: schroot/schroot-listmounts.cc:67 schroot/schroot-releaselock.cc:67
-msgid "An unknown exception occurred"
-msgstr "Eine unbekannte Ausnahme ist aufgetreten"
 
 #. TRANSLATORS: %1% = chroot name
 #: dchroot/dchroot-chroot-config.cc:126
@@ -191,6 +185,10 @@ msgstr "PAM ist bereits initialisiert"
 msgid "PAM error"
 msgstr "PAM-Fehler"
 
+#: sbuild/sbuild-auth.cc:127
+msgid "An unknown exception occurred"
+msgstr "Eine unbekannte Ausnahme ist aufgetreten"
+
 #: sbuild/sbuild-auth.cc:437
 msgid "Set RUSER"
 msgstr "Setze RUSER"
@@ -214,7 +212,7 @@ msgstr "Setze USER"
 msgid "You do not have permission to access the %1% service."
 msgstr "Sie haben kein Recht, um auf den Dienst %1% zuzugreifen."
 
-#: sbuild/sbuild-auth.cc:501
+#: sbuild/sbuild-auth.cc:503
 msgid "This failure will be reported."
 msgstr "Dieser Misserfolg wird berichtet."
 
@@ -909,20 +907,20 @@ msgstr "(%1%→%2%): Wechseln des Benutzers ist nicht erlaubt"
 msgid "Error saving terminal settings"
 msgstr "Fehler beim Speichern der Terminal-Einstellungen"
 
-#: sbuild/sbuild-session.cc:347
+#: sbuild/sbuild-session.cc:350
 msgid "Error restoring terminal settings"
 msgstr "Fehler beim Wiederherstellen der Terminal-Einstellungen"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:772
+#: sbuild/sbuild-session.cc:778
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[%1% chroot] Starte Login-Shell: »%4%«"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:776
+#: sbuild/sbuild-session.cc:782
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[%1% chroot] Starte Shell: »%4%«"
@@ -932,7 +930,7 @@ msgstr "[%1% chroot] Starte Shell: »%4%«"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:787
+#: sbuild/sbuild-session.cc:793
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[%1% chroot] (%2%→%3%) Starte Login-Shell: »%4%«"
@@ -942,14 +940,14 @@ msgstr "[%1% chroot] (%2%→%3%) Starte Login-Shell: »%4%«"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:794
+#: sbuild/sbuild-session.cc:800
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[%1% chroot] (%2%→%3%) Starte Shell: »%4%«"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:831
+#: sbuild/sbuild-session.cc:837
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Starte Kommando: »%4%«"
@@ -959,17 +957,17 @@ msgstr "[%1% chroot] Starte Kommando: »%4%«"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:838
+#: sbuild/sbuild-session.cc:844
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%→%3%) Starte Kommando: »%4%«"
 
-#: sbuild/sbuild-session.cc:1012
+#: sbuild/sbuild-session.cc:1018
 #, boost-format
 msgid "stage=%1%"
 msgstr "Schritt=%1%"
 
-#: sbuild/sbuild-session.cc:1164 sbuild/sbuild-session.cc:1171
+#: sbuild/sbuild-session.cc:1170 sbuild/sbuild-session.cc:1177
 msgid "terminating immediately"
 msgstr "beende unverzüglich"
 
@@ -1006,7 +1004,7 @@ msgstr "Verwendung:"
 
 # FIXME:s/example/examples/
 #. TRANSLATORS: %1% = program name
-#: schroot/schroot-base-main.cc:119
+#: schroot/schroot-base-main.cc:111
 #, boost-format
 msgid "Run \"%1% --help\" to list usage example and all available options"
 msgstr ""

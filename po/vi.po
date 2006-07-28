@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot-0.99.4-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-07-27 20:42+0100\n"
+"POT-Creation-Date: 2006-07-28 18:04+0100\n"
 "PO-Revision-Date: 2006-07-20 15:06+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -15,12 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "X-Generator: LocFactoryEditor 1.6b4\n"
-
-#: dchroot/dchroot.cc:59 dchroot-dsa/dchroot-dsa.cc:59
-#: sbuild/sbuild-auth.cc:127 schroot/schroot.cc:61
-#: schroot/schroot-listmounts.cc:67 schroot/schroot-releaselock.cc:67
-msgid "An unknown exception occurred"
-msgstr "Gặp ngoại lệ không rõ"
 
 #. TRANSLATORS: %1% = chroot name
 #: dchroot/dchroot-chroot-config.cc:126
@@ -188,6 +182,10 @@ msgstr "PAM đã được sở khởi"
 msgid "PAM error"
 msgstr "Lỗi PAM"
 
+#: sbuild/sbuild-auth.cc:127
+msgid "An unknown exception occurred"
+msgstr "Gặp ngoại lệ không rõ"
+
 #: sbuild/sbuild-auth.cc:437
 msgid "Set RUSER"
 msgstr "Đặt RUSER"
@@ -210,7 +208,7 @@ msgstr "Đặt USER"
 msgid "You do not have permission to access the %1% service."
 msgstr "Bạn không có quyền truy cập dịch vụ %1%."
 
-#: sbuild/sbuild-auth.cc:501
+#: sbuild/sbuild-auth.cc:503
 msgid "This failure will be reported."
 msgstr "Sự thất bại này sẽ được thông báo."
 
@@ -894,20 +892,20 @@ msgstr "(%1% → %2%): không cho phép chuyển đổi người dùng"
 msgid "Error saving terminal settings"
 msgstr "Gặp lỗi khi lưu thiết lập thiết bị cuối"
 
-#: sbuild/sbuild-session.cc:347
+#: sbuild/sbuild-session.cc:350
 msgid "Error restoring terminal settings"
 msgstr "Gặp lỗi khi phục hồi thiết lập thiết bị cuối"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:772
+#: sbuild/sbuild-session.cc:778
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[%1% chroot] Đang chạy trình bao đăng nhập: « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:776
+#: sbuild/sbuild-session.cc:782
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[%1% chroot] Đang chạy trình bao : « %4% »"
@@ -917,7 +915,7 @@ msgstr "[%1% chroot] Đang chạy trình bao : « %4% »"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:787
+#: sbuild/sbuild-session.cc:793
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[%1% chroot] (%2% → %3%) Đang chạy trình bao đăng nhập: « %4% »"
@@ -927,14 +925,14 @@ msgstr "[%1% chroot] (%2% → %3%) Đang chạy trình bao đăng nhập: « %4%
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:794
+#: sbuild/sbuild-session.cc:800
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy trình bao : « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:831
+#: sbuild/sbuild-session.cc:837
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Đang chạy lệnh: « %4% »"
@@ -944,17 +942,17 @@ msgstr "[%1% chroot] Đang chạy lệnh: « %4% »"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:838
+#: sbuild/sbuild-session.cc:844
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2% → %3%) Đang chạy lệnh: « %4% »"
 
-#: sbuild/sbuild-session.cc:1012
+#: sbuild/sbuild-session.cc:1018
 #, boost-format
 msgid "stage=%1%"
 msgstr "giai đoạn=%1%"
 
-#: sbuild/sbuild-session.cc:1164 sbuild/sbuild-session.cc:1171
+#: sbuild/sbuild-session.cc:1170 sbuild/sbuild-session.cc:1177
 #, fuzzy
 msgid "terminating immediately"
 msgstr "(sẽ chấm dứt ngay)"
@@ -989,7 +987,7 @@ msgid "Usage:"
 msgstr "Cách sử dụng:"
 
 #. TRANSLATORS: %1% = program name
-#: schroot/schroot-base-main.cc:119
+#: schroot/schroot-base-main.cc:111
 #, boost-format
 msgid "Run \"%1% --help\" to list usage example and all available options"
 msgstr ""

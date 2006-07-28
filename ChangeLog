@@ -1,5 +1,9 @@
 2006-07-28  Roger Leigh  <rleigh@debian.org>
 
+	* po/en_GB.po: Add en- and em-dashes.
+
+2006-07-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-listmounts-main.(cc|h),
 	schroot/schroot-releaselock-main.(cc|h): Use opts rather than
 	options as the member name for the options smartpointer; this
