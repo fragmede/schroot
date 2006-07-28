@@ -1,5 +1,9 @@
 2006-07-28  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Update for 1.0.0.
+
+2006-07-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/Makefile.am
 	(libschroot_base_la_SOURCES): Distribute schroot-base-run.h.
 

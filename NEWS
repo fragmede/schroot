@@ -9,6 +9,8 @@ configuration.
 
 * Major changes in 1.0.0:
 
+  Bugfixes and translation updates only.
+
 * Major changes in 0.99.4:
 
   1) All errors in the configuration file now show the full details of
