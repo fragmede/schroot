@@ -1,5 +1,9 @@
 2006-07-28  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-chroot-config.cc (load_data): Fix comment.
+
+2006-07-28  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-session.cc
 	(save_termios, restore_termios): Close CTTY fd to prevent fd leak.
 

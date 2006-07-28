@@ -471,7 +471,8 @@ chroot_config::load_data (std::string const& file,
   if (!S_ISREG(statbuf.st_mode))
     throw error(file, FILE_NOTREG);
 
-  /* Now create an IO Channel and read in the data */
+  // Create a stream buffer from the file descriptor.  The fd will
+  // be closed when the buffer is destroyed.
 #ifdef SCHROOT_FILEBUF_OLD
   __gnu_cxx::stdio_filebuf<char> fdbuf(fd, std::ios::in, true, BUFSIZ);
 #else
