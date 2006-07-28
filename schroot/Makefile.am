@@ -40,7 +40,8 @@ libschroot_base_la_SOURCES =		\
 	schroot-base-main.h		\
 	schroot-base-main.cc		\
 	schroot-base-options.h		\
-	schroot-base-options.cc
+	schroot-base-options.cc		\
+	schroot-base-run.h
 libschroot_base_la_LIBADD = $(top_builddir)/sbuild/libsbuild.la
 
 libschroot_la_SOURCES =			\

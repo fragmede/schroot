@@ -1,5 +1,10 @@
 2006-07-28  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/Makefile.am
+	(libschroot_base_la_SOURCES): Distribute schroot-base-run.h.
+
+2006-07-28  Roger Leigh  <rleigh@debian.org>
+
 	* po/LINGUAS: Rename en_GB to en.
 
 	* po/en.po: Rename from en_GB.po.
