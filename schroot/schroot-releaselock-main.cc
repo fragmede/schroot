@@ -70,7 +70,7 @@ main::main (options::ptr& options):
 		     // TRANSLATORS: Please use an ellipsis e.g. U+2026
 		     N_("[OPTION...] - release a device lock"),
 		     options),
-  options(options)
+  opts(options)
 {
 }
 
@@ -81,7 +81,7 @@ main::~main ()
 void
 main::action_releaselock ()
 {
-  if (this->options->pid == 0)
+  if (this->opts->pid == 0)
     {
       sbuild::log_warning() << _("No pid specified; forcing release of lock")
 			    << endl;
@@ -89,27 +89,27 @@ main::action_releaselock ()
 
   struct stat statbuf;
 
-  if (stat(this->options->device.c_str(), &statbuf) == -1)
-    throw error(this->options->device, DEVICE_STAT, strerror(errno));
+  if (stat(this->opts->device.c_str(), &statbuf) == -1)
+    throw error(this->opts->device, DEVICE_STAT, strerror(errno));
 
   if (!S_ISBLK(statbuf.st_mode))
-    throw error(this->options->device, DEVICE_NOTBLOCK);
+    throw error(this->opts->device, DEVICE_NOTBLOCK);
 
-  pid_t status = dev_unlock(this->options->device.c_str(), this->options->pid);
+  pid_t status = dev_unlock(this->opts->device.c_str(), this->opts->pid);
   if (status < 0) // Failure
-    throw error(this->options->device, DEVICE_RELEASE);
+    throw error(this->opts->device, DEVICE_RELEASE);
   else if (status > 0) // Owned
-    throw error(this->options->device, DEVICE_OWNED, status);
+    throw error(this->opts->device, DEVICE_OWNED, status);
 }
 
 int
 main::run_impl ()
 {
-  if (this->options->action == options::ACTION_HELP)
+  if (this->opts->action == options::ACTION_HELP)
     action_help(std::cerr);
-  else if (this->options->action == options::ACTION_VERSION)
+  else if (this->opts->action == options::ACTION_VERSION)
     action_version(std::cerr);
-  else if (this->options->action == options::ACTION_RELEASELOCK)
+  else if (this->opts->action == options::ACTION_RELEASELOCK)
     action_releaselock();
   else
     assert(0); // Invalid action.

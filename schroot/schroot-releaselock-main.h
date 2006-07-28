@@ -72,7 +72,7 @@ namespace schroot_releaselock
     run_impl ();
 
     /// The program options.
-    options::ptr options;
+    options::ptr opts;
   };
 
 }

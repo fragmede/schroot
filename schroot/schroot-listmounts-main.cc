@@ -72,7 +72,7 @@ main::main (options::ptr& options):
 		     // TRANSLATORS: Please use an ellipsis e.g. U+2026
 		     N_("[OPTION...] - list mount points"),
 		     options),
-  options(options)
+  opts(options)
 {
 }
 
@@ -85,7 +85,7 @@ main::list_mounts (std::string const& mountfile) const
 {
   sbuild::string_list ret;
 
-  std::string to_find = sbuild::normalname(this->options->mountpoint);
+  std::string to_find = sbuild::normalname(this->opts->mountpoint);
 
   std::FILE *mntdb = std::fopen(mountfile.c_str(), "r");
   if (mntdb == 0)
@@ -130,11 +130,11 @@ main::action_listmounts ()
 int
 main::run_impl ()
 {
-  if (this->options->action == options::ACTION_HELP)
+  if (this->opts->action == options::ACTION_HELP)
     action_help(std::cerr);
-  else if (this->options->action == options::ACTION_VERSION)
+  else if (this->opts->action == options::ACTION_VERSION)
     action_version(std::cerr);
-  else if (this->options->action == options::ACTION_LISTMOUNTS)
+  else if (this->opts->action == options::ACTION_LISTMOUNTS)
     action_listmounts();
   else
     assert(0); // Invalid action.

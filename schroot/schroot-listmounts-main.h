@@ -82,7 +82,7 @@ namespace schroot_listmounts
 
   private:
     /// The program options.
-    options::ptr options;
+    options::ptr opts;
   };
 
 }

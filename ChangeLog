@@ -1,5 +1,13 @@
 2006-07-28  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot-listmounts-main.(cc|h),
+	schroot/schroot-releaselock-main.(cc|h): Use opts rather than
+	options as the member name for the options smartpointer; this
+	doesn't conflict with the options class in the same namespace, and
+	fixes a compile error with GCC 3.3.
+
+2006-07-28  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-chroot-config.cc (load_data): Fix comment.
 
 2006-07-28  Roger Leigh  <rleigh@debian.org>
