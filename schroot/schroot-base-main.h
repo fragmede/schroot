@@ -78,7 +78,6 @@ namespace schroot_base
     action_version (std::ostream& stream);
 
   protected:
-
     /**
      * Run the program.  This is the program-specific run method which
      * must be implemented in a derived class.

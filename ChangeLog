@@ -1,5 +1,14 @@
 2006-07-28  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.cc, schroot/schroot-listmounts.cc,
+	schroot/schroot-releaselock.cc, dchroot/dchroot.cc,
+	dchroot-dsa/dchroot-dsa.cc: Use schroot_base::run<>.
+
+	* schroot/schroot-base-run.h: New file.  Implement a generic
+	templated main routine.
+
+2006-07-28  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-base-main.cc
 	(run): Remove locale and gettext setup.
 

@@ -19,19 +19,10 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-i18n.h>
-#include <sbuild/sbuild-log.h>
-#include <sbuild/sbuild-types.h>
-
 #include "schroot-listmounts-options.h"
 #include "schroot-listmounts-main.h"
 
-#include <cstdlib>
-#include <iostream>
-
-#include <boost/format.hpp>
-#include <boost/program_options.hpp>
-
+#include <schroot/schroot-base-run.h>
 
 using std::endl;
 using boost::format;
@@ -52,28 +43,6 @@ int
 main (int   argc,
       char *argv[])
 {
-  try
-    {
-      // Set up locale.
-      std::locale::global(std::locale(""));
-      std::cout.imbue(std::locale());
-      std::cerr.imbue(std::locale());
-
-      bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
-      textdomain (GETTEXT_PACKAGE);
-
-      schroot_listmounts::options::ptr opts(new schroot_listmounts::options);
-      schroot_listmounts::main kit(opts);
-      exit (kit.run(argc, argv));
-    }
-  catch (std::exception const& e)
-    {
-      sbuild::log_exception_error(e);
-      exit(EXIT_FAILURE);
-    }
-  catch (...)
-    {
-      sbuild::log_error() << _("An unknown exception occurred") << endl;
-      exit(EXIT_FAILURE);
-    }
+  return schroot_base::run
+    <schroot_listmounts::options, schroot_listmounts::main>(argc, argv);
 }

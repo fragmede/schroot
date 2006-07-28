@@ -22,10 +22,7 @@
 #include "dchroot-main.h"
 #include "dchroot-options.h"
 
-#include <cstdlib>
-#include <iostream>
-
-#include <boost/format.hpp>
+#include <schroot/schroot-base-run.h>
 
 using std::endl;
 using boost::format;
@@ -44,28 +41,5 @@ int
 main (int   argc,
       char *argv[])
 {
-  try
-    {
-      // Set up locale.
-      std::locale::global(std::locale(""));
-      std::cout.imbue(std::locale());
-      std::cerr.imbue(std::locale());
-
-      bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
-      textdomain (GETTEXT_PACKAGE);
-
-      dchroot::options::ptr opts(new dchroot::options);
-      dchroot::main kit(opts);
-      exit (kit.run(argc, argv));
-    }
-  catch (std::exception const& e)
-    {
-      sbuild::log_exception_error(e);
-      exit(EXIT_FAILURE);
-    }
-  catch (...)
-    {
-      sbuild::log_error() << _("An unknown exception occurred") << endl;
-      exit(EXIT_FAILURE);
-    }
+  return schroot_base::run<dchroot::options, dchroot::main>(argc, argv);
 }
