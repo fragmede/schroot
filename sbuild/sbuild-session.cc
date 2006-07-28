@@ -328,6 +328,9 @@ session::save_termios ()
       else
 	this->termios_ok = true;
     }
+
+  if (ctty >= 0 && close(ctty))
+    log_debug(DEBUG_WARNING) << "Failed to close CTTY fd " << ctty << endl;
 }
 
 void
@@ -347,6 +350,9 @@ session::restore_termios ()
 	  << _("Error restoring terminal settings")
 	  << endl;
     }
+
+  if (ctty >= 0 && close(ctty))
+    log_debug(DEBUG_WARNING) << "Failed to close CTTY fd " << ctty << endl;
 }
 
 int
