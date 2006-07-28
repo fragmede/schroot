@@ -85,14 +85,6 @@ main::run (int   argc,
 {
   try
     {
-      // Set up locale.
-      std::locale::global(std::locale(""));
-      std::cout.imbue(std::locale());
-      std::cerr.imbue(std::locale());
-
-      bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
-      textdomain (GETTEXT_PACKAGE);
-
       this->program_options->parse(argc, argv);
 
 #ifdef SBUILD_DEBUG

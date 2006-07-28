@@ -27,6 +27,7 @@
 #include "schroot-releaselock-main.h"
 
 #include <cstdlib>
+#include <iostream>
 
 #include <boost/format.hpp>
 #include <boost/program_options.hpp>
@@ -53,6 +54,14 @@ main (int   argc,
 {
   try
     {
+      // Set up locale.
+      std::locale::global(std::locale(""));
+      std::cout.imbue(std::locale());
+      std::cerr.imbue(std::locale());
+
+      bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
+      textdomain (GETTEXT_PACKAGE);
+
       schroot_releaselock::options::ptr opts(new schroot_releaselock::options);
       schroot_releaselock::main kit(opts);
       exit (kit.run(argc, argv));

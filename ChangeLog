@@ -1,3 +1,13 @@
+2006-07-28  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/schroot-base-main.cc
+	(run): Remove locale and gettext setup.
+
+	* schroot/schroot.cc, schroot/schroot-listmounts.cc,
+	schroot/schroot-releaselock.cc, dchroot/dchroot.cc,
+	dchroot-dsa/dchroot-dsa.cc: Set up locale and gettext message
+	catalogue.
+
 2006-07-27  Roger Leigh  <rleigh@debian.org>
 
 	* sbuild/sbuild-auth-conv.h: Update API documentation.

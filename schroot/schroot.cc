@@ -23,6 +23,7 @@
 #include "schroot-options.h"
 
 #include <cstdlib>
+#include <iostream>
 
 #include <boost/format.hpp>
 
@@ -47,6 +48,14 @@ main (int   argc,
 {
   try
     {
+      // Set up locale.
+      std::locale::global(std::locale(""));
+      std::cout.imbue(std::locale());
+      std::cerr.imbue(std::locale());
+
+      bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
+      textdomain (GETTEXT_PACKAGE);
+
       schroot::options::ptr opts(new schroot::options);
       schroot::main kit(opts);
       exit (kit.run(argc, argv));

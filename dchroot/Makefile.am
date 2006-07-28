@@ -24,7 +24,7 @@ include $(top_srcdir)/scripts/global.mk
 
 LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS)
 
-DEFS = -D_GNU_SOURCE
+DEFS = -DGETTEXT_PACKAGE=\"schroot\" -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
 
 if BUILD_LIBDCHROOT
 noinst_LTLIBRARIES = libdchroot.la
