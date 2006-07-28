@@ -1,5 +1,11 @@
 2006-07-28  Roger Leigh  <rleigh@debian.org>
 
+	* po/LINGUAS: Rename en_GB to en.
+
+	* po/en.po: Rename from en_GB.po.
+
+2006-07-28  Roger Leigh  <rleigh@debian.org>
+
 	* po/en_GB.po: Add en- and em-dashes.
 
 2006-07-28  Roger Leigh  <rleigh@debian.org>
