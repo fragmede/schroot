@@ -4,6 +4,7 @@ Sun, 19 Jun 2005 15:11:58 +0100.
 schroot is maintained by the Debian buildd-tools project.  It was
 downloaded from
   svn://svn.debian.org/svn/buildd-tools/trunk/schroot
+  svn://svn.debian.org/svn/buildd-tools/branches/schroot-1.0
 and
   https://alioth.debian.org/project/showfiles.php?group_id=30471
 

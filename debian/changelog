@@ -1,8 +1,10 @@
 schroot (1.0.0-1) unstable; urgency=low
 
   * New upstream release.
-  * debian/copyright: Update with location of new SVN repository and
-    Alioth file download location.
+  * debian/copyright:
+    - Update with location of new SVN repository and Alioth file download
+      location.
+    - Add location of SVN schroot-1.0 branch.
   * schroot/schroot-listmounts-main.cc: mounts is const, to fix a GCC 4.0
     compiler bug: "FTBFS: error: no match for ‘operator!=’ in ‘pos !=
     std::vector’", thanks to Jens Seidel (Closes: #379478).

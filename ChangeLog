@@ -1,5 +1,9 @@
 2006-07-29  Roger Leigh  <rleigh@debian.org>
 
+	* debian/copyright: Add location of SVN schroot-1.0 branch.
+
+2006-07-29  Roger Leigh  <rleigh@debian.org>
+
 	* Update translations.
 
 2006-07-29  Roger Leigh  <rleigh@debian.org>
