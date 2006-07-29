@@ -34,14 +34,9 @@ namespace sbuild
 
   /**
    * An entry in a dirstream.  It is a wrapper around the dirent
-   * structure declared in dirent.h
-   *
-   * The direntry is only valid during the lifetime of an open
-   * dirstream.  Once the directory is closed, when the dirstream
-   * is destroyed, or its close() method called, the direntry can
-   * no longer be safely used.  On many systems, including Linux,
-   * this does not matter, but the Single UNIX Specification makes
-   * no garuantees about this.
+   * structure declared in dirent.h.  Unlike a dirent pointer returned
+   * by readdir(3), a direntry does not become invalid when the
+   * dirstream it was extracted from is destroyed.
    */
   class direntry
   {
@@ -232,6 +227,10 @@ namespace sbuild
   /**
    * The overloaded extraction operator.  This is used to pull
    * direntries from a dirstream.
+   *
+   * @param stream the dirstream to get input from.
+   * @param entry the direntry to set.
+   * @returns the dirstream.
    */
   dirstream&
   operator >> (dirstream& stream,

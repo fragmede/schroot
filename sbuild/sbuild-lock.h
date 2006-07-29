@@ -145,11 +145,11 @@ namespace sbuild
     /// The destructor.
     virtual ~file_lock ();
 
-    void
-    set_lock (type         lock_type,
+    virtual void
+    set_lock (lock::type   lock_type,
 	      unsigned int timeout);
 
-    void
+    virtual void
     unset_lock ();
 
   private:
@@ -176,11 +176,11 @@ namespace sbuild
     /// The destructor.
     virtual ~device_lock ();
 
-    void
-    set_lock (type         lock_type,
+    virtual void
+    set_lock (lock::type   lock_type,
 	      unsigned int timeout);
 
-    void
+    virtual void
     unset_lock ();
 
   private:

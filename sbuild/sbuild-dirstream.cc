@@ -115,14 +115,12 @@ dirstream::read(int quantity)
     }
 }
 
-// close the directory
-// this also clears all the direntry data
 void
 dirstream::close()
 {
   if (this->dir)
-    closedir(this->dir); // don't throw an exception on failure -- it could
-		   // be called in the destructor
+    closedir(this->dir); // don't throw an exception on failure -- it
+			 // could be called in the destructor
   this->dir = 0;
   this->data.clear();    // clear all data
   this->dirname.clear();

@@ -74,7 +74,7 @@ namespace sbuild
     set_fatal_timeout (time_t timeout);
 
     virtual void
-    conversation (message_list& messages);
+    conversation (auth_conv::message_list& messages);
 
   private:
     /**

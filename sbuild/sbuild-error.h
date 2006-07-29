@@ -111,7 +111,9 @@ namespace sbuild
   class error : public error_base
   {
   public:
+    /// The enum type providing the error codes for this type.
     typedef T error_type;
+    /// Mapping between error code and error description.
     typedef std::map<error_type,const char *> map_type;
 
     /**
@@ -232,6 +234,12 @@ namespace sbuild
     template<typename A, bool b>
     struct add_detail_helper
     {
+      /**
+       * The constructor.
+       *
+       * @param fmt the format string to add to.
+       * @param value the value to add.
+       */
       add_detail_helper(boost::format& fmt,
 			A const&       value)
       {
@@ -246,6 +254,12 @@ namespace sbuild
     template<typename A>
     struct add_detail_helper<A, true>
     {
+      /**
+       * The constructor.
+       *
+       * @param fmt the format string to add to.
+       * @param value the exception to add.
+       */
       add_detail_helper(boost::format& fmt,
 			A const&       value)
       {
@@ -271,6 +285,12 @@ namespace sbuild
     template<typename A, bool b>
     struct add_reason_helper
     {
+      /**
+       * The constructor.
+       *
+       * @param reason the reason to add to.
+       * @param value the value to add.
+       */
       add_reason_helper(std::string& reason,
 			A const&     value)
       {
@@ -284,6 +304,12 @@ namespace sbuild
     template<typename A>
     struct add_reason_helper<A, true>
     {
+      /**
+       * The constructor.
+       *
+       * @param reason the reason to add to.
+       * @param value the exception to add.
+       */
       add_reason_helper(std::string& reason,
 			A const&     value)
       {

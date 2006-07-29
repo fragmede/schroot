@@ -55,9 +55,6 @@ namespace schroot
     action_config ();
 
   protected:
-    /**
-     * Create a session.  This sets the session member.
-     */
     virtual void
     create_session(sbuild::session::operation sess_op);
   };

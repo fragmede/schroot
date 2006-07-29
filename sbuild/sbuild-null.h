@@ -36,17 +36,26 @@ namespace sbuild
     public:
       /**
        * Null output to an ostream.
+       *
+       * @param stream the stream to output to.
+       * @param rhs the null to output.
+       * @returns the stream.
        */
       template <class charT, class traits>
       friend
       std::basic_ostream<charT,traits>&
       operator << (std::basic_ostream<charT,traits>& stream,
-		   null const&                       n)
+		   null const&                       rhs)
       {
 	return stream << null_output();
       }
 
     private:
+      /**
+       * Get a string for output.
+       *
+       * @returns the word "unknown" (translated).
+       */
       static const char *
       null_output ();
   };

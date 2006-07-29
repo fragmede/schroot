@@ -26,7 +26,7 @@ namespace sbuild
 {
 
   /**
-   * A chroot located on a mounted filesystem.
+   * A chroot located in the filesystem.
    */
   class chroot_directory : virtual public chroot
   {
@@ -70,9 +70,9 @@ namespace sbuild
 
   protected:
     virtual void
-    setup_lock (setup_type type,
-		bool       lock,
-		int        status);
+    setup_lock (chroot::setup_type type,
+		bool               lock,
+		int                status);
 
     virtual void
     get_details (format_detail& detail) const;

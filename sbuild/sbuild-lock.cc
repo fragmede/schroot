@@ -156,7 +156,7 @@ file_lock::~file_lock ()
 }
 
 void
-file_lock::set_lock (type         lock_type,
+file_lock::set_lock (lock::type   lock_type,
 		     unsigned int timeout)
 {
   try
@@ -217,7 +217,7 @@ device_lock::~device_lock ()
 }
 
 void
-device_lock::set_lock (type         lock_type,
+device_lock::set_lock (lock::type   lock_type,
 		       unsigned int timeout)
 {
   try

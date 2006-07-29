@@ -134,8 +134,11 @@ namespace schroot
     virtual void
     check_actions ();
 
+    /// Chroot options group.
     boost::program_options::options_description chroot;
+    /// Chroot environment options group.
     boost::program_options::options_description chrootenv;
+    /// Session options group.
     boost::program_options::options_description session;
   };
 

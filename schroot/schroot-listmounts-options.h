@@ -74,6 +74,7 @@ namespace schroot_listmounts
     virtual void
     check_options ();
 
+    /// Mount options group.
     boost::program_options::options_description mount;
   };
 

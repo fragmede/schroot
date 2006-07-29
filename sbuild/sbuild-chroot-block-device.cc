@@ -119,13 +119,13 @@ chroot_block_device::setup_env (environment& env)
 }
 
 void
-chroot_block_device::setup_lock (setup_type type,
-				 bool       lock,
-				 int        status)
+chroot_block_device::setup_lock (chroot::setup_type type,
+				 bool               lock,
+				 int                status)
 {
   struct stat statbuf;
 
-  /* Only lock during setup, not run. */
+  /* Only lock during setup, not exec. */
   if (type == EXEC_START || type == EXEC_STOP)
     return;
 

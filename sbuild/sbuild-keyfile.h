@@ -41,8 +41,8 @@ namespace sbuild
   /**
    * Configuration file parser.  This class loads an INI-style
    * configuration file from a file or stream.  The format is
-   * documented in schroot.conf(5).  It is based upon the Glib
-   * GKeyFile class, which it is intended to replace.
+   * documented in schroot.conf(5).  It is an independent
+   * reimplementation of the Glib GKeyFile class, which it replaces.
    */
   class keyfile
   {
@@ -632,6 +632,10 @@ namespace sbuild
 
     /**
      * keyfile initialisation from an istream.
+     *
+     * @param stream the stream to input from.
+     * @param kf the keyfile to set.
+     * @returns the stream.
      */
     template <class charT, class traits>
     friend
@@ -713,6 +717,10 @@ namespace sbuild
 
     /**
      * keyfile output to an ostream.
+     *
+     * @param stream the stream to output to.
+     * @param kf the keyfile to output.
+     * @returns the stream.
      */
     template <class charT, class traits>
     friend

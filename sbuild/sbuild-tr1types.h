@@ -17,6 +17,12 @@
  *
  *********************************************************************/
 
+/**
+ * @file sbuild-tr1types.h TR1 type substitution.  This header
+ * substitutes Boost types as TR1 types when the Standard Library does
+ * not support TR1.
+ */
+
 #ifndef SBUILD_TR1TYPES_H
 #define SBUILD_TR1TYPES_H
 

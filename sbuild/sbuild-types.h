@@ -32,21 +32,38 @@ namespace sbuild
   /// A string vector.
   typedef std::vector<std::string> string_list;
 
-  /// A date representation.
+  /**
+   * A date representation.
+   */
   class date_base
   {
   public:
+    /// Function pointer to split time into a std::tm.
     typedef std::tm *(*break_time_func)(const time_t *timep, std:: tm *result);
 
+    /**
+     * The constructor.
+     *
+     * @param unix_time the time.
+     * @param break_time the function to split up the time.
+     */
     date_base (time_t          unix_time,
 	       break_time_func break_time):
       unix_time(unix_time),
       break_time(break_time)
     {}
 
+    /// The destructor.
     ~date_base ()
     {}
 
+    /**
+     * Output the date to an ostream.
+     *
+     * @param stream the stream to output to.
+     * @param dt the date to output.
+     * @returns the stream.
+     */
     template <class charT, class traits>
     friend
     std::basic_ostream<charT,traits>&
@@ -107,28 +124,48 @@ namespace sbuild
     }
 
   private:
+    /// The time.
     time_t          unix_time;
+    /// The function to split up the time.
     break_time_func break_time;
   };
 
+  /**
+   * A date representation in UTC.
+   */
   class gmdate : public date_base
   {
   public:
+    /**
+     * The constructor.
+     *
+     * @param unix_time the time in UTC.
+     */
     gmdate (time_t          unix_time):
       date_base(unix_time, gmtime_r)
     {}
 
+    /// The destructor.
     ~gmdate ()
     {}
   };
 
+  /**
+   * A date representation in local time.
+   */
   class date : public date_base
   {
   public:
+    /**
+     * The constructor.
+     *
+     * @param unix_time the time in the local timezone.
+     */
     date (time_t          unix_time):
       date_base(unix_time, localtime_r)
     {}
 
+    /// The destructor.
     ~date ()
     {}
   };

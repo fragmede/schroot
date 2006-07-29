@@ -57,6 +57,12 @@ namespace schroot_base
     /// The destructor.
     virtual ~options ();
 
+    /**
+     * Parse the command-line options.
+     *
+     * @param argc the number of arguments
+     * @param argv argument vector
+     */
     void
     parse (int   argc,
 	   char *argv[]);
@@ -66,27 +72,51 @@ namespace schroot_base
     /// Verbose messages.
     bool verbose;
 
+    /**
+     * Get the visible options group.  This options group contains all
+     * the options visible to the user.
+     *
+     * @returns the options_description.
+     */
     boost::program_options::options_description const&
     get_visible_options() const;
 
   protected:
+    /**
+     * Add options to option groups.
+     */
     virtual void
     add_options ();
 
+    /**
+     * Add option groups to container groups.
+     */
     virtual void
     add_option_groups ();
 
+    /**
+     * Check options after parsing.
+     */
     virtual void
     check_options ();
 
+    /**
+     * Check actions after parsing.
+     */
     virtual void
     check_actions ();
 
+    /// General options group.
     boost::program_options::options_description            general;
+    /// Hidden options group.
     boost::program_options::options_description            hidden;
+    /// Positional options group.
     boost::program_options::positional_options_description positional;
+    /// Visible options container (used for --help).
     boost::program_options::options_description            visible;
+    /// Global options container (used for parsing).
     boost::program_options::options_description            global;
+    /// Variables map, filled during parsing.
     boost::program_options::variables_map                  vm;
 
   private:

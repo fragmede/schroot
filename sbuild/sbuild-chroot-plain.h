@@ -26,7 +26,7 @@ namespace sbuild
 {
 
   /**
-   * A chroot located on a mounted filesystem (mounts disabled).
+   * A chroot located in the filesystem (mounts disabled).
    */
   class chroot_plain : public chroot_directory
   {

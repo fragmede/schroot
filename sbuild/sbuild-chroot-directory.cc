@@ -82,9 +82,9 @@ chroot_directory::get_chroot_type () const
 }
 
 void
-chroot_directory::setup_lock (setup_type type,
-			      bool       lock,
-			      int        status)
+chroot_directory::setup_lock (chroot::setup_type type,
+			      bool               lock,
+			      int                status)
 {
   /* By default, directory chroots do no locking. */
   /* Create or unlink session information. */

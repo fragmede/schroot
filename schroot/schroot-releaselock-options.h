@@ -76,6 +76,7 @@ namespace schroot_releaselock
     virtual void
     check_options ();
 
+    /// Lock options group.
     boost::program_options::options_description lock;
   };
 

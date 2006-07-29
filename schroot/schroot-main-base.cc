@@ -64,6 +64,7 @@ namespace
 
 }
 
+/// Error code to description mapping.
 template<>
 sbuild::error<main_base::error_code>::map_type
 sbuild::error<main_base::error_code>::error_strings

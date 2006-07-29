@@ -177,7 +177,7 @@ namespace sbuild
      * of the chroot, and is typically the same as the mount location,
      * but is overridden by the chroot type if required.
      *
-     * @returns the mount location.
+     * @param location the mount location.
      */
     virtual void
     set_location (std::string const& location);

@@ -114,9 +114,9 @@ chroot_file::setup_env (environment& env)
 }
 
 void
-chroot_file::setup_lock (setup_type type,
-			 bool       lock,
-			 int        status)
+chroot_file::setup_lock (chroot::setup_type type,
+			 bool               lock,
+			 int                status)
 {
   // Check ownership and permissions.
   if (type == SETUP_START && lock == true)

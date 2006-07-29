@@ -33,6 +33,7 @@ namespace sbuild
   class custom_error : public error<T>
   {
   public:
+    /// The enum type providing the error codes for this type.
     typedef typename error<T>::error_type error_type;
 
     /**

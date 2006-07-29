@@ -117,13 +117,15 @@ namespace schroot
      * Load configuration.
      */
     virtual void
-    load_config();
+    load_config ();
 
     /**
      * Create a session.  This sets the session member.
+     *
+     * @param sess_op the session operation to perform.
      */
     virtual void
-    create_session(sbuild::session::operation sess_op) = 0;
+    create_session (sbuild::session::operation sess_op) = 0;
 
   protected:
     /// The program options.

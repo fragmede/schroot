@@ -275,7 +275,7 @@ auth_conv_tty::read_string (std::string message,
 }
 
 void
-auth_conv_tty::conversation (message_list& messages)
+auth_conv_tty::conversation (auth_conv::message_list& messages)
 {
   log_debug(DEBUG_NOTICE) << "PAM TTY conversation handler started" << endl;
 

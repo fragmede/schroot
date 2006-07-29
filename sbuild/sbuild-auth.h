@@ -40,7 +40,7 @@ namespace sbuild
 {
 
   /**
-   * @brief Authentication handler.
+   * Authentication handler.
    *
    * auth handles user authentication, authorisation and session
    * management using the Pluggable authentication Modules (PAM)
@@ -68,7 +68,7 @@ namespace sbuild
    * The run method will handle all this.  The run_impl virtual
    * function should be used to provide a session handler to open and
    * close the session for the user.  open_session and close_session
-   * must still be used.
+   * must still be called.
    */
   class auth
   {

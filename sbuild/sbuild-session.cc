@@ -705,10 +705,10 @@ session::get_shell () const
       if (shell != "/bin/sh")
 	{
 	  error e1(shell, SHELL, strerror(errno));
-	  log_warning() << e1.what() << endl;
+	  log_exception_warning(e1);
 	  shell = "/bin/sh";
 	  error e2(SHELL_FB, shell);
-	  log_warning() << e2.what() << endl;
+	  log_exception_warning(e2);
 	}
     }
 
@@ -963,7 +963,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 		setup_type == chroot::SETUP_RECOVER ||
 		setup_type == chroot::SETUP_STOP)
 	       ? SCHROOT_CONF_SETUP_D // Setup directory
-	       : SCHROOT_CONF_EXEC_D, // Run directory
+	       : SCHROOT_CONF_EXEC_D, // Execution directory
 	       true, true, 022);
   rp.set_reverse((setup_type == chroot::SETUP_STOP ||
 		  setup_type == chroot::EXEC_STOP));
@@ -1039,14 +1039,10 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 
   /* Set group ID and supplementary groups */
   if (setgid (get_gid()))
-    {
-      throw error(get_gid(), GROUP_SET, strerror(errno));
-    }
+    throw error(get_gid(), GROUP_SET, strerror(errno));
   log_debug(DEBUG_NOTICE) << "Set GID=" << get_gid() << std::endl;
   if (initgroups (get_user().c_str(), get_gid()))
-    {
-      throw error(GROUP_SET_SUP, strerror(errno));
-    }
+    throw error(GROUP_SET_SUP, strerror(errno));
   log_debug(DEBUG_NOTICE) << "Set supplementary groups" << std::endl;
 
   /* Set the process execution domain. */
@@ -1057,26 +1053,18 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 
   /* Enter the chroot */
   if (chdir (location.c_str()))
-    {
-      throw error(location, CHDIR, strerror(errno));
-    }
+    throw error(location, CHDIR, strerror(errno));
   log_debug(DEBUG_NOTICE) << "Changed directory to " << location << std::endl;
   if (::chroot (location.c_str()))
-    {
-      throw error(location, CHROOT, strerror(errno));
-    }
+    throw error(location, CHROOT, strerror(errno));
   log_debug(DEBUG_NOTICE) << "Changed root to " << location << std::endl;
 
   /* Set uid and check we are not still root */
   if (setuid (get_uid()))
-    {
-      throw error(get_uid(), USER_SET, strerror(errno));
-    }
+    throw error(get_uid(), USER_SET, strerror(errno));
   log_debug(DEBUG_NOTICE) << "Set UID=" << get_uid() << std::endl;
   if (!setuid (0) && get_uid())
-    {
-      throw error(ROOT_DROP);
-    }
+    throw error(ROOT_DROP);
   if (get_uid())
     log_debug(DEBUG_NOTICE) << "Dropped root privileges" << std::endl;
 
@@ -1143,9 +1131,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 
   /* Execute */
   if (exec (file, full_command, env))
-    {
-      throw error(file, EXEC, strerror(errno));
-    }
+    throw error(file, EXEC, strerror(errno));
 
   /* This should never be reached */
   _exit(EXIT_FAILURE);
@@ -1187,9 +1173,7 @@ session::wait_for_child (pid_t pid,
 	  if (errno == EINTR && (sighup_called || sigterm_called))
 	    continue; // Kill child and wait again.
 	  else
-	    {
-	      throw error(CHILD_WAIT, strerror(errno));
-	    }
+	    throw error(CHILD_WAIT, strerror(errno));
 	}
       else if (sighup_called)
 	{
@@ -1208,9 +1192,7 @@ session::wait_for_child (pid_t pid,
   if (!WIFEXITED(status))
     {
       if (WIFSIGNALED(status))
-	{
-	  throw error(CHILD_SIGNAL, strsignal(WTERMSIG(status)));
-	}
+	throw error(CHILD_SIGNAL, strsignal(WTERMSIG(status)));
       else if (WCOREDUMP(status))
 	throw error(CHILD_CORE);
       else
@@ -1287,9 +1269,7 @@ session::set_signal_handler (int                signal,
   new_sa.sa_handler = handler;
 
   if (sigaction(signal, &new_sa, saved_signal) != 0)
-    {
-      throw error(SIGNAL_SET, strsignal(signal), strerror(errno));
-    }
+    throw error(SIGNAL_SET, strsignal(signal), strerror(errno));
 }
 
 void

@@ -95,9 +95,9 @@ namespace sbuild
 
   protected:
     virtual void
-    setup_lock (setup_type type,
-		bool       lock,
-		int        status);
+    setup_lock (chroot::setup_type type,
+		bool               lock,
+		int                status);
 
     virtual void
     get_details (format_detail& detail) const;

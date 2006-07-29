@@ -3,12 +3,13 @@ schroot
 
 Securely enter a chroot and run a command or login shell.
 
-Note that giving untrusted users root access to chroots is a bad idea.
-Although they will only have root access to files inside the chroot,
-in practice there are many obvious ways of breaking out of the chroot
-or disrupting services on the host system.  As always, this boils down
-to trust.  Don't give root access to chroots to users you would not
-trust with root access to the host system.
+Note that giving untrusted users root access to chroots is a serious
+security risk!.  Although the untrusted user will only have root
+access to files inside the chroot, in practice there are many obvious
+ways of breaking out of the chroot and of disrupting services on the
+host system.  As always, this boils down to trust.  Don't give chroot
+root access to users you would not trust with root access to the host
+system.
 
 For compatibility with existing tools and scripts, wrapper binaries
 for dchroot and DSA dchroot are provided.

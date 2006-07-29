@@ -52,6 +52,11 @@ namespace sbuild
     /// The destructor.
     virtual ~chroot_source ();
 
+    /**
+     * Create a source chroot.
+     *
+     * @returns a source chroot.
+     */
     virtual chroot::ptr
     clone_source () const = 0;
 

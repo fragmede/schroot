@@ -16,7 +16,7 @@
 .\" MA  02111-1307  USA
 .TH SCHROOT-SETUP 5 "@RELEASE_DATE@" "Version @VERSION@" "Debian sbuild"
 .SH NAME
-schroot-setup \- schroot chroot setup scripts
+schroot-setup \[em] schroot chroot setup scripts
 .SH DESCRIPTION
 \fBschroot\fP uses scripts to to set up and then clean up the chroot
 environment.  The directories \f[BI]@SCHROOT_CONF_SETUP_D@\fP and

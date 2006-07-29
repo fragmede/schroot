@@ -26,8 +26,9 @@ namespace sbuild
 {
 
   /**
-   * A chroot stored on an unmounted block device.  The device will be
-   * mounted on demand.
+   * A chroot stored on an unmounted block device.
+   *
+   * The device will be mounted on demand.
    */
   class chroot_block_device : virtual public chroot
   {
@@ -111,9 +112,9 @@ namespace sbuild
 
   protected:
     virtual void
-    setup_lock (setup_type type,
-		bool       lock,
-		int        status);
+    setup_lock (chroot::setup_type type,
+		bool               lock,
+		int                status);
 
     virtual void
     get_details (format_detail& detail) const;

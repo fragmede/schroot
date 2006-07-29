@@ -1,3 +1,21 @@
+2006-07-29  Roger Leigh  <rleigh@debian.org>
+
+	* Update manual pages.
+
+	* sbuild/sbuild-lock.h: Add missing virtual specifier from virtual
+	methods in derived lock classes.
+
+	* sbuild/sbuild-session.cc: Remove use of excess braces when
+	throwing exceptions.
+	(get_shell): Use log_exception_warning.
+
+	* Remove incorrect and misplaced comments.
+
+	* Update translator comments.
+
+	* Update API reference to document all missing and incomplete
+	documentation.
+
 2006-07-28  Roger Leigh  <rleigh@debian.org>
 
 	* NEWS: Update for 1.0.0.

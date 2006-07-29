@@ -50,18 +50,46 @@ namespace sbuild
 
     virtual ~format_detail ();
 
+    /**
+     * Add a name-value pair (string specialisation).
+     *
+     * @param name the name.
+     * @param value the string value.
+     * @returns a reference to the format_detail object.
+     */
     format_detail&
     add (std::string const& name,
 	 std::string const& value);
 
+    /**
+     * Add a name-value pair (bool specialisation).
+     *
+     * @param name the name.
+     * @param value the bool value.
+     * @returns a reference to the format_detail object.
+     */
     format_detail&
     add (std::string const& name,
 	 bool               value);
 
+    /**
+     * Add a name-value pair (string_list specialisation).
+     *
+     * @param name the name.
+     * @param value the string_list value.
+     * @returns a reference to the format_detail object.
+     */
     format_detail&
     add (std::string const& name,
 	 string_list const& value);
 
+    /**
+     * Add a name-value pair.
+     *
+     * @param name the name.
+     * @param value the value.
+     * @returns a reference to the format_detail object.
+     */
     template<typename T>
     format_detail&
     add (std::string const& name,
@@ -141,10 +169,8 @@ namespace sbuild
 
     /// The title of the items to format.
     std::string title;
-
     /// The locale to use for output.
     std::locale locale;
-
     /// The items to format;
     list_type   items;
   };

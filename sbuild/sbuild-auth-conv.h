@@ -31,7 +31,7 @@ namespace sbuild
 {
 
   /**
-   * @brief Authentication conversation handler interface.
+   * Authentication conversation handler interface.
    *
    * This interface should be implemented by objects which handle
    * interaction with the user during authentication.
@@ -61,7 +61,7 @@ namespace sbuild
     virtual ~auth_conv ();
 
     /**
-     * @brief Get the time at which the user will be warned.
+     * Get the time at which the user will be warned.
      *
      * @returns the time.
      */
@@ -69,7 +69,7 @@ namespace sbuild
     get_warning_timeout () = 0;
 
     /**
-     * @brief Set the time at which the user will be warned.
+     * Set the time at which the user will be warned.
      *
      * @param timeout the time to set.
      */
@@ -77,8 +77,8 @@ namespace sbuild
     set_warning_timeout (time_t timeout) = 0;
 
     /**
-     * @brief Get the time at which the conversation will be
-     * terminated with an error.
+     * Get the time at which the conversation will be terminated with
+     * an error.
      *
      * @returns the time.
      */
@@ -86,8 +86,8 @@ namespace sbuild
     get_fatal_timeout () = 0;
 
     /**
-     * @brief Set the time at which the conversation will be
-     * terminated with an error.
+     * Set the time at which the conversation will be terminated with
+     * an error.
      *
      * @param timeout the time to set.
      */
@@ -95,7 +95,7 @@ namespace sbuild
     set_fatal_timeout (time_t timeout) = 0;
 
     /**
-     * @brief Hold a conversation with the user.
+     * Hold a conversation with the user.
      *
      * Each of the messages detailed in messages should be displayed
      * to the user, asking for input where required.  The type of

@@ -120,9 +120,9 @@ chroot_lvm_snapshot::setup_env (environment& env)
 }
 
 void
-chroot_lvm_snapshot::setup_lock (setup_type type,
-				 bool       lock,
-				 int        status)
+chroot_lvm_snapshot::setup_lock (chroot::setup_type type,
+				 bool               lock,
+				 int                status)
 {
   std::string device;
   struct stat statbuf;

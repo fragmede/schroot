@@ -50,7 +50,20 @@ namespace sbuild
     /// Exception type.
     typedef custom_error<error_code> error;
 
-    /// The constructor.
+    /**
+     *  The constructor.
+     *
+     * @param directory the directory to run scripts from.
+     * @param lsb_mode use Linux Standard Base filename requirements.
+     * If true, the following patterns are permitted: LANANA
+     * ("^[a-z0-9]+$"), LSB ("^_?([a-z0-9_.]+-)+[a-z0-9]+$"), and
+     * Debian cron ("^[a-z0-9][a-z0-9-]*$").  Debian dpkg conffile
+     * backups are not permitted ("dpkg-(old|dist|new|tmp)$").  If
+     * false, the traditional run-parts pattern is used
+     * ("^[a-zA-Z0-9_-]$").
+     * @param abort_on_error stop executing scripts if one returns an error.
+     * @param umask the umask to set when running scripts.
+     */
     run_parts (std::string const& directory,
 	       bool               lsb_mode = true,
 	       bool               abort_on_error = true,
@@ -91,10 +104,18 @@ namespace sbuild
     void
     set_reverse (bool reverse);
 
+    /**
+     * Run all scripts in the specified directory.  If abort_on_error
+     * is true, execution will stop at the first script to fail.
+     *
+     * @param command the command to run.
+     * @param env the environment to use.
+     * @returns the exit status of the scripts.  This will be 0 on
+     * success, or the exit status of the last failing script.
+     */
     int
     run(string_list const& command,
 	environment const& env);
-
 
     /**
      * Output the environment to an ostream.
@@ -127,27 +148,57 @@ namespace sbuild
     }
 
   private:
+    /**
+     * Run the command specified by file (an absolute pathname), using
+     * command and env as the argv and environment, respectively.
+     *
+     * @param file the program to execute.
+     * @param command the arguments to pass to the executable.
+     * @param env the environment.
+     * @returns the return value of the execve system call on failure.
+     */
     int
     run_child(std::string const& file,
 	      string_list const& command,
 	      environment const& env);
 
+    /**
+     * Wait for a child process to complete, and check its exit status.
+     *
+     * An error will be thrown on failure.
+     *
+     * @param pid the pid to wait for.
+     * @param child_status the place to store the child exit status.
+     */
     void
     wait_for_child (pid_t pid,
 		    int&  child_status);
 
+    /**
+     * Check a filename matches the allowed pattern(s).
+     *
+     * @param name the filename to check.
+     * @returns true if it matches, false if not.
+     */
     bool
     check_filename (std::string const& name);
 
+    /// A sorted set of filenames to use.
     typedef std::set<std::string> program_set;
 
+    /// The LSB mode for allowed filenames.
     bool        lsb_mode;
+    /// Whether to abort on script execution error.
     bool        abort_on_error;
+    /// The umask to run scripts with.
     mode_t      umask;
+    /// Verbose logging.
     bool        verbose;
+    /// Execute scripts in reverse order.
     bool        reverse;
-    //    bool        restricted;
+    /// The directory to run scripts from.
     std::string directory;
+    /// The list of scripts to run.
     program_set programs;
   };
 

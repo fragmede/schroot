@@ -68,7 +68,6 @@ run_parts::run_parts (std::string const& directory,
   umask(umask),
   verbose(false),
   reverse(false),
-  //  restricted(true),
   directory(directory),
   programs()
 {
