@@ -1,5 +1,9 @@
 2006-07-29  Roger Leigh  <rleigh@debian.org>
 
+	* Update translations.
+
+2006-07-29  Roger Leigh  <rleigh@debian.org>
+
 	* TODO: Add future items.
 
 	* All catch blocks catch const references.
