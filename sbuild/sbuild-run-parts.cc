@@ -171,18 +171,30 @@ run_parts::run_child (std::string const& file,
     }
   else if (pid == 0)
     {
-      log_debug(DEBUG_INFO) << "run_parts: executing "
-			    << string_list_to_string(command, ", ")
-			    << std::endl;
-      if (this->verbose)
-	// TRANSLATORS: %1% = command
-	log_info() << format(_("Executing '%1%'"))
-	  % string_list_to_string(command, " ")
-		   << std::endl;
-      ::umask(this->umask);
-      exec(this->directory + '/' + file, command, env);
-      error e(file, EXEC, strerror(errno));
-      log_exception_error(e);
+      try
+	{
+	  log_debug(DEBUG_INFO) << "run_parts: executing "
+				<< string_list_to_string(command, ", ")
+				<< std::endl;
+	  if (this->verbose)
+	    // TRANSLATORS: %1% = command
+	    log_info() << format(_("Executing '%1%'"))
+	      % string_list_to_string(command, " ")
+		       << std::endl;
+	  ::umask(this->umask);
+	  exec(this->directory + '/' + file, command, env);
+	  error e(file, EXEC, strerror(errno));
+	  log_exception_error(e);
+	}
+      catch (std::exception const& e)
+	{
+	  sbuild::log_exception_error(e);
+	}
+      catch (...)
+	{
+	  sbuild::log_error()
+	    << _("An unknown exception occurred") << std::endl;
+	}
       _exit(EXIT_FAILURE);
     }
   else

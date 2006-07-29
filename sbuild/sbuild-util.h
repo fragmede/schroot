@@ -93,6 +93,9 @@ namespace sbuild
    * @param value the string to split.
    * @param separator the delimiting character or characters.
    * @returns a string_list.
+   *
+   * @todo Provide an alternative that splits the string in place
+   * using an iterator interface.
    */
   string_list
   split_string (std::string const& value,

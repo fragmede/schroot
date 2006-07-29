@@ -43,7 +43,7 @@ namespace sbuild
    * Authentication handler.
    *
    * auth handles user authentication, authorisation and session
-   * management using the Pluggable authentication Modules (PAM)
+   * management using the Pluggable Authentication Modules (PAM)
    * library.  It is essentially an object-oriented wrapper around PAM.
    *
    * In order to use PAM correctly, it is important to call several of
@@ -326,6 +326,9 @@ namespace sbuild
      * prompted to authenticate themselves.
      *
      * An error will be thrown on failure.
+     *
+     * @todo Use sysconf(_SC_HOST_NAME_MAX) when libc in a stable
+     * release supports it.
      */
     void
     authenticate ();
@@ -336,6 +339,11 @@ namespace sbuild
      * created containing HOME, LOGNAME, PATH, TERM and LOGNAME.
      *
      * An error will be thrown on failure.
+     *
+     * @todo Support custom filtering of the environment, rather than
+     * hardcoding.  Use regular expressions.  Also add additional
+     * per-chroot environment filtering, and an "environment-filter"
+     * option in the config file.
      */
     void
     setupenv ();

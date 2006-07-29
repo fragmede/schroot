@@ -166,6 +166,9 @@ namespace sbuild
      * @param detail1 details of the error.
      * @param detail2 additional details of the error.
      * @returns a translated error message.
+     *
+     * @todo Merge the logic shared between the two specialisations to
+     * prevent code duplication.
      */
     template <typename A, typename B, typename C, typename D, typename E>
     static std::string

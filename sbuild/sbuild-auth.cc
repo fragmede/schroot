@@ -145,7 +145,7 @@ auth::auth (std::string const& service_name):
   user_environment(),
   ruid(),
   ruser(),
-  conv(dynamic_cast<auth_conv *>(new auth_conv_tty)),
+  conv(new auth_conv_tty),
   message_verbosity(VERBOSITY_NORMAL)
 {
   this->ruid = getuid();
@@ -170,8 +170,9 @@ auth::~auth ()
     {
       stop();
     }
-  catch (...)
+  catch (error const& e)
     {
+      sbuild::log_exception_error(e);
     }
 }
 
@@ -202,8 +203,8 @@ auth::get_user () const
 void
 auth::set_user (std::string const& user)
 {
-  this->uid = 0;
-  this->gid = 0;
+  this->uid = getuid();
+  this->gid = getgid();
   this->home = "/";
   this->shell = "/bin/false";
 
@@ -324,7 +325,7 @@ auth::run ()
 	  cred_establish();
 
 	  const char *authuser = 0;
-	  const void *tmpcast = static_cast<const void *>(authuser);
+	  const void *tmpcast = reinterpret_cast<const void *>(authuser);
 	  pam_get_item(this->pam, PAM_USER, &tmpcast);
 	  log_debug(DEBUG_INFO)
 	    << format("PAM authentication succeeded for user %1%") % authuser
@@ -387,7 +388,7 @@ auth::start ()
   struct pam_conv conv_hook =
     {
       auth_conv_hook,
-      static_cast<void *>(this->conv.get())
+      reinterpret_cast<void *>(this->conv.get())
     };
 
   int pam_status;
@@ -440,19 +441,27 @@ auth::authenticate ()
   long hl = 256; /* sysconf(_SC_HOST_NAME_MAX); BROKEN with Debian libc6 2.3.2.ds1-22 */
 
   char *hostname = new char[hl];
-  if (gethostname(hostname, hl) != 0)
+  try
     {
-      log_debug(DEBUG_CRITICAL) << "gethostname FAIL" << endl;
-      throw error(HOSTNAME, strerror(errno));
-    }
+      if (gethostname(hostname, hl) != 0)
+	{
+	  log_debug(DEBUG_CRITICAL) << "gethostname FAIL" << endl;
+	  throw error(HOSTNAME, strerror(errno));
+	}
 
-  if ((pam_status =
-       pam_set_item(this->pam, PAM_RHOST, hostname)) != PAM_SUCCESS)
+      if ((pam_status =
+	   pam_set_item(this->pam, PAM_RHOST, hostname)) != PAM_SUCCESS)
+	{
+	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_RHOST) FAIL" << endl;
+	  throw error(_("Set RHOST"), PAM, pam_strerror(pam_status));
+	}
+    }
+  catch (error const& e)
     {
-      log_debug(DEBUG_WARNING) << "pam_set_item (PAM_RHOST) FAIL" << endl;
-      throw error(_("Set RHOST"), PAM, pam_strerror(pam_status));
+      delete[] hostname;
+      hostname = 0;
+      throw;
     }
-
   delete[] hostname;
   hostname = 0;
 
@@ -701,5 +710,7 @@ auth::get_auth_status () const
 const char *
 auth::pam_strerror (int pam_error)
 {
+  assert(this->pam != 0); // PAM must be initialised
+
   return ::pam_strerror (this->pam, pam_error);
 }

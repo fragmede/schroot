@@ -25,6 +25,15 @@ POTENTIAL
   It will require DHCP or static IP configuration and a dynamic
   hostname in order to connect.
 
+* Use of passwd/group databases should be thread-safe
+
+  - Use the _r variants of getpw*, getgr*.
+
+* Use controlling TTY for authentication
+
+  PAM and the conversation handler should use the CTTY, rather than
+  STDIN_FILENO.  The CTTY fd should use FD_CLOEXEC.
+
 * Add tests for
 
 ** Auth

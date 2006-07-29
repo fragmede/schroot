@@ -388,7 +388,7 @@ sbuild::chroot::setup_session_info (bool start)
       __gnu_cxx::stdio_filebuf<char> fdbuf(fd, std::ios::out);
 #endif
       std::ostream output(&fdbuf);
-      output.imbue(std::locale("C"));
+      output.imbue(std::locale::classic());
 
       sbuild::file_lock lock(fd);
       try

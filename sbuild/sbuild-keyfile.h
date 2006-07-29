@@ -497,7 +497,7 @@ namespace sbuild
 	       unsigned int       line)
     {
       std::ostringstream os;
-      os.imbue(std::locale("C"));
+      os.imbue(std::locale::classic());
       os << std::boolalpha << value;
 
       set_group(group, "");
@@ -579,7 +579,7 @@ namespace sbuild
       for (I pos = begin; pos != end; ++ pos)
 	{
 	  std::ostringstream os;
-	  os.imbue(std::locale("C"));
+	  os.imbue(std::locale::classic());
 	  os << std::boolalpha << *pos;
 	  if (os)
 	    {
@@ -827,6 +827,10 @@ namespace sbuild
      *
      * @param comment the comment to print.
      * @param stream the stream to output to.
+     *
+     * @todo Use split string or some general iterator/algorithm
+     * instead of custom string manipulation.  This could be reused by
+     * log_exception_* functions and split_string.
      */
     static void
     print_comment (std::string const& comment,

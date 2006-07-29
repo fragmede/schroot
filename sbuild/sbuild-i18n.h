@@ -17,6 +17,14 @@
  *
  *********************************************************************/
 
+/**
+ * @file sbuild-i18n.h Internationalisation macros.  This header
+ * defines the macros used to mark up and translate strings.
+ *
+ * @todo Use dgettext in place of gettext for correct library use.
+ * This needs the message catalogue name storing in sbuild-config.h.
+ */
+
 #ifndef SBUILD_I18N_H
 #define SBUILD_I18N_H
 

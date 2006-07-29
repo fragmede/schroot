@@ -128,13 +128,13 @@ chroot_config::add_config_directory (std::string const& dir,
     return;
 
   DIR *d = opendir(dir.c_str());
-  if (d == NULL)
+  if (d == 0)
     {
       throw error(dir, DIR_OPEN, strerror(errno));
     }
 
-  struct dirent *de = NULL;
-  while ((de = readdir(d)) != NULL)
+  struct dirent *de = 0;
+  while ((de = readdir(d)) != 0)
     {
       std::string filename = dir + "/" + de->d_name;
 
@@ -173,8 +173,7 @@ chroot_config::add (chroot::ptr&   chroot,
     {
       // Set up chroot.
       this->chroots.insert(std::make_pair(name, chroot));
-      this->aliases.insert(std::make_pair(name,
-					  name));
+      this->aliases.insert(std::make_pair(name, name));
 
       // Set up aliases.
       string_list const& aliases = chroot->get_aliases();
@@ -184,8 +183,7 @@ chroot_config::add (chroot::ptr&   chroot,
 	{
 	  try
 	    {
-	      if (this->aliases.insert
-		  (std::make_pair(*pos, name))
+	      if (this->aliases.insert(std::make_pair(*pos, name))
 		  .second == false)
 		{
 		  string_map::const_iterator dup = this->aliases.find(*pos);
@@ -450,6 +448,16 @@ chroot_config::load_data (std::string const& file,
   if (fd < 0)
     throw error(file, FILE_OPEN, strerror(errno));
 
+  // Create a stream buffer from the file descriptor.  The fd will
+  // be closed when the buffer is destroyed.
+#ifdef SCHROOT_FILEBUF_OLD
+  __gnu_cxx::stdio_filebuf<char> fdbuf(fd, std::ios::in, true, BUFSIZ);
+#else
+  __gnu_cxx::stdio_filebuf<char> fdbuf(fd, std::ios::in);
+#endif
+  std::istream input(&fdbuf);
+  input.imbue(std::locale::classic());
+
   sbuild::file_lock lock(fd);
   try
     {
@@ -470,16 +478,6 @@ chroot_config::load_data (std::string const& file,
     throw error(file, FILE_PERMS);
   if (!S_ISREG(statbuf.st_mode))
     throw error(file, FILE_NOTREG);
-
-  // Create a stream buffer from the file descriptor.  The fd will
-  // be closed when the buffer is destroyed.
-#ifdef SCHROOT_FILEBUF_OLD
-  __gnu_cxx::stdio_filebuf<char> fdbuf(fd, std::ios::in, true, BUFSIZ);
-#else
-  __gnu_cxx::stdio_filebuf<char> fdbuf(fd, std::ios::in);
-#endif
-  std::istream input(&fdbuf);
-  input.imbue(std::locale("C"));
 
   try
     {

@@ -34,6 +34,10 @@ namespace sbuild
 
   /**
    * Container of environment variables.
+   *
+   * @todo Add filter to prevent addition of "unsafe" environment
+   * variables, use regex.  This might be with a derived class
+   * (destructor would need to be virtual).
    */
   class environment : public std::map<std::string, std::string>
   {
@@ -108,7 +112,7 @@ namespace sbuild
 	 T const&           value)
     {
       std::ostringstream varstring;
-      varstring.imbue(std::locale("C"));
+      varstring.imbue(std::locale::classic());
       varstring << std::boolalpha << value;
       add(std::make_pair(name, varstring.str()));
     }

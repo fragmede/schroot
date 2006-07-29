@@ -114,7 +114,7 @@ void
 lock::clear_alarm ()
 {
   /* Restore original handler */
-  sigaction (SIGALRM, &this->saved_signals, NULL);
+  sigaction (SIGALRM, &this->saved_signals, 0);
 }
 
 void
@@ -122,7 +122,7 @@ lock::set_timer(struct itimerval const& timer)
 {
   set_alarm();
 
-  if (setitimer(ITIMER_REAL, &timer, NULL) == -1)
+  if (setitimer(ITIMER_REAL, &timer, 0) == -1)
     {
       clear_alarm();
       throw error(TIMEOUT_SET, strerror(errno));
@@ -136,7 +136,7 @@ lock::unset_timer ()
   disable_timer.it_interval.tv_sec = disable_timer.it_interval.tv_usec = 0;
   disable_timer.it_value.tv_sec = disable_timer.it_value.tv_usec = 0;
 
-  if (setitimer(ITIMER_REAL, &disable_timer, NULL) == -1)
+  if (setitimer(ITIMER_REAL, &disable_timer, 0) == -1)
     {
       clear_alarm();
       throw error(TIMEOUT_CANCEL, strerror(errno));

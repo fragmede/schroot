@@ -169,6 +169,8 @@ namespace sbuild
      *
      * @param pid the pid to wait for.
      * @param child_status the place to store the child exit status.
+     *
+     * @todo Use waitpid instead of wait.
      */
     void
     wait_for_child (pid_t pid,

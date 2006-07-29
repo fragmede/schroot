@@ -120,6 +120,8 @@ namespace sbuild
      * @param dir the directory containing the files to load.
      * @param active true if the chroots in the configuration file are
      * active sessions, otherwise false.
+     *
+     * @todo Use dirstream instead of the POSIX directory functions.
      */
     void
     add_config_directory (std::string const& dir,

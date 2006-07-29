@@ -67,7 +67,7 @@ namespace
     // Stop alarm
     alarm (0);
     // Restore original handler
-    sigaction (SIGALRM, orig_sa, NULL);
+    sigaction (SIGALRM, orig_sa, 0);
   }
 
   /**
@@ -104,7 +104,7 @@ namespace
       }
     if (alarm(delay) != 0)
       {
-	sigaction(SIGALRM, orig_sa, NULL);
+	sigaction(SIGALRM, orig_sa, 0);
 	return false;
       }
 
@@ -267,7 +267,7 @@ auth_conv_tty::read_string (std::string message,
 
   if (use_termios == true)
     {
-      sigprocmask(SIG_SETMASK, &old_sigs, NULL);
+      sigprocmask(SIG_SETMASK, &old_sigs, 0);
       tcsetattr(STDIN_FILENO, TCSADRAIN, &orig_termios);
     }
 

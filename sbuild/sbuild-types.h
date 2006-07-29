@@ -108,7 +108,7 @@ namespace sbuild
 		{
 		  stream.setstate(std::ios::failbit);
 		}
-	      catch (std::ios_base::failure)
+	      catch (std::ios_base::failure const& discard)
 		{
 		  flag = true;
 		}

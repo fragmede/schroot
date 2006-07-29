@@ -1,5 +1,31 @@
 2006-07-29  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Add future items.
+
+	* All catch blocks catch const references.
+
+	* sbuild/sbuild-run-parts.cc
+	(run_child): Handle exceptions thrown in child.
+
+	* sbuild/sbuild-session.cc
+	(setup_chroot): Handle exceptions thrown in child.
+
+	* Replace all uses std::locale("C") with std::locale::classic().
+
+	* Replace all uses of NULL with 0.
+
+	* sbuild/sbuild-auth.cc
+	(auth): Remove redundant auth_conv_tty dynamic_cast.
+	(~auth): Log an error if an exception is caught.
+	(set_user): Default uid and gid to current uid and gid, rather
+	than 0, for extra safety when an error occurs.
+	(run, start): Use reinterpret_cast instead of static_cast when
+	casting void *.
+	(authenticate): Don't leak hostname array if an exception is
+	thrown.
+
+2006-07-29  Roger Leigh  <rleigh@debian.org>
+
 	* Update manual pages.
 
 	* sbuild/sbuild-lock.h: Add missing virtual specifier from virtual

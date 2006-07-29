@@ -127,7 +127,7 @@ keyfile::keyfile (std::string const& file):
   std::ifstream fs(file.c_str());
   if (fs)
     {
-      fs.imbue(std::locale("C"));
+      fs.imbue(std::locale::classic());
       fs >> *this;
     }
   else

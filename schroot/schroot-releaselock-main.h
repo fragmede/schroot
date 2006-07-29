@@ -58,6 +58,8 @@ namespace schroot_releaselock
 
     /**
      * Release lock.
+     *
+     * @todo PID should be capitalised in the translated warning string.
      */
     virtual void
     action_releaselock ();

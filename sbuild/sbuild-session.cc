@@ -119,7 +119,7 @@ namespace
   {
     std::string cwd;
 
-    char *raw_cwd = ::getcwd (NULL, 0);
+    char *raw_cwd = ::getcwd (0, 0);
     if (raw_cwd)
       cwd = raw_cwd;
     else
@@ -140,7 +140,7 @@ namespace
   {
     errno = 0;
     struct group *groupbuf = getgrnam(group.c_str());
-    if (groupbuf == NULL)
+    if (groupbuf == 0)
       {
 	if (errno == 0)
 	  {
@@ -162,7 +162,7 @@ namespace
       }
     else
       {
-	int supp_group_count = getgroups(0, NULL);
+	int supp_group_count = getgroups(0, 0);
 	if (supp_group_count < 0)
 	  throw session::error(session::GROUP_GET_SUPC, strerror(errno));
 	if (supp_group_count > 0)
@@ -480,7 +480,7 @@ session::get_auth_status () const
 void
 session::run_impl ()
 {
-  assert(this->config.get() != NULL);
+  assert(this->config.get() != 0);
   assert(!this->chroots.empty());
 
   try
@@ -932,7 +932,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   session_chroot->setup_env(env);
   env.add("AUTH_USER", get_user());
   {
-    const char *verbosity = NULL;
+    const char *verbosity = 0;
     switch (get_verbosity())
       {
       case auth::VERBOSITY_QUIET:
@@ -981,20 +981,33 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
     }
   else if (pid == 0)
     {
-      // The setup scripts don't use our syslog fd.
-      closelog();
+      try
+	{
+	  // The setup scripts don't use our syslog fd.
+	  closelog();
 
-      chdir("/");
-      /* This is required to ensure the scripts run with uid=0 and gid=0,
-	 otherwise setuid programs such as mount(8) will fail.  This
-	 should always succeed, because our euid=0 and egid=0.*/
-      setuid(0);
-      setgid(0);
-      initgroups("root", 0);
+	  chdir("/");
+	  /* This is required to ensure the scripts run with uid=0 and gid=0,
+	     otherwise setuid programs such as mount(8) will fail.  This
+	     should always succeed, because our euid=0 and egid=0.*/
+	  setuid(0);
+	  setgid(0);
+	  initgroups("root", 0);
 
-      int status = rp.run(arg_list, env);
+	  int status = rp.run(arg_list, env);
 
-      exit (status);
+	  _exit (status);
+	}
+      catch (std::exception const& e)
+	{
+	  sbuild::log_exception_error(e);
+	}
+      catch (...)
+	{
+	  sbuild::log_error()
+	    << _("An unknown exception occurred") << std::endl;
+	}
+      _exit(EXIT_FAILURE);
     }
   else
     {
@@ -1028,7 +1041,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 
   assert(!get_user().empty());
   assert(!get_shell().empty());
-  assert(auth::pam != NULL); // PAM must be initialised
+  assert(auth::pam != 0); // PAM must be initialised
 
   // Store before chroot call.
   this->cwd = getcwd();
@@ -1226,6 +1239,11 @@ session::run_chroot (sbuild::chroot::ptr& session_chroot)
 	{
 	  log_exception_error(e);
 	}
+      catch (...)
+	{
+	  sbuild::log_error()
+	    << _("An unknown exception occurred") << std::endl;
+	}
       _exit (EXIT_FAILURE);
     }
   else
@@ -1277,5 +1295,5 @@ session::clear_signal_handler (int               signal,
 			       struct sigaction *saved_signal)
 {
   /* Restore original handler */
-  sigaction (signal, saved_signal, NULL);
+  sigaction (signal, saved_signal, 0);
 }

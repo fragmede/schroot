@@ -68,7 +68,7 @@ namespace sbuild
 	       T& parsed_value)
   {
     std::istringstream is(value);
-    is.imbue(std::locale("C"));
+    is.imbue(std::locale::classic());
     T tmpval;
     if (is >> tmpval)
       {
