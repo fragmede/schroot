@@ -68,8 +68,15 @@ main_base::action_config ()
       // Help text at head of new config.
       std::cout << "# " << endl
 		<< "# "
+		// TODO: Quote "users" and "groups".
+		// TRANSLATORS: Do not translate "users" and "groups";
+		// these are keywords used in the configuration file.
 		<< _("To allow users access to the chroots, use the users or groups keys.") << endl;
       std::cout << "# "
+		// TODO: Quote "root-users" and "root-groups".
+		// TRANSLATORS: Do not translate "root-users" and
+		// "root-groups"; these are keywords used in the
+		// configuration file.
 		<< _("To allow password-less root access, use the root-users or root-groups keys.") << endl;
       std::cout << "# "
 	// TRANSLATORS: %1% = file
@@ -98,6 +105,8 @@ main_base::compat_check ()
 	% this->program_name
 	<< endl;
       sbuild::log_info()
+        // TRANSLATORS: "capabilities" in this context means "full
+        // features"
 	<< _("Run \"schroot\" for full capabilities")
 	<< endl;
     }

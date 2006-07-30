@@ -20,8 +20,6 @@
 #ifndef SBUILD_TYPES_H
 #define SBUILD_TYPES_H
 
-#include <sbuild/sbuild-i18n.h>
-
 #include <cassert>
 #include <ctime>
 #include <ios>

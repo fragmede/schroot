@@ -1,5 +1,12 @@
 2006-07-30  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-types.cc: Include sbuild-i18n.h here, rather than
+	the header.
+
+	* Update translator comments.
+
+2006-07-30  Roger Leigh  <rleigh@debian.org>
+
 	* po/LINGUAS: Add cs.
 
 2006-07-30  Luk Claes  <luk@debian.org>

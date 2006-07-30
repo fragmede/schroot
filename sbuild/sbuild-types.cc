@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include "sbuild-types.h"
+#include <sbuild/sbuild-i18n.h>
 
 using namespace sbuild;
 
