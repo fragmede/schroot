@@ -52,7 +52,7 @@ AM_CONDITIONAL([BUILD_DCHROOT], [test "$enable_dchroot_compat" = "yes"])
 
 AC_MSG_CHECKING([whether to enable dchroot-dsa compatibility])
 enable_dchroot_dsa_compat="no"
-AC_ARG_ENABLE([dchroot-dsa], [AS_HELP_STRING([--enable-dchroot], [Enable dchroot-dsa compatibility])],
+AC_ARG_ENABLE([dchroot-dsa], [AS_HELP_STRING([--enable-dchroot-dsa], [Enable dchroot-dsa compatibility])],
               [ case "${enableval}" in
                 yes) enable_dchroot_dsa_compat="yes" ;;
                 no)  enable_dchroot_dsa_compat="no" ;;
