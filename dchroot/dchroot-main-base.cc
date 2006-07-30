@@ -105,7 +105,7 @@ main_base::compat_check ()
 	% this->program_name
 	<< endl;
       sbuild::log_info()
-        // TRANSLATORS: "capabilities" in this context means "full
+        // TRANSLATORS: "full capabilities" in this context means "all
         // features"
 	<< _("Run \"schroot\" for full capabilities")
 	<< endl;
