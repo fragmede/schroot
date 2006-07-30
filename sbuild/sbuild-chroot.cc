@@ -72,6 +72,7 @@ namespace
       emap(sbuild::chroot::FILE_STAT,       N_("Failed to stat file")),
       emap(sbuild::chroot::FILE_UNLOCK,     N_("Failed to discard file lock")),
       emap(sbuild::chroot::LOCATION_ABS,    N_("Location must have an absolute path")),
+      // TRANSLATORS: unlink refers to the C function which removes a file
       emap(sbuild::chroot::SESSION_UNLINK,  N_("Failed to unlink session file")),
       emap(sbuild::chroot::SESSION_WRITE,   N_("Failed to write session file"))
     };
@@ -466,6 +467,7 @@ sbuild::chroot::get_details (format_detail& detail) const
   if (!get_path().empty())
     detail.add(_("Path"), get_path());
   if (!get_mount_device().empty())
+    // TRANSLATORS: The system device node to mount containing the chroot
     detail.add(_("Mount Device"), get_mount_device());
 }
 

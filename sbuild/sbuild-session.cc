@@ -83,7 +83,13 @@ namespace
       emap(session::COMMAND_ABS,    N_("Command \"%1%\" must have an absolute path")),
       // TRANSLATORS: %1% = command
       emap(session::EXEC,           N_("Failed to execute \"%1%\"")),
+      // TRANSLATORS: A supplementary group is the list of additional
+      // system groups a user belongs to, in addition to their default
+      // group.
       emap(session::GROUP_GET_SUP,  N_("Failed to get supplementary groups")),
+      // TRANSLATORS: A supplementary group is the list of additional
+      // system groups a user belongs to, in addition to their default
+      // group.
       emap(session::GROUP_GET_SUPC, N_("Failed to get supplementary group count")),
       // TRANSLATORS: %1% = integer group ID
       emap(session::GROUP_SET,      N_("Failed to set group '%1%'")),

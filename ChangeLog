@@ -1,5 +1,13 @@
 2006-07-30  Roger Leigh  <rleigh@debian.org>
 
+	* Merge from schroot-1.0 branch.
+
+	* Update translator comments.
+
+	* Add sbuild/sbuild-types.cc.
+
+2006-07-30  Roger Leigh  <rleigh@debian.org>
+
 	* po/LINGUAS: Add cs.
 
 2006-07-30  Luk Claes  <luk@debian.org>
