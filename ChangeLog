@@ -1,5 +1,9 @@
 2006-07-30  Roger Leigh  <rleigh@debian.org>
 
+	* Update translations.
+
+2006-07-30  Roger Leigh  <rleigh@debian.org>
+
 	* configure.ac: Fix --enable-dchroot-dsa help string.  Thanks to
 	Jens Seidel <jensseidel@users.sf.net> for reporting this.
 
