@@ -1,5 +1,9 @@
 2006-07-30  Roger Leigh  <rleigh@debian.org>
 
+	* Merge translations from schroot-1.0 branch.
+
+2006-07-30  Roger Leigh  <rleigh@debian.org>
+
 	* Merge from schroot-1.0 branch.
 
 	* configure.ac: Fix --enable-dchroot-dsa help string.  Thanks to

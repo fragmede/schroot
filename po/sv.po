@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-07-29 21:10+0100\n"
+"POT-Creation-Date: 2006-07-30 12:18+0100\n"
 "PO-Revision-Date: 2006-07-19 23:13+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -959,9 +959,21 @@ msgstr "steg=%1%"
 msgid "terminating immediately"
 msgstr "(avslutar omedelbart)"
 
+#. TRANSLATORS: Format string for date representation:
+#. %d = day (number, e.g. 14)
+#. %b = month (three letters, e.g. Jul)
+#. %Y = year (four digits, e.g. 2006)
+#. If required, any of the standard strftime(3)
+#. format specifiers may be used instead, as long as
+#. the day, month and year are clearly displayed in
+#. the equivalent standard method for your locale.
+#: sbuild/sbuild-types.cc:37
+msgid "%d %b %Y"
+msgstr ""
+
 #. TRANSLATORS: %1% = program name
 #. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %2% = release date
+#. TRANSLATORS: %3% = release date
 #: schroot/schroot-base-main.cc:60
 #, boost-format
 msgid "%1% (Debian sbuild) %2% (%3%)\n"
@@ -1129,7 +1141,8 @@ msgid "Command to run"
 msgstr "Kommando att köra"
 
 #: schroot/schroot-options-base.cc:158
-msgid "Only one chroot may be specified when beginning a session"
+#, fuzzy
+msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "Endast en chroot får anges vid början av en session"
 
 #: schroot/schroot-options-base.cc:184
