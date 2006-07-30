@@ -87,6 +87,7 @@ sbuild_public_cc_sources =		\
 	sbuild-personality.cc		\
 	sbuild-run-parts.cc		\
 	sbuild-session.cc		\
+	sbuild-types.cc			\
 	sbuild-util.cc
 
 libsbuild_la_SOURCES =			\

@@ -56,7 +56,7 @@ main::action_version (std::ostream& stream)
 {
   // TRANSLATORS: %1% = program name
   // TRANSLATORS: %2% = program version
-  // TRANSLATORS: %2% = release date
+  // TRANSLATORS: %3% = release date
   format fmt(_("%1% (Debian sbuild) %2% (%3%)\n"));
   fmt % this->program_name % VERSION % sbuild::gmdate(RELEASE_DATE);
 

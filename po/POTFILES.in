@@ -34,6 +34,7 @@ sbuild/sbuild-parse-value.cc
 sbuild/sbuild-personality.cc
 sbuild/sbuild-run-parts.cc
 sbuild/sbuild-session.cc
+sbuild/sbuild-types.cc
 sbuild/sbuild-util.cc
 schroot/schroot-base-main.cc
 schroot/schroot-base-options.cc

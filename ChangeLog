@@ -1,3 +1,26 @@
+2006-07-30  Roger Leigh  <rleigh@debian.org>
+
+	* configure.ac: Fix --enable-dchroot-dsa help string.  Thanks to
+	Jens Seidel <jensseidel@users.sf.net> for reporting this.
+
+	* schroot/schroot-options-base.cc
+	(check_actions): Clarify error message when starting a session,
+	and the number of chroots specified is not 1.  Thanks to Jens
+	Seidel <jensseidel@users.sf.net> for reporting this.
+
+	* schroot/schroot-base-main.cc
+	(action_version): Fix translator comment.  Thanks to Jens Seidel
+	<jensseidel@users.sf.net> for reporting this.
+
+	* sbuild/Makefile.am
+	(sbuild_public_cc_sources): Add sbuild-types.cc.
+
+	* sbuild/sbuild-types.cc: New file.
+	(get_date_format): Get a localised strftime format string.
+
+	* sbuild/sbuild-types.h (operator <<): Allow localisation of the
+	std::time_put format string.
+
 2006-07-29  Roger Leigh  <rleigh@debian.org>
 
 	* debian/copyright: Add location of SVN schroot-1.0 branch.

@@ -20,6 +20,9 @@
 #ifndef SBUILD_TYPES_H
 #define SBUILD_TYPES_H
 
+#include <sbuild/sbuild-i18n.h>
+
+#include <cassert>
 #include <ctime>
 #include <ios>
 #include <locale>
@@ -84,16 +87,22 @@ namespace sbuild
 	      typename std::basic_ostream<charT, traits>::sentry sentry(stream);
 	      if (sentry)
 		{
-		  const char nfmt[] = "%d %b %Y";
-		  charT wfmt[sizeof(nfmt)/sizeof(nfmt[0])];
+		  const std::basic_string<char>
+		    nfmt(date_base::get_date_format());
+		  std::basic_string<charT> wfmt(nfmt.size(), 0);
+		  assert(nfmt.size() == wfmt.size());
+		  const char *nptr = nfmt.c_str();
+		  charT *wptr = const_cast<charT *>(wfmt.c_str());
+
 		  std::use_facet<std::ctype<charT> >(stream.getloc())
-		    .widen(nfmt, nfmt + (sizeof(nfmt)/sizeof(nfmt[0])) - 1, wfmt);
+		    .widen(nptr, nptr + nfmt.size(), wptr);
 
 		  typedef std::time_put<charT,std::ostreambuf_iterator<charT,traits> >
 		    time_type;
 		  if (std::use_facet<time_type>(stream.getloc())
 		      .put(stream, stream, stream.fill(),
-			   &dtm, wfmt + 0, wfmt + sizeof(wfmt)/sizeof(wfmt[0]) - 1)
+			   &dtm,
+			   wptr, wptr + wfmt.size())
 		      .failed())
 		    {
 		      err = std::ios_base::badbit;
@@ -124,6 +133,15 @@ namespace sbuild
     }
 
   private:
+    /**
+     * Get the date formatting string.  This is used for output with
+     * the locale std::time_put facet.
+     *
+     * @returns a localised format string.
+     */
+    static const char *
+    get_date_format ();
+
     /// The time.
     time_t          unix_time;
     /// The function to split up the time.
