@@ -258,7 +258,13 @@ list:
 .br
 <buildd-tools-devel@lists.alioth.debian.org>\fP
 .SH BUGS
-None known at this time.
+On the \fBmips\fP and \fBmipsel\fP architectures, Linux kernels up to and
+including at least version 2.6.17 have broken
+.BR personality (2)
+support, which results in a failure to set the personality.  This will be seen
+as an \[lq]Operation not permitted\[rq] (EPERM) error.  To work around this
+problem, set \f[CI]personality\fP to \[oq]undefined\[cq], or upgrade to a more
+recent kernel.
 .SH FILES
 .TP
 \f[BI]@DCHROOT_CONF@\fP
