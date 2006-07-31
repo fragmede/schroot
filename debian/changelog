@@ -11,7 +11,7 @@ schroot (1.0.0-1) unstable; urgency=low
   * po/de.po: New German translation, thanks to Jens Seidel
     (Closes: #379483).
 
- -- Roger Leigh <rleigh@debian.org>  Thu, 27 Jul 2006 11:35:55 +0100
+ -- Roger Leigh <rleigh@debian.org>  Mon, 31 Jul 2006 11:58:08 +0100
 
 schroot (0.99.4-1) unstable; urgency=low
 

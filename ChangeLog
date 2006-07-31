@@ -1,5 +1,11 @@
 2006-07-31  Roger Leigh  <rleigh@debian.org>
 
+	* Version 1.0.0.
+
+	* debian/changelog: Update for 1.0.0.
+
+2006-07-31  Roger Leigh  <rleigh@debian.org>
+
 	* Merge from trunk.
 
 	* schroot/schroot.1.in, dchroot/dchroot.1.in: Document mips and
