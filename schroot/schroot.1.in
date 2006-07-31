@@ -237,7 +237,8 @@ list:
 On the mips and mipsel architectures, Linux kernels up to and including at
 least version 2.6.17 have broken personality support, which results in a
 failure to set the personality.  To work around this problem, set
-\f[CI]personality\fP to \[oq]undefined\[cq].
+\f[CI]personality\fP to \[oq]undefined\[cq], or upgrade to a more recent
+kernel.
 .SH ENVIRONMENT
 By default, the environment is not preserved, and the following environment
 variables are defined: HOME, LOGNAME, PATH, SHELL, TERM (preserved if already

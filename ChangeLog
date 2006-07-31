@@ -1,3 +1,8 @@
+2006-07-31  Roger Leigh  <rleigh@debian.org>
+
+	* schroot/setup/50chrootname: Name in log message always matches
+	debian_chroot chrootname.
+
 2006-07-30  Roger Leigh  <rleigh@debian.org>
 
 	* Merge from schroot-1.0 branch.
