@@ -55,7 +55,7 @@ namespace sbuild
       {
 	ALIAS_EXIST,     ///< Alias already associated with chroot.
 	CHROOT_NOTFOUND, ///< No such chroot.
-	CHROOT_EXIST,    ///< A chroot or alias already exists by this name.
+	CHROOT_EXIST,    ///< A chroot or alias already exists with this name.
 	DIR_OPEN,        ///< Failed to open directory.
 	FILE_NOTREG,     ///< File is not a regular file.
 	FILE_OPEN,       ///< Failed to open file.

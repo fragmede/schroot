@@ -1,5 +1,10 @@
 2006-07-31  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-chroot-config.cc: Use "by", rather than "with"
+	when referring to chroot name.
+
+2006-07-31  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot.1.in, dchroot/dchroot.1.in: Document mips and
 	mipsel personality bug.
 
