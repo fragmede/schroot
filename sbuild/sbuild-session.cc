@@ -1133,7 +1133,10 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 			  << std::endl;
 
   /* Set up environment */
-  environment env = get_pam_environment();
+  environment env;
+  env.set_filter(session_chroot->get_environment_filter());
+  env += get_pam_environment();
+
   log_debug(DEBUG_INFO) << "Set environment:\n" << env;
 
   // The user's command does not use our syslog fd.
