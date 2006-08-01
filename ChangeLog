@@ -1,5 +1,15 @@
 2006-08-01  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-auth.h (sbuild): Document that the environment
+	sanitisation is no longer performed, and this is the caller's
+	responsibility.
+
+	* sbuild/sbuild-auth.cc (setupenv): Remove environment
+	sanitisation logic, now this is handled in the session code, using
+	the chroot and environment filter logic.
+
+2006-08-01  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-session.cc (run_child): Use the chroot
 	environment_filter when setting the chroot execution environment.
 

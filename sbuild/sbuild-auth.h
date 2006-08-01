@@ -340,10 +340,8 @@ namespace sbuild
      *
      * An error will be thrown on failure.
      *
-     * @todo Support custom filtering of the environment, rather than
-     * hardcoding.  Use regular expressions.  Also add additional
-     * per-chroot environment filtering, and an "environment-filter"
-     * option in the config file.
+     * Note that the environment is not sanitised in any way.  This is
+     * the responsibility of the user.
      */
     void
     setupenv ();

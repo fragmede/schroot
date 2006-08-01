@@ -558,38 +558,6 @@ auth::setupenv ()
 	environment.add(std::make_pair("SHELL", this->shell));
     }
 
-  // Sanitise environment.
-  environment.remove("BASH_ENV");
-  environment.remove("CDPATH");
-  environment.remove("ENV");
-  environment.remove("HOSTALIASES");
-  environment.remove("IFS");
-  environment.remove("KRB5_CONFIG");
-  environment.remove("KRBCONFDIR");
-  environment.remove("KRBTKFILE");
-  environment.remove("KRB_CONF");
-  environment.remove("LOCALDOMAIN");
-  environment.remove("NLSPATH");
-  environment.remove("PATH_LOCALE");
-  environment.remove("RES_OPTIONS");
-  environment.remove("TERMINFO");
-  environment.remove("TERMINFO_DIRS");
-  environment.remove("TERMPATH");
-
-  // Find and remove LD_.*,
-  string_list ldvars;
-  for (environment::const_iterator cur = environment.begin();
-       cur != environment.end();)
-    {
-      environment::const_iterator next = cur;
-      next++;
-
-      if (cur->first.substr(0,3) == "LD_")
-	environment.remove(cur->first);
-
-      cur = next;
-    }
-
   // Move into PAM environment.
   for (environment::const_iterator cur = environment.begin();
        cur != environment.end();
