@@ -48,6 +48,8 @@ class test_environment : public TestFixture
   CPPUNIT_TEST(test_operator_plus_equals);
   CPPUNIT_TEST(test_operator_minus);
   CPPUNIT_TEST(test_operator_minus_equals);
+  CPPUNIT_TEST(test_add_filter);
+  CPPUNIT_TEST(test_filter);
   CPPUNIT_TEST(test_output);
   CPPUNIT_TEST_SUITE_END();
 
@@ -335,6 +337,35 @@ public:
     sbuild::environment::value_type val("COLUMNS", "80");
     e2 -= val;
     CPPUNIT_ASSERT(e2 == *this->half_env);
+  }
+
+  void test_add_filter()
+  {
+    sbuild::regex f("^FOO|BAR$");
+
+    sbuild::environment e;
+    e.set_filter(f);
+
+    CPPUNIT_ASSERT(f.compare(e.get_filter()) == 0);
+  }
+
+  void test_filter()
+  {
+    sbuild::regex f("^FOO|BAR$");
+
+    sbuild::environment e;
+    e.set_filter(f);
+
+    e.add("FOO=bar");
+    e.add("BAR=baz");
+    e.add("BAZ=bat");
+    e.add("BAT=bah");
+
+    std::string value;
+    CPPUNIT_ASSERT(e.get("FOO", value) == false);
+    CPPUNIT_ASSERT(e.get("BAR", value) == false);
+    CPPUNIT_ASSERT(e.get("BAZ", value) && value == "bat");
+    CPPUNIT_ASSERT(e.get("BAT", value) && value == "bah");
   }
 
   void test_output()

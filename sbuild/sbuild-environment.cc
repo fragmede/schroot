@@ -25,7 +25,8 @@ using boost::format;
 using namespace sbuild;
 
 environment::environment ():
-  std::map<std::string,std::string>()
+  std::map<std::string,std::string>(),
+  filter()
 {
 }
 
@@ -37,6 +38,18 @@ environment::environment (char **environment):
 
 environment::~environment ()
 {
+}
+
+void
+environment::set_filter (regex const& filter)
+{
+  this->filter = filter;
+}
+
+regex const&
+environment::get_filter () const
+{
+  return this->filter;
 }
 
 void
@@ -80,8 +93,15 @@ void
 environment::add (value_type const& value)
 {
   remove(value);
-  if (!value.second.empty())
-    insert(value);
+  if (!value.first.empty() && !value.second.empty())
+    {
+      if (this->filter.str().empty() ||
+	  !regex_match(value.first, this->filter))
+	insert(value);
+      else
+	log_debug(DEBUG_INFO) << "Filtered from environment: " << value.first
+			      << std::endl;
+    }
 }
 
 void

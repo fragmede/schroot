@@ -22,6 +22,7 @@
 
 #include <sbuild/sbuild-log.h>
 #include <sbuild/sbuild-parse-value.h>
+#include <sbuild/sbuild-regex.h>
 
 #include <map>
 #include <string>
@@ -34,10 +35,6 @@ namespace sbuild
 
   /**
    * Container of environment variables.
-   *
-   * @todo Add filter to prevent addition of "unsafe" environment
-   * variables, use regex.  This might be with a derived class
-   * (destructor would need to be virtual).
    */
   class environment : public std::map<std::string, std::string>
   {
@@ -56,6 +53,27 @@ namespace sbuild
 
     /// The destructor.
     ~environment ();
+
+    /**
+     * Set environment filter.  If the environment variable name
+     * matches the regex when add() is called, addition will be .
+     *
+     * The default filter is to allow all strings.
+     *
+     * If the regex contains errors, an exception will be thrown.
+     *
+     * @param filter the filter regex.
+     */
+    void
+    set_filter (regex const& filter);
+
+    /**
+     * Get environment filter.
+     *
+     * @returns the filter regex.
+     */
+    regex const&
+    get_filter () const;
 
     /**
      * Add environment variables.  Any existing variables sharing the
@@ -216,7 +234,7 @@ namespace sbuild
      */
     template <typename T>
     environment&
-    operator += (T& rhs)
+    operator += (T const& rhs)
     {
       add(rhs);
       return *this;
@@ -230,7 +248,7 @@ namespace sbuild
      */
     template <typename T>
     environment&
-    operator -= (T& rhs)
+    operator -= (T const& rhs)
     {
       remove(rhs);
       return *this;
@@ -292,6 +310,10 @@ namespace sbuild
 
       return stream;
     }
+
+  private:
+    /// Filter regex.
+    regex filter;
   };
 
 }

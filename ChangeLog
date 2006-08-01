@@ -1,5 +1,19 @@
 2006-08-01  Roger Leigh  <rleigh@debian.org>
 
+	* test/sbuild-environment.cc: Add regex filter tests.
+
+	* sbuild/sbuild-environment.cc
+	(set_filter): Set filter regex.
+	(get_filter): Get filter regex.
+	(add): Check environment variable name does not match the regex
+	before adding it.
+
+	* sbuild/sbuild-environment.h: Add filter member, a regular
+	expression to filter the environment.  All operators take a const
+	reference as the right-hand side argument.
+
+2006-08-01  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-run-parts.cc
 	(check_filename): Use sbuild::regex in place of boost::regex.
 
