@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2006-07-30 23:02+0100\n"
-"PO-Revision-Date: 2006-07-30 16:31+0200\n"
+"PO-Revision-Date: 2006-07-31 22:25+0200\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -34,8 +34,8 @@ msgstr "nastavení schroot vytvořeno programem %1% %2% %3%"
 #: dchroot/dchroot-main-base.cc:74
 msgid "To allow users access to the chroots, use the users or groups keys."
 msgstr ""
-"Abyste uživatelům umožnili přístup do chrootů, použijte uživatelské nebo "
-"skupinové klíče."
+"Abyste uživatelům umožnili přístup do chrootů, použijte v konfiguračním "
+"souboru klíčová slova users nebo groups."
 
 #. TRANSLATORS: Do not translate "root-users" and
 #. "root-groups"; these are keywords used in the
@@ -44,8 +44,8 @@ msgstr ""
 msgid ""
 "To allow password-less root access, use the root-users or root-groups keys."
 msgstr ""
-"Pro rootovský přístup bez hesla použijte klíče uživatele root nebo skupiny "
-"root."
+"Pro rootovský přístup bez hesla použijte v konfiguračním souboru klíčová "
+"slova root-users nebo root-groups."
 
 #. TRANSLATORS: %1% = file
 #: dchroot/dchroot-main-base.cc:83 dchroot/dchroot-main-base.cc:142
@@ -388,7 +388,7 @@ msgstr "Cesta"
 #. TRANSLATORS: The system device node to mount containing the chroot
 #: sbuild/sbuild-chroot.cc:471
 msgid "Mount Device"
-msgstr "Přípojné zařízení"
+msgstr "Přípojit zařízení"
 
 #: sbuild/sbuild-chroot.cc:477
 msgid "Session"
