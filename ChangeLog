@@ -1,5 +1,10 @@
 2006-08-01  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-run-parts.cc
+	(check_filename): Use sbuild::regex in place of boost::regex.
+
+2006-08-01  Roger Leigh  <rleigh@debian.org>
+
 	* test/Makefile.am (TESTS): Add sbuild-regex.
 
 	* test/sbuild-regex.cc: New file.  sbuild::regex unit tests.

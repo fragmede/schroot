@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include "sbuild-dirstream.h"
+#include "sbuild-regex.h"
 #include "sbuild-run-parts.h"
 #include "sbuild-util.h"
 
@@ -28,10 +29,8 @@
 #include <sys/wait.h>
 
 #include <boost/format.hpp>
-#include <boost/regex.hpp>
 
 using boost::format;
-using boost::regex;
 using namespace sbuild;
 
 namespace
@@ -246,13 +245,10 @@ run_parts::check_filename (std::string const& name)
 
   if (this->lsb_mode)
     {
-      static regex lanana_namespace("^[a-z0-9]+$", boost::regex::basic);
-      static regex lsb_namespace("^_?([a-z0-9_.]+-)+[a-z0-9]+$",
-				 boost::regex::basic);
-      static regex debian_cron_namespace("^[a-z0-9][a-z0-9-]*$",
-					 boost::regex::basic);
-      static regex debian_dpkg_conffile_cruft("dpkg-(old|dist|new|tmp)$",
-					      boost::regex::extended);
+      static regex lanana_namespace("^[a-z0-9]+$");
+      static regex lsb_namespace("^_?([a-z0-9_.]+-)+[a-z0-9]+$");
+      static regex debian_cron_namespace("^[a-z0-9][a-z0-9-]*$");
+      static regex debian_dpkg_conffile_cruft("dpkg-(old|dist|new|tmp)$");
 
       if ((regex_match(name, lanana_namespace) ||
 	   regex_match(name, lsb_namespace) ||
@@ -262,8 +258,7 @@ run_parts::check_filename (std::string const& name)
     }
   else
     {
-      static regex traditional_namespace("^[a-zA-Z0-9_-]$",
-					 boost::regex::basic);
+      static regex traditional_namespace("^[a-zA-Z0-9_-]$");
       if (regex_match(name, traditional_namespace))
 	match = true;
     }
