@@ -1,3 +1,16 @@
+2006-08-01  Roger Leigh  <rleigh@debian.org>
+
+	* test/Makefile.am (TESTS): Add sbuild-regex.
+
+	* test/sbuild-regex.cc: New file.  sbuild::regex unit tests.
+
+	* sbuild/Makefile.am
+	(sbuild_public_h_sources): Add sbuild-regex.h.
+
+	* sbuild/sbuild-regex.h: New file.  POSIX extended regular
+	expression class, based on boost::regex.  It supports input and
+	output from streams.
+
 2006-08-01  Luk Claes  <luk@debian.org>
 
 	* po/cs.po: Update Czech translation.

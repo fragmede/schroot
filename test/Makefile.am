@@ -38,6 +38,7 @@ noinst_PROGRAMS = 		\
 	sbuild-nostream		\
 	sbuild-parse-value	\
 	sbuild-personality	\
+	sbuild-regex		\
 	sbuild-run-parts	\
 	sbuild-util
 
@@ -54,6 +55,7 @@ TESTS = setup-test-data		\
 	sbuild-parse-value	\
 	sbuild-personality	\
 	sbuild-run-parts	\
+	sbuild-regex		\
 	sbuild-util		\
 	cleanup-test-data
 endif
@@ -98,6 +100,9 @@ sbuild_parse_value_LDADD = libtest.la
 
 sbuild_personality_SOURCES = sbuild-personality.cc
 sbuild_personality_LDADD = libtest.la
+
+sbuild_regex_SOURCES = sbuild-regex.cc
+sbuild_regex_LDADD = libtest.la
 
 sbuild_run_parts_SOURCES = sbuild-run-parts.cc
 sbuild_run_parts_LDADD = libtest.la

@@ -56,6 +56,7 @@ sbuild_public_h_sources =		\
 	sbuild-parse-error.h		\
 	sbuild-parse-value.h		\
 	sbuild-personality.h		\
+	sbuild-regex.h			\
 	sbuild-run-parts.h		\
 	sbuild-session.h		\
 	sbuild-types.h			\
