@@ -94,6 +94,7 @@ sbuild::chroot::chroot ():
   root_users(),
   root_groups(),
   aliases(),
+  environment_filter("^(BASH_ENV|CDPATH|ENV|HOSTALIASES|IFS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMAIN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TERMPATH)$"),
   mount_location(),
   location(),
   mount_device(),
@@ -285,6 +286,18 @@ sbuild::chroot::set_aliases (string_list const& aliases)
   this->aliases = aliases;
 }
 
+regex const&
+sbuild::chroot::get_environment_filter () const
+{
+  return this->environment_filter;
+}
+
+void
+sbuild::chroot::set_environment_filter (regex const& environment_filter)
+{
+  this->environment_filter = environment_filter;
+}
+
 bool
 sbuild::chroot::get_active () const
 {
@@ -448,6 +461,7 @@ sbuild::chroot::get_details (format_detail& detail) const
     .add(_("Root Users"), get_root_users())
     .add(_("Root Groups"), get_root_groups())
     .add(_("Aliases"), get_aliases())
+    .add(_("Environment Filter"), get_environment_filter())
     .add(_("Run Setup Scripts"), get_run_setup_scripts())
     .add(_("Run Execution Scripts"),
 	 get_run_exec_scripts())
@@ -504,6 +518,9 @@ sbuild::chroot::get_keyfile (keyfile& keyfile) const
 
   keyfile::set_object_list_value(*this, &chroot::get_aliases,
 				 keyfile, get_name(), "aliases");
+
+  keyfile::set_object_value(*this, &chroot::get_environment_filter,
+			    keyfile, get_name(), "environment-filter");
 
   keyfile::set_object_value(*this, &chroot::get_description,
 			    keyfile, get_name(), "description");
@@ -562,6 +579,10 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
   keyfile::get_object_list_value(*this, &chroot::set_aliases,
 				 keyfile, get_name(), "aliases",
 				 keyfile::PRIORITY_OPTIONAL);
+
+  keyfile::get_object_value(*this, &chroot::set_environment_filter,
+			    keyfile, get_name(), "environment-filter",
+			    keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_value(*this, &chroot::set_description,
 			    keyfile, get_name(), "description",

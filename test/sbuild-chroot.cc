@@ -78,6 +78,7 @@ class test_chroot : public test_chroot_base<basic_chroot>
   CPPUNIT_TEST(test_groups);
   CPPUNIT_TEST(test_root_groups);
   CPPUNIT_TEST(test_aliases);
+  CPPUNIT_TEST(test_environment_filter);
   CPPUNIT_TEST(test_active);
   CPPUNIT_TEST(test_run_setup_scripts);
   CPPUNIT_TEST(test_run_exec_scripts);
@@ -162,6 +163,15 @@ public:
 	      aliases,
 	      &sbuild::chroot::get_aliases,
 	      &sbuild::chroot::set_aliases);
+  }
+
+  void test_environment_filter()
+  {
+    sbuild::regex r("foo|bar|baz");
+
+    chroot->set_environment_filter(r);
+
+    CPPUNIT_ASSERT(chroot->get_environment_filter().compare(r) == 0);
   }
 
   void test_active()

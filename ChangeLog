@@ -1,10 +1,26 @@
+2006-08-01  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* test/sbuild-chroot.cc: Add environment_filter test.
+
+	* sbuild/sbuild-chroot.cc
+	(get_environment_filter): New method.  Get the environment filter
+	regex.
+	(set_environment_filter): New method.  Set the environment filter
+	regex.
+	(get_details): Add "Environment Filter" line.
+	(get_keyfile): Set "environment-filter" key.
+	(set_keyfile): Get "environment-filter" key.
+
+	* sbuild/sbuild-chroot.h: Add environment_filter member, a regular
+	expression to filter the environment inside the chroot.
+
 2006-08-01  Roger Leigh  <rleigh@debian.org>
 
 	* test/sbuild-environment.cc: Add regex filter tests.
 
 	* sbuild/sbuild-environment.cc
-	(set_filter): Set filter regex.
-	(get_filter): Get filter regex.
+	(set_filter): New method.  Set filter regex.
+	(get_filter): New method.  Get filter regex.
 	(add): Check environment variable name does not match the regex
 	before adding it.
 

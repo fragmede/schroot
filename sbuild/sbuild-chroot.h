@@ -25,6 +25,7 @@
 #include <sbuild/sbuild-format-detail.h>
 #include <sbuild/sbuild-keyfile.h>
 #include <sbuild/sbuild-personality.h>
+#include <sbuild/sbuild-regex.h>
 #include <sbuild/sbuild-tr1types.h>
 
 #include <ostream>
@@ -322,6 +323,26 @@ namespace sbuild
     set_aliases (string_list const& aliases);
 
     /**
+     * Get the environment filter of the chroot.  This is a POSIX
+     * extended regular expression used to remove insecure environment
+     * variables from the chroot environment.
+     *
+     * @returns the filter
+     */
+    regex const&
+    get_environment_filter () const;
+
+    /**
+     * Get the environment filter of the chroot.  This is a POSIX
+     * extended regular expression used to remove insecure environment
+     * variables from the chroot environment.
+     *
+     * @param environment_filter the filter.
+     */
+    void
+    set_environment_filter (regex const& environment_filter);
+
+    /**
      * Get the activity status of the chroot.
      *
      * @returns true if active, false if inactive
@@ -605,6 +626,8 @@ namespace sbuild
     string_list   root_groups;
     /// Alternative names for the chroot.
     string_list   aliases;
+    /// Environment filter regex.
+    regex         environment_filter;
     /// Location to mount chroot in the filesystem (if any).
     std::string   mount_location;
     /// Location inside the mount location root.
