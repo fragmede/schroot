@@ -1,3 +1,7 @@
+2006-08-02  Luk Claes  <luk@debian.org>
+
+	* po/sv.po: Update Swedish translation.
+
 2006-08-01  Roger Leigh  <rleigh@debian.org>
 
 	* sbuild/sbuild-auth.h (sbuild): Document that the environment
