@@ -188,7 +188,7 @@ sbuild::chroot::get_location () const
 void
 sbuild::chroot::set_location (std::string const& location)
 {
-  if (!is_absname(location))
+  if (!location.empty() && !is_absname(location))
     throw error(location, LOCATION_ABS);
 
   this->location = location;
