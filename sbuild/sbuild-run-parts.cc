@@ -223,7 +223,7 @@ run_parts::wait_for_child (pid_t pid,
 
   while (1)
     {
-      if (wait(&status) != pid)
+      if (waitpid(pid, &status, 0) == -1)
 	{
 	  if (errno == EINTR)
 	    continue; // Wait again.

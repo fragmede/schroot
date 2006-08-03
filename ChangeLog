@@ -1,5 +1,16 @@
 2006-08-03  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-run-parts.h, sbuild/sbuild-session.h: Remove
+	completed TODO items.
+
+	* sbuild/sbuild-session.cc (wait_for_child): Use waitpid in place
+	of wait.
+
+	* sbuild/sbuild-run-parts.cc (wait_for_child): Use waitpid in
+	place of wait.
+
+2006-08-03  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-chroot.cc
 	(set_location): Be less strict when validating the location;
 	strict validation is already performed in derived chroot types.

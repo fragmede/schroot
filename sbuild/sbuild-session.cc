@@ -1190,7 +1190,7 @@ session::wait_for_child (pid_t pid,
 	  child_killed = true;
 	}
 
-      if (wait(&status) != pid)
+      if (waitpid(pid, &status, 0) == -1)
 	{
 	  if (errno == EINTR && (sighup_called || sigterm_called))
 	    continue; // Kill child and wait again.
