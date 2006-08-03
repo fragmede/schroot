@@ -1,5 +1,9 @@
 2006-08-03  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Close #381271.
+
+2006-08-03  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-chroot.cc
 	(set_location): Be less strict when validating the location;
 	strict validation is already performed in derived chroot types.
