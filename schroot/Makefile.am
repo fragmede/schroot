@@ -29,7 +29,7 @@ pkglibexecdir = $(SCHROOT_LIBEXEC_DIR)
 
 LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS)
 
-DEFS = -DGETTEXT_PACKAGE=\"schroot\" -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
+DEFS = -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
 
 noinst_LTLIBRARIES = libschroot-base.la libschroot.la
 

@@ -102,4 +102,10 @@ sbuild::log_exception_error (std::exception const& e)
     }
 }
 
+void
+sbuild::log_unknown_exception_error ()
+{
+  log_error() << _("An unknown exception occurred") << std::endl;
+}
+
 sbuild::DebugLevel sbuild::debug_level = sbuild::DEBUG_NONE;

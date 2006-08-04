@@ -86,6 +86,12 @@ namespace sbuild
   void
   log_exception_error (std::exception const& e);
 
+  /**
+   * Log an unknown exception as an error.
+   */
+  void
+  log_unknown_exception_error ();
+
   /// The debugging level in use.
   extern DebugLevel debug_level;
 

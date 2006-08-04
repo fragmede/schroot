@@ -28,7 +28,6 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include <locale>
 
 #include <syslog.h>
 
@@ -36,6 +35,7 @@
 
 using std::endl;
 using boost::format;
+using sbuild::_;
 using namespace schroot_base;
 
 main::main (std::string const&  program_name,

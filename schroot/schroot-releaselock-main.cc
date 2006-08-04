@@ -37,6 +37,8 @@
 
 using std::endl;
 using boost::format;
+using sbuild::_;
+using sbuild::N_;
 using namespace schroot_releaselock;
 
 namespace

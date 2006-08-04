@@ -38,6 +38,7 @@
 
 using std::endl;
 using boost::format;
+using sbuild::_;
 using schroot::options_base;
 using namespace dchroot;
 

@@ -33,6 +33,7 @@
 #include <boost/format.hpp>
 
 using std::endl;
+using sbuild::_;
 using sbuild::keyfile;
 using boost::format;
 using namespace dchroot;

@@ -40,6 +40,7 @@
 
 using std::endl;
 using boost::format;
+using sbuild::N_;
 using namespace schroot_listmounts;
 
 namespace

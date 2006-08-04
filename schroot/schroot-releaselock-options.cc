@@ -31,6 +31,7 @@
 
 using std::endl;
 using boost::format;
+using sbuild::_;
 namespace opt = boost::program_options;
 using namespace schroot_releaselock;
 

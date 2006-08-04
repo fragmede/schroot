@@ -35,6 +35,7 @@
 #include <boost/format.hpp>
 
 using std::endl;
+using sbuild::N_;
 using boost::format;
 using schroot::options_base;
 using namespace dchroot;

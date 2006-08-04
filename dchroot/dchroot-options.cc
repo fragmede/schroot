@@ -28,6 +28,7 @@
 #include <boost/program_options.hpp>
 
 using std::endl;
+using sbuild::_;
 using boost::format;
 namespace opt = boost::program_options;
 using namespace dchroot;

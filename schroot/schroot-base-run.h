@@ -22,6 +22,8 @@
 
 #include <schroot/schroot-base-options.h>
 
+#include <sbuild/sbuild-config.h>
+
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -53,8 +55,8 @@ namespace schroot_base
 	std::cout.imbue(std::locale());
 	std::cerr.imbue(std::locale());
 
-	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
-	textdomain (GETTEXT_PACKAGE);
+	bindtextdomain (SBUILD_MESSAGE_CATALOGUE, LOCALEDIR);
+	textdomain (SBUILD_MESSAGE_CATALOGUE);
 
 	typename options_type::ptr opts(new options_type);
 	main_type kit(opts);
@@ -67,7 +69,7 @@ namespace schroot_base
       }
     catch (...)
       {
-	sbuild::log_error() << _("An unknown exception occurred") << std::endl;
+	sbuild::log_unknown_exception_error();
 	exit(EXIT_FAILURE);
       }
   }

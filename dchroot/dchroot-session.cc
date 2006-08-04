@@ -38,6 +38,7 @@
 
 using std::cout;
 using std::endl;
+using sbuild::_;
 using boost::format;
 using namespace dchroot;
 

@@ -42,6 +42,8 @@
 /* Define to 1 if you have the <tr1/tuple> header file. */
 #undef HAVE_TR1_TUPLE
 
+#define SBUILD_MESSAGE_CATALOGUE "schroot"
+
 #endif /* SBUILD_H */
 
 /*

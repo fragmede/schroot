@@ -1,3 +1,29 @@
+2006-08-04  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* All Makefile.am
+	(DEFS): Don't use -DGETTEXT_PACKAGE.
+
+	* All sources not using the sbuild namespace import sbuild::_ and
+	sbuild::N_ where needed.
+
+	* schroot/schroot-base-run.h): Use SBUILD_MESSAGE_CATALOGUE in
+	place of GETTEXT_PACKAGE.  Use sbuild::log_unknown_exception_error
+	instead of calling log_error directly.
+
+	* sbuild/sbuild-i18n.h
+	(gettext, _, gettext_noop, N_): These are all inline functions in
+	the sbuild namespace instead of global macros.  gettext uses
+	dgettext with SBUILD_MESSAGE_CATALOGUE.
+	Remove completed TODO item.
+
+	* sbuild/sbuild-config.h.in
+	(SBUILD_MESSAGE_CATALOGUE): New macro, defining the message
+	catalogue name.
+
+	* sbuild/sbuild-log.cc
+	(log_unknown_exception_error): New function to log an error
+	message for unknown exceptions.
+
 2006-08-04  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot-releaselock-main.cc
