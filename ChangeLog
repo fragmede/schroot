@@ -1,3 +1,11 @@
+2006-08-04  Roger Leigh  <rleigh@debian.org>
+
+	* sbuild/sbuild-chroot-config.h (error_code): Remove unused
+	DIR_OPEN enum.
+
+	* sbuild/sbuild-chroot-config.cc (add_config_directory): Use
+	sbuild::dirstream in place of opendir/readdir/closedir.
+
 2006-08-03  Roger Leigh  <rleigh@debian.org>
 
 	* sbuild/sbuild-run-parts.h, sbuild/sbuild-session.h: Remove

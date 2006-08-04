@@ -22,6 +22,7 @@
 #include "sbuild-chroot.h"
 #include "sbuild-chroot-source.h"
 #include "sbuild-chroot-config.h"
+#include "sbuild-dirstream.h"
 #include "sbuild-lock.h"
 
 #include <cerrno>
@@ -33,7 +34,6 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <dirent.h>
 #include <fcntl.h>
 #include <unistd.h>
 
@@ -60,7 +60,6 @@ namespace
       emap(chroot_config::CHROOT_NOTFOUND, N_("No such chroot")),
       // TRANSLATORS: %1% = chroot name
       emap(chroot_config::CHROOT_EXIST,    N_("A chroot or alias '%1%' already exists with this name")),
-      emap(chroot_config::DIR_OPEN,        N_("Failed to open directory")),
       emap(chroot_config::FILE_NOTREG,     N_("File is not a regular file")),
       emap(chroot_config::FILE_OPEN,       N_("Failed to open file")),
       emap(chroot_config::FILE_OWNER,      N_("File is not owned by user root")),
@@ -127,16 +126,11 @@ chroot_config::add_config_directory (std::string const& dir,
   if (dir.empty())
     return;
 
-  DIR *d = opendir(dir.c_str());
-  if (d == 0)
+  dirstream stream(dir);
+  direntry de;
+  while (stream >> de)
     {
-      throw error(dir, DIR_OPEN, strerror(errno));
-    }
-
-  struct dirent *de = 0;
-  while ((de = readdir(d)) != 0)
-    {
-      std::string filename = dir + "/" + de->d_name;
+      std::string filename = dir + "/" + de.name();
 
       struct stat statbuf;
       if (stat(filename.c_str(), &statbuf) < 0)
@@ -148,12 +142,8 @@ chroot_config::add_config_directory (std::string const& dir,
 
       if (!S_ISREG(statbuf.st_mode))
 	{
-	  if (!(strcmp(de->d_name, ".") == 0 ||
-		strcmp(de->d_name, "..") == 0))
-	    {
-	      error e (filename, FILE_NOTREG);
-	      log_exception_warning(e);
-	    }
+	  error e (filename, FILE_NOTREG);
+	  log_exception_warning(e);
 	  continue;
 	}
 

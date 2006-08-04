@@ -56,7 +56,6 @@ namespace sbuild
 	ALIAS_EXIST,     ///< Alias already associated with chroot.
 	CHROOT_NOTFOUND, ///< No such chroot.
 	CHROOT_EXIST,    ///< A chroot or alias already exists with this name.
-	DIR_OPEN,        ///< Failed to open directory.
 	FILE_NOTREG,     ///< File is not a regular file.
 	FILE_OPEN,       ///< Failed to open file.
 	FILE_OWNER,      ///< File is not owned by user root.
@@ -120,8 +119,6 @@ namespace sbuild
      * @param dir the directory containing the files to load.
      * @param active true if the chroots in the configuration file are
      * active sessions, otherwise false.
-     *
-     * @todo Use dirstream instead of the POSIX directory functions.
      */
     void
     add_config_directory (std::string const& dir,
