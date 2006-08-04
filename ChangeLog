@@ -1,5 +1,10 @@
 2006-08-04  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot-releaselock-main.cc
+	(action_releaselock): Capitalise PID.
+
+2006-08-04  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-chroot-config.h (error_code): Remove unused
 	DIR_OPEN enum.
 

@@ -84,7 +84,7 @@ main::action_releaselock ()
 {
   if (this->opts->pid == 0)
     {
-      sbuild::log_warning() << _("No pid specified; forcing release of lock")
+      sbuild::log_warning() << _("No PID specified; forcing release of lock")
 			    << endl;
     }
 
