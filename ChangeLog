@@ -1,5 +1,19 @@
 2006-08-05  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-log.cc
+	(log_ctty_info): New function.  The same as log_info, but log to
+	cctty instead of std::cerr.
+	(log_ctty_warning): New function.  The same as log_warning, but
+	log to cctty instead of std::cerr.
+	(log_ctty_error): New function.  The same as log_error, but log to
+	cctty instead of std::cerr.
+	(log_ctty_exception_warning): New function.  The same as
+	log_exception_warning, but log to cctty instead of std::cerr.
+	(log_ctty_exception_error): New function.  The same as
+	log_exception_error, but log to cctty instead of std::cerr.
+
+2006-08-05  Roger Leigh  <rleigh@debian.org>
+
 	* po/POTFILES.in: Add sbuild/sbuild-ctty.cc.
 
 	* sbuild/Makefile.am: Add sbuild/sbuild-ctty.(cc|h).

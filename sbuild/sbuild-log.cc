@@ -19,6 +19,7 @@
 
 #include <config.h>
 
+#include "sbuild-ctty.h"
 #include "sbuild-error.h"
 #include "sbuild-i18n.h"
 #include "sbuild-log.h"
@@ -64,6 +65,27 @@ sbuild::log_debug (sbuild::DebugLevel level)
     return sbuild::cnull;
 }
 
+std::ostream&
+sbuild::log_ctty_info ()
+{
+  // TRANSLATORS: "I" is an abbreviation of "Information"
+  return cctty << _("I: ");
+}
+
+std::ostream&
+sbuild::log_ctty_warning ()
+{
+  // TRANSLATORS: "W" is an abbreviation of "Warning"
+  return cctty << _("W: ");
+}
+
+std::ostream&
+sbuild::log_ctty_error ()
+{
+  // TRANSLATORS: "E" is an abbreviation of "Error"
+  return cctty << _("E: ");
+}
+
 void
 sbuild::log_exception_warning (std::exception const& e)
 {
@@ -96,6 +118,44 @@ sbuild::log_exception_error (std::exception const& e)
 	   line != lines.end();
 	   ++line)
 	log_info() << *line << std::endl;
+    }
+  catch (std::bad_cast const& discard)
+    {
+    }
+}
+
+void
+sbuild::log_ctty_exception_warning (std::exception const& e)
+{
+  log_ctty_warning() << e.what() << std::endl;
+
+  try
+    {
+      sbuild::error_base const& eb(dynamic_cast<sbuild::error_base const&>(e));
+      string_list lines = split_string(eb.why(), "\n");
+      for (string_list::const_iterator line = lines.begin();
+	   line != lines.end();
+	   ++line)
+	log_ctty_info() << *line << std::endl;
+    }
+  catch (std::bad_cast const& discard)
+    {
+    }
+}
+
+void
+sbuild::log_ctty_exception_error (std::exception const& e)
+{
+  log_ctty_error() << e.what() << std::endl;
+
+  try
+    {
+      sbuild::error_base const& eb(dynamic_cast<sbuild::error_base const&>(e));
+      string_list lines = split_string(eb.why(), "\n");
+      for (string_list::const_iterator line = lines.begin();
+	   line != lines.end();
+	   ++line)
+	log_ctty_info() << *line << std::endl;
     }
   catch (std::bad_cast const& discard)
     {

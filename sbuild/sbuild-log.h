@@ -71,6 +71,30 @@ namespace sbuild
   log_debug (DebugLevel level);
 
   /**
+   * Log an informational message to the Controlling TTY.
+   *
+   * @returns an ostream.
+   */
+  std::ostream&
+  log_ctty_info ();
+
+  /**
+   * Log a warning message to the Controlling TTY.
+   *
+   * @returns an ostream.
+   */
+  std::ostream&
+  log_ctty_warning ();
+
+  /**
+   * Log an error message to the Controlling TTY.
+   *
+   * @returns an ostream.
+   */
+  std::ostream&
+  log_ctty_error ();
+
+  /**
    * Log an exception as a warning.
    *
    * @param e the exception to log.
@@ -85,6 +109,22 @@ namespace sbuild
    */
   void
   log_exception_error (std::exception const& e);
+
+  /**
+   * Log an exception as a warning to the Controlling TTY.
+   *
+   * @param e the exception to log.
+   */
+  void
+  log_ctty_exception_warning (std::exception const& e);
+
+  /**
+   * Log an exception as an error to the Controlling TTY.
+   *
+   * @param e the exception to log.
+   */
+  void
+  log_ctty_exception_error (std::exception const& e);
 
   /**
    * Log an unknown exception as an error.
