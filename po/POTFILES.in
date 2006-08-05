@@ -22,6 +22,7 @@ sbuild/sbuild-chroot-file.cc
 sbuild/sbuild-chroot-lvm-snapshot.cc
 sbuild/sbuild-chroot-plain.cc
 sbuild/sbuild-chroot-source.cc
+sbuild/sbuild-ctty.cc
 sbuild/sbuild-dirstream.cc
 sbuild/sbuild-environment.cc
 sbuild/sbuild-format-detail.cc
