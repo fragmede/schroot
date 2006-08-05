@@ -71,7 +71,7 @@ main::main (options::ptr& options):
   schroot_base::main("schroot-releaselock",
 		     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 		     // and '-' is an em-dash.
-		     N_("[OPTION...] - release a device lock"),
+		     _("[OPTION...] - release a device lock"),
 		     options),
   opts(options)
 {

@@ -40,6 +40,7 @@
 
 using std::endl;
 using boost::format;
+using sbuild::_;
 using sbuild::N_;
 using namespace schroot_listmounts;
 
@@ -72,7 +73,7 @@ main::main (options::ptr& options):
   schroot_base::main("schroot-listmounts",
 		     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 		     // and '-' is an em-dash.
-		     N_("[OPTION...] - list mount points"),
+		     _("[OPTION...] - list mount points"),
 		     options),
   opts(options)
 {

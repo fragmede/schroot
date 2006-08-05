@@ -34,14 +34,13 @@
 using std::endl;
 using boost::format;
 using sbuild::_;
-using sbuild::N_;
 using namespace schroot;
 
 main::main (options_base::ptr& options):
   main_base("schroot",
 	    // TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 	    // is an em-dash.
-	    N_("[OPTION...] [COMMAND] - run command or shell in a chroot"),
+	    _("[OPTION...] [COMMAND] - run command or shell in a chroot"),
 	    options)
 {
 }
