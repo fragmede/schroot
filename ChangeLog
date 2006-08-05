@@ -1,5 +1,11 @@
 2006-08-05  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot-releaselock-main.h
+	(schroot_releaselock): Remove completed TODO item (PID
+	capitalisation).
+
+2006-08-05  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-main.cc, schroot/schroot-listmounts-main.cc,
 	schroot/schroot-releaselock-main.cc, dchroot/dchroot-main.cc,
 	dchroot-dsa/dchroot-dsa-main.cc: Translate program usage message
