@@ -47,6 +47,7 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
+	CTTY,            ///< No controlling terminal.
 	TIMEOUT,         ///< Timed out.
 	TIMEOUT_PENDING, ///< Time is running out...
 	TERMIOS,         ///< Failed to get terminal settings.

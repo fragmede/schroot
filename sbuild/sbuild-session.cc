@@ -21,6 +21,7 @@
 
 #include "sbuild-chroot-plain.h"
 #include "sbuild-chroot-lvm-snapshot.h"
+#include "sbuild-ctty.h"
 #include "sbuild-run-parts.h"
 #include "sbuild-session.h"
 #include "sbuild-util.h"
@@ -316,16 +317,15 @@ session::set_force (bool force)
 void
 session::save_termios ()
 {
-  int ctty = open("/dev/tty", O_RDONLY|O_NOCTTY);
   string_list const& command(auth::get_command());
 
   this->termios_ok = false;
 
   // Save if running a login shell and have a controlling terminal.
-  if (ctty >= 0 &&
+  if (CTTY_FILENO >= 0 &&
       (command.empty() || command[0].empty()))
     {
-      if (tcgetattr(ctty, &this->saved_termios) < 0)
+      if (tcgetattr(CTTY_FILENO, &this->saved_termios) < 0)
 	{
 	  sbuild::log_warning()
 	    << _("Error saving terminal settings")
@@ -334,31 +334,24 @@ session::save_termios ()
       else
 	this->termios_ok = true;
     }
-
-  if (ctty >= 0 && close(ctty))
-    log_debug(DEBUG_WARNING) << "Failed to close CTTY fd " << ctty << endl;
 }
 
 void
 session::restore_termios ()
 {
-  int ctty = open("/dev/tty", O_WRONLY|O_NOCTTY);
   string_list const& command(auth::get_command());
 
   // Restore if running a login shell and have a controlling terminal,
   // and have previously saved the terminal state.
-  if (ctty >= 0 &&
+  if (CTTY_FILENO >= 0 &&
       (command.empty() || command[0].empty()) &&
       termios_ok)
     {
-      if (tcsetattr(ctty, TCSANOW, &this->saved_termios) < 0)
+      if (tcsetattr(CTTY_FILENO, TCSANOW, &this->saved_termios) < 0)
 	sbuild::log_warning()
 	  << _("Error restoring terminal settings")
 	  << endl;
     }
-
-  if (ctty >= 0 && close(ctty))
-    log_debug(DEBUG_WARNING) << "Failed to close CTTY fd " << ctty << endl;
 }
 
 int

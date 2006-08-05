@@ -1,5 +1,21 @@
 2006-08-05  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-session.cc
+	(save_termios, restore_termios): Use CTTY_FILENO instead of
+	opening and closing /dev/tty.
+
+	* sbuild/sbuild-auth-conv-tty.cc
+	(read_string): Use CTTY_FILENO in place of STDIN_FILENO, and cctty
+	in place of std::cerr.  Unlike std::cerr, cctty doesn't autoflush,
+	so flush by hand.  Use log_ctty_exception_warning in place of
+	log_exception_warning.
+	(conversation): Use log_ctty_info and log_ctty_error in place of
+	log_info and log_error.
+
+	* sbuild/sbuild-auth-conv-tty.h: Add CTTY error code.
+
+2006-08-05  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-log.cc
 	(log_ctty_info): New function.  The same as log_info, but log to
 	cctty instead of std::cerr.

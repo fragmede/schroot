@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include "sbuild-auth-conv-tty.h"
+#include "sbuild-ctty.h"
 #include "sbuild-log.h"
 
 #include <iostream>
@@ -30,7 +31,6 @@
 
 #include <boost/format.hpp>
 
-using std::cerr;
 using std::endl;
 using boost::format;
 using namespace sbuild;
@@ -46,6 +46,7 @@ namespace
    */
   emap init_errors[] =
     {
+      emap(auth_conv_tty::CTTY,            N_("No controlling terminal")),
       emap(auth_conv_tty::TIMEOUT,         N_("Timed out")),
       // TRANSLATORS: Please use an ellipsis e.g. U+2026
       emap(auth_conv_tty::TIMEOUT_PENDING, N_("Time is running out...")),
@@ -168,7 +169,7 @@ auth_conv_tty::get_delay ()
       this->start_time >= this->warning_timeout)
     {
       error e(TIMEOUT_PENDING);
-      log_exception_warning(e);
+      log_ctty_exception_warning(e);
       return (this->fatal_timeout ?
 	      this->fatal_timeout - this->start_time : 0);
     }
@@ -185,7 +186,8 @@ std::string
 auth_conv_tty::read_string (std::string message,
 			    bool        echo)
 {
-  // TODO: Read from controlling TTY.
+  if (CTTY_FILENO < 0)
+    throw error(CTTY);
 
   struct termios orig_termios, noecho_termios;
   struct sigaction saved_signals;
@@ -193,11 +195,11 @@ auth_conv_tty::read_string (std::string message,
   bool use_termios = false;
   std::string retval;
 
-  if (isatty(STDIN_FILENO))
+  if (isatty(CTTY_FILENO))
     {
       use_termios = true;
 
-      if (tcgetattr(STDIN_FILENO, &orig_termios) != 0)
+      if (tcgetattr(CTTY_FILENO, &orig_termios) != 0)
 	throw error(TERMIOS);
 
       memcpy(&noecho_termios, &orig_termios, sizeof(struct termios));
@@ -217,21 +219,21 @@ auth_conv_tty::read_string (std::string message,
 
   while (delay >= 0)
     {
-      cerr << message;
+      cctty << message << std::flush;
 
       if (use_termios == true)
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &noecho_termios);
+	tcsetattr(CTTY_FILENO, TCSAFLUSH, &noecho_termios);
 
       if (delay > 0 && set_alarm(delay, &saved_signals) == false)
 	break;
       else
 	{
-	  int nchars = read(STDIN_FILENO, input, PAM_MAX_MSG_SIZE - 1);
+	  int nchars = read(CTTY_FILENO, input, PAM_MAX_MSG_SIZE - 1);
 	  if (use_termios)
 	    {
-	      tcsetattr(STDIN_FILENO, TCSADRAIN, &orig_termios);
+	      tcsetattr(CTTY_FILENO, TCSADRAIN, &orig_termios);
 	      if (echo == false && timer_expired == true)
-		cerr << endl;
+		cctty << endl;
 	    }
 	  if (delay > 0)
 	    reset_alarm(&saved_signals);
@@ -242,7 +244,7 @@ auth_conv_tty::read_string (std::string message,
 	  else if (nchars > 0)
 	    {
 	      if (echo == false)
-		cerr << endl;
+		cctty << endl;
 
 	      if (input[nchars-1] == '\n')
 		input[--nchars] = '\0';
@@ -255,7 +257,7 @@ auth_conv_tty::read_string (std::string message,
 	  else if (nchars == 0)
 	    {
 	      if (echo == false)
-		cerr << endl;
+		cctty << endl;
 
 	      retval = "";
 	      break;
@@ -268,7 +270,7 @@ auth_conv_tty::read_string (std::string message,
   if (use_termios == true)
     {
       sigprocmask(SIG_SETMASK, &old_sigs, 0);
-      tcsetattr(STDIN_FILENO, TCSADRAIN, &orig_termios);
+      tcsetattr(CTTY_FILENO, TCSADRAIN, &orig_termios);
     }
 
   return retval;
@@ -295,13 +297,11 @@ auth_conv_tty::conversation (auth_conv::message_list& messages)
 	  break;
 	case auth_message::MESSAGE_ERROR:
 	  log_debug(DEBUG_NOTICE) << "PAM TTY output error" << endl;
-	  // TODO: Log to controlling TTY.
-	  log_error() << cur->message << endl;
+	  log_ctty_error() << cur->message << endl;
 	  break;
 	case auth_message::MESSAGE_INFO:
 	  log_debug(DEBUG_NOTICE) << "PAM TTY output info" << endl;
-	  // TODO: Log to controlling TTY.
-	  log_info() << cur->message << endl;
+	  log_ctty_info() << cur->message << endl;
 	  break;
 	default:
 	  throw error(cur->type, CONV_TYPE);
