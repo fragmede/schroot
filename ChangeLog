@@ -1,5 +1,14 @@
 2006-08-05  Roger Leigh  <rleigh@debian.org>
 
+	* po/POTFILES.in: Add sbuild/sbuild-ctty.cc.
+
+	* sbuild/Makefile.am: Add sbuild/sbuild-ctty.(cc|h).
+
+	* sbuild/sbuild-ctty.(cc|h): New files.  These implement
+	Controlling TTY (CTTY) file descriptor and iostream functionality.
+
+2006-08-05  Roger Leigh  <rleigh@debian.org>
+
 	* schroot/schroot-releaselock-main.h
 	(schroot_releaselock): Remove completed TODO item (PID
 	capitalisation).
