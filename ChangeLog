@@ -1,3 +1,11 @@
+2006-08-06  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Bump version to 1.0.2.
+
+	* NEWS: Bump version to 1.0.2.
+
+	* configure.ac: Bump version to 1.0.2.
+
 2006-08-03  Roger Leigh  <rleigh@debian.org>
 
 	* Version 1.0.1.
