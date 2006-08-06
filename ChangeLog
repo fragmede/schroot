@@ -1,3 +1,7 @@
+2006-08-06  Roger Leigh  <rleigh@debian.org>
+
+	* NEWS: Document CTTY changes to authentication.
+
 2006-08-05  Roger Leigh  <rleigh@debian.org>
 
 	* sbuild/sbuild-session.cc

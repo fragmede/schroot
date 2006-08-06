@@ -9,6 +9,13 @@ configuration.
 
 * Major changes in 1.1.0:
 
+  1) Authentication now uses the Controlling TTY (/dev/tty) for
+     communication with the user.  This means PAM interaction with the
+     user will work even if stdin, stdout and stderr are all
+     redirected.  If authentication is required and no CTTY is
+     available, it will fail (due to authentication being an
+     interactive process).
+
 * Major changes in 1.0.0:
 
   Bugfixes and translation updates only.
