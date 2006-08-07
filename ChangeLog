@@ -1,3 +1,14 @@
+2006-08-07  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Close #381695.
+
+	* NEWS: Document changed syslog behaviour.
+
+	* sbuild/sbuild-session.cc
+	(get_login_command, get_user_command): syslog logging of the
+	command or shell being run in the chroot now only occurs when
+	running as root or switching to another user.
+
 2006-08-06  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Bump version to 1.0.2.
