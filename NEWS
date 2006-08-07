@@ -16,6 +16,12 @@ configuration.
      available, it will fail (due to authentication being an
      interactive process).
 
+  2) The syslog logging of the command or shell being run in the
+     chroot now only occurs when running as root or switching to
+     another user.  If the user is the same inside and outside the
+     chroot, and not root, the command or shell being run will not be
+     logged.
+
 * Major changes in 1.0.0:
 
   Bugfixes and translation updates only.

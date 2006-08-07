@@ -456,8 +456,9 @@ session::get_auth_status () const
 
   auth::status status = auth::STATUS_NONE;
 
-  /* @todo Use set difference rather than iteration and
-     is_group_member. */
+  /** @todo Use set difference rather than iteration and
+   * is_group_member.
+   */
   for (string_list::const_iterator cur = this->chroots.begin();
        cur != this->chroots.end();
        ++cur)
@@ -747,22 +748,24 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
 
       log_debug(DEBUG_NOTICE)
 	<< format("Running login shell: %1%") % shell << endl;
-      syslog(LOG_USER|LOG_NOTICE,
-	     "[%s chroot] (%s->%s) Running login shell: '%s'",
-	     session_chroot->get_name().c_str(),
-	     get_ruser().c_str(), get_user().c_str(),
-	     shell.c_str());
+      if (get_uid() == 0 || get_ruid() != get_uid())
+	syslog(LOG_USER|LOG_NOTICE,
+	       "[%s chroot] (%s->%s) Running login shell: '%s'",
+	       session_chroot->get_name().c_str(),
+	       get_ruser().c_str(), get_user().c_str(),
+	       shell.c_str());
     }
   else
     {
       command.push_back(shell);
       log_debug(DEBUG_NOTICE)
 	<< format("Running shell: %1%") % shell << endl;
-      syslog(LOG_USER|LOG_NOTICE,
-	     "[%s chroot] (%s->%s) Running shell: '%s'",
-	     session_chroot->get_name().c_str(),
-	     get_ruser().c_str(), get_user().c_str(),
-	     shell.c_str());
+      if (get_uid() == 0 || get_ruid() != get_uid())
+	syslog(LOG_USER|LOG_NOTICE,
+	       "[%s chroot] (%s->%s) Running shell: '%s'",
+	       session_chroot->get_name().c_str(),
+	       get_ruser().c_str(), get_user().c_str(),
+	       shell.c_str());
     }
 
   if (get_verbosity() != auth::VERBOSITY_QUIET)
@@ -824,8 +827,9 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
   std::string commandstring = string_list_to_string(command, " ");
   log_debug(DEBUG_NOTICE)
     << format("Running command: %1%") % commandstring << endl;
-  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
-	 session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), commandstring.c_str());
+  if (get_uid() == 0 || get_ruid() != get_uid())
+    syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
+	   session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), commandstring.c_str());
 
   if (get_verbosity() != auth::VERBOSITY_QUIET)
     {
