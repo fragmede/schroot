@@ -17,6 +17,8 @@
  *
  *********************************************************************/
 
+#include <config.h>
+
 #include "sbuild-ctty.h"
 #include "sbuild-log.h"
 

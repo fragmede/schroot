@@ -1,3 +1,8 @@
+2006-08-18  Roger Leigh  <rleigh@debian.org>
+
+	* sbuild/sbuild-ctty.cc: Include <config.h>, to prevent a build
+	failure with GCC 3.3.
+
 2006-08-07  Roger Leigh  <rleigh@debian.org>
 
 	* sbuild/sbuild-session.cc
