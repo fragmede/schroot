@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-07-30 23:02+0100\n"
+"POT-Creation-Date: 2006-08-18 23:06+0100\n"
 "PO-Revision-Date: 2006-07-30 01:13+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -55,7 +55,7 @@ msgstr "Remove ‘%1%’ to use the new configuration."
 msgid "Running schroot in %1% compatibility mode"
 msgstr "Running schroot in %1% compatibility mode"
 
-#. TRANSLATORS: "capabilities" in this context means "full
+#. TRANSLATORS: "full capabilities" in this context means "all
 #. features"
 #: dchroot/dchroot-main-base.cc:110
 msgid "Run \"schroot\" for full capabilities"
@@ -99,19 +99,19 @@ msgstr "Select all chroots"
 msgid "Preserve user environment"
 msgstr "Preserve user environment"
 
-#: dchroot/dchroot-options.cc:83 schroot/schroot-options-base.cc:125
+#: dchroot/dchroot-options.cc:83 schroot/schroot-options-base.cc:137
 msgid "--quiet and --verbose may not be used at the same time"
 msgstr "--quiet and --verbose may not be used at the same time"
 
-#: dchroot/dchroot-options.cc:85 schroot/schroot-options-base.cc:127
+#: dchroot/dchroot-options.cc:85 schroot/schroot-options-base.cc:139
 msgid "Using verbose output"
 msgstr "Using verbose output"
 
-#: dchroot/dchroot-options.cc:91 schroot/schroot-options-base.cc:133
+#: dchroot/dchroot-options.cc:91 schroot/schroot-options-base.cc:145
 msgid "--chroot and --all may not be used at the same time"
 msgstr "--chroot and --all may not be used at the same time"
 
-#: dchroot/dchroot-options.cc:93 schroot/schroot-options-base.cc:135
+#: dchroot/dchroot-options.cc:93 schroot/schroot-options-base.cc:147
 msgid "Using --chroots only"
 msgstr "Using --chroots only"
 
@@ -181,7 +181,7 @@ msgid "PAM error"
 msgstr "PAM error"
 
 #: sbuild/sbuild-auth.cc:127 sbuild/sbuild-run-parts.cc:196
-#: sbuild/sbuild-session.cc:1014 sbuild/sbuild-session.cc:1251
+#: sbuild/sbuild-session.cc:1017 sbuild/sbuild-session.cc:1254
 msgid "An unknown exception occurred"
 msgstr "An unknown exception occurred"
 
@@ -903,14 +903,14 @@ msgstr "Error restoring terminal settings"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:784
+#: sbuild/sbuild-session.cc:786
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[%1% chroot] Running login shell: ‘%4%’"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:788
+#: sbuild/sbuild-session.cc:790
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[%1% chroot] Running shell: ‘%4%’"
@@ -920,7 +920,7 @@ msgstr "[%1% chroot] Running shell: ‘%4%’"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:799
+#: sbuild/sbuild-session.cc:801
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[%1% chroot] (%2%→%3%) Running login shell: ‘%4%’"
@@ -930,14 +930,14 @@ msgstr "[%1% chroot] (%2%→%3%) Running login shell: ‘%4%’"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:806
+#: sbuild/sbuild-session.cc:808
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[%1% chroot] (%2%→%3%) Running shell: ‘%4%’"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:843
+#: sbuild/sbuild-session.cc:846
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Running command: “%4%”"
@@ -947,17 +947,17 @@ msgstr "[%1% chroot] Running command: “%4%”"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:850
+#: sbuild/sbuild-session.cc:853
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%→%3%) Running command: “%4%”"
 
-#: sbuild/sbuild-session.cc:1037
+#: sbuild/sbuild-session.cc:1040
 #, boost-format
 msgid "stage=%1%"
 msgstr "stage=%1%"
 
-#: sbuild/sbuild-session.cc:1175 sbuild/sbuild-session.cc:1182
+#: sbuild/sbuild-session.cc:1178 sbuild/sbuild-session.cc:1185
 msgid "terminating immediately"
 msgstr "terminating immediately"
 
@@ -1036,7 +1036,7 @@ msgstr "Show more output"
 msgid "Enable debugging messages"
 msgstr "Enable debugging messages"
 
-#: schroot/schroot-base-options.cc:123
+#: schroot/schroot-base-options.cc:131
 msgid "Invalid debug level"
 msgstr "Invalid debug level"
 
@@ -1066,13 +1066,13 @@ msgstr "Mount"
 msgid "Mountpoint to check (full path)"
 msgstr "Mountpoint to check (full path)"
 
-#: schroot/schroot-listmounts-options.cc:85
+#: schroot/schroot-listmounts-options.cc:89
 msgid "No mount point specified"
 msgstr "No mount point specified"
 
-#: schroot/schroot-listmounts-options.cc:92
-#: schroot/schroot-options-base.cc:214
-#: schroot/schroot-releaselock-options.cc:95
+#: schroot/schroot-listmounts-options.cc:96
+#: schroot/schroot-options-base.cc:226
+#: schroot/schroot-releaselock-options.cc:99
 msgid "Only one action may be specified"
 msgstr "Only one action may be specified"
 
@@ -1139,15 +1139,15 @@ msgstr "Use specified chroot"
 msgid "Command to run"
 msgstr "Command to run"
 
-#: schroot/schroot-options-base.cc:158
+#: schroot/schroot-options-base.cc:170
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "Exactly one chroot must be specified when beginning a session"
 
-#: schroot/schroot-options-base.cc:184
+#: schroot/schroot-options-base.cc:196
 msgid "--chroot may not be used with --list"
 msgstr "--chroot may not be used with --list"
 
-#: schroot/schroot-options-base.cc:206
+#: schroot/schroot-options-base.cc:218
 msgid "Unknown action specified"
 msgstr "Unknown action specified"
 
@@ -1219,6 +1219,6 @@ msgstr "Device to unlock (full path)"
 msgid "Process ID owning the lock"
 msgstr "Process ID owning the lock"
 
-#: schroot/schroot-releaselock-options.cc:88
+#: schroot/schroot-releaselock-options.cc:92
 msgid "No device specified"
 msgstr "No device specified"

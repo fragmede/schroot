@@ -82,17 +82,29 @@ options_base::add_option_groups ()
 {
   schroot_base::options::add_option_groups();
 
+#ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!chroot.options().empty())
+#else
+  if (!chroot.primary_keys().empty())
+#endif
     {
       visible.add(chroot);
       global.add(chroot);
     }
+#ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!chrootenv.options().empty())
+#else
+  if (!chrootenv.primary_keys().empty())
+#endif
     {
       visible.add(chrootenv);
       global.add(chrootenv);
     }
+#ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!session.options().empty())
+#else
+  if (!session.primary_keys().empty())
+#endif
     {
       visible.add(session);
       global.add(session);

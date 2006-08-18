@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot-0.99.4-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-07-30 23:02+0100\n"
+"POT-Creation-Date: 2006-08-18 23:06+0100\n"
 "PO-Revision-Date: 2006-07-20 15:06+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -60,7 +60,7 @@ msgstr "Gỡ bỏ « %1% » để sử dụng cấu hình mới."
 msgid "Running schroot in %1% compatibility mode"
 msgstr "Đang chạy schroot trong chế độ tương thích %1%"
 
-#. TRANSLATORS: "capabilities" in this context means "full
+#. TRANSLATORS: "full capabilities" in this context means "all
 #. features"
 #: dchroot/dchroot-main-base.cc:110
 msgid "Run \"schroot\" for full capabilities"
@@ -106,23 +106,23 @@ msgstr "Chọn mọi chroot"
 msgid "Preserve user environment"
 msgstr "Bảo tồn môi trường người dùng"
 
-#: dchroot/dchroot-options.cc:83 schroot/schroot-options-base.cc:125
+#: dchroot/dchroot-options.cc:83 schroot/schroot-options-base.cc:137
 msgid "--quiet and --verbose may not be used at the same time"
 msgstr ""
 "Không cho phép cả hai tùy chọn « --quiet » (im) và « --verbose » (xuất chi "
 "tiết) đồng thời."
 
-#: dchroot/dchroot-options.cc:85 schroot/schroot-options-base.cc:127
+#: dchroot/dchroot-options.cc:85 schroot/schroot-options-base.cc:139
 msgid "Using verbose output"
 msgstr "Đang xuất chi tiết"
 
-#: dchroot/dchroot-options.cc:91 schroot/schroot-options-base.cc:133
+#: dchroot/dchroot-options.cc:91 schroot/schroot-options-base.cc:145
 msgid "--chroot and --all may not be used at the same time"
 msgstr ""
 "Không cho phép sử dụng cả hai tùy chọn « --chroot » và « --all » (tất cả) "
 "đồng thời."
 
-#: dchroot/dchroot-options.cc:93 schroot/schroot-options-base.cc:135
+#: dchroot/dchroot-options.cc:93 schroot/schroot-options-base.cc:147
 msgid "Using --chroots only"
 msgstr "Đang dùng chỉ tùy chọn « --chroots »"
 
@@ -192,7 +192,7 @@ msgid "PAM error"
 msgstr "Lỗi PAM"
 
 #: sbuild/sbuild-auth.cc:127 sbuild/sbuild-run-parts.cc:196
-#: sbuild/sbuild-session.cc:1014 sbuild/sbuild-session.cc:1251
+#: sbuild/sbuild-session.cc:1017 sbuild/sbuild-session.cc:1254
 msgid "An unknown exception occurred"
 msgstr "Gặp ngoại lệ không rõ"
 
@@ -916,14 +916,14 @@ msgstr "Gặp lỗi khi phục hồi thiết lập thiết bị cuối"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:784
+#: sbuild/sbuild-session.cc:786
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[%1% chroot] Đang chạy trình bao đăng nhập: « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:788
+#: sbuild/sbuild-session.cc:790
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[%1% chroot] Đang chạy trình bao : « %4% »"
@@ -933,7 +933,7 @@ msgstr "[%1% chroot] Đang chạy trình bao : « %4% »"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:799
+#: sbuild/sbuild-session.cc:801
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[%1% chroot] (%2% → %3%) Đang chạy trình bao đăng nhập: « %4% »"
@@ -943,14 +943,14 @@ msgstr "[%1% chroot] (%2% → %3%) Đang chạy trình bao đăng nhập: « %4%
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:806
+#: sbuild/sbuild-session.cc:808
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy trình bao : « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:843
+#: sbuild/sbuild-session.cc:846
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Đang chạy lệnh: « %4% »"
@@ -960,17 +960,17 @@ msgstr "[%1% chroot] Đang chạy lệnh: « %4% »"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:850
+#: sbuild/sbuild-session.cc:853
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2% → %3%) Đang chạy lệnh: « %4% »"
 
-#: sbuild/sbuild-session.cc:1037
+#: sbuild/sbuild-session.cc:1040
 #, boost-format
 msgid "stage=%1%"
 msgstr "giai đoạn=%1%"
 
-#: sbuild/sbuild-session.cc:1175 sbuild/sbuild-session.cc:1182
+#: sbuild/sbuild-session.cc:1178 sbuild/sbuild-session.cc:1185
 #, fuzzy
 msgid "terminating immediately"
 msgstr "(sẽ chấm dứt ngay)"
@@ -1053,7 +1053,7 @@ msgstr "Xuất nhiều hơn"
 msgid "Enable debugging messages"
 msgstr "Bật tạo thông điệp gỡ lỗi"
 
-#: schroot/schroot-base-options.cc:123
+#: schroot/schroot-base-options.cc:131
 msgid "Invalid debug level"
 msgstr "Cấp gỡ lỗi không hợp lệ"
 
@@ -1083,13 +1083,13 @@ msgstr "Lắp"
 msgid "Mountpoint to check (full path)"
 msgstr "Điểm lắp cần kiểm tra (đường dẫn đầy đủ)"
 
-#: schroot/schroot-listmounts-options.cc:85
+#: schroot/schroot-listmounts-options.cc:89
 msgid "No mount point specified"
 msgstr "Chưa xác định điểm lắp"
 
-#: schroot/schroot-listmounts-options.cc:92
-#: schroot/schroot-options-base.cc:214
-#: schroot/schroot-releaselock-options.cc:95
+#: schroot/schroot-listmounts-options.cc:96
+#: schroot/schroot-options-base.cc:226
+#: schroot/schroot-releaselock-options.cc:99
 msgid "Only one action may be specified"
 msgstr "Có thể ghi rõ chỉ một hành động"
 
@@ -1156,17 +1156,17 @@ msgstr "Dùng chroot đã xác định"
 msgid "Command to run"
 msgstr "Lệnh cần chạy"
 
-#: schroot/schroot-options-base.cc:158
+#: schroot/schroot-options-base.cc:170
 #, fuzzy
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "Có thể ghi rõ chỉ một chroot khi khởi chạy phiên"
 
-#: schroot/schroot-options-base.cc:184
+#: schroot/schroot-options-base.cc:196
 msgid "--chroot may not be used with --list"
 msgstr ""
 "Không cho phép sử dụng tùy chọn « --chroot » cùng với « --list » (liệt kê)"
 
-#: schroot/schroot-options-base.cc:206
+#: schroot/schroot-options-base.cc:218
 msgid "Unknown action specified"
 msgstr "Hành động không rõ được xác định"
 
@@ -1238,7 +1238,7 @@ msgstr "Thiết bị cần bỏ khoá (đường dẫn đầy đủ)"
 msgid "Process ID owning the lock"
 msgstr "Mã hiệu tiến trình sở hữu khoá đó"
 
-#: schroot/schroot-releaselock-options.cc:88
+#: schroot/schroot-releaselock-options.cc:92
 msgid "No device specified"
 msgstr "Chưa xác định thiết bị"
 

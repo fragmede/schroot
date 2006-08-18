@@ -90,12 +90,20 @@ options::add_options ()
 void
 options::add_option_groups ()
 {
+#ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!general.options().empty())
+#else
+  if (!general.primary_keys().empty())
+#endif
     {
       visible.add(general);
       global.add(general);
     }
+#ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!hidden.options().empty())
+#else
+  if (!hidden.primary_keys().empty())
+#endif
     global.add(hidden);
 }
 

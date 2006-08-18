@@ -148,6 +148,23 @@ AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
 	        AC_MSG_FAILURE([libboost_program_options (Boost C++ Libraries) is not installed, but is required by schroot])])
 LDFLAGS="${saved_ldflags}"
 
+AC_MSG_CHECKING([for boost::program_options::options_description::options() in -lboost_program_options])
+saved_ldflags="${LDFLAGS}"
+LDFLAGS="${LDFLAGS} -lboost_program_options"
+AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
+                               [boost::program_options::options_description testgrp("test group");
+                                bool notused = testgrp.options().empty();
+])],
+               [AC_MSG_RESULT([yes])
+                BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS="current"],
+               [AC_MSG_RESULT([no])
+                BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS="old"])
+LDFLAGS="${saved_ldflags}"
+AH_TEMPLATE(BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD, [Set if boost::program_options::options_description::options() is not available])
+if test "$BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS" = "old"; then
+  AC_DEFINE(BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD, 1)
+fi
+
 AC_MSG_CHECKING([for boost::regex in -lboost_regex])
 saved_ldflags="${LDFLAGS}"
 LDFLAGS="${LDFLAGS} -lboost_regex"

@@ -64,7 +64,11 @@ options::add_option_groups ()
 {
   schroot_base::options::add_option_groups();
 
+#ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!lock.options().empty())
+#else
+  if (!lock.primary_keys().empty())
+#endif
     {
       visible.add(lock);
       global.add(lock);

@@ -1,3 +1,18 @@
+2006-08-18  Roger Leigh  <rleigh@debian.org>
+
+	* Merge from mainline.
+
+	* schroot/schroot-base-options.cc,
+	schroot/schroot-options-base.cc,
+	schroot/schroot-listmounts-options.cc,
+	schroot/schroot-releaselock-options.cc
+	(add_option_groups): Add workaround for boost if
+	BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD is defined.
+
+	* configure.ac: Add check for
+	boost::program_options::options_description::options(), which does
+	not exist in older versions of boost.
+
 2006-08-07  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Close #381695.
