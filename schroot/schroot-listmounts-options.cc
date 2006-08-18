@@ -62,7 +62,11 @@ options::add_option_groups ()
 {
   schroot_base::options::add_option_groups();
 
+#ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!mount.options().empty())
+#else
+  if (!mount.primary_keys().empty())
+#endif
     {
       visible.add(mount);
       global.add(mount);
