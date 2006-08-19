@@ -1,5 +1,15 @@
 2006-08-19  Roger Leigh  <rleigh@debian.org>
 
+	* dchroot/dchroot-session.cc, dchroot-dsa/dchroot-dsa-session.cc
+	(get_login_directories): Use working directory in place of the
+	normal directory fallback list if set.
+
+	* sbuild/sbuild-session.cc
+	(get_login_directories, get_command_directories): Use working
+	directory in place of the normal directory fallback list if set.
+
+2006-08-19  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-auth.cc (get_wd, set_wd): New methods.  Get and
 	set the working directory.
 

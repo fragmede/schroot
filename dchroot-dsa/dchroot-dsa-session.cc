@@ -92,11 +92,20 @@ session::get_login_directories () const
 {
   sbuild::string_list ret;
 
-  ret.push_back(get_home());
+  std::string const& wd(get_wd());
+  if (!wd.empty())
+    {
+      // Set specified working directory.
+      ret.push_back(wd);
+    }
+  else
+    {
+      ret.push_back(get_home());
 
-  // Final fallback to root.
-  if (std::find(ret.begin(), ret.end(), "/") == ret.end())
-    ret.push_back("/");
+      // Final fallback to root.
+      if (std::find(ret.begin(), ret.end(), "/") == ret.end())
+	ret.push_back("/");
+    }
 
   return ret;
 }

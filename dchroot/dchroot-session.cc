@@ -74,16 +74,25 @@ session::get_login_directories () const
 {
   sbuild::string_list ret;
 
-  // Set current working directory only if preserving environment.
-  // Only change to home if not preserving the environment.
-  if (!get_environment().empty())
-    ret.push_back(this->sbuild::session::cwd);
+  std::string const& wd(get_wd());
+  if (!wd.empty())
+    {
+      // Set specified working directory.
+      ret.push_back(wd);
+    }
   else
-    ret.push_back(get_home());
+    {
+      // Set current working directory only if preserving environment.
+      // Only change to home if not preserving the environment.
+      if (!get_environment().empty())
+	ret.push_back(this->sbuild::session::cwd);
+      else
+	ret.push_back(get_home());
 
-  // Final fallback to root.
-  if (std::find(ret.begin(), ret.end(), "/") == ret.end())
-    ret.push_back("/");
+      // Final fallback to root.
+      if (std::find(ret.begin(), ret.end(), "/") == ret.end())
+	ret.push_back("/");
+    }
 
   return ret;
 }
