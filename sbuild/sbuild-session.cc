@@ -667,23 +667,32 @@ session::get_login_directories () const
 {
   string_list ret;
 
-  // Set current working directory.
-  ret.push_back(this->cwd);
+  std::string const& wd(get_wd());
+  if (!wd.empty())
+    {
+      // Set specified working directory.
+      ret.push_back(wd);
+    }
+  else
+    {
+      // Set current working directory.
+      ret.push_back(this->cwd);
 
-  // Set $HOME.
-  environment env = get_pam_environment();
-  std::string home;
-  if (env.get("HOME", home) &&
-      std::find(ret.begin(), ret.end(), home) == ret.end())
-    ret.push_back(home);
+      // Set $HOME.
+      environment env = get_pam_environment();
+      std::string home;
+      if (env.get("HOME", home) &&
+	  std::find(ret.begin(), ret.end(), home) == ret.end())
+	ret.push_back(home);
 
-  // Set passwd home.
-  if (std::find(ret.begin(), ret.end(), get_home()) == ret.end())
-    ret.push_back(get_home());
+      // Set passwd home.
+      if (std::find(ret.begin(), ret.end(), get_home()) == ret.end())
+	ret.push_back(get_home());
 
-  // Final fallback to root.
-  if (std::find(ret.begin(), ret.end(), "/") == ret.end())
-  ret.push_back("/");
+      // Final fallback to root.
+      if (std::find(ret.begin(), ret.end(), "/") == ret.end())
+	ret.push_back("/");
+    }
 
   return ret;
 }
@@ -693,8 +702,13 @@ session::get_command_directories () const
 {
   string_list ret;
 
-  // Set current working directory.
-  ret.push_back(this->cwd);
+  std::string const& wd(get_wd());
+  if (!wd.empty())
+    // Set specified working directory.
+    ret.push_back(wd);
+  else
+    // Set current working directory.
+    ret.push_back(this->cwd);
 
   return ret;
 }

@@ -55,6 +55,10 @@ options::add_options ()
   chroot.add_options()
     ("all,a",
      _("Select all chroots"));
+
+  chrootenv.add_options()
+    ("directory,d", opt::value<std::string>(&this->directory),
+     _("Directory to use"));
 }
 
 void

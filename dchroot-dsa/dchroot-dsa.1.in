@@ -22,6 +22,7 @@ dchroot\-dsa \[em] enter a chroot environment
 .RB [ \-h \[or] \-\-help " \[or] " \-V \[or] \-\-version
 .RB " \[or] " \-l \[or] \-\-list " \[or] " \-i \[or] \-\-info
 .RB " \[or] " \-\-config " \[or] " -p | \-\-listpaths ]
+.RB [ "\-d \fIdirectory\fP" \[or] "\-\-directory=\fIdirectory\fP" ]
 .RB [ \-q \[or] \-\-quiet " \[or] " \-v \[or] \-\-verbose ]
 .RB [ "\-c \fIchroot\fP" \[or] "\-\-chroot=\fIchroot\fP"
 .RB " \[or] " \-\-all " \[or] " CHROOT]
@@ -36,8 +37,8 @@ The user's environment will be preserved inside the chroot.
 The command is a single argument which must be an absolute path to the program.
 Additional options are not permitted.
 .PP
-The login shell or command will run in the user's home directory inside the
-chroot, or \fI/\fP if the home directory is not available.
+The directory the command or login shell is run in depends upon the context.
+See \fI\-\-directory\fP option below for a complete description.
 .PP
 This version of dchroot\-dsa is a compatibility wrapper around the
 .BR schroot (1)
@@ -80,6 +81,16 @@ Print configuration of the available chroots.  This is useful for testing that
 the configuration in use is the same as the configuration file.  Any comments
 in the original file will be missing.  Note that earlier versions of
 dchroot\-dsa did not include this option.
+.TP
+.BR \-d ", " \-\-directory=\fIdirectory\fP
+Change to \fIdirectory\fP inside the chroot before running the command or login
+shell.  If \fIdirectory\fP is not available, dchroot\-dsa will exit with an
+error status.
+.IP
+The default behaviour (all directory paths are inside the chroot) is to run the
+login shell or command in the user's home directory, or \fI/\fP if the home
+directory is not available.  If none of the directories are available,
+dchroot\-dsa will exit with an error status.
 .TP
 .BR \-q ", " \-\-quiet
 Print only essential messages.  Note that earlier versions of dchroot\-dsa did

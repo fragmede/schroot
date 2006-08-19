@@ -83,6 +83,8 @@ namespace schroot
     std::string          chroot_path;
     /// Command to run.
     sbuild::string_list  command;
+    /// Directory to use.
+    std::string          directory;
     /// User to run as.
     std::string          user;
     /// Preserve environment.

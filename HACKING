@@ -84,16 +84,34 @@ Chdir fallback behaviour:
 
     No fallbacks should exist under any circumstances.
 
-  dchroot
-    CWD → passwd_pw dir  Normal behaviour (not if -d used)
+  schroot [--directory used]
+    CWD → DIR            Normal behaviour
+    *FAIL*               If CWD nonexistent
+
+    No fallbacks should exist under any circumstances.
+
+  dchroot [login shell or command]
+    CWD → passwd pw_dir  Normal behaviour (not if -d used)
     CWD → CWD            If -d used
     CWD → /              If CWD nonexistent and -d used
     *FAIL*               If / nonexistent
 
-  dchroot-dsa
-    CWD → passwd_pw dir  Normal behaviour
+  dchroot [--directory used]
+    CWD → DIR            Normal behaviour
+    *FAIL*               If CWD nonexistent
+
+    No fallbacks should exist under any circumstances.
+
+  dchroot-dsa [login shell or command]
+    CWD → passwd pw_dir  Normal behaviour
     CWD → /              If no passwd_pw dir
     *FAIL*               If / nonexistent
+
+  dchroot-dsa [--directory used]
+    CWD → DIR            Normal behaviour
+    *FAIL*               If CWD nonexistent
+
+    No fallbacks should exist under any circumstances.
 
   Note that --debug=notice will show the internal fallback list
   computed for the session.
