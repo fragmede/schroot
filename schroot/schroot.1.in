@@ -25,6 +25,7 @@ schroot \[em] securely enter a chroot environment
 .RB " \[or] " \-\-config " \[or] " \-\-location
 .RB " \[or] " \-b \[or] \-\-begin\-session " \[or] " \-\-recover\-session
 .RB " \[or] " \-r \[or] \-\-run\-session " \[or] " \-e \[or] \-\-end\-session ]
+.RB [ "\-d \fIdirectory\fP" \[or] "\-\-directory=\fIdirectory\fP" ]
 .RB [ "\-u \fIuser\fP" \[or] "\-\-user=\fIuser\fP" ]
 .RB [ \-p \[or] \-\-preserve\-environment ]
 .RB [ \-q \[or] \-\-quiet " \[or] " \-v \[or] \-\-verbose ]
@@ -39,12 +40,8 @@ user's current working directory inside the chroot.
 The command is a program, plus as many optional arguments as required.  Each
 argument may be separately quoted.
 .PP
-A login shell is run in the current working directory inside the chroot.  If
-this is not available, it will try $HOME (when \fI\-p\fP is used), then the
-user's home directory inside the chroot, and \fI/\fP in turn.
-.PP
-A command is always run in the current working directory inside the chroot.  If
-this is not available, schroot will exit with an error status.
+The directory the command or login shell is run in depends upon the context.
+See \fI\-\-directory\fP option below for a complete description.
 .PP
 If the user is not a and allowed user, or amember of the allowed groups (or if
 changing to root, the allowed root users or allowed root groups) for the
@@ -100,6 +97,18 @@ active.
 Print configuration of the specified chroots.  This is useful for testing that
 the configuration in use is the same as the configuration file.  Any comments
 in the original file will be missing.
+.TP
+.BR \-d ", " \-\-directory=\fIdirectory\fP
+Change to \fIdirectory\fP inside the chroot before running the command or login
+shell.  If \fIdirectory\fP is not available, schroot will exit with an error
+status.
+.IP
+The default behaviour is as follows (all directory paths are inside the
+chroot).  A login shell is run in the current working directory.  If this is
+not available, it will try $HOME (when \fI\\-\-preserve\-environment\fP is
+used), then the user's home directory, and \fI/\fP inside the chroot in turn.
+A command is always run in the current working directory inside the chroot.  If
+none of the directories are available, schroot will exit with an error status.
 .TP
 .BR \-p ", " \-\-preserve\-environment
 Preserve the user's environment inside the chroot environment.  The default is
