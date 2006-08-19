@@ -141,6 +141,7 @@ auth::auth (std::string const& service_name):
   user(),
   command(),
   home(),
+  wd(),
   shell(),
   user_environment(),
   ruid(),
@@ -243,6 +244,18 @@ std::string const&
 auth::get_home () const
 {
   return this->home;
+}
+
+std::string const&
+auth::get_wd () const
+{
+  return this->wd;
+}
+
+void
+auth::set_wd (std::string const& wd)
+{
+  this->wd = wd;
 }
 
 std::string const&

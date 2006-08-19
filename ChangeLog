@@ -1,3 +1,11 @@
+2006-08-19  Roger Leigh  <rleigh@debian.org>
+
+	* sbuild/sbuild-auth.cc (get_wd, set_wd): New methods.  Get and
+	set the working directory.
+
+	* sbuild/sbuild-auth.h: Add wd member variable to store the
+	working directory to use.
+
 2006-08-18  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot-base-options.cc,

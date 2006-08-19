@@ -200,6 +200,24 @@ namespace sbuild
     get_home () const;
 
     /**
+     * Get the working directory.  This is the working directory to
+     * set in the session.
+     *
+     * @returns the current working directory.
+     */
+    std::string const&
+    get_wd () const;
+
+    /**
+     * Set the working directory.  This is the working directory to
+     * set in the session.
+     *
+     * @param cvs the current working directory.
+     */
+    void
+    set_wd (std::string const& wd);
+
+    /**
      * Get the name of the shell.  This is the shell to run in the
      * session.
      *
@@ -446,8 +464,10 @@ protected:
     std::string        user;
     /// The command to run.
     string_list        command;
-    /// The home directory to run in.
+    /// The home directory.
     std::string        home;
+    /// The directory to run in.
+    std::string        wd;
     /// The user shell to run.
     std::string        shell;
     /// The user environment to set.
