@@ -22,6 +22,7 @@ dchroot \[em] enter a chroot environment
 .RB [ \-h \[or] \-\-help " \[or] " \-V \[or] \-\-version
 .RB " \[or] " \-l \[or] \-\-list " \[or] " \-i \[or] \-\-info
 .RB " \[or] " \-\-config " \[or] " \-\-location ]
+.RB [ "\-\-directory=\fIdirectory\fP" ]
 .RB [ \-d \[or] \-\-preserve\-environment ]
 .RB [ \-q \[or] \-\-quiet " \[or] " \-v \[or] \-\-verbose ]
 .RB [ "\-c \fIchroot\fP" \[or] "\-\-chroot=\fIchroot\fP"
@@ -39,11 +40,8 @@ together, separated by spaces.  Users should be aware of the shell quoting
 issues this presents, and should use \fBschroot\fP if necessary, which does not
 have any quoting issues.
 .PP
-Unless the \fI-d\fP option is used to preserve the environment, the login shell
-or command will run in the user's home directory inside the chroot, or \fI/\fP
-if the home directory is not available.  When the \fI-d\fP option is used, it
-will attempt to use the current working directory inside the chroot, again
-falling back to \fI/\fP if it is not accessible.
+The directory the command or login shell is run in depends upon the context.
+See \fI\-\-directory\fP option below for a complete description.
 .PP
 This version of dchroot is a compatibility wrapper around the
 .BR schroot (1)
@@ -85,6 +83,20 @@ Print configuration of the specified chroots.  This is useful for testing that
 the configuration in use is the same as the configuration file.  Any comments
 in the original file will be missing.  Note that earlier versions of dchroot
 did not include this option.
+.TP
+.BR \-d ", " \-\-directory=\fIdirectory\fP
+Change to \fIdirectory\fP inside the chroot before running the command or login
+shell.  If \fIdirectory\fP is not available, dchroot will exit with an error
+status.
+.IP
+The default behaviour is as follows (all directory paths are inside the
+chroot).  Unless the \fI\-\-preserve\-environment\fP option is used to preserve
+the environment, the login shell or command will run in the user's home
+directory, or \fI/\fP if the home directory is not available.  When the
+\fI\-\-preserve\-environment\fP option is used, it will attempt to use the
+current working directory, again falling back to \fI/\fP if it is not
+accessible.  If none of the directories are available, dchroot will exit with
+an error status.
 .TP
 .BR \-d ", " \-\-preserve\-environment
 Preserve the user's environment inside the chroot environment.  The default is

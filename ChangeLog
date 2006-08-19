@@ -1,5 +1,23 @@
 2006-08-19  Roger Leigh  <rleigh@debian.org>
 
+	* HACKING: Document additional directory fallback checks.
+
+	* schroot/schroot.1.in, dchroot/dchroot.1.in,
+	dchroot-dsa/dchroot-dsa.1.in: Document directory option.
+
+	* schroot/schroot-main-base.cc
+	(run_impl): If a directory option was specified, set the auth wd
+	member.
+
+	* schroot/schroot-options.cc, dchroot/dchroot-options.cc,
+	dchroot-dsa/dchroot-dsa-options.cc:
+	(add_options): Add directory option.
+
+	* schroot/schroot-options-base.h: Add directory member, used to
+	specify the directory inside the chroot.
+
+2006-08-19  Roger Leigh  <rleigh@debian.org>
+
 	* dchroot/dchroot-session.cc, dchroot-dsa/dchroot-dsa-session.cc
 	(get_login_directories): Use working directory in place of the
 	normal directory fallback list if set.

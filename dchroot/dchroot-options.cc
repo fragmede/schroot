@@ -56,6 +56,8 @@ options::add_options ()
      _("Select all chroots"));
 
   chrootenv.add_options()
+    ("directory", opt::value<std::string>(&this->directory),
+     _("Directory to use"))
     ("preserve-environment,d",
      _("Preserve user environment"));
 }

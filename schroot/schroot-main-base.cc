@@ -247,6 +247,8 @@ main_base::run_impl ()
 
       if (!this->options->command.empty())
 	this->session->set_command(this->options->command);
+      if (!this->options->directory.empty())
+	this->session->set_wd(this->options->directory);
       if (this->options->preserve)
 	this->session->set_environment(environ);
       this->session->set_force(this->options->session_force);

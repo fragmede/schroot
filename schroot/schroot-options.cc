@@ -60,6 +60,8 @@ options::add_options ()
      _("Select all active sessions"));
 
   chrootenv.add_options()
+    ("directory,d", opt::value<std::string>(&this->directory),
+     _("Directory to use"))
     ("user,u", opt::value<std::string>(&this->user),
      _("Username (default current user)"))
     ("preserve-environment,p",
