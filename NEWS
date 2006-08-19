@@ -22,6 +22,10 @@ configuration.
      chroot, and not root, the command or shell being run will not be
      logged.
 
+  3) A --directory option has been added to schroot, dchroot and
+     dchroot-dsa.  This option allows the user to explictly specify
+     the working directory inside the chroot.
+
 * Major changes in 1.0.0:
 
   Bugfixes and translation updates only.

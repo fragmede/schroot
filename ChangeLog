@@ -1,5 +1,9 @@
 2006-08-19  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Document --directory.
+
+2006-08-19  Roger Leigh  <rleigh@debian.org>
+
 	* HACKING: Document additional directory fallback checks.
 
 	* schroot/schroot.1.in, dchroot/dchroot.1.in,
