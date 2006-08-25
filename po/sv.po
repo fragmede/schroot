@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-08-18 23:06+0100\n"
+"POT-Creation-Date: 2006-08-25 00:32+0100\n"
 "PO-Revision-Date: 2006-08-02 10:04+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -100,23 +100,28 @@ msgstr "Skriv ut sökvägen till valda chroot"
 msgid "Select all chroots"
 msgstr "Välj alla chroot"
 
-#: dchroot/dchroot-options.cc:59 schroot/schroot-options.cc:65
+#: dchroot/dchroot-options.cc:59 dchroot-dsa/dchroot-dsa-options.cc:61
+#: schroot/schroot-options.cc:63
+msgid "Directory to use"
+msgstr ""
+
+#: dchroot/dchroot-options.cc:61 schroot/schroot-options.cc:67
 msgid "Preserve user environment"
 msgstr "Behåll användarens miljövariabler"
 
-#: dchroot/dchroot-options.cc:83 schroot/schroot-options-base.cc:137
+#: dchroot/dchroot-options.cc:85 schroot/schroot-options-base.cc:137
 msgid "--quiet and --verbose may not be used at the same time"
 msgstr "--quiet och --verbose får inte användas samtidigt"
 
-#: dchroot/dchroot-options.cc:85 schroot/schroot-options-base.cc:139
+#: dchroot/dchroot-options.cc:87 schroot/schroot-options-base.cc:139
 msgid "Using verbose output"
 msgstr "Använder informativ utskrift"
 
-#: dchroot/dchroot-options.cc:91 schroot/schroot-options-base.cc:145
+#: dchroot/dchroot-options.cc:93 schroot/schroot-options-base.cc:145
 msgid "--chroot and --all may not be used at the same time"
 msgstr "--chroot och --all kan inte användas samtidigt"
 
-#: dchroot/dchroot-options.cc:93 schroot/schroot-options-base.cc:147
+#: dchroot/dchroot-options.cc:95 schroot/schroot-options-base.cc:147
 msgid "Using --chroots only"
 msgstr "Använder endast --chroots"
 
@@ -126,7 +131,7 @@ msgstr "sessionsbegränsning för dchroot"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
-#: dchroot/dchroot-session.cc:117 dchroot-dsa/dchroot-dsa-session.cc:125
+#: dchroot/dchroot-session.cc:126 dchroot-dsa/dchroot-dsa-session.cc:134
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%1% chroot] Kör kommando: \"%2%\""
@@ -147,15 +152,15 @@ msgstr " [FLAGGA...] chroot [KOMMANDO] - kör kommando eller skal i en chroot"
 msgid "Print paths to available chroots"
 msgstr "Skriv ut sökvägar till tillgängliga chrootmiljöer"
 
-#: dchroot-dsa/dchroot-dsa-options.cc:87
+#: dchroot-dsa/dchroot-dsa-options.cc:91
 msgid "Only one command may be specified"
 msgstr "Endast ett kommando får anges"
 
-#: dchroot-dsa/dchroot-dsa-options.cc:91
+#: dchroot-dsa/dchroot-dsa-options.cc:95
 msgid "Command must have an absolute path"
 msgstr "Kommandot måste ha en absolut sökväg"
 
-#: dchroot-dsa/dchroot-dsa-options.cc:100
+#: dchroot-dsa/dchroot-dsa-options.cc:104
 msgid "No chroot specified"
 msgstr "Ingen chroot angiven"
 
@@ -186,33 +191,33 @@ msgid "PAM error"
 msgstr "PAM-fel"
 
 #: sbuild/sbuild-auth.cc:127 sbuild/sbuild-run-parts.cc:196
-#: sbuild/sbuild-session.cc:1017 sbuild/sbuild-session.cc:1254
+#: sbuild/sbuild-session.cc:1031 sbuild/sbuild-session.cc:1268
 msgid "An unknown exception occurred"
 msgstr "Ett okänt undantag inträffade"
 
-#: sbuild/sbuild-auth.cc:438
+#: sbuild/sbuild-auth.cc:451
 msgid "Set RUSER"
 msgstr "Ställ in RUSER"
 
-#: sbuild/sbuild-auth.cc:456
+#: sbuild/sbuild-auth.cc:469
 msgid "Set RHOST"
 msgstr "Ställ in RHOST"
 
-#: sbuild/sbuild-auth.cc:475
+#: sbuild/sbuild-auth.cc:488
 msgid "Set TTY"
 msgstr "Ställ in TTY"
 
-#: sbuild/sbuild-auth.cc:487
+#: sbuild/sbuild-auth.cc:500
 msgid "Set USER"
 msgstr "Ställ in USER"
 
 #. TRANSLATORS: %1% = program name (PAM service name)
-#: sbuild/sbuild-auth.cc:510
+#: sbuild/sbuild-auth.cc:523
 #, boost-format
 msgid "You do not have permission to access the %1% service."
 msgstr "Du har inte behörighet att komma åt %1%-tjänsten."
 
-#: sbuild/sbuild-auth.cc:512
+#: sbuild/sbuild-auth.cc:525
 msgid "This failure will be reported."
 msgstr "Det här felet kommer att rapporteras."
 
@@ -915,14 +920,14 @@ msgstr "Fel vid återställandet av terminalinställningar"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:786
+#: sbuild/sbuild-session.cc:800
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[%1% chroot] Kör inloggningsskal: \"%4%\""
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:790
+#: sbuild/sbuild-session.cc:804
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[%1% chroot] Kör skal: \"%4%\""
@@ -932,7 +937,7 @@ msgstr "[%1% chroot] Kör skal: \"%4%\""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:801
+#: sbuild/sbuild-session.cc:815
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Kör inloggningsskal: \"%4%\""
@@ -942,14 +947,14 @@ msgstr "[%1% chroot] (%2%->%3%) Kör inloggningsskal: \"%4%\""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:808
+#: sbuild/sbuild-session.cc:822
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Kör skal: \"%4%\""
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:846
+#: sbuild/sbuild-session.cc:860
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Kör kommando: \"%4%\""
@@ -959,17 +964,17 @@ msgstr "[%1% chroot] Kör kommando: \"%4%\""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:853
+#: sbuild/sbuild-session.cc:867
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Kör kommando: \"%4%\""
 
-#: sbuild/sbuild-session.cc:1040
+#: sbuild/sbuild-session.cc:1054
 #, boost-format
 msgid "stage=%1%"
 msgstr "steg=%1%"
 
-#: sbuild/sbuild-session.cc:1178 sbuild/sbuild-session.cc:1185
+#: sbuild/sbuild-session.cc:1192 sbuild/sbuild-session.cc:1199
 msgid "terminating immediately"
 msgstr "avslutar omedelbart"
 
@@ -1178,27 +1183,27 @@ msgstr "Välj alla chroot och aktiva sessioner"
 msgid "Select all active sessions"
 msgstr "Välj alla aktiva sessioner"
 
-#: schroot/schroot-options.cc:63
+#: schroot/schroot-options.cc:65
 msgid "Username (default current user)"
 msgstr "Användarnamn (förval är nuvarande användare)"
 
-#: schroot/schroot-options.cc:69
+#: schroot/schroot-options.cc:71
 msgid "Begin a session; returns a session ID"
 msgstr "Börja en session; returnerar ett sessions-id"
 
-#: schroot/schroot-options.cc:71
+#: schroot/schroot-options.cc:73
 msgid "Recover an existing session"
 msgstr "Återhämta en existerande session"
 
-#: schroot/schroot-options.cc:73
+#: schroot/schroot-options.cc:75
 msgid "Run an existing session"
 msgstr "Kör en existerande session"
 
-#: schroot/schroot-options.cc:75
+#: schroot/schroot-options.cc:77
 msgid "End an existing session"
 msgstr "Avsluta en existerande session"
 
-#: schroot/schroot-options.cc:77
+#: schroot/schroot-options.cc:79
 msgid "Force operation, even if it fails"
 msgstr "Tvinga operation, även om den misslyckas"
 
