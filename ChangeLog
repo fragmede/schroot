@@ -1,3 +1,7 @@
+2006-08-25  Roger Leigh  <rleigh@debian.org>
+
+	* po/schroot.pot: Add.
+
 2006-08-19  Roger Leigh  <rleigh@debian.org>
 
 	* NEWS: Document --directory.

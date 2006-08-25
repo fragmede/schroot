@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-08-05 23:15+0100\n"
+"POT-Creation-Date: 2006-08-25 17:45+0100\n"
 "PO-Revision-Date: 2006-08-02 10:04+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -100,23 +100,28 @@ msgstr "Skriv ut sökvägen till valda chroot"
 msgid "Select all chroots"
 msgstr "Välj alla chroot"
 
-#: dchroot/dchroot-options.cc:60 schroot/schroot-options.cc:66
+#: dchroot/dchroot-options.cc:60 dchroot-dsa/dchroot-dsa-options.cc:62
+#: schroot/schroot-options.cc:64
+msgid "Directory to use"
+msgstr ""
+
+#: dchroot/dchroot-options.cc:62 schroot/schroot-options.cc:68
 msgid "Preserve user environment"
 msgstr "Behåll användarens miljövariabler"
 
-#: dchroot/dchroot-options.cc:84 schroot/schroot-options-base.cc:126
+#: dchroot/dchroot-options.cc:86 schroot/schroot-options-base.cc:138
 msgid "--quiet and --verbose may not be used at the same time"
 msgstr "--quiet och --verbose får inte användas samtidigt"
 
-#: dchroot/dchroot-options.cc:86 schroot/schroot-options-base.cc:128
+#: dchroot/dchroot-options.cc:88 schroot/schroot-options-base.cc:140
 msgid "Using verbose output"
 msgstr "Använder informativ utskrift"
 
-#: dchroot/dchroot-options.cc:92 schroot/schroot-options-base.cc:134
+#: dchroot/dchroot-options.cc:94 schroot/schroot-options-base.cc:146
 msgid "--chroot and --all may not be used at the same time"
 msgstr "--chroot och --all kan inte användas samtidigt"
 
-#: dchroot/dchroot-options.cc:94 schroot/schroot-options-base.cc:136
+#: dchroot/dchroot-options.cc:96 schroot/schroot-options-base.cc:148
 msgid "Using --chroots only"
 msgstr "Använder endast --chroots"
 
@@ -126,7 +131,7 @@ msgstr "sessionsbegränsning för dchroot"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
-#: dchroot/dchroot-session.cc:118 dchroot-dsa/dchroot-dsa-session.cc:126
+#: dchroot/dchroot-session.cc:127 dchroot-dsa/dchroot-dsa-session.cc:135
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%1% chroot] Kör kommando: \"%2%\""
@@ -147,15 +152,15 @@ msgstr " [FLAGGA...] chroot [KOMMANDO] - kör kommando eller skal i en chroot"
 msgid "Print paths to available chroots"
 msgstr "Skriv ut sökvägar till tillgängliga chrootmiljöer"
 
-#: dchroot-dsa/dchroot-dsa-options.cc:88
+#: dchroot-dsa/dchroot-dsa-options.cc:92
 msgid "Only one command may be specified"
 msgstr "Endast ett kommando får anges"
 
-#: dchroot-dsa/dchroot-dsa-options.cc:92
+#: dchroot-dsa/dchroot-dsa-options.cc:96
 msgid "Command must have an absolute path"
 msgstr "Kommandot måste ha en absolut sökväg"
 
-#: dchroot-dsa/dchroot-dsa-options.cc:101
+#: dchroot-dsa/dchroot-dsa-options.cc:105
 msgid "No chroot specified"
 msgstr "Ingen chroot angiven"
 
@@ -186,34 +191,34 @@ msgid "PAM error"
 msgstr "PAM-fel"
 
 #: sbuild/sbuild-auth.cc:127 sbuild/sbuild-log.cc:168
-#: sbuild/sbuild-run-parts.cc:195 sbuild/sbuild-session.cc:1007
-#: sbuild/sbuild-session.cc:1247
+#: sbuild/sbuild-run-parts.cc:195 sbuild/sbuild-session.cc:1025
+#: sbuild/sbuild-session.cc:1265
 msgid "An unknown exception occurred"
 msgstr "Ett okänt undantag inträffade"
 
-#: sbuild/sbuild-auth.cc:438
+#: sbuild/sbuild-auth.cc:451
 msgid "Set RUSER"
 msgstr "Ställ in RUSER"
 
-#: sbuild/sbuild-auth.cc:456
+#: sbuild/sbuild-auth.cc:469
 msgid "Set RHOST"
 msgstr "Ställ in RHOST"
 
-#: sbuild/sbuild-auth.cc:475
+#: sbuild/sbuild-auth.cc:488
 msgid "Set TTY"
 msgstr "Ställ in TTY"
 
-#: sbuild/sbuild-auth.cc:487
+#: sbuild/sbuild-auth.cc:500
 msgid "Set USER"
 msgstr "Ställ in USER"
 
 #. TRANSLATORS: %1% = program name (PAM service name)
-#: sbuild/sbuild-auth.cc:510
+#: sbuild/sbuild-auth.cc:523
 #, boost-format
 msgid "You do not have permission to access the %1% service."
 msgstr "Du har inte behörighet att komma åt %1%-tjänsten."
 
-#: sbuild/sbuild-auth.cc:512
+#: sbuild/sbuild-auth.cc:525
 msgid "This failure will be reported."
 msgstr "Det här felet kommer att rapporteras."
 
@@ -476,12 +481,12 @@ msgid "Source Root Groups"
 msgstr "Källrotgrupper"
 
 #. TRANSLATORS: CTTY and FD_CLOEXEC should not be translated.
-#: sbuild/sbuild-ctty.cc:47
+#: sbuild/sbuild-ctty.cc:49
 msgid "The CTTY FD_CLOEXEC flag could not be set"
 msgstr ""
 
 #. TRANSLATORS: CTTY should not be translated.
-#: sbuild/sbuild-ctty.cc:49
+#: sbuild/sbuild-ctty.cc:51
 msgid "The CTTY file descriptor could not be duplicated"
 msgstr ""
 
@@ -930,14 +935,14 @@ msgstr "Fel vid återställandet av terminalinställningar"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:777
+#: sbuild/sbuild-session.cc:794
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[%1% chroot] Kör inloggningsskal: \"%4%\""
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:781
+#: sbuild/sbuild-session.cc:798
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[%1% chroot] Kör skal: \"%4%\""
@@ -947,7 +952,7 @@ msgstr "[%1% chroot] Kör skal: \"%4%\""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:792
+#: sbuild/sbuild-session.cc:809
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Kör inloggningsskal: \"%4%\""
@@ -957,14 +962,14 @@ msgstr "[%1% chroot] (%2%->%3%) Kör inloggningsskal: \"%4%\""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:799
+#: sbuild/sbuild-session.cc:816
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Kör skal: \"%4%\""
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:836
+#: sbuild/sbuild-session.cc:854
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Kör kommando: \"%4%\""
@@ -974,17 +979,17 @@ msgstr "[%1% chroot] Kör kommando: \"%4%\""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:843
+#: sbuild/sbuild-session.cc:861
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Kör kommando: \"%4%\""
 
-#: sbuild/sbuild-session.cc:1030
+#: sbuild/sbuild-session.cc:1048
 #, boost-format
 msgid "stage=%1%"
 msgstr "steg=%1%"
 
-#: sbuild/sbuild-session.cc:1171 sbuild/sbuild-session.cc:1178
+#: sbuild/sbuild-session.cc:1189 sbuild/sbuild-session.cc:1196
 msgid "terminating immediately"
 msgstr "avslutar omedelbart"
 
@@ -1066,7 +1071,7 @@ msgstr "Visa mer utdata"
 msgid "Enable debugging messages"
 msgstr "Aktivera felsökningsmeddelanden"
 
-#: schroot/schroot-base-options.cc:124
+#: schroot/schroot-base-options.cc:132
 msgid "Invalid debug level"
 msgstr "Ogiltig felsökningsnivå"
 
@@ -1096,13 +1101,13 @@ msgstr "Montera"
 msgid "Mountpoint to check (full path)"
 msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
 
-#: schroot/schroot-listmounts-options.cc:86
+#: schroot/schroot-listmounts-options.cc:90
 msgid "No mount point specified"
 msgstr "Ingen monteringspunkt angiven"
 
-#: schroot/schroot-listmounts-options.cc:93
-#: schroot/schroot-options-base.cc:215
-#: schroot/schroot-releaselock-options.cc:96
+#: schroot/schroot-listmounts-options.cc:97
+#: schroot/schroot-options-base.cc:227
+#: schroot/schroot-releaselock-options.cc:100
 msgid "Only one action may be specified"
 msgstr "Endast en åtgärd får anges"
 
@@ -1169,15 +1174,15 @@ msgstr "Använd angiven chroot"
 msgid "Command to run"
 msgstr "Kommando att köra"
 
-#: schroot/schroot-options-base.cc:159
+#: schroot/schroot-options-base.cc:171
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "Endast en chroot får anges vid början av en session"
 
-#: schroot/schroot-options-base.cc:185
+#: schroot/schroot-options-base.cc:197
 msgid "--chroot may not be used with --list"
 msgstr "--chroot får inte användas med --list"
 
-#: schroot/schroot-options-base.cc:207
+#: schroot/schroot-options-base.cc:219
 msgid "Unknown action specified"
 msgstr "Okänd åtgärd angiven"
 
@@ -1193,27 +1198,27 @@ msgstr "Välj alla chroot och aktiva sessioner"
 msgid "Select all active sessions"
 msgstr "Välj alla aktiva sessioner"
 
-#: schroot/schroot-options.cc:64
+#: schroot/schroot-options.cc:66
 msgid "Username (default current user)"
 msgstr "Användarnamn (förval är nuvarande användare)"
 
-#: schroot/schroot-options.cc:70
+#: schroot/schroot-options.cc:72
 msgid "Begin a session; returns a session ID"
 msgstr "Börja en session; returnerar ett sessions-id"
 
-#: schroot/schroot-options.cc:72
+#: schroot/schroot-options.cc:74
 msgid "Recover an existing session"
 msgstr "Återhämta en existerande session"
 
-#: schroot/schroot-options.cc:74
+#: schroot/schroot-options.cc:76
 msgid "Run an existing session"
 msgstr "Kör en existerande session"
 
-#: schroot/schroot-options.cc:76
+#: schroot/schroot-options.cc:78
 msgid "End an existing session"
 msgstr "Avsluta en existerande session"
 
-#: schroot/schroot-options.cc:78
+#: schroot/schroot-options.cc:80
 msgid "Force operation, even if it fails"
 msgstr "Tvinga operation, även om den misslyckas"
 
@@ -1250,7 +1255,7 @@ msgstr "Enhet att låsa upp (full sökväg)"
 msgid "Process ID owning the lock"
 msgstr "Process-id som äger låset"
 
-#: schroot/schroot-releaselock-options.cc:89
+#: schroot/schroot-releaselock-options.cc:93
 msgid "No device specified"
 msgstr "Ingen enhet angiven"
 
