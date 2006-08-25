@@ -29,11 +29,6 @@ POTENTIAL
 
   - Use the _r variants of getpw*, getgr*.
 
-* Use controlling TTY for authentication
-
-  PAM and the conversation handler should use the CTTY, rather than
-  STDIN_FILENO.  The CTTY fd should use FD_CLOEXEC.
-
 * Add tests for
 
 ** Auth
@@ -47,7 +42,7 @@ POTENTIAL
 None of these are urgent and/or are difficult to test in an automated
 fashion.  expect might be useful for testing the PAM wrappers.
 
-* Add tests for dchroot classes.
+* Add tests for dchroot and dchroot-dsa classes.
 
 * Line reporting while parsing config files misses file name.
 

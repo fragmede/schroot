@@ -1,5 +1,13 @@
 2006-08-25  Roger Leigh  <rleigh@debian.org>
 
+	* Version 1.1.0
+
+	* debian/changelog: Update for 1.1.0
+
+	* TODO: Remove completed item.
+
+2006-08-25  Roger Leigh  <rleigh@debian.org>
+
 	* po/schroot.pot: Add.
 
 2006-08-19  Roger Leigh  <rleigh@debian.org>
