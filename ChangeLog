@@ -1,3 +1,9 @@
+2006-09-11  Roger Leigh  <rleigh@debian.org>
+
+	* Version 1.0.1.
+
+	* debian/changelog: Finalise for 1.0.1.
+
 2006-08-25  Roger Leigh  <rleigh@debian.org>
 
 	* po/schroot.pot: Add.
