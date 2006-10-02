@@ -115,8 +115,9 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
   std::string commandstring = sbuild::string_list_to_string(command, " ");
   sbuild::log_debug(sbuild::DEBUG_NOTICE)
     << format("Running command: %1%") % commandstring << endl;
-  syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
-	 session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), commandstring.c_str());
+  if (get_uid() == 0 || get_ruid() != get_uid())
+    syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
+	   session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), commandstring.c_str());
 
   if (get_verbosity() != auth::VERBOSITY_QUIET)
     {

@@ -1,5 +1,16 @@
 2006-10-02  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Close #381695.
+
+	* NEWS: Document changed syslog behaviour.
+
+	* dchroot/dchroot-session.cc, dchroot-dsa/dchroot-dsa-session.cc
+	(get_user_command): syslog logging of the command or shell being
+	run in the chroot now only occurs when running as root or
+	switching to another user.
+
+2006-10-02  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Bump version to 1.0.3.
 
 	* NEWS: Bump version to 1.0.3.
