@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-08-25 00:32+0100\n"
+"POT-Creation-Date: 2006-10-02 23:38+0100\n"
 "PO-Revision-Date: 2006-08-25 10:33+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -126,7 +126,7 @@ msgstr "dchroot session restriction"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
-#: dchroot/dchroot-session.cc:126 dchroot-dsa/dchroot-dsa-session.cc:134
+#: dchroot/dchroot-session.cc:127 dchroot-dsa/dchroot-dsa-session.cc:135
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%1% chroot] Running command: “%2%”"

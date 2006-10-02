@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-08-25 00:32+0100\n"
+"POT-Creation-Date: 2006-10-02 23:38+0100\n"
 "PO-Revision-Date: 2006-07-31 22:25+0200\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -130,7 +130,7 @@ msgstr "omezení dchroot sezení"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
-#: dchroot/dchroot-session.cc:126 dchroot-dsa/dchroot-dsa-session.cc:134
+#: dchroot/dchroot-session.cc:127 dchroot-dsa/dchroot-dsa-session.cc:135
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[chroot %1%] Spouštím příkaz: \"%2%\""
