@@ -1,3 +1,7 @@
+2006-10-04  Luk Claes  <luk@debian.org>
+
+	* po/sv.po: Updated Swedish translation.
+
 2006-10-02  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
 
 	* NEWS: Document changed syslog behaviour.
