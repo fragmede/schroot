@@ -1,5 +1,9 @@
 2006-10-18  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot-setup.5.in: Fix typo (merged from mainline).
+
+2006-10-18  Roger Leigh  <rleigh@debian.org>
+
 	* README, schroot/schroot-setup.5.in, schroot/schroot.conf.5.in:
 	Fix a number of minor typos.  Thanks to Jens Seidel.
 

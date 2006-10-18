@@ -117,8 +117,8 @@ session, otherwise \[oq]false\[cq].
 .SS Block device variables
 .TP
 CHROOT_DEVICE
-The device containing the chroot root filesystem.  This usually, but not
-necessarily the device which will be mounted.  For example, an LVM snapshot
+The device containing the chroot root filesystem.  This is usually, but not
+necessarily, the device which will be mounted.  For example, an LVM snapshot
 this will be the original logical volume.
 .TP
 CHROOT_MOUNT_OPTIONS
