@@ -125,6 +125,8 @@ main_base::check_dchroot_conf ()
       if (this->options->verbose)
 	{
 	  sbuild::log_warning()
+	    // TRANSLATORS: %1% = program name
+	    // TRANSLATORS: %2% = configuration file
 	    << format(_("Using %1% configuration file: '%2%'"))
 	    % this->program_name % DCHROOT_CONF
 	    << endl;
