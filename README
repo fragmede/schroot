@@ -4,11 +4,11 @@ schroot
 Securely enter a chroot and run a command or login shell.
 
 Note that giving untrusted users root access to chroots is a serious
-security risk!.  Although the untrusted user will only have root
-access to files inside the chroot, in practice there are many obvious
-ways of breaking out of the chroot and of disrupting services on the
-host system.  As always, this boils down to trust.  Don't give chroot
-root access to users you would not trust with root access to the host
+security risk!  Although the untrusted user will only have root access
+to files inside the chroot, in practice there are many obvious ways of
+breaking out of the chroot and of disrupting services on the host
+system.  As always, this boils down to trust.  Don't give chroot root
+access to users you would not trust with root access to the host
 system.
 
 For compatibility with existing tools and scripts, wrapper binaries
@@ -48,7 +48,7 @@ Note that the testsuite ("make check") should be run under fakeroot or
 real root in order to work correctly.  There are the following
 additional options:
 
-  --enable-dchroot:      Build dchroot.
+  --enable-dchroot:      Build dchroot
   --enable-dchroot-dsa:  Build DSA dchroot
   --enable-debug:        Enable debugging features (not recommended)
 
