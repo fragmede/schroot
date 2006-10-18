@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-10-02 23:38+0100\n"
+"POT-Creation-Date: 2006-10-18 20:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: %1% = file
-#: dchroot/dchroot-main-base.cc:83 dchroot/dchroot-main-base.cc:142
+#: dchroot/dchroot-main-base.cc:83 dchroot/dchroot-main-base.cc:144
 #, boost-format
 msgid "Remove '%1%' to use the new configuration."
 msgstr ""
@@ -62,21 +62,23 @@ msgstr ""
 msgid "Run \"schroot\" for full capabilities"
 msgstr ""
 
-#: dchroot/dchroot-main-base.cc:127
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = configuration file
+#: dchroot/dchroot-main-base.cc:129
 #, boost-format
 msgid "Using %1% configuration file: '%2%'"
 msgstr ""
 
-#: dchroot/dchroot-main-base.cc:131
+#: dchroot/dchroot-main-base.cc:133
 #, boost-format
 msgid "Run \"%1%\""
 msgstr ""
 
-#: dchroot/dchroot-main-base.cc:135
+#: dchroot/dchroot-main-base.cc:137
 msgid "to migrate to a schroot configuration."
 msgstr ""
 
-#: dchroot/dchroot-main-base.cc:138
+#: dchroot/dchroot-main-base.cc:140
 #, boost-format
 msgid "Edit '%1%' to add appropriate user and/or group access."
 msgstr ""

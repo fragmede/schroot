@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot-0.99.4-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-10-02 23:38+0100\n"
+"POT-Creation-Date: 2006-10-18 20:34+0100\n"
 "PO-Revision-Date: 2006-10-04 18:29+09300\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -49,7 +49,7 @@ msgstr ""
 "khoá của người dùng chủ (root-users) hay nhóm chủ (root-groups)."
 
 #. TRANSLATORS: %1% = file
-#: dchroot/dchroot-main-base.cc:83 dchroot/dchroot-main-base.cc:142
+#: dchroot/dchroot-main-base.cc:83 dchroot/dchroot-main-base.cc:144
 #, boost-format
 msgid "Remove '%1%' to use the new configuration."
 msgstr "Gỡ bỏ « %1% » để sử dụng cấu hình mới."
@@ -66,21 +66,23 @@ msgstr "Đang chạy schroot trong chế độ tương thích %1%"
 msgid "Run \"schroot\" for full capabilities"
 msgstr "Chạy « schroot » để có khả năng đầy đủ"
 
-#: dchroot/dchroot-main-base.cc:127
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = configuration file
+#: dchroot/dchroot-main-base.cc:129
 #, boost-format
 msgid "Using %1% configuration file: '%2%'"
 msgstr "Đang dùng tập tin cấu hình %1%: « %2% »"
 
-#: dchroot/dchroot-main-base.cc:131
+#: dchroot/dchroot-main-base.cc:133
 #, boost-format
 msgid "Run \"%1%\""
 msgstr "Chạy « %1% »"
 
-#: dchroot/dchroot-main-base.cc:135
+#: dchroot/dchroot-main-base.cc:137
 msgid "to migrate to a schroot configuration."
 msgstr "để nâng cấp lên một cấu hình schroot."
 
-#: dchroot/dchroot-main-base.cc:138
+#: dchroot/dchroot-main-base.cc:140
 #, boost-format
 msgid "Edit '%1%' to add appropriate user and/or group access."
 msgstr ""
