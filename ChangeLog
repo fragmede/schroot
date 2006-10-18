@@ -1,5 +1,10 @@
 2006-10-18  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/schroot.1.in: Fix a number of minor typos.  Thanks to
+        Jens Seidel.
+
+2006-10-18  Roger Leigh  <rleigh@debian.org>
+
 	* dchroot/dchroot-main-base.cc: Add translator comment.
 
 2006-10-18  Roger Leigh  <rleigh@debian.org>

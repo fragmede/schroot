@@ -43,7 +43,7 @@ argument may be separately quoted.
 The directory the command or login shell is run in depends upon the context.
 See \fI\-\-directory\fP option below for a complete description.
 .PP
-If the user is not a and allowed user, or amember of the allowed groups (or if
+If the user is not an allowed user, or a member of the allowed groups (or if
 changing to root, the allowed root users or allowed root groups) for the
 specified chroot(s), the user will be required to authenticate themselves
 (typically with a password, but this depends upon the PAM configuration).  All
