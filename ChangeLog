@@ -1,3 +1,10 @@
+2006-11-03  Roger Leigh  <rleigh@debian.org>
+
+	* debian/schroot.init: Add LSB init info and use LSB init
+	functions.
+
+	* debian/changelog: Update.
+
 2006-10-18  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot.1.in: Fix a number of minor typos.  Thanks to
