@@ -1,3 +1,10 @@
+2006-11-03  Roger Leigh  <rleigh@debian.org>
+
+	* debian/schroot.init: Add LSB init info and use LSB init
+	functions.  Backported from trunk.
+
+	* debian/changelog: Update.
+
 2006-10-21  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Bump version to 1.0.4.

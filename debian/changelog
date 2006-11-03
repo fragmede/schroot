@@ -1,8 +1,9 @@
 schroot (1.0.4-1) UNRELEASED; urgency=low
 
   * New upstream release.
+  * debian/schroot.init: Add LSB init info and use LSB init functions.
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 21 Oct 2006 11:23:55 +0100
+ -- Roger Leigh <rleigh@debian.org>  Fri,  3 Nov 2006 00:50:07 +0000
 
 schroot (1.0.3-1) unstable; urgency=low
 

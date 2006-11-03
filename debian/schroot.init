@@ -1,10 +1,24 @@
 #! /bin/sh
 #
-# Recover schroot sessions.
+### BEGIN INIT INFO
+# Provides:          schroot
+# Required-Start:    $local_fs $network $remote_fs
+# Required-Stop:
+# Should-Start:      lvm
+# Should-Stop:
+# Default-Start:     S
+# Default-Stop:
+# Short-Description: Recover schroot sessions.
+# Description:       Activate any persistent sessions after a reboot.
+#                    Setup scripts will be run to mount filesystems and
+#                    bring the chroot back to a working state.
+### END INIT INFO
 
 SCHROOT=/usr/bin/schroot
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 NAME=schroot
+
+. /lib/lsb/init-functions
 
 test -x $SCHROOT || exit 0
 
@@ -17,13 +31,13 @@ set -e
 
 recover_sessions()
 {
-    echo -n "Recovering schroot sessions... "
+    log_daemon_msg "Recovering schroot sessions"
     for chroot in `$SCHROOT --all-sessions --list --quiet`
       do
       $SCHROOT --chroot=$chroot --recover-session || true
-      echo -n "$chroot, "
+      log_progress_msg "$chroot"
     done
-    echo "done."
+    log_end_msg 0
 }
 
 case "$1" in
@@ -32,9 +46,11 @@ case "$1" in
 	;;
     stop)
 	;;
+    status)
+	;;
     *)
 	N=/etc/init.d/$NAME
-	echo "Usage: $N {start|stop|restart|force-reload}" >&2
+	echo "Usage: $N {start|stop|restart|force-reload|status}" >&2
 	exit 1
 	;;
 esac
