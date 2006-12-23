@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.99.4\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-10-18 20:34+0100\n"
+"POT-Creation-Date: 2006-12-23 12:25+0000\n"
 "PO-Revision-Date: 2006-10-18 20:30+0100\n"
 "Last-Translator: Jens Seidel <jensseidel@users.sf.net>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -1075,13 +1075,13 @@ msgid "Invalid debug level"
 msgstr "Ungültiger Debug-Level"
 
 #. TRANSLATORS: %1% = file
-#: schroot/schroot-listmounts-main.cc:57
+#: schroot/schroot-listmounts-main.cc:58
 #, boost-format
 msgid "Failed to open '%1%'"
 msgstr "Konnte »%1%« nicht öffnen"
 
 #. TRANSLATORS: %1% = file
-#: schroot/schroot-listmounts-main.cc:59
+#: schroot/schroot-listmounts-main.cc:60
 #, boost-format
 msgid "Failed to close '%1%'"
 msgstr "Konnte »%1%« nicht schließen"
@@ -1090,7 +1090,7 @@ msgstr "Konnte »%1%« nicht schließen"
 # "[OPTION…]" heißen?
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#: schroot/schroot-listmounts-main.cc:74
+#: schroot/schroot-listmounts-main.cc:75
 msgid "[OPTION...] - list mount points"
 msgstr "[OPTION …] - zeigt Einhängepunkte"
 

@@ -1,5 +1,11 @@
 2006-12-23  Roger Leigh  <rleigh@debian.org>
 
+	* Version 1.0.4.
+
+	* debian/changelog: Finalise for 1.0.4.
+
+2006-12-23  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Close #401180.
 
 2006-12-23  Roger Leigh  <rleigh@debian.org>
