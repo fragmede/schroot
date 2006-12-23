@@ -1,5 +1,9 @@
 2006-12-23  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Close #401180.
+
+2006-12-23  Roger Leigh  <rleigh@debian.org>
+
 	* Merge from trunk.
 
 	* schroot/schroot-listmounts-main.cc
