@@ -22,6 +22,7 @@
 #include "schroot-listmounts-main.h"
 
 #include <cerrno>
+#include <climits>
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
@@ -87,6 +88,12 @@ main::list_mounts (std::string const& mountfile) const
   sbuild::string_list ret;
 
   std::string to_find = sbuild::normalname(this->opts->mountpoint);
+
+  // NOTE: This is a non-standard GNU extension.
+  char *rpath = realpath(to_find.c_str(), NULL);
+  to_find = rpath;
+  free(rpath);
+  rpath = 0;
 
   std::FILE *mntdb = std::fopen(mountfile.c_str(), "r");
   if (mntdb == 0)

@@ -1,3 +1,14 @@
+2006-12-23  Roger Leigh  <rleigh@debian.org>
+
+	* Merge from trunk.
+
+	* schroot/schroot-listmounts-main.cc
+	(list_mounts): Use realpath(3) to ensure the correct mountpoint it
+	checked.  This prevents severe dataloss if the user has placed a
+	symbolic link in the SCHROOT_MOUNT_DIR path.
+
+	* NEWS: Document realpath fix.
+
 2006-11-03  Roger Leigh  <rleigh@debian.org>
 
 	* debian/schroot.init: Add LSB init info and use LSB init

@@ -9,6 +9,11 @@ configuration.
 
 * Major changes in 1.0.4:
 
+  1) Using symbolic links in the mount path (SCHROOT_MOUNT_DIR) will
+     no longer result in severe dataloss.
+
+  2) LSB init script functions are now used.
+
 * Major changes in 1.0.3:
 
   1) For dchroot and dchroot-dsa, the syslog logging of the command or
