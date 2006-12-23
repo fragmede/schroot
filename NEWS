@@ -15,6 +15,9 @@ configuration.
      inside and outside the chroot, and not root, the command or shell
      being run will not be logged.
 
+  2) Using symbolic links in the mount path (SCHROOT_MOUNT_DIR) will
+     no longer result in severe dataloss.
+
 * Major changes in 1.1.0:
 
   1) Authentication now uses the Controlling TTY (/dev/tty) for
