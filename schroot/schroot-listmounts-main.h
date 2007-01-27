@@ -37,6 +37,7 @@ namespace schroot_listmounts
     /// Error codes.
     enum error_code
       {
+	FIND, ///< Failed to find file.
 	OPEN, ///< Failed to open file.
 	CLOSE ///< Failed to close file.
       };
