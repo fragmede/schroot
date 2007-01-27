@@ -1,3 +1,13 @@
+2007-01-27  Roger Leigh  <rleigh@debian.org>
+
+	* po/en.po: Update.
+
+	* schroot/schroot-listmounts-main.cc (list_mounts): Ensure path
+	returned by realpath(3) is not null.
+
+	* schroot/schroot-listmounts-main.h (schroot_listmounts): Add FIND
+	error code.
+
 2006-12-23  Roger Leigh  <rleigh@debian.org>
 
 	* Version 1.0.4.

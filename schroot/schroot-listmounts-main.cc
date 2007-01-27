@@ -55,6 +55,8 @@ namespace
   emap init_errors[] =
     {
       // TRANSLATORS: %1% = file
+      emap(main::FIND,  N_("Failed to find '%1%'")),
+      // TRANSLATORS: %1% = file
       emap(main::OPEN,  N_("Failed to open '%1%'")),
       // TRANSLATORS: %1% = file
       emap(main::CLOSE, N_("Failed to close '%1%'"))
@@ -91,6 +93,9 @@ main::list_mounts (std::string const& mountfile) const
 
   // NOTE: This is a non-standard GNU extension.
   char *rpath = realpath(to_find.c_str(), NULL);
+  if (rpath == 0)
+    throw error(to_find, FIND, strerror(errno));
+
   to_find = rpath;
   free(rpath);
   rpath = 0;

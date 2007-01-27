@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-12-23 12:25+0000\n"
+"POT-Creation-Date: 2007-01-27 13:05+0000\n"
 "PO-Revision-Date: 2006-10-03 13:22-0700\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -1064,19 +1064,25 @@ msgstr "Ogiltig felsökningsnivå"
 
 #. TRANSLATORS: %1% = file
 #: schroot/schroot-listmounts-main.cc:58
+#, fuzzy, boost-format
+msgid "Failed to find '%1%'"
+msgstr "Misslyckades med att hitta chroot \"%1%\""
+
+#. TRANSLATORS: %1% = file
+#: schroot/schroot-listmounts-main.cc:60
 #, boost-format
 msgid "Failed to open '%1%'"
 msgstr "Misslyckades med att öppna \"%1%\""
 
 #. TRANSLATORS: %1% = file
-#: schroot/schroot-listmounts-main.cc:60
+#: schroot/schroot-listmounts-main.cc:62
 #, boost-format
 msgid "Failed to close '%1%'"
 msgstr "Misslyckades med att stänga \"%1%\""
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#: schroot/schroot-listmounts-main.cc:75
+#: schroot/schroot-listmounts-main.cc:77
 msgid "[OPTION...] - list mount points"
 msgstr "[FLAGGA...] - lista monteringspunkter"
 

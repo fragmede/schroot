@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2006-12-23 12:25+0000\n"
+"POT-Creation-Date: 2007-01-27 13:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1047,18 +1047,24 @@ msgstr ""
 #. TRANSLATORS: %1% = file
 #: schroot/schroot-listmounts-main.cc:58
 #, boost-format
-msgid "Failed to open '%1%'"
+msgid "Failed to find '%1%'"
 msgstr ""
 
 #. TRANSLATORS: %1% = file
 #: schroot/schroot-listmounts-main.cc:60
+#, boost-format
+msgid "Failed to open '%1%'"
+msgstr ""
+
+#. TRANSLATORS: %1% = file
+#: schroot/schroot-listmounts-main.cc:62
 #, boost-format
 msgid "Failed to close '%1%'"
 msgstr ""
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#: schroot/schroot-listmounts-main.cc:75
+#: schroot/schroot-listmounts-main.cc:77
 msgid "[OPTION...] - list mount points"
 msgstr ""
 
