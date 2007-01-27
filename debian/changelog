@@ -1,3 +1,11 @@
+schroot (1.0.5-1) unstable; urgency=low
+
+  * New upstream release.
+  * schroot-listmounts: Don't segfault when realpath(3) returns null when
+    the supplied path is nonexistent (Closes: #408617).
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 27 Jan 2007 13:13:56 +0000
+
 schroot (1.0.4-1) unstable; urgency=high
 
   * New upstream release.

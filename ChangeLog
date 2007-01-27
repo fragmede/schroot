@@ -1,5 +1,15 @@
 2007-01-27  Roger Leigh  <rleigh@debian.org>
 
+	* Version 1.0.5.
+
+	* debian/changelog: Finalise for 1.0.5.
+
+	* NEWS: Update for 1.0.5.
+
+	* configure.ac: Bump version to 1.0.5.
+
+2007-01-27  Roger Leigh  <rleigh@debian.org>
+
 	* po/en.po: Update.
 
 	* schroot/schroot-listmounts-main.cc (list_mounts): Ensure path
