@@ -89,7 +89,6 @@ namespace sbuild
    * @param message the message to not translate.
    * @returns the message.
    */
-  //#define N_(String) String
   inline const char *
   N_ (const char *message)
   {
