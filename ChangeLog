@@ -1,3 +1,10 @@
+2007-03-11  Roger Leigh  <rleigh@debian.org>
+
+	* Merge from schroot-1.0 branch.
+
+        * po/fr.po: Add French translation.  Many thanks to Nicolas
+        François <nicolas.francois@centraliens.net>.
+
 2007-02-11  Roger Leigh  <rleigh@debian.org>
 
 	* sbuild/sbuild-i18n.h: Remove commented-out macro.
