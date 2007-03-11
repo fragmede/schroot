@@ -1,3 +1,10 @@
+schroot (1.0.6-1) unstable; urgency=low
+
+  * New upstream release.
+  * Add French translation, thanks to Nicolas François (Closes: #414415).
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 11 Mar 2007 21:48:52 +0000
+
 schroot (1.0.5-1) unstable; urgency=low
 
   * New upstream release.

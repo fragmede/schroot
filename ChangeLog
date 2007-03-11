@@ -1,3 +1,14 @@
+2007-03-11  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Close #414415.
+
+	* po/fr.po: Add French translation.  Many thanks to Nicolas
+	François <nicolas.francois@centraliens.net>.
+
+	* NEWS: Update for 1.0.5.
+
+	* configure.ac: Bump version to 1.0.5.
+
 2007-01-27  Roger Leigh  <rleigh@debian.org>
 
 	* Version 1.0.5.
