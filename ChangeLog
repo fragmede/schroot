@@ -1,5 +1,10 @@
 2007-03-16  Roger Leigh  <rleigh@debian.org>
 
+	* schroot/setup/50sbuild: Create user home directory if it doesn't
+	exist in the chroot and ensure it has the correct permissions.
+
+2007-03-16  Roger Leigh  <rleigh@debian.org>
+
 	* doc/schroot.dox.in: Add csbuild.
 
 	* Makefile.am: Add csbuild to SUBDIRS.
@@ -13,7 +18,6 @@
 	csbuild/csbuild-main.cc, csbuild/csbuild-main.h: New files.
 	Initial C++ implementation of sbuild; infrastructure classes
 	copied from dchroot.
-
 
 2007-03-11  Roger Leigh  <rleigh@debian.org>
 
