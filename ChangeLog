@@ -1,3 +1,20 @@
+2007-03-16  Roger Leigh  <rleigh@debian.org>
+
+	* doc/schroot.dox.in: Add csbuild.
+
+	* Makefile.am: Add csbuild to SUBDIRS.
+
+	* configure.ac: Add enable check and support for csbuild.
+
+	* csbuild/csbuild-session-base.cc, csbuild/csbuild-options.cc,
+	csbuild/csbuild-main-base.cc, csbuild/csbuild-options.h,
+	csbuild/csbuild-session-base.h, csbuild/csbuild-main-base.h,
+	csbuild/csbuild.1.in, csbuild/Makefile.am, csbuild/csbuild.cc,
+	csbuild/csbuild-main.cc, csbuild/csbuild-main.h: New files.
+	Initial C++ implementation of sbuild; infrastructure classes
+	copied from dchroot.
+
+
 2007-03-11  Roger Leigh  <rleigh@debian.org>
 
 	* Merge from schroot-1.0 branch.

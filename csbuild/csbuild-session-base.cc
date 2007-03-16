@@ -1,0 +1,87 @@
+/* Copyright © 2005-2006  Roger Leigh <rleigh@debian.org>
+ *
+ * schroot is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * schroot is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA  02111-1307  USA
+ *
+ *********************************************************************/
+
+#include <config.h>
+
+#include "csbuild-session-base.h"
+
+#include <cassert>
+#include <cerrno>
+#include <cstdlib>
+#include <cstring>
+#include <iostream>
+#include <memory>
+
+#include <unistd.h>
+
+#include <syslog.h>
+
+#include <boost/format.hpp>
+
+#include <uuid/uuid.h>
+
+using std::cout;
+using std::endl;
+using sbuild::_;
+using boost::format;
+using namespace csbuild;
+
+session_base::session_base (std::string const&  service,
+			    config_ptr&         config,
+			    operation           operation,
+			    sbuild::string_list const& chroots,
+			    bool                compat):
+  sbuild::session(service, config, operation, chroots),
+  compat(compat)
+{
+}
+
+session_base::~session_base ()
+{
+}
+
+bool
+session_base::get_compat () const
+{
+  return this->compat;
+}
+
+void
+session_base::set_compat (bool state)
+{
+  this->compat = state;
+}
+
+void
+session_base::run_impl ()
+{
+  if (get_ruid() != get_uid())
+    throw error(get_ruser(), get_user(), USER_SWITCH,
+		_("csbuild session restriction"));
+
+  sbuild::session::run_impl();
+}
+
+sbuild::string_list
+session_base::get_command_directories () const
+{
+  // csbuild does not treat logins differently from commands with
+  // respect to the cwd inside the chroot.
+  return get_login_directories();
+}

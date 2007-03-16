@@ -65,6 +65,19 @@ AM_CONDITIONAL([BUILD_DCHROOT_DSA], [test "$enable_dchroot_dsa_compat" = "yes"])
 AM_CONDITIONAL([BUILD_LIBDCHROOT], [test "$enable_dchroot_compat" = "yes" || test "$enable_dchroot_dsa_compat" = "yes"])
 
 
+AC_MSG_CHECKING([whether to enable csbuild])
+enable_csbuild_compat="no"
+AC_ARG_ENABLE([csbuild], [AS_HELP_STRING([--enable-csbuild], [Enable csbuild])],
+              [ case "${enableval}" in
+                yes) enable_csbuild_compat="yes" ;;
+                no)  enable_csbuild_compat="no" ;;
+                unset)  enable_csbuild_compat="no" ;;
+                *) AC_MSG_RESULT([unknown])
+                   AC_MSG_ERROR([bad value ${enableval} for --enable-csbuild]) ;;
+                esac])
+AC_MSG_RESULT([$enable_csbuild_compat])
+AM_CONDITIONAL([BUILD_CSBUILD], [test "$enable_csbuild_compat" = "yes"])
+
 AC_MSG_CHECKING([whether to enable debugging messages])
 enable_debug="no"
 AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug], [Enable debugging messages])],
@@ -337,6 +350,12 @@ AC_SUBST([DCHROOT_CONF])
 AH_TEMPLATE(DCHROOT_CONF, [dchroot config file path])
 AC_DEFINE_UNQUOTED(DCHROOT_CONF, ["$DCHROOT_CONF"])
 
+CSBUILD_CONF="${CSBUILD_SYSCONF_DIR}/csbuild.conf"
+AC_SUBST([CSBUILD_CONF])
+
+AH_TEMPLATE(CSBUILD_CONF, [csbuild config file path])
+AC_DEFINE_UNQUOTED(CSBUILD_CONF, ["$CSBUILD_CONF"])
+
 dnl Configure which files to generate.
 AC_CONFIG_FILES([doc/Makefile])
 AC_CONFIG_FILES([doc/schroot.dox])
@@ -353,6 +372,8 @@ AC_CONFIG_FILES([dchroot/Makefile])
 AC_CONFIG_FILES([dchroot/dchroot.1])
 AC_CONFIG_FILES([dchroot-dsa/Makefile])
 AC_CONFIG_FILES([dchroot-dsa/dchroot-dsa.1])
+AC_CONFIG_FILES([csbuild/Makefile])
+AC_CONFIG_FILES([csbuild/csbuild.1])
 AC_CONFIG_FILES([test/Makefile])
 AC_CONFIG_FILES([Makefile])
 dnl Output the generated config.status script.

@@ -22,25 +22,40 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-SUBDIRS = sbuild schroot dchroot dchroot-dsa csbuild test doc po
+LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS)
 
-# Remove junk from the generated tarball.
-dist-hook:
-	$(FIND) $(distdir) -name '.*' -print | $(XARGS) xargs $(RM) -rf
-	$(FIND) $(distdir) -name '#*' -print | $(XARGS) $(RM) -rf
-	$(FIND) $(distdir) -name '*~' -print | $(XARGS) $(RM) -rf
+DEFS = -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
 
-EXTRA_DIST =				\
-	bootstrap			\
-	debian				\
-	scripts/schroot_release.m4.in	\
-	m4				\
-	HACKING
+if BUILD_CSBUILD
+noinst_LTLIBRARIES = libcsbuild.la
+csbuild = csbuild
+endif
 
-ps:
-	$(MAKE) -C doc schroot.ps
+bin_PROGRAMS = $(csbuild)
 
-pdf:
-	$(MAKE) -C doc schroot.pdf
+libcsbuild_la_SOURCES =			\
+	csbuild-main-base.h		\
+	csbuild-main-base.cc		\
+	csbuild-session-base.h		\
+	csbuild-session-base.cc
+libcsbuild_la_LIBADD = $(top_builddir)/schroot/libschroot.la
 
-.PHONY: ps pdf
+csbuild_SOURCES =			\
+	csbuild-options.h		\
+	csbuild-options.cc		\
+	csbuild-main.h			\
+	csbuild-main.cc			\
+	csbuild.cc
+csbuild_LDADD = libcsbuild.la
+
+if BUILD_CSBUILD
+csbuild_mans = csbuild.1
+endif
+
+man_MANS = $(csbuild_mans)
+
+install-exec-hook:
+# Install setuid root.
+	if [ -f "$(DESTDIR)$(bindir)/csbuild" ]; then \
+	  chmod 4755 "$(DESTDIR)$(bindir)/csbuild"; \
+	fi
