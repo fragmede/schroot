@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
+
+  NAME=$(echo "${CHROOT_NAME}" | sed -e 's/-[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9]-[a-z0-9][a-z0-9][a-z0-9][a-z0-9]-[a-z0-9][a-z0-9][a-z0-9][a-z0-9]-[a-z0-9][a-z0-9][a-z0-9][a-z0-9]-[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9]//g')
+
+  if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+    echo "Setting chroot name to ${NAME}"
+  fi
+
+  echo "${NAME}" > "${CHROOT_PATH}/etc/debian_chroot"
+
+fi
+

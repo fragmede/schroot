@@ -22,25 +22,36 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-SUBDIRS = sbuild bin test doc po
+LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
 
-# Remove junk from the generated tarball.
-dist-hook:
-	$(FIND) $(distdir) -name '.*' -print | $(XARGS) xargs $(RM) -rf
-	$(FIND) $(distdir) -name '#*' -print | $(XARGS) $(RM) -rf
-	$(FIND) $(distdir) -name '*~' -print | $(XARGS) $(RM) -rf
+DEFS = -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
 
-EXTRA_DIST =				\
-	bootstrap			\
-	debian				\
-	scripts/schroot_release.m4.in	\
-	m4				\
-	HACKING
+if BUILD_DCHROOT_DSA
+dchroot_dsa = dchroot-dsa
+endif
 
-ps:
-	$(MAKE) -C doc schroot.ps
+bin_PROGRAMS = $(dchroot_dsa)
 
-pdf:
-	$(MAKE) -C doc schroot.pdf
+dchroot_dsa_SOURCES =			\
+	dchroot-dsa-chroot-config.h	\
+	dchroot-dsa-chroot-config.cc	\
+	dchroot-dsa-session.h		\
+	dchroot-dsa-session.cc		\
+	dchroot-dsa-options.h		\
+	dchroot-dsa-options.cc		\
+	dchroot-dsa-main.h		\
+	dchroot-dsa-main.cc		\
+	dchroot-dsa.cc
+dchroot_dsa_LDADD = $(top_builddir)/bin/dchroot/libdchroot.la
 
-.PHONY: ps pdf
+if BUILD_DCHROOT_DSA
+dchroot_dsa_mans = dchroot-dsa.1
+endif
+
+man_MANS = $(dchroot_dsa_mans)
+
+install-exec-hook:
+# Install setuid root.
+	if [ -f "$(DESTDIR)$(bindir)/dchroot-dsa" ]; then \
+	  chmod 4755 "$(DESTDIR)$(bindir)/dchroot-dsa"; \
+	fi

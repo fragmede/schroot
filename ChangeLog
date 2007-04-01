@@ -1,5 +1,20 @@
 2007-04-01  Roger Leigh  <rleigh@debian.org>
 
+	* Move schroot, dchroot, dchroot and csbuild to a new
+	subdirectory, bin.
+
+	* bin/*/Makefile.am (LOCAL_CXXFLAGS): Add -I$(top_srcdir)/bin.
+
+	* bin/Makefile.am: New file.
+	(SUBDIRS): schroot dchroot dchroot-dsa csbuild
+
+	* configure.ac: Use new file locations.
+
+	* doc/schroot.dox.in: Use new source locations.  Disable call
+	graph.
+
+2007-04-01  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Create new packages sbuild-common, libsbuild1
 	and libsbuild1-dev.
 

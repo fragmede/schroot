@@ -22,25 +22,18 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-SUBDIRS = sbuild bin test doc po
+setupdir = $(SCHROOT_CONF_SETUP_D)
 
-# Remove junk from the generated tarball.
-dist-hook:
-	$(FIND) $(distdir) -name '.*' -print | $(XARGS) xargs $(RM) -rf
-	$(FIND) $(distdir) -name '#*' -print | $(XARGS) $(RM) -rf
-	$(FIND) $(distdir) -name '*~' -print | $(XARGS) $(RM) -rf
+setup_SCRIPTS =		\
+	00check		\
+	05lvm		\
+	05file		\
+	10mount		\
+	20network	\
+	30passwd	\
+	50chrootname	\
+	50sbuild
 
-EXTRA_DIST =				\
-	bootstrap			\
-	debian				\
-	scripts/schroot_release.m4.in	\
-	m4				\
-	HACKING
+EXTRA_DIST =			\
+	$(setup_SCRIPTS)
 
-ps:
-	$(MAKE) -C doc schroot.ps
-
-pdf:
-	$(MAKE) -C doc schroot.pdf
-
-.PHONY: ps pdf

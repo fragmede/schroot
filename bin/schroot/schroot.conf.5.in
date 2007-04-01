@@ -1,0 +1,370 @@
+.\" Copyright © 2005-2006  Roger Leigh <rleigh@debian.org>
+.\"
+.\" schroot is free software; you can redistribute it and/or modify it
+.\" under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" schroot is distributed in the hope that it will be useful, but
+.\" WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program; if not, write to the Free Software
+.\" Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+.\" MA  02111-1307  USA
+.TH SCHROOT.CONF 5 "@RELEASE_DATE@" "Version @VERSION@" "Debian sbuild"
+.SH NAME
+schroot.conf \[em] chroot definition file for schroot
+.SH DESCRIPTION
+\f[BI]schroot.conf\fP is a plain UTF-8 text file, describing the chroots
+available for use with sbuild.
+.PP
+Comments are introduced following a \[oq]\f[CR]\[sh]\fP\[cq] (\[lq]hash\[rq])
+character at the beginning of a line, or following any other text.  All text
+right of the \[oq]\f[CR]\[sh]\fP\[cq] is treated as a comment.
+.PP
+The configuration format is an INI-style format based upon the GLib GKeyFile
+parser (but is a completely separate implementation).
+.SS
+General options
+.PP
+A chroot is defined as a group of key-value pairs, which is started by a name
+in square brackets on a line by itself.  The file may contain multiple groups
+which therefore define multiple chroots.
+.PP
+A chroot definition is started by the name of the chroot in square brackets.
+For example,
+.IP
+\f[CR]\[lB]sid\[rB]
+.PP
+This is then followed by several key-value pairs, one per line:
+.TP
+\f[CBI]type=\fP\f[CI]type\fP
+The type of the chroot.  Valid types are \[oq]plain\[cq], \[oq]directory\[cq],
+\[oq]file\[cq], \[oq]block\-device\[cq] and \[oq]lvm\-snapshot\[cq].  If empty
+or omitted, the default type is \[oq]plain\[cq].
+.TP
+\f[CBI]description=\fP\f[CI]description\fP
+A short description of the chroot.  This may be localised for different
+languages; see the section \[lq]\fILocalisation\fP\[rq] below.
+.TP
+\f[CBI]priority=\fP\f[CI]number\fP
+Set the priority of a chroot.  \f[CI]number\fP is a positive integer indicating
+whether a distribution is older than another.  For example, \[lq]oldstable\[rq]
+and \[lq]oldstable-security\[rq] might be \[oq]0\[cq], while \[lq]stable\[rq]
+and \[lq]stable-security\[rq] are \[oq]1\[cq], \[lq]testing\[rq] is \[oq]2\[cq]
+and \[lq]unstable\[rq] is \[oq]3\[cq].  The values are not important, but the
+difference between them is.  This is used by sbuild when using the schroot
+chroot mode.
+.TP
+\f[CBI]users=\fP\f[CI]user1,user2,...\fP
+A comma-separated list of users which are allowed access to the chroot.  If
+empty or omitted, no users will be allowed access (unless a group they belong
+to is also specified in \f[CI]groups\fP).
+.TP
+\f[CBI]groups=\fP\f[CI]group1,group2,...\fP
+A comma-separated list of groups which are allowed access to the chroot.  If
+empty or omitted, no groups of users will be allowed access.
+.TP
+\f[CBI]root\-users=\fP\f[CI]user1,user2,...\fP
+A comma-separated list of users which are allowed \fBpassword-less\fP root
+access to the chroot.  If empty or omitted, no users will be allowed root
+access without a password (but if a user or a group they belong to is in
+\f[CI]users\fP or \f[CI]groups\fP, respectively, they may gain access with a
+password).  See the section \[lq]\fISecurity\fP\[rq] below.
+.TP
+\f[CBI]root\-groups=\fP\f[CI]group1,group2,...\fP
+A comma-separated list of groups which are allowed \fBpassword-less\fP root
+access to the chroot.  If empty or omitted, no users will be allowed root
+access without a password (but if a user or a group they belong to is in
+\f[CI]users\fP or \f[CI]groups\fP, respectively, they may gain access with a
+password).  See the section \[lq]\fISecurity\fP\[rq] below.
+.TP
+\f[CBI]aliases=\fP\f[CI]alias1,alias2,...\fP
+A comma-separated list of aliases (alternate names) for this chroot.  For
+example, a chroot named \[lq]sid\[rq] might have an \[oq]unstable\[cq] alias
+for convenience.
+.TP
+\f[CBI]run\-setup\-scripts=\fP\f[CI]true\fP|\f[CI]false\fP
+Set whether chroot setup scripts will be run.  The default is not to run setup
+scripts (\[oq]false\[cq]), for safety reasons (so it won't clobber your passwd
+and other critical files).  The default for session-managed chroots
+(\[oq]file\[cq] and \[oq]lvm\-snapshot\[cq]) is to run setup scripts.  If
+\f[CI]type\fP is set to a value other than \[oq]plain\[cq] or
+\[oq]directory\[cq], setup scripts are \fBrequired\fP to mount and configure
+the chroot environment.  If enabled for a \[oq]plain\[cq] or
+\[oq]directory\[cq] chroot, the chroot will support simple session management
+(not true session management, because it does not make a copy of the chroot).
+If your chroots are exclusively controlled by schroot, set to \[oq]true\[cq].
+.TP
+\f[CBI]run\-exec\-scripts=\fP\f[CI]true\fP|\f[CI]false\fP
+Set whether chroot execution scripts will be run.  The default is the same as
+the default for the \f[CI]run-setup-scripts\fP key.  This option was called
+\f[CI]run\-session\-scripts\fP in versions prior to 0.2.5.
+.TP
+\f[CBI]command\-prefix=\fP\f[CI]command,option1,option2,...\fP
+A comma-separated list of a command and the options for the command.  This
+command and its options will be prefixed to all commands run inside the chroot.
+.TP
+\f[CBI]personality=\fP\f[CI]persona\fP
+Set the personality (process execution domain) to use.  This option is useful
+when using a 32-bit chroot on 64-bit system, for example.  Valid options on
+Linux are \[oq]bsd\[cq], \[oq]hpux\[cq], \[oq]irix32\[cq], \[oq]irix64\[cq],
+\[oq]irixn32\[cq], \[oq]iscr4\[cq], \[oq]linux\[cq], \[oq]linux32\[cq],
+\[oq]linux_32bit\[cq], \[oq]osf4\[cq], \[oq]osr5\[cq], \[oq]riscos\[cq],
+\[oq]scorvr3\[cq], \[oq]solaris\[cq], \[oq]sunos\[cq], \[oq]svr4\[cq],
+\[oq]uw7\[cq], \[oq]wysev386\[cq], and \[oq]xenix\[cq].  The default value is
+\[oq]linux\[cq].  There is also the special option \[oq]undefined\[cq]
+(personality not set).  For a 32-bit chroot on a 64-bit system,
+\[oq]linux32\[cq] is the option required.  The only valid option for non-Linux
+systems is \[oq]undefined\[cq].  The default value for non-Linux systems is
+\[oq]undefined\[cq].
+.SS
+Plain and directory chroots
+.PP
+Chroots of type \[oq]plain\[cq] or \[oq]directory\[cq] are directories
+accessible in the filesystem.  The two types are equivalent except for the fact
+that if \f[CI]run-setup-scripts\fP is set to \[oq]true\[cq] for \[oq]plain\[cq]
+chroots, filesystem mounting is disabled.  They have an additional (mandatory)
+configuration option:
+.TP
+\f[CBI]location=\fP\f[CI]directory\fP
+The directory containing the chroot environment.  This is where the root will
+be changed to when executing a login shell or a command.  The directory must
+exist and have read and execute permissions to allow users access to it.
+.SS
+File chroots
+.PP
+Chroots of type \[oq]file\[cq] are files on the current filesystem containing
+an archive of the chroot files.  They implement the \fBsource chroot\fP options
+(see \[lq]\fISource chroot options\fP\[rq], below) and have an additional
+(mandatory) configuration option:
+.TP
+\f[CBI]file=\fP\f[CI]filename\fP
+The file containing the archived chroot environment.  This must be a tar (tape
+archive), optionally compressed with gzip or bzip2, or a zip archive.  The file
+extensions used to determine the type are are \fI.tar\fP, \fI.tar.gz\fP,
+\fI.tar.bz2\fP, \fI.tgz\fP, \fI.tbz\fP and \fI.zip\fP.  This file must be owned
+by the root user, and not be writable by other.
+.SS
+Block device chroots
+.PP
+Chroots of type \[oq]block\-device\[cq] are a filesystem available on an
+unmounted block device.  The device will be mounted and unmounted on demand.
+They have additional options:
+.TP
+\f[CBI]device=\fP\f[CI]device\fP
+This is the device name of the block device, including the absolute path.  For
+example, \[lq]/dev/sda5\[rq].
+.TP
+\f[CBI]mount-options=\fP\f[CI]mount_options\fP
+Mount options for the block device.  These are additional options to pass to
+mount(8).  For example, \[lq]\-o atime,sync,user_xattr\[rq].
+.TP
+\f[CBI]location=\fP\f[CI]path\fP
+This is the path to the chroot \fIinside\fP the filesystem on the device.  For
+example, if the filesystem contains a chroot in \fI/chroot/sid\fP, you would
+specify \[lq]/chroot/sid\[rq] here.  If the chroot is the only thing on the
+filesystem, i.e. \fI/\fP is the root filesystem for the chroot, this option
+should be left blank, or omitted entirely.
+.SS
+LVM snapshot chroots
+.PP
+Chroots of type \[oq]lvm\-snapshot\[cq] are a filesystem available on an LVM
+logical volume (LV).  A snapshot LV will be created from this LV on demand, and
+then the snapshot will be mounted.  At the end of the session, the snapshot LV
+will be unmounted and removed.  For each chroot of this type, a corresponding
+\[oq]block\-device\[cq] chroot will be created, with a \fI\-source\fP suffix
+appended to the chroot name and all its aliases; this is for convenient access
+to the source device.
+.PP
+They implement the \fBsource chroot\fP options (see \[lq]\fISource chroot
+options\fP\[rq], below), and all the options for \[oq]block\-device\[cq], plus
+an additional option:
+.TP
+\f[CBI]lvm-snapshot-options=\fP\f[CI]snapshot_options\fP
+Snapshot options.  These are additional options to pass to lvcreate(8).  For
+example, \[lq]\-L 2g\[rq] to create a snapshot 2 GiB in size.
+.B Note:
+the LV name (\fI\-n\fP), the snapshot option (\fI\-s\fP) and the original LV
+path may not be specfied here; they are set automatically by schroot.
+.SS Source chroot options
+.PP
+Some chroots implement source chroots.  These are chroots which automatically
+create a copy of themselves before use, and are usually session managed.  These
+chroots also provide an additional chroot with a \fI\-source\fP suffix added to
+their name, to allow access to the original data, and to aid in chroot
+maintenance.  These chroots provide the following additional options:
+.TP
+\f[CBI]source\-users=\fP\f[CI]user1,user2,...\fP
+A comma-separated list of users which are allowed access to the source chroot.
+If empty or omitted, no users will be allowed access.  This will become the
+\f[CI]users\fP option in the source chroot.
+.TP
+\f[CBI]source\-groups=\fP\f[CI]group1,group2,...\fP
+A comma-separated list of groups which are allowed access to the source chroot.
+If empty or omitted, no users will be allowed access.  This will become the
+\f[CI]groups\fP option in the source chroot.
+.TP
+\f[CBI]source\-root\-users=\fP\f[CI]user1,user2,...\fP
+ A comma-separated list of users which are allowed \fBpassword-less\fP root
+access to the source chroot.  If empty or omitted, no users will be allowed
+root access without a password (but if a user is in \f[CI]users\fP, they may
+gain access with a password).  This will become the \f[CI]root\-users\fP option
+in the source chroot.  See the section \[lq]\fISecurity\fP\[rq] below.
+.TP
+\f[CBI]source\-root\-groups=\fP\f[CI]group1,group2,...\fP
+ A comma-separated list of groups which are allowed \fBpassword-less\fP root
+access to the source chroot.  If empty or omitted, no users will be allowed
+root access without a password (but if a user's group is in \f[CI]groups\fP,
+they may gain access with a password).  This will become the
+\f[CI]root\-groups\fP option in the source chroot.  See the section
+\[lq]\fISecurity\fP\[rq] below.
+.SS Localisation
+.PP
+Some keys may be localised in multiple languages.  This is achieved by adding
+the locale name in square brackets after the key name.  For example:
+.br
+.RS
+\f[CR]description[en_GB]=\f[CI]British English translation\fP\fP
+.br
+.RE
+.PP
+This will localise the \f[CI]description\fP key for the en_GB locale.
+.RS
+\f[CR]description[fr]=\f[CI]French translation\fP\fP
+.br
+.RE
+.PP
+This will localise the \f[CI]description\fP key for all French locales.
+.br
+.SH SECURITY
+Note that giving untrusted users root access to chroots is a \fBserious
+security risk\fP!  Although the untrusted user will only have root access to
+files inside the chroot, in practice there are many obvious ways of breaking
+out of the chroot and of disrupting services on the host system.  As always,
+this boils down to \fItrust\fP.
+.B Don't give chroot root access to users you would not trust
+.B with root access to the host system.
+.SH EXAMPLE
+\f[CR]# Sample configuration\fP
+.br
+\f[CR]\fP
+.br
+\f[CR][sid]\fP
+.br
+\f[CR]type=plain\fP
+.br
+\f[CR]description=Debian unstable\fP
+.br
+\f[CR]description[fr_FR]=Debian instable\fP
+.br
+\f[CR]location=/srv/chroot/sid\fP
+.br
+\f[CR]priority=3\fP
+.br
+\f[CR]users=jim\fP
+.br
+\f[CR]groups=sbuild\fP
+.br
+\f[CR]root\-users=rleigh\fP
+.br
+\f[CR]aliases=unstable,default\fP
+.br
+\f[CR]\fP
+.br
+\f[CR][etch]\fP
+.br
+\f[CR]type=block\-device\fP
+.br
+\f[CR]description=Debian testing (32\-bit)\fP
+.br
+\f[CR]priority=2\fP
+.br
+\f[CR]groups=users\fP
+.br
+\f[CR]#groups=sbuild\-security\fP
+.br
+\f[CR]aliases=testing\fP
+.br
+\f[CR]device=/dev/hda_vg/etch_chroot\fP
+.br
+\f[CR]mount\-options=\-o atime\fP
+.br
+\f[CR]personality=linux32\fP
+.br
+\f[CR]run\-setup\-scripts=true\fP
+.br
+\f[CR]run\-exec\-scripts=true\fP
+.br
+\f[CR]\fP
+.br
+\f[CR][sid\-file]\fP
+.br
+\f[CR]type=file\fP
+.br
+\f[CR]description=Debian sid file\-based chroot\fP
+.br
+\f[CR]priority=3\fP
+.br
+\f[CR]groups=sbuild\fP
+.br
+\f[CR]file=/srv/chroots/sid.tar.gz\fP
+.br
+\f[CR]run\-setup\-scripts=true\fP
+.br
+\f[CR]run\-exec\-scripts=true\fP
+.br
+\f[CR]\fP
+.br
+\f[CR][sid\-snapshot]\fP
+.br
+\f[CR]type=lvm\-snapshot\fP
+.br
+\f[CR]description=Debian unstable LVM snapshot\fP
+.br
+\f[CR]priority=3\fP
+.br
+\f[CR]groups=sbuild\fP
+.br
+\f[CR]users=rleigh\fP
+.br
+\f[CR]source\-root\-users=rleigh\fP
+.br
+\f[CR]source\-root\-groups=admin\fP
+.br
+\f[CR]device=/dev/hda_vg/sid_chroot\fP
+.br
+\f[CR]mount\-options=\-o atime,sync,user_xattr\fP
+.br
+\f[CR]lvm\-snapshot\-options=\-\-size 2G\fP
+.br
+\f[CR]run\-setup\-scripts=true\fP
+.br
+\f[CR]run\-exec\-scripts=true\fP
+.SH FILES
+.TP
+.I @SCHROOT_CONF@
+The system-wide chroot definition file.  This file must be owned by the root
+user, and not be writable by other.
+.SH AUTHORS
+Roger Leigh.
+.SH COPYRIGHT
+Copyright \(co 2005\-2006  Roger Leigh \f[CR]<rleigh@debian.org>\fP
+.PP
+This program is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option)
+any later version.
+.SH SEE ALSO
+.BR sbuild (1),
+.BR schroot (1),
+.BR mount (8).
+.\"#
+.\"# The following sets edit modes for GNU EMACS
+.\"# Local Variables:
+.\"# mode:nroff
+.\"# fill-column:79
+.\"# End:

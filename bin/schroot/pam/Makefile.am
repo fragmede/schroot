@@ -22,25 +22,9 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-SUBDIRS = sbuild bin test doc po
+pamdir = /etc/pam.d
 
-# Remove junk from the generated tarball.
-dist-hook:
-	$(FIND) $(distdir) -name '.*' -print | $(XARGS) xargs $(RM) -rf
-	$(FIND) $(distdir) -name '#*' -print | $(XARGS) $(RM) -rf
-	$(FIND) $(distdir) -name '*~' -print | $(XARGS) $(RM) -rf
+pam_DATA = schroot
 
-EXTRA_DIST =				\
-	bootstrap			\
-	debian				\
-	scripts/schroot_release.m4.in	\
-	m4				\
-	HACKING
+EXTRA_DIST = $(pam_DATA)
 
-ps:
-	$(MAKE) -C doc schroot.ps
-
-pdf:
-	$(MAKE) -C doc schroot.pdf
-
-.PHONY: ps pdf
