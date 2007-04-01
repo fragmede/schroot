@@ -26,7 +26,7 @@ LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS)
 
 DEFS = -D_GNU_SOURCE
 
-noinst_LTLIBRARIES = libsbuild.la
+lib_LTLIBRARIES = libsbuild.la
 
 sbuild_public_h_sources =		\
 	sbuild-auth.h			\
@@ -93,6 +93,11 @@ sbuild_public_cc_sources =		\
 	sbuild-types.cc			\
 	sbuild-util.cc
 
+pkgincludedir = $(includedir)/sbuild
+
+pkginclude_HEADERS =			\
+	$(sbuild_public_h_sources)
+
 libsbuild_la_SOURCES =			\
 	$(sbuild_public_h_sources)	\
 	$(sbuild_public_cc_sources)
@@ -101,3 +106,14 @@ nodist_libsbuild_la_SOURCES =	\
 	sbuild-config.h
 
 libsbuild_la_LIBADD = $(UUID_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(BOOST_LIBS) $(LIBINTL)
+
+pkgconfigdatadir = $(libdir)/pkgconfig
+
+pkgconfigdata_DATA = sbuild.pc
+
+# Uncommment to build an unversioned library (version in soname)
+#libsbuild_version = -release $(SBUILD_VERSION)
+# Uncomment to build a versioned library
+libsbuild_version = -version-info $(SBUILD_CURRENT_INTERFACE):$(SBUILD_INTERFACE_AGE):$(SBUILD_BINARY_AGE)
+libsbuild_la_LDFLAGS = $(libsbuild_version) \
+        -rpath $(libdir) -no-undefined

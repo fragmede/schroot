@@ -2,8 +2,23 @@ schroot (1.1.1-1) UNRELEASED; urgency=low
 
   * New upstream development release.
   * debian/schroot.init: Add LSB init info and use LSB init functions.
+  * debian/control:
+    - schroot-common: New package, containing locale data.
+    - libsbuild1: New package, containing libsbuild shared library.
+    - libsbuild1-dev: New package, containing libsbuild headers and
+      pkg-config data.
+    - schroot, dchroot and dchroot-dsa depend upon schroot-common
+  * debian/rules:
+    - Add dh_makeshlibs.
+    - Make dh_shlibdeps use the shlibs data for libsbuild1.
+    - install: Don't run "make check".
+  * debian/schroot.install: Don't package locale data.
+  * debian/schroot-common.install: New file, install locale data.
+  * debian/libsbuild1.install: New file, install libsbuild.so.*.
+  * debian/libsbuild-dev.install: New file, installing headers, .so
+    symlink and pkg-config .pc file.
 
- -- Roger Leigh <rleigh@debian.org>  Fri,  3 Nov 2006 00:47:46 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sun,  1 Apr 2007 21:33:31 +0100
 
 schroot (1.1.0-1) unstable; urgency=low
 

@@ -1,5 +1,5 @@
 #                                                              -*- Autoconf -*-
-# Copyright © 2004-2006  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2007  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -18,11 +18,38 @@
 #
 # Process this file with autoconf to produce a configure script.
 #
+dnl MAKING RELEASES (a step-by-step guide!)
+dnl ===============
+dnl
+dnl Since the last release:
+dnl 1. if only source code (not the interface) has changed, set
+dnl      SBUILD_MICRO_VERSION += 1;
+dnl      SBUILD_INTERFACE_AGE += 1;
+dnl 2. if any functions have been added, removed, or changed, set
+dnl      SBUILD_INTERFACE_AGE = 0;
+dnl      SBUILD_CURRENT_INTERFACE += 1;
+dnl 3. if interfaces have been added, set
+dnl      SBUILD_BINARY_AGE += 1;
+dnl 4. if interfaces have been removed, set
+dnl      SBUILD_BINARY_AGE = 0;
+dnl
+dnl For more detailed information, see the libtool info documentation.
+dnl
+pushdef([SBUILD_NAME],              [schroot])
+pushdef([SBUILD_MAJOR_VERSION],     [1])
+pushdef([SBUILD_MINOR_VERSION],     [1])
+pushdef([SBUILD_MICRO_VERSION],     [1])
+pushdef([SBUILD_EXTRA_VERSION],     [])
+pushdef([SBUILD_CURRENT_INTERFACE], [1])
+pushdef([SBUILD_INTERFACE_AGE],     [0])
+pushdef([SBUILD_BINARY_AGE],        [0])
+pushdef([SBUILD_VERSION], SBUILD_MAJOR_VERSION.SBUILD_MINOR_VERSION.SBUILD_MICRO_VERSION[]SBUILD_EXTRA_VERSION)
+dnl
 dnl The minimum version of autoconf required.
 AC_PREREQ(2.59)
 dnl Initialise autoconf with the package name, version and
 dnl bug-reporting address.
-AC_INIT([schroot], [1.1.1], [buildd-tools-devel@lists.alioth.debian.org])
+AC_INIT(SBUILD_NAME, SBUILD_VERSION, [buildd-tools-devel@lists.alioth.debian.org])
 dnl For safety, check we are in the right directory by
 dnl checking for a known unique file.
 AC_CONFIG_SRCDIR([sbuild/sbuild-session.cc])
@@ -32,8 +59,52 @@ dnl Put macro definitions here.
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_HEADER([sbuild/sbuild-config.h])
 
+AC_COPYRIGHT(
+[
+Parts of this configure script come from the 'configure.ac' file, and
+are not based on freely-redistributable m4 macros; you can redistribute
+them and/or modify them under the terms of the GNU General Public
+as published by the Free Software Foundation; either version 2, or (at
+your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+])
+
+[SBUILD_MAJOR_VERSION]=SBUILD_MAJOR_VERSION
+[SBUILD_MINOR_VERSION]=SBUILD_MINOR_VERSION
+[SBUILD_MICRO_VERSION]=SBUILD_MICRO_VERSION
+[SBUILD_EXTRA_VERSION]=SBUILD_EXTRA_VERSION
+[SBUILD_CURRENT_INTERFACE]=SBUILD_CURRENT_INTERFACE
+[SBUILD_INTERFACE_AGE]=SBUILD_INTERFACE_AGE
+[SBUILD_BINARY_AGE]=SBUILD_BINARY_AGE
+[SBUILD_VERSION]=SBUILD_VERSION
+popdef([SBUILD_MAJOR_VERSION])
+popdef([SBUILD_MINOR_VERSION])
+popdef([SBUILD_MICRO_VERSION])
+popdef([SBUILD_EXTRA_VERSION])
+popdef([SBUILD_CURRENT_INTERFACE])
+popdef([SBUILD_INTERFACE_AGE])
+popdef([SBUILD_BINARY_AGE])
+popdef([SBUILD_NAME])
+popdef([SBUILD_VERSION])
+
+AC_SUBST([SBUILD_MAJOR_VERSION])
+AC_SUBST([SBUILD_MINOR_VERSION])
+AC_SUBST([SBUILD_MICRO_VERSION])
+AC_SUBST([SBUILD_CURRENT_INTERFACE])
+AC_SUBST([SBUILD_INTERFACE_AGE])
+AC_SUBST([SBUILD_BINARY_AGE])
+AC_SUBST([SBUILD_VERSION])
+
 dnl Initialise automake stuff.
-AM_INIT_AUTOMAKE([1.9 gnu check-news dist-bzip2 no-dist-gzip tar-ustar])
+AM_INIT_AUTOMAKE([1.9 gnu check-news dist-bzip2 no-dist-gzip tar-pax])
 AM_MAINTAINER_MODE
 SCHROOT_RELEASE_DATE
 
@@ -96,7 +167,8 @@ fi
 # Checks for programs.
 AC_PROG_CXX
 AC_LANG([C++])
-AC_DISABLE_SHARED
+AC_ENABLE_SHARED
+AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
 AM_GNU_GETTEXT_VERSION([0.14.5])
 AM_GNU_GETTEXT([external])
@@ -361,6 +433,7 @@ AC_CONFIG_FILES([doc/Makefile])
 AC_CONFIG_FILES([doc/schroot.dox])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([sbuild/Makefile])
+AC_CONFIG_FILES([sbuild/sbuild.pc])
 AC_CONFIG_FILES([schroot/Makefile])
 AC_CONFIG_FILES([schroot/pam/Makefile])
 AC_CONFIG_FILES([schroot/exec/Makefile])

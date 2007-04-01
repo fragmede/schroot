@@ -1,8 +1,7 @@
 debian/install/etc/pam.d                     etc
 debian/install/etc/schroot                   etc
 debian/install/usr/bin/schroot               usr/bin
-debian/install/usr/lib                       usr
-debian/install/usr/share/locale              usr/share
+debian/install/usr/lib/schroot               usr/lib
 debian/install/usr/share/man/man1/schroot.1  usr/share/man/man1
 debian/install/usr/share/man/man5            usr/share/man
 debian/install/var/lib                       var

@@ -1,3 +1,25 @@
+2007-04-01  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Create new packages sbuild-common, libsbuild1
+	and libsbuild1-dev.
+
+	* sbuild/Makefile.am (lib_LTLIBRARIES): Install libsbuild in
+	$(libdir).
+	(pkgincludedir): New variable, header location.
+	(pkginclude_HEADERS): Headers to install.
+	(pkgconfigdatadir): New variable, pkg-config data location.
+	(pkgconfigdata_DATA): pkg-config data to install.
+	(libsbuild_version): New variable, libsbuld versioning.
+	(libsbuild_la_LDFLAGS): libsbuild libtool flags.
+
+	* sbuild/sbuild.pc.in: New file.  pkg-config template for
+	libsbuild.
+
+	* configure.ac: Add shared library versioning logic (from
+	Gutenprint configure script).  AM_INIT_AUTOMAKE: Distribute a
+	POSIX PAX tape archive.  Create shared libraries rather than
+	static.  Create a pkg-config .pc file for libsbuild.
+
 2007-03-16  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/setup/50sbuild: Create user home directory if it doesn't

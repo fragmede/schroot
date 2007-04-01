@@ -59,9 +59,6 @@ install: build
 	dh_installdirs
 
 	cd debian/build; \
-	$(MAKE) check
-
-	cd debian/build; \
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/install
 	dh_install
 
@@ -96,8 +93,9 @@ binary-arch: build install
 	chmod 4755 $(CURDIR)/debian/dchroot/usr/bin/dchroot
 	chmod 4755 $(CURDIR)/debian/dchroot-dsa/usr/bin/dchroot-dsa
 	chmod 4755 $(CURDIR)/debian/schroot/usr/bin/schroot
+	dh_makeshlibs
 	dh_installdeb
-	dh_shlibdeps
+	dh_shlibdeps -L libsbuild1 -l$(CURDIR)/debian/libsbuild1/usr/lib
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
