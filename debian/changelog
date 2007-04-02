@@ -17,8 +17,13 @@ schroot (1.1.1-1) UNRELEASED; urgency=low
   * debian/libsbuild1.install: New file, install libsbuild.so.*.
   * debian/libsbuild-dev.install: New file, installing headers, .so
     symlink and pkg-config .pc file.
+  * debian/schroot.default: New file, allowing customisation of the init
+    script.  Thanks to Federico Di Gregorio (Closes: #416193).
+  * debian/schroot.init:
+    - Source /etc/default/schroot.
+    - Add copyright header.
 
- -- Roger Leigh <rleigh@debian.org>  Sun,  1 Apr 2007 21:33:31 +0100
+ -- Roger Leigh <rleigh@debian.org>  Mon,  2 Apr 2007 10:40:09 +0100
 
 schroot (1.1.0-1) unstable; urgency=low
 

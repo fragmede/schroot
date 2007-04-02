@@ -13,6 +13,24 @@
 #                    Setup scripts will be run to mount filesystems and
 #                    bring the chroot back to a working state.
 ### END INIT INFO
+#
+# Copyright © 2006-2007  Roger Leigh <rleigh@debian.org>
+# Copyright © 2007       Federico Di Gregorio <fog@debian.org>
+#
+# schroot is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# schroot is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+# MA  02111-1307  USA
 
 SCHROOT=/usr/bin/schroot
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
@@ -22,10 +40,10 @@ NAME=schroot
 
 test -x $SCHROOT || exit 0
 
-# Include #PACKAGE# defaults if available
-#if [ -f "/etc/default/$NAME" ] ; then
-#    . "/etc/default/$NAME"
-#fi
+# Include schroot defaults if available
+if [ -f "/etc/default/$NAME" ] ; then
+    . "/etc/default/$NAME"
+fi
 
 set -e
 
@@ -40,9 +58,24 @@ recover_sessions()
     log_end_msg 0
 }
 
+end_sessions()
+{
+    log_daemon_msg "Ending schroot sessions"
+    for chroot in `$SCHROOT --all-sessions --list --quiet`
+      do
+      $SCHROOT --chroot=$chroot --end-session || true
+      log_progress_msg "$chroot"
+    done
+    log_end_msg 0
+}
+
 case "$1" in
     start|restart|force-reload)
-        recover_sessions
+        if [ "$SESSIONS_RECOVER" = "end" ] ; then
+            end_sessions
+	else
+            recover_sessions
+	fi
 	;;
     stop)
 	;;

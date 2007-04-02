@@ -1,3 +1,9 @@
+2007-04-02  Roger Leigh  <rleigh@debian.org>
+
+	* AUTHORS: Add Federico Di Gregorio.
+
+	* debian/changelog: Update init script to use a default file.
+
 2007-04-01  Roger Leigh  <rleigh@debian.org>
 
 	* Move schroot, dchroot, dchroot and csbuild to a new
