@@ -1,5 +1,12 @@
 2007-04-03  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot-base/schroot-base-main.h: Add TODO item.
+
+	* bin/schroot-base/schroot-base-main.cc (run): Add additional
+	information output for caught logic_error exceptions.
+
+2007-04-03  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot-base/Makefile.am (libschroot_base_la_SOURCES): Add
 	schroot-base-option-action.(cc|h).
 

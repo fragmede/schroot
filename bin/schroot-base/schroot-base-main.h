@@ -56,6 +56,8 @@ namespace schroot_base
      * @param argv argument vector
      * @returns 0 on success, 1 on failure or the exit status of the
      * chroot command.
+     * @todo Specify the syslog process name as an argument, e.g. with
+     * the program name.
      */
     int
     run (int   argc,
