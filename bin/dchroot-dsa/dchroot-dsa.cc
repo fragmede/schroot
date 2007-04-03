@@ -22,7 +22,7 @@
 #include "dchroot-dsa-main.h"
 #include "dchroot-dsa-options.h"
 
-#include <schroot/schroot-base-run.h>
+#include <schroot-base/schroot-base-run.h>
 
 using std::endl;
 using boost::format;

@@ -22,7 +22,7 @@
 #include "schroot-listmounts-options.h"
 #include "schroot-listmounts-main.h"
 
-#include <schroot/schroot-base-run.h>
+#include <schroot-base/schroot-base-run.h>
 
 using std::endl;
 using boost::format;

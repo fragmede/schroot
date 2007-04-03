@@ -20,7 +20,7 @@
 #ifndef SCHROOT_RELEASELOCK_OPTIONS_H
 #define SCHROOT_RELEASELOCK_OPTIONS_H
 
-#include <schroot/schroot-base-options.h>
+#include <schroot-base/schroot-base-options.h>
 
 #include <string>
 

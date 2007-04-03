@@ -20,7 +20,7 @@
 #ifndef SCHROOT_RELEASELOCK_MAIN_H
 #define SCHROOT_RELEASELOCK_MAIN_H
 
-#include <schroot/schroot-base-main.h>
+#include <schroot-base/schroot-base-main.h>
 #include <schroot/schroot-releaselock-options.h>
 
 #include <sbuild/sbuild-custom-error.h>

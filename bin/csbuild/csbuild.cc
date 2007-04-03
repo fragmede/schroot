@@ -22,7 +22,7 @@
 #include "csbuild-main.h"
 #include "csbuild-options.h"
 
-#include <schroot/schroot-base-run.h>
+#include <schroot-base/schroot-base-run.h>
 
 using std::endl;
 using boost::format;

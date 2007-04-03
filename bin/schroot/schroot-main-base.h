@@ -20,7 +20,7 @@
 #ifndef SCHROOT_MAIN_BASE_H
 #define SCHROOT_MAIN_BASE_H
 
-#include <schroot/schroot-base-main.h>
+#include <schroot-base/schroot-base-main.h>
 #include <schroot/schroot-options-base.h>
 
 #include <sbuild/sbuild-custom-error.h>

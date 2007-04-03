@@ -1,5 +1,15 @@
 2007-04-03  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot-base/Makefile.am: New file, based on
+	bin/schroot/Makefile.am.
+
+	* configure.ac: Add bin/schroot-base/Makefile.
+
+	* Move bin/schroot/schroot-base-* to bin/schroot-base.  Update all
+	dependent files to use the new path.
+
+2007-04-03  Roger Leigh  <rleigh@debian.org>
+
 	* Remove schroot, dchroot, dchroot-dsa and csbuild directories,
 	now they have been moved to /bin.
 

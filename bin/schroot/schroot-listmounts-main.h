@@ -20,7 +20,7 @@
 #ifndef SCHROOT_LISTMOUNTS_MAIN_H
 #define SCHROOT_LISTMOUNTS_MAIN_H
 
-#include <schroot/schroot-base-main.h>
+#include <schroot-base/schroot-base-main.h>
 #include <schroot/schroot-listmounts-options.h>
 
 #include <sbuild/sbuild-custom-error.h>

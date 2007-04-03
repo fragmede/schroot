@@ -20,7 +20,7 @@
 #ifndef SCHROOT_BASE_MAIN_H
 #define SCHROOT_BASE_MAIN_H
 
-#include <schroot/schroot-base-options.h>
+#include <schroot-base/schroot-base-options.h>
 
 #include <string>
 

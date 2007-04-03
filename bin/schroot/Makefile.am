@@ -31,18 +31,10 @@ LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
 
 DEFS = -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
 
-noinst_LTLIBRARIES = libschroot-base.la libschroot.la
+noinst_LTLIBRARIES = libschroot.la
 
 bin_PROGRAMS = schroot
 pkglibexec_PROGRAMS = schroot-releaselock schroot-listmounts
-
-libschroot_base_la_SOURCES =		\
-	schroot-base-main.h		\
-	schroot-base-main.cc		\
-	schroot-base-options.h		\
-	schroot-base-options.cc		\
-	schroot-base-run.h
-libschroot_base_la_LIBADD = $(top_builddir)/sbuild/libsbuild.la
 
 libschroot_la_SOURCES =			\
 	schroot-options-base.h		\
@@ -51,7 +43,7 @@ libschroot_la_SOURCES =			\
 	schroot-main-base.cc		\
 	schroot-main.h			\
 	schroot-main.cc
-libschroot_la_LIBADD = libschroot-base.la
+libschroot_la_LIBADD = $(top_builddir)/bin/schroot-base/libschroot-base.la
 
 schroot_SOURCES =			\
 	schroot-options.h		\
@@ -65,7 +57,7 @@ schroot_releaselock_SOURCES = 		\
 	schroot-releaselock-options.h	\
 	schroot-releaselock-options.cc	\
 	schroot-releaselock.cc
-schroot_releaselock_LDADD = libschroot-base.la
+schroot_releaselock_LDADD = $(top_builddir)/bin/schroot-base/libschroot-base.la
 
 schroot_listmounts_SOURCES =		\
 	schroot-listmounts-main.h	\
@@ -73,7 +65,7 @@ schroot_listmounts_SOURCES =		\
 	schroot-listmounts-options.h	\
 	schroot-listmounts-options.cc	\
 	schroot-listmounts.cc
-schroot_listmounts_LDADD = libschroot-base.la
+schroot_listmounts_LDADD = $(top_builddir)/bin/schroot-base/libschroot-base.la
 
 
 pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
