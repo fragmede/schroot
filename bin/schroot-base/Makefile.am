@@ -33,6 +33,8 @@ noinst_LTLIBRARIES = libschroot-base.la
 libschroot_base_la_SOURCES =		\
 	schroot-base-main.h		\
 	schroot-base-main.cc		\
+	schroot-base-option-action.h	\
+	schroot-base-option-action.cc	\
 	schroot-base-options.h		\
 	schroot-base-options.cc		\
 	schroot-base-run.h
