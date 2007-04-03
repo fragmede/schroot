@@ -1,5 +1,10 @@
 2007-04-03  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot-base/schroot-base-option-action.(cc|h): New class to
+	manage actions specified by command-line options.
+
+2007-04-03  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot-base/Makefile.am: New file, based on
 	bin/schroot/Makefile.am.
 
