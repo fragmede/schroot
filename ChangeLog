@@ -1,3 +1,8 @@
+2007-04-03  Roger Leigh  <rleigh@debian.org>
+
+	* Remove schroot, dchroot, dchroot-dsa and csbuild directories,
+	now they have been moved to /bin.
+
 2007-04-02  Roger Leigh  <rleigh@debian.org>
 
 	* AUTHORS: Add Federico Di Gregorio.
