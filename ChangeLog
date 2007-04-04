@@ -1,3 +1,15 @@
+2007-04-04  Roger Leigh  <rleigh@debian.org>
+
+	* Update all classes derived from schroot_base::main to specify
+	the use_syslog parameter.
+
+	* bin/schroot-base/schroot-base-main.cc (run): If use_syslog is
+	true, call openlog and closelog with the program name as the
+	identity.
+
+	* bin/schroot-base/schroot-base-main.h: Add use_syslog as
+	constructor argument and member variable.
+
 2007-04-03  Roger Leigh  <rleigh@debian.org>
 
 	* bin/schroot-base/schroot-base-main.h: Add TODO item.

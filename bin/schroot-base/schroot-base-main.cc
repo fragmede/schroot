@@ -40,10 +40,12 @@ using namespace schroot_base;
 
 main::main (std::string const&  program_name,
 	    std::string const&  program_usage,
-	    options::ptr const& program_options):
+	    options::ptr const& program_options,
+	    bool                use_syslog):
   program_name(program_name),
   program_usage(program_usage),
-  program_options(program_options)
+  program_options(program_options),
+  use_syslog(use_syslog)
 {
 }
 
@@ -92,7 +94,8 @@ main::run (int   argc,
       sbuild::debug_level = sbuild::DEBUG_CRITICAL;
 #endif
 
-      openlog("schroot", LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
+      if (this->use_syslog)
+	openlog(this->program_name.c_str(), LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
 
       int status = run_impl();
 
@@ -130,7 +133,8 @@ main::run (int   argc,
 	{
 	}
 
-      closelog();
+      if (this->use_syslog)
+	closelog();
 
       return EXIT_FAILURE;
     }

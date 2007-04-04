@@ -41,10 +41,13 @@ namespace schroot_base
      * @param program_name the program name.
      * @param program_usage the program usage message.
      * @param program_options the command-line options to use.
+     * @param use_syslog whether to open a connection to the system
+     * logger.
      */
     main (std::string const&  program_name,
 	  std::string const&  program_usage,
-	  options::ptr const& program_options);
+	  options::ptr const& program_options,
+	  bool                use_syslog);
 
     /// The destructor.
     virtual ~main ();
@@ -56,8 +59,6 @@ namespace schroot_base
      * @param argv argument vector
      * @returns 0 on success, 1 on failure or the exit status of the
      * chroot command.
-     * @todo Specify the syslog process name as an argument, e.g. with
-     * the program name.
      */
     int
     run (int   argc,
@@ -96,6 +97,8 @@ namespace schroot_base
     std::string  program_usage;
     /// The program options.
     options::ptr program_options;
+    /// Use syslog for message logging>
+    bool         use_syslog;
   };
 
 }

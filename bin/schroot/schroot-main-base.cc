@@ -74,9 +74,11 @@ sbuild::error<main_base::error_code>::error_strings
 
 main_base::main_base (std::string const& program_name,
 		      std::string const& program_usage,
-		      options_base::ptr& options):
+		      options_base::ptr& options,
+		      bool               use_syslog):
   schroot_base::main(program_name, program_usage,
-		     std::tr1::static_pointer_cast<schroot_base::options>(options)),
+		     std::tr1::static_pointer_cast<schroot_base::options>(options),
+		     use_syslog),
   options(options)
 {
 }

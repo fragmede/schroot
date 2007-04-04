@@ -77,7 +77,8 @@ main::main (options::ptr& options):
 		     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 		     // and '-' is an em-dash.
 		     _("[OPTION...] - list mount points"),
-		     options),
+		     options,
+		     false),
   opts(options)
 {
 }

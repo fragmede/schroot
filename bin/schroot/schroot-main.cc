@@ -41,7 +41,8 @@ main::main (options_base::ptr& options):
 	    // TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 	    // is an em-dash.
 	    _("[OPTION...] [COMMAND] - run command or shell in a chroot"),
-	    options)
+	    options,
+	    true)
 {
 }
 

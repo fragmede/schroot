@@ -38,10 +38,13 @@ namespace csbuild
      * @param program_name the program name.
      * @param program_usage the program usage message.
      * @param options the command-line options to use.
+     * @param use_syslog whether to open a connection to the system
+     * logger.
      */
-    main_base (std::string const& program_name,
-	       std::string const& program_usage,
-	       schroot::options_base::ptr& options);
+    main_base (std::string const&          program_name,
+	       std::string const&          program_usage,
+	       schroot::options_base::ptr& options,
+	       bool                        use_syslog);
 
     /// The destructor.
     virtual ~main_base ();

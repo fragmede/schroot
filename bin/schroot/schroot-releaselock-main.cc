@@ -72,7 +72,8 @@ main::main (options::ptr& options):
 		     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 		     // and '-' is an em-dash.
 		     _("[OPTION...] - release a device lock"),
-		     options),
+		     options,
+		     false),
   opts(options)
 {
 }
