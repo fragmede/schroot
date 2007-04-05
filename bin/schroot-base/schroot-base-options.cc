@@ -42,6 +42,7 @@ options::options ():
   action(),
   quiet(false),
   verbose(false),
+  actions(_("Actions")),
   general(_("General options")),
   hidden(_("Hidden options")),
   positional(),
@@ -82,11 +83,13 @@ options::add_options ()
   this->action.add(ACTION_HELP);
   this->action.add(ACTION_VERSION);
 
-  general.add_options()
+  actions.add_options()
     ("help,h",
      _("Show help options"))
     ("version,V",
-     _("Print version information"))
+     _("Print version information"));
+
+  general.add_options()
     ("quiet,q",
      _("Show less output"))
     ("verbose,v",
@@ -100,6 +103,15 @@ options::add_options ()
 void
 options::add_option_groups ()
 {
+#ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
+  if (!actions.options().empty())
+#else
+  if (!actions.primary_keys().empty())
+#endif
+    {
+      visible.add(actions);
+      global.add(actions);
+    }
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!general.options().empty())
 #else

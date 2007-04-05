@@ -48,7 +48,7 @@ options::add_options ()
   // Chain up to add general schroot options.
   schroot::options_base::add_options();
 
-  general.add_options()
+  actions.add_options()
     ("path,p", opt::value<std::string>(&this->chroot_path),
      _("Print path to selected chroot"));
 

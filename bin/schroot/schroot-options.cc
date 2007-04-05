@@ -48,7 +48,7 @@ options::add_options ()
   // Chain up to add general schroot options.
   options_base::add_options();
 
-  general.add_options()
+  actions.add_options()
     ("location",
      _("Print location of selected chroots"));
 
@@ -69,6 +69,8 @@ options::add_options ()
      _("Preserve user environment"));
 
   session.add_options()
+    ("automatic-session",
+     _("Begin, run and end a session automatically (default)"))
     ("begin-session,b",
      _("Begin a session; returns a session ID"))
     ("recover-session",
@@ -101,6 +103,8 @@ options::check_options ()
   if (vm.count("preserve-environment"))
     this->preserve = true;
 
+  if (vm.count("automatic-session"))
+    this->action = ACTION_SESSION_AUTO;
   if (vm.count("begin-session"))
     this->action = ACTION_SESSION_BEGIN;
   if (vm.count("recover-session"))

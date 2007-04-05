@@ -50,7 +50,7 @@ options::add_options ()
   // Chain up to add general schroot options.
   schroot::options_base::add_options();
 
-  general.add_options()
+  actions.add_options()
     ("listpaths,p",
      _("Print paths to available chroots"));
 

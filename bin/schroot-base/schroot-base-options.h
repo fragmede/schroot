@@ -117,6 +117,8 @@ namespace schroot_base
     virtual void
     check_actions ();
 
+    /// Actions options group.
+    boost::program_options::options_description            actions;
     /// General options group.
     boost::program_options::options_description            general;
     /// Hidden options group.

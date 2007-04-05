@@ -23,6 +23,7 @@ schroot \[em] securely enter a chroot environment
 .RB [ \-h \[or] \-\-help " \[or] " \-V \[or] \-\-version
 .RB " \[or] " \-l \[or] \-\-list " \[or] " \-i \[or] \-\-info
 .RB " \[or] " \-\-config " \[or] " \-\-location
+.RB " \[or] " \-\-automatic\-session
 .RB " \[or] " \-b \[or] \-\-begin\-session " \[or] " \-\-recover\-session
 .RB " \[or] " \-r \[or] \-\-run\-session " \[or] " \-e \[or] \-\-end\-session ]
 .RB [ "\-d \fIdirectory\fP" \[or] "\-\-directory=\fIdirectory\fP" ]
@@ -125,6 +126,10 @@ Print all messages.
 .BR \-V ", " \-\-version
 Print version information.
 .SS Session options
+.TP
+.BR \-\-automatic\-session
+Begin, run and end a session automatically.  This is the default session
+option, so does not require specifying in normal operation.
 .TP
 .BR \-b ", " \-\-begin\-session
 Begin a session.  A unique session identifier (session ID) is returned on

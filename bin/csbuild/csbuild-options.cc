@@ -40,8 +40,9 @@ const options::action_type options::ACTION_BUILD ("build");
 
 options::options ():
   schroot_base::options(),
-  user(_("User")),
-  dependencies(_("Dependencies"))
+  build(_("Build options")),
+  user(_("User options")),
+  special(_("Special options"))
 {
 }
 
@@ -58,25 +59,27 @@ options::add_options ()
   action.add(ACTION_BUILD);
   action.set_default(ACTION_BUILD);
 
+  actions.add_options()
+    ("build",
+     _("Build source packages (default)"));
+
   general.add_options()
-    ("batchmode,b", opt::value<bool>(&this->batchmode),
-     _("Use batch mode"))
     ("nolog,n", opt::value<bool>(&this->nolog),
-     _("Don't log program output"))
+     _("Don't log program output"));
+
+  build.add_options()
+    ("distribution,d", opt::value<std::string>(&this->distribution),
+     _("Distribution to build for"))
     ("arch-all,A", opt::value<bool>(&this->build_arch_all),
      _("Build architecture \"all\" packages"))
     ("source,s", opt::value<bool>(&this->build_source),
      _("Build a source package"))
     ("force-orig-source,f", opt::value<bool>(&this->force_orig_source),
      _("Force building of a source package, irrespective of Debian version"))
-    ("distribution,d", opt::value<std::string>(&this->distribution),
-     _("Distribution to build for"))
-    ("purge,p", opt::value<std::string>(&this->purge_string),
-     _("Purge mode"))
     ("binary-nmu,B", opt::value<bool>(&this->bin_nmu),
      _("Make a binary non-maintainer upload"))
-    ("gcc-snapshot,G", opt::value<bool>(&this->gcc_snapshot),
-     _("Build using the current GCC development snapshot"));
+    ("purge,p", opt::value<std::string>(&this->purge_string),
+     _("Purge mode"));
 
   user.add_options()
     ("keyid,k", opt::value<std::string>(&this->keyid),
@@ -87,11 +90,13 @@ options::add_options ()
      _("Package uploader"));
 
 
-  dependencies.add_options()
+  special.add_options()
+    ("add-depends", opt::value<string_list>(&this->additional_dependencies),
+     _("Add a build dependency"))
     ("force-depends", opt::value<string_list>(&this->forced_dependencies),
      _("Force a build dependency"))
-    ("add-depends", opt::value<string_list>(&this->additional_dependencies),
-     _("Add a build dependency"));
+    ("gcc-snapshot,G", opt::value<bool>(&this->gcc_snapshot),
+     _("Build using the current GCC development snapshot"));
 
 
 }
@@ -102,11 +107,14 @@ options::add_option_groups ()
   // Chain up to add basic option groups.
   schroot_base::options::add_option_groups();
 
+  visible.add(build);
+  global.add(build);
+
   visible.add(user);
   global.add(user);
 
-  visible.add(dependencies);
-  global.add(dependencies);
+  visible.add(special);
+  global.add(special);
 }
 
 void
@@ -114,4 +122,7 @@ options::check_options ()
 {
   // Chain up to check basic options.
   schroot_base::options::check_options();
+
+  if (vm.count("build"))
+    this->action = ACTION_BUILD;
 }

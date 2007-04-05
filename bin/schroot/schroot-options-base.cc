@@ -55,7 +55,7 @@ options_base::options_base ():
   session_force(false),
   chroot(_("Chroot selection")),
   chrootenv(_("Chroot environment")),
-  session(_("Session management"))
+  session(_("Session actions"))
 {
 }
 
@@ -80,7 +80,7 @@ options_base::add_options ()
   action.add(ACTION_LOCATION);
   action.add(ACTION_CONFIG);
 
-  general.add_options()
+  actions.add_options()
     ("list,l",
      _("List available chroots"))
     ("info,i",

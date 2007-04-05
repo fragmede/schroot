@@ -47,10 +47,6 @@ namespace csbuild
     /// The destructor.
     virtual ~options ();
 
-
-    /// Batch mode
-    bool  batchmode;
-
     /// No logging
     bool  nolog;
 
@@ -111,11 +107,14 @@ namespace csbuild
     virtual void
     check_options ();
 
+    /// Build options group.
+    boost::program_options::options_description build;
+
     /// User options group.
     boost::program_options::options_description user;
 
-    /// User options group.
-    boost::program_options::options_description dependencies;
+    /// Special options group.
+    boost::program_options::options_description special;
 
   };
 
