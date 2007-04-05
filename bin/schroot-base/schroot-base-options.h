@@ -23,6 +23,8 @@
 #include <sbuild/sbuild-session.h>
 #include <sbuild/sbuild-types.h>
 
+#include <schroot-base/schroot-base-option-action.h>
+
 #include <string>
 
 #ifdef HAVE_TR1_MEMORY
@@ -50,6 +52,7 @@ namespace schroot_base
   public:
     /// A shared_ptr to an options object.
     typedef std::tr1::shared_ptr<options> ptr;
+    typedef option_action::action_type action_type;
 
     /// The constructor.
     options ();
@@ -67,10 +70,18 @@ namespace schroot_base
     parse (int   argc,
 	   char *argv[]);
 
+    /// Display program help.
+    static const action_type ACTION_HELP;
+    /// Display program version.
+    static const action_type ACTION_VERSION;
+
+    /// Action list.
+    option_action action;
+
     /// Quiet messages.
-    bool quiet;
+    bool          quiet;
     /// Verbose messages.
-    bool verbose;
+    bool          verbose;
 
     /**
      * Get the visible options group.  This options group contains all

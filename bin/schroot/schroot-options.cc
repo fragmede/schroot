@@ -45,6 +45,7 @@ options::~options ()
 void
 options::add_options ()
 {
+  // Chain up to add general schroot options.
   options_base::add_options();
 
   general.add_options()
@@ -84,10 +85,11 @@ options::add_options ()
 void
 options::check_options ()
 {
+  // Chain up to check general schroot options.
   options_base::check_options();
 
   if (vm.count("location"))
-    set_action(ACTION_LOCATION);
+    this->action = ACTION_LOCATION;
 
   if (vm.count("all"))
     this->all = true;
@@ -100,13 +102,13 @@ options::check_options ()
     this->preserve = true;
 
   if (vm.count("begin-session"))
-    set_action(ACTION_SESSION_BEGIN);
+    this->action = ACTION_SESSION_BEGIN;
   if (vm.count("recover-session"))
-    set_action(ACTION_SESSION_RECOVER);
+    this->action = ACTION_SESSION_RECOVER;
   if (vm.count("run-session"))
-    set_action(ACTION_SESSION_RUN);
+    this->action = ACTION_SESSION_RUN;
   if (vm.count("end-session"))
-    set_action(ACTION_SESSION_END);
+    this->action = ACTION_SESSION_END;
   if (vm.count("force"))
     this->session_force = true;
 

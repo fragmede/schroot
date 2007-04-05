@@ -33,9 +33,18 @@ using sbuild::_;
 namespace opt = boost::program_options;
 using namespace schroot;
 
+const options_base::action_type options_base::ACTION_SESSION_AUTO ("session_auto");
+const options_base::action_type options_base::ACTION_SESSION_BEGIN ("session_begin");
+const options_base::action_type options_base::ACTION_SESSION_RECOVER ("session_recover");
+const options_base::action_type options_base::ACTION_SESSION_RUN ("session_run");
+const options_base::action_type options_base::ACTION_SESSION_END ("session_end");
+const options_base::action_type options_base::ACTION_LIST ("list");
+const options_base::action_type options_base::ACTION_INFO ("info");
+const options_base::action_type options_base::ACTION_LOCATION ("location");
+const options_base::action_type options_base::ACTION_CONFIG ("config");
+
 options_base::options_base ():
   schroot_base::options (),
-  action(ACTION_SESSION_AUTO),
   chroots(),
   command(),
   user(),
@@ -57,7 +66,19 @@ options_base::~options_base ()
 void
 options_base::add_options ()
 {
+  // Chain up to add basic options.
   schroot_base::options::add_options();
+
+  action.add(ACTION_SESSION_AUTO);
+  action.set_default(ACTION_SESSION_AUTO);
+  action.add(ACTION_SESSION_BEGIN);
+  action.add(ACTION_SESSION_RECOVER);
+  action.add(ACTION_SESSION_RUN);
+  action.add(ACTION_SESSION_END);
+  action.add(ACTION_LIST);
+  action.add(ACTION_INFO);
+  action.add(ACTION_LOCATION);
+  action.add(ACTION_CONFIG);
 
   general.add_options()
     ("list,l",
@@ -81,6 +102,7 @@ options_base::add_options ()
 void
 options_base::add_option_groups ()
 {
+  // Chain up to add basic option groups.
   schroot_base::options::add_option_groups();
 
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
@@ -115,23 +137,23 @@ options_base::add_option_groups ()
 void
 options_base::check_options ()
 {
+  // Chain up to check basic options.
   schroot_base::options::check_options();
 
-  if (vm.count("help"))
-    set_action(ACTION_HELP);
-  if (vm.count("version"))
-    set_action(ACTION_VERSION);
   if (vm.count("list"))
-    set_action(ACTION_LIST);
+    this->action = ACTION_LIST;
   if (vm.count("info"))
-    set_action(ACTION_INFO);
+    this->action = ACTION_INFO;
   if (vm.count("config"))
-    set_action(ACTION_CONFIG);
+    this->action = ACTION_CONFIG;
 }
 
 void
 options_base::check_actions ()
 {
+  // Chain up to check basic actions.
+  schroot_base::options::check_actions();
+
   if (this->quiet && this->verbose)
     {
       sbuild::log_warning()
@@ -150,9 +172,8 @@ options_base::check_actions ()
     }
 
   /* Determine which chroots to load and use. */
-  switch (this->action)
+  if (this->action == ACTION_SESSION_AUTO)
     {
-    case ACTION_SESSION_AUTO:
       // Only allow normal chroots
       this->load_chroots = true;
       this->load_sessions = false;
@@ -161,9 +182,9 @@ options_base::check_actions ()
       // If no chroot was specified, fall back to the "default" chroot.
       if (this->chroots.empty() && all_used() == false)
 	this->chroots.push_back("default");
-
-      break;
-    case ACTION_SESSION_BEGIN:
+    }
+  else if (this->action == ACTION_SESSION_BEGIN)
+    {
       // Only allow one session chroot
       this->load_chroots = true;
       this->load_sessions = false;
@@ -171,20 +192,23 @@ options_base::check_actions ()
 	throw opt::validation_error(_("Exactly one chroot must be specified when beginning a session"));
 
       this->all = this->all_chroots = this->all_sessions = false;
-      break;
-    case ACTION_SESSION_RECOVER:
-    case ACTION_SESSION_RUN:
-    case ACTION_SESSION_END:
+    }
+  else if (this->action == ACTION_SESSION_RECOVER ||
+	   this->action == ACTION_SESSION_RUN ||
+	   this->action == ACTION_SESSION_AUTO)
+    {
       // Session operations work on all chroots.
       this->load_chroots = this->load_sessions = true;
-      break;
-    case ACTION_HELP:
-    case ACTION_VERSION:
+    }
+  else if (this->action == ACTION_HELP ||
+	   this->action == ACTION_VERSION)
+    {
       // Chroots don't make sense here.
       this->load_chroots = this->load_sessions = false;
       this->all = this->all_chroots = this->all_sessions = false;
-      break;
-    case ACTION_LIST:
+    }
+  else if (this->action == ACTION_LIST)
+    {
       // If not specified otherwise, load normal chroots, but allow
       // --all options.
       if (!all_used())
@@ -195,10 +219,11 @@ options_base::check_actions ()
 	this->load_sessions = true;
       if (!this->chroots.empty())
 	throw opt::validation_error(_("--chroot may not be used with --list"));
-      break;
-    case ACTION_INFO:
-    case ACTION_LOCATION:
-    case ACTION_CONFIG:
+    }
+  else if (this->action == ACTION_INFO ||
+	   this->action == ACTION_LOCATION ||
+	   this->action == ACTION_CONFIG)
+    {
       // If not specified otherwise, load normal chroots, but allow
       // --all options.
       if (!this->chroots.empty()) // chroot specified
@@ -212,19 +237,12 @@ options_base::check_actions ()
 	this->load_chroots = true;
       if (this->all_sessions)
 	this->load_sessions = true;
-      break;
-    default: // Something went wrong
+    }
+  else
+    {
+      // Something went wrong
       this->load_chroots = this->load_sessions = false;
       this->all = this->all_chroots = this->all_sessions = false;
       throw opt::validation_error(_("Unknown action specified"));
     }
-}
-
-void
-options_base::set_action (action_type action)
-{
-  if (this->action != ACTION_SESSION_AUTO)
-    throw opt::validation_error(_("Only one action may be specified"));
-
-  this->action = action;
 }

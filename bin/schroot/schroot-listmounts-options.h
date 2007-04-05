@@ -36,13 +36,8 @@ namespace schroot_listmounts
     /// A shared_ptr to an options object.
     typedef std::tr1::shared_ptr<options> ptr;
 
-    /// The action to perform.
-    enum action_type
-      {
-	ACTION_LISTMOUNTS, ///< List mount points.
-	ACTION_HELP,       ///< Display program help.
-	ACTION_VERSION     ///< Display program version.
-      };
+    /// Begin, run and end a session.
+    static const action_type ACTION_LISTMOUNTS;
 
     /// The constructor.
     options ();
@@ -50,21 +45,10 @@ namespace schroot_listmounts
     /// The destructor.
     virtual ~options ();
 
-    /// The action to perform.
-    action_type          action;
     /// The mountpoint to check.
     std::string mountpoint;
 
   protected:
-    /**
-     * Set action.  This detects if an action has already been set
-     * (only one action may be specified at once).
-     *
-     * @param action the action to set.
-     */
-    void
-    set_action (action_type action);
-
     virtual void
     add_options ();
 

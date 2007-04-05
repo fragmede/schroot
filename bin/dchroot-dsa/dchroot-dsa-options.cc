@@ -47,6 +47,7 @@ options::~options ()
 void
 options::add_options ()
 {
+  // Chain up to add general schroot options.
   schroot::options_base::add_options();
 
   general.add_options()
@@ -65,10 +66,11 @@ options::add_options ()
 void
 options::check_options ()
 {
+  // Chain up to check general schroot options.
   schroot::options_base::check_options();
 
   if (vm.count("listpaths"))
-    set_action(ACTION_LOCATION);
+    this->action = ACTION_LOCATION;
 
   if (vm.count("all"))
     {

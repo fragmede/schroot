@@ -50,21 +50,24 @@ namespace schroot
   class options_base : public schroot_base::options
   {
   public:
-    /// The action to perform.
-    enum action_type
-      {
-	ACTION_SESSION_AUTO,    ///< Begin, run and end a session.
-	ACTION_SESSION_BEGIN,   ///< Begin a session.
-	ACTION_SESSION_RECOVER, ///< Recover an existing session.
-	ACTION_SESSION_RUN,     ///< Run an existing session.
-	ACTION_SESSION_END,     ///< End an existing session.
-	ACTION_HELP,            ///< Display program help.
-	ACTION_VERSION,         ///< Display program version.
-	ACTION_LIST,            ///< Display a list of chroots.
-	ACTION_INFO,            ///< Display chroot information.
-	ACTION_LOCATION,        ///< Display chroot location information.
-	ACTION_CONFIG           ///< Display chroot configuration.
-      };
+    /// Begin, run and end a session.
+    static const action_type ACTION_SESSION_AUTO;
+    /// Begin a session.
+    static const action_type ACTION_SESSION_BEGIN;
+    /// Recover an existing session.
+    static const action_type ACTION_SESSION_RECOVER;
+    /// Run an existing session.
+    static const action_type ACTION_SESSION_RUN;
+    /// End an existing session.
+    static const action_type ACTION_SESSION_END;
+    /// Display a list of chroots.
+    static const action_type ACTION_LIST;
+    /// Display chroot information.
+    static const action_type ACTION_INFO;
+    /// Display chroot location information.
+    static const action_type ACTION_LOCATION;
+    /// Display chroot configuration.
+    static const action_type ACTION_CONFIG;
 
     /// A shared_ptr to an options_base object.
     typedef std::tr1::shared_ptr<options_base> ptr;
@@ -75,8 +78,6 @@ namespace schroot
     /// The destructor.
     virtual ~options_base ();
 
-    /// The action to perform.
-    action_type          action;
     /// Chroots to use.
     sbuild::string_list  chroots;
     /// Chroot to print path.
@@ -103,15 +104,6 @@ namespace schroot
     bool                 session_force;
 
   protected:
-    /**
-     * Set action.  This detects if an action has already been set
-     * (only one action may be specified at once).
-     *
-     * @param action the action to set.
-     */
-    void
-    set_action (action_type action);
-
     /**
      * Check if any of the --all options have been used.
      *

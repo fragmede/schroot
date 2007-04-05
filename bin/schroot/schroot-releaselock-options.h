@@ -36,13 +36,8 @@ namespace schroot_releaselock
     /// A shared_ptr to an options object.
     typedef std::tr1::shared_ptr<options> ptr;
 
-    /// The action to perform.
-    enum action_type
-      {
-	ACTION_RELEASELOCK, ///< Release lock.
-	ACTION_HELP,        ///< Display program help.
-	ACTION_VERSION      ///< Display program version.
-      };
+    /// Begin, run and end a session.
+    static const action_type ACTION_RELEASELOCK;
 
     /// The constructor.
     options ();
@@ -50,23 +45,12 @@ namespace schroot_releaselock
     /// The destructor.
     virtual ~options ();
 
-    /// The action to perform.
-    action_type          action;
     /// The device to unlock.
     std::string device;
     /// The PID holding the lock.
     int         pid;
 
   protected:
-    /**
-     * Set action.  This detects if an action has already been set
-     * (only one action may be specified at once).
-     *
-     * @param action the action to set.
-     */
-    void
-    set_action (action_type action);
-
     virtual void
     add_options ();
 

@@ -26,10 +26,12 @@
 #include <iomanip>
 
 #include <boost/format.hpp>
+#include <boost/program_options.hpp>
 
 using std::endl;
 using boost::format;
 using sbuild::_;
+namespace opt = boost::program_options;
 using namespace schroot_base;
 
 option_action::option_action ():
@@ -44,28 +46,28 @@ option_action::~option_action ()
 }
 
 void
-option_action::add_action (std::string const& action)
+option_action::add (action_type const& action)
 {
   this->actions.insert(action);
 }
 
-std::string const&
-option_action::get_default_action ()
+option_action::action_type const&
+option_action::get_default ()
 {
   return this->default_action;
 }
 
 void
-option_action::set_default_action (std::string const& action)
+option_action::set_default (action_type const& action)
 {
-  if (is_action(action))
+  if (valid(action))
     this->default_action = action;
   else
     throw std::logic_error((format(_("%1%: invalid action")) % action).str());
 }
 
-std::string const&
-option_action::get_action ()
+option_action::action_type const&
+option_action::get ()
 {
   if (this->current_action != "")
     return this->current_action;
@@ -74,16 +76,21 @@ option_action::get_action ()
 }
 
 void
-option_action::set_action (std::string const& action)
+option_action::set (action_type const& action)
 {
-  if (is_action(action))
-    this->current_action = action;
+  if (valid(action))
+    {
+      if (this->current_action == "")
+	this->current_action = action;
+      else
+	throw opt::validation_error(_("Only one action may be specified"));
+    }
   else
     throw std::logic_error((format(_("%1%: invalid action")) % action).str());
 }
 
 bool
-option_action::is_action (std::string const& action)
+option_action::valid (action_type const& action)
 {
   return this->actions.find(action) != this->actions.end();
 }

@@ -35,9 +35,10 @@ using sbuild::_;
 namespace opt = boost::program_options;
 using namespace schroot_listmounts;
 
+const options::action_type options::ACTION_LISTMOUNTS ("listmounts");
+
 options::options ():
   schroot_base::options(),
-  action(ACTION_LISTMOUNTS),
   mountpoint(),
   mount(_("Mount"))
 {
@@ -50,7 +51,11 @@ options::~options ()
 void
 options::add_options ()
 {
+  // Chain up to add basic options.
   schroot_base::options::add_options();
+
+  action.add(ACTION_LISTMOUNTS);
+  action.set_default(ACTION_LISTMOUNTS);
 
   mount.add_options()
     ("mountpoint,m", opt::value<std::string>(&this->mountpoint),
@@ -60,6 +65,7 @@ options::add_options ()
 void
 options::add_option_groups ()
 {
+  // Chain up to add basic option groups.
   schroot_base::options::add_option_groups();
 
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
@@ -76,25 +82,10 @@ options::add_option_groups ()
 void
 options::check_options ()
 {
+  // Chain up to check basic options.
   schroot_base::options::check_options();
 
-  if (vm.count("help"))
-    set_action(ACTION_HELP);
-
-  if (vm.count("version"))
-    set_action(ACTION_VERSION);
-
-  if (this->mountpoint.empty() &&
-      this->action != ACTION_HELP &&
-      this->action != ACTION_VERSION)
+  if (this->action == ACTION_LISTMOUNTS &&
+      this->mountpoint.empty())
     throw opt::validation_error(_("No mount point specified"));
-}
-
-void
-options::set_action (action_type action)
-{
-  if (this->action != ACTION_LISTMOUNTS)
-    throw opt::validation_error(_("Only one action may be specified"));
-
-  this->action = action;
 }

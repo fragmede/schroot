@@ -33,7 +33,13 @@ using sbuild::_;
 namespace opt = boost::program_options;
 using namespace schroot_base;
 
+/// Display program help.
+const options::action_type options::ACTION_HELP ("help");
+/// Display program version.
+const options::action_type options::ACTION_VERSION ("version");
+
 options::options ():
+  action(),
   quiet(false),
   verbose(false),
   general(_("General options")),
@@ -73,6 +79,9 @@ options::parse (int   argc,
 void
 options::add_options ()
 {
+  this->action.add(ACTION_HELP);
+  this->action.add(ACTION_VERSION);
+
   general.add_options()
     ("help,h",
      _("Show help options"))
@@ -111,6 +120,12 @@ options::add_option_groups ()
 void
 options::check_options ()
 {
+  if (vm.count("help"))
+    this->action = ACTION_HELP;
+
+  if (vm.count("version"))
+    this->action = ACTION_VERSION;
+
   if (vm.count("quiet"))
     this->quiet = true;
   if (vm.count("verbose"))

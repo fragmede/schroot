@@ -1,3 +1,67 @@
+2007-04-05  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* bin/schroot-base/schroot-base-option-action.h: Replace
+	std::string with action_type typedef.  Add inline operator ==, !=,
+	and = methods.
+
+	* bin/schroot-base/schroot-base-option-action.cc: Replace
+	std::string with action_type typedef.
+	(set): If the action is set more than once, throw a
+	validation_error exception.
+
+	* bin/schroot-base/schroot-base-options.h: Add action_type typedef
+	for option_action::action_type.  Add action_type constants for
+	help and version.  Add action member (an option_action).
+
+	* bin/schroot-base/schroot-base-options.cc
+	(add_options): Add help and version actions.
+	(check_options): Check and set help and version actions.
+
+	* bin/schroot-base/schroot-base-main.cc (run): Remove logic_error
+	checks, since boost program_options errors are also derived from
+	logic_error.
+
+	* bin/schroot/schroot-options-base.h: Replace action_type enum
+	with separate constants.  Remove action member.
+
+	* bin/schroot/schroot-options-base.cc
+	(add_options): Add actions and set default action.
+	(check_options): Remove help and version checks.  Update sanity
+	check.
+	(check_actions): Chain up to base class method.  Replace switch
+	with set of if-else blocks.
+	(set_action): Remove.
+
+	* bin/schroot/schroot-options.cc
+	(check_options): Replace set_action with simple assignment.
+
+	* bin/schroot/schroot-listmounts-options.h: Replace action_type
+	enum with separate constants.  Remove action member.
+
+	* bin/schroot/schroot-listmounts-options.cc
+	(add_options): Add action and set default action.
+	(check_options): Remove help and version checks.  Update sanity
+	check.
+	(set_action): Remove.
+
+	* bin/schroot/schroot-releaselock-options.h: Replace action_type
+	enum with separate constants.  Remove action member.
+
+	* bin/schroot/schroot-releaselock-options.cc
+	(add_options): Add action and set default action.
+	(check_options): Remove help and version checks.  Update sanity
+	check.
+	(set_action): Remove.
+
+	* bin/csbuild/csbuild-options.cc
+	(check_options): Replace set_action with simple assignment.
+
+	* bin/dchroot/dchroot-options.cc
+	(check_options): Replace set_action with simple assignment.
+
+	* bin/dchroot-dsa/dchroot-dsa-options.cc
+	(check_options): Replace set_action with simple assignment.
+
 2007-04-04  Roger Leigh  <rleigh@debian.org>
 
 	* Update all classes derived from schroot_base::main to specify

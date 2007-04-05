@@ -37,6 +37,8 @@ namespace schroot_base
   class option_action
   {
   public:
+    typedef std::string action_type;
+
     /// The constructor.
     option_action ();
 
@@ -49,37 +51,40 @@ namespace schroot_base
      * @param action the action to add.
      */
     void
-    add_action (std::string const& action);
+    add (action_type const& action);
 
     /*
      * Get the default action.
      * @returns the default action, or an empty string if no default
      * action has been set.
      */
-    std::string const&
-    get_default_action ();
+    action_type const&
+    get_default ();
 
     /**
      * Set the default action.
      * @param action the action to set.
      */
-     void
-    set_default_action (std::string const& action);
+    void
+    set_default (action_type const& action);
 
     /*
      * Get the action to perform.
      * @returns the action, or the default action if no action has
      * been set, or an empty string if no default action has been set.
      */
-    std::string const&
-    get_action ();
+    action_type const&
+    get ();
 
     /**
-     * Set the action to perform.
+     * Set the action to perform.  This detects if an action has
+     * already been set (only one action may be specified at once).
      * @param action the action to set.
+     * @todo Throw a custom error, and add a more informative error in
+     * main::run.
      */
     void
-    set_action (std::string const& action);
+    set (action_type const& action);
 
     /**
      * Check if an action is valid.
@@ -87,7 +92,26 @@ namespace schroot_base
      * @returns if action is a valid action, otherwise false.
      */
     bool
-    is_action (std::string const& action);
+    valid (action_type const& action);
+
+    option_action& operator = (action_type const& action)
+    {
+      set(action);
+      return *this;
+    }
+
+    bool operator == (action_type const& action)
+    {
+      if (get() == action)
+	return true;
+      else
+	return false;
+    }
+
+    bool operator != (action_type const& action)
+    {
+      return !(*this == action);
+    }
 
   private:
     /// The container of the actions.

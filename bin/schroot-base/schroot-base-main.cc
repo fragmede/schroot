@@ -120,19 +120,6 @@ main::run (int   argc,
 	{
 	}
 
-      try
-	{
-	  dynamic_cast<std::logic_error const&>(e);
-	  sbuild::log_info()
-	    // TRANSLATORS: %1% = program name
-	    << format(_("This is a logic error in the program; please report to %1%"))
-	    % PACKAGE_BUGREPORT
-	    << endl;
-	}
-      catch (std::bad_cast const& discard)
-	{
-	}
-
       if (this->use_syslog)
 	closelog();
 

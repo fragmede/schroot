@@ -68,7 +68,7 @@ options::check_options ()
   schroot::options_base::check_options();
 
   if (vm.count("path"))
-    set_action(ACTION_LOCATION);
+    this->action = ACTION_LOCATION;
 
   if (vm.count("all"))
     {

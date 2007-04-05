@@ -35,9 +35,10 @@ using sbuild::_;
 namespace opt = boost::program_options;
 using namespace schroot_releaselock;
 
+const options::action_type options::ACTION_RELEASELOCK ("releaselock");
+
 options::options ():
   schroot_base::options(),
-  action(ACTION_RELEASELOCK),
   device(),
   pid(0),
   lock(_("Lock"))
@@ -51,7 +52,11 @@ options::~options ()
 void
 options::add_options ()
 {
+  // Chain up to add basic options.
   schroot_base::options::add_options();
+
+  action.add(ACTION_RELEASELOCK);
+  action.set_default(ACTION_RELEASELOCK);
 
   lock.add_options()
     ("device,d", opt::value<std::string>(&this->device),
@@ -63,6 +68,7 @@ options::add_options ()
 void
 options::add_option_groups ()
 {
+  // Chain up to add basic option groups.
   schroot_base::options::add_option_groups();
 
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
@@ -79,25 +85,10 @@ options::add_option_groups ()
 void
 options::check_options ()
 {
+  // Chain up to check basic options.
   schroot_base::options::check_options();
 
-  if (vm.count("help"))
-    set_action(ACTION_HELP);
-
-  if (vm.count("version"))
-    set_action(ACTION_VERSION);
-
-  if (this->device.empty() &&
-      this->action != ACTION_HELP &&
-      this->action != ACTION_VERSION)
+  if (this->action == ACTION_RELEASELOCK &&
+      this->device.empty())
     throw opt::validation_error(_("No device specified"));
-}
-
-void
-options::set_action (action_type action)
-{
-  if (this->action != ACTION_RELEASELOCK)
-    throw opt::validation_error(_("Only one action may be specified"));
-
-  this->action = action;
 }
