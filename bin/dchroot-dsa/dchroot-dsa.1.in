@@ -1,4 +1,4 @@
-.\" Copyright © 2005-2006  Roger Leigh <rleigh@debian.org>
+.\" Copyright © 2005-2007  Roger Leigh <rleigh@debian.org>
 .\"
 .\" schroot is free software; you can redistribute it and/or modify it
 .\" under the terms of the GNU General Public License as published by
@@ -249,7 +249,7 @@ the Debian Project.  These machines have a \fBdchroot-dsa\fP source package
 which provides a \fBdchroot\-dsa\fP package, written by Ben Collins
 \f[CR]<bcollins@debian.org>\fP and Martin Schulze \f[CR]<joey@debian.org>\fP.
 .SH COPYRIGHT
-Copyright \(co 2005\-2006  Roger Leigh \f[CR]<rleigh@debian.org>\fP
+Copyright \(co 2005\-2007  Roger Leigh \f[CR]<rleigh@debian.org>\fP
 .PP
 This program is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free

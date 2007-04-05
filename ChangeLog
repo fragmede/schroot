@@ -1,5 +1,11 @@
 2007-04-05  Roger Leigh  <rleigh@debian.org>
 
+	* po/POTFILES.in: Updated with new file locations.
+
+	* Update copyright headers on files for 2007.
+
+2007-04-05  Roger Leigh  <rleigh@debian.org>
+
 	* test/schroot-base-option-action.cc: New file, unit test for
 	schroot_base::option_action.
 
