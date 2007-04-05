@@ -20,30 +20,60 @@
 #ifndef CSBUILD_MAIN_H
 #define CSBUILD_MAIN_H
 
-#include <csbuild/csbuild-main-base.h>
+#include <csbuild/csbuild-options.h>
+
+#include <schroot-base/schroot-base-main.h>
+
+#include <sbuild/sbuild-custom-error.h>
 
 namespace csbuild
 {
 
   /**
-   * Frontend for csbuild.  This class is used to "run" csbuild.
+   * Frontend for schroot.  This class is used to "run" schroot.
    */
-  class main : public csbuild::main_base
+  class main : public schroot_base::main
   {
   public:
+    /// Error codes.
+    enum error_code
+      {
+	DEVICE_NOTBLOCK, ///< File is not a block device.
+	DEVICE_OWNED,    ///< Failed to release device lock (lock held by PID).
+	DEVICE_RELEASE,  ///< Failed to release device lock.
+	DEVICE_STAT      ///< Failed to stat device.
+      };
+
+    /// Exception type.
+    typedef sbuild::custom_error<error_code> error;
+
     /**
      * The constructor.
      *
      * @param options the command-line options to use.
      */
-    main (schroot::options_base::ptr& options);
+    main (options::ptr& options);
 
     /// The destructor.
     virtual ~main ();
 
-  protected:
+    /**
+     * Build packages.
+     */
     virtual void
-    create_session (sbuild::session::operation sess_op);
+    action_build ();
+
+    /**
+     * Run the program.
+     *
+     * @returns 0 on success, 1 on failure or the exit status of the
+     * chroot command.
+     */
+    virtual int
+    run_impl ();
+
+    /// The program options.
+    options::ptr opts;
   };
 
 }

@@ -21,30 +21,58 @@
 
 #include "csbuild-main.h"
 
+#include <cerrno>
 #include <cstdlib>
+#include <ctime>
 #include <iostream>
 #include <locale>
 
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <termios.h>
 #include <unistd.h>
 
 #include <boost/format.hpp>
 
 using std::endl;
-using sbuild::_;
 using boost::format;
-using schroot::options_base;
+using sbuild::_;
+using sbuild::N_;
 using namespace csbuild;
 
-main::main (schroot::options_base::ptr& options):
-  main_base("csbuild",
-	    // TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
-	    // is an em-dash.
-	    _("[OPTION...] [COMMAND] - run command or shell in a chroot"),
-	    options,
-	    true)
+namespace
+{
+
+  typedef std::pair<main::error_code,const char *> emap;
+
+  /**
+   * This is a list of the supported error codes.  It's used to
+   * construct the real error codes map.
+   */
+  emap init_errors[] =
+    {
+      emap(main::DEVICE_NOTBLOCK, N_("File is not a block device")),
+      // TRANSLATORS: %4% = integer process ID
+      emap(main::DEVICE_OWNED,    N_("Failed to release device lock (lock held by PID %4%)")),
+      emap(main::DEVICE_RELEASE,  N_("Failed to release device lock")),
+      emap(main::DEVICE_STAT,     N_("Failed to stat device"))
+};
+
+}
+
+template<>
+sbuild::error<main::error_code>::map_type
+sbuild::error<main::error_code>::error_strings
+(init_errors,
+ init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+
+main::main (options::ptr& options):
+  schroot_base::main("csbuild",
+		     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+		     // and '-' is an em-dash.
+		     _("[OPTION...] - build Debian packages from source"),
+		     options,
+		     false),
+  opts(options)
 {
 }
 
@@ -53,13 +81,21 @@ main::~main ()
 }
 
 void
-main::create_session(sbuild::session::operation sess_op)
+main::action_build ()
 {
-  sbuild::log_debug(sbuild::DEBUG_INFO) << "Creating schroot session" << endl;
+}
 
-  this->session = sbuild::session::ptr
-    (new sbuild::session("schroot", this->config, sess_op, this->chroots));
+int
+main::run_impl ()
+{
+  if (this->opts->action == options::ACTION_HELP)
+    action_help(std::cerr);
+  else if (this->opts->action == options::ACTION_VERSION)
+    action_version(std::cerr);
+  else if (this->opts->action == options::ACTION_BUILD)
+    action_build();
+  else
+    assert(0); // Invalid action.
 
-  if (!this->options->user.empty())
-    this->session->set_user(this->options->user);
+  return EXIT_SUCCESS;
 }

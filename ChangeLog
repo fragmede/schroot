@@ -1,5 +1,11 @@
 2007-04-05  Roger Leigh  <rleigh@debian.org>
 
+	* Replace all files in bin/csbuild with schroot-releaselock
+	sources, and customise for csbuild.  The standard options are
+	taken from the existing sbuild implementation.
+
+2007-04-05  Roger Leigh  <rleigh@debian.org>
+
 	* po/POTFILES.in: Updated with new file locations.
 
 	* Update copyright headers on files for 2007.

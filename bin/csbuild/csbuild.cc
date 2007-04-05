@@ -19,13 +19,15 @@
 
 #include <config.h>
 
-#include "csbuild-main.h"
 #include "csbuild-options.h"
+#include "csbuild-main.h"
 
 #include <schroot-base/schroot-base-run.h>
 
 using std::endl;
 using boost::format;
+namespace opt = boost::program_options;
+
 using namespace csbuild;
 
 /**
@@ -41,5 +43,6 @@ int
 main (int   argc,
       char *argv[])
 {
-  return schroot_base::run<csbuild::options, csbuild::main>(argc, argv);
+  return schroot_base::run
+    <csbuild::options, csbuild::main>(argc, argv);
 }

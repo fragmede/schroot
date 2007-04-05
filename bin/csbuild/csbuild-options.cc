@@ -19,6 +19,8 @@
 
 #include <config.h>
 
+#include <sbuild/sbuild-i18n.h>
+
 #include "csbuild-options.h"
 
 #include <cstdlib>
@@ -28,13 +30,18 @@
 #include <boost/program_options.hpp>
 
 using std::endl;
-using sbuild::_;
 using boost::format;
+using sbuild::string_list;
+using sbuild::_;
 namespace opt = boost::program_options;
 using namespace csbuild;
 
+const options::action_type options::ACTION_BUILD ("build");
+
 options::options ():
-  schroot::options_base()
+  schroot_base::options(),
+  user(_("User")),
+  dependencies(_("Dependencies"))
 {
 }
 
@@ -45,61 +52,66 @@ options::~options ()
 void
 options::add_options ()
 {
-  schroot::options_base::add_options();
+  // Chain up to add basic options.
+  schroot_base::options::add_options();
+
+  action.add(ACTION_BUILD);
+  action.set_default(ACTION_BUILD);
 
   general.add_options()
-    ("path,p", opt::value<std::string>(&this->chroot_path),
-     _("Print path to selected chroot"));
+    ("batchmode,b", opt::value<bool>(&this->batchmode),
+     _("Use batch mode"))
+    ("nolog,n", opt::value<bool>(&this->nolog),
+     _("Don't log program output"))
+    ("arch-all,A", opt::value<bool>(&this->build_arch_all),
+     _("Build architecture \"all\" packages"))
+    ("source,s", opt::value<bool>(&this->build_source),
+     _("Build a source package"))
+    ("force-orig-source,f", opt::value<bool>(&this->force_orig_source),
+     _("Force building of a source package, irrespective of Debian version"))
+    ("distribution,d", opt::value<std::string>(&this->distribution),
+     _("Distribution to build for"))
+    ("purge,p", opt::value<std::string>(&this->purge_string),
+     _("Purge mode"))
+    ("binary-nmu,B", opt::value<bool>(&this->bin_nmu),
+     _("Make a binary non-maintainer upload"))
+    ("gcc-snapshot,G", opt::value<bool>(&this->gcc_snapshot),
+     _("Build using the current GCC development snapshot"));
 
-  chroot.add_options()
-    ("all,a",
-     _("Select all chroots"));
+  user.add_options()
+    ("keyid,k", opt::value<std::string>(&this->keyid),
+     _("GPG key identifier"))
+    ("maintainer,m", opt::value<std::string>(&this->maintainer),
+     _("Package maintainer"))
+    ("uploader,u", opt::value<std::string>(&this->uploader),
+     _("Package uploader"));
 
-  chrootenv.add_options()
-    ("directory", opt::value<std::string>(&this->directory),
-     _("Directory to use"))
-    ("preserve-environment,d",
-     _("Preserve user environment"));
+
+  dependencies.add_options()
+    ("force-depends", opt::value<string_list>(&this->forced_dependencies),
+     _("Force a build dependency"))
+    ("add-depends", opt::value<string_list>(&this->additional_dependencies),
+     _("Add a build dependency"));
+
+
+}
+
+void
+options::add_option_groups ()
+{
+  // Chain up to add basic option groups.
+  schroot_base::options::add_option_groups();
+
+  visible.add(user);
+  global.add(user);
+
+  visible.add(dependencies);
+  global.add(dependencies);
 }
 
 void
 options::check_options ()
 {
-  schroot::options_base::check_options();
-
-  if (vm.count("path"))
-    this->action = ACTION_LOCATION;
-
-  if (vm.count("all"))
-    {
-      this->all = false;
-      this->all_chroots = true;
-      this->all_sessions = false;
-    }
-
-  if (vm.count("preserve-environment"))
-    this->preserve = true;
-
-  if (this->quiet && this->verbose)
-    {
-      sbuild::log_warning()
-	<< _("--quiet and --verbose may not be used at the same time")
-	<< endl;
-      sbuild::log_info() << _("Using verbose output") << endl;
-    }
-
-  if (!this->chroots.empty() && all_used())
-    {
-      sbuild::log_warning()
-	<< _("--chroot and --all may not be used at the same time")
-	<< endl;
-      sbuild::log_info() << _("Using --chroots only") << endl;
-      this->all = this->all_chroots = this->all_sessions = false;
-    }
-
-  if (this->all == true)
-    {
-      this->all_chroots = true;
-      this->all_sessions = true;
-    }
+  // Chain up to check basic options.
+  schroot_base::options::check_options();
 }

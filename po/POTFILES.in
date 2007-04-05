@@ -46,8 +46,6 @@ bin/dchroot/dchroot-options.cc
 bin/schroot-base/schroot-base-option-action.cc
 bin/schroot-base/schroot-base-main.cc
 bin/schroot-base/schroot-base-options.cc
-bin/csbuild/csbuild-main-base.cc
-bin/csbuild/csbuild-session-base.cc
 bin/csbuild/csbuild-main.cc
 bin/csbuild/csbuild-options.cc
 bin/csbuild/csbuild.cc

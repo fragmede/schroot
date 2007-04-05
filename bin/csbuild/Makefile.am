@@ -27,18 +27,10 @@ LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
 DEFS = -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
 
 if BUILD_CSBUILD
-noinst_LTLIBRARIES = libcsbuild.la
 csbuild = csbuild
 endif
 
 bin_PROGRAMS = $(csbuild)
-
-libcsbuild_la_SOURCES =			\
-	csbuild-main-base.h		\
-	csbuild-main-base.cc		\
-	csbuild-session-base.h		\
-	csbuild-session-base.cc
-libcsbuild_la_LIBADD = $(top_builddir)/bin/schroot/libschroot.la
 
 csbuild_SOURCES =			\
 	csbuild-options.h		\
@@ -46,7 +38,7 @@ csbuild_SOURCES =			\
 	csbuild-main.h			\
 	csbuild-main.cc			\
 	csbuild.cc
-csbuild_LDADD = libcsbuild.la
+csbuild_LDADD = $(top_builddir)/bin/schroot/libschroot.la
 
 if BUILD_CSBUILD
 csbuild_mans = csbuild.1
