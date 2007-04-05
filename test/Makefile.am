@@ -22,41 +22,43 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -DTESTDATADIR='"./testdata"'
+LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -DTESTDATADIR='"./testdata"' -I$(top_builddir)/bin
 
 if USE_UNIT_TESTS
 noinst_LTLIBRARIES = libtest.la
 
-noinst_PROGRAMS = 		\
-	sbuild-chroot		\
-	sbuild-chroot-config	\
-	sbuild-environment	\
-	sbuild-dirstream	\
-	sbuild-keyfile		\
-	sbuild-lock		\
-	sbuild-log		\
-	sbuild-nostream		\
-	sbuild-parse-value	\
-	sbuild-personality	\
-	sbuild-regex		\
-	sbuild-run-parts	\
-	sbuild-util
+noinst_PROGRAMS = 			\
+	sbuild-chroot			\
+	sbuild-chroot-config		\
+	sbuild-environment		\
+	sbuild-dirstream		\
+	sbuild-keyfile			\
+	sbuild-lock			\
+	sbuild-log			\
+	sbuild-nostream			\
+	sbuild-parse-value		\
+	sbuild-personality		\
+	sbuild-regex			\
+	sbuild-run-parts		\
+	sbuild-util			\
+	schroot-base-option-action
 
 # sbuild-lock is excluded, because it is timing dependent and can fail
 # randomly on slow or heavily-loaded systems.
-TESTS = setup-test-data		\
-	sbuild-chroot		\
-	sbuild-chroot-config	\
-	sbuild-dirstream	\
-	sbuild-environment	\
-	sbuild-keyfile		\
-	sbuild-log		\
-	sbuild-nostream		\
-	sbuild-parse-value	\
-	sbuild-personality	\
-	sbuild-run-parts	\
-	sbuild-regex		\
-	sbuild-util		\
+TESTS = setup-test-data			\
+	sbuild-chroot			\
+	sbuild-chroot-config		\
+	sbuild-dirstream		\
+	sbuild-environment		\
+	sbuild-keyfile			\
+	sbuild-log			\
+	sbuild-nostream			\
+	sbuild-parse-value		\
+	sbuild-personality		\
+	sbuild-run-parts		\
+	sbuild-regex			\
+	sbuild-util			\
+	schroot-base-option-action	\
 	cleanup-test-data
 endif
 
@@ -109,6 +111,9 @@ sbuild_run_parts_LDADD = libtest.la
 
 sbuild_util_SOURCES = sbuild-util.cc
 sbuild_util_LDADD = libtest.la
+
+schroot_base_option_action_SOURCES = schroot-base-option-action.cc
+schroot_base_option_action_LDADD = $(top_builddir)/bin/schroot-base/libschroot-base.la libtest.la
 
 EXTRA_DIST = 			\
 	keyfile.ex1		\

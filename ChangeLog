@@ -1,4 +1,9 @@
-2007-04-05  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2007-04-05  Roger Leigh  <rleigh@debian.org>
+
+	* test/schroot-base-option-action.cc: New file, unit test for
+	schroot_base::option_action.
+
+2007-04-05  Roger Leigh  <rleigh@debian.org>
 
 	* bin/schroot-base/schroot-base-option-action.h: Replace
 	std::string with action_type typedef.  Add inline operator ==, !=,
