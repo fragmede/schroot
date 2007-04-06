@@ -33,6 +33,8 @@ endif
 bin_PROGRAMS = $(csbuild)
 
 csbuild_SOURCES =			\
+	csbuild-debian-changes.h	\
+	csbuild-debian-changes.cc	\
 	csbuild-options.h		\
 	csbuild-options.cc		\
 	csbuild-main.h			\
