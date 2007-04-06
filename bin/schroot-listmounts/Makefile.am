@@ -22,11 +22,18 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-SUBDIRS =	 		\
-	schroot-base		\
-	schroot			\
-	schroot-listmounts	\
-	schroot-releaselock	\
-	dchroot			\
-	dchroot-dsa		\
-	csbuild
+pkglibexecdir = $(SCHROOT_LIBEXEC_DIR)
+
+LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
+
+DEFS = -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
+
+pkglibexec_PROGRAMS = schroot-listmounts
+
+schroot_listmounts_SOURCES =		\
+	schroot-listmounts-main.h	\
+	schroot-listmounts-main.cc	\
+	schroot-listmounts-options.h	\
+	schroot-listmounts-options.cc	\
+	schroot-listmounts.cc
+schroot_listmounts_LDADD = $(top_builddir)/bin/schroot-base/libschroot-base.la

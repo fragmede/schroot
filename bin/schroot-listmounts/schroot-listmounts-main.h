@@ -17,15 +17,16 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_RELEASELOCK_MAIN_H
-#define SCHROOT_RELEASELOCK_MAIN_H
+#ifndef SCHROOT_LISTMOUNTS_MAIN_H
+#define SCHROOT_LISTMOUNTS_MAIN_H
 
 #include <schroot-base/schroot-base-main.h>
-#include <schroot/schroot-releaselock-options.h>
+
+#include <schroot-listmounts/schroot-listmounts-options.h>
 
 #include <sbuild/sbuild-custom-error.h>
 
-namespace schroot_releaselock
+namespace schroot_listmounts
 {
 
   /**
@@ -37,10 +38,9 @@ namespace schroot_releaselock
     /// Error codes.
     enum error_code
       {
-	DEVICE_NOTBLOCK, ///< File is not a block device.
-	DEVICE_OWNED,    ///< Failed to release device lock (lock held by PID).
-	DEVICE_RELEASE,  ///< Failed to release device lock.
-	DEVICE_STAT      ///< Failed to stat device.
+	FIND, ///< Failed to find file.
+	OPEN, ///< Failed to open file.
+	CLOSE ///< Failed to close file.
       };
 
     /// Exception type.
@@ -56,12 +56,23 @@ namespace schroot_releaselock
     /// The destructor.
     virtual ~main ();
 
+  private:
     /**
-     * Release lock.
+     * List mounts (internal helper).
+     *
+     * @param mountfile the file containing the database of mounted
+     * filesystems.
+     */
+    sbuild::string_list
+    list_mounts (std::string const& mountfile) const;
+
+    /**
+     * List mounts.
      */
     virtual void
-    action_releaselock ();
+    action_listmounts ();
 
+  protected:
     /**
      * Run the program.
      *
@@ -71,13 +82,14 @@ namespace schroot_releaselock
     virtual int
     run_impl ();
 
+  private:
     /// The program options.
     options::ptr opts;
   };
 
 }
 
-#endif /* SCHROOT_RELEASELOCK_MAIN_H */
+#endif /* SCHROOT_LISTMOUNTS_MAIN_H */
 
 /*
  * Local Variables:

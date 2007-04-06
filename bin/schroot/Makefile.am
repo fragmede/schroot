@@ -25,7 +25,6 @@ include $(top_srcdir)/scripts/global.mk
 SUBDIRS = pam exec setup
 
 localedir = $(datadir)/locale
-pkglibexecdir = $(SCHROOT_LIBEXEC_DIR)
 
 LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
 
@@ -34,7 +33,6 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
 noinst_LTLIBRARIES = libschroot.la
 
 bin_PROGRAMS = schroot
-pkglibexec_PROGRAMS = schroot-releaselock schroot-listmounts
 
 libschroot_la_SOURCES =			\
 	schroot-options-base.h		\
@@ -50,22 +48,6 @@ schroot_SOURCES =			\
 	schroot-options.cc		\
 	schroot.cc
 schroot_LDADD = libschroot.la
-
-schroot_releaselock_SOURCES = 		\
-	schroot-releaselock-main.h	\
-	schroot-releaselock-main.cc	\
-	schroot-releaselock-options.h	\
-	schroot-releaselock-options.cc	\
-	schroot-releaselock.cc
-schroot_releaselock_LDADD = $(top_builddir)/bin/schroot-base/libschroot-base.la
-
-schroot_listmounts_SOURCES =		\
-	schroot-listmounts-main.h	\
-	schroot-listmounts-main.cc	\
-	schroot-listmounts-options.h	\
-	schroot-listmounts-options.cc	\
-	schroot-listmounts.cc
-schroot_listmounts_LDADD = $(top_builddir)/bin/schroot-base/libschroot-base.la
 
 
 pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)

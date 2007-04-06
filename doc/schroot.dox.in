@@ -465,6 +465,8 @@ WARN_LOGFILE           = schroot.log
 INPUT                  = @top_srcdir@/sbuild \
                          @top_srcdir@/bin/schroot-base \
                          @top_srcdir@/bin/schroot \
+                         @top_srcdir@/bin/schroot-listmounts \
+                         @top_srcdir@/bin/schroot-releaselock \
                          @top_srcdir@/bin/dchroot \
                          @top_srcdir@/bin/dchroot-dsa \
                          @top_srcdir@/bin/csbuild

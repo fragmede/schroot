@@ -22,11 +22,18 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-SUBDIRS =	 		\
-	schroot-base		\
-	schroot			\
-	schroot-listmounts	\
-	schroot-releaselock	\
-	dchroot			\
-	dchroot-dsa		\
-	csbuild
+pkglibexecdir = $(SCHROOT_LIBEXEC_DIR)
+
+LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
+
+DEFS = -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
+
+pkglibexec_PROGRAMS = schroot-releaselock
+
+schroot_releaselock_SOURCES = 		\
+	schroot-releaselock-main.h	\
+	schroot-releaselock-main.cc	\
+	schroot-releaselock-options.h	\
+	schroot-releaselock-options.cc	\
+	schroot-releaselock.cc
+schroot_releaselock_LDADD = $(top_builddir)/bin/schroot-base/libschroot-base.la

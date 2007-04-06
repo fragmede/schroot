@@ -1,5 +1,15 @@
 2007-04-06  Roger Leigh  <rleigh@debian.org>
 
+	* po/POTFILES.in: Updated with new file locations.
+
+	* Move bin/schroot/schroot-listmounts* to
+	bin/schroot-listmounts.
+
+	* Move bin/schroot/schroot-releaselock* to
+	bin/schroot-releaselock.
+
+2007-04-06  Roger Leigh  <rleigh@debian.org>
+
 	* bin/csbuild/csbuild-debian-changes.h: Indent method arguments,
 	and tidy.
 
