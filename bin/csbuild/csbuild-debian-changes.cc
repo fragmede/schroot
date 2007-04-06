@@ -148,6 +148,34 @@ debian_changes::get_line (key_type const& key) const
     return 0;
 }
 
+bool
+debian_changes::get_value (key_type const& key,
+			   value_type&     value) const
+{
+  sbuild::log_debug(sbuild::DEBUG_INFO)
+    << "Getting debian_changes key=" << key << std::endl;
+  const item_type *found_item = find_item(key);
+  if (found_item)
+    {
+      value_type const& val(std::tr1::get<1>(*found_item));
+      value = val;
+      return true;
+    }
+  sbuild::log_debug(sbuild::DEBUG_NOTICE)
+    << "key not found" << std::endl;
+  return false;
+}
+
+bool
+debian_changes::get_value (key_type const& key,
+			   priority        priority,
+			   value_type&     value) const
+{
+  bool status = get_value(key, value);
+  check_priority(key, priority, status);
+  return status;
+}
+
 void
 debian_changes::set_value (key_type const&   key,
 			   value_type const& value,
@@ -217,8 +245,8 @@ debian_changes::find_item (key_type const& key)
 
 void
 debian_changes::check_priority (key_type const& key,
-				priority priority,
-				bool     valid) const
+				priority        priority,
+				bool            valid) const
 {
   if (valid == false)
     {

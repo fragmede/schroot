@@ -39,10 +39,9 @@ namespace csbuild
 {
 
   /**
-   * Configuration file parser.  This class loads an INI-style
-   * configuration file from a file or stream.  The format is
-   * documented in schroot.conf(5).  It is an independent
-   * reimplementation of the Glib GDebian_Changes class, which it replaces.
+   * Debian changes file parser.  This class is a generic parser for
+   * the file format used in Debian changes files for binary and
+   * source uploads (.changes and .dsc files).
    */
   class debian_changes
   {
@@ -148,7 +147,7 @@ namespace csbuild
     template <typename T>
     bool
     get_value (key_type const& key,
-	       T&                 value) const
+	       T&              value) const
     {
       sbuild::log_debug(sbuild::DEBUG_INFO)
 	<< "Getting debian_changes key=" << key << std::endl;
@@ -196,13 +195,40 @@ namespace csbuild
     template <typename T>
     bool
     get_value (key_type const& key,
-	       priority           priority,
-	       T&                 value) const
+	       priority        priority,
+	       T&              value) const
     {
       bool status = get_value(key, value);
       check_priority(key, priority, status);
       return status;
     }
+
+    /**
+     * Get a key value.
+     *
+     * @param key the key to get.
+     * @param value the value to store the key's value in.
+     * @returns true if the key was found, otherwise false (in which
+     * case value will be unchanged).
+     */
+    bool
+    get_value (key_type const& key,
+	       value_type&     value) const;
+
+    /**
+     * Get a key value.  If the value does not exist, is deprecated or
+     * obsolete, warn appropriately.
+     *
+     * @param key the key to get.
+     * @param priority the priority of the option.
+     * @param value the value to store the key's value in.
+     * @returns true if the key was found, otherwise false (in which
+     * case value will be unchanged).
+     */
+    bool
+    get_value (key_type const& key,
+	       priority        priority,
+	       value_type&     value) const;
 
     /**
      * Get a key value as a list.
@@ -219,7 +245,7 @@ namespace csbuild
      */
     template <typename C>
     bool
-    get_list_value (key_type const& key,
+    get_list_value (key_type const&    key,
 		    C&                 container,
 		    std::string const& separator) const
     {
@@ -283,8 +309,8 @@ namespace csbuild
     template <typename C>
     bool
     get_list_value (key_type const& key,
-		    priority           priority,
-		    C&                 container) const
+		    priority        priority,
+		    C&              container) const
     {
       bool status = get_list_value(key, container);
       check_priority(key, priority, status);
@@ -301,7 +327,7 @@ namespace csbuild
     template <typename T>
     void
     set_value (key_type const& key,
-	       T const&           value)
+	       T const&        value)
     {
       set_value(key, value, 0);
     }
@@ -338,8 +364,20 @@ namespace csbuild
      * Set a key value.
      *
      * @param key the key to set.
-     * @param value the value to get the key's value from.  This must
-     * allow output to an ostream.
+     * @param value the value to get the key's value from.
+     */
+    void
+    set_value (key_type const&   key,
+	       value_type const& value)
+    {
+      set_value(key, value, 0);
+    }
+
+    /**
+     * Set a key value.
+     *
+     * @param key the key to set.
+     * @param value the value to get the key's value from.
      * @param line the line number in the input file, or 0 otherwise.
      */
     void
@@ -358,8 +396,8 @@ namespace csbuild
     template <typename I>
     void
     set_list_value (key_type const& key,
-		    I                  begin,
-		    I                  end)
+		    I               begin,
+		    I               end)
     {
       set_list_value (key, begin, end, 0);
     }
@@ -376,11 +414,11 @@ namespace csbuild
      */
     template <typename I>
     void
-    set_list_value (key_type const& key,
+    set_list_value (key_type const&    key,
 		    I                  begin,
 		    I                  end,
 		    std::string const& separator,
-		    size_type       line)
+		    size_type          line)
     {
       std::string strval;
 
@@ -439,7 +477,7 @@ namespace csbuild
     friend
     std::basic_istream<charT,traits>&
     operator >> (std::basic_istream<charT,traits>& stream,
-		 debian_changes&                          kf)
+		 debian_changes&                   dc)
     {
       debian_changes tmp;
       size_t linecount = 0;
@@ -476,7 +514,7 @@ namespace csbuild
 	  }
       }
 
-      kf += tmp;
+      dc += tmp;
 
       return stream;
     }
@@ -485,19 +523,19 @@ namespace csbuild
      * debian_changes output to an ostream.
      *
      * @param stream the stream to output to.
-     * @param kf the debian_changes to output.
+     * @param dc the debian_changes to output.
      * @returns the stream.
      */
     template <class charT, class traits>
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-		 debian_changes const&                    kf)
+		 debian_changes const&             dc)
     {
       size_type group_count = 0;
 
-      for (item_map_type::const_iterator it = kf.items.begin();
-	   it != kf.items.end();
+      for (item_map_type::const_iterator it = dc.items.begin();
+	   it != dc.items.end();
 	   ++it)
 	{
 	  item_type const& item = it->second;
@@ -538,8 +576,8 @@ namespace csbuild
      */
     void
     check_priority (key_type const& key,
-		    priority           priority,
-		    bool               valid) const;
+		    priority        priority,
+		    bool            valid) const;
 
     /// The top-level items.
     item_map_type items;
@@ -558,10 +596,10 @@ namespace csbuild
      */
     template<class C, typename T>
     static void
-    set_object_value (C const&            object,
-		      T             (C::* method)() const,
-		      debian_changes&            debian_changes,
-		      debian_changes::key_type const&  key)
+    set_object_value (C const&                        object,
+		      T                         (C::* method)() const,
+		      debian_changes&                 debian_changes,
+		      debian_changes::key_type const& key)
     {
       try
 	{
@@ -586,10 +624,10 @@ namespace csbuild
      */
     template<class C, typename T>
     static void
-    set_object_value (C const&            object,
-		      T const&      (C::* method)() const,
-		      debian_changes&            debian_changes,
-		      debian_changes::key_type const&  key)
+    set_object_value (C const&                        object,
+		      T const&                  (C::* method)() const,
+		      debian_changes&                 debian_changes,
+		      debian_changes::key_type const& key)
     {
       try
 	{
@@ -615,10 +653,10 @@ namespace csbuild
      */
     template<class C, typename T>
     static void
-    set_object_list_value (C const&            object,
-			   T             (C::* method)() const,
-			   debian_changes&            debian_changes,
-			   debian_changes::key_type const&  key)
+    set_object_list_value (C const&                        object,
+			   T                         (C::* method)() const,
+			   debian_changes&                 debian_changes,
+			   debian_changes::key_type const& key)
     {
       try
 	{
@@ -647,10 +685,10 @@ namespace csbuild
      */
     template<class C, typename T>
     static void
-    set_object_list_value (C const&            object,
-			   T const&      (C::* method)() const,
-			   debian_changes&            debian_changes,
-			   debian_changes::key_type const&  key)
+    set_object_list_value (C const&                        object,
+			   T const&                  (C::* method)() const,
+			   debian_changes&                 debian_changes,
+			   debian_changes::key_type const& key)
     {
       try
 	{
@@ -679,11 +717,11 @@ namespace csbuild
      */
     template<class C, typename T>
     static void
-    get_object_value (C&                  object,
-		      void          (C::* method)(T param),
-		      debian_changes const&      debian_changes,
-		      debian_changes::key_type const&  key,
-		      debian_changes::priority   priority)
+    get_object_value (C&                              object,
+		      void                      (C::* method)(T param),
+		      debian_changes const&           debian_changes,
+		      debian_changes::key_type const& key,
+		      debian_changes::priority        priority)
     {
       try
 	{
@@ -716,11 +754,11 @@ namespace csbuild
      */
     template<class C, typename T>
     static void
-    get_object_value (C&                  object,
-		      void          (C::* method)(T const& param),
-		      debian_changes const&      debian_changes,
-		      debian_changes::key_type const&  key,
-		      debian_changes::priority   priority)
+    get_object_value (C&                              object,
+		      void                      (C::* method)(T const& param),
+		      debian_changes const&           debian_changes,
+		      debian_changes::key_type const& key,
+		      debian_changes::priority        priority)
     {
       try
 	{
@@ -753,11 +791,11 @@ namespace csbuild
      */
     template<class C, typename T>
     static void
-    get_object_list_value (C&                  object,
-			   void          (C::* method)(T param),
-			   debian_changes const&      debian_changes,
-			   debian_changes::key_type const&  key,
-			   debian_changes::priority   priority)
+    get_object_list_value (C&                              object,
+			   void                      (C::* method)(T param),
+			   debian_changes const&           debian_changes,
+			   debian_changes::key_type const& key,
+			   debian_changes::priority        priority)
     {
       try
 	{
@@ -793,11 +831,11 @@ namespace csbuild
      */
     template<class C, typename T>
     static void
-    get_object_list_value (C&                  object,
-			   void          (C::* method)(T const& param),
-			   debian_changes const& debian_changes,
-			   debian_changes::key_type const&           key,
-			   debian_changes::priority   priority)
+    get_object_list_value (C&                              object,
+			   void                      (C::* method)(T const& param),
+			   debian_changes const&           debian_changes,
+			   debian_changes::key_type const& key,
+			   debian_changes::priority        priority)
     {
       try
 	{

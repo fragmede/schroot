@@ -1,5 +1,13 @@
 2007-04-06  Roger Leigh  <rleigh@debian.org>
 
+	* bin/csbuild/csbuild-debian-changes.h: Indent method arguments,
+	and tidy.
+
+	* bin/csbuild/csbuild-debian-changes.cc (get_value): New methods,
+	specialising the generic template for value_type.
+
+2007-04-06  Roger Leigh  <rleigh@debian.org>
+
 	* bin/csbuild/csbuild-debian-changes.(cc|h): New class, base class
 	for parsing .changes and .dsc files, based on sbuild::keyfile.
 
