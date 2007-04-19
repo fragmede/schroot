@@ -1,5 +1,6 @@
 schroot (1.1.1-1) UNRELEASED; urgency=low
 
+  [ Roger Leigh ]
   * New upstream development release.
   * debian/schroot.init: Add LSB init info and use LSB init functions.
   * debian/control:
@@ -23,7 +24,11 @@ schroot (1.1.1-1) UNRELEASED; urgency=low
     - Source /etc/default/schroot.
     - Add copyright header.
 
- -- Roger Leigh <rleigh@debian.org>  Mon,  2 Apr 2007 10:40:09 +0100
+  [ Luk Claes ]
+  * po/fr.po: Add French translation. Many thanks to Nicolas François 
+  <nicolas.francois@centraliens.net> (Closes: #414415).
+
+ -- Luk Claes <luk@debian.org>  Thu, 19 Apr 2007 23:12:48 +0200
 
 schroot (1.1.0-1) unstable; urgency=low
 

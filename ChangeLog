@@ -232,8 +232,8 @@
 
 	* Merge from schroot-1.0 branch.
 
-        * po/fr.po: Add French translation.  Many thanks to Nicolas
-        François <nicolas.francois@centraliens.net>.
+	* po/fr.po: Add French translation.  Many thanks to Nicolas
+	François <nicolas.francois@centraliens.net>.
 
 2007-02-11  Roger Leigh  <rleigh@debian.org>
 
@@ -244,7 +244,7 @@
 	* schroot/schroot-listmounts-main.cc (list_mounts): Ensure path
 	returned by realpath(3) is not null.
 
-        * schroot/schroot-listmounts-main.h: Add FIND error code.
+	* schroot/schroot-listmounts-main.h: Add FIND error code.
 
 2006-12-23  Roger Leigh  <rleigh@debian.org>
 
@@ -265,7 +265,7 @@
 2006-10-18  Roger Leigh  <rleigh@debian.org>
 
 	* schroot/schroot.1.in: Fix a number of minor typos.  Thanks to
-        Jens Seidel.
+	Jens Seidel.
 
 2006-10-18  Roger Leigh  <rleigh@debian.org>
 
