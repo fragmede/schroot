@@ -18,6 +18,11 @@ configuration.
   2) Using symbolic links in the mount path (SCHROOT_MOUNT_DIR) will
      no longer result in severe dataloss.
 
+  3) User-defined filtering of the chroot environment is now permitted
+     using the environment-filter key in the configuration file, which
+     uses a regular expression to identify environment variables for
+     removal.
+
 * Major changes in 1.1.0:
 
   1) Authentication now uses the Controlling TTY (/dev/tty) for
