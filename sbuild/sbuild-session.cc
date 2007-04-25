@@ -1148,6 +1148,16 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   env.set_filter(session_chroot->get_environment_filter());
   env += get_pam_environment();
 
+  // Add equivalents to sudo's SUDO_USER, SUDO_UID, SUDO_GID, and
+  // SUDO_COMMAND.
+  env.add(std::make_pair("SCHROOT_COMMAND",
+			 string_list_to_string(command, " ")));
+  env.add(std::make_pair("SCHROOT_USER", get_ruser()));
+  env.add(std::make_pair("SCHROOT_GROUP", get_rgroup()));
+  env.add("SCHROOT_UID", get_ruid());
+  env.add("SCHROOT_GID", get_rgid());
+
+
   log_debug(DEBUG_INFO) << "Set environment:\n" << env;
 
   // The user's command does not use our syslog fd.

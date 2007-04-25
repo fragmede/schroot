@@ -258,12 +258,19 @@ recent kernel.
 .SH ENVIRONMENT
 By default, the environment is not preserved, and the following environment
 variables are defined: HOME, LOGNAME, PATH, SHELL, TERM (preserved if already
-defined), and USER.
+defined), and USER.  The environment variables SCHROOT_COMMAND, SCHROOT_USER,
+SCHROOT_GROUP, SCHROOT_UID and SCHROOT_GID are set inside the chroot specifying
+the command being run, the user name, group name, user ID and group ID,
+respectively.
 .PP
-The following, potentially dangerous, environment variables are always removed
-for safety: BASH_ENV, CDPATH, ENV, HOSTALIASES, IFS, KRB5_CONFIG, KRBCONFDIR,
-KRBTKFILE, KRB_CONF, LD_.*, LOCALDOMAIN, NLSPATH, PATH_LOCALE, RES_OPTIONS,
-TERMINFO, TERMINFO_DIRS, and TERMPATH.
+The following, potentially dangerous, environment variables are removed for
+safety by default: BASH_ENV, CDPATH, ENV, HOSTALIASES, IFS, KRB5_CONFIG,
+KRBCONFDIR, KRBTKFILE, KRB_CONF, LD_.*, LOCALDOMAIN, NLSPATH, PATH_LOCALE,
+RES_OPTIONS, TERMINFO, TERMINFO_DIRS, and TERMPATH.  If desired, the
+\f[CI]environment\-filter\fP configuration key will allow the exclusion list to
+the modified; see
+.BR schroot.conf (5)
+for further details.
 .SH FILES
 .TP
 \f[BI]@SCHROOT_CONF@\fP

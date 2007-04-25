@@ -121,6 +121,16 @@ Linux are \[oq]bsd\[cq], \[oq]hpux\[cq], \[oq]irix32\[cq], \[oq]irix64\[cq],
 \[oq]linux32\[cq] is the option required.  The only valid option for non-Linux
 systems is \[oq]undefined\[cq].  The default value for non-Linux systems is
 \[oq]undefined\[cq].
+.TP
+\f[CBI]environment\-filter=\fP\f[CI]refex\fP
+The environment to be set in the chroot will be filtered in order to remove
+environment variables which may pose a security risk.  Any environment variable
+matching the specified POSIX extended regular expression will be removed prior
+to executing any command in the chroot.
+.IP
+Potentially dangerous, environment variables are removed for safety by default
+using the following regular expression:
+\[lq]^(BASH_ENV|CDPATH|ENV|HOSTALIASES|IFS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMAIN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TERMPATH)$\[rq].
 .SS
 Plain and directory chroots
 .PP

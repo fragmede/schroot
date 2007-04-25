@@ -94,6 +94,7 @@ namespace sbuild
       {
 	HOSTNAME,        ///< Failed to get hostname.
 	USER,            ///< User not found.
+	GROUP,           ///< Group not found.
 	AUTHENTICATION,  ///< Authentication failed.
 	AUTHORISATION,   ///< Authorisation failed.
 	PAM_DOUBLE_INIT, ///< PAM was already initialised.
@@ -272,6 +273,15 @@ namespace sbuild
     get_ruid () const;
 
     /**
+     * Get the "remote gid" of the user.  This is the gid which is
+     * requesting authentication.
+     *
+     * @returns a gid.
+     */
+    gid_t
+    get_rgid () const;
+
+    /**
      * Get the "remote" name of the user.  This is the user which is
      * requesting authentication.
      *
@@ -279,6 +289,15 @@ namespace sbuild
      */
     std::string const&
     get_ruser () const;
+
+    /**
+     * Get the "remote" name of the group.  This is the group which is
+     * requesting authentication.
+     *
+     * @returns a group name.
+     */
+    std::string const&
+    get_rgroup () const;
 
     /**
      * Get the message verbosity.
@@ -474,8 +493,12 @@ protected:
     environment        user_environment;
     /// The uid requesting authentication.
     uid_t              ruid;
+    /// The gid requesting authentication.
+    gid_t              rgid;
     /// The user name requesting authentication.
     std::string        ruser;
+    /// The group name requesting authentication.
+    std::string        rgroup;
     /// The PAM conversation handler.
     conv_ptr           conv;
     /// The message verbosity.

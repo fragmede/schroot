@@ -53,6 +53,8 @@ namespace
       emap(auth::HOSTNAME,        N_("Failed to get hostname")),
       // TRANSLATORS: %1% = user name or user ID
       emap(auth::USER,            N_("User '%1%' not found")),
+      // TRANSLATORS: %1% = group name or group ID
+      emap(auth::GROUP,            N_("Group '%1%' not found")),
       emap(auth::AUTHENTICATION,  N_("Authentication failed")),
       emap(auth::AUTHORISATION,   N_("Access not authorised")),
       emap(auth::PAM_DOUBLE_INIT, N_("PAM is already initialised")),
@@ -145,11 +147,14 @@ auth::auth (std::string const& service_name):
   shell(),
   user_environment(),
   ruid(),
+  rgid(),
   ruser(),
+  rgroup(),
   conv(new auth_conv_tty),
   message_verbosity(VERBOSITY_NORMAL)
 {
   this->ruid = getuid();
+  this->rgid = getgid();
   struct passwd *pwent = getpwuid(this->ruid);
   if (pwent == 0)
     {
@@ -159,6 +164,16 @@ auth::auth (std::string const& service_name):
 	throw error(this->ruid, USER);
     }
   this->ruser = pwent->pw_name;
+
+  struct group *grent = getgrgid(this->rgid);
+  if (grent == 0)
+    {
+      if (errno)
+	throw error(this->ruid, GROUP, strerror(errno));
+      else
+	throw error(this->ruid, GROUP);
+    }
+  this->rgroup = grent->gr_name;
 
   /* By default, the auth user is the same as the remote user. */
   set_user(this->ruser);
@@ -294,10 +309,22 @@ auth::get_ruid () const
   return this->ruid;
 }
 
+gid_t
+auth::get_rgid () const
+{
+  return this->rgid;
+}
+
 std::string const&
 auth::get_ruser () const
 {
   return this->ruser;
+}
+
+std::string const&
+auth::get_rgroup () const
+{
+  return this->rgroup;
 }
 
 auth::verbosity

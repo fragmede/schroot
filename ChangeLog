@@ -1,3 +1,26 @@
+2007-04-25  Roger Leigh  <rleigh@debian.org>
+
+	* NEWS: Document the environment-filter key.
+
+	* bin/schroot/schroot.conf.5.in: Document the environment-filter
+	key.
+
+	* bin/schroot/schroot.1.in (list): Document environment variables
+	being set, and configuration of environment filtering.
+
+	* sbuild/sbuild-session.cc (run_child): Set SCHROOT_COMMAND,
+	SCHROOT_USER, SCHROOT_GROUP, SCHROOT_UID and SCHROOT_GID
+	environment variables, equivalent to SUDO_* variables of the same
+	name (except for SUDO_GROUP, which does not exist).
+
+	* sbuild/sbuild-auth.cc
+	(auth): Initialise rgid and rgroup members from group database.
+	(get_rgid): New member function to get rgid.
+	(get_rgroup): New member function to get rgroup.
+
+	* sbuild/sbuild-auth.h: Add GROUP error_code and rgid and
+	rgroup class members.
+
 2007-04-06  Roger Leigh  <rleigh@debian.org>
 
 	* po/POTFILES.in: Updated with new file locations.
