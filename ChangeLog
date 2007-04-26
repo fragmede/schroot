@@ -1,5 +1,13 @@
 2007-04-26  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-run-parts.cc
+	(run_parts): Don't consider at "." or "..".
+
+	* sbuild/sbuild-chroot-config.cc
+	(add_config_directory): Don't consider at "." or "..".
+
+2007-04-26  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot/schroot-options-base.cc
 	(check_actions): Re-add ACTION_SESSION_END.
 

@@ -74,6 +74,9 @@ run_parts::run_parts (std::string const& directory,
   direntry de;
   while (stream >> de)
     {
+      if (de.name() == "." || de.name() == "..")
+	continue;
+
       std::string name(de.name());
       if (check_filename(name))
 	this->programs.insert(name);

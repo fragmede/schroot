@@ -130,6 +130,9 @@ chroot_config::add_config_directory (std::string const& dir,
   direntry de;
   while (stream >> de)
     {
+      if (de.name() == "." || de.name() == "..")
+	continue;
+
       std::string filename = dir + "/" + de.name();
 
       struct stat statbuf;
