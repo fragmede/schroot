@@ -195,7 +195,7 @@ options_base::check_actions ()
     }
   else if (this->action == ACTION_SESSION_RECOVER ||
 	   this->action == ACTION_SESSION_RUN ||
-	   this->action == ACTION_SESSION_AUTO)
+	   this->action == ACTION_SESSION_END)
     {
       // Session operations work on all chroots.
       this->load_chroots = this->load_sessions = true;

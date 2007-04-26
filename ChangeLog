@@ -1,3 +1,13 @@
+2007-04-26  Roger Leigh  <rleigh@debian.org>
+
+	* bin/schroot/schroot-options-base.cc
+	(check_actions): Re-add ACTION_SESSION_END.
+
+2007-04-25  Roger Leigh  <rleigh@debian.org>
+
+	* test/Makefile.am (LOCAL_CXXFLAGS): Use $(top_srcdir) rather than
+	$(top_builddir).
+
 2007-04-25  Roger Leigh  <rleigh@debian.org>
 
 	* NEWS: Document the environment-filter key.
