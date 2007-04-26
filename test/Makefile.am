@@ -22,7 +22,7 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -DTESTDATADIR='"./testdata"' -I$(top_builddir)/bin
+LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -DTESTDATADIR='"./testdata"' -I$(top_srcdir)/bin
 
 if USE_UNIT_TESTS
 noinst_LTLIBRARIES = libtest.la
