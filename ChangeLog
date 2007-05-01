@@ -1,5 +1,9 @@
 2007-05-01  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Document packaging of only a static library.
+
+2007-05-01  Roger Leigh  <rleigh@debian.org>
+
 	* Update translations with new strings (require translation).
 
 2007-05-01  Roger Leigh  <rleigh@debian.org>

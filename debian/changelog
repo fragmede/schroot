@@ -5,19 +5,19 @@ schroot (1.1.1-1) UNRELEASED; urgency=low
   * debian/schroot.init: Add LSB init info and use LSB init functions.
   * debian/control:
     - schroot-common: New package, containing locale data.
-    - libsbuild1: New package, containing libsbuild shared library.
-    - libsbuild1-dev: New package, containing libsbuild headers and
-      pkg-config data.
+    - libsbuild1-dev: New package, containing libsbuild headers, a static
+      library and pkg-config data.
     - schroot, dchroot and dchroot-dsa depend upon schroot-common
   * debian/rules:
     - Add dh_makeshlibs.
     - Make dh_shlibdeps use the shlibs data for libsbuild1.
     - install: Don't run "make check".
+    - Run configure with options to make only a static library.
   * debian/schroot.install: Don't package locale data.
   * debian/schroot-common.install: New file, install locale data.
   * debian/libsbuild1.install: New file, install libsbuild.so.*.
-  * debian/libsbuild-dev.install: New file, installing headers, .so
-    symlink and pkg-config .pc file.
+  * debian/libsbuild-dev.install: New file, installing headers, static
+    library and pkg-config .pc file.
   * debian/schroot.default: New file, allowing customisation of the init
     script.  Thanks to Federico Di Gregorio (Closes: #416193).
   * debian/schroot.init:
@@ -25,7 +25,7 @@ schroot (1.1.1-1) UNRELEASED; urgency=low
     - Add copyright header.
 
   [ Luk Claes ]
-  * po/fr.po: Add French translation. Many thanks to Nicolas François 
+  * po/fr.po: Add French translation. Many thanks to Nicolas François
   <nicolas.francois@centraliens.net> (Closes: #414415).
 
  -- Luk Claes <luk@debian.org>  Thu, 19 Apr 2007 23:12:48 +0200
