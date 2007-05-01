@@ -96,7 +96,7 @@ environment::add (value_type const& value)
   if (!value.first.empty() && !value.second.empty())
     {
       if (this->filter.str().empty() ||
-	  !regex_match(value.first, this->filter))
+	  !regex_search(value.first, this->filter))
 	insert(value);
       else
 	log_debug(DEBUG_INFO) << "Filtered from environment: " << value.first

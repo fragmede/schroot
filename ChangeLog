@@ -1,3 +1,13 @@
+2007-05-01  Roger Leigh  <rleigh@debian.org>
+
+	* sbuild/sbuild-environment.cc
+	(add): Replace regex_match with regex_search, to avoid missing
+	partial matches.
+
+	* sbuild/sbuild-run-parts.cc
+	(check_filename): Replace regex_match with regex_search, to avoid
+	missing partial matches.
+
 2007-04-26  Roger Leigh  <rleigh@debian.org>
 
 	* test/Makefile.am (LOCAL_CXXFLAGS): Use $(top_srcdir) rather than
