@@ -1,5 +1,9 @@
 2007-05-01  Roger Leigh  <rleigh@debian.org>
 
+	* Update translations with new strings (require translation).
+
+2007-05-01  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-environment.cc
 	(add): Replace regex_match with regex_search, to avoid missing
 	partial matches.

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2007-04-05 17:34+0100\n"
+"POT-Creation-Date: 2007-05-01 21:16+0100\n"
 "PO-Revision-Date: 2006-10-03 13:22-0700\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -37,11 +37,13 @@ msgstr "Enheten måste ha en absolut sökväg"
 msgid "Failed to lock device"
 msgstr "Misslyckades med att låsa enheten"
 
-#: sbuild/sbuild-chroot.cc:64 bin/schroot/schroot-releaselock-main.cc:55
+#: sbuild/sbuild-chroot.cc:64 bin/csbuild/csbuild-main.cc:53
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:55
 msgid "File is not a block device"
 msgstr "Filen är inte en blockenhet"
 
-#: sbuild/sbuild-chroot.cc:65 bin/schroot/schroot-releaselock-main.cc:59
+#: sbuild/sbuild-chroot.cc:65 bin/csbuild/csbuild-main.cc:57
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:59
 msgid "Failed to stat device"
 msgstr "Misslyckades med att läsa status på enheten"
 
@@ -186,51 +188,58 @@ msgstr "Misslyckades med att få värdnamn"
 msgid "User '%1%' not found"
 msgstr "Användaren \"%1%\" hittades inte"
 
-#: sbuild/sbuild-auth.cc:56
+#. TRANSLATORS: %1% = group name or group ID
+#. TRANSLATORS: %1% = group name
+#: sbuild/sbuild-auth.cc:57 sbuild/sbuild-session.cc:99
+#, boost-format
+msgid "Group '%1%' not found"
+msgstr "Gruppen \"%1%\" hittades inte"
+
+#: sbuild/sbuild-auth.cc:58
 msgid "Authentication failed"
 msgstr "Autentisering misslyckades"
 
-#: sbuild/sbuild-auth.cc:57
+#: sbuild/sbuild-auth.cc:59
 msgid "Access not authorised"
 msgstr "Åtkomst inte auktoriserad"
 
-#: sbuild/sbuild-auth.cc:58
+#: sbuild/sbuild-auth.cc:60
 msgid "PAM is already initialised"
 msgstr "PAM är redan initierad"
 
-#: sbuild/sbuild-auth.cc:59 sbuild/sbuild-session.cc:100
+#: sbuild/sbuild-auth.cc:61 sbuild/sbuild-session.cc:100
 msgid "PAM error"
 msgstr "PAM-fel"
 
-#: sbuild/sbuild-auth.cc:127 sbuild/sbuild-session.cc:1025
-#: sbuild/sbuild-session.cc:1265 sbuild/sbuild-run-parts.cc:195
+#: sbuild/sbuild-auth.cc:129 sbuild/sbuild-session.cc:1025
+#: sbuild/sbuild-session.cc:1275 sbuild/sbuild-run-parts.cc:198
 #: sbuild/sbuild-log.cc:168
 msgid "An unknown exception occurred"
 msgstr "Ett okänt undantag inträffade"
 
-#: sbuild/sbuild-auth.cc:451
+#: sbuild/sbuild-auth.cc:478
 msgid "Set RUSER"
 msgstr "Ställ in RUSER"
 
-#: sbuild/sbuild-auth.cc:469
+#: sbuild/sbuild-auth.cc:496
 msgid "Set RHOST"
 msgstr "Ställ in RHOST"
 
-#: sbuild/sbuild-auth.cc:488
+#: sbuild/sbuild-auth.cc:515
 msgid "Set TTY"
 msgstr "Ställ in TTY"
 
-#: sbuild/sbuild-auth.cc:500
+#: sbuild/sbuild-auth.cc:527
 msgid "Set USER"
 msgstr "Ställ in USER"
 
 #. TRANSLATORS: %1% = program name (PAM service name)
-#: sbuild/sbuild-auth.cc:523
+#: sbuild/sbuild-auth.cc:550
 #, boost-format
 msgid "You do not have permission to access the %1% service."
 msgstr "Du har inte behörighet att komma åt %1%-tjänsten."
 
-#: sbuild/sbuild-auth.cc:525
+#: sbuild/sbuild-auth.cc:552
 msgid "This failure will be reported."
 msgstr "Det här felet kommer att rapporteras."
 
@@ -358,12 +367,6 @@ msgstr "Misslyckades med att ställa in gruppen \"%1%\""
 msgid "Failed to set supplementary groups"
 msgstr "Misslyckades med att ställa in tilläggsgrupper"
 
-#. TRANSLATORS: %1% = group name
-#: sbuild/sbuild-session.cc:99
-#, boost-format
-msgid "Group '%1%' not found"
-msgstr "Gruppen \"%1%\" hittades inte"
-
 #: sbuild/sbuild-session.cc:101
 msgid "Failed to drop root permissions"
 msgstr "Misslyckades med att släppa root-rättigheter"
@@ -470,7 +473,7 @@ msgstr "[%1% chroot] (%2%->%3%) Kör kommando: \"%4%\""
 msgid "stage=%1%"
 msgstr "steg=%1%"
 
-#: sbuild/sbuild-session.cc:1189 sbuild/sbuild-session.cc:1196
+#: sbuild/sbuild-session.cc:1199 sbuild/sbuild-session.cc:1206
 msgid "terminating immediately"
 msgstr "avslutar omedelbart"
 
@@ -493,7 +496,7 @@ msgid "Failed to execute '%1%'"
 msgstr "Misslyckades med att starta \"%1%\""
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-run-parts.cc:180
+#: sbuild/sbuild-run-parts.cc:183
 #, boost-format
 msgid "Executing '%1%'"
 msgstr "Kör \"%1%\""
@@ -543,7 +546,7 @@ msgid "Mount Options"
 msgstr "Monteringsflaggor"
 
 #. TRANSLATORS: %1% = file
-#: sbuild/sbuild-keyfile.cc:43
+#: sbuild/sbuild-keyfile.cc:43 bin/csbuild/csbuild-debian-changes.cc:45
 #, boost-format
 msgid "Can't open file '%1%'"
 msgstr "Kan inte öppna filen \"%1%\""
@@ -602,7 +605,7 @@ msgstr "rad %1%: Ogiltig grupp: \"%4%\""
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = line contents as read from the configuration file
-#: sbuild/sbuild-keyfile.cc:70
+#: sbuild/sbuild-keyfile.cc:70 bin/csbuild/csbuild-debian-changes.cc:61
 #, boost-format
 msgid "line %1%: Invalid line: \"%4%\""
 msgstr "rad %1%: Ogiltig rad: \"%4%\""
@@ -631,7 +634,7 @@ msgstr "rad %1%: Ingen grupp angiven: \"%4%\""
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = line contents as read from the configuration file
-#: sbuild/sbuild-keyfile.cc:83
+#: sbuild/sbuild-keyfile.cc:83 bin/csbuild/csbuild-debian-changes.cc:69
 #, boost-format
 msgid "line %1%: No key specified: \"%4%\""
 msgstr "rad %1%: Ingen nyckel angiven: \"%4%\""
@@ -684,10 +687,14 @@ msgid "line %1% [%2%] %3%: %4%"
 msgstr "rad %1% [%2%] %3%: %4%"
 
 #: sbuild/sbuild-keyfile.cc:491 sbuild/sbuild-keyfile.cc:497
+#: bin/csbuild/csbuild-debian-changes.cc:280
+#: bin/csbuild/csbuild-debian-changes.cc:286
 msgid "This option will be removed in the future"
 msgstr "Den här flaggan kommer att tas bort i framtiden"
 
 #: sbuild/sbuild-keyfile.cc:507 sbuild/sbuild-keyfile.cc:513
+#: bin/csbuild/csbuild-debian-changes.cc:296
+#: bin/csbuild/csbuild-debian-changes.cc:302
 msgid "This option has been removed, and no longer has any effect"
 msgstr "Den här flaggan har tagits bort och har inte längre någon effekt"
 
@@ -712,11 +719,11 @@ msgstr "En chroot eller aliaset \"%1%\" finns redan med det här namnet"
 msgid "Failed to open file"
 msgstr "Misslyckades med att öppna filen"
 
-#: sbuild/sbuild-chroot-config.cc:225 sbuild/sbuild-chroot-config.cc:231
+#: sbuild/sbuild-chroot-config.cc:228 sbuild/sbuild-chroot-config.cc:234
 msgid "Duplicate names are not allowed"
 msgstr "Dubbleta namn tillåts inte"
 
-#: sbuild/sbuild-chroot-config.cc:310
+#: sbuild/sbuild-chroot-config.cc:313
 msgid "Available chroots: "
 msgstr "Tillgängliga chroot: "
 
@@ -859,7 +866,6 @@ msgstr "Källrotgrupper"
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
 #: bin/schroot/schroot-main.cc:43 bin/dchroot/dchroot-main.cc:47
-#: bin/csbuild/csbuild-main.cc:45
 msgid "[OPTION...] [COMMAND] - run command or shell in a chroot"
 msgstr " [FLAGGA...] [KOMMANDO] - kör kommando eller skal i en chroot"
 
@@ -867,83 +873,9 @@ msgstr " [FLAGGA...] [KOMMANDO] - kör kommando eller skal i en chroot"
 #. TRANSLATORS: %2% = program version
 #. TRANSLATORS: %3% = current date
 #: bin/schroot/schroot-main.cc:60 bin/dchroot/dchroot-main-base.cc:64
-#: bin/csbuild/csbuild-main-base.cc:63
 #, boost-format
 msgid "schroot configuration generated by %1% %2% on %3%"
 msgstr "schroot-konfiguration genererad av %1% %2% den %3%"
-
-#. TRANSLATORS: %4% = integer process ID
-#: bin/schroot/schroot-releaselock-main.cc:57
-#, boost-format
-msgid "Failed to release device lock (lock held by PID %4%)"
-msgstr "Misslyckades med att släppa enhetslåset (låset hålls av pid %4%)"
-
-#: bin/schroot/schroot-releaselock-main.cc:58
-msgid "Failed to release device lock"
-msgstr "Misslyckades med att släppa enhetslåset"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#: bin/schroot/schroot-releaselock-main.cc:74
-msgid "[OPTION...] - release a device lock"
-msgstr "[FLAGGA...] - släpp ett enhetslås"
-
-#: bin/schroot/schroot-releaselock-main.cc:90
-#, fuzzy
-msgid "No PID specified; forcing release of lock"
-msgstr "Ingen pid angiven; tvingar släpp av lås"
-
-#: bin/schroot/schroot-releaselock-options.cc:44
-msgid "Lock"
-msgstr "Lås"
-
-#: bin/schroot/schroot-releaselock-options.cc:63
-msgid "Device to unlock (full path)"
-msgstr "Enhet att låsa upp (full sökväg)"
-
-#: bin/schroot/schroot-releaselock-options.cc:65
-msgid "Process ID owning the lock"
-msgstr "Process-id som äger låset"
-
-#: bin/schroot/schroot-releaselock-options.cc:93
-msgid "No device specified"
-msgstr "Ingen enhet angiven"
-
-#. TRANSLATORS: %1% = file
-#: bin/schroot/schroot-listmounts-main.cc:60
-#, fuzzy, boost-format
-msgid "Failed to find '%1%'"
-msgstr "Misslyckades med att hitta chroot \"%1%\""
-
-#. TRANSLATORS: %1% = file
-#: bin/schroot/schroot-listmounts-main.cc:62
-#, boost-format
-msgid "Failed to open '%1%'"
-msgstr "Misslyckades med att öppna \"%1%\""
-
-#. TRANSLATORS: %1% = file
-#: bin/schroot/schroot-listmounts-main.cc:64
-#, boost-format
-msgid "Failed to close '%1%'"
-msgstr "Misslyckades med att stänga \"%1%\""
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#: bin/schroot/schroot-listmounts-main.cc:79
-msgid "[OPTION...] - list mount points"
-msgstr "[FLAGGA...] - lista monteringspunkter"
-
-#: bin/schroot/schroot-listmounts-options.cc:43
-msgid "Mount"
-msgstr "Montera"
-
-#: bin/schroot/schroot-listmounts-options.cc:62
-msgid "Mountpoint to check (full path)"
-msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
-
-#: bin/schroot/schroot-listmounts-options.cc:90
-msgid "No mount point specified"
-msgstr "Ingen monteringspunkt angiven"
 
 #. TRANSLATORS: %1% = comma-separated list of chroot names
 #: bin/schroot/schroot-main-base.cc:54
@@ -985,7 +917,7 @@ msgid "Select all chroots and active sessions"
 msgstr "Välj alla chroot och aktiva sessioner"
 
 #: bin/schroot/schroot-options.cc:59 bin/dchroot/dchroot-options.cc:57
-#: bin/csbuild/csbuild-options.cc:56 bin/dchroot-dsa/dchroot-dsa-options.cc:59
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:59
 msgid "Select all chroots"
 msgstr "Välj alla chroot"
 
@@ -994,7 +926,7 @@ msgid "Select all active sessions"
 msgstr "Välj alla aktiva sessioner"
 
 #: bin/schroot/schroot-options.cc:65 bin/dchroot/dchroot-options.cc:61
-#: bin/csbuild/csbuild-options.cc:60 bin/dchroot-dsa/dchroot-dsa-options.cc:63
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:63
 msgid "Directory to use"
 msgstr "Katalog att använda"
 
@@ -1003,27 +935,30 @@ msgid "Username (default current user)"
 msgstr "Användarnamn (förval är nuvarande användare)"
 
 #: bin/schroot/schroot-options.cc:69 bin/dchroot/dchroot-options.cc:63
-#: bin/csbuild/csbuild-options.cc:62
 msgid "Preserve user environment"
 msgstr "Behåll användarens miljövariabler"
 
 #: bin/schroot/schroot-options.cc:73
+msgid "Begin, run and end a session automatically (default)"
+msgstr ""
+
+#: bin/schroot/schroot-options.cc:75
 msgid "Begin a session; returns a session ID"
 msgstr "Börja en session; returnerar ett sessions-id"
 
-#: bin/schroot/schroot-options.cc:75
+#: bin/schroot/schroot-options.cc:77
 msgid "Recover an existing session"
 msgstr "Återhämta en existerande session"
 
-#: bin/schroot/schroot-options.cc:77
+#: bin/schroot/schroot-options.cc:79
 msgid "Run an existing session"
 msgstr "Kör en existerande session"
 
-#: bin/schroot/schroot-options.cc:79
+#: bin/schroot/schroot-options.cc:81
 msgid "End an existing session"
 msgstr "Avsluta en existerande session"
 
-#: bin/schroot/schroot-options.cc:81
+#: bin/schroot/schroot-options.cc:83
 msgid "Force operation, even if it fails"
 msgstr "Tvinga operation, även om den misslyckas"
 
@@ -1036,8 +971,9 @@ msgid "Chroot environment"
 msgstr "Chroot-miljö"
 
 #: bin/schroot/schroot-options-base.cc:58
-msgid "Session management"
-msgstr "Sessionshantering"
+#, fuzzy
+msgid "Session actions"
+msgstr "Session hanterad"
 
 #: bin/schroot/schroot-options-base.cc:85
 msgid "List available chroots"
@@ -1060,22 +996,18 @@ msgid "Command to run"
 msgstr "Kommando att köra"
 
 #: bin/schroot/schroot-options-base.cc:160 bin/dchroot/dchroot-options.cc:88
-#: bin/csbuild/csbuild-options.cc:86
 msgid "--quiet and --verbose may not be used at the same time"
 msgstr "--quiet och --verbose får inte användas samtidigt"
 
 #: bin/schroot/schroot-options-base.cc:162 bin/dchroot/dchroot-options.cc:90
-#: bin/csbuild/csbuild-options.cc:88
 msgid "Using verbose output"
 msgstr "Använder informativ utskrift"
 
 #: bin/schroot/schroot-options-base.cc:168 bin/dchroot/dchroot-options.cc:96
-#: bin/csbuild/csbuild-options.cc:94
 msgid "--chroot and --all may not be used at the same time"
 msgstr "--chroot och --all kan inte användas samtidigt"
 
 #: bin/schroot/schroot-options-base.cc:170 bin/dchroot/dchroot-options.cc:98
-#: bin/csbuild/csbuild-options.cc:96
 msgid "Using --chroots only"
 msgstr "Använder endast --chroots"
 
@@ -1090,6 +1022,42 @@ msgstr "--chroot får inte användas med --list"
 #: bin/schroot/schroot-options-base.cc:246
 msgid "Unknown action specified"
 msgstr "Okänd åtgärd angiven"
+
+#. TRANSLATORS: %1% = file
+#: bin/schroot-listmounts/schroot-listmounts-main.cc:60
+#, fuzzy, boost-format
+msgid "Failed to find '%1%'"
+msgstr "Misslyckades med att hitta chroot \"%1%\""
+
+#. TRANSLATORS: %1% = file
+#: bin/schroot-listmounts/schroot-listmounts-main.cc:62
+#, boost-format
+msgid "Failed to open '%1%'"
+msgstr "Misslyckades med att öppna \"%1%\""
+
+#. TRANSLATORS: %1% = file
+#: bin/schroot-listmounts/schroot-listmounts-main.cc:64
+#, boost-format
+msgid "Failed to close '%1%'"
+msgstr "Misslyckades med att stänga \"%1%\""
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#: bin/schroot-listmounts/schroot-listmounts-main.cc:79
+msgid "[OPTION...] - list mount points"
+msgstr "[FLAGGA...] - lista monteringspunkter"
+
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:43
+msgid "Mount"
+msgstr "Montera"
+
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:62
+msgid "Mountpoint to check (full path)"
+msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
+
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:90
+msgid "No mount point specified"
+msgstr "Ingen monteringspunkt angiven"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
@@ -1111,7 +1079,7 @@ msgstr "%1% chroot (dchroot-kompatibilitet)"
 
 #. TRANSLATORS: Do not translate "users" and "groups";
 #. these are keywords used in the configuration file.
-#: bin/dchroot/dchroot-main-base.cc:75 bin/csbuild/csbuild-main-base.cc:74
+#: bin/dchroot/dchroot-main-base.cc:75
 msgid "To allow users access to the chroots, use the users or groups keys."
 msgstr ""
 "För att tillåta användare att komma åt chrootmiljöerna, använd användar- "
@@ -1120,7 +1088,7 @@ msgstr ""
 #. TRANSLATORS: Do not translate "root-users" and
 #. "root-groups"; these are keywords used in the
 #. configuration file.
-#: bin/dchroot/dchroot-main-base.cc:81 bin/csbuild/csbuild-main-base.cc:80
+#: bin/dchroot/dchroot-main-base.cc:81
 msgid ""
 "To allow password-less root access, use the root-users or root-groups keys."
 msgstr ""
@@ -1129,46 +1097,45 @@ msgstr ""
 
 #. TRANSLATORS: %1% = file
 #: bin/dchroot/dchroot-main-base.cc:84 bin/dchroot/dchroot-main-base.cc:145
-#: bin/csbuild/csbuild-main-base.cc:83 bin/csbuild/csbuild-main-base.cc:144
 #, boost-format
 msgid "Remove '%1%' to use the new configuration."
 msgstr "Ta bort \"%1%\" för att använda den nya konfigurationen."
 
 #. TRANSLATORS: %1% = program name
-#: bin/dchroot/dchroot-main-base.cc:105 bin/csbuild/csbuild-main-base.cc:104
+#: bin/dchroot/dchroot-main-base.cc:105
 #, boost-format
 msgid "Running schroot in %1% compatibility mode"
 msgstr "Kör schroot i %1%-kompatibelt läge"
 
 #. TRANSLATORS: "full capabilities" in this context means "all
 #. features"
-#: bin/dchroot/dchroot-main-base.cc:111 bin/csbuild/csbuild-main-base.cc:110
+#: bin/dchroot/dchroot-main-base.cc:111
 msgid "Run \"schroot\" for full capabilities"
 msgstr "Kör \"schroot\" med fullständiga färdigheter"
 
 #. TRANSLATORS: %1% = program name
 #. TRANSLATORS: %2% = configuration file
-#: bin/dchroot/dchroot-main-base.cc:130 bin/csbuild/csbuild-main-base.cc:129
+#: bin/dchroot/dchroot-main-base.cc:130
 #, boost-format
 msgid "Using %1% configuration file: '%2%'"
 msgstr "Använder konfigurationsfilen för %1%: \"%2%\""
 
-#: bin/dchroot/dchroot-main-base.cc:134 bin/csbuild/csbuild-main-base.cc:133
+#: bin/dchroot/dchroot-main-base.cc:134
 #, boost-format
 msgid "Run \"%1%\""
 msgstr "Kör \"%1%\""
 
-#: bin/dchroot/dchroot-main-base.cc:138 bin/csbuild/csbuild-main-base.cc:137
+#: bin/dchroot/dchroot-main-base.cc:138
 msgid "to migrate to a schroot configuration."
 msgstr "för att migrera till en schroot-konfiguration."
 
-#: bin/dchroot/dchroot-main-base.cc:141 bin/csbuild/csbuild-main-base.cc:140
+#: bin/dchroot/dchroot-main-base.cc:141
 #, boost-format
 msgid "Edit '%1%' to add appropriate user and/or group access."
 msgstr ""
 "Redigera \"%1%\" för att lägga till lämplig användar- och/eller gruppåtkomst."
 
-#: bin/dchroot/dchroot-options.cc:53 bin/csbuild/csbuild-options.cc:52
+#: bin/dchroot/dchroot-options.cc:53
 msgid "Print path to selected chroot"
 msgstr "Skriv ut sökvägen till valda chroot"
 
@@ -1222,41 +1189,204 @@ msgstr ""
 "flaggor"
 
 #: bin/schroot-base/schroot-base-options.cc:45
+#, fuzzy
+msgid "Actions"
+msgstr "Plats"
+
+#: bin/schroot-base/schroot-base-options.cc:46
 msgid "General options"
 msgstr "Allmänna flaggor"
 
-#: bin/schroot-base/schroot-base-options.cc:46
+#: bin/schroot-base/schroot-base-options.cc:47
 msgid "Hidden options"
 msgstr "Dolda flaggor"
 
-#: bin/schroot-base/schroot-base-options.cc:87
+#: bin/schroot-base/schroot-base-options.cc:88
 msgid "Show help options"
 msgstr "Visa hjälpflaggor"
 
-#: bin/schroot-base/schroot-base-options.cc:89
+#: bin/schroot-base/schroot-base-options.cc:90
 msgid "Print version information"
 msgstr "Skriv ut versionsinformation"
 
-#: bin/schroot-base/schroot-base-options.cc:91
+#: bin/schroot-base/schroot-base-options.cc:94
 msgid "Show less output"
 msgstr "Visa mindre utdata"
 
-#: bin/schroot-base/schroot-base-options.cc:93
+#: bin/schroot-base/schroot-base-options.cc:96
 msgid "Show more output"
 msgstr "Visa mer utdata"
 
-#: bin/schroot-base/schroot-base-options.cc:97
+#: bin/schroot-base/schroot-base-options.cc:100
 msgid "Enable debugging messages"
 msgstr "Aktivera felsökningsmeddelanden"
 
-#: bin/schroot-base/schroot-base-options.cc:147
+#: bin/schroot-base/schroot-base-options.cc:159
 msgid "Invalid debug level"
 msgstr "Ogiltig felsökningsnivå"
 
-#: bin/csbuild/csbuild-session-base.cc:76
+#. TRANSLATORS: %4% = integer process ID
+#: bin/csbuild/csbuild-main.cc:55
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:57
+#, boost-format
+msgid "Failed to release device lock (lock held by PID %4%)"
+msgstr "Misslyckades med att släppa enhetslåset (låset hålls av pid %4%)"
+
+#: bin/csbuild/csbuild-main.cc:56
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:58
+msgid "Failed to release device lock"
+msgstr "Misslyckades med att släppa enhetslåset"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#: bin/csbuild/csbuild-main.cc:72
+msgid "[OPTION...] - build Debian packages from source"
+msgstr ""
+
+#: bin/csbuild/csbuild-options.cc:43
 #, fuzzy
-msgid "csbuild session restriction"
-msgstr "sessionsbegränsning för dchroot"
+msgid "Build options"
+msgstr "Dolda flaggor"
+
+#: bin/csbuild/csbuild-options.cc:44
+#, fuzzy
+msgid "User options"
+msgstr "Allmänna flaggor"
+
+#: bin/csbuild/csbuild-options.cc:45
+#, fuzzy
+msgid "Special options"
+msgstr "Allmänna flaggor"
+
+#: bin/csbuild/csbuild-options.cc:64
+msgid "Build source packages (default)"
+msgstr ""
+
+#: bin/csbuild/csbuild-options.cc:68
+msgid "Don't log program output"
+msgstr ""
+
+#: bin/csbuild/csbuild-options.cc:72
+msgid "Distribution to build for"
+msgstr ""
+
+#: bin/csbuild/csbuild-options.cc:74
+msgid "Build architecture \"all\" packages"
+msgstr ""
+
+#: bin/csbuild/csbuild-options.cc:76
+msgid "Build a source package"
+msgstr ""
+
+#: bin/csbuild/csbuild-options.cc:78
+msgid "Force building of a source package, irrespective of Debian version"
+msgstr ""
+
+#: bin/csbuild/csbuild-options.cc:80
+msgid "Make a binary non-maintainer upload"
+msgstr ""
+
+#: bin/csbuild/csbuild-options.cc:82
+msgid "Purge mode"
+msgstr ""
+
+#: bin/csbuild/csbuild-options.cc:86
+msgid "GPG key identifier"
+msgstr ""
+
+#: bin/csbuild/csbuild-options.cc:88
+msgid "Package maintainer"
+msgstr ""
+
+#: bin/csbuild/csbuild-options.cc:90
+msgid "Package uploader"
+msgstr ""
+
+#: bin/csbuild/csbuild-options.cc:95
+msgid "Add a build dependency"
+msgstr ""
+
+#: bin/csbuild/csbuild-options.cc:97
+msgid "Force a build dependency"
+msgstr ""
+
+#: bin/csbuild/csbuild-options.cc:99
+msgid "Build using the current GCC development snapshot"
+msgstr ""
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:48
+#, fuzzy, boost-format
+msgid "line %1%: Deprecated key '%4%' used"
+msgstr "rad %1% [%2%]: Utfasade nyckeln \"%4%\" används"
+
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:50
+#, fuzzy, boost-format
+msgid "Deprecated key '%4%' used"
+msgstr "[%1%]: Den utfasade nyckeln \"%4%\" används"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:53
+#, fuzzy, boost-format
+msgid "line %1%: Disallowed key '%4%' used"
+msgstr "rad %1% [%2%]: Otillåtna nyckeln \"%4%\" används"
+
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:55
+#, fuzzy, boost-format
+msgid "Disallowed key '%4%' used"
+msgstr "[%1%]: Den otillåtna nyckeln \"%4%\" används"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:58
+#, fuzzy, boost-format
+msgid "line %1%: Duplicate key '%4%'"
+msgstr "rad %1% [%2%]: Dubblett av nyckeln \"%4%\""
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:64
+#, fuzzy, boost-format
+msgid "line %1%: Required key '%4%' is missing"
+msgstr "rad %1% [%2%]: Nödvändiga nyckeln \"%4%\" saknas"
+
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:66
+#, fuzzy, boost-format
+msgid "Required key '%4%' is missing"
+msgstr "[%1%]: Nödvändiga nyckeln \"%4%\" saknas"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:72
+#, fuzzy, boost-format
+msgid "line %1%: Obsolete key '%4%' used"
+msgstr "rad %1% [%2%]: Föråldrade nyckeln \"%4%\" används"
+
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:74
+#, fuzzy, boost-format
+msgid "Obsolete key '%4%' used"
+msgstr "[%1%]: Den föråldrade nyckeln \"%4%\" används"
+
+#. TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
+#. TRANSLATORS: %4% = additional details
+#: bin/csbuild/csbuild-debian-changes.cc:77
+#, fuzzy, boost-format
+msgid "%2%: %4%"
+msgstr "[%1%]: %4%"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %3% = key name ("keyname=value" in configuration file)
+#. TRANSLATORS: %4% = additional details
+#: bin/csbuild/csbuild-debian-changes.cc:81
+#, fuzzy, boost-format
+msgid "line %1%: %3%: %4%"
+msgstr "rad %1% [%2%]: %4%"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
@@ -1285,6 +1415,40 @@ msgstr "Kommandot måste ha en absolut sökväg"
 #: bin/dchroot-dsa/dchroot-dsa-options.cc:107
 msgid "No chroot specified"
 msgstr "Ingen chroot angiven"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:74
+msgid "[OPTION...] - release a device lock"
+msgstr "[FLAGGA...] - släpp ett enhetslås"
+
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:90
+#, fuzzy
+msgid "No PID specified; forcing release of lock"
+msgstr "Ingen pid angiven; tvingar släpp av lås"
+
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:44
+msgid "Lock"
+msgstr "Lås"
+
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:63
+msgid "Device to unlock (full path)"
+msgstr "Enhet att låsa upp (full sökväg)"
+
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:65
+msgid "Process ID owning the lock"
+msgstr "Process-id som äger låset"
+
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:93
+msgid "No device specified"
+msgstr "Ingen enhet angiven"
+
+#~ msgid "Session management"
+#~ msgstr "Sessionshantering"
+
+#, fuzzy
+#~ msgid "csbuild session restriction"
+#~ msgstr "sessionsbegränsning för dchroot"
 
 #~ msgid "Failed to open directory"
 #~ msgstr "Misslyckades med att öppna katalogen"
