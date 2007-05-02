@@ -6,13 +6,6 @@ Most new TODO items are marked @todo in the source code and listed in
 the Doxygen-generated documentation in doc/schroot/html/todo.html
 
 
-PENDING
--------
-
-Add SCHROOT_USER environment variable, containing the user who invoked
-schroot.
-
-
 PLANNED
 -------
 

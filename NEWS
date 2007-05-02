@@ -23,6 +23,11 @@ configuration.
      uses a regular expression to identify environment variables for
      removal.
 
+  4) The environment variables SCHROOT_COMMAND, SCHROOT_USER,
+     SCHROOT_GROUP, SCHROOT_UID and SCHROOT_GID are set inside the
+     chroot specifying the command being run, the user name, group
+     name, user ID and group ID, respectively.
+
 * Major changes in 1.1.0:
 
   1) Authentication now uses the Controlling TTY (/dev/tty) for

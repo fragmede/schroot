@@ -1,4 +1,4 @@
-schroot (1.1.1-1) UNRELEASED; urgency=low
+schroot (1.1.1-1) unstable; urgency=low
 
   [ Roger Leigh ]
   * New upstream development release.
@@ -28,7 +28,7 @@ schroot (1.1.1-1) UNRELEASED; urgency=low
   * po/fr.po: Add French translation. Many thanks to Nicolas François
   <nicolas.francois@centraliens.net> (Closes: #414415).
 
- -- Luk Claes <luk@debian.org>  Thu, 19 Apr 2007 23:12:48 +0200
+ -- Roger Leigh <rleigh@debian.org>  Wed,  2 May 2007 20:36:11 +0100
 
 schroot (1.1.0-1) unstable; urgency=low
 
