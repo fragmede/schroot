@@ -14,7 +14,7 @@ Description: common files for schroot
 
 Package: libsbuild-dev
 Architecture: any
-Depends: libsbuild1 (=${Source-Version}), pkg-config (>= 0.14.0)
+Depends: pkg-config (>= 0.14.0)
 Description: development files for the Debian source builder
  sbuild provides facilities to manage and access chroots.
  .

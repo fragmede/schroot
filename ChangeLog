@@ -1,5 +1,10 @@
 2007-05-02  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Remove libsbuild1 dependency from
+	libsbuild-dev.
+
+2007-05-02  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Bump version to 1.1.2.
 
 	* NEWS: Bump version to 1.1.2.
