@@ -1,5 +1,18 @@
 2007-05-04  Roger Leigh  <rleigh@debian.org>
 
+	* configure.ac: Generate doc/sbuild.dox.
+
+	* doc/Makefile.am: Generate sbuild documentation.  Fix PS_DEPS for
+	new manual page locations.
+
+	* doc/schroot.dox.in: Remove sbuild input files, and use sbuild
+	tag file.
+
+	* doc/sbuild.dox.in: Split libsbuild API reference from
+	schroot.dox.in.
+
+2007-05-04  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Fix issues in debian/control.
 
 2007-05-02  Roger Leigh  <rleigh@debian.org>

@@ -23,14 +23,21 @@
 include $(top_srcdir)/scripts/global.mk
 
 if MAINTAINER_MODE
-all-local: schroot
+all-local: sbuild schroot
 endif
 
 if USE_DOXYGEN
 schroot: schroot-stamp
+sbuild: sbuild-stamp
 else
 schroot:
+sbuild:
 endif
+
+sbuild-stamp: sbuild.dox $(top_srcdir)/configure
+	$(RM) -rf sbuild/html
+	$(DOXYGEN) sbuild.dox
+	touch $@
 
 schroot-stamp: schroot.dox $(top_srcdir)/configure
 	$(RM) -rf schroot/html
@@ -38,11 +45,11 @@ schroot-stamp: schroot.dox $(top_srcdir)/configure
 	touch $@
 
 PS_DEPS = \
-	$(top_builddir)/schroot/schroot.1		\
-	$(top_builddir)/schroot/schroot.conf.5		\
-	$(top_builddir)/schroot/schroot-setup.5		\
-	$(top_builddir)/dchroot/dchroot.1		\
-	$(top_builddir)/dchroot-dsa/dchroot-dsa.1
+	$(top_builddir)/bin/schroot/schroot.1		\
+	$(top_builddir)/bin/schroot/schroot.conf.5	\
+	$(top_builddir)/bin/schroot/schroot-setup.5	\
+	$(top_builddir)/bin/dchroot/dchroot.1		\
+	$(top_builddir)/bin/dchroot-dsa/dchroot-dsa.1
 
 schroot.ps: $(PS_DEPS)
 	tbl $(PS_DEPS) | groff -T ps -man > $@
@@ -56,13 +63,17 @@ CLEANFILES =		\
 	schroot.pdf
 
 maintainer-clean-local:
+	$(RM) -r sbuild
 	$(RM) -r schroot
 
-MAINTAINERCLEANFILES = \
+MAINTAINERCLEANFILES =	\
+	sbuild-stamp	\
 	schroot-stamp
 
 EXTRA_DIST =		\
+	sbuild		\
 	schroot		\
+	sbuild-stamp	\
 	schroot-stamp
 
-.PHONY: schroot
+.PHONY: sbuild schroot

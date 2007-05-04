@@ -430,6 +430,7 @@ AC_DEFINE_UNQUOTED(CSBUILD_CONF, ["$CSBUILD_CONF"])
 
 dnl Configure which files to generate.
 AC_CONFIG_FILES([doc/Makefile])
+AC_CONFIG_FILES([doc/sbuild.dox])
 AC_CONFIG_FILES([doc/schroot.dox])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([sbuild/Makefile])
