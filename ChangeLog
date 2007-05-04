@@ -1,3 +1,9 @@
+2007-05-05  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: debian/rules: Split arch-dependendent and
+	arch-independent packages into seprate rules.  Remove .map and
+	.md5 files from the Doxygen docs.
+
 2007-05-04  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Add new package, libsbuild-doc.
