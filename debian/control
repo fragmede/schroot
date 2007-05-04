@@ -23,6 +23,16 @@ Description: development files for the Debian source builder
  develop applications which make use of sbuild.  Once the API and ABI
  are stable, a shared library will replace the static library.
 
+Package: libsbuild-doc
+Architecture: all
+Section: devel
+Depends: pkg-config (>= 0.14.0)
+Description: development documentation for the Debian source builder
+ sbuild provides facilities to manage and access chroots.
+ .
+ This package contains the API documentation needed to develop
+ applications which make use of sbuild.
+
 Package: schroot
 Architecture: any
 Depends: ${shlibs:Depends}, schroot-common (=${source:Version})

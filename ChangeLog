@@ -1,5 +1,9 @@
 2007-05-04  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Add new package, libsbuild-doc.
+
+2007-05-04  Roger Leigh  <rleigh@debian.org>
+
 	* configure.ac: Generate doc/sbuild.dox.
 
 	* doc/Makefile.am: Generate sbuild documentation.  Fix PS_DEPS for

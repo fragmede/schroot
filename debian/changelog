@@ -5,6 +5,10 @@ schroot (1.1.2-1) UNRELEASED; urgency=low
     - Remove libsbuild1 dependency from libsbuild-dev.
     - libsbuild1-dev is in Section devel.
     - Use ${source:Version} to allow binNMUs.
+    - Add new package, libsbuild-doc.
+  * debian/libsbuild-doc.docs: New file.  Install doxygen HTML
+    documentation and tag file.
+  * debian/libsbuild-doc.doc-base: Register docs with doc-base.
 
  -- Roger Leigh <rleigh@debian.org>  Wed,  2 May 2007 22:51:58 +0100
 
