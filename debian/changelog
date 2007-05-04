@@ -3,6 +3,8 @@ schroot (1.1.2-1) UNRELEASED; urgency=low
   * New upstream development release.
   * debian/control
     - Remove libsbuild1 dependency from libsbuild-dev.
+    - libsbuild1-dev is in Section devel.
+    - Use ${source:Version} to allow binNMUs.
 
  -- Roger Leigh <rleigh@debian.org>  Wed,  2 May 2007 22:51:58 +0100
 
