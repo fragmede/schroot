@@ -1,5 +1,10 @@
 2007-05-05  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-keyfile.(cc|h): Add typedefs for key, group and
+	comment types.
+
+2007-05-05  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: debian/rules: Split arch-dependendent and
 	arch-independent packages into seprate rules.  Remove .map and
 	.md5 files from the Doxygen docs.

@@ -161,7 +161,7 @@ keyfile::get_groups () const
 }
 
 string_list
-keyfile::get_keys (std::string const& group) const
+keyfile::get_keys (group_name_type const& group) const
 {
   string_list ret;
 
@@ -179,29 +179,29 @@ keyfile::get_keys (std::string const& group) const
 }
 
 bool
-keyfile::has_group (std::string const& group) const
+keyfile::has_group (group_name_type const& group) const
 {
   return (find_group(group) != 0);
 }
 
 bool
-keyfile::has_key (std::string const& group,
-		  std::string const& key) const
+keyfile::has_key (group_name_type const& group,
+		  key_type const& key) const
 {
   return (find_item(group, key) != 0);
 }
 
 void
-keyfile::set_group (std::string const& group,
-		    std::string const& comment)
+keyfile::set_group (group_name_type const& group,
+		    comment_type const&    comment)
 {
   set_group(group, comment, 0);
 }
 
 void
-keyfile::set_group (std::string const& group,
-		    std::string const& comment,
-		    unsigned int       line)
+keyfile::set_group (group_name_type const& group,
+		    comment_type const& comment,
+		    size_type       line)
 {
   if (!has_group(group))
     this->groups.insert
@@ -212,29 +212,29 @@ keyfile::set_group (std::string const& group,
 					     line)));
 }
 
-std::string
-keyfile::get_comment (std::string const& group) const
+keyfile::comment_type
+keyfile::get_comment (group_name_type const& group) const
 {
   const keyfile::group_type *found_group = find_group(group);
   if (found_group)
     return std::tr1::get<2>(*found_group);
   else
-    return std::string();
+    return comment_type();
 }
 
-std::string
-keyfile::get_comment (std::string const& group,
-		      std::string const& key) const
+keyfile::comment_type
+keyfile::get_comment (group_name_type const& group,
+		      key_type const& key) const
 {
   const item_type *found_item = find_item(group, key);
   if (found_item)
       return std::tr1::get<2>(*found_item);
   else
-    return std::string();
+    return comment_type();
 }
 
-unsigned int
-keyfile::get_line (std::string const& group) const
+keyfile::size_type
+keyfile::get_line (group_name_type const& group) const
 {
   const keyfile::group_type *found_group = find_group(group);
   if (found_group)
@@ -243,9 +243,9 @@ keyfile::get_line (std::string const& group) const
     return 0;
 }
 
-unsigned int
-keyfile::get_line (std::string const& group,
-		   std::string const& key) const
+keyfile::size_type
+keyfile::get_line (group_name_type const& group,
+		   key_type const& key) const
 {
   const item_type *found_item = find_item(group, key);
   if (found_item)
@@ -255,8 +255,8 @@ keyfile::get_line (std::string const& group,
 }
 
 bool
-keyfile::get_locale_string (std::string const& group,
-			    std::string const& key,
+keyfile::get_locale_string (group_name_type const& group,
+			    key_type const& key,
 			    std::string&       value) const
 {
   std::string localename = std::locale("").name();
@@ -284,8 +284,8 @@ keyfile::get_locale_string (std::string const& group,
 }
 
 bool
-keyfile::get_locale_string (std::string const& group,
-			    std::string const& key,
+keyfile::get_locale_string (group_name_type const& group,
+			    key_type const& key,
 			    priority           priority,
 			    std::string&       value) const
 {
@@ -295,8 +295,8 @@ keyfile::get_locale_string (std::string const& group,
 }
 
 bool
-keyfile::get_locale_string (std::string const& group,
-			    std::string const& key,
+keyfile::get_locale_string (group_name_type const& group,
+			    key_type const& key,
 			    std::string const& locale,
 			    std::string&       value) const
 {
@@ -305,8 +305,8 @@ keyfile::get_locale_string (std::string const& group,
 }
 
 bool
-keyfile::get_locale_string (std::string const& group,
-			    std::string const& key,
+keyfile::get_locale_string (group_name_type const& group,
+			    key_type const& key,
 			    std::string const& locale,
 			    priority           priority,
 			    std::string&       value) const
@@ -317,7 +317,7 @@ keyfile::get_locale_string (std::string const& group,
 }
 
 void
-keyfile::remove_group (std::string const& group)
+keyfile::remove_group (group_name_type const& group)
 {
   group_map_type::iterator pos = this->groups.find(group);
   if (pos != this->groups.end())
@@ -325,8 +325,8 @@ keyfile::remove_group (std::string const& group)
 }
 
 void
-keyfile::remove_key (std::string const& group,
-		     std::string const& key)
+keyfile::remove_key (group_name_type const& group,
+		     key_type const& key)
 {
   group_type *found_group = find_group(group);
   if (found_group)
@@ -346,9 +346,9 @@ keyfile::operator += (keyfile const& rhs)
        ++gp)
     {
       group_type const& group = gp->second;
-      std::string const& groupname = std::tr1::get<0>(group);
-      std::string const& comment = std::tr1::get<2>(group);
-      unsigned int const& line = std::tr1::get<3>(group);
+      group_name_type const& groupname = std::tr1::get<0>(group);
+      comment_type const& comment = std::tr1::get<2>(group);
+      size_type const& line = std::tr1::get<3>(group);
       set_group(groupname, comment, line);
 
       item_map_type const& items(std::tr1::get<1>(group));
@@ -357,10 +357,10 @@ keyfile::operator += (keyfile const& rhs)
 	   ++it)
 	{
 	  item_type const& item = it->second;
-	  std::string const& key(std::tr1::get<0>(item));
-	  std::string const& value(std::tr1::get<1>(item));
-	  std::string const& comment(std::tr1::get<2>(item));
-	  unsigned int const& line(std::tr1::get<3>(item));
+	  key_type const& key(std::tr1::get<0>(item));
+	  value_type const& value(std::tr1::get<1>(item));
+	  comment_type const& comment(std::tr1::get<2>(item));
+	  size_type const& line(std::tr1::get<3>(item));
 	  set_value(groupname, key, value, comment, line);
 	}
     }
@@ -377,7 +377,7 @@ operator + (keyfile const& lhs,
 }
 
 const keyfile::group_type *
-keyfile::find_group (std::string const& group) const
+keyfile::find_group (group_name_type const& group) const
 {
   group_map_type::const_iterator pos = this->groups.find(group);
   if (pos != this->groups.end())
@@ -387,7 +387,7 @@ keyfile::find_group (std::string const& group) const
 }
 
 keyfile::group_type *
-keyfile::find_group (std::string const& group)
+keyfile::find_group (group_name_type const& group)
 {
   group_map_type::iterator pos = this->groups.find(group);
   if (pos != this->groups.end())
@@ -397,8 +397,8 @@ keyfile::find_group (std::string const& group)
 }
 
 const keyfile::item_type *
-keyfile::find_item (std::string const& group,
-		    std::string const& key) const
+keyfile::find_item (group_name_type const& group,
+		    key_type const& key) const
 {
   const group_type *found_group = find_group(group);
   if (found_group)
@@ -413,8 +413,8 @@ keyfile::find_item (std::string const& group,
 }
 
 keyfile::item_type *
-keyfile::find_item (std::string const& group,
-		    std::string const& key)
+keyfile::find_item (group_name_type const& group,
+		    key_type const& key)
 {
   group_type *found_group = find_group(group);
   if (found_group)
@@ -429,7 +429,7 @@ keyfile::find_item (std::string const& group,
 }
 
 void
-keyfile::print_comment (std::string const& comment,
+keyfile::print_comment (comment_type const& comment,
 			std::ostream&      stream)
 {
   std::string::size_type last_pos = 0;
@@ -454,14 +454,14 @@ keyfile::print_comment (std::string const& comment,
 }
 
 void
-keyfile::check_priority (std::string const& group,
-			 std::string const& key,
+keyfile::check_priority (group_name_type const& group,
+			 key_type const& key,
 			 priority priority,
 			 bool     valid) const
 {
   if (valid == false)
     {
-      unsigned int gline = get_line(group);
+      size_type gline = get_line(group);
 
       switch (priority)
 	{
@@ -479,7 +479,7 @@ keyfile::check_priority (std::string const& group,
     }
   else
     {
-      unsigned int line = get_line(group, key);
+      size_type line = get_line(group, key);
 
       switch (priority)
 	{
