@@ -1,5 +1,13 @@
 2007-05-05  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-keyfile.(cc|h): Remove code moved into
+	sbuild_keyfile_base, and inherit from sbuild_keyfile_base.
+
+	* sbuild/Makefile.am (sbuild_public_cc_sources,
+	(sbuild_public_h_sources): Include sbuild/sbuild-keyfile.(cc|h).
+
+2007-05-05  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-keyfile.(cc|h): Add typedefs for key, group and
 	comment types.
 
