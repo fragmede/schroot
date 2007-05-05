@@ -50,6 +50,8 @@ sbuild_public_h_sources =		\
 	sbuild-format-detail.h		\
 	sbuild-i18n.h			\
 	sbuild-keyfile-base.h		\
+	sbuild-basic-keyfile.h		\
+	sbuild-basic-keyfile.tcc	\
 	sbuild-keyfile.h		\
 	sbuild-lock.h			\
 	sbuild-log.h			\
@@ -83,7 +85,6 @@ sbuild_public_cc_sources =		\
 	sbuild-environment.cc		\
 	sbuild-format-detail.cc		\
 	sbuild-keyfile-base.cc		\
-	sbuild-keyfile.cc		\
 	sbuild-lock.cc			\
 	sbuild-log.cc			\
 	sbuild-nostream.cc		\

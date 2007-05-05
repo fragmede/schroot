@@ -17,10 +17,6 @@
  *
  *********************************************************************/
 
-#include <config.h>
-
-#include "sbuild-keyfile.h"
-
 #include <fstream>
 
 #include <boost/format.hpp>
@@ -28,13 +24,15 @@
 using boost::format;
 using namespace sbuild;
 
-keyfile::keyfile ():
+template <typename keyfile_traits>
+basic_keyfile<keyfile_traits>::basic_keyfile ():
   groups(),
   separator(',')
 {
 }
 
-keyfile::keyfile (std::string const& file):
+template <typename keyfile_traits>
+basic_keyfile<keyfile_traits>::basic_keyfile (std::string const& file):
   groups(),
   separator(',')
 {
@@ -50,23 +48,26 @@ keyfile::keyfile (std::string const& file):
     }
 }
 
-keyfile::keyfile (std::istream& stream):
+template <typename keyfile_traits>
+basic_keyfile<keyfile_traits>::basic_keyfile (std::istream& stream):
   groups(),
   separator(',')
 {
   stream >> *this;
 }
 
-keyfile::~keyfile()
+template <typename keyfile_traits>
+basic_keyfile<keyfile_traits>::~basic_keyfile()
 {
 }
 
+template <typename keyfile_traits>
 string_list
-keyfile::get_groups () const
+basic_keyfile<keyfile_traits>::get_groups () const
 {
   string_list ret;
 
-  for (group_map_type::const_iterator pos = this->groups.begin();
+  for (typename group_map_type::const_iterator pos = this->groups.begin();
        pos != this->groups.end();
        ++pos)
     ret.push_back(pos->first);
@@ -74,8 +75,9 @@ keyfile::get_groups () const
   return ret;
 }
 
+template <typename keyfile_traits>
 string_list
-keyfile::get_keys (group_name_type const& group) const
+basic_keyfile<keyfile_traits>::get_keys (group_name_type const& group) const
 {
   string_list ret;
 
@@ -83,7 +85,7 @@ keyfile::get_keys (group_name_type const& group) const
   if (found_group)
     {
       item_map_type const& items(std::tr1::get<1>(*found_group));
-      for (item_map_type::const_iterator pos = items.begin();
+      for (typename item_map_type::const_iterator pos = items.begin();
 	   pos != items.end();
 	   ++pos)
 	ret.push_back(pos->first);
@@ -92,52 +94,58 @@ keyfile::get_keys (group_name_type const& group) const
   return ret;
 }
 
+template <typename keyfile_traits>
 bool
-keyfile::has_group (group_name_type const& group) const
+basic_keyfile<keyfile_traits>::has_group (group_name_type const& group) const
 {
   return (find_group(group) != 0);
 }
 
+template <typename keyfile_traits>
 bool
-keyfile::has_key (group_name_type const& group,
+basic_keyfile<keyfile_traits>::has_key (group_name_type const& group,
 		  key_type const& key) const
 {
   return (find_item(group, key) != 0);
 }
 
+template <typename keyfile_traits>
 void
-keyfile::set_group (group_name_type const& group,
+basic_keyfile<keyfile_traits>::set_group (group_name_type const& group,
 		    comment_type const&    comment)
 {
   set_group(group, comment, 0);
 }
 
+template <typename keyfile_traits>
 void
-keyfile::set_group (group_name_type const& group,
+basic_keyfile<keyfile_traits>::set_group (group_name_type const& group,
 		    comment_type const& comment,
 		    size_type       line)
 {
   if (!has_group(group))
     this->groups.insert
-      (group_map_type::value_type(group,
+      (typename group_map_type::value_type(group,
 				  group_type(group,
 					     item_map_type(),
 					     comment,
 					     line)));
 }
 
-keyfile::comment_type
-keyfile::get_comment (group_name_type const& group) const
+template <typename keyfile_traits>
+typename basic_keyfile<keyfile_traits>::comment_type
+basic_keyfile<keyfile_traits>::get_comment (group_name_type const& group) const
 {
-  const keyfile::group_type *found_group = find_group(group);
+  const group_type *found_group = find_group(group);
   if (found_group)
     return std::tr1::get<2>(*found_group);
   else
     return comment_type();
 }
 
-keyfile::comment_type
-keyfile::get_comment (group_name_type const& group,
+template <typename keyfile_traits>
+typename basic_keyfile<keyfile_traits>::comment_type
+basic_keyfile<keyfile_traits>::get_comment (group_name_type const& group,
 		      key_type const& key) const
 {
   const item_type *found_item = find_item(group, key);
@@ -147,19 +155,21 @@ keyfile::get_comment (group_name_type const& group,
     return comment_type();
 }
 
-keyfile::size_type
-keyfile::get_line (group_name_type const& group) const
+template <typename keyfile_traits>
+typename basic_keyfile<keyfile_traits>::size_type
+basic_keyfile<keyfile_traits>::get_line (group_name_type const& group) const
 {
-  const keyfile::group_type *found_group = find_group(group);
+  const group_type *found_group = find_group(group);
   if (found_group)
     return std::tr1::get<3>(*found_group);
   else
     return 0;
 }
 
-keyfile::size_type
-keyfile::get_line (group_name_type const& group,
-		   key_type const& key) const
+template <typename keyfile_traits>
+typename basic_keyfile<keyfile_traits>::size_type
+basic_keyfile<keyfile_traits>::get_line (group_name_type const& group,
+			 key_type const& key) const
 {
   const item_type *found_item = find_item(group, key);
   if (found_item)
@@ -168,8 +178,9 @@ keyfile::get_line (group_name_type const& group,
     return 0;
 }
 
+template <typename keyfile_traits>
 bool
-keyfile::get_locale_string (group_name_type const& group,
+basic_keyfile<keyfile_traits>::get_locale_string (group_name_type const& group,
 			    key_type const& key,
 			    std::string&       value) const
 {
@@ -197,8 +208,9 @@ keyfile::get_locale_string (group_name_type const& group,
   return status;
 }
 
+template <typename keyfile_traits>
 bool
-keyfile::get_locale_string (group_name_type const& group,
+basic_keyfile<keyfile_traits>::get_locale_string (group_name_type const& group,
 			    key_type const& key,
 			    priority           priority,
 			    std::string&       value) const
@@ -208,8 +220,9 @@ keyfile::get_locale_string (group_name_type const& group,
   return status;
 }
 
+template <typename keyfile_traits>
 bool
-keyfile::get_locale_string (group_name_type const& group,
+basic_keyfile<keyfile_traits>::get_locale_string (group_name_type const& group,
 			    key_type const& key,
 			    std::string const& locale,
 			    std::string&       value) const
@@ -218,8 +231,9 @@ keyfile::get_locale_string (group_name_type const& group,
   return get_value(group, lkey, value);
 }
 
+template <typename keyfile_traits>
 bool
-keyfile::get_locale_string (group_name_type const& group,
+basic_keyfile<keyfile_traits>::get_locale_string (group_name_type const& group,
 			    key_type const& key,
 			    std::string const& locale,
 			    priority           priority,
@@ -230,32 +244,35 @@ keyfile::get_locale_string (group_name_type const& group,
   return status;
 }
 
+template <typename keyfile_traits>
 void
-keyfile::remove_group (group_name_type const& group)
+basic_keyfile<keyfile_traits>::remove_group (group_name_type const& group)
 {
-  group_map_type::iterator pos = this->groups.find(group);
+  typename group_map_type::iterator pos = this->groups.find(group);
   if (pos != this->groups.end())
     this->groups.erase(pos);
 }
 
+template <typename keyfile_traits>
 void
-keyfile::remove_key (group_name_type const& group,
+basic_keyfile<keyfile_traits>::remove_key (group_name_type const& group,
 		     key_type const& key)
 {
   group_type *found_group = find_group(group);
   if (found_group)
     {
       item_map_type& items = std::tr1::get<1>(*found_group);
-      item_map_type::iterator pos = items.find(key);
+      typename item_map_type::iterator pos = items.find(key);
       if (pos != items.end())
 	items.erase(pos);
     }
 }
 
-keyfile&
-keyfile::operator += (keyfile const& rhs)
+template <typename keyfile_traits>
+basic_keyfile<keyfile_traits>&
+basic_keyfile<keyfile_traits>::operator += (basic_keyfile const& rhs)
 {
-  for (group_map_type::const_iterator gp = rhs.groups.begin();
+  for (typename group_map_type::const_iterator gp = rhs.groups.begin();
        gp != rhs.groups.end();
        ++gp)
     {
@@ -266,7 +283,7 @@ keyfile::operator += (keyfile const& rhs)
       set_group(groupname, comment, line);
 
       item_map_type const& items(std::tr1::get<1>(group));
-      for (item_map_type::const_iterator it = items.begin();
+      for (typename item_map_type::const_iterator it = items.begin();
 	   it != items.end();
 	   ++it)
 	{
@@ -281,44 +298,48 @@ keyfile::operator += (keyfile const& rhs)
   return *this;
 }
 
-keyfile
-operator + (keyfile const& lhs,
-	    keyfile const& rhs)
+template <typename _keyfile_traits>
+basic_keyfile<_keyfile_traits>
+operator + (basic_keyfile<_keyfile_traits> const& lhs,
+	    basic_keyfile<_keyfile_traits> const& rhs)
 {
-  keyfile ret(lhs);
+  basic_keyfile<_keyfile_traits> ret(lhs);
   ret += rhs;
   return ret;
 }
 
-const keyfile::group_type *
-keyfile::find_group (group_name_type const& group) const
+template <typename keyfile_traits>
+const typename basic_keyfile<keyfile_traits>::group_type *
+basic_keyfile<keyfile_traits>::find_group (group_name_type const& group) const
 {
-  group_map_type::const_iterator pos = this->groups.find(group);
+  typename group_map_type::const_iterator pos = this->groups.find(group);
   if (pos != this->groups.end())
     return &pos->second;
 
   return 0;
 }
 
-keyfile::group_type *
-keyfile::find_group (group_name_type const& group)
+template <typename keyfile_traits>
+typename basic_keyfile<keyfile_traits>::group_type *
+basic_keyfile<keyfile_traits>::find_group (group_name_type const& group)
 {
-  group_map_type::iterator pos = this->groups.find(group);
+  typename group_map_type::iterator pos = this->groups.find(group);
   if (pos != this->groups.end())
     return &pos->second;
 
   return 0;
 }
 
-const keyfile::item_type *
-keyfile::find_item (group_name_type const& group,
+template <typename keyfile_traits>
+const typename basic_keyfile<keyfile_traits>::item_type *
+basic_keyfile<keyfile_traits>::find_item (group_name_type const& group,
 		    key_type const& key) const
 {
   const group_type *found_group = find_group(group);
   if (found_group)
     {
       item_map_type const& items = std::tr1::get<1>(*found_group);
-      item_map_type::const_iterator pos = items.find(key);
+      typename item_map_type::const_iterator pos = items.find(key);
       if (pos != items.end())
 	return &pos->second;
     }
@@ -326,15 +347,16 @@ keyfile::find_item (group_name_type const& group,
   return 0;
 }
 
-keyfile::item_type *
-keyfile::find_item (group_name_type const& group,
+template <typename keyfile_traits>
+typename basic_keyfile<keyfile_traits>::item_type *
+basic_keyfile<keyfile_traits>::find_item (group_name_type const& group,
 		    key_type const& key)
 {
   group_type *found_group = find_group(group);
   if (found_group)
     {
       item_map_type& items = std::tr1::get<1>(*found_group);
-      item_map_type::iterator pos = items.find(key);
+      typename item_map_type::iterator pos = items.find(key);
       if (pos != items.end())
 	return &pos->second;
     }
@@ -342,8 +364,9 @@ keyfile::find_item (group_name_type const& group,
   return 0;
 }
 
+template <typename keyfile_traits>
 void
-keyfile::print_comment (comment_type const& comment,
+basic_keyfile<keyfile_traits>::print_comment (comment_type const& comment,
 			std::ostream&      stream)
 {
   std::string::size_type last_pos = 0;
@@ -367,11 +390,12 @@ keyfile::print_comment (comment_type const& comment,
     }
 }
 
+template <typename keyfile_traits>
 void
-keyfile::check_priority (group_name_type const& group,
-			 key_type const& key,
-			 priority priority,
-			 bool     valid) const
+basic_keyfile<keyfile_traits>::check_priority (group_name_type const& group,
+			       key_type const& key,
+			       priority priority,
+			       bool     valid) const
 {
   if (valid == false)
     {
@@ -442,3 +466,9 @@ keyfile::check_priority (group_name_type const& group,
 	}
     }
 }
+
+/*
+ * Local Variables:
+ * mode:C++
+ * End:
+ */
