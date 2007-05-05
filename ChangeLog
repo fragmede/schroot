@@ -1,5 +1,19 @@
 2007-05-05  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-keyfile.h: Remove keyfile class.  Replace with a
+	simple traits structure, keyfile_traits, and a keyfile typedef to
+	specialise basic_keyfile.
+
+	* sbuild/sbuild-basic-keyfile.(h|tcc): Copy of
+	sbuild-keyfile.(h|cc), converted into a templated class with
+	traits.
+
+	* sbuild/sbuild-keyfile-base.(cc|h): Copy of
+	sbuild-keyfile.(h|cc), with all but error codes and priority enum
+	removed.
+
+2007-05-05  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-keyfile.(cc|h): Remove code moved into
 	sbuild_keyfile_base, and inherit from sbuild_keyfile_base.
 
