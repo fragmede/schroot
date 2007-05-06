@@ -1,3 +1,9 @@
+2007-05-06  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* sbuild/sbuild-basic-keyfile.tcc: Remove using keywords from
+	global scope, because this is included by sbuild-basic-keyfile.h.
+	All type names now use explicit namespace qualifiers.
+
 2007-05-05  Roger Leigh  <rleigh@debian.org>
 
 	* sbuild/sbuild-keyfile.h: Remove keyfile class.  Replace with a
