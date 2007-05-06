@@ -1,4 +1,9 @@
-2007-05-06  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2007-05-06  Roger Leigh  <rleigh@debian.org>
+
+	* sbuild/sbuild-keyfile.h: Remove comments about GKeyFile, and
+	remove unneeded namespace qualifier.
+
+2007-05-06  Roger Leigh  <rleigh@debian.org>
 
 	* sbuild/sbuild-basic-keyfile.tcc: Remove using keywords from
 	global scope, because this is included by sbuild-basic-keyfile.h.

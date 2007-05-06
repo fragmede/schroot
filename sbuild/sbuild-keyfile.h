@@ -27,8 +27,7 @@ namespace sbuild
 
   /**
    * Traits class for an INI-style configuration file.  The format is
-   * documented in schroot.conf(5).  It is an independent
-   * reimplementation of the Glib GKeyFile class, which it replaces.
+   * documented in schroot.conf(5).
    */
   struct keyfile_traits
   {
@@ -51,10 +50,9 @@ namespace sbuild
   /**
    * Configuration file parser.  This class loads an INI-style
    * configuration file from a file or stream.  The format is
-   * documented in schroot.conf(5).  It is an independent
-   * reimplementation of the Glib GKeyFile class, which it replaces.
+   * documented in schroot.conf(5).
    */
-  typedef sbuild::basic_keyfile<keyfile_traits> keyfile;
+  typedef basic_keyfile<keyfile_traits> keyfile;
 
 }
 
