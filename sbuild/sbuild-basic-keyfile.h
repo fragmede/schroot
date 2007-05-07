@@ -38,6 +38,88 @@
 
 namespace sbuild
 {
+  /**
+   *
+   */
+  template <typename K>
+  class basic_keyfile_parser
+  {
+  public:
+    /// Exception type.
+    typedef keyfile_base::error error;
+
+    /// The constructor.
+    basic_keyfile_parser ()
+    {
+    }
+
+    /// The destructor.
+    virtual ~basic_keyfile_parser ()
+    {
+    }
+
+    /// Group name.
+    typename K::group_name_type group;
+
+    /// Group name is set.
+    bool                        group_set;
+
+    /// Key name.
+    typename K::key_type        key;
+
+    /// Key name is set.
+    bool                        key_set;
+
+    /// Value.
+    typename K::value_type      value;
+
+    /// Value is set.
+    bool                        value_set;
+
+    /// Comment.
+    typename K::comment_type    comment;
+
+    /// Comment is set.
+    bool                        comment_set;
+
+    /// Line number.
+    typename K::size_type       line_number;
+
+    /**
+     * Start processing input.
+     * Any setup may be done here.
+     */
+    virtual void
+    begin ()
+    {
+      line_number = 0;
+    }
+
+    /**
+     * Parse a line of input.  This function will be called for every
+     * line of input in the source file.  The input line, line, is
+     * parsed appropriately.  Any of the group, key, value, and
+     * comment members are set as required.  If any of these members
+     * are ready for insertion into the keyfile, then the
+     * corresponding _set member must be set to true to signal the
+     * fact to the caller.
+     * @param line the line to parse.
+     */
+    virtual void
+    parse_line (std::string const& line)
+    {
+      ++line_number;
+    }
+
+    /**
+     * Stop processing input.  Any cleanup may be done here.  For
+     * example, any cached group or item may be set here.
+     */
+    virtual void
+    end()
+    {
+    }
+  };
 
   /**
    * Configuration file parser.  This class loads an INI-style
@@ -45,24 +127,27 @@ namespace sbuild
    * documented in schroot.conf(5).  It is an independent
    * reimplementation of the Glib GKeyFile class, which it replaces.
    */
-  template <typename keyfile_traits>
+  template <typename K, typename P = basic_keyfile_parser<K> >
   class basic_keyfile : public keyfile_base
   {
   private:
     /// Group name.
-    typedef typename keyfile_traits::group_name_type group_name_type;
+    typedef typename K::group_name_type group_name_type;
 
     /// Key name.
-    typedef typename keyfile_traits::key_type key_type;
+    typedef typename K::key_type key_type;
 
     /// Value.
-    typedef typename keyfile_traits::value_type value_type;
+    typedef typename K::value_type value_type;
 
     /// Comment.
-    typedef typename keyfile_traits::comment_type comment_type;
+    typedef typename K::comment_type comment_type;
 
     /// Line number.
-    typedef typename keyfile_traits::size_type size_type;
+    typedef typename K::size_type size_type;
+
+    /// Parse type.
+    typedef P parse_type;
 
     /// Key-value-comment-line tuple.
     typedef std::tr1::tuple<key_type,value_type,comment_type,size_type>
@@ -606,10 +691,10 @@ namespace sbuild
      * @param rhs the values to add.
      * @returns the new basic_keyfile.
      */
-    template <typename _keyfile_traits>
-    friend basic_keyfile<_keyfile_traits>
-    operator + (basic_keyfile<_keyfile_traits> const& lhs,
-		basic_keyfile<_keyfile_traits> const& rhs);
+    template <typename _K, typename _P>
+    friend basic_keyfile<_K, _P>
+    operator + (basic_keyfile<_K, _P> const& lhs,
+		basic_keyfile<_K, _P> const& rhs);
 
     /**
      * basic_keyfile initialisation from an istream.
@@ -625,71 +710,36 @@ namespace sbuild
 		 basic_keyfile&                          kf)
     {
       basic_keyfile tmp;
-      size_t linecount = 0;
+      parse_type state;
       std::string line;
-      std::string group;
-      std::string comment;
-      std::string key;
-      std::string value;
+
+      state.begin();
 
       while (std::getline(stream, line))
       {
-	linecount++;
+	state.parse_line(line);
 
-	if (line.length() == 0)
+	// Insert group
+	if (state.group_set)
 	  {
-	    // Empty line; do nothing.
-	  }
-	else if (line[0] == '#') // Comment line
-	  {
-	    if (!comment.empty())
-	      comment += '\n';
-	    comment += line.substr(1);
-	  }
-	else if (line[0] == '[') // Group
-	  {
-	    std::string::size_type fpos = line.find_first_of(']');
-	    std::string::size_type lpos = line.find_last_of(']');
-	    if (fpos == std::string::npos || lpos == std::string::npos ||
-		fpos != lpos)
-	      throw error(linecount, INVALID_GROUP, line);
-	    group = line.substr(1, fpos - 1);
-
-	    if (group.length() == 0)
-	      throw error(linecount, INVALID_GROUP, line);
-
-	    // Insert group
-	    if (tmp.has_group(group))
-	      throw error(linecount, DUPLICATE_GROUP, group);
+	    if (tmp.has_group(state.group))
+	      throw error(state.line_number, DUPLICATE_GROUP, state.group);
 	    else
-	      tmp.set_group(group, comment, linecount);
-	    comment.clear();
+	      tmp.set_group(state.group, state.comment, state.line_number);
 	  }
-	else // Item
+
+	// Insert item
+	if (state.key_set && state.value_set)
 	  {
-	    std::string::size_type pos = line.find_first_of('=');
-	    if (pos == std::string::npos)
-	      throw error(linecount, INVALID_LINE, line);
-	    if (pos == 0)
-	      throw error(linecount, NO_KEY, line);
-	    key = line.substr(0, pos);
-	    if (pos == line.length() - 1)
-	      value = "";
+	    if (tmp.has_key(state.group, state.key))
+	      throw error(state.line_number, state.group, DUPLICATE_KEY, state.key);
 	    else
-	      value = line.substr(pos + 1);
-
-	    // No group specified
-	    if (group.empty())
-	      throw error(linecount, NO_GROUP, line);
-
-	    // Insert item
-	    if (tmp.has_key(group, key))
-	      throw error(linecount, group, DUPLICATE_KEY, key);
-	    else
-	      tmp.set_value(group, key, value, comment, linecount);
-	    comment.clear();
+	      tmp.set_value(state.group, state.key, state.value, state.comment, state.line_number);
 	  }
       }
+
+      state.end();
+      // TODO: do inserts here as well.
 
       kf += tmp;
 

@@ -146,6 +146,7 @@ public:
   {
     bool bval = false;
 
+    // Expect a warning here.
     CPPUNIT_ASSERT(this->kf->get_value("group2", "age", bval) == false);
     CPPUNIT_ASSERT(bval == false);
   }
@@ -176,6 +177,8 @@ public:
     expected.push_back(6);
 
     std::vector<bool> found;
+
+    // Expect a warning here.
     CPPUNIT_ASSERT(this->kf->get_list_value("group1", "numbers", found) == false);
     CPPUNIT_ASSERT(found.size() == 1); // 1 converts to bool.
   }
