@@ -6,6 +6,8 @@ schroot (1.1.2-1) UNRELEASED; urgency=low
     - libsbuild1-dev is in Section devel.
     - Use ${source:Version} to allow binNMUs.
     - Add new package, libsbuild-doc.
+    - schroot-common Replaces schroot (<< 1.1.1).  Thanks to Hamish Moffatt
+      and Adeodato Simó for reporting this bug (Closes: #422741, #422863).
   * debian/rules:
     - Split arch-dependendent and arch-independent packages into seprate
       rules.

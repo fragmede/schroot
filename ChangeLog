@@ -1,3 +1,7 @@
+2007-05-09  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: schroot-common Replaces schroot (<< 1.1.1).
+
 2007-05-07  Roger Leigh  <rleigh@debian.org>
 
 	* test/sbuild-keyfile.cc: Document where warnings are triggered.

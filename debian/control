@@ -8,6 +8,7 @@ Standards-Version: 3.7.2
 
 Package: schroot-common
 Architecture: all
+Replaces: schroot (<< 1.1.1)
 Description: common files for schroot
  This package provides files common to all schroot packages, such as
  translations.
