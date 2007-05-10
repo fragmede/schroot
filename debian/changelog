@@ -1,4 +1,4 @@
-schroot (1.1.2-1) UNRELEASED; urgency=low
+schroot (1.1.2-1) unstable; urgency=high
 
   * New upstream development release.
   * debian/control
@@ -20,9 +20,10 @@ schroot (1.1.2-1) UNRELEASED; urgency=low
     being noticed by the script, and as a result failure to umount
     filesystems may result in severe dataloss when stop scripts then "rm
     -rf" the chroot.  Thanks to Lucas Nussbaum for reporting this bug, and
-    Frans Pop for suggesting the solution (Closes: #422909).
+    Frans Pop for suggesting the solution (Closes: #422909).  Urgency is
+    set high because this is a critical bug.
 
- -- Roger Leigh <rleigh@debian.org>  Wed,  2 May 2007 22:51:58 +0100
+ -- Roger Leigh <rleigh@debian.org>  Thu, 10 May 2007 22:49:39 +0100
 
 schroot (1.1.1-1) unstable; urgency=low
 

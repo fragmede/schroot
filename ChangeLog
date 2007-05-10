@@ -1,5 +1,11 @@
 2007-05-10  Roger Leigh  <rleigh@debian.org>
 
+	* Version 1.1.2.
+
+	* debian/changelog: Finalise for 1.1.2.
+
+2007-05-10  Roger Leigh  <rleigh@debian.org>
+
 	* po/POTFILES.in: Remove sbuild/sbuild-keyfile.cc, and add
 	sbuild/sbuild-keyfile-base.cc
 
