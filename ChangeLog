@@ -1,3 +1,10 @@
+2007-05-10  Roger Leigh  <rleigh@debian.org>
+
+	* sbuild/sbuild-ctty.cc (cttybuf_fd): Don't call log_debug,
+	because this is called from a static initialiser, and std::cerr
+	isn't yet initialised.  If there is no controlling tty, this will
+	result in a segmentation fault.
+
 2007-05-09  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: schroot-common Replaces schroot (<< 1.1.1).

@@ -20,7 +20,6 @@
 #include <config.h>
 
 #include "sbuild-ctty.h"
-#include "sbuild-log.h"
 
 #include <cerrno>
 #include <cstring>
@@ -113,7 +112,6 @@ namespace
 
     if (ctty < 0)
       {
-	log_debug(DEBUG_INFO) << "Controlling TTY not available: " << strerror(errno);
 	ctty = dup(STDIN_FILENO);
 
 	if (ctty < 0)
