@@ -9,7 +9,7 @@ schroot (1.1.2-1) UNRELEASED; urgency=low
     - schroot-common Replaces schroot (<< 1.1.1).  Thanks to Hamish Moffatt
       and Adeodato Simó for reporting this bug (Closes: #422741, #422863).
   * debian/rules:
-    - Split arch-dependendent and arch-independent packages into seprate
+    - Split arch-dependent and arch-independent packages into separate
       rules.
     - Remove .map and .md5 files from the Doxygen docs.
   * debian/libsbuild-doc.docs: New file.  Install doxygen HTML

@@ -1,5 +1,9 @@
 2007-05-10  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Fix typo.
+
+2007-05-10  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Document fixing of 10mount.
 
 	* bin/schroot/setup/10mount (do_umount_all): Don't exec
