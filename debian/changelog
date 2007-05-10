@@ -15,6 +15,12 @@ schroot (1.1.2-1) UNRELEASED; urgency=low
   * debian/libsbuild-doc.docs: New file.  Install doxygen HTML
     documentation and tag file.
   * debian/libsbuild-doc.doc-base: Register docs with doc-base.
+  * bin/schroot/setup/10mount: Don't exec schroot-listmounts in a
+    subshell.  This prevents an error (such as a bad exit status) from
+    being noticed by the script, and as a result failure to umount
+    filesystems may result in severe dataloss when stop scripts then "rm
+    -rf" the chroot.  Thanks to Lucas Nussbaum for reporting this bug, and
+    Frans Pop for suggesting the solution (Closes: #422909).
 
  -- Roger Leigh <rleigh@debian.org>  Wed,  2 May 2007 22:51:58 +0100
 

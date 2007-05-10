@@ -1,5 +1,15 @@
 2007-05-10  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Document fixing of 10mount.
+
+	* bin/schroot/setup/10mount (do_umount_all): Don't exec
+	schroot-listmounts in a subshell.  This prevents an error (such as
+	a bad exit status) from being noticed by the script, and as a
+	result failure to umount filesystems may result in severe dataloss
+	when stop scripts then "rm -rf" the chroot.
+
+2007-05-10  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-ctty.cc (cttybuf_fd): Don't call log_debug,
 	because this is called from a static initialiser, and std::cerr
 	isn't yet initialised.  If there is no controlling tty, this will

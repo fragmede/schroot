@@ -27,7 +27,8 @@ do_mount()
 # $1: mount base location
 do_umount_all()
 {
-    "$LIBEXEC_DIR/schroot-listmounts" -m "$1" |
+    mounts="$("$LIBEXEC_DIR/schroot-listmounts" -m "$1")"
+    echo "$mounts" |
     while read mountloc; do
 	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 	    echo "Unmounting $mountloc"
