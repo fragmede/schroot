@@ -51,7 +51,14 @@ namespace schroot_base
     try
       {
 	// Set up locale.
-	std::locale::global(std::locale(""));
+	try
+	  {
+	    std::locale::global(std::locale(""));
+	  }
+	catch (std::runtime_error const& e) // Invalid locale
+	  {
+	    std::locale::global(std::locale::classic());
+	  }
 	std::cout.imbue(std::locale());
 	std::cerr.imbue(std::locale());
 

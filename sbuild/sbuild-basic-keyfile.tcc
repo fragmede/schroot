@@ -179,7 +179,15 @@ sbuild::basic_keyfile<K, P>::get_locale_string (group_name_type const& group,
 							  key_type const& key,
 							  std::string&       value) const
 {
-  std::string localename = std::locale("").name();
+  std::string localename;
+  try
+    {
+      localename = std::locale("").name();
+    }
+  catch (std::runtime_error const& e) // Invalid locale
+    {
+      localename = std::locale::classic();
+    }
   std::string::size_type pos;
   bool status = false;
 
