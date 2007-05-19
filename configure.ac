@@ -38,7 +38,7 @@ dnl
 pushdef([SBUILD_NAME],              [schroot])
 pushdef([SBUILD_MAJOR_VERSION],     [1])
 pushdef([SBUILD_MINOR_VERSION],     [1])
-pushdef([SBUILD_MICRO_VERSION],     [2])
+pushdef([SBUILD_MICRO_VERSION],     [3])
 pushdef([SBUILD_EXTRA_VERSION],     [])
 pushdef([SBUILD_CURRENT_INTERFACE], [1])
 pushdef([SBUILD_INTERFACE_AGE],     [0])
@@ -222,20 +222,20 @@ AC_CHECK_LIB([lockdev], [dev_lock],
              [AC_MSG_FAILURE([liblockdev (lockdev) is not installed, but is required by schroot])])
 AC_SUBST([LOCKDEV_LIBS])
 
-AC_MSG_CHECKING([for boost::program_options::variables_map in -lboost_program_options])
+AC_MSG_CHECKING([for boost::program_options::variables_map in -lboost_program_options-st])
 saved_ldflags="${LDFLAGS}"
-LDFLAGS="${LDFLAGS} -lboost_program_options"
+LDFLAGS="${LDFLAGS} -lboost_program_options-st"
 AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
                                [boost::program_options::variables_map::variables_map dummy()])],
                [AC_MSG_RESULT([yes])
-	        BOOST_LIBS="${BOOST_LIBS} -lboost_program_options"],
+	        BOOST_LIBS="${BOOST_LIBS} -lboost_program_options-st"],
                [AC_MSG_RESULT([no])
 	        AC_MSG_FAILURE([libboost_program_options (Boost C++ Libraries) is not installed, but is required by schroot])])
 LDFLAGS="${saved_ldflags}"
 
-AC_MSG_CHECKING([for boost::program_options::options_description::options() in -lboost_program_options])
+AC_MSG_CHECKING([for boost::program_options::options_description::options() in -lboost_program_options-st])
 saved_ldflags="${LDFLAGS}"
-LDFLAGS="${LDFLAGS} -lboost_program_options"
+LDFLAGS="${LDFLAGS} -lboost_program_options-st"
 AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
                                [boost::program_options::options_description testgrp("test group");
                                 bool notused = testgrp.options().empty();
@@ -250,13 +250,13 @@ if test "$BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS" = "old"; then
   AC_DEFINE(BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD, 1)
 fi
 
-AC_MSG_CHECKING([for boost::regex in -lboost_regex])
+AC_MSG_CHECKING([for boost::regex in -lboost_regex-st])
 saved_ldflags="${LDFLAGS}"
-LDFLAGS="${LDFLAGS} -lboost_regex"
+LDFLAGS="${LDFLAGS} -lboost_regex-st"
 AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/regex.hpp>],
                                [boost::regex("^foo[bar]$")])],
                [AC_MSG_RESULT([yes])
-	        BOOST_LIBS="${BOOST_LIBS} -lboost_regex"],
+	        BOOST_LIBS="${BOOST_LIBS} -lboost_regex-st"],
                [AC_MSG_RESULT([no])
 	        AC_MSG_FAILURE([libboost_regex (Boost C++ Libraries) is not installed, but is required by schroot])])
 LDFLAGS="${saved_ldflags}"

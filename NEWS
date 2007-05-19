@@ -11,6 +11,10 @@ configuration.
 
   Bugfixes and translation updates only.
 
+* Major changes in 1.1.2:
+
+  Bugfixes and translation updates only.
+
 * Major changes in 1.1.1:
 
   1) For dchroot and dchroot-dsa, the syslog logging of the command or
