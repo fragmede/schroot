@@ -1,3 +1,9 @@
+2007-05-20  Roger Leigh  <rleigh@debian.org>
+
+	* Version 1.1.3.
+
+	* debian/changelog: Finalise for 1.1.3.
+
 2007-05-19  Roger Leigh  <rleigh@debian.org>
 
 	* bin/schroot-base/schroot-base-run.h
