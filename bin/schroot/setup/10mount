@@ -28,13 +28,15 @@ do_mount()
 do_umount_all()
 {
     mounts="$("$LIBEXEC_DIR/schroot-listmounts" -m "$1")"
-    echo "$mounts" |
-    while read mountloc; do
-	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-	    echo "Unmounting $mountloc"
-	fi
-	umount "$mountloc" || exit 1
-    done || exit 1
+    if [ "x$mounts" != 'x' ]; then
+        echo "$mounts" |
+        while read mountloc; do
+	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+                echo "Unmounting $mountloc"
+	    fi
+	    umount "$mountloc" || exit 1
+        done || exit 1
+    fi
 }
 
 if [ "$AUTH_VERBOSITY" = "verbose" ]; then

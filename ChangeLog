@@ -1,3 +1,9 @@
+2007-05-22  Roger Leigh  <rleigh@debian.org>
+
+	* bin/schroot/setup/10mount
+	(do_umount_all): Cope with the case schroot-listmounts returns
+	nothing, so that "" is not unmounted.
+
 2007-05-20  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Bump version to 1.1.4.  Merge changelog
