@@ -1,11 +1,15 @@
 NEWS                                                            -*- outline -*-
 ----
 
-Welcome to schroot 1.1.3.  Please read these release notes carefully.
+Welcome to schroot 1.1.4.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 1.1.4:
+
+  Bugfixes and translation updates only.
 
 * Major changes in 1.1.3:
 
@@ -54,6 +58,45 @@ configuration.
   3) A --directory option has been added to schroot, dchroot and
      dchroot-dsa.  This option allows the user to explictly specify
      the working directory inside the chroot.
+
+* Major changes in 1.0.6:
+
+  Bugfixes only.
+
+* Major changes in 1.0.5:
+
+  Bugfixes only.
+
+* Major changes in 1.0.4:
+
+  1) Using symbolic links in the mount path (SCHROOT_MOUNT_DIR) will
+     no longer result in severe dataloss.
+
+  2) LSB init script functions are now used.
+
+* Major changes in 1.0.3:
+
+  1) For dchroot and dchroot-dsa, the syslog logging of the command or
+     shell being run in the chroot now only occurs when running as
+     root or switching to another user.  If the user is the same
+     inside and outside the chroot, and not root, the command or shell
+     being run will not be logged.
+
+* Major changes in 1.0.2:
+
+  1) The syslog logging of the command or shell being run in the
+     chroot now only occurs when running as root or switching to
+     another user.  If the user is the same inside and outside the
+     chroot, and not root, the command or shell being run will not be
+     logged.
+
+  2) A --directory option has been added to schroot, dchroot and
+     dchroot-dsa.  This option allows the user to explictly specify
+     the working directory inside the chroot.
+
+* Major changes in 1.0.1:
+
+  Bugfixes and translation updates only.
 
 * Major changes in 1.0.0:
 

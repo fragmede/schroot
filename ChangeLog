@@ -1,5 +1,15 @@
 2007-05-20  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Bump version to 1.1.4.  Merge changelog
+	entries from schroot-1.0 branch.
+
+	* NEWS: Bump version to 1.1.4.  Merge NEWS entries from
+	schroot-1.0 branch.
+
+	* configure.ac: Bump version to 1.1.4.
+
+2007-05-20  Roger Leigh  <rleigh@debian.org>
+
 	* Version 1.1.3.
 
 	* debian/changelog: Finalise for 1.1.3.

@@ -38,7 +38,7 @@ dnl
 pushdef([SBUILD_NAME],              [schroot])
 pushdef([SBUILD_MAJOR_VERSION],     [1])
 pushdef([SBUILD_MINOR_VERSION],     [1])
-pushdef([SBUILD_MICRO_VERSION],     [3])
+pushdef([SBUILD_MICRO_VERSION],     [4])
 pushdef([SBUILD_EXTRA_VERSION],     [])
 pushdef([SBUILD_CURRENT_INTERFACE], [1])
 pushdef([SBUILD_INTERFACE_AGE],     [0])
