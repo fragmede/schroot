@@ -1,6 +1,7 @@
 schroot (1.1.4-1) UNRELEASED; urgency=low
 
   * New upstream development release.
+  * debian/control: Change section of libsbuild-doc to "doc".
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 20 May 2007 20:04:37 +0100
 
