@@ -86,7 +86,7 @@ Chdir fallback behaviour:
 
   schroot [--directory used]
     CWD → DIR            Normal behaviour
-    *FAIL*               If CWD nonexistent
+    *FAIL*               If DIR nonexistent
 
     No fallbacks should exist under any circumstances.
 
@@ -98,7 +98,7 @@ Chdir fallback behaviour:
 
   dchroot [--directory used]
     CWD → DIR            Normal behaviour
-    *FAIL*               If CWD nonexistent
+    *FAIL*               If DIR nonexistent
 
     No fallbacks should exist under any circumstances.
 
@@ -109,9 +109,18 @@ Chdir fallback behaviour:
 
   dchroot-dsa [--directory used]
     CWD → DIR            Normal behaviour
-    *FAIL*               If CWD nonexistent
+    *FAIL*               If DIR nonexistent
 
     No fallbacks should exist under any circumstances.
 
   Note that --debug=notice will show the internal fallback list
   computed for the session.
+
+
+Setup script behaviour:
+
+  To check if process termination works:
+  schroot -v -c sid -- sh -c "trap '' INT; trap '' TERM; sleep 2 &"
+
+  To check if process killing works:
+  schroot -v -c sid -- sh -c "trap '' INT; trap '' TERM; sleep 20 &"
