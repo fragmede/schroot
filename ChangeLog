@@ -1,5 +1,10 @@
 2007-05-28  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot/setup/*: Add a copyright notice and GPL boilerplate
+	to all shell scripts.
+
+2007-05-28  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Close #391319.
 
 	* AUTHORS: Add Kees Cook.
