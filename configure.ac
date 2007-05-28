@@ -38,7 +38,7 @@ dnl
 pushdef([SBUILD_NAME],              [schroot])
 pushdef([SBUILD_MAJOR_VERSION],     [1])
 pushdef([SBUILD_MINOR_VERSION],     [1])
-pushdef([SBUILD_MICRO_VERSION],     [4])
+pushdef([SBUILD_MICRO_VERSION],     [5])
 pushdef([SBUILD_EXTRA_VERSION],     [])
 pushdef([SBUILD_CURRENT_INTERFACE], [1])
 pushdef([SBUILD_INTERFACE_AGE],     [0])
@@ -61,6 +61,8 @@ AC_CONFIG_HEADER([sbuild/sbuild-config.h])
 
 AC_COPYRIGHT(
 [
+Copyright © 2004-2007  Roger Leigh <rleigh@debian.org>
+
 Parts of this configure script come from the 'configure.ac' file, and
 are not based on freely-redistributable m4 macros; you can redistribute
 them and/or modify them under the terms of the GNU General Public

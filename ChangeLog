@@ -1,5 +1,15 @@
 2007-05-28  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Bump version to 1.1.5.
+
+	* NEWS: Bump version to 1.1.5.
+
+	* configure.ac: Bump version to 1.1.5.  Update AC_COPYRIGHT.
+
+	* THANKS: Add Lucas Nussbaum.
+
+2007-05-28  Roger Leigh  <rleigh@debian.org>
+
 	* Version 1.1.4.
 
 	* NEWS: Document process killing.
