@@ -9,7 +9,8 @@ configuration.
 
 * Major changes in 1.1.4:
 
-  Bugfixes and translation updates only.
+  1) When ending a session, processes still running in the chroot are
+     terminated.
 
 * Major changes in 1.1.3:
 
