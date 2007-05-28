@@ -4,6 +4,9 @@ principal areas that each contributed to are listed in addition.
 Andreas Bombe		<aeb@debian.org>
 	Documentation improvements.
 
+Kees Cook		<kees@outflux.net>
+	15killprocs script to kill processes.
+
 Federico Di Gregorio	<fog@debian.org>
 	Init script improvements.
 

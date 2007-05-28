@@ -29,6 +29,7 @@ setup_SCRIPTS =		\
 	05lvm		\
 	05file		\
 	10mount		\
+	15killprocs	\
 	20network	\
 	30passwd	\
 	50chrootname	\

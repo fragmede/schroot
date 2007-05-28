@@ -1,3 +1,16 @@
+2007-05-28  Roger Leigh  <rleigh@debian.org>
+
+	* debian/changelog: Close #391319.
+
+	* AUTHORS: Add Kees Cook.
+
+	* bin/schroot/setup/15killprocs: New file.  Kill processes in the
+	chroot before unmounting any filesystems.  Many thanks to Kees
+	Cook for implementing this.
+
+	* bin/schroot/setup/Makefile.am
+	(setup_SCRIPTS): Add 15killprocs
+
 2007-05-22  Roger Leigh  <rleigh@debian.org>
 
 	* bin/schroot/setup/10mount

@@ -1,0 +1,64 @@
+#!/bin/sh
+# Copyright © 2007  Kees Cook <kees@outflux.net>
+# Copyright © 2007  Roger Leigh <rleigh@debian.org>
+#
+# schroot is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# schroot is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+# MA  02111-1307  USA
+
+set -e
+
+# Kill all processes that were run from within the chroot environment
+# $1: mount base location
+do_kill_all()
+{
+    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+        echo "Killing processes run inside $1"
+    fi
+    ls /proc | egrep '^[[:digit:]]+$' |
+    while read pid; do
+        exe=$(readlink /proc/"$pid"/exe || true)
+        root=$(readlink /proc/"$pid"/root || true)
+        if [ "$root" = "$1" ]; then
+            if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+                echo "Killing left-over pid $pid (${exe##$1})"
+                echo "  Sending SIGTERM to pid $pid"
+            fi
+            kill -TERM "$pid" 2>/dev/null
+
+            count=0
+            max=5
+            while [ -d /proc/"$pid" ]; do
+                count=$(( $count + 1 ))
+                if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+                    echo "  Waiting for pid $pid to shut down... ($count/$max)"
+                fi
+                sleep 1
+                # Wait for $max seconds for process to die before -9'ing it
+                if [ "$count" -eq "$max" ]; then
+                    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+                        echo "  Sending SIGKILL to pid $pid"
+                    fi
+                    kill -KILL "$pid" 2>/dev/null
+                    sleep 1
+                    break
+                fi
+            done
+        fi
+    done
+}
+
+if [ $1 = "setup-recover" ] || [ $1 = "setup-stop" ]; then
+    do_kill_all "$CHROOT_MOUNT_LOCATION"
+fi
