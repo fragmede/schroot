@@ -1,5 +1,10 @@
 2007-05-28  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot/setup/15killprocs: Only run readlink on
+	/proc/pid/exe if doing verbose logging.  Thanks to Kees Cook.
+
+2007-05-28  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-run-parts.cc (check_filename): Remove debugging
 	messages added to find a problem with regex match failure.
 
