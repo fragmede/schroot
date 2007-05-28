@@ -253,20 +253,6 @@ run_parts::check_filename (std::string const& name)
       static regex debian_cron_namespace("^[a-z0-9][a-z0-9-]*$");
       static regex debian_dpkg_conffile_cruft("dpkg-(old|dist|new|tmp)$");
 
-      if (regex_match(name, lanana_namespace))
-	  log_debug(DEBUG_INFO) << "run_parts: " << name << " matches LANANA namespace" << std::endl;
-
-      if (regex_match(name, lsb_namespace))
-	  log_debug(DEBUG_INFO) << "run_parts: " << name << " matches LSB namespace" << std::endl;
-
-      if (regex_match(name, debian_cron_namespace))
-	  log_debug(DEBUG_INFO) << "run_parts: " << name << " matches Debian cron namespace" << std::endl;
-
-      if (regex_match(name, debian_dpkg_conffile_cruft))
-	  log_debug(DEBUG_INFO) << "run_parts: " << name << " matches DPKG cruft" << std::endl;
-      else
-	log_debug(DEBUG_INFO) << "run_parts: " << name << " DOES NOT MATCH DPKG cruft ZZZ" << std::endl;
-
       if ((regex_search(name, lanana_namespace) ||
 	   regex_search(name, lsb_namespace) ||
 	   regex_search(name, debian_cron_namespace)) &&
