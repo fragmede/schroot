@@ -2,6 +2,8 @@ schroot (1.1.4-1) UNRELEASED; urgency=low
 
   * New upstream development release.
   * debian/control:
+    - Build-Depend on the latest version of Boost, due to the change of
+      library symlinks.
     - Change section of libsbuild-doc to "doc".
     - Update package descriptions.
       + Add schroot boilerplate description to schroot-common,
