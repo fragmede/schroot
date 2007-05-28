@@ -1,7 +1,15 @@
 schroot (1.1.4-1) UNRELEASED; urgency=low
 
   * New upstream development release.
-  * debian/control: Change section of libsbuild-doc to "doc".
+  * debian/control:
+    - Change section of libsbuild-doc to "doc".
+    - Update package descriptions.
+      + Add schroot boilerplate description to schroot-common,
+        libsbuild-dev and libsbuild-doc (Closes: #425964).  Thanks to
+        Craig Sanders.
+      + Update schroot boilerplate.
+      + Add a list of reasons not to use dchroot and dchroot-dsa instead
+        of schroot.
   * Processes running in the chroot on stopping a session are now killed
     by the 15killprocs setup script (Closes: #391319).  Many thanks to
     Kees Cook for implementing this.
