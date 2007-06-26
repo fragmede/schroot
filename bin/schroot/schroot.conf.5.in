@@ -136,14 +136,23 @@ Plain and directory chroots
 .PP
 Chroots of type \[oq]plain\[cq] or \[oq]directory\[cq] are directories
 accessible in the filesystem.  The two types are equivalent except for the fact
-that if \f[CI]run-setup-scripts\fP is set to \[oq]true\[cq] for \[oq]plain\[cq]
-chroots, filesystem mounting is disabled.  They have an additional (mandatory)
-configuration option:
+that if \f[CI]run\-setup\-scripts\fP is set to \[oq]true\[cq] for
+\[oq]plain\[cq] chroots, filesystem mounting is disabled.
+.PP
+These chroot types have an additional (mandatory) configuration option:
 .TP
 \f[CBI]location=\fP\f[CI]directory\fP
+
 The directory containing the chroot environment.  This is where the root will
 be changed to when executing a login shell or a command.  The directory must
-exist and have read and execute permissions to allow users access to it.
+exist and have read and execute permissions to allow users access to it.  Note
+that on Linux systems it will be bind-mounted elsewhere for use as a chroot;
+the directory for \[oq]plain\[cq] chroots is mounted with the \fI\-\-rbind\fP
+option to
+.BR mount (8),
+while for \[oq]directory\[cq] chroots \fI\-\-bind\fP is used instead so that
+sub-mounts are not preserved.
+
 .SS
 File chroots
 .PP
@@ -169,9 +178,10 @@ They have additional options:
 This is the device name of the block device, including the absolute path.  For
 example, \[lq]/dev/sda5\[rq].
 .TP
-\f[CBI]mount-options=\fP\f[CI]mount_options\fP
-Mount options for the block device.  These are additional options to pass to
-mount(8).  For example, \[lq]\-o atime,sync,user_xattr\[rq].
+\f[CBI]mount-options=\fP\f[CI]mount_options\fP Mount options for the block
+device.  These are additional options to pass to
+.BR mount (8).
+For example, \[lq]\-o atime,sync,user_xattr\[rq].
 .TP
 \f[CBI]location=\fP\f[CI]path\fP
 This is the path to the chroot \fIinside\fP the filesystem on the device.  For

@@ -1,8 +1,13 @@
 schroot (1.1.5-1) UNRELEASED; urgency=low
 
   * New upstream development release.
+  * bin/schroot/setup/10mount: Use --bind rather than --rbind for
+    directory chroots.  This allows filesystem mounting to succeed when
+    sub-mounts are already mounted on top of the original directory
+    (Closes: #428805).  Thanks to Raphaël Hertzog for diagnosing this
+    problem.
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 28 May 2007 22:31:38 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 17 Jun 2007 10:23:04 +0100
 
 schroot (1.1.4-1) unstable; urgency=low
 

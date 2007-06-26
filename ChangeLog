@@ -1,3 +1,15 @@
+2007-06-17  Roger Leigh  <rleigh@debian.org>
+
+	* THANKS: Add Raphaël Hertzog.
+
+	* debian/changelog: Close #428805.
+
+	* bin/schroot/schroot.conf.5.in: Document use of --bind and
+	--rbind for plain and directory chroots.
+
+	* bin/schroot/setup/10mount: Use --bind rather than --rbind for
+	directory chroots.
+
 2007-05-28  Roger Leigh  <rleigh@debian.org>
 
 	* debian/changelog: Bump version to 1.1.5.
