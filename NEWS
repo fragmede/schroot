@@ -9,7 +9,9 @@ configuration.
 
 * Major changes in 1.1.5:
 
-  Bugfixes and translation updates only.
+  1) A "script-config" option has been added to allow customisation of
+     the chroot setup and execution scripts on a per-chroot basis.
+     See schroot.conf(5) for further details.
 
 * Major changes in 1.1.4:
 

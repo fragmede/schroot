@@ -102,6 +102,7 @@ sbuild::chroot::chroot ():
   original(true),
   run_setup_scripts(false),
   run_exec_scripts(false),
+  script_config("script-defaults"),
   command_prefix(),
   persona(
 #ifdef __linux__
@@ -346,6 +347,18 @@ sbuild::chroot::set_run_exec_scripts (bool run_exec_scripts)
   this->run_exec_scripts = run_exec_scripts;
 }
 
+std::string const&
+sbuild::chroot::get_script_config () const
+{
+  return this->script_config;
+}
+
+void
+sbuild::chroot::set_script_config (std::string const& script_config)
+{
+  this->script_config = script_config;
+}
+
 string_list const&
 sbuild::chroot::get_command_prefix () const
 {
@@ -380,6 +393,7 @@ sbuild::chroot::setup_env (environment& env)
   env.add("CHROOT_MOUNT_LOCATION", get_mount_location());
   env.add("CHROOT_PATH", get_path());
   env.add("CHROOT_MOUNT_DEVICE", get_mount_device());
+  env.add("CHROOT_SCRIPT_CONFIG", normalname(std::string(PACKAGE_SYSCONF_DIR) +  '/' + get_script_config()));
 }
 
 void
@@ -463,8 +477,8 @@ sbuild::chroot::get_details (format_detail& detail) const
     .add(_("Aliases"), get_aliases())
     .add(_("Environment Filter"), get_environment_filter())
     .add(_("Run Setup Scripts"), get_run_setup_scripts())
-    .add(_("Run Execution Scripts"),
-	 get_run_exec_scripts())
+    .add(_("Run Execution Scripts"), get_run_exec_scripts())
+    .add(_("Script Configuration"), get_script_config())
     .add(_("Session Managed"),
 	 static_cast<bool>(get_session_flags() & chroot::SESSION_CREATE));
 
@@ -512,6 +526,9 @@ sbuild::chroot::get_keyfile (keyfile& keyfile) const
 
   keyfile::set_object_value(*this, &chroot::get_run_exec_scripts,
 			    keyfile, get_name(), "run-exec-scripts");
+
+  keyfile::set_object_value(*this, &chroot::get_script_config,
+			    keyfile, get_name(), "script-config");
 
   keyfile::set_object_value(*this, &chroot::get_priority,
 			    keyfile, get_name(), "priority");
@@ -570,6 +587,10 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 			    keyfile::PRIORITY_DEPRECATED);
   keyfile::get_object_value(*this, &chroot::set_run_exec_scripts,
 			    keyfile, get_name(), "run-exec-scripts",
+			    keyfile::PRIORITY_OPTIONAL);
+
+  keyfile::get_object_value(*this, &chroot::set_script_config,
+			    keyfile, get_name(), "script-config",
 			    keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_value(*this, &chroot::set_priority,

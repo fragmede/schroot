@@ -409,6 +409,26 @@ namespace sbuild
     set_run_exec_scripts (bool run_exec_scripts);
 
     /**
+     * Get the script configuration file for the chroot.  This is a
+     * filename, either relative to the configured pkgsysconfdir or an
+     * absolute path.
+     *
+     * @returns the configuration file name.
+     */
+    std::string const&
+    get_script_config () const;
+
+    /**
+     * Set the script configuration file for the chroot.  This is a
+     * filename, either relative to the configured pkgsysconfdir or an
+     * absolute path.
+     *
+     * @param script_config the script configuration file.
+     */
+    void
+    set_script_config (std::string const& script_config);
+
+    /**
      * Get the command_prefix for the chroot.  This is a command to
      * prefix to any command run in the chroot.
      *
@@ -642,6 +662,8 @@ namespace sbuild
     bool          run_setup_scripts;
     /// Run chroot exec scripts?
     bool          run_exec_scripts;
+    /// Configuration of the setup and exec scripts.
+    std::string   script_config;
     /// Command prefix.
     string_list   command_prefix;
     /// Process execution domain (Linux only).

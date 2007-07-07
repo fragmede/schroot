@@ -293,7 +293,7 @@ fi
 
 dnl Set PACKAGE_DATA_DIR in config.h.
 AH_TEMPLATE(PACKAGE_DATA_DIR, [Package data directory])
-if test "x${datadir}" = 'x${prefix}/share'; then
+if test "x${datadir}" = 'x${prefix}/share' || test "x${datadir}" = 'x${datarootdir}'; then
   if test "x${prefix}" = "xNONE"; then
     PACKAGE_DATA_DIR="${ac_default_prefix}/share/${PACKAGE}"
   else
@@ -380,6 +380,7 @@ else
   PACKAGE_SYSCONF_DIR="${sysconfdir}"
 fi
 PACKAGE_SYSCONF_DIR="${PACKAGE_SYSCONF_DIR}/schroot"
+AC_DEFINE_UNQUOTED([PACKAGE_SYSCONF_DIR], ["$PACKAGE_SYSCONF_DIR"])
 AC_SUBST([PACKAGE_SYSCONF_DIR])
 
 SCHROOT_CONF="${PACKAGE_SYSCONF_DIR}/schroot.conf"

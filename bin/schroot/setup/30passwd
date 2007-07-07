@@ -16,6 +16,10 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
+  . "$CHROOT_SCRIPT_CONFIG"
+fi
+
 if [ "$AUTH_VERBOSITY" = "verbose" ]; then
   VERBOSE="--verbose"
 fi

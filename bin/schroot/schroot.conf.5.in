@@ -25,8 +25,8 @@ Comments are introduced following a \[oq]\f[CR]\[sh]\fP\[cq] (\[lq]hash\[rq])
 character at the beginning of a line, or following any other text.  All text
 right of the \[oq]\f[CR]\[sh]\fP\[cq] is treated as a comment.
 .PP
-The configuration format is an INI-style format based upon the GLib GKeyFile
-parser (but is a completely separate implementation).
+The configuration format is an INI-style format, split into groups of key-value
+pairs separated by section names in square brackets.
 .SS
 General options
 .PP
@@ -104,6 +104,17 @@ Set whether chroot execution scripts will be run.  The default is the same as
 the default for the \f[CI]run-setup-scripts\fP key.  This option was called
 \f[CI]run\-session\-scripts\fP in versions prior to 0.2.5.
 .TP
+\f[CBI]script\-config=\fP\f[CI]filename\fP
+The behaviour of the chroot setup and execution scripts may be customised on a
+per-chroot basis by providing a shell script which the scripts will source.
+The filename is relative to \fI@PACKAGE_SYSCONF_DIR@\fP.  The default filename
+is \[oq]script\-defaults\[cq].  The recommended method of customisation is to
+copy this script and amend the copy; or alter the original to set the defaults
+for all chroots.  Settings for specific chroots may also be set in a single
+script by using conditionals checking the chroot name and/or type.  Note that
+the setup script will be sourced once for each and every setup and exec script
+invocation, and must be idempotent.
+.TP
 \f[CBI]command\-prefix=\fP\f[CI]command,option1,option2,...\fP
 A comma-separated list of a command and the options for the command.  This
 command and its options will be prefixed to all commands run inside the chroot.
@@ -142,7 +153,6 @@ that if \f[CI]run\-setup\-scripts\fP is set to \[oq]true\[cq] for
 These chroot types have an additional (mandatory) configuration option:
 .TP
 \f[CBI]location=\fP\f[CI]directory\fP
-
 The directory containing the chroot environment.  This is where the root will
 be changed to when executing a login shell or a command.  The directory must
 exist and have read and execute permissions to allow users access to it.  Note
@@ -152,7 +162,6 @@ option to
 .BR mount (8),
 while for \[oq]directory\[cq] chroots \fI\-\-bind\fP is used instead so that
 sub-mounts are not preserved.
-
 .SS
 File chroots
 .PP

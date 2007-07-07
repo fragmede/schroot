@@ -16,6 +16,10 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
+  . "$CHROOT_SCRIPT_CONFIG"
+fi
+
 if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 
     if [ "$AUTH_VERBOSITY" = "verbose" ]; then
@@ -28,6 +32,7 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 	echo "CHROOT_TYPE=$CHROOT_TYPE"
 	echo "CHROOT_NAME=$CHROOT_NAME"
 	echo "CHROOT_DESCRIPTION=$CHROOT_DESCRIPTION"
+	echo "CHROOT_SCRIPT_CONFIG=$CHROOT_SCRIPT_CONFIG"
 	echo "CHROOT_MOUNT_LOCATION=$CHROOT_MOUNT_LOCATION"
 	echo "CHROOT_LOCATION=$CHROOT_LOCATION"
 	echo "CHROOT_PATH=$CHROOT_PATH"
@@ -46,6 +51,7 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 		echo "CHROOT_LVM_SNAPSHOT_OPTIONS=$CHROOT_LVM_SNAPSHOT_OPTIONS"
 	    fi
 	fi
+        echo "SBUILD=$SBUILD"
     fi
 
     case "$CHROOT_TYPE" in

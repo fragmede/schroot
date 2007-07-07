@@ -19,6 +19,10 @@
 
 set -e
 
+if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
+  . "$CHROOT_SCRIPT_CONFIG"
+fi
+
 # Kill all processes that were run from within the chroot environment
 # $1: mount base location
 do_kill_all()

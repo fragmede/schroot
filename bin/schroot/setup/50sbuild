@@ -16,7 +16,11 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-if [ $1 = "setup-start" ]; then
+if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
+  . "$CHROOT_SCRIPT_CONFIG"
+fi
+
+if [ $1 = "setup-start" ] && [ "$SBUILD" = "true" ]; then
 
     # If the session user is a member of the sbuild group, make sure
     # that the chroot environment has the sbuild build directory
