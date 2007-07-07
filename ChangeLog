@@ -1,3 +1,38 @@
+2007-07-07  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+
+	* NEWS: Document "script-config".
+
+	* bin/schroot/setup/05file, bin/schroot/setup/05lvm,
+	bin/schroot/setup/10mount, bin/schroot/setup/15killprocs,
+	bin/schroot/setup/20network, bin/schroot/setup/30passwd,
+	bin/schroot/setup/50chrootname, bin/schroot/setup/50sbuild: Source
+	$CHROOT_SCRIPT_CONFIG.  50sbuild only runs if SBUILD=true.
+
+	* bin/schroot/setup/00check, bin/schroot/exec/00check: Source
+	$CHROOT_SCRIPT_CONFIG.  Print config file name and settings if
+	verbose.
+
+	* bin/schroot/schroot.conf.5.in: Document "script-config".
+
+	* bin/schroot/Makefile.am
+	(pkgsysconf_DATA): Add script-defaults.
+
+	* bin/schroot/script-defaults: New file.  Default script
+	configuration.
+
+	* sbuild/sbuild-chroot.cc
+	(chroot): Set script_config default to "script-defaults".
+	(get|set_script_config): New methods to get and set script_config.
+	(setup_env): Set CHROOT_SCRIPT_CONFIG.
+	(get_details): Output "Script Configuration".
+	(get_keyfile): Set "script-config".
+	(set_keyfile): Get "script-config".
+
+	* sbuild/sbuild-chroot.h: Add script_config member.
+
+	* configure.ac: Fix the definition of PACKAGE_DATA_DIR.  Define
+	PACKAGE_SYSCONF_DIR.
+
 2007-06-17  Roger Leigh  <rleigh@debian.org>
 
 	* THANKS: Add Raphaël Hertzog.
