@@ -1,5 +1,10 @@
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot/schroot.1.in: Add --force and --session-name options
+	to the synopsis.
+
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Close #401158.
 
 	* bin/schroot/schroot.1.in: Reorder options and group into

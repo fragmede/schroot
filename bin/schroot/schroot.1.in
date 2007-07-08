@@ -26,6 +26,8 @@ schroot \[em] securely enter a chroot environment
 .RB " \[or] " \-\-automatic\-session
 .RB " \[or] " \-b \[or] \-\-begin\-session " \[or] " \-\-recover\-session
 .RB " \[or] " \-r \[or] \-\-run\-session " \[or] " \-e \[or] \-\-end\-session ]
+.RB [ \-f \[or] "\-\-force" ]
+.RB [ "\-n \fIsession-name\fP" \[or] "\-\-session\-name=\fIsession-name\fP" ]
 .RB [ "\-d \fIdirectory\fP" \[or] "\-\-directory=\fIdirectory\fP" ]
 .RB [ "\-u \fIuser\fP" \[or] "\-\-user=\fIuser\fP" ]
 .RB [ \-p \[or] \-\-preserve\-environment ]
