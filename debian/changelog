@@ -6,8 +6,13 @@ schroot (1.1.5-1) UNRELEASED; urgency=low
     sub-mounts are already mounted on top of the original directory
     (Closes: #428805).  Thanks to Raphaël Hertzog for diagnosing this
     problem.
+  * Calling "schroot -e -a" with no open sessions no longer outputs an
+    error (Closes: #398679).  Thanks to Benjamin Seidenberg.
+  * A new --session-name option allows users to name their sessions,
+    rather than using the built-in UUID generation (Closes: #401159).
+    Thanks to Lucas Nussbaum.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 17 Jun 2007 10:23:04 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 08 Jul 2007 12:55:04 +0100
 
 schroot (1.1.4-1) unstable; urgency=low
 

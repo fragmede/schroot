@@ -1,5 +1,9 @@
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Close #398679 and #401159.
+
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* bin/dchroot/dchroot-session-base.cc,
 	bin/dchroot/dchroot-session.cc: Don't include unused uuid.h.
 
