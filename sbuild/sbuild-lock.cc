@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include "sbuild-lock.h"
+#include "sbuild-log.h"
 
 #include <cerrno>
 #include <cstdlib>
@@ -48,8 +49,11 @@ namespace
       emap(lock::TIMEOUT_SET,            N_("Failed to set timeout")),
       emap(lock::TIMEOUT_CANCEL,         N_("Failed to cancel timeout")),
       emap(lock::LOCK,                   N_("Failed to lock file")),
+      emap(lock::UNLOCK,                 N_("Failed to unlock file")),
       // TRANSLATORS: %4% = time in seconds
       emap(lock::LOCK_TIMEOUT,           N_("Failed to lock file (timed out after %4% seconds)")),
+      // TRANSLATORS: %4% = time in seconds
+      emap(lock::UNLOCK_TIMEOUT,         N_("Failed to unlock file (timed out after %4% seconds)")),
       emap(lock::DEVICE_LOCK,            N_("Failed to lock device")),
       // TRANSLATORS: %4% = time in seconds
       // TRANSLATORS: %5% = integer process ID
@@ -58,7 +62,7 @@ namespace
       emap(lock::DEVICE_UNLOCK,         N_("Failed to unlock device")),
       // TRANSLATORS: %4% = time in seconds
       // TRANSLATORS: %5% = integer process ID
-      emap(lock::DEVICE_UNLOCK, N_("Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"))
+      emap(lock::DEVICE_UNLOCK_TIMEOUT, N_("Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"))
     };
 
 }
@@ -71,7 +75,7 @@ error<lock::error_code>::error_strings
 
 namespace
 {
-
+  /// Set to true when a SIGALRM is received.
   volatile bool lock_timeout = false;
 
   /**
@@ -84,7 +88,7 @@ namespace
   {
     /* This exists so that system calls get interrupted. */
     /* lock_timeout is used for polling for a timeout, rather than
-       interruption. */
+       interruption, used by the device_lock code. */
     lock_timeout = true;
   }
 }
@@ -147,12 +151,30 @@ lock::unset_timer ()
 
 file_lock::file_lock (int fd):
   lock(),
-  fd(fd)
+  fd(fd),
+  locked(false)
 {
 }
 
 file_lock::~file_lock ()
 {
+  // Release a lock if held.  Note that the code is duplicated from
+  // set_lock because we don't want to throw an exception in a
+  // destructor under any circumstances.  Any error is logged.
+  if (locked)
+    {
+      struct flock read_lock =
+	{
+	  LOCK_NONE,
+	  SEEK_SET,
+	  0,
+	  0, // Lock entire file
+	  0
+	};
+
+      if (fcntl(this->fd, F_SETLK, &read_lock) == -1)
+	log_exception_warning(error(UNLOCK, strerror(errno)));
+    }
 }
 
 void
@@ -187,10 +209,21 @@ file_lock::set_lock (lock::type   lock_type,
 		&read_lock) == -1)
 	{
 	  if (errno == EINTR)
-	    throw error(LOCK_TIMEOUT, timeout);
+	    throw error((lock_type == LOCK_SHARED ||
+			 lock_type == LOCK_EXCLUSIVE)
+			? LOCK_TIMEOUT : UNLOCK_TIMEOUT,
+			timeout);
 	  else
-	    throw error(LOCK, strerror(errno));
+	    throw error((lock_type == LOCK_SHARED ||
+			 lock_type == LOCK_EXCLUSIVE) ? LOCK : UNLOCK,
+			strerror(errno));
 	}
+
+      if (lock_type == LOCK_SHARED || lock_type == LOCK_EXCLUSIVE)
+	this->locked = true;
+      else
+	this->locked = false;
+
       unset_timer();
     }
   catch (error const& e)
@@ -208,12 +241,20 @@ file_lock::unset_lock ()
 
 device_lock::device_lock (std::string const& device):
   lock(),
-  device(device)
+  device(device),
+  locked(false)
 {
 }
 
 device_lock::~device_lock ()
 {
+  if (locked)
+    {
+      pid_t status = 0;
+      status = dev_unlock(this->device.c_str(), getpid());
+      if (status < 0) // Failure
+	log_exception_warning(error(DEVICE_UNLOCK));
+    }
 }
 
 void
@@ -243,7 +284,10 @@ device_lock::set_lock (lock::type   lock_type,
 	    {
 	      status = dev_lock(this->device.c_str());
 	      if (status == 0) // Success
-		break;
+		{
+		  this->locked = true;
+		  break;
+		}
 	      else if (status < 0) // Failure
 		{
 		  throw error(DEVICE_LOCK);
@@ -264,7 +308,10 @@ device_lock::set_lock (lock::type   lock_type,
 		}
 	      status = dev_unlock(this->device.c_str(), getpid());
 	      if (status == 0) // Success
-		break;
+		{
+		  this->locked = false;
+		  break;
+		}
 	      else if (status < 0) // Failure
 		{
 		  throw error(DEVICE_UNLOCK);
@@ -278,6 +325,7 @@ device_lock::set_lock (lock::type   lock_type,
 		       ? DEVICE_LOCK_TIMEOUT : DEVICE_UNLOCK_TIMEOUT),
 		      timeout, status);
 	}
+
       unset_timer();
     }
   catch (error const& e)

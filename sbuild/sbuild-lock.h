@@ -52,8 +52,10 @@ namespace sbuild
 	TIMEOUT_HANDLER,      ///< Failed to set timeout handler.
 	TIMEOUT_SET,          ///< Failed to set timeout.
 	TIMEOUT_CANCEL,       ///< Failed to cancel timeout.
-	LOCK,                 ///< Failed to lock file (timed out).
-	LOCK_TIMEOUT,         ///< Failed to lock file.
+	LOCK,                 ///< Failed to lock file.
+	UNLOCK,               ///< Failed to unlock file.
+	LOCK_TIMEOUT,         ///< Failed to lock file (timed out).
+	UNLOCK_TIMEOUT,       ///< Failed to unlock file (timed out).
 	DEVICE_LOCK,          ///< Failed to lock device.
 	DEVICE_LOCK_TIMEOUT,  ///< Failed to lock device (timed out).
 	DEVICE_TEST,          ///< Failed to test device lock.
@@ -155,6 +157,8 @@ namespace sbuild
   private:
     /// The file descriptor to lock.
     int fd;
+    /// Is the file locked?
+    bool locked;
   };
 
   /**
@@ -186,6 +190,8 @@ namespace sbuild
   private:
     /// The device to lock.
     std::string device;
+    /// Is the file locked?
+    bool locked;
   };
 
 }

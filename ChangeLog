@@ -1,5 +1,22 @@
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-lock.cc: Add error messages for UNLOCK and
+	UNLOCK_TIMEOUT error codes.  Rename second DEVICE_UNLOCK error
+	message to DEVICE_UNLOCK_TIMEOUT.  The lock types are now
+	exception-safe.
+	(~file_lock): If the file is locked, release the lock.  Log a
+	warning on error.
+	(file_lock::set_lock): Set the locked member.  On unlock error,
+	throw UNLOCK or UNLOCK_TIMEOUT.
+	(~device_lock): If the device is locked, release the lock.  Log a
+	warning on error.
+	(device_lock::set_lock): Set the locked member.
+
+	* sbuild/sbuild-lock.h: Add UNLOCK and UNLOCK_TIMEOUT error codes.
+	Add locked members to file_lock and device_lock.
+
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-types.cc
 	(isodate::get_date_format): New method to format an ISO-8601 date.
 
