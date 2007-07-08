@@ -11,6 +11,17 @@ PLANNED
 
 * Add API to run multiple commands to replace auth::run().
 
+* Add permissions checking
+
+Both to run-parts, to ensure that shell scripts are owned by root and
+not world writable (as for config files).  And also add the same
+permissions check to script-config files.
+
+* Generalise permissions checking
+
+Create a standard function which can use either stat, fstat or lstat
+and test for particular permissions.
+
 
 POTENTIAL
 ---------

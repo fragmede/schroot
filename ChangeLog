@@ -1,5 +1,9 @@
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Add permissions check items.
+
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-session.cc: Initialise lock_status to true.
 	(setup_chroot): Add debugging code to log state on call.  If
 	lock_status is false, return without doing anything.  If initial
