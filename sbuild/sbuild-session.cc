@@ -245,6 +245,7 @@ session::session (std::string const&         service,
   config(config),
   chroots(chroots),
   chroot_status(true),
+  lock_status(true),
   child_status(0),
   session_operation(operation),
   session_id(),
@@ -901,6 +902,10 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 {
   assert(!session_chroot->get_name().empty());
 
+  log_debug(DEBUG_INFO) << format("setup_chroot: chroot=%1%, setup_type=%2%, chroot_status=%3%, lock_status=%4%")
+    % session_chroot->get_name() % setup_type % chroot_status % lock_status
+			<< std::endl;
+
   if (!((this->session_operation == OPERATION_BEGIN &&
 	 setup_type == chroot::SETUP_START) ||
 	(this->session_operation == OPERATION_RECOVER &&
@@ -915,6 +920,10 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 	  setup_type == chroot::SETUP_STOP  ||
 	  setup_type == chroot::EXEC_START   ||
 	  setup_type == chroot::EXEC_STOP))))
+    return;
+
+  // Don't clean up chroot on a lock failure--it's actually in use.
+  if (this->lock_status == false)
     return;
 
   if (((setup_type == chroot::SETUP_START   ||
@@ -936,6 +945,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   catch (chroot::error const& e)
     {
       this->chroot_status = false;
+      this->lock_status = false;
       try
 	{
 	  // Release lock, which also removes session metadata.
@@ -1065,6 +1075,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   catch (chroot::error const& e)
     {
       this->chroot_status = false;
+      this->lock_status = false;
       throw error(session_chroot->get_name(), CHROOT_UNLOCK, e);
     }
 

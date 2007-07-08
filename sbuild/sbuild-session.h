@@ -427,6 +427,8 @@ namespace sbuild
     string_list      chroots;
     /// The current chroot status.
     int              chroot_status;
+    /// Lock status for locks acquired during chroot setup.
+    bool lock_status;
     /// The child exit status.
     int              child_status;
     /// The session operation to perform.

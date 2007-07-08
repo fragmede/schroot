@@ -1,5 +1,15 @@
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-session.cc: Initialise lock_status to true.
+	(setup_chroot): Add debugging code to log state on call.  If
+	lock_status is false, return without doing anything.  If initial
+	lock acquistion or release fails, set lock_status to false.  This
+	ensures that no setup script will run on or after lock failure.
+
+	* sbuild/sbuild-session.h: Add lock_status member.
+
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot/schroot-main-base.cc (run_impl): When no chroots
 	were found and one of the --all options was used, do not treat as
 	a fatal error.
