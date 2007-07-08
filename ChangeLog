@@ -1,5 +1,12 @@
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* debian/control: Use ${binary:Version}.
+
+	* debian/schroot.preinst: In prep_mv_conffile(), use dpkg-query in
+	place of reading /var/lib/dpkg/status directly.
+
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot/schroot.1.in: Add carriage returns on user input
 	lines.
 

@@ -1,6 +1,9 @@
 schroot (1.1.5-1) UNRELEASED; urgency=low
 
   * New upstream development release.
+  * debian/control: Use ${binary:Version}.
+  * debian/schroot.preinst: In prep_mv_conffile(), use dpkg-query in
+    place of reading /var/lib/dpkg/status directly.
   * bin/schroot/setup/10mount: Use --bind rather than --rbind for
     directory chroots.  This allows filesystem mounting to succeed when
     sub-mounts are already mounted on top of the original directory

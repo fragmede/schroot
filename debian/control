@@ -95,7 +95,7 @@ Description: Execute commands in a chroot environment
 Package: dchroot
 Architecture: any
 Suggests: debootstrap
-Depends: schroot (= ${Source-Version}), ${shlibs:Depends}, schroot-common (=${source:Version})
+Depends: schroot (= ${binary:Version}), ${shlibs:Depends}, schroot-common (=${source:Version})
 Description: Execute commands in a chroot environment
  dchroot allows users to execute commands or interactive shells in
  different chroots.  A typical installation might provide 'stable',
@@ -118,7 +118,7 @@ Description: Execute commands in a chroot environment
 Package: dchroot-dsa
 Architecture: any
 Suggests: debootstrap
-Depends: schroot (= ${Source-Version}), ${shlibs:Depends}, schroot-common (=${source:Version})
+Depends: schroot (= ${binary:Version}), ${shlibs:Depends}, schroot-common (=${source:Version})
 Description: Execute commands in a chroot environment
  dchroot allows users to execute commands or interactive shells in
  different chroots.  A typical installation might provide 'stable',
