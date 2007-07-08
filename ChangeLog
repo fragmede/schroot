@@ -1,4 +1,13 @@
-2007-07-07  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
+	* sbuild/sbuild-types.cc
+	(isodate::get_date_format): New method to format an ISO-8601 date.
+
+	* sbuild/sbuild-types.h: All destructors are virtual.
+	get_date_format is a virtual function overridable in derived
+	classes.  Added a new isodate class to format ISO-8601 dates.
+
+2007-07-07  Roger Leigh  <rleigh@debian.org>
 
 	* NEWS: Document "script-config".
 

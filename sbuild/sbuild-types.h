@@ -55,7 +55,7 @@ namespace sbuild
     {}
 
     /// The destructor.
-    ~date_base ()
+    virtual ~date_base ()
     {}
 
     /**
@@ -86,7 +86,7 @@ namespace sbuild
 	      if (sentry)
 		{
 		  const std::basic_string<char>
-		    nfmt(date_base::get_date_format());
+		    nfmt(dt.get_date_format());
 		  std::basic_string<charT> wfmt(nfmt.size(), 0);
 		  assert(nfmt.size() == wfmt.size());
 		  const char *nptr = nfmt.c_str();
@@ -137,8 +137,8 @@ namespace sbuild
      *
      * @returns a localised format string.
      */
-    static const char *
-    get_date_format ();
+    virtual const char *
+    get_date_format () const;
 
     /// The time.
     time_t          unix_time;
@@ -162,7 +162,7 @@ namespace sbuild
     {}
 
     /// The destructor.
-    ~gmdate ()
+    virtual ~gmdate ()
     {}
   };
 
@@ -177,13 +177,37 @@ namespace sbuild
      *
      * @param unix_time the time in the local timezone.
      */
-    date (time_t          unix_time):
+    date (time_t           unix_time):
       date_base(unix_time, localtime_r)
     {}
 
     /// The destructor.
-    ~date ()
+    virtual ~date ()
     {}
+  };
+
+  /**
+   * A date representation in ISO-8601 format.
+   */
+  class isodate : public date_base
+  {
+  public:
+    /**
+     * The constructor.
+     *
+     * @param unix_time the time in UTC.
+     */
+    isodate (time_t        unix_time):
+      date_base(unix_time, gmtime_r)
+    {}
+
+    /// The destructor.
+    virtual ~isodate ()
+    {}
+
+  private:
+    virtual const char *
+    get_date_format () const;
   };
 
 }

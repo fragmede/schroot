@@ -25,7 +25,7 @@
 using namespace sbuild;
 
 const char *
-sbuild::date_base::get_date_format ()
+sbuild::date_base::get_date_format () const
 {
   // TRANSLATORS: Format string for date representation:
   // %d = day (number, e.g. 14)
@@ -36,4 +36,10 @@ sbuild::date_base::get_date_format ()
   // the day, month and year are clearly displayed in
   // the equivalent standard method for your locale.
   return _("%d %b %Y");
+}
+
+const char *
+sbuild::isodate::get_date_format () const
+{
+  return "%Y-%m-%dT%H:%M:%SZ";
 }
