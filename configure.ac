@@ -178,8 +178,14 @@ AC_PATH_PROG([FIND], [find])
 AC_PATH_PROG([XARGS], [xargs])
 AC_PATH_PROG([DOXYGEN], [doxygen])
 AM_CONDITIONAL([USE_DOXYGEN], [test -n "$DOXYGEN"])
+
 # Checks for libraries.
-PKG_CHECK_MODULES([UUID], [uuid])
+AH_TEMPLATE(HAVE_UUID, [Is libuuid available])
+PKG_CHECK_MODULES([UUID], [uuid],
+                  [AC_DEFINE(HAVE_UUID)
+		   HAVE_UUID=true],
+                  [HAVE_UUID=false])
+
 AM_PATH_CPPUNIT([1.10.0], [HAVE_CPPUNIT=true])
 AM_CONDITIONAL([USE_UNIT_TESTS], [test -n "$HAVE_CPPUNIT"])
 

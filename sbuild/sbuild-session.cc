@@ -43,7 +43,11 @@
 
 #include <boost/format.hpp>
 
+#ifdef HAVE_UUID
 #include <uuid/uuid.h>
+#else
+#include <time.h>
+#endif
 
 using std::cout;
 using std::endl;
@@ -99,6 +103,9 @@ namespace
       emap(session::GROUP_UNKNOWN,  N_("Group '%1%' not found")),
       emap(session::PAM,            N_("PAM error")),
       emap(session::ROOT_DROP,      N_("Failed to drop root permissions")),
+      // TRANSLATORS: %1% = chroot name
+      // TRANSLATORS: %4% = session identifier
+      emap(session::SET_SESSION_ID, N_("%1%: Chroot does not support setting a session ID; ignoring session ID '%4%'")),
       // TRANSLATORS: %1% = command
       emap(session::SHELL,          N_("Shell '%1%' not available")),
       // TRANSLATORS: %4% = command
@@ -511,17 +518,37 @@ session::run_impl ()
 	  if (chroot->get_active() ||
 	      !(chroot->get_session_flags() & chroot::SESSION_CREATE))
 	    {
+	      if (!get_session_id().empty())
+		{
+		  session::error e(chroot->get_name(),
+				   session::SET_SESSION_ID,
+				   get_session_id());
+		  log_exception_warning(e);
+		}
+
 	      set_session_id(chroot->get_name());
 	    }
 	  else
 	    {
-	      uuid_t uuid;
-	      char uuid_str[37];
-	      uuid_generate(uuid);
-	      uuid_unparse(uuid, uuid_str);
-	      uuid_clear(uuid);
-	      std::string session_id(chroot->get_name() + "-" + uuid_str);
-	      set_session_id(session_id);
+	      if (get_session_id().empty())
+		{
+#ifdef HAVE_UUID
+		  uuid_t uuid;
+		  char uuid_str[37];
+		  uuid_generate(uuid);
+		  uuid_unparse(uuid, uuid_str);
+		  uuid_clear(uuid);
+		  std::string session_id(chroot->get_name() + '-' + uuid_str);
+		  set_session_id(session_id);
+#else
+		  std::ostringstream session_id;
+		  session_id.imbue(std::locale::classic());
+		  session_id << chroot->get_name()
+			     << '-' << isodate(time(0))
+			     << '-' << getpid();
+		  set_session_id(session_id.str());
+#endif
+		}
 	    }
 
 	  log_debug(DEBUG_INFO)

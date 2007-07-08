@@ -83,6 +83,7 @@ namespace sbuild
 	GROUP_UNKNOWN,  ///< Group not found.
 	PAM,            ///< PAM error.
 	ROOT_DROP,      ///< Failed to drop root permissions.
+        SET_SESSION_ID, ///< Chroot does not support setting a session ID.
 	SHELL,          ///< Shell not available.
 	SHELL_FB,       ///< Falling back to shell.
 	SIGNAL_CATCH,   ///< Caught signal.
