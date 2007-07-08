@@ -1,5 +1,10 @@
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* bin/dchroot/dchroot-session-base.cc,
+	bin/dchroot/dchroot-session.cc: Don't include unused uuid.h.
+
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* test/sbuild-chroot-block-device.cc, test/sbuild-chroot.cc,
 	test/sbuild-chroot-file.cc, test/sbuild-chroot-lvm-snapshot.cc,
 	test/sbuild-chroot-plain.cc: Add CHROOT_SCRIPT_CONFIG to
