@@ -11,6 +11,8 @@ schroot (1.1.5-1) UNRELEASED; urgency=low
   * A new --session-name option allows users to name their sessions,
     rather than using the built-in UUID generation (Closes: #401159).
     Thanks to Lucas Nussbaum.
+  * The schroot(1) manual page now has examples for using sessions
+    (Closes: #401158).
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 08 Jul 2007 12:55:04 +0100
 

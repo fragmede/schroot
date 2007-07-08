@@ -139,9 +139,9 @@ environment variables which may pose a security risk.  Any environment variable
 matching the specified POSIX extended regular expression will be removed prior
 to executing any command in the chroot.
 .IP
-Potentially dangerous, environment variables are removed for safety by default
+Potentially dangerous environment variables are removed for safety by default
 using the following regular expression:
-\[lq]^(BASH_ENV|CDPATH|ENV|HOSTALIASES|IFS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMAIN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TERMPATH)$\[rq].
+\[lq]\f[CR]^(BASH_ENV\:|CDPATH\:|ENV\:|HOSTALIASES\:|IFS\:|KRB5_CONFIG\:|KRBCONFDIR\:|KRBTKFILE\:|KRB_CONF\:|LD_.*\:|LOCALDOMAIN\:|NLSPATH\:|PATH_LOCALE\:|RES_OPTIONS\:|TERMINFO\:|TERMINFO_DIRS\:|TERMPATH)$\fP\[rq].
 .SS
 Plain and directory chroots
 .PP

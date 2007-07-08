@@ -1,5 +1,16 @@
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* debian/changelog: Close #401158.
+
+	* bin/schroot/schroot.1.in: Reorder options and group into
+	subsections.  Split the examples section into subsections and add
+	a "Sessions" subsection to explain how to use sessions.
+
+	* bin/schroot/schroot.conf.5.in: Add \: breakpoints for a long
+	regex.
+
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* debian/changelog: Close #398679 and #401159.
 
 2007-07-08  Roger Leigh  <rleigh@debian.org>

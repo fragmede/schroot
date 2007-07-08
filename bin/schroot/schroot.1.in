@@ -54,10 +54,42 @@ If no chroot is specified, the chroot name or alias \[oq]default\[cq] will be
 used as a fallback.  This is equivalent to \[lq]\-\-chroot=default\[rq].
 .SH OPTIONS
 \fBschroot\fP accepts the following options:
-.SS Basic options
+.SS Actions
 .TP
 .BR \-h ", " \-\-help
 Show help summary.
+.TP
+.BR \-V ", " \-\-version
+Print version information.
+.TP
+.BR \-l ", " \-\-list
+List all available chroots.
+.TP
+.BR \-i ", " \-\-info
+Print detailed information about the specified chroots.
+.TP
+.BR \-\-config
+Print configuration of the specified chroots.  This is useful for testing that
+the configuration in use is the same as the configuration file.  Any comments
+in the original file will be missing.
+.TP
+.BR \-\-location
+Print location (path) of the specified chroots.  Note that chroot types which
+can only be used within a session will not have a location until they are
+active.
+.SS General options
+.TP
+.BR \-q ", " \-\-quiet
+Print only essential messages.
+.TP
+.BR \-v ", " \-\-verbose
+Print all messages.
+.SS Chroot selection
+.TP
+.BR \-c ", " \-\-chroot=\fIchroot\fP
+Specify a chroot or active session to use.  This option may be used multiple
+times to specify more than one chroot, in which case its effect is similar to
+\fI\-\-all\fP.
 .TP
 .BR \-a ", " \-\-all
 Select all chroots and active sessions.  When a command has been specified, the
@@ -73,31 +105,7 @@ are not considered.
 .BR \-\-all\-sessions
 Select all active sessions.  Identical to \fI\-\-all\fP, except that chroots
 are not considered.
-.TP
-.BR \-c ", " \-\-chroot=\fIchroot\fP
-Specify a chroot or active session to use.  This option may be used multiple
-times to specify more than one chroot, in which case its effect is similar to
-\fI\-\-all\fP.
-.TP
-.BR \-u ", " \-\-user=\fIuser\fP
-Run as a different user.  The default is to run as the current user.  If
-required, the user may be required to authenticate themselves with a password.
-.TP
-.BR \-l ", " \-\-list
-List all available chroots.
-.TP
-.BR \-i ", " \-\-info
-Print detailed information about the specified chroots.
-.TP
-.BR \-\-location
-Print location (path) of the specified chroots.  Note that chroot types which
-can only be used within a session will not have a location until they are
-active.
-.TP
-.BR \-\-config
-Print configuration of the specified chroots.  This is useful for testing that
-the configuration in use is the same as the configuration file.  Any comments
-in the original file will be missing.
+.SS Chroot environment
 .TP
 .BR \-d ", " \-\-directory=\fIdirectory\fP
 Change to \fIdirectory\fP inside the chroot before running the command or login
@@ -111,29 +119,26 @@ used), then the user's home directory, and \fI/\fP inside the chroot in turn.
 A command is always run in the current working directory inside the chroot.  If
 none of the directories are available, schroot will exit with an error status.
 .TP
+.BR \-u ", " \-\-user=\fIuser\fP
+Run as a different user.  The default is to run as the current user.  If
+required, the user may be required to authenticate themselves with a password.
+.TP
 .BR \-p ", " \-\-preserve\-environment
 Preserve the user's environment inside the chroot environment.  The default is
 to use a clean environment; this option copies the entire user environment and
 sets it in the session.  The environment variables allowed are subject to
 certain restrictions; see the section \[lq]\fIEnvironment\fP\[rq], below.
-.TP
-.BR \-q ", " \-\-quiet
-Print only essential messages.
-.TP
-.BR \-v ", " \-\-verbose
-Print all messages.
-.TP
-.BR \-V ", " \-\-version
-Print version information.
-.SS Session options
+.SS Session actions
 .TP
 .BR \-\-automatic\-session
-Begin, run and end a session automatically.  This is the default session
-option, so does not require specifying in normal operation.
+Begin, run and end a session automatically.  This is the default action, so
+does not require specifying in normal operation.
 .TP
 .BR \-b ", " \-\-begin\-session
 Begin a session.  A unique session identifier (session ID) is returned on
 standard output.  The session ID is required to use the other session options.
+Note that the session identifier may be specified with the
+\fI\-\-session\-name\fP option.
 .TP
 .BR \-\-recover\-session
 Recover an existing session.  If an existing session has become unavailable,
@@ -145,6 +150,11 @@ Run an existing session.  The session ID is specified with the \fI\-\-chroot\fP 
 .TP
 .BR \-e ", " \-\-end\-session
 End an existing session.  The session ID is specified with the \fI\-\-chroot\fP option.
+.SS Session options
+.TP
+.BR \-n ", " \-\-session\-name=\fIsession-name\fP
+Name a session.  The specified \fIsession-name\fP replaces the default session
+name containing an automatically-generated session ID.
 .TP
 .BR \-f ", " \-\-force
 Force a session operation, even if it would otherwise fail.  This may be used
@@ -152,6 +162,7 @@ to forcibly end a session, even if it has active users.  This does not
 guarantee that the session will be ended cleanly; filesystems may not be
 unmounted, for example.
 .SH EXAMPLES
+.SS List available chroots
 \f[CR]$ \f[CB]schroot \-l\fP\fP
 .br
 \f[CR]default\fP
@@ -163,28 +174,54 @@ unmounted, for example.
 \f[CR]testing\fP
 .br
 \f[CR]unstable\fP
+.SS Get information about a chroot
+\f[CR]$\ \f[CB]schroot\ \-i\ \-c\ sid\fP\fP
 .br
-\f[CR]\fP
-.PP
-\f[CR]$ \f[CB]schroot \-i \-c sid\fP\fP
+\f[CR]\ \ \[em]\[em]\[em]\ Chroot\ \[em]\[em]\[em]\fP
 .br
-\f[CR]Name: sid\fP
+\f[CR]\ \ Name\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sid\fP
 .br
-\f[CR]Description: Debian unstable\fP
+\f[CR]\ \ Description\ \ \ \ \ \ \ \ \ \ \ \ Debian sid (unstable)\fP
 .br
-\f[CR]Location: /srv/chroot/sid\fP
+\f[CR]\ \ Type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ plain\fP
 .br
-\f[CR]Priority: 3\fP
+\f[CR]\ \ Priority\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3\fP
 .br
-\f[CR]Groups: sbuild\fP
+\f[CR]\ \ Users\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rleigh\fP
 .br
-\f[CR]Root Groups: root\fP
+\f[CR]\ \ Groups\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sbuild\fP
 .br
-\f[CR]Aliases: unstable default\fP
+\f[CR]\ \ Root\ Users\fP
+.br
+\f[CR]\ \ Root\ Groups\ \ \ \ \ \ \ \ \ \ \ \ sbuild\fP
+.br
+\f[CR]\ \ Aliases\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unstable\ unstable\-sbuild\ unstable\-p\fP
+.br
+\f[CR]owerpc\-sbuild\fP
+.br
+\f[CR]\ \ Environment\ Filter\ \ \ \ \ \^(BASH_ENV|CDPATH|ENV|HOSTALIASES|IF\fP
+.br
+\f[CR]S|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMAI\fP
+.br
+\f[CR]N|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TER\fP
+.br
+\f[CR]MPATH)$\fP
+.br
+\f[CR]\ \ Run\ Setup\ Scripts\ \ \ \ \ \ true\fP
+.br
+\f[CR]\ \ Run\ Execution\ Scripts\ \ false\fP
+.br
+\f[CR]\ \ Script\ Configuration\ \ \ script\-defaults\fP
+.br
+\f[CR]\ \ Session\ Managed\ \ \ \ \ \ \ \ true\fP
+.br
+\f[CR]\ \ Personality\ \ \ \ \ \ \ \ \ \ \ \ linux32\fP
+.br
+\f[CR]\ \ Location\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /srv/chroot/sid\fP
 .LP
 Use \fI\-\-all\fP or \fI\-c\fP multiple times to use all or multiple chroots,
 respectively.
-.PP
+.SS Running commands in a chroot
 \f[CR]$ \f[CB]schroot \-c sid /bin/ls\fP\fP
 .br
 \f[CR][sid chroot] Running command: \[lq]/bin/ls\[rq]\fP
@@ -203,7 +240,7 @@ respectively.
 .br
 \f[CR][sid chroot] Running command: \[lq]ls \-1\[rq]\fP
 .br
-\f[CR]ABOUT-NLS\fP
+\f[CR]ABOUT\-NLS\fP
 .br
 \f[CR]AUTHORS\fP
 .br
@@ -220,7 +257,7 @@ error, and the remaining lines to standard output.  This is intentional, so
 that program output from commands run in the chroot may be piped and redirected
 as required; the data will be the same as if the command was run directly on
 the host system.
-.PP
+.SS Switching users
 \f[CR]$ \f[CB]schroot \-c sid \-u root\fP\fP
 .br
 \f[CR]Password:\fP
@@ -233,6 +270,189 @@ If the user \[oq]rleigh\[cq] was in \f[CI]root\-users\fP in
 \fI@SCHROOT_CONF@\fP, or one of the groups he belonged to was in
 \f[CI]root\-groups\fP, they would be granted root access without
 authentication, but the PAM authorisation step is still applied.
+.SS Sessions
+A chroot may be needed to run more than one command.  In particular, where the
+chroot is created on the fly from an LVM LV or a file on disc, there is a need
+to make the chroot persistent while a given task (or set of tasks) is
+performed.  Sessions exist for this purpose.  For simple chroot types such as
+\[oq]plain\[cq] and \[oq]directory\[cq], sessions may be created but are not
+strictly necessary.
+.PP
+Let's start by looking at a session-capable chroot:
+.PP
+\f[CR]%\ \f[CB]schroot\ \-i\ \-c\ sid\-snap\fP\fP
+.br
+\f[CR]\ \ \[em]\[em]\[em]\ Chroot\ \[em]\[em]\[em]\fP
+.br
+\f[CR]\ \ Name\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sid\-snap\fP
+.br
+\f[CR]\ \ Description\ \ \ \ \ \ \ \ \ \ \ \ Debian sid snapshot\fP
+.br
+\f[CR]\ \ Type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvm\-snapshot\fP
+.br
+\f[CR]\ \ Priority\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3\fP
+.br
+\f[CR]\ \ Users\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maks rleigh\fP
+.br
+\f[CR]\ \ Groups\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sbuild\fP
+.br
+\f[CR]\ \ Root\ Users\fP
+.br
+\f[CR]\ \ Root\ Groups\ \ \ \ \ \ \ \ \ \ \ \ root sbuild\fP
+.br
+\f[CR]\ \ Aliases\fP
+.br
+\f[CR]\ \ Environment\ Filter\ \ \ \ \ \^(BASH_ENV|CDPATH|ENV|HOSTALIASES|IF\fP
+.br
+\f[CR]S|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMAI\fP
+.br
+\f[CR]N|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TER\fP
+.br
+\f[CR]MPATH)$\fP
+.br
+\f[CR]\ \ Run\ Setup\ Scripts\ \ \ \ \ \ true\fP
+.br
+\f[CR]\ \ Run\ Execution\ Scripts\ \ true\fP
+.br
+\f[CR]\ \ Script\ Configuration\ \ \ script\-defaults\fP
+.br
+\f[CR]\ \ Session\ Managed\ \ \ \ \ \ \ \ true\fP
+.br
+\f[CR]\ \ Personality\ \ \ \ \ \ \ \ \ \ \ \ linux\fP
+.br
+\f[CR]\ \ Device\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /dev/hda_vg/sid_chroot\fP
+.br
+\f[CR]\ \ Mount\ Options\ \ \ \ \ \ \ \ \ \ \-o atime,async,user_xattr\fP
+.br
+\f[CR]\ \ Source\ Users\fP
+.br
+\f[CR]\ \ Source\ Groups\ \ \ \ \ \ \ \ \ \ root rleigh\fP
+.br
+\f[CR]\ \ Source\ Root\ Users\fP
+.br
+\f[CR]\ \ Source\ Root\ Groups\ \ \ \ \ root rleigh\fP
+.br
+\f[CR]\ \ LVM\ Snapshot\ Options\ \ \ \-\-size 2G \-c 128\fP
+.PP
+Note that the \fISession Managed\fP option is set to \[oq]true\[cq].  This is a
+requirement in order to use session management, and is supported by most chroot
+types.  Next, we will create a new session:
+.PP
+\f[CR]% \f[CB]schroot \-b \-c sid\-snap\fP\fP
+.br
+\f[CR]sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP
+.PP
+The session ID of the newly-created session is returned on standard output.  It
+is common to store it like this:
+.PP
+\f[CR]% \f[CB]SESSION=$(schroot \-b \-c sid\-snap)\fP\fP
+.br
+\f[CR]% \f[CB]echo $SESSION\fP\fP
+.br
+\f[CR]sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP
+.PP
+The session may be used just like any normal chroot.  This is what the session
+looks like:
+.PP
+\f[CR]%\ \f[CB]schroot\ \-i\ \-c\ sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\fP
+.br
+\f[CR]\ \ \[em]\[em]\[em]\ Session\ \[em]\[em]\[em]\fP
+.br
+\f[CR]\ \ Name\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d\fP
+.br
+\f[CR]4ccc899f0f\fP
+.br
+\f[CR]\ \ Description\ \ \ \ \ \ \ \ \ \ \ \ Debian sid snapshot\fP
+.br
+\f[CR]\ \ Type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvm\-snapshot\fP
+.br
+\f[CR]\ \ Priority\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3\fP
+.br
+\f[CR]\ \ Users\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maks rleigh\fP
+.br
+\f[CR]\ \ Groups\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sbuild\fP
+.br
+\f[CR]\ \ Root\ Users\fP
+.br
+\f[CR]\ \ Root\ Groups\ \ \ \ \ \ \ \ \ \ \ \ root sbuild\fP
+.br
+\f[CR]\ \ Aliases\fP
+.br
+\f[CR]\ \ Environment\ Filter\ \ \ \ \ \^(BASH_ENV|CDPATH|ENV|HOSTALIASES|IF\fP
+.br
+\f[CR]S|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMAI\fP
+.br
+\f[CR]N|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TER\fP
+.br
+\f[CR]MPATH)$\fP
+.br
+\f[CR]\ \ Run\ Setup\ Scripts\ \ \ \ \ \ true\fP
+.br
+\f[CR]\ \ Run\ Execution\ Scripts\ \ true\fP
+.br
+\f[CR]\ \ Script\ Configuration\ \ \ script\-defaults\fP
+.br
+\f[CR]\ \ Session\ Managed\ \ \ \ \ \ \ \ true\fP
+.br
+\f[CR]\ \ Personality\ \ \ \ \ \ \ \ \ \ \ \ linux\fP
+.br
+\f[CR]\ \ Mount\ Location\ \ \ \ \ \ \ \ \ /var/lib/schroot/mount/sid\-snap\-461\fP
+.br
+\[CR]95b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP
+.br
+\f[CR]\ \ Path\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /var/lib/schroot/mount/sid\-snap\-461\fP
+.br
+\f[CR]95b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP
+.br
+\f[CR]\ \ Mount\ Device\ \ \ \ \ \ \ \ \ \ \ /dev/hda_vg/sid\-snap\-46195b04\-0893\-\fP
+.br
+\f[CR]49bf\-beb8\-0d4ccc899f0f\fP
+.br
+\f[CR]\ \ Device\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /dev/hda_vg/sid_chroot\fP
+.br
+\f[CR]\ \ Mount\ Options\ \ \ \ \ \ \ \ \ \ \-o\ atime,async,user_xattr\fP
+.br
+\f[CR]\ \ Source\ Users\fP
+.br
+\f[CR]\ \ Source\ Groups\ \ \ \ \ \ \ \ \ \ root\ rleigh\fP
+.br
+\f[CR]\ \ Source\ Root\ Users\fP
+.br
+\f[CR]\ \ Source\ Root\ Groups\ \ \ \ \ root\ rleigh\fP
+.br
+\f[CR]\ \ LVM\ Snapshot\ Device\ \ \ \ /dev/hda_vg/sid\-snap\-46195b04\-0893\-\fP
+.br
+\f[CR]49bf\-beb8\-0d4ccc899f0f\fP
+.br
+\f[CR]\ \ LVM\ Snapshot\ Options\ \ \ \-\-size\ 2G\ \-c\ 128\fP
+.PP
+Now the session has been created, commands may be run in it:
+.PP
+\f[CR]% \f[CB]schroot \-r \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f \-\- uname \-sr\fP\fP
+.br
+\f[CR]I: [sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f chroot] Running command: \[lq]uname \-sr\[rq]\fP
+.br
+\f[CR]Linux 2.6.18\-3\-powerpc\fP
+.br
+\f[CR]% \f[CB]schroot \-r \-c $SESSION \-\- uname \-sr\fP\fP
+.br
+\f[CR]I: [sid\-snap\-fe170af9\-d9be\-4800\-b1bd\-de275858b938 chroot] Running command: \[lq]uname \-sr\[rq]\fP
+.br
+\f[CR]Linux 2.6.18\-3\-powerpc\fP
+.PP
+When all the commands to run in the session have been performed, the session
+may be ended:
+.PP
+\f[CR]% \f[CB]schroot \-e \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\fP
+.br
+\f[CR]% \f[CB]schroot \-e \-c $SESSION\fP\fP
+.PP
+Finally, the session names can be long and unwieldy.  A name may be specified
+instead of using the automatically generated session ID:
+.PP
+\f[CR]% \f[CB]schroot \-b \-c sid\-snap \-n my\-session\-name\fP\fP
+.br
+\f[CR]my\-session\-name\fP
 .SH TROUBLESHOOTING
 If something is not working, and it's not clear from the error messages what is
 wrong, try using the \fB\-\-debug=\fP\fIlevel\fP option to turn on debugging
