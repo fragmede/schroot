@@ -17,6 +17,8 @@
  *
  *********************************************************************/
 
+#include <config.h>
+
 #include <sbuild/sbuild-chroot-lvm-snapshot.h>
 #include <sbuild/sbuild-util.h>
 
@@ -110,6 +112,7 @@ public:
     expected.add("CHROOT_LVM_SNAPSHOT_NAME", sbuild::basename(c->get_snapshot_device()));
     expected.add("CHROOT_LVM_SNAPSHOT_DEVICE", "/dev/snaptestdev");
     expected.add("CHROOT_LVM_SNAPSHOT_OPTIONS", "--size 1G");
+    expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
 
     test_chroot_base<chroot_lvm_snapshot>::test_setup_env(expected);
   }

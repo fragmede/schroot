@@ -17,6 +17,8 @@
  *
  *********************************************************************/
 
+#include <config.h>
+
 #include <algorithm>
 #include <set>
 
@@ -101,6 +103,7 @@ public:
     expected.add("CHROOT_MOUNT_DEVICE",   "/dev/testdev");
     expected.add("CHROOT_DEVICE",         "/dev/testdev");
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
+    expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
 
     test_chroot_base<chroot_block_device>::test_setup_env(expected);
   }
