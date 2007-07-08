@@ -1,5 +1,9 @@
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Document --session-name.
+
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* TODO: Add permissions check items.
 
 2007-07-08  Roger Leigh  <rleigh@debian.org>

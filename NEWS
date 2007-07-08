@@ -13,6 +13,10 @@ configuration.
      the chroot setup and execution scripts on a per-chroot basis.
      See schroot.conf(5) for further details.
 
+  2) A --session-name has been added to allow naming sessions when
+     using --begin-session.  This replaces the automatically-generated
+     chroot-UUID session name.
+
 * Major changes in 1.1.4:
 
   1) When ending a session, processes still running in the chroot are
