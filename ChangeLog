@@ -1,5 +1,10 @@
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot/setup/50chrootname: Strip ISO-8601 date and pid from
+	chroot names.
+
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-session.cc: Add error message for SET_SESSION_ID
 	error code.
 	(run_impl): Log a warning message if a chroot does not support
