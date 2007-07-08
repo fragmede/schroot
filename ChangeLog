@@ -1,5 +1,17 @@
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-session.cc: Add error message for SET_SESSION_ID
+	error code.
+	(run_impl): Log a warning message if a chroot does not support
+	setting a session ID.  If the system does not support UUIDs, use
+	the ISO-8601 date and PID instead.
+
+	* sbuild/sbuild-session.h: Add a SET_SESSION_ID error code.
+
+	* configure.ac: Add a HAVE_UUID macro.
+
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-lock.cc: Add error messages for UNLOCK and
 	UNLOCK_TIMEOUT error codes.  Rename second DEVICE_UNLOCK error
 	message to DEVICE_UNLOCK_TIMEOUT.  The lock types are now
