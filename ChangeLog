@@ -1,5 +1,11 @@
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot/schroot-main-base.cc (run_impl): When no chroots
+	were found and one of the --all options was used, do not treat as
+	a fatal error.
+
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot/schroot-main-base.cc (run_impl): Call
 	session::set_session_id with the session name specified in the
 	user options.

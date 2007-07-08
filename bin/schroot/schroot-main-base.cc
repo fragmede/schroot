@@ -213,7 +213,22 @@ main_base::run_impl ()
   /* Get list of chroots to use */
   chroots = get_chroot_options();
   if (this->chroots.empty())
-    throw error(SCHROOT_CONF, CHROOT_NOTDEFINED);
+    {
+      if (!(this->options->all_chroots == true ||
+	    this->options->all_sessions == true))
+	throw error(SCHROOT_CONF, CHROOT_NOTDEFINED);
+      else
+	{
+	  // If one of the --all options was used, then don't treat
+	  // the lack of chroots as an error.  TODO: Also check if any
+	  // additional chroots were specified with -c; this needs
+	  // changes in get_chroot_options.
+	  log_exception_warning(error((this->options->all_chroots == true) ?
+				      SCHROOT_CONF : SCHROOT_SESSION_DIR,
+				      CHROOT_NOTDEFINED));
+	  return EXIT_SUCCESS;
+	}
+    }
 
   /* Print chroot information for specified chroots. */
   if (this->options->action == options_base::ACTION_INFO)
