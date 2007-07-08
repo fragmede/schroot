@@ -400,7 +400,7 @@ looks like:
 .br
 \f[CR]\ \ Mount\ Location\ \ \ \ \ \ \ \ \ /var/lib/schroot/mount/sid\-snap\-461\fP
 .br
-\[CR]95b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP
+\f[CR]95b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP
 .br
 \f[CR]\ \ Path\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /var/lib/schroot/mount/sid\-snap\-461\fP
 .br
