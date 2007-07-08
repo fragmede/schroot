@@ -253,6 +253,7 @@ main_base::run_impl ()
 	this->session->set_wd(this->options->directory);
       if (this->options->preserve)
 	this->session->set_environment(environ);
+      this->session->set_session_id(this->options->session_name);
       this->session->set_force(this->options->session_force);
       sbuild::auth::verbosity verbosity = sbuild::auth::VERBOSITY_NORMAL;
       if (this->options->quiet)

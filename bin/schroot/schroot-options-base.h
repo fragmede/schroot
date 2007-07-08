@@ -100,6 +100,8 @@ namespace schroot
     bool                 load_chroots;
     /// Load sessions.
     bool                 load_sessions;
+    /// Session name.
+    std::string          session_name;
     /// Force session operations.
     bool                 session_force;
 
@@ -132,8 +134,10 @@ namespace schroot
     boost::program_options::options_description chroot;
     /// Chroot environment options group.
     boost::program_options::options_description chrootenv;
+    /// Session actions group.
+    boost::program_options::options_description session_actions;
     /// Session options group.
-    boost::program_options::options_description session;
+    boost::program_options::options_description session_options;
   };
 
 }

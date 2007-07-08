@@ -1,5 +1,23 @@
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot/schroot-main-base.cc (run_impl): Call
+	session::set_session_id with the session name specified in the
+	user options.
+
+	* bin/schroot/schroot-options.cc (add_options): Rename session to
+	session_actions.  Add "--session-name" and "--force" options to
+	session_options.
+
+	* bin/schroot/schroot-options-base.cc (add_option_groups): Add
+	separate session_actions and session_options groups in place of
+	session.
+
+	* bin/schroot/schroot-options-base.h (schroot): Add session_name
+	member.  Split the session options_description into separate
+	session_actions and session_options groups.
+
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot/setup/50chrootname: Strip ISO-8601 date and pid from
 	chroot names.
 

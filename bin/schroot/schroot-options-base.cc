@@ -52,10 +52,12 @@ options_base::options_base ():
   all(false),
   all_chroots(false),
   all_sessions(false),
+  session_name(),
   session_force(false),
   chroot(_("Chroot selection")),
   chrootenv(_("Chroot environment")),
-  session(_("Session actions"))
+  session_actions(_("Session actions")),
+  session_options(_("Session options"))
 {
 }
 
@@ -124,13 +126,23 @@ options_base::add_option_groups ()
       global.add(chrootenv);
     }
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
-  if (!session.options().empty())
+  if (!session_actions.options().empty())
 #else
-  if (!session.primary_keys().empty())
+  if (!session_actions.primary_keys().empty())
 #endif
     {
-      visible.add(session);
-      global.add(session);
+      visible.add(session_actions);
+      global.add(session_actions);
+    }
+
+#ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
+  if (!session_options.options().empty())
+#else
+  if (!session_options.primary_keys().empty())
+#endif
+    {
+      visible.add(session_options);
+      global.add(session_options);
     }
 }
 

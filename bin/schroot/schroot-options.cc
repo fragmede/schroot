@@ -68,7 +68,7 @@ options::add_options ()
     ("preserve-environment,p",
      _("Preserve user environment"));
 
-  session.add_options()
+  session_actions.add_options()
     ("automatic-session",
      _("Begin, run and end a session automatically (default)"))
     ("begin-session,b",
@@ -78,7 +78,11 @@ options::add_options ()
     ("run-session,r",
      _("Run an existing session"))
     ("end-session,e",
-     _("End an existing session"))
+     _("End an existing session"));
+
+  session_options.add_options()
+    ("session-name,n", opt::value<std::string>(&this->session_name),
+     _("Session name (defaults to an automatically generated name)"))
     ("force,f",
      _("Force operation, even if it fails"));
 }
