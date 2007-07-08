@@ -1,5 +1,10 @@
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot/schroot.1.in: Add carriage returns on user input
+	lines.
+
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot/schroot.1.in: Fix typo.
 
 2007-07-08  Roger Leigh  <rleigh@debian.org>

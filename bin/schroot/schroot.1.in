@@ -165,7 +165,7 @@ guarantee that the session will be ended cleanly; filesystems may not be
 unmounted, for example.
 .SH EXAMPLES
 .SS List available chroots
-\f[CR]$ \f[CB]schroot \-l\fP\fP
+\f[CR]% \f[CB]schroot \-l\fP\fP\[CR]
 .br
 \f[CR]default\fP
 .br
@@ -177,7 +177,7 @@ unmounted, for example.
 .br
 \f[CR]unstable\fP
 .SS Get information about a chroot
-\f[CR]$\ \f[CB]schroot\ \-i\ \-c\ sid\fP\fP
+\f[CR]%\ \f[CB]schroot\ \-i\ \-c\ sid\fP\fP\[CR]
 .br
 \f[CR]\ \ \[em]\[em]\[em]\ Chroot\ \[em]\[em]\[em]\fP
 .br
@@ -224,7 +224,7 @@ unmounted, for example.
 Use \fI\-\-all\fP or \fI\-c\fP multiple times to use all or multiple chroots,
 respectively.
 .SS Running commands in a chroot
-\f[CR]$ \f[CB]schroot \-c sid /bin/ls\fP\fP
+\f[CR]% \f[CB]schroot \-c sid /bin/ls\fP\fP\[CR]
 .br
 \f[CR][sid chroot] Running command: \[lq]/bin/ls\[rq]\fP
 .br
@@ -238,7 +238,7 @@ respectively.
 .br
 \f[CR]pam          sbuild\-session.c  schroot.conf\fP
 .PP
-\f[CR]$ \f[CB]schroot \-c sid \-\- ls \-1 | head \-n 5\fP\fP
+\f[CR]% \f[CB]schroot \-c sid \-\- ls \-1 | head \-n 5\fP\fP\[CR]
 .br
 \f[CR][sid chroot] Running command: \[lq]ls \-1\[rq]\fP
 .br
@@ -260,7 +260,7 @@ that program output from commands run in the chroot may be piped and redirected
 as required; the data will be the same as if the command was run directly on
 the host system.
 .SS Switching users
-\f[CR]$ \f[CB]schroot \-c sid \-u root\fP\fP
+\f[CR]% \f[CB]schroot \-c sid \-u root\fP\fP\[CR]
 .br
 \f[CR]Password:\fP
 .br
@@ -282,7 +282,7 @@ strictly necessary.
 .PP
 Let's start by looking at a session-capable chroot:
 .PP
-\f[CR]%\ \f[CB]schroot\ \-i\ \-c\ sid\-snap\fP\fP
+\f[CR]%\ \f[CB]schroot\ \-i\ \-c\ sid\-snap\fP\fP\[CR]
 .br
 \f[CR]\ \ \[em]\[em]\[em]\ Chroot\ \[em]\[em]\[em]\fP
 .br
@@ -340,23 +340,23 @@ Note that the \fISession Managed\fP option is set to \[oq]true\[cq].  This is a
 requirement in order to use session management, and is supported by most chroot
 types.  Next, we will create a new session:
 .PP
-\f[CR]% \f[CB]schroot \-b \-c sid\-snap\fP\fP
+\f[CR]% \f[CB]schroot \-b \-c sid\-snap\fP\fP\[CR]
 .br
 \f[CR]sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP
 .PP
 The session ID of the newly-created session is returned on standard output.  It
 is common to store it like this:
 .PP
-\f[CR]% \f[CB]SESSION=$(schroot \-b \-c sid\-snap)\fP\fP
+\f[CR]% \f[CB]SESSION=$(schroot \-b \-c sid\-snap)\fP\fP\[CR]
 .br
-\f[CR]% \f[CB]echo $SESSION\fP\fP
+\f[CR]% \f[CB]echo $SESSION\fP\fP\[CR]
 .br
 \f[CR]sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP
 .PP
 The session may be used just like any normal chroot.  This is what the session
 looks like:
 .PP
-\f[CR]%\ \f[CB]schroot\ \-i\ \-c\ sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\fP
+\f[CR]%\ \f[CB]schroot\ \-i\ \-c\ sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\fP\[CR]
 .br
 \f[CR]\ \ \[em]\[em]\[em]\ Session\ \[em]\[em]\[em]\fP
 .br
@@ -430,13 +430,13 @@ looks like:
 .PP
 Now the session has been created, commands may be run in it:
 .PP
-\f[CR]% \f[CB]schroot \-r \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f \-\- uname \-sr\fP\fP
+\f[CR]% \f[CB]schroot \-r \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f \-\- uname \-sr\fP\fP\[CR]
 .br
 \f[CR]I: [sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f chroot] Running command: \[lq]uname \-sr\[rq]\fP
 .br
 \f[CR]Linux 2.6.18\-3\-powerpc\fP
 .br
-\f[CR]% \f[CB]schroot \-r \-c $SESSION \-\- uname \-sr\fP\fP
+\f[CR]% \f[CB]schroot \-r \-c $SESSION \-\- uname \-sr\fP\fP\[CR]
 .br
 \f[CR]I: [sid\-snap\-fe170af9\-d9be\-4800\-b1bd\-de275858b938 chroot] Running command: \[lq]uname \-sr\[rq]\fP
 .br
@@ -445,14 +445,14 @@ Now the session has been created, commands may be run in it:
 When all the commands to run in the session have been performed, the session
 may be ended:
 .PP
-\f[CR]% \f[CB]schroot \-e \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\fP
+\f[CR]% \f[CB]schroot \-e \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\fP\[CR]
 .br
-\f[CR]% \f[CB]schroot \-e \-c $SESSION\fP\fP
+\f[CR]% \f[CB]schroot \-e \-c $SESSION\fP\fP\[CR]
 .PP
 Finally, the session names can be long and unwieldy.  A name may be specified
 instead of using the automatically generated session ID:
 .PP
-\f[CR]% \f[CB]schroot \-b \-c sid\-snap \-n my\-session\-name\fP\fP
+\f[CR]% \f[CB]schroot \-b \-c sid\-snap \-n my\-session\-name\fP\fP\[CR]
 .br
 \f[CR]my\-session\-name\fP
 .SH TROUBLESHOOTING
