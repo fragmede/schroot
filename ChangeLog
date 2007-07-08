@@ -1,5 +1,11 @@
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
+	* Version 1.1.5
+
+	* debian/changelog: Finalise for 1.1.5.
+
+2007-07-08  Roger Leigh  <rleigh@debian.org>
+
 	* debian/control: Use ${binary:Version}.
 
 	* debian/schroot.preinst: In prep_mv_conffile(), use dpkg-query in

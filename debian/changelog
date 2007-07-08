@@ -1,4 +1,4 @@
-schroot (1.1.5-1) UNRELEASED; urgency=low
+schroot (1.1.5-1) unstable; urgency=low
 
   * New upstream development release.
   * debian/control: Use ${binary:Version}.
@@ -17,7 +17,7 @@ schroot (1.1.5-1) UNRELEASED; urgency=low
   * The schroot(1) manual page now has examples for using sessions
     (Closes: #401158).
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 08 Jul 2007 12:55:04 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 08 Jul 2007 20:50:08 +0100
 
 schroot (1.1.4-1) unstable; urgency=low
 
