@@ -201,13 +201,13 @@ unmounted, for example.
 .br
 \f[CR]owerpc\-sbuild\fP
 .br
-\f[CR]\ \ Environment\ Filter\ \ \ \ \ \^(BASH_ENV|CDPATH|ENV|HOSTALIASES|IF\fP
+\f[CR]\ \ Environment\ Filter\ \ \ \ \ ^(BASH_ENV|CDPATH|ENV|HOSTALIASES|I\fP
 .br
-\f[CR]S|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMAI\fP
+\f[CR]FS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMA\fP
 .br
-\f[CR]N|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TER\fP
+\f[CR]IN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TE\fP
 .br
-\f[CR]MPATH)$\fP
+\f[CR]RMPATH)$\fP
 .br
 \f[CR]\ \ Run\ Setup\ Scripts\ \ \ \ \ \ true\fP
 .br
@@ -304,13 +304,13 @@ Let's start by looking at a session-capable chroot:
 .br
 \f[CR]\ \ Aliases\fP
 .br
-\f[CR]\ \ Environment\ Filter\ \ \ \ \ \^(BASH_ENV|CDPATH|ENV|HOSTALIASES|IF\fP
+\f[CR]\ \ Environment\ Filter\ \ \ \ \ ^(BASH_ENV|CDPATH|ENV|HOSTALIASES|I\fP
 .br
-\f[CR]S|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMAI\fP
+\f[CR]FS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMA\fP
 .br
-\f[CR]N|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TER\fP
+\f[CR]IN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TE\fP
 .br
-\f[CR]MPATH)$\fP
+\f[CR]RMPATH)$\fP
 .br
 \f[CR]\ \ Run\ Setup\ Scripts\ \ \ \ \ \ true\fP
 .br
@@ -380,13 +380,13 @@ looks like:
 .br
 \f[CR]\ \ Aliases\fP
 .br
-\f[CR]\ \ Environment\ Filter\ \ \ \ \ \^(BASH_ENV|CDPATH|ENV|HOSTALIASES|IF\fP
+\f[CR]\ \ Environment\ Filter\ \ \ \ \ ^(BASH_ENV|CDPATH|ENV|HOSTALIASES|I\fP
 .br
-\f[CR]S|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMAI\fP
+\f[CR]FS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMA\fP
 .br
-\f[CR]N|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TER\fP
+\f[CR]IN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TE\fP
 .br
-\f[CR]MPATH)$\fP
+\f[CR]RMPATH)$\fP
 .br
 \f[CR]\ \ Run\ Setup\ Scripts\ \ \ \ \ \ true\fP
 .br

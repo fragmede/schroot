@@ -4,6 +4,9 @@
 
 	* debian/changelog: Finalise for 1.1.5.
 
+	* bin/schroot/schroot.1.in: Add missing ^ to Environment Filter in
+	examples.
+
 2007-07-08  Roger Leigh  <rleigh@debian.org>
 
 	* debian/control: Use ${binary:Version}.
