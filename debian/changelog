@@ -4,10 +4,12 @@ schroot (1.1.6-1) unstable; urgency=low
   * Acknowledge NMU.  Thanks to Lucas Nussbaum for fixing the Boost
     library names following another incompatible change in Boost
     (Closes: #439215).
-  * debian/copyright: Update with new GIT source code repository
-    location.
+  * debian/copyright:
+    - Update with new GIT source code repository location.
+    - Update licence to GPLv3.
+  * debian/schroot.init: Update licence to GPLv3.
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 15 Sep 2007 23:51:39 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 16 Sep 2007 00:58:05 +0100
 
 schroot (1.1.5-1.1) unstable; urgency=low
 
