@@ -1,3 +1,7 @@
+2007-09-27  Roger Leigh  <rleigh@debian.org>
+
+	* NEWS: Update for GPLv3 change.
+
 2007-09-26  Roger Leigh  <rleigh@debian.org>
 
 	* Add .gitignore files.
