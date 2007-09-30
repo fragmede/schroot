@@ -212,7 +212,7 @@ namespace sbuild
      * Set the working directory.  This is the working directory to
      * set in the session.
      *
-     * @param cvs the current working directory.
+     * @param wd the current working directory.
      */
     void
     set_wd (std::string const& wd);
