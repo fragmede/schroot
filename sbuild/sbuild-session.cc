@@ -740,13 +740,17 @@ session::get_shell () const
   assert (!auth::get_shell().empty());
   std::string shell = auth::get_shell();
 
-  struct stat statbuf;
-  if (stat(shell.c_str(), &statbuf) < 0)
+  try
     {
+      stat(shell).check();
+    }
+  catch (std::runtime_error const& e)
+    {
+      error e1(shell, SHELL, e.what());
+      log_exception_warning(e1);
+
       if (shell != "/bin/sh")
 	{
-	  error e1(shell, SHELL, strerror(errno));
-	  log_exception_warning(e1);
 	  shell = "/bin/sh";
 	  error e2(SHELL_FB, shell);
 	  log_exception_warning(e2);

@@ -25,11 +25,6 @@
 #include <cerrno>
 #include <iostream>
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/sysmacros.h>
-#include <unistd.h>
-
 #include <boost/format.hpp>
 
 using std::endl;
@@ -124,7 +119,6 @@ chroot_lvm_snapshot::setup_lock (chroot::setup_type type,
 				 int                status)
 {
   std::string device;
-  struct stat statbuf;
 
   /* Lock is removed by setup script on setup stop.  Unlocking here
      would fail: the LVM snapshot device no longer exists. */
@@ -136,14 +130,10 @@ chroot_lvm_snapshot::setup_lock (chroot::setup_type type,
 	device = get_snapshot_device();
 
       if (device.empty())
-	{
-	  throw error(CHROOT_DEVICE);
-	}
-      else if (stat(device.c_str(), &statbuf) == -1)
-	{
-	  throw error(get_device(), DEVICE_STAT, strerror(errno));
-	}
-      else if (!S_ISBLK(statbuf.st_mode))
+	throw error(CHROOT_DEVICE);
+
+      stat file_status(device);
+      if (!file_status.is_block())
 	{
 	  throw error(get_device(), DEVICE_NOTBLOCK);
 	}

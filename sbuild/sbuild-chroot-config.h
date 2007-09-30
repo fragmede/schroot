@@ -58,8 +58,7 @@ namespace sbuild
 	FILE_NOTREG,     ///< File is not a regular file.
 	FILE_OPEN,       ///< Failed to open file.
 	FILE_OWNER,      ///< File is not owned by user root.
-	FILE_PERMS,      ///< File has write permissions for others.
-	FILE_STAT        ///< Failed to stat file.
+	FILE_PERMS       ///< File has write permissions for others.
       };
 
     /// Exception type.

@@ -18,8 +18,12 @@
 
 #include <config.h>
 
+#include "sbuild-chroot.h"
 #include "sbuild-error.h"
 #include "sbuild-util.h"
+
+#include <cerrno>
+#include <cstring>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -58,7 +62,31 @@ namespace
     return ret;
   }
 
+  typedef std::pair<sbuild::stat::error_code,const char *> emap;
+
+  /**
+   * This is a list of the supported error codes.  It's used to
+   * construct the real error codes map.
+   */
+  emap init_errors[] =
+    {
+      emap(sbuild::stat::FILE, N_("Failed to stat file")),
+      emap(sbuild::stat::FD,   N_("Failed to stat file descriptor"))
+    };
+
+  bool chroot_alphasort (sbuild::chroot::ptr const& c1,
+			 sbuild::chroot::ptr const& c2)
+  {
+    return c1->get_name() < c2->get_name();
+  }
+
 }
+
+template<>
+error<sbuild::stat::error_code>::map_type
+error<sbuild::stat::error_code>::error_strings
+(init_errors,
+ init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
 std::string
 sbuild::basename (std::string name,
@@ -290,12 +318,14 @@ sbuild::find_program_in_path (std::string const& program,
 	}
       absname += realname;
 
-      struct stat statbuf;
-      if (stat(absname.c_str(), &statbuf) == 0)
+      try
 	{
-	  if (S_ISREG(statbuf.st_mode) &&
+	  if (stat(absname).is_regular() &&
 	      access (absname.c_str(), X_OK) == 0)
 	    return realname;
+	}
+      catch (std::runtime_error const& e)
+	{
 	}
     }
 
@@ -344,4 +374,39 @@ sbuild::exec (std::string const& file,
     }
 
   return status;
+}
+
+sbuild::stat::stat (std::string const& file):
+  file(file),
+  fd(0),
+  errorno(0),
+  status()
+{
+  if (::stat(file.c_str(), &this->status) < 0)
+    this->errorno = errno;
+}
+
+sbuild::stat::stat (std::string const& file,
+		    int                fd):
+  file(file),
+  fd(fd),
+  errorno(0),
+  status()
+{
+  if (::fstat(fd, &this->status) < 0)
+    this->errorno = errno;
+}
+
+sbuild::stat::stat (int fd):
+  file(),
+  fd(fd),
+  errorno(0),
+  status()
+{
+  if (::fstat(fd, &this->status) < 0)
+    this->errorno = errno;
+}
+
+sbuild::stat::~stat ()
+{
 }

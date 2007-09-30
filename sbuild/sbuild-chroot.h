@@ -68,14 +68,12 @@ namespace sbuild
 	DEVICE_ABS,      ///< Device must have an absolute path.
 	DEVICE_LOCK,     ///< Failed to lock device.
 	DEVICE_NOTBLOCK, ///< File is not a block device.
-	DEVICE_STAT,     ///< Failed to stat device.
 	DEVICE_UNLOCK,   ///< Failed to unlock device.
 	FILE_ABS,        ///< File must have an absolute path.
 	FILE_LOCK,       ///< Failed to acquire lock.
 	FILE_NOTREG,     ///< File is not a regular file.
 	FILE_OWNER,      ///< File is not owned by user root.
 	FILE_PERMS,      ///< File has write permissions for others.
-	FILE_STAT,       ///< Failed to stat file.
 	FILE_UNLOCK,     ///< Failed to discard lock.
 	LOCATION_ABS,    ///< Location must have an absolute path.
 	SESSION_UNLINK,  ///< Failed to unlink session file.

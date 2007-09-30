@@ -1,5 +1,36 @@
 2007-09-30  Roger Leigh  <rleigh@debian.org>
 
+	* test/sbuild-chroot-config.cc
+	(class test_config): Use sbuild::error_base in place of
+	sbuild::chroot_config::error, because stat errors throw a
+	less-specific exception type.
+
+	* sbuild/sbuild-chroot-config.(cc|h)
+	(chroot_config::add, chroot_config::add_config_directory,
+	chroot_config::load_data): Use new stat class.
+	Remove unused FILE_STAT error code.
+
+	* sbuild/sbuild-session.cc
+	(session::get_shell): Use new stat class.
+
+	* sbuild/sbuild-chroot.(cc|h): Remove unused DEVICE_STAT and
+	FILE_STAT error codes.
+
+	* sbuild/sbuild-chroot-lvm-snapshot.cc
+	(chroot_lvm_snapshot::setup_lock): Use new stat class.
+
+	* sbuild/sbuild-chroot-file.cc
+	(chroot_file::setup_lock): Use new stat class.
+
+	* sbuild/sbuild-chroot-block-device.cc
+	(chroot_block_device::setup_lock): Use new stat class.
+
+	* sbuild/sbuild-util.cc (sbuild::basename): Use new stat class.
+
+	* sbuild/sbuild-util.(cc|h): Add new stat class, to wrap stat(2).
+
+2007-09-30  Roger Leigh  <rleigh@debian.org>
+
 	* test/run-parts.ex2/.gitignore: Add to force directory creation.
 
 	* sbuild/sbuild-auth.cc: Fix typo in documentation.

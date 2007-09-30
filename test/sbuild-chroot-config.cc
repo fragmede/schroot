@@ -32,10 +32,10 @@ class test_config : public TestFixture
   CPPUNIT_TEST_SUITE(test_config);
   CPPUNIT_TEST(test_construction_file);
   CPPUNIT_TEST(test_construction_dir);
-  CPPUNIT_TEST_EXCEPTION(test_construction_fail, sbuild::chroot_config::error);
+  CPPUNIT_TEST_EXCEPTION(test_construction_fail, sbuild::error_base);
   CPPUNIT_TEST(test_add_file);
   CPPUNIT_TEST(test_add_dir);
-  CPPUNIT_TEST_EXCEPTION(test_add_fail, sbuild::chroot_config::error);
+  CPPUNIT_TEST_EXCEPTION(test_add_fail, sbuild::error_base);
   CPPUNIT_TEST(test_get_chroots);
   CPPUNIT_TEST(test_find_chroot);
   CPPUNIT_TEST(test_find_alias);

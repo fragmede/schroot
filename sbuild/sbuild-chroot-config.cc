@@ -34,7 +34,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <unistd.h>
 
 #include <boost/format.hpp>
 
@@ -62,8 +61,7 @@ namespace
       emap(chroot_config::FILE_NOTREG,     N_("File is not a regular file")),
       emap(chroot_config::FILE_OPEN,       N_("Failed to open file")),
       emap(chroot_config::FILE_OWNER,      N_("File is not owned by user root")),
-      emap(chroot_config::FILE_PERMS,      N_("File has write permissions for others")),
-      emap(chroot_config::FILE_STAT,       N_("Failed to stat file"))
+      emap(chroot_config::FILE_PERMS,      N_("File has write permissions for others"))
     };
 
   bool chroot_alphasort (sbuild::chroot::ptr const& c1,
@@ -100,8 +98,7 @@ void
 chroot_config::add (std::string const& location,
 		    bool               active)
 {
-  struct stat statbuf;
-  if (stat(location.c_str(), &statbuf) == 0 && S_ISDIR(statbuf.st_mode))
+  if (stat(location).is_directory())
     add_config_directory(location, active);
   else
     add_config_file(location, active);
@@ -134,17 +131,13 @@ chroot_config::add_config_directory (std::string const& dir,
 
       std::string filename = dir + "/" + de.name();
 
-      struct stat statbuf;
-      if (stat(filename.c_str(), &statbuf) < 0)
+      try
 	{
-	  error e(filename, FILE_STAT, strerror(errno));
-	  log_exception_warning(e);
-	  continue;
+	  if (!stat(filename).is_regular())
+	    throw error(filename, FILE_NOTREG);
 	}
-
-      if (!S_ISREG(statbuf.st_mode))
+      catch (std::runtime_error const& e)
 	{
-	  error e (filename, FILE_NOTREG);
 	  log_exception_warning(e);
 	  continue;
 	}
@@ -435,10 +428,28 @@ chroot_config::load_data (std::string const& file,
 {
   log_debug(DEBUG_NOTICE) << "Loading data file: " << file << endl;
 
+  // stat filename (in case it's a pipe and open(2) blocks)
+  stat file_status1(file);
+  if (file_status1.uid() != 0)
+    throw error(file, FILE_OWNER);
+  if (file_status1.check_mode(stat::PERM_OTHER_WRITE))
+    throw error(file, FILE_PERMS);
+  if (!file_status1.is_regular())
+    throw error(file, FILE_NOTREG);
+
   /* Use a UNIX fd, for security (no races) */
   int fd = open(file.c_str(), O_RDONLY|O_NOFOLLOW);
   if (fd < 0)
     throw error(file, FILE_OPEN, strerror(errno));
+
+  // stat fd following open
+  stat file_status2(fd);
+  if (file_status2.uid() != 0)
+    throw error(file, FILE_OWNER);
+  if (file_status2.check_mode(stat::PERM_OTHER_WRITE))
+    throw error(file, FILE_PERMS);
+  if (!file_status2.is_regular())
+    throw error(file, FILE_NOTREG);
 
   // Create a stream buffer from the file descriptor.  The fd will
   // be closed when the buffer is destroyed.
@@ -450,40 +461,14 @@ chroot_config::load_data (std::string const& file,
   std::istream input(&fdbuf);
   input.imbue(std::locale::classic());
 
-  sbuild::file_lock lock(fd);
   try
     {
+      sbuild::file_lock lock(fd);
       lock.set_lock(lock::LOCK_SHARED, 2);
-    }
-  catch (lock::error const& e)
-    {
-      throw error(file, e);
-    }
-
-  struct stat statbuf;
-  if (fstat(fd, &statbuf) < 0)
-    throw error(file, FILE_STAT, strerror(errno));
-
-  if (statbuf.st_uid != 0)
-    throw error(file, FILE_OWNER);
-  if (statbuf.st_mode & S_IWOTH)
-    throw error(file, FILE_PERMS);
-  if (!S_ISREG(statbuf.st_mode))
-    throw error(file, FILE_NOTREG);
-
-  try
-    {
       parse_data(input, active);
-    }
-  catch (std::runtime_error const& e)
-    {
-      throw error(file, e);
-    }
-  try
-    {
       lock.unset_lock();
     }
-  catch (lock::error const& e)
+  catch (std::runtime_error const& e)
     {
       throw error(file, e);
     }

@@ -21,14 +21,10 @@
 #include "sbuild-chroot-block-device.h"
 #include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
+#include "sbuild-util.h"
 
 #include <cerrno>
 #include <cstring>
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/sysmacros.h>
-#include <unistd.h>
 
 #include <boost/format.hpp>
 
@@ -122,8 +118,6 @@ chroot_block_device::setup_lock (chroot::setup_type type,
 				 bool               lock,
 				 int                status)
 {
-  struct stat statbuf;
-
   /* Only lock during setup, not exec. */
   if (type == EXEC_START || type == EXEC_STOP)
     return;
@@ -133,11 +127,7 @@ chroot_block_device::setup_lock (chroot::setup_type type,
       (type == SETUP_STOP && lock == true))
     return;
 
-  if (stat(this->device.c_str(), &statbuf) == -1)
-    {
-      throw error(get_device(), DEVICE_STAT, strerror(errno));
-    }
-  else if (!S_ISBLK(statbuf.st_mode))
+  if (!stat(this->device).is_block())
     {
       throw error(get_device(), DEVICE_NOTBLOCK);
     }

@@ -20,9 +20,14 @@
 #define SBUILD_UTIL_H
 
 #include <sbuild/sbuild-environment.h>
+#include <sbuild/sbuild-error.h>
 #include <sbuild/sbuild-types.h>
 
 #include <string>
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 namespace sbuild
 {
@@ -175,6 +180,386 @@ namespace sbuild
   exec (std::string const& file,
 	string_list const& command,
 	environment const& env);
+
+  /**
+   * Get file status.  stat(2) wrapper.
+   */
+  class stat
+  {
+  public:
+    /// Error codes.
+    enum error_code
+      {
+	FILE, ///< Failed to stat file.
+	FD    ///< Failed to stat file descriptor.
+      };
+
+    /// Mode bits.
+    enum mode_bits
+      {
+	FILE_TYPE_MASK      = S_IFMT,   ///< Mask for file type bit fields.
+	FILE_TYPE_SOCKET    = S_IFSOCK, ///< Socket file type.
+	FILE_TYPE_LINK      = S_IFLNK,  ///< Symbolic link file type.
+	FILE_TYPE_REGULAR   = S_IFREG,  ///< Regular file type.
+	FILE_TYPE_BLOCK     = S_IFBLK,  ///< Block device file type.
+	FILE_TYPE_DIRECTORY = S_IFDIR,  ///< Directory file type.
+	FILE_TYPE_CHARACTER = S_IFCHR,  ///< Character device file type.
+	FILE_TYPE_FIFO      = S_IFIFO,  ///< Named pipe (FIFO) file type.
+	PERM_SETUID         = S_ISUID,  ///< Set user ID permission.
+	PERM_SETGIT         = S_ISGID,  ///< Set group ID permission.
+	PERM_STICKY         = S_ISVTX,  ///< Sticky permission.
+	PERM_USER_MASK      = S_IRWXU,  ///< Mask for user permissions.
+	PERM_USER_READ      = S_IRUSR,  ///< User read permission.
+	PERM_USER_WRITE     = S_IWUSR,  ///< User write permission.
+	PERM_USER_EXECUTE   = S_IXUSR,  ///< User execute permission.
+	PERM_GROUP_MASK     = S_IRWXG,  ///< Mask for group permissions.
+	PERM_GROUP_READ     = S_IRGRP,  ///< Group read permission.
+	PERM_GROUP_WRITE    = S_IWGRP,  ///< Group write permission.
+	PERM_GROUP_EXECUTE  = S_IXGRP,  ///< Group execute permission.
+	PERM_OTHER_MASK     = S_IRWXO,  ///< Mask for other permissions.
+	PERM_OTHER_READ     = S_IROTH,  ///< Other read permission.
+	PERM_OTHER_WRITE    = S_IWOTH,  ///< Other write permission.
+	PERM_OTHER_EXECUTE  = S_IXOTH   ///< Other execute permission.
+      };
+
+    /// Exception type.
+    typedef custom_error<error_code> error;
+
+    /**
+     * The constructor.
+     * @param file the filename to use.
+     */
+    stat (std::string const& file);
+
+    /**
+     * The constructor.
+     * @param file the filename to use (only used for error
+     * reporting).
+     * @param fd the file descriptor to use.
+     */
+    stat (std::string const& file,
+	  int                fd);
+
+    /**
+     * The constructor.
+     * @param fd the file descriptor to use.
+     */
+    stat (int fd);
+
+    /// The destructor.
+    virtual ~stat ();
+
+    /**
+     * Check if the file status was obtained.
+     * An error will be thrown if stat(2) failed to get the file
+     * status.
+     */
+    void check () const
+    {
+      if (this->errorno)
+	{
+	  if (!this->file.empty())
+	    throw error(this->file, FILE, strerror(this->errorno));
+	  else
+	    {
+	      std::ostringstream str;
+	      str << "fd " << fd;
+	      throw error(str.str(), FD, strerror(this->errorno));
+	    }
+	}
+    }
+
+    /**
+     * Get the struct stat used internally.  This is returned by
+     * stat(2).
+     * @returns the stat struct.
+     */
+    struct ::stat const& get_detail()
+    { return this->status; }
+
+    /**
+     * Get the device the file resides on.
+     * @returns the device.
+     */
+    dev_t
+    device () const
+    { check(); return status.st_dev; }
+
+    /**
+     * Get the inode of the file.
+     * @returns the inode.
+     */
+    ino_t
+    inode () const
+    { check(); return status.st_ino; }
+
+    /**
+     * Get the mode of the file.
+     * @returns the mode.
+     */
+    mode_t
+    mode () const
+    { check(); return status.st_mode; }
+
+    /**
+     * Get the number of hard links to the file.
+     * @returns the hard link count.
+     */
+    nlink_t
+    links () const
+    { check(); return status.st_nlink; }
+
+    /**
+     * Get the user id owning the file.
+     * @returns the uid.
+     */
+    uid_t
+    uid () const
+    { check(); return status.st_uid; }
+
+    /**
+     * Get the group id owning the file.
+     * @returns the uid.
+     */
+    gid_t
+    gid () const
+    { check(); return status.st_gid; }
+
+    /**
+     * Get the file size.
+     * @returns the file size.
+     */
+    off_t
+    size () const
+    { check(); return status.st_size; }
+
+    /**
+     * Get the file block size.
+     * @returns the block size.
+     */
+    blksize_t
+    blocksize () const
+    { check(); return status.st_blksize; }
+
+    /**
+     * Get the file block count.
+     * @returns the block count.
+     */
+    blkcnt_t
+    blocks () const
+    { check(); return status.st_blocks; }
+
+    /**
+     * Get the file access time.
+     * @returns the access time.
+     */
+    time_t
+    atime () const
+    { check(); return status.st_atime; }
+
+    /**
+     * Get the file modification time.
+     * @returns the modification time.
+     */
+    time_t
+    mtime () const
+    { check(); return status.st_mtime; }
+
+    /**
+     * Get the file creation time.
+     * @returns the creation time.
+     */
+    time_t
+    ctime () const
+    { check(); return status.st_ctime; }
+
+    /**
+     * Is the file a regular file?
+     * @returns true if regular, otherwise false.
+     */
+    inline bool
+    is_regular () const;
+
+    /**
+     * Is the file a directory?
+     * @returns true if a directory, otherwise false.
+     */
+    inline bool
+    is_directory () const;
+
+    /**
+     * Is the file a character device?
+     * @returns true if a character device, otherwise false.
+     */
+    inline bool
+    is_character () const;
+
+    /**
+     * Is the file a block device?
+     * @returns true if a block device, otherwise false.
+     */
+    inline bool
+    is_block () const;
+
+    /**
+     * Is the file a named pipe (FIFO)?
+     * @returns true if a named pipe, otherwise false.
+     */
+    inline bool
+    is_fifo () const;
+
+    /**
+     * Is the file a symbolic link?
+     * @returns true if a symbolic link, otherwise false.
+     */
+    inline bool
+    is_link () const;
+
+    /**
+     * Is the file a socket?
+     * @returns true if a socket, otherwise false.
+     */
+    inline bool
+    is_socket () const;
+
+    /**
+     * Check if particular mode bits are set.
+     * @param mask A bitmask containing the bits to check are set.
+     * @returns true if all the bits in mask are set, otherwise false.
+     */
+    inline bool check_mode (mode_bits mask) const;
+
+  private:
+
+    /// The filename being checked (if specified).
+    std::string file;
+    /// The file descriptor being checked (if specified).
+    int fd;
+    /// The error number set after stat(2) error.
+    int errorno;
+    /// The stat(2) results.
+    struct ::stat status;
+  };
+
+  /**
+   * Bitwise-OR of specifed mode bits
+   * @param lhs mode bits
+   * @param rhs mode bits
+   * @returns result of OR.
+   */
+  stat::mode_bits
+  inline operator | (stat::mode_bits const& lhs,
+	      stat::mode_bits const& rhs)
+  {
+    return static_cast<stat::mode_bits>
+      (static_cast<int>(lhs) | static_cast<int>(rhs));
+  }
+
+  /**
+   * Bitwise-OR of specifed mode bits
+   * @param lhs mode bits
+   * @param rhs mode bits
+   * @returns result of OR.
+   */
+  stat::mode_bits
+  inline operator | (mode_t const&          lhs,
+	      stat::mode_bits const& rhs)
+  {
+    return static_cast<stat::mode_bits>
+      (lhs | static_cast<int>(rhs));
+  }
+
+  /**
+   * Bitwise-OR of specifed mode bits
+   * @param lhs mode bits
+   * @param rhs mode bits
+   * @returns result of OR.
+   */
+  stat::mode_bits
+  inline operator | (stat::mode_bits const& lhs,
+	      mode_t const&          rhs)
+  {
+    return static_cast<stat::mode_bits>
+      (static_cast<int>(lhs) | rhs);
+  }
+
+  /**
+   * Bitwise-AND of specifed mode bits
+   * @param lhs mode bits
+   * @param rhs mode bits
+   * @returns result of AND.
+   */
+  stat::mode_bits
+  inline operator & (stat::mode_bits const& lhs,
+	      stat::mode_bits const& rhs)
+  {
+    return static_cast<stat::mode_bits>
+      (static_cast<int>(lhs) & static_cast<int>(rhs));
+  }
+
+  /**
+   * Bitwise-AND of specifed mode bits
+   * @param lhs mode bits
+   * @param rhs mode bits
+   * @returns result of AND.
+   */
+  stat::mode_bits
+  inline operator & (mode_t const&          lhs,
+	      stat::mode_bits const& rhs)
+  {
+    return static_cast<stat::mode_bits>
+      (lhs & static_cast<int>(rhs));
+  }
+
+  /**
+   * Bitwise-AND of specifed mode bits
+   * @param lhs mode bits
+   * @param rhs mode bits
+   * @returns result of AND.
+   */
+  stat::mode_bits
+  inline operator & (stat::mode_bits const& lhs,
+	      mode_t const&          rhs)
+  {
+    return static_cast<stat::mode_bits>
+      (static_cast<int>(lhs) & rhs);
+  }
+
+  inline bool
+  stat::is_regular () const
+  { return check_mode(FILE_TYPE_REGULAR & FILE_TYPE_MASK); }
+
+  inline bool
+  stat::is_directory () const
+  { return check_mode(FILE_TYPE_DIRECTORY & FILE_TYPE_MASK); }
+
+  inline bool
+  stat::is_character () const
+  { return check_mode(FILE_TYPE_CHARACTER & FILE_TYPE_MASK); }
+
+  inline bool
+  stat::is_block () const
+  { return check_mode(FILE_TYPE_BLOCK & FILE_TYPE_MASK); }
+
+  inline bool
+  stat::is_fifo () const
+  { return check_mode(FILE_TYPE_FIFO & FILE_TYPE_MASK); }
+
+  inline bool
+  stat::is_link () const
+  { return check_mode(FILE_TYPE_LINK & FILE_TYPE_MASK); }
+
+  inline bool
+  stat::is_socket () const
+  { return check_mode(FILE_TYPE_SOCKET & FILE_TYPE_MASK); }
+
+  inline bool
+  stat::check_mode (mode_bits mask) const
+  {
+    check();
+    return (status.st_mode & mask) == mask;
+  }
+
 }
 
 #endif /* SBUILD_UTIL_H */

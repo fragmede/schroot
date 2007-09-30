@@ -25,11 +25,6 @@
 #include <cerrno>
 #include <cstring>
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/sysmacros.h>
-#include <unistd.h>
-
 #include <boost/format.hpp>
 
 using boost::format;
@@ -120,16 +115,14 @@ chroot_file::setup_lock (chroot::setup_type type,
   // Check ownership and permissions.
   if (type == SETUP_START && lock == true)
     {
-      struct stat statbuf;
-      if (stat(this->file.c_str(), &statbuf) < 0)
-	throw error(this->file, FILE_STAT, strerror(errno));
+      stat file_status(this->file);
 
       // NOTE: taken from chroot_config::check_security.
-      if (statbuf.st_uid != 0)
+      if (file_status.uid() != 0)
 	throw error(this->file, FILE_OWNER);
-      if (statbuf.st_mode & S_IWOTH)
+      if (file_status.check_mode(stat::PERM_OTHER_WRITE))
 	throw error(this->file, FILE_PERMS);
-      if (!S_ISREG(statbuf.st_mode))
+      if (!file_status.is_regular())
 	throw error(this->file, FILE_NOTREG);
     }
 
