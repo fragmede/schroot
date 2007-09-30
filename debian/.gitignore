@@ -1,0 +1,16 @@
+dchroot-dsa.substvars
+dchroot-dsa
+dchroot.substvars
+dchroot
+files
+install
+libsbuild-dev
+libsbuild-doc.postinst.debhelper
+libsbuild-doc.prerm.debhelper
+libsbuild-doc
+schroot-common
+schroot.postinst.debhelper
+schroot.postrm.debhelper
+schroot.substvars
+schroot
+build
