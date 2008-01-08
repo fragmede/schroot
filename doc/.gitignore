@@ -6,3 +6,5 @@ schroot-stamp
 schroot.dox
 schroot.log
 schroot
+*.pdf
+*.ps

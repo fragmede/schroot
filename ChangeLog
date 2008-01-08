@@ -1,5 +1,9 @@
 2008-01-08  Roger Leigh  <rleigh@debian.org>
 
+	* doc/.gitignore: Ignore *.pdf and *.ps.
+
+2008-01-08  Roger Leigh  <rleigh@debian.org>
+
 	* po/POTFILES.in: Add bin/schroot-mount sources.
 
 	* configure.ac: Output bin/schroot-mount/Makefile
