@@ -55,3 +55,8 @@ bin/dchroot-dsa/dchroot-dsa-options.cc
 bin/schroot-releaselock/schroot-releaselock-main.cc
 bin/schroot-releaselock/schroot-releaselock-options.cc
 bin/schroot-releaselock/schroot-releaselock.cc
+bin/schroot-mount/schroot-mount.cc
+bin/schroot-mount/schroot-mount-main.cc
+bin/schroot-mount/schroot-mount-main.h
+bin/schroot-mount/schroot-mount-options.cc
+bin/schroot-mount/schroot-mount-options.h

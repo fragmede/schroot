@@ -1,5 +1,18 @@
 2008-01-08  Roger Leigh  <rleigh@debian.org>
 
+	* po/POTFILES.in: Add bin/schroot-mount sources.
+
+	* configure.ac: Output bin/schroot-mount/Makefile
+
+	* bin/Makefile.am (SUBDIRS): Add schroot-mount.
+
+	* bin/schroot-mount: Copy schroot-listmounts and search and
+	replace listmounts with mount.  This is the starting mount for the
+	schroot-mount utility to parse fstab(5) format files for mounting
+	filessystems inside chroots.
+
+2008-01-08  Roger Leigh  <rleigh@debian.org>
+
 	* sbuild/sbuild-chroot-lvm-snapshot.cc
 	(chroot_lvm_snapshot::get_session_flags): Add chroot-source flags.
 
