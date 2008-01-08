@@ -56,7 +56,8 @@ namespace sbuild
     /// Chroot session properties
     enum session_flags
       {
-	SESSION_CREATE = 1 << 0 ///< The chroot supports session creation.
+	SESSION_CREATE = 1 << 0, ///< The chroot supports session creation.
+	SESSION_CLONE  = 1 << 1  ///< The chroot supports cloning.
       };
 
     /// Error codes.
@@ -262,7 +263,7 @@ namespace sbuild
     set_groups (string_list const& groups);
 
     /**
-     * Get the users allowed to access the chroot as root.  Mmebers
+     * Get the users allowed to access the chroot as root.  Members
      * of these users can switch to root without authenticating
      * themselves.
      *
@@ -272,7 +273,7 @@ namespace sbuild
     get_root_users () const;
 
     /**
-     * Set the users allowed to access the chroot as root.  Mmebers
+     * Set the users allowed to access the chroot as root.  Members
      * of these users can switch to root without authenticating
      * themselves.
      *
@@ -282,7 +283,7 @@ namespace sbuild
     set_root_users (string_list const& users);
 
     /**
-     * Get the groups allowed to access the chroot as root.  Mmebers
+     * Get the groups allowed to access the chroot as root.  Members
      * of these groups can switch to root without authenticating
      * themselves.
      *
@@ -292,7 +293,7 @@ namespace sbuild
     get_root_groups () const;
 
     /**
-     * Set the groups allowed to access the chroot as root.  Mmebers
+     * Set the groups allowed to access the chroot as root.  Members
      * of these groups can switch to root without authenticating
      * themselves.
      *
@@ -666,6 +667,34 @@ namespace sbuild
     /// Process execution domain (Linux only).
     personality   persona;
   };
+
+  /**
+   * Bitwise-OR of specifed session properties
+   * @param lhs session properties
+   * @param rhs session properties
+   * @returns result of OR.
+   */
+  chroot::session_flags
+  inline operator | (chroot::session_flags const& lhs,
+		     chroot::session_flags const& rhs)
+  {
+    return static_cast<chroot::session_flags>
+      (static_cast<int>(lhs) | static_cast<int>(rhs));
+  }
+
+  /**
+   * Bitwise-AND of specifed session properties
+   * @param lhs session properties
+   * @param rhs session properties
+   * @returns result of AND.
+   */
+  chroot::session_flags
+  inline operator & (chroot::session_flags const& lhs,
+		     chroot::session_flags const& rhs)
+  {
+    return static_cast<chroot::session_flags>
+      (static_cast<int>(lhs) & static_cast<int>(rhs));
+  }
 
 }
 

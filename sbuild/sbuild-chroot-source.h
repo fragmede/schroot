@@ -103,7 +103,7 @@ namespace sbuild
 
     /**
      * Get the users allowed to access the source chroot as root.
-     * Mmebers of these users can switch to root without
+     * Members of these users can switch to root without
      * authenticating themselves.
      *
      * @returns a list of users.
@@ -113,7 +113,7 @@ namespace sbuild
 
     /**
      * Set the users allowed to access the source chroot as root.
-     * Mmebers of these users can switch to root without
+     * Members of these users can switch to root without
      * authenticating themselves.
      *
      * @param users a list of users.
@@ -123,7 +123,7 @@ namespace sbuild
 
     /**
      * Get the groups allowed to access the source chroot as root.
-     * Mmebers of these groups can switch to root without
+     * Members of these groups can switch to root without
      * authenticating themselves.
      *
      * @returns a list of groups.
@@ -133,7 +133,7 @@ namespace sbuild
 
     /**
      * Set the groups allowed to access the source chroot as root.
-     * Mmebers of these groups can switch to root without
+     * Members of these groups can switch to root without
      * authenticating themselves.
      *
      * @param groups a list of groups.
@@ -145,6 +145,9 @@ namespace sbuild
     setup_env (environment& env);
 
   protected:
+    virtual session_flags
+    get_session_flags () const;
+
     virtual void
     get_details (format_detail& detail) const;
 

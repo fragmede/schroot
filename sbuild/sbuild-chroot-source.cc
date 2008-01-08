@@ -111,6 +111,12 @@ chroot_source::setup_env (environment& env)
 {
 }
 
+sbuild::chroot::session_flags
+chroot_source::get_session_flags () const
+{
+  return SESSION_CLONE;
+}
+
 void
 chroot_source::get_details (format_detail& detail) const
 {

@@ -140,7 +140,7 @@ chroot_file::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_file::get_session_flags () const
 {
-  return SESSION_CREATE;
+  return SESSION_CREATE | chroot_source::get_session_flags();
 }
 
 void
