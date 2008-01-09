@@ -1,3 +1,14 @@
+2008-01-09  Roger Leigh  <rleigh@debian.org>
+
+	* po/POTFILES.in: Add sbuild/sbuild-mntstream.(cc|h).
+
+	* sbuild/Makefile.am
+	(sbuild_public_h_sources): Add sbuild-mntstream.h
+	(sbuild_public_cc_sources): Add sbuild-mntstream.cc
+
+	* sbuild/sbuild-mntstream.(cc|h): "Mount stream" interface to SUS
+	mntent functions.
+
 2008-01-08  Roger Leigh  <rleigh@debian.org>
 
 	* doc/.gitignore: Ignore *.pdf and *.ps.
