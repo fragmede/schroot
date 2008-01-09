@@ -1,5 +1,9 @@
 2008-01-09  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Add new items.
+
+2008-01-09  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot-mount/schroot-mount-main.cc: Remove FIND, OPEN and
 	CLOSE error code descriptions.  Replace with CHILD_FORK,
 	CHILD_WAIT and EXEC descriptions.
