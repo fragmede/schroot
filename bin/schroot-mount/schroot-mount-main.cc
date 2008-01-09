@@ -18,6 +18,8 @@
 
 #include <config.h>
 
+#include <sbuild/sbuild-mntstream.h>
+
 #include "schroot-mount-main.h"
 
 #include <cerrno>
@@ -55,12 +57,10 @@ namespace
    */
   emap init_errors[] =
     {
-      // TRANSLATORS: %1% = file
-      emap(main::FIND,  N_("Failed to find '%1%'")),
-      // TRANSLATORS: %1% = file
-      emap(main::OPEN,  N_("Failed to open '%1%'")),
-      // TRANSLATORS: %1% = file
-      emap(main::CLOSE, N_("Failed to close '%1%'"))
+      emap(main::CHILD_FORK, N_("Failed to fork child")),
+      emap(main::CHILD_WAIT, N_("Wait for child failed")),
+      // TRANSLATORS: %1% = command name
+      emap(main::EXEC,       N_("Failed to execute '%1%'"))
     };
 
 }
@@ -75,7 +75,7 @@ main::main (options::ptr& options):
   schroot_base::main("schroot-mount",
 		     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 		     // and '-' is an em-dash.
-		     _("[OPTION...] - list mount points"),
+		     _("[OPTION...] - mount filesystems"),
 		     options,
 		     false),
   opts(options)
@@ -86,60 +86,126 @@ main::~main ()
 {
 }
 
-sbuild::string_list
-main::list_mounts (std::string const& mountfile) const
-{
-  sbuild::string_list ret;
-
-  std::string to_find = sbuild::normalname(this->opts->mountpoint);
-
-  // NOTE: This is a non-standard GNU extension.
-  char *rpath = realpath(to_find.c_str(), NULL);
-  if (rpath == 0)
-    throw error(to_find, FIND, strerror(errno));
-
-  to_find = rpath;
-  free(rpath);
-  rpath = 0;
-
-  std::FILE *mntdb = std::fopen(mountfile.c_str(), "r");
-  if (mntdb == 0)
-    throw error(mountfile, OPEN, strerror(errno));
-
-  mntent *mount;
-  while ((mount = getmntent(mntdb)) != 0)
-    {
-      std::string mount_dir(mount->mnt_dir);
-      if (to_find == "/" ||
-	  (mount_dir.find(to_find) == 0 &&
-	   (// Names are the same.
-	    mount_dir.size() == to_find.size() ||
-	    // Must have a following /, or not the same directory.
-	    (mount_dir.size() > to_find.size() &&
-	     mount_dir[to_find.size()] == '/'))))
-	ret.push_back(mount_dir);
-    }
-
-  std::cout << std::flush;
-
-  if (std::fclose(mntdb) == EOF)
-    throw error(mountfile, CLOSE, strerror(errno));
-
-  return ret;
-}
-
 void
 main::action_mount ()
 {
   // Check mounts.
-  const sbuild::string_list mounts =
-    list_mounts("/proc/mounts");
+  sbuild::mntstream mounts(opts->fstab);
 
-  for (sbuild::string_list::const_reverse_iterator pos = mounts.rbegin();
-       pos != mounts.rend();
-       ++pos)
-    std::cout << *pos << '\n';
-  std::cout << std::flush;
+  sbuild::mntstream::mntentry entry;
+
+  while (mounts >> entry)
+    {
+      std::string directory(opts->mountpoint + entry.directory);
+
+      std::cout << boost::format("Mounting '%1%' on '%2%'")
+	% entry.filesystem_name
+	% directory
+		<< std::endl;
+
+      if (!opts->dry_run)
+	{
+	  sbuild::string_list command;
+	  command.push_back("/bin/mount");
+	  if (opts->verbose)
+	    command.push_back("-v");
+	  command.push_back("-t");
+	  command.push_back(entry.type);
+	  command.push_back("-o");
+	  command.push_back(entry.options);
+	  command.push_back(entry.filesystem_name);
+	  command.push_back(directory);
+
+	  int status = run_child(command[0], command, sbuild::environment());
+
+	  if (status)
+	    exit(status);
+	}
+    }
+}
+
+int
+main::run_child (std::string const& file,
+		 sbuild::string_list const& command,
+		 sbuild::environment const& env)
+{
+  int exit_status = 0;
+  pid_t pid;
+
+  if ((pid = fork()) == -1)
+    {
+      throw error(CHILD_FORK, strerror(errno));
+    }
+  else if (pid == 0)
+    {
+      try
+	{
+	  sbuild::log_debug(sbuild::DEBUG_INFO)
+	    << "mount_main: executing "
+	    << sbuild::string_list_to_string(command, ", ")
+	    << std::endl;
+	  if (opts->verbose)
+	    // TRANSLATORS: %1% = command
+	    sbuild::log_info() << format(_("Executing '%1%'"))
+	      % sbuild::string_list_to_string(command, " ")
+			       << std::endl;
+	  exec(file, command, env);
+	  error e(file, EXEC, strerror(errno));
+	  sbuild::log_exception_error(e);
+	}
+      catch (std::exception const& e)
+	{
+	  sbuild::log_exception_error(e);
+	}
+      catch (...)
+	{
+	  sbuild::log_error()
+	    << _("An unknown exception occurred") << std::endl;
+	}
+      _exit(EXIT_FAILURE);
+    }
+  else
+    {
+      wait_for_child(pid, exit_status);
+    }
+
+  if (exit_status)
+    sbuild::log_debug(sbuild::DEBUG_INFO)
+      << "mount_main: " << file
+      << " failed with status " << exit_status
+      << std::endl;
+  else
+    sbuild::log_debug(sbuild::DEBUG_INFO)
+      << "mount_main: " << file
+      << " succeeded"
+      << std::endl;
+
+  return exit_status;
+}
+
+void
+main::wait_for_child (pid_t pid,
+		      int&  child_status)
+{
+  child_status = EXIT_FAILURE; // Default exit status
+
+  int status;
+
+  while (1)
+    {
+      if (waitpid(pid, &status, 0) == -1)
+	{
+	  if (errno == EINTR)
+	    continue; // Wait again.
+	  else
+	    throw error(CHILD_WAIT, strerror(errno));
+	}
+      else
+	break;
+    }
+
+  if (WIFEXITED(status))
+    child_status = WEXITSTATUS(status);
 }
 
 int

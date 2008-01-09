@@ -1,5 +1,32 @@
 2008-01-09  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot-mount/schroot-mount-main.cc: Remove FIND, OPEN and
+	CLOSE error code descriptions.  Replace with CHILD_FORK,
+	CHILD_WAIT and EXEC descriptions.
+	(main::main): Update program description.
+	(main::action_mount): Use mntstream to parse fstab.  For each
+	mount entry, prefix mountpoint to directory, and fork and exec
+	/bin/mount to mount the filesystem.  Pass -v to mount if --verbose
+	was specified.
+	(main::run_child): New function, copied from
+	sbuild/sbuild-run-parts.cc with minor modifications.
+	(main::wait_for_child): New function, copied verbatim from
+	sbuild/sbuild-run-parts.cc.
+
+	* bin/schroot-mount/schroot-mount-main.h: Remove FIND, OPEN and
+	CLOSE error code.  Replace with CHILD_FORK, CHILD_WAIT and EXEC.
+
+	* bin/schroot-mount/schroot-mount-options.cc
+	(options::options): Initialise dry_run and fstab.
+	(options::add_options): Add --dry-run and --fstab options.
+	(options::check_options): Set dry_run and normalise mountpoint
+	path.
+
+	* bin/schroot-mount/schroot-mount-options.h: Add dry_run and fstab
+	member variables.
+
+2008-01-09  Roger Leigh  <rleigh@debian.org>
+
 	* po/POTFILES.in: Add sbuild/sbuild-mntstream.(cc|h).
 
 	* sbuild/Makefile.am

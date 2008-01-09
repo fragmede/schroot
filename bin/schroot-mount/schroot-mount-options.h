@@ -44,6 +44,12 @@ namespace schroot_mount
     /// The destructor.
     virtual ~options ();
 
+    /// Dry run.
+    bool dry_run;
+
+    /// The fstab to read.
+    std::string fstab;
+
     /// The mountpoint to check.
     std::string mountpoint;
 

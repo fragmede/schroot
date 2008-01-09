@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/sbuild-i18n.h>
+#include <sbuild/sbuild-util.h>
 
 #include "schroot-mount-options.h"
 
@@ -38,6 +39,8 @@ const options::action_type options::ACTION_MOUNT ("mount");
 
 options::options ():
   schroot_base::options(),
+  dry_run(false),
+  fstab(),
   mountpoint(),
   mount(_("Mount"))
 {
@@ -56,7 +59,12 @@ options::add_options ()
   action.add(ACTION_MOUNT);
   action.set_default(ACTION_MOUNT);
 
+
   mount.add_options()
+    ("dry-run,d",
+     _("Perform a simulation of actions which would be taken"))
+    ("fstab,f", opt::value<std::string>(&this->fstab),
+     _("fstab file to read (full path)"))
     ("mountpoint,m", opt::value<std::string>(&this->mountpoint),
      _("Mountpoint to check (full path)"));
 }
@@ -83,6 +91,11 @@ options::check_options ()
 {
   // Chain up to check basic options.
   schroot_base::options::check_options();
+
+  if (vm.count("dry-run"))
+    this->dry_run = true;
+
+  this->mountpoint = sbuild::normalname(this->mountpoint);
 
   if (this->action == ACTION_MOUNT &&
       this->mountpoint.empty())
