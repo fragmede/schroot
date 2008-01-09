@@ -54,6 +54,7 @@ sbuild_public_h_sources =		\
 	sbuild-keyfile.h		\
 	sbuild-lock.h			\
 	sbuild-log.h			\
+	sbuild-mntstream.h		\
 	sbuild-nostream.h		\
 	sbuild-null.h			\
 	sbuild-parse-error.h		\
@@ -86,6 +87,7 @@ sbuild_public_cc_sources =		\
 	sbuild-keyfile-base.cc		\
 	sbuild-lock.cc			\
 	sbuild-log.cc			\
+	sbuild-mntstream.cc		\
 	sbuild-nostream.cc		\
 	sbuild-null.cc			\
 	sbuild-parse-value.cc		\

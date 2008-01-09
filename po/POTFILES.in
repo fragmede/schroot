@@ -21,6 +21,7 @@ sbuild/sbuild-lock.cc
 sbuild/sbuild-chroot-lvm-snapshot.cc
 sbuild/sbuild-types.cc
 sbuild/sbuild-keyfile-base.cc
+sbuild/sbuild-mntstream.cc
 sbuild/sbuild-null.cc
 sbuild/sbuild-log.cc
 sbuild/sbuild-util.cc
@@ -57,6 +58,4 @@ bin/schroot-releaselock/schroot-releaselock-options.cc
 bin/schroot-releaselock/schroot-releaselock.cc
 bin/schroot-mount/schroot-mount.cc
 bin/schroot-mount/schroot-mount-main.cc
-bin/schroot-mount/schroot-mount-main.h
 bin/schroot-mount/schroot-mount-options.cc
-bin/schroot-mount/schroot-mount-options.h
