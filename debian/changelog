@@ -4,6 +4,7 @@ schroot (1.1.6-1) unstable; urgency=low
   * Acknowledge NMU.  Thanks to Lucas Nussbaum for fixing the Boost
     library names following another incompatible change in Boost
     (Closes: #439215).
+  * debian/control: Suggest lvm2 instead of lvm-common (Closes: #452263).
   * debian/copyright:
     - Update with new GIT source code repository location.
     - Update licence to GPLv3.
