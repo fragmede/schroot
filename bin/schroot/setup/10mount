@@ -102,11 +102,7 @@ if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROO
 	fi
 
 	if [ "$CHROOT_TYPE" != "plain" ]; then
-	    do_mount "-t proc"    "proc"     "${CHROOT_PATH}/proc"
-	    do_mount "-o rw,bind" "/dev/pts" "${CHROOT_PATH}/dev/pts"
-	    do_mount "-t tmpfs"   "tmpfs"    "${CHROOT_PATH}/dev/shm"
-	    do_mount "-o rw,bind" "/home"    "${CHROOT_PATH}/home"
-	    do_mount "-o rw,bind" "/tmp"     "${CHROOT_PATH}/tmp"
+	    $LIBEXEC_DIR/schroot-mount $VERBOSE -f "$FSTAB" -m "$CHROOT_PATH"
 	fi
 
     elif [ $1 = "setup-stop" ]; then

@@ -1,5 +1,12 @@
 2008-01-12  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot/script-defaults: Add FSTAB variable.
+
+	* bin/schroot/setup/10mount: Use schroot-mount and mount-defaults
+	in place of hardcoded mounts.
+
+2008-01-12  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot/Makefile.am: Install and distribute mount-defaults.
 
 2008-01-12  Roger Leigh  <rleigh@debian.org>
