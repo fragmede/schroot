@@ -1,3 +1,8 @@
+2008-01-12  Roger Leigh  <rleigh@debian.org>
+
+	* bin/schroot/mount-defaults: Renamed from
+	bin/schroot/mount.defaults.
+
 2008-01-09  Roger Leigh  <rleigh@debian.org>
 
 	* bin/schroot/mount.defaults: New file.  Defaults for
