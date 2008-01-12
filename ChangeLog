@@ -1,5 +1,9 @@
 2008-01-12  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot/Makefile.am: Install and distribute mount-defaults.
+
+2008-01-12  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot/mount-defaults: Renamed from
 	bin/schroot/mount.defaults.
 
