@@ -62,3 +62,4 @@ fashion.  expect might be useful for testing the PAM wrappers.
 
 * Unify fork/exec code into a spawn function.
 
+* Pass configured sysconfdir, pkglibexecdir prefix exec_prefix etc. to scripts.
