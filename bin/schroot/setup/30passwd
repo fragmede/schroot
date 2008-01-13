@@ -17,6 +17,8 @@
 #
 #####################################################################
 
+set -e
+
 if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
   . "$CHROOT_SCRIPT_CONFIG"
 fi
@@ -25,9 +27,30 @@ if [ "$AUTH_VERBOSITY" = "verbose" ]; then
   VERBOSE="--verbose"
 fi
 
+# Copy a file if the source and destination differ
+# $1: source file
+# $2: destination file
+copy_file()
+{
+    # Device and inode
+    da=$(/usr/bin/stat --format="%d %i" "$1")
+    db=$(/usr/bin/stat --format="%d %i" "$2")
+
+    # Content
+    ca=$(/usr/bin/md5sum "$1" | sed -e 's/\(^[0-9a-f][0-9a-f]*\).*$/\1/')
+    cb=$(/usr/bin/md5sum "$2" | sed -e 's/\(^[0-9a-f][0-9a-f]*\).*$/\1/')
+
+    if [ "$da" != "$db" ]; then
+	if [ "$ca" != "$cb" ]; then
+	    cp $VERBOSE "$1" "$2"
+	fi
+    fi
+
+}
+
 if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
-  cp $VERBOSE /etc/passwd "${CHROOT_PATH}/etc/passwd"
-  cp $VERBOSE /etc/shadow "${CHROOT_PATH}/etc/shadow"
-  cp $VERBOSE /etc/group  "${CHROOT_PATH}/etc/group"
+  copy_file /etc/passwd "${CHROOT_PATH}/etc/passwd"
+  copy_file /etc/shadow "${CHROOT_PATH}/etc/shadow"
+  copy_file /etc/group  "${CHROOT_PATH}/etc/group"
 fi
 

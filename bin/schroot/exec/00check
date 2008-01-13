@@ -17,6 +17,8 @@
 #
 #####################################################################
 
+set -e
+
 if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
   . "$CHROOT_SCRIPT_CONFIG"
 fi

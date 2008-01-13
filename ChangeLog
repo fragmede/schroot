@@ -1,3 +1,14 @@
+2008-01-13  Roger Leigh  <rleigh@debian.org>
+
+	* bin/schroot/exec/*: Use set -e to ensure abort on failure.
+
+	* bin/schroot/setup/*: Use set -e to ensure abort on failure.
+
+	* bin/schroot/setup/20network, bin/schroot/30passwd: Add copy_file
+	shell function to copy files only if device or inode differ and
+	contents differ.  This prevents cp failing if source and
+	destination are the same inode on the same device.
+
 2008-01-12  Roger Leigh  <rleigh@debian.org>
 
 	* bin/schroot/script-defaults: Add FSTAB variable.
