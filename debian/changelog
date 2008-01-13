@@ -9,6 +9,9 @@ schroot (1.1.6-1) unstable; urgency=low
     - Update with new GIT source code repository location.
     - Update licence to GPLv3.
   * debian/schroot.init: Update licence to GPLv3.
+  * bin/schroot/setup/20network, bin/schroot/setup/30passwd: For files to
+    copy, compare file device, inode and contents to avoid copying
+    identical files (Closes: #428808).
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 16 Sep 2007 00:58:05 +0100
 
