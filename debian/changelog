@@ -12,6 +12,13 @@ schroot (1.1.6-1) unstable; urgency=low
   * bin/schroot/setup/20network, bin/schroot/setup/30passwd: For files to
     copy, compare file device, inode and contents to avoid copying
     identical files (Closes: #428808).
+  * If unknown keys are present in the configuration file, print a warning
+    message to alert the user (Closes: #459658).
+  * The filesystems to mount in the chroot may be customised by the system
+    administrator through the use of an fstab file on a per-chroot basis,
+    and a new helper utility, schroot-mount (Closes: #395062, #427047).
+    Thanks for your patience while we took the time to implement this the
+    right way.
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 16 Sep 2007 00:58:05 +0100
 
