@@ -1,5 +1,13 @@
 2008-01-15  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot-listmounts/schroot-listmounts-main.cc
+	(main::action_listmounts): Use sbuild::mntstream.
+
+	* bin/schroot-listmounts/schroot-listmounts-main.h: Remove OPEN
+	and CLOSE error codes.  Remove list_mounts helper function.
+
+2008-01-15  Roger Leigh  <rleigh@debian.org>
+
 	* All classes derived from sbuild::chroot updated to use new
 	set_keyfile argument.
 

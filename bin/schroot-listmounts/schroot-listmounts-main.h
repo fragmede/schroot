@@ -37,9 +37,7 @@ namespace schroot_listmounts
     /// Error codes.
     enum error_code
       {
-	FIND, ///< Failed to find file.
-	OPEN, ///< Failed to open file.
-	CLOSE ///< Failed to close file.
+	FIND ///< Failed to find file.
       };
 
     /// Exception type.
@@ -56,15 +54,6 @@ namespace schroot_listmounts
     virtual ~main ();
 
   private:
-    /**
-     * List mounts (internal helper).
-     *
-     * @param mountfile the file containing the database of mounted
-     * filesystems.
-     */
-    sbuild::string_list
-    list_mounts (std::string const& mountfile) const;
-
     /**
      * List mounts.
      */

@@ -18,6 +18,8 @@
 
 #include <config.h>
 
+#include <sbuild/sbuild-mntstream.h>
+
 #include "schroot-listmounts-main.h"
 
 #include <cerrno>
@@ -33,8 +35,6 @@
 #include <unistd.h>
 
 #include <boost/format.hpp>
-
-#include <mntent.h>
 
 #include <lockdev.h>
 
@@ -56,11 +56,7 @@ namespace
   emap init_errors[] =
     {
       // TRANSLATORS: %1% = file
-      emap(main::FIND,  N_("Failed to find '%1%'")),
-      // TRANSLATORS: %1% = file
-      emap(main::OPEN,  N_("Failed to open '%1%'")),
-      // TRANSLATORS: %1% = file
-      emap(main::CLOSE, N_("Failed to close '%1%'"))
+      emap(main::FIND,  N_("Failed to find '%1%'"))
     };
 
 }
@@ -86,30 +82,30 @@ main::~main ()
 {
 }
 
-sbuild::string_list
-main::list_mounts (std::string const& mountfile) const
+void
+main::action_listmounts ()
 {
-  sbuild::string_list ret;
-
   std::string to_find = sbuild::normalname(this->opts->mountpoint);
 
-  // NOTE: This is a non-standard GNU extension.
-  char *rpath = realpath(to_find.c_str(), NULL);
-  if (rpath == 0)
-    throw error(to_find, FIND, strerror(errno));
+  {
+    // NOTE: This is a non-standard GNU extension.
+    char *rpath = realpath(to_find.c_str(), NULL);
+    if (rpath == 0)
+      throw error(to_find, FIND, strerror(errno));
 
-  to_find = rpath;
-  free(rpath);
-  rpath = 0;
+    to_find = rpath;
+    free(rpath);
+    rpath = 0;
+  }
 
-  std::FILE *mntdb = std::fopen(mountfile.c_str(), "r");
-  if (mntdb == 0)
-    throw error(mountfile, OPEN, strerror(errno));
+  // Check mounts.
+  sbuild::mntstream mounts("/proc/mounts");
 
-  mntent *mount;
-  while ((mount = getmntent(mntdb)) != 0)
+  sbuild::mntstream::mntentry entry;
+
+  while (mounts >> entry)
     {
-      std::string mount_dir(mount->mnt_dir);
+      std::string mount_dir(entry.directory);
       if (to_find == "/" ||
 	  (mount_dir.find(to_find) == 0 &&
 	   (// Names are the same.
@@ -117,28 +113,9 @@ main::list_mounts (std::string const& mountfile) const
 	    // Must have a following /, or not the same directory.
 	    (mount_dir.size() > to_find.size() &&
 	     mount_dir[to_find.size()] == '/'))))
-	ret.push_back(mount_dir);
+	std::cout << mount_dir << '\n';
     }
 
-  std::cout << std::flush;
-
-  if (std::fclose(mntdb) == EOF)
-    throw error(mountfile, CLOSE, strerror(errno));
-
-  return ret;
-}
-
-void
-main::action_listmounts ()
-{
-  // Check mounts.
-  const sbuild::string_list mounts =
-    list_mounts("/proc/mounts");
-
-  for (sbuild::string_list::const_reverse_iterator pos = mounts.rbegin();
-       pos != mounts.rend();
-       ++pos)
-    std::cout << *pos << '\n';
   std::cout << std::flush;
 }
 
