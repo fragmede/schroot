@@ -170,18 +170,21 @@ chroot_file::get_keyfile (keyfile& keyfile) const
 }
 
 void
-chroot_file::set_keyfile (keyfile const& keyfile)
+chroot_file::set_keyfile (keyfile const& keyfile,
+			  string_list&   used_keys)
 {
-  chroot::set_keyfile(keyfile);
-  chroot_source::set_keyfile(keyfile);
+  chroot::set_keyfile(keyfile, used_keys);
+  chroot_source::set_keyfile(keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_file::set_file,
 			    keyfile, get_name(), "file",
 			    keyfile::PRIORITY_REQUIRED);
+  used_keys.push_back("file");
 
   keyfile::get_object_value(*this, &chroot_file::set_file_repack,
 			    keyfile, get_name(), "file-repack",
 			    get_active() ?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_DISALLOWED);
+  used_keys.push_back("file-repack");
 }

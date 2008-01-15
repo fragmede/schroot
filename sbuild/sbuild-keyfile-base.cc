@@ -119,7 +119,12 @@ namespace
       // TRANSLATORS: %3% = key name ("keyname=value" in configuration file)
       // TRANSLATORS: %4% = additional details
       emap(keyfile_base::PASSTHROUGH_LGK,
-	   N_("line %1% [%2%] %3%: %4%"))
+	   N_("line %1% [%2%] %3%: %4%")),
+      // TRANSLATORS: %1% = line number in configuration file
+      // TRANSLATORS: %2% = group name ("[groupname]" in configuration file)
+      // TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+      emap(keyfile_base::UNKNOWN_KEY,
+	   N_("line %1% [%2%]: Unknown key '%4%' used")),
     };
 
 }

@@ -155,7 +155,8 @@ namespace sbuild
     get_keyfile (keyfile& keyfile) const;
 
     void
-    set_keyfile (keyfile const& keyfile);
+    set_keyfile (keyfile const& keyfile,
+		 string_list&   used_keys);
 
   private:
     /// Users allowed to access the source chroot.

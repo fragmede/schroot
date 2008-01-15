@@ -123,11 +123,13 @@ chroot_directory::get_keyfile (keyfile& keyfile) const
 }
 
 void
-chroot_directory::set_keyfile (keyfile const& keyfile)
+chroot_directory::set_keyfile (keyfile const& keyfile,
+			       string_list&   used_keys)
 {
-  chroot::set_keyfile(keyfile);
+  chroot::set_keyfile(keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_directory::set_location,
 			    keyfile, get_name(), "location",
 			    keyfile::PRIORITY_REQUIRED);
+  used_keys.push_back("location");
 }

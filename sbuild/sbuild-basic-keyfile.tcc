@@ -16,7 +16,9 @@
  *
  *********************************************************************/
 
+#include <algorithm>
 #include <fstream>
+#include <set>
 
 template <typename K, typename P>
 sbuild::basic_keyfile<K, P>::basic_keyfile ():
@@ -86,6 +88,33 @@ sbuild::basic_keyfile<K, P>::get_keys (group_name_type const& group) const
     }
 
   return ret;
+}
+
+template <typename K, typename P>
+void
+sbuild::basic_keyfile<K, P>::check_keys (group_name_type const& group,
+					 string_list const&     keys) const
+{
+  const string_list total(get_keys(group));
+
+  const string_set a(total.begin(), total.end());
+  const string_set b(keys.begin(), keys.end());
+
+  string_set unused;
+
+  set_difference(a.begin(), a.end(),
+		 b.begin(), b.end(),
+		 inserter(unused, unused.begin()));
+
+  for (string_set::const_iterator pos = unused.begin();
+       pos != unused.end();
+       ++pos)
+    {
+      size_type line = get_line(group, *pos);
+      error e(line, group, UNKNOWN_KEY, *pos);
+      e.set_reason(_("This option may be present in a newer version"));
+      log_exception_warning(e);
+    }
 }
 
 template <typename K, typename P>

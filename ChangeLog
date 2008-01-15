@@ -1,3 +1,28 @@
+2008-01-15  Roger Leigh  <rleigh@debian.org>
+
+	* All classes derived from sbuild::chroot updated to use new
+	set_keyfile argument.
+
+	* sbuild/sbuild-chroot.cc
+	(set_keyfile): sets used_keys for each key used.
+
+	* sbuild/sbuild-chroot.h
+	(operator >>): Get list of used keys, and pass to
+	keyfile::check_keys to find unused keys.
+	(set_keyfile): Add used_keys parameter.
+
+	* sbuild/sbuild-basic-keyfile.tcc
+	(check_keys): Use set_difference to compare used and available
+	keys, and print warnings about the differences.
+
+	* sbuild/sbuild-basic-keyfile.h: Make user-visible types public.
+	Add check_keys method to warn about unused keys.
+
+	* sbuild/sbuild-keyfile-base.(cc|h): Add UNKNOWN_KEY error code
+	and string.
+
+	* sbuild/sbuild-types.h: Add string_set typedef.
+
 2008-01-13  Roger Leigh  <rleigh@debian.org>
 
 	* bin/schroot/exec/*: Use set -e to ensure abort on failure.

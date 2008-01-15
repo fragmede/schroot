@@ -129,7 +129,7 @@ namespace sbuild
   template <typename K, typename P = basic_keyfile_parser<K> >
   class basic_keyfile : public keyfile_base
   {
-  private:
+  public:
     /// Group name.
     typedef typename K::group_name_type group_name_type;
 
@@ -145,6 +145,7 @@ namespace sbuild
     /// Line number.
     typedef typename K::size_type size_type;
 
+  private:
     /// Parse type.
     typedef P parse_type;
 
@@ -200,6 +201,18 @@ namespace sbuild
      */
     string_list
     get_keys (group_name_type const& group) const;
+
+    /**
+     * Check for unused keys in a group.  If keys other than the
+     * specified keys exist in the specified group, print a warning
+     * about unknown keys having been used.
+     *
+     * @param group the group to use.
+     * @param keys the keys which have been used.
+     */
+    void
+    check_keys (group_name_type const& group,
+		string_list const&     keys) const;
 
     /**
      * Check if a group exists.

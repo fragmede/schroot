@@ -23,6 +23,7 @@
 #include <ctime>
 #include <ios>
 #include <locale>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -31,6 +32,9 @@ namespace sbuild
 
   /// A string vector.
   typedef std::vector<std::string> string_list;
+
+  /// A string set.
+  typedef std::set<std::string> string_set;
 
   /**
    * A date representation.

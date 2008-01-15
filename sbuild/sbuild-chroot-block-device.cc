@@ -192,19 +192,23 @@ chroot_block_device::get_keyfile (keyfile& keyfile) const
 }
 
 void
-chroot_block_device::set_keyfile (keyfile const& keyfile)
+chroot_block_device::set_keyfile (keyfile const& keyfile,
+				  string_list&   used_keys)
 {
-  chroot::set_keyfile(keyfile);
+  chroot::set_keyfile(keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_block_device::set_device,
 			    keyfile, get_name(), "device",
 			    keyfile::PRIORITY_REQUIRED);
+  used_keys.push_back("device");
 
   keyfile::get_object_value(*this, &chroot_block_device::set_mount_options,
 			    keyfile, get_name(), "mount-options",
 			    keyfile::PRIORITY_OPTIONAL);
+  used_keys.push_back("mount-options");
 
   keyfile::get_object_value(*this, &chroot_block_device::set_location,
 			    keyfile, get_name(), "location",
 			    keyfile::PRIORITY_OPTIONAL);
+  used_keys.push_back("location");
 }

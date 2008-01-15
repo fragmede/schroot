@@ -110,7 +110,8 @@ namespace sbuild
     get_keyfile (keyfile& keyfile) const;
 
     virtual void
-    set_keyfile (keyfile const& keyfile);
+    set_keyfile (keyfile const& keyfile,
+		 string_list&   used_keys);
 
   private:
     /// LVM snapshot device name for lvcreate.

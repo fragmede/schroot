@@ -144,21 +144,26 @@ chroot_source::get_keyfile (keyfile& keyfile) const
 }
 
 void
-chroot_source::set_keyfile (keyfile const& keyfile)
+chroot_source::set_keyfile (keyfile const& keyfile,
+			    string_list&   used_keys)
 {
   keyfile::get_object_list_value(*this, &chroot_source::set_source_users,
 				 keyfile, get_name(), "source-users",
 				 keyfile::PRIORITY_OPTIONAL);
+  used_keys.push_back("source-users");
 
   keyfile::get_object_list_value(*this, &chroot_source::set_source_groups,
 				 keyfile, get_name(), "source-groups",
 				 keyfile::PRIORITY_OPTIONAL);
+  used_keys.push_back("source-groups");
 
   keyfile::get_object_list_value(*this, &chroot_source::set_source_root_users,
 				 keyfile, get_name(), "source-root-users",
 				 keyfile::PRIORITY_OPTIONAL);
+  used_keys.push_back("source-root-users");
 
   keyfile::get_object_list_value(*this, &chroot_source::set_source_root_groups,
 				 keyfile, get_name(), "source-root-groups",
 				 keyfile::PRIORITY_OPTIONAL);
+  used_keys.push_back("source-root-groups");
 }

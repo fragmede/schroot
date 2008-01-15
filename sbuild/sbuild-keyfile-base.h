@@ -74,7 +74,8 @@ namespace sbuild
 	PASSTHROUGH_G,     ///< Pass through exception with group.
 	PASSTHROUGH_GK,    ///< Pass through exception with group and key.
 	PASSTHROUGH_LG,    ///< Pass through exception with line and group.
-	PASSTHROUGH_LGK    ///< Pass through exception with line, group and key.
+	PASSTHROUGH_LGK,   ///< Pass through exception with line, group and key.
+	UNKNOWN_KEY        ///< The key is unknown.
       };
 
     /// Exception type.
