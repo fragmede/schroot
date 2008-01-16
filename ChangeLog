@@ -1,3 +1,20 @@
+2008-01-16  Roger Leigh  <rleigh@debian.org>
+
+	* bin/schroot/script-defaults: Reorder variables.
+
+	* bin/schroot/schroot.1.in, bin/schroot/schroot.conf.5.in,
+	bin/schroot/schroot-setup.5.in: Update copyright, hyphenation and
+	references.
+
+	* doc/Makefile.am (PS_DEPS): Add schroot-script-config.5.
+
+	* bin/schroot/Makefile.am (man_MANS): Add schroot-script-config.5.
+
+	* configure.ac: Add bin/schroot/schroot-script-config.5
+
+	* bin/schroot/schroot-script-config.5.in: New manual page to
+	document file format of script-config option.
+
 2008-01-15  Roger Leigh  <rleigh@debian.org>
 
 	* bin/schroot-listmounts/schroot-listmounts-main.cc
