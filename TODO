@@ -57,11 +57,10 @@ fashion.  expect might be useful for testing the PAM wrappers.
   code has no knowledge of the file name, so can't report it.
   Outright errors throw, and the handler adds the needed context.
 
-
-* schroot-listmounts should use mntstream.
-
 * Unify fork/exec code into a spawn function.
 
 * Pass configured sysconfdir, pkglibexecdir prefix exec_prefix etc. to scripts.
 
 * basic-keyfile should not use string_list.
+
+* Check that schroot-mount ensures fs_dir mountpoints have a leading /.
