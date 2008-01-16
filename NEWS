@@ -12,6 +12,15 @@ configuration.
   1) Relicence under the GNU General Public License, version 3 or
      later.
 
+  2) Per-chroot custom mountpoints are now possible through the use of
+     an fstab file.  This may be used to mount or bind mount any
+     filesystem within the chroot with the assistance of a helper
+     utility, schroot-mount.  Set FSTAB=fstab in the script-config
+     file to specify which file to use.
+
+  3) If invalid options are used in schroot.conf, warnings will be
+     printed, rather than simply ignoring them.
+
 * Major changes in 1.1.5:
 
   1) A "script-config" option has been added to allow customisation of

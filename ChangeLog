@@ -1,5 +1,9 @@
 2008-01-16  Roger Leigh  <rleigh@debian.org>
 
+	* NEWS: Update.
+
+2008-01-16  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot/script-defaults: Reorder variables.
 
 	* bin/schroot/schroot.1.in, bin/schroot/schroot.conf.5.in,
