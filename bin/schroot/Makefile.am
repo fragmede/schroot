@@ -52,7 +52,11 @@ schroot_LDADD = libschroot.la
 pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
 pkgsysconf_DATA = schroot.conf mount-defaults script-defaults
 
-man_MANS = schroot.1 schroot-setup.5 schroot.conf.5
+man_MANS =			\
+	schroot.1		\
+	schroot-setup.5		\
+	schroot.conf.5		\
+	schroot-script-config.5
 
 EXTRA_DIST =			\
 	$(pkgsysconf_DATA)

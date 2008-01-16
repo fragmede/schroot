@@ -1,4 +1,4 @@
-.\" Copyright © 2005-2007  Roger Leigh <rleigh@debian.org>
+.\" Copyright © 2005-2008  Roger Leigh <rleigh@debian.org>
 .\"
 .\" schroot is free software: you can redistribute it and/or modify it
 .\" under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 schroot.conf \[em] chroot definition file for schroot
 .SH DESCRIPTION
 \f[BI]schroot.conf\fP is a plain UTF-8 text file, describing the chroots
-available for use with sbuild.
+available for use with schroot.
 .PP
 Comments are introduced following a \[oq]\f[CR]\[sh]\fP\[cq] (\[lq]hash\[rq])
 character at the beginning of a line, or following any other text.  All text
@@ -56,8 +56,7 @@ whether a distribution is older than another.  For example, \[lq]oldstable\[rq]
 and \[lq]oldstable-security\[rq] might be \[oq]0\[cq], while \[lq]stable\[rq]
 and \[lq]stable-security\[rq] are \[oq]1\[cq], \[lq]testing\[rq] is \[oq]2\[cq]
 and \[lq]unstable\[rq] is \[oq]3\[cq].  The values are not important, but the
-difference between them is.  This is used by sbuild when using the schroot
-chroot mode.
+difference between them is.  This is used by sbuild and wanna-build.
 .TP
 \f[CBI]users=\fP\f[CI]user1,user2,...\fP
 A comma-separated list of users which are allowed access to the chroot.  If
@@ -99,9 +98,9 @@ the chroot environment.  If enabled for a \[oq]plain\[cq] or
 (not true session management, because it does not make a copy of the chroot).
 If your chroots are exclusively controlled by schroot, set to \[oq]true\[cq].
 .TP
-\f[CBI]run\-exec\-scripts=\fP\f[CI]true\fP|\f[CI]false\fP
-Set whether chroot execution scripts will be run.  The default is the same as
-the default for the \f[CI]run-setup-scripts\fP key.  This option was called
+\f[CBI]run\-exec\-scripts=\fP\f[CI]true\fP|\f[CI]false\fP Set whether chroot
+execution scripts will be run.  The default is the same as the default for the
+\f[CI]run\-setup\-scripts\fP key.  This option was called
 \f[CI]run\-session\-scripts\fP in versions prior to 0.2.5.
 .TP
 \f[CBI]script\-config=\fP\f[CI]filename\fP
@@ -113,7 +112,8 @@ copy this script and amend the copy; or alter the original to set the defaults
 for all chroots.  Settings for specific chroots may also be set in a single
 script by using conditionals checking the chroot name and/or type.  Note that
 the setup script will be sourced once for each and every setup and exec script
-invocation, and must be idempotent.
+invocation, and must be idempotent.  The file format is documented in
+.BR schroot-script-config (5).
 .TP
 \f[CBI]command\-prefix=\fP\f[CI]command,option1,option2,...\fP
 A comma-separated list of a command and the options for the command.  This
@@ -381,7 +381,7 @@ user, and not be writable by other.
 .SH AUTHORS
 Roger Leigh.
 .SH COPYRIGHT
-Copyright \(co 2005\-2007  Roger Leigh \f[CR]<rleigh@debian.org>\fP
+Copyright \(co 2005\-2008  Roger Leigh \f[CR]<rleigh@debian.org>\fP
 .PP
 \fBschroot\fP is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -390,6 +390,7 @@ version.
 .SH SEE ALSO
 .BR sbuild (1),
 .BR schroot (1),
+.BR schroot\-script\-config (5),
 .BR mount (8).
 .\"#
 .\"# The following sets edit modes for GNU EMACS

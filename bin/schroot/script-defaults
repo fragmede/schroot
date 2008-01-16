@@ -1,4 +1,8 @@
-# Default settings for chroot setup and exec scripts
+# Default settings for chroot setup and exec scripts.
+# See schroot-script-config(5) for further details.
+
+# Filesystems to mount
+FSTAB="/etc/schroot/mount-defaults"
 
 # Is sbuild installed?
 if [ -x /usr/bin/sbuild ]; then
@@ -6,6 +10,3 @@ if [ -x /usr/bin/sbuild ]; then
 else
   SBUILD="false"
 fi
-
-# Filesystems to mount
-FSTAB="/etc/schroot/mount-defaults"
