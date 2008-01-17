@@ -1,5 +1,16 @@
 2008-01-17  Roger Leigh  <rleigh@debian.org>
 
+	* TODO: Remove completed item.
+
+	* bin/schroot-mount/schroot-mount-main.cc: Ensure fstab fs_dir has
+	a leading /.
+
+2008-01-17  Roger Leigh  <rleigh@debian.org>
+
+	* sbuild/sbuild-chroot.h: Add missing comma.
+
+2008-01-17  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot/schroot-setup.5.in: Document SCHROOT_SESSION_CREATE,
 	SCHROOT_SESSION_CLONE, and SCHROOT_SESSION_PURGE,
 

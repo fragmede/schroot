@@ -96,6 +96,12 @@ main::action_mount ()
 
   while (mounts >> entry)
     {
+      // Ensure entry has a leading / to prevent security hole where
+      // mountpoint might be outside the chroot.
+      std::string d = entry.directory;
+      if (d.empty() || d[0] != '/')
+	d = std::string("/") + d;
+
       std::string directory(opts->mountpoint + entry.directory);
 
       std::cout << boost::format("Mounting '%1%' on '%2%'")
