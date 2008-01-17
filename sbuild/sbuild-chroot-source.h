@@ -159,6 +159,8 @@ namespace sbuild
 		 string_list&   used_keys);
 
   private:
+    /// Is the chroot source or clone?
+    bool          is_source;
     /// Users allowed to access the source chroot.
     string_list   source_users;
     /// Groups allowed to access the source chroot.

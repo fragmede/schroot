@@ -76,6 +76,15 @@ The process ID of the schroot process.
 SESSION_ID
 The session identifier.
 .TP
+CHROOT_SESSION_CREATE
+Set to \[oq]true\[cq] if a session will be created, otherwise \[oq]false\[cq].
+.TP
+CHROOT_SESSION_CLONE
+Set to \[oq]true\[cq] if a session will be cloned, otherwise \[oq]false\[cq].
+.TP
+CHROOT_SESSION_PURGE
+Set to \[oq]true\[cq] if a session will be purged, otherwise \[oq]false\[cq].
+.TP
 CHROOT_TYPE
 The type of the chroot.  This is useful for restricting a setup task to
 particular types of chroot (e.g. only block devices or LVM snapshots).

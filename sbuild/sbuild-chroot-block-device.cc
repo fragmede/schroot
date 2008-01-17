@@ -162,7 +162,7 @@ chroot_block_device::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_block_device::get_session_flags () const
 {
-  return static_cast<session_flags>(0);
+  return SESSION_NOFLAGS;
 }
 
 void

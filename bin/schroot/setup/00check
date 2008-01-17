@@ -54,6 +54,10 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 		echo "CHROOT_LVM_SNAPSHOT_OPTIONS=$CHROOT_LVM_SNAPSHOT_OPTIONS"
 	    fi
 	fi
+	echo "CHROOT_SESSION_CREATE=$CHROOT_SESSION_CREATE"
+	echo "CHROOT_SESSION_CLONE=$CHROOT_SESSION_CLONE"
+	echo "CHROOT_SESSION_PURGE=$CHROOT_SESSION_PURGE"
+        echo "FSTAB=$FSTAB"
         echo "SBUILD=$SBUILD"
     fi
 

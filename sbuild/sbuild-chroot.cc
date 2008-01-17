@@ -389,6 +389,9 @@ sbuild::chroot::setup_env (environment& env)
   env.add("CHROOT_PATH", get_path());
   env.add("CHROOT_MOUNT_DEVICE", get_mount_device());
   env.add("CHROOT_SCRIPT_CONFIG", normalname(std::string(PACKAGE_SYSCONF_DIR) +  '/' + get_script_config()));
+  env.add("CHROOT_SESSION_CREATE", get_session_flags() & SESSION_CREATE);
+  env.add("CHROOT_SESSION_CLONE", get_session_flags() & SESSION_CLONE);
+  env.add("CHROOT_SESSION_PURGE", get_session_flags() & SESSION_PURGE);
 }
 
 void
@@ -475,7 +478,11 @@ sbuild::chroot::get_details (format_detail& detail) const
     .add(_("Run Execution Scripts"), get_run_exec_scripts())
     .add(_("Script Configuration"), get_script_config())
     .add(_("Session Managed"),
-	 static_cast<bool>(get_session_flags() & chroot::SESSION_CREATE));
+	 static_cast<bool>(get_session_flags() & chroot::SESSION_CREATE))
+    .add(_("Session Cloned"),
+	 static_cast<bool>(get_session_flags() & chroot::SESSION_CLONE))
+    .add(_("Session Purged"),
+	 static_cast<bool>(get_session_flags() & chroot::SESSION_PURGE));
 
   if (!get_command_prefix().empty())
     detail.add(_("Command Prefix"), get_command_prefix());

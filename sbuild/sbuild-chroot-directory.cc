@@ -104,7 +104,7 @@ chroot_directory::get_session_flags () const
   if (get_run_setup_scripts() == true)
     return SESSION_CREATE;
   else
-    return static_cast<session_flags>(0);
+    return SESSION_NOFLAGS;
 }
 
 void

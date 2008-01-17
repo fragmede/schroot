@@ -1,3 +1,39 @@
+2008-01-17  Roger Leigh  <rleigh@debian.org>
+
+	* bin/schroot/schroot-setup.5.in: Document SCHROOT_SESSION_CREATE,
+	SCHROOT_SESSION_CLONE, and SCHROOT_SESSION_PURGE,
+
+	* bin/schroot/setup/00check, bin/schroot/exec/00check: Print
+	SCHROOT_SESSION_CREATE, SCHROOT_SESSION_CLONE,
+	SCHROOT_SESSION_PURGE, FSTAB and SBUILD values.
+
+	* sbuild/sbuild-chroot-block-device.cc,
+	sbuild-chroot-directory.cc: Use SESSION_NOFLAGS.
+
+	* sbuild/sbuild-chroot-source.cc:
+	(chroot_source::chroot_source): Explicitly initialise all member.
+	(chroot_source::clone_source_setup): Set is_source when cloning a
+	source chroot.
+	(chroot_source::get_session_flags): Set session flags
+	appropriately for source chroots, active cloned chroots and
+	inactive non-cloned chroots.
+	(chroot_source::get_details): Only list extra source chroot
+	configuration options for non-source chroots.
+	(chroot_source::get_keyfile): Only get for non-source chroots.
+	(chroot_source::set_keyfile): Only set for non-source chroots.
+
+	* sbuild/sbuild-chroot-source.h: Add is_source member.
+
+	* sbuild/sbuild-chroot.cc
+	(chroot::setup_env): Add SCHROOT_SESSION_CREATE,
+	SCHROOT_SESSION_CLONE, and SCHROOT_SESSION_PURGE to the
+	environment.
+	(chroot::get_details): Display SCHROOT_SESSION_CREATE,
+	SCHROOT_SESSION_CLONE, and SCHROOT_SESSION_PURGE.
+
+	* sbuild/sbuild-chroot.h: Add SESSION_NOFLAGS and SESSION_PURGE to
+	session_flags.
+
 2008-01-16  Roger Leigh  <rleigh@debian.org>
 
 	* NEWS: Update.
