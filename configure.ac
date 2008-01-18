@@ -464,6 +464,7 @@ AC_CONFIG_FILES([bin/dchroot-dsa/Makefile])
 AC_CONFIG_FILES([bin/dchroot-dsa/dchroot-dsa.1])
 AC_CONFIG_FILES([bin/csbuild/Makefile])
 AC_CONFIG_FILES([bin/csbuild/csbuild.1])
+AC_CONFIG_FILES([scripts/po-notify])
 AC_CONFIG_FILES([test/Makefile])
 AC_CONFIG_FILES([Makefile])
 dnl Output the generated config.status script.

@@ -1,5 +1,11 @@
 2008-01-18  Roger Leigh  <rleigh@debian.org>
 
+	* configure.ac: Generate scripts/po-notify.
+
+	* scripts/po-notify.in: New script to notify translators.
+
+2008-01-18  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot/setup/05file: Only purge if CHROOT_SESSION_PURGE is
 	set, as an additional extra safety measure.
 

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+podebconf-report-po --call --withtranslators --podir=@abs_top_srcdir@/po
