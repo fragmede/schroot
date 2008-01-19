@@ -1,8 +1,11 @@
 # Default settings for chroot setup and exec scripts.
 # See schroot-script-config(5) for further details.
 
-# Filesystems to mount
+# Filesystems to mount inside the chroot.
 FSTAB="/etc/schroot/mount-defaults"
+
+# Files to copy from the host system into the chroot.
+COPYFILES="/etc/schroot/copyfiles-defaults"
 
 # Is sbuild installed?
 if [ -x /usr/bin/sbuild ]; then

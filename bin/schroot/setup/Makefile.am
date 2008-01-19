@@ -29,8 +29,7 @@ setup_SCRIPTS =		\
 	05file		\
 	10mount		\
 	15killprocs	\
-	20network	\
-	30passwd	\
+	20copyfiles	\
 	50chrootname	\
 	50sbuild
 

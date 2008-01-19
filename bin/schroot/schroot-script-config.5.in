@@ -35,6 +35,9 @@ schroot which add their own setup scripts may add additional variables which
 are not documented here; consult the extension documentation for further
 details.
 .TP
+COPYFILES
+A file containing a list of files to copy into the chroot (one file per line).
+.TP
 FSTAB
 The filesystem table file to be used to mount filesystems within the chroot.
 The format of this file is the same as for \fI/etc/fstab\fP, documented in

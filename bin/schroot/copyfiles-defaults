@@ -1,0 +1,5 @@
+/etc/group
+/etc/hosts
+/etc/passwd
+/etc/resolv.conf
+/etc/shadow

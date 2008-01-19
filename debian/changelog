@@ -21,8 +21,12 @@ schroot (1.1.6-1) unstable; urgency=low
     right way.
   * Update Vietnamese translation (Closes: #461531).  Thanks to Clytie
     Siddall.
+  * debian/schroot.preinst: Add rm_conffile function to remove
+    /etc/schroot/setup.d/20network and /etc/schroot/setup.d/30passwd for
+    versions prior to this.  These are replaced by
+    /etc/schroot/setup.d/20copyfiles.
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 19 Jan 2008 11:16:45 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sat, 19 Jan 2008 14:23:57 +0000
 
 schroot (1.1.5-1.1) unstable; urgency=low
 

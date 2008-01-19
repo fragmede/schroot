@@ -63,7 +63,3 @@ fashion.  expect might be useful for testing the PAM wrappers.
 
 * basic-keyfile should not use string_list.
 
-* 20network and 30passwd should be unified
-
-  Create a 20copyfiles which uses a FILES variable in script-config to
-  read a list of files to copy into the chroot.

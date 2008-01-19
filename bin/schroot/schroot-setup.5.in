@@ -160,12 +160,10 @@ Create and remove LVM snapshots.
 \f[BI]10mount\fP
 Mount and unmount filesystems.
 .TP
-\f[BI]20network\fP
-Configure networking by copying resolv.conf from the host system.
-.TP
-\f[BI]30passwd\fP
-Configure passwd, shadow and groups in the chroot.  This copies the files from
-the host system.
+\f[BI]20copyfiles\fP
+Copy files from th host system into the chroot.  Configure networking by
+copying hosts and resolv.conf, and user accounts by copying passwd, shadow and
+groups.
 .TP
 \f[BI]50chrootname\fP
 Set the chroot name (\fI/etc/debian_chroot\fP) in the chroot.  This may be used

@@ -1,5 +1,24 @@
 2008-01-19  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot/schroot-setup.5.in: Replace 20network and 30passwd
+	with 20copyfiles.
+
+	* bin/schroot/setup/Makefile.am
+	(setup_SCRIPTS): Remove 20network and 30passwd, and add
+	20copyfiles.
+
+	* bin/schroot/setup/30passwd: Remove.
+
+	* bin/schroot/setup/20copyfiles: Move from 20network.  Read
+	COPYFILES file, and copy files into chroot.
+
+	* bin/schroot/script-defaults: Add COPYFILES.
+
+	* bin/schroot/copyfiles-defaults: New file.  Files to copy into
+	the chroot.
+
+2008-01-19  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot-listmounts/schroot-listmounts-main.cc
 	(main::action_listmounts): Output mounts in reverse mount order, i.e.
 	order for unmounting.
