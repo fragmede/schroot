@@ -18,7 +18,15 @@ configuration.
      utility, schroot-mount.  Set FSTAB=fstab in the script-config
      file to specify which file to use.
 
-  3) If invalid options are used in schroot.conf, warnings will be
+  3) Per-chroot custom file copying is now supported.  Set
+     COPYFILES=file in the script-config file to specify a file
+     containing a list of files to copy from the host system into the
+     chroot.  This change merged the 20network and 30passwd setup
+     scripts into a single script, 20copyfiles.  If you previously
+     customised either of these scripts, the changes will need to be
+     copied over to the new files.
+
+  4) If invalid options are used in schroot.conf, warnings will be
      printed, rather than simply ignoring them.
 
 * Major changes in 1.1.5:
