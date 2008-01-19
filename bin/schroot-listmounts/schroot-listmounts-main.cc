@@ -100,8 +100,8 @@ main::action_listmounts ()
 
   // Check mounts.
   sbuild::mntstream mounts("/proc/mounts");
-
   sbuild::mntstream::mntentry entry;
+  sbuild::string_list mountlist;
 
   while (mounts >> entry)
     {
@@ -113,9 +113,13 @@ main::action_listmounts ()
 	    // Must have a following /, or not the same directory.
 	    (mount_dir.size() > to_find.size() &&
 	     mount_dir[to_find.size()] == '/'))))
-	std::cout << mount_dir << '\n';
+	mountlist.push_back(mount_dir);
     }
 
+  for (sbuild::string_list::const_reverse_iterator pos = mountlist.rbegin();
+       pos != mountlist.rend();
+       ++pos)
+    std::cout << *pos << '\n';
   std::cout << std::flush;
 }
 
