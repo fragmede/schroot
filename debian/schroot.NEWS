@@ -1,3 +1,20 @@
+schroot (1.1.6-1) unstable; urgency=low
+
+  * Per-chroot custom mountpoints are now possible through the use of an
+    fstab file.  This may be used to mount or bind mount any filesystem
+    within the chroot with the assistance of a helper utility,
+    schroot-mount.  Set FSTAB=fstab in the script-config file to specify
+    which file to use.
+
+  * Per-chroot custom file copying is now supported.  Set COPYFILES=file
+    in the script-config file to specify a file containing a list of files
+    to copy from the host system into the chroot.  This change merged the
+    20network and 30passwd setup scripts into a single script,
+    20copyfiles.  If you previously customised either of these scripts,
+    the changes will need to be copied over to the new files.
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 19 Jan 2008 16:47:35 +0000
+
 schroot (0.99.0-1) unstable; urgency=low
 
   * The dchroot program has been moved into a separate dchroot package.

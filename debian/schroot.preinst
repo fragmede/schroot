@@ -54,8 +54,8 @@ install|upgrade)
          prep_mv_conffile "schroot" "/etc/schroot/run.d/00check"
     fi
     if dpkg --compare-versions "$2" le "1.1.6-1"; then
-         prep_rm_conffile "schroot" "/etc/schroot/setup.d/20network"
-         prep_rm_conffile "schroot" "/etc/schroot/setup.d/30passwd"
+         rm_conffile "schroot" "/etc/schroot/setup.d/20network"
+         rm_conffile "schroot" "/etc/schroot/setup.d/30passwd"
     fi
 esac
 
