@@ -32,20 +32,34 @@ fi
 # $2: destination file
 copy_file()
 {
-    # Device and inode
-    da=$(/usr/bin/stat --format="%d %i" "$1")
-    db=$(/usr/bin/stat --format="%d %i" "$2")
+    if [ -r "$1" ]; then
+	if [ -r "$2" ]; then
 
-    # Content
-    ca=$(/usr/bin/md5sum "$1" | sed -e 's/\(^[0-9a-f][0-9a-f]*\).*$/\1/')
-    cb=$(/usr/bin/md5sum "$2" | sed -e 's/\(^[0-9a-f][0-9a-f]*\).*$/\1/')
+            # Device and inode
+	    da=$(/usr/bin/stat --format="%d %i" "$1")
+	    db=$(/usr/bin/stat --format="%d %i" "$2")
 
-    if [ "$da" != "$db" ]; then
-	if [ "$ca" != "$cb" ]; then
+            # Content
+	    ca=$(/usr/bin/md5sum "$1" | sed -e 's/\(^[0-9a-f][0-9a-f]*\).*$/\1/')
+	    cb=$(/usr/bin/md5sum "$2" | sed -e 's/\(^[0-9a-f][0-9a-f]*\).*$/\1/')
+
+	    # Copy if files are different
+	    if [ "$da" != "$db" ]; then
+		if [ "$ca" != "$cb" ]; then
+		    cp $VERBOSE "$1" "$2"
+		fi
+	    fi
+
+	else
+
+	    # Copy if destination file does not exist
 	    cp $VERBOSE "$1" "$2"
-	fi
-    fi
 
+	fi
+
+    else
+	echo "W: Not copying nonexistent file: $file"
+    fi
 }
 
 if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then

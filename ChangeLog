@@ -1,5 +1,13 @@
 2008-01-19  Roger Leigh  <rleigh@debian.org>
 
+	* bin/schroot/setup/20copyfiles
+	(copy_file): Add checks that source and destination both exist.
+
+	* bin/schroot/Makefile.am
+	(pkgsysconf_DATA): Add copyfiles-defaults.
+
+2008-01-19  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot/schroot-setup.5.in: Replace 20network and 30passwd
 	with 20copyfiles.
 

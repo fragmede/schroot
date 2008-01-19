@@ -50,7 +50,11 @@ schroot_LDADD = libschroot.la
 
 
 pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
-pkgsysconf_DATA = schroot.conf mount-defaults script-defaults
+pkgsysconf_DATA = 		\
+	schroot.conf		\
+	copyfiles-defaults	\
+	mount-defaults		\
+	script-defaults
 
 man_MANS =			\
 	schroot.1		\
