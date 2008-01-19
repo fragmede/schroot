@@ -19,8 +19,10 @@ schroot (1.1.6-1) unstable; urgency=low
     and a new helper utility, schroot-mount (Closes: #395062, #427047).
     Thanks for your patience while we took the time to implement this the
     right way.
+  * Update Vietnamese translation (Closes: #461531).  Thanks to Clytie
+    Siddall.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 16 Sep 2007 00:58:05 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 19 Jan 2008 11:16:45 +0000
 
 schroot (1.1.5-1.1) unstable; urgency=low
 
