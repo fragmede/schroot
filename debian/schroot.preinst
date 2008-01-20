@@ -21,7 +21,7 @@ rm_conffile() {
         old_md5sum="`dpkg-query -W -f='${Conffiles}' $PKGNAME | sed -n -e \"\\\\' $CONFFILE'{s/ obsolete$//;s/.* //p}\"`"
         if [ "$md5sum" != "$old_md5sum" ]; then
             echo "Obsolete conffile $CONFFILE has been modified by you."
-            echo "Saving as $CONFFILE.dpkg-bak ..."
+            echo "Saving as $CONFFILE.dpkg-old ..."
             mv -f "$CONFFILE" "$CONFFILE".dpkg-old
         else
             echo "Removing obsolete conffile $CONFFILE ..."
