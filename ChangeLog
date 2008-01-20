@@ -1,5 +1,10 @@
 2008-01-20  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-environment.cc
+	(environment::add): Log debugging message on insert.
+
+2008-01-20  Roger Leigh  <rleigh@debian.org>
+
 	* bin/schroot-mount/schroot-mount-main.cc: Mount messages go to
 	log_debug() rather than std::cout (which breaks session name
 	output to stdout).

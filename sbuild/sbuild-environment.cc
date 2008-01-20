@@ -96,7 +96,12 @@ environment::add (value_type const& value)
     {
       if (this->filter.str().empty() ||
 	  !regex_search(value.first, this->filter))
-	insert(value);
+	{
+	  insert(value);
+	  log_debug(DEBUG_NOTICE) << "Inserted into environment: "
+				  << value.first << '=' << value.second
+				  << std::endl;
+	}
       else
 	log_debug(DEBUG_INFO) << "Filtered from environment: " << value.first
 			      << std::endl;
