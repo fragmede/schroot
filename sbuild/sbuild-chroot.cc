@@ -389,9 +389,12 @@ sbuild::chroot::setup_env (environment& env)
   env.add("CHROOT_PATH", get_path());
   env.add("CHROOT_MOUNT_DEVICE", get_mount_device());
   env.add("CHROOT_SCRIPT_CONFIG", normalname(std::string(PACKAGE_SYSCONF_DIR) +  '/' + get_script_config()));
-  env.add("CHROOT_SESSION_CREATE", get_session_flags() & SESSION_CREATE);
-  env.add("CHROOT_SESSION_CLONE", get_session_flags() & SESSION_CLONE);
-  env.add("CHROOT_SESSION_PURGE", get_session_flags() & SESSION_PURGE);
+  env.add("CHROOT_SESSION_CREATE",
+	  static_cast<bool>(get_session_flags() & SESSION_CREATE));
+  env.add("CHROOT_SESSION_CLONE",
+	  static_cast<bool>(get_session_flags() & SESSION_CLONE));
+  env.add("CHROOT_SESSION_PURGE",
+	  static_cast<bool>(get_session_flags() & SESSION_PURGE));
 }
 
 void

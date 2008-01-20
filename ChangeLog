@@ -1,5 +1,10 @@
 2008-01-20  Roger Leigh  <rleigh@debian.org>
 
+	* sbuild/sbuild-chroot.cc
+	(chroot::setup_env): Cast session flag masks to bool.
+
+2008-01-20  Roger Leigh  <rleigh@debian.org>
+
 	* test/test-sbuild-chroot.h: Print environment variable names on
 	error.
 
