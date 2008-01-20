@@ -69,6 +69,7 @@ libtest_la_LIBADD = $(top_builddir)/sbuild/libsbuild.la $(CPPUNIT_LIBS)
 sbuild_chroot_SOURCES = 		\
 	sbuild-chroot.cc		\
 	sbuild-chroot-plain.cc		\
+	sbuild-chroot-directory.cc	\
 	sbuild-chroot-file.cc		\
 	sbuild-chroot-block-device.cc	\
 	sbuild-chroot-lvm-snapshot.cc	\
