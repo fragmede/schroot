@@ -118,7 +118,7 @@ if [ "$CHROOT_TYPE" = "file" ]; then
 	    exit 1
 	done || exit 1
 
-	if [ "$CHROOT_SESSION_PURGE" = "1" ]; then
+	if [ "$CHROOT_SESSION_PURGE" = "true" ]; then
 	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 		echo "Purging $CHROOT_MOUNT_LOCATION"
 	    fi
