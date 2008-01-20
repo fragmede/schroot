@@ -73,11 +73,7 @@ public:
 
     sbuild::direntry e;
     while (str >> e)
-      {
-	if (e.name() == ".svn") // To cater for running in SVN tree.
-	  continue;
-	actual.insert(e.name());
-      }
+      actual.insert(e.name());
 
     CPPUNIT_ASSERT(expected == actual);
   }
