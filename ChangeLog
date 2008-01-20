@@ -1,5 +1,9 @@
 2008-01-20  Roger Leigh  <rleigh@debian.org>
 
+	* Version 1.1.6.
+
+2008-01-20  Roger Leigh  <rleigh@debian.org>
+
 	* test/sbuild-dirstream.cc (class test_dirstream): Remove
 	special-case for building in SVN repository.
 

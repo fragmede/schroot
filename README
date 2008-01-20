@@ -28,7 +28,7 @@ libboost-program-options-dev } The Boost C++ libraries
 libboost-regex-dev           }
 uuid-dev (e2fsprogs)
 
-If building from Subversion, you will also need:
+If building from GIT, you will also need:
 gettext (0.15)
 doxygen
 
