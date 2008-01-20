@@ -1,5 +1,9 @@
 2008-01-20  Roger Leigh  <rleigh@debian.org>
 
+	* test/testmain.cc: Include config.h.
+
+2008-01-20  Roger Leigh  <rleigh@debian.org>
+
 	* configure.ac: Remove hard-coded enableval defaults.  These
 	appear to break with current autoconf.
 

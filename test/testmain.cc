@@ -16,6 +16,8 @@
  *
  *********************************************************************/
 
+#include <config.h>
+
 #include <sbuild/sbuild-log.h>
 
 #include <cstdlib>
