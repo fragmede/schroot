@@ -62,7 +62,6 @@ public:
   {
     test_chroot_base<chroot_directory>::setUp();
     sbuild::chroot_directory *c = dynamic_cast<sbuild::chroot_directory *>(chroot.get());
-    c->set_mount_location("");
     c->set_location("/srv/chroot/example-chroot");
   }
 
@@ -71,7 +70,11 @@ public:
   {
     sbuild::chroot_directory *c = dynamic_cast<sbuild::chroot_directory *>(chroot.get());
     CPPUNIT_ASSERT(c);
+    chroot->set_run_setup_scripts(true);
+    CPPUNIT_ASSERT(chroot->get_mount_location() == "/mnt/mount-location");
+    chroot->set_run_setup_scripts(false);
     c->set_location("/mnt/mount-location/example");
+    chroot->set_mount_location("");
     CPPUNIT_ASSERT(c->get_location() == "/mnt/mount-location/example");
     CPPUNIT_ASSERT(chroot->get_location() == "/mnt/mount-location/example");
     CPPUNIT_ASSERT(chroot->get_path() == "/mnt/mount-location/example");
@@ -89,6 +92,7 @@ public:
     expected.add("CHROOT_TYPE",           "directory");
     expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",    "test-description");
+    expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_LOCATION",       "/srv/chroot/example-chroot");
     expected.add("CHROOT_PATH",           "/srv/chroot/example-chroot");
     expected.add("CHROOT_MOUNT_DEVICE",   "/dev/device-to-mount");
@@ -102,27 +106,20 @@ public:
 
   void test_setup_env2()
   {
+    chroot->set_run_setup_scripts(true);
+
     sbuild::environment expected;
     expected.add("CHROOT_TYPE",           "directory");
     expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",    "test-description");
+    expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_LOCATION",       "/srv/chroot/example-chroot");
-    expected.add("CHROOT_PATH",           "/srv/chroot/example-chroot");
+    expected.add("CHROOT_PATH",           "/mnt/mount-location");
     expected.add("CHROOT_MOUNT_DEVICE",   "/dev/device-to-mount");
     expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
     expected.add("CHROOT_SESSION_CLONE", "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE", "false");
-
-    sbuild::environment env;
-    chroot->setup_env(env);
-
-    chroot->set_run_setup_scripts(true);
-
-    sbuild::environment env2;
-    chroot->setup_env(env2);
-
-    std::cout << env << std::endl << "----" << env2  << std::endl;
 
     test_chroot_base<chroot_directory>::test_setup_env(expected);
   }

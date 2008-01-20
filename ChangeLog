@@ -1,5 +1,10 @@
 2008-01-20  Roger Leigh  <rleigh@debian.org>
 
+	* test/sbuild-chroot-directory.cc: Ensure mount_location and
+	CHROOT_MOUNT_LOCATION are set correctly.
+
+2008-01-20  Roger Leigh  <rleigh@debian.org>
+
 	* test/sbuild-chroot-directory.cc: New file.  Tests for
 	chroot_directory.  Note: one test is broken; probably a testsuite
 	issue--it works fine in practice.
