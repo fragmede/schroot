@@ -1,6 +1,7 @@
 2008-01-20  Roger Leigh  <rleigh@debian.org>
 
 	* Version 1.1.6.
+	* configure.ac: Add back enableval defaults after option checks.
 
 2008-01-20  Roger Leigh  <rleigh@debian.org>
 

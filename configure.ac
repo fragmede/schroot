@@ -120,6 +120,9 @@ AC_ARG_ENABLE([dchroot], [AS_HELP_STRING([--enable-dchroot], [Enable dchroot com
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-dchroot]) ;;
                 esac])
+if test "$enable_dchroot_compat" = ""; then
+  enable_dchroot_compat="no"
+fi
 AC_MSG_RESULT([$enable_dchroot_compat])
 AM_CONDITIONAL([BUILD_DCHROOT], [test "$enable_dchroot_compat" = "yes"])
 
@@ -132,10 +135,12 @@ AC_ARG_ENABLE([dchroot-dsa], [AS_HELP_STRING([--enable-dchroot-dsa], [Enable dch
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-dchroot-dsa]) ;;
                 esac])
+if test "$enable_dchroot_dsa_compat" = ""; then
+  enable_dchroot_dsa_compat="no"
+fi
 AC_MSG_RESULT([$enable_dchroot_dsa_compat])
 AM_CONDITIONAL([BUILD_DCHROOT_DSA], [test "$enable_dchroot_dsa_compat" = "yes"])
 AM_CONDITIONAL([BUILD_LIBDCHROOT], [test "$enable_dchroot_compat" = "yes" || test "$enable_dchroot_dsa_compat" = "yes"])
-
 
 AC_MSG_CHECKING([whether to enable csbuild])
 AC_ARG_ENABLE([csbuild], [AS_HELP_STRING([--enable-csbuild], [Enable csbuild])],
@@ -146,6 +151,9 @@ AC_ARG_ENABLE([csbuild], [AS_HELP_STRING([--enable-csbuild], [Enable csbuild])],
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-csbuild]) ;;
                 esac])
+if test "$enable_csbuild_compat" = ""; then
+  enable_csbuild_compat="no"
+fi
 AC_MSG_RESULT([$enable_csbuild_compat])
 AM_CONDITIONAL([BUILD_CSBUILD], [test "$enable_csbuild_compat" = "yes"])
 
@@ -158,6 +166,9 @@ AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug], [Enable debugging messa
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;;
                 esac])
+if test "$enable_debug" = ""; then
+  enable_debug="no"
+fi
 AC_MSG_RESULT([$enable_debug])
 if test "$enable_debug" = "yes"; then
   AC_DEFINE_UNQUOTED([SBUILD_DEBUG], [1], [Enable debugging])
