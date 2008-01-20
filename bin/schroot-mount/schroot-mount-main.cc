@@ -104,10 +104,11 @@ main::action_mount ()
 
       std::string directory(opts->mountpoint + entry.directory);
 
-      std::cout << boost::format("Mounting '%1%' on '%2%'")
+      sbuild::log_debug(sbuild::DEBUG_INFO)
+      	<< boost::format("Mounting '%1%' on '%2%'")
 	% entry.filesystem_name
 	% directory
-		<< std::endl;
+	<< std::endl;
 
       if (!opts->dry_run)
 	{

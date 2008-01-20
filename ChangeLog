@@ -1,4 +1,10 @@
-2008-01-20  Roger Leigh  <rleigh@whinlatter.ukfsn.org>
+2008-01-20  Roger Leigh  <rleigh@debian.org>
+
+	* bin/schroot-mount/schroot-mount-main.cc: Mount messages go to
+	log_debug() rather than std::cout (which breaks session name
+	output to stdout).
+
+2008-01-20  Roger Leigh  <rleigh@debian.org>
 
 	* bin/schroot/setup/05file: Use "true" rather than 1 in session
 	flag tests, now correctly output as bool, not int.
