@@ -103,6 +103,9 @@ public:
     expected.add("CHROOT_DEVICE",         "/dev/testdev");
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
     expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
+    expected.add("CHROOT_SESSION_CLONE", "false");
+    expected.add("CHROOT_SESSION_CREATE", "false");
+    expected.add("CHROOT_SESSION_PURGE", "false");
 
     test_chroot_base<chroot_block_device>::test_setup_env(expected);
   }
@@ -110,7 +113,7 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-		   static_cast<sbuild::chroot::session_flags>(0));
+		   sbuild::chroot::SESSION_NOFLAGS);
   }
 
   void test_print_details()

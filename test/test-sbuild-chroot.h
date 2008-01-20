@@ -111,7 +111,8 @@ public:
 	CPPUNIT_ASSERT(env.get(pos->first, checkval) == true);
 
 	if (checkval != pos->second)
-	  std::cout << "Environment error: " << checkval << " != " << pos->second << std::endl;
+	  std::cout << "Environment error (" << pos->first << "): "
+		    << checkval << " != " << pos->second << std::endl;
 	CPPUNIT_ASSERT(checkval == pos->second);
       }
   }
