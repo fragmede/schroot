@@ -63,3 +63,7 @@ fashion.  expect might be useful for testing the PAM wrappers.
 
 * basic-keyfile should not use string_list.
 
+* Tests for chroots:
+
+** sbuild_chroot_directory
+** -source chroots
