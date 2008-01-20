@@ -44,7 +44,7 @@ do_mount()
     mount $VERBOSE $1 "$2" "$3"
 }
 
-# Unmount all filesystem under specified location
+# Unmount all filesystems under specified location
 # $1: mount base location
 do_umount_all()
 {
