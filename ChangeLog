@@ -1,5 +1,9 @@
 2008-01-20  Roger Leigh  <rleigh@debian.org>
 
+	* test/sbuild-chroot-directory.cc: Enable test_setup_env2 test.
+
+2008-01-20  Roger Leigh  <rleigh@debian.org>
+
 	* test/testmain.cc: Include config.h.
 
 2008-01-20  Roger Leigh  <rleigh@debian.org>

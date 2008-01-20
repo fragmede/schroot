@@ -47,7 +47,7 @@ class test_chroot_directory : public test_chroot_base<chroot_directory>
   CPPUNIT_TEST(test_location);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
-  //CPPUNIT_TEST(test_setup_env2); // Currently broken.
+  CPPUNIT_TEST(test_setup_env2);
   CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
