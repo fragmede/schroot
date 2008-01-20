@@ -1,7 +1,7 @@
 # Vietnamese translation for Schroot.
 # Copyright © 2008 Free Software Foundation, Inc.
 # Clytie Siddall <clytie@riverland.net.au>, 2006-2008.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.1.6-1\n"
@@ -1019,8 +1019,7 @@ msgstr "Có thể ghi rõ chỉ một chroot khi khởi chạy phiên"
 
 #: bin/schroot/schroot-options-base.cc:232
 msgid "--chroot may not be used with --list"
-msgstr ""
-"Không cho phép dùng tùy chọn « --chroot » cùng với « --list » (liệt kê)"
+msgstr "Không cho phép dùng tùy chọn « --chroot » cùng với « --list » (liệt kê)"
 
 #: bin/schroot/schroot-options-base.cc:257
 msgid "Unknown action specified"
