@@ -1,0 +1,1441 @@
+# translation of eu.po to Euskara
+# Copyright (C) YEAR Roger Leigh <rleigh@debian.org>
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Piarres Beobide <pi@beobide.net>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: eu\n"
+"Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
+"POT-Creation-Date: 2008-01-17 22:58+0000\n"
+"PO-Revision-Date: 2008-01-22 23:41+0100\n"
+"Last-Translator: Piarres Beobide <pi@beobide.net>\n"
+"Language-Team: Euskara <Librezale@librezale.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: sbuild/sbuild-chroot.cc:55
+msgid "Chroot creation failed"
+msgstr "Huts chroot-a sortzean"
+
+#: sbuild/sbuild-chroot.cc:56
+msgid "Device name not set"
+msgstr "Ez da gailu izena ezarri"
+
+#. TRANSLATORS: %1% = chroot type name
+#: sbuild/sbuild-chroot.cc:58
+#, boost-format
+msgid "Unknown chroot type '%1%'"
+msgstr "Chroot '%1%' mota ezezaguna"
+
+#: sbuild/sbuild-chroot.cc:59
+msgid "Device must have an absolute path"
+msgstr "Gailuak bide absolutu bat izan behar du"
+
+#: sbuild/sbuild-chroot.cc:60 sbuild/sbuild-lock.cc:56
+msgid "Failed to lock device"
+msgstr "Huts egin du gailua blokeatzerakoan"
+
+#: sbuild/sbuild-chroot.cc:61 bin/csbuild/csbuild-main.cc:52
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:54
+msgid "File is not a block device"
+msgstr "Fitxategia da ez bloke gailu bat"
+
+#: sbuild/sbuild-chroot.cc:62 sbuild/sbuild-lock.cc:61
+msgid "Failed to unlock device"
+msgstr "Huts egin du gailua desblokeatzean"
+
+#: sbuild/sbuild-chroot.cc:63
+msgid "File must have an absolute path"
+msgstr "Fitxategia bide absolutua izan behar du"
+
+#: sbuild/sbuild-chroot.cc:64
+msgid "Failed to acquire file lock"
+msgstr "Huts egin du fitxategi blokeoa atzitzean"
+
+#: sbuild/sbuild-chroot.cc:65 sbuild/sbuild-chroot-config.cc:61
+msgid "File is not a regular file"
+msgstr "Fitxategia ez da fitxategia erregular bat"
+
+#: sbuild/sbuild-chroot.cc:66 sbuild/sbuild-chroot-config.cc:63
+msgid "File is not owned by user root"
+msgstr "Fitxategia ez da root erabiltzailearena"
+
+#: sbuild/sbuild-chroot.cc:67 sbuild/sbuild-chroot-config.cc:64
+msgid "File has write permissions for others"
+msgstr "Fitxategiak beste batzuentzat idazketa baimenak ditu"
+
+#: sbuild/sbuild-chroot.cc:68
+msgid "Failed to discard file lock"
+msgstr "Huts egin du fitxategi blokeoa baztertzean"
+
+#: sbuild/sbuild-chroot.cc:69
+msgid "Location must have an absolute path"
+msgstr "Kokalekuak bide absolutua izan behar du"
+
+#. TRANSLATORS: unlink refers to the C function which removes a file
+#: sbuild/sbuild-chroot.cc:71
+msgid "Failed to unlink session file"
+msgstr "Huts egin du saio fitxategia askatzerakoan"
+
+#: sbuild/sbuild-chroot.cc:72
+msgid "Failed to write session file"
+msgstr "Huts saio fitxategia idaztean"
+
+#: sbuild/sbuild-chroot.cc:467
+msgid "Name"
+msgstr "Izena"
+
+#: sbuild/sbuild-chroot.cc:468
+msgid "Description"
+msgstr "Azalpena"
+
+#: sbuild/sbuild-chroot.cc:469
+msgid "Type"
+msgstr "Mota"
+
+#: sbuild/sbuild-chroot.cc:470
+msgid "Priority"
+msgstr "Lehentasuna"
+
+#: sbuild/sbuild-chroot.cc:471
+msgid "Users"
+msgstr "Erabiltzaileak"
+
+#: sbuild/sbuild-chroot.cc:472
+msgid "Groups"
+msgstr "Taldeak"
+
+#: sbuild/sbuild-chroot.cc:473
+msgid "Root Users"
+msgstr "Root Erabiltzaileak"
+
+#: sbuild/sbuild-chroot.cc:474
+msgid "Root Groups"
+msgstr "Root Taldeak"
+
+#: sbuild/sbuild-chroot.cc:475
+msgid "Aliases"
+msgstr "Ezizenak"
+
+#: sbuild/sbuild-chroot.cc:476
+msgid "Environment Filter"
+msgstr "Ingurune Iragazkia"
+
+#: sbuild/sbuild-chroot.cc:477
+msgid "Run Setup Scripts"
+msgstr "Abiarazi Konfigurazio script-ak"
+
+#: sbuild/sbuild-chroot.cc:478
+msgid "Run Execution Scripts"
+msgstr "Abiarazi exekuzio script-ak"
+
+#: sbuild/sbuild-chroot.cc:479
+msgid "Script Configuration"
+msgstr "Script konfigurazioa"
+
+#: sbuild/sbuild-chroot.cc:480
+msgid "Session Managed"
+msgstr "Saioa kudeatua"
+
+#: sbuild/sbuild-chroot.cc:482
+msgid "Session Cloned"
+msgstr "Saioa bikoiztua"
+
+#: sbuild/sbuild-chroot.cc:484
+msgid "Session Purged"
+msgstr "Saioa garbitua"
+
+#: sbuild/sbuild-chroot.cc:488
+msgid "Command Prefix"
+msgstr "Komando aurrizkia"
+
+#: sbuild/sbuild-chroot.cc:490
+msgid "Personality"
+msgstr "Pertsonalitatea"
+
+#: sbuild/sbuild-chroot.cc:494
+msgid "Location"
+msgstr "Kokalekua"
+
+#: sbuild/sbuild-chroot.cc:496
+msgid "Mount Location"
+msgstr "Muntatze kokalekua"
+
+#: sbuild/sbuild-chroot.cc:498
+msgid "Path"
+msgstr "Bidea"
+
+#. TRANSLATORS: The system device node to mount containing the chroot
+#: sbuild/sbuild-chroot.cc:501
+msgid "Mount Device"
+msgstr "Muntatu gailua"
+
+#: sbuild/sbuild-chroot.cc:507
+msgid "Session"
+msgstr "Saioa"
+
+#: sbuild/sbuild-chroot.cc:507
+msgid "Chroot"
+msgstr "Chroot"
+
+#: sbuild/sbuild-auth.cc:52
+msgid "Failed to get hostname"
+msgstr "Huts ostalari-izena eskuratzerakoan"
+
+#. TRANSLATORS: %1% = user name or user ID
+#: sbuild/sbuild-auth.cc:54
+#, boost-format
+msgid "User '%1%' not found"
+msgstr "'%1%' erabiltzailea ez da aurkitu"
+
+#. TRANSLATORS: %1% = group name or group ID
+#. TRANSLATORS: %1% = group name
+#: sbuild/sbuild-auth.cc:56 sbuild/sbuild-session.cc:102
+#, boost-format
+msgid "Group '%1%' not found"
+msgstr "'%1%' taldea ez da aurkitu"
+
+#: sbuild/sbuild-auth.cc:57
+msgid "Authentication failed"
+msgstr "Huts egin du autentifikatzean."
+
+#: sbuild/sbuild-auth.cc:58
+msgid "Access not authorised"
+msgstr "Sarrera ez da baimendu"
+
+#: sbuild/sbuild-auth.cc:59
+msgid "PAM is already initialised"
+msgstr "PAM dagoeneko abiarazirik dago"
+
+#: sbuild/sbuild-auth.cc:60 sbuild/sbuild-session.cc:103
+msgid "PAM error"
+msgstr "PAM errorea"
+
+#: sbuild/sbuild-auth.cc:128 sbuild/sbuild-session.cc:1065
+#: sbuild/sbuild-session.cc:1316 sbuild/sbuild-run-parts.cc:197
+#: sbuild/sbuild-log.cc:167 bin/schroot-mount/schroot-mount-main.cc:169
+msgid "An unknown exception occurred"
+msgstr "Salbuespen ezezagun bat gertatu da"
+
+#: sbuild/sbuild-auth.cc:477
+msgid "Set RUSER"
+msgstr "RUSER ezarri"
+
+#: sbuild/sbuild-auth.cc:495
+msgid "Set RHOST"
+msgstr "RHOST ezarri"
+
+#: sbuild/sbuild-auth.cc:514
+msgid "Set TTY"
+msgstr "TTY ezarri "
+
+#: sbuild/sbuild-auth.cc:526
+msgid "Set USER"
+msgstr "ERABILTZAILEA ezarri"
+
+#. TRANSLATORS: %1% = program name (PAM service name)
+#: sbuild/sbuild-auth.cc:549
+#, boost-format
+msgid "You do not have permission to access the %1% service."
+msgstr "Zuk ez duzu %1% zerbitzura sartzeko baimenik."
+
+#: sbuild/sbuild-auth.cc:551
+msgid "This failure will be reported."
+msgstr "Huts honen berri emango da."
+
+#: sbuild/sbuild-format-detail.cc:72
+msgid "true"
+msgstr "egia"
+
+#: sbuild/sbuild-format-detail.cc:74
+msgid "false"
+msgstr "gezurra"
+
+#. TRANSLATORS: %1% = title of section
+#. TRANSLATORS: Please format the --- as a continuous line, e.g. U+2500
+#: sbuild/sbuild-format-detail.cc:91
+#, boost-format
+msgid "--- %1% ---"
+msgstr "--- %1% ---"
+
+#. TRANSLATORS: %1% = value (arbitrary text)
+#: sbuild/sbuild-parse-value.cc:37
+#, boost-format
+msgid "Could not parse value '%1%'"
+msgstr "Ezin da '%1%' analizatu"
+
+#. TRANSLATORS: %1% = directory
+#: sbuild/sbuild-session.cc:68
+#, boost-format
+msgid "Failed to change to directory '%1%'"
+msgstr "Huts egin du '%1%' direktoriora aldatzerakoan"
+
+#. TRANSLATORS: %4% = directory
+#: sbuild/sbuild-session.cc:70
+#, boost-format
+msgid "Falling back to directory '%4%'"
+msgstr "Huts egin du '%4%' direktoriora itzultzerakoan"
+
+#: sbuild/sbuild-session.cc:71
+msgid "Child dumped core"
+msgstr "Umeak nukleoa irauli du"
+
+#: sbuild/sbuild-session.cc:72
+msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
+msgstr "Umea modu arraroan irten da (arrazoi ezezaguna, ez dago seinale edo muin iraultzerik)"
+
+#: sbuild/sbuild-session.cc:73 sbuild/sbuild-run-parts.cc:46
+#: bin/schroot-mount/schroot-mount-main.cc:60
+msgid "Failed to fork child"
+msgstr "Huts egin du umea zatitzean"
+
+#. TRANSLATORS: %4% = signal name
+#: sbuild/sbuild-session.cc:75
+#, boost-format
+msgid "Child terminated by signal '%4%'"
+msgstr "Umea '%4%' seinaleak amaitu du"
+
+#: sbuild/sbuild-session.cc:76 sbuild/sbuild-run-parts.cc:47
+#: bin/schroot-mount/schroot-mount-main.cc:61
+msgid "Wait for child failed"
+msgstr "Huts umea itxoitean"
+
+#. TRANSLATORS: %1% = directory
+#: sbuild/sbuild-session.cc:78
+#, boost-format
+msgid "Failed to change root to directory '%1%'"
+msgstr "Huts egin du erroa '%1%' direktoriora aldatzean"
+
+#. TRANSLATORS: %1% = chroot name
+#: sbuild/sbuild-session.cc:80
+#, boost-format
+msgid "No chroot found matching name or alias '%1%'"
+msgstr "Ez da chroot-ik aurkitu emandako '%1%' izen edo ezizenarekin"
+
+#: sbuild/sbuild-session.cc:81
+msgid "Failed to lock chroot"
+msgstr "Huts egin du chroot-a blokatzean"
+
+#: sbuild/sbuild-session.cc:82
+msgid "Chroot setup failed"
+msgstr "Chroot konfigurazioak huts egin du"
+
+#. TRANSLATORS: %1% = chroot name
+#: sbuild/sbuild-session.cc:84
+#, boost-format
+msgid "Failed to find chroot '%1%'"
+msgstr "Huts egin du '%1%' chroot-a bilatzean"
+
+#: sbuild/sbuild-session.cc:85
+msgid "Failed to unlock chroot"
+msgstr "Huts egin du chroot-a desblokeatzean"
+
+#. TRANSLATORS: %1% = command
+#: sbuild/sbuild-session.cc:87
+#, boost-format
+msgid "Command \"%1%\" must have an absolute path"
+msgstr "'%1%' komandoak bide basolutu bat izan behar du"
+
+#. TRANSLATORS: %1% = command
+#: sbuild/sbuild-session.cc:89
+#, boost-format
+msgid "Failed to execute \"%1%\""
+msgstr "Huts egin du '%1%' exekutatzean"
+
+#. TRANSLATORS: A supplementary group is the list of additional
+#. system groups a user belongs to, in addition to their default
+#. group.
+#: sbuild/sbuild-session.cc:93
+msgid "Failed to get supplementary groups"
+msgstr "Huts talde gehigarriak eskuratzean"
+
+#. TRANSLATORS: A supplementary group is the list of additional
+#. system groups a user belongs to, in addition to their default
+#. group.
+#: sbuild/sbuild-session.cc:97
+msgid "Failed to get supplementary group count"
+msgstr "Huts talde gehigarria kopurua eskuratzean"
+
+#. TRANSLATORS: %1% = integer group ID
+#: sbuild/sbuild-session.cc:99
+#, boost-format
+msgid "Failed to set group '%1%'"
+msgstr "Huts egin du '%1%' taldea ezartzean"
+
+#: sbuild/sbuild-session.cc:100
+msgid "Failed to set supplementary groups"
+msgstr "Huts talde gehigarriak ezartzean"
+
+#: sbuild/sbuild-session.cc:104
+msgid "Failed to drop root permissions"
+msgstr "Huts egin root baimenak kentzean"
+
+#. TRANSLATORS: %1% = chroot name
+#. TRANSLATORS: %4% = session identifier
+#: sbuild/sbuild-session.cc:107
+#, boost-format
+msgid "%1%: Chroot does not support setting a session ID; ignoring session ID '%4%'"
+msgstr "%1%: Chroot-ek ez du onartzen saio ID bat ezartzea; saio ID-a alde batetara uzten '%4%'"
+
+#. TRANSLATORS: %1% = command
+#: sbuild/sbuild-session.cc:109
+#, boost-format
+msgid "Shell '%1%' not available"
+msgstr "'%1%' shell-a ez dago eskuragarri"
+
+#. TRANSLATORS: %4% = command
+#: sbuild/sbuild-session.cc:111
+#, boost-format
+msgid "Falling back to shell '%4%'"
+msgstr "Huts '%4%' shell-era itzultzean"
+
+#. TRANSLATORS: %4% = signal name
+#: sbuild/sbuild-session.cc:113
+#, boost-format
+msgid "Caught signal '%4%'"
+msgstr "Harrapatze '%4%' seinalea"
+
+#. TRANSLATORS: %4% = signal name
+#: sbuild/sbuild-session.cc:115
+#, boost-format
+msgid "Failed to set signal handler '%4%'"
+msgstr "Huts '%4%' seinale kudeatzailea ezartzean"
+
+#. TRANSLATORS: %1% = integer user ID
+#: sbuild/sbuild-session.cc:117
+#, boost-format
+msgid "Failed to set user '%1%'"
+msgstr "Huts egin du '%1%' erabiltzailea ezartzean"
+
+#. TRANSLATORS: %1% = user name
+#. TRANSLATORS: %2% = user name
+#. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
+#: sbuild/sbuild-session.cc:121
+#, boost-format
+msgid "(%1%->%2%): User switching is not permitted"
+msgstr "(%1%->%2%): Erabiltzaile aldatzea ez dago baimendurik"
+
+#: sbuild/sbuild-session.cc:338
+msgid "Error saving terminal settings"
+msgstr "Errorea terminal ezarpenak gordetzean"
+
+#: sbuild/sbuild-session.cc:359
+msgid "Error restoring terminal settings"
+msgstr "Errorea terminal ezarpenak berreskuratzean"
+
+#. TRANSLATORS: %1% = chroot name
+#. TRANSLATORS: %4% = command
+#: sbuild/sbuild-session.cc:825
+#, boost-format
+msgid "[%1% chroot] Running login shell: '%4%'"
+msgstr "[%1% chroot] Saio shell-a abiarazten: '%4%'"
+
+#. TRANSLATORS: %1% = chroot name
+#. TRANSLATORS: %4% = command
+#: sbuild/sbuild-session.cc:829
+#, boost-format
+msgid "[%1% chroot] Running shell: '%4%'"
+msgstr "[%1% chroot] Shell-a abiarazten: '%4%'"
+
+#. TRANSLATORS: %1% = chroot name
+#. TRANSLATORS: %2% = user name
+#. TRANSLATORS: %3% = user name
+#. TRANSLATORS: %4% = command
+#. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
+#: sbuild/sbuild-session.cc:840
+#, boost-format
+msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
+msgstr "[%1% chroot] (%2%->%3%) Saio shell-a abiarazten: '%4%'"
+
+#. TRANSLATORS: %1% = chroot name
+#. TRANSLATORS: %2% = user name
+#. TRANSLATORS: %3% = user name
+#. TRANSLATORS: %4% = command
+#. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
+#: sbuild/sbuild-session.cc:847
+#, boost-format
+msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
+msgstr "[%1% chroot] (%2%->%3%) Shell-a abiarazten: '%4%'"
+
+#. TRANSLATORS: %1% = chroot name
+#. TRANSLATORS: %4% = command
+#: sbuild/sbuild-session.cc:885
+#, boost-format
+msgid "[%1% chroot] Running command: \"%4%\""
+msgstr "[%1% chroot] Komandoa exekutatzen: \"%4%\""
+
+#. TRANSLATORS: %1% = chroot name
+#. TRANSLATORS: %2% = user name
+#. TRANSLATORS: %3% = user name
+#. TRANSLATORS: %4% = command
+#. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
+#: sbuild/sbuild-session.cc:892
+#, boost-format
+msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
+msgstr "[%1% chroot] (%2%->%3%) Komandoa exekutatzen: \"%4%\""
+
+#: sbuild/sbuild-session.cc:1089
+#, boost-format
+msgid "stage=%1%"
+msgstr "egoera=%1%"
+
+#: sbuild/sbuild-session.cc:1240 sbuild/sbuild-session.cc:1247
+msgid "terminating immediately"
+msgstr "berehala amaitzen"
+
+#. TRANSLATORS: %1% = directory name
+#: sbuild/sbuild-dirstream.cc:40
+#, boost-format
+msgid "Failed to open directory '%1%'"
+msgstr "Huts egin du '%1%' direktorioa irekitzean"
+
+#. TRANSLATORS: %1% = directory name
+#: sbuild/sbuild-dirstream.cc:42
+#, boost-format
+msgid "Failed to read directory '%1%'"
+msgstr "Huts egin du '%1%' direktorioa irakurtzean"
+
+#. TRANSLATORS: %1% = command name
+#: sbuild/sbuild-run-parts.cc:49 bin/schroot-mount/schroot-mount-main.cc:63
+#, boost-format
+msgid "Failed to execute '%1%'"
+msgstr "Huts egin du '%1%' exekutatzean"
+
+#. TRANSLATORS: %1% = command
+#: sbuild/sbuild-run-parts.cc:182 bin/schroot-mount/schroot-mount-main.cc:155
+#, boost-format
+msgid "Executing '%1%'"
+msgstr "'%1%' exekutatzen"
+
+#. TRANSLATORS: CTTY and FD_CLOEXEC should not be translated.
+#: sbuild/sbuild-ctty.cc:47
+msgid "The CTTY FD_CLOEXEC flag could not be set"
+msgstr "CTTY FD_CLOEXEC bandera ezin izan da ezarri"
+
+#. TRANSLATORS: CTTY should not be translated.
+#: sbuild/sbuild-ctty.cc:49
+msgid "The CTTY file descriptor could not be duplicated"
+msgstr "CTTY fitxategi deskriptorea ezin da bikoiztu"
+
+#. TRANSLATORS: %1% = integer personality ID
+#: sbuild/sbuild-personality.cc:48
+#, boost-format
+msgid "Personality '%1%' is unknown"
+msgstr "'%1%' pertsonalitatea ezezaguna da"
+
+#. TRANSLATORS: %1% = personality name
+#: sbuild/sbuild-personality.cc:50
+#, boost-format
+msgid "Failed to set personality '%1%'"
+msgstr "Huts egin du '%1%' pertsonalitatea ezartzean"
+
+#. TRANSLATORS: %1% = a comma-separated list of personality names
+#: sbuild/sbuild-personality.cc:177
+#, boost-format
+msgid "Valid personalities: %1%\n"
+msgstr "Baliozko pertsonalitateak: %1%\n"
+
+#: sbuild/sbuild-chroot-file.cc:154
+msgid "File"
+msgstr "Fitxategia"
+
+#: sbuild/sbuild-chroot-file.cc:155
+msgid "File Repack"
+msgstr "Fitxategi birpaketatzea"
+
+#: sbuild/sbuild-chroot-block-device.cc:174
+msgid "Device"
+msgstr "Gailua"
+
+#: sbuild/sbuild-chroot-block-device.cc:176
+msgid "Mount Options"
+msgstr "Muntatze aukerak"
+
+#. TRANSLATORS: %1% = chroot alias name
+#. TRANSLATORS: %4% = chroot name
+#: sbuild/sbuild-chroot-config.cc:57
+#, boost-format
+msgid "Alias '%1%' already associated with '%4%' chroot"
+msgstr "'%1%' ezizena oraindik '%4%' chroot-arekin loturik dago"
+
+#: sbuild/sbuild-chroot-config.cc:58
+msgid "No such chroot"
+msgstr "Ez dago chroot hori"
+
+#. TRANSLATORS: %1% = chroot name
+#: sbuild/sbuild-chroot-config.cc:60
+#, boost-format
+msgid "A chroot or alias '%1%' already exists with this name"
+msgstr "'%1%' izeneko chroot edo ezizena  badago dagoeneko"
+
+#: sbuild/sbuild-chroot-config.cc:62
+msgid "Failed to open file"
+msgstr "Huts egin du fitxategia irekitzean"
+
+#: sbuild/sbuild-chroot-config.cc:220 sbuild/sbuild-chroot-config.cc:226
+msgid "Duplicate names are not allowed"
+msgstr "Izen bikoiztuak ez dira onartzen"
+
+#: sbuild/sbuild-chroot-config.cc:305
+msgid "Available chroots: "
+msgstr "Chroot erabilgarriak: "
+
+#: sbuild/sbuild-auth-conv-tty.cc:48
+msgid "No controlling terminal"
+msgstr "Ez da terminalik kontrolatzen"
+
+#: sbuild/sbuild-auth-conv-tty.cc:49
+msgid "Timed out"
+msgstr "Denboraz kanpo"
+
+#. TRANSLATORS: Please use an ellipsis e.g. U+2026
+#: sbuild/sbuild-auth-conv-tty.cc:51
+msgid "Time is running out..."
+msgstr "Denbora amaitzen ari da..."
+
+#: sbuild/sbuild-auth-conv-tty.cc:52
+msgid "Failed to get terminal settings"
+msgstr "Huts egin du terminala ezarpenak eskuratzean"
+
+#. TRANSLATORS: %1% = integer
+#: sbuild/sbuild-auth-conv-tty.cc:54
+#, boost-format
+msgid "Unsupported conversation type '%1%'"
+msgstr "Onartzen ez den '%1%' elkarrizketa mota"
+
+#: sbuild/sbuild-lock.cc:47
+msgid "Failed to set timeout handler"
+msgstr "Huts egin du denbora-muga kudeatzailea ezartzean"
+
+#: sbuild/sbuild-lock.cc:48
+msgid "Failed to set timeout"
+msgstr "Huts egin du denbora-muga ezartzean"
+
+#: sbuild/sbuild-lock.cc:49
+msgid "Failed to cancel timeout"
+msgstr "Huts egin du denbora-muga kentzean"
+
+#: sbuild/sbuild-lock.cc:50
+msgid "Failed to lock file"
+msgstr "Huts egin du fitxategia blokeatzean"
+
+#: sbuild/sbuild-lock.cc:51
+msgid "Failed to unlock file"
+msgstr "Huts egin du fitxategia desblokeatzean"
+
+#. TRANSLATORS: %4% = time in seconds
+#: sbuild/sbuild-lock.cc:53
+#, boost-format
+msgid "Failed to lock file (timed out after %4% seconds)"
+msgstr "Huts egin du fitxategia blokeatzean (denboraz kanpo %4% segundu ondoren)"
+
+#. TRANSLATORS: %4% = time in seconds
+#: sbuild/sbuild-lock.cc:55
+#, boost-format
+msgid "Failed to unlock file (timed out after %4% seconds)"
+msgstr "Huts egin du fitxategia desblokeatzean (denboraz kanpo %4% segundu ondoren)"
+
+#. TRANSLATORS: %4% = time in seconds
+#. TRANSLATORS: %5% = integer process ID
+#: sbuild/sbuild-lock.cc:59
+#, boost-format
+msgid "Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
+msgstr "Huts egin du gailua blokeatzean (denboraz kanpo %4% segundu ondoren; blokeoak %5% PID-ak mantendua)"
+
+#: sbuild/sbuild-lock.cc:60
+msgid "Failed to test device lock"
+msgstr "Huts egin du gailu blokeoa probatzean"
+
+#. TRANSLATORS: %4% = time in seconds
+#. TRANSLATORS: %5% = integer process ID
+#: sbuild/sbuild-lock.cc:64
+#, boost-format
+msgid "Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
+msgstr "Huts egin du gailua desblokeatzean (denboraz kanpo %4% segundu ondoren; blokeoa %5% PID-ak mantendua)"
+
+#: sbuild/sbuild-chroot-lvm-snapshot.cc:195
+msgid "LVM Snapshot Device"
+msgstr "LVM egoera-argazki gailua"
+
+#: sbuild/sbuild-chroot-lvm-snapshot.cc:197
+msgid "LVM Snapshot Options"
+msgstr "LVM egoera-argazki aukerak"
+
+#. TRANSLATORS: Format string for date representation:
+#. %d = day (number, e.g. 14)
+#. %b = month (three letters, e.g. Jul)
+#. %Y = year (four digits, e.g. 2006)
+#. If required, any of the standard strftime(3)
+#. format specifiers may be used instead, as long as
+#. the day, month and year are clearly displayed in
+#. the equivalent standard method for your locale.
+#: sbuild/sbuild-types.cc:37
+msgid "%d %b %Y"
+msgstr "%Y %b %d"
+
+#. TRANSLATORS: %1% = file
+#: sbuild/sbuild-keyfile-base.cc:41 bin/csbuild/csbuild-debian-changes.cc:44
+#, boost-format
+msgid "Can't open file '%1%'"
+msgstr "Ezin da '%1%' fitxategia ireki"
+
+#: sbuild/sbuild-keyfile-base.cc:46
+#, boost-format
+msgid "line %1% [%2%]: Deprecated key '%4%' used"
+msgstr "%1% lerroa [%2%]: Zaharkiturik dagoen'%4%' gakoa erabilia"
+
+#: sbuild/sbuild-keyfile-base.cc:50
+#, boost-format
+msgid "[%1%]: Deprecated key '%4%' used"
+msgstr "[%1%]: Zaharkiturik dagoen'%4%' gakoa erabilia"
+
+#: sbuild/sbuild-keyfile-base.cc:55
+#, boost-format
+msgid "line %1% [%2%]: Disallowed key '%4%' used"
+msgstr "%1% lerroa [%2%]: Onartzen ez den '%4%' gakoa erabilia"
+
+#: sbuild/sbuild-keyfile-base.cc:59
+#, boost-format
+msgid "[%1%]: Disallowed key '%4%' used"
+msgstr "[%1%]: Onartzen ez den '%4%' gakoa erabilia"
+
+#: sbuild/sbuild-keyfile-base.cc:63
+#, boost-format
+msgid "line %1%: Duplicate group '%4%'"
+msgstr "%1% lerroa: Bikoizturiko '%4%' taldea"
+
+#: sbuild/sbuild-keyfile-base.cc:68
+#, boost-format
+msgid "line %1% [%2%]: Duplicate key '%4%'"
+msgstr "%1% [%2%] lerroa: Bikoiztutako '%4%' gakoa"
+
+#: sbuild/sbuild-keyfile-base.cc:72
+#, boost-format
+msgid "line %1%: Invalid group: \"%4%\""
+msgstr "%1% lerroa: \"%4%\" talde baliogabea"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = line contents as read from the configuration file
+#: sbuild/sbuild-keyfile-base.cc:76 bin/csbuild/csbuild-debian-changes.cc:60
+#, boost-format
+msgid "line %1%: Invalid line: \"%4%\""
+msgstr "%1% lerroa: \"%4%\" lerro baliogabea"
+
+#: sbuild/sbuild-keyfile-base.cc:81
+#, boost-format
+msgid "line %1% [%2%]: Required key '%4%' is missing"
+msgstr "%1% lerroa [%2%]: Beharrezko '%4%' gakoa falta da"
+
+#: sbuild/sbuild-keyfile-base.cc:85
+#, boost-format
+msgid "[%1%]: Required key '%4%' is missing"
+msgstr "[%1%]: Beharrezko '%4%' gakoa falta da"
+
+#: sbuild/sbuild-keyfile-base.cc:89
+#, boost-format
+msgid "line %1%: No group specified: \"%4%\""
+msgstr "%1% lerroa : Ez da talderik ezarri: \"%4%\""
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = line contents as read from the configuration file
+#: sbuild/sbuild-keyfile-base.cc:93 bin/csbuild/csbuild-debian-changes.cc:68
+#, boost-format
+msgid "line %1%: No key specified: \"%4%\""
+msgstr "%1% lerroa : Ez da gakorik ezarri: \"%4%\""
+
+#: sbuild/sbuild-keyfile-base.cc:98
+#, boost-format
+msgid "line %1% [%2%]: Obsolete key '%4%' used"
+msgstr "%1% [%2%] lerroa: Zaharkituriko '%4%' gakoa erabilia"
+
+#: sbuild/sbuild-keyfile-base.cc:102
+#, boost-format
+msgid "[%1%]: Obsolete key '%4%' used"
+msgstr "[%1%]: Zaharkituriko '%4%' gakoa erabilia"
+
+#: sbuild/sbuild-keyfile-base.cc:106
+#, boost-format
+msgid "[%1%]: %4%"
+msgstr "[%1%]: %4%"
+
+#: sbuild/sbuild-keyfile-base.cc:111
+#, boost-format
+msgid "[%1%] %2%: %4%"
+msgstr "[%1%] %2%: %4%"
+
+#: sbuild/sbuild-keyfile-base.cc:116
+#, boost-format
+msgid "line %1% [%2%]: %4%"
+msgstr "%1% lerroa [%2%]: %4%"
+
+#: sbuild/sbuild-keyfile-base.cc:122
+#, boost-format
+msgid "line %1% [%2%] %3%: %4%"
+msgstr "%1% lerroa [%2%] %3%: %4%"
+
+#: sbuild/sbuild-keyfile-base.cc:127
+#, boost-format
+msgid "line %1% [%2%]: Unknown key '%4%' used"
+msgstr "%1% lerroa [%2%]: '%4%' gako ezezaguna erabilia"
+
+#. TRANSLATORS: %1% = mount file name
+#: sbuild/sbuild-mntstream.cc:40
+#, boost-format
+msgid "Failed to open mount file '%1%'"
+msgstr "Huts egin du muntaturiko '%1%' fitxategia irekitzean"
+
+#. TRANSLATORS: %1% = mount file name
+#: sbuild/sbuild-mntstream.cc:42
+#, boost-format
+msgid "Failed to read mount file '%1%'"
+msgstr "Huts egin du muntaturiko '%1%' fitxategia irakurtzean"
+
+#: sbuild/sbuild-null.cc:29
+msgid "unknown"
+msgstr "ezezaguna"
+
+#. TRANSLATORS: "I" is an abbreviation of "Information"
+#: sbuild/sbuild-log.cc:38 sbuild/sbuild-log.cc:71
+msgid "I: "
+msgstr "I: "
+
+#. TRANSLATORS: "W" is an abbreviation of "Warning"
+#: sbuild/sbuild-log.cc:45 sbuild/sbuild-log.cc:78
+msgid "W: "
+msgstr "A: "
+
+#. TRANSLATORS: "E" is an abbreviation of "Error"
+#: sbuild/sbuild-log.cc:52 sbuild/sbuild-log.cc:85
+msgid "E: "
+msgstr "E: "
+
+#. TRANSLATORS: %1% = integer debug level
+#. TRANSLATORS: "D" is an abbreviation of "Debug"
+#: sbuild/sbuild-log.cc:62
+#, boost-format
+msgid "D(%1%): "
+msgstr "D(%1%): "
+
+#: sbuild/sbuild-util.cc:73
+msgid "Failed to stat file"
+msgstr "Huts egin du fitxategi egoera eskuratzean"
+
+#: sbuild/sbuild-util.cc:74
+msgid "Failed to stat file descriptor"
+msgstr "Huts egin du fitxategia deskriptorea egoera eskuratzean"
+
+#: sbuild/sbuild-chroot-source.cc:51
+msgid "(source chroot)"
+msgstr "(iturburu chroot-a)"
+
+#: sbuild/sbuild-chroot-source.cc:142
+msgid "Source Users"
+msgstr "Iturburua erabiltzaileak"
+
+#: sbuild/sbuild-chroot-source.cc:143
+msgid "Source Groups"
+msgstr "Iturburua taldeak"
+
+#: sbuild/sbuild-chroot-source.cc:144
+msgid "Source Root Users"
+msgstr "Iturburua erro erabiltzaileak"
+
+#: sbuild/sbuild-chroot-source.cc:145
+msgid "Source Root Groups"
+msgstr "Iturburu erro taldeak"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
+#. is an em-dash.
+#: bin/schroot/schroot-main.cc:42 bin/dchroot/dchroot-main.cc:46
+msgid "[OPTION...] [COMMAND] - run command or shell in a chroot"
+msgstr "[AUKERA...] [KOMANDOA] - komandoa edo shell bat chroot-ean abiarazi"
+
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = current date
+#: bin/schroot/schroot-main.cc:59 bin/dchroot/dchroot-main-base.cc:63
+#, boost-format
+msgid "schroot configuration generated by %1% %2% on %3%"
+msgstr "%1% %2%-ek %3%-ean sortutako schroot konfigurazioa"
+
+#. TRANSLATORS: %1% = comma-separated list of chroot names
+#: bin/schroot/schroot-main-base.cc:53
+#, boost-format
+msgid "%1%: Chroots not found"
+msgstr "%1%: Ez da chroot-ik aurkitu"
+
+#. TRANSLATORS: %4% = file
+#: bin/schroot/schroot-main-base.cc:55
+#, boost-format
+msgid "No chroots are defined in '%4%'"
+msgstr "Ez dago chroot definiturik '%4%'-en"
+
+#. TRANSLATORS: %4% = file
+#. TRANSLATORS: %5% = file
+#: bin/schroot/schroot-main-base.cc:58
+#, boost-format
+msgid "No chroots are defined in '%4%' or '%5%'"
+msgstr "Ez dago chroot definiturik '%4%' edo '%5%'-en"
+
+#. TRANSLATORS: %1% = file
+#: bin/schroot/schroot-main-base.cc:60
+#, boost-format
+msgid "The specified chroots are not defined in '%1%'"
+msgstr "Ezarritako choot-ak ez daude %1%-en definiturik"
+
+#. TRANSLATORS: %1% = chroot name
+#: bin/schroot/schroot-main-base.cc:62
+#, boost-format
+msgid "%1%: Chroot not found"
+msgstr "%1%: ez da chroot-a aurkitu"
+
+#: bin/schroot/schroot-options.cc:52
+msgid "Print location of selected chroots"
+msgstr "Inprimatu hautatutako chroot-en kokapena"
+
+#: bin/schroot/schroot-options.cc:56
+msgid "Select all chroots and active sessions"
+msgstr "Chroot eta saio aktibo guztiak hautatu"
+
+#: bin/schroot/schroot-options.cc:58 bin/dchroot/dchroot-options.cc:56
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:58
+msgid "Select all chroots"
+msgstr "Chroot guztiak hautatu"
+
+#: bin/schroot/schroot-options.cc:60
+msgid "Select all active sessions"
+msgstr "Saio aktibo guztiak hautatu"
+
+#: bin/schroot/schroot-options.cc:64 bin/dchroot/dchroot-options.cc:60
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:62
+msgid "Directory to use"
+msgstr "Erabiliko den direktorioa"
+
+#: bin/schroot/schroot-options.cc:66
+msgid "Username (default current user)"
+msgstr "Erabiltzailea (lehenetsia uneko erabiltzailea)"
+
+#: bin/schroot/schroot-options.cc:68 bin/dchroot/dchroot-options.cc:62
+msgid "Preserve user environment"
+msgstr "Mantendu erabiltzaile ingurunea"
+
+#: bin/schroot/schroot-options.cc:72
+msgid "Begin, run and end a session automatically (default)"
+msgstr "saio bat automatikoki hasi, exekutatu eta amaitu (lehenetsia)"
+
+#: bin/schroot/schroot-options.cc:74
+msgid "Begin a session; returns a session ID"
+msgstr "Saio bat hasi, saio ID bat itzultzen du"
+
+#: bin/schroot/schroot-options.cc:76
+msgid "Recover an existing session"
+msgstr "Saio bat berreskuratu"
+
+#: bin/schroot/schroot-options.cc:78
+msgid "Run an existing session"
+msgstr "Saio bat exekutatu"
+
+#: bin/schroot/schroot-options.cc:80
+msgid "End an existing session"
+msgstr "Saio bat amaitu"
+
+#: bin/schroot/schroot-options.cc:84
+msgid "Session name (defaults to an automatically generated name)"
+msgstr "Saio izena (lehenespena automatikoki sortutako izen bat erabiltzea da)"
+
+#: bin/schroot/schroot-options.cc:86
+msgid "Force operation, even if it fails"
+msgstr "Behartu ekintza, nahiz huts egin"
+
+#: bin/schroot/schroot-options-base.cc:56
+msgid "Chroot selection"
+msgstr "Chroot hautaketa"
+
+#: bin/schroot/schroot-options-base.cc:57
+msgid "Chroot environment"
+msgstr "Chroot ingurunea"
+
+#: bin/schroot/schroot-options-base.cc:58
+msgid "Session actions"
+msgstr "Saio ekintzak"
+
+#: bin/schroot/schroot-options-base.cc:59
+msgid "Session options"
+msgstr "Saio aukerak"
+
+#: bin/schroot/schroot-options-base.cc:86
+msgid "List available chroots"
+msgstr "Zerrendatu chroot erabilgarriak"
+
+#: bin/schroot/schroot-options-base.cc:88
+msgid "Show information about selected chroots"
+msgstr "Erakutsi hautatutako chroot-en informazio"
+
+#: bin/schroot/schroot-options-base.cc:90
+msgid "Dump configuration of selected chroots"
+msgstr "Irauli hautatutako chroot-en konfigurazioa"
+
+#: bin/schroot/schroot-options-base.cc:94
+msgid "Use specified chroot"
+msgstr "Erabili ezarritako chroot-a"
+
+#: bin/schroot/schroot-options-base.cc:98
+msgid "Command to run"
+msgstr "Abiarazteko komandoa"
+
+#: bin/schroot/schroot-options-base.cc:171 bin/dchroot/dchroot-options.cc:87
+msgid "--quiet and --verbose may not be used at the same time"
+msgstr "--quiet eta --verbose ezin dira batera erabili"
+
+#: bin/schroot/schroot-options-base.cc:173 bin/dchroot/dchroot-options.cc:89
+msgid "Using verbose output"
+msgstr "Irteera luzeagoa erabili"
+
+#: bin/schroot/schroot-options-base.cc:179 bin/dchroot/dchroot-options.cc:95
+msgid "--chroot and --all may not be used at the same time"
+msgstr "--chroot eta --all ezin dira batera erabili"
+
+#: bin/schroot/schroot-options-base.cc:181 bin/dchroot/dchroot-options.cc:97
+msgid "Using --chroots only"
+msgstr "--chroots bakarrik erabiltzen"
+
+#: bin/schroot/schroot-options-base.cc:203
+msgid "Exactly one chroot must be specified when beginning a session"
+msgstr "Zehazki chroot bat zehaztu berhar da saioa hasterakoan"
+
+#: bin/schroot/schroot-options-base.cc:232
+msgid "--chroot may not be used with --list"
+msgstr "--chroot ezin da --list -ekin batera erabili"
+
+#: bin/schroot/schroot-options-base.cc:257
+msgid "Unknown action specified"
+msgstr "Ekintza ezezaguna zehaztua"
+
+#. TRANSLATORS: %1% = file
+#: bin/schroot-listmounts/schroot-listmounts-main.cc:59
+#, boost-format
+msgid "Failed to find '%1%'"
+msgstr "Huts '%1%' bilatzerakoan"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#: bin/schroot-listmounts/schroot-listmounts-main.cc:74
+msgid "[OPTION...] - list mount points"
+msgstr "[AUKERA...] - list muntatze puntuak"
+
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:42
+#: bin/schroot-mount/schroot-mount-options.cc:45
+msgid "Mount"
+msgstr "Muntatu"
+
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:61
+#: bin/schroot-mount/schroot-mount-options.cc:69
+msgid "Mountpoint to check (full path)"
+msgstr "Egiaztatzeko muntatze puntua (bide osoa)"
+
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:89
+#: bin/schroot-mount/schroot-mount-options.cc:102
+msgid "No mount point specified"
+msgstr "Ez da muntatze punturik zehaztu"
+
+#. TRANSLATORS: %1% = chroot name
+#. TRANSLATORS: %2% = command
+#: bin/dchroot/dchroot-session.cc:125
+#: bin/dchroot-dsa/dchroot-dsa-session.cc:135
+#, boost-format
+msgid "[%1% chroot] Running command: \"%2%\""
+msgstr "[%1% chroot] Komandoa exekutatzen: \"%2%\""
+
+#: bin/dchroot/dchroot-session-base.cc:73
+msgid "dchroot session restriction"
+msgstr "dchroot saio murrizpenak"
+
+#. TRANSLATORS: %1% = chroot name
+#: bin/dchroot/dchroot-chroot-config.cc:126
+#, boost-format
+msgid "%1% chroot (dchroot compatibility)"
+msgstr "%1% chroot (dchroot bateragarritasuna)"
+
+#. TRANSLATORS: Do not translate "users" and "groups";
+#. these are keywords used in the configuration file.
+#: bin/dchroot/dchroot-main-base.cc:74
+msgid "To allow users access to the chroots, use the users or groups keys."
+msgstr "Erabiltzaileei chroot-ak atzitzeko baimena emateko, erabili user edo group gakoak."
+
+#. TRANSLATORS: Do not translate "root-users" and
+#. "root-groups"; these are keywords used in the
+#. configuration file.
+#: bin/dchroot/dchroot-main-base.cc:80
+msgid "To allow password-less root access, use the root-users or root-groups keys."
+msgstr "Pasahitzik gabeko root sarrera baimentzeko, erabili root-users eta root-groups gakoak."
+
+#. TRANSLATORS: %1% = file
+#: bin/dchroot/dchroot-main-base.cc:83 bin/dchroot/dchroot-main-base.cc:144
+#, boost-format
+msgid "Remove '%1%' to use the new configuration."
+msgstr "'%1%' ezabatu konfigurazio berria erabiltzeko."
+
+#. TRANSLATORS: %1% = program name
+#: bin/dchroot/dchroot-main-base.cc:104
+#, boost-format
+msgid "Running schroot in %1% compatibility mode"
+msgstr "Schroot %1% bateragarritasun moduan exekutatzen"
+
+#. TRANSLATORS: "full capabilities" in this context means "all
+#. features"
+#: bin/dchroot/dchroot-main-base.cc:110
+msgid "Run \"schroot\" for full capabilities"
+msgstr "\"schroot\" abiarazi ezaugarri osoentzat"
+
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = configuration file
+#: bin/dchroot/dchroot-main-base.cc:129
+#, boost-format
+msgid "Using %1% configuration file: '%2%'"
+msgstr "%1% konfigurazio fitxategia erabiltzen: '%2%'"
+
+#: bin/dchroot/dchroot-main-base.cc:133
+#, boost-format
+msgid "Run \"%1%\""
+msgstr "\"%1%\" exekutatu"
+
+#: bin/dchroot/dchroot-main-base.cc:137
+msgid "to migrate to a schroot configuration."
+msgstr "schroot konfigurazio batetara migratzeko"
+
+#: bin/dchroot/dchroot-main-base.cc:140
+#, boost-format
+msgid "Edit '%1%' to add appropriate user and/or group access."
+msgstr "%1% editatu dagokion erabiltzaile edo/eta talde sarrerarako."
+
+#: bin/dchroot/dchroot-options.cc:52
+msgid "Print path to selected chroot"
+msgstr "Inprimatu hautatutako chroot bidea"
+
+#: bin/schroot-base/schroot-base-option-action.cc:65
+#: bin/schroot-base/schroot-base-option-action.cc:88
+#, boost-format
+msgid "%1%: invalid action"
+msgstr "%1%: ekintza baliogabea"
+
+#: bin/schroot-base/schroot-base-option-action.cc:85
+msgid "Only one action may be specified"
+msgstr "Soilik ekintza bat ezarri daiteke"
+
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = release date
+#: bin/schroot-base/schroot-base-main.cc:61
+#, boost-format
+msgid "%1% (Debian sbuild) %2% (%3%)\n"
+msgstr "%1% (Debian sbuild) %2% (%3%)\n"
+
+#: bin/schroot-base/schroot-base-main.cc:65
+msgid "Written by Roger Leigh"
+msgstr "Roger Leigh-ek idatzia"
+
+#. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
+#: bin/schroot-base/schroot-base-main.cc:67
+msgid "Copyright (C) 2004-2007 Roger Leigh"
+msgstr "Copyright (C) 2004-2007 Roger Leigh"
+
+#: bin/schroot-base/schroot-base-main.cc:68
+msgid ""
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"Hau software librea da, begiratu iturburua kopiatze baldintzetarako.  EZ dago\n"
+"bermerik; ezta ere EGOKITASUNA MERKATURATZEKO edo HELBURU PARTIKULARRETARAKO ERABILTZEKO.\n"
+
+#: bin/schroot-base/schroot-base-main.cc:77
+msgid "Usage:"
+msgstr "Erabilera:"
+
+#. TRANSLATORS: %1% = program name
+#: bin/schroot-base/schroot-base-main.cc:114
+#, boost-format
+msgid "Run \"%1% --help\" to list usage example and all available options"
+msgstr "\"%1% --help\" exekutatu erabilera adibide zerrenda eta aukera erabilgarriak zerrendatzeko"
+
+#: bin/schroot-base/schroot-base-options.cc:44
+msgid "Actions"
+msgstr "Ekintzak"
+
+#: bin/schroot-base/schroot-base-options.cc:45
+msgid "General options"
+msgstr "Aukera orokorrak"
+
+#: bin/schroot-base/schroot-base-options.cc:46
+msgid "Hidden options"
+msgstr "Ezkutuko aukerak"
+
+#: bin/schroot-base/schroot-base-options.cc:87
+msgid "Show help options"
+msgstr "Erakutsi laguntzako aukerak"
+
+#: bin/schroot-base/schroot-base-options.cc:89
+msgid "Print version information"
+msgstr "Inprimatu bertsioa"
+
+#: bin/schroot-base/schroot-base-options.cc:93
+msgid "Show less output"
+msgstr "Irteera gutxiago ikusi"
+
+#: bin/schroot-base/schroot-base-options.cc:95
+msgid "Show more output"
+msgstr "Irteera gehiago ikusi"
+
+#: bin/schroot-base/schroot-base-options.cc:99
+msgid "Enable debugging messages"
+msgstr "Mezu arazpena gaitu"
+
+#: bin/schroot-base/schroot-base-options.cc:158
+msgid "Invalid debug level"
+msgstr "Arazpen maila baliogabea"
+
+#. TRANSLATORS: %4% = integer process ID
+#: bin/csbuild/csbuild-main.cc:54
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:56
+#, boost-format
+msgid "Failed to release device lock (lock held by PID %4%)"
+msgstr "Huts egin du gailu blokeoa askatzean (blokeoa %4% PID-ak mantentzen du)"
+
+#: bin/csbuild/csbuild-main.cc:55
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:57
+msgid "Failed to release device lock"
+msgstr "Huts egin du gailu blokeoa askatzean"
+
+#: bin/csbuild/csbuild-main.cc:56
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:58
+msgid "Failed to stat device"
+msgstr "Huts egin du gailu egoera eskuratzean"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#: bin/csbuild/csbuild-main.cc:71
+msgid "[OPTION...] - build Debian packages from source"
+msgstr "[AUKERA...] - eraiki Debian paketeak iturburutik"
+
+#: bin/csbuild/csbuild-options.cc:42
+msgid "Build options"
+msgstr "Eraikitze aukerak"
+
+#: bin/csbuild/csbuild-options.cc:43
+msgid "User options"
+msgstr "Erabiltzaile aukerak"
+
+#: bin/csbuild/csbuild-options.cc:44
+msgid "Special options"
+msgstr "Aukera bereziakBerezia"
+
+#: bin/csbuild/csbuild-options.cc:63
+msgid "Build source packages (default)"
+msgstr "Eraiki iturburu paketeak"
+
+#: bin/csbuild/csbuild-options.cc:67
+msgid "Don't log program output"
+msgstr "Ez erregistratu programa irteera"
+
+#: bin/csbuild/csbuild-options.cc:71
+msgid "Distribution to build for"
+msgstr "Eraiki banaketa honentzat"
+
+#: bin/csbuild/csbuild-options.cc:73
+msgid "Build architecture \"all\" packages"
+msgstr "Iturburu pakete bat eraikiArkitekturako pakete \"guztiak\" eraiki"
+
+#: bin/csbuild/csbuild-options.cc:75
+msgid "Build a source package"
+msgstr "Iturburu pakete bat eraiki"
+
+#: bin/csbuild/csbuild-options.cc:77
+msgid "Force building of a source package, irrespective of Debian version"
+msgstr "Iturburu paketeen eraikitzea behartu, Debian bertsioa kontutan artu gabe"
+
+#: bin/csbuild/csbuild-options.cc:79
+msgid "Make a binary non-maintainer upload"
+msgstr "Egin mantenu-gabeko bitar baten igoera"
+
+#: bin/csbuild/csbuild-options.cc:81
+msgid "Purge mode"
+msgstr "Garbitze modua"
+
+#: bin/csbuild/csbuild-options.cc:85
+msgid "GPG key identifier"
+msgstr "GPG gako identifikatzailea"
+
+#: bin/csbuild/csbuild-options.cc:87
+msgid "Package maintainer"
+msgstr "Paketea mantentzailea"
+
+#: bin/csbuild/csbuild-options.cc:89
+msgid "Package uploader"
+msgstr "Pakete igotzailea"
+
+#: bin/csbuild/csbuild-options.cc:94
+msgid "Add a build dependency"
+msgstr "Gehitu eraikitze dependentzi bat"
+
+#: bin/csbuild/csbuild-options.cc:96
+msgid "Force a build dependency"
+msgstr "Behartu eraikitze dependentzia bat"
+
+#: bin/csbuild/csbuild-options.cc:98
+msgid "Build using the current GCC development snapshot"
+msgstr "Uneko GCC garapen egoera-argazkia erabiliz eraiki"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:47
+#, boost-format
+msgid "line %1%: Deprecated key '%4%' used"
+msgstr "%1% lerroa: Zaharkituriko'%4%' gakoa erabilia"
+
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:49
+#, boost-format
+msgid "Deprecated key '%4%' used"
+msgstr "Zaharkituriko'%4%' gakoa erabilia"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:52
+#, boost-format
+msgid "line %1%: Disallowed key '%4%' used"
+msgstr "%1% lerroa: Ezgaituriko '%4%' gakoa erabilia"
+
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:54
+#, boost-format
+msgid "Disallowed key '%4%' used"
+msgstr "Ezgaituriko '%4%' gakoa erabilia"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:57
+#, boost-format
+msgid "line %1%: Duplicate key '%4%'"
+msgstr "%1% lerroa: Bikoizturiko '%4%' gakoa"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:63
+#, boost-format
+msgid "line %1%: Required key '%4%' is missing"
+msgstr "%1% lerroa: Beharrezko '%4%' gakoa falta da"
+
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:65
+#, boost-format
+msgid "Required key '%4%' is missing"
+msgstr "Beharrezko '%4%' gakoa falta da"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:71
+#, boost-format
+msgid "line %1%: Obsolete key '%4%' used"
+msgstr "%1% lerroa: '%4%' gako zaharkitua erabilia"
+
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:73
+#, boost-format
+msgid "Obsolete key '%4%' used"
+msgstr "Zaharkitutako '%4%' gakoa erabilia"
+
+#. TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
+#. TRANSLATORS: %4% = additional details
+#: bin/csbuild/csbuild-debian-changes.cc:76
+#, boost-format
+msgid "%2%: %4%"
+msgstr "%2%: %4%"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %3% = key name ("keyname=value" in configuration file)
+#. TRANSLATORS: %4% = additional details
+#: bin/csbuild/csbuild-debian-changes.cc:80
+#, boost-format
+msgid "line %1%: %3%: %4%"
+msgstr "%1% lerroa: %3%: %4%"
+
+#: bin/csbuild/csbuild-debian-changes.cc:279
+#: bin/csbuild/csbuild-debian-changes.cc:285
+msgid "This option will be removed in the future"
+msgstr "Aukera hau ezabatua izango da etorkizunean"
+
+#: bin/csbuild/csbuild-debian-changes.cc:295
+#: bin/csbuild/csbuild-debian-changes.cc:301
+msgid "This option has been removed, and no longer has any effect"
+msgstr "Aukera hau ezabatua izan da, eta ez du eraginik izango aurrerantzean"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
+#. is an em-dash.
+#: bin/dchroot-dsa/dchroot-dsa-main.cc:45
+msgid "[OPTION...] chroot [COMMAND] - run command or shell in a chroot"
+msgstr "[AUKERA...] chroot [KOMANDOA] - chroot batetako shell-ean exekutatu komandoa"
+
+#. TRANSLATORS: %1% = chroot name
+#: bin/dchroot-dsa/dchroot-dsa-chroot-config.cc:117
+#, boost-format
+msgid "%1% chroot (dchroot-dsa compatibility)"
+msgstr "%1% chroot (dchroot-dsa bateragarritasuna)"
+
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:54
+msgid "Print paths to available chroots"
+msgstr "Inprimatu chroot erabilgarrien bideak"
+
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:93
+msgid "Only one command may be specified"
+msgstr "Bakarrik komando bat ezarri daiteke"
+
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:97
+msgid "Command must have an absolute path"
+msgstr "Komandoak bide-izen absolutua izan behar du"
+
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:106
+msgid "No chroot specified"
+msgstr "Ez da chrrot-a ezarri"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:73
+msgid "[OPTION...] - release a device lock"
+msgstr "[AUKERA...] - askatu gailu blokeoa"
+
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:89
+msgid "No PID specified; forcing release of lock"
+msgstr "Ez da PID-ik zehaztu, blokeo askatzea behartzen"
+
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:43
+msgid "Lock"
+msgstr "Blokeatu"
+
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:62
+msgid "Device to unlock (full path)"
+msgstr "Desblokeatzeko gailua (bide osoa)"
+
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:64
+msgid "Process ID owning the lock"
+msgstr "Prozesua IDa da blokeoaren jabea"
+
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:92
+msgid "No device specified"
+msgstr "Ez da gailurik ezarri"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#: bin/schroot-mount/schroot-mount-main.cc:78
+msgid "[OPTION...] - mount filesystems"
+msgstr "[AUKERAK...] - muntatu fitxategi-sistemak"
+
+#: bin/schroot-mount/schroot-mount-options.cc:65
+msgid "Perform a simulation of actions which would be taken"
+msgstr "Egin egingo lirateken ekintzen simulazio bat"
+
+#: bin/schroot-mount/schroot-mount-options.cc:67
+msgid "fstab file to read (full path)"
+msgstr "irakurtzeko fstab fitxategia (bide osoa)"
+
