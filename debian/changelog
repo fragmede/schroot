@@ -2,6 +2,7 @@ schroot (1.2.0-1) unstable; urgency=low
 
   * New upstream stable release.
   * Add eu translation (Closes: 462164). 
+  * debian/control: libsbuild-dev is in section libdevel.
 
  -- Roger Leigh <rleigh@debian.org>  Tue, 22 Jan 2008 23:19:40 +0000
 
