@@ -20,7 +20,10 @@
 set -e
 
 if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
-  . "$CHROOT_SCRIPT_CONFIG"
+    . "$CHROOT_SCRIPT_CONFIG"
+elif [ "$2" = "ok" ]; then
+    echo "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
+    exit 1
 fi
 
 # Mount a filesystem
@@ -48,15 +51,17 @@ do_mount()
 # $1: mount base location
 do_umount_all()
 {
-    mounts="$("$LIBEXEC_DIR/schroot-listmounts" -m "$1")"
-    if [ "x$mounts" != 'x' ]; then
-        echo "$mounts" |
-        while read mountloc; do
-	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-                echo "Unmounting $mountloc"
-	    fi
-	    umount "$mountloc" || exit 1
-        done || exit 1
+    if [ -d "$1" ]; then
+	mounts="$("$LIBEXEC_DIR/schroot-listmounts" -m "$1")"
+	if [ "x$mounts" != 'x' ]; then
+            echo "$mounts" |
+            while read mountloc; do
+		if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+                    echo "Unmounting $mountloc"
+		fi
+		umount "$mountloc" || exit 1
+            done || exit 1
+	fi
     fi
 }
 
@@ -102,7 +107,15 @@ if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROO
 	fi
 
 	if [ "$CHROOT_TYPE" != "plain" ]; then
-	    $LIBEXEC_DIR/schroot-mount $VERBOSE -f "$FSTAB" -m "$CHROOT_PATH"
+	    if [ -n "$FSTAB" ]; then
+		if [ -f "$FSTAB" ]; then
+		    "$LIBEXEC_DIR/schroot-mount" $VERBOSE \
+			-f "$FSTAB" -m "$CHROOT_PATH"
+		else
+		    echo "fstab file '$FSTAB' does not exist"
+		    exit 1
+		fi
+	    fi
 	fi
 
     elif [ $1 = "setup-stop" ]; then

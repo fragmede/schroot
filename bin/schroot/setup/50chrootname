@@ -20,7 +20,10 @@
 set -e
 
 if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
-  . "$CHROOT_SCRIPT_CONFIG"
+    . "$CHROOT_SCRIPT_CONFIG"
+elif [ "$2" = "ok" ]; then
+    echo "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
+    exit 1
 fi
 
 if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
