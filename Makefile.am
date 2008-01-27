@@ -23,11 +23,14 @@ include $(top_srcdir)/scripts/global.mk
 
 SUBDIRS = sbuild bin test doc po
 
-# Remove junk from the generated tarball.
 dist-hook:
+# Remove junk from the generated tarball.
 	$(FIND) $(distdir) -name '.*' -print | $(XARGS) xargs $(RM) -rf
 	$(FIND) $(distdir) -name '#*' -print | $(XARGS) $(RM) -rf
 	$(FIND) $(distdir) -name '*~' -print | $(XARGS) $(RM) -rf
+
+# Generate ChangeLog
+	git log > $(distdir)/ChangeLog
 
 EXTRA_DIST =				\
 	bootstrap			\
