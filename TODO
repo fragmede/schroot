@@ -60,3 +60,16 @@ fashion.  expect might be useful for testing the PAM wrappers.
 * Tests for chroots:
 
 ** -source chroots
+
+* logging should allow customisation of log level
+
+  See end of Debian Bug #279408.
+
+** log functions should have a severity (to complement existing I/W/E types)
+
+  Similar to debug level, but for normal messages
+  e.g. quiet/normal/verbose/extra verbose.
+
+** config file should have a "message" key.
+
+  Overridden by --quiet/--verbose options.

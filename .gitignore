@@ -24,3 +24,4 @@ autom4te.cache
 m4
 build-stamp
 *.bz2
+ChangeLog
