@@ -1,3 +1,12 @@
+2008-01-27  Roger Leigh  <rleigh@debian.org>
+
+	* bin/schroot/setup/*, bin/schroot/exec/*: All scripts check if
+	$CHROOT_SCRIPT_CONFIG exists, and exit with an error if not (but
+	only if status=ok, in order that the setup-stop task succeeds on
+	failure).  Scripts using values from the $CHROOT_SCRIPT_CONFIG
+	check that they are defined and valid before using them, and exit
+	with an error if they are invalid.
+
 2008-01-23  Roger Leigh  <rleigh@debian.org>
 
 	* configure.ac: Increase minimum gettext version to 0.16.
