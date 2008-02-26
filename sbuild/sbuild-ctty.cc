@@ -43,10 +43,8 @@ namespace
    */
   emap init_errors[] =
     {
-      // TRANSLATORS: CTTY and FD_CLOEXEC should not be translated.
-      emap(CTTY_CLOEXEC, N_("The CTTY FD_CLOEXEC flag could not be set")),
-      // TRANSLATORS: CTTY should not be translated.
-      emap(CTTY_DUP,     N_("The CTTY file descriptor could not be duplicated"))
+      emap(CTTY_CLOEXEC, N_("The controlling terminal close-on-execute flag could not be set")),
+      emap(CTTY_DUP,     N_("The controlling terminal file descriptor could not be duplicated"))
     };
 
   /**

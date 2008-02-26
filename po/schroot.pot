@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2008-01-21 00:11+0000\n"
+"POT-Creation-Date: 2008-02-26 23:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Device must have an absolute path"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:60 sbuild/sbuild-lock.cc:56
+#: sbuild/sbuild-chroot.cc:60 sbuild/sbuild-lock.cc:57
 msgid "Failed to lock device"
 msgstr ""
 
@@ -43,7 +43,7 @@ msgstr ""
 msgid "File is not a block device"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:62 sbuild/sbuild-lock.cc:61
+#: sbuild/sbuild-chroot.cc:62 sbuild/sbuild-lock.cc:62
 msgid "Failed to unlock device"
 msgstr ""
 
@@ -152,32 +152,34 @@ msgstr ""
 msgid "Command Prefix"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:493
+#. TRANSLATORS: "Personality" is the Linux kernel personality
+#. (process execution domain).  See schroot.conf(5).
+#: sbuild/sbuild-chroot.cc:495
 msgid "Personality"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:497
+#: sbuild/sbuild-chroot.cc:499
 msgid "Location"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:499
+#: sbuild/sbuild-chroot.cc:501
 msgid "Mount Location"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:501
+#: sbuild/sbuild-chroot.cc:503
 msgid "Path"
 msgstr ""
 
 #. TRANSLATORS: The system device node to mount containing the chroot
-#: sbuild/sbuild-chroot.cc:504
+#: sbuild/sbuild-chroot.cc:506
 msgid "Mount Device"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:510
+#: sbuild/sbuild-chroot.cc:512
 msgid "Session"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:510
+#: sbuild/sbuild-chroot.cc:512
 msgid "Chroot"
 msgstr ""
 
@@ -511,14 +513,12 @@ msgstr ""
 msgid "Executing '%1%'"
 msgstr ""
 
-#. TRANSLATORS: CTTY and FD_CLOEXEC should not be translated.
-#: sbuild/sbuild-ctty.cc:47
-msgid "The CTTY FD_CLOEXEC flag could not be set"
+#: sbuild/sbuild-ctty.cc:46
+msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr ""
 
-#. TRANSLATORS: CTTY should not be translated.
-#: sbuild/sbuild-ctty.cc:49
-msgid "The CTTY file descriptor could not be duplicated"
+#: sbuild/sbuild-ctty.cc:47
+msgid "The controlling terminal file descriptor could not be duplicated"
 msgstr ""
 
 #. TRANSLATORS: %1% = integer personality ID
@@ -607,53 +607,53 @@ msgstr ""
 msgid "Unsupported conversation type '%1%'"
 msgstr ""
 
-#: sbuild/sbuild-lock.cc:47
+#: sbuild/sbuild-lock.cc:48
 msgid "Failed to set timeout handler"
 msgstr ""
 
-#: sbuild/sbuild-lock.cc:48
+#: sbuild/sbuild-lock.cc:49
 msgid "Failed to set timeout"
 msgstr ""
 
-#: sbuild/sbuild-lock.cc:49
+#: sbuild/sbuild-lock.cc:50
 msgid "Failed to cancel timeout"
 msgstr ""
 
-#: sbuild/sbuild-lock.cc:50
+#: sbuild/sbuild-lock.cc:51
 msgid "Failed to lock file"
 msgstr ""
 
-#: sbuild/sbuild-lock.cc:51
+#: sbuild/sbuild-lock.cc:52
 msgid "Failed to unlock file"
 msgstr ""
 
 #. TRANSLATORS: %4% = time in seconds
-#: sbuild/sbuild-lock.cc:53
+#: sbuild/sbuild-lock.cc:54
 #, boost-format
 msgid "Failed to lock file (timed out after %4% seconds)"
 msgstr ""
 
 #. TRANSLATORS: %4% = time in seconds
-#: sbuild/sbuild-lock.cc:55
+#: sbuild/sbuild-lock.cc:56
 #, boost-format
 msgid "Failed to unlock file (timed out after %4% seconds)"
 msgstr ""
 
 #. TRANSLATORS: %4% = time in seconds
 #. TRANSLATORS: %5% = integer process ID
-#: sbuild/sbuild-lock.cc:59
+#: sbuild/sbuild-lock.cc:60
 #, boost-format
 msgid ""
 "Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
 msgstr ""
 
-#: sbuild/sbuild-lock.cc:60
+#: sbuild/sbuild-lock.cc:61
 msgid "Failed to test device lock"
 msgstr ""
 
 #. TRANSLATORS: %4% = time in seconds
 #. TRANSLATORS: %5% = integer process ID
-#: sbuild/sbuild-lock.cc:64
+#: sbuild/sbuild-lock.cc:65
 #, boost-format
 msgid ""
 "Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
