@@ -21,6 +21,7 @@
 
 #include <sbuild/sbuild-custom-error.h>
 
+#include <cstring>
 #include <iostream>
 #include <deque>
 #include <string>
