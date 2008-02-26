@@ -490,6 +490,8 @@ sbuild::chroot::get_details (format_detail& detail) const
   if (!get_command_prefix().empty())
     detail.add(_("Command Prefix"), get_command_prefix());
 
+  // TRANSLATORS: "Personality" is the Linux kernel personality
+  // (process execution domain).  See schroot.conf(5).
   detail.add(_("Personality"), get_persona().get_name());
 
   /* Non user-settable properties are listed last. */

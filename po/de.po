@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.1.6\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2008-01-21 00:11+0000\n"
+"POT-Creation-Date: 2008-02-26 23:14+0000\n"
 "PO-Revision-Date: 2008-02-19 18:41+0100\n"
 "Last-Translator: Jens Seidel <jensseidel@users.sf.net>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -33,7 +33,7 @@ msgstr "Unbekannter Chroot-Typ »%1%«"
 msgid "Device must have an absolute path"
 msgstr "Das Gerät muss einen absoluten Pfad haben"
 
-#: sbuild/sbuild-chroot.cc:60 sbuild/sbuild-lock.cc:56
+#: sbuild/sbuild-chroot.cc:60 sbuild/sbuild-lock.cc:57
 msgid "Failed to lock device"
 msgstr "Gerät konnte nicht gesperrt werden"
 
@@ -42,7 +42,7 @@ msgstr "Gerät konnte nicht gesperrt werden"
 msgid "File is not a block device"
 msgstr "Datei ist kein Blockgerät"
 
-#: sbuild/sbuild-chroot.cc:62 sbuild/sbuild-lock.cc:61
+#: sbuild/sbuild-chroot.cc:62 sbuild/sbuild-lock.cc:62
 msgid "Failed to unlock device"
 msgstr "Gerät konnte nicht entsperrt werden"
 
@@ -153,32 +153,34 @@ msgstr "Sitzung wurde restlos entfernt"
 msgid "Command Prefix"
 msgstr "Kommandopräfix"
 
-#: sbuild/sbuild-chroot.cc:493
+#. TRANSLATORS: "Personality" is the Linux kernel personality
+#. (process execution domain).  See schroot.conf(5).
+#: sbuild/sbuild-chroot.cc:495
 msgid "Personality"
 msgstr "Persönlichkeit"
 
-#: sbuild/sbuild-chroot.cc:497
+#: sbuild/sbuild-chroot.cc:499
 msgid "Location"
 msgstr "Ort"
 
-#: sbuild/sbuild-chroot.cc:499
+#: sbuild/sbuild-chroot.cc:501
 msgid "Mount Location"
 msgstr "Einhängeort"
 
-#: sbuild/sbuild-chroot.cc:501
+#: sbuild/sbuild-chroot.cc:503
 msgid "Path"
 msgstr "Pfad"
 
 #. TRANSLATORS: The system device node to mount containing the chroot
-#: sbuild/sbuild-chroot.cc:504
+#: sbuild/sbuild-chroot.cc:506
 msgid "Mount Device"
 msgstr "Einzubindendes Gerät"
 
-#: sbuild/sbuild-chroot.cc:510
+#: sbuild/sbuild-chroot.cc:512
 msgid "Session"
 msgstr "Sitzung"
 
-#: sbuild/sbuild-chroot.cc:510
+#: sbuild/sbuild-chroot.cc:512
 msgid "Chroot"
 msgstr "Chroot"
 
@@ -386,7 +388,8 @@ msgstr "Konnte root-Rechte nicht abgeben"
 msgid ""
 "%1%: Chroot does not support setting a session ID; ignoring session ID '%4%'"
 msgstr ""
-"%1%: Chroot erlaubt das Setzen einer Sitzungs-ID nicht; ignoriere Sitzungs-ID »%4%«"
+"%1%: Chroot erlaubt das Setzen einer Sitzungs-ID nicht; ignoriere Sitzungs-"
+"ID »%4%«"
 
 #. TRANSLATORS: %1% = command
 #: sbuild/sbuild-session.cc:109
@@ -518,14 +521,13 @@ msgstr "Konnte »%1%« nicht ausführen"
 msgid "Executing '%1%'"
 msgstr "Starte »%1%«"
 
-#. TRANSLATORS: CTTY and FD_CLOEXEC should not be translated.
-#: sbuild/sbuild-ctty.cc:47
-msgid "The CTTY FD_CLOEXEC flag could not be set"
-msgstr "Das Flag CTTY FD_CLOEXEC konnte nicht gesetzt werden"
+#: sbuild/sbuild-ctty.cc:46
+msgid "The controlling terminal close-on-execute flag could not be set"
+msgstr ""
 
-#. TRANSLATORS: CTTY should not be translated.
-#: sbuild/sbuild-ctty.cc:49
-msgid "The CTTY file descriptor could not be duplicated"
+#: sbuild/sbuild-ctty.cc:47
+#, fuzzy
+msgid "The controlling terminal file descriptor could not be duplicated"
 msgstr "Der Dateideskriptor CTTY konnte nicht dupliziert werden"
 
 #. TRANSLATORS: %1% = integer personality ID
@@ -615,41 +617,41 @@ msgstr "Terminal-Einstellungen konnten nicht abgefragt werden"
 msgid "Unsupported conversation type '%1%'"
 msgstr "Nicht unterstützter Konversationstyp »%1%«"
 
-#: sbuild/sbuild-lock.cc:47
+#: sbuild/sbuild-lock.cc:48
 msgid "Failed to set timeout handler"
 msgstr "Timeout-Handler konnte nicht gesetzt werden"
 
-#: sbuild/sbuild-lock.cc:48
+#: sbuild/sbuild-lock.cc:49
 msgid "Failed to set timeout"
 msgstr "Konnte Timeout nicht setzen"
 
-#: sbuild/sbuild-lock.cc:49
+#: sbuild/sbuild-lock.cc:50
 msgid "Failed to cancel timeout"
 msgstr "Konnte Timeout nicht abbrechen"
 
-#: sbuild/sbuild-lock.cc:50
+#: sbuild/sbuild-lock.cc:51
 msgid "Failed to lock file"
 msgstr "Konnte Datei nicht sperren"
 
-#: sbuild/sbuild-lock.cc:51
+#: sbuild/sbuild-lock.cc:52
 msgid "Failed to unlock file"
 msgstr "Konnte Datei nicht entsperren"
 
 #. TRANSLATORS: %4% = time in seconds
-#: sbuild/sbuild-lock.cc:53
+#: sbuild/sbuild-lock.cc:54
 #, boost-format
 msgid "Failed to lock file (timed out after %4% seconds)"
 msgstr "Konnte Datei nicht sperren (Zeit lief nach %4% Sekunden ab)"
 
 #. TRANSLATORS: %4% = time in seconds
-#: sbuild/sbuild-lock.cc:55
+#: sbuild/sbuild-lock.cc:56
 #, boost-format
 msgid "Failed to unlock file (timed out after %4% seconds)"
 msgstr "Konnte Datei nicht entsperren (Zeit lief nach %4% Sekunden ab)"
 
 #. TRANSLATORS: %4% = time in seconds
 #. TRANSLATORS: %5% = integer process ID
-#: sbuild/sbuild-lock.cc:59
+#: sbuild/sbuild-lock.cc:60
 #, boost-format
 msgid ""
 "Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
@@ -657,13 +659,13 @@ msgstr ""
 "Konnte Gerät nicht sperren (Zeit lief nach %4% Sekunden ab; Sperre wird von "
 "PID %5% gehalten)"
 
-#: sbuild/sbuild-lock.cc:60
+#: sbuild/sbuild-lock.cc:61
 msgid "Failed to test device lock"
 msgstr "Konnte Sperrung des Gerätes nicht testen"
 
 #. TRANSLATORS: %4% = time in seconds
 #. TRANSLATORS: %5% = integer process ID
-#: sbuild/sbuild-lock.cc:64
+#: sbuild/sbuild-lock.cc:65
 #, boost-format
 msgid ""
 "Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
@@ -1479,3 +1481,6 @@ msgstr "Eine Simulation der durchzuführenden Aktionen starten"
 #: bin/schroot-mount/schroot-mount-options.cc:67
 msgid "fstab file to read (full path)"
 msgstr "Einzulesende fstab-Datei (voller Pfad)"
+
+#~ msgid "The CTTY FD_CLOEXEC flag could not be set"
+#~ msgstr "Das Flag CTTY FD_CLOEXEC konnte nicht gesetzt werden"

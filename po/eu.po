@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2008-01-17 22:58+0000\n"
+"POT-Creation-Date: 2008-02-26 23:14+0000\n"
 "PO-Revision-Date: 2008-01-22 23:41+0100\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <Librezale@librezale.org>\n"
@@ -34,7 +34,7 @@ msgstr "Chroot '%1%' mota ezezaguna"
 msgid "Device must have an absolute path"
 msgstr "Gailuak bide absolutu bat izan behar du"
 
-#: sbuild/sbuild-chroot.cc:60 sbuild/sbuild-lock.cc:56
+#: sbuild/sbuild-chroot.cc:60 sbuild/sbuild-lock.cc:57
 msgid "Failed to lock device"
 msgstr "Huts egin du gailua blokeatzerakoan"
 
@@ -43,7 +43,7 @@ msgstr "Huts egin du gailua blokeatzerakoan"
 msgid "File is not a block device"
 msgstr "Fitxategia da ez bloke gailu bat"
 
-#: sbuild/sbuild-chroot.cc:62 sbuild/sbuild-lock.cc:61
+#: sbuild/sbuild-chroot.cc:62 sbuild/sbuild-lock.cc:62
 msgid "Failed to unlock device"
 msgstr "Huts egin du gailua desblokeatzean"
 
@@ -84,100 +84,102 @@ msgstr "Huts egin du saio fitxategia askatzerakoan"
 msgid "Failed to write session file"
 msgstr "Huts saio fitxategia idaztean"
 
-#: sbuild/sbuild-chroot.cc:467
+#: sbuild/sbuild-chroot.cc:470
 msgid "Name"
 msgstr "Izena"
 
-#: sbuild/sbuild-chroot.cc:468
+#: sbuild/sbuild-chroot.cc:471
 msgid "Description"
 msgstr "Azalpena"
 
-#: sbuild/sbuild-chroot.cc:469
+#: sbuild/sbuild-chroot.cc:472
 msgid "Type"
 msgstr "Mota"
 
-#: sbuild/sbuild-chroot.cc:470
+#: sbuild/sbuild-chroot.cc:473
 msgid "Priority"
 msgstr "Lehentasuna"
 
-#: sbuild/sbuild-chroot.cc:471
+#: sbuild/sbuild-chroot.cc:474
 msgid "Users"
 msgstr "Erabiltzaileak"
 
-#: sbuild/sbuild-chroot.cc:472
+#: sbuild/sbuild-chroot.cc:475
 msgid "Groups"
 msgstr "Taldeak"
 
-#: sbuild/sbuild-chroot.cc:473
+#: sbuild/sbuild-chroot.cc:476
 msgid "Root Users"
 msgstr "Root Erabiltzaileak"
 
-#: sbuild/sbuild-chroot.cc:474
+#: sbuild/sbuild-chroot.cc:477
 msgid "Root Groups"
 msgstr "Root Taldeak"
 
-#: sbuild/sbuild-chroot.cc:475
+#: sbuild/sbuild-chroot.cc:478
 msgid "Aliases"
 msgstr "Ezizenak"
 
-#: sbuild/sbuild-chroot.cc:476
+#: sbuild/sbuild-chroot.cc:479
 msgid "Environment Filter"
 msgstr "Ingurune Iragazkia"
 
-#: sbuild/sbuild-chroot.cc:477
+#: sbuild/sbuild-chroot.cc:480
 msgid "Run Setup Scripts"
 msgstr "Abiarazi Konfigurazio script-ak"
 
-#: sbuild/sbuild-chroot.cc:478
+#: sbuild/sbuild-chroot.cc:481
 msgid "Run Execution Scripts"
 msgstr "Abiarazi exekuzio script-ak"
 
-#: sbuild/sbuild-chroot.cc:479
+#: sbuild/sbuild-chroot.cc:482
 msgid "Script Configuration"
 msgstr "Script konfigurazioa"
 
-#: sbuild/sbuild-chroot.cc:480
+#: sbuild/sbuild-chroot.cc:483
 msgid "Session Managed"
 msgstr "Saioa kudeatua"
 
-#: sbuild/sbuild-chroot.cc:482
+#: sbuild/sbuild-chroot.cc:485
 msgid "Session Cloned"
 msgstr "Saioa bikoiztua"
 
-#: sbuild/sbuild-chroot.cc:484
+#: sbuild/sbuild-chroot.cc:487
 msgid "Session Purged"
 msgstr "Saioa garbitua"
 
-#: sbuild/sbuild-chroot.cc:488
+#: sbuild/sbuild-chroot.cc:491
 msgid "Command Prefix"
 msgstr "Komando aurrizkia"
 
-#: sbuild/sbuild-chroot.cc:490
+#. TRANSLATORS: "Personality" is the Linux kernel personality
+#. (process execution domain).  See schroot.conf(5).
+#: sbuild/sbuild-chroot.cc:495
 msgid "Personality"
 msgstr "Pertsonalitatea"
 
-#: sbuild/sbuild-chroot.cc:494
+#: sbuild/sbuild-chroot.cc:499
 msgid "Location"
 msgstr "Kokalekua"
 
-#: sbuild/sbuild-chroot.cc:496
+#: sbuild/sbuild-chroot.cc:501
 msgid "Mount Location"
 msgstr "Muntatze kokalekua"
 
-#: sbuild/sbuild-chroot.cc:498
+#: sbuild/sbuild-chroot.cc:503
 msgid "Path"
 msgstr "Bidea"
 
 #. TRANSLATORS: The system device node to mount containing the chroot
-#: sbuild/sbuild-chroot.cc:501
+#: sbuild/sbuild-chroot.cc:506
 msgid "Mount Device"
 msgstr "Muntatu gailua"
 
-#: sbuild/sbuild-chroot.cc:507
+#: sbuild/sbuild-chroot.cc:512
 msgid "Session"
 msgstr "Saioa"
 
-#: sbuild/sbuild-chroot.cc:507
+#: sbuild/sbuild-chroot.cc:512
 msgid "Chroot"
 msgstr "Chroot"
 
@@ -216,7 +218,7 @@ msgstr "PAM errorea"
 
 #: sbuild/sbuild-auth.cc:128 sbuild/sbuild-session.cc:1065
 #: sbuild/sbuild-session.cc:1316 sbuild/sbuild-run-parts.cc:197
-#: sbuild/sbuild-log.cc:167 bin/schroot-mount/schroot-mount-main.cc:169
+#: sbuild/sbuild-log.cc:167 bin/schroot-mount/schroot-mount-main.cc:170
 msgid "An unknown exception occurred"
 msgstr "Salbuespen ezezagun bat gertatu da"
 
@@ -285,7 +287,9 @@ msgstr "Umeak nukleoa irauli du"
 
 #: sbuild/sbuild-session.cc:72
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
-msgstr "Umea modu arraroan irten da (arrazoi ezezaguna, ez dago seinale edo muin iraultzerik)"
+msgstr ""
+"Umea modu arraroan irten da (arrazoi ezezaguna, ez dago seinale edo muin "
+"iraultzerik)"
 
 #: sbuild/sbuild-session.cc:73 sbuild/sbuild-run-parts.cc:46
 #: bin/schroot-mount/schroot-mount-main.cc:60
@@ -377,8 +381,11 @@ msgstr "Huts egin root baimenak kentzean"
 #. TRANSLATORS: %4% = session identifier
 #: sbuild/sbuild-session.cc:107
 #, boost-format
-msgid "%1%: Chroot does not support setting a session ID; ignoring session ID '%4%'"
-msgstr "%1%: Chroot-ek ez du onartzen saio ID bat ezartzea; saio ID-a alde batetara uzten '%4%'"
+msgid ""
+"%1%: Chroot does not support setting a session ID; ignoring session ID '%4%'"
+msgstr ""
+"%1%: Chroot-ek ez du onartzen saio ID bat ezartzea; saio ID-a alde batetara "
+"uzten '%4%'"
 
 #. TRANSLATORS: %1% = command
 #: sbuild/sbuild-session.cc:109
@@ -505,19 +512,18 @@ msgid "Failed to execute '%1%'"
 msgstr "Huts egin du '%1%' exekutatzean"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-run-parts.cc:182 bin/schroot-mount/schroot-mount-main.cc:155
+#: sbuild/sbuild-run-parts.cc:182 bin/schroot-mount/schroot-mount-main.cc:156
 #, boost-format
 msgid "Executing '%1%'"
 msgstr "'%1%' exekutatzen"
 
-#. TRANSLATORS: CTTY and FD_CLOEXEC should not be translated.
-#: sbuild/sbuild-ctty.cc:47
-msgid "The CTTY FD_CLOEXEC flag could not be set"
-msgstr "CTTY FD_CLOEXEC bandera ezin izan da ezarri"
+#: sbuild/sbuild-ctty.cc:46
+msgid "The controlling terminal close-on-execute flag could not be set"
+msgstr ""
 
-#. TRANSLATORS: CTTY should not be translated.
-#: sbuild/sbuild-ctty.cc:49
-msgid "The CTTY file descriptor could not be duplicated"
+#: sbuild/sbuild-ctty.cc:47
+#, fuzzy
+msgid "The controlling terminal file descriptor could not be duplicated"
 msgstr "CTTY fitxategi deskriptorea ezin da bikoiztu"
 
 #. TRANSLATORS: %1% = integer personality ID
@@ -606,55 +612,63 @@ msgstr "Huts egin du terminala ezarpenak eskuratzean"
 msgid "Unsupported conversation type '%1%'"
 msgstr "Onartzen ez den '%1%' elkarrizketa mota"
 
-#: sbuild/sbuild-lock.cc:47
+#: sbuild/sbuild-lock.cc:48
 msgid "Failed to set timeout handler"
 msgstr "Huts egin du denbora-muga kudeatzailea ezartzean"
 
-#: sbuild/sbuild-lock.cc:48
+#: sbuild/sbuild-lock.cc:49
 msgid "Failed to set timeout"
 msgstr "Huts egin du denbora-muga ezartzean"
 
-#: sbuild/sbuild-lock.cc:49
+#: sbuild/sbuild-lock.cc:50
 msgid "Failed to cancel timeout"
 msgstr "Huts egin du denbora-muga kentzean"
 
-#: sbuild/sbuild-lock.cc:50
+#: sbuild/sbuild-lock.cc:51
 msgid "Failed to lock file"
 msgstr "Huts egin du fitxategia blokeatzean"
 
-#: sbuild/sbuild-lock.cc:51
+#: sbuild/sbuild-lock.cc:52
 msgid "Failed to unlock file"
 msgstr "Huts egin du fitxategia desblokeatzean"
 
 #. TRANSLATORS: %4% = time in seconds
-#: sbuild/sbuild-lock.cc:53
+#: sbuild/sbuild-lock.cc:54
 #, boost-format
 msgid "Failed to lock file (timed out after %4% seconds)"
-msgstr "Huts egin du fitxategia blokeatzean (denboraz kanpo %4% segundu ondoren)"
+msgstr ""
+"Huts egin du fitxategia blokeatzean (denboraz kanpo %4% segundu ondoren)"
 
 #. TRANSLATORS: %4% = time in seconds
-#: sbuild/sbuild-lock.cc:55
+#: sbuild/sbuild-lock.cc:56
 #, boost-format
 msgid "Failed to unlock file (timed out after %4% seconds)"
-msgstr "Huts egin du fitxategia desblokeatzean (denboraz kanpo %4% segundu ondoren)"
+msgstr ""
+"Huts egin du fitxategia desblokeatzean (denboraz kanpo %4% segundu ondoren)"
 
 #. TRANSLATORS: %4% = time in seconds
 #. TRANSLATORS: %5% = integer process ID
-#: sbuild/sbuild-lock.cc:59
-#, boost-format
-msgid "Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
-msgstr "Huts egin du gailua blokeatzean (denboraz kanpo %4% segundu ondoren; blokeoak %5% PID-ak mantendua)"
-
 #: sbuild/sbuild-lock.cc:60
+#, boost-format
+msgid ""
+"Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
+msgstr ""
+"Huts egin du gailua blokeatzean (denboraz kanpo %4% segundu ondoren; "
+"blokeoak %5% PID-ak mantendua)"
+
+#: sbuild/sbuild-lock.cc:61
 msgid "Failed to test device lock"
 msgstr "Huts egin du gailu blokeoa probatzean"
 
 #. TRANSLATORS: %4% = time in seconds
 #. TRANSLATORS: %5% = integer process ID
-#: sbuild/sbuild-lock.cc:64
+#: sbuild/sbuild-lock.cc:65
 #, boost-format
-msgid "Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
-msgstr "Huts egin du gailua desblokeatzean (denboraz kanpo %4% segundu ondoren; blokeoa %5% PID-ak mantendua)"
+msgid ""
+"Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
+msgstr ""
+"Huts egin du gailua desblokeatzean (denboraz kanpo %4% segundu ondoren; "
+"blokeoa %5% PID-ak mantendua)"
 
 #: sbuild/sbuild-chroot-lvm-snapshot.cc:195
 msgid "LVM Snapshot Device"
@@ -1063,14 +1077,19 @@ msgstr "%1% chroot (dchroot bateragarritasuna)"
 #. these are keywords used in the configuration file.
 #: bin/dchroot/dchroot-main-base.cc:74
 msgid "To allow users access to the chroots, use the users or groups keys."
-msgstr "Erabiltzaileei chroot-ak atzitzeko baimena emateko, erabili user edo group gakoak."
+msgstr ""
+"Erabiltzaileei chroot-ak atzitzeko baimena emateko, erabili user edo group "
+"gakoak."
 
 #. TRANSLATORS: Do not translate "root-users" and
 #. "root-groups"; these are keywords used in the
 #. configuration file.
 #: bin/dchroot/dchroot-main-base.cc:80
-msgid "To allow password-less root access, use the root-users or root-groups keys."
-msgstr "Pasahitzik gabeko root sarrera baimentzeko, erabili root-users eta root-groups gakoak."
+msgid ""
+"To allow password-less root access, use the root-users or root-groups keys."
+msgstr ""
+"Pasahitzik gabeko root sarrera baimentzeko, erabili root-users eta root-"
+"groups gakoak."
 
 #. TRANSLATORS: %1% = file
 #: bin/dchroot/dchroot-main-base.cc:83 bin/dchroot/dchroot-main-base.cc:144
@@ -1139,7 +1158,8 @@ msgstr "Roger Leigh-ek idatzia"
 
 #. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
 #: bin/schroot-base/schroot-base-main.cc:67
-msgid "Copyright (C) 2004-2007 Roger Leigh"
+#, fuzzy
+msgid "Copyright (C) 2004-2008 Roger Leigh"
 msgstr "Copyright (C) 2004-2007 Roger Leigh"
 
 #: bin/schroot-base/schroot-base-main.cc:68
@@ -1147,8 +1167,10 @@ msgid ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"Hau software librea da, begiratu iturburua kopiatze baldintzetarako.  EZ dago\n"
-"bermerik; ezta ere EGOKITASUNA MERKATURATZEKO edo HELBURU PARTIKULARRETARAKO ERABILTZEKO.\n"
+"Hau software librea da, begiratu iturburua kopiatze baldintzetarako.  EZ "
+"dago\n"
+"bermerik; ezta ere EGOKITASUNA MERKATURATZEKO edo HELBURU PARTIKULARRETARAKO "
+"ERABILTZEKO.\n"
 
 #: bin/schroot-base/schroot-base-main.cc:77
 msgid "Usage:"
@@ -1158,7 +1180,9 @@ msgstr "Erabilera:"
 #: bin/schroot-base/schroot-base-main.cc:114
 #, boost-format
 msgid "Run \"%1% --help\" to list usage example and all available options"
-msgstr "\"%1% --help\" exekutatu erabilera adibide zerrenda eta aukera erabilgarriak zerrendatzeko"
+msgstr ""
+"\"%1% --help\" exekutatu erabilera adibide zerrenda eta aukera erabilgarriak "
+"zerrendatzeko"
 
 #: bin/schroot-base/schroot-base-options.cc:44
 msgid "Actions"
@@ -1201,7 +1225,8 @@ msgstr "Arazpen maila baliogabea"
 #: bin/schroot-releaselock/schroot-releaselock-main.cc:56
 #, boost-format
 msgid "Failed to release device lock (lock held by PID %4%)"
-msgstr "Huts egin du gailu blokeoa askatzean (blokeoa %4% PID-ak mantentzen du)"
+msgstr ""
+"Huts egin du gailu blokeoa askatzean (blokeoa %4% PID-ak mantentzen du)"
 
 #: bin/csbuild/csbuild-main.cc:55
 #: bin/schroot-releaselock/schroot-releaselock-main.cc:57
@@ -1253,7 +1278,8 @@ msgstr "Iturburu pakete bat eraiki"
 
 #: bin/csbuild/csbuild-options.cc:77
 msgid "Force building of a source package, irrespective of Debian version"
-msgstr "Iturburu paketeen eraikitzea behartu, Debian bertsioa kontutan artu gabe"
+msgstr ""
+"Iturburu paketeen eraikitzea behartu, Debian bertsioa kontutan artu gabe"
 
 #: bin/csbuild/csbuild-options.cc:79
 msgid "Make a binary non-maintainer upload"
@@ -1375,7 +1401,8 @@ msgstr "Aukera hau ezabatua izan da, eta ez du eraginik izango aurrerantzean"
 #. is an em-dash.
 #: bin/dchroot-dsa/dchroot-dsa-main.cc:45
 msgid "[OPTION...] chroot [COMMAND] - run command or shell in a chroot"
-msgstr "[AUKERA...] chroot [KOMANDOA] - chroot batetako shell-ean exekutatu komandoa"
+msgstr ""
+"[AUKERA...] chroot [KOMANDOA] - chroot batetako shell-ean exekutatu komandoa"
 
 #. TRANSLATORS: %1% = chroot name
 #: bin/dchroot-dsa/dchroot-dsa-chroot-config.cc:117
@@ -1439,3 +1466,5 @@ msgstr "Egin egingo lirateken ekintzen simulazio bat"
 msgid "fstab file to read (full path)"
 msgstr "irakurtzeko fstab fitxategia (bide osoa)"
 
+#~ msgid "The CTTY FD_CLOEXEC flag could not be set"
+#~ msgstr "CTTY FD_CLOEXEC bandera ezin izan da ezarri"

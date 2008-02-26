@@ -29,8 +29,12 @@ namespace sbuild
 
   enum ctty_error_code
     {
-      CTTY_CLOEXEC, ///< The CTTY FD_CLOEXEC flag could not be set.
-      CTTY_DUP      ///< The CTTY file descriptor could not be duplicated.
+      /// The controlling terminal close-on-execute flag could not be
+      /// set.
+      CTTY_CLOEXEC,
+      /// The controlling terminal file descriptor could not be
+      /// duplicated.
+      CTTY_DUP
     };
 
   typedef parse_error<ctty_error_code> ctty_error;
