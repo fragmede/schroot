@@ -30,7 +30,9 @@ dist-hook:
 	$(FIND) $(distdir) -name '*~' -print | $(XARGS) $(RM) -rf
 
 # Generate ChangeLog
-	git log > $(distdir)/ChangeLog
+	if [ -d .git ]; then			\
+	  git log > $(distdir)/ChangeLog;	\
+	fi
 
 EXTRA_DIST =				\
 	bootstrap			\
