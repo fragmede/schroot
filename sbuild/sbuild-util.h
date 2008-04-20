@@ -557,7 +557,7 @@ namespace sbuild
   stat::check_mode (mode_bits mask) const
   {
     check();
-    return (status.st_mode & mask) == mask;
+    return (static_cast<stat::mode_bits>(status.st_mode) & mask) == mask;
   }
 
 }
