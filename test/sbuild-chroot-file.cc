@@ -100,8 +100,8 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-		   sbuild::chroot::SESSION_CREATE |
-		   sbuild::chroot::SESSION_CLONE);
+		   (sbuild::chroot::SESSION_CREATE |
+		    sbuild::chroot::SESSION_CLONE));
   }
 
   void test_print_details()
