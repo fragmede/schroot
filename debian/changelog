@@ -8,8 +8,10 @@ schroot (1.2.0-1) unstable; urgency=low
     an error status and message if incorrect (Closes: #462680).
   * Reading the configuration no longer uses O_NOFOLLOW (Closes: #476332).
     Thanks to Timothy G Abbott.
+  * sbuild/sbuild-util.h: Add missing typecast to fix FTBFS on
+    GNU/kFreeBSD (Closes: #465972).  Thanks to Petr Salinger.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 20 Apr 2008 23:33:22 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 20 Apr 2008 23:51:42 +0100
 
 schroot (1.1.6-1) unstable; urgency=low
 
