@@ -6,8 +6,10 @@ schroot (1.2.0-1) unstable; urgency=low
   * Setup and exec scripts check for existence and validity of
     script-config file options, as well as script-config itself, and exit with
     an error status and message if incorrect (Closes: #462680).
+  * Reading the configuration no longer uses O_NOFOLLOW (Closes: #476332).
+    Thanks to Timothy G Abbott.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 27 Jan 2008 18:01:14 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sun, 20 Apr 2008 23:33:22 +0100
 
 schroot (1.1.6-1) unstable; urgency=low
 
