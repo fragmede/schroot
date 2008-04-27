@@ -161,7 +161,10 @@ main_base::load_config ()
   /* The normal chroot list is used when starting a session or running
      any chroot type or session, or displaying chroot information. */
   if (this->options->load_chroots == true)
-    this->config->add(SCHROOT_CONF, false);
+    {
+      this->config->add(SCHROOT_CONF, false);
+      this->config->add(SCHROOT_CONF_CHROOT_D, false);
+    }
   /* The session chroot list is used when running or ending an
      existing session, or displaying chroot information. */
   if (this->options->load_sessions == true)
