@@ -1,7 +1,7 @@
 # schroot Makefile template
 #
 #
-# Copyright © 2004-2007  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2008  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -70,5 +70,6 @@ install-exec-hook:
 	chmod 4755 "$(DESTDIR)$(bindir)/schroot"
 
 install-data-hook:
+	$(MKINSTALLDIRS) $(DESTDIR)$(SCHROOT_CONF_CHROOT_D)
 	$(MKINSTALLDIRS) $(DESTDIR)$(SCHROOT_MOUNT_DIR)
 	$(MKINSTALLDIRS) $(DESTDIR)$(SCHROOT_SESSION_DIR)

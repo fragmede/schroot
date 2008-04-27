@@ -22,6 +22,8 @@ permissions check to script-config files.
 Create a standard function which can use either stat, fstat or lstat
 and test for particular permissions.
 
+* SCHROOT_CONF error messages must also mention chroot.d.
+
 
 POTENTIAL
 ---------
