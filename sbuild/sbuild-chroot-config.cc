@@ -438,7 +438,7 @@ chroot_config::load_data (std::string const& file,
     throw error(file, FILE_NOTREG);
 
   /* Use a UNIX fd, for security (no races) */
-  int fd = open(file.c_str(), O_RDONLY|O_NOFOLLOW);
+  int fd = open(file.c_str(), O_RDONLY);
   if (fd < 0)
     throw error(file, FILE_OPEN, strerror(errno));
 
