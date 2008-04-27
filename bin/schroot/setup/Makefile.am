@@ -30,8 +30,7 @@ setup_SCRIPTS =		\
 	10mount		\
 	15killprocs	\
 	20copyfiles	\
-	50chrootname	\
-	50sbuild
+	50chrootname
 
 EXTRA_DIST =			\
 	$(setup_SCRIPTS)
