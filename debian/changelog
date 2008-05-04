@@ -3,7 +3,9 @@ schroot (1.2.0-1) unstable; urgency=low
   * New upstream stable release.
   * Add eu translation (Closes: #462164).
   * Updated pt translation (Closes: #464053).
-  * debian/control: libsbuild-dev is in section libdevel.
+  * debian/control:
+    - libsbuild-dev is in section libdevel.
+    - Add libboost-filesystem-dev to Build-Depends.
   * Setup and exec scripts check for existence and validity of
     script-config file options, as well as script-config itself, and exit with
     an error status and message if incorrect (Closes: #462680).
@@ -12,11 +14,13 @@ schroot (1.2.0-1) unstable; urgency=low
   * sbuild/sbuild-util.h: Add missing typecast to fix FTBFS on
     GNU/kFreeBSD (Closes: #465972).  Thanks to Petr Salinger.
   * Building with G++ 4.3 now works (Closes: #467457).
-  * dchroot.1 manual page no longer specified -d as a short option for
-    directory; this is only used for --preserve-environment (Closes:
-    #476815).
+  * dchroot.1 manual page no longer specifies -d as a short option for
+    directory; this is only used for --preserve-environment
+    (Closes: #476815).
+  * schroot-mount now creates the mountpoint is not existent
+    (Closes: #469038).  Many thanks to Kees Cook for this patch.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 20 Apr 2008 23:51:42 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 04 May 2008 16:21:33 +0100
 
 schroot (1.1.6-1) unstable; urgency=low
 
