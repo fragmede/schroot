@@ -84,7 +84,7 @@ the configuration in use is the same as the configuration file.  Any comments
 in the original file will be missing.  Note that earlier versions of dchroot
 did not include this option.
 .TP
-.BR \-d ", " \-\-directory=\fIdirectory\fP
+.BR \-\-directory=\fIdirectory\fP
 Change to \fIdirectory\fP inside the chroot before running the command or login
 shell.  If \fIdirectory\fP is not available, dchroot will exit with an error
 status.
