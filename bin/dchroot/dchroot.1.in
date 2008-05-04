@@ -16,7 +16,7 @@
 .\"
 .TH DCHROOT 1 "@RELEASE_DATE@" "Version @VERSION@" "Debian sbuild"
 .SH NAME
-dchroot \[em] enter a chroot environment
+dchroot \- enter a chroot environment
 .SH SYNOPSIS
 .B dchroot
 .RB [ \-h \[or] \-\-help " \[or] " \-V \[or] \-\-version

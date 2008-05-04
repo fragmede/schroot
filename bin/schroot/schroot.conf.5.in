@@ -16,7 +16,7 @@
 .\"
 .TH SCHROOT.CONF 5 "@RELEASE_DATE@" "Version @VERSION@" "Debian sbuild"
 .SH NAME
-schroot.conf \[em] chroot definition file for schroot
+schroot.conf \- chroot definition file for schroot
 .SH DESCRIPTION
 \f[BI]schroot.conf\fP is a plain UTF-8 text file, describing the chroots
 available for use with schroot.

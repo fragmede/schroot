@@ -16,7 +16,7 @@
 .\"
 .TH CSBUILD 1 "@RELEASE_DATE@" "Version @VERSION@" "Debian sbuild"
 .SH NAME
-csbuild \[em] build debian packages from source
+csbuild \- build debian packages from source
 .SH SYNOPSIS
 .B csbuild
 .RB [ \-h \[or] \-\-help " \[or] " \-V \[or] \-\-version

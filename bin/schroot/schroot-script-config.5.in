@@ -16,7 +16,7 @@
 .\"
 .TH SCHROOT-SCRIPT-CONFIG 5 "@RELEASE_DATE@" "Version @VERSION@" "Debian sbuild"
 .SH NAME
-schroot-script-config \[em] schroot chroot setup script configuration
+schroot-script-config \- schroot chroot setup script configuration
 .SH DESCRIPTION
 \fBschroot\fP uses scripts to to set up and then clean up the chroot
 environment.  These scripts may be customised using the \f[CI]script\-config\fP
