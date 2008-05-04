@@ -35,6 +35,7 @@
 #include <unistd.h>
 
 #include <boost/format.hpp>
+#include <boost/filesystem.hpp>
 
 #include <mntent.h>
 
@@ -103,6 +104,34 @@ main::action_mount ()
 	d = std::string("/") + d;
 
       std::string directory(opts->mountpoint + entry.directory);
+
+      if (!boost::filesystem::is_directory(directory))
+	{
+	  sbuild::log_debug(sbuild::DEBUG_INFO)
+	    << boost::format("Creating '%1%' in '%2%'")
+	    % entry.directory
+	    % opts->mountpoint
+	    << std::endl;
+
+	  if (!opts->dry_run)
+	    {
+	      try
+	        {
+	          boost::filesystem::create_directory(directory);
+	        }
+	      catch (std::exception const& e)
+	        {
+	          sbuild::log_exception_error(e);
+	          exit(EXIT_FAILURE);
+	        }
+	      catch (...)
+	        {
+	          sbuild::log_error()
+	            << _("An unknown exception occurred") << std::endl;
+	          exit(EXIT_FAILURE);
+	        }
+	    }
+        }
 
       sbuild::log_debug(sbuild::DEBUG_INFO)
       	<< boost::format("Mounting '%1%' on '%2%'")

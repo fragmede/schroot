@@ -1,5 +1,5 @@
 #                                                              -*- Autoconf -*-
-# Copyright © 2004-2007  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2008  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ AC_CONFIG_HEADER([sbuild/sbuild-config.h])
 
 AC_COPYRIGHT(
 [
-Copyright © 2004-2007  Roger Leigh <rleigh@debian.org>
+Copyright © 2004-2008  Roger Leigh <rleigh@debian.org>
 
 Parts of this configure script come from the 'configure.ac' file, and
 are not based on freely-redistributable m4 macros; you can
@@ -275,6 +275,17 @@ AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/regex.hpp>],
 	        BOOST_LIBS="${BOOST_LIBS} -lboost_regex"],
                [AC_MSG_RESULT([no])
 	        AC_MSG_FAILURE([libboost_regex (Boost C++ Libraries) is not installed, but is required by schroot])])
+LDFLAGS="${saved_ldflags}"
+
+AC_MSG_CHECKING([for boost::filesystem in -lboost_filesystem])
+saved_ldflags="${LDFLAGS}"
+LDFLAGS="${LDFLAGS} -lboost_filesystem"
+AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/filesystem.hpp>],
+                               [boost::filesystem::is_directory("/")])],
+               [AC_MSG_RESULT([yes])
+	        BOOST_LIBS="${BOOST_LIBS} -lboost_filesystem"],
+               [AC_MSG_RESULT([no])
+	        AC_MSG_FAILURE([libboost_filesystem (Boost C++ Libraries) is not installed, but is required by schroot])])
 LDFLAGS="${saved_ldflags}"
 
 AC_SUBST([BOOST_LIBS])
