@@ -6,6 +6,7 @@ schroot (1.2.0-1) unstable; urgency=low
   * debian/control:
     - libsbuild-dev is in section libdevel.
     - Add libboost-filesystem-dev to Build-Depends.
+    - Bump Standards-Version to 3.7.3.
   * Setup and exec scripts check for existence and validity of
     script-config file options, as well as script-config itself, and exit with
     an error status and message if incorrect (Closes: #462680).
@@ -20,7 +21,7 @@ schroot (1.2.0-1) unstable; urgency=low
   * schroot-mount now creates the mountpoint is not existent
     (Closes: #469038).  Many thanks to Kees Cook for this patch.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 04 May 2008 16:21:33 +0100
+ -- Roger Leigh <rleigh@debian.org>  Mon, 05 May 2008 00:08:17 +0100
 
 schroot (1.1.6-1) unstable; urgency=low
 
