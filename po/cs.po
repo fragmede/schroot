@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2008-02-26 23:14+0000\n"
+"POT-Creation-Date: 2008-05-04 16:46+0100\n"
 "PO-Revision-Date: 2006-10-04 18:04+0200\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -219,7 +219,8 @@ msgstr "chyba PAMu"
 
 #: sbuild/sbuild-auth.cc:128 sbuild/sbuild-session.cc:1065
 #: sbuild/sbuild-session.cc:1316 sbuild/sbuild-run-parts.cc:197
-#: sbuild/sbuild-log.cc:167 bin/schroot-mount/schroot-mount-main.cc:170
+#: sbuild/sbuild-log.cc:167 bin/schroot-mount/schroot-mount-main.cc:130
+#: bin/schroot-mount/schroot-mount-main.cc:199
 msgid "An unknown exception occurred"
 msgstr "Vyskytla se neznámá výjimka"
 
@@ -291,7 +292,7 @@ msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr "Potomek skončil nepřirozeně (neznámý důvod; ani signál ani coredump)"
 
 #: sbuild/sbuild-session.cc:73 sbuild/sbuild-run-parts.cc:46
-#: bin/schroot-mount/schroot-mount-main.cc:60
+#: bin/schroot-mount/schroot-mount-main.cc:61
 msgid "Failed to fork child"
 msgstr "Selhalo oddělení (fork) potomka"
 
@@ -302,7 +303,7 @@ msgid "Child terminated by signal '%4%'"
 msgstr "Potomek byl ukončen signálem '%4%'"
 
 #: sbuild/sbuild-session.cc:76 sbuild/sbuild-run-parts.cc:47
-#: bin/schroot-mount/schroot-mount-main.cc:61
+#: bin/schroot-mount/schroot-mount-main.cc:62
 msgid "Wait for child failed"
 msgstr "Čekání na potomka selhalo"
 
@@ -503,13 +504,13 @@ msgid "Failed to read directory '%1%'"
 msgstr "Čtení adresáře '%1%' selhalo"
 
 #. TRANSLATORS: %1% = command name
-#: sbuild/sbuild-run-parts.cc:49 bin/schroot-mount/schroot-mount-main.cc:63
+#: sbuild/sbuild-run-parts.cc:49 bin/schroot-mount/schroot-mount-main.cc:64
 #, boost-format
 msgid "Failed to execute '%1%'"
 msgstr "Nepodařilo se spustit '%1%'"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-run-parts.cc:182 bin/schroot-mount/schroot-mount-main.cc:156
+#: sbuild/sbuild-run-parts.cc:182 bin/schroot-mount/schroot-mount-main.cc:185
 #, boost-format
 msgid "Executing '%1%'"
 msgstr "Spouštím '%1%'"
@@ -1448,7 +1449,7 @@ msgstr "Nebylo zadáno žádné zařízení"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#: bin/schroot-mount/schroot-mount-main.cc:78
+#: bin/schroot-mount/schroot-mount-main.cc:79
 #, fuzzy
 msgid "[OPTION...] - mount filesystems"
 msgstr "[VOLBA…] - zobrazí přípojné body"
