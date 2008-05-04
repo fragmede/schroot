@@ -17,7 +17,7 @@
 .\"
 .TH SCHROOT 1 "@RELEASE_DATE@" "Version @VERSION@" "Debian sbuild"
 .SH NAME
-schroot \[em] securely enter a chroot environment
+schroot \- securely enter a chroot environment
 .SH SYNOPSIS
 .B schroot
 .RB [ \-h \[or] \-\-help " \[or] " \-V \[or] \-\-version
