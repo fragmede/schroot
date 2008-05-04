@@ -6,6 +6,7 @@ Andreas Bombe		<aeb@debian.org>
 
 Kees Cook		<kees@outflux.net>
 	15killprocs script to kill processes.
+	schroot-mount improvements.
 
 Federico Di Gregorio	<fog@debian.org>
 	Init script improvements.
