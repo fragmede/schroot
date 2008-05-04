@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2008-02-26 23:14+0000\n"
-"PO-Revision-Date: 2006-10-03 13:22-0700\n"
+"POT-Creation-Date: 2008-05-04 16:46+0100\n"
+"PO-Revision-Date: 2008-05-04 23:01+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -220,7 +220,8 @@ msgstr "PAM-fel"
 
 #: sbuild/sbuild-auth.cc:128 sbuild/sbuild-session.cc:1065
 #: sbuild/sbuild-session.cc:1316 sbuild/sbuild-run-parts.cc:197
-#: sbuild/sbuild-log.cc:167 bin/schroot-mount/schroot-mount-main.cc:170
+#: sbuild/sbuild-log.cc:167 bin/schroot-mount/schroot-mount-main.cc:130
+#: bin/schroot-mount/schroot-mount-main.cc:199
 msgid "An unknown exception occurred"
 msgstr "Ett okänt undantag inträffade"
 
@@ -295,7 +296,7 @@ msgstr ""
 "minnesdump)"
 
 #: sbuild/sbuild-session.cc:73 sbuild/sbuild-run-parts.cc:46
-#: bin/schroot-mount/schroot-mount-main.cc:60
+#: bin/schroot-mount/schroot-mount-main.cc:61
 msgid "Failed to fork child"
 msgstr "Misslyckades med att grena barnprocess"
 
@@ -306,7 +307,7 @@ msgid "Child terminated by signal '%4%'"
 msgstr "Barnprocess avslutades av signalen \"%4%\""
 
 #: sbuild/sbuild-session.cc:76 sbuild/sbuild-run-parts.cc:47
-#: bin/schroot-mount/schroot-mount-main.cc:61
+#: bin/schroot-mount/schroot-mount-main.cc:62
 msgid "Wait for child failed"
 msgstr "Väntan på barnprocess misslyckades"
 
@@ -507,13 +508,13 @@ msgid "Failed to read directory '%1%'"
 msgstr "Misslyckades med att läsa katalogen \"%1%\""
 
 #. TRANSLATORS: %1% = command name
-#: sbuild/sbuild-run-parts.cc:49 bin/schroot-mount/schroot-mount-main.cc:63
+#: sbuild/sbuild-run-parts.cc:49 bin/schroot-mount/schroot-mount-main.cc:64
 #, boost-format
 msgid "Failed to execute '%1%'"
 msgstr "Misslyckades med att starta \"%1%\""
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-run-parts.cc:182 bin/schroot-mount/schroot-mount-main.cc:156
+#: sbuild/sbuild-run-parts.cc:182 bin/schroot-mount/schroot-mount-main.cc:185
 #, boost-format
 msgid "Executing '%1%'"
 msgstr "Kör \"%1%\""
@@ -1164,7 +1165,7 @@ msgstr "Skrivet av Roger Leigh"
 #: bin/schroot-base/schroot-base-main.cc:67
 #, fuzzy
 msgid "Copyright (C) 2004-2008 Roger Leigh"
-msgstr "Copyright © 2004-2006 Roger Leigh"
+msgstr "Copyright © 2004-2008 Roger Leigh"
 
 #: bin/schroot-base/schroot-base-main.cc:68
 msgid ""
@@ -1459,7 +1460,7 @@ msgstr "Ingen enhet angiven"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#: bin/schroot-mount/schroot-mount-main.cc:78
+#: bin/schroot-mount/schroot-mount-main.cc:79
 #, fuzzy
 msgid "[OPTION...] - mount filesystems"
 msgstr "[FLAGGA...] - lista monteringspunkter"

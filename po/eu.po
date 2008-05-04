@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2008-02-26 23:14+0000\n"
-"PO-Revision-Date: 2008-01-22 23:41+0100\n"
+"POT-Creation-Date: 2008-05-04 16:46+0100\n"
+"PO-Revision-Date: 2008-05-04 22:59+0100\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <Librezale@librezale.org>\n"
 "MIME-Version: 1.0\n"
@@ -218,7 +218,8 @@ msgstr "PAM errorea"
 
 #: sbuild/sbuild-auth.cc:128 sbuild/sbuild-session.cc:1065
 #: sbuild/sbuild-session.cc:1316 sbuild/sbuild-run-parts.cc:197
-#: sbuild/sbuild-log.cc:167 bin/schroot-mount/schroot-mount-main.cc:170
+#: sbuild/sbuild-log.cc:167 bin/schroot-mount/schroot-mount-main.cc:130
+#: bin/schroot-mount/schroot-mount-main.cc:199
 msgid "An unknown exception occurred"
 msgstr "Salbuespen ezezagun bat gertatu da"
 
@@ -292,7 +293,7 @@ msgstr ""
 "iraultzerik)"
 
 #: sbuild/sbuild-session.cc:73 sbuild/sbuild-run-parts.cc:46
-#: bin/schroot-mount/schroot-mount-main.cc:60
+#: bin/schroot-mount/schroot-mount-main.cc:61
 msgid "Failed to fork child"
 msgstr "Huts egin du umea zatitzean"
 
@@ -303,7 +304,7 @@ msgid "Child terminated by signal '%4%'"
 msgstr "Umea '%4%' seinaleak amaitu du"
 
 #: sbuild/sbuild-session.cc:76 sbuild/sbuild-run-parts.cc:47
-#: bin/schroot-mount/schroot-mount-main.cc:61
+#: bin/schroot-mount/schroot-mount-main.cc:62
 msgid "Wait for child failed"
 msgstr "Huts umea itxoitean"
 
@@ -506,13 +507,13 @@ msgid "Failed to read directory '%1%'"
 msgstr "Huts egin du '%1%' direktorioa irakurtzean"
 
 #. TRANSLATORS: %1% = command name
-#: sbuild/sbuild-run-parts.cc:49 bin/schroot-mount/schroot-mount-main.cc:63
+#: sbuild/sbuild-run-parts.cc:49 bin/schroot-mount/schroot-mount-main.cc:64
 #, boost-format
 msgid "Failed to execute '%1%'"
 msgstr "Huts egin du '%1%' exekutatzean"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-run-parts.cc:182 bin/schroot-mount/schroot-mount-main.cc:156
+#: sbuild/sbuild-run-parts.cc:182 bin/schroot-mount/schroot-mount-main.cc:185
 #, boost-format
 msgid "Executing '%1%'"
 msgstr "'%1%' exekutatzen"
@@ -1160,7 +1161,7 @@ msgstr "Roger Leigh-ek idatzia"
 #: bin/schroot-base/schroot-base-main.cc:67
 #, fuzzy
 msgid "Copyright (C) 2004-2008 Roger Leigh"
-msgstr "Copyright (C) 2004-2007 Roger Leigh"
+msgstr "Copyright (C) 2004-2008 Roger Leigh"
 
 #: bin/schroot-base/schroot-base-main.cc:68
 msgid ""
@@ -1454,7 +1455,7 @@ msgstr "Ez da gailurik ezarri"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#: bin/schroot-mount/schroot-mount-main.cc:78
+#: bin/schroot-mount/schroot-mount-main.cc:79
 msgid "[OPTION...] - mount filesystems"
 msgstr "[AUKERAK...] - muntatu fitxategi-sistemak"
 

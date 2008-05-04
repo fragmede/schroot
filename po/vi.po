@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.1.6-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2008-02-26 23:14+0000\n"
+"POT-Creation-Date: 2008-05-04 16:46+0100\n"
 "PO-Revision-Date: 2008-01-19 21:07+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -219,7 +219,8 @@ msgstr "Lỗi PAM"
 
 #: sbuild/sbuild-auth.cc:128 sbuild/sbuild-session.cc:1065
 #: sbuild/sbuild-session.cc:1316 sbuild/sbuild-run-parts.cc:197
-#: sbuild/sbuild-log.cc:167 bin/schroot-mount/schroot-mount-main.cc:170
+#: sbuild/sbuild-log.cc:167 bin/schroot-mount/schroot-mount-main.cc:130
+#: bin/schroot-mount/schroot-mount-main.cc:199
 msgid "An unknown exception occurred"
 msgstr "Gặp ngoại lệ không rõ"
 
@@ -293,7 +294,7 @@ msgstr ""
 "hay sự đổ lõi)"
 
 #: sbuild/sbuild-session.cc:73 sbuild/sbuild-run-parts.cc:46
-#: bin/schroot-mount/schroot-mount-main.cc:60
+#: bin/schroot-mount/schroot-mount-main.cc:61
 msgid "Failed to fork child"
 msgstr "Lỗi tạo tiến trình con"
 
@@ -304,7 +305,7 @@ msgid "Child terminated by signal '%4%'"
 msgstr "Tiến trình con bị chấm dứt do tín hiệu « %4% »"
 
 #: sbuild/sbuild-session.cc:76 sbuild/sbuild-run-parts.cc:47
-#: bin/schroot-mount/schroot-mount-main.cc:61
+#: bin/schroot-mount/schroot-mount-main.cc:62
 msgid "Wait for child failed"
 msgstr "Lỗi đợi tiến trình con"
 
@@ -507,13 +508,13 @@ msgid "Failed to read directory '%1%'"
 msgstr "Lỗi đọc thư mục « %1% »"
 
 #. TRANSLATORS: %1% = command name
-#: sbuild/sbuild-run-parts.cc:49 bin/schroot-mount/schroot-mount-main.cc:63
+#: sbuild/sbuild-run-parts.cc:49 bin/schroot-mount/schroot-mount-main.cc:64
 #, boost-format
 msgid "Failed to execute '%1%'"
 msgstr "Lỗi thực hiện « %1% »"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-run-parts.cc:182 bin/schroot-mount/schroot-mount-main.cc:156
+#: sbuild/sbuild-run-parts.cc:182 bin/schroot-mount/schroot-mount-main.cc:185
 #, boost-format
 msgid "Executing '%1%'"
 msgstr "Đang thực hiện « %1% »..."
@@ -1449,7 +1450,7 @@ msgstr "Chưa xác định thiết bị"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#: bin/schroot-mount/schroot-mount-main.cc:78
+#: bin/schroot-mount/schroot-mount-main.cc:79
 msgid "[OPTION...] - mount filesystems"
 msgstr "[TÙY_CHỌN...] — lắp hệ thống tập tin"
 

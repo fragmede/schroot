@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.1.6\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2008-02-26 23:14+0000\n"
+"POT-Creation-Date: 2008-05-04 16:46+0100\n"
 "PO-Revision-Date: 2008-02-19 18:41+0100\n"
 "Last-Translator: Jens Seidel <jensseidel@users.sf.net>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -219,7 +219,8 @@ msgstr "PAM-Fehler"
 
 #: sbuild/sbuild-auth.cc:128 sbuild/sbuild-session.cc:1065
 #: sbuild/sbuild-session.cc:1316 sbuild/sbuild-run-parts.cc:197
-#: sbuild/sbuild-log.cc:167 bin/schroot-mount/schroot-mount-main.cc:170
+#: sbuild/sbuild-log.cc:167 bin/schroot-mount/schroot-mount-main.cc:130
+#: bin/schroot-mount/schroot-mount-main.cc:199
 msgid "An unknown exception occurred"
 msgstr "Eine unbekannte Ausnahme ist aufgetreten"
 
@@ -294,7 +295,7 @@ msgstr ""
 "Core-Dump)"
 
 #: sbuild/sbuild-session.cc:73 sbuild/sbuild-run-parts.cc:46
-#: bin/schroot-mount/schroot-mount-main.cc:60
+#: bin/schroot-mount/schroot-mount-main.cc:61
 msgid "Failed to fork child"
 msgstr "Konnte mit »fork« keinen Kindprozess erzeugen"
 
@@ -305,7 +306,7 @@ msgid "Child terminated by signal '%4%'"
 msgstr "Kindprozess wurde durch Signal »%4%« beendet"
 
 #: sbuild/sbuild-session.cc:76 sbuild/sbuild-run-parts.cc:47
-#: bin/schroot-mount/schroot-mount-main.cc:61
+#: bin/schroot-mount/schroot-mount-main.cc:62
 msgid "Wait for child failed"
 msgstr "Warten auf Kindprozess schlug fehl"
 
@@ -510,13 +511,13 @@ msgid "Failed to read directory '%1%'"
 msgstr "Konnte Verzeichnis »%1%« nicht lesen"
 
 #. TRANSLATORS: %1% = command name
-#: sbuild/sbuild-run-parts.cc:49 bin/schroot-mount/schroot-mount-main.cc:63
+#: sbuild/sbuild-run-parts.cc:49 bin/schroot-mount/schroot-mount-main.cc:64
 #, boost-format
 msgid "Failed to execute '%1%'"
 msgstr "Konnte »%1%« nicht ausführen"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-run-parts.cc:182 bin/schroot-mount/schroot-mount-main.cc:156
+#: sbuild/sbuild-run-parts.cc:182 bin/schroot-mount/schroot-mount-main.cc:185
 #, boost-format
 msgid "Executing '%1%'"
 msgstr "Starte »%1%«"
@@ -1470,7 +1471,7 @@ msgstr "Kein Gerät angegeben"
 # "[OPTION…]" heißen?
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#: bin/schroot-mount/schroot-mount-main.cc:78
+#: bin/schroot-mount/schroot-mount-main.cc:79
 msgid "[OPTION...] - mount filesystems"
 msgstr "[OPTION …] - binde Dateisysteme ein"
 
