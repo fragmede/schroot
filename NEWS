@@ -1,11 +1,26 @@
 NEWS                                                            -*- outline -*-
 ----
 
-Welcome to schroot 1.1.6.  Please read these release notes carefully.
+Welcome to schroot 1.2.0.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 1.2.0:
+
+  1) In addition to /etc/schroot/schroot.conf, chroot definitions may
+     be placed in separate files under /etc/schroot/chroot.d to enable
+     packages and system administrators to easily make new chroots
+     available to schroot.
+
+  2) Configuration files may now be symlinks as well as regular files.
+
+  3) schroot now builds with GCC 4.3.
+
+  4) All setup and exec scripts source and use the script
+     configuration file specified with the script-config configuration
+     key.
 
 * Major changes in 1.1.6:
 
