@@ -1,8 +1,10 @@
 schroot (1.2.1-1) unstable; urgency=low
 
   * New upstream stable release.
+  * po:
+    - Update eu translation (Closes #479498).  Thanks to Piarres Beobide.
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 05 May 2008 10:34:52 +0100
+ -- Roger Leigh <rleigh@debian.org>  Mon, 05 May 2008 10:36:16 +0100
 
 schroot (1.2.0-1) unstable; urgency=low
 

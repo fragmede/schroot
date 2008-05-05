@@ -1,16 +1,16 @@
-# translation of eu.po to Euskara
+# translation of schroot-eu.po to Euskara
 # Copyright (C) YEAR Roger Leigh <rleigh@debian.org>
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Piarres Beobide <pi@beobide.net>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: eu\n"
+"Project-Id-Version: schroot-eu\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2008-05-04 16:46+0100\n"
-"PO-Revision-Date: 2008-05-04 22:59+0100\n"
+"PO-Revision-Date: 2008-05-05 09:24+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
-"Language-Team: Euskara <Librezale@librezale.org>\n"
+"Language-Team: Euskara <debian-l10n-basque@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -202,7 +202,7 @@ msgstr "'%1%' taldea ez da aurkitu"
 
 #: sbuild/sbuild-auth.cc:57
 msgid "Authentication failed"
-msgstr "Huts egin du autentifikatzean."
+msgstr "Huts egin du autentifikatzean"
 
 #: sbuild/sbuild-auth.cc:58
 msgid "Access not authorised"
@@ -348,7 +348,7 @@ msgstr "'%1%' komandoak bide basolutu bat izan behar du"
 #: sbuild/sbuild-session.cc:89
 #, boost-format
 msgid "Failed to execute \"%1%\""
-msgstr "Huts egin du '%1%' exekutatzean"
+msgstr "Huts egin du \"%1%\" exekutatzean"
 
 #. TRANSLATORS: A supplementary group is the list of additional
 #. system groups a user belongs to, in addition to their default
@@ -382,8 +382,7 @@ msgstr "Huts egin root baimenak kentzean"
 #. TRANSLATORS: %4% = session identifier
 #: sbuild/sbuild-session.cc:107
 #, boost-format
-msgid ""
-"%1%: Chroot does not support setting a session ID; ignoring session ID '%4%'"
+msgid "%1%: Chroot does not support setting a session ID; ignoring session ID '%4%'"
 msgstr ""
 "%1%: Chroot-ek ez du onartzen saio ID bat ezartzea; saio ID-a alde batetara "
 "uzten '%4%'"
@@ -520,12 +519,11 @@ msgstr "'%1%' exekutatzen"
 
 #: sbuild/sbuild-ctty.cc:46
 msgid "The controlling terminal close-on-execute flag could not be set"
-msgstr ""
+msgstr "Kontrol terminalaren itxi-exekuzioan bandera ezin izan da ezarri"
 
 #: sbuild/sbuild-ctty.cc:47
-#, fuzzy
 msgid "The controlling terminal file descriptor could not be duplicated"
-msgstr "CTTY fitxategi deskriptorea ezin da bikoiztu"
+msgstr "Kontrol terminal fitxategi deskriptorea ezin da bikoiztu"
 
 #. TRANSLATORS: %1% = integer personality ID
 #: sbuild/sbuild-personality.cc:48
@@ -576,7 +574,7 @@ msgstr "Ez dago chroot hori"
 #: sbuild/sbuild-chroot-config.cc:60
 #, boost-format
 msgid "A chroot or alias '%1%' already exists with this name"
-msgstr "'%1%' izeneko chroot edo ezizena  badago dagoeneko"
+msgstr "'%1%' izeneko chroot edo ezizena badago dagoeneko"
 
 #: sbuild/sbuild-chroot-config.cc:62
 msgid "Failed to open file"
@@ -637,22 +635,19 @@ msgstr "Huts egin du fitxategia desblokeatzean"
 #: sbuild/sbuild-lock.cc:54
 #, boost-format
 msgid "Failed to lock file (timed out after %4% seconds)"
-msgstr ""
-"Huts egin du fitxategia blokeatzean (denboraz kanpo %4% segundu ondoren)"
+msgstr "Huts egin du fitxategia blokeatzean (denboraz kanpo %4% segundu ondoren)"
 
 #. TRANSLATORS: %4% = time in seconds
 #: sbuild/sbuild-lock.cc:56
 #, boost-format
 msgid "Failed to unlock file (timed out after %4% seconds)"
-msgstr ""
-"Huts egin du fitxategia desblokeatzean (denboraz kanpo %4% segundu ondoren)"
+msgstr "Huts egin du fitxategia desblokeatzean (denboraz kanpo %4% segundu ondoren)"
 
 #. TRANSLATORS: %4% = time in seconds
 #. TRANSLATORS: %5% = integer process ID
 #: sbuild/sbuild-lock.cc:60
 #, boost-format
-msgid ""
-"Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
+msgid "Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
 msgstr ""
 "Huts egin du gailua blokeatzean (denboraz kanpo %4% segundu ondoren; "
 "blokeoak %5% PID-ak mantendua)"
@@ -665,8 +660,7 @@ msgstr "Huts egin du gailu blokeoa probatzean"
 #. TRANSLATORS: %5% = integer process ID
 #: sbuild/sbuild-lock.cc:65
 #, boost-format
-msgid ""
-"Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
+msgid "Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
 msgstr ""
 "Huts egin du gailua desblokeatzean (denboraz kanpo %4% segundu ondoren; "
 "blokeoa %5% PID-ak mantendua)"
@@ -899,7 +893,7 @@ msgstr "Ez dago chroot definiturik '%4%' edo '%5%'-en"
 #: bin/schroot/schroot-main-base.cc:60
 #, boost-format
 msgid "The specified chroots are not defined in '%1%'"
-msgstr "Ezarritako choot-ak ez daude %1%-en definiturik"
+msgstr "Ezarritako choot-ak ez daude '%1%'-en definiturik"
 
 #. TRANSLATORS: %1% = chroot name
 #: bin/schroot/schroot-main-base.cc:62
@@ -939,7 +933,7 @@ msgstr "Mantendu erabiltzaile ingurunea"
 
 #: bin/schroot/schroot-options.cc:72
 msgid "Begin, run and end a session automatically (default)"
-msgstr "saio bat automatikoki hasi, exekutatu eta amaitu (lehenetsia)"
+msgstr "Saio bat automatikoki hasi, exekutatu eta amaitu (lehenetsia)"
 
 #: bin/schroot/schroot-options.cc:74
 msgid "Begin a session; returns a session ID"
@@ -1086,8 +1080,7 @@ msgstr ""
 #. "root-groups"; these are keywords used in the
 #. configuration file.
 #: bin/dchroot/dchroot-main-base.cc:80
-msgid ""
-"To allow password-less root access, use the root-users or root-groups keys."
+msgid "To allow password-less root access, use the root-users or root-groups keys."
 msgstr ""
 "Pasahitzik gabeko root sarrera baimentzeko, erabili root-users eta root-"
 "groups gakoak."
@@ -1108,7 +1101,7 @@ msgstr "Schroot %1% bateragarritasun moduan exekutatzen"
 #. features"
 #: bin/dchroot/dchroot-main-base.cc:110
 msgid "Run \"schroot\" for full capabilities"
-msgstr "\"schroot\" abiarazi ezaugarri osoentzat"
+msgstr "\"schroot\" abiarazi ezaugarri guztientzat"
 
 #. TRANSLATORS: %1% = program name
 #. TRANSLATORS: %2% = configuration file
@@ -1124,12 +1117,12 @@ msgstr "\"%1%\" exekutatu"
 
 #: bin/dchroot/dchroot-main-base.cc:137
 msgid "to migrate to a schroot configuration."
-msgstr "schroot konfigurazio batetara migratzeko"
+msgstr "schroot konfigurazio batetara migratzeko."
 
 #: bin/dchroot/dchroot-main-base.cc:140
 #, boost-format
 msgid "Edit '%1%' to add appropriate user and/or group access."
-msgstr "%1% editatu dagokion erabiltzaile edo/eta talde sarrerarako."
+msgstr "'%1%' editatu dagokion erabiltzaile edo/eta talde sarrerarako."
 
 #: bin/dchroot/dchroot-options.cc:52
 msgid "Print path to selected chroot"
@@ -1159,7 +1152,6 @@ msgstr "Roger Leigh-ek idatzia"
 
 #. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
 #: bin/schroot-base/schroot-base-main.cc:67
-#, fuzzy
 msgid "Copyright (C) 2004-2008 Roger Leigh"
 msgstr "Copyright (C) 2004-2008 Roger Leigh"
 
@@ -1226,8 +1218,7 @@ msgstr "Arazpen maila baliogabea"
 #: bin/schroot-releaselock/schroot-releaselock-main.cc:56
 #, boost-format
 msgid "Failed to release device lock (lock held by PID %4%)"
-msgstr ""
-"Huts egin du gailu blokeoa askatzean (blokeoa %4% PID-ak mantentzen du)"
+msgstr "Huts egin du gailu blokeoa askatzean (blokeoa %4% PID-ak mantentzen du)"
 
 #: bin/csbuild/csbuild-main.cc:55
 #: bin/schroot-releaselock/schroot-releaselock-main.cc:57
@@ -1255,11 +1246,11 @@ msgstr "Erabiltzaile aukerak"
 
 #: bin/csbuild/csbuild-options.cc:44
 msgid "Special options"
-msgstr "Aukera bereziakBerezia"
+msgstr "Aukera bereziak"
 
 #: bin/csbuild/csbuild-options.cc:63
 msgid "Build source packages (default)"
-msgstr "Eraiki iturburu paketeak"
+msgstr "Eraiki iturburu paketeak (lehenetsia)"
 
 #: bin/csbuild/csbuild-options.cc:67
 msgid "Don't log program output"
@@ -1271,7 +1262,7 @@ msgstr "Eraiki banaketa honentzat"
 
 #: bin/csbuild/csbuild-options.cc:73
 msgid "Build architecture \"all\" packages"
-msgstr "Iturburu pakete bat eraikiArkitekturako pakete \"guztiak\" eraiki"
+msgstr "Arkitekturako pakete \"guztiak\" eraiki"
 
 #: bin/csbuild/csbuild-options.cc:75
 msgid "Build a source package"
@@ -1279,8 +1270,7 @@ msgstr "Iturburu pakete bat eraiki"
 
 #: bin/csbuild/csbuild-options.cc:77
 msgid "Force building of a source package, irrespective of Debian version"
-msgstr ""
-"Iturburu paketeen eraikitzea behartu, Debian bertsioa kontutan artu gabe"
+msgstr "Iturburu paketeen eraikitzea behartu, Debian bertsioa kontutan hartu gabe"
 
 #: bin/csbuild/csbuild-options.cc:79
 msgid "Make a binary non-maintainer upload"
@@ -1402,8 +1392,7 @@ msgstr "Aukera hau ezabatua izan da, eta ez du eraginik izango aurrerantzean"
 #. is an em-dash.
 #: bin/dchroot-dsa/dchroot-dsa-main.cc:45
 msgid "[OPTION...] chroot [COMMAND] - run command or shell in a chroot"
-msgstr ""
-"[AUKERA...] chroot [KOMANDOA] - chroot batetako shell-ean exekutatu komandoa"
+msgstr "[AUKERA...] chroot [KOMANDOA] - chroot batetako shell-ean exekutatu komandoa"
 
 #. TRANSLATORS: %1% = chroot name
 #: bin/dchroot-dsa/dchroot-dsa-chroot-config.cc:117
@@ -1467,5 +1456,3 @@ msgstr "Egin egingo lirateken ekintzen simulazio bat"
 msgid "fstab file to read (full path)"
 msgstr "irakurtzeko fstab fitxategia (bide osoa)"
 
-#~ msgid "The CTTY FD_CLOEXEC flag could not be set"
-#~ msgstr "CTTY FD_CLOEXEC bandera ezin izan da ezarri"
