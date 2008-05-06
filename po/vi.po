@@ -4,17 +4,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: schroot 1.1.6-1\n"
+"Project-Id-Version: schroot 1.2.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2008-05-04 16:46+0100\n"
-"PO-Revision-Date: 2008-01-19 21:07+1030\n"
+"PO-Revision-Date: 2008-05-06 22:30+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: LocFactoryEditor 1.7b1\n"
+"X-Generator: LocFactoryEditor 1.7b3\n"
 
 #: sbuild/sbuild-chroot.cc:55
 msgid "Chroot creation failed"
@@ -521,12 +521,11 @@ msgstr "Đang thực hiện « %1% »..."
 
 #: sbuild/sbuild-ctty.cc:46
 msgid "The controlling terminal close-on-execute flag could not be set"
-msgstr ""
+msgstr "Không thể đặt cờ đóng khi thực hiện (close-on-execute) thiết bị điều khiển"
 
 #: sbuild/sbuild-ctty.cc:47
-#, fuzzy
 msgid "The controlling terminal file descriptor could not be duplicated"
-msgstr "Không thể nhân đôi bộ mô tả tập tin CTTY"
+msgstr "Không thể nhân đôi bộ mô tả tập tin thiết bị điều khiển"
 
 #. TRANSLATORS: %1% = integer personality ID
 #: sbuild/sbuild-personality.cc:48
@@ -1158,7 +1157,6 @@ msgstr "Tác giả: Roger Leigh"
 
 #. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
 #: bin/schroot-base/schroot-base-main.cc:67
-#, fuzzy
 msgid "Copyright (C) 2004-2008 Roger Leigh"
 msgstr "Tác quyền © năm 2004-2008 của Roger Leigh"
 
@@ -1461,6 +1459,3 @@ msgstr "Mô phỏng các hành động cần làm"
 #: bin/schroot-mount/schroot-mount-options.cc:67
 msgid "fstab file to read (full path)"
 msgstr "Tập tin fstab cần đọc (đường dẫn đầy đủ)"
-
-#~ msgid "The CTTY FD_CLOEXEC flag could not be set"
-#~ msgstr "Không thể đặt cờ CTTY FD_CLOEXEC"
