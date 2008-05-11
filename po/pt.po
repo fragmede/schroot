@@ -522,12 +522,11 @@ msgstr "Executando '%1%'"
 
 #: sbuild/sbuild-ctty.cc:46
 msgid "The controlling terminal close-on-execute flag could not be set"
-msgstr ""
+msgstr "A flag close-on-execute do terminal de controlo não pôde ser activada"
 
 #: sbuild/sbuild-ctty.cc:47
-#, fuzzy
 msgid "The controlling terminal file descriptor could not be duplicated"
-msgstr "O descritor de ficheiro CTTY não pôde ser duplicado."
+msgstr "O descritor de ficheiro do terminal de controle não pôde ser duplicado."
 
 #. TRANSLATORS: %1% = integer personality ID
 #: sbuild/sbuild-personality.cc:48
@@ -1160,7 +1159,6 @@ msgstr "Escrito por Roger Leigh"
 
 #. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
 #: bin/schroot-base/schroot-base-main.cc:67
-#, fuzzy
 msgid "Copyright (C) 2004-2008 Roger Leigh"
 msgstr "Copyright (C) 2004-2008 Roger Leigh"
 
