@@ -10,10 +10,11 @@ schroot (1.2.1-1) unstable; urgency=low
   * New upstream stable release.
   * po:
     - Update eu translation (Closes: #479498).  Thanks to Piarres Beobide.
+    - Update pt translation (Closes: #480640).  Thanks to Pedro Ribeiro.
     - update vi translation (Closes: #479750).  Thanks to Clytie Siddall.
     - Add zh_CN translation (Closes: #480174).  LI Daobing (李道兵).
 
- -- Roger Leigh <rleigh@debian.org>  Thu, 08 May 2008 20:54:21 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 11 May 2008 12:04:26 +0100
 
 schroot (1.2.0-1) unstable; urgency=low
 
