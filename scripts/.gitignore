@@ -6,4 +6,3 @@ install-sh
 ltmain.sh
 missing
 mkinstalldirs
-po-notify
