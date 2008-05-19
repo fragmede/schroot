@@ -5,10 +5,11 @@ schroot (1.2.1-1) unstable; urgency=low
     - Update eu translation (Closes: #479498).  Thanks to Piarres Beobide.
     - Update fr translation (Closes: #481648).  Thanks to Nicolas François.
     - Update pt translation (Closes: #480640).  Thanks to Pedro Ribeiro.
-    - update vi translation (Closes: #479750).  Thanks to Clytie Siddall.
-    - Add zh_CN translation (Closes: #480174).  LI Daobing (李道兵).
+    - Update vi translation (Closes: #479750).  Thanks to Clytie Siddall.
+    - Add zh_CN translation (Closes: #480174).  Thanks to LI Daobing (李道兵).
+    - Update zh_CN translation.  Thanks to Ji ZhengYu.
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 17 May 2008 20:00:02 +0100
+ -- Roger Leigh <rleigh@debian.org>  Mon, 19 May 2008 23:27:21 +0100
 
 schroot (1.2.0-1) unstable; urgency=low
 
