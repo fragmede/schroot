@@ -526,7 +526,8 @@ msgstr "A flag close-on-execute do terminal de controlo não pôde ser activada"
 
 #: sbuild/sbuild-ctty.cc:47
 msgid "The controlling terminal file descriptor could not be duplicated"
-msgstr "O descritor de ficheiro do terminal de controle não pôde ser duplicado."
+msgstr ""
+"O descritor de ficheiro do terminal de controle não pôde ser duplicado."
 
 #. TRANSLATORS: %1% = integer personality ID
 #: sbuild/sbuild-personality.cc:48

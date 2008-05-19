@@ -521,7 +521,8 @@ msgstr "Đang thực hiện « %1% »..."
 
 #: sbuild/sbuild-ctty.cc:46
 msgid "The controlling terminal close-on-execute flag could not be set"
-msgstr "Không thể đặt cờ đóng khi thực hiện (close-on-execute) thiết bị điều khiển"
+msgstr ""
+"Không thể đặt cờ đóng khi thực hiện (close-on-execute) thiết bị điều khiển"
 
 #: sbuild/sbuild-ctty.cc:47
 msgid "The controlling terminal file descriptor could not be duplicated"
