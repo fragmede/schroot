@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: schroot VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2008-05-04 16:46+0100\n"
-"PO-Revision-Date: 2008-05-08 21:35+0800\n"
+"PO-Revision-Date: 2008-05-19 11:02+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese\n"
 "MIME-Version: 1.0\n"
@@ -154,9 +154,8 @@ msgstr "命令前缀"
 #. TRANSLATORS: "Personality" is the Linux kernel personality
 #. (process execution domain).  See schroot.conf(5).
 #: sbuild/sbuild-chroot.cc:495
-#, fuzzy
 msgid "Personality"
-msgstr "私有进程运行管理器"
+msgstr "进程私有空间"
 
 #: sbuild/sbuild-chroot.cc:499
 msgid "Location"
@@ -382,7 +381,8 @@ msgstr "无法放弃根用户权限"
 #, boost-format
 msgid ""
 "%1%: Chroot does not support setting a session ID; ignoring session ID '%4%'"
-msgstr "%1%: Chroot 不支持设置会话 ID；忽略会话 ID ‘%4%’"
+msgstr ""
+"%1%: Chroot 不支持设置会话 ID；忽略会话 ID ‘%4%’"
 
 #. TRANSLATORS: %1% = command
 #: sbuild/sbuild-session.cc:109
@@ -646,7 +646,8 @@ msgstr "无法解锁文件( %4% 秒后超时)"
 #, boost-format
 msgid ""
 "Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
-msgstr "无法锁定设备( %4% 秒后超时；进程号为 %5% 的程序拥有此锁定)"
+msgstr ""
+"无法锁定设备( %4% 秒后超时；进程号为 %5% 的程序拥有此锁定)"
 
 #: sbuild/sbuild-lock.cc:61
 msgid "Failed to test device lock"
@@ -658,7 +659,8 @@ msgstr "无法测试设备锁"
 #, boost-format
 msgid ""
 "Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
-msgstr "无法解锁设备( %4% 秒后超时；进程号为 %5% 的程序拥有此锁定)"
+msgstr ""
+"无法解锁设备( %4% 秒后超时；进程号为 %5% 的程序拥有此锁定)"
 
 #: sbuild/sbuild-chroot-lvm-snapshot.cc:195
 msgid "LVM Snapshot Device"
@@ -1075,7 +1077,8 @@ msgstr "允许用户访问 chroots，使用用户或用户组密钥。"
 #: bin/dchroot/dchroot-main-base.cc:80
 msgid ""
 "To allow password-less root access, use the root-users or root-groups keys."
-msgstr "允许无密码根用户访问，使用根用户或根用户组密钥。"
+msgstr ""
+"允许无密码根用户访问，使用根用户或根用户组密钥。"
 
 #. TRANSLATORS: %1% = file
 #: bin/dchroot/dchroot-main-base.cc:83 bin/dchroot/dchroot-main-base.cc:144
