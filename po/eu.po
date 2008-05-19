@@ -1280,7 +1280,7 @@ msgstr "Iturburu pakete bat eraiki"
 #: bin/csbuild/csbuild-options.cc:77
 msgid "Force building of a source package, irrespective of Debian version"
 msgstr ""
-"Iturburu paketeen eraikitzea behartu, Debian bertsioa kontutan artu gabe"
+"Iturburu paketeen eraikitzea behartu, Debian bertsioa kontutan hartu gabe"
 
 #: bin/csbuild/csbuild-options.cc:79
 msgid "Make a binary non-maintainer upload"
@@ -1466,6 +1466,3 @@ msgstr "Egin egingo lirateken ekintzen simulazio bat"
 #: bin/schroot-mount/schroot-mount-options.cc:67
 msgid "fstab file to read (full path)"
 msgstr "irakurtzeko fstab fitxategia (bide osoa)"
-
-#~ msgid "The CTTY FD_CLOEXEC flag could not be set"
-#~ msgstr "CTTY FD_CLOEXEC bandera ezin izan da ezarri"
