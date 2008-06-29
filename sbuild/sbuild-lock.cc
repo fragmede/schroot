@@ -163,14 +163,12 @@ file_lock::~file_lock ()
   // destructor under any circumstances.  Any error is logged.
   if (locked)
     {
-      struct flock read_lock =
-	{
-	  LOCK_NONE,
-	  SEEK_SET,
-	  0,
-	  0, // Lock entire file
-	  0
-	};
+      struct flock read_lock;
+      read_lock.l_type = LOCK_NONE;
+      read_lock.l_whence = SEEK_SET;
+      read_lock.l_start = 0;
+      read_lock.l_len = 0; // Lock entire file
+      read_lock.l_pid = 0;
 
       if (fcntl(this->fd, F_SETLK, &read_lock) == -1)
 	log_exception_warning(error(UNLOCK, strerror(errno)));
@@ -195,14 +193,12 @@ file_lock::set_lock (lock::type   lock_type,
 
       /* Wait on lock until interrupted by a signal if a timeout was set,
 	 otherwise return immediately. */
-      struct flock read_lock =
-	{
-	  lock_type,
-	  SEEK_SET,
-	  0,
-	  0, // Lock entire file
-	  0
-	};
+      struct flock read_lock;
+      read_lock.l_type = lock_type;
+      read_lock.l_whence = SEEK_SET;
+      read_lock.l_start = 0;
+      read_lock.l_len = 0; // Lock entire file
+      read_lock.l_pid = 0;
 
       if (fcntl(this->fd,
 		(timeout != 0) ? F_SETLKW : F_SETLK,
