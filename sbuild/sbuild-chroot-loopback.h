@@ -16,8 +16,8 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_BLOCK_DEVICE_H
-#define SBUILD_CHROOT_BLOCK_DEVICE_H
+#ifndef SBUILD_CHROOT_LOOPBACK_H
+#define SBUILD_CHROOT_LOOPBACK_H
 
 #include <sbuild/sbuild-chroot.h>
 #include <sbuild/sbuild-chroot-mountable.h>
@@ -26,44 +26,41 @@ namespace sbuild
 {
 
   /**
-   * A chroot stored on an unmounted block device.
+   * A chroot stored in a file for loopback mounting.
    *
-   * The device will be mounted on demand.
+   * The file will be mounted on demand.
    */
-  class chroot_block_device : virtual public chroot,
-			      public chroot_mountable
+  class chroot_loopback : virtual public chroot,
+			  public chroot_mountable
   {
   protected:
     /// The constructor.
-    chroot_block_device ();
+    chroot_loopback ();
 
     friend class chroot;
 
   public:
     /// The destructor.
-    virtual ~chroot_block_device ();
+    virtual ~chroot_loopback ();
 
     virtual chroot::ptr
     clone () const;
 
     /**
-     * Get the block device of the chroot.
+     * Get the file containing the chroot.
      *
-     * @returns the device.
+     * @returns the file.
      */
     std::string const&
-    get_device () const;
+    get_file () const;
 
     /**
-     * Set the block device of the chroot.  This is the "source" device.
-     * It may be the case that the real device is different (for
-     * example, an LVM snapshot PV), but by default will be the device
-     * to mount.
+     * Set the file containing the chroot.
      *
-     * @param device the device.
+     * @param file the file.
      */
     void
-    set_device (std::string const& device);
+    set_file (std::string const& file);
 
     virtual std::string const&
     get_mount_device () const;
@@ -94,13 +91,13 @@ namespace sbuild
 		 string_list&   used_keys);
 
   private:
-    /// The block device to use.
-    std::string device;
+    /// The file to use.
+    std::string file;
   };
 
 }
 
-#endif /* SBUILD_CHROOT_BLOCK_DEVICE_H */
+#endif /* SBUILD_CHROOT_LOOPBACK_H */
 
 /*
  * Local Variables:

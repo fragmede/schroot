@@ -23,6 +23,7 @@
 #include "sbuild-chroot-plain.h"
 #include "sbuild-chroot-file.h"
 #include "sbuild-chroot-block-device.h"
+#include "sbuild-chroot-loopback.h"
 #include "sbuild-chroot-lvm-snapshot.h"
 #include "sbuild-lock.h"
 
@@ -126,6 +127,8 @@ sbuild::chroot::create (std::string const& type)
     new_chroot = new chroot_file();
   else if (type == "block-device")
     new_chroot = new chroot_block_device();
+  else if (type == "loopback")
+    new_chroot = new chroot_loopback();
   else if (type == "lvm-snapshot")
     new_chroot = new chroot_lvm_snapshot();
   else

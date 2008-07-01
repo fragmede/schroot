@@ -43,8 +43,9 @@ This is then followed by several key-value pairs, one per line:
 .TP
 \f[CBI]type=\fP\f[CI]type\fP
 The type of the chroot.  Valid types are \[oq]plain\[cq], \[oq]directory\[cq],
-\[oq]file\[cq], \[oq]block\-device\[cq] and \[oq]lvm\-snapshot\[cq].  If empty
-or omitted, the default type is \[oq]plain\[cq].
+\[oq]file\[cq], \[oq]loopback\[cq], \[oq]block\-device\[cq] and
+\[oq]lvm\-snapshot\[cq].  If empty or omitted, the default type is
+\[oq]plain\[cq].
 .TP
 \f[CBI]description=\fP\f[CI]description\fP
 A short description of the chroot.  This may be localised for different
@@ -177,27 +178,27 @@ extensions used to determine the type are are \fI.tar\fP, \fI.tar.gz\fP,
 \fI.tar.bz2\fP, \fI.tgz\fP, \fI.tbz\fP and \fI.zip\fP.  This file must be owned
 by the root user, and not be writable by other.
 .SS
+Loopback chroots
+.PP
+Chroots of type \[oq]loopback\[cq] are a filesystem available as a file on
+disk, accessed via a loopback mount.  The file will be loopback mounted and
+unmounted on demand.  They implement the \fBmountable chroot\fP options (see
+\[lq]\fIMountable chroot options\fP\[rq], below), plus an additional option:
+.TP
+\f[CBI]file=\fP\f[CI]file\fP This is the filename of the file containing the
+filesystem, including the absolute path.  For example,
+\[lq]/srv/chroot/sid\[rq].
+.SS
 Block device chroots
 .PP
 Chroots of type \[oq]block\-device\[cq] are a filesystem available on an
 unmounted block device.  The device will be mounted and unmounted on demand.
-They have additional options:
+They implement the \fBmountable chroot\fP options (see \[lq]\fIMountable chroot
+options\fP\[rq], below), plus an additional option:
 .TP
 \f[CBI]device=\fP\f[CI]device\fP
 This is the device name of the block device, including the absolute path.  For
 example, \[lq]/dev/sda5\[rq].
-.TP
-\f[CBI]mount-options=\fP\f[CI]mount_options\fP Mount options for the block
-device.  These are additional options to pass to
-.BR mount (8).
-For example, \[lq]\-o atime,sync,user_xattr\[rq].
-.TP
-\f[CBI]location=\fP\f[CI]path\fP
-This is the path to the chroot \fIinside\fP the filesystem on the device.  For
-example, if the filesystem contains a chroot in \fI/chroot/sid\fP, you would
-specify \[lq]/chroot/sid\[rq] here.  If the chroot is the only thing on the
-filesystem, i.e. \fI/\fP is the root filesystem for the chroot, this option
-should be left blank, or omitted entirely.
 .SS
 LVM snapshot chroots
 .PP
@@ -251,6 +252,22 @@ root access without a password (but if a user's group is in \f[CI]groups\fP,
 they may gain access with a password).  This will become the
 \f[CI]root\-groups\fP option in the source chroot.  See the section
 \[lq]\fISecurity\fP\[rq] below.
+.SS Mountable chroot options
+Some chroots implement device mounting.  These are chroots which require the
+mounting of a device in order to access the chroot.  These chroots provide the
+following additional options:
+.TP
+\f[CBI]mount-options=\fP\f[CI]mount_options\fP Mount options for the block
+device.  These are additional options to pass to
+.BR mount (8).
+For example, \[lq]\-o atime,sync,user_xattr\[rq].
+.TP
+\f[CBI]location=\fP\f[CI]path\fP
+This is the path to the chroot \fIinside\fP the filesystem on the device.  For
+example, if the filesystem contains a chroot in \fI/chroot/sid\fP, you would
+specify \[lq]/chroot/sid\[rq] here.  If the chroot is the only thing on the
+filesystem, i.e. \fI/\fP is the root filesystem for the chroot, this option
+should be left blank, or omitted entirely.
 .SS Localisation
 .PP
 Some keys may be localised in multiple languages.  This is achieved by adding

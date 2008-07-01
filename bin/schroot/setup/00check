@@ -71,7 +71,7 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 		exit 1
 	    fi
 	    ;;
-	file)
+	file | loopback)
 	    if [ ! -f "$CHROOT_FILE" ]; then
 		echo "File '$CHROOT_FILE' does not exist"
 		exit 1
