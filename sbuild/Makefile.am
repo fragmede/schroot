@@ -36,7 +36,9 @@ sbuild_public_h_sources =		\
 	sbuild-chroot-block-device.h	\
 	sbuild-chroot-directory.h	\
 	sbuild-chroot-file.h		\
+	sbuild-chroot-loopback.h	\
 	sbuild-chroot-lvm-snapshot.h	\
+	sbuild-chroot-mountable.h	\
 	sbuild-chroot-plain.h		\
 	sbuild-chroot-source.h		\
 	sbuild-chroot-config.h		\
@@ -76,7 +78,9 @@ sbuild_public_cc_sources =		\
 	sbuild-chroot-block-device.cc	\
 	sbuild-chroot-directory.cc	\
 	sbuild-chroot-file.cc		\
+	sbuild-chroot-loopback.cc	\
 	sbuild-chroot-lvm-snapshot.cc	\
+	sbuild-chroot-mountable.cc	\
 	sbuild-chroot-plain.cc		\
 	sbuild-chroot-source.cc		\
 	sbuild-chroot-config.cc		\

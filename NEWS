@@ -9,7 +9,9 @@ configuration.
 
 * Major changes in 1.2.1:
 
-  Bugfixes and translation updates only.
+  1) A new chroot type, "loopback", has been added.  This is similar
+     to the "block-device" type, but allows for loopback mounting of
+     filesystems contained within regular files.
 
 * Major changes in 1.2.0:
 

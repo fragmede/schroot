@@ -33,8 +33,8 @@ using namespace sbuild;
 
 chroot_block_device::chroot_block_device ():
   chroot(),
-  device(),
-  mount_options()
+  chroot_mountable(),
+  device()
 {
 }
 
@@ -70,33 +70,6 @@ chroot_block_device::get_mount_device () const
 }
 
 std::string const&
-chroot_block_device::get_mount_options () const
-{
-  return this->mount_options;
-}
-
-void
-chroot_block_device::set_mount_options (std::string const& mount_options)
-{
-  this->mount_options = mount_options;
-}
-
-std::string const&
-chroot_block_device::get_location () const
-{
-  return chroot::get_location();
-}
-
-void
-chroot_block_device::set_location (std::string const& location)
-{
-  if (!location.empty() && !is_absname(location))
-    throw error(location, LOCATION_ABS);
-
-  chroot::set_location(location);
-}
-
-std::string const&
 chroot_block_device::get_chroot_type () const
 {
   static const std::string type("block-device");
@@ -107,10 +80,10 @@ chroot_block_device::get_chroot_type () const
 void
 chroot_block_device::setup_env (environment& env)
 {
-  this->chroot::setup_env(env);
+  chroot::setup_env(env);
+  chroot_mountable::setup_env(env);
 
   env.add("CHROOT_DEVICE", get_device());
-  env.add("CHROOT_MOUNT_OPTIONS", get_mount_options());
 }
 
 void
@@ -174,33 +147,27 @@ chroot_block_device::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_block_device::get_session_flags () const
 {
-  return SESSION_NOFLAGS;
+  return SESSION_NOFLAGS | chroot_mountable::get_session_flags();
 }
 
 void
 chroot_block_device::get_details (format_detail& detail) const
 {
   this->chroot::get_details(detail);
+  this->chroot_mountable::get_details(detail);
 
   if (!this->device.empty())
     detail.add(_("Device"), get_device());
-  if (!this->mount_options.empty())
-    detail.add(_("Mount Options"), get_mount_options());
 }
 
 void
 chroot_block_device::get_keyfile (keyfile& keyfile) const
 {
   chroot::get_keyfile(keyfile);
+  chroot_mountable::get_keyfile(keyfile);
 
   keyfile::set_object_value(*this, &chroot_block_device::get_device,
 			    keyfile, get_name(), "device");
-
-  keyfile::set_object_value(*this, &chroot_block_device::get_mount_options,
-			    keyfile, get_name(), "mount-options");
-
-  keyfile::set_object_value(*this, &chroot_block_device::get_location,
-			    keyfile, get_name(), "location");
 }
 
 void
@@ -208,19 +175,10 @@ chroot_block_device::set_keyfile (keyfile const& keyfile,
 				  string_list&   used_keys)
 {
   chroot::set_keyfile(keyfile, used_keys);
+  chroot_mountable::set_keyfile(keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_block_device::set_device,
 			    keyfile, get_name(), "device",
 			    keyfile::PRIORITY_REQUIRED);
   used_keys.push_back("device");
-
-  keyfile::get_object_value(*this, &chroot_block_device::set_mount_options,
-			    keyfile, get_name(), "mount-options",
-			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("mount-options");
-
-  keyfile::get_object_value(*this, &chroot_block_device::set_location,
-			    keyfile, get_name(), "location",
-			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("location");
 }

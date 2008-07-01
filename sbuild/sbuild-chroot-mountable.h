@@ -16,11 +16,10 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_BLOCK_DEVICE_H
-#define SBUILD_CHROOT_BLOCK_DEVICE_H
+#ifndef SBUILD_CHROOT_MOUNTABLE_H
+#define SBUILD_CHROOT_MOUNTABLE_H
 
 #include <sbuild/sbuild-chroot.h>
-#include <sbuild/sbuild-chroot-mountable.h>
 
 namespace sbuild
 {
@@ -30,46 +29,54 @@ namespace sbuild
    *
    * The device will be mounted on demand.
    */
-  class chroot_block_device : virtual public chroot,
-			      public chroot_mountable
+  class chroot_mountable : virtual public chroot
   {
   protected:
     /// The constructor.
-    chroot_block_device ();
+    chroot_mountable ();
 
     friend class chroot;
 
   public:
     /// The destructor.
-    virtual ~chroot_block_device ();
-
-    virtual chroot::ptr
-    clone () const;
-
-    /**
-     * Get the block device of the chroot.
-     *
-     * @returns the device.
-     */
-    std::string const&
-    get_device () const;
-
-    /**
-     * Set the block device of the chroot.  This is the "source" device.
-     * It may be the case that the real device is different (for
-     * example, an LVM snapshot PV), but by default will be the device
-     * to mount.
-     *
-     * @param device the device.
-     */
-    void
-    set_device (std::string const& device);
+    virtual ~chroot_mountable ();
 
     virtual std::string const&
-    get_mount_device () const;
+    get_mount_device () const = 0;
 
+    /**
+     * Get the filesystem mount_options of the chroot block device.
+     *
+     * @returns the mount options.
+     */
     std::string const&
-    get_chroot_type () const;
+    get_mount_options () const;
+
+    /**
+     * Set the filesystem mount_options of the chroot block device.
+     *
+     * @param mount_options the mount options.
+     */
+    void
+    set_mount_options (std::string const& mount_options);
+
+    /**
+     * Get the location.  This is a path to the chroot directory
+     * inside the device (absolute path from the device root).
+     *
+     * @returns the location.
+     */
+    virtual std::string const&
+    get_location () const;
+
+    /**
+     * Set the location.  This is a path to the chroot directory
+     * inside the device (absolute path from the device root).
+     *
+     * @param location the location.
+     */
+    virtual void
+    set_location (std::string const& location);
 
     virtual void
     setup_env (environment& env);
@@ -78,11 +85,6 @@ namespace sbuild
     get_session_flags () const;
 
   protected:
-    virtual void
-    setup_lock (chroot::setup_type type,
-		bool               lock,
-		int                status);
-
     virtual void
     get_details (format_detail& detail) const;
 
@@ -94,13 +96,13 @@ namespace sbuild
 		 string_list&   used_keys);
 
   private:
-    /// The block device to use.
-    std::string device;
+    /// The options to mount the device with.
+    std::string mount_options;
   };
 
 }
 
-#endif /* SBUILD_CHROOT_BLOCK_DEVICE_H */
+#endif /* SBUILD_CHROOT_MOUNTABLE_H */
 
 /*
  * Local Variables:
