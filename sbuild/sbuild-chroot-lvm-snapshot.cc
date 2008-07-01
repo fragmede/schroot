@@ -132,41 +132,53 @@ chroot_lvm_snapshot::setup_lock (chroot::setup_type type,
       if (device.empty())
 	throw error(CHROOT_DEVICE);
 
-      stat file_status(device);
-      if (!file_status.is_block())
+      try
 	{
-	  throw error(get_device(), DEVICE_NOTBLOCK);
-	}
-      else
-	{
-	  /* Lock is preserved while running a command. */
-	  if ((type == EXEC_START && lock == false) ||
-	      (type == EXEC_STOP && lock == true))
-	    return;
-
-	  sbuild::device_lock dlock(device);
-	  if (lock)
+	  stat file_status(device);
+	  if (!file_status.is_block())
 	    {
-	      try
-		{
-		  dlock.set_lock(lock::LOCK_EXCLUSIVE, 15);
-		}
-	      catch (sbuild::lock::error const& e)
-		{
-		  throw error(get_device(), DEVICE_LOCK, e);
-		}
+	      throw error(get_device(), DEVICE_NOTBLOCK);
 	    }
 	  else
 	    {
-	      try
+	      /* Lock is preserved while running a command. */
+	      if ((type == EXEC_START && lock == false) ||
+		  (type == EXEC_STOP && lock == true))
+		return;
+
+	      sbuild::device_lock dlock(device);
+	      if (lock)
 		{
-		  dlock.unset_lock();
+		  try
+		    {
+		      dlock.set_lock(lock::LOCK_EXCLUSIVE, 15);
+		    }
+		  catch (sbuild::lock::error const& e)
+		    {
+		      throw error(get_device(), DEVICE_LOCK, e);
+		    }
 		}
-	      catch (sbuild::lock::error const& e)
+	      else
 		{
-		  throw error(get_device(), DEVICE_UNLOCK, e);
+		  try
+		    {
+		      dlock.unset_lock();
+		    }
+		  catch (sbuild::lock::error const& e)
+		    {
+		      throw error(get_device(), DEVICE_UNLOCK, e);
+		    }
 		}
 	    }
+	}
+      catch (sbuild::stat::error const& e) // Failed to stat
+	{
+	  // Don't throw if stopping a session and the device stat
+	  // failed.  This is because the setup scripts shouldn't fail
+	  // to be run if the LVM snapshot no longer exists, which
+	  // would prevent the session from being ended.
+	  if (type != SETUP_STOP)
+	    throw;
 	}
     }
 
