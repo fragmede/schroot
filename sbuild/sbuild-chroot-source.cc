@@ -20,7 +20,6 @@
 
 #include "sbuild-chroot-source.h"
 #include "sbuild-format-detail.h"
-#include "sbuild-lock.h"
 
 #include <algorithm>
 
