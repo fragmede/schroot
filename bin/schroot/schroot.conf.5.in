@@ -378,6 +378,11 @@ this boils down to \fItrust\fP.
 .I @SCHROOT_CONF@
 The system-wide chroot definition file.  This file must be owned by the root
 user, and not be writable by other.
+.TP
+\f[BI]@SCHROOT_CONF_CHROOT_D@\fP
+Additional chroot definitions may be placed in files under this directory.
+They are treated in exactly that same manner as \fI@SCHROOT_CONF@\fP.  Each
+file may contain one or more chroot definitions.
 .SH AUTHORS
 Roger Leigh.
 .SH COPYRIGHT

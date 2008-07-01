@@ -18,6 +18,8 @@ schroot (1.2.1-1) unstable; urgency=low
   * sbuild/sbuild-lock.cc: Order of "struct flock" members is not assumed,
     for GNU/kFreeBSD portability (Closes: #485637).  Thanks to Petr
     Salinger.
+  * schroot.1.in, schroot.conf.5.in: Document /etc/schroot/chroot.d
+    (Closes: #487588).
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 29 Jun 2008 16:41:02 +0100
 
