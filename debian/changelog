@@ -13,6 +13,8 @@ schroot (1.2.1-1) unstable; urgency=low
     Salinger.
   * schroot.1.in, schroot.conf.5.in: Document /etc/schroot/chroot.d
     (Closes: #487588).
+  * setup/10mount: Don't clear mount options for LVM snapshots
+    (Closes: #488726).
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 29 Jun 2008 16:41:02 +0100
 
