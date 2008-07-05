@@ -17,4 +17,4 @@
 #
 #####################################################################
 
-podebconf-report-po --call --withtranslators --podir=@abs_top_srcdir@/po
+podebconf-report-po --call --withtranslators --languageteam --notdebconf --summary --podir=@abs_top_srcdir@/po
