@@ -13,6 +13,9 @@ configuration.
      to the "block-device" type, but allows for loopback mounting of
      filesystems contained within regular files.
 
+  2) "lvm-snapshot" chroot types now clean up correctly in the case of
+     failures during setup.
+
 * Major changes in 1.2.0:
 
   1) In addition to /etc/schroot/schroot.conf, chroot definitions may

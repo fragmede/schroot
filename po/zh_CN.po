@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2008-05-04 16:46+0100\n"
+"POT-Creation-Date: 2008-07-05 10:10+0100\n"
 "PO-Revision-Date: 2008-05-19 11:02+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese\n"
@@ -15,170 +15,170 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: sbuild/sbuild-chroot.cc:55
+#: sbuild/sbuild-chroot.cc:56
 msgid "Chroot creation failed"
 msgstr "创建 chroot 环境失败"
 
-#: sbuild/sbuild-chroot.cc:56
+#: sbuild/sbuild-chroot.cc:57
 msgid "Device name not set"
 msgstr "未设置设备名"
 
 #. TRANSLATORS: %1% = chroot type name
-#: sbuild/sbuild-chroot.cc:58
+#: sbuild/sbuild-chroot.cc:59
 #, boost-format
 msgid "Unknown chroot type '%1%'"
 msgstr "未知的 chroot 类型 ‘%1%’"
 
-#: sbuild/sbuild-chroot.cc:59
+#: sbuild/sbuild-chroot.cc:60
 msgid "Device must have an absolute path"
 msgstr "设备名必须带上绝对路径"
 
-#: sbuild/sbuild-chroot.cc:60 sbuild/sbuild-lock.cc:57
+#: sbuild/sbuild-chroot.cc:61 sbuild/sbuild-lock.cc:57
 msgid "Failed to lock device"
 msgstr "无法锁定设备"
 
-#: sbuild/sbuild-chroot.cc:61 bin/csbuild/csbuild-main.cc:52
+#: sbuild/sbuild-chroot.cc:62 bin/csbuild/csbuild-main.cc:52
 #: bin/schroot-releaselock/schroot-releaselock-main.cc:54
 msgid "File is not a block device"
 msgstr "文件不是一个块设备"
 
-#: sbuild/sbuild-chroot.cc:62 sbuild/sbuild-lock.cc:62
+#: sbuild/sbuild-chroot.cc:63 sbuild/sbuild-lock.cc:62
 msgid "Failed to unlock device"
 msgstr "无法解锁设备"
 
-#: sbuild/sbuild-chroot.cc:63
+#: sbuild/sbuild-chroot.cc:64
 msgid "File must have an absolute path"
 msgstr "文件名必须带上绝对路径"
 
-#: sbuild/sbuild-chroot.cc:64
+#: sbuild/sbuild-chroot.cc:65
 msgid "Failed to acquire file lock"
 msgstr "无法获取文件锁"
 
-#: sbuild/sbuild-chroot.cc:65 sbuild/sbuild-chroot-config.cc:61
+#: sbuild/sbuild-chroot.cc:66 sbuild/sbuild-chroot-config.cc:61
 msgid "File is not a regular file"
 msgstr "文件不是普通文件"
 
-#: sbuild/sbuild-chroot.cc:66 sbuild/sbuild-chroot-config.cc:63
+#: sbuild/sbuild-chroot.cc:67 sbuild/sbuild-chroot-config.cc:63
 msgid "File is not owned by user root"
 msgstr "文件所有者不是 root 用户"
 
-#: sbuild/sbuild-chroot.cc:67 sbuild/sbuild-chroot-config.cc:64
+#: sbuild/sbuild-chroot.cc:68 sbuild/sbuild-chroot-config.cc:64
 msgid "File has write permissions for others"
 msgstr "其他用户拥有文件写权"
 
-#: sbuild/sbuild-chroot.cc:68
+#: sbuild/sbuild-chroot.cc:69
 msgid "Failed to discard file lock"
 msgstr "无法释放文件锁"
 
-#: sbuild/sbuild-chroot.cc:69
+#: sbuild/sbuild-chroot.cc:70
 msgid "Location must have an absolute path"
 msgstr "位置必须带上绝对路径"
 
 #. TRANSLATORS: unlink refers to the C function which removes a file
-#: sbuild/sbuild-chroot.cc:71
+#: sbuild/sbuild-chroot.cc:72
 msgid "Failed to unlink session file"
 msgstr "无法删除会话文件"
 
-#: sbuild/sbuild-chroot.cc:72
+#: sbuild/sbuild-chroot.cc:73
 msgid "Failed to write session file"
 msgstr "无法写会话文件"
 
-#: sbuild/sbuild-chroot.cc:470
+#: sbuild/sbuild-chroot.cc:473
 msgid "Name"
 msgstr "名字"
 
-#: sbuild/sbuild-chroot.cc:471
+#: sbuild/sbuild-chroot.cc:474
 msgid "Description"
 msgstr "描述"
 
-#: sbuild/sbuild-chroot.cc:472
+#: sbuild/sbuild-chroot.cc:475
 msgid "Type"
 msgstr "类型"
 
-#: sbuild/sbuild-chroot.cc:473
+#: sbuild/sbuild-chroot.cc:476
 msgid "Priority"
 msgstr "优先权"
 
-#: sbuild/sbuild-chroot.cc:474
+#: sbuild/sbuild-chroot.cc:477
 msgid "Users"
 msgstr "用户"
 
-#: sbuild/sbuild-chroot.cc:475
+#: sbuild/sbuild-chroot.cc:478
 msgid "Groups"
 msgstr "用户组"
 
-#: sbuild/sbuild-chroot.cc:476
+#: sbuild/sbuild-chroot.cc:479
 msgid "Root Users"
 msgstr "根用户"
 
-#: sbuild/sbuild-chroot.cc:477
+#: sbuild/sbuild-chroot.cc:480
 msgid "Root Groups"
 msgstr "根用户组"
 
-#: sbuild/sbuild-chroot.cc:478
+#: sbuild/sbuild-chroot.cc:481
 msgid "Aliases"
 msgstr "别名"
 
-#: sbuild/sbuild-chroot.cc:479
+#: sbuild/sbuild-chroot.cc:482
 msgid "Environment Filter"
 msgstr "环境变量过滤器"
 
-#: sbuild/sbuild-chroot.cc:480
+#: sbuild/sbuild-chroot.cc:483
 msgid "Run Setup Scripts"
 msgstr "运行安装脚本"
 
-#: sbuild/sbuild-chroot.cc:481
+#: sbuild/sbuild-chroot.cc:484
 msgid "Run Execution Scripts"
 msgstr "运行执行脚本"
 
-#: sbuild/sbuild-chroot.cc:482
+#: sbuild/sbuild-chroot.cc:485
 msgid "Script Configuration"
 msgstr "脚本配置"
 
-#: sbuild/sbuild-chroot.cc:483
+#: sbuild/sbuild-chroot.cc:486
 msgid "Session Managed"
 msgstr "受控的会话"
 
-#: sbuild/sbuild-chroot.cc:485
+#: sbuild/sbuild-chroot.cc:488
 msgid "Session Cloned"
 msgstr "克隆的会话"
 
-#: sbuild/sbuild-chroot.cc:487
+#: sbuild/sbuild-chroot.cc:490
 msgid "Session Purged"
 msgstr "删除的会话"
 
-#: sbuild/sbuild-chroot.cc:491
+#: sbuild/sbuild-chroot.cc:494
 msgid "Command Prefix"
 msgstr "命令前缀"
 
 #. TRANSLATORS: "Personality" is the Linux kernel personality
 #. (process execution domain).  See schroot.conf(5).
-#: sbuild/sbuild-chroot.cc:495
+#: sbuild/sbuild-chroot.cc:498
 msgid "Personality"
 msgstr "进程私有空间"
 
-#: sbuild/sbuild-chroot.cc:499
+#: sbuild/sbuild-chroot.cc:502
 msgid "Location"
 msgstr "位置"
 
-#: sbuild/sbuild-chroot.cc:501
+#: sbuild/sbuild-chroot.cc:504
 msgid "Mount Location"
 msgstr "挂载点"
 
-#: sbuild/sbuild-chroot.cc:503
+#: sbuild/sbuild-chroot.cc:506
 msgid "Path"
 msgstr "路径"
 
 #. TRANSLATORS: The system device node to mount containing the chroot
-#: sbuild/sbuild-chroot.cc:506
+#: sbuild/sbuild-chroot.cc:509
 msgid "Mount Device"
 msgstr "挂载设备"
 
-#: sbuild/sbuild-chroot.cc:512
+#: sbuild/sbuild-chroot.cc:515
 msgid "Session"
 msgstr "会话"
 
-#: sbuild/sbuild-chroot.cc:512
+#: sbuild/sbuild-chroot.cc:515
 msgid "Chroot"
 msgstr "Chroot"
 
@@ -381,8 +381,7 @@ msgstr "无法放弃根用户权限"
 #, boost-format
 msgid ""
 "%1%: Chroot does not support setting a session ID; ignoring session ID '%4%'"
-msgstr ""
-"%1%: Chroot 不支持设置会话 ID；忽略会话 ID ‘%4%’"
+msgstr "%1%: Chroot 不支持设置会话 ID；忽略会话 ID ‘%4%’"
 
 #. TRANSLATORS: %1% = command
 #: sbuild/sbuild-session.cc:109
@@ -548,13 +547,9 @@ msgstr "文件"
 msgid "File Repack"
 msgstr "重打包文件"
 
-#: sbuild/sbuild-chroot-block-device.cc:174
+#: sbuild/sbuild-chroot-block-device.cc:160
 msgid "Device"
 msgstr "设备"
-
-#: sbuild/sbuild-chroot-block-device.cc:176
-msgid "Mount Options"
-msgstr "挂载选项"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -646,8 +641,7 @@ msgstr "无法解锁文件( %4% 秒后超时)"
 #, boost-format
 msgid ""
 "Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
-msgstr ""
-"无法锁定设备( %4% 秒后超时；进程号为 %5% 的程序拥有此锁定)"
+msgstr "无法锁定设备( %4% 秒后超时；进程号为 %5% 的程序拥有此锁定)"
 
 #: sbuild/sbuild-lock.cc:61
 msgid "Failed to test device lock"
@@ -659,14 +653,13 @@ msgstr "无法测试设备锁"
 #, boost-format
 msgid ""
 "Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
-msgstr ""
-"无法解锁设备( %4% 秒后超时；进程号为 %5% 的程序拥有此锁定)"
+msgstr "无法解锁设备( %4% 秒后超时；进程号为 %5% 的程序拥有此锁定)"
 
-#: sbuild/sbuild-chroot-lvm-snapshot.cc:195
+#: sbuild/sbuild-chroot-lvm-snapshot.cc:207
 msgid "LVM Snapshot Device"
 msgstr "LVM 快照设备"
 
-#: sbuild/sbuild-chroot-lvm-snapshot.cc:197
+#: sbuild/sbuild-chroot-lvm-snapshot.cc:209
 msgid "LVM Snapshot Options"
 msgstr "LVM 快照选项"
 
@@ -833,23 +826,23 @@ msgstr "无法获取文件状态"
 msgid "Failed to stat file descriptor"
 msgstr "无法统计文件描述符"
 
-#: sbuild/sbuild-chroot-source.cc:51
+#: sbuild/sbuild-chroot-source.cc:50
 msgid "(source chroot)"
 msgstr "(源chroot)"
 
-#: sbuild/sbuild-chroot-source.cc:142
+#: sbuild/sbuild-chroot-source.cc:141
 msgid "Source Users"
 msgstr "源用户"
 
-#: sbuild/sbuild-chroot-source.cc:143
+#: sbuild/sbuild-chroot-source.cc:142
 msgid "Source Groups"
 msgstr "源用户组"
 
-#: sbuild/sbuild-chroot-source.cc:144
+#: sbuild/sbuild-chroot-source.cc:143
 msgid "Source Root Users"
 msgstr "源根用户"
 
-#: sbuild/sbuild-chroot-source.cc:145
+#: sbuild/sbuild-chroot-source.cc:144
 msgid "Source Root Groups"
 msgstr "源根用户组"
 
@@ -1077,8 +1070,7 @@ msgstr "允许用户访问 chroots，使用用户或用户组密钥。"
 #: bin/dchroot/dchroot-main-base.cc:80
 msgid ""
 "To allow password-less root access, use the root-users or root-groups keys."
-msgstr ""
-"允许无密码根用户访问，使用根用户或根用户组密钥。"
+msgstr "允许无密码根用户访问，使用根用户或根用户组密钥。"
 
 #. TRANSLATORS: %1% = file
 #: bin/dchroot/dchroot-main-base.cc:83 bin/dchroot/dchroot-main-base.cc:144
@@ -1446,3 +1438,6 @@ msgstr "对将要进行的操作实行一次模拟动作"
 #: bin/schroot-mount/schroot-mount-options.cc:67
 msgid "fstab file to read (full path)"
 msgstr "要读取的 fstab 文件(完整路径)"
+
+#~ msgid "Mount Options"
+#~ msgstr "挂载选项"
