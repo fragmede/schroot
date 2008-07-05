@@ -1,6 +1,9 @@
 schroot (1.2.1-1) unstable; urgency=low
 
   * New upstream stable release.
+  * debian/control:
+    - Upgrade to Standards-Version 3.8.0.
+    - Don't Build-Depend upon -1 Debian revisions.
   * po:
     - Update eu translation (Closes: #479498).  Thanks to Piarres Beobide.
     - Update fr translation (Closes: #481648).  Thanks to Nicolas François.
@@ -17,8 +20,9 @@ schroot (1.2.1-1) unstable; urgency=low
     (Closes: #488726).
   * New "loopback" chroot type allows loopback mounting of files
     (Closes: #475515).
+  * 
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 05 Jul 2008 10:02:54 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 05 Jul 2008 11:41:33 +0100
 
 schroot (1.2.0-1) unstable; urgency=low
 
