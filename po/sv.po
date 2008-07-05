@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2008-05-04 16:46+0100\n"
+"POT-Creation-Date: 2008-07-05 10:10+0100\n"
 "PO-Revision-Date: 2008-05-04 23:01+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -15,173 +15,173 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: sbuild/sbuild-chroot.cc:55
+#: sbuild/sbuild-chroot.cc:56
 msgid "Chroot creation failed"
 msgstr "Skapandet av chroot misslyckades"
 
-#: sbuild/sbuild-chroot.cc:56
+#: sbuild/sbuild-chroot.cc:57
 msgid "Device name not set"
 msgstr "Enhetsnamnet är inte inställt"
 
 #. TRANSLATORS: %1% = chroot type name
-#: sbuild/sbuild-chroot.cc:58
+#: sbuild/sbuild-chroot.cc:59
 #, boost-format
 msgid "Unknown chroot type '%1%'"
 msgstr "Okänd chroot-typ \"%1%\""
 
-#: sbuild/sbuild-chroot.cc:59
+#: sbuild/sbuild-chroot.cc:60
 msgid "Device must have an absolute path"
 msgstr "Enheten måste ha en absolut sökväg"
 
-#: sbuild/sbuild-chroot.cc:60 sbuild/sbuild-lock.cc:57
+#: sbuild/sbuild-chroot.cc:61 sbuild/sbuild-lock.cc:57
 msgid "Failed to lock device"
 msgstr "Misslyckades med att låsa enheten"
 
-#: sbuild/sbuild-chroot.cc:61 bin/csbuild/csbuild-main.cc:52
+#: sbuild/sbuild-chroot.cc:62 bin/csbuild/csbuild-main.cc:52
 #: bin/schroot-releaselock/schroot-releaselock-main.cc:54
 msgid "File is not a block device"
 msgstr "Filen är inte en blockenhet"
 
-#: sbuild/sbuild-chroot.cc:62 sbuild/sbuild-lock.cc:62
+#: sbuild/sbuild-chroot.cc:63 sbuild/sbuild-lock.cc:62
 msgid "Failed to unlock device"
 msgstr "Misslyckades med att låsa upp enheten"
 
-#: sbuild/sbuild-chroot.cc:63
+#: sbuild/sbuild-chroot.cc:64
 msgid "File must have an absolute path"
 msgstr "Filen måste ha en absolut sökväg"
 
-#: sbuild/sbuild-chroot.cc:64
+#: sbuild/sbuild-chroot.cc:65
 msgid "Failed to acquire file lock"
 msgstr "Misslyckades med att skaffa enhetslås"
 
-#: sbuild/sbuild-chroot.cc:65 sbuild/sbuild-chroot-config.cc:61
+#: sbuild/sbuild-chroot.cc:66 sbuild/sbuild-chroot-config.cc:61
 msgid "File is not a regular file"
 msgstr "Filen är inte en vanlig fil"
 
-#: sbuild/sbuild-chroot.cc:66 sbuild/sbuild-chroot-config.cc:63
+#: sbuild/sbuild-chroot.cc:67 sbuild/sbuild-chroot-config.cc:63
 msgid "File is not owned by user root"
 msgstr "Filen ägs inte av användaren root"
 
-#: sbuild/sbuild-chroot.cc:67 sbuild/sbuild-chroot-config.cc:64
+#: sbuild/sbuild-chroot.cc:68 sbuild/sbuild-chroot-config.cc:64
 msgid "File has write permissions for others"
 msgstr "Filen har skrivrättigheter för andra"
 
-#: sbuild/sbuild-chroot.cc:68
+#: sbuild/sbuild-chroot.cc:69
 msgid "Failed to discard file lock"
 msgstr "Misslyckades med att kasta enhetslåset"
 
-#: sbuild/sbuild-chroot.cc:69
+#: sbuild/sbuild-chroot.cc:70
 msgid "Location must have an absolute path"
 msgstr "Platsen måste ha en absolut sökväg"
 
 #. TRANSLATORS: unlink refers to the C function which removes a file
-#: sbuild/sbuild-chroot.cc:71
+#: sbuild/sbuild-chroot.cc:72
 msgid "Failed to unlink session file"
 msgstr "Misslyckades med att ta bort sessionsfilen"
 
-#: sbuild/sbuild-chroot.cc:72
+#: sbuild/sbuild-chroot.cc:73
 msgid "Failed to write session file"
 msgstr "Misslyckades med att skriva till sessionsfilen"
 
-#: sbuild/sbuild-chroot.cc:470
+#: sbuild/sbuild-chroot.cc:473
 msgid "Name"
 msgstr "Namn"
 
-#: sbuild/sbuild-chroot.cc:471
+#: sbuild/sbuild-chroot.cc:474
 msgid "Description"
 msgstr "Beskrivning"
 
-#: sbuild/sbuild-chroot.cc:472
+#: sbuild/sbuild-chroot.cc:475
 msgid "Type"
 msgstr "Typ"
 
-#: sbuild/sbuild-chroot.cc:473
+#: sbuild/sbuild-chroot.cc:476
 msgid "Priority"
 msgstr "Prioritet"
 
-#: sbuild/sbuild-chroot.cc:474
+#: sbuild/sbuild-chroot.cc:477
 msgid "Users"
 msgstr "Användare"
 
-#: sbuild/sbuild-chroot.cc:475
+#: sbuild/sbuild-chroot.cc:478
 msgid "Groups"
 msgstr "Grupper"
 
-#: sbuild/sbuild-chroot.cc:476
+#: sbuild/sbuild-chroot.cc:479
 msgid "Root Users"
 msgstr "Rootanvändare"
 
-#: sbuild/sbuild-chroot.cc:477
+#: sbuild/sbuild-chroot.cc:480
 msgid "Root Groups"
 msgstr "Rotgrupper"
 
-#: sbuild/sbuild-chroot.cc:478
+#: sbuild/sbuild-chroot.cc:481
 msgid "Aliases"
 msgstr "Alias"
 
-#: sbuild/sbuild-chroot.cc:479
+#: sbuild/sbuild-chroot.cc:482
 msgid "Environment Filter"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:480
+#: sbuild/sbuild-chroot.cc:483
 msgid "Run Setup Scripts"
 msgstr "Kör konfigurationsskript"
 
 # Borde det bli "Kör körskript"? Kaka på kaka?
-#: sbuild/sbuild-chroot.cc:481
+#: sbuild/sbuild-chroot.cc:484
 msgid "Run Execution Scripts"
 msgstr "Kör skript"
 
-#: sbuild/sbuild-chroot.cc:482
+#: sbuild/sbuild-chroot.cc:485
 msgid "Script Configuration"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:483
+#: sbuild/sbuild-chroot.cc:486
 msgid "Session Managed"
 msgstr "Session hanterad"
 
-#: sbuild/sbuild-chroot.cc:485
+#: sbuild/sbuild-chroot.cc:488
 #, fuzzy
 msgid "Session Cloned"
 msgstr "Session hanterad"
 
-#: sbuild/sbuild-chroot.cc:487
+#: sbuild/sbuild-chroot.cc:490
 #, fuzzy
 msgid "Session Purged"
 msgstr "Session hanterad"
 
-#: sbuild/sbuild-chroot.cc:491
+#: sbuild/sbuild-chroot.cc:494
 msgid "Command Prefix"
 msgstr "Kommandoprefix"
 
 #. TRANSLATORS: "Personality" is the Linux kernel personality
 #. (process execution domain).  See schroot.conf(5).
-#: sbuild/sbuild-chroot.cc:495
+#: sbuild/sbuild-chroot.cc:498
 msgid "Personality"
 msgstr "Personlighet"
 
-#: sbuild/sbuild-chroot.cc:499
+#: sbuild/sbuild-chroot.cc:502
 msgid "Location"
 msgstr "Plats"
 
-#: sbuild/sbuild-chroot.cc:501
+#: sbuild/sbuild-chroot.cc:504
 msgid "Mount Location"
 msgstr "Montera plats"
 
-#: sbuild/sbuild-chroot.cc:503
+#: sbuild/sbuild-chroot.cc:506
 msgid "Path"
 msgstr "Sökväg"
 
 #. TRANSLATORS: The system device node to mount containing the chroot
-#: sbuild/sbuild-chroot.cc:506
+#: sbuild/sbuild-chroot.cc:509
 msgid "Mount Device"
 msgstr "Montera enhet"
 
-#: sbuild/sbuild-chroot.cc:512
+#: sbuild/sbuild-chroot.cc:515
 msgid "Session"
 msgstr "Session"
 
-#: sbuild/sbuild-chroot.cc:512
+#: sbuild/sbuild-chroot.cc:515
 msgid "Chroot"
 msgstr "Chroot"
 
@@ -553,13 +553,9 @@ msgstr "Fil"
 msgid "File Repack"
 msgstr "Filompackning"
 
-#: sbuild/sbuild-chroot-block-device.cc:174
+#: sbuild/sbuild-chroot-block-device.cc:160
 msgid "Device"
 msgstr "Enhet"
-
-#: sbuild/sbuild-chroot-block-device.cc:176
-msgid "Mount Options"
-msgstr "Monteringsflaggor"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -670,12 +666,12 @@ msgstr ""
 "Misslyckades med att låsa upp enheten (tidsgränsen nådd efter %4% sekunder; "
 "låset hålls av pid %5%)"
 
-#: sbuild/sbuild-chroot-lvm-snapshot.cc:195
+#: sbuild/sbuild-chroot-lvm-snapshot.cc:207
 msgid "LVM Snapshot Device"
 msgstr "Enhet för LVM-snapshot"
 
 # Finns det ett svenskt ord för snapshot?
-#: sbuild/sbuild-chroot-lvm-snapshot.cc:197
+#: sbuild/sbuild-chroot-lvm-snapshot.cc:209
 msgid "LVM Snapshot Options"
 msgstr "Flaggor för LVM-snapshot"
 
@@ -843,23 +839,23 @@ msgstr "Misslyckades med att läsa status på filen"
 msgid "Failed to stat file descriptor"
 msgstr "Misslyckades med att läsa status på filen"
 
-#: sbuild/sbuild-chroot-source.cc:51
+#: sbuild/sbuild-chroot-source.cc:50
 msgid "(source chroot)"
 msgstr "(käll-chroot)"
 
-#: sbuild/sbuild-chroot-source.cc:142
+#: sbuild/sbuild-chroot-source.cc:141
 msgid "Source Users"
 msgstr "Källanvändare"
 
-#: sbuild/sbuild-chroot-source.cc:143
+#: sbuild/sbuild-chroot-source.cc:142
 msgid "Source Groups"
 msgstr "Källgrupper"
 
-#: sbuild/sbuild-chroot-source.cc:144
+#: sbuild/sbuild-chroot-source.cc:143
 msgid "Source Root Users"
 msgstr "Källrootanvändare"
 
-#: sbuild/sbuild-chroot-source.cc:145
+#: sbuild/sbuild-chroot-source.cc:144
 msgid "Source Root Groups"
 msgstr "Källrotgrupper"
 
@@ -1473,6 +1469,9 @@ msgstr ""
 #, fuzzy
 msgid "fstab file to read (full path)"
 msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
+
+#~ msgid "Mount Options"
+#~ msgstr "Monteringsflaggor"
 
 #~ msgid "Failed to open '%1%'"
 #~ msgstr "Misslyckades med att öppna \"%1%\""

@@ -18,7 +18,7 @@ schroot (1.2.1-1) unstable; urgency=low
   * New "loopback" chroot type allows loopback mounting of files
     (Closes: #475515).
 
- -- Roger Leigh <rleigh@debian.org>  Tue, 01 Jul 2008 23:26:09 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 05 Jul 2008 10:02:54 +0100
 
 schroot (1.2.0-1) unstable; urgency=low
 
