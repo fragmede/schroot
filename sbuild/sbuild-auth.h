@@ -50,6 +50,9 @@ namespace sbuild
    * to authorise a user before authenticating a user, and a session may
    * not be started before either of these have occurred.
    *
+   * A conversation handler must be specified using set_conv before
+   * calling any of the functions below.
+   *
    * The correct order is
    * - start
    * - authenticate

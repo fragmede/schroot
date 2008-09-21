@@ -57,9 +57,15 @@ namespace sbuild
     typedef custom_error<error_code> error;
 
     /// The constructor.
-    auth_conv_tty ();
+    auth_conv_tty (weak_auth_ptr auth);
     /// The destructor.
     virtual ~auth_conv_tty ();
+
+    virtual weak_auth_ptr
+    get_auth ();
+
+    virtual void
+    set_auth (weak_auth_ptr auth);
 
     virtual time_t
     get_warning_timeout ();
@@ -108,6 +114,8 @@ namespace sbuild
     read_string (std::string message,
 		 bool        echo);
 
+    /// The auth object.
+    weak_auth_ptr  auth;
     /// The time to warn at.
     time_t  warning_timeout;
     /// The time to end at.

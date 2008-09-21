@@ -281,7 +281,8 @@ main_base::run_impl ()
 
       /* Set up authentication timeouts. */
       std::tr1::shared_ptr<sbuild::auth_conv>
-	conv(new sbuild::auth_conv_tty);
+	conv(new sbuild::auth_conv_tty
+	     (std::tr1::dynamic_pointer_cast<sbuild::auth>(this->session)));
       time_t curtime = 0;
       time(&curtime);
       conv->set_warning_timeout(curtime + 15);

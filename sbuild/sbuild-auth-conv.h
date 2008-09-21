@@ -21,6 +21,7 @@
 
 #include <sbuild/sbuild-auth-message.h>
 #include <sbuild/sbuild-error.h>
+#include <sbuild/sbuild-tr1types.h>
 
 #include <vector>
 
@@ -28,6 +29,8 @@
 
 namespace sbuild
 {
+
+  class auth;
 
   /**
    * Authentication conversation handler interface.
@@ -47,17 +50,37 @@ namespace sbuild
    * fatal timeout values, which should default to 0 (not enabled).
    * This is an absolute time after which a warning is displayed or
    * the conversation ends with an error.
+   *
+   * Note that the auth object must be specified, and must never be
+   * void while the conversation is in progress.
    */
   class auth_conv
   {
   public:
     /// A list of messages.
     typedef std::vector<auth_message> message_list;
+    typedef std::tr1::weak_ptr<auth> weak_auth_ptr;
 
     /// The constructor.
     auth_conv ();
     /// The destructor.
     virtual ~auth_conv ();
+
+    /**
+     * Get the auth object.
+     *
+     * @returns the auth object as a weak reference.
+     */
+    virtual weak_auth_ptr
+    get_auth () = 0;
+
+    /**
+     * Set the auth object.
+     *
+     * @param auth the auth object as a weak reference.
+     */
+    virtual void
+    set_auth (weak_auth_ptr auth) = 0;
 
     /**
      * Get the time at which the user will be warned.

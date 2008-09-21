@@ -38,6 +38,12 @@ using std::endl;
 using boost::format;
 using namespace sbuild;
 
+#if defined(__LINUX_PAM__)
+#define PAM_TEXT_DOMAIN "Linux-PAM"
+#elif defined(__sun__)
+#define PAM_TEXT_DOMAIN "SUNW_OST_SYSOSPAM"
+#endif
+
 namespace
 {
 
@@ -53,7 +59,7 @@ namespace
       // TRANSLATORS: %1% = user name or user ID
       emap(auth::USER,            N_("User '%1%' not found")),
       // TRANSLATORS: %1% = group name or group ID
-      emap(auth::GROUP,            N_("Group '%1%' not found")),
+      emap(auth::GROUP,           N_("Group '%1%' not found")),
       emap(auth::AUTHENTICATION,  N_("Authentication failed")),
       emap(auth::AUTHORISATION,   N_("Access not authorised")),
       emap(auth::PAM_DOUBLE_INIT, N_("PAM is already initialised")),
@@ -97,6 +103,21 @@ namespace
 	    auth_message
 	      message(static_cast<auth_message::message_type>(source->msg_style),
 		      source->msg);
+
+	    /* Replace PAM prompt */
+	    if (message.message == dgettext(PAM_TEXT_DOMAIN, "Password: ") ||
+		message.message == dgettext(PAM_TEXT_DOMAIN, "Password:"))
+	      {
+		std::string user = "unknown"; // Set in case auth is void
+		std::tr1::shared_ptr<auth> auth = conv->get_auth().lock();
+		assert(auth && auth.get() != 0); // Check auth is not void
+		if (auth && auth.get() != 0)
+		  user = auth->get_user();
+		format fmt(_("[schroot] password for %1%: "));
+		fmt % user;
+		message.message = fmt.str();
+	      }
+
 	    messages.push_back(message);
 	  }
 
@@ -149,7 +170,7 @@ auth::auth (std::string const& service_name):
   rgid(),
   ruser(),
   rgroup(),
-  conv(new auth_conv_tty),
+  conv(),
   message_verbosity(VERBOSITY_NORMAL)
 {
   this->ruid = getuid();
