@@ -469,7 +469,7 @@ namespace csbuild
      * debian_changes initialisation from an istream.
      *
      * @param stream the stream to input from.
-     * @param kf the debian_changes to set.
+     * @param dc the debian_changes to set.
      * @returns the stream.
      */
     template <class charT, class traits>
