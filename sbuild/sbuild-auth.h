@@ -66,11 +66,6 @@ namespace sbuild
    * - close_session
    * - cred_delete
    * - stop
-   *
-   * The run method will handle all this.  The run_impl virtual
-   * function should be used to provide a session handler to open and
-   * close the session for the user.  open_session and close_session
-   * must still be called.
    */
   class auth
   {
@@ -334,15 +329,6 @@ namespace sbuild
     set_conv (conv_ptr& conv);
 
     /**
-     * Run a session.  The user will be asked for authentication if
-     * required, and then the run_impl virtual method will be called.
-     *
-     * An error will be thrown on failure.
-     */
-    void
-    run ();
-
-    /**
      * Start the PAM system.  No other PAM functions may be called before
      * calling this function.
      *
@@ -361,16 +347,19 @@ namespace sbuild
     stop ();
 
     /**
-     * Perform PAM authentication.  If required, the user will be
-     * prompted to authenticate themselves.
+     * Perform PAM authentication.  If auth_status is set to
+     * AUTH_USER, the user will be prompted to authenticate
+     * themselves.  If auth_status is AUTH_NONE, no authentication is
+     * required, and if AUTH_FAIL, authentication will fail.
      *
      * An error will be thrown on failure.
      *
+     * @param auth_status initial authentication status.
      * @todo Use sysconf(_SC_HOST_NAME_MAX) when libc in a stable
      * release supports it.
      */
     void
-    authenticate ();
+    authenticate (status auth_status);
 
     /**
      * Import the user environment into PAM.  If no environment was
@@ -425,22 +414,6 @@ namespace sbuild
     void
     close_session ();
 
-protected:
-    /**
-     * Check if authentication is required.  This default
-     * implementation always requires authentication.
-     */
-    virtual status
-    get_auth_status () const;
-
-    /**
-     * Run session.  The code to run when authentication and
-     * authorisation have been completed.
-     */
-    virtual void
-    run_impl () = 0;
-
-  public:
     /**
      * Set new authentication status.  If newauth > oldauth, newauth
      * is returned, otherwise oldauth is returned.  This is to ensure
@@ -450,9 +423,9 @@ protected:
      * @param newauth the new authentication status.
      * @returns the new authentication status.
      */
-    status
+    static status
     change_auth (status oldauth,
-		 status newauth) const
+		 status newauth)
     {
       /* Ensure auth level always escalates. */
       if (newauth > oldauth)
@@ -460,6 +433,12 @@ protected:
       else
 	return oldauth;
     }
+
+    /**
+     * Check if PAM is initialised (i.e. start has been called).
+     * @returns true if initialised, otherwise false.
+     */
+    bool is_initialised () const;
 
   protected:
     /// The PAM handle.

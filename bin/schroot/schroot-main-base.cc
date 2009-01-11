@@ -265,11 +265,11 @@ main_base::run_impl ()
       create_session(sess_op);
 
       if (!this->options->command.empty())
-	this->session->set_command(this->options->command);
+	this->session->get_auth()->set_command(this->options->command);
       if (!this->options->directory.empty())
-	this->session->set_wd(this->options->directory);
+	this->session->get_auth()->set_wd(this->options->directory);
       if (this->options->preserve)
-	this->session->set_environment(environ);
+	this->session->get_auth()->set_environment(environ);
       this->session->set_session_id(this->options->session_name);
       this->session->set_force(this->options->session_force);
       sbuild::auth::verbosity verbosity = sbuild::auth::VERBOSITY_NORMAL;
@@ -277,7 +277,7 @@ main_base::run_impl ()
 	verbosity = sbuild::auth::VERBOSITY_QUIET;
       else if (this->options->verbose)
 	verbosity = sbuild::auth::VERBOSITY_VERBOSE;
-      this->session->set_verbosity(verbosity);
+      this->session->get_auth()->set_verbosity(verbosity);
 
       /* Set up authentication timeouts. */
       std::tr1::shared_ptr<sbuild::auth_conv>
@@ -287,7 +287,7 @@ main_base::run_impl ()
       time(&curtime);
       conv->set_warning_timeout(curtime + 15);
       conv->set_fatal_timeout(curtime + 20);
-      this->session->set_conv(conv);
+      this->session->get_auth()->set_conv(conv);
 
       /* Run session. */
       this->session->run();

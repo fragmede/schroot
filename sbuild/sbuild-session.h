@@ -36,15 +36,14 @@ namespace sbuild
   /**
    * Session handler.
    *
-   * This class provides the session handling for schroot.  It derives
-   * from auth, which performs all the necessary PAM actions,
-   * specialising it by overriding its virtual functions.  This allows
+   * This class provides the session handling for schroot.  It uses
+   * auth, which performs all the necessary PAM actions.  This allows
    * more sophisticated handling of user authorisation (users, groups,
    * root-users and root-groups membership in the configuration file)
    * and session management (setting up the session, entering the
    * chroot and running the requested command or shell).
    */
-  class session : public auth
+  class session
   {
   public:
     /// Session operations.
@@ -100,6 +99,9 @@ namespace sbuild
     /// A shared_ptr to a session object.
     typedef std::tr1::shared_ptr<session> ptr;
 
+    /// A shared_ptr to an auth object.
+    typedef std::tr1::shared_ptr<auth> auth_ptr;
+
     /**
      * The constructor.
      *
@@ -115,6 +117,22 @@ namespace sbuild
 
     /// The destructor.
     virtual ~session ();
+
+    /**
+     * Get the authentication state associated with this session.
+     *
+     * @returns a shared_ptr to the authentication state.
+     */
+    auth_ptr const&
+    get_auth () const;
+
+    /**
+     * Set the authentication state associated with this session.
+     *
+     * @param auth a shared_ptr to the authentication state.
+     */
+    void
+    set_auth (auth_ptr& auth);
 
     /**
      * Get the configuration associated with this session.
@@ -237,6 +255,15 @@ namespace sbuild
      */
     virtual sbuild::auth::status
     get_auth_status () const;
+
+    /**
+     * Run a session.  The user will be asked for authentication if
+     * required, and then the run_impl virtual method will be called.
+     *
+     * An auth::error will be thrown on failure.
+     */
+    void
+    run ();
 
   protected:
     /**
@@ -420,6 +447,8 @@ namespace sbuild
     clear_signal_handler (int               signal,
 			  struct sigaction *saved_signal);
 
+    /// Authentication state.
+    auth_ptr         authstat;
     /// The chroot configuration.
     config_ptr       config;
     /// The chroots to run the session operation in.

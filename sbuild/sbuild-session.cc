@@ -240,7 +240,7 @@ session::session (std::string const&         service,
 		  config_ptr&                config,
 		  operation                  operation,
 		  sbuild::string_list const& chroots):
-  auth(service),
+  authstat(auth_ptr(new sbuild::auth(service))),
   config(config),
   chroots(chroots),
   chroot_status(true),
@@ -259,6 +259,18 @@ session::session (std::string const&         service,
 
 session::~session ()
 {
+}
+
+session::auth_ptr const&
+session::get_auth () const
+{
+  return this->authstat;
+}
+
+void
+session::set_auth (auth_ptr& auth)
+{
+  this->authstat = auth;
 }
 
 session::config_ptr const&
@@ -324,7 +336,7 @@ session::set_force (bool force)
 void
 session::save_termios ()
 {
-  string_list const& command(auth::get_command());
+  string_list const& command(authstat->get_command());
 
   this->termios_ok = false;
 
@@ -346,7 +358,7 @@ session::save_termios ()
 void
 session::restore_termios ()
 {
-  string_list const& command(auth::get_command());
+  string_list const& command(authstat->get_command());
 
   // Restore if running a login shell and have a controlling terminal,
   // and have previously saved the terminal state.
@@ -382,12 +394,12 @@ session::get_chroot_auth_status (auth::status status,
   bool in_root_groups = false;
 
   sbuild::string_list::const_iterator upos =
-    find(users.begin(), users.end(), get_ruser());
+    find(users.begin(), users.end(), authstat->get_ruser());
   if (upos != users.end())
     in_users = true;
 
   sbuild::string_list::const_iterator rupos =
-    find(root_users.begin(), root_users.end(), get_ruser());
+    find(root_users.begin(), root_users.end(), authstat->get_ruser());
   if (rupos != root_users.end())
     in_root_users = true;
 
@@ -422,26 +434,26 @@ session::get_chroot_auth_status (auth::status status,
    */
   if ((in_users == true || in_groups == true ||
        in_root_users == true || in_root_groups == true) &&
-      this->get_ruid() == this->get_uid())
+      this->authstat->get_ruid() == this->authstat->get_uid())
     {
-      status = change_auth(status, auth::STATUS_NONE);
+      status = auth::change_auth(status, auth::STATUS_NONE);
     }
   else if ((in_root_users == true || in_root_groups == true) &&
-	   this->get_uid() == 0)
+	   this->authstat->get_uid() == 0)
     {
-      status = change_auth(status, auth::STATUS_NONE);
+      status = auth::change_auth(status, auth::STATUS_NONE);
     }
   else if (in_users == true || in_groups == true)
     // Auth required if not in root group
     {
-      status = change_auth(status, auth::STATUS_USER);
+      status = auth::change_auth(status, auth::STATUS_USER);
     }
   else // Not in any groups
     {
-      if (this->get_ruid() == 0)
-	status = change_auth(status, auth::STATUS_USER);
+      if (this->authstat->get_ruid() == 0)
+	status = auth::change_auth(status, auth::STATUS_USER);
       else
-	status = change_auth(status, auth::STATUS_FAIL);
+	status = auth::change_auth(status, auth::STATUS_FAIL);
     }
 
   return status;
@@ -475,13 +487,68 @@ session::get_auth_status () const
 	{
 	  error e(*cur, CHROOT_ALIAS);
 	  log_exception_warning(e);
-	  status = change_auth(status, auth::STATUS_FAIL);
+	  status = auth::change_auth(status, auth::STATUS_FAIL);
 	}
 
-      status = change_auth(status, get_chroot_auth_status(status, chroot));
+      status = auth::change_auth(status, get_chroot_auth_status(status, chroot));
     }
 
   return status;
+}
+
+void
+session::run ()
+{
+  try
+    {
+      authstat->start();
+      authstat->authenticate(get_auth_status());
+      authstat->setupenv();
+      authstat->account();
+      try
+	{
+	  authstat->cred_establish();
+
+	  run_impl();
+
+	  /* The session is now finished, either
+	     successfully or not.  All PAM operations are
+	     now for cleanup and shutdown, and we must
+	     clean up whether or not errors were raised at
+	     any previous point.  This means only the
+	     first error is reported back to the user. */
+
+	  /* Don't cope with failure, since we are now
+	     already bailing out, and an error may already
+	     have been raised */
+	}
+      catch (auth::error const& e)
+	{
+	  try
+	    {
+	      authstat->cred_delete();
+	    }
+	  catch (auth::error const& discard)
+	    {
+	    }
+	  throw;
+	}
+      authstat->cred_delete();
+    }
+  catch (auth::error const& e)
+    {
+      try
+	{
+	  /* Don't cope with failure, since we are now already bailing out,
+	     and an error may already have been raised */
+	  authstat->stop();
+	}
+      catch (auth::error const& discard)
+	{
+	}
+      throw;
+    }
+  authstat->stop();
 }
 
 void
@@ -613,7 +680,7 @@ session::run_impl ()
 		    {
 		      try
 			{
-			  open_session();
+			  authstat->open_session();
 			  save_termios();
 			  run_chroot(chroot);
 			}
@@ -622,11 +689,11 @@ session::run_impl ()
 			  log_debug(DEBUG_WARNING)
 			    << "Chroot session failed" << endl;
 			  restore_termios();
-			  close_session();
+			  authstat->close_session();
 			  throw;
 			}
 		      restore_termios();
-		      close_session();
+		      authstat->close_session();
 		    }
 
 		}
@@ -688,7 +755,7 @@ session::get_login_directories () const
 {
   string_list ret;
 
-  std::string const& wd(get_wd());
+  std::string const& wd(authstat->get_wd());
   if (!wd.empty())
     {
       // Set specified working directory.
@@ -700,15 +767,15 @@ session::get_login_directories () const
       ret.push_back(this->cwd);
 
       // Set $HOME.
-      environment env = get_pam_environment();
+      environment env = authstat->get_pam_environment();
       std::string home;
       if (env.get("HOME", home) &&
 	  std::find(ret.begin(), ret.end(), home) == ret.end())
 	ret.push_back(home);
 
       // Set passwd home.
-      if (std::find(ret.begin(), ret.end(), get_home()) == ret.end())
-	ret.push_back(get_home());
+      if (std::find(ret.begin(), ret.end(), authstat->get_home()) == ret.end())
+	ret.push_back(authstat->get_home());
 
       // Final fallback to root.
       if (std::find(ret.begin(), ret.end(), "/") == ret.end())
@@ -723,7 +790,7 @@ session::get_command_directories () const
 {
   string_list ret;
 
-  std::string const& wd(get_wd());
+  std::string const& wd(authstat->get_wd());
   if (!wd.empty())
     // Set specified working directory.
     ret.push_back(wd);
@@ -737,8 +804,8 @@ session::get_command_directories () const
 std::string
 session::get_shell () const
 {
-  assert (!auth::get_shell().empty());
-  std::string shell = auth::get_shell();
+  assert (!authstat->get_shell().empty());
+  std::string shell = authstat->get_shell();
 
   try
     {
@@ -783,7 +850,7 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
   std::string shell = get_shell();
   file = shell;
 
-  if (get_environment().empty() &&
+  if (authstat->get_environment().empty() &&
       session_chroot->get_command_prefix().empty())
     // Not keeping environment and can setup argv correctly; login shell
     {
@@ -793,11 +860,11 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
 
       log_debug(DEBUG_NOTICE)
 	<< format("Running login shell: %1%") % shell << endl;
-      if (get_uid() == 0 || get_ruid() != get_uid())
+      if (authstat->get_uid() == 0 || authstat->get_ruid() != authstat->get_uid())
 	syslog(LOG_USER|LOG_NOTICE,
 	       "[%s chroot] (%s->%s) Running login shell: '%s'",
 	       session_chroot->get_name().c_str(),
-	       get_ruser().c_str(), get_user().c_str(),
+	       authstat->get_ruser().c_str(), authstat->get_user().c_str(),
 	       shell.c_str());
     }
   else
@@ -805,20 +872,20 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
       command.push_back(shell);
       log_debug(DEBUG_NOTICE)
 	<< format("Running shell: %1%") % shell << endl;
-      if (get_uid() == 0 || get_ruid() != get_uid())
+      if (authstat->get_uid() == 0 || authstat->get_ruid() != authstat->get_uid())
 	syslog(LOG_USER|LOG_NOTICE,
 	       "[%s chroot] (%s->%s) Running shell: '%s'",
 	       session_chroot->get_name().c_str(),
-	       get_ruser().c_str(), get_user().c_str(),
+	       authstat->get_ruser().c_str(), authstat->get_user().c_str(),
 	       shell.c_str());
     }
 
-  if (get_verbosity() != auth::VERBOSITY_QUIET)
+  if (authstat->get_verbosity() != auth::VERBOSITY_QUIET)
     {
       std::string format_string;
-      if (get_ruid() == get_uid())
+      if (authstat->get_ruid() == authstat->get_uid())
 	{
-	  if (get_environment().empty() &&
+	  if (authstat->get_environment().empty() &&
 	      session_chroot->get_command_prefix().empty())
 	    // TRANSLATORS: %1% = chroot name
 	    // TRANSLATORS: %4% = command
@@ -830,7 +897,7 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
 	}
       else
 	{
-	  if (get_environment().empty() &&
+	  if (authstat->get_environment().empty() &&
 	      session_chroot->get_command_prefix().empty())
 	    // TRANSLATORS: %1% = chroot name
 	    // TRANSLATORS: %2% = user name
@@ -849,7 +916,7 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
 
       format fmt(format_string);
       fmt % session_chroot->get_name()
-	% get_ruser() % get_user()
+	% authstat->get_ruser() % authstat->get_user()
 	% shell;
       log_info() << fmt << endl;
     }
@@ -861,7 +928,7 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
 			   string_list&         command) const
 {
   /* Search for program in path. */
-  environment env = get_pam_environment();
+  environment env = authstat->get_pam_environment();
   std::string path;
   if (!env.get("PATH", path))
     path.clear();
@@ -872,14 +939,14 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
   std::string commandstring = string_list_to_string(command, " ");
   log_debug(DEBUG_NOTICE)
     << format("Running command: %1%") % commandstring << endl;
-  if (get_uid() == 0 || get_ruid() != get_uid())
+  if (authstat->get_uid() == 0 || authstat->get_ruid() != authstat->get_uid())
     syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
-	   session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), commandstring.c_str());
+	   session_chroot->get_name().c_str(), authstat->get_ruser().c_str(), authstat->get_user().c_str(), commandstring.c_str());
 
-  if (get_verbosity() != auth::VERBOSITY_QUIET)
+  if (authstat->get_verbosity() != auth::VERBOSITY_QUIET)
     {
       std::string format_string;
-      if (get_ruid() == get_uid())
+      if (authstat->get_ruid() == authstat->get_uid())
 	// TRANSLATORS: %1% = chroot name
 	// TRANSLATORS: %4% = command
 	format_string = _("[%1% chroot] Running command: \"%4%\"");
@@ -893,7 +960,7 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
 
       format fmt(format_string);
       fmt % session_chroot->get_name()
-	% get_ruser() % get_user()
+	% authstat->get_ruser() % authstat->get_user()
 	% commandstring;
       log_info() << fmt << endl;
     }
@@ -987,10 +1054,10 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
      chroot type. */
   environment env;
   session_chroot->setup_env(env);
-  env.add("AUTH_USER", get_user());
+  env.add("AUTH_USER", authstat->get_user());
   {
     const char *verbosity = 0;
-    switch (get_verbosity())
+    switch (authstat->get_verbosity())
       {
       case auth::VERBOSITY_QUIET:
 	verbosity = "quiet";
@@ -1003,7 +1070,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 	break;
       default:
 	log_debug(DEBUG_CRITICAL) << format("Invalid verbosity level: %1%, falling back to 'normal'")
-	  % static_cast<int>(get_verbosity())
+	  % static_cast<int>(authstat->get_verbosity())
 		     << endl;
 	verbosity = "normal";
 	break;
@@ -1024,7 +1091,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 	       true, true, 022);
   rp.set_reverse((setup_type == chroot::SETUP_STOP ||
 		  setup_type == chroot::EXEC_STOP));
-  rp.set_verbose(get_verbosity() == auth::VERBOSITY_VERBOSE);
+  rp.set_verbose(authstat->get_verbosity() == auth::VERBOSITY_VERBOSE);
 
   log_debug(DEBUG_INFO) << rp << std::endl;
 
@@ -1097,9 +1164,9 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 {
   assert(!session_chroot->get_name().empty());
 
-  assert(!get_user().empty());
+  assert(!authstat->get_user().empty());
   assert(!get_shell().empty());
-  assert(auth::pam != 0); // PAM must be initialised
+  assert(authstat->is_initialised()); // PAM must be initialised
 
   // Store before chroot call.
   this->cwd = getcwd();
@@ -1109,10 +1176,10 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   log_debug(DEBUG_INFO) << "location=" << location << std::endl;
 
   /* Set group ID and supplementary groups */
-  if (setgid (get_gid()))
-    throw error(get_gid(), GROUP_SET, strerror(errno));
-  log_debug(DEBUG_NOTICE) << "Set GID=" << get_gid() << std::endl;
-  if (initgroups (get_user().c_str(), get_gid()))
+  if (setgid (authstat->get_gid()))
+    throw error(authstat->get_gid(), GROUP_SET, strerror(errno));
+  log_debug(DEBUG_NOTICE) << "Set GID=" << authstat->get_gid() << std::endl;
+  if (initgroups (authstat->get_user().c_str(), authstat->get_gid()))
     throw error(GROUP_SET_SUP, strerror(errno));
   log_debug(DEBUG_NOTICE) << "Set supplementary groups" << std::endl;
 
@@ -1131,16 +1198,16 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   log_debug(DEBUG_NOTICE) << "Changed root to " << location << std::endl;
 
   /* Set uid and check we are not still root */
-  if (setuid (get_uid()))
-    throw error(get_uid(), USER_SET, strerror(errno));
-  log_debug(DEBUG_NOTICE) << "Set UID=" << get_uid() << std::endl;
-  if (!setuid (0) && get_uid())
+  if (setuid (authstat->get_uid()))
+    throw error(authstat->get_uid(), USER_SET, strerror(errno));
+  log_debug(DEBUG_NOTICE) << "Set UID=" << authstat->get_uid() << std::endl;
+  if (!setuid (0) && authstat->get_uid())
     throw error(ROOT_DROP);
-  if (get_uid())
+  if (authstat->get_uid())
     log_debug(DEBUG_NOTICE) << "Dropped root privileges" << std::endl;
 
   std::string file;
-  string_list command(auth::get_command());
+  string_list command(authstat->get_command());
 
   string_list dlist;
   if (command.empty() ||
@@ -1187,16 +1254,16 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   /* Set up environment */
   environment env;
   env.set_filter(session_chroot->get_environment_filter());
-  env += get_pam_environment();
+  env += authstat->get_pam_environment();
 
   // Add equivalents to sudo's SUDO_USER, SUDO_UID, SUDO_GID, and
   // SUDO_COMMAND.
   env.add(std::make_pair("SCHROOT_COMMAND",
 			 string_list_to_string(command, " ")));
-  env.add(std::make_pair("SCHROOT_USER", get_ruser()));
-  env.add(std::make_pair("SCHROOT_GROUP", get_rgroup()));
-  env.add("SCHROOT_UID", get_ruid());
-  env.add("SCHROOT_GID", get_rgid());
+  env.add(std::make_pair("SCHROOT_USER", authstat->get_ruser()));
+  env.add(std::make_pair("SCHROOT_GROUP", authstat->get_rgroup()));
+  env.add("SCHROOT_UID", authstat->get_ruid());
+  env.add("SCHROOT_GID", authstat->get_rgid());
 
 
   log_debug(DEBUG_INFO) << "Set environment:\n" << env;

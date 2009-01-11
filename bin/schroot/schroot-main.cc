@@ -78,5 +78,5 @@ main::create_session(sbuild::session::operation sess_op)
     (new sbuild::session("schroot", this->config, sess_op, this->chroots));
 
   if (!this->options->user.empty())
-    this->session->set_user(this->options->user);
+    this->session->get_auth()->set_user(this->options->user);
 }

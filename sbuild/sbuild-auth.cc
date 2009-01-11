@@ -372,68 +372,6 @@ auth::set_conv (conv_ptr& conv)
 }
 
 void
-auth::run ()
-{
-  try
-    {
-      start();
-      authenticate();
-      setupenv();
-      account();
-      try
-	{
-	  cred_establish();
-
-	  const char *authuser = 0;
-	  const void *tmpcast = reinterpret_cast<const void *>(authuser);
-	  pam_get_item(this->pam, PAM_USER, &tmpcast);
-	  log_debug(DEBUG_INFO)
-	    << format("PAM authentication succeeded for user %1%") % authuser
-	    << endl;
-
-	  run_impl();
-
-	  /* The session is now finished, either
-	     successfully or not.  All PAM operations are
-	     now for cleanup and shutdown, and we must
-	     clean up whether or not errors were raised at
-	     any previous point.  This means only the
-	     first error is reported back to the user. */
-
-	  /* Don't cope with failure, since we are now
-	     already bailing out, and an error may already
-	     have been raised */
-	}
-      catch (error const& e)
-	{
-	  try
-	    {
-	      cred_delete();
-	    }
-	  catch (error const& discard)
-	    {
-	    }
-	  throw;
-	}
-      cred_delete();
-    }
-  catch (error const& e)
-    {
-      try
-	{
-	  /* Don't cope with failure, since we are now already bailing out,
-	     and an error may already have been raised */
-	  stop();
-	}
-      catch (error const& discard)
-	{
-	}
-      throw;
-    }
-  stop();
-}
-
-void
 auth::start ()
 {
   assert(!this->user.empty());
@@ -484,7 +422,7 @@ auth::stop ()
 }
 
 void
-auth::authenticate ()
+auth::authenticate (status auth_status)
 {
   assert(!this->user.empty());
   assert(this->pam != 0); // PAM must be initialised
@@ -537,7 +475,7 @@ auth::authenticate ()
     }
 
   /* Authenticate as required. */
-  switch (get_auth_status())
+  switch (auth_status)
     {
     case STATUS_NONE:
       if ((pam_status = pam_set_item(this->pam, PAM_USER, this->user.c_str()))
@@ -672,6 +610,13 @@ auth::cred_establish ()
     }
 
   log_debug(DEBUG_NOTICE) << "pam_setcred OK" << endl;
+
+  const char *authuser = 0;
+  const void *tmpcast = reinterpret_cast<const void *>(authuser);
+  pam_get_item(this->pam, PAM_USER, &tmpcast);
+  log_debug(DEBUG_INFO)
+    << format("PAM authentication succeeded for user %1%") % authuser
+    << endl;
 }
 
 void
@@ -725,14 +670,10 @@ auth::close_session ()
   log_debug(DEBUG_NOTICE) << "pam_close_session OK" << endl;
 }
 
-auth::status
-auth::get_auth_status () const
+bool
+auth::is_initialised () const
 {
-  status authtype = STATUS_NONE;
-
-  authtype = change_auth(authtype, STATUS_USER);
-
-  return authtype;
+  return this->pam != 0;
 }
 
 const char *
