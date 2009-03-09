@@ -121,15 +121,8 @@ namespace
   }
 
   /// A streambuf for cctty.
-#ifdef SCHROOT_FILEBUF_OLD
-  __gnu_cxx::stdio_filebuf<char> cttybuf(cttybuf_fd(),
-					 std::ios::in|std::ios::out,
-					 true,
-					 BUFSIZ);
-#else
   __gnu_cxx::stdio_filebuf<char> cttybuf(cttybuf_fd(),
 					 std::ios::in|std::ios::out);
-#endif
 
 }
 

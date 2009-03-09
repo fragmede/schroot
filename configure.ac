@@ -290,23 +290,13 @@ LDFLAGS="${saved_ldflags}"
 
 AC_SUBST([BOOST_LIBS])
 
-AC_MSG_CHECKING([__gnu_cxx::stdio_filebuf construction semantics])
+AC_MSG_CHECKING([for __gnu_cxx::stdio_filebuf in libstdc++])
 AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <ext/stdio_filebuf.h>
 #include <unistd.h>],
                                 [__gnu_cxx::stdio_filebuf<char> fdbuf(STDOUT_FILENO, std::ios::out)])],
-               [AC_MSG_RESULT([new (GCC >= 3.4)])
-	        STDIO_FILEBUF="new"],
-               [AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <ext/stdio_filebuf.h>
-#include <unistd.h>],
-		               [__gnu_cxx::stdio_filebuf<char> fdbuf(STDOUT_FILENO, std::ios::out, true, BUFSIZ)])],
-                               [AC_MSG_RESULT([old (GCC < 3.4)])
-	                        STDIO_FILEBUF="old"],
-                               [AC_MSG_FAILURE([__gnu_cxx::stdio_filebuf (GNU libstdc++) is not installed, but is required by schroot])])])
-
-AH_TEMPLATE(SCHROOT_FILEBUF_OLD, [Set if old __gnu_cxx::stdio_filebuf construction semantics are required])
-if test "$STDIO_FILEBUF" = "old"; then
-  AC_DEFINE(SCHROOT_FILEBUF_OLD, 1)
-fi
+               [AC_MSG_RESULT([yes])],
+               [AC_MSG_RESULT([no])
+                AC_MSG_FAILURE([__gnu_cxx::stdio_filebuf (GNU libstdc++) is not installed, but is required by schroot])])
 
 dnl Set PACKAGE_LOCALE_DIR in config.h
 AH_TEMPLATE(PACKAGE_LOCALE_DIR, [Package locale directory])
