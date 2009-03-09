@@ -183,7 +183,11 @@ namespace
 	    gid_t *supp_groups = new gid_t[supp_group_count];
 	    assert (supp_groups);
 	    if (getgroups(supp_group_count, supp_groups) < 1)
-	      throw session::error(session::GROUP_GET_SUP, strerror(errno));
+	      {
+		// Free supp_groups before throwing to avoid leak.
+		delete[] supp_groups;
+		throw session::error(session::GROUP_GET_SUP, strerror(errno));
+	      }
 
 	    for (int i = 0; i < supp_group_count; ++i)
 	      {
