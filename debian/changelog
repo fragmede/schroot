@@ -4,8 +4,10 @@ schroot (1.3.0-1) experimental; urgency=low
   * debian/control: libsbuild-dev is in section libdevel.
   * schroot.conf: Use current distribution names (lenny and squeeze
     in place of sarge and etch (Closes: #516272).
+  * sbuild-session.cc: Fix potential memory leak in is_group_member()
+    (Closes: #517223). 
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 09 Mar 2009 20:04:41 +0000
+ -- Roger Leigh <rleigh@debian.org>  Mon, 09 Mar 2009 20:41:31 +0000
 
 schroot (1.2.1-1) unstable; urgency=low
 
