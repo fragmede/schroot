@@ -18,7 +18,7 @@
 .SH NAME
 schroot\-setup \- schroot chroot setup scripts
 .SH DESCRIPTION
-\fBschroot\fP uses scripts to to set up and then clean up the chroot
+\fBschroot\fP uses scripts to set up and then clean up the chroot
 environment.  The directories \f[BI]@SCHROOT_CONF_SETUP_D@\fP and
 \f[BI]@SCHROOT_CONF_EXEC_D@\fP contain scripts run when a chroot is created and
 destroyed, and entered and left, respectively.  Several environment variables

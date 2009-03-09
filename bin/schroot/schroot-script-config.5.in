@@ -18,7 +18,7 @@
 .SH NAME
 schroot-script-config \- schroot chroot setup script configuration
 .SH DESCRIPTION
-\fBschroot\fP uses scripts to to set up and then clean up the chroot
+\fBschroot\fP uses scripts to set up and then clean up the chroot
 environment.  These scripts may be customised using the \f[CI]script\-config\fP
 key in \fI@SCHROOT_CONF@\fP.  This key specifies a file which the setup scripts
 will source when they are run.  The file is a Bourne shell script, and in
