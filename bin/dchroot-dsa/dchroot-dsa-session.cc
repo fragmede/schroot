@@ -38,6 +38,7 @@
 using std::cout;
 using std::endl;
 using sbuild::_;
+using sbuild::auth;
 using boost::format;
 using namespace dchroot_dsa;
 
@@ -68,19 +69,21 @@ session::get_chroot_auth_status (sbuild::auth::status status,
       sbuild::string_list const& users = chroot->get_users();
       sbuild::string_list const& groups = chroot->get_groups();
 
-      if (this->get_ruid() == this->get_uid() &&
+      if (get_auth()->get_ruid() == get_auth()->get_uid() &&
 	  users.empty() && groups.empty())
-	status = change_auth(status, auth::STATUS_NONE);
+	status = auth::change_auth(status, auth::STATUS_NONE);
       else
-	status = change_auth(status,
-			     sbuild::session::get_chroot_auth_status(status,
-								     chroot));
+	status =
+	  auth::change_auth(status,
+			    sbuild::session::get_chroot_auth_status(status,
+								    chroot));
     }
   else // schroot compatibility
     {
-      status = change_auth(status,
-			   sbuild::session::get_chroot_auth_status(status,
-								   chroot));
+      status =
+	auth::change_auth(status,
+			  sbuild::session::get_chroot_auth_status(status,
+								  chroot));
     }
 
   return status;
@@ -91,7 +94,7 @@ session::get_login_directories () const
 {
   sbuild::string_list ret;
 
-  std::string const& wd(get_wd());
+  std::string const& wd(get_auth()->get_wd());
   if (!wd.empty())
     {
       // Set specified working directory.
@@ -99,7 +102,7 @@ session::get_login_directories () const
     }
   else
     {
-      ret.push_back(get_home());
+      ret.push_back(get_auth()->get_home());
 
       // Final fallback to root.
       if (std::find(ret.begin(), ret.end(), "/") == ret.end())
@@ -123,11 +126,15 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
   std::string commandstring = sbuild::string_list_to_string(command, " ");
   sbuild::log_debug(sbuild::DEBUG_NOTICE)
     << format("Running command: %1%") % commandstring << endl;
-  if (get_uid() == 0 || get_ruid() != get_uid())
+  if (get_auth()->get_uid() == 0 ||
+      get_auth()->get_ruid() != get_auth()->get_uid())
     syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
-	   session_chroot->get_name().c_str(), get_ruser().c_str(), get_user().c_str(), commandstring.c_str());
+	   session_chroot->get_name().c_str(),
+	   get_auth()->get_ruser().c_str(),
+	   get_auth()->get_user().c_str(),
+	   commandstring.c_str());
 
-  if (get_verbosity() != auth::VERBOSITY_QUIET)
+  if (get_auth()->get_verbosity() != auth::VERBOSITY_QUIET)
     {
       std::string format_string;
       // TRANSLATORS: %1% = chroot name

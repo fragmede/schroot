@@ -68,8 +68,8 @@ session_base::set_compat (bool state)
 void
 session_base::run_impl ()
 {
-  if (get_ruid() != get_uid())
-    throw error(get_ruser(), get_user(), USER_SWITCH,
+  if (get_auth()->get_ruid() != get_auth()->get_uid())
+    throw error(get_auth()->get_ruser(), get_auth()->get_user(), USER_SWITCH,
 		_("dchroot session restriction"));
 
   sbuild::session::run_impl();
