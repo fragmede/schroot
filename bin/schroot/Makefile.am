@@ -54,6 +54,7 @@ pkgsysconf_DATA = 		\
 	schroot.conf		\
 	copyfiles-defaults	\
 	mount-defaults		\
+	nssdatabases-defaults	\
 	script-defaults
 
 man_MANS =			\

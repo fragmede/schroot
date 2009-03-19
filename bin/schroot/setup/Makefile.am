@@ -30,6 +30,7 @@ setup_SCRIPTS =		\
 	10mount		\
 	15killprocs	\
 	20copyfiles	\
+	20nssdatabases	\
 	50chrootname
 
 EXTRA_DIST =			\

@@ -1,0 +1,58 @@
+#!/bin/sh
+# Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
+#
+# schroot is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# schroot is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see
+# <http://www.gnu.org/licenses/>.
+#
+#####################################################################
+
+set -e
+
+if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
+    . "$CHROOT_SCRIPT_CONFIG"
+elif [ "$2" = "ok" ]; then
+    echo "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
+    exit 1
+fi
+
+if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+  VERBOSE="--verbose"
+fi
+
+# Copy NSS database from host to chroot
+# $1: database name
+# $2: destination file name
+dup_nss()
+{
+    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	echo "Copying $1 database to $2"
+    fi
+    getent "$1" > "$2"
+}
+
+if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
+
+    if [ -n "$NSSDATABASES" ]; then
+	if [ -f "$NSSDATABASES" ]; then
+	    while read db; do
+		dup_nss "$db" "${CHROOT_PATH}/etc/$db"
+	    done < "$NSSDATABASES"
+	else
+	    echo "nssdatabases file '$NSSDATABASES' does not exist"
+	    exit 1
+	fi
+    fi
+
+fi
+
