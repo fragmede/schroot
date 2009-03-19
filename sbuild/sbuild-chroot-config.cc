@@ -126,10 +126,17 @@ chroot_config::add_config_directory (std::string const& dir,
   direntry de;
   while (stream >> de)
     {
-      if (de.name() == "." || de.name() == "..")
+      std::string name(de.name());
+
+      // Skip common directories.
+      if (name == "." || name == "..")
 	continue;
 
-      std::string filename = dir + "/" + de.name();
+      // Skip backup files and dpkg configuration backup files.
+      if (!is_valid_filename(name))
+	continue;
+
+      std::string filename = dir + "/" + name;
 
       try
 	{

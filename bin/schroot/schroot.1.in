@@ -502,7 +502,10 @@ user, and not be writable by other.
 \f[BI]@SCHROOT_CONF_CHROOT_D@\fP
 Additional chroot definitions may be placed in files under this directory.
 They are treated in exactly that same manner as \fI@SCHROOT_CONF@\fP.  Each
-file may contain one or more chroot definitions.
+file may contain one or more chroot definitions.  Note that the files in this
+directory follow the same naming rules as
+.BR run\-parts (8)
+when run with the \fI\-\-lsbsysinit\fP option.
 .TP
 \f[BI]@SCHROOT_CONF_SETUP_D@\fP
 .TP
@@ -525,6 +528,7 @@ version.
 .BR dchroot (1),
 .BR sbuild (1),
 .BR chroot (2),
+.BR run\-parts (8),
 .BR schroot\-setup (5),
 .BR schroot.conf (5).
 .\"#
