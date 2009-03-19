@@ -27,6 +27,8 @@
 
 #include <sys/wait.h>
 
+#include <syslog.h>
+
 #include <boost/format.hpp>
 
 using boost::format;
@@ -183,6 +185,10 @@ run_parts::run_child (std::string const& file,
 	      % string_list_to_string(command, " ")
 		       << std::endl;
 	  ::umask(this->umask);
+
+	  // Don't leak syslog file descriptor to child processes.
+	  closelog();
+
 	  exec(this->directory + '/' + file, command, env);
 	  error e(file, EXEC, strerror(errno));
 	  log_exception_error(e);
