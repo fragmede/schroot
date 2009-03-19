@@ -134,10 +134,10 @@ Description: Execute commands in a chroot environment
  .
  NOTE: the schroot package provides a better implementation of
  dchroot-dsa.  In particular:
-  * dchroot-dsa only only allows the specification of a single
-    command with an absolute path, and no options may be used with the
-    command; schroot allows the use of relative and absolute paths with
-    no limit on the number of options.
+  * dchroot-dsa only allows the specification of a single command with
+    an absolute path, and no options may be used with the command;
+    schroot allows the use of relative and absolute paths with no
+    limit on the number of options.
   * dchroot-dsa only allows one chroot to be used at once; schroot will
     allow the use of as many chroots as desired.
   * dchroot-dsa allows access to be restricted to named users; schroot
