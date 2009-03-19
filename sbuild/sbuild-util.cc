@@ -158,6 +158,36 @@ sbuild::is_absname (std::string const& name)
     return true;
 }
 
+bool
+sbuild::is_valid_filename (std::string const& name,
+			   bool               lsb_mode)
+{
+  bool match = false;
+
+  if (lsb_mode)
+    {
+      static regex lanana_namespace("^[a-z0-9]+$");
+      static regex lsb_namespace("^_?([a-z0-9_.]+-)+[a-z0-9]+$");
+      static regex debian_cron_namespace("^[a-z0-9][a-z0-9-]*$");
+      static regex debian_dpkg_conffile_cruft("dpkg-(old|dist|new|tmp)$");
+
+      if ((regex_search(name, lanana_namespace) ||
+	   regex_search(name, lsb_namespace) ||
+	   regex_search(name, debian_cron_namespace)) &&
+	  !regex_search(name, debian_dpkg_conffile_cruft))
+	match = true;
+    }
+  else
+    {
+      static regex traditional_namespace("^[a-zA-Z0-9_-]$");
+      if (regex_search(name, traditional_namespace))
+	match = true;
+    }
+
+  return match;
+}
+
+
 std::string
 sbuild::string_list_to_string (sbuild::string_list const& list,
 			       std::string const&         separator)

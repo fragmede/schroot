@@ -173,15 +173,6 @@ namespace sbuild
     wait_for_child (pid_t pid,
 		    int&  child_status);
 
-    /**
-     * Check a filename matches the allowed pattern(s).
-     *
-     * @param name the filename to check.
-     * @returns true if it matches, false if not.
-     */
-    bool
-    check_filename (std::string const& name);
-
     /// A sorted set of filenames to use.
     typedef std::set<std::string> program_set;
 

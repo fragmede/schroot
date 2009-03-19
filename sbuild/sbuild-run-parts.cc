@@ -19,7 +19,6 @@
 #include <config.h>
 
 #include "sbuild-dirstream.h"
-#include "sbuild-regex.h"
 #include "sbuild-run-parts.h"
 #include "sbuild-util.h"
 
@@ -75,11 +74,13 @@ run_parts::run_parts (std::string const& directory,
   direntry de;
   while (stream >> de)
     {
-      if (de.name() == "." || de.name() == "..")
+      // Skip common directories.
+      std::string name(de.name());
+      if (name == "." || name == "..")
 	continue;
 
-      std::string name(de.name());
-      if (check_filename(name))
+      // Skip backup files and dpkg configuration backup files.
+      if (is_valid_filename(name, this->lsb_mode))
 	this->programs.insert(name);
     }
 }
@@ -244,32 +245,4 @@ run_parts::wait_for_child (pid_t pid,
 
   if (WIFEXITED(status))
     child_status = WEXITSTATUS(status);
-}
-
-bool
-run_parts::check_filename (std::string const& name)
-{
-  bool match = false;
-
-  if (this->lsb_mode)
-    {
-      static regex lanana_namespace("^[a-z0-9]+$");
-      static regex lsb_namespace("^_?([a-z0-9_.]+-)+[a-z0-9]+$");
-      static regex debian_cron_namespace("^[a-z0-9][a-z0-9-]*$");
-      static regex debian_dpkg_conffile_cruft("dpkg-(old|dist|new|tmp)$");
-
-      if ((regex_search(name, lanana_namespace) ||
-	   regex_search(name, lsb_namespace) ||
-	   regex_search(name, debian_cron_namespace)) &&
-	  !regex_search(name, debian_dpkg_conffile_cruft))
-	match = true;
-    }
-  else
-    {
-      static regex traditional_namespace("^[a-zA-Z0-9_-]$");
-      if (regex_search(name, traditional_namespace))
-	match = true;
-    }
-
-  return match;
 }

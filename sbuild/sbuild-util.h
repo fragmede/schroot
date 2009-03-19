@@ -21,6 +21,7 @@
 
 #include <sbuild/sbuild-environment.h>
 #include <sbuild/sbuild-error.h>
+#include <sbuild/sbuild-regex.h>
 #include <sbuild/sbuild-types.h>
 
 #include <string>
@@ -77,6 +78,19 @@ namespace sbuild
    */
   bool
   is_absname (std::string const& name);
+
+  /**
+   * Check if a filename matches the allowed pattern(s).  This will
+   * not match dotfiles, backup files, dpkg configuration backup
+   * files, etc.  This uses the same rules as run-parts(8).
+   *
+   * @param name the filename to check.
+   * @param lsb_mode true to use LSB mode, otherwise false.
+   * @returns true if it matches, false if not.
+   */
+  bool
+  is_valid_filename (std::string const& name,
+		     bool               lsb_mode = true);
 
   /**
    * Convert a string_list into a string.  The strings are
