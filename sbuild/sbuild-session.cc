@@ -1091,6 +1091,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   }
 
   env.add("MOUNT_DIR", SCHROOT_MOUNT_DIR);
+  env.add("UNPACK_DIR", SCHROOT_UNPACK_DIR);
   env.add("LIBEXEC_DIR", SCHROOT_LIBEXEC_DIR);
   env.add("PID", getpid());
   env.add("SESSION_ID", this->session_id);
