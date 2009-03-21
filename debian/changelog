@@ -7,7 +7,10 @@ schroot (1.3.0-1) experimental; urgency=low
     - Build-Depend on debhelper v7.
     - Update to Standards Version 3.8.1.
   * debian/compat: Use debhelper v7 compatibility mode.
-  * debian/rules: Use dh_prep in place of dh_clean -k.
+  * debian/rules:
+    - Use dh_prep in place of dh_clean -k.
+    - Configure with --with-bash-completion-dir.
+  * schroot: Install bash completion.
   * schroot.conf: Use current distribution names (lenny and squeeze
     in place of sarge and etch (Closes: #516272).
   * sbuild-session.cc: Fix potential memory leak in is_group_member()
@@ -17,7 +20,7 @@ schroot (1.3.0-1) experimental; urgency=low
   * schroot now ignores backup files (including dpkg conffile backups)
     in /etc/schroot/chroot.d (Closes: #513307, #496629).
 
- -- Roger Leigh <rleigh@debian.org>  Thu, 19 Mar 2009 23:26:21 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sat, 21 Mar 2009 15:58:58 +0000
 
 schroot (1.2.1-1) unstable; urgency=low
 
