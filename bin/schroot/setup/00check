@@ -40,6 +40,7 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 	echo "AUTH_SHELL=$AUTH_SHELL"
 	echo "AUTH_VERBOSITY=$AUTH_VERBOSITY"
 	echo "MOUNT_DIR=$MOUNT_DIR"
+	echo "UNPACK_DIR=$UNPACK_DIR"
 	echo "LIBEXEC_DIR=$LIBEXEC_DIR"
 	echo "PID=$PID"
 	echo "SESSION_ID=$SESSION_ID"

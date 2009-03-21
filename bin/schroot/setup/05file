@@ -97,35 +97,28 @@ if [ "$CHROOT_TYPE" = "file" ]; then
 
     check_filetype
 
+    UNPACK_LOCATION="${UNPACK_DIR}/${SESSION_ID}"
+
     if [ $1 = "setup-start" ]; then
 
-        if [ ! -d "$CHROOT_MOUNT_LOCATION" ]; then
-	    mkdir -p "$CHROOT_MOUNT_LOCATION"
+        if [ ! -d "$UNPACK_LOCATION" ]; then
+	    mkdir -p "$UNPACK_LOCATION"
         fi
-	cd "$CHROOT_MOUNT_LOCATION"
+	cd "$UNPACK_LOCATION"
 
 	unpack_file
 
     elif [ "$1" = "setup-stop" ]; then
 
 	if [ "$2" = "ok" ] && [ "$CHROOT_FILE_REPACK" = "true" ]; then
-	    cd "$CHROOT_MOUNT_LOCATION" && repack_file
+	    cd "$UNPACK_LOCATION" && repack_file
 	fi
-
-	"$LIBEXEC_DIR/schroot-listmounts" -m "$CHROOT_MOUNT_LOCATION" |
-	while read mountloc; do
-	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-		echo "Not purging $CHROOT_MOUNT_LOCATION; filesystems are mounted:"
-		"$LIBEXEC_DIR/schroot-listmounts" -m "$CHROOT_MOUNT_LOCATION"
-	    fi
-	    exit 1
-	done || exit 1
 
 	if [ "$CHROOT_SESSION_PURGE" = "true" ]; then
 	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-		echo "Purging $CHROOT_MOUNT_LOCATION"
+		echo "Purging $UNPACK_LOCATION"
 	    fi
-	    rm -rf "$CHROOT_MOUNT_LOCATION"
+	    rm -rf "$UNPACK_LOCATION"
 	fi
 
     fi

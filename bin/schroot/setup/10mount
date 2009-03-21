@@ -70,7 +70,7 @@ if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 #  FSCK_VERBOSE="-V"
 fi
 
-if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "loopback" ] || [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
+if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "loopback" ] || [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 
     if [ "$CHROOT_TYPE" = "plain" ]; then
 	CHROOT_MOUNT_OPTIONS="--rbind"
@@ -78,6 +78,10 @@ if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROO
     elif [ "$CHROOT_TYPE" = "directory" ]; then
 	CHROOT_MOUNT_OPTIONS="--bind"
 	CHROOT_MOUNT_DEVICE="$CHROOT_LOCATION"
+    elif [ "$CHROOT_TYPE" = "file" ]; then
+	UNPACK_LOCATION="${UNPACK_DIR}/${SESSION_ID}"
+	CHROOT_MOUNT_OPTIONS="--bind"
+	CHROOT_MOUNT_DEVICE="$UNPACK_LOCATION"
     elif [ "$CHROOT_TYPE" = "loopback" ]; then
 	CHROOT_MOUNT_OPTIONS="$CHROOT_MOUNT_OPTIONS -o loop"
     elif [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
@@ -103,9 +107,7 @@ if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROO
 	    do_umount_all "$CHROOT_MOUNT_LOCATION"
 	fi
 
-	if [ "$CHROOT_TYPE" != "file" ]; then
-	    do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
-	fi
+	do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
 
 	if [ "$CHROOT_TYPE" != "plain" ]; then
 	    if [ -n "$FSTAB" ]; then
