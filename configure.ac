@@ -174,6 +174,13 @@ if test "$enable_debug" = "yes"; then
   AC_DEFINE_UNQUOTED([SBUILD_DEBUG], [1], [Enable debugging])
 fi
 
+AC_MSG_CHECKING([for bash completion directory])
+bashcompletiondir='${sysconfdir}/bash_completion.d'
+AC_ARG_WITH([bash-completion-dir], [AS_HELP_STRING([--with-bash-completion-dir], [bash shell completion directory])],
+              [bashcompletiondir="${withval}"])
+AC_MSG_RESULT([$bashcompletiondir])
+AC_SUBST([bashcompletiondir])
+
 # Checks for programs.
 AC_PROG_CXX
 AC_LANG([C++])
@@ -383,6 +390,11 @@ AC_SUBST([SCHROOT_SESSION_DIR])
 AH_TEMPLATE(SCHROOT_SESSION_DIR, [schroot session directory])
 AC_DEFINE_UNQUOTED(SCHROOT_SESSION_DIR, ["$SCHROOT_SESSION_DIR"])
 
+SCHROOT_UNPACK_DIR="${PACKAGE_LOCALSTATE_DIR}/lib/${PACKAGE}/unpack"
+AC_SUBST([SCHROOT_UNPACK_DIR])
+AH_TEMPLATE(SCHROOT_UNPACK_DIR, [schroot unpack directory])
+AC_DEFINE_UNQUOTED(SCHROOT_UNPACK_DIR, ["$SCHROOT_UNPACK_DIR"])
+
 dnl Set PACKAGE_SYSCONF_DIR in config.h.
 AH_TEMPLATE(PACKAGE_SYSCONF_DIR, [Package system configuration directory])
 if test "x${sysconfdir}" = 'x${prefix}/etc'; then
@@ -465,6 +477,7 @@ AC_CONFIG_FILES([bin/schroot/Makefile])
 AC_CONFIG_FILES([bin/schroot/pam/Makefile])
 AC_CONFIG_FILES([bin/schroot/exec/Makefile])
 AC_CONFIG_FILES([bin/schroot/setup/Makefile])
+AC_CONFIG_FILES([bin/schroot/bash_completion/Makefile])
 AC_CONFIG_FILES([bin/schroot/schroot.1])
 AC_CONFIG_FILES([bin/schroot/schroot-setup.5])
 AC_CONFIG_FILES([bin/schroot/schroot.conf.5])

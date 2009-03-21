@@ -21,7 +21,7 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-SUBDIRS = pam exec setup
+SUBDIRS = pam exec setup bash_completion
 
 localedir = $(datadir)/locale
 
