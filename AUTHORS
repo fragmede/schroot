@@ -1,7 +1,7 @@
 The list of contributors, in alphabetical order, is as follows.  The
 principal areas that each contributed to are listed in addition.
 
-Tim Abbott <tabbott@mit.edu>
+Tim Abbott		<tabbott@mit.edu>
 	schroot bash completion.
 
 Andreas Bombe		<aeb@debian.org>
@@ -10,6 +10,9 @@ Andreas Bombe		<aeb@debian.org>
 Kees Cook		<kees@outflux.net>
 	15killprocs script to kill processes.
 	schroot-mount improvements.
+
+Jan-Marek Glogowski	<glogow@fbihome.de>
+	Unionfs support
 
 Federico Di Gregorio	<fog@debian.org>
 	Init script improvements.
