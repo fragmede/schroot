@@ -30,6 +30,14 @@ if [ $1 = "exec-start" ]; then
 
     if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 	echo "AUTH_USER=$AUTH_USER"
+	echo "AUTH_RUSER=$AUTH_RUSER"
+	echo "AUTH_RGROUP=$AUTH_RGROUP"
+	echo "AUTH_UID=$AUTH_UID"
+	echo "AUTH_GID=$AUTH_GID"
+	echo "AUTH_RUID=$AUTH_RUID"
+	echo "AUTH_RGID=$AUTH_RGID"
+	echo "AUTH_HOME=$AUTH_HOME"
+	echo "AUTH_SHELL=$AUTH_SHELL"
 	echo "AUTH_VERBOSITY=$AUTH_VERBOSITY"
 	echo "MOUNT_DIR=$MOUNT_DIR"
 	echo "LIBEXEC_DIR=$LIBEXEC_DIR"

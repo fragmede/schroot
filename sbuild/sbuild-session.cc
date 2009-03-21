@@ -1059,6 +1059,14 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   environment env;
   session_chroot->setup_env(env);
   env.add("AUTH_USER", this->authstat->get_user());
+  env.add("AUTH_RUSER", this->authstat->get_ruser());
+  env.add("AUTH_RGROUP", this->authstat->get_rgroup());
+  env.add("AUTH_UID", this->authstat->get_uid());
+  env.add("AUTH_GID", this->authstat->get_gid());
+  env.add("AUTH_RUID", this->authstat->get_ruid());
+  env.add("AUTH_RGID", this->authstat->get_rgid());
+  env.add("AUTH_HOME", this->authstat->get_home());
+  env.add("AUTH_SHELL", this->authstat->get_shell());
   {
     const char *verbosity = 0;
     switch (this->authstat->get_verbosity())
