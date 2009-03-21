@@ -1276,7 +1276,8 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   env.add(std::make_pair("SCHROOT_GROUP", this->authstat->get_rgroup()));
   env.add("SCHROOT_UID", this->authstat->get_ruid());
   env.add("SCHROOT_GID", this->authstat->get_rgid());
-
+  // Add session ID.
+  env.add("SCHROOT_SESSION_ID", this->session_id);
 
   log_debug(DEBUG_INFO) << "Set environment:\n" << env;
 
