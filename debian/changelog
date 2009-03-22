@@ -1,8 +1,13 @@
 schroot (1.2.2-1) unstable; urgency=low
 
   * New upstream stable release. 
+  * Compile and link with POSIX thread support (Closes: #520713).
+    libstdc++ std::tr1::shared_ptr does not appear to work
+    correctly on Alpha without -pthread, failing during shared_ptr
+    construction or assignment due to an failed internal glibc
+    assertion while locking a pthread mutex.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 22 Mar 2009 16:53:15 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sun, 22 Mar 2009 16:56:38 +0000
 
 schroot (1.2.1-1) unstable; urgency=low
 
