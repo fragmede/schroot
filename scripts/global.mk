@@ -20,5 +20,6 @@
 #####################################################################
 
 # Global options for use in all Makefiles.
-AM_CXXFLAGS = -I$(top_srcdir) $(LOCAL_CXXFLAGS) -pedantic -Wall -Wcast-align -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
+AM_CXXFLAGS = -I$(top_srcdir) $(LOCAL_CXXFLAGS) $(PTHREAD_CFLAGS) -pedantic -Wall -Wcast-align -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
 
+AM_LDFLAGS = $(LOCAL_LDFLAGS) $(PTHREAD_LIBS)
