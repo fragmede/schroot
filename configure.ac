@@ -177,6 +177,7 @@ fi
 # Checks for programs.
 AC_PROG_CXX
 AC_LANG([C++])
+ACX_PTHREAD([], [AC_MSG_ERROR([POSIX thread support is required for correct std::tr1::shared_ptr operation])])
 AC_ENABLE_SHARED
 AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
