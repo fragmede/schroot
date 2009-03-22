@@ -1,5 +1,5 @@
 #                                                              -*- Autoconf -*-
-# Copyright © 2004-2008  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2009  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ dnl
 pushdef([SBUILD_NAME],              [schroot])
 pushdef([SBUILD_MAJOR_VERSION],     [1])
 pushdef([SBUILD_MINOR_VERSION],     [2])
-pushdef([SBUILD_MICRO_VERSION],     [1])
+pushdef([SBUILD_MICRO_VERSION],     [2])
 pushdef([SBUILD_EXTRA_VERSION],     [])
 pushdef([SBUILD_CURRENT_INTERFACE], [1])
 pushdef([SBUILD_INTERFACE_AGE],     [0])
