@@ -25,7 +25,7 @@ if MAINTAINER_MODE
 all-local: sbuild schroot
 endif
 
-if USE_DOXYGEN
+if BUILD_DOXYGEN
 schroot: schroot-stamp
 sbuild: sbuild-stamp
 else
@@ -60,20 +60,12 @@ schroot.pdf: schroot.ps
 CLEANFILES =		\
 	schroot.log	\
 	schroot.ps	\
-	schroot.pdf
+	schroot.pdf	\
+	sbuild-stamp	\
+	schroot-stamp
 
-maintainer-clean-local:
+clean-local:
 	$(RM) -r sbuild
 	$(RM) -r schroot
-
-MAINTAINERCLEANFILES =	\
-	sbuild-stamp	\
-	schroot-stamp
-
-EXTRA_DIST =		\
-	sbuild		\
-	schroot		\
-	sbuild-stamp	\
-	schroot-stamp
 
 .PHONY: sbuild schroot

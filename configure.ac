@@ -1,5 +1,5 @@
 #                                                              -*- Autoconf -*-
-# Copyright © 2004-2008  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2009  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -174,6 +174,21 @@ if test "$enable_debug" = "yes"; then
   AC_DEFINE_UNQUOTED([SBUILD_DEBUG], [1], [Enable debugging])
 fi
 
+AC_MSG_CHECKING([whether to enable doxygen documentation])
+AC_ARG_ENABLE([doxygen], [AS_HELP_STRING([--enable-doxygen], [Enable doxygen documentation])],
+              [ case "${enableval}" in
+                yes) enable_doxygen="yes" ;;
+                no)  enable_doxygen="no" ;;
+                unset)  enable_doxygen="no" ;;
+                *) AC_MSG_RESULT([unknown])
+                   AC_MSG_ERROR([bad value ${enableval} for --enable-doxygen]) ;;
+                esac])
+if test "$enable_doxygen" = ""; then
+  enable_doxygen="no"
+fi
+AC_MSG_RESULT([$enable_doxygen])
+AM_CONDITIONAL([BUILD_DOXYGEN], [test "$enable_doxygen" = "yes"])
+
 AC_MSG_CHECKING([for bash completion directory])
 bashcompletiondir='${sysconfdir}/bash_completion.d'
 AC_ARG_WITH([bash-completion-dir], [AS_HELP_STRING([--with-bash-completion-dir], [bash shell completion directory])],
@@ -192,7 +207,11 @@ AM_GNU_GETTEXT([external])
 AC_PATH_PROG([FIND], [find])
 AC_PATH_PROG([XARGS], [xargs])
 AC_PATH_PROG([DOXYGEN], [doxygen])
-AM_CONDITIONAL([USE_DOXYGEN], [test -n "$DOXYGEN"])
+
+if test "$enable_doxygen" = "yes" && test -z "$DOXYGEN"; then
+  AC_MSG_FAILURE([doxygen is not installed, but is required by schroot])
+fi;
+AM_CONDITIONAL([BUILD_DOXYGEN], [test -n "$DOXYGEN" && test "$enable_doxygen" = "yes"])
 
 # Checks for libraries.
 AH_TEMPLATE(HAVE_UUID, [Is libuuid available])
