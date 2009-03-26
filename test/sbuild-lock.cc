@@ -52,7 +52,7 @@ public:
   test_file_lock():
     TestFixture(),
     fd(-1),
-    lck()
+    lck(0)
   {
     // Remove test file if it exists.
     unlink(TESTDATADIR "/filelock.ex1");
@@ -63,19 +63,25 @@ public:
 
   void setUp()
   {
-    int fd = open(TESTDATADIR "/filelock.ex1", O_RDWR|O_EXCL|O_CREAT, 0600);
-    CPPUNIT_ASSERT(write(fd,
+    this->fd = open(TESTDATADIR "/filelock.ex1", O_RDWR|O_EXCL|O_CREAT, 0600);
+    CPPUNIT_ASSERT(this->fd >= 0);
+
+    ssize_t wsize = write(this->fd,
 			 "This file exists in order to test "
-			 "sbuild::file_lock locking.\n", 60) == 60);
-    CPPUNIT_ASSERT(fd >= 0);
-    this->lck = new sbuild::file_lock(fd);
+			  "sbuild::file_lock locking.\n", 61);
+    CPPUNIT_ASSERT(wsize == 61);
+
+    this->lck = new sbuild::file_lock(this->fd);
+    CPPUNIT_ASSERT(lck != 0);
   }
 
   void tearDown()
   {
+    CPPUNIT_ASSERT(lck != 0);
     this->lck->unset_lock();
     delete this->lck;
-    CPPUNIT_ASSERT(close(fd) < 0);
+
+    CPPUNIT_ASSERT(close(this->fd) == 0);
     CPPUNIT_ASSERT(unlink(TESTDATADIR "/filelock.ex1") == 0);
   }
 
@@ -92,7 +98,7 @@ public:
 	    this->lck->set_lock(initial, 1);
 	    // Note: can cause unexpected success if < 4.  Set to 8 to
 	    // allow for slow or heavily-loaded machines.
-	    sleep(8);
+	    sleep(4);
 	    this->lck->unset_lock();
 	  }
 	catch (std::exception const& e)
@@ -192,14 +198,12 @@ class test_dev_lock : public TestFixture
   CPPUNIT_TEST_SUITE_END();
 
 protected:
-  int fd;
   sbuild::device_lock *lck;
 
 public:
   test_dev_lock():
     TestFixture(),
-    fd(-1),
-    lck()
+    lck(0)
   {}
 
   virtual ~test_dev_lock()
@@ -221,6 +225,7 @@ public:
   void tearDown()
   {
     delete this->lck;
+    this->lck = 0;
   }
 
   void test(sbuild::lock::type initial,
@@ -236,7 +241,7 @@ public:
 	    this->lck->set_lock(initial, 1);
 	    // Note: can cause unexpected success if < 4.  Set to 8 to
 	    // allow for slow or heavily-loaded machines.
-	    sleep(8);
+	    sleep(4);
 	    this->lck->unset_lock();
 	  }
 	catch (std::exception const& e)
