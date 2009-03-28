@@ -41,10 +41,7 @@ build: build-stamp
 
 build-stamp: debian/build/config.status
 	dh_testdir
-
-	cd debian/build; \
-	$(MAKE) all
-
+	$(MAKE) -C debian/build all
 	touch build-stamp
 
 clean:
@@ -66,8 +63,7 @@ endif
 check: build
 	dh_testdir
 	dh_testroot
-	cd debian/build; \
-	$(MAKE) check
+	$(MAKE) -C debian/build check
 
 install: check
 	dh_testdir
@@ -75,8 +71,7 @@ install: check
 	dh_prep
 	dh_installdirs
 
-	cd debian/build; \
-	$(MAKE) install DESTDIR=$(CURDIR)/debian/install
+	$(MAKE) -C debian/build install DESTDIR=$(CURDIR)/debian/install
 	dh_install
 
 	mkdir -p $(CURDIR)/debian/dchroot/usr/share/lintian/overrides
