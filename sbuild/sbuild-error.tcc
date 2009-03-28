@@ -24,14 +24,16 @@
 #include <sbuild/sbuild-null.h>
 
 template <typename T>
-template <typename A, typename B, typename C, typename D, typename E>
+template <typename A, typename B, typename C,
+	  typename D, typename E, typename F>
 inline std::string
 sbuild::error<T>::format_error (A const&   context1,
 				B const&   context2,
 				C const&   context3,
 				error_type error,
 				D const&   detail1,
-				E const&   detail2)
+				E const&   detail2,
+				F const&   detail3)
 {
   std::string format;
   std::string msg(get_error(error));
@@ -95,6 +97,19 @@ sbuild::error<T>::format_error (A const&   context1,
       nargs = 5;
     }
 
+  if (msg.find("%6%") != std::string::npos)
+    {
+      nargs = 6;
+    }
+  else if (typeid(detail3) != typeid(sbuild::null))
+    {
+      if (msg.empty() && nargs < 4)
+	format += "%6%";
+      else
+	format += ": %6%";
+      nargs = 6;
+    }
+
   boost::format fmt(format);
   if (nargs >= 1)
     add_detail(fmt, context1);
@@ -106,19 +121,23 @@ sbuild::error<T>::format_error (A const&   context1,
     add_detail(fmt, detail1);
   if (nargs >= 5)
     add_detail(fmt, detail2);
+  if (nargs >= 6)
+    add_detail(fmt, detail3);
 
   return fmt.str();
 }
 
 template <typename T>
-template <typename A, typename B, typename C, typename D, typename E>
+template <typename A, typename B, typename C,
+	  typename D, typename E, typename F>
 inline std::string
 sbuild::error<T>::format_error (A const&   context1,
 				B const&   context2,
 				C const&   context3,
 				std::runtime_error const& error,
 				D const&   detail1,
-				E const&   detail2)
+				E const&   detail2,
+				F const&   detail3)
 {
   std::string format;
   std::string msg(error.what());
@@ -163,6 +182,15 @@ sbuild::error<T>::format_error (A const&   context1,
       nargs = 5;
     }
 
+  if (typeid(detail3) != typeid(sbuild::null))
+    {
+      if (msg.empty() && nargs < 4)
+	format += "%6%";
+      else
+	format += ": %6%";
+      nargs = 6;
+    }
+
   boost::format fmt(format);
   if (nargs >= 1)
     add_detail(fmt, context1);
@@ -174,6 +202,8 @@ sbuild::error<T>::format_error (A const&   context1,
     add_detail(fmt, detail1);
   if (nargs >= 5)
     add_detail(fmt, detail2);
+  if (nargs >= 6)
+    add_detail(fmt, detail3);
 
   return fmt.str();
 }
@@ -189,14 +219,16 @@ sbuild::error<T>::add_detail(boost::format& fmt,
 }
 
 template <typename T>
-template <typename A, typename B, typename C, typename R, typename D, typename E>
+template <typename A, typename B, typename C, typename R,
+	  typename D, typename E, typename F>
 inline std::string
 sbuild::error<T>::format_reason (A const&   context1,
 				 B const&   context2,
 				 C const&   context3,
 				 R const&   error,
 				 D const&   detail1,
-				 E const&   detail2)
+				 E const&   detail2,
+				 F const&   detail3)
 {
   std::string reason;
 
@@ -206,6 +238,7 @@ sbuild::error<T>::format_reason (A const&   context1,
   add_reason(reason, error);
   add_reason(reason, detail1);
   add_reason(reason, detail2);
+  add_reason(reason, detail3);
 
   return reason;
 }
