@@ -30,8 +30,10 @@ schroot (1.3.0-1) experimental; urgency=low
     - schroot-dbg: Add new package containing debugging symbols
       for schroot, dchroot and dchroot-dsa.
     - schroot-doc: Don't depend on pkg-config, suggest libsbuild-dev.
+  * debian/rules:
+    - Add check rule to run unit tests at install time.
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 28 Mar 2009 10:55:46 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sat, 28 Mar 2009 11:14:30 +0000
 
 schroot (1.2.1-1) unstable; urgency=low
 

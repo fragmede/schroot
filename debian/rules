@@ -63,7 +63,13 @@ endif
 
 	dh_clean
 
-install: build
+check: build
+	dh_testdir
+	dh_testroot
+	cd debian/build; \
+	$(MAKE) check
+
+install: check
 	dh_testdir
 	dh_testroot
 	dh_prep
@@ -126,4 +132,4 @@ binary-arch: build install
 	dh_builddeb -a
 
 binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install
+.PHONY: build check clean binary-indep binary-arch binary install
