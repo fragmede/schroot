@@ -21,9 +21,7 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-if MAINTAINER_MODE
 all-local: sbuild schroot
-endif
 
 if BUILD_DOXYGEN
 schroot: schroot-stamp
