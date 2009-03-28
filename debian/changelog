@@ -5,11 +5,13 @@ schroot (1.3.0-1) experimental; urgency=low
     - libsbuild-dev is in section libdevel.
     - Build-Depend on Boost 1.37.
     - Build-Depend on debhelper v7.
+    - Build-Depend on doxygen.
     - Update to Standards Version 3.8.1.
   * debian/compat: Use debhelper v7 compatibility mode.
   * debian/rules:
     - Use dh_prep in place of dh_clean -k.
     - Configure with --with-bash-completion-dir.
+    - Configure with --enable-doxygen.
     - Split configure invocation onto multiple lines.
   * schroot: Install bash completion.
   * schroot.conf: Use current distribution names (lenny and squeeze
@@ -21,7 +23,7 @@ schroot (1.3.0-1) experimental; urgency=low
   * schroot now ignores backup files (including dpkg conffile backups)
     in /etc/schroot/chroot.d (Closes: #513307, #496629).
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 21 Mar 2009 16:32:04 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sat, 28 Mar 2009 00:42:45 +0000
 
 schroot (1.2.1-1) unstable; urgency=low
 
