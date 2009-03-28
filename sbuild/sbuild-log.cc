@@ -106,10 +106,10 @@ sbuild::log_error ()
 }
 
 std::ostream&
-sbuild::log_debug (sbuild::DebugLevel level)
+sbuild::log_debug (sbuild::debug_level level)
 {
-  if (debug_level > 0 &&
-      level >= debug_level)
+  if (debug_log_level > 0 &&
+      level >= debug_log_level)
     // TRANSLATORS: %1% = integer debug level
     // TRANSLATORS: "D" is an abbreviation of "Debug"
     return std::cerr << format(_("D(%1%): ")) % level;
@@ -172,4 +172,4 @@ sbuild::log_unknown_exception_error ()
   log_error() << _("An unknown exception occurred") << std::endl;
 }
 
-sbuild::DebugLevel sbuild::debug_level = sbuild::DEBUG_NONE;
+sbuild::debug_level sbuild::debug_log_level = sbuild::DEBUG_NONE;

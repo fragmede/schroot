@@ -25,7 +25,7 @@ namespace sbuild
 {
 
   /// Debugging level.
-  enum DebugLevel
+  enum debug_level
     {
       DEBUG_NONE = -1,   ///< No debugging.
       DEBUG_NOTICE = 1,  ///< Notification messages.
@@ -67,7 +67,7 @@ namespace sbuild
    * returned, resulting in no output.
    */
   std::ostream&
-  log_debug (DebugLevel level);
+  log_debug (debug_level level);
 
   /**
    * Log an informational message to the Controlling TTY.
@@ -132,7 +132,7 @@ namespace sbuild
   log_unknown_exception_error ();
 
   /// The debugging level in use.
-  extern DebugLevel debug_level;
+  extern debug_level debug_log_level;
 
 }
 
