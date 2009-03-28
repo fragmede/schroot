@@ -309,12 +309,13 @@ LDFLAGS="${LDFLAGS} -lboost_filesystem-mt"
 AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/filesystem.hpp>],
                                [boost::filesystem::is_directory("/")])],
                [AC_MSG_RESULT([yes])
-	        BOOST_LIBS="${BOOST_LIBS} -lboost_filesystem-mt"],
+	        BOOST_FILESYSTEM_LIBS="-lboost_filesystem-mt"],
                [AC_MSG_RESULT([no])
 	        AC_MSG_FAILURE([libboost_filesystem (Boost C++ Libraries) is not installed, but is required by schroot])])
 LDFLAGS="${saved_ldflags}"
 
 AC_SUBST([BOOST_LIBS])
+AC_SUBST([BOOST_FILESYSTEM_LIBS])
 
 AC_MSG_CHECKING([for __gnu_cxx::stdio_filebuf in libstdc++])
 AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <ext/stdio_filebuf.h>

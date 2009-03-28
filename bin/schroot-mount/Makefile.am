@@ -35,4 +35,7 @@ schroot_mount_SOURCES =			\
 	schroot-mount-options.h		\
 	schroot-mount-options.cc	\
 	schroot-mount.cc
-schroot_mount_LDADD = $(top_builddir)/bin/schroot-base/libschroot-base.la
+
+schroot_mount_LDADD = $(BOOST_FILESYSTEM_LIBS)			\
+	$(top_builddir)/bin/schroot-base/libschroot-base.la
+
