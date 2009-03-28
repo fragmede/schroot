@@ -6,6 +6,7 @@ libsbuild-dev
 libsbuild-doc
 schroot-common
 schroot
+schroot-dbg
 build
 *.debhelper
 *.log

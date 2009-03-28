@@ -112,7 +112,7 @@ binary-arch: build install
 	dh_installman -a
 	dh_installinit -a --no-start --update-rcd-params='start 75 S .'
 	dh_link -a
-	dh_strip -a
+	dh_strip -a --dbg-package=schroot-dbg
 	dh_compress -a
 	dh_fixperms -a
 	chmod 4755 $(CURDIR)/debian/dchroot/usr/bin/dchroot

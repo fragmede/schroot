@@ -27,6 +27,7 @@ Package: libsbuild-dev
 Architecture: any
 Section: libdevel
 Depends: pkg-config (>= 0.14.0)
+Suggests: schroot-dbg, libsbuild-doc
 Description: development files for the Debian source builder
  sbuild provides facilities to manage and access chroots, as part of
  schroot.
@@ -42,6 +43,26 @@ Description: development files for the Debian source builder
  This package contains the header files and static library needed to
  develop applications which make use of sbuild.  Once the API and ABI
  are stable, a shared library will replace the static library.
+
+Package: schroot-dbg
+Architecture: any
+Section: devel
+Priority: extra
+Depends: schroot (= ${binary:Version}), dchroot (= ${binary:Version}), dchroot-dsa (= ${binary:Version})
+Description: schroot, dchroot and dchroot-dsa debuggging symbols
+ sbuild provides facilities to manage and access chroots, as part of
+ schroot.
+ .
+ schroot allows users to execute commands or interactive shells in
+ different chroots.  Any number of named chroots may be created, and
+ access permissions given to each, including root access for normal
+ users, on a per-user or per-group basis.  Additionally, schroot can
+ switch to a different user in the chroot, using PAM for
+ authentication and authorisation.  All operations are logged for
+ security.
+ .
+ This package contains debugging symbols for the schroot, dchroot
+ and dchroot-dsa packages.
 
 Package: libsbuild-doc
 Architecture: all
