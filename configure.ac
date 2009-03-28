@@ -57,7 +57,7 @@ dnl checking for a known unique file.
 AC_CONFIG_SRCDIR([sbuild/sbuild-session.cc])
 dnl Place auxilliary scripts here.
 AC_CONFIG_AUX_DIR([scripts])
-dnl Put macro definitions here.
+dnl Add config headers.
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_HEADER([sbuild/sbuild-config.h])
 

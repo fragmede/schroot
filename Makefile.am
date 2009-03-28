@@ -19,6 +19,8 @@
 #
 #####################################################################
 
+ACLOCAL_AMFLAGS=-I m4
+
 include $(top_srcdir)/scripts/global.mk
 
 SUBDIRS = sbuild bin test doc po

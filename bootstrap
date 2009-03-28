@@ -28,4 +28,5 @@ automake --add-missing --gnu --force --copy
 echo "autoconf"
 autoconf
 
+rm -rf autom4te.cache/
 
