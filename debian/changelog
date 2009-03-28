@@ -1,5 +1,6 @@
 schroot (1.3.0-1) experimental; urgency=low
 
+  [Roger Leigh]
   * New upstream development release.
   * debian/control:
     - libsbuild-dev is in section libdevel.
@@ -23,7 +24,11 @@ schroot (1.3.0-1) experimental; urgency=low
   * schroot now ignores backup files (including dpkg conffile backups)
     in /etc/schroot/chroot.d (Closes: #513307, #496629).
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 28 Mar 2009 00:42:45 +0000
+  [Jan-Marek Glogowski]
+  * schroot-dbg: Add new package containing debugging symbols
+    for schroot, dchroot and dchroot-dsa.
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 28 Mar 2009 10:55:46 +0000
 
 schroot (1.2.1-1) unstable; urgency=low
 
