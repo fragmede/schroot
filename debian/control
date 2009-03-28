@@ -3,7 +3,7 @@ Section: admin
 Priority: optional
 Maintainer: Debian buildd-tools Developers <buildd-tools-devel@lists.alioth.debian.org>
 Uploaders: Michael Banck <mbanck@debian.org>, Luk Claes <luk@debian.org>, Roger Leigh <rleigh@debian.org>, Francesco Paolo Lovergine <frankie@debian.org>
-Build-Depends: debhelper (>= 7.0.0), autotools-dev, pkg-config (>= 0.20), libpam0g-dev (>= 0.79-3.1), uuid-dev, liblockdev1-dev (>= 1.0.2), libboost1.37-dev (>= 1.34.0), libboost-program-options1.37-dev (>= 1.34.0), libboost-regex1.37-dev (>= 1.34.0), libboost-filesystem1.37-dev (>= 1.34.0), gettext, libcppunit-dev, doxygen
+Build-Depends: debhelper (>= 7.0.0), autotools-dev, pkg-config (>= 0.20), libpam0g-dev (>= 0.79-3.1), uuid-dev, liblockdev1-dev (>= 1.0.2), libboost1.37-dev (>= 1.34.0), libboost-program-options1.37-dev (>= 1.34.0), libboost-regex1.37-dev (>= 1.34.0), libboost-filesystem1.37-dev (>= 1.34.0), gettext, libcppunit-dev, doxygen, graphviz
 Standards-Version: 3.8.1
 Vcs-Browser: http://git.debian.org/?p=buildd-tools/schroot.git
 Vcs-Git: git://git.debian.org/git/buildd-tools/schroot
@@ -27,6 +27,7 @@ Package: libsbuild-dev
 Architecture: any
 Section: libdevel
 Depends: pkg-config (>= 0.14.0)
+Suggests: schroot-dbg, libsbuild-doc
 Description: development files for the Debian source builder
  sbuild provides facilities to manage and access chroots, as part of
  schroot.
@@ -43,10 +44,30 @@ Description: development files for the Debian source builder
  develop applications which make use of sbuild.  Once the API and ABI
  are stable, a shared library will replace the static library.
 
+Package: schroot-dbg
+Architecture: any
+Section: devel
+Priority: extra
+Depends: schroot (= ${binary:Version}), dchroot (= ${binary:Version}), dchroot-dsa (= ${binary:Version})
+Description: schroot, dchroot and dchroot-dsa debuggging symbols
+ sbuild provides facilities to manage and access chroots, as part of
+ schroot.
+ .
+ schroot allows users to execute commands or interactive shells in
+ different chroots.  Any number of named chroots may be created, and
+ access permissions given to each, including root access for normal
+ users, on a per-user or per-group basis.  Additionally, schroot can
+ switch to a different user in the chroot, using PAM for
+ authentication and authorisation.  All operations are logged for
+ security.
+ .
+ This package contains debugging symbols for the schroot, dchroot
+ and dchroot-dsa packages.
+
 Package: libsbuild-doc
 Architecture: all
 Section: doc
-Depends: pkg-config (>= 0.14.0)
+Suggests: libsbuild-dev
 Description: development documentation for the Debian source builder
  sbuild provides facilities to manage and access chroots, as part of
  schroot.

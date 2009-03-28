@@ -14,18 +14,7 @@ sed -e "s/@RELEASE_DATE@/`date '+%d %b %Y'`/" -e "s/@RELEASE_UDATE@/`date '+%s'`
 # To satisfy automake
 touch ChangeLog
 
+autoreconf --verbose --force --install
 
-echo "libtoolize"
-libtoolize --force --copy
-echo "autopoint"
-autopoint --force
-echo "aclocal -I m4"
-aclocal -I m4
-echo "autoheader"
-autoheader
-echo "automake"
-automake --add-missing --gnu --force --copy
-echo "autoconf"
-autoconf
-
+rm -rf autom4te.cache/
 

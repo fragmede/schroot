@@ -31,6 +31,59 @@
 
 using boost::format;
 
+namespace
+{
+
+  /**
+   * Log an exception reason.  Log the reason an exception was thrown,
+   * if the exception contains reason information.
+   *
+   * @param e the exception to log.
+   * @param ctty true to log to the CTTY or false to log to cerr.
+   */
+  void
+  log_reason (std::exception const& e,
+	      bool                  ctty)
+  {
+    try
+      {
+	sbuild::error_base const& eb(dynamic_cast<sbuild::error_base const&>(e));
+	sbuild::string_list lines = sbuild::split_string(eb.why(), "\n");
+	for (sbuild::string_list::const_iterator line = lines.begin();
+	     line != lines.end();
+	     ++line)
+	  ctty ? sbuild::log_ctty_info() : sbuild::log_info()
+	    << *line << std::endl;
+      }
+    catch (std::bad_cast const& discard)
+      {
+      }
+  }
+
+  /**
+   * Log an exception reason as an informational message.
+   *
+   * @param e the exception to log.
+   */
+  void
+  log_exception_reason (std::exception const& e)
+  {
+    log_reason(e, false);
+  }
+
+  /**
+   * Log an exception reason as as an informational message to the
+   * Controlling TTY.
+   *
+   * @param e the exception to log.
+   */
+  void
+  log_ctty_exception_reason (std::exception const& e)
+  {
+    log_reason(e, true);
+  }
+}
+
 std::ostream&
 sbuild::log_info ()
 {
@@ -53,10 +106,10 @@ sbuild::log_error ()
 }
 
 std::ostream&
-sbuild::log_debug (sbuild::DebugLevel level)
+sbuild::log_debug (sbuild::debug_level level)
 {
-  if (debug_level > 0 &&
-      level >= debug_level)
+  if (debug_log_level > 0 &&
+      level >= debug_log_level)
     // TRANSLATORS: %1% = integer debug level
     // TRANSLATORS: "D" is an abbreviation of "Debug"
     return std::cerr << format(_("D(%1%): ")) % level;
@@ -89,76 +142,28 @@ void
 sbuild::log_exception_warning (std::exception const& e)
 {
   log_warning() << e.what() << std::endl;
-
-  try
-    {
-      sbuild::error_base const& eb(dynamic_cast<sbuild::error_base const&>(e));
-      string_list lines = split_string(eb.why(), "\n");
-      for (string_list::const_iterator line = lines.begin();
-	   line != lines.end();
-	   ++line)
-	log_info() << *line << std::endl;
-    }
-  catch (std::bad_cast const& discard)
-    {
-    }
+  log_exception_reason(e);
 }
 
 void
 sbuild::log_exception_error (std::exception const& e)
 {
   log_error() << e.what() << std::endl;
-
-  try
-    {
-      sbuild::error_base const& eb(dynamic_cast<sbuild::error_base const&>(e));
-      string_list lines = split_string(eb.why(), "\n");
-      for (string_list::const_iterator line = lines.begin();
-	   line != lines.end();
-	   ++line)
-	log_info() << *line << std::endl;
-    }
-  catch (std::bad_cast const& discard)
-    {
-    }
+  log_exception_reason(e);
 }
 
 void
 sbuild::log_ctty_exception_warning (std::exception const& e)
 {
   log_ctty_warning() << e.what() << std::endl;
-
-  try
-    {
-      sbuild::error_base const& eb(dynamic_cast<sbuild::error_base const&>(e));
-      string_list lines = split_string(eb.why(), "\n");
-      for (string_list::const_iterator line = lines.begin();
-	   line != lines.end();
-	   ++line)
-	log_ctty_info() << *line << std::endl;
-    }
-  catch (std::bad_cast const& discard)
-    {
-    }
+  log_ctty_exception_reason(e);
 }
 
 void
 sbuild::log_ctty_exception_error (std::exception const& e)
 {
   log_ctty_error() << e.what() << std::endl;
-
-  try
-    {
-      sbuild::error_base const& eb(dynamic_cast<sbuild::error_base const&>(e));
-      string_list lines = split_string(eb.why(), "\n");
-      for (string_list::const_iterator line = lines.begin();
-	   line != lines.end();
-	   ++line)
-	log_ctty_info() << *line << std::endl;
-    }
-  catch (std::bad_cast const& discard)
-    {
-    }
+  log_ctty_exception_reason(e);
 }
 
 void
@@ -167,4 +172,4 @@ sbuild::log_unknown_exception_error ()
   log_error() << _("An unknown exception occurred") << std::endl;
 }
 
-sbuild::DebugLevel sbuild::debug_level = sbuild::DEBUG_NONE;
+sbuild::debug_level sbuild::debug_log_level = sbuild::DEBUG_NONE;

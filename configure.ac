@@ -57,7 +57,7 @@ dnl checking for a known unique file.
 AC_CONFIG_SRCDIR([sbuild/sbuild-session.cc])
 dnl Place auxilliary scripts here.
 AC_CONFIG_AUX_DIR([scripts])
-dnl Put macro definitions here.
+dnl Add config headers.
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_HEADER([sbuild/sbuild-config.h])
 
@@ -310,12 +310,13 @@ LDFLAGS="${LDFLAGS} -lboost_filesystem-mt"
 AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/filesystem.hpp>],
                                [boost::filesystem::is_directory("/")])],
                [AC_MSG_RESULT([yes])
-	        BOOST_LIBS="${BOOST_LIBS} -lboost_filesystem-mt"],
+	        BOOST_FILESYSTEM_LIBS="-lboost_filesystem-mt"],
                [AC_MSG_RESULT([no])
 	        AC_MSG_FAILURE([libboost_filesystem (Boost C++ Libraries) is not installed, but is required by schroot])])
 LDFLAGS="${saved_ldflags}"
 
 AC_SUBST([BOOST_LIBS])
+AC_SUBST([BOOST_FILESYSTEM_LIBS])
 
 AC_MSG_CHECKING([for __gnu_cxx::stdio_filebuf in libstdc++])
 AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <ext/stdio_filebuf.h>

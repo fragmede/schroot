@@ -77,8 +77,8 @@ public:
   }
 
   std::string
-  debug(sbuild::DebugLevel level,
-	     std::string const& msg)
+  debug(sbuild::debug_level level,
+	std::string const& msg)
   {
     this->monitor->str("");
     sbuild::log_debug(level) << msg;
@@ -87,7 +87,7 @@ public:
 
   void test_debug_none()
   {
-    sbuild::debug_level = sbuild::DEBUG_NONE;
+    sbuild::debug_log_level = sbuild::DEBUG_NONE;
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NONE,     "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NOTICE,   "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_INFO,     "Discard me") == "");
@@ -97,7 +97,7 @@ public:
 
   void test_debug_notice()
   {
-    sbuild::debug_level = sbuild::DEBUG_NOTICE;
+    sbuild::debug_log_level = sbuild::DEBUG_NOTICE;
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NONE,
 			 "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NOTICE,
@@ -112,7 +112,7 @@ public:
 
   void test_debug_info()
   {
-    sbuild::debug_level = sbuild::DEBUG_INFO;
+    sbuild::debug_log_level = sbuild::DEBUG_INFO;
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NONE,
 			 "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NOTICE,
@@ -127,7 +127,7 @@ public:
 
   void test_debug_warning()
   {
-    sbuild::debug_level = sbuild::DEBUG_WARNING;
+    sbuild::debug_log_level = sbuild::DEBUG_WARNING;
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NONE,
 			 "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NOTICE,
@@ -142,7 +142,7 @@ public:
 
   void test_debug_critical()
   {
-    sbuild::debug_level = sbuild::DEBUG_CRITICAL;
+    sbuild::debug_log_level = sbuild::DEBUG_CRITICAL;
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NONE,
 			 "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NOTICE,

@@ -41,10 +41,7 @@ build: build-stamp
 
 build-stamp: debian/build/config.status
 	dh_testdir
-
-	cd debian/build; \
-	$(MAKE) all
-
+	$(MAKE) -C debian/build all
 	touch build-stamp
 
 clean:
@@ -63,14 +60,18 @@ endif
 
 	dh_clean
 
-install: build
+check: build
+	dh_testdir
+	dh_testroot
+	$(MAKE) -C debian/build check
+
+install: check
 	dh_testdir
 	dh_testroot
 	dh_prep
 	dh_installdirs
 
-	cd debian/build; \
-	$(MAKE) install DESTDIR=$(CURDIR)/debian/install
+	$(MAKE) -C debian/build install DESTDIR=$(CURDIR)/debian/install
 	dh_install
 
 	mkdir -p $(CURDIR)/debian/dchroot/usr/share/lintian/overrides
@@ -112,7 +113,7 @@ binary-arch: build install
 	dh_installman -a
 	dh_installinit -a --no-start --update-rcd-params='start 75 S .'
 	dh_link -a
-	dh_strip -a
+	dh_strip -a --dbg-package=schroot-dbg
 	dh_compress -a
 	dh_fixperms -a
 	chmod 4755 $(CURDIR)/debian/dchroot/usr/bin/dchroot
@@ -126,4 +127,4 @@ binary-arch: build install
 	dh_builddeb -a
 
 binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install
+.PHONY: build check clean binary-indep binary-arch binary install

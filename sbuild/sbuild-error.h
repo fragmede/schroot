@@ -164,19 +164,22 @@ namespace sbuild
      * @param error the error code.
      * @param detail1 details of the error.
      * @param detail2 additional details of the error.
+     * @param detail3 additional details of the error.
      * @returns a translated error message.
      *
      * @todo Merge the logic shared between the two specialisations to
      * prevent code duplication.
      */
-    template <typename A, typename B, typename C, typename D, typename E>
+    template <typename A, typename B, typename C,
+	      typename D, typename E, typename F>
     static std::string
     format_error (A const&   context1,
 		  B const&   context2,
 		  C const&   context3,
 		  error_type error,
 		  D const&   detail1,
-		  E const&   detail2);
+		  E const&   detail2,
+		  F const&   detail3);
 
     /**
      * Format an error message.
@@ -187,16 +190,19 @@ namespace sbuild
      * @param error the error code.
      * @param detail1 details of the error.
      * @param detail2 additional details of the error.
+     * @param detail3 additional details of the error.
      * @returns a translated error message.
      */
-    template <typename A, typename B, typename C, typename D, typename E>
+    template <typename A, typename B, typename C,
+	      typename D, typename E, typename F>
     static std::string
     format_error (A const&                  context1,
 		  B const&                  context2,
 		  C const&                  context3,
 		  std::runtime_error const& error,
 		  D const&                  detail1,
-		  E const&                  detail2);
+		  E const&                  detail2,
+		  F const&                  detail3);
 
     /**
      * Format an reason string.
@@ -207,16 +213,19 @@ namespace sbuild
      * @param error the error or error code.
      * @param detail1 details of the error.
      * @param detail2 additional details of the error.
+     * @param detail3 additional details of the error.
      * @returns a translated error message.
      */
-    template <typename A, typename B, typename C, typename R, typename D, typename E>
+    template <typename A, typename B, typename C,
+		typename R, typename D, typename E, typename F>
     static std::string
     format_reason (A const&   context1,
 		   B const&   context2,
 		   C const&   context3,
 		   R const&   error,
 		   D const&   detail1,
-		   E const&   detail2);
+		   E const&   detail2,
+		   F const&   detail3);
 
     /**
      * Add detail to format string.

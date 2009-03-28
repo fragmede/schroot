@@ -145,20 +145,20 @@ options::check_options ()
   if (vm.count("debug"))
     {
       if (this->debug_level == "none")
-	sbuild::debug_level = sbuild::DEBUG_NONE;
+	sbuild::debug_log_level = sbuild::DEBUG_NONE;
       else if (this->debug_level == "notice")
-	sbuild::debug_level = sbuild::DEBUG_NOTICE;
+	sbuild::debug_log_level = sbuild::DEBUG_NOTICE;
       else if (this->debug_level == "info")
-	sbuild::debug_level = sbuild::DEBUG_INFO;
+	sbuild::debug_log_level = sbuild::DEBUG_INFO;
       else if (this->debug_level == "warning")
-	sbuild::debug_level = sbuild::DEBUG_WARNING;
+	sbuild::debug_log_level = sbuild::DEBUG_WARNING;
       else if (this->debug_level == "critical")
-	sbuild::debug_level = sbuild::DEBUG_CRITICAL;
+	sbuild::debug_log_level = sbuild::DEBUG_CRITICAL;
       else
 	throw opt::validation_error(_("Invalid debug level"));
     }
   else
-    sbuild::debug_level = sbuild::DEBUG_NONE;
+    sbuild::debug_log_level = sbuild::DEBUG_NONE;
 }
 
 void
