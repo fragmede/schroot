@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2008-07-05 10:10+0100\n"
+"POT-Creation-Date: 2009-03-26 20:43+0000\n"
 "PO-Revision-Date: 2008-05-19 11:02+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese\n"
@@ -83,168 +83,181 @@ msgstr "无法删除会话文件"
 msgid "Failed to write session file"
 msgstr "无法写会话文件"
 
-#: sbuild/sbuild-chroot.cc:473
+#: sbuild/sbuild-chroot.cc:469
 msgid "Name"
 msgstr "名字"
 
-#: sbuild/sbuild-chroot.cc:474
+#: sbuild/sbuild-chroot.cc:470
 msgid "Description"
 msgstr "描述"
 
-#: sbuild/sbuild-chroot.cc:475
+#: sbuild/sbuild-chroot.cc:471
 msgid "Type"
 msgstr "类型"
 
-#: sbuild/sbuild-chroot.cc:476
+#: sbuild/sbuild-chroot.cc:472
 msgid "Priority"
 msgstr "优先权"
 
-#: sbuild/sbuild-chroot.cc:477
+#: sbuild/sbuild-chroot.cc:473
 msgid "Users"
 msgstr "用户"
 
-#: sbuild/sbuild-chroot.cc:478
+#: sbuild/sbuild-chroot.cc:474
 msgid "Groups"
 msgstr "用户组"
 
-#: sbuild/sbuild-chroot.cc:479
+#: sbuild/sbuild-chroot.cc:475
 msgid "Root Users"
 msgstr "根用户"
 
-#: sbuild/sbuild-chroot.cc:480
+#: sbuild/sbuild-chroot.cc:476
 msgid "Root Groups"
 msgstr "根用户组"
 
-#: sbuild/sbuild-chroot.cc:481
+#: sbuild/sbuild-chroot.cc:477
 msgid "Aliases"
 msgstr "别名"
 
-#: sbuild/sbuild-chroot.cc:482
+#: sbuild/sbuild-chroot.cc:478
 msgid "Environment Filter"
 msgstr "环境变量过滤器"
 
-#: sbuild/sbuild-chroot.cc:483
+#: sbuild/sbuild-chroot.cc:479
 msgid "Run Setup Scripts"
 msgstr "运行安装脚本"
 
-#: sbuild/sbuild-chroot.cc:484
+#: sbuild/sbuild-chroot.cc:480
 msgid "Run Execution Scripts"
 msgstr "运行执行脚本"
 
-#: sbuild/sbuild-chroot.cc:485
+#: sbuild/sbuild-chroot.cc:481
 msgid "Script Configuration"
 msgstr "脚本配置"
 
-#: sbuild/sbuild-chroot.cc:486
+#: sbuild/sbuild-chroot.cc:482
 msgid "Session Managed"
 msgstr "受控的会话"
 
-#: sbuild/sbuild-chroot.cc:488
+#: sbuild/sbuild-chroot.cc:484
 msgid "Session Cloned"
 msgstr "克隆的会话"
 
-#: sbuild/sbuild-chroot.cc:490
+#: sbuild/sbuild-chroot.cc:486
 msgid "Session Purged"
 msgstr "删除的会话"
 
-#: sbuild/sbuild-chroot.cc:494
+#: sbuild/sbuild-chroot.cc:490
 msgid "Command Prefix"
 msgstr "命令前缀"
 
 #. TRANSLATORS: "Personality" is the Linux kernel personality
 #. (process execution domain).  See schroot.conf(5).
-#: sbuild/sbuild-chroot.cc:498
+#: sbuild/sbuild-chroot.cc:494
 msgid "Personality"
 msgstr "进程私有空间"
 
-#: sbuild/sbuild-chroot.cc:502
+#: sbuild/sbuild-chroot.cc:498
 msgid "Location"
 msgstr "位置"
 
-#: sbuild/sbuild-chroot.cc:504
+#: sbuild/sbuild-chroot.cc:500
 msgid "Mount Location"
 msgstr "挂载点"
 
-#: sbuild/sbuild-chroot.cc:506
+#: sbuild/sbuild-chroot.cc:502
 msgid "Path"
 msgstr "路径"
 
 #. TRANSLATORS: The system device node to mount containing the chroot
-#: sbuild/sbuild-chroot.cc:509
+#: sbuild/sbuild-chroot.cc:505
 msgid "Mount Device"
 msgstr "挂载设备"
 
-#: sbuild/sbuild-chroot.cc:515
+#: sbuild/sbuild-chroot.cc:511
 msgid "Session"
 msgstr "会话"
 
-#: sbuild/sbuild-chroot.cc:515
+#: sbuild/sbuild-chroot.cc:511
 msgid "Chroot"
 msgstr "Chroot"
 
-#: sbuild/sbuild-auth.cc:52
+#: sbuild/sbuild-auth.cc:58
 msgid "Failed to get hostname"
 msgstr "无法获取主机名"
 
 #. TRANSLATORS: %1% = user name or user ID
-#: sbuild/sbuild-auth.cc:54
+#: sbuild/sbuild-auth.cc:60
 #, boost-format
 msgid "User '%1%' not found"
 msgstr "未找到用户‘%1%’"
 
 #. TRANSLATORS: %1% = group name or group ID
 #. TRANSLATORS: %1% = group name
-#: sbuild/sbuild-auth.cc:56 sbuild/sbuild-session.cc:102
+#: sbuild/sbuild-auth.cc:62 sbuild/sbuild-session.cc:102
 #, boost-format
 msgid "Group '%1%' not found"
 msgstr "未找到用户组‘%1%’"
 
-#: sbuild/sbuild-auth.cc:57
+#: sbuild/sbuild-auth.cc:63
 msgid "Authentication failed"
 msgstr "授权错误"
 
-#: sbuild/sbuild-auth.cc:58
+#: sbuild/sbuild-auth.cc:64
 msgid "Access not authorised"
 msgstr "未授权访问"
 
-#: sbuild/sbuild-auth.cc:59
+#: sbuild/sbuild-auth.cc:65
 msgid "PAM is already initialised"
 msgstr "PAM 已被初始化"
 
-#: sbuild/sbuild-auth.cc:60 sbuild/sbuild-session.cc:103
+#: sbuild/sbuild-auth.cc:66 sbuild/sbuild-session.cc:103
 msgid "PAM error"
 msgstr "PAM 错误"
 
-#: sbuild/sbuild-auth.cc:128 sbuild/sbuild-session.cc:1065
-#: sbuild/sbuild-session.cc:1316 sbuild/sbuild-run-parts.cc:197
+#: sbuild/sbuild-auth.cc:108
+msgid "Password: "
+msgstr ""
+
+#: sbuild/sbuild-auth.cc:109
+msgid "Password:"
+msgstr ""
+
+#: sbuild/sbuild-auth.cc:116
+#, boost-format
+msgid "[schroot] password for %1%: "
+msgstr ""
+
+#: sbuild/sbuild-auth.cc:149 sbuild/sbuild-session.cc:1145
+#: sbuild/sbuild-session.cc:1397 sbuild/sbuild-run-parts.cc:204
 #: sbuild/sbuild-log.cc:167 bin/schroot-mount/schroot-mount-main.cc:130
 #: bin/schroot-mount/schroot-mount-main.cc:199
 msgid "An unknown exception occurred"
 msgstr "发生了未知的异常"
 
-#: sbuild/sbuild-auth.cc:477
+#: sbuild/sbuild-auth.cc:436
 msgid "Set RUSER"
 msgstr "设置 RUSER"
 
-#: sbuild/sbuild-auth.cc:495
+#: sbuild/sbuild-auth.cc:454
 msgid "Set RHOST"
 msgstr "设置 RHOST"
 
-#: sbuild/sbuild-auth.cc:514
+#: sbuild/sbuild-auth.cc:473
 msgid "Set TTY"
 msgstr "设置 TTY"
 
-#: sbuild/sbuild-auth.cc:526
+#: sbuild/sbuild-auth.cc:485
 msgid "Set USER"
 msgstr "设置 USER"
 
 #. TRANSLATORS: %1% = program name (PAM service name)
-#: sbuild/sbuild-auth.cc:549
+#: sbuild/sbuild-auth.cc:508
 #, boost-format
 msgid "You do not have permission to access the %1% service."
 msgstr "您无权访问 %1% 服务。"
 
-#: sbuild/sbuild-auth.cc:551
+#: sbuild/sbuild-auth.cc:510
 msgid "This failure will be reported."
 msgstr "将报告此错误。"
 
@@ -289,7 +302,7 @@ msgstr "子进程内核转储"
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr "子进程非正常退出(原因未知；非信号或是内核转储问题)"
 
-#: sbuild/sbuild-session.cc:73 sbuild/sbuild-run-parts.cc:46
+#: sbuild/sbuild-session.cc:73 sbuild/sbuild-run-parts.cc:47
 #: bin/schroot-mount/schroot-mount-main.cc:61
 msgid "Failed to fork child"
 msgstr "无法派生子进程"
@@ -300,7 +313,7 @@ msgstr "无法派生子进程"
 msgid "Child terminated by signal '%4%'"
 msgstr "用信号‘%4%’终止子进程"
 
-#: sbuild/sbuild-session.cc:76 sbuild/sbuild-run-parts.cc:47
+#: sbuild/sbuild-session.cc:76 sbuild/sbuild-run-parts.cc:48
 #: bin/schroot-mount/schroot-mount-main.cc:62
 msgid "Wait for child failed"
 msgstr "等待子进程出错"
@@ -421,24 +434,24 @@ msgstr "无法设置用户 ID ‘%1%’"
 msgid "(%1%->%2%): User switching is not permitted"
 msgstr "(%1%->%2%): 不允许用户切换"
 
-#: sbuild/sbuild-session.cc:338
+#: sbuild/sbuild-session.cc:354
 msgid "Error saving terminal settings"
 msgstr "保存终端设置时出错"
 
-#: sbuild/sbuild-session.cc:359
+#: sbuild/sbuild-session.cc:375
 msgid "Error restoring terminal settings"
 msgstr "还原终端设置时出错"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:825
+#: sbuild/sbuild-session.cc:896
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[chroot %1%] 正在运行登录程序: ‘%4%’"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:829
+#: sbuild/sbuild-session.cc:900
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[chroot %1%] 正在运行程序: ‘%4%’"
@@ -448,7 +461,7 @@ msgstr "[chroot %1%] 正在运行程序: ‘%4%’"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:840
+#: sbuild/sbuild-session.cc:911
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[chroot %1%] (%2%->%3%) 正在运行登录程序: ‘%4%’"
@@ -458,14 +471,14 @@ msgstr "[chroot %1%] (%2%->%3%) 正在运行登录程序: ‘%4%’"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:847
+#: sbuild/sbuild-session.cc:918
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[chroot %1%] (%2%->%3%) 正在运行程序: ‘%4%’"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:885
+#: sbuild/sbuild-session.cc:956
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[chroot %1%] 正在运行命令:“%4%”"
@@ -475,17 +488,17 @@ msgstr "[chroot %1%] 正在运行命令:“%4%”"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:892
+#: sbuild/sbuild-session.cc:963
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[chroot %1%] (%2%->%3%) 正在运行命令:“%4%”"
 
-#: sbuild/sbuild-session.cc:1089
+#: sbuild/sbuild-session.cc:1169
 #, boost-format
 msgid "stage=%1%"
 msgstr "阶段=%1%"
 
-#: sbuild/sbuild-session.cc:1240 sbuild/sbuild-session.cc:1247
+#: sbuild/sbuild-session.cc:1321 sbuild/sbuild-session.cc:1328
 msgid "terminating immediately"
 msgstr "立刻终止"
 
@@ -502,13 +515,13 @@ msgid "Failed to read directory '%1%'"
 msgstr "无法读取目录‘%1%’"
 
 #. TRANSLATORS: %1% = command name
-#: sbuild/sbuild-run-parts.cc:49 bin/schroot-mount/schroot-mount-main.cc:64
+#: sbuild/sbuild-run-parts.cc:50 bin/schroot-mount/schroot-mount-main.cc:64
 #, boost-format
 msgid "Failed to execute '%1%'"
 msgstr "无法运行‘%1%’"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-run-parts.cc:182 bin/schroot-mount/schroot-mount-main.cc:185
+#: sbuild/sbuild-run-parts.cc:185 bin/schroot-mount/schroot-mount-main.cc:185
 #, boost-format
 msgid "Executing '%1%'"
 msgstr "正在执行‘%1%’"
@@ -572,11 +585,11 @@ msgstr "已有与‘%1%’同名的 chroot 名或别名存在"
 msgid "Failed to open file"
 msgstr "无法打开文件"
 
-#: sbuild/sbuild-chroot-config.cc:220 sbuild/sbuild-chroot-config.cc:226
+#: sbuild/sbuild-chroot-config.cc:227 sbuild/sbuild-chroot-config.cc:233
 msgid "Duplicate names are not allowed"
 msgstr "不允许的复制名称"
 
-#: sbuild/sbuild-chroot-config.cc:305
+#: sbuild/sbuild-chroot-config.cc:312
 msgid "Available chroots: "
 msgstr "可用的 chroots: "
 
@@ -1042,8 +1055,8 @@ msgstr "未指定挂载点"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
-#: bin/dchroot/dchroot-session.cc:125
-#: bin/dchroot-dsa/dchroot-dsa-session.cc:135
+#: bin/dchroot/dchroot-session.cc:130
+#: bin/dchroot-dsa/dchroot-dsa-session.cc:142
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[chroot %1%] 正在运行命令: “%2%”"
