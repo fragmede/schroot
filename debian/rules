@@ -22,7 +22,8 @@ endif
 debian/build/config.status: configure
 	dh_testdir
 
-	mkdir debian/build; \
+	[ -d debian/build ] || mkdir debian/build
+
 	cd debian/build; \
 	CFLAGS="$(CFLAGS)" ../../configure \
 	  --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) \
