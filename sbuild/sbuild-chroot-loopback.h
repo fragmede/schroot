@@ -62,8 +62,6 @@ namespace sbuild
     void
     set_file (std::string const& file);
 
-    virtual std::string const&
-    get_mount_device () const;
 
     std::string const&
     get_chroot_type () const;

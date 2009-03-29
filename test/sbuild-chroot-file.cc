@@ -88,11 +88,10 @@ public:
     expected.add("CHROOT_FILE_REPACK",    "false");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_PATH",           "/mnt/mount-location");
-    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/device-to-mount");
     expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
-    expected.add("CHROOT_SESSION_CLONE", "true");
+    expected.add("CHROOT_SESSION_CLONE",  "true");
     expected.add("CHROOT_SESSION_CREATE", "true");
-    expected.add("CHROOT_SESSION_PURGE", "false");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
 
     test_chroot_base<chroot_file>::test_setup_env(expected);
   }

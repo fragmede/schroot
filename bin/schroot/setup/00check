@@ -51,7 +51,6 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 	echo "CHROOT_MOUNT_LOCATION=$CHROOT_MOUNT_LOCATION"
 	echo "CHROOT_LOCATION=$CHROOT_LOCATION"
 	echo "CHROOT_PATH=$CHROOT_PATH"
-	echo "CHROOT_MOUNT_DEVICE=$CHROOT_MOUNT_DEVICE"
 	if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ]; then
 	    :
 	elif [ "$CHROOT_TYPE" = "file" ]; then

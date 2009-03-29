@@ -76,8 +76,6 @@ public:
     CPPUNIT_ASSERT(c);
     c->set_snapshot_device("/dev/some/snapshot/device");
     CPPUNIT_ASSERT(c->get_snapshot_device() == "/dev/some/snapshot/device");
-    CPPUNIT_ASSERT(chroot->get_mount_device() ==
-		   "/dev/some/snapshot/device");
   }
 
   void
@@ -105,16 +103,15 @@ public:
     expected.add("CHROOT_DESCRIPTION",    "test-description");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_PATH",           "/mnt/mount-location");
-    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/snaptestdev");
     expected.add("CHROOT_DEVICE",         "/dev/testdev");
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
     expected.add("CHROOT_LVM_SNAPSHOT_NAME", sbuild::basename(c->get_snapshot_device()));
     expected.add("CHROOT_LVM_SNAPSHOT_DEVICE", "/dev/snaptestdev");
     expected.add("CHROOT_LVM_SNAPSHOT_OPTIONS", "--size 1G");
     expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
-    expected.add("CHROOT_SESSION_CLONE", "true");
+    expected.add("CHROOT_SESSION_CLONE",  "true");
     expected.add("CHROOT_SESSION_CREATE", "true");
-    expected.add("CHROOT_SESSION_PURGE", "false");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
 
     test_chroot_base<chroot_lvm_snapshot>::test_setup_env(expected);
   }

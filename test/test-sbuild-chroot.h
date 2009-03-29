@@ -50,7 +50,6 @@ public:
     chroot->set_name("test-name");
     chroot->set_description("test-description");
     chroot->set_mount_location("/mnt/mount-location");
-    chroot->set_mount_device("/dev/device-to-mount");
   }
 
   void tearDown()

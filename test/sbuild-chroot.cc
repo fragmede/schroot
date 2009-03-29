@@ -73,7 +73,6 @@ class test_chroot : public test_chroot_base<basic_chroot>
   CPPUNIT_TEST_SUITE(test_chroot);
   CPPUNIT_TEST(test_name);
   CPPUNIT_TEST(test_description);
-  CPPUNIT_TEST(test_mount_device);
   CPPUNIT_TEST(test_mount_location);
   CPPUNIT_TEST(test_priority);
   CPPUNIT_TEST(test_groups);
@@ -112,13 +111,6 @@ public:
     chroot->set_mount_location("/mnt/mount-location/example");
     CPPUNIT_ASSERT(chroot->get_mount_location() ==
 		   "/mnt/mount-location/example");
-  }
-
-  void test_mount_device()
-  {
-    chroot->set_mount_device("/dev/device-to-mount/example");
-    CPPUNIT_ASSERT(chroot->get_mount_device() ==
-		   "/dev/device-to-mount/example");
   }
 
   void test_priority()
@@ -215,11 +207,10 @@ public:
     expected.add("CHROOT_DESCRIPTION",    "test-description");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_PATH",           "/mnt/mount-location");
-    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/device-to-mount");
     expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
-    expected.add("CHROOT_SESSION_CLONE", "false");
+    expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
-    expected.add("CHROOT_SESSION_PURGE", "false");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
 
     test_chroot_base<basic_chroot>::test_setup_env(expected);
   }

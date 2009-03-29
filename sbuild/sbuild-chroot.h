@@ -196,22 +196,6 @@ namespace sbuild
     get_path () const;
 
     /**
-     * Get the mount device of the chroot.
-     *
-     * @returns the device.
-     */
-    virtual std::string const&
-    get_mount_device () const;
-
-    /**
-     * Set the mount device of the chroot.
-     *
-     * @param device the device.
-     */
-    void
-    set_mount_device (std::string const& device);
-
-    /**
      * Get the priority of the chroot.  This is a number indicating
      * whether than a ditribution is older than another.
      *
@@ -369,7 +353,7 @@ namespace sbuild
     /**
      * Set the originality of the chroot.
      *
-     * @param original true if original, false if geneated.
+     * @param original true if original, false if generated.
      */
     void
     set_original (bool original);
@@ -591,7 +575,6 @@ namespace sbuild
       return keyfile;
     }
 
-
   protected:
     /**
      * Get detailed information about the chroot for output.
@@ -656,8 +639,6 @@ namespace sbuild
     std::string   mount_location;
     /// Location inside the mount location root.
     std::string   location;
-    /// Block device to mount (if any).
-    std::string   mount_device;
     /// Chroot activity status.
     bool          active;
     /// Was the chroot automatically generated?
