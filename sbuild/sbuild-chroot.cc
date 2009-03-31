@@ -61,6 +61,7 @@ namespace
       emap(sbuild::chroot::DEVICE_LOCK,     N_("Failed to lock device")),
       emap(sbuild::chroot::DEVICE_NOTBLOCK, N_("File is not a block device")),
       emap(sbuild::chroot::DEVICE_UNLOCK,   N_("Failed to unlock device")),
+      emap(sbuild::chroot::DIRECTORY_ABS,   N_("Directory must have an absolute path")),
       emap(sbuild::chroot::FILE_ABS,        N_("File must have an absolute path")),
       emap(sbuild::chroot::FILE_LOCK,       N_("Failed to acquire file lock")),
       emap(sbuild::chroot::FILE_NOTREG,     N_("File is not a regular file")),

@@ -43,26 +43,29 @@ namespace sbuild
     clone () const;
 
     /**
-     * Get the directory location of the chroot.
+     * Get the directory containing the chroot.
      *
      * @returns the location.
      */
-    virtual std::string const&
-    get_location () const;
+    std::string const&
+    get_directory () const;
 
     /**
-     * Set the directory location of the chroot.
+     * Set the directory containing the chroot.
      *
-     * @param location the location.
+     * @param directory the directory.
      */
-    virtual void
-    set_location (std::string const& location);
+    void
+    set_directory (std::string const& directory);
 
     virtual std::string
     get_path () const;
 
     virtual std::string const&
     get_chroot_type () const;
+
+    virtual void
+    setup_env (environment& env);
 
     virtual session_flags
     get_session_flags () const;
@@ -83,6 +86,9 @@ namespace sbuild
     set_keyfile (keyfile const& keyfile,
 		 string_list&   used_keys);
 
+  private:
+    /// The directory to use.
+    std::string directory;
   };
 
 }

@@ -72,6 +72,7 @@ namespace sbuild
 	DEVICE_LOCK,     ///< Failed to lock device.
 	DEVICE_NOTBLOCK, ///< File is not a block device.
 	DEVICE_UNLOCK,   ///< Failed to unlock device.
+	DIRECTORY_ABS,   ///< Directory must have an absolute path.
 	FILE_ABS,        ///< File must have an absolute path.
 	FILE_LOCK,       ///< Failed to acquire lock.
 	FILE_NOTREG,     ///< File is not a regular file.
