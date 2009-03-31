@@ -12,14 +12,14 @@
 #
 #[woody]
 #description=Debian woody (oldstable)
-#location=/home/woody-chroot
+#directory=/home/woody-chroot
 #groups=sbuild
 #aliases=oldstable
 
 [sid]
 type=block-device
 description=Debian sid (unstable)
-#location=/srv/chroot/sid
+#directory=/srv/chroot/sid
 priority=3
 groups=sbuild,root
 root-groups=root,sbuild
@@ -31,16 +31,16 @@ run-exec-scripts=true
 
 [sid-local]
 description=Debian sid (unstable)
-#location=/srv/chroot/sid
+#directory=/srv/chroot/sid
 priority=3
 groups=sbuild,root
 root-groups=root,sbuild
-location=/srv/chroot/sid
+directory=/srv/chroot/sid
 
 [sid-snap]
 type=lvm-snapshot
 description=Debian sid snapshot
-#location=/srv/chroot/sid
+#directory=/srv/chroot/sid
 priority=3
 groups=sbuild,root
 root-groups=root,sbuild
@@ -52,13 +52,13 @@ run-exec-scripts=true
 
 #[etch]
 #description=Debian etch (testing)
-#location=/srv/chroot/etch
+#directory=/srv/chroot/etch
 #groups=sbuild-security
 #aliases=testing
 
 [sarge]
 description=Debian sarge (stable)
-location=/srv/chroot/sarge
+directory=/srv/chroot/sarge
 priority=2
 groups=sbuild
 root-groups=root,sbuild
@@ -69,7 +69,7 @@ run-exec-scripts=true
 
 [experimental]
 description=Debian experimental
-location=/srv/chroot/experimental
+directory=/srv/chroot/experimental
 priority=3
 groups=sbuild,root
 root-groups=root,sbuild

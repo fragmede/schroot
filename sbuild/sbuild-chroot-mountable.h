@@ -41,9 +41,6 @@ namespace sbuild
     /// The destructor.
     virtual ~chroot_mountable ();
 
-    virtual std::string const&
-    get_mount_device () const = 0;
-
     /**
      * Get the filesystem mount_options of the chroot block device.
      *

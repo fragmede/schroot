@@ -64,12 +64,6 @@ chroot_block_device::set_device (std::string const& device)
 }
 
 std::string const&
-chroot_block_device::get_mount_device () const
-{
-  return this->device;
-}
-
-std::string const&
 chroot_block_device::get_chroot_type () const
 {
   static const std::string type("block-device");

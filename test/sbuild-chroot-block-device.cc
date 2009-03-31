@@ -73,8 +73,6 @@ public:
     CPPUNIT_ASSERT(c);
     c->set_device("/dev/some/device");
     CPPUNIT_ASSERT(c->get_device() == "/dev/some/device");
-    CPPUNIT_ASSERT(chroot->get_mount_device() ==
-		   "/dev/some/device");
   }
 
   void
@@ -99,13 +97,12 @@ public:
     expected.add("CHROOT_DESCRIPTION",    "test-description");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_PATH",           "/mnt/mount-location");
-    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/testdev");
     expected.add("CHROOT_DEVICE",         "/dev/testdev");
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
     expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
-    expected.add("CHROOT_SESSION_CLONE", "false");
+    expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
-    expected.add("CHROOT_SESSION_PURGE", "false");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
 
     test_chroot_base<chroot_block_device>::test_setup_env(expected);
   }

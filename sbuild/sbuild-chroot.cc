@@ -61,6 +61,7 @@ namespace
       emap(sbuild::chroot::DEVICE_LOCK,     N_("Failed to lock device")),
       emap(sbuild::chroot::DEVICE_NOTBLOCK, N_("File is not a block device")),
       emap(sbuild::chroot::DEVICE_UNLOCK,   N_("Failed to unlock device")),
+      emap(sbuild::chroot::DIRECTORY_ABS,   N_("Directory must have an absolute path")),
       emap(sbuild::chroot::FILE_ABS,        N_("File must have an absolute path")),
       emap(sbuild::chroot::FILE_LOCK,       N_("Failed to acquire file lock")),
       emap(sbuild::chroot::FILE_NOTREG,     N_("File is not a regular file")),
@@ -93,7 +94,6 @@ sbuild::chroot::chroot ():
   environment_filter("^(BASH_ENV|CDPATH|ENV|HOSTALIASES|IFS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMAIN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TERMPATH)$"),
   mount_location(),
   location(),
-  mount_device(),
   active(false),
   original(true),
   run_setup_scripts(false),
@@ -197,20 +197,6 @@ std::string
 sbuild::chroot::get_path () const
 {
   return get_mount_location() + get_location();
-}
-
-std::string const&
-sbuild::chroot::get_mount_device () const
-{
-  return this->mount_device;
-}
-
-void
-sbuild::chroot::set_mount_device (std::string const& device)
-{
-  if (!device.empty() && !is_absname(device))
-    throw error(device, DEVICE_ABS);
-  this->mount_device = device;
 }
 
 unsigned int
@@ -390,7 +376,6 @@ sbuild::chroot::setup_env (environment& env)
   env.add("CHROOT_LOCATION", get_location());
   env.add("CHROOT_MOUNT_LOCATION", get_mount_location());
   env.add("CHROOT_PATH", get_path());
-  env.add("CHROOT_MOUNT_DEVICE", get_mount_device());
   env.add("CHROOT_SCRIPT_CONFIG", normalname(std::string(PACKAGE_SYSCONF_DIR) +  '/' + get_script_config()));
   env.add("CHROOT_SESSION_CREATE",
 	  static_cast<bool>(get_session_flags() & SESSION_CREATE));
@@ -500,9 +485,6 @@ sbuild::chroot::get_details (format_detail& detail) const
     detail.add(_("Mount Location"), get_mount_location());
   if (!get_path().empty())
     detail.add(_("Path"), get_path());
-  if (!get_mount_device().empty())
-    // TRANSLATORS: The system device node to mount containing the chroot
-    detail.add(_("Mount Device"), get_mount_device());
 }
 
 void
@@ -564,16 +546,13 @@ sbuild::chroot::get_keyfile (keyfile& keyfile) const
     keyfile::set_object_value(*this, &chroot::get_mount_location,
 			      keyfile, get_name(), "mount-location");
 
-  if (get_active())
-    keyfile::set_object_value(*this, &chroot::get_mount_device,
-			      keyfile, get_name(), "mount-device");
-
   keyfile::set_object_list_value(*this, &chroot::get_command_prefix,
 				 keyfile, get_name(), "command-prefix");
 
   keyfile::set_object_value(*this, &chroot::get_persona,
 			    keyfile, get_name(), "personality");
 }
+
 
 void
 sbuild::chroot::set_keyfile (keyfile const& keyfile,
@@ -664,13 +643,6 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile,
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_DISALLOWED);
   used_keys.push_back("mount-location");
-
-  keyfile::get_object_value(*this, &chroot::set_mount_device,
-			    keyfile, get_name(), "mount-device",
-			    get_active() ?
-			    keyfile::PRIORITY_OPTIONAL :
-			    keyfile::PRIORITY_DISALLOWED);
-  used_keys.push_back("mount-device");
 
   keyfile::get_object_list_value(*this, &chroot::set_command_prefix,
 				 keyfile, get_name(), "command-prefix",

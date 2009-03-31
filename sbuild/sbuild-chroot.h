@@ -72,6 +72,7 @@ namespace sbuild
 	DEVICE_LOCK,     ///< Failed to lock device.
 	DEVICE_NOTBLOCK, ///< File is not a block device.
 	DEVICE_UNLOCK,   ///< Failed to unlock device.
+	DIRECTORY_ABS,   ///< Directory must have an absolute path.
 	FILE_ABS,        ///< File must have an absolute path.
 	FILE_LOCK,       ///< Failed to acquire lock.
 	FILE_NOTREG,     ///< File is not a regular file.
@@ -194,22 +195,6 @@ namespace sbuild
      */
     virtual std::string
     get_path () const;
-
-    /**
-     * Get the mount device of the chroot.
-     *
-     * @returns the device.
-     */
-    virtual std::string const&
-    get_mount_device () const;
-
-    /**
-     * Set the mount device of the chroot.
-     *
-     * @param device the device.
-     */
-    void
-    set_mount_device (std::string const& device);
 
     /**
      * Get the priority of the chroot.  This is a number indicating
@@ -369,7 +354,7 @@ namespace sbuild
     /**
      * Set the originality of the chroot.
      *
-     * @param original true if original, false if geneated.
+     * @param original true if original, false if generated.
      */
     void
     set_original (bool original);
@@ -591,7 +576,6 @@ namespace sbuild
       return keyfile;
     }
 
-
   protected:
     /**
      * Get detailed information about the chroot for output.
@@ -656,8 +640,6 @@ namespace sbuild
     std::string   mount_location;
     /// Location inside the mount location root.
     std::string   location;
-    /// Block device to mount (if any).
-    std::string   mount_device;
     /// Chroot activity status.
     bool          active;
     /// Was the chroot automatically generated?

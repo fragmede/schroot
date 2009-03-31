@@ -77,12 +77,6 @@ chroot_lvm_snapshot::set_snapshot_device (std::string const& snapshot_device)
 }
 
 std::string const&
-chroot_lvm_snapshot::get_mount_device () const
-{
-  return this->snapshot_device;
-}
-
-std::string const&
 chroot_lvm_snapshot::get_snapshot_options () const
 {
   return this->snapshot_options;

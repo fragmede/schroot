@@ -51,9 +51,8 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 	echo "CHROOT_MOUNT_LOCATION=$CHROOT_MOUNT_LOCATION"
 	echo "CHROOT_LOCATION=$CHROOT_LOCATION"
 	echo "CHROOT_PATH=$CHROOT_PATH"
-	echo "CHROOT_MOUNT_DEVICE=$CHROOT_MOUNT_DEVICE"
 	if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ]; then
-	    :
+	    echo "CHROOT_DIRECTORY=$CHROOT_DIRECTORY"
 	elif [ "$CHROOT_TYPE" = "file" ]; then
 	    echo "CHROOT_FILE=$CHROOT_FILE"
 	    echo "CHROOT_FILE_REPACK=$CHROOT_FILE_REPACK"
@@ -75,8 +74,8 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 
     case "$CHROOT_TYPE" in
 	plain | directory)
-	    if [ ! -d "$CHROOT_LOCATION" ]; then
-		echo "Directory '$CHROOT_LOCATION' does not exist"
+	    if [ ! -d "$CHROOT_DIRECTORY" ]; then
+		echo "Directory '$CHROOT_DIRECTORY' does not exist"
 		exit 1
 	    fi
 	    ;;
@@ -100,8 +99,8 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 
     # A basic safety check, so that the root filesystem doesn't get
     # toasted by accident.
-    if [ -z "$CHROOT_PATH" ] || [ "$CHROOT_PATH" = "/" ] || [ "$CHROOT_LOCATION" = "/" ]; then
-	echo "Invalid chroot mount location: '$CHROOT_LOCATION'"
+    if [ -z "$CHROOT_PATH" ] || [ "$CHROOT_PATH" = "/" ] || [ "$CHROOT_DIRECTORY" = "/" ]; then
+	echo "Invalid chroot mount path or directory"
 	exit 1
     fi
 

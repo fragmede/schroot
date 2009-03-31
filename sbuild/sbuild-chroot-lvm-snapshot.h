@@ -67,9 +67,6 @@ namespace sbuild
     void
     set_snapshot_device (std::string const& snapshot_device);
 
-    virtual std::string const&
-    get_mount_device () const;
-
     /**
      * Get the logical volume snapshot options.  These are used by
      * lvcreate.

@@ -44,7 +44,7 @@ public:
 class test_chroot_directory : public test_chroot_base<chroot_directory>
 {
   CPPUNIT_TEST_SUITE(test_chroot_directory);
-  CPPUNIT_TEST(test_location);
+  CPPUNIT_TEST(test_directory);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
   CPPUNIT_TEST(test_setup_env2);
@@ -62,20 +62,20 @@ public:
   {
     test_chroot_base<chroot_directory>::setUp();
     sbuild::chroot_directory *c = dynamic_cast<sbuild::chroot_directory *>(chroot.get());
-    c->set_location("/srv/chroot/example-chroot");
+    c->set_directory("/srv/chroot/example-chroot");
   }
 
   void
-  test_location()
+  test_directory()
   {
     sbuild::chroot_directory *c = dynamic_cast<sbuild::chroot_directory *>(chroot.get());
     CPPUNIT_ASSERT(c);
     chroot->set_run_setup_scripts(true);
     CPPUNIT_ASSERT(chroot->get_mount_location() == "/mnt/mount-location");
     chroot->set_run_setup_scripts(false);
-    c->set_location("/mnt/mount-location/example");
+    c->set_directory("/mnt/mount-location/example");
     chroot->set_mount_location("");
-    CPPUNIT_ASSERT(c->get_location() == "/mnt/mount-location/example");
+    CPPUNIT_ASSERT(c->get_directory() == "/mnt/mount-location/example");
     CPPUNIT_ASSERT(chroot->get_location() == "/mnt/mount-location/example");
     CPPUNIT_ASSERT(chroot->get_path() == "/mnt/mount-location/example");
     CPPUNIT_ASSERT(chroot->get_mount_location() == "");
@@ -93,13 +93,13 @@ public:
     expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",    "test-description");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
+    expected.add("CHROOT_DIRECTORY",      "/srv/chroot/example-chroot");
     expected.add("CHROOT_LOCATION",       "/srv/chroot/example-chroot");
     expected.add("CHROOT_PATH",           "/srv/chroot/example-chroot");
-    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/device-to-mount");
     expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
-    expected.add("CHROOT_SESSION_CLONE", "false");
+    expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
-    expected.add("CHROOT_SESSION_PURGE", "false");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
 
     test_chroot_base<chroot_directory>::test_setup_env(expected);
   }
@@ -113,13 +113,13 @@ public:
     expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",    "test-description");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
+    expected.add("CHROOT_DIRECTORY",       "/srv/chroot/example-chroot");
     expected.add("CHROOT_LOCATION",       "/srv/chroot/example-chroot");
     expected.add("CHROOT_PATH",           "/mnt/mount-location");
-    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/device-to-mount");
     expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
-    expected.add("CHROOT_SESSION_CLONE", "false");
+    expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
-    expected.add("CHROOT_SESSION_PURGE", "false");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
 
     test_chroot_base<chroot_directory>::test_setup_env(expected);
   }
@@ -151,6 +151,7 @@ public:
     // TODO: Compare output.
     CPPUNIT_ASSERT(!os.str().empty());
   }
+
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_chroot_directory);

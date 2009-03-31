@@ -64,12 +64,6 @@ chroot_loopback::set_file (std::string const& file)
 }
 
 std::string const&
-chroot_loopback::get_mount_device () const
-{
-  return this->file;
-}
-
-std::string const&
 chroot_loopback::get_chroot_type () const
 {
   static const std::string type("loopback");

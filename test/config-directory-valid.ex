@@ -1,4 +1,4 @@
-[experimental]
+[valid]
 description=Debian experimental
 directory=/srv/chroot/experimental
 priority=3
