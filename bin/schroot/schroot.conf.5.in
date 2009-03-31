@@ -153,7 +153,7 @@ that if \f[CI]run\-setup\-scripts\fP is set to \[oq]true\[cq] for
 .PP
 These chroot types have an additional (mandatory) configuration option:
 .TP
-\f[CBI]location=\fP\f[CI]directory\fP
+\f[CBI]directory=\fP\f[CI]directory\fP
 The directory containing the chroot environment.  This is where the root will
 be changed to when executing a login shell or a command.  The directory must
 exist and have read and execute permissions to allow users access to it.  Note
@@ -163,6 +163,14 @@ option to
 .BR mount (8),
 while for \[oq]directory\[cq] chroots \fI\-\-bind\fP is used instead so that
 sub-mounts are not preserved.
+.IP
+This option was previously named \f[CI]location\fP, but was renamed to avoid
+ambiguity with the option by the same name for \fBmountable chroot\fP options
+(see \[lq]\fIMountable chroot options\fP\[rq], below).  The name
+\f[CI]location\fP is deprecated, but still valid; it will be obsoleted and
+removed in a future release.  It is recommended to use \f[CI]directory\fP
+rather than \f[CI]location\fP.  Note that it is an error to use both
+\f[CI]directory\fP and \f[CI]location\fP at the same time.
 .SS
 File chroots
 .PP
@@ -307,7 +315,7 @@ this boils down to \fItrust\fP.
 .br
 \f[CR]description[fr_FR]=Debian instable\fP
 .br
-\f[CR]location=/srv/chroot/sid\fP
+\f[CR]directory=/srv/chroot/sid\fP
 .br
 \f[CR]priority=3\fP
 .br
@@ -392,7 +400,7 @@ this boils down to \fItrust\fP.
 \f[CR]run\-exec\-scripts=true\fP
 .SH FILES
 .TP
-.I @SCHROOT_CONF@
+\f[BI]@SCHROOT_CONF@\fP
 The system-wide chroot definition file.  This file must be owned by the root
 user, and not be writable by other.
 .TP
