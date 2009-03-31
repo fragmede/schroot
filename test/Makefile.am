@@ -115,21 +115,24 @@ sbuild_util_LDADD = libtest.la
 schroot_base_option_action_SOURCES = schroot-base-option-action.cc
 schroot_base_option_action_LDADD = $(top_builddir)/bin/schroot-base/libschroot-base.la libtest.la
 
-EXTRA_DIST = 			\
-	keyfile.ex1		\
-	config.ex1 		\
-	config.ex2/file		\
-	config.ex2/empty	\
-	config.ex2/experimental	\
-	config.ex2/sarge	\
-	config.ex2/sid		\
-	config.ex2/woody	\
-	run-parts.ex1/10test1	\
-	run-parts.ex1/20test2	\
-	run-parts.ex1/30test3	\
-	run-parts.ex2		\
-	run-parts.ex3/50invalid	\
-	setup-test-data		\
+EXTRA_DIST = 				\
+	keyfile.ex1			\
+	config.ex1 			\
+	config.ex2/file			\
+	config.ex2/empty		\
+	config.ex2/experimental		\
+	config.ex2/sarge		\
+	config.ex2/sid			\
+	config.ex2/woody		\
+	config-directory-deprecated.ex	\
+	config-directory-fail.ex	\
+	config-directory-valid.ex	\
+	run-parts.ex1/10test1		\
+	run-parts.ex1/20test2		\
+	run-parts.ex1/30test3		\
+	run-parts.ex2			\
+	run-parts.ex3/50invalid		\
+	setup-test-data			\
 	cleanup-test-data
 
 clean-local:

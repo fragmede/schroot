@@ -43,6 +43,9 @@ class test_config : public TestFixture
   CPPUNIT_TEST(test_print_chroot_list);
   CPPUNIT_TEST(test_print_chroot_info);
   CPPUNIT_TEST(test_validate_chroots);
+  CPPUNIT_TEST_EXCEPTION(test_config_fail, sbuild::error_base);
+  CPPUNIT_TEST(test_config_deprecated);
+  CPPUNIT_TEST(test_config_valid);
   CPPUNIT_TEST_SUITE_END();
 
 protected:
@@ -80,6 +83,11 @@ public:
   void test_construction_fail()
   {
     sbuild::chroot_config c(TESTDATADIR "/config.nonexistent", false);
+  }
+
+  void test_construction_fail_wrong()
+  {
+    sbuild::chroot_config c(TESTDATADIR "/config.ex3", false);
   }
 
   void test_add_file()
@@ -174,6 +182,21 @@ public:
     CPPUNIT_ASSERT(invalid.size() == 2);
     CPPUNIT_ASSERT(invalid[0] == "invalid");
     CPPUNIT_ASSERT(invalid[1] == "invalid2");
+  }
+
+  void test_config_fail()
+  {
+    sbuild::chroot_config c(TESTDATADIR "/config-directory-fail.ex", false);
+  }
+
+  void test_config_deprecated()
+  {
+    sbuild::chroot_config c(TESTDATADIR "/config-directory-deprecated.ex", false);
+  }
+
+  void test_config_valid()
+  {
+    sbuild::chroot_config c(TESTDATADIR "/config-directory-valid.ex", false);
   }
 
 };

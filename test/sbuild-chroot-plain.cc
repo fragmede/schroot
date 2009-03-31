@@ -44,7 +44,7 @@ public:
 class test_chroot_plain : public test_chroot_base<chroot_plain>
 {
   CPPUNIT_TEST_SUITE(test_chroot_plain);
-  CPPUNIT_TEST(test_location);
+  CPPUNIT_TEST(test_directory);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
   CPPUNIT_TEST(test_print_details);
@@ -61,16 +61,16 @@ public:
     test_chroot_base<chroot_plain>::setUp();
     sbuild::chroot_plain *c = dynamic_cast<sbuild::chroot_plain *>(chroot.get());
     c->set_mount_location("");
-    c->set_location("/srv/chroot/example-chroot");
+    c->set_directory("/srv/chroot/example-chroot");
   }
 
   void
-  test_location()
+  test_directory()
   {
     sbuild::chroot_plain *c = dynamic_cast<sbuild::chroot_plain *>(chroot.get());
     CPPUNIT_ASSERT(c);
-    c->set_location("/mnt/mount-location/example");
-    CPPUNIT_ASSERT(c->get_location() == "/mnt/mount-location/example");
+    c->set_directory("/mnt/mount-location/example");
+    CPPUNIT_ASSERT(c->get_directory() == "/mnt/mount-location/example");
     CPPUNIT_ASSERT(chroot->get_location() == "/mnt/mount-location/example");
     CPPUNIT_ASSERT(chroot->get_path() == "/mnt/mount-location/example");
     CPPUNIT_ASSERT(chroot->get_mount_location() == "");
@@ -87,6 +87,7 @@ public:
     expected.add("CHROOT_TYPE",           "plain");
     expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",    "test-description");
+    expected.add("CHROOT_DIRECTORY",      "/srv/chroot/example-chroot");
     expected.add("CHROOT_LOCATION",       "/srv/chroot/example-chroot");
     expected.add("CHROOT_PATH",           "/srv/chroot/example-chroot");
     expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));

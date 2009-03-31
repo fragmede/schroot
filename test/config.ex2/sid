@@ -1,7 +1,7 @@
 [sid]
 type=block-device
 description=Debian sid (unstable)
-#location=/srv/chroot/sid
+#directory=/srv/chroot/sid
 priority=3
 groups=sbuild,root
 root-groups=root,sbuild
@@ -13,16 +13,16 @@ run-exec-scripts=true
 
 [sid-local]
 description=Debian sid (unstable)
-#location=/srv/chroot/sid
+#directory=/srv/chroot/sid
 priority=3
 groups=sbuild,root
 root-groups=root,sbuild
-location=/srv/chroot/sid
+directory=/srv/chroot/sid
 
 [sid-snap]
 type=lvm-snapshot
 description=Debian sid snapshot
-#location=/srv/chroot/sid
+#directory=/srv/chroot/sid
 priority=3
 groups=sbuild,root
 root-groups=root,sbuild
