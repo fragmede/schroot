@@ -91,6 +91,9 @@ namespace sbuild
     virtual void
     set_location (std::string const& location);
 
+    virtual std::string
+    get_path () const;
+
     virtual void
     setup_env (environment& env);
 
@@ -113,6 +116,8 @@ namespace sbuild
     std::string mount_device;
     /// The options to mount the device with.
     std::string mount_options;
+    /// Location inside the mount location root.
+    std::string location;
   };
 
 }

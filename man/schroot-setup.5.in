@@ -97,7 +97,7 @@ mounting.
 .TP
 CHROOT_LOCATION
 The location of the chroot inside the mount point.  This is to allow multiple
-chroots on a single filesystem.
+chroots on a single filesystem.  Set for all mountable chroot types.
 .TP
 CHROOT_PATH
 The absolute path to the chroot.  This is typically CHROOT_MOUNT_LOCATION and

@@ -163,27 +163,6 @@ namespace sbuild
     void
     set_mount_location (std::string const& location);
 
-    /**
-     * Get the location of the chroot.  This is the path to the root
-     * of the chroot, and is typically the same as the mount location,
-     * but is overridden by the chroot type if required.
-     *
-     * @returns the mount location.
-     */
-    virtual std::string const&
-    get_location () const;
-
-  protected:
-    /**
-     * Set the location of the chroot.  This is the path to the root
-     * of the chroot, and is typically the same as the mount location,
-     * but is overridden by the chroot type if required.
-     *
-     * @param location the mount location.
-     */
-    virtual void
-    set_location (std::string const& location);
-
   public:
     /**
      * Get the path to the chroot.  This is the absolute path to the

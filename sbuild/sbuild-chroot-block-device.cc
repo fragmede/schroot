@@ -70,6 +70,12 @@ chroot_block_device::set_device (std::string const& device)
   chroot_mountable::set_mount_device(device);
 }
 
+std::string
+chroot_block_device::get_path () const
+{
+  return chroot_mountable::get_path();
+}
+
 std::string const&
 chroot_block_device::get_chroot_type () const
 {

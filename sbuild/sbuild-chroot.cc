@@ -93,7 +93,6 @@ sbuild::chroot::chroot ():
   aliases(),
   environment_filter("^(BASH_ENV|CDPATH|ENV|HOSTALIASES|IFS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMAIN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TERMPATH)$"),
   mount_location(),
-  location(),
   active(false),
   original(true),
   run_setup_scripts(false),
@@ -177,25 +176,10 @@ sbuild::chroot::set_mount_location (std::string const& location)
   this->mount_location = location;
 }
 
-std::string const&
-sbuild::chroot::get_location () const
-{
-  return this->location;
-}
-
-void
-sbuild::chroot::set_location (std::string const& location)
-{
-  if (!location.empty() && !is_absname(location))
-    throw error(location, LOCATION_ABS);
-
-  this->location = location;
-}
-
 std::string
 sbuild::chroot::get_path () const
 {
-  return get_mount_location() + get_location();
+  return get_mount_location();
 }
 
 unsigned int
@@ -360,7 +344,6 @@ sbuild::chroot::setup_env (environment& env)
   env.add("CHROOT_TYPE", get_chroot_type());
   env.add("CHROOT_NAME", get_name());
   env.add("CHROOT_DESCRIPTION", get_description());
-  env.add("CHROOT_LOCATION", get_location());
   env.add("CHROOT_MOUNT_LOCATION", get_mount_location());
   env.add("CHROOT_PATH", get_path());
   env.add("CHROOT_SCRIPT_CONFIG", normalname(std::string(PACKAGE_SYSCONF_DIR) +  '/' + get_script_config()));
@@ -465,8 +448,6 @@ sbuild::chroot::get_details (format_detail& detail) const
   detail.add(_("Personality"), get_persona().get_name());
 
   /* Non user-settable properties are listed last. */
-  if (!get_location().empty())
-    detail.add(_("Location"), get_location());
   if (!get_mount_location().empty())
     detail.add(_("Mount Location"), get_mount_location());
   if (!get_path().empty())

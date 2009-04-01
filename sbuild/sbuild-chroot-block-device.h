@@ -65,6 +65,9 @@ namespace sbuild
     void
     set_device (std::string const& device);
 
+    virtual std::string
+    get_path () const;
+
     std::string const&
     get_chroot_type () const;
 

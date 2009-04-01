@@ -64,6 +64,7 @@ public:
     sbuild::chroot_block_device *c = dynamic_cast<sbuild::chroot_block_device *>(chroot.get());
     c->set_device("/dev/testdev");
     c->set_mount_options("-t jfs -o quota,rw");
+    c->set_location("/squeeze");
   }
 
   void
@@ -82,6 +83,8 @@ public:
     CPPUNIT_ASSERT(c);
     c->set_mount_options("-o opt1,opt2");
     CPPUNIT_ASSERT(c->get_mount_options() == "-o opt1,opt2");
+    c->set_location("/squeeze");
+    CPPUNIT_ASSERT(c->get_location() == "/squeeze");
   }
 
   void test_chroot_type()
@@ -95,8 +98,9 @@ public:
     expected.add("CHROOT_TYPE",           "block-device");
     expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",    "test-description");
+    expected.add("CHROOT_LOCATION",       "/squeeze");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
-    expected.add("CHROOT_PATH",           "/mnt/mount-location");
+    expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
     expected.add("CHROOT_DEVICE",         "/dev/testdev");
     expected.add("CHROOT_MOUNT_DEVICE",         "/dev/testdev");
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");

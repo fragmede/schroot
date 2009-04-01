@@ -34,7 +34,8 @@ using namespace sbuild;
 chroot_mountable::chroot_mountable ():
   chroot(),
   mount_device(),
-  mount_options()
+  mount_options(),
+  location()
 {
 }
 
@@ -69,7 +70,7 @@ chroot_mountable::set_mount_options (std::string const& mount_options)
 std::string const&
 chroot_mountable::get_location () const
 {
-  return chroot::get_location();
+  return this->location;
 }
 
 void
@@ -78,7 +79,13 @@ chroot_mountable::set_location (std::string const& location)
   if (!location.empty() && !is_absname(location))
     throw error(location, LOCATION_ABS);
 
-  chroot::set_location(location);
+  this->location = location;
+}
+
+std::string
+chroot_mountable::get_path () const
+{
+  return get_mount_location() + get_location();
 }
 
 void
@@ -104,6 +111,8 @@ chroot_mountable::get_details (format_detail& detail) const
 
   if (!this->mount_options.empty())
     detail.add(_("Mount Options"), get_mount_options());
+  if (!get_location().empty())
+    detail.add(_("Location"), get_location());
 }
 
 void

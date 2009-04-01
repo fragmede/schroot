@@ -60,8 +60,6 @@ chroot_directory::set_directory (std::string const& directory)
     throw error(directory, DIRECTORY_ABS);
 
   this->directory = directory;
-
-  set_location(directory);
 }
 
 std::string
@@ -72,7 +70,7 @@ chroot_directory::get_path () const
   if (get_run_setup_scripts() == true)
     return get_mount_location();
   else
-    return get_location();
+    return get_directory();
 }
 
 std::string const&

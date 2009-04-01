@@ -71,7 +71,6 @@ public:
     CPPUNIT_ASSERT(c);
     c->set_directory("/mnt/mount-location/example");
     CPPUNIT_ASSERT(c->get_directory() == "/mnt/mount-location/example");
-    CPPUNIT_ASSERT(chroot->get_location() == "/mnt/mount-location/example");
     CPPUNIT_ASSERT(chroot->get_path() == "/mnt/mount-location/example");
     CPPUNIT_ASSERT(chroot->get_mount_location() == "");
   }
@@ -88,7 +87,6 @@ public:
     expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",    "test-description");
     expected.add("CHROOT_DIRECTORY",      "/srv/chroot/example-chroot");
-    expected.add("CHROOT_LOCATION",       "/srv/chroot/example-chroot");
     expected.add("CHROOT_PATH",           "/srv/chroot/example-chroot");
     expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
     expected.add("CHROOT_SESSION_CLONE", "false");

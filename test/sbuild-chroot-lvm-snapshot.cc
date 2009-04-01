@@ -65,6 +65,7 @@ public:
     sbuild::chroot_lvm_snapshot *c = dynamic_cast<sbuild::chroot_lvm_snapshot *>(chroot.get());
     c->set_device("/dev/testdev");
     c->set_mount_options("-t jfs -o quota,rw");
+    c->set_location("/squeeze");
     c->set_snapshot_device("/dev/snaptestdev");
     c->set_snapshot_options("--size 1G");
   }
@@ -101,8 +102,9 @@ public:
     expected.add("CHROOT_TYPE",           "lvm-snapshot");
     expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",    "test-description");
+    expected.add("CHROOT_LOCATION",       "/squeeze");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
-    expected.add("CHROOT_PATH",           "/mnt/mount-location");
+    expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
     expected.add("CHROOT_DEVICE",         "/dev/testdev");
     expected.add("CHROOT_MOUNT_DEVICE",   "/dev/snaptestdev");
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");

@@ -62,9 +62,11 @@ namespace sbuild
     void
     set_file (std::string const& file);
 
-
     std::string const&
     get_chroot_type () const;
+
+    virtual std::string
+    get_path () const;
 
     virtual void
     setup_env (environment& env);
