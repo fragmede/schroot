@@ -600,8 +600,6 @@ namespace sbuild
     regex         environment_filter;
     /// Location to mount chroot in the filesystem (if any).
     std::string   mount_location;
-    /// Location inside the mount location root.
-    std::string   location;
     /// Chroot activity status.
     bool          active;
     /// Was the chroot automatically generated?
