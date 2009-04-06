@@ -1,6 +1,6 @@
 #!/bin/sh
-# Copyright © 2007  Kees Cook <kees@outflux.net>
-# Copyright © 2007  Roger Leigh <rleigh@debian.org>
+# Copyright © 2007       Kees Cook <kees@outflux.net>
+# Copyright © 2007-2009  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ do_kill_all()
                 echo "Killing left-over pid $pid (${exe##$1})"
                 echo "  Sending SIGTERM to pid $pid"
             fi
-            kill -TERM "$pid" 2>/dev/null
+            /bin/kill -TERM "$pid" 2>/dev/null
 
             count=0
             max=5
@@ -58,7 +58,7 @@ do_kill_all()
                     if [ "$AUTH_VERBOSITY" = "verbose" ]; then
                         echo "  Sending SIGKILL to pid $pid"
                     fi
-                    kill -KILL "$pid" 2>/dev/null
+                    /bin/kill -KILL "$pid" 2>/dev/null
                     sleep 1
                     break
                 fi
