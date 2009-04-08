@@ -75,3 +75,11 @@ fashion.  expect might be useful for testing the PAM wrappers.
 ** config file should have a "message" key.
 
   Overridden by --quiet/--verbose options.
+
+* Create separate namespaces for chroots and sessions
+
+Note: how to deal with duplicated names in both namespaces for --all?
+Maybe just list twice, first chroots and then sessions?
+
+* Testcase for chroot-loopback
+
