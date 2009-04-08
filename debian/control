@@ -3,7 +3,7 @@ Section: admin
 Priority: optional
 Maintainer: Debian buildd-tools Developers <buildd-tools-devel@lists.alioth.debian.org>
 Uploaders: Michael Banck <mbanck@debian.org>, Luk Claes <luk@debian.org>, Roger Leigh <rleigh@debian.org>, Francesco Paolo Lovergine <frankie@debian.org>
-Build-Depends: debhelper (>= 7.0.0), autotools-dev, pkg-config (>= 0.20), libpam0g-dev (>= 0.79-3.1), uuid-dev, liblockdev1-dev (>= 1.0.2), libboost1.37-dev (>= 1.34.0), libboost-program-options1.37-dev (>= 1.34.0), libboost-regex1.37-dev (>= 1.34.0), libboost-filesystem1.37-dev (>= 1.34.0), gettext, libcppunit-dev, doxygen, graphviz
+Build-Depends: debhelper (>= 7.0.0), autotools-dev, pkg-config (>= 0.20), libpam0g-dev (>= 0.79-3.1), uuid-dev, liblockdev1-dev (>= 1.0.2), libboost1.38-dev (>= 1.34.0), libboost-program-options1.38-dev (>= 1.34.0), libboost-regex1.38-dev (>= 1.34.0), libboost-filesystem1.38-dev (>= 1.34.0), gettext, libcppunit-dev, doxygen, graphviz
 Standards-Version: 3.8.1
 Vcs-Browser: http://git.debian.org/?p=buildd-tools/schroot.git
 Vcs-Git: git://git.debian.org/git/buildd-tools/schroot
