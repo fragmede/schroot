@@ -64,7 +64,8 @@ chroot_block_device::set_device (std::string const& device)
   /** @todo When using LVM snapshots, this it is incorrect to call
    * set_mount_device here, since it is not the mount device.  This
    * currently works due to the order we call in, but could
-   * potentially break.
+   * potentially break.  Make chroot_mountable a pure virtual
+   * interface to fix this.
    */
   chroot_mountable::set_mount_device(device);
 }
