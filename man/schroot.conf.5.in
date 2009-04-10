@@ -102,18 +102,20 @@ If your chroots are exclusively controlled by schroot, set to \[oq]true\[cq].
 \f[CBI]run\-exec\-scripts=\fP\f[CI]true\fP|\f[CI]false\fP Set whether chroot
 execution scripts will be run.  The default is the same as the default for the
 \f[CI]run\-setup\-scripts\fP key.  This option was called
-\f[CI]run\-session\-scripts\fP in versions prior to 0.2.5.
+\f[CI]run\-session\-scripts\fP in versions prior to 0.2.5.  This option is
+deprecated and no longer used by schroot, but is still permitted to be used; it
+will be obsoleted and removed in a future release.
 .TP
 \f[CBI]script\-config=\fP\f[CI]filename\fP
-The behaviour of the chroot setup and execution scripts may be customised on a
-per-chroot basis by providing a shell script which the scripts will source.
-The filename is relative to \fI@PACKAGE_SYSCONF_DIR@\fP.  The default filename
-is \[oq]script\-defaults\[cq].  The recommended method of customisation is to
-copy this script and amend the copy; or alter the original to set the defaults
-for all chroots.  Settings for specific chroots may also be set in a single
-script by using conditionals checking the chroot name and/or type.  Note that
-the setup script will be sourced once for each and every setup and exec script
-invocation, and must be idempotent.  The file format is documented in
+The behaviour of the chroot setup scripts may be customised on a per-chroot
+basis by providing a shell script which the scripts will source.  The filename
+is relative to \fI@PACKAGE_SYSCONF_DIR@\fP.  The default filename is
+\[oq]script\-defaults\[cq].  The recommended method of customisation is to copy
+this script and amend the copy; or alter the original to set the defaults for
+all chroots.  Settings for specific chroots may also be set in a single script
+by using conditionals checking the chroot name and/or type.  Note that the
+setup script will be sourced once for each and every script invocation, and
+must be idempotent.  The file format is documented in
 .BR schroot-script-config (5).
 .TP
 \f[CBI]command\-prefix=\fP\f[CI]command,option1,option2,...\fP
@@ -351,8 +353,6 @@ this boils down to \fItrust\fP.
 .br
 \f[CR]run\-setup\-scripts=true\fP
 .br
-\f[CR]run\-exec\-scripts=true\fP
-.br
 \f[CR]\fP
 .br
 \f[CR][sid\-file]\fP
@@ -368,8 +368,6 @@ this boils down to \fItrust\fP.
 \f[CR]file=/srv/chroots/sid.tar.gz\fP
 .br
 \f[CR]run\-setup\-scripts=true\fP
-.br
-\f[CR]run\-exec\-scripts=true\fP
 .br
 \f[CR]\fP
 .br
@@ -396,8 +394,6 @@ this boils down to \fItrust\fP.
 \f[CR]lvm\-snapshot\-options=\-\-size 2G\fP
 .br
 \f[CR]run\-setup\-scripts=true\fP
-.br
-\f[CR]run\-exec\-scripts=true\fP
 .SH FILES
 .TP
 \f[BI]@SCHROOT_CONF@\fP

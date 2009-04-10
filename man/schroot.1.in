@@ -211,8 +211,6 @@ unmounted, for example.
 .br
 \f[CR]\ \ Run\ Setup\ Scripts\ \ \ \ \ \ true\fP
 .br
-\f[CR]\ \ Run\ Execution\ Scripts\ \ false\fP
-.br
 \f[CR]\ \ Script\ Configuration\ \ \ script\-defaults\fP
 .br
 \f[CR]\ \ Session\ Managed\ \ \ \ \ \ \ \ true\fP
@@ -314,8 +312,6 @@ Let's start by looking at a session-capable chroot:
 .br
 \f[CR]\ \ Run\ Setup\ Scripts\ \ \ \ \ \ true\fP
 .br
-\f[CR]\ \ Run\ Execution\ Scripts\ \ true\fP
-.br
 \f[CR]\ \ Script\ Configuration\ \ \ script\-defaults\fP
 .br
 \f[CR]\ \ Session\ Managed\ \ \ \ \ \ \ \ true\fP
@@ -389,8 +385,6 @@ looks like:
 \f[CR]RMPATH)$\fP
 .br
 \f[CR]\ \ Run\ Setup\ Scripts\ \ \ \ \ \ true\fP
-.br
-\f[CR]\ \ Run\ Execution\ Scripts\ \ true\fP
 .br
 \f[CR]\ \ Script\ Configuration\ \ \ script\-defaults\fP
 .br
@@ -508,9 +502,7 @@ directory follow the same naming rules as
 when run with the \fI\-\-lsbsysinit\fP option.
 .TP
 \f[BI]@SCHROOT_CONF_SETUP_D@\fP
-.TP
-\f[BI]@SCHROOT_CONF_EXEC_D@\fP
-The system-wide chroot setup and execution directories.  See
+The system-wide chroot setup script directories.  See
 .BR schroot-setup (5).
 .TP
 \f[BI]/etc/pam.d/schroot\fP

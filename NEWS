@@ -11,7 +11,10 @@ configuration.
 
   1) Exec scripts have been removed.  Unlike setup scripts, these
      scripts were never used, and there are no known uses for them.
-     Removing them will improve the performance of schroot.
+     Removing them will improve the performance of schroot.  The
+     run-exec-scripts configuration option is no longer used, but
+     is still permitted to be used until it is obsoleted in a
+     future release.
 
 * Major changes in 1.2.1:
 
