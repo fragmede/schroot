@@ -1,4 +1,4 @@
-/* Copyright © 2005-2007  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -43,7 +43,11 @@ namespace sbuild
       {
 	CHILD_FORK, ///< Failed to fork child.
 	CHILD_WAIT, ///< Wait for child failed.
-	EXEC        ///< Failed to execute.
+	EXEC,       ///< Failed to execute.
+	PIPE,       ///< Failed to create pipe.
+	DUP,        ///< Failed to duplicate file descriptor.
+	POLL,       ///< Failed to poll file descriptor.
+	READ        ///< Failed to read file descriptor.
       };
 
     /// Exception type.

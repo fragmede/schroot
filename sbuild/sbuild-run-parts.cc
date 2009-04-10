@@ -1,4 +1,4 @@
-/* Copyright © 2005-2007  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 
 #include <cerrno>
 
+#include <poll.h>
 #include <sys/wait.h>
 
 #include <syslog.h>
@@ -47,7 +48,11 @@ namespace
       emap(run_parts::CHILD_FORK, N_("Failed to fork child")),
       emap(run_parts::CHILD_WAIT, N_("Wait for child failed")),
       // TRANSLATORS: %1% = command name
-      emap(run_parts::EXEC,       N_("Failed to execute '%1%'"))
+      emap(run_parts::EXEC,       N_("Failed to execute '%1%'")),
+      emap(run_parts::PIPE,       N_("Failed to create pipe")),
+      emap(run_parts::DUP,        N_("Failed to duplicate file descriptor")),
+      emap(run_parts::POLL,       N_("Failed to poll file descriptor")),
+      emap(run_parts::READ,       N_("Failed to read file descriptor"))
     };
 
 }
@@ -166,48 +171,155 @@ run_parts::run_child (std::string const& file,
 		      string_list const& command,
 		      environment const& env)
 {
+  int stdout_pipe[2];
+  int stderr_pipe[2];
   int exit_status = 0;
   pid_t pid;
 
-  if ((pid = fork()) == -1)
+  try
     {
-      throw error(CHILD_FORK, strerror(errno));
-    }
-  else if (pid == 0)
-    {
-      try
-	{
-	  log_debug(DEBUG_INFO) << "run_parts: executing "
-				<< string_list_to_string(command, ", ")
-				<< std::endl;
-	  if (this->verbose)
-	    // TRANSLATORS: %1% = command
-	    log_info() << format(_("Executing '%1%'"))
-	      % string_list_to_string(command, " ")
-		       << std::endl;
-	  ::umask(this->umask);
+      if (pipe(stdout_pipe) < 0)
+	throw error(PIPE, strerror(errno));
+      if (pipe(stderr_pipe) < 0)
+	throw error(PIPE, strerror(errno));
 
-	  // Don't leak syslog file descriptor to child processes.
-	  closelog();
+      if ((pid = fork()) == -1)
+	{
+	  throw error(CHILD_FORK, strerror(errno));
+	}
+      else if (pid == 0)
+	{
+	  try
+	    {
+	      log_debug(DEBUG_INFO) << "run_parts: executing "
+				    << string_list_to_string(command, ", ")
+				    << std::endl;
+	      if (this->verbose)
+		// TRANSLATORS: %1% = command
+		log_info() << format(_("Executing '%1%'"))
+		  % string_list_to_string(command, " ")
+			   << std::endl;
+	      ::umask(this->umask);
 
-	  exec(this->directory + '/' + file, command, env);
-	  error e(file, EXEC, strerror(errno));
-	  log_exception_error(e);
+	      // Don't leak syslog file descriptor to child processes.
+	      closelog();
+
+	      // Set up pipes for stdout and stderr
+	      if (dup2(stdout_pipe[1], STDOUT_FILENO) < 0)
+		throw error(DUP, strerror(errno));
+	      if (dup2(stderr_pipe[1], STDERR_FILENO) < 0)
+		throw error(DUP, strerror(errno));
+
+	      close(stdout_pipe[0]);
+	      close(stdout_pipe[1]);
+	      close(stderr_pipe[0]);
+	      close(stderr_pipe[1]);
+
+	      exec(this->directory + '/' + file, command, env);
+	      error e(file, EXEC, strerror(errno));
+	      log_exception_error(e);
+	    }
+	  catch (std::exception const& e)
+	    {
+	      sbuild::log_exception_error(e);
+	    }
+	  catch (...)
+	    {
+	      sbuild::log_error()
+		<< _("An unknown exception occurred") << std::endl;
+	    }
+	  _exit(EXIT_FAILURE);
 	}
-      catch (std::exception const& e)
+
+      // Log stdout and stderr.
+      close(stdout_pipe[1]);
+      close(stderr_pipe[1]);
+
+      struct pollfd pollfds[2];
+      pollfds[0].fd = stdout_pipe[0];
+      pollfds[0].events = POLLIN;
+      pollfds[0].revents = 0;
+      pollfds[1].fd = stderr_pipe[0];
+      pollfds[1].events = POLLIN;
+      pollfds[1].revents = 0;
+
+      char buffer[BUFSIZ];
+
+      std::string stdout_buf;
+      std::string stderr_buf;
+
+      while (1)
 	{
-	  sbuild::log_exception_error(e);
+	  int status;
+	  if ((status = poll(pollfds, 2, -1)) < 0)
+	    throw error(POLL, strerror(errno));
+
+	  int outdata = 0;
+	  int errdata = 0;
+	  if (pollfds[0].revents | POLLIN)
+	    {
+	      if ((outdata = read(pollfds[0].fd, buffer, BUFSIZ)) < 0)
+		throw error(READ, strerror(errno));
+
+	      if (outdata)
+		stdout_buf += std::string(&buffer[0], outdata);
+	    }
+
+	  if (!stdout_buf.empty())
+	    {
+	      string_list lines = split_string(stdout_buf, "\n");
+
+	      for (string_list::const_iterator pos = lines.begin();
+		   pos != lines.end();
+		   ++pos)
+		{
+		  if (pos + 1 != lines.end() || outdata == 0)
+		    log_info() << file << ": " << *pos << '\n';
+		  else // Save possibly incompete line
+		    stdout_buf = *pos;
+		}
+	    }
+
+	  if (pollfds[1].revents | POLLIN)
+	    {
+	      int errdata;
+	      if ((errdata = read(pollfds[1].fd, buffer, BUFSIZ)) < 0)
+		throw error(READ, strerror(errno));
+
+	      if (errdata)
+		stderr_buf += std::string(&buffer[0], errdata);
+	    }
+
+	  if (!stderr_buf.empty())
+	    {
+	      string_list lines = split_string(stderr_buf, "\n");
+
+	      for (string_list::const_iterator pos = lines.begin();
+		   pos != lines.end();
+		   ++pos)
+		{
+		  if (pos + 1 != lines.end() || errdata == 0)
+		    log_error() << file << ": " << *pos << '\n';
+		  else // Save possibly incompete line
+		    stderr_buf = *pos;
+		}
+	    }
+
+	  if (outdata == 0 && errdata == 0) // pipes closed
+	    break;
 	}
-      catch (...)
-	{
-	  sbuild::log_error()
-	    << _("An unknown exception occurred") << std::endl;
-	}
-      _exit(EXIT_FAILURE);
-    }
-  else
-    {
+
+      close(stdout_pipe[0]);
+      close(stderr_pipe[0]);
       wait_for_child(pid, exit_status);
+    }
+  catch (error const& e)
+    {
+      close(stdout_pipe[0]);
+      close(stdout_pipe[1]);
+      close(stderr_pipe[0]);
+      close(stderr_pipe[1]);
+      throw;
     }
 
   if (exit_status)
