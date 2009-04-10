@@ -180,11 +180,6 @@ main::run_child (std::string const& file,
 	    << "mount_main: executing "
 	    << sbuild::string_list_to_string(command, ", ")
 	    << std::endl;
-	  if (opts->verbose)
-	    // TRANSLATORS: %1% = command
-	    sbuild::log_info() << format(_("Executing '%1%'"))
-	      % sbuild::string_list_to_string(command, " ")
-			       << std::endl;
 	  exec(file, command, env);
 	  error e(file, EXEC, strerror(errno));
 	  sbuild::log_exception_error(e);
