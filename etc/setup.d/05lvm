@@ -65,7 +65,7 @@ if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 	    # The block device no longer exists, or was never created,
 	    # for example on lvcreate failure.
 	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-		echo "W: $CHROOT_LVM_SNAPSHOT_DEVICE does not exist"
+		echo "$CHROOT_LVM_SNAPSHOT_DEVICE does not exist"
 	    fi
 	fi
 

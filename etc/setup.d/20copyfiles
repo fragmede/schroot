@@ -61,7 +61,7 @@ copy_file()
 	fi
 
     else
-	echo "W: Not copying nonexistent file: $file"
+	echo "Not copying nonexistent file: $file"
     fi
 }
 
@@ -73,7 +73,7 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 		if echo "$file" | grep -q '^/'; then
 		    copy_file "$file" "${CHROOT_PATH}$file"
 		else
-		    echo "W: Not copying file with relative path: $file"
+		    echo "Not copying file with relative path: $file"
 		fi
 	    done < "$COPYFILES"
 	else
