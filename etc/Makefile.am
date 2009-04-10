@@ -21,28 +21,15 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
+SUBDIRS = pam exec setup bash_completion
 
-DEFS = -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
+pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
+pkgsysconf_DATA = 		\
+	schroot.conf		\
+	copyfiles-defaults	\
+	mount-defaults		\
+	nssdatabases-defaults	\
+	script-defaults
 
-if BUILD_CSBUILD
-csbuild = csbuild
-endif
-
-bin_PROGRAMS = $(csbuild)
-
-csbuild_SOURCES =			\
-	csbuild-debian-changes.h	\
-	csbuild-debian-changes.cc	\
-	csbuild-options.h		\
-	csbuild-options.cc		\
-	csbuild-main.h			\
-	csbuild-main.cc			\
-	csbuild.cc
-csbuild_LDADD = $(top_builddir)/bin/schroot/libschroot.la
-
-install-exec-hook:
-# Install setuid root.
-	if [ -f "$(DESTDIR)$(bindir)/csbuild" ]; then \
-	  chmod 4755 "$(DESTDIR)$(bindir)/csbuild"; \
-	fi
+EXTRA_DIST =			\
+	$(pkgsysconf_DATA)

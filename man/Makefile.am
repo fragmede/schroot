@@ -21,28 +21,23 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
-
-DEFS = -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
-
-if BUILD_CSBUILD
-csbuild = csbuild
+if BUILD_DCHROOT
+dchroot_mans = dchroot.1
 endif
 
-bin_PROGRAMS = $(csbuild)
+if BUILD_DCHROOT_DSA
+dchroot_dsa_mans = dchroot-dsa.1
+endif
 
-csbuild_SOURCES =			\
-	csbuild-debian-changes.h	\
-	csbuild-debian-changes.cc	\
-	csbuild-options.h		\
-	csbuild-options.cc		\
-	csbuild-main.h			\
-	csbuild-main.cc			\
-	csbuild.cc
-csbuild_LDADD = $(top_builddir)/bin/schroot/libschroot.la
+if BUILD_CSBUILD
+csbuild_mans = csbuild.1
+endif
 
-install-exec-hook:
-# Install setuid root.
-	if [ -f "$(DESTDIR)$(bindir)/csbuild" ]; then \
-	  chmod 4755 "$(DESTDIR)$(bindir)/csbuild"; \
-	fi
+man_MANS =			\
+	schroot.1		\
+	schroot-setup.5		\
+	schroot.conf.5		\
+	schroot-script-config.5	\
+	$(dchroot_mans)		\
+	$(dchroot_dsa_mans)	\
+	$(csbuild_mans)

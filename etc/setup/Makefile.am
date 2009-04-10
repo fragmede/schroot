@@ -27,6 +27,7 @@ setup_SCRIPTS =		\
 	00check		\
 	05lvm		\
 	05file		\
+	05fsunion	\
 	10mount		\
 	15killprocs	\
 	20copyfiles	\

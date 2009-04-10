@@ -1,7 +1,7 @@
 # schroot Makefile template
 #
 #
-# Copyright © 2004-2008  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2009  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -20,8 +20,6 @@
 #####################################################################
 
 include $(top_srcdir)/scripts/global.mk
-
-SUBDIRS = pam exec setup bash_completion
 
 localedir = $(datadir)/locale
 
@@ -48,23 +46,11 @@ schroot_SOURCES =			\
 	schroot.cc
 schroot_LDADD = libschroot.la
 
-
-pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
-pkgsysconf_DATA = 		\
-	schroot.conf		\
-	copyfiles-defaults	\
-	mount-defaults		\
-	nssdatabases-defaults	\
-	script-defaults
-
 man_MANS =			\
 	schroot.1		\
 	schroot-setup.5		\
 	schroot.conf.5		\
 	schroot-script-config.5
-
-EXTRA_DIST =			\
-	$(pkgsysconf_DATA)
 
 install-exec-hook:
 # Install setuid root.

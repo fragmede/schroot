@@ -1,7 +1,7 @@
 # schroot Makefile template
 #
 #
-# Copyright © 2004-2007  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2009  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ ACLOCAL_AMFLAGS=-I m4
 
 include $(top_srcdir)/scripts/global.mk
 
-SUBDIRS = sbuild bin test doc po
+SUBDIRS = sbuild bin test etc man doc po
 
 dist-hook:
 # Remove junk from the generated tarball.

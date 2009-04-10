@@ -1,7 +1,7 @@
 # schroot Makefile template
 #
 #
-# Copyright © 2004-2007  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2009  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -53,12 +53,6 @@ dchroot_SOURCES =			\
 	dchroot-main.cc			\
 	dchroot.cc
 dchroot_LDADD = libdchroot.la
-
-if BUILD_DCHROOT
-dchroot_mans = dchroot.1
-endif
-
-man_MANS = $(dchroot_mans)
 
 install-exec-hook:
 # Install setuid root.
