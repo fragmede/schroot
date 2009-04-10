@@ -46,12 +46,6 @@ schroot_SOURCES =			\
 	schroot.cc
 schroot_LDADD = libschroot.la
 
-man_MANS =			\
-	schroot.1		\
-	schroot-setup.5		\
-	schroot.conf.5		\
-	schroot-script-config.5
-
 install-exec-hook:
 # Install setuid root.
 	chmod 4755 "$(DESTDIR)$(bindir)/schroot"
