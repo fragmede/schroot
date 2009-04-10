@@ -9,7 +9,9 @@ configuration.
 
 * Major changes in 1.3.0:
 
-  None.
+  1) Exec scripts have been removed.  Unlike setup scripts, these
+     scripts were never used, and there are no known uses for them.
+     Removing them will improve the performance of schroot.
 
 * Major changes in 1.2.1:
 

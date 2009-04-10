@@ -673,45 +673,27 @@ session::run_impl ()
 	      /* Run recover scripts. */
 	      setup_chroot(chroot, chroot::SETUP_RECOVER);
 
-	      try
+	      /* Run session if setup succeeded. */
+	      if (this->session_operation == OPERATION_AUTOMATIC ||
+		  this->session_operation == OPERATION_RUN)
 		{
-		  /* Run exec-start scripts. */
-		  setup_chroot(chroot, chroot::EXEC_START);
-
-		  /* Run session if setup succeeded. */
-		  if (this->session_operation == OPERATION_AUTOMATIC ||
-		      this->session_operation == OPERATION_RUN)
+		  try
 		    {
-		      try
-			{
-			  this->authstat->open_session();
-			  save_termios();
-			  run_chroot(chroot);
-			}
-		      catch (std::runtime_error const& e)
-			{
-			  log_debug(DEBUG_WARNING)
-			    << "Chroot session failed" << endl;
-			  restore_termios();
-			  this->authstat->close_session();
-			  throw;
-			}
+		      this->authstat->open_session();
+		      save_termios();
+		      run_chroot(chroot);
+		    }
+		  catch (std::runtime_error const& e)
+		    {
+		      log_debug(DEBUG_WARNING)
+			<< "Chroot session failed" << endl;
 		      restore_termios();
 		      this->authstat->close_session();
+		      throw;
 		    }
-
+		  restore_termios();
+		  this->authstat->close_session();
 		}
-	      catch (error const& e)
-		{
-		  log_debug(DEBUG_WARNING)
-		    << "Chroot exec scripts or session failed" << endl;
-		  setup_chroot(chroot, chroot::EXEC_STOP);
-		  throw;
-		}
-
-	      /* Run exec-stop scripts whether or not there was an
-		 error. */
-	      setup_chroot(chroot, chroot::EXEC_STOP);
 	    }
 	  catch (error const& e)
 	    {
@@ -986,27 +968,19 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 	 setup_type == chroot::SETUP_RECOVER) ||
 	(this->session_operation == OPERATION_END &&
 	 setup_type == chroot::SETUP_STOP) ||
-	(this->session_operation == OPERATION_RUN &&
-	 (setup_type == chroot::EXEC_START ||
-	  setup_type == chroot::EXEC_STOP)) ||
 	(this->session_operation == OPERATION_AUTOMATIC &&
 	 (setup_type == chroot::SETUP_START ||
-	  setup_type == chroot::SETUP_STOP  ||
-	  setup_type == chroot::EXEC_START   ||
-	  setup_type == chroot::EXEC_STOP))))
+	  setup_type == chroot::SETUP_STOP))))
     return;
 
   // Don't clean up chroot on a lock failure--it's actually in use.
   if (this->lock_status == false)
     return;
 
-  if (((setup_type == chroot::SETUP_START   ||
-	setup_type == chroot::SETUP_RECOVER ||
-	setup_type == chroot::SETUP_STOP) &&
-       session_chroot->get_run_setup_scripts() == false) ||
-      ((setup_type == chroot::EXEC_START ||
-	setup_type == chroot::EXEC_STOP) &&
-       session_chroot->get_run_exec_scripts() == false))
+  if ((setup_type == chroot::SETUP_START   ||
+       setup_type == chroot::SETUP_RECOVER ||
+       setup_type == chroot::SETUP_STOP) &&
+      session_chroot->get_run_setup_scripts() == false)
     return;
 
   if (setup_type == chroot::SETUP_START)
@@ -1038,10 +1012,6 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
     setup_type_string = "setup-recover";
   else if (setup_type == chroot::SETUP_STOP)
     setup_type_string = "setup-stop";
-  else if (setup_type == chroot::EXEC_START)
-    setup_type_string = "exec-start";
-  else if (setup_type == chroot::EXEC_STOP)
-    setup_type_string = "exec-stop";
 
   std::string chroot_status_string;
   if (this->chroot_status)
@@ -1096,14 +1066,9 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   env.add("PID", getpid());
   env.add("SESSION_ID", this->session_id);
 
-  run_parts rp((setup_type == chroot::SETUP_START ||
-		setup_type == chroot::SETUP_RECOVER ||
-		setup_type == chroot::SETUP_STOP)
-	       ? SCHROOT_CONF_SETUP_D // Setup directory
-	       : SCHROOT_CONF_EXEC_D, // Execution directory
+  run_parts rp(SCHROOT_CONF_SETUP_D,
 	       true, true, 022);
-  rp.set_reverse((setup_type == chroot::SETUP_STOP ||
-		  setup_type == chroot::EXEC_STOP));
+  rp.set_reverse(setup_type == chroot::SETUP_STOP);
   rp.set_verbose(this->authstat->get_verbosity() == auth::VERBOSITY_VERBOSE);
 
   log_debug(DEBUG_INFO) << rp << std::endl;
