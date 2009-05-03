@@ -61,6 +61,7 @@ chroot_loopback::set_file (std::string const& file)
     throw error(file, FILE_ABS);
 
   this->file = file;
+  chroot_mountable::set_mount_device(file);
 }
 
 std::string const&

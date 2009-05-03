@@ -108,10 +108,6 @@ CHROOT_PATH
 The absolute path to the chroot.  This is typically CHROOT_MOUNT_LOCATION and
 CHROOT_LOCATION concatenated together.  This is the path which should be used
 to access the chroots.
-.TP
-CHROOT_MOUNT_DEVICE
-The device containing the chroot root filesystem.  This is only set for chroots
-which require mounting.
 .SS Plain and directory chroot variables
 These chroot types use only general variables.
 .SS File variables
@@ -122,16 +118,27 @@ The file containing the chroot files.
 CHROOT_FILE_REPACK
 Set to \[oq]true\[cq] to repack the chroot into an archive file on ending a
 session, otherwise \[oq]false\[cq].
+.SS Mountable chroot variables
+.PP
+These variables are only set for directly mountable chroot types.
+.TP
+CHROOT_MOUNT_DEVICE
+The device to mount containing the chroot.
+mounting.
+.TP
+CHROOT_MOUNT_OPTIONS
+Options to pass to
+.BR mount (8).
+.TP
+CHROOT_LOCATION
+The location of the chroot inside the mount point.  This allows the existence
+of multiple chroots on a single filesystem.
 .SS Block device variables
 .TP
 CHROOT_DEVICE
 The device containing the chroot root filesystem.  This is usually, but not
 necessarily, the device which will be mounted.  For example, an LVM snapshot
 this will be the original logical volume.
-.TP
-CHROOT_MOUNT_OPTIONS
-Options to pass to
-.BR mount (8).
 .SS LVM snapshot variables
 .TP
 CHROOT_LVM_SNAPSHOT_NAME

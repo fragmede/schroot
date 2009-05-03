@@ -74,6 +74,7 @@ chroot_lvm_snapshot::set_snapshot_device (std::string const& snapshot_device)
     throw error(snapshot_device, DEVICE_ABS);
 
   this->snapshot_device = snapshot_device;
+  chroot_mountable::set_mount_device(snapshot_device);
 }
 
 std::string const&

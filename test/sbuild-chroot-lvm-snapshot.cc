@@ -104,6 +104,7 @@ public:
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_PATH",           "/mnt/mount-location");
     expected.add("CHROOT_DEVICE",         "/dev/testdev");
+    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/snaptestdev");
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
     expected.add("CHROOT_LVM_SNAPSHOT_NAME", sbuild::basename(c->get_snapshot_device()));
     expected.add("CHROOT_LVM_SNAPSHOT_DEVICE", "/dev/snaptestdev");

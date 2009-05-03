@@ -42,7 +42,23 @@ namespace sbuild
     virtual ~chroot_mountable ();
 
     /**
-     * Get the filesystem mount_options of the chroot block device.
+     * Get the device path of the chroot block device to mount.
+     *
+     * @returns the mount device.
+     */
+    std::string const&
+    get_mount_device () const;
+
+    /**
+     * Set the device path of the chroot block device to mount.
+     *
+     * @param mount_device the mount device.
+     */
+    void
+    set_mount_device (std::string const& mount_device);
+
+    /**
+     * Get the filesystem mount options of the chroot block device.
      *
      * @returns the mount options.
      */
@@ -50,7 +66,7 @@ namespace sbuild
     get_mount_options () const;
 
     /**
-     * Set the filesystem mount_options of the chroot block device.
+     * Set the filesystem mount options of the chroot block device.
      *
      * @param mount_options the mount options.
      */
@@ -93,6 +109,8 @@ namespace sbuild
 		 string_list&   used_keys);
 
   private:
+    /// The device to mount.
+    std::string mount_device;
     /// The options to mount the device with.
     std::string mount_options;
   };

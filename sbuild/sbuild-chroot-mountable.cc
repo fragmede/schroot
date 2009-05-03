@@ -33,12 +33,25 @@ using namespace sbuild;
 
 chroot_mountable::chroot_mountable ():
   chroot(),
+  mount_device(),
   mount_options()
 {
 }
 
 chroot_mountable::~chroot_mountable ()
 {
+}
+
+std::string const&
+chroot_mountable::get_mount_device () const
+{
+  return this->mount_device;
+}
+
+void
+chroot_mountable::set_mount_device (std::string const& mount_device)
+{
+  this->mount_device = mount_device;
 }
 
 std::string const&
@@ -73,7 +86,9 @@ chroot_mountable::setup_env (environment& env)
 {
   this->chroot::setup_env(env);
 
+  env.add("CHROOT_MOUNT_DEVICE", get_mount_device());
   env.add("CHROOT_MOUNT_OPTIONS", get_mount_options());
+  env.add("CHROOT_LOCATION", get_location());
 }
 
 sbuild::chroot::session_flags

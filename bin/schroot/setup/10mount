@@ -84,11 +84,6 @@ if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROO
 	CHROOT_MOUNT_DEVICE="$UNPACK_LOCATION"
     elif [ "$CHROOT_TYPE" = "loopback" ]; then
 	CHROOT_MOUNT_OPTIONS="$CHROOT_MOUNT_OPTIONS -o loop"
-	CHROOT_MOUNT_DEVICE="$CHROOT_FILE"
-    elif [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
-	CHROOT_MOUNT_DEVICE="$CHROOT_LVM_SNAPSHOT_DEVICE"
-    elif [ "$CHROOT_TYPE" = "block-device" ]; then
-	CHROOT_MOUNT_DEVICE="$CHROOT_DEVICE"
     fi
 
     if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then

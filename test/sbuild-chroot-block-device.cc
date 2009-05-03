@@ -98,6 +98,7 @@ public:
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_PATH",           "/mnt/mount-location");
     expected.add("CHROOT_DEVICE",         "/dev/testdev");
+    expected.add("CHROOT_MOUNT_DEVICE",         "/dev/testdev");
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
     expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
     expected.add("CHROOT_SESSION_CLONE",  "false");
