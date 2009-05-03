@@ -5,6 +5,6 @@
 # <file system>	<mount point>	<type>	<options>	<dump>	<pass>
 proc		/proc		proc	defaults	0	0
 /dev/pts	/dev/pts	none	rw,bind		0	0
-tmpfs		/dev/shm	tmpfs	defaults	0	0
+/dev/shm	/dev/shm	none	rw,bind		0	0
 /home		/home		none	rw,bind		0	0
 /tmp		/tmp		none	rw,bind		0	0
