@@ -104,6 +104,7 @@ chroot_file::setup_env (environment& env)
 
   env.add("CHROOT_FILE", get_file());
   env.add("CHROOT_FILE_REPACK", this->repack);
+  env.add("CHROOT_FILE_UNPACK_DIR", SCHROOT_FILE_UNPACK_DIR);
 }
 
 void

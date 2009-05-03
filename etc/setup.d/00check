@@ -40,7 +40,6 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 	echo "AUTH_SHELL=$AUTH_SHELL"
 	echo "AUTH_VERBOSITY=$AUTH_VERBOSITY"
 	echo "MOUNT_DIR=$MOUNT_DIR"
-	echo "UNPACK_DIR=$UNPACK_DIR"
 	echo "LIBEXEC_DIR=$LIBEXEC_DIR"
 	echo "PID=$PID"
 	echo "SESSION_ID=$SESSION_ID"
@@ -56,6 +55,7 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 	elif [ "$CHROOT_TYPE" = "file" ]; then
 	    echo "CHROOT_FILE=$CHROOT_FILE"
 	    echo "CHROOT_FILE_REPACK=$CHROOT_FILE_REPACK"
+	    echo "CHROOT_FILE_UNPACK_DIR=$CHROOT_FILE_UNPACK_DIR"
 	elif [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 	    echo "CHROOT_DEVICE=$CHROOT_DEVICE"
 	    echo "CHROOT_MOUNT_OPTIONS=$CHROOT_MOUNT_OPTIONS"
