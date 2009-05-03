@@ -97,7 +97,6 @@ sbuild::chroot::chroot ():
   active(false),
   original(true),
   run_setup_scripts(false),
-  run_exec_scripts(false),
   script_config("script-defaults"),
   command_prefix(),
   persona(
@@ -319,18 +318,6 @@ sbuild::chroot::set_run_setup_scripts (bool run_setup_scripts)
   this->run_setup_scripts = run_setup_scripts;
 }
 
-bool
-sbuild::chroot::get_run_exec_scripts () const
-{
-  return this->run_exec_scripts;
-}
-
-void
-sbuild::chroot::set_run_exec_scripts (bool run_exec_scripts)
-{
-  this->run_exec_scripts = run_exec_scripts;
-}
-
 std::string const&
 sbuild::chroot::get_script_config () const
 {
@@ -462,7 +449,6 @@ sbuild::chroot::get_details (format_detail& detail) const
     .add(_("Aliases"), get_aliases())
     .add(_("Environment Filter"), get_environment_filter())
     .add(_("Run Setup Scripts"), get_run_setup_scripts())
-    .add(_("Run Execution Scripts"), get_run_exec_scripts())
     .add(_("Script Configuration"), get_script_config())
     .add(_("Session Managed"),
 	 static_cast<bool>(get_session_flags() & chroot::SESSION_CREATE))
@@ -511,9 +497,6 @@ sbuild::chroot::get_keyfile (keyfile& keyfile) const
 
   keyfile::set_object_value(*this, &chroot::get_run_setup_scripts,
 			    keyfile, get_name(), "run-setup-scripts");
-
-  keyfile::set_object_value(*this, &chroot::get_run_exec_scripts,
-			    keyfile, get_name(), "run-exec-scripts");
 
   keyfile::set_object_value(*this, &chroot::get_script_config,
 			    keyfile, get_name(), "script-config");
@@ -583,13 +566,16 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile,
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("run-setup-scripts");
 
-  keyfile::get_object_value(*this, &chroot::set_run_exec_scripts,
+  // Exec scripts have been removed, so these two calls do nothing
+  // except to warn the user that the options are no longer used.
+  void (sbuild::chroot::* nullmethod)(bool) = 0;
+  keyfile::get_object_value(*this, nullmethod,
 			    keyfile, get_name(), "run-session-scripts",
-			    keyfile::PRIORITY_DEPRECATED);
+			    keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("run-session-scripts");
-  keyfile::get_object_value(*this, &chroot::set_run_exec_scripts,
+  keyfile::get_object_value(*this, nullmethod,
 			    keyfile, get_name(), "run-exec-scripts",
-			    keyfile::PRIORITY_OPTIONAL);
+			    keyfile::PRIORITY_DEPRECATED);
   used_keys.push_back("run-exec-scripts");
 
   keyfile::get_object_value(*this, &chroot::set_script_config,

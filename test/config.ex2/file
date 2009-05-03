@@ -5,4 +5,3 @@ priority=3
 groups=sbuild,root
 file=/srv/chroots/sid.tar.gz
 run-setup-scripts=true
-run-exec-scripts=true
