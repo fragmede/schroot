@@ -83,3 +83,13 @@ Maybe just list twice, first chroots and then sessions?
 
 * Testcase for chroot-loopback
 
+fs-union mounting simplifications
+Rather than having a very complex scheme for setting up unions, we
+could
+have
+- an "underlay" (ro)
+- the "overlay" (rw) both mounted under /var/lib/schroot
+- the union of both mounted in the usual place.
+
+file: Set full unpack dir with session ID like LVM snapshot.
+
