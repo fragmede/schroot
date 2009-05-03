@@ -117,7 +117,7 @@ main::action_mount ()
 	    {
 	      try
 	        {
-	          boost::filesystem::create_directory(directory);
+	          boost::filesystem::create_directories(directory);
 	        }
 	      catch (std::exception const& e)
 	        {
