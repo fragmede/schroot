@@ -37,7 +37,6 @@ chroot_lvm_snapshot::chroot_lvm_snapshot ():
   snapshot_device(),
   snapshot_options()
 {
-  set_run_setup_scripts(true);
 }
 
 chroot_lvm_snapshot::~chroot_lvm_snapshot ()

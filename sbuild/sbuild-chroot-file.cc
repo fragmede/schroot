@@ -36,7 +36,6 @@ chroot_file::chroot_file ():
   file(),
   repack(false)
 {
-  set_run_setup_scripts(true);
 }
 
 chroot_file::~chroot_file ()

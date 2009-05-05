@@ -34,6 +34,7 @@ using namespace sbuild;
 chroot_plain::chroot_plain ():
   chroot()
 {
+  set_run_setup_scripts(false);
 }
 
 chroot_plain::~chroot_plain ()

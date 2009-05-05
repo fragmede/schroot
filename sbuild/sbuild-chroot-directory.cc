@@ -65,12 +65,7 @@ chroot_directory::set_directory (std::string const& directory)
 std::string
 chroot_directory::get_path () const
 {
-  // When running setup scripts, we are session-capable, so the path
-  // is the bind-mounted location, rather than the original location.
-  if (get_run_setup_scripts() == true)
-    return get_mount_location();
-  else
-    return get_directory();
+  return get_mount_location();
 }
 
 std::string const&
@@ -94,26 +89,19 @@ chroot_directory::setup_lock (chroot::setup_type type,
 			      bool               lock,
 			      int                status)
 {
-  /* By default, directory chroots do no locking. */
   /* Create or unlink session information. */
-  if (get_run_setup_scripts() == true)
+  if ((type == SETUP_START && lock == true) ||
+      (type == SETUP_STOP && lock == false && status == 0))
     {
-      if ((type == SETUP_START && lock == true) ||
-	  (type == SETUP_STOP && lock == false && status == 0))
-	{
-	  bool start = (type == SETUP_START);
-	  setup_session_info(start);
-	}
+      bool start = (type == SETUP_START);
+      setup_session_info(start);
     }
 }
 
 sbuild::chroot::session_flags
 chroot_directory::get_session_flags () const
 {
-  if (get_run_setup_scripts() == true)
-    return SESSION_CREATE;
-  else
-    return SESSION_NOFLAGS;
+  return SESSION_CREATE;
 }
 
 void

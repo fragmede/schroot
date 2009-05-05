@@ -16,6 +16,14 @@ configuration.
      is still permitted to be used until it is obsoleted in a
      future release.
 
+  2) Setup scripts are now always run for all chroot types except
+     "plain".  In practice, scripts were required for all types
+     except "plain" in order to function correctly.  The ability to
+     configure this is not useful and so setting run-setup-scripts is
+     now deprecated in schroot.conf.  It may still be set for backward
+     compatibility, but it has no effect and will be removed in the
+     future.
+
 * Major changes in 1.2.1:
 
   1) A new chroot type, "loopback", has been added.  This is similar

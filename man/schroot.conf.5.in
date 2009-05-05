@@ -88,16 +88,11 @@ example, a chroot named \[lq]sid\[rq] might have an \[oq]unstable\[cq] alias
 for convenience.
 .TP
 \f[CBI]run\-setup\-scripts=\fP\f[CI]true\fP|\f[CI]false\fP
-Set whether chroot setup scripts will be run.  The default is not to run setup
-scripts (\[oq]false\[cq]), for safety reasons (so it won't clobber your passwd
-and other critical files).  The default for session-managed chroots
-(\[oq]file\[cq] and \[oq]lvm\-snapshot\[cq]) is to run setup scripts.  If
-\f[CI]type\fP is set to a value other than \[oq]plain\[cq] or
-\[oq]directory\[cq], setup scripts are \fBrequired\fP to mount and configure
-the chroot environment.  If enabled for a \[oq]plain\[cq] or
-\[oq]directory\[cq] chroot, the chroot will support simple session management
-(not true session management, because it does not make a copy of the chroot).
-If your chroots are exclusively controlled by schroot, set to \[oq]true\[cq].
+Set whether chroot setup scripts will be run.  The default is to run setup
+scripts for all chroot types except \[oq]plain\[cq].  Setup scripts are
+\fBrequired\fP to mount and configure the chroot environment.  This option is
+deprecated and no longer used by schroot, but is still permitted to be used; it
+will be obsoleted and removed in a future release.
 .TP
 \f[CBI]run\-exec\-scripts=\fP\f[CI]true\fP|\f[CI]false\fP Set whether chroot
 execution scripts will be run.  The default is the same as the default for the

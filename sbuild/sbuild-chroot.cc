@@ -95,7 +95,7 @@ sbuild::chroot::chroot ():
   mount_location(),
   active(false),
   original(true),
-  run_setup_scripts(false),
+  run_setup_scripts(true),
   script_config("script-defaults"),
   command_prefix(),
   persona(
@@ -476,9 +476,6 @@ sbuild::chroot::get_keyfile (keyfile& keyfile) const
   keyfile::set_object_value(*this, &chroot::get_active,
 			    keyfile, get_name(), "active");
 
-  keyfile::set_object_value(*this, &chroot::get_run_setup_scripts,
-			    keyfile, get_name(), "run-setup-scripts");
-
   keyfile::set_object_value(*this, &chroot::get_script_config,
 			    keyfile, get_name(), "script-config");
 
@@ -522,6 +519,8 @@ void
 sbuild::chroot::set_keyfile (keyfile const& keyfile,
 			     string_list&   used_keys)
 {
+  void (sbuild::chroot::* nullmethod)(bool) = 0;
+
   // Keys which are used elsewhere, but should be counted as "used".
   used_keys.push_back("type");
 
@@ -542,14 +541,16 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile,
 			    keyfile::PRIORITY_REQUIRED);
   used_keys.push_back("active");
 
-  keyfile::get_object_value(*this, &chroot::set_run_setup_scripts,
+  // Setup scripts are run depending on the chroot type in use, and is
+  // no longer user-configurable.  They need to run for all types
+  // except "plain".
+  keyfile::get_object_value(*this, nullmethod,
 			    keyfile, get_name(), "run-setup-scripts",
-			    keyfile::PRIORITY_OPTIONAL);
+			    keyfile::PRIORITY_DEPRECATED);
   used_keys.push_back("run-setup-scripts");
 
   // Exec scripts have been removed, so these two calls do nothing
   // except to warn the user that the options are no longer used.
-  void (sbuild::chroot::* nullmethod)(bool) = 0;
   keyfile::get_object_value(*this, nullmethod,
 			    keyfile, get_name(), "run-session-scripts",
 			    keyfile::PRIORITY_OBSOLETE);
