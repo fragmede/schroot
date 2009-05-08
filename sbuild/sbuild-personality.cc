@@ -18,15 +18,16 @@
 
 #include <config.h>
 
+#include "sbuild-config.h"
 #include "sbuild-personality.h"
 
 #include <cstring>
 #include <cerrno>
 #include <utility>
 
-#ifdef __linux__
+#ifdef SBUILD_FEATURE_PERSONALITY
 #include <sys/personality.h>
-#endif
+#endif // SBUILD_FEATURE_PERSONALITY
 
 #include <boost/format.hpp>
 
@@ -59,7 +60,7 @@ namespace
   pmap initial_personalities[] =
     {
       pmap("undefined", 0xffffffff),
-#ifdef __linux__
+#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
       pmap("linux", PER_LINUX),
       pmap("linux_32bit", PER_LINUX_32BIT),
       pmap("svr4", PER_SVR4),
@@ -79,7 +80,7 @@ namespace
       pmap("uw7", PER_UW7),
       pmap("hpux", PER_HPUX),
       pmap("osf4", PER_OSF4),
-#endif
+#endif // SBUILD_FEATURE_PERSONALITY && __linux__
     };
 
 }
@@ -96,11 +97,11 @@ sbuild::personality::personalities(initial_personalities,
 
 sbuild::personality::personality ():
   persona(
-#ifdef __linux__
+#if defined(SBUILD_FEATURE_PERSONALITY)
 	  ::personality(0xffffffff)
 #else
 	  0xffffffff
-#endif
+#endif // SBUILD_FEATURE_PERSONALITY
 	  )
 {
 }
@@ -160,14 +161,14 @@ sbuild::personality::get () const
 void
 sbuild::personality::set () const
 {
-#ifdef __linux__
+#ifdef SBUILD_FEATURE_PERSONALITY
   /* Set the process execution domain using personality(2). */
   if (this->persona != 0xffffffff &&
       ::personality (this->persona) < 0)
     {
       throw error(get_name(), SET, strerror(errno));
     }
-#endif
+#endif // SBUILD_FEATURE_PERSONALITY
 }
 
 std::string

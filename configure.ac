@@ -278,6 +278,10 @@ AC_CHECK_HEADERS([boost/type_traits.hpp],, [AC_MSG_ERROR([Boost.TypeTraits (Boos
 
 AC_CHECK_HEADERS([ext/stdio_filebuf.h],, [AC_MSG_ERROR([__gnu_cxx::stdio_filebuf (GNU libstdc++) is not installed, but is required by schroot])])
 
+AC_CHECK_HEADERS([sys/personality.h],
+	         [PERSONALITY_HEADER="yes"],
+	         [PERSONALITY_HEADER="no"])
+
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
@@ -296,6 +300,28 @@ AH_TEMPLATE(SBUILD_FEATURE_DEVLOCK, [Set if the device locking with liblockdev i
 if test "$HAVE_LOCKDEV" = "yes"; then
   AC_DEFINE(SBUILD_FEATURE_DEVLOCK, 1)
 fi
+
+AC_CHECK_FUNC([personality],
+              [PERSONALITY_FUNC="yes"],
+	      [PERSONALITY_FUNC="no"])
+
+# Determine which features to enable.
+AC_MSG_CHECKING([whether to build personality support])
+BUILD_PERSONALITY="yes"
+if test "$PERSONALITY_HEADER" = "no"; then
+  BUILD_PERSONALITY="no"
+fi
+if test "$PERSONALITY_FUNC" = "no"; then
+  BUILD_PERSONALITY="no"
+fi
+AC_MSG_RESULT([$BUILD_PERSONALITY])
+
+AM_CONDITIONAL([BUILD_PERSONALITY], [test "$BUILD_PERSONALITY" = "yes"])
+AH_TEMPLATE(SBUILD_FEATURE_PERSONALITY, [Set if personality support is present])
+if test "$BUILD_PERSONALITY" = "yes"; then
+  AC_DEFINE(SBUILD_FEATURE_PERSONALITY, 1)
+fi
+
 
 AC_MSG_CHECKING([whether to build block-device support])
 BUILD_BLOCKDEV="yes"

@@ -27,6 +27,9 @@
 /* Set if the device locking with liblockdev is available */
 #undef SBUILD_FEATURE_DEVLOCK
 
+/* Set if personality support is present */
+#undef SBUILD_FEATURE_PERSONALITY
+
 /* Set if the block-device chroot type is present */
 #undef SBUILD_FEATURE_BLOCKDEV
 
