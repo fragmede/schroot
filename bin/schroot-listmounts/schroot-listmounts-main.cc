@@ -36,8 +36,6 @@
 
 #include <boost/format.hpp>
 
-#include <lockdev.h>
-
 using std::endl;
 using boost::format;
 using sbuild::_;

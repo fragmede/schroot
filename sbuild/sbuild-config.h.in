@@ -1,4 +1,4 @@
-/* Copyright © 2005-2007  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
  *
  *
  * schroot is free software: you can redistribute it and/or modify it
@@ -23,6 +23,15 @@
 /* This header contains configuration macros which determine the
    correct library to use.  This depends upon the libraries found at
    configure time. */
+
+/* Set if the device locking with liblockdev is available */
+#undef SBUILD_FEATURE_DEVLOCK
+
+/* Set if the block-device chroot type is present */
+#undef SBUILD_FEATURE_BLOCKDEV
+
+/* Set if the lvm-snapshot chroot type is present */
+#undef SBUILD_FEATURE_LVMSNAP
 
 /* Define to 1 if you have the <boost/format.hpp> header file. */
 #undef HAVE_BOOST_FORMAT_HPP

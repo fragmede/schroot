@@ -160,6 +160,7 @@ namespace sbuild
     bool locked;
   };
 
+#ifdef SBUILD_FEATURE_DEVLOCK
   /**
    * Device lock.  Set an advisory lock on a device.  The lock is
    * acquired using liblockdev lock_dev().  Note that a lock_type of
@@ -192,6 +193,7 @@ namespace sbuild
     /// Is the file locked?
     bool locked;
   };
+#endif // SBUILD_FEATURE_DEVLOCK
 
 }
 

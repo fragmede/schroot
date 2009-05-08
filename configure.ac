@@ -116,13 +116,10 @@ AC_ARG_ENABLE([dchroot], [AS_HELP_STRING([--enable-dchroot], [Enable dchroot com
               [ case "${enableval}" in
                 yes) enable_dchroot_compat="yes" ;;
                 no)  enable_dchroot_compat="no" ;;
-                unset)  enable_dchroot_compat="no" ;;
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-dchroot]) ;;
-                esac])
-if test "$enable_dchroot_compat" = ""; then
-  enable_dchroot_compat="no"
-fi
+                esac ],
+              [ enable_dchroot_compat="no" ])
 AC_MSG_RESULT([$enable_dchroot_compat])
 AM_CONDITIONAL([BUILD_DCHROOT], [test "$enable_dchroot_compat" = "yes"])
 
@@ -131,13 +128,10 @@ AC_ARG_ENABLE([dchroot-dsa], [AS_HELP_STRING([--enable-dchroot-dsa], [Enable dch
               [ case "${enableval}" in
                 yes) enable_dchroot_dsa_compat="yes" ;;
                 no)  enable_dchroot_dsa_compat="no" ;;
-                unset)  enable_dchroot_dsa_compat="no" ;;
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-dchroot-dsa]) ;;
-                esac])
-if test "$enable_dchroot_dsa_compat" = ""; then
-  enable_dchroot_dsa_compat="no"
-fi
+                esac ],
+	      [ enable_dchroot_dsa_compat="no" ])
 AC_MSG_RESULT([$enable_dchroot_dsa_compat])
 AM_CONDITIONAL([BUILD_DCHROOT_DSA], [test "$enable_dchroot_dsa_compat" = "yes"])
 AM_CONDITIONAL([BUILD_LIBDCHROOT], [test "$enable_dchroot_compat" = "yes" || test "$enable_dchroot_dsa_compat" = "yes"])
@@ -147,13 +141,11 @@ AC_ARG_ENABLE([csbuild], [AS_HELP_STRING([--enable-csbuild], [Enable csbuild])],
               [ case "${enableval}" in
                 yes) enable_csbuild_compat="yes" ;;
                 no)  enable_csbuild_compat="no" ;;
-                unset)  enable_csbuild_compat="no" ;;
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-csbuild]) ;;
-                esac])
-if test "$enable_csbuild_compat" = ""; then
-  enable_csbuild_compat="no"
-fi
+                esac ],
+              [ enable_csbuild_compat="no" ])
+
 AC_MSG_RESULT([$enable_csbuild_compat])
 AM_CONDITIONAL([BUILD_CSBUILD], [test "$enable_csbuild_compat" = "yes"])
 
@@ -162,30 +154,47 @@ AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug], [Enable debugging messa
               [ case "${enableval}" in
                 yes) enable_debug="yes" ;;
                 no)  enable_debug="no" ;;
-                unset)  enable_debug="no" ;;
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;;
-                esac])
-if test "$enable_debug" = ""; then
-  enable_debug="no"
-fi
+                esac ],
+              [ enable_debug="no" ])
 AC_MSG_RESULT([$enable_debug])
 if test "$enable_debug" = "yes"; then
   AC_DEFINE_UNQUOTED([SBUILD_DEBUG], [1], [Enable debugging])
 fi
+
+AC_MSG_CHECKING([whether to enable support for block devices])
+AC_ARG_ENABLE([block-device], [AS_HELP_STRING([--enable-block-device], [Enable support for block devices (requires liblockdev)])],
+              [ case "${enableval}" in
+                yes) enable_blockdev="yes" ;;
+                no)  enable_blockdev="no" ;;
+                *) AC_MSG_RESULT([unknown])
+                   AC_MSG_ERROR([bad value ${enableval} for --enable-blockdev]) ;;
+                esac],
+              [enable_blockdev="auto"])
+AC_MSG_RESULT([$enable_blockdev])
+
+AC_MSG_CHECKING([whether to enable support for LVM snapshots])
+AC_ARG_ENABLE([lvm-snapshot], [AS_HELP_STRING([--enable-lvm-snapshot], [Enable support for LVM snapshots (requires LVM and liblockdev)])],
+              [ case "${enableval}" in
+                yes) enable_lvmsnapshot="yes"
+		     enable_blockdev="yes" ;;
+                no)  enable_lvmsnapshot="no" ;;
+                *) AC_MSG_RESULT([unknown])
+                   AC_MSG_ERROR([bad value ${enableval} for --enable-lvm-snapshot]) ;;
+                esac],
+              [enable_lvmsnapshot="auto"])
+AC_MSG_RESULT([$enable_lvmsnapshot])
 
 AC_MSG_CHECKING([whether to enable doxygen documentation])
 AC_ARG_ENABLE([doxygen], [AS_HELP_STRING([--enable-doxygen], [Enable doxygen documentation])],
               [ case "${enableval}" in
                 yes) enable_doxygen="yes" ;;
                 no)  enable_doxygen="no" ;;
-                unset)  enable_doxygen="no" ;;
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-doxygen]) ;;
-                esac])
-if test "$enable_doxygen" = ""; then
-  enable_doxygen="no"
-fi
+                esac],
+	      [ enable_doxygen="no" ])
 AC_MSG_RESULT([$enable_doxygen])
 AM_CONDITIONAL([BUILD_DOXYGEN], [test "$enable_doxygen" = "yes"])
 
@@ -208,6 +217,9 @@ AM_GNU_GETTEXT([external])
 AC_PATH_PROG([FIND], [find])
 AC_PATH_PROG([XARGS], [xargs])
 AC_PATH_PROG([DOXYGEN], [doxygen])
+HAVE_LVM="yes"
+AC_PATH_PROG([LVCREATE], [lvcreate], [HAVE_LVM="no"], [$PATH:/sbin:/usr/sbin])
+AC_PATH_PROG([LVREMOVE], [lvremove], [HAVE_LVM="no"], [$PATH:/sbin:/usr/sbin])
 
 if test "$enable_doxygen" = "yes" && test -z "$DOXYGEN"; then
   AC_MSG_FAILURE([doxygen is not installed, but is required by schroot])
@@ -218,10 +230,10 @@ AM_CONDITIONAL([BUILD_DOXYGEN], [test -n "$DOXYGEN" && test "$enable_doxygen" = 
 AH_TEMPLATE(HAVE_UUID, [Is libuuid available])
 PKG_CHECK_MODULES([UUID], [uuid],
                   [AC_DEFINE(HAVE_UUID)
-		   HAVE_UUID=true],
-                  [HAVE_UUID=false])
+		   HAVE_UUID=yes],
+                  [HAVE_UUID=no])
 
-AM_PATH_CPPUNIT([1.10.0], [HAVE_CPPUNIT=true])
+AM_PATH_CPPUNIT([1.10.0], [HAVE_CPPUNIT=yes])
 AM_CONDITIONAL([USE_UNIT_TESTS], [test -n "$HAVE_CPPUNIT"])
 
 SCHROOT_CFLAGS="$UUID_CFLAGS"
@@ -261,9 +273,62 @@ AC_CHECK_LIB([pam], [pam_authenticate],
 AC_SUBST([PAM_LIBS])
 
 AC_CHECK_LIB([lockdev], [dev_lock],
-             [LOCKDEV_LIBS="-llockdev"],
-             [AC_MSG_FAILURE([liblockdev (lockdev) is not installed, but is required by schroot])])
+             [LOCKDEV_LIBS="-llockdev"
+	      HAVE_LOCKDEV="yes"],
+             [LOCKDEV_LIBS=""
+	      HAVE_LOCKDEV="no"])
 AC_SUBST([LOCKDEV_LIBS])
+AH_TEMPLATE(SBUILD_FEATURE_DEVLOCK, [Set if the device locking with liblockdev is available])
+if test "$BUILD_DEVLOCK" = "yes"; then
+  AC_DEFINE(SBUILD_FEATURE_DEVLOCK, 1)
+fi
+
+AC_MSG_CHECKING([whether to build block-device support])
+BUILD_BLOCKDEV="yes"
+if test "$enable_blockdev" = "yes"; then
+  if test "$HAVE_LOCKDEV" = "no"; then
+    BUILD_BLOCKDEV="no"
+    AC_MSG_FAILURE([liblockdev (lockdev) is not installed, but is required by schroot])
+  fi
+elif test "$enable_blockdev" = "no"; then
+    BUILD_BLOCKDEV="no"
+elif test "$enable_blockdev" = "auto"; then
+  if test "$HAVE_LOCKDEV" = "no"; then
+    BUILD_BLOCKDEV="no"
+  fi
+fi
+AC_MSG_RESULT([$BUILD_BLOCKDEV])
+
+AM_CONDITIONAL([BUILD_BLOCKDEV], [test "$BUILD_BLOCKDEV" = "yes"])
+AH_TEMPLATE(SBUILD_FEATURE_BLOCKDEV, [Set if the block-device chroot type is present])
+if test "$BUILD_BLOCKDEV" = "yes"; then
+  AC_DEFINE(SBUILD_FEATURE_BLOCKDEV, 1)
+fi
+
+AC_MSG_CHECKING([whether to build lvm-snapshot support])
+BUILD_LVMSNAP="yes"
+if test "$enable_lvmsnapshot" = "yes"; then
+  if test "$HAVE_LVM" = "no"; then
+    BUILD_LVMSNAP="no"
+    AC_MSG_FAILURE([LVM (lvm) is not installed, but is required by schroot])
+  fi
+elif test "$enable_lvmsnapshot" = "no"; then
+    BUILD_LVMSNAP="no"
+elif test "$enable_lvmsnapshot" = "auto"; then
+  if test "$HAVE_LOCKDEV" = "no"; then
+    BUILD_LVMSNAP="no"
+  fi
+  if test "$HAVE_LVM" = "no"; then
+    BUILD_LVMSNAP="no"
+  fi
+fi
+AC_MSG_RESULT([$BUILD_LVMSNAP])
+
+AM_CONDITIONAL([BUILD_LVMSNAP], [test "$BUILD_LVMSNAP" = "yes"])
+AH_TEMPLATE(SBUILD_FEATURE_LVMSNAP, [Set if the lvm-snapshot chroot type is present])
+if test "$BUILD_LVMSNAP" = "yes"; then
+  AC_DEFINE(SBUILD_FEATURE_LVMSNAP, 1)
+fi
 
 AC_MSG_CHECKING([for boost::program_options::variables_map in -lboost_program_options-mt])
 saved_LIBS="${LIBS}"

@@ -19,7 +19,9 @@
 #include <config.h>
 
 #include "sbuild-chroot-plain.h"
+#ifdef SBUILD_FEATURE_LVMSNAP
 #include "sbuild-chroot-lvm-snapshot.h"
+#endif // SBUILD_FEATURE_LVMSNAP
 #include "sbuild-ctty.h"
 #include "sbuild-run-parts.h"
 #include "sbuild-session.h"
@@ -654,6 +656,7 @@ session::run_impl ()
 	      chroot->set_aliases(string_list());
 	    }
 
+#ifdef SBUILD_FEATURE_LVMSNAP
 	  /* LVM devices need the snapshot device name specifying. */
 	  chroot_lvm_snapshot *snapshot = 0;
 	  if ((snapshot = dynamic_cast<chroot_lvm_snapshot *>(chroot.get())) != 0)
@@ -662,6 +665,7 @@ session::run_impl ()
 	      std::string device(dir + "/" + this->session_id);
 	      snapshot->set_snapshot_device(device);
 	    }
+#endif // SBUILD_FEATURE_LVMSNAP
 
 	  try
 	    {

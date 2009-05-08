@@ -24,8 +24,6 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include <lockdev.h>
-
 #include <cppunit/extensions/HelperMacros.h>
 
 using namespace CppUnit;
@@ -183,6 +181,7 @@ public:
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_file_lock);
 
+#ifdef SBUILD_FEATURE_DEVLOCK
 class test_dev_lock : public TestFixture
 {
   CPPUNIT_TEST_SUITE(test_dev_lock);
@@ -326,3 +325,4 @@ public:
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_dev_lock);
+#endif // SBUILD_FEATURE_DEVLOCK

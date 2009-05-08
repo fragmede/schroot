@@ -66,13 +66,23 @@ libtest_la_SOURCES = 	\
 	testmain.cc
 libtest_la_LIBADD = $(top_builddir)/sbuild/libsbuild.la $(CPPUNIT_LIBS)
 
-sbuild_chroot_SOURCES = 		\
-	sbuild-chroot.cc		\
-	sbuild-chroot-plain.cc		\
-	sbuild-chroot-directory.cc	\
-	sbuild-chroot-file.cc		\
-	sbuild-chroot-block-device.cc	\
-	sbuild-chroot-lvm-snapshot.cc	\
+if BUILD_BLOCKDEV
+sbuild_chroot_blockdev_sources =	\
+	sbuild-chroot-block-device.cc
+endif
+
+if BUILD_LVMSNAP
+sbuild_chroot_lvmsnap_sources =	\
+	sbuild-chroot-lvm-snapshot.cc
+endif
+
+sbuild_chroot_SOURCES = 			\
+	sbuild-chroot.cc			\
+	sbuild-chroot-plain.cc			\
+	sbuild-chroot-file.cc			\
+	sbuild-chroot-directory.cc		\
+	$(sbuild_chroot_blockdev_sources)	\
+	$(sbuild_chroot_lvmsnap_sources)	\
 	test-sbuild-chroot.h
 sbuild_chroot_LDADD =  libtest.la
 

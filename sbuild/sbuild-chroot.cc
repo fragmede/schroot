@@ -22,9 +22,13 @@
 #include "sbuild-chroot-directory.h"
 #include "sbuild-chroot-plain.h"
 #include "sbuild-chroot-file.h"
+#ifdef SBUILD_FEATURE_BLOCKDEV
 #include "sbuild-chroot-block-device.h"
+#endif // SBUILD_FEATURE_BLOCKDEV
 #include "sbuild-chroot-loopback.h"
+#ifdef SBUILD_FEATURE_LVMSNAP
 #include "sbuild-chroot-lvm-snapshot.h"
+#endif // SBUILD_FEATURE_LVMSNAP
 #include "sbuild-lock.h"
 
 #include <cerrno>
@@ -123,12 +127,16 @@ sbuild::chroot::create (std::string const& type)
     new_chroot = new chroot_plain();
   else if (type == "file")
     new_chroot = new chroot_file();
+#ifdef SBUILD_FEATURE_BLOCKDEV
   else if (type == "block-device")
     new_chroot = new chroot_block_device();
+#endif // SBUILD_FEATURE_BLOCKDEV
   else if (type == "loopback")
     new_chroot = new chroot_loopback();
+#ifdef SBUILD_FEATURE_LVMSNAP
   else if (type == "lvm-snapshot")
     new_chroot = new chroot_lvm_snapshot();
+#endif // SBUILD_FEATURE_LVMSNAP
   else
     throw error(type, CHROOT_TYPE);
 

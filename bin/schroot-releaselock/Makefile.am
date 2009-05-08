@@ -27,7 +27,9 @@ LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
 
 DEFS = -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
 
+if BUILD_BLOCKDEV
 pkglibexec_PROGRAMS = schroot-releaselock
+endif
 
 schroot_releaselock_SOURCES = 		\
 	schroot-releaselock-main.h	\

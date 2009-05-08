@@ -110,7 +110,7 @@ public:
 
   void test_get_chroots()
   {
-    CPPUNIT_ASSERT(this->cf->get_chroots().size() == 6);
+    CPPUNIT_ASSERT(this->cf->get_chroots().size() == 4);
   }
 
   void test_find_chroot()
@@ -147,16 +147,14 @@ public:
   void test_get_chroot_list()
   {
     sbuild::string_list chroots = this->cf->get_chroot_list();
-    CPPUNIT_ASSERT(chroots.size() == 9); // Includes aliases
+    CPPUNIT_ASSERT(chroots.size() == 7); // Includes aliases
     CPPUNIT_ASSERT(chroots[0] == "default");
     CPPUNIT_ASSERT(chroots[1] == "experimental");
     CPPUNIT_ASSERT(chroots[2] == "sarge");
     CPPUNIT_ASSERT(chroots[3] == "sid");
     CPPUNIT_ASSERT(chroots[4] == "sid-local");
-    CPPUNIT_ASSERT(chroots[5] == "sid-snap");
-    CPPUNIT_ASSERT(chroots[6] == "sid-snap-source");
-    CPPUNIT_ASSERT(chroots[7] == "stable");
-    CPPUNIT_ASSERT(chroots[8] == "unstable");
+    CPPUNIT_ASSERT(chroots[5] == "stable");
+    CPPUNIT_ASSERT(chroots[6] == "unstable");
   }
 
   void test_print_chroot_list()

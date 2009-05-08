@@ -29,7 +29,9 @@
 
 #include <boost/format.hpp>
 
+#ifdef SBUILD_FEATURE_DEVLOCK
 #include <lockdev.h>
+#endif // SBUILD_FEATURE_DEVLOCK
 
 using boost::format;
 using namespace sbuild;
@@ -235,6 +237,8 @@ file_lock::unset_lock ()
   set_lock(LOCK_NONE, 0);
 }
 
+#ifdef SBUILD_FEATURE_DEVLOCK
+
 device_lock::device_lock (std::string const& device):
   lock(),
   device(device),
@@ -336,3 +340,6 @@ device_lock::unset_lock ()
 {
   set_lock(LOCK_NONE, 0);
 }
+
+#endif // SBUILD_FEATURE_DEVLOCK
+

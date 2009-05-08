@@ -37,7 +37,6 @@ sbuild_public_h_sources =		\
 	sbuild-chroot-directory.h	\
 	sbuild-chroot-file.h		\
 	sbuild-chroot-loopback.h	\
-	sbuild-chroot-lvm-snapshot.h	\
 	sbuild-chroot-mountable.h	\
 	sbuild-chroot-plain.h		\
 	sbuild-chroot-source.h		\
@@ -69,17 +68,25 @@ sbuild_public_h_sources =		\
 	sbuild-tr1types.h		\
 	sbuild-util.h
 
+if BUILD_BLOCKDEV
+sbuild_public_blockdev_h_sources =	\
+	sbuild-chroot-block-device.h
+endif
+
+if BUILD_LVMSNAP
+sbuild_public_lvmsnap_h_sources =	\
+	sbuild-chroot-lvm-snapshot.h
+endif
+
 sbuild_public_cc_sources =		\
 	sbuild-auth.cc			\
 	sbuild-auth-conv.cc		\
 	sbuild-auth-conv-tty.cc		\
 	sbuild-auth-message.cc		\
 	sbuild-chroot.cc		\
-	sbuild-chroot-block-device.cc	\
 	sbuild-chroot-directory.cc	\
 	sbuild-chroot-file.cc		\
 	sbuild-chroot-loopback.cc	\
-	sbuild-chroot-lvm-snapshot.cc	\
 	sbuild-chroot-mountable.cc	\
 	sbuild-chroot-plain.cc		\
 	sbuild-chroot-source.cc		\
@@ -101,14 +108,29 @@ sbuild_public_cc_sources =		\
 	sbuild-types.cc			\
 	sbuild-util.cc
 
+if BUILD_BLOCKDEV
+sbuild_public_blockdev_cc_sources =	\
+	sbuild-chroot-block-device.cc
+endif
+
+if BUILD_LVMSNAP
+sbuild_public_lvmsnap_cc_sources =	\
+	sbuild-chroot-lvm-snapshot.cc
+endif
+
 pkgincludedir = $(includedir)/sbuild
 
-pkginclude_HEADERS =			\
-	$(sbuild_public_h_sources)
+pkginclude_HEADERS =				\
+	$(sbuild_public_h_sources)		\
+	$(sbuild_public_blockdev_h_sources)
 
-libsbuild_la_SOURCES =			\
-	$(sbuild_public_h_sources)	\
-	$(sbuild_public_cc_sources)
+libsbuild_la_SOURCES =				\
+	$(sbuild_public_h_sources)		\
+	$(sbuild_public_cc_sources)		\
+	$(sbuild_public_blockdev_h_sources)	\
+	$(sbuild_public_blockdev_cc_sources)	\
+	$(sbuild_public_lvmsnap_h_sources)	\
+	$(sbuild_public_lvmsnap_cc_sources)
 
 nodist_libsbuild_la_SOURCES =	\
 	sbuild-config.h
