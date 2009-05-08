@@ -293,7 +293,7 @@ AC_CHECK_LIB([lockdev], [dev_lock],
 	      HAVE_LOCKDEV="no"])
 AC_SUBST([LOCKDEV_LIBS])
 AH_TEMPLATE(SBUILD_FEATURE_DEVLOCK, [Set if the device locking with liblockdev is available])
-if test "$BUILD_DEVLOCK" = "yes"; then
+if test "$HAVE_LOCKDEV" = "yes"; then
   AC_DEFINE(SBUILD_FEATURE_DEVLOCK, 1)
 fi
 

@@ -24,6 +24,10 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#ifdef SBUILD_FEATURE_DEVLOCK
+#include <lockdev.h>
+#endif // SBUILD_FEATURE_DEVLOCK
+
 #include <cppunit/extensions/HelperMacros.h>
 
 using namespace CppUnit;

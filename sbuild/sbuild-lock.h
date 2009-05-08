@@ -19,6 +19,7 @@
 #ifndef SBUILD_LOCK_H
 #define SBUILD_LOCK_H
 
+#include <sbuild/sbuild-lock.h>
 #include <sbuild/sbuild-custom-error.h>
 
 #include <string>
