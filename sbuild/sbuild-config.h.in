@@ -33,6 +33,9 @@
 /* Set if the lvm-snapshot chroot type is present */
 #undef SBUILD_FEATURE_LVMSNAP
 
+/* Set if the loopback chroot type is present */
+#undef SBUILD_FEATURE_LOOPBACK
+
 /* Define to 1 if you have the <boost/format.hpp> header file. */
 #undef HAVE_BOOST_FORMAT_HPP
 

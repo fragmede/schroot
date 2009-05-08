@@ -25,7 +25,9 @@
 #ifdef SBUILD_FEATURE_BLOCKDEV
 #include "sbuild-chroot-block-device.h"
 #endif // SBUILD_FEATURE_BLOCKDEV
+#ifdef SBUILD_FEATURE_LOOPBACK
 #include "sbuild-chroot-loopback.h"
+#endif // SBUILD_FEATURE_LOOPBACK
 #ifdef SBUILD_FEATURE_LVMSNAP
 #include "sbuild-chroot-lvm-snapshot.h"
 #endif // SBUILD_FEATURE_LVMSNAP
@@ -131,8 +133,10 @@ sbuild::chroot::create (std::string const& type)
   else if (type == "block-device")
     new_chroot = new chroot_block_device();
 #endif // SBUILD_FEATURE_BLOCKDEV
+#ifdef SBUILD_FEATURE_LOOPBACK
   else if (type == "loopback")
     new_chroot = new chroot_loopback();
+#endif // SBUILD_FEATURE_LOOPBACK
 #ifdef SBUILD_FEATURE_LVMSNAP
   else if (type == "lvm-snapshot")
     new_chroot = new chroot_lvm_snapshot();

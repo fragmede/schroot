@@ -186,6 +186,18 @@ AC_ARG_ENABLE([lvm-snapshot], [AS_HELP_STRING([--enable-lvm-snapshot], [Enable s
               [enable_lvmsnapshot="auto"])
 AC_MSG_RESULT([$enable_lvmsnapshot])
 
+AC_MSG_CHECKING([whether to enable support for loopback mounts])
+AC_ARG_ENABLE([loopback], [AS_HELP_STRING([--enable-loopback], [Enable support for loopback mounts])],
+              [ case "${enableval}" in
+                yes) enable_loopback="yes"
+		     enable_blockdev="yes" ;;
+                no)  enable_loopback="no" ;;
+                *) AC_MSG_RESULT([unknown])
+                   AC_MSG_ERROR([bad value ${enableval} for --enable-loopback]) ;;
+                esac],
+              [enable_loopback="auto"])
+AC_MSG_RESULT([$enable_loopback])
+
 AC_MSG_CHECKING([whether to enable doxygen documentation])
 AC_ARG_ENABLE([doxygen], [AS_HELP_STRING([--enable-doxygen], [Enable doxygen documentation])],
               [ case "${enableval}" in
@@ -220,6 +232,8 @@ AC_PATH_PROG([DOXYGEN], [doxygen])
 HAVE_LVM="yes"
 AC_PATH_PROG([LVCREATE], [lvcreate], [HAVE_LVM="no"], [$PATH:/sbin:/usr/sbin])
 AC_PATH_PROG([LVREMOVE], [lvremove], [HAVE_LVM="no"], [$PATH:/sbin:/usr/sbin])
+HAVE_LOOPBACK="yes"
+AC_PATH_PROG([LOSETUP], [losetup], [HAVE_LOOPBACK="no"], [$PATH:/sbin:/usr/sbin])
 
 if test "$enable_doxygen" = "yes" && test -z "$DOXYGEN"; then
   AC_MSG_FAILURE([doxygen is not installed, but is required by schroot])
@@ -328,6 +342,28 @@ AM_CONDITIONAL([BUILD_LVMSNAP], [test "$BUILD_LVMSNAP" = "yes"])
 AH_TEMPLATE(SBUILD_FEATURE_LVMSNAP, [Set if the lvm-snapshot chroot type is present])
 if test "$BUILD_LVMSNAP" = "yes"; then
   AC_DEFINE(SBUILD_FEATURE_LVMSNAP, 1)
+fi
+
+AC_MSG_CHECKING([whether to build loopback support])
+BUILD_LOOPBACK="yes"
+if test "$enable_loopbackshot" = "yes"; then
+  if test "$HAVE_LOOPBACK" = "no"; then
+    BUILD_LOOPBACK="no"
+    AC_MSG_FAILURE([Loopback support is not avilable, but is required by schroot])
+  fi
+elif test "$enable_loopbackshot" = "no"; then
+    BUILD_LOOPBACK="no"
+elif test "$enable_loopbackshot" = "auto"; then
+  if test "$HAVE_LOOPBACK" = "no"; then
+    BUILD_LOOPBACK="no"
+  fi
+fi
+AC_MSG_RESULT([$BUILD_LOOPBACK])
+
+AM_CONDITIONAL([BUILD_LOOPBACK], [test "$BUILD_LOOPBACK" = "yes"])
+AH_TEMPLATE(SBUILD_FEATURE_LOOPBACK, [Set if the loopback chroot type is present])
+if test "$BUILD_LOOPBACK" = "yes"; then
+  AC_DEFINE(SBUILD_FEATURE_LOOPBACK, 1)
 fi
 
 AC_MSG_CHECKING([for boost::program_options::variables_map in -lboost_program_options-mt])
