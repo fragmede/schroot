@@ -189,8 +189,7 @@ AC_MSG_RESULT([$enable_lvmsnapshot])
 AC_MSG_CHECKING([whether to enable support for loopback mounts])
 AC_ARG_ENABLE([loopback], [AS_HELP_STRING([--enable-loopback], [Enable support for loopback mounts])],
               [ case "${enableval}" in
-                yes) enable_loopback="yes"
-		     enable_blockdev="yes" ;;
+                yes) enable_loopback="yes" ;;
                 no)  enable_loopback="no" ;;
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-loopback]) ;;
