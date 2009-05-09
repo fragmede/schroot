@@ -197,6 +197,17 @@ AC_ARG_ENABLE([loopback], [AS_HELP_STRING([--enable-loopback], [Enable support f
               [enable_loopback="auto"])
 AC_MSG_RESULT([$enable_loopback])
 
+AC_MSG_CHECKING([whether to enable support for UUIDs in session names])
+AC_ARG_ENABLE([uuid], [AS_HELP_STRING([--enable-uuid], [Enable support for UUIDs])],
+              [ case "${enableval}" in
+                yes) enable_uuid="yes" ;;
+                no)  enable_uuid="no" ;;
+                *) AC_MSG_RESULT([unknown])
+                   AC_MSG_ERROR([bad value ${enableval} for --enable-uuid]) ;;
+                esac],
+              [enable_uuid="auto"])
+AC_MSG_RESULT([$enable_uuid])
+
 AC_MSG_CHECKING([whether to enable doxygen documentation])
 AC_ARG_ENABLE([doxygen], [AS_HELP_STRING([--enable-doxygen], [Enable doxygen documentation])],
               [ case "${enableval}" in
@@ -240,7 +251,6 @@ fi;
 AM_CONDITIONAL([BUILD_DOXYGEN], [test -n "$DOXYGEN" && test "$enable_doxygen" = "yes"])
 
 # Checks for libraries.
-AH_TEMPLATE(HAVE_UUID, [Is libuuid available])
 PKG_CHECK_MODULES([UUID], [uuid],
                   [AC_DEFINE(HAVE_UUID)
 		   HAVE_UUID=yes],
@@ -321,6 +331,20 @@ if test "$BUILD_PERSONALITY" = "yes"; then
   AC_DEFINE(SBUILD_FEATURE_PERSONALITY, 1)
 fi
 
+AC_MSG_CHECKING([whether to build UUID support])
+BUILD_UUID="yes"
+if test "$enable_uuid" = "yes"; then
+  BUILD_UUID="no"
+fi
+if test "$HAVE_UUID" = "no"; then
+  BUILD_UUID="no"
+fi
+AC_MSG_RESULT([$BUILD_UUID])
+
+AH_TEMPLATE(HAVE_UUID, [Set if UUID support is available])
+if test "$BUILD_UUID" = "yes"; then
+  AC_DEFINE(HAVE_UUID, 1)
+fi
 
 AC_MSG_CHECKING([whether to build block-device support])
 BUILD_BLOCKDEV="yes"
