@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "sbuild-auth-conv-tty.h"
+#include "sbuild-auth-pam-conv-tty.h"
 #include "sbuild-ctty.h"
 #include "sbuild-log.h"
 
@@ -37,7 +37,7 @@ using namespace sbuild;
 namespace
 {
 
-  typedef std::pair<auth_conv_tty::error_code,const char *> emap;
+  typedef std::pair<auth_pam_conv_tty::error_code,const char *> emap;
 
   /**
    * This is a list of the supported error codes.  It's used to
@@ -45,13 +45,13 @@ namespace
    */
   emap init_errors[] =
     {
-      emap(auth_conv_tty::CTTY,            N_("No controlling terminal")),
-      emap(auth_conv_tty::TIMEOUT,         N_("Timed out")),
+      emap(auth_pam_conv_tty::CTTY,            N_("No controlling terminal")),
+      emap(auth_pam_conv_tty::TIMEOUT,         N_("Timed out")),
       // TRANSLATORS: Please use an ellipsis e.g. U+2026
-      emap(auth_conv_tty::TIMEOUT_PENDING, N_("Time is running out...")),
-      emap(auth_conv_tty::TERMIOS,         N_("Failed to get terminal settings")),
+      emap(auth_pam_conv_tty::TIMEOUT_PENDING, N_("Time is running out...")),
+      emap(auth_pam_conv_tty::TERMIOS,         N_("Failed to get terminal settings")),
       // TRANSLATORS: %1% = integer
-      emap(auth_conv_tty::CONV_TYPE,       N_("Unsupported conversation type '%1%'"))
+      emap(auth_pam_conv_tty::CONV_TYPE,       N_("Unsupported conversation type '%1%'"))
     };
 
   volatile sig_atomic_t timer_expired = false;
@@ -114,12 +114,12 @@ namespace
 }
 
 template<>
-error<auth_conv_tty::error_code>::map_type
-error<auth_conv_tty::error_code>::error_strings
+error<auth_pam_conv_tty::error_code>::map_type
+error<auth_pam_conv_tty::error_code>::error_strings
 (init_errors,
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
-auth_conv_tty::auth_conv_tty (auth_ptr auth):
+auth_pam_conv_tty::auth_pam_conv_tty (auth_ptr auth):
   auth(weak_auth_ptr(auth)),
   warning_timeout(0),
   fatal_timeout(0),
@@ -127,54 +127,54 @@ auth_conv_tty::auth_conv_tty (auth_ptr auth):
 {
 }
 
-auth_conv_tty::~auth_conv_tty ()
+auth_pam_conv_tty::~auth_pam_conv_tty ()
 {
 }
 
-auth_conv::ptr
-auth_conv_tty::create (auth_ptr auth)
+auth_pam_conv::ptr
+auth_pam_conv_tty::create (auth_ptr auth)
 {
-  return ptr(new auth_conv_tty(auth));
+  return ptr(new auth_pam_conv_tty(auth));
 }
 
-auth_conv::auth_ptr
-auth_conv_tty::get_auth ()
+auth_pam_conv::auth_ptr
+auth_pam_conv_tty::get_auth ()
 {
   return auth_ptr(this->auth);
 }
 
 void
-auth_conv_tty::set_auth (auth_ptr auth)
+auth_pam_conv_tty::set_auth (auth_ptr auth)
 {
   this->auth = weak_auth_ptr(auth);
 }
 
 time_t
-auth_conv_tty::get_warning_timeout ()
+auth_pam_conv_tty::get_warning_timeout ()
 {
   return this->warning_timeout;
 }
 
 void
-auth_conv_tty::set_warning_timeout (time_t timeout)
+auth_pam_conv_tty::set_warning_timeout (time_t timeout)
 {
   this->warning_timeout = timeout;
 }
 
 time_t
-auth_conv_tty::get_fatal_timeout ()
+auth_pam_conv_tty::get_fatal_timeout ()
 {
   return this->fatal_timeout;
 }
 
 void
-auth_conv_tty::set_fatal_timeout (time_t timeout)
+auth_pam_conv_tty::set_fatal_timeout (time_t timeout)
 {
   this->fatal_timeout = timeout;
 }
 
 int
-auth_conv_tty::get_delay ()
+auth_pam_conv_tty::get_delay ()
 {
   timer_expired = 0;
   time (&this->start_time);
@@ -201,8 +201,8 @@ auth_conv_tty::get_delay ()
 }
 
 std::string
-auth_conv_tty::read_string (std::string message,
-			    bool        echo)
+auth_pam_conv_tty::read_string (std::string message,
+				bool        echo)
 {
   if (CTTY_FILENO < 0)
     throw error(CTTY);
@@ -295,29 +295,29 @@ auth_conv_tty::read_string (std::string message,
 }
 
 void
-auth_conv_tty::conversation (auth_conv::message_list& messages)
+auth_pam_conv_tty::conversation (auth_pam_conv::message_list& messages)
 {
   log_debug(DEBUG_NOTICE) << "PAM TTY conversation handler started" << endl;
 
-  for (std::vector<auth_message>::iterator cur = messages.begin();
+  for (std::vector<auth_pam_message>::iterator cur = messages.begin();
        cur != messages.end();
        ++cur)
     {
       switch (cur->type)
 	{
-	case auth_message::MESSAGE_PROMPT_NOECHO:
+	case auth_pam_message::MESSAGE_PROMPT_NOECHO:
 	  log_debug(DEBUG_NOTICE) << "PAM TTY input prompt (noecho)" << endl;
 	  cur->response = read_string(cur->message, false);
 	  break;
-	case auth_message::MESSAGE_PROMPT_ECHO:
+	case auth_pam_message::MESSAGE_PROMPT_ECHO:
 	  log_debug(DEBUG_NOTICE) << "PAM TTY input prompt (echo)" << endl;
 	  cur->response = read_string(cur->message, true);
 	  break;
-	case auth_message::MESSAGE_ERROR:
+	case auth_pam_message::MESSAGE_ERROR:
 	  log_debug(DEBUG_NOTICE) << "PAM TTY output error" << endl;
 	  log_ctty_error() << cur->message << endl;
 	  break;
-	case auth_message::MESSAGE_INFO:
+	case auth_pam_message::MESSAGE_INFO:
 	  log_debug(DEBUG_NOTICE) << "PAM TTY output info" << endl;
 	  log_ctty_info() << cur->message << endl;
 	  break;

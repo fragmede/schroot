@@ -66,11 +66,11 @@ sbuild_public_h_sources =		\
 	sbuild-util.h
 
 if BUILD_PAM
-sbuild_public_auth_h_sources =		\
-	sbuild-auth-conv.h		\
-	sbuild-auth-conv-tty.h		\
+sbuild_public_auth_pam_h_sources =	\
+	sbuild-auth-pam-conv.h		\
+	sbuild-auth-pam-conv-tty.h	\
 	sbuild-auth-pam.h		\
-	sbuild-auth-message.h
+	sbuild-auth-pam-message.h
 endif
 
 if BUILD_BLOCKDEV
@@ -116,11 +116,11 @@ sbuild_public_cc_sources =		\
 	sbuild-util.cc
 
 if BUILD_PAM
-sbuild_public_auth_cc_sources =	\
-	sbuild-auth-conv.cc		\
-	sbuild-auth-conv-tty.cc		\
+sbuild_public_auth_pam_cc_sources =	\
+	sbuild-auth-pam-conv.cc		\
+	sbuild-auth-pam-conv-tty.cc	\
 	sbuild-auth-pam.cc		\
-	sbuild-auth-message.cc
+	sbuild-auth-pam-message.cc
 endif
 
 if BUILD_BLOCKDEV
@@ -147,8 +147,8 @@ pkginclude_HEADERS =				\
 libsbuild_la_SOURCES =				\
 	$(sbuild_public_h_sources)		\
 	$(sbuild_public_cc_sources)		\
-	$(sbuild_public_auth_h_sources)		\
-	$(sbuild_public_auth_cc_sources)	\
+	$(sbuild_public_auth_pam_h_sources)	\
+	$(sbuild_public_auth_pam_cc_sources)	\
 	$(sbuild_public_blockdev_h_sources)	\
 	$(sbuild_public_blockdev_cc_sources)	\
 	$(sbuild_public_lvmsnap_h_sources)	\

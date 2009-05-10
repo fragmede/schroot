@@ -16,8 +16,8 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_AUTH_MESSAGE_H
-#define SBUILD_AUTH_MESSAGE_H
+#ifndef SBUILD_AUTH_PAM_MESSAGE_H
+#define SBUILD_AUTH_PAM_MESSAGE_H
 
 #include <string>
 
@@ -29,14 +29,14 @@ namespace sbuild
   /**
    * Authentication messages.
    *
-   * When auth needs to interact with the user, it does this by
-   * sending a list of auth_message objects to an AuthConv
+   * When auth_pam needs to interact with the user, it does this by
+   * sending a list of auth_pam_message objects to an auth_pam_conv
    * conversation object.  These messages tell the conversation object
    * how to display the message to the user, and if necessary, whether
    * or not to ask the user for some input.  They also store the
    * user's input, if required.
    */
-  class auth_message
+  class auth_pam_message
   {
   public:
     /// Message type
@@ -58,11 +58,11 @@ namespace sbuild
      * @param type the type of message.
      * @param message the message to display.
      */
-    auth_message (message_type       type,
-		  std::string const& message);
+    auth_pam_message (message_type       type,
+		      std::string const& message);
 
     /// The destructor.
-    virtual ~auth_message ();
+    virtual ~auth_pam_message ();
 
     /// The type of message.
     message_type type;
@@ -74,7 +74,7 @@ namespace sbuild
 
 }
 
-#endif /* SBUILD_AUTH_MESSAGE_H */
+#endif /* SBUILD_AUTH_PAM_MESSAGE_H */
 
 /*
  * Local Variables:

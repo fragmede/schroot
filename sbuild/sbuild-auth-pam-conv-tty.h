@@ -16,10 +16,10 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_AUTH_CONV_TTY_H
-#define SBUILD_AUTH_CONV_TTY_H
+#ifndef SBUILD_AUTH_PAM_CONV_TTY_H
+#define SBUILD_AUTH_PAM_CONV_TTY_H
 
-#include <sbuild/sbuild-auth-conv.h>
+#include <sbuild/sbuild-auth-pam-conv.h>
 #include <sbuild/sbuild-auth.h>
 #include <sbuild/sbuild-custom-error.h>
 
@@ -31,8 +31,9 @@ namespace sbuild
   /**
    * @brief Authentication conversation handler for terminal devices.
    *
-   * This class is an implementation of the auth_conv interface, and
-   * is used to interact with the user on a terminal (TTY) interface.
+   * This class is an implementation of the auth_pam_conv interface,
+   * and is used to interact with the user on a terminal (TTY)
+   * interface.
    *
    * In order to implement timeouts, this class uses alarm(2).  This
    * has some important implications.  Global state is modified by the
@@ -41,7 +42,7 @@ namespace sbuild
    * SIGALRM handlers and the alarm(2) timer during the time PAM
    * authentication is proceeding.
    */
-  class auth_conv_tty : public auth_conv
+  class auth_pam_conv_tty : public auth_pam_conv
   {
   public:
     /// Error codes.
@@ -59,14 +60,14 @@ namespace sbuild
 
   private:
     /// The constructor.
-    auth_conv_tty (auth_ptr auth);
+    auth_pam_conv_tty (auth_ptr auth);
 
   public:
     /// The destructor.
-    virtual ~auth_conv_tty ();
+    virtual ~auth_pam_conv_tty ();
 
     /**
-     * Create an auth_conv_tty object.
+     * Create an auth_pam_conv_tty object.
      *
      * @auth The authentication object this conversation handler will
      * be associated with.
@@ -93,7 +94,7 @@ namespace sbuild
     set_fatal_timeout (time_t timeout);
 
     virtual void
-    conversation (auth_conv::message_list& messages);
+    conversation (auth_pam_conv::message_list& messages);
 
   private:
     /**
@@ -139,7 +140,7 @@ namespace sbuild
 
 }
 
-#endif /* SBUILD_AUTH_CONV_TTY_H */
+#endif /* SBUILD_AUTH_PAM_CONV_TTY_H */
 
 /*
  * Local Variables:

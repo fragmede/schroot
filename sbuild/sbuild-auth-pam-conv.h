@@ -16,10 +16,10 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_AUTH_CONV_H
-#define SBUILD_AUTH_CONV_H
+#ifndef SBUILD_AUTH_PAM_CONV_H
+#define SBUILD_AUTH_PAM_CONV_H
 
-#include <sbuild/sbuild-auth-message.h>
+#include <sbuild/sbuild-auth-pam-message.h>
 #include <sbuild/sbuild-error.h>
 #include <sbuild/sbuild-tr1types.h>
 
@@ -42,9 +42,9 @@ namespace sbuild
    * interface, and is used by auth when interacting with the user
    * during authentication.
    *
-   * A simple implementation is provided in the form of auth_conv_tty.
-   * However, more complex implementations might hook into the event
-   * loop of a GUI widget system, for example.
+   * A simple implementation is provided in the form of
+   * auth_pam_conv_tty.  However, more complex implementations might
+   * hook into the event loop of a GUI widget system, for example.
    *
    * The interface allows the setting of optional warning timeout and
    * fatal timeout values, which should default to 0 (not enabled).
@@ -54,24 +54,24 @@ namespace sbuild
    * Note that the auth object must be specified, and must never be
    * void while the conversation is in progress.
    */
-  class auth_conv
+  class auth_pam_conv
   {
   public:
     /// A list of messages.
-    typedef std::vector<auth_message> message_list;
+    typedef std::vector<auth_pam_message> message_list;
     typedef std::tr1::shared_ptr<auth_pam> auth_ptr;
     typedef std::tr1::weak_ptr<auth_pam> weak_auth_ptr;
 
-    /// A shared_ptr to an auth_conv object.
-    typedef std::tr1::shared_ptr<auth_conv> ptr;
+    /// A shared_ptr to an auth_pam_conv object.
+    typedef std::tr1::shared_ptr<auth_pam_conv> ptr;
 
   protected:
     /// The constructor.
-    auth_conv ();
+    auth_pam_conv ();
 
   public:
     /// The destructor.
-    virtual ~auth_conv ();
+    virtual ~auth_pam_conv ();
 
     /**
      * Get the auth object.
@@ -128,9 +128,9 @@ namespace sbuild
      *
      * Each of the messages detailed in messages should be displayed
      * to the user, asking for input where required.  The type of
-     * message is indicated in the auth_message::type field of the
-     * auth_message.  The auth_message::response field of the
-     * auth_message should be filled in if input is required.
+     * message is indicated in the auth_pam_message::type field of the
+     * auth_pam_message.  The auth_pam_message::response field of the
+     * auth_pam_message should be filled in if input is required.
      *
      * On error, an exception will be thrown.
      *
@@ -143,7 +143,7 @@ namespace sbuild
 
 }
 
-#endif /* SBUILD_AUTH_CONV_H */
+#endif /* SBUILD_AUTH_PAM_CONV_H */
 
 /*
  * Local Variables:
