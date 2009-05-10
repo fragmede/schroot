@@ -29,6 +29,7 @@ lib_LTLIBRARIES = libsbuild.la
 
 sbuild_public_h_sources =		\
 	sbuild-auth.h			\
+	sbuild-auth-null.h		\
 	sbuild-chroot.h			\
 	sbuild-chroot-block-device.h	\
 	sbuild-chroot-directory.h	\
@@ -65,9 +66,10 @@ sbuild_public_h_sources =		\
 	sbuild-util.h
 
 if BUILD_PAM
-sbuild_public_auth_h_sources =	\
+sbuild_public_auth_h_sources =		\
 	sbuild-auth-conv.h		\
 	sbuild-auth-conv-tty.h		\
+	sbuild-auth-pam.h		\
 	sbuild-auth-message.h
 endif
 
@@ -88,6 +90,7 @@ endif
 
 sbuild_public_cc_sources =		\
 	sbuild-auth.cc			\
+	sbuild-auth-null.cc		\
 	sbuild-chroot.cc		\
 	sbuild-chroot-directory.cc	\
 	sbuild-chroot-file.cc		\
@@ -116,6 +119,7 @@ if BUILD_PAM
 sbuild_public_auth_cc_sources =	\
 	sbuild-auth-conv.cc		\
 	sbuild-auth-conv-tty.cc		\
+	sbuild-auth-pam.cc		\
 	sbuild-auth-message.cc
 endif
 

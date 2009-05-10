@@ -30,7 +30,7 @@
 namespace sbuild
 {
 
-  class auth;
+  class auth_pam;
 
   /**
    * Authentication conversation handler interface.
@@ -59,28 +59,35 @@ namespace sbuild
   public:
     /// A list of messages.
     typedef std::vector<auth_message> message_list;
-    typedef std::tr1::weak_ptr<auth> weak_auth_ptr;
+    typedef std::tr1::shared_ptr<auth_pam> auth_ptr;
+    typedef std::tr1::weak_ptr<auth_pam> weak_auth_ptr;
 
+    /// A shared_ptr to an auth_conv object.
+    typedef std::tr1::shared_ptr<auth_conv> ptr;
+
+  protected:
     /// The constructor.
     auth_conv ();
+
+  public:
     /// The destructor.
     virtual ~auth_conv ();
 
     /**
      * Get the auth object.
      *
-     * @returns the auth object as a weak reference.
+     * @returns the auth object.
      */
-    virtual weak_auth_ptr
+    virtual auth_ptr
     get_auth () = 0;
 
     /**
      * Set the auth object.
      *
-     * @param auth the auth object as a weak reference.
+     * @param auth the auth object.
      */
     virtual void
-    set_auth (weak_auth_ptr auth) = 0;
+    set_auth (auth_ptr auth) = 0;
 
     /**
      * Get the time at which the user will be warned.

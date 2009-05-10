@@ -99,9 +99,6 @@ namespace sbuild
     /// A shared_ptr to a session object.
     typedef std::tr1::shared_ptr<session> ptr;
 
-    /// A shared_ptr to an auth object.
-    typedef std::tr1::shared_ptr<auth> auth_ptr;
-
     /**
      * The constructor.
      *
@@ -123,7 +120,7 @@ namespace sbuild
      *
      * @returns a shared_ptr to the authentication state.
      */
-    auth_ptr const&
+    auth::ptr const&
     get_auth () const;
 
     /**
@@ -132,7 +129,7 @@ namespace sbuild
      * @param auth a shared_ptr to the authentication state.
      */
     void
-    set_auth (auth_ptr& auth);
+    set_auth (auth::ptr& auth);
 
     /**
      * Get the configuration associated with this session.
@@ -448,7 +445,7 @@ namespace sbuild
 			  struct sigaction *saved_signal);
 
     /// Authentication state.
-    auth_ptr         authstat;
+    auth::ptr        authstat;
     /// The chroot configuration.
     config_ptr       config;
     /// The chroots to run the session operation in.

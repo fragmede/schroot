@@ -282,18 +282,6 @@ main_base::run_impl ()
 	verbosity = sbuild::auth::VERBOSITY_VERBOSE;
       this->session->get_auth()->set_verbosity(verbosity);
 
-#ifdef SBUILD_FEATURE_PAM
-      /* Set up authentication timeouts. */
-      std::tr1::shared_ptr<sbuild::auth_conv>
-	conv(new sbuild::auth_conv_tty
-	     (std::tr1::dynamic_pointer_cast<sbuild::auth>(this->session)));
-      time_t curtime = 0;
-      time(&curtime);
-      conv->set_warning_timeout(curtime + 15);
-      conv->set_fatal_timeout(curtime + 20);
-      this->session->get_auth()->set_conv(conv);
-#endif // SBUILD_FEATURE_PAM
-
       /* Run session. */
       this->session->run();
     }

@@ -19,8 +19,6 @@
 #include <config.h>
 
 #include "sbuild-auth.h"
-#include "sbuild-auth-conv.h"
-#include "sbuild-auth-conv-tty.h"
 
 #include <cassert>
 #include <cerrno>
@@ -37,12 +35,6 @@ using std::cerr;
 using std::endl;
 using boost::format;
 using namespace sbuild;
-
-#if defined(__LINUX_PAM__)
-#define PAM_TEXT_DOMAIN "Linux-PAM"
-#elif defined(__sun__)
-#define PAM_TEXT_DOMAIN "SUNW_OST_SYSOSPAM"
-#endif
 
 namespace
 {
@@ -74,93 +66,7 @@ error<auth::error_code>::error_strings
 (init_errors,
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
-namespace
-{
-
-#ifdef SBUILD_FEATURE_PAM
-  /* This is the glue to link PAM user interaction with auth_conv. */
-  int
-  auth_conv_hook (int                        num_msg,
-		  const struct pam_message **msgm,
-		  struct pam_response      **response,
-		  void                      *appdata_ptr)
-  {
-    log_debug(DEBUG_NOTICE) << "PAM conversation hook started" << endl;
-
-    try
-      {
-	if (appdata_ptr == 0)
-	  return PAM_CONV_ERR;
-
-	auth_conv *conv = static_cast<auth_conv *>(appdata_ptr);
-	assert (conv != 0);
-
-	/* Construct a message vector */
-	auth_conv::message_list messages;
-	for (int i = 0; i < num_msg; ++i)
-	  {
-	    const struct pam_message *source = msgm[i];
-
-	    auth_message
-	      message(static_cast<auth_message::message_type>(source->msg_style),
-		      source->msg);
-
-	    /* Replace PAM prompt */
-	    if (message.message == dgettext(PAM_TEXT_DOMAIN, "Password: ") ||
-		message.message == dgettext(PAM_TEXT_DOMAIN, "Password:"))
-	      {
-		std::string user = "unknown"; // Set in case auth is void
-		std::tr1::shared_ptr<auth> auth = conv->get_auth().lock();
-		assert(auth && auth.get() != 0); // Check auth is not void
-		if (auth && auth.get() != 0)
-		  user = auth->get_user();
-		format fmt(_("[schroot] password for %1%: "));
-		fmt % user;
-		message.message = fmt.str();
-	      }
-
-	    messages.push_back(message);
-	  }
-
-	/* Do the conversation; an exception will be thrown on failure */
-	conv->conversation(messages);
-
-	/* Copy response into **reponse */
-	struct pam_response *reply =
-	  static_cast<struct pam_response *>
-	  (malloc(sizeof(struct pam_response) * num_msg));
-
-	for (int i = 0; i < num_msg; ++i)
-	  {
-	    reply[i].resp_retcode = 0;
-	    reply[i].resp = strdup(messages[i].response.c_str());
-	  }
-
-	*response = reply;
-	reply = 0;
-
-	return PAM_SUCCESS;
-      }
-    catch (std::exception const& e)
-      {
-	sbuild::log_exception_error(e);
-      }
-    catch (...)
-      {
-	sbuild::log_error() << _("An unknown exception occurred") << endl;
-      }
-
-    return PAM_CONV_ERR;
-  }
-#endif // SBUILD_FEATURE_PAM
-
-}
-
-
 auth::auth (std::string const& service_name):
-#ifdef SBUILD_FEATURE_PAM
-  pam(),
-#endif // SBUILD_FEATURE_PAM
   service(service_name),
   uid(0),
   gid(0),
@@ -174,12 +80,6 @@ auth::auth (std::string const& service_name):
   rgid(),
   ruser(),
   rgroup(),
-#ifdef SBUILD_FEATURE_PAM
-  conv(),
-#endif // SBUILD_FEATURE_PAM
-#ifndef SBUILD_FEATURE_PAM
-  auth_environment(),
-#endif // !SBUILD_FEATURE_PAM
   message_verbosity(VERBOSITY_NORMAL)
 {
   this->ruid = getuid();
@@ -327,13 +227,40 @@ auth::set_environment (environment const& environment)
 }
 
 environment
-auth::get_pam_environment () const
+auth::get_minimal_environment () const
 {
-#ifdef SBUILD_FEATURE_PAM
-  return environment(pam_getenvlist(this->pam));
-#else // !SBUILD_FEATURE_PAM
-  return this->auth_environment;
-#endif // SBUILD_FEATURE_PAM
+  environment minimal;
+  if (!this->user_environment.empty())
+    minimal = this->user_environment;
+
+  // For security, PATH is always set to a sane state for root, but
+  // only set in other cases if not preserving the environment.
+  if (this->uid == 0)
+    minimal.add(std::make_pair("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11"));
+  else if (this->user_environment.empty())
+    minimal.add(std::make_pair("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games"));
+
+  if (this->user_environment.empty())
+    {
+      if (!this->home.empty() )
+	minimal.add(std::make_pair("HOME", this->home));
+      else
+	minimal.add(std::make_pair("HOME", "/"));
+      if (!this->user.empty())
+	{
+	  minimal.add(std::make_pair("LOGNAME", this->user));
+	  minimal.add(std::make_pair("USER", this->user));
+	}
+      {
+	const char *term = getenv("TERM");
+	if (term)
+	  minimal.add(std::make_pair("TERM", term));
+      }
+      if (!this->shell.empty())
+	minimal.add(std::make_pair("SHELL", this->shell));
+    }
+
+  return minimal;
 }
 
 uid_t
@@ -372,359 +299,47 @@ auth::set_verbosity (auth::verbosity verbosity)
   this->message_verbosity = verbosity;
 }
 
-#ifdef SBUILD_FEATURE_PAM
-auth::conv_ptr&
-auth::get_conv ()
-{
-  return this->conv;
-}
-
-void
-auth::set_conv (conv_ptr& conv)
-{
-  this->conv = conv;
-}
-#endif // SBUILD_FEATURE_PAM
-
 void
 auth::start ()
 {
-  assert(!this->user.empty());
-
-#ifdef SBUILD_FEATURE_PAM
-  if (this->pam != 0)
-    {
-      log_debug(DEBUG_CRITICAL)
-	<< "pam_start FAIL (already initialised)" << endl;
-      throw error("Init PAM", PAM_DOUBLE_INIT);
-    }
-
-  struct pam_conv conv_hook =
-    {
-      auth_conv_hook,
-      reinterpret_cast<void *>(this->conv.get())
-    };
-
-  int pam_status;
-
-  if ((pam_status =
-       pam_start(this->service.c_str(), this->user.c_str(),
-		 &conv_hook, &this->pam)) != PAM_SUCCESS)
-    {
-      log_debug(DEBUG_WARNING) << "pam_start FAIL" << endl;
-      throw error(PAM, pam_strerror(pam_status));
-    }
-
-  log_debug(DEBUG_NOTICE) << "pam_start OK" << endl;
-#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::stop ()
 {
-#ifdef SBUILD_FEATURE_PAM
-  if (this->pam); // PAM must be initialised
-  {
-    int pam_status;
-
-    if ((pam_status =
-	 pam_end(this->pam, PAM_SUCCESS)) != PAM_SUCCESS)
-      {
-	log_debug(DEBUG_WARNING) << "pam_end FAIL" << endl;
-	throw error(PAM, pam_strerror(pam_status));
-      }
-
-    this->pam = 0;
-    log_debug(DEBUG_NOTICE) << "pam_end OK" << endl;
-  }
-#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::authenticate (status auth_status)
 {
-#ifdef SBUILD_FEATURE_PAM
-  assert(!this->user.empty());
-  assert(this->pam != 0); // PAM must be initialised
-
-  int pam_status;
-
-  if ((pam_status =
-       pam_set_item(this->pam, PAM_RUSER, this->ruser.c_str())) != PAM_SUCCESS)
-    {
-      log_debug(DEBUG_WARNING) << "pam_set_item (PAM_RUSER) FAIL" << endl;
-      throw error(_("Set RUSER"), PAM, pam_strerror(pam_status));
-    }
-
-  long hl = 256; /* sysconf(_SC_HOST_NAME_MAX); BROKEN with Debian libc6 2.3.2.ds1-22 */
-
-  char *hostname = new char[hl];
-  try
-    {
-      if (gethostname(hostname, hl) != 0)
-	{
-	  log_debug(DEBUG_CRITICAL) << "gethostname FAIL" << endl;
-	  throw error(HOSTNAME, strerror(errno));
-	}
-
-      if ((pam_status =
-	   pam_set_item(this->pam, PAM_RHOST, hostname)) != PAM_SUCCESS)
-	{
-	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_RHOST) FAIL" << endl;
-	  throw error(_("Set RHOST"), PAM, pam_strerror(pam_status));
-	}
-    }
-  catch (error const& e)
-    {
-      delete[] hostname;
-      hostname = 0;
-      throw;
-    }
-  delete[] hostname;
-  hostname = 0;
-
-  const char *tty = ttyname(STDIN_FILENO);
-  if (tty)
-    {
-      if ((pam_status =
-	   pam_set_item(this->pam, PAM_TTY, tty)) != PAM_SUCCESS)
-	{
-	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_TTY) FAIL" << endl;
-	  throw error(_("Set TTY"), PAM, pam_strerror(pam_status));
-	}
-    }
-
-  /* Authenticate as required. */
-  switch (auth_status)
-    {
-    case STATUS_NONE:
-      if ((pam_status = pam_set_item(this->pam, PAM_USER, this->user.c_str()))
-	  != PAM_SUCCESS)
-	{
-	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_USER) FAIL" << endl;
-	  throw error(_("Set USER"), PAM, pam_strerror(pam_status));
-	}
-      break;
-
-    case STATUS_USER:
-      if ((pam_status = pam_authenticate(this->pam, 0)) != PAM_SUCCESS)
-	{
-	  log_debug(DEBUG_INFO) << "pam_authenticate FAIL" << endl;
-	  syslog(LOG_AUTH|LOG_WARNING, "%s->%s Authentication failure",
-		 this->ruser.c_str(), this->user.c_str());
-	  throw error(AUTHENTICATION, pam_strerror(pam_status));
-	}
-      log_debug(DEBUG_NOTICE) << "pam_authenticate OK" << endl;
-      break;
-
-    case STATUS_FAIL:
-	{
-	  log_debug(DEBUG_INFO) << "PAM auth premature FAIL" << endl;
-	  syslog(LOG_AUTH|LOG_WARNING,
-		 "%s->%s Unauthorised",
-		 this->ruser.c_str(), this->user.c_str());
-	  error e(AUTHORISATION);
-	  // TRANSLATORS: %1% = program name (PAM service name)
-	  std::string reason(_("You do not have permission to access the %1% service."));
-	  reason += '\n';
-	  reason += _("This failure will be reported.");
-	  format fmt(reason);
-	  fmt % this->service;
-	  e.set_reason(fmt.str());
-	  throw e;
-	}
-    default:
-      break;
-    }
-#else // !SBUILD_FEATURE_PAM
-  throw error(AUTHENTICATION, strerror(ENOTSUP));
-#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::setupenv ()
 {
-#ifdef SBUILD_FEATURE_PAM
-  assert(this->pam != 0); // PAM must be initialised
-
-  int pam_status;
-#endif // SBUILD_FEATURE_PAM
-
-  environment environment;
-  if (!this->user_environment.empty())
-    environment = this->user_environment;
-
-  // For security, PATH is always set to a sane state for root, but
-  // only set in other cases if not preserving the environment.
-  if (this->uid == 0)
-    environment.add(std::make_pair("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11"));
-  else if (this->user_environment.empty())
-    environment.add(std::make_pair("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games"));
-
-  if (this->user_environment.empty())
-    {
-      if (!this->home.empty() )
-	environment.add(std::make_pair("HOME", this->home));
-      else
-	environment.add(std::make_pair("HOME", "/"));
-      if (!this->user.empty())
-	{
-	  environment.add(std::make_pair("LOGNAME", this->user));
-	  environment.add(std::make_pair("USER", this->user));
-	}
-      {
-	const char *term = getenv("TERM");
-	if (term)
-	  environment.add(std::make_pair("TERM", term));
-      }
-      if (!this->shell.empty())
-	environment.add(std::make_pair("SHELL", this->shell));
-    }
-
-#ifdef SBUILD_FEATURE_PAM
-  // Move into PAM environment.
-  for (environment::const_iterator cur = environment.begin();
-       cur != environment.end();
-       ++cur)
-    {
-      std::string env_string = cur->first + "=" + cur->second;
-      if ((pam_status =
-	   pam_putenv(this->pam, env_string.c_str())) != PAM_SUCCESS)
-	{
-	  log_debug(DEBUG_WARNING) << "pam_putenv FAIL" << endl;
-	  throw error(PAM, pam_strerror(pam_status));
-	}
-      log_debug(DEBUG_INFO)
-	<< format("pam_putenv: set %1%=%2%") % cur->first % cur->second
-	<< endl;
-    }
-
-  log_debug(DEBUG_NOTICE) << "pam_putenv OK" << endl;
-#else // !SBUILD_FEATURE_PAM
-  this->auth_environment = environment;
-#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::account ()
 {
-#ifdef SBUILD_FEATURE_PAM
-  assert(this->pam != 0); // PAM must be initialised
-
-  int pam_status;
-
-  if ((pam_status =
-       pam_acct_mgmt(this->pam, 0)) != PAM_SUCCESS)
-    {
-      /* We don't handle changing expired passwords here, since we are
-	 not login or ssh. */
-      log_debug(DEBUG_WARNING) << "pam_acct_mgmt FAIL" << endl;
-      throw error(PAM, pam_strerror(pam_status));
-    }
-
-  log_debug(DEBUG_NOTICE) << "pam_acct_mgmt OK" << endl;
-#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::cred_establish ()
 {
-#ifdef SBUILD_FEATURE_PAM
-  assert(this->pam != 0); // PAM must be initialised
-
-  int pam_status;
-
-  if ((pam_status =
-       pam_setcred(this->pam, PAM_ESTABLISH_CRED)) != PAM_SUCCESS)
-    {
-      log_debug(DEBUG_WARNING) << "pam_setcred FAIL" << endl;
-      throw error(PAM, pam_strerror(pam_status));
-    }
-
-  log_debug(DEBUG_NOTICE) << "pam_setcred OK" << endl;
-
-  const char *authuser = 0;
-  const void *tmpcast = reinterpret_cast<const void *>(authuser);
-  pam_get_item(this->pam, PAM_USER, &tmpcast);
-  log_debug(DEBUG_INFO)
-    << format("PAM authentication succeeded for user %1%") % authuser
-    << endl;
-#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::cred_delete ()
 {
-#ifdef SBUILD_FEATURE_PAM
-  assert(this->pam != 0); // PAM must be initialised
-
-  int pam_status;
-
-  if ((pam_status =
-       pam_setcred(this->pam, PAM_DELETE_CRED)) != PAM_SUCCESS)
-    {
-      log_debug(DEBUG_WARNING) << "pam_setcred (delete) FAIL" << endl;
-      throw error(PAM, pam_strerror(pam_status));
-    }
-
-  log_debug(DEBUG_NOTICE) << "pam_setcred (delete) OK" << endl;
-#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::open_session ()
 {
-#ifdef SBUILD_FEATURE_PAM
-  assert(this->pam != 0); // PAM must be initialised
-
-  int pam_status;
-
-  if ((pam_status =
-       pam_open_session(this->pam, 0)) != PAM_SUCCESS)
-    {
-      log_debug(DEBUG_WARNING) << "pam_open_session FAIL" << endl;
-      throw error(PAM, pam_strerror(pam_status));
-    }
-
-  log_debug(DEBUG_NOTICE) << "pam_open_session OK" << endl;
-#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::close_session ()
 {
-#ifdef SBUILD_FEATURE_PAM
-  assert(this->pam != 0); // PAM must be initialised
-
-  int pam_status;
-
-  if ((pam_status =
-       pam_close_session(this->pam, 0)) != PAM_SUCCESS)
-    {
-      log_debug(DEBUG_WARNING) << "pam_close_session FAIL" << endl;
-      throw error(PAM, pam_strerror(pam_status));
-    }
-
-  log_debug(DEBUG_NOTICE) << "pam_close_session OK" << endl;
-#endif // SBUILD_FEATURE_PAM
 }
-
-bool
-auth::is_initialised () const
-{
-#ifdef SBUILD_FEATURE_PAM
-  return this->pam != 0;
-#else // !SBUILD_FEATURE_PAM
-  return true;
-#endif // SBUILD_FEATURE_PAM
-}
-
-#ifdef SBUILD_FEATURE_PAM
-const char *
-auth::pam_strerror (int pam_error)
-{
-  assert(this->pam != 0); // PAM must be initialised
-
-  return ::pam_strerror (this->pam, pam_error);
-}
-#endif // SBUILD_FEATURE_PAM

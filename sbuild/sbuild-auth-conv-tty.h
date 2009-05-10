@@ -20,6 +20,7 @@
 #define SBUILD_AUTH_CONV_TTY_H
 
 #include <sbuild/sbuild-auth-conv.h>
+#include <sbuild/sbuild-auth.h>
 #include <sbuild/sbuild-custom-error.h>
 
 #include <security/pam_appl.h>
@@ -56,16 +57,28 @@ namespace sbuild
     /// Exception type.
     typedef custom_error<error_code> error;
 
+  private:
     /// The constructor.
-    auth_conv_tty (weak_auth_ptr auth);
+    auth_conv_tty (auth_ptr auth);
+
+  public:
     /// The destructor.
     virtual ~auth_conv_tty ();
 
-    virtual weak_auth_ptr
+    /**
+     * Create an auth_conv_tty object.
+     *
+     * @auth The authentication object this conversation handler will
+     * be associated with.
+     */
+    static ptr
+    create (auth_ptr auth);
+
+    virtual auth_ptr
     get_auth ();
 
     virtual void
-    set_auth (weak_auth_ptr auth);
+    set_auth (auth_ptr auth);
 
     virtual time_t
     get_warning_timeout ();

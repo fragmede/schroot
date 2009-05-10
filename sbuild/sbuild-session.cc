@@ -18,6 +18,8 @@
 
 #include <config.h>
 
+#include "sbuild-chroot-config.h"
+#include "sbuild-auth-null.h"
 #include "sbuild-chroot-plain.h"
 #ifdef SBUILD_FEATURE_LVMSNAP
 #include "sbuild-chroot-lvm-snapshot.h"
@@ -246,7 +248,7 @@ session::session (std::string const&         service,
 		  config_ptr&                config,
 		  operation                  operation,
 		  sbuild::string_list const& chroots):
-  authstat(auth_ptr(new sbuild::auth(service))),
+  authstat(auth_null::create(service)),
   config(config),
   chroots(chroots),
   chroot_status(true),
@@ -267,14 +269,14 @@ session::~session ()
 {
 }
 
-session::auth_ptr const&
+auth::ptr const&
 session::get_auth () const
 {
   return this->authstat;
 }
 
 void
-session::set_auth (auth_ptr& auth)
+session::set_auth (auth::ptr& auth)
 {
   this->authstat = auth;
 }
@@ -757,7 +759,7 @@ session::get_login_directories () const
       ret.push_back(this->cwd);
 
       // Set $HOME.
-      environment env = this->authstat->get_pam_environment();
+      environment env = this->authstat->get_auth_environment();
       std::string home;
       if (env.get("HOME", home) &&
 	  std::find(ret.begin(), ret.end(), home) == ret.end())
@@ -918,7 +920,7 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
 			   string_list&         command) const
 {
   /* Search for program in path. */
-  environment env = this->authstat->get_pam_environment();
+  environment env = this->authstat->get_auth_environment();
   std::string path;
   if (!env.get("PATH", path))
     path.clear();
@@ -1235,7 +1237,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   /* Set up environment */
   environment env;
   env.set_filter(session_chroot->get_environment_filter());
-  env += this->authstat->get_pam_environment();
+  env += this->authstat->get_auth_environment();
 
   // Add equivalents to sudo's SUDO_USER, SUDO_UID, SUDO_GID, and
   // SUDO_COMMAND.

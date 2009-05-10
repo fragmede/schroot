@@ -119,8 +119,8 @@ error<auth_conv_tty::error_code>::error_strings
 (init_errors,
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
-auth_conv_tty::auth_conv_tty (weak_auth_ptr auth):
-  auth(auth),
+auth_conv_tty::auth_conv_tty (auth_ptr auth):
+  auth(weak_auth_ptr(auth)),
   warning_timeout(0),
   fatal_timeout(0),
   start_time(0)
@@ -131,16 +131,22 @@ auth_conv_tty::~auth_conv_tty ()
 {
 }
 
-auth_conv_tty::weak_auth_ptr
+auth_conv::ptr
+auth_conv_tty::create (auth_ptr auth)
+{
+  return ptr(new auth_conv_tty(auth));
+}
+
+auth_conv::auth_ptr
 auth_conv_tty::get_auth ()
 {
-  return this->auth;
+  return auth_ptr(this->auth);
 }
 
 void
-auth_conv_tty::set_auth (weak_auth_ptr auth)
+auth_conv_tty::set_auth (auth_ptr auth)
 {
-  this->auth = auth;
+  this->auth = weak_auth_ptr(auth);
 }
 
 time_t

@@ -20,7 +20,6 @@
 #define SBUILD_AUTH_H
 
 #include <sbuild/sbuild-config.h>
-#include <sbuild/sbuild-auth-conv.h>
 #include <sbuild/sbuild-custom-error.h>
 #include <sbuild/sbuild-environment.h>
 #include <sbuild/sbuild-types.h>
@@ -33,10 +32,6 @@
 #include <grp.h>
 #include <pwd.h>
 #include <unistd.h>
-
-#ifdef SBUILD_FEATURE_PAM
-#include <security/pam_appl.h>
-#endif // SBUILD_FEATURE_PAM
 
 namespace sbuild
 {
@@ -104,9 +99,10 @@ namespace sbuild
     /// Exception type.
     typedef custom_error<error_code> error;
 
-    /// A shared_ptr to an auth_conv object.
-    typedef std::tr1::shared_ptr<auth_conv> conv_ptr;
+    /// A shared_ptr to a auth object.
+    typedef std::tr1::shared_ptr<auth> ptr;
 
+  protected:
     /**
      * The constructor.
      *
@@ -117,6 +113,7 @@ namespace sbuild
      */
     auth (std::string const& service_name);
 
+  public:
     /**
      * The destructor.
      */
@@ -255,13 +252,23 @@ namespace sbuild
     set_environment (environment const& environment);
 
     /**
+     * Get the minimal environment.  This is the user environment plus
+     * essential environment variables which are set if not already
+     * present.
+     *
+     * @returns an environment list.
+     */
+    environment
+    get_minimal_environment () const;
+
+    /**
      * Get the PAM environment.  This is the environment as set by PAM
      * modules.
      *
      * @returns an environment list.
      */
-    environment
-    get_pam_environment () const;
+    virtual environment
+    get_auth_environment () const = 0;
 
     /**
      * Get the "remote uid" of the user.  This is the uid which is
@@ -315,31 +322,13 @@ namespace sbuild
     void
     set_verbosity (verbosity verbosity);
 
-#ifdef SBUILD_FEATURE_PAM
-    /**
-     * Get the conversation handler.
-     *
-     * @returns a shared_ptr to the handler.
-     */
-    conv_ptr&
-    get_conv ();
-
-    /**
-     * Set the conversation handler.
-     *
-     * @param conv a shared_ptr to the handler.
-     */
-    void
-    set_conv (conv_ptr& conv);
-#endif // SBUILD_FEATURE_PAM
-
     /**
      * Start the PAM system.  No other PAM functions may be called before
      * calling this function.
      *
      * An error will be thrown on failure.
      */
-    void
+    virtual void
     start ();
 
     /**
@@ -348,7 +337,7 @@ namespace sbuild
      *
      * An error will be thrown on failure.
      */
-    void
+    virtual void
     stop ();
 
     /**
@@ -363,7 +352,7 @@ namespace sbuild
      * @todo Use sysconf(_SC_HOST_NAME_MAX) when libc in a stable
      * release supports it.
      */
-    void
+    virtual void
     authenticate (status auth_status);
 
     /**
@@ -376,7 +365,7 @@ namespace sbuild
      * Note that the environment is not sanitised in any way.  This is
      * the responsibility of the user.
      */
-    void
+    virtual void
     setupenv ();
 
     /**
@@ -384,7 +373,7 @@ namespace sbuild
      *
      * An error will be thrown on failure.
      */
-    void
+    virtual void
     account ();
 
     /**
@@ -392,7 +381,7 @@ namespace sbuild
      *
      * An error will be thrown on failure.
      */
-    void
+    virtual void
     cred_establish ();
 
     /**
@@ -400,7 +389,7 @@ namespace sbuild
      *
      * An error will be thrown on failure.
      */
-    void
+    virtual void
     cred_delete ();
 
     /**
@@ -408,7 +397,7 @@ namespace sbuild
      *
      * An error will be thrown on failure.
      */
-    void
+    virtual void
     open_session ();
 
     /**
@@ -416,7 +405,7 @@ namespace sbuild
      *
      * An error will be thrown on failure.
      */
-    void
+    virtual void
     close_session ();
 
     /**
@@ -443,24 +432,10 @@ namespace sbuild
      * Check if PAM is initialised (i.e. start has been called).
      * @returns true if initialised, otherwise false.
      */
-    bool is_initialised () const;
+    virtual bool
+    is_initialised () const = 0;
 
   protected:
-#ifdef SBUILD_FEATURE_PAM
-    /// The PAM handle.
-    pam_handle_t      *pam;
-
-    /**
-     * Get a description of a PAM error.
-     *
-     * @param pam_error the PAM error number.
-     * @returns the description.
-     */
-    const char *
-    pam_strerror (int pam_error);
-#endif // SBUILD_FEATURE_PAM
-
-  private:
     /// The PAM service name.
     const std::string  service;
     /// The uid to run as.
@@ -487,10 +462,6 @@ namespace sbuild
     std::string        ruser;
     /// The group name requesting authentication.
     std::string        rgroup;
-#ifdef SBUILD_FEATURE_PAM
-    /// The PAM conversation handler.
-    conv_ptr           conv;
-#endif // SBUILD_FEATURE_PAM
 #ifndef SBUILD_FEATURE_PAM
     /// Minimal environment.
     environment        auth_environment;
