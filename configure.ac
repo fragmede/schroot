@@ -163,6 +163,17 @@ if test "$enable_debug" = "yes"; then
   AC_DEFINE_UNQUOTED([SBUILD_DEBUG], [1], [Enable debugging])
 fi
 
+AC_MSG_CHECKING([whether to enable support for PAM authentication])
+AC_ARG_ENABLE([pam], [AS_HELP_STRING([--enable-pam], [Enable support for PAM authentication (requires libpam)])],
+              [ case "${enableval}" in
+                yes) enable_pam="yes" ;;
+                no)  enable_pam="no" ;;
+                *) AC_MSG_RESULT([unknown])
+                   AC_MSG_ERROR([bad value ${enableval} for --enable-pam]) ;;
+                esac],
+              [enable_pam="auto"])
+AC_MSG_RESULT([$enable_pam])
+
 AC_MSG_CHECKING([whether to enable support for block devices])
 AC_ARG_ENABLE([block-device], [AS_HELP_STRING([--enable-block-device], [Enable support for block devices (requires liblockdev)])],
               [ case "${enableval}" in
@@ -291,12 +302,18 @@ AC_CHECK_HEADERS([sys/personality.h],
 	         [PERSONALITY_HEADER="yes"],
 	         [PERSONALITY_HEADER="no"])
 
+AC_CHECK_HEADERS([security/pam_appl.h],
+	         [PAM_HEADER="yes"],
+	         [PAM_HEADER="no"])
+
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
 AC_CHECK_LIB([pam], [pam_authenticate],
-             [PAM_LIBS="-lpam"],
-	     [AC_MSG_FAILURE([libpam (Linux-PAM) is not installed, but is required by schroot])])
+             [PAM_LIBS="-lpam"
+	      PAM_FUNC="yes"],
+	     [PAM_LIBS=""
+	      PAM_FUNC="no"])
 AC_SUBST([PAM_LIBS])
 
 AC_CHECK_LIB([lockdev], [dev_lock],
@@ -344,6 +361,35 @@ AC_MSG_RESULT([$BUILD_UUID])
 AH_TEMPLATE(HAVE_UUID, [Set if UUID support is available])
 if test "$BUILD_UUID" = "yes"; then
   AC_DEFINE(HAVE_UUID, 1)
+fi
+
+AC_MSG_CHECKING([whether to build PAM support])
+BUILD_PAM="yes"
+if test "$enable_pam" = "yes"; then
+  if test "$PAM_HEADER" = "no"; then
+    BUILD_PAM="no"
+    AC_MSG_FAILURE([libpam (Linux-PAM) is not installed, but is required by schroot])
+  fi
+  if test "$PAM_FUNC" = "no"; then
+    BUILD_PAM="no"
+    AC_MSG_FAILURE([libpam (Linux-PAM) is not installed, but is required by schroot])
+  fi
+elif test "$enable_pam" = "no"; then
+    BUILD_PAM="no"
+elif test "$enable_pam" = "auto"; then
+  if test "$PAM_HEADER" = "no"; then
+    BUILD_PAM="no"
+  fi
+  if test "$PAM_FUNC" = "no"; then
+    BUILD_PAM="no"
+  fi
+fi
+AC_MSG_RESULT([$BUILD_PAM])
+
+AM_CONDITIONAL([BUILD_PAM], [test "$BUILD_PAM" = "yes"])
+AH_TEMPLATE(SBUILD_FEATURE_PAM, [Set if PAM support is available])
+if test "$BUILD_PAM" = "yes"; then
+  AC_DEFINE(SBUILD_FEATURE_PAM, 1)
 fi
 
 AC_MSG_CHECKING([whether to build block-device support])

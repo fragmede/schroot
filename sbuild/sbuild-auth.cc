@@ -77,6 +77,7 @@ error<auth::error_code>::error_strings
 namespace
 {
 
+#ifdef SBUILD_FEATURE_PAM
   /* This is the glue to link PAM user interaction with auth_conv. */
   int
   auth_conv_hook (int                        num_msg,
@@ -151,12 +152,15 @@ namespace
 
     return PAM_CONV_ERR;
   }
+#endif // SBUILD_FEATURE_PAM
 
 }
 
 
 auth::auth (std::string const& service_name):
+#ifdef SBUILD_FEATURE_PAM
   pam(),
+#endif // SBUILD_FEATURE_PAM
   service(service_name),
   uid(0),
   gid(0),
@@ -170,7 +174,12 @@ auth::auth (std::string const& service_name):
   rgid(),
   ruser(),
   rgroup(),
+#ifdef SBUILD_FEATURE_PAM
   conv(),
+#endif // SBUILD_FEATURE_PAM
+#ifndef SBUILD_FEATURE_PAM
+  auth_environment(),
+#endif // !SBUILD_FEATURE_PAM
   message_verbosity(VERBOSITY_NORMAL)
 {
   this->ruid = getuid();
@@ -320,7 +329,11 @@ auth::set_environment (environment const& environment)
 environment
 auth::get_pam_environment () const
 {
+#ifdef SBUILD_FEATURE_PAM
   return environment(pam_getenvlist(this->pam));
+#else // !SBUILD_FEATURE_PAM
+  return this->auth_environment;
+#endif // SBUILD_FEATURE_PAM
 }
 
 uid_t
@@ -359,6 +372,7 @@ auth::set_verbosity (auth::verbosity verbosity)
   this->message_verbosity = verbosity;
 }
 
+#ifdef SBUILD_FEATURE_PAM
 auth::conv_ptr&
 auth::get_conv ()
 {
@@ -370,12 +384,14 @@ auth::set_conv (conv_ptr& conv)
 {
   this->conv = conv;
 }
+#endif // SBUILD_FEATURE_PAM
 
 void
 auth::start ()
 {
   assert(!this->user.empty());
 
+#ifdef SBUILD_FEATURE_PAM
   if (this->pam != 0)
     {
       log_debug(DEBUG_CRITICAL)
@@ -400,11 +416,13 @@ auth::start ()
     }
 
   log_debug(DEBUG_NOTICE) << "pam_start OK" << endl;
+#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::stop ()
 {
+#ifdef SBUILD_FEATURE_PAM
   if (this->pam); // PAM must be initialised
   {
     int pam_status;
@@ -419,11 +437,13 @@ auth::stop ()
     this->pam = 0;
     log_debug(DEBUG_NOTICE) << "pam_end OK" << endl;
   }
+#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::authenticate (status auth_status)
 {
+#ifdef SBUILD_FEATURE_PAM
   assert(!this->user.empty());
   assert(this->pam != 0); // PAM must be initialised
 
@@ -516,14 +536,19 @@ auth::authenticate (status auth_status)
     default:
       break;
     }
+#else // !SBUILD_FEATURE_PAM
+  throw error(AUTHENTICATION, strerror(ENOTSUP));
+#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::setupenv ()
 {
+#ifdef SBUILD_FEATURE_PAM
   assert(this->pam != 0); // PAM must be initialised
 
   int pam_status;
+#endif // SBUILD_FEATURE_PAM
 
   environment environment;
   if (!this->user_environment.empty())
@@ -556,6 +581,7 @@ auth::setupenv ()
 	environment.add(std::make_pair("SHELL", this->shell));
     }
 
+#ifdef SBUILD_FEATURE_PAM
   // Move into PAM environment.
   for (environment::const_iterator cur = environment.begin();
        cur != environment.end();
@@ -574,11 +600,15 @@ auth::setupenv ()
     }
 
   log_debug(DEBUG_NOTICE) << "pam_putenv OK" << endl;
+#else // !SBUILD_FEATURE_PAM
+  this->auth_environment = environment;
+#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::account ()
 {
+#ifdef SBUILD_FEATURE_PAM
   assert(this->pam != 0); // PAM must be initialised
 
   int pam_status;
@@ -593,11 +623,13 @@ auth::account ()
     }
 
   log_debug(DEBUG_NOTICE) << "pam_acct_mgmt OK" << endl;
+#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::cred_establish ()
 {
+#ifdef SBUILD_FEATURE_PAM
   assert(this->pam != 0); // PAM must be initialised
 
   int pam_status;
@@ -617,11 +649,13 @@ auth::cred_establish ()
   log_debug(DEBUG_INFO)
     << format("PAM authentication succeeded for user %1%") % authuser
     << endl;
+#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::cred_delete ()
 {
+#ifdef SBUILD_FEATURE_PAM
   assert(this->pam != 0); // PAM must be initialised
 
   int pam_status;
@@ -634,11 +668,13 @@ auth::cred_delete ()
     }
 
   log_debug(DEBUG_NOTICE) << "pam_setcred (delete) OK" << endl;
+#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::open_session ()
 {
+#ifdef SBUILD_FEATURE_PAM
   assert(this->pam != 0); // PAM must be initialised
 
   int pam_status;
@@ -651,11 +687,13 @@ auth::open_session ()
     }
 
   log_debug(DEBUG_NOTICE) << "pam_open_session OK" << endl;
+#endif // SBUILD_FEATURE_PAM
 }
 
 void
 auth::close_session ()
 {
+#ifdef SBUILD_FEATURE_PAM
   assert(this->pam != 0); // PAM must be initialised
 
   int pam_status;
@@ -668,14 +706,20 @@ auth::close_session ()
     }
 
   log_debug(DEBUG_NOTICE) << "pam_close_session OK" << endl;
+#endif // SBUILD_FEATURE_PAM
 }
 
 bool
 auth::is_initialised () const
 {
+#ifdef SBUILD_FEATURE_PAM
   return this->pam != 0;
+#else // !SBUILD_FEATURE_PAM
+  return true;
+#endif // SBUILD_FEATURE_PAM
 }
 
+#ifdef SBUILD_FEATURE_PAM
 const char *
 auth::pam_strerror (int pam_error)
 {
@@ -683,3 +727,4 @@ auth::pam_strerror (int pam_error)
 
   return ::pam_strerror (this->pam, pam_error);
 }
+#endif // SBUILD_FEATURE_PAM

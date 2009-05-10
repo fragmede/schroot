@@ -29,9 +29,6 @@ lib_LTLIBRARIES = libsbuild.la
 
 sbuild_public_h_sources =		\
 	sbuild-auth.h			\
-	sbuild-auth-conv.h		\
-	sbuild-auth-conv-tty.h		\
-	sbuild-auth-message.h   	\
 	sbuild-chroot.h			\
 	sbuild-chroot-block-device.h	\
 	sbuild-chroot-directory.h	\
@@ -67,6 +64,13 @@ sbuild_public_h_sources =		\
 	sbuild-tr1types.h		\
 	sbuild-util.h
 
+if BUILD_PAM
+sbuild_public_auth_h_sources =	\
+	sbuild-auth-conv.h		\
+	sbuild-auth-conv-tty.h		\
+	sbuild-auth-message.h
+endif
+
 if BUILD_BLOCKDEV
 sbuild_public_blockdev_h_sources =	\
 	sbuild-chroot-block-device.h
@@ -84,9 +88,6 @@ endif
 
 sbuild_public_cc_sources =		\
 	sbuild-auth.cc			\
-	sbuild-auth-conv.cc		\
-	sbuild-auth-conv-tty.cc		\
-	sbuild-auth-message.cc		\
 	sbuild-chroot.cc		\
 	sbuild-chroot-directory.cc	\
 	sbuild-chroot-file.cc		\
@@ -110,6 +111,13 @@ sbuild_public_cc_sources =		\
 	sbuild-session.cc		\
 	sbuild-types.cc			\
 	sbuild-util.cc
+
+if BUILD_PAM
+sbuild_public_auth_cc_sources =	\
+	sbuild-auth-conv.cc		\
+	sbuild-auth-conv-tty.cc		\
+	sbuild-auth-message.cc
+endif
 
 if BUILD_BLOCKDEV
 sbuild_public_blockdev_cc_sources =	\
@@ -135,6 +143,8 @@ pkginclude_HEADERS =				\
 libsbuild_la_SOURCES =				\
 	$(sbuild_public_h_sources)		\
 	$(sbuild_public_cc_sources)		\
+	$(sbuild_public_auth_h_sources)		\
+	$(sbuild_public_auth_cc_sources)	\
 	$(sbuild_public_blockdev_h_sources)	\
 	$(sbuild_public_blockdev_cc_sources)	\
 	$(sbuild_public_lvmsnap_h_sources)	\

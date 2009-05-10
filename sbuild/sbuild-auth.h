@@ -19,6 +19,7 @@
 #ifndef SBUILD_AUTH_H
 #define SBUILD_AUTH_H
 
+#include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-auth-conv.h>
 #include <sbuild/sbuild-custom-error.h>
 #include <sbuild/sbuild-environment.h>
@@ -33,7 +34,9 @@
 #include <pwd.h>
 #include <unistd.h>
 
+#ifdef SBUILD_FEATURE_PAM
 #include <security/pam_appl.h>
+#endif // SBUILD_FEATURE_PAM
 
 namespace sbuild
 {
@@ -312,6 +315,7 @@ namespace sbuild
     void
     set_verbosity (verbosity verbosity);
 
+#ifdef SBUILD_FEATURE_PAM
     /**
      * Get the conversation handler.
      *
@@ -327,6 +331,7 @@ namespace sbuild
      */
     void
     set_conv (conv_ptr& conv);
+#endif // SBUILD_FEATURE_PAM
 
     /**
      * Start the PAM system.  No other PAM functions may be called before
@@ -441,6 +446,7 @@ namespace sbuild
     bool is_initialised () const;
 
   protected:
+#ifdef SBUILD_FEATURE_PAM
     /// The PAM handle.
     pam_handle_t      *pam;
 
@@ -452,6 +458,7 @@ namespace sbuild
      */
     const char *
     pam_strerror (int pam_error);
+#endif // SBUILD_FEATURE_PAM
 
   private:
     /// The PAM service name.
@@ -480,8 +487,14 @@ namespace sbuild
     std::string        ruser;
     /// The group name requesting authentication.
     std::string        rgroup;
+#ifdef SBUILD_FEATURE_PAM
     /// The PAM conversation handler.
     conv_ptr           conv;
+#endif // SBUILD_FEATURE_PAM
+#ifndef SBUILD_FEATURE_PAM
+    /// Minimal environment.
+    environment        auth_environment;
+#endif // !SBUILD_FEATURE_PAM
     /// The message verbosity.
     verbosity          message_verbosity;
   };

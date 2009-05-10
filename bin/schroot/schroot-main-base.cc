@@ -20,8 +20,11 @@
 
 #include "schroot-main-base.h"
 
+#include <sbuild/sbuild-config.h>
+#ifdef SBUILD_FEATURE_PAM
 #include <sbuild/sbuild-auth-conv.h>
 #include <sbuild/sbuild-auth-conv-tty.h>
+#endif // SBUILD_FEATURE_PAM
 
 #include <cstdlib>
 #include <ctime>
@@ -279,6 +282,7 @@ main_base::run_impl ()
 	verbosity = sbuild::auth::VERBOSITY_VERBOSE;
       this->session->get_auth()->set_verbosity(verbosity);
 
+#ifdef SBUILD_FEATURE_PAM
       /* Set up authentication timeouts. */
       std::tr1::shared_ptr<sbuild::auth_conv>
 	conv(new sbuild::auth_conv_tty
@@ -288,6 +292,7 @@ main_base::run_impl ()
       conv->set_warning_timeout(curtime + 15);
       conv->set_fatal_timeout(curtime + 20);
       this->session->get_auth()->set_conv(conv);
+#endif // SBUILD_FEATURE_PAM
 
       /* Run session. */
       this->session->run();
