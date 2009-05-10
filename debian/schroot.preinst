@@ -46,13 +46,6 @@ prep_mv_conffile() {
 
 case "$1" in
 install|upgrade)
-    if dpkg --compare-versions "$2" le "0.1.4-1"; then
-        prep_mv_conffile "schroot" "/etc/schroot.conf"
-    fi
-    if dpkg --compare-versions "$2" le "0.2.6-1"; then
-         prep_mv_conffile "schroot" "/etc/schroot/run.d/50sbuild"
-         prep_mv_conffile "schroot" "/etc/schroot/run.d/00check"
-    fi
     if dpkg --compare-versions "$2" le "1.1.6-1"; then
          rm_conffile "schroot" "/etc/schroot/setup.d/20network"
          rm_conffile "schroot" "/etc/schroot/setup.d/30passwd"
