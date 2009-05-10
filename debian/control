@@ -46,7 +46,7 @@ Description: development files for the Debian source builder
 
 Package: schroot-dbg
 Architecture: any
-Section: devel
+Section: debug
 Priority: extra
 Depends: schroot (= ${binary:Version}), dchroot (= ${binary:Version}), dchroot-dsa (= ${binary:Version})
 Description: schroot, dchroot and dchroot-dsa debuggging symbols
