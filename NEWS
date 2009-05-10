@@ -24,6 +24,22 @@ configuration.
      compatibility, but it has no effect and will be removed in the
      future.
 
+  3) Chroot configuration files in /etc/schroot/chroot.d are not
+     loaded if they are backup files or dpkg conffile backups.
+
+  4) Support for GCC versions prior to 3.4 has been removed.
+
+  5) System databases are copied into the chroot using the getent
+     program to use the appropriate name service switch (NSS) modules
+     to get the data, rather than just copying the files.  This means
+     all NSS database sources are supported, including NIS and LDAP.
+
+  6) Setup script output is logged to stderr which prevents schroot
+     outputting to stdout when run with verbose logging enabled.
+
+  7) Most schroot features are compiled conditionally, which should
+     ease porting to non-Linux platforms.
+
 * Major changes in 1.2.1:
 
   1) A new chroot type, "loopback", has been added.  This is similar
