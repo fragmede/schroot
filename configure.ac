@@ -219,6 +219,17 @@ AC_ARG_ENABLE([uuid], [AS_HELP_STRING([--enable-uuid], [Enable support for UUIDs
               [enable_uuid="auto"])
 AC_MSG_RESULT([$enable_uuid])
 
+AC_MSG_CHECKING([whether to enable support for UUIDs in session names])
+AC_ARG_ENABLE([uuid], [AS_HELP_STRING([--enable-uuid], [Enable support for UUIDs])],
+              [ case "${enableval}" in
+                yes) enable_uuid="yes" ;;
+                no)  enable_uuid="no" ;;
+                *) AC_MSG_RESULT([unknown])
+                   AC_MSG_ERROR([bad value ${enableval} for --enable-uuid]) ;;
+                esac],
+              [enable_uuid="auto"])
+AC_MSG_RESULT([$enable_uuid])
+
 AC_MSG_CHECKING([whether to enable doxygen documentation])
 AC_ARG_ENABLE([doxygen], [AS_HELP_STRING([--enable-doxygen], [Enable doxygen documentation])],
               [ case "${enableval}" in
