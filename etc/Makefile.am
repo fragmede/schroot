@@ -21,7 +21,7 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-SUBDIRS = pam exec.d setup.d bash_completion
+SUBDIRS = pam setup.d bash_completion
 
 pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
 pkgsysconf_DATA = 		\
