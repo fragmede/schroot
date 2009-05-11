@@ -83,6 +83,9 @@ namespace sbuild
     authenticate (status auth_status);
 
     virtual void
+    setupenv ();
+
+    virtual void
     account ();
 
     virtual void
