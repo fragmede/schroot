@@ -47,19 +47,6 @@ chroot_directory::clone () const
   return ptr(new chroot_directory(*this));
 }
 
-sbuild::chroot::ptr
-chroot_directory::clone_source () const
-{
-  ptr clone;
-
-  if (get_union_configured()) {
-    clone = ptr(new chroot_directory(*this));
-    chroot_source::clone_source_setup(clone);
-  }
-
-  return ptr(clone);
-}
-
 std::string const&
 chroot_directory::get_directory () const
 {
