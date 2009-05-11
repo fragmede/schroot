@@ -22,8 +22,8 @@
 
 #include <sbuild/sbuild-config.h>
 #ifdef SBUILD_FEATURE_PAM
-#include <sbuild/sbuild-auth-conv.h>
-#include <sbuild/sbuild-auth-conv-tty.h>
+#include <sbuild/sbuild-auth-pam-conv.h>
+#include <sbuild/sbuild-auth-pam-conv-tty.h>
 #endif // SBUILD_FEATURE_PAM
 
 #include <cstdlib>
