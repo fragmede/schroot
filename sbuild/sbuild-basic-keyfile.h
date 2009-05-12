@@ -123,8 +123,7 @@ namespace sbuild
   /**
    * Configuration file parser.  This class loads an INI-style
    * configuration file from a file or stream.  The format is
-   * documented in schroot.conf(5).  It is an independent
-   * reimplementation of the Glib GKeyFile class, which it replaces.
+   * documented in schroot.conf(5).
    */
   template <typename K, typename P = basic_keyfile_parser<K> >
   class basic_keyfile : public keyfile_base
@@ -145,6 +144,12 @@ namespace sbuild
     /// Line number.
     typedef typename K::size_type size_type;
 
+    /// Vector of groups
+    typedef std::vector<group_name_type> group_list;
+
+    /// Vector of values
+    typedef std::vector<value_type> value_list;
+
   private:
     /// Parse type.
     typedef P parse_type;
@@ -161,6 +166,9 @@ namespace sbuild
 
     /// Map between group name and group-items-comment tuple.
     typedef std::map<group_name_type,group_type> group_map_type;
+
+    /// Vector of keys
+    typedef std::vector<key_type> key_list;
 
   public:
     /// The constructor.
@@ -189,7 +197,7 @@ namespace sbuild
      * @returns a list of groups in the basic_keyfile.  If no groups exist,
      * the list will be empty.
      */
-    string_list
+    group_list
     get_groups () const;
 
     /**
@@ -199,7 +207,7 @@ namespace sbuild
      * @returns a list of keys in a group.  If no keys exist in the
      * group, or the group does not exist, the list will be empty.
      */
-    string_list
+    key_list
     get_keys (group_name_type const& group) const;
 
     /**
@@ -212,7 +220,7 @@ namespace sbuild
      */
     void
     check_keys (group_name_type const& group,
-		string_list const&     keys) const;
+		key_list const&        keys) const;
 
     /**
      * Check if a group exists.
@@ -381,7 +389,7 @@ namespace sbuild
     bool
     get_locale_string (group_name_type const& group,
 		       key_type const&        key,
-		       std::string&           value) const;
+		       value_type&            value) const;
 
     /**
      * Get a localised key string value.  If the value does not exist,
@@ -398,7 +406,7 @@ namespace sbuild
     get_locale_string (group_name_type const& group,
 		       key_type const&        key,
 		       priority               priority,
-		       std::string&           value) const;
+		       value_type&            value) const;
 
     /**
      * Get a localised key string value for a specific locale.
@@ -414,7 +422,7 @@ namespace sbuild
     get_locale_string (group_name_type const& group,
 		       key_type const&        key,
 		       std::string const&     locale,
-		       std::string&           value) const;
+		       value_type&            value) const;
 
     /**
      * Get a localised key string value for a specific locale.  If the
@@ -434,7 +442,7 @@ namespace sbuild
 		       key_type const&        key,
 		       std::string const&     locale,
 		       priority               priority,
-		       std::string&           value) const;
+		       value_type&            value) const;
 
     /**
      * Get a key value as a list.
@@ -454,12 +462,12 @@ namespace sbuild
 		    key_type const&        key,
 		    C&                     container) const
     {
-      std::string item_value;
+      value_type item_value;
       if (get_value(group, key, item_value))
 	{
-	  string_list items = split_string(item_value,
-					   std::string(1, this->separator));
-	  for (string_list::const_iterator pos = items.begin();
+	  value_list items = split_string(item_value,
+					  this->separator);
+	  for (typename value_list::const_iterator pos = items.begin();
 	       pos != items.end();
 	       ++pos
 	       )
@@ -652,7 +660,7 @@ namespace sbuild
 		    comment_type const&    comment,
 		    size_type              line)
     {
-      std::string strval;
+      value_type strval;
 
       for (I pos = begin; pos != end; ++ pos)
 	{
@@ -883,7 +891,7 @@ namespace sbuild
     /// The top-level groups.
     group_map_type groups;
     /// The separator used as a list item delimiter.
-    char           separator;
+    value_type     separator;
 
   public:
     /**

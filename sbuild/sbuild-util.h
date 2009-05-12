@@ -115,7 +115,33 @@ namespace sbuild
    * @todo Provide an alternative that splits the string in place
    * using an iterator interface.
    */
-  string_list
+  template <typename S>
+  std::vector<S>
+  split_string (S const& value,
+		S const& separator)
+  {
+    std::vector<S> ret;
+
+    // Skip any separators at the start
+    typename S::size_type last_pos =
+      value.find_first_not_of(separator, 0);
+    // Find first separator.
+    typename S::size_type pos = value.find_first_of(separator, last_pos);
+
+    while (pos !=S::npos || last_pos != S::npos)
+      {
+	// Add to list
+	ret.push_back(value.substr(last_pos, pos - last_pos));
+	// Find next
+	last_pos = value.find_first_not_of(separator, pos);
+	pos = value.find_first_of(separator, last_pos);
+      }
+
+    return ret;
+  }
+
+  // template
+  std::vector<std::string>
   split_string (std::string const& value,
 		std::string const& separator);
 
