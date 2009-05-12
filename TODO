@@ -57,8 +57,6 @@ fashion.  expect might be useful for testing the PAM wrappers.
 
 * Pass configured sysconfdir, pkglibexecdir prefix exec_prefix etc. to scripts.
 
-* basic-keyfile should not use string_list.
-
 * Tests for chroots:
 
 ** -source chroots
