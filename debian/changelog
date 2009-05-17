@@ -1,3 +1,10 @@
+schroot (1.2.3-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * Detect and link against new versions of the Boost C++ libraries. 
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 17 May 2009 18:29:44 +0100
+
 schroot (1.2.2-1) unstable; urgency=low
 
   * New upstream stable release. 
