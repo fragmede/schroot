@@ -27,7 +27,7 @@ namespace sbuild
   /**
    * A chroot located in the filesystem.
    */
-  class chroot_directory : virtual public chroot
+  class chroot_directory : public chroot_plain
   {
   protected:
     /// The constructor.
@@ -42,30 +42,11 @@ namespace sbuild
     virtual chroot::ptr
     clone () const;
 
-    /**
-     * Get the directory containing the chroot.
-     *
-     * @returns the location.
-     */
-    std::string const&
-    get_directory () const;
-
-    /**
-     * Set the directory containing the chroot.
-     *
-     * @param directory the directory.
-     */
-    void
-    set_directory (std::string const& directory);
-
     virtual std::string
     get_path () const;
 
     virtual std::string const&
     get_chroot_type () const;
-
-    virtual void
-    setup_env (environment& env);
 
     virtual session_flags
     get_session_flags () const;
@@ -75,20 +56,6 @@ namespace sbuild
     setup_lock (chroot::setup_type type,
 		bool               lock,
 		int                status);
-
-    virtual void
-    get_details (format_detail& detail) const;
-
-    virtual void
-    get_keyfile (keyfile& keyfile) const;
-
-    virtual void
-    set_keyfile (keyfile const& keyfile,
-		 string_list&   used_keys);
-
-  private:
-    /// The directory to use.
-    std::string directory;
   };
 
 }

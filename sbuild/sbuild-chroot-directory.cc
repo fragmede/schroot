@@ -32,9 +32,9 @@
 using namespace sbuild;
 
 chroot_directory::chroot_directory ():
-  chroot(),
-  directory()
+  chroot_plain()
 {
+  set_run_setup_scripts(true);
 }
 
 chroot_directory::~chroot_directory ()
@@ -45,21 +45,6 @@ sbuild::chroot::ptr
 chroot_directory::clone () const
 {
   return ptr(new chroot_directory(*this));
-}
-
-std::string const&
-chroot_directory::get_directory () const
-{
-  return this->directory;
-}
-
-void
-chroot_directory::set_directory (std::string const& directory)
-{
-  if (!is_absname(directory))
-    throw error(directory, DIRECTORY_ABS);
-
-  this->directory = directory;
 }
 
 std::string
@@ -74,14 +59,6 @@ chroot_directory::get_chroot_type () const
   static const std::string type("directory");
 
   return type;
-}
-
-void
-chroot_directory::setup_env (environment& env)
-{
-  chroot::setup_env(env);
-
-  env.add("CHROOT_DIRECTORY", get_directory());
 }
 
 void
