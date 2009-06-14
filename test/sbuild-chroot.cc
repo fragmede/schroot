@@ -177,11 +177,11 @@ public:
 
   void test_run_setup_scripts()
   {
-    CPPUNIT_ASSERT(chroot->get_run_setup_scripts() == false);
-    chroot->set_run_setup_scripts(true);
     CPPUNIT_ASSERT(chroot->get_run_setup_scripts() == true);
     chroot->set_run_setup_scripts(false);
     CPPUNIT_ASSERT(chroot->get_run_setup_scripts() == false);
+    chroot->set_run_setup_scripts(true);
+    CPPUNIT_ASSERT(chroot->get_run_setup_scripts() == true);
   }
 
   void test_chroot_type()

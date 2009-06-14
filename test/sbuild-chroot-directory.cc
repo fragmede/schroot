@@ -47,7 +47,6 @@ class test_chroot_directory : public test_chroot_base<chroot_directory>
   CPPUNIT_TEST(test_directory);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
-  CPPUNIT_TEST(test_setup_env2);
   CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
@@ -74,10 +73,10 @@ public:
     CPPUNIT_ASSERT(chroot->get_mount_location() == "/mnt/mount-location");
     chroot->set_run_setup_scripts(false);
     c->set_directory("/mnt/mount-location/example");
-    chroot->set_mount_location("");
+    chroot->set_mount_location("/path");
     CPPUNIT_ASSERT(c->get_directory() == "/mnt/mount-location/example");
-    CPPUNIT_ASSERT(chroot->get_path() == "/mnt/mount-location/example");
-    CPPUNIT_ASSERT(chroot->get_mount_location() == "");
+    CPPUNIT_ASSERT(chroot->get_path() == "/path");
+    CPPUNIT_ASSERT(chroot->get_mount_location() == "/path");
   }
 
   void test_chroot_type()
@@ -93,25 +92,6 @@ public:
     expected.add("CHROOT_DESCRIPTION",    "test-description");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_DIRECTORY",      "/srv/chroot/example-chroot");
-    expected.add("CHROOT_PATH",           "/srv/chroot/example-chroot");
-    expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
-    expected.add("CHROOT_SESSION_CLONE",  "false");
-    expected.add("CHROOT_SESSION_CREATE", "false");
-    expected.add("CHROOT_SESSION_PURGE",  "false");
-
-    test_chroot_base<chroot_directory>::test_setup_env(expected);
-  }
-
-  void test_setup_env2()
-  {
-    chroot->set_run_setup_scripts(true);
-
-    sbuild::environment expected;
-    expected.add("CHROOT_TYPE",           "directory");
-    expected.add("CHROOT_NAME",           "test-name");
-    expected.add("CHROOT_DESCRIPTION",    "test-description");
-    expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
-    expected.add("CHROOT_DIRECTORY",       "/srv/chroot/example-chroot");
     expected.add("CHROOT_PATH",           "/mnt/mount-location");
     expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
     expected.add("CHROOT_SESSION_CLONE",  "false");
@@ -123,10 +103,6 @@ public:
 
   void test_session_flags()
   {
-    CPPUNIT_ASSERT(chroot->get_session_flags() ==
-		   sbuild::chroot::SESSION_NOFLAGS);
-
-    chroot->set_run_setup_scripts(true);
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
 		   sbuild::chroot::SESSION_CREATE);
   }
