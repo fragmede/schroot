@@ -121,10 +121,10 @@ chroot_mountable::get_keyfile (keyfile& keyfile) const
   chroot::get_keyfile(keyfile);
 
   keyfile::set_object_value(*this, &chroot_mountable::get_mount_options,
-			    keyfile, get_name(), "mount-options");
+			    keyfile, get_keyfile_name(), "mount-options");
 
   keyfile::set_object_value(*this, &chroot_mountable::get_location,
-			    keyfile, get_name(), "location");
+			    keyfile, get_keyfile_name(), "location");
 }
 
 void
@@ -134,12 +134,12 @@ chroot_mountable::set_keyfile (keyfile const& keyfile,
   chroot::set_keyfile(keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_mountable::set_mount_options,
-			    keyfile, get_name(), "mount-options",
+			    keyfile, get_keyfile_name(), "mount-options",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("mount-options");
 
   keyfile::get_object_value(*this, &chroot_mountable::set_location,
-			    keyfile, get_name(), "location",
+			    keyfile, get_keyfile_name(), "location",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("location");
 }

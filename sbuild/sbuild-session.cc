@@ -640,6 +640,7 @@ session::run_impl ()
 	    chroot_plain *plain = dynamic_cast<chroot_plain *>(chroot.get());
 	    if (chroot->get_mount_location().empty() && plain == 0)
 	      {
+		log_debug(DEBUG_NOTICE) << "Setting mount location" << endl;
 		std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
 				     this->session_id);
 		chroot->set_mount_location(location);
@@ -652,11 +653,7 @@ session::run_impl ()
 
 	  /* Chroot types which create a session (e.g. LVM devices)
 	     need the chroot name respecifying. */
-	  if (chroot->get_session_flags() & chroot::SESSION_CREATE)
-	    {
-	      chroot->set_name(this->session_id);
-	      chroot->set_aliases(string_list());
-	    }
+	  chroot->set_session_id(this->session_id);
 
 #ifdef SBUILD_FEATURE_LVMSNAP
 	  /* LVM devices need the snapshot device name specifying. */

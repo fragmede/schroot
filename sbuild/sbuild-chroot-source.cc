@@ -150,16 +150,16 @@ chroot_source::get_keyfile (keyfile& keyfile) const
   if (!this->is_source)
     {
       keyfile::set_object_list_value(*this, &chroot_source::get_source_users,
-				     keyfile, get_name(), "source-users");
+				     keyfile, get_keyfile_name(), "source-users");
 
       keyfile::set_object_list_value(*this, &chroot_source::get_source_groups,
-				     keyfile, get_name(), "source-groups");
+				     keyfile, get_keyfile_name(), "source-groups");
 
       keyfile::set_object_list_value(*this, &chroot_source::get_source_root_users,
-				     keyfile, get_name(), "source-root-users");
+				     keyfile, get_keyfile_name(), "source-root-users");
 
       keyfile::set_object_list_value(*this, &chroot_source::get_source_root_groups,
-				     keyfile, get_name(), "source-root-groups");
+				     keyfile, get_keyfile_name(), "source-root-groups");
     }
 }
 
@@ -170,22 +170,22 @@ chroot_source::set_keyfile (keyfile const& keyfile,
   if (!this->is_source)
     {
       keyfile::get_object_list_value(*this, &chroot_source::set_source_users,
-				     keyfile, get_name(), "source-users",
+				     keyfile, get_keyfile_name(), "source-users",
 				     keyfile::PRIORITY_OPTIONAL);
       used_keys.push_back("source-users");
 
       keyfile::get_object_list_value(*this, &chroot_source::set_source_groups,
-				     keyfile, get_name(), "source-groups",
+				     keyfile, get_keyfile_name(), "source-groups",
 				     keyfile::PRIORITY_OPTIONAL);
       used_keys.push_back("source-groups");
 
       keyfile::get_object_list_value(*this, &chroot_source::set_source_root_users,
-				     keyfile, get_name(), "source-root-users",
+				     keyfile, get_keyfile_name(), "source-root-users",
 				     keyfile::PRIORITY_OPTIONAL);
       used_keys.push_back("source-root-users");
 
       keyfile::get_object_list_value(*this, &chroot_source::set_source_root_groups,
-				     keyfile, get_name(), "source-root-groups",
+				     keyfile, get_keyfile_name(), "source-root-groups",
 				     keyfile::PRIORITY_OPTIONAL);
       used_keys.push_back("source-root-groups");
     }

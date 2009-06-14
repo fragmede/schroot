@@ -118,7 +118,7 @@ chroot_directory::get_keyfile (keyfile& keyfile) const
   chroot::get_keyfile(keyfile);
 
   keyfile::set_object_value(*this, &chroot_directory::get_directory,
-			    keyfile, get_name(), "directory");
+			    keyfile, get_keyfile_name(), "directory");
 }
 
 void
@@ -131,14 +131,14 @@ chroot_directory::set_keyfile (keyfile const& keyfile,
   // an alternative (but deprecated) variant.  Therefore, ensure by
   // hand that one of them is defined, but not both.
 
-  bool directory_key = keyfile.has_key(get_name(), "directory");
-  bool location_key = keyfile.has_key(get_name(), "location");
+  bool directory_key = keyfile.has_key(get_keyfile_name(), "directory");
+  bool location_key = keyfile.has_key(get_keyfile_name(), "location");
 
   keyfile::priority directory_priority = keyfile::PRIORITY_OPTIONAL;
   keyfile::priority location_priority = keyfile::PRIORITY_DEPRECATED;
 
   if (!directory_key && !location_key)
-    throw keyfile::error(get_name(), keyfile::MISSING_KEY_NL, "directory");
+    throw keyfile::error(get_keyfile_name(), keyfile::MISSING_KEY_NL, "directory");
 
   // Using both keys is not allowed (which one is the correct one?),
   // so force an exception to be thrown when reading the old location
@@ -146,14 +146,13 @@ chroot_directory::set_keyfile (keyfile const& keyfile,
   if (directory_key && location_key)
     location_priority = keyfile::PRIORITY_DISALLOWED;
 
-
   keyfile::get_object_value(*this, &chroot_directory::set_directory,
-			    keyfile, get_name(), "directory",
+			    keyfile, get_keyfile_name(), "directory",
 			    directory_priority);
   used_keys.push_back("directory");
 
   keyfile::get_object_value(*this, &chroot_directory::set_directory,
-			    keyfile, get_name(), "location",
+			    keyfile, get_keyfile_name(), "location",
 			    location_priority);
   used_keys.push_back("location");
 }

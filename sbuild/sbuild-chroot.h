@@ -132,6 +132,33 @@ namespace sbuild
     set_name (std::string const& name);
 
     /**
+     * Get the session ID of the chroot.
+     *
+     * @returns the session ID.
+     */
+    std::string const&
+    get_session_id () const;
+
+    /**
+     * Set the session ID of the chroot.
+     * @todo Create as chroot facet
+     *
+     * @param session_id the session ID.
+     */
+    void
+    set_session_id (std::string const& session_id);
+
+    /**
+     * Get the keyfile name of the chroot.
+     * Depending on whether the chroot is active or not, this will
+     * return the session ID or the chroot name, respectively.
+     *
+     * @returns the name.
+     */
+    std::string const&
+    get_keyfile_name () const;
+
+    /**
      * Get the description of the chroot.
      *
      * @returns the description.
@@ -582,9 +609,11 @@ namespace sbuild
   private:
     /// Chroot name.
     std::string   name;
+    /// Chroot session ID.
+    std::string   session_id;
     /// Chroot description.
     std::string   description;
-    /// Chroot prioroty.
+    /// Chroot priority.
     unsigned int  priority;
     /// Users allowed to access the chroot.
     string_list   users;

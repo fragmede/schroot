@@ -27,7 +27,6 @@
 #include <cerrno>
 #include <cstdlib>
 #include <cstring>
-#include <iostream>
 
 #include <ext/stdio_filebuf.h>
 
@@ -503,7 +502,10 @@ chroot_config::load_keyfile (keyfile& kconfig,
       std::string type = "plain"; // "plain" is the default type.
       kconfig.get_value(*group, "type", type);
       chroot::ptr chroot = chroot::create(type);
+
+      // Set both; the keyfile load will correct them if needed.
       chroot->set_name(*group);
+      chroot->set_session_id(*group);
 
       kconfig >> chroot;
 

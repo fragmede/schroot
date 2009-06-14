@@ -90,6 +90,7 @@ error<sbuild::chroot::error_code>::error_strings
 
 sbuild::chroot::chroot ():
   name(),
+  session_id(),
   description(),
   priority(0),
   users(),
@@ -160,6 +161,31 @@ void
 sbuild::chroot::set_name (std::string const& name)
 {
   this->name = name;
+}
+
+std::string const&
+sbuild::chroot::get_session_id () const
+{
+  return this->session_id;
+}
+
+void
+sbuild::chroot::set_session_id (std::string const& session_id)
+{
+  if (get_session_flags() & chroot::SESSION_CREATE)
+    {
+      set_name(session_id);
+      set_aliases(string_list());
+    }
+}
+
+std::string const&
+sbuild::chroot::get_keyfile_name () const
+{
+  if (get_active())
+    return this->session_id;
+  else
+    return this->name;
 }
 
 std::string const&
@@ -432,8 +458,12 @@ sbuild::chroot::unlock (setup_type type,
 void
 sbuild::chroot::get_details (format_detail& detail) const
 {
+  detail.add(_("Name"), get_name());
+
+  if (!get_session_id().empty())
+    detail.add(_("Session ID"), get_session_id());
+
   detail
-    .add(_("Name"), get_name())
     .add(_("Description"), get_description())
     .add(_("Type"), get_chroot_type())
     .add(_("Priority"), get_priority())
@@ -480,50 +510,54 @@ sbuild::chroot::print_details (std::ostream& stream) const
 void
 sbuild::chroot::get_keyfile (keyfile& keyfile) const
 {
-  keyfile.remove_group(get_name());
+  keyfile.remove_group(get_keyfile_name());
+
+  if (get_active())
+    keyfile::set_object_value(*this, &chroot::get_name,
+			      keyfile, get_keyfile_name(), "name");
 
   keyfile::set_object_value(*this, &chroot::get_chroot_type,
-			    keyfile, get_name(), "type");
+			    keyfile, get_keyfile_name(), "type");
 
   keyfile::set_object_value(*this, &chroot::get_active,
-			    keyfile, get_name(), "active");
+			    keyfile, get_keyfile_name(), "active");
 
   keyfile::set_object_value(*this, &chroot::get_script_config,
-			    keyfile, get_name(), "script-config");
+			    keyfile, get_keyfile_name(), "script-config");
 
   keyfile::set_object_value(*this, &chroot::get_priority,
-			    keyfile, get_name(), "priority");
+			    keyfile, get_keyfile_name(), "priority");
 
   keyfile::set_object_list_value(*this, &chroot::get_aliases,
-				 keyfile, get_name(), "aliases");
+				 keyfile, get_keyfile_name(), "aliases");
 
   keyfile::set_object_value(*this, &chroot::get_environment_filter,
-			    keyfile, get_name(), "environment-filter");
+			    keyfile, get_keyfile_name(), "environment-filter");
 
   keyfile::set_object_value(*this, &chroot::get_description,
-			    keyfile, get_name(), "description");
+			    keyfile, get_keyfile_name(), "description");
 
   keyfile::set_object_list_value(*this, &chroot::get_users,
-				 keyfile, get_name(), "users");
+				 keyfile, get_keyfile_name(), "users");
 
   keyfile::set_object_list_value(*this, &chroot::get_groups,
-				 keyfile, get_name(), "groups");
+				 keyfile, get_keyfile_name(), "groups");
 
   keyfile::set_object_list_value(*this, &chroot::get_root_users,
-				 keyfile, get_name(), "root-users");
+				 keyfile, get_keyfile_name(), "root-users");
 
   keyfile::set_object_list_value(*this, &chroot::get_root_groups,
-				 keyfile, get_name(), "root-groups");
+				 keyfile, get_keyfile_name(), "root-groups");
 
   if (get_active())
     keyfile::set_object_value(*this, &chroot::get_mount_location,
-			      keyfile, get_name(), "mount-location");
+			      keyfile, get_keyfile_name(), "mount-location");
 
   keyfile::set_object_list_value(*this, &chroot::get_command_prefix,
-				 keyfile, get_name(), "command-prefix");
+				 keyfile, get_keyfile_name(), "command-prefix");
 
   keyfile::set_object_value(*this, &chroot::get_persona,
-			    keyfile, get_name(), "personality");
+			    keyfile, get_keyfile_name(), "personality");
 }
 
 
@@ -536,7 +570,7 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile,
   // Keys which are used elsewhere, but should be counted as "used".
   used_keys.push_back("type");
 
-  string_list keys = keyfile.get_keys(get_name());
+  string_list keys = keyfile.get_keys(get_keyfile_name());
   for (string_list::const_iterator pos = keys.begin();
        pos != keys.end();
        ++pos)
@@ -549,7 +583,7 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile,
   // This is set not in the configuration file, but set in the keyfile
   // manually.  The user must not have the ability to set this option.
   keyfile::get_object_value(*this, &chroot::set_active,
-			    keyfile, get_name(), "active",
+			    keyfile, get_keyfile_name(), "active",
 			    keyfile::PRIORITY_REQUIRED);
   used_keys.push_back("active");
 
@@ -557,80 +591,87 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile,
   // no longer user-configurable.  They need to run for all types
   // except "plain".
   keyfile::get_object_value(*this, nullmethod,
-			    keyfile, get_name(), "run-setup-scripts",
+			    keyfile, get_keyfile_name(), "run-setup-scripts",
 			    keyfile::PRIORITY_DEPRECATED);
   used_keys.push_back("run-setup-scripts");
 
   // Exec scripts have been removed, so these two calls do nothing
   // except to warn the user that the options are no longer used.
   keyfile::get_object_value(*this, nullmethod,
-			    keyfile, get_name(), "run-session-scripts",
+			    keyfile, get_keyfile_name(), "run-session-scripts",
 			    keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("run-session-scripts");
   keyfile::get_object_value(*this, nullmethod,
-			    keyfile, get_name(), "run-exec-scripts",
+			    keyfile, get_keyfile_name(), "run-exec-scripts",
 			    keyfile::PRIORITY_DEPRECATED);
   used_keys.push_back("run-exec-scripts");
 
   keyfile::get_object_value(*this, &chroot::set_script_config,
-			    keyfile, get_name(), "script-config",
+			    keyfile, get_keyfile_name(), "script-config",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("script-config");
 
   keyfile::get_object_value(*this, &chroot::set_priority,
-			    keyfile, get_name(), "priority",
+			    keyfile, get_keyfile_name(), "priority",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("priority");
 
   keyfile::get_object_list_value(*this, &chroot::set_aliases,
-				 keyfile, get_name(), "aliases",
+				 keyfile, get_keyfile_name(), "aliases",
 				 keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("aliases");
 
   keyfile::get_object_value(*this, &chroot::set_environment_filter,
-			    keyfile, get_name(), "environment-filter",
+			    keyfile, get_keyfile_name(), "environment-filter",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("environment-filter");
 
   keyfile::get_object_value(*this, &chroot::set_description,
-			    keyfile, get_name(), "description",
+			    keyfile, get_keyfile_name(), "description",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("description");
 
   keyfile::get_object_list_value(*this, &chroot::set_users,
-				 keyfile, get_name(), "users",
+				 keyfile, get_keyfile_name(), "users",
 				 keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("users");
 
   keyfile::get_object_list_value(*this, &chroot::set_groups,
-				 keyfile, get_name(), "groups",
+				 keyfile, get_keyfile_name(), "groups",
 				 keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("groups");
 
   keyfile::get_object_list_value(*this, &chroot::set_root_users,
-				 keyfile, get_name(), "root-users",
+				 keyfile, get_keyfile_name(), "root-users",
 				 keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("root-users");
 
   keyfile::get_object_list_value(*this, &chroot::set_root_groups,
-				 keyfile, get_name(), "root-groups",
+				 keyfile, get_keyfile_name(), "root-groups",
 				 keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("root-groups");
 
   keyfile::get_object_value(*this, &chroot::set_mount_location,
-			    keyfile, get_name(), "mount-location",
+			    keyfile, get_keyfile_name(), "mount-location",
 			    get_active() ?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_DISALLOWED);
   used_keys.push_back("mount-location");
 
+  keyfile::get_object_value(*this, &chroot::set_name,
+			    keyfile, get_keyfile_name(), "name",
+			    get_active() ?
+			    keyfile::PRIORITY_OPTIONAL :
+			    keyfile::PRIORITY_DISALLOWED);
+  used_keys.push_back("name");
+
   keyfile::get_object_list_value(*this, &chroot::set_command_prefix,
-				 keyfile, get_name(), "command-prefix",
+				 keyfile, get_keyfile_name(), "command-prefix",
 				 keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("command-prefix");
 
   keyfile::get_object_value(*this, &chroot::set_persona,
-			    keyfile, get_name(), "personality",
+			    keyfile, get_keyfile_name(), "personality",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("personality");
 }
