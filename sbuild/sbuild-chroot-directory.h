@@ -19,7 +19,7 @@
 #ifndef SBUILD_CHROOT_DIRECTORY_H
 #define SBUILD_CHROOT_DIRECTORY_H
 
-#include <sbuild/sbuild-chroot.h>
+#include <sbuild/sbuild-chroot-plain.h>
 
 namespace sbuild
 {
