@@ -89,6 +89,9 @@ namespace sbuild
     virtual void
     setup_env (environment& env);
 
+    std::string
+    get_path () const;
+
     virtual session_flags
     get_session_flags () const;
 

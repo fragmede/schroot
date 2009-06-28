@@ -23,6 +23,7 @@
 #include "sbuild-lock.h"
 #include "sbuild-util.h"
 
+#include <cassert>
 #include <cerrno>
 #include <cstring>
 
@@ -32,7 +33,6 @@ using boost::format;
 using namespace sbuild;
 
 chroot_mountable::chroot_mountable ():
-  chroot(),
   mount_device(),
   mount_options(),
   location()
@@ -77,22 +77,14 @@ void
 chroot_mountable::set_location (std::string const& location)
 {
   if (!location.empty() && !is_absname(location))
-    throw error(location, LOCATION_ABS);
+    throw chroot::error(location, chroot::LOCATION_ABS);
 
   this->location = location;
-}
-
-std::string
-chroot_mountable::get_path () const
-{
-  return get_mount_location() + get_location();
 }
 
 void
 chroot_mountable::setup_env (environment& env)
 {
-  this->chroot::setup_env(env);
-
   env.add("CHROOT_MOUNT_DEVICE", get_mount_device());
   env.add("CHROOT_MOUNT_OPTIONS", get_mount_options());
   env.add("CHROOT_LOCATION", get_location());
@@ -101,14 +93,12 @@ chroot_mountable::setup_env (environment& env)
 sbuild::chroot::session_flags
 chroot_mountable::get_session_flags () const
 {
-  return SESSION_NOFLAGS;
+  return chroot::SESSION_NOFLAGS;
 }
 
 void
 chroot_mountable::get_details (format_detail& detail) const
 {
-  this->chroot::get_details(detail);
-
   if (!get_mount_options().empty())
     detail.add(_("Mount Options"), get_mount_options());
   if (!get_location().empty())

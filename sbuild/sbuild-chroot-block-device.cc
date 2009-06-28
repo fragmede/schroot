@@ -66,7 +66,7 @@ chroot_block_device::set_device (std::string const& device)
 std::string
 chroot_block_device::get_path () const
 {
-  return chroot_mountable::get_path();
+  return get_mount_location() + get_location();
 }
 
 void

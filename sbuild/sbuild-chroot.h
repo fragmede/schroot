@@ -200,7 +200,7 @@ namespace sbuild
      * @returns the path.
      */
     virtual std::string
-    get_path () const;
+    get_path () const = 0;
 
     /**
      * Get the priority of the chroot.  This is a number indicating

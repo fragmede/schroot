@@ -87,6 +87,12 @@ chroot_file::set_file_repack (bool repack)
   this->repack = repack;
 }
 
+std::string
+chroot_file::get_path () const
+{
+  return get_mount_location();
+}
+
 std::string const&
 chroot_file::get_chroot_type () const
 {

@@ -214,12 +214,6 @@ sbuild::chroot::set_mount_location (std::string const& location)
   this->mount_location = location;
 }
 
-std::string
-sbuild::chroot::get_path () const
-{
-  return get_mount_location();
-}
-
 unsigned int
 sbuild::chroot::get_priority () const
 {

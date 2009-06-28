@@ -66,7 +66,7 @@ chroot_loopback::set_file (std::string const& file)
 std::string
 chroot_loopback::get_path () const
 {
-  return chroot_mountable::get_path();
+  return get_mount_location() + get_location();
 }
 
 void
@@ -129,8 +129,8 @@ chroot_loopback::get_session_flags () const
 void
 chroot_loopback::get_details (format_detail& detail) const
 {
-  this->chroot::get_details(detail);
-  this->chroot_mountable::get_details(detail);
+  chroot::get_details(detail);
+  chroot_mountable::get_details(detail);
 
   if (!this->file.empty())
     detail.add(_("File"), get_file());

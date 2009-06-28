@@ -29,7 +29,7 @@ namespace sbuild
    *
    * The device will be mounted on demand.
    */
-  class chroot_mountable : virtual public chroot
+  class chroot_mountable
   {
   protected:
     /// The constructor.
@@ -91,13 +91,10 @@ namespace sbuild
     virtual void
     set_location (std::string const& location);
 
-    virtual std::string
-    get_path () const;
-
     virtual void
     setup_env (environment& env);
 
-    virtual session_flags
+    virtual chroot::session_flags
     get_session_flags () const;
 
   protected:

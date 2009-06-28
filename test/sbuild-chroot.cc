@@ -48,6 +48,10 @@ public:
   get_chroot_type () const
   { static const std::string type("test"); return type; }
 
+  virtual std::string
+  get_path () const
+  { return get_mount_location(); }
+
   virtual void
   setup_env (sbuild::environment& env)
   { this->sbuild::chroot::setup_env(env); }
