@@ -24,6 +24,7 @@
 #ifdef SBUILD_FEATURE_LVMSNAP
 #include "sbuild-chroot-lvm-snapshot.h"
 #endif // SBUILD_FEATURE_LVMSNAP
+#include "sbuild-chroot-fs-union.h"
 #include "sbuild-ctty.h"
 #include "sbuild-run-parts.h"
 #include "sbuild-session.h"
@@ -665,6 +666,15 @@ session::run_impl ()
 	      snapshot->set_snapshot_device(device);
 	    }
 #endif // SBUILD_FEATURE_LVMSNAP
+
+	  /* Filesystem unions need the overlay directory specifying. */
+	  chroot_fs_union *overlay = 0;
+	  if ((overlay = dynamic_cast<chroot_fs_union *>(chroot.get())) != 0)
+	    {
+	      std::string dir = SCHROOT_OVERLAY_DIR;
+              dir += "/" + this->session_id;
+	      overlay->set_overlay_session_directory(dir);
+	    }
 
 	  try
 	    {

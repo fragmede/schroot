@@ -34,6 +34,7 @@ sbuild_public_h_sources =		\
 	sbuild-chroot-block-device.h	\
 	sbuild-chroot-directory.h	\
 	sbuild-chroot-file.h		\
+	sbuild-chroot-fs-union.h	\
 	sbuild-chroot-mountable.h	\
 	sbuild-chroot-plain.h		\
 	sbuild-chroot-source.h		\
@@ -94,6 +95,7 @@ sbuild_public_cc_sources =		\
 	sbuild-chroot.cc		\
 	sbuild-chroot-directory.cc	\
 	sbuild-chroot-file.cc		\
+	sbuild-chroot-fs-union.cc	\
 	sbuild-chroot-mountable.cc	\
 	sbuild-chroot-plain.cc		\
 	sbuild-chroot-source.cc		\

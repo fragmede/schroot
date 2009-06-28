@@ -273,6 +273,32 @@ example, if the filesystem contains a chroot in \fI/chroot/sid\fP, you would
 specify \[lq]/chroot/sid\[rq] here.  If the chroot is the only thing on the
 filesystem, i.e. \fI/\fP is the root filesystem for the chroot, this option
 should be left blank, or omitted entirely.
+.SS Filesystem Union chroot options
+Some chroots allow to create a session using filesystem unions to overlay the
+real data and redirect all modifications to a session-dependant directory.
+To activate this feature you have to set the \f[CI]fs-union-type\fP to any
+supported value.  If \[lq]\fIFilesystem Union\fP\[rq] is enabled the chroot
+will also be a \fBsource chroot\fP, which wil provide additional options
+(see \[lq]\fISource chroot options\fP\[rq], above).  All entries are optional.
+.TP
+\f[CBI]fs-union-type=\fP\f[CI]type\fP
+Allows to set the used filesystem.  This is especially important, if you use
+the \fIfs-branch-config\fP option to specify different options.  Currently
+supported filesystems are \[oq]aufs\[cq] and \[oq]unionfs\[cq].  Default is 
+\[oq]none\[cq], so this feature is disabled.
+.TP
+\f[CBI]fs-union-branch-config=\fP\f[CI]branch_config\fP
+The branch configuration is used for the first filesystem in the 
+\fIfs-union-type\fP filesystem list.  It replaces the complete \[lq]\-o\[rq] 
+string for mount and allows to make complex filesystem unions.
+.B Note:
+You can use the variables \[lq]${CHROOT_FS_UNION_OVERLAY_DIRECTORY}\[rq] and
+\[lq]${CHROOT_LOCATION}\[rq] in this option string, which will be replaced
+with the writeable session directory and the source-chroot directory.
+.TP
+\f[CBI]fs-union-overlay-base=directory
+This specifies the base directory, where the session writeable directories
+will be created. Default is \[oq]@SCHROOT_OVERLAY_DIR@\[cq].
 .SS Localisation
 .PP
 Some keys may be localised in multiple languages.  This is achieved by adding

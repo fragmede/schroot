@@ -41,10 +41,15 @@ do_mount()
     fi
     if [ ! -d "$3" ]; then
 	echo "$3 does not exist, and could not be created"
-	exit 1
+	return 1
     fi
 
+    set +e
     mount $VERBOSE $1 "$2" "$3"
+    RESULT=$?
+    set -e
+
+    return $RESULT
 }
 
 # Unmount all filesystems under specified location
@@ -65,12 +70,73 @@ do_umount_all()
     fi
 }
 
+# Mount a filesystem union
+# $1: read-only branch
+do_mount_fs_union()
+{
+    MOUNT_RES=255
+
+    # Try mounting the filesystem module
+    if ! grep -q "${CHROOT_FS_UNION_TYPE}$" /proc/filesystems; then
+	set +e
+	modprobe ${CHROOT_FS_UNION_TYPE} &> /dev/null
+	set -e
+    fi
+
+    # Skip fs if not available
+    if ! grep -q "${CHROOT_FS_UNION_TYPE}$" /proc/filesystems; then
+	# branch config just works with the first fs
+	CHROOT_FS_UNION_BRANCH_CONFIG=""
+	continue
+    fi
+
+    # Prepare branch config for fs type
+    if [ "x" = "x${CHROOT_FS_UNION_BRANCH_CONFIG}" ]; then
+	case $CHROOT_FS_UNION_TYPE in
+	unionfs)
+	    CHROOT_FS_UNION_BRANCH_CONFIG="dirs=${CHROOT_FS_UNION_OVERLAY_DIRECTORY}=rw,${1}=ro"
+	    ;;
+	aufs)
+	    CHROOT_FS_UNION_BRANCH_CONFIG="br:${CHROOT_FS_UNION_OVERLAY_DIRECTORY}:${1}=ro"
+	    ;;
+	esac
+    fi
+
+    # Try mounting fs
+    set +e
+    mount -t $CHROOT_FS_UNION_TYPE -o "$CHROOT_FS_UNION_BRANCH_CONFIG" ${CHROOT_NAME} ${CHROOT_MOUNT_LOCATION}
+    MOUNT_RES=$?
+    set -e
+    if [ 0 -eq $MOUNT_RES ]; then
+	break
+    fi
+
+    if [ 0 -ne $MOUNT_RES ]; then
+	echo "Mounting filesystem union failed"
+	return 1
+    fi
+
+    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	echo "Using '$CHROOT_FS_UNION_TYPE' for filesystem union"
+    fi
+
+    return 0
+}
+
 if [ "$AUTH_VERBOSITY" = "verbose" ]; then
   VERBOSE="-v"
 #  FSCK_VERBOSE="-V"
 fi
 
 if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "loopback" ] || [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
+
+    if [ "xnone" != "x${CHROOT_FS_UNION_TYPE:-none}" ] \
+	&& [ "$CHROOT_SESSION_PURGE" = "true" ];
+    then
+	CREATE_FS_UNION="yes"
+    else
+	CREATE_FS_UNION="no"
+    fi
 
     if [ "$CHROOT_TYPE" = "plain" ]; then
 	CHROOT_MOUNT_OPTIONS="--rbind"
@@ -105,7 +171,17 @@ if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROO
 	    do_umount_all "$CHROOT_MOUNT_LOCATION"
 	fi
 
-	do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
+	if [ "xyes" = "x${CREATE_FS_UNION}" ]; then
+	    if ! do_mount_fs_union "$CHROOT_FS_UNION_RO_BRANCH"
+	    then
+		exit 1
+	    fi
+	else
+	    if ! do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
+	    then
+		exit 1
+	    fi
+	fi
 
 	if [ "$CHROOT_TYPE" != "plain" ]; then
 	    if [ -n "$FSTAB" ]; then

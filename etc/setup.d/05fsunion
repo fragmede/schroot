@@ -1,0 +1,51 @@
+#!/bin/sh
+# Copyright © 2008-2009  Jan-Marek Glogowski <glogow@fbihome.de>
+#
+# schroot is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# schroot is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see
+# <http://www.gnu.org/licenses/>.
+#
+#####################################################################
+
+set -e
+
+if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
+    . "$CHROOT_SCRIPT_CONFIG"
+fi
+
+if [ "xnone" != "x${CHROOT_FS_UNION_TYPE:-none}" ]; then
+
+    if [ $1 = "setup-start" ]; then
+	if [ "$CHROOT_SESSION_PURGE" = "true" ]; then
+		mkdir "${CHROOT_FS_UNION_OVERLAY_DIRECTORY}"
+	fi
+
+    elif [ $1 = "setup-recover" ]; then
+        if [ ! -d "${CHROOT_FS_UNION_OVERLAY_DIRECTORY}" ]; then
+	    echo "Missing overlay directory for session - can't restore"
+	    exit 1
+        fi
+
+    elif [ $1 = "setup-stop" ]; then
+        if [ "$CHROOT_SESSION_PURGE" = "true" ]; then
+	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+		echo "Purging $CHROOT_FS_UNION_OVERLAY_DIRECTORY"
+	    fi
+	    if [ -d "${CHROOT_FS_UNION_OVERLAY_DIRECTORY}" ]; then
+		rm -rf "${CHROOT_FS_UNION_OVERLAY_DIRECTORY}"
+	    fi
+	fi
+    fi
+
+fi
+
