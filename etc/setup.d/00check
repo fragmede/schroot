@@ -82,6 +82,14 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 		echo "Directory '$CHROOT_DIRECTORY' does not exist"
 		exit 1
 	    fi
+	    if [ "$CHROOT_FS_UNION_TYPE" != "none" ]; then
+		if [ ! -d "$CHROOT_FS_UNION_OVERLAY_DIRECTORY" ] \
+		    && [ $1 = "setup-recover" ];
+		then
+		    echo "Directory '$CHROOT_FS_UNION_OVERLAY_DIRECTORY' does not exist"
+		    exit 1
+		fi
+	    fi
 	    ;;
 	file | loopback)
 	    if [ ! -f "$CHROOT_FILE" ]; then

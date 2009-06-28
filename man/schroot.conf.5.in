@@ -144,8 +144,10 @@ using the following regular expression:
 Plain and directory chroots
 .PP
 Chroots of type \[oq]plain\[cq] or \[oq]directory\[cq] are directories
-accessible in the filesystem.  The two types are equivalent except for the fact
-that if \f[CI]run\-setup\-scripts\fP is set to \[oq]true\[cq] for
+accessible in the filesystem.  They implement the \fBfilesystem union 
+chroot\fP options (see \[lq]\fIFilesystem Union chroot options\fP\[rq], 
+below).  The two types are equivalent except for the fact that if 
+\f[CI]run\-setup\-scripts\fP is set to \[oq]true\[cq] for
 \[oq]plain\[cq] chroots, filesystem mounting is disabled.
 .PP
 These chroot types have an additional (mandatory) configuration option:

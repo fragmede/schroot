@@ -20,6 +20,7 @@
 #define SBUILD_CHROOT_DIRECTORY_H
 
 #include <sbuild/sbuild-chroot-plain.h>
+#include <sbuild/sbuild-chroot-fs-union.h>
 
 namespace sbuild
 {
@@ -27,7 +28,8 @@ namespace sbuild
   /**
    * A chroot located in the filesystem.
    */
-  class chroot_directory : public chroot_plain
+  class chroot_directory : public chroot_plain,
+			   public chroot_fs_union
   {
   protected:
     /// The constructor.
@@ -42,8 +44,14 @@ namespace sbuild
     virtual chroot::ptr
     clone () const;
 
+    virtual chroot::ptr
+    clone_source () const;
+
     virtual std::string
     get_path () const;
+
+    virtual void
+    setup_env (environment& env);
 
     virtual std::string const&
     get_chroot_type () const;
@@ -56,6 +64,16 @@ namespace sbuild
     setup_lock (chroot::setup_type type,
 		bool               lock,
 		int                status);
+
+    virtual void
+    get_details (format_detail& detail) const;
+
+    virtual void
+    get_keyfile (keyfile& keyfile) const;
+
+    virtual void
+    set_keyfile (keyfile const& keyfile,
+                 string_list&   used_keys);
   };
 
 }

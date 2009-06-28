@@ -32,7 +32,8 @@
 using namespace sbuild;
 
 chroot_directory::chroot_directory ():
-  chroot_plain()
+  chroot_plain(),
+  chroot_fs_union()
 {
   set_run_setup_scripts(true);
 }
@@ -47,10 +48,37 @@ chroot_directory::clone () const
   return ptr(new chroot_directory(*this));
 }
 
+sbuild::chroot::ptr
+chroot_directory::clone_source () const
+{
+  ptr clone;
+
+  if (get_fs_union_configured()) {
+    clone = ptr(new chroot_directory(*this));
+    chroot_source::clone_source_setup(clone);
+  }
+
+  return ptr(clone);
+}
+
 std::string
 chroot_directory::get_path () const
 {
-  return get_mount_location();
+  // When running setup scripts, we are session-capable, so the path
+  // is the bind-mounted location, rather than the original location.
+  if (get_fs_union_configured())
+    return chroot_fs_union::get_path();
+  if (get_run_setup_scripts() == true)
+    return get_mount_location();
+  else
+    return get_directory();
+}
+
+void
+chroot_directory::setup_env (environment& env)
+{
+  chroot_fs_union::setup_env(env);
+  chroot_plain::setup_env(env);
 }
 
 std::string const&
@@ -78,5 +106,31 @@ chroot_directory::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_directory::get_session_flags () const
 {
-  return SESSION_CREATE;
+  if (get_fs_union_configured())
+    return chroot_fs_union::get_session_flags();
+  if (get_run_setup_scripts() == true)
+    return SESSION_CREATE;
+  return SESSION_NOFLAGS;
+}
+
+void
+chroot_directory::get_details (format_detail& detail) const
+{
+  chroot_fs_union::get_details(detail);
+  chroot_plain::get_details(detail);
+}
+
+void
+chroot_directory::get_keyfile (keyfile& keyfile) const
+{
+  chroot_fs_union::get_keyfile(keyfile);
+  chroot_plain::get_keyfile(keyfile);
+}
+
+void
+chroot_directory::set_keyfile (keyfile const& keyfile,
+			      string_list&   used_keys)
+{
+  chroot_fs_union::set_keyfile(keyfile, used_keys);
+  chroot_plain::set_keyfile(keyfile, used_keys);
 }

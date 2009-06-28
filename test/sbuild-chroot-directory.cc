@@ -47,6 +47,7 @@ class test_chroot_directory : public test_chroot_base<chroot_directory>
   CPPUNIT_TEST(test_directory);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
+  CPPUNIT_TEST(test_setup_env_fsunion);
   CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
@@ -97,11 +98,34 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_FS_UNION_TYPE",  "none");
 
     test_chroot_base<chroot_directory>::test_setup_env(expected);
   }
 
-  void test_session_flags()
+  void test_setup_env_fsunion()
+  {
+    sbuild::chroot_directory *c = dynamic_cast<sbuild::chroot_directory *>(chroot.get());
+    c->set_fs_union_type("aufs");
+
+    sbuild::environment expected;
+    expected.add("CHROOT_TYPE",           "directory");
+    expected.add("CHROOT_NAME",           "test-name");
+    expected.add("CHROOT_DESCRIPTION",    "test-description");
+    expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
+    expected.add("CHROOT_DIRECTORY",      "/srv/chroot/example-chroot");
+    expected.add("CHROOT_PATH",           "/mnt/mount-location");
+    expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
+    expected.add("CHROOT_SESSION_CLONE",  "true");
+    expected.add("CHROOT_SESSION_CREATE", "true");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_FS_UNION_TYPE",  "aufs");
+
+    test_chroot_base<chroot_directory>::test_setup_env(expected);
+  }
+
+
+void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
 		   sbuild::chroot::SESSION_CREATE);
