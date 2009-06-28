@@ -111,25 +111,12 @@ chroot_union::get_union_type () const
 void
 chroot_union::set_union_type (std::string const& type)
 {
-  if ((type == "aufs") || (type == "unionfs"))
-    {
-      /**
-       * @todo: Remove this.  We should not be setting
-       * run_setup_scripts after object construction.
-       */
-      chroot *base = dynamic_cast<chroot *>(this);
-      assert(base != 0);
-
-      base->set_run_setup_scripts(true);
+  if (type == "aufs" ||
+      type == "unionfs" ||
+      type == "none")
       this->union_type = type;
-    }
   else
-    {
-      if (type == "none")
-	this->union_type = type;
-      else
-	throw error(type, UNION_TYPE_UNKNOWN);
-    }
+    throw error(type, UNION_TYPE_UNKNOWN);
 }
 
 std::string const&
@@ -165,19 +152,11 @@ chroot_union::setup_env (environment& env)
 sbuild::chroot::session_flags
 chroot_union::get_session_flags () const
 {
-  const chroot *base = dynamic_cast<const chroot *>(this);
-  assert(base != 0);
-
   std::string type = get_union_type();
-  if (base->get_run_setup_scripts() == true)
-    {
-      if (get_union_configured())
-	return chroot::SESSION_CREATE | chroot_source::get_session_flags();
-      else
-	return chroot::SESSION_CREATE;
-    }
+  if (get_union_configured())
+    return chroot::SESSION_CREATE | chroot_source::get_session_flags();
   else
-    return chroot::SESSION_NOFLAGS;
+    return chroot::SESSION_CREATE;
 }
 
 void

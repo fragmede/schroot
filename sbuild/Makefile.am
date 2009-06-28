@@ -1,7 +1,7 @@
 # schroot Makefile template
 #
 #
-# Copyright © 2004-2008  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2009  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -89,6 +89,11 @@ sbuild_public_loopback_h_sources =	\
 	sbuild-chroot-loopback.h
 endif
 
+if BUILD_UNION
+sbuild_public_union_h_sources =	\
+	sbuild-chroot-union.h
+endif
+
 sbuild_public_cc_sources =		\
 	sbuild-auth.cc			\
 	sbuild-auth-null.cc		\
@@ -99,7 +104,6 @@ sbuild_public_cc_sources =		\
 	sbuild-chroot-plain.cc		\
 	sbuild-chroot-source.cc		\
 	sbuild-chroot-config.cc		\
-	sbuild-chroot-union.cc		\
 	sbuild-ctty.cc			\
 	sbuild-dirstream.cc		\
 	sbuild-environment.cc		\
@@ -140,11 +144,19 @@ sbuild_public_loopback_cc_sources =	\
 	sbuild-chroot-loopback.cc
 endif
 
+if BUILD_UNION
+sbuild_public_union_cc_sources =	\
+	sbuild-chroot-union.cc
+endif
+
 pkgincludedir = $(includedir)/sbuild
 
 pkginclude_HEADERS =				\
 	$(sbuild_public_h_sources)		\
-	$(sbuild_public_blockdev_h_sources)
+	$(sbuild_public_blockdev_h_sources)	\
+	$(sbuild_public_lvmsnap_h_sources)	\
+	$(sbuild_public_loopback_h_sources)	\
+	$(sbuild_public_union_h_sources)
 
 libsbuild_la_SOURCES =				\
 	$(sbuild_public_h_sources)		\
@@ -156,7 +168,9 @@ libsbuild_la_SOURCES =				\
 	$(sbuild_public_lvmsnap_h_sources)	\
 	$(sbuild_public_lvmsnap_cc_sources)	\
 	$(sbuild_public_loopback_h_sources)	\
-	$(sbuild_public_loopback_cc_sources)
+	$(sbuild_public_loopback_cc_sources)	\
+	$(sbuild_public_union_h_sources)	\
+	$(sbuild_public_union_cc_sources)
 
 nodist_libsbuild_la_SOURCES =	\
 	sbuild-config.h

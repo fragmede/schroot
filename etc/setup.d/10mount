@@ -41,7 +41,7 @@ do_mount()
     fi
     if [ ! -d "$3" ]; then
 	echo "$3 does not exist, and could not be created"
-	return 1
+	exit 1
     fi
 
     mount $VERBOSE $1 "$2" "$3"
@@ -81,14 +81,14 @@ do_mount_fs_union()
 	continue
     fi
 
-    # Prepare branch config for fs type
+    # Prepare mount options (branch config) for union type
     if [ -z "$CHROOT_UNION_MOUNT_OPTIONS" ]; then
 	case $CHROOT_UNION_TYPE in
 	    unionfs)
-		CHROOT_UNION_MOUNT_OPTIONS="dirs=${CHROOT_UNION_OVERLAY_DIRECTORY}=rw,${1}=ro"
+		CHROOT_UNION_MOUNT_OPTIONS="dirs=${CHROOT_UNION_OVERLAY_DIRECTORY}=rw,${CHROOT_UNION_UNDERLAY_DIRECTORY}=ro"
 		;;
 	    aufs)
-		CHROOT_UNION_MOUNT_OPTIONS="br:${CHROOT_UNION_OVERLAY_DIRECTORY}:${1}=ro"
+		CHROOT_UNION_MOUNT_OPTIONS="br:${CHROOT_UNION_OVERLAY_DIRECTORY}:${CHROOT_UNION_UNDERLAY_DIRECTORY}=ro"
 		;;
 	esac
     fi
@@ -111,19 +111,17 @@ if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROO
     if [ "${CHROOT_UNION_TYPE:-none}" != "none" ] \
 	&& [ "$CHROOT_SESSION_PURGE" = "true" ];
     then
-	CREATE_FS_UNION="yes"
+	CREATE_UNION="yes"
     else
-	CREATE_FS_UNION="no"
+	CREATE_UNION="no"
     fi
 
     if [ "$CHROOT_TYPE" = "plain" ]; then
 	CHROOT_MOUNT_OPTIONS="--rbind"
 	CHROOT_MOUNT_DEVICE="$CHROOT_DIRECTORY"
-	CHROOT_UNION_RO_BRANCH="$CHROOT_DIRECTORY"
     elif [ "$CHROOT_TYPE" = "directory" ]; then
 	CHROOT_MOUNT_OPTIONS="--bind"
 	CHROOT_MOUNT_DEVICE="$CHROOT_DIRECTORY"
-	CHROOT_UNION_RO_BRANCH="$CHROOT_DIRECTORY"
     elif [ "$CHROOT_TYPE" = "file" ]; then
 	UNPACK_LOCATION="${UNPACK_DIR}/${SESSION_ID}"
 	CHROOT_MOUNT_OPTIONS="--bind"
@@ -151,10 +149,10 @@ if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROO
 	    do_umount_all "$CHROOT_MOUNT_LOCATION"
 	fi
 
-	if [ "xyes" = "x${CREATE_FS_UNION}" ]; then
-	    do_mount_fs_union "$CHROOT_UNION_RO_BRANCH"
-	else
-	    do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
+	do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
+
+	if [ "$CREATE_UNION" = "yes" ]; then
+	    do_mount_fs_union
 	fi
 
 	if [ "$CHROOT_TYPE" != "plain" ]; then

@@ -73,11 +73,9 @@ public:
     chroot->set_run_setup_scripts(true);
     CPPUNIT_ASSERT(chroot->get_mount_location() == "/mnt/mount-location");
     chroot->set_run_setup_scripts(false);
-    c->set_directory("/mnt/mount-location/example");
-    chroot->set_mount_location("/path");
-    CPPUNIT_ASSERT(c->get_directory() == "/mnt/mount-location/example");
-    CPPUNIT_ASSERT(chroot->get_path() == "/path");
-    CPPUNIT_ASSERT(chroot->get_mount_location() == "/path");
+    c->set_directory("/mnt/chroot/example");
+    CPPUNIT_ASSERT(c->get_directory() == "/mnt/chroot/example");
+    CPPUNIT_ASSERT(chroot->get_path() == "/mnt/mount-location");
   }
 
   void test_chroot_type()

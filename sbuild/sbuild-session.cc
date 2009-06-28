@@ -24,7 +24,9 @@
 #ifdef SBUILD_FEATURE_LVMSNAP
 #include "sbuild-chroot-lvm-snapshot.h"
 #endif // SBUILD_FEATURE_LVMSNAP
+#ifdef SBUILD_FEATURE_UNION
 #include "sbuild-chroot-union.h"
+#endif // SBUILD_FEATURE_UNION
 #include "sbuild-ctty.h"
 #include "sbuild-run-parts.h"
 #include "sbuild-session.h"
@@ -639,7 +641,14 @@ session::run_impl ()
 	     setup scripts. */
 	  {
 	    chroot_plain *plain = dynamic_cast<chroot_plain *>(chroot.get());
-	    if (chroot->get_mount_location().empty() && plain == 0)
+#ifdef SBUILD_FEATURE_UNION
+	    chroot_union *fsunion = dynamic_cast<chroot_union *>(chroot.get());
+#endif // SBUILD_FEATURE_UNION
+	    if (chroot->get_mount_location().empty() && plain == 0
+#ifdef SBUILD_FEATURE_UNION
+		&& (fsunion == 0 || (fsunion && !fsunion->get_union_configured()))
+#endif // SBUILD_FEATURE_UNION
+		)
 	      {
 		log_debug(DEBUG_NOTICE) << "Setting mount location" << endl;
 		std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
@@ -667,6 +676,7 @@ session::run_impl ()
 	    }
 #endif // SBUILD_FEATURE_LVMSNAP
 
+#ifdef SBUILD_FEATURE_UNION
 	  /* Filesystem unions need the overlay directory specifying. */
 	  chroot_union *fsunion = 0;
 	  if ((fsunion = dynamic_cast<chroot_union *>(chroot.get())) != 0)
@@ -678,7 +688,16 @@ session::run_impl ()
 	      std::string underlay = fsunion->get_union_underlay_directory();
 	      underlay += "/" + this->session_id;
 	      fsunion->set_union_underlay_directory(underlay);
+
+	      if (fsunion->get_union_configured() &&
+		  chroot->get_mount_location().empty())
+		{
+		  std::string location(std::string(SCHROOT_UNDERLAY_DIR) + "/" +
+				       this->session_id);
+		  chroot->set_mount_location(location);
+		}
 	    }
+#endif // SBUILD_FEATURE_UNION
 
 	  try
 	    {

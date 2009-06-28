@@ -219,6 +219,17 @@ AC_ARG_ENABLE([uuid], [AS_HELP_STRING([--enable-uuid], [Enable support for UUIDs
               [enable_uuid="auto"])
 AC_MSG_RESULT([$enable_uuid])
 
+AC_MSG_CHECKING([whether to enable support for union mounts])
+AC_ARG_ENABLE([union], [AS_HELP_STRING([--enable-union], [Enable support for union mounts])],
+              [ case "${enableval}" in
+                yes) enable_union="yes" ;;
+                no)  enable_union="no" ;;
+                *) AC_MSG_RESULT([unknown])
+                   AC_MSG_ERROR([bad value ${enableval} for --enable-union]) ;;
+                esac],
+              [enable_union="auto"])
+AC_MSG_RESULT([$enable_union])
+
 AC_MSG_CHECKING([whether to enable doxygen documentation])
 AC_ARG_ENABLE([doxygen], [AS_HELP_STRING([--enable-doxygen], [Enable doxygen documentation])],
               [ case "${enableval}" in
@@ -459,6 +470,23 @@ AM_CONDITIONAL([BUILD_LOOPBACK], [test "$BUILD_LOOPBACK" = "yes"])
 AH_TEMPLATE(SBUILD_FEATURE_LOOPBACK, [Set if the loopback chroot type is present])
 if test "$BUILD_LOOPBACK" = "yes"; then
   AC_DEFINE(SBUILD_FEATURE_LOOPBACK, 1)
+fi
+
+AC_MSG_CHECKING([whether to build union support])
+BUILD_UNION="yes"
+if test "$enable_unionshot" = "yes"; then
+  :
+elif test "$enable_unionshot" = "no"; then
+  BUILD_UNION="no"
+elif test "$enable_unionshot" = "auto"; then
+  BUILD_UNION="yes"
+fi
+AC_MSG_RESULT([$BUILD_UNION])
+
+AM_CONDITIONAL([BUILD_UNION], [test "$BUILD_UNION" = "yes"])
+AH_TEMPLATE(SBUILD_FEATURE_UNION, [Set if the union filesystem type is present])
+if test "$BUILD_UNION" = "yes"; then
+  AC_DEFINE(SBUILD_FEATURE_UNION, 1)
 fi
 
 AC_MSG_CHECKING([for boost::program_options::variables_map in -lboost_program_options-mt])

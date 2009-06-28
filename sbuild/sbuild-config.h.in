@@ -42,6 +42,9 @@
 /* Set if the loopback chroot type is present */
 #undef SBUILD_FEATURE_LOOPBACK
 
+/* Set if the union filesystem type is present */
+#undef SBUILD_FEATURE_UNION
+
 /* Define to 1 if you have the <boost/format.hpp> header file. */
 #undef HAVE_BOOST_FORMAT_HPP
 

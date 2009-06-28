@@ -19,6 +19,7 @@
 #ifndef SBUILD_CHROOT_DIRECTORY_H
 #define SBUILD_CHROOT_DIRECTORY_H
 
+#include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-chroot-plain.h>
 #include <sbuild/sbuild-chroot-union.h>
 
@@ -28,8 +29,10 @@ namespace sbuild
   /**
    * A chroot located in the filesystem.
    */
-  class chroot_directory : public chroot_plain,
-			   public chroot_union
+  class chroot_directory : public chroot_plain
+#ifdef SBUILD_FEATURE_UNION
+			 , public chroot_union
+#endif // SBUILD_FEATURE_UNION
   {
   protected:
     /// The constructor.

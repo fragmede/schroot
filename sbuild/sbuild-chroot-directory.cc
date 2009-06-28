@@ -33,7 +33,9 @@ using namespace sbuild;
 
 chroot_directory::chroot_directory ():
   chroot_plain(),
+#ifdef SBUILD_FEATURE_UNION
   chroot_union(),
+#endif // SBUILD_FEATURE_UNION
   is_source(false),
   source_users(),
   source_groups(),
@@ -58,11 +60,12 @@ chroot_directory::clone_source () const
 {
   ptr clone;
 
+#ifdef SBUILD_FEATURE_UNION
   if (get_union_configured()) {
     clone = ptr(new chroot_directory(*this));
     chroot_source::clone_source_setup(clone);
   }
-
+#endif // SBUILD_FEATURE_UNION
   return ptr(clone);
 }
 
@@ -136,7 +139,9 @@ void
 chroot_directory::setup_env (environment& env)
 {
   chroot::setup_env(env);
+#ifdef SBUILD_FEATURE_UNION
   chroot_union::setup_env(env);
+#endif // SBUILD_FEATURE_UNION
   chroot_plain::setup_env(env);
 }
 
@@ -165,18 +170,21 @@ chroot_directory::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_directory::get_session_flags () const
 {
+#ifdef SBUILD_FEATURE_UNION
   if (get_union_configured())
     return chroot_union::get_session_flags();
-  if (get_run_setup_scripts() == true)
+  else
+#endif // SBUILD_FEATURE_UNION
     return SESSION_CREATE;
-  return SESSION_NOFLAGS;
 }
 
 void
 chroot_directory::get_details (format_detail& detail) const
 {
   chroot::get_details(detail);
+#ifdef SBUILD_FEATURE_UNION
   chroot_union::get_details(detail);
+#endif // SBUILD_FEATURE_UNION
   chroot_plain::get_details(detail);
 }
 
@@ -184,7 +192,9 @@ void
 chroot_directory::get_keyfile (keyfile& keyfile) const
 {
   chroot::get_keyfile(keyfile);
+#ifdef SBUILD_FEATURE_UNION
   chroot_union::get_keyfile(keyfile);
+#endif // SBUILD_FEATURE_UNION
   chroot_plain::get_keyfile(keyfile);
 }
 
@@ -193,6 +203,8 @@ chroot_directory::set_keyfile (keyfile const& keyfile,
 			      string_list&   used_keys)
 {
   chroot::set_keyfile(keyfile, used_keys);
+#ifdef SBUILD_FEATURE_UNION
   chroot_union::set_keyfile(keyfile, used_keys);
+#endif // SBUILD_FEATURE_UNION
   chroot_plain::set_keyfile(keyfile, used_keys);
 }
