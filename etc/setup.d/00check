@@ -50,7 +50,7 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 	echo "CHROOT_MOUNT_LOCATION=$CHROOT_MOUNT_LOCATION"
 	echo "CHROOT_LOCATION=$CHROOT_LOCATION"
 	echo "CHROOT_PATH=$CHROOT_PATH"
-	if [ "x" != "x$CHROOT_FS_UNION_TYPE" ] && [ "$CHROOT_FS_UNION_TYPE" != "none" ]; then
+	if [ -n "$CHROOT_FS_UNION_TYPE" ] && [ "$CHROOT_FS_UNION_TYPE" != "none" ]; then
 	    echo "CHROOT_FS_UNION_TYPE=$CHROOT_FS_UNION_TYPE"
 	    echo "CHROOT_FS_UNION_OVERLAY_DIRECTORY=$CHROOT_FS_UNION_OVERLAY_DIRECTORY"
 	fi
