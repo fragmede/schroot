@@ -61,13 +61,24 @@ chroot_loopback::set_file (std::string const& file)
     throw error(file, FILE_ABS);
 
   this->file = file;
-  chroot_mountable::set_mount_device(file);
 }
 
 std::string
 chroot_loopback::get_path () const
 {
   return chroot_mountable::get_path();
+}
+
+void
+chroot_loopback::set_mount_device (std::string const& mount_device)
+{
+  // Setting the mount device is not permitted for loopback chroots.
+}
+
+std::string const&
+chroot_loopback::get_mount_device () const
+{
+  return this->file;
 }
 
 std::string const&

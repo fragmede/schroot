@@ -61,19 +61,24 @@ chroot_block_device::set_device (std::string const& device)
     throw error(device, DEVICE_ABS);
 
   this->device = device;
-  /** @todo When using LVM snapshots, this it is incorrect to call
-   * set_mount_device here, since it is not the mount device.  This
-   * currently works due to the order we call in, but could
-   * potentially break.  Make chroot_mountable a pure virtual
-   * interface to fix this.
-   */
-  chroot_mountable::set_mount_device(device);
 }
 
 std::string
 chroot_block_device::get_path () const
 {
   return chroot_mountable::get_path();
+}
+
+void
+chroot_block_device::set_mount_device (std::string const& mount_device)
+{
+  // Setting the mount device is not permitted for block_device chroots.
+}
+
+std::string const&
+chroot_block_device::get_mount_device () const
+{
+  return this->device;
 }
 
 std::string const&

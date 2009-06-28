@@ -77,6 +77,13 @@ namespace sbuild
     virtual session_flags
     get_session_flags () const;
 
+    // Specialisation of the chroot_mountable interface
+    virtual void
+    set_mount_device (std::string const& mount_device);
+
+    virtual std::string const&
+    get_mount_device () const;
+
   protected:
     virtual void
     setup_lock (chroot::setup_type type,

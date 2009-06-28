@@ -46,7 +46,7 @@ namespace sbuild
      *
      * @returns the mount device.
      */
-    std::string const&
+    virtual std::string const&
     get_mount_device () const;
 
     /**
@@ -54,7 +54,7 @@ namespace sbuild
      *
      * @param mount_device the mount device.
      */
-    void
+    virtual void
     set_mount_device (std::string const& mount_device);
 
     /**
@@ -62,7 +62,7 @@ namespace sbuild
      *
      * @returns the mount options.
      */
-    std::string const&
+    virtual std::string const&
     get_mount_options () const;
 
     /**
@@ -70,7 +70,7 @@ namespace sbuild
      *
      * @param mount_options the mount options.
      */
-    void
+    virtual void
     set_mount_options (std::string const& mount_options);
 
     /**
