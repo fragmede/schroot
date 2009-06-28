@@ -51,7 +51,6 @@ error<chroot_fs_union::error_code>::error_strings
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
 chroot_fs_union::chroot_fs_union ():
-  chroot(),
   chroot_source(),
   fs_union_type("none")
 {
@@ -79,7 +78,7 @@ chroot_fs_union::set_overlay_session_directory
 (std::string const& overlay_session_directory)
 {
   if (!is_absname(overlay_session_directory))
-    throw chroot::error(overlay_session_directory, LOCATION_ABS);
+    throw chroot::error(overlay_session_directory, chroot::LOCATION_ABS);
 
   this->overlay_session_directory = overlay_session_directory;
 }
@@ -117,7 +116,6 @@ chroot_fs_union::set_fs_union_branch_config
 void
 chroot_fs_union::setup_env (environment& env)
 {
-  chroot::setup_env(env);
   chroot_source::setup_env(env);
 
   env.add("CHROOT_FS_UNION_TYPE", get_fs_union_type());
@@ -130,30 +128,27 @@ chroot_fs_union::setup_env (environment& env)
     }
 }
 
-std::string
-chroot_fs_union::get_path() const
-{
-  return get_mount_location();
-}
-
 sbuild::chroot::session_flags
 chroot_fs_union::get_session_flags () const
 {
+  const chroot *base = dynamic_cast<const chroot *>(this);
+  assert(base != 0);
+
   std::string type = get_fs_union_type();
-  if (get_run_setup_scripts() == true) {
-    if (get_fs_union_configured())
-      return SESSION_CREATE | chroot_source::get_session_flags();
-    else
-      return SESSION_CREATE;
-  }
+  if (base->get_run_setup_scripts() == true)
+    {
+      if (get_fs_union_configured())
+	return chroot::SESSION_CREATE | chroot_source::get_session_flags();
+      else
+	return chroot::SESSION_CREATE;
+    }
   else
-    return SESSION_NOFLAGS;
+    return chroot::SESSION_NOFLAGS;
 }
 
 void
 chroot_fs_union::get_details (format_detail& detail) const
 {
-  chroot::get_details(detail);
   chroot_source::get_details(detail);
 
   if (!this->overlay_session_directory.empty())
@@ -167,20 +162,23 @@ chroot_fs_union::get_details (format_detail& detail) const
 void
 chroot_fs_union::get_keyfile (keyfile& keyfile) const
 {
-  chroot::get_keyfile(keyfile);
+  /// @todo: Remove need for this by passing in group name
+  const chroot *base = dynamic_cast<const chroot *>(this);
+  assert(base != 0);
+
   chroot_source::get_keyfile(keyfile);
 
   keyfile::set_object_value(*this, &chroot_fs_union::get_fs_union_type,
-			    keyfile, get_name(), "fs-union-type");
+			    keyfile, base->get_keyfile_name(), "fs-union-type");
 
   keyfile::set_object_value(*this,
 			    &chroot_fs_union::get_fs_union_branch_config,
-			    keyfile, get_name(), "fs-union-branch-config");
+			    keyfile, base->get_keyfile_name(), "fs-union-branch-config");
 
-  if (get_active())
+  if (base->get_active())
     keyfile::set_object_value(*this,
 			      &chroot_fs_union::get_overlay_session_directory,
-			      keyfile, get_name(),
+			      keyfile, base->get_keyfile_name(),
 			      "fs-union-overlay-session-directory");
 }
 
@@ -188,24 +186,27 @@ void
 chroot_fs_union::set_keyfile (keyfile const& keyfile,
 			      string_list&   used_keys)
 {
-  chroot::set_keyfile(keyfile, used_keys);
+  /// @todo: Remove need for this by passing in group name
+  const chroot *base = dynamic_cast<const chroot *>(this);
+  assert(base != 0);
+
   chroot_source::set_keyfile(keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_fs_union::set_fs_union_type,
-			    keyfile, get_name(), "fs-union-type",
+			    keyfile, base->get_keyfile_name(), "fs-union-type",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("fs-union-type");
 
   keyfile::get_object_value(*this,
 			    &chroot_fs_union::set_fs_union_branch_config,
-			    keyfile, get_name(), "fs-union-branch-config",
+			    keyfile, base->get_keyfile_name(), "fs-union-branch-config",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("fs-union-branch-config");
 
-  if (get_active())
+  if (base->get_active())
     keyfile::get_object_value(*this,
 			      &chroot_fs_union::set_overlay_session_directory,
-			      keyfile, get_name(),
+			      keyfile, base->get_keyfile_name(),
 			      "fs-union-overlay-session-directory",
 			      (get_fs_union_configured() ?
 			       keyfile::PRIORITY_REQUIRED :

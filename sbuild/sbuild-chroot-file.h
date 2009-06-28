@@ -95,6 +95,37 @@ namespace sbuild
     virtual session_flags
     get_session_flags () const;
 
+    // Implementation of the chroot_source interface
+    virtual string_list const&
+    get_source_users () const;
+
+    virtual void
+    set_source_users (string_list const& users);
+
+    virtual string_list const&
+    get_source_groups () const;
+
+    virtual void
+    set_source_groups (string_list const& groups);
+
+    virtual string_list const&
+    get_source_root_users () const;
+
+    virtual void
+    set_source_root_users (string_list const& users);
+
+    virtual string_list const&
+    get_source_root_groups () const;
+
+    virtual void
+    set_source_root_groups (string_list const& groups);
+
+    virtual bool
+    get_source () const;
+
+    virtual void
+    set_source (bool source);
+
   protected:
     virtual void
     setup_lock (chroot::setup_type type,
@@ -116,6 +147,16 @@ namespace sbuild
     std::string file;
     /// Should the chroot be repacked?
     bool repack;
+    /// Is the chroot source or clone?
+    bool          is_source;
+    /// Users allowed to access the source chroot.
+    string_list   source_users;
+    /// Groups allowed to access the source chroot.
+    string_list   source_groups;
+    /// Users allowed to access the source chroot as root.
+    string_list   source_root_users;
+    /// Groups allowed to access the source chroot as root.
+    string_list   source_root_groups;
   };
 
 }

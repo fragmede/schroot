@@ -28,13 +28,7 @@
 using boost::format;
 using namespace sbuild;
 
-chroot_source::chroot_source ():
-  chroot(),
-  is_source(false),
-  source_users(),
-  source_groups(),
-  source_root_users(),
-  source_root_groups()
+chroot_source::chroot_source ()
 {
 }
 
@@ -63,55 +57,7 @@ chroot_source::clone_source_setup (chroot::ptr& clone) const
 
   std::tr1::shared_ptr<chroot_source> source(std::tr1::dynamic_pointer_cast<chroot_source>(clone));
   if (source)
-    source->is_source = true;
-}
-
-string_list const&
-chroot_source::get_source_users () const
-{
-  return this->source_users;
-}
-
-void
-chroot_source::set_source_users (string_list const& source_users)
-{
-  this->source_users = source_users;
-}
-
-string_list const&
-chroot_source::get_source_groups () const
-{
-  return this->source_groups;
-}
-
-void
-chroot_source::set_source_groups (string_list const& source_groups)
-{
-  this->source_groups = source_groups;
-}
-
-string_list const&
-chroot_source::get_source_root_users () const
-{
-  return this->source_root_users;
-}
-
-void
-chroot_source::set_source_root_users (string_list const& users)
-{
-  this->source_root_users = users;
-}
-
-string_list const&
-chroot_source::get_source_root_groups () const
-{
-  return this->source_root_groups;
-}
-
-void
-chroot_source::set_source_root_groups (string_list const& groups)
-{
-  this->source_root_groups = groups;
+    source->set_source(true);
 }
 
 void
@@ -122,21 +68,25 @@ chroot_source::setup_env (environment& env)
 sbuild::chroot::session_flags
 chroot_source::get_session_flags () const
 {
-  if (this->is_source)
+  /// @todo: Remove need for this.
+  const chroot *base = dynamic_cast<const chroot *>(this);
+  assert(base != 0);
+
+  if (this->get_source())
     // -source chroots are not clonable.
-    return SESSION_NOFLAGS;
-  else if (get_active())
+    return chroot::SESSION_NOFLAGS;
+  else if (base->get_active())
     //Active chroots are already cloned, but need purging.
-    return SESSION_PURGE;
+    return chroot::SESSION_PURGE;
   else // Inactive, not -source.
     // Inactive chroots are clonable.
-    return SESSION_CLONE;
+    return chroot::SESSION_CLONE;
 }
 
 void
 chroot_source::get_details (format_detail& detail) const
 {
-  if (!this->is_source)
+  if (!this->get_source())
     detail
       .add(_("Source Users"), get_source_users())
       .add(_("Source Groups"), get_source_groups())
@@ -147,19 +97,23 @@ chroot_source::get_details (format_detail& detail) const
 void
 chroot_source::get_keyfile (keyfile& keyfile) const
 {
-  if (!this->is_source)
+  /// @todo: Remove need for this by passing in group name
+  const chroot *base = dynamic_cast<const chroot *>(this);
+  assert(base != 0);
+
+  if (!this->get_source())
     {
       keyfile::set_object_list_value(*this, &chroot_source::get_source_users,
-				     keyfile, get_keyfile_name(), "source-users");
+				     keyfile, base->get_keyfile_name(), "source-users");
 
       keyfile::set_object_list_value(*this, &chroot_source::get_source_groups,
-				     keyfile, get_keyfile_name(), "source-groups");
+				     keyfile, base->get_keyfile_name(), "source-groups");
 
       keyfile::set_object_list_value(*this, &chroot_source::get_source_root_users,
-				     keyfile, get_keyfile_name(), "source-root-users");
+				     keyfile, base->get_keyfile_name(), "source-root-users");
 
       keyfile::set_object_list_value(*this, &chroot_source::get_source_root_groups,
-				     keyfile, get_keyfile_name(), "source-root-groups");
+				     keyfile, base->get_keyfile_name(), "source-root-groups");
     }
 }
 
@@ -167,25 +121,29 @@ void
 chroot_source::set_keyfile (keyfile const& keyfile,
 			    string_list&   used_keys)
 {
-  if (!this->is_source)
+  /// @todo: Remove need for this by passing in group name
+  const chroot *base = dynamic_cast<const chroot *>(this);
+  assert(base != 0);
+
+  if (!this->get_source())
     {
       keyfile::get_object_list_value(*this, &chroot_source::set_source_users,
-				     keyfile, get_keyfile_name(), "source-users",
+				     keyfile, base->get_keyfile_name(), "source-users",
 				     keyfile::PRIORITY_OPTIONAL);
       used_keys.push_back("source-users");
 
       keyfile::get_object_list_value(*this, &chroot_source::set_source_groups,
-				     keyfile, get_keyfile_name(), "source-groups",
+				     keyfile, base->get_keyfile_name(), "source-groups",
 				     keyfile::PRIORITY_OPTIONAL);
       used_keys.push_back("source-groups");
 
       keyfile::get_object_list_value(*this, &chroot_source::set_source_root_users,
-				     keyfile, get_keyfile_name(), "source-root-users",
+				     keyfile, base->get_keyfile_name(), "source-root-users",
 				     keyfile::PRIORITY_OPTIONAL);
       used_keys.push_back("source-root-users");
 
       keyfile::get_object_list_value(*this, &chroot_source::set_source_root_groups,
-				     keyfile, get_keyfile_name(), "source-root-groups",
+				     keyfile, base->get_keyfile_name(), "source-root-groups",
 				     keyfile::PRIORITY_OPTIONAL);
       used_keys.push_back("source-root-groups");
     }

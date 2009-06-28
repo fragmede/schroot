@@ -35,7 +35,12 @@ chroot_lvm_snapshot::chroot_lvm_snapshot ():
   chroot_block_device(),
   chroot_source(),
   snapshot_device(),
-  snapshot_options()
+  snapshot_options(),
+  is_source(false),
+  source_users(),
+  source_groups(),
+  source_root_users(),
+  source_root_groups()
 {
 }
 
@@ -96,6 +101,66 @@ std::string const&
 chroot_lvm_snapshot::get_mount_device () const
 {
   return this->snapshot_device;
+}
+
+string_list const&
+chroot_lvm_snapshot::get_source_users () const
+{
+  return this->source_users;
+}
+
+void
+chroot_lvm_snapshot::set_source_users (string_list const& source_users)
+{
+  this->source_users = source_users;
+}
+
+string_list const&
+chroot_lvm_snapshot::get_source_groups () const
+{
+  return this->source_groups;
+}
+
+void
+chroot_lvm_snapshot::set_source_groups (string_list const& source_groups)
+{
+  this->source_groups = source_groups;
+}
+
+string_list const&
+chroot_lvm_snapshot::get_source_root_users () const
+{
+  return this->source_root_users;
+}
+
+void
+chroot_lvm_snapshot::set_source_root_users (string_list const& users)
+{
+  this->source_root_users = users;
+}
+
+string_list const&
+chroot_lvm_snapshot::get_source_root_groups () const
+{
+  return this->source_root_groups;
+}
+
+void
+chroot_lvm_snapshot::set_source_root_groups (string_list const& groups)
+{
+  this->source_root_groups = groups;
+}
+
+bool
+chroot_lvm_snapshot::get_source () const
+{
+  return this->is_source;
+}
+
+void
+chroot_lvm_snapshot::set_source (bool source)
+{
+  this->is_source = source;
 }
 
 std::string const&

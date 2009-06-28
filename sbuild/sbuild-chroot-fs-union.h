@@ -123,13 +123,10 @@ namespace sbuild
     set_overlay_session_directory 
     (std::string const& overlay_session_directory);
 
-    virtual std::string
-    get_path () const;
-
     virtual void
     setup_env (environment& env);
 
-    virtual session_flags
+    virtual chroot::session_flags
     get_session_flags () const;
 
   protected:

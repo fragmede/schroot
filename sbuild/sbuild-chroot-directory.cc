@@ -33,7 +33,12 @@ using namespace sbuild;
 
 chroot_directory::chroot_directory ():
   chroot_plain(),
-  chroot_fs_union()
+  chroot_fs_union(),
+  is_source(false),
+  source_users(),
+  source_groups(),
+  source_root_users(),
+  source_root_groups()
 {
   set_run_setup_scripts(true);
 }
@@ -61,22 +66,76 @@ chroot_directory::clone_source () const
   return ptr(clone);
 }
 
+string_list const&
+chroot_directory::get_source_users () const
+{
+  return this->source_users;
+}
+
+void
+chroot_directory::set_source_users (string_list const& source_users)
+{
+  this->source_users = source_users;
+}
+
+string_list const&
+chroot_directory::get_source_groups () const
+{
+  return this->source_groups;
+}
+
+void
+chroot_directory::set_source_groups (string_list const& source_groups)
+{
+  this->source_groups = source_groups;
+}
+
+string_list const&
+chroot_directory::get_source_root_users () const
+{
+  return this->source_root_users;
+}
+
+void
+chroot_directory::set_source_root_users (string_list const& users)
+{
+  this->source_root_users = users;
+}
+
+string_list const&
+chroot_directory::get_source_root_groups () const
+{
+  return this->source_root_groups;
+}
+
+void
+chroot_directory::set_source_root_groups (string_list const& groups)
+{
+  this->source_root_groups = groups;
+}
+
+bool
+chroot_directory::get_source () const
+{
+  return this->is_source;
+}
+
+void
+chroot_directory::set_source (bool source)
+{
+  this->is_source = source;
+}
+
 std::string
 chroot_directory::get_path () const
 {
-  // When running setup scripts, we are session-capable, so the path
-  // is the bind-mounted location, rather than the original location.
-  if (get_fs_union_configured())
-    return chroot_fs_union::get_path();
-  if (get_run_setup_scripts() == true)
-    return get_mount_location();
-  else
-    return get_directory();
+  return get_mount_location();
 }
 
 void
 chroot_directory::setup_env (environment& env)
 {
+  chroot::setup_env(env);
   chroot_fs_union::setup_env(env);
   chroot_plain::setup_env(env);
 }
@@ -116,6 +175,7 @@ chroot_directory::get_session_flags () const
 void
 chroot_directory::get_details (format_detail& detail) const
 {
+  chroot::get_details(detail);
   chroot_fs_union::get_details(detail);
   chroot_plain::get_details(detail);
 }
@@ -123,6 +183,7 @@ chroot_directory::get_details (format_detail& detail) const
 void
 chroot_directory::get_keyfile (keyfile& keyfile) const
 {
+  chroot::get_keyfile(keyfile);
   chroot_fs_union::get_keyfile(keyfile);
   chroot_plain::get_keyfile(keyfile);
 }
@@ -131,6 +192,7 @@ void
 chroot_directory::set_keyfile (keyfile const& keyfile,
 			      string_list&   used_keys)
 {
+  chroot::set_keyfile(keyfile, used_keys);
   chroot_fs_union::set_keyfile(keyfile, used_keys);
   chroot_plain::set_keyfile(keyfile, used_keys);
 }
