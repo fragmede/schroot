@@ -40,7 +40,7 @@ namespace
   emap init_errors[] =
     {
       // TRANSLATORS: %1% = chroot fs type
-      emap(chroot_fs_union::FS_TYPE_UNKNOWN,     N_("Unknown filesystem type '%1%'"))
+      emap(chroot_fs_union::FS_TYPE_UNKNOWN, N_("Unknown filesystem type '%1%'"))
     };
 }
 
@@ -75,7 +75,7 @@ chroot_fs_union::get_overlay_session_directory () const
 }
 
 void
-chroot_fs_union::set_overlay_session_directory 
+chroot_fs_union::set_overlay_session_directory
 (std::string const& overlay_session_directory)
 {
   if (!is_absname(overlay_session_directory))
@@ -108,7 +108,7 @@ chroot_fs_union::get_fs_union_branch_config () const
 }
 
 void
-chroot_fs_union::set_fs_union_branch_config 
+chroot_fs_union::set_fs_union_branch_config
 (std::string const& fs_union_branch_config)
 {
   this->fs_union_branch_config = fs_union_branch_config;
@@ -123,9 +123,9 @@ chroot_fs_union::setup_env (environment& env)
   env.add("CHROOT_FS_UNION_TYPE", get_fs_union_type());
   if (get_fs_union_configured())
     {
-      env.add("CHROOT_FS_UNION_OVERLAY_DIRECTORY", 
+      env.add("CHROOT_FS_UNION_OVERLAY_DIRECTORY",
         get_overlay_session_directory());
-      env.add("CHROOT_FS_UNION_BRANCH_CONFIG", 
+      env.add("CHROOT_FS_UNION_BRANCH_CONFIG",
         get_fs_union_branch_config());
     }
 }
@@ -133,10 +133,7 @@ chroot_fs_union::setup_env (environment& env)
 std::string
 chroot_fs_union::get_path() const
 {
-  if (get_fs_union_configured())
-    return get_mount_location();
-  else
-    return chroot::get_path();
+  return get_mount_location();
 }
 
 sbuild::chroot::session_flags
@@ -144,7 +141,7 @@ chroot_fs_union::get_session_flags () const
 {
   std::string type = get_fs_union_type();
   if (get_run_setup_scripts() == true) {
-    if (get_fs_union_configured()) 
+    if (get_fs_union_configured())
       return SESSION_CREATE | chroot_source::get_session_flags();
     else
       return SESSION_CREATE;
@@ -163,7 +160,7 @@ chroot_fs_union::get_details (format_detail& detail) const
     detail.add(_("Filesystem union overlay directory"),
       get_overlay_session_directory());
   if (!this->fs_union_branch_config.empty())
-    detail.add(_("Filesystem union branch config"), 
+    detail.add(_("Filesystem union branch config"),
       get_fs_union_branch_config());
 }
 
@@ -176,14 +173,14 @@ chroot_fs_union::get_keyfile (keyfile& keyfile) const
   keyfile::set_object_value(*this, &chroot_fs_union::get_fs_union_type,
 			    keyfile, get_name(), "fs-union-type");
 
-  keyfile::set_object_value(*this, 
+  keyfile::set_object_value(*this,
 			    &chroot_fs_union::get_fs_union_branch_config,
 			    keyfile, get_name(), "fs-union-branch-config");
 
   if (get_active())
-    keyfile::set_object_value(*this, 
+    keyfile::set_object_value(*this,
 			      &chroot_fs_union::get_overlay_session_directory,
-			      keyfile, get_name(), 
+			      keyfile, get_name(),
 			      "fs-union-overlay-session-directory");
 }
 
@@ -199,16 +196,16 @@ chroot_fs_union::set_keyfile (keyfile const& keyfile,
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("fs-union-type");
 
-  keyfile::get_object_value(*this, 
+  keyfile::get_object_value(*this,
 			    &chroot_fs_union::set_fs_union_branch_config,
 			    keyfile, get_name(), "fs-union-branch-config",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("fs-union-branch-config");
 
   if (get_active())
-    keyfile::get_object_value(*this, 
+    keyfile::get_object_value(*this,
 			      &chroot_fs_union::set_overlay_session_directory,
-			      keyfile, get_name(), 
+			      keyfile, get_name(),
 			      "fs-union-overlay-session-directory",
 			      (get_fs_union_configured() ?
 			       keyfile::PRIORITY_REQUIRED :
