@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright © 2005-2007  Roger Leigh <rleigh@debian.org>
+# Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -44,12 +44,7 @@ do_mount()
 	return 1
     fi
 
-    set +e
     mount $VERBOSE $1 "$2" "$3"
-    RESULT=$?
-    set -e
-
-    return $RESULT
 }
 
 # Unmount all filesystems under specified location
@@ -74,53 +69,36 @@ do_umount_all()
 # $1: read-only branch
 do_mount_fs_union()
 {
-    MOUNT_RES=255
-
     # Try mounting the filesystem module
-    if ! grep -q "${CHROOT_FS_UNION_TYPE}$" /proc/filesystems; then
-	set +e
-	modprobe ${CHROOT_FS_UNION_TYPE} &> /dev/null
-	set -e
+    if ! grep -q "${CHROOT_UNION_TYPE}$" /proc/filesystems; then
+	modprobe ${CHROOT_UNION_TYPE} &> /dev/null || true
     fi
 
     # Skip fs if not available
-    if ! grep -q "${CHROOT_FS_UNION_TYPE}$" /proc/filesystems; then
+    if ! grep -q "${CHROOT_UNION_TYPE}$" /proc/filesystems; then
 	# branch config just works with the first fs
-	CHROOT_FS_UNION_BRANCH_CONFIG=""
+	CHROOT_UNION_MOUNT_OPTIONS=""
 	continue
     fi
 
     # Prepare branch config for fs type
-    if [ "x" = "x${CHROOT_FS_UNION_BRANCH_CONFIG}" ]; then
-	case $CHROOT_FS_UNION_TYPE in
-	unionfs)
-	    CHROOT_FS_UNION_BRANCH_CONFIG="dirs=${CHROOT_FS_UNION_OVERLAY_DIRECTORY}=rw,${1}=ro"
-	    ;;
-	aufs)
-	    CHROOT_FS_UNION_BRANCH_CONFIG="br:${CHROOT_FS_UNION_OVERLAY_DIRECTORY}:${1}=ro"
-	    ;;
+    if [ -z "$CHROOT_UNION_MOUNT_OPTIONS" ]; then
+	case $CHROOT_UNION_TYPE in
+	    unionfs)
+		CHROOT_UNION_MOUNT_OPTIONS="dirs=${CHROOT_UNION_OVERLAY_DIRECTORY}=rw,${1}=ro"
+		;;
+	    aufs)
+		CHROOT_UNION_MOUNT_OPTIONS="br:${CHROOT_UNION_OVERLAY_DIRECTORY}:${1}=ro"
+		;;
 	esac
     fi
 
-    # Try mounting fs
-    set +e
-    mount -t $CHROOT_FS_UNION_TYPE -o "$CHROOT_FS_UNION_BRANCH_CONFIG" ${CHROOT_NAME} ${CHROOT_MOUNT_LOCATION}
-    MOUNT_RES=$?
-    set -e
-    if [ 0 -eq $MOUNT_RES ]; then
-	break
-    fi
-
-    if [ 0 -ne $MOUNT_RES ]; then
-	echo "Mounting filesystem union failed"
-	return 1
-    fi
-
     if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-	echo "Using '$CHROOT_FS_UNION_TYPE' for filesystem union"
+	echo "Using '$CHROOT_UNION_TYPE' for filesystem union"
     fi
 
-    return 0
+    # Try mounting fs
+    mount -t $CHROOT_UNION_TYPE -o "$CHROOT_UNION_MOUNT_OPTIONS" ${CHROOT_NAME} ${CHROOT_MOUNT_LOCATION}
 }
 
 if [ "$AUTH_VERBOSITY" = "verbose" ]; then
@@ -130,7 +108,7 @@ fi
 
 if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "loopback" ] || [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 
-    if [ "xnone" != "x${CHROOT_FS_UNION_TYPE:-none}" ] \
+    if [ "${CHROOT_UNION_TYPE:-none}" != "none" ] \
 	&& [ "$CHROOT_SESSION_PURGE" = "true" ];
     then
 	CREATE_FS_UNION="yes"
@@ -141,11 +119,11 @@ if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROO
     if [ "$CHROOT_TYPE" = "plain" ]; then
 	CHROOT_MOUNT_OPTIONS="--rbind"
 	CHROOT_MOUNT_DEVICE="$CHROOT_DIRECTORY"
-	CHROOT_FS_UNION_RO_BRANCH="$CHROOT_DIRECTORY"
+	CHROOT_UNION_RO_BRANCH="$CHROOT_DIRECTORY"
     elif [ "$CHROOT_TYPE" = "directory" ]; then
 	CHROOT_MOUNT_OPTIONS="--bind"
 	CHROOT_MOUNT_DEVICE="$CHROOT_DIRECTORY"
-	CHROOT_FS_UNION_RO_BRANCH="$CHROOT_DIRECTORY"
+	CHROOT_UNION_RO_BRANCH="$CHROOT_DIRECTORY"
     elif [ "$CHROOT_TYPE" = "file" ]; then
 	UNPACK_LOCATION="${UNPACK_DIR}/${SESSION_ID}"
 	CHROOT_MOUNT_OPTIONS="--bind"
@@ -174,15 +152,9 @@ if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROO
 	fi
 
 	if [ "xyes" = "x${CREATE_FS_UNION}" ]; then
-	    if ! do_mount_fs_union "$CHROOT_FS_UNION_RO_BRANCH"
-	    then
-		exit 1
-	    fi
+	    do_mount_fs_union "$CHROOT_UNION_RO_BRANCH"
 	else
-	    if ! do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
-	    then
-		exit 1
-	    fi
+	    do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
 	fi
 
 	if [ "$CHROOT_TYPE" != "plain" ]; then
@@ -200,6 +172,7 @@ if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROO
     elif [ $1 = "setup-stop" ]; then
 
 	do_umount_all "$CHROOT_MOUNT_LOCATION"
+	do_umount_all "$CHROOT_UNION_UNDERLAY_DIRECTORY"
 
 	if [ "$CHROOT_TYPE" != "file" ]; then
 	    if echo "$CHROOT_MOUNT_LOCATION" | grep -q "^$MOUNT_DIR/"; then

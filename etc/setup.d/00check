@@ -50,10 +50,10 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 	echo "CHROOT_MOUNT_LOCATION=$CHROOT_MOUNT_LOCATION"
 	echo "CHROOT_LOCATION=$CHROOT_LOCATION"
 	echo "CHROOT_PATH=$CHROOT_PATH"
-	if [ -n "$CHROOT_FS_UNION_TYPE" ] && [ "$CHROOT_FS_UNION_TYPE" != "none" ]; then
-	    echo "CHROOT_FS_UNION_TYPE=$CHROOT_FS_UNION_TYPE"
-	    echo "CHROOT_FS_UNION_OVERLAY_DIRECTORY=$CHROOT_FS_UNION_OVERLAY_DIRECTORY"
-	    echo "CHROOT_FS_UNION_UNDERLAY_DIRECTORY=$CHROOT_FS_UNION_UNDERLAY_DIRECTORY"
+	if [ -n "$CHROOT_UNION_TYPE" ] && [ "$CHROOT_UNION_TYPE" != "none" ]; then
+	    echo "CHROOT_UNION_TYPE=$CHROOT_UNION_TYPE"
+	    echo "CHROOT_UNION_OVERLAY_DIRECTORY=$CHROOT_UNION_OVERLAY_DIRECTORY"
+	    echo "CHROOT_UNION_UNDERLAY_DIRECTORY=$CHROOT_UNION_UNDERLAY_DIRECTORY"
 	fi
 	if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ]; then
 	    echo "CHROOT_DIRECTORY=$CHROOT_DIRECTORY"
@@ -83,11 +83,17 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 		echo "Directory '$CHROOT_DIRECTORY' does not exist"
 		exit 1
 	    fi
-	    if [ "$CHROOT_FS_UNION_TYPE" != "none" ]; then
-		if [ ! -d "$CHROOT_FS_UNION_OVERLAY_DIRECTORY" ] \
+	    if [ "$CHROOT_UNION_TYPE" != "none" ]; then
+		if [ ! -d "$CHROOT_UNION_OVERLAY_DIRECTORY" ] \
 		    && [ $1 = "setup-recover" ];
 		then
-		    echo "Directory '$CHROOT_FS_UNION_OVERLAY_DIRECTORY' does not exist"
+		    echo "Directory '$CHROOT_UNION_OVERLAY_DIRECTORY' does not exist"
+		    exit 1
+		fi
+		if [ ! -d "$CHROOT_UNION_UNDERLAY_DIRECTORY" ] \
+		    && [ $1 = "setup-recunder" ];
+		then
+		    echo "Directory '$CHROOT_UNION_UNDERLAY_DIRECTORY' does not exist"
 		    exit 1
 		fi
 	    fi
@@ -115,7 +121,7 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
     if [ -z "$CHROOT_PATH" ] \
 	|| [ "$CHROOT_PATH" = "/" ] \
 	|| [ "$CHROOT_DIRECTORY" = "/" ] \
-	|| [ "$CHROOT_FS_UNION_OVERLAY_DIRECTORY" = "/" ]
+	|| [ "$CHROOT_UNION_OVERLAY_DIRECTORY" = "/" ]
     then
 	echo "Invalid chroot mount path or directory"
 	exit 1

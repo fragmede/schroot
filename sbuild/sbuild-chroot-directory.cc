@@ -33,7 +33,7 @@ using namespace sbuild;
 
 chroot_directory::chroot_directory ():
   chroot_plain(),
-  chroot_fs_union(),
+  chroot_union(),
   is_source(false),
   source_users(),
   source_groups(),
@@ -58,7 +58,7 @@ chroot_directory::clone_source () const
 {
   ptr clone;
 
-  if (get_fs_union_configured()) {
+  if (get_union_configured()) {
     clone = ptr(new chroot_directory(*this));
     chroot_source::clone_source_setup(clone);
   }
@@ -136,7 +136,7 @@ void
 chroot_directory::setup_env (environment& env)
 {
   chroot::setup_env(env);
-  chroot_fs_union::setup_env(env);
+  chroot_union::setup_env(env);
   chroot_plain::setup_env(env);
 }
 
@@ -165,8 +165,8 @@ chroot_directory::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_directory::get_session_flags () const
 {
-  if (get_fs_union_configured())
-    return chroot_fs_union::get_session_flags();
+  if (get_union_configured())
+    return chroot_union::get_session_flags();
   if (get_run_setup_scripts() == true)
     return SESSION_CREATE;
   return SESSION_NOFLAGS;
@@ -176,7 +176,7 @@ void
 chroot_directory::get_details (format_detail& detail) const
 {
   chroot::get_details(detail);
-  chroot_fs_union::get_details(detail);
+  chroot_union::get_details(detail);
   chroot_plain::get_details(detail);
 }
 
@@ -184,7 +184,7 @@ void
 chroot_directory::get_keyfile (keyfile& keyfile) const
 {
   chroot::get_keyfile(keyfile);
-  chroot_fs_union::get_keyfile(keyfile);
+  chroot_union::get_keyfile(keyfile);
   chroot_plain::get_keyfile(keyfile);
 }
 
@@ -193,6 +193,6 @@ chroot_directory::set_keyfile (keyfile const& keyfile,
 			      string_list&   used_keys)
 {
   chroot::set_keyfile(keyfile, used_keys);
-  chroot_fs_union::set_keyfile(keyfile, used_keys);
+  chroot_union::set_keyfile(keyfile, used_keys);
   chroot_plain::set_keyfile(keyfile, used_keys);
 }

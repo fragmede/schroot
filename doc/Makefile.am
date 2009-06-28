@@ -60,7 +60,9 @@ CLEANFILES =		\
 	schroot.ps	\
 	schroot.pdf	\
 	sbuild-stamp	\
-	schroot-stamp
+	schroot-stamp	\
+	sbuild.log	\
+	schroot.log
 
 clean-local:
 	$(RM) -r sbuild

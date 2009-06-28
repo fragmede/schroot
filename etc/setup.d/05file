@@ -118,7 +118,9 @@ if [ "$CHROOT_TYPE" = "file" ]; then
 	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 		echo "Purging $UNPACK_LOCATION"
 	    fi
-	    rm -rf "$UNPACK_LOCATION"
+	    if [ -d "$UNPACK_LOCATION" ]; then
+		rm -rf "$UNPACK_LOCATION"
+	    fi
 	fi
 
     fi

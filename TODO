@@ -91,3 +91,6 @@ have
 
 file: Set full unpack dir with session ID like LVM snapshot.
 
+* Add a read-only mount option for union underlay (both for
+  devices and bind mounts).
+

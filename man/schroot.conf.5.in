@@ -264,8 +264,8 @@ Some chroots implement device mounting.  These are chroots which require the
 mounting of a device in order to access the chroot.  These chroots provide the
 following additional options:
 .TP
-\f[CBI]mount-options=\fP\f[CI]mount_options\fP Mount options for the block
-device.  These are additional options to pass to
+\f[CBI]mount\-options=\fP\f[CI]options\fP
+Mount options for the block device.  These are additional options to pass to
 .BR mount (8).
 For example, \[lq]\-o atime,sync,user_xattr\[rq].
 .TP
@@ -276,31 +276,43 @@ specify \[lq]/chroot/sid\[rq] here.  If the chroot is the only thing on the
 filesystem, i.e. \fI/\fP is the root filesystem for the chroot, this option
 should be left blank, or omitted entirely.
 .SS Filesystem Union chroot options
-Some chroots allow to create a session using filesystem unions to overlay the
-real data and redirect all modifications to a session-dependant directory.
-To activate this feature you have to set the \f[CI]fs-union-type\fP to any
-supported value.  If \[lq]\fIFilesystem Union\fP\[rq] is enabled the chroot
-will also be a \fBsource chroot\fP, which wil provide additional options
-(see \[lq]\fISource chroot options\fP\[rq], above).  All entries are optional.
+Some chroots allow for the creation of a session using filesystem unions to
+overlay the original filesystem with a separate writable directory.  The
+original filesystem is read-only, with any modifications made to the filesystem
+made in the overlying writable directory, leaving the original filesystem
+unchanged.  A union permits multiple sessions to access and make changes to a
+single chroot simultaneously, while keeping the changes private to each
+session.  To activate this feature, set \f[CI]union\-type\fP to any supported
+value.  If \[lq]\fIFilesystem Union\fP\[rq] is enabled the chroot will also be
+a \fBsource chroot\fP, which wil provide additional options (see \[lq]\fISource
+chroot options\fP\[rq], above).  All entries are optional.
 .TP
-\f[CBI]fs-union-type=\fP\f[CI]type\fP
-Allows to set the used filesystem.  This is especially important, if you use
-the \fIfs-branch-config\fP option to specify different options.  Currently
-supported filesystems are \[oq]aufs\[cq] and \[oq]unionfs\[cq].  Default is 
-\[oq]none\[cq], so this feature is disabled.
+\f[CBI]union\-type=\fP\f[CI]type\fP
+Set the union filesystem type.  Currently supported filesystems are
+\[oq]aufs\[cq] and \[oq]unionfs\[cq].  The default is \[oq]none\[cq], which
+disables this feature.
 .TP
-\f[CBI]fs-union-branch-config=\fP\f[CI]branch_config\fP
-The branch configuration is used for the first filesystem in the 
-\fIfs-union-type\fP filesystem list.  It replaces the complete \[lq]\-o\[rq] 
-string for mount and allows to make complex filesystem unions.
+\f[CBI]union\-mount\-options=\fP\f[CI]options\fP
+Union filesystem mount options (branch configuration), used for mounting the
+union filesystem specified with \fIunion\-type\fP.  This replaces the complete
+\[lq]\-o\[rq] string for mount and allows for the creation of complex
+filesystem unions.  Note that \[oq]aufs\[cq] and \[oq]unionfs\[cq] have
+different supported mount options.
 .B Note:
-You can use the variables \[lq]${CHROOT_FS_UNION_OVERLAY_DIRECTORY}\[rq] and
-\[lq]${CHROOT_LOCATION}\[rq] in this option string, which will be replaced
-with the writeable session directory and the source-chroot directory.
+One can use the variables \[lq]${CHROOT_UNION_OVERLAY_DIRECTORY}\[rq] and
+\[lq]${CHROOT_UNION_UNDERLAY_DIRECTORY}\[rq] to refer to the writable overlay
+session directory and read-only underlying directory which are to form the
+union.  See
+.BR schroot\-setup (5)
+for a complete variable list.
 .TP
-\f[CBI]fs-union-overlay-base=directory
-This specifies the base directory, where the session writeable directories
-will be created. Default is \[oq]@SCHROOT_OVERLAY_DIR@\[cq].
+\f[CBI]union\-overlay\-directory\fP\f[CI]=directory\fP
+Specify the directory where the writeable overlay session directories will be
+created.  The default is \[oq]@SCHROOT_OVERLAY_DIR@\[cq].
+.TP
+\f[CBI]union\-underlay\-directory\fP\f[CI]=directory\fP
+Specify the directory where the read-only underlying directories will be
+created.  The default is \[oq]@SCHROOT_UNDERLAY_DIR@\[cq].
 .SS Localisation
 .PP
 Some keys may be localised in multiple languages.  This is achieved by adding

@@ -128,6 +128,19 @@ Options to pass to
 CHROOT_LOCATION
 The location of the chroot inside the mount point.  This allows the existence
 of multiple chroots on a single filesystem.
+.SS Filesystem union variables
+.TP
+CHROOT_UNION_TYPE
+Union filesystem type.
+.TP
+CHROOT_UNION_MOUNT_OPTIONS
+Union filesystem mount options.
+.TP
+CHROOT_UNION_OVERLAY_DIRECTORY
+Union filesystem overlay directory (writable).
+.TP
+CHROOT_UNION_UNDERLAY_DIRECTORY
+Union filesystem underlay directory (read-only).
 .SS Block device variables
 .TP
 CHROOT_DEVICE
@@ -155,6 +168,9 @@ Print debugging diagnostics and perform basic sanity checking.
 .TP
 \f[BI]05file\fP
 Unpack, clean up, and repack file-based chroots.
+.TP
+\f[BI]05fsunion\fP
+Create and remove union filesystems.
 .TP
 \f[BI]05lvm\fP
 Create and remove LVM snapshots.

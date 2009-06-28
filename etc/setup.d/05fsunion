@@ -23,26 +23,36 @@ if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
     . "$CHROOT_SCRIPT_CONFIG"
 fi
 
-if [ "xnone" != "x${CHROOT_FS_UNION_TYPE:-none}" ]; then
+if [ "${CHROOT_UNION_TYPE}" != 'none' ]; then
 
     if [ $1 = "setup-start" ]; then
-	if [ "$CHROOT_SESSION_PURGE" = "true" ]; then
-		mkdir "${CHROOT_FS_UNION_OVERLAY_DIRECTORY}"
-	fi
+	mkdir "${CHROOT_UNION_OVERLAY_DIRECTORY}"
+	mkdir "${CHROOT_UNION_UNDERLAY_DIRECTORY}"
 
     elif [ $1 = "setup-recover" ]; then
-        if [ ! -d "${CHROOT_FS_UNION_OVERLAY_DIRECTORY}" ]; then
+        if [ ! -d "${CHROOT_UNION_OVERLAY_DIRECTORY}" ]; then
 	    echo "Missing overlay directory for session - can't restore"
+	    exit 1
+        fi
+        if [ ! -d "${CHROOT_UNION_UNDERLAY_DIRECTORY}" ]; then
+	    echo "Missing underlay directory for session - can't restore"
 	    exit 1
         fi
 
     elif [ $1 = "setup-stop" ]; then
         if [ "$CHROOT_SESSION_PURGE" = "true" ]; then
 	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-		echo "Purging $CHROOT_FS_UNION_OVERLAY_DIRECTORY"
+		echo "Purging $CHROOT_UNION_OVERLAY_DIRECTORY"
 	    fi
-	    if [ -d "${CHROOT_FS_UNION_OVERLAY_DIRECTORY}" ]; then
-		rm -rf "${CHROOT_FS_UNION_OVERLAY_DIRECTORY}"
+	    if [ -d "${CHROOT_UNION_OVERLAY_DIRECTORY}" ]; then
+		rm -rf "${CHROOT_UNION_OVERLAY_DIRECTORY}"
+	    fi
+
+	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+		echo "Purging $CHROOT_UNION_UNDERLAY_DIRECTORY"
+	    fi
+	    if [ -d "${CHROOT_UNION_UNDERLAY_DIRECTORY}" ]; then
+		rm -rf "${CHROOT_UNION_UNDERLAY_DIRECTORY}"
 	    fi
 	fi
     fi

@@ -98,7 +98,7 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
-    expected.add("CHROOT_FS_UNION_TYPE",  "none");
+    expected.add("CHROOT_UNION_TYPE",  "none");
 
     test_chroot_base<chroot_directory>::test_setup_env(expected);
   }
@@ -106,7 +106,9 @@ public:
   void test_setup_env_fsunion()
   {
     sbuild::chroot_directory *c = dynamic_cast<sbuild::chroot_directory *>(chroot.get());
-    c->set_fs_union_type("aufs");
+    c->set_union_type("aufs");
+    c->set_union_overlay_directory("/overlay");
+    c->set_union_underlay_directory("/underlay");
 
     sbuild::environment expected;
     expected.add("CHROOT_TYPE",           "directory");
@@ -119,7 +121,9 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "true");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
-    expected.add("CHROOT_FS_UNION_TYPE",  "aufs");
+    expected.add("CHROOT_UNION_TYPE",     "aufs");
+    expected.add("CHROOT_UNION_OVERLAY_DIRECTORY",  "/overlay");
+    expected.add("CHROOT_UNION_UNDERLAY_DIRECTORY",  "/underlay");
 
     test_chroot_base<chroot_directory>::test_setup_env(expected);
   }
