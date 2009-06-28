@@ -53,6 +53,7 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 	if [ -n "$CHROOT_FS_UNION_TYPE" ] && [ "$CHROOT_FS_UNION_TYPE" != "none" ]; then
 	    echo "CHROOT_FS_UNION_TYPE=$CHROOT_FS_UNION_TYPE"
 	    echo "CHROOT_FS_UNION_OVERLAY_DIRECTORY=$CHROOT_FS_UNION_OVERLAY_DIRECTORY"
+	    echo "CHROOT_FS_UNION_UNDERLAY_DIRECTORY=$CHROOT_FS_UNION_UNDERLAY_DIRECTORY"
 	fi
 	if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ]; then
 	    echo "CHROOT_DIRECTORY=$CHROOT_DIRECTORY"

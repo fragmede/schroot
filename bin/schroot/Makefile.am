@@ -56,4 +56,5 @@ install-data-hook:
 	$(mkinstalldirs) $(DESTDIR)$(SCHROOT_SESSION_DIR)
 	$(mkinstalldirs) $(DESTDIR)$(SCHROOT_FILE_UNPACK_DIR)
 	$(mkinstalldirs) $(DESTDIR)$(SCHROOT_OVERLAY_DIR)
+	$(mkinstalldirs) $(DESTDIR)$(SCHROOT_UNDERLAY_DIR)
 
