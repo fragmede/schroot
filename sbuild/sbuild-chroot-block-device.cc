@@ -33,6 +33,9 @@ using namespace sbuild;
 
 chroot_block_device::chroot_block_device ():
   chroot_block_device_base()
+#ifdef SBUILD_FEATURE_UNION
+  , chroot_union()
+#endif // SBUILD_FEATURE_UNION
 {
 }
 
@@ -54,4 +57,129 @@ sbuild::chroot::ptr
 chroot_block_device::clone () const
 {
   return ptr(new chroot_block_device(*this));
+}
+
+#ifdef SBUILD_FEATURE_UNION
+sbuild::chroot::ptr
+chroot_block_device::clone_source () const
+{
+  ptr clone;
+
+#ifdef SBUILD_FEATURE_UNION
+  if (get_union_configured()) {
+    clone = ptr(new chroot_block_device(*this));
+    chroot_source::clone_source_setup(clone);
+  }
+#endif // SBUILD_FEATURE_UNION
+
+  return ptr(clone);
+}
+
+string_list const&
+chroot_block_device::get_source_users () const
+{
+  return this->source_users;
+}
+
+void
+chroot_block_device::set_source_users (string_list const& source_users)
+{
+  this->source_users = source_users;
+}
+
+string_list const&
+chroot_block_device::get_source_groups () const
+{
+  return this->source_groups;
+}
+
+void
+chroot_block_device::set_source_groups (string_list const& source_groups)
+{
+  this->source_groups = source_groups;
+}
+
+string_list const&
+chroot_block_device::get_source_root_users () const
+{
+  return this->source_root_users;
+}
+
+void
+chroot_block_device::set_source_root_users (string_list const& users)
+{
+  this->source_root_users = users;
+}
+
+string_list const&
+chroot_block_device::get_source_root_groups () const
+{
+  return this->source_root_groups;
+}
+
+void
+chroot_block_device::set_source_root_groups (string_list const& groups)
+{
+  this->source_root_groups = groups;
+}
+
+bool
+chroot_block_device::get_source () const
+{
+  return this->is_source;
+}
+
+void
+chroot_block_device::set_source (bool source)
+{
+  this->is_source = source;
+}
+#endif // SBUILD_FEATURE_UNION
+
+void
+chroot_block_device::setup_env (environment& env)
+{
+  chroot_block_device_base::setup_env(env);
+#ifdef SBUILD_FEATURE_UNION
+  chroot_union::setup_env(env);
+#endif // SBUILD_FEATURE_UNION
+}
+
+sbuild::chroot::session_flags
+chroot_block_device::get_session_flags () const
+{
+  return chroot_block_device_base::get_session_flags()
+#ifdef SBUILD_FEATURE_UNION
+    | chroot_union::get_session_flags()
+#endif // SBUILD_FEATURE_UNION
+    ;
+}
+
+void
+chroot_block_device::get_details (format_detail& detail) const
+{
+  chroot_block_device_base::get_details(detail);
+#ifdef SBUILD_FEATURE_UNION
+  chroot_union::get_details(detail);
+#endif // SBUILD_FEATURE_UNION
+}
+
+void
+chroot_block_device::get_keyfile (keyfile& keyfile) const
+{
+  chroot_block_device_base::get_keyfile(keyfile);
+  chroot_mountable::get_keyfile(keyfile);
+#ifdef SBUILD_FEATURE_UNION
+  chroot_union::get_keyfile(keyfile);
+#endif // SBUILD_FEATURE_UNION
+}
+
+void
+chroot_block_device::set_keyfile (keyfile const& keyfile,
+				  string_list&   used_keys)
+{
+  chroot_block_device_base::set_keyfile(keyfile, used_keys);
+#ifdef SBUILD_FEATURE_UNION
+  chroot_union::set_keyfile(keyfile, used_keys);
+#endif // SBUILD_FEATURE_UNION
 }
