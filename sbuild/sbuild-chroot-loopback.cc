@@ -172,6 +172,7 @@ chroot_loopback::get_chroot_type () const
 void
 chroot_loopback::setup_env (environment& env)
 {
+  chroot::setup_env(env);
   chroot_mountable::setup_env(env);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::setup_env(env);
