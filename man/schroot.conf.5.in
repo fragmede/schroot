@@ -189,12 +189,14 @@ Loopback chroots
 .PP
 Chroots of type \[oq]loopback\[cq] are a filesystem available as a file on
 disk, accessed via a loopback mount.  The file will be loopback mounted and
-unmounted on demand.  They implement the \fBmountable chroot\fP options (see
-\[lq]\fIMountable chroot options\fP\[rq], below), plus an additional option:
+unmounted on demand.  They implement the \fBmountable chroot\fP and
+\fBfilesystem union chroot\fP options (see \[lq]\fIMountable chroot
+options\fP\[rq] and \[lq]\fIFilesystem Union chroot options\fP\[rq], below),
+plus an additional option:
 .TP
-\f[CBI]file=\fP\f[CI]file\fP This is the filename of the file containing the
-filesystem, including the absolute path.  For example,
-\[lq]/srv/chroot/sid\[rq].
+\f[CBI]file=\fP\f[CI]filename\fP
+This is the filename of the file containing the filesystem, including the
+absolute path.  For example \[lq]/srv/chroot/sid\[rq].
 .SS
 Block device chroots
 .PP

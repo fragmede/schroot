@@ -34,6 +34,9 @@ using namespace sbuild;
 chroot_loopback::chroot_loopback ():
   chroot(),
   chroot_mountable(),
+#ifdef SBUILD_FEATURE_UNION
+  chroot_union(),
+#endif // SBUILD_FEATURE_UNION
   file()
 {
 }
@@ -47,6 +50,83 @@ chroot_loopback::clone () const
 {
   return ptr(new chroot_loopback(*this));
 }
+
+#ifdef SBUILD_FEATURE_UNION
+sbuild::chroot::ptr
+chroot_loopback::clone_source () const
+{
+  ptr clone;
+
+#ifdef SBUILD_FEATURE_UNION
+  if (get_union_configured()) {
+    clone = ptr(new chroot_loopback(*this));
+    chroot_source::clone_source_setup(clone);
+  }
+#endif // SBUILD_FEATURE_UNION
+
+  return ptr(clone);
+}
+
+string_list const&
+chroot_loopback::get_source_users () const
+{
+  return this->source_users;
+}
+
+void
+chroot_loopback::set_source_users (string_list const& source_users)
+{
+  this->source_users = source_users;
+}
+
+string_list const&
+chroot_loopback::get_source_groups () const
+{
+  return this->source_groups;
+}
+
+void
+chroot_loopback::set_source_groups (string_list const& source_groups)
+{
+  this->source_groups = source_groups;
+}
+
+string_list const&
+chroot_loopback::get_source_root_users () const
+{
+  return this->source_root_users;
+}
+
+void
+chroot_loopback::set_source_root_users (string_list const& users)
+{
+  this->source_root_users = users;
+}
+
+string_list const&
+chroot_loopback::get_source_root_groups () const
+{
+  return this->source_root_groups;
+}
+
+void
+chroot_loopback::set_source_root_groups (string_list const& groups)
+{
+  this->source_root_groups = groups;
+}
+
+bool
+chroot_loopback::get_source () const
+{
+  return this->is_source;
+}
+
+void
+chroot_loopback::set_source (bool source)
+{
+  this->is_source = source;
+}
+#endif // SBUILD_FEATURE_UNION
 
 std::string const&
 chroot_loopback::get_file () const
@@ -92,8 +172,10 @@ chroot_loopback::get_chroot_type () const
 void
 chroot_loopback::setup_env (environment& env)
 {
-  chroot::setup_env(env);
   chroot_mountable::setup_env(env);
+#ifdef SBUILD_FEATURE_UNION
+  chroot_union::setup_env(env);
+#endif // SBUILD_FEATURE_UNION
 
   env.add("CHROOT_FILE", get_file());
 }
@@ -123,7 +205,11 @@ chroot_loopback::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_loopback::get_session_flags () const
 {
-  return SESSION_NOFLAGS | chroot_mountable::get_session_flags();
+  return chroot_mountable::get_session_flags()
+#ifdef SBUILD_FEATURE_UNION
+    | chroot_union::get_session_flags()
+#endif // SBUILD_FEATURE_UNION
+    ;
 }
 
 void
@@ -131,6 +217,9 @@ chroot_loopback::get_details (format_detail& detail) const
 {
   chroot::get_details(detail);
   chroot_mountable::get_details(detail);
+#ifdef SBUILD_FEATURE_UNION
+  chroot_union::get_details(detail);
+#endif // SBUILD_FEATURE_UNION
 
   if (!this->file.empty())
     detail.add(_("File"), get_file());
@@ -141,6 +230,9 @@ chroot_loopback::get_keyfile (keyfile& keyfile) const
 {
   chroot::get_keyfile(keyfile);
   chroot_mountable::get_keyfile(keyfile);
+#ifdef SBUILD_FEATURE_UNION
+  chroot_union::get_keyfile(keyfile);
+#endif // SBUILD_FEATURE_UNION
 
   keyfile::set_object_value(*this, &chroot_loopback::get_file,
 			    keyfile, get_keyfile_name(), "file");
@@ -152,6 +244,9 @@ chroot_loopback::set_keyfile (keyfile const& keyfile,
 {
   chroot::set_keyfile(keyfile, used_keys);
   chroot_mountable::set_keyfile(keyfile, used_keys);
+#ifdef SBUILD_FEATURE_UNION
+  chroot_union::set_keyfile(keyfile, used_keys);
+#endif // SBUILD_FEATURE_UNION
 
   keyfile::get_object_value(*this, &chroot_loopback::set_file,
 			    keyfile, get_keyfile_name(), "file",
