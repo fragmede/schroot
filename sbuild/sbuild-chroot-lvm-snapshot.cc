@@ -264,7 +264,11 @@ chroot_lvm_snapshot::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_lvm_snapshot::get_session_flags () const
 {
-  return SESSION_CREATE | chroot_source::get_session_flags();
+  session_flags flags = SESSION_CREATE | chroot_source::get_session_flags();
+  if (get_active())
+    flags = flags | SESSION_PURGE;
+
+  return flags;
 }
 
 void

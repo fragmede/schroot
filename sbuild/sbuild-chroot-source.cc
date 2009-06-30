@@ -72,14 +72,10 @@ chroot_source::get_session_flags () const
   const chroot *base = dynamic_cast<const chroot *>(this);
   assert(base != 0);
 
-  if (this->get_source())
-    // -source chroots are not clonable.
+  // Cloning is only possible for non-source and inactive chroots.
+  if (this->get_source() || base->get_active())
     return chroot::SESSION_NOFLAGS;
-  else if (base->get_active())
-    //Active chroots are already cloned, but need purging.
-    return chroot::SESSION_PURGE;
-  else // Inactive, not -source.
-    // Inactive chroots are clonable.
+  else
     return chroot::SESSION_CLONE;
 }
 
