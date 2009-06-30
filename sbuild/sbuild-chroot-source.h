@@ -65,7 +65,7 @@ namespace sbuild
      *
      * @param clone the chroot to set up.
      */
-    void
+    virtual void
     clone_source_setup (chroot::ptr& clone) const;
 
   public:
