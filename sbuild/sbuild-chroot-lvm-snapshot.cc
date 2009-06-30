@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include "sbuild-chroot-lvm-snapshot.h"
+#include "sbuild-chroot-block-device.h"
 #include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
 
@@ -32,7 +33,7 @@ using boost::format;
 using namespace sbuild;
 
 chroot_lvm_snapshot::chroot_lvm_snapshot ():
-  chroot_block_device(),
+  chroot_block_device_base(),
   chroot_source(),
   snapshot_device(),
   snapshot_options(),
@@ -174,7 +175,7 @@ chroot_lvm_snapshot::get_chroot_type () const
 void
 chroot_lvm_snapshot::setup_env (environment& env)
 {
-  chroot_block_device::setup_env(env);
+  chroot_block_device_base::setup_env(env);
   chroot_source::setup_env(env);
 
   env.add("CHROOT_LVM_SNAPSHOT_NAME", sbuild::basename(get_snapshot_device()));
@@ -269,7 +270,7 @@ chroot_lvm_snapshot::get_session_flags () const
 void
 chroot_lvm_snapshot::get_details (format_detail& detail) const
 {
-  chroot_block_device::get_details(detail);
+  chroot_block_device_base::get_details(detail);
   chroot_source::get_details(detail);
 
   if (!this->snapshot_device.empty())
@@ -281,7 +282,7 @@ chroot_lvm_snapshot::get_details (format_detail& detail) const
 void
 chroot_lvm_snapshot::get_keyfile (keyfile& keyfile) const
 {
-  chroot_block_device::get_keyfile(keyfile);
+  chroot_block_device_base::get_keyfile(keyfile);
   chroot_source::get_keyfile(keyfile);
 
   if (get_active())
@@ -296,7 +297,7 @@ void
 chroot_lvm_snapshot::set_keyfile (keyfile const& keyfile,
 				  string_list&   used_keys)
 {
-  chroot_block_device::set_keyfile(keyfile, used_keys);
+  chroot_block_device_base::set_keyfile(keyfile, used_keys);
   chroot_source::set_keyfile(keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_lvm_snapshot::set_snapshot_device,

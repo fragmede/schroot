@@ -19,8 +19,8 @@
 #ifndef SBUILD_CHROOT_BLOCK_DEVICE_H
 #define SBUILD_CHROOT_BLOCK_DEVICE_H
 
-#include <sbuild/sbuild-chroot.h>
-#include <sbuild/sbuild-chroot-mountable.h>
+#include <sbuild/sbuild-chroot-block-device-base.h>
+#include <sbuild/sbuild-chroot-lvm-snapshot.h>
 
 namespace sbuild
 {
@@ -30,14 +30,20 @@ namespace sbuild
    *
    * The device will be mounted on demand.
    */
-  class chroot_block_device : virtual public chroot,
-			      public chroot_mountable
+  class chroot_block_device : public chroot_block_device_base
   {
   protected:
     /// The constructor.
     chroot_block_device ();
 
+    /// The copy constructor.
+    chroot_block_device (const chroot_block_device& rhs);
+
+    /// The copy constructor.
+    chroot_block_device (const chroot_lvm_snapshot& rhs);
+
     friend class chroot;
+    friend class chroot_lvm_snapshot;
 
   public:
     /// The destructor.
@@ -45,64 +51,6 @@ namespace sbuild
 
     virtual chroot::ptr
     clone () const;
-
-    /**
-     * Get the block device of the chroot.
-     *
-     * @returns the device.
-     */
-    std::string const&
-    get_device () const;
-
-    /**
-     * Set the block device of the chroot.  This is the "source" device.
-     * It may be the case that the real device is different (for
-     * example, an LVM snapshot PV), but by default will be the device
-     * to mount.
-     *
-     * @param device the device.
-     */
-    void
-    set_device (std::string const& device);
-
-    virtual std::string
-    get_path () const;
-
-    std::string const&
-    get_chroot_type () const;
-
-    virtual void
-    setup_env (environment& env);
-
-    virtual session_flags
-    get_session_flags () const;
-
-    // Specialisation of the chroot_mountable interface
-    virtual void
-    set_mount_device (std::string const& mount_device);
-
-    virtual std::string const&
-    get_mount_device () const;
-
-  protected:
-    virtual void
-    setup_lock (chroot::setup_type type,
-		bool               lock,
-		int                status);
-
-    virtual void
-    get_details (format_detail& detail) const;
-
-    virtual void
-    get_keyfile (keyfile& keyfile) const;
-
-    virtual void
-    set_keyfile (keyfile const& keyfile,
-		 string_list&   used_keys);
-
-  private:
-    /// The block device to use.
-    std::string device;
   };
 
 }

@@ -31,7 +31,6 @@ sbuild_public_h_sources =		\
 	sbuild-auth.h			\
 	sbuild-auth-null.h		\
 	sbuild-chroot.h			\
-	sbuild-chroot-block-device.h	\
 	sbuild-chroot-directory.h	\
 	sbuild-chroot-file.h		\
 	sbuild-chroot-mountable.h	\
@@ -75,11 +74,15 @@ sbuild_public_auth_pam_h_sources =	\
 endif
 
 if BUILD_BLOCKDEV
+sbuild_public_blockdev_base_h_sources =	\
+	sbuild-chroot-block-device-base.h
 sbuild_public_blockdev_h_sources =	\
 	sbuild-chroot-block-device.h
 endif
 
 if BUILD_LVMSNAP
+sbuild_public_blockdev_base_h_sources =	\
+	sbuild-chroot-block-device-base.h
 sbuild_public_lvmsnap_h_sources =	\
 	sbuild-chroot-lvm-snapshot.h
 endif
@@ -130,11 +133,15 @@ sbuild_public_auth_pam_cc_sources =	\
 endif
 
 if BUILD_BLOCKDEV
+sbuild_public_blockdev_base_cc_sources =	\
+	sbuild-chroot-block-device-base.cc
 sbuild_public_blockdev_cc_sources =	\
 	sbuild-chroot-block-device.cc
 endif
 
 if BUILD_LVMSNAP
+sbuild_public_blockdev_base_cc_sources =	\
+	sbuild-chroot-block-device-base.cc
 sbuild_public_lvmsnap_cc_sources =	\
 	sbuild-chroot-lvm-snapshot.cc
 endif
@@ -151,25 +158,28 @@ endif
 
 pkgincludedir = $(includedir)/sbuild
 
-pkginclude_HEADERS =				\
-	$(sbuild_public_h_sources)		\
-	$(sbuild_public_blockdev_h_sources)	\
-	$(sbuild_public_lvmsnap_h_sources)	\
-	$(sbuild_public_loopback_h_sources)	\
+pkginclude_HEADERS =					\
+	$(sbuild_public_h_sources)			\
+	$(sbuild_public_blockdev_base_h_sources)	\
+	$(sbuild_public_blockdev_h_sources)		\
+	$(sbuild_public_lvmsnap_h_sources)		\
+	$(sbuild_public_loopback_h_sources)		\
 	$(sbuild_public_union_h_sources)
 
-libsbuild_la_SOURCES =				\
-	$(sbuild_public_h_sources)		\
-	$(sbuild_public_cc_sources)		\
-	$(sbuild_public_auth_pam_h_sources)	\
-	$(sbuild_public_auth_pam_cc_sources)	\
-	$(sbuild_public_blockdev_h_sources)	\
-	$(sbuild_public_blockdev_cc_sources)	\
-	$(sbuild_public_lvmsnap_h_sources)	\
-	$(sbuild_public_lvmsnap_cc_sources)	\
-	$(sbuild_public_loopback_h_sources)	\
-	$(sbuild_public_loopback_cc_sources)	\
-	$(sbuild_public_union_h_sources)	\
+libsbuild_la_SOURCES =					\
+	$(sbuild_public_h_sources)			\
+	$(sbuild_public_cc_sources)			\
+	$(sbuild_public_auth_pam_h_sources)		\
+	$(sbuild_public_auth_pam_cc_sources)		\
+	$(sbuild_public_blockdev_base_h_sources)	\
+	$(sbuild_public_blockdev_base_cc_sources)	\
+	$(sbuild_public_blockdev_h_sources)		\
+	$(sbuild_public_blockdev_cc_sources)		\
+	$(sbuild_public_lvmsnap_h_sources)		\
+	$(sbuild_public_lvmsnap_cc_sources)		\
+	$(sbuild_public_loopback_h_sources)		\
+	$(sbuild_public_loopback_cc_sources)		\
+	$(sbuild_public_union_h_sources)		\
 	$(sbuild_public_union_cc_sources)
 
 nodist_libsbuild_la_SOURCES =	\
