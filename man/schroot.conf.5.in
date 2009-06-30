@@ -144,11 +144,10 @@ using the following regular expression:
 Plain and directory chroots
 .PP
 Chroots of type \[oq]plain\[cq] or \[oq]directory\[cq] are directories
-accessible in the filesystem.  They implement the \fBfilesystem union 
-chroot\fP options (see \[lq]\fIFilesystem Union chroot options\fP\[rq], 
-below).  The two types are equivalent except for the fact that if 
-\f[CI]run\-setup\-scripts\fP is set to \[oq]true\[cq] for
-\[oq]plain\[cq] chroots, filesystem mounting is disabled.
+accessible in the filesystem.  The two types are equivalent except for the fact
+that directory chroots run setup scripts, whereas plain chroots do not.
+Additionally, directory chroots implement the \fBfilesystem union chroot\fP
+options (see \[lq]\fIFilesystem Union chroot options\fP\[rq], below).
 .PP
 These chroot types have an additional (mandatory) configuration option:
 .TP
@@ -189,7 +188,7 @@ Loopback chroots
 .PP
 Chroots of type \[oq]loopback\[cq] are a filesystem available as a file on
 disk, accessed via a loopback mount.  The file will be loopback mounted and
-unmounted on demand.  They implement the \fBmountable chroot\fP and
+unmounted on demand.  Loopback chroots implement the \fBmountable chroot\fP and
 \fBfilesystem union chroot\fP options (see \[lq]\fIMountable chroot
 options\fP\[rq] and \[lq]\fIFilesystem Union chroot options\fP\[rq], below),
 plus an additional option:
@@ -202,8 +201,10 @@ Block device chroots
 .PP
 Chroots of type \[oq]block\-device\[cq] are a filesystem available on an
 unmounted block device.  The device will be mounted and unmounted on demand.
-They implement the \fBmountable chroot\fP options (see \[lq]\fIMountable chroot
-options\fP\[rq], below), plus an additional option:
+Block device chroots implement the \fBmountable chroot\fP and \fBfilesystem
+union chroot\fP options (see \[lq]\fIMountable chroot options\fP\[rq] and
+\[lq]\fIFilesystem Union chroot options\fP\[rq], below), plus an additional
+option:
 .TP
 \f[CBI]device=\fP\f[CI]device\fP
 This is the device name of the block device, including the absolute path.  For
@@ -284,10 +285,10 @@ original filesystem is read-only, with any modifications made to the filesystem
 made in the overlying writable directory, leaving the original filesystem
 unchanged.  A union permits multiple sessions to access and make changes to a
 single chroot simultaneously, while keeping the changes private to each
-session.  To activate this feature, set \f[CI]union\-type\fP to any supported
-value.  If \[lq]\fIFilesystem Union\fP\[rq] is enabled the chroot will also be
-a \fBsource chroot\fP, which wil provide additional options (see \[lq]\fISource
-chroot options\fP\[rq], above).  All entries are optional.
+session.  To enable this feature, set \f[CI]union\-type\fP to any supported
+value.  If enabled, the chroot will also be a \fBsource chroot\fP, which will
+provide additional options (see \[lq]\fISource chroot options\fP\[rq], above).
+All entries are optional.
 .TP
 \f[CBI]union\-type=\fP\f[CI]type\fP
 Set the union filesystem type.  Currently supported filesystems are
