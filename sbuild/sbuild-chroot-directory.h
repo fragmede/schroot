@@ -114,6 +114,7 @@ namespace sbuild
     virtual void
     set_keyfile (keyfile const& keyfile,
                  string_list&   used_keys);
+
 #ifdef SBUILD_FEATURE_UNION
   private:
     /// Is the chroot source or clone?
