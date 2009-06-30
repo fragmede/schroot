@@ -19,6 +19,7 @@
 #ifndef SBUILD_CHROOT_LOOPBACK_H
 #define SBUILD_CHROOT_LOOPBACK_H
 
+#include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-chroot.h>
 #include <sbuild/sbuild-chroot-mountable.h>
 #ifdef SBUILD_FEATURE_UNION
