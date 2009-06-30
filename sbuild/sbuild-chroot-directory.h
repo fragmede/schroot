@@ -21,7 +21,9 @@
 
 #include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-chroot-plain.h>
+#ifdef SBUILD_FEATURE_UNION
 #include <sbuild/sbuild-chroot-union.h>
+#endif // SBUILD_FEATURE_UNION
 
 namespace sbuild
 {
@@ -47,8 +49,10 @@ namespace sbuild
     virtual chroot::ptr
     clone () const;
 
+#ifdef SBUILD_FEATURE_UNION
     virtual chroot::ptr
     clone_source () const;
+#endif // SBUILD_FEATURE_UNION
 
     virtual std::string
     get_path () const;
@@ -62,6 +66,7 @@ namespace sbuild
     virtual session_flags
     get_session_flags () const;
 
+#ifdef SBUILD_FEATURE_UNION
     // Implementation of the chroot_source interface
     virtual string_list const&
     get_source_users () const;
@@ -92,6 +97,7 @@ namespace sbuild
 
     virtual void
     set_source (bool source);
+#endif // SBUILD_FEATURE_UNION
 
   protected:
     virtual void
@@ -108,6 +114,7 @@ namespace sbuild
     virtual void
     set_keyfile (keyfile const& keyfile,
                  string_list&   used_keys);
+#ifdef SBUILD_FEATURE_UNION
   private:
     /// Is the chroot source or clone?
     bool          is_source;
@@ -119,6 +126,7 @@ namespace sbuild
     string_list   source_root_users;
     /// Groups allowed to access the source chroot as root.
     string_list   source_root_groups;
+#endif // SBUILD_FEATURE_UNION
   };
 
 }

@@ -55,6 +55,7 @@ chroot_directory::clone () const
   return ptr(new chroot_directory(*this));
 }
 
+#ifdef SBUILD_FEATURE_UNION
 sbuild::chroot::ptr
 chroot_directory::clone_source () const
 {
@@ -128,6 +129,7 @@ chroot_directory::set_source (bool source)
 {
   this->is_source = source;
 }
+#endif // SBUILD_FEATURE_UNION
 
 std::string
 chroot_directory::get_path () const
@@ -138,11 +140,10 @@ chroot_directory::get_path () const
 void
 chroot_directory::setup_env (environment& env)
 {
-  chroot::setup_env(env);
+  chroot_plain::setup_env(env);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::setup_env(env);
 #endif // SBUILD_FEATURE_UNION
-  chroot_plain::setup_env(env);
 }
 
 std::string const&
@@ -181,30 +182,27 @@ chroot_directory::get_session_flags () const
 void
 chroot_directory::get_details (format_detail& detail) const
 {
-  chroot::get_details(detail);
+  chroot_plain::get_details(detail);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::get_details(detail);
 #endif // SBUILD_FEATURE_UNION
-  chroot_plain::get_details(detail);
 }
 
 void
 chroot_directory::get_keyfile (keyfile& keyfile) const
 {
-  chroot::get_keyfile(keyfile);
+  chroot_plain::get_keyfile(keyfile);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::get_keyfile(keyfile);
 #endif // SBUILD_FEATURE_UNION
-  chroot_plain::get_keyfile(keyfile);
 }
 
 void
 chroot_directory::set_keyfile (keyfile const& keyfile,
 			      string_list&   used_keys)
 {
-  chroot::set_keyfile(keyfile, used_keys);
+  chroot_plain::set_keyfile(keyfile, used_keys);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::set_keyfile(keyfile, used_keys);
 #endif // SBUILD_FEATURE_UNION
-  chroot_plain::set_keyfile(keyfile, used_keys);
 }
