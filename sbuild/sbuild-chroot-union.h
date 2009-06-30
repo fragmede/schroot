@@ -34,6 +34,16 @@ namespace sbuild
    */
   class chroot_union : public chroot_source
   {
+  public:
+    /// Error codes.
+    enum error_code
+      {
+	UNION_TYPE_UNKNOWN      ///< Unknown filesystem union type
+      };
+
+    /// Exception type.
+    typedef custom_error<error_code> error;
+
   protected:
     /// The constructor.
     chroot_union ();
@@ -44,15 +54,11 @@ namespace sbuild
     /// The destructor.
     virtual ~chroot_union ();
 
-    /// Error codes.
-    enum error_code
-      {
-	UNION_TYPE_UNKNOWN      ///< Unknown filesystem union type
-      };
+  protected:
+    virtual void
+    clone_source_setup (chroot::ptr& clone) const;
 
-    /// Exception type.
-    typedef custom_error<error_code> error;
-
+  public:
     /**
      * Get fs union configured state.
      *

@@ -63,6 +63,16 @@ chroot_union::~chroot_union ()
 {
 }
 
+void
+chroot_union::clone_source_setup (chroot::ptr& clone) const
+{
+  chroot_source::clone_source_setup(clone);
+
+  std::tr1::shared_ptr<chroot_union> fsunion(std::tr1::dynamic_pointer_cast<chroot_union>(clone));
+  if (fsunion)
+    fsunion->set_union_type("none");
+}
+
 bool
 chroot_union::get_union_configured () const
 {
