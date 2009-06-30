@@ -162,11 +162,10 @@ chroot_union::setup_env (environment& env)
 sbuild::chroot::session_flags
 chroot_union::get_session_flags () const
 {
-  std::string type = get_union_type();
   if (get_union_configured())
     return chroot::SESSION_CREATE | chroot_source::get_session_flags();
   else
-    return chroot::SESSION_CREATE;
+    return chroot::SESSION_NOFLAGS;
 }
 
 void
