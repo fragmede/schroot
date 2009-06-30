@@ -127,3 +127,8 @@ This will allow the removal of chroot-specific session setup from
 sbuild::session.  This also means the session ID is chroot-specific
 rather than session-specific, so won't be reused if using multiple
 chroots.
+
+SESSION_CREATE | SESSION_CLONE confusion.  When is it appropriate to
+set SESSION_CREATE?  Should already created sessions set it?
+
+Define operator &= and |= for enum types defining | and & operators.
