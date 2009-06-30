@@ -48,6 +48,7 @@ class test_chroot_block_device : public test_chroot_base<chroot_block_device>
   CPPUNIT_TEST(test_mount_options);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
+  CPPUNIT_TEST(test_setup_env_fsunion);
   CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
@@ -108,6 +109,35 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_UNION_TYPE",     "none");
+
+    test_chroot_base<chroot_block_device>::test_setup_env(expected);
+  }
+
+  void test_setup_env_fsunion()
+  {
+    sbuild::chroot_block_device *c = dynamic_cast<sbuild::chroot_block_device *>(chroot.get());
+    c->set_union_type("aufs");
+    c->set_union_overlay_directory("/overlay");
+    c->set_union_underlay_directory("/underlay");
+
+    sbuild::environment expected;
+    expected.add("CHROOT_TYPE",           "block-device");
+    expected.add("CHROOT_NAME",           "test-name");
+    expected.add("CHROOT_DESCRIPTION",    "test-description");
+    expected.add("CHROOT_LOCATION",       "/squeeze");
+    expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
+    expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
+    expected.add("CHROOT_DEVICE",         "/dev/testdev");
+    expected.add("CHROOT_MOUNT_DEVICE",         "/dev/testdev");
+    expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
+    expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
+    expected.add("CHROOT_SESSION_CLONE",  "true");
+    expected.add("CHROOT_SESSION_CREATE", "true");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_UNION_TYPE",     "aufs");
+    expected.add("CHROOT_UNION_OVERLAY_DIRECTORY",  "/overlay");
+    expected.add("CHROOT_UNION_UNDERLAY_DIRECTORY",  "/underlay");
 
     test_chroot_base<chroot_block_device>::test_setup_env(expected);
   }

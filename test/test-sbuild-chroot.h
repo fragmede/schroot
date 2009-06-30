@@ -34,12 +34,21 @@ class test_chroot_base : public TestFixture
 {
 protected:
   sbuild::chroot::ptr chroot;
+  std::string abs_testdata_dir;
 
 public:
   test_chroot_base():
     TestFixture(),
-    chroot()
-  {}
+    chroot(),
+    abs_testdata_dir()
+  {
+    char cwd[FILENAME_MAX];
+    if (NULL != getcwd(cwd, FILENAME_MAX))
+      {
+        abs_testdata_dir = std::string(cwd);
+        abs_testdata_dir.append("/" TESTDATADIR);
+      }
+  }
 
   virtual ~test_chroot_base()
   {}
