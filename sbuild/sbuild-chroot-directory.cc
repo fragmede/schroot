@@ -173,7 +173,7 @@ chroot_directory::get_session_flags () const
 {
 #ifdef SBUILD_FEATURE_UNION
   if (get_union_configured())
-    return chroot_union::get_session_flags();
+    return SESSION_CREATE | chroot_union::get_session_flags();
   else
 #endif // SBUILD_FEATURE_UNION
     return SESSION_CREATE;
