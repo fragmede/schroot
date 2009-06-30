@@ -84,6 +84,7 @@ sbuild_chroot_SOURCES = 			\
 	$(sbuild_chroot_blockdev_sources)	\
 	$(sbuild_chroot_lvmsnap_sources)	\
 	test-sbuild-chroot.h
+
 sbuild_chroot_LDADD =  libtest.la
 
 sbuild_chroot_config_SOURCES = sbuild-chroot-config.cc
