@@ -474,11 +474,11 @@ fi
 
 AC_MSG_CHECKING([whether to build union support])
 BUILD_UNION="yes"
-if test "$enable_unionshot" = "yes"; then
+if test "$enable_union" = "yes"; then
   :
-elif test "$enable_unionshot" = "no"; then
+elif test "$enable_union" = "no"; then
   BUILD_UNION="no"
-elif test "$enable_unionshot" = "auto"; then
+elif test "$enable_union" = "auto"; then
   BUILD_UNION="yes"
 fi
 AC_MSG_RESULT([$BUILD_UNION])
