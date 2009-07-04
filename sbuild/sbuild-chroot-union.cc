@@ -76,8 +76,7 @@ chroot_union::clone_source_setup (chroot::ptr& clone) const
 bool
 chroot_union::get_union_configured () const
 {
-  std::string type = get_union_type();
-  return (type != "none") ? true : false;
+  return get_union_type() != "none";
 }
 
 std::string const&
@@ -124,7 +123,7 @@ chroot_union::set_union_type (std::string const& type)
   if (type == "aufs" ||
       type == "unionfs" ||
       type == "none")
-      this->union_type = type;
+    this->union_type = type;
   else
     throw error(type, UNION_TYPE_UNKNOWN);
 }
