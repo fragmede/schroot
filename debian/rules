@@ -70,6 +70,8 @@ install: check
 	dh_testdir
 	dh_testroot
 	dh_prep
+	rm -rf debian/install
+
 	dh_installdirs
 
 	$(MAKE) -C debian/build install DESTDIR=$(CURDIR)/debian/install

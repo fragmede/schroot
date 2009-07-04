@@ -10,7 +10,8 @@ schroot (1.3.0-1) experimental; urgency=low
     - Update to Standards Version 3.8.1.
   * debian/compat: Use debhelper v7 compatibility mode.
   * debian/rules:
-    - Use dh_prep in place of dh_clean -k.
+    - Use dh_prep in place of dh_clean -k.  Remove debian/install
+      after running dh_prep.
     - Configure with --with-bash-completion-dir.
     - Configure with --enable-doxygen.
     - Split configure invocation onto multiple lines.
@@ -42,8 +43,9 @@ schroot (1.3.0-1) experimental; urgency=low
     - Use "$(MAKE) -C" in place of explicit "cd && make".
   * 
   * 
+  * 
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 04 Jul 2009 12:07:58 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 04 Jul 2009 23:18:13 +0100
 
 schroot (1.2.2-1) unstable; urgency=low  
 
