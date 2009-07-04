@@ -129,27 +129,6 @@ namespace
     };
 
   /**
-   * Get the current working directory.  If it can't be found, fall
-   * back to root.
-   *
-   * @returns the current working directory.
-   */
-  std::string
-  getcwd ()
-  {
-    std::string cwd;
-
-    char *raw_cwd = ::getcwd (0, 0);
-    if (raw_cwd)
-      cwd = raw_cwd;
-    else
-      cwd = "/";
-    free(raw_cwd);
-
-    return cwd;
-  }
-
-  /**
    * Check group membership.
    *
    * @param group the group to check for.
@@ -264,7 +243,7 @@ session::session (std::string const&         service,
   saved_sigterm_signal(),
   saved_termios(),
   termios_ok(false),
-  cwd(getcwd())
+  cwd(sbuild::getcwd())
 {
 }
 
@@ -1182,7 +1161,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   assert(this->authstat->is_initialised()); // PAM must be initialised
 
   // Store before chroot call.
-  this->cwd = getcwd();
+  this->cwd = sbuild::getcwd();
   log_debug(DEBUG_INFO) << "CWD=" << this->cwd << std::endl;
 
   std::string location(session_chroot->get_path());

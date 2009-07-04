@@ -93,6 +93,15 @@ namespace sbuild
 		     bool               lsb_mode = true);
 
   /**
+   * Get the current working directory.  If it can't be found, fall
+   * back to root.
+   *
+   * @returns the current working directory.
+   */
+  std::string
+  getcwd ();
+
+  /**
    * Convert a string_list into a string.  The strings are
    * concatenated using separator as a delimiter.
    *

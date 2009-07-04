@@ -187,6 +187,20 @@ sbuild::is_valid_filename (std::string const& name,
   return match;
 }
 
+std::string
+sbuild::getcwd ()
+{
+  std::string cwd;
+
+  char *raw_cwd = ::getcwd (0, 0);
+  if (raw_cwd)
+    cwd = raw_cwd;
+  else
+    cwd = "/";
+  free(raw_cwd);
+
+  return cwd;
+}
 
 std::string
 sbuild::string_list_to_string (sbuild::string_list const& list,
