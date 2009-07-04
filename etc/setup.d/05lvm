@@ -35,11 +35,11 @@ if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
     if [ $1 = "setup-start" ]; then
 
 	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-	    lvcreate $VERBOSE $CHROOT_LVM_SNAPSHOT_OPTIONS --snapshot \
-		--name "$CHROOT_LVM_SNAPSHOT_NAME" "$CHROOT_DEVICE"
+	    lvcreate $VERBOSE --snapshot --name "$CHROOT_LVM_SNAPSHOT_NAME" \
+		"$CHROOT_DEVICE" $CHROOT_LVM_SNAPSHOT_OPTIONS
 	else
-	    lvcreate $VERBOSE $CHROOT_LVM_SNAPSHOT_OPTIONS --snapshot \
-		--name "$CHROOT_LVM_SNAPSHOT_NAME" "$CHROOT_DEVICE" > /dev/null
+	    lvcreate $VERBOSE --snapshot --name "$CHROOT_LVM_SNAPSHOT_NAME" \
+		"$CHROOT_DEVICE" $CHROOT_LVM_SNAPSHOT_OPTIONS > /dev/null
 	fi
 
     elif [ $1 = "setup-stop" ]; then
