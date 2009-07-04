@@ -27,6 +27,9 @@ schroot (1.3.0-1) experimental; urgency=low
   * mount-defaults: Bind mount /dev/shm rather than creating a new
     tmpfs inside the chroot to avoid potention denial of service
     attacks (Closes: #526788).  Thanks to Aurelien Jarno.
+  * etc/setup.d/05lvm: Reorder lvm snapshot options to make more
+    flexible (Closes: #494481).  Thanks to Timothy G Abbott for this
+    suggestion.
 
   [Jan-Marek Glogowski]
   * debian/control:
@@ -38,8 +41,9 @@ schroot (1.3.0-1) experimental; urgency=low
     - Add check rule to run unit tests at install time.
     - Use "$(MAKE) -C" in place of explicit "cd && make".
   * 
+  * 
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 03 May 2009 18:18:37 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 04 Jul 2009 12:07:58 +0100
 
 schroot (1.2.2-1) unstable; urgency=low  
 
