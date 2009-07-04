@@ -56,10 +56,10 @@ namespace sbuild
     /// Chroot session properties
     enum session_flags
       {
-	SESSION_NOFLAGS = 0,     ///< No flags are set.
-	SESSION_CREATE = 1 << 0, ///< The chroot supports session creation.
-	SESSION_CLONE  = 1 << 1, ///< The chroot supports cloning.
-	SESSION_PURGE  = 1 << 2  ///< The chroot should be purged.
+	SESSION_NOFLAGS = 0,      ///< No flags are set.
+	SESSION_CREATE  = 1 << 0, ///< The chroot supports session creation.
+	SESSION_CLONE   = 1 << 1, ///< The chroot supports cloning.
+	SESSION_PURGE   = 1 << 2  ///< The chroot should be purged.
       };
 
     /// Error codes.
