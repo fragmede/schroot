@@ -174,6 +174,7 @@ sbuild::chroot::set_session_id (std::string const& session_id)
 {
   if (get_session_flags() & chroot::SESSION_CREATE)
     {
+      this->session_id = session_id;
       set_name(session_id);
       set_aliases(string_list());
     }
