@@ -120,7 +120,9 @@ public:
 
 	if (checkval != pos->second)
 	  std::cout << "Environment error (" << pos->first << "): "
-		    << checkval << " != " << pos->second << std::endl;
+		    << checkval << " [observed] != "
+		    << pos->second << " [expected]"
+		    << std::endl;
 	CPPUNIT_ASSERT(checkval == pos->second);
       }
   }
