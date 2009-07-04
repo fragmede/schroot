@@ -19,6 +19,12 @@
 
 set -e
 
+# Plain chroots should not be able to use scripts, but check anyway to
+# be safe.
+if [ $CHROOT_TYPE = "plain" ]; then
+    exit 1
+fi
+
 if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
     . "$CHROOT_SCRIPT_CONFIG"
 elif [ "$2" = "ok" ]; then
@@ -55,7 +61,7 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 	    echo "CHROOT_UNION_OVERLAY_DIRECTORY=$CHROOT_UNION_OVERLAY_DIRECTORY"
 	    echo "CHROOT_UNION_UNDERLAY_DIRECTORY=$CHROOT_UNION_UNDERLAY_DIRECTORY"
 	fi
-	if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ]; then
+	if [ "$CHROOT_TYPE" = "directory" ]; then
 	    echo "CHROOT_DIRECTORY=$CHROOT_DIRECTORY"
 	elif [ "$CHROOT_TYPE" = "file" ]; then
 	    echo "CHROOT_FILE=$CHROOT_FILE"
@@ -78,7 +84,7 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
     fi
 
     case "$CHROOT_TYPE" in
-	plain | directory)
+	directory)
 	    if [ ! -d "$CHROOT_DIRECTORY" ]; then
 		echo "Directory '$CHROOT_DIRECTORY' does not exist"
 		exit 1

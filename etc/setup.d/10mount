@@ -1,5 +1,6 @@
 #!/bin/sh
 # Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
+# Copyright © 2009       Jan-Marek Glogowski <glogow@fbihome.de>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -106,7 +107,7 @@ if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 #  FSCK_VERBOSE="-V"
 fi
 
-if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "loopback" ] || [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
+if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "loopback" ] || [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 
     if [ "${CHROOT_UNION_TYPE:-none}" != "none" ] \
 	&& [ "$CHROOT_SESSION_PURGE" = "true" ];
@@ -116,10 +117,7 @@ if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROO
 	CREATE_UNION="no"
     fi
 
-    if [ "$CHROOT_TYPE" = "plain" ]; then
-	CHROOT_MOUNT_OPTIONS="--rbind"
-	CHROOT_MOUNT_DEVICE="$CHROOT_DIRECTORY"
-    elif [ "$CHROOT_TYPE" = "directory" ]; then
+    if [ "$CHROOT_TYPE" = "directory" ]; then
 	CHROOT_MOUNT_OPTIONS="--bind"
 	CHROOT_MOUNT_DEVICE="$CHROOT_DIRECTORY"
     elif [ "$CHROOT_TYPE" = "file" ]; then
@@ -155,15 +153,13 @@ if [ "$CHROOT_TYPE" = "plain" ] || [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROO
 	    do_mount_fs_union
 	fi
 
-	if [ "$CHROOT_TYPE" != "plain" ]; then
-	    if [ -n "$FSTAB" ]; then
-		if [ -f "$FSTAB" ]; then
-		    "$LIBEXEC_DIR/schroot-mount" $VERBOSE \
-			-f "$FSTAB" -m "$CHROOT_PATH"
-		else
-		    echo "fstab file '$FSTAB' does not exist"
-		    exit 1
-		fi
+	if [ -n "$FSTAB" ]; then
+	    if [ -f "$FSTAB" ]; then
+		"$LIBEXEC_DIR/schroot-mount" $VERBOSE \
+		    -f "$FSTAB" -m "$CHROOT_PATH"
+	    else
+		echo "fstab file '$FSTAB' does not exist"
+		exit 1
 	    fi
 	fi
 
