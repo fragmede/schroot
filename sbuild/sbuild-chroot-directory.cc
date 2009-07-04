@@ -32,15 +32,10 @@
 using namespace sbuild;
 
 chroot_directory::chroot_directory ():
-  chroot_plain(),
+  chroot_plain()
 #ifdef SBUILD_FEATURE_UNION
-  chroot_union(),
+  , chroot_union()
 #endif // SBUILD_FEATURE_UNION
-  is_source(false),
-  source_users(),
-  source_groups(),
-  source_root_users(),
-  source_root_groups()
 {
   set_run_setup_scripts(true);
 }
@@ -68,66 +63,6 @@ chroot_directory::clone_source () const
   }
 #endif // SBUILD_FEATURE_UNION
   return ptr(clone);
-}
-
-string_list const&
-chroot_directory::get_source_users () const
-{
-  return this->source_users;
-}
-
-void
-chroot_directory::set_source_users (string_list const& source_users)
-{
-  this->source_users = source_users;
-}
-
-string_list const&
-chroot_directory::get_source_groups () const
-{
-  return this->source_groups;
-}
-
-void
-chroot_directory::set_source_groups (string_list const& source_groups)
-{
-  this->source_groups = source_groups;
-}
-
-string_list const&
-chroot_directory::get_source_root_users () const
-{
-  return this->source_root_users;
-}
-
-void
-chroot_directory::set_source_root_users (string_list const& users)
-{
-  this->source_root_users = users;
-}
-
-string_list const&
-chroot_directory::get_source_root_groups () const
-{
-  return this->source_root_groups;
-}
-
-void
-chroot_directory::set_source_root_groups (string_list const& groups)
-{
-  this->source_root_groups = groups;
-}
-
-bool
-chroot_directory::get_source () const
-{
-  return this->is_source;
-}
-
-void
-chroot_directory::set_source (bool source)
-{
-  this->is_source = source;
 }
 #endif // SBUILD_FEATURE_UNION
 

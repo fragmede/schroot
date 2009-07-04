@@ -75,7 +75,7 @@ namespace sbuild
      * @returns a list of users.
      */
     virtual string_list const&
-    get_source_users () const = 0;
+    get_source_users () const;
 
     /**
      * Set the users allowed to access the source chroot.
@@ -83,7 +83,7 @@ namespace sbuild
      * @param users a list of users.
      */
     virtual void
-    set_source_users (string_list const& users) = 0;
+    set_source_users (string_list const& users);
 
     /**
      * Get the groups allowed to access the source chroot.
@@ -91,7 +91,7 @@ namespace sbuild
      * @returns a list of groups.
      */
     virtual string_list const&
-    get_source_groups () const = 0;
+    get_source_groups () const;
 
     /**
      * Set the groups allowed to access the source chroot.
@@ -99,7 +99,7 @@ namespace sbuild
      * @param groups a list of groups.
      */
     virtual void
-    set_source_groups (string_list const& groups) = 0;
+    set_source_groups (string_list const& groups);
 
     /**
      * Get the users allowed to access the source chroot as root.
@@ -109,7 +109,7 @@ namespace sbuild
      * @returns a list of users.
      */
     virtual string_list const&
-    get_source_root_users () const = 0;
+    get_source_root_users () const;
 
     /**
      * Set the users allowed to access the source chroot as root.
@@ -119,7 +119,7 @@ namespace sbuild
      * @param users a list of users.
      */
     virtual void
-    set_source_root_users (string_list const& users) = 0;
+    set_source_root_users (string_list const& users);
 
     /**
      * Get the groups allowed to access the source chroot as root.
@@ -129,7 +129,7 @@ namespace sbuild
      * @returns a list of groups.
      */
     virtual string_list const&
-    get_source_root_groups () const = 0;
+    get_source_root_groups () const;
 
     /**
      * Set the groups allowed to access the source chroot as root.
@@ -139,7 +139,7 @@ namespace sbuild
      * @param groups a list of groups.
      */
     virtual void
-    set_source_root_groups (string_list const& groups) = 0;
+    set_source_root_groups (string_list const& groups);
 
     /**
      * Get if the chroot is a source chroot or not.
@@ -147,7 +147,7 @@ namespace sbuild
      * @returns true if the chroot is a source chroot, otherwise false.
      */
     virtual bool
-    get_source () const = 0;
+    get_source () const;
 
     /**
      * Set if the chroot is a source chroot or not.
@@ -155,7 +155,7 @@ namespace sbuild
      * @param source true if a source chroot, or false if not.
      */
     virtual void
-    set_source (bool source) = 0;
+    set_source (bool source);
 
     void
     setup_env (environment& env);
@@ -173,6 +173,18 @@ namespace sbuild
     void
     set_keyfile (keyfile const& keyfile,
 		 string_list&   used_keys);
+
+  private:
+    /// Is the chroot source or clone?
+    bool          is_source;
+    /// Users allowed to access the source chroot.
+    string_list   source_users;
+    /// Groups allowed to access the source chroot.
+    string_list   source_groups;
+    /// Users allowed to access the source chroot as root.
+    string_list   source_root_users;
+    /// Groups allowed to access the source chroot as root.
+    string_list   source_root_groups;
   };
 
 }

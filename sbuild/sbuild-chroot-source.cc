@@ -28,7 +28,12 @@
 using boost::format;
 using namespace sbuild;
 
-chroot_source::chroot_source ()
+chroot_source::chroot_source ():
+  is_source(false),
+  source_users(),
+  source_groups(),
+  source_root_users(),
+  source_root_groups()
 {
 }
 
@@ -58,6 +63,66 @@ chroot_source::clone_source_setup (chroot::ptr& clone) const
   std::tr1::shared_ptr<chroot_source> source(std::tr1::dynamic_pointer_cast<chroot_source>(clone));
   if (source)
     source->set_source(true);
+}
+
+string_list const&
+chroot_source::get_source_users () const
+{
+  return this->source_users;
+}
+
+void
+chroot_source::set_source_users (string_list const& source_users)
+{
+  this->source_users = source_users;
+}
+
+string_list const&
+chroot_source::get_source_groups () const
+{
+  return this->source_groups;
+}
+
+void
+chroot_source::set_source_groups (string_list const& source_groups)
+{
+  this->source_groups = source_groups;
+}
+
+string_list const&
+chroot_source::get_source_root_users () const
+{
+  return this->source_root_users;
+}
+
+void
+chroot_source::set_source_root_users (string_list const& users)
+{
+  this->source_root_users = users;
+}
+
+string_list const&
+chroot_source::get_source_root_groups () const
+{
+  return this->source_root_groups;
+}
+
+void
+chroot_source::set_source_root_groups (string_list const& groups)
+{
+  this->source_root_groups = groups;
+}
+
+bool
+chroot_source::get_source () const
+{
+  return this->is_source;
+}
+
+void
+chroot_source::set_source (bool source)
+{
+  this->is_source = source;
 }
 
 void
