@@ -101,7 +101,6 @@ public:
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
 		   static_cast<sbuild::chroot::session_flags>(0));
 
-    chroot->set_run_setup_scripts(true);
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
 		   sbuild::chroot::SESSION_NOFLAGS);
   }

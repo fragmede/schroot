@@ -75,10 +75,8 @@ public:
   {
     std::tr1::shared_ptr<sbuild::chroot_directory> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_directory>(chroot);
     CPPUNIT_ASSERT(c);
-    chroot->set_run_setup_scripts(true);
-    CPPUNIT_ASSERT(chroot->get_mount_location() == "/mnt/mount-location");
-    chroot->set_run_setup_scripts(false);
     c->set_directory("/mnt/chroot/example");
+    CPPUNIT_ASSERT(chroot->get_mount_location() == "/mnt/mount-location");
     CPPUNIT_ASSERT(c->get_directory() == "/mnt/chroot/example");
     CPPUNIT_ASSERT(chroot->get_path() == "/mnt/mount-location");
   }
