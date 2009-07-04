@@ -51,9 +51,8 @@ class test_chroot_loopback : public test_chroot_base<chroot_loopback>
   CPPUNIT_TEST_SUITE(test_chroot_loopback);
   CPPUNIT_TEST(test_file);
   CPPUNIT_TEST(test_mount_options);
-  CPPUNIT_TEST(test_chroot_strings);
   CPPUNIT_TEST(test_setup_env);
-  CPPUNIT_TEST(test_setup_env2);
+  CPPUNIT_TEST(test_setup_env_fsunion);
   CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
@@ -83,8 +82,8 @@ public:
   {
     std::tr1::shared_ptr<sbuild::chroot_loopback> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_container("/dev/some/file");
-    CPPUNIT_ASSERT(c->get_container() == "/dev/some/file");
+    c->set_file("/dev/some/file");
+    CPPUNIT_ASSERT(c->get_file() == "/dev/some/file");
   }
 
   void
@@ -96,51 +95,55 @@ public:
     CPPUNIT_ASSERT(c->get_mount_options() == "-o opt1,opt2");
   }
 
-  void test_chroot_strings()
+  void test_setup_env()
   {
-    std::string type, key_name, detail_name;
-    chroot->get_chroot_strings(&type, &key_name, &detail_name);
-    
-    CPPUNIT_ASSERT(type == "loopback");
-    CPPUNIT_ASSERT(key_name == "file");
-    CPPUNIT_ASSERT(detail_name == "File");
-  }
+    std::tr1::shared_ptr<sbuild::chroot_loopback> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
+    CPPUNIT_ASSERT(c);
+    c->set_file(loopback_file);
 
-  void setup_env_common(sbuild::environment& expected)
-  {
+    sbuild::environment expected;
     expected.add("CHROOT_TYPE",           "loopback");
     expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",    "test-description");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_PATH",           "/mnt/mount-location");
+    expected.add("CHROOT_FILE",           loopback_file);
+    expected.add("CHROOT_MOUNT_DEVICE",   loopback_file);
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
     expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "false");
-    expected.add("CHROOT_FS_UNION_TYPE",  "none");
-  }
-
-  void test_setup_env()
-  {
-    sbuild::environment expected;
-    setup_env_common(expected);
+    expected.add("CHROOT_UNION_TYPE",     "none");
 
     test_chroot_base<chroot_loopback>::test_setup_env(expected);
   }
 
-  void test_setup_env2()
+  void test_setup_env_fsunion()
   {
     std::tr1::shared_ptr<sbuild::chroot_loopback> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_container(loopback_file);
+    c->set_file(loopback_file);
+    c->set_union_type("aufs");
+    c->set_union_overlay_directory("/overlay");
+    c->set_union_underlay_directory("/underlay");
 
     sbuild::environment expected;
-    setup_env_common(expected);
-
+    expected.add("CHROOT_TYPE",           "loopback");
+    expected.add("CHROOT_NAME",           "test-name");
+    expected.add("CHROOT_DESCRIPTION",    "test-description");
+    expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
+    expected.add("CHROOT_PATH",           "/mnt/mount-location");
     expected.add("CHROOT_FILE",           loopback_file);
-    expected.add("CHROOT_CONTAINER",      loopback_file);
-    expected.add("CHROOT_MOUNT_UUID",     FS_UUID);
+    expected.add("CHROOT_MOUNT_DEVICE",   loopback_file);
+    expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
+    expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
+    expected.add("CHROOT_SESSION_CLONE",  "true");
+    expected.add("CHROOT_SESSION_CREATE", "true");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_UNION_TYPE",     "aufs");
+    expected.add("CHROOT_UNION_OVERLAY_DIRECTORY",  "/overlay");
+    expected.add("CHROOT_UNION_UNDERLAY_DIRECTORY",  "/underlay");
 
     test_chroot_base<chroot_loopback>::test_setup_env(expected);
   }
