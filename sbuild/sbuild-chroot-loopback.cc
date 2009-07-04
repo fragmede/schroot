@@ -201,6 +201,19 @@ chroot_loopback::setup_lock (chroot::setup_type type,
     }
 
   /* By default, loopback chroots do no locking. */
+#ifdef SBUILD_FEATURE_UNION
+  /**
+   * By default, loopback chroots do no locking, but can create sessions
+   * using filesystem unions.
+   */
+  if (get_union_configured() &&
+      ((type == SETUP_START && lock == true) ||
+       (type == SETUP_STOP && lock == false && status == 0)))
+    {
+      bool start = (type == SETUP_START);
+      setup_session_info(start);
+    }
+#endif
 }
 
 sbuild::chroot::session_flags
