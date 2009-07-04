@@ -498,7 +498,7 @@ namespace sbuild
    */
   stat::mode_bits
   inline operator | (stat::mode_bits const& lhs,
-	      stat::mode_bits const& rhs)
+		     stat::mode_bits const& rhs)
   {
     return static_cast<stat::mode_bits>
       (static_cast<int>(lhs) | static_cast<int>(rhs));
@@ -512,7 +512,7 @@ namespace sbuild
    */
   stat::mode_bits
   inline operator | (mode_t const&          lhs,
-	      stat::mode_bits const& rhs)
+		     stat::mode_bits const& rhs)
   {
     return static_cast<stat::mode_bits>
       (lhs | static_cast<int>(rhs));
@@ -526,7 +526,7 @@ namespace sbuild
    */
   stat::mode_bits
   inline operator | (stat::mode_bits const& lhs,
-	      mode_t const&          rhs)
+		     mode_t const&          rhs)
   {
     return static_cast<stat::mode_bits>
       (static_cast<int>(lhs) | rhs);
@@ -540,7 +540,7 @@ namespace sbuild
    */
   stat::mode_bits
   inline operator & (stat::mode_bits const& lhs,
-	      stat::mode_bits const& rhs)
+		     stat::mode_bits const& rhs)
   {
     return static_cast<stat::mode_bits>
       (static_cast<int>(lhs) & static_cast<int>(rhs));
@@ -554,7 +554,7 @@ namespace sbuild
    */
   stat::mode_bits
   inline operator & (mode_t const&          lhs,
-	      stat::mode_bits const& rhs)
+		     stat::mode_bits const& rhs)
   {
     return static_cast<stat::mode_bits>
       (lhs & static_cast<int>(rhs));
@@ -568,7 +568,7 @@ namespace sbuild
    */
   stat::mode_bits
   inline operator & (stat::mode_bits const& lhs,
-	      mode_t const&          rhs)
+		     mode_t const&          rhs)
   {
     return static_cast<stat::mode_bits>
       (static_cast<int>(lhs) & rhs);
