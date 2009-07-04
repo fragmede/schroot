@@ -71,6 +71,11 @@ sbuild_chroot_blockdev_sources =	\
 	sbuild-chroot-block-device.cc
 endif
 
+if BUILD_LOOPBACK
+sbuild_chroot_loopback_sources =	\
+	sbuild-chroot-loopback.cc
+endif
+
 if BUILD_LVMSNAP
 sbuild_chroot_lvmsnap_sources =	\
 	sbuild-chroot-lvm-snapshot.cc
@@ -82,6 +87,7 @@ sbuild_chroot_SOURCES = 			\
 	sbuild-chroot-file.cc			\
 	sbuild-chroot-directory.cc		\
 	$(sbuild_chroot_blockdev_sources)	\
+	$(sbuild_chroot_loopback_sources)	\
 	$(sbuild_chroot_lvmsnap_sources)	\
 	test-sbuild-chroot.h
 
