@@ -47,8 +47,13 @@ class test_chroot_directory : public test_chroot_base<chroot_directory>
   CPPUNIT_TEST(test_directory);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
+#ifdef SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_setup_env_fsunion);
+#endif // SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_session_flags);
+#ifdef SBUILD_FEATURE_UNION
+  CPPUNIT_TEST(test_session_flags_fsunion);
+#endif // SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
   CPPUNIT_TEST_SUITE_END();
@@ -96,11 +101,14 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
+#ifdef SBUILD_FEATURE_UNION
     expected.add("CHROOT_UNION_TYPE",  "none");
+#endif // SBUILD_FEATURE_UNION
 
     test_chroot_base<chroot_directory>::test_setup_env(expected);
   }
 
+#ifdef SBUILD_FEATURE_UNION
   void test_setup_env_fsunion()
   {
     std::tr1::shared_ptr<sbuild::chroot_directory> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_directory>(chroot);
@@ -125,13 +133,27 @@ public:
 
     test_chroot_base<chroot_directory>::test_setup_env(expected);
   }
-
+#endif // SBUILD_FEATURE_UNION
 
 void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
 		   sbuild::chroot::SESSION_CREATE);
   }
+
+#ifdef SBUILD_FEATURE_UNION
+  void test_session_flags_fsunion()
+  {
+    std::tr1::shared_ptr<sbuild::chroot_directory> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_directory>(chroot);
+    c->set_union_type("aufs");
+    c->set_union_overlay_directory("/overlay");
+    c->set_union_underlay_directory("/underlay");
+
+    CPPUNIT_ASSERT(chroot->get_session_flags() ==
+		   (sbuild::chroot::SESSION_CREATE |
+		    sbuild::chroot::SESSION_CLONE));
+  }
+#endif // SBUILD_FEATURE_UNION
 
   void test_print_details()
   {
