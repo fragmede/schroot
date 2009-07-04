@@ -74,14 +74,14 @@ public:
   void setUp()
   {
     test_chroot_base<chroot_loopback>::setUp();
-    sbuild::chroot_loopback *c = dynamic_cast<sbuild::chroot_loopback *>(chroot.get());
+    std::tr1::shared_ptr<sbuild::chroot_loopback> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
     c->set_mount_options("-t jfs -o quota,rw");
   }
 
   void
   test_file()
   {
-    sbuild::chroot_loopback *c = dynamic_cast<sbuild::chroot_loopback *>(chroot.get());
+    std::tr1::shared_ptr<sbuild::chroot_loopback> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_container("/dev/some/file");
     CPPUNIT_ASSERT(c->get_container() == "/dev/some/file");
@@ -90,7 +90,7 @@ public:
   void
   test_mount_options()
   {
-    sbuild::chroot_loopback *c = dynamic_cast<sbuild::chroot_loopback *>(chroot.get());
+    std::tr1::shared_ptr<sbuild::chroot_loopback> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_mount_options("-o opt1,opt2");
     CPPUNIT_ASSERT(c->get_mount_options() == "-o opt1,opt2");
@@ -131,7 +131,7 @@ public:
 
   void test_setup_env2()
   {
-    sbuild::chroot_loopback *c = dynamic_cast<sbuild::chroot_loopback *>(chroot.get());
+    std::tr1::shared_ptr<sbuild::chroot_loopback> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_container(loopback_file);
 

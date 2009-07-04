@@ -60,14 +60,14 @@ public:
   void setUp()
   {
     test_chroot_base<chroot_file>::setUp();
-    sbuild::chroot_file *c = dynamic_cast<sbuild::chroot_file *>(chroot.get());
+    std::tr1::shared_ptr<sbuild::chroot_file> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
     c->set_file("/srv/chroot/example.tar.bz2");
   }
 
   void
   test_file()
   {
-    sbuild::chroot_file *c = dynamic_cast<sbuild::chroot_file *>(chroot.get());
+    std::tr1::shared_ptr<sbuild::chroot_file> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_file("/srv/chroot-images/unstable.tar.gz");
     CPPUNIT_ASSERT(c->get_file() == "/srv/chroot-images/unstable.tar.gz");

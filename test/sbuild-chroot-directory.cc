@@ -61,14 +61,14 @@ public:
   void setUp()
   {
     test_chroot_base<chroot_directory>::setUp();
-    sbuild::chroot_directory *c = dynamic_cast<sbuild::chroot_directory *>(chroot.get());
+    std::tr1::shared_ptr<sbuild::chroot_directory> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_directory>(chroot);
     c->set_directory("/srv/chroot/example-chroot");
   }
 
   void
   test_directory()
   {
-    sbuild::chroot_directory *c = dynamic_cast<sbuild::chroot_directory *>(chroot.get());
+    std::tr1::shared_ptr<sbuild::chroot_directory> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_directory>(chroot);
     CPPUNIT_ASSERT(c);
     chroot->set_run_setup_scripts(true);
     CPPUNIT_ASSERT(chroot->get_mount_location() == "/mnt/mount-location");
@@ -103,7 +103,7 @@ public:
 
   void test_setup_env_fsunion()
   {
-    sbuild::chroot_directory *c = dynamic_cast<sbuild::chroot_directory *>(chroot.get());
+    std::tr1::shared_ptr<sbuild::chroot_directory> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_directory>(chroot);
     c->set_union_type("aufs");
     c->set_union_overlay_directory("/overlay");
     c->set_union_underlay_directory("/underlay");

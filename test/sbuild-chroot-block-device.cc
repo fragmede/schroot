@@ -62,7 +62,7 @@ public:
   void setUp()
   {
     test_chroot_base<chroot_block_device>::setUp();
-    sbuild::chroot_block_device *c = dynamic_cast<sbuild::chroot_block_device *>(chroot.get());
+    std::tr1::shared_ptr<sbuild::chroot_block_device> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_block_device>(chroot);
     c->set_device("/dev/testdev");
     c->set_mount_options("-t jfs -o quota,rw");
     c->set_location("/squeeze");
@@ -71,7 +71,7 @@ public:
   void
   test_device()
   {
-    sbuild::chroot_block_device *c = dynamic_cast<sbuild::chroot_block_device *>(chroot.get());
+    std::tr1::shared_ptr<sbuild::chroot_block_device> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_block_device>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_device("/dev/some/device");
     CPPUNIT_ASSERT(c->get_device() == "/dev/some/device");
@@ -80,7 +80,7 @@ public:
   void
   test_mount_options()
   {
-    sbuild::chroot_block_device *c = dynamic_cast<sbuild::chroot_block_device *>(chroot.get());
+    std::tr1::shared_ptr<sbuild::chroot_block_device> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_block_device>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_mount_options("-o opt1,opt2");
     CPPUNIT_ASSERT(c->get_mount_options() == "-o opt1,opt2");
@@ -116,7 +116,7 @@ public:
 
   void test_setup_env_fsunion()
   {
-    sbuild::chroot_block_device *c = dynamic_cast<sbuild::chroot_block_device *>(chroot.get());
+    std::tr1::shared_ptr<sbuild::chroot_block_device> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_block_device>(chroot);
     c->set_union_type("aufs");
     c->set_union_overlay_directory("/overlay");
     c->set_union_underlay_directory("/underlay");
