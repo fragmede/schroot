@@ -47,7 +47,6 @@ groups=sbuild
 root-groups=root,sbuild
 #root-groups=root
 aliases=stable
-run-setup-scripts=true
 
 [experimental]
 description=Debian experimental
@@ -55,5 +54,4 @@ directory=/srv/chroot/experimental
 priority=3
 groups=sbuild,root
 root-groups=root,sbuild
-run-setup-scripts=true
 

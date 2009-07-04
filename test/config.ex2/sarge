@@ -6,5 +6,3 @@ groups=sbuild
 root-groups=root,sbuild
 #root-groups=root
 aliases=stable
-run-setup-scripts=true
-run-exec-scripts=true

@@ -4,4 +4,3 @@ description=Debian sid snapshot
 priority=3
 groups=sbuild,root
 file=/srv/chroots/sid.tar.gz
-run-setup-scripts=true
