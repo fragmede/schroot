@@ -70,18 +70,6 @@ do_umount_all()
 # $1: read-only branch
 do_mount_fs_union()
 {
-    # Try mounting the filesystem module
-    if ! grep -q "${CHROOT_UNION_TYPE}$" /proc/filesystems; then
-	modprobe ${CHROOT_UNION_TYPE} &> /dev/null || true
-    fi
-
-    # Skip fs if not available
-    if ! grep -q "${CHROOT_UNION_TYPE}$" /proc/filesystems; then
-	# branch config just works with the first fs
-	CHROOT_UNION_MOUNT_OPTIONS=""
-	continue
-    fi
-
     # Prepare mount options (branch config) for union type
     if [ -z "$CHROOT_UNION_MOUNT_OPTIONS" ]; then
 	case $CHROOT_UNION_TYPE in
@@ -103,15 +91,13 @@ do_mount_fs_union()
 }
 
 if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-  VERBOSE="-v"
+    VERBOSE="-v"
 #  FSCK_VERBOSE="-V"
 fi
 
 if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "loopback" ] || [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 
-    if [ "${CHROOT_UNION_TYPE:-none}" != "none" ] \
-	&& [ "$CHROOT_SESSION_PURGE" = "true" ];
-    then
+    if [ "${CHROOT_UNION_TYPE:-none}" != "none" ]; then
 	CREATE_UNION="yes"
     else
 	CREATE_UNION="no"
@@ -147,7 +133,13 @@ if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT
 	    do_umount_all "$CHROOT_MOUNT_LOCATION"
 	fi
 
-	do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
+	if [ "$CREATE_UNION" = "yes" ]; then
+	    MOUNT_LOCATION="$CHROOT_UNDERLAY_DIR"
+	else
+	    MOUNT_LOCATION="$CHROOT_MOUNT_LOCATION"
+	fi
+
+	do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$MOUNT_LOCATION"
 
 	if [ "$CREATE_UNION" = "yes" ]; then
 	    do_mount_fs_union
@@ -166,8 +158,13 @@ if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT
     elif [ $1 = "setup-stop" ]; then
 
 	do_umount_all "$CHROOT_MOUNT_LOCATION"
-	do_umount_all "$CHROOT_UNION_UNDERLAY_DIRECTORY"
+	if [ "${CHROOT_UNION_TYPE:-none}" != "none" ]; then
+	    do_umount_all "$CHROOT_UNION_UNDERLAY_DIRECTORY"
+	fi
 
+	# Purge mount location.
+	# The contents of file chroots are purged separately, because
+	# we might want to repack the contents.
 	if [ "$CHROOT_TYPE" != "file" ]; then
 	    if echo "$CHROOT_MOUNT_LOCATION" | grep -q "^$MOUNT_DIR/"; then
 		if [ -d "$CHROOT_MOUNT_LOCATION" ]; then
