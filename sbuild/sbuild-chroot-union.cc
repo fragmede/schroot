@@ -199,19 +199,23 @@ chroot_union::get_keyfile (keyfile& keyfile) const
   keyfile::set_object_value(*this, &chroot_union::get_union_type,
 			    keyfile, base->get_keyfile_name(), "union-type");
 
-  keyfile::set_object_value(*this,
-			    &chroot_union::get_union_mount_options,
-			    keyfile, base->get_keyfile_name(), "union-mount-options");
+  if (get_union_configured())
+    {
+      keyfile::set_object_value(*this,
+				&chroot_union::get_union_mount_options,
+				keyfile, base->get_keyfile_name(),
+				"union-mount-options");
 
-  keyfile::set_object_value(*this,
-			    &chroot_union::get_union_overlay_directory,
-			    keyfile, base->get_keyfile_name(),
-			    "union-overlay-directory");
+      keyfile::set_object_value(*this,
+				&chroot_union::get_union_overlay_directory,
+				keyfile, base->get_keyfile_name(),
+				"union-overlay-directory");
 
-  keyfile::set_object_value(*this,
-			    &chroot_union::get_union_underlay_directory,
-			    keyfile, base->get_keyfile_name(),
-			    "union-underlay-directory");
+      keyfile::set_object_value(*this,
+				&chroot_union::get_union_underlay_directory,
+				keyfile, base->get_keyfile_name(),
+				"union-underlay-directory");
+    }
 }
 
 void
