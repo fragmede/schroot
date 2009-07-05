@@ -139,7 +139,9 @@ to executing any command in the chroot.
 .IP
 Potentially dangerous environment variables are removed for safety by default
 using the following regular expression:
+.na
 \[lq]\f[CR]^(BASH_ENV\:|CDPATH\:|ENV\:|HOSTALIASES\:|IFS\:|KRB5_CONFIG\:|KRBCONFDIR\:|KRBTKFILE\:|KRB_CONF\:|LD_.*\:|LOCALDOMAIN\:|NLSPATH\:|PATH_LOCALE\:|RES_OPTIONS\:|TERMINFO\:|TERMINFO_DIRS\:|TERMPATH)$\fP\[rq].
+.ad
 .SS
 Plain and directory chroots
 .PP
