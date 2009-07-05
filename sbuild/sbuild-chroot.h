@@ -179,7 +179,7 @@ namespace sbuild
      *
      * @returns the mount location.
      */
-    virtual std::string const&
+    std::string const&
     get_mount_location () const;
 
     /**
