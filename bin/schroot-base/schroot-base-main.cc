@@ -1,4 +1,4 @@
-/* Copyright © 2005-2007  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -64,7 +64,7 @@ main::action_version (std::ostream& stream)
   stream << fmt
 	 << _("Written by Roger Leigh") << '\n' << '\n'
     // TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
-	 << _("Copyright (C) 2004-2008 Roger Leigh") << '\n'
+	 << _("Copyright (C) 2004-2009 Roger Leigh") << '\n'
 	 << _("This is free software; see the source for copying conditions.  There is NO\n"
 	      "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
 	 << std::flush;
