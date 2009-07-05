@@ -48,6 +48,12 @@ public:
   get_chroot_type () const
   { static const std::string type("test"); return type; }
 
+  void
+  set_run_setup_scripts (bool run_setup_scripts)
+  {
+    sbuild::chroot::set_run_setup_scripts(run_setup_scripts);
+  }
+
   virtual std::string
   get_path () const
   { return get_mount_location(); }
@@ -181,10 +187,12 @@ public:
 
   void test_run_setup_scripts()
   {
+    std::tr1::shared_ptr<basic_chroot> c = std::tr1::dynamic_pointer_cast<basic_chroot>(chroot);
+
     CPPUNIT_ASSERT(chroot->get_run_setup_scripts() == true);
-    chroot->set_run_setup_scripts(false);
+    c->set_run_setup_scripts(false);
     CPPUNIT_ASSERT(chroot->get_run_setup_scripts() == false);
-    chroot->set_run_setup_scripts(true);
+    c->set_run_setup_scripts(true);
     CPPUNIT_ASSERT(chroot->get_run_setup_scripts() == true);
   }
 

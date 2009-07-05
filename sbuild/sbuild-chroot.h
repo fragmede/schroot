@@ -373,6 +373,7 @@ namespace sbuild
     bool
     get_run_setup_scripts () const;
 
+  protected:
     /**
      * Set whether chroot setup scripts will be run.
      *
@@ -382,6 +383,7 @@ namespace sbuild
     void
     set_run_setup_scripts (bool run_setup_scripts);
 
+  public:
     /**
      * Get the script configuration file for the chroot.  This is a
      * filename, either relative to the configured pkgsysconfdir or an
