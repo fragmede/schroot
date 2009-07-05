@@ -34,6 +34,10 @@ setup_SCRIPTS =		\
 	20nssdatabases	\
 	50chrootname
 
+install-exec-hook:
+	$(MKDIR_P) "$(DESTDIR)$(setupdir)"
+	ln -sf "00check" "$(DESTDIR)$(setupdir)/99check"
+
 EXTRA_DIST =			\
 	$(setup_SCRIPTS)
 

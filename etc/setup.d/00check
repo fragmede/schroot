@@ -32,105 +32,108 @@ elif [ "$2" = "ok" ]; then
     exit 1
 fi
 
-if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
+# Skip if run at inappropriate point.
+if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ] && [ "$(basename "$0")" = "99check" ]; then
+    exit 0;
+elif [ $1 = "setup-stop" ] && [ "$(basename "$0")" = "00check" ]; then
+    exit 0;
+fi
 
-    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-	echo "AUTH_USER=$AUTH_USER"
-	echo "AUTH_RUSER=$AUTH_RUSER"
-	echo "AUTH_RGROUP=$AUTH_RGROUP"
-	echo "AUTH_UID=$AUTH_UID"
-	echo "AUTH_GID=$AUTH_GID"
-	echo "AUTH_RUID=$AUTH_RUID"
-	echo "AUTH_RGID=$AUTH_RGID"
-	echo "AUTH_HOME=$AUTH_HOME"
-	echo "AUTH_SHELL=$AUTH_SHELL"
-	echo "AUTH_VERBOSITY=$AUTH_VERBOSITY"
-	echo "MOUNT_DIR=$MOUNT_DIR"
-	echo "LIBEXEC_DIR=$LIBEXEC_DIR"
-	echo "PID=$PID"
-	echo "SESSION_ID=$SESSION_ID"
-	echo "CHROOT_TYPE=$CHROOT_TYPE"
-	echo "CHROOT_NAME=$CHROOT_NAME"
-	echo "CHROOT_DESCRIPTION=$CHROOT_DESCRIPTION"
-	echo "CHROOT_SCRIPT_CONFIG=$CHROOT_SCRIPT_CONFIG"
-	echo "CHROOT_MOUNT_LOCATION=$CHROOT_MOUNT_LOCATION"
-	echo "CHROOT_LOCATION=$CHROOT_LOCATION"
-	echo "CHROOT_PATH=$CHROOT_PATH"
-	if [ -n "$CHROOT_UNION_TYPE" ] && [ "$CHROOT_UNION_TYPE" != "none" ]; then
-	    echo "CHROOT_UNION_TYPE=$CHROOT_UNION_TYPE"
-	    echo "CHROOT_UNION_OVERLAY_DIRECTORY=$CHROOT_UNION_OVERLAY_DIRECTORY"
-	    echo "CHROOT_UNION_UNDERLAY_DIRECTORY=$CHROOT_UNION_UNDERLAY_DIRECTORY"
-	fi
-	if [ "$CHROOT_TYPE" = "directory" ]; then
-	    echo "CHROOT_DIRECTORY=$CHROOT_DIRECTORY"
-	elif [ "$CHROOT_TYPE" = "file" ]; then
-	    echo "CHROOT_FILE=$CHROOT_FILE"
-	    echo "CHROOT_FILE_REPACK=$CHROOT_FILE_REPACK"
-	    echo "CHROOT_FILE_UNPACK_DIR=$CHROOT_FILE_UNPACK_DIR"
-	elif [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
-	    echo "CHROOT_DEVICE=$CHROOT_DEVICE"
-	    echo "CHROOT_MOUNT_OPTIONS=$CHROOT_MOUNT_OPTIONS"
-	    if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
-		echo "CHROOT_LVM_SNAPSHOT_NAME=$CHROOT_LVM_SNAPSHOT_NAME"
-		echo "CHROOT_LVM_SNAPSHOT_DEVICE=$CHROOT_LVM_SNAPSHOT_DEVICE"
-		echo "CHROOT_LVM_SNAPSHOT_OPTIONS=$CHROOT_LVM_SNAPSHOT_OPTIONS"
-	    fi
-	fi
-	echo "CHROOT_SESSION_CREATE=$CHROOT_SESSION_CREATE"
-	echo "CHROOT_SESSION_CLONE=$CHROOT_SESSION_CLONE"
-	echo "CHROOT_SESSION_PURGE=$CHROOT_SESSION_PURGE"
-        echo "FSTAB=$FSTAB"
-        echo "SBUILD=$SBUILD"
+if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+    echo "AUTH_USER=$AUTH_USER"
+    echo "AUTH_RUSER=$AUTH_RUSER"
+    echo "AUTH_RGROUP=$AUTH_RGROUP"
+    echo "AUTH_UID=$AUTH_UID"
+    echo "AUTH_GID=$AUTH_GID"
+    echo "AUTH_RUID=$AUTH_RUID"
+    echo "AUTH_RGID=$AUTH_RGID"
+    echo "AUTH_HOME=$AUTH_HOME"
+    echo "AUTH_SHELL=$AUTH_SHELL"
+    echo "AUTH_VERBOSITY=$AUTH_VERBOSITY"
+    echo "MOUNT_DIR=$MOUNT_DIR"
+    echo "LIBEXEC_DIR=$LIBEXEC_DIR"
+    echo "PID=$PID"
+    echo "SESSION_ID=$SESSION_ID"
+    echo "CHROOT_TYPE=$CHROOT_TYPE"
+    echo "CHROOT_NAME=$CHROOT_NAME"
+    echo "CHROOT_DESCRIPTION=$CHROOT_DESCRIPTION"
+    echo "CHROOT_SCRIPT_CONFIG=$CHROOT_SCRIPT_CONFIG"
+    echo "CHROOT_MOUNT_LOCATION=$CHROOT_MOUNT_LOCATION"
+    echo "CHROOT_LOCATION=$CHROOT_LOCATION"
+    echo "CHROOT_PATH=$CHROOT_PATH"
+    if [ -n "$CHROOT_UNION_TYPE" ] && [ "$CHROOT_UNION_TYPE" != "none" ]; then
+	echo "CHROOT_UNION_TYPE=$CHROOT_UNION_TYPE"
+	echo "CHROOT_UNION_OVERLAY_DIRECTORY=$CHROOT_UNION_OVERLAY_DIRECTORY"
+	echo "CHROOT_UNION_UNDERLAY_DIRECTORY=$CHROOT_UNION_UNDERLAY_DIRECTORY"
     fi
+    if [ "$CHROOT_TYPE" = "directory" ]; then
+	echo "CHROOT_DIRECTORY=$CHROOT_DIRECTORY"
+    elif [ "$CHROOT_TYPE" = "file" ]; then
+	echo "CHROOT_FILE=$CHROOT_FILE"
+	echo "CHROOT_FILE_REPACK=$CHROOT_FILE_REPACK"
+	echo "CHROOT_FILE_UNPACK_DIR=$CHROOT_FILE_UNPACK_DIR"
+    elif [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
+	echo "CHROOT_DEVICE=$CHROOT_DEVICE"
+	echo "CHROOT_MOUNT_OPTIONS=$CHROOT_MOUNT_OPTIONS"
+	if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
+	    echo "CHROOT_LVM_SNAPSHOT_NAME=$CHROOT_LVM_SNAPSHOT_NAME"
+	    echo "CHROOT_LVM_SNAPSHOT_DEVICE=$CHROOT_LVM_SNAPSHOT_DEVICE"
+	    echo "CHROOT_LVM_SNAPSHOT_OPTIONS=$CHROOT_LVM_SNAPSHOT_OPTIONS"
+	fi
+    fi
+    echo "CHROOT_SESSION_CREATE=$CHROOT_SESSION_CREATE"
+    echo "CHROOT_SESSION_CLONE=$CHROOT_SESSION_CLONE"
+    echo "CHROOT_SESSION_PURGE=$CHROOT_SESSION_PURGE"
+    echo "FSTAB=$FSTAB"
+    echo "SBUILD=$SBUILD"
+fi
 
-    case "$CHROOT_TYPE" in
-	directory)
-	    if [ ! -d "$CHROOT_DIRECTORY" ]; then
-		echo "Directory '$CHROOT_DIRECTORY' does not exist"
+case "$CHROOT_TYPE" in
+    directory)
+	if [ ! -d "$CHROOT_DIRECTORY" ]; then
+	    echo "Directory '$CHROOT_DIRECTORY' does not exist"
+	    exit 1
+	fi
+	if [ "$CHROOT_UNION_TYPE" != "none" ]; then
+	    if [ ! -d "$CHROOT_UNION_OVERLAY_DIRECTORY" ] \
+		&& [ $1 = "setup-recover" ];
+	    then
+		echo "Directory '$CHROOT_UNION_OVERLAY_DIRECTORY' does not exist"
 		exit 1
 	    fi
-	    if [ "$CHROOT_UNION_TYPE" != "none" ]; then
-		if [ ! -d "$CHROOT_UNION_OVERLAY_DIRECTORY" ] \
-		    && [ $1 = "setup-recover" ];
-		then
-		    echo "Directory '$CHROOT_UNION_OVERLAY_DIRECTORY' does not exist"
-		    exit 1
-		fi
-		if [ ! -d "$CHROOT_UNION_UNDERLAY_DIRECTORY" ] \
+	    if [ ! -d "$CHROOT_UNION_UNDERLAY_DIRECTORY" ] \
 		    && [ $1 = "setup-recunder" ];
 		then
-		    echo "Directory '$CHROOT_UNION_UNDERLAY_DIRECTORY' does not exist"
-		    exit 1
-		fi
-	    fi
-	    ;;
-	file | loopback)
-	    if [ ! -f "$CHROOT_FILE" ]; then
-		echo "File '$CHROOT_FILE' does not exist"
+		echo "Directory '$CHROOT_UNION_UNDERLAY_DIRECTORY' does not exist"
 		exit 1
 	    fi
-	    ;;
-	block-device | lvm-snapshot)
-	    if [ ! -b "$CHROOT_DEVICE" ]; then
-		echo "Device '$CHROOT_DEVICE' does not exist"
-		exit 1
-	    fi
-	    ;;
-	*)
-	    echo "Unknown chroot type $CHROOT_TYPE"
+	fi
+	;;
+    file | loopback)
+	if [ ! -f "$CHROOT_FILE" ]; then
+	    echo "File '$CHROOT_FILE' does not exist"
 	    exit 1
-	    ;;
-    esac
-
-    # A basic safety check, so that the root filesystem doesn't get
-    # toasted by accident.
-    if [ -z "$CHROOT_PATH" ] \
-	|| [ "$CHROOT_PATH" = "/" ] \
-	|| [ "$CHROOT_DIRECTORY" = "/" ] \
-	|| [ "$CHROOT_UNION_OVERLAY_DIRECTORY" = "/" ]
-    then
-	echo "Invalid chroot mount path or directory"
+	fi
+	;;
+    block-device | lvm-snapshot)
+	if [ ! -b "$CHROOT_DEVICE" ]; then
+	    echo "Device '$CHROOT_DEVICE' does not exist"
+	    exit 1
+	fi
+	;;
+    *)
+	echo "Unknown chroot type $CHROOT_TYPE"
 	exit 1
-    fi
+	;;
+esac
 
+# A basic safety check, so that the root filesystem doesn't get
+# toasted by accident.
+if [ -z "$CHROOT_PATH" ] \
+    || [ "$CHROOT_PATH" = "/" ] \
+    || [ "$CHROOT_DIRECTORY" = "/" ] \
+    || [ "$CHROOT_UNION_OVERLAY_DIRECTORY" = "/" ]
+then
+    echo "Invalid chroot mount path or directory"
+    exit 1
 fi
