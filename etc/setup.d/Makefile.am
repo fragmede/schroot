@@ -26,8 +26,8 @@ setupdir = $(SCHROOT_CONF_SETUP_D)
 setup_SCRIPTS =		\
 	00check		\
 	05file		\
-	05fsunion	\
 	05lvm		\
+	05union		\
 	10mount		\
 	15killprocs	\
 	20copyfiles	\

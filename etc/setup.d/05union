@@ -27,15 +27,24 @@ if [ "${CHROOT_UNION_TYPE}" != 'none' ]; then
 
     if [ $1 = "setup-start" ]; then
 	mkdir "${CHROOT_UNION_OVERLAY_DIRECTORY}"
+	if [ ! -d "$CHROOT_UNION_OVERLAY_DIRECTORY" ]; then
+	    echo "$CHROOT_UNION_OVERLAY_DIRECTORY does not exist, and could not be created"
+	    exit 1
+	fi
+
 	mkdir "${CHROOT_UNION_UNDERLAY_DIRECTORY}"
+	if [ ! -d "$CHROOT_UNION_UNDERLAY_DIRECTORY" ]; then
+	    echo "$CHROOT_UNION_UNDERLAY_DIRECTORY does not exist, and could not be created"
+	    exit 1
+	fi
 
     elif [ $1 = "setup-recover" ]; then
         if [ ! -d "${CHROOT_UNION_OVERLAY_DIRECTORY}" ]; then
-	    echo "Missing overlay directory for session - can't restore"
+	    echo "Missing overlay directory for session: can't recover"
 	    exit 1
         fi
         if [ ! -d "${CHROOT_UNION_UNDERLAY_DIRECTORY}" ]; then
-	    echo "Missing underlay directory for session - can't restore"
+	    echo "Missing underlay directory for session: can't recover"
 	    exit 1
         fi
 
@@ -48,11 +57,13 @@ if [ "${CHROOT_UNION_TYPE}" != 'none' ]; then
 		rm -rf "${CHROOT_UNION_OVERLAY_DIRECTORY}"
 	    fi
 
+	    # For safety, use rmdir rather than rm -rf in case
+	    # umount failed.
 	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 		echo "Purging $CHROOT_UNION_UNDERLAY_DIRECTORY"
 	    fi
 	    if [ -d "${CHROOT_UNION_UNDERLAY_DIRECTORY}" ]; then
-		rm -rf "${CHROOT_UNION_UNDERLAY_DIRECTORY}"
+		rmdir "${CHROOT_UNION_UNDERLAY_DIRECTORY}"
 	    fi
 	fi
     fi
