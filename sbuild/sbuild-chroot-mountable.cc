@@ -33,7 +33,6 @@ using boost::format;
 using namespace sbuild;
 
 chroot_mountable::chroot_mountable ():
-  mount_device(),
   mount_options(),
   location()
 {
@@ -41,18 +40,6 @@ chroot_mountable::chroot_mountable ():
 
 chroot_mountable::~chroot_mountable ()
 {
-}
-
-std::string const&
-chroot_mountable::get_mount_device () const
-{
-  return this->mount_device;
-}
-
-void
-chroot_mountable::set_mount_device (std::string const& mount_device)
-{
-  this->mount_device = mount_device;
 }
 
 std::string const&
@@ -99,6 +86,8 @@ chroot_mountable::get_session_flags () const
 void
 chroot_mountable::get_details (format_detail& detail) const
 {
+  if (!get_mount_device().empty())
+    detail.add(_("Mount Device"), get_mount_device());
   if (!get_mount_options().empty())
     detail.add(_("Mount Options"), get_mount_options());
   if (!get_location().empty())
