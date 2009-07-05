@@ -23,7 +23,7 @@ if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
     . "$CHROOT_SCRIPT_CONFIG"
 fi
 
-if [ "${CHROOT_UNION_TYPE}" != 'none' ]; then
+if [ -n "${CHROOT_UNION_TYPE}" ] && [ "${CHROOT_UNION_TYPE}" != 'none' ]; then
 
     if [ $1 = "setup-start" ]; then
 	mkdir "${CHROOT_UNION_OVERLAY_DIRECTORY}"
