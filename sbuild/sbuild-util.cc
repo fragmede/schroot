@@ -235,9 +235,43 @@ sbuild::split_string (std::string const& value,
   while (pos !=std::string::npos || last_pos != std::string::npos)
     {
       // Add to list
-      ret.push_back(value.substr(last_pos, pos - last_pos));
+      if (pos == std::string::npos)
+	// Entire string from last_pos
+	ret.push_back(value.substr(last_pos, pos));
+      else
+	// Between pos and last_pos
+	ret.push_back(value.substr(last_pos, pos - last_pos));
+
       // Find next
       last_pos = value.find_first_not_of(separator, pos);
+      pos = value.find_first_of(separator, last_pos);
+    }
+
+  return ret;
+}
+
+string_list
+sbuild::split_string_strict (std::string const& value,
+			     std::string const& separator)
+{
+  string_list ret;
+
+  std::string::size_type last_pos = 0;
+  // Find first separator.
+  std::string::size_type pos = value.find_first_of(separator, last_pos);
+
+  while (pos !=std::string::npos)
+    {
+      // Add to list
+      if (pos == std::string::npos)
+	// Entire string from last_pos
+	ret.push_back(value.substr(last_pos, pos));
+      else
+	// Between pos and last_pos
+	ret.push_back(value.substr(last_pos, pos - last_pos));
+
+      // Find next
+      last_pos = pos + separator.length();
       pos = value.find_first_of(separator, last_pos);
     }
 

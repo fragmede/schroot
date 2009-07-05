@@ -115,7 +115,10 @@ namespace sbuild
 
   /**
    * Split a string into a string_list.  The string is split using
-   * separator as a delimiter.
+   * separator as a delimiter.  Note that only non-zero-length strings
+   * are preserved, so multiple concatenated delimiters or delimiters
+   * at the beginning and end of the string will not result in empty
+   * strings in the list.
    *
    * @param value the string to split.
    * @param separator the delimiting character or characters.
@@ -153,6 +156,55 @@ namespace sbuild
   std::vector<std::string>
   split_string (std::string const& value,
 		std::string const& separator);
+
+  /**
+   * Split a string into a string_list.  The string is split using
+   * separator as a delimiter.  All delimiters are used as string
+   * separators, so delimiters at the beginning or end of a string, or
+   * which are concatenated together, will result in empty strings in
+   * the string list.
+   *
+   * @param value the string to split.
+   * @param separator the delimiting character or characters.
+   * @returns a string_list.
+   *
+   * @todo Provide an alternative that splits the string in place
+   * using an iterator interface.
+   */
+  template <typename S>
+  std::vector<S>
+  split_string_strict (S const& value,
+		       S const& separator)
+  {
+    std::vector<S> ret;
+
+    // Skip any separators at the start
+    typename S::size_type last_pos = 0;
+    // Find first separator.
+    typename S::size_type pos = value.find_first_of(separator, last_pos);
+
+    while (pos !=S::npos || last_pos != S::npos)
+      {
+	// Add to list
+	if (pos == std::string::npos)
+	  // Entire string from last_pos
+	  ret.push_back(value.substr(last_pos, pos));
+	else
+	  // Between pos and last_pos
+	  ret.push_back(value.substr(last_pos, pos - last_pos));
+
+	// Find next
+	last_pos = pos + separator.length();
+	pos = value.find_first_of(separator, last_pos);
+      }
+
+    return ret;
+  }
+
+  // template
+  std::vector<std::string>
+  split_string_strict (std::string const& value,
+		       std::string const& separator);
 
   /**
    * Widen a string.  The narrow string is converted into a wide
