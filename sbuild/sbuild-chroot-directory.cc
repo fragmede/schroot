@@ -107,11 +107,10 @@ sbuild::chroot::session_flags
 chroot_directory::get_session_flags () const
 {
 #ifdef SBUILD_FEATURE_UNION
-  if (get_union_configured())
-    return SESSION_CREATE | chroot_union::get_session_flags();
-  else
+  return SESSION_CREATE | chroot_union::get_session_flags();
+#else
+  return SESSION_CREATE;
 #endif // SBUILD_FEATURE_UNION
-    return SESSION_CREATE;
 }
 
 void
