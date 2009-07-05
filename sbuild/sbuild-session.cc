@@ -623,9 +623,9 @@ session::run_impl ()
 #ifdef SBUILD_FEATURE_UNION
 	    chroot_union *fsunion = dynamic_cast<chroot_union *>(chroot.get());
 #endif // SBUILD_FEATURE_UNION
-	    if (chroot->get_mount_location().empty() && plain == 0
+	    if (chroot->get_mount_location().empty() && plain != 0
 #ifdef SBUILD_FEATURE_UNION
-		&& (fsunion == 0 || (fsunion && !fsunion->get_union_configured()))
+		&& (fsunion == 0 || !fsunion->get_union_configured())
 #endif // SBUILD_FEATURE_UNION
 		)
 	      {
