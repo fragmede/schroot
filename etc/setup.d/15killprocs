@@ -32,9 +32,8 @@ fi
 do_kill_all()
 {
     if [ -z "$1" ]; then
-	echo "No path (CHROOT_MOUNT_LOCATION) for finding stray processes" >&2
-	echo "This is a bug in schroot.  Please report it to the developers"
-	exit 1
+	echo "No path for finding stray processes: not reaping processes in chroot"
+	exit 0
     fi
 
     if [ "$AUTH_VERBOSITY" = "verbose" ]; then
