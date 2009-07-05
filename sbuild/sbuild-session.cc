@@ -881,7 +881,7 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
 	       shell.c_str());
     }
 
-  if (this->authstat->get_verbosity() != auth::VERBOSITY_QUIET)
+  if (this->authstat->get_verbosity() == auth::VERBOSITY_VERBOSE)
     {
       std::string format_string;
       if (this->authstat->get_ruid() == this->authstat->get_uid())
@@ -944,7 +944,7 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
     syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
 	   session_chroot->get_name().c_str(), this->authstat->get_ruser().c_str(), this->authstat->get_user().c_str(), commandstring.c_str());
 
-  if (this->authstat->get_verbosity() != auth::VERBOSITY_QUIET)
+  if (this->authstat->get_verbosity() == auth::VERBOSITY_VERBOSE)
     {
       std::string format_string;
       if (this->authstat->get_ruid() == this->authstat->get_uid())
