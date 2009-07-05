@@ -620,7 +620,8 @@ session::run_impl ()
 	     setup scripts. */
 	  {
 	    chroot_plain *plain = dynamic_cast<chroot_plain *>(chroot.get());
-	    if (chroot->get_mount_location().empty() && plain != 0)
+
+	    if (chroot->get_mount_location().empty() && !plain)
 	      {
 		log_debug(DEBUG_NOTICE) << "Setting mount location" << endl;
 		std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
