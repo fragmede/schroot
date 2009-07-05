@@ -32,7 +32,7 @@
 using namespace sbuild;
 
 chroot_directory::chroot_directory ():
-  chroot_plain_base()
+  chroot_directory_base()
 #ifdef SBUILD_FEATURE_UNION
   , chroot_union()
 #endif // SBUILD_FEATURE_UNION
@@ -74,7 +74,7 @@ chroot_directory::get_path () const
 void
 chroot_directory::setup_env (environment& env)
 {
-  chroot_plain_base::setup_env(env);
+  chroot_directory_base::setup_env(env);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::setup_env(env);
 #endif // SBUILD_FEATURE_UNION
@@ -115,7 +115,7 @@ chroot_directory::get_session_flags () const
 void
 chroot_directory::get_details (format_detail& detail) const
 {
-  chroot_plain_base::get_details(detail);
+  chroot_directory_base::get_details(detail);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::get_details(detail);
 #endif // SBUILD_FEATURE_UNION
@@ -124,7 +124,7 @@ chroot_directory::get_details (format_detail& detail) const
 void
 chroot_directory::get_keyfile (keyfile& keyfile) const
 {
-  chroot_plain_base::get_keyfile(keyfile);
+  chroot_directory_base::get_keyfile(keyfile);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::get_keyfile(keyfile);
 #endif // SBUILD_FEATURE_UNION
@@ -134,7 +134,7 @@ void
 chroot_directory::set_keyfile (keyfile const& keyfile,
 			      string_list&   used_keys)
 {
-  chroot_plain_base::set_keyfile(keyfile, used_keys);
+  chroot_directory_base::set_keyfile(keyfile, used_keys);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::set_keyfile(keyfile, used_keys);
 #endif // SBUILD_FEATURE_UNION

@@ -32,7 +32,7 @@
 using namespace sbuild;
 
 chroot_plain::chroot_plain ():
-  chroot()
+  chroot_directory_base()
 {
   set_run_setup_scripts(false);
 }

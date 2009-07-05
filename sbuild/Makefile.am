@@ -32,10 +32,10 @@ sbuild_public_h_sources =		\
 	sbuild-auth-null.h		\
 	sbuild-chroot.h			\
 	sbuild-chroot-directory.h	\
+	sbuild-chroot-directory-base.h	\
 	sbuild-chroot-file.h		\
 	sbuild-chroot-mountable.h	\
 	sbuild-chroot-plain.h		\
-	sbuild-chroot-plain-base.h	\
 	sbuild-chroot-source.h		\
 	sbuild-chroot-config.h		\
 	sbuild-chroot-union.h		\
@@ -103,10 +103,10 @@ sbuild_public_cc_sources =		\
 	sbuild-auth-null.cc		\
 	sbuild-chroot.cc		\
 	sbuild-chroot-directory.cc	\
+	sbuild-chroot-directory-base.cc	\
 	sbuild-chroot-file.cc		\
 	sbuild-chroot-mountable.cc	\
 	sbuild-chroot-plain.cc		\
-	sbuild-chroot-plain-base.cc	\
 	sbuild-chroot-source.cc		\
 	sbuild-chroot-config.cc		\
 	sbuild-ctty.cc			\

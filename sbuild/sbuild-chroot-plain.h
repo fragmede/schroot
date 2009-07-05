@@ -19,7 +19,7 @@
 #ifndef SBUILD_CHROOT_PLAIN_H
 #define SBUILD_CHROOT_PLAIN_H
 
-#include <sbuild/sbuild-chroot-plain-base.h>
+#include <sbuild/sbuild-chroot-directory-base.h>
 
 namespace sbuild
 {
@@ -27,7 +27,7 @@ namespace sbuild
   /**
    * A chroot located in the filesystem (mounts disabled).
    */
-  class chroot_plain : virtual public chroot_plain_base
+  class chroot_plain : virtual public chroot_directory_base
   {
   protected:
     /// The constructor.

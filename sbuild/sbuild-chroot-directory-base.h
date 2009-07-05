@@ -16,8 +16,8 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_PLAIN_BASE_H
-#define SBUILD_CHROOT_PLAIN_BASE_H
+#ifndef SBUILD_CHROOT_DIRECTORY_BASE_H
+#define SBUILD_CHROOT_DIRECTORY_BASE_H
 
 #include <sbuild/sbuild-chroot.h>
 
@@ -27,17 +27,17 @@ namespace sbuild
   /**
    * A chroot located in the filesystem (mounts disabled).
    */
-  class chroot_plain_base : virtual public chroot
+  class chroot_directory_base : virtual public chroot
   {
   protected:
     /// The constructor.
-    chroot_plain_base ();
+    chroot_directory_base ();
 
     friend class chroot;
 
   public:
     /// The destructor.
-    virtual ~chroot_plain_base ();
+    virtual ~chroot_directory_base ();
 
     /**
      * Get the directory containing the chroot.
@@ -58,15 +58,7 @@ namespace sbuild
     virtual void
     setup_env (environment& env);
 
-    virtual session_flags
-    get_session_flags () const;
-
   protected:
-    virtual void
-    setup_lock (chroot::setup_type type,
-		bool               lock,
-		int                status);
-
     virtual void
     get_details (format_detail& detail) const;
 
@@ -84,7 +76,7 @@ namespace sbuild
 
 }
 
-#endif /* SBUILD_CHROOT_PLAIN_BASE_H */
+#endif /* SBUILD_CHROOT_DIRECTORY_BASE_H */
 
 /*
  * Local Variables:

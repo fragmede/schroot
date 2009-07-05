@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "sbuild-chroot-plain-base.h"
+#include "sbuild-chroot-directory-base.h"
 #include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
 
@@ -31,23 +31,23 @@
 
 using namespace sbuild;
 
-chroot_plain_base::chroot_plain_base ():
+chroot_directory_base::chroot_directory_base ():
   chroot()
 {
 }
 
-chroot_plain_base::~chroot_plain_base ()
+chroot_directory_base::~chroot_directory_base ()
 {
 }
 
 std::string const&
-chroot_plain_base::get_directory () const
+chroot_directory_base::get_directory () const
 {
   return this->directory;
 }
 
 void
-chroot_plain_base::set_directory (std::string const& directory)
+chroot_directory_base::set_directory (std::string const& directory)
 {
   if (!is_absname(directory))
     throw chroot::error(directory, DIRECTORY_ABS);
@@ -56,7 +56,7 @@ chroot_plain_base::set_directory (std::string const& directory)
 }
 
 void
-chroot_plain_base::setup_env (environment& env)
+chroot_directory_base::setup_env (environment& env)
 {
   chroot::setup_env(env);
 
@@ -64,21 +64,7 @@ chroot_plain_base::setup_env (environment& env)
 }
 
 void
-chroot_plain_base::setup_lock (chroot::setup_type type,
-			       bool               lock,
-			       int                status)
-{
-  /* By default, plain_base chroots do no locking. */
-}
-
-sbuild::chroot::session_flags
-chroot_plain_base::get_session_flags () const
-{
-  return SESSION_NOFLAGS;
-}
-
-void
-chroot_plain_base::get_details (format_detail& detail) const
+chroot_directory_base::get_details (format_detail& detail) const
 {
   chroot::get_details(detail);
 
@@ -86,17 +72,17 @@ chroot_plain_base::get_details (format_detail& detail) const
 }
 
 void
-chroot_plain_base::get_keyfile (keyfile& keyfile) const
+chroot_directory_base::get_keyfile (keyfile& keyfile) const
 {
   chroot::get_keyfile(keyfile);
 
-  keyfile::set_object_value(*this, &chroot_plain_base::get_directory,
+  keyfile::set_object_value(*this, &chroot_directory_base::get_directory,
 			    keyfile, get_keyfile_name(), "directory");
 }
 
 void
-chroot_plain_base::set_keyfile (keyfile const& keyfile,
-				string_list&   used_keys)
+chroot_directory_base::set_keyfile (keyfile const& keyfile,
+				    string_list&   used_keys)
 {
   chroot::set_keyfile(keyfile, used_keys);
 
@@ -119,12 +105,12 @@ chroot_plain_base::set_keyfile (keyfile const& keyfile,
   if (directory_key && location_key)
     location_priority = keyfile::PRIORITY_DISALLOWED;
 
-  keyfile::get_object_value(*this, &chroot_plain_base::set_directory,
+  keyfile::get_object_value(*this, &chroot_directory_base::set_directory,
 			    keyfile, get_keyfile_name(), "directory",
 			    directory_priority);
   used_keys.push_back("directory");
 
-  keyfile::get_object_value(*this, &chroot_plain_base::set_directory,
+  keyfile::get_object_value(*this, &chroot_directory_base::set_directory,
 			    keyfile, get_keyfile_name(), "location",
 			    location_priority);
   used_keys.push_back("location");
