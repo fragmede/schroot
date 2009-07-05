@@ -1,4 +1,4 @@
-/* Copyright © 2005-2008  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2007  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -16,52 +16,47 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_DIRECTORY_H
-#define SBUILD_CHROOT_DIRECTORY_H
+#ifndef SBUILD_CHROOT_PLAIN_BASE_H
+#define SBUILD_CHROOT_PLAIN_BASE_H
 
-#include <sbuild/sbuild-config.h>
-#include <sbuild/sbuild-chroot-plain-base.h>
-#ifdef SBUILD_FEATURE_UNION
-#include <sbuild/sbuild-chroot-union.h>
-#endif // SBUILD_FEATURE_UNION
+#include <sbuild/sbuild-chroot.h>
 
 namespace sbuild
 {
 
   /**
-   * A chroot located in the filesystem.
+   * A chroot located in the filesystem (mounts disabled).
    */
-  class chroot_directory : public chroot_plain_base
-#ifdef SBUILD_FEATURE_UNION
-			 , public chroot_union
-#endif // SBUILD_FEATURE_UNION
+  class chroot_plain_base : virtual public chroot
   {
   protected:
     /// The constructor.
-    chroot_directory ();
+    chroot_plain_base ();
 
     friend class chroot;
 
   public:
     /// The destructor.
-    virtual ~chroot_directory ();
+    virtual ~chroot_plain_base ();
 
-    virtual chroot::ptr
-    clone () const;
+    /**
+     * Get the directory containing the chroot.
+     *
+     * @returns the location.
+     */
+    std::string const&
+    get_directory () const;
 
-#ifdef SBUILD_FEATURE_UNION
-    virtual chroot::ptr
-    clone_source () const;
-#endif // SBUILD_FEATURE_UNION
-
-    virtual std::string
-    get_path () const;
+    /**
+     * Set the directory containing the chroot.
+     *
+     * @param directory the directory.
+     */
+    void
+    set_directory (std::string const& directory);
 
     virtual void
     setup_env (environment& env);
-
-    virtual std::string const&
-    get_chroot_type () const;
 
     virtual session_flags
     get_session_flags () const;
@@ -80,12 +75,16 @@ namespace sbuild
 
     virtual void
     set_keyfile (keyfile const& keyfile,
-                 string_list&   used_keys);
+		 string_list&   used_keys);
+
+  private:
+    /// The directory to use.
+    std::string directory;
   };
 
 }
 
-#endif /* SBUILD_CHROOT_DIRECTORY_H */
+#endif /* SBUILD_CHROOT_PLAIN_BASE_H */
 
 /*
  * Local Variables:

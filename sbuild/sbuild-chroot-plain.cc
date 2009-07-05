@@ -48,21 +48,6 @@ chroot_plain::clone () const
 }
 
 std::string const&
-chroot_plain::get_directory () const
-{
-  return this->directory;
-}
-
-void
-chroot_plain::set_directory (std::string const& directory)
-{
-  if (!is_absname(directory))
-    throw chroot::error(directory, DIRECTORY_ABS);
-
-  this->directory = directory;
-}
-
-std::string const&
 chroot_plain::get_chroot_type () const
 {
   static const std::string type("plain");
@@ -77,14 +62,6 @@ chroot_plain::get_path () const
 }
 
 void
-chroot_plain::setup_env (environment& env)
-{
-  chroot::setup_env(env);
-
-  env.add("CHROOT_DIRECTORY", get_directory());
-}
-
-void
 chroot_plain::setup_lock (chroot::setup_type type,
 			  bool               lock,
 			  int                status)
@@ -96,57 +73,4 @@ sbuild::chroot::session_flags
 chroot_plain::get_session_flags () const
 {
   return SESSION_NOFLAGS;
-}
-
-void
-chroot_plain::get_details (format_detail& detail) const
-{
-  chroot::get_details(detail);
-
-  detail.add(_("Directory"), get_directory());
-}
-
-void
-chroot_plain::get_keyfile (keyfile& keyfile) const
-{
-  chroot::get_keyfile(keyfile);
-
-  keyfile::set_object_value(*this, &chroot_plain::get_directory,
-			    keyfile, get_keyfile_name(), "directory");
-}
-
-void
-chroot_plain::set_keyfile (keyfile const& keyfile,
-			   string_list&   used_keys)
-{
-  chroot::set_keyfile(keyfile, used_keys);
-
-  // "directory" should be required, but we also accept "location" as
-  // an alternative (but deprecated) variant.  Therefore, ensure by
-  // hand that one of them is defined, but not both.
-
-  bool directory_key = keyfile.has_key(get_keyfile_name(), "directory");
-  bool location_key = keyfile.has_key(get_keyfile_name(), "location");
-
-  keyfile::priority directory_priority = keyfile::PRIORITY_OPTIONAL;
-  keyfile::priority location_priority = keyfile::PRIORITY_DEPRECATED;
-
-  if (!directory_key && !location_key)
-    throw keyfile::error(get_keyfile_name(), keyfile::MISSING_KEY_NL, "directory");
-
-  // Using both keys is not allowed (which one is the correct one?),
-  // so force an exception to be thrown when reading the old location
-  // key.
-  if (directory_key && location_key)
-    location_priority = keyfile::PRIORITY_DISALLOWED;
-
-  keyfile::get_object_value(*this, &chroot_plain::set_directory,
-			    keyfile, get_keyfile_name(), "directory",
-			    directory_priority);
-  used_keys.push_back("directory");
-
-  keyfile::get_object_value(*this, &chroot_plain::set_directory,
-			    keyfile, get_keyfile_name(), "location",
-			    location_priority);
-  used_keys.push_back("location");
 }
