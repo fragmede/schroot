@@ -74,66 +74,6 @@ chroot_block_device::clone_source () const
 
   return ptr(clone);
 }
-
-string_list const&
-chroot_block_device::get_source_users () const
-{
-  return this->source_users;
-}
-
-void
-chroot_block_device::set_source_users (string_list const& source_users)
-{
-  this->source_users = source_users;
-}
-
-string_list const&
-chroot_block_device::get_source_groups () const
-{
-  return this->source_groups;
-}
-
-void
-chroot_block_device::set_source_groups (string_list const& source_groups)
-{
-  this->source_groups = source_groups;
-}
-
-string_list const&
-chroot_block_device::get_source_root_users () const
-{
-  return this->source_root_users;
-}
-
-void
-chroot_block_device::set_source_root_users (string_list const& users)
-{
-  this->source_root_users = users;
-}
-
-string_list const&
-chroot_block_device::get_source_root_groups () const
-{
-  return this->source_root_groups;
-}
-
-void
-chroot_block_device::set_source_root_groups (string_list const& groups)
-{
-  this->source_root_groups = groups;
-}
-
-bool
-chroot_block_device::get_source () const
-{
-  return this->is_source;
-}
-
-void
-chroot_block_device::set_source (bool source)
-{
-  this->is_source = source;
-}
 #endif // SBUILD_FEATURE_UNION
 
 void
