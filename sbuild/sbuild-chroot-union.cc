@@ -173,15 +173,18 @@ chroot_union::get_details (format_detail& detail) const
 {
   chroot_source::get_details(detail);
 
-  if (!this->union_mount_options.empty())
-    detail.add(_("Filesystem union mount options"),
-	       get_union_mount_options());
-  if (!this->union_overlay_directory.empty())
-    detail.add(_("Filesystem union overlay directory"),
-	       get_union_overlay_directory());
-  if (!this->union_underlay_directory.empty())
-    detail.add(_("Filesystem union underlay directory"),
-	       get_union_underlay_directory());
+  if (get_union_configured())
+    {
+      if (!this->union_mount_options.empty())
+	detail.add(_("Filesystem union mount options"),
+		   get_union_mount_options());
+      if (!this->union_overlay_directory.empty())
+	detail.add(_("Filesystem union overlay directory"),
+		   get_union_overlay_directory());
+      if (!this->union_underlay_directory.empty())
+	detail.add(_("Filesystem union underlay directory"),
+		   get_union_underlay_directory());
+    }
 }
 
 void
