@@ -256,29 +256,6 @@ run_parts::run_child (std::string const& file,
 
 	  int outdata = 0;
 	  int errdata = 0;
-	  if (pollfds[0].revents | POLLIN)
-	    {
-	      if ((outdata = read(pollfds[0].fd, buffer, BUFSIZ)) < 0)
-		throw error(READ, strerror(errno));
-
-	      if (outdata)
-		stdout_buf += std::string(&buffer[0], outdata);
-	    }
-
-	  if (!stdout_buf.empty())
-	    {
-	      string_list lines = split_string(stdout_buf, "\n");
-
-	      for (string_list::const_iterator pos = lines.begin();
-		   pos != lines.end();
-		   ++pos)
-		{
-		  if (pos + 1 != lines.end() || outdata == 0)
-		    log_info() << file << ": " << *pos << '\n';
-		  else // Save possibly incompete line
-		    stdout_buf = *pos;
-		}
-	    }
 
 	  if (pollfds[1].revents | POLLIN)
 	    {
@@ -290,23 +267,66 @@ run_parts::run_child (std::string const& file,
 		stderr_buf += std::string(&buffer[0], errdata);
 	    }
 
+	  if (pollfds[0].revents | POLLIN)
+	    {
+	      if ((outdata = read(pollfds[0].fd, buffer, BUFSIZ)) < 0)
+		throw error(READ, strerror(errno));
+
+	      if (outdata)
+		stdout_buf += std::string(&buffer[0], outdata);
+	    }
+
 	  if (!stderr_buf.empty())
 	    {
-	      string_list lines = split_string(stderr_buf, "\n");
+	      string_list lines = split_string_strict(stderr_buf, "\n");
+	      // If the buffer ends in a newline before splitting,
+	      // it's OK to flush all lines.
+	      bool flush = *stderr_buf.rbegin() == '\n';
 
 	      for (string_list::const_iterator pos = lines.begin();
 		   pos != lines.end();
 		   ++pos)
 		{
-		  if (pos + 1 != lines.end() || errdata == 0)
+		  if (pos + 1 != lines.end() || flush)
 		    log_error() << file << ": " << *pos << '\n';
 		  else // Save possibly incompete line
 		    stderr_buf = *pos;
 		}
+
+	      if (flush)
+		stderr_buf.clear();
+	    }
+
+	  if (!stdout_buf.empty())
+	    {
+	      string_list lines = split_string_strict(stdout_buf, "\n");
+	      // If the buffer ends in a newline before splitting,
+	      // it's OK to flush all lines.
+	      bool flush = *stdout_buf.rbegin() == '\n';
+
+	      for (string_list::const_iterator pos = lines.begin();
+		   pos != lines.end();
+		   ++pos)
+		{
+		  if (pos + 1 != lines.end() || flush)
+		    log_info() << file << ": " << *pos << '\n';
+		  else // Save possibly incompete line
+		    stdout_buf = *pos;
+		}
+
+	      if (flush)
+		stdout_buf.clear();
 	    }
 
 	  if (outdata == 0 && errdata == 0) // pipes closed
-	    break;
+	    {
+	      // Flush any remaining lines
+	      if (!stderr_buf.empty())
+		log_error() << file << ": " << stderr_buf << '\n';
+	      if (!stdout_buf.empty())
+		log_info() << file << ": " << stdout_buf << '\n';
+	      break;
+	    }
 	}
 
       close(stdout_pipe[0]);
