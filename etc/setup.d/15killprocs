@@ -31,6 +31,12 @@ fi
 # $1: mount base location
 do_kill_all()
 {
+    if [ -z "$1" ]; then
+	echo "No path (CHROOT_MOUNT_LOCATION) for finding stray processes" >&2
+	echo "This is a bug in schroot.  Please report it to the developers"
+	exit 1
+    fi
+
     if [ "$AUTH_VERBOSITY" = "verbose" ]; then
         echo "Killing processes run inside $1"
     fi
@@ -43,6 +49,7 @@ do_kill_all()
                 echo "Killing left-over pid $pid (${exe##$1})"
                 echo "  Sending SIGTERM to pid $pid"
             fi
+
             /bin/kill -TERM "$pid" 2>/dev/null
 
             count=0
