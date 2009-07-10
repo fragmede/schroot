@@ -49,6 +49,7 @@ chroot_block_device::chroot_block_device (const chroot_block_device& rhs):
 }
 
 chroot_block_device::chroot_block_device (const chroot_lvm_snapshot& rhs):
+  chroot(rhs),
   chroot_block_device_base(rhs)
 {
 }
