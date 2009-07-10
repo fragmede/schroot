@@ -98,7 +98,7 @@ sbuild::chroot::chroot ():
   root_users(),
   root_groups(),
   aliases(),
-  environment_filter("^(BASH_ENV|CDPATH|ENV|HOSTALIASES|IFS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMAIN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TERMPATH)$"),
+  environment_filter(SBUILD_DEFAULT_ENVIRONMENT_FILTER),
   mount_location(),
   active(false),
   original(true),

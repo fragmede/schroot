@@ -63,6 +63,9 @@
 /* Define to 1 if you have the <tr1/tuple> header file. */
 #undef HAVE_TR1_TUPLE
 
+/* Default regular expression used to filter user environment */
+#undef SBUILD_DEFAULT_ENVIRONMENT_FILTER
+
 #define SBUILD_MESSAGE_CATALOGUE "schroot"
 
 #endif /* SBUILD_H */

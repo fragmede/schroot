@@ -163,6 +163,20 @@ if test "$enable_debug" = "yes"; then
   AC_DEFINE_UNQUOTED([SBUILD_DEBUG], [1], [Enable debugging])
 fi
 
+default_environment_filter='^(BASH_ENV|CDPATH|ENV|HOSTALIASES|IFS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMAIN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TERMPATH)$'
+
+AC_MSG_CHECKING([whether to enable environment filtering regex])
+AC_ARG_ENABLE([environment-filter], [AS_HELP_STRING([--enable-environment-filter], [Enable default environment filtering (regex)])],
+              [ case "${enableval}" in
+                yes) enable_environment_filter="$default_environment_filter" ;;
+                no)  enable_environment_filter="" ;;
+                *) enable_environment_filter="${enableval}" ;;
+                esac ],
+              [ enable_environment_filter="$default_environment_filter" ])
+AC_MSG_RESULT([$enable_environment_filter])
+AH_TEMPLATE(SBUILD_DEFAULT_ENVIRONMENT_FILTER, [Default regular expression used to filter user environment])
+AC_DEFINE_UNQUOTED([SBUILD_DEFAULT_ENVIRONMENT_FILTER], ["$enable_environment_filter"])
+
 AC_MSG_CHECKING([whether to enable support for PAM authentication])
 AC_ARG_ENABLE([pam], [AS_HELP_STRING([--enable-pam], [Enable support for PAM authentication (requires libpam)])],
               [ case "${enableval}" in
