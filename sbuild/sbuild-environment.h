@@ -192,11 +192,11 @@ namespace sbuild
     template <typename T>
     bool
     get (std::string const& name,
-	 T&                 value)
+	 T&                 value) const
     {
       log_debug(DEBUG_INFO) << "Getting environment variable=" << name
 			    << std::endl;
-      iterator pos = find(name);
+      const_iterator pos = find(name);
       if (pos != end())
 	{
 	  try
