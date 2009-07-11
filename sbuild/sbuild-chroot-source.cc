@@ -29,7 +29,7 @@ using boost::format;
 using namespace sbuild;
 
 chroot_source::chroot_source ():
-  is_source(false),
+  source_clonable(true),
   source_users(),
   source_groups(),
   source_root_users(),
@@ -62,7 +62,7 @@ chroot_source::clone_source_setup (chroot::ptr& clone) const
 
   std::tr1::shared_ptr<chroot_source> source(std::tr1::dynamic_pointer_cast<chroot_source>(clone));
   if (source)
-    source->set_source(true);
+    source->set_source_clonable(false);
 }
 
 string_list const&
@@ -114,15 +114,15 @@ chroot_source::set_source_root_groups (string_list const& groups)
 }
 
 bool
-chroot_source::get_source () const
+chroot_source::get_source_clonable () const
 {
-  return this->is_source;
+  return this->source_clonable;
 }
 
 void
-chroot_source::set_source (bool source)
+chroot_source::set_source_clonable (bool clonable)
 {
-  this->is_source = source;
+  this->source_clonable = clonable;
 }
 
 void
@@ -138,7 +138,7 @@ chroot_source::get_session_flags () const
   assert(base != 0);
 
   // Cloning is only possible for non-source and inactive chroots.
-  if (this->get_source() || base->get_active())
+  if (!this->get_source_clonable() || base->get_active())
     return chroot::SESSION_NOFLAGS;
   else
     return chroot::SESSION_CLONE;
@@ -147,7 +147,7 @@ chroot_source::get_session_flags () const
 void
 chroot_source::get_details (format_detail& detail) const
 {
-  if (!this->get_source())
+  if (this->get_source_clonable())
     detail
       .add(_("Source Users"), get_source_users())
       .add(_("Source Groups"), get_source_groups())
@@ -162,7 +162,7 @@ chroot_source::get_keyfile (keyfile& keyfile) const
   const chroot *base = dynamic_cast<const chroot *>(this);
   assert(base != 0);
 
-  if (!this->get_source())
+  if (this->get_source_clonable())
     {
       keyfile::set_object_list_value(*this, &chroot_source::get_source_users,
 				     keyfile, base->get_keyfile_name(), "source-users");
@@ -186,7 +186,7 @@ chroot_source::set_keyfile (keyfile const& keyfile,
   const chroot *base = dynamic_cast<const chroot *>(this);
   assert(base != 0);
 
-  if (!this->get_source())
+  if (this->get_source_clonable())
     {
       keyfile::get_object_list_value(*this, &chroot_source::set_source_users,
 				     keyfile, base->get_keyfile_name(), "source-users",

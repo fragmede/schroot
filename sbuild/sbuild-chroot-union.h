@@ -59,6 +59,9 @@ namespace sbuild
     clone_source_setup (chroot::ptr& clone) const;
 
   public:
+    bool
+    get_source_clonable () const;
+
     /**
      * Get fs union configured state.
      *

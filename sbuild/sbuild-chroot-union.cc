@@ -75,6 +75,13 @@ chroot_union::clone_source_setup (chroot::ptr& clone) const
 }
 
 bool
+chroot_union::get_source_clonable () const
+{
+  return chroot_source::get_source_clonable() &&
+    get_union_configured();
+}
+
+bool
 chroot_union::get_union_configured () const
 {
   return get_union_type() != "none";
@@ -127,6 +134,9 @@ chroot_union::set_union_type (std::string const& type)
     this->union_type = type;
   else
     throw error(type, UNION_TYPE_UNKNOWN);
+
+  // If union not enabled, don't implement source interface.
+  set_source_clonable(this->union_type != "none");
 }
 
 std::string const&

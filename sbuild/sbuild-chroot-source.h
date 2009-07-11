@@ -142,20 +142,20 @@ namespace sbuild
     set_source_root_groups (string_list const& groups);
 
     /**
-     * Get if the chroot is a source chroot or not.
+     * Get if the chroot is a clonable source chroot or not.
      *
      * @returns true if the chroot is a source chroot, otherwise false.
      */
     virtual bool
-    get_source () const;
+    get_source_clonable () const;
 
     /**
-     * Set if the chroot is a source chroot or not.
+     * Set if the chroot is a clonable source chroot or not.
      *
      * @param source true if a source chroot, or false if not.
      */
     virtual void
-    set_source (bool source);
+    set_source_clonable (bool clonable);
 
     void
     setup_env (environment& env);
@@ -176,7 +176,7 @@ namespace sbuild
 
   private:
     /// Is the chroot source or clone?
-    bool          is_source;
+    bool          source_clonable;
     /// Users allowed to access the source chroot.
     string_list   source_users;
     /// Groups allowed to access the source chroot.
