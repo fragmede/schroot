@@ -93,6 +93,7 @@ class test_chroot : public test_chroot_base<basic_chroot>
   CPPUNIT_TEST(test_run_setup_scripts);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
+  CPPUNIT_TEST(test_setup_keyfile);
   CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
@@ -215,6 +216,16 @@ public:
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
     test_chroot_base<basic_chroot>::test_setup_env(expected);
+  }
+
+  void test_setup_keyfile()
+  {
+    sbuild::keyfile expected;
+    setup_keyfile_chroot(expected);
+    expected.set_value(chroot->get_name(), "active", "false");
+    expected.set_value(chroot->get_name(), "type", "test");
+
+    test_chroot_base<basic_chroot>::test_setup_keyfile(expected, chroot->get_name());
   }
 
   void test_session_flags()

@@ -50,6 +50,10 @@ class test_chroot_directory : public test_chroot_base<chroot_directory>
 #ifdef SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_setup_env_fsunion);
 #endif // SBUILD_FEATURE_UNION
+  CPPUNIT_TEST(test_setup_keyfile);
+#ifdef SBUILD_FEATURE_UNION
+  CPPUNIT_TEST(test_setup_keyfile_fsunion);
+#endif // SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_session_flags);
 #ifdef SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_session_flags_fsunion);
@@ -68,6 +72,7 @@ public:
     test_chroot_base<chroot_directory>::setUp();
     std::tr1::shared_ptr<sbuild::chroot_directory> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_directory>(chroot);
     c->set_directory("/srv/chroot/example-chroot");
+    setup_source();
   }
 
   void
@@ -130,6 +135,39 @@ public:
     expected.add("CHROOT_UNION_UNDERLAY_DIRECTORY",  "/underlay");
 
     test_chroot_base<chroot_directory>::test_setup_env(expected);
+  }
+#endif // SBUILD_FEATURE_UNION
+
+  void test_setup_keyfile()
+  {
+    sbuild::keyfile expected;
+    setup_keyfile_chroot(expected);
+    expected.set_value(chroot->get_name(), "active", "false");
+    expected.set_value(chroot->get_name(), "type", "directory");
+    expected.set_value(chroot->get_name(), "directory", "/srv/chroot/example-chroot");
+    setup_keyfile_union_unconfigured(expected);
+
+    test_chroot_base<chroot_directory>::test_setup_keyfile(expected, chroot->get_name());
+  }
+
+#ifdef SBUILD_FEATURE_UNION
+  void test_setup_keyfile_fsunion()
+  {
+    std::tr1::shared_ptr<sbuild::chroot_directory> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_directory>(chroot);
+    c->set_union_type("aufs");
+    c->set_union_overlay_directory("/overlay");
+    c->set_union_underlay_directory("/underlay");
+    c->set_union_mount_options("union-mount-options");
+
+    sbuild::keyfile expected;
+    setup_keyfile_chroot(expected);
+    setup_keyfile_source(expected);
+    expected.set_value(chroot->get_name(), "active", "false");
+    expected.set_value(chroot->get_name(), "type", "directory");
+    expected.set_value(chroot->get_name(), "directory", "/srv/chroot/example-chroot");
+    setup_keyfile_union_configured(expected);
+
+    test_chroot_base<chroot_directory>::test_setup_keyfile(expected, chroot->get_name());
   }
 #endif // SBUILD_FEATURE_UNION
 

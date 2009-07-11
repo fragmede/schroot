@@ -49,6 +49,8 @@ class test_chroot_lvm_snapshot : public test_chroot_base<chroot_lvm_snapshot>
   CPPUNIT_TEST(test_snapshot_options);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
+  CPPUNIT_TEST(test_setup_keyfile);
+  CPPUNIT_TEST(test_setup_keyfile_source);
   CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
@@ -68,6 +70,7 @@ public:
     c->set_location("/squeeze");
     c->set_snapshot_device("/dev/snaptestdev");
     c->set_snapshot_options("--size 1G");
+    setup_source();
   }
 
   void
@@ -117,6 +120,56 @@ public:
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
     test_chroot_base<chroot_lvm_snapshot>::test_setup_env(expected);
+  }
+
+  void test_setup_keyfile()
+  {
+    sbuild::keyfile expected;
+    std::string group = chroot->get_name();
+    setup_keyfile_chroot(expected, group);
+    setup_keyfile_source(expected, group);
+    expected.set_value(group, "active", "false");
+    expected.set_value(group, "type", "lvm-snapshot");
+    expected.set_value(group, "device", "/dev/testdev");
+    expected.set_value(group, "location", "/squeeze");
+    expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
+    expected.set_value(group, "lvm-snapshot-options", "--size 1G");
+
+    test_chroot_base<chroot_lvm_snapshot>::test_setup_keyfile(expected, chroot->get_name());
+  }
+
+  void test_setup_keyfile_source()
+  {
+    std::tr1::shared_ptr<sbuild::chroot_source> c =
+      std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(chroot);
+
+    CPPUNIT_ASSERT(c->get_source_clonable() == true);
+
+    sbuild::chroot::ptr source = c->clone_source();
+    std::tr1::shared_ptr<sbuild::chroot_source> s =
+      std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(source);
+
+    CPPUNIT_ASSERT(s->get_source_clonable() == false);
+
+    sbuild::keyfile expected;
+    const std::string group(source->get_name());
+    setup_keyfile_chroot(expected, group);
+    setup_keyfile_union_unconfigured(expected, group);
+    expected.set_value(group, "active", "false");
+    expected.set_value(group, "type", "block-device");
+    expected.set_value(group, "description", "test-description (source chroot)");
+    expected.set_value(group, "aliases", "test-alias-1-source,test-alias-2-source");
+    expected.set_value(group, "device", "/dev/testdev");
+    expected.set_value(group, "location", "/squeeze");
+    expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
+    // Block device union unconfigured.
+    setup_keyfile_source_clone(expected, group);
+
+    sbuild::keyfile observed;
+    source->get_keyfile(observed);
+
+    test_chroot_base<chroot_lvm_snapshot>::test_setup_keyfile
+      (observed, group, expected, group);
   }
 
   void test_session_flags()

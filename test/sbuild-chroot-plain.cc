@@ -18,6 +18,7 @@
 
 #include <config.h>
 
+#include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-chroot-plain.h>
 
 #include "test-helpers.h"
@@ -47,6 +48,7 @@ class test_chroot_plain : public test_chroot_base<chroot_plain>
   CPPUNIT_TEST(test_directory);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
+  CPPUNIT_TEST(test_setup_keyfile);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
   CPPUNIT_TEST_SUITE_END();
@@ -94,6 +96,17 @@ public:
     expected.add("CHROOT_SESSION_PURGE", "false");
 
     test_chroot_base<chroot_plain>::test_setup_env(expected);
+  }
+
+  void test_setup_keyfile()
+  {
+    sbuild::keyfile expected;
+    setup_keyfile_chroot(expected);
+    expected.set_value(chroot->get_name(), "active", "false");
+    expected.set_value(chroot->get_name(), "type", "plain");
+    expected.set_value(chroot->get_name(), "directory", "/srv/chroot/example-chroot");
+
+    test_chroot_base<chroot_plain>::test_setup_keyfile(expected, chroot->get_name());
   }
 
   void test_session_flags()
