@@ -567,7 +567,6 @@ namespace sbuild
       return keyfile;
     }
 
-  protected:
     /**
      * Get detailed information about the chroot for output.
      *
