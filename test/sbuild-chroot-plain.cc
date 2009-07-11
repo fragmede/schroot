@@ -85,15 +85,13 @@ public:
   void test_setup_env()
   {
     sbuild::environment expected;
+    setup_env_chroot(expected);
     expected.add("CHROOT_TYPE",           "plain");
-    expected.add("CHROOT_NAME",           "test-name");
-    expected.add("CHROOT_DESCRIPTION",    "test-description");
     expected.add("CHROOT_DIRECTORY",      "/srv/chroot/example-chroot");
     expected.add("CHROOT_PATH",           "/srv/chroot/example-chroot");
-    expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
-    expected.add("CHROOT_SESSION_CLONE", "false");
+    expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
-    expected.add("CHROOT_SESSION_PURGE", "false");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
 
     test_chroot_base<chroot_plain>::test_setup_env(expected);
   }

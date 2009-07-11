@@ -81,15 +81,13 @@ public:
   void test_setup_env()
   {
     sbuild::environment expected;
+    setup_env_chroot(expected);
     expected.add("CHROOT_TYPE",            "file");
-    expected.add("CHROOT_NAME",            "test-name");
-    expected.add("CHROOT_DESCRIPTION",     "test-description");
     expected.add("CHROOT_FILE",            "/srv/chroot/example.tar.bz2");
     expected.add("CHROOT_FILE_REPACK",     "false");
-    expected.add("CHROOT_FILE_UNPACK_DIR", SCHROOT_FILE_UNPACK_DIR); 
+    expected.add("CHROOT_FILE_UNPACK_DIR", SCHROOT_FILE_UNPACK_DIR);
     expected.add("CHROOT_MOUNT_LOCATION",  "/mnt/mount-location");
     expected.add("CHROOT_PATH",            "/mnt/mount-location");
-    expected.add("CHROOT_SCRIPT_CONFIG",   sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
     expected.add("CHROOT_SESSION_CLONE",   "true");
     expected.add("CHROOT_SESSION_CREATE",  "true");
     expected.add("CHROOT_SESSION_PURGE",   "false");

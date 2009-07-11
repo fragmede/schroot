@@ -113,16 +113,14 @@ public:
     c->set_file(loopback_file);
 
     sbuild::environment expected;
+    setup_env_chroot(expected);
     expected.add("CHROOT_TYPE",           "loopback");
-    expected.add("CHROOT_NAME",           "test-name");
-    expected.add("CHROOT_DESCRIPTION",    "test-description");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_LOCATION",       "/squeeze");
     expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
     expected.add("CHROOT_FILE",           loopback_file);
     expected.add("CHROOT_MOUNT_DEVICE",   loopback_file);
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
-    expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "false");
@@ -144,16 +142,14 @@ public:
     c->set_union_underlay_directory("/underlay");
 
     sbuild::environment expected;
+    setup_env_chroot(expected);
     expected.add("CHROOT_TYPE",           "loopback");
-    expected.add("CHROOT_NAME",           "test-name");
-    expected.add("CHROOT_DESCRIPTION",    "test-description");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_LOCATION",       "/squeeze");
     expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
     expected.add("CHROOT_FILE",           loopback_file);
     expected.add("CHROOT_MOUNT_DEVICE",   loopback_file);
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
-    expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
     expected.add("CHROOT_SESSION_CLONE",  "true");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
