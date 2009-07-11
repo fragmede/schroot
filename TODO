@@ -132,3 +132,6 @@ SESSION_CREATE | SESSION_CLONE confusion.  When is it appropriate to
 set SESSION_CREATE?  Should already created sessions set it?
 
 Define operator &= and |= for enum types defining | and & operators.
+
+Remove use of virtual public for sbuild::chroot inheritance, since
+it breaks the default copy constructors.
