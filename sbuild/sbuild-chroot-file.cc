@@ -54,7 +54,7 @@ chroot_file::clone_source () const
   chroot_file *clone_file = new chroot_file(*this);
   ptr clone(clone_file);
 
-  chroot_source::clone_source_setup(clone);
+  clone_source_setup(clone);
   clone_file->repack = true;
 
   return clone;

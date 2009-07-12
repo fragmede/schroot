@@ -60,7 +60,7 @@ chroot_loopback::clone_source () const
 #ifdef SBUILD_FEATURE_UNION
   if (get_union_configured()) {
     clone = ptr(new chroot_loopback(*this));
-    chroot_source::clone_source_setup(clone);
+    clone_source_setup(clone);
   }
 #endif // SBUILD_FEATURE_UNION
 

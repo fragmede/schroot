@@ -55,7 +55,7 @@ chroot_lvm_snapshot::clone_source () const
 {
   ptr clone(new chroot_block_device(*this));
 
-  chroot_source::clone_source_setup(clone);
+  clone_source_setup(clone);
 
   return clone;
 }
