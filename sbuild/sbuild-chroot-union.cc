@@ -183,6 +183,7 @@ chroot_union::get_details (format_detail& detail) const
 {
   chroot_source::get_details(detail);
 
+  detail.add(_("Filesystem union type"), get_union_type());
   if (get_union_configured())
     {
       if (!this->union_mount_options.empty())
