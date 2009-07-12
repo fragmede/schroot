@@ -178,8 +178,8 @@ public:
     setup_keyfile_source_clone(keyfile, chroot->get_name());
   }
 
-  void test_setup_environment(const sbuild::environment& observed_environment,
-			      const sbuild::environment& expected_environment)
+  void test_setup_env(const sbuild::environment& observed_environment,
+		      const sbuild::environment& expected_environment)
   {
     CPPUNIT_ASSERT(observed_environment.size() != 0);
     CPPUNIT_ASSERT(expected_environment.size() != 0);
@@ -245,7 +245,7 @@ public:
 
     CPPUNIT_ASSERT(observed_environment.size() != 0);
 
-    test_setup_environment(observed_environment, expected_environment);
+    test_setup_env(observed_environment, expected_environment);
   }
 
   void test_setup_keyfile(const sbuild::keyfile& observed_keyfile,

@@ -50,6 +50,7 @@ class test_chroot_block_device : public test_chroot_base<chroot_block_device>
   CPPUNIT_TEST(test_setup_env);
 #ifdef SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_setup_env_fsunion);
+  CPPUNIT_TEST(test_setup_env_source);
 #endif // SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_setup_keyfile);
 #ifdef SBUILD_FEATURE_UNION
@@ -149,6 +150,46 @@ public:
     expected.add("CHROOT_UNION_UNDERLAY_DIRECTORY",  "/underlay");
 
     test_chroot_base<chroot_block_device>::test_setup_env(expected);
+  }
+
+  void test_setup_env_source()
+  {
+    std::tr1::shared_ptr<sbuild::chroot_block_device> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_block_device>(chroot);
+    c->set_union_type("aufs");
+    c->set_union_overlay_directory("/overlay");
+    c->set_union_underlay_directory("/underlay");
+
+    std::tr1::shared_ptr<sbuild::chroot_source> cs =
+      std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(chroot);
+
+    CPPUNIT_ASSERT(c->get_source_clonable() == true);
+
+    sbuild::chroot::ptr source = cs->clone_source();
+    std::tr1::shared_ptr<sbuild::chroot_source> s =
+      std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(source);
+
+    CPPUNIT_ASSERT(s->get_source_clonable() == false);
+
+    sbuild::environment expected;
+    setup_env_chroot(expected);
+    expected.add("CHROOT_TYPE",           "block-device");
+    expected.add("CHROOT_NAME",           "test-name-source");
+    expected.add("CHROOT_DESCRIPTION",    "test-description (source chroot)");
+    expected.add("CHROOT_LOCATION",       "/squeeze");
+    expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
+    expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
+    expected.add("CHROOT_DEVICE",         "/dev/testdev");
+    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/testdev");
+    expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
+    expected.add("CHROOT_SESSION_CLONE",  "false");
+    expected.add("CHROOT_SESSION_CREATE", "false");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_UNION_TYPE",     "none");
+
+    sbuild::environment observed;
+    source->setup_env(observed);
+
+    test_chroot_base<chroot_block_device>::test_setup_env(observed, expected);
   }
 #endif // SBUILD_FEATURE_UNION
 

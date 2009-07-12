@@ -49,6 +49,7 @@ class test_chroot_lvm_snapshot : public test_chroot_base<chroot_lvm_snapshot>
   CPPUNIT_TEST(test_snapshot_options);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
+  CPPUNIT_TEST(test_setup_env_source);
   CPPUNIT_TEST(test_setup_keyfile);
   CPPUNIT_TEST(test_setup_keyfile_source);
   CPPUNIT_TEST(test_session_flags);
@@ -118,6 +119,45 @@ public:
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
     test_chroot_base<chroot_lvm_snapshot>::test_setup_env(expected);
+  }
+
+  void test_setup_env_source()
+  {
+    std::tr1::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
+
+    std::tr1::shared_ptr<sbuild::chroot_source> cs =
+      std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(chroot);
+
+    CPPUNIT_ASSERT(c->get_source_clonable() == true);
+
+    sbuild::chroot::ptr source = cs->clone_source();
+    std::tr1::shared_ptr<sbuild::chroot_source> s =
+      std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(source);
+
+    CPPUNIT_ASSERT(s->get_source_clonable() == false);
+
+    sbuild::environment expected;
+    setup_env_chroot(expected);
+    expected.add("CHROOT_TYPE",           "block-device");
+    expected.add("CHROOT_NAME",           "test-name-source");
+    expected.add("CHROOT_DESCRIPTION",    "test-description (source chroot)");
+    expected.add("CHROOT_LOCATION",       "/squeeze");
+    expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
+    expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
+    expected.add("CHROOT_DEVICE",         "/dev/testdev");
+    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/testdev");
+    expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
+    expected.add("CHROOT_SESSION_CLONE",  "false");
+    expected.add("CHROOT_SESSION_CREATE", "false");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
+#ifdef SBUILD_FEATURE_UNION
+    expected.add("CHROOT_UNION_TYPE",     "none");
+#endif // SBUILD_FEATURE_UNION
+
+    sbuild::environment observed;
+    source->setup_env(observed);
+
+    test_chroot_base<chroot_lvm_snapshot>::test_setup_env(observed, expected);
   }
 
   void test_setup_keyfile()

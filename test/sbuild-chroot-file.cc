@@ -47,6 +47,7 @@ class test_chroot_file : public test_chroot_base<chroot_file>
   CPPUNIT_TEST(test_file);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
+  CPPUNIT_TEST(test_setup_env_source);
   CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
@@ -93,6 +94,41 @@ public:
     expected.add("CHROOT_SESSION_PURGE",   "false");
 
     test_chroot_base<chroot_file>::test_setup_env(expected);
+  }
+
+  void test_setup_env_source()
+  {
+    std::tr1::shared_ptr<sbuild::chroot_file> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
+
+    std::tr1::shared_ptr<sbuild::chroot_source> cs =
+      std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(chroot);
+
+    CPPUNIT_ASSERT(c->get_source_clonable() == true);
+
+    sbuild::chroot::ptr source = cs->clone_source();
+    std::tr1::shared_ptr<sbuild::chroot_source> s =
+      std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(source);
+
+    CPPUNIT_ASSERT(s->get_source_clonable() == false);
+
+    sbuild::environment expected;
+    setup_env_chroot(expected);
+    expected.add("CHROOT_TYPE",           "file");
+    expected.add("CHROOT_NAME",           "test-name-source");
+    expected.add("CHROOT_DESCRIPTION",    "test-description (source chroot)");
+    expected.add("CHROOT_FILE",            "/srv/chroot/example.tar.bz2");
+    expected.add("CHROOT_FILE_REPACK",     "true");
+    expected.add("CHROOT_FILE_UNPACK_DIR", SCHROOT_FILE_UNPACK_DIR);
+    expected.add("CHROOT_MOUNT_LOCATION",  "/mnt/mount-location");
+    expected.add("CHROOT_PATH",            "/mnt/mount-location");
+    expected.add("CHROOT_SESSION_CLONE",  "false");
+    expected.add("CHROOT_SESSION_CREATE", "true");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
+
+    sbuild::environment observed;
+    source->setup_env(observed);
+
+    test_chroot_base<chroot_file>::test_setup_env(observed, expected);
   }
 
   void test_session_flags()
