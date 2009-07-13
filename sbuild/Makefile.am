@@ -36,6 +36,7 @@ sbuild_public_h_sources =		\
 	sbuild-chroot-file.h		\
 	sbuild-chroot-mountable.h	\
 	sbuild-chroot-plain.h		\
+	sbuild-chroot-session.h		\
 	sbuild-chroot-source.h		\
 	sbuild-chroot-config.h		\
 	sbuild-chroot-union.h		\
@@ -107,6 +108,7 @@ sbuild_public_cc_sources =		\
 	sbuild-chroot-file.cc		\
 	sbuild-chroot-mountable.cc	\
 	sbuild-chroot-plain.cc		\
+	sbuild-chroot-session.cc	\
 	sbuild-chroot-source.cc		\
 	sbuild-chroot-config.cc		\
 	sbuild-ctty.cc			\

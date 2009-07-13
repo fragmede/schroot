@@ -49,6 +49,15 @@ chroot_directory::clone () const
   return ptr(new chroot_directory(*this));
 }
 
+sbuild::chroot::ptr
+chroot_directory::clone_session (std::string const& session_id) const
+{
+  ptr session(new chroot_directory(*this));
+  clone_session_setup(session, session_id);
+
+  return ptr(session);
+}
+
 #ifdef SBUILD_FEATURE_UNION
 sbuild::chroot::ptr
 chroot_directory::clone_source () const
@@ -75,6 +84,7 @@ void
 chroot_directory::setup_env (environment& env)
 {
   chroot_directory_base::setup_env(env);
+  chroot_session::setup_env(env);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::setup_env(env);
 #endif // SBUILD_FEATURE_UNION
@@ -106,9 +116,9 @@ sbuild::chroot::session_flags
 chroot_directory::get_session_flags () const
 {
 #ifdef SBUILD_FEATURE_UNION
-  return SESSION_CREATE | chroot_union::get_session_flags();
+  return chroot_session::get_session_flags() | chroot_union::get_session_flags();
 #else
-  return SESSION_CREATE;
+  return chroot_session::get_session_flags();
 #endif // SBUILD_FEATURE_UNION
 }
 
@@ -116,6 +126,7 @@ void
 chroot_directory::get_details (format_detail& detail) const
 {
   chroot_directory_base::get_details(detail);
+  chroot_session::get_details(detail);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::get_details(detail);
 #endif // SBUILD_FEATURE_UNION
@@ -125,6 +136,7 @@ void
 chroot_directory::get_keyfile (keyfile& keyfile) const
 {
   chroot_directory_base::get_keyfile(keyfile);
+  chroot_session::get_keyfile(keyfile);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::get_keyfile(keyfile);
 #endif // SBUILD_FEATURE_UNION
@@ -135,6 +147,7 @@ chroot_directory::set_keyfile (keyfile const& keyfile,
 			      string_list&   used_keys)
 {
   chroot_directory_base::set_keyfile(keyfile, used_keys);
+  chroot_session::set_keyfile(keyfile, used_keys);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::set_keyfile(keyfile, used_keys);
 #endif // SBUILD_FEATURE_UNION
