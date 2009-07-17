@@ -63,6 +63,15 @@ chroot_block_device::clone () const
 
 #ifdef SBUILD_FEATURE_UNION
 sbuild::chroot::ptr
+chroot_block_device::clone_session (std::string const& session_id) const
+{
+  ptr session(new chroot_block_device(*this));
+  clone_session_setup(session, session_id);
+
+  return ptr(session);
+}
+
+sbuild::chroot::ptr
 chroot_block_device::clone_source () const
 {
   ptr clone;

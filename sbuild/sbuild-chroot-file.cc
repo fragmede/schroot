@@ -32,6 +32,7 @@ using namespace sbuild;
 
 chroot_file::chroot_file ():
   chroot(),
+  chroot_session(),
   chroot_source(),
   file(),
   repack(false)
@@ -46,6 +47,15 @@ sbuild::chroot::ptr
 chroot_file::clone () const
 {
   return ptr(new chroot_file(*this));
+}
+
+sbuild::chroot::ptr
+chroot_file::clone_session (std::string const& session_id) const
+{
+  ptr session(new chroot_file(*this));
+  clone_session_setup(session, session_id);
+
+  return ptr(session);
 }
 
 sbuild::chroot::ptr
@@ -105,6 +115,7 @@ void
 chroot_file::setup_env (environment& env)
 {
   chroot::setup_env(env);
+  chroot_session::setup_env(env);
   chroot_source::setup_env(env);
 
   env.add("CHROOT_FILE", get_file());
@@ -145,13 +156,14 @@ chroot_file::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_file::get_session_flags () const
 {
-  return SESSION_CREATE | chroot_source::get_session_flags();
+  return chroot_session::get_session_flags() | chroot_source::get_session_flags();
 }
 
 void
 chroot_file::get_details (format_detail& detail) const
 {
   chroot::get_details(detail);
+  chroot_session::get_details(detail);
   chroot_source::get_details(detail);
 
   if (!this->file.empty())
@@ -164,6 +176,7 @@ void
 chroot_file::get_keyfile (keyfile& keyfile) const
 {
   chroot::get_keyfile(keyfile);
+  chroot_session::get_keyfile(keyfile);
   chroot_source::get_keyfile(keyfile);
 
   keyfile::set_object_value(*this, &chroot_file::get_file,
@@ -179,6 +192,7 @@ chroot_file::set_keyfile (keyfile const& keyfile,
 			  string_list&   used_keys)
 {
   chroot::set_keyfile(keyfile, used_keys);
+  chroot_session::set_keyfile(keyfile, used_keys);
   chroot_source::set_keyfile(keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_file::set_file,

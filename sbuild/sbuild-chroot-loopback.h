@@ -59,6 +59,9 @@ namespace sbuild
 
 #ifdef SBUILD_FEATURE_UNION
     virtual chroot::ptr
+    clone_session (std::string const& session_id) const;
+
+    virtual chroot::ptr
     clone_source () const;
 #endif // SBUILD_FEATURE_UNION
 

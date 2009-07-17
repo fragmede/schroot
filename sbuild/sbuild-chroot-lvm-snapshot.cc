@@ -34,6 +34,7 @@ using namespace sbuild;
 
 chroot_lvm_snapshot::chroot_lvm_snapshot ():
   chroot_block_device_base(),
+  chroot_session(),
   chroot_source(),
   snapshot_device(),
   snapshot_options()
@@ -48,6 +49,15 @@ sbuild::chroot::ptr
 chroot_lvm_snapshot::clone () const
 {
   return ptr(new chroot_lvm_snapshot(*this));
+}
+
+sbuild::chroot::ptr
+chroot_lvm_snapshot::clone_session (std::string const& session_id) const
+{
+  ptr session(new chroot_lvm_snapshot(*this));
+  clone_session_setup(session, session_id);
+
+  return ptr(session);
 }
 
 sbuild::chroot::ptr
@@ -111,6 +121,7 @@ void
 chroot_lvm_snapshot::setup_env (environment& env)
 {
   chroot_block_device_base::setup_env(env);
+  chroot_session::setup_env(env);
   chroot_source::setup_env(env);
 
   env.add("CHROOT_LVM_SNAPSHOT_NAME", sbuild::basename(get_snapshot_device()));
@@ -199,7 +210,7 @@ chroot_lvm_snapshot::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_lvm_snapshot::get_session_flags () const
 {
-  session_flags flags = SESSION_CREATE | chroot_source::get_session_flags();
+  session_flags flags = chroot_session::get_session_flags() | chroot_source::get_session_flags();
   if (get_active())
     flags = flags | SESSION_PURGE;
 
@@ -210,6 +221,7 @@ void
 chroot_lvm_snapshot::get_details (format_detail& detail) const
 {
   chroot_block_device_base::get_details(detail);
+  chroot_session::get_details(detail);
   chroot_source::get_details(detail);
 
   if (!this->snapshot_device.empty())
@@ -222,6 +234,7 @@ void
 chroot_lvm_snapshot::get_keyfile (keyfile& keyfile) const
 {
   chroot_block_device_base::get_keyfile(keyfile);
+  chroot_session::get_keyfile(keyfile);
   chroot_source::get_keyfile(keyfile);
 
   if (get_active())
@@ -242,6 +255,7 @@ chroot_lvm_snapshot::set_keyfile (keyfile const& keyfile,
 				  string_list&   used_keys)
 {
   chroot_block_device_base::set_keyfile(keyfile, used_keys);
+  chroot_session::set_keyfile(keyfile, used_keys);
   chroot_source::set_keyfile(keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_lvm_snapshot::set_snapshot_device,

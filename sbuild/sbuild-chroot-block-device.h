@@ -63,16 +63,19 @@ namespace sbuild
     virtual chroot::ptr
     clone () const;
 
+#ifdef SBUILD_FEATURE_UNION
+    virtual chroot::ptr
+    clone_session (std::string const& session_id) const;
+
+    virtual chroot::ptr
+    clone_source () const;
+#endif // SBUILD_FEATURE_UNION
+
     virtual void
     setup_env (environment& env);
 
     virtual session_flags
     get_session_flags () const;
-
-#ifdef SBUILD_FEATURE_UNION
-    virtual chroot::ptr
-    clone_source () const;
-#endif // SBUILD_FEATURE_UNION
 
     virtual void
     get_details (format_detail& detail) const;

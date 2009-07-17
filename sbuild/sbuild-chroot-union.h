@@ -19,6 +19,7 @@
 #ifndef SBUILD_CHROOT_UNION_H
 #define SBUILD_CHROOT_UNION_H
 
+#include <sbuild/sbuild-chroot-session.h>
 #include <sbuild/sbuild-chroot-source.h>
 
 namespace sbuild
@@ -32,7 +33,8 @@ namespace sbuild
    * chroot_source::clone_source() function, depending upon the
    * setting of get_union_configured().
    */
-  class chroot_union : public chroot_source
+  class chroot_union : virtual public chroot_session,
+		       public chroot_source
   {
   public:
     /// Error codes.

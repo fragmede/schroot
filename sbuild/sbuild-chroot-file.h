@@ -20,6 +20,7 @@
 #define SBUILD_CHROOT_FILE_H
 
 #include <sbuild/sbuild-chroot.h>
+#include <sbuild/sbuild-chroot-session.h>
 #include <sbuild/sbuild-chroot-source.h>
 
 namespace sbuild
@@ -30,6 +31,7 @@ namespace sbuild
    * be unpacked on demand.
    */
   class chroot_file : virtual public chroot,
+		      virtual public chroot_session,
 		      public chroot_source
   {
   protected:
@@ -44,6 +46,9 @@ namespace sbuild
 
     virtual chroot::ptr
     clone () const;
+
+    virtual chroot::ptr
+    clone_session (std::string const& session_id) const;
 
     virtual chroot::ptr
     clone_source () const;

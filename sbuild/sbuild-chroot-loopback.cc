@@ -35,6 +35,7 @@ chroot_loopback::chroot_loopback ():
   chroot(),
   chroot_mountable(),
 #ifdef SBUILD_FEATURE_UNION
+  chroot_session(),
   chroot_union(),
 #endif // SBUILD_FEATURE_UNION
   file()
@@ -52,6 +53,15 @@ chroot_loopback::clone () const
 }
 
 #ifdef SBUILD_FEATURE_UNION
+sbuild::chroot::ptr
+chroot_loopback::clone_session (std::string const& session_id) const
+{
+  ptr session(new chroot_loopback(*this));
+  clone_session_setup(session, session_id);
+
+  return ptr(session);
+}
+
 sbuild::chroot::ptr
 chroot_loopback::clone_source () const
 {

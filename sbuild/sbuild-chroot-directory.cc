@@ -32,6 +32,7 @@
 using namespace sbuild;
 
 chroot_directory::chroot_directory ():
+  chroot_session(),
   chroot_directory_base()
 #ifdef SBUILD_FEATURE_UNION
   , chroot_union()
