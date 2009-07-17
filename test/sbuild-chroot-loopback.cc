@@ -28,11 +28,6 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-#include <iostream>
-
-using std::cout;
-using std::endl;
-
 using namespace CppUnit;
 
 class chroot_loopback : public sbuild::chroot_loopback
@@ -54,6 +49,7 @@ class test_chroot_loopback : public test_chroot_base<chroot_loopback>
   CPPUNIT_TEST(test_setup_env);
 #ifdef SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_setup_env_fsunion);
+  CPPUNIT_TEST(test_setup_env_session);
   CPPUNIT_TEST(test_setup_env_source);
 #endif // SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_setup_keyfile);
@@ -63,6 +59,8 @@ class test_chroot_loopback : public test_chroot_base<chroot_loopback>
   CPPUNIT_TEST(test_session_flags);
 #ifdef SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_session_flags_fsunion);
+  CPPUNIT_TEST(test_session_flags_session);
+  CPPUNIT_TEST(test_session_flags_source);
 #endif // SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
@@ -159,6 +157,48 @@ public:
     expected.add("CHROOT_UNION_UNDERLAY_DIRECTORY",  "/underlay");
 
     test_chroot_base<chroot_loopback>::test_setup_env(expected);
+  }
+
+  void test_setup_env_session()
+  {
+    std::tr1::shared_ptr<sbuild::chroot_loopback> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
+    CPPUNIT_ASSERT(c);
+    c->set_file(loopback_file);
+    c->set_union_type("aufs");
+    c->set_union_overlay_directory("/overlay");
+    c->set_union_underlay_directory("/underlay");
+
+    std::tr1::shared_ptr<sbuild::chroot_session> cs =
+      std::tr1::dynamic_pointer_cast<sbuild::chroot_session>(chroot);
+
+    CPPUNIT_ASSERT(cs);
+
+    sbuild::chroot::ptr session = cs->clone_session("test-session-id");
+
+    CPPUNIT_ASSERT(session);
+
+    sbuild::environment expected;
+    setup_env_chroot(expected);
+    expected.add("CHROOT_TYPE",           "loopback");
+    expected.add("CHROOT_NAME",           "test-name");
+    expected.add("CHROOT_DESCRIPTION",    "test-description");
+    expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
+    expected.add("CHROOT_LOCATION",       "/squeeze");
+    expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
+    expected.add("CHROOT_FILE",           loopback_file);
+    expected.add("CHROOT_MOUNT_DEVICE",   loopback_file);
+    expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
+    expected.add("CHROOT_SESSION_CLONE",  "false");
+    expected.add("CHROOT_SESSION_CREATE", "false");
+    expected.add("CHROOT_SESSION_PURGE",  "true");
+    expected.add("CHROOT_UNION_TYPE",     "aufs");
+    expected.add("CHROOT_UNION_OVERLAY_DIRECTORY",  "/overlay");
+    expected.add("CHROOT_UNION_UNDERLAY_DIRECTORY",  "/underlay");
+
+    sbuild::environment observed;
+    session->setup_env(observed);
+
+    test_chroot_base<chroot_loopback>::test_setup_env(observed, expected);
   }
 
   void test_setup_env_source()
@@ -272,6 +312,45 @@ public:
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
 		   (sbuild::chroot::SESSION_CREATE |
 		    sbuild::chroot::SESSION_CLONE));
+  }
+
+  void test_session_flags_session()
+  {
+    std::tr1::shared_ptr<sbuild::chroot_loopback> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
+    CPPUNIT_ASSERT(c);
+    c->set_file(loopback_file);
+    c->set_union_type("aufs");
+    c->set_union_overlay_directory("/overlay");
+    c->set_union_underlay_directory("/underlay");
+
+    std::tr1::shared_ptr<sbuild::chroot_session> cs =
+      std::tr1::dynamic_pointer_cast<sbuild::chroot_session>(chroot);
+
+    sbuild::chroot::ptr session = cs->clone_session("test-session-id");
+
+    CPPUNIT_ASSERT(session->get_session_flags() ==
+		   sbuild::chroot::SESSION_PURGE);
+  }
+
+  void test_session_flags_source()
+  {
+    std::tr1::shared_ptr<sbuild::chroot_loopback> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
+    CPPUNIT_ASSERT(c);
+    c->set_file(loopback_file);
+    c->set_union_type("aufs");
+    c->set_union_overlay_directory("/overlay");
+    c->set_union_underlay_directory("/underlay");
+    c->set_union_mount_options("union-mount-options");
+
+    std::tr1::shared_ptr<sbuild::chroot_source> cs =
+      std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(chroot);
+
+    CPPUNIT_ASSERT(c->get_source_clonable() == true);
+
+    sbuild::chroot::ptr source = cs->clone_source();
+
+    CPPUNIT_ASSERT(source->get_session_flags() ==
+		   sbuild::chroot::SESSION_NOFLAGS);
   }
 #endif // SBUILD_FEATURE_UNION
 
