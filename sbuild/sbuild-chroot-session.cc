@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include "sbuild-chroot-session.h"
+#include "sbuild-chroot-source.h"
 #include "sbuild-format-detail.h"
 
 #include <algorithm>
@@ -48,7 +49,13 @@ chroot_session::clone_session_setup (chroot::ptr&       clone,
     {
       session->set_session_manageable(false);
       session->set_session_active(true);
+      clone->set_active(true);
     }
+
+  // Disable source cloning.
+  std::tr1::shared_ptr<chroot_source> source(std::tr1::dynamic_pointer_cast<chroot_source>(clone));
+  if (source)
+    source->set_source_clonable(false);
 }
 
 bool
