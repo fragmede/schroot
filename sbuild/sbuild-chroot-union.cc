@@ -174,10 +174,21 @@ chroot_union::setup_env (environment& env)
 sbuild::chroot::session_flags
 chroot_union::get_session_flags () const
 {
+  /// @todo: Remove need for this by passing in group name
+  const chroot *base = dynamic_cast<const chroot *>(this);
+  assert(base != 0);
+
+  sbuild::chroot::session_flags flags = sbuild::chroot::SESSION_NOFLAGS;
+
   if (get_union_configured())
-    return chroot_session::get_session_flags() | chroot_source::get_session_flags();
-  else
-    return sbuild::chroot::SESSION_NOFLAGS;
+    {
+      flags = chroot_session::get_session_flags() |
+	chroot_source::get_session_flags();
+      if (base->get_active())
+	flags = flags | sbuild::chroot::SESSION_PURGE;
+    }
+
+  return flags;
 }
 
 void
