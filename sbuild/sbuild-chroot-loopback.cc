@@ -71,10 +71,14 @@ chroot_loopback::clone () const
 sbuild::chroot::ptr
 chroot_loopback::clone_session (std::string const& session_id) const
 {
-  ptr session(new chroot_loopback(*this));
-  clone_session_setup(session, session_id);
+  ptr session;
 
-  return ptr(session);
+  if (get_union_configured()) {
+    session = ptr(new chroot_loopback(*this));
+    clone_session_setup(session, session_id);
+  }
+
+  return session;
 }
 
 sbuild::chroot::ptr
@@ -82,14 +86,12 @@ chroot_loopback::clone_source () const
 {
   ptr clone;
 
-#ifdef SBUILD_FEATURE_UNION
   if (get_union_configured()) {
     clone = ptr(new chroot_loopback(*this));
     clone_source_setup(clone);
   }
-#endif // SBUILD_FEATURE_UNION
 
-  return ptr(clone);
+  return clone;
 }
 #endif // SBUILD_FEATURE_UNION
 

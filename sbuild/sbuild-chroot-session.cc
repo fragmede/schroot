@@ -47,9 +47,11 @@ chroot_session::clone_session_setup (chroot::ptr&       clone,
   std::tr1::shared_ptr<chroot_session> session(std::tr1::dynamic_pointer_cast<chroot_session>(clone));
   if (session)
     {
+      clone->set_session_id(session_id);
+      clone->set_description
+	(clone->get_description() + ' ' + _("(session chroot)"));
       session->set_session_manageable(false);
       session->set_session_active(true);
-      clone->set_active(true);
     }
 
   // Disable source cloning.

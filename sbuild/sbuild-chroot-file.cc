@@ -64,7 +64,7 @@ chroot_file::clone_session (std::string const& session_id) const
   ptr session(new chroot_file(*this));
   clone_session_setup(session, session_id);
 
-  return ptr(session);
+  return session;
 }
 
 sbuild::chroot::ptr

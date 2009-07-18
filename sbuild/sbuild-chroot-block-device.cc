@@ -75,10 +75,15 @@ chroot_block_device::clone () const
 sbuild::chroot::ptr
 chroot_block_device::clone_session (std::string const& session_id) const
 {
-  ptr session(new chroot_block_device(*this));
-  clone_session_setup(session, session_id);
+  ptr session;
 
-  return ptr(session);
+  if (get_union_configured())
+    {
+      session = ptr(new chroot_block_device(*this));
+      clone_session_setup(session, session_id);
+    }
+
+  return session;
 }
 
 sbuild::chroot::ptr
@@ -86,14 +91,13 @@ chroot_block_device::clone_source () const
 {
   ptr clone;
 
-#ifdef SBUILD_FEATURE_UNION
-  if (get_union_configured()) {
-    clone = ptr(new chroot_block_device(*this));
-    clone_source_setup(clone);
-  }
-#endif // SBUILD_FEATURE_UNION
+  if (get_union_configured())
+    {
+      clone = ptr(new chroot_block_device(*this));
+      clone_source_setup(clone);
+    }
 
-  return ptr(clone);
+  return clone;
 }
 #endif // SBUILD_FEATURE_UNION
 
