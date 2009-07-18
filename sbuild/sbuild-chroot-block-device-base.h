@@ -30,7 +30,7 @@ namespace sbuild
    *
    * The device will be mounted on demand.
    */
-  class chroot_block_device_base : virtual public chroot,
+  class chroot_block_device_base : public chroot,
 				   public chroot_mountable
   {
   protected:

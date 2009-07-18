@@ -27,7 +27,7 @@ namespace sbuild
   /**
    * A chroot located in the filesystem (mounts disabled).
    */
-  class chroot_plain : virtual public chroot_directory_base
+  class chroot_plain : public chroot_directory_base
   {
   protected:
     /// The constructor.

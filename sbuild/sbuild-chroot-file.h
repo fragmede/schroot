@@ -30,7 +30,7 @@ namespace sbuild
    * A chroot stored in a file archive (tar or zip).  The archive will
    * be unpacked on demand.
    */
-  class chroot_file : virtual public chroot,
+  class chroot_file : public chroot,
 		      virtual public chroot_session,
 		      public chroot_source
   {

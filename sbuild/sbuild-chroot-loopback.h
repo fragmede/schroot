@@ -34,7 +34,7 @@ namespace sbuild
    *
    * The file will be mounted on demand.
    */
-  class chroot_loopback : virtual public chroot,
+  class chroot_loopback : public chroot,
 			  public chroot_mountable
 #ifdef SBUILD_FEATURE_UNION
 			, public chroot_union
