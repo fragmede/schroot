@@ -105,7 +105,7 @@ namespace sbuild
     virtual void
     set_session_active (bool active);
 
-    void
+    virtual void
     setup_env (environment& env);
 
   protected:
