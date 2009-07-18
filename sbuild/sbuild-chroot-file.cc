@@ -165,7 +165,11 @@ chroot_file::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_file::get_session_flags () const
 {
-  return chroot_session::get_session_flags() | chroot_source::get_session_flags();
+  session_flags flags = chroot_session::get_session_flags() | chroot_source::get_session_flags();
+  if (get_active())
+    flags = flags | SESSION_PURGE;
+
+  return flags;
 }
 
 void
