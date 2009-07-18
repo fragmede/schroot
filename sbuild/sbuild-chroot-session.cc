@@ -82,6 +82,10 @@ void
 chroot_session::set_session_active (bool active)
 {
   this->session_active = active;
+
+  /// @todo: Remove need for this.
+  chroot *base = dynamic_cast<chroot *>(this);
+  base->set_active(active);
 }
 
 void
