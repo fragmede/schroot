@@ -144,7 +144,7 @@ namespace sbuild
     /**
      * Get if the chroot is a clonable source chroot or not.
      *
-     * @returns true if the chroot is a source chroot, otherwise false.
+     * @returns true if the chroot is a clonable source chroot, otherwise false.
      */
     virtual bool
     get_source_clonable () const;
@@ -152,7 +152,7 @@ namespace sbuild
     /**
      * Set if the chroot is a clonable source chroot or not.
      *
-     * @param source true if a source chroot, or false if not.
+     * @param clonable true if a clonable source chroot, or false if not.
      */
     virtual void
     set_source_clonable (bool clonable);

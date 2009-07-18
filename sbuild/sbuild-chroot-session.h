@@ -83,7 +83,7 @@ namespace sbuild
     /**
      * Set if the chroot is a session manageable chroot or not.
      *
-     * @param session true if a session chroot, manageable or false if
+     * @param manageable true if a session chroot, manageable or false if
      * not.
      */
     virtual void
@@ -100,7 +100,7 @@ namespace sbuild
     /**
      * Set if the chroot is an active session or not.
      *
-     * @param session true if an active session, or false if not.
+     * @param active true if an active session, or false if not.
      */
     virtual void
     set_session_active (bool active);

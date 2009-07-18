@@ -59,7 +59,12 @@ namespace sbuild
     typedef custom_error<error_code> error;
 
   private:
-    /// The constructor.
+    /**
+     * The constructor.
+     *
+     * @param auth The authentication object this conversation handler
+     * will be associated with.
+     */
     auth_pam_conv_tty (auth_ptr auth);
 
   public:
@@ -69,8 +74,8 @@ namespace sbuild
     /**
      * Create an auth_pam_conv_tty object.
      *
-     * @auth The authentication object this conversation handler will
-     * be associated with.
+     * @param auth The authentication object this conversation handler
+     * will be associated with.
      */
     static ptr
     create (auth_ptr auth);

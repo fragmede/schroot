@@ -109,7 +109,8 @@ namespace sbuild
      * to be constructed as expected by the filesystem union type and
      * is directly used as the mount '-o' option string.
      *
-     * @param union_mount_options a @fs_type specific branch description
+     * @param union_mount_options a union filesystem-specific branch
+     * description
      **/
     virtual void
     set_union_mount_options (std::string const& union_mount_options);

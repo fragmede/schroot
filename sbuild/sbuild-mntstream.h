@@ -71,7 +71,7 @@ namespace sbuild
 	/**
 	 * The contructor.
 	 *
-	 * @param
+	 * @param entry the mntent structure to wrap.
 	 */
 	mntentry (struct mntent const&  entry);
 
