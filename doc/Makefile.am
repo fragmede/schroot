@@ -24,19 +24,19 @@ include $(top_srcdir)/scripts/global.mk
 all-local: sbuild schroot
 
 if BUILD_DOXYGEN
-schroot: schroot-stamp
-sbuild: sbuild-stamp
+schroot: schroot.log
+sbuild: sbuild.log
 else
 schroot:
 sbuild:
 endif
 
-sbuild-stamp: sbuild.dox $(top_srcdir)/configure
+sbuild.log: sbuild.dox $(top_srcdir)/configure
 	$(RM) -rf sbuild/html
 	$(DOXYGEN) sbuild.dox
 	touch $@
 
-schroot-stamp: schroot.dox $(top_srcdir)/configure
+schroot.log: sbuild.log schroot.dox $(top_srcdir)/configure
 	$(RM) -rf schroot/html
 	$(DOXYGEN) schroot.dox
 	touch $@
@@ -59,8 +59,8 @@ CLEANFILES =		\
 	schroot.log	\
 	schroot.ps	\
 	schroot.pdf	\
-	sbuild-stamp	\
-	schroot-stamp	\
+	sbuild.log	\
+	schroot.log	\
 	sbuild.log	\
 	schroot.log
 
