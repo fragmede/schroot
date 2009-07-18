@@ -32,6 +32,9 @@ using boost::format;
 using namespace sbuild;
 
 chroot_block_device::chroot_block_device ():
+#ifdef SBUILD_FEATURE_UNION
+  chroot_session(),
+#endif // SBUILD_FEATURE_UNION
   chroot_block_device_base()
 #ifdef SBUILD_FEATURE_UNION
   , chroot_union()
@@ -44,13 +47,20 @@ chroot_block_device::~chroot_block_device ()
 }
 
 chroot_block_device::chroot_block_device (const chroot_block_device& rhs):
-  chroot(rhs),
+#ifdef SBUILD_FEATURE_UNION
+  chroot_session(rhs),
+#endif // SBUILD_FEATURE_UNION
   chroot_block_device_base(rhs)
+#ifdef SBUILD_FEATURE_UNION
+  , chroot_union(rhs)
+#endif // SBUILD_FEATURE_UNION
 {
 }
 
 chroot_block_device::chroot_block_device (const chroot_lvm_snapshot& rhs):
-  chroot(rhs),
+#ifdef SBUILD_FEATURE_UNION
+  chroot_session(rhs),
+#endif // SBUILD_FEATURE_UNION
   chroot_block_device_base(rhs)
 {
 }

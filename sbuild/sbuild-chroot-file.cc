@@ -31,11 +31,20 @@ using boost::format;
 using namespace sbuild;
 
 chroot_file::chroot_file ():
-  chroot(),
   chroot_session(),
+  chroot(),
   chroot_source(),
   file(),
   repack(false)
+{
+}
+
+chroot_file::chroot_file (const chroot_file& rhs):
+  chroot_session(rhs),
+  chroot(rhs),
+  chroot_source(rhs),
+  file(rhs.file),
+  repack(rhs.repack)
 {
 }
 

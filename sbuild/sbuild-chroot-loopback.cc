@@ -32,10 +32,12 @@ using boost::format;
 using namespace sbuild;
 
 chroot_loopback::chroot_loopback ():
+#ifdef SBUILD_FEATURE_UNION
+  chroot_session(),
+#endif // SBUILD_FEATURE_UNION
   chroot(),
   chroot_mountable(),
 #ifdef SBUILD_FEATURE_UNION
-  chroot_session(),
   chroot_union(),
 #endif // SBUILD_FEATURE_UNION
   file()
@@ -43,6 +45,19 @@ chroot_loopback::chroot_loopback ():
 }
 
 chroot_loopback::~chroot_loopback ()
+{
+}
+
+chroot_loopback::chroot_loopback (const chroot_loopback& rhs):
+#ifdef SBUILD_FEATURE_UNION
+  chroot_session(rhs),
+#endif // SBUILD_FEATURE_UNION
+  chroot(rhs),
+  chroot_mountable(rhs),
+#ifdef SBUILD_FEATURE_UNION
+  chroot_union(rhs),
+#endif // SBUILD_FEATURE_UNION
+  file(rhs.file)
 {
 }
 

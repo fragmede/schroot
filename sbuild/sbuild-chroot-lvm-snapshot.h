@@ -39,6 +39,9 @@ namespace sbuild
     /// The constructor.
     chroot_lvm_snapshot ();
 
+    /// The copy constructor.
+    chroot_lvm_snapshot (const chroot_lvm_snapshot& rhs);
+
     friend class chroot;
 
   public:

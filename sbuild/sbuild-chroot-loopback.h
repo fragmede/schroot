@@ -48,6 +48,9 @@ namespace sbuild
     /// The constructor.
     chroot_loopback ();
 
+    /// The copy constructor.
+    chroot_loopback (const chroot_loopback& rhs);
+
     friend class chroot;
 
   public:

@@ -40,6 +40,15 @@ chroot_directory::chroot_directory ():
 {
 }
 
+chroot_directory::chroot_directory (const chroot_directory& rhs):
+  chroot_session(rhs),
+  chroot_directory_base(rhs)
+#ifdef SBUILD_FEATURE_UNION
+  , chroot_union(rhs)
+#endif // SBUILD_FEATURE_UNION
+{
+}
+
 chroot_directory::~chroot_directory ()
 {
 }

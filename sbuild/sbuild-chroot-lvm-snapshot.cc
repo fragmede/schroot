@@ -1,4 +1,4 @@
-/* Copyright © 2005-2008  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -33,11 +33,20 @@ using boost::format;
 using namespace sbuild;
 
 chroot_lvm_snapshot::chroot_lvm_snapshot ():
-  chroot_block_device_base(),
   chroot_session(),
+  chroot_block_device_base(),
   chroot_source(),
   snapshot_device(),
   snapshot_options()
+{
+}
+
+chroot_lvm_snapshot::chroot_lvm_snapshot (const chroot_lvm_snapshot& rhs):
+  chroot_session(rhs),
+  chroot_block_device_base(rhs),
+  chroot_source(rhs),
+  snapshot_device(rhs.snapshot_device),
+  snapshot_options(rhs.snapshot_options)
 {
 }
 

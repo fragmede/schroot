@@ -38,6 +38,9 @@ namespace sbuild
     /// The constructor.
     chroot_file ();
 
+    /// The copy constructor.
+    chroot_file (const chroot_file& rhs);
+
     friend class chroot;
 
   public:
