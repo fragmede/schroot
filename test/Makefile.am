@@ -28,6 +28,12 @@ noinst_LTLIBRARIES = libtest.la
 
 noinst_PROGRAMS = 			\
 	sbuild-chroot			\
+	sbuild-chroot-plain		\
+	sbuild-chroot-file		\
+	sbuild-chroot-directory		\
+	sbuild-chroot-block-device	\
+	sbuild-chroot-loopback		\
+	sbuild-chroot-lvm-snapshot	\
 	sbuild-chroot-config		\
 	sbuild-environment		\
 	sbuild-dirstream		\
@@ -46,6 +52,12 @@ noinst_PROGRAMS = 			\
 # randomly on slow or heavily-loaded systems.
 TESTS = setup-test-data			\
 	sbuild-chroot			\
+	sbuild-chroot-plain		\
+	sbuild-chroot-file		\
+	sbuild-chroot-directory		\
+	sbuild-chroot-block-device	\
+	sbuild-chroot-loopback		\
+	sbuild-chroot-lvm-snapshot	\
 	sbuild-chroot-config		\
 	sbuild-dirstream		\
 	sbuild-environment		\
@@ -81,17 +93,40 @@ sbuild_chroot_lvmsnap_sources =	\
 	sbuild-chroot-lvm-snapshot.cc
 endif
 
-sbuild_chroot_SOURCES = 			\
-	sbuild-chroot.cc			\
-	sbuild-chroot-plain.cc			\
-	sbuild-chroot-file.cc			\
-	sbuild-chroot-directory.cc		\
+sbuild_chroot_SOURCES =		\
+	sbuild-chroot.cc	\
+	test-sbuild-chroot.h
+sbuild_chroot_LDADD =  libtest.la
+
+sbuild_chroot_plain_SOURCES =	\
+	sbuild-chroot-plain.cc	\
+	test-sbuild-chroot.h
+sbuild_chroot_plain_LDADD =  libtest.la
+
+sbuild_chroot_file_SOURCES =	\
+	sbuild-chroot-file.cc	\
+	test-sbuild-chroot.h
+sbuild_chroot_file_LDADD =  libtest.la
+
+sbuild_chroot_directory_SOURCES =	\
+	sbuild-chroot-directory.cc	\
+	test-sbuild-chroot.h
+sbuild_chroot_directory_LDADD =  libtest.la
+
+sbuild_chroot_block_device_SOURCES =		\
 	$(sbuild_chroot_blockdev_sources)	\
-	$(sbuild_chroot_loopback_sources)	\
+	test-sbuild-chroot.h
+sbuild_chroot_block_device_LDADD =  libtest.la
+
+sbuild_chroot_lvm_snapshot_SOURCES =		\
 	$(sbuild_chroot_lvmsnap_sources)	\
 	test-sbuild-chroot.h
+sbuild_chroot_lvm_snapshot_LDADD =  libtest.la
 
-sbuild_chroot_LDADD =  libtest.la
+sbuild_chroot_loopback_SOURCES =		\
+	$(sbuild_chroot_loopback_sources)	\
+	test-sbuild-chroot.h
+sbuild_chroot_loopback_LDADD =  libtest.la
 
 sbuild_chroot_config_SOURCES = sbuild-chroot-config.cc
 sbuild_chroot_config_LDADD = libtest.la

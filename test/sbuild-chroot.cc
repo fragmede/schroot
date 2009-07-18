@@ -213,17 +213,25 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<basic_chroot>::test_setup_env(expected);
+    sbuild::environment observed;
+    chroot->setup_env(observed);
+
+    test_chroot_base<basic_chroot>::test_setup_env(observed, expected);
   }
 
   void test_setup_keyfile()
   {
     sbuild::keyfile expected;
-    setup_keyfile_chroot(expected);
-    expected.set_value(chroot->get_name(), "active", "false");
-    expected.set_value(chroot->get_name(), "type", "test");
+    std::string group = chroot->get_name();
+    setup_keyfile_chroot(expected, group);
+    expected.set_value(group, "active", "false");
+    expected.set_value(group, "type", "test");
 
-    test_chroot_base<basic_chroot>::test_setup_keyfile(expected, chroot->get_name());
+    sbuild::keyfile observed;
+    chroot->get_keyfile(observed);
+
+    test_chroot_base<basic_chroot>::test_setup_keyfile
+      (observed, group, expected, group);
   }
 
   void test_session_flags()

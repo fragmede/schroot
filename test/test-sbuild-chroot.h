@@ -21,7 +21,10 @@
 
 #include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-chroot.h>
+#include <sbuild/sbuild-chroot-session.h>
 #include <sbuild/sbuild-chroot-source.h>
+#include <sbuild/sbuild-chroot-union.h>
+#include <sbuild/sbuild-i18n.h>
 
 #include <algorithm>
 #include <iostream>
@@ -30,12 +33,18 @@
 #include <cppunit/extensions/HelperMacros.h>
 
 using namespace CppUnit;
+using sbuild::_;
 
 template <class T>
 class test_chroot_base : public TestFixture
 {
 protected:
   sbuild::chroot::ptr chroot;
+  sbuild::chroot::ptr session;
+  sbuild::chroot::ptr source;
+  sbuild::chroot::ptr chroot_union;
+  sbuild::chroot::ptr session_union;
+  sbuild::chroot::ptr source_union;
   std::string abs_testdata_dir;
 
 public:
@@ -57,7 +66,57 @@ public:
 
   void setUp()
   {
+    // Create new chroot
     this->chroot = sbuild::chroot::ptr(new T);
+    CPPUNIT_ASSERT(this->chroot);
+
+    setup_chroot_props(this->chroot);
+
+    CPPUNIT_ASSERT(this->chroot->get_name().length());
+
+    // Create new source chroot.
+    std::tr1::shared_ptr<sbuild::chroot_session> css =
+      std::tr1::dynamic_pointer_cast<sbuild::chroot_session>(this->chroot);
+    if (css)
+      this->session = css->clone_session("test-session-name");
+
+    std::tr1::shared_ptr<sbuild::chroot_source> cs =
+      std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(this->chroot);
+    if (cs)
+      this->source = cs->clone_source();
+    if (this->source)
+      {
+	std::tr1::shared_ptr<sbuild::chroot_source> s =
+	  std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(this->source);
+	CPPUNIT_ASSERT(s->get_source_clonable() == false);
+      }
+    this->chroot_union = sbuild::chroot::ptr(new T);
+    std::tr1::shared_ptr<sbuild::chroot_union> un =
+      std::tr1::dynamic_pointer_cast<sbuild::chroot_union>(this->chroot_union);
+    if (!un)
+      {
+	this->chroot_union.reset();
+      }
+    else
+      {
+	setup_chroot_props(this->chroot_union);
+	CPPUNIT_ASSERT(this->chroot_union->get_name().length());
+
+	un->set_union_type("aufs");
+	un->set_union_overlay_directory("/overlay");
+	un->set_union_underlay_directory("/underlay");
+	un->set_union_mount_options("union-mount-options");
+
+	this->session_union = un->clone_session("test-union-session-name");
+	this->source_union = un->clone_source();
+
+	CPPUNIT_ASSERT(this->session_union);
+	CPPUNIT_ASSERT(this->source_union);
+      }
+  }
+
+  virtual void setup_chroot_props (sbuild::chroot::ptr& chroot)
+  {
     chroot->set_name("test-name");
     chroot->set_description("test-description");
     chroot->set_aliases(sbuild::split_string("test-alias-1,test-alias-2", ","));
@@ -70,15 +129,7 @@ public:
     chroot->set_root_groups(sbuild::split_string("group3,group4", ","));
     chroot->set_persona(sbuild::personality("undefined"));
     chroot->set_priority(3);
-  }
 
-  void tearDown()
-  {
-    this->chroot = sbuild::chroot::ptr();
-  }
-
-  void setup_source()
-  {
     std::tr1::shared_ptr<sbuild::chroot_source> c =
       std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(chroot);
     if (c)
@@ -90,6 +141,10 @@ public:
       }
   }
 
+  void tearDown()
+  {
+    this->chroot = sbuild::chroot::ptr();
+  }
 
   void setup_env_chroot (sbuild::environment& env)
   {
@@ -116,22 +171,12 @@ public:
     keyfile.set_value(group, "script-config", "script-defaults");
   }
 
-  void setup_keyfile_chroot (sbuild::keyfile& keyfile)
-  {
-    setup_keyfile_chroot(keyfile, chroot->get_name());
-  }
-
   void setup_keyfile_union_unconfigured (sbuild::keyfile&   keyfile,
 					 std::string const& group)
   {
 #ifdef SBUILD_FEATURE_UNION
     keyfile.set_value(group, "union-type", "none");
 #endif // SBUILD_FEATURE_UNION
-  }
-
-  void setup_keyfile_union_unconfigured (sbuild::keyfile& keyfile)
-  {
-    setup_keyfile_union_unconfigured(keyfile, chroot->get_name());
   }
 
   void setup_keyfile_union_configured (sbuild::keyfile&   keyfile,
@@ -145,9 +190,12 @@ public:
 #endif // SBUILD_FEATURE_UNION
   }
 
-  void setup_keyfile_union_configured (sbuild::keyfile& keyfile)
+  void setup_keyfile_session_clone (sbuild::keyfile&   keyfile,
+				    std::string const& group)
   {
-    setup_keyfile_union_configured(keyfile, chroot->get_name());
+    keyfile.set_value(group, "active", "true");
+    keyfile.set_value(group, "description", chroot->get_description() + ' ' + _("(session chroot)"));
+    keyfile.set_value(group, "aliases", "");
   }
 
   void setup_keyfile_source (sbuild::keyfile&   keyfile,
@@ -159,18 +207,16 @@ public:
     keyfile.set_value(group, "source-root-groups", "sgroup3,sgroup4");
   }
 
-  void setup_keyfile_source (sbuild::keyfile& keyfile)
-  {
-    setup_keyfile_source(keyfile, chroot->get_name());
-  }
-
   void setup_keyfile_source_clone (sbuild::keyfile&   keyfile,
 				   std::string const& group)
   {
+    keyfile.set_value(group, "active", "false");
+    keyfile.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
     keyfile.set_value(group, "users", "suser1,suser2");
     keyfile.set_value(group, "root-users", "suser3,suser4");
     keyfile.set_value(group, "groups", "sgroup1,sgroup2");
     keyfile.set_value(group, "root-groups", "sgroup3,sgroup4");
+    keyfile.set_value(group, "aliases", "test-alias-1-source,test-alias-2-source");
   }
 
   void setup_keyfile_source_clone (sbuild::keyfile& keyfile)
@@ -238,7 +284,8 @@ public:
       }
   }
 
-  void test_setup_env(const sbuild::environment& expected_environment)
+  void test_setup_env(sbuild::chroot::ptr&       chroot,
+		      const sbuild::environment& expected_environment)
   {
     sbuild::environment observed_environment;
     chroot->setup_env(observed_environment);
@@ -312,7 +359,8 @@ public:
       }
   }
 
-  void test_setup_keyfile(const sbuild::keyfile& expected_keyfile,
+  void test_setup_keyfile(sbuild::chroot::ptr&   chroot,
+			  const sbuild::keyfile& expected_keyfile,
 			  const std::string&     group)
   {
     sbuild::keyfile keys;

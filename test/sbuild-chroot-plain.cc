@@ -61,7 +61,19 @@ public:
   void setUp()
   {
     test_chroot_base<chroot_plain>::setUp();
+    CPPUNIT_ASSERT(!session);
+    CPPUNIT_ASSERT(!source);
+    CPPUNIT_ASSERT(!chroot_union);
+    CPPUNIT_ASSERT(!session_union);
+    CPPUNIT_ASSERT(!source_union);
+  }
+
+  virtual void setup_chroot_props (sbuild::chroot::ptr& chroot)
+  {
+    test_chroot_base<chroot_plain>::setup_chroot_props(chroot);
+
     std::tr1::shared_ptr<sbuild::chroot_plain> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_plain>(chroot);
+
     c->set_mount_location("");
     c->set_directory("/srv/chroot/example-chroot");
   }
@@ -93,25 +105,24 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_plain>::test_setup_env(expected);
+    test_chroot_base<chroot_plain>::test_setup_env(chroot, expected);
   }
 
   void test_setup_keyfile()
   {
     sbuild::keyfile expected;
-    setup_keyfile_chroot(expected);
-    expected.set_value(chroot->get_name(), "active", "false");
-    expected.set_value(chroot->get_name(), "type", "plain");
-    expected.set_value(chroot->get_name(), "directory", "/srv/chroot/example-chroot");
+    std::string group = chroot->get_name();
+    setup_keyfile_chroot(expected, group);
+    expected.set_value(group, "active", "false");
+    expected.set_value(group, "type", "plain");
+    expected.set_value(group, "directory", "/srv/chroot/example-chroot");
 
-    test_chroot_base<chroot_plain>::test_setup_keyfile(expected, chroot->get_name());
+    test_chroot_base<chroot_plain>::test_setup_keyfile
+      (chroot, expected, group);
   }
 
   void test_session_flags()
   {
-    CPPUNIT_ASSERT(chroot->get_session_flags() ==
-		   static_cast<sbuild::chroot::session_flags>(0));
-
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
 		   sbuild::chroot::SESSION_NOFLAGS);
   }
