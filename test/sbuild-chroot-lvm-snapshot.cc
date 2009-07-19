@@ -83,10 +83,10 @@ public:
 
     std::tr1::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
 
-    c->set_device("/dev/testdev");
+    c->set_device("/dev/volgroup/testdev");
     c->set_mount_options("-t jfs -o quota,rw");
     c->set_location("/squeeze");
-    c->set_snapshot_device("/dev/snaptestdev");
+    //c->set_snapshot_device("/dev/volgroup/snaptestdev");
     c->set_snapshot_options("--size 1G");
   }
 
@@ -95,8 +95,8 @@ public:
   {
     std::tr1::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_snapshot_device("/dev/some/snapshot/device");
-    CPPUNIT_ASSERT(c->get_snapshot_device() == "/dev/some/snapshot/device");
+    c->set_snapshot_device("/dev/volgroup/some/snapshot/device");
+    CPPUNIT_ASSERT(c->get_snapshot_device() == "/dev/volgroup/some/snapshot/device");
   }
 
   void
@@ -115,20 +115,14 @@ public:
 
   void test_setup_env()
   {
-    std::tr1::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
-    CPPUNIT_ASSERT(c);
-
     sbuild::environment expected;
     setup_env_chroot(expected);
     expected.add("CHROOT_TYPE",           "lvm-snapshot");
     expected.add("CHROOT_LOCATION",       "/squeeze");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
-    expected.add("CHROOT_DEVICE",         "/dev/testdev");
-    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/snaptestdev");
+    expected.add("CHROOT_DEVICE",         "/dev/volgroup/testdev");
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
-    expected.add("CHROOT_LVM_SNAPSHOT_NAME", sbuild::basename(c->get_snapshot_device()));
-    expected.add("CHROOT_LVM_SNAPSHOT_DEVICE", "/dev/snaptestdev");
     expected.add("CHROOT_LVM_SNAPSHOT_OPTIONS", "--size 1G");
     expected.add("CHROOT_SESSION_CLONE",  "true");
     expected.add("CHROOT_SESSION_CREATE", "true");
@@ -149,11 +143,11 @@ public:
     expected.add("CHROOT_LOCATION",       "/squeeze");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
-    expected.add("CHROOT_DEVICE",         "/dev/testdev");
-    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/snaptestdev");
+    expected.add("CHROOT_DEVICE",         "/dev/volgroup/testdev");
+    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/volgroup/test-session-name");
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
-    expected.add("CHROOT_LVM_SNAPSHOT_NAME", sbuild::basename(c->get_snapshot_device()));
-    expected.add("CHROOT_LVM_SNAPSHOT_DEVICE", "/dev/snaptestdev");
+    expected.add("CHROOT_LVM_SNAPSHOT_NAME",    "test-session-name");
+    expected.add("CHROOT_LVM_SNAPSHOT_DEVICE",  "/dev/volgroup/test-session-name");
     expected.add("CHROOT_LVM_SNAPSHOT_OPTIONS", "--size 1G");
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
@@ -172,8 +166,8 @@ public:
     expected.add("CHROOT_LOCATION",       "/squeeze");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
-    expected.add("CHROOT_DEVICE",         "/dev/testdev");
-    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/testdev");
+    expected.add("CHROOT_DEVICE",         "/dev/volgroup/testdev");
+    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/volgroup/testdev");
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
@@ -191,7 +185,7 @@ public:
     setup_keyfile_source(expected, group);
     expected.set_value(group, "active", "false");
     expected.set_value(group, "type", "lvm-snapshot");
-    expected.set_value(group, "device", "/dev/testdev");
+    expected.set_value(group, "device", "/dev/volgroup/testdev");
     expected.set_value(group, "location", "/squeeze");
     expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     expected.set_value(group, "lvm-snapshot-options", "--size 1G");
@@ -210,9 +204,9 @@ public:
     expected.set_value(group, "name", "test-session-name");
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(session chroot)"));
     expected.set_value(group, "aliases", "");
-    expected.set_value(group, "device", "/dev/testdev");
+    expected.set_value(group, "device", "/dev/volgroup/testdev");
     expected.set_value(group, "location", "/squeeze");
-    expected.set_value(group, "lvm-snapshot-device", "/dev/snaptestdev");
+    expected.set_value(group, "lvm-snapshot-device", "/dev/volgroup/test-session-name");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
     expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
 
@@ -229,7 +223,7 @@ public:
     expected.set_value(group, "type", "block-device");
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
     expected.set_value(group, "aliases", "test-alias-1-source,test-alias-2-source");
-    expected.set_value(group, "device", "/dev/testdev");
+    expected.set_value(group, "device", "/dev/volgroup/testdev");
     expected.set_value(group, "location", "/squeeze");
     expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     expected.set_value(group, "union-type", "none");

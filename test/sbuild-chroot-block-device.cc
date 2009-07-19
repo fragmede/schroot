@@ -180,8 +180,8 @@ public:
     expected.add("CHROOT_SESSION_PURGE",  "true");
     expected.add("CHROOT_UNION_TYPE",     "aufs");
     expected.add("CHROOT_UNION_MOUNT_OPTIONS",      "union-mount-options");
-    expected.add("CHROOT_UNION_OVERLAY_DIRECTORY",  "/overlay");
-    expected.add("CHROOT_UNION_UNDERLAY_DIRECTORY",  "/underlay");
+    expected.add("CHROOT_UNION_OVERLAY_DIRECTORY",  "/overlay/test-union-session-name");
+    expected.add("CHROOT_UNION_UNDERLAY_DIRECTORY",  "/underlay/test-union-session-name");
 
     test_chroot_base<chroot_block_device>::test_setup_env(session_union, expected);
   }
@@ -254,7 +254,7 @@ public:
     expected.set_value(group, "mount-location", "/mnt/mount-location");
     expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     setup_keyfile_session_clone(expected, group);
-    setup_keyfile_union_configured(expected, group);
+    setup_keyfile_union_session(expected, group);
 
     test_chroot_base<chroot_block_device>::test_setup_keyfile
       (session_union, expected, group);

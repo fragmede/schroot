@@ -190,6 +190,17 @@ public:
 #endif // SBUILD_FEATURE_UNION
   }
 
+  void setup_keyfile_union_session (sbuild::keyfile&   keyfile,
+				    std::string const& group)
+  {
+#ifdef SBUILD_FEATURE_UNION
+    keyfile.set_value(group, "union-type", "aufs");
+    keyfile.set_value(group, "union-mount-options", "union-mount-options");
+    keyfile.set_value(group, "union-overlay-directory", "/overlay/test-union-session-name");
+    keyfile.set_value(group, "union-underlay-directory", "/underlay/test-union-session-name");
+#endif // SBUILD_FEATURE_UNION
+  }
+
   void setup_keyfile_session_clone (sbuild::keyfile&   keyfile,
 				    std::string const& group)
   {

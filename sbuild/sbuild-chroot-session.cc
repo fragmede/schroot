@@ -20,6 +20,13 @@
 
 #include "sbuild-chroot-session.h"
 #include "sbuild-chroot-source.h"
+#include "sbuild-chroot-plain.h"
+#ifdef SBUILD_FEATURE_LVMSNAP
+#include "sbuild-chroot-lvm-snapshot.h"
+#endif // SBUILD_FEATURE_LVMSNAP
+#ifdef SBUILD_FEATURE_UNION
+#include "sbuild-chroot-union.h"
+#endif // SBUILD_FEATURE_UNION
 #include "sbuild-format-detail.h"
 
 #include <algorithm>
@@ -27,6 +34,7 @@
 #include <boost/format.hpp>
 
 using boost::format;
+using std::endl;
 using namespace sbuild;
 
 chroot_session::chroot_session ():
@@ -54,10 +62,60 @@ chroot_session::clone_session_setup (chroot::ptr&       clone,
       session->set_session_active(true);
     }
 
+  log_debug(DEBUG_INFO)
+    << format("Cloned session %1%")
+    % clone->get_name() << endl;
+
   // Disable source cloning.
   std::tr1::shared_ptr<chroot_source> source(std::tr1::dynamic_pointer_cast<chroot_source>(clone));
   if (source)
     source->set_source_clonable(false);
+
+  /* If a chroot mount location has not yet been set, and the
+     chroot is not a plain chroot, set a mount location with the
+     session id.  Only set for non-plain chroots which run
+     setup scripts. */
+  {
+    std::tr1::shared_ptr<chroot_plain> plain(std::tr1::dynamic_pointer_cast<chroot_plain>(clone));
+
+    if (clone->get_mount_location().empty() && !plain)
+      {
+	log_debug(DEBUG_NOTICE) << "Setting mount location" << endl;
+	std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
+			     session_id);
+	clone->set_mount_location(location);
+      }
+  }
+
+  log_debug(DEBUG_NOTICE)
+    << format("Mount Location: %1%") % clone->get_mount_location()
+    << endl;
+
+#ifdef SBUILD_FEATURE_LVMSNAP
+  /* LVM devices need the snapshot device name specifying. */
+  std::tr1::shared_ptr<chroot_lvm_snapshot> snapshot(std::tr1::dynamic_pointer_cast<chroot_lvm_snapshot>(clone));
+  if (snapshot)
+    {
+      std::string dir(dirname(snapshot->get_device(), '/'));
+      std::string device(dir + "/" + clone->get_session_id());
+      snapshot->set_snapshot_device(device);
+    }
+#endif // SBUILD_FEATURE_LVMSNAP
+
+#ifdef SBUILD_FEATURE_UNION
+  /* Filesystem unions need the overlay directory specifying. */
+  std::tr1::shared_ptr<chroot_union> fsunion(std::tr1::dynamic_pointer_cast<chroot_union>(clone));
+  if (fsunion)
+    {
+      std::string overlay = fsunion->get_union_overlay_directory();
+      overlay += "/" + clone->get_session_id();
+      fsunion->set_union_overlay_directory(overlay);
+
+      std::string underlay = fsunion->get_union_underlay_directory();
+      underlay += "/" + clone->get_session_id();
+      fsunion->set_union_underlay_directory(underlay);
+    }
+#endif // SBUILD_FEATURE_UNION
 }
 
 bool

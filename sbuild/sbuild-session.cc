@@ -1,4 +1,4 @@
-/* Copyright © 2005-2007  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -19,14 +19,8 @@
 #include <config.h>
 
 #include "sbuild-chroot-config.h"
+#include "sbuild-chroot-session.h"
 #include "sbuild-auth-null.h"
-#include "sbuild-chroot-plain.h"
-#ifdef SBUILD_FEATURE_LVMSNAP
-#include "sbuild-chroot-lvm-snapshot.h"
-#endif // SBUILD_FEATURE_LVMSNAP
-#ifdef SBUILD_FEATURE_UNION
-#include "sbuild-chroot-union.h"
-#endif // SBUILD_FEATURE_UNION
 #include "sbuild-ctty.h"
 #include "sbuild-run-parts.h"
 #include "sbuild-session.h"
@@ -566,103 +560,37 @@ session::run_impl ()
 	  if (!ch) // Should never happen, but cater for it anyway.
 	    throw error(*cur, CHROOT_UNKNOWN);
 
-	  chroot::ptr chroot(ch->clone());
+	  // For now, use a copy of the chroot; if we create a session
+	  // later, we will replace it.
+	  chroot::ptr chroot;
 
-	  /* If restoring a session, set the session ID from the
-	     chroot name, or else generate it.  Only chroots which
-	     support session creation append a UUID to the session
-	     ID. */
-	  if (chroot->get_active() ||
-	      !(chroot->get_session_flags() & chroot::SESSION_CREATE))
+	  /* Create a session using randomly-generated session ID. */
+	  if (ch->get_session_flags() & chroot::SESSION_CREATE)
 	    {
-	      if (!get_session_id().empty())
+	      std::tr1::shared_ptr<chroot_session> session(std::tr1::dynamic_pointer_cast<chroot_session>(ch));
+	      if (session)
 		{
-		  session::error e(chroot->get_name(),
-				   session::SET_SESSION_ID,
-				   get_session_id());
-		  log_exception_warning(e);
-		}
-
-	      set_session_id(chroot->get_name());
-	    }
-	  else
-	    {
-	      if (get_session_id().empty())
-		{
+		  std::ostringstream session_id;
+		  session_id.imbue(std::locale::classic());
+		  session_id << ch->get_name();
 #ifdef HAVE_UUID
 		  uuid_t uuid;
 		  char uuid_str[37];
 		  uuid_generate(uuid);
 		  uuid_unparse(uuid, uuid_str);
 		  uuid_clear(uuid);
-		  std::string session_id(chroot->get_name() + '-' + uuid_str);
-		  set_session_id(session_id);
+		  session_id << '-' << uuid_str;
 #else
-		  std::ostringstream session_id;
-		  session_id.imbue(std::locale::classic());
-		  session_id << chroot->get_name()
-			     << '-' << isodate(time(0))
+		  session_id << '-' << isodate(time(0))
 			     << '-' << getpid();
-		  set_session_id(session_id.str());
 #endif
+
+		  // Replace clone of chroot with cloned session.
+		  chroot = session->clone_session(session_id.str());
 		}
 	    }
-
-	  log_debug(DEBUG_INFO)
-	    << format("Session ID: %1%") % get_session_id() << endl;
-
-	  /* Activate chroot. */
-	  chroot->set_active(true);
-
-	  /* If a chroot mount location has not yet been set, and the
-	     chroot is not a plain chroot, set a mount location with the
-	     session id.  Only set for non-plain chroots which run
-	     setup scripts. */
-	  {
-	    chroot_plain *plain = dynamic_cast<chroot_plain *>(chroot.get());
-
-	    if (chroot->get_mount_location().empty() && !plain)
-	      {
-		log_debug(DEBUG_NOTICE) << "Setting mount location" << endl;
-		std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
-				     this->session_id);
-		chroot->set_mount_location(location);
-	      }
-	  }
-
-	  log_debug(DEBUG_NOTICE)
-	    << format("Mount Location: %1%") % chroot->get_mount_location()
-	    << endl;
-
-	  /* Chroot types which create a session (e.g. LVM devices)
-	     need the chroot name respecifying. */
-	  chroot->set_session_id(this->session_id);
-
-#ifdef SBUILD_FEATURE_LVMSNAP
-	  /* LVM devices need the snapshot device name specifying. */
-	  chroot_lvm_snapshot *snapshot = 0;
-	  if ((snapshot = dynamic_cast<chroot_lvm_snapshot *>(chroot.get())) != 0)
-	    {
-	      std::string dir(dirname(snapshot->get_device(), '/'));
-	      std::string device(dir + "/" + this->session_id);
-	      snapshot->set_snapshot_device(device);
-	    }
-#endif // SBUILD_FEATURE_LVMSNAP
-
-#ifdef SBUILD_FEATURE_UNION
-	  /* Filesystem unions need the overlay directory specifying. */
-	  chroot_union *fsunion = 0;
-	  if ((fsunion = dynamic_cast<chroot_union *>(chroot.get())) != 0)
-	    {
-	      std::string overlay = fsunion->get_union_overlay_directory();
-	      overlay += "/" + this->session_id;
-	      fsunion->set_union_overlay_directory(overlay);
-
-	      std::string underlay = fsunion->get_union_underlay_directory();
-	      underlay += "/" + this->session_id;
-	      fsunion->set_union_underlay_directory(underlay);
-	    }
-#endif // SBUILD_FEATURE_UNION
+	  else
+	    chroot = ch->clone();
 
 	  try
 	    {
