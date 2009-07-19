@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2009-07-05 17:49+0100\n"
+"POT-Creation-Date: 2009-07-19 13:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,8 +73,8 @@ msgid "[schroot] password for %1%: "
 msgstr ""
 
 #: sbuild/sbuild-auth-pam.cc:119 sbuild/sbuild-log.cc:172
-#: sbuild/sbuild-run-parts.cc:229 sbuild/sbuild-session.cc:1109
-#: sbuild/sbuild-session.cc:1361 bin/schroot-mount/schroot-mount-main.cc:128
+#: sbuild/sbuild-run-parts.cc:229 sbuild/sbuild-session.cc:1044
+#: sbuild/sbuild-session.cc:1296 bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192
 msgid "An unknown exception occurred"
 msgstr ""
@@ -116,6 +116,10 @@ msgstr ""
 #: sbuild/sbuild-auth-pam-conv-tty.cc:54
 #, boost-format
 msgid "Unsupported conversation type '%1%'"
+msgstr ""
+
+#: sbuild/sbuild-chroot-block-device-base.cc:166
+msgid "Device"
 msgstr ""
 
 #: sbuild/sbuild-chroot.cc:62
@@ -190,93 +194,93 @@ msgstr ""
 msgid "Failed to write session file"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:456
+#: sbuild/sbuild-chroot.cc:457
 msgid "Name"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:459
+#: sbuild/sbuild-chroot.cc:460
 msgid "Session ID"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:462
+#: sbuild/sbuild-chroot.cc:463
 msgid "Description"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:463
+#: sbuild/sbuild-chroot.cc:464
 msgid "Type"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:464
+#: sbuild/sbuild-chroot.cc:465
 msgid "Priority"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:465
+#: sbuild/sbuild-chroot.cc:466
 msgid "Users"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:466
+#: sbuild/sbuild-chroot.cc:467
 msgid "Groups"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:467
+#: sbuild/sbuild-chroot.cc:468
 msgid "Root Users"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:468
+#: sbuild/sbuild-chroot.cc:469
 msgid "Root Groups"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:469
+#: sbuild/sbuild-chroot.cc:470
 msgid "Aliases"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:470
+#: sbuild/sbuild-chroot.cc:471
 msgid "Environment Filter"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:471
+#: sbuild/sbuild-chroot.cc:472
 msgid "Run Setup Scripts"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:472
+#: sbuild/sbuild-chroot.cc:473
 msgid "Script Configuration"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:473
+#: sbuild/sbuild-chroot.cc:474
 msgid "Session Managed"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:475
+#: sbuild/sbuild-chroot.cc:476
 msgid "Session Cloned"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:477
+#: sbuild/sbuild-chroot.cc:478
 msgid "Session Purged"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:481
+#: sbuild/sbuild-chroot.cc:482
 msgid "Command Prefix"
 msgstr ""
 
 #. TRANSLATORS: "Personality" is the Linux kernel personality
 #. (process execution domain).  See schroot.conf(5).
-#: sbuild/sbuild-chroot.cc:485
+#: sbuild/sbuild-chroot.cc:486
 msgid "Personality"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:489
+#: sbuild/sbuild-chroot.cc:490
 msgid "Mount Location"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:491
+#: sbuild/sbuild-chroot.cc:492
 msgid "Path"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:497
+#: sbuild/sbuild-chroot.cc:498
 msgid "Session"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:497
+#: sbuild/sbuild-chroot.cc:498
 msgid "Chroot"
 msgstr ""
 
@@ -309,32 +313,40 @@ msgstr ""
 msgid "Available chroots: "
 msgstr ""
 
-#: sbuild/sbuild-chroot-file.cc:159 sbuild/sbuild-chroot-loopback.cc:179
+#: sbuild/sbuild-chroot-directory-base.cc:71
+msgid "Directory"
+msgstr ""
+
+#: sbuild/sbuild-chroot-file.cc:184 sbuild/sbuild-chroot-loopback.cc:206
 msgid "File"
 msgstr ""
 
-#: sbuild/sbuild-chroot-file.cc:160
+#: sbuild/sbuild-chroot-file.cc:185
 msgid "File Repack"
 msgstr ""
 
-#: sbuild/sbuild-chroot-lvm-snapshot.cc:216
+#: sbuild/sbuild-chroot-lvm-snapshot.cc:237
 msgid "LVM Snapshot Device"
 msgstr ""
 
-#: sbuild/sbuild-chroot-lvm-snapshot.cc:218
+#: sbuild/sbuild-chroot-lvm-snapshot.cc:239
 msgid "LVM Snapshot Options"
 msgstr ""
 
-#: sbuild/sbuild-chroot-mountable.cc:103
+#: sbuild/sbuild-chroot-mountable.cc:90
+msgid "Mount Device"
+msgstr ""
+
+#: sbuild/sbuild-chroot-mountable.cc:92
 msgid "Mount Options"
 msgstr ""
 
-#: sbuild/sbuild-chroot-mountable.cc:105
+#: sbuild/sbuild-chroot-mountable.cc:94
 msgid "Location"
 msgstr ""
 
-#: sbuild/sbuild-chroot-plain.cc:106
-msgid "Directory"
+#: sbuild/sbuild-chroot-session.cc:56
+msgid "(session chroot)"
 msgstr ""
 
 #: sbuild/sbuild-chroot-source.cc:49
@@ -363,15 +375,19 @@ msgstr ""
 msgid "Unknown filesystem union type '%1%'"
 msgstr ""
 
-#: sbuild/sbuild-chroot-union.cc:179
+#: sbuild/sbuild-chroot-union.cc:200
+msgid "Filesystem union type"
+msgstr ""
+
+#: sbuild/sbuild-chroot-union.cc:204
 msgid "Filesystem union mount options"
 msgstr ""
 
-#: sbuild/sbuild-chroot-union.cc:182
+#: sbuild/sbuild-chroot-union.cc:207
 msgid "Filesystem union overlay directory"
 msgstr ""
 
-#: sbuild/sbuild-chroot-union.cc:185
+#: sbuild/sbuild-chroot-union.cc:210
 msgid "Filesystem union underlay directory"
 msgstr ""
 
@@ -819,14 +835,14 @@ msgstr ""
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:878
+#: sbuild/sbuild-session.cc:813
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr ""
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:882
+#: sbuild/sbuild-session.cc:817
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr ""
@@ -836,7 +852,7 @@ msgstr ""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:893
+#: sbuild/sbuild-session.cc:828
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr ""
@@ -846,14 +862,14 @@ msgstr ""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:900
+#: sbuild/sbuild-session.cc:835
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr ""
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:938
+#: sbuild/sbuild-session.cc:873
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr ""
@@ -863,17 +879,17 @@ msgstr ""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:945
+#: sbuild/sbuild-session.cc:880
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr ""
 
-#: sbuild/sbuild-session.cc:1133
+#: sbuild/sbuild-session.cc:1068
 #, boost-format
 msgid "stage=%1%"
 msgstr ""
 
-#: sbuild/sbuild-session.cc:1285 sbuild/sbuild-session.cc:1292
+#: sbuild/sbuild-session.cc:1220 sbuild/sbuild-session.cc:1227
 msgid "terminating immediately"
 msgstr ""
 
