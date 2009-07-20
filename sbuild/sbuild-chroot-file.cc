@@ -121,7 +121,7 @@ chroot_file::get_chroot_type () const
 }
 
 void
-chroot_file::setup_env (environment& env)
+chroot_file::setup_env (environment& env) const
 {
   chroot::setup_env(env);
   chroot_session::setup_env(env);

@@ -69,7 +69,7 @@ namespace sbuild
     get_chroot_type () const;
 
     virtual void
-    setup_env (environment& env);
+    setup_env (environment& env) const;
 
     virtual session_flags
     get_session_flags () const;

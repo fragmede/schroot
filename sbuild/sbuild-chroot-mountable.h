@@ -92,7 +92,7 @@ namespace sbuild
     set_location (std::string const& location);
 
     virtual void
-    setup_env (environment& env);
+    setup_env (environment& env) const;
 
     virtual chroot::session_flags
     get_session_flags () const;

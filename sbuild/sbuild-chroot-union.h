@@ -148,7 +148,7 @@ namespace sbuild
     set_union_underlay_directory (std::string const& directory);
 
     virtual void
-    setup_env (environment& env);
+    setup_env (environment& env) const;
 
     virtual chroot::session_flags
     get_session_flags () const;

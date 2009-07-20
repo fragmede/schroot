@@ -91,7 +91,7 @@ chroot_directory::get_path () const
 }
 
 void
-chroot_directory::setup_env (environment& env)
+chroot_directory::setup_env (environment& env) const
 {
   chroot_directory_base::setup_env(env);
   chroot_session::setup_env(env);

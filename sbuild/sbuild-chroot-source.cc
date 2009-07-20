@@ -126,7 +126,7 @@ chroot_source::set_source_clonable (bool clonable)
 }
 
 void
-chroot_source::setup_env (environment& env)
+chroot_source::setup_env (environment& env) const
 {
 }
 

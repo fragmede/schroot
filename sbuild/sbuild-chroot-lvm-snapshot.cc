@@ -127,7 +127,7 @@ chroot_lvm_snapshot::get_chroot_type () const
 }
 
 void
-chroot_lvm_snapshot::setup_env (environment& env)
+chroot_lvm_snapshot::setup_env (environment& env) const
 {
   chroot_block_device_base::setup_env(env);
   chroot_session::setup_env(env);

@@ -158,7 +158,7 @@ namespace sbuild
     set_source_clonable (bool clonable);
 
     void
-    setup_env (environment& env);
+    setup_env (environment& env) const;
 
   protected:
     virtual chroot::session_flags

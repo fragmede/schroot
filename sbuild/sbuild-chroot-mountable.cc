@@ -70,7 +70,7 @@ chroot_mountable::set_location (std::string const& location)
 }
 
 void
-chroot_mountable::setup_env (environment& env)
+chroot_mountable::setup_env (environment& env) const
 {
   env.add("CHROOT_MOUNT_DEVICE", get_mount_device());
   env.add("CHROOT_MOUNT_OPTIONS", get_mount_options());

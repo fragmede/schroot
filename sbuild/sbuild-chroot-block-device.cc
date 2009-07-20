@@ -102,7 +102,7 @@ chroot_block_device::clone_source () const
 #endif // SBUILD_FEATURE_UNION
 
 void
-chroot_block_device::setup_env (environment& env)
+chroot_block_device::setup_env (environment& env) const
 {
   chroot_block_device_base::setup_env(env);
 #ifdef SBUILD_FEATURE_UNION

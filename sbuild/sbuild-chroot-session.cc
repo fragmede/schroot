@@ -147,7 +147,7 @@ chroot_session::set_session_active (bool active)
 }
 
 void
-chroot_session::setup_env (environment& env)
+chroot_session::setup_env (environment& env) const
 {
 }
 

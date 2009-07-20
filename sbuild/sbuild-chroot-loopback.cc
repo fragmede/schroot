@@ -137,7 +137,7 @@ chroot_loopback::get_chroot_type () const
 }
 
 void
-chroot_loopback::setup_env (environment& env)
+chroot_loopback::setup_env (environment& env) const
 {
   chroot::setup_env(env);
   chroot_mountable::setup_env(env);

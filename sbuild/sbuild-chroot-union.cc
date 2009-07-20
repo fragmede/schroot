@@ -154,7 +154,7 @@ chroot_union::set_union_mount_options
 }
 
 void
-chroot_union::setup_env (environment& env)
+chroot_union::setup_env (environment& env) const
 {
   chroot_session::setup_env(env);
   chroot_source::setup_env(env);

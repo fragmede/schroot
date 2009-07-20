@@ -56,7 +56,7 @@ chroot_directory_base::set_directory (std::string const& directory)
 }
 
 void
-chroot_directory_base::setup_env (environment& env)
+chroot_directory_base::setup_env (environment& env) const
 {
   chroot::setup_env(env);
 

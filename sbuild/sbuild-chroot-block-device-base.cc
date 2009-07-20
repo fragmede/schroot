@@ -84,7 +84,7 @@ chroot_block_device_base::get_chroot_type () const
 }
 
 void
-chroot_block_device_base::setup_env (environment& env)
+chroot_block_device_base::setup_env (environment& env) const
 {
   chroot::setup_env(env);
   chroot_mountable::setup_env(env);

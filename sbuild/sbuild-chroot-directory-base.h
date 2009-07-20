@@ -56,7 +56,7 @@ namespace sbuild
     set_directory (std::string const& directory);
 
     virtual void
-    setup_env (environment& env);
+    setup_env (environment& env) const;
 
   protected:
     virtual void

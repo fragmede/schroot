@@ -95,7 +95,7 @@ namespace sbuild
     get_chroot_type () const;
 
     virtual void
-    setup_env (environment& env);
+    setup_env (environment& env) const;
 
     std::string
     get_path () const;

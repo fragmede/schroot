@@ -106,7 +106,7 @@ namespace sbuild
     set_session_active (bool active);
 
     virtual void
-    setup_env (environment& env);
+    setup_env (environment& env) const;
 
   protected:
     virtual chroot::session_flags

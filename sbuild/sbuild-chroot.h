@@ -453,7 +453,7 @@ namespace sbuild
      * @param env the environment to set.
      */
     virtual void
-    setup_env (environment& env);
+    setup_env (environment& env) const;
 
     /**
      * Lock a chroot during setup.  The locking technique (if any) may

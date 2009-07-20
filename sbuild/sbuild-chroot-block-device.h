@@ -72,7 +72,7 @@ namespace sbuild
 #endif // SBUILD_FEATURE_UNION
 
     virtual void
-    setup_env (environment& env);
+    setup_env (environment& env) const;
 
     virtual session_flags
     get_session_flags () const;
