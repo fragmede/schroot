@@ -1092,13 +1092,13 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 
   /* Set the process execution domain. */
   /* Will throw on failure. */
-  std::tr1::shared_ptr<chroot_facet_personality> fpers =
+  std::tr1::shared_ptr<chroot_facet_personality> pfac =
     session_chroot->get_facet<chroot_facet_personality>();
-  if (fpers)
+  if (pfac)
     {
-      fpers->get_persona().set();
+      pfac->get_persona().set();
       log_debug(DEBUG_NOTICE) << "Set personality="
-			      << fpers->get_persona() << std::endl;
+			      << pfac->get_persona() << std::endl;
     }
   else
     {
