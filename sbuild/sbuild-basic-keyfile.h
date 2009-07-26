@@ -48,7 +48,16 @@ namespace sbuild
     typedef keyfile_base::error error;
 
     /// The constructor.
-    basic_keyfile_parser ()
+    basic_keyfile_parser ():
+      group(),
+      group_set(false),
+      key(),
+      key_set(false),
+      value(),
+      value_set(false),
+      comment(),
+      comment_set(false),
+      line_number(0)
     {
     }
 
