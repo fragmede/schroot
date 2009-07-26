@@ -40,11 +40,15 @@ configuration.
   7) Most schroot features are compiled conditionally, which should
      ease porting to non-Linux platforms.
 
-  8 Support for union filesystems has been added (aufs and unionfs).
-    This permits the use of read-only block-device, directory and
-    loopback chroots with a temporary writable overlay.  For "scratch"
-    temporary chroots, this method is recommended over the existing
-    LVM snapshot support.
+  8) Support for union filesystems has been added (aufs and unionfs).
+     This permits the use of read-only block-device, directory and
+     loopback chroots with a temporary writable overlay.  For "scratch"
+     temporary chroots, this method is recommended over the existing
+     LVM snapshot support.
+
+  9) The command-prefix option no longer requires an absolute path to
+     the command.  It will use the normal search path inside the
+     chroot to locate the command.
 
 * Major changes in 1.2.1:
 

@@ -1181,7 +1181,12 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   // Add command prefix.
   string_list full_command(session_chroot->get_command_prefix());
   if (full_command.size() > 0)
-    file = full_command[0];
+    {
+      std::string path;
+      if (!env.get("PATH", path))
+	path.clear();
+      file = find_program_in_path(full_command[0], path, "");
+    }
   for (string_list::const_iterator pos = command.begin();
        pos != command.end();
        ++pos)
