@@ -162,6 +162,7 @@ chroot_source::get_keyfile (keyfile& keyfile) const
   const chroot *base = dynamic_cast<const chroot *>(this);
   assert(base != 0);
 
+  // Only write out source-* settings if we're clonable.
   if (this->get_source_clonable())
     {
       keyfile::set_object_list_value(*this, &chroot_source::get_source_users,
@@ -186,26 +187,35 @@ chroot_source::set_keyfile (keyfile const& keyfile,
   const chroot *base = dynamic_cast<const chroot *>(this);
   assert(base != 0);
 
-  if (this->get_source_clonable())
-    {
-      keyfile::get_object_list_value(*this, &chroot_source::set_source_users,
-				     keyfile, base->get_keyfile_name(), "source-users",
-				     keyfile::PRIORITY_OPTIONAL);
-      used_keys.push_back("source-users");
+  // Setting when not clonable is deprecated.  It can't be obsoleted
+  // yet because it is required to allow use and ending of existing
+  // sessions which have set this parameter (even though it's
+  // useless).
+  keyfile::get_object_list_value(*this, &chroot_source::set_source_users,
+				 keyfile, base->get_keyfile_name(), "source-users",
+				 this->get_source_clonable() ?
+				 keyfile::PRIORITY_OPTIONAL :
+				 keyfile::PRIORITY_DEPRECATED);
+  used_keys.push_back("source-users");
 
-      keyfile::get_object_list_value(*this, &chroot_source::set_source_groups,
-				     keyfile, base->get_keyfile_name(), "source-groups",
-				     keyfile::PRIORITY_OPTIONAL);
-      used_keys.push_back("source-groups");
+  keyfile::get_object_list_value(*this, &chroot_source::set_source_groups,
+				 keyfile, base->get_keyfile_name(), "source-groups",
+				 this->get_source_clonable() ?
+				 keyfile::PRIORITY_OPTIONAL :
+				 keyfile::PRIORITY_DEPRECATED);
+  used_keys.push_back("source-groups");
 
-      keyfile::get_object_list_value(*this, &chroot_source::set_source_root_users,
-				     keyfile, base->get_keyfile_name(), "source-root-users",
-				     keyfile::PRIORITY_OPTIONAL);
-      used_keys.push_back("source-root-users");
+  keyfile::get_object_list_value(*this, &chroot_source::set_source_root_users,
+				 keyfile, base->get_keyfile_name(), "source-root-users",
+				 this->get_source_clonable() ?
+				 keyfile::PRIORITY_OPTIONAL :
+				 keyfile::PRIORITY_DEPRECATED);
+  used_keys.push_back("source-root-users");
 
-      keyfile::get_object_list_value(*this, &chroot_source::set_source_root_groups,
-				     keyfile, base->get_keyfile_name(), "source-root-groups",
-				     keyfile::PRIORITY_OPTIONAL);
-      used_keys.push_back("source-root-groups");
-    }
+  keyfile::get_object_list_value(*this, &chroot_source::set_source_root_groups,
+				 keyfile, base->get_keyfile_name(), "source-root-groups",
+				 this->get_source_clonable() ?
+				 keyfile::PRIORITY_OPTIONAL :
+				 keyfile::PRIORITY_DEPRECATED);
+  used_keys.push_back("source-root-groups");
 }
