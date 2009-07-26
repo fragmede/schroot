@@ -26,12 +26,31 @@ using boost::format;
 using namespace sbuild;
 
 chroot_facet_personality::chroot_facet_personality ():
-  chroot_facet()
+  chroot_facet(),
+  persona(
+#ifdef __linux__
+	  personality("linux")
+#else
+	  personality("undefined")
+#endif
+	  )
 {
 }
 
 chroot_facet_personality::~chroot_facet_personality ()
 {
+}
+
+personality const&
+chroot_facet_personality::get_persona () const
+{
+  return this->persona;
+}
+
+void
+chroot_facet_personality::set_persona (personality const& persona)
+{
+  this->persona = persona;
 }
 
 void
@@ -50,12 +69,17 @@ void
 chroot_facet_personality::get_details (chroot const&  chroot,
 				       format_detail& detail) const
 {
+  // TRANSLATORS: "Personality" is the Linux kernel personality
+  // (process execution domain).  See schroot.conf(5).
+  detail.add(_("Personality"), get_persona().get_name());
 }
 
 void
 chroot_facet_personality::get_keyfile (chroot const& chroot,
 				       keyfile&      keyfile) const
 {
+  keyfile::set_object_value(*this, &chroot_facet_personality::get_persona,
+			    keyfile, chroot.get_keyfile_name(), "personality");
 }
 
 void
@@ -63,4 +87,8 @@ chroot_facet_personality::set_keyfile (chroot&        chroot,
 				       keyfile const& keyfile,
 				       string_list&   used_keys)
 {
+  keyfile::get_object_value(*this, &chroot_facet_personality::set_persona,
+			    keyfile, chroot.get_keyfile_name(), "personality",
+			    keyfile::PRIORITY_OPTIONAL);
+  used_keys.push_back("personality");
 }

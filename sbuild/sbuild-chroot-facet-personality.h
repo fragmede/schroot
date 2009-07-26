@@ -20,6 +20,7 @@
 #define SBUILD_CHROOT_FACET_PERSONALITY_H
 
 #include <sbuild/sbuild-chroot-facet.h>
+#include <sbuild/sbuild-personality.h>
 
 namespace sbuild
 {
@@ -40,6 +41,22 @@ namespace sbuild
     /// The destructor.
     virtual ~chroot_facet_personality ();
 
+    /**
+     * Get the process execution domain for the chroot.
+     *
+     * @returns the personality.
+     */
+    personality const&
+    get_persona () const;
+
+    /**
+     * Set the process execution domain for the chroot.
+     *
+     * @param persona the personality.
+     */
+    void
+    set_persona (personality const& persona);
+
     virtual void
     setup_env (chroot const& chroot,
 	       environment&  env) const;
@@ -59,6 +76,10 @@ namespace sbuild
     set_keyfile (chroot&        chroot,
 		 keyfile const& keyfile,
 		 string_list&   used_keys);
+
+  private:
+    /// Process execution domain (Linux only).
+    personality   persona;
   };
 
 }
