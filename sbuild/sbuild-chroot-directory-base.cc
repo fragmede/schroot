@@ -56,35 +56,39 @@ chroot_directory_base::set_directory (std::string const& directory)
 }
 
 void
-chroot_directory_base::setup_env (environment& env) const
+chroot_directory_base::setup_env (chroot const& chroot,
+				  environment& env) const
 {
-  chroot::setup_env(env);
+  chroot::setup_env(chroot, env);
 
   env.add("CHROOT_DIRECTORY", get_directory());
 }
 
 void
-chroot_directory_base::get_details (format_detail& detail) const
+chroot_directory_base::get_details (chroot const& chroot,
+				    format_detail& detail) const
 {
-  chroot::get_details(detail);
+  chroot::get_details(chroot, detail);
 
   detail.add(_("Directory"), get_directory());
 }
 
 void
-chroot_directory_base::get_keyfile (keyfile& keyfile) const
+chroot_directory_base::get_keyfile (chroot const& chroot,
+				    keyfile& keyfile) const
 {
-  chroot::get_keyfile(keyfile);
+  chroot::get_keyfile(chroot, keyfile);
 
   keyfile::set_object_value(*this, &chroot_directory_base::get_directory,
 			    keyfile, get_keyfile_name(), "directory");
 }
 
 void
-chroot_directory_base::set_keyfile (keyfile const& keyfile,
+chroot_directory_base::set_keyfile (chroot&        chroot,
+				    keyfile const& keyfile,
 				    string_list&   used_keys)
 {
-  chroot::set_keyfile(keyfile, used_keys);
+  chroot::set_keyfile(chroot, keyfile, used_keys);
 
   // "directory" should be required, but we also accept "location" as
   // an alternative (but deprecated) variant.  Therefore, ensure by

@@ -59,8 +59,14 @@ public:
   { return get_mount_location(); }
 
   virtual void
-  setup_env (sbuild::environment& env)
-  { this->sbuild::chroot::setup_env(env); }
+  setup_env (sbuild::chroot const& chroot,
+	     sbuild::environment&  env) const
+  { sbuild::chroot::setup_env(chroot, env); }
+
+  virtual void
+  get_details (sbuild::chroot const&  chroot,
+	       sbuild::format_detail& detail) const
+  { sbuild::chroot::get_details(chroot, detail); }
 
   virtual void
   setup_lock (setup_type type,
@@ -69,13 +75,19 @@ public:
   {}
 
   virtual sbuild::chroot::session_flags
-  get_session_flags () const
+  get_session_flags (sbuild::chroot const& chroot) const
   { return sbuild::chroot::SESSION_CREATE; }
 
   virtual void
-  print_details (std::ostream& stream) const
-  { sbuild::chroot::print_details(stream); }
+  get_keyfile (sbuild::chroot const& chroot,
+	       sbuild::keyfile&      keyfile) const
+  { sbuild::chroot::get_keyfile(chroot, keyfile); }
 
+  virtual void
+  set_keyfile (sbuild::chroot&        chroot,
+	       sbuild::keyfile const& keyfile,
+	       sbuild::string_list&   used_keys)
+  { sbuild::chroot::set_keyfile(chroot, keyfile, used_keys); }
 };
 
 class test_chroot : public test_chroot_base<basic_chroot>
@@ -227,11 +239,8 @@ public:
     expected.set_value(group, "active", "false");
     expected.set_value(group, "type", "test");
 
-    sbuild::keyfile observed;
-    chroot->get_keyfile(observed);
-
     test_chroot_base<basic_chroot>::test_setup_keyfile
-      (observed, group, expected, group);
+      (chroot, expected, group);
   }
 
   void test_session_flags()

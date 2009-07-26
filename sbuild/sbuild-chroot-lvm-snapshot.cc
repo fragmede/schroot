@@ -127,11 +127,12 @@ chroot_lvm_snapshot::get_chroot_type () const
 }
 
 void
-chroot_lvm_snapshot::setup_env (environment& env) const
+chroot_lvm_snapshot::setup_env (chroot const& chroot,
+				environment&  env) const
 {
-  chroot_block_device_base::setup_env(env);
-  chroot_session::setup_env(env);
-  chroot_source::setup_env(env);
+  chroot_block_device_base::setup_env(chroot, env);
+  chroot_session::setup_env(chroot, env);
+  chroot_source::setup_env(chroot, env);
 
   env.add("CHROOT_LVM_SNAPSHOT_NAME", sbuild::basename(get_snapshot_device()));
   env.add("CHROOT_LVM_SNAPSHOT_DEVICE", get_snapshot_device());
@@ -217,9 +218,12 @@ chroot_lvm_snapshot::setup_lock (chroot::setup_type type,
 }
 
 sbuild::chroot::session_flags
-chroot_lvm_snapshot::get_session_flags () const
+chroot_lvm_snapshot::get_session_flags (chroot const& chroot) const
 {
-  session_flags flags = chroot_session::get_session_flags() | chroot_source::get_session_flags();
+  session_flags flags =
+    chroot_session::get_session_flags(chroot) |
+    chroot_source::get_session_flags(chroot);
+
   if (get_active())
     flags = flags | SESSION_PURGE;
 
@@ -227,11 +231,12 @@ chroot_lvm_snapshot::get_session_flags () const
 }
 
 void
-chroot_lvm_snapshot::get_details (format_detail& detail) const
+chroot_lvm_snapshot::get_details (chroot const& chroot,
+				  format_detail& detail) const
 {
-  chroot_block_device_base::get_details(detail);
-  chroot_session::get_details(detail);
-  chroot_source::get_details(detail);
+  chroot_block_device_base::get_details(chroot, detail);
+  chroot_session::get_details(chroot, detail);
+  chroot_source::get_details(chroot, detail);
 
   if (!this->snapshot_device.empty())
     detail.add(_("LVM Snapshot Device"), get_snapshot_device());
@@ -240,11 +245,12 @@ chroot_lvm_snapshot::get_details (format_detail& detail) const
 }
 
 void
-chroot_lvm_snapshot::get_keyfile (keyfile& keyfile) const
+chroot_lvm_snapshot::get_keyfile (chroot const& chroot,
+				  keyfile& keyfile) const
 {
-  chroot_block_device_base::get_keyfile(keyfile);
-  chroot_session::get_keyfile(keyfile);
-  chroot_source::get_keyfile(keyfile);
+  chroot_block_device_base::get_keyfile(chroot, keyfile);
+  chroot_session::get_keyfile(chroot, keyfile);
+  chroot_source::get_keyfile(chroot, keyfile);
 
   if (get_active())
     keyfile::set_object_value(*this,
@@ -260,12 +266,13 @@ chroot_lvm_snapshot::get_keyfile (keyfile& keyfile) const
 }
 
 void
-chroot_lvm_snapshot::set_keyfile (keyfile const& keyfile,
+chroot_lvm_snapshot::set_keyfile (chroot&        chroot,
+				  keyfile const& keyfile,
 				  string_list&   used_keys)
 {
-  chroot_block_device_base::set_keyfile(keyfile, used_keys);
-  chroot_session::set_keyfile(keyfile, used_keys);
-  chroot_source::set_keyfile(keyfile, used_keys);
+  chroot_block_device_base::set_keyfile(chroot, keyfile, used_keys);
+  chroot_session::set_keyfile(chroot, keyfile, used_keys);
+  chroot_source::set_keyfile(chroot, keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_lvm_snapshot::set_snapshot_device,
 			    keyfile, get_keyfile_name(), "lvm-snapshot-device",

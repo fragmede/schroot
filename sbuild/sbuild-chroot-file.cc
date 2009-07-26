@@ -121,11 +121,12 @@ chroot_file::get_chroot_type () const
 }
 
 void
-chroot_file::setup_env (environment& env) const
+chroot_file::setup_env (chroot const& chroot,
+			environment&  env) const
 {
-  chroot::setup_env(env);
-  chroot_session::setup_env(env);
-  chroot_source::setup_env(env);
+  chroot::setup_env(chroot, env);
+  chroot_session::setup_env(chroot, env);
+  chroot_source::setup_env(chroot, env);
 
   env.add("CHROOT_FILE", get_file());
   env.add("CHROOT_FILE_REPACK", this->repack);
@@ -163,9 +164,9 @@ chroot_file::setup_lock (chroot::setup_type type,
 }
 
 sbuild::chroot::session_flags
-chroot_file::get_session_flags () const
+chroot_file::get_session_flags (chroot const& chroot) const
 {
-  session_flags flags = chroot_session::get_session_flags() | chroot_source::get_session_flags();
+  session_flags flags = chroot_session::get_session_flags(chroot) | chroot_source::get_session_flags(chroot);
   if (get_active())
     flags = flags | SESSION_PURGE;
 
@@ -173,11 +174,12 @@ chroot_file::get_session_flags () const
 }
 
 void
-chroot_file::get_details (format_detail& detail) const
+chroot_file::get_details (chroot const&  chroot,
+			  format_detail& detail) const
 {
-  chroot::get_details(detail);
-  chroot_session::get_details(detail);
-  chroot_source::get_details(detail);
+  chroot::get_details(chroot, detail);
+  chroot_session::get_details(chroot, detail);
+  chroot_source::get_details(chroot, detail);
 
   if (!this->file.empty())
     detail
@@ -186,11 +188,12 @@ chroot_file::get_details (format_detail& detail) const
 }
 
 void
-chroot_file::get_keyfile (keyfile& keyfile) const
+chroot_file::get_keyfile (chroot const& chroot,
+			  keyfile&      keyfile) const
 {
-  chroot::get_keyfile(keyfile);
-  chroot_session::get_keyfile(keyfile);
-  chroot_source::get_keyfile(keyfile);
+  chroot::get_keyfile(chroot, keyfile);
+  chroot_session::get_keyfile(chroot, keyfile);
+  chroot_source::get_keyfile(chroot, keyfile);
 
   keyfile::set_object_value(*this, &chroot_file::get_file,
 			    keyfile, get_keyfile_name(), "file");
@@ -201,12 +204,13 @@ chroot_file::get_keyfile (keyfile& keyfile) const
 }
 
 void
-chroot_file::set_keyfile (keyfile const& keyfile,
+chroot_file::set_keyfile (chroot&        chroot,
+			  keyfile const& keyfile,
 			  string_list&   used_keys)
 {
-  chroot::set_keyfile(keyfile, used_keys);
-  chroot_session::set_keyfile(keyfile, used_keys);
-  chroot_source::set_keyfile(keyfile, used_keys);
+  chroot::set_keyfile(chroot, keyfile, used_keys);
+  chroot_session::set_keyfile(chroot, keyfile, used_keys);
+  chroot_source::set_keyfile(chroot, keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_file::set_file,
 			    keyfile, get_keyfile_name(), "file",

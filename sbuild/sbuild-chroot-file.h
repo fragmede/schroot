@@ -95,13 +95,14 @@ namespace sbuild
     get_chroot_type () const;
 
     virtual void
-    setup_env (environment& env) const;
+    setup_env (chroot const& chroot,
+	       environment& env) const;
 
     std::string
     get_path () const;
 
     virtual session_flags
-    get_session_flags () const;
+    get_session_flags (chroot const& chroot) const;
 
   protected:
     virtual void
@@ -110,13 +111,16 @@ namespace sbuild
 		int                status);
 
     virtual void
-    get_details (format_detail& detail) const;
+    get_details (chroot const&  chroot,
+		 format_detail& detail) const;
 
     virtual void
-    get_keyfile (keyfile& keyfile) const;
+    get_keyfile (chroot const& chroot,
+		 keyfile&      keyfile) const;
 
     virtual void
-    set_keyfile (keyfile const& keyfile,
+    set_keyfile (chroot&        chroot,
+		 keyfile const& keyfile,
 		 string_list&   used_keys);
 
   private:

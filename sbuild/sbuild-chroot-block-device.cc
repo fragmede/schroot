@@ -102,49 +102,53 @@ chroot_block_device::clone_source () const
 #endif // SBUILD_FEATURE_UNION
 
 void
-chroot_block_device::setup_env (environment& env) const
+chroot_block_device::setup_env (chroot const& chroot,
+				environment&  env) const
 {
-  chroot_block_device_base::setup_env(env);
+  chroot_block_device_base::setup_env(chroot, env);
 #ifdef SBUILD_FEATURE_UNION
-  chroot_union::setup_env(env);
+  chroot_union::setup_env(chroot, env);
 #endif // SBUILD_FEATURE_UNION
 }
 
 sbuild::chroot::session_flags
-chroot_block_device::get_session_flags () const
+chroot_block_device::get_session_flags (chroot const& chroot) const
 {
-  return chroot_block_device_base::get_session_flags()
+  return chroot_block_device_base::get_session_flags(chroot)
 #ifdef SBUILD_FEATURE_UNION
-    | chroot_union::get_session_flags()
+    | chroot_union::get_session_flags(chroot)
 #endif // SBUILD_FEATURE_UNION
     ;
 }
 
 void
-chroot_block_device::get_details (format_detail& detail) const
+chroot_block_device::get_details (chroot const& chroot,
+				  format_detail& detail) const
 {
-  chroot_block_device_base::get_details(detail);
+  chroot_block_device_base::get_details(chroot, detail);
 #ifdef SBUILD_FEATURE_UNION
-  chroot_union::get_details(detail);
+  chroot_union::get_details(chroot, detail);
 #endif // SBUILD_FEATURE_UNION
 }
 
 void
-chroot_block_device::get_keyfile (keyfile& keyfile) const
+chroot_block_device::get_keyfile (chroot const& chroot,
+				  keyfile&      keyfile) const
 {
-  chroot_block_device_base::get_keyfile(keyfile);
-  chroot_mountable::get_keyfile(keyfile);
+  chroot_block_device_base::get_keyfile(chroot, keyfile);
+  chroot_mountable::get_keyfile(chroot, keyfile);
 #ifdef SBUILD_FEATURE_UNION
-  chroot_union::get_keyfile(keyfile);
+  chroot_union::get_keyfile(chroot, keyfile);
 #endif // SBUILD_FEATURE_UNION
 }
 
 void
-chroot_block_device::set_keyfile (keyfile const& keyfile,
+chroot_block_device::set_keyfile (chroot&        chroot,
+				  keyfile const& keyfile,
 				  string_list&   used_keys)
 {
-  chroot_block_device_base::set_keyfile(keyfile, used_keys);
+  chroot_block_device_base::set_keyfile(chroot, keyfile, used_keys);
 #ifdef SBUILD_FEATURE_UNION
-  chroot_union::set_keyfile(keyfile, used_keys);
+  chroot_union::set_keyfile(chroot, keyfile, used_keys);
 #endif // SBUILD_FEATURE_UNION
 }

@@ -375,7 +375,7 @@ public:
 			  const std::string&     group)
   {
     sbuild::keyfile keys;
-    chroot->get_keyfile(keys);
+    chroot->get_keyfile(*chroot, keys);
 
     CPPUNIT_ASSERT(keys.get_keys(group).size() != 0);
 

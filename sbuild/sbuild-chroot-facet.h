@@ -51,6 +51,7 @@ namespace sbuild
      * Set environment.  Set the environment that the setup scripts
      * will see during execution.
      *
+     * @param chroot the chroot to use.
      * @param env the environment to set.
      */
     virtual void
@@ -61,6 +62,7 @@ namespace sbuild
      * Get the session flags of the chroot.  These determine how the
      * Session controlling the chroot will operate.
      *
+     * @param chroot the chroot to use.
      * @returns the session flags.
      */
     virtual chroot::session_flags
@@ -69,6 +71,7 @@ namespace sbuild
     /**
      * Get detailed information about the chroot for output.
      *
+     * @param chroot the chroot to use.
      * @param detail the details to output to.
      */
     virtual void
@@ -80,6 +83,7 @@ namespace sbuild
      * with the name of the chroot will be set; if it already exists,
      * it will be removed before setting it.
      *
+     * @param chroot the chroot to use.
      * @param keyfile the keyfile to use.
      */
     virtual void
@@ -91,6 +95,7 @@ namespace sbuild
      * have previously been set, so that the correct keyfile group may
      * be determined.
      *
+     * @param chroot the chroot to use.
      * @param keyfile the keyfile to get the properties from.
      * @param used_keys a list of the keys used will be set.
      */

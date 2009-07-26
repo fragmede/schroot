@@ -147,17 +147,14 @@ chroot_session::set_session_active (bool active)
 }
 
 void
-chroot_session::setup_env (environment& env) const
+chroot_session::setup_env (chroot const& chroot,
+			   environment& env) const
 {
 }
 
 sbuild::chroot::session_flags
-chroot_session::get_session_flags () const
+chroot_session::get_session_flags (chroot const& chroot) const
 {
-  /// @todo: Remove need for this.
-  const chroot *base = dynamic_cast<const chroot *>(this);
-  assert(base != 0);
-
   /// If active, support session.
   if (get_session_manageable() && !get_session_active())
     return chroot::SESSION_CREATE;
@@ -166,23 +163,20 @@ chroot_session::get_session_flags () const
 }
 
 void
-chroot_session::get_details (format_detail& detail) const
+chroot_session::get_details (chroot const&  chroot,
+			     format_detail& detail) const
 {
 }
 
 void
-chroot_session::get_keyfile (keyfile& keyfile) const
+chroot_session::get_keyfile (chroot const& chroot,
+			     keyfile& keyfile) const
 {
-  /// @todo: Remove need for this by passing in group name
-  const chroot *base = dynamic_cast<const chroot *>(this);
-  assert(base != 0);
 }
 
 void
-chroot_session::set_keyfile (keyfile const& keyfile,
-			    string_list&   used_keys)
+chroot_session::set_keyfile (chroot&        chroot,
+			     keyfile const& keyfile,
+			     string_list&   used_keys)
 {
-  /// @todo: Remove need for this by passing in group name
-  const chroot *base = dynamic_cast<const chroot *>(this);
-  assert(base != 0);
 }

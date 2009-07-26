@@ -70,7 +70,7 @@ chroot_plain::setup_lock (chroot::setup_type type,
 }
 
 sbuild::chroot::session_flags
-chroot_plain::get_session_flags () const
+chroot_plain::get_session_flags (chroot const& chroot) const
 {
   return SESSION_NOFLAGS;
 }

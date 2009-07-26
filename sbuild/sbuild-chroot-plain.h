@@ -49,7 +49,7 @@ namespace sbuild
     get_chroot_type () const;
 
     virtual session_flags
-    get_session_flags () const;
+    get_session_flags (chroot const& chroot) const;
 
   protected:
     virtual void

@@ -84,10 +84,11 @@ chroot_block_device_base::get_chroot_type () const
 }
 
 void
-chroot_block_device_base::setup_env (environment& env) const
+chroot_block_device_base::setup_env (chroot const& chroot,
+				     environment& env) const
 {
-  chroot::setup_env(env);
-  chroot_mountable::setup_env(env);
+  chroot::setup_env(chroot, env);
+  chroot_mountable::setup_env(chroot, env);
 
   env.add("CHROOT_DEVICE", get_device());
 }
@@ -151,37 +152,40 @@ chroot_block_device_base::setup_lock (chroot::setup_type type,
 }
 
 sbuild::chroot::session_flags
-chroot_block_device_base::get_session_flags () const
+chroot_block_device_base::get_session_flags (chroot const& chroot) const
 {
-  return chroot_mountable::get_session_flags();
+  return chroot_mountable::get_session_flags(chroot);
 }
 
 void
-chroot_block_device_base::get_details (format_detail& detail) const
+chroot_block_device_base::get_details (chroot const& chroot,
+				       format_detail& detail) const
 {
-  this->chroot::get_details(detail);
-  this->chroot_mountable::get_details(detail);
+  this->chroot::get_details(chroot, detail);
+  this->chroot_mountable::get_details(chroot, detail);
 
   if (!this->device.empty())
     detail.add(_("Device"), get_device());
 }
 
 void
-chroot_block_device_base::get_keyfile (keyfile& keyfile) const
+chroot_block_device_base::get_keyfile (chroot const& chroot,
+				       keyfile&      keyfile) const
 {
-  chroot::get_keyfile(keyfile);
-  chroot_mountable::get_keyfile(keyfile);
+  chroot::get_keyfile(chroot, keyfile);
+  chroot_mountable::get_keyfile(chroot, keyfile);
 
   keyfile::set_object_value(*this, &chroot_block_device_base::get_device,
 			    keyfile, get_keyfile_name(), "device");
 }
 
 void
-chroot_block_device_base::set_keyfile (keyfile const& keyfile,
+chroot_block_device_base::set_keyfile (chroot&        chroot,
+				       keyfile const& keyfile,
 				       string_list&   used_keys)
 {
-  chroot::set_keyfile(keyfile, used_keys);
-  chroot_mountable::set_keyfile(keyfile, used_keys);
+  chroot::set_keyfile(chroot, keyfile, used_keys);
+  chroot_mountable::set_keyfile(chroot, keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_block_device_base::set_device,
 			    keyfile, get_keyfile_name(), "device",

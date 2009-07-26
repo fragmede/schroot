@@ -137,12 +137,13 @@ chroot_loopback::get_chroot_type () const
 }
 
 void
-chroot_loopback::setup_env (environment& env) const
+chroot_loopback::setup_env (chroot const& chroot,
+			    environment&  env) const
 {
-  chroot::setup_env(env);
-  chroot_mountable::setup_env(env);
+  chroot::setup_env(chroot, env);
+  chroot_mountable::setup_env(chroot, env);
 #ifdef SBUILD_FEATURE_UNION
-  chroot_union::setup_env(env);
+  chroot_union::setup_env(chroot, env);
 #endif // SBUILD_FEATURE_UNION
 
   env.add("CHROOT_FILE", get_file());
@@ -184,22 +185,23 @@ chroot_loopback::setup_lock (chroot::setup_type type,
 }
 
 sbuild::chroot::session_flags
-chroot_loopback::get_session_flags () const
+chroot_loopback::get_session_flags (chroot const& chroot) const
 {
-  return chroot_mountable::get_session_flags()
+  return chroot_mountable::get_session_flags(chroot)
 #ifdef SBUILD_FEATURE_UNION
-    | chroot_union::get_session_flags()
+    | chroot_union::get_session_flags(chroot)
 #endif // SBUILD_FEATURE_UNION
     ;
 }
 
 void
-chroot_loopback::get_details (format_detail& detail) const
+chroot_loopback::get_details (chroot const&  chroot,
+			      format_detail& detail) const
 {
-  chroot::get_details(detail);
-  chroot_mountable::get_details(detail);
+  chroot::get_details(chroot, detail);
+  chroot_mountable::get_details(chroot, detail);
 #ifdef SBUILD_FEATURE_UNION
-  chroot_union::get_details(detail);
+  chroot_union::get_details(chroot, detail);
 #endif // SBUILD_FEATURE_UNION
 
   if (!this->file.empty())
@@ -207,12 +209,13 @@ chroot_loopback::get_details (format_detail& detail) const
 }
 
 void
-chroot_loopback::get_keyfile (keyfile& keyfile) const
+chroot_loopback::get_keyfile (chroot const& chroot,
+			      keyfile&      keyfile) const
 {
-  chroot::get_keyfile(keyfile);
-  chroot_mountable::get_keyfile(keyfile);
+  chroot::get_keyfile(chroot, keyfile);
+  chroot_mountable::get_keyfile(chroot, keyfile);
 #ifdef SBUILD_FEATURE_UNION
-  chroot_union::get_keyfile(keyfile);
+  chroot_union::get_keyfile(chroot, keyfile);
 #endif // SBUILD_FEATURE_UNION
 
   keyfile::set_object_value(*this, &chroot_loopback::get_file,
@@ -220,13 +223,14 @@ chroot_loopback::get_keyfile (keyfile& keyfile) const
 }
 
 void
-chroot_loopback::set_keyfile (keyfile const& keyfile,
+chroot_loopback::set_keyfile (chroot&        chroot,
+			      keyfile const& keyfile,
 			      string_list&   used_keys)
 {
-  chroot::set_keyfile(keyfile, used_keys);
-  chroot_mountable::set_keyfile(keyfile, used_keys);
+  chroot::set_keyfile(chroot, keyfile, used_keys);
+  chroot_mountable::set_keyfile(chroot, keyfile, used_keys);
 #ifdef SBUILD_FEATURE_UNION
-  chroot_union::set_keyfile(keyfile, used_keys);
+  chroot_union::set_keyfile(chroot, keyfile, used_keys);
 #endif // SBUILD_FEATURE_UNION
 
   keyfile::get_object_value(*this, &chroot_loopback::set_file,

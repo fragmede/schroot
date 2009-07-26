@@ -154,10 +154,11 @@ chroot_union::set_union_mount_options
 }
 
 void
-chroot_union::setup_env (environment& env) const
+chroot_union::setup_env (chroot const& chroot,
+			 environment&  env) const
 {
-  chroot_session::setup_env(env);
-  chroot_source::setup_env(env);
+  chroot_session::setup_env(chroot, env);
+  chroot_source::setup_env(chroot, env);
 
   env.add("CHROOT_UNION_TYPE", get_union_type());
   if (get_union_configured())
@@ -172,19 +173,15 @@ chroot_union::setup_env (environment& env) const
 }
 
 sbuild::chroot::session_flags
-chroot_union::get_session_flags () const
+chroot_union::get_session_flags (chroot const& chroot) const
 {
-  /// @todo: Remove need for this by passing in group name
-  const chroot *base = dynamic_cast<const chroot *>(this);
-  assert(base != 0);
-
   sbuild::chroot::session_flags flags = sbuild::chroot::SESSION_NOFLAGS;
 
   if (get_union_configured())
     {
-      flags = chroot_session::get_session_flags() |
-	chroot_source::get_session_flags();
-      if (base->get_active())
+      flags = chroot_session::get_session_flags(chroot) |
+	chroot_source::get_session_flags(chroot);
+      if (chroot.get_active())
 	flags = flags | sbuild::chroot::SESSION_PURGE;
     }
 
@@ -192,10 +189,11 @@ chroot_union::get_session_flags () const
 }
 
 void
-chroot_union::get_details (format_detail& detail) const
+chroot_union::get_details (chroot const& chroot,
+			   format_detail& detail) const
 {
-  chroot_session::get_details(detail);
-  chroot_source::get_details(detail);
+  chroot_session::get_details(chroot, detail);
+  chroot_source::get_details(chroot, detail);
 
   detail.add(_("Filesystem union type"), get_union_type());
   if (get_union_configured())
@@ -213,73 +211,67 @@ chroot_union::get_details (format_detail& detail) const
 }
 
 void
-chroot_union::get_keyfile (keyfile& keyfile) const
+chroot_union::get_keyfile (chroot const& chroot,
+			   keyfile&      keyfile) const
 {
-  /// @todo: Remove need for this by passing in group name
-  const chroot *base = dynamic_cast<const chroot *>(this);
-  assert(base != 0);
-
-  chroot_session::get_keyfile(keyfile);
-  chroot_source::get_keyfile(keyfile);
+  chroot_session::get_keyfile(chroot, keyfile);
+  chroot_source::get_keyfile(chroot, keyfile);
 
   keyfile::set_object_value(*this, &chroot_union::get_union_type,
-			    keyfile, base->get_keyfile_name(), "union-type");
+			    keyfile, chroot.get_keyfile_name(), "union-type");
 
   if (get_union_configured())
     {
       keyfile::set_object_value(*this,
 				&chroot_union::get_union_mount_options,
-				keyfile, base->get_keyfile_name(),
+				keyfile, chroot.get_keyfile_name(),
 				"union-mount-options");
 
       keyfile::set_object_value(*this,
 				&chroot_union::get_union_overlay_directory,
-				keyfile, base->get_keyfile_name(),
+				keyfile, chroot.get_keyfile_name(),
 				"union-overlay-directory");
 
       keyfile::set_object_value(*this,
 				&chroot_union::get_union_underlay_directory,
-				keyfile, base->get_keyfile_name(),
+				keyfile, chroot.get_keyfile_name(),
 				"union-underlay-directory");
     }
 }
 
 void
-chroot_union::set_keyfile (keyfile const& keyfile,
+chroot_union::set_keyfile (chroot&        chroot,
+			   keyfile const& keyfile,
 			   string_list&   used_keys)
 {
-  /// @todo: Remove need for this by passing in group name
-  const chroot *base = dynamic_cast<const chroot *>(this);
-  assert(base != 0);
-
-  chroot_session::set_keyfile(keyfile, used_keys);
-  chroot_source::set_keyfile(keyfile, used_keys);
+  chroot_session::set_keyfile(chroot, keyfile, used_keys);
+  chroot_source::set_keyfile(chroot, keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_union::set_union_type,
-			    keyfile, base->get_keyfile_name(), "union-type",
+			    keyfile, chroot.get_keyfile_name(), "union-type",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("union-type");
 
   keyfile::get_object_value(*this,
 			    &chroot_union::set_union_mount_options,
-			    keyfile, base->get_keyfile_name(), "union-mount-options",
+			    keyfile, chroot.get_keyfile_name(), "union-mount-options",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("union-mount-options");
 
   keyfile::get_object_value(*this,
 			    &chroot_union::set_union_overlay_directory,
-			    keyfile, base->get_keyfile_name(),
+			    keyfile, chroot.get_keyfile_name(),
 			    "union-overlay-directory",
-			    (base->get_active() && get_union_configured())?
+			    (chroot.get_active() && get_union_configured())?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("union-overlay-directory");
 
   keyfile::get_object_value(*this,
 			    &chroot_union::set_union_underlay_directory,
-			    keyfile, base->get_keyfile_name(),
+			    keyfile, chroot.get_keyfile_name(),
 			    "union-underlay-directory",
-			    (base->get_active() && get_union_configured())?
+			    (chroot.get_active() && get_union_configured())?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("union-underlay-directory");

@@ -70,7 +70,8 @@ chroot_mountable::set_location (std::string const& location)
 }
 
 void
-chroot_mountable::setup_env (environment& env) const
+chroot_mountable::setup_env (chroot const& chroot,
+			     environment&  env) const
 {
   env.add("CHROOT_MOUNT_DEVICE", get_mount_device());
   env.add("CHROOT_MOUNT_OPTIONS", get_mount_options());
@@ -78,13 +79,14 @@ chroot_mountable::setup_env (environment& env) const
 }
 
 sbuild::chroot::session_flags
-chroot_mountable::get_session_flags () const
+chroot_mountable::get_session_flags (chroot const& chroot) const
 {
   return chroot::SESSION_NOFLAGS;
 }
 
 void
-chroot_mountable::get_details (format_detail& detail) const
+chroot_mountable::get_details (chroot const& chroot,
+			       format_detail& detail) const
 {
   if (!get_mount_device().empty())
     detail.add(_("Mount Device"), get_mount_device());
@@ -95,34 +97,28 @@ chroot_mountable::get_details (format_detail& detail) const
 }
 
 void
-chroot_mountable::get_keyfile (keyfile& keyfile) const
+chroot_mountable::get_keyfile (chroot const& chroot,
+			       keyfile& keyfile) const
 {
-  /// @todo: Remove need for this by passing in group name
-  const chroot *base = dynamic_cast<const chroot *>(this);
-  assert(base != 0);
-
   keyfile::set_object_value(*this, &chroot_mountable::get_mount_options,
-			    keyfile, base->get_keyfile_name(), "mount-options");
+			    keyfile, chroot.get_keyfile_name(), "mount-options");
 
   keyfile::set_object_value(*this, &chroot_mountable::get_location,
-			    keyfile, base->get_keyfile_name(), "location");
+			    keyfile, chroot.get_keyfile_name(), "location");
 }
 
 void
-chroot_mountable::set_keyfile (keyfile const& keyfile,
+chroot_mountable::set_keyfile (chroot&        chroot,
+			       keyfile const& keyfile,
 			       string_list&   used_keys)
 {
-  /// @todo: Remove need for this by passing in group name
-  const chroot *base = dynamic_cast<const chroot *>(this);
-  assert(base != 0);
-
   keyfile::get_object_value(*this, &chroot_mountable::set_mount_options,
-			    keyfile, base->get_keyfile_name(), "mount-options",
+			    keyfile, chroot.get_keyfile_name(), "mount-options",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("mount-options");
 
   keyfile::get_object_value(*this, &chroot_mountable::set_location,
-			    keyfile, base->get_keyfile_name(), "location",
+			    keyfile, chroot.get_keyfile_name(), "location",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("location");
 }

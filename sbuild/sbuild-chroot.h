@@ -456,8 +456,19 @@ namespace sbuild
      *
      * @param env the environment to set.
      */
-    virtual void
+    void
     setup_env (environment& env) const;
+
+    /**
+     * Set environment.  Set the environment that the setup scripts
+     * will see during execution.
+     *
+     * @param chroot the chroot to use.
+     * @param env the environment to set.
+     */
+    virtual void
+    setup_env (chroot const& chroot,
+	       environment& env) const = 0;
 
     /**
      * Lock a chroot during setup.  The locking technique (if any) may
@@ -592,8 +603,18 @@ namespace sbuild
      *
      * @returns the session flags.
      */
-    virtual session_flags
-    get_session_flags () const = 0;
+    session_flags
+    get_session_flags () const;
+
+    /**
+     * Get the session flags of the chroot.  These determine how the
+     * Session controlling the chroot will operate.
+     *
+     * @param chroot the chroot to use.
+     * @returns the session flags.
+     */
+    virtual chroot::session_flags
+    get_session_flags (chroot const& chroot) const = 0;
 
     /**
      * Print detailed information about the chroot to a stream.  The
@@ -621,7 +642,7 @@ namespace sbuild
 		 ptr&           rhs)
     {
       string_list used;
-      rhs->set_keyfile(keyfile, used);
+      rhs->set_keyfile(*rhs, keyfile, used);
       keyfile.check_keys(rhs->get_name(), used);
       return keyfile;
     }
@@ -634,7 +655,7 @@ namespace sbuild
     operator << (keyfile&   keyfile,
 		 ptr const& rhs)
     {
-      rhs->get_keyfile(keyfile);
+      rhs->get_keyfile(*rhs, keyfile);
       return keyfile;
     }
 
@@ -643,8 +664,18 @@ namespace sbuild
      *
      * @param detail the details to output to.
      */
-    virtual void
+    void
     get_details (format_detail& detail) const;
+
+    /**
+     * Get detailed information about the chroot for output.
+     *
+     * @param chroot the chroot to use.
+     * @param detail the details to output to.
+     */
+    virtual void
+    get_details (chroot const&  chroot,
+		 format_detail& detail) const = 0;
 
     /**
      * Print detailed information about the chroot to a stream.  The
@@ -661,22 +692,26 @@ namespace sbuild
      * with the name of the chroot will be set; if it already exists,
      * it will be removed before setting it.
      *
+     * @param chroot the chroot to use.
      * @param keyfile the keyfile to use.
      */
     virtual void
-    get_keyfile (keyfile& keyfile) const;
+    get_keyfile (chroot const& chroot,
+		 keyfile&      keyfile) const = 0;
 
     /**
      * Set the chroot properties from a keyfile.  The chroot name must
      * have previously been set, so that the correct keyfile group may
      * be determined.
      *
+     * @param chroot the chroot to use.
      * @param keyfile the keyfile to get the properties from.
      * @param used_keys a list of the keys used will be set.
      */
     virtual void
-    set_keyfile (keyfile const& keyfile,
-		 string_list&   used_keys);
+    set_keyfile (chroot&        chroot,
+		 keyfile const& keyfile,
+		 string_list&   used_keys) = 0;
 
   private:
     /// Chroot name.

@@ -126,26 +126,24 @@ chroot_source::set_source_clonable (bool clonable)
 }
 
 void
-chroot_source::setup_env (environment& env) const
+chroot_source::setup_env (chroot const& chroot,
+			  environment& env) const
 {
 }
 
 sbuild::chroot::session_flags
-chroot_source::get_session_flags () const
+chroot_source::get_session_flags (chroot const& chroot) const
 {
-  /// @todo: Remove need for this.
-  const chroot *base = dynamic_cast<const chroot *>(this);
-  assert(base != 0);
-
   // Cloning is only possible for non-source and inactive chroots.
-  if (!this->get_source_clonable() || base->get_active())
+  if (!this->get_source_clonable() || chroot.get_active())
     return chroot::SESSION_NOFLAGS;
   else
     return chroot::SESSION_CLONE;
 }
 
 void
-chroot_source::get_details (format_detail& detail) const
+chroot_source::get_details (chroot const& chroot,
+			    format_detail& detail) const
 {
   if (this->get_source_clonable())
     detail
@@ -156,64 +154,58 @@ chroot_source::get_details (format_detail& detail) const
 }
 
 void
-chroot_source::get_keyfile (keyfile& keyfile) const
+chroot_source::get_keyfile (chroot const& chroot,
+			    keyfile& keyfile) const
 {
-  /// @todo: Remove need for this by passing in group name
-  const chroot *base = dynamic_cast<const chroot *>(this);
-  assert(base != 0);
-
   // Only write out source-* settings if we're clonable.
   if (this->get_source_clonable())
     {
       keyfile::set_object_list_value(*this, &chroot_source::get_source_users,
-				     keyfile, base->get_keyfile_name(), "source-users");
+				     keyfile, chroot.get_keyfile_name(), "source-users");
 
       keyfile::set_object_list_value(*this, &chroot_source::get_source_groups,
-				     keyfile, base->get_keyfile_name(), "source-groups");
+				     keyfile, chroot.get_keyfile_name(), "source-groups");
 
       keyfile::set_object_list_value(*this, &chroot_source::get_source_root_users,
-				     keyfile, base->get_keyfile_name(), "source-root-users");
+				     keyfile, chroot.get_keyfile_name(), "source-root-users");
 
       keyfile::set_object_list_value(*this, &chroot_source::get_source_root_groups,
-				     keyfile, base->get_keyfile_name(), "source-root-groups");
+				     keyfile, chroot.get_keyfile_name(), "source-root-groups");
     }
 }
 
 void
-chroot_source::set_keyfile (keyfile const& keyfile,
+chroot_source::set_keyfile (chroot& chroot,
+			    keyfile const& keyfile,
 			    string_list&   used_keys)
 {
-  /// @todo: Remove need for this by passing in group name
-  const chroot *base = dynamic_cast<const chroot *>(this);
-  assert(base != 0);
-
   // Setting when not clonable is deprecated.  It can't be obsoleted
   // yet because it is required to allow use and ending of existing
   // sessions which have set this parameter (even though it's
   // useless).
   keyfile::get_object_list_value(*this, &chroot_source::set_source_users,
-				 keyfile, base->get_keyfile_name(), "source-users",
+				 keyfile, chroot.get_keyfile_name(), "source-users",
 				 this->get_source_clonable() ?
 				 keyfile::PRIORITY_OPTIONAL :
 				 keyfile::PRIORITY_DEPRECATED);
   used_keys.push_back("source-users");
 
   keyfile::get_object_list_value(*this, &chroot_source::set_source_groups,
-				 keyfile, base->get_keyfile_name(), "source-groups",
+				 keyfile, chroot.get_keyfile_name(), "source-groups",
 				 this->get_source_clonable() ?
 				 keyfile::PRIORITY_OPTIONAL :
 				 keyfile::PRIORITY_DEPRECATED);
   used_keys.push_back("source-groups");
 
   keyfile::get_object_list_value(*this, &chroot_source::set_source_root_users,
-				 keyfile, base->get_keyfile_name(), "source-root-users",
+				 keyfile, chroot.get_keyfile_name(), "source-root-users",
 				 this->get_source_clonable() ?
 				 keyfile::PRIORITY_OPTIONAL :
 				 keyfile::PRIORITY_DEPRECATED);
   used_keys.push_back("source-root-users");
 
   keyfile::get_object_list_value(*this, &chroot_source::set_source_root_groups,
-				 keyfile, base->get_keyfile_name(), "source-root-groups",
+				 keyfile, chroot.get_keyfile_name(), "source-root-groups",
 				 this->get_source_clonable() ?
 				 keyfile::PRIORITY_OPTIONAL :
 				 keyfile::PRIORITY_DEPRECATED);
