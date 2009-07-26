@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include "sbuild-chroot-config.h"
+#include "sbuild-chroot-facet-personality.h"
 #include "sbuild-chroot-session.h"
 #include "sbuild-auth-null.h"
 #include "sbuild-ctty.h"
@@ -1091,9 +1092,18 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 
   /* Set the process execution domain. */
   /* Will throw on failure. */
-  session_chroot->get_persona().set();
-  log_debug(DEBUG_NOTICE) << "Set personality="
-			  << session_chroot->get_persona()<< std::endl;
+  std::tr1::shared_ptr<chroot_facet_personality> fpers =
+    session_chroot->get_facet<chroot_facet_personality>();
+  if (fpers)
+    {
+      fpers->get_persona().set();
+      log_debug(DEBUG_NOTICE) << "Set personality="
+			      << fpers->get_persona() << std::endl;
+    }
+  else
+    {
+      log_debug(DEBUG_NOTICE) << "Personality support unavailable" << std::endl;
+    }
 
   /* Enter the chroot */
   if (chdir (location.c_str()))

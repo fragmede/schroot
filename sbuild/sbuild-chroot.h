@@ -23,7 +23,6 @@
 #include <sbuild/sbuild-environment.h>
 #include <sbuild/sbuild-format-detail.h>
 #include <sbuild/sbuild-keyfile.h>
-#include <sbuild/sbuild-personality.h>
 #include <sbuild/sbuild-regex.h>
 #include <sbuild/sbuild-tr1types.h>
 
@@ -427,22 +426,6 @@ namespace sbuild
     set_command_prefix (string_list const& command_prefix);
 
     /**
-     * Get the process execution domain for the chroot.
-     *
-     * @returns the personality.
-     */
-    personality const&
-    get_persona () const;
-
-    /**
-     * Set the process execution domain for the chroot.
-     *
-     * @param persona the personality.
-     */
-    void
-    set_persona (personality const& persona);
-
-    /**
      * Get the type of the chroot.
      *
      * @returns the chroot type.
@@ -642,7 +625,7 @@ namespace sbuild
 		 ptr&           rhs)
     {
       string_list used;
-      rhs->set_keyfile(*rhs, keyfile, used);
+      rhs->set_keyfile(keyfile, used);
       keyfile.check_keys(rhs->get_name(), used);
       return keyfile;
     }
@@ -655,7 +638,7 @@ namespace sbuild
     operator << (keyfile&   keyfile,
 		 ptr const& rhs)
     {
-      rhs->get_keyfile(*rhs, keyfile);
+      rhs->get_keyfile(keyfile);
       return keyfile;
     }
 
@@ -692,6 +675,17 @@ namespace sbuild
      * with the name of the chroot will be set; if it already exists,
      * it will be removed before setting it.
      *
+     * @param keyfile the keyfile to use.
+     */
+    void
+    get_keyfile (keyfile& keyfile) const;
+
+  protected:
+    /**
+     * Copy the chroot properties into a keyfile.  The keyfile group
+     * with the name of the chroot will be set; if it already exists,
+     * it will be removed before setting it.
+     *
      * @param chroot the chroot to use.
      * @param keyfile the keyfile to use.
      */
@@ -699,6 +693,20 @@ namespace sbuild
     get_keyfile (chroot const& chroot,
 		 keyfile&      keyfile) const = 0;
 
+  public:
+    /**
+     * Set the chroot properties from a keyfile.  The chroot name must
+     * have previously been set, so that the correct keyfile group may
+     * be determined.
+     *
+     * @param keyfile the keyfile to get the properties from.
+     * @param used_keys a list of the keys used will be set.
+     */
+    void
+    set_keyfile (keyfile const& keyfile,
+		 string_list&   used_keys);
+
+  protected:
     /**
      * Set the chroot properties from a keyfile.  The chroot name must
      * have previously been set, so that the correct keyfile group may
@@ -746,8 +754,6 @@ namespace sbuild
     std::string   script_config;
     /// Command prefix.
     string_list   command_prefix;
-    /// Process execution domain (Linux only).
-    personality   persona;
 
     typedef std::tr1::shared_ptr<chroot_facet> facet_ptr;
     std::vector<facet_ptr> facets;

@@ -31,6 +31,8 @@
 #ifdef SBUILD_FEATURE_LVMSNAP
 #include "sbuild-chroot-lvm-snapshot.h"
 #endif // SBUILD_FEATURE_LVMSNAP
+#include "sbuild-chroot-facet.h"
+#include "sbuild-chroot-facet-personality.h"
 #include "sbuild-lock.h"
 
 #include <cerrno>
@@ -107,15 +109,11 @@ sbuild::chroot::chroot ():
   run_setup_scripts(true),
   script_config("script-defaults"),
   command_prefix(),
-  persona(
-#ifdef __linux__
-	  personality("linux")
-#else
-	  personality("undefined")
-#endif
-	  ),
   facets()
 {
+  std::tr1::shared_ptr<chroot_facet_personality> pfac
+    (new chroot_facet_personality);
+  add_facet(pfac);
 }
 
 sbuild::chroot::~chroot ()
@@ -362,22 +360,17 @@ sbuild::chroot::set_command_prefix (string_list const& command_prefix)
   this->command_prefix = command_prefix;
 }
 
-personality const&
-sbuild::chroot::get_persona () const
-{
-  return this->persona;
-}
-
-void
-sbuild::chroot::set_persona (personality const& persona)
-{
-  this->persona = persona;
-}
-
 void
 sbuild::chroot::setup_env (environment& env) const
 {
   setup_env(*this, env);
+
+  for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+       pos != facets.end();
+       ++pos)
+    {
+      (*pos)->setup_env(*this, env);
+    }
 }
 
 void
@@ -428,7 +421,7 @@ sbuild::chroot::setup_session_info (bool start)
 	}
 
       keyfile details;
-      get_keyfile(*this, details);
+      get_keyfile(details);
       output << details;
 
       try
@@ -463,13 +456,29 @@ sbuild::chroot::unlock (setup_type type,
 sbuild::chroot::session_flags
 sbuild::chroot::get_session_flags () const
 {
-  return get_session_flags(*this);
+  session_flags flags = get_session_flags(*this);
+
+  for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+       pos != facets.end();
+       ++pos)
+    {
+      flags = flags | (*pos)->get_session_flags(*this);
+    }
+
+  return flags;
 }
 
 void
 sbuild::chroot::get_details (format_detail& detail) const
 {
   get_details(*this, detail);
+
+  for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+       pos != facets.end();
+       ++pos)
+    {
+      (*pos)->get_details(*this, detail);
+    }
 }
 
 void
@@ -503,10 +512,6 @@ sbuild::chroot::get_details (chroot const&  chroot,
   if (!chroot.get_command_prefix().empty())
     detail.add(_("Command Prefix"), chroot.get_command_prefix());
 
-  // TRANSLATORS: "Personality" is the Linux kernel personality
-  // (process execution domain).  See schroot.conf(5).
-  detail.add(_("Personality"), chroot.get_persona().get_name());
-
   /* Non user-settable properties are listed last. */
   if (!chroot.get_mount_location().empty())
     detail.add(_("Mount Location"), chroot.get_mount_location());
@@ -523,6 +528,19 @@ sbuild::chroot::print_details (std::ostream& stream) const
   get_details(fmt);
 
   stream << fmt;
+}
+
+void
+sbuild::chroot::get_keyfile (keyfile& keyfile) const
+{
+  get_keyfile(*this, keyfile);
+
+  for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+       pos != facets.end();
+       ++pos)
+    {
+      (*pos)->get_keyfile(*this, keyfile);
+    }
 }
 
 void
@@ -575,8 +593,20 @@ sbuild::chroot::get_keyfile (chroot const& chroot,
   keyfile::set_object_list_value(chroot, &chroot::get_command_prefix,
 				 keyfile, get_keyfile_name(), "command-prefix");
 
-  keyfile::set_object_value(chroot, &chroot::get_persona,
-			    keyfile, get_keyfile_name(), "personality");
+}
+
+void
+sbuild::chroot::set_keyfile (keyfile const& keyfile,
+			     string_list&   used_keys)
+{
+  set_keyfile(*this, keyfile, used_keys);
+
+  for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+       pos != facets.end();
+       ++pos)
+    {
+      (*pos)->set_keyfile(*this, keyfile, used_keys);
+    }
 }
 
 void
@@ -688,9 +718,4 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
 				 keyfile, get_keyfile_name(), "command-prefix",
 				 keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("command-prefix");
-
-  keyfile::get_object_value(chroot, &chroot::set_persona,
-			    keyfile, get_keyfile_name(), "personality",
-			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("personality");
 }

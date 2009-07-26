@@ -21,6 +21,7 @@
 
 #include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-chroot.h>
+#include <sbuild/sbuild-chroot-facet-personality.h>
 #include <sbuild/sbuild-chroot-session.h>
 #include <sbuild/sbuild-chroot-source.h>
 #include <sbuild/sbuild-chroot-union.h>
@@ -127,7 +128,11 @@ public:
     chroot->set_root_users(sbuild::split_string("user3,user4", ","));
     chroot->set_groups(sbuild::split_string("group1,group2", ","));
     chroot->set_root_groups(sbuild::split_string("group3,group4", ","));
-    chroot->set_persona(sbuild::personality("undefined"));
+
+    std::tr1::shared_ptr<sbuild::chroot_facet_personality> pfac =
+      chroot->get_facet<sbuild::chroot_facet_personality>();
+    if (pfac)
+      pfac->set_persona(sbuild::personality("undefined"));
     chroot->set_priority(3);
 
     std::tr1::shared_ptr<sbuild::chroot_source> c =
@@ -375,7 +380,7 @@ public:
 			  const std::string&     group)
   {
     sbuild::keyfile keys;
-    chroot->get_keyfile(*chroot, keys);
+    chroot->get_keyfile(keys);
 
     CPPUNIT_ASSERT(keys.get_keys(group).size() != 0);
 
