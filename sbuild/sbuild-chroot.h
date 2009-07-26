@@ -33,6 +33,8 @@
 namespace sbuild
 {
 
+  class chroot_facet;
+
   /**
    * Common chroot data.  This class contains all of the metadata
    * associated with a single chroot, for all chroot types.  This is
@@ -515,6 +517,23 @@ namespace sbuild
 	       int        status) = 0;
 
   public:
+    template <typename T>
+    static std::tr1::shared_ptr<T>
+    chroot_facet_pointer_cast (ptr& rhs)
+    {
+      std::tr1::shared_ptr<T> ret;
+
+      for (std::vector<facet_ptr>::const_iterator pos = rhs->facets.begin();
+	   pos != rhs->facets.end();
+	   ++pos)
+	{
+	  if (ret = std::tr1::dynamic_pointer_cast<T>(*pos))
+	    break;
+	}
+
+      return ret;
+    }
+
     /**
      * Get the session flags of the chroot.  These determine how the
      * Session controlling the chroot will operate.
@@ -642,6 +661,9 @@ namespace sbuild
     string_list   command_prefix;
     /// Process execution domain (Linux only).
     personality   persona;
+
+    typedef std::tr1::shared_ptr<chroot_facet> facet_ptr;
+    std::vector<facet_ptr> facets;
   };
 
   /**

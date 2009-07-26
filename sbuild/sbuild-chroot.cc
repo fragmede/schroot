@@ -111,7 +111,8 @@ sbuild::chroot::chroot ():
 #else
 	  personality("undefined")
 #endif
-	  )
+	  ),
+  facets()
 {
 }
 
