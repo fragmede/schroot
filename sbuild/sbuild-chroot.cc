@@ -456,7 +456,7 @@ sbuild::chroot::get_details (format_detail& detail) const
 {
   detail.add(_("Name"), get_name());
 
-  if (!get_session_id().empty())
+  if (get_active() && !get_session_id().empty())
     detail.add(_("Session ID"), get_session_id());
 
   detail
