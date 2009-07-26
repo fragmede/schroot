@@ -373,7 +373,7 @@ sbuild::chroot::set_persona (personality const& persona)
 }
 
 void
-sbuild::chroot::setup_env (environment& env)
+sbuild::chroot::setup_env (environment& env) const
 {
   env.add("CHROOT_TYPE", get_chroot_type());
   env.add("CHROOT_NAME", get_name());
