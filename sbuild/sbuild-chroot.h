@@ -75,6 +75,8 @@ namespace sbuild
 	DEVICE_NOTBLOCK, ///< File is not a block device.
 	DEVICE_UNLOCK,   ///< Failed to unlock device.
 	DIRECTORY_ABS,   ///< Directory must have an absolute path.
+	FACET_INVALID,   ///< Attempt to add object which is not a facet.
+	FACET_PRESENT,   ///< Attempt to add facet which is already in use.
 	FILE_ABS,        ///< File must have an absolute path.
 	FILE_LOCK,       ///< Failed to acquire lock.
 	FILE_NOTREG,     ///< File is not a regular file.
@@ -518,13 +520,13 @@ namespace sbuild
 
   public:
     template <typename T>
-    static std::tr1::shared_ptr<T>
-    chroot_facet_pointer_cast (ptr& rhs)
+    std::tr1::shared_ptr<T>
+    get_facet ()
     {
       std::tr1::shared_ptr<T> ret;
 
-      for (std::vector<facet_ptr>::const_iterator pos = rhs->facets.begin();
-	   pos != rhs->facets.end();
+      for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+	   pos != facets.end();
 	   ++pos)
 	{
 	  if (ret = std::tr1::dynamic_pointer_cast<T>(*pos))
@@ -532,6 +534,56 @@ namespace sbuild
 	}
 
       return ret;
+    }
+
+    template <typename T>
+    void
+    add_facet (std::tr1::shared_ptr<T> facet)
+    {
+      facet_ptr new_facet = std::tr1::dynamic_pointer_cast<chroot_facet>(facet);
+      if (!new_facet)
+	throw error(FACET_INVALID);
+
+      for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+	   pos != facets.end();
+	   ++pos)
+	{
+	  if (std::tr1::dynamic_pointer_cast<T>(*pos))
+	    throw error(FACET_PRESENT);
+	}
+
+      facets.push_back(new_facet);
+    }
+
+    template <typename T>
+    void
+    remove_facet ()
+    {
+      for (std::vector<facet_ptr>::iterator pos = facets.begin();
+	   pos != facets.end();
+	   ++pos)
+	{
+	  if (std::tr1::dynamic_pointer_cast<T>(*pos))
+	    {
+	      facets.erase(pos);
+	      break;
+	    }
+	}
+    }
+
+    template <typename T>
+    void
+    remove_facet (std::tr1::shared_ptr<T> facet)
+    {
+      remove_facet<T>();
+    }
+
+    template <typename T>
+    void
+    replace_facet (std::tr1::shared_ptr<T> facet)
+    {
+      remove_facet<T>();
+      add_facet(facet);
     }
 
     /**
