@@ -47,8 +47,9 @@ namespace sbuild
   };
 
   template <typename K>
-  struct keyfile_parser : public basic_keyfile_parser<K>
+  class keyfile_parser : public basic_keyfile_parser<K>
   {
+  public:
     // Workaround for GCC bug.
     typedef keyfile_base::error error;
     // This is the correct form, but is not currently supported by
@@ -64,6 +65,13 @@ namespace sbuild
     using basic_keyfile_parser<K>::comment;
     using basic_keyfile_parser<K>::comment_set;
     using basic_keyfile_parser<K>::line_number;
+
+    keyfile_parser():
+      basic_keyfile_parser<K>()
+    {}
+
+    virtual ~keyfile_parser()
+    {}
 
     virtual void
     parse_line (std::string const& line)
