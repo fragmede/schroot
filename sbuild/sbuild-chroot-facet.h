@@ -39,6 +39,13 @@ namespace sbuild
    */
   class chroot_facet
   {
+  public:
+    /// A shared_ptr to a chroot facet object.
+    typedef std::tr1::shared_ptr<chroot_facet> ptr;
+
+    /// A shared_ptr to a const chroot facet object.
+    typedef std::tr1::shared_ptr<const chroot_facet> const_ptr;
+
   protected:
     /// The constructor.
     chroot_facet () {};
@@ -46,6 +53,14 @@ namespace sbuild
   public:
     /// The destructor.
     virtual ~chroot_facet () {};
+
+    /**
+     * Copy the chroot facet.  This is a virtual copy constructor.
+     *
+     * @returns a shared_ptr to the new copy of the chroot facet.
+     */
+    virtual ptr
+    clone () const = 0;
 
     /**
      * Set environment.  Set the environment that the setup scripts

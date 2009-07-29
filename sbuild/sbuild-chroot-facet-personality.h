@@ -26,20 +26,35 @@ namespace sbuild
 {
 
   /**
-   * Common chroot data.  This class contains all of the metadata
-   * associated with a single chroot, for all chroot types.  This is
-   * the in-core representation of a chroot definition in the
-   * configuration file, and may be initialised directly from an open
-   * keyfile.
+   * Chroot support for kernel personalities (execution domains).
    */
   class chroot_facet_personality : public chroot_facet
   {
   public:
+    /// A shared_ptr to a chroot facet object.
+    typedef std::tr1::shared_ptr<chroot_facet_personality> ptr;
+
+    /// A shared_ptr to a const chroot facet object.
+    typedef std::tr1::shared_ptr<const chroot_facet_personality> const_ptr;
+
+  private:
     /// The constructor.
     chroot_facet_personality ();
 
+  public:
     /// The destructor.
     virtual ~chroot_facet_personality ();
+
+    /**
+     * Create a chroot facet.
+     *
+     * @returns a shared_ptr to the new chroot facet.
+     */
+    static ptr
+    create ();
+
+    virtual chroot_facet::ptr
+    clone () const;
 
     /**
      * Get the process execution domain for the chroot.

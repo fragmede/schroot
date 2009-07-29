@@ -41,6 +41,18 @@ chroot_facet_personality::~chroot_facet_personality ()
 {
 }
 
+chroot_facet_personality::ptr
+chroot_facet_personality::create ()
+{
+  return ptr(new chroot_facet_personality());
+}
+
+chroot_facet::ptr
+chroot_facet_personality::clone () const
+{
+  return ptr(new chroot_facet_personality(*this));
+}
+
 personality const&
 chroot_facet_personality::get_persona () const
 {
