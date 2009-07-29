@@ -20,7 +20,6 @@
 #define SBUILD_CHROOT_FILE_H
 
 #include <sbuild/sbuild-chroot.h>
-#include <sbuild/sbuild-chroot-session.h>
 #include <sbuild/sbuild-chroot-source.h>
 
 namespace sbuild
@@ -31,7 +30,6 @@ namespace sbuild
    * be unpacked on demand.
    */
   class chroot_file : public chroot,
-		      virtual public chroot_session,
 		      public chroot_source
   {
   protected:

@@ -498,7 +498,6 @@ chroot_config::load_keyfile (keyfile& kconfig,
     {
       // Set the active property for chroot creation, and create
       // the chroot.
-      kconfig.set_value(*group, "active", active);
       std::string type = "plain"; // "plain" is the default type.
       kconfig.get_value(*group, "type", type);
       chroot::ptr chroot = chroot::create(type);
@@ -506,6 +505,7 @@ chroot_config::load_keyfile (keyfile& kconfig,
       // Set both; the keyfile load will correct them if needed.
       chroot->set_name(*group);
       chroot->set_session_id(*group);
+      chroot->set_active(active);
 
       kconfig >> chroot;
 

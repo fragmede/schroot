@@ -22,6 +22,7 @@
 #include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-chroot.h>
 #include <sbuild/sbuild-chroot-facet-personality.h>
+#include <sbuild/sbuild-chroot-facet-session.h>
 #include <sbuild/sbuild-chroot-session.h>
 #include <sbuild/sbuild-chroot-source.h>
 #include <sbuild/sbuild-chroot-union.h>
@@ -76,10 +77,10 @@ public:
     CPPUNIT_ASSERT(this->chroot->get_name().length());
 
     // Create new source chroot.
-    std::tr1::shared_ptr<sbuild::chroot_session> css =
-      std::tr1::dynamic_pointer_cast<sbuild::chroot_session>(this->chroot);
-    if (css)
-      this->session = css->clone_session("test-session-name");
+    std::tr1::shared_ptr<const sbuild::chroot_facet_session> psess;
+    psess = this->chroot->template get_facet<sbuild::chroot_facet_session>();
+    if (psess)
+      this->session = this->chroot->clone_session("test-session-name");
 
     std::tr1::shared_ptr<sbuild::chroot_source> cs =
       std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(this->chroot);
@@ -90,7 +91,9 @@ public:
 	std::tr1::shared_ptr<sbuild::chroot_source> s =
 	  std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(this->source);
 	CPPUNIT_ASSERT(s->get_source_clonable() == false);
+	CPPUNIT_ASSERT(s->get_source_clonable() == false);
       }
+
     this->chroot_union = sbuild::chroot::ptr(new T);
     std::tr1::shared_ptr<sbuild::chroot_union> un =
       std::tr1::dynamic_pointer_cast<sbuild::chroot_union>(this->chroot_union);
@@ -108,7 +111,8 @@ public:
 	un->set_union_underlay_directory("/underlay");
 	un->set_union_mount_options("union-mount-options");
 
-	this->session_union = un->clone_session("test-union-session-name");
+	this->session_union =
+	  this->chroot_union->clone_session("test-union-session-name");
 	this->source_union = un->clone_source();
 
 	CPPUNIT_ASSERT(this->session_union);
@@ -381,8 +385,6 @@ public:
   {
     sbuild::keyfile keys;
     chroot->get_keyfile(keys);
-
-    CPPUNIT_ASSERT(keys.get_keys(group).size() != 0);
 
     test_setup_keyfile(keys, chroot->get_name(),
 		       expected_keyfile, group);

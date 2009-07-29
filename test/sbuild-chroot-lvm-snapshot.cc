@@ -170,7 +170,7 @@ public:
     expected.add("CHROOT_MOUNT_DEVICE",   "/dev/volgroup/testdev");
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
     expected.add("CHROOT_SESSION_CLONE",  "false");
-    expected.add("CHROOT_SESSION_CREATE", "false");
+    expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
     expected.add("CHROOT_UNION_TYPE",     "none");
 
@@ -242,8 +242,11 @@ public:
     CPPUNIT_ASSERT(session->get_session_flags() ==
 		   (sbuild::chroot::SESSION_PURGE));
 
+    /// @todo: Should return NOFLAGS?  This depends upon if source
+    /// chroots need transforming into sessions as well (which should
+    /// probably happen and be tested for independently).
     CPPUNIT_ASSERT(source->get_session_flags() ==
-		   (sbuild::chroot::SESSION_NOFLAGS));
+		   (sbuild::chroot::SESSION_CREATE));
   }
 
   void test_print_details()

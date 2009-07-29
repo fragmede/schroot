@@ -44,6 +44,10 @@ public:
   clone () const
   { return ptr(new basic_chroot(*this)); }
 
+  virtual ptr
+  clone_session (std::string const& session_id) const
+  { return ptr(); }
+
   virtual std::string const&
   get_chroot_type () const
   { static const std::string type("test"); return type; }

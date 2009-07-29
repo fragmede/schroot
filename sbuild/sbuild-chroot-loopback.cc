@@ -19,10 +19,12 @@
 #include <config.h>
 
 #include "sbuild-chroot-loopback.h"
+#include "sbuild-chroot-facet-session.h"
 #include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
 #include "sbuild-util.h"
 
+#include <cassert>
 #include <cerrno>
 #include <cstring>
 
@@ -32,9 +34,6 @@ using boost::format;
 using namespace sbuild;
 
 chroot_loopback::chroot_loopback ():
-#ifdef SBUILD_FEATURE_UNION
-  chroot_session(),
-#endif // SBUILD_FEATURE_UNION
   chroot(),
   chroot_mountable(),
 #ifdef SBUILD_FEATURE_UNION
@@ -49,9 +48,6 @@ chroot_loopback::~chroot_loopback ()
 }
 
 chroot_loopback::chroot_loopback (const chroot_loopback& rhs):
-#ifdef SBUILD_FEATURE_UNION
-  chroot_session(rhs),
-#endif // SBUILD_FEATURE_UNION
   chroot(rhs),
   chroot_mountable(rhs),
 #ifdef SBUILD_FEATURE_UNION
@@ -73,9 +69,13 @@ chroot_loopback::clone_session (std::string const& session_id) const
 {
   ptr session;
 
+  std::tr1::shared_ptr<const chroot_facet_session> psess =
+    get_facet<chroot_facet_session>();
+  assert(psess);
+
   if (get_union_configured()) {
     session = ptr(new chroot_loopback(*this));
-    clone_session_setup(session, session_id);
+    psess->clone_session_setup(session, session_id);
   }
 
   return session;

@@ -100,6 +100,9 @@ namespace sbuild
     /// The constructor.
     chroot ();
 
+    /// The copy constructor.
+    chroot (const chroot& rhs);
+
   public:
     /// The destructor.
     virtual ~chroot ();
@@ -120,6 +123,15 @@ namespace sbuild
      */
     virtual ptr
     clone () const = 0;
+
+    /**
+     * Create a session chroot.
+     *
+     * @param session_id the identifier for the new session.
+     * @returns a session chroot.
+     */
+    virtual chroot::ptr
+    clone_session (std::string const& session_id) const = 0;
 
     /**
      * Get the name of the chroot.
@@ -534,6 +546,23 @@ namespace sbuild
     }
 
     template <typename T>
+    const std::tr1::shared_ptr<const T>
+    get_facet () const
+    {
+      std::tr1::shared_ptr<T> ret;
+
+      for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+	   pos != facets.end();
+	   ++pos)
+	{
+	  if (ret = std::tr1::dynamic_pointer_cast<T>(*pos))
+	    break;
+	}
+
+      return std::tr1::const_pointer_cast<T>(ret);
+    }
+
+    template <typename T>
     void
     add_facet (std::tr1::shared_ptr<T> facet)
     {
@@ -747,8 +776,6 @@ namespace sbuild
     regex         environment_filter;
     /// Location to mount chroot in the filesystem (if any).
     std::string   mount_location;
-    /// Chroot activity status.
-    bool          active;
     /// Was the chroot automatically generated?
     bool          original;
     /// Run chroot setup scripts?

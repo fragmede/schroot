@@ -52,7 +52,6 @@ error<chroot_union::error_code>::error_strings
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
 chroot_union::chroot_union ():
-  chroot_session(),
   chroot_source(),
   union_type("none"),
   union_overlay_directory(SCHROOT_OVERLAY_DIR),
@@ -157,7 +156,6 @@ void
 chroot_union::setup_env (chroot const& chroot,
 			 environment&  env) const
 {
-  chroot_session::setup_env(chroot, env);
   chroot_source::setup_env(chroot, env);
 
   env.add("CHROOT_UNION_TYPE", get_union_type());
@@ -179,8 +177,7 @@ chroot_union::get_session_flags (chroot const& chroot) const
 
   if (get_union_configured())
     {
-      flags = chroot_session::get_session_flags(chroot) |
-	chroot_source::get_session_flags(chroot);
+      flags = chroot_source::get_session_flags(chroot);
       if (chroot.get_active())
 	flags = flags | sbuild::chroot::SESSION_PURGE;
     }
@@ -192,7 +189,6 @@ void
 chroot_union::get_details (chroot const& chroot,
 			   format_detail& detail) const
 {
-  chroot_session::get_details(chroot, detail);
   chroot_source::get_details(chroot, detail);
 
   detail.add(_("Filesystem union type"), get_union_type());
@@ -214,7 +210,6 @@ void
 chroot_union::get_keyfile (chroot const& chroot,
 			   keyfile&      keyfile) const
 {
-  chroot_session::get_keyfile(chroot, keyfile);
   chroot_source::get_keyfile(chroot, keyfile);
 
   keyfile::set_object_value(*this, &chroot_union::get_union_type,
@@ -244,7 +239,6 @@ chroot_union::set_keyfile (chroot&        chroot,
 			   keyfile const& keyfile,
 			   string_list&   used_keys)
 {
-  chroot_session::set_keyfile(chroot, keyfile, used_keys);
   chroot_source::set_keyfile(chroot, keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_union::set_union_type,

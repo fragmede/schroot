@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include "sbuild-chroot-plain.h"
+#include "sbuild-chroot-facet-session.h"
 #include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
 
@@ -35,6 +36,8 @@ chroot_plain::chroot_plain ():
   chroot_directory_base()
 {
   set_run_setup_scripts(false);
+
+  remove_facet<chroot_facet_session>();
 }
 
 chroot_plain::~chroot_plain ()
@@ -45,6 +48,12 @@ sbuild::chroot::ptr
 chroot_plain::clone () const
 {
   return ptr(new chroot_plain(*this));
+}
+
+sbuild::chroot::ptr
+chroot_plain::clone_session (std::string const& session_id) const
+{
+  return ptr();
 }
 
 std::string const&

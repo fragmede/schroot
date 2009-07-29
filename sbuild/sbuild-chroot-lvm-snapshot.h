@@ -20,7 +20,6 @@
 #define SBUILD_CHROOT_LVM_SNAPSHOT_H
 
 #include <sbuild/sbuild-chroot-block-device-base.h>
-#include <sbuild/sbuild-chroot-session.h>
 #include <sbuild/sbuild-chroot-source.h>
 
 namespace sbuild
@@ -32,7 +31,6 @@ namespace sbuild
    * A snapshot LV will be created and mounted on demand.
    */
   class chroot_lvm_snapshot : public chroot_block_device_base,
-			      virtual public chroot_session,
 			      public chroot_source
   {
   protected:

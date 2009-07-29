@@ -19,10 +19,12 @@
 #include <config.h>
 
 #include "sbuild-chroot-block-device.h"
+#include "sbuild-chroot-facet-session.h"
 #include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
 #include "sbuild-util.h"
 
+#include <cassert>
 #include <cerrno>
 #include <cstring>
 
@@ -32,9 +34,6 @@ using boost::format;
 using namespace sbuild;
 
 chroot_block_device::chroot_block_device ():
-#ifdef SBUILD_FEATURE_UNION
-  chroot_session(),
-#endif // SBUILD_FEATURE_UNION
   chroot_block_device_base()
 #ifdef SBUILD_FEATURE_UNION
   , chroot_union()
@@ -47,9 +46,6 @@ chroot_block_device::~chroot_block_device ()
 }
 
 chroot_block_device::chroot_block_device (const chroot_block_device& rhs):
-#ifdef SBUILD_FEATURE_UNION
-  chroot_session(rhs),
-#endif // SBUILD_FEATURE_UNION
   chroot_block_device_base(rhs)
 #ifdef SBUILD_FEATURE_UNION
   , chroot_union(rhs)
@@ -58,10 +54,10 @@ chroot_block_device::chroot_block_device (const chroot_block_device& rhs):
 }
 
 chroot_block_device::chroot_block_device (const chroot_lvm_snapshot& rhs):
-#ifdef SBUILD_FEATURE_UNION
-  chroot_session(rhs),
-#endif // SBUILD_FEATURE_UNION
   chroot_block_device_base(rhs)
+#ifdef SBUILD_FEATURE_UNION
+  , chroot_union()
+#endif // SBUILD_FEATURE_UNION
 {
 }
 
@@ -77,10 +73,14 @@ chroot_block_device::clone_session (std::string const& session_id) const
 {
   ptr session;
 
+  std::tr1::shared_ptr<const chroot_facet_session> psess =
+    get_facet<chroot_facet_session>();
+  assert(psess);
+
   if (get_union_configured())
     {
       session = ptr(new chroot_block_device(*this));
-      clone_session_setup(session, session_id);
+      psess->clone_session_setup(session, session_id);
     }
 
   return session;

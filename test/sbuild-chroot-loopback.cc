@@ -128,7 +128,7 @@ public:
     expected.add("CHROOT_MOUNT_DEVICE",   loopback_file);
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
     expected.add("CHROOT_SESSION_CLONE",  "false");
-    expected.add("CHROOT_SESSION_CREATE", "false");
+    expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 #ifdef SBUILD_FEATURE_UNION
     expected.add("CHROOT_UNION_TYPE",     "none");
@@ -198,7 +198,7 @@ public:
     expected.add("CHROOT_MOUNT_DEVICE",   loopback_file);
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
     expected.add("CHROOT_SESSION_CLONE",  "false");
-    expected.add("CHROOT_SESSION_CREATE", "false");
+    expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
     expected.add("CHROOT_UNION_TYPE",     "none");
 
@@ -280,7 +280,7 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-		   sbuild::chroot::SESSION_NOFLAGS);
+		   sbuild::chroot::SESSION_CREATE);
 
 #ifdef SBUILD_FEATURE_UNION
     CPPUNIT_ASSERT(chroot_union->get_session_flags() ==
@@ -291,7 +291,7 @@ public:
 		   sbuild::chroot::SESSION_PURGE);
 
     CPPUNIT_ASSERT(source_union->get_session_flags() ==
-		   sbuild::chroot::SESSION_NOFLAGS);
+		   sbuild::chroot::SESSION_CREATE);
 #endif // SBUILD_FEATURE_UNION
   }
 

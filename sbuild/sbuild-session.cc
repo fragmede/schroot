@@ -20,7 +20,7 @@
 
 #include "sbuild-chroot-config.h"
 #include "sbuild-chroot-facet-personality.h"
-#include "sbuild-chroot-session.h"
+#include "sbuild-chroot-facet-session.h"
 #include "sbuild-auth-null.h"
 #include "sbuild-ctty.h"
 #include "sbuild-run-parts.h"
@@ -568,7 +568,7 @@ session::run_impl ()
 	  /* Create a session using randomly-generated session ID. */
 	  if (ch->get_session_flags() & chroot::SESSION_CREATE)
 	    {
-	      std::tr1::shared_ptr<chroot_session> session(std::tr1::dynamic_pointer_cast<chroot_session>(ch));
+	      std::tr1::shared_ptr<chroot_facet_session> session(ch->get_facet<chroot_facet_session>());
 	      if (session)
 		{
 		  std::ostringstream session_id;
@@ -587,7 +587,7 @@ session::run_impl ()
 #endif
 
 		  // Replace clone of chroot with cloned session.
-		  chroot = session->clone_session(session_id.str());
+		  chroot = ch->clone_session(session_id.str());
 		}
 	    }
 	  else
