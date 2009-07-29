@@ -50,12 +50,6 @@ chroot_plain::clone () const
   return ptr(new chroot_plain(*this));
 }
 
-sbuild::chroot::ptr
-chroot_plain::clone_session (std::string const& session_id) const
-{
-  return ptr();
-}
-
 std::string const&
 chroot_plain::get_chroot_type () const
 {

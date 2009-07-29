@@ -131,7 +131,15 @@ namespace sbuild
      * @returns a session chroot.
      */
     virtual chroot::ptr
-    clone_session (std::string const& session_id) const = 0;
+    clone_session (std::string const& session_id) const;
+
+    /**
+     * Create a source chroot.
+     *
+     * @returns a source chroot.
+     */
+    virtual chroot::ptr
+    clone_source () const;
 
     /**
      * Get the name of the chroot.

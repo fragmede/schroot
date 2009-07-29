@@ -42,9 +42,6 @@ namespace sbuild
     virtual chroot::ptr
     clone () const;
 
-    virtual chroot::ptr
-    clone_session (std::string const& session_id) const;
-
     virtual std::string
     get_path () const;
 
