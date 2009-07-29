@@ -93,6 +93,9 @@ namespace sbuild
     /// A shared_ptr to a chroot object.
     typedef std::tr1::shared_ptr<chroot> ptr;
 
+    /// A shared_ptr to a const chroot object.
+    typedef std::tr1::shared_ptr<const chroot> const_ptr;
+
   protected:
     /// The constructor.
     chroot ();
