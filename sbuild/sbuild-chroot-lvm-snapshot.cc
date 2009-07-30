@@ -21,12 +21,12 @@
 #include "sbuild-chroot-lvm-snapshot.h"
 #include "sbuild-chroot-block-device.h"
 #include "sbuild-chroot-facet-session.h"
+#include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
 
 #include <cassert>
 #include <cerrno>
-#include <iostream>
 
 #include <boost/format.hpp>
 
@@ -36,15 +36,14 @@ using namespace sbuild;
 
 chroot_lvm_snapshot::chroot_lvm_snapshot ():
   chroot_block_device_base(),
-  chroot_source(),
   snapshot_device(),
   snapshot_options()
 {
+  add_facet(sbuild::chroot_facet_source_clonable::create());
 }
 
 chroot_lvm_snapshot::chroot_lvm_snapshot (const chroot_lvm_snapshot& rhs):
   chroot_block_device_base(rhs),
-  chroot_source(rhs),
   snapshot_device(rhs.snapshot_device),
   snapshot_options(rhs.snapshot_options)
 {
@@ -78,7 +77,11 @@ chroot_lvm_snapshot::clone_source () const
 {
   ptr clone(new chroot_block_device(*this));
 
-  clone_source_setup(clone);
+  std::tr1::shared_ptr<const chroot_facet_source_clonable> psrc =
+    get_facet<chroot_facet_source_clonable>();
+  assert(psrc);
+
+  psrc->clone_source_setup(clone);
 
   return clone;
 }
@@ -135,7 +138,6 @@ chroot_lvm_snapshot::setup_env (chroot const& chroot,
 				environment&  env) const
 {
   chroot_block_device_base::setup_env(chroot, env);
-  chroot_source::setup_env(chroot, env);
 
   env.add("CHROOT_LVM_SNAPSHOT_NAME", sbuild::basename(get_snapshot_device()));
   env.add("CHROOT_LVM_SNAPSHOT_DEVICE", get_snapshot_device());
@@ -223,7 +225,7 @@ chroot_lvm_snapshot::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_lvm_snapshot::get_session_flags (chroot const& chroot) const
 {
-  session_flags flags = chroot_source::get_session_flags(chroot);
+  session_flags flags = SESSION_NOFLAGS;
 
   if (get_active())
     flags = flags | SESSION_PURGE;
@@ -236,7 +238,6 @@ chroot_lvm_snapshot::get_details (chroot const& chroot,
 				  format_detail& detail) const
 {
   chroot_block_device_base::get_details(chroot, detail);
-  chroot_source::get_details(chroot, detail);
 
   if (!this->snapshot_device.empty())
     detail.add(_("LVM Snapshot Device"), get_snapshot_device());
@@ -249,7 +250,6 @@ chroot_lvm_snapshot::get_keyfile (chroot const& chroot,
 				  keyfile& keyfile) const
 {
   chroot_block_device_base::get_keyfile(chroot, keyfile);
-  chroot_source::get_keyfile(chroot, keyfile);
 
   if (get_active())
     keyfile::set_object_value(*this,
@@ -270,7 +270,6 @@ chroot_lvm_snapshot::set_keyfile (chroot&        chroot,
 				  string_list&   used_keys)
 {
   chroot_block_device_base::set_keyfile(chroot, keyfile, used_keys);
-  chroot_source::set_keyfile(chroot, keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_lvm_snapshot::set_snapshot_device,
 			    keyfile, get_keyfile_name(), "lvm-snapshot-device",

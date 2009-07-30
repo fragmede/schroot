@@ -20,7 +20,6 @@
 #define SBUILD_CHROOT_FILE_H
 
 #include <sbuild/sbuild-chroot.h>
-#include <sbuild/sbuild-chroot-source.h>
 
 namespace sbuild
 {
@@ -29,8 +28,7 @@ namespace sbuild
    * A chroot stored in a file archive (tar or zip).  The archive will
    * be unpacked on demand.
    */
-  class chroot_file : public chroot,
-		      public chroot_source
+  class chroot_file : public chroot
   {
   protected:
     /// The constructor.

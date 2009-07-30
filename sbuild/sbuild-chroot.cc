@@ -133,11 +133,14 @@ sbuild::chroot::chroot (const chroot& rhs):
   command_prefix(rhs.command_prefix),
   facets()
 {
+  /// @todo Use internal version of add_facet to add chroot pointer.
   for (std::vector<facet_ptr>::const_iterator pos = rhs.facets.begin();
        pos != rhs.facets.end();
        ++pos)
     {
-      facets.push_back((*pos)->clone());
+      facet_ptr fp = (*pos)->clone();
+      fp->set_chroot(*this);
+      facets.push_back(fp);
     }
 }
 
@@ -401,6 +404,21 @@ void
 sbuild::chroot::set_command_prefix (string_list const& command_prefix)
 {
   this->command_prefix = command_prefix;
+}
+
+string_list
+sbuild::chroot::list_facets () const
+{
+  string_list fnames;
+
+  for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+       pos != facets.end();
+       ++pos)
+    {
+      fnames.push_back((*pos)->get_name());
+    }
+
+  return fnames;
 }
 
 void

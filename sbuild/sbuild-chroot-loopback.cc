@@ -20,6 +20,9 @@
 
 #include "sbuild-chroot-loopback.h"
 #include "sbuild-chroot-facet-session.h"
+#ifdef SBUILD_FEATURE_UNION
+#include "sbuild-chroot-facet-source-clonable.h"
+#endif // SBUILD_FEATURE_UNION
 #include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
 #include "sbuild-util.h"

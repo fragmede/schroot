@@ -229,6 +229,7 @@ public:
   {
     sbuild::keyfile expected;
     const std::string group(chroot_union->get_name());
+    setup_keyfile_union_configured(expected, group);
     setup_keyfile_chroot(expected, group);
     setup_keyfile_source(expected, group);
     expected.set_value(group, "active", "false");
@@ -236,7 +237,6 @@ public:
     expected.set_value(group, "device", "/dev/testdev");
     expected.set_value(group, "location", "/squeeze");
     expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
-    setup_keyfile_union_configured(expected, group);
 
     test_chroot_base<chroot_block_device>::test_setup_keyfile
       (chroot_union, expected, group);

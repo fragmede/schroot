@@ -23,8 +23,7 @@
 #include <sbuild/sbuild-chroot.h>
 #include <sbuild/sbuild-chroot-facet-personality.h>
 #include <sbuild/sbuild-chroot-facet-session.h>
-#include <sbuild/sbuild-chroot-session.h>
-#include <sbuild/sbuild-chroot-source.h>
+#include <sbuild/sbuild-chroot-facet-source-clonable.h>
 #include <sbuild/sbuild-chroot-union.h>
 #include <sbuild/sbuild-i18n.h>
 
@@ -82,16 +81,18 @@ public:
     if (psess)
       this->session = this->chroot->clone_session("test-session-name");
 
-    std::tr1::shared_ptr<sbuild::chroot_source> cs =
-      std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(this->chroot);
-    if (cs)
-      this->source = cs->clone_source();
+    std::tr1::shared_ptr<const sbuild::chroot_facet_source_clonable> psrc;
+    psrc = this->chroot->template get_facet<sbuild::chroot_facet_source_clonable>();
+    if (psrc)
+      this->source = this->chroot->clone_source();
     if (this->source)
       {
-	std::tr1::shared_ptr<sbuild::chroot_source> s =
-	  std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(this->source);
-	CPPUNIT_ASSERT(s->get_source_clonable() == false);
-	CPPUNIT_ASSERT(s->get_source_clonable() == false);
+	std::tr1::shared_ptr<const sbuild::chroot_facet_source_clonable> ssrc;
+	ssrc = this->source->template get_facet<sbuild::chroot_facet_source_clonable>();
+	if (ssrc)
+	  {
+	    CPPUNIT_ASSERT(ssrc->get_source_clonable() == false);
+	  }
       }
 
     this->chroot_union = sbuild::chroot::ptr(new T);
@@ -103,17 +104,18 @@ public:
       }
     else
       {
+	un->set_union_type("aufs");
+
 	setup_chroot_props(this->chroot_union);
 	CPPUNIT_ASSERT(this->chroot_union->get_name().length());
 
-	un->set_union_type("aufs");
 	un->set_union_overlay_directory("/overlay");
 	un->set_union_underlay_directory("/underlay");
 	un->set_union_mount_options("union-mount-options");
 
 	this->session_union =
 	  this->chroot_union->clone_session("test-union-session-name");
-	this->source_union = un->clone_source();
+	this->source_union = chroot_union->clone_source();
 
 	CPPUNIT_ASSERT(this->session_union);
 	CPPUNIT_ASSERT(this->source_union);
@@ -139,14 +141,14 @@ public:
       pfac->set_persona(sbuild::personality("undefined"));
     chroot->set_priority(3);
 
-    std::tr1::shared_ptr<sbuild::chroot_source> c =
-      std::tr1::dynamic_pointer_cast<sbuild::chroot_source>(chroot);
-    if (c)
+    std::tr1::shared_ptr<sbuild::chroot_facet_source_clonable> usrc;
+    usrc = chroot->template get_facet<sbuild::chroot_facet_source_clonable>();
+    if (usrc)
       {
-	c->set_source_users(sbuild::split_string("suser1,suser2", ","));
-	c->set_source_root_users(sbuild::split_string("suser3,suser4", ","));
-	c->set_source_groups(sbuild::split_string("sgroup1,sgroup2", ","));
-	c->set_source_root_groups(sbuild::split_string("sgroup3,sgroup4", ","));
+	usrc->set_source_users(sbuild::split_string("suser1,suser2", ","));
+	usrc->set_source_root_users(sbuild::split_string("suser3,suser4", ","));
+	usrc->set_source_groups(sbuild::split_string("sgroup1,sgroup2", ","));
+	usrc->set_source_root_groups(sbuild::split_string("sgroup3,sgroup4", ","));
       }
   }
 

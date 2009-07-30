@@ -37,6 +37,9 @@ namespace sbuild
     /// The constructor.
     chroot_block_device_base ();
 
+    /// The copy constructor.
+    chroot_block_device_base (const chroot_block_device_base& rhs);
+
     friend class chroot;
 
   public:

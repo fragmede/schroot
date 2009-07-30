@@ -1,4 +1,4 @@
-/* Copyright © 2005-2008  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -16,59 +16,56 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_SOURCE_H
-#define SBUILD_CHROOT_SOURCE_H
+#ifndef SBUILD_CHROOT_FACET_SOURCE_CLONABLE_H
+#define SBUILD_CHROOT_FACET_SOURCE_CLONABLE_H
 
-#include <sbuild/sbuild-chroot.h>
+#include <sbuild/sbuild-chroot-facet.h>
 
 namespace sbuild
 {
 
   /**
-   * A chroot may offer a "source" chroot in addition to its normal
-   * "session" copy, to allow for maintenence of the source data.
-   * This interface may be implemented by any chroot wishing to
-   * provide such functionality.
-   *
-   * While this is effectively an interface, in practice this derives
-   * from sbuild::chroot, to allow setting and getting of data from a
-   * keyfile, including storing the keyfile options.
-   *
-   * Chroot types implementing chroot_source should, at a minimum,
-   * implement clone_source().  This should create and return a source
-   * chroot, and must call clone_source_setup() to set up the source
-   * chroot.
+   * Chroot support for kernel personalities (execution domains).
    */
-  class chroot_source
+  class chroot_facet_source_clonable : public chroot_facet
   {
-  protected:
-    /// The constructor.
-    chroot_source ();
+  public:
+    /// A shared_ptr to a chroot facet object.
+    typedef std::tr1::shared_ptr<chroot_facet_source_clonable> ptr;
 
-    friend class chroot;
+    /// A shared_ptr to a const chroot facet object.
+    typedef std::tr1::shared_ptr<const chroot_facet_source_clonable> const_ptr;
+
+  private:
+    /// The constructor.
+    chroot_facet_source_clonable ();
 
   public:
     /// The destructor.
-    virtual ~chroot_source ();
+    virtual ~chroot_facet_source_clonable ();
 
     /**
-     * Create a source chroot.
+     * Create a chroot facet.
      *
-     * @returns a source chroot.
+     * @returns a shared_ptr to the new chroot facet.
      */
-    virtual chroot::ptr
-    clone_source () const = 0;
+    static ptr
+    create ();
 
-  protected:
+    virtual chroot_facet::ptr
+    clone () const;
+
+    virtual std::string const&
+    get_name () const;
+
     /**
-     * Set the defaults in the cloned source chroot.
+     * Set the defaults in the cloned sourceg chroot.
      *
      * @param clone the chroot to set up.
      */
     virtual void
     clone_source_setup (chroot::ptr& clone) const;
 
-  public:
     /**
      * Get the users allowed to access the source chroot.
      *
@@ -157,23 +154,22 @@ namespace sbuild
     virtual void
     set_source_clonable (bool clonable);
 
-    void
+    virtual void
     setup_env (chroot const& chroot,
-	       environment& env) const;
+	       environment&  env) const;
 
-  protected:
     virtual chroot::session_flags
     get_session_flags (chroot const& chroot) const;
 
     virtual void
-    get_details (chroot const& chroot,
+    get_details (chroot const&  chroot,
 		 format_detail& detail) const;
 
-    void
+    virtual void
     get_keyfile (chroot const& chroot,
-		 keyfile& keyfile) const;
+		 keyfile&      keyfile) const;
 
-    void
+    virtual void
     set_keyfile (chroot&        chroot,
 		 keyfile const& keyfile,
 		 string_list&   used_keys);
@@ -193,7 +189,7 @@ namespace sbuild
 
 }
 
-#endif /* SBUILD_CHROOT_SOURCE_H */
+#endif /* SBUILD_CHROOT_FACET_SOURCE_CLONABLE_H */
 
 /*
  * Local Variables:

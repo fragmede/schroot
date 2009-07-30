@@ -18,8 +18,9 @@
 
 #include <config.h>
 
+#include "sbuild-chroot.h"
 #include "sbuild-chroot-facet-session.h"
-#include "sbuild-chroot-source.h"
+#include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-chroot-plain.h"
 #ifdef SBUILD_FEATURE_LVMSNAP
 #include "sbuild-chroot-lvm-snapshot.h"
@@ -60,6 +61,14 @@ chroot_facet_session::clone () const
   return ptr(new chroot_facet_session(*this));
 }
 
+std::string const&
+chroot_facet_session::get_name () const
+{
+  static const std::string name("session");
+
+  return name;
+}
+
 void
 chroot_facet_session::clone_session_setup (chroot::ptr&       clone,
 					   std::string const& session_id) const
@@ -83,9 +92,7 @@ chroot_facet_session::clone_session_setup (chroot::ptr&       clone,
     % clone->get_name() << endl;
 
   // Disable source cloning.
-  std::tr1::shared_ptr<chroot_source> source(std::tr1::dynamic_pointer_cast<chroot_source>(clone));
-  if (source)
-    source->set_source_clonable(false);
+  clone->remove_facet<chroot_facet_source_clonable>();
 
   /* If a chroot mount location has not yet been set, and the
      chroot is not a plain chroot, set a mount location with the

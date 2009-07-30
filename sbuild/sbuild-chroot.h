@@ -538,87 +538,30 @@ namespace sbuild
   public:
     template <typename T>
     std::tr1::shared_ptr<T>
-    get_facet ()
-    {
-      std::tr1::shared_ptr<T> ret;
-
-      for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
-	   pos != facets.end();
-	   ++pos)
-	{
-	  if (ret = std::tr1::dynamic_pointer_cast<T>(*pos))
-	    break;
-	}
-
-      return ret;
-    }
+    get_facet ();
 
     template <typename T>
     const std::tr1::shared_ptr<const T>
-    get_facet () const
-    {
-      std::tr1::shared_ptr<T> ret;
-
-      for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
-	   pos != facets.end();
-	   ++pos)
-	{
-	  if (ret = std::tr1::dynamic_pointer_cast<T>(*pos))
-	    break;
-	}
-
-      return std::tr1::const_pointer_cast<T>(ret);
-    }
+    get_facet () const;
 
     template <typename T>
     void
-    add_facet (std::tr1::shared_ptr<T> facet)
-    {
-      facet_ptr new_facet = std::tr1::dynamic_pointer_cast<chroot_facet>(facet);
-      if (!new_facet)
-	throw error(FACET_INVALID);
-
-      for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
-	   pos != facets.end();
-	   ++pos)
-	{
-	  if (std::tr1::dynamic_pointer_cast<T>(*pos))
-	    throw error(FACET_PRESENT);
-	}
-
-      facets.push_back(new_facet);
-    }
+    add_facet (std::tr1::shared_ptr<T> facet);
 
     template <typename T>
     void
-    remove_facet ()
-    {
-      for (std::vector<facet_ptr>::iterator pos = facets.begin();
-	   pos != facets.end();
-	   ++pos)
-	{
-	  if (std::tr1::dynamic_pointer_cast<T>(*pos))
-	    {
-	      facets.erase(pos);
-	      break;
-	    }
-	}
-    }
+    remove_facet ();
 
     template <typename T>
     void
-    remove_facet (std::tr1::shared_ptr<T> facet)
-    {
-      remove_facet<T>();
-    }
+    remove_facet (std::tr1::shared_ptr<T> facet);
 
     template <typename T>
     void
-    replace_facet (std::tr1::shared_ptr<T> facet)
-    {
-      remove_facet<T>();
-      add_facet(facet);
-    }
+    replace_facet (std::tr1::shared_ptr<T> facet);
+
+    string_list
+    list_facets () const;
 
     /**
      * Get the session flags of the chroot.  These determine how the
@@ -823,6 +766,98 @@ namespace sbuild
   {
     return static_cast<chroot::session_flags>
       (static_cast<int>(lhs) & static_cast<int>(rhs));
+  }
+
+}
+
+#include <sbuild/sbuild-chroot-facet.h>
+
+namespace sbuild
+{
+
+  template <typename T>
+  std::tr1::shared_ptr<T>
+  chroot::get_facet ()
+  {
+    std::tr1::shared_ptr<T> ret;
+
+    for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+	 pos != facets.end();
+	 ++pos)
+      {
+	if (ret = std::tr1::dynamic_pointer_cast<T>(*pos))
+	  break;
+      }
+
+    return ret;
+  }
+
+  template <typename T>
+  const std::tr1::shared_ptr<const T>
+  chroot::get_facet () const
+  {
+    std::tr1::shared_ptr<T> ret;
+
+    for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+	 pos != facets.end();
+	 ++pos)
+      {
+	if (ret = std::tr1::dynamic_pointer_cast<T>(*pos))
+	  break;
+      }
+
+    return std::tr1::const_pointer_cast<T>(ret);
+  }
+
+  template <typename T>
+  void
+  chroot::add_facet (std::tr1::shared_ptr<T> facet)
+  {
+    facet_ptr new_facet = std::tr1::dynamic_pointer_cast<chroot_facet>(facet);
+    if (!new_facet)
+      throw error(FACET_INVALID);
+
+    for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+	 pos != facets.end();
+	 ++pos)
+      {
+	if (std::tr1::dynamic_pointer_cast<T>(*pos))
+	  throw error(FACET_PRESENT);
+      }
+
+    new_facet->set_chroot(*this);
+    facets.push_back(new_facet);
+  }
+
+  template <typename T>
+  void
+  chroot::remove_facet ()
+  {
+    for (std::vector<facet_ptr>::iterator pos = facets.begin();
+	 pos != facets.end();
+	 ++pos)
+      {
+	if (std::tr1::dynamic_pointer_cast<T>(*pos))
+	  {
+	    facets.erase(pos);
+	    break;
+	  }
+      }
+  }
+
+  template <typename T>
+  void
+  chroot::remove_facet (std::tr1::shared_ptr<T> facet)
+  {
+    remove_facet<T>();
+  }
+
+  template <typename T>
+  void
+  chroot::replace_facet (std::tr1::shared_ptr<T> facet)
+  {
+    remove_facet<T>();
+    add_facet(facet);
   }
 
 }

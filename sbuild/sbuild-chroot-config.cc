@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include "sbuild-chroot.h"
-#include "sbuild-chroot-source.h"
+#include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-chroot-config.h"
 #include "sbuild-dirstream.h"
 #include "sbuild-lock.h"
@@ -512,10 +512,12 @@ chroot_config::load_keyfile (keyfile& kconfig,
       add(chroot, kconfig);
 
       {
-	chroot_source *source = dynamic_cast<chroot_source *>(chroot.get());
-	if (source != 0 && !chroot->get_active())
+	chroot_facet_source_clonable::const_ptr psrc
+	  (chroot->get_facet<sbuild::chroot_facet_source_clonable>());
+
+	if (psrc && !chroot->get_active())
 	  {
-	    chroot::ptr source_chroot = source->clone_source();
+	    chroot::ptr source_chroot = chroot->clone_source();
 	    if (source_chroot)
 	      add(source_chroot, kconfig);
 	  }

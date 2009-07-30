@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include "sbuild-chroot-union.h"
+#include "sbuild-chroot-facet-source-clonable.h"
 
 #include <cerrno>
 
@@ -52,7 +53,6 @@ error<chroot_union::error_code>::error_strings
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
 chroot_union::chroot_union ():
-  chroot_source(),
   union_type("none"),
   union_overlay_directory(SCHROOT_OVERLAY_DIR),
   union_underlay_directory(SCHROOT_UNDERLAY_DIR)
@@ -66,7 +66,13 @@ chroot_union::~chroot_union ()
 void
 chroot_union::clone_source_setup (chroot::ptr& clone) const
 {
-  chroot_source::clone_source_setup(clone);
+  const chroot *base = dynamic_cast<const chroot *>(this);
+  assert(base);
+
+  std::tr1::shared_ptr<const chroot_facet_source_clonable> psrc =
+    base->get_facet<chroot_facet_source_clonable>();
+  if (psrc)
+    psrc->clone_source_setup(clone);
 
   std::tr1::shared_ptr<sbuild::chroot_union> fsunion =
     std::tr1::dynamic_pointer_cast<sbuild::chroot_union>(clone);
@@ -77,7 +83,13 @@ chroot_union::clone_source_setup (chroot::ptr& clone) const
 bool
 chroot_union::get_source_clonable () const
 {
-  return chroot_source::get_source_clonable() &&
+  const chroot *base = dynamic_cast<const chroot *>(this);
+  assert(base);
+  std::tr1::shared_ptr<const chroot_facet_source_clonable> psrc =
+    base->get_facet<chroot_facet_source_clonable>();
+  assert(psrc);
+
+  return psrc->get_source_clonable() &&
     get_union_configured();
 }
 
@@ -135,8 +147,16 @@ chroot_union::set_union_type (std::string const& type)
   else
     throw error(type, UNION_TYPE_UNKNOWN);
 
-  // If union not enabled, don't implement source interface.
-  set_source_clonable(this->union_type != "none");
+  chroot *base = dynamic_cast<chroot *>(this);
+  assert(base);
+
+  if (this->union_type != "none")
+    {
+      if (!base->get_facet<sbuild::chroot_facet_source_clonable>())
+	base->add_facet(sbuild::chroot_facet_source_clonable::create());
+    }
+  else
+    base->remove_facet<chroot_facet_source_clonable>();
 }
 
 std::string const&
@@ -156,8 +176,6 @@ void
 chroot_union::setup_env (chroot const& chroot,
 			 environment&  env) const
 {
-  chroot_source::setup_env(chroot, env);
-
   env.add("CHROOT_UNION_TYPE", get_union_type());
   if (get_union_configured())
     {
@@ -175,12 +193,8 @@ chroot_union::get_session_flags (chroot const& chroot) const
 {
   sbuild::chroot::session_flags flags = sbuild::chroot::SESSION_NOFLAGS;
 
-  if (get_union_configured())
-    {
-      flags = chroot_source::get_session_flags(chroot);
-      if (chroot.get_active())
-	flags = flags | sbuild::chroot::SESSION_PURGE;
-    }
+  if (get_union_configured() && chroot.get_active())
+    flags = sbuild::chroot::SESSION_PURGE;
 
   return flags;
 }
@@ -189,8 +203,6 @@ void
 chroot_union::get_details (chroot const& chroot,
 			   format_detail& detail) const
 {
-  chroot_source::get_details(chroot, detail);
-
   detail.add(_("Filesystem union type"), get_union_type());
   if (get_union_configured())
     {
@@ -210,8 +222,6 @@ void
 chroot_union::get_keyfile (chroot const& chroot,
 			   keyfile&      keyfile) const
 {
-  chroot_source::get_keyfile(chroot, keyfile);
-
   keyfile::set_object_value(*this, &chroot_union::get_union_type,
 			    keyfile, chroot.get_keyfile_name(), "union-type");
 
@@ -239,12 +249,16 @@ chroot_union::set_keyfile (chroot&        chroot,
 			   keyfile const& keyfile,
 			   string_list&   used_keys)
 {
-  chroot_source::set_keyfile(chroot, keyfile, used_keys);
-
   keyfile::get_object_value(*this, &chroot_union::set_union_type,
 			    keyfile, chroot.get_keyfile_name(), "union-type",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("union-type");
+
+  // If we are a union, add specific source options here.
+  std::tr1::shared_ptr<chroot_facet_source_clonable> psrc =
+    chroot.get_facet<chroot_facet_source_clonable>();
+  if (psrc)
+    psrc->set_keyfile(chroot, keyfile, used_keys);
 
   keyfile::get_object_value(*this,
 			    &chroot_union::set_union_mount_options,

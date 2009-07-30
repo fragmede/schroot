@@ -38,6 +38,14 @@ chroot_block_device_base::chroot_block_device_base ():
 {
 }
 
+chroot_block_device_base::chroot_block_device_base
+(const chroot_block_device_base& rhs):
+  chroot(rhs),
+  chroot_mountable(rhs),
+  device(rhs.device)
+{
+}
+
 chroot_block_device_base::~chroot_block_device_base ()
 {
 }

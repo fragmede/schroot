@@ -48,7 +48,15 @@ namespace sbuild
 
   protected:
     /// The constructor.
-    chroot_facet () {};
+    chroot_facet(): owner(0) {};
+
+    void
+    set_chroot(chroot& chroot)
+    {
+      this->owner = &chroot;
+    }
+
+    friend class chroot;
 
   public:
     /// The destructor.
@@ -61,6 +69,14 @@ namespace sbuild
      */
     virtual ptr
     clone () const = 0;
+
+    /**
+     * Get the name of the chroot facet.
+     *
+     * @returns the chroot facet name.
+     */
+    virtual std::string const&
+    get_name () const = 0;
 
     /**
      * Set environment.  Set the environment that the setup scripts
@@ -118,6 +134,10 @@ namespace sbuild
     set_keyfile (chroot&        chroot,
 		 keyfile const& keyfile,
 		 string_list&   used_keys) = 0;
+
+  private:
+    /// Chroot owning this facet.
+    chroot *owner;
   };
 
 }

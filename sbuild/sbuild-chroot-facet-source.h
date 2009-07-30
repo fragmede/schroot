@@ -16,11 +16,10 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_FACET_SESSION_H
-#define SBUILD_CHROOT_FACET_SESSION_H
+#ifndef SBUILD_CHROOT_FACET_SOURCE_H
+#define SBUILD_CHROOT_FACET_SOURCE_H
 
 #include <sbuild/sbuild-chroot-facet.h>
-#include <sbuild/sbuild-session.h>
 
 namespace sbuild
 {
@@ -28,22 +27,22 @@ namespace sbuild
   /**
    * Chroot support for kernel personalities (execution domains).
    */
-  class chroot_facet_session : public chroot_facet
+  class chroot_facet_source : public chroot_facet
   {
   public:
     /// A shared_ptr to a chroot facet object.
-    typedef std::tr1::shared_ptr<chroot_facet_session> ptr;
+    typedef std::tr1::shared_ptr<chroot_facet_source> ptr;
 
     /// A shared_ptr to a const chroot facet object.
-    typedef std::tr1::shared_ptr<const chroot_facet_session> const_ptr;
+    typedef std::tr1::shared_ptr<const chroot_facet_source> const_ptr;
 
   private:
     /// The constructor.
-    chroot_facet_session ();
+    chroot_facet_source ();
 
   public:
     /// The destructor.
-    virtual ~chroot_facet_session ();
+    virtual ~chroot_facet_source ();
 
     /**
      * Create a chroot facet.
@@ -58,50 +57,6 @@ namespace sbuild
 
     virtual std::string const&
     get_name () const;
-
-    /**
-     * Set the defaults in the cloned session chroot.
-     *
-     * @param clone the chroot to set up.
-     * @param session_id the identifier for the new session.
-     */
-    virtual void
-    clone_session_setup (chroot::ptr&       clone,
-			 std::string const& session_id) const;
-
-    /**
-     * Get if the chroot is a session manageable chroot or not.
-     *
-     * @returns true if the chroot is a session manageable chroot,
-     * otherwise false.
-     */
-    virtual bool
-    get_session_manageable () const;
-
-    /**
-     * Set if the chroot is a session manageable chroot or not.
-     *
-     * @param manageable true if a session chroot, manageable or false if
-     * not.
-     */
-    virtual void
-    set_session_manageable (bool manageable);
-
-    /**
-     * Get if the chroot is an active session or not.
-     *
-     * @returns true if the chroot is an active session, otherwise false.
-     */
-    virtual bool
-    get_session_active () const;
-
-    /**
-     * Set if the chroot is an active session or not.
-     *
-     * @param active true if an active session, or false if not.
-     */
-    virtual void
-    set_session_active (bool active);
 
     virtual void
     setup_env (chroot const& chroot,
@@ -122,17 +77,11 @@ namespace sbuild
     set_keyfile (chroot&        chroot,
 		 keyfile const& keyfile,
 		 string_list&   used_keys);
-
-  private:
-    /// Is the chroot session or clone?
-    bool session_manageable;
-    /// Is the session active?
-    bool session_active;
   };
 
 }
 
-#endif /* SBUILD_CHROOT_FACET_SESSION_H */
+#endif /* SBUILD_CHROOT_FACET_SOURCE_H */
 
 /*
  * Local Variables:

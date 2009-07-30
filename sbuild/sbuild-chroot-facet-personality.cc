@@ -18,6 +18,7 @@
 
 #include <config.h>
 
+#include "sbuild-chroot.h"
 #include "sbuild-chroot-facet-personality.h"
 
 #include <boost/format.hpp>
@@ -51,6 +52,14 @@ chroot_facet::ptr
 chroot_facet_personality::clone () const
 {
   return ptr(new chroot_facet_personality(*this));
+}
+
+std::string const&
+chroot_facet_personality::get_name () const
+{
+  static const std::string name("personality");
+
+  return name;
 }
 
 personality const&

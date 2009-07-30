@@ -56,6 +56,9 @@ namespace sbuild
     virtual chroot_facet::ptr
     clone () const;
 
+    virtual std::string const&
+    get_name () const;
+
     /**
      * Get the process execution domain for the chroot.
      *

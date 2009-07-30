@@ -84,7 +84,7 @@ chroot_directory::clone_source () const
     clone_source_setup(clone);
   }
 #endif // SBUILD_FEATURE_UNION
-  return ptr(clone);
+  return clone;
 }
 #endif // SBUILD_FEATURE_UNION
 

@@ -135,3 +135,7 @@ Define operator &= and |= for enum types defining | and & operators.
 
 Remove use of virtual public for sbuild::chroot inheritance, since
 it breaks the default copy constructors.
+
+Header include order: chroot-facet depends upon sbuild-chroot being
+included first.  Try to break this dependency.
+

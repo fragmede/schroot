@@ -20,6 +20,7 @@
 
 #include "sbuild-chroot-file.h"
 #include "sbuild-chroot-facet-session.h"
+#include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
 
@@ -34,15 +35,14 @@ using namespace sbuild;
 
 chroot_file::chroot_file ():
   chroot(),
-  chroot_source(),
   file(),
   repack(false)
 {
+  add_facet(sbuild::chroot_facet_source_clonable::create());
 }
 
 chroot_file::chroot_file (const chroot_file& rhs):
   chroot(rhs),
-  chroot_source(rhs),
   file(rhs.file),
   repack(rhs.repack)
 {
@@ -77,7 +77,11 @@ chroot_file::clone_source () const
   chroot_file *clone_file = new chroot_file(*this);
   ptr clone(clone_file);
 
-  clone_source_setup(clone);
+  std::tr1::shared_ptr<const chroot_facet_source_clonable> psrc =
+    get_facet<chroot_facet_source_clonable>();
+  assert(psrc);
+
+  psrc->clone_source_setup(clone);
   clone_file->repack = true;
 
   return clone;
@@ -129,7 +133,6 @@ chroot_file::setup_env (chroot const& chroot,
 			environment&  env) const
 {
   chroot::setup_env(chroot, env);
-  chroot_source::setup_env(chroot, env);
 
   env.add("CHROOT_FILE", get_file());
   env.add("CHROOT_FILE_REPACK", this->repack);
@@ -169,9 +172,10 @@ chroot_file::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_file::get_session_flags (chroot const& chroot) const
 {
-  session_flags flags = chroot_source::get_session_flags(chroot);
+  session_flags flags = SESSION_NOFLAGS;
+
   if (get_active())
-    flags = flags | SESSION_PURGE;
+    flags = SESSION_PURGE;
 
   return flags;
 }
@@ -181,7 +185,6 @@ chroot_file::get_details (chroot const&  chroot,
 			  format_detail& detail) const
 {
   chroot::get_details(chroot, detail);
-  chroot_source::get_details(chroot, detail);
 
   if (!this->file.empty())
     detail
@@ -194,7 +197,6 @@ chroot_file::get_keyfile (chroot const& chroot,
 			  keyfile&      keyfile) const
 {
   chroot::get_keyfile(chroot, keyfile);
-  chroot_source::get_keyfile(chroot, keyfile);
 
   keyfile::set_object_value(*this, &chroot_file::get_file,
 			    keyfile, get_keyfile_name(), "file");
@@ -210,7 +212,6 @@ chroot_file::set_keyfile (chroot&        chroot,
 			  string_list&   used_keys)
 {
   chroot::set_keyfile(chroot, keyfile, used_keys);
-  chroot_source::set_keyfile(chroot, keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_file::set_file,
 			    keyfile, get_keyfile_name(), "file",
