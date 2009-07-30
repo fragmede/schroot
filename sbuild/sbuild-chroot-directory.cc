@@ -62,8 +62,7 @@ chroot_directory::clone () const
 sbuild::chroot::ptr
 chroot_directory::clone_session (std::string const& session_id) const
 {
-  std::tr1::shared_ptr<const chroot_facet_session> psess =
-    get_facet<chroot_facet_session>();
+  chroot_facet_session::const_ptr psess(get_facet<chroot_facet_session>());
   assert(psess);
 
   ptr session(new chroot_directory(*this));
@@ -78,8 +77,7 @@ chroot_directory::clone_source () const
   ptr clone;
 
 #ifdef SBUILD_FEATURE_UNION
-  std::tr1::shared_ptr<const chroot_facet_union> puni =
-    get_facet<chroot_facet_union>();
+  chroot_facet_union::const_ptr puni(get_facet<chroot_facet_union>());
   assert(puni);
 
   if (puni->get_union_configured()) {

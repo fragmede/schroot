@@ -568,7 +568,7 @@ session::run_impl ()
 	  /* Create a session using randomly-generated session ID. */
 	  if (ch->get_session_flags() & chroot::SESSION_CREATE)
 	    {
-	      std::tr1::shared_ptr<chroot_facet_session> session(ch->get_facet<chroot_facet_session>());
+	      chroot_facet_session::ptr session(ch->get_facet<chroot_facet_session>());
 	      if (session)
 		{
 		  std::ostringstream session_id;
@@ -1092,7 +1092,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
 
   /* Set the process execution domain. */
   /* Will throw on failure. */
-  std::tr1::shared_ptr<chroot_facet_personality> pfac =
+  chroot_facet_personality::const_ptr pfac =
     session_chroot->get_facet<chroot_facet_personality>();
   if (pfac)
     {

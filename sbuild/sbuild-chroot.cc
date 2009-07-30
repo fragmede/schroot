@@ -340,8 +340,7 @@ sbuild::chroot::set_environment_filter (regex const& environment_filter)
 bool
 sbuild::chroot::get_active () const
 {
-  std::tr1::shared_ptr<const chroot_facet_session> psess =
-    get_facet<chroot_facet_session>();
+  chroot_facet_session::const_ptr psess(get_facet<chroot_facet_session>());
 
   if (psess)
     return psess->get_session_active();
@@ -352,8 +351,7 @@ sbuild::chroot::get_active () const
 void
 sbuild::chroot::set_active (bool active)
 {
-  std::tr1::shared_ptr<chroot_facet_session> psess =
-    get_facet<chroot_facet_session>();
+  chroot_facet_session::ptr psess(get_facet<chroot_facet_session>());
   if (psess)
     psess->set_session_active(active);
 }

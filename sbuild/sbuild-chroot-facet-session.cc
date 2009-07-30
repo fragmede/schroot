@@ -74,7 +74,7 @@ chroot_facet_session::clone_session_setup (chroot::ptr&       clone,
 					   std::string const& session_id) const
 {
   // Disable session, delete aliases.
-  std::tr1::shared_ptr<chroot_facet_session> session(clone->get_facet<chroot_facet_session>());
+  chroot_facet_session::ptr session(clone->get_facet<chroot_facet_session>());
   assert(session);
   if (session)
     {

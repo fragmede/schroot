@@ -74,11 +74,9 @@ chroot_block_device::clone_session (std::string const& session_id) const
   ptr session;
 
 #ifdef SBUILD_FEATURE_UNION
-  std::tr1::shared_ptr<const chroot_facet_session> psess =
-    get_facet<chroot_facet_session>();
+  chroot_facet_session::const_ptr psess(get_facet<chroot_facet_session>());
   assert(psess);
-  std::tr1::shared_ptr<const chroot_facet_union> puni =
-    get_facet<chroot_facet_union>();
+  chroot_facet_union::const_ptr puni(get_facet<chroot_facet_union>());
   assert(puni);
 
   if (puni->get_union_configured())
@@ -97,22 +95,13 @@ chroot_block_device::clone_source () const
   ptr clone;
 
 #ifdef SBUILD_FEATURE_UNION
-  std::tr1::shared_ptr<const chroot_facet_union> puni =
-    get_facet<chroot_facet_union>();
+  chroot_facet_union::const_ptr puni(get_facet<chroot_facet_union>());
   assert(puni);
 
   if (puni->get_union_configured())
     {
       clone = ptr(new chroot_block_device(*this));
-      std::tr1::shared_ptr<const chroot_facet_union> puni2 =
-	clone->get_facet<chroot_facet_union>();
-      assert(puni2);
-
       puni->clone_source_setup(clone);
-
-      std::tr1::shared_ptr<const chroot_facet_union> puni3 =
-	clone->get_facet<chroot_facet_union>();
-      assert(puni3);
     }
 #endif // SBUILD_FEATURE_UNION
 

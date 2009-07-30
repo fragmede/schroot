@@ -69,11 +69,9 @@ chroot_loopback::clone_session (std::string const& session_id) const
   ptr session;
 
 #ifdef SBUILD_FEATURE_UNION
-  std::tr1::shared_ptr<const chroot_facet_session> psess =
-    get_facet<chroot_facet_session>();
+  chroot_facet_session::const_ptr psess(get_facet<chroot_facet_session>());
   assert(psess);
-  std::tr1::shared_ptr<const chroot_facet_union> puni =
-    get_facet<chroot_facet_union>();
+  chroot_facet_union::const_ptr puni(get_facet<chroot_facet_union>());
   assert(puni);
 
   if (puni->get_union_configured()) {
@@ -91,8 +89,7 @@ chroot_loopback::clone_source () const
   ptr clone;
 
 #ifdef SBUILD_FEATURE_UNION
-  std::tr1::shared_ptr<const chroot_facet_union> puni =
-    get_facet<chroot_facet_union>();
+  chroot_facet_union::const_ptr puni(get_facet<chroot_facet_union>());
   assert(puni);
 
   if (puni->get_union_configured()) {
@@ -179,8 +176,7 @@ chroot_loopback::setup_lock (chroot::setup_type type,
    * By default, loopback chroots do no locking, but can create sessions
    * using filesystem unions.
    */
-  std::tr1::shared_ptr<const chroot_facet_union> puni =
-    get_facet<chroot_facet_union>();
+  chroot_facet_union::const_ptr puni(get_facet<chroot_facet_union>());
   assert(puni);
 
   if (puni->get_union_configured() &&

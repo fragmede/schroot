@@ -104,8 +104,8 @@ chroot_facet_union::get_source_clonable () const
 {
   const chroot *base = dynamic_cast<const chroot *>(this);
   assert(base);
-  std::tr1::shared_ptr<const chroot_facet_source_clonable> psrc =
-    base->get_facet<chroot_facet_source_clonable>();
+  chroot_facet_source_clonable::const_ptr psrc
+    (base->get_facet<chroot_facet_source_clonable>());
   assert(psrc);
 
   return psrc->get_source_clonable() &&
@@ -274,8 +274,8 @@ chroot_facet_union::set_keyfile (chroot&        chroot,
   used_keys.push_back("union-type");
 
   // If we are a union, add specific source options here.
-  std::tr1::shared_ptr<chroot_facet_source_clonable> psrc =
-    chroot.get_facet<chroot_facet_source_clonable>();
+  chroot_facet_source_clonable::ptr psrc
+    (chroot.get_facet<chroot_facet_source_clonable>());
   if (psrc)
     psrc->set_keyfile(chroot, keyfile, used_keys);
 

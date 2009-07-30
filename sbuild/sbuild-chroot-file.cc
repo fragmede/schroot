@@ -61,8 +61,7 @@ chroot_file::clone () const
 sbuild::chroot::ptr
 chroot_file::clone_session (std::string const& session_id) const
 {
-  std::tr1::shared_ptr<const chroot_facet_session> psess =
-    get_facet<chroot_facet_session>();
+  chroot_facet_session::const_ptr psess(get_facet<chroot_facet_session>());
   assert(psess);
 
   ptr session(new chroot_file(*this));
@@ -77,8 +76,8 @@ chroot_file::clone_source () const
   chroot_file *clone_file = new chroot_file(*this);
   ptr clone(clone_file);
 
-  std::tr1::shared_ptr<const chroot_facet_source_clonable> psrc =
-    get_facet<chroot_facet_source_clonable>();
+  chroot_facet_source_clonable::const_ptr psrc
+    (get_facet<chroot_facet_source_clonable>());
   assert(psrc);
 
   psrc->clone_source_setup(clone);

@@ -76,19 +76,21 @@ public:
     CPPUNIT_ASSERT(this->chroot->get_name().length());
 
     // Create new source chroot.
-    std::tr1::shared_ptr<const sbuild::chroot_facet_session> psess;
-    psess = this->chroot->template get_facet<sbuild::chroot_facet_session>();
+    sbuild::chroot_facet_session::const_ptr psess
+      (this->chroot->template get_facet<sbuild::chroot_facet_session>());
     if (psess)
       this->session = this->chroot->clone_session("test-session-name");
 
-    std::tr1::shared_ptr<const sbuild::chroot_facet_source_clonable> psrc;
-    psrc = this->chroot->template get_facet<sbuild::chroot_facet_source_clonable>();
+    sbuild::chroot_facet_source_clonable::const_ptr psrc
+      (this->chroot->
+       template get_facet<sbuild::chroot_facet_source_clonable>());
     if (psrc)
       this->source = this->chroot->clone_source();
     if (this->source)
       {
-	std::tr1::shared_ptr<const sbuild::chroot_facet_source_clonable> ssrc;
-	ssrc = this->source->template get_facet<sbuild::chroot_facet_source_clonable>();
+	sbuild::chroot_facet_source_clonable::const_ptr ssrc
+	  (this->source->
+	   template get_facet<sbuild::chroot_facet_source_clonable>());
 	if (ssrc)
 	  {
 	    CPPUNIT_ASSERT(ssrc->get_source_clonable() == false);
@@ -135,14 +137,14 @@ public:
     chroot->set_groups(sbuild::split_string("group1,group2", ","));
     chroot->set_root_groups(sbuild::split_string("group3,group4", ","));
 
-    std::tr1::shared_ptr<sbuild::chroot_facet_personality> pfac =
-      chroot->get_facet<sbuild::chroot_facet_personality>();
+    sbuild::chroot_facet_personality::ptr pfac
+      (chroot->get_facet<sbuild::chroot_facet_personality>());
     if (pfac)
       pfac->set_persona(sbuild::personality("undefined"));
     chroot->set_priority(3);
 
-    std::tr1::shared_ptr<sbuild::chroot_facet_source_clonable> usrc;
-    usrc = chroot->template get_facet<sbuild::chroot_facet_source_clonable>();
+    sbuild::chroot_facet_source_clonable::ptr usrc
+      (chroot->template get_facet<sbuild::chroot_facet_source_clonable>());
     if (usrc)
       {
 	usrc->set_source_users(sbuild::split_string("suser1,suser2", ","));
