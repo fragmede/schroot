@@ -135,7 +135,7 @@ namespace sbuild
 		 keyfile const& keyfile,
 		 string_list&   used_keys) = 0;
 
-  private:
+  protected:
     /// Chroot owning this facet.
     chroot *owner;
   };

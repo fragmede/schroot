@@ -19,21 +19,19 @@
 
 #include <config.h>
 
-#include "sbuild-chroot-union.h"
+#include "sbuild-chroot.h"
+#include "sbuild-chroot-facet-union.h"
 #include "sbuild-chroot-facet-source-clonable.h"
 
-#include <cerrno>
+#include <cassert>
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/sysmacros.h>
-#include <unistd.h>
-
+using boost::format;
+using std::endl;
 using namespace sbuild;
 
 namespace
 {
-  typedef std::pair<chroot_union::error_code,const char *> emap;
+  typedef std::pair<chroot_facet_union::error_code,const char *> emap;
 
   /**
    * This is a list of the supported error codes.  It's used to
@@ -42,46 +40,67 @@ namespace
   emap init_errors[] =
     {
       // TRANSLATORS: %1% = chroot fs type
-      emap(chroot_union::UNION_TYPE_UNKNOWN, N_("Unknown filesystem union type '%1%'"))
+      emap(chroot_facet_union::UNION_TYPE_UNKNOWN, N_("Unknown filesystem union type '%1%'"))
     };
 }
 
 template<>
-error<chroot_union::error_code>::map_type
-error<chroot_union::error_code>::error_strings
+error<chroot_facet_union::error_code>::map_type
+error<chroot_facet_union::error_code>::error_strings
 (init_errors,
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
-chroot_union::chroot_union ():
+chroot_facet_union::chroot_facet_union ():
+  chroot_facet(),
   union_type("none"),
   union_overlay_directory(SCHROOT_OVERLAY_DIR),
   union_underlay_directory(SCHROOT_UNDERLAY_DIR)
 {
 }
 
-chroot_union::~chroot_union ()
+chroot_facet_union::~chroot_facet_union ()
 {
+}
+
+chroot_facet_union::ptr
+chroot_facet_union::create ()
+{
+  return ptr(new chroot_facet_union());
+}
+
+chroot_facet::ptr
+chroot_facet_union::clone () const
+{
+  return ptr(new chroot_facet_union(*this));
+}
+
+std::string const&
+chroot_facet_union::get_name () const
+{
+  static const std::string name("union");
+
+  return name;
 }
 
 void
-chroot_union::clone_source_setup (chroot::ptr& clone) const
+chroot_facet_union::clone_source_setup (chroot::ptr& clone) const
 {
-  const chroot *base = dynamic_cast<const chroot *>(this);
+  const chroot *base = dynamic_cast<const chroot *>(this->owner);
   assert(base);
 
-  std::tr1::shared_ptr<const chroot_facet_source_clonable> psrc =
-    base->get_facet<chroot_facet_source_clonable>();
+  chroot_facet_source_clonable::const_ptr psrc
+    (base->get_facet<chroot_facet_source_clonable>());
   if (psrc)
     psrc->clone_source_setup(clone);
 
-  std::tr1::shared_ptr<sbuild::chroot_union> fsunion =
-    std::tr1::dynamic_pointer_cast<sbuild::chroot_union>(clone);
-  if (fsunion)
-    fsunion->set_union_type("none");
+  chroot_facet_union::ptr puni
+    (clone->get_facet<sbuild::chroot_facet_union>());
+  if (puni)
+    puni->set_union_type("none");
 }
 
 bool
-chroot_union::get_source_clonable () const
+chroot_facet_union::get_source_clonable () const
 {
   const chroot *base = dynamic_cast<const chroot *>(this);
   assert(base);
@@ -94,19 +113,19 @@ chroot_union::get_source_clonable () const
 }
 
 bool
-chroot_union::get_union_configured () const
+chroot_facet_union::get_union_configured () const
 {
   return get_union_type() != "none";
 }
 
 std::string const&
-chroot_union::get_union_overlay_directory () const
+chroot_facet_union::get_union_overlay_directory () const
 {
   return this->union_overlay_directory;
 }
 
 void
-chroot_union::set_union_overlay_directory
+chroot_facet_union::set_union_overlay_directory
 (std::string const& directory)
 {
   if (!is_absname(union_overlay_directory))
@@ -116,13 +135,13 @@ chroot_union::set_union_overlay_directory
 }
 
 std::string const&
-chroot_union::get_union_underlay_directory () const
+chroot_facet_union::get_union_underlay_directory () const
 {
   return this->union_underlay_directory;
 }
 
 void
-chroot_union::set_union_underlay_directory
+chroot_facet_union::set_union_underlay_directory
 (std::string const& directory)
 {
   if (!is_absname(union_underlay_directory))
@@ -132,13 +151,13 @@ chroot_union::set_union_underlay_directory
 }
 
 std::string const&
-chroot_union::get_union_type () const
+chroot_facet_union::get_union_type () const
 {
   return this->union_type;
 }
 
 void
-chroot_union::set_union_type (std::string const& type)
+chroot_facet_union::set_union_type (std::string const& type)
 {
   if (type == "aufs" ||
       type == "unionfs" ||
@@ -147,34 +166,34 @@ chroot_union::set_union_type (std::string const& type)
   else
     throw error(type, UNION_TYPE_UNKNOWN);
 
-  chroot *base = dynamic_cast<chroot *>(this);
+  chroot *base = dynamic_cast<chroot *>(this->owner);
   assert(base);
 
   if (this->union_type != "none")
     {
-      if (!base->get_facet<sbuild::chroot_facet_source_clonable>())
-	base->add_facet(sbuild::chroot_facet_source_clonable::create());
+      if (!base->get_facet<chroot_facet_source_clonable>())
+	base->add_facet(chroot_facet_source_clonable::create());
     }
   else
     base->remove_facet<chroot_facet_source_clonable>();
 }
 
 std::string const&
-chroot_union::get_union_mount_options () const
+chroot_facet_union::get_union_mount_options () const
 {
   return union_mount_options;
 }
 
 void
-chroot_union::set_union_mount_options
+chroot_facet_union::set_union_mount_options
 (std::string const& union_mount_options)
 {
   this->union_mount_options = union_mount_options;
 }
 
 void
-chroot_union::setup_env (chroot const& chroot,
-			 environment&  env) const
+chroot_facet_union::setup_env (chroot const& chroot,
+			       environment&  env) const
 {
   env.add("CHROOT_UNION_TYPE", get_union_type());
   if (get_union_configured())
@@ -189,7 +208,7 @@ chroot_union::setup_env (chroot const& chroot,
 }
 
 sbuild::chroot::session_flags
-chroot_union::get_session_flags (chroot const& chroot) const
+chroot_facet_union::get_session_flags (chroot const& chroot) const
 {
   sbuild::chroot::session_flags flags = sbuild::chroot::SESSION_NOFLAGS;
 
@@ -200,8 +219,8 @@ chroot_union::get_session_flags (chroot const& chroot) const
 }
 
 void
-chroot_union::get_details (chroot const& chroot,
-			   format_detail& detail) const
+chroot_facet_union::get_details (chroot const& chroot,
+				 format_detail& detail) const
 {
   detail.add(_("Filesystem union type"), get_union_type());
   if (get_union_configured())
@@ -219,37 +238,37 @@ chroot_union::get_details (chroot const& chroot,
 }
 
 void
-chroot_union::get_keyfile (chroot const& chroot,
-			   keyfile&      keyfile) const
+chroot_facet_union::get_keyfile (chroot const& chroot,
+				 keyfile&      keyfile) const
 {
-  keyfile::set_object_value(*this, &chroot_union::get_union_type,
+  keyfile::set_object_value(*this, &chroot_facet_union::get_union_type,
 			    keyfile, chroot.get_keyfile_name(), "union-type");
 
   if (get_union_configured())
     {
       keyfile::set_object_value(*this,
-				&chroot_union::get_union_mount_options,
+				&chroot_facet_union::get_union_mount_options,
 				keyfile, chroot.get_keyfile_name(),
 				"union-mount-options");
 
       keyfile::set_object_value(*this,
-				&chroot_union::get_union_overlay_directory,
+				&chroot_facet_union::get_union_overlay_directory,
 				keyfile, chroot.get_keyfile_name(),
 				"union-overlay-directory");
 
       keyfile::set_object_value(*this,
-				&chroot_union::get_union_underlay_directory,
+				&chroot_facet_union::get_union_underlay_directory,
 				keyfile, chroot.get_keyfile_name(),
 				"union-underlay-directory");
     }
 }
 
 void
-chroot_union::set_keyfile (chroot&        chroot,
-			   keyfile const& keyfile,
-			   string_list&   used_keys)
+chroot_facet_union::set_keyfile (chroot&        chroot,
+				 keyfile const& keyfile,
+				 string_list&   used_keys)
 {
-  keyfile::get_object_value(*this, &chroot_union::set_union_type,
+  keyfile::get_object_value(*this, &chroot_facet_union::set_union_type,
 			    keyfile, chroot.get_keyfile_name(), "union-type",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("union-type");
@@ -261,13 +280,13 @@ chroot_union::set_keyfile (chroot&        chroot,
     psrc->set_keyfile(chroot, keyfile, used_keys);
 
   keyfile::get_object_value(*this,
-			    &chroot_union::set_union_mount_options,
+			    &chroot_facet_union::set_union_mount_options,
 			    keyfile, chroot.get_keyfile_name(), "union-mount-options",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("union-mount-options");
 
   keyfile::get_object_value(*this,
-			    &chroot_union::set_union_overlay_directory,
+			    &chroot_facet_union::set_union_overlay_directory,
 			    keyfile, chroot.get_keyfile_name(),
 			    "union-overlay-directory",
 			    (chroot.get_active() && get_union_configured())?
@@ -276,7 +295,7 @@ chroot_union::set_keyfile (chroot&        chroot,
   used_keys.push_back("union-overlay-directory");
 
   keyfile::get_object_value(*this,
-			    &chroot_union::set_union_underlay_directory,
+			    &chroot_facet_union::set_union_underlay_directory,
 			    keyfile, chroot.get_keyfile_name(),
 			    "union-underlay-directory",
 			    (chroot.get_active() && get_union_configured())?

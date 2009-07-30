@@ -24,7 +24,7 @@
 #include <sbuild/sbuild-chroot-facet-personality.h>
 #include <sbuild/sbuild-chroot-facet-session.h>
 #include <sbuild/sbuild-chroot-facet-source-clonable.h>
-#include <sbuild/sbuild-chroot-union.h>
+#include <sbuild/sbuild-chroot-facet-union.h>
 #include <sbuild/sbuild-i18n.h>
 
 #include <algorithm>
@@ -96,8 +96,8 @@ public:
       }
 
     this->chroot_union = sbuild::chroot::ptr(new T);
-    std::tr1::shared_ptr<sbuild::chroot_union> un =
-      std::tr1::dynamic_pointer_cast<sbuild::chroot_union>(this->chroot_union);
+    sbuild::chroot_facet_union::ptr un =
+      this->chroot_union->template get_facet<sbuild::chroot_facet_union>();
     if (!un)
       {
 	this->chroot_union.reset();

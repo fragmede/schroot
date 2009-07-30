@@ -26,7 +26,7 @@
 #include "sbuild-chroot-lvm-snapshot.h"
 #endif // SBUILD_FEATURE_LVMSNAP
 #ifdef SBUILD_FEATURE_UNION
-#include "sbuild-chroot-union.h"
+#include "sbuild-chroot-facet-union.h"
 #endif // SBUILD_FEATURE_UNION
 #include "sbuild-format-detail.h"
 
@@ -127,16 +127,17 @@ chroot_facet_session::clone_session_setup (chroot::ptr&       clone,
 
 #ifdef SBUILD_FEATURE_UNION
   /* Filesystem unions need the overlay directory specifying. */
-  std::tr1::shared_ptr<chroot_union> fsunion(std::tr1::dynamic_pointer_cast<chroot_union>(clone));
-  if (fsunion)
-    {
-      std::string overlay = fsunion->get_union_overlay_directory();
-      overlay += "/" + clone->get_session_id();
-      fsunion->set_union_overlay_directory(overlay);
+  chroot_facet_union::ptr puni(clone->get_facet<chroot_facet_union>());
 
-      std::string underlay = fsunion->get_union_underlay_directory();
+  if (puni)
+    {
+      std::string overlay = puni->get_union_overlay_directory();
+      overlay += "/" + clone->get_session_id();
+      puni->set_union_overlay_directory(overlay);
+
+      std::string underlay = puni->get_union_underlay_directory();
       underlay += "/" + clone->get_session_id();
-      fsunion->set_union_underlay_directory(underlay);
+      puni->set_union_underlay_directory(underlay);
     }
 #endif // SBUILD_FEATURE_UNION
 }

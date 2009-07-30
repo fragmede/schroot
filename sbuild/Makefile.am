@@ -42,7 +42,6 @@ sbuild_public_h_sources =			\
 	sbuild-chroot-file.h			\
 	sbuild-chroot-plain.h			\
 	sbuild-chroot-config.h			\
-	sbuild-chroot-union.h			\
 	sbuild-ctty.h				\
 	sbuild-custom-error.h			\
 	sbuild-dirstream.h			\
@@ -99,7 +98,7 @@ endif
 
 if BUILD_UNION
 sbuild_public_union_h_sources =	\
-	sbuild-chroot-union.h
+	sbuild-chroot-facet-union.h
 endif
 
 sbuild_public_cc_sources =			\
@@ -162,7 +161,7 @@ endif
 
 if BUILD_UNION
 sbuild_public_union_cc_sources =	\
-	sbuild-chroot-union.cc
+	sbuild-chroot-facet-union.cc
 endif
 
 pkgincludedir = $(includedir)/sbuild

@@ -21,9 +21,6 @@
 
 #include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-chroot.h>
-#ifdef SBUILD_FEATURE_UNION
-#include <sbuild/sbuild-chroot-union.h>
-#endif // SBUILD_FEATURE_UNION
 
 namespace sbuild
 {
@@ -34,9 +31,6 @@ namespace sbuild
    * The file will be mounted on demand.
    */
   class chroot_loopback : public chroot
-#ifdef SBUILD_FEATURE_UNION
-			, public chroot_union
-#endif // SBUILD_FEATURE_UNION
   {
   public:
     /// Exception type.
@@ -58,13 +52,11 @@ namespace sbuild
     virtual chroot::ptr
     clone () const;
 
-#ifdef SBUILD_FEATURE_UNION
     virtual chroot::ptr
     clone_session (std::string const& session_id) const;
 
     virtual chroot::ptr
     clone_source () const;
-#endif // SBUILD_FEATURE_UNION
 
     /**
      * Get the file containing the chroot.

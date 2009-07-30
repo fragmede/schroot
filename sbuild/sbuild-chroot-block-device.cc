@@ -21,7 +21,7 @@
 #include "sbuild-chroot-block-device.h"
 #include "sbuild-chroot-facet-session.h"
 #ifdef SBUILD_FEATURE_UNION
-#include "sbuild-chroot-facet-source-clonable.h"
+#include "sbuild-chroot-facet-union.h"
 #endif // SBUILD_FEATURE_UNION
 #include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
@@ -38,10 +38,10 @@ using namespace sbuild;
 
 chroot_block_device::chroot_block_device ():
   chroot_block_device_base()
-#ifdef SBUILD_FEATURE_UNION
-  , chroot_union()
-#endif // SBUILD_FEATURE_UNION
 {
+#ifdef SBUILD_FEATURE_UNION
+  add_facet(sbuild::chroot_facet_union::create());
+#endif // SBUILD_FEATURE_UNION
 }
 
 chroot_block_device::~chroot_block_device ()
@@ -50,18 +50,16 @@ chroot_block_device::~chroot_block_device ()
 
 chroot_block_device::chroot_block_device (const chroot_block_device& rhs):
   chroot_block_device_base(rhs)
-#ifdef SBUILD_FEATURE_UNION
-  , chroot_union(rhs)
-#endif // SBUILD_FEATURE_UNION
 {
 }
 
 chroot_block_device::chroot_block_device (const chroot_lvm_snapshot& rhs):
   chroot_block_device_base(rhs)
-#ifdef SBUILD_FEATURE_UNION
-  , chroot_union()
-#endif // SBUILD_FEATURE_UNION
 {
+#ifdef SBUILD_FEATURE_UNION
+  if (!get_facet<sbuild::chroot_facet_union>())
+    add_facet(sbuild::chroot_facet_union::create());
+#endif // SBUILD_FEATURE_UNION
 }
 
 sbuild::chroot::ptr
@@ -70,21 +68,25 @@ chroot_block_device::clone () const
   return ptr(new chroot_block_device(*this));
 }
 
-#ifdef SBUILD_FEATURE_UNION
 sbuild::chroot::ptr
 chroot_block_device::clone_session (std::string const& session_id) const
 {
   ptr session;
 
+#ifdef SBUILD_FEATURE_UNION
   std::tr1::shared_ptr<const chroot_facet_session> psess =
     get_facet<chroot_facet_session>();
   assert(psess);
+  std::tr1::shared_ptr<const chroot_facet_union> puni =
+    get_facet<chroot_facet_union>();
+  assert(puni);
 
-  if (get_union_configured())
+  if (puni->get_union_configured())
     {
       session = ptr(new chroot_block_device(*this));
       psess->clone_session_setup(session, session_id);
     }
+#endif // SBUILD_FEATURE_UNION
 
   return session;
 }
@@ -94,34 +96,40 @@ chroot_block_device::clone_source () const
 {
   ptr clone;
 
-  if (get_union_configured())
+#ifdef SBUILD_FEATURE_UNION
+  std::tr1::shared_ptr<const chroot_facet_union> puni =
+    get_facet<chroot_facet_union>();
+  assert(puni);
+
+  if (puni->get_union_configured())
     {
       clone = ptr(new chroot_block_device(*this));
-      clone_source_setup(clone);
+      std::tr1::shared_ptr<const chroot_facet_union> puni2 =
+	clone->get_facet<chroot_facet_union>();
+      assert(puni2);
+
+      puni->clone_source_setup(clone);
+
+      std::tr1::shared_ptr<const chroot_facet_union> puni3 =
+	clone->get_facet<chroot_facet_union>();
+      assert(puni3);
     }
+#endif // SBUILD_FEATURE_UNION
 
   return clone;
 }
-#endif // SBUILD_FEATURE_UNION
 
 void
 chroot_block_device::setup_env (chroot const& chroot,
 				environment&  env) const
 {
   chroot_block_device_base::setup_env(chroot, env);
-#ifdef SBUILD_FEATURE_UNION
-  chroot_union::setup_env(chroot, env);
-#endif // SBUILD_FEATURE_UNION
 }
 
 sbuild::chroot::session_flags
 chroot_block_device::get_session_flags (chroot const& chroot) const
 {
-  return chroot_block_device_base::get_session_flags(chroot)
-#ifdef SBUILD_FEATURE_UNION
-    | chroot_union::get_session_flags(chroot)
-#endif // SBUILD_FEATURE_UNION
-    ;
+  return chroot_block_device_base::get_session_flags(chroot);
 }
 
 void
@@ -129,9 +137,6 @@ chroot_block_device::get_details (chroot const& chroot,
 				  format_detail& detail) const
 {
   chroot_block_device_base::get_details(chroot, detail);
-#ifdef SBUILD_FEATURE_UNION
-  chroot_union::get_details(chroot, detail);
-#endif // SBUILD_FEATURE_UNION
 }
 
 void
@@ -139,9 +144,6 @@ chroot_block_device::get_keyfile (chroot const& chroot,
 				  keyfile&      keyfile) const
 {
   chroot_block_device_base::get_keyfile(chroot, keyfile);
-#ifdef SBUILD_FEATURE_UNION
-  chroot_union::get_keyfile(chroot, keyfile);
-#endif // SBUILD_FEATURE_UNION
 }
 
 void
@@ -150,7 +152,4 @@ chroot_block_device::set_keyfile (chroot&        chroot,
 				  string_list&   used_keys)
 {
   chroot_block_device_base::set_keyfile(chroot, keyfile, used_keys);
-#ifdef SBUILD_FEATURE_UNION
-  chroot_union::set_keyfile(chroot, keyfile, used_keys);
-#endif // SBUILD_FEATURE_UNION
 }

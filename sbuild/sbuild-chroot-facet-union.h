@@ -1,4 +1,5 @@
 /* Copyright © 2008-2009  Jan-Marek Glogowski <glogow@fbihome.de>
+ * Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -16,13 +17,14 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_UNION_H
-#define SBUILD_CHROOT_UNION_H
+#ifndef SBUILD_CHROOT_FACET_UNION_H
+#define SBUILD_CHROOT_FACET_UNION_H
 
-#include <sbuild/sbuild-chroot.h>
+#include <sbuild/sbuild-chroot-facet.h>
 
 namespace sbuild
 {
+
   /**
    * A chroot may offer session support using a filesystem union like
    * aufs or unionfs.  This is an extension interface class, not a
@@ -32,7 +34,7 @@ namespace sbuild
    * chroot::clone_source() function, depending upon the setting of
    * get_union_configured().
    */
-  class chroot_union
+  class chroot_facet_union : public chroot_facet
   {
   public:
     /// Error codes.
@@ -44,21 +46,37 @@ namespace sbuild
     /// Exception type.
     typedef custom_error<error_code> error;
 
-  protected:
-    /// The constructor.
-    chroot_union ();
+    /// A shared_ptr to a chroot facet object.
+    typedef std::tr1::shared_ptr<chroot_facet_union> ptr;
 
-    friend class chroot;
+    /// A shared_ptr to a const chroot facet object.
+    typedef std::tr1::shared_ptr<const chroot_facet_union> const_ptr;
+
+  private:
+    /// The constructor.
+    chroot_facet_union ();
 
   public:
     /// The destructor.
-    virtual ~chroot_union ();
+    virtual ~chroot_facet_union ();
 
-  protected:
-    virtual void
+    /**
+     * Create a chroot facet.
+     *
+     * @returns a shared_ptr to the new chroot facet.
+     */
+    static ptr
+    create ();
+
+    virtual chroot_facet::ptr
+    clone () const;
+
+    std::string const&
+    get_name () const;
+
+    void
     clone_source_setup (chroot::ptr& clone) const;
 
-  public:
     bool
     get_source_clonable () const;
 
@@ -147,24 +165,23 @@ namespace sbuild
 
     virtual void
     setup_env (chroot const& chroot,
-	       environment& env) const;
+	       environment&  env) const;
 
     virtual chroot::session_flags
     get_session_flags (chroot const& chroot) const;
 
-  protected:
     virtual void
-    get_details (chroot const& chroot,
+    get_details (chroot const&  chroot,
 		 format_detail& detail) const;
 
     virtual void
     get_keyfile (chroot const& chroot,
-		 keyfile& keyfile) const;
+		 keyfile&      keyfile) const;
 
     virtual void
     set_keyfile (chroot&        chroot,
 		 keyfile const& keyfile,
-                 string_list&   used_keys);
+		 string_list&   used_keys);
 
   private:
     /// filesystem union type.
@@ -176,9 +193,10 @@ namespace sbuild
     /// Union read-only underlay directory.
     std::string union_underlay_directory;
   };
+
 }
 
-#endif /* SBUILD_CHROOT_UNION_H */
+#endif /* SBUILD_CHROOT_FACET_UNION_H */
 
 /*
  * Local Variables:

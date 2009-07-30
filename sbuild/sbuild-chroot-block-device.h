@@ -21,10 +21,7 @@
 
 #include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-chroot-block-device-base.h>
-#ifdef SBUILD_FEATURE_UNION
-#include <sbuild/sbuild-chroot-union.h>
 #include <sbuild/sbuild-chroot-lvm-snapshot.h>
-#endif // SBUILD_FEATURE_UNION
 
 namespace sbuild
 {
@@ -35,9 +32,6 @@ namespace sbuild
    * The device will be mounted on demand.
    */
   class chroot_block_device : public chroot_block_device_base
-#ifdef SBUILD_FEATURE_UNION
-			    , public chroot_union
-#endif // SBUILD_FEATURE_UNION
   {
   public:
     /// Exception type.
@@ -63,13 +57,11 @@ namespace sbuild
     virtual chroot::ptr
     clone () const;
 
-#ifdef SBUILD_FEATURE_UNION
     virtual chroot::ptr
     clone_session (std::string const& session_id) const;
 
     virtual chroot::ptr
     clone_source () const;
-#endif // SBUILD_FEATURE_UNION
 
     virtual void
     setup_env (chroot const& chroot,

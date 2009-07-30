@@ -22,7 +22,7 @@
 #include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-mountable.h"
 #ifdef SBUILD_FEATURE_UNION
-#include "sbuild-chroot-facet-source-clonable.h"
+#include "sbuild-chroot-facet-union.h"
 #endif // SBUILD_FEATURE_UNION
 #include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
@@ -39,12 +39,12 @@ using namespace sbuild;
 
 chroot_loopback::chroot_loopback ():
   chroot(),
-#ifdef SBUILD_FEATURE_UNION
-  chroot_union(),
-#endif // SBUILD_FEATURE_UNION
   file()
 {
   add_facet(sbuild::chroot_facet_mountable::create());
+#ifdef SBUILD_FEATURE_UNION
+  add_facet(sbuild::chroot_facet_union::create());
+#endif // SBUILD_FEATURE_UNION
 }
 
 chroot_loopback::~chroot_loopback ()
@@ -53,9 +53,6 @@ chroot_loopback::~chroot_loopback ()
 
 chroot_loopback::chroot_loopback (const chroot_loopback& rhs):
   chroot(rhs),
-#ifdef SBUILD_FEATURE_UNION
-  chroot_union(rhs),
-#endif // SBUILD_FEATURE_UNION
   file(rhs.file)
 {
 }
@@ -66,20 +63,24 @@ chroot_loopback::clone () const
   return ptr(new chroot_loopback(*this));
 }
 
-#ifdef SBUILD_FEATURE_UNION
 sbuild::chroot::ptr
 chroot_loopback::clone_session (std::string const& session_id) const
 {
   ptr session;
 
+#ifdef SBUILD_FEATURE_UNION
   std::tr1::shared_ptr<const chroot_facet_session> psess =
     get_facet<chroot_facet_session>();
   assert(psess);
+  std::tr1::shared_ptr<const chroot_facet_union> puni =
+    get_facet<chroot_facet_union>();
+  assert(puni);
 
-  if (get_union_configured()) {
+  if (puni->get_union_configured()) {
     session = ptr(new chroot_loopback(*this));
     psess->clone_session_setup(session, session_id);
   }
+#endif // SBUILD_FEATURE_UNION
 
   return session;
 }
@@ -89,14 +90,19 @@ chroot_loopback::clone_source () const
 {
   ptr clone;
 
-  if (get_union_configured()) {
+#ifdef SBUILD_FEATURE_UNION
+  std::tr1::shared_ptr<const chroot_facet_union> puni =
+    get_facet<chroot_facet_union>();
+  assert(puni);
+
+  if (puni->get_union_configured()) {
     clone = ptr(new chroot_loopback(*this));
-    clone_source_setup(clone);
+    puni->clone_source_setup(clone);
   }
+#endif // SBUILD_FEATURE_UNION
 
   return clone;
 }
-#endif // SBUILD_FEATURE_UNION
 
 std::string const&
 chroot_loopback::get_file () const
@@ -144,9 +150,6 @@ chroot_loopback::setup_env (chroot const& chroot,
 			    environment&  env) const
 {
   chroot::setup_env(chroot, env);
-#ifdef SBUILD_FEATURE_UNION
-  chroot_union::setup_env(chroot, env);
-#endif // SBUILD_FEATURE_UNION
 
   env.add("CHROOT_FILE", get_file());
 }
@@ -176,7 +179,11 @@ chroot_loopback::setup_lock (chroot::setup_type type,
    * By default, loopback chroots do no locking, but can create sessions
    * using filesystem unions.
    */
-  if (get_union_configured() &&
+  std::tr1::shared_ptr<const chroot_facet_union> puni =
+    get_facet<chroot_facet_union>();
+  assert(puni);
+
+  if (puni->get_union_configured() &&
       ((type == SETUP_START && lock == true) ||
        (type == SETUP_STOP && lock == false && status == 0)))
     {
@@ -189,11 +196,7 @@ chroot_loopback::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_loopback::get_session_flags (chroot const& chroot) const
 {
-  return chroot::SESSION_NOFLAGS
-#ifdef SBUILD_FEATURE_UNION
-    | chroot_union::get_session_flags(chroot)
-#endif // SBUILD_FEATURE_UNION
-    ;
+  return chroot::SESSION_NOFLAGS;
 }
 
 void
@@ -201,9 +204,6 @@ chroot_loopback::get_details (chroot const&  chroot,
 			      format_detail& detail) const
 {
   chroot::get_details(chroot, detail);
-#ifdef SBUILD_FEATURE_UNION
-  chroot_union::get_details(chroot, detail);
-#endif // SBUILD_FEATURE_UNION
 
   if (!this->file.empty())
     detail.add(_("File"), get_file());
@@ -214,9 +214,6 @@ chroot_loopback::get_keyfile (chroot const& chroot,
 			      keyfile&      keyfile) const
 {
   chroot::get_keyfile(chroot, keyfile);
-#ifdef SBUILD_FEATURE_UNION
-  chroot_union::get_keyfile(chroot, keyfile);
-#endif // SBUILD_FEATURE_UNION
 
   keyfile::set_object_value(*this, &chroot_loopback::get_file,
 			    keyfile, get_keyfile_name(), "file");
@@ -228,9 +225,6 @@ chroot_loopback::set_keyfile (chroot&        chroot,
 			      string_list&   used_keys)
 {
   chroot::set_keyfile(chroot, keyfile, used_keys);
-#ifdef SBUILD_FEATURE_UNION
-  chroot_union::set_keyfile(chroot, keyfile, used_keys);
-#endif // SBUILD_FEATURE_UNION
 
   keyfile::get_object_value(*this, &chroot_loopback::set_file,
 			    keyfile, get_keyfile_name(), "file",
