@@ -22,6 +22,7 @@
 #include <set>
 
 #include <sbuild/sbuild-chroot-loopback.h>
+#include <sbuild/sbuild-chroot-facet-mountable.h>
 #include <sbuild/sbuild-i18n.h>
 
 #include "test-helpers.h"
@@ -94,8 +95,12 @@ public:
 
     std::tr1::shared_ptr<sbuild::chroot_loopback> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
     c->set_file(loopback_file);
-    c->set_mount_options("-t jfs -o quota,rw");
-    c->set_location("/squeeze");
+
+    sbuild::chroot_facet_mountable::ptr pmnt(chroot->get_facet<sbuild::chroot_facet_mountable>());
+    CPPUNIT_ASSERT(pmnt);
+
+    pmnt->set_mount_options("-t jfs -o quota,rw");
+    pmnt->set_location("/squeeze");
   }
 
   void
@@ -110,10 +115,10 @@ public:
   void
   test_mount_options()
   {
-    std::tr1::shared_ptr<sbuild::chroot_loopback> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_mount_options("-o opt1,opt2");
-    CPPUNIT_ASSERT(c->get_mount_options() == "-o opt1,opt2");
+    sbuild::chroot_facet_mountable::ptr pmnt(chroot->get_facet<sbuild::chroot_facet_mountable>());
+    CPPUNIT_ASSERT(pmnt);
+    pmnt->set_mount_options("-o opt1,opt2");
+    CPPUNIT_ASSERT(pmnt->get_mount_options() == "-o opt1,opt2");
   }
 
   void test_setup_env()

@@ -21,7 +21,6 @@
 
 #include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-chroot.h>
-#include <sbuild/sbuild-chroot-mountable.h>
 #ifdef SBUILD_FEATURE_UNION
 #include <sbuild/sbuild-chroot-union.h>
 #endif // SBUILD_FEATURE_UNION
@@ -34,8 +33,7 @@ namespace sbuild
    *
    * The file will be mounted on demand.
    */
-  class chroot_loopback : public chroot,
-			  public chroot_mountable
+  class chroot_loopback : public chroot
 #ifdef SBUILD_FEATURE_UNION
 			, public chroot_union
 #endif // SBUILD_FEATURE_UNION
@@ -96,13 +94,6 @@ namespace sbuild
 
     virtual session_flags
     get_session_flags (chroot const& chroot) const;
-
-    // Implementation of the chroot_mountable interface
-    virtual void
-    set_mount_device (std::string const& mount_device);
-
-    virtual std::string const&
-    get_mount_device () const;
 
   protected:
     virtual void

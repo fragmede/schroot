@@ -20,6 +20,7 @@
 
 #include "sbuild-chroot-loopback.h"
 #include "sbuild-chroot-facet-session.h"
+#include "sbuild-chroot-facet-mountable.h"
 #ifdef SBUILD_FEATURE_UNION
 #include "sbuild-chroot-facet-source-clonable.h"
 #endif // SBUILD_FEATURE_UNION
@@ -38,12 +39,12 @@ using namespace sbuild;
 
 chroot_loopback::chroot_loopback ():
   chroot(),
-  chroot_mountable(),
 #ifdef SBUILD_FEATURE_UNION
   chroot_union(),
 #endif // SBUILD_FEATURE_UNION
   file()
 {
+  add_facet(sbuild::chroot_facet_mountable::create());
 }
 
 chroot_loopback::~chroot_loopback ()
@@ -52,7 +53,6 @@ chroot_loopback::~chroot_loopback ()
 
 chroot_loopback::chroot_loopback (const chroot_loopback& rhs):
   chroot(rhs),
-  chroot_mountable(rhs),
 #ifdef SBUILD_FEATURE_UNION
   chroot_union(rhs),
 #endif // SBUILD_FEATURE_UNION
@@ -111,24 +111,24 @@ chroot_loopback::set_file (std::string const& file)
     throw error(file, FILE_ABS);
 
   this->file = file;
+
+  chroot_facet_mountable::ptr pmnt
+    (get_facet<chroot_facet_mountable>());
+  pmnt->set_mount_device(this->file);
 }
 
 std::string
 chroot_loopback::get_path () const
 {
-  return get_mount_location() + get_location();
-}
+  chroot_facet_mountable::const_ptr pmnt
+    (get_facet<chroot_facet_mountable>());
 
-void
-chroot_loopback::set_mount_device (std::string const& mount_device)
-{
-  // Setting the mount device is not permitted for loopback chroots.
-}
+  std::string path(get_mount_location());
 
-std::string const&
-chroot_loopback::get_mount_device () const
-{
-  return this->file;
+  if (pmnt)
+    path += pmnt->get_location();
+
+  return path;
 }
 
 std::string const&
@@ -144,7 +144,6 @@ chroot_loopback::setup_env (chroot const& chroot,
 			    environment&  env) const
 {
   chroot::setup_env(chroot, env);
-  chroot_mountable::setup_env(chroot, env);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::setup_env(chroot, env);
 #endif // SBUILD_FEATURE_UNION
@@ -190,7 +189,7 @@ chroot_loopback::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_loopback::get_session_flags (chroot const& chroot) const
 {
-  return chroot_mountable::get_session_flags(chroot)
+  return chroot::SESSION_NOFLAGS
 #ifdef SBUILD_FEATURE_UNION
     | chroot_union::get_session_flags(chroot)
 #endif // SBUILD_FEATURE_UNION
@@ -202,7 +201,6 @@ chroot_loopback::get_details (chroot const&  chroot,
 			      format_detail& detail) const
 {
   chroot::get_details(chroot, detail);
-  chroot_mountable::get_details(chroot, detail);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::get_details(chroot, detail);
 #endif // SBUILD_FEATURE_UNION
@@ -216,7 +214,6 @@ chroot_loopback::get_keyfile (chroot const& chroot,
 			      keyfile&      keyfile) const
 {
   chroot::get_keyfile(chroot, keyfile);
-  chroot_mountable::get_keyfile(chroot, keyfile);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::get_keyfile(chroot, keyfile);
 #endif // SBUILD_FEATURE_UNION
@@ -231,7 +228,6 @@ chroot_loopback::set_keyfile (chroot&        chroot,
 			      string_list&   used_keys)
 {
   chroot::set_keyfile(chroot, keyfile, used_keys);
-  chroot_mountable::set_keyfile(chroot, keyfile, used_keys);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::set_keyfile(chroot, keyfile, used_keys);
 #endif // SBUILD_FEATURE_UNION

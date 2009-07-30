@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/sbuild-chroot-lvm-snapshot.h>
+#include <sbuild/sbuild-chroot-facet-mountable.h>
 #include <sbuild/sbuild-i18n.h>
 #include <sbuild/sbuild-util.h>
 
@@ -84,10 +85,14 @@ public:
     std::tr1::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
 
     c->set_device("/dev/volgroup/testdev");
-    c->set_mount_options("-t jfs -o quota,rw");
-    c->set_location("/squeeze");
-    //c->set_snapshot_device("/dev/volgroup/snaptestdev");
     c->set_snapshot_options("--size 1G");
+
+    sbuild::chroot_facet_mountable::ptr pmnt(chroot->get_facet<sbuild::chroot_facet_mountable>());
+    CPPUNIT_ASSERT(pmnt);
+
+    pmnt->set_mount_options("-t jfs -o quota,rw");
+    pmnt->set_location("/squeeze");
+    //c->set_snapshot_device("/dev/volgroup/snaptestdev");
   }
 
   void

@@ -1,4 +1,4 @@
-/* Copyright © 2005-2008  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -16,30 +16,47 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_MOUNTABLE_H
-#define SBUILD_CHROOT_MOUNTABLE_H
+#ifndef SBUILD_CHROOT_FACET_MOUNTABLE_H
+#define SBUILD_CHROOT_FACET_MOUNTABLE_H
 
-#include <sbuild/sbuild-chroot.h>
+#include <sbuild/sbuild-chroot-facet.h>
 
 namespace sbuild
 {
 
   /**
-   * A chroot stored on an unmounted block device.
-   *
-   * The device will be mounted on demand.
+   * Chroot support for kernel personalities (execution domains).
    */
-  class chroot_mountable
+  class chroot_facet_mountable : public chroot_facet
   {
-  protected:
-    /// The constructor.
-    chroot_mountable ();
+  public:
+    /// A shared_ptr to a chroot facet object.
+    typedef std::tr1::shared_ptr<chroot_facet_mountable> ptr;
 
-    friend class chroot;
+    /// A shared_ptr to a const chroot facet object.
+    typedef std::tr1::shared_ptr<const chroot_facet_mountable> const_ptr;
+
+  private:
+    /// The constructor.
+    chroot_facet_mountable ();
 
   public:
     /// The destructor.
-    virtual ~chroot_mountable ();
+    virtual ~chroot_facet_mountable ();
+
+    /**
+     * Create a chroot facet.
+     *
+     * @returns a shared_ptr to the new chroot facet.
+     */
+    static ptr
+    create ();
+
+    virtual chroot_facet::ptr
+    clone () const;
+
+    virtual std::string const&
+    get_name () const;
 
     /**
      * Get the device path of the chroot block device to mount.
@@ -47,7 +64,7 @@ namespace sbuild
      * @returns the mount device.
      */
     virtual std::string const&
-    get_mount_device () const = 0;
+    get_mount_device () const;
 
     /**
      * Set the device path of the chroot block device to mount.
@@ -55,7 +72,7 @@ namespace sbuild
      * @param mount_device the mount device.
      */
     virtual void
-    set_mount_device (std::string const& mount_device) = 0;
+    set_mount_device (std::string const& mount_device);
 
     /**
      * Get the filesystem mount options of the chroot block device.
@@ -93,12 +110,11 @@ namespace sbuild
 
     virtual void
     setup_env (chroot const& chroot,
-	       environment& env) const;
+	       environment&  env) const;
 
     virtual chroot::session_flags
     get_session_flags (chroot const& chroot) const;
 
-  protected:
     virtual void
     get_details (chroot const&  chroot,
 		 format_detail& detail) const;
@@ -113,6 +129,8 @@ namespace sbuild
 		 string_list&   used_keys);
 
   private:
+    /// The device to mount.
+    std::string mount_device;
     /// The options to mount the device with.
     std::string mount_options;
     /// Location inside the mount location root.
@@ -121,7 +139,7 @@ namespace sbuild
 
 }
 
-#endif /* SBUILD_CHROOT_MOUNTABLE_H */
+#endif /* SBUILD_CHROOT_FACET_MOUNTABLE_H */
 
 /*
  * Local Variables:

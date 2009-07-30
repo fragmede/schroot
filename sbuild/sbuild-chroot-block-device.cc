@@ -139,7 +139,6 @@ chroot_block_device::get_keyfile (chroot const& chroot,
 				  keyfile&      keyfile) const
 {
   chroot_block_device_base::get_keyfile(chroot, keyfile);
-  chroot_mountable::get_keyfile(chroot, keyfile);
 #ifdef SBUILD_FEATURE_UNION
   chroot_union::get_keyfile(chroot, keyfile);
 #endif // SBUILD_FEATURE_UNION

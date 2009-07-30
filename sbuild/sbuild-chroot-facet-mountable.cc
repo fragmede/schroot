@@ -1,4 +1,4 @@
-/* Copyright © 2005-2008  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -18,50 +18,81 @@
 
 #include <config.h>
 
-#include "sbuild-chroot-block-device.h"
-#include "sbuild-format-detail.h"
-#include "sbuild-lock.h"
-#include "sbuild-util.h"
+#include "sbuild-chroot.h"
+#include "sbuild-chroot-facet-mountable.h"
 
 #include <cassert>
-#include <cerrno>
-#include <cstring>
 
 #include <boost/format.hpp>
 
 using boost::format;
+using std::endl;
 using namespace sbuild;
 
-chroot_mountable::chroot_mountable ():
+chroot_facet_mountable::chroot_facet_mountable ():
+  chroot_facet(),
+  mount_device(),
   mount_options(),
   location()
 {
 }
 
-chroot_mountable::~chroot_mountable ()
+chroot_facet_mountable::~chroot_facet_mountable ()
 {
 }
 
+chroot_facet_mountable::ptr
+chroot_facet_mountable::create ()
+{
+  return ptr(new chroot_facet_mountable());
+}
+
+chroot_facet::ptr
+chroot_facet_mountable::clone () const
+{
+  return ptr(new chroot_facet_mountable(*this));
+}
+
 std::string const&
-chroot_mountable::get_mount_options () const
+chroot_facet_mountable::get_name () const
+{
+  static const std::string name("mountable");
+
+  return name;
+}
+
+std::string const&
+chroot_facet_mountable::get_mount_device () const
+{
+  return this->mount_device;
+}
+
+void
+chroot_facet_mountable::set_mount_device (std::string const& mount_device)
+{
+  this->mount_device = mount_device;
+}
+
+std::string const&
+chroot_facet_mountable::get_mount_options () const
 {
   return this->mount_options;
 }
 
 void
-chroot_mountable::set_mount_options (std::string const& mount_options)
+chroot_facet_mountable::set_mount_options (std::string const& mount_options)
 {
   this->mount_options = mount_options;
 }
 
 std::string const&
-chroot_mountable::get_location () const
+chroot_facet_mountable::get_location () const
 {
   return this->location;
 }
 
 void
-chroot_mountable::set_location (std::string const& location)
+chroot_facet_mountable::set_location (std::string const& location)
 {
   if (!location.empty() && !is_absname(location))
     throw chroot::error(location, chroot::LOCATION_ABS);
@@ -70,23 +101,23 @@ chroot_mountable::set_location (std::string const& location)
 }
 
 void
-chroot_mountable::setup_env (chroot const& chroot,
-			     environment&  env) const
+chroot_facet_mountable::setup_env (chroot const& chroot,
+				   environment&  env) const
 {
   env.add("CHROOT_MOUNT_DEVICE", get_mount_device());
   env.add("CHROOT_MOUNT_OPTIONS", get_mount_options());
   env.add("CHROOT_LOCATION", get_location());
 }
 
-sbuild::chroot::session_flags
-chroot_mountable::get_session_flags (chroot const& chroot) const
+chroot::session_flags
+chroot_facet_mountable::get_session_flags (chroot const& chroot) const
 {
   return chroot::SESSION_NOFLAGS;
 }
 
 void
-chroot_mountable::get_details (chroot const& chroot,
-			       format_detail& detail) const
+chroot_facet_mountable::get_details (chroot const&  chroot,
+				     format_detail& detail) const
 {
   if (!get_mount_device().empty())
     detail.add(_("Mount Device"), get_mount_device());
@@ -97,27 +128,27 @@ chroot_mountable::get_details (chroot const& chroot,
 }
 
 void
-chroot_mountable::get_keyfile (chroot const& chroot,
-			       keyfile& keyfile) const
+chroot_facet_mountable::get_keyfile (chroot const& chroot,
+				     keyfile&      keyfile) const
 {
-  keyfile::set_object_value(*this, &chroot_mountable::get_mount_options,
+  keyfile::set_object_value(*this, &chroot_facet_mountable::get_mount_options,
 			    keyfile, chroot.get_keyfile_name(), "mount-options");
 
-  keyfile::set_object_value(*this, &chroot_mountable::get_location,
+  keyfile::set_object_value(*this, &chroot_facet_mountable::get_location,
 			    keyfile, chroot.get_keyfile_name(), "location");
 }
 
 void
-chroot_mountable::set_keyfile (chroot&        chroot,
-			       keyfile const& keyfile,
-			       string_list&   used_keys)
+chroot_facet_mountable::set_keyfile (chroot&        chroot,
+				     keyfile const& keyfile,
+				     string_list&   used_keys)
 {
-  keyfile::get_object_value(*this, &chroot_mountable::set_mount_options,
+  keyfile::get_object_value(*this, &chroot_facet_mountable::set_mount_options,
 			    keyfile, chroot.get_keyfile_name(), "mount-options",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("mount-options");
 
-  keyfile::get_object_value(*this, &chroot_mountable::set_location,
+  keyfile::get_object_value(*this, &chroot_facet_mountable::set_location,
 			    keyfile, chroot.get_keyfile_name(), "location",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("location");

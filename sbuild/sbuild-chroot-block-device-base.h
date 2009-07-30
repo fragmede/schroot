@@ -20,7 +20,6 @@
 #define SBUILD_CHROOT_BLOCK_DEVICE_BASE_H
 
 #include <sbuild/sbuild-chroot.h>
-#include <sbuild/sbuild-chroot-mountable.h>
 
 namespace sbuild
 {
@@ -30,8 +29,7 @@ namespace sbuild
    *
    * The device will be mounted on demand.
    */
-  class chroot_block_device_base : public chroot,
-				   public chroot_mountable
+  class chroot_block_device_base : public chroot
   {
   protected:
     /// The constructor.
@@ -77,13 +75,6 @@ namespace sbuild
 
     virtual session_flags
     get_session_flags (chroot const& chroot) const;
-
-    // Specialisation of the chroot_mountable interface
-    virtual void
-    set_mount_device (std::string const& mount_device);
-
-    virtual std::string const&
-    get_mount_device () const;
 
   protected:
     virtual void

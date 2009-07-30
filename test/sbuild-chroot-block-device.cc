@@ -22,6 +22,7 @@
 #include <set>
 
 #include <sbuild/sbuild-chroot-block-device.h>
+#include <sbuild/sbuild-chroot-facet-mountable.h>
 #include <sbuild/sbuild-i18n.h>
 
 #include "test-helpers.h"
@@ -89,8 +90,12 @@ public:
     std::tr1::shared_ptr<sbuild::chroot_block_device> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_block_device>(chroot);
 
     c->set_device("/dev/testdev");
-    c->set_mount_options("-t jfs -o quota,rw");
-    c->set_location("/squeeze");
+
+    sbuild::chroot_facet_mountable::ptr pmnt(chroot->get_facet<sbuild::chroot_facet_mountable>());
+    CPPUNIT_ASSERT(pmnt);
+
+    pmnt->set_mount_options("-t jfs -o quota,rw");
+    pmnt->set_location("/squeeze");
   }
 
   void
@@ -105,12 +110,13 @@ public:
   void
   test_mount_options()
   {
-    std::tr1::shared_ptr<sbuild::chroot_block_device> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_block_device>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_mount_options("-o opt1,opt2");
-    CPPUNIT_ASSERT(c->get_mount_options() == "-o opt1,opt2");
-    c->set_location("/squeeze");
-    CPPUNIT_ASSERT(c->get_location() == "/squeeze");
+    sbuild::chroot_facet_mountable::ptr pmnt(chroot->get_facet<sbuild::chroot_facet_mountable>());
+    CPPUNIT_ASSERT(pmnt);
+
+    pmnt->set_mount_options("-o opt1,opt2");
+    CPPUNIT_ASSERT(pmnt->get_mount_options() == "-o opt1,opt2");
+    pmnt->set_location("/squeeze");
+    CPPUNIT_ASSERT(pmnt->get_location() == "/squeeze");
   }
 
   void test_chroot_type()

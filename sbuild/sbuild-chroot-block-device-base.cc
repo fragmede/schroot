@@ -19,6 +19,8 @@
 #include <config.h>
 
 #include "sbuild-chroot-block-device.h"
+#include "sbuild-chroot-lvm-snapshot.h"
+#include "sbuild-chroot-facet-mountable.h"
 #include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
 #include "sbuild-util.h"
@@ -33,17 +35,19 @@ using namespace sbuild;
 
 chroot_block_device_base::chroot_block_device_base ():
   chroot(),
-  chroot_mountable(),
   device()
 {
+  add_facet(sbuild::chroot_facet_mountable::create());
 }
 
 chroot_block_device_base::chroot_block_device_base
 (const chroot_block_device_base& rhs):
   chroot(rhs),
-  chroot_mountable(rhs),
-  device(rhs.device)
+  device()
 {
+  /// @todo Required to set mount_device.  Remove once no longer
+  /// needed.
+  set_device(rhs.device);
 }
 
 chroot_block_device_base::~chroot_block_device_base ()
@@ -63,24 +67,28 @@ chroot_block_device_base::set_device (std::string const& device)
     throw error(device, DEVICE_ABS);
 
   this->device = device;
+
+  /// @todo: This may not be appropriate for derived classes such as
+  /// lvm_snapshot, since re-setting the device could overwrite the
+  /// mount device.
+  chroot_facet_mountable::ptr pmnt
+    (get_facet<chroot_facet_mountable>());
+  if (!dynamic_cast<chroot_lvm_snapshot *>(this))
+    pmnt->set_mount_device(this->device);
 }
 
 std::string
 chroot_block_device_base::get_path () const
 {
-  return get_mount_location() + get_location();
-}
+  chroot_facet_mountable::const_ptr pmnt
+    (get_facet<chroot_facet_mountable>());
 
-void
-chroot_block_device_base::set_mount_device (std::string const& mount_device)
-{
-  // Setting the mount device is not permitted for block_device chroots.
-}
+  std::string path(get_mount_location());
 
-std::string const&
-chroot_block_device_base::get_mount_device () const
-{
-  return this->device;
+  if (pmnt)
+    path += pmnt->get_location();
+
+  return path;
 }
 
 std::string const&
@@ -96,7 +104,6 @@ chroot_block_device_base::setup_env (chroot const& chroot,
 				     environment& env) const
 {
   chroot::setup_env(chroot, env);
-  chroot_mountable::setup_env(chroot, env);
 
   env.add("CHROOT_DEVICE", get_device());
 }
@@ -162,7 +169,7 @@ chroot_block_device_base::setup_lock (chroot::setup_type type,
 sbuild::chroot::session_flags
 chroot_block_device_base::get_session_flags (chroot const& chroot) const
 {
-  return chroot_mountable::get_session_flags(chroot);
+  return chroot::SESSION_NOFLAGS;
 }
 
 void
@@ -170,7 +177,6 @@ chroot_block_device_base::get_details (chroot const& chroot,
 				       format_detail& detail) const
 {
   this->chroot::get_details(chroot, detail);
-  this->chroot_mountable::get_details(chroot, detail);
 
   if (!this->device.empty())
     detail.add(_("Device"), get_device());
@@ -181,7 +187,6 @@ chroot_block_device_base::get_keyfile (chroot const& chroot,
 				       keyfile&      keyfile) const
 {
   chroot::get_keyfile(chroot, keyfile);
-  chroot_mountable::get_keyfile(chroot, keyfile);
 
   keyfile::set_object_value(*this, &chroot_block_device_base::get_device,
 			    keyfile, get_keyfile_name(), "device");
@@ -193,7 +198,6 @@ chroot_block_device_base::set_keyfile (chroot&        chroot,
 				       string_list&   used_keys)
 {
   chroot::set_keyfile(chroot, keyfile, used_keys);
-  chroot_mountable::set_keyfile(chroot, keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_block_device_base::set_device,
 			    keyfile, get_keyfile_name(), "device",
