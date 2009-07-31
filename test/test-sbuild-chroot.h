@@ -26,6 +26,7 @@
 #include <sbuild/sbuild-chroot-facet-source-clonable.h>
 #include <sbuild/sbuild-chroot-facet-union.h>
 #include <sbuild/sbuild-i18n.h>
+#include <sbuild/sbuild-util.h>
 
 #include <algorithm>
 #include <iostream>
@@ -54,12 +55,8 @@ public:
     chroot(),
     abs_testdata_dir()
   {
-    char cwd[FILENAME_MAX];
-    if (NULL != getcwd(cwd, FILENAME_MAX))
-      {
-        abs_testdata_dir = std::string(cwd);
-        abs_testdata_dir.append("/" TESTDATADIR);
-      }
+    abs_testdata_dir = sbuild::getcwd();
+    abs_testdata_dir.append("/" TESTDATADIR);
   }
 
   virtual ~test_chroot_base()
