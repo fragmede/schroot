@@ -66,6 +66,7 @@ class test_chroot_block_device : public test_chroot_base<chroot_block_device>
   CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
+  CPPUNIT_TEST(test_run_setup_scripts);
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -320,6 +321,12 @@ public:
     // TODO: Compare output.
     CPPUNIT_ASSERT(!os.str().empty());
   }
+
+  void test_run_setup_scripts()
+  {
+    CPPUNIT_ASSERT(chroot->get_run_setup_scripts());
+  }
+
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_chroot_block_device);
