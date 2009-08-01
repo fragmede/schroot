@@ -122,10 +122,10 @@ public:
     CPPUNIT_ASSERT(pmnt->get_mount_options() == "-o opt1,opt2");
   }
 
-  void test_setup_env()
+  void setup_env_gen(sbuild::environment& expected)
   {
-    sbuild::environment expected;
     setup_env_chroot(expected);
+
     expected.add("CHROOT_TYPE",           "loopback");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_LOCATION",       "/squeeze");
@@ -133,12 +133,20 @@ public:
     expected.add("CHROOT_FILE",           loopback_file);
     expected.add("CHROOT_MOUNT_DEVICE",   loopback_file);
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
-    expected.add("CHROOT_SESSION_CLONE",  "false");
-    expected.add("CHROOT_SESSION_CREATE", "true");
-    expected.add("CHROOT_SESSION_PURGE",  "false");
+
 #ifdef SBUILD_FEATURE_UNION
     expected.add("CHROOT_UNION_TYPE",     "none");
 #endif // SBUILD_FEATURE_UNION
+  }
+
+  void test_setup_env()
+  {
+    sbuild::environment expected;
+    setup_env_gen(expected);
+
+    expected.add("CHROOT_SESSION_CLONE",  "false");
+    expected.add("CHROOT_SESSION_CREATE", "true");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
 
     test_chroot_base<chroot_loopback>::test_setup_env(chroot, expected);
   }
@@ -147,14 +155,8 @@ public:
   void test_setup_env_fsunion()
   {
     sbuild::environment expected;
-    setup_env_chroot(expected);
-    expected.add("CHROOT_TYPE",           "loopback");
-    expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
-    expected.add("CHROOT_LOCATION",       "/squeeze");
-    expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
-    expected.add("CHROOT_FILE",           loopback_file);
-    expected.add("CHROOT_MOUNT_DEVICE",   loopback_file);
-    expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
+    setup_env_gen(expected);
+
     expected.add("CHROOT_SESSION_CLONE",  "true");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
@@ -169,16 +171,10 @@ public:
   void test_setup_env_session()
   {
     sbuild::environment expected;
-    setup_env_chroot(expected);
-    expected.add("CHROOT_TYPE",           "loopback");
+    setup_env_gen(expected);
+
     expected.add("CHROOT_NAME",           "test-union-session-name");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(session chroot)"));
-    expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
-    expected.add("CHROOT_LOCATION",       "/squeeze");
-    expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
-    expected.add("CHROOT_FILE",           loopback_file);
-    expected.add("CHROOT_MOUNT_DEVICE",   loopback_file);
-    expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "true");
@@ -186,27 +182,19 @@ public:
     expected.add("CHROOT_UNION_MOUNT_OPTIONS",      "union-mount-options");
     expected.add("CHROOT_UNION_OVERLAY_DIRECTORY",  "/overlay/test-union-session-name");
     expected.add("CHROOT_UNION_UNDERLAY_DIRECTORY", "/underlay/test-union-session-name");
-
     test_chroot_base<chroot_loopback>::test_setup_env(session_union, expected);
   }
 
   void test_setup_env_source()
   {
     sbuild::environment expected;
-    setup_env_chroot(expected);
-    expected.add("CHROOT_TYPE",           "loopback");
+    setup_env_gen(expected);
+
     expected.add("CHROOT_NAME",           "test-name-source");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot)"));
-    expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
-    expected.add("CHROOT_LOCATION",       "/squeeze");
-    expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
-    expected.add("CHROOT_FILE",           loopback_file);
-    expected.add("CHROOT_MOUNT_DEVICE",   loopback_file);
-    expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
-    expected.add("CHROOT_UNION_TYPE",     "none");
 
     test_chroot_base<chroot_loopback>::test_setup_env(source_union, expected);
   }
