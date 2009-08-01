@@ -111,7 +111,14 @@ if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT
 	CHROOT_MOUNT_OPTIONS="--bind"
 	CHROOT_MOUNT_DEVICE="$UNPACK_LOCATION"
     elif [ "$CHROOT_TYPE" = "loopback" ]; then
-	CHROOT_MOUNT_OPTIONS="$CHROOT_MOUNT_OPTIONS -o loop"
+	LOOP_DEVICE="$(/sbin/losetup -j "$CHROOT_FILE" | sed -e 's/:.*$//')"
+	if [ -z "$LOOP_DEVICE" ]; then
+	    CHROOT_MOUNT_DEVICE="$CHROOT_FILE"
+	    CHROOT_MOUNT_OPTIONS="$CHROOT_MOUNT_OPTIONS -o loop"
+	else
+	    CHROOT_MOUNT_DEVICE="$LOOP_DEVICE"
+	    CHROOT_MOUNT_OPTIONS=""
+	fi
     fi
 
     if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
