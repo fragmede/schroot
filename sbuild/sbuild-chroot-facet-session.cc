@@ -119,8 +119,8 @@ chroot_facet_session::clone_session_setup (chroot::ptr&       clone,
   std::tr1::shared_ptr<chroot_lvm_snapshot> snapshot(std::tr1::dynamic_pointer_cast<chroot_lvm_snapshot>(clone));
   if (snapshot)
     {
-      std::string dir(dirname(snapshot->get_device(), '/'));
-      std::string device(dir + "/" + clone->get_session_id());
+      std::string device(dirname(snapshot->get_device(), '/'));
+      device += "/" + clone->get_session_id();
       snapshot->set_snapshot_device(device);
     }
 #endif // SBUILD_FEATURE_LVMSNAP

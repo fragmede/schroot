@@ -40,7 +40,9 @@ namespace
   emap init_errors[] =
     {
       // TRANSLATORS: %1% = chroot fs type
-      emap(chroot_facet_union::UNION_TYPE_UNKNOWN, N_("Unknown filesystem union type '%1%'"))
+      emap(chroot_facet_union::UNION_TYPE_UNKNOWN, N_("Unknown filesystem union type '%1%'")),
+      emap(chroot_facet_union::UNION_OVERLAY_ABS,  N_("Union overlay must have an absolute path")),
+      emap(chroot_facet_union::UNION_UNDERLAY_ABS, N_("Union underlay must have an absolute path"))
     };
 }
 
@@ -128,8 +130,8 @@ void
 chroot_facet_union::set_union_overlay_directory
 (std::string const& directory)
 {
-  if (!is_absname(union_overlay_directory))
-    throw chroot::error(union_overlay_directory, chroot::LOCATION_ABS);
+  if (!is_absname(directory))
+    throw chroot::error(directory, chroot::LOCATION_ABS);
 
   this->union_overlay_directory = directory;
 }
@@ -144,8 +146,8 @@ void
 chroot_facet_union::set_union_underlay_directory
 (std::string const& directory)
 {
-  if (!is_absname(union_underlay_directory))
-    throw chroot::error(union_underlay_directory, chroot::LOCATION_ABS);
+  if (!is_absname(directory))
+    throw chroot::error(directory, chroot::LOCATION_ABS);
 
   this->union_underlay_directory = directory;
 }

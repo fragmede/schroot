@@ -40,7 +40,9 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
-	UNION_TYPE_UNKNOWN      ///< Unknown filesystem union type
+	UNION_TYPE_UNKNOWN, ///< Unknown filesystem union type.
+	UNION_OVERLAY_ABS,  ///< Union overlay must have an absolute path.
+	UNION_UNDERLAY_ABS  ///< Union underlay must have an absolute path.
       };
 
     /// Exception type.
