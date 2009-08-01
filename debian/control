@@ -48,7 +48,11 @@ Package: schroot-dbg
 Architecture: any
 Section: debug
 Priority: extra
-Depends: schroot (= ${binary:Version}), dchroot (= ${binary:Version}), dchroot-dsa (= ${binary:Version})
+Depends: schroot (= ${binary:Version}) | dchroot (= ${binary:Version}) 
+ | dchroot-dsa (= ${binary:Version})
+Conflicts: schroot (<< ${binary:Version}), schroot (>> ${binary:Version}),
+ dchroot (<< ${binary:Version}), dchroot (>>${binary:Version}),
+ dchroot-dsa (<< ${binary:Version}), dchroot-dsa (>>${binary:Version})
 Description: schroot, dchroot and dchroot-dsa debuggging symbols
  sbuild provides facilities to manage and access chroots, as part of
  schroot.
