@@ -173,7 +173,6 @@ public:
     const std::string group(chroot->get_name());
     setup_keyfile_chroot(expected, group);
     setup_keyfile_source(expected, group);
-    expected.set_value(group, "active", "false");
     expected.set_value(group, "type", "file");
     expected.set_value(group, "file", "/srv/chroot/example.tar.bz2");
 
@@ -203,7 +202,6 @@ public:
     const std::string group(source->get_name());
     setup_keyfile_chroot(expected, group);
     setup_keyfile_source_clone(expected, group);
-    expected.set_value(group, "active", "false");
     expected.set_value(group, "type", "file");
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
     expected.set_value(group, "file", "/srv/chroot/example.tar.bz2");

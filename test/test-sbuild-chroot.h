@@ -166,7 +166,6 @@ public:
   void setup_keyfile_chroot (sbuild::keyfile&   keyfile,
 			     std::string const& group)
   {
-    keyfile.set_value(group, "active", "false");
     keyfile.set_value(group, "description", "test-description");
     keyfile.set_value(group, "priority", "3");
     keyfile.set_value(group, "aliases", "test-alias-1,test-alias-2");
@@ -214,7 +213,6 @@ public:
   void setup_keyfile_session_clone (sbuild::keyfile&   keyfile,
 				    std::string const& group)
   {
-    keyfile.set_value(group, "active", "true");
     keyfile.set_value(group, "description", chroot->get_description() + ' ' + _("(session chroot)"));
     keyfile.set_value(group, "aliases", "");
   }
@@ -231,7 +229,6 @@ public:
   void setup_keyfile_source_clone (sbuild::keyfile&   keyfile,
 				   std::string const& group)
   {
-    keyfile.set_value(group, "active", "false");
     keyfile.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
     keyfile.set_value(group, "users", "suser1,suser2");
     keyfile.set_value(group, "root-users", "suser3,suser4");

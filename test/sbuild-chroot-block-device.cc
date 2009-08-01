@@ -206,7 +206,6 @@ public:
     sbuild::keyfile expected;
     std::string group = chroot->get_name();
     setup_keyfile_chroot(expected, group);
-    expected.set_value(group, "active", "false");
     expected.set_value(group, "type", "block-device");
     expected.set_value(group, "device", "/dev/testdev");
     expected.set_value(group, "location", "/squeeze");
@@ -225,7 +224,6 @@ public:
     setup_keyfile_union_configured(expected, group);
     setup_keyfile_chroot(expected, group);
     setup_keyfile_source(expected, group);
-    expected.set_value(group, "active", "false");
     expected.set_value(group, "type", "block-device");
     expected.set_value(group, "device", "/dev/testdev");
     expected.set_value(group, "location", "/squeeze");
@@ -259,7 +257,6 @@ public:
     const std::string group(source_union->get_name());
     setup_keyfile_chroot(expected, group);
     setup_keyfile_source_clone(expected, group);
-    expected.set_value(group, "active", "false");
     expected.set_value(group, "type", "block-device");
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
     expected.set_value(group, "device", "/dev/testdev");

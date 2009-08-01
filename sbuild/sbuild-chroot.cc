@@ -614,10 +614,6 @@ sbuild::chroot::get_keyfile (chroot const& chroot,
 			    keyfile, chroot.get_keyfile_name(),
 			    "type");
 
-  keyfile::set_object_value(chroot, &chroot::get_active,
-			    keyfile, chroot.get_keyfile_name(),
-			    "active");
-
   keyfile::set_object_value(chroot, &chroot::get_script_config,
 			    keyfile, chroot.get_keyfile_name(),
 			    "script-config");

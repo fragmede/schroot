@@ -240,7 +240,6 @@ public:
     sbuild::keyfile expected;
     std::string group = chroot->get_name();
     setup_keyfile_chroot(expected, group);
-    expected.set_value(group, "active", "false");
     expected.set_value(group, "type", "test");
 
     test_chroot_base<basic_chroot>::test_setup_keyfile
