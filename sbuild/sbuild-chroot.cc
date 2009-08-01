@@ -134,7 +134,7 @@ sbuild::chroot::chroot (const chroot& rhs):
   facets()
 {
   /// @todo Use internal version of add_facet to add chroot pointer.
-  for (std::vector<facet_ptr>::const_iterator pos = rhs.facets.begin();
+  for (facet_list::const_iterator pos = rhs.facets.begin();
        pos != rhs.facets.end();
        ++pos)
     {
@@ -409,7 +409,7 @@ sbuild::chroot::list_facets () const
 {
   string_list fnames;
 
-  for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+  for (facet_list::const_iterator pos = facets.begin();
        pos != facets.end();
        ++pos)
     {
@@ -424,7 +424,7 @@ sbuild::chroot::setup_env (environment& env) const
 {
   setup_env(*this, env);
 
-  for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+  for (facet_list::const_iterator pos = facets.begin();
        pos != facets.end();
        ++pos)
     {
@@ -517,7 +517,7 @@ sbuild::chroot::get_session_flags () const
 {
   session_flags flags = get_session_flags(*this);
 
-  for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+  for (facet_list::const_iterator pos = facets.begin();
        pos != facets.end();
        ++pos)
     {
@@ -532,7 +532,7 @@ sbuild::chroot::get_details (format_detail& detail) const
 {
   get_details(*this, detail);
 
-  for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+  for (facet_list::const_iterator pos = facets.begin();
        pos != facets.end();
        ++pos)
     {
@@ -591,7 +591,7 @@ sbuild::chroot::get_keyfile (keyfile& keyfile) const
 {
   get_keyfile(*this, keyfile);
 
-  for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+  for (facet_list::const_iterator pos = facets.begin();
        pos != facets.end();
        ++pos)
     {
@@ -671,7 +671,7 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile,
 {
   set_keyfile(*this, keyfile, used_keys);
 
-  for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+  for (facet_list::const_iterator pos = facets.begin();
        pos != facets.end();
        ++pos)
     {

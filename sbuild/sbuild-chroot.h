@@ -26,6 +26,7 @@
 #include <sbuild/sbuild-regex.h>
 #include <sbuild/sbuild-tr1types.h>
 
+#include <list>
 #include <ostream>
 #include <string>
 
@@ -737,7 +738,8 @@ namespace sbuild
     string_list   command_prefix;
 
     typedef std::tr1::shared_ptr<chroot_facet> facet_ptr;
-    std::vector<facet_ptr> facets;
+    typedef std::list<facet_ptr> facet_list;
+    facet_list facets;
   };
 
   /**
@@ -781,7 +783,7 @@ namespace sbuild
   {
     std::tr1::shared_ptr<T> ret;
 
-    for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+    for (facet_list::const_iterator pos = facets.begin();
 	 pos != facets.end();
 	 ++pos)
       {
@@ -798,7 +800,7 @@ namespace sbuild
   {
     std::tr1::shared_ptr<T> ret;
 
-    for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+    for (facet_list::const_iterator pos = facets.begin();
 	 pos != facets.end();
 	 ++pos)
       {
@@ -817,7 +819,7 @@ namespace sbuild
     if (!new_facet)
       throw error(FACET_INVALID);
 
-    for (std::vector<facet_ptr>::const_iterator pos = facets.begin();
+    for (facet_list::const_iterator pos = facets.begin();
 	 pos != facets.end();
 	 ++pos)
       {
@@ -833,7 +835,7 @@ namespace sbuild
   void
   chroot::remove_facet ()
   {
-    for (std::vector<facet_ptr>::iterator pos = facets.begin();
+    for (facet_list::iterator pos = facets.begin();
 	 pos != facets.end();
 	 ++pos)
       {
