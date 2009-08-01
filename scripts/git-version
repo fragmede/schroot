@@ -2,8 +2,8 @@
 
 TAG="$(git describe --abbrev=0 --match='release/*')"
 PKGVER="${TAG#release/}"
-PACKAGE="$(echo "$PKGVER" | sed -e 's/^\(.*\)-\(.*\)$/\1/')"
-VERSION="$(echo "$PKGVER" | sed -e 's/^\(.*\)-\(.*\)$/\2/')"
+PACKAGE="$(echo "$PKGVER" | sed -e 's/^\([^-]*\)-\(.*\)$/\1/')"
+VERSION="$(echo "$PKGVER" | sed -e 's/^\([^-]*\)-\(.*\)$/\2/')"
 COMMIT="$(git rev-parse "$TAG^{}")"
 COMMIT_DATE="$(git log -1 --date=iso "$COMMIT" --pretty="format:%ad")"
 
