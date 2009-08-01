@@ -571,23 +571,33 @@ session::run_impl ()
 	      chroot_facet_session::ptr session(ch->get_facet<chroot_facet_session>());
 	      if (session)
 		{
-		  std::ostringstream session_id;
-		  session_id.imbue(std::locale::classic());
-		  session_id << ch->get_name();
+		  std::string new_session_id;
+
+		  if (!get_session_id().empty())
+		    {
+		      new_session_id = get_session_id();
+		    }
+		  else
+		    {
+		      std::ostringstream session_id_str;
+		      session_id_str.imbue(std::locale::classic());
+		      session_id_str << ch->get_name();
 #ifdef HAVE_UUID
-		  uuid_t uuid;
-		  char uuid_str[37];
-		  uuid_generate(uuid);
-		  uuid_unparse(uuid, uuid_str);
-		  uuid_clear(uuid);
-		  session_id << '-' << uuid_str;
+		      uuid_t uuid;
+		      char uuid_str[37];
+		      uuid_generate(uuid);
+		      uuid_unparse(uuid, uuid_str);
+		      uuid_clear(uuid);
+		      session_id_str << '-' << uuid_str;
 #else
-		  session_id << '-' << isodate(time(0))
-			     << '-' << getpid();
+		      session_id_str << '-' << isodate(time(0))
+				     << '-' << getpid();
 #endif
+		      new_session_id = session_id_str.str();
+		    }
 
 		  // Replace clone of chroot with cloned session.
-		  chroot = ch->clone_session(session_id.str());
+		  chroot = ch->clone_session(new_session_id);
 		}
 	    }
 	  else
@@ -598,7 +608,7 @@ session::run_impl ()
 	      /* Run setup-start chroot setup scripts. */
 	      setup_chroot(chroot, chroot::SETUP_START);
 	      if (this->session_operation == OPERATION_BEGIN)
-		cout << this->session_id << endl;
+		cout << chroot->get_session_id() << endl;
 
 	      /* Run recover scripts. */
 	      setup_chroot(chroot, chroot::SETUP_RECOVER);
@@ -993,7 +1003,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   env.add("MOUNT_DIR", SCHROOT_MOUNT_DIR);
   env.add("LIBEXEC_DIR", SCHROOT_LIBEXEC_DIR);
   env.add("PID", getpid());
-  env.add("SESSION_ID", this->session_id);
+  env.add("SESSION_ID", session_chroot->get_session_id());
 
   run_parts rp(SCHROOT_CONF_SETUP_D,
 	       true, true, 022);
@@ -1181,7 +1191,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   env.add("SCHROOT_UID", this->authstat->get_ruid());
   env.add("SCHROOT_GID", this->authstat->get_rgid());
   // Add session ID.
-  env.add("SCHROOT_SESSION_ID", this->session_id);
+  env.add("SCHROOT_SESSION_ID", session_chroot->get_session_id());
 
   log_debug(DEBUG_INFO) << "Set environment:\n" << env;
 
