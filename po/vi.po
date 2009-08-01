@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.2.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2009-07-22 22:56+0100\n"
+"POT-Creation-Date: 2009-08-01 15:25+0100\n"
 "PO-Revision-Date: 2008-05-06 22:30+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -16,38 +16,659 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: LocFactoryEditor 1.7b3\n"
 
-#: sbuild/sbuild-auth.cc:50
-msgid "Failed to get hostname"
-msgstr "Lỗi lấy tên máy"
-
-#. TRANSLATORS: %1% = user name or user ID
-#: sbuild/sbuild-auth.cc:52
+#. TRANSLATORS: %1% = file
+#: bin/csbuild/csbuild-debian-changes.cc:44 sbuild/sbuild-keyfile-base.cc:41
 #, boost-format
-msgid "User '%1%' not found"
-msgstr "Không tìm thấy người dùng « %1% »"
+msgid "Can't open file '%1%'"
+msgstr "Không thể mở tập tin « %1% »"
 
-#. TRANSLATORS: %1% = group name or group ID
-#. TRANSLATORS: %1% = group name
-#: sbuild/sbuild-auth.cc:54 sbuild/sbuild-session.cc:103
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:47
 #, boost-format
-msgid "Group '%1%' not found"
-msgstr "Không tìm thấy nhóm « %1% »"
+msgid "line %1%: Deprecated key '%4%' used"
+msgstr "dòng %1%: dùng khoá bị phản đối « %4% »"
 
-#: sbuild/sbuild-auth.cc:55
-msgid "Authentication failed"
-msgstr "Lỗi xác thực"
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:49
+#, boost-format
+msgid "Deprecated key '%4%' used"
+msgstr "Dùng khoá bị phản đối « %4% »"
 
-#: sbuild/sbuild-auth.cc:56
-msgid "Access not authorised"
-msgstr "Không có quyền truy cập"
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:52
+#, boost-format
+msgid "line %1%: Disallowed key '%4%' used"
+msgstr "dòng %1%: dùng khoá bị cấm « %4% »"
 
-#: sbuild/sbuild-auth.cc:57
-msgid "PAM is already initialised"
-msgstr "PAM đã được sơ khởi"
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:54
+#, boost-format
+msgid "Disallowed key '%4%' used"
+msgstr "Dùng khoá bị cấm « %4% »"
 
-#: sbuild/sbuild-auth.cc:58 sbuild/sbuild-session.cc:104
-msgid "PAM error"
-msgstr "Lỗi PAM"
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:57
+#, boost-format
+msgid "line %1%: Duplicate key '%4%'"
+msgstr "dòng %1%: khoá trùng « %4% »"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = line contents as read from the configuration file
+#: bin/csbuild/csbuild-debian-changes.cc:60 sbuild/sbuild-keyfile-base.cc:76
+#, boost-format
+msgid "line %1%: Invalid line: \"%4%\""
+msgstr "dòng %1%: dòng không hợp lệ: « %4% »"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:63
+#, boost-format
+msgid "line %1%: Required key '%4%' is missing"
+msgstr "dòng %1%: thiếu khoá cần thiết « %4% »"
+
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:65
+#, boost-format
+msgid "Required key '%4%' is missing"
+msgstr "Thiếu khoá cần thiết « %4% »"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = line contents as read from the configuration file
+#: bin/csbuild/csbuild-debian-changes.cc:68 sbuild/sbuild-keyfile-base.cc:93
+#, boost-format
+msgid "line %1%: No key specified: \"%4%\""
+msgstr "dòng %1%: chưa xác định khoá: « %4% »"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:71
+#, boost-format
+msgid "line %1%: Obsolete key '%4%' used"
+msgstr "dòng %1%: dùng khoá cũ « %4% »"
+
+#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+#: bin/csbuild/csbuild-debian-changes.cc:73
+#, boost-format
+msgid "Obsolete key '%4%' used"
+msgstr "Dùng khoá cũ « %4% »"
+
+#. TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
+#. TRANSLATORS: %4% = additional details
+#: bin/csbuild/csbuild-debian-changes.cc:76
+#, boost-format
+msgid "%2%: %4%"
+msgstr "%2%: %4%"
+
+#. TRANSLATORS: %1% = line number in configuration file
+#. TRANSLATORS: %3% = key name ("keyname=value" in configuration file)
+#. TRANSLATORS: %4% = additional details
+#: bin/csbuild/csbuild-debian-changes.cc:80
+#, boost-format
+msgid "line %1%: %3%: %4%"
+msgstr "dòng %1%: %3%: %4%"
+
+#: bin/csbuild/csbuild-debian-changes.cc:279
+#: bin/csbuild/csbuild-debian-changes.cc:285
+msgid "This option will be removed in the future"
+msgstr "Tùy chọn này sẽ bị gỡ bỏ trong tương lai"
+
+#: bin/csbuild/csbuild-debian-changes.cc:295
+#: bin/csbuild/csbuild-debian-changes.cc:301
+msgid "This option has been removed, and no longer has any effect"
+msgstr "Tùy chọn này đã bị gỡ bỏ nên không còn có tác động lại"
+
+#: bin/csbuild/csbuild-main.cc:52
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:54
+#: sbuild/sbuild-chroot.cc:71
+msgid "File is not a block device"
+msgstr "Tập tin không phải là thiết bị khối"
+
+#. TRANSLATORS: %4% = integer process ID
+#: bin/csbuild/csbuild-main.cc:54
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:56
+#, boost-format
+msgid "Failed to release device lock (lock held by PID %4%)"
+msgstr "Lỗi nhả khoá thiết bị (khóa được giữ bởi PID %4%)"
+
+#: bin/csbuild/csbuild-main.cc:55
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:57
+msgid "Failed to release device lock"
+msgstr "Lỗi nhả khoá thiết bị"
+
+#: bin/csbuild/csbuild-main.cc:56
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:58
+msgid "Failed to stat device"
+msgstr "Lỗi lấy trạng thái về thiết bị"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#: bin/csbuild/csbuild-main.cc:71
+msgid "[OPTION...] - build Debian packages from source"
+msgstr "[TÙY_CHỌN...] — xây dựng các gói Debian từ mã nguồn"
+
+#: bin/csbuild/csbuild-options.cc:42
+msgid "Build options"
+msgstr "Tùy chọn xây dựng"
+
+#: bin/csbuild/csbuild-options.cc:43
+msgid "User options"
+msgstr "Tùy chọn người dùng"
+
+#: bin/csbuild/csbuild-options.cc:44
+msgid "Special options"
+msgstr "Tùy chọn đặc biệt"
+
+#: bin/csbuild/csbuild-options.cc:63
+msgid "Build source packages (default)"
+msgstr "Xây dựng gói nguồn (mặc định)"
+
+#: bin/csbuild/csbuild-options.cc:67
+msgid "Don't log program output"
+msgstr "Đừng ghi lưu kết xuất của chương trình"
+
+#: bin/csbuild/csbuild-options.cc:71
+msgid "Distribution to build for"
+msgstr "Bản phát hành cho đó cần xây dựng"
+
+#: bin/csbuild/csbuild-options.cc:73
+msgid "Build architecture \"all\" packages"
+msgstr "Xây dựng các gói kiến trúc « all »"
+
+#: bin/csbuild/csbuild-options.cc:75
+msgid "Build a source package"
+msgstr "Xây dựng một gói nguồn"
+
+#: bin/csbuild/csbuild-options.cc:77
+msgid "Force building of a source package, irrespective of Debian version"
+msgstr "Ép buộc xây dựng một gọi nguồn, bất chấp phiên bản Debian"
+
+#: bin/csbuild/csbuild-options.cc:79
+msgid "Make a binary non-maintainer upload"
+msgstr "Làm việc tải lên nhị phân không phải nhà duy trì"
+
+#: bin/csbuild/csbuild-options.cc:81
+msgid "Purge mode"
+msgstr "Chế độ tẩy"
+
+#: bin/csbuild/csbuild-options.cc:85
+msgid "GPG key identifier"
+msgstr "Dấu nhận diện khoá GPG"
+
+#: bin/csbuild/csbuild-options.cc:87
+msgid "Package maintainer"
+msgstr "Nhà duy trì gói"
+
+#: bin/csbuild/csbuild-options.cc:89
+msgid "Package uploader"
+msgstr "Nhà tải lên gói"
+
+#: bin/csbuild/csbuild-options.cc:94
+msgid "Add a build dependency"
+msgstr "Thêm một quan hệ phụ thuộc khi xây dựng"
+
+#: bin/csbuild/csbuild-options.cc:96
+msgid "Force a build dependency"
+msgstr "Ép buộc một quan hệ phụ thuộc khi xây dựng"
+
+#: bin/csbuild/csbuild-options.cc:98
+msgid "Build using the current GCC development snapshot"
+msgstr "Xây dựng dùng hiện trạng phát triển GCC hiện thời"
+
+#. TRANSLATORS: %1% = chroot name
+#: bin/dchroot-dsa/dchroot-dsa-chroot-config.cc:117
+#, boost-format
+msgid "%1% chroot (dchroot-dsa compatibility)"
+msgstr "%1% chroot (tính tương thích với dchroot-dsa)"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
+#. is an em-dash.
+#: bin/dchroot-dsa/dchroot-dsa-main.cc:45
+msgid "[OPTION...] chroot [COMMAND] - run command or shell in a chroot"
+msgstr "[TÙY_CHỌN...] chroot [LỆNH] — chạy lệnh hay trình bao trong một chroot"
+
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:54
+msgid "Print paths to available chroots"
+msgstr "In ra đường dẫn đến mỗi chroot sẵn sàng"
+
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:58 bin/dchroot/dchroot-options.cc:56
+#: bin/schroot/schroot-options.cc:58
+msgid "Select all chroots"
+msgstr "Chọn mọi chroot"
+
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:62 bin/dchroot/dchroot-options.cc:60
+#: bin/schroot/schroot-options.cc:64
+msgid "Directory to use"
+msgstr "Thư mục cần dùng"
+
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:93
+msgid "Only one command may be specified"
+msgstr "Có thể xác định chỉ một lệnh"
+
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:97
+msgid "Command must have an absolute path"
+msgstr "Lệnh phải có đường dẫn tuyệt đối"
+
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:106
+msgid "No chroot specified"
+msgstr "Chưa xác định chroot"
+
+#. TRANSLATORS: %1% = chroot name
+#. TRANSLATORS: %2% = command
+#: bin/dchroot-dsa/dchroot-dsa-session.cc:142
+#: bin/dchroot/dchroot-session.cc:130
+#, boost-format
+msgid "[%1% chroot] Running command: \"%2%\""
+msgstr "[%1% chroot] Đang chạy lệnh: « %2% »"
+
+#. TRANSLATORS: %1% = chroot name
+#: bin/dchroot/dchroot-chroot-config.cc:126
+#, boost-format
+msgid "%1% chroot (dchroot compatibility)"
+msgstr "%1% chroot (tính tương thích với dchroot)"
+
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = current date
+#: bin/dchroot/dchroot-main-base.cc:63 bin/schroot/schroot-main.cc:65
+#, boost-format
+msgid "schroot configuration generated by %1% %2% on %3%"
+msgstr "Cấu hình schroot do %1% %2% tạo ra vào %3%"
+
+#. TRANSLATORS: Do not translate "users" and "groups";
+#. these are keywords used in the configuration file.
+#: bin/dchroot/dchroot-main-base.cc:74
+msgid "To allow users access to the chroots, use the users or groups keys."
+msgstr ""
+"Để cho phép người dùng truy cập đến chroot, dùng khóa của người dùng hay "
+"nhóm."
+
+#. TRANSLATORS: Do not translate "root-users" and
+#. "root-groups"; these are keywords used in the
+#. configuration file.
+#: bin/dchroot/dchroot-main-base.cc:80
+msgid ""
+"To allow password-less root access, use the root-users or root-groups keys."
+msgstr ""
+"Để cho phép truy cập kiểu người chủ mà không cần mật khẩu, hãy dùng khoá của "
+"người dùng chủ (root-users) hay nhóm chủ (root-groups)."
+
+#. TRANSLATORS: %1% = file
+#: bin/dchroot/dchroot-main-base.cc:83 bin/dchroot/dchroot-main-base.cc:144
+#, boost-format
+msgid "Remove '%1%' to use the new configuration."
+msgstr "Gỡ bỏ « %1% » để sử dụng cấu hình mới."
+
+#. TRANSLATORS: %1% = program name
+#: bin/dchroot/dchroot-main-base.cc:104
+#, boost-format
+msgid "Running schroot in %1% compatibility mode"
+msgstr "Đang chạy schroot ở chế độ tương thích %1%"
+
+#. TRANSLATORS: "full capabilities" in this context means "all
+#. features"
+#: bin/dchroot/dchroot-main-base.cc:110
+msgid "Run \"schroot\" for full capabilities"
+msgstr "Chạy « schroot » để được khả năng đầy đủ"
+
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = configuration file
+#: bin/dchroot/dchroot-main-base.cc:129
+#, boost-format
+msgid "Using %1% configuration file: '%2%'"
+msgstr "Đang dùng tập tin cấu hình %1%: « %2% »"
+
+#: bin/dchroot/dchroot-main-base.cc:133
+#, boost-format
+msgid "Run \"%1%\""
+msgstr "Chạy « %1% »"
+
+#: bin/dchroot/dchroot-main-base.cc:137
+msgid "to migrate to a schroot configuration."
+msgstr "để nâng cấp lên một cấu hình schroot."
+
+#: bin/dchroot/dchroot-main-base.cc:140
+#, boost-format
+msgid "Edit '%1%' to add appropriate user and/or group access."
+msgstr ""
+"Chỉnh sửa « %1% » để thêm truy cập thích hợp với người dùng và/hay nhóm."
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
+#. is an em-dash.
+#: bin/dchroot/dchroot-main.cc:46 bin/schroot/schroot-main.cc:48
+msgid "[OPTION...] [COMMAND] - run command or shell in a chroot"
+msgstr "[TÙY_CHỌN...] [LỆNH] — chạy lệnh hoặc trình bao trong một chroot"
+
+#: bin/dchroot/dchroot-options.cc:52
+msgid "Print path to selected chroot"
+msgstr "In ra đường dẫn đến chroot đã chọn"
+
+#: bin/dchroot/dchroot-options.cc:62 bin/schroot/schroot-options.cc:68
+msgid "Preserve user environment"
+msgstr "Bảo tồn môi trường người dùng"
+
+#: bin/dchroot/dchroot-options.cc:87 bin/schroot/schroot-options-base.cc:171
+msgid "--quiet and --verbose may not be used at the same time"
+msgstr ""
+"Không cho phép dùng đồng thời hai tùy chọn « --quiet » (im) và « --verbose "
+"» (xuất chi tiết)"
+
+#: bin/dchroot/dchroot-options.cc:89 bin/schroot/schroot-options-base.cc:173
+msgid "Using verbose output"
+msgstr "Đang xuất chi tiết"
+
+#: bin/dchroot/dchroot-options.cc:95 bin/schroot/schroot-options-base.cc:179
+msgid "--chroot and --all may not be used at the same time"
+msgstr ""
+"Không cho phép dùng đồng thời hai tùy chọn « --chroot » và « --all » (tất cả)"
+
+#: bin/dchroot/dchroot-options.cc:97 bin/schroot/schroot-options-base.cc:181
+msgid "Using --chroots only"
+msgstr "Đang dùng chỉ tùy chọn « --chroots »"
+
+#: bin/dchroot/dchroot-session-base.cc:73
+msgid "dchroot session restriction"
+msgstr "sự hạn chế phiên chạy dchroot"
+
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = release date
+#: bin/schroot-base/schroot-base-main.cc:61
+#, boost-format
+msgid "%1% (Debian sbuild) %2% (%3%)\n"
+msgstr "%1% (Debian sbuild) %2% (%3%)\n"
+
+#: bin/schroot-base/schroot-base-main.cc:65
+msgid "Written by Roger Leigh"
+msgstr "Tác giả: Roger Leigh"
+
+#. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
+#: bin/schroot-base/schroot-base-main.cc:67
+#, fuzzy
+msgid "Copyright (C) 2004-2009 Roger Leigh"
+msgstr "Tác quyền © năm 2004-2008 của Roger Leigh"
+
+#: bin/schroot-base/schroot-base-main.cc:68
+msgid ""
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"Đây là phần mềm tự do; xem mã nguồn để tìm điều kiện sao chép.\n"
+"KHÔNG CÓ BẢO HÀNH GÌ CẢ, THẬM CHÍ KHÔNG CÓ BẢO ĐẢM ĐƯỢC NGỤ Ý\n"
+"KHẢ NĂNG BÁN HAY KHẢ NĂNG LÀM ĐƯỢC VIỆC DỨT KHOÁT.\n"
+
+#: bin/schroot-base/schroot-base-main.cc:77
+msgid "Usage:"
+msgstr "Sử dụng:"
+
+#. TRANSLATORS: %1% = program name
+#: bin/schroot-base/schroot-base-main.cc:114
+#, boost-format
+msgid "Run \"%1% --help\" to list usage example and all available options"
+msgstr ""
+"Hãy chạy lệnh « %1% --help » để liệt kê thí dụ sử dụng và các tùy chọn sẵn "
+"sàng"
+
+#: bin/schroot-base/schroot-base-option-action.cc:65
+#: bin/schroot-base/schroot-base-option-action.cc:88
+#, boost-format
+msgid "%1%: invalid action"
+msgstr "%1%: hành động không hợp lệ"
+
+#: bin/schroot-base/schroot-base-option-action.cc:85
+msgid "Only one action may be specified"
+msgstr "Có thể ghi rõ chỉ một hành động"
+
+#: bin/schroot-base/schroot-base-options.cc:44
+msgid "Actions"
+msgstr "Hành động"
+
+#: bin/schroot-base/schroot-base-options.cc:45
+msgid "General options"
+msgstr "Tùy chọn chung"
+
+#: bin/schroot-base/schroot-base-options.cc:46
+msgid "Hidden options"
+msgstr "Tùy chọn bị ẩn"
+
+#: bin/schroot-base/schroot-base-options.cc:87
+msgid "Show help options"
+msgstr "Hiện các tùy chọn trợ giúp"
+
+#: bin/schroot-base/schroot-base-options.cc:89
+msgid "Print version information"
+msgstr "In ra thông tin phiên bản"
+
+#: bin/schroot-base/schroot-base-options.cc:93
+msgid "Show less output"
+msgstr "Xuất ít hơn"
+
+#: bin/schroot-base/schroot-base-options.cc:95
+msgid "Show more output"
+msgstr "Xuất nhiều hơn"
+
+#: bin/schroot-base/schroot-base-options.cc:99
+msgid "Enable debugging messages"
+msgstr "Bật hiển thị các thông điệp gỡ lỗi"
+
+#: bin/schroot-base/schroot-base-options.cc:158
+msgid "Invalid debug level"
+msgstr "Cấp gỡ lỗi không hợp lệ"
+
+#. TRANSLATORS: %1% = file
+#: bin/schroot-listmounts/schroot-listmounts-main.cc:57
+#, boost-format
+msgid "Failed to find '%1%'"
+msgstr "Không tìm thấy « %1% »"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#: bin/schroot-listmounts/schroot-listmounts-main.cc:72
+msgid "[OPTION...] - list mount points"
+msgstr "[TÙY_CHỌN...] — liệt kê các điểm lắp"
+
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:42
+#: bin/schroot-mount/schroot-mount-options.cc:45
+msgid "Mount"
+msgstr "Lắp"
+
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:61
+#: bin/schroot-mount/schroot-mount-options.cc:69
+msgid "Mountpoint to check (full path)"
+msgstr "Điểm lắp cần kiểm tra (đường dẫn đầy đủ)"
+
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:89
+#: bin/schroot-mount/schroot-mount-options.cc:102
+msgid "No mount point specified"
+msgstr "Chưa xác định điểm lắp"
+
+#: bin/schroot-mount/schroot-mount-main.cc:59 sbuild/sbuild-run-parts.cc:48
+#: sbuild/sbuild-session.cc:75
+msgid "Failed to fork child"
+msgstr "Lỗi tạo tiến trình con"
+
+#: bin/schroot-mount/schroot-mount-main.cc:60 sbuild/sbuild-run-parts.cc:49
+#: sbuild/sbuild-session.cc:78
+msgid "Wait for child failed"
+msgstr "Lỗi đợi tiến trình con"
+
+#. TRANSLATORS: %1% = command name
+#: bin/schroot-mount/schroot-mount-main.cc:62 sbuild/sbuild-run-parts.cc:51
+#, boost-format
+msgid "Failed to execute '%1%'"
+msgstr "Lỗi thực hiện « %1% »"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#: bin/schroot-mount/schroot-mount-main.cc:77
+msgid "[OPTION...] - mount filesystems"
+msgstr "[TÙY_CHỌN...] — lắp hệ thống tập tin"
+
+#: bin/schroot-mount/schroot-mount-main.cc:128
+#: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:119
+#: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:229
+#: sbuild/sbuild-session.cc:1049 sbuild/sbuild-session.cc:1315
+msgid "An unknown exception occurred"
+msgstr "Gặp ngoại lệ không rõ"
+
+#: bin/schroot-mount/schroot-mount-options.cc:65
+msgid "Perform a simulation of actions which would be taken"
+msgstr "Mô phỏng các hành động cần làm"
+
+#: bin/schroot-mount/schroot-mount-options.cc:67
+msgid "fstab file to read (full path)"
+msgstr "Tập tin fstab cần đọc (đường dẫn đầy đủ)"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:73
+msgid "[OPTION...] - release a device lock"
+msgstr "TÙY_CHỌN...] — nhả khoá thiết bị"
+
+#: bin/schroot-releaselock/schroot-releaselock-main.cc:89
+msgid "No PID specified; forcing release of lock"
+msgstr "Chưa xác định PID (mã số tiến trình) nên ép buộc nhả khoá"
+
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:43
+msgid "Lock"
+msgstr "Khoá"
+
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:62
+msgid "Device to unlock (full path)"
+msgstr "Thiết bị cần mở khoá (đường dẫn đầy đủ)"
+
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:64
+msgid "Process ID owning the lock"
+msgstr "Mã số tiến trình sở hữu khoá đó"
+
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:92
+msgid "No device specified"
+msgstr "Chưa xác định thiết bị"
+
+#. TRANSLATORS: %1% = comma-separated list of chroot names
+#: bin/schroot/schroot-main-base.cc:56
+#, boost-format
+msgid "%1%: Chroots not found"
+msgstr "%1%: không tìm thấy chroot"
+
+#. TRANSLATORS: %4% = file
+#: bin/schroot/schroot-main-base.cc:58
+#, boost-format
+msgid "No chroots are defined in '%4%'"
+msgstr "Chưa định nghĩa chroot trong « %4% »"
+
+#. TRANSLATORS: %4% = file
+#. TRANSLATORS: %5% = file
+#: bin/schroot/schroot-main-base.cc:61
+#, boost-format
+msgid "No chroots are defined in '%4%' or '%5%'"
+msgstr "Chưa định nghĩa chroot trong « %4% » hay trong « %5% »"
+
+#. TRANSLATORS: %1% = file
+#: bin/schroot/schroot-main-base.cc:63
+#, boost-format
+msgid "The specified chroots are not defined in '%1%'"
+msgstr "Những chroot được ghi rõ chưa được định nghĩa trong « %1% »"
+
+#. TRANSLATORS: %1% = chroot name
+#: bin/schroot/schroot-main-base.cc:65
+#, boost-format
+msgid "%1%: Chroot not found"
+msgstr "%1%: không tìm thấy chroot"
+
+#: bin/schroot/schroot-options-base.cc:56
+msgid "Chroot selection"
+msgstr "Chọn chroot"
+
+#: bin/schroot/schroot-options-base.cc:57
+msgid "Chroot environment"
+msgstr "Môi trường chroot"
+
+#: bin/schroot/schroot-options-base.cc:58
+msgid "Session actions"
+msgstr "Hành động phiên chạy"
+
+#: bin/schroot/schroot-options-base.cc:59
+msgid "Session options"
+msgstr "Tùy chọn phiên chạy"
+
+#: bin/schroot/schroot-options-base.cc:86
+msgid "List available chroots"
+msgstr "Liệt kê các chroot sẵn sàng"
+
+#: bin/schroot/schroot-options-base.cc:88
+msgid "Show information about selected chroots"
+msgstr "Hiện thông tin về các chroot được chọn"
+
+#: bin/schroot/schroot-options-base.cc:90
+msgid "Dump configuration of selected chroots"
+msgstr "Đổ cấu hình của các chroot đã chọn"
+
+#: bin/schroot/schroot-options-base.cc:94
+msgid "Use specified chroot"
+msgstr "Dùng chroot đã xác định"
+
+#: bin/schroot/schroot-options-base.cc:98
+msgid "Command to run"
+msgstr "Lệnh cần chạy"
+
+#: bin/schroot/schroot-options-base.cc:203
+msgid "Exactly one chroot must be specified when beginning a session"
+msgstr "Có thể ghi rõ chỉ một chroot khi khởi chạy phiên"
+
+#: bin/schroot/schroot-options-base.cc:232
+msgid "--chroot may not be used with --list"
+msgstr "Không cho phép dùng tùy chọn « --chroot » cùng với « --list » (liệt kê)"
+
+#: bin/schroot/schroot-options-base.cc:257
+msgid "Unknown action specified"
+msgstr "Hành động không rõ được xác định"
+
+#: bin/schroot/schroot-options.cc:52
+msgid "Print location of selected chroots"
+msgstr "In ra vị trí của các chroot đã chọn"
+
+#: bin/schroot/schroot-options.cc:56
+msgid "Select all chroots and active sessions"
+msgstr "Chọn mọi chroot và phiên chạy hoạt động"
+
+#: bin/schroot/schroot-options.cc:60
+msgid "Select all active sessions"
+msgstr "Chọn mọi phiên chạy hoạt động"
+
+#: bin/schroot/schroot-options.cc:66
+msgid "Username (default current user)"
+msgstr "Tên người dùng (người dùng hiện thời mặc định)"
+
+#: bin/schroot/schroot-options.cc:72
+msgid "Begin, run and end a session automatically (default)"
+msgstr "Tự động khởi chạy, chạy và dừng chạy phiên chạy (mặc định)"
+
+#: bin/schroot/schroot-options.cc:74
+msgid "Begin a session; returns a session ID"
+msgstr "Khởi chạy phiên chạy; trả lại một mã số phiên chạy"
+
+#: bin/schroot/schroot-options.cc:76
+msgid "Recover an existing session"
+msgstr "Phục hồi một phiên chạy đã có"
+
+#: bin/schroot/schroot-options.cc:78
+msgid "Run an existing session"
+msgstr "Chạy một phiên chạy đã có"
+
+#: bin/schroot/schroot-options.cc:80
+msgid "End an existing session"
+msgstr "Kết thúc một phiên chạy đã có"
+
+#: bin/schroot/schroot-options.cc:84
+msgid "Session name (defaults to an automatically generated name)"
+msgstr "Tên phiên chạy (giá trị mặc định là tên được tạo ra tự động)"
+
+#: bin/schroot/schroot-options.cc:86
+msgid "Force operation, even if it fails"
+msgstr "Ép buộc thao tác, thậm chí nếu nó bị lỗi"
 
 #. TRANSLATORS: %1% = program name (PAM service name)
 #: sbuild/sbuild-auth-null.cc:114 sbuild/sbuild-auth-pam.cc:305
@@ -58,42 +679,6 @@ msgstr "Bạn không có quyền truy cập đến dịch vụ %1%."
 #: sbuild/sbuild-auth-null.cc:116 sbuild/sbuild-auth-pam.cc:307
 msgid "This failure will be reported."
 msgstr "Lỗi này sẽ được thông báo."
-
-#: sbuild/sbuild-auth-pam.cc:78
-msgid "Password: "
-msgstr ""
-
-#: sbuild/sbuild-auth-pam.cc:79
-msgid "Password:"
-msgstr ""
-
-#: sbuild/sbuild-auth-pam.cc:86
-#, boost-format
-msgid "[schroot] password for %1%: "
-msgstr ""
-
-#: sbuild/sbuild-auth-pam.cc:119 sbuild/sbuild-log.cc:172
-#: sbuild/sbuild-run-parts.cc:229 sbuild/sbuild-session.cc:1038
-#: sbuild/sbuild-session.cc:1295 bin/schroot-mount/schroot-mount-main.cc:128
-#: bin/schroot-mount/schroot-mount-main.cc:192
-msgid "An unknown exception occurred"
-msgstr "Gặp ngoại lệ không rõ"
-
-#: sbuild/sbuild-auth-pam.cc:233
-msgid "Set RUSER"
-msgstr "Đặt RUSER"
-
-#: sbuild/sbuild-auth-pam.cc:251
-msgid "Set RHOST"
-msgstr "Đặt RHOST"
-
-#: sbuild/sbuild-auth-pam.cc:270
-msgid "Set TTY"
-msgstr "Đặt TTY"
-
-#: sbuild/sbuild-auth-pam.cc:282
-msgid "Set USER"
-msgstr "Đặt USER"
 
 #: sbuild/sbuild-auth-pam-conv-tty.cc:48
 msgid "No controlling terminal"
@@ -118,174 +703,71 @@ msgstr "Lỗi lấy thiết lập thiết bị cuối"
 msgid "Unsupported conversation type '%1%'"
 msgstr "Kiểu cuộc đối thoại không được hỗ trợ « %1% »"
 
-#: sbuild/sbuild-chroot-block-device-base.cc:166
+#: sbuild/sbuild-auth-pam.cc:78
+msgid "Password: "
+msgstr ""
+
+#: sbuild/sbuild-auth-pam.cc:79
+msgid "Password:"
+msgstr ""
+
+#: sbuild/sbuild-auth-pam.cc:86
+#, boost-format
+msgid "[schroot] password for %1%: "
+msgstr ""
+
+#: sbuild/sbuild-auth-pam.cc:233
+msgid "Set RUSER"
+msgstr "Đặt RUSER"
+
+#: sbuild/sbuild-auth-pam.cc:251
+msgid "Set RHOST"
+msgstr "Đặt RHOST"
+
+#: sbuild/sbuild-auth-pam.cc:270
+msgid "Set TTY"
+msgstr "Đặt TTY"
+
+#: sbuild/sbuild-auth-pam.cc:282
+msgid "Set USER"
+msgstr "Đặt USER"
+
+#: sbuild/sbuild-auth.cc:50
+msgid "Failed to get hostname"
+msgstr "Lỗi lấy tên máy"
+
+#. TRANSLATORS: %1% = user name or user ID
+#: sbuild/sbuild-auth.cc:52
+#, boost-format
+msgid "User '%1%' not found"
+msgstr "Không tìm thấy người dùng « %1% »"
+
+#. TRANSLATORS: %1% = group name or group ID
+#. TRANSLATORS: %1% = group name
+#: sbuild/sbuild-auth.cc:54 sbuild/sbuild-session.cc:104
+#, boost-format
+msgid "Group '%1%' not found"
+msgstr "Không tìm thấy nhóm « %1% »"
+
+#: sbuild/sbuild-auth.cc:55
+msgid "Authentication failed"
+msgstr "Lỗi xác thực"
+
+#: sbuild/sbuild-auth.cc:56
+msgid "Access not authorised"
+msgstr "Không có quyền truy cập"
+
+#: sbuild/sbuild-auth.cc:57
+msgid "PAM is already initialised"
+msgstr "PAM đã được sơ khởi"
+
+#: sbuild/sbuild-auth.cc:58 sbuild/sbuild-session.cc:105
+msgid "PAM error"
+msgstr "Lỗi PAM"
+
+#: sbuild/sbuild-chroot-block-device-base.cc:182
 msgid "Device"
 msgstr "Thiết bị"
-
-#: sbuild/sbuild-chroot.cc:63
-msgid "Chroot creation failed"
-msgstr "Lỗi tạo chroot"
-
-#: sbuild/sbuild-chroot.cc:64
-msgid "Device name not set"
-msgstr "Chưa đặt tên thiết bị"
-
-#. TRANSLATORS: %1% = chroot type name
-#: sbuild/sbuild-chroot.cc:66
-#, boost-format
-msgid "Unknown chroot type '%1%'"
-msgstr "Không rõ kiểu chroot « %1% »"
-
-#: sbuild/sbuild-chroot.cc:67
-msgid "Device must have an absolute path"
-msgstr "Thiết bị phải có đường dẫn tuyệt đối"
-
-#: sbuild/sbuild-chroot.cc:68 sbuild/sbuild-lock.cc:59
-msgid "Failed to lock device"
-msgstr "Lỗi khoá thiết bị"
-
-#: sbuild/sbuild-chroot.cc:69 bin/csbuild/csbuild-main.cc:52
-#: bin/schroot-releaselock/schroot-releaselock-main.cc:54
-msgid "File is not a block device"
-msgstr "Tập tin không phải là thiết bị khối"
-
-#: sbuild/sbuild-chroot.cc:70 sbuild/sbuild-lock.cc:64
-msgid "Failed to unlock device"
-msgstr "Lỗi mở khoá thiết bị"
-
-#: sbuild/sbuild-chroot.cc:71
-#, fuzzy
-msgid "Directory must have an absolute path"
-msgstr "Thiết bị phải có đường dẫn tuyệt đối"
-
-#: sbuild/sbuild-chroot.cc:72
-msgid "File must have an absolute path"
-msgstr "Tập tin phải có đường dẫn tuyệt đối"
-
-#: sbuild/sbuild-chroot.cc:73
-msgid "Failed to acquire file lock"
-msgstr "Lỗi giành khoá tập tin"
-
-#: sbuild/sbuild-chroot.cc:74 sbuild/sbuild-chroot-config.cc:60
-msgid "File is not a regular file"
-msgstr "Tập tin không phải là tập tin chuẩn"
-
-#: sbuild/sbuild-chroot.cc:75 sbuild/sbuild-chroot-config.cc:62
-msgid "File is not owned by user root"
-msgstr "Người dùng chủ không sở hữu tập tin này"
-
-#: sbuild/sbuild-chroot.cc:76 sbuild/sbuild-chroot-config.cc:63
-msgid "File has write permissions for others"
-msgstr "Người khác có quyền ghi tập tin này"
-
-#: sbuild/sbuild-chroot.cc:77
-msgid "Failed to discard file lock"
-msgstr "Lỗi hủy khoá tập tin"
-
-#: sbuild/sbuild-chroot.cc:78
-msgid "Location must have an absolute path"
-msgstr "Vị trí phải có đường dẫn tuyệt đối"
-
-#. TRANSLATORS: unlink refers to the C function which removes a file
-#: sbuild/sbuild-chroot.cc:80
-msgid "Failed to unlink session file"
-msgstr "Lỗi bỏ liên kết tập tin phiên chạy"
-
-#: sbuild/sbuild-chroot.cc:81
-msgid "Failed to write session file"
-msgstr "Lỗi ghi tập tin phiên chạy"
-
-#: sbuild/sbuild-chroot.cc:465
-msgid "Name"
-msgstr "Tên"
-
-#: sbuild/sbuild-chroot.cc:468
-#, fuzzy
-msgid "Session ID"
-msgstr "Phiên chạy"
-
-#: sbuild/sbuild-chroot.cc:471
-msgid "Description"
-msgstr "Mô tả"
-
-#: sbuild/sbuild-chroot.cc:472
-msgid "Type"
-msgstr "Kiểu"
-
-#: sbuild/sbuild-chroot.cc:473
-msgid "Priority"
-msgstr "Ưu tiên"
-
-#: sbuild/sbuild-chroot.cc:474
-msgid "Users"
-msgstr "Người dùng"
-
-#: sbuild/sbuild-chroot.cc:475
-msgid "Groups"
-msgstr "Nhóm"
-
-#: sbuild/sbuild-chroot.cc:476
-msgid "Root Users"
-msgstr "Người dùng chủ"
-
-#: sbuild/sbuild-chroot.cc:477
-msgid "Root Groups"
-msgstr "Nhóm chủ"
-
-#: sbuild/sbuild-chroot.cc:478
-msgid "Aliases"
-msgstr "Bí danh"
-
-#: sbuild/sbuild-chroot.cc:479
-msgid "Environment Filter"
-msgstr "Lọc môi trường"
-
-#: sbuild/sbuild-chroot.cc:480
-msgid "Run Setup Scripts"
-msgstr "Chạy các văn lệnh thiết lập"
-
-#: sbuild/sbuild-chroot.cc:481
-msgid "Script Configuration"
-msgstr "Cấu hình Văn lệnh"
-
-#: sbuild/sbuild-chroot.cc:482
-msgid "Session Managed"
-msgstr "Phiên chạy đã quản lý"
-
-#: sbuild/sbuild-chroot.cc:484
-msgid "Session Cloned"
-msgstr "Phiên chạy đã nhân đôi"
-
-#: sbuild/sbuild-chroot.cc:486
-msgid "Session Purged"
-msgstr "Phiên chạy bị tẩy"
-
-#: sbuild/sbuild-chroot.cc:490
-msgid "Command Prefix"
-msgstr "Tiền tố lệnh"
-
-#. TRANSLATORS: "Personality" is the Linux kernel personality
-#. (process execution domain).  See schroot.conf(5).
-#: sbuild/sbuild-chroot.cc:494
-msgid "Personality"
-msgstr "Cá tính"
-
-#: sbuild/sbuild-chroot.cc:498
-msgid "Mount Location"
-msgstr "Vị trí lắp"
-
-#: sbuild/sbuild-chroot.cc:500
-msgid "Path"
-msgstr "Đường dẫn"
-
-#: sbuild/sbuild-chroot.cc:506
-msgid "Session"
-msgstr "Phiên chạy"
-
-# Literal: don't translate / Nghĩa chữ: đừng dịch
-#: sbuild/sbuild-chroot.cc:506
-msgid "Chroot"
-msgstr "Chroot"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -304,9 +786,21 @@ msgstr "Không có chroot như vậy"
 msgid "A chroot or alias '%1%' already exists with this name"
 msgstr "Một chroot hay bí danh « %1% » đã có tên này"
 
+#: sbuild/sbuild-chroot-config.cc:60 sbuild/sbuild-chroot.cc:78
+msgid "File is not a regular file"
+msgstr "Tập tin không phải là tập tin chuẩn"
+
 #: sbuild/sbuild-chroot-config.cc:61
 msgid "Failed to open file"
 msgstr "Lỗi mở tập tin"
+
+#: sbuild/sbuild-chroot-config.cc:62 sbuild/sbuild-chroot.cc:79
+msgid "File is not owned by user root"
+msgstr "Người dùng chủ không sở hữu tập tin này"
+
+#: sbuild/sbuild-chroot-config.cc:63 sbuild/sbuild-chroot.cc:80
+msgid "File has write permissions for others"
+msgstr "Người khác có quyền ghi tập tin này"
 
 #: sbuild/sbuild-chroot-config.cc:226 sbuild/sbuild-chroot-config.cc:232
 msgid "Duplicate names are not allowed"
@@ -316,87 +810,253 @@ msgstr "Không cho phép tên trùng"
 msgid "Available chroots: "
 msgstr "Các chroot sẵn sàng: "
 
-#: sbuild/sbuild-chroot-directory-base.cc:71
+#: sbuild/sbuild-chroot-directory-base.cc:73
 #, fuzzy
 msgid "Directory"
 msgstr "Thư mục cần dùng"
 
-#: sbuild/sbuild-chroot-file.cc:184 sbuild/sbuild-chroot-loopback.cc:206
-msgid "File"
-msgstr "Tập tin"
-
-#: sbuild/sbuild-chroot-file.cc:185
-msgid "File Repack"
-msgstr "Nén lại tập tin"
-
-#: sbuild/sbuild-chroot-lvm-snapshot.cc:237
-msgid "LVM Snapshot Device"
-msgstr "Thiết bị hiện trạng Bộ Quản lý Khối tin Hợp lý"
-
-#: sbuild/sbuild-chroot-lvm-snapshot.cc:239
-msgid "LVM Snapshot Options"
-msgstr "Tùy chọn hiện trạng Bộ Quản lý Khối tin Hợp lý"
-
-#: sbuild/sbuild-chroot-mountable.cc:90
+#: sbuild/sbuild-chroot-facet-mountable.cc:123
 msgid "Mount Device"
 msgstr "Thiết bị lắp"
 
-#: sbuild/sbuild-chroot-mountable.cc:92
+#: sbuild/sbuild-chroot-facet-mountable.cc:125
 msgid "Mount Options"
 msgstr "Tùy chọn lắp"
 
-#: sbuild/sbuild-chroot-mountable.cc:94
+#: sbuild/sbuild-chroot-facet-mountable.cc:127
 msgid "Location"
 msgstr "Vị trí"
 
-#: sbuild/sbuild-chroot-session.cc:60
+#. TRANSLATORS: "Personality" is the Linux kernel personality
+#. (process execution domain).  See schroot.conf(5).
+#: sbuild/sbuild-chroot-facet-personality.cc:95
+msgid "Personality"
+msgstr "Cá tính"
+
+#: sbuild/sbuild-chroot-facet-session.cc:84
 #, fuzzy
 msgid "(session chroot)"
 msgstr "(chroot nguồn)"
 
-#: sbuild/sbuild-chroot-source.cc:49
+#: sbuild/sbuild-chroot-facet-session.cc:195
+#, fuzzy
+msgid "Session ID"
+msgstr "Phiên chạy"
+
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:70
 msgid "(source chroot)"
 msgstr "(chroot nguồn)"
 
-#: sbuild/sbuild-chroot-source.cc:152
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:169
 msgid "Source Users"
 msgstr "Người dùng nguồn"
 
-#: sbuild/sbuild-chroot-source.cc:153
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:170
 msgid "Source Groups"
 msgstr "Nhóm nguồn"
 
-#: sbuild/sbuild-chroot-source.cc:154
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:171
 msgid "Source Root Users"
 msgstr "Người dùng chủ nguồn"
 
-#: sbuild/sbuild-chroot-source.cc:155
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:172
 msgid "Source Root Groups"
 msgstr "Nhóm chủ nguồn"
 
 #. TRANSLATORS: %1% = chroot fs type
-#: sbuild/sbuild-chroot-union.cc:44
+#: sbuild/sbuild-chroot-facet-union.cc:43
 #, fuzzy, boost-format
 msgid "Unknown filesystem union type '%1%'"
 msgstr "Không rõ kiểu chroot « %1% »"
 
-#: sbuild/sbuild-chroot-union.cc:200
+#: sbuild/sbuild-chroot-facet-union.cc:44
+#, fuzzy
+msgid "Union overlay must have an absolute path"
+msgstr "Tập tin phải có đường dẫn tuyệt đối"
+
+#: sbuild/sbuild-chroot-facet-union.cc:45
+#, fuzzy
+msgid "Union underlay must have an absolute path"
+msgstr "Tập tin phải có đường dẫn tuyệt đối"
+
+#: sbuild/sbuild-chroot-facet-union.cc:227
 #, fuzzy
 msgid "Filesystem union type"
 msgstr "Tùy chọn phiên chạy"
 
-#: sbuild/sbuild-chroot-union.cc:204
+#: sbuild/sbuild-chroot-facet-union.cc:231
 #, fuzzy
 msgid "Filesystem union mount options"
 msgstr "Tùy chọn phiên chạy"
 
-#: sbuild/sbuild-chroot-union.cc:207
+#: sbuild/sbuild-chroot-facet-union.cc:234
 msgid "Filesystem union overlay directory"
 msgstr ""
 
-#: sbuild/sbuild-chroot-union.cc:210
+#: sbuild/sbuild-chroot-facet-union.cc:237
 msgid "Filesystem union underlay directory"
 msgstr ""
+
+#: sbuild/sbuild-chroot-file.cc:190 sbuild/sbuild-chroot-loopback.cc:205
+msgid "File"
+msgstr "Tập tin"
+
+#: sbuild/sbuild-chroot-file.cc:191
+msgid "File Repack"
+msgstr "Nén lại tập tin"
+
+#: sbuild/sbuild-chroot-lvm-snapshot.cc:235
+msgid "LVM Snapshot Device"
+msgstr "Thiết bị hiện trạng Bộ Quản lý Khối tin Hợp lý"
+
+#: sbuild/sbuild-chroot-lvm-snapshot.cc:237
+msgid "LVM Snapshot Options"
+msgstr "Tùy chọn hiện trạng Bộ Quản lý Khối tin Hợp lý"
+
+#: sbuild/sbuild-chroot.cc:65
+msgid "Chroot creation failed"
+msgstr "Lỗi tạo chroot"
+
+#: sbuild/sbuild-chroot.cc:66
+msgid "Device name not set"
+msgstr "Chưa đặt tên thiết bị"
+
+#. TRANSLATORS: %1% = chroot type name
+#: sbuild/sbuild-chroot.cc:68
+#, boost-format
+msgid "Unknown chroot type '%1%'"
+msgstr "Không rõ kiểu chroot « %1% »"
+
+#: sbuild/sbuild-chroot.cc:69
+msgid "Device must have an absolute path"
+msgstr "Thiết bị phải có đường dẫn tuyệt đối"
+
+#: sbuild/sbuild-chroot.cc:70 sbuild/sbuild-lock.cc:59
+msgid "Failed to lock device"
+msgstr "Lỗi khoá thiết bị"
+
+#: sbuild/sbuild-chroot.cc:72 sbuild/sbuild-lock.cc:64
+msgid "Failed to unlock device"
+msgstr "Lỗi mở khoá thiết bị"
+
+#: sbuild/sbuild-chroot.cc:73
+#, fuzzy
+msgid "Directory must have an absolute path"
+msgstr "Thiết bị phải có đường dẫn tuyệt đối"
+
+#: sbuild/sbuild-chroot.cc:74
+msgid "Attempt to add object which is not a facet"
+msgstr ""
+
+#: sbuild/sbuild-chroot.cc:75
+msgid "Attempt to add facet which is already in use"
+msgstr ""
+
+#: sbuild/sbuild-chroot.cc:76
+msgid "File must have an absolute path"
+msgstr "Tập tin phải có đường dẫn tuyệt đối"
+
+#: sbuild/sbuild-chroot.cc:77
+msgid "Failed to acquire file lock"
+msgstr "Lỗi giành khoá tập tin"
+
+#: sbuild/sbuild-chroot.cc:81
+msgid "Failed to discard file lock"
+msgstr "Lỗi hủy khoá tập tin"
+
+#: sbuild/sbuild-chroot.cc:82
+msgid "Location must have an absolute path"
+msgstr "Vị trí phải có đường dẫn tuyệt đối"
+
+#. TRANSLATORS: unlink refers to the C function which removes a file
+#: sbuild/sbuild-chroot.cc:84
+msgid "Failed to unlink session file"
+msgstr "Lỗi bỏ liên kết tập tin phiên chạy"
+
+#: sbuild/sbuild-chroot.cc:85
+msgid "Failed to write session file"
+msgstr "Lỗi ghi tập tin phiên chạy"
+
+#: sbuild/sbuild-chroot.cc:547
+msgid "Name"
+msgstr "Tên"
+
+#: sbuild/sbuild-chroot.cc:550
+msgid "Description"
+msgstr "Mô tả"
+
+#: sbuild/sbuild-chroot.cc:551
+msgid "Type"
+msgstr "Kiểu"
+
+#: sbuild/sbuild-chroot.cc:552
+msgid "Priority"
+msgstr "Ưu tiên"
+
+#: sbuild/sbuild-chroot.cc:553
+msgid "Users"
+msgstr "Người dùng"
+
+#: sbuild/sbuild-chroot.cc:554
+msgid "Groups"
+msgstr "Nhóm"
+
+#: sbuild/sbuild-chroot.cc:555
+msgid "Root Users"
+msgstr "Người dùng chủ"
+
+#: sbuild/sbuild-chroot.cc:556
+msgid "Root Groups"
+msgstr "Nhóm chủ"
+
+#: sbuild/sbuild-chroot.cc:557
+msgid "Aliases"
+msgstr "Bí danh"
+
+#: sbuild/sbuild-chroot.cc:558
+msgid "Environment Filter"
+msgstr "Lọc môi trường"
+
+#: sbuild/sbuild-chroot.cc:559
+msgid "Run Setup Scripts"
+msgstr "Chạy các văn lệnh thiết lập"
+
+#: sbuild/sbuild-chroot.cc:560
+msgid "Script Configuration"
+msgstr "Cấu hình Văn lệnh"
+
+#: sbuild/sbuild-chroot.cc:561
+msgid "Session Managed"
+msgstr "Phiên chạy đã quản lý"
+
+#: sbuild/sbuild-chroot.cc:563
+msgid "Session Cloned"
+msgstr "Phiên chạy đã nhân đôi"
+
+#: sbuild/sbuild-chroot.cc:565
+msgid "Session Purged"
+msgstr "Phiên chạy bị tẩy"
+
+#: sbuild/sbuild-chroot.cc:569
+msgid "Command Prefix"
+msgstr "Tiền tố lệnh"
+
+#: sbuild/sbuild-chroot.cc:573
+msgid "Mount Location"
+msgstr "Vị trí lắp"
+
+#: sbuild/sbuild-chroot.cc:575
+msgid "Path"
+msgstr "Đường dẫn"
+
+#: sbuild/sbuild-chroot.cc:581
+msgid "Session"
+msgstr "Phiên chạy"
+
+# Literal: don't translate / Nghĩa chữ: đừng dịch
+#: sbuild/sbuild-chroot.cc:581
+msgid "Chroot"
+msgstr "Chroot"
 
 #: sbuild/sbuild-ctty.cc:46
 msgid "The controlling terminal close-on-execute flag could not be set"
@@ -434,12 +1094,6 @@ msgstr "sai"
 msgid "--- %1% ---"
 msgstr "━━━ %1% ━━━"
 
-#. TRANSLATORS: %1% = file
-#: sbuild/sbuild-keyfile-base.cc:41 bin/csbuild/csbuild-debian-changes.cc:44
-#, boost-format
-msgid "Can't open file '%1%'"
-msgstr "Không thể mở tập tin « %1% »"
-
 #: sbuild/sbuild-keyfile-base.cc:46
 #, boost-format
 msgid "line %1% [%2%]: Deprecated key '%4%' used"
@@ -475,13 +1129,6 @@ msgstr "dòng %1% [%2%]: khoá trùng « %4% »"
 msgid "line %1%: Invalid group: \"%4%\""
 msgstr "dòng %1%: nhóm không hợp lệ: « %4% »"
 
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = line contents as read from the configuration file
-#: sbuild/sbuild-keyfile-base.cc:76 bin/csbuild/csbuild-debian-changes.cc:60
-#, boost-format
-msgid "line %1%: Invalid line: \"%4%\""
-msgstr "dòng %1%: dòng không hợp lệ: « %4% »"
-
 #: sbuild/sbuild-keyfile-base.cc:81
 #, boost-format
 msgid "line %1% [%2%]: Required key '%4%' is missing"
@@ -496,13 +1143,6 @@ msgstr "[%1%]: khoá cần thiết « %4% » còn thiếu"
 #, boost-format
 msgid "line %1%: No group specified: \"%4%\""
 msgstr "dòng %1%: chưa xác định nhóm: « %4% »"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = line contents as read from the configuration file
-#: sbuild/sbuild-keyfile-base.cc:93 bin/csbuild/csbuild-debian-changes.cc:68
-#, boost-format
-msgid "line %1%: No key specified: \"%4%\""
-msgstr "dòng %1%: chưa xác định khoá: « %4% »"
 
 #: sbuild/sbuild-keyfile-base.cc:98
 #, boost-format
@@ -653,22 +1293,6 @@ msgstr "Lỗi đặt cá tính « %1% »"
 msgid "Valid personalities: %1%\n"
 msgstr "Cá tính hợp lệ: %1%\n"
 
-#: sbuild/sbuild-run-parts.cc:48 sbuild/sbuild-session.cc:74
-#: bin/schroot-mount/schroot-mount-main.cc:59
-msgid "Failed to fork child"
-msgstr "Lỗi tạo tiến trình con"
-
-#: sbuild/sbuild-run-parts.cc:49 sbuild/sbuild-session.cc:77
-#: bin/schroot-mount/schroot-mount-main.cc:60
-msgid "Wait for child failed"
-msgstr "Lỗi đợi tiến trình con"
-
-#. TRANSLATORS: %1% = command name
-#: sbuild/sbuild-run-parts.cc:51 bin/schroot-mount/schroot-mount-main.cc:62
-#, boost-format
-msgid "Failed to execute '%1%'"
-msgstr "Lỗi thực hiện « %1% »"
-
 #: sbuild/sbuild-run-parts.cc:52
 #, fuzzy
 msgid "Failed to create pipe"
@@ -696,71 +1320,71 @@ msgid "Executing '%1%'"
 msgstr "Đang thực hiện « %1% »..."
 
 #. TRANSLATORS: %1% = directory
-#: sbuild/sbuild-session.cc:69
+#: sbuild/sbuild-session.cc:70
 #, boost-format
 msgid "Failed to change to directory '%1%'"
 msgstr "Lỗi chuyển đổi sang thư mục « %1% »"
 
 #. TRANSLATORS: %4% = directory
-#: sbuild/sbuild-session.cc:71
+#: sbuild/sbuild-session.cc:72
 #, boost-format
 msgid "Falling back to directory '%4%'"
 msgstr "Đang dự trữ về thư mục « %4% »"
 
-#: sbuild/sbuild-session.cc:72
+#: sbuild/sbuild-session.cc:73
 msgid "Child dumped core"
 msgstr "Tiến trình con đã đổ lõi"
 
-#: sbuild/sbuild-session.cc:73
+#: sbuild/sbuild-session.cc:74
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr ""
 "Tiến trình con đã thoát bất thường (chưa biết sao ; không phải là tín hiệu "
 "hay sự đổ lõi)"
 
 #. TRANSLATORS: %4% = signal name
-#: sbuild/sbuild-session.cc:76
+#: sbuild/sbuild-session.cc:77
 #, boost-format
 msgid "Child terminated by signal '%4%'"
 msgstr "Tiến trình con bị chấm dứt do tín hiệu « %4% »"
 
 #. TRANSLATORS: %1% = directory
-#: sbuild/sbuild-session.cc:79
+#: sbuild/sbuild-session.cc:80
 #, boost-format
 msgid "Failed to change root to directory '%1%'"
 msgstr "Lỗi thay đổi gốc tới thư mục « %1% »"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-session.cc:81
+#: sbuild/sbuild-session.cc:82
 #, boost-format
 msgid "No chroot found matching name or alias '%1%'"
 msgstr "Không tìm thấy chroot tương ứng với tên hay bí danh « %1% »"
 
-#: sbuild/sbuild-session.cc:82
+#: sbuild/sbuild-session.cc:83
 msgid "Failed to lock chroot"
 msgstr "Lỗi khoá chroot"
 
-#: sbuild/sbuild-session.cc:83
+#: sbuild/sbuild-session.cc:84
 msgid "Chroot setup failed"
 msgstr "Lỗi thiết lập chroot"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-session.cc:85
+#: sbuild/sbuild-session.cc:86
 #, boost-format
 msgid "Failed to find chroot '%1%'"
 msgstr "Không tìm thấy chroot « %1% »"
 
-#: sbuild/sbuild-session.cc:86
+#: sbuild/sbuild-session.cc:87
 msgid "Failed to unlock chroot"
 msgstr "Lỗi mở khoá chroot"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-session.cc:88
+#: sbuild/sbuild-session.cc:89
 #, boost-format
 msgid "Command \"%1%\" must have an absolute path"
 msgstr "Lệnh « %1% » phải có đường dẫn tuyệt đối"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-session.cc:90
+#: sbuild/sbuild-session.cc:91
 #, boost-format
 msgid "Failed to execute \"%1%\""
 msgstr "Lỗi thực hiện « %1% »"
@@ -768,34 +1392,34 @@ msgstr "Lỗi thực hiện « %1% »"
 #. TRANSLATORS: A supplementary group is the list of additional
 #. system groups a user belongs to, in addition to their default
 #. group.
-#: sbuild/sbuild-session.cc:94
+#: sbuild/sbuild-session.cc:95
 msgid "Failed to get supplementary groups"
 msgstr "Lỗi lấy nhóm bổ sung"
 
 #. TRANSLATORS: A supplementary group is the list of additional
 #. system groups a user belongs to, in addition to their default
 #. group.
-#: sbuild/sbuild-session.cc:98
+#: sbuild/sbuild-session.cc:99
 msgid "Failed to get supplementary group count"
 msgstr "Lỗi lấy số đếm nhóm bổ sung"
 
 #. TRANSLATORS: %1% = integer group ID
-#: sbuild/sbuild-session.cc:100
+#: sbuild/sbuild-session.cc:101
 #, boost-format
 msgid "Failed to set group '%1%'"
 msgstr "Lỗi đặt nhóm « %1% »"
 
-#: sbuild/sbuild-session.cc:101
+#: sbuild/sbuild-session.cc:102
 msgid "Failed to set supplementary groups"
 msgstr "Lỗi đặt nhóm bổ sung"
 
-#: sbuild/sbuild-session.cc:105
+#: sbuild/sbuild-session.cc:106
 msgid "Failed to drop root permissions"
 msgstr "Lỗi bỏ ra quyền chủ"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = session identifier
-#: sbuild/sbuild-session.cc:108
+#: sbuild/sbuild-session.cc:109
 #, boost-format
 msgid ""
 "%1%: Chroot does not support setting a session ID; ignoring session ID '%4%'"
@@ -804,31 +1428,31 @@ msgstr ""
 "qua mã số phiên chạy « %4% »"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-session.cc:110
+#: sbuild/sbuild-session.cc:111
 #, boost-format
 msgid "Shell '%1%' not available"
 msgstr "Trình bao « %1% » không sẵn sàng"
 
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:112
+#: sbuild/sbuild-session.cc:113
 #, boost-format
 msgid "Falling back to shell '%4%'"
 msgstr "Đang dự trữ về trình bao « %4% »"
 
 #. TRANSLATORS: %4% = signal name
-#: sbuild/sbuild-session.cc:114
+#: sbuild/sbuild-session.cc:115
 #, boost-format
 msgid "Caught signal '%4%'"
 msgstr "Mới bắt tín hiệu « %4% »"
 
 #. TRANSLATORS: %4% = signal name
-#: sbuild/sbuild-session.cc:116
+#: sbuild/sbuild-session.cc:117
 #, boost-format
 msgid "Failed to set signal handler '%4%'"
 msgstr "Lỗi đặt bộ quản lý tín hiệu « %4% »"
 
 #. TRANSLATORS: %1% = integer user ID
-#: sbuild/sbuild-session.cc:118
+#: sbuild/sbuild-session.cc:119
 #, boost-format
 msgid "Failed to set user '%1%'"
 msgstr "Lỗi đặt người dùng « %1% »"
@@ -836,29 +1460,29 @@ msgstr "Lỗi đặt người dùng « %1% »"
 #. TRANSLATORS: %1% = user name
 #. TRANSLATORS: %2% = user name
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:122
+#: sbuild/sbuild-session.cc:123
 #, boost-format
 msgid "(%1%->%2%): User switching is not permitted"
 msgstr "(%1%->%2%): không cho phép chuyển đổi người dùng"
 
-#: sbuild/sbuild-session.cc:334
+#: sbuild/sbuild-session.cc:335
 msgid "Error saving terminal settings"
 msgstr "Gặp lỗi khi lưu thiết lập thiết bị cuối"
 
-#: sbuild/sbuild-session.cc:355
+#: sbuild/sbuild-session.cc:356
 msgid "Error restoring terminal settings"
 msgstr "Gặp lỗi khi phục hồi thiết lập thiết bị cuối"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:807
+#: sbuild/sbuild-session.cc:818
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[%1% chroot] Đang chạy trình bao đăng nhập: « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:811
+#: sbuild/sbuild-session.cc:822
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[%1% chroot] Đang chạy trình bao : « %4% »"
@@ -868,7 +1492,7 @@ msgstr "[%1% chroot] Đang chạy trình bao : « %4% »"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:822
+#: sbuild/sbuild-session.cc:833
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[%1% chroot] (%2% → %3%) Đang chạy trình bao đăng nhập: « %4% »"
@@ -878,14 +1502,14 @@ msgstr "[%1% chroot] (%2% → %3%) Đang chạy trình bao đăng nhập: « %4%
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:829
+#: sbuild/sbuild-session.cc:840
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy trình bao : « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:867
+#: sbuild/sbuild-session.cc:878
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Đang chạy lệnh: « %4% »"
@@ -895,17 +1519,17 @@ msgstr "[%1% chroot] Đang chạy lệnh: « %4% »"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:874
+#: sbuild/sbuild-session.cc:885
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy lệnh: « %4% »"
 
-#: sbuild/sbuild-session.cc:1062
+#: sbuild/sbuild-session.cc:1073
 #, boost-format
 msgid "stage=%1%"
 msgstr "giai đoạn=%1%"
 
-#: sbuild/sbuild-session.cc:1219 sbuild/sbuild-session.cc:1226
+#: sbuild/sbuild-session.cc:1239 sbuild/sbuild-session.cc:1246
 msgid "terminating immediately"
 msgstr "sẽ chấm dứt ngay"
 
@@ -928,611 +1552,6 @@ msgstr "Lỗi lấy trạng thái về tập tin này"
 #: sbuild/sbuild-util.cc:74
 msgid "Failed to stat file descriptor"
 msgstr "Lỗi lấy trạng thái về bộ mô tả tập tin"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
-#. is an em-dash.
-#: bin/schroot/schroot-main.cc:48 bin/dchroot/dchroot-main.cc:46
-msgid "[OPTION...] [COMMAND] - run command or shell in a chroot"
-msgstr "[TÙY_CHỌN...] [LỆNH] — chạy lệnh hoặc trình bao trong một chroot"
-
-#. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = current date
-#: bin/schroot/schroot-main.cc:65 bin/dchroot/dchroot-main-base.cc:63
-#, boost-format
-msgid "schroot configuration generated by %1% %2% on %3%"
-msgstr "Cấu hình schroot do %1% %2% tạo ra vào %3%"
-
-#. TRANSLATORS: %1% = comma-separated list of chroot names
-#: bin/schroot/schroot-main-base.cc:56
-#, boost-format
-msgid "%1%: Chroots not found"
-msgstr "%1%: không tìm thấy chroot"
-
-#. TRANSLATORS: %4% = file
-#: bin/schroot/schroot-main-base.cc:58
-#, boost-format
-msgid "No chroots are defined in '%4%'"
-msgstr "Chưa định nghĩa chroot trong « %4% »"
-
-#. TRANSLATORS: %4% = file
-#. TRANSLATORS: %5% = file
-#: bin/schroot/schroot-main-base.cc:61
-#, boost-format
-msgid "No chroots are defined in '%4%' or '%5%'"
-msgstr "Chưa định nghĩa chroot trong « %4% » hay trong « %5% »"
-
-#. TRANSLATORS: %1% = file
-#: bin/schroot/schroot-main-base.cc:63
-#, boost-format
-msgid "The specified chroots are not defined in '%1%'"
-msgstr "Những chroot được ghi rõ chưa được định nghĩa trong « %1% »"
-
-#. TRANSLATORS: %1% = chroot name
-#: bin/schroot/schroot-main-base.cc:65
-#, boost-format
-msgid "%1%: Chroot not found"
-msgstr "%1%: không tìm thấy chroot"
-
-#: bin/schroot/schroot-options.cc:52
-msgid "Print location of selected chroots"
-msgstr "In ra vị trí của các chroot đã chọn"
-
-#: bin/schroot/schroot-options.cc:56
-msgid "Select all chroots and active sessions"
-msgstr "Chọn mọi chroot và phiên chạy hoạt động"
-
-#: bin/schroot/schroot-options.cc:58 bin/dchroot/dchroot-options.cc:56
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:58
-msgid "Select all chroots"
-msgstr "Chọn mọi chroot"
-
-#: bin/schroot/schroot-options.cc:60
-msgid "Select all active sessions"
-msgstr "Chọn mọi phiên chạy hoạt động"
-
-#: bin/schroot/schroot-options.cc:64 bin/dchroot/dchroot-options.cc:60
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:62
-msgid "Directory to use"
-msgstr "Thư mục cần dùng"
-
-#: bin/schroot/schroot-options.cc:66
-msgid "Username (default current user)"
-msgstr "Tên người dùng (người dùng hiện thời mặc định)"
-
-#: bin/schroot/schroot-options.cc:68 bin/dchroot/dchroot-options.cc:62
-msgid "Preserve user environment"
-msgstr "Bảo tồn môi trường người dùng"
-
-#: bin/schroot/schroot-options.cc:72
-msgid "Begin, run and end a session automatically (default)"
-msgstr "Tự động khởi chạy, chạy và dừng chạy phiên chạy (mặc định)"
-
-#: bin/schroot/schroot-options.cc:74
-msgid "Begin a session; returns a session ID"
-msgstr "Khởi chạy phiên chạy; trả lại một mã số phiên chạy"
-
-#: bin/schroot/schroot-options.cc:76
-msgid "Recover an existing session"
-msgstr "Phục hồi một phiên chạy đã có"
-
-#: bin/schroot/schroot-options.cc:78
-msgid "Run an existing session"
-msgstr "Chạy một phiên chạy đã có"
-
-#: bin/schroot/schroot-options.cc:80
-msgid "End an existing session"
-msgstr "Kết thúc một phiên chạy đã có"
-
-#: bin/schroot/schroot-options.cc:84
-msgid "Session name (defaults to an automatically generated name)"
-msgstr "Tên phiên chạy (giá trị mặc định là tên được tạo ra tự động)"
-
-#: bin/schroot/schroot-options.cc:86
-msgid "Force operation, even if it fails"
-msgstr "Ép buộc thao tác, thậm chí nếu nó bị lỗi"
-
-#: bin/schroot/schroot-options-base.cc:56
-msgid "Chroot selection"
-msgstr "Chọn chroot"
-
-#: bin/schroot/schroot-options-base.cc:57
-msgid "Chroot environment"
-msgstr "Môi trường chroot"
-
-#: bin/schroot/schroot-options-base.cc:58
-msgid "Session actions"
-msgstr "Hành động phiên chạy"
-
-#: bin/schroot/schroot-options-base.cc:59
-msgid "Session options"
-msgstr "Tùy chọn phiên chạy"
-
-#: bin/schroot/schroot-options-base.cc:86
-msgid "List available chroots"
-msgstr "Liệt kê các chroot sẵn sàng"
-
-#: bin/schroot/schroot-options-base.cc:88
-msgid "Show information about selected chroots"
-msgstr "Hiện thông tin về các chroot được chọn"
-
-#: bin/schroot/schroot-options-base.cc:90
-msgid "Dump configuration of selected chroots"
-msgstr "Đổ cấu hình của các chroot đã chọn"
-
-#: bin/schroot/schroot-options-base.cc:94
-msgid "Use specified chroot"
-msgstr "Dùng chroot đã xác định"
-
-#: bin/schroot/schroot-options-base.cc:98
-msgid "Command to run"
-msgstr "Lệnh cần chạy"
-
-#: bin/schroot/schroot-options-base.cc:171 bin/dchroot/dchroot-options.cc:87
-msgid "--quiet and --verbose may not be used at the same time"
-msgstr ""
-"Không cho phép dùng đồng thời hai tùy chọn « --quiet » (im) và « --verbose "
-"» (xuất chi tiết)"
-
-#: bin/schroot/schroot-options-base.cc:173 bin/dchroot/dchroot-options.cc:89
-msgid "Using verbose output"
-msgstr "Đang xuất chi tiết"
-
-#: bin/schroot/schroot-options-base.cc:179 bin/dchroot/dchroot-options.cc:95
-msgid "--chroot and --all may not be used at the same time"
-msgstr ""
-"Không cho phép dùng đồng thời hai tùy chọn « --chroot » và « --all » (tất cả)"
-
-#: bin/schroot/schroot-options-base.cc:181 bin/dchroot/dchroot-options.cc:97
-msgid "Using --chroots only"
-msgstr "Đang dùng chỉ tùy chọn « --chroots »"
-
-#: bin/schroot/schroot-options-base.cc:203
-msgid "Exactly one chroot must be specified when beginning a session"
-msgstr "Có thể ghi rõ chỉ một chroot khi khởi chạy phiên"
-
-#: bin/schroot/schroot-options-base.cc:232
-msgid "--chroot may not be used with --list"
-msgstr "Không cho phép dùng tùy chọn « --chroot » cùng với « --list » (liệt kê)"
-
-#: bin/schroot/schroot-options-base.cc:257
-msgid "Unknown action specified"
-msgstr "Hành động không rõ được xác định"
-
-#. TRANSLATORS: %1% = file
-#: bin/schroot-listmounts/schroot-listmounts-main.cc:57
-#, boost-format
-msgid "Failed to find '%1%'"
-msgstr "Không tìm thấy « %1% »"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#: bin/schroot-listmounts/schroot-listmounts-main.cc:72
-msgid "[OPTION...] - list mount points"
-msgstr "[TÙY_CHỌN...] — liệt kê các điểm lắp"
-
-#: bin/schroot-listmounts/schroot-listmounts-options.cc:42
-#: bin/schroot-mount/schroot-mount-options.cc:45
-msgid "Mount"
-msgstr "Lắp"
-
-#: bin/schroot-listmounts/schroot-listmounts-options.cc:61
-#: bin/schroot-mount/schroot-mount-options.cc:69
-msgid "Mountpoint to check (full path)"
-msgstr "Điểm lắp cần kiểm tra (đường dẫn đầy đủ)"
-
-#: bin/schroot-listmounts/schroot-listmounts-options.cc:89
-#: bin/schroot-mount/schroot-mount-options.cc:102
-msgid "No mount point specified"
-msgstr "Chưa xác định điểm lắp"
-
-#. TRANSLATORS: %1% = chroot name
-#. TRANSLATORS: %2% = command
-#: bin/dchroot/dchroot-session.cc:130
-#: bin/dchroot-dsa/dchroot-dsa-session.cc:142
-#, boost-format
-msgid "[%1% chroot] Running command: \"%2%\""
-msgstr "[%1% chroot] Đang chạy lệnh: « %2% »"
-
-#: bin/dchroot/dchroot-session-base.cc:73
-msgid "dchroot session restriction"
-msgstr "sự hạn chế phiên chạy dchroot"
-
-#. TRANSLATORS: %1% = chroot name
-#: bin/dchroot/dchroot-chroot-config.cc:126
-#, boost-format
-msgid "%1% chroot (dchroot compatibility)"
-msgstr "%1% chroot (tính tương thích với dchroot)"
-
-#. TRANSLATORS: Do not translate "users" and "groups";
-#. these are keywords used in the configuration file.
-#: bin/dchroot/dchroot-main-base.cc:74
-msgid "To allow users access to the chroots, use the users or groups keys."
-msgstr ""
-"Để cho phép người dùng truy cập đến chroot, dùng khóa của người dùng hay "
-"nhóm."
-
-#. TRANSLATORS: Do not translate "root-users" and
-#. "root-groups"; these are keywords used in the
-#. configuration file.
-#: bin/dchroot/dchroot-main-base.cc:80
-msgid ""
-"To allow password-less root access, use the root-users or root-groups keys."
-msgstr ""
-"Để cho phép truy cập kiểu người chủ mà không cần mật khẩu, hãy dùng khoá của "
-"người dùng chủ (root-users) hay nhóm chủ (root-groups)."
-
-#. TRANSLATORS: %1% = file
-#: bin/dchroot/dchroot-main-base.cc:83 bin/dchroot/dchroot-main-base.cc:144
-#, boost-format
-msgid "Remove '%1%' to use the new configuration."
-msgstr "Gỡ bỏ « %1% » để sử dụng cấu hình mới."
-
-#. TRANSLATORS: %1% = program name
-#: bin/dchroot/dchroot-main-base.cc:104
-#, boost-format
-msgid "Running schroot in %1% compatibility mode"
-msgstr "Đang chạy schroot ở chế độ tương thích %1%"
-
-#. TRANSLATORS: "full capabilities" in this context means "all
-#. features"
-#: bin/dchroot/dchroot-main-base.cc:110
-msgid "Run \"schroot\" for full capabilities"
-msgstr "Chạy « schroot » để được khả năng đầy đủ"
-
-#. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = configuration file
-#: bin/dchroot/dchroot-main-base.cc:129
-#, boost-format
-msgid "Using %1% configuration file: '%2%'"
-msgstr "Đang dùng tập tin cấu hình %1%: « %2% »"
-
-#: bin/dchroot/dchroot-main-base.cc:133
-#, boost-format
-msgid "Run \"%1%\""
-msgstr "Chạy « %1% »"
-
-#: bin/dchroot/dchroot-main-base.cc:137
-msgid "to migrate to a schroot configuration."
-msgstr "để nâng cấp lên một cấu hình schroot."
-
-#: bin/dchroot/dchroot-main-base.cc:140
-#, boost-format
-msgid "Edit '%1%' to add appropriate user and/or group access."
-msgstr ""
-"Chỉnh sửa « %1% » để thêm truy cập thích hợp với người dùng và/hay nhóm."
-
-#: bin/dchroot/dchroot-options.cc:52
-msgid "Print path to selected chroot"
-msgstr "In ra đường dẫn đến chroot đã chọn"
-
-#: bin/schroot-base/schroot-base-option-action.cc:65
-#: bin/schroot-base/schroot-base-option-action.cc:88
-#, boost-format
-msgid "%1%: invalid action"
-msgstr "%1%: hành động không hợp lệ"
-
-#: bin/schroot-base/schroot-base-option-action.cc:85
-msgid "Only one action may be specified"
-msgstr "Có thể ghi rõ chỉ một hành động"
-
-#. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = release date
-#: bin/schroot-base/schroot-base-main.cc:61
-#, boost-format
-msgid "%1% (Debian sbuild) %2% (%3%)\n"
-msgstr "%1% (Debian sbuild) %2% (%3%)\n"
-
-#: bin/schroot-base/schroot-base-main.cc:65
-msgid "Written by Roger Leigh"
-msgstr "Tác giả: Roger Leigh"
-
-#. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
-#: bin/schroot-base/schroot-base-main.cc:67
-#, fuzzy
-msgid "Copyright (C) 2004-2009 Roger Leigh"
-msgstr "Tác quyền © năm 2004-2008 của Roger Leigh"
-
-#: bin/schroot-base/schroot-base-main.cc:68
-msgid ""
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
-msgstr ""
-"Đây là phần mềm tự do; xem mã nguồn để tìm điều kiện sao chép.\n"
-"KHÔNG CÓ BẢO HÀNH GÌ CẢ, THẬM CHÍ KHÔNG CÓ BẢO ĐẢM ĐƯỢC NGỤ Ý\n"
-"KHẢ NĂNG BÁN HAY KHẢ NĂNG LÀM ĐƯỢC VIỆC DỨT KHOÁT.\n"
-
-#: bin/schroot-base/schroot-base-main.cc:77
-msgid "Usage:"
-msgstr "Sử dụng:"
-
-#. TRANSLATORS: %1% = program name
-#: bin/schroot-base/schroot-base-main.cc:114
-#, boost-format
-msgid "Run \"%1% --help\" to list usage example and all available options"
-msgstr ""
-"Hãy chạy lệnh « %1% --help » để liệt kê thí dụ sử dụng và các tùy chọn sẵn "
-"sàng"
-
-#: bin/schroot-base/schroot-base-options.cc:44
-msgid "Actions"
-msgstr "Hành động"
-
-#: bin/schroot-base/schroot-base-options.cc:45
-msgid "General options"
-msgstr "Tùy chọn chung"
-
-#: bin/schroot-base/schroot-base-options.cc:46
-msgid "Hidden options"
-msgstr "Tùy chọn bị ẩn"
-
-#: bin/schroot-base/schroot-base-options.cc:87
-msgid "Show help options"
-msgstr "Hiện các tùy chọn trợ giúp"
-
-#: bin/schroot-base/schroot-base-options.cc:89
-msgid "Print version information"
-msgstr "In ra thông tin phiên bản"
-
-#: bin/schroot-base/schroot-base-options.cc:93
-msgid "Show less output"
-msgstr "Xuất ít hơn"
-
-#: bin/schroot-base/schroot-base-options.cc:95
-msgid "Show more output"
-msgstr "Xuất nhiều hơn"
-
-#: bin/schroot-base/schroot-base-options.cc:99
-msgid "Enable debugging messages"
-msgstr "Bật hiển thị các thông điệp gỡ lỗi"
-
-#: bin/schroot-base/schroot-base-options.cc:158
-msgid "Invalid debug level"
-msgstr "Cấp gỡ lỗi không hợp lệ"
-
-#. TRANSLATORS: %4% = integer process ID
-#: bin/csbuild/csbuild-main.cc:54
-#: bin/schroot-releaselock/schroot-releaselock-main.cc:56
-#, boost-format
-msgid "Failed to release device lock (lock held by PID %4%)"
-msgstr "Lỗi nhả khoá thiết bị (khóa được giữ bởi PID %4%)"
-
-#: bin/csbuild/csbuild-main.cc:55
-#: bin/schroot-releaselock/schroot-releaselock-main.cc:57
-msgid "Failed to release device lock"
-msgstr "Lỗi nhả khoá thiết bị"
-
-#: bin/csbuild/csbuild-main.cc:56
-#: bin/schroot-releaselock/schroot-releaselock-main.cc:58
-msgid "Failed to stat device"
-msgstr "Lỗi lấy trạng thái về thiết bị"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#: bin/csbuild/csbuild-main.cc:71
-msgid "[OPTION...] - build Debian packages from source"
-msgstr "[TÙY_CHỌN...] — xây dựng các gói Debian từ mã nguồn"
-
-#: bin/csbuild/csbuild-options.cc:42
-msgid "Build options"
-msgstr "Tùy chọn xây dựng"
-
-#: bin/csbuild/csbuild-options.cc:43
-msgid "User options"
-msgstr "Tùy chọn người dùng"
-
-#: bin/csbuild/csbuild-options.cc:44
-msgid "Special options"
-msgstr "Tùy chọn đặc biệt"
-
-#: bin/csbuild/csbuild-options.cc:63
-msgid "Build source packages (default)"
-msgstr "Xây dựng gói nguồn (mặc định)"
-
-#: bin/csbuild/csbuild-options.cc:67
-msgid "Don't log program output"
-msgstr "Đừng ghi lưu kết xuất của chương trình"
-
-#: bin/csbuild/csbuild-options.cc:71
-msgid "Distribution to build for"
-msgstr "Bản phát hành cho đó cần xây dựng"
-
-#: bin/csbuild/csbuild-options.cc:73
-msgid "Build architecture \"all\" packages"
-msgstr "Xây dựng các gói kiến trúc « all »"
-
-#: bin/csbuild/csbuild-options.cc:75
-msgid "Build a source package"
-msgstr "Xây dựng một gói nguồn"
-
-#: bin/csbuild/csbuild-options.cc:77
-msgid "Force building of a source package, irrespective of Debian version"
-msgstr "Ép buộc xây dựng một gọi nguồn, bất chấp phiên bản Debian"
-
-#: bin/csbuild/csbuild-options.cc:79
-msgid "Make a binary non-maintainer upload"
-msgstr "Làm việc tải lên nhị phân không phải nhà duy trì"
-
-#: bin/csbuild/csbuild-options.cc:81
-msgid "Purge mode"
-msgstr "Chế độ tẩy"
-
-#: bin/csbuild/csbuild-options.cc:85
-msgid "GPG key identifier"
-msgstr "Dấu nhận diện khoá GPG"
-
-#: bin/csbuild/csbuild-options.cc:87
-msgid "Package maintainer"
-msgstr "Nhà duy trì gói"
-
-#: bin/csbuild/csbuild-options.cc:89
-msgid "Package uploader"
-msgstr "Nhà tải lên gói"
-
-#: bin/csbuild/csbuild-options.cc:94
-msgid "Add a build dependency"
-msgstr "Thêm một quan hệ phụ thuộc khi xây dựng"
-
-#: bin/csbuild/csbuild-options.cc:96
-msgid "Force a build dependency"
-msgstr "Ép buộc một quan hệ phụ thuộc khi xây dựng"
-
-#: bin/csbuild/csbuild-options.cc:98
-msgid "Build using the current GCC development snapshot"
-msgstr "Xây dựng dùng hiện trạng phát triển GCC hiện thời"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:47
-#, boost-format
-msgid "line %1%: Deprecated key '%4%' used"
-msgstr "dòng %1%: dùng khoá bị phản đối « %4% »"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:49
-#, boost-format
-msgid "Deprecated key '%4%' used"
-msgstr "Dùng khoá bị phản đối « %4% »"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:52
-#, boost-format
-msgid "line %1%: Disallowed key '%4%' used"
-msgstr "dòng %1%: dùng khoá bị cấm « %4% »"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:54
-#, boost-format
-msgid "Disallowed key '%4%' used"
-msgstr "Dùng khoá bị cấm « %4% »"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:57
-#, boost-format
-msgid "line %1%: Duplicate key '%4%'"
-msgstr "dòng %1%: khoá trùng « %4% »"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:63
-#, boost-format
-msgid "line %1%: Required key '%4%' is missing"
-msgstr "dòng %1%: thiếu khoá cần thiết « %4% »"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:65
-#, boost-format
-msgid "Required key '%4%' is missing"
-msgstr "Thiếu khoá cần thiết « %4% »"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:71
-#, boost-format
-msgid "line %1%: Obsolete key '%4%' used"
-msgstr "dòng %1%: dùng khoá cũ « %4% »"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:73
-#, boost-format
-msgid "Obsolete key '%4%' used"
-msgstr "Dùng khoá cũ « %4% »"
-
-#. TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
-#. TRANSLATORS: %4% = additional details
-#: bin/csbuild/csbuild-debian-changes.cc:76
-#, boost-format
-msgid "%2%: %4%"
-msgstr "%2%: %4%"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %3% = key name ("keyname=value" in configuration file)
-#. TRANSLATORS: %4% = additional details
-#: bin/csbuild/csbuild-debian-changes.cc:80
-#, boost-format
-msgid "line %1%: %3%: %4%"
-msgstr "dòng %1%: %3%: %4%"
-
-#: bin/csbuild/csbuild-debian-changes.cc:279
-#: bin/csbuild/csbuild-debian-changes.cc:285
-msgid "This option will be removed in the future"
-msgstr "Tùy chọn này sẽ bị gỡ bỏ trong tương lai"
-
-#: bin/csbuild/csbuild-debian-changes.cc:295
-#: bin/csbuild/csbuild-debian-changes.cc:301
-msgid "This option has been removed, and no longer has any effect"
-msgstr "Tùy chọn này đã bị gỡ bỏ nên không còn có tác động lại"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
-#. is an em-dash.
-#: bin/dchroot-dsa/dchroot-dsa-main.cc:45
-msgid "[OPTION...] chroot [COMMAND] - run command or shell in a chroot"
-msgstr "[TÙY_CHỌN...] chroot [LỆNH] — chạy lệnh hay trình bao trong một chroot"
-
-#. TRANSLATORS: %1% = chroot name
-#: bin/dchroot-dsa/dchroot-dsa-chroot-config.cc:117
-#, boost-format
-msgid "%1% chroot (dchroot-dsa compatibility)"
-msgstr "%1% chroot (tính tương thích với dchroot-dsa)"
-
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:54
-msgid "Print paths to available chroots"
-msgstr "In ra đường dẫn đến mỗi chroot sẵn sàng"
-
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:93
-msgid "Only one command may be specified"
-msgstr "Có thể xác định chỉ một lệnh"
-
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:97
-msgid "Command must have an absolute path"
-msgstr "Lệnh phải có đường dẫn tuyệt đối"
-
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:106
-msgid "No chroot specified"
-msgstr "Chưa xác định chroot"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#: bin/schroot-releaselock/schroot-releaselock-main.cc:73
-msgid "[OPTION...] - release a device lock"
-msgstr "TÙY_CHỌN...] — nhả khoá thiết bị"
-
-#: bin/schroot-releaselock/schroot-releaselock-main.cc:89
-msgid "No PID specified; forcing release of lock"
-msgstr "Chưa xác định PID (mã số tiến trình) nên ép buộc nhả khoá"
-
-#: bin/schroot-releaselock/schroot-releaselock-options.cc:43
-msgid "Lock"
-msgstr "Khoá"
-
-#: bin/schroot-releaselock/schroot-releaselock-options.cc:62
-msgid "Device to unlock (full path)"
-msgstr "Thiết bị cần mở khoá (đường dẫn đầy đủ)"
-
-#: bin/schroot-releaselock/schroot-releaselock-options.cc:64
-msgid "Process ID owning the lock"
-msgstr "Mã số tiến trình sở hữu khoá đó"
-
-#: bin/schroot-releaselock/schroot-releaselock-options.cc:92
-msgid "No device specified"
-msgstr "Chưa xác định thiết bị"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#: bin/schroot-mount/schroot-mount-main.cc:77
-msgid "[OPTION...] - mount filesystems"
-msgstr "[TÙY_CHỌN...] — lắp hệ thống tập tin"
-
-#: bin/schroot-mount/schroot-mount-options.cc:65
-msgid "Perform a simulation of actions which would be taken"
-msgstr "Mô phỏng các hành động cần làm"
-
-#: bin/schroot-mount/schroot-mount-options.cc:67
-msgid "fstab file to read (full path)"
-msgstr "Tập tin fstab cần đọc (đường dẫn đầy đủ)"
 
 #~ msgid "Run Execution Scripts"
 #~ msgstr "Chạy các văn lệnh thực hiện"
