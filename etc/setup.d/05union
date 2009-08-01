@@ -60,7 +60,7 @@ if [ -n "${CHROOT_UNION_TYPE}" ] && [ "${CHROOT_UNION_TYPE}" != 'none' ]; then
 	    # For safety, use rmdir rather than rm -rf in case
 	    # umount failed.
 	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-		echo "Purging $CHROOT_UNION_UNDERLAY_DIRECTORY"
+		echo "Removing $CHROOT_UNION_UNDERLAY_DIRECTORY"
 	    fi
 	    if [ -d "${CHROOT_UNION_UNDERLAY_DIRECTORY}" ]; then
 		rmdir "${CHROOT_UNION_UNDERLAY_DIRECTORY}"

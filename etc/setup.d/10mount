@@ -67,7 +67,7 @@ do_umount_all()
 }
 
 # Mount a filesystem union
-# $1: read-only branch
+# $1: the mount location
 do_mount_fs_union()
 {
     # Prepare mount options (branch config) for union type
@@ -87,7 +87,7 @@ do_mount_fs_union()
     fi
 
     # Try mounting fs
-    mount -t $CHROOT_UNION_TYPE -o "$CHROOT_UNION_MOUNT_OPTIONS" ${CHROOT_NAME} ${CHROOT_MOUNT_LOCATION}
+    mount -t "$CHROOT_UNION_TYPE" -o "$CHROOT_UNION_MOUNT_OPTIONS" "$CHROOT_NAME" "$1"
 }
 
 if [ "$AUTH_VERBOSITY" = "verbose" ]; then
@@ -129,20 +129,26 @@ if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT
 
         # If recovering, we want to remount all filesystems to ensure
         # a sane state.
+	if [ "$CREATE_UNION" = "yes" ]; then
+	    if [ $1 = "setup-recover" ]; then
+		do_umount_all "$CHROOT_UNION_UNDERLAY_DIRECTORY"
+	    fi
+	fi
+
+	# If recovering, we want to remount all filesystems to ensure
+	# a sane state.
 	if [ $1 = "setup-recover" ]; then
 	    do_umount_all "$CHROOT_MOUNT_LOCATION"
 	fi
 
 	if [ "$CREATE_UNION" = "yes" ]; then
-	    MOUNT_LOCATION="$CHROOT_UNDERLAY_DIR"
+	    do_mountn "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_UNION_UNDERLAY_DIRECTORY"
 	else
-	    MOUNT_LOCATION="$CHROOT_MOUNT_LOCATION"
+	    do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
 	fi
 
-	do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$MOUNT_LOCATION"
-
 	if [ "$CREATE_UNION" = "yes" ]; then
-	    do_mount_fs_union
+	    do_mount_fs_union "$CHROOT_MOUNT_LOCATION"
 	fi
 
 	if [ -n "$FSTAB" ]; then
@@ -158,7 +164,7 @@ if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT
     elif [ $1 = "setup-stop" ]; then
 
 	do_umount_all "$CHROOT_MOUNT_LOCATION"
-	if [ "${CHROOT_UNION_TYPE:-none}" != "none" ]; then
+	if [ "$CREATE_UNION" = "yes" ]; then
 	    do_umount_all "$CHROOT_UNION_UNDERLAY_DIRECTORY"
 	fi
 
