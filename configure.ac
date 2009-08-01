@@ -37,21 +37,21 @@ dnl      SBUILD_BINARY_AGE = 0;
 dnl
 dnl For more detailed information, see the libtool info documentation.
 dnl
-pushdef([SBUILD_NAME],              [schroot])
-pushdef([SBUILD_MAJOR_VERSION],     [1])
-pushdef([SBUILD_MINOR_VERSION],     [3])
-pushdef([SBUILD_MICRO_VERSION],     [0])
-pushdef([SBUILD_EXTRA_VERSION],     [])
+dnl m4 magic from Eric Blake <ebb9@byu.net>, prior to automake inclusion
+m4_define([sbuild_m4_chomp],
+[m4_format([[%.*s]], m4_bregexp(m4_translit([$1], [
+]]m4_dquote(_m4_defn([m4_cr_all]))[, [/]]m4_format([%255s], [])[),
+  [/*$]), [$1])])
+m4_define([sbuild_m4_esyscmd_s],
+[sbuild_m4_chomp(m4_esyscmd([$1]))])
+AC_PREREQ(2.59)
+dnl Quoting the first argument results in a bizarrely corrupted package tarname
+AC_INIT(sbuild_m4_esyscmd_s([sed -ne '/^Package:/{s/Package:[[:space:]][[:space:]]*//p;q}' VERSION]),
+        [sbuild_m4_esyscmd_s([sed -ne '/^Version:/{s/Version:[[:space:]][[:space:]]*//p;q}' VERSION])],
+        [buildd-tools-devel@lists.alioth.debian.org])
 pushdef([SBUILD_CURRENT_INTERFACE], [1])
 pushdef([SBUILD_INTERFACE_AGE],     [0])
 pushdef([SBUILD_BINARY_AGE],        [0])
-pushdef([SBUILD_VERSION], SBUILD_MAJOR_VERSION.SBUILD_MINOR_VERSION.SBUILD_MICRO_VERSION[]SBUILD_EXTRA_VERSION)
-dnl
-dnl The minimum version of autoconf required.
-AC_PREREQ(2.59)
-dnl Initialise autoconf with the package name, version and
-dnl bug-reporting address.
-AC_INIT(SBUILD_NAME, SBUILD_VERSION, [buildd-tools-devel@lists.alioth.debian.org])
 dnl For safety, check we are in the right directory by
 dnl checking for a known unique file.
 AC_CONFIG_SRCDIR([sbuild/sbuild-session.cc])
@@ -80,31 +80,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ])
 
-[SBUILD_MAJOR_VERSION]=SBUILD_MAJOR_VERSION
-[SBUILD_MINOR_VERSION]=SBUILD_MINOR_VERSION
-[SBUILD_MICRO_VERSION]=SBUILD_MICRO_VERSION
-[SBUILD_EXTRA_VERSION]=SBUILD_EXTRA_VERSION
 [SBUILD_CURRENT_INTERFACE]=SBUILD_CURRENT_INTERFACE
 [SBUILD_INTERFACE_AGE]=SBUILD_INTERFACE_AGE
 [SBUILD_BINARY_AGE]=SBUILD_BINARY_AGE
-[SBUILD_VERSION]=SBUILD_VERSION
-popdef([SBUILD_MAJOR_VERSION])
-popdef([SBUILD_MINOR_VERSION])
-popdef([SBUILD_MICRO_VERSION])
-popdef([SBUILD_EXTRA_VERSION])
 popdef([SBUILD_CURRENT_INTERFACE])
 popdef([SBUILD_INTERFACE_AGE])
 popdef([SBUILD_BINARY_AGE])
-popdef([SBUILD_NAME])
-popdef([SBUILD_VERSION])
 
-AC_SUBST([SBUILD_MAJOR_VERSION])
-AC_SUBST([SBUILD_MINOR_VERSION])
-AC_SUBST([SBUILD_MICRO_VERSION])
 AC_SUBST([SBUILD_CURRENT_INTERFACE])
 AC_SUBST([SBUILD_INTERFACE_AGE])
 AC_SUBST([SBUILD_BINARY_AGE])
-AC_SUBST([SBUILD_VERSION])
 
 dnl Initialise automake stuff.
 AM_INIT_AUTOMAKE([1.9 gnu check-news dist-bzip2 no-dist-gzip tar-pax])
