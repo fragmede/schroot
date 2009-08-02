@@ -180,18 +180,6 @@ sbuild::chroot::create (std::string const& type)
   return ptr(new_chroot);
 }
 
-chroot::ptr
-sbuild::chroot::clone_session (std::string const& session_id) const
-{
-  return ptr();
-}
-
-chroot::ptr
-sbuild::chroot::clone_source () const
-{
-  return ptr();
-}
-
 std::string const&
 sbuild::chroot::get_name () const
 {

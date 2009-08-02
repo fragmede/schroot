@@ -563,7 +563,8 @@ session::run_impl ()
 
 	  // For now, use a copy of the chroot; if we create a session
 	  // later, we will replace it.
-	  chroot::ptr chroot;
+	  chroot::ptr chroot(ch->clone());
+	  assert(chroot);
 
 	  /* Create a session using randomly-generated session ID. */
 	  if (ch->get_session_flags() & chroot::SESSION_CREATE)
@@ -600,8 +601,7 @@ session::run_impl ()
 		  chroot = ch->clone_session(new_session_id);
 		}
 	    }
-	  else
-	    chroot = ch->clone();
+	  assert(chroot);
 
 	  try
 	    {

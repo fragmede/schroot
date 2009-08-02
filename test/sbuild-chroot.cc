@@ -48,6 +48,11 @@ public:
   clone_session (std::string const& session_id) const
   { return ptr(); }
 
+
+  chroot::ptr
+  clone_source () const
+  { return ptr(); }
+
   virtual std::string const&
   get_chroot_type () const
   { static const std::string type("test"); return type; }

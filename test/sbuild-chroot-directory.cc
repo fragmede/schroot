@@ -50,16 +50,18 @@ class test_chroot_directory : public test_chroot_base<chroot_directory>
   CPPUNIT_TEST(test_directory);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
-#ifdef SBUILD_FEATURE_UNION
-  CPPUNIT_TEST(test_setup_env_fsunion);
   CPPUNIT_TEST(test_setup_env_session);
-  CPPUNIT_TEST(test_setup_env_source);
+#ifdef SBUILD_FEATURE_UNION
+  CPPUNIT_TEST(test_setup_env_union);
+  CPPUNIT_TEST(test_setup_env_session_union);
+  CPPUNIT_TEST(test_setup_env_source_union);
 #endif // SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_setup_keyfile);
-#ifdef SBUILD_FEATURE_UNION
-  CPPUNIT_TEST(test_setup_keyfile_fsunion);
   CPPUNIT_TEST(test_setup_keyfile_session);
-  CPPUNIT_TEST(test_setup_keyfile_source);
+#ifdef SBUILD_FEATURE_UNION
+  CPPUNIT_TEST(test_setup_keyfile_union);
+  CPPUNIT_TEST(test_setup_keyfile_session_union);
+  CPPUNIT_TEST(test_setup_keyfile_source_union);
 #endif // SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
@@ -132,8 +134,23 @@ public:
     test_chroot_base<chroot_directory>::test_setup_env(chroot, expected);
   }
 
+  void test_setup_env_session()
+  {
+    sbuild::environment expected;
+    setup_env_gen(expected);
+
+    expected.add("CHROOT_NAME",           "test-session-name");
+    expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(session chroot)"));
+    expected.add("CHROOT_SESSION_CLONE",  "false");
+    expected.add("CHROOT_SESSION_CREATE", "false");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_UNION_TYPE",     "none");
+
+    test_chroot_base<chroot_directory>::test_setup_env(session, expected);
+  }
+
 #ifdef SBUILD_FEATURE_UNION
-  void test_setup_env_fsunion()
+  void test_setup_env_union()
   {
     sbuild::environment expected;
     setup_env_gen(expected);
@@ -149,7 +166,7 @@ public:
     test_chroot_base<chroot_directory>::test_setup_env(chroot_union, expected);
   }
 
-  void test_setup_env_session()
+  void test_setup_env_session_union()
   {
     sbuild::environment expected;
     setup_env_gen(expected);
@@ -167,7 +184,7 @@ public:
     test_chroot_base<chroot_directory>::test_setup_env(session_union, expected);
   }
 
-  void test_setup_env_source()
+  void test_setup_env_source_union()
   {
     sbuild::environment expected;
     setup_env_gen(expected);
@@ -196,8 +213,24 @@ public:
       (chroot, expected, group);
   }
 
+  void test_setup_keyfile_session()
+  {
+    sbuild::keyfile expected;
+    const std::string group(session->get_name());
+    setup_keyfile_chroot(expected, group);
+    expected.set_value(group, "type", "directory");
+    expected.set_value(group, "name", "test-session-name");
+    expected.set_value(group, "directory", "/srv/chroot/example-chroot");
+    expected.set_value(group, "mount-location", "/mnt/mount-location");
+    setup_keyfile_session_clone(expected, group);
+    setup_keyfile_union_unconfigured(expected, group);
+
+    test_chroot_base<chroot_directory>::test_setup_keyfile
+      (session, expected, group);
+  }
+
 #ifdef SBUILD_FEATURE_UNION
-  void test_setup_keyfile_fsunion()
+  void test_setup_keyfile_union()
   {
     sbuild::keyfile expected;
     const std::string group(chroot_union->get_name());
@@ -211,7 +244,7 @@ public:
       (chroot_union, expected, group);
   }
 
-  void test_setup_keyfile_session()
+  void test_setup_keyfile_session_union()
   {
     sbuild::keyfile expected;
     const std::string group(session_union->get_name());
@@ -227,7 +260,7 @@ public:
       (session_union, expected, group);
   }
 
-  void test_setup_keyfile_source()
+  void test_setup_keyfile_source_union()
   {
     sbuild::keyfile expected;
     const std::string group(source_union->get_name());

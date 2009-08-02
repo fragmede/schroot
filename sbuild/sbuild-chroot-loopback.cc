@@ -66,19 +66,11 @@ chroot_loopback::clone () const
 sbuild::chroot::ptr
 chroot_loopback::clone_session (std::string const& session_id) const
 {
-  ptr session;
-
-#ifdef SBUILD_FEATURE_UNION
   chroot_facet_session::const_ptr psess(get_facet<chroot_facet_session>());
   assert(psess);
-  chroot_facet_union::const_ptr puni(get_facet<chroot_facet_union>());
-  assert(puni);
 
-  if (puni->get_union_configured()) {
-    session = ptr(new chroot_loopback(*this));
-    psess->clone_session_setup(session, session_id);
-  }
-#endif // SBUILD_FEATURE_UNION
+  ptr session(new chroot_loopback(*this));
+  psess->clone_session_setup(session, session_id);
 
   return session;
 }
