@@ -252,8 +252,8 @@ AC_SUBST([bashcompletiondir])
 AC_PROG_CXX
 AC_LANG([C++])
 ACX_PTHREAD([], [AC_MSG_ERROR([POSIX thread support is required for correct std::tr1::shared_ptr operation])])
-AC_ENABLE_SHARED
-AC_DISABLE_STATIC
+AC_DISABLE_SHARED
+AC_ENABLE_STATIC
 AC_PROG_LIBTOOL
 AM_GNU_GETTEXT_VERSION([0.16])
 AM_GNU_GETTEXT([external])
