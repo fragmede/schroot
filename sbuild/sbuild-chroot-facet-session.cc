@@ -206,4 +206,41 @@ chroot_facet_session::set_keyfile (chroot&        chroot,
 				   keyfile const& keyfile,
 				   string_list&   used_keys)
 {
+  // Null methods for obsolete keys.
+  void (sbuild::chroot_facet_source::* nullmethod)(bool) = 0;
+  void (sbuild::chroot_facet_source::* nullvmethod)(string_list const&) = 0;
+
+  // Setting when not clonable is deprecated.  It can't be obsoleted
+  // yet because it is required to allow use and ending of existing
+  // sessions which have set this parameter (even though it's
+  // useless).
+  keyfile::get_object_value(*this, nullmethod,
+			    keyfile, chroot.get_keyfile_name(),
+			    "active",
+			    keyfile::PRIORITY_DEPRECATED);
+  used_keys.push_back("active");
+
+  keyfile::get_object_list_value(*this, nullvmethod,
+				 keyfile, chroot.get_keyfile_name(),
+				 "source-users",
+				 keyfile::PRIORITY_DEPRECATED);
+  used_keys.push_back("source-users");
+
+  keyfile::get_object_list_value(*this, nullvmethod,
+				 keyfile, chroot.get_keyfile_name(),
+				 "source-groups",
+				 keyfile::PRIORITY_DEPRECATED);
+  used_keys.push_back("source-groups");
+
+  keyfile::get_object_list_value(*this, nullvmethod,
+				 keyfile, chroot.get_keyfile_name(),
+				 "source-root-users",
+				 keyfile::PRIORITY_DEPRECATED);
+  used_keys.push_back("source-root-users");
+
+  keyfile::get_object_list_value(*this, nullvmethod,
+				 keyfile, chroot.get_keyfile_name(),
+				 "source-root-groups",
+				 keyfile::PRIORITY_DEPRECATED);
+  used_keys.push_back("source-root-groups");
 }
