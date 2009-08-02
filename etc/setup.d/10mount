@@ -114,7 +114,7 @@ if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT
 	LOOP_DEVICE="$(/sbin/losetup -j "$CHROOT_FILE" | sed -e 's/:.*$//')"
 	if [ -z "$LOOP_DEVICE" ]; then
 	    CHROOT_MOUNT_DEVICE="$CHROOT_FILE"
-	    CHROOT_MOUNT_OPTIONS="$CHROOT_MOUNT_OPTIONS -o loop"
+	    CHROOT_MOUNT_OPTIONS="${CHROOT_MOUNT_OPTIONS},loop"
 	else
 	    CHROOT_MOUNT_DEVICE="$LOOP_DEVICE"
 	    CHROOT_MOUNT_OPTIONS=""
