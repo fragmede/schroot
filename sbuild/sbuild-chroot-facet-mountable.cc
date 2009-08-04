@@ -131,6 +131,9 @@ void
 chroot_facet_mountable::get_keyfile (chroot const& chroot,
 				     keyfile&      keyfile) const
 {
+  keyfile::set_object_value(*this, &chroot_facet_mountable::get_mount_device,
+			    keyfile, chroot.get_keyfile_name(), "mount-device");
+
   keyfile::set_object_value(*this, &chroot_facet_mountable::get_mount_options,
 			    keyfile, chroot.get_keyfile_name(), "mount-options");
 
@@ -143,6 +146,11 @@ chroot_facet_mountable::set_keyfile (chroot&        chroot,
 				     keyfile const& keyfile,
 				     string_list&   used_keys)
 {
+  keyfile::get_object_value(*this, &chroot_facet_mountable::set_mount_device,
+			    keyfile, chroot.get_keyfile_name(), "mount-device",
+			    keyfile::PRIORITY_OPTIONAL);
+  used_keys.push_back("mount-device");
+
   keyfile::get_object_value(*this, &chroot_facet_mountable::set_mount_options,
 			    keyfile, chroot.get_keyfile_name(), "mount-options",
 			    keyfile::PRIORITY_OPTIONAL);
