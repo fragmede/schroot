@@ -88,14 +88,6 @@ Have separate namespaces for
 
 * Testcase for chroot-loopback
 
-fs-union mounting simplifications
-Rather than having a very complex scheme for setting up unions, we
-could
-have
-- an "underlay" (ro)
-- the "overlay" (rw) both mounted under /var/lib/schroot
-- the union of both mounted in the usual place.
-
 file: Set full unpack dir with session ID like LVM snapshot.
 
 * Add a read-only mount option for union underlay (both for
@@ -105,8 +97,6 @@ Security: Record user who created a session, and don't allow other
 users access (except root?).
 This might involve serialising the authentication state into the
 chroot object.
-
-Does a NULL ptr from clone_source get stored?
 
 Move chroot-specific session setup from sbuild::session for chroot
 vfunc.
@@ -120,22 +110,15 @@ Add directories under /var to man pages
 
 Add checks for unsupported features in setup scripts.
 
-Separate UUID support into support function
-
-Set session ID in chroot configuration in addition to name.
-This will allow the removal of chroot-specific session setup from
-sbuild::session.  This also means the session ID is chroot-specific
-rather than session-specific, so won't be reused if using multiple
-chroots.
-
-SESSION_CREATE | SESSION_CLONE confusion.  When is it appropriate to
-set SESSION_CREATE?  Should already created sessions set it?
-
 Define operator &= and |= for enum types defining | and & operators.
-
-Remove use of virtual public for sbuild::chroot inheritance, since
-it breaks the default copy constructors.
 
 Header include order: chroot-facet depends upon sbuild-chroot being
 included first.  Try to break this dependency.
 
+block-device used to allow sessions to work without writing out
+a session file; this will break across upgrades to the new
+version (since orphan mounts will not be accessible).
+
+--end-session --force should forcibly end "broken" sessions by
+manually umounting and purging mount and session directories and
+metadata.
