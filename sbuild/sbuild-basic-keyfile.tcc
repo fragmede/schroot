@@ -457,13 +457,13 @@ sbuild::basic_keyfile<K, P>::check_priority (group_name_type const& group,
 	    if (line)
 	      {
 		error e(line, group, DEPRECATED_KEY, key);
-		e.set_reason(_("This option will be removed in the future"));
+		e.set_reason(_("This option will be removed in the future; please update your configuration"));
 		log_exception_warning(e);
 	      }
 	    else
 	      {
 		error e(group, DEPRECATED_KEY_NL, key);
-		e.set_reason(_("This option will be removed in the future"));
+		e.set_reason(_("This option will be removed in the future; please update your configuration"));
 		log_exception_warning(e);
 	      }
 	  }
