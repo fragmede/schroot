@@ -29,6 +29,13 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+
+#ifdef HAVE_UUID
+#include <uuid/uuid.h>
+#else
+#include <time.h>
+#endif
+
 using namespace sbuild;
 
 namespace
@@ -200,6 +207,27 @@ sbuild::getcwd ()
   free(raw_cwd);
 
   return cwd;
+}
+
+std::string
+sbuild::unique_identifier ()
+{
+  std::ostringstream id;
+  id.imbue(std::locale::classic());
+
+#ifdef HAVE_UUID
+  uuid_t uuid;
+  char uuid_str[37];
+  uuid_generate(uuid);
+  uuid_unparse(uuid, uuid_str);
+  uuid_clear(uuid);
+
+  id << uuid_str;
+#else
+  id << isodate(time(0)) << '-' << getpid();
+#endif
+
+  return id.str();
 }
 
 std::string

@@ -44,12 +44,6 @@
 
 #include <boost/format.hpp>
 
-#ifdef HAVE_UUID
-#include <uuid/uuid.h>
-#else
-#include <time.h>
-#endif
-
 using std::cout;
 using std::endl;
 using boost::format;
@@ -580,21 +574,8 @@ session::run_impl ()
 		    }
 		  else
 		    {
-		      std::ostringstream session_id_str;
-		      session_id_str.imbue(std::locale::classic());
-		      session_id_str << ch->get_name();
-#ifdef HAVE_UUID
-		      uuid_t uuid;
-		      char uuid_str[37];
-		      uuid_generate(uuid);
-		      uuid_unparse(uuid, uuid_str);
-		      uuid_clear(uuid);
-		      session_id_str << '-' << uuid_str;
-#else
-		      session_id_str << '-' << isodate(time(0))
-				     << '-' << getpid();
-#endif
-		      new_session_id = session_id_str.str();
+		      new_session_id =
+			ch->get_name() + '-' +unique_identifier();
 		    }
 
 		  // Replace clone of chroot with cloned session.

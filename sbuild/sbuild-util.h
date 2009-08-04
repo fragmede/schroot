@@ -101,6 +101,17 @@ namespace sbuild
   std::string
   getcwd ();
 
+
+  /**
+   * Get a unique string for use as a session identifier.  Depending
+   * upon the available facilities, this may be a UUID or a combinatin
+   * of the process ID and system time.
+   *
+   * @returns a session identifier.
+   */
+  std::string
+  unique_identifier ();
+
   /**
    * Convert a string_list into a string.  The strings are
    * concatenated using separator as a delimiter.
