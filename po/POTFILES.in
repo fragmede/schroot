@@ -37,6 +37,7 @@ sbuild/sbuild-auth-pam-conv.cc
 sbuild/sbuild-auth-pam-message.cc
 sbuild/sbuild-auth-pam.cc
 sbuild/sbuild-auth.cc
+sbuild/sbuild-basic-keyfile.tcc
 sbuild/sbuild-chroot-block-device-base.cc
 sbuild/sbuild-chroot-block-device.cc
 sbuild/sbuild-chroot-config.cc
