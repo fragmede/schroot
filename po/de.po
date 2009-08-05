@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.1.6\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2009-08-01 15:25+0100\n"
+"POT-Creation-Date: 2009-08-05 23:11+0100\n"
 "PO-Revision-Date: 2008-02-19 18:41+0100\n"
 "Last-Translator: Jens Seidel <jensseidel@users.sf.net>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -117,6 +117,7 @@ msgstr "Diese Option wird später entfernt werden"
 
 #: bin/csbuild/csbuild-debian-changes.cc:295
 #: bin/csbuild/csbuild-debian-changes.cc:301
+#: sbuild/sbuild-basic-keyfile.tcc:476 sbuild/sbuild-basic-keyfile.tcc:482
 msgid "This option has been removed, and no longer has any effect"
 msgstr "Diese Option wurde entfernt und hat keine Auswirkungen mehr"
 
@@ -492,12 +493,12 @@ msgid "No mount point specified"
 msgstr "Kein Einhängepunkt angegeben"
 
 #: bin/schroot-mount/schroot-mount-main.cc:59 sbuild/sbuild-run-parts.cc:48
-#: sbuild/sbuild-session.cc:75
+#: sbuild/sbuild-session.cc:69
 msgid "Failed to fork child"
 msgstr "Konnte mit »fork« keinen Kindprozess erzeugen"
 
 #: bin/schroot-mount/schroot-mount-main.cc:60 sbuild/sbuild-run-parts.cc:49
-#: sbuild/sbuild-session.cc:78
+#: sbuild/sbuild-session.cc:72
 msgid "Wait for child failed"
 msgstr "Warten auf Kindprozess schlug fehl"
 
@@ -518,7 +519,7 @@ msgstr "[OPTION …] - binde Dateisysteme ein"
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:119
 #: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:229
-#: sbuild/sbuild-session.cc:1049 sbuild/sbuild-session.cc:1315
+#: sbuild/sbuild-session.cc:1030 sbuild/sbuild-session.cc:1296
 msgid "An unknown exception occurred"
 msgstr "Eine unbekannte Ausnahme ist aufgetreten"
 
@@ -757,7 +758,7 @@ msgstr "Benutzer »%1%« wurde nicht gefunden"
 
 #. TRANSLATORS: %1% = group name or group ID
 #. TRANSLATORS: %1% = group name
-#: sbuild/sbuild-auth.cc:54 sbuild/sbuild-session.cc:104
+#: sbuild/sbuild-auth.cc:54 sbuild/sbuild-session.cc:98
 #, boost-format
 msgid "Group '%1%' not found"
 msgstr "Gruppe »%1%« nicht gefunden"
@@ -774,9 +775,20 @@ msgstr "Zugang ist nicht autorisiert"
 msgid "PAM is already initialised"
 msgstr "PAM ist bereits initialisiert"
 
-#: sbuild/sbuild-auth.cc:58 sbuild/sbuild-session.cc:105
+#: sbuild/sbuild-auth.cc:58 sbuild/sbuild-session.cc:99
 msgid "PAM error"
 msgstr "PAM-Fehler"
+
+#: sbuild/sbuild-basic-keyfile.tcc:115
+#, fuzzy
+msgid "This option may be present in a newer version"
+msgstr "Diese Option wird später entfernt werden"
+
+#: sbuild/sbuild-basic-keyfile.tcc:460 sbuild/sbuild-basic-keyfile.tcc:466
+#, fuzzy
+msgid ""
+"This option will be removed in the future; please update your configuration"
+msgstr "Diese Option wird später entfernt werden"
 
 #: sbuild/sbuild-chroot-block-device-base.cc:182
 msgid "Device"
@@ -912,7 +924,7 @@ msgstr ""
 msgid "Filesystem union underlay directory"
 msgstr ""
 
-#: sbuild/sbuild-chroot-file.cc:190 sbuild/sbuild-chroot-loopback.cc:205
+#: sbuild/sbuild-chroot-file.cc:190 sbuild/sbuild-chroot-loopback.cc:197
 msgid "File"
 msgstr "Datei"
 
@@ -993,83 +1005,83 @@ msgstr "Konnte Sitzungsdatei nicht entfernen"
 msgid "Failed to write session file"
 msgstr "Konnte Sitzungsdatei nicht schreiben"
 
-#: sbuild/sbuild-chroot.cc:547
+#: sbuild/sbuild-chroot.cc:535
 msgid "Name"
 msgstr "Name"
 
-#: sbuild/sbuild-chroot.cc:550
+#: sbuild/sbuild-chroot.cc:538
 msgid "Description"
 msgstr "Beschreibung"
 
-#: sbuild/sbuild-chroot.cc:551
+#: sbuild/sbuild-chroot.cc:539
 msgid "Type"
 msgstr "Typ"
 
-#: sbuild/sbuild-chroot.cc:552
+#: sbuild/sbuild-chroot.cc:540
 msgid "Priority"
 msgstr "Priorität"
 
-#: sbuild/sbuild-chroot.cc:553
+#: sbuild/sbuild-chroot.cc:541
 msgid "Users"
 msgstr "Benutzer"
 
-#: sbuild/sbuild-chroot.cc:554
+#: sbuild/sbuild-chroot.cc:542
 msgid "Groups"
 msgstr "Gruppen"
 
-#: sbuild/sbuild-chroot.cc:555
+#: sbuild/sbuild-chroot.cc:543
 msgid "Root Users"
 msgstr "Root-Benutzer"
 
-#: sbuild/sbuild-chroot.cc:556
+#: sbuild/sbuild-chroot.cc:544
 msgid "Root Groups"
 msgstr "Root-Gruppen"
 
-#: sbuild/sbuild-chroot.cc:557
+#: sbuild/sbuild-chroot.cc:545
 msgid "Aliases"
 msgstr "Aliase"
 
-#: sbuild/sbuild-chroot.cc:558
+#: sbuild/sbuild-chroot.cc:546
 msgid "Environment Filter"
 msgstr "Umgebungsfilter"
 
-#: sbuild/sbuild-chroot.cc:559
+#: sbuild/sbuild-chroot.cc:547
 msgid "Run Setup Scripts"
 msgstr "Einrichtungsskripte ausführen"
 
-#: sbuild/sbuild-chroot.cc:560
+#: sbuild/sbuild-chroot.cc:548
 msgid "Script Configuration"
 msgstr "Skript-Konfiguration"
 
-#: sbuild/sbuild-chroot.cc:561
+#: sbuild/sbuild-chroot.cc:549
 msgid "Session Managed"
 msgstr "Verwaltete Sitzung"
 
-#: sbuild/sbuild-chroot.cc:563
+#: sbuild/sbuild-chroot.cc:551
 msgid "Session Cloned"
 msgstr "Sitzung wurde geklont"
 
-#: sbuild/sbuild-chroot.cc:565
+#: sbuild/sbuild-chroot.cc:553
 msgid "Session Purged"
 msgstr "Sitzung wurde restlos entfernt"
 
-#: sbuild/sbuild-chroot.cc:569
+#: sbuild/sbuild-chroot.cc:557
 msgid "Command Prefix"
 msgstr "Kommandopräfix"
 
-#: sbuild/sbuild-chroot.cc:573
+#: sbuild/sbuild-chroot.cc:561
 msgid "Mount Location"
 msgstr "Einhängeort"
 
-#: sbuild/sbuild-chroot.cc:575
+#: sbuild/sbuild-chroot.cc:563
 msgid "Path"
 msgstr "Pfad"
 
-#: sbuild/sbuild-chroot.cc:581
+#: sbuild/sbuild-chroot.cc:569
 msgid "Session"
 msgstr "Sitzung"
 
-#: sbuild/sbuild-chroot.cc:581
+#: sbuild/sbuild-chroot.cc:569
 msgid "Chroot"
 msgstr "Chroot"
 
@@ -1340,72 +1352,72 @@ msgid "Executing '%1%'"
 msgstr "Starte »%1%«"
 
 #. TRANSLATORS: %1% = directory
-#: sbuild/sbuild-session.cc:70
+#: sbuild/sbuild-session.cc:64
 #, boost-format
 msgid "Failed to change to directory '%1%'"
 msgstr "Konnte nicht in das Verzeichnis »%1%« wechseln"
 
 #. TRANSLATORS: %4% = directory
-#: sbuild/sbuild-session.cc:72
+#: sbuild/sbuild-session.cc:66
 #, boost-format
 msgid "Falling back to directory '%4%'"
 msgstr "Verwende stattdessen Verzeichnis »%4%«"
 
-#: sbuild/sbuild-session.cc:73
+#: sbuild/sbuild-session.cc:67
 msgid "Child dumped core"
 msgstr "Kindprozess hat einen Core-Dump erzeugt"
 
-#: sbuild/sbuild-session.cc:74
+#: sbuild/sbuild-session.cc:68
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr ""
 "Kindprozess wurde anormal beendet (Grund ist unbekannt, kein Signal oder "
 "Core-Dump)"
 
 #. TRANSLATORS: %4% = signal name
-#: sbuild/sbuild-session.cc:77
+#: sbuild/sbuild-session.cc:71
 #, boost-format
 msgid "Child terminated by signal '%4%'"
 msgstr "Kindprozess wurde durch Signal »%4%« beendet"
 
 #. TRANSLATORS: %1% = directory
-#: sbuild/sbuild-session.cc:80
+#: sbuild/sbuild-session.cc:74
 #, boost-format
 msgid "Failed to change root to directory '%1%'"
 msgstr "Konnte Root-Verzeichnis nicht auf »%1%« abändern"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-session.cc:82
+#: sbuild/sbuild-session.cc:76
 #, boost-format
 msgid "No chroot found matching name or alias '%1%'"
 msgstr "Kein auf »%1%« passender Name oder Alias für ein Chroot gefunden"
 
-#: sbuild/sbuild-session.cc:83
+#: sbuild/sbuild-session.cc:77
 msgid "Failed to lock chroot"
 msgstr "Konnte Chroot nicht sperren"
 
-#: sbuild/sbuild-session.cc:84
+#: sbuild/sbuild-session.cc:78
 msgid "Chroot setup failed"
 msgstr "Konnte Chroot nicht einrichten"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-session.cc:86
+#: sbuild/sbuild-session.cc:80
 #, boost-format
 msgid "Failed to find chroot '%1%'"
 msgstr "Konnte Chroot »%1%« nicht finden"
 
-#: sbuild/sbuild-session.cc:87
+#: sbuild/sbuild-session.cc:81
 msgid "Failed to unlock chroot"
 msgstr "Konnte Chroot nicht entsperren"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-session.cc:89
+#: sbuild/sbuild-session.cc:83
 #, boost-format
 msgid "Command \"%1%\" must have an absolute path"
 msgstr "Kommando »%1%« muss einen absoluten Pfad haben"
 
 # CHECKME: ausführen oder starten?
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-session.cc:91
+#: sbuild/sbuild-session.cc:85
 #, boost-format
 msgid "Failed to execute \"%1%\""
 msgstr "Konnte »%1%« nicht ausführen"
@@ -1414,34 +1426,34 @@ msgstr "Konnte »%1%« nicht ausführen"
 #. TRANSLATORS: A supplementary group is the list of additional
 #. system groups a user belongs to, in addition to their default
 #. group.
-#: sbuild/sbuild-session.cc:95
+#: sbuild/sbuild-session.cc:89
 msgid "Failed to get supplementary groups"
 msgstr "Konnte zusätzliche Gruppen nicht erhalten"
 
 #. TRANSLATORS: A supplementary group is the list of additional
 #. system groups a user belongs to, in addition to their default
 #. group.
-#: sbuild/sbuild-session.cc:99
+#: sbuild/sbuild-session.cc:93
 msgid "Failed to get supplementary group count"
 msgstr "Konnte Anzahl zusätzlicher Gruppen nicht erhalten"
 
 #. TRANSLATORS: %1% = integer group ID
-#: sbuild/sbuild-session.cc:101
+#: sbuild/sbuild-session.cc:95
 #, boost-format
 msgid "Failed to set group '%1%'"
 msgstr "Konnte Gruppe »%1%« nicht setzen"
 
-#: sbuild/sbuild-session.cc:102
+#: sbuild/sbuild-session.cc:96
 msgid "Failed to set supplementary groups"
 msgstr "Konnte zusätzliche Gruppen nicht setzen"
 
-#: sbuild/sbuild-session.cc:106
+#: sbuild/sbuild-session.cc:100
 msgid "Failed to drop root permissions"
 msgstr "Konnte root-Rechte nicht abgeben"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = session identifier
-#: sbuild/sbuild-session.cc:109
+#: sbuild/sbuild-session.cc:103
 #, boost-format
 msgid ""
 "%1%: Chroot does not support setting a session ID; ignoring session ID '%4%'"
@@ -1450,31 +1462,31 @@ msgstr ""
 "ID »%4%«"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-session.cc:111
+#: sbuild/sbuild-session.cc:105
 #, boost-format
 msgid "Shell '%1%' not available"
 msgstr "Shell »%1%« ist nicht verfügbar"
 
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:113
+#: sbuild/sbuild-session.cc:107
 #, boost-format
 msgid "Falling back to shell '%4%'"
 msgstr "Verwende stattdessen die Shell »%4%«"
 
 #. TRANSLATORS: %4% = signal name
-#: sbuild/sbuild-session.cc:115
+#: sbuild/sbuild-session.cc:109
 #, boost-format
 msgid "Caught signal '%4%'"
 msgstr "Signal »%4%« aufgefangen"
 
 #. TRANSLATORS: %4% = signal name
-#: sbuild/sbuild-session.cc:117
+#: sbuild/sbuild-session.cc:111
 #, boost-format
 msgid "Failed to set signal handler '%4%'"
 msgstr "Konnte den Signal-Handler »%4%« nicht setzen"
 
 #. TRANSLATORS: %1% = integer user ID
-#: sbuild/sbuild-session.cc:119
+#: sbuild/sbuild-session.cc:113
 #, boost-format
 msgid "Failed to set user '%1%'"
 msgstr "Konnte Benutzer »%1%« nicht setzen"
@@ -1482,29 +1494,29 @@ msgstr "Konnte Benutzer »%1%« nicht setzen"
 #. TRANSLATORS: %1% = user name
 #. TRANSLATORS: %2% = user name
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:123
+#: sbuild/sbuild-session.cc:117
 #, boost-format
 msgid "(%1%->%2%): User switching is not permitted"
 msgstr "(%1%→%2%): Wechseln des Benutzers ist nicht erlaubt"
 
-#: sbuild/sbuild-session.cc:335
+#: sbuild/sbuild-session.cc:329
 msgid "Error saving terminal settings"
 msgstr "Fehler beim Speichern der Terminal-Einstellungen"
 
-#: sbuild/sbuild-session.cc:356
+#: sbuild/sbuild-session.cc:350
 msgid "Error restoring terminal settings"
 msgstr "Fehler beim Wiederherstellen der Terminal-Einstellungen"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:818
+#: sbuild/sbuild-session.cc:799
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[Chroot %1%] Starte Login-Shell: »%4%«"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:822
+#: sbuild/sbuild-session.cc:803
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[Chroot %1%] Starte Shell: »%4%«"
@@ -1514,7 +1526,7 @@ msgstr "[Chroot %1%] Starte Shell: »%4%«"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:833
+#: sbuild/sbuild-session.cc:814
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[Chroot %1%] (%2%→%3%) Starte Login-Shell: »%4%«"
@@ -1524,14 +1536,14 @@ msgstr "[Chroot %1%] (%2%→%3%) Starte Login-Shell: »%4%«"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:840
+#: sbuild/sbuild-session.cc:821
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[Chroot %1%] (%2%→%3%) Starte Shell: »%4%«"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:878
+#: sbuild/sbuild-session.cc:859
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[Chroot %1%] Starte Kommando: »%4%«"
@@ -1541,17 +1553,17 @@ msgstr "[Chroot %1%] Starte Kommando: »%4%«"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:885
+#: sbuild/sbuild-session.cc:866
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[Chroot %1%] (%2%→%3%) Starte Kommando: »%4%«"
 
-#: sbuild/sbuild-session.cc:1073
+#: sbuild/sbuild-session.cc:1054
 #, boost-format
 msgid "stage=%1%"
 msgstr "Schritt=%1%"
 
-#: sbuild/sbuild-session.cc:1239 sbuild/sbuild-session.cc:1246
+#: sbuild/sbuild-session.cc:1220 sbuild/sbuild-session.cc:1227
 msgid "terminating immediately"
 msgstr "beende unverzüglich"
 
@@ -1567,11 +1579,11 @@ msgstr "beende unverzüglich"
 msgid "%d %b %Y"
 msgstr "%d. %B %Y"
 
-#: sbuild/sbuild-util.cc:73
+#: sbuild/sbuild-util.cc:80
 msgid "Failed to stat file"
 msgstr "Datei konnte nicht mit »stat« abgefragt werden"
 
-#: sbuild/sbuild-util.cc:74
+#: sbuild/sbuild-util.cc:81
 msgid "Failed to stat file descriptor"
 msgstr "Dateideskriptor konnte nicht mit »stat« abgefragt werden"
 

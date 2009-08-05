@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2009-08-01 15:25+0100\n"
+"POT-Creation-Date: 2009-08-05 23:11+0100\n"
 "PO-Revision-Date: 2008-05-04 23:01+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -116,6 +116,7 @@ msgstr "Den här flaggan kommer att tas bort i framtiden"
 
 #: bin/csbuild/csbuild-debian-changes.cc:295
 #: bin/csbuild/csbuild-debian-changes.cc:301
+#: sbuild/sbuild-basic-keyfile.tcc:476 sbuild/sbuild-basic-keyfile.tcc:482
 msgid "This option has been removed, and no longer has any effect"
 msgstr "Den här flaggan har tagits bort och har inte längre någon effekt"
 
@@ -485,12 +486,12 @@ msgid "No mount point specified"
 msgstr "Ingen monteringspunkt angiven"
 
 #: bin/schroot-mount/schroot-mount-main.cc:59 sbuild/sbuild-run-parts.cc:48
-#: sbuild/sbuild-session.cc:75
+#: sbuild/sbuild-session.cc:69
 msgid "Failed to fork child"
 msgstr "Misslyckades med att grena barnprocess"
 
 #: bin/schroot-mount/schroot-mount-main.cc:60 sbuild/sbuild-run-parts.cc:49
-#: sbuild/sbuild-session.cc:78
+#: sbuild/sbuild-session.cc:72
 msgid "Wait for child failed"
 msgstr "Väntan på barnprocess misslyckades"
 
@@ -510,7 +511,7 @@ msgstr "[FLAGGA...] - lista monteringspunkter"
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:119
 #: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:229
-#: sbuild/sbuild-session.cc:1049 sbuild/sbuild-session.cc:1315
+#: sbuild/sbuild-session.cc:1030 sbuild/sbuild-session.cc:1296
 msgid "An unknown exception occurred"
 msgstr "Ett okänt undantag inträffade"
 
@@ -749,7 +750,7 @@ msgstr "Användaren \"%1%\" hittades inte"
 
 #. TRANSLATORS: %1% = group name or group ID
 #. TRANSLATORS: %1% = group name
-#: sbuild/sbuild-auth.cc:54 sbuild/sbuild-session.cc:104
+#: sbuild/sbuild-auth.cc:54 sbuild/sbuild-session.cc:98
 #, boost-format
 msgid "Group '%1%' not found"
 msgstr "Gruppen \"%1%\" hittades inte"
@@ -766,9 +767,20 @@ msgstr "Åtkomst inte auktoriserad"
 msgid "PAM is already initialised"
 msgstr "PAM är redan initierad"
 
-#: sbuild/sbuild-auth.cc:58 sbuild/sbuild-session.cc:105
+#: sbuild/sbuild-auth.cc:58 sbuild/sbuild-session.cc:99
 msgid "PAM error"
 msgstr "PAM-fel"
+
+#: sbuild/sbuild-basic-keyfile.tcc:115
+#, fuzzy
+msgid "This option may be present in a newer version"
+msgstr "Den här flaggan kommer att tas bort i framtiden"
+
+#: sbuild/sbuild-basic-keyfile.tcc:460 sbuild/sbuild-basic-keyfile.tcc:466
+#, fuzzy
+msgid ""
+"This option will be removed in the future; please update your configuration"
+msgstr "Den här flaggan kommer att tas bort i framtiden"
 
 #: sbuild/sbuild-chroot-block-device-base.cc:182
 msgid "Device"
@@ -904,7 +916,7 @@ msgstr "Misslyckades med att öppna katalogen"
 msgid "Filesystem union underlay directory"
 msgstr "Misslyckades med att öppna katalogen"
 
-#: sbuild/sbuild-chroot-file.cc:190 sbuild/sbuild-chroot-loopback.cc:205
+#: sbuild/sbuild-chroot-file.cc:190 sbuild/sbuild-chroot-loopback.cc:197
 msgid "File"
 msgstr "Fil"
 
@@ -985,85 +997,85 @@ msgstr "Misslyckades med att ta bort sessionsfilen"
 msgid "Failed to write session file"
 msgstr "Misslyckades med att skriva till sessionsfilen"
 
-#: sbuild/sbuild-chroot.cc:547
+#: sbuild/sbuild-chroot.cc:535
 msgid "Name"
 msgstr "Namn"
 
-#: sbuild/sbuild-chroot.cc:550
+#: sbuild/sbuild-chroot.cc:538
 msgid "Description"
 msgstr "Beskrivning"
 
-#: sbuild/sbuild-chroot.cc:551
+#: sbuild/sbuild-chroot.cc:539
 msgid "Type"
 msgstr "Typ"
 
-#: sbuild/sbuild-chroot.cc:552
+#: sbuild/sbuild-chroot.cc:540
 msgid "Priority"
 msgstr "Prioritet"
 
-#: sbuild/sbuild-chroot.cc:553
+#: sbuild/sbuild-chroot.cc:541
 msgid "Users"
 msgstr "Användare"
 
-#: sbuild/sbuild-chroot.cc:554
+#: sbuild/sbuild-chroot.cc:542
 msgid "Groups"
 msgstr "Grupper"
 
-#: sbuild/sbuild-chroot.cc:555
+#: sbuild/sbuild-chroot.cc:543
 msgid "Root Users"
 msgstr "Rootanvändare"
 
-#: sbuild/sbuild-chroot.cc:556
+#: sbuild/sbuild-chroot.cc:544
 msgid "Root Groups"
 msgstr "Rotgrupper"
 
-#: sbuild/sbuild-chroot.cc:557
+#: sbuild/sbuild-chroot.cc:545
 msgid "Aliases"
 msgstr "Alias"
 
-#: sbuild/sbuild-chroot.cc:558
+#: sbuild/sbuild-chroot.cc:546
 msgid "Environment Filter"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:559
+#: sbuild/sbuild-chroot.cc:547
 msgid "Run Setup Scripts"
 msgstr "Kör konfigurationsskript"
 
-#: sbuild/sbuild-chroot.cc:560
+#: sbuild/sbuild-chroot.cc:548
 msgid "Script Configuration"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:561
+#: sbuild/sbuild-chroot.cc:549
 msgid "Session Managed"
 msgstr "Session hanterad"
 
-#: sbuild/sbuild-chroot.cc:563
+#: sbuild/sbuild-chroot.cc:551
 #, fuzzy
 msgid "Session Cloned"
 msgstr "Session hanterad"
 
-#: sbuild/sbuild-chroot.cc:565
+#: sbuild/sbuild-chroot.cc:553
 #, fuzzy
 msgid "Session Purged"
 msgstr "Session hanterad"
 
-#: sbuild/sbuild-chroot.cc:569
+#: sbuild/sbuild-chroot.cc:557
 msgid "Command Prefix"
 msgstr "Kommandoprefix"
 
-#: sbuild/sbuild-chroot.cc:573
+#: sbuild/sbuild-chroot.cc:561
 msgid "Mount Location"
 msgstr "Montera plats"
 
-#: sbuild/sbuild-chroot.cc:575
+#: sbuild/sbuild-chroot.cc:563
 msgid "Path"
 msgstr "Sökväg"
 
-#: sbuild/sbuild-chroot.cc:581
+#: sbuild/sbuild-chroot.cc:569
 msgid "Session"
 msgstr "Session"
 
-#: sbuild/sbuild-chroot.cc:581
+#: sbuild/sbuild-chroot.cc:569
 msgid "Chroot"
 msgstr "Chroot"
 
@@ -1333,72 +1345,72 @@ msgid "Executing '%1%'"
 msgstr "Kör \"%1%\""
 
 #. TRANSLATORS: %1% = directory
-#: sbuild/sbuild-session.cc:70
+#: sbuild/sbuild-session.cc:64
 #, boost-format
 msgid "Failed to change to directory '%1%'"
 msgstr "Misslyckades med att byta till katalogen \"%1%\""
 
 #. TRANSLATORS: %4% = directory
-#: sbuild/sbuild-session.cc:72
+#: sbuild/sbuild-session.cc:66
 #, boost-format
 msgid "Falling back to directory '%4%'"
 msgstr "Faller tillbaka på katalogen \"%4%\""
 
-#: sbuild/sbuild-session.cc:73
+#: sbuild/sbuild-session.cc:67
 msgid "Child dumped core"
 msgstr "Barnprocess dumpade minnet"
 
 # coredump? Bättre ord?
-#: sbuild/sbuild-session.cc:74
+#: sbuild/sbuild-session.cc:68
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr ""
 "Barnprocess avslutades onormalt (anledning är okänd; inte en signal eller "
 "minnesdump)"
 
 #. TRANSLATORS: %4% = signal name
-#: sbuild/sbuild-session.cc:77
+#: sbuild/sbuild-session.cc:71
 #, boost-format
 msgid "Child terminated by signal '%4%'"
 msgstr "Barnprocess avslutades av signalen \"%4%\""
 
 #. TRANSLATORS: %1% = directory
-#: sbuild/sbuild-session.cc:80
+#: sbuild/sbuild-session.cc:74
 #, boost-format
 msgid "Failed to change root to directory '%1%'"
 msgstr "Misslyckades med att byta rot till katalogen \"%1%\""
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-session.cc:82
+#: sbuild/sbuild-session.cc:76
 #, boost-format
 msgid "No chroot found matching name or alias '%1%'"
 msgstr "Ingen chroot hittades som matchar namnet eller aliaset \"%1%\""
 
-#: sbuild/sbuild-session.cc:83
+#: sbuild/sbuild-session.cc:77
 msgid "Failed to lock chroot"
 msgstr "Misslyckades med att låsa chroot"
 
-#: sbuild/sbuild-session.cc:84
+#: sbuild/sbuild-session.cc:78
 msgid "Chroot setup failed"
 msgstr "Konfigurationen av chroot misslyckades"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-session.cc:86
+#: sbuild/sbuild-session.cc:80
 #, boost-format
 msgid "Failed to find chroot '%1%'"
 msgstr "Misslyckades med att hitta chroot \"%1%\""
 
-#: sbuild/sbuild-session.cc:87
+#: sbuild/sbuild-session.cc:81
 msgid "Failed to unlock chroot"
 msgstr "Misslyckades med att låsa upp chroot"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-session.cc:89
+#: sbuild/sbuild-session.cc:83
 #, boost-format
 msgid "Command \"%1%\" must have an absolute path"
 msgstr "Kommandot \"%1%\" måste ha en absolut sökväg"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-session.cc:91
+#: sbuild/sbuild-session.cc:85
 #, boost-format
 msgid "Failed to execute \"%1%\""
 msgstr "Misslyckades med att starta \"%1%\""
@@ -1406,65 +1418,65 @@ msgstr "Misslyckades med att starta \"%1%\""
 #. TRANSLATORS: A supplementary group is the list of additional
 #. system groups a user belongs to, in addition to their default
 #. group.
-#: sbuild/sbuild-session.cc:95
+#: sbuild/sbuild-session.cc:89
 msgid "Failed to get supplementary groups"
 msgstr "Misslyckades med att få tag på tilläggsgrupper"
 
 #. TRANSLATORS: A supplementary group is the list of additional
 #. system groups a user belongs to, in addition to their default
 #. group.
-#: sbuild/sbuild-session.cc:99
+#: sbuild/sbuild-session.cc:93
 msgid "Failed to get supplementary group count"
 msgstr "Misslyckades med att få tag på antalet tilläggsgrupper"
 
 #. TRANSLATORS: %1% = integer group ID
-#: sbuild/sbuild-session.cc:101
+#: sbuild/sbuild-session.cc:95
 #, boost-format
 msgid "Failed to set group '%1%'"
 msgstr "Misslyckades med att ställa in gruppen \"%1%\""
 
-#: sbuild/sbuild-session.cc:102
+#: sbuild/sbuild-session.cc:96
 msgid "Failed to set supplementary groups"
 msgstr "Misslyckades med att ställa in tilläggsgrupper"
 
-#: sbuild/sbuild-session.cc:106
+#: sbuild/sbuild-session.cc:100
 msgid "Failed to drop root permissions"
 msgstr "Misslyckades med att släppa root-rättigheter"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = session identifier
-#: sbuild/sbuild-session.cc:109
+#: sbuild/sbuild-session.cc:103
 #, boost-format
 msgid ""
 "%1%: Chroot does not support setting a session ID; ignoring session ID '%4%'"
 msgstr ""
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-session.cc:111
+#: sbuild/sbuild-session.cc:105
 #, boost-format
 msgid "Shell '%1%' not available"
 msgstr "Skalet \"%1%\" är inte tillgängligt"
 
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:113
+#: sbuild/sbuild-session.cc:107
 #, boost-format
 msgid "Falling back to shell '%4%'"
 msgstr "Faller tillbaka på skalet \"%4%\""
 
 #. TRANSLATORS: %4% = signal name
-#: sbuild/sbuild-session.cc:115
+#: sbuild/sbuild-session.cc:109
 #, boost-format
 msgid "Caught signal '%4%'"
 msgstr "Fångade signalen \"%4%\""
 
 #. TRANSLATORS: %4% = signal name
-#: sbuild/sbuild-session.cc:117
+#: sbuild/sbuild-session.cc:111
 #, boost-format
 msgid "Failed to set signal handler '%4%'"
 msgstr "Misslyckades med att ställa in signalhanteraren \"%4%\""
 
 #. TRANSLATORS: %1% = integer user ID
-#: sbuild/sbuild-session.cc:119
+#: sbuild/sbuild-session.cc:113
 #, boost-format
 msgid "Failed to set user '%1%'"
 msgstr "Misslyckades med att ställa in användaren \"%1%\""
@@ -1472,29 +1484,29 @@ msgstr "Misslyckades med att ställa in användaren \"%1%\""
 #. TRANSLATORS: %1% = user name
 #. TRANSLATORS: %2% = user name
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:123
+#: sbuild/sbuild-session.cc:117
 #, boost-format
 msgid "(%1%->%2%): User switching is not permitted"
 msgstr "(%1%->%2%): Byte av användare tillåts inte"
 
-#: sbuild/sbuild-session.cc:335
+#: sbuild/sbuild-session.cc:329
 msgid "Error saving terminal settings"
 msgstr "Fel vid sparandet av terminalinställningar"
 
-#: sbuild/sbuild-session.cc:356
+#: sbuild/sbuild-session.cc:350
 msgid "Error restoring terminal settings"
 msgstr "Fel vid återställandet av terminalinställningar"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:818
+#: sbuild/sbuild-session.cc:799
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[%1% chroot] Kör inloggningsskal: \"%4%\""
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:822
+#: sbuild/sbuild-session.cc:803
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[%1% chroot] Kör skal: \"%4%\""
@@ -1504,7 +1516,7 @@ msgstr "[%1% chroot] Kör skal: \"%4%\""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:833
+#: sbuild/sbuild-session.cc:814
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Kör inloggningsskal: \"%4%\""
@@ -1514,14 +1526,14 @@ msgstr "[%1% chroot] (%2%->%3%) Kör inloggningsskal: \"%4%\""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:840
+#: sbuild/sbuild-session.cc:821
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Kör skal: \"%4%\""
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:878
+#: sbuild/sbuild-session.cc:859
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Kör kommando: \"%4%\""
@@ -1531,17 +1543,17 @@ msgstr "[%1% chroot] Kör kommando: \"%4%\""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:885
+#: sbuild/sbuild-session.cc:866
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Kör kommando: \"%4%\""
 
-#: sbuild/sbuild-session.cc:1073
+#: sbuild/sbuild-session.cc:1054
 #, boost-format
 msgid "stage=%1%"
 msgstr "steg=%1%"
 
-#: sbuild/sbuild-session.cc:1239 sbuild/sbuild-session.cc:1246
+#: sbuild/sbuild-session.cc:1220 sbuild/sbuild-session.cc:1227
 msgid "terminating immediately"
 msgstr "avslutar omedelbart"
 
@@ -1557,11 +1569,11 @@ msgstr "avslutar omedelbart"
 msgid "%d %b %Y"
 msgstr "%d %b %Y"
 
-#: sbuild/sbuild-util.cc:73
+#: sbuild/sbuild-util.cc:80
 msgid "Failed to stat file"
 msgstr "Misslyckades med att läsa status på filen"
 
-#: sbuild/sbuild-util.cc:74
+#: sbuild/sbuild-util.cc:81
 #, fuzzy
 msgid "Failed to stat file descriptor"
 msgstr "Misslyckades med att läsa status på filen"
