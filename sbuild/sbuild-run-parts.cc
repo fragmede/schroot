@@ -257,7 +257,7 @@ run_parts::run_child (std::string const& file,
 	  int outdata = 0;
 	  int errdata = 0;
 
-	  if (pollfds[1].revents | POLLIN)
+	  if (pollfds[1].revents & POLLIN)
 	    {
 	      int errdata;
 	      if ((errdata = read(pollfds[1].fd, buffer, BUFSIZ)) < 0
@@ -268,7 +268,7 @@ run_parts::run_child (std::string const& file,
 		stderr_buf += std::string(&buffer[0], errdata);
 	    }
 
-	  if (pollfds[0].revents | POLLIN)
+	  if (pollfds[0].revents & POLLIN)
 	    {
 	      if ((outdata = read(pollfds[0].fd, buffer, BUFSIZ)) < 0
 		  && errno != EINTR)
