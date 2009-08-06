@@ -1,4 +1,4 @@
-.\" Copyright © 2005-2008  Roger Leigh <rleigh@debian.org>
+.\" Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
 .\"
 .\" schroot is free software: you can redistribute it and/or modify it
 .\" under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@ details.
 .TP
 COPYFILES
 A file containing a list of files to copy into the chroot (one file per line).
+The file will have the same absolute location inside the chroot.
 .TP
 FSTAB
 The filesystem table file to be used to mount filesystems within the chroot.
@@ -45,13 +46,20 @@ The format of this file is the same as for \fI/etc/fstab\fP, documented in
 The only difference is that the mountpoint path \fIfs_dir\fP is relative to the
 chroot, rather than the root.
 .TP
-SBUILD
-Set to \[oq]true\[cq] to enable sbuild support in the chroot, or
-\[oq]false\[cq] to disable.
+NSSDATABASES
+A file listing the system databases to copy into the chroot.  The default
+databases are \[oq]passwd\[cq], \[oq]shadow\[cq], \[oq]group\[cq],
+\[oq]services\[cq], \[oq]protocols\[cq], \[oq]networks\[cq], and
+\[oq]hosts\[cq].  \[oq]gshadow\[cq] is not yet copied by default, due to not
+being supported by all but the most recent version of the GNU C library.  The
+databases are copied using
+.BR getent (1)
+so all database sources listed in \fI/etc/nsswitch.conf\fP will be used for
+each database.
 .SH AUTHORS
 Roger Leigh.
 .SH COPYRIGHT
-Copyright \(co 2005\-2008  Roger Leigh \f[CR]<rleigh@debian.org>\fP
+Copyright \(co 2005\-2009  Roger Leigh \f[CR]<rleigh@debian.org>\fP
 .PP
 \fBschroot\fP is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
