@@ -9,10 +9,3 @@ COPYFILES="/etc/schroot/copyfiles-defaults"
 
 # System NSS databases to copy into the chroot.
 NSSDATABASES="/etc/schroot/nssdatabases-defaults"
-
-# Is sbuild installed?
-if [ -x /usr/bin/sbuild ]; then
-  SBUILD="true"
-else
-  SBUILD="false"
-fi
