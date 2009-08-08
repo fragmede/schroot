@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include "sbuild-chroot-directory.h"
-#include "sbuild-chroot-facet-session.h"
+#include "sbuild-chroot-facet-session-clonable.h"
 #ifdef SBUILD_FEATURE_UNION
 #include "sbuild-chroot-facet-union.h"
 #endif // SBUILD_FEATURE_UNION
@@ -62,7 +62,8 @@ chroot_directory::clone () const
 sbuild::chroot::ptr
 chroot_directory::clone_session (std::string const& session_id) const
 {
-  chroot_facet_session::const_ptr psess(get_facet<chroot_facet_session>());
+  chroot_facet_session_clonable::const_ptr psess
+    (get_facet<chroot_facet_session_clonable>());
   assert(psess);
 
   ptr session(new chroot_directory(*this));

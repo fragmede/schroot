@@ -20,7 +20,7 @@
 
 #include "sbuild-chroot-lvm-snapshot.h"
 #include "sbuild-chroot-block-device.h"
-#include "sbuild-chroot-facet-session.h"
+#include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-chroot-facet-mountable.h"
 #include "sbuild-format-detail.h"
@@ -63,7 +63,8 @@ chroot_lvm_snapshot::clone () const
 sbuild::chroot::ptr
 chroot_lvm_snapshot::clone_session (std::string const& session_id) const
 {
-  chroot_facet_session::const_ptr psess(get_facet<chroot_facet_session>());
+  chroot_facet_session_clonable::const_ptr psess
+    (get_facet<chroot_facet_session_clonable>());
   assert(psess);
 
   ptr session(new chroot_lvm_snapshot(*this));

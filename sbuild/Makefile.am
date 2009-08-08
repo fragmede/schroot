@@ -37,6 +37,7 @@ sbuild_public_h_sources =			\
 	sbuild-chroot-facet-mountable.h		\
 	sbuild-chroot-facet-personality.h	\
 	sbuild-chroot-facet-session.h		\
+	sbuild-chroot-facet-session-clonable.h	\
 	sbuild-chroot-facet-source.h		\
 	sbuild-chroot-facet-source-clonable.h	\
 	sbuild-chroot-file.h			\
@@ -110,6 +111,7 @@ sbuild_public_cc_sources =			\
 	sbuild-chroot-facet-mountable.cc	\
 	sbuild-chroot-facet-personality.cc	\
 	sbuild-chroot-facet-session.cc		\
+	sbuild-chroot-facet-session-clonable.cc	\
 	sbuild-chroot-facet-source.cc		\
 	sbuild-chroot-facet-source-clonable.cc	\
 	sbuild-chroot-file.cc			\

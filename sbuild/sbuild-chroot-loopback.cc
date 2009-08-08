@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include "sbuild-chroot-loopback.h"
-#include "sbuild-chroot-facet-session.h"
+#include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-chroot-facet-mountable.h"
 #ifdef SBUILD_FEATURE_UNION
 #include "sbuild-chroot-facet-union.h"
@@ -66,7 +66,8 @@ chroot_loopback::clone () const
 sbuild::chroot::ptr
 chroot_loopback::clone_session (std::string const& session_id) const
 {
-  chroot_facet_session::const_ptr psess(get_facet<chroot_facet_session>());
+  chroot_facet_session_clonable::const_ptr psess
+    (get_facet<chroot_facet_session_clonable>());
   assert(psess);
 
   ptr session(new chroot_loopback(*this));

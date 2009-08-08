@@ -201,10 +201,6 @@ public:
   void test_active()
   {
     CPPUNIT_ASSERT(chroot->get_active() == false);
-    chroot->set_active(true);
-    CPPUNIT_ASSERT(chroot->get_active() == true);
-    chroot->set_active(false);
-    CPPUNIT_ASSERT(chroot->get_active() == false);
   }
 
   void test_run_setup_scripts()

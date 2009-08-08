@@ -34,6 +34,7 @@
 #include "sbuild-chroot-facet.h"
 #include "sbuild-chroot-facet-personality.h"
 #include "sbuild-chroot-facet-session.h"
+#include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-lock.h"
 
 #include <cerrno>
@@ -112,7 +113,7 @@ sbuild::chroot::chroot ():
   facets()
 {
   add_facet(sbuild::chroot_facet_personality::create());
-  add_facet(sbuild::chroot_facet_session::create());
+  add_facet(sbuild::chroot_facet_session_clonable::create());
 }
 
 sbuild::chroot::chroot (const chroot& rhs):
@@ -330,18 +331,7 @@ sbuild::chroot::get_active () const
 {
   chroot_facet_session::const_ptr psess(get_facet<chroot_facet_session>());
 
-  if (psess)
-    return psess->get_session_active();
-  else
-    return false;
-}
-
-void
-sbuild::chroot::set_active (bool active)
-{
-  chroot_facet_session::ptr psess(get_facet<chroot_facet_session>());
-  if (psess)
-    psess->set_session_active(active);
+  return (psess) ? true : false;
 }
 
 bool

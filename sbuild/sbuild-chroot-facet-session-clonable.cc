@@ -20,6 +20,7 @@
 
 #include "sbuild-chroot.h"
 #include "sbuild-chroot-facet-session.h"
+#include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-chroot-plain.h"
 #ifdef SBUILD_FEATURE_LVMSNAP
@@ -38,29 +39,29 @@ using boost::format;
 using std::endl;
 using namespace sbuild;
 
-chroot_facet_session::chroot_facet_session ():
+chroot_facet_session_clonable::chroot_facet_session_clonable ():
   chroot_facet()
 {
 }
 
-chroot_facet_session::~chroot_facet_session ()
+chroot_facet_session_clonable::~chroot_facet_session_clonable ()
 {
 }
 
-chroot_facet_session::ptr
-chroot_facet_session::create ()
+chroot_facet_session_clonable::ptr
+chroot_facet_session_clonable::create ()
 {
-  return ptr(new chroot_facet_session());
+  return ptr(new chroot_facet_session_clonable());
 }
 
 chroot_facet::ptr
-chroot_facet_session::clone () const
+chroot_facet_session_clonable::clone () const
 {
-  return ptr(new chroot_facet_session(*this));
+  return ptr(new chroot_facet_session_clonable(*this));
 }
 
 std::string const&
-chroot_facet_session::get_name () const
+chroot_facet_session_clonable::get_name () const
 {
   static const std::string name("session");
 
@@ -68,9 +69,12 @@ chroot_facet_session::get_name () const
 }
 
 void
-chroot_facet_session::clone_session_setup (chroot::ptr&       clone,
+chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
 					   std::string const& session_id) const
 {
+  clone->remove_facet<chroot_facet_session_clonable>();
+  clone->add_facet(chroot_facet_session::create());
+
   // Disable session, delete aliases.
   chroot_facet_session::ptr session(clone->get_facet<chroot_facet_session>());
   assert(session);
@@ -80,6 +84,7 @@ chroot_facet_session::clone_session_setup (chroot::ptr&       clone,
       assert(clone->get_session_id() == session_id);
       clone->set_description
 	(clone->get_description() + ' ' + _("(session chroot)"));
+      session->get_session_flags(*clone); // For testing.
     }
 
   log_debug(DEBUG_INFO)
@@ -138,40 +143,37 @@ chroot_facet_session::clone_session_setup (chroot::ptr&       clone,
 }
 
 void
-chroot_facet_session::setup_env (chroot const& chroot,
-				     environment&  env) const
+chroot_facet_session_clonable::setup_env (chroot const& chroot,
+					  environment&  env) const
 {
 }
 
 chroot::session_flags
-chroot_facet_session::get_session_flags (chroot const& chroot) const
+chroot_facet_session_clonable::get_session_flags (chroot const& chroot) const
 {
-  return chroot::SESSION_NOFLAGS;
+  return chroot::SESSION_CREATE;
 }
 
 void
-chroot_facet_session::get_details (chroot const&  chroot,
-				   format_detail& detail) const
-{
-  /// @todo: Replace base chroot session ID with local ID.
-  if (!chroot.get_session_id().empty())
-    detail.add(_("Session ID"), chroot.get_session_id());
-}
-
-void
-chroot_facet_session::get_keyfile (chroot const& chroot,
-				   keyfile&      keyfile) const
+chroot_facet_session_clonable::get_details (chroot const&  chroot,
+					    format_detail& detail) const
 {
 }
 
 void
-chroot_facet_session::set_keyfile (chroot&        chroot,
-				   keyfile const& keyfile,
-				   string_list&   used_keys)
+chroot_facet_session_clonable::get_keyfile (chroot const& chroot,
+					    keyfile&      keyfile) const
+{
+}
+
+void
+chroot_facet_session_clonable::set_keyfile (chroot&        chroot,
+					    keyfile const& keyfile,
+					    string_list&   used_keys)
 {
   // Null methods for obsolete keys.
-  void (sbuild::chroot_facet_session::* nullmethod)(bool) = 0;
-  void (sbuild::chroot_facet_session::* nullvmethod)(string_list const&) = 0;
+  void (sbuild::chroot_facet_session_clonable::* nullmethod)(bool) = 0;
+  void (sbuild::chroot_facet_session_clonable::* nullvmethod)(string_list const&) = 0;
 
   // Setting when not clonable is deprecated.  It can't be obsoleted
   // yet because it is required to allow use and ending of existing

@@ -16,11 +16,10 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_FACET_SESSION_H
-#define SBUILD_CHROOT_FACET_SESSION_H
+#ifndef SBUILD_CHROOT_FACET_SESSION_CLONABLE_H
+#define SBUILD_CHROOT_FACET_SESSION_CLONABLE_H
 
 #include <sbuild/sbuild-chroot-facet.h>
-#include <sbuild/sbuild-session.h>
 
 namespace sbuild
 {
@@ -28,22 +27,22 @@ namespace sbuild
   /**
    * Chroot support for kernel personalities (execution domains).
    */
-  class chroot_facet_session : public chroot_facet
+  class chroot_facet_session_clonable : public chroot_facet
   {
   public:
     /// A shared_ptr to a chroot facet object.
-    typedef std::tr1::shared_ptr<chroot_facet_session> ptr;
+    typedef std::tr1::shared_ptr<chroot_facet_session_clonable> ptr;
 
     /// A shared_ptr to a const chroot facet object.
-    typedef std::tr1::shared_ptr<const chroot_facet_session> const_ptr;
+    typedef std::tr1::shared_ptr<const chroot_facet_session_clonable> const_ptr;
 
   private:
     /// The constructor.
-    chroot_facet_session ();
+    chroot_facet_session_clonable ();
 
   public:
     /// The destructor.
-    virtual ~chroot_facet_session ();
+    virtual ~chroot_facet_session_clonable ();
 
     /**
      * Create a chroot facet.
@@ -88,12 +87,11 @@ namespace sbuild
     set_keyfile (chroot&        chroot,
 		 keyfile const& keyfile,
 		 string_list&   used_keys);
-
   };
 
 }
 
-#endif /* SBUILD_CHROOT_FACET_SESSION_H */
+#endif /* SBUILD_CHROOT_FACET_SESSION_CLONABLE_H */
 
 /*
  * Local Variables:

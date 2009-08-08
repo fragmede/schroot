@@ -23,6 +23,8 @@
 #include <sbuild/sbuild-chroot.h>
 #include <sbuild/sbuild-chroot-facet-personality.h>
 #include <sbuild/sbuild-chroot-facet-session.h>
+#include <sbuild/sbuild-chroot-facet-session-clonable.h>
+#include <sbuild/sbuild-chroot-facet-source.h>
 #include <sbuild/sbuild-chroot-facet-source-clonable.h>
 #include <sbuild/sbuild-chroot-facet-union.h>
 #include <sbuild/sbuild-i18n.h>
@@ -67,16 +69,23 @@ public:
     // Create new chroot
     this->chroot = sbuild::chroot::ptr(new T);
     CPPUNIT_ASSERT(this->chroot);
+    CPPUNIT_ASSERT(this->chroot->get_active() == false);
 
     setup_chroot_props(this->chroot);
 
     CPPUNIT_ASSERT(this->chroot->get_name().length());
 
     // Create new source chroot.
-    sbuild::chroot_facet_session::const_ptr psess
-      (this->chroot->template get_facet<sbuild::chroot_facet_session>());
+    sbuild::chroot_facet_session_clonable::const_ptr psess
+      (this->chroot->template get_facet<sbuild::chroot_facet_session_clonable>());
     if (psess)
-      this->session = this->chroot->clone_session("test-session-name");
+      {
+	this->session = this->chroot->clone_session("test-session-name");
+	if (this->session)
+	  {
+	    CPPUNIT_ASSERT(this->session->get_active() == true);
+	  }
+      }
 
     sbuild::chroot_facet_source_clonable::const_ptr psrc
       (this->chroot->
@@ -90,7 +99,7 @@ public:
 	   template get_facet<sbuild::chroot_facet_source_clonable>());
 	if (ssrc)
 	  {
-	    CPPUNIT_ASSERT(ssrc->get_source_clonable() == false);
+	    CPPUNIT_ASSERT(ssrc->get_source_clonable() == true);
 	  }
       }
 
@@ -106,6 +115,7 @@ public:
 	un->set_union_type("aufs");
 
 	setup_chroot_props(this->chroot_union);
+	CPPUNIT_ASSERT(this->chroot_union->get_active() == false);
 	CPPUNIT_ASSERT(this->chroot_union->get_name().length());
 
 	un->set_union_overlay_directory("/overlay");
@@ -117,6 +127,7 @@ public:
 	this->source_union = chroot_union->clone_source();
 
 	CPPUNIT_ASSERT(this->session_union);
+	CPPUNIT_ASSERT(this->session_union->get_active() == true);
 	CPPUNIT_ASSERT(this->source_union);
       }
   }

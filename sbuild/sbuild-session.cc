@@ -629,16 +629,12 @@ session::run_impl ()
 		  log_debug(DEBUG_WARNING)
 		    << "Chroot setup scripts failed during stop" << endl;
 		}
-	      chroot->set_active(false);
 	      throw;
 	    }
 
 	  /* Run setup-stop chroot setup scripts whether or not there
 	     was an error. */
 	  setup_chroot(chroot, chroot::SETUP_STOP);
-
-	  /* Deactivate chroot. */
-	  chroot->set_active(false);
 	}
     }
   catch (error const& e)

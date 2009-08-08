@@ -361,20 +361,13 @@ namespace sbuild
     set_environment_filter (regex const& environment_filter);
 
     /**
-     * Get the activity status of the chroot.
+     * Get the activity status of the chroot.  The chroot is active if
+     * it has been cloned as a session.
      *
      * @returns true if active, false if inactive
      */
     bool
     get_active () const;
-
-    /**
-     * Set the activity status of the chroot.
-     *
-     * @param active true if active, false if inactive
-     */
-    void
-    set_active (bool active);
 
     /**
      * Get the originality of the chroot.

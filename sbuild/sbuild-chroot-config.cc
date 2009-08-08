@@ -505,7 +505,14 @@ chroot_config::load_keyfile (keyfile& kconfig,
       // Set both; the keyfile load will correct them if needed.
       chroot->set_name(*group);
       chroot->set_session_id(*group);
-      chroot->set_active(active);
+
+      // If we are (re-)creating session objects, we need to re-clone
+      // the session chroot object from its basic state, in order to
+      // get the correct facets in place.  In the future, it would be
+      // great if sessions could serialise their facet usage to allow
+      // automatic reconstruction.
+      if (active)
+	chroot = chroot->clone_session("dummy-session-name");
 
       kconfig >> chroot;
 

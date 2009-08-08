@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include "sbuild-chroot-plain.h"
-#include "sbuild-chroot-facet-session.h"
+#include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
 
@@ -37,7 +37,7 @@ chroot_plain::chroot_plain ():
 {
   set_run_setup_scripts(false);
 
-  remove_facet<chroot_facet_session>();
+  remove_facet<chroot_facet_session_clonable>();
 }
 
 chroot_plain::~chroot_plain ()
