@@ -224,6 +224,7 @@ public:
     expected.set_value(group, "type", "block-device");
     expected.set_value(group, "device", "/dev/testdev");
     expected.set_value(group, "location", "/squeeze");
+    expected.set_value(group, "mount-device", "/dev/testdev");
     expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     setup_keyfile_union_unconfigured(expected, group);
 
@@ -240,6 +241,7 @@ public:
     expected.set_value(group, "name", "test-session-name");
     expected.set_value(group, "device", "/dev/testdev");
     expected.set_value(group, "location", "/squeeze");
+    expected.set_value(group, "mount-device", "/dev/testdev");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
     expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     setup_keyfile_session_clone(expected, group);
@@ -260,6 +262,7 @@ public:
     expected.set_value(group, "type", "block-device");
     expected.set_value(group, "device", "/dev/testdev");
     expected.set_value(group, "location", "/squeeze");
+    expected.set_value(group, "mount-device", "/dev/testdev");
     expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
 
     test_chroot_base<chroot_block_device>::test_setup_keyfile
@@ -275,6 +278,7 @@ public:
     expected.set_value(group, "name", "test-union-session-name");
     expected.set_value(group, "device", "/dev/testdev");
     expected.set_value(group, "location", "/squeeze");
+    expected.set_value(group, "mount-device", "/dev/testdev");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
     expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     setup_keyfile_session_clone(expected, group);
@@ -294,6 +298,7 @@ public:
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
     expected.set_value(group, "device", "/dev/testdev");
     expected.set_value(group, "location", "/squeeze");
+    expected.set_value(group, "mount-device", "/dev/testdev");
     expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     setup_keyfile_union_unconfigured(expected, group);
 
