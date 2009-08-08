@@ -224,7 +224,6 @@ public:
     expected.set_value(group, "type", "loopback");
     expected.set_value(group, "file", loopback_file);
     expected.set_value(group, "location", "/squeeze");
-    expected.set_value(group, "mount-device", loopback_file);
     expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     setup_keyfile_union_unconfigured(expected, group);
 
@@ -261,7 +260,6 @@ public:
     expected.set_value(group, "type", "loopback");
     expected.set_value(group, "file", loopback_file);
     expected.set_value(group, "location", "/squeeze");
-    expected.set_value(group, "mount-device", loopback_file);
     expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     setup_keyfile_union_configured(expected, group);
 
@@ -298,7 +296,6 @@ public:
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
     expected.set_value(group, "file", loopback_file);
     expected.set_value(group, "location", "/squeeze");
-    expected.set_value(group, "mount-device", loopback_file);
     expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     setup_keyfile_union_unconfigured(expected, group);
 

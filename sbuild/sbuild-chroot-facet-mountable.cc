@@ -131,14 +131,18 @@ void
 chroot_facet_mountable::get_keyfile (chroot const& chroot,
 				     keyfile&      keyfile) const
 {
-  keyfile::set_object_value(*this, &chroot_facet_mountable::get_mount_device,
-			    keyfile, chroot.get_keyfile_name(), "mount-device");
+  if (chroot.get_active())
+    keyfile::set_object_value(*this, &chroot_facet_mountable::get_mount_device,
+			      keyfile, chroot.get_keyfile_name(),
+			      "mount-device");
 
   keyfile::set_object_value(*this, &chroot_facet_mountable::get_mount_options,
-			    keyfile, chroot.get_keyfile_name(), "mount-options");
+			    keyfile, chroot.get_keyfile_name(),
+			    "mount-options");
 
   keyfile::set_object_value(*this, &chroot_facet_mountable::get_location,
-			    keyfile, chroot.get_keyfile_name(), "location");
+			    keyfile, chroot.get_keyfile_name(),
+			    "location");
 }
 
 void
@@ -147,17 +151,22 @@ chroot_facet_mountable::set_keyfile (chroot&        chroot,
 				     string_list&   used_keys)
 {
   keyfile::get_object_value(*this, &chroot_facet_mountable::set_mount_device,
-			    keyfile, chroot.get_keyfile_name(), "mount-device",
-			    keyfile::PRIORITY_OPTIONAL);
+			    keyfile, chroot.get_keyfile_name(),
+			    "mount-device",
+			    chroot.get_active() ?
+			    keyfile::PRIORITY_REQUIRED :
+			    keyfile::PRIORITY_DISALLOWED);
   used_keys.push_back("mount-device");
 
   keyfile::get_object_value(*this, &chroot_facet_mountable::set_mount_options,
-			    keyfile, chroot.get_keyfile_name(), "mount-options",
+			    keyfile, chroot.get_keyfile_name(),
+			    "mount-options",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("mount-options");
 
   keyfile::get_object_value(*this, &chroot_facet_mountable::set_location,
-			    keyfile, chroot.get_keyfile_name(), "location",
+			    keyfile, chroot.get_keyfile_name(),
+			    "location",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("location");
 }

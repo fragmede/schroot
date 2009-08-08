@@ -192,7 +192,6 @@ public:
     expected.set_value(group, "type", "lvm-snapshot");
     expected.set_value(group, "device", "/dev/volgroup/testdev");
     expected.set_value(group, "location", "/squeeze");
-    expected.set_value(group, "mount-device", "");
     expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     expected.set_value(group, "lvm-snapshot-options", "--size 1G");
 
@@ -230,7 +229,6 @@ public:
     expected.set_value(group, "aliases", "test-alias-1-source,test-alias-2-source");
     expected.set_value(group, "device", "/dev/volgroup/testdev");
     expected.set_value(group, "location", "/squeeze");
-    expected.set_value(group, "mount-device", "/dev/volgroup/testdev");
     expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     expected.set_value(group, "union-type", "none");
     setup_keyfile_source_clone(expected, group);
