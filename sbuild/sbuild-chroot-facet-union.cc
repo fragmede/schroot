@@ -131,7 +131,7 @@ chroot_facet_union::set_union_overlay_directory
 (std::string const& directory)
 {
   if (!is_absname(directory))
-    throw chroot::error(directory, chroot::LOCATION_ABS);
+    throw error(directory, UNION_OVERLAY_ABS);
 
   this->union_overlay_directory = directory;
 }
@@ -147,7 +147,7 @@ chroot_facet_union::set_union_underlay_directory
 (std::string const& directory)
 {
   if (!is_absname(directory))
-    throw chroot::error(directory, chroot::LOCATION_ABS);
+    throw error(directory, UNION_UNDERLAY_ABS);
 
   this->union_underlay_directory = directory;
 }
