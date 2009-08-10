@@ -216,15 +216,20 @@ public:
   }
 #endif // SBUILD_FEATURE_UNION
 
+  void setup_keyfile_block(sbuild::keyfile &expected, std::string group)
+  {
+    expected.set_value(group, "type", "block-device");
+    expected.set_value(group, "device", "/dev/testdev");
+    expected.set_value(group, "location", "/squeeze");
+    expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
+  }
+
   void test_setup_keyfile()
   {
     sbuild::keyfile expected;
     std::string group = chroot->get_name();
     setup_keyfile_chroot(expected, group);
-    expected.set_value(group, "type", "block-device");
-    expected.set_value(group, "device", "/dev/testdev");
-    expected.set_value(group, "location", "/squeeze");
-    expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
+    setup_keyfile_block(expected, group);
     setup_keyfile_union_unconfigured(expected, group);
 
     test_chroot_base<chroot_block_device>::test_setup_keyfile
@@ -236,13 +241,10 @@ public:
     sbuild::keyfile expected;
     const std::string group(session->get_name());
     setup_keyfile_chroot(expected, group);
-    expected.set_value(group, "type", "block-device");
+    setup_keyfile_block(expected, group);
     expected.set_value(group, "name", "test-session-name");
-    expected.set_value(group, "device", "/dev/testdev");
-    expected.set_value(group, "location", "/squeeze");
     expected.set_value(group, "mount-device", "/dev/testdev");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
-    expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     setup_keyfile_session_clone(expected, group);
     setup_keyfile_union_unconfigured(expected, group);
 
@@ -258,10 +260,7 @@ public:
     setup_keyfile_union_configured(expected, group);
     setup_keyfile_chroot(expected, group);
     setup_keyfile_source(expected, group);
-    expected.set_value(group, "type", "block-device");
-    expected.set_value(group, "device", "/dev/testdev");
-    expected.set_value(group, "location", "/squeeze");
-    expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
+    setup_keyfile_block(expected, group);
 
     test_chroot_base<chroot_block_device>::test_setup_keyfile
       (chroot_union, expected, group);
@@ -272,13 +271,10 @@ public:
     sbuild::keyfile expected;
     const std::string group(session_union->get_name());
     setup_keyfile_chroot(expected, group);
-    expected.set_value(group, "type", "block-device");
+    setup_keyfile_block(expected, group);
     expected.set_value(group, "name", "test-union-session-name");
-    expected.set_value(group, "device", "/dev/testdev");
-    expected.set_value(group, "location", "/squeeze");
     expected.set_value(group, "mount-device", "/dev/testdev");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
-    expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     setup_keyfile_session_clone(expected, group);
     setup_keyfile_union_session(expected, group);
 
@@ -292,11 +288,8 @@ public:
     const std::string group(source_union->get_name());
     setup_keyfile_chroot(expected, group);
     setup_keyfile_source_clone(expected, group);
-    expected.set_value(group, "type", "block-device");
+    setup_keyfile_block(expected, group);
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
-    expected.set_value(group, "device", "/dev/testdev");
-    expected.set_value(group, "location", "/squeeze");
-    expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     setup_keyfile_union_unconfigured(expected, group);
 
     test_chroot_base<chroot_block_device>::test_setup_keyfile

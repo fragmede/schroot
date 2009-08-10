@@ -119,16 +119,21 @@ public:
     CPPUNIT_ASSERT(chroot->get_chroot_type() == "lvm-snapshot");
   }
 
-  void test_setup_env()
+  void setup_env_gen(sbuild::environment &expected)
   {
-    sbuild::environment expected;
     setup_env_chroot(expected);
-    expected.add("CHROOT_TYPE",           "lvm-snapshot");
     expected.add("CHROOT_LOCATION",       "/squeeze");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
     expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
     expected.add("CHROOT_DEVICE",         "/dev/volgroup/testdev");
     expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
+  }
+
+  void test_setup_env()
+  {
+    sbuild::environment expected;
+    setup_env_gen(expected);
+    expected.add("CHROOT_TYPE",           "lvm-snapshot");
     expected.add("CHROOT_LVM_SNAPSHOT_OPTIONS", "--size 1G");
     expected.add("CHROOT_SESSION_CLONE",  "true");
     expected.add("CHROOT_SESSION_CREATE", "true");
@@ -142,16 +147,11 @@ public:
     std::tr1::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
 
     sbuild::environment expected;
-    setup_env_chroot(expected);
+    setup_env_gen(expected);
     expected.add("CHROOT_TYPE",           "lvm-snapshot");
     expected.add("CHROOT_NAME",           "test-session-name");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(session chroot)"));
-    expected.add("CHROOT_LOCATION",       "/squeeze");
-    expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
-    expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
-    expected.add("CHROOT_DEVICE",         "/dev/volgroup/testdev");
     expected.add("CHROOT_MOUNT_DEVICE",   "/dev/volgroup/test-session-name");
-    expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
     expected.add("CHROOT_LVM_SNAPSHOT_NAME",    "test-session-name");
     expected.add("CHROOT_LVM_SNAPSHOT_DEVICE",  "/dev/volgroup/test-session-name");
     expected.add("CHROOT_LVM_SNAPSHOT_OPTIONS", "--size 1G");
@@ -165,16 +165,11 @@ public:
   void test_setup_env_source()
   {
     sbuild::environment expected;
-    setup_env_chroot(expected);
+    setup_env_gen(expected);
     expected.add("CHROOT_TYPE",           "block-device");
     expected.add("CHROOT_NAME",           "test-name-source");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot)"));
-    expected.add("CHROOT_LOCATION",       "/squeeze");
-    expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
-    expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
-    expected.add("CHROOT_DEVICE",         "/dev/volgroup/testdev");
     expected.add("CHROOT_MOUNT_DEVICE",   "/dev/volgroup/testdev");
-    expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
@@ -183,16 +178,21 @@ public:
     test_chroot_base<chroot_lvm_snapshot>::test_setup_env(source, expected);
   }
 
+  void setup_keyfile_lvm(sbuild::keyfile &expected, std::string group)
+  {
+    expected.set_value(group, "device", "/dev/volgroup/testdev");
+    expected.set_value(group, "location", "/squeeze");
+    expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
+  }
+
   void test_setup_keyfile()
   {
     sbuild::keyfile expected;
     std::string group = chroot->get_name();
     setup_keyfile_chroot(expected, group);
     setup_keyfile_source(expected, group);
+    setup_keyfile_lvm(expected, group);
     expected.set_value(group, "type", "lvm-snapshot");
-    expected.set_value(group, "device", "/dev/volgroup/testdev");
-    expected.set_value(group, "location", "/squeeze");
-    expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     expected.set_value(group, "lvm-snapshot-options", "--size 1G");
 
     test_chroot_base<chroot_lvm_snapshot>::test_setup_keyfile
@@ -204,16 +204,15 @@ public:
     sbuild::keyfile expected;
     const std::string group(session->get_name());
     setup_keyfile_chroot(expected, group);
+    setup_keyfile_lvm(expected, group);
     expected.set_value(group, "type", "lvm-snapshot");
     expected.set_value(group, "name", "test-session-name");
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(session chroot)"));
     expected.set_value(group, "aliases", "");
-    expected.set_value(group, "device", "/dev/volgroup/testdev");
-    expected.set_value(group, "location", "/squeeze");
     expected.set_value(group, "lvm-snapshot-device", "/dev/volgroup/test-session-name");
     expected.set_value(group, "mount-device", "/dev/volgroup/test-session-name");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
-    expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
+    expected.set_value(group, "mount-device", "/dev/volgroup/test-session-name");
 
     test_chroot_base<chroot_lvm_snapshot>::test_setup_keyfile
       (session, expected, group);
@@ -224,12 +223,10 @@ public:
     sbuild::keyfile expected;
     const std::string group(source->get_name());
     setup_keyfile_chroot(expected, group);
+    setup_keyfile_lvm(expected, group);
     expected.set_value(group, "type", "block-device");
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
     expected.set_value(group, "aliases", "test-alias-1-source,test-alias-2-source");
-    expected.set_value(group, "device", "/dev/volgroup/testdev");
-    expected.set_value(group, "location", "/squeeze");
-    expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
     expected.set_value(group, "union-type", "none");
     setup_keyfile_source_clone(expected, group);
 
