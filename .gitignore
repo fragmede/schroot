@@ -25,3 +25,5 @@ m4
 build-stamp
 *.bz2
 ChangeLog
+VERSION
+.gdb_history
