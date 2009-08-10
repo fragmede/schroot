@@ -21,6 +21,9 @@
 #include "sbuild-chroot-block-device.h"
 #include "sbuild-chroot-lvm-snapshot.h"
 #include "sbuild-chroot-facet-mountable.h"
+#ifdef SBUILD_FEATURE_UNION
+#include "sbuild-chroot-facet-union.h"
+#endif // SBUILD_FEATURE_UNION
 #include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
 #include "sbuild-util.h"
@@ -130,6 +133,17 @@ chroot_block_device_base::setup_lock (chroot::setup_type type,
 	}
       else
 	{
+#ifdef SBUILD_FEATURE_UNION
+	  /* We don't lock the device if union is configured. */
+	  const chroot *base = dynamic_cast<const chroot *>(this);
+	  assert(base);
+	  chroot_facet_union::const_ptr puni
+	    (base->get_facet<chroot_facet_union>());
+	  assert(puni);
+	  if (puni->get_union_configured())
+	    return;
+#endif
+
 	  sbuild::device_lock dlock(this->device);
 	  if (lock)
 	    {
