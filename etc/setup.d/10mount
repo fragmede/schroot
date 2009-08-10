@@ -135,28 +135,20 @@ if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT
 	    exit 1
 	fi
 
-        # If recovering, we want to remount all filesystems to ensure
-        # a sane state.
-	if [ "$CREATE_UNION" = "yes" ]; then
-	    if [ $1 = "setup-recover" ]; then
-		do_umount_all "$CHROOT_UNION_UNDERLAY_DIRECTORY"
-	    fi
-	fi
-
 	# If recovering, we want to remount all filesystems to ensure
 	# a sane state.
 	if [ $1 = "setup-recover" ]; then
+	    if [ "$CREATE_UNION" = "yes" ]; then
+		do_umount_all "$CHROOT_UNION_UNDERLAY_DIRECTORY"
+	    fi
 	    do_umount_all "$CHROOT_MOUNT_LOCATION"
 	fi
 
 	if [ "$CREATE_UNION" = "yes" ]; then
 	    do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_UNION_UNDERLAY_DIRECTORY"
+	    do_mount_fs_union "$CHROOT_MOUNT_LOCATION"
 	else
 	    do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
-	fi
-
-	if [ "$CREATE_UNION" = "yes" ]; then
-	    do_mount_fs_union "$CHROOT_MOUNT_LOCATION"
 	fi
 
 	if [ -n "$FSTAB" ]; then
