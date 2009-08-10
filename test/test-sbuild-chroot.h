@@ -277,10 +277,15 @@ public:
 		   std::back_inserter(missing));
     if (!missing.empty())
       {
+	std::string value;
 	for (sbuild::string_list::const_iterator pos = missing.begin();
 	     pos != missing.end();
 	     ++pos)
-	  std::cout << "Missing environment: " << *pos << std::endl;
+	  {
+	    expected_environment.get(*pos, value);
+	    std::cout << "Missing environment: "
+		      << *pos << "=" << value << std::endl;
+	  }
       }
     CPPUNIT_ASSERT(missing.empty());
 
@@ -290,10 +295,15 @@ public:
 		   std::back_inserter(extra));
     if (!extra.empty())
       {
+	std::string value;
 	for (sbuild::string_list::const_iterator pos = extra.begin();
 	     pos != extra.end();
 	     ++pos)
-	  std::cout << "Additional environment: " << *pos << std::endl;
+	  {
+	    observed_environment.get(*pos, value);
+	    std::cout << "Additional environment: "
+		      << *pos << "=" << value << std::endl;
+	  }
       }
     CPPUNIT_ASSERT(extra.empty());
 
@@ -347,10 +357,15 @@ public:
 		   std::back_inserter(missing));
     if (!missing.empty())
       {
+	std::string value;
 	for (sbuild::string_list::const_iterator pos = missing.begin();
 	     pos != missing.end();
 	     ++pos)
-	  std::cout << "Missing keys: " << *pos << std::endl;
+	  {
+	    expected_keyfile.get_value(expected_group, *pos, value);
+	    std::cout << "Missing keys: "
+		      << *pos << "=" << value << std::endl;
+	  }
       }
     CPPUNIT_ASSERT(missing.empty());
 
@@ -360,10 +375,15 @@ public:
 		   std::back_inserter(extra));
     if (!extra.empty())
       {
+	std::string value;
 	for (sbuild::string_list::const_iterator pos = extra.begin();
 	     pos != extra.end();
 	     ++pos)
-	  std::cout << "Additional keys: " << *pos << std::endl;
+	  {
+	    observed_keyfile.get_value(observed_group, *pos, value);
+	    std::cout << "Additional keys: " 
+		      << *pos << "=" << value << std::endl;
+	  }
       }
     CPPUNIT_ASSERT(extra.empty());
 
