@@ -25,8 +25,9 @@ namespace sbuild
 {
 
   /**
-   * A chroot stored in a file archive (tar or zip).  The archive will
-   * be unpacked on demand.
+   * A chroot stored in a file archive (tar or zip).
+   *
+   * The archive will be unpacked and repacked on demand.
    */
   class chroot_file : public chroot
   {

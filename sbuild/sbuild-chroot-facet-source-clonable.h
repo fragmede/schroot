@@ -25,7 +25,12 @@ namespace sbuild
 {
 
   /**
-   * Chroot support for kernel personalities (execution domains).
+   * Chroot support for creation of source chroots.
+   *
+   * A chroot may offer a "source" chroot in addition to its typical
+   * session clone, to allow for maintenence of the source data.  This
+   * facet can be used by any chroot wishing to provide such
+   * functionality.
    */
   class chroot_facet_source_clonable : public chroot_facet
   {

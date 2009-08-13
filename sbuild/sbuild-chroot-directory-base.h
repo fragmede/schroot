@@ -25,7 +25,16 @@ namespace sbuild
 {
 
   /**
-   * A chroot located in the filesystem (mounts disabled).
+   * A base class for chroots located in a local directory.
+   *
+   * This class doesn't implement a chroot (get_chroot_type is not
+   * implemented).  plain and directory chroots inherit from this
+   * class.
+   *
+   * Originally plain inherited from the directory chroot, but this
+   * had to be changed when union support was introduced.  As plain
+   * chroots don't run any setup scripts and basically just call
+   * 'chroot' on a directory, they can't support union based sessions.
    */
   class chroot_directory_base : public chroot
   {

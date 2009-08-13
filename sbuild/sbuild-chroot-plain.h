@@ -25,7 +25,11 @@ namespace sbuild
 {
 
   /**
-   * A chroot located in the filesystem (mounts disabled).
+   * A chroot located in the filesystem (scripts disabled).
+   *
+   * This doesn't run any setup scripts and doesn't provide any
+   * session support.  If you need any of these functions, the
+   * directory chroot type is more suited to your needs.
    */
   class chroot_plain : public chroot_directory_base
   {

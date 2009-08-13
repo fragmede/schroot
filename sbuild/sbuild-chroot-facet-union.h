@@ -26,13 +26,13 @@ namespace sbuild
 {
 
   /**
-   * A chroot may offer session support using a filesystem union like
-   * aufs or unionfs.  This is an extension interface class, not a
-   * chroot type in its own right.
+   * Chroot support for filesystem union based sessions.
    *
-   * At a minimum, the inheriting class has to implement the
-   * chroot::clone_source() function, depending upon the setting of
-   * get_union_configured().
+   * A chroot may offer session support using a filesystem union like
+   * aufs or unionfs.  A new union type may need to adapt the 10mount
+   * or 05union script to properly populate the underlay and mount
+   * directory.  The overlay directory and union setup is already
+   * handled.
    */
   class chroot_facet_union : public chroot_facet
   {

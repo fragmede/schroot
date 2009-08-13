@@ -25,7 +25,15 @@ namespace sbuild
 {
 
   /**
-   * Chroot support for kernel personalities (execution domains).
+   * Chroot support for mountable devices and filesystems.
+   *
+   * This facet should be selected for sessions using the mount
+   * command to create the chroot.  The specified device will be
+   * mounted on demand.
+   *
+   * This facet is not restricted to block devices and can also be
+   * used for network filesystems, loopback files and other
+   * mountable objects.
    */
   class chroot_facet_mountable : public chroot_facet
   {

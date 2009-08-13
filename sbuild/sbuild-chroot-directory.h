@@ -27,6 +27,9 @@ namespace sbuild
 
   /**
    * A chroot located in the filesystem.
+   *
+   * It runs setup scripts and can provide multiple sessions
+   * using the union facet.
    */
   class chroot_directory : public chroot_directory_base
   {

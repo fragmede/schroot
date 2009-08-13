@@ -25,7 +25,11 @@ namespace sbuild
 {
 
   /**
-   * Chroot support for kernel personalities (execution domains).
+   * Chroot support for creation of sessions.
+   *
+   * A chroot may offer a "session" facet to signal restorable or
+   * parallel chroot environment usage.  This facet allows the chroot
+   * to support session creation.
    */
   class chroot_facet_session_clonable : public chroot_facet
   {

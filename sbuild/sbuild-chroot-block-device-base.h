@@ -25,9 +25,14 @@ namespace sbuild
 {
 
   /**
-   * A chroot stored on an unmounted block device.
+   * A base class for block-device chroots.
    *
-   * The device will be mounted on demand.
+   * This class doesn't implement a chroot (get_chroot_type
+   * is not implemented).
+   *
+   * Originally lvm-snapshot inherited from the block-device chroot,
+   * but this was changed when union support was introduced.  This
+   * design prevents lvm-snapshot offering union based sessions.
    */
   class chroot_block_device_base : public chroot
   {
