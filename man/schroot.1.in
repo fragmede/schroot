@@ -145,13 +145,16 @@ Note that the session identifier may be specified with the
 .BR \-\-recover\-session
 Recover an existing session.  If an existing session has become unavailable,
 for example becoming unmounted due to a reboot, this option will make the
-session available for use again, for example by remounting it.
+session available for use again, for example by remounting it.  The session ID
+is specified with the \fI\-\-chroot\fP option.
 .TP
 .BR \-r ", " \-\-run\-session
-Run an existing session.  The session ID is specified with the \fI\-\-chroot\fP option.
+Run an existing session.  The session ID is specified with the \fI\-\-chroot\fP
+option.
 .TP
 .BR \-e ", " \-\-end\-session
-End an existing session.  The session ID is specified with the \fI\-\-chroot\fP option.
+End an existing session.  The session ID is specified with the \fI\-\-chroot\fP
+option.
 .SS Session options
 .TP
 .BR \-n ", " \-\-session\-name=\fIsession-name\fP

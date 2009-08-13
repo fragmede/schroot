@@ -200,7 +200,8 @@ options_base::check_actions ()
       this->load_chroots = true;
       this->load_sessions = false;
       if (this->chroots.size() != 1 || all_used())
-	throw opt::validation_error(_("Exactly one chroot must be specified when beginning a session"));
+	throw opt::validation_error
+	  (_("Exactly one chroot must be specified when beginning a session"));
 
       this->all = this->all_chroots = this->all_sessions = false;
     }
@@ -210,6 +211,10 @@ options_base::check_actions ()
     {
       // Session operations work on all chroots.
       this->load_chroots = this->load_sessions = true;
+
+      if (!this->session_name.empty())
+        throw opt::validation_error
+	  (_("--session-name is not permitted for the specified action; did you mean to use --chroot?"));
     }
   else if (this->action == ACTION_HELP ||
 	   this->action == ACTION_VERSION)
