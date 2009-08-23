@@ -92,7 +92,7 @@ AC_SUBST([SBUILD_INTERFACE_AGE])
 AC_SUBST([SBUILD_BINARY_AGE])
 
 dnl Initialise automake stuff.
-AM_INIT_AUTOMAKE([1.9 gnu check-news dist-bzip2 no-dist-gzip tar-pax])
+AM_INIT_AUTOMAKE([1.10 gnu check-news dist-bzip2 no-dist-gzip tar-pax silent-rules])
 AM_MAINTAINER_MODE
 SCHROOT_RELEASE_DATE
 
