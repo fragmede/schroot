@@ -102,19 +102,6 @@ chroot_facet_union::clone_source_setup (chroot::ptr& clone) const
 }
 
 bool
-chroot_facet_union::get_source_clonable () const
-{
-  const chroot *base = dynamic_cast<const chroot *>(this);
-  assert(base);
-  chroot_facet_source_clonable::const_ptr psrc
-    (base->get_facet<chroot_facet_source_clonable>());
-  assert(psrc);
-
-  return psrc->get_source_clonable() &&
-    get_union_configured();
-}
-
-bool
 chroot_facet_union::get_union_configured () const
 {
   return get_union_type() != "none";

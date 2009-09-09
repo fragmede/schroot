@@ -94,13 +94,14 @@ public:
       this->source = this->chroot->clone_source();
     if (this->source)
       {
-	sbuild::chroot_facet_source_clonable::const_ptr ssrc
+	sbuild::chroot_facet_source_clonable::const_ptr pfsrcc
 	  (this->source->
 	   template get_facet<sbuild::chroot_facet_source_clonable>());
-	if (ssrc)
-	  {
-	    CPPUNIT_ASSERT(ssrc->get_source_clonable() == true);
-	  }
+	CPPUNIT_ASSERT(!pfsrcc);
+	sbuild::chroot_facet_source::const_ptr pfsrc
+	  (this->source->
+	   template get_facet<sbuild::chroot_facet_source>());
+	CPPUNIT_ASSERT(pfsrc);
       }
 
     this->chroot_union = sbuild::chroot::ptr(new T);

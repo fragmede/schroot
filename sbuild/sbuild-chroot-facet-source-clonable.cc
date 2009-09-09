@@ -30,7 +30,6 @@ using namespace sbuild;
 
 chroot_facet_source_clonable::chroot_facet_source_clonable ():
   chroot_facet(),
-  source_clonable(true),
   source_users(),
   source_groups(),
   source_root_users(),
@@ -83,18 +82,6 @@ chroot_facet_source_clonable::clone_source_setup (chroot::ptr& clone) const
 
   clone->remove_facet<chroot_facet_source_clonable>();
   clone->add_facet(chroot_facet_source::create());
-}
-
-bool
-chroot_facet_source_clonable::get_source_clonable () const
-{
-  return this->source_clonable;
-}
-
-void
-chroot_facet_source_clonable::set_source_clonable (bool clonable)
-{
-  this->source_clonable = clonable;
 }
 
 string_list const&
