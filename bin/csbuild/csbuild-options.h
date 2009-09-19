@@ -46,25 +46,59 @@ namespace csbuild
     /// The destructor.
     virtual ~options ();
 
-    /// No logging
-    bool  nolog;
+    /// Packages to build
+    sbuild::string_list packages;
 
-    /// Build architecture all packages
-    bool build_arch_all;
+    /// No logging.
+    bool nolog;
 
-    /// Build source package
-    bool build_source;
+    /// Batch mode.
+    bool batch_mode;
 
-    /// Force original source.  dpkg-buildpackage -sa
-    bool force_orig_source;
+    /// dpkg-buildpackage options.
+    sbuild::string_list deb_build_options;
 
-    /// Distribution
+    // dpkg-buildpackage options (space-separated).
+    std::string deb_build_options_string;
+
+    /// Distribution.
     std::string distribution;
 
-    /// Purge build directory
-    std::string purge_string;
+    /// Archive.
+    std::string archive;
 
-    /// Purge modes
+    /// Architecture.
+    std::string build_arch;
+
+    /// Build architecture all packages.
+    bool build_arch_all;
+
+    /// Build source package.
+    bool build_source;
+
+    /// Force original source.  dpkg-buildpackage -sa.
+    bool force_orig_source;
+
+    /// Make a binary non-maintainer upload.
+    bool bin_nmu;
+
+    /// binNMU changelog entry.
+    std::string bin_nmu_changelog;
+
+    /// binNMU version.
+    unsigned int bin_nmu_version;
+
+    /// Suffix to append to version.
+    std::string append_version;
+
+
+    /// Update APT in chroot?
+    bool apt_update;
+
+    /// Build chroot.
+    std::string chroot;
+
+    /// Purge modes.
     enum purge_mode
       {
 	PURGE_ALWAYS,  ///< Always purge build.
@@ -72,28 +106,46 @@ namespace csbuild
 	PURGE_NEVER    ///< Never purge build.
       };
 
-    /// Purge build directory
+    /// Purge build directory.
+    std::string purge_string;
+
+    /// Purge build directory.
     purge_mode purge;
 
-    /// Maintainer
-    std::string maintainer;
+    /// Purge build dependencies.
+    std::string purge_deps_string;
 
-    /// Key ID
+    /// Purge build dependencies.
+    purge_mode purge_deps;
+
+    /// Chroot setup hook script.
+    std::string setup_hook_script;
+
+    /// Key ID.
     std::string keyid;
 
-    /// Uploader
+    /// Maintainer.
+    std::string maintainer;
+
+    /// Uploader.
     std::string uploader;
 
-    /// Forced dependencies
-    sbuild::string_list forced_dependencies;
+    /// Manual build dependencies.
+    sbuild::string_list build_depends;
 
-    /// Additional dependencies
-    sbuild::string_list additional_dependencies;
+    /// Manual build conflicts.
+    sbuild::string_list build_conflicts;
 
-    /// Make a binary non-maintainer upload
-    bool bin_nmu;
+    /// Manual architecture-independent build dependencies.
+    sbuild::string_list build_depends_indep;
 
-    /// Use the current GCC snapshot to build
+    /// Manual architecture-independent build conflicts.
+    sbuild::string_list build_conflicts_indep;
+
+    // Build dependency checking algorithm.
+    std::string depends_algorithm;
+
+    /// Use the current GCC snapshot to build.
     bool gcc_snapshot;
 
   protected:
@@ -109,12 +161,20 @@ namespace csbuild
     /// Build options group.
     boost::program_options::options_description build;
 
+    /// Package version group.
+    boost::program_options::options_description version;
+
+    /// Chroot group.
+    boost::program_options::options_description chrootopt;
+
     /// User options group.
     boost::program_options::options_description user;
 
+    /// Manual depdenency options group.
+    boost::program_options::options_description depends;
+
     /// Special options group.
     boost::program_options::options_description special;
-
   };
 
 }

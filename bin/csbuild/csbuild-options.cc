@@ -39,8 +39,42 @@ const options::action_type options::ACTION_BUILD ("build");
 
 options::options ():
   schroot_base::options(),
+  packages(),
+  nolog(false),
+  batch_mode(false),
+  deb_build_options(),
+  deb_build_options_string(),
+  distribution(),
+  archive(),
+  build_arch(),
+  build_arch_all(false),
+  build_source(false),
+  force_orig_source(false),
+  bin_nmu(false),
+  bin_nmu_changelog(),
+  bin_nmu_version(0),
+  append_version(),
+  apt_update(false),
+  chroot(),
+  purge_string(),
+  purge(PURGE_ALWAYS),
+  purge_deps_string(),
+  purge_deps(PURGE_ALWAYS),
+  setup_hook_script(),
+  keyid(),
+  maintainer(),
+  uploader(),
+  build_depends(),
+  build_conflicts(),
+  build_depends_indep(),
+  build_conflicts_indep(),
+  depends_algorithm(),
+  gcc_snapshot(false),
   build(_("Build options")),
+  version(_("Package version options")),
+  chrootopt(_("Build environment options")),
   user(_("User options")),
+  depends(_("Manual build dependency override options")),
   special(_("Special options"))
 {
 }
@@ -63,22 +97,45 @@ options::add_options ()
      _("Build source packages (default)"));
 
   general.add_options()
-    ("nolog,n", opt::value<bool>(&this->nolog),
-     _("Don't log program output"));
+    ("nolog,n", _("Don't log program output"))
+    ("batch,b", _("Run in batch mode"));
 
   build.add_options()
-    ("distribution,d", opt::value<std::string>(&this->distribution),
+    ("debbuildopt", opt::value<sbuild::string_list>(&this->deb_build_options),
+     _("dpkg-buildpackage option"))
+    ("debbuildopts", opt::value<std::string>(&this->deb_build_options_string),
+     _("dpkg-buildpackage options (space-separated)"))
+    ("dist,d", opt::value<std::string>(&this->distribution),
      _("Distribution to build for"))
-    ("arch-all,A", opt::value<bool>(&this->build_arch_all),
+    ("archive", opt::value<std::string>(&this->archive),
+     _("Archive to build for"))
+    ("arch", opt::value<std::string>(&this->build_arch),
+     _("Build architecture"))
+    ("arch-all,A",
      _("Build architecture \"all\" packages"))
-    ("source,s", opt::value<bool>(&this->build_source),
+    ("source,s",
      _("Build a source package"))
-    ("force-orig-source,f", opt::value<bool>(&this->force_orig_source),
-     _("Force building of a source package, irrespective of Debian version"))
-    ("binary-nmu,B", opt::value<bool>(&this->bin_nmu),
-     _("Make a binary non-maintainer upload"))
+    ("force-orig-source",
+     _("Force building of a source package, irrespective of Debian version"));
+
+  version.add_options()
+    ("make-binNMU", opt::value<std::string>(&this->bin_nmu_changelog),
+     _("Make a binary non-maintainer upload (changelog entry)"))
+    ("binNMU", opt::value<unsigned int>(&this->bin_nmu_version),
+     _("Make a binary non-maintainer upload (binNMU number)"))
+    ("append-to-version", opt::value<std::string>(&this->append_version),
+     _("Append version suffix"));
+
+  chrootopt.add_options()
+    ("apt-update", _("Update chroot environment"))
+    ("chroot,c", opt::value<std::string>(&this->chroot),
+     _("Chroot environment to build in"))
     ("purge,p", opt::value<std::string>(&this->purge_string),
-     _("Purge mode"));
+     _("Purge build mode"))
+    ("purge-deps", opt::value<std::string>(&this->purge_deps_string),
+     _("Purge dependencies mode"))
+    ("setup-hook", opt::value<std::string>(&this->setup_hook_script),
+     _("Run setup hook script in chroot prior to building"));
 
   user.add_options()
     ("keyid,k", opt::value<std::string>(&this->keyid),
@@ -88,16 +145,27 @@ options::add_options ()
     ("uploader,u", opt::value<std::string>(&this->uploader),
      _("Package uploader"));
 
+  depends.add_options()
+    ("add-depends", opt::value<string_list>(&this->build_depends),
+     _("Add a build dependency"))
+    ("add-conflicts", opt::value<string_list>(&this->build_conflicts),
+     _("Add a build conflict"))
+    ("add-depends-indep", opt::value<string_list>(&this->build_depends_indep),
+     _("Add an architecture-independent build dependency"))
+    ("add-conflicts-indep", opt::value<string_list>(&this->build_conflicts_indep),
+     _("Add an architecture-independent build conflict"));
 
   special.add_options()
-    ("add-depends", opt::value<string_list>(&this->additional_dependencies),
-     _("Add a build dependency"))
-    ("force-depends", opt::value<string_list>(&this->forced_dependencies),
-     _("Force a build dependency"))
-    ("gcc-snapshot,G", opt::value<bool>(&this->gcc_snapshot),
+    ("check-depends-algorithm,C", opt::value<std::string>(&this->depends_algorithm),
+     _("Specify algorithm for dependency checking"))
+    ("gcc-snapshot,G",
      _("Build using the current GCC development snapshot"));
 
+  hidden.add_options()
+    ("package", opt::value<sbuild::string_list>(&this->packages),
+     _("Package to build"));
 
+  positional.add("package", -1);
 }
 
 void
@@ -109,8 +177,17 @@ options::add_option_groups ()
   visible.add(build);
   global.add(build);
 
+  visible.add(version);
+  global.add(version);
+
+  visible.add(chrootopt);
+  global.add(chrootopt);
+
   visible.add(user);
   global.add(user);
+
+  visible.add(depends);
+  global.add(depends);
 
   visible.add(special);
   global.add(special);
@@ -124,4 +201,46 @@ options::check_options ()
 
   if (vm.count("build"))
     this->action = ACTION_BUILD;
+
+  if (vm.count("nolog"))
+    this->nolog = true;
+
+  if (vm.count("batch"))
+    this->batch_mode = true;
+
+  if (vm.count("arch-all"))
+    this->build_arch_all = true;
+
+  if (vm.count("source"))
+    this->build_source = true;
+
+  if (vm.count("force-orig-source"))
+    this->force_orig_source = true;
+
+  if (vm.count("binNMU") && vm.count("make-binNMU"))
+    this->bin_nmu = true;
+  else if (vm.count("binNMU"))
+    throw opt::validation_error(_("--makebinNMU missing"));
+  else if (vm.count("make-binNMU"))
+    throw opt::validation_error(_("--binNMU missing"));
+
+  if (!deb_build_options_string.empty())
+    {
+      string_list bopts = sbuild::split_string(deb_build_options_string,
+					       std::string(1, ' '));
+
+      for (string_list::const_iterator pos = bopts.begin();
+	   pos != bopts.end();
+	   ++pos)
+	{
+	  if (!pos->empty())
+	    deb_build_options.push_back(*pos);
+	}
+    }
+
+  if (vm.count("apt-update"))
+    this->apt_update = true;
+
+  if (vm.count("use-snapshot"))
+    this->gcc_snapshot = true;
 }
