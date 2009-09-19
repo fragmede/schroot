@@ -35,7 +35,7 @@ setup_SCRIPTS =		\
 	50chrootname
 
 install-exec-hook:
-	$(mkinstalldirs) "$(DESTDIR)$(setupdir)"
+	$(MKDIR_P) "$(DESTDIR)$(setupdir)"
 	ln -sf "00check" "$(DESTDIR)$(setupdir)/99check"
 
 EXTRA_DIST =			\

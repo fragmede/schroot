@@ -51,10 +51,10 @@ install-exec-hook:
 	chmod 4755 "$(DESTDIR)$(bindir)/schroot"
 
 install-data-hook:
-	$(mkinstalldirs) $(DESTDIR)$(SCHROOT_CONF_CHROOT_D)
-	$(mkinstalldirs) $(DESTDIR)$(SCHROOT_MOUNT_DIR)
-	$(mkinstalldirs) $(DESTDIR)$(SCHROOT_SESSION_DIR)
-	$(mkinstalldirs) $(DESTDIR)$(SCHROOT_FILE_UNPACK_DIR)
-	$(mkinstalldirs) $(DESTDIR)$(SCHROOT_OVERLAY_DIR)
-	$(mkinstalldirs) $(DESTDIR)$(SCHROOT_UNDERLAY_DIR)
+	$(MKDIR_P) $(DESTDIR)$(SCHROOT_CONF_CHROOT_D)
+	$(MKDIR_P) $(DESTDIR)$(SCHROOT_MOUNT_DIR)
+	$(MKDIR_P) $(DESTDIR)$(SCHROOT_SESSION_DIR)
+	$(MKDIR_P) $(DESTDIR)$(SCHROOT_FILE_UNPACK_DIR)
+	$(MKDIR_P) $(DESTDIR)$(SCHROOT_OVERLAY_DIR)
+	$(MKDIR_P) $(DESTDIR)$(SCHROOT_UNDERLAY_DIR)
 
