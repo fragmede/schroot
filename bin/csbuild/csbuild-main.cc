@@ -267,6 +267,9 @@ main::action_build ()
     << std::endl;
 
   exec(command[0], command, env);
+
+  // This should never be reached.
+  exit(EXIT_FAILURE);
 }
 
 int
