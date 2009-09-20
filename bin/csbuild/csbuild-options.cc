@@ -74,7 +74,7 @@ options::options ():
   version(_("Package version options")),
   chrootopt(_("Build environment options")),
   user(_("User options")),
-  depends(_("Manual build dependency override options")),
+  depends(_("Build dependency override options")),
   special(_("Special options"))
 {
 }
