@@ -58,6 +58,7 @@ class test_chroot_directory : public test_chroot_base<chroot_directory>
 #endif // SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_setup_keyfile);
   CPPUNIT_TEST(test_setup_keyfile_session);
+  CPPUNIT_TEST(test_setup_keyfile_root_session);
 #ifdef SBUILD_FEATURE_UNION
   CPPUNIT_TEST(test_setup_keyfile_union);
   CPPUNIT_TEST(test_setup_keyfile_session_union);
@@ -218,6 +219,35 @@ public:
     sbuild::keyfile expected;
     const std::string group(session->get_name());
     setup_keyfile_session(expected, group);
+    expected.set_value(group, "type", "directory");
+    expected.set_value(group, "name", "test-session-name");
+    expected.set_value(group, "directory", "/srv/chroot/example-chroot");
+    expected.set_value(group, "mount-location", "/mnt/mount-location");
+    setup_keyfile_session_clone(expected, group);
+    setup_keyfile_union_unconfigured(expected, group);
+
+    test_chroot_base<chroot_directory>::test_setup_keyfile
+      (session, expected, group);
+  }
+
+  // Note, this test is unique to the directory chroot but is
+  // applicable to all.
+  void test_setup_keyfile_root_session()
+  {
+    // Create session owned by user in root-users.
+    this->session = this->chroot->clone_session("test-session-name",
+						"user3",
+						true);
+    if (this->session)
+      {
+	CPPUNIT_ASSERT(this->session->get_active() == true);
+      }
+
+    sbuild::keyfile expected;
+    const std::string group(session->get_name());
+    setup_keyfile_session(expected, group);
+    expected.set_value(group, "users", "");
+    expected.set_value(group, "root-users", "user3");
     expected.set_value(group, "type", "directory");
     expected.set_value(group, "name", "test-session-name");
     expected.set_value(group, "directory", "/srv/chroot/example-chroot");
