@@ -45,7 +45,9 @@ public:
   { return ptr(new basic_chroot(*this)); }
 
   virtual ptr
-  clone_session (std::string const& session_id) const
+  clone_session (std::string const& session_id,
+		 std::string const& user,
+		 bool               root) const
   { return ptr(); }
 
 

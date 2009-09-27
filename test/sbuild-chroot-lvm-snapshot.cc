@@ -203,7 +203,7 @@ public:
   {
     sbuild::keyfile expected;
     const std::string group(session->get_name());
-    setup_keyfile_chroot(expected, group);
+    setup_keyfile_session(expected, group);
     setup_keyfile_lvm(expected, group);
     expected.set_value(group, "type", "lvm-snapshot");
     expected.set_value(group, "name", "test-session-name");

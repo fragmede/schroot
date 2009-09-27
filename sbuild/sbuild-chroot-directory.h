@@ -50,7 +50,9 @@ namespace sbuild
     clone () const;
 
     virtual chroot::ptr
-    clone_session (std::string const& session_id) const;
+    clone_session (std::string const& session_id,
+		   std::string const& user,
+		   bool               root) const;
 
     virtual chroot::ptr
     clone_source () const;

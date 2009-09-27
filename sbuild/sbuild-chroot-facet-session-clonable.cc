@@ -70,7 +70,9 @@ chroot_facet_session_clonable::get_name () const
 
 void
 chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
-					   std::string const& session_id) const
+						    std::string const& session_id,
+						    std::string const& user,
+						    bool               root) const
 {
   clone->remove_facet<chroot_facet_session_clonable>();
   clone->add_facet(chroot_facet_session::create());
@@ -84,6 +86,25 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
       assert(clone->get_session_id() == session_id);
       clone->set_description
 	(clone->get_description() + ' ' + _("(session chroot)"));
+
+      string_list empty_list;
+      string_list allowed_users;
+      if (!user.empty())
+	allowed_users.push_back(user);
+
+      if (root)
+	{
+	  clone->set_users(empty_list);
+	  clone->set_root_users(allowed_users);
+	}
+      else
+	{
+	  clone->set_users(allowed_users);
+	  clone->set_root_users(empty_list);
+	}
+      clone->set_groups(empty_list);
+      clone->set_root_groups(empty_list);
+
       session->get_session_flags(*clone); // For testing.
     }
 

@@ -217,7 +217,7 @@ public:
   {
     sbuild::keyfile expected;
     const std::string group(session->get_name());
-    setup_keyfile_chroot(expected, group);
+    setup_keyfile_session(expected, group);
     expected.set_value(group, "type", "directory");
     expected.set_value(group, "name", "test-session-name");
     expected.set_value(group, "directory", "/srv/chroot/example-chroot");
@@ -248,7 +248,7 @@ public:
   {
     sbuild::keyfile expected;
     const std::string group(session_union->get_name());
-    setup_keyfile_chroot(expected, group);
+    setup_keyfile_session(expected, group);
     expected.set_value(group, "type", "directory");
     expected.set_value(group, "name", "test-union-session-name");
     expected.set_value(group, "directory", "/srv/chroot/example-chroot");

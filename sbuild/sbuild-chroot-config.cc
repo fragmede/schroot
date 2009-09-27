@@ -514,7 +514,7 @@ chroot_config::load_keyfile (keyfile& kconfig,
       // automatic reconstruction.
       if (active)
 	{
-	  chroot = chroot->clone_session("dummy-session-name", "");
+	  chroot = chroot->clone_session("dummy-session-name", "", false);
 	  assert(chroot->get_active());
 	}
       else

@@ -44,11 +44,21 @@ configuration.
      This permits the use of read-only block-device, directory and
      loopback chroots with a temporary writable overlay.  For "scratch"
      temporary chroots, this method is recommended over the existing
-     LVM snapshot support.
+     LVM snapshot support.  It is considered to be faster, more
+     robust, and uses less disc space.
 
-  9) The command-prefix option no longer requires an absolute path to
-     the command.  It will use the normal search path inside the
+  9) The "command-prefix" option no longer requires an absolute path
+     to the command.  It will use the normal search path inside the
      chroot to locate the command.
+
+ 10) When creating a session, the users in "users", "root-users", and
+     groups in "groups" and "root-groups" are no longer preserved.
+     The user requesting access will be the sole user listed in
+     "users" for the session; however, if the user was in "root-users"
+     or "root-groups", they will be added to "root-users" instead.
+     This ensures that only the user creating the session will have
+     access, so that other users having access to the chroot will not
+     also automatically gain access to other users sessions.
 
 * Major changes in 1.2.1:
 

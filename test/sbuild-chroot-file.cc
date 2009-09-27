@@ -190,7 +190,7 @@ public:
   {
     sbuild::keyfile expected;
     const std::string group(session->get_name());
-    setup_keyfile_chroot(expected, group);
+    setup_keyfile_session(expected, group);
     setup_keyfile_file(expected, group);
     expected.set_value(group, "name", "test-session-name");
     expected.set_value(group, "file-repack", "false");

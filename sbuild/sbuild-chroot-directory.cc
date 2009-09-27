@@ -60,14 +60,16 @@ chroot_directory::clone () const
 }
 
 sbuild::chroot::ptr
-chroot_directory::clone_session (std::string const& session_id) const
+chroot_directory::clone_session (std::string const& session_id,
+				 std::string const& user,
+				 bool               root) const
 {
   chroot_facet_session_clonable::const_ptr psess
     (get_facet<chroot_facet_session_clonable>());
   assert(psess);
 
   ptr session(new chroot_directory(*this));
-  psess->clone_session_setup(session, session_id);
+  psess->clone_session_setup(session, session_id, user, root);
 
   return session;
 }

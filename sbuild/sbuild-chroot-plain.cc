@@ -51,7 +51,9 @@ chroot_plain::clone () const
 }
 
 chroot::ptr
-sbuild::chroot_plain::clone_session (std::string const& session_id) const
+sbuild::chroot_plain::clone_session (std::string const& session_id,
+				     std::string const& user,
+				     bool               root) const
 {
   return ptr();
 }

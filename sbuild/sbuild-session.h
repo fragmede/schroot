@@ -236,6 +236,16 @@ namespace sbuild
 
   protected:
     /**
+     * Get the chroot authentication properties the user is included in.
+     */
+    void
+    get_chroot_membership (chroot::ptr const& chroot,
+			   bool&              in_users,
+			   bool&              in_root_users,
+			   bool&              in_groups,
+			   bool&              in_root_groups) const;
+
+    /**
      * Check if authentication is required for a single chroot, taking
      * users, groups, root-users and root-groups membership into
      * account.

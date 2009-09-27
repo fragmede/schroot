@@ -80,7 +80,9 @@ public:
       (this->chroot->template get_facet<sbuild::chroot_facet_session_clonable>());
     if (psess)
       {
-	this->session = this->chroot->clone_session("test-session-name");
+	this->session = this->chroot->clone_session("test-session-name",
+						    "user1",
+						    false);
 	if (this->session)
 	  {
 	    CPPUNIT_ASSERT(this->session->get_active() == true);
@@ -124,7 +126,9 @@ public:
 	un->set_union_mount_options("union-mount-options");
 
 	this->session_union =
-	  this->chroot_union->clone_session("test-union-session-name");
+	  this->chroot_union->clone_session("test-union-session-name",
+					    "user1",
+					    false);
 	this->source_union = chroot_union->clone_source();
 
 	CPPUNIT_ASSERT(this->session_union);
@@ -190,6 +194,16 @@ public:
     keyfile.set_value(group, "personality", "undefined");
     keyfile.set_value(group, "command-prefix", "");
     keyfile.set_value(group, "script-config", "script-defaults");
+  }
+
+  void setup_keyfile_session (sbuild::keyfile&   keyfile,
+			      std::string const& group)
+  {
+    setup_keyfile_chroot(keyfile, group);
+    keyfile.set_value(group, "users", "user1");
+    keyfile.set_value(group, "root-users", "");
+    keyfile.set_value(group, "groups", "");
+    keyfile.set_value(group, "root-groups", "");
   }
 
   void setup_keyfile_union_unconfigured (sbuild::keyfile&   keyfile,

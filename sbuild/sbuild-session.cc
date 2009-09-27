@@ -21,6 +21,7 @@
 #include "sbuild-chroot-config.h"
 #include "sbuild-chroot-facet-personality.h"
 #include "sbuild-chroot-facet-session.h"
+#include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-auth-null.h"
 #include "sbuild-ctty.h"
 #include "sbuild-run-parts.h"
@@ -358,19 +359,22 @@ session::get_child_status () const
   return this->child_status;
 }
 
-auth::status
-session::get_chroot_auth_status (auth::status status,
-				 chroot::ptr const& chroot) const
+void
+session::get_chroot_membership (chroot::ptr const& chroot,
+				bool&              in_users,
+				bool&              in_root_users,
+				bool&              in_groups,
+				bool&              in_root_groups) const
 {
   string_list const& users = chroot->get_users();
   string_list const& root_users = chroot->get_root_users();
   string_list const& groups = chroot->get_groups();
   string_list const& root_groups = chroot->get_root_groups();
 
-  bool in_users = false;
-  bool in_root_users = false;
-  bool in_groups = false;
-  bool in_root_groups = false;
+  in_users = false;
+  in_root_users = false;
+  in_groups = false;
+  in_root_groups = false;
 
   sbuild::string_list::const_iterator upos =
     find(users.begin(), users.end(), this->authstat->get_ruser());
@@ -405,6 +409,21 @@ session::get_chroot_auth_status (auth::status status,
     << "In groups: " << in_groups << endl
     << "In root-users: " << in_root_users << endl
     << "In root-groups: " << in_root_groups << endl;
+
+}
+
+auth::status
+session::get_chroot_auth_status (auth::status status,
+				 chroot::ptr const& chroot) const
+{
+  bool in_users = false;
+  bool in_root_users = false;
+  bool in_groups = false;
+  bool in_root_groups = false;
+
+  get_chroot_membership(chroot,
+			in_users, in_root_users,
+			in_groups, in_root_groups);
 
   /*
    * No auth required if in root users or root groups and
@@ -563,24 +582,40 @@ session::run_impl ()
 	  /* Create a session using randomly-generated session ID. */
 	  if (ch->get_session_flags() & chroot::SESSION_CREATE)
 	    {
-	      chroot_facet_session::ptr session(ch->get_facet<chroot_facet_session>());
-	      if (session)
+	      chroot_facet_session_clonable::ptr session_clonable
+		(ch->get_facet<chroot_facet_session_clonable>());
+	      assert(session_clonable);
+
+	      std::string new_session_id;
+
+	      if (!get_session_id().empty())
 		{
-		  std::string new_session_id;
-
-		  if (!get_session_id().empty())
-		    {
-		      new_session_id = get_session_id();
-		    }
-		  else
-		    {
-		      new_session_id =
-			ch->get_name() + '-' +unique_identifier();
-		    }
-
-		  // Replace clone of chroot with cloned session.
-		  chroot = ch->clone_session(new_session_id);
+		  new_session_id = get_session_id();
 		}
+	      else
+		{
+		  new_session_id =
+		    ch->get_name() + '-' + unique_identifier();
+		}
+
+	      // Replace clone of chroot with cloned session.
+
+	      bool in_users = false;
+	      bool in_root_users = false;
+	      bool in_groups = false;
+	      bool in_root_groups = false;
+
+	      get_chroot_membership(chroot,
+				    in_users, in_root_users,
+				    in_groups, in_root_groups);
+
+	      chroot = ch->clone_session(new_session_id,
+					 this->authstat->get_ruser(),
+					 (in_root_users || in_root_groups));
+	      chroot_facet_session::ptr session
+		(chroot->get_facet<chroot_facet_session>());
+	      assert(session);
+	      assert(chroot->get_active());
 	    }
 	  assert(chroot);
 
