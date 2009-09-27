@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include "sbuild-auth.h"
+#include "sbuild-util.h"
 
 #include <cassert>
 #include <cerrno>
@@ -84,25 +85,25 @@ auth::auth (std::string const& service_name):
 {
   this->ruid = getuid();
   this->rgid = getgid();
-  struct passwd *pwent = getpwuid(this->ruid);
-  if (pwent == 0)
+  passwd pwent(this->ruid);
+  if (!pwent)
     {
       if (errno)
 	throw error(this->ruid, USER, strerror(errno));
       else
 	throw error(this->ruid, USER);
     }
-  this->ruser = pwent->pw_name;
+  this->ruser = pwent.pw_name;
 
-  struct group *grent = getgrgid(this->rgid);
-  if (grent == 0)
+  group grent(this->rgid);
+  if (!grent)
     {
       if (errno)
 	throw error(this->ruid, GROUP, strerror(errno));
       else
 	throw error(this->ruid, GROUP);
     }
-  this->rgroup = grent->gr_name;
+  this->rgroup = grent.gr_name;
 
   /* By default, the auth user is the same as the remote user. */
   set_user(this->ruser);
@@ -155,18 +156,18 @@ auth::set_user (std::string const& user)
 
   this->user = user;
 
-  struct passwd *pwent = getpwnam(this->user.c_str());
-  if (pwent == 0)
+  passwd pwent(this->user);
+  if (!pwent)
     {
       if (errno)
 	throw error(user, USER, strerror(errno));
       else
 	throw error(user, USER);
     }
-  this->uid = pwent->pw_uid;
-  this->gid = pwent->pw_gid;
-  this->home = pwent->pw_dir;
-  this->shell = pwent->pw_shell;
+  this->uid = pwent.pw_uid;
+  this->gid = pwent.pw_gid;
+  this->home = pwent.pw_dir;
+  this->shell = pwent.pw_shell;
   log_debug(DEBUG_INFO)
     << format("auth uid = %1%, gid = %2%") % this->uid % this->gid
     << endl;

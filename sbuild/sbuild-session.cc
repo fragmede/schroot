@@ -125,27 +125,27 @@ namespace
    * @returns true if the user is a member of group, otherwise false.
    */
   bool
-  is_group_member (std::string const& group)
+  is_group_member (std::string const& groupname)
   {
     errno = 0;
-    struct group *groupbuf = getgrnam(group.c_str());
-    if (groupbuf == 0)
+    sbuild::group grp(groupname);
+    if (!grp)
       {
 	if (errno == 0)
 	  {
-	    session::error e(group, session::GROUP_UNKNOWN);
+	    session::error e(groupname, session::GROUP_UNKNOWN);
 	    log_exception_warning(e);
 	  }
 	else
 	  {
-	    session::error e(group, session::GROUP_UNKNOWN, strerror(errno));
+	    session::error e(groupname, session::GROUP_UNKNOWN, strerror(errno));
 	    log_exception_warning(e);
 	  }
 	return false;
       }
 
     bool group_member = false;
-    if (groupbuf->gr_gid == getgid())
+    if (grp.gr_gid == getgid())
       {
 	group_member = true;
       }
@@ -167,7 +167,7 @@ namespace
 
 	    for (int i = 0; i < supp_group_count; ++i)
 	      {
-		if (groupbuf->gr_gid == supp_groups[i])
+		if (grp.gr_gid == supp_groups[i])
 		  group_member = true;
 	      }
 	    delete[] supp_groups;

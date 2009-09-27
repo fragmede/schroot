@@ -28,10 +28,6 @@ and test for particular permissions.
 POTENTIAL
 ---------
 
-* Use of passwd/group databases should be thread-safe
-
-  - Use the _r variants of getpw*, getgr*.
-
 * Add tests for
 
 ** Auth

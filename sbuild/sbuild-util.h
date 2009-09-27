@@ -25,9 +25,12 @@
 #include <sbuild/sbuild-types.h>
 
 #include <string>
+#include <cerrno>
 
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <pwd.h>
+#include <grp.h>
 #include <unistd.h>
 
 namespace sbuild
@@ -671,6 +674,78 @@ namespace sbuild
     check();
     return (static_cast<stat::mode_bits>(status.st_mode) & mask) == mask;
   }
+
+  /**
+   * System passwd database entry
+   */
+  class passwd : public ::passwd
+  {
+  public:
+    typedef std::vector<char> buffer_type;
+
+    passwd ();
+
+    passwd (uid_t uid);
+
+    passwd (const char *name);
+
+    passwd (std::string const& name);
+
+    void
+    clear ();
+
+    void
+    query_uid (uid_t uid);
+
+    void
+    query_name (const char *name);
+
+    void
+    query_name (std::string const& name);
+
+    bool
+    operator ! () const;
+
+  private:
+    buffer_type buffer;
+    bool        valid;
+  };
+
+  /**
+   * System group database entry
+   */
+  class group : public ::group
+  {
+  public:
+    typedef std::vector<char> buffer_type;
+
+    group ();
+
+    group (gid_t gid);
+
+    group (const char *name);
+
+    group (std::string const& name);
+
+    void
+    clear ();
+
+    void
+    query_gid (gid_t gid);
+
+    void
+    query_name (const char *name);
+
+    void
+    query_name (std::string const& name);
+
+    bool
+    operator ! () const;
+
+  private:
+    buffer_type buffer;
+    bool        valid;
+  };
 
 }
 
