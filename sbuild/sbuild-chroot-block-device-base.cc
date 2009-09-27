@@ -50,7 +50,8 @@ chroot_block_device_base::chroot_block_device_base
 {
   /// @todo Required to set mount_device.  Remove once no longer
   /// needed.
-  set_device(rhs.device);
+  if (!rhs.device.empty())
+    set_device(rhs.device);
 }
 
 chroot_block_device_base::~chroot_block_device_base ()

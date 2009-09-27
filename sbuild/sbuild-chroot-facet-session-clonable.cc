@@ -117,7 +117,7 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
 #ifdef SBUILD_FEATURE_LVMSNAP
   /* LVM devices need the snapshot device name specifying. */
   std::tr1::shared_ptr<chroot_lvm_snapshot> snapshot(std::tr1::dynamic_pointer_cast<chroot_lvm_snapshot>(clone));
-  if (snapshot)
+  if (snapshot && !snapshot->get_device().empty())
     {
       std::string device(dirname(snapshot->get_device(), '/'));
       device += "/" + clone->get_session_id();

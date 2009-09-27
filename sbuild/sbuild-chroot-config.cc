@@ -24,6 +24,7 @@
 #include "sbuild-dirstream.h"
 #include "sbuild-lock.h"
 
+#include <cassert>
 #include <cerrno>
 #include <cstdlib>
 #include <cstring>
@@ -512,7 +513,17 @@ chroot_config::load_keyfile (keyfile& kconfig,
       // great if sessions could serialise their facet usage to allow
       // automatic reconstruction.
       if (active)
-	chroot = chroot->clone_session("dummy-session-name");
+	{
+	  chroot = chroot->clone_session("dummy-session-name", "");
+	  assert(chroot->get_active());
+	}
+      else
+	{
+	  assert(!chroot->get_active());
+	}
+
+      chroot->set_name(*group);
+      chroot->set_session_id(*group);
 
       kconfig >> chroot;
 
