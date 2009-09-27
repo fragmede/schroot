@@ -65,6 +65,9 @@ namespace schroot
     /// The destructor.
     virtual ~main_base ();
 
+    virtual void
+    action_version (std::ostream& stream);
+
     /**
      * List chroots.
      */

@@ -61,13 +61,29 @@ main::action_version (std::ostream& stream)
   format fmt(_("%1% (Debian sbuild) %2% (%3%)\n"));
   fmt % this->program_name % VERSION % sbuild::gmdate(RELEASE_DATE);
 
+  format feature("  %1$-12s %2%\n");
+
   stream << fmt
 	 << _("Written by Roger Leigh") << '\n' << '\n'
     // TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
 	 << _("Copyright (C) 2004-2009 Roger Leigh") << '\n'
 	 << _("This is free software; see the source for copying conditions.  There is NO\n"
 	      "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
-	 << std::flush;
+	 << '\n'
+	 << _("Configured features:") << '\n';
+#ifdef SBUILD_FEATURE_DEVLOCK
+  stream << feature % "DEVLOCK" % _("Device locking");
+#endif
+#ifdef SBUILD_FEATURE_PAM
+  stream << feature % "PAM" % _("Pluggable Authentication Modules");
+#endif
+#ifdef SBUILD_FEATURE_PERSONALITY
+  stream << feature % "PERSONALITY" % _("Linux kernel Application Binary Interface switching");
+#endif
+#ifdef SBUILD_FEATURE_UNION
+  stream << feature % "UNION" % _("Support for filesystem unioning");
+#endif
+  stream << std::flush;
 }
 
 void

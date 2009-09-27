@@ -38,6 +38,7 @@
 
 using std::endl;
 using boost::format;
+using sbuild::_;
 using sbuild::N_;
 using namespace schroot;
 
@@ -87,6 +88,30 @@ main_base::main_base (std::string const& program_name,
 
 main_base::~main_base ()
 {
+}
+
+void
+main_base::action_version (std::ostream& stream)
+{
+  schroot_base::main::action_version(stream);
+
+  format feature("  %1$-12s %2%\n");
+
+  stream << '\n'
+	 << _("Available chroot types:") << '\n';
+#ifdef SBUILD_FEATURE_BLOCKDEV
+  stream << feature % "BLOCKDEV" % _("Support for 'block-device' chroots");
+#endif
+  stream << feature % "DIRECTORY" % _("Support for 'directory' chroots");
+  stream << feature % "FILE" % _("Support for 'file' chroots");
+#ifdef SBUILD_FEATURE_LOOPBACK
+  stream << feature % "LOOPBACK" % _("Support for 'loopback' chroots");
+#endif
+#ifdef SBUILD_FEATURE_LVMSNAP
+  stream << feature % "LVMSNAP" % _("Support for 'lvm-snapshot' chroots");
+#endif
+  stream << feature % "PLAIN" % _("Support for 'plain' chroots");
+  stream << std::flush;
 }
 
 void
