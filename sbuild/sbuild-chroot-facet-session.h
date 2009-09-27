@@ -63,16 +63,6 @@ namespace sbuild
     virtual std::string const&
     get_name () const;
 
-    /**
-     * Set the defaults in the cloned session chroot.
-     *
-     * @param clone the chroot to set up.
-     * @param session_id the identifier for the new session.
-     */
-    virtual void
-    clone_session_setup (chroot::ptr&       clone,
-			 std::string const& session_id) const;
-
     virtual void
     setup_env (chroot const& chroot,
 	       environment&  env) const;
