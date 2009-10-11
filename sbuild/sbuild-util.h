@@ -344,6 +344,12 @@ namespace sbuild
      * The constructor.
      * @param file the filename to use.
      */
+    stat (const char *file);
+
+    /**
+     * The constructor.
+     * @param file the filename to use.
+     */
     stat (std::string const& file);
 
     /**

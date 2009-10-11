@@ -482,6 +482,16 @@ sbuild::exec (std::string const& file,
   return status;
 }
 
+sbuild::stat::stat (const char *file):
+  file(file),
+  fd(0),
+  errorno(0),
+  status()
+{
+  if (::stat(file, &this->status) < 0)
+    this->errorno = errno;
+}
+
 sbuild::stat::stat (std::string const& file):
   file(file),
   fd(0),
