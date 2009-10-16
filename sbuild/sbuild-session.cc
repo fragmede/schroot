@@ -624,7 +624,10 @@ session::run_impl ()
 	      /* Run setup-start chroot setup scripts. */
 	      setup_chroot(chroot, chroot::SETUP_START);
 	      if (this->session_operation == OPERATION_BEGIN)
-		cout << chroot->get_session_id() << endl;
+		{
+		  cout << chroot->get_session_id() << endl;
+		  this->child_status = EXIT_SUCCESS;
+		}
 
 	      /* Run recover scripts. */
 	      setup_chroot(chroot, chroot::SETUP_RECOVER);
