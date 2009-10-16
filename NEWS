@@ -1,13 +1,18 @@
 NEWS                                                            -*- outline -*-
 ----
 
-Welcome to schroot 1.3.0-rc1.  Please read these release notes carefully.
+Welcome to schroot 1.3.0.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
 
+* Major changes in 1.3.0:
+
+  None.
+
 * Major changes in 1.3.0-rc1:
+
 
   1) Exec scripts have been removed.  Unlike setup scripts, these
      scripts were never used, and there are no known uses for them.
