@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2009-10-16 09:33+0100\n"
+"POT-Creation-Date: 2009-10-16 22:57+0100\n"
 "PO-Revision-Date: 2008-05-08 13:45+0200\n"
 "Last-Translator: Nicolas François <nicolas.francois@centraliens.net>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -635,7 +635,7 @@ msgstr "[OPTION...] - Monter les systèmes de fichiers"
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:119
 #: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:229
-#: sbuild/sbuild-session.cc:1061 sbuild/sbuild-session.cc:1327
+#: sbuild/sbuild-session.cc:1064 sbuild/sbuild-session.cc:1330
 msgid "An unknown exception occurred"
 msgstr "Une exception inconnue est survenue"
 
@@ -1653,14 +1653,14 @@ msgstr "Erreur lors de la restauration des paramètres du terminal"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:830
+#: sbuild/sbuild-session.cc:833
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[chroot %1%] Exécution de l'interpréteur de commandes initial : « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:834
+#: sbuild/sbuild-session.cc:837
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[chroot %1%] Exécution de l'interpréteur de commandes : « %4% »"
@@ -1670,7 +1670,7 @@ msgstr "[chroot %1%] Exécution de l'interpréteur de commandes : « %4% »"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:845
+#: sbuild/sbuild-session.cc:848
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr ""
@@ -1682,7 +1682,7 @@ msgstr ""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:852
+#: sbuild/sbuild-session.cc:855
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr ""
@@ -1690,7 +1690,7 @@ msgstr ""
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:890
+#: sbuild/sbuild-session.cc:893
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[chroot %1%] Exécution de la commande : « %4% »"
@@ -1700,17 +1700,17 @@ msgstr "[chroot %1%] Exécution de la commande : « %4% »"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:897
+#: sbuild/sbuild-session.cc:900
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[chroot %1%] (%2%->%3%) Exécution de la commande « %4% »"
 
-#: sbuild/sbuild-session.cc:1085
+#: sbuild/sbuild-session.cc:1088
 #, boost-format
 msgid "stage=%1%"
 msgstr "étape=%1%"
 
-#: sbuild/sbuild-session.cc:1251 sbuild/sbuild-session.cc:1258
+#: sbuild/sbuild-session.cc:1254 sbuild/sbuild-session.cc:1261
 msgid "terminating immediately"
 msgstr "fin immédiate"
 

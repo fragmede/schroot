@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2009-10-16 09:33+0100\n"
+"POT-Creation-Date: 2009-10-16 22:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -596,7 +596,7 @@ msgstr ""
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:119
 #: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:229
-#: sbuild/sbuild-session.cc:1061 sbuild/sbuild-session.cc:1327
+#: sbuild/sbuild-session.cc:1064 sbuild/sbuild-session.cc:1330
 msgid "An unknown exception occurred"
 msgstr ""
 
@@ -1583,14 +1583,14 @@ msgstr ""
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:830
+#: sbuild/sbuild-session.cc:833
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr ""
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:834
+#: sbuild/sbuild-session.cc:837
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr ""
@@ -1600,7 +1600,7 @@ msgstr ""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:845
+#: sbuild/sbuild-session.cc:848
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr ""
@@ -1610,14 +1610,14 @@ msgstr ""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:852
+#: sbuild/sbuild-session.cc:855
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr ""
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:890
+#: sbuild/sbuild-session.cc:893
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr ""
@@ -1627,17 +1627,17 @@ msgstr ""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:897
+#: sbuild/sbuild-session.cc:900
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr ""
 
-#: sbuild/sbuild-session.cc:1085
+#: sbuild/sbuild-session.cc:1088
 #, boost-format
 msgid "stage=%1%"
 msgstr ""
 
-#: sbuild/sbuild-session.cc:1251 sbuild/sbuild-session.cc:1258
+#: sbuild/sbuild-session.cc:1254 sbuild/sbuild-session.cc:1261
 msgid "terminating immediately"
 msgstr ""
 
