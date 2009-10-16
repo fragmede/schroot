@@ -94,7 +94,12 @@ AC_SUBST([SBUILD_BINARY_AGE])
 dnl Initialise automake stuff.
 AM_INIT_AUTOMAKE([1.10 gnu check-news dist-bzip2 no-dist-gzip tar-pax silent-rules])
 AM_MAINTAINER_MODE
-SCHROOT_RELEASE_DATE
+RELEASE_DATE='sbuild_m4_esyscmd_s(date --date='sbuild_m4_esyscmd_s([sed -ne '/^Release-Date:/{s/Release-Date:[[:space:]][[:space:]]*//p;q}' VERSION])' '+%s')'
+RELEASE_DATE_S='sbuild_m4_esyscmd_s([sed -ne '/^Release-Date:/{s/Release-Date:[[:space:]][[:space:]]*//p;q}' VERSION])'
+AC_DEFINE_UNQUOTED([RELEASE_DATE_S], ["$RELEASE_DATE_S"], [Package release date (string).])
+AC_DEFINE_UNQUOTED([RELEASE_DATE], [$RELEASE_DATE], [Package release date (integer).])
+AC_SUBST([RELEASE_DATE])
+AC_SUBST([RELEASE_DATE_S])
 
 AC_MSG_CHECKING([whether to enable dchroot compatibility])
 AC_ARG_ENABLE([dchroot], [AS_HELP_STRING([--enable-dchroot], [Enable dchroot compatibility])],
