@@ -738,7 +738,9 @@ msgstr "Exactly one chroot must be specified when beginning a session"
 msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
-msgstr "--session-name is not permitted for the specified action; did you mean to use --chroot?"
+msgstr ""
+"--session-name is not permitted for the specified action; did you mean to "
+"use --chroot?"
 
 #: bin/schroot/schroot-options-base.cc:237
 msgid "--chroot may not be used with --list"
