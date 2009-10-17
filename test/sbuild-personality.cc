@@ -45,7 +45,7 @@ public:
   test_construction()
   {
     sbuild::personality p1;
-#ifdef __linux__
+#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
     CPPUNIT_ASSERT(p1.get_name() == "linux" ||
 		   p1.get_name() == "linux_32bit" ||
 		   p1.get_name() == "linux32");
@@ -60,10 +60,10 @@ public:
     CPPUNIT_ASSERT(p3.get_name() == "undefined");
 
     sbuild::personality p4("linux");
-#ifdef __linux__
+#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
     CPPUNIT_ASSERT(p4.get_name() == "linux");
 #else
-    CPPUNIT_ASSERT(p4.get_name() == "unknown");
+    CPPUNIT_ASSERT(p4.get_name() == "undefined");
 #endif
   }
 
@@ -83,10 +83,10 @@ public:
     sbuild::personality p4("linux");
     std::ostringstream ps4;
     ps4 << p4;
-#ifdef __linux__
+#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
     CPPUNIT_ASSERT(ps4.str() == "linux");
 #else
-    CPPUNIT_ASSERT(ps4.str() == "unknown");
+    CPPUNIT_ASSERT(ps4.str() == "undefined");
 #endif
   }
 
@@ -99,16 +99,16 @@ public:
     CPPUNIT_ASSERT(p2.get_name() == "undefined");
 
     sbuild::personality p4;
-#ifdef __linux__
+#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
     std::istringstream ps4("linux");
 #else
-    std::istringstream ps4("unknown");
+    std::istringstream ps4("undefined");
 #endif
     ps4 >> p4;
-#ifdef __linux__
+#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
     CPPUNIT_ASSERT(p4.get_name() == "linux");
 #else
-    CPPUNIT_ASSERT(p4.get_name() == "unknown");
+    CPPUNIT_ASSERT(p4.get_name() == "undefined");
 #endif
   }
 
