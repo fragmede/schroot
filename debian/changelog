@@ -1,3 +1,12 @@
+schroot (1.3.1-1) experimental; urgency=low
+
+  * New upstream development release.
+  * schroot:
+    - Return success when ending a session and the operation
+      succeeded (Closes: #554907).
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 07 Nov 2009 10:46:54 +0000
+
 schroot (1.3.0-1) experimental; urgency=low
 
   [Roger Leigh]
