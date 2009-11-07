@@ -1,17 +1,26 @@
 #!/bin/sh
 
-TAG="$(git describe --abbrev=0 --match='release/*')"
-PKGVER="${TAG#release/}"
-PACKAGE="$(echo "$PKGVER" | sed -e 's/^\([^-]*\)-\(.*\)$/\1/')"
-VERSION="$(echo "$PKGVER" | sed -e 's/^\([^-]*\)-\(.*\)$/\2/')"
-COMMIT="$(git rev-parse "$TAG^{}")"
-COMMIT_DATE="$(git log -1 --date=iso "$COMMIT" --pretty="format:%ad")"
+PACKAGE="$(sed -ne '/^Welcome to /{s/Welcome to[[:space:]][[:space:]]*\([[:alnum:]][[:alnum:]]*\)[[:space:]][[:space:]]*\([[:alnum:]][[:alnum:].-]*\)\..*/\1/p;q}' < NEWS)"
+VERSION="$(sed -ne '/^Welcome to /{s/Welcome to[[:space:]][[:space:]]*\([[:alnum:]][[:alnum:]]*\)[[:space:]][[:space:]]*\([[:alnum:]][[:alnum:].-]*\)\..*/\2/p;q}' < NEWS)"
 
-RELEASE_DATE="$(date --date="$COMMIT_DATE" '+%d %b %Y')"
-RELEASE_BY="$(git show "$TAG" | sed -ne '/^Tagger:/{s/Tagger:[[:space:]][[:space:]]*//p;q}')"
+TAG="release/${PACKAGE}-${VERSION}"
+COMMIT="$(git rev-parse "$TAG^{}")" 2>/dev/null || COMMIT=""
+
+if [ -n "$COMMIT" ]; then
+    COMMIT_DATE="$(git log -1 --date=iso "$COMMIT" --pretty="format:%ad")"
+
+    RELEASE_DATE="$(date --date="$COMMIT_DATE" '+%d %b %Y')"
+    RELEASE_BY="$(git show "$TAG" | sed -ne '/^Tagger:/{s/Tagger:[[:space:]][[:space:]]*//p;q}')"
+else
+    RELEASE_DATE="$(date '+%d %b %Y')"
+    RELEASE_BY="Unreleased"
+fi
 
 echo "Package: $PACKAGE"
 echo "Version: $VERSION"
 echo "Release-Date: $RELEASE_DATE"
 echo "Released-By: $RELEASE_BY"
-echo "Git-Tag: $TAG"
+
+if [ -n "$COMMIT" ]; then
+    echo "Git-Tag: $TAG"
+fi
