@@ -84,18 +84,8 @@ Have separate namespaces for
 
 * Testcase for chroot-loopback
 
-file: Set full unpack dir with session ID like LVM snapshot.
-
 * Add a read-only mount option for union underlay (both for
   devices and bind mounts).
-
-Security: Record user who created a session, and don't allow other
-users access (except root?).
-This might involve serialising the authentication state into the
-chroot object.
-
-Move chroot-specific session setup from sbuild::session for chroot
-vfunc.
 
 Union: Don't allow overlay/underlay to be user-specified?  Or only
 allow underlay to be specified (but it's already specified in the
