@@ -619,6 +619,12 @@ session::run_impl ()
 	    }
 	  assert(chroot);
 
+	  // Following authentication success, default child status to
+	  // success so that operations such as beginning, ending and
+	  // recovering sessions will return success unless an
+	  // exception is thrown.
+	  this->child_status = EXIT_SUCCESS;
+
 	  try
 	    {
 	      /* Run setup-start chroot setup scripts. */
@@ -626,7 +632,6 @@ session::run_impl ()
 	      if (this->session_operation == OPERATION_BEGIN)
 		{
 		  cout << chroot->get_session_id() << endl;
-		  this->child_status = EXIT_SUCCESS;
 		}
 
 	      /* Run recover scripts. */
