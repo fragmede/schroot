@@ -7,7 +7,7 @@ TAG="release/${PACKAGE}-${VERSION}"
 COMMIT="$(git rev-parse "$TAG^{}")" 2>/dev/null || COMMIT=""
 
 if [ -n "$COMMIT" ]; then
-    COMMIT_DATE="$(git log -1 --date=iso "$COMMIT" --pretty="format:%ad")"
+    COMMIT_DATE="$(git log -1 "$COMMIT" --pretty="format:%ai")"
 
     RELEASE_DATE="$(date --date="$COMMIT_DATE" '+%d %b %Y')"
     RELEASE_BY="$(git show "$TAG" | sed -ne '/^Tagger:/{s/Tagger:[[:space:]][[:space:]]*//p;q}')"
