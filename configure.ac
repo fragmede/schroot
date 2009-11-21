@@ -496,26 +496,36 @@ fi
 
 AC_MSG_CHECKING([for boost::program_options::variables_map in -lboost_program_options])
 saved_LIBS="${LIBS}"
-LIBS="${LIBS} -lboost_program_options"
-AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
-                               [boost::program_options::variables_map::variables_map dummy()])],
+LIBS="${saved_LIBS} -lboost_program_options"
+define([testprog], [AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
+                                   [boost::program_options::variables_map::variables_map dummy()])])
+AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
 	        BOOST_LIBS="${BOOST_LIBS} -lboost_program_options"],
+LIBS="${saved_LIBS} -lboost_program_options-mt"
+[AC_LINK_IFELSE(testprog,
+               [AC_MSG_RESULT([yes])
+	        BOOST_LIBS="${BOOST_LIBS} -lboost_program_options-mt"],
                [AC_MSG_RESULT([no])
-	        AC_MSG_FAILURE([libboost_program_options (Boost C++ Libraries) is not installed, but is required by schroot])])
+	        AC_MSG_FAILURE([libboost_program_options (Boost C++ Libraries) is not installed, but is required by schroot])])])
 LIBS="${saved_LIBS}"
 
 AC_MSG_CHECKING([for boost::program_options::options_description::options() in -lboost_program_options])
 saved_LIBS="${LIBS}"
-LIBS="${LIBS} -lboost_program_options"
-AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
-                               [boost::program_options::options_description testgrp("test group");
-                                bool notused = testgrp.options().empty();
-])],
+LIBS="${saved_LIBS} -lboost_program_options"
+define([testprog], [AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
+                                   [boost::program_options::options_description testgrp("test group");
+                                    bool notused = testgrp.options().empty();
+])])
+AC_LINK_IFELSE(testprog,
+               [AC_MSG_RESULT([yes])
+                BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS="current"],
+LIBS="${saved_LIBS} -lboost_program_options"
+[AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
                 BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS="current"],
                [AC_MSG_RESULT([no])
-                BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS="old"])
+                BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS="old"])])
 LIBS="${saved_LIBS}"
 AH_TEMPLATE(BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD, [Set if boost::program_options::options_description::options() is not available])
 if test "$BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS" = "old"; then
@@ -524,24 +534,34 @@ fi
 
 AC_MSG_CHECKING([for boost::regex in -lboost_regex])
 saved_LIBS="${LIBS}"
-LIBS="${LIBS} -lboost_regex"
-AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/regex.hpp>],
-                               [boost::regex("^foo[bar]$")])],
+LIBS="${saved_LIBS} -lboost_regex"
+define([testprog], [AC_LANG_PROGRAM([#include <boost/regex.hpp>],
+                                   [boost::regex("^foo[bar]$")])])
+AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
 	        BOOST_LIBS="${BOOST_LIBS} -lboost_regex"],
+LIBS="${saved_LIBS} -lboost_regex-mt"
+[AC_LINK_IFELSE(testprog,
+               [AC_MSG_RESULT([yes])
+	        BOOST_LIBS="${BOOST_LIBS} -lboost_regex-mt"],
                [AC_MSG_RESULT([no])
-	        AC_MSG_FAILURE([libboost_regex (Boost C++ Libraries) is not installed, but is required by schroot])])
+	        AC_MSG_FAILURE([libboost_regex (Boost C++ Libraries) is not installed, but is required by schroot])])])
 LIBS="${saved_LIBS}"
 
 AC_MSG_CHECKING([for boost::filesystem in -lboost_filesystem])
 saved_LIBS="${LIBS}"
-LIBS="${LIBS} -lboost_filesystem"
-AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <boost/filesystem.hpp>],
-                               [boost::filesystem::is_directory("/")])],
+LIBS="${saved_LIBS} -lboost_filesystem"
+define([testprog], [AC_LANG_PROGRAM([#include <boost/filesystem.hpp>],
+                                   [boost::filesystem::is_directory("/")])])
+AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
 	        BOOST_FILESYSTEM_LIBS="-lboost_filesystem"],
+LIBS="${saved_LIBS} -lboost_filesystem-mt"
+[AC_LINK_IFELSE(testprog,
+               [AC_MSG_RESULT([yes])
+	        BOOST_FILESYSTEM_LIBS="-lboost_filesystem-mt"],
                [AC_MSG_RESULT([no])
-	        AC_MSG_FAILURE([libboost_filesystem (Boost C++ Libraries) is not installed, but is required by schroot])])
+	        AC_MSG_FAILURE([libboost_filesystem (Boost C++ Libraries) is not installed, but is required by schroot])])])
 LIBS="${saved_LIBS}"
 
 AC_SUBST([BOOST_LIBS])
