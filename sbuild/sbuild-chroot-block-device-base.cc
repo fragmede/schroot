@@ -77,7 +77,9 @@ chroot_block_device_base::set_device (std::string const& device)
   /// mount device.
   chroot_facet_mountable::ptr pmnt
     (get_facet<chroot_facet_mountable>());
+#ifdef SBUILD_FEATURE_LVMSNAP
   if (!dynamic_cast<chroot_lvm_snapshot *>(this))
+#endif
     pmnt->set_mount_device(this->device);
 }
 

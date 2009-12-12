@@ -53,6 +53,7 @@ chroot_block_device::chroot_block_device (const chroot_block_device& rhs):
 {
 }
 
+#ifdef SBUILD_FEATURE_LVMSNAP
 chroot_block_device::chroot_block_device (const chroot_lvm_snapshot& rhs):
   chroot_block_device_base(rhs)
 {
@@ -61,6 +62,7 @@ chroot_block_device::chroot_block_device (const chroot_lvm_snapshot& rhs):
     add_facet(sbuild::chroot_facet_union::create());
 #endif // SBUILD_FEATURE_UNION
 }
+#endif // SBUILD_FEATURE_LVMSNAP
 
 sbuild::chroot::ptr
 chroot_block_device::clone () const
