@@ -1,14 +1,14 @@
 # German translation of schroot.
 # Copyright © 2006-2007 Roger Leigh <rleigh@debian.org>
 # This file is distributed under the same license as the schroot package.
-# Jens Seidel <jensseidel@users.sf.net>, 2006, 2008.
+# Jens Seidel <jensseidel@users.sf.net>, 2006, 2008, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.1.6\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2009-10-16 22:57+0100\n"
-"PO-Revision-Date: 2008-02-19 18:41+0100\n"
+"PO-Revision-Date: 2009-12-12 17:55+0100\n"
 "Last-Translator: Jens Seidel <jensseidel@users.sf.net>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -156,14 +156,12 @@ msgid "Build options"
 msgstr "Bauoptionen"
 
 #: bin/csbuild/csbuild-options.cc:74
-#, fuzzy
 msgid "Package version options"
-msgstr "Sitzungsoptionen"
+msgstr "Paketversionsoptionen"
 
 #: bin/csbuild/csbuild-options.cc:75
-#, fuzzy
 msgid "Build environment options"
-msgstr "Bauoptionen"
+msgstr "Bauumgebungsoptionen"
 
 #: bin/csbuild/csbuild-options.cc:76
 msgid "User options"
@@ -171,7 +169,7 @@ msgstr "Benutzeroptionen"
 
 #: bin/csbuild/csbuild-options.cc:77
 msgid "Build dependency override options"
-msgstr ""
+msgstr "Bauabhängigkeits-Überschreibeoptionen"
 
 #: bin/csbuild/csbuild-options.cc:78
 msgid "Special options"
@@ -187,29 +185,27 @@ msgstr "Programmausgaben nicht protokollieren"
 
 #: bin/csbuild/csbuild-options.cc:101
 msgid "Run in batch mode"
-msgstr ""
+msgstr "Im Stapelmodus laufen"
 
 #: bin/csbuild/csbuild-options.cc:105
 msgid "dpkg-buildpackage option"
-msgstr ""
+msgstr "dpkg-buildpackage-Option"
 
 #: bin/csbuild/csbuild-options.cc:107
 msgid "dpkg-buildpackage options (space-separated)"
-msgstr ""
+msgstr "dpkg-buildpackage-Optionen (durch Leerzeichen getrennt)"
 
 #: bin/csbuild/csbuild-options.cc:109
 msgid "Distribution to build for"
 msgstr "Für welche Distribution soll gebaut werden"
 
 #: bin/csbuild/csbuild-options.cc:111
-#, fuzzy
 msgid "Archive to build for"
-msgstr "Für welche Distribution soll gebaut werden"
+msgstr "Für welches Archiv soll gebaut werden"
 
 #: bin/csbuild/csbuild-options.cc:113
-#, fuzzy
 msgid "Build architecture"
-msgstr "Baue Pakete der Architektur »all«"
+msgstr "Bauarchitektur"
 
 #: bin/csbuild/csbuild-options.cc:115
 msgid "Build architecture \"all\" packages"
@@ -224,28 +220,24 @@ msgid "Force building of a source package, irrespective of Debian version"
 msgstr "Erzwinge den Bau eines Quellpakets, egal wie die Debian-Version lautet"
 
 #: bin/csbuild/csbuild-options.cc:123
-#, fuzzy
 msgid "Make a binary non-maintainer upload (changelog entry)"
-msgstr "Führe einen binären Non-Maintainer-Upload durch"
+msgstr "Führe einen binären Non-Maintainer-Upload durch (Changelog-Eintrag)"
 
 #: bin/csbuild/csbuild-options.cc:125
-#, fuzzy
 msgid "Make a binary non-maintainer upload (binNMU number)"
-msgstr "Führe einen binären Non-Maintainer-Upload durch"
+msgstr "Führe einen binären Non-Maintainer-Upload durch (binNMU-Nummer)"
 
 #: bin/csbuild/csbuild-options.cc:127
 msgid "Append version suffix"
-msgstr ""
+msgstr "Hänge Versionssuffix an"
 
 #: bin/csbuild/csbuild-options.cc:130
-#, fuzzy
 msgid "Update chroot environment"
-msgstr "Chroot-Umgebung"
+msgstr "Aktualisiere Chroot-Umgebung"
 
 #: bin/csbuild/csbuild-options.cc:132
-#, fuzzy
 msgid "Chroot environment to build in"
-msgstr "Chroot-Umgebung"
+msgstr "Chroot-Umgebung in der gebaut wird"
 
 #: bin/csbuild/csbuild-options.cc:134
 #, fuzzy
@@ -259,7 +251,7 @@ msgstr "»Restlos entfernen«-Modus"
 
 #: bin/csbuild/csbuild-options.cc:138
 msgid "Run setup hook script in chroot prior to building"
-msgstr ""
+msgstr "Einrichtungs-Hook-Skripte vor dem Bau in der Chroot ausführen"
 
 #: bin/csbuild/csbuild-options.cc:142
 msgid "GPG key identifier"
@@ -278,39 +270,36 @@ msgid "Add a build dependency"
 msgstr "Eine Bauabhängigkeit hinzufügen"
 
 #: bin/csbuild/csbuild-options.cc:152
-#, fuzzy
 msgid "Add a build conflict"
-msgstr "Eine Bauabhängigkeit hinzufügen"
+msgstr "Eine Baukonflikt hinzufügen"
 
 #: bin/csbuild/csbuild-options.cc:154
-#, fuzzy
 msgid "Add an architecture-independent build dependency"
-msgstr "Eine Bauabhängigkeit hinzufügen"
+msgstr "Eine architekturunabhängige Bauabhängigkeit hinzufügen"
 
 #: bin/csbuild/csbuild-options.cc:156
 msgid "Add an architecture-independent build conflict"
-msgstr ""
+msgstr "Einen architekturunabhängigen Baukonflikt hinzufügen"
 
 #: bin/csbuild/csbuild-options.cc:160
 msgid "Specify algorithm for dependency checking"
-msgstr ""
+msgstr "Einen Algorithmus für die Abhängigkeitsüberprüfung spezifizieren"
 
 #: bin/csbuild/csbuild-options.cc:162
 msgid "Build using the current GCC development snapshot"
 msgstr "Unter Verwendung des aktuellen GCC-Schnappschusses bauen"
 
 #: bin/csbuild/csbuild-options.cc:166
-#, fuzzy
 msgid "Package to build"
-msgstr "Paket-Uploader"
+msgstr "Zu bauendes Paket"
 
 #: bin/csbuild/csbuild-options.cc:223
 msgid "--makebinNMU missing"
-msgstr ""
+msgstr "--makebinNMU missing"
 
 #: bin/csbuild/csbuild-options.cc:225
 msgid "--binNMU missing"
-msgstr ""
+msgstr "--binNMU missing"
 
 #. TRANSLATORS: %1% = chroot name
 #: bin/dchroot-dsa/dchroot-dsa-chroot-config.cc:117
@@ -483,9 +472,8 @@ msgstr "Geschrieben von Roger Leigh"
 
 #. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
 #: bin/schroot-base/schroot-base-main.cc:69
-#, fuzzy
 msgid "Copyright (C) 2004-2009 Roger Leigh"
-msgstr "Copyright (C) 2004–2008 Roger Leigh"
+msgstr "Copyright (C) 2004–2009 Roger Leigh"
 
 # Übersetzung wurde von grep übernommen (grep --version)
 #: bin/schroot-base/schroot-base-main.cc:70
@@ -500,7 +488,7 @@ msgstr ""
 
 #: bin/schroot-base/schroot-base-main.cc:73
 msgid "Configured features:"
-msgstr ""
+msgstr "Eingebaute Funktionen:"
 
 #: bin/schroot-base/schroot-base-main.cc:75
 #, fuzzy
@@ -705,33 +693,32 @@ msgid "%1%: Chroot not found"
 msgstr "Chroot %1% nicht gefunden"
 
 #: bin/schroot/schroot-main-base.cc:101
-#, fuzzy
 msgid "Available chroot types:"
-msgstr "Verfügbare Chroots: "
+msgstr "Verfügbare Chroottypen:"
 
 #: bin/schroot/schroot-main-base.cc:103
 msgid "Support for 'block-device' chroots"
-msgstr ""
+msgstr "Unterstützung für »block-device«-Chroots"
 
 #: bin/schroot/schroot-main-base.cc:105
 msgid "Support for 'directory' chroots"
-msgstr ""
+msgstr "Unterstützung für »directory«-Chroots"
 
 #: bin/schroot/schroot-main-base.cc:106
 msgid "Support for 'file' chroots"
-msgstr ""
+msgstr "Unterstützung für »file«-Chroots"
 
 #: bin/schroot/schroot-main-base.cc:108
 msgid "Support for 'loopback' chroots"
-msgstr ""
+msgstr "Unterstützung für »loopback«-Chroots"
 
 #: bin/schroot/schroot-main-base.cc:111
 msgid "Support for 'lvm-snapshot' chroots"
-msgstr ""
+msgstr "Unterstützung für »lvm-snapshot«-Chroots"
 
 #: bin/schroot/schroot-main-base.cc:113
 msgid "Support for 'plain' chroots"
-msgstr ""
+msgstr "Unterstützung für »plain«-Chroots"
 
 #: bin/schroot/schroot-options-base.cc:56
 msgid "Chroot selection"
@@ -779,6 +766,8 @@ msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
 msgstr ""
+"--session-name ist für die angegebene Aktion nicht erlaubt. Wollten Sie "
+"--chroot verwenden?"
 
 #: bin/schroot/schroot-options-base.cc:237
 msgid "--chroot may not be used with --list"
@@ -868,16 +857,16 @@ msgstr "Nicht unterstützter Konversationstyp »%1%«"
 
 #: sbuild/sbuild-auth-pam.cc:78
 msgid "Password: "
-msgstr ""
+msgstr "Passwort: "
 
 #: sbuild/sbuild-auth-pam.cc:79
 msgid "Password:"
-msgstr ""
+msgstr "Passwort:"
 
 #: sbuild/sbuild-auth-pam.cc:86
 #, boost-format
 msgid "[schroot] password for %1%: "
-msgstr ""
+msgstr "[schroot] Passwort für %1%: "
 
 #: sbuild/sbuild-auth-pam.cc:233
 msgid "Set RUSER"
@@ -930,15 +919,15 @@ msgid "PAM error"
 msgstr "PAM-Fehler"
 
 #: sbuild/sbuild-basic-keyfile.tcc:115
-#, fuzzy
 msgid "This option may be present in a newer version"
-msgstr "Diese Option wird später entfernt werden"
+msgstr "Diese Option könnte in einer neueren Version vorhanden sein"
 
 #: sbuild/sbuild-basic-keyfile.tcc:460 sbuild/sbuild-basic-keyfile.tcc:466
-#, fuzzy
 msgid ""
 "This option will be removed in the future; please update your configuration"
-msgstr "Diese Option wird später entfernt werden"
+msgstr ""
+"Diese Option wird in Zukunft entfernt werden; bitte aktualisieren Sie Ihre "
+"Konfiguration"
 
 #: sbuild/sbuild-chroot-block-device-base.cc:197
 msgid "Device"
@@ -987,9 +976,8 @@ msgid "Available chroots: "
 msgstr "Verfügbare Chroots: "
 
 #: sbuild/sbuild-chroot-directory-base.cc:73
-#, fuzzy
 msgid "Directory"
-msgstr "Zu verwendendes Verzeichnis"
+msgstr "Verzeichnis"
 
 #: sbuild/sbuild-chroot-facet-mountable.cc:123
 msgid "Mount Device"
@@ -1010,9 +998,8 @@ msgid "Personality"
 msgstr "Persönlichkeit"
 
 #: sbuild/sbuild-chroot-facet-session.cc:88
-#, fuzzy
 msgid "Session ID"
-msgstr "Sitzung"
+msgstr "Sitzungs-ID"
 
 #: sbuild/sbuild-chroot-facet-source-clonable.cc:69
 msgid "(source chroot)"
@@ -1112,17 +1099,16 @@ msgid "Failed to unlock device"
 msgstr "Gerät konnte nicht entsperrt werden"
 
 #: sbuild/sbuild-chroot.cc:74
-#, fuzzy
 msgid "Directory must have an absolute path"
-msgstr "Das Gerät muss einen absoluten Pfad haben"
+msgstr "Das Verzeichnis muss einen absoluten Pfad haben"
 
 #: sbuild/sbuild-chroot.cc:75
 msgid "Attempt to add object which is not a facet"
-msgstr ""
+msgstr "Es wurde versucht, ein Objekt hinzuzufügen, das kein Aspekt ist"
 
 #: sbuild/sbuild-chroot.cc:76
 msgid "Attempt to add facet which is already in use"
-msgstr ""
+msgstr "Es wurde versucht, einen bereits benutzten Aspekt hinzuzufügen"
 
 #: sbuild/sbuild-chroot.cc:77
 msgid "File must have an absolute path"
@@ -1471,24 +1457,20 @@ msgid "Valid personalities: %1%\n"
 msgstr "Gültige Persönlichkeiten: %1%\n"
 
 #: sbuild/sbuild-run-parts.cc:52
-#, fuzzy
 msgid "Failed to create pipe"
-msgstr "Datei konnte nicht mit »stat« abgefragt werden"
+msgstr "Pipe (Weiterleitung) konnte nicht erstellt werden"
 
 #: sbuild/sbuild-run-parts.cc:53
-#, fuzzy
 msgid "Failed to duplicate file descriptor"
-msgstr "Dateideskriptor konnte nicht mit »stat« abgefragt werden"
+msgstr "Dateideskriptor konnte nicht dupliziert werden"
 
 #: sbuild/sbuild-run-parts.cc:54
-#, fuzzy
 msgid "Failed to poll file descriptor"
-msgstr "Dateideskriptor konnte nicht mit »stat« abgefragt werden"
+msgstr "Dateideskriptor konnte nicht mit »poll« abgefragt werden"
 
 #: sbuild/sbuild-run-parts.cc:55
-#, fuzzy
 msgid "Failed to read file descriptor"
-msgstr "Dateideskriptor konnte nicht mit »stat« abgefragt werden"
+msgstr "Dateideskriptor konnte nicht gelesen werden"
 
 #. TRANSLATORS: %1% = command
 #: sbuild/sbuild-run-parts.cc:199
@@ -1735,9 +1717,8 @@ msgstr "Dateideskriptor konnte nicht mit »stat« abgefragt werden"
 #~ msgid "Force a build dependency"
 #~ msgstr "Eine Bauabhängigkeit erzwingen"
 
-#, fuzzy
 #~ msgid "(session chroot)"
-#~ msgstr "(Quell-Chroot)"
+#~ msgstr "(Sitzungs-Chroot)"
 
 #~ msgid "Run Execution Scripts"
 #~ msgstr "Ausführungsskripte ausführen"
