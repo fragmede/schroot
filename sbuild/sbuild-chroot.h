@@ -50,9 +50,7 @@ namespace sbuild
       {
 	SETUP_START,   ///< Activate a chroot.
 	SETUP_RECOVER, ///< Reactivate a chroot.
-	SETUP_STOP,    ///< Deactivate a chroot.
-	EXEC_START,    ///< Start executing a command in an active chroot.
-	EXEC_STOP      ///< End executing a command in an active chroot.
+	SETUP_STOP     ///< Deactivate a chroot.
       };
 
     /// Chroot session properties

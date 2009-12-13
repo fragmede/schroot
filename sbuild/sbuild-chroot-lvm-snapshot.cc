@@ -167,11 +167,6 @@ chroot_lvm_snapshot::setup_lock (chroot::setup_type type,
 	    }
 	  else
 	    {
-	      /* Lock is preserved while running a command. */
-	      if ((type == EXEC_START && lock == false) ||
-		  (type == EXEC_STOP && lock == true))
-		return;
-
 	      sbuild::device_lock dlock(device);
 	      if (lock)
 		{

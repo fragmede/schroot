@@ -116,10 +116,6 @@ chroot_block_device::setup_lock (chroot::setup_type type,
 				 bool               lock,
 				 int                status)
 {
-  /* Only lock during setup, not exec. */
-  if (type == EXEC_START || type == EXEC_STOP)
-    return;
-
   /* Lock is preserved through the entire session. */
   if ((type == SETUP_START && lock == false) ||
       (type == SETUP_STOP && lock == true))
