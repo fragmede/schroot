@@ -61,8 +61,6 @@ copy_file()
 	    fi
 	fi
 
-echo "$1 $2 COPY=$COPY"
-
 	# Copy only if files are different
 	if [ "$COPY" = "true" ]; then
 	    if [ -f "$1" ]; then
