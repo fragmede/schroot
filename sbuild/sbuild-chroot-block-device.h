@@ -76,6 +76,13 @@ namespace sbuild
     virtual session_flags
     get_session_flags (chroot const& chroot) const;
 
+  protected:
+    virtual void
+    setup_lock (chroot::setup_type type,
+		bool               lock,
+		int                status);
+
+
     virtual void
     get_details (chroot const&  chroot,
 		 format_detail& detail) const;

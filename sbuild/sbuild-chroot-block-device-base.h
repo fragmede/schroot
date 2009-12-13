@@ -83,11 +83,6 @@ namespace sbuild
 
   protected:
     virtual void
-    setup_lock (chroot::setup_type type,
-		bool               lock,
-		int                status);
-
-    virtual void
     get_details (chroot const& chroot,
 		 format_detail& detail) const;
 
@@ -100,7 +95,6 @@ namespace sbuild
 		 keyfile const& keyfile,
 		 string_list&   used_keys);
 
-  private:
     /// The block device to use.
     std::string device;
   };
