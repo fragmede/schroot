@@ -35,33 +35,47 @@ fi
 # $2: destination file
 copy_file()
 {
-    if [ -r "$1" ]; then
-	if [ -r "$2" ]; then
+    if [ -e "$1" ]; then
+
+	COPY="true"
+
+	if [ -e "$2" ]; then
 
             # Device and inode
 	    da=$(/usr/bin/stat --format="%d %i" "$1")
 	    db=$(/usr/bin/stat --format="%d %i" "$2")
 
-            # Content
-	    ca=$(/usr/bin/md5sum "$1" | sed -e 's/\(^[0-9a-f][0-9a-f]*\).*$/\1/')
-	    cb=$(/usr/bin/md5sum "$2" | sed -e 's/\(^[0-9a-f][0-9a-f]*\).*$/\1/')
-
-	    # Copy if files are different
-	    if [ "$da" != "$db" ]; then
-		if [ "$ca" != "$cb" ]; then
-		    cp $VERBOSE "$1" "$2"
+	    if [ "$da" = "$db" ]; then
+		COPY="false"
+	    elif [ -L "$2" ]; then
+		# Copy if destination is a symlink
+		:
+	    elif [ -f "$1" ] && [ -f "$2" ]; then
+                # Content
+		ca=$(/usr/bin/md5sum "$1" | sed -e 's/\(^[0-9a-f][0-9a-f]*\).*$/\1/')
+		cb=$(/usr/bin/md5sum "$2" | sed -e 's/\(^[0-9a-f][0-9a-f]*\).*$/\1/')
+	        # Copy only if file contents differ
+		if [ "$ca" = "$cb" ]; then
+		    COPY="false"
 		fi
 	    fi
+	fi
 
-	else
+echo "$1 $2 COPY=$COPY"
 
-	    # Copy if destination file does not exist
-	    cp $VERBOSE "$1" "$2"
-
+	# Copy only if files are different
+	if [ "$COPY" = "true" ]; then
+	    if [ -f "$1" ]; then
+		cp --preserve=all $VERBOSE "$1" "$2"
+	    else
+	        # Copy non-regular file directly
+		cp -a $VERBOSE "$1" "$2"
+	    fi
 	fi
 
     else
 	echo "Not copying nonexistent file: $file"
+	exit 1
     fi
 }
 
