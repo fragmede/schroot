@@ -8,8 +8,11 @@ schroot (1.3.2-1) experimental; urgency=low
   * 20copyfiles: Allow copying of special files such as device nodes,
     pipes, sockets and directories (Closes: #559019).  Thanks to
     Raphaël Hertzog for this suggestion.
+  * Create session file when using block-device chroots with union
+    overlay configured (Closes: #561033). Thanks to Evan Broder for
+    reporting this defect.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 13 Dec 2009 17:33:42 +0000
+ -- Roger Leigh <rleigh@debian.org>  Mon, 21 Dec 2009 21:18:51 +0000
 
 schroot (1.3.1-1) experimental; urgency=low
 
