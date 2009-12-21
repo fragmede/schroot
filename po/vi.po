@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.2.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2009-12-13 19:17+0000\n"
+"POT-Creation-Date: 2009-12-21 22:45+0000\n"
 "PO-Revision-Date: 2008-05-06 22:30+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -1062,11 +1062,11 @@ msgstr "Tập tin"
 msgid "File Repack"
 msgstr "Nén lại tập tin"
 
-#: sbuild/sbuild-chroot-lvm-snapshot.cc:238
+#: sbuild/sbuild-chroot-lvm-snapshot.cc:233
 msgid "LVM Snapshot Device"
 msgstr "Thiết bị hiện trạng Bộ Quản lý Khối tin Hợp lý"
 
-#: sbuild/sbuild-chroot-lvm-snapshot.cc:240
+#: sbuild/sbuild-chroot-lvm-snapshot.cc:235
 msgid "LVM Snapshot Options"
 msgstr "Tùy chọn hiện trạng Bộ Quản lý Khối tin Hợp lý"
 

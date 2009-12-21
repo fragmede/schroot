@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.1.6\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2009-12-13 19:17+0000\n"
+"POT-Creation-Date: 2009-12-21 22:45+0000\n"
 "PO-Revision-Date: 2009-12-12 17:55+0100\n"
 "Last-Translator: Jens Seidel <jensseidel@users.sf.net>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -1064,11 +1064,11 @@ msgstr "Datei"
 msgid "File Repack"
 msgstr "Datei neupacken"
 
-#: sbuild/sbuild-chroot-lvm-snapshot.cc:238
+#: sbuild/sbuild-chroot-lvm-snapshot.cc:233
 msgid "LVM Snapshot Device"
 msgstr "LVM-Schnappschuss-Gerät"
 
-#: sbuild/sbuild-chroot-lvm-snapshot.cc:240
+#: sbuild/sbuild-chroot-lvm-snapshot.cc:235
 msgid "LVM Snapshot Options"
 msgstr "LVM-Schnappschuss-Optionen"
 
