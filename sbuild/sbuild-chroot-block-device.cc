@@ -136,31 +136,31 @@ chroot_block_device::setup_lock (chroot::setup_type type,
 	  chroot_facet_union::const_ptr puni
 	    (base->get_facet<chroot_facet_union>());
 	  assert(puni);
-	  if (puni->get_union_configured())
-	    return;
+	  if (!puni->get_union_configured())
 #endif
-
-	  sbuild::device_lock dlock(this->device);
-	  if (lock)
 	    {
-	      try
+	      sbuild::device_lock dlock(this->device);
+	      if (lock)
 		{
-		  dlock.set_lock(lock::LOCK_EXCLUSIVE, 15);
+		  try
+		    {
+		      dlock.set_lock(lock::LOCK_EXCLUSIVE, 15);
+		    }
+		  catch (sbuild::lock::error const& e)
+		    {
+		      throw error(get_device(), DEVICE_LOCK, e);
+		    }
 		}
-	      catch (sbuild::lock::error const& e)
+	      else
 		{
-		  throw error(get_device(), DEVICE_LOCK, e);
-		}
-	    }
-	  else
-	    {
-	      try
-		{
-		  dlock.unset_lock();
-		}
-	      catch (sbuild::lock::error const& e)
-		{
-		  throw error(get_device(), DEVICE_UNLOCK, e);
+		  try
+		    {
+		      dlock.unset_lock();
+		    }
+		  catch (sbuild::lock::error const& e)
+		    {
+		      throw error(get_device(), DEVICE_UNLOCK, e);
+		    }
 		}
 	    }
 	}
