@@ -1,17 +1,17 @@
-schroot (1.4.0~rc1-1) experimental; urgency=low
+schroot (1.4.0-1) unstable; urgency=low
 
   * New upstream stable release.
   * debian/control: Add ${misc:Depends}.
   * Updated it translation.  Thanks to Vincenzo Campanella.
   * Updated zh_CN translation.  Thanks to Ji ZhengYu.
   * Updated de translattion (Closes: #563818).  Thanks to Holger
-    Wansing. 
+    Wansing.
   * Updated bash completion script (Closes: #519745).  Thanks to
     Tim Abbott.
-  * Use boost::filesystemf for portable directory iteration,
+  * Use boost::filesystem for portable directory iteration,
     removing existing path length restrictions (Closes: #520781).
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 16 Jan 2010 15:32:46 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sat, 16 Jan 2010 15:52:15 +0000
 
 schroot (1.3.2-1) experimental; urgency=low
 
