@@ -55,7 +55,6 @@ sbuild/sbuild-chroot-lvm-snapshot.cc
 sbuild/sbuild-chroot-plain.cc
 sbuild/sbuild-chroot.cc
 sbuild/sbuild-ctty.cc
-sbuild/sbuild-dirstream.cc
 sbuild/sbuild-environment.cc
 sbuild/sbuild-format-detail.cc
 sbuild/sbuild-keyfile-base.cc
