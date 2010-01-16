@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include "sbuild-dirstream.h"
 #include "sbuild-run-parts.h"
 #include "sbuild-util.h"
 
@@ -30,6 +29,7 @@
 #include <syslog.h>
 
 #include <boost/format.hpp>
+#include <boost/filesystem/operations.hpp>
 
 using boost::format;
 using namespace sbuild;
@@ -75,12 +75,15 @@ run_parts::run_parts (std::string const& directory,
   directory(directory),
   programs()
 {
-  dirstream stream(directory);
-  direntry de;
-  while (stream >> de)
+  boost::filesystem::path dirpath(directory);
+  boost::filesystem::directory_iterator end_iter;
+  for (boost::filesystem::directory_iterator dirent(dirpath);
+       dirent != end_iter;
+       ++dirent)
     {
+      std::string name(dirent->leaf());
+
       // Skip common directories.
-      std::string name(de.name());
       if (name == "." || name == "..")
 	continue;
 

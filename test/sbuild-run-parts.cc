@@ -16,13 +16,14 @@
  *
  *********************************************************************/
 
-#include <sbuild/sbuild-dirstream.h>
 #include <sbuild/sbuild-nostream.h>
 #include <sbuild/sbuild-run-parts.h>
 #include <sbuild/sbuild-util.h>
 
 #include <iostream>
 #include <sstream>
+
+#include <boost/filesystem/operations.hpp>
 
 #include <cppunit/extensions/HelperMacros.h>
 
@@ -32,7 +33,7 @@ class test_run_parts : public TestFixture
 {
   CPPUNIT_TEST_SUITE(test_run_parts);
   CPPUNIT_TEST(test_construction);
-  CPPUNIT_TEST_EXCEPTION(test_construction_fail, sbuild::dirstream::error);
+  CPPUNIT_TEST_EXCEPTION(test_construction_fail, boost::filesystem::filesystem_error);
   CPPUNIT_TEST(test_run);
   CPPUNIT_TEST(test_run2);
   CPPUNIT_TEST(test_run3);

@@ -21,7 +21,6 @@
 #include "sbuild-chroot.h"
 #include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-chroot-config.h"
-#include "sbuild-dirstream.h"
 #include "sbuild-lock.h"
 
 #include <cassert>
@@ -30,6 +29,8 @@
 #include <cstring>
 
 #include <ext/stdio_filebuf.h>
+
+#include <boost/filesystem/operations.hpp>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -122,11 +123,13 @@ chroot_config::add_config_directory (std::string const& dir,
   if (dir.empty())
     return;
 
-  dirstream stream(dir);
-  direntry de;
-  while (stream >> de)
+  boost::filesystem::path dirpath(dir);
+  boost::filesystem::directory_iterator end_iter;
+  for (boost::filesystem::directory_iterator dirent(dirpath);
+       dirent != end_iter;
+       ++dirent)
     {
-      std::string name(de.name());
+      std::string name(dirent->leaf());
 
       // Skip common directories.
       if (name == "." || name == "..")

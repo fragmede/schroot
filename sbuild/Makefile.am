@@ -45,7 +45,6 @@ sbuild_public_h_sources =			\
 	sbuild-chroot-config.h			\
 	sbuild-ctty.h				\
 	sbuild-custom-error.h			\
-	sbuild-dirstream.h			\
 	sbuild-environment.h			\
 	sbuild-error.h				\
 	sbuild-error.tcc			\
@@ -118,7 +117,6 @@ sbuild_public_cc_sources =			\
 	sbuild-chroot-plain.cc			\
 	sbuild-chroot-config.cc			\
 	sbuild-ctty.cc				\
-	sbuild-dirstream.cc			\
 	sbuild-environment.cc			\
 	sbuild-format-detail.cc			\
 	sbuild-keyfile-base.cc			\
@@ -195,7 +193,7 @@ libsbuild_la_SOURCES =					\
 nodist_libsbuild_la_SOURCES =	\
 	sbuild-config.h
 
-libsbuild_la_LIBADD = $(UUID_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(BOOST_LIBS) $(LIBINTL)
+libsbuild_la_LIBADD = $(UUID_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(BOOST_LIBS) $(BOOST_FILESYSTEM_LIBS) $(LIBINTL)
 
 pkgconfigdatadir = $(libdir)/pkgconfig
 
