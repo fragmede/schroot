@@ -6,7 +6,6 @@ sbuild-chroot-loopback
 sbuild-chroot-lvm-snapshot
 sbuild-chroot-plain
 sbuild-chroot-config
-sbuild-dirstream
 sbuild-environment
 sbuild-keyfile
 sbuild-lock
