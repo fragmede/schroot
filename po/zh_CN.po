@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-01-16 15:11+0000\n"
-"PO-Revision-Date: 2009-12-22 21:53+0800\n"
+"POT-Creation-Date: 2010-01-16 15:36+0000\n"
+"PO-Revision-Date: 2010-01-16 15:44+0000\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -458,8 +458,9 @@ msgstr "由 Roger Leigh 编写"
 
 #. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
 #: bin/schroot-base/schroot-base-main.cc:69
-msgid "Copyright (C) 2004-2009 Roger Leigh"
-msgstr "版权所有 (C) 2004-2009 Roger Leigh"
+#, fuzzy
+msgid "Copyright (C) 2004-2010 Roger Leigh"
+msgstr "版权所有 © 2004–2010 Roger Leigh"
 
 #: bin/schroot-base/schroot-base-main.cc:70
 msgid ""

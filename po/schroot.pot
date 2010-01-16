@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-01-16 15:11+0000\n"
+"POT-Creation-Date: 2010-01-16 15:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -459,7 +459,7 @@ msgstr ""
 
 #. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
 #: bin/schroot-base/schroot-base-main.cc:69
-msgid "Copyright (C) 2004-2009 Roger Leigh"
+msgid "Copyright (C) 2004-2010 Roger Leigh"
 msgstr ""
 
 #: bin/schroot-base/schroot-base-main.cc:70
