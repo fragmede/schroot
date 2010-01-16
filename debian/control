@@ -10,6 +10,7 @@ Vcs-Git: git://git.debian.org/git/buildd-tools/schroot
 
 Package: schroot-common
 Architecture: all
+Depends: ${misc:Depends}
 Replaces: schroot (<< 1.1.1)
 Description: common files for schroot
  schroot allows users to execute commands or interactive shells in
@@ -26,7 +27,7 @@ Description: common files for schroot
 Package: libsbuild-dev
 Architecture: any
 Section: libdevel
-Depends: pkg-config (>= 0.14.0)
+Depends: ${misc:Depends}, pkg-config (>= 0.14.0)
 Suggests: schroot-dbg, libsbuild-doc
 Description: development files for the Debian source builder
  sbuild provides facilities to manage and access chroots, as part of
@@ -48,7 +49,7 @@ Package: schroot-dbg
 Architecture: any
 Section: debug
 Priority: extra
-Depends: schroot (= ${binary:Version}) | dchroot (= ${binary:Version}) 
+Depends: ${misc:Depends}, schroot (= ${binary:Version}) | dchroot (= ${binary:Version}) 
  | dchroot-dsa (= ${binary:Version})
 Conflicts: schroot (<< ${binary:Version}), schroot (>> ${binary:Version}),
  dchroot (<< ${binary:Version}), dchroot (>>${binary:Version}),
@@ -71,6 +72,7 @@ Description: schroot, dchroot and dchroot-dsa debuggging symbols
 Package: libsbuild-doc
 Architecture: all
 Section: doc
+Depends: ${misc:Depends}
 Suggests: libsbuild-dev
 Description: development documentation for the Debian source builder
  sbuild provides facilities to manage and access chroots, as part of
@@ -89,7 +91,7 @@ Description: development documentation for the Debian source builder
 
 Package: schroot
 Architecture: any
-Depends: ${shlibs:Depends}, schroot-common (=${source:Version})
+Depends: ${shlibs:Depends}, ${misc:Depends}, schroot-common (=${source:Version})
 Conflicts: dchroot (<< 0.13)
 Enhances: sbuild
 Suggests: debootstrap, lvm2, unzip, aufs-modules | unionfs-modules
@@ -122,7 +124,7 @@ Description: Execute commands in a chroot environment
 Package: dchroot
 Architecture: any
 Suggests: debootstrap
-Depends: schroot (= ${binary:Version}), ${shlibs:Depends}, schroot-common (=${source:Version})
+Depends: ${misc:Depends}, schroot (= ${binary:Version}), ${shlibs:Depends}, schroot-common (=${source:Version})
 Description: Execute commands in a chroot environment
  dchroot allows users to execute commands or interactive shells in
  different chroots.  A typical installation might provide 'stable',
@@ -145,7 +147,7 @@ Description: Execute commands in a chroot environment
 Package: dchroot-dsa
 Architecture: any
 Suggests: debootstrap
-Depends: schroot (= ${binary:Version}), ${shlibs:Depends}, schroot-common (=${source:Version})
+Depends: ${misc:Depends}, schroot (= ${binary:Version}), ${shlibs:Depends}, schroot-common (=${source:Version})
 Description: Execute commands in a chroot environment
  dchroot allows users to execute commands or interactive shells in
  different chroots.  A typical installation might provide 'stable',
