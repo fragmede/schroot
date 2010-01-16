@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2009-12-21 22:45+0000\n"
+"POT-Creation-Date: 2010-01-16 15:11+0000\n"
 "PO-Revision-Date: 2008-05-08 13:45+0200\n"
 "Last-Translator: Nicolas François <nicolas.francois@centraliens.net>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -634,7 +634,7 @@ msgstr "[OPTION...] - Monter les systèmes de fichiers"
 
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:119
-#: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:229
+#: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:232
 #: sbuild/sbuild-session.cc:1069 sbuild/sbuild-session.cc:1335
 msgid "An unknown exception occurred"
 msgstr "Une exception inconnue est survenue"
@@ -943,42 +943,42 @@ msgstr "Périphérique"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
-#: sbuild/sbuild-chroot-config.cc:57
+#: sbuild/sbuild-chroot-config.cc:58
 #, boost-format
 msgid "Alias '%1%' already associated with '%4%' chroot"
 msgstr "L'alias « %1% » est déjà associé au chroot « %4% »"
 
-#: sbuild/sbuild-chroot-config.cc:58
+#: sbuild/sbuild-chroot-config.cc:59
 msgid "No such chroot"
 msgstr "Le chroot spécifié n'existe pas"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-chroot-config.cc:60
+#: sbuild/sbuild-chroot-config.cc:61
 #, boost-format
 msgid "A chroot or alias '%1%' already exists with this name"
 msgstr "Un chroot ou alias « %1% » a déjà ce nom"
 
-#: sbuild/sbuild-chroot-config.cc:61 sbuild/sbuild-chroot.cc:79
+#: sbuild/sbuild-chroot-config.cc:62 sbuild/sbuild-chroot.cc:79
 msgid "File is not a regular file"
 msgstr "Le fichier n'est pas un fichier régulier"
 
-#: sbuild/sbuild-chroot-config.cc:62
+#: sbuild/sbuild-chroot-config.cc:63
 msgid "Failed to open file"
 msgstr "Échec lors de l'ouverture du fichier"
 
-#: sbuild/sbuild-chroot-config.cc:63 sbuild/sbuild-chroot.cc:80
+#: sbuild/sbuild-chroot-config.cc:64 sbuild/sbuild-chroot.cc:80
 msgid "File is not owned by user root"
 msgstr "Le propriétaire du fichier n'est pas root"
 
-#: sbuild/sbuild-chroot-config.cc:64 sbuild/sbuild-chroot.cc:81
+#: sbuild/sbuild-chroot-config.cc:65 sbuild/sbuild-chroot.cc:81
 msgid "File has write permissions for others"
 msgstr "Le fichier est accessible en écriture pour les autres"
 
-#: sbuild/sbuild-chroot-config.cc:227 sbuild/sbuild-chroot-config.cc:233
+#: sbuild/sbuild-chroot-config.cc:230 sbuild/sbuild-chroot-config.cc:236
 msgid "Duplicate names are not allowed"
 msgstr "Les noms redondants ne sont pas autorisés"
 
-#: sbuild/sbuild-chroot-config.cc:312
+#: sbuild/sbuild-chroot-config.cc:315
 msgid "Available chroots: "
 msgstr "Chroot disponibles : "
 
@@ -1235,18 +1235,6 @@ msgid "The controlling terminal file descriptor could not be duplicated"
 msgstr ""
 "Le descripteur de fichier du terminal de contrôle ne peut pas être dupliqué"
 
-#. TRANSLATORS: %1% = directory name
-#: sbuild/sbuild-dirstream.cc:40
-#, boost-format
-msgid "Failed to open directory '%1%'"
-msgstr "Échec lors de l'ouverture du répertoire « %1% »"
-
-#. TRANSLATORS: %1% = directory name
-#: sbuild/sbuild-dirstream.cc:42
-#, boost-format
-msgid "Failed to read directory '%1%'"
-msgstr "Échec lors de la lecture du répertoire « %1% »"
-
 # NOTE: dur à traduire
 #: sbuild/sbuild-format-detail.cc:72
 msgid "true"
@@ -1492,7 +1480,7 @@ msgid "Failed to read file descriptor"
 msgstr "Échec lors de l'exécution de « stat » sur le descripteur de fichier"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-run-parts.cc:199
+#: sbuild/sbuild-run-parts.cc:202
 #, boost-format
 msgid "Executing '%1%'"
 msgstr "Exécution de « %1% »"
@@ -1726,13 +1714,19 @@ msgstr "fin immédiate"
 msgid "%d %b %Y"
 msgstr "%d %b %Y"
 
-#: sbuild/sbuild-util.cc:80
+#: sbuild/sbuild-util.cc:81
 msgid "Failed to stat file"
 msgstr "Échec lors de l'exécution de « stat » sur le fichier"
 
-#: sbuild/sbuild-util.cc:81
+#: sbuild/sbuild-util.cc:82
 msgid "Failed to stat file descriptor"
 msgstr "Échec lors de l'exécution de « stat » sur le descripteur de fichier"
+
+#~ msgid "Failed to open directory '%1%'"
+#~ msgstr "Échec lors de l'ouverture du répertoire « %1% »"
+
+#~ msgid "Failed to read directory '%1%'"
+#~ msgstr "Échec lors de la lecture du répertoire « %1% »"
 
 #~ msgid "Force a build dependency"
 #~ msgstr "Forcer une dépendance de construction"

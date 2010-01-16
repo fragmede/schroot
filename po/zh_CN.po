@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2009-12-21 23:09+0000\n"
+"POT-Creation-Date: 2010-01-16 15:11+0000\n"
 "PO-Revision-Date: 2009-12-22 21:53+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -596,7 +596,7 @@ msgstr "[选项...] - 挂载文件系统"
 
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:119
-#: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:229
+#: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:232
 #: sbuild/sbuild-session.cc:1069 sbuild/sbuild-session.cc:1335
 msgid "An unknown exception occurred"
 msgstr "发生了未知的异常"
@@ -902,42 +902,42 @@ msgstr "设备"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
-#: sbuild/sbuild-chroot-config.cc:57
+#: sbuild/sbuild-chroot-config.cc:58
 #, boost-format
 msgid "Alias '%1%' already associated with '%4%' chroot"
 msgstr "别名“%1%”已经与chroot 名“%4%”关联"
 
-#: sbuild/sbuild-chroot-config.cc:58
+#: sbuild/sbuild-chroot-config.cc:59
 msgid "No such chroot"
 msgstr "没有那样的chroot"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-chroot-config.cc:60
+#: sbuild/sbuild-chroot-config.cc:61
 #, boost-format
 msgid "A chroot or alias '%1%' already exists with this name"
 msgstr "已有与“%1%”同名的chroot 名或别名存在"
 
-#: sbuild/sbuild-chroot-config.cc:61 sbuild/sbuild-chroot.cc:79
+#: sbuild/sbuild-chroot-config.cc:62 sbuild/sbuild-chroot.cc:79
 msgid "File is not a regular file"
 msgstr "文件不是普通文件"
 
-#: sbuild/sbuild-chroot-config.cc:62
+#: sbuild/sbuild-chroot-config.cc:63
 msgid "Failed to open file"
 msgstr "无法打开文件"
 
-#: sbuild/sbuild-chroot-config.cc:63 sbuild/sbuild-chroot.cc:80
+#: sbuild/sbuild-chroot-config.cc:64 sbuild/sbuild-chroot.cc:80
 msgid "File is not owned by user root"
 msgstr "文件所有者不是 root 用户"
 
-#: sbuild/sbuild-chroot-config.cc:64 sbuild/sbuild-chroot.cc:81
+#: sbuild/sbuild-chroot-config.cc:65 sbuild/sbuild-chroot.cc:81
 msgid "File has write permissions for others"
 msgstr "其他用户拥有文件写权"
 
-#: sbuild/sbuild-chroot-config.cc:227 sbuild/sbuild-chroot-config.cc:233
+#: sbuild/sbuild-chroot-config.cc:230 sbuild/sbuild-chroot-config.cc:236
 msgid "Duplicate names are not allowed"
 msgstr "不允许的复制名称"
 
-#: sbuild/sbuild-chroot-config.cc:312
+#: sbuild/sbuild-chroot-config.cc:315
 msgid "Available chroots: "
 msgstr "可用的chroots: "
 
@@ -1184,18 +1184,6 @@ msgstr "无法设置受控终端的 close-on-execute 标识"
 msgid "The controlling terminal file descriptor could not be duplicated"
 msgstr "无法复制受控终端的文件描述符"
 
-#. TRANSLATORS: %1% = directory name
-#: sbuild/sbuild-dirstream.cc:40
-#, boost-format
-msgid "Failed to open directory '%1%'"
-msgstr "无法打开目录“%1%”"
-
-#. TRANSLATORS: %1% = directory name
-#: sbuild/sbuild-dirstream.cc:42
-#, boost-format
-msgid "Failed to read directory '%1%'"
-msgstr "无法读取目录“%1%”"
-
 #: sbuild/sbuild-format-detail.cc:72
 msgid "true"
 msgstr "正确"
@@ -1427,7 +1415,7 @@ msgid "Failed to read file descriptor"
 msgstr "无法读取文件描述符"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-run-parts.cc:199
+#: sbuild/sbuild-run-parts.cc:202
 #, boost-format
 msgid "Executing '%1%'"
 msgstr "正在执行“%1%”"
@@ -1654,13 +1642,19 @@ msgstr "立刻终止"
 msgid "%d %b %Y"
 msgstr "%Y %b %d"
 
-#: sbuild/sbuild-util.cc:80
+#: sbuild/sbuild-util.cc:81
 msgid "Failed to stat file"
 msgstr "无法获取文件状态"
 
-#: sbuild/sbuild-util.cc:81
+#: sbuild/sbuild-util.cc:82
 msgid "Failed to stat file descriptor"
 msgstr "无法统计文件描述符"
+
+#~ msgid "Failed to open directory '%1%'"
+#~ msgstr "无法打开目录“%1%”"
+
+#~ msgid "Failed to read directory '%1%'"
+#~ msgstr "无法读取目录“%1%”"
 
 #~ msgid "Force a build dependency"
 #~ msgstr "强制构建依赖"

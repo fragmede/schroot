@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.2.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2009-12-21 22:45+0000\n"
+"POT-Creation-Date: 2010-01-16 15:11+0000\n"
 "PO-Revision-Date: 2008-05-06 22:30+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -624,7 +624,7 @@ msgstr "[TÙY_CHỌN...] — lắp hệ thống tập tin"
 
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:119
-#: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:229
+#: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:232
 #: sbuild/sbuild-session.cc:1069 sbuild/sbuild-session.cc:1335
 msgid "An unknown exception occurred"
 msgstr "Gặp ngoại lệ không rõ"
@@ -933,42 +933,42 @@ msgstr "Thiết bị"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
-#: sbuild/sbuild-chroot-config.cc:57
+#: sbuild/sbuild-chroot-config.cc:58
 #, boost-format
 msgid "Alias '%1%' already associated with '%4%' chroot"
 msgstr "Bí danh « %1% » đã tương ứng với chroot « %4% »"
 
-#: sbuild/sbuild-chroot-config.cc:58
+#: sbuild/sbuild-chroot-config.cc:59
 msgid "No such chroot"
 msgstr "Không có chroot như vậy"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-chroot-config.cc:60
+#: sbuild/sbuild-chroot-config.cc:61
 #, boost-format
 msgid "A chroot or alias '%1%' already exists with this name"
 msgstr "Một chroot hay bí danh « %1% » đã có tên này"
 
-#: sbuild/sbuild-chroot-config.cc:61 sbuild/sbuild-chroot.cc:79
+#: sbuild/sbuild-chroot-config.cc:62 sbuild/sbuild-chroot.cc:79
 msgid "File is not a regular file"
 msgstr "Tập tin không phải là tập tin chuẩn"
 
-#: sbuild/sbuild-chroot-config.cc:62
+#: sbuild/sbuild-chroot-config.cc:63
 msgid "Failed to open file"
 msgstr "Lỗi mở tập tin"
 
-#: sbuild/sbuild-chroot-config.cc:63 sbuild/sbuild-chroot.cc:80
+#: sbuild/sbuild-chroot-config.cc:64 sbuild/sbuild-chroot.cc:80
 msgid "File is not owned by user root"
 msgstr "Người dùng chủ không sở hữu tập tin này"
 
-#: sbuild/sbuild-chroot-config.cc:64 sbuild/sbuild-chroot.cc:81
+#: sbuild/sbuild-chroot-config.cc:65 sbuild/sbuild-chroot.cc:81
 msgid "File has write permissions for others"
 msgstr "Người khác có quyền ghi tập tin này"
 
-#: sbuild/sbuild-chroot-config.cc:227 sbuild/sbuild-chroot-config.cc:233
+#: sbuild/sbuild-chroot-config.cc:230 sbuild/sbuild-chroot-config.cc:236
 msgid "Duplicate names are not allowed"
 msgstr "Không cho phép tên trùng"
 
-#: sbuild/sbuild-chroot-config.cc:312
+#: sbuild/sbuild-chroot-config.cc:315
 msgid "Available chroots: "
 msgstr "Các chroot sẵn sàng: "
 
@@ -1224,18 +1224,6 @@ msgstr ""
 msgid "The controlling terminal file descriptor could not be duplicated"
 msgstr "Không thể nhân đôi bộ mô tả tập tin thiết bị điều khiển"
 
-#. TRANSLATORS: %1% = directory name
-#: sbuild/sbuild-dirstream.cc:40
-#, boost-format
-msgid "Failed to open directory '%1%'"
-msgstr "Lỗi mở thư mục « %1% »"
-
-#. TRANSLATORS: %1% = directory name
-#: sbuild/sbuild-dirstream.cc:42
-#, boost-format
-msgid "Failed to read directory '%1%'"
-msgstr "Lỗi đọc thư mục « %1% »"
-
 #: sbuild/sbuild-format-detail.cc:72
 msgid "true"
 msgstr "đúng"
@@ -1471,7 +1459,7 @@ msgid "Failed to read file descriptor"
 msgstr "Lỗi lấy trạng thái về bộ mô tả tập tin"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-run-parts.cc:199
+#: sbuild/sbuild-run-parts.cc:202
 #, boost-format
 msgid "Executing '%1%'"
 msgstr "Đang thực hiện « %1% »..."
@@ -1702,13 +1690,19 @@ msgstr "sẽ chấm dứt ngay"
 msgid "%d %b %Y"
 msgstr "%d %b %Y"
 
-#: sbuild/sbuild-util.cc:80
+#: sbuild/sbuild-util.cc:81
 msgid "Failed to stat file"
 msgstr "Lỗi lấy trạng thái về tập tin này"
 
-#: sbuild/sbuild-util.cc:81
+#: sbuild/sbuild-util.cc:82
 msgid "Failed to stat file descriptor"
 msgstr "Lỗi lấy trạng thái về bộ mô tả tập tin"
+
+#~ msgid "Failed to open directory '%1%'"
+#~ msgstr "Lỗi mở thư mục « %1% »"
+
+#~ msgid "Failed to read directory '%1%'"
+#~ msgstr "Lỗi đọc thư mục « %1% »"
 
 #~ msgid "Force a build dependency"
 #~ msgstr "Ép buộc một quan hệ phụ thuộc khi xây dựng"

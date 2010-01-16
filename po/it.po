@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.3.2-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2009-12-21 23:09+0000\n"
+"POT-Creation-Date: 2010-01-16 15:11+0000\n"
 "PO-Revision-Date: 2009-12-30 09:49+0100\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -132,7 +132,9 @@ msgstr "Il file non è un device a blocchi"
 #: bin/schroot-releaselock/schroot-releaselock-main.cc:56
 #, boost-format
 msgid "Failed to release device lock (lock held by PID %4%)"
-msgstr "Impossibile rilasciare il blocco del device (il blocco è mantenuto dal processo %4%)"
+msgstr ""
+"Impossibile rilasciare il blocco del device (il blocco è mantenuto dal "
+"processo %4%)"
 
 #: bin/csbuild/csbuild-main.cc:58
 #: bin/schroot-releaselock/schroot-releaselock-main.cc:57
@@ -250,7 +252,8 @@ msgstr "Modalità di ripulitura dalle dipendenze"
 
 #: bin/csbuild/csbuild-options.cc:138
 msgid "Run setup hook script in chroot prior to building"
-msgstr "Esegui lo script di aggancio all'impostazione in chroot prima di compilare"
+msgstr ""
+"Esegui lo script di aggancio all'impostazione in chroot prima di compilare"
 
 #: bin/csbuild/csbuild-options.cc:142
 msgid "GPG key identifier"
@@ -311,7 +314,8 @@ msgstr "chroot %1% (compatibilità dchroot-dsa)"
 #. is an em-dash.
 #: bin/dchroot-dsa/dchroot-dsa-main.cc:45
 msgid "[OPTION...] chroot [COMMAND] - run command or shell in a chroot"
-msgstr "[OPZIONE...] chroot [COMANDO] - esegui il comando o la shell in un chroot"
+msgstr ""
+"[OPZIONE...] chroot [COMANDO] - esegui il comando o la shell in un chroot"
 
 #: bin/dchroot-dsa/dchroot-dsa-options.cc:54
 msgid "Print paths to available chroots"
@@ -376,8 +380,8 @@ msgstr ""
 msgid ""
 "To allow password-less root access, use the root-users or root-groups keys."
 msgstr ""
-"Per consentire un accesso senza password, utilizzare le chiavi «root-users» "
-"o «root-groups»."
+"Per consentire un accesso senza password, utilizzare le chiavi «root-users» o "
+"«root-groups»."
 
 #. TRANSLATORS: %1% = file
 #: bin/dchroot/dchroot-main-base.cc:83 bin/dchroot/dchroot-main-base.cc:144
@@ -508,8 +512,8 @@ msgstr "Uso:"
 #, boost-format
 msgid "Run \"%1% --help\" to list usage example and all available options"
 msgstr ""
-"Per visualizzare esempi sull'uso e tutte le opzioni disponibili eseguire "
-"«%1% --help»"
+"Per visualizzare esempi sull'uso e tutte le opzioni disponibili eseguire «%1% "
+"--help»"
 
 #: bin/schroot-base/schroot-base-option-action.cc:65
 #: bin/schroot-base/schroot-base-option-action.cc:88
@@ -608,7 +612,7 @@ msgstr "[OPZIONE...] - monta i file system"
 
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:119
-#: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:229
+#: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:232
 #: sbuild/sbuild-session.cc:1069 sbuild/sbuild-session.cc:1335
 msgid "An unknown exception occurred"
 msgstr "Si è verificato un errore sconosciuto"
@@ -802,8 +806,7 @@ msgstr "Termina una sessione esistente"
 
 #: bin/schroot/schroot-options.cc:84
 msgid "Session name (defaults to an automatically generated name)"
-msgstr "Nome della sessione (predefinito: un nome generato "
-"automaticamente)"
+msgstr "Nome della sessione (predefinito: un nome generato automaticamente)"
 
 #: bin/schroot/schroot-options.cc:86
 msgid "Force operation, even if it fails"
@@ -920,42 +923,42 @@ msgstr "Device"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
-#: sbuild/sbuild-chroot-config.cc:57
+#: sbuild/sbuild-chroot-config.cc:58
 #, boost-format
 msgid "Alias '%1%' already associated with '%4%' chroot"
 msgstr "L'alias «%1%» è già associato con il chroot «%4%»"
 
-#: sbuild/sbuild-chroot-config.cc:58
+#: sbuild/sbuild-chroot-config.cc:59
 msgid "No such chroot"
 msgstr "Questo chroot non esiste"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-chroot-config.cc:60
+#: sbuild/sbuild-chroot-config.cc:61
 #, boost-format
 msgid "A chroot or alias '%1%' already exists with this name"
 msgstr "Esiste già un chroot o un alias con il nome «%1%»"
 
-#: sbuild/sbuild-chroot-config.cc:61 sbuild/sbuild-chroot.cc:79
+#: sbuild/sbuild-chroot-config.cc:62 sbuild/sbuild-chroot.cc:79
 msgid "File is not a regular file"
 msgstr "Il file non è un file regolare"
 
-#: sbuild/sbuild-chroot-config.cc:62
+#: sbuild/sbuild-chroot-config.cc:63
 msgid "Failed to open file"
 msgstr "Impossibile aprire il file"
 
-#: sbuild/sbuild-chroot-config.cc:63 sbuild/sbuild-chroot.cc:80
+#: sbuild/sbuild-chroot-config.cc:64 sbuild/sbuild-chroot.cc:80
 msgid "File is not owned by user root"
 msgstr "Il proprietario del file non è l'utente root"
 
-#: sbuild/sbuild-chroot-config.cc:64 sbuild/sbuild-chroot.cc:81
+#: sbuild/sbuild-chroot-config.cc:65 sbuild/sbuild-chroot.cc:81
 msgid "File has write permissions for others"
 msgstr "Il file ha permessi di scrittura per altri"
 
-#: sbuild/sbuild-chroot-config.cc:227 sbuild/sbuild-chroot-config.cc:233
+#: sbuild/sbuild-chroot-config.cc:230 sbuild/sbuild-chroot-config.cc:236
 msgid "Duplicate names are not allowed"
 msgstr "Non sono ammessi nomi duplicati"
 
-#: sbuild/sbuild-chroot-config.cc:312
+#: sbuild/sbuild-chroot-config.cc:315
 msgid "Available chroots: "
 msgstr "chroot disponibili: "
 
@@ -1204,18 +1207,6 @@ msgid "The controlling terminal file descriptor could not be duplicated"
 msgstr ""
 "Impossibile duplicare il descrittore di file del terminale di controllo"
 
-#. TRANSLATORS: %1% = directory name
-#: sbuild/sbuild-dirstream.cc:40
-#, boost-format
-msgid "Failed to open directory '%1%'"
-msgstr "Impossibile aprire la directory «%1%»"
-
-#. TRANSLATORS: %1% = directory name
-#: sbuild/sbuild-dirstream.cc:42
-#, boost-format
-msgid "Failed to read directory '%1%'"
-msgstr "Impossibile leggere la directory «%1%»"
-
 #: sbuild/sbuild-format-detail.cc:72
 msgid "true"
 msgstr "vero"
@@ -1355,8 +1346,8 @@ msgstr "Impossibile sbloccare il file (dopo un'attesa di %4% secondi)"
 msgid ""
 "Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
 msgstr ""
-"Impossibile bloccare il device (dopo un'attesa di %4% secondi, il proprietario "
-"del blocco è il PID %5%)"
+"Impossibile bloccare il device (dopo un'attesa di %4% secondi, il "
+"proprietario del blocco è il PID %5%)"
 
 #: sbuild/sbuild-lock.cc:63
 msgid "Failed to test device lock"
@@ -1369,8 +1360,8 @@ msgstr "Impossibile verificare il blocco del device"
 msgid ""
 "Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
 msgstr ""
-"Impossibile sbloccare il device (dopo un'attesa di %4% secondi, il proprietario "
-"del blocco è il PID %5%)"
+"Impossibile sbloccare il device (dopo un'attesa di %4% secondi, il "
+"proprietario del blocco è il PID %5%)"
 
 #. TRANSLATORS: "I" is an abbreviation of "Information"
 #: sbuild/sbuild-log.cc:91 sbuild/sbuild-log.cc:124
@@ -1451,7 +1442,7 @@ msgid "Failed to read file descriptor"
 msgstr "Impossibile leggere il descrittore del file"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-run-parts.cc:199
+#: sbuild/sbuild-run-parts.cc:202
 #, boost-format
 msgid "Executing '%1%'"
 msgstr "Esecuzione di «%1%» in corso"
@@ -1632,8 +1623,7 @@ msgstr "[chroot %1%] esecuzione della shell in corso: «%4%»"
 #: sbuild/sbuild-session.cc:853
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
-msgstr ""
-"[chroot %1%] (%2%→%3%): esecuzione della shell di login in corso: «%4%»"
+msgstr "[chroot %1%] (%2%→%3%): esecuzione della shell di login in corso: «%4%»"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = user name
@@ -1683,10 +1673,16 @@ msgstr "uscita immediata in corso"
 msgid "%d %b %Y"
 msgstr "%d %b %Y"
 
-#: sbuild/sbuild-util.cc:80
+#: sbuild/sbuild-util.cc:81
 msgid "Failed to stat file"
 msgstr "Impossibile effettuare lo stat del file"
 
-#: sbuild/sbuild-util.cc:81
+#: sbuild/sbuild-util.cc:82
 msgid "Failed to stat file descriptor"
 msgstr "Impossibile effettuare lo stat del descrittore del file"
+
+#~ msgid "Failed to open directory '%1%'"
+#~ msgstr "Impossibile aprire la directory «%1%»"
+
+#~ msgid "Failed to read directory '%1%'"
+#~ msgstr "Impossibile leggere la directory «%1%»"
