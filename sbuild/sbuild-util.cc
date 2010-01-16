@@ -29,12 +29,13 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-
 #ifdef HAVE_UUID
 #include <uuid/uuid.h>
 #else
 #include <time.h>
 #endif
+
+#include <boost/filesystem/convenience.hpp>
 
 using namespace sbuild;
 
@@ -96,9 +97,10 @@ error<sbuild::stat::error_code>::error_strings
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
 std::string
-sbuild::basename (std::string name,
-		  char        separator)
+sbuild::basename (std::string name)
 {
+  const char separator = '/';
+
   // Remove trailing separators
   std::string::size_type cur = name.length();
   while (cur - 1 != 0 && name[cur - 1] == separator)
@@ -120,9 +122,10 @@ sbuild::basename (std::string name,
 }
 
 std::string
-sbuild::dirname (std::string name,
-		 char        separator)
+sbuild::dirname (std::string name)
 {
+  const char separator = '/';
+
   // Remove trailing separators
   std::string::size_type cur = name.length();
   while (cur - 1 != 0 && name[cur - 1] == separator)
@@ -144,9 +147,10 @@ sbuild::dirname (std::string name,
 }
 
 std::string
-sbuild::normalname (std::string name,
-		    char        separator)
+sbuild::normalname (std::string name)
 {
+  const char separator = '/';
+
   // Remove trailing separators
   std::string::size_type cur = name.length();
   while (cur - 1 != 0 && name[cur - 1] == separator)

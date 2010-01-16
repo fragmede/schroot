@@ -800,7 +800,7 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
       session_chroot->get_command_prefix().empty())
     // Not keeping environment and can setup argv correctly; login shell
     {
-      std::string shellbase = basename(shell, '/');
+      std::string shellbase = basename(shell);
       std::string loginshell = "-" + shellbase;
       command.push_back(loginshell);
 

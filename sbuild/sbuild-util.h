@@ -41,36 +41,30 @@ namespace sbuild
    * basename(3).
    *
    * @param name the filename to strip of its path.
-   * @param separator the separation delimiting directories.
    * @returns the base name.
    */
   std::string
-  basename (std::string name,
-	    char        separator = '/');
+  basename (std::string name);
 
   /**
    * Strip the fileame from a pathname.  This is similar to
    * dirname(3).
    *
    * @param name the path to strip of its filename.
-   * @param separator the separation delimiting directories.
    * @returns the directory name.
    */
   std::string
-  dirname (std::string name,
-	   char        separator = '/');
+  dirname (std::string name);
 
   /**
    * Normalise a pathname.  This strips all trailing separators, and
    * duplicate separators within a path.
    *
    * @param name the path to normalise.
-   * @param separator the separation delimiting directories.
    * @returns the normalised name.
    */
   std::string
-  normalname (std::string name,
-	      char        separator = '/');
+  normalname (std::string name);
 
   /**
    * Check if a pathname is absolute.
