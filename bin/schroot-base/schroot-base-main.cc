@@ -66,7 +66,7 @@ main::action_version (std::ostream& stream)
   stream << fmt
 	 << _("Written by Roger Leigh") << '\n' << '\n'
     // TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
-	 << _("Copyright (C) 2004-2009 Roger Leigh") << '\n'
+	 << _("Copyright (C) 2004-2010 Roger Leigh") << '\n'
 	 << _("This is free software; see the source for copying conditions.  There is NO\n"
 	      "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
 	 << '\n'
