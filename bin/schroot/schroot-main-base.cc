@@ -22,6 +22,7 @@
 
 #include <sbuild/sbuild-config.h>
 #ifdef SBUILD_FEATURE_PAM
+#include <sbuild/sbuild-auth-pam.h>
 #include <sbuild/sbuild-auth-pam-conv.h>
 #include <sbuild/sbuild-auth-pam-conv-tty.h>
 #endif // SBUILD_FEATURE_PAM
@@ -291,6 +292,7 @@ main_base::run_impl ()
   try
     {
       create_session(sess_op);
+      add_session_auth();
 
       if (!this->options->command.empty())
 	this->session->get_auth()->set_command(this->options->command);
@@ -320,4 +322,28 @@ main_base::run_impl ()
     return this->session->get_child_status();
   else
     return EXIT_FAILURE;
+}
+
+void
+main_base::add_session_auth ()
+{
+  // Add PAM authentication handler.  If PAM isn't available, just
+  // continue to use the default handler
+
+#ifdef SBUILD_FEATURE_PAM
+  sbuild::auth::ptr auth = sbuild::auth_pam::create("schroot");
+
+  sbuild::auth_pam_conv_tty::auth_ptr auth_ptr =
+    std::tr1::dynamic_pointer_cast<sbuild::auth_pam>(auth);
+
+  sbuild::auth_pam_conv::ptr conv = sbuild::auth_pam_conv_tty::create(auth_ptr);
+
+  /* Set up authentication timeouts. */
+  time_t curtime = 0;
+  time(&curtime);
+  conv->set_warning_timeout(curtime + 15);
+  conv->set_fatal_timeout(curtime + 20);
+
+  this->session->set_auth(auth);
+#endif // SBUILD_FEATURE_PAM
 }
