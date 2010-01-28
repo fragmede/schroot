@@ -101,8 +101,11 @@ auth_null::authenticate (status auth_status)
 
     case STATUS_USER:
       // We don't support user authentication, so throw an error if
-      // the local and remote users are different.
-      if (this->ruid != this->uid)
+      // the user is not root.  i.e. Only root->root is permitted.
+      // All other authentication attempts fail.  Note that this could
+      // be used to escape pam_rootok restrictions on systems with PAM
+      // also available and pam_rootok not enabled.
+      if (this->ruid != 0)
 	throw error(AUTHENTICATION, strerror(ENOTSUP));
       break;
 
