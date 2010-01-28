@@ -100,7 +100,10 @@ auth_null::authenticate (status auth_status)
       break;
 
     case STATUS_USER:
-      throw error(AUTHENTICATION, strerror(ENOTSUP));
+      // We don't support user authentication, so throw an error if
+      // the local and remote users are different.
+      if (this->ruid != this->uid)
+	throw error(AUTHENTICATION, strerror(ENOTSUP));
       break;
 
     case STATUS_FAIL:
