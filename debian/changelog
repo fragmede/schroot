@@ -1,3 +1,16 @@
+schroot (1.4.1-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * dchroot and dchroot-dsa now allow root to access chroots which
+    don't specifically grant root access in their configuration
+    (Closes: #566879).  Thanks to Aurelien Jarno for reporting this.
+    This was a regression from the separation of authentication into
+    separate PAM and NULL authentication methods used by schroot and
+    dchroot/dchroot-dsa, respectively.  The NULL authentication method
+    was unnecessarily strict for user authentication.
+
+ -- Roger Leigh <rleigh@debian.org>  Thu, 28 Jan 2010 21:10:30 +0000
+
 schroot (1.4.0-1) unstable; urgency=low
 
   * New upstream stable release.
