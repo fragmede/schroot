@@ -1,11 +1,18 @@
 NEWS                                                            -*- outline -*-
 ----
 
-Welcome to schroot 1.4.0.  Please read these release notes carefully.
+Welcome to schroot 1.4.1.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 1.4.1:
+
+  1) A dchroot bug which prevented root from accessing chroots where
+     they were not specifically granted access has been fixed.  root
+     now has access to all chroots.  Note this only affected dchroot
+     and dchroot-dsa, not schroot.
 
 * Major changes in 1.4.0:
 
