@@ -46,11 +46,9 @@ argument may be separately quoted.
 The directory the command or login shell is run in depends upon the context.
 See \fI\-\-directory\fP option below for a complete description.
 .PP
-If the user is not an allowed user, or a member of the allowed groups (or if
-changing to root, the allowed root users or allowed root groups) for the
-specified chroot(s), the user will be required to authenticate themselves
-(typically with a password, but this depends upon the PAM configuration).  All
-chroot usage will be logged in the system logs.
+All chroot usage will be logged in the system logs.  Under some circumstances,
+the user may be required to authenticate themselves; see the section
+\[lq]\fIAuthentication\fP\[rq], below.
 .PP
 If no chroot is specified, the chroot name or alias \[oq]default\[cq] will be
 used as a fallback.  This is equivalent to \[lq]\-\-chroot=default\[rq].
@@ -124,6 +122,7 @@ none of the directories are available, schroot will exit with an error status.
 .BR \-u ", " \-\-user=\fIuser\fP
 Run as a different user.  The default is to run as the current user.  If
 required, the user may be required to authenticate themselves with a password.
+For further information, see the section \[lq]\fIAuthentication\fP\[rq], below.
 .TP
 .BR \-p ", " \-\-preserve\-environment
 Preserve the user's environment inside the chroot environment.  The default is
@@ -166,6 +165,27 @@ Force a session operation, even if it would otherwise fail.  This may be used
 to forcibly end a session, even if it has active users.  This does not
 guarantee that the session will be ended cleanly; filesystems may not be
 unmounted, for example.
+.SH AUTHENTICATION
+If the user is not an allowed user, or a member of the allowed groups (or if
+changing to root, the allowed root users or allowed root groups) for the
+specified chroot(s), permission will be immediately denied.  If switching
+users, and the user running the command has access, the user will be required
+to authenticate themselves using the credentials of the user being switched to.
+.PP
+On systems supporting Pluggable Authentication Modules (PAM), schroot will use
+PAM for authentication and authorisation of users.  If and when required,
+schroot will prompt for a password.  If PAM is not available, all
+authentication will automatically fail (user switching is \fInot\fP supported
+without PAM).
+.PP
+Note that when PAM is in use, the root user is not granted any special
+privileges by default in the program.  However, the default PAM configuration
+permits root to log in without a password (\fIpam_rootok.so\fP), but this may
+be disabled to prevent root from accessing any chroots except if specifically
+permitted.  In such a situation, root must be added to the allowed users or
+groups as for any other user or group.  If PAM is not available, the root user
+will be permitted to access all chroots, even when not explicitly granted
+access.
 .SH EXAMPLES
 .SS List available chroots
 \f[CR]% \f[CB]schroot \-l\fP\fP\[CR]
