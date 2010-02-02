@@ -56,6 +56,9 @@ namespace schroot
   protected:
     virtual void
     create_session(sbuild::session::operation sess_op);
+
+    void
+    add_session_auth ();
   };
 
 }

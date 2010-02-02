@@ -132,6 +132,12 @@ namespace schroot
     virtual void
     create_session (sbuild::session::operation sess_op) = 0;
 
+    /**
+     * Add PAM authentication handler to the session.
+     */
+    virtual void
+    add_session_auth ();
+
   protected:
     /// The program options.
     options_base::ptr          options;

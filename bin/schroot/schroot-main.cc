@@ -19,10 +19,6 @@
 #include <config.h>
 
 #include <sbuild/sbuild-config.h>
-#ifdef SBUILD_FEATURE_PAM
-#include <sbuild/sbuild-auth-pam.h>
-#include <sbuild/sbuild-auth-pam-conv-tty.h>
-#endif
 
 #include "schroot-main.h"
 
@@ -82,23 +78,12 @@ main::create_session(sbuild::session::operation sess_op)
 
   this->session = sbuild::session::ptr
     (new sbuild::session("schroot", this->config, sess_op, this->chroots));
+}
 
-#ifdef SBUILD_FEATURE_PAM
-  sbuild::auth::ptr auth = sbuild::auth_pam::create("schroot");
-
-  sbuild::auth_pam_conv_tty::auth_ptr auth_ptr =
-    std::tr1::dynamic_pointer_cast<sbuild::auth_pam>(auth);
-
-  sbuild::auth_pam_conv::ptr conv = sbuild::auth_pam_conv_tty::create(auth_ptr);
-
-  /* Set up authentication timeouts. */
-  time_t curtime = 0;
-  time(&curtime);
-  conv->set_warning_timeout(curtime + 15);
-  conv->set_fatal_timeout(curtime + 20);
-
-  this->session->set_auth(auth);
-#endif // SBUILD_FEATURE_PAM
+void
+main::add_session_auth ()
+{
+  main_base::add_session_auth();
 
   if (!this->options->user.empty())
     this->session->get_auth()->set_user(this->options->user);
