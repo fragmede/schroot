@@ -22,7 +22,13 @@
 #include "sbuild-chroot-facet-personality.h"
 #include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-session-clonable.h"
+#ifdef SBUILD_FEATURE_PAM
+#include "sbuild-auth-pam.h"
+#include "sbuild-auth-pam-conv.h"
+#include "sbuild-auth-pam-conv-tty.h"
+#else
 #include "sbuild-auth-null.h"
+#endif // SBUILD_FEATURE_PAM
 #include "sbuild-ctty.h"
 #include "sbuild-run-parts.h"
 #include "sbuild-session.h"
@@ -220,7 +226,13 @@ session::session (std::string const&         service,
 		  config_ptr&                config,
 		  operation                  operation,
 		  sbuild::string_list const& chroots):
-  authstat(auth_null::create(service)),
+  authstat(
+#ifdef SBUILD_FEATURE_PAM
+	   auth_pam::create(service)
+#else
+	   auth_null::create(service)
+#endif // SBUILD_FEATURE_PAM
+	   ),
   config(config),
   chroots(chroots),
   chroot_status(true),
