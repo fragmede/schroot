@@ -20,6 +20,7 @@
 
 #include "sbuild-chroot.h"
 #include "sbuild-chroot-facet-source-clonable.h"
+#include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-chroot-config.h"
 #include "sbuild-lock.h"
 
@@ -515,9 +516,19 @@ chroot_config::load_keyfile (keyfile& kconfig,
       // get the correct facets in place.  In the future, it would be
       // great if sessions could serialise their facet usage to allow
       // automatic reconstruction.
-      if (active)
+      chroot_facet_session_clonable::const_ptr clonable
+	(chroot->get_facet<chroot_facet_session_clonable>());
+
+      log_debug(DEBUG_INFO) << "Created template chroot (type=" << type
+			    << "  name/session-id=" << *group
+			    << "  active=" << active
+			    << "  source-clonable=" << static_cast<bool>(clonable)
+			    << ")" << endl;
+
+      if (active && clonable)
 	{
 	  chroot = chroot->clone_session("dummy-session-name", "", false);
+	  assert(chroot);
 	  assert(chroot->get_active());
 	}
       else
