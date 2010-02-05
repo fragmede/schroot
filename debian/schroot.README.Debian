@@ -8,4 +8,13 @@ fakechroot may be more secure if users want to have some approximation
 of root access in a chroot, but you don't want to give them full root
 access.
 
- -- Roger Leigh <rleigh@debian.org>, Sat, 17 Jun 2006 09:40:12 +0100
+In schroot 1.4.0, the naming of chroot configuration files under
+/etc/schroot/chroot.d has been made stricter, in order to
+prevent reading of editor backup files and dpkg conffile backups.
+It uses the same naming rules as specified in run-parts(8) for the
+--lsbsysinit option.  If some of your chroots are not available
+after upgrading to 1.4.0, this may be the reason.  Simply rename
+the files to a conforming name and they will become available.
+
+
+ -- Roger Leigh <rleigh@debian.org>, Fri, 05 Feb 2010 21:23:28 +0000
