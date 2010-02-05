@@ -8,8 +8,16 @@ schroot (1.4.1-1) unstable; urgency=low
     separate PAM and NULL authentication methods used by schroot and
     dchroot/dchroot-dsa, respectively.  The NULL authentication method
     was unnecessarily strict for user authentication.
+  * schroot no longer segfaults when loading plain chroot session
+    files (Closes: #568187).  This was caused by the chroot
+    configuration loader automatically creating a session chroot
+    from the template chroot used to deserialise the session
+    configuration into.  plain chroots, however, don't support
+    session creation and so return a NULL chroot, leading to a
+    subsequent segfault.  Thanks to Marc Bantle for identifying this
+    regression and aiding in debugging.
 
- -- Roger Leigh <rleigh@debian.org>  Thu, 28 Jan 2010 21:10:30 +0000
+ -- Roger Leigh <rleigh@debian.org>  Fri, 05 Feb 2010 20:58:28 +0000
 
 schroot (1.4.0-1) unstable; urgency=low
 
