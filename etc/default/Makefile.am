@@ -21,12 +21,4 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-SUBDIRS = pam default setup.d bash_completion
-
-pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
-
-pkgsysconf_DATA = 		\
-	schroot.conf
-
-EXTRA_DIST =			\
-	$(pkgsysconf_DATA)
+SUBDIRS = freebsd generic linux

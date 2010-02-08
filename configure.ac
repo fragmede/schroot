@@ -258,6 +258,7 @@ AC_SUBST([bashcompletiondir])
 AC_PROG_CXX
 AC_LANG([C++])
 ACX_PTHREAD([], [AC_MSG_ERROR([POSIX thread support is required for correct std::tr1::shared_ptr operation])])
+AC_CANONICAL_HOST
 AC_DISABLE_SHARED
 AC_ENABLE_STATIC
 AC_PROG_LIBTOOL
@@ -276,6 +277,27 @@ if test "$enable_doxygen" = "yes" && test -z "$DOXYGEN"; then
   AC_MSG_FAILURE([doxygen is not installed, but is required by schroot])
 fi;
 AM_CONDITIONAL([BUILD_DOXYGEN], [test -n "$DOXYGEN" && test "$enable_doxygen" = "yes"])
+
+
+# Check for host platform
+AC_MSG_CHECKING([for supported host platform type])
+PLATFORM="generic"
+case $host_os in
+    linux*):
+	PLATFORM="linux";;
+    freebsd* | k*bsd*-gnu) :
+	PLATFORM="freebsd";;
+esac
+AC_MSG_RESULT([$PLATFORM])
+AC_SUBST([PLATFORM], [$PLATFORM])
+
+AM_CONDITIONAL([PLATFORM_GENERIC], [test "$PLATFORM" = "generic"])
+AM_CONDITIONAL([PLATFORM_LINUX], [test "$PLATFORM" = "linux"])
+AM_CONDITIONAL([PLATFORM_FREEBSD], [test "$PLATFORM" = "freebsd"])
+
+AH_TEMPLATE(SBUILD_PLATFORM, [Platform type, used to modify run-time platform-specific behaviour])
+AC_DEFINE_UNQUOTED(SBUILD_PLATFORM, ["$PLATFORM"])
+
 
 # Checks for libraries.
 PKG_CHECK_MODULES([UUID], [uuid],
@@ -755,6 +777,10 @@ AC_CONFIG_FILES([bin/dchroot/Makefile])
 AC_CONFIG_FILES([bin/dchroot-dsa/Makefile])
 AC_CONFIG_FILES([bin/csbuild/Makefile])
 AC_CONFIG_FILES([etc/Makefile])
+AC_CONFIG_FILES([etc/default/Makefile])
+AC_CONFIG_FILES([etc/default/freebsd/Makefile])
+AC_CONFIG_FILES([etc/default/generic/Makefile])
+AC_CONFIG_FILES([etc/default/linux/Makefile])
 AC_CONFIG_FILES([etc/pam/Makefile])
 AC_CONFIG_FILES([etc/setup.d/Makefile])
 AC_CONFIG_FILES([etc/bash_completion/Makefile])

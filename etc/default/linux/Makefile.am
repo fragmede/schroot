@@ -21,12 +21,17 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-SUBDIRS = pam default setup.d bash_completion
+pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)/default
 
-pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
+if PLATFORM_LINUX
+SCRIPT_CONFIG = 		\
+	copyfiles	\
+	fstab		\
+	nssdatabases	\
+	config
+endif
 
-pkgsysconf_DATA = 		\
-	schroot.conf
+pkgsysconf_DATA = $(SCRIPT_CONFIG)
 
 EXTRA_DIST =			\
-	$(pkgsysconf_DATA)
+	$(SCRIPT_CONFIG)

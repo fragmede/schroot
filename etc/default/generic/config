@@ -2,10 +2,10 @@
 # See schroot-script-config(5) for further details.
 
 # Filesystems to mount inside the chroot.
-FSTAB="/etc/schroot/mount-defaults"
+FSTAB="/etc/schroot/default/fstab"
 
 # Files to copy from the host system into the chroot.
-COPYFILES="/etc/schroot/copyfiles-defaults"
+COPYFILES="/etc/schroot/default/copyfiles"
 
 # System NSS databases to copy into the chroot.
-NSSDATABASES="/etc/schroot/nssdatabases-defaults"
+NSSDATABASES="/etc/schroot/default/nssdatabases"
