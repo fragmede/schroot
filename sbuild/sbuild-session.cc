@@ -1036,6 +1036,10 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   env.add("LIBEXEC_DIR", SCHROOT_LIBEXEC_DIR);
   env.add("PID", getpid());
   env.add("SESSION_ID", session_chroot->get_session_id());
+  env.add("HOST", SBUILD_HOST);
+  env.add("HOST_OS", SBUILD_HOST_OS);
+  env.add("HOST_VENDOR", SBUILD_HOST_VENDOR);
+  env.add("HOST_CPU", SBUILD_HOST_CPU);
   env.add("PLATFORM", SBUILD_PLATFORM);
 
   run_parts rp(SCHROOT_CONF_SETUP_D,

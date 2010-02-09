@@ -298,6 +298,15 @@ AM_CONDITIONAL([PLATFORM_FREEBSD], [test "$PLATFORM" = "freebsd"])
 AH_TEMPLATE(SBUILD_PLATFORM, [Platform type, used to modify run-time platform-specific behaviour])
 AC_DEFINE_UNQUOTED(SBUILD_PLATFORM, ["$PLATFORM"])
 
+AH_TEMPLATE(SBUILD_HOST, [Host GNU architecture triplet])
+AH_TEMPLATE(SBUILD_HOST_OS, [Host OS])
+AH_TEMPLATE(SBUILD_HOST_VENDOR, [Host vendor])
+AH_TEMPLATE(SBUILD_HOST_CPU, [Host CPU])
+AC_DEFINE_UNQUOTED(SBUILD_HOST, ["$host"])
+AC_DEFINE_UNQUOTED(SBUILD_HOST_OS, ["$host_os"])
+AC_DEFINE_UNQUOTED(SBUILD_HOST_VENDOR, ["$host_vendor"])
+AC_DEFINE_UNQUOTED(SBUILD_HOST_CPU, ["$host_cpu"])
+
 
 # Checks for libraries.
 PKG_CHECK_MODULES([UUID], [uuid],

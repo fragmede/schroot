@@ -58,12 +58,24 @@ Set to \[oq]quiet\[cq] if only error messages should be printed,
 \[oq]normal\[cq] if other messages may be printed as well, and
 \[oq]verbose\[cq] if all messages may be printed.
 .TP
-MOUNT_DIR
-The directory under which non-filesystem chroots are mounted (e.g. block
-devices and LVM snapshots).
+HOST
+.TP
+HOST_OS
+.TP
+HOST_VENDOR
+.TP
+HOST_CPU
+The host system architecture schroot is running upon.  This may be used to
+introduce architecture-specific behaviour into the setup scripts where
+required.  HOST is the GNU triplet for the architecture, while HOST_OS,
+HOST_VENDOR and HOST_CPU are the component parts of the triplet.
 .TP
 LIBEXEC_DIR
 The directory under which helper programs are located.
+.TP
+MOUNT_DIR
+The directory under which non-filesystem chroots are mounted (e.g. block
+devices and LVM snapshots).
 .TP
 PID
 The process ID of the schroot process.
@@ -71,6 +83,9 @@ The process ID of the schroot process.
 PLATFORM
 The operating system platform schroot is running upon.  This may be used to
 introduce platform-specific behaviour into the setup scripts where required.
+Note that the HOST variables are probably what are required.  In the context of
+schroot, the platform is the supported configuration and behaviour for a given
+architecture, and may be identical between different architectures.
 .TP
 SESSION_ID
 The session identifier.

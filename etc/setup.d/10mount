@@ -103,11 +103,14 @@ if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT
 	CREATE_UNION="no"
     fi
 
-    if [ "$PLATFORM" = "freebsd" ]; then
-	BINDOPT="-t nullfs"
-    else
-	BINDOPT="--bind"
-    fi
+    case "$HOST_OS" in
+	freebsd* | k*bsd*-gnu) :
+	    BINDOPT="-t nullfs"
+	    ;;
+	*):
+	    BINDOPT="--bind"
+	    ;;
+    esac
 
     if [ "$CHROOT_TYPE" = "directory" ]; then
 	CHROOT_MOUNT_OPTIONS="$BINDOPT"
@@ -118,20 +121,23 @@ if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT
 	CHROOT_MOUNT_DEVICE="${CHROOT_FILE_UNPACK_DIR}/${SESSION_ID}"
 
     elif [ "$CHROOT_TYPE" = "loopback" ]; then
-	if [ "$PLATFORM" = "freebsd" ]; then
-	    LOOP_DEVICE="/dev/$(/sbin/mdconfig -a -t vnode -f "$CHROOT_FILE")"
-	    CHROOT_MOUNT_DEVICE="$LOOP_DEVICE"
-	    CHROOT_MOUNT_OPTIONS=""
-	else
-	    LOOP_DEVICE="$(/sbin/losetup -j "$CHROOT_FILE" | sed -e 's/:.*$//')"
-	    if [ -z "$LOOP_DEVICE" ]; then
-		CHROOT_MOUNT_DEVICE="$CHROOT_FILE"
-		CHROOT_MOUNT_OPTIONS="${CHROOT_MOUNT_OPTIONS},loop"
-	    else
+	case "$HOST_OS" in
+	    freebsd* | k*bsd*-gnu) :
+		LOOP_DEVICE="/dev/$(/sbin/mdconfig -a -t vnode -f "$CHROOT_FILE")"
 		CHROOT_MOUNT_DEVICE="$LOOP_DEVICE"
 		CHROOT_MOUNT_OPTIONS=""
-	    fi
-	fi
+		;;
+	    *):
+		LOOP_DEVICE="$(/sbin/losetup -j "$CHROOT_FILE" | sed -e 's/:.*$//')"
+		if [ -z "$LOOP_DEVICE" ]; then
+		    CHROOT_MOUNT_DEVICE="$CHROOT_FILE"
+		    CHROOT_MOUNT_OPTIONS="${CHROOT_MOUNT_OPTIONS},loop"
+		else
+		    CHROOT_MOUNT_DEVICE="$LOOP_DEVICE"
+		    CHROOT_MOUNT_OPTIONS=""
+		fi
+		;;
+	esac
     fi
 
     if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
