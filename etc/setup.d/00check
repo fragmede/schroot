@@ -53,6 +53,7 @@ if [ "$AUTH_VERBOSITY" = "verbose" ]; then
     echo "MOUNT_DIR=$MOUNT_DIR"
     echo "LIBEXEC_DIR=$LIBEXEC_DIR"
     echo "PID=$PID"
+    echo "PLATFORM=$PLATFORM"
     echo "SESSION_ID=$SESSION_ID"
     echo "CHROOT_TYPE=$CHROOT_TYPE"
     echo "CHROOT_NAME=$CHROOT_NAME"
@@ -116,7 +117,13 @@ case "$CHROOT_TYPE" in
 	fi
 	;;
     block-device | lvm-snapshot)
-	if [ ! -b "$CHROOT_DEVICE" ]; then
+	if [ "$PLATFORM" = "freebsd" ]; then
+	    DEVTYPE="-c"
+	else
+	    DEVTYPE="-b"
+	fi
+
+	if [ ! "$DEVTYPE" "$CHROOT_DEVICE" ]; then
 	    echo "Device '$CHROOT_DEVICE' does not exist"
 	    exit 1
 	fi

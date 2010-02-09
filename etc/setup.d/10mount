@@ -103,22 +103,34 @@ if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT
 	CREATE_UNION="no"
     fi
 
+    if [ "$PLATFORM" = "freebsd" ]; then
+	BINDOPT="-t nullfs"
+    else
+	BINDOPT="--bind"
+    fi
+
     if [ "$CHROOT_TYPE" = "directory" ]; then
-	CHROOT_MOUNT_OPTIONS="--bind"
+	CHROOT_MOUNT_OPTIONS="$BINDOPT"
 	CHROOT_MOUNT_DEVICE="$CHROOT_DIRECTORY"
     elif [ "$CHROOT_TYPE" = "file" ]; then
 	UNPACK_LOCATION="${UNPACK_DIR}/${SESSION_ID}"
-	CHROOT_MOUNT_OPTIONS="--bind"
+	CHROOT_MOUNT_OPTIONS="$BINDOPT"
 	CHROOT_MOUNT_DEVICE="${CHROOT_FILE_UNPACK_DIR}/${SESSION_ID}"
 
     elif [ "$CHROOT_TYPE" = "loopback" ]; then
-	LOOP_DEVICE="$(/sbin/losetup -j "$CHROOT_FILE" | sed -e 's/:.*$//')"
-	if [ -z "$LOOP_DEVICE" ]; then
-	    CHROOT_MOUNT_DEVICE="$CHROOT_FILE"
-	    CHROOT_MOUNT_OPTIONS="${CHROOT_MOUNT_OPTIONS},loop"
-	else
+	if [ "$PLATFORM" = "freebsd" ]; then
+	    LOOP_DEVICE="/dev/$(/sbin/mdconfig -a -t vnode -f "$CHROOT_FILE")"
 	    CHROOT_MOUNT_DEVICE="$LOOP_DEVICE"
 	    CHROOT_MOUNT_OPTIONS=""
+	else
+	    LOOP_DEVICE="$(/sbin/losetup -j "$CHROOT_FILE" | sed -e 's/:.*$//')"
+	    if [ -z "$LOOP_DEVICE" ]; then
+		CHROOT_MOUNT_DEVICE="$CHROOT_FILE"
+		CHROOT_MOUNT_OPTIONS="${CHROOT_MOUNT_OPTIONS},loop"
+	    else
+		CHROOT_MOUNT_DEVICE="$LOOP_DEVICE"
+		CHROOT_MOUNT_OPTIONS=""
+	    fi
 	fi
     fi
 
