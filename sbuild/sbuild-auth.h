@@ -93,7 +93,8 @@ namespace sbuild
 	AUTHENTICATION,  ///< Authentication failed.
 	AUTHORISATION,   ///< Authorisation failed.
 	PAM_DOUBLE_INIT, ///< PAM was already initialised.
-	PAM              ///< PAM error.
+	PAM,             ///< PAM error.
+	PAM_END          ///< PAM failed to shut down cleanly.
       };
 
     /// Exception type.
