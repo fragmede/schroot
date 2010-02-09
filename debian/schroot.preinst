@@ -50,6 +50,12 @@ install|upgrade)
          rm_conffile "schroot" "/etc/schroot/setup.d/20network"
          rm_conffile "schroot" "/etc/schroot/setup.d/30passwd"
     fi
+    if dpkg --compare-versions "$2" le "1.4.0-1"; then
+         rm_conffile "schroot" "/etc/schroot/script-defaults"
+         rm_conffile "schroot" "/etc/schroot/mount-defaults"
+         rm_conffile "schroot" "/etc/schroot/copyfiles-defaults"
+         rm_conffile "schroot" "/etc/schroot/nssdatabases-defaults"
+    fi
 esac
 
 # dh_installdeb will replace this with shell code automatically
