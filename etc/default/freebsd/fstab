@@ -3,10 +3,8 @@
 # (CHROOT_PATH)
 #
 # <file system>	<mount point>	<type>	<options>	<dump>	<pass>
-proc		/proc		proc	defaults	0	0
-#procbususb      /proc/bus/usb   usbfs   defaults        0       0
-#/dev            /dev            none    rw,bind         0       0
-/dev/pts	/dev/pts	none	rw,bind		0	0
-/dev/shm	/dev/shm	none	rw,bind		0	0
-/home		/home		none	rw,bind		0	0
-/tmp		/tmp		none	rw,bind		0	0
+proc		/proc		linprocfs	defaults	0	0
+#dev		/dev		devfs	rw,bind		0	0
+dev		/dev/fd		fdescfs	rw,bind		0	0
+/home		/home		nullfs	rw		0	0
+/tmp		/tmp		nullfs	rw		0	0
