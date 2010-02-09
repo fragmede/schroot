@@ -24,11 +24,10 @@ include $(top_srcdir)/scripts/global.mk
 pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)/default
 
 if PLATFORM_LINUX
-SCRIPT_CONFIG = 		\
+SCRIPT_CONFIG = 	\
 	copyfiles	\
 	fstab		\
-	nssdatabases	\
-	config
+	nssdatabases
 endif
 
 pkgsysconf_DATA = $(SCRIPT_CONFIG)

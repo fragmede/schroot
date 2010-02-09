@@ -21,4 +21,4 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-SUBDIRS = freebsd generic linux
+SUBDIRS = generic freebsd linux
