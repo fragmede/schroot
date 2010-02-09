@@ -1,0 +1,10 @@
+# mount.defaults: static file system information for chroots.
+# Note that the mount point will be prefixed by the chroot path
+# (CHROOT_PATH)
+#
+# <file system>	<mount point>	<type>	<options>	<dump>	<pass>
+proc		/proc		linprocfs	defaults	0	0
+#dev		/dev		devfs	rw,bind		0	0
+dev		/dev/fd		fdescfs	rw,bind		0	0
+/home		/home		nullfs	rw		0	0
+/tmp		/tmp		nullfs	rw		0	0

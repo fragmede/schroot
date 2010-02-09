@@ -125,7 +125,7 @@ namespace
 
 auth_pam::auth_pam (std::string const& service_name):
   auth(service_name),
-  pam(),
+  pam(0),
   conv()
 {
 }
@@ -201,7 +201,7 @@ auth_pam::start ()
 void
 auth_pam::stop ()
 {
-  if (this->pam); // PAM must be initialised
+  if (this->pam) // PAM must be initialised
   {
     int pam_status;
 
@@ -209,7 +209,7 @@ auth_pam::stop ()
 	 pam_end(this->pam, PAM_SUCCESS)) != PAM_SUCCESS)
       {
 	log_debug(DEBUG_WARNING) << "pam_end FAIL" << endl;
-	throw error(PAM, pam_strerror(pam_status));
+	throw error(PAM_END);
       }
 
     this->pam = 0;

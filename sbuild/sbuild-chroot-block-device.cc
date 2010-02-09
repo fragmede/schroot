@@ -123,7 +123,13 @@ chroot_block_device::setup_lock (chroot::setup_type type,
 
   try
     {
-      if (!stat(this->get_device()).is_block())
+      if (!stat
+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
+	  (this->get_device()).is_character()
+#else
+	  (this->get_device()).is_block()
+#endif
+	  )
 	{
 	  throw error(get_device(), DEVICE_NOTBLOCK);
 	}

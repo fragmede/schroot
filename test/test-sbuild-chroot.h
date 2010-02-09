@@ -176,7 +176,7 @@ public:
   {
     env.add("CHROOT_NAME",           "test-name");
     env.add("CHROOT_DESCRIPTION",    "test-description");
-    env.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/script-defaults"));
+    env.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/default/config"));
   }
 
   void setup_keyfile_chroot (sbuild::keyfile&   keyfile,
@@ -193,7 +193,7 @@ public:
 		      SBUILD_DEFAULT_ENVIRONMENT_FILTER);
     keyfile.set_value(group, "personality", "undefined");
     keyfile.set_value(group, "command-prefix", "");
-    keyfile.set_value(group, "script-config", "script-defaults");
+    keyfile.set_value(group, "script-config", "default/config");
   }
 
   void setup_keyfile_session (sbuild::keyfile&   keyfile,

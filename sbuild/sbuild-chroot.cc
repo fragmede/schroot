@@ -108,7 +108,7 @@ sbuild::chroot::chroot ():
   mount_location(),
   original(true),
   run_setup_scripts(true),
-  script_config("script-defaults"),
+  script_config("default/config"),
   command_prefix(),
   facets()
 {

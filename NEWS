@@ -14,6 +14,26 @@ configuration.
      now has access to all chroots.  Note this only affected dchroot
      and dchroot-dsa, not schroot.
 
+  2) The setup script configuration files 'script-defaults',
+     'mount-defaults', 'copyfiles-defaults' and
+     'nssdatabases-defaults', located in /etc/schroot, have been moved
+     to /etc/schroot/default.  'script-defaults' has been renamed to
+     'config', and 'mount-defaults' has been renamed to 'fstab'.  Note
+     that the default setting for 'script-config' in schroot.conf has
+     changed from 'script-defaults' to 'default/config'.  If manually
+     setting 'script-config' to 'script-defaults' in your chroot
+     definitions, this will require updating.  If unset, no changes
+     are required.
+
+  3) Additional setup script environment variables have been added:
+     HOST, HOST_OS, HOST_VENDOR, HOST_CPU and PLATFORM.  These are for
+     adding platform-specific logic to setup scripts, and are
+     initially for FreeBSD and GNU/kFreeBSD compatibiliity.
+
+  4) Additional FreeBSD compatibility work in setup scripts and block
+     device code.  schroot should now work with current FreeBSD and
+     Debian GNU/kFreeBSD systems.
+
 * Major changes in 1.4.0:
 
   None.  For users upgrading from the previous stable release (1.2.x),
