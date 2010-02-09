@@ -33,7 +33,7 @@ endif
 SCRIPT_GLOBAL =		\
 	config
 
-pkgsysconf_DATA = $(SCRIPT_CONFIG)
+pkgsysconf_DATA = $(SCRIPT_GLOBAL) $(SCRIPT_CONFIG)
 
 EXTRA_DIST =			\
 	$(SCRIPT_GLOBAL)	\
