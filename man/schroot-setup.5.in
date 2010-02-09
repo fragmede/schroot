@@ -68,6 +68,10 @@ The directory under which helper programs are located.
 PID
 The process ID of the schroot process.
 .TP
+PLATFORM
+The operating system platform schroot is running upon.  This may be used to
+introduce platform-specific behaviour into the setup scripts where required.
+.TP
 SESSION_ID
 The session identifier.
 .TP
