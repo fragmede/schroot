@@ -23,17 +23,19 @@ include $(top_srcdir)/scripts/global.mk
 
 pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)/default
 
-if PLATFORM_GENERIC
 SCRIPT_CONFIG = 	\
 	copyfiles	\
 	fstab		\
 	nssdatabases
-endif
 
 SCRIPT_GLOBAL =		\
 	config
 
+if PLATFORM_GENERIC
 pkgsysconf_DATA = $(SCRIPT_GLOBAL) $(SCRIPT_CONFIG)
+else
+pkgsysconf_DATA = $(SCRIPT_GLOBAL)
+endif
 
 EXTRA_DIST =			\
 	$(SCRIPT_GLOBAL)	\
