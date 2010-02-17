@@ -46,6 +46,9 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
     if [ -n "$NSSDATABASES" ]; then
 	if [ -f "$NSSDATABASES" ]; then
 	    while read db; do
+		if echo "$db" | egrep -q '^(#|$)' ; then
+		    continue
+		fi
 		dup_nss "$db" "${CHROOT_PATH}/etc/$db"
 	    done < "$NSSDATABASES"
 	else
