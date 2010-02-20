@@ -28,7 +28,7 @@ schroot (1.4.1-1) unstable; urgency=low
     README.Debian (Closes: #567409).
   * Document setup script configuration files in schroot.conf(5)
     and schroot-setup(5) (Closes: #566141).
-  * Update to Standards Version 3.8.4. 
+  * Update to Standards Version 3.8.4.
 
  -- Roger Leigh <rleigh@debian.org>  Sat, 20 Feb 2010 20:16:52 +0000
 
