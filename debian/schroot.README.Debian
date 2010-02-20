@@ -21,12 +21,12 @@ In schroot 1.4.1, the files 'script-defaults', 'mount-defaults',
 /etc/schroot have been moved to /etc/schroot/default.
 'script-defaults' has been renamed to 'config', and 'mount-defaults'
 has been renamed to 'fstab'.  Likewise 'nssdatabases-defaults' has
-been renamed to 'nssdatabases' and 'copyfiles-defaults' to 'copyfiles'
-Note that the default setting for 'script-config' in schroot.conf has
-changed from 'script-defaults' to 'default/config'.  If manually
-setting 'script-config' to 'script-defaults' in your chroot
-definitions, this will require updating.  If unset, no changes are
-required.
+been renamed to 'nssdatabases' and 'copyfiles-defaults' to
+'copyfiles'.  Note that the default setting for 'script-config' in
+schroot.conf has changed from 'script-defaults' to 'default/config'.
+If manually setting 'script-config' to 'script-defaults' in your
+chroot definitions, this will require updating.  If unset, no changes
+are required.
 
 
  -- Roger Leigh <rleigh@debian.org>, Fri, 05 Feb 2010 21:23:28 +0000
