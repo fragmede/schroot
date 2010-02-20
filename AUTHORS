@@ -17,5 +17,8 @@ Jan-Marek Glogowski	<glogow@fbihome.de>
 Federico Di Gregorio	<fog@debian.org>
 	Init script improvements.
 
+Aurelien Jarno <aurel32@debian.org>
+	GNU/kFreeBSD and FreeBSD porting.
+
 Roger Leigh		<rleigh@debian.org>
 	Architecture, Coding, Documentation.

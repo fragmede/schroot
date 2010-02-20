@@ -4,14 +4,14 @@
 #
 # Translations:
 # Miguel Figueiredo <elmig@debianpt.org>, 2006.
-# Pedro Ribeiro <p.m42.ribeiro@gmail.com>, 2008.
+# Pedro Ribeiro <p.m42.ribeiro@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: schroot 1.1.6-1\n"
+"Project-Id-Version: schroot 1.4.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2010-01-16 15:36+0000\n"
-"PO-Revision-Date: 2010-01-16 15:44+0000\n"
+"PO-Revision-Date: 2010-01-17 18:50+0100\n"
 "Last-Translator: Pedro Ribeiro <p.m42.ribeiro@gmail.com>\n"
 "Language-Team: Portuguese <traduz@debianpt.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,13 +29,13 @@ msgstr "Não foi possível abrir o ficheiro '%1%'"
 #: bin/csbuild/csbuild-debian-changes.cc:47
 #, boost-format
 msgid "line %1%: Deprecated key '%4%' used"
-msgstr "linha %1%: Usada chave deprecada '%4%'"
+msgstr "linha %1%: Usada chave obsoleta '%4%'"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
 #: bin/csbuild/csbuild-debian-changes.cc:49
 #, boost-format
 msgid "Deprecated key '%4%' used"
-msgstr "Usada chave deprecada '%4%'"
+msgstr "Usada chave obsoleta '%4%'"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
@@ -157,14 +157,12 @@ msgid "Build options"
 msgstr "Opções de criação"
 
 #: bin/csbuild/csbuild-options.cc:74
-#, fuzzy
 msgid "Package version options"
-msgstr "Opções da sessão"
+msgstr "Opções da versão do pacote"
 
 #: bin/csbuild/csbuild-options.cc:75
-#, fuzzy
 msgid "Build environment options"
-msgstr "Opções de criação"
+msgstr "Opções de ambiente de criação"
 
 #: bin/csbuild/csbuild-options.cc:76
 msgid "User options"
@@ -172,7 +170,7 @@ msgstr "Opções de utilizador"
 
 #: bin/csbuild/csbuild-options.cc:77
 msgid "Build dependency override options"
-msgstr ""
+msgstr "Opções de sobreposição às dependências de criação"
 
 #: bin/csbuild/csbuild-options.cc:78
 msgid "Special options"
@@ -188,33 +186,31 @@ msgstr "Não registar a saída do programa"
 
 #: bin/csbuild/csbuild-options.cc:101
 msgid "Run in batch mode"
-msgstr ""
+msgstr "Correr em modo batch"
 
 #: bin/csbuild/csbuild-options.cc:105
 msgid "dpkg-buildpackage option"
-msgstr ""
+msgstr "opção para o dpkg-buildpackage"
 
 #: bin/csbuild/csbuild-options.cc:107
 msgid "dpkg-buildpackage options (space-separated)"
-msgstr ""
+msgstr "opções para o dpkg-buildpackage (separadas por espaços)"
 
 #: bin/csbuild/csbuild-options.cc:109
 msgid "Distribution to build for"
 msgstr "Distribuição para a qual criar"
 
 #: bin/csbuild/csbuild-options.cc:111
-#, fuzzy
 msgid "Archive to build for"
-msgstr "Distribuição para a qual criar"
+msgstr "Arquivo para o qual criar"
 
 #: bin/csbuild/csbuild-options.cc:113
-#, fuzzy
 msgid "Build architecture"
-msgstr "Criar pacotes \"all\" na arquitectura"
+msgstr "Arquitectura de criação"
 
 #: bin/csbuild/csbuild-options.cc:115
 msgid "Build architecture \"all\" packages"
-msgstr "Criar pacotes \"all\" na arquitectura"
+msgstr "Criar pacotes para a arquitectura \"all\""
 
 #: bin/csbuild/csbuild-options.cc:117
 msgid "Build a source package"
@@ -226,42 +222,36 @@ msgstr ""
 "Forçar a criação de um pacote fonte, independentemente da versão Debian"
 
 #: bin/csbuild/csbuild-options.cc:123
-#, fuzzy
 msgid "Make a binary non-maintainer upload (changelog entry)"
-msgstr "Fazer um upload binário de não-'maintainer'"
+msgstr "Fazer um upload binário de não-'maintainer' (entrada de registo)"
 
 #: bin/csbuild/csbuild-options.cc:125
-#, fuzzy
 msgid "Make a binary non-maintainer upload (binNMU number)"
-msgstr "Fazer um upload binário de não-'maintainer'"
+msgstr "Fazer um upload binário de não-'maintainer' (número de binNMU)"
 
 #: bin/csbuild/csbuild-options.cc:127
 msgid "Append version suffix"
-msgstr ""
+msgstr "Acrescentar sufixo de versão"
 
 #: bin/csbuild/csbuild-options.cc:130
-#, fuzzy
 msgid "Update chroot environment"
-msgstr "Ambiente de chroot"
+msgstr "Actualizar ambiente de chroot"
 
 #: bin/csbuild/csbuild-options.cc:132
-#, fuzzy
 msgid "Chroot environment to build in"
-msgstr "Ambiente de chroot"
+msgstr "Ambiente de chroot onde criar"
 
 #: bin/csbuild/csbuild-options.cc:134
-#, fuzzy
 msgid "Purge build mode"
-msgstr "Modo de purga"
+msgstr "Modo de purga de criação"
 
 #: bin/csbuild/csbuild-options.cc:136
-#, fuzzy
 msgid "Purge dependencies mode"
-msgstr "Modo de purga"
+msgstr "Modo de purga de dependências"
 
 #: bin/csbuild/csbuild-options.cc:138
 msgid "Run setup hook script in chroot prior to building"
-msgstr ""
+msgstr "Correr o script de \"setup hook\" no chroot antes da criação"
 
 #: bin/csbuild/csbuild-options.cc:142
 msgid "GPG key identifier"
@@ -280,39 +270,36 @@ msgid "Add a build dependency"
 msgstr "Adicionar uma dependência de criação"
 
 #: bin/csbuild/csbuild-options.cc:152
-#, fuzzy
 msgid "Add a build conflict"
-msgstr "Adicionar uma dependência de criação"
+msgstr "Adicionar um conflito de criação"
 
 #: bin/csbuild/csbuild-options.cc:154
-#, fuzzy
 msgid "Add an architecture-independent build dependency"
-msgstr "Adicionar uma dependência de criação"
+msgstr "Adicionar uma dependência de criação independente da arquitectura"
 
 #: bin/csbuild/csbuild-options.cc:156
 msgid "Add an architecture-independent build conflict"
-msgstr ""
+msgstr "Adicionar um conflito de criação independente da arquitectura"
 
 #: bin/csbuild/csbuild-options.cc:160
 msgid "Specify algorithm for dependency checking"
-msgstr ""
+msgstr "Indique o algoritmo para verificação de dependências"
 
 #: bin/csbuild/csbuild-options.cc:162
 msgid "Build using the current GCC development snapshot"
 msgstr "Criar usando a actual imagem de desenvolvimento do GCC"
 
 #: bin/csbuild/csbuild-options.cc:166
-#, fuzzy
 msgid "Package to build"
-msgstr "'Uploader' do pacote"
+msgstr "Pacote a criar"
 
 #: bin/csbuild/csbuild-options.cc:223
 msgid "--makebinNMU missing"
-msgstr ""
+msgstr "falta --makebinNMU"
 
 #: bin/csbuild/csbuild-options.cc:225
 msgid "--binNMU missing"
-msgstr ""
+msgstr "falta --binNMU"
 
 #. TRANSLATORS: %1% = chroot name
 #: bin/dchroot-dsa/dchroot-dsa-chroot-config.cc:117
@@ -481,7 +468,7 @@ msgstr "Escrito por Roger Leigh"
 #. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
 #: bin/schroot-base/schroot-base-main.cc:69
 msgid "Copyright (C) 2004-2010 Roger Leigh"
-msgstr "Copyright © 2004–2010 Roger Leigh"
+msgstr "Copyright (C) 2004-2010 Roger Leigh"
 
 #: bin/schroot-base/schroot-base-main.cc:70
 msgid ""
@@ -489,30 +476,28 @@ msgid ""
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
 "Este é software livre; ver o código-fonte para condições de cópia.  NÃO HÁ\n"
-"garantia; nem mesmo para MERCABILIDADE ou ADEQUABILIDADE PARA UM FIM "
+"garantia; nem mesmo para COMERCIALIZAÇÃO ou ADEQUAÇÃO PARA UM FIM "
 "PARTICULAR.\n"
 
 #: bin/schroot-base/schroot-base-main.cc:73
 msgid "Configured features:"
-msgstr ""
+msgstr "Capacidades configuradas:"
 
 #: bin/schroot-base/schroot-base-main.cc:75
-#, fuzzy
 msgid "Device locking"
-msgstr "Dispositivo"
+msgstr "Bloqueio do dispositivo"
 
 #: bin/schroot-base/schroot-base-main.cc:78
-#, fuzzy
 msgid "Pluggable Authentication Modules"
-msgstr "Falhou a autenticação"
+msgstr "Pluggable Authentication Modules"
 
 #: bin/schroot-base/schroot-base-main.cc:81
 msgid "Linux kernel Application Binary Interface switching"
-msgstr ""
+msgstr "Alternância de ABI - Application Binary Interface do kernel Linux"
 
 #: bin/schroot-base/schroot-base-main.cc:84
 msgid "Support for filesystem unioning"
-msgstr ""
+msgstr "Suporte a união de sistemas de ficheiros"
 
 #: bin/schroot-base/schroot-base-main.cc:93
 msgid "Usage:"
@@ -644,7 +629,7 @@ msgstr "[OPÇÃO...] - libertar um bloqueio de dispositivo"
 
 #: bin/schroot-releaselock/schroot-releaselock-main.cc:89
 msgid "No PID specified; forcing release of lock"
-msgstr "PID não especificado; forçando a libertação do bloqueio"
+msgstr "PID não especificado; a forçar a libertação do bloqueio"
 
 #: bin/schroot-releaselock/schroot-releaselock-options.cc:43
 msgid "Lock"
@@ -694,33 +679,32 @@ msgid "%1%: Chroot not found"
 msgstr "%1%: Não foi encontrado o chroot"
 
 #: bin/schroot/schroot-main-base.cc:101
-#, fuzzy
 msgid "Available chroot types:"
-msgstr "Chroots disponíveis: "
+msgstr "Tipos de chroot disponíveis: "
 
 #: bin/schroot/schroot-main-base.cc:103
 msgid "Support for 'block-device' chroots"
-msgstr ""
+msgstr "Suporte para chroots 'block-device'"
 
 #: bin/schroot/schroot-main-base.cc:105
 msgid "Support for 'directory' chroots"
-msgstr ""
+msgstr "Suporte para chroots 'directory'"
 
 #: bin/schroot/schroot-main-base.cc:106
 msgid "Support for 'file' chroots"
-msgstr ""
+msgstr "Suporte para chroots 'file'"
 
 #: bin/schroot/schroot-main-base.cc:108
 msgid "Support for 'loopback' chroots"
-msgstr ""
+msgstr "Suporte para chroots 'loopback'"
 
 #: bin/schroot/schroot-main-base.cc:111
 msgid "Support for 'lvm-snapshot' chroots"
-msgstr ""
+msgstr "Suporte para chroots 'lvm-snapshot'"
 
 #: bin/schroot/schroot-main-base.cc:113
 msgid "Support for 'plain' chroots"
-msgstr ""
+msgstr "Suporte para chroots 'plain'"
 
 #: bin/schroot/schroot-options-base.cc:56
 msgid "Chroot selection"
@@ -767,6 +751,8 @@ msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
 msgstr ""
+"--session-name não é permitido para a acção especificada; quereria usar --"
+"chroot ?"
 
 #: bin/schroot/schroot-options-base.cc:237
 msgid "--chroot may not be used with --list"
@@ -851,20 +837,20 @@ msgstr "Falhou a obtenção de características do terminal"
 #: sbuild/sbuild-auth-pam-conv-tty.cc:54
 #, boost-format
 msgid "Unsupported conversation type '%1%'"
-msgstr "Tipo '%1%' de conversação não suportado"
+msgstr "Tipo de conversação '%1%' não suportado"
 
 #: sbuild/sbuild-auth-pam.cc:78
 msgid "Password: "
-msgstr ""
+msgstr "Palavra-passe: "
 
 #: sbuild/sbuild-auth-pam.cc:79
 msgid "Password:"
-msgstr ""
+msgstr "Palavra-passe:"
 
 #: sbuild/sbuild-auth-pam.cc:86
 #, boost-format
 msgid "[schroot] password for %1%: "
-msgstr ""
+msgstr "[schroot] palavra-passe para %1%: "
 
 #: sbuild/sbuild-auth-pam.cc:233
 msgid "Set RUSER"
@@ -916,15 +902,14 @@ msgid "PAM error"
 msgstr "Erro de PAM"
 
 #: sbuild/sbuild-basic-keyfile.tcc:115
-#, fuzzy
 msgid "This option may be present in a newer version"
-msgstr "Esta opção será removida no futuro"
+msgstr "Esta opção poderá estar presente numa versão mais recente"
 
 #: sbuild/sbuild-basic-keyfile.tcc:460 sbuild/sbuild-basic-keyfile.tcc:466
-#, fuzzy
 msgid ""
 "This option will be removed in the future; please update your configuration"
-msgstr "Esta opção será removida no futuro"
+msgstr ""
+"Esta opção será removida no futuro; por favor actualize a sua configuração"
 
 #: sbuild/sbuild-chroot-block-device-base.cc:130
 msgid "Device"
@@ -972,9 +957,8 @@ msgid "Available chroots: "
 msgstr "Chroots disponíveis: "
 
 #: sbuild/sbuild-chroot-directory-base.cc:73
-#, fuzzy
 msgid "Directory"
-msgstr "Directório a usar"
+msgstr "Directório"
 
 #: sbuild/sbuild-chroot-facet-mountable.cc:123
 msgid "Mount Device"
@@ -995,9 +979,8 @@ msgid "Personality"
 msgstr "Personalidade"
 
 #: sbuild/sbuild-chroot-facet-session.cc:88
-#, fuzzy
 msgid "Session ID"
-msgstr "Sessão"
+msgstr "ID de Sessão"
 
 #: sbuild/sbuild-chroot-facet-source-clonable.cc:69
 msgid "(source chroot)"
@@ -1021,37 +1004,33 @@ msgstr "Grupos Root na Origem"
 
 #. TRANSLATORS: %1% = chroot fs type
 #: sbuild/sbuild-chroot-facet-union.cc:43
-#, fuzzy, boost-format
+#, boost-format
 msgid "Unknown filesystem union type '%1%'"
-msgstr "Tipo de chroot '%1%' desconhecido"
+msgstr "Tipo de sistema de ficheiros union '%1%' desconhecido"
 
 #: sbuild/sbuild-chroot-facet-union.cc:44
-#, fuzzy
 msgid "Union overlay must have an absolute path"
-msgstr "O ficheiro tem que ter um caminho absoluto"
+msgstr "'Overlay' de união tem que ter um caminho absoluto"
 
 #: sbuild/sbuild-chroot-facet-union.cc:45
-#, fuzzy
 msgid "Union underlay must have an absolute path"
-msgstr "O ficheiro tem que ter um caminho absoluto"
+msgstr "'Underlay' de união tem que ter um caminho absoluto"
 
 #: sbuild/sbuild-chroot-facet-union.cc:214
-#, fuzzy
 msgid "Filesystem union type"
-msgstr "Opções da sessão"
+msgstr "Tipo de sistema de ficheiros union"
 
 #: sbuild/sbuild-chroot-facet-union.cc:218
-#, fuzzy
 msgid "Filesystem union mount options"
-msgstr "Opções da sessão"
+msgstr "Opções de montagem de sistema de ficheiros union"
 
 #: sbuild/sbuild-chroot-facet-union.cc:221
 msgid "Filesystem union overlay directory"
-msgstr ""
+msgstr "Directório de 'overlay' de sistema de ficheiros union"
 
 #: sbuild/sbuild-chroot-facet-union.cc:224
 msgid "Filesystem union underlay directory"
-msgstr ""
+msgstr "Directório de 'underlay' de sistema de ficheiros union"
 
 #: sbuild/sbuild-chroot-file.cc:193 sbuild/sbuild-chroot-loopback.cc:200
 msgid "File"
@@ -1096,17 +1075,16 @@ msgid "Failed to unlock device"
 msgstr "Falhou desbloquear o dispositivo"
 
 #: sbuild/sbuild-chroot.cc:74
-#, fuzzy
 msgid "Directory must have an absolute path"
-msgstr "O dispositivo tem que ter um caminho absoluto"
+msgstr "O directório tem que ter um caminho absoluto"
 
 #: sbuild/sbuild-chroot.cc:75
 msgid "Attempt to add object which is not a facet"
-msgstr ""
+msgstr "Tentativa de adicionar um objecto que não é uma 'facet'"
 
 #: sbuild/sbuild-chroot.cc:76
 msgid "Attempt to add facet which is already in use"
-msgstr ""
+msgstr "Tentativa de adicionar uma 'facet' já em uso"
 
 #: sbuild/sbuild-chroot.cc:77
 msgid "File must have an absolute path"
@@ -1240,22 +1218,22 @@ msgstr "--- %1% ---"
 #: sbuild/sbuild-keyfile-base.cc:46
 #, boost-format
 msgid "line %1% [%2%]: Deprecated key '%4%' used"
-msgstr "linha %1% [%2%]: Usada chave '%4%' deprecada"
+msgstr "linha %1% [%2%]: Usada chave obsoleta '%4%'"
 
 #: sbuild/sbuild-keyfile-base.cc:50
 #, boost-format
 msgid "[%1%]: Deprecated key '%4%' used"
-msgstr "[%1%]: Usada chave deprecada '%4%'"
+msgstr "[%1%]: Usada chave obsoleta '%4%'"
 
 #: sbuild/sbuild-keyfile-base.cc:55
 #, boost-format
 msgid "line %1% [%2%]: Disallowed key '%4%' used"
-msgstr "linha %1% [%2%]: Usada chave '%4%' não autorizada"
+msgstr "linha %1% [%2%]: Usada chave não autorizada '%4%'"
 
 #: sbuild/sbuild-keyfile-base.cc:59
 #, boost-format
 msgid "[%1%]: Disallowed key '%4%' used"
-msgstr "[%1%]: Usada chave '%4%' não autorizada"
+msgstr "[%1%]: Usada chave não autorizada '%4%'"
 
 #: sbuild/sbuild-keyfile-base.cc:63
 #, boost-format
@@ -1381,24 +1359,24 @@ msgstr ""
 #. TRANSLATORS: "I" is an abbreviation of "Information"
 #: sbuild/sbuild-log.cc:91 sbuild/sbuild-log.cc:124
 msgid "I: "
-msgstr "I:"
+msgstr "I: "
 
 #. TRANSLATORS: "W" is an abbreviation of "Warning"
 #: sbuild/sbuild-log.cc:98 sbuild/sbuild-log.cc:131
 msgid "W: "
-msgstr "A:"
+msgstr "A: "
 
 #. TRANSLATORS: "E" is an abbreviation of "Error"
 #: sbuild/sbuild-log.cc:105 sbuild/sbuild-log.cc:138
 msgid "E: "
-msgstr "E:"
+msgstr "E: "
 
 #. TRANSLATORS: %1% = integer debug level
 #. TRANSLATORS: "D" is an abbreviation of "Debug"
 #: sbuild/sbuild-log.cc:115
 #, boost-format
 msgid "D(%1%): "
-msgstr "D(%1%):"
+msgstr "D(%1%): "
 
 #. TRANSLATORS: %1% = mount file name
 #: sbuild/sbuild-mntstream.cc:40
@@ -1420,7 +1398,7 @@ msgstr "desconhecido"
 #: sbuild/sbuild-parse-value.cc:37
 #, boost-format
 msgid "Could not parse value '%1%'"
-msgstr "Não pude analizar o valor '%1%'"
+msgstr "Não pude analisar o valor '%1%'"
 
 #. TRANSLATORS: %1% = integer personality ID
 #: sbuild/sbuild-personality.cc:49
@@ -1441,24 +1419,20 @@ msgid "Valid personalities: %1%\n"
 msgstr "Personalidades válidas: %1%\n"
 
 #: sbuild/sbuild-run-parts.cc:52
-#, fuzzy
 msgid "Failed to create pipe"
-msgstr "Falhou o 'stat' ao ficheiro"
+msgstr "Falhou a criação do pipe"
 
 #: sbuild/sbuild-run-parts.cc:53
-#, fuzzy
 msgid "Failed to duplicate file descriptor"
-msgstr "Falhou a obtenção do estado do descriptor de ficheiro"
+msgstr "Falhou a duplicação do descritor de ficheiro"
 
 #: sbuild/sbuild-run-parts.cc:54
-#, fuzzy
 msgid "Failed to poll file descriptor"
-msgstr "Falhou a obtenção do estado do descriptor de ficheiro"
+msgstr "Falhou o 'poll' do descritor de ficheiro"
 
 #: sbuild/sbuild-run-parts.cc:55
-#, fuzzy
 msgid "Failed to read file descriptor"
-msgstr "Falhou a obtenção do estado do descriptor de ficheiro"
+msgstr "Falhou a leitura do descritor de ficheiro"
 
 #. TRANSLATORS: %1% = command
 #: sbuild/sbuild-run-parts.cc:202
@@ -1698,7 +1672,7 @@ msgstr "Falhou o 'stat' ao ficheiro"
 
 #: sbuild/sbuild-util.cc:82
 msgid "Failed to stat file descriptor"
-msgstr "Falhou a obtenção do estado do descriptor de ficheiro"
+msgstr "Falhou a obtenção do estado do descritor de ficheiro"
 
 #~ msgid "Failed to open directory '%1%'"
 #~ msgstr "Falhou a abertura do directório '%1%'"
