@@ -15,7 +15,7 @@
 .\" along with this program.  If not, see
 .\" <http://www.gnu.org/licenses/>.
 .\"
-.TH SCHROOT 1 "@RELEASE_DATE@" "Version @VERSION@" "Debian sbuild"
+.TH SCHROOT 1 "@RELEASE_DATE_S@" "Version @VERSION@" "Debian sbuild"
 .SH NAME
 schroot \- securely enter a chroot environment
 .SH SYNOPSIS

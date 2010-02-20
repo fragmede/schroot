@@ -14,7 +14,7 @@
 .\" along with this program.  If not, see
 .\" <http://www.gnu.org/licenses/>.
 .\"
-.TH CSBUILD 1 "@RELEASE_DATE@" "Version @VERSION@" "Debian sbuild"
+.TH CSBUILD 1 "@RELEASE_DATE_S@" "Version @VERSION@" "Debian sbuild"
 .SH NAME
 csbuild \- build debian packages from source
 .SH SYNOPSIS
