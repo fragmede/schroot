@@ -22,8 +22,10 @@ schroot (1.4.1-1) unstable; urgency=low
     Kreutzmann.
   * Updated pt translation (Closes: #566941).  Thanks to Pedro Ribeiro
     and Miguel Figueiredo.
+  * 20copyfiles and 20nssdatabases scripts now allow comments and
+    blank lines (Closes: #569671).  Thanks to Sascha Silbe.
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 20 Feb 2010 13:40:32 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sat, 20 Feb 2010 13:43:17 +0000
 
 schroot (1.4.0-1) unstable; urgency=low
 
