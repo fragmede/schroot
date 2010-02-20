@@ -1,4 +1,4 @@
-.\" Copyright © 2005-2008  Roger Leigh <rleigh@debian.org>
+.\" Copyright © 2005-2010  Roger Leigh <rleigh@debian.org>
 .\"
 .\" schroot is free software: you can redistribute it and/or modify it
 .\" under the terms of the GNU General Public License as published by
@@ -475,7 +475,7 @@ named \fI@PACKAGE_SYSCONF_DIR@/nssdatabases\-defaults\fP.
 .SH AUTHORS
 Roger Leigh.
 .SH COPYRIGHT
-Copyright \(co 2005\-2008  Roger Leigh \f[CR]<rleigh@debian.org>\fP
+Copyright \(co 2005\-2010  Roger Leigh \f[CR]<rleigh@debian.org>\fP
 .PP
 \fBschroot\fP is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software

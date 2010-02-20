@@ -1,4 +1,4 @@
-.\" Copyright © 2005-2007  Roger Leigh <rleigh@debian.org>
+.\" Copyright © 2005-2010  Roger Leigh <rleigh@debian.org>
 .\"
 .\" schroot is free software: you can redistribute it and/or modify it
 .\" under the terms of the GNU General Public License as published by
@@ -297,7 +297,7 @@ This implementation of csbuild uses the same command-line options as the
 original \fBsbuild\fP by David Kimdon \f[CR]<dwhedon@debian.org>\fP, but is an
 independent implementation.
 .SH COPYRIGHT
-Copyright \(co 2005\-2007  Roger Leigh \f[CR]<rleigh@debian.org>\fP
+Copyright \(co 2005\-2010  Roger Leigh \f[CR]<rleigh@debian.org>\fP
 .PP
 \fBcsbuild\fP is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
