@@ -1,5 +1,12 @@
 #!/bin/sh
 
+# date needs to use C for date (LC_TIME) formatting, so ensure it's
+# not overridden.
+export LANGUAGE=C
+export LANG=C
+export LC_TIME=C
+export LC_ALL=C
+
 PACKAGE="$(sed -ne '/^Welcome to /{s/Welcome to[[:space:]][[:space:]]*\([[:alnum:]][[:alnum:]]*\)[[:space:]][[:space:]]*\([[:alnum:]][[:alnum:].-]*\)\..*/\1/p;q}' < NEWS)"
 VERSION="$(sed -ne '/^Welcome to /{s/Welcome to[[:space:]][[:space:]]*\([[:alnum:]][[:alnum:]]*\)[[:space:]][[:space:]]*\([[:alnum:]][[:alnum:].-]*\)\..*/\2/p;q}' < NEWS)"
 
