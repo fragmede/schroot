@@ -24,8 +24,10 @@ schroot (1.4.1-1) unstable; urgency=low
     and Miguel Figueiredo.
   * 20copyfiles and 20nssdatabases scripts now allow comments and
     blank lines (Closes: #569671).  Thanks to Sascha Silbe.
+  * Document chroot.d naming requirements in NEWS and schroot
+    README.Debian (Closes: #567409).
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 20 Feb 2010 13:43:17 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sat, 20 Feb 2010 18:12:00 +0000
 
 schroot (1.4.0-1) unstable; urgency=low
 
