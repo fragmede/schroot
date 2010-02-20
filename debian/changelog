@@ -16,8 +16,10 @@ schroot (1.4.1-1) unstable; urgency=low
     session creation and so return a NULL chroot, leading to a
     subsequent segfault.  Thanks to Marc Bantle for identifying this
     regression and aiding in debugging.
+  * Enable PAM conversation handler to allow password entry
+    (Closes: #567416).  This had been removed unintentionally.
 
- -- Roger Leigh <rleigh@debian.org>  Fri, 05 Feb 2010 20:58:28 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sat, 20 Feb 2010 12:41:07 +0000
 
 schroot (1.4.0-1) unstable; urgency=low
 
