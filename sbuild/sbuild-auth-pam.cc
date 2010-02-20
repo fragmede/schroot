@@ -63,6 +63,8 @@ namespace
 	auth_pam_conv *conv = static_cast<auth_pam_conv *>(appdata_ptr);
 	assert (conv != 0);
 
+	log_debug(DEBUG_INFO) << "Found PAM conversation handler" << endl;
+
 	/* Construct a message vector */
 	auth_pam_conv::message_list messages;
 	for (int i = 0; i < num_msg; ++i)
@@ -90,8 +92,12 @@ namespace
 	    messages.push_back(message);
 	  }
 
+	log_debug(DEBUG_INFO) << "Set PAM conversation message vector" << endl;
+
 	/* Do the conversation; an exception will be thrown on failure */
 	conv->conversation(messages);
+
+	log_debug(DEBUG_INFO) << "Run PAM conversation" << endl;
 
 	/* Copy response into **reponse */
 	struct pam_response *reply =
@@ -106,6 +112,8 @@ namespace
 
 	*response = reply;
 	reply = 0;
+
+	log_debug(DEBUG_INFO) << "Set PAM conversation reply" << endl;
 
 	return PAM_SUCCESS;
       }

@@ -333,16 +333,18 @@ main_base::add_session_auth ()
 #ifdef SBUILD_FEATURE_PAM
   sbuild::auth::ptr auth = sbuild::auth_pam::create("schroot");
 
-  sbuild::auth_pam_conv_tty::auth_ptr auth_ptr =
+  sbuild::auth_pam_conv::auth_ptr pam_auth =
     std::tr1::dynamic_pointer_cast<sbuild::auth_pam>(auth);
 
-  sbuild::auth_pam_conv::ptr conv = sbuild::auth_pam_conv_tty::create(auth_ptr);
+  sbuild::auth_pam_conv::ptr conv = sbuild::auth_pam_conv_tty::create(pam_auth);
+
 
   /* Set up authentication timeouts. */
   time_t curtime = 0;
   time(&curtime);
   conv->set_warning_timeout(curtime + 15);
   conv->set_fatal_timeout(curtime + 20);
+  pam_auth->set_conv(conv);
 
   this->session->set_auth(auth);
 #endif // SBUILD_FEATURE_PAM
