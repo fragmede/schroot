@@ -18,8 +18,12 @@ schroot (1.4.1-1) unstable; urgency=low
     regression and aiding in debugging.
   * Enable PAM conversation handler to allow password entry
     (Closes: #567416).  This had been removed unintentionally.
+  * Updated de translation (Closes: #565625).  Thanks to Helge
+    Kreutzmann.
+  * Updated pt translation (Closes: #566941).  Thanks to Pedro Ribeiro
+    and Miguel Figueiredo.
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 20 Feb 2010 12:41:07 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sat, 20 Feb 2010 13:40:32 +0000
 
 schroot (1.4.0-1) unstable; urgency=low
 
