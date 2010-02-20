@@ -1,3 +1,37 @@
+schroot (1.4.1-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * dchroot and dchroot-dsa now allow root to access chroots which
+    don't specifically grant root access in their configuration
+    (Closes: #566879).  Thanks to Aurelien Jarno for reporting this.
+    This was a regression from the separation of authentication into
+    separate PAM and NULL authentication methods used by schroot and
+    dchroot/dchroot-dsa, respectively.  The NULL authentication method
+    was unnecessarily strict for user authentication.
+  * schroot no longer segfaults when loading plain chroot session
+    files (Closes: #568187).  This was caused by the chroot
+    configuration loader automatically creating a session chroot
+    from the template chroot used to deserialise the session
+    configuration into.  plain chroots, however, don't support
+    session creation and so return a NULL chroot, leading to a
+    subsequent segfault.  Thanks to Marc Bantle for identifying this
+    regression and aiding in debugging.
+  * Enable PAM conversation handler to allow password entry
+    (Closes: #567416).  This had been removed unintentionally.
+  * Updated de translation (Closes: #565625).  Thanks to Helge
+    Kreutzmann.
+  * Updated pt translation (Closes: #566941).  Thanks to Pedro Ribeiro
+    and Miguel Figueiredo.
+  * 20copyfiles and 20nssdatabases scripts now allow comments and
+    blank lines (Closes: #569671).  Thanks to Sascha Silbe.
+  * Document chroot.d naming requirements in NEWS and schroot
+    README.Debian (Closes: #567409).
+  * Document setup script configuration files in schroot.conf(5)
+    and schroot-setup(5) (Closes: #566141).
+  * Update to Standards Version 3.8.4.
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 20 Feb 2010 20:16:52 +0000
+
 schroot (1.4.0-1) unstable; urgency=low
 
   * New upstream stable release.
