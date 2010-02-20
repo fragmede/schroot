@@ -26,8 +26,10 @@ schroot (1.4.1-1) unstable; urgency=low
     blank lines (Closes: #569671).  Thanks to Sascha Silbe.
   * Document chroot.d naming requirements in NEWS and schroot
     README.Debian (Closes: #567409).
+  * Document setup script configuration files in schroot.conf(5)
+    and schroot-setup(5) (Closes: #566141).
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 20 Feb 2010 18:12:00 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sat, 20 Feb 2010 19:36:19 +0000
 
 schroot (1.4.0-1) unstable; urgency=low
 
