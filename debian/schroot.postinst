@@ -45,7 +45,7 @@ if dpkg --compare-versions "$2" le "1.4.0-1"; then
 	"/etc/schroot/default/nssdatabases"
 fi
 
-if dpkg --compare-versions "$2" le "1.4.0-2"; then
+if dpkg --compare-versions "$2" le "1.4.1-1"; then
     ln -sf "/etc/schroot/default/config" \
 	"/etc/schroot/script-defaults"
     ln -sf "/etc/schroot/default/fstab" \
