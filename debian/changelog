@@ -1,3 +1,13 @@
+schroot (1.4.1-2) unstable; urgency=low
+
+  * Create compatibility symlinks for the old setup script
+    configuration files in postinst, and remove in postrm.  While
+    not strictly needed for starting sessions, these are required
+    for recovery of existing sessions which have references to the
+    old names.
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 21 Feb 2010 10:56:59 +0000
+
 schroot (1.4.1-1) unstable; urgency=low
 
   * New upstream stable release.
