@@ -1,3 +1,9 @@
+schroot (1.4.1-3) unstable; urgency=low
+
+  * Update fr translation (Closes: #571328).  Thanks to Thomas Blein. 
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 28 Feb 2010 11:07:46 +0000
+
 schroot (1.4.1-2) unstable; urgency=low
 
   * Create compatibility symlinks for the old setup script
