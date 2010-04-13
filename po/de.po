@@ -10,12 +10,12 @@ msgstr ""
 "Project-Id-Version: schroot 1.3.2-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2010-02-20 20:09+0000\n"
-"PO-Revision-Date: 2010-02-17 22:17+0000\n"
+"PO-Revision-Date: 2010-04-12 18:44+0200\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #. TRANSLATORS: %1% = file
 #: bin/csbuild/csbuild-debian-changes.cc:44 sbuild/sbuild-keyfile-base.cc:41
@@ -115,7 +115,7 @@ msgstr "Zeile %1%: %3%: %4%"
 #: bin/csbuild/csbuild-debian-changes.cc:279
 #: bin/csbuild/csbuild-debian-changes.cc:285
 msgid "This option will be removed in the future"
-msgstr "Diese Option wird später entfernt werden"
+msgstr "Diese Option wird in Zukunft entfernt werden"
 
 #: bin/csbuild/csbuild-debian-changes.cc:295
 #: bin/csbuild/csbuild-debian-changes.cc:301
@@ -151,7 +151,7 @@ msgstr "Gerät konnte nicht mit »stat« abgefragt werden"
 #. and '-' is an em-dash.
 #: bin/csbuild/csbuild-main.cc:74
 msgid "[OPTION...] - build Debian packages from source"
-msgstr "[OPTION...] - erstelle Debian-Pakete aus dem Quellcode"
+msgstr "[OPTION...] - Debian-Pakete aus dem Quellcode bauen"
 
 #: bin/csbuild/csbuild-options.cc:73
 msgid "Build options"
@@ -171,7 +171,7 @@ msgstr "Benutzer-Optionen"
 
 #: bin/csbuild/csbuild-options.cc:77
 msgid "Build dependency override options"
-msgstr "Bauabhängigkeits-Überschreibeoptionen"
+msgstr "Bauabhängigkeits-Override-Optionen"
 
 #: bin/csbuild/csbuild-options.cc:78
 msgid "Special options"
@@ -179,7 +179,7 @@ msgstr "Spezielle Optionen"
 
 #: bin/csbuild/csbuild-options.cc:97
 msgid "Build source packages (default)"
-msgstr "Baue Quellpakete (Standard)"
+msgstr "Quellpakete bauen (Standard)"
 
 #: bin/csbuild/csbuild-options.cc:100
 msgid "Don't log program output"
@@ -215,7 +215,7 @@ msgstr "Pakete der Bauarchitektur »all«"
 
 #: bin/csbuild/csbuild-options.cc:117
 msgid "Build a source package"
-msgstr "Quellpaket bauen"
+msgstr "Ein Quellpaket bauen"
 
 #: bin/csbuild/csbuild-options.cc:119
 msgid "Force building of a source package, irrespective of Debian version"
@@ -312,8 +312,8 @@ msgstr "Chroot %1% (dchroot-dsa-Kompatibilität)"
 #: bin/dchroot-dsa/dchroot-dsa-main.cc:45
 msgid "[OPTION...] chroot [COMMAND] - run command or shell in a chroot"
 msgstr ""
-"[OPTION …] chroot [BEFEHL] - startet einen Befehl oder eine Shell in einem "
-"Chroot"
+"[OPTION …] chroot [BEFEHL] - Einen Befehl oder eine Shell in einem "
+"Chroot starten"
 
 #: bin/dchroot-dsa/dchroot-dsa-options.cc:54
 msgid "Print paths to available chroots"
@@ -427,7 +427,7 @@ msgstr ""
 #: bin/dchroot/dchroot-main.cc:46 bin/schroot/schroot-main.cc:44
 msgid "[OPTION...] [COMMAND] - run command or shell in a chroot"
 msgstr ""
-"[OPTION …] [BEFEHL] - startet einen Befehl oder eine Shell in einem Chroot"
+"[OPTION …] [BEFEHL] - Einen Befehl oder eine Shell in einem Chroot starten"
 
 #: bin/dchroot/dchroot-options.cc:52
 msgid "Print path to selected chroot"
@@ -444,7 +444,7 @@ msgstr "--quiet und --verbose dürfen nicht gleichzeitig verwendet werden"
 
 #: bin/dchroot/dchroot-options.cc:89 bin/schroot/schroot-options-base.cc:173
 msgid "Using verbose output"
-msgstr "Verwende ausführliche Ausgabe"
+msgstr "Ausführliche Ausgabe verwenden"
 
 #: bin/dchroot/dchroot-options.cc:95 bin/schroot/schroot-options-base.cc:179
 msgid "--chroot and --all may not be used at the same time"
@@ -812,7 +812,7 @@ msgstr "Eine existierende Sitzung beenden"
 
 #: bin/schroot/schroot-options.cc:84
 msgid "Session name (defaults to an automatically generated name)"
-msgstr "Sitzungsname (standardmäßig ein automatich erzeugter Name)"
+msgstr "Sitzungsname (standardmäßig ein automatisch erzeugter Name)"
 
 #: bin/schroot/schroot-options.cc:86
 msgid "Force operation, even if it fails"
@@ -822,7 +822,7 @@ msgstr "Operation erzwingen, selbst wenn sie fehlschlägt"
 #: sbuild/sbuild-auth-null.cc:120 sbuild/sbuild-auth-pam.cc:312
 #, boost-format
 msgid "You do not have permission to access the %1% service."
-msgstr "Sie haben kein Recht, um auf den Dienst %1% zuzugreifen."
+msgstr "Sie haben kein Recht, auf den Dienst %1% zuzugreifen."
 
 #: sbuild/sbuild-auth-null.cc:122 sbuild/sbuild-auth-pam.cc:314
 msgid "This failure will be reported."
@@ -840,7 +840,7 @@ msgstr "Zeit abgelaufen"
 #. TRANSLATORS: Please use an ellipsis e.g. U+2026
 #: sbuild/sbuild-auth-pam-conv-tty.cc:51
 msgid "Time is running out..."
-msgstr "Die Zeit läuft ab …"
+msgstr "Zeit läuft ab …"
 
 #: sbuild/sbuild-auth-pam-conv-tty.cc:52
 msgid "Failed to get terminal settings"
@@ -917,7 +917,7 @@ msgstr "PAM-Fehler"
 
 #: sbuild/sbuild-auth.cc:60
 msgid "PAM failed to shut down cleanly"
-msgstr ""
+msgstr "PAM konnte nicht korrekt beendet werden"
 
 #: sbuild/sbuild-basic-keyfile.tcc:115
 msgid "This option may be present in a newer version"
@@ -1051,11 +1051,11 @@ msgstr "Einbindungsoptionen für Dateisystem-Verbindung (union)"
 
 #: sbuild/sbuild-chroot-facet-union.cc:221
 msgid "Filesystem union overlay directory"
-msgstr "Verzeichnis für Dateisystem-Verbindungsoberschicht"
+msgstr "Verzeichnis für Dateisystem-Verbindungsoberschicht (union overlay directory)"
 
 #: sbuild/sbuild-chroot-facet-union.cc:224
 msgid "Filesystem union underlay directory"
-msgstr "Verzeichnis für Dateisystem-Verbindungsunterschicht"
+msgstr "Verzeichnis für Dateisystem-Verbindungsunterschicht (union underlay directory)"
 
 #: sbuild/sbuild-chroot-file.cc:193 sbuild/sbuild-chroot-loopback.cc:200
 msgid "File"
@@ -1492,7 +1492,7 @@ msgstr "Kindprozess hat einen Core-Dump erzeugt"
 #: sbuild/sbuild-session.cc:75
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr ""
-"Kindprozess anormal beendet (Grund unbekannt, kein Signal oder Core-Dump)"
+"Kindprozess abnormal beendet (Grund unbekannt, kein Signal oder Core-Dump)"
 
 #. TRANSLATORS: %4% = signal name
 #: sbuild/sbuild-session.cc:78
@@ -1549,14 +1549,14 @@ msgstr "Ausführen von »%1%« fehlgeschlagen"
 #. group.
 #: sbuild/sbuild-session.cc:96
 msgid "Failed to get supplementary groups"
-msgstr "Zusätzliche Gruppen nicht bekommen"
+msgstr "Bekommen zusätzlicher Gruppen fehlgeschlagen"
 
 #. TRANSLATORS: A supplementary group is the list of additional
 #. system groups a user belongs to, in addition to their default
 #. group.
 #: sbuild/sbuild-session.cc:100
 msgid "Failed to get supplementary group count"
-msgstr "Anzahl zusätzlicher Gruppen nicht bekommen"
+msgstr "Bekommen der Anzahl zusätzlicher Gruppen fehlgeschlagen"
 
 #. TRANSLATORS: %1% = integer group ID
 #: sbuild/sbuild-session.cc:102
@@ -1598,7 +1598,7 @@ msgstr "Stattdessen wird die Shell »%4%« verwendet"
 #: sbuild/sbuild-session.cc:116
 #, boost-format
 msgid "Caught signal '%4%'"
-msgstr "Signal »%4%« aufgefangen"
+msgstr "Signal »%4%« abgefangen"
 
 #. TRANSLATORS: %4% = signal name
 #: sbuild/sbuild-session.cc:118
@@ -1708,8 +1708,3 @@ msgstr "Datei konnte nicht mit »stat« abgefragt werden"
 msgid "Failed to stat file descriptor"
 msgstr "Dateideskriptor konnte nicht mit »stat« abgefragt werden"
 
-#~ msgid "Failed to open directory '%1%'"
-#~ msgstr "Öffnen des Verzeichnisses »%1%« fehlgeschlagen"
-
-#~ msgid "Failed to read directory '%1%'"
-#~ msgstr "Lesen des Verzeichnisses »%1%« fehlgeschlagen"
