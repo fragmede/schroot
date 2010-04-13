@@ -72,6 +72,24 @@ namespace sbuild
     clone_source_setup (chroot::ptr& clone) const;
 
     /**
+     * Is cloning a source chroot automatically permitted?  Note that
+     * this is merely a hint and does not prevent cloning.
+     *
+     * @returns a list of clone.
+     */
+    virtual bool
+    get_source_clone () const;
+
+    /**
+     * Set if cloning a source chroot automatically is permitted.
+     * Note that this is merely a hint and does not prevent cloning.
+     *
+     * @param clone true to automatically clone, otherwise false.
+     */
+    virtual void
+    set_source_clone (bool clone);
+
+    /**
      * Get the users allowed to access the source chroot.
      *
      * @returns a list of users.
@@ -164,6 +182,8 @@ namespace sbuild
 		 string_list&   used_keys);
 
   private:
+    /// Is source chroot cloning permitted?
+    bool          source_clone;
     /// Users allowed to access the source chroot.
     string_list   source_users;
     /// Groups allowed to access the source chroot.

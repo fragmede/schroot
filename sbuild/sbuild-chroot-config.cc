@@ -547,7 +547,7 @@ chroot_config::load_keyfile (keyfile& kconfig,
 	chroot_facet_source_clonable::const_ptr psrc
 	  (chroot->get_facet<sbuild::chroot_facet_source_clonable>());
 
-	if (psrc && !chroot->get_active())
+	if (psrc && psrc->get_source_clone() && !chroot->get_active())
 	  {
 	    chroot::ptr source_chroot = chroot->clone_source();
 	    if (source_chroot)

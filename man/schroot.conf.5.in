@@ -253,9 +253,15 @@ path may not be specfied here; they are set automatically by schroot.
 .SS Source chroot options
 Some chroots implement source chroots.  These are chroots which automatically
 create a copy of themselves before use, and are usually session managed.  These
-chroots also provide an additional chroot with a \fI\-source\fP suffix added to
-their name, to allow access to the original data, and to aid in chroot
+chroots additionally provide an extra chroot with a \fI\-source\fP suffix
+added to their name, to allow access to the original data, and to aid in chroot
 maintenance.  These chroots provide the following additional options:
+.TP
+\f[CBI]source\-clone=\fP\f[CI]true\fP|\f[CI]false\fP
+Set whether the source chroot should be automatically cloned (created) for this
+chroot.  The default is \f[CI]true\fP to automatically clone, but if desired
+may be disabled by setting to \f[CI]false\fP.  If disabled, the source chroot
+will be inaccessible.
 .TP
 \f[CBI]source\-users=\fP\f[CI]user1,user2,...\fP
 A comma-separated list of users which are allowed access to the source chroot.
