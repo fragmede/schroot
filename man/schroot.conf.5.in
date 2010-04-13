@@ -391,8 +391,6 @@ this boils down to \fItrust\fP.
 .br
 \f[CR]personality=linux32\fP
 .br
-\f[CR]run\-setup\-scripts=true\fP
-.br
 \f[CR]\fP
 .br
 \f[CR][sid\-file]\fP
@@ -406,8 +404,6 @@ this boils down to \fItrust\fP.
 \f[CR]groups=sbuild\fP
 .br
 \f[CR]file=/srv/chroots/sid.tar.gz\fP
-.br
-\f[CR]run\-setup\-scripts=true\fP
 .br
 \f[CR]\fP
 .br
@@ -432,8 +428,6 @@ this boils down to \fItrust\fP.
 \f[CR]mount\-options=\-o atime,sync,user_xattr\fP
 .br
 \f[CR]lvm\-snapshot\-options=\-\-size 2G\fP
-.br
-\f[CR]run\-setup\-scripts=true\fP
 .SH FILES
 .SS Chroot definitions
 .TP
