@@ -189,7 +189,7 @@ chroot_facet_source_clonable::set_keyfile (chroot&        chroot,
 				 keyfile, chroot.get_keyfile_name(),
 				 "source-users",
 				 keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("source_clonable-users");
+  used_keys.push_back("source-users");
 
   keyfile::get_object_list_value(*this, &chroot_facet_source_clonable::set_source_groups,
 				 keyfile, chroot.get_keyfile_name(),
