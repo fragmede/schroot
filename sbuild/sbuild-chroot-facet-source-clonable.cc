@@ -30,6 +30,7 @@ using namespace sbuild;
 
 chroot_facet_source_clonable::chroot_facet_source_clonable ():
   chroot_facet(),
+  source_clone(true),
   source_users(),
   source_groups(),
   source_root_users(),
@@ -82,6 +83,18 @@ chroot_facet_source_clonable::clone_source_setup (chroot::ptr& clone) const
 
   clone->remove_facet<chroot_facet_source_clonable>();
   clone->add_facet(chroot_facet_source::create());
+}
+
+bool
+chroot_facet_source_clonable::get_source_clone () const
+{
+  return this->source_clone;
+}
+
+void
+chroot_facet_source_clonable::set_source_clone (bool source_clone)
+{
+  this->source_clone = source_clone;
 }
 
 string_list const&
@@ -163,6 +176,10 @@ void
 chroot_facet_source_clonable::get_keyfile (chroot const& chroot,
 					   keyfile&      keyfile) const
 {
+  keyfile::set_object_value(*this, &chroot_facet_source_clonable::get_source_clone,
+			    keyfile, chroot.get_keyfile_name(),
+			    "source-clone");
+
   keyfile::set_object_list_value(*this, &chroot_facet_source_clonable::get_source_users,
 				 keyfile, chroot.get_keyfile_name(),
 				 "source-users");
@@ -185,6 +202,12 @@ chroot_facet_source_clonable::set_keyfile (chroot&        chroot,
 					   keyfile const& keyfile,
 					   string_list&   used_keys)
 {
+  keyfile::get_object_value(*this, &chroot_facet_source_clonable::set_source_clone,
+			    keyfile, chroot.get_keyfile_name(),
+			    "source-clone",
+			    keyfile::PRIORITY_OPTIONAL);
+  used_keys.push_back("source-clone");
+
   keyfile::get_object_list_value(*this, &chroot_facet_source_clonable::set_source_users,
 				 keyfile, chroot.get_keyfile_name(),
 				 "source-users",

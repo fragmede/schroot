@@ -246,6 +246,7 @@ public:
   void setup_keyfile_source (sbuild::keyfile&   keyfile,
 			     std::string const& group)
   {
+    keyfile.set_value(group, "source-clone", "true");
     keyfile.set_value(group, "source-users", "suser1,suser2");
     keyfile.set_value(group, "source-root-users", "suser3,suser4");
     keyfile.set_value(group, "source-groups", "sgroup1,sgroup2");
