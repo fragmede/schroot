@@ -1,9 +1,10 @@
 schroot (1.4.1-3) unstable; urgency=low
 
-  * Update fr translation (Closes: #571328).  Thanks to Thomas Blein. 
+  * Update fr translation (Closes: #571328).  Thanks to Thomas Blein.
+  * Update de translation (Closes: #577554).  Thanks to Holger Wansing.
   * Remove inactive maintainers from uploaders (Closes: #573869).
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 14 Mar 2010 20:40:33 +0000
+ -- Roger Leigh <rleigh@debian.org>  Tue, 13 Apr 2010 12:49:06 +0100
 
 schroot (1.4.1-2) unstable; urgency=low
 
