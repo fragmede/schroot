@@ -677,7 +677,7 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
   keyfile::get_object_value(chroot, nullmethod,
 			    keyfile, chroot.get_keyfile_name(),
 			    "active",
-			    keyfile::PRIORITY_DEPRECATED);
+			    keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("active");
 
   // Setup scripts are run depending on the chroot type in use, and is
@@ -686,7 +686,7 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
   keyfile::get_object_value(chroot, nullmethod,
 			    keyfile, chroot.get_keyfile_name(),
 			    "run-setup-scripts",
-			    keyfile::PRIORITY_DEPRECATED);
+			    keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("run-setup-scripts");
 
   // Exec scripts have been removed, so these two calls do nothing
@@ -699,7 +699,7 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
   keyfile::get_object_value(chroot, nullmethod,
 			    keyfile, chroot.get_keyfile_name(),
 			    "run-exec-scripts",
-			    keyfile::PRIORITY_DEPRECATED);
+			    keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("run-exec-scripts");
 
   keyfile::get_object_value(chroot, &chroot::set_script_config,

@@ -9,6 +9,10 @@ configuration.
 
 * Major changes in 1.5.0:
 
+  1) The deprecated options run-setup-scripts and run-exec-scripts
+     (all chroot types) and location ("plain" and "directory" chroot
+     types) have been obsoleted and removed from the documentation.
+
 * Major changes in 1.4.1:
 
   1) A dchroot bug which prevented root from accessing chroots where

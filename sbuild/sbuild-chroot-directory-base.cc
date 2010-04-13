@@ -98,7 +98,7 @@ chroot_directory_base::set_keyfile (chroot&        chroot,
   bool location_key = keyfile.has_key(get_keyfile_name(), "location");
 
   keyfile::priority directory_priority = keyfile::PRIORITY_OPTIONAL;
-  keyfile::priority location_priority = keyfile::PRIORITY_DEPRECATED;
+  keyfile::priority location_priority = keyfile::PRIORITY_OBSOLETE;
 
   if (!directory_key && !location_key)
     throw keyfile::error(get_keyfile_name(), keyfile::MISSING_KEY_NL, "directory");

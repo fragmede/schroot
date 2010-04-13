@@ -87,20 +87,6 @@ A comma-separated list of aliases (alternate names) for this chroot.  For
 example, a chroot named \[lq]sid\[rq] might have an \[oq]unstable\[cq] alias
 for convenience.
 .TP
-\f[CBI]run\-setup\-scripts=\fP\f[CI]true\fP|\f[CI]false\fP
-Set whether chroot setup scripts will be run.  The default is to run setup
-scripts for all chroot types except \[oq]plain\[cq].  Setup scripts are
-\fBrequired\fP to mount and configure the chroot environment.  This option is
-deprecated and no longer used by schroot, but is still permitted to be used; it
-will be obsoleted and removed in a future release.
-.TP
-\f[CBI]run\-exec\-scripts=\fP\f[CI]true\fP|\f[CI]false\fP Set whether chroot
-execution scripts will be run.  The default is the same as the default for the
-\f[CI]run\-setup\-scripts\fP key.  This option was called
-\f[CI]run\-session\-scripts\fP in versions prior to 0.2.5.  This option is
-deprecated and no longer used by schroot, but is still permitted to be used; it
-will be obsoleted and removed in a future release.
-.TP
 \f[CBI]script\-config=\fP\f[CI]filename\fP
 The behaviour of the chroot setup scripts may be customised on a per-chroot
 basis by providing a shell script which the scripts will source.  The filename
@@ -163,14 +149,6 @@ option to
 .BR mount (8),
 while for \[oq]directory\[cq] chroots \fI\-\-bind\fP is used instead so that
 sub-mounts are not preserved.
-.IP
-This option was previously named \f[CI]location\fP, but was renamed to avoid
-ambiguity with the option by the same name for \fBmountable chroot\fP options
-(see \[lq]\fIMountable chroot options\fP\[rq], below).  The name
-\f[CI]location\fP is deprecated, but still valid; it will be obsoleted and
-removed in a future release.  It is recommended to use \f[CI]directory\fP
-rather than \f[CI]location\fP.  Note that it is an error to use both
-\f[CI]directory\fP and \f[CI]location\fP at the same time.
 .SS
 File chroots
 .PP

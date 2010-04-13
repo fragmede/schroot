@@ -110,30 +110,30 @@ chroot_facet_session::set_keyfile (chroot&        chroot,
   keyfile::get_object_value(*this, nullmethod,
 			    keyfile, chroot.get_keyfile_name(),
 			    "active",
-			    keyfile::PRIORITY_DEPRECATED);
+			    keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("active");
 
   keyfile::get_object_list_value(*this, nullvmethod,
 				 keyfile, chroot.get_keyfile_name(),
 				 "source-users",
-				 keyfile::PRIORITY_DEPRECATED);
+				 keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("source-users");
 
   keyfile::get_object_list_value(*this, nullvmethod,
 				 keyfile, chroot.get_keyfile_name(),
 				 "source-groups",
-				 keyfile::PRIORITY_DEPRECATED);
+				 keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("source-groups");
 
   keyfile::get_object_list_value(*this, nullvmethod,
 				 keyfile, chroot.get_keyfile_name(),
 				 "source-root-users",
-				 keyfile::PRIORITY_DEPRECATED);
+				 keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("source-root-users");
 
   keyfile::get_object_list_value(*this, nullvmethod,
 				 keyfile, chroot.get_keyfile_name(),
 				 "source-root-groups",
-				 keyfile::PRIORITY_DEPRECATED);
+				 keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("source-root-groups");
 }
