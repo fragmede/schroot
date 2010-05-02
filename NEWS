@@ -1,11 +1,15 @@
 NEWS                                                            -*- outline -*-
 ----
 
-Welcome to schroot 1.4.1.  Please read these release notes carefully.
+Welcome to schroot 1.4.2.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 1.4.2:
+
+  1) Added support for building with Boost 1.42.
 
 * Major changes in 1.4.1:
 
