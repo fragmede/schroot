@@ -99,5 +99,10 @@ options::check_options ()
 
   if (this->action == ACTION_MOUNT &&
       this->mountpoint.empty())
-    throw opt::validation_error(_("No mount point specified"));
+	throw opt::validation_error
+	  (
+#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
+	   opt::validation_error::at_least_one_value_required,
+#endif
+	   _("No mount point specified"));
 }

@@ -82,7 +82,12 @@ option_action::set (action_type const& action)
       if (this->current_action == "")
 	this->current_action = action;
       else
-	throw opt::validation_error(_("Only one action may be specified"));
+	throw opt::validation_error
+	  (
+#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
+	   opt::validation_error::multiple_values_not_allowed,
+#endif
+	   _("Only one action may be specified"));
     }
   else
     throw std::logic_error((format(_("%1%: invalid action")) % action).str());
