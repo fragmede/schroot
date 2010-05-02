@@ -21,7 +21,8 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-noinst_SCRIPTS =
+noinst_SCRIPTS =	\
+	10mount-ssh
 
 EXTRA_DIST =			\
 	$(noinst_SCRIPTS)
