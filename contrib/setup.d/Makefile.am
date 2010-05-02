@@ -1,7 +1,7 @@
 # schroot Makefile template
 #
 #
-# Copyright © 2004-2009  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2008  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -19,34 +19,10 @@
 #
 #####################################################################
 
-ACLOCAL_AMFLAGS=-I m4
-
 include $(top_srcdir)/scripts/global.mk
 
-SUBDIRS = sbuild bin test etc contrib man doc po
+noinst_SCRIPTS =
 
-dist-hook:
-# Remove junk from the generated tarball.
-	$(FIND) $(distdir) -name '.*' -print | $(XARGS) xargs $(RM) -rf
-	$(FIND) $(distdir) -name '#*' -print | $(XARGS) $(RM) -rf
-	$(FIND) $(distdir) -name '*~' -print | $(XARGS) $(RM) -rf
+EXTRA_DIST =			\
+	$(noinst_SCRIPTS)
 
-# Generate ChangeLog
-	if [ -d .git ]; then			\
-	  git log > $(distdir)/ChangeLog;	\
-	fi
-
-EXTRA_DIST =				\
-	bootstrap			\
-	debian				\
-	scripts/schroot_release.m4.in	\
-	m4				\
-	HACKING
-
-ps:
-	$(MAKE) -C doc schroot.ps
-
-pdf:
-	$(MAKE) -C doc schroot.pdf
-
-.PHONY: ps pdf
