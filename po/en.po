@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-02-20 20:09+0000\n"
+"POT-Creation-Date: 2010-05-02 13:05+0100\n"
 "PO-Revision-Date: 2010-01-16 15:37+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -288,11 +288,11 @@ msgstr "Build using the current GCC development snapshot"
 msgid "Package to build"
 msgstr "Package to build"
 
-#: bin/csbuild/csbuild-options.cc:223
+#: bin/csbuild/csbuild-options.cc:228
 msgid "--makebinNMU missing"
 msgstr "--makebinNMU missing"
 
-#: bin/csbuild/csbuild-options.cc:225
+#: bin/csbuild/csbuild-options.cc:235
 msgid "--binNMU missing"
 msgstr "--binNMU missing"
 
@@ -322,15 +322,15 @@ msgstr "Select all chroots"
 msgid "Directory to use"
 msgstr "Directory to use"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:93
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:98
 msgid "Only one command may be specified"
 msgstr "Only one command may be specified"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:97
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:107
 msgid "Command must have an absolute path"
 msgstr "Command must have an absolute path"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:106
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:121
 msgid "No chroot specified"
 msgstr "No chroot specified"
 
@@ -500,12 +500,12 @@ msgid "Run \"%1% --help\" to list usage example and all available options"
 msgstr "Run “%1% --help” to list usage example and all available options"
 
 #: bin/schroot-base/schroot-base-option-action.cc:65
-#: bin/schroot-base/schroot-base-option-action.cc:88
+#: bin/schroot-base/schroot-base-option-action.cc:93
 #, boost-format
 msgid "%1%: invalid action"
 msgstr "%1%: invalid action"
 
-#: bin/schroot-base/schroot-base-option-action.cc:85
+#: bin/schroot-base/schroot-base-option-action.cc:90
 msgid "Only one action may be specified"
 msgstr "Only one action may be specified"
 
@@ -541,7 +541,7 @@ msgstr "Show more output"
 msgid "Enable debugging messages"
 msgstr "Enable debugging messages"
 
-#: bin/schroot-base/schroot-base-options.cc:158
+#: bin/schroot-base/schroot-base-options.cc:163
 msgid "Invalid debug level"
 msgstr "Invalid debug level"
 
@@ -567,8 +567,8 @@ msgstr "Mount"
 msgid "Mountpoint to check (full path)"
 msgstr "Mountpoint to check (full path)"
 
-#: bin/schroot-listmounts/schroot-listmounts-options.cc:89
-#: bin/schroot-mount/schroot-mount-options.cc:102
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:94
+#: bin/schroot-mount/schroot-mount-options.cc:107
 msgid "No mount point specified"
 msgstr "No mount point specified"
 
@@ -631,7 +631,7 @@ msgstr "Device to unlock (full path)"
 msgid "Process ID owning the lock"
 msgstr "Process ID owning the lock"
 
-#: bin/schroot-releaselock/schroot-releaselock-options.cc:92
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:97
 msgid "No device specified"
 msgstr "No device specified"
 
@@ -730,11 +730,11 @@ msgstr "Use specified chroot"
 msgid "Command to run"
 msgstr "Command to run"
 
-#: bin/schroot/schroot-options-base.cc:204
+#: bin/schroot/schroot-options-base.cc:208
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "Exactly one chroot must be specified when beginning a session"
 
-#: bin/schroot/schroot-options-base.cc:217
+#: bin/schroot/schroot-options-base.cc:225
 msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
@@ -742,11 +742,11 @@ msgstr ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
 
-#: bin/schroot/schroot-options-base.cc:237
+#: bin/schroot/schroot-options-base.cc:250
 msgid "--chroot may not be used with --list"
 msgstr "--chroot may not be used with --list"
 
-#: bin/schroot/schroot-options-base.cc:262
+#: bin/schroot/schroot-options-base.cc:280
 msgid "Unknown action specified"
 msgstr "Unknown action specified"
 

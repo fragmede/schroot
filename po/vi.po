@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-02-20 20:09+0000\n"
+"POT-Creation-Date: 2010-05-02 13:05+0100\n"
 "PO-Revision-Date: 2010-02-10 21:59+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -293,11 +293,11 @@ msgstr "Xây dựng dùng hiện trạng phát triển GCC hiện thời"
 msgid "Package to build"
 msgstr "Gói cần xây dựng"
 
-#: bin/csbuild/csbuild-options.cc:223
+#: bin/csbuild/csbuild-options.cc:228
 msgid "--makebinNMU missing"
 msgstr "--makebinNMU còn thiếu"
 
-#: bin/csbuild/csbuild-options.cc:225
+#: bin/csbuild/csbuild-options.cc:235
 msgid "--binNMU missing"
 msgstr "--binNMU còn thiếu"
 
@@ -327,15 +327,15 @@ msgstr "Chọn mọi chroot"
 msgid "Directory to use"
 msgstr "Thư mục cần dùng"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:93
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:98
 msgid "Only one command may be specified"
 msgstr "Có thể xác định chỉ một lệnh"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:97
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:107
 msgid "Command must have an absolute path"
 msgstr "Lệnh phải có đường dẫn tuyệt đối"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:106
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:121
 msgid "No chroot specified"
 msgstr "Chưa xác định chroot"
 
@@ -515,12 +515,12 @@ msgstr ""
 "sàng"
 
 #: bin/schroot-base/schroot-base-option-action.cc:65
-#: bin/schroot-base/schroot-base-option-action.cc:88
+#: bin/schroot-base/schroot-base-option-action.cc:93
 #, boost-format
 msgid "%1%: invalid action"
 msgstr "%1%: hành động không hợp lệ"
 
-#: bin/schroot-base/schroot-base-option-action.cc:85
+#: bin/schroot-base/schroot-base-option-action.cc:90
 msgid "Only one action may be specified"
 msgstr "Có thể ghi rõ chỉ một hành động"
 
@@ -556,7 +556,7 @@ msgstr "Xuất nhiều hơn"
 msgid "Enable debugging messages"
 msgstr "Bật hiển thị các thông điệp gỡ lỗi"
 
-#: bin/schroot-base/schroot-base-options.cc:158
+#: bin/schroot-base/schroot-base-options.cc:163
 msgid "Invalid debug level"
 msgstr "Cấp gỡ lỗi không hợp lệ"
 
@@ -582,8 +582,8 @@ msgstr "Lắp"
 msgid "Mountpoint to check (full path)"
 msgstr "Điểm lắp cần kiểm tra (đường dẫn đầy đủ)"
 
-#: bin/schroot-listmounts/schroot-listmounts-options.cc:89
-#: bin/schroot-mount/schroot-mount-options.cc:102
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:94
+#: bin/schroot-mount/schroot-mount-options.cc:107
 msgid "No mount point specified"
 msgstr "Chưa xác định điểm lắp"
 
@@ -646,7 +646,7 @@ msgstr "Thiết bị cần mở khoá (đường dẫn đầy đủ)"
 msgid "Process ID owning the lock"
 msgstr "Mã số tiến trình sở hữu khoá đó"
 
-#: bin/schroot-releaselock/schroot-releaselock-options.cc:92
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:97
 msgid "No device specified"
 msgstr "Chưa xác định thiết bị"
 
@@ -745,11 +745,11 @@ msgstr "Dùng chroot đã xác định"
 msgid "Command to run"
 msgstr "Lệnh cần chạy"
 
-#: bin/schroot/schroot-options-base.cc:204
+#: bin/schroot/schroot-options-base.cc:208
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "Có thể ghi rõ chỉ một chroot khi khởi chạy phiên"
 
-#: bin/schroot/schroot-options-base.cc:217
+#: bin/schroot/schroot-options-base.cc:225
 msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
@@ -757,11 +757,11 @@ msgstr ""
 "« --session-name » không được phép cho hành động đã xác định: bạn dự định sử "
 "dụng « --chroot » không?"
 
-#: bin/schroot/schroot-options-base.cc:237
+#: bin/schroot/schroot-options-base.cc:250
 msgid "--chroot may not be used with --list"
 msgstr "Không cho phép dùng tùy chọn « --chroot » cùng với « --list » (liệt kê)"
 
-#: bin/schroot/schroot-options-base.cc:262
+#: bin/schroot/schroot-options-base.cc:280
 msgid "Unknown action specified"
 msgstr "Hành động không rõ được xác định"
 

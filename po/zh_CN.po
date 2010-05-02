@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-02-20 20:09+0000\n"
+"POT-Creation-Date: 2010-05-02 13:05+0100\n"
 "PO-Revision-Date: 2010-01-22 10:38+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -289,11 +289,11 @@ msgstr "用当前 GCC 开发快照构建"
 msgid "Package to build"
 msgstr "要构建的包"
 
-#: bin/csbuild/csbuild-options.cc:223
+#: bin/csbuild/csbuild-options.cc:228
 msgid "--makebinNMU missing"
 msgstr "缺少 --makebinNMU"
 
-#: bin/csbuild/csbuild-options.cc:225
+#: bin/csbuild/csbuild-options.cc:235
 msgid "--binNMU missing"
 msgstr "缺少 --binNMU"
 
@@ -323,15 +323,15 @@ msgstr "选中所有chroots"
 msgid "Directory to use"
 msgstr "使用的目录"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:93
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:98
 msgid "Only one command may be specified"
 msgstr "仅需指定一个命令"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:97
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:107
 msgid "Command must have an absolute path"
 msgstr "命令必须带有绝对路径"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:106
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:121
 msgid "No chroot specified"
 msgstr "未指定chroot"
 
@@ -500,12 +500,12 @@ msgid "Run \"%1% --help\" to list usage example and all available options"
 msgstr "运行“%1% --help”列出示例用法和所有可用的选项"
 
 #: bin/schroot-base/schroot-base-option-action.cc:65
-#: bin/schroot-base/schroot-base-option-action.cc:88
+#: bin/schroot-base/schroot-base-option-action.cc:93
 #, boost-format
 msgid "%1%: invalid action"
 msgstr "%1%: 非法操作"
 
-#: bin/schroot-base/schroot-base-option-action.cc:85
+#: bin/schroot-base/schroot-base-option-action.cc:90
 msgid "Only one action may be specified"
 msgstr "仅可指义一个操作"
 
@@ -541,7 +541,7 @@ msgstr "显示较多输出"
 msgid "Enable debugging messages"
 msgstr "开启调试信息"
 
-#: bin/schroot-base/schroot-base-options.cc:158
+#: bin/schroot-base/schroot-base-options.cc:163
 msgid "Invalid debug level"
 msgstr "无效的调试级别"
 
@@ -567,8 +567,8 @@ msgstr "挂载"
 msgid "Mountpoint to check (full path)"
 msgstr "检查挂载点(完整路径)"
 
-#: bin/schroot-listmounts/schroot-listmounts-options.cc:89
-#: bin/schroot-mount/schroot-mount-options.cc:102
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:94
+#: bin/schroot-mount/schroot-mount-options.cc:107
 msgid "No mount point specified"
 msgstr "未指定挂载点"
 
@@ -631,7 +631,7 @@ msgstr "解锁设备(完整路径)"
 msgid "Process ID owning the lock"
 msgstr "进行 ID 拥有锁"
 
-#: bin/schroot-releaselock/schroot-releaselock-options.cc:92
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:97
 msgid "No device specified"
 msgstr "未指定设备"
 
@@ -730,21 +730,21 @@ msgstr "使用指定的chroot"
 msgid "Command to run"
 msgstr "要运行的命令"
 
-#: bin/schroot/schroot-options-base.cc:204
+#: bin/schroot/schroot-options-base.cc:208
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "开始一个会话时必须明确指定一个chroot"
 
-#: bin/schroot/schroot-options-base.cc:217
+#: bin/schroot/schroot-options-base.cc:225
 msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
 msgstr "指定操作不允许 --session-name；您打算用--chroot 吗？"
 
-#: bin/schroot/schroot-options-base.cc:237
+#: bin/schroot/schroot-options-base.cc:250
 msgid "--chroot may not be used with --list"
 msgstr "--chroot 不可与 --list 合用"
 
-#: bin/schroot/schroot-options-base.cc:262
+#: bin/schroot/schroot-options-base.cc:280
 msgid "Unknown action specified"
 msgstr "未知的操作定义"
 

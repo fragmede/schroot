@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-02-20 20:09+0000\n"
+"POT-Creation-Date: 2010-05-02 13:05+0100\n"
 "PO-Revision-Date: 2010-01-16 15:43+0000\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <Librezale@librezale.org>\n"
@@ -305,11 +305,11 @@ msgstr "Uneko GCC garapen egoera-argazkia erabiliz eraiki"
 msgid "Package to build"
 msgstr "Pakete igotzailea"
 
-#: bin/csbuild/csbuild-options.cc:223
+#: bin/csbuild/csbuild-options.cc:228
 msgid "--makebinNMU missing"
 msgstr ""
 
-#: bin/csbuild/csbuild-options.cc:225
+#: bin/csbuild/csbuild-options.cc:235
 msgid "--binNMU missing"
 msgstr ""
 
@@ -340,15 +340,15 @@ msgstr "Chroot guztiak hautatu"
 msgid "Directory to use"
 msgstr "Erabiliko den direktorioa"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:93
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:98
 msgid "Only one command may be specified"
 msgstr "Bakarrik komando bat ezarri daiteke"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:97
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:107
 msgid "Command must have an absolute path"
 msgstr "Komandoak bide-izen absolutua izan behar du"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:106
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:121
 msgid "No chroot specified"
 msgstr "Ez da chrrot-a ezarri"
 
@@ -527,12 +527,12 @@ msgstr ""
 "zerrendatzeko"
 
 #: bin/schroot-base/schroot-base-option-action.cc:65
-#: bin/schroot-base/schroot-base-option-action.cc:88
+#: bin/schroot-base/schroot-base-option-action.cc:93
 #, boost-format
 msgid "%1%: invalid action"
 msgstr "%1%: ekintza baliogabea"
 
-#: bin/schroot-base/schroot-base-option-action.cc:85
+#: bin/schroot-base/schroot-base-option-action.cc:90
 msgid "Only one action may be specified"
 msgstr "Soilik ekintza bat ezarri daiteke"
 
@@ -568,7 +568,7 @@ msgstr "Irteera gehiago ikusi"
 msgid "Enable debugging messages"
 msgstr "Mezu arazpena gaitu"
 
-#: bin/schroot-base/schroot-base-options.cc:158
+#: bin/schroot-base/schroot-base-options.cc:163
 msgid "Invalid debug level"
 msgstr "Arazpen maila baliogabea"
 
@@ -594,8 +594,8 @@ msgstr "Muntatu"
 msgid "Mountpoint to check (full path)"
 msgstr "Egiaztatzeko muntatze puntua (bide osoa)"
 
-#: bin/schroot-listmounts/schroot-listmounts-options.cc:89
-#: bin/schroot-mount/schroot-mount-options.cc:102
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:94
+#: bin/schroot-mount/schroot-mount-options.cc:107
 msgid "No mount point specified"
 msgstr "Ez da muntatze punturik zehaztu"
 
@@ -658,7 +658,7 @@ msgstr "Desblokeatzeko gailua (bide osoa)"
 msgid "Process ID owning the lock"
 msgstr "Prozesua IDa da blokeoaren jabea"
 
-#: bin/schroot-releaselock/schroot-releaselock-options.cc:92
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:97
 msgid "No device specified"
 msgstr "Ez da gailurik ezarri"
 
@@ -758,21 +758,21 @@ msgstr "Erabili ezarritako chroot-a"
 msgid "Command to run"
 msgstr "Abiarazteko komandoa"
 
-#: bin/schroot/schroot-options-base.cc:204
+#: bin/schroot/schroot-options-base.cc:208
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "Zehazki chroot bat zehaztu berhar da saioa hasterakoan"
 
-#: bin/schroot/schroot-options-base.cc:217
+#: bin/schroot/schroot-options-base.cc:225
 msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
 msgstr ""
 
-#: bin/schroot/schroot-options-base.cc:237
+#: bin/schroot/schroot-options-base.cc:250
 msgid "--chroot may not be used with --list"
 msgstr "--chroot ezin da --list -ekin batera erabili"
 
-#: bin/schroot/schroot-options-base.cc:262
+#: bin/schroot/schroot-options-base.cc:280
 msgid "Unknown action specified"
 msgstr "Ekintza ezezaguna zehaztua"
 
