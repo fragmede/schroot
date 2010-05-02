@@ -563,6 +563,30 @@ if test "$BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS" = "old"; then
   AC_DEFINE(BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD, 1)
 fi
 
+AC_MSG_CHECKING([for boost::program_options::validation_error in -lboost_program_options])
+saved_LIBS="${LIBS}"
+LIBS="${saved_LIBS} -lboost_program_options"
+define([boost_error], [AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
+                                   [boost::program_options::validation_error err(boost::program_options::validation_error::invalid_option, "error");
+])])
+define([boost_error_old], [AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
+                                   [boost::program_options::validation_error err("error");
+])])
+AC_LINK_IFELSE(boost_error,
+               [AC_MSG_RESULT([yes (Boost >= 1.42)])
+                BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR="current"],
+LIBS="${saved_LIBS} -lboost_program_options"
+[AC_LINK_IFELSE(boost_error_old,
+               [AC_MSG_RESULT([yes (Boost < 1.42)])
+                BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR="old"],
+               [AC_MSG_RESULT([no])
+	        AC_MSG_FAILURE([libboost_program_options (Boost C++ Libraries) is not installed, but is required by schroot])])])
+LIBS="${saved_LIBS}"
+AH_TEMPLATE(BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD, [Set if boost::program_options::validation error uses old construction semantics])
+if test "$BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR" = "old"; then
+  AC_DEFINE(BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD, 1)
+fi
+
 AC_MSG_CHECKING([for boost::regex in -lboost_regex])
 saved_LIBS="${LIBS}"
 LIBS="${saved_LIBS} -lboost_regex"

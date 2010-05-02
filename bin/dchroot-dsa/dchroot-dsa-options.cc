@@ -90,11 +90,21 @@ options::check_options ()
 
   // dchroot-dsa only allows one command.
   if (this->command.size() > 1)
-    throw opt::validation_error(_("Only one command may be specified"));
+	throw opt::validation_error
+	  (
+#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
+	   opt::validation_error::multiple_values_not_allowed,
+#endif
+	   _("Only one command may be specified"));
 
   if (!this->command.empty() &&
       !sbuild::is_absname(this->command[0]))
-    throw opt::validation_error(_("Command must have an absolute path"));
+	throw opt::validation_error
+	  (
+#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
+	   opt::validation_error::invalid_option,
+#endif
+	   _("Command must have an absolute path"));
 
   if (this->chroots.empty() && !all_used() &&
       (this->action != ACTION_CONFIG &&
@@ -103,5 +113,10 @@ options::check_options ()
        this->action != ACTION_LOCATION &&
        this->action != ACTION_HELP &&
        this->action != ACTION_VERSION))
-    throw opt::validation_error(_("No chroot specified"));
+	throw opt::validation_error
+	  (
+#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
+	   opt::validation_error::at_least_one_value_required,
+#endif
+	   _("No chroot specified"));
 }

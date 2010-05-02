@@ -201,7 +201,11 @@ options_base::check_actions ()
       this->load_sessions = false;
       if (this->chroots.size() != 1 || all_used())
 	throw opt::validation_error
-	  (_("Exactly one chroot must be specified when beginning a session"));
+	  (
+#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
+	   opt::validation_error::multiple_values_not_allowed,
+#endif
+	   _("Exactly one chroot must be specified when beginning a session"));
 
       this->all = this->all_chroots = this->all_sessions = false;
     }
@@ -214,7 +218,11 @@ options_base::check_actions ()
 
       if (!this->session_name.empty())
         throw opt::validation_error
-	  (_("--session-name is not permitted for the specified action; did you mean to use --chroot?"));
+	  (
+#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
+	   opt::validation_error::invalid_option,
+#endif
+	   _("--session-name is not permitted for the specified action; did you mean to use --chroot?"));
     }
   else if (this->action == ACTION_HELP ||
 	   this->action == ACTION_VERSION)
@@ -234,7 +242,12 @@ options_base::check_actions ()
       if (this->all_sessions)
 	this->load_sessions = true;
       if (!this->chroots.empty())
-	throw opt::validation_error(_("--chroot may not be used with --list"));
+	throw opt::validation_error
+	  (
+#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
+	   opt::validation_error::invalid_option,
+#endif
+	   _("--chroot may not be used with --list"));
     }
   else if (this->action == ACTION_INFO ||
 	   this->action == ACTION_LOCATION ||
@@ -259,6 +272,11 @@ options_base::check_actions ()
       // Something went wrong
       this->load_chroots = this->load_sessions = false;
       this->all = this->all_chroots = this->all_sessions = false;
-      throw opt::validation_error(_("Unknown action specified"));
+      throw opt::validation_error
+	(
+#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
+	 opt::validation_error::invalid_option,
+#endif
+	 _("Unknown action specified"));
     }
 }

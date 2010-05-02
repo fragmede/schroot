@@ -220,9 +220,19 @@ options::check_options ()
   if (vm.count("binNMU") && vm.count("make-binNMU"))
     this->bin_nmu = true;
   else if (vm.count("binNMU"))
-    throw opt::validation_error(_("--makebinNMU missing"));
+    throw opt::validation_error
+      (
+#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
+       opt::validation_error::at_least_one_value_required,
+#endif
+       _("--makebinNMU missing"));
   else if (vm.count("make-binNMU"))
-    throw opt::validation_error(_("--binNMU missing"));
+    throw opt::validation_error
+      (
+#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
+       opt::validation_error::at_least_one_value_required,
+#endif
+       _("--binNMU missing"));
 
   if (!deb_build_options_string.empty())
     {

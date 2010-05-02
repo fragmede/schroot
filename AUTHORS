@@ -4,6 +4,9 @@ principal areas that each contributed to are listed in addition.
 Tim Abbott		<tabbott@mit.edu>
 	schroot bash completion.
 
+Andy Bailey		<bailey@akamai.com>
+     	Boost 1.42 compatibility
+
 Andreas Bombe		<aeb@debian.org>
 	Documentation improvements.
 
