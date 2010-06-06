@@ -2,7 +2,7 @@
 #
 ### BEGIN INIT INFO
 # Provides:          schroot
-# Required-Start:    $local_fs $network $remote_fs
+# Required-Start:    $local_fs $syslog $network $remote_fs
 # Required-Stop:
 # Should-Start:      lvm
 # Should-Stop:
