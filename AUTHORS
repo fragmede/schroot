@@ -25,3 +25,7 @@ Aurelien Jarno <aurel32@debian.org>
 
 Roger Leigh		<rleigh@debian.org>
 	Architecture, Coding, Documentation.
+
+Nathaniel W. Turner	<nate@houseofnate.net>
+	Addition of correct SIGINT handling when running setup
+	scripts.
