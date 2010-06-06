@@ -7,8 +7,13 @@ schroot (1.4.2-1) unstable; urgency=low
     Aurelien Jarno.
   * Support building with Boost 1.42 (Closes: #579701).  Thanks to
     Andy Bailey.
+  * Don't use personality(2) to introspect the set personality, by
+    caching the set personality instead.  This avoids problems when
+    the kernel sets additional personality flags which prevents
+    correct identification of the set personality, currently
+    preventing building on ARM (Closes: #580136).
 
- -- Roger Leigh <rleigh@debian.org>  Tue, 13 Apr 2010 14:22:13 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 06 Jun 2010 12:27:03 +0100
 
 schroot (1.4.1-2) unstable; urgency=low
 
