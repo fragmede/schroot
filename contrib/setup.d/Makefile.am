@@ -22,6 +22,7 @@
 include $(top_srcdir)/scripts/global.mk
 
 noinst_SCRIPTS =	\
+	09fsck		\
 	10mount-ssh
 
 EXTRA_DIST =			\
