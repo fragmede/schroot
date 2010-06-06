@@ -12,8 +12,10 @@ schroot (1.4.2-1) unstable; urgency=low
     the kernel sets additional personality flags which prevents
     correct identification of the set personality, currently
     preventing building on ARM (Closes: #580136).
+  * Correctly clean up the session when schroot receives SIGINT
+    (Closes: #477770).  Thanks to Nathaniel W. Turner for this patch.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 06 Jun 2010 12:27:03 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 06 Jun 2010 21:53:49 +0100
 
 schroot (1.4.1-2) unstable; urgency=low
 
