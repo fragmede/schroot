@@ -103,7 +103,7 @@ main::action_mount ()
 
       std::string directory(opts->mountpoint + entry.directory);
 
-      if (!boost::filesystem::is_directory(directory))
+      if (!boost::filesystem::exists(directory))
 	{
 	  sbuild::log_debug(sbuild::DEBUG_INFO)
 	    << boost::format("Creating '%1%' in '%2%'")
