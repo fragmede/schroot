@@ -184,6 +184,7 @@ namespace
   }
 
   volatile bool sighup_called = false;
+  volatile bool sigint_called = false;
   volatile bool sigterm_called = false;
 
   /**
@@ -196,6 +197,30 @@ namespace
   {
     /* This exists so that system calls get interrupted. */
     sighup_called = true;
+  }
+
+  /**
+   * Handle the SIGINT signal.
+   *
+   * We explicitly do nothing with SIGINT, and rely on the exit status
+   * of child processes to determine if we should care.  We want to
+   * make sure any child process (which will also have received
+   * SIGINT) has exited before we do anything, and some child
+   * processes (for example, emacs) may expect SIGINT during normal
+   * operation.  See http://www.cons.org/cracauer/sigint.html for a
+   * good discussion of SIGINT handling.
+
+   * @param ignore the signal number.
+   */
+  void
+  sigint_handler (int ignore)
+  {
+    /*
+     * Allows us to detect if an interrupted waitpid() was interrupted
+     * due to SIGINT or something else.  We may also want to use this
+     * at exit time to see if we should re-kill ourselves with SIGINT.
+     */
+    sigint_called = true;
   }
 
   /**
@@ -242,6 +267,7 @@ session::session (std::string const&         service,
   session_id(),
   force(false),
   saved_sighup_signal(),
+  saved_sigint_signal(),
   saved_sigterm_signal(),
   saved_termios(),
   termios_ok(false),
@@ -571,6 +597,8 @@ session::run_impl ()
     {
       sighup_called = false;
       set_sighup_handler();
+      sigint_called = false;
+      set_sigint_handler();
       sigterm_called = false;
       set_sigterm_handler();
 
@@ -695,6 +723,7 @@ session::run_impl ()
   catch (error const& e)
     {
       clear_sigterm_handler();
+      clear_sigint_handler();
       clear_sighup_handler();
 
       /* If a command was not run, but something failed, the exit
@@ -705,6 +734,7 @@ session::run_impl ()
     }
 
   clear_sigterm_handler();
+  clear_sigint_handler();
   clear_sighup_handler();
 }
 
@@ -1268,6 +1298,15 @@ session::wait_for_child (pid_t pid,
 
   while (1)
     {
+      /*
+       * If we (the parent process) gets SIGHUP or SIGTERM, pass this
+       * signal on to the child (once).  Note that we do not handle
+       * SIGINT this way, because when a user presses Ctrl-C, the
+       * SIGINT is sent to all processes attached to that TTY (so the
+       * child will already have gotten it).  In any case, once the
+       * child gets the signal, we just have to continue waiting for
+       * it to exit.
+       */
       if ((sighup_called || sigterm_called) && !child_killed)
 	{
 	  if (sighup_called)
@@ -1290,7 +1329,7 @@ session::wait_for_child (pid_t pid,
 
       if (waitpid(pid, &status, 0) == -1)
 	{
-	  if (errno == EINTR && (sighup_called || sigterm_called))
+	  if (errno == EINTR && (sighup_called || sigterm_called || sigint_called))
 	    continue; // Kill child and wait again.
 	  else
 	    throw error(CHILD_WAIT, strerror(errno));
@@ -1305,6 +1344,8 @@ session::wait_for_child (pid_t pid,
 	  sigterm_called = false;
 	  throw error(SIGNAL_CATCH, strsignal(SIGTERM));
 	}
+      // No need to handle the SIGINT case here; it is handled
+      // correctly below
       else
 	break;
     }
@@ -1369,6 +1410,18 @@ void
 session::clear_sighup_handler ()
 {
   clear_signal_handler(SIGHUP, &this->saved_sighup_signal);
+}
+
+void
+session::set_sigint_handler ()
+{
+  set_signal_handler(SIGINT, &this->saved_sigint_signal, sigint_handler);
+}
+
+void
+session::clear_sigint_handler ()
+{
+  clear_signal_handler(SIGINT, &this->saved_sigint_signal);
 }
 
 void
