@@ -3,6 +3,7 @@ debian/install/etc/pam.d                      etc
 debian/install/etc/schroot                    etc
 debian/install/usr/bin/schroot                usr/bin
 debian/install/usr/lib/schroot                usr/lib
+contrib/setup.d/09fsck                        usr/share/doc/schroot/contrib/setup.d
 contrib/setup.d/10mount-ssh                   usr/share/doc/schroot/contrib/setup.d
 debian/install/usr/share/man/man1/schroot.1   usr/share/man/man1
 debian/install/usr/share/man/man5             usr/share/man
