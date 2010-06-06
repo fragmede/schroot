@@ -191,7 +191,6 @@ public:
     keyfile.set_value(group, "root-groups", "group3,group4");
     keyfile.set_value(group, "environment-filter",
 		      SBUILD_DEFAULT_ENVIRONMENT_FILTER);
-    keyfile.set_value(group, "personality", "undefined");
     keyfile.set_value(group, "command-prefix", "");
     keyfile.set_value(group, "script-config", "default/config");
   }

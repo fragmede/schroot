@@ -28,13 +28,7 @@ using namespace sbuild;
 
 chroot_facet_personality::chroot_facet_personality ():
   chroot_facet(),
-  persona(
-#ifdef __linux__
-	  personality("linux")
-#else
-	  personality("undefined")
-#endif
-	  )
+  persona()
 {
 }
 
@@ -99,8 +93,10 @@ void
 chroot_facet_personality::get_keyfile (chroot const& chroot,
 				       keyfile&      keyfile) const
 {
-  keyfile::set_object_value(*this, &chroot_facet_personality::get_persona,
-			    keyfile, chroot.get_keyfile_name(), "personality");
+  // Only set if defined.
+  if (get_persona().get_name() != "undefined")
+    keyfile::set_object_value(*this, &chroot_facet_personality::get_persona,
+			      keyfile, chroot.get_keyfile_name(), "personality");
 }
 
 void

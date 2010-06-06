@@ -96,24 +96,17 @@ sbuild::personality::personalities(initial_personalities,
 				   initial_personalities + (sizeof(initial_personalities) / sizeof(initial_personalities[0])));
 
 sbuild::personality::personality ():
-  persona(
-#if defined(SBUILD_FEATURE_PERSONALITY)
-	  ::personality(0xffffffff)
-#else
-	  0xffffffff
-#endif // SBUILD_FEATURE_PERSONALITY
-	  )
+  persona_name("undefined"),
+  persona(find_personality("undefined"))
 {
-}
-
-sbuild::personality::personality (type persona):
-  persona(persona)
-{
+  set_name("undefined");
 }
 
 sbuild::personality::personality (std::string const& persona):
-  persona(find_personality(persona))
+  persona_name("undefined"),
+  persona(find_personality("undefined"))
 {
+  set_name(persona);
 }
 
 sbuild::personality::~personality ()
@@ -149,7 +142,25 @@ sbuild::personality::find_personality (type persona)
 std::string const&
 sbuild::personality::get_name () const
 {
-  return find_personality(this->persona);
+  return this->persona_name;
+}
+
+void
+sbuild::personality::set_name (std::string const& persona)
+{
+  this->persona_name = persona;
+  this->persona = find_personality(persona);
+
+  if (this->persona_name != "undefined" &&
+      this->persona == find_personality("undefined"))
+    {
+      this->persona_name = "undefined";
+      this->persona = find_personality("undefined");
+
+      personality::error e(persona, personality::BAD);
+      e.set_reason(personality::get_personalities());
+      throw e;
+    }
 }
 
 sbuild::personality::type
@@ -163,7 +174,7 @@ sbuild::personality::set () const
 {
 #ifdef SBUILD_FEATURE_PERSONALITY
   /* Set the process execution domain using personality(2). */
-  if (this->persona != 0xffffffff &&
+  if (this->persona != find_personality("undefined") &&
       ::personality (this->persona) < 0)
     {
       throw error(get_name(), SET, strerror(errno));

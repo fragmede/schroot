@@ -65,13 +65,6 @@ namespace sbuild
      *
      * @param persona the persona to set.
      */
-    personality (type persona);
-
-    /**
-     * The constructor.
-     *
-     * @param persona the persona to set.
-     */
     personality (std::string const& persona);
 
     ///* The destructor.
@@ -83,6 +76,14 @@ namespace sbuild
      * @returns the personality name.
      */
     std::string const& get_name () const;
+
+    /**
+     * Set the name of the personality.
+     *
+     * @param persona the persona to set.
+     * @returns the personality name.
+     */
+    void set_name (std::string const& persona);
 
     /**
      * Get the personality.
@@ -125,15 +126,7 @@ namespace sbuild
 
       if (std::getline(stream, personality_name))
 	{
-	  rhs.persona = find_personality(personality_name);
-
-	  if (rhs.get_name() == "undefined" &&
-	      rhs.get_name() != personality_name)
-	    {
-	      personality::error e(personality_name, personality::BAD);
-	      e.set_reason(personality::get_personalities());
-	      throw e;
-	    }
+	  rhs.set_name(personality_name);
 	}
 
       return stream;
@@ -176,6 +169,9 @@ namespace sbuild
      */
     static std::string const&
     find_personality (type persona);
+
+    /// The name of the current personality.
+    std::string persona_name;
 
     /// The personality type.
     type persona;

@@ -29,9 +29,12 @@ class test_personality : public TestCase
 {
   CPPUNIT_TEST_SUITE(test_personality);
   CPPUNIT_TEST(test_construction);
+  CPPUNIT_TEST_EXCEPTION(test_construction_fail, sbuild::personality::error);
   CPPUNIT_TEST(test_output);
   CPPUNIT_TEST(test_input);
   CPPUNIT_TEST_EXCEPTION(test_input_fail, sbuild::personality::error);
+  CPPUNIT_TEST(test_set);
+  CPPUNIT_TEST_EXCEPTION(test_set_fail, sbuild::personality::error);
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -45,19 +48,7 @@ public:
   test_construction()
   {
     sbuild::personality p1;
-#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
-    CPPUNIT_ASSERT(p1.get_name() == "linux" ||
-		   p1.get_name() == "linux_32bit" ||
-		   p1.get_name() == "linux32");
-#else
     CPPUNIT_ASSERT(p1.get_name() == "undefined");
-#endif
-
-    sbuild::personality p2(0xffffffff);
-    CPPUNIT_ASSERT(p2.get_name() == "undefined");
-
-    sbuild::personality p3("invalid_personality");
-    CPPUNIT_ASSERT(p3.get_name() == "undefined");
 
     sbuild::personality p4("linux");
 #if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
@@ -68,18 +59,14 @@ public:
   }
 
   void
+  test_construction_fail()
+  {
+    sbuild::personality p3("invalid_personality");
+  }
+
+  void
   test_output()
   {
-    sbuild::personality p2(0xffffffff);
-    std::ostringstream ps2;
-    ps2 << p2;
-    CPPUNIT_ASSERT(ps2.str() == "undefined");
-
-    sbuild::personality p3("invalid_personality");
-    std::ostringstream ps3;
-    ps3 << p3;
-    CPPUNIT_ASSERT(ps3.str() == "undefined");
-
     sbuild::personality p4("linux");
     std::ostringstream ps4;
     ps4 << p4;
@@ -118,7 +105,30 @@ public:
     sbuild::personality p3;
     std::istringstream ps3("invalid_personality");
     ps3 >> p3;
-    CPPUNIT_ASSERT(p3.get_name() == "undefined");
+  }
+
+  void
+  test_set()
+  {
+    sbuild::personality p2;
+    p2.set_name("undefined");
+    CPPUNIT_ASSERT(p2.get_name() == "undefined");
+
+    sbuild::personality p4;
+#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
+    p4.set_name("linux");
+    CPPUNIT_ASSERT(p4.get_name() == "linux");
+#else
+    p4.set_name("undefined");
+    CPPUNIT_ASSERT(p4.get_name() == "undefined");
+#endif
+  }
+
+  void
+  test_set_fail()
+  {
+    sbuild::personality p3;
+    p3.set_name("invalid_personality");
   }
 
 };
