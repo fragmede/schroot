@@ -417,6 +417,20 @@ namespace sbuild
     clear_sighup_handler ();
 
     /**
+     * Set the SIGINT handler.
+     *
+     * An error will be thrown on failure.
+     */
+    void
+    set_sigint_handler ();
+
+    /**
+     * Restore the state of SIGINT prior to setting the handler.
+     */
+    void
+    clear_sigint_handler ();
+
+    /**
      * Set the SIGTERM handler.
      *
      * An error will be thrown on failure.
@@ -474,6 +488,8 @@ namespace sbuild
     bool             force;
     /// Signal saved while sighup handler is set.
     struct sigaction saved_sighup_signal;
+    /// Signal saved while sigint handler is set.
+    struct sigaction saved_sigint_signal;
     /// Signal saved while sigterm handler is set.
     struct sigaction saved_sigterm_signal;
     /// Saved terminal settings.
