@@ -49,6 +49,19 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 		if echo "$db" | egrep -q '^(#|$)' ; then
 		    continue
 		fi
+
+                # Device and inode
+		da=$(/usr/bin/stat --format="%d %i" "/etc/$db")
+		db=$(/usr/bin/stat --format="%d %i" "${CHROOT_PATH}/etc/$db")
+
+	        # If the database inside and outside the chroot is the
+	        # same, it's very likely that dup_nss would blank the
+	        # database, so skip it.
+		if [ "$da" = "$db" ]; then
+		    echo "$db files '/etc/$db' and '${CHROOT_PATH}/etc/$db' are the same file; skipping"
+		    continue;
+		fi
+
 		dup_nss "$db" "${CHROOT_PATH}/etc/$db"
 	    done < "$NSSDATABASES"
 	else
