@@ -228,7 +228,7 @@ sbuild::unique_identifier ()
 
   id << uuid_str;
 #else
-  id << isodate(time(0)) << '-' << getpid();
+  id << time(0) << '-' << getpid();
 #endif
 
   return id.str();
