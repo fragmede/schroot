@@ -24,6 +24,11 @@ and test for particular permissions.
 
 * SCHROOT_CONF error messages must also mention chroot.d.
 
+* Document that database files on the root filesystem must not be
+  directly shared inside the chroot
+
+  - Setup scripts such as 20nssdatabases can blank them out.
+
 
 POTENTIAL
 ---------
