@@ -202,6 +202,18 @@ AC_ARG_ENABLE([lvm-snapshot], [AS_HELP_STRING([--enable-lvm-snapshot], [Enable s
               [enable_lvmsnapshot="auto"])
 AC_MSG_RESULT([$enable_lvmsnapshot])
 
+AC_MSG_CHECKING([whether to enable support for BTRFS snapshots])
+AC_ARG_ENABLE([btrfs-snapshot], [AS_HELP_STRING([--enable-btrfs-snapshot], [Enable support for btrfs snapshots (requires btrfs)])],
+              [ case "${enableval}" in
+                yes) enable_btrfssnapshot="yes"
+		     enable_blockdev="yes" ;;
+                no)  enable_btrfssnapshot="no" ;;
+                *) AC_MSG_RESULT([unknown])
+                   AC_MSG_ERROR([bad value ${enableval} for --enable-btrfs-snapshot]) ;;
+                esac],
+              [enable_btrfssnapshot="auto"])
+AC_MSG_RESULT([$enable_btrfssnapshot])
+
 AC_MSG_CHECKING([whether to enable support for loopback mounts])
 AC_ARG_ENABLE([loopback], [AS_HELP_STRING([--enable-loopback], [Enable support for loopback mounts])],
               [ case "${enableval}" in
@@ -270,6 +282,9 @@ AC_PATH_PROG([DOXYGEN], [doxygen])
 HAVE_LVM="yes"
 AC_PATH_PROG([LVCREATE], [lvcreate], [HAVE_LVM="no"], [$PATH:/sbin:/usr/sbin])
 AC_PATH_PROG([LVREMOVE], [lvremove], [HAVE_LVM="no"], [$PATH:/sbin:/usr/sbin])
+HAVE_BTRFS="yes"
+AC_PATH_PROG([BTRFS], [btrfs], [HAVE_BTRFS="no"], [$PATH:/sbin:/usr/sbin])
+AC_PATH_PROG([BTRFSCTL], [btrfsctl], [HAVE_BTRFS="no"], [$PATH:/sbin:/usr/sbin])
 HAVE_LOOPBACK="yes"
 AC_PATH_PROG([LOSETUP], [losetup], [HAVE_LOOPBACK="no"], [$PATH:/sbin:/usr/sbin])
 
@@ -484,6 +499,28 @@ AM_CONDITIONAL([BUILD_LVMSNAP], [test "$BUILD_LVMSNAP" = "yes"])
 AH_TEMPLATE(SBUILD_FEATURE_LVMSNAP, [Set if the lvm-snapshot chroot type is present])
 if test "$BUILD_LVMSNAP" = "yes"; then
   AC_DEFINE(SBUILD_FEATURE_LVMSNAP, 1)
+fi
+
+AC_MSG_CHECKING([whether to build btrfs-snapshot support])
+BUILD_BTRFSSNAP="yes"
+if test "$enable_btrfssnapshot" = "yes"; then
+  if test "$HAVE_BTRFS" = "no"; then
+    BUILD_BTRFSSNAP="no"
+    AC_MSG_FAILURE([BTRFS (btrfs) is not installed, but is required by schroot])
+  fi
+elif test "$enable_btrfssnapshot" = "no"; then
+    BUILD_BTRFSSNAP="no"
+elif test "$enable_btrfssnapshot" = "auto"; then
+  if test "$HAVE_BTRFS" = "no"; then
+    BUILD_BTRFSSNAP="no"
+  fi
+fi
+AC_MSG_RESULT([$BUILD_BTRFSSNAP])
+
+AM_CONDITIONAL([BUILD_BTRFSSNAP], [test "$BUILD_BTRFSSNAP" = "yes"])
+AH_TEMPLATE(SBUILD_FEATURE_BTRFSSNAP, [Set if the btrfs-snapshot chroot type is present])
+if test "$BUILD_BTRFSSNAP" = "yes"; then
+  AC_DEFINE(SBUILD_FEATURE_BTRFSSNAP, 1)
 fi
 
 AC_MSG_CHECKING([whether to build loopback support])
