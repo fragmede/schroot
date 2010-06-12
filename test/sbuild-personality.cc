@@ -50,11 +50,9 @@ public:
     sbuild::personality p1;
     CPPUNIT_ASSERT(p1.get_name() == "undefined");
 
-    sbuild::personality p4("linux");
 #if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
+    sbuild::personality p4("linux");
     CPPUNIT_ASSERT(p4.get_name() == "linux");
-#else
-    CPPUNIT_ASSERT(p4.get_name() == "undefined");
 #endif
   }
 
@@ -67,9 +65,15 @@ public:
   void
   test_output()
   {
+#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
     sbuild::personality p4("linux");
+#else
+    sbuild::personality p4;
+#endif
+
     std::ostringstream ps4;
     ps4 << p4;
+
 #if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
     CPPUNIT_ASSERT(ps4.str() == "linux");
 #else
