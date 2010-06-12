@@ -1,3 +1,11 @@
+schroot (1.4.4-1) unstable; urgency=low
+
+  * Correct personality checks in testsuite for non-Linux
+    architectures (Closes: #585653).  Thanks to Cyril Brulebois
+    for finding the bug and testing the fix.
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 12 Jun 2010 23:23:35 +0100
+
 schroot (1.4.3-1) unstable; urgency=low
 
   * Don't use personality(2) to introspect the set personality, by
