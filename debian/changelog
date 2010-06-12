@@ -11,8 +11,9 @@ schroot (1.4.3-1) unstable; urgency=low
     to Sascha Silbe.
   * Add contrib 09fsck setup script (Closes: #492316).  Thanks to
     Martin F. Krafft.
+  * Use the '3.0 (quilt)' source format.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 06 Jun 2010 23:40:44 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 12 Jun 2010 16:02:11 +0100
 
 schroot (1.4.2-1) unstable; urgency=low
 
