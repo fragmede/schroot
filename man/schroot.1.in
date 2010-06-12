@@ -52,6 +52,49 @@ the user may be required to authenticate themselves; see the section
 .PP
 If no chroot is specified, the chroot name or alias \[oq]default\[cq] will be
 used as a fallback.  This is equivalent to \[lq]\-\-chroot=default\[rq].
+.SH OVERVIEW
+There is often a need to run programs in a virtualised environment rather than
+on the host system directly.  Unlike other virtualisation systems such as
+\fBkvm\fP or \fPXen\fP, schroot does not virtualise the entire system; it only
+virtualises the filesystem, and some parts of the filesystem may still be
+shared with the host.  It is therefore fast, lightweight and flexible.
+However, it does not virtualise other aspects of the system, such as shared
+memory, networking, devices etc., and so may be less secure than other systems,
+depending upon its intended use.  Some examples of existing uses for schroot
+include:
+.IP \[bu]
+Running an untrusted program in a sandbox, so that it can't interfere with
+files on the host system; this may also be used to limit the damage a
+compromised service can inflict upon the host
+.IP \[bu]
+Using a \fIdefined\fP or \fIclean\fP environment, to guarantee the
+reproducibility and integrity of a given task
+.IP \[bu]
+Using different versions of an operating system, or even different operating
+systems altogether, e.g. different GNU/Linux distributions
+.IP \[bu]
+Running 32-bit programs using a 32-bit chroot on a 64-bit host system
+.IP \[bu]
+Automatic building of Debian packages using
+.BR sbuild (1),
+which builds each package in a pristine chroot snapshot when using LVM
+snapshots or unions
+.IP \[bu]
+Supporting multiple system images in a cluster setup, where modifying the base
+image is time-consuming and/or supporting all the required configurations
+needed by users is difficult: different chroots can support all the different
+configurations required, and cluster users may be given access to the chroots
+they need (which can include root access for trusted users to maintain their
+own images)
+.PP
+A chroot may be used directly as root by running
+.BR chroot (8),
+but normal users are not able to use this command.  \fBschroot\fP allows access
+to chroots for normal users using the same mechanism, but with permissions
+checking and allowing additional automated setup of the chroot environment,
+such as mounting additional filesystems and other configuration tasks.  This
+automated setup is done through the action of \fIsetup scripts\fP which may be
+customised and extended to perform any actions required.
 .SH OPTIONS
 \fBschroot\fP accepts the following options:
 .SS Actions

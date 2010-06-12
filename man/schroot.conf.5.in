@@ -27,9 +27,7 @@ right of the \[oq]\f[CR]\[sh]\fP\[cq] is treated as a comment.
 .PP
 The configuration format is an INI-style format, split into groups of key-value
 pairs separated by section names in square brackets.
-.SS
-General options
-.PP
+.SS General options
 A chroot is defined as a group of key-value pairs, which is started by a name
 in square brackets on a line by itself.  The file may contain multiple groups
 which therefore define multiple chroots.
@@ -45,7 +43,9 @@ This is then followed by several key-value pairs, one per line:
 The type of the chroot.  Valid types are \[oq]plain\[cq], \[oq]directory\[cq],
 \[oq]file\[cq], \[oq]loopback\[cq], \[oq]block\-device\[cq] and
 \[oq]lvm\-snapshot\[cq].  If empty or omitted, the default type is
-\[oq]plain\[cq].
+\[oq]plain\[cq].  Note that \[oq]plain\[cq] chroots do not run setup scripts
+and mount filesystems; \[oq]directory\[cq] is recommended (see \[lq]\fIPlain
+and directory chroots\fP\[rq], below).
 .TP
 \f[CBI]description=\fP\f[CI]description\fP
 A short description of the chroot.  This may be localised for different
@@ -142,9 +142,7 @@ using the following regular expression:
 .na
 \[lq]\f[CR]^(BASH_ENV\:|CDPATH\:|ENV\:|HOSTALIASES\:|IFS\:|KRB5_CONFIG\:|KRBCONFDIR\:|KRBTKFILE\:|KRB_CONF\:|LD_.*\:|LOCALDOMAIN\:|NLSPATH\:|PATH_LOCALE\:|RES_OPTIONS\:|TERMINFO\:|TERMINFO_DIRS\:|TERMPATH)$\fP\[rq].
 .ad
-.SS
-Plain and directory chroots
-.PP
+.SS Plain and directory chroots
 Chroots of type \[oq]plain\[cq] or \[oq]directory\[cq] are directories
 accessible in the filesystem.  The two types are equivalent except for the fact
 that directory chroots run setup scripts, whereas plain chroots do not.
@@ -162,7 +160,8 @@ the directory for \[oq]plain\[cq] chroots is mounted with the \fI\-\-rbind\fP
 option to
 .BR mount (8),
 while for \[oq]directory\[cq] chroots \fI\-\-bind\fP is used instead so that
-sub-mounts are not preserved.
+sub-mounts are not preserved (they should be set in the \fIfstab\fP file just
+like in \fI/etc/fstab\fP on the host).
 .IP
 This option was previously named \f[CI]location\fP, but was renamed to avoid
 ambiguity with the option by the same name for \fBmountable chroot\fP options
@@ -171,9 +170,7 @@ ambiguity with the option by the same name for \fBmountable chroot\fP options
 removed in a future release.  It is recommended to use \f[CI]directory\fP
 rather than \f[CI]location\fP.  Note that it is an error to use both
 \f[CI]directory\fP and \f[CI]location\fP at the same time.
-.SS
-File chroots
-.PP
+.SS File chroots
 Chroots of type \[oq]file\[cq] are files on the current filesystem containing
 an archive of the chroot files.  They implement the \fBsource chroot\fP options
 (see \[lq]\fISource chroot options\fP\[rq], below) and have an additional
@@ -185,9 +182,7 @@ archive), optionally compressed with gzip or bzip2, or a zip archive.  The file
 extensions used to determine the type are are \fI.tar\fP, \fI.tar.gz\fP,
 \fI.tar.bz2\fP, \fI.tgz\fP, \fI.tbz\fP and \fI.zip\fP.  This file must be owned
 by the root user, and not be writable by other.
-.SS
-Loopback chroots
-.PP
+.SS Loopback chroots
 Chroots of type \[oq]loopback\[cq] are a filesystem available as a file on
 disk, accessed via a loopback mount.  The file will be loopback mounted and
 unmounted on demand.  Loopback chroots implement the \fBmountable chroot\fP and
@@ -198,9 +193,7 @@ plus an additional option:
 \f[CBI]file=\fP\f[CI]filename\fP
 This is the filename of the file containing the filesystem, including the
 absolute path.  For example \[lq]/srv/chroot/sid\[rq].
-.SS
-Block device chroots
-.PP
+.SS Block device chroots
 Chroots of type \[oq]block\-device\[cq] are a filesystem available on an
 unmounted block device.  The device will be mounted and unmounted on demand.
 Block device chroots implement the \fBmountable chroot\fP and \fBfilesystem
@@ -211,9 +204,7 @@ option:
 \f[CBI]device=\fP\f[CI]device\fP
 This is the device name of the block device, including the absolute path.  For
 example, \[lq]/dev/sda5\[rq].
-.SS
-LVM snapshot chroots
-.PP
+.SS LVM snapshot chroots
 Chroots of type \[oq]lvm\-snapshot\[cq] are a filesystem available on an LVM
 logical volume (LV).  A snapshot LV will be created from this LV on demand, and
 then the snapshot will be mounted.  At the end of the session, the snapshot LV
@@ -233,7 +224,6 @@ example, \[lq]\-L 2g\[rq] to create a snapshot 2 GiB in size.
 the LV name (\fI\-n\fP), the snapshot option (\fI\-s\fP) and the original LV
 path may not be specfied here; they are set automatically by schroot.
 .SS Source chroot options
-.PP
 Some chroots implement source chroots.  These are chroots which automatically
 create a copy of themselves before use, and are usually session managed.  These
 chroots also provide an additional chroot with a \fI\-source\fP suffix added to
