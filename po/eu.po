@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-02-20 20:09+0000\n"
+"POT-Creation-Date: 2010-06-13 22:04+0100\n"
 "PO-Revision-Date: 2010-01-16 15:43+0000\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <Librezale@librezale.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -305,11 +306,11 @@ msgstr "Uneko GCC garapen egoera-argazkia erabiliz eraiki"
 msgid "Package to build"
 msgstr "Pakete igotzailea"
 
-#: bin/csbuild/csbuild-options.cc:223
+#: bin/csbuild/csbuild-options.cc:228
 msgid "--makebinNMU missing"
 msgstr ""
 
-#: bin/csbuild/csbuild-options.cc:225
+#: bin/csbuild/csbuild-options.cc:235
 msgid "--binNMU missing"
 msgstr ""
 
@@ -340,15 +341,15 @@ msgstr "Chroot guztiak hautatu"
 msgid "Directory to use"
 msgstr "Erabiliko den direktorioa"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:93
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:98
 msgid "Only one command may be specified"
 msgstr "Bakarrik komando bat ezarri daiteke"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:97
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:107
 msgid "Command must have an absolute path"
 msgstr "Komandoak bide-izen absolutua izan behar du"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:106
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:121
 msgid "No chroot specified"
 msgstr "Ez da chrrot-a ezarri"
 
@@ -527,12 +528,12 @@ msgstr ""
 "zerrendatzeko"
 
 #: bin/schroot-base/schroot-base-option-action.cc:65
-#: bin/schroot-base/schroot-base-option-action.cc:88
+#: bin/schroot-base/schroot-base-option-action.cc:93
 #, boost-format
 msgid "%1%: invalid action"
 msgstr "%1%: ekintza baliogabea"
 
-#: bin/schroot-base/schroot-base-option-action.cc:85
+#: bin/schroot-base/schroot-base-option-action.cc:90
 msgid "Only one action may be specified"
 msgstr "Soilik ekintza bat ezarri daiteke"
 
@@ -568,7 +569,7 @@ msgstr "Irteera gehiago ikusi"
 msgid "Enable debugging messages"
 msgstr "Mezu arazpena gaitu"
 
-#: bin/schroot-base/schroot-base-options.cc:158
+#: bin/schroot-base/schroot-base-options.cc:163
 msgid "Invalid debug level"
 msgstr "Arazpen maila baliogabea"
 
@@ -594,8 +595,8 @@ msgstr "Muntatu"
 msgid "Mountpoint to check (full path)"
 msgstr "Egiaztatzeko muntatze puntua (bide osoa)"
 
-#: bin/schroot-listmounts/schroot-listmounts-options.cc:89
-#: bin/schroot-mount/schroot-mount-options.cc:102
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:94
+#: bin/schroot-mount/schroot-mount-options.cc:107
 msgid "No mount point specified"
 msgstr "Ez da muntatze punturik zehaztu"
 
@@ -624,7 +625,7 @@ msgstr "[AUKERAK...] - muntatu fitxategi-sistemak"
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:126
 #: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:232
-#: sbuild/sbuild-session.cc:1086 sbuild/sbuild-session.cc:1352
+#: sbuild/sbuild-session.cc:1116 sbuild/sbuild-session.cc:1393
 msgid "An unknown exception occurred"
 msgstr "Salbuespen ezezagun bat gertatu da"
 
@@ -658,7 +659,7 @@ msgstr "Desblokeatzeko gailua (bide osoa)"
 msgid "Process ID owning the lock"
 msgstr "Prozesua IDa da blokeoaren jabea"
 
-#: bin/schroot-releaselock/schroot-releaselock-options.cc:92
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:97
 msgid "No device specified"
 msgstr "Ez da gailurik ezarri"
 
@@ -702,23 +703,27 @@ msgstr "Chroot erabilgarriak: "
 msgid "Support for 'block-device' chroots"
 msgstr ""
 
-#: bin/schroot/schroot-main-base.cc:106
-msgid "Support for 'directory' chroots"
-msgstr ""
-
 #: bin/schroot/schroot-main-base.cc:107
-msgid "Support for 'file' chroots"
+msgid "Support for 'btrfs-snapshot' chroots"
 msgstr ""
 
 #: bin/schroot/schroot-main-base.cc:109
-msgid "Support for 'loopback' chroots"
+msgid "Support for 'directory' chroots"
+msgstr ""
+
+#: bin/schroot/schroot-main-base.cc:110
+msgid "Support for 'file' chroots"
 msgstr ""
 
 #: bin/schroot/schroot-main-base.cc:112
+msgid "Support for 'loopback' chroots"
+msgstr ""
+
+#: bin/schroot/schroot-main-base.cc:115
 msgid "Support for 'lvm-snapshot' chroots"
 msgstr ""
 
-#: bin/schroot/schroot-main-base.cc:114
+#: bin/schroot/schroot-main-base.cc:117
 msgid "Support for 'plain' chroots"
 msgstr ""
 
@@ -758,21 +763,21 @@ msgstr "Erabili ezarritako chroot-a"
 msgid "Command to run"
 msgstr "Abiarazteko komandoa"
 
-#: bin/schroot/schroot-options-base.cc:204
+#: bin/schroot/schroot-options-base.cc:208
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "Zehazki chroot bat zehaztu berhar da saioa hasterakoan"
 
-#: bin/schroot/schroot-options-base.cc:217
+#: bin/schroot/schroot-options-base.cc:225
 msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
 msgstr ""
 
-#: bin/schroot/schroot-options-base.cc:237
+#: bin/schroot/schroot-options-base.cc:250
 msgid "--chroot may not be used with --list"
 msgstr "--chroot ezin da --list -ekin batera erabili"
 
-#: bin/schroot/schroot-options-base.cc:262
+#: bin/schroot/schroot-options-base.cc:280
 msgid "Unknown action specified"
 msgstr "Ekintza ezezaguna zehaztua"
 
@@ -975,7 +980,7 @@ msgstr "Izen bikoiztuak ez dira onartzen"
 msgid "Available chroots: "
 msgstr "Chroot erabilgarriak: "
 
-#: sbuild/sbuild-chroot-directory-base.cc:73
+#: sbuild/sbuild-chroot-directory-base.cc:86
 #, fuzzy
 msgid "Directory"
 msgstr "Erabiliko den direktorioa"
@@ -994,7 +999,7 @@ msgstr "Kokalekua"
 
 #. TRANSLATORS: "Personality" is the Linux kernel personality
 #. (process execution domain).  See schroot.conf(5).
-#: sbuild/sbuild-chroot-facet-personality.cc:95
+#: sbuild/sbuild-chroot-facet-personality.cc:89
 msgid "Personality"
 msgstr "Pertsonalitatea"
 
@@ -1003,23 +1008,23 @@ msgstr "Pertsonalitatea"
 msgid "Session ID"
 msgstr "Saioa"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:69
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:70
 msgid "(source chroot)"
 msgstr "(iturburu chroot-a)"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:156
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:169
 msgid "Source Users"
 msgstr "Iturburua erabiltzaileak"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:157
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:170
 msgid "Source Groups"
 msgstr "Iturburua taldeak"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:158
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:171
 msgid "Source Root Users"
 msgstr "Iturburua erro erabiltzaileak"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:159
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:172
 msgid "Source Root Groups"
 msgstr "Iturburu erro taldeak"
 
@@ -1441,7 +1446,7 @@ msgid "Failed to set personality '%1%'"
 msgstr "Huts egin du '%1%' pertsonalitatea ezartzean"
 
 #. TRANSLATORS: %1% = a comma-separated list of personality names
-#: sbuild/sbuild-personality.cc:178
+#: sbuild/sbuild-personality.cc:189
 #, boost-format
 msgid "Valid personalities: %1%\n"
 msgstr "Baliozko pertsonalitateak: %1%\n"
@@ -1618,24 +1623,24 @@ msgstr "Huts egin du '%1%' erabiltzailea ezartzean"
 msgid "(%1%->%2%): User switching is not permitted"
 msgstr "(%1%->%2%): Erabiltzaile aldatzea ez dago baimendurik"
 
-#: sbuild/sbuild-session.cc:342
+#: sbuild/sbuild-session.cc:368
 msgid "Error saving terminal settings"
 msgstr "Errorea terminal ezarpenak gordetzean"
 
-#: sbuild/sbuild-session.cc:363
+#: sbuild/sbuild-session.cc:389
 msgid "Error restoring terminal settings"
 msgstr "Errorea terminal ezarpenak berreskuratzean"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:850
+#: sbuild/sbuild-session.cc:880
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[%1% chroot] Saio shell-a abiarazten: '%4%'"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:854
+#: sbuild/sbuild-session.cc:884
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[%1% chroot] Shell-a abiarazten: '%4%'"
@@ -1645,7 +1650,7 @@ msgstr "[%1% chroot] Shell-a abiarazten: '%4%'"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:865
+#: sbuild/sbuild-session.cc:895
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Saio shell-a abiarazten: '%4%'"
@@ -1655,14 +1660,14 @@ msgstr "[%1% chroot] (%2%->%3%) Saio shell-a abiarazten: '%4%'"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:872
+#: sbuild/sbuild-session.cc:902
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Shell-a abiarazten: '%4%'"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:910
+#: sbuild/sbuild-session.cc:940
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Komandoa exekutatzen: \"%4%\""
@@ -1672,17 +1677,17 @@ msgstr "[%1% chroot] Komandoa exekutatzen: \"%4%\""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:917
+#: sbuild/sbuild-session.cc:947
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Komandoa exekutatzen: \"%4%\""
 
-#: sbuild/sbuild-session.cc:1110
+#: sbuild/sbuild-session.cc:1140
 #, boost-format
 msgid "stage=%1%"
 msgstr "egoera=%1%"
 
-#: sbuild/sbuild-session.cc:1276 sbuild/sbuild-session.cc:1283
+#: sbuild/sbuild-session.cc:1315 sbuild/sbuild-session.cc:1322
 msgid "terminating immediately"
 msgstr "berehala amaitzen"
 

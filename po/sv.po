@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-02-20 20:09+0000\n"
+"POT-Creation-Date: 2010-06-13 22:04+0100\n"
 "PO-Revision-Date: 2010-01-16 15:44+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -296,11 +297,11 @@ msgstr ""
 msgid "Package to build"
 msgstr ""
 
-#: bin/csbuild/csbuild-options.cc:223
+#: bin/csbuild/csbuild-options.cc:228
 msgid "--makebinNMU missing"
 msgstr ""
 
-#: bin/csbuild/csbuild-options.cc:225
+#: bin/csbuild/csbuild-options.cc:235
 msgid "--binNMU missing"
 msgstr ""
 
@@ -330,15 +331,15 @@ msgstr "Välj alla chroot"
 msgid "Directory to use"
 msgstr "Katalog att använda"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:93
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:98
 msgid "Only one command may be specified"
 msgstr "Endast ett kommando får anges"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:97
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:107
 msgid "Command must have an absolute path"
 msgstr "Kommandot måste ha en absolut sökväg"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:106
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:121
 msgid "No chroot specified"
 msgstr "Ingen chroot angiven"
 
@@ -517,12 +518,12 @@ msgstr ""
 "flaggor"
 
 #: bin/schroot-base/schroot-base-option-action.cc:65
-#: bin/schroot-base/schroot-base-option-action.cc:88
+#: bin/schroot-base/schroot-base-option-action.cc:93
 #, boost-format
 msgid "%1%: invalid action"
 msgstr ""
 
-#: bin/schroot-base/schroot-base-option-action.cc:85
+#: bin/schroot-base/schroot-base-option-action.cc:90
 msgid "Only one action may be specified"
 msgstr "Endast en åtgärd får anges"
 
@@ -559,7 +560,7 @@ msgstr "Visa mer utdata"
 msgid "Enable debugging messages"
 msgstr "Aktivera felsökningsmeddelanden"
 
-#: bin/schroot-base/schroot-base-options.cc:158
+#: bin/schroot-base/schroot-base-options.cc:163
 msgid "Invalid debug level"
 msgstr "Ogiltig felsökningsnivå"
 
@@ -585,8 +586,8 @@ msgstr "Montera"
 msgid "Mountpoint to check (full path)"
 msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
 
-#: bin/schroot-listmounts/schroot-listmounts-options.cc:89
-#: bin/schroot-mount/schroot-mount-options.cc:102
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:94
+#: bin/schroot-mount/schroot-mount-options.cc:107
 msgid "No mount point specified"
 msgstr "Ingen monteringspunkt angiven"
 
@@ -616,7 +617,7 @@ msgstr "[FLAGGA...] - lista monteringspunkter"
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:126
 #: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:232
-#: sbuild/sbuild-session.cc:1086 sbuild/sbuild-session.cc:1352
+#: sbuild/sbuild-session.cc:1116 sbuild/sbuild-session.cc:1393
 msgid "An unknown exception occurred"
 msgstr "Ett okänt undantag inträffade"
 
@@ -652,7 +653,7 @@ msgstr "Enhet att låsa upp (full sökväg)"
 msgid "Process ID owning the lock"
 msgstr "Process-id som äger låset"
 
-#: bin/schroot-releaselock/schroot-releaselock-options.cc:92
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:97
 msgid "No device specified"
 msgstr "Ingen enhet angiven"
 
@@ -696,23 +697,27 @@ msgstr "Tillgängliga chroot: "
 msgid "Support for 'block-device' chroots"
 msgstr ""
 
-#: bin/schroot/schroot-main-base.cc:106
-msgid "Support for 'directory' chroots"
-msgstr ""
-
 #: bin/schroot/schroot-main-base.cc:107
-msgid "Support for 'file' chroots"
+msgid "Support for 'btrfs-snapshot' chroots"
 msgstr ""
 
 #: bin/schroot/schroot-main-base.cc:109
-msgid "Support for 'loopback' chroots"
+msgid "Support for 'directory' chroots"
+msgstr ""
+
+#: bin/schroot/schroot-main-base.cc:110
+msgid "Support for 'file' chroots"
 msgstr ""
 
 #: bin/schroot/schroot-main-base.cc:112
+msgid "Support for 'loopback' chroots"
+msgstr ""
+
+#: bin/schroot/schroot-main-base.cc:115
 msgid "Support for 'lvm-snapshot' chroots"
 msgstr ""
 
-#: bin/schroot/schroot-main-base.cc:114
+#: bin/schroot/schroot-main-base.cc:117
 msgid "Support for 'plain' chroots"
 msgstr ""
 
@@ -754,21 +759,21 @@ msgstr "Använd angiven chroot"
 msgid "Command to run"
 msgstr "Kommando att köra"
 
-#: bin/schroot/schroot-options-base.cc:204
+#: bin/schroot/schroot-options-base.cc:208
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "Endast en chroot får anges vid början av en session"
 
-#: bin/schroot/schroot-options-base.cc:217
+#: bin/schroot/schroot-options-base.cc:225
 msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
 msgstr ""
 
-#: bin/schroot/schroot-options-base.cc:237
+#: bin/schroot/schroot-options-base.cc:250
 msgid "--chroot may not be used with --list"
 msgstr "--chroot får inte användas med --list"
 
-#: bin/schroot/schroot-options-base.cc:262
+#: bin/schroot/schroot-options-base.cc:280
 msgid "Unknown action specified"
 msgstr "Okänd åtgärd angiven"
 
@@ -971,7 +976,7 @@ msgstr "Dubbleta namn tillåts inte"
 msgid "Available chroots: "
 msgstr "Tillgängliga chroot: "
 
-#: sbuild/sbuild-chroot-directory-base.cc:73
+#: sbuild/sbuild-chroot-directory-base.cc:86
 #, fuzzy
 msgid "Directory"
 msgstr "Katalog att använda"
@@ -990,7 +995,7 @@ msgstr "Plats"
 
 #. TRANSLATORS: "Personality" is the Linux kernel personality
 #. (process execution domain).  See schroot.conf(5).
-#: sbuild/sbuild-chroot-facet-personality.cc:95
+#: sbuild/sbuild-chroot-facet-personality.cc:89
 msgid "Personality"
 msgstr "Personlighet"
 
@@ -999,23 +1004,23 @@ msgstr "Personlighet"
 msgid "Session ID"
 msgstr "Session"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:69
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:70
 msgid "(source chroot)"
 msgstr "(käll-chroot)"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:156
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:169
 msgid "Source Users"
 msgstr "Källanvändare"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:157
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:170
 msgid "Source Groups"
 msgstr "Källgrupper"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:158
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:171
 msgid "Source Root Users"
 msgstr "Källrootanvändare"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:159
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:172
 msgid "Source Root Groups"
 msgstr "Källrotgrupper"
 
@@ -1440,7 +1445,7 @@ msgid "Failed to set personality '%1%'"
 msgstr "Misslyckades med att ställa in personligheten \"%1%\""
 
 #. TRANSLATORS: %1% = a comma-separated list of personality names
-#: sbuild/sbuild-personality.cc:178
+#: sbuild/sbuild-personality.cc:189
 #, boost-format
 msgid "Valid personalities: %1%\n"
 msgstr "Giltiga personligheter: %1%\n"
@@ -1616,24 +1621,24 @@ msgstr "Misslyckades med att ställa in användaren \"%1%\""
 msgid "(%1%->%2%): User switching is not permitted"
 msgstr "(%1%->%2%): Byte av användare tillåts inte"
 
-#: sbuild/sbuild-session.cc:342
+#: sbuild/sbuild-session.cc:368
 msgid "Error saving terminal settings"
 msgstr "Fel vid sparandet av terminalinställningar"
 
-#: sbuild/sbuild-session.cc:363
+#: sbuild/sbuild-session.cc:389
 msgid "Error restoring terminal settings"
 msgstr "Fel vid återställandet av terminalinställningar"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:850
+#: sbuild/sbuild-session.cc:880
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[%1% chroot] Kör inloggningsskal: \"%4%\""
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:854
+#: sbuild/sbuild-session.cc:884
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[%1% chroot] Kör skal: \"%4%\""
@@ -1643,7 +1648,7 @@ msgstr "[%1% chroot] Kör skal: \"%4%\""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:865
+#: sbuild/sbuild-session.cc:895
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Kör inloggningsskal: \"%4%\""
@@ -1653,14 +1658,14 @@ msgstr "[%1% chroot] (%2%->%3%) Kör inloggningsskal: \"%4%\""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:872
+#: sbuild/sbuild-session.cc:902
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Kör skal: \"%4%\""
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:910
+#: sbuild/sbuild-session.cc:940
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Kör kommando: \"%4%\""
@@ -1670,17 +1675,17 @@ msgstr "[%1% chroot] Kör kommando: \"%4%\""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:917
+#: sbuild/sbuild-session.cc:947
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Kör kommando: \"%4%\""
 
-#: sbuild/sbuild-session.cc:1110
+#: sbuild/sbuild-session.cc:1140
 #, boost-format
 msgid "stage=%1%"
 msgstr "steg=%1%"
 
-#: sbuild/sbuild-session.cc:1276 sbuild/sbuild-session.cc:1283
+#: sbuild/sbuild-session.cc:1315 sbuild/sbuild-session.cc:1322
 msgid "terminating immediately"
 msgstr "avslutar omedelbart"
 
@@ -1760,8 +1765,8 @@ msgstr "Misslyckades med att läsa status på filen"
 #~ "Failed to release device lock (timed out after %4% seconds; lock held by "
 #~ "PID %5%)"
 #~ msgstr ""
-#~ "misslyckades med att släppa enhetslås som hölls av pid %1% (tidsgräns är %"
-#~ "2% sekunder)"
+#~ "misslyckades med att släppa enhetslås som hölls av pid %1% (tidsgräns är "
+#~ "%2% sekunder)"
 
 #~ msgid "%1%: No such chroot"
 #~ msgstr "%1%: Inget sådant chroot"

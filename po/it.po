@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.3.2-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-02-20 20:09+0000\n"
+"POT-Creation-Date: 2010-06-13 22:04+0100\n"
 "PO-Revision-Date: 2010-01-16 15:44+0000\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -296,11 +297,11 @@ msgstr "Compila utilizzando la versione di sviluppo corrente di GCC"
 msgid "Package to build"
 msgstr "Pacchetto da compilare"
 
-#: bin/csbuild/csbuild-options.cc:223
+#: bin/csbuild/csbuild-options.cc:228
 msgid "--makebinNMU missing"
 msgstr "manca «--makebinNMU»"
 
-#: bin/csbuild/csbuild-options.cc:225
+#: bin/csbuild/csbuild-options.cc:235
 msgid "--binNMU missing"
 msgstr "manca «--binNMU»"
 
@@ -331,15 +332,15 @@ msgstr "Seleziona tutti i chroot"
 msgid "Directory to use"
 msgstr "Directory da utilizzare"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:93
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:98
 msgid "Only one command may be specified"
 msgstr "È possibile specificare un solo comando"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:97
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:107
 msgid "Command must have an absolute path"
 msgstr "Il comando deve avere un percorso assoluto"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:106
+#: bin/dchroot-dsa/dchroot-dsa-options.cc:121
 msgid "No chroot specified"
 msgstr "Non è stato specificato alcun chroot"
 
@@ -380,8 +381,8 @@ msgstr ""
 msgid ""
 "To allow password-less root access, use the root-users or root-groups keys."
 msgstr ""
-"Per consentire un accesso senza password, utilizzare le chiavi «root-users» o "
-"«root-groups»."
+"Per consentire un accesso senza password, utilizzare le chiavi «root-users» "
+"o «root-groups»."
 
 #. TRANSLATORS: %1% = file
 #: bin/dchroot/dchroot-main-base.cc:83 bin/dchroot/dchroot-main-base.cc:144
@@ -421,7 +422,8 @@ msgstr "per migrare a una configurazione schroot."
 #, boost-format
 msgid "Edit '%1%' to add appropriate user and/or group access."
 msgstr ""
-"Modificare «%1%» per aggiungere l'accesso ai gruppi o agli utenti appropriati."
+"Modificare «%1%» per aggiungere l'accesso ai gruppi o agli utenti "
+"appropriati."
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
@@ -439,7 +441,8 @@ msgstr "Mantieni l'ambiente dell'utente"
 
 #: bin/dchroot/dchroot-options.cc:87 bin/schroot/schroot-options-base.cc:171
 msgid "--quiet and --verbose may not be used at the same time"
-msgstr "«--quiet» e «--verbose» non possono essere utilizzati contemporaneamente"
+msgstr ""
+"«--quiet» e «--verbose» non possono essere utilizzati contemporaneamente"
 
 #: bin/dchroot/dchroot-options.cc:89 bin/schroot/schroot-options-base.cc:173
 msgid "Using verbose output"
@@ -512,16 +515,16 @@ msgstr "Uso:"
 #, boost-format
 msgid "Run \"%1% --help\" to list usage example and all available options"
 msgstr ""
-"Per visualizzare esempi sull'uso e tutte le opzioni disponibili eseguire «%1% "
-"--help»"
+"Per visualizzare esempi sull'uso e tutte le opzioni disponibili eseguire "
+"«%1% --help»"
 
 #: bin/schroot-base/schroot-base-option-action.cc:65
-#: bin/schroot-base/schroot-base-option-action.cc:88
+#: bin/schroot-base/schroot-base-option-action.cc:93
 #, boost-format
 msgid "%1%: invalid action"
 msgstr "%1%: azione non valida"
 
-#: bin/schroot-base/schroot-base-option-action.cc:85
+#: bin/schroot-base/schroot-base-option-action.cc:90
 msgid "Only one action may be specified"
 msgstr "È possibile specificare una sola azione"
 
@@ -557,7 +560,7 @@ msgstr "Mostra più output"
 msgid "Enable debugging messages"
 msgstr "Abilita i messaggi di debug"
 
-#: bin/schroot-base/schroot-base-options.cc:158
+#: bin/schroot-base/schroot-base-options.cc:163
 msgid "Invalid debug level"
 msgstr "Livello di debug non valido"
 
@@ -583,8 +586,8 @@ msgstr "Monta"
 msgid "Mountpoint to check (full path)"
 msgstr "Punto di montaggio da controllare (percorso completo)"
 
-#: bin/schroot-listmounts/schroot-listmounts-options.cc:89
-#: bin/schroot-mount/schroot-mount-options.cc:102
+#: bin/schroot-listmounts/schroot-listmounts-options.cc:94
+#: bin/schroot-mount/schroot-mount-options.cc:107
 msgid "No mount point specified"
 msgstr "Non è stato specificato alcun punto di montaggio"
 
@@ -613,7 +616,7 @@ msgstr "[OPZIONE...] - monta i file system"
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:126
 #: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:232
-#: sbuild/sbuild-session.cc:1086 sbuild/sbuild-session.cc:1352
+#: sbuild/sbuild-session.cc:1116 sbuild/sbuild-session.cc:1393
 msgid "An unknown exception occurred"
 msgstr "Si è verificato un errore sconosciuto"
 
@@ -648,7 +651,7 @@ msgstr "Device da sbloccare (percorso completo)"
 msgid "Process ID owning the lock"
 msgstr "ID del processo proprietario del blocco"
 
-#: bin/schroot-releaselock/schroot-releaselock-options.cc:92
+#: bin/schroot-releaselock/schroot-releaselock-options.cc:97
 msgid "No device specified"
 msgstr "Non è stato specificato alcun device"
 
@@ -691,23 +694,28 @@ msgstr "Tipi di chroot disponibili:"
 msgid "Support for 'block-device' chroots"
 msgstr "Supporto per chroot di tipo «block-device»"
 
-#: bin/schroot/schroot-main-base.cc:106
+#: bin/schroot/schroot-main-base.cc:107
+#, fuzzy
+msgid "Support for 'btrfs-snapshot' chroots"
+msgstr "Supporto per chroot di tipo «lvm-snapshot»"
+
+#: bin/schroot/schroot-main-base.cc:109
 msgid "Support for 'directory' chroots"
 msgstr "Supporto per chroot di tipo «directory»"
 
-#: bin/schroot/schroot-main-base.cc:107
+#: bin/schroot/schroot-main-base.cc:110
 msgid "Support for 'file' chroots"
 msgstr "Supporto per chroot di tipo «file»"
 
-#: bin/schroot/schroot-main-base.cc:109
+#: bin/schroot/schroot-main-base.cc:112
 msgid "Support for 'loopback' chroots"
 msgstr "Supporto per chroot di tipo «loopback»"
 
-#: bin/schroot/schroot-main-base.cc:112
+#: bin/schroot/schroot-main-base.cc:115
 msgid "Support for 'lvm-snapshot' chroots"
 msgstr "Supporto per chroot di tipo «lvm-snapshot»"
 
-#: bin/schroot/schroot-main-base.cc:114
+#: bin/schroot/schroot-main-base.cc:117
 msgid "Support for 'plain' chroots"
 msgstr "Supporto per chroot di tipo «plain»"
 
@@ -747,12 +755,12 @@ msgstr "Usa il chroot specificato"
 msgid "Command to run"
 msgstr "Comando da eseguire"
 
-#: bin/schroot/schroot-options-base.cc:204
+#: bin/schroot/schroot-options-base.cc:208
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr ""
 "All'avvio di una sessione deve essere specificato esattamente un chroot"
 
-#: bin/schroot/schroot-options-base.cc:217
+#: bin/schroot/schroot-options-base.cc:225
 msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
@@ -760,11 +768,11 @@ msgstr ""
 "«--session-name» non è consentito per l'azione specificata. Si desiderava "
 "usare «--chroot »?"
 
-#: bin/schroot/schroot-options-base.cc:237
+#: bin/schroot/schroot-options-base.cc:250
 msgid "--chroot may not be used with --list"
 msgstr "«--chroot» non può essere utilizzato in combinazione con «--list»"
 
-#: bin/schroot/schroot-options-base.cc:262
+#: bin/schroot/schroot-options-base.cc:280
 msgid "Unknown action specified"
 msgstr "È stata specificata un'azione sconosciuta"
 
@@ -966,7 +974,7 @@ msgstr "Non sono ammessi nomi duplicati"
 msgid "Available chroots: "
 msgstr "chroot disponibili: "
 
-#: sbuild/sbuild-chroot-directory-base.cc:73
+#: sbuild/sbuild-chroot-directory-base.cc:86
 msgid "Directory"
 msgstr "Directory"
 
@@ -984,7 +992,7 @@ msgstr "Posizione"
 
 #. TRANSLATORS: "Personality" is the Linux kernel personality
 #. (process execution domain).  See schroot.conf(5).
-#: sbuild/sbuild-chroot-facet-personality.cc:95
+#: sbuild/sbuild-chroot-facet-personality.cc:89
 msgid "Personality"
 msgstr "Personalità"
 
@@ -992,23 +1000,23 @@ msgstr "Personalità"
 msgid "Session ID"
 msgstr "ID della sessione"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:69
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:70
 msgid "(source chroot)"
 msgstr "(chroot sorgente)"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:156
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:169
 msgid "Source Users"
 msgstr "Utenti sorgente"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:157
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:170
 msgid "Source Groups"
 msgstr "Gruppi sorgente"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:158
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:171
 msgid "Source Root Users"
 msgstr "Utenti root sorgente"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:159
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:172
 msgid "Source Root Groups"
 msgstr "Gruppi root sorgente"
 
@@ -1424,7 +1432,7 @@ msgid "Failed to set personality '%1%'"
 msgstr "Impossibile impostare la personalità «%1%»"
 
 #. TRANSLATORS: %1% = a comma-separated list of personality names
-#: sbuild/sbuild-personality.cc:178
+#: sbuild/sbuild-personality.cc:189
 #, boost-format
 msgid "Valid personalities: %1%\n"
 msgstr "Personalità valide: %1%\n"
@@ -1597,24 +1605,24 @@ msgstr "Impossibile impostare l'utente «%1%»"
 msgid "(%1%->%2%): User switching is not permitted"
 msgstr "(%1%→%2%): non è consentito il cambio di utente"
 
-#: sbuild/sbuild-session.cc:342
+#: sbuild/sbuild-session.cc:368
 msgid "Error saving terminal settings"
 msgstr "Errore durante il salvataggio delle impostazioni del terminale"
 
-#: sbuild/sbuild-session.cc:363
+#: sbuild/sbuild-session.cc:389
 msgid "Error restoring terminal settings"
 msgstr "Errore durante il ripristino delle impostazioni del terminale"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:850
+#: sbuild/sbuild-session.cc:880
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[chroot %1%] esecuzione della shell di login in corso: «%4%»"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:854
+#: sbuild/sbuild-session.cc:884
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[chroot %1%] esecuzione della shell in corso: «%4%»"
@@ -1624,24 +1632,25 @@ msgstr "[chroot %1%] esecuzione della shell in corso: «%4%»"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:865
+#: sbuild/sbuild-session.cc:895
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
-msgstr "[chroot %1%] (%2%→%3%): esecuzione della shell di login in corso: «%4%»"
+msgstr ""
+"[chroot %1%] (%2%→%3%): esecuzione della shell di login in corso: «%4%»"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = user name
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:872
+#: sbuild/sbuild-session.cc:902
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[chroot %1%] (%2%→%3%) esecuzione della shell in corso: «%4%»"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:910
+#: sbuild/sbuild-session.cc:940
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[chroot %1%] esecuzione del comando in corso: «%4%»"
@@ -1651,17 +1660,17 @@ msgstr "[chroot %1%] esecuzione del comando in corso: «%4%»"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:917
+#: sbuild/sbuild-session.cc:947
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[chroot %1%] (%2%→%3%) esecuzione del comando in corso: «%4%»"
 
-#: sbuild/sbuild-session.cc:1110
+#: sbuild/sbuild-session.cc:1140
 #, boost-format
 msgid "stage=%1%"
 msgstr "livello=%1%"
 
-#: sbuild/sbuild-session.cc:1276 sbuild/sbuild-session.cc:1283
+#: sbuild/sbuild-session.cc:1315 sbuild/sbuild-session.cc:1322
 msgid "terminating immediately"
 msgstr "uscita immediata in corso"
 
