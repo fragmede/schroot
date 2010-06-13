@@ -139,6 +139,16 @@ case "$CHROOT_TYPE" in
 	    exit 1
 	fi
 	;;
+    btrfs-snapshot)
+	if [ ! -d "$CHROOT_BTRFS_SOURCE_SUBVOLUME" ]; then
+	    echo "Btrfs source subvolume directory '$CHROOT_BTRFS_SOURCE_SUBVOLUME' does not exist"
+	    exit 1
+	fi
+	if [ ! -d "$CHROOT_BTRFS_SNAPSHOT_DIRECTORY" ]; then
+	    echo "Btrfs snapshot directory '$CHROOT_BTRFS_SNAPSHOT_DIRECTORY' does not exist"
+	    exit 1
+	fi
+	;;
     *)
 	echo "Unknown chroot type $CHROOT_TYPE"
 	exit 1
