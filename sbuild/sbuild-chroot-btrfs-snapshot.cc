@@ -37,7 +37,8 @@ using namespace sbuild;
 chroot_btrfs_snapshot::chroot_btrfs_snapshot ():
   chroot(),
   source_subvolume(),
-  snapshot_path()
+  snapshot_directory(),
+  snapshot_name()
 {
   add_facet(sbuild::chroot_facet_source_clonable::create());
 }
@@ -45,7 +46,8 @@ chroot_btrfs_snapshot::chroot_btrfs_snapshot ():
 chroot_btrfs_snapshot::chroot_btrfs_snapshot (const chroot_btrfs_snapshot& rhs):
   chroot(rhs),
   source_subvolume(rhs.source_subvolume),
-  snapshot_path(rhs.snapshot_path)
+  snapshot_directory(rhs.snapshot_directory),
+  snapshot_name(rhs.snapshot_name)
 {
 }
 
@@ -104,18 +106,33 @@ chroot_btrfs_snapshot::set_source_subvolume (std::string const& source_subvolume
 }
 
 std::string const&
-chroot_btrfs_snapshot::get_snapshot_path () const
+chroot_btrfs_snapshot::get_snapshot_directory () const
 {
-  return this->snapshot_path;
+  return this->snapshot_directory;
 }
 
 void
-chroot_btrfs_snapshot::set_snapshot_path (std::string const& snapshot_path)
+chroot_btrfs_snapshot::set_snapshot_directory (std::string const& snapshot_directory)
 {
-  if (!is_absname(snapshot_path))
+  if (!is_absname(snapshot_directory))
     throw error(source_subvolume, DIRECTORY_ABS);
 
-  this->snapshot_path = snapshot_path;
+  this->snapshot_directory = snapshot_directory;
+}
+
+std::string const&
+chroot_btrfs_snapshot::get_snapshot_name () const
+{
+  return this->snapshot_name;
+}
+
+void
+chroot_btrfs_snapshot::set_snapshot_name (std::string const& snapshot_name)
+{
+  if (!is_absname(snapshot_name))
+    throw error(source_subvolume, DIRECTORY_ABS);
+
+  this->snapshot_name = snapshot_name;
 }
 
 std::string const&
@@ -139,7 +156,8 @@ chroot_btrfs_snapshot::setup_env (chroot const& chroot,
   chroot::setup_env(chroot, env);
 
   env.add("CHROOT_BTRFS_SOURCE_SUBVOLUME", get_source_subvolume());
-  env.add("CHROOT_BTRFS_SNAPSHOT_PATH", get_snapshot_path());
+  env.add("CHROOT_BTRFS_SNAPSHOT_DIRECTORY", get_snapshot_directory());
+  env.add("CHROOT_BTRFS_SNAPSHOT_NAME", get_snapshot_name());
 }
 
 void
@@ -175,8 +193,10 @@ chroot_btrfs_snapshot::get_details (chroot const& chroot,
 
   if (!this->source_subvolume.empty())
     detail.add(_("Btrfs Source Subvolume"), get_source_subvolume());
-  if (!this->snapshot_path.empty())
-    detail.add(_("Btrfs Snapshot Path"), get_snapshot_path());
+  if (!this->snapshot_directory.empty())
+    detail.add(_("Btrfs Snapshot Directory"), get_snapshot_directory());
+  if (!this->snapshot_directory.empty())
+    detail.add(_("Btrfs Snapshot Name"), get_snapshot_name());
 }
 
 void
@@ -191,10 +211,17 @@ chroot_btrfs_snapshot::get_keyfile (chroot const& chroot,
 			      keyfile, get_keyfile_name(),
 			      "btrfs-source-subvolume");
 
-  keyfile::set_object_value(*this,
-			    &chroot_btrfs_snapshot::get_snapshot_path,
-			    keyfile, get_keyfile_name(),
-			    "btrfs-snapshot-path");
+  if (!get_active())
+    keyfile::set_object_value(*this,
+			      &chroot_btrfs_snapshot::get_snapshot_directory,
+			      keyfile, get_keyfile_name(),
+			      "btrfs-snapshot-directory");
+
+  if (get_active())
+    keyfile::set_object_value(*this,
+			      &chroot_btrfs_snapshot::get_snapshot_name,
+			      keyfile, get_keyfile_name(),
+			      "btrfs-snapshot-name");
 }
 
 void
@@ -212,8 +239,16 @@ chroot_btrfs_snapshot::set_keyfile (chroot&        chroot,
 			    ); // Only needed for creating snapshot, not using snapshot
   used_keys.push_back("btrfs-source-subvolume");
 
-  keyfile::get_object_value(*this, &chroot_btrfs_snapshot::set_snapshot_path,
-			    keyfile, get_keyfile_name(), "btrfs-snapshot-path",
+  keyfile::get_object_value(*this, &chroot_btrfs_snapshot::set_snapshot_directory,
+			    keyfile, get_keyfile_name(), "btrfs-snapshot-directory",
+			    get_active() ?
+			    keyfile::PRIORITY_DISALLOWED :
+			    keyfile::PRIORITY_REQUIRED
+			    ); // Only needed for creating snapshot, not using snapshot
+  used_keys.push_back("btrfs-snapshot-directory");
+
+  keyfile::get_object_value(*this, &chroot_btrfs_snapshot::set_snapshot_name,
+			    keyfile, get_keyfile_name(), "btrfs-snapshot-name",
 			    keyfile::PRIORITY_REQUIRED);
-  used_keys.push_back("btrfs-snapshot-path");
+  used_keys.push_back("btrfs-snapshot-name");
 }

@@ -26,6 +26,9 @@
 #ifdef SBUILD_FEATURE_LVMSNAP
 #include "sbuild-chroot-lvm-snapshot.h"
 #endif // SBUILD_FEATURE_LVMSNAP
+#ifdef SBUILD_FEATURE_BTRFSSNAP
+#include "sbuild-chroot-btrfs-snapshot.h"
+#endif // SBUILD_FEATURE_BTRFSSNAP
 #ifdef SBUILD_FEATURE_UNION
 #include "sbuild-chroot-facet-union.h"
 #endif // SBUILD_FEATURE_UNION
@@ -145,6 +148,17 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
       snapshot->set_snapshot_device(device);
     }
 #endif // SBUILD_FEATURE_LVMSNAP
+
+#ifdef SBUILD_FEATURE_BTRFSSNAP
+  /* Btrfs snapshots need the snapshot name specifying. */
+  std::tr1::shared_ptr<chroot_btrfs_snapshot> btrfs_snapshot(std::tr1::dynamic_pointer_cast<chroot_btrfs_snapshot>(clone));
+  if (btrfs_snapshot && !btrfs_snapshot->get_snapshot_directory().empty())
+    {
+      std::string snapname(btrfs_snapshot->get_snapshot_directory());
+      snapname += "/" + clone->get_session_id();
+      btrfs_snapshot->set_snapshot_name(snapname);
+    }
+#endif // SBUILD_FEATURE_BTRFSSNAP
 
 #ifdef SBUILD_FEATURE_UNION
   /* Filesystem unions need the overlay directory specifying. */
