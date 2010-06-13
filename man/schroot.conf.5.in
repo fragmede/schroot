@@ -41,11 +41,11 @@ This is then followed by several key-value pairs, one per line:
 .TP
 \f[CBI]type=\fP\f[CI]type\fP
 The type of the chroot.  Valid types are \[oq]plain\[cq], \[oq]directory\[cq],
-\[oq]file\[cq], \[oq]loopback\[cq], \[oq]block\-device\[cq] and
-\[oq]lvm\-snapshot\[cq].  If empty or omitted, the default type is
-\[oq]plain\[cq].  Note that \[oq]plain\[cq] chroots do not run setup scripts
-and mount filesystems; \[oq]directory\[cq] is recommended (see \[lq]\fIPlain
-and directory chroots\fP\[rq], below).
+\[oq]file\[cq], \[oq]loopback\[cq], \[oq]block\-device\[cq],
+\[oq]btrfs\-snapshot\[cq] and \[oq]lvm\-snapshot\[cq].  If empty or omitted,
+the default type is \[oq]plain\[cq].  Note that \[oq]plain\[cq] chroots do not
+run setup scripts and mount filesystems; \[oq]directory\[cq] is recommended
+(see \[lq]\fIPlain and directory chroots\fP\[rq], below).
 .TP
 \f[CBI]description=\fP\f[CI]description\fP
 A short description of the chroot.  This may be localised for different
@@ -182,6 +182,24 @@ option:
 \f[CBI]device=\fP\f[CI]device\fP
 This is the device name of the block device, including the absolute path.  For
 example, \[lq]/dev/sda5\[rq].
+.SS Btrfs snapshot chroots
+Chroots of type \[oq]btrfs\-snapshot\[cq] are a Btrfs snapshot created from an
+existing Btrfs subvolume on a mounted Btrfs filesystem.  A snapshot will be
+created from this source subvolume on demand at the start of a session, and
+then the snapshot will be mounted.  At the end of the session, the snapshot
+will be unmounted and deleted.
+.PP
+For each chroot of this type, a corresponding \[oq]directory\[cq] chroot will
+be created, with a \fI\-source\fP suffix appended to the chroot name and all
+its aliases; this is for convenient access to the source subvolume.  This
+chroot type implements the \fBsource chroot\fP options (see \[lq]\fISource
+chroot options\fP\[rq], below), plus these additional options:
+.TP
+\f[CBI]btrfs\-source\-subvolume=\fP\f[CI]path\fP
+The path to the source subvolume.
+.TP
+\f[CBI]btrfs\-snapshot\-path=\fP\f[CI]path\fP
+The directory in which to store the snapshots of the above source subvolume.
 .SS LVM snapshot chroots
 Chroots of type \[oq]lvm\-snapshot\[cq] are a filesystem available on an LVM
 logical volume (LV).  A snapshot LV will be created from this LV on demand, and

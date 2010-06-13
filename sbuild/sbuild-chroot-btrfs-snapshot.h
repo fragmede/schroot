@@ -16,44 +16,33 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_DIRECTORY_H
-#define SBUILD_CHROOT_DIRECTORY_H
+#ifndef SBUILD_CHROOT_BTRFS_SNAPSHOT_H
+#define SBUILD_CHROOT_BTRFS_SNAPSHOT_H
 
-#include <sbuild/sbuild-config.h>
-#include <sbuild/sbuild-chroot-directory-base.h>
-#include <sbuild/sbuild-chroot-btrfs-snapshot.h>
+#include <sbuild/sbuild-chroot.h>
 
 namespace sbuild
 {
 
   /**
-   * A chroot located in the filesystem.
+   * A chroot stored on an BTRFS logical volume (LV).
    *
-   * It runs setup scripts and can provide multiple sessions
-   * using the union facet.
+   * A snapshot LV will be created and mounted on demand.
    */
-  class chroot_directory : public chroot_directory_base
+  class chroot_btrfs_snapshot : public chroot
   {
   protected:
     /// The constructor.
-    chroot_directory ();
+    chroot_btrfs_snapshot ();
 
     /// The copy constructor.
-    chroot_directory (const chroot_directory& rhs);
-
-#ifdef SBUILD_FEATURE_BTRFSSNAP
-    /// The copy constructor.
-    chroot_directory (const chroot_btrfs_snapshot& rhs);
-#endif
+    chroot_btrfs_snapshot (const chroot_btrfs_snapshot& rhs);
 
     friend class chroot;
-#ifdef SBUILD_FEATURE_BTRFSSNAP
-    friend class chroot_btrfs_snapshot;
-#endif
 
   public:
     /// The destructor.
-    virtual ~chroot_directory ();
+    virtual ~chroot_btrfs_snapshot ();
 
     virtual chroot::ptr
     clone () const;
@@ -66,15 +55,51 @@ namespace sbuild
     virtual chroot::ptr
     clone_source () const;
 
+    /**
+     * Get the source subvolume path.  This is used by "btrfs
+     * subvolume snapshot".
+     *
+     * @returns the source subvolume.
+     */
+    std::string const&
+    get_source_subvolume () const;
+
+    /**
+     * Set the source subvolume path.  This is used by "btrfs
+     * subvolume snapshot".
+     *
+     * @param source_subvolume the source subvolume.
+     */
+    void
+    set_source_subvolume (std::string const& source_subvolume);
+
+    /**
+     * Get the snapshot path.  This is used by "btrfs subvolume
+     * snapshot".
+     *
+     * @returns the path.
+     */
+    std::string const&
+    get_snapshot_path () const;
+
+    /**
+     * Set the snapshot path.  This is used by "btrfs subvolume
+     * snapshot".
+     *
+     * @param snapshot_path the snapshot path.
+     */
+    void
+    set_snapshot_path (std::string const& snapshot_path);
+
+    virtual std::string const&
+    get_chroot_type () const;
+
     virtual std::string
     get_path () const;
 
     virtual void
     setup_env (chroot const& chroot,
-	       environment& env) const;
-
-    virtual std::string const&
-    get_chroot_type () const;
+	       environment&  env) const;
 
     virtual session_flags
     get_session_flags (chroot const& chroot) const;
@@ -96,12 +121,18 @@ namespace sbuild
     virtual void
     set_keyfile (chroot&        chroot,
 		 keyfile const& keyfile,
-                 string_list&   used_keys);
+		 string_list&   used_keys);
+
+  private:
+    /// Btrfs source subvolume
+    std::string source_subvolume;
+    /// Btrfs snapshot path
+    std::string snapshot_path;
   };
 
 }
 
-#endif /* SBUILD_CHROOT_DIRECTORY_H */
+#endif /* SBUILD_CHROOT_BTRFS_SNAPSHOT_H */
 
 /*
  * Local Variables:
