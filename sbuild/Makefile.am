@@ -91,6 +91,11 @@ sbuild_public_lvmsnap_h_sources =	\
 	sbuild-chroot-lvm-snapshot.h
 endif
 
+if BUILD_BTRFSSNAP
+sbuild_public_btrfssnap_h_sources =	\
+	sbuild-chroot-btrfs-snapshot.h
+endif
+
 if BUILD_LOOPBACK
 sbuild_public_loopback_h_sources =	\
 	sbuild-chroot-loopback.h
@@ -154,6 +159,11 @@ sbuild_public_lvmsnap_cc_sources =	\
 	sbuild-chroot-lvm-snapshot.cc
 endif
 
+if BUILD_BTRFSSNAP
+sbuild_public_btrfssnap_cc_sources =	\
+	sbuild-chroot-btrfs-snapshot.cc
+endif
+
 if BUILD_LOOPBACK
 sbuild_public_loopback_cc_sources =	\
 	sbuild-chroot-loopback.cc
@@ -171,6 +181,7 @@ pkginclude_HEADERS =					\
 	$(sbuild_public_blockdev_base_h_sources)	\
 	$(sbuild_public_blockdev_h_sources)		\
 	$(sbuild_public_lvmsnap_h_sources)		\
+	$(sbuild_public_btrfssnap_h_sources)		\
 	$(sbuild_public_loopback_h_sources)		\
 	$(sbuild_public_union_h_sources)
 
@@ -185,6 +196,8 @@ libsbuild_la_SOURCES =					\
 	$(sbuild_public_blockdev_cc_sources)		\
 	$(sbuild_public_lvmsnap_h_sources)		\
 	$(sbuild_public_lvmsnap_cc_sources)		\
+	$(sbuild_public_btrfssnap_h_sources)		\
+	$(sbuild_public_btrfssnap_cc_sources)		\
 	$(sbuild_public_loopback_h_sources)		\
 	$(sbuild_public_loopback_cc_sources)		\
 	$(sbuild_public_union_h_sources)		\

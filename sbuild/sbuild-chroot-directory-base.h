@@ -42,6 +42,12 @@ namespace sbuild
     /// The constructor.
     chroot_directory_base ();
 
+    /// The copy constructor.
+    chroot_directory_base (const chroot_directory_base& rhs);
+
+    /// The copy constructor.
+    chroot_directory_base (const chroot& rhs);
+
     friend class chroot;
 
   public:
