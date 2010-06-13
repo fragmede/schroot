@@ -34,12 +34,24 @@ if [ "$CHROOT_TYPE" = "btrfs-snapshot" ]; then
 
     if [ $1 = "setup-start" ]; then
 
+	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	    echo "Creating snapshot $CHROOT_BTRFS_SNAPSHOT_NAME from subvolume $CHROOT_BTRFS_SOURCE_SUBVOLUME"
+	    echo btrfs subvolume snapshot "$CHROOT_BTRFS_SOURCE_SUBVOLUME" \
+		"$CHROOT_BTRFS_SNAPSHOT_NAME"
+
+	fi
+
 	btrfs subvolume snapshot "$CHROOT_BTRFS_SOURCE_SUBVOLUME" \
 	    "$CHROOT_BTRFS_SNAPSHOT_NAME"
 
     elif [ $1 = "setup-stop" ]; then
 
 	if [ -d "$CHROOT_BTRFS_SNAPSHOT_NAME" ]; then
+
+	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+		echo "Deleting snapshot $CHROOT_BTRFS_SNAPSHOT_NAME"
+		echo btrfs subvolume delete "$CHROOT_BTRFS_SNAPSHOT_NAME"
+	    fi
 
 	    btrfs subvolume delete "$CHROOT_BTRFS_SNAPSHOT_NAME"
 
