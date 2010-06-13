@@ -36,13 +36,15 @@ if [ "$CHROOT_TYPE" = "btrfs-snapshot" ]; then
 
 	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 	    echo "Creating snapshot $CHROOT_BTRFS_SNAPSHOT_NAME from subvolume $CHROOT_BTRFS_SOURCE_SUBVOLUME"
-	    echo btrfs subvolume snapshot "$CHROOT_BTRFS_SOURCE_SUBVOLUME" \
-		"$CHROOT_BTRFS_SNAPSHOT_NAME"
-
 	fi
 
-	btrfs subvolume snapshot "$CHROOT_BTRFS_SOURCE_SUBVOLUME" \
-	    "$CHROOT_BTRFS_SNAPSHOT_NAME"
+	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	    btrfs subvolume snapshot "$CHROOT_BTRFS_SOURCE_SUBVOLUME" \
+		"$CHROOT_BTRFS_SNAPSHOT_NAME"
+	else
+	    btrfs subvolume snapshot "$CHROOT_BTRFS_SOURCE_SUBVOLUME" \
+		"$CHROOT_BTRFS_SNAPSHOT_NAME" > /dev/null
+	fi
 
     elif [ $1 = "setup-stop" ]; then
 
@@ -50,10 +52,13 @@ if [ "$CHROOT_TYPE" = "btrfs-snapshot" ]; then
 
 	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 		echo "Deleting snapshot $CHROOT_BTRFS_SNAPSHOT_NAME"
-		echo btrfs subvolume delete "$CHROOT_BTRFS_SNAPSHOT_NAME"
 	    fi
 
-	    btrfs subvolume delete "$CHROOT_BTRFS_SNAPSHOT_NAME"
+	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+		btrfs subvolume delete "$CHROOT_BTRFS_SNAPSHOT_NAME" || true
+	    else
+		btrfs subvolume delete "$CHROOT_BTRFS_SNAPSHOT_NAME" > /dev/null || true
+	    fi
 
 	else
 	    # The block device no longer exists, or was never created,
