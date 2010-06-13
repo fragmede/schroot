@@ -195,10 +195,10 @@ its aliases; this is for convenient access to the source subvolume.  This
 chroot type implements the \fBsource chroot\fP options (see \[lq]\fISource
 chroot options\fP\[rq], below), plus these additional options:
 .TP
-\f[CBI]btrfs\-source\-subvolume=\fP\f[CI]path\fP
-The path to the source subvolume.
+\f[CBI]btrfs\-source\-subvolume=\fP\f[CI]directory\fP
+The directory containing the source subvolume.
 .TP
-\f[CBI]btrfs\-snapshot\-path=\fP\f[CI]path\fP
+\f[CBI]btrfs\-snapshot\-directory=\fP\f[CI]directory\fP
 The directory in which to store the snapshots of the above source subvolume.
 .SS LVM snapshot chroots
 Chroots of type \[oq]lvm\-snapshot\[cq] are a filesystem available on an LVM
