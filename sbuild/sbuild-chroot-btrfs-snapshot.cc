@@ -191,11 +191,11 @@ chroot_btrfs_snapshot::get_details (chroot const& chroot,
 {
   chroot::get_details(chroot, detail);
 
-  if (!this->source_subvolume.empty())
+  if (!this->get_source_subvolume().empty())
     detail.add(_("Btrfs Source Subvolume"), get_source_subvolume());
-  if (!this->snapshot_directory.empty())
+  if (!this->get_snapshot_directory().empty())
     detail.add(_("Btrfs Snapshot Directory"), get_snapshot_directory());
-  if (!this->snapshot_directory.empty())
+  if (!this->get_snapshot_name().empty())
     detail.add(_("Btrfs Snapshot Name"), get_snapshot_name());
 }
 
