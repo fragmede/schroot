@@ -1,3 +1,50 @@
+schroot (1.4.4-1) unstable; urgency=low
+
+  * Correct personality checks in testsuite for non-Linux
+    architectures (Closes: #585653).  Thanks to Cyril Brulebois
+    for finding the bug and testing the fix.
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 12 Jun 2010 23:23:35 +0100
+
+schroot (1.4.3-1) unstable; urgency=low
+
+  * Don't use personality(2) to introspect the set personality, by
+    caching the set personality instead.  This avoids problems when
+    the kernel sets additional personality flags which prevents
+    correct identification of the set personality, currently
+    preventing building on ARM (Closes: #580136).
+  * Correctly clean up the session when schroot receives SIGINT
+    (Closes: #477770).  Thanks to Nathaniel W. Turner for this patch.
+  * Add contrib 10mount-ssh setup script (Closes: #574723).  Thanks
+    to Sascha Silbe.
+  * Add contrib 09fsck setup script (Closes: #492316).  Thanks to
+    Martin F. Krafft.
+  * Use the '3.0 (quilt)' source format.
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 12 Jun 2010 16:02:11 +0100
+
+schroot (1.4.2-1) unstable; urgency=low
+
+  * Update fr translation (Closes: #571328).  Thanks to Thomas Blein.
+  * Update de translation (Closes: #577554).  Thanks to Holger Wansing.
+  * Remove inactive maintainers from uploaders (Closes: #573869).
+  * Add support for kFreeBSD platform (Closes: #566513).  Thanks to
+    Aurelien Jarno.
+  * Support building with Boost 1.42 (Closes: #579701).  Thanks to
+    Andy Bailey.
+
+ -- Roger Leigh <rleigh@debian.org>  Tue, 13 Apr 2010 14:22:13 +0100
+
+schroot (1.4.1-2) unstable; urgency=low
+
+  * Create compatibility symlinks for the old setup script
+    configuration files in postinst, and remove in postrm.  While
+    not strictly needed for starting sessions, these are required
+    for recovery of existing sessions which have references to the
+    old names.
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 21 Feb 2010 10:56:59 +0000
+
 schroot (1.4.1-1) unstable; urgency=low
 
   * New upstream stable release.
