@@ -94,7 +94,7 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, schroot-common (=${source:Version})
 Conflicts: dchroot (<< 0.13)
 Enhances: sbuild
-Suggests: debootstrap, lvm2, unzip, aufs-modules | unionfs-modules
+Suggests: debootstrap, lvm2, btrfs-tools, unzip, aufs-modules | unionfs-modules
 Description: Execute commands in a chroot environment
  schroot allows users to execute commands or interactive shells in
  different chroots.  Any number of named chroots may be created, and
