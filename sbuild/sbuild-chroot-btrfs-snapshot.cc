@@ -249,6 +249,8 @@ chroot_btrfs_snapshot::set_keyfile (chroot&        chroot,
 
   keyfile::get_object_value(*this, &chroot_btrfs_snapshot::set_snapshot_name,
 			    keyfile, get_keyfile_name(), "btrfs-snapshot-name",
-			    keyfile::PRIORITY_REQUIRED);
+			    get_active() ?
+			    keyfile::PRIORITY_REQUIRED :
+			    keyfile::PRIORITY_DISALLOWED);
   used_keys.push_back("btrfs-snapshot-name");
 }
