@@ -1,8 +1,9 @@
 schroot (1.5.0-1) unstable; urgency=low
 
   * New upstream development release.
+  * Enable lvm-snapshot and btrfs-snapshot only on Linux.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 13 Jun 2010 22:17:06 +0100
+ -- Roger Leigh <rleigh@debian.org>  Fri, 18 Jun 2010 00:07:50 +0100
 
 schroot (1.4.4-1) unstable; urgency=low
 

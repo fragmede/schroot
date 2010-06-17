@@ -9,7 +9,13 @@
 # from having to guess our platform (since we know it already)
 DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+DEB_HOST_ARCH_OS    ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
 
+ifneq ($(DEB_HOST_ARCH_OS),linux)
+	LINUX_CONFIGURE_OPTIONS =
+else
+	LINUX_CONFIGURE_OPTIONS = --enable-lvm-snapshot --enable-btrfs-snapshot
+endif
 
 CFLAGS = -Wall -g
 
@@ -36,7 +42,8 @@ debian/build/config.status: configure
 	  --enable-dchroot --enable-dchroot-dsa \
 	  --enable-doxygen \
 	  --enable-static --disable-shared \
-	  --with-bash-completion-dir=/etc/bash_completion.d
+	  --with-bash-completion-dir=/etc/bash_completion.d \
+	  $(LINUX_CONFIGURE_OPTIONS)
 
 build: build-stamp
 
