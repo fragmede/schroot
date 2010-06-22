@@ -3,6 +3,7 @@ sbuild-chroot-block-device
 sbuild-chroot-directory
 sbuild-chroot-file
 sbuild-chroot-loopback
+sbuild-chroot-btrfs-snapshot
 sbuild-chroot-lvm-snapshot
 sbuild-chroot-plain
 sbuild-chroot-config
