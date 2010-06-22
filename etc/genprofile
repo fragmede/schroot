@@ -1,0 +1,58 @@
+#!/bin/sh
+# Generate schroot usage profile
+#
+#
+# Copyright © 2010  Roger Leigh <rleigh@debian.org>
+#
+# schroot is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# schroot is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see
+# <http://www.gnu.org/licenses/>.
+#
+#####################################################################
+
+set -e
+
+PROFILE="$1"
+PLATFORM="$2"
+
+SRCDIR="profile-templates"
+DESTDIR="profiles/$PROFILE"
+
+[ -d "$DESTDIR" ] && rm -rf "$DESTDIR"
+
+cat << EOF > "${DESTDIR}/config"
+# Settings for "${PROFILE}" profile.
+# See schroot.conf(5) and schroot-script-config(5) for further details.
+# The files detailed below may also be edited to further customise
+# this profile.
+
+# Filesystems to mount inside the chroot.
+FSTAB="/etc/schroot/${PROFILE}/fstab"
+
+# Files to copy from the host system into the chroot.
+COPYFILES="/etc/schroot/${PROFILE}/copyfiles"
+
+# System NSS databases to copy into the chroot.
+NSSDATABASES="/etc/schroot/${PROFILE}/nssdatabases"EOF
+EOF
+
+for file in copyfiles fstab nssdatabases; do
+    for profile in all "$PROFILE"; do
+	for arch in all "$PLATFORM"; do
+	    FILE="${SRCDIR}/${profile}/${arch}/${file}"
+	    echo "Including $FILE"
+	    cat $FILE >> "${DESTDIR}/${file}"
+	done
+    done
+    echo "Wrote ${DESTDIR}/${file}"
+done

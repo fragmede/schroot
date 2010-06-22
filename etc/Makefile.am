@@ -1,7 +1,7 @@
 # schroot Makefile template
 #
 #
-# Copyright © 2004-2009  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2010  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -21,12 +21,40 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-SUBDIRS = pam default setup.d bash_completion
+SUBDIRS = pam setup.d bash_completion
 
 pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
 
 pkgsysconf_DATA = 		\
 	schroot.conf
 
+PROFILES =		\
+	default		\
+	desktop		\
+	minimal		\
+	sbuild
+
+profiles: profiles-stamp
+profiles-stamp: genfiles
+	for profile in $(PROFILES); do \
+	  genprofile "$$profile" "$(PLATFORM)";
+	done
+	touch $<
+
+all-local: profiles
+
+install-data-hook:
+	for profile in $(PROFILES); do 						\
+	  $(MKDIR_P) "$(DESTDIR)$(PACKAGE_SYSCONF_DIR)";			\
+	  for file in "$$profile"/*; do						\
+	    $(INSTALL) "$$file" "$(DESTDIR)$(PACKAGE_SYSCONF_DIR)/$$profile";	\
+	  done
+	done
+
+
 EXTRA_DIST =			\
-	$(pkgsysconf_DATA)
+	$(pkgsysconf_DATA)	\
+	genprofile		\
+	profiles
+
+.PHONY: profiles
