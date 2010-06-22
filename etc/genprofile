@@ -24,12 +24,10 @@ set -e
 
 PROFILE="$1"
 PLATFORM="$2"
-
-SRCDIR="profile-templates"
-DESTDIR="profiles/$PROFILE"
+SRCDIR="$3"
+DESTDIR="$4"
 
 [ -d "$DESTDIR" ] && rm -rf "$DESTDIR"
-[ ! -d profiles ] && mkdir profiles
 mkdir "$DESTDIR"
 
 cat << EOF > "${DESTDIR}/config"
