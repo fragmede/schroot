@@ -1,3 +1,9 @@
+schroot (1.4.5-1) unstable; urgency=low
+
+  * New upstream stable release.
+
+ -- Roger Leigh <rleigh@debian.org>  Tue, 22 Jun 2010 22:06:01 +0100
+
 schroot (1.4.4-1) unstable; urgency=low
 
   * Correct personality checks in testsuite for non-Linux
