@@ -34,6 +34,7 @@ noinst_PROGRAMS = 			\
 	sbuild-chroot-block-device	\
 	sbuild-chroot-loopback		\
 	sbuild-chroot-lvm-snapshot	\
+	sbuild-chroot-btrfs-snapshot	\
 	sbuild-chroot-config		\
 	sbuild-environment		\
 	sbuild-keyfile			\
@@ -57,6 +58,7 @@ TESTS = setup-test-data			\
 	sbuild-chroot-block-device	\
 	sbuild-chroot-loopback		\
 	sbuild-chroot-lvm-snapshot	\
+	sbuild-chroot-btrfs-snapshot	\
 	sbuild-chroot-config		\
 	sbuild-environment		\
 	sbuild-keyfile			\
@@ -91,6 +93,11 @@ sbuild_chroot_lvmsnap_sources =	\
 	sbuild-chroot-lvm-snapshot.cc
 endif
 
+if BUILD_BTRFSSNAP
+sbuild_chroot_btrfssnap_sources =	\
+	sbuild-chroot-btrfs-snapshot.cc
+endif
+
 sbuild_chroot_SOURCES =		\
 	sbuild-chroot.cc	\
 	test-sbuild-chroot.h
@@ -120,6 +127,11 @@ sbuild_chroot_lvm_snapshot_SOURCES =		\
 	$(sbuild_chroot_lvmsnap_sources)	\
 	test-sbuild-chroot.h
 sbuild_chroot_lvm_snapshot_LDADD =  libtest.la
+
+sbuild_chroot_btrfs_snapshot_SOURCES =		\
+	$(sbuild_chroot_btrfssnap_sources)	\
+	test-sbuild-chroot.h
+sbuild_chroot_btrfs_snapshot_LDADD =  libtest.la
 
 sbuild_chroot_loopback_SOURCES =		\
 	$(sbuild_chroot_loopback_sources)	\

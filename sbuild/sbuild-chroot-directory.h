@@ -21,6 +21,7 @@
 
 #include <sbuild/sbuild-config.h>
 #include <sbuild/sbuild-chroot-directory-base.h>
+#include <sbuild/sbuild-chroot-btrfs-snapshot.h>
 
 namespace sbuild
 {
@@ -40,7 +41,15 @@ namespace sbuild
     /// The copy constructor.
     chroot_directory (const chroot_directory& rhs);
 
+#ifdef SBUILD_FEATURE_BTRFSSNAP
+    /// The copy constructor.
+    chroot_directory (const chroot_btrfs_snapshot& rhs);
+#endif
+
     friend class chroot;
+#ifdef SBUILD_FEATURE_BTRFSSNAP
+    friend class chroot_btrfs_snapshot;
+#endif
 
   public:
     /// The destructor.

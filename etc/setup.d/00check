@@ -85,6 +85,10 @@ if [ "$AUTH_VERBOSITY" = "verbose" ]; then
 	    echo "CHROOT_LVM_SNAPSHOT_DEVICE=$CHROOT_LVM_SNAPSHOT_DEVICE"
 	    echo "CHROOT_LVM_SNAPSHOT_OPTIONS=$CHROOT_LVM_SNAPSHOT_OPTIONS"
 	fi
+    elif [ "$CHROOT_TYPE" = "btrfs-snapshot" ]; then
+	echo "CHROOT_BTRFS_SOURCE_SUBVOLUME=$CHROOT_BTRFS_SOURCE_SUBVOLUME"
+	echo "CHROOT_BTRFS_SNAPSHOT_DIRECTORY=%CHROOT_BTRFS_SNAPSHOT_DIRECTORY"
+	echo "CHROOT_BTRFS_SNAPSHOT_NAME=$CHROOT_BTRFS_SNAPSHOT_NAME"
     fi
     echo "CHROOT_SESSION_CREATE=$CHROOT_SESSION_CREATE"
     echo "CHROOT_SESSION_CLONE=$CHROOT_SESSION_CLONE"
@@ -132,6 +136,16 @@ case "$CHROOT_TYPE" in
 
 	if [ ! "$DEVTYPE" "$CHROOT_DEVICE" ]; then
 	    echo "Device '$CHROOT_DEVICE' does not exist"
+	    exit 1
+	fi
+	;;
+    btrfs-snapshot)
+	if [ ! -d "$CHROOT_BTRFS_SOURCE_SUBVOLUME" ]; then
+	    echo "Btrfs source subvolume directory '$CHROOT_BTRFS_SOURCE_SUBVOLUME' does not exist"
+	    exit 1
+	fi
+	if [ ! -d "$CHROOT_BTRFS_SNAPSHOT_DIRECTORY" ]; then
+	    echo "Btrfs snapshot directory '$CHROOT_BTRFS_SNAPSHOT_DIRECTORY' does not exist"
 	    exit 1
 	fi
 	;;

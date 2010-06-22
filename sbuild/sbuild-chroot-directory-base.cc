@@ -32,7 +32,20 @@
 using namespace sbuild;
 
 chroot_directory_base::chroot_directory_base ():
-  chroot()
+  chroot(),
+  directory()
+{
+}
+
+chroot_directory_base::chroot_directory_base (const chroot_directory_base& rhs):
+  chroot(rhs),
+  directory(rhs.directory)
+{
+}
+
+chroot_directory_base::chroot_directory_base (const chroot& rhs):
+  chroot(rhs),
+  directory()
 {
 }
 

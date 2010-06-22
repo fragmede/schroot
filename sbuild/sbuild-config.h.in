@@ -36,6 +36,9 @@
 /* Set if the block-device chroot type is present */
 #undef SBUILD_FEATURE_BLOCKDEV
 
+/* Set if the btrfs-snapshot chroot type is present */
+#undef SBUILD_FEATURE_BTRFSSNAP
+
 /* Set if the lvm-snapshot chroot type is present */
 #undef SBUILD_FEATURE_LVMSNAP
 
