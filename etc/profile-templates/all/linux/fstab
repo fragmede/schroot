@@ -1,0 +1,7 @@
+proc		/proc		proc	defaults	0	0
+#procbususb      /proc/bus/usb   usbfs   defaults        0       0
+#/dev            /dev            none    rw,bind         0       0
+/dev/pts	/dev/pts	none	rw,bind		0	0
+/dev/shm	/dev/shm	none	rw,bind		0	0
+/home		/home		none	rw,bind		0	0
+/tmp		/tmp		none	rw,bind		0	0
