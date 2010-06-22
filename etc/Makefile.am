@@ -36,8 +36,9 @@ PROFILES =		\
 
 profiles: profiles-stamp
 profiles-stamp: genprofile
-	for profile in $(PROFILES); do 			\
-	  $(srcdir)/genprofile "$$profile" "$(PLATFORM)";		\
+	$(MKDIR_P) profiles
+	for profile in $(PROFILES); do 					\
+	  $(srcdir)/genprofile "$$profile" "$(PLATFORM)" "$(srcdir)/profile-templates" "profiles/$$profile";	\
 	done
 	touch $@
 
