@@ -35,9 +35,9 @@ PROFILES =		\
 	sbuild
 
 profiles: profiles-stamp
-profiles-stamp: genfiles
-	for profile in $(PROFILES); do \
-	  genprofile "$$profile" "$(PLATFORM)";
+profiles-stamp: genprofile
+	for profile in $(PROFILES); do 			\
+	  $(srcdir)/genprofile "$$profile" "$(PLATFORM)";		\
 	done
 	touch $<
 
@@ -45,10 +45,10 @@ all-local: profiles
 
 install-data-hook:
 	for profile in $(PROFILES); do 						\
-	  $(MKDIR_P) "$(DESTDIR)$(PACKAGE_SYSCONF_DIR)";			\
-	  for file in "$$profile"/*; do						\
+	  $(MKDIR_P) "$(DESTDIR)$(PACKAGE_SYSCONF_DIR)/$$profile";			\
+	  for file in "profiles/$$profile"/*; do						\
 	    $(INSTALL) "$$file" "$(DESTDIR)$(PACKAGE_SYSCONF_DIR)/$$profile";	\
-	  done
+	  done;									\
 	done
 
 
