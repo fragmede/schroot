@@ -39,7 +39,7 @@ profiles-stamp: genprofile
 	for profile in $(PROFILES); do 			\
 	  $(srcdir)/genprofile "$$profile" "$(PLATFORM)";		\
 	done
-	touch $<
+	touch $@
 
 all-local: profiles
 
@@ -51,6 +51,9 @@ install-data-hook:
 	  done;									\
 	done
 
+clean-local:
+	$(RM) -rf profiles
+	$(RM) -f profiles-stamp
 
 EXTRA_DIST =			\
 	$(pkgsysconf_DATA)	\
