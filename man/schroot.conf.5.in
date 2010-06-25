@@ -105,11 +105,17 @@ will be obsoleted and removed in a future release.
 The behaviour of the chroot setup scripts may be customised on a per-chroot
 basis by providing a shell script which the scripts will source.  The filename
 is relative to \fI@PACKAGE_SYSCONF_DIR@\fP.  The default filename is
-\[oq]script\-defaults\[cq].  The recommended method of customisation is to copy
-this script and amend the copy; or alter the original to set the defaults for
-all chroots.  Settings for specific chroots may also be set in a single script
-by using conditionals checking the chroot name and/or type.  Note that the
-setup script will be sourced once for each and every script invocation, and
+\[oq]default/config\[cq].  Alternatives are \[oq]minimal/config\[cq] (minimal
+configuration), \[oq]desktop/config\[cq] (for running desktop applications in
+the chroot, making more functionality from the host system available in the
+chroot) and \[oq]sbuild/config\[cq] (for using the chroot for Debian package
+building).
+.IP
+If none of the configuration profiles provided above meet your needs, then they
+may be edited to further customise them, and/or copied and used as a template
+for entirely new profiles.  Settings for specific chroots may also be set in a
+single script by using conditionals checking the chroot name and/or type.  Note
+that the script will be sourced once for each and every script invocation, and
 must be idempotent.  The file format is documented in
 .BR schroot-script-config (5).
 .TP
