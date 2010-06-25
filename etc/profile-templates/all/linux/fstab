@@ -1,0 +1,2 @@
+/proc		/proc		none    rw,rbind        0       0
+/sysfs		/sysfs		none    rw,rbind        0       0
