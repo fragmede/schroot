@@ -1,0 +1,4 @@
+/dev            /dev            none    rw,rbind        0       0
+/home		/home		none	rw,bind		0	0
+/tmp		/tmp		none	rw,bind		0	0
+/var/run	/var/run	none	rw,bind		0	0
