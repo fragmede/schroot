@@ -1057,6 +1057,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   env.add("AUTH_HOME", this->authstat->get_home());
   env.add("AUTH_SHELL", this->authstat->get_shell());
 
+  env.add("AUTH_VERBOSITY", session_chroot->get_verbosity_string());
   env.add("VERBOSE", session_chroot->get_verbosity_string());
   env.add("MOUNT_DIR", SCHROOT_MOUNT_DIR);
   env.add("LIBEXEC_DIR", SCHROOT_LIBEXEC_DIR);
