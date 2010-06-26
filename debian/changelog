@@ -13,8 +13,12 @@ schroot (1.4.5-1) unstable; urgency=low
     allows running of X programs when gdm3 is used by the host by
     bind mounting /var/run (Closes: #586333).  Thanks to Stefano
     Zacchiroli for the suggestion.
+  * sbuild::unique_identifier() does not use formatted dates in the
+    absence of a UUID function and hence does not use characters
+    such as ':' that make lvcreate choke (Closes: #583504).  Thanks
+    to Zach Carter.
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 26 Jun 2010 22:28:26 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 26 Jun 2010 22:55:49 +0100
 
 schroot (1.4.4-1) unstable; urgency=low
 
