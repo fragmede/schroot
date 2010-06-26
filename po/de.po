@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.3.2-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-06-12 16:04+0100\n"
+"POT-Creation-Date: 2010-06-26 22:53+0100\n"
 "PO-Revision-Date: 2010-04-12 18:44+0200\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -126,7 +126,7 @@ msgstr "Diese Option wurde entfernt und hat keine Auswirkungen mehr"
 
 #: bin/csbuild/csbuild-main.cc:55
 #: bin/schroot-releaselock/schroot-releaselock-main.cc:54
-#: sbuild/sbuild-chroot.cc:72
+#: sbuild/sbuild-chroot.cc:75
 msgid "File is not a block device"
 msgstr "Datei ist kein Blockgerät"
 
@@ -698,23 +698,28 @@ msgstr "Verfügbare Chroot-Typen:"
 msgid "Support for 'block-device' chroots"
 msgstr "Unterstützung für »block-device«-Chroots"
 
-#: bin/schroot/schroot-main-base.cc:106
+#: bin/schroot/schroot-main-base.cc:107
+#, fuzzy
+msgid "Support for 'btrfs-snapshot' chroots"
+msgstr "Unterstützung für »lvm-snapshot«-Chroots"
+
+#: bin/schroot/schroot-main-base.cc:109
 msgid "Support for 'directory' chroots"
 msgstr "Unterstützung für »directory«-Chroots"
 
-#: bin/schroot/schroot-main-base.cc:107
+#: bin/schroot/schroot-main-base.cc:110
 msgid "Support for 'file' chroots"
 msgstr "Unterstützung für »file«-Chroots"
 
-#: bin/schroot/schroot-main-base.cc:109
+#: bin/schroot/schroot-main-base.cc:112
 msgid "Support for 'loopback' chroots"
 msgstr "Unterstützung für »loopback«-Chroots"
 
-#: bin/schroot/schroot-main-base.cc:112
+#: bin/schroot/schroot-main-base.cc:115
 msgid "Support for 'lvm-snapshot' chroots"
 msgstr "Unterstützung für »lvm-snapshot«-Chroots"
 
-#: bin/schroot/schroot-main-base.cc:114
+#: bin/schroot/schroot-main-base.cc:117
 msgid "Support for 'plain' chroots"
 msgstr "Unterstützung für »plain«-Chroots"
 
@@ -952,7 +957,7 @@ msgstr "Chroot nicht gefunden"
 msgid "A chroot or alias '%1%' already exists with this name"
 msgstr "Ein Chroot oder Alias »%1%« existiert bereits mit diesem Namen"
 
-#: sbuild/sbuild-chroot-config.cc:63 sbuild/sbuild-chroot.cc:79
+#: sbuild/sbuild-chroot-config.cc:63 sbuild/sbuild-chroot.cc:82
 msgid "File is not a regular file"
 msgstr "Datei ist keine reguläre Datei"
 
@@ -960,12 +965,12 @@ msgstr "Datei ist keine reguläre Datei"
 msgid "Failed to open file"
 msgstr "Öffnen der Datei fehlgeschlagen"
 
-#: sbuild/sbuild-chroot-config.cc:65 sbuild/sbuild-chroot.cc:80
+#: sbuild/sbuild-chroot-config.cc:65 sbuild/sbuild-chroot.cc:83
 msgid "File is not owned by user root"
 msgstr "Datei gehört nicht root"
 
 # CHECKME: oder "andere"?
-#: sbuild/sbuild-chroot-config.cc:66 sbuild/sbuild-chroot.cc:81
+#: sbuild/sbuild-chroot-config.cc:66 sbuild/sbuild-chroot.cc:84
 msgid "File has write permissions for others"
 msgstr "Datei hat Schreibrechte für Andere"
 
@@ -977,7 +982,7 @@ msgstr "Gleichlautende Namen sind nicht erlaubt"
 msgid "Available chroots: "
 msgstr "Verfügbare Chroots: "
 
-#: sbuild/sbuild-chroot-directory-base.cc:73
+#: sbuild/sbuild-chroot-directory-base.cc:86
 msgid "Directory"
 msgstr "Verzeichnis"
 
@@ -1003,24 +1008,24 @@ msgstr "Persönlichkeit"
 msgid "Session ID"
 msgstr "Sitzungs-ID"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:69
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:70
 msgid "(source chroot)"
 msgstr "(Quell-Chroot)"
 
 # CHECKME
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:156
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:169
 msgid "Source Users"
 msgstr "Quellbenutzer"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:157
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:170
 msgid "Source Groups"
 msgstr "Quellgruppen"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:158
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:171
 msgid "Source Root Users"
 msgstr "Quell-Root-Benutzer"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:159
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:172
 msgid "Source Root Groups"
 msgstr "Quell-Root-Gruppen"
 
@@ -1077,147 +1082,147 @@ msgstr "LVM-Schnappschuss-Gerät"
 msgid "LVM Snapshot Options"
 msgstr "LVM-Schnappschuss-Optionen"
 
-#: sbuild/sbuild-chroot.cc:66
+#: sbuild/sbuild-chroot.cc:69
 msgid "Chroot creation failed"
 msgstr "Chroot-Erzeugung fehlgeschlagen"
 
-#: sbuild/sbuild-chroot.cc:67
+#: sbuild/sbuild-chroot.cc:70
 msgid "Device name not set"
 msgstr "Gerätename nicht gesetzt"
 
 #. TRANSLATORS: %1% = chroot type name
-#: sbuild/sbuild-chroot.cc:69
+#: sbuild/sbuild-chroot.cc:72
 #, boost-format
 msgid "Unknown chroot type '%1%'"
 msgstr "Unbekannter Chroot-Typ »%1%«"
 
-#: sbuild/sbuild-chroot.cc:70
+#: sbuild/sbuild-chroot.cc:73
 msgid "Device must have an absolute path"
 msgstr "Das Gerät benötigt einen absoluten Pfad"
 
-#: sbuild/sbuild-chroot.cc:71 sbuild/sbuild-lock.cc:59
+#: sbuild/sbuild-chroot.cc:74 sbuild/sbuild-lock.cc:59
 msgid "Failed to lock device"
 msgstr "Sperren des Gerätes fehlgeschlagen"
 
-#: sbuild/sbuild-chroot.cc:73 sbuild/sbuild-lock.cc:64
+#: sbuild/sbuild-chroot.cc:76 sbuild/sbuild-lock.cc:64
 msgid "Failed to unlock device"
 msgstr "Entsperren des Gerätes fehlgeschlagen"
 
-#: sbuild/sbuild-chroot.cc:74
+#: sbuild/sbuild-chroot.cc:77
 msgid "Directory must have an absolute path"
 msgstr "Das Verzeichnis benötigt einen absoluten Pfad"
 
-#: sbuild/sbuild-chroot.cc:75
+#: sbuild/sbuild-chroot.cc:78
 msgid "Attempt to add object which is not a facet"
 msgstr "Es wurde versucht, ein Objekt hinzuzufügen, das kein Aspekt ist"
 
-#: sbuild/sbuild-chroot.cc:76
+#: sbuild/sbuild-chroot.cc:79
 msgid "Attempt to add facet which is already in use"
 msgstr "Es wurde versucht, einen bereits benutzten Aspekt hinzuzufügen"
 
-#: sbuild/sbuild-chroot.cc:77
+#: sbuild/sbuild-chroot.cc:80
 msgid "File must have an absolute path"
 msgstr "Die Datei benötigt einen absoluten Pfad"
 
 # CHECKME
-#: sbuild/sbuild-chroot.cc:78
+#: sbuild/sbuild-chroot.cc:81
 msgid "Failed to acquire file lock"
 msgstr "Sperren der Datei fehlgeschlagen"
 
-#: sbuild/sbuild-chroot.cc:82
+#: sbuild/sbuild-chroot.cc:85
 msgid "Failed to discard file lock"
 msgstr "Entsperren der Datei fehlgeschlagen"
 
-#: sbuild/sbuild-chroot.cc:83
+#: sbuild/sbuild-chroot.cc:86
 msgid "Location must have an absolute path"
 msgstr "Für den Ort wird ein absoluter Pfad benötigt"
 
 #. TRANSLATORS: unlink refers to the C function which removes a file
-#: sbuild/sbuild-chroot.cc:85
+#: sbuild/sbuild-chroot.cc:88
 msgid "Failed to unlink session file"
 msgstr "Entfernen der Sitzungsdatei fehlgeschlagen"
 
-#: sbuild/sbuild-chroot.cc:86
+#: sbuild/sbuild-chroot.cc:89
 msgid "Failed to write session file"
 msgstr "Schreiben der Sitzungsdatei fehlgeschlagen"
 
-#: sbuild/sbuild-chroot.cc:525
+#: sbuild/sbuild-chroot.cc:532
 msgid "Name"
 msgstr "Name"
 
-#: sbuild/sbuild-chroot.cc:528
+#: sbuild/sbuild-chroot.cc:535
 msgid "Description"
 msgstr "Beschreibung"
 
-#: sbuild/sbuild-chroot.cc:529
+#: sbuild/sbuild-chroot.cc:536
 msgid "Type"
 msgstr "Typ"
 
-#: sbuild/sbuild-chroot.cc:530
+#: sbuild/sbuild-chroot.cc:537
 msgid "Priority"
 msgstr "Priorität"
 
-#: sbuild/sbuild-chroot.cc:531
+#: sbuild/sbuild-chroot.cc:538
 msgid "Users"
 msgstr "Benutzer"
 
-#: sbuild/sbuild-chroot.cc:532
+#: sbuild/sbuild-chroot.cc:539
 msgid "Groups"
 msgstr "Gruppen"
 
-#: sbuild/sbuild-chroot.cc:533
+#: sbuild/sbuild-chroot.cc:540
 msgid "Root Users"
 msgstr "Root-Benutzer"
 
-#: sbuild/sbuild-chroot.cc:534
+#: sbuild/sbuild-chroot.cc:541
 msgid "Root Groups"
 msgstr "Root-Gruppen"
 
-#: sbuild/sbuild-chroot.cc:535
+#: sbuild/sbuild-chroot.cc:542
 msgid "Aliases"
 msgstr "Aliase"
 
-#: sbuild/sbuild-chroot.cc:536
+#: sbuild/sbuild-chroot.cc:543
 msgid "Environment Filter"
 msgstr "Umgebungsfilter"
 
-#: sbuild/sbuild-chroot.cc:537
+#: sbuild/sbuild-chroot.cc:544
 msgid "Run Setup Scripts"
 msgstr "Einrichtungsskripte ausführen"
 
-#: sbuild/sbuild-chroot.cc:538
+#: sbuild/sbuild-chroot.cc:545
 msgid "Script Configuration"
 msgstr "Skript-Konfiguration"
 
-#: sbuild/sbuild-chroot.cc:539
+#: sbuild/sbuild-chroot.cc:546
 msgid "Session Managed"
 msgstr "Verwaltete Sitzung"
 
-#: sbuild/sbuild-chroot.cc:541
+#: sbuild/sbuild-chroot.cc:548
 msgid "Session Cloned"
 msgstr "Sitzung wurde geklont"
 
-#: sbuild/sbuild-chroot.cc:543
+#: sbuild/sbuild-chroot.cc:550
 msgid "Session Purged"
 msgstr "Sitzung wurde restlos entfernt"
 
-#: sbuild/sbuild-chroot.cc:547
+#: sbuild/sbuild-chroot.cc:554
 msgid "Command Prefix"
 msgstr "Befehlspräfix"
 
-#: sbuild/sbuild-chroot.cc:551
+#: sbuild/sbuild-chroot.cc:558
 msgid "Mount Location"
 msgstr "Einbindungsort"
 
-#: sbuild/sbuild-chroot.cc:553
+#: sbuild/sbuild-chroot.cc:560
 msgid "Path"
 msgstr "Pfad"
 
-#: sbuild/sbuild-chroot.cc:559
+#: sbuild/sbuild-chroot.cc:566
 msgid "Session"
 msgstr "Sitzung"
 
-#: sbuild/sbuild-chroot.cc:559
+#: sbuild/sbuild-chroot.cc:566
 msgid "Chroot"
 msgstr "Chroot"
 

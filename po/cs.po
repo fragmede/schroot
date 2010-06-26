@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-06-12 16:04+0100\n"
+"POT-Creation-Date: 2010-06-26 22:53+0100\n"
 "PO-Revision-Date: 2010-01-16 15:43+0000\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -123,7 +123,7 @@ msgstr "Tato volba byla odstraněna a nemá žádný vliv"
 
 #: bin/csbuild/csbuild-main.cc:55
 #: bin/schroot-releaselock/schroot-releaselock-main.cc:54
-#: sbuild/sbuild-chroot.cc:72
+#: sbuild/sbuild-chroot.cc:75
 msgid "File is not a block device"
 msgstr "Soubor není blokovým zařízením"
 
@@ -694,23 +694,27 @@ msgstr "Dostupná chroot prostředí:"
 msgid "Support for 'block-device' chroots"
 msgstr ""
 
-#: bin/schroot/schroot-main-base.cc:106
-msgid "Support for 'directory' chroots"
-msgstr ""
-
 #: bin/schroot/schroot-main-base.cc:107
-msgid "Support for 'file' chroots"
+msgid "Support for 'btrfs-snapshot' chroots"
 msgstr ""
 
 #: bin/schroot/schroot-main-base.cc:109
-msgid "Support for 'loopback' chroots"
+msgid "Support for 'directory' chroots"
+msgstr ""
+
+#: bin/schroot/schroot-main-base.cc:110
+msgid "Support for 'file' chroots"
 msgstr ""
 
 #: bin/schroot/schroot-main-base.cc:112
+msgid "Support for 'loopback' chroots"
+msgstr ""
+
+#: bin/schroot/schroot-main-base.cc:115
 msgid "Support for 'lvm-snapshot' chroots"
 msgstr ""
 
-#: bin/schroot/schroot-main-base.cc:114
+#: bin/schroot/schroot-main-base.cc:117
 msgid "Support for 'plain' chroots"
 msgstr ""
 
@@ -945,7 +949,7 @@ msgstr "Takový chroot neexistuje"
 msgid "A chroot or alias '%1%' already exists with this name"
 msgstr "Chroot nebo alias se jménem '%1%' již existují"
 
-#: sbuild/sbuild-chroot-config.cc:63 sbuild/sbuild-chroot.cc:79
+#: sbuild/sbuild-chroot-config.cc:63 sbuild/sbuild-chroot.cc:82
 msgid "File is not a regular file"
 msgstr "Soubor není běžným souborem"
 
@@ -953,11 +957,11 @@ msgstr "Soubor není běžným souborem"
 msgid "Failed to open file"
 msgstr "Nepodařilo se otevřít soubor"
 
-#: sbuild/sbuild-chroot-config.cc:65 sbuild/sbuild-chroot.cc:80
+#: sbuild/sbuild-chroot-config.cc:65 sbuild/sbuild-chroot.cc:83
 msgid "File is not owned by user root"
 msgstr "Soubor není vlastněn uživatelem root"
 
-#: sbuild/sbuild-chroot-config.cc:66 sbuild/sbuild-chroot.cc:81
+#: sbuild/sbuild-chroot-config.cc:66 sbuild/sbuild-chroot.cc:84
 msgid "File has write permissions for others"
 msgstr "Soubor má oprávnění zápisu pro ostatní"
 
@@ -969,7 +973,7 @@ msgstr "Duplicitní jména nejsou povolena"
 msgid "Available chroots: "
 msgstr "Dostupná chroot prostředí:"
 
-#: sbuild/sbuild-chroot-directory-base.cc:73
+#: sbuild/sbuild-chroot-directory-base.cc:86
 #, fuzzy
 msgid "Directory"
 msgstr "Adresář, který se má použít"
@@ -997,23 +1001,23 @@ msgstr "Personalita"
 msgid "Session ID"
 msgstr "Sezení"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:69
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:70
 msgid "(source chroot)"
 msgstr "(zdrojový chroot)"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:156
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:169
 msgid "Source Users"
 msgstr "Zdrojoví uživatelé"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:157
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:170
 msgid "Source Groups"
 msgstr "Zdrojové skupiny"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:158
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:171
 msgid "Source Root Users"
 msgstr "Zdrojoví uživatelé root"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:159
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:172
 msgid "Source Root Groups"
 msgstr "Zdrojové skupiny root"
 
@@ -1069,149 +1073,149 @@ msgstr "Zařízení pro snímky LVM"
 msgid "LVM Snapshot Options"
 msgstr "Volby pro snímky LVM"
 
-#: sbuild/sbuild-chroot.cc:66
+#: sbuild/sbuild-chroot.cc:69
 msgid "Chroot creation failed"
 msgstr "Vytváření chrootu selhalo"
 
-#: sbuild/sbuild-chroot.cc:67
+#: sbuild/sbuild-chroot.cc:70
 msgid "Device name not set"
 msgstr "Jméno zařízení není nastaveno"
 
 #. TRANSLATORS: %1% = chroot type name
-#: sbuild/sbuild-chroot.cc:69
+#: sbuild/sbuild-chroot.cc:72
 #, boost-format
 msgid "Unknown chroot type '%1%'"
 msgstr "Neznámý typ chrootu '%1%'"
 
-#: sbuild/sbuild-chroot.cc:70
+#: sbuild/sbuild-chroot.cc:73
 msgid "Device must have an absolute path"
 msgstr "Zařízení musí být zadáno absolutně"
 
-#: sbuild/sbuild-chroot.cc:71 sbuild/sbuild-lock.cc:59
+#: sbuild/sbuild-chroot.cc:74 sbuild/sbuild-lock.cc:59
 msgid "Failed to lock device"
 msgstr "Zařízení se nepodařilo zamknout"
 
-#: sbuild/sbuild-chroot.cc:73 sbuild/sbuild-lock.cc:64
+#: sbuild/sbuild-chroot.cc:76 sbuild/sbuild-lock.cc:64
 msgid "Failed to unlock device"
 msgstr "Zařízení se nepodařilo odemknout"
 
-#: sbuild/sbuild-chroot.cc:74
+#: sbuild/sbuild-chroot.cc:77
 #, fuzzy
 msgid "Directory must have an absolute path"
 msgstr "Zařízení musí být zadáno absolutně"
 
-#: sbuild/sbuild-chroot.cc:75
+#: sbuild/sbuild-chroot.cc:78
 msgid "Attempt to add object which is not a facet"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:76
+#: sbuild/sbuild-chroot.cc:79
 msgid "Attempt to add facet which is already in use"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:77
+#: sbuild/sbuild-chroot.cc:80
 msgid "File must have an absolute path"
 msgstr "Soubor musí být zadán absolutně"
 
-#: sbuild/sbuild-chroot.cc:78
+#: sbuild/sbuild-chroot.cc:81
 msgid "Failed to acquire file lock"
 msgstr "Nepodařilo se získat zámek souboru"
 
-#: sbuild/sbuild-chroot.cc:82
+#: sbuild/sbuild-chroot.cc:85
 msgid "Failed to discard file lock"
 msgstr "Nepodařilo se zrušit zámek souboru"
 
-#: sbuild/sbuild-chroot.cc:83
+#: sbuild/sbuild-chroot.cc:86
 msgid "Location must have an absolute path"
 msgstr "Umístění musí být zadáno absolutně"
 
 #. TRANSLATORS: unlink refers to the C function which removes a file
-#: sbuild/sbuild-chroot.cc:85
+#: sbuild/sbuild-chroot.cc:88
 msgid "Failed to unlink session file"
 msgstr "Nepodařilo se smazat soubor se sezením"
 
-#: sbuild/sbuild-chroot.cc:86
+#: sbuild/sbuild-chroot.cc:89
 msgid "Failed to write session file"
 msgstr "Nepodařilo se zapsat do souboru se sezením"
 
-#: sbuild/sbuild-chroot.cc:525
+#: sbuild/sbuild-chroot.cc:532
 msgid "Name"
 msgstr "Jméno"
 
-#: sbuild/sbuild-chroot.cc:528
+#: sbuild/sbuild-chroot.cc:535
 msgid "Description"
 msgstr "Popis"
 
-#: sbuild/sbuild-chroot.cc:529
+#: sbuild/sbuild-chroot.cc:536
 msgid "Type"
 msgstr "Typ"
 
-#: sbuild/sbuild-chroot.cc:530
+#: sbuild/sbuild-chroot.cc:537
 msgid "Priority"
 msgstr "Priorita"
 
-#: sbuild/sbuild-chroot.cc:531
+#: sbuild/sbuild-chroot.cc:538
 msgid "Users"
 msgstr "Uživatelé"
 
-#: sbuild/sbuild-chroot.cc:532
+#: sbuild/sbuild-chroot.cc:539
 msgid "Groups"
 msgstr "Skupiny"
 
-#: sbuild/sbuild-chroot.cc:533
+#: sbuild/sbuild-chroot.cc:540
 msgid "Root Users"
 msgstr "Uživatelé root"
 
-#: sbuild/sbuild-chroot.cc:534
+#: sbuild/sbuild-chroot.cc:541
 msgid "Root Groups"
 msgstr "Skupiny root"
 
-#: sbuild/sbuild-chroot.cc:535
+#: sbuild/sbuild-chroot.cc:542
 msgid "Aliases"
 msgstr "Aliasy"
 
-#: sbuild/sbuild-chroot.cc:536
+#: sbuild/sbuild-chroot.cc:543
 msgid "Environment Filter"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:537
+#: sbuild/sbuild-chroot.cc:544
 msgid "Run Setup Scripts"
 msgstr "Nastavovací skripty"
 
-#: sbuild/sbuild-chroot.cc:538
+#: sbuild/sbuild-chroot.cc:545
 msgid "Script Configuration"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:539
+#: sbuild/sbuild-chroot.cc:546
 msgid "Session Managed"
 msgstr "Spravované sezení"
 
-#: sbuild/sbuild-chroot.cc:541
+#: sbuild/sbuild-chroot.cc:548
 #, fuzzy
 msgid "Session Cloned"
 msgstr "Spravované sezení"
 
-#: sbuild/sbuild-chroot.cc:543
+#: sbuild/sbuild-chroot.cc:550
 #, fuzzy
 msgid "Session Purged"
 msgstr "Spravované sezení"
 
-#: sbuild/sbuild-chroot.cc:547
+#: sbuild/sbuild-chroot.cc:554
 msgid "Command Prefix"
 msgstr "Prefix příkazu"
 
-#: sbuild/sbuild-chroot.cc:551
+#: sbuild/sbuild-chroot.cc:558
 msgid "Mount Location"
 msgstr "Přípojný bod"
 
-#: sbuild/sbuild-chroot.cc:553
+#: sbuild/sbuild-chroot.cc:560
 msgid "Path"
 msgstr "Cesta"
 
-#: sbuild/sbuild-chroot.cc:559
+#: sbuild/sbuild-chroot.cc:566
 msgid "Session"
 msgstr "Sezení"
 
-#: sbuild/sbuild-chroot.cc:559
+#: sbuild/sbuild-chroot.cc:566
 msgid "Chroot"
 msgstr "Chroot"
 

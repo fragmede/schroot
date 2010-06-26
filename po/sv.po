@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-06-12 16:04+0100\n"
+"POT-Creation-Date: 2010-06-26 22:53+0100\n"
 "PO-Revision-Date: 2010-01-16 15:44+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -123,7 +123,7 @@ msgstr "Den här flaggan har tagits bort och har inte längre någon effekt"
 
 #: bin/csbuild/csbuild-main.cc:55
 #: bin/schroot-releaselock/schroot-releaselock-main.cc:54
-#: sbuild/sbuild-chroot.cc:72
+#: sbuild/sbuild-chroot.cc:75
 msgid "File is not a block device"
 msgstr "Filen är inte en blockenhet"
 
@@ -697,23 +697,27 @@ msgstr "Tillgängliga chroot: "
 msgid "Support for 'block-device' chroots"
 msgstr ""
 
-#: bin/schroot/schroot-main-base.cc:106
-msgid "Support for 'directory' chroots"
-msgstr ""
-
 #: bin/schroot/schroot-main-base.cc:107
-msgid "Support for 'file' chroots"
+msgid "Support for 'btrfs-snapshot' chroots"
 msgstr ""
 
 #: bin/schroot/schroot-main-base.cc:109
-msgid "Support for 'loopback' chroots"
+msgid "Support for 'directory' chroots"
+msgstr ""
+
+#: bin/schroot/schroot-main-base.cc:110
+msgid "Support for 'file' chroots"
 msgstr ""
 
 #: bin/schroot/schroot-main-base.cc:112
+msgid "Support for 'loopback' chroots"
+msgstr ""
+
+#: bin/schroot/schroot-main-base.cc:115
 msgid "Support for 'lvm-snapshot' chroots"
 msgstr ""
 
-#: bin/schroot/schroot-main-base.cc:114
+#: bin/schroot/schroot-main-base.cc:117
 msgid "Support for 'plain' chroots"
 msgstr ""
 
@@ -948,7 +952,7 @@ msgstr "Ingen sådan chroot"
 msgid "A chroot or alias '%1%' already exists with this name"
 msgstr "En chroot eller aliaset \"%1%\" finns redan med det här namnet"
 
-#: sbuild/sbuild-chroot-config.cc:63 sbuild/sbuild-chroot.cc:79
+#: sbuild/sbuild-chroot-config.cc:63 sbuild/sbuild-chroot.cc:82
 msgid "File is not a regular file"
 msgstr "Filen är inte en vanlig fil"
 
@@ -956,11 +960,11 @@ msgstr "Filen är inte en vanlig fil"
 msgid "Failed to open file"
 msgstr "Misslyckades med att öppna filen"
 
-#: sbuild/sbuild-chroot-config.cc:65 sbuild/sbuild-chroot.cc:80
+#: sbuild/sbuild-chroot-config.cc:65 sbuild/sbuild-chroot.cc:83
 msgid "File is not owned by user root"
 msgstr "Filen ägs inte av användaren root"
 
-#: sbuild/sbuild-chroot-config.cc:66 sbuild/sbuild-chroot.cc:81
+#: sbuild/sbuild-chroot-config.cc:66 sbuild/sbuild-chroot.cc:84
 msgid "File has write permissions for others"
 msgstr "Filen har skrivrättigheter för andra"
 
@@ -972,7 +976,7 @@ msgstr "Dubbleta namn tillåts inte"
 msgid "Available chroots: "
 msgstr "Tillgängliga chroot: "
 
-#: sbuild/sbuild-chroot-directory-base.cc:73
+#: sbuild/sbuild-chroot-directory-base.cc:86
 #, fuzzy
 msgid "Directory"
 msgstr "Katalog att använda"
@@ -1000,23 +1004,23 @@ msgstr "Personlighet"
 msgid "Session ID"
 msgstr "Session"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:69
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:70
 msgid "(source chroot)"
 msgstr "(käll-chroot)"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:156
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:169
 msgid "Source Users"
 msgstr "Källanvändare"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:157
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:170
 msgid "Source Groups"
 msgstr "Källgrupper"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:158
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:171
 msgid "Source Root Users"
 msgstr "Källrootanvändare"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:159
+#: sbuild/sbuild-chroot-facet-source-clonable.cc:172
 msgid "Source Root Groups"
 msgstr "Källrotgrupper"
 
@@ -1073,149 +1077,149 @@ msgstr "Enhet för LVM-snapshot"
 msgid "LVM Snapshot Options"
 msgstr "Flaggor för LVM-snapshot"
 
-#: sbuild/sbuild-chroot.cc:66
+#: sbuild/sbuild-chroot.cc:69
 msgid "Chroot creation failed"
 msgstr "Skapandet av chroot misslyckades"
 
-#: sbuild/sbuild-chroot.cc:67
+#: sbuild/sbuild-chroot.cc:70
 msgid "Device name not set"
 msgstr "Enhetsnamnet är inte inställt"
 
 #. TRANSLATORS: %1% = chroot type name
-#: sbuild/sbuild-chroot.cc:69
+#: sbuild/sbuild-chroot.cc:72
 #, boost-format
 msgid "Unknown chroot type '%1%'"
 msgstr "Okänd chroot-typ \"%1%\""
 
-#: sbuild/sbuild-chroot.cc:70
+#: sbuild/sbuild-chroot.cc:73
 msgid "Device must have an absolute path"
 msgstr "Enheten måste ha en absolut sökväg"
 
-#: sbuild/sbuild-chroot.cc:71 sbuild/sbuild-lock.cc:59
+#: sbuild/sbuild-chroot.cc:74 sbuild/sbuild-lock.cc:59
 msgid "Failed to lock device"
 msgstr "Misslyckades med att låsa enheten"
 
-#: sbuild/sbuild-chroot.cc:73 sbuild/sbuild-lock.cc:64
+#: sbuild/sbuild-chroot.cc:76 sbuild/sbuild-lock.cc:64
 msgid "Failed to unlock device"
 msgstr "Misslyckades med att låsa upp enheten"
 
-#: sbuild/sbuild-chroot.cc:74
+#: sbuild/sbuild-chroot.cc:77
 #, fuzzy
 msgid "Directory must have an absolute path"
 msgstr "Enheten måste ha en absolut sökväg"
 
-#: sbuild/sbuild-chroot.cc:75
+#: sbuild/sbuild-chroot.cc:78
 msgid "Attempt to add object which is not a facet"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:76
+#: sbuild/sbuild-chroot.cc:79
 msgid "Attempt to add facet which is already in use"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:77
+#: sbuild/sbuild-chroot.cc:80
 msgid "File must have an absolute path"
 msgstr "Filen måste ha en absolut sökväg"
 
-#: sbuild/sbuild-chroot.cc:78
+#: sbuild/sbuild-chroot.cc:81
 msgid "Failed to acquire file lock"
 msgstr "Misslyckades med att skaffa enhetslås"
 
-#: sbuild/sbuild-chroot.cc:82
+#: sbuild/sbuild-chroot.cc:85
 msgid "Failed to discard file lock"
 msgstr "Misslyckades med att kasta enhetslåset"
 
-#: sbuild/sbuild-chroot.cc:83
+#: sbuild/sbuild-chroot.cc:86
 msgid "Location must have an absolute path"
 msgstr "Platsen måste ha en absolut sökväg"
 
 #. TRANSLATORS: unlink refers to the C function which removes a file
-#: sbuild/sbuild-chroot.cc:85
+#: sbuild/sbuild-chroot.cc:88
 msgid "Failed to unlink session file"
 msgstr "Misslyckades med att ta bort sessionsfilen"
 
-#: sbuild/sbuild-chroot.cc:86
+#: sbuild/sbuild-chroot.cc:89
 msgid "Failed to write session file"
 msgstr "Misslyckades med att skriva till sessionsfilen"
 
-#: sbuild/sbuild-chroot.cc:525
+#: sbuild/sbuild-chroot.cc:532
 msgid "Name"
 msgstr "Namn"
 
-#: sbuild/sbuild-chroot.cc:528
+#: sbuild/sbuild-chroot.cc:535
 msgid "Description"
 msgstr "Beskrivning"
 
-#: sbuild/sbuild-chroot.cc:529
+#: sbuild/sbuild-chroot.cc:536
 msgid "Type"
 msgstr "Typ"
 
-#: sbuild/sbuild-chroot.cc:530
+#: sbuild/sbuild-chroot.cc:537
 msgid "Priority"
 msgstr "Prioritet"
 
-#: sbuild/sbuild-chroot.cc:531
+#: sbuild/sbuild-chroot.cc:538
 msgid "Users"
 msgstr "Användare"
 
-#: sbuild/sbuild-chroot.cc:532
+#: sbuild/sbuild-chroot.cc:539
 msgid "Groups"
 msgstr "Grupper"
 
-#: sbuild/sbuild-chroot.cc:533
+#: sbuild/sbuild-chroot.cc:540
 msgid "Root Users"
 msgstr "Rootanvändare"
 
-#: sbuild/sbuild-chroot.cc:534
+#: sbuild/sbuild-chroot.cc:541
 msgid "Root Groups"
 msgstr "Rotgrupper"
 
-#: sbuild/sbuild-chroot.cc:535
+#: sbuild/sbuild-chroot.cc:542
 msgid "Aliases"
 msgstr "Alias"
 
-#: sbuild/sbuild-chroot.cc:536
+#: sbuild/sbuild-chroot.cc:543
 msgid "Environment Filter"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:537
+#: sbuild/sbuild-chroot.cc:544
 msgid "Run Setup Scripts"
 msgstr "Kör konfigurationsskript"
 
-#: sbuild/sbuild-chroot.cc:538
+#: sbuild/sbuild-chroot.cc:545
 msgid "Script Configuration"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:539
+#: sbuild/sbuild-chroot.cc:546
 msgid "Session Managed"
 msgstr "Session hanterad"
 
-#: sbuild/sbuild-chroot.cc:541
+#: sbuild/sbuild-chroot.cc:548
 #, fuzzy
 msgid "Session Cloned"
 msgstr "Session hanterad"
 
-#: sbuild/sbuild-chroot.cc:543
+#: sbuild/sbuild-chroot.cc:550
 #, fuzzy
 msgid "Session Purged"
 msgstr "Session hanterad"
 
-#: sbuild/sbuild-chroot.cc:547
+#: sbuild/sbuild-chroot.cc:554
 msgid "Command Prefix"
 msgstr "Kommandoprefix"
 
-#: sbuild/sbuild-chroot.cc:551
+#: sbuild/sbuild-chroot.cc:558
 msgid "Mount Location"
 msgstr "Montera plats"
 
-#: sbuild/sbuild-chroot.cc:553
+#: sbuild/sbuild-chroot.cc:560
 msgid "Path"
 msgstr "Sökväg"
 
-#: sbuild/sbuild-chroot.cc:559
+#: sbuild/sbuild-chroot.cc:566
 msgid "Session"
 msgstr "Session"
 
-#: sbuild/sbuild-chroot.cc:559
+#: sbuild/sbuild-chroot.cc:566
 msgid "Chroot"
 msgstr "Chroot"
 
