@@ -26,16 +26,12 @@ elif [ "$2" = "ok" ]; then
     exit 1
 fi
 
-if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-  VERBOSE="--verbose"
-fi
-
 # Copy NSS database from host to chroot
 # $1: database name
 # $2: destination file name
 dup_nss()
 {
-    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+    if [ "$VERBOSE" = "verbose" ]; then
 	echo "Copying $1 database to $2"
     fi
     getent "$1" > "$2"

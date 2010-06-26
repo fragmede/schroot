@@ -198,6 +198,23 @@ namespace sbuild
     set_session_id (std::string const& session_id);
 
     /**
+     * Get the message verbosity.
+     *
+     * @returns the message verbosity.
+     */
+    std::string const&
+    get_verbosity () const;
+
+    /**
+     * Set the message verbosity.  This will override the chroot
+     * message verbosity if set.
+     *
+     * @param verbosity the message verbosity.
+     */
+    void
+    set_verbosity (std::string const& verbosity);
+
+    /**
      * Get the force status of this session.
      *
      * @returns true if operation will be forced, otherwise false.
@@ -496,6 +513,8 @@ namespace sbuild
     struct termios saved_termios;
     /// Are the saved terminal settings valid?
     bool termios_ok;
+    /// Message verbosity.
+    std::string verbosity;
 
   protected:
     /// Current working directory.

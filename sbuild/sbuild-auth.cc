@@ -81,8 +81,7 @@ auth::auth (std::string const& service_name):
   ruid(),
   rgid(),
   ruser(),
-  rgroup(),
-  message_verbosity(VERBOSITY_NORMAL)
+  rgroup()
 {
   this->ruid = getuid();
   this->rgid = getgid();
@@ -287,18 +286,6 @@ std::string const&
 auth::get_rgroup () const
 {
   return this->rgroup;
-}
-
-auth::verbosity
-auth::get_verbosity () const
-{
-  return this->message_verbosity;
-}
-
-void
-auth::set_verbosity (auth::verbosity verbosity)
-{
-  this->message_verbosity = verbosity;
 }
 
 void

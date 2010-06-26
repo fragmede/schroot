@@ -39,7 +39,7 @@ elif [ $1 = "setup-stop" ] && [ "$(basename "$0")" = "00check" ]; then
     exit 0;
 fi
 
-if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+if [ "$VERBOSE" = "verbose" ]; then
     echo "AUTH_USER=$AUTH_USER"
     echo "AUTH_RUSER=$AUTH_RUSER"
     echo "AUTH_RGROUP=$AUTH_RGROUP"
@@ -49,7 +49,7 @@ if [ "$AUTH_VERBOSITY" = "verbose" ]; then
     echo "AUTH_RGID=$AUTH_RGID"
     echo "AUTH_HOME=$AUTH_HOME"
     echo "AUTH_SHELL=$AUTH_SHELL"
-    echo "AUTH_VERBOSITY=$AUTH_VERBOSITY"
+    echo "VERBOSE=$VERBOSE"
     echo "MOUNT_DIR=$MOUNT_DIR"
     echo "LIBEXEC_DIR=$LIBEXEC_DIR"
     echo "PID=$PID"

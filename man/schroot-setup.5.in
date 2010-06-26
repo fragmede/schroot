@@ -53,11 +53,6 @@ than once, for example on failure.
 AUTH_USER
 The username of the user the command in the chroot will run as.
 .TP
-AUTH_VERBOSITY
-Set to \[oq]quiet\[cq] if only error messages should be printed,
-\[oq]normal\[cq] if other messages may be printed as well, and
-\[oq]verbose\[cq] if all messages may be printed.
-.TP
 HOST
 .TP
 HOST_OS
@@ -89,6 +84,12 @@ architecture, and may be identical between different architectures.
 .TP
 SESSION_ID
 The session identifier.
+.TP
+VERBOSE
+Set to \[oq]quiet\[cq] if only error messages should be printed,
+\[oq]normal\[cq] if other messages may be printed as well, and
+\[oq]verbose\[cq] if all messages may be printed.  Previously called
+AUTH_VERBOSITY.
 .TP
 CHROOT_SESSION_CREATE
 Set to \[oq]true\[cq] if a session will be created, otherwise \[oq]false\[cq].

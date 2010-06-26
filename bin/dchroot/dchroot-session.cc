@@ -122,7 +122,7 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
 	   get_auth()->get_user().c_str(),
 	   commandstring.c_str());
 
-  if (get_auth()->get_verbosity() != auth::VERBOSITY_QUIET)
+  if (session_chroot->get_verbosity() != sbuild::chroot::VERBOSITY_QUIET)
     {
       std::string format_string;
       // TRANSLATORS: %1% = chroot name

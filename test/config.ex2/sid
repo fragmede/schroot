@@ -6,6 +6,7 @@ priority=3
 groups=sbuild,root
 root-groups=root,sbuild
 aliases=unstable,default
+message-verbosity=quiet
 
 [sid-local]
 description=Debian sid (unstable)
@@ -14,4 +15,4 @@ priority=3
 groups=sbuild,root
 root-groups=root,sbuild
 directory=/srv/chroot/sid
-
+message-verbosity=verbose

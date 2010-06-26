@@ -36,14 +36,14 @@ do_kill_all()
 	exit 0
     fi
 
-    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+    if [ "$VERBOSE" = "verbose" ]; then
         echo "Killing processes run inside $1"
     fi
     ls /proc | egrep '^[[:digit:]]+$' |
     while read pid; do
         root=$(readlink /proc/"$pid"/root || true)
         if [ "$root" = "$1" ]; then
-            if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+            if [ "$VERBOSE" = "verbose" ]; then
                 exe=$(readlink /proc/"$pid"/exe || true)
                 echo "Killing left-over pid $pid (${exe##$1})"
                 echo "  Sending SIGTERM to pid $pid"
@@ -55,13 +55,13 @@ do_kill_all()
             max=5
             while [ -d /proc/"$pid" ]; do
                 count=$(( $count + 1 ))
-                if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+                if [ "$VERBOSE" = "verbose" ]; then
                     echo "  Waiting for pid $pid to shut down... ($count/$max)"
                 fi
                 sleep 1
                 # Wait for $max seconds for process to die before -9'ing it
                 if [ "$count" -eq "$max" ]; then
-                    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+                    if [ "$VERBOSE" = "verbose" ]; then
                         echo "  Sending SIGKILL to pid $pid"
                     fi
                     /bin/kill -KILL "$pid" 2>/dev/null

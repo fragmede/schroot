@@ -149,6 +149,7 @@ public:
     chroot->set_root_users(sbuild::split_string("user3,user4", ","));
     chroot->set_groups(sbuild::split_string("group1,group2", ","));
     chroot->set_root_groups(sbuild::split_string("group3,group4", ","));
+    chroot->set_verbosity("quiet");
 
     sbuild::chroot_facet_personality::ptr pfac
       (chroot->get_facet<sbuild::chroot_facet_personality>());
@@ -193,6 +194,7 @@ public:
 		      SBUILD_DEFAULT_ENVIRONMENT_FILTER);
     keyfile.set_value(group, "command-prefix", "");
     keyfile.set_value(group, "script-config", "default/config");
+    keyfile.set_value(group, "message-verbosity", "quiet");
   }
 
   void setup_keyfile_session (sbuild::keyfile&   keyfile,

@@ -114,6 +114,8 @@ class test_chroot : public test_chroot_base<basic_chroot>
   CPPUNIT_TEST(test_environment_filter);
   CPPUNIT_TEST(test_active);
   CPPUNIT_TEST(test_run_setup_scripts);
+  CPPUNIT_TEST(test_verbose);
+  CPPUNIT_TEST_EXCEPTION(test_verbose_error, sbuild::chroot::error);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
   CPPUNIT_TEST(test_setup_keyfile);
@@ -214,6 +216,25 @@ public:
     CPPUNIT_ASSERT(chroot->get_run_setup_scripts() == false);
     c->set_run_setup_scripts(true);
     CPPUNIT_ASSERT(chroot->get_run_setup_scripts() == true);
+  }
+
+  void test_verbose()
+  {
+    std::tr1::shared_ptr<basic_chroot> c = std::tr1::dynamic_pointer_cast<basic_chroot>(chroot);
+
+    CPPUNIT_ASSERT(chroot->get_verbosity() == sbuild::chroot::VERBOSITY_QUIET);
+    c->set_verbosity(sbuild::chroot::VERBOSITY_VERBOSE);
+    CPPUNIT_ASSERT(chroot->get_verbosity() == sbuild::chroot::VERBOSITY_VERBOSE);
+    CPPUNIT_ASSERT(std::string(chroot->get_verbosity_string()) == "verbose");
+    c->set_verbosity("normal");
+    CPPUNIT_ASSERT(chroot->get_verbosity() == sbuild::chroot::VERBOSITY_NORMAL);
+    CPPUNIT_ASSERT(std::string(chroot->get_verbosity_string()) == "normal");
+  }
+
+  void test_verbose_error()
+  {
+    std::tr1::shared_ptr<basic_chroot> c = std::tr1::dynamic_pointer_cast<basic_chroot>(chroot);
+    c->set_verbosity("invalid");
   }
 
   void test_chroot_type()

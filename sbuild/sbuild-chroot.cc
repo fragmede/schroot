@@ -66,27 +66,28 @@ namespace
    */
   emap init_errors[] =
     {
-      emap(sbuild::chroot::CHROOT_CREATE,   N_("Chroot creation failed")),
-      emap(sbuild::chroot::CHROOT_DEVICE,   N_("Device name not set")),
+      emap(sbuild::chroot::CHROOT_CREATE,     N_("Chroot creation failed")),
+      emap(sbuild::chroot::CHROOT_DEVICE,     N_("Device name not set")),
       // TRANSLATORS: %1% = chroot type name
-      emap(sbuild::chroot::CHROOT_TYPE,     N_("Unknown chroot type '%1%'")),
-      emap(sbuild::chroot::DEVICE_ABS,      N_("Device must have an absolute path")),
-      emap(sbuild::chroot::DEVICE_LOCK,     N_("Failed to lock device")),
-      emap(sbuild::chroot::DEVICE_NOTBLOCK, N_("File is not a block device")),
-      emap(sbuild::chroot::DEVICE_UNLOCK,   N_("Failed to unlock device")),
-      emap(sbuild::chroot::DIRECTORY_ABS,   N_("Directory must have an absolute path")),
-      emap(sbuild::chroot::FACET_INVALID,   N_("Attempt to add object which is not a facet")),
-      emap(sbuild::chroot::FACET_PRESENT,   N_("Attempt to add facet which is already in use")),
-      emap(sbuild::chroot::FILE_ABS,        N_("File must have an absolute path")),
-      emap(sbuild::chroot::FILE_LOCK,       N_("Failed to acquire file lock")),
-      emap(sbuild::chroot::FILE_NOTREG,     N_("File is not a regular file")),
-      emap(sbuild::chroot::FILE_OWNER,      N_("File is not owned by user root")),
-      emap(sbuild::chroot::FILE_PERMS,      N_("File has write permissions for others")),
-      emap(sbuild::chroot::FILE_UNLOCK,     N_("Failed to discard file lock")),
-      emap(sbuild::chroot::LOCATION_ABS,    N_("Location must have an absolute path")),
+      emap(sbuild::chroot::CHROOT_TYPE,       N_("Unknown chroot type '%1%'")),
+      emap(sbuild::chroot::DEVICE_ABS,        N_("Device must have an absolute path")),
+      emap(sbuild::chroot::DEVICE_LOCK,       N_("Failed to lock device")),
+      emap(sbuild::chroot::DEVICE_NOTBLOCK,   N_("File is not a block device")),
+      emap(sbuild::chroot::DEVICE_UNLOCK,     N_("Failed to unlock device")),
+      emap(sbuild::chroot::DIRECTORY_ABS,     N_("Directory must have an absolute path")),
+      emap(sbuild::chroot::FACET_INVALID,     N_("Attempt to add object which is not a facet")),
+      emap(sbuild::chroot::FACET_PRESENT,     N_("Attempt to add facet which is already in use")),
+      emap(sbuild::chroot::FILE_ABS,          N_("File must have an absolute path")),
+      emap(sbuild::chroot::FILE_LOCK,         N_("Failed to acquire file lock")),
+      emap(sbuild::chroot::FILE_NOTREG,       N_("File is not a regular file")),
+      emap(sbuild::chroot::FILE_OWNER,        N_("File is not owned by user root")),
+      emap(sbuild::chroot::FILE_PERMS,        N_("File has write permissions for others")),
+      emap(sbuild::chroot::FILE_UNLOCK,       N_("Failed to discard file lock")),
+      emap(sbuild::chroot::LOCATION_ABS,      N_("Location must have an absolute path")),
       // TRANSLATORS: unlink refers to the C function which removes a file
-      emap(sbuild::chroot::SESSION_UNLINK,  N_("Failed to unlink session file")),
-      emap(sbuild::chroot::SESSION_WRITE,   N_("Failed to write session file"))
+      emap(sbuild::chroot::SESSION_UNLINK,    N_("Failed to unlink session file")),
+      emap(sbuild::chroot::SESSION_WRITE,     N_("Failed to write session file")),
+      emap(sbuild::chroot::VERBOSITY_INVALID, N_("Message verbosity is invalid"))
     };
 
 }
@@ -113,6 +114,7 @@ sbuild::chroot::chroot ():
   run_setup_scripts(true),
   script_config("default/config"),
   command_prefix(),
+  message_verbosity(VERBOSITY_NORMAL),
   facets()
 {
   add_facet(sbuild::chroot_facet_personality::create());
@@ -135,6 +137,7 @@ sbuild::chroot::chroot (const chroot& rhs):
   run_setup_scripts(rhs.run_setup_scripts),
   script_config(rhs.script_config),
   command_prefix(rhs.command_prefix),
+  message_verbosity(rhs.message_verbosity),
   facets()
 {
   /// @todo Use internal version of add_facet to add chroot pointer.
@@ -389,6 +392,58 @@ sbuild::chroot::set_command_prefix (string_list const& command_prefix)
   this->command_prefix = command_prefix;
 }
 
+chroot::verbosity
+chroot::get_verbosity () const
+{
+  return this->message_verbosity;
+}
+
+const char *
+chroot::get_verbosity_string () const
+{
+  const char *verbosity = 0;
+
+  switch (this->message_verbosity)
+    {
+    case chroot::VERBOSITY_QUIET:
+      verbosity = "quiet";
+      break;
+    case chroot::VERBOSITY_NORMAL:
+      verbosity = "normal";
+      break;
+    case chroot::VERBOSITY_VERBOSE:
+      verbosity = "verbose";
+      break;
+    default:
+      log_debug(DEBUG_CRITICAL) << format("Invalid verbosity level: %1%, falling back to 'normal'")
+	% static_cast<int>(this->message_verbosity)
+				<< std::endl;
+      verbosity = "normal";
+      break;
+    }
+
+  return verbosity;
+}
+
+void
+chroot::set_verbosity (chroot::verbosity verbosity)
+{
+  this->message_verbosity = verbosity;
+}
+
+void
+chroot::set_verbosity (std::string const& verbosity)
+{
+  if (verbosity == "quiet")
+    this->message_verbosity = VERBOSITY_QUIET;
+  else if (verbosity == "normal")
+    this->message_verbosity = VERBOSITY_NORMAL;
+  else if (verbosity == "verbose")
+    this->message_verbosity = VERBOSITY_VERBOSE;
+  else
+    throw error(verbosity, VERBOSITY_INVALID);
+}
+
 string_list
 sbuild::chroot::list_facets () const
 {
@@ -535,6 +590,7 @@ sbuild::chroot::get_details (chroot const&  chroot,
     .add(_("Description"), chroot.get_description())
     .add(_("Type"), chroot.get_chroot_type())
     .add(_("Priority"), chroot.get_priority())
+    .add(_("Message Verbosity"), chroot.get_verbosity_string())
     .add(_("Users"), chroot.get_users())
     .add(_("Groups"), chroot.get_groups())
     .add(_("Root Users"), chroot.get_root_users())
@@ -644,6 +700,9 @@ sbuild::chroot::get_keyfile (chroot const& chroot,
 				 keyfile, chroot.get_keyfile_name(),
 				 "command-prefix");
 
+  keyfile::set_object_value(chroot, &chroot::get_verbosity_string,
+			    keyfile, chroot.get_keyfile_name(),
+			    "message-verbosity");
 }
 
 void
@@ -784,4 +843,10 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
 				 "command-prefix",
 				 keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("command-prefix");
+
+  keyfile::get_object_value(chroot, &chroot::set_verbosity,
+			    keyfile, chroot.get_keyfile_name(),
+			    "message-verbosity",
+			    keyfile::PRIORITY_OPTIONAL);
+  used_keys.push_back("message-verbosity");
 }
