@@ -231,7 +231,7 @@ will be permitted to access all chroots, even when not explicitly granted
 access.
 .SH EXAMPLES
 .SS List available chroots
-\f[CR]% \f[CB]schroot \-l\fP\fP\[CR]
+\f[CR]%\ \f[CB]schroot \-l\fP\fP\[CR]
 .br
 \f[CR]default\fP
 .br
@@ -288,7 +288,7 @@ access.
 Use \fI\-\-all\fP or \fI\-c\fP multiple times to use all or multiple chroots,
 respectively.
 .SS Running commands in a chroot
-\f[CR]% \f[CB]schroot \-c sid /bin/ls\fP\fP\[CR]
+\f[CR]%\ \f[CB]schroot \-c sid /bin/ls\fP\fP\[CR]
 .br
 \f[CR][sid chroot] Running command: \[lq]/bin/ls\[rq]\fP
 .br
@@ -302,7 +302,7 @@ respectively.
 .br
 \f[CR]pam          sbuild\-session.c  schroot.conf\fP
 .PP
-\f[CR]% \f[CB]schroot \-c sid \-\- ls \-1 | head \-n 5\fP\fP\[CR]
+\f[CR]%\ \f[CB]schroot \-c sid \-\- ls \-1 | head \-n 5\fP\fP\[CR]
 .br
 \f[CR][sid chroot] Running command: \[lq]ls \-1\[rq]\fP
 .br
@@ -324,7 +324,7 @@ that program output from commands run in the chroot may be piped and redirected
 as required; the data will be the same as if the command was run directly on
 the host system.
 .SS Switching users
-\f[CR]% \f[CB]schroot \-c sid \-u root\fP\fP\[CR]
+\f[CR]%\ \f[CB]schroot \-c sid \-u root\fP\fP\[CR]
 .br
 \f[CR]Password:\fP
 .br
@@ -402,16 +402,16 @@ Note that the \fISession Managed\fP option is set to \[oq]true\[cq].  This is a
 requirement in order to use session management, and is supported by most chroot
 types.  Next, we will create a new session:
 .PP
-\f[CR]% \f[CB]schroot \-b \-c sid\-snap\fP\fP\[CR]
+\f[CR]%\ \f[CB]schroot \-b \-c sid\-snap\fP\fP\[CR]
 .br
 \f[CR]sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP
 .PP
 The session ID of the newly-created session is returned on standard output.  It
 is common to store it like this:
 .PP
-\f[CR]% \f[CB]SESSION=$(schroot \-b \-c sid\-snap)\fP\fP\[CR]
+\f[CR]%\ \f[CB]SESSION=$(schroot \-b \-c sid\-snap)\fP\fP\[CR]
 .br
-\f[CR]% \f[CB]echo $SESSION\fP\fP\[CR]
+\f[CR]%\ \f[CB]echo $SESSION\fP\fP\[CR]
 .br
 \f[CR]sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP
 .PP
@@ -490,13 +490,13 @@ looks like:
 .PP
 Now the session has been created, commands may be run in it:
 .PP
-\f[CR]% \f[CB]schroot \-r \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f \-\- uname \-sr\fP\fP\[CR]
+\f[CR]%\ \f[CB]schroot \-r \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f \-\- uname \-sr\fP\fP\[CR]
 .br
 \f[CR]I: [sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f chroot] Running command: \[lq]uname \-sr\[rq]\fP
 .br
 \f[CR]Linux 2.6.18\-3\-powerpc\fP
 .br
-\f[CR]% \f[CB]schroot \-r \-c $SESSION \-\- uname \-sr\fP\fP\[CR]
+\f[CR]%\ \f[CB]schroot \-r \-c $SESSION \-\- uname \-sr\fP\fP\[CR]
 .br
 \f[CR]I: [sid\-snap\-fe170af9\-d9be\-4800\-b1bd\-de275858b938 chroot] Running command: \[lq]uname \-sr\[rq]\fP
 .br
@@ -505,14 +505,14 @@ Now the session has been created, commands may be run in it:
 When all the commands to run in the session have been performed, the session
 may be ended:
 .PP
-\f[CR]% \f[CB]schroot \-e \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\fP\[CR]
+\f[CR]%\ \f[CB]schroot \-e \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\fP\[CR]
 .br
-\f[CR]% \f[CB]schroot \-e \-c $SESSION\fP\fP\[CR]
+\f[CR]%\ \f[CB]schroot \-e \-c $SESSION\fP\fP\[CR]
 .PP
 Finally, the session names can be long and unwieldy.  A name may be specified
 instead of using the automatically generated session ID:
 .PP
-\f[CR]% \f[CB]schroot \-b \-c sid\-snap \-n my\-session\-name\fP\fP\[CR]
+\f[CR]%\ \f[CB]schroot \-b \-c sid\-snap \-n my\-session\-name\fP\fP\[CR]
 .br
 \f[CR]my\-session\-name\fP
 .SH TROUBLESHOOTING
@@ -554,6 +554,7 @@ the modified; see
 .BR schroot.conf (5)
 for further details.
 .SH FILES
+.SS Configuration files
 .TP
 \f[BI]@SCHROOT_CONF@\fP
 The system-wide chroot definition file.  This file must be owned by the root
@@ -573,6 +574,28 @@ The system-wide chroot setup script directories.  See
 .TP
 \f[BI]/etc/pam.d/schroot\fP
 PAM configuration.
+.SS System directories
+.TP
+\f[BI]@SCHROOT_LIBEXEC_DIR@\fP
+Directory containing helper programs used by setup scripts.
+.SS Session directories
+Each directory contains a directory or file with the name of each session.  Not
+all chroot types make use of all the following directories.
+.TP
+\f[BI]@SCHROOT_SESSION_DIR@\fP
+Directory containing the session configuration for each active session.
+.TP
+\f[BI]@SCHROOT_MOUNT_DIR@\fP
+Directory used to mount the filesystems used by each active session.
+.TP
+\f[BI]@SCHROOT_UNDERLAY_DIR@\fP
+Directory used for filesystem union source (underlay).
+.TP
+\f[BI]@SCHROOT_OVERLAY_DIR@\fP
+Directory used for filesystem union writeable overlay.
+.TP
+\f[BI]@SCHROOT_FILE_UNPACK_DIR@\fP
+Directory used for unpacking file chroots.
 .SH AUTHORS
 Roger Leigh.
 .SH COPYRIGHT
@@ -588,6 +611,7 @@ version.
 .BR chroot (2),
 .BR run\-parts (8),
 .BR schroot\-setup (5),
+.BR schroot\-faq (7),
 .BR schroot.conf (5).
 .\"#
 .\"# The following sets edit modes for GNU EMACS

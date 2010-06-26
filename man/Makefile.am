@@ -38,6 +38,7 @@ man_MANS =			\
 	schroot-setup.5		\
 	schroot.conf.5		\
 	schroot-script-config.5	\
+	schroot-faq.7		\
 	$(dchroot_mans)		\
 	$(dchroot_dsa_mans)	\
 	$(csbuild_mans)

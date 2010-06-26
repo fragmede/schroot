@@ -480,6 +480,7 @@ version.
 .BR sbuild (1),
 .BR schroot (1),
 .BR schroot\-script\-config (5),
+.BR schroot\-faq (7),
 .BR mount (8).
 .\"#
 .\"# The following sets edit modes for GNU EMACS
