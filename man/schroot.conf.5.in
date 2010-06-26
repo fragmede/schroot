@@ -59,6 +59,13 @@ and \[lq]stable-security\[rq] are \[oq]1\[cq], \[lq]testing\[rq] is \[oq]2\[cq]
 and \[lq]unstable\[rq] is \[oq]3\[cq].  The values are not important, but the
 difference between them is.  This is used by sbuild and wanna-build.
 .TP
+\f[CBI]message-verbosity=\fP\f[CI]verbosity\fP
+Set the verbosity of messages printed by schroot when setting up, running
+commands and cleaning up the chroot.  Valid settings are \[oq]quiet\[cq]
+(suppress most messages), \[oq]normal\[cq] (the default) and \[oq]verbose\[cq]
+(show all messages).  This setting is overridden by the options \fI\-\-quiet\fP
+and \fI\-\-verbose\fP.
+.TP
 \f[CBI]users=\fP\f[CI]user1,user2,...\fP
 A comma-separated list of users which are allowed access to the chroot.  If
 empty or omitted, no users will be allowed access (unless a group they belong
