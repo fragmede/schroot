@@ -21,8 +21,11 @@ schroot (1.4.5-1) unstable; urgency=low
     existing in the chroot (Closes: #586198).  Thanks to Bastian Blank
     for this patch.  A similar patch has been applied to the file
     checking in 20copyfiles.
+  * The default message verbosity may be set on a per-chroot basis
+    with the message-verbosity configuration key (Closes: #462453).
+  * Frequently asked questions are now addressed in schroot-faq(7).
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 26 Jun 2010 23:18:01 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 26 Jun 2010 23:46:08 +0100
 
 schroot (1.4.4-1) unstable; urgency=low
 
