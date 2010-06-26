@@ -52,7 +52,8 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 
                 # Device and inode
 		dr=$(/usr/bin/stat --format="%d %i" "/etc/$db")
-		dc=$(/usr/bin/stat --format="%d %i" "${CHROOT_PATH}/etc/$db")
+		# This one can fail since it might not exist yet
+		dc=$(/usr/bin/stat --format="%d %i" "${CHROOT_PATH}/etc/$db" 2>/dev/null || :)
 
 	        # If the database inside and outside the chroot is the
 	        # same, it's very likely that dup_nss would blank the
