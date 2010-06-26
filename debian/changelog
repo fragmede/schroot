@@ -17,8 +17,12 @@ schroot (1.4.5-1) unstable; urgency=low
     absence of a UUID function and hence does not use characters
     such as ':' that make lvcreate choke (Closes: #583504).  Thanks
     to Zach Carter.
+  * 20nssdatabases: Cope with destination database file not pre-
+    existing in the chroot (Closes: #586198).  Thanks to Bastian Blank
+    for this patch.  A similar patch has been applied to the file
+    checking in 20copyfiles.
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 26 Jun 2010 22:55:49 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 26 Jun 2010 23:18:01 +0100
 
 schroot (1.4.4-1) unstable; urgency=low
 
