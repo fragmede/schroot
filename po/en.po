@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-06-13 22:04+0100\n"
+"POT-Creation-Date: 2010-06-26 23:52+0100\n"
 "PO-Revision-Date: 2010-01-16 15:37+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -122,7 +122,7 @@ msgstr "This option has been removed, and no longer has any effect"
 
 #: bin/csbuild/csbuild-main.cc:55
 #: bin/schroot-releaselock/schroot-releaselock-main.cc:54
-#: sbuild/sbuild-chroot.cc:72
+#: sbuild/sbuild-chroot.cc:75
 msgid "File is not a block device"
 msgstr "File is not a block device"
 
@@ -598,7 +598,7 @@ msgstr "[OPTION…] — mount filesystems"
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:126
 #: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:232
-#: sbuild/sbuild-session.cc:1116 sbuild/sbuild-session.cc:1393
+#: sbuild/sbuild-session.cc:1112 sbuild/sbuild-session.cc:1389
 msgid "An unknown exception occurred"
 msgstr "An unknown exception occurred"
 
@@ -930,7 +930,7 @@ msgstr "No such chroot"
 msgid "A chroot or alias '%1%' already exists with this name"
 msgstr "A chroot or alias ‘%1%’ already exists with this name"
 
-#: sbuild/sbuild-chroot-config.cc:63 sbuild/sbuild-chroot.cc:79
+#: sbuild/sbuild-chroot-config.cc:63 sbuild/sbuild-chroot.cc:82
 msgid "File is not a regular file"
 msgstr "File is not a regular file"
 
@@ -938,11 +938,11 @@ msgstr "File is not a regular file"
 msgid "Failed to open file"
 msgstr "Failed to open file"
 
-#: sbuild/sbuild-chroot-config.cc:65 sbuild/sbuild-chroot.cc:80
+#: sbuild/sbuild-chroot-config.cc:65 sbuild/sbuild-chroot.cc:83
 msgid "File is not owned by user root"
 msgstr "File is not owned by user root"
 
-#: sbuild/sbuild-chroot-config.cc:66 sbuild/sbuild-chroot.cc:81
+#: sbuild/sbuild-chroot-config.cc:66 sbuild/sbuild-chroot.cc:84
 msgid "File has write permissions for others"
 msgstr "File has write permissions for others"
 
@@ -1046,146 +1046,154 @@ msgstr "LVM Snapshot Device"
 msgid "LVM Snapshot Options"
 msgstr "LVM Snapshot Options"
 
-#: sbuild/sbuild-chroot.cc:66
+#: sbuild/sbuild-chroot.cc:69
 msgid "Chroot creation failed"
 msgstr "Chroot creation failed"
 
-#: sbuild/sbuild-chroot.cc:67
+#: sbuild/sbuild-chroot.cc:70
 msgid "Device name not set"
 msgstr "Device name not set"
 
 #. TRANSLATORS: %1% = chroot type name
-#: sbuild/sbuild-chroot.cc:69
+#: sbuild/sbuild-chroot.cc:72
 #, boost-format
 msgid "Unknown chroot type '%1%'"
 msgstr "Unknown chroot type ‘%1%’"
 
-#: sbuild/sbuild-chroot.cc:70
+#: sbuild/sbuild-chroot.cc:73
 msgid "Device must have an absolute path"
 msgstr "Device must have an absolute path"
 
-#: sbuild/sbuild-chroot.cc:71 sbuild/sbuild-lock.cc:59
+#: sbuild/sbuild-chroot.cc:74 sbuild/sbuild-lock.cc:59
 msgid "Failed to lock device"
 msgstr "Failed to lock device"
 
-#: sbuild/sbuild-chroot.cc:73 sbuild/sbuild-lock.cc:64
+#: sbuild/sbuild-chroot.cc:76 sbuild/sbuild-lock.cc:64
 msgid "Failed to unlock device"
 msgstr "Failed to unlock device"
 
-#: sbuild/sbuild-chroot.cc:74
+#: sbuild/sbuild-chroot.cc:77
 msgid "Directory must have an absolute path"
 msgstr "Directory must have an absolute path"
 
-#: sbuild/sbuild-chroot.cc:75
+#: sbuild/sbuild-chroot.cc:78
 msgid "Attempt to add object which is not a facet"
 msgstr "Attempt to add object which is not a facet"
 
-#: sbuild/sbuild-chroot.cc:76
+#: sbuild/sbuild-chroot.cc:79
 msgid "Attempt to add facet which is already in use"
 msgstr "Attempt to add facet which is already in use"
 
-#: sbuild/sbuild-chroot.cc:77
+#: sbuild/sbuild-chroot.cc:80
 msgid "File must have an absolute path"
 msgstr "File must have an absolute path"
 
-#: sbuild/sbuild-chroot.cc:78
+#: sbuild/sbuild-chroot.cc:81
 msgid "Failed to acquire file lock"
 msgstr "Failed to acquire file lock"
 
-#: sbuild/sbuild-chroot.cc:82
+#: sbuild/sbuild-chroot.cc:85
 msgid "Failed to discard file lock"
 msgstr "Failed to discard file lock"
 
-#: sbuild/sbuild-chroot.cc:83
+#: sbuild/sbuild-chroot.cc:86
 msgid "Location must have an absolute path"
 msgstr "Location must have an absolute path"
 
 #. TRANSLATORS: unlink refers to the C function which removes a file
-#: sbuild/sbuild-chroot.cc:85
+#: sbuild/sbuild-chroot.cc:88
 msgid "Failed to unlink session file"
 msgstr "Failed to unlink session file"
 
-#: sbuild/sbuild-chroot.cc:86
+#: sbuild/sbuild-chroot.cc:89
 msgid "Failed to write session file"
 msgstr "Failed to write session file"
 
-#: sbuild/sbuild-chroot.cc:525
+#: sbuild/sbuild-chroot.cc:90
+msgid "Message verbosity is invalid"
+msgstr ""
+
+#: sbuild/sbuild-chroot.cc:587
 msgid "Name"
 msgstr "Name"
 
-#: sbuild/sbuild-chroot.cc:528
+#: sbuild/sbuild-chroot.cc:590
 msgid "Description"
 msgstr "Description"
 
-#: sbuild/sbuild-chroot.cc:529
+#: sbuild/sbuild-chroot.cc:591
 msgid "Type"
 msgstr "Type"
 
-#: sbuild/sbuild-chroot.cc:530
+#: sbuild/sbuild-chroot.cc:592
 msgid "Priority"
 msgstr "Priority"
 
-#: sbuild/sbuild-chroot.cc:531
+#: sbuild/sbuild-chroot.cc:593
+msgid "Message Verbosity"
+msgstr ""
+
+#: sbuild/sbuild-chroot.cc:594
 msgid "Users"
 msgstr "Users"
 
-#: sbuild/sbuild-chroot.cc:532
+#: sbuild/sbuild-chroot.cc:595
 msgid "Groups"
 msgstr "Groups"
 
-#: sbuild/sbuild-chroot.cc:533
+#: sbuild/sbuild-chroot.cc:596
 msgid "Root Users"
 msgstr "Root Users"
 
-#: sbuild/sbuild-chroot.cc:534
+#: sbuild/sbuild-chroot.cc:597
 msgid "Root Groups"
 msgstr "Root Groups"
 
-#: sbuild/sbuild-chroot.cc:535
+#: sbuild/sbuild-chroot.cc:598
 msgid "Aliases"
 msgstr "Aliases"
 
-#: sbuild/sbuild-chroot.cc:536
+#: sbuild/sbuild-chroot.cc:599
 msgid "Environment Filter"
 msgstr "Environment Filter"
 
-#: sbuild/sbuild-chroot.cc:537
+#: sbuild/sbuild-chroot.cc:600
 msgid "Run Setup Scripts"
 msgstr "Run Setup Scripts"
 
-#: sbuild/sbuild-chroot.cc:538
+#: sbuild/sbuild-chroot.cc:601
 msgid "Script Configuration"
 msgstr "Script Configuration"
 
-#: sbuild/sbuild-chroot.cc:539
+#: sbuild/sbuild-chroot.cc:602
 msgid "Session Managed"
 msgstr "Session Managed"
 
-#: sbuild/sbuild-chroot.cc:541
+#: sbuild/sbuild-chroot.cc:604
 msgid "Session Cloned"
 msgstr "Session Cloned"
 
-#: sbuild/sbuild-chroot.cc:543
+#: sbuild/sbuild-chroot.cc:606
 msgid "Session Purged"
 msgstr "Session Purged"
 
-#: sbuild/sbuild-chroot.cc:547
+#: sbuild/sbuild-chroot.cc:610
 msgid "Command Prefix"
 msgstr "Command Prefix"
 
-#: sbuild/sbuild-chroot.cc:551
+#: sbuild/sbuild-chroot.cc:614
 msgid "Mount Location"
 msgstr "Mount Location"
 
-#: sbuild/sbuild-chroot.cc:553
+#: sbuild/sbuild-chroot.cc:616
 msgid "Path"
 msgstr "Path"
 
-#: sbuild/sbuild-chroot.cc:559
+#: sbuild/sbuild-chroot.cc:622
 msgid "Session"
 msgstr "Session"
 
-#: sbuild/sbuild-chroot.cc:559
+#: sbuild/sbuild-chroot.cc:622
 msgid "Chroot"
 msgstr "Chroot"
 
@@ -1578,24 +1586,24 @@ msgstr "Failed to set user ‘%1%’"
 msgid "(%1%->%2%): User switching is not permitted"
 msgstr "(%1%→%2%): User switching is not permitted"
 
-#: sbuild/sbuild-session.cc:368
+#: sbuild/sbuild-session.cc:381
 msgid "Error saving terminal settings"
 msgstr "Error saving terminal settings"
 
-#: sbuild/sbuild-session.cc:389
+#: sbuild/sbuild-session.cc:402
 msgid "Error restoring terminal settings"
 msgstr "Error restoring terminal settings"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:880
+#: sbuild/sbuild-session.cc:897
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[%1% chroot] Running login shell: ‘%4%’"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:884
+#: sbuild/sbuild-session.cc:901
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[%1% chroot] Running shell: ‘%4%’"
@@ -1605,7 +1613,7 @@ msgstr "[%1% chroot] Running shell: ‘%4%’"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:895
+#: sbuild/sbuild-session.cc:912
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[%1% chroot] (%2%→%3%) Running login shell: ‘%4%’"
@@ -1615,14 +1623,14 @@ msgstr "[%1% chroot] (%2%→%3%) Running login shell: ‘%4%’"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:902
+#: sbuild/sbuild-session.cc:919
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[%1% chroot] (%2%→%3%) Running shell: ‘%4%’"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:940
+#: sbuild/sbuild-session.cc:957
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Running command: “%4%”"
@@ -1632,17 +1640,17 @@ msgstr "[%1% chroot] Running command: “%4%”"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:947
+#: sbuild/sbuild-session.cc:964
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%→%3%) Running command: “%4%”"
 
-#: sbuild/sbuild-session.cc:1140
+#: sbuild/sbuild-session.cc:1136
 #, boost-format
 msgid "stage=%1%"
 msgstr "stage=%1%"
 
-#: sbuild/sbuild-session.cc:1315 sbuild/sbuild-session.cc:1322
+#: sbuild/sbuild-session.cc:1311 sbuild/sbuild-session.cc:1318
 msgid "terminating immediately"
 msgstr "terminating immediately"
 
