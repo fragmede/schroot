@@ -29,6 +29,9 @@ configuration.
   4) Frequently asked questions are addressed in the new
      schroot-faq(7) manual page.
 
+  5) The default message verbosity may be set using the new
+     message-verbosity key in the configuration file.
+
 * Major changes in 1.4.4:
 
   None.
