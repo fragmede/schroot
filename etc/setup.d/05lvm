@@ -27,7 +27,7 @@ elif [ "$2" = "ok" ]; then
 fi
 
 if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-  VERBOSE="-v"
+    VERBOSE="-v"
 fi
 
 if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
