@@ -42,12 +42,13 @@ schroot.log: sbuild.log schroot.dox $(top_srcdir)/configure
 	touch $@
 
 PS_DEPS = \
-	$(top_builddir)/bin/schroot/schroot.1			\
-	$(top_builddir)/bin/schroot/schroot.conf.5		\
-	$(top_builddir)/bin/schroot/schroot-setup.5		\
-	$(top_builddir)/bin/schroot/schroot-script-config.5	\
-	$(top_builddir)/bin/dchroot/dchroot.1			\
-	$(top_builddir)/bin/dchroot-dsa/dchroot-dsa.1
+	$(top_builddir)/man/schroot.1			\
+	$(top_builddir)/man/schroot.conf.5		\
+	$(top_builddir)/man/schroot-setup.5		\
+	$(top_builddir)/man/schroot-script-config.5	\
+	$(top_builddir)/man/schroot-faq.7		\
+	$(top_builddir)/man/dchroot.1			\
+	$(top_builddir)/man/dchroot-dsa.1
 
 schroot.ps: $(PS_DEPS)
 	tbl $(PS_DEPS) | groff -T ps -man > $@
