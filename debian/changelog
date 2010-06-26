@@ -5,8 +5,16 @@ schroot (1.4.5-1) unstable; urgency=low
     master branch.  Note that btrfs is experimental, so the
     configuration options and setup script interface may not yet
     be stable.
+  * Add source-clone configuration key to disable source chroots
+    (Closes: #576541).  Thanks to Andreas Barth.
+  * Add support for Btrfs snapshots (Closes: #477788).  Thanks to
+    Martin F. Krafft and Andreas Barth for the idea.
+  * Add configuration profiles, including a desktop profile.  This
+    allows running of X programs when gdm3 is used by the host by
+    bind mounting /var/run (Closes: #586333).  Thanks to Stefano
+    Zacchiroli for the suggestion.
 
- -- Roger Leigh <rleigh@debian.org>  Tue, 22 Jun 2010 22:09:29 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 26 Jun 2010 22:28:26 +0100
 
 schroot (1.4.4-1) unstable; urgency=low
 
