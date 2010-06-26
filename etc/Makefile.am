@@ -59,6 +59,6 @@ clean-local:
 EXTRA_DIST =			\
 	$(pkgsysconf_DATA)	\
 	genprofile		\
-	profiles
+	profile-templates
 
 .PHONY: profiles
