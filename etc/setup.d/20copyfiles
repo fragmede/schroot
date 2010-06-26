@@ -43,7 +43,8 @@ copy_file()
 
             # Device and inode
 	    da=$(/usr/bin/stat --format="%d %i" "$1")
-	    db=$(/usr/bin/stat --format="%d %i" "$2")
+	    # This one can fail since it might not exist yet
+	    db=$(/usr/bin/stat --format="%d %i" "$2" 2>/dev/null || :)
 
 	    if [ "$da" = "$db" ]; then
 		COPY="false"
@@ -53,7 +54,8 @@ copy_file()
 	    elif [ -f "$1" ] && [ -f "$2" ]; then
                 # Content
 		ca=$(/usr/bin/md5sum "$1" | sed -e 's/\(^[0-9a-f][0-9a-f]*\).*$/\1/')
-		cb=$(/usr/bin/md5sum "$2" | sed -e 's/\(^[0-9a-f][0-9a-f]*\).*$/\1/')
+		cb=$(/usr/bin/md5sum "$2" 2>/dev/null || :)
+		cb=$(echo "$cb" | sed -e 's/\(^[0-9a-f][0-9a-f]*\).*$/\1/')
 	        # Copy only if file contents differ
 		if [ "$ca" = "$cb" ]; then
 		    COPY="false"
