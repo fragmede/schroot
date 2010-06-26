@@ -9,7 +9,25 @@ configuration.
 
 * Major changes in 1.4.5:
 
-  None.
+  1) A new chroot type, "btrfs-snapshot", has been added.  This is
+     similar to the existing LVM snapshot functionality, but using
+     snapshots of Btrfs subvolumes.  Btrfs is currently still marked
+     experimental in the Linux kernel, so this feature should also be
+     regarded as experimental and subject to change.  Btrfs snapshots
+     are somewhat faster than LVM snapshots, are more flexible, and
+     use very little disc space.  LVM snapshots require pre-allocating
+     a fixed amount of storage per snapshot.
+
+  2) Source chroots may be disabled for chroot types proviving source
+     chroots using the new source-clone key in the configuration file.
+
+  3) Configuration profiles "minimal", "desktop" and "sbuild" have
+     been added in addition to the existing "default" profile.  These
+     provide pre-canned configurations for several common usage
+     scenarios, and are used with the script-config key.
+
+  4) Frequently asked questions are addressed in the new
+     schroot-faq(7) manual page.
 
 * Major changes in 1.4.4:
 
