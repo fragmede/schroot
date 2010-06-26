@@ -26,8 +26,8 @@ elif [ "$2" = "ok" ]; then
     exit 1
 fi
 
-if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-  VERBOSE="--verbose"
+if [ "$VERBOSE" = "verbose" ]; then
+  CP_VERBOSE="--verbose"
 fi
 
 # Copy a file if the source and destination differ
@@ -66,10 +66,10 @@ copy_file()
 	# Copy only if files are different
 	if [ "$COPY" = "true" ]; then
 	    if [ -f "$1" ]; then
-		cp --preserve=all $VERBOSE "$1" "$2"
+		cp --preserve=all $CP_VERBOSE "$1" "$2"
 	    else
 	        # Copy non-regular file directly
-		cp -a $VERBOSE "$1" "$2"
+		cp -a $CP_VERBOSE "$1" "$2"
 	    fi
 	fi
 

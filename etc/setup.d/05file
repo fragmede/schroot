@@ -47,11 +47,11 @@ check_filetype()
 unpack_file()
 {
     if [ "$filetype" = "tar" ]; then
-	tar $VERBOSE -xf "$CHROOT_FILE"
+	tar $TAR_VERBOSE -xf "$CHROOT_FILE"
     elif [ "$filetype" = "tgz" ]; then
-	tar $VERBOSE -xzf "$CHROOT_FILE"
+	tar $TAR_VERBOSE -xzf "$CHROOT_FILE"
     elif [ "$filetype" = "tbz" ]; then
-	tar $VERBOSE -xjf "$CHROOT_FILE"
+	tar $TAR_VERBOSE -xjf "$CHROOT_FILE"
     elif [ "$filetype" = "zip" ]; then
 	unzip $ZIP_VERBOSE "$CHROOT_FILE"
     else
@@ -68,11 +68,11 @@ repack_file()
     trap "if [ -f \"$NEWFILE\" ]; then rm -f \"$NEWFILE\"; fi" 0
 
     if [ "$filetype" = "tar" ]; then
-	tar $VERBOSE -cf "$NEWFILE" .
+	tar $TAR_VERBOSE -cf "$NEWFILE" .
     elif [ "$filetype" = "tgz" ]; then
-	tar $VERBOSE -czf "$NEWFILE" .
+	tar $TAR_VERBOSE -czf "$NEWFILE" .
     elif [ "$filetype" = "tbz" ]; then
-	tar $VERBOSE -cjf "$NEWFILE" .
+	tar $TAR_VERBOSE -cjf "$NEWFILE" .
     elif [ "$filetype" = "zip" ]; then
 	zip $ZIP_VERBOSE -r "$NEWFILE" .
     else
@@ -87,8 +87,8 @@ repack_file()
     trap "" 0
 }
 
-if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-    VERBOSE="-v"
+if [ "$VERBOSE" = "verbose" ]; then
+    TAR_VERBOSE="-v"
 else
     ZIP_VERBOSE="-q"
 fi
@@ -101,17 +101,17 @@ if [ "$CHROOT_TYPE" = "file" ]; then
 
     if [ $1 = "setup-start" ]; then
 
-	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	if [ "$VERBOSE" = "verbose" ]; then
 	    echo "File unpack directory: $UNPACK_LOCATION"
 	fi
         if [ ! -d "$UNPACK_LOCATION" ]; then
 	    mkdir -p "$UNPACK_LOCATION"
-	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	    if [ "$VERBOSE" = "verbose" ]; then
 		echo "Created file unpack directory: $UNPACK_LOCATION"
 	    fi
         fi
 	cd "$UNPACK_LOCATION"
-	if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	if [ "$VERBOSE" = "verbose" ]; then
 	    echo "Changed CWD to $UNPACK_LOCATION"
 	fi
 
@@ -124,7 +124,7 @@ if [ "$CHROOT_TYPE" = "file" ]; then
 	fi
 
 	if [ "$CHROOT_SESSION_PURGE" = "true" ]; then
-	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	    if [ "$VERBOSE" = "verbose" ]; then
 		echo "Purging $UNPACK_LOCATION"
 	    fi
 	    if [ -d "$UNPACK_LOCATION" ]; then

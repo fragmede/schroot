@@ -305,12 +305,10 @@ main_base::run_impl ()
 	this->session->get_auth()->set_environment(environ);
       this->session->set_session_id(this->options->session_name);
       this->session->set_force(this->options->session_force);
-      sbuild::auth::verbosity verbosity = sbuild::auth::VERBOSITY_NORMAL;
       if (this->options->quiet)
-	verbosity = sbuild::auth::VERBOSITY_QUIET;
+	this->session->set_verbosity("quiet");
       else if (this->options->verbose)
-	verbosity = sbuild::auth::VERBOSITY_VERBOSE;
-      this->session->get_auth()->set_verbosity(verbosity);
+	this->session->set_verbosity("verbose");
 
       /* Run session. */
       this->session->run();

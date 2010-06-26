@@ -33,7 +33,7 @@ fi
 # $3: mount location
 do_mount()
 {
-    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+    if [ "$VERBOSE" = "verbose" ]; then
 	echo "Mounting $2 on $3"
     fi
 
@@ -45,7 +45,7 @@ do_mount()
 	exit 1
     fi
 
-    mount $VERBOSE $1 "$2" "$3"
+    mount $MOUNT_VERBOSE $1 "$2" "$3"
 }
 
 # Unmount all filesystems under specified location
@@ -57,7 +57,7 @@ do_umount_all()
 	if [ "x$mounts" != 'x' ]; then
             echo "$mounts" |
             while read mountloc; do
-		if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+		if [ "$VERBOSE" = "verbose" ]; then
                     echo "Unmounting $mountloc"
 		fi
 		umount "$mountloc" || exit 1
@@ -82,7 +82,7 @@ do_mount_fs_union()
 	esac
     fi
 
-    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+    if [ "$VERBOSE" = "verbose" ]; then
 	echo "Using '$CHROOT_UNION_TYPE' for filesystem union"
     fi
 
@@ -90,8 +90,8 @@ do_mount_fs_union()
     mount -t "$CHROOT_UNION_TYPE" -o "$CHROOT_UNION_MOUNT_OPTIONS" "$CHROOT_NAME" "$1"
 }
 
-if [ "$AUTH_VERBOSITY" = "verbose" ]; then
-    VERBOSE="-v"
+if [ "$VERBOSE" = "verbose" ]; then
+    MOUNT_VERBOSE="-v"
 #  FSCK_VERBOSE="-V"
 fi
 
@@ -174,7 +174,7 @@ if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT
 
 	if [ -n "$FSTAB" ]; then
 	    if [ -f "$FSTAB" ]; then
-		"$LIBEXEC_DIR/schroot-mount" $VERBOSE \
+		"$LIBEXEC_DIR/schroot-mount" $MOUNT_VERBOSE \
 		    -f "$FSTAB" -m "$CHROOT_PATH"
 	    else
 		echo "fstab file '$FSTAB' does not exist"

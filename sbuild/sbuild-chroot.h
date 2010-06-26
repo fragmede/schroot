@@ -62,28 +62,37 @@ namespace sbuild
 	SESSION_PURGE   = 1 << 2  ///< The chroot should be purged.
       };
 
+    /// Message verbosity
+    enum verbosity
+      {
+	VERBOSITY_QUIET,  ///< Only print essential messages.
+	VERBOSITY_NORMAL, ///< Print messages (the default).
+	VERBOSITY_VERBOSE ///< Print all messages.
+      };
+
     /// Error codes.
     enum error_code
       {
-	CHROOT_CREATE,   ///< Chroot creation failed.
-	CHROOT_DEVICE,   ///< Chroot device name not set.
-	CHROOT_TYPE,     ///< Unknown chroot type.
-	DEVICE_ABS,      ///< Device must have an absolute path.
-	DEVICE_LOCK,     ///< Failed to lock device.
-	DEVICE_NOTBLOCK, ///< File is not a block device.
-	DEVICE_UNLOCK,   ///< Failed to unlock device.
-	DIRECTORY_ABS,   ///< Directory must have an absolute path.
-	FACET_INVALID,   ///< Attempt to add object which is not a facet.
-	FACET_PRESENT,   ///< Attempt to add facet which is already in use.
-	FILE_ABS,        ///< File must have an absolute path.
-	FILE_LOCK,       ///< Failed to acquire lock.
-	FILE_NOTREG,     ///< File is not a regular file.
-	FILE_OWNER,      ///< File is not owned by user root.
-	FILE_PERMS,      ///< File has write permissions for others.
-	FILE_UNLOCK,     ///< Failed to discard lock.
-	LOCATION_ABS,    ///< Location must have an absolute path.
-	SESSION_UNLINK,  ///< Failed to unlink session file.
-	SESSION_WRITE    ///< Failed to write session file.
+	CHROOT_CREATE,    ///< Chroot creation failed.
+	CHROOT_DEVICE,    ///< Chroot device name not set.
+	CHROOT_TYPE,      ///< Unknown chroot type.
+	DEVICE_ABS,       ///< Device must have an absolute path.
+	DEVICE_LOCK,      ///< Failed to lock device.
+	DEVICE_NOTBLOCK,  ///< File is not a block device.
+	DEVICE_UNLOCK,    ///< Failed to unlock device.
+	DIRECTORY_ABS,    ///< Directory must have an absolute path.
+	FACET_INVALID,    ///< Attempt to add object which is not a facet.
+	FACET_PRESENT,    ///< Attempt to add facet which is already in use.
+	FILE_ABS,         ///< File must have an absolute path.
+	FILE_LOCK,        ///< Failed to acquire lock.
+	FILE_NOTREG,      ///< File is not a regular file.
+	FILE_OWNER,       ///< File is not owned by user root.
+	FILE_PERMS,       ///< File has write permissions for others.
+	FILE_UNLOCK,      ///< Failed to discard lock.
+	LOCATION_ABS,     ///< Location must have an absolute path.
+	SESSION_UNLINK,   ///< Failed to unlink session file.
+	SESSION_WRITE,    ///< Failed to write session file.
+	VERBOSITY_INVALID ///< Message verbosity is invalid.
       };
 
     /// Exception type.
@@ -445,6 +454,38 @@ namespace sbuild
     set_command_prefix (string_list const& command_prefix);
 
     /**
+     * Get the message verbosity.
+     *
+     * Returns the verbosity level.
+     */
+    verbosity
+    get_verbosity () const;
+
+    /**
+     * Get the message verbosity.
+     *
+     * Returns the verbosity level.
+     */
+    const char *
+    get_verbosity_string () const;
+
+    /**
+     * Set the message verbosity.
+     *
+     * @param verbosity the verbosity level.
+     */
+    void
+    set_verbosity (verbosity verbosity);
+
+    /**
+     * Set the message verbosity.
+     *
+     * @param verbosity the verbosity level.
+     */
+    void
+    set_verbosity (std::string const& verbosity);
+
+    /**
      * Get the type of the chroot.
      *
      * @returns the chroot type.
@@ -731,9 +772,12 @@ namespace sbuild
     std::string   script_config;
     /// Command prefix.
     string_list   command_prefix;
+    /// The message verbosity.
+    verbosity     message_verbosity;
 
     typedef std::tr1::shared_ptr<chroot_facet> facet_ptr;
     typedef std::list<facet_ptr> facet_list;
+    /// Contained chroot facets
     facet_list facets;
   };
 

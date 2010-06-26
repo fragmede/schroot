@@ -71,10 +71,6 @@ fashion.  expect might be useful for testing the PAM wrappers.
   Similar to debug level, but for normal messages
   e.g. quiet/normal/verbose/extra verbose.
 
-** config file should have a "message" key.
-
-  Overridden by --quiet/--verbose options.
-
 * Create separate namespaces for chroots and sessions
 
 Note: how to deal with duplicated names in both namespaces for --all?

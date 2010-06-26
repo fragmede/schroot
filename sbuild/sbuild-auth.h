@@ -76,14 +76,6 @@ namespace sbuild
 	STATUS_FAIL  ///< Authentication has failed.
       };
 
-    /// Message verbosity
-    enum verbosity
-      {
-	VERBOSITY_QUIET,  ///< Only print essential messages.
-	VERBOSITY_NORMAL, ///< Print messages (the default).
-	VERBOSITY_VERBOSE ///< Print all messages.
-      };
-
     /// Error codes.
     enum error_code
       {
@@ -308,22 +300,6 @@ namespace sbuild
     get_rgroup () const;
 
     /**
-     * Get the message verbosity.
-     *
-     * Returns the verbosity level.
-     */
-    verbosity
-    get_verbosity () const;
-
-    /**
-     * Set the message verbosity.
-     *
-     * @param verbosity the verbosity level.
-     */
-    void
-    set_verbosity (verbosity verbosity);
-
-    /**
      * Start the PAM system.  No other PAM functions may be called before
      * calling this function.
      *
@@ -467,8 +443,6 @@ namespace sbuild
     /// Minimal environment.
     environment        auth_environment;
 #endif // !SBUILD_FEATURE_PAM
-    /// The message verbosity.
-    verbosity          message_verbosity;
   };
 
 }

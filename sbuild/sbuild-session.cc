@@ -1,4 +1,4 @@
-/* Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2010  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -271,6 +271,7 @@ session::session (std::string const&         service,
   saved_sigterm_signal(),
   saved_termios(),
   termios_ok(false),
+  verbosity(),
   cwd(sbuild::getcwd())
 {
 }
@@ -337,6 +338,18 @@ void
 session::set_session_id (std::string const& session_id)
 {
   this->session_id = session_id;
+}
+
+std::string const&
+session::get_verbosity () const
+{
+  return this->verbosity;
+}
+
+void
+session::set_verbosity (std::string const& verbosity)
+{
+  this->verbosity = verbosity;
 }
 
 bool
@@ -619,6 +632,10 @@ session::run_impl ()
 	  chroot::ptr chroot(ch->clone());
 	  assert(chroot);
 
+	  // Override chroot verbosity if needed.
+	  if (!this->verbosity.empty())
+	    ch->set_verbosity(this->verbosity);
+
 	  /* Create a session using randomly-generated session ID. */
 	  if (ch->get_session_flags() & chroot::SESSION_CREATE)
 	    {
@@ -868,7 +885,7 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
 	       shell.c_str());
     }
 
-  if (this->authstat->get_verbosity() == auth::VERBOSITY_VERBOSE)
+  if (session_chroot->get_verbosity() == chroot::VERBOSITY_VERBOSE)
     {
       std::string format_string;
       if (this->authstat->get_ruid() == this->authstat->get_uid())
@@ -931,7 +948,7 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
     syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
 	   session_chroot->get_name().c_str(), this->authstat->get_ruser().c_str(), this->authstat->get_user().c_str(), commandstring.c_str());
 
-  if (this->authstat->get_verbosity() == auth::VERBOSITY_VERBOSE)
+  if (session_chroot->get_verbosity() == chroot::VERBOSITY_VERBOSE)
     {
       std::string format_string;
       if (this->authstat->get_ruid() == this->authstat->get_uid())
@@ -1039,29 +1056,8 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   env.add("AUTH_RGID", this->authstat->get_rgid());
   env.add("AUTH_HOME", this->authstat->get_home());
   env.add("AUTH_SHELL", this->authstat->get_shell());
-  {
-    const char *verbosity = 0;
-    switch (this->authstat->get_verbosity())
-      {
-      case auth::VERBOSITY_QUIET:
-	verbosity = "quiet";
-	break;
-      case auth::VERBOSITY_NORMAL:
-	verbosity = "normal";
-	break;
-      case auth::VERBOSITY_VERBOSE:
-	verbosity = "verbose";
-	break;
-      default:
-	log_debug(DEBUG_CRITICAL) << format("Invalid verbosity level: %1%, falling back to 'normal'")
-	  % static_cast<int>(this->authstat->get_verbosity())
-		     << endl;
-	verbosity = "normal";
-	break;
-      }
-    env.add("AUTH_VERBOSITY", verbosity);
-  }
 
+  env.add("VERBOSE", session_chroot->get_verbosity_string());
   env.add("MOUNT_DIR", SCHROOT_MOUNT_DIR);
   env.add("LIBEXEC_DIR", SCHROOT_LIBEXEC_DIR);
   env.add("PID", getpid());
@@ -1075,7 +1071,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   run_parts rp(SCHROOT_CONF_SETUP_D,
 	       true, true, 022);
   rp.set_reverse(setup_type == chroot::SETUP_STOP);
-  rp.set_verbose(this->authstat->get_verbosity() == auth::VERBOSITY_VERBOSE);
+  rp.set_verbose(session_chroot->get_verbosity() == chroot::VERBOSITY_VERBOSE);
 
   log_debug(DEBUG_INFO) << rp << std::endl;
 

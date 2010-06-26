@@ -50,7 +50,7 @@ if [ -n "${CHROOT_UNION_TYPE}" ] && [ "${CHROOT_UNION_TYPE}" != 'none' ]; then
 
     elif [ $1 = "setup-stop" ]; then
         if [ "$CHROOT_SESSION_PURGE" = "true" ]; then
-	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	    if [ "$VERBOSE" = "verbose" ]; then
 		echo "Purging $CHROOT_UNION_OVERLAY_DIRECTORY"
 	    fi
 	    if [ -d "${CHROOT_UNION_OVERLAY_DIRECTORY}" ]; then
@@ -59,7 +59,7 @@ if [ -n "${CHROOT_UNION_TYPE}" ] && [ "${CHROOT_UNION_TYPE}" != 'none' ]; then
 
 	    # For safety, use rmdir rather than rm -rf in case
 	    # umount failed.
-	    if [ "$AUTH_VERBOSITY" = "verbose" ]; then
+	    if [ "$VERBOSE" = "verbose" ]; then
 		echo "Removing $CHROOT_UNION_UNDERLAY_DIRECTORY"
 	    fi
 	    if [ -d "${CHROOT_UNION_UNDERLAY_DIRECTORY}" ]; then
