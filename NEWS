@@ -24,7 +24,7 @@ configuration.
      use very little disc space.  LVM snapshots require pre-allocating
      a fixed amount of storage per snapshot.
 
-  2) Source chroots may be disabled for chroot types proviving source
+  2) Source chroots may be disabled for chroot types providing source
      chroots using the new source-clone key in the configuration file.
 
   3) Configuration profiles "minimal", "desktop" and "sbuild" have
