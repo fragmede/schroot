@@ -108,6 +108,7 @@ sbuild::chroot::chroot ():
   root_users(),
   root_groups(),
   aliases(),
+  preserve_environment(false),
   environment_filter(SBUILD_DEFAULT_ENVIRONMENT_FILTER),
   mount_location(),
   original(true),
@@ -131,6 +132,7 @@ sbuild::chroot::chroot (const chroot& rhs):
   root_users(rhs.root_users),
   root_groups(rhs.root_groups),
   aliases(rhs.aliases),
+  preserve_environment(rhs.preserve_environment),
   environment_filter(rhs.environment_filter),
   mount_location(rhs.mount_location),
   original(rhs.original),
@@ -322,6 +324,18 @@ void
 sbuild::chroot::set_aliases (string_list const& aliases)
 {
   this->aliases = aliases;
+}
+
+bool
+sbuild::chroot::get_preserve_environment () const
+{
+  return this->preserve_environment;
+}
+
+void
+sbuild::chroot::set_preserve_environment (bool preserve_environment)
+{
+  this->preserve_environment = preserve_environment;
 }
 
 regex const&
@@ -596,6 +610,7 @@ sbuild::chroot::get_details (chroot const&  chroot,
     .add(_("Root Users"), chroot.get_root_users())
     .add(_("Root Groups"), chroot.get_root_groups())
     .add(_("Aliases"), chroot.get_aliases())
+    .add(_("Preserve Environment"), chroot.get_preserve_environment())
     .add(_("Environment Filter"), chroot.get_environment_filter())
     .add(_("Run Setup Scripts"), chroot.get_run_setup_scripts())
     .add(_("Script Configuration"), chroot.get_script_config())
@@ -703,6 +718,10 @@ sbuild::chroot::get_keyfile (chroot const& chroot,
   keyfile::set_object_value(chroot, &chroot::get_verbosity_string,
 			    keyfile, chroot.get_keyfile_name(),
 			    "message-verbosity");
+
+  keyfile::set_object_value(chroot, &chroot::get_preserve_environment,
+			    keyfile, chroot.get_keyfile_name(),
+			    "preserve-environment");
 }
 
 void
@@ -849,4 +868,10 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
 			    "message-verbosity",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("message-verbosity");
+
+  keyfile::get_object_value(chroot, &chroot::set_preserve_environment,
+			    keyfile, chroot.get_keyfile_name(),
+			    "preserve-environment",
+			    keyfile::PRIORITY_OPTIONAL);
+  used_keys.push_back("preserve-environment");
 }

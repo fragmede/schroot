@@ -215,6 +215,22 @@ namespace sbuild
     set_verbosity (std::string const& verbosity);
 
     /**
+     * Check if the environment should be preserved in the chroot.
+     *
+     * @returns true to preserve or false to clean.
+     */
+    bool
+    get_preserve_environment () const;
+
+    /**
+     * Set if the environment should be preserved in the chroot.
+     *
+     * @param preserve_environment true to preserve or false to clean.
+     */
+    void
+    set_preserve_environment (bool preserve_environment);
+
+    /**
      * Get the force status of this session.
      *
      * @returns true if operation will be forced, otherwise false.
@@ -304,19 +320,21 @@ namespace sbuild
      * Get a list of directories to change to when running a login
      * shell.  Multiple directories are used as fallbacks.
      *
+     * @param env the environment to use for HOME
      * @returns a list of directories
      */
     virtual string_list
-    get_login_directories () const;
+    get_login_directories (environment const& env) const;
 
     /**
      * Get a list of directories to change to when running a command
      * Multiple directories are used as fallbacks.
      *
+     * @param env the environment to use for HOME
      * @returns a list of directories
      */
     virtual string_list
-    get_command_directories () const;
+    get_command_directories (environment const& env) const;
 
     /**
      * Get the shell to run.  This finds a suitable shell to run in
@@ -335,11 +353,13 @@ namespace sbuild
      * present in the chroot list and the chroot configuration object.
      * @param file the filename to pass to execve(2).
      * @param command the argv to pass to execve(2).
+     * @param env the environment to use for PATH
      */
     virtual void
-    get_command (chroot::ptr& session_chroot,
-		 std::string& file,
-		 string_list& command) const;
+    get_command (chroot::ptr&       session_chroot,
+		 std::string&       file,
+		 string_list&       command,
+		 environment const& env) const;
 
     /**
      * Get the command to run a login shell.
@@ -361,11 +381,13 @@ namespace sbuild
      * present in the chroot list and the chroot configuration object.
      * @param file the filename to pass to execve(2).
      * @param command the argv to pass to execve(2).
+     * @param env the environment to use for PATH
      */
     virtual void
-    get_user_command (chroot::ptr& session_chroot,
-		      std::string& file,
-		      string_list& command) const;
+    get_user_command (chroot::ptr&       session_chroot,
+		      std::string&       file,
+		      string_list&       command,
+		      environment const& env) const;
 
   private:
     /**
@@ -515,6 +537,8 @@ namespace sbuild
     bool termios_ok;
     /// Message verbosity.
     std::string verbosity;
+    /// Preserve environment?
+    bool        preserve_environment;
 
   protected:
     /// Current working directory.

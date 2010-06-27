@@ -157,7 +157,7 @@ status.
 .IP
 The default behaviour is as follows (all directory paths are inside the
 chroot).  A login shell is run in the current working directory.  If this is
-not available, it will try $HOME (when \fI\\-\-preserve\-environment\fP is
+not available, it will try $HOME (when \fI\-\-preserve\-environment\fP is
 used), then the user's home directory, and \fI/\fP inside the chroot in turn.
 A command is always run in the current working directory inside the chroot.  If
 none of the directories are available, schroot will exit with an error status.

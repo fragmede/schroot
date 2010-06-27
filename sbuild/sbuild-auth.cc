@@ -29,6 +29,7 @@
 #include <sstream>
 
 #include <syslog.h>
+#include <unistd.h>
 
 #include <boost/format.hpp>
 
@@ -77,7 +78,7 @@ auth::auth (std::string const& service_name):
   home(),
   wd(),
   shell(),
-  user_environment(),
+  user_environment(environ),
   ruid(),
   rgid(),
   ruser(),
@@ -231,8 +232,6 @@ environment
 auth::get_minimal_environment () const
 {
   environment minimal;
-  if (!this->user_environment.empty())
-    minimal = this->user_environment;
 
   // For security, PATH is always set to a sane state for root, but
   // only set in other cases if not preserving the environment.
@@ -262,6 +261,12 @@ auth::get_minimal_environment () const
     }
 
   return minimal;
+}
+
+environment
+auth::get_complete_environment () const
+{
+  return get_auth_environment() + get_environment();
 }
 
 uid_t

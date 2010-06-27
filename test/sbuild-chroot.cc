@@ -115,6 +115,7 @@ class test_chroot : public test_chroot_base<basic_chroot>
   CPPUNIT_TEST(test_active);
   CPPUNIT_TEST(test_run_setup_scripts);
   CPPUNIT_TEST(test_verbose);
+  CPPUNIT_TEST(test_preserve_environment);
   CPPUNIT_TEST_EXCEPTION(test_verbose_error, sbuild::chroot::error);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
@@ -229,6 +230,17 @@ public:
     c->set_verbosity("normal");
     CPPUNIT_ASSERT(chroot->get_verbosity() == sbuild::chroot::VERBOSITY_NORMAL);
     CPPUNIT_ASSERT(std::string(chroot->get_verbosity_string()) == "normal");
+  }
+
+  void test_preserve_environment()
+  {
+    std::tr1::shared_ptr<basic_chroot> c = std::tr1::dynamic_pointer_cast<basic_chroot>(chroot);
+
+    CPPUNIT_ASSERT(chroot->get_preserve_environment() == false);
+    c->set_preserve_environment(true);
+    CPPUNIT_ASSERT(chroot->get_preserve_environment() == true);
+    c->set_preserve_environment(false);
+    CPPUNIT_ASSERT(chroot->get_preserve_environment() == false);
   }
 
   void test_verbose_error()
