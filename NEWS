@@ -13,6 +13,13 @@ configuration.
      (all chroot types) and location ("plain" and "directory" chroot
      types) have been obsoleted and removed from the documentation.
 
+* Major changes in 1.4.6:
+
+  1) The environment may be preserved on a per-chroot basis using the
+     new preserve-environment key in the configuration file.  This is
+     equivalent to using the --preserve-environment option, but only
+     affects a single chroot.
+
 * Major changes in 1.4.5:
 
   1) A new chroot type, "btrfs-snapshot", has been added.  This is
