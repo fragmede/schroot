@@ -5,6 +5,35 @@ schroot (1.5.0-1) unstable; urgency=low
 
  -- Roger Leigh <rleigh@debian.org>  Fri, 18 Jun 2010 00:07:50 +0100
 
+schroot (1.4.5-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * Support for btrfs-snapshot chroots has been merged from the
+    master branch.  Note that btrfs is experimental, so the
+    configuration options and setup script interface may not yet
+    be stable.
+  * Add source-clone configuration key to disable source chroots
+    (Closes: #576541).  Thanks to Andreas Barth.
+  * Add support for Btrfs snapshots (Closes: #477788).  Thanks to
+    Martin F. Krafft and Andreas Barth for the idea.
+  * Add configuration profiles, including a desktop profile.  This
+    allows running of X programs when gdm3 is used by the host by
+    bind mounting /var/run (Closes: #586333).  Thanks to Stefano
+    Zacchiroli for the suggestion.
+  * sbuild::unique_identifier() does not use formatted dates in the
+    absence of a UUID function and hence does not use characters
+    such as ':' that make lvcreate choke (Closes: #583504).  Thanks
+    to Zach Carter.
+  * 20nssdatabases: Cope with destination database file not pre-
+    existing in the chroot (Closes: #586198).  Thanks to Bastian Blank
+    for this patch.  A similar patch has been applied to the file
+    checking in 20copyfiles.
+  * The default message verbosity may be set on a per-chroot basis
+    with the message-verbosity configuration key (Closes: #462453).
+  * Frequently asked questions are now addressed in schroot-faq(7).
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 26 Jun 2010 23:46:08 +0100
+
 schroot (1.4.4-1) unstable; urgency=low
 
   * Correct personality checks in testsuite for non-Linux
