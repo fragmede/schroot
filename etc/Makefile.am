@@ -48,7 +48,7 @@ install-data-hook:
 	for profile in $(PROFILES); do 						\
 	  $(MKDIR_P) "$(DESTDIR)$(PACKAGE_SYSCONF_DIR)/$$profile";			\
 	  for file in "profiles/$$profile"/*; do						\
-	    $(INSTALL) "$$file" "$(DESTDIR)$(PACKAGE_SYSCONF_DIR)/$$profile";	\
+	    $(INSTALL_DATA) "$$file" "$(DESTDIR)$(PACKAGE_SYSCONF_DIR)/$$profile";	\
 	  done;									\
 	done
 
