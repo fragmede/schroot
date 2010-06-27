@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-06-26 23:49+0100\n"
+"POT-Creation-Date: 2010-06-27 20:56+0100\n"
 "PO-Revision-Date: 2010-01-16 15:37+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -337,8 +337,8 @@ msgstr "No chroot specified"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
-#: bin/dchroot-dsa/dchroot-dsa-session.cc:142
-#: bin/dchroot/dchroot-session.cc:130
+#: bin/dchroot-dsa/dchroot-dsa-session.cc:143
+#: bin/dchroot/dchroot-session.cc:131
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%1% chroot] Running command: “%2%”"
@@ -598,7 +598,7 @@ msgstr "[OPTION…] — mount filesystems"
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:126
 #: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:232
-#: sbuild/sbuild-session.cc:1113 sbuild/sbuild-session.cc:1390
+#: sbuild/sbuild-session.cc:1126 sbuild/sbuild-session.cc:1407
 msgid "An unknown exception occurred"
 msgstr "An unknown exception occurred"
 
@@ -862,40 +862,40 @@ msgstr "Set TTY"
 msgid "Set USER"
 msgstr "Set USER"
 
-#: sbuild/sbuild-auth.cc:51
+#: sbuild/sbuild-auth.cc:52
 msgid "Failed to get hostname"
 msgstr "Failed to get hostname"
 
 #. TRANSLATORS: %1% = user name or user ID
-#: sbuild/sbuild-auth.cc:53
+#: sbuild/sbuild-auth.cc:54
 #, boost-format
 msgid "User '%1%' not found"
 msgstr "User ‘%1%’ not found"
 
 #. TRANSLATORS: %1% = group name or group ID
 #. TRANSLATORS: %1% = group name
-#: sbuild/sbuild-auth.cc:55 sbuild/sbuild-session.cc:105
+#: sbuild/sbuild-auth.cc:56 sbuild/sbuild-session.cc:105
 #, boost-format
 msgid "Group '%1%' not found"
 msgstr "Group ‘%1%’ not found"
 
-#: sbuild/sbuild-auth.cc:56
+#: sbuild/sbuild-auth.cc:57
 msgid "Authentication failed"
 msgstr "Authentication failed"
 
-#: sbuild/sbuild-auth.cc:57
+#: sbuild/sbuild-auth.cc:58
 msgid "Access not authorised"
 msgstr "Access not authorised"
 
-#: sbuild/sbuild-auth.cc:58
+#: sbuild/sbuild-auth.cc:59
 msgid "PAM is already initialised"
 msgstr "PAM is already initialised"
 
-#: sbuild/sbuild-auth.cc:59 sbuild/sbuild-session.cc:106
+#: sbuild/sbuild-auth.cc:60 sbuild/sbuild-session.cc:106
 msgid "PAM error"
 msgstr "PAM error"
 
-#: sbuild/sbuild-auth.cc:60
+#: sbuild/sbuild-auth.cc:61
 msgid "PAM failed to shut down cleanly"
 msgstr ""
 
@@ -1113,87 +1113,92 @@ msgstr "Failed to write session file"
 msgid "Message verbosity is invalid"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:587
+#: sbuild/sbuild-chroot.cc:601
 msgid "Name"
 msgstr "Name"
 
-#: sbuild/sbuild-chroot.cc:590
+#: sbuild/sbuild-chroot.cc:604
 msgid "Description"
 msgstr "Description"
 
-#: sbuild/sbuild-chroot.cc:591
+#: sbuild/sbuild-chroot.cc:605
 msgid "Type"
 msgstr "Type"
 
-#: sbuild/sbuild-chroot.cc:592
+#: sbuild/sbuild-chroot.cc:606
 msgid "Priority"
 msgstr "Priority"
 
-#: sbuild/sbuild-chroot.cc:593
+#: sbuild/sbuild-chroot.cc:607
 msgid "Message Verbosity"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:594
+#: sbuild/sbuild-chroot.cc:608
 msgid "Users"
 msgstr "Users"
 
-#: sbuild/sbuild-chroot.cc:595
+#: sbuild/sbuild-chroot.cc:609
 msgid "Groups"
 msgstr "Groups"
 
-#: sbuild/sbuild-chroot.cc:596
+#: sbuild/sbuild-chroot.cc:610
 msgid "Root Users"
 msgstr "Root Users"
 
-#: sbuild/sbuild-chroot.cc:597
+#: sbuild/sbuild-chroot.cc:611
 msgid "Root Groups"
 msgstr "Root Groups"
 
-#: sbuild/sbuild-chroot.cc:598
+#: sbuild/sbuild-chroot.cc:612
 msgid "Aliases"
 msgstr "Aliases"
 
-#: sbuild/sbuild-chroot.cc:599
+#: sbuild/sbuild-chroot.cc:613
+#, fuzzy
+msgid "Preserve Environment"
+msgstr "Preserve user environment"
+
+#: sbuild/sbuild-chroot.cc:614
 msgid "Environment Filter"
 msgstr "Environment Filter"
 
-#: sbuild/sbuild-chroot.cc:600
+#: sbuild/sbuild-chroot.cc:615
 msgid "Run Setup Scripts"
 msgstr "Run Setup Scripts"
 
-#: sbuild/sbuild-chroot.cc:601
+#: sbuild/sbuild-chroot.cc:616
 msgid "Script Configuration"
 msgstr "Script Configuration"
 
-#: sbuild/sbuild-chroot.cc:602
+#: sbuild/sbuild-chroot.cc:617
 msgid "Session Managed"
 msgstr "Session Managed"
 
-#: sbuild/sbuild-chroot.cc:604
+#: sbuild/sbuild-chroot.cc:619
 msgid "Session Cloned"
 msgstr "Session Cloned"
 
-#: sbuild/sbuild-chroot.cc:606
+#: sbuild/sbuild-chroot.cc:621
 msgid "Session Purged"
 msgstr "Session Purged"
 
-#: sbuild/sbuild-chroot.cc:610
+#: sbuild/sbuild-chroot.cc:625
 msgid "Command Prefix"
 msgstr "Command Prefix"
 
-#: sbuild/sbuild-chroot.cc:614
+#: sbuild/sbuild-chroot.cc:629
 msgid "Mount Location"
 msgstr "Mount Location"
 
-#: sbuild/sbuild-chroot.cc:616
+#: sbuild/sbuild-chroot.cc:631
 msgid "Path"
 msgstr "Path"
 
-#: sbuild/sbuild-chroot.cc:622
+#: sbuild/sbuild-chroot.cc:637
 msgid "Session"
 msgstr "Session"
 
-#: sbuild/sbuild-chroot.cc:622
+#: sbuild/sbuild-chroot.cc:637
 msgid "Chroot"
 msgstr "Chroot"
 
@@ -1586,24 +1591,24 @@ msgstr "Failed to set user ‘%1%’"
 msgid "(%1%->%2%): User switching is not permitted"
 msgstr "(%1%→%2%): User switching is not permitted"
 
-#: sbuild/sbuild-session.cc:381
+#: sbuild/sbuild-session.cc:394
 msgid "Error saving terminal settings"
 msgstr "Error saving terminal settings"
 
-#: sbuild/sbuild-session.cc:402
+#: sbuild/sbuild-session.cc:415
 msgid "Error restoring terminal settings"
 msgstr "Error restoring terminal settings"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:897
+#: sbuild/sbuild-session.cc:910
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[%1% chroot] Running login shell: ‘%4%’"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:901
+#: sbuild/sbuild-session.cc:914
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[%1% chroot] Running shell: ‘%4%’"
@@ -1613,7 +1618,7 @@ msgstr "[%1% chroot] Running shell: ‘%4%’"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:912
+#: sbuild/sbuild-session.cc:925
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[%1% chroot] (%2%→%3%) Running login shell: ‘%4%’"
@@ -1623,14 +1628,14 @@ msgstr "[%1% chroot] (%2%→%3%) Running login shell: ‘%4%’"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:919
+#: sbuild/sbuild-session.cc:932
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[%1% chroot] (%2%→%3%) Running shell: ‘%4%’"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:957
+#: sbuild/sbuild-session.cc:970
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Running command: “%4%”"
@@ -1640,17 +1645,17 @@ msgstr "[%1% chroot] Running command: “%4%”"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:964
+#: sbuild/sbuild-session.cc:977
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%→%3%) Running command: “%4%”"
 
-#: sbuild/sbuild-session.cc:1137
+#: sbuild/sbuild-session.cc:1150
 #, boost-format
 msgid "stage=%1%"
 msgstr "stage=%1%"
 
-#: sbuild/sbuild-session.cc:1312 sbuild/sbuild-session.cc:1319
+#: sbuild/sbuild-session.cc:1329 sbuild/sbuild-session.cc:1336
 msgid "terminating immediately"
 msgstr "terminating immediately"
 
