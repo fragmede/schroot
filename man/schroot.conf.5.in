@@ -144,7 +144,14 @@ Linux are \[oq]bsd\[cq], \[oq]hpux\[cq], \[oq]irix32\[cq], \[oq]irix64\[cq],
 systems is \[oq]undefined\[cq].  The default value for non-Linux systems is
 \[oq]undefined\[cq].
 .TP
-\f[CBI]environment\-filter=\fP\f[CI]refex\fP
+\f[CBI]preserve\-environment=\fP\f[CI]true\fP|\f[CI]false\fP
+By default, the environment will not be preserved inside the chroot, instead a
+minimal environment will be used.  Set to \f[CI]true\fP to always preserve the
+environment.  This is useful for example when running X applications inside the
+chroot, which need the environment to function correctly.  The environment may
+also be preserved using the \fI\-\-preserve\-environment\fP option.
+.TP
+\f[CBI]environment\-filter=\fP\f[CI]regex\fP
 The environment to be set in the chroot will be filtered in order to remove
 environment variables which may pose a security risk.  Any environment variable
 matching the specified POSIX extended regular expression will be removed prior

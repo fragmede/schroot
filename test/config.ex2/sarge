@@ -6,3 +6,4 @@ groups=sbuild
 root-groups=root,sbuild
 #root-groups=root
 aliases=stable
+preserve-environment=true

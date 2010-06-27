@@ -16,3 +16,4 @@ groups=sbuild,root
 root-groups=root,sbuild
 directory=/srv/chroot/sid
 message-verbosity=verbose
+preserve-environment=false

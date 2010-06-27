@@ -245,14 +245,23 @@ namespace sbuild
     set_environment (environment const& environment);
 
     /**
-     * Get the minimal environment.  This is the user environment plus
+     * Get the minimal environment.  This is essential environment
+     * variables which are set if not already present.
+     *
+     * @returns an environment list.
+     */
+    environment
+    get_minimal_environment () const;
+
+    /**
+     * Get the complete environment.  This is the user environment plus
      * essential environment variables which are set if not already
      * present.
      *
      * @returns an environment list.
      */
     environment
-    get_minimal_environment () const;
+    get_complete_environment () const;
 
     /**
      * Get the PAM environment.  This is the environment as set by PAM

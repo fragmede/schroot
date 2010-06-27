@@ -76,9 +76,9 @@ session_base::run_impl ()
 }
 
 sbuild::string_list
-session_base::get_command_directories () const
+session_base::get_command_directories (sbuild::environment const& env) const
 {
   // dchroot does not treat logins differently from commands with
   // respect to the cwd inside the chroot.
-  return get_login_directories();
+  return get_login_directories(env);
 }

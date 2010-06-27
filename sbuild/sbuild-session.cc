@@ -272,6 +272,7 @@ session::session (std::string const&         service,
   saved_termios(),
   termios_ok(false),
   verbosity(),
+  preserve_environment(false),
   cwd(sbuild::getcwd())
 {
 }
@@ -350,6 +351,18 @@ void
 session::set_verbosity (std::string const& verbosity)
 {
   this->verbosity = verbosity;
+}
+
+bool
+session::get_preserve_environment () const
+{
+  return this->preserve_environment;
+}
+
+void
+session::set_preserve_environment (bool preserve_environment)
+{
+  this->preserve_environment = preserve_environment;
 }
 
 bool
@@ -632,10 +645,6 @@ session::run_impl ()
 	  chroot::ptr chroot(ch->clone());
 	  assert(chroot);
 
-	  // Override chroot verbosity if needed.
-	  if (!this->verbosity.empty())
-	    ch->set_verbosity(this->verbosity);
-
 	  /* Create a session using randomly-generated session ID. */
 	  if (ch->get_session_flags() & chroot::SESSION_CREATE)
 	    {
@@ -675,6 +684,10 @@ session::run_impl ()
 	      assert(chroot->get_active());
 	    }
 	  assert(chroot);
+
+	  // Override chroot verbosity if needed.
+	  if (!this->verbosity.empty())
+	    chroot->set_verbosity(this->verbosity);
 
 	  // Following authentication success, default child status to
 	  // success so that operations such as beginning, ending and
@@ -756,7 +769,7 @@ session::run_impl ()
 }
 
 string_list
-session::get_login_directories () const
+session::get_login_directories (environment const& env) const
 {
   string_list ret;
 
@@ -772,7 +785,6 @@ session::get_login_directories () const
       ret.push_back(this->cwd);
 
       // Set $HOME.
-      environment env = this->authstat->get_auth_environment();
       std::string home;
       if (env.get("HOME", home) &&
 	  std::find(ret.begin(), ret.end(), home) == ret.end())
@@ -791,7 +803,7 @@ session::get_login_directories () const
 }
 
 string_list
-session::get_command_directories () const
+session::get_command_directories (environment const& env) const
 {
   string_list ret;
 
@@ -835,14 +847,15 @@ session::get_shell () const
 void
 session::get_command (sbuild::chroot::ptr& session_chroot,
 		      std::string&         file,
-		      string_list&         command) const
+		      string_list&         command,
+		      environment const&   env) const
 {
   /* Run login shell */
   if (command.empty() ||
       command[0].empty()) // No command
     get_login_command(session_chroot, file, command);
   else
-    get_user_command(session_chroot, file, command);
+    get_user_command(session_chroot, file, command, env);
 }
 
 void
@@ -930,10 +943,10 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
 void
 session::get_user_command (sbuild::chroot::ptr& session_chroot,
 			   std::string&         file,
-			   string_list&         command) const
+			   string_list&         command,
+			   environment const&   env) const
 {
   /* Search for program in path. */
-  environment env = this->authstat->get_auth_environment();
   std::string path;
   if (!env.get("PATH", path))
     path.clear();
@@ -1149,6 +1162,15 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   assert(!get_shell().empty());
   assert(this->authstat->is_initialised()); // PAM must be initialised
 
+  /* Set up environment */
+  environment env;
+  env.set_filter(session_chroot->get_environment_filter());
+
+  if (get_preserve_environment() || session_chroot->get_preserve_environment())
+    env += this->authstat->get_complete_environment();
+  else
+    env += this->authstat->get_auth_environment();
+
   // Store before chroot call.
   this->cwd = sbuild::getcwd();
   log_debug(DEBUG_INFO) << "CWD=" << this->cwd << std::endl;
@@ -1202,9 +1224,9 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   string_list dlist;
   if (command.empty() ||
       command[0].empty()) // No command
-    dlist = get_login_directories();
+    dlist = get_login_directories(env);
   else
-    dlist = get_command_directories();
+    dlist = get_command_directories(env);
   log_debug(DEBUG_INFO)
     << format("Directory fallbacks: %1%") % string_list_to_string(dlist, ", ") << endl;
 
@@ -1236,15 +1258,10 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
     }
 
   /* Fix up the command for exec. */
-  get_command(session_chroot, file, command);
+  get_command(session_chroot, file, command, env);
   log_debug(DEBUG_NOTICE) << "command="
 			  << string_list_to_string(command, ", ")
 			  << std::endl;
-
-  /* Set up environment */
-  environment env;
-  env.set_filter(session_chroot->get_environment_filter());
-  env += this->authstat->get_auth_environment();
 
   // Add equivalents to sudo's SUDO_USER, SUDO_UID, SUDO_GID, and
   // SUDO_COMMAND.

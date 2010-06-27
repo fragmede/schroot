@@ -352,6 +352,22 @@ namespace sbuild
     set_aliases (string_list const& aliases);
 
     /**
+     * Check if the environment should be preserved in the chroot.
+     *
+     * @returns true to preserve or false to clean.
+     */
+    bool
+    get_preserve_environment () const;
+
+    /**
+     * Set if the environment should be preserved in the chroot.
+     *
+     * @param preserve_environment true to preserve or false to clean.
+     */
+    void
+    set_preserve_environment (bool preserve_environment);
+
+    /**
      * Get the environment filter of the chroot.  This is a POSIX
      * extended regular expression used to remove insecure environment
      * variables from the chroot environment.
@@ -362,7 +378,7 @@ namespace sbuild
     get_environment_filter () const;
 
     /**
-     * Get the environment filter of the chroot.  This is a POSIX
+     * Set the environment filter of the chroot.  This is a POSIX
      * extended regular expression used to remove insecure environment
      * variables from the chroot environment.
      *
@@ -760,6 +776,8 @@ namespace sbuild
     string_list   root_groups;
     /// Alternative names for the chroot.
     string_list   aliases;
+    /// Preserve environment?
+    bool          preserve_environment;
     /// Environment filter regex.
     regex         environment_filter;
     /// Location to mount chroot in the filesystem (if any).

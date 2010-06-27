@@ -61,12 +61,13 @@ namespace dchroot_dsa
 			    sbuild::chroot::ptr const& chroot) const;
 
     virtual sbuild::string_list
-    get_login_directories () const;
+    get_login_directories (sbuild::environment const& env) const;
 
     virtual void
-    get_user_command (sbuild::chroot::ptr& session_chroot,
-		      std::string&         file,
-		      sbuild::string_list& command) const;
+    get_user_command (sbuild::chroot::ptr&       session_chroot,
+		      std::string&               file,
+		      sbuild::string_list&       command,
+		      sbuild::environment const& env) const;
   };
 
 }

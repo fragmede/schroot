@@ -68,7 +68,7 @@ session::get_chroot_auth_status (sbuild::auth::status status,
 }
 
 sbuild::string_list
-session::get_login_directories () const
+session::get_login_directories (sbuild::environment const& env) const
 {
   sbuild::string_list ret;
 
@@ -96,9 +96,10 @@ session::get_login_directories () const
 }
 
 void
-session::get_user_command (sbuild::chroot::ptr& session_chroot,
-			   std::string&         file,
-			   sbuild::string_list& command) const
+session::get_user_command (sbuild::chroot::ptr&       session_chroot,
+			   std::string&               file,
+			   sbuild::string_list&       command,
+			   sbuild::environment const& env) const
 {
   std::string programstring = sbuild::string_list_to_string(command, " ");
 
