@@ -9,7 +9,10 @@ configuration.
 
 * Major changes in 1.4.6:
 
-  None.
+  1) The environment may be preserved on a per-chroot basis using the
+     new preserve-environment key in the configuration file.  This is
+     equivalent to using the --preserve-environment option, but only
+     affects a single chroot.
 
 * Major changes in 1.4.5:
 
