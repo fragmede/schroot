@@ -1,4 +1,6 @@
 /dev            /dev            none    rw,rbind        0       0
 /home		/home		none	rw,bind		0	0
 /tmp		/tmp		none	rw,bind		0	0
-/var/run	/var/run	none	rw,bind		0	0
+
+# If you use gdm3, uncomment this line to allow Xauth to work
+#/var/run/gdm3	/var/run/gdm3	none	rw,bind		0	0
