@@ -118,6 +118,10 @@ the chroot, making more functionality from the host system available in the
 chroot) and \[oq]sbuild/config\[cq] (for using the chroot for Debian package
 building).
 .IP
+Desktop users should note that the fstab file \fIdesktop/fstab\fP will need
+editing if you use gdm3.  The \f[CI]preserve\-environment\fP key should also be
+set to \[oq]true\[cq] so that the environment is preserved inside the chroot.
+.IP
 If none of the configuration profiles provided above meet your needs, then they
 may be edited to further customise them, and/or copied and used as a template
 for entirely new profiles.  Settings for specific chroots may also be set in a
