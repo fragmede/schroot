@@ -1,8 +1,16 @@
 schroot (1.4.6-1) unstable; urgency=low
 
   * New upstream stable release.
+  * New configuration key preserve-environment allows preservation of
+    the environment for a chroot without needing to use the
+    --preserve-environment option.
+  * The desktop configuration profile no longer bind mounts /var/run;
+    gdm3 users will need to comment out the necessary bind mount
+    in /etc/schroot/desktop/fstab.
+  * schroot.conf(5) documents some additional suggestions for
+    desktop users using the desktop profile.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 27 Jun 2010 02:19:42 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 27 Jun 2010 21:04:27 +0100
 
 schroot (1.4.5-1) unstable; urgency=low
 
