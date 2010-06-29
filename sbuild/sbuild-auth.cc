@@ -211,19 +211,19 @@ auth::get_shell () const
 }
 
 environment const&
-auth::get_environment () const
+auth::get_user_environment () const
 {
   return this->user_environment;
 }
 
 void
-auth::set_environment (char **environment)
+auth::set_user_environment (char **environment)
 {
-  set_environment(sbuild::environment(environment));
+  set_user_environment(sbuild::environment(environment));
 }
 
 void
-auth::set_environment (environment const& environment)
+auth::set_user_environment (environment const& environment)
 {
   this->user_environment = environment;
 }
@@ -237,7 +237,7 @@ auth::get_minimal_environment () const
   // only set in other cases if not preserving the environment.
   if (this->uid == 0)
     minimal.add(std::make_pair("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11"));
-  else if (this->user_environment.empty())
+  else
     minimal.add(std::make_pair("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games"));
 
   if (this->user_environment.empty())
@@ -266,7 +266,21 @@ auth::get_minimal_environment () const
 environment
 auth::get_complete_environment () const
 {
-  return get_auth_environment() + get_environment();
+  environment complete;
+
+  complete += get_minimal_environment();
+  complete += get_auth_environment();
+
+  environment user = get_user_environment();
+
+  // For security, we don't preserve the user's PATH when switching to
+  // root.
+  if (this->uid == 0)
+    user.remove("PATH");
+
+  complete += user;
+
+  return complete;
 }
 
 uid_t

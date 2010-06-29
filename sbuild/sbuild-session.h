@@ -320,21 +320,27 @@ namespace sbuild
      * Get a list of directories to change to when running a login
      * shell.  Multiple directories are used as fallbacks.
      *
+     * @param session_chroot the chroot to setup.  This must be
+     * present in the chroot list and the chroot configuration object.
      * @param env the environment to use for HOME
      * @returns a list of directories
      */
     virtual string_list
-    get_login_directories (environment const& env) const;
+    get_login_directories (sbuild::chroot::ptr& session_chroot,
+			   environment const&   env) const;
 
     /**
      * Get a list of directories to change to when running a command
      * Multiple directories are used as fallbacks.
      *
+     * @param session_chroot the chroot to setup.  This must be
+     * present in the chroot list and the chroot configuration object.
      * @param env the environment to use for HOME
      * @returns a list of directories
      */
     virtual string_list
-    get_command_directories (environment const& env) const;
+    get_command_directories (sbuild::chroot::ptr& session_chroot,
+			     environment const&   env) const;
 
     /**
      * Get the shell to run.  This finds a suitable shell to run in

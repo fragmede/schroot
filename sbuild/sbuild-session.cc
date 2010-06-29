@@ -769,7 +769,8 @@ session::run_impl ()
 }
 
 string_list
-session::get_login_directories (environment const& env) const
+session::get_login_directories (sbuild::chroot::ptr& session_chroot,
+				environment const&   env) const
 {
   string_list ret;
 
@@ -803,7 +804,8 @@ session::get_login_directories (environment const& env) const
 }
 
 string_list
-session::get_command_directories (environment const& env) const
+session::get_command_directories (sbuild::chroot::ptr& session_chroot,
+				  environment const&   env) const
 {
   string_list ret;
 
@@ -868,9 +870,13 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
   std::string shell = get_shell();
   file = shell;
 
-  if (this->authstat->get_environment().empty() &&
-      session_chroot->get_command_prefix().empty())
+  bool login_shell =
+    !(get_preserve_environment() ||
+      session_chroot->get_preserve_environment()) &&
+    session_chroot->get_command_prefix().empty();
+
     // Not keeping environment and can setup argv correctly; login shell
+    if (login_shell)
     {
       std::string shellbase = basename(shell);
       std::string loginshell = "-" + shellbase;
@@ -903,8 +909,7 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
       std::string format_string;
       if (this->authstat->get_ruid() == this->authstat->get_uid())
 	{
-	  if (this->authstat->get_environment().empty() &&
-	      session_chroot->get_command_prefix().empty())
+	  if (login_shell)
 	    // TRANSLATORS: %1% = chroot name
 	    // TRANSLATORS: %4% = command
 	    format_string = _("[%1% chroot] Running login shell: '%4%'");
@@ -915,8 +920,7 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
 	}
       else
 	{
-	  if (this->authstat->get_environment().empty() &&
-	      session_chroot->get_command_prefix().empty())
+	  if (login_shell)
 	    // TRANSLATORS: %1% = chroot name
 	    // TRANSLATORS: %2% = user name
 	    // TRANSLATORS: %3% = user name
@@ -1223,9 +1227,9 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   string_list dlist;
   if (command.empty() ||
       command[0].empty()) // No command
-    dlist = get_login_directories(env);
+    dlist = get_login_directories(session_chroot, env);
   else
-    dlist = get_command_directories(env);
+    dlist = get_command_directories(session_chroot, env);
   log_debug(DEBUG_INFO)
     << format("Directory fallbacks: %1%") % string_list_to_string(dlist, ", ") << endl;
 

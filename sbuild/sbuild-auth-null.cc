@@ -38,8 +38,7 @@ using namespace sbuild;
 
 auth_null::auth_null (std::string const& service_name):
   auth(service_name),
-  initialised(false),
-  auth_environment()
+  initialised(false)
 {
 }
 
