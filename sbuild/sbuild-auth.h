@@ -220,29 +220,29 @@ namespace sbuild
     get_shell () const;
 
     /**
-     * Get the environment to use in the session.
+     * Get the user environment to use in the session.
      *
      * @returns an environment list (a list of key-value pairs).
      */
     environment const&
-    get_environment () const;
+    get_user_environment () const;
 
     /**
-     * Set the environment to use in the session.
+     * Set the user environment to use in the session.
      *
      * @param environment an environ- or envp-like string vector
      * containing key=value pairs.
      */
     void
-    set_environment (char **environment);
+    set_user_environment (char **environment);
 
     /**
-     * Set the environment to use in the session.
+     * Set the user environment to use in the session.
      *
      * @param environment an environment list.
      */
     void
-    set_environment (environment const& environment);
+    set_user_environment (environment const& environment);
 
     /**
      * Get the minimal environment.  This is essential environment
@@ -448,10 +448,6 @@ namespace sbuild
     std::string        ruser;
     /// The group name requesting authentication.
     std::string        rgroup;
-#ifndef SBUILD_FEATURE_PAM
-    /// Minimal environment.
-    environment        auth_environment;
-#endif // !SBUILD_FEATURE_PAM
   };
 
 }

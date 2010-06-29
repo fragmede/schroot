@@ -75,7 +75,8 @@ namespace dchroot
     run_impl ();
 
     virtual sbuild::string_list
-    get_command_directories (sbuild::environment const& env) const;
+    get_command_directories (sbuild::chroot::ptr&       session_chroot,
+			     sbuild::environment const& env) const;
 
   private:
     /// dchroot compatibility enabled?

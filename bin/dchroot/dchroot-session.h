@@ -60,7 +60,8 @@ namespace dchroot
 			    sbuild::chroot::ptr const& chroot) const;
 
     virtual sbuild::string_list
-    get_login_directories (sbuild::environment const& env) const;
+    get_login_directories (sbuild::chroot::ptr&        session_chroot,
+			   sbuild::environment const&  env) const;
 
     virtual void
     get_user_command (sbuild::chroot::ptr&       session_chroot,

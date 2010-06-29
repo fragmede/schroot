@@ -68,7 +68,8 @@ session::get_chroot_auth_status (sbuild::auth::status status,
 }
 
 sbuild::string_list
-session::get_login_directories (sbuild::environment const& env) const
+session::get_login_directories (sbuild::chroot::ptr&       session_chroot,
+				sbuild::environment const& env) const
 {
   sbuild::string_list ret;
 
@@ -82,7 +83,8 @@ session::get_login_directories (sbuild::environment const& env) const
     {
       // Set current working directory only if preserving environment.
       // Only change to home if not preserving the environment.
-      if (!get_auth()->get_environment().empty())
+      if (get_preserve_environment() ||
+	  session_chroot->get_preserve_environment())
 	ret.push_back(this->sbuild::session::cwd);
       else
 	ret.push_back(get_auth()->get_home());
