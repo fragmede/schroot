@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.3.2-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-06-27 20:56+0100\n"
+"POT-Creation-Date: 2010-06-29 20:20+0100\n"
 "PO-Revision-Date: 2010-04-12 18:44+0200\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -345,7 +345,7 @@ msgstr "Kein Chroot angegeben"
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
 #: bin/dchroot-dsa/dchroot-dsa-session.cc:143
-#: bin/dchroot/dchroot-session.cc:131
+#: bin/dchroot/dchroot-session.cc:133
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[Chroot %1%] Befehl »%2%« gestartet"
@@ -620,7 +620,7 @@ msgstr "[OPTION …] - Dateisysteme einbinden"
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:126
 #: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:232
-#: sbuild/sbuild-session.cc:1126 sbuild/sbuild-session.cc:1407
+#: sbuild/sbuild-session.cc:1130 sbuild/sbuild-session.cc:1411
 msgid "An unknown exception occurred"
 msgstr "Eine unbekannte Ausnahme ist aufgetreten"
 
@@ -825,12 +825,12 @@ msgid "Force operation, even if it fails"
 msgstr "Operation erzwingen, selbst wenn sie fehlschlägt"
 
 #. TRANSLATORS: %1% = program name (PAM service name)
-#: sbuild/sbuild-auth-null.cc:120 sbuild/sbuild-auth-pam.cc:312
+#: sbuild/sbuild-auth-null.cc:119 sbuild/sbuild-auth-pam.cc:312
 #, boost-format
 msgid "You do not have permission to access the %1% service."
 msgstr "Sie haben kein Recht, auf den Dienst %1% zuzugreifen."
 
-#: sbuild/sbuild-auth-null.cc:122 sbuild/sbuild-auth-pam.cc:314
+#: sbuild/sbuild-auth-null.cc:121 sbuild/sbuild-auth-pam.cc:314
 msgid "This failure will be reported."
 msgstr "Dieser Fehlschlag wird berichtet."
 
@@ -1652,14 +1652,14 @@ msgstr "Fehler beim Wiederherstellen der Terminal-Einstellungen"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:910
+#: sbuild/sbuild-session.cc:915
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[Chroot %1%] Login-Shell »%4%« gestartet"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:914
+#: sbuild/sbuild-session.cc:919
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[Chroot %1%] Shell »%4%« gestartet"
@@ -1669,7 +1669,7 @@ msgstr "[Chroot %1%] Shell »%4%« gestartet"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:925
+#: sbuild/sbuild-session.cc:929
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[Chroot %1%] (%2%→%3%) Login-Shell »%4%« gestartet"
@@ -1679,14 +1679,14 @@ msgstr "[Chroot %1%] (%2%→%3%) Login-Shell »%4%« gestartet"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:932
+#: sbuild/sbuild-session.cc:936
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[Chroot %1%] (%2%→%3%) Shell »%4%« gestartet"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:970
+#: sbuild/sbuild-session.cc:974
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[Chroot %1%] Befehl »%4%« gestartet"
@@ -1696,17 +1696,17 @@ msgstr "[Chroot %1%] Befehl »%4%« gestartet"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:977
+#: sbuild/sbuild-session.cc:981
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[Chroot %1%] (%2%→%3%) Befehl »%4%« gestartet"
 
-#: sbuild/sbuild-session.cc:1150
+#: sbuild/sbuild-session.cc:1154
 #, boost-format
 msgid "stage=%1%"
 msgstr "Schritt=%1%"
 
-#: sbuild/sbuild-session.cc:1329 sbuild/sbuild-session.cc:1336
+#: sbuild/sbuild-session.cc:1333 sbuild/sbuild-session.cc:1340
 msgid "terminating immediately"
 msgstr "Unverzüglicher Abbruch"
 
