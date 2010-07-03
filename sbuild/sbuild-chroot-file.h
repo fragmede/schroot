@@ -72,6 +72,24 @@ namespace sbuild
     set_file (std::string const& file);
 
     /**
+     * Get the location.  This is a path to the chroot directory
+     * inside the archive (absolute path from the archive root).
+     *
+     * @returns the location.
+     */
+    virtual std::string const&
+    get_location () const;
+
+    /**
+     * Set the location.  This is a path to the chroot directory
+     * inside the archive (absolute path from the archive root).
+     *
+     * @param location the location.
+     */
+    virtual void
+    set_location (std::string const& location);
+
+    /**
      * Get the repack status.  This is true if the unpacked archive
      * file will be repacked.
      *
@@ -125,6 +143,8 @@ namespace sbuild
   private:
     /// The file to use.
     std::string file;
+    /// Location inside the mount location root.
+    std::string location;
     /// Should the chroot be repacked?
     bool repack;
   };

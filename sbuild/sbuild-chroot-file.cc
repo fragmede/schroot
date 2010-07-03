@@ -36,6 +36,7 @@ using namespace sbuild;
 chroot_file::chroot_file ():
   chroot(),
   file(),
+  location(),
   repack(false)
 {
   add_facet(sbuild::chroot_facet_source_clonable::create());
@@ -44,6 +45,7 @@ chroot_file::chroot_file ():
 chroot_file::chroot_file (const chroot_file& rhs):
   chroot(rhs),
   file(rhs.file),
+  location(rhs.location),
   repack(rhs.repack)
 {
 }
@@ -104,6 +106,21 @@ chroot_file::set_file (std::string const& file)
   this->file = file;
 }
 
+std::string const&
+chroot_file::get_location () const
+{
+  return this->location;
+}
+
+void
+chroot_file::set_location (std::string const& location)
+{
+  if (!location.empty() && !is_absname(location))
+    throw chroot::error(location, chroot::LOCATION_ABS);
+
+  this->location = location;
+}
+
 bool
 chroot_file::get_file_repack () const
 {
@@ -119,7 +136,12 @@ chroot_file::set_file_repack (bool repack)
 std::string
 chroot_file::get_path () const
 {
-  return get_mount_location();
+  std::string path(get_mount_location());
+
+  if (!get_location().empty())
+    path += get_location();
+
+  return path;
 }
 
 std::string const&
@@ -137,6 +159,7 @@ chroot_file::setup_env (chroot const& chroot,
   chroot::setup_env(chroot, env);
 
   env.add("CHROOT_FILE", get_file());
+  env.add("CHROOT_LOCATION", get_location());
   env.add("CHROOT_FILE_REPACK", this->repack);
   env.add("CHROOT_FILE_UNPACK_DIR", SCHROOT_FILE_UNPACK_DIR);
 }
@@ -192,6 +215,8 @@ chroot_file::get_details (chroot const&  chroot,
     detail
       .add(_("File"), get_file())
       .add(_("File Repack"), this->repack);
+  if (!get_location().empty())
+    detail.add(_("Location"), get_location());
 }
 
 void
@@ -202,6 +227,10 @@ chroot_file::get_keyfile (chroot const& chroot,
 
   keyfile::set_object_value(*this, &chroot_file::get_file,
 			    keyfile, get_keyfile_name(), "file");
+
+  keyfile::set_object_value(*this, &chroot_file::get_location,
+			    keyfile, chroot.get_keyfile_name(),
+			    "location");
 
   if (get_active())
     keyfile::set_object_value(*this, &chroot_file::get_file_repack,
@@ -219,6 +248,12 @@ chroot_file::set_keyfile (chroot&        chroot,
 			    keyfile, get_keyfile_name(), "file",
 			    keyfile::PRIORITY_REQUIRED);
   used_keys.push_back("file");
+
+  keyfile::get_object_value(*this, &chroot_file::set_location,
+			    keyfile, chroot.get_keyfile_name(),
+			    "location",
+			    keyfile::PRIORITY_OPTIONAL);
+  used_keys.push_back("location");
 
   keyfile::get_object_value(*this, &chroot_file::set_file_repack,
 			    keyfile, get_keyfile_name(), "file-repack",
