@@ -1,7 +1,4 @@
-# schroot Makefile template
-#
-#
-# Copyright © 2004-2008  Roger Leigh <rleigh@debian.org>
+# Copyright © 2010  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -19,33 +16,38 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
+# Common functions for use in schroot setup scripts
 
-setupdir = $(SCHROOT_CONF_SETUP_D)
+# Log an informational message
+# $1: The message
+info()
+{
+    if [ "$VERBOSE" = "verbose" ]; then
+	echo "$1"
+    fi
+    return 0
+}
 
-setupdatadir = $(SCHROOT_SETUP_DATA_DIR)
+# Log warning message
+# $1: The message
+warn()
+{
+    echo "warning: $1" 1>&2
+    return 0
+}
 
-setupdata_DATA =		\
-	common-data		\
-	common-functions
+# Log an error message
+# $1: The message
+error()
+{
+    echo "error: $1" 1>&2
+    return 0
+}
 
-setup_SCRIPTS =		\
-	00check		\
-	05file		\
-	05btrfs		\
-	05lvm		\
-	05union		\
-	10mount		\
-	15killprocs	\
-	20copyfiles	\
-	20nssdatabases	\
-	50chrootname
-
-install-exec-hook:
-	$(MKDIR_P) "$(DESTDIR)$(setupdir)"
-	ln -sf "00check" "$(DESTDIR)$(setupdir)/99check"
-
-EXTRA_DIST =			\
-	$(setupdata_DATA)	\
-	$(setup_SCRIPTS)
-
+# Log an error message
+# $1: The message
+fatal()
+{
+    echo "error: $1" 1>&2
+    exit 1
+}
