@@ -1077,6 +1077,9 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   env.add("VERBOSE", session_chroot->get_verbosity_string());
   env.add("MOUNT_DIR", SCHROOT_MOUNT_DIR);
   env.add("LIBEXEC_DIR", SCHROOT_LIBEXEC_DIR);
+  env.add("SYSCONF_DIR", SCHROOT_SYSCONF_DIR);
+  env.add("DATA_DIR", SCHROOT_DATA_DIR);
+  env.add("SETUP_DATA_DIR", SCHROOT_SETUP_DATA_DIR);
   env.add("PID", getpid());
   env.add("SESSION_ID", session_chroot->get_session_id());
   env.add("HOST", SBUILD_HOST);
