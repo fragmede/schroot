@@ -19,11 +19,13 @@
 
 set -e
 
+. "$SETUP_DATA_DIR/common-data"
+. "$SETUP_DATA_DIR/common-functions"
+
 if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
     . "$CHROOT_SCRIPT_CONFIG"
-elif [ "$2" = "ok" ]; then
-    echo "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
-    exit 1
+elif [ "$STATUS" = "ok" ]; then
+    fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
 fi
 
 # Check file type
@@ -38,14 +40,17 @@ check_filetype()
     elif echo "$CHROOT_FILE" | grep -q '\.zip$'; then
 	filetype="zip"
     else
-	echo "Unsupported filetype for $CHROOT_FILE"
-	exit 1
+	fatal "Unsupported filetype for $CHROOT_FILE"
     fi
 }
 
 # Unpack archive
 unpack_file()
 {
+    if [ ! -f "$CHROOT_FILE" ]; then
+	fatal "File '$CHROOT_FILE' does not exist"
+    fi
+
     if [ "$filetype" = "tar" ]; then
 	tar $TAR_VERBOSE -xf "$CHROOT_FILE"
     elif [ "$filetype" = "tgz" ]; then
@@ -55,15 +60,14 @@ unpack_file()
     elif [ "$filetype" = "zip" ]; then
 	unzip $ZIP_VERBOSE "$CHROOT_FILE"
     else
-	echo "Unsupported filetype for $CHROOT_FILE"
-	exit 1
+	fatal "Unsupported filetype for $CHROOT_FILE"
     fi
 }
 
 # Repack archive
 repack_file()
 {
-    NEWFILE=`mktemp "${CHROOT_FILE}.XXXXXX"`
+    NEWFILE=$(mktemp "${CHROOT_FILE}.XXXXXX")
 
     trap "if [ -f \"$NEWFILE\" ]; then rm -f \"$NEWFILE\"; fi" 0
 
@@ -76,12 +80,19 @@ repack_file()
     elif [ "$filetype" = "zip" ]; then
 	zip $ZIP_VERBOSE -r "$NEWFILE" .
     else
-	echo "Unsupported filetype for $CHROOT_FILE"
-	exit 1
+	fatal "Unsupported filetype for $CHROOT_FILE"
     fi
 
-    chown --reference="$CHROOT_FILE" "$NEWFILE"
-    chmod --reference="$CHROOT_FILE" "$NEWFILE"
+    if [ -f "$CHROOT_FILE" ]; then
+	info "Setting ownership and permissions from old archive"
+	chown --reference="$CHROOT_FILE" "$NEWFILE"
+	chmod --reference="$CHROOT_FILE" "$NEWFILE"
+    else
+	warn "Old archive no longer exists"
+	warn "Setting ownership and permissions to root:root 0600"
+	chown root:root "$NEWFILE"
+	chmod 0600 "$NEWFILE"
+    fi
     mv "$NEWFILE" "$CHROOT_FILE"
 
     trap "" 0
@@ -99,34 +110,32 @@ if [ "$CHROOT_TYPE" = "file" ]; then
 
     UNPACK_LOCATION="${CHROOT_FILE_UNPACK_DIR}/${SESSION_ID}"
 
-    if [ $1 = "setup-start" ]; then
+    if [ $STAGE = "setup-start" ]; then
 
-	if [ "$VERBOSE" = "verbose" ]; then
-	    echo "File unpack directory: $UNPACK_LOCATION"
-	fi
+	info "File unpack directory: $UNPACK_LOCATION"
+
         if [ ! -d "$UNPACK_LOCATION" ]; then
 	    mkdir -p "$UNPACK_LOCATION"
-	    if [ "$VERBOSE" = "verbose" ]; then
-		echo "Created file unpack directory: $UNPACK_LOCATION"
-	    fi
+	    info "Created file unpack directory: $UNPACK_LOCATION"
         fi
 	cd "$UNPACK_LOCATION"
-	if [ "$VERBOSE" = "verbose" ]; then
-	    echo "Changed CWD to $UNPACK_LOCATION"
-	fi
+	info "Changed CWD to $UNPACK_LOCATION"
 
 	unpack_file
 
-    elif [ "$1" = "setup-stop" ]; then
+    elif [ "$STAGE" = "setup-stop" ]; then
 
-	if [ "$2" = "ok" ] && [ "$CHROOT_FILE_REPACK" = "true" ]; then
-	    cd "$UNPACK_LOCATION" && repack_file
+	if [ "$STATUS" = "ok" ] && [ "$CHROOT_FILE_REPACK" = "true" ]; then
+	    if [ -d "$UNPACK_LOCATION" ]; then
+		info "Repacking chroot archive file $CHROOT_FILE from $UNPACK_LOCATION"
+		cd "$UNPACK_LOCATION" && repack_file
+	    else
+		warn "Not repacking chroot archive file: $UNPACK_LOCATION does not exist (it may have been removed previously)"
+	    fi
 	fi
 
 	if [ "$CHROOT_SESSION_PURGE" = "true" ]; then
-	    if [ "$VERBOSE" = "verbose" ]; then
-		echo "Purging $UNPACK_LOCATION"
-	    fi
+	    info "Purging $UNPACK_LOCATION"
 	    if [ -d "$UNPACK_LOCATION" ]; then
 		rm -rf "$UNPACK_LOCATION"
 	    fi

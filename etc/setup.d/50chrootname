@@ -19,21 +19,21 @@
 
 set -e
 
+. "$SETUP_DATA_DIR/common-data"
+. "$SETUP_DATA_DIR/common-functions"
+
 if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
     . "$CHROOT_SCRIPT_CONFIG"
-elif [ "$2" = "ok" ]; then
-    echo "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
-    exit 1
+elif [ "$STATUS" = "ok" ]; then
+    fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
 fi
 
-if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
+if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 
 # Strip any UUID or ISO-8601 date and pid from the chroot name
   NAME=$(echo "${CHROOT_NAME}" | sed -e 's/-[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9]-[a-z0-9][a-z0-9][a-z0-9][a-z0-9]-[a-z0-9][a-z0-9][a-z0-9][a-z0-9]-[a-z0-9][a-z0-9][a-z0-9][a-z0-9]-[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9]//g' -e 's/-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]Z-[0-9][0-9]*//g')
 
-  if [ "$VERBOSE" = "verbose" ]; then
-    echo "Setting chroot name to ${NAME}"
-  fi
+  info "Setting chroot name to ${NAME}"
 
   echo "${NAME}" > "${CHROOT_PATH}/etc/debian_chroot"
 

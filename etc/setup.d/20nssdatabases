@@ -19,11 +19,13 @@
 
 set -e
 
+. "$SETUP_DATA_DIR/common-data"
+. "$SETUP_DATA_DIR/common-functions"
+
 if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
     . "$CHROOT_SCRIPT_CONFIG"
-elif [ "$2" = "ok" ]; then
-    echo "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
-    exit 1
+elif [ "$STATUS" = "ok" ]; then
+    fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
 fi
 
 # Copy NSS database from host to chroot
@@ -31,13 +33,11 @@ fi
 # $2: destination file name
 dup_nss()
 {
-    if [ "$VERBOSE" = "verbose" ]; then
-	echo "Copying $1 database to $2"
-    fi
+    info "Copying $1 database to $2"
     getent "$1" > "$2"
 }
 
-if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
+if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 
     if [ -n "$NSSDATABASES" ]; then
 	if [ -f "$NSSDATABASES" ]; then
@@ -55,15 +55,14 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 	        # same, it's very likely that dup_nss would blank the
 	        # database, so skip it.
 		if [ "$dr" = "$dc" ]; then
-		    echo "$db files '/etc/$db' and '${CHROOT_PATH}/etc/$db' are the same file; skipping"
+		    warn "$db files '/etc/$db' and '${CHROOT_PATH}/etc/$db' are the same file; skipping"
 		    continue;
 		fi
 
 		dup_nss "$db" "${CHROOT_PATH}/etc/$db"
 	    done < "$NSSDATABASES"
 	else
-	    echo "nssdatabases file '$NSSDATABASES' does not exist"
-	    exit 1
+	    fatal "nssdatabases file '$NSSDATABASES' does not exist"
 	fi
     fi
 

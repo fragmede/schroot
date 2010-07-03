@@ -20,11 +20,13 @@
 
 set -e
 
+. "$SETUP_DATA_DIR/common-data"
+. "$SETUP_DATA_DIR/common-functions"
+
 if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
     . "$CHROOT_SCRIPT_CONFIG"
-elif [ "$2" = "ok" ]; then
-    echo "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
-    exit 1
+elif [ "$STATUS" = "ok" ]; then
+    fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
 fi
 
 # Mount a filesystem
@@ -33,16 +35,13 @@ fi
 # $3: mount location
 do_mount()
 {
-    if [ "$VERBOSE" = "verbose" ]; then
-	echo "Mounting $2 on $3"
-    fi
+    info "Mounting $2 on $3"
 
     if [ ! -d "$3" ]; then
 	mkdir -p "$3"
     fi
     if [ ! -d "$3" ]; then
-	echo "$3 does not exist, and could not be created"
-	exit 1
+	fatal "$3 does not exist, and could not be created"
     fi
 
     mount $MOUNT_VERBOSE $1 "$2" "$3"
@@ -57,12 +56,12 @@ do_umount_all()
 	if [ "x$mounts" != 'x' ]; then
             echo "$mounts" |
             while read mountloc; do
-		if [ "$VERBOSE" = "verbose" ]; then
-                    echo "Unmounting $mountloc"
-		fi
+                info "Unmounting $mountloc"
 		umount "$mountloc" || exit 1
             done || exit 1
 	fi
+    else
+	warn "Mount location $1 no longer exists; skipping unmount"
     fi
 }
 
@@ -82,9 +81,7 @@ do_mount_fs_union()
 	esac
     fi
 
-    if [ "$VERBOSE" = "verbose" ]; then
-	echo "Using '$CHROOT_UNION_TYPE' for filesystem union"
-    fi
+    info "Using '$CHROOT_UNION_TYPE' for filesystem union"
 
     # Try mounting fs
     mount -t "$CHROOT_UNION_TYPE" -o "$CHROOT_UNION_MOUNT_OPTIONS" "$CHROOT_NAME" "$1"
@@ -94,6 +91,15 @@ if [ "$VERBOSE" = "verbose" ]; then
     MOUNT_VERBOSE="-v"
 #  FSCK_VERBOSE="-V"
 fi
+
+case "$HOST_OS" in
+    freebsd* | k*bsd*-gnu) :
+	DEVTYPE="-c"
+	;;
+    *):
+	DEVTYPE="-b"
+	;;
+esac
 
 if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "loopback" ] || [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ] || [ "$CHROOT_TYPE" = "btrfs-snapshot" ]; then
 
@@ -119,11 +125,23 @@ if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT
 	UNPACK_LOCATION="${UNPACK_DIR}/${SESSION_ID}"
 	CHROOT_MOUNT_OPTIONS="$BINDOPT"
 	CHROOT_MOUNT_DEVICE="${CHROOT_FILE_UNPACK_DIR}/${SESSION_ID}"
+    elif [ "$CHROOT_TYPE" = "block-device" ]; then
+	# Remove setup_start/recover
+	if [ $STAGE = "setup-start" ] && [ ! "$DEVTYPE" "$CHROOT_DEVICE" ]; then
+	    fatal "Device '$CHROOT_DEVICE' does not exist"
+	fi
     elif [ "$CHROOT_TYPE" = "btrfs-snapshot" ]; then
 	CHROOT_MOUNT_OPTIONS="$BINDOPT"
 	CHROOT_MOUNT_DEVICE="$CHROOT_BTRFS_SNAPSHOT_NAME"
 
     elif [ "$CHROOT_TYPE" = "loopback" ]; then
+	# Remove setup_start/recover
+	if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
+	    if [ ! -f "$CHROOT_FILE" ]; then
+	    	fatal "File '$CHROOT_FILE' does not exist"
+	    fi
+	fi
+
 	case "$HOST_OS" in
 	    freebsd* | k*bsd*-gnu) :
 		LOOP_DEVICE="/dev/$(/sbin/mdconfig -a -t vnode -f "$CHROOT_FILE")"
@@ -143,22 +161,27 @@ if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT
 	esac
     fi
 
-    if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
+    if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 
         # fsck doesn't like being run non-interactively
 	#/sbin/fsck $FSCK_VERBOSE -n "$CHROOT_MOUNT_DEVICE"
+
+	if [ "$CHROOT_TYPE" = "directory" ]; then
+	    if [ ! -d "$CHROOT_DIRECTORY" ]; then
+		fatal "Directory '$CHROOT_DIRECTORY' does not exist"
+	    fi
+	fi
 
         if [ ! -d "$CHROOT_MOUNT_LOCATION" ]; then
 	    mkdir -p "$CHROOT_MOUNT_LOCATION"
         fi
 	if [ ! -d "$CHROOT_MOUNT_LOCATION" ]; then
-	    echo "$CHROOT_MOUNT_LOCATION does not exist, and could not be created"
-	    exit 1
+	    fatal "$CHROOT_MOUNT_LOCATION does not exist, and could not be created"
 	fi
 
 	# If recovering, we want to remount all filesystems to ensure
 	# a sane state.
-	if [ $1 = "setup-recover" ]; then
+	if [ $STAGE = "setup-recover" ]; then
 	    if [ "$CREATE_UNION" = "yes" ]; then
 		do_umount_all "$CHROOT_UNION_UNDERLAY_DIRECTORY"
 	    fi
@@ -177,12 +200,11 @@ if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT
 		"$LIBEXEC_DIR/schroot-mount" $MOUNT_VERBOSE \
 		    -f "$FSTAB" -m "$CHROOT_PATH"
 	    else
-		echo "fstab file '$FSTAB' does not exist"
-		exit 1
+		fatal "fstab file '$FSTAB' does not exist"
 	    fi
 	fi
 
-    elif [ $1 = "setup-stop" ]; then
+    elif [ $STAGE = "setup-stop" ]; then
 
 	do_umount_all "$CHROOT_MOUNT_LOCATION"
 	if [ "$CREATE_UNION" = "yes" ]; then
