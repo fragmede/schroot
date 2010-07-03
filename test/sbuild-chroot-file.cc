@@ -49,6 +49,8 @@ class test_chroot_file : public test_chroot_base<chroot_file>
   CPPUNIT_TEST_SUITE(test_chroot_file);
   CPPUNIT_TEST(test_file);
   CPPUNIT_TEST(test_chroot_type);
+  CPPUNIT_TEST(test_location);
+  CPPUNIT_TEST_EXCEPTION(test_location_invalid, sbuild::chroot::error);
   CPPUNIT_TEST(test_repack);
   CPPUNIT_TEST(test_setup_env);
   CPPUNIT_TEST(test_setup_env_session);
@@ -84,6 +86,7 @@ public:
     std::tr1::shared_ptr<sbuild::chroot_file> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
 
     c->set_file("/srv/chroot/example.tar.bz2");
+    c->set_location("/sid");
   }
 
   void
@@ -98,6 +101,26 @@ public:
   void test_chroot_type()
   {
     CPPUNIT_ASSERT(chroot->get_chroot_type() == "file");
+  }
+
+  void test_location()
+  {
+    std::tr1::shared_ptr<sbuild::chroot_file> fc = std::tr1::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
+
+    fc->set_location("");
+    CPPUNIT_ASSERT(fc->get_location() == "");
+    CPPUNIT_ASSERT(fc->get_path() == fc->get_mount_location());
+
+    fc->set_location("/test");
+    CPPUNIT_ASSERT(fc->get_location() == "/test");
+    CPPUNIT_ASSERT(fc->get_path() == "/mnt/mount-location/test");
+ }
+
+  void test_location_invalid()
+  {
+    std::tr1::shared_ptr<sbuild::chroot_file> fc = std::tr1::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
+
+    fc->set_location("invalid");
   }
 
   void test_repack()
@@ -117,10 +140,11 @@ public:
     setup_env_chroot(expected);
     expected.add("CHROOT_TYPE",            "file");
     expected.add("CHROOT_FILE",            "/srv/chroot/example.tar.bz2");
+    expected.add("CHROOT_LOCATION",        "/sid");
     expected.add("CHROOT_FILE_REPACK",     "false");
     expected.add("CHROOT_FILE_UNPACK_DIR", SCHROOT_FILE_UNPACK_DIR);
     expected.add("CHROOT_MOUNT_LOCATION",  "/mnt/mount-location");
-    expected.add("CHROOT_PATH",            "/mnt/mount-location");
+    expected.add("CHROOT_PATH",            "/mnt/mount-location/sid");
     expected.add("CHROOT_SESSION_CLONE",   "true");
     expected.add("CHROOT_SESSION_CREATE",  "true");
     expected.add("CHROOT_SESSION_PURGE",   "false");
@@ -172,6 +196,7 @@ public:
   {
     expected.set_value(group, "type", "file");
     expected.set_value(group, "file", "/srv/chroot/example.tar.bz2");
+    expected.set_value(group, "location", "/sid");
   }
 
   void test_setup_keyfile()
