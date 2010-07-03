@@ -10,8 +10,13 @@ schroot (1.4.6-1) unstable; urgency=low
   * schroot.conf(5) documents some additional suggestions for
     desktop users using the desktop profile.
   * schroot: Include common-data and common-functions.
+  * Btrfs snapshot session cleanup now works under all circumstances
+    (Closes: #587757).  Thanks to Bastian Blank.
+  * Session cleanup following session startup failure no longer leaves
+    stray session files in place (Closes: #587769).  Thanks to Bastian
+    Blank.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 04 Jul 2010 00:16:31 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 04 Jul 2010 00:48:29 +0100
 
 schroot (1.4.5-1) unstable; urgency=low
 
