@@ -178,7 +178,7 @@ public:
   {
     env.add("CHROOT_NAME",           "test-name");
     env.add("CHROOT_DESCRIPTION",    "test-description");
-    env.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(PACKAGE_SYSCONF_DIR) + "/default/config"));
+    env.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(SCHROOT_SYSCONF_DIR) + "/default/config"));
   }
 
   void setup_keyfile_chroot (sbuild::keyfile&   keyfile,
