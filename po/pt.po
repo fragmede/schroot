@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-06-29 20:20+0100\n"
+"POT-Creation-Date: 2010-07-03 20:23+0100\n"
 "PO-Revision-Date: 2010-01-17 18:50+0100\n"
 "Last-Translator: Pedro Ribeiro <p.m42.ribeiro@gmail.com>\n"
 "Language-Team: Portuguese <traduz@debianpt.org>\n"
@@ -610,7 +610,7 @@ msgstr "[OPÇÃO...] - montar sistema de ficheiros"
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:126
 #: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:232
-#: sbuild/sbuild-session.cc:1130 sbuild/sbuild-session.cc:1411
+#: sbuild/sbuild-session.cc:1133 sbuild/sbuild-session.cc:1414
 msgid "An unknown exception occurred"
 msgstr "Ocorreu uma excepção desconhecida"
 
@@ -979,6 +979,7 @@ msgid "Mount Options"
 msgstr "Opções de Montagem"
 
 #: sbuild/sbuild-chroot-facet-mountable.cc:127
+#: sbuild/sbuild-chroot-file.cc:219
 msgid "Location"
 msgstr "Localização"
 
@@ -1042,11 +1043,11 @@ msgstr "Directório de 'overlay' de sistema de ficheiros union"
 msgid "Filesystem union underlay directory"
 msgstr "Directório de 'underlay' de sistema de ficheiros union"
 
-#: sbuild/sbuild-chroot-file.cc:193 sbuild/sbuild-chroot-loopback.cc:200
+#: sbuild/sbuild-chroot-file.cc:216 sbuild/sbuild-chroot-loopback.cc:200
 msgid "File"
 msgstr "Ficheiro"
 
-#: sbuild/sbuild-chroot-file.cc:194
+#: sbuild/sbuild-chroot-file.cc:217
 msgid "File Repack"
 msgstr "Re-empacotamento do Ficheiro"
 
@@ -1668,12 +1669,12 @@ msgstr "[chroot %1%] Executando comando: \"%4%\""
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[chroot %1%] (%2%->%3%) Executando comando: \"%4%\""
 
-#: sbuild/sbuild-session.cc:1154
+#: sbuild/sbuild-session.cc:1157
 #, boost-format
 msgid "stage=%1%"
 msgstr "etapa=%1%"
 
-#: sbuild/sbuild-session.cc:1333 sbuild/sbuild-session.cc:1340
+#: sbuild/sbuild-session.cc:1336 sbuild/sbuild-session.cc:1343
 msgid "terminating immediately"
 msgstr "terminando imediatamente"
 

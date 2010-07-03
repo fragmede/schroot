@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-06-29 20:20+0100\n"
+"POT-Creation-Date: 2010-07-03 20:23+0100\n"
 "PO-Revision-Date: 2010-02-10 21:59+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -613,7 +613,7 @@ msgstr "[TÙY_CHỌN...] — lắp hệ thống tập tin"
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:126
 #: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:232
-#: sbuild/sbuild-session.cc:1130 sbuild/sbuild-session.cc:1411
+#: sbuild/sbuild-session.cc:1133 sbuild/sbuild-session.cc:1414
 msgid "An unknown exception occurred"
 msgstr "Gặp ngoại lệ không rõ"
 
@@ -982,6 +982,7 @@ msgid "Mount Options"
 msgstr "Tùy chọn lắp"
 
 #: sbuild/sbuild-chroot-facet-mountable.cc:127
+#: sbuild/sbuild-chroot-file.cc:219
 msgid "Location"
 msgstr "Vị trí"
 
@@ -1045,11 +1046,11 @@ msgstr "Thư mục phủ hợp hệ thống tập tin"
 msgid "Filesystem union underlay directory"
 msgstr "Thư mục lót hợp hệ thống tập tin"
 
-#: sbuild/sbuild-chroot-file.cc:193 sbuild/sbuild-chroot-loopback.cc:200
+#: sbuild/sbuild-chroot-file.cc:216 sbuild/sbuild-chroot-loopback.cc:200
 msgid "File"
 msgstr "Tập tin"
 
-#: sbuild/sbuild-chroot-file.cc:194
+#: sbuild/sbuild-chroot-file.cc:217
 msgid "File Repack"
 msgstr "Nén lại tập tin"
 
@@ -1668,12 +1669,12 @@ msgstr "[%1% chroot] Đang chạy lệnh: « %4% »"
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy lệnh: « %4% »"
 
-#: sbuild/sbuild-session.cc:1154
+#: sbuild/sbuild-session.cc:1157
 #, boost-format
 msgid "stage=%1%"
 msgstr "giai đoạn=%1%"
 
-#: sbuild/sbuild-session.cc:1333 sbuild/sbuild-session.cc:1340
+#: sbuild/sbuild-session.cc:1336 sbuild/sbuild-session.cc:1343
 msgid "terminating immediately"
 msgstr "sẽ chấm dứt ngay"
 
