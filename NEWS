@@ -14,6 +14,14 @@ configuration.
      equivalent to using the --preserve-environment option, but only
      affects a single chroot.
 
+  2) It is now possible to add a "location" configuration option to
+     specify the location of the chroot within the archive file for
+     file type chroots.  Previously, it was assumed that the location
+     was always the root, whereas it is typical to create archives
+     which unpack into a subdirectory rather than the current
+     directory.  This makes chroot file archive creation and use
+     easier.
+
 * Major changes in 1.4.5:
 
   1) A new chroot type, "btrfs-snapshot", has been added.  This is
