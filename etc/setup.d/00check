@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright © 2005-2009  Roger Leigh <rleigh@debian.org>
+# Copyright © 2005-2010  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -19,141 +19,33 @@
 
 set -e
 
-# Plain chroots should not be able to use scripts, but check anyway to
-# be safe.
-if [ $CHROOT_TYPE = "plain" ]; then
-    exit 1
-fi
+. "$SETUP_DATA_DIR/common-data"
+. "$SETUP_DATA_DIR/common-functions"
 
 if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
     . "$CHROOT_SCRIPT_CONFIG"
-elif [ "$2" = "ok" ]; then
-    echo "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
-    exit 1
+elif [ "$STATUS" = "ok" ]; then
+    fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
+fi
+
+# Plain chroots should not be able to use scripts, but check anyway to
+# be safe.
+if [ $CHROOT_TYPE = "plain" ]; then
+    fatal "plain chroots may not run setup scripts; use directory instead"
 fi
 
 # Skip if run at inappropriate point.
-if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ] && [ "$(basename "$0")" = "99check" ]; then
+if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ] && [ "$(basename "$0")" = "99check" ]; then
     exit 0;
-elif [ $1 = "setup-stop" ] && [ "$(basename "$0")" = "00check" ]; then
+elif [ $STAGE = "setup-stop" ] && [ "$(basename "$0")" = "00check" ]; then
     exit 0;
 fi
 
+info "STAGE=$STAGE"
+info "STATUS=$STATUS"
 if [ "$VERBOSE" = "verbose" ]; then
-    echo "AUTH_USER=$AUTH_USER"
-    echo "AUTH_RUSER=$AUTH_RUSER"
-    echo "AUTH_RGROUP=$AUTH_RGROUP"
-    echo "AUTH_UID=$AUTH_UID"
-    echo "AUTH_GID=$AUTH_GID"
-    echo "AUTH_RUID=$AUTH_RUID"
-    echo "AUTH_RGID=$AUTH_RGID"
-    echo "AUTH_HOME=$AUTH_HOME"
-    echo "AUTH_SHELL=$AUTH_SHELL"
-    echo "VERBOSE=$VERBOSE"
-    echo "MOUNT_DIR=$MOUNT_DIR"
-    echo "LIBEXEC_DIR=$LIBEXEC_DIR"
-    echo "PID=$PID"
-    echo "HOST=$HOST"
-    echo "HOST_OS=$HOST_OS"
-    echo "HOST_VENDOR=$HOST_VENDOR"
-    echo "HOST_CPU=$HOST_CPU"
-    echo "PLATFORM=$PLATFORM"
-    echo "SESSION_ID=$SESSION_ID"
-    echo "CHROOT_TYPE=$CHROOT_TYPE"
-    echo "CHROOT_NAME=$CHROOT_NAME"
-    echo "CHROOT_DESCRIPTION=$CHROOT_DESCRIPTION"
-    echo "CHROOT_SCRIPT_CONFIG=$CHROOT_SCRIPT_CONFIG"
-    echo "CHROOT_MOUNT_LOCATION=$CHROOT_MOUNT_LOCATION"
-    echo "CHROOT_LOCATION=$CHROOT_LOCATION"
-    echo "CHROOT_PATH=$CHROOT_PATH"
-    if [ -n "$CHROOT_UNION_TYPE" ] && [ "$CHROOT_UNION_TYPE" != "none" ]; then
-	echo "CHROOT_UNION_TYPE=$CHROOT_UNION_TYPE"
-	echo "CHROOT_UNION_OVERLAY_DIRECTORY=$CHROOT_UNION_OVERLAY_DIRECTORY"
-	echo "CHROOT_UNION_UNDERLAY_DIRECTORY=$CHROOT_UNION_UNDERLAY_DIRECTORY"
-    fi
-    if [ "$CHROOT_TYPE" = "directory" ]; then
-	echo "CHROOT_DIRECTORY=$CHROOT_DIRECTORY"
-    elif [ "$CHROOT_TYPE" = "file" ]; then
-	echo "CHROOT_FILE=$CHROOT_FILE"
-	echo "CHROOT_FILE_REPACK=$CHROOT_FILE_REPACK"
-	echo "CHROOT_FILE_UNPACK_DIR=$CHROOT_FILE_UNPACK_DIR"
-    elif [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
-	echo "CHROOT_DEVICE=$CHROOT_DEVICE"
-	echo "CHROOT_MOUNT_OPTIONS=$CHROOT_MOUNT_OPTIONS"
-	if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
-	    echo "CHROOT_LVM_SNAPSHOT_NAME=$CHROOT_LVM_SNAPSHOT_NAME"
-	    echo "CHROOT_LVM_SNAPSHOT_DEVICE=$CHROOT_LVM_SNAPSHOT_DEVICE"
-	    echo "CHROOT_LVM_SNAPSHOT_OPTIONS=$CHROOT_LVM_SNAPSHOT_OPTIONS"
-	fi
-    elif [ "$CHROOT_TYPE" = "btrfs-snapshot" ]; then
-	echo "CHROOT_BTRFS_SOURCE_SUBVOLUME=$CHROOT_BTRFS_SOURCE_SUBVOLUME"
-	echo "CHROOT_BTRFS_SNAPSHOT_DIRECTORY=%CHROOT_BTRFS_SNAPSHOT_DIRECTORY"
-	echo "CHROOT_BTRFS_SNAPSHOT_NAME=$CHROOT_BTRFS_SNAPSHOT_NAME"
-    fi
-    echo "CHROOT_SESSION_CREATE=$CHROOT_SESSION_CREATE"
-    echo "CHROOT_SESSION_CLONE=$CHROOT_SESSION_CLONE"
-    echo "CHROOT_SESSION_PURGE=$CHROOT_SESSION_PURGE"
-    echo "FSTAB=$FSTAB"
-    echo "NSSDATABASES=$NSSDATABASES"
+    env | sort
 fi
-
-case "$CHROOT_TYPE" in
-    directory)
-	if [ ! -d "$CHROOT_DIRECTORY" ]; then
-	    echo "Directory '$CHROOT_DIRECTORY' does not exist"
-	    exit 1
-	fi
-	if [ "$CHROOT_UNION_TYPE" != "none" ]; then
-	    if [ ! -d "$CHROOT_UNION_OVERLAY_DIRECTORY" ] \
-		&& [ $1 = "setup-recover" ];
-	    then
-		echo "Directory '$CHROOT_UNION_OVERLAY_DIRECTORY' does not exist"
-		exit 1
-	    fi
-	    if [ ! -d "$CHROOT_UNION_UNDERLAY_DIRECTORY" ] \
-		    && [ $1 = "setup-recunder" ];
-		then
-		echo "Directory '$CHROOT_UNION_UNDERLAY_DIRECTORY' does not exist"
-		exit 1
-	    fi
-	fi
-	;;
-    file | loopback)
-	if [ ! -f "$CHROOT_FILE" ]; then
-	    echo "File '$CHROOT_FILE' does not exist"
-	    exit 1
-	fi
-	;;
-    block-device | lvm-snapshot)
-	case "$HOST_OS" in
-	    freebsd* | k*bsd*-gnu) :
-		DEVTYPE="-c"
-		;;
-	    *):
-		DEVTYPE="-b"
-		;;
-	esac
-
-	if [ ! "$DEVTYPE" "$CHROOT_DEVICE" ]; then
-	    echo "Device '$CHROOT_DEVICE' does not exist"
-	    exit 1
-	fi
-	;;
-    btrfs-snapshot)
-	if [ ! -d "$CHROOT_BTRFS_SOURCE_SUBVOLUME" ]; then
-	    echo "Btrfs source subvolume directory '$CHROOT_BTRFS_SOURCE_SUBVOLUME' does not exist"
-	    exit 1
-	fi
-	if [ ! -d "$CHROOT_BTRFS_SNAPSHOT_DIRECTORY" ]; then
-	    echo "Btrfs snapshot directory '$CHROOT_BTRFS_SNAPSHOT_DIRECTORY' does not exist"
-	    exit 1
-	fi
-	;;
-    *)
-	echo "Unknown chroot type $CHROOT_TYPE"
-	exit 1
-	;;
-esac
 
 # A basic safety check, so that the root filesystem doesn't get
 # toasted by accident.
@@ -163,6 +55,5 @@ if [ -z "$CHROOT_PATH" ] \
          && [ "$CHROOT_DIRECTORY" = "/" ] ) \
     || [ "$CHROOT_UNION_OVERLAY_DIRECTORY" = "/" ]
 then
-    echo "Invalid chroot mount path or directory"
-    exit 1
+    fatal "Invalid chroot mount path or directory"
 fi

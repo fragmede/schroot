@@ -19,11 +19,13 @@
 
 set -e
 
+. "$SETUP_DATA_DIR/common-data"
+. "$SETUP_DATA_DIR/common-functions"
+
 if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
     . "$CHROOT_SCRIPT_CONFIG"
-elif [ "$2" = "ok" ]; then
-    echo "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
-    exit 1
+elif [ "$STATUS" = "ok" ]; then
+    fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
 fi
 
 if [ "$VERBOSE" = "verbose" ]; then
@@ -74,12 +76,11 @@ copy_file()
 	fi
 
     else
-	echo "Not copying nonexistent file: $file"
-	exit 1
+	fatal "Not copying nonexistent file: $file"
     fi
 }
 
-if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
+if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 
     if [ -n "$COPYFILES" ]; then
 	if [ -f "$COPYFILES" ]; then
@@ -90,12 +91,11 @@ if [ $1 = "setup-start" ] || [ $1 = "setup-recover" ]; then
 		if echo "$file" | grep -q '^/'; then
 		    copy_file "$file" "${CHROOT_PATH}$file"
 		else
-		    echo "Not copying file with relative path: $file"
+		    warn "Not copying file with relative path: $file"
 		fi
 	    done < "$COPYFILES"
 	else
-	    echo "copyfiles file '$COPYFILES' does not exist"
-	    exit 1
+	    fatal "copyfiles file '$COPYFILES' does not exist"
 	fi
     fi
 

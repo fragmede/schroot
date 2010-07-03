@@ -19,20 +19,35 @@
 
 set -e
 
+. "$SETUP_DATA_DIR/common-data"
+. "$SETUP_DATA_DIR/common-functions"
+
 if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
     . "$CHROOT_SCRIPT_CONFIG"
-elif [ "$2" = "ok" ]; then
-    echo "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
-    exit 1
+elif [ "$STATUS" = "ok" ]; then
+    fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
 fi
 
 if [ "$VERBOSE" = "verbose" ]; then
     LVM_VERBOSE="-v"
 fi
 
+case "$HOST_OS" in
+    freebsd* | k*bsd*-gnu) :
+	DEVTYPE="-c"
+	;;
+    *):
+	DEVTYPE="-b"
+	;;
+esac
+
 if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 
-    if [ $1 = "setup-start" ]; then
+    if [ $STAGE = "setup-start" ]; then
+
+	if [ ! "$DEVTYPE" "$CHROOT_DEVICE" ]; then
+	    fatal "Device '$CHROOT_DEVICE' does not exist"
+	fi
 
 	if [ "$VERBOSE" = "verbose" ]; then
 	    lvcreate $LVM_VERBOSE --snapshot --name "$CHROOT_LVM_SNAPSHOT_NAME" \
@@ -42,16 +57,14 @@ if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 		"$CHROOT_DEVICE" $CHROOT_LVM_SNAPSHOT_OPTIONS > /dev/null
 	fi
 
-    elif [ $1 = "setup-stop" ]; then
+    elif [ $STAGE = "setup-stop" ]; then
 
-	if [ -b "$CHROOT_LVM_SNAPSHOT_DEVICE" ]; then
+	if [ "$DEVTYPE" "$CHROOT_LVM_SNAPSHOT_DEVICE" ]; then
             # The lock needs to be dropped immediately before
             # destroying the device.  There is a small race here, but
             # the lock can't be dropped once the device has been
             # removed.
-	    if [ "$VERBOSE" = "verbose" ]; then
-		echo "Removing device lock for $CHROOT_LVM_SNAPSHOT_DEVICE, owned by pid $PID"
-	    fi
+	    info "Removing device lock for $CHROOT_LVM_SNAPSHOT_DEVICE, owned by pid $PID"
             "$LIBEXEC_DIR/schroot-releaselock" \
 		--device="$CHROOT_LVM_SNAPSHOT_DEVICE" \
 		--pid=$PID || true
@@ -64,9 +77,7 @@ if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 	else
 	    # The block device no longer exists, or was never created,
 	    # for example on lvcreate failure.
-	    if [ "$VERBOSE" = "verbose" ]; then
-		echo "$CHROOT_LVM_SNAPSHOT_DEVICE does not exist"
-	    fi
+	    warn "$CHROOT_LVM_SNAPSHOT_DEVICE does not exist (it may have been removed previously)"
 	fi
 
     fi

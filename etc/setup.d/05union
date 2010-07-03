@@ -19,51 +19,51 @@
 
 set -e
 
+. "$SETUP_DATA_DIR/common-data"
+. "$SETUP_DATA_DIR/common-functions"
+
 if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
     . "$CHROOT_SCRIPT_CONFIG"
+elif [ "$STATUS" = "ok" ]; then
+    fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
 fi
 
 if [ -n "${CHROOT_UNION_TYPE}" ] && [ "${CHROOT_UNION_TYPE}" != 'none' ]; then
 
-    if [ $1 = "setup-start" ]; then
+    if [ $STAGE = "setup-start" ]; then
 	mkdir "${CHROOT_UNION_OVERLAY_DIRECTORY}"
 	if [ ! -d "$CHROOT_UNION_OVERLAY_DIRECTORY" ]; then
-	    echo "$CHROOT_UNION_OVERLAY_DIRECTORY does not exist, and could not be created"
-	    exit 1
+	    fatal "$CHROOT_UNION_OVERLAY_DIRECTORY does not exist, and could not be created"
 	fi
 
 	mkdir "${CHROOT_UNION_UNDERLAY_DIRECTORY}"
 	if [ ! -d "$CHROOT_UNION_UNDERLAY_DIRECTORY" ]; then
-	    echo "$CHROOT_UNION_UNDERLAY_DIRECTORY does not exist, and could not be created"
-	    exit 1
+	    fatal "$CHROOT_UNION_UNDERLAY_DIRECTORY does not exist, and could not be created"
 	fi
 
-    elif [ $1 = "setup-recover" ]; then
+    elif [ $STAGE = "setup-recover" ]; then
         if [ ! -d "${CHROOT_UNION_OVERLAY_DIRECTORY}" ]; then
-	    echo "Missing overlay directory for session: can't recover"
-	    exit 1
+	    fatal "Missing overlay directory for session: can't recover"
         fi
         if [ ! -d "${CHROOT_UNION_UNDERLAY_DIRECTORY}" ]; then
-	    echo "Missing underlay directory for session: can't recover"
-	    exit 1
+	    fatal "Missing underlay directory for session: can't recover"
         fi
 
-    elif [ $1 = "setup-stop" ]; then
+    elif [ $STAGE = "setup-stop" ]; then
         if [ "$CHROOT_SESSION_PURGE" = "true" ]; then
-	    if [ "$VERBOSE" = "verbose" ]; then
-		echo "Purging $CHROOT_UNION_OVERLAY_DIRECTORY"
-	    fi
+	    info "Purging $CHROOT_UNION_OVERLAY_DIRECTORY"
 	    if [ -d "${CHROOT_UNION_OVERLAY_DIRECTORY}" ]; then
 		rm -rf "${CHROOT_UNION_OVERLAY_DIRECTORY}"
 	    fi
 
 	    # For safety, use rmdir rather than rm -rf in case
 	    # umount failed.
-	    if [ "$VERBOSE" = "verbose" ]; then
-		echo "Removing $CHROOT_UNION_UNDERLAY_DIRECTORY"
-	    fi
+	    info "Removing $CHROOT_UNION_UNDERLAY_DIRECTORY"
 	    if [ -d "${CHROOT_UNION_UNDERLAY_DIRECTORY}" ]; then
-		rmdir "${CHROOT_UNION_UNDERLAY_DIRECTORY}"
+		if ! rmdir "${CHROOT_UNION_UNDERLAY_DIRECTORY}"; then
+		    warn "Please unmount any filesystems and remove any files under $CHROOT_UNION_UNDERLAY_DIRECTORY"
+		    fatal "Failed to remove $CHROOT_UNION_UNDERLAY_DIRECTORY (directory not empty)."
+		fi
 	    fi
 	fi
     fi

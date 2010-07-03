@@ -20,11 +20,13 @@
 
 set -e
 
+. "$SETUP_DATA_DIR/common-data"
+. "$SETUP_DATA_DIR/common-functions"
+
 if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
     . "$CHROOT_SCRIPT_CONFIG"
-elif [ "$2" = "ok" ]; then
-    echo "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
-    exit 1
+elif [ "$STATUS" = "ok" ]; then
+    fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
 fi
 
 # Kill all processes that were run from within the chroot environment
@@ -32,22 +34,17 @@ fi
 do_kill_all()
 {
     if [ -z "$1" ]; then
-	echo "No path for finding stray processes: not reaping processes in chroot"
-	exit 0
+	fatal "No path for finding stray processes: not reaping processes in chroot"
     fi
 
-    if [ "$VERBOSE" = "verbose" ]; then
-        echo "Killing processes run inside $1"
-    fi
+    info "Killing processes run inside $1"
     ls /proc | egrep '^[[:digit:]]+$' |
     while read pid; do
         root=$(readlink /proc/"$pid"/root || true)
         if [ "$root" = "$1" ]; then
-            if [ "$VERBOSE" = "verbose" ]; then
-                exe=$(readlink /proc/"$pid"/exe || true)
-                echo "Killing left-over pid $pid (${exe##$1})"
-                echo "  Sending SIGTERM to pid $pid"
-            fi
+            exe=$(readlink /proc/"$pid"/exe || true)
+            info "Killing left-over pid $pid (${exe##$1})"
+            info "  Sending SIGTERM to pid $pid"
 
             /bin/kill -TERM "$pid" 2>/dev/null
 
@@ -55,15 +52,11 @@ do_kill_all()
             max=5
             while [ -d /proc/"$pid" ]; do
                 count=$(( $count + 1 ))
-                if [ "$VERBOSE" = "verbose" ]; then
-                    echo "  Waiting for pid $pid to shut down... ($count/$max)"
-                fi
+                info "  Waiting for pid $pid to shut down... ($count/$max)"
                 sleep 1
                 # Wait for $max seconds for process to die before -9'ing it
                 if [ "$count" -eq "$max" ]; then
-                    if [ "$VERBOSE" = "verbose" ]; then
-                        echo "  Sending SIGKILL to pid $pid"
-                    fi
+                    info "  Sending SIGKILL to pid $pid"
                     /bin/kill -KILL "$pid" 2>/dev/null
                     sleep 1
                     break
@@ -73,6 +66,6 @@ do_kill_all()
     done
 }
 
-if [ $1 = "setup-recover" ] || [ $1 = "setup-stop" ]; then
+if [ $STAGE = "setup-recover" ] || [ $STAGE = "setup-stop" ]; then
     do_kill_all "$CHROOT_MOUNT_LOCATION"
 fi

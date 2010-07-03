@@ -211,17 +211,17 @@ void
 chroot_facet_union::get_details (chroot const& chroot,
 				 format_detail& detail) const
 {
-  detail.add(_("Filesystem union type"), get_union_type());
+  detail.add(_("Filesystem Union Type"), get_union_type());
   if (get_union_configured())
     {
       if (!this->union_mount_options.empty())
-	detail.add(_("Filesystem union mount options"),
+	detail.add(_("Filesystem Union Mount Options"),
 		   get_union_mount_options());
       if (!this->union_overlay_directory.empty())
-	detail.add(_("Filesystem union overlay directory"),
+	detail.add(_("Filesystem Union Overlay Directory"),
 		   get_union_overlay_directory());
       if (!this->union_underlay_directory.empty())
-	detail.add(_("Filesystem union underlay directory"),
+	detail.add(_("Filesystem Union Underlay Directory"),
 		   get_union_underlay_directory());
     }
 }
