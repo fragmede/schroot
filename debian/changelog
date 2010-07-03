@@ -9,8 +9,9 @@ schroot (1.4.6-1) unstable; urgency=low
     in /etc/schroot/desktop/fstab.
   * schroot.conf(5) documents some additional suggestions for
     desktop users using the desktop profile.
+  * schroot: Include common-data and common-functions.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 27 Jun 2010 21:04:27 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 04 Jul 2010 00:16:31 +0100
 
 schroot (1.4.5-1) unstable; urgency=low
 
