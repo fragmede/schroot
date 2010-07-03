@@ -23,7 +23,7 @@ include $(top_srcdir)/scripts/global.mk
 
 SUBDIRS = pam setup.d bash_completion
 
-pkgsysconfdir = $(PACKAGE_SYSCONF_DIR)
+pkgsysconfdir = $(SCHROOT_SYSCONF_DIR)
 
 pkgsysconf_DATA = 		\
 	schroot.conf
