@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2010-07-04 12:10+0100\n"
-"PO-Revision-Date: 2010-06-29 20:20+0100\n"
+"PO-Revision-Date: 2010-07-04 23:00+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "Language: en\n"
@@ -1015,24 +1015,20 @@ msgid "Union underlay must have an absolute path"
 msgstr "Union underlay must have an absolute path"
 
 #: sbuild/sbuild-chroot-facet-union.cc:214
-#, fuzzy
 msgid "Filesystem Union Type"
-msgstr "Filesystem union type"
+msgstr "Filesystem Union Type"
 
 #: sbuild/sbuild-chroot-facet-union.cc:218
-#, fuzzy
 msgid "Filesystem Union Mount Options"
-msgstr "Filesystem union mount options"
+msgstr "Filesystem Union Mount Options"
 
 #: sbuild/sbuild-chroot-facet-union.cc:221
-#, fuzzy
 msgid "Filesystem Union Overlay Directory"
-msgstr "Filesystem union overlay directory"
+msgstr "Filesystem Union Overlay Directory"
 
 #: sbuild/sbuild-chroot-facet-union.cc:224
-#, fuzzy
 msgid "Filesystem Union Underlay Directory"
-msgstr "Filesystem union underlay directory"
+msgstr "Filesystem Union Underlay Directory"
 
 #: sbuild/sbuild-chroot-file.cc:216 sbuild/sbuild-chroot-loopback.cc:190
 msgid "File"
