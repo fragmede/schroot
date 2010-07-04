@@ -93,15 +93,6 @@ if [ "$VERBOSE" = "verbose" ]; then
 #  FSCK_VERBOSE="-V"
 fi
 
-case "$HOST_OS" in
-    freebsd* | k*bsd*-gnu) :
-	DEVTYPE="-c"
-	;;
-    *):
-	DEVTYPE="-b"
-	;;
-esac
-
 if [ "$CHROOT_TYPE" = "directory" ] \
     || [ "$CHROOT_TYPE" = "file" ] \
     || [ "$CHROOT_TYPE" = "loopback" ] \
