@@ -165,23 +165,13 @@ chroot_loopback::setup_lock (chroot::setup_type type,
 	throw error(this->file, FILE_NOTREG);
     }
 
-  /* By default, loopback chroots do no locking. */
-#ifdef SBUILD_FEATURE_UNION
-  /**
-   * By default, loopback chroots do no locking, but can create sessions
-   * using filesystem unions.
-   */
-  chroot_facet_union::const_ptr puni(get_facet<chroot_facet_union>());
-  assert(puni);
-
-  if (puni->get_union_configured() &&
-      ((type == SETUP_START && lock == true) ||
-       (type == SETUP_STOP && lock == false && status == 0)))
+  /* Create or unlink session information. */
+  if ((type == SETUP_START && lock == true) ||
+      (type == SETUP_STOP && lock == false && status == 0))
     {
       bool start = (type == SETUP_START);
       setup_session_info(start);
     }
-#endif
 }
 
 sbuild::chroot::session_flags
