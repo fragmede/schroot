@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-07-03 20:23+0100\n"
+"POT-Creation-Date: 2010-07-04 12:10+0100\n"
 "PO-Revision-Date: 2010-01-22 10:38+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -1013,22 +1013,26 @@ msgid "Union underlay must have an absolute path"
 msgstr "向下型整合必须带上绝对路径"
 
 #: sbuild/sbuild-chroot-facet-union.cc:214
-msgid "Filesystem union type"
+#, fuzzy
+msgid "Filesystem Union Type"
 msgstr "文件系统整合类型"
 
 #: sbuild/sbuild-chroot-facet-union.cc:218
-msgid "Filesystem union mount options"
+#, fuzzy
+msgid "Filesystem Union Mount Options"
 msgstr "文件系统整合挂载选项"
 
 #: sbuild/sbuild-chroot-facet-union.cc:221
-msgid "Filesystem union overlay directory"
+#, fuzzy
+msgid "Filesystem Union Overlay Directory"
 msgstr "文件系统整合置于目录之上"
 
 #: sbuild/sbuild-chroot-facet-union.cc:224
-msgid "Filesystem union underlay directory"
+#, fuzzy
+msgid "Filesystem Union Underlay Directory"
 msgstr "文件系统整合置于目录之下"
 
-#: sbuild/sbuild-chroot-file.cc:216 sbuild/sbuild-chroot-loopback.cc:200
+#: sbuild/sbuild-chroot-file.cc:216 sbuild/sbuild-chroot-loopback.cc:190
 msgid "File"
 msgstr "文件"
 

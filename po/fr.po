@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-07-03 20:23+0100\n"
+"POT-Creation-Date: 2010-07-04 12:10+0100\n"
 "PO-Revision-Date: 2010-02-23 18:12+0100\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -1040,22 +1040,26 @@ msgid "Union underlay must have an absolute path"
 msgstr "L'« underlay » d'union doit être précisé avec un chemin absolu"
 
 #: sbuild/sbuild-chroot-facet-union.cc:214
-msgid "Filesystem union type"
+#, fuzzy
+msgid "Filesystem Union Type"
 msgstr "Type d'union de systèmes de fichiers"
 
 #: sbuild/sbuild-chroot-facet-union.cc:218
-msgid "Filesystem union mount options"
+#, fuzzy
+msgid "Filesystem Union Mount Options"
 msgstr "Options de montage des unions de systèmes de fichiers"
 
 #: sbuild/sbuild-chroot-facet-union.cc:221
-msgid "Filesystem union overlay directory"
+#, fuzzy
+msgid "Filesystem Union Overlay Directory"
 msgstr "Répertoire pour l' « overlay » de l'union de systèmes de fichiers"
 
 #: sbuild/sbuild-chroot-facet-union.cc:224
-msgid "Filesystem union underlay directory"
+#, fuzzy
+msgid "Filesystem Union Underlay Directory"
 msgstr "Répertoire pour l' « underlay » de l'union de systèmes de fichiers"
 
-#: sbuild/sbuild-chroot-file.cc:216 sbuild/sbuild-chroot-loopback.cc:200
+#: sbuild/sbuild-chroot-file.cc:216 sbuild/sbuild-chroot-loopback.cc:190
 msgid "File"
 msgstr "Fichier"
 

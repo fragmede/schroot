@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-07-03 20:23+0100\n"
+"POT-Creation-Date: 2010-07-04 12:10+0100\n"
 "PO-Revision-Date: 2010-01-16 15:43+0000\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <Librezale@librezale.org>\n"
@@ -1047,23 +1047,25 @@ msgstr "Fitxategia bide absolutua izan behar du"
 
 #: sbuild/sbuild-chroot-facet-union.cc:214
 #, fuzzy
-msgid "Filesystem union type"
+msgid "Filesystem Union Type"
 msgstr "Saio aukerak"
 
 #: sbuild/sbuild-chroot-facet-union.cc:218
 #, fuzzy
-msgid "Filesystem union mount options"
+msgid "Filesystem Union Mount Options"
 msgstr "Saio aukerak"
 
 #: sbuild/sbuild-chroot-facet-union.cc:221
-msgid "Filesystem union overlay directory"
-msgstr ""
+#, fuzzy
+msgid "Filesystem Union Overlay Directory"
+msgstr "Saio aukerak"
 
 #: sbuild/sbuild-chroot-facet-union.cc:224
-msgid "Filesystem union underlay directory"
-msgstr ""
+#, fuzzy
+msgid "Filesystem Union Underlay Directory"
+msgstr "Saio aukerak"
 
-#: sbuild/sbuild-chroot-file.cc:216 sbuild/sbuild-chroot-loopback.cc:200
+#: sbuild/sbuild-chroot-file.cc:216 sbuild/sbuild-chroot-loopback.cc:190
 msgid "File"
 msgstr "Fitxategia"
 

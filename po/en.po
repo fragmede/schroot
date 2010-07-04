@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-07-03 20:23+0100\n"
+"POT-Creation-Date: 2010-07-04 12:10+0100\n"
 "PO-Revision-Date: 2010-06-29 20:20+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -1015,22 +1015,26 @@ msgid "Union underlay must have an absolute path"
 msgstr "Union underlay must have an absolute path"
 
 #: sbuild/sbuild-chroot-facet-union.cc:214
-msgid "Filesystem union type"
+#, fuzzy
+msgid "Filesystem Union Type"
 msgstr "Filesystem union type"
 
 #: sbuild/sbuild-chroot-facet-union.cc:218
-msgid "Filesystem union mount options"
+#, fuzzy
+msgid "Filesystem Union Mount Options"
 msgstr "Filesystem union mount options"
 
 #: sbuild/sbuild-chroot-facet-union.cc:221
-msgid "Filesystem union overlay directory"
+#, fuzzy
+msgid "Filesystem Union Overlay Directory"
 msgstr "Filesystem union overlay directory"
 
 #: sbuild/sbuild-chroot-facet-union.cc:224
-msgid "Filesystem union underlay directory"
+#, fuzzy
+msgid "Filesystem Union Underlay Directory"
 msgstr "Filesystem union underlay directory"
 
-#: sbuild/sbuild-chroot-file.cc:216 sbuild/sbuild-chroot-loopback.cc:200
+#: sbuild/sbuild-chroot-file.cc:216 sbuild/sbuild-chroot-loopback.cc:190
 msgid "File"
 msgstr "File"
 
