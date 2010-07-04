@@ -32,15 +32,6 @@ if [ "$VERBOSE" = "verbose" ]; then
     LVM_VERBOSE="-v"
 fi
 
-case "$HOST_OS" in
-    freebsd* | k*bsd*-gnu) :
-	DEVTYPE="-c"
-	;;
-    *):
-	DEVTYPE="-b"
-	;;
-esac
-
 if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 
     if [ $STAGE = "setup-start" ]; then
