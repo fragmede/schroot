@@ -44,6 +44,7 @@ do_mount()
 	fatal "$3 does not exist, and could not be created"
     fi
 
+    info "$MOUNT_VERBOSE $1 $2 $3"
     mount $MOUNT_VERBOSE $1 "$2" "$3"
 }
 
@@ -101,7 +102,12 @@ case "$HOST_OS" in
 	;;
 esac
 
-if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT_TYPE" = "loopback" ] || [ "$CHROOT_TYPE" = "block-device" ] || [ "$CHROOT_TYPE" = "lvm-snapshot" ] || [ "$CHROOT_TYPE" = "btrfs-snapshot" ]; then
+if [ "$CHROOT_TYPE" = "directory" ] \
+    || [ "$CHROOT_TYPE" = "file" ] \
+    || [ "$CHROOT_TYPE" = "loopback" ] \
+    || [ "$CHROOT_TYPE" = "block-device" ] \
+    || [ "$CHROOT_TYPE" = "lvm-snapshot" ] \
+    || [ "$CHROOT_TYPE" = "btrfs-snapshot" ]; then
 
     if [ "${CHROOT_UNION_TYPE:-none}" != "none" ]; then
 	CREATE_UNION="yes"
@@ -109,67 +115,55 @@ if [ "$CHROOT_TYPE" = "directory" ] || [ "$CHROOT_TYPE" = "file" ] || [ "$CHROOT
 	CREATE_UNION="no"
     fi
 
-    case "$HOST_OS" in
-	freebsd* | k*bsd*-gnu) :
-	    BINDOPT="-t nullfs"
-	    ;;
-	*):
-	    BINDOPT="--bind"
-	    ;;
-    esac
-
-    if [ "$CHROOT_TYPE" = "directory" ]; then
-	CHROOT_MOUNT_OPTIONS="$BINDOPT"
-	CHROOT_MOUNT_DEVICE="$CHROOT_DIRECTORY"
-    elif [ "$CHROOT_TYPE" = "file" ]; then
-	UNPACK_LOCATION="${UNPACK_DIR}/${SESSION_ID}"
-	CHROOT_MOUNT_OPTIONS="$BINDOPT"
-	CHROOT_MOUNT_DEVICE="${CHROOT_FILE_UNPACK_DIR}/${SESSION_ID}"
-    elif [ "$CHROOT_TYPE" = "block-device" ]; then
-	# Remove setup_start/recover
-	if [ $STAGE = "setup-start" ] && [ ! "$DEVTYPE" "$CHROOT_DEVICE" ]; then
-	    fatal "Device '$CHROOT_DEVICE' does not exist"
-	fi
-    elif [ "$CHROOT_TYPE" = "btrfs-snapshot" ]; then
-	CHROOT_MOUNT_OPTIONS="$BINDOPT"
-	CHROOT_MOUNT_DEVICE="$CHROOT_BTRFS_SNAPSHOT_NAME"
-
-    elif [ "$CHROOT_TYPE" = "loopback" ]; then
-	# Remove setup_start/recover
-	if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
-	    if [ ! -f "$CHROOT_FILE" ]; then
-	    	fatal "File '$CHROOT_FILE' does not exist"
-	    fi
-	fi
+    if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 
 	case "$HOST_OS" in
 	    freebsd* | k*bsd*-gnu) :
-		LOOP_DEVICE="/dev/$(/sbin/mdconfig -a -t vnode -f "$CHROOT_FILE")"
-		CHROOT_MOUNT_DEVICE="$LOOP_DEVICE"
-		CHROOT_MOUNT_OPTIONS=""
+		BINDOPT="-t nullfs"
 		;;
 	    *):
-		LOOP_DEVICE="$(/sbin/losetup -j "$CHROOT_FILE" | sed -e 's/:.*$//')"
-		if [ -z "$LOOP_DEVICE" ]; then
-		    CHROOT_MOUNT_DEVICE="$CHROOT_FILE"
-		    CHROOT_MOUNT_OPTIONS="${CHROOT_MOUNT_OPTIONS},loop"
-		else
-		    CHROOT_MOUNT_DEVICE="$LOOP_DEVICE"
-		    CHROOT_MOUNT_OPTIONS=""
-		fi
+		BINDOPT="--bind"
 		;;
 	esac
-    fi
-
-    if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
-
-        # fsck doesn't like being run non-interactively
-	#/sbin/fsck $FSCK_VERBOSE -n "$CHROOT_MOUNT_DEVICE"
 
 	if [ "$CHROOT_TYPE" = "directory" ]; then
+	    CHROOT_MOUNT_OPTIONS="$BINDOPT"
+	    CHROOT_MOUNT_DEVICE="$CHROOT_DIRECTORY"
 	    if [ ! -d "$CHROOT_DIRECTORY" ]; then
 		fatal "Directory '$CHROOT_DIRECTORY' does not exist"
 	    fi
+	elif [ "$CHROOT_TYPE" = "file" ]; then
+	    CHROOT_MOUNT_OPTIONS="$BINDOPT"
+	    CHROOT_MOUNT_DEVICE="${CHROOT_FILE_UNPACK_DIR}/${SESSION_ID}"
+	elif [ "$CHROOT_TYPE" = "block-device" ]; then
+	    if [ ! "$DEVTYPE" "$CHROOT_DEVICE" ]; then
+		fatal "Device '$CHROOT_DEVICE' does not exist"
+	    fi
+	elif [ "$CHROOT_TYPE" = "btrfs-snapshot" ]; then
+	    CHROOT_MOUNT_OPTIONS="$BINDOPT"
+	    CHROOT_MOUNT_DEVICE="$CHROOT_BTRFS_SNAPSHOT_NAME"
+	elif [ "$CHROOT_TYPE" = "loopback" ]; then
+	    if [ ! -f "$CHROOT_FILE" ]; then
+	    	fatal "File '$CHROOT_FILE' does not exist"
+	    fi
+
+	    case "$HOST_OS" in
+		freebsd* | k*bsd*-gnu):
+		    LOOP_DEVICE="/dev/$(/sbin/mdconfig -a -t vnode -f "$CHROOT_FILE")"
+		    CHROOT_MOUNT_DEVICE="$LOOP_DEVICE"
+		    CHROOT_MOUNT_OPTIONS=""
+		    ;;
+		*):
+		    LOOP_DEVICE="$(/sbin/losetup -j "$CHROOT_FILE" | sed -e 's/:.*$//')"
+		    if [ -z "$LOOP_DEVICE" ]; then
+			CHROOT_MOUNT_DEVICE="$CHROOT_FILE"
+			CHROOT_MOUNT_OPTIONS="-o loop"
+		    else
+			CHROOT_MOUNT_DEVICE="$LOOP_DEVICE"
+			CHROOT_MOUNT_OPTIONS=""
+		    fi
+		    ;;
+	    esac
 	fi
 
         if [ ! -d "$CHROOT_MOUNT_LOCATION" ]; then
