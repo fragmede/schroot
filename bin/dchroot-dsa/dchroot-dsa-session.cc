@@ -90,7 +90,8 @@ session::get_chroot_auth_status (sbuild::auth::status status,
 }
 
 sbuild::string_list
-session::get_login_directories (sbuild::environment const& env) const
+session::get_login_directories (sbuild::chroot::ptr&       session_chroot,
+				sbuild::environment const& env) const
 {
   sbuild::string_list ret;
 
