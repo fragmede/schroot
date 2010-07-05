@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-06-26 23:52+0100\n"
+"POT-Creation-Date: 2010-07-05 22:51+0100\n"
 "PO-Revision-Date: 2010-02-10 21:59+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -342,8 +342,8 @@ msgstr "Chưa xác định chroot"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
-#: bin/dchroot-dsa/dchroot-dsa-session.cc:142
-#: bin/dchroot/dchroot-session.cc:130
+#: bin/dchroot-dsa/dchroot-dsa-session.cc:144
+#: bin/dchroot/dchroot-session.cc:133
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[%1% chroot] Đang chạy lệnh: « %2% »"
@@ -613,7 +613,7 @@ msgstr "[TÙY_CHỌN...] — lắp hệ thống tập tin"
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:126
 #: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:232
-#: sbuild/sbuild-session.cc:1112 sbuild/sbuild-session.cc:1389
+#: sbuild/sbuild-session.cc:1139 sbuild/sbuild-session.cc:1420
 msgid "An unknown exception occurred"
 msgstr "Gặp ngoại lệ không rõ"
 
@@ -677,41 +677,46 @@ msgid "The specified chroots are not defined in '%1%'"
 msgstr "Những chroot được ghi rõ chưa được định nghĩa trong « %1% »"
 
 #. TRANSLATORS: %1% = chroot name
-#: bin/schroot/schroot-main-base.cc:67
+#: bin/schroot/schroot-main-base.cc:67 sbuild/sbuild-session.cc:85
 #, boost-format
 msgid "%1%: Chroot not found"
 msgstr "%1%: không tìm thấy chroot"
 
-#: bin/schroot/schroot-main-base.cc:102
+#: bin/schroot/schroot-main-base.cc:68
+#, fuzzy, boost-format
+msgid "%1%: Invalid session name"
+msgstr "%1%: hành động không hợp lệ"
+
+#: bin/schroot/schroot-main-base.cc:103
 msgid "Available chroot types:"
 msgstr "Kiểu chroot sẵn sàng:"
 
-#: bin/schroot/schroot-main-base.cc:104
+#: bin/schroot/schroot-main-base.cc:105
 msgid "Support for 'block-device' chroots"
 msgstr "Hỗ trợ chroot kiểu thiết bị khối"
 
-#: bin/schroot/schroot-main-base.cc:107
+#: bin/schroot/schroot-main-base.cc:108
 #, fuzzy
 msgid "Support for 'btrfs-snapshot' chroots"
 msgstr "Hỗ trợ chroot kiểu « lvm-snapshot »"
 
-#: bin/schroot/schroot-main-base.cc:109
+#: bin/schroot/schroot-main-base.cc:110
 msgid "Support for 'directory' chroots"
 msgstr "Hỗ trợ chroot kiểu thư mục"
 
-#: bin/schroot/schroot-main-base.cc:110
+#: bin/schroot/schroot-main-base.cc:111
 msgid "Support for 'file' chroots"
 msgstr "Hỗ trợ chroot kiểu tập tin"
 
-#: bin/schroot/schroot-main-base.cc:112
+#: bin/schroot/schroot-main-base.cc:113
 msgid "Support for 'loopback' chroots"
 msgstr "Hỗ trợ chroot kiểu mạch nội bộ"
 
-#: bin/schroot/schroot-main-base.cc:115
+#: bin/schroot/schroot-main-base.cc:116
 msgid "Support for 'lvm-snapshot' chroots"
 msgstr "Hỗ trợ chroot kiểu « lvm-snapshot »"
 
-#: bin/schroot/schroot-main-base.cc:117
+#: bin/schroot/schroot-main-base.cc:118
 msgid "Support for 'plain' chroots"
 msgstr "Hỗ trợ chroot kiểu giản dị"
 
@@ -817,12 +822,12 @@ msgid "Force operation, even if it fails"
 msgstr "Ép buộc thao tác, thậm chí nếu nó bị lỗi"
 
 #. TRANSLATORS: %1% = program name (PAM service name)
-#: sbuild/sbuild-auth-null.cc:120 sbuild/sbuild-auth-pam.cc:312
+#: sbuild/sbuild-auth-null.cc:119 sbuild/sbuild-auth-pam.cc:312
 #, boost-format
 msgid "You do not have permission to access the %1% service."
 msgstr "Bạn không có quyền truy cập đến dịch vụ %1%."
 
-#: sbuild/sbuild-auth-null.cc:122 sbuild/sbuild-auth-pam.cc:314
+#: sbuild/sbuild-auth-null.cc:121 sbuild/sbuild-auth-pam.cc:314
 msgid "This failure will be reported."
 msgstr "Lỗi này sẽ được thông báo."
 
@@ -878,40 +883,40 @@ msgstr "Đặt TTY"
 msgid "Set USER"
 msgstr "Đặt USER"
 
-#: sbuild/sbuild-auth.cc:51
+#: sbuild/sbuild-auth.cc:52
 msgid "Failed to get hostname"
 msgstr "Lỗi lấy tên máy"
 
 #. TRANSLATORS: %1% = user name or user ID
-#: sbuild/sbuild-auth.cc:53
+#: sbuild/sbuild-auth.cc:54
 #, boost-format
 msgid "User '%1%' not found"
 msgstr "Không tìm thấy người dùng « %1% »"
 
 #. TRANSLATORS: %1% = group name or group ID
 #. TRANSLATORS: %1% = group name
-#: sbuild/sbuild-auth.cc:55 sbuild/sbuild-session.cc:105
+#: sbuild/sbuild-auth.cc:56 sbuild/sbuild-session.cc:105
 #, boost-format
 msgid "Group '%1%' not found"
 msgstr "Không tìm thấy nhóm « %1% »"
 
-#: sbuild/sbuild-auth.cc:56
+#: sbuild/sbuild-auth.cc:57
 msgid "Authentication failed"
 msgstr "Lỗi xác thực"
 
-#: sbuild/sbuild-auth.cc:57
+#: sbuild/sbuild-auth.cc:58
 msgid "Access not authorised"
 msgstr "Không có quyền truy cập"
 
-#: sbuild/sbuild-auth.cc:58
+#: sbuild/sbuild-auth.cc:59
 msgid "PAM is already initialised"
 msgstr "PAM đã được sơ khởi"
 
-#: sbuild/sbuild-auth.cc:59 sbuild/sbuild-session.cc:106
+#: sbuild/sbuild-auth.cc:60 sbuild/sbuild-session.cc:106
 msgid "PAM error"
 msgstr "Lỗi PAM"
 
-#: sbuild/sbuild-auth.cc:60
+#: sbuild/sbuild-auth.cc:61
 msgid "PAM failed to shut down cleanly"
 msgstr ""
 
@@ -961,11 +966,11 @@ msgstr "Người dùng chủ không sở hữu tập tin này"
 msgid "File has write permissions for others"
 msgstr "Người khác có quyền ghi tập tin này"
 
-#: sbuild/sbuild-chroot-config.cc:231 sbuild/sbuild-chroot-config.cc:237
+#: sbuild/sbuild-chroot-config.cc:233 sbuild/sbuild-chroot-config.cc:239
 msgid "Duplicate names are not allowed"
 msgstr "Không cho phép tên trùng"
 
-#: sbuild/sbuild-chroot-config.cc:316
+#: sbuild/sbuild-chroot-config.cc:318
 msgid "Available chroots: "
 msgstr "Các chroot sẵn sàng: "
 
@@ -982,6 +987,7 @@ msgid "Mount Options"
 msgstr "Tùy chọn lắp"
 
 #: sbuild/sbuild-chroot-facet-mountable.cc:127
+#: sbuild/sbuild-chroot-file.cc:219
 msgid "Location"
 msgstr "Vị trí"
 
@@ -1030,26 +1036,30 @@ msgid "Union underlay must have an absolute path"
 msgstr "Lót hợp phải có đường dẫn tuyệt đối"
 
 #: sbuild/sbuild-chroot-facet-union.cc:214
-msgid "Filesystem union type"
+#, fuzzy
+msgid "Filesystem Union Type"
 msgstr "Kiểu hợp hệ thống tập tin"
 
 #: sbuild/sbuild-chroot-facet-union.cc:218
-msgid "Filesystem union mount options"
+#, fuzzy
+msgid "Filesystem Union Mount Options"
 msgstr "Tuỳ chọn lắp hợp hệ thống tập tin"
 
 #: sbuild/sbuild-chroot-facet-union.cc:221
-msgid "Filesystem union overlay directory"
+#, fuzzy
+msgid "Filesystem Union Overlay Directory"
 msgstr "Thư mục phủ hợp hệ thống tập tin"
 
 #: sbuild/sbuild-chroot-facet-union.cc:224
-msgid "Filesystem union underlay directory"
+#, fuzzy
+msgid "Filesystem Union Underlay Directory"
 msgstr "Thư mục lót hợp hệ thống tập tin"
 
-#: sbuild/sbuild-chroot-file.cc:193 sbuild/sbuild-chroot-loopback.cc:200
+#: sbuild/sbuild-chroot-file.cc:216 sbuild/sbuild-chroot-loopback.cc:190
 msgid "File"
 msgstr "Tập tin"
 
-#: sbuild/sbuild-chroot-file.cc:194
+#: sbuild/sbuild-chroot-file.cc:217
 msgid "File Repack"
 msgstr "Nén lại tập tin"
 
@@ -1128,88 +1138,93 @@ msgstr "Lỗi ghi tập tin phiên chạy"
 msgid "Message verbosity is invalid"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:587
+#: sbuild/sbuild-chroot.cc:601
 msgid "Name"
 msgstr "Tên"
 
-#: sbuild/sbuild-chroot.cc:590
+#: sbuild/sbuild-chroot.cc:604
 msgid "Description"
 msgstr "Mô tả"
 
-#: sbuild/sbuild-chroot.cc:591
+#: sbuild/sbuild-chroot.cc:605
 msgid "Type"
 msgstr "Kiểu"
 
-#: sbuild/sbuild-chroot.cc:592
+#: sbuild/sbuild-chroot.cc:606
 msgid "Priority"
 msgstr "Ưu tiên"
 
-#: sbuild/sbuild-chroot.cc:593
+#: sbuild/sbuild-chroot.cc:607
 msgid "Message Verbosity"
 msgstr ""
 
-#: sbuild/sbuild-chroot.cc:594
+#: sbuild/sbuild-chroot.cc:608
 msgid "Users"
 msgstr "Người dùng"
 
-#: sbuild/sbuild-chroot.cc:595
+#: sbuild/sbuild-chroot.cc:609
 msgid "Groups"
 msgstr "Nhóm"
 
-#: sbuild/sbuild-chroot.cc:596
+#: sbuild/sbuild-chroot.cc:610
 msgid "Root Users"
 msgstr "Người dùng chủ"
 
-#: sbuild/sbuild-chroot.cc:597
+#: sbuild/sbuild-chroot.cc:611
 msgid "Root Groups"
 msgstr "Nhóm chủ"
 
-#: sbuild/sbuild-chroot.cc:598
+#: sbuild/sbuild-chroot.cc:612
 msgid "Aliases"
 msgstr "Bí danh"
 
-#: sbuild/sbuild-chroot.cc:599
+#: sbuild/sbuild-chroot.cc:613
+#, fuzzy
+msgid "Preserve Environment"
+msgstr "Bảo tồn môi trường người dùng"
+
+#: sbuild/sbuild-chroot.cc:614
 msgid "Environment Filter"
 msgstr "Lọc môi trường"
 
-#: sbuild/sbuild-chroot.cc:600
+#: sbuild/sbuild-chroot.cc:615
 msgid "Run Setup Scripts"
 msgstr "Chạy các văn lệnh thiết lập"
 
-#: sbuild/sbuild-chroot.cc:601
+#: sbuild/sbuild-chroot.cc:616
 msgid "Script Configuration"
 msgstr "Cấu hình Văn lệnh"
 
-#: sbuild/sbuild-chroot.cc:602
+#: sbuild/sbuild-chroot.cc:617
 msgid "Session Managed"
 msgstr "Phiên chạy đã quản lý"
 
-#: sbuild/sbuild-chroot.cc:604
+#: sbuild/sbuild-chroot.cc:619
 msgid "Session Cloned"
 msgstr "Phiên chạy đã nhân đôi"
 
-#: sbuild/sbuild-chroot.cc:606
+#: sbuild/sbuild-chroot.cc:621
 msgid "Session Purged"
 msgstr "Phiên chạy bị tẩy"
 
-#: sbuild/sbuild-chroot.cc:610
+#: sbuild/sbuild-chroot.cc:625
 msgid "Command Prefix"
 msgstr "Tiền tố lệnh"
 
-#: sbuild/sbuild-chroot.cc:614
+#: sbuild/sbuild-chroot.cc:629
 msgid "Mount Location"
 msgstr "Vị trí lắp"
 
-#: sbuild/sbuild-chroot.cc:616
+#: sbuild/sbuild-chroot.cc:631
 msgid "Path"
 msgstr "Đường dẫn"
 
-#: sbuild/sbuild-chroot.cc:622
+#: sbuild/sbuild-chroot.cc:637
 msgid "Session"
 msgstr "Phiên chạy"
 
 # Literal: don't translate / Nghĩa chữ: đừng dịch
-#: sbuild/sbuild-chroot.cc:622
+#: sbuild/sbuild-chroot.cc:637
 msgid "Chroot"
 msgstr "Chroot"
 
@@ -1502,16 +1517,11 @@ msgstr "Không tìm thấy chroot tương ứng với tên hay bí danh « %1% �
 msgid "Failed to lock chroot"
 msgstr "Lỗi khoá chroot"
 
-#: sbuild/sbuild-session.cc:85
+#: sbuild/sbuild-session.cc:86
 msgid "Chroot setup failed"
 msgstr "Lỗi thiết lập chroot"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-session.cc:87
-#, boost-format
-msgid "Failed to find chroot '%1%'"
-msgstr "Không tìm thấy chroot « %1% »"
-
 #: sbuild/sbuild-session.cc:88
 msgid "Failed to unlock chroot"
 msgstr "Lỗi mở khoá chroot"
@@ -1604,24 +1614,24 @@ msgstr "Lỗi đặt người dùng « %1% »"
 msgid "(%1%->%2%): User switching is not permitted"
 msgstr "(%1%->%2%): không cho phép chuyển đổi người dùng"
 
-#: sbuild/sbuild-session.cc:381
+#: sbuild/sbuild-session.cc:394
 msgid "Error saving terminal settings"
 msgstr "Gặp lỗi khi lưu thiết lập thiết bị cuối"
 
-#: sbuild/sbuild-session.cc:402
+#: sbuild/sbuild-session.cc:415
 msgid "Error restoring terminal settings"
 msgstr "Gặp lỗi khi phục hồi thiết lập thiết bị cuối"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:897
+#: sbuild/sbuild-session.cc:922
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[%1% chroot] Đang chạy trình bao đăng nhập: « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:901
+#: sbuild/sbuild-session.cc:926
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[%1% chroot] Đang chạy trình bao : « %4% »"
@@ -1631,7 +1641,7 @@ msgstr "[%1% chroot] Đang chạy trình bao : « %4% »"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:912
+#: sbuild/sbuild-session.cc:936
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[%1% chroot] (%2% → %3%) Đang chạy trình bao đăng nhập: « %4% »"
@@ -1641,14 +1651,14 @@ msgstr "[%1% chroot] (%2% → %3%) Đang chạy trình bao đăng nhập: « %4%
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:919
+#: sbuild/sbuild-session.cc:943
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy trình bao : « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:957
+#: sbuild/sbuild-session.cc:981
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[%1% chroot] Đang chạy lệnh: « %4% »"
@@ -1658,17 +1668,17 @@ msgstr "[%1% chroot] Đang chạy lệnh: « %4% »"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:964
+#: sbuild/sbuild-session.cc:988
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy lệnh: « %4% »"
 
-#: sbuild/sbuild-session.cc:1136
+#: sbuild/sbuild-session.cc:1163
 #, boost-format
 msgid "stage=%1%"
 msgstr "giai đoạn=%1%"
 
-#: sbuild/sbuild-session.cc:1311 sbuild/sbuild-session.cc:1318
+#: sbuild/sbuild-session.cc:1342 sbuild/sbuild-session.cc:1349
 msgid "terminating immediately"
 msgstr "sẽ chấm dứt ngay"
 
@@ -1691,3 +1701,6 @@ msgstr "Lỗi lấy trạng thái về tập tin này"
 #: sbuild/sbuild-util.cc:82
 msgid "Failed to stat file descriptor"
 msgstr "Lỗi lấy trạng thái về bộ mô tả tập tin"
+
+#~ msgid "Failed to find chroot '%1%'"
+#~ msgstr "Không tìm thấy chroot « %1% »"
