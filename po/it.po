@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.3.2-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-07-04 12:10+0100\n"
+"POT-Creation-Date: 2010-07-05 22:41+0100\n"
 "PO-Revision-Date: 2010-01-16 15:44+0000\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -346,7 +346,7 @@ msgstr "Non è stato specificato alcun chroot"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
-#: bin/dchroot-dsa/dchroot-dsa-session.cc:143
+#: bin/dchroot-dsa/dchroot-dsa-session.cc:144
 #: bin/dchroot/dchroot-session.cc:133
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
@@ -616,7 +616,7 @@ msgstr "[OPZIONE...] - monta i file system"
 #: bin/schroot-mount/schroot-mount-main.cc:128
 #: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:126
 #: sbuild/sbuild-log.cc:172 sbuild/sbuild-run-parts.cc:232
-#: sbuild/sbuild-session.cc:1133 sbuild/sbuild-session.cc:1414
+#: sbuild/sbuild-session.cc:1140 sbuild/sbuild-session.cc:1421
 msgid "An unknown exception occurred"
 msgstr "Si è verificato un errore sconosciuto"
 
@@ -681,41 +681,46 @@ msgid "The specified chroots are not defined in '%1%'"
 msgstr "I chroot specificati non sono definiti in «%1%»"
 
 #. TRANSLATORS: %1% = chroot name
-#: bin/schroot/schroot-main-base.cc:67
+#: bin/schroot/schroot-main-base.cc:67 sbuild/sbuild-session.cc:85
 #, boost-format
 msgid "%1%: Chroot not found"
 msgstr "%1%: chroot non trovato"
 
-#: bin/schroot/schroot-main-base.cc:102
+#: bin/schroot/schroot-main-base.cc:68
+#, fuzzy, boost-format
+msgid "%1%: Invalid session name"
+msgstr "%1%: azione non valida"
+
+#: bin/schroot/schroot-main-base.cc:103
 msgid "Available chroot types:"
 msgstr "Tipi di chroot disponibili:"
 
-#: bin/schroot/schroot-main-base.cc:104
+#: bin/schroot/schroot-main-base.cc:105
 msgid "Support for 'block-device' chroots"
 msgstr "Supporto per chroot di tipo «block-device»"
 
-#: bin/schroot/schroot-main-base.cc:107
+#: bin/schroot/schroot-main-base.cc:108
 #, fuzzy
 msgid "Support for 'btrfs-snapshot' chroots"
 msgstr "Supporto per chroot di tipo «lvm-snapshot»"
 
-#: bin/schroot/schroot-main-base.cc:109
+#: bin/schroot/schroot-main-base.cc:110
 msgid "Support for 'directory' chroots"
 msgstr "Supporto per chroot di tipo «directory»"
 
-#: bin/schroot/schroot-main-base.cc:110
+#: bin/schroot/schroot-main-base.cc:111
 msgid "Support for 'file' chroots"
 msgstr "Supporto per chroot di tipo «file»"
 
-#: bin/schroot/schroot-main-base.cc:112
+#: bin/schroot/schroot-main-base.cc:113
 msgid "Support for 'loopback' chroots"
 msgstr "Supporto per chroot di tipo «loopback»"
 
-#: bin/schroot/schroot-main-base.cc:115
+#: bin/schroot/schroot-main-base.cc:116
 msgid "Support for 'lvm-snapshot' chroots"
 msgstr "Supporto per chroot di tipo «lvm-snapshot»"
 
-#: bin/schroot/schroot-main-base.cc:117
+#: bin/schroot/schroot-main-base.cc:118
 msgid "Support for 'plain' chroots"
 msgstr "Supporto per chroot di tipo «plain»"
 
@@ -966,11 +971,11 @@ msgstr "Il proprietario del file non è l'utente root"
 msgid "File has write permissions for others"
 msgstr "Il file ha permessi di scrittura per altri"
 
-#: sbuild/sbuild-chroot-config.cc:231 sbuild/sbuild-chroot-config.cc:237
+#: sbuild/sbuild-chroot-config.cc:233 sbuild/sbuild-chroot-config.cc:239
 msgid "Duplicate names are not allowed"
 msgstr "Non sono ammessi nomi duplicati"
 
-#: sbuild/sbuild-chroot-config.cc:316
+#: sbuild/sbuild-chroot-config.cc:318
 msgid "Available chroots: "
 msgstr "chroot disponibili: "
 
@@ -1521,16 +1526,11 @@ msgstr "Non è stato trovato alcun chroot con il nome o l'alias «%1%»"
 msgid "Failed to lock chroot"
 msgstr "Impossibile effettuare il blocco di chroot"
 
-#: sbuild/sbuild-session.cc:85
+#: sbuild/sbuild-session.cc:86
 msgid "Chroot setup failed"
 msgstr "Impossibile impostare il chroot"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-session.cc:87
-#, boost-format
-msgid "Failed to find chroot '%1%'"
-msgstr "Impossibile trovare il chroot «%1%»"
-
 #: sbuild/sbuild-session.cc:88
 msgid "Failed to unlock chroot"
 msgstr "Impossibile sbloccare il chroot"
@@ -1633,14 +1633,14 @@ msgstr "Errore durante il ripristino delle impostazioni del terminale"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:915
+#: sbuild/sbuild-session.cc:922
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[chroot %1%] esecuzione della shell di login in corso: «%4%»"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:919
+#: sbuild/sbuild-session.cc:926
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[chroot %1%] esecuzione della shell in corso: «%4%»"
@@ -1650,7 +1650,7 @@ msgstr "[chroot %1%] esecuzione della shell in corso: «%4%»"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:929
+#: sbuild/sbuild-session.cc:936
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr ""
@@ -1661,14 +1661,14 @@ msgstr ""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:936
+#: sbuild/sbuild-session.cc:943
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[chroot %1%] (%2%→%3%) esecuzione della shell in corso: «%4%»"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:974
+#: sbuild/sbuild-session.cc:981
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[chroot %1%] esecuzione del comando in corso: «%4%»"
@@ -1678,17 +1678,17 @@ msgstr "[chroot %1%] esecuzione del comando in corso: «%4%»"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:981
+#: sbuild/sbuild-session.cc:988
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[chroot %1%] (%2%→%3%) esecuzione del comando in corso: «%4%»"
 
-#: sbuild/sbuild-session.cc:1157
+#: sbuild/sbuild-session.cc:1164
 #, boost-format
 msgid "stage=%1%"
 msgstr "livello=%1%"
 
-#: sbuild/sbuild-session.cc:1336 sbuild/sbuild-session.cc:1343
+#: sbuild/sbuild-session.cc:1343 sbuild/sbuild-session.cc:1350
 msgid "terminating immediately"
 msgstr "uscita immediata in corso"
 
@@ -1711,6 +1711,9 @@ msgstr "Impossibile effettuare lo stat del file"
 #: sbuild/sbuild-util.cc:82
 msgid "Failed to stat file descriptor"
 msgstr "Impossibile effettuare lo stat del descrittore del file"
+
+#~ msgid "Failed to find chroot '%1%'"
+#~ msgstr "Impossibile trovare il chroot «%1%»"
 
 #~ msgid "Failed to open directory '%1%'"
 #~ msgstr "Impossibile aprire la directory «%1%»"
