@@ -81,13 +81,15 @@ error<chroot_config::error_code>::error_strings
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
 chroot_config::chroot_config ():
-  chroots()
+  chroots(),
+  aliases()
 {
 }
 
 chroot_config::chroot_config (std::string const& file,
 			      bool               active):
-  chroots()
+  chroots(),
+  aliases()
 {
   add(file, active);
 }
