@@ -37,6 +37,13 @@ configuration.
      in stray files being left in the session and mount directories.
      This should no longer occur.
 
+  5) Users should note that by default the entirety of /dev is bind
+     mounted into the chroot environment.  If this has security
+     implications, the "minimal" profile does not mount any of /dev
+     into the chroot and may be a more secure alternative.  For most
+     situations, mounting /dev in the chroot and providing full access
+     to the devices on the host system is perfectly acceptable.
+
 * Major changes in 1.4.5:
 
   1) A new chroot type, "btrfs-snapshot", has been added.  This is
