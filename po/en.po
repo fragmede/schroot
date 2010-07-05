@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2010-07-05 22:41+0100\n"
-"PO-Revision-Date: 2010-07-05 22:42+0100\n"
+"PO-Revision-Date: 2010-07-05 22:45+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "Language: en\n"
@@ -668,7 +668,7 @@ msgid "%1%: Chroot not found"
 msgstr "%1%: Chroot not found"
 
 #: bin/schroot/schroot-main-base.cc:68
-#, fuzzy, boost-format
+#, boost-format
 msgid "%1%: Invalid session name"
 msgstr "%1%: Invalid session name"
 
