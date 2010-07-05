@@ -201,7 +201,8 @@ option.
 .TP
 .BR \-n ", " \-\-session\-name=\fIsession-name\fP
 Name a session.  The specified \fIsession-name\fP replaces the default session
-name containing an automatically-generated session ID.
+name containing an automatically-generated session ID.  Note that it is not
+currently possible to create a session with the same name as a chroot or alias.
 .TP
 .BR \-f ", " \-\-force
 Force a session operation, even if it would otherwise fail.  This may be used
