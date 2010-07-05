@@ -22,8 +22,11 @@ schroot (1.4.6-1) unstable; urgency=low
   * Session cleanup following session startup failure no longer leaves
     stray session files in place (Closes: #587769).  Thanks to Bastian
     Blank.
+  * Trying to run or end a nonexistent session with the same name as
+    a chroot now fails outright rather than giving a cryptic error
+    message (Closes: #588155).  Thanks to Bastian Blank.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 04 Jul 2010 00:48:29 +0100
+ -- Roger Leigh <rleigh@debian.org>  Mon, 05 Jul 2010 22:13:58 +0100
 
 schroot (1.4.5-1) unstable; urgency=low
 
