@@ -1,3 +1,10 @@
+schroot (1.4.7-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * Use standards version 3.9.0.
+
+ -- Roger Leigh <rleigh@debian.org>  Mon, 05 Jul 2010 23:41:08 +0100
+
 schroot (1.4.6-1) unstable; urgency=low
 
   * New upstream stable release.
