@@ -64,7 +64,8 @@ namespace
       // TRANSLATORS: %1% = file
       emap(main_base::CHROOT_NOTDEFINED, N_("The specified chroots are not defined in '%1%'")),
       // TRANSLATORS: %1% = chroot name
-      emap(main_base::CHROOT_NOTFOUND,   N_("%1%: Chroot not found"))
+      emap(main_base::CHROOT_NOTFOUND,   N_("%1%: Chroot not found")),
+      emap(main_base::SESSION_INVALID,   N_("%1%: Invalid session name"))
     };
 
 }
@@ -263,6 +264,9 @@ main_base::run_impl ()
 	  return EXIT_SUCCESS;
 	}
     }
+
+  if (this->config->find_alias(this->options->session_name))
+    throw error(this->options->session_name, SESSION_INVALID);
 
   /* Print chroot information for specified chroots. */
   if (this->options->action == options_base::ACTION_INFO)

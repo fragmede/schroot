@@ -42,7 +42,8 @@ namespace schroot
 	CHROOT_FILE,       ///< No chroots are defined in ....
 	CHROOT_FILE2,      ///< No chroots are defined in ... or ....
 	CHROOT_NOTDEFINED, ///< The specified chroots are not defined.
-	CHROOT_NOTFOUND    ///< Chroot not found.
+	CHROOT_NOTFOUND,   ///< Chroot not found.
+	SESSION_INVALID    ///< Invalid session name.
       };
 
     /// Exception type.
