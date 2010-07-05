@@ -69,8 +69,8 @@ namespace sbuild
 	CHROOT,         ///< Failed to change root to directory.
 	CHROOT_ALIAS,   ///< No chroot found matching alias.
 	CHROOT_LOCK,    ///< Failed to lock chroot.
+	CHROOT_NOTFOUND,///< Chroot not found.
 	CHROOT_SETUP,   ///< Setup failed.
-	CHROOT_UNKNOWN, ///< Failed to find chroot.
 	CHROOT_UNLOCK,  ///< Failed to unlock chroot.
 	COMMAND_ABS,    ///< Command must have an absolute path.
 	EXEC,           ///< Failed to execute.

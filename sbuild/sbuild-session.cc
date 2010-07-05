@@ -82,9 +82,9 @@ namespace
       // TRANSLATORS: %1% = chroot name
       emap(session::CHROOT_ALIAS,   N_("No chroot found matching name or alias '%1%'")),
       emap(session::CHROOT_LOCK,    N_("Failed to lock chroot")),
+      emap(session::CHROOT_NOTFOUND,N_("%1%: Chroot not found")),
       emap(session::CHROOT_SETUP,   N_("Chroot setup failed")),
       // TRANSLATORS: %1% = chroot name
-      emap(session::CHROOT_UNKNOWN, N_("Failed to find chroot '%1%'")),
       emap(session::CHROOT_UNLOCK,  N_("Failed to unlock chroot")),
       // TRANSLATORS: %1% = command
       emap(session::COMMAND_ABS,    N_("Command \"%1%\" must have an absolute path")),
@@ -638,7 +638,14 @@ session::run_impl ()
 
 	  const chroot::ptr ch = this->config->find_alias(*cur);
 	  if (!ch) // Should never happen, but cater for it anyway.
-	    throw error(*cur, CHROOT_UNKNOWN);
+	    throw error(*cur, CHROOT_NOTFOUND);
+
+	  // TODO: Make chroot/session selection automatically fail
+	  // if no session exists earlier on when selecting chroots.
+	  if (ch->get_session_flags() & chroot::SESSION_CREATE &&
+	      (this->session_operation != OPERATION_AUTOMATIC &&
+	       this->session_operation != OPERATION_BEGIN))
+	      throw error(*cur, CHROOT_NOTFOUND);
 
 	  // For now, use a copy of the chroot; if we create a session
 	  // later, we will replace it.
