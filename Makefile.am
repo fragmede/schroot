@@ -41,7 +41,8 @@ EXTRA_DIST =				\
 	debian				\
 	scripts/schroot_release.m4.in	\
 	m4				\
-	HACKING
+	HACKING				\
+	VERSION
 
 ps:
 	$(MAKE) -C doc schroot.ps
