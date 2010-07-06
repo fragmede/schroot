@@ -111,7 +111,7 @@ will be obsoleted and removed in a future release.
 \f[CBI]script\-config=\fP\f[CI]filename\fP
 The behaviour of the chroot setup scripts may be customised on a per-chroot
 basis by providing a shell script which the scripts will source.  The filename
-is relative to \fI@PACKAGE_SYSCONF_DIR@\fP.  The default filename is
+is relative to \fI@SCHROOT_SYSCONF_DIR@\fP.  The default filename is
 \[oq]default/config\[cq].  Alternatives are \[oq]minimal/config\[cq] (minimal
 configuration), \[oq]desktop/config\[cq] (for running desktop applications in
 the chroot, making more functionality from the host system available in the
@@ -488,7 +488,7 @@ Additional chroot definitions may be placed in files under this directory.
 They are treated in exactly that same manner as \fI@SCHROOT_CONF@\fP.  Each
 file may contain one or more chroot definitions.
 .SS Setup script configuration
-The directory \f[BI]@PACKAGE_SYSCONF_DIR@/default\fP contains the default
+The directory \f[BI]@SCHROOT_SYSCONF_DIR@/default\fP contains the default
 settings used by setup scripts.
 .TP
 \f[BI]config\fP
@@ -496,24 +496,24 @@ Main configuration file read by setup scripts.  The format of this file is
 described in
 .BR schroot\-script\-config (5).
 This is the default value for the \f[CI]script\-config\fP key.  Note that this
-was formerly named \fI@PACKAGE_SYSCONF_DIR@/script\-defaults\fP.  The following
+was formerly named \fI@SCHROOT_SYSCONF_DIR@/script\-defaults\fP.  The following
 files are referenced by default:
 .TP
 \f[BI]copyfiles\fP
 A list of files to copy into the chroot from the host system.  Note that this
-was formerly named \fI@PACKAGE_SYSCONF_DIR@/copyfiles\-defaults\fP.
+was formerly named \fI@SCHROOT_SYSCONF_DIR@/copyfiles\-defaults\fP.
 .TP
 \f[BI]fstab\fP
 A file in the format decribed in
 .BR fstab (5),
 used to mount filesystems inside the chroot.  The mount location is relative to
 the root of the chroot.  Note that this was formerly named
-\fI@PACKAGE_SYSCONF_DIR@/mount\-defaults\fP.
+\fI@SCHROOT_SYSCONF_DIR@/mount\-defaults\fP.
 .TP
 \f[BI]nssdatabases\fP
 System databases (as described in \fI/etc/nsswitch.conf\fP on GNU/Linux
 systems) to copy into the chroot from the host.  Note that this was formerly
-named \fI@PACKAGE_SYSCONF_DIR@/nssdatabases\-defaults\fP.
+named \fI@SCHROOT_SYSCONF_DIR@/nssdatabases\-defaults\fP.
 .SH AUTHORS
 Roger Leigh.
 .SH COPYRIGHT
