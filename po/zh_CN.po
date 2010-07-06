@@ -1,14 +1,14 @@
 # Chinese translations for schroot package.
 # Copyright (C) 2008 Roger Leigh <rleigh@debian.org>
 # This file is distributed under the same license as the schroot package.
-# Ji ZhengYu <zhengyuji@gmail.com>, 2008, 2009
+# Ji ZhengYu <zhengyuji@gmail.com>, 2008, 2009, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: schroot VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2010-07-05 22:41+0100\n"
-"PO-Revision-Date: 2010-01-22 10:38+0800\n"
+"PO-Revision-Date: 2010-07-06 15:37+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -668,9 +668,9 @@ msgid "%1%: Chroot not found"
 msgstr "%1%: 未找到chroot"
 
 #: bin/schroot/schroot-main-base.cc:68
-#, fuzzy, boost-format
+#, boost-format
 msgid "%1%: Invalid session name"
-msgstr "%1%: 非法操作"
+msgstr "%1%: 非法会话名"
 
 #: bin/schroot/schroot-main-base.cc:103
 msgid "Available chroot types:"
@@ -681,9 +681,8 @@ msgid "Support for 'block-device' chroots"
 msgstr "支持“块设备”chroot"
 
 #: bin/schroot/schroot-main-base.cc:108
-#, fuzzy
 msgid "Support for 'btrfs-snapshot' chroots"
-msgstr "支持“lvm 快照”chroot"
+msgstr "支持\"btrfs 快照\"chroot"
 
 #: bin/schroot/schroot-main-base.cc:110
 msgid "Support for 'directory' chroots"
@@ -892,15 +891,15 @@ msgstr "未授权访问"
 
 #: sbuild/sbuild-auth.cc:59
 msgid "PAM is already initialised"
-msgstr "PAM 已被初始化"
+msgstr "PAM 模块已被初始化"
 
 #: sbuild/sbuild-auth.cc:60 sbuild/sbuild-session.cc:106
 msgid "PAM error"
-msgstr "PAM 错误"
+msgstr "PAM 模块错误"
 
 #: sbuild/sbuild-auth.cc:61
 msgid "PAM failed to shut down cleanly"
-msgstr ""
+msgstr "PAM 模块无法正常关闭"
 
 #: sbuild/sbuild-basic-keyfile.tcc:115
 msgid "This option may be present in a newer version"
@@ -1007,7 +1006,7 @@ msgstr "源根用户组"
 #: sbuild/sbuild-chroot-facet-union.cc:43
 #, boost-format
 msgid "Unknown filesystem union type '%1%'"
-msgstr "未知的文件系统整合类型“%1%”"
+msgstr "未知的联合文件系统类型“%1%”"
 
 #: sbuild/sbuild-chroot-facet-union.cc:44
 msgid "Union overlay must have an absolute path"
@@ -1018,24 +1017,20 @@ msgid "Union underlay must have an absolute path"
 msgstr "向下型整合必须带上绝对路径"
 
 #: sbuild/sbuild-chroot-facet-union.cc:214
-#, fuzzy
 msgid "Filesystem Union Type"
-msgstr "文件系统整合类型"
+msgstr "联合文件系统类型"
 
 #: sbuild/sbuild-chroot-facet-union.cc:218
-#, fuzzy
 msgid "Filesystem Union Mount Options"
-msgstr "文件系统整合挂载选项"
+msgstr "联合文件系统挂载选项"
 
 #: sbuild/sbuild-chroot-facet-union.cc:221
-#, fuzzy
 msgid "Filesystem Union Overlay Directory"
-msgstr "文件系统整合置于目录之上"
+msgstr "联合文件系统置于目录之上"
 
 #: sbuild/sbuild-chroot-facet-union.cc:224
-#, fuzzy
 msgid "Filesystem Union Underlay Directory"
-msgstr "文件系统整合置于目录之下"
+msgstr "联合文件系统置于目录之下"
 
 #: sbuild/sbuild-chroot-file.cc:216 sbuild/sbuild-chroot-loopback.cc:190
 msgid "File"
@@ -1118,7 +1113,7 @@ msgstr "无法写会话文件"
 
 #: sbuild/sbuild-chroot.cc:90
 msgid "Message verbosity is invalid"
-msgstr ""
+msgstr "无法显示详细信息"
 
 #: sbuild/sbuild-chroot.cc:601
 msgid "Name"
@@ -1138,7 +1133,7 @@ msgstr "优先权"
 
 #: sbuild/sbuild-chroot.cc:607
 msgid "Message Verbosity"
-msgstr ""
+msgstr "详细信息"
 
 #: sbuild/sbuild-chroot.cc:608
 msgid "Users"
@@ -1161,7 +1156,6 @@ msgid "Aliases"
 msgstr "别名"
 
 #: sbuild/sbuild-chroot.cc:613
-#, fuzzy
 msgid "Preserve Environment"
 msgstr "保存用户环境变量"
 
