@@ -181,7 +181,7 @@ Options to pass to
 .BR lvcreate (8).
 .SH FILES
 .SS Setup script configuration
-The directory \f[BI]@PACKAGE_SYSCONF_DIR@/default\fP contains the default
+The directory \f[BI]@SCHROOT_SYSCONF_DIR@/default\fP contains the default
 settings used by setup scripts.
 .TP
 \f[BI]config\fP
@@ -189,24 +189,24 @@ Main configuration file read by setup scripts.  The format of this file is
 described in
 .BR schroot\-script\-config (5).
 This is the default value for the \f[CI]script\-config\fP key.  Note that this
-was formerly named \fI@PACKAGE_SYSCONF_DIR@/script\-defaults\fP.  The following
+was formerly named \fI@SCHROOT_SYSCONF_DIR@/script\-defaults\fP.  The following
 files are referenced by default:
 .TP
 \f[BI]copyfiles\fP
 A list of files to copy into the chroot from the host system.  Note that this
-was formerly named \fI@PACKAGE_SYSCONF_DIR@/copyfiles\-defaults\fP.
+was formerly named \fI@SCHROOT_SYSCONF_DIR@/copyfiles\-defaults\fP.
 .TP
 \f[BI]fstab\fP
 A file in the format decribed in
 .BR fstab (5),
 used to mount filesystems inside the chroot.  The mount location is relative to
 the root of the chroot.  Note that this was formerly named
-\fI@PACKAGE_SYSCONF_DIR@/mount\-defaults\fP.
+\fI@SCHROOT_SYSCONF_DIR@/mount\-defaults\fP.
 .TP
 \f[BI]nssdatabases\fP
 System databases (as described in \fI/etc/nsswitch.conf\fP on GNU/Linux
 systems) to copy into the chroot from the host.  Note that this was formerly
-named \fI@PACKAGE_SYSCONF_DIR@/nssdatabases\-defaults\fP.
+named \fI@SCHROOT_SYSCONF_DIR@/nssdatabases\-defaults\fP.
 .SS Setup scripts
 The directory \f[BI]@SCHROOT_CONF_SETUP_D@\fP contains the chroot setup scripts.
 .TP

@@ -46,9 +46,9 @@ all-local: profiles
 
 install-data-hook:
 	for profile in $(PROFILES); do 						\
-	  $(MKDIR_P) "$(DESTDIR)$(PACKAGE_SYSCONF_DIR)/$$profile";			\
+	  $(MKDIR_P) "$(DESTDIR)$(SCHROOT_SYSCONF_DIR)/$$profile";			\
 	  for file in "profiles/$$profile"/*; do						\
-	    $(INSTALL_DATA) "$$file" "$(DESTDIR)$(PACKAGE_SYSCONF_DIR)/$$profile";	\
+	    $(INSTALL_DATA) "$$file" "$(DESTDIR)$(SCHROOT_SYSCONF_DIR)/$$profile";	\
 	  done;									\
 	done
 

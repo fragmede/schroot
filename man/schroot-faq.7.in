@@ -33,8 +33,8 @@ these will disappear next time the databases are copied over.
 .PP
 The suggested workaround here is to disable the copying by removing or
 commenting out the databases in the NSSDATABASES file in the script-config file
-for the chroot.  These are \fI@PACKAGE_SYSCONF_DIR@/default/nssdatabases\fP and
-\fI@PACKAGE_SYSCONF_DIR@/default/config\fP by default.
+for the chroot.  These are \fI@SCHROOT_SYSCONF_DIR@/default/nssdatabases\fP and
+\fI@SCHROOT_SYSCONF_DIR@/default/config\fP by default.
 .PP
 In the future, we will be working on a better scheme for keeping the host and
 chroot databases in sync which can merge entries rather than overwriting the

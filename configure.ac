@@ -773,8 +773,8 @@ AC_SUBST([SCHROOT_UNDERLAY_DIR])
 AH_TEMPLATE([SCHROOT_UNDERLAY_DIR], [schroot underlay directory])
 AC_DEFINE_UNQUOTED(SCHROOT_UNDERLAY_DIR, ["$SCHROOT_UNDERLAY_DIR"])
 
-dnl Set PACKAGE_SYSCONF_DIR in config.h.
-AH_TEMPLATE(PACKAGE_SYSCONF_DIR, [Package system configuration directory])
+dnl Set SCHROOT_SYSCONF_DIR in config.h.
+AH_TEMPLATE(SCHROOT_SYSCONF_DIR, [Package system configuration directory])
 if test "x${sysconfdir}" = 'x${prefix}/etc'; then
   if test "x${prefix}" = "xNONE"; then
     PACKAGE_SYSCONF_DIR="${ac_default_prefix}/etc"
