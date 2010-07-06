@@ -15,7 +15,9 @@ configuration.
 
 * Major changes in 1.4.7:
 
-  None.
+  1) Install profile configurations in the correct location.  1.4.6
+     incorrectly installed these into $sysconfdir rather than
+     $sysconfdir/schroot due to a mistake in the build scripts.
 
 * Major changes in 1.4.6:
 
