@@ -1,15 +1,15 @@
 # ITALIAN TRANSLATION OF SCHROOT.
-# Copyright (C) 2009 Roger Leigh <rleigh@debian.org>
+# Copyright (C) 2009, 2010 Roger Leigh <rleigh@debian.org>
 # This file is distributed under the same license as the schroot package.
 #
-# Vincenzo Campanella <vinz65@gmail.com>, 2009-2010.
 #
+# Vincenzo Campanella <vinz65@gmail.com>, 2009, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: schroot 1.3.2-1\n"
+"Project-Id-Version: schroot 1.4.6-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2010-07-05 22:41+0100\n"
-"PO-Revision-Date: 2010-01-16 15:44+0000\n"
+"PO-Revision-Date: 2010-07-06 09:02+0200\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
@@ -687,9 +687,9 @@ msgid "%1%: Chroot not found"
 msgstr "%1%: chroot non trovato"
 
 #: bin/schroot/schroot-main-base.cc:68
-#, fuzzy, boost-format
+#, boost-format
 msgid "%1%: Invalid session name"
-msgstr "%1%: azione non valida"
+msgstr "%1%: nome di sessione non valido"
 
 #: bin/schroot/schroot-main-base.cc:103
 msgid "Available chroot types:"
@@ -699,10 +699,10 @@ msgstr "Tipi di chroot disponibili:"
 msgid "Support for 'block-device' chroots"
 msgstr "Supporto per chroot di tipo «block-device»"
 
+#
 #: bin/schroot/schroot-main-base.cc:108
-#, fuzzy
 msgid "Support for 'btrfs-snapshot' chroots"
-msgstr "Supporto per chroot di tipo «lvm-snapshot»"
+msgstr "Supporto per chroot di tipo «btrfs-snapshot»"
 
 #: bin/schroot/schroot-main-base.cc:110
 msgid "Support for 'directory' chroots"
@@ -922,7 +922,7 @@ msgstr "Errore di PAM"
 
 #: sbuild/sbuild-auth.cc:61
 msgid "PAM failed to shut down cleanly"
-msgstr ""
+msgstr "PAM si è chiuso in modo non corretto"
 
 #: sbuild/sbuild-basic-keyfile.tcc:115
 msgid "This option may be present in a newer version"
@@ -1041,22 +1041,18 @@ msgid "Union underlay must have an absolute path"
 msgstr "L'underlay dell'unione deve avere un percorso assoluto"
 
 #: sbuild/sbuild-chroot-facet-union.cc:214
-#, fuzzy
 msgid "Filesystem Union Type"
 msgstr "Tipo di unione del file system"
 
 #: sbuild/sbuild-chroot-facet-union.cc:218
-#, fuzzy
 msgid "Filesystem Union Mount Options"
 msgstr "Opzioni di montaggio dell'unione del file system"
 
 #: sbuild/sbuild-chroot-facet-union.cc:221
-#, fuzzy
 msgid "Filesystem Union Overlay Directory"
 msgstr "Directory overlay dell'unione del file system"
 
 #: sbuild/sbuild-chroot-facet-union.cc:224
-#, fuzzy
 msgid "Filesystem Union Underlay Directory"
 msgstr "Directory underlay dell'unione del file system"
 
@@ -1141,7 +1137,7 @@ msgstr "Impossibile scrivere il file di sessione"
 
 #: sbuild/sbuild-chroot.cc:90
 msgid "Message verbosity is invalid"
-msgstr ""
+msgstr "La verbosità del messaggio non è valida"
 
 #: sbuild/sbuild-chroot.cc:601
 msgid "Name"
@@ -1161,7 +1157,7 @@ msgstr "Priorità"
 
 #: sbuild/sbuild-chroot.cc:607
 msgid "Message Verbosity"
-msgstr ""
+msgstr "Verbosità del messaggio"
 
 #: sbuild/sbuild-chroot.cc:608
 msgid "Users"
@@ -1184,7 +1180,6 @@ msgid "Aliases"
 msgstr "Alias"
 
 #: sbuild/sbuild-chroot.cc:613
-#, fuzzy
 msgid "Preserve Environment"
 msgstr "Mantieni l'ambiente dell'utente"
 
