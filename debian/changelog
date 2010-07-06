@@ -2,8 +2,10 @@ schroot (1.4.7-1) unstable; urgency=low
 
   * New upstream stable release.
   * Use standards version 3.9.0.
+  * Correctly distribute profile conffiles (Closes: #588247).  Thanks
+    to Mario Holbe.
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 05 Jul 2010 23:41:08 +0100
+ -- Roger Leigh <rleigh@debian.org>  Tue, 06 Jul 2010 23:22:20 +0100
 
 schroot (1.4.6-1) unstable; urgency=low
 
