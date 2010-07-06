@@ -4,8 +4,10 @@ schroot (1.4.7-1) unstable; urgency=low
   * Use standards version 3.9.0.
   * Correctly distribute profile conffiles (Closes: #588247).  Thanks
     to Mario Holbe.
+  * Update it and zh_CN translations.  Thanks to Vincenzo Campanella
+    and Ji ZhengYu.
 
- -- Roger Leigh <rleigh@debian.org>  Tue, 06 Jul 2010 23:22:20 +0100
+ -- Roger Leigh <rleigh@debian.org>  Tue, 06 Jul 2010 23:34:30 +0100
 
 schroot (1.4.6-1) unstable; urgency=low
 
