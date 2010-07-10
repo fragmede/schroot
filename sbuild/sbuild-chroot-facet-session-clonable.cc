@@ -77,46 +77,41 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
 						    std::string const& user,
 						    bool               root) const
 {
+  // Disable session cloning.
   clone->remove_facet<chroot_facet_session_clonable>();
+  // Disable source cloning.
+  clone->remove_facet<chroot_facet_source_clonable>();
   clone->add_facet(chroot_facet_session::create());
 
   // Disable session, delete aliases.
-  chroot_facet_session::ptr session(clone->get_facet<chroot_facet_session>());
-  assert(session);
-  if (session)
+  assert(clone->get_facet<chroot_facet_session>());
+
+  clone->set_session_id(session_id);
+  assert(clone->get_session_id() == session_id);
+  clone->set_description
+    (clone->get_description() + ' ' + _("(session chroot)"));
+
+  string_list empty_list;
+  string_list allowed_users;
+  if (!user.empty())
+    allowed_users.push_back(user);
+
+  if (root)
     {
-      clone->set_session_id(session_id);
-      assert(clone->get_session_id() == session_id);
-      clone->set_description
-	(clone->get_description() + ' ' + _("(session chroot)"));
-
-      string_list empty_list;
-      string_list allowed_users;
-      if (!user.empty())
-	allowed_users.push_back(user);
-
-      if (root)
-	{
-	  clone->set_users(empty_list);
-	  clone->set_root_users(allowed_users);
-	}
-      else
-	{
-	  clone->set_users(allowed_users);
-	  clone->set_root_users(empty_list);
-	}
-      clone->set_groups(empty_list);
-      clone->set_root_groups(empty_list);
-
-      session->get_session_flags(*clone); // For testing.
+      clone->set_users(empty_list);
+      clone->set_root_users(allowed_users);
     }
+  else
+    {
+      clone->set_users(allowed_users);
+      clone->set_root_users(empty_list);
+    }
+  clone->set_groups(empty_list);
+  clone->set_root_groups(empty_list);
 
   log_debug(DEBUG_INFO)
     << format("Cloned session %1%")
     % clone->get_name() << endl;
-
-  // Disable source cloning.
-  clone->remove_facet<chroot_facet_source_clonable>();
 
   /* If a chroot mount location has not yet been set, and the
      chroot is not a plain chroot, set a mount location with the

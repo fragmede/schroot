@@ -20,6 +20,7 @@
 
 #include "sbuild-chroot-lvm-snapshot.h"
 #include "sbuild-chroot-block-device.h"
+#include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-chroot-facet-mountable.h"
@@ -105,7 +106,8 @@ chroot_lvm_snapshot::set_snapshot_device (std::string const& snapshot_device)
 
   chroot_facet_mountable::ptr pmnt
     (get_facet<chroot_facet_mountable>());
-  pmnt->set_mount_device(this->snapshot_device);
+  if (pmnt)
+    pmnt->set_mount_device(this->snapshot_device);
 }
 
 std::string const&
@@ -217,7 +219,7 @@ chroot_lvm_snapshot::get_session_flags (chroot const& chroot) const
 {
   session_flags flags = SESSION_NOFLAGS;
 
-  if (get_active())
+  if (get_facet<chroot_facet_session>())
     flags = flags | SESSION_PURGE;
 
   return flags;
@@ -241,13 +243,15 @@ chroot_lvm_snapshot::get_keyfile (chroot const& chroot,
 {
   chroot_block_device_base::get_keyfile(chroot, keyfile);
 
-  if (get_active())
+  bool session = static_cast<bool>(get_facet<chroot_facet_session>());
+
+  if (session)
     keyfile::set_object_value(*this,
 			      &chroot_lvm_snapshot::get_snapshot_device,
 			      keyfile, get_keyfile_name(),
 			      "lvm-snapshot-device");
 
-  if (!get_active())
+  if (!session)
     keyfile::set_object_value(*this,
 			      &chroot_lvm_snapshot::get_snapshot_options,
 			      keyfile, get_keyfile_name(),
@@ -261,16 +265,18 @@ chroot_lvm_snapshot::set_keyfile (chroot&        chroot,
 {
   chroot_block_device_base::set_keyfile(chroot, keyfile, used_keys);
 
+  bool session = static_cast<bool>(get_facet<chroot_facet_session>());
+
   keyfile::get_object_value(*this, &chroot_lvm_snapshot::set_snapshot_device,
 			    keyfile, get_keyfile_name(), "lvm-snapshot-device",
-			    get_active() ?
+			    session ?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_DISALLOWED);
   used_keys.push_back("lvm-snapshot-device");
 
   keyfile::get_object_value(*this, &chroot_lvm_snapshot::set_snapshot_options,
 			    keyfile, get_keyfile_name(), "lvm-snapshot-options",
-			    get_active() ?
+			    session ?
 			    keyfile::PRIORITY_DEPRECATED :
 			    keyfile::PRIORITY_REQUIRED); // Only needed for creating snapshot, not using snapshot
   used_keys.push_back("lvm-snapshot-options");

@@ -20,6 +20,7 @@
 
 #include "sbuild-chroot-btrfs-snapshot.h"
 #include "sbuild-chroot-directory.h"
+#include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-format-detail.h"
@@ -179,7 +180,7 @@ chroot_btrfs_snapshot::get_session_flags (chroot const& chroot) const
 {
   session_flags flags = SESSION_NOFLAGS;
 
-  if (get_active())
+  if (get_facet<chroot_facet_session>())
     flags = flags | SESSION_PURGE;
 
   return flags;
@@ -205,19 +206,21 @@ chroot_btrfs_snapshot::get_keyfile (chroot const& chroot,
 {
   chroot::get_keyfile(chroot, keyfile);
 
-  if (!get_active())
+  bool session = static_cast<bool>(get_facet<chroot_facet_session>());
+
+  if (!session)
     keyfile::set_object_value(*this,
 			      &chroot_btrfs_snapshot::get_source_subvolume,
 			      keyfile, get_keyfile_name(),
 			      "btrfs-source-subvolume");
 
-  if (!get_active())
+  if (!session)
     keyfile::set_object_value(*this,
 			      &chroot_btrfs_snapshot::get_snapshot_directory,
 			      keyfile, get_keyfile_name(),
 			      "btrfs-snapshot-directory");
 
-  if (get_active())
+  if (session)
     keyfile::set_object_value(*this,
 			      &chroot_btrfs_snapshot::get_snapshot_name,
 			      keyfile, get_keyfile_name(),
@@ -231,9 +234,11 @@ chroot_btrfs_snapshot::set_keyfile (chroot&        chroot,
 {
   chroot::set_keyfile(chroot, keyfile, used_keys);
 
+  bool session = static_cast<bool>(get_facet<chroot_facet_session>());
+
   keyfile::get_object_value(*this, &chroot_btrfs_snapshot::set_source_subvolume,
 			    keyfile, get_keyfile_name(), "btrfs-source-subvolume",
-			    get_active() ?
+			    session ?
 			    keyfile::PRIORITY_DISALLOWED :
 			    keyfile::PRIORITY_REQUIRED
 			    ); // Only needed for creating snapshot, not using snapshot
@@ -241,7 +246,7 @@ chroot_btrfs_snapshot::set_keyfile (chroot&        chroot,
 
   keyfile::get_object_value(*this, &chroot_btrfs_snapshot::set_snapshot_directory,
 			    keyfile, get_keyfile_name(), "btrfs-snapshot-directory",
-			    get_active() ?
+			    session ?
 			    keyfile::PRIORITY_DISALLOWED :
 			    keyfile::PRIORITY_REQUIRED
 			    ); // Only needed for creating snapshot, not using snapshot
@@ -249,7 +254,7 @@ chroot_btrfs_snapshot::set_keyfile (chroot&        chroot,
 
   keyfile::get_object_value(*this, &chroot_btrfs_snapshot::set_snapshot_name,
 			    keyfile, get_keyfile_name(), "btrfs-snapshot-name",
-			    get_active() ?
+			    session ?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_DISALLOWED);
   used_keys.push_back("btrfs-snapshot-name");

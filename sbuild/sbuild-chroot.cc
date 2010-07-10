@@ -245,7 +245,7 @@ sbuild::chroot::set_session_id (std::string const& session_id)
 std::string const&
 sbuild::chroot::get_keyfile_name () const
 {
-  if (get_active())
+  if (get_facet<chroot_facet_session>())
     return this->session_id;
   else
     return this->name;
@@ -386,14 +386,6 @@ void
 sbuild::chroot::set_environment_filter (regex const& environment_filter)
 {
   this->environment_filter = environment_filter;
-}
-
-bool
-sbuild::chroot::get_active () const
-{
-  chroot_facet_session::const_ptr psess(get_facet<chroot_facet_session>());
-
-  return (psess) ? true : false;
 }
 
 bool
@@ -672,14 +664,11 @@ sbuild::chroot::get_details (chroot const&  chroot,
 void
 sbuild::chroot::print_details (std::ostream& stream) const
 {
-  chroot_facet_session::const_ptr psess(get_facet<chroot_facet_session>());
-  chroot_facet_source::const_ptr psrc(get_facet<chroot_facet_source>());
-
   std::string title(_("Chroot"));
 
-  if (psess)
+  if (get_facet<chroot_facet_session>())
     title = _("Session");
-  if (psrc)
+  if (get_facet<chroot_facet_source>())
     title = _("Source");
 
   format_detail fmt(title, stream.getloc());
@@ -708,7 +697,9 @@ sbuild::chroot::get_keyfile (chroot const& chroot,
 {
   keyfile.remove_group(chroot.get_keyfile_name());
 
-  if (get_active())
+  bool session = static_cast<bool>(get_facet<chroot_facet_session>());
+
+  if (session)
     keyfile::set_object_value(chroot, &chroot::get_name,
 			      keyfile, chroot.get_keyfile_name(),
 			      "name");
@@ -753,7 +744,7 @@ sbuild::chroot::get_keyfile (chroot const& chroot,
 				 keyfile, chroot.get_keyfile_name(),
 				 "root-groups");
 
-  if (get_active())
+  if (session)
     keyfile::set_object_value(chroot, &chroot::get_mount_location,
 			      keyfile, chroot.get_keyfile_name(),
 			      "mount-location");
@@ -792,6 +783,8 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
 {
   // Null method for obsolete keys.
   void (sbuild::chroot::* nullmethod)(bool) = 0;
+
+  bool session = static_cast<bool>(get_facet<chroot_facet_session>());
 
   // Keys which are used elsewhere, but should be counted as "used".
   used_keys.push_back("type");
@@ -891,7 +884,7 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
   keyfile::get_object_value(chroot, &chroot::set_mount_location,
 			    keyfile, chroot.get_keyfile_name(),
 			    "mount-location",
-			    get_active() ?
+			    session ?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_DISALLOWED);
   used_keys.push_back("mount-location");
@@ -899,7 +892,7 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
   keyfile::get_object_value(chroot, &chroot::set_name,
 			    keyfile, chroot.get_keyfile_name(),
 			    "name",
-			    get_active() ?
+			    session ?
 			    keyfile::PRIORITY_OPTIONAL :
 			    keyfile::PRIORITY_DISALLOWED);
   used_keys.push_back("name");
