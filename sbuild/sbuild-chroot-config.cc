@@ -405,6 +405,37 @@ chroot_config::find_alias (std::string const& namespace_hint,
     return find_chroot(namespace_hint, name);
 }
 
+std::string
+chroot_config::lookup_alias (std::string const& namespace_hint,
+			     std::string const& name) const
+{
+  std::string chroot_namespace(namespace_hint);
+  std::string alias_name(name);
+
+  if (chroot_namespace.empty())
+    chroot_namespace = "chroot";
+
+  std::string::size_type pos = name.find_first_of(namespace_separator);
+  if (pos != std::string::npos)
+    {
+      chroot_namespace = name.substr(0, pos);
+      if (name.size() >= pos + 1)
+	alias_name = name.substr(pos + 1);
+      else
+	alias_name = "";
+    }
+
+  string_map::const_iterator found = this->aliases.find(chroot_namespace + namespace_separator + alias_name);
+
+  log_debug(DEBUG_NOTICE) << "Looking for alias " << name << " with hint " << namespace_hint << std::endl;
+  log_debug(DEBUG_NOTICE) << "Alias " << (found != this->aliases.end() ? "found" : "not found") << std::endl;
+
+  if (found != this->aliases.end())
+    return found->second;
+  else
+    return std::string();
+}
+
 // TODO: Only printed aliases before...  Add variant which doesn't use
 // namespaces to get all namespaces.
 string_list
@@ -581,17 +612,20 @@ chroot_config::print_chroot_config (string_list const& chroots,
 }
 
 string_list
-chroot_config::validate_chroots (string_list const& chroots) const
+chroot_config::validate_chroots (std::string const& chroot_namespace,
+				 string_list&       chroots) const
 {
   string_list bad_chroots;
 
-  for (string_list::const_iterator pos = chroots.begin();
+  for (string_list::iterator pos = chroots.begin();
        pos != chroots.end();
        ++pos)
     {
-      const chroot::ptr chroot = find_alias("", *pos);
-      if (!chroot)
+      std::string chroot = lookup_alias(chroot_namespace, *pos);
+      if (chroot.empty())
 	bad_chroots.push_back(*pos);
+      else
+	*pos = chroot;
     }
 
   return bad_chroots;

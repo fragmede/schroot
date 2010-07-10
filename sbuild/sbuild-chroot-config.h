@@ -189,6 +189,16 @@ namespace sbuild
 		std::string const& name) const;
 
     /**
+     * Find a chroot by its name or an alias.
+     *
+     * @param name the chroot name or alias.
+     * @returns the chroot if found, otherwise 0.
+     */
+    std::string
+    lookup_alias (std::string const& namespace_hint,
+		  std::string const& name) const;
+
+    /**
      * Get the names (including aliases) of all the available chroots,
      * sorted in alphabetical order.
      *
@@ -260,14 +270,18 @@ namespace sbuild
 			 std::ostream&      stream) const;
 
     /**
-     * Check that all the chroots specified exist.
+     * Check that all the chroots specified exist.  The specified
+     * chroot names will also be canonicalised so that they are all
+     * referenced absolutely by namespace, using chroot_namespace as a
+     * namespace hint for chroots without a namespace.
      *
      * @param chroots a list of chroots to validate.
      * @returns a list of invalid chroots.  The list will be empty if
      * all chroots are valid.
      */
     string_list
-    validate_chroots (string_list const& chroots) const;
+    validate_chroots (std::string const& chroot_namespace,
+		      string_list&       chroots) const;
 
   private:
     /**
