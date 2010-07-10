@@ -41,7 +41,7 @@ chroot_lvm_snapshot::chroot_lvm_snapshot ():
   snapshot_device(),
   snapshot_options()
 {
-  add_facet(sbuild::chroot_facet_source_clonable::create());
+  add_facet(chroot_facet_source_clonable::create());
 }
 
 chroot_lvm_snapshot::chroot_lvm_snapshot (const chroot_lvm_snapshot& rhs):
@@ -169,14 +169,14 @@ chroot_lvm_snapshot::setup_lock (chroot::setup_type type,
 	    }
 	  else
 	    {
-	      sbuild::device_lock dlock(device);
+	      device_lock dlock(device);
 	      if (lock)
 		{
 		  try
 		    {
 		      dlock.set_lock(lock::LOCK_EXCLUSIVE, 15);
 		    }
-		  catch (sbuild::lock::error const& e)
+		  catch (lock::error const& e)
 		    {
 		      throw error(get_device(), DEVICE_LOCK, e);
 		    }
@@ -187,7 +187,7 @@ chroot_lvm_snapshot::setup_lock (chroot::setup_type type,
 		    {
 		      dlock.unset_lock();
 		    }
-		  catch (sbuild::lock::error const& e)
+		  catch (lock::error const& e)
 		    {
 		      throw error(get_device(), DEVICE_UNLOCK, e);
 		    }

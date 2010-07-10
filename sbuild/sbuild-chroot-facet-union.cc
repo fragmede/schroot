@@ -97,7 +97,7 @@ chroot_facet_union::clone_source_setup (chroot::ptr& clone) const
     psrc->clone_source_setup(clone);
 
   chroot_facet_union::ptr puni
-    (clone->get_facet<sbuild::chroot_facet_union>());
+    (clone->get_facet<chroot_facet_union>());
   if (puni)
     puni->set_union_type("none");
 }

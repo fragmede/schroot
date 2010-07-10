@@ -119,11 +119,11 @@ namespace
       }
     catch (std::exception const& e)
       {
-	sbuild::log_exception_error(e);
+	log_exception_error(e);
       }
     catch (...)
       {
-	sbuild::log_error() << _("An unknown exception occurred") << endl;
+	log_error() << _("An unknown exception occurred") << endl;
       }
 
     return PAM_CONV_ERR;
@@ -147,7 +147,7 @@ auth_pam::~auth_pam ()
     }
   catch (error const& e)
     {
-      sbuild::log_exception_error(e);
+      log_exception_error(e);
     }
 }
 

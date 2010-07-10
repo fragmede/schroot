@@ -100,8 +100,8 @@ chroot_facet_session::set_keyfile (chroot&        chroot,
 				   string_list&   used_keys)
 {
   // Null methods for obsolete keys.
-  void (sbuild::chroot_facet_session::* nullmethod)(bool) = 0;
-  void (sbuild::chroot_facet_session::* nullvmethod)(string_list const&) = 0;
+  void (chroot_facet_session::* nullmethod)(bool) = 0;
+  void (chroot_facet_session::* nullvmethod)(string_list const&) = 0;
 
   // Setting when not clonable is deprecated.  It can't be obsoleted
   // yet because it is required to allow use and ending of existing

@@ -610,7 +610,7 @@ chroot_config::load_data (std::string const& chroot_namespace,
 
   try
     {
-      sbuild::file_lock lock(fd);
+      file_lock lock(fd);
       lock.set_lock(lock::LOCK_SHARED, 2);
       parse_data(chroot_namespace, input);
       lock.unset_lock();
@@ -689,7 +689,7 @@ chroot_config::load_keyfile (std::string const& chroot_namespace,
 
       {
 	chroot_facet_source_clonable::const_ptr psrc
-	  (chroot->get_facet<sbuild::chroot_facet_source_clonable>());
+	  (chroot->get_facet<chroot_facet_source_clonable>());
 
 	if (psrc && psrc->get_source_clone() &&
 	    !chroot->get_facet<chroot_facet_session>())

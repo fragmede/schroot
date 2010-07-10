@@ -41,7 +41,7 @@ chroot_btrfs_snapshot::chroot_btrfs_snapshot ():
   snapshot_directory(),
   snapshot_name()
 {
-  add_facet(sbuild::chroot_facet_source_clonable::create());
+  add_facet(chroot_facet_source_clonable::create());
 }
 
 chroot_btrfs_snapshot::chroot_btrfs_snapshot (const chroot_btrfs_snapshot& rhs):

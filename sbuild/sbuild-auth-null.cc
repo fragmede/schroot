@@ -51,7 +51,7 @@ auth_null::~auth_null ()
     }
   catch (error const& e)
     {
-      sbuild::log_exception_error(e);
+      log_exception_error(e);
     }
 }
 

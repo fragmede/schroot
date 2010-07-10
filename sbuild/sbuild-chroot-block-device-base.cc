@@ -40,7 +40,7 @@ chroot_block_device_base::chroot_block_device_base ():
   chroot(),
   device()
 {
-  add_facet(sbuild::chroot_facet_mountable::create());
+  add_facet(chroot_facet_mountable::create());
 }
 
 chroot_block_device_base::chroot_block_device_base
