@@ -279,4 +279,13 @@ options_base::check_actions ()
 #endif
 	 _("Unknown action specified"));
     }
+
+  if (!this->session_name.empty() && this->action != ACTION_SESSION_BEGIN)
+    throw opt::validation_error
+      (
+#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
+       opt::validation_error::invalid_option,
+#endif
+       _("--session-name is not permitted for the specified action"));
+
 }
