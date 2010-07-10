@@ -45,16 +45,16 @@ namespace dchroot_dsa
      * @param active true if the chroots in the configuration file are
      * active sessions, otherwise false.
      */
-    chroot_config (std::string const& file,
-		   bool               active);
+    chroot_config (std::string const& chroot_namespace,
+		   std::string const& file);
 
     /// The destructor.
     virtual ~chroot_config ();
 
   private:
     virtual void
-    parse_data (std::istream& stream,
-		bool          active);
+    parse_data (std::string const& chroot_namespace,
+		std::istream&      stream);
   };
 
 }
