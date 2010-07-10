@@ -175,8 +175,15 @@ main_base::get_chroot_options ()
     }
   else
     {
+      // Search in the appropriate namespace.
+      std::string chroot_namespace("chroot");
+      if (this->options->action == options_base::ACTION_SESSION_RECOVER ||
+	  this->options->action == options_base::ACTION_SESSION_RUN ||
+	  this->options->action == options_base::ACTION_SESSION_END)
+	chroot_namespace = "session";
+
       sbuild::string_list invalid_chroots =
-	this->config->validate_chroots(this->options->chroots);
+	this->config->validate_chroots(chroot_namespace, this->options->chroots);
 
       if (!invalid_chroots.empty())
 	{

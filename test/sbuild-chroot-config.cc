@@ -187,7 +187,7 @@ public:
     chroots.push_back("sarge");
     chroots.push_back("unstable");
 
-    sbuild::string_list invalid = this->cf->validate_chroots(chroots);
+    sbuild::string_list invalid = this->cf->validate_chroots("chroot", chroots);
     CPPUNIT_ASSERT(invalid.size() == 2);
     CPPUNIT_ASSERT(invalid[0] == "invalid");
     CPPUNIT_ASSERT(invalid[1] == "invalid2");

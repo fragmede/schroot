@@ -264,7 +264,7 @@ public:
     keyfile.set_value(group, "root-users", "suser3,suser4");
     keyfile.set_value(group, "groups", "sgroup1,sgroup2");
     keyfile.set_value(group, "root-groups", "sgroup3,sgroup4");
-    keyfile.set_value(group, "aliases", "test-name-source,test-alias-1-source,test-alias-2-source");
+    keyfile.set_value(group, "aliases", "test-alias-1,test-alias-2");
   }
 
   void setup_keyfile_source_clone (sbuild::keyfile& keyfile)
