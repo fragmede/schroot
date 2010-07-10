@@ -198,6 +198,15 @@ chroot_config::add (std::string const& chroot_namespace,
 	    this->aliases.insert(std::make_pair(source_alias, fullname));
 	}
 
+      // If a session chroot, add compatibility alias.
+      if (chroot_namespace == "session")
+	{
+	  std::string session_alias = std::string("chroot") +
+	    namespace_separator + chroot->get_name();
+	  if (this->aliases.find(session_alias) == this->aliases.end())
+	    this->aliases.insert(std::make_pair(session_alias, fullname));
+	}
+
       // Set up aliases.
       string_list const& aliases = chroot->get_aliases();
       for (string_list::const_iterator pos = aliases.begin();
