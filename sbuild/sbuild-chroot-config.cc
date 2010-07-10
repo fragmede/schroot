@@ -654,21 +654,19 @@ chroot_config::load_keyfile (std::string const& chroot_namespace,
       // get the correct facets in place.  In the future, it would be
       // great if sessions could serialise their facet usage to allow
       // automatic reconstruction.
-      chroot_facet_session_clonable::const_ptr clonable
-	(chroot->get_facet<chroot_facet_session_clonable>());
-
       log_debug(DEBUG_INFO) << "Created template chroot (type=" << type
 			    << "  name/session-id=" << *group
 			    << "  namespace=" << chroot_namespace
 			    << "  source-clonable="
-			    << static_cast<bool>(clonable)
+			    << static_cast<bool>(chroot->get_facet<chroot_facet_session_clonable>())
 			    << ")" << endl;
 
       // The "session" namespace is special.  We don't clone for other
       // types.  However, this special casing should probably be
       // removed.  Ideally, the chroot state should be stored in the
       // serialised session file (or chroot definition).
-      if (chroot_namespace == "session" && clonable)
+      if (chroot_namespace == "session" &&
+	  chroot->get_facet<chroot_facet_session_clonable>())
 	{
 	  chroot = chroot->clone_session("dummy-session-name", "", false);
 	  assert(chroot);
@@ -693,7 +691,8 @@ chroot_config::load_keyfile (std::string const& chroot_namespace,
 	chroot_facet_source_clonable::const_ptr psrc
 	  (chroot->get_facet<sbuild::chroot_facet_source_clonable>());
 
-	if (psrc && psrc->get_source_clone() && !chroot->get_active())
+	if (psrc && psrc->get_source_clone() &&
+	    !chroot->get_facet<chroot_facet_session>())
 	  {
 	    chroot::ptr source_chroot = chroot->clone_source();
 	    if (source_chroot)

@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include "sbuild-chroot-file.h"
+#include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-format-detail.h"
@@ -199,7 +200,7 @@ chroot_file::get_session_flags (chroot const& chroot) const
 {
   session_flags flags = SESSION_NOFLAGS;
 
-  if (get_active())
+  if (chroot.get_facet<chroot_facet_session>())
     flags = SESSION_PURGE;
 
   return flags;
@@ -225,6 +226,8 @@ chroot_file::get_keyfile (chroot const& chroot,
 {
   chroot::get_keyfile(chroot, keyfile);
 
+  bool session = static_cast<bool>(get_facet<chroot_facet_session>());
+
   keyfile::set_object_value(*this, &chroot_file::get_file,
 			    keyfile, get_keyfile_name(), "file");
 
@@ -232,7 +235,7 @@ chroot_file::get_keyfile (chroot const& chroot,
 			    keyfile, chroot.get_keyfile_name(),
 			    "location");
 
-  if (get_active())
+  if (session)
     keyfile::set_object_value(*this, &chroot_file::get_file_repack,
 			      keyfile, get_keyfile_name(), "file-repack");
 }
@@ -243,6 +246,8 @@ chroot_file::set_keyfile (chroot&        chroot,
 			  string_list&   used_keys)
 {
   chroot::set_keyfile(chroot, keyfile, used_keys);
+
+  bool session = static_cast<bool>(get_facet<chroot_facet_session>());
 
   keyfile::get_object_value(*this, &chroot_file::set_file,
 			    keyfile, get_keyfile_name(), "file",
@@ -257,7 +262,7 @@ chroot_file::set_keyfile (chroot&        chroot,
 
   keyfile::get_object_value(*this, &chroot_file::set_file_repack,
 			    keyfile, get_keyfile_name(), "file-repack",
-			    get_active() ?
+			    session ?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_DISALLOWED);
   used_keys.push_back("file-repack");

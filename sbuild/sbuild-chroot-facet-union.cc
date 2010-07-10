@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include "sbuild-chroot.h"
+#include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-union.h"
 #include "sbuild-chroot-facet-source-clonable.h"
 
@@ -201,7 +202,7 @@ chroot_facet_union::get_session_flags (chroot const& chroot) const
 {
   sbuild::chroot::session_flags flags = sbuild::chroot::SESSION_NOFLAGS;
 
-  if (get_union_configured() && chroot.get_active())
+  if (get_union_configured() && chroot.get_facet<chroot_facet_session>())
     flags = sbuild::chroot::SESSION_PURGE;
 
   return flags;
@@ -257,6 +258,8 @@ chroot_facet_union::set_keyfile (chroot&        chroot,
 				 keyfile const& keyfile,
 				 string_list&   used_keys)
 {
+  bool session = static_cast<bool>(chroot.get_facet<chroot_facet_session>());
+
   keyfile::get_object_value(*this, &chroot_facet_union::set_union_type,
 			    keyfile, chroot.get_keyfile_name(), "union-type",
 			    keyfile::PRIORITY_OPTIONAL);
@@ -278,7 +281,7 @@ chroot_facet_union::set_keyfile (chroot&        chroot,
 			    &chroot_facet_union::set_union_overlay_directory,
 			    keyfile, chroot.get_keyfile_name(),
 			    "union-overlay-directory",
-			    (chroot.get_active() && get_union_configured())?
+			    (session && get_union_configured())?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("union-overlay-directory");
@@ -287,7 +290,7 @@ chroot_facet_union::set_keyfile (chroot&        chroot,
 			    &chroot_facet_union::set_union_underlay_directory,
 			    keyfile, chroot.get_keyfile_name(),
 			    "union-underlay-directory",
-			    (chroot.get_active() && get_union_configured())?
+			    (session && get_union_configured())?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("union-underlay-directory");

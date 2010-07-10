@@ -20,6 +20,7 @@
 
 #include "sbuild-chroot.h"
 #include "sbuild-chroot-facet-mountable.h"
+#include "sbuild-chroot-facet-session.h"
 
 #include <cassert>
 
@@ -131,7 +132,9 @@ void
 chroot_facet_mountable::get_keyfile (chroot const& chroot,
 				     keyfile&      keyfile) const
 {
-  if (chroot.get_active())
+  bool session = static_cast<bool>(chroot.get_facet<chroot_facet_session>());
+
+  if (session)
     keyfile::set_object_value(*this, &chroot_facet_mountable::get_mount_device,
 			      keyfile, chroot.get_keyfile_name(),
 			      "mount-device");
@@ -150,10 +153,12 @@ chroot_facet_mountable::set_keyfile (chroot&        chroot,
 				     keyfile const& keyfile,
 				     string_list&   used_keys)
 {
+  bool session = static_cast<bool>(chroot.get_facet<chroot_facet_session>());
+
   keyfile::get_object_value(*this, &chroot_facet_mountable::set_mount_device,
 			    keyfile, chroot.get_keyfile_name(),
 			    "mount-device",
-			    chroot.get_active() ?
+			    session ?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_DISALLOWED);
   used_keys.push_back("mount-device");

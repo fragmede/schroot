@@ -655,9 +655,7 @@ session::run_impl ()
 	  /* Create a session using randomly-generated session ID. */
 	  if (ch->get_session_flags() & chroot::SESSION_CREATE)
 	    {
-	      chroot_facet_session_clonable::ptr session_clonable
-		(ch->get_facet<chroot_facet_session_clonable>());
-	      assert(session_clonable);
+	      assert(ch->get_facet<chroot_facet_session_clonable>());
 
 	      std::string new_session_id;
 
@@ -685,10 +683,7 @@ session::run_impl ()
 	      chroot = ch->clone_session(new_session_id,
 					 this->authstat->get_ruser(),
 					 (in_root_users || in_root_groups));
-	      chroot_facet_session::ptr session
-		(chroot->get_facet<chroot_facet_session>());
-	      assert(session);
-	      assert(chroot->get_active());
+	      assert(chroot->get_facet<chroot_facet_session>());
 	    }
 	  assert(chroot);
 
