@@ -42,9 +42,9 @@ chroot_config::chroot_config ():
 {
 }
 
-chroot_config::chroot_config (std::string const& file,
-			      bool               active):
-  sbuild::chroot_config(file, active)
+chroot_config::chroot_config (std::string const& chroot_namespace,
+			      std::string const& file):
+  sbuild::chroot_config(chroot_namespace, file)
 {
 }
 
@@ -53,11 +53,9 @@ chroot_config::~chroot_config ()
 }
 
 void
-chroot_config::parse_data (std::istream& stream,
-			   bool          active)
+chroot_config::parse_data (std::string const& chroot_namespace,
+			   std::istream&      stream)
 {
-  active = false; // dchroot does not support sessions.
-
   size_t linecount = 0;
   std::string line;
   std::string chroot_name;
@@ -151,5 +149,5 @@ chroot_config::parse_data (std::istream& stream,
 	}
     }
 
-  load_keyfile(kconfig, active);
+  load_keyfile(chroot_namespace, kconfig);
 }
