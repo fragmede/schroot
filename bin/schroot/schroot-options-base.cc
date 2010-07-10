@@ -244,7 +244,7 @@ options_base::check_actions ()
       else if (!all_used()) // no chroots specified
 	{
 	  this->all_chroots = true;
-	  if (this->action == ACTION_LIST)
+	  if (this->action == ACTION_LIST || this->action == ACTION_INFO)
 	    this->all_source_chroots = true;
 	  this->load_chroots = true;
 	}
