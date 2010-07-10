@@ -158,7 +158,7 @@ public:
   void test_get_alias_list()
   {
     sbuild::string_list chroots = this->cf->get_alias_list("chroot");
-    CPPUNIT_ASSERT(chroots.size() == 7); // Includes aliases
+    CPPUNIT_ASSERT(chroots.size() == 7);
     CPPUNIT_ASSERT(chroots[0] == "chroot:default");
     CPPUNIT_ASSERT(chroots[1] == "chroot:experimental");
     CPPUNIT_ASSERT(chroots[2] == "chroot:sarge");
