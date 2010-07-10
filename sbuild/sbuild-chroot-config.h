@@ -48,17 +48,24 @@ namespace sbuild
     typedef std::map<std::string, std::string> string_map;
     /// A map between a chroot name and a chroot object.
     typedef std::map<std::string, chroot::ptr> chroot_map;
+    /// A map between a chroot namespace and a chroot map object.
+    typedef std::map<std::string, chroot_map> chroot_namespace_map;
+
+    /// Namspace separating character.
+    static const std::string namespace_separator;
 
     /// Error codes.
     enum error_code
       {
-	ALIAS_EXIST,     ///< Alias already associated with chroot.
-	CHROOT_NOTFOUND, ///< No such chroot.
-	CHROOT_EXIST,    ///< A chroot or alias already exists with this name.
-	FILE_NOTREG,     ///< File is not a regular file.
-	FILE_OPEN,       ///< Failed to open file.
-	FILE_OWNER,      ///< File is not owned by user root.
-	FILE_PERMS       ///< File has write permissions for others.
+	ALIAS_EXIST,       ///< Alias already associated with chroot.
+	CHROOT_NOTFOUND,   ///< No such chroot.
+	CHROOT_EXIST,      ///< A chroot or alias already exists with this name.
+	FILE_NOTREG,       ///< File is not a regular file.
+	FILE_OPEN,         ///< Failed to open file.
+	FILE_OWNER,        ///< File is not owned by user root.
+	FILE_PERMS,        ///< File has write permissions for others.
+	NAME_INVALID,      ///< Invalid name.
+	NAMESPACE_NOTFOUND ///< No such namespace.
       };
 
     /// Exception type.
@@ -78,8 +85,8 @@ namespace sbuild
      * @param active true if the chroots in the configuration file are
      * active sessions, otherwise false.
      */
-    chroot_config (std::string const& file,
-		   bool               active);
+    chroot_config (std::string const& chroot_namespace,
+		   std::string const& file);
 
     /// The destructor.
     virtual ~chroot_config ();
@@ -94,8 +101,8 @@ namespace sbuild
      * active sessions, otherwise false.
      */
     void
-    add (std::string const& location,
-	 bool               active);
+    add (std::string const& chroot_namespace,
+	 std::string const& location);
 
   private:
     /**
@@ -107,8 +114,8 @@ namespace sbuild
      * active sessions, otherwise false.
      */
     void
-    add_config_file (std::string const& file,
-		     bool               active);
+    add_config_file (std::string const& chroot_namespace,
+		     std::string const& file);
 
     /**
      * Add a configuration directory.  The configuration files in the
@@ -119,8 +126,8 @@ namespace sbuild
      * active sessions, otherwise false.
      */
     void
-    add_config_directory (std::string const& dir,
-			  bool               active);
+    add_config_directory (std::string const& chroot_namespace,
+			  std::string const& dir);
 
   protected:
     /**
@@ -130,12 +137,14 @@ namespace sbuild
      * of the aliases already exist, a warning will be logged, and the
      * alias will not be added.
      *
+     * @param chroot_namespace the chroot namespace
      * @param chroot the chroot to add.
      * @param kconfig the chroot configuration.
      */
     void
-    add (chroot::ptr&   chroot,
-	 keyfile const& kconfig);
+    add (std::string const& chroot_namespace,
+	 chroot::ptr&       chroot,
+	 keyfile const&     kconfig);
 
   public:
     /**
@@ -145,8 +154,16 @@ namespace sbuild
      * if no chroots are available.
      */
     chroot_list
-    get_chroots () const;
+    get_chroots (std::string const& chroot_namespace) const;
 
+  protected:
+    chroot_map&
+    find_namespace (std::string const& chroot_namespace);
+
+    chroot_map const&
+    find_namespace (std::string const& chroot_namespace) const;
+
+  public:
     /**
      * Find a chroot by its name.
      *
@@ -154,7 +171,12 @@ namespace sbuild
      * @returns the chroot if found, otherwise 0.
      */
     const chroot::ptr
-    find_chroot (std::string const& name) const;
+    find_chroot (std::string const& namespace_hint,
+		 std::string const& name) const;
+
+    const sbuild::chroot::ptr
+    find_chroot_in_namespace (std::string const& chroot_namespace,
+			      std::string const& name) const;
 
     /**
      * Find a chroot by its name or an alias.
@@ -163,7 +185,8 @@ namespace sbuild
      * @returns the chroot if found, otherwise 0.
      */
     const chroot::ptr
-    find_alias (std::string const& name) const;
+    find_alias (std::string const& namespace_hint,
+		std::string const& name) const;
 
     /**
      * Get the names (including aliases) of all the available chroots,
@@ -173,7 +196,17 @@ namespace sbuild
      * available.
      */
     string_list
-    get_chroot_list () const;
+    get_chroot_list (std::string const& chroot_namespace) const;
+
+    /**
+     * Get the names (including aliases) of all the available chroots,
+     * sorted in alphabetical order.
+     *
+     * @returns the list.  The list will be empty if no chroots are
+     * available.
+     */
+    string_list
+    get_alias_list (std::string const& chroot_namespace) const;
 
     /**
      * Print all the available chroots to the specified stream.
@@ -181,7 +214,8 @@ namespace sbuild
      * @param stream the stream to output to.
      */
     void
-    print_chroot_list (std::ostream& stream) const;
+    print_chroot_list (string_list const& chroots,
+		       std::ostream& stream) const;
 
     /**
      * Print a single line of all the available chroots to the
@@ -246,8 +280,8 @@ namespace sbuild
      * active sessions, otherwise false.
      */
     void
-    load_data (std::string const& file,
-	       bool               active);
+    load_data (std::string const& chroot_namespace,
+	       std::string const& file);
 
   protected:
     /**
@@ -259,8 +293,8 @@ namespace sbuild
      * active sessions, otherwise false.
      */
     virtual void
-    parse_data (std::istream& stream,
-		bool          active);
+    parse_data (std::string const& chroot_namespace,
+		std::istream& stream);
 
     /**
      * Load a keyfile.  If there are problems with the configuration
@@ -271,11 +305,11 @@ namespace sbuild
      * active sessions, otherwise false.
      */
     virtual void
-    load_keyfile (keyfile& kconfig,
-		  bool     active);
+    load_keyfile (std::string const& chroot_namespace,
+		  keyfile& kconfig);
 
     /// A list of chroots (name->chroot mapping).
-    chroot_map chroots;
+    chroot_namespace_map namespaces;
     /// A list of aliases (alias->name mapping).
     string_map aliases;
   };

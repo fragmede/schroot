@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include "sbuild-chroot.h"
+#include "sbuild-chroot-config.h"
 #include "sbuild-chroot-directory.h"
 #include "sbuild-chroot-plain.h"
 #include "sbuild-chroot-file.h"
@@ -38,6 +39,7 @@
 #include "sbuild-chroot-facet-personality.h"
 #include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-session-clonable.h"
+#include "sbuild-chroot-facet-source.h"
 #include "sbuild-lock.h"
 
 #include <cerrno>
@@ -84,6 +86,7 @@ namespace
       emap(sbuild::chroot::FILE_PERMS,        N_("File has write permissions for others")),
       emap(sbuild::chroot::FILE_UNLOCK,       N_("Failed to discard file lock")),
       emap(sbuild::chroot::LOCATION_ABS,      N_("Location must have an absolute path")),
+      emap(sbuild::chroot::NAME_INVALID,      N_("Invalid name")),
       // TRANSLATORS: unlink refers to the C function which removes a file
       emap(sbuild::chroot::SESSION_UNLINK,    N_("Failed to unlink session file")),
       emap(sbuild::chroot::SESSION_WRITE,     N_("Failed to write session file")),
@@ -202,6 +205,16 @@ sbuild::chroot::get_name () const
 void
 sbuild::chroot::set_name (std::string const& name)
 {
+  std::string::size_type pos = name.find_first_of(chroot_config::namespace_separator);
+  if (pos != std::string::npos)
+    {
+      error e(name, NAME_INVALID);
+      format fmt("Namespace separator '%1%' may not be used in a chroot name");
+      fmt % chroot_config::namespace_separator;
+      e.set_reason(fmt.str());
+      throw e;
+    }
+
   this->name = name;
 }
 
@@ -214,6 +227,16 @@ sbuild::chroot::get_session_id () const
 void
 sbuild::chroot::set_session_id (std::string const& session_id)
 {
+  std::string::size_type pos = session_id.find_first_of(chroot_config::namespace_separator);
+  if (pos != std::string::npos)
+    {
+      error e(session_id, NAME_INVALID);
+      format fmt("Namespace separator '%1%' may not be used in a session identifier name");
+      fmt % chroot_config::namespace_separator;
+      e.set_reason(fmt.str());
+      throw e;
+    }
+
   this->session_id = session_id;
   set_name(session_id);
   set_aliases(string_list());
@@ -323,6 +346,21 @@ sbuild::chroot::get_aliases () const
 void
 sbuild::chroot::set_aliases (string_list const& aliases)
 {
+  for (string_list::const_iterator pos = aliases.begin();
+       pos != aliases.end();
+       ++pos)
+    {
+      std::string::size_type found = pos->find_first_of(chroot_config::namespace_separator);
+      if (found != std::string::npos)
+	{
+	  error e(*pos, NAME_INVALID);
+	  format fmt("Namespace separator '%1%' may not be used in an alias name");
+	  fmt % chroot_config::namespace_separator;
+	  e.set_reason(fmt.str());
+	  throw e;
+	}
+    }
+
   this->aliases = aliases;
 }
 
@@ -634,8 +672,17 @@ sbuild::chroot::get_details (chroot const&  chroot,
 void
 sbuild::chroot::print_details (std::ostream& stream) const
 {
-  format_detail fmt((get_active() == true ? _("Session") : _("Chroot")),
-		    stream.getloc());
+  chroot_facet_session::const_ptr psess(get_facet<chroot_facet_session>());
+  chroot_facet_source::const_ptr psrc(get_facet<chroot_facet_source>());
+
+  std::string title(_("Chroot"));
+
+  if (psess)
+    title = _("Session");
+  if (psrc)
+    title = _("Source");
+
+  format_detail fmt(title, stream.getloc());
 
   get_details(fmt);
 

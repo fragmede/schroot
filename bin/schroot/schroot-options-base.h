@@ -95,6 +95,8 @@ namespace schroot
     bool                 all_chroots;
     /// Use all sessions.
     bool                 all_sessions;
+    /// Use all source_chroots.
+    bool                 all_source_chroots;
     /// Load chroots.
     bool                 load_chroots;
     /// Load sessions.
@@ -114,7 +116,7 @@ namespace schroot
     bool
     all_used () const
     {
-      return (this->all || this->all_chroots || this->all_sessions);
+      return (this->all || this->all_chroots || this->all_source_chroots || this->all_sessions);
     }
 
     virtual void

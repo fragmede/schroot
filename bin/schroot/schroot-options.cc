@@ -57,7 +57,9 @@ options::add_options ()
     ("all-chroots",
      _("Select all chroots"))
     ("all-sessions",
-     _("Select all active sessions"));
+     _("Select all active sessions"))
+    ("all-source-chroots",
+     _("Select all source chroots"));
 
   chrootenv.add_options()
     ("directory,d", opt::value<std::string>(&this->directory),
@@ -102,6 +104,8 @@ options::check_options ()
     this->all_chroots = true;
   if (vm.count("all-sessions"))
     this->all_sessions = true;
+  if (vm.count("all-source-chroots"))
+    this->all_source_chroots = true;
 
   if (vm.count("preserve-environment"))
     this->preserve = true;
@@ -123,5 +127,6 @@ options::check_options ()
     {
       this->all_chroots = true;
       this->all_sessions = true;
+      this->all_source_chroots = true;
     }
 }

@@ -65,7 +65,6 @@ chroot_facet_source_clonable::get_name () const
 void
 chroot_facet_source_clonable::clone_source_setup (chroot::ptr& clone) const
 {
-  clone->set_name(clone->get_name() + "-source");
   clone->set_description
     (clone->get_description() + ' ' + _("(source chroot)"));
   clone->set_original(false);
@@ -75,6 +74,7 @@ chroot_facet_source_clonable::clone_source_setup (chroot::ptr& clone) const
   clone->set_root_groups(this->get_source_root_groups());
   string_list const& aliases = clone->get_aliases();
   string_list source_aliases;
+  source_aliases.push_back(clone->get_name() + "-source");
   for (string_list::const_iterator alias = aliases.begin();
        alias != aliases.end();
        ++alias)
