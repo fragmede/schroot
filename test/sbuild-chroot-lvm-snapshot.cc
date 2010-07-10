@@ -167,7 +167,7 @@ public:
     sbuild::environment expected;
     setup_env_gen(expected);
     expected.add("CHROOT_TYPE",           "block-device");
-    expected.add("CHROOT_NAME",           "test-name-source");
+    expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot)"));
     expected.add("CHROOT_MOUNT_DEVICE",   "/dev/volgroup/testdev");
     expected.add("CHROOT_SESSION_CLONE",  "false");
@@ -226,7 +226,7 @@ public:
     setup_keyfile_lvm(expected, group);
     expected.set_value(group, "type", "block-device");
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
-    expected.set_value(group, "aliases", "test-alias-1-source,test-alias-2-source");
+    expected.set_value(group, "aliases", "test-name-source,test-alias-1-source,test-alias-2-source");
     expected.set_value(group, "union-type", "none");
     setup_keyfile_source_clone(expected, group);
 

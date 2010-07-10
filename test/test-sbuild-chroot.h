@@ -69,7 +69,7 @@ public:
     // Create new chroot
     this->chroot = sbuild::chroot::ptr(new T);
     CPPUNIT_ASSERT(this->chroot);
-    CPPUNIT_ASSERT(this->chroot->get_active() == false);
+    CPPUNIT_ASSERT(!(static_cast<bool>(this->chroot->template get_facet<sbuild::chroot_facet_session>())));
 
     setup_chroot_props(this->chroot);
 
@@ -85,7 +85,7 @@ public:
 						    false);
 	if (this->session)
 	  {
-	    CPPUNIT_ASSERT(this->session->get_active() == true);
+	    CPPUNIT_ASSERT(this->session->template get_facet<sbuild::chroot_facet_session>());
 	  }
       }
 
@@ -118,7 +118,7 @@ public:
 	un->set_union_type("aufs");
 
 	setup_chroot_props(this->chroot_union);
-	CPPUNIT_ASSERT(this->chroot_union->get_active() == false);
+	CPPUNIT_ASSERT(!(this->chroot_union->template get_facet<sbuild::chroot_facet_session>()));
 	CPPUNIT_ASSERT(this->chroot_union->get_name().length());
 
 	un->set_union_overlay_directory("/overlay");
@@ -132,7 +132,7 @@ public:
 	this->source_union = chroot_union->clone_source();
 
 	CPPUNIT_ASSERT(this->session_union);
-	CPPUNIT_ASSERT(this->session_union->get_active() == true);
+	CPPUNIT_ASSERT(this->session_union->template get_facet<sbuild::chroot_facet_session>());
 	CPPUNIT_ASSERT(this->source_union);
       }
   }
@@ -264,7 +264,7 @@ public:
     keyfile.set_value(group, "root-users", "suser3,suser4");
     keyfile.set_value(group, "groups", "sgroup1,sgroup2");
     keyfile.set_value(group, "root-groups", "sgroup3,sgroup4");
-    keyfile.set_value(group, "aliases", "test-alias-1-source,test-alias-2-source");
+    keyfile.set_value(group, "aliases", "test-name-source,test-alias-1-source,test-alias-2-source");
   }
 
   void setup_keyfile_source_clone (sbuild::keyfile& keyfile)

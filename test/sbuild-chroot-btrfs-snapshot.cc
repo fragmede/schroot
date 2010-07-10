@@ -193,7 +193,7 @@ public:
     sbuild::environment expected;
     setup_env_gen(expected);
     expected.add("CHROOT_TYPE",           "directory");
-    expected.add("CHROOT_NAME",           "test-name-source");
+    expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot)"));
     expected.add("CHROOT_DIRECTORY",       "/srv/chroot/sid");
     expected.add("CHROOT_SESSION_CLONE",  "false");
