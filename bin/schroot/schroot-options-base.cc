@@ -51,6 +51,7 @@ options_base::options_base ():
   all(false),
   all_chroots(false),
   all_sessions(false),
+  all_source_chroots(false),
   session_name(),
   session_force(false),
   chroot(_("Chroot selection")),
@@ -179,7 +180,7 @@ options_base::check_actions ()
 	<< _("--chroot and --all may not be used at the same time")
 	<< endl;
       sbuild::log_info() << _("Using --chroots only") << endl;
-      this->all = this->all_chroots = this->all_sessions = false;
+      this->all = this->all_chroots = this->all_source_chroots = this->all_sessions = false;
     }
 
   /* Determine which chroots to load and use. */
@@ -207,7 +208,7 @@ options_base::check_actions ()
 #endif
 	   _("Exactly one chroot must be specified when beginning a session"));
 
-      this->all = this->all_chroots = this->all_sessions = false;
+      this->all = this->all_chroots = this->all_source_chroots = this->all_sessions = false;
     }
   else if (this->action == ACTION_SESSION_RECOVER ||
 	   this->action == ACTION_SESSION_RUN ||
@@ -229,27 +230,10 @@ options_base::check_actions ()
     {
       // Chroots don't make sense here.
       this->load_chroots = this->load_sessions = false;
-      this->all = this->all_chroots = this->all_sessions = false;
+      this->all = this->all_chroots = this->all_source_chroots = this->all_sessions = false;
     }
-  else if (this->action == ACTION_LIST)
-    {
-      // If not specified otherwise, load normal chroots, but allow
-      // --all options.
-      if (!all_used())
-	this->load_chroots = true;
-      if (this->all_chroots)
-	this->load_chroots = true;
-      if (this->all_sessions)
-	this->load_sessions = true;
-      if (!this->chroots.empty())
-	throw opt::validation_error
-	  (
-#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
-	   opt::validation_error::invalid_option,
-#endif
-	   _("--chroot may not be used with --list"));
-    }
-  else if (this->action == ACTION_INFO ||
+  else if (this->action == ACTION_LIST ||
+	   this->action == ACTION_INFO ||
 	   this->action == ACTION_LOCATION ||
 	   this->action == ACTION_CONFIG)
     {
@@ -260,9 +244,11 @@ options_base::check_actions ()
       else if (!all_used()) // no chroots specified
 	{
 	  this->all_chroots = true;
+	  if (this->action == ACTION_LIST)
+	    this->all_source_chroots = true;
 	  this->load_chroots = true;
 	}
-      if (this->all_chroots)
+      if (this->all_chroots || this->all_source_chroots)
 	this->load_chroots = true;
       if (this->all_sessions)
 	this->load_sessions = true;
@@ -271,7 +257,7 @@ options_base::check_actions ()
     {
       // Something went wrong
       this->load_chroots = this->load_sessions = false;
-      this->all = this->all_chroots = this->all_sessions = false;
+      this->all = this->all_chroots = this->all_source_chroots = this->all_sessions = false;
       throw opt::validation_error
 	(
 #ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD

@@ -68,7 +68,7 @@ main::action_config ()
 void
 main::action_list ()
 {
-  this->config->print_chroot_list(std::cout);
+  this->config->print_chroot_list(this->chroots, std::cout);
 }
 
 void

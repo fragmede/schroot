@@ -142,22 +142,35 @@ main_base::get_chroot_options ()
   sbuild::string_list ret;
 
   if (this->options->all_chroots == true ||
-      this->options->all_sessions == true)
+      this->options->all_sessions == true ||
+      this->options->all_source_chroots == true)
     {
-      sbuild::chroot_config::chroot_list const& list =
-	this->config->get_chroots();
-
-      for (sbuild::chroot_config::chroot_list::const_iterator chroot =
-	     list.begin();
-	   chroot != list.end();
-	   ++chroot)
+      if (this->options->all_chroots)
 	{
-	  if (((*chroot)->get_active() == false &&
-	       this->options->all_chroots == false) ||
-	      ((*chroot)->get_active() == true &&
-	       this->options->all_sessions == false))
-	    continue;
-	  ret.push_back((*chroot)->get_name());
+	  sbuild::string_list chroots;
+	  if (this->options->action == options_base::ACTION_LIST)
+	    chroots = this->config->get_alias_list("chroot");
+	  else
+	    chroots = this->config->get_chroot_list("chroot");
+	  ret.insert(ret.end(), chroots.begin(), chroots.end());
+	}
+      if (this->options->all_sessions)
+	{
+	  sbuild::string_list sessions;
+	  if (this->options->action == options_base::ACTION_LIST)
+	    sessions = this->config->get_alias_list("session");
+	  else
+	    sessions = this->config->get_chroot_list("session");
+	  ret.insert(ret.end(), sessions.begin(), sessions.end());
+	}
+      if (this->options->all_source_chroots)
+	{
+	  sbuild::string_list sources;
+	  if (this->options->action == options_base::ACTION_LIST)
+	    sources = this->config->get_alias_list("source");
+	  else
+	    sources = this->config->get_chroot_list("source");
+	  ret.insert(ret.end(), sources.begin(), sources.end());
 	}
     }
   else
@@ -195,13 +208,13 @@ main_base::load_config ()
      any chroot type or session, or displaying chroot information. */
   if (this->options->load_chroots == true)
     {
-      this->config->add(SCHROOT_CONF, false);
-      this->config->add(SCHROOT_CONF_CHROOT_D, false);
+      this->config->add("chroot", SCHROOT_CONF);
+      this->config->add("chroot", SCHROOT_CONF_CHROOT_D);
     }
   /* The session chroot list is used when running or ending an
      existing session, or displaying chroot information. */
   if (this->options->load_sessions == true)
-    this->config->add(SCHROOT_SESSION_DIR, true);
+    this->config->add("session", SCHROOT_SESSION_DIR);
 }
 
 int
@@ -224,26 +237,10 @@ main_base::run_impl ()
   /* Initialise chroot configuration. */
   load_config();
 
-  if (this->config->get_chroots().empty() && this->options->quiet == false)
-    {
-      if (this->options->load_chroots == true &&
-	  this->options->load_sessions == true)
-	log_exception_warning
-	  (error(CHROOT_FILE2, SCHROOT_CONF, SCHROOT_SESSION_DIR));
-      else
-	{
-	  const char *cfile = (this->options->load_sessions)
-	    ? SCHROOT_SESSION_DIR : SCHROOT_CONF;
-	  log_exception_warning(error(CHROOT_FILE, cfile));
-	}
-    }
-
-  /* Print chroot list (including aliases). */
-  if (this->options->action == options_base::ACTION_LIST)
-    {
-      action_list();
-      return EXIT_SUCCESS;
-    }
+  if (this->options->load_chroots &&
+      this->config->get_chroots("chroot").empty() &&
+      this->options->quiet == false)
+    log_exception_warning(error(CHROOT_FILE2, SCHROOT_CONF, SCHROOT_CONF_CHROOT_D));
 
   /* Get list of chroots to use */
   chroots = get_chroot_options();
@@ -265,7 +262,14 @@ main_base::run_impl ()
 	}
     }
 
-  if (this->config->find_alias(this->options->session_name))
+  /* Print chroot list (including aliases). */
+  if (this->options->action == options_base::ACTION_LIST)
+    {
+      action_list();
+      return EXIT_SUCCESS;
+    }
+
+  if (this->config->find_alias("session", this->options->session_name))
     throw error(this->options->session_name, SESSION_INVALID);
 
   /* Print chroot information for specified chroots. */

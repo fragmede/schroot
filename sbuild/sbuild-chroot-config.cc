@@ -19,8 +19,9 @@
 #include <config.h>
 
 #include "sbuild-chroot.h"
-#include "sbuild-chroot-facet-source-clonable.h"
+#include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-session-clonable.h"
+#include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-chroot-config.h"
 #include "sbuild-lock.h"
 
@@ -56,14 +57,16 @@ namespace
     {
       // TRANSLATORS: %1% = chroot alias name
       // TRANSLATORS: %4% = chroot name
-      emap(chroot_config::ALIAS_EXIST,     N_("Alias '%1%' already associated with '%4%' chroot")),
-      emap(chroot_config::CHROOT_NOTFOUND, N_("No such chroot")),
+      emap(chroot_config::ALIAS_EXIST,        N_("Alias '%1%' already associated with '%4%' chroot")),
+      emap(chroot_config::CHROOT_NOTFOUND,    N_("No such chroot")),
       // TRANSLATORS: %1% = chroot name
-      emap(chroot_config::CHROOT_EXIST,    N_("A chroot or alias '%1%' already exists with this name")),
-      emap(chroot_config::FILE_NOTREG,     N_("File is not a regular file")),
-      emap(chroot_config::FILE_OPEN,       N_("Failed to open file")),
-      emap(chroot_config::FILE_OWNER,      N_("File is not owned by user root")),
-      emap(chroot_config::FILE_PERMS,      N_("File has write permissions for others"))
+      emap(chroot_config::CHROOT_EXIST,       N_("A chroot or alias '%1%' already exists with this name")),
+      emap(chroot_config::FILE_NOTREG,        N_("File is not a regular file")),
+      emap(chroot_config::FILE_OPEN,          N_("Failed to open file")),
+      emap(chroot_config::FILE_OWNER,         N_("File is not owned by user root")),
+      emap(chroot_config::FILE_PERMS,         N_("File has write permissions for others")),
+      emap(chroot_config::NAME_INVALID,       N_("Invalid name")),
+      emap(chroot_config::NAMESPACE_NOTFOUND, N_("No such namespace"))
     };
 
   bool chroot_alphasort (sbuild::chroot::ptr const& c1,
@@ -80,18 +83,27 @@ error<chroot_config::error_code>::error_strings
 (init_errors,
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
+const std::string chroot_config::namespace_separator(":");
+
 chroot_config::chroot_config ():
-  chroots(),
+  namespaces(),
   aliases()
 {
+  this->namespaces.insert(std::make_pair(std::string("chroot"), chroot_map()));
+  this->namespaces.insert(std::make_pair(std::string("session"), chroot_map()));
+  this->namespaces.insert(std::make_pair(std::string("source"), chroot_map()));
 }
 
-chroot_config::chroot_config (std::string const& file,
-			      bool               active):
-  chroots(),
+chroot_config::chroot_config (std::string const& chroot_namespace,
+			      std::string const& file):
+  namespaces(),
   aliases()
 {
-  add(file, active);
+  this->namespaces.insert(std::make_pair(std::string("chroot"), chroot_map()));
+  this->namespaces.insert(std::make_pair(std::string("session"), chroot_map()));
+  this->namespaces.insert(std::make_pair(std::string("source"), chroot_map()));
+
+  add(chroot_namespace, file);
 }
 
 chroot_config::~chroot_config ()
@@ -99,27 +111,27 @@ chroot_config::~chroot_config ()
 }
 
 void
-chroot_config::add (std::string const& location,
-		    bool               active)
+chroot_config::add (std::string const& chroot_namespace,
+		    std::string const& location)
 {
   if (stat(location).is_directory())
-    add_config_directory(location, active);
+    add_config_directory(chroot_namespace, location);
   else
-    add_config_file(location, active);
+    add_config_file(chroot_namespace, location);
 }
 
 void
-chroot_config::add_config_file (std::string const& file,
-				bool               active)
+chroot_config::add_config_file (std::string const& chroot_namespace,
+				std::string const& file)
 {
   log_debug(DEBUG_NOTICE) << "Loading config file: " << file << endl;
 
-  load_data(file, active);
+  load_data(chroot_namespace, file);
 }
 
 void
-chroot_config::add_config_directory (std::string const& dir,
-				     bool               active)
+chroot_config::add_config_directory (std::string const& chroot_namespace,
+				     std::string const& dir)
 {
   log_debug(DEBUG_NOTICE) << "Loading config directory: " << dir << endl;
 
@@ -155,23 +167,27 @@ chroot_config::add_config_directory (std::string const& dir,
 	  continue;
 	}
 
-      load_data(filename, active);
+      load_data(chroot_namespace, filename);
     }
 }
 
 void
-chroot_config::add (chroot::ptr&   chroot,
-		    keyfile const& kconfig)
+chroot_config::add (std::string const& chroot_namespace,
+		    chroot::ptr&       chroot,
+		    keyfile const&     kconfig)
 {
-  std::string const& name = chroot->get_name();
+  std::string const& name(chroot->get_name());
+  std::string const& fullname(chroot_namespace + namespace_separator + chroot->get_name());
+
+  chroot_map& chroots = find_namespace(chroot_namespace);
 
   // Make sure insertion will succeed.
-  if (this->chroots.find(name) == this->chroots.end() &&
-      this->aliases.find(name) == this->aliases.end())
+  if (chroots.find(name) == chroots.end() &&
+      this->aliases.find(fullname) == this->aliases.end())
     {
       // Set up chroot.
-      this->chroots.insert(std::make_pair(name, chroot));
-      this->aliases.insert(std::make_pair(name, name));
+      chroots.insert(std::make_pair(name, chroot));
+      this->aliases.insert(std::make_pair(fullname, fullname));
 
       // Set up aliases.
       string_list const& aliases = chroot->get_aliases();
@@ -181,13 +197,20 @@ chroot_config::add (chroot::ptr&   chroot,
 	{
 	  try
 	    {
-	      if (this->aliases.insert(std::make_pair(*pos, name))
+	      // TODO: Remove alias_namespace in 1.5.  Only needed for
+	      // -source compatibility.
+	      std::string alias_namespace(chroot_namespace);
+	      if (chroot_namespace == "source")
+		alias_namespace = "chroot";
+	      if (this->aliases.insert(std::make_pair
+				       (alias_namespace + namespace_separator + *pos,
+					fullname))
 		  .second == false)
 		{
 		  string_map::const_iterator dup = this->aliases.find(*pos);
 		  // Don't warn if alias is for chroot of same name.
 		  if (dup == this->aliases.end() ||
-		      name != dup->first)
+		      fullname != dup->first)
 		    {
 		      const char *const key("aliases");
 		      unsigned int line = kconfig.get_line(name, key);
@@ -225,7 +248,7 @@ chroot_config::add (chroot::ptr&   chroot,
     {
       unsigned int line = kconfig.get_line(name);
 
-      error e(name, CHROOT_EXIST);
+      error e(fullname, CHROOT_EXIST);
 
       if (line)
 	{
@@ -243,12 +266,13 @@ chroot_config::add (chroot::ptr&   chroot,
 }
 
 chroot_config::chroot_list
-chroot_config::get_chroots () const
+chroot_config::get_chroots (std::string const& chroot_namespace) const
 {
   chroot_list ret;
+  chroot_map const& chroots = find_namespace(chroot_namespace);
 
-  for (chroot_map::const_iterator pos = this->chroots.begin();
-       pos != this->chroots.end();
+  for (chroot_map::const_iterator pos = chroots.begin();
+       pos != chroots.end();
        ++pos)
     ret.push_back(pos->second);
 
@@ -257,12 +281,67 @@ chroot_config::get_chroots () const
   return ret;
 }
 
-const sbuild::chroot::ptr
-chroot_config::find_chroot (std::string const& name) const
+chroot_config::chroot_map&
+chroot_config::find_namespace (std::string const& chroot_namespace)
 {
-  chroot_map::const_iterator pos = this->chroots.find(name);
+  chroot_namespace_map::iterator pos = this->namespaces.find(chroot_namespace);
 
-  if (pos != this->chroots.end())
+  if (pos == this->namespaces.end())
+    throw error(chroot_namespace, NAMESPACE_NOTFOUND);
+
+  return pos->second;
+}
+
+chroot_config::chroot_map const&
+chroot_config::find_namespace (std::string const& chroot_namespace) const
+{
+  chroot_namespace_map::const_iterator pos = this->namespaces.find(chroot_namespace);
+
+  if (pos == this->namespaces.end())
+    throw error(chroot_namespace, NAMESPACE_NOTFOUND);
+
+  return pos->second;
+}
+
+const sbuild::chroot::ptr
+chroot_config::find_chroot (std::string const& namespace_hint,
+			    std::string const& name) const
+{
+  std::string chroot_namespace(namespace_hint);
+  std::string chroot_name(name);
+
+  if (chroot_namespace.empty())
+    chroot_namespace = "chroot";
+
+  log_debug(DEBUG_NOTICE) << "Looking for chroot " << name << " with hint " << namespace_hint << std::endl;
+
+  std::string::size_type pos = name.find_first_of(namespace_separator);
+  if (pos != std::string::npos)
+    {
+      chroot_namespace = name.substr(0, pos);
+      if (name.size() >= pos + 1)
+	chroot_name = name.substr(pos + 1);
+      else
+	chroot_name = "";
+    }
+
+  log_debug(DEBUG_NOTICE) << "Looking for identified chroot " << chroot_name << " in identified namespace " << chroot_namespace << std::endl;
+
+  // TODO: Should an invalid namespace throw here?
+  return find_chroot_in_namespace(chroot_namespace, chroot_name);
+}
+
+const sbuild::chroot::ptr
+chroot_config::find_chroot_in_namespace (std::string const& chroot_namespace,
+					 std::string const& name) const
+{
+  chroot_map const& chroots = find_namespace(chroot_namespace);
+
+  log_debug(DEBUG_NOTICE) << "Looking for chroot " << name << " in namespace " << chroot_namespace << std::endl;
+
+  chroot_map::const_iterator pos = chroots.find(name);
+
+  if (pos != chroots.end())
     return pos->second;
   else
     {
@@ -272,28 +351,74 @@ chroot_config::find_chroot (std::string const& name) const
 }
 
 const sbuild::chroot::ptr
-chroot_config::find_alias (std::string const& name) const
+chroot_config::find_alias (std::string const& namespace_hint,
+			   std::string const& name) const
 {
-  string_map::const_iterator pos = this->aliases.find(name);
+  std::string chroot_namespace(namespace_hint);
+  std::string alias_name(name);
 
-  if (pos != this->aliases.end())
-    return find_chroot(pos->second);
-  else
+  if (chroot_namespace.empty())
+    chroot_namespace = "chroot";
+
+  std::string::size_type pos = name.find_first_of(namespace_separator);
+  if (pos != std::string::npos)
     {
-      chroot *null_chroot = 0;
-      return chroot::ptr(null_chroot);
+      chroot_namespace = name.substr(0, pos);
+      if (name.size() >= pos + 1)
+	alias_name = name.substr(pos + 1);
+      else
+	alias_name = "";
     }
+
+  string_map::const_iterator found = this->aliases.find(chroot_namespace + namespace_separator + alias_name);
+
+  log_debug(DEBUG_NOTICE) << "Looking for alias " << name << " with hint " << namespace_hint << std::endl;
+  log_debug(DEBUG_NOTICE) << "Alias " << (found != this->aliases.end() ? "found" : "not found") << std::endl;
+
+  if (found != this->aliases.end())
+    return find_chroot(namespace_hint, found->second);
+  else
+    return find_chroot(namespace_hint, name);
+}
+
+// TODO: Only printed aliases before...  Add variant which doesn't use
+// namespaces to get all namespaces.
+string_list
+chroot_config::get_chroot_list (std::string const& chroot_namespace) const
+{
+  string_list ret;
+  chroot_map const& chroots = find_namespace(chroot_namespace);
+
+  for (chroot_map::const_iterator pos = chroots.begin();
+       pos != chroots.end();
+       ++pos)
+    ret.push_back(chroot_namespace + namespace_separator + pos->first);
+
+  std::sort(ret.begin(), ret.end());
+
+  return ret;
 }
 
 string_list
-chroot_config::get_chroot_list () const
+chroot_config::get_alias_list (std::string const& chroot_namespace) const
 {
   string_list ret;
 
-  for (string_map::const_iterator pos = this->aliases.begin();
-       pos != this->aliases.end();
+  // To validate namespace.
+  find_namespace(chroot_namespace);
+
+  for (string_map::const_iterator pos = aliases.begin();
+       pos != aliases.end();
        ++pos)
-    ret.push_back(pos->first);
+    {
+      std::string::size_type seppos = pos->first.find_first_of(namespace_separator);
+      if (seppos != std::string::npos)
+	{
+	  std::string alias_namespace = pos->first.substr(0, seppos);
+	  if (alias_namespace == chroot_namespace)
+	    ret.push_back(pos->first);
+	}
+    }
 
   std::sort(ret.begin(), ret.end());
 
@@ -301,15 +426,26 @@ chroot_config::get_chroot_list () const
 }
 
 void
-chroot_config::print_chroot_list (std::ostream& stream) const
+chroot_config::print_chroot_list (string_list const& chroots,
+				  std::ostream& stream) const
 {
-  string_list chroots = get_chroot_list();
-
   for (string_list::const_iterator pos = chroots.begin();
        pos != chroots.end();
        ++pos)
-    stream << *pos << "\n";
-  stream << std::flush;
+    {
+      log_debug(DEBUG_NOTICE) << "C: " << *pos << std::endl;
+
+      const chroot::ptr chroot = find_alias("", *pos);
+      if (chroot)
+	{
+	  stream << *pos << '\n';
+	}
+      else
+	{
+	  error e(*pos, CHROOT_NOTFOUND);
+	  log_exception_error(e);
+	}
+    }
 }
 
 void
@@ -317,8 +453,10 @@ chroot_config::print_chroot_list_simple (std::ostream& stream) const
 {
   stream << _("Available chroots: ");
 
-  for (chroot_map::const_iterator pos = this->chroots.begin();
-       pos != this->chroots.end();
+  chroot_map const& chroots = find_namespace("chroot");
+
+  for (chroot_map::const_iterator pos = chroots.begin();
+       pos != chroots.end();
        ++pos)
     {
       stream << pos->second->get_name();
@@ -352,7 +490,7 @@ chroot_config::print_chroot_info (string_list const& chroots,
        pos != chroots.end();
        ++pos)
     {
-      const chroot::ptr chroot = find_alias(*pos);
+      const chroot::ptr chroot = find_alias("", *pos);
       if (chroot)
 	{
 	  stream << chroot;
@@ -375,7 +513,7 @@ chroot_config::print_chroot_location (string_list const& chroots,
        pos != chroots.end();
        ++pos)
     {
-      const chroot::ptr chroot = find_alias(*pos);
+      const chroot::ptr chroot = find_alias("", *pos);
       if (chroot)
 	{
 	  stream << chroot->get_path() << '\n';
@@ -400,7 +538,7 @@ chroot_config::print_chroot_config (string_list const& chroots,
        pos != chroots.end();
        ++pos)
     {
-      const chroot::ptr chroot = find_alias(*pos);
+      const chroot::ptr chroot = find_alias("", *pos);
 
       // Generated chroots (e.g. source chroots) are not printed.
       if (chroot)
@@ -427,7 +565,7 @@ chroot_config::validate_chroots (string_list const& chroots) const
        pos != chroots.end();
        ++pos)
     {
-      const chroot::ptr chroot = find_alias(*pos);
+      const chroot::ptr chroot = find_alias("", *pos);
       if (!chroot)
 	bad_chroots.push_back(*pos);
     }
@@ -436,8 +574,8 @@ chroot_config::validate_chroots (string_list const& chroots) const
 }
 
 void
-chroot_config::load_data (std::string const& file,
-			  bool               active)
+chroot_config::load_data (std::string const& chroot_namespace,
+			  std::string const& file)
 {
   log_debug(DEBUG_NOTICE) << "Loading data file: " << file << endl;
 
@@ -474,7 +612,7 @@ chroot_config::load_data (std::string const& file,
     {
       sbuild::file_lock lock(fd);
       lock.set_lock(lock::LOCK_SHARED, 2);
-      parse_data(input, active);
+      parse_data(chroot_namespace, input);
       lock.unset_lock();
     }
   catch (std::runtime_error const& e)
@@ -484,18 +622,18 @@ chroot_config::load_data (std::string const& file,
 }
 
 void
-chroot_config::parse_data (std::istream& stream,
-			   bool          active)
+chroot_config::parse_data (std::string const& chroot_namespace,
+			   std::istream& stream)
 {
   /* Create key file */
   keyfile kconfig(stream);
 
-  load_keyfile(kconfig, active);
+  load_keyfile(chroot_namespace, kconfig);
 }
 
 void
-chroot_config::load_keyfile (keyfile& kconfig,
-			     bool     active)
+chroot_config::load_keyfile (std::string const& chroot_namespace,
+			     keyfile& kconfig)
 {
   /* Create chroot objects from key file */
   string_list const& groups = kconfig.get_groups();
@@ -503,8 +641,6 @@ chroot_config::load_keyfile (keyfile& kconfig,
        group != groups.end();
        ++group)
     {
-      // Set the active property for chroot creation, and create
-      // the chroot.
       std::string type = "plain"; // "plain" is the default type.
       kconfig.get_value(*group, "type", type);
       chroot::ptr chroot = chroot::create(type);
@@ -523,27 +659,35 @@ chroot_config::load_keyfile (keyfile& kconfig,
 
       log_debug(DEBUG_INFO) << "Created template chroot (type=" << type
 			    << "  name/session-id=" << *group
-			    << "  active=" << active
-			    << "  source-clonable=" << static_cast<bool>(clonable)
+			    << "  namespace=" << chroot_namespace
+			    << "  source-clonable="
+			    << static_cast<bool>(clonable)
 			    << ")" << endl;
 
-      if (active && clonable)
+      // The "session" namespace is special.  We don't clone for other
+      // types.  However, this special casing should probably be
+      // removed.  Ideally, the chroot state should be stored in the
+      // serialised session file (or chroot definition).
+      if (chroot_namespace == "session" && clonable)
 	{
 	  chroot = chroot->clone_session("dummy-session-name", "", false);
 	  assert(chroot);
-	  assert(chroot->get_active());
+	  chroot_facet_session::const_ptr psess
+	    (chroot->get_facet<chroot_facet_session>());
+	  assert(psess);
+	  chroot->set_name(*group);
+	  chroot->set_session_id(*group);
 	}
       else
 	{
-	  assert(!chroot->get_active());
+	  chroot_facet_session::const_ptr psess
+	    (chroot->get_facet<chroot_facet_session>());
+	  assert(!psess);
 	}
-
-      chroot->set_name(*group);
-      chroot->set_session_id(*group);
 
       kconfig >> chroot;
 
-      add(chroot, kconfig);
+      add(chroot_namespace, chroot, kconfig);
 
       {
 	chroot_facet_source_clonable::const_ptr psrc
@@ -553,7 +697,7 @@ chroot_config::load_keyfile (keyfile& kconfig,
 	  {
 	    chroot::ptr source_chroot = chroot->clone_source();
 	    if (source_chroot)
-	      add(source_chroot, kconfig);
+	      add("source", source_chroot, kconfig);
 	  }
       }
     }

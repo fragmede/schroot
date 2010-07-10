@@ -90,6 +90,7 @@ namespace sbuild
 	FILE_PERMS,       ///< File has write permissions for others.
 	FILE_UNLOCK,      ///< Failed to discard lock.
 	LOCATION_ABS,     ///< Location must have an absolute path.
+	NAME_INVALID,     ///< Invalid name.
 	SESSION_UNLINK,   ///< Failed to unlink session file.
 	SESSION_WRITE,    ///< Failed to write session file.
 	VERBOSITY_INVALID ///< Message verbosity is invalid.
