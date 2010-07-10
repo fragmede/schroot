@@ -59,7 +59,7 @@ using namespace sbuild;
 namespace
 {
 
-  typedef std::pair<sbuild::session::error_code,const char *> emap;
+  typedef std::pair<session::error_code,const char *> emap;
 
   /**
    * This is a list of the supported error codes.  It's used to
@@ -247,10 +247,10 @@ error<session::error_code>::error_strings
 (init_errors,
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
-session::session (std::string const&         service,
-		  config_ptr&                config,
-		  operation                  operation,
-		  sbuild::string_list const& chroots):
+session::session (std::string const&  service,
+		  config_ptr&         config,
+		  operation           operation,
+		  string_list const&  chroots):
   authstat(
 #ifdef SBUILD_FEATURE_PAM
 	   auth_pam::create(service)
@@ -390,7 +390,7 @@ session::save_termios ()
     {
       if (tcgetattr(CTTY_FILENO, &this->saved_termios) < 0)
 	{
-	  sbuild::log_warning()
+	  log_warning()
 	    << _("Error saving terminal settings")
 	    << endl;
 	}
@@ -411,7 +411,7 @@ session::restore_termios ()
       termios_ok)
     {
       if (tcsetattr(CTTY_FILENO, TCSANOW, &this->saved_termios) < 0)
-	sbuild::log_warning()
+	log_warning()
 	  << _("Error restoring terminal settings")
 	  << endl;
     }
@@ -440,12 +440,12 @@ session::get_chroot_membership (chroot::ptr const& chroot,
   in_groups = false;
   in_root_groups = false;
 
-  sbuild::string_list::const_iterator upos =
+  string_list::const_iterator upos =
     find(users.begin(), users.end(), this->authstat->get_ruser());
   if (upos != users.end())
     in_users = true;
 
-  sbuild::string_list::const_iterator rupos =
+  string_list::const_iterator rupos =
     find(root_users.begin(), root_users.end(), this->authstat->get_ruser());
   if (rupos != root_users.end())
     in_root_users = true;
@@ -1127,11 +1127,11 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 	}
       catch (std::exception const& e)
 	{
-	  sbuild::log_exception_error(e);
+	  log_exception_error(e);
 	}
       catch (...)
 	{
-	  sbuild::log_error()
+	  log_error()
 	    << _("An unknown exception occurred") << std::endl;
 	}
       _exit(EXIT_FAILURE);
@@ -1412,7 +1412,7 @@ session::run_chroot (sbuild::chroot::ptr& session_chroot)
 	}
       catch (...)
 	{
-	  sbuild::log_error()
+	  log_error()
 	    << _("An unknown exception occurred") << std::endl;
 	}
       _exit (EXIT_FAILURE);

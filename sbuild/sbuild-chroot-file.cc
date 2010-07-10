@@ -40,7 +40,7 @@ chroot_file::chroot_file ():
   location(),
   repack(false)
 {
-  add_facet(sbuild::chroot_facet_source_clonable::create());
+  add_facet(chroot_facet_source_clonable::create());
 }
 
 chroot_file::chroot_file (const chroot_file& rhs):

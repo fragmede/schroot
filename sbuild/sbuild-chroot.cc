@@ -553,7 +553,7 @@ sbuild::chroot::setup_session_info (bool start)
       std::ostream output(&fdbuf);
       output.imbue(std::locale::classic());
 
-      sbuild::file_lock lock(fd);
+      file_lock lock(fd);
       try
 	{
 	  lock.set_lock(lock::LOCK_EXCLUSIVE, 2);

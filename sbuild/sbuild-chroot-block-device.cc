@@ -40,7 +40,7 @@ chroot_block_device::chroot_block_device ():
   chroot_block_device_base()
 {
 #ifdef SBUILD_FEATURE_UNION
-  add_facet(sbuild::chroot_facet_union::create());
+  add_facet(chroot_facet_union::create());
 #endif // SBUILD_FEATURE_UNION
 }
 
@@ -59,7 +59,7 @@ chroot_block_device::chroot_block_device (const chroot_lvm_snapshot& rhs):
 {
 #ifdef SBUILD_FEATURE_UNION
   if (!get_facet<chroot_facet_union>())
-    add_facet(sbuild::chroot_facet_union::create());
+    add_facet(chroot_facet_union::create());
 #endif // SBUILD_FEATURE_UNION
 }
 #endif // SBUILD_FEATURE_LVMSNAP
@@ -145,14 +145,14 @@ chroot_block_device::setup_lock (chroot::setup_type type,
 	  if (!puni->get_union_configured())
 #endif
 	    {
-	      sbuild::device_lock dlock(this->device);
+	      device_lock dlock(this->device);
 	      if (lock)
 		{
 		  try
 		    {
 		      dlock.set_lock(lock::LOCK_EXCLUSIVE, 15);
 		    }
-		  catch (sbuild::lock::error const& e)
+		  catch (lock::error const& e)
 		    {
 		      throw error(get_device(), DEVICE_LOCK, e);
 		    }
@@ -163,7 +163,7 @@ chroot_block_device::setup_lock (chroot::setup_type type,
 		    {
 		      dlock.unset_lock();
 		    }
-		  catch (sbuild::lock::error const& e)
+		  catch (lock::error const& e)
 		    {
 		      throw error(get_device(), DEVICE_UNLOCK, e);
 		    }

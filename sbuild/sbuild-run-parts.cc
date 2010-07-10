@@ -37,7 +37,7 @@ using namespace sbuild;
 namespace
 {
 
-  typedef std::pair<sbuild::run_parts::error_code,const char *> emap;
+  typedef std::pair<run_parts::error_code,const char *> emap;
 
   /**
    * This is a list of the supported error codes.  It's used to
@@ -224,11 +224,11 @@ run_parts::run_child (std::string const& file,
 	    }
 	  catch (std::exception const& e)
 	    {
-	      sbuild::log_exception_error(e);
+	      log_exception_error(e);
 	    }
 	  catch (...)
 	    {
-	      sbuild::log_error()
+	      log_error()
 		<< _("An unknown exception occurred") << std::endl;
 	    }
 	  _exit(EXIT_FAILURE);

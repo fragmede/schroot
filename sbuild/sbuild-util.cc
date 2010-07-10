@@ -235,8 +235,8 @@ sbuild::unique_identifier ()
 }
 
 std::string
-sbuild::string_list_to_string (sbuild::string_list const& list,
-			       std::string const&         separator)
+sbuild::string_list_to_string (string_list const& list,
+			       std::string const& separator)
 {
   std::string ret;
 

@@ -41,9 +41,9 @@ chroot_loopback::chroot_loopback ():
   chroot(),
   file()
 {
-  add_facet(sbuild::chroot_facet_mountable::create());
+  add_facet(chroot_facet_mountable::create());
 #ifdef SBUILD_FEATURE_UNION
-  add_facet(sbuild::chroot_facet_union::create());
+  add_facet(chroot_facet_union::create());
 #endif // SBUILD_FEATURE_UNION
 }
 

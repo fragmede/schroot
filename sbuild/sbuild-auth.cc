@@ -41,7 +41,7 @@ using namespace sbuild;
 namespace
 {
 
-  typedef std::pair<sbuild::auth::error_code,const char *> emap;
+  typedef std::pair<auth::error_code,const char *> emap;
 
   /**
    * This is a list of the supported error codes.  It's used to
@@ -119,7 +119,7 @@ auth::~auth ()
     }
   catch (error const& e)
     {
-      sbuild::log_exception_error(e);
+      log_exception_error(e);
     }
 }
 

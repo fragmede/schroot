@@ -30,6 +30,7 @@
 #include <boost/format.hpp>
 
 using boost::format;
+using namespace sbuild;
 
 namespace
 {
@@ -47,12 +48,12 @@ namespace
   {
     try
       {
-	sbuild::error_base const& eb(dynamic_cast<sbuild::error_base const&>(e));
-	sbuild::string_list lines = sbuild::split_string(eb.why(), "\n");
-	for (sbuild::string_list::const_iterator line = lines.begin();
+	error_base const& eb(dynamic_cast<error_base const&>(e));
+	string_list lines = split_string(eb.why(), "\n");
+	for (string_list::const_iterator line = lines.begin();
 	     line != lines.end();
 	     ++line)
-	  ctty ? sbuild::log_ctty_info() : sbuild::log_info()
+	  ctty ? log_ctty_info() : log_info()
 	    << *line << std::endl;
       }
     catch (std::bad_cast const& discard)

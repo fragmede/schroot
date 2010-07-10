@@ -40,7 +40,7 @@ chroot_directory::chroot_directory ():
   chroot_directory_base()
 {
 #ifdef SBUILD_FEATURE_UNION
-  add_facet(sbuild::chroot_facet_union::create());
+  add_facet(chroot_facet_union::create());
 #endif // SBUILD_FEATURE_UNION
 }
 
@@ -55,7 +55,7 @@ chroot_directory::chroot_directory (const chroot_btrfs_snapshot& rhs):
 {
 #ifdef SBUILD_FEATURE_UNION
   if (!get_facet<chroot_facet_union>())
-    add_facet(sbuild::chroot_facet_union::create());
+    add_facet(chroot_facet_union::create());
 #endif // SBUILD_FEATURE_UNION
 
   set_directory(rhs.get_source_subvolume());
