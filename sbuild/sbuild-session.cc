@@ -544,13 +544,9 @@ session::get_auth_status () const
        cur != this->chroots.end();
        ++cur)
     {
-      const chroot::ptr chroot = this->config->find_alias(*cur, "");
+      const chroot::ptr chroot = this->config->find_alias("", *cur);
       if (!chroot) // Should never happen, but cater for it anyway.
-	{
-	  error e(*cur, CHROOT_ALIAS);
-	  log_exception_warning(e);
-	  status = auth::change_auth(status, auth::STATUS_FAIL);
-	}
+	throw error(*cur, CHROOT_NOTFOUND);
 
       status = auth::change_auth(status, get_chroot_auth_status(status, chroot));
     }
@@ -636,7 +632,7 @@ session::run_impl ()
 	    << format("Running session in %1% chroot:") % *cur
 	    << endl;
 
-	  const chroot::ptr ch = this->config->find_alias(*cur, "");
+	  const chroot::ptr ch = this->config->find_alias("", *cur);
 	  if (!ch) // Should never happen, but cater for it anyway.
 	    throw error(*cur, CHROOT_NOTFOUND);
 
