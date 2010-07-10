@@ -205,7 +205,7 @@ public:
 
   void test_active()
   {
-    CPPUNIT_ASSERT(chroot->get_active() == false);
+    CPPUNIT_ASSERT(!chroot->get_facet<sbuild::chroot_facet_session>());
   }
 
   void test_run_setup_scripts()

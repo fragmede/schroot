@@ -190,7 +190,7 @@ public:
     sbuild::environment expected;
     setup_env_gen(expected);
 
-    expected.add("CHROOT_NAME",           "test-name-source");
+    expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot)"));
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
@@ -240,7 +240,7 @@ public:
 						true);
     if (this->session)
       {
-	CPPUNIT_ASSERT(this->session->get_active() == true);
+	CPPUNIT_ASSERT(this->session->get_facet<sbuild::chroot_facet_session>());
       }
 
     sbuild::keyfile expected;

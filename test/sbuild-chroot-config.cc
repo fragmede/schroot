@@ -40,6 +40,7 @@ class test_config : public TestFixture
   CPPUNIT_TEST(test_find_chroot);
   CPPUNIT_TEST(test_find_alias);
   CPPUNIT_TEST(test_get_chroot_list);
+  CPPUNIT_TEST(test_get_alias_list);
   CPPUNIT_TEST(test_print_chroot_list);
   CPPUNIT_TEST(test_print_chroot_info);
   CPPUNIT_TEST(test_validate_chroots);
@@ -62,7 +63,7 @@ public:
 
   void setUp()
   {
-    this->cf = new sbuild::chroot_config(TESTDATADIR "/config.ex1", false);
+    this->cf = new sbuild::chroot_config("chroot", TESTDATADIR "/config.ex1");
   }
 
   void tearDown()
@@ -72,59 +73,59 @@ public:
 
   void test_construction_file()
   {
-    sbuild::chroot_config c(TESTDATADIR "/config.ex1", false);
+    sbuild::chroot_config c("chroot", TESTDATADIR "/config.ex1");
   }
 
   void test_construction_dir()
   {
-    sbuild::chroot_config c(TESTDATADIR "/config.ex2", false);
+    sbuild::chroot_config c("chroot", TESTDATADIR "/config.ex2");
   }
 
   void test_construction_fail()
   {
-    sbuild::chroot_config c(TESTDATADIR "/config.nonexistent", false);
+    sbuild::chroot_config c("chroot", TESTDATADIR "/config.nonexistent");
   }
 
   void test_construction_fail_wrong()
   {
-    sbuild::chroot_config c(TESTDATADIR "/config.ex3", false);
+    sbuild::chroot_config c("chroot", TESTDATADIR "/config.ex3");
   }
 
   void test_add_file()
   {
     sbuild::chroot_config c;
-    c.add(TESTDATADIR "/config.ex1", false);
+    c.add("chroot", TESTDATADIR "/config.ex1");
   }
 
   void test_add_dir()
   {
     sbuild::chroot_config c;
-    c.add(TESTDATADIR "/config.ex2", false);
+    c.add("chroot", TESTDATADIR "/config.ex2");
   }
 
   void test_add_fail()
   {
     sbuild::chroot_config c;
-    c.add(TESTDATADIR "/config.nonexistent", false);
+    c.add("chroot", TESTDATADIR "/config.nonexistent");
   }
 
   void test_get_chroots()
   {
-    CPPUNIT_ASSERT(this->cf->get_chroots().size() == 4);
+    CPPUNIT_ASSERT(this->cf->get_chroots("chroot").size() == 4);
   }
 
   void test_find_chroot()
   {
     sbuild::chroot::ptr chroot;
 
-    chroot = this->cf->find_chroot("sid");
+    chroot = this->cf->find_chroot("chroot", "sid");
     CPPUNIT_ASSERT((chroot));
     CPPUNIT_ASSERT(chroot->get_name() == "sid");
 
-    chroot = this->cf->find_chroot("stable");
+    chroot = this->cf->find_chroot("chroot", "stable");
     CPPUNIT_ASSERT((!chroot));
 
-    chroot = this->cf->find_chroot("invalid");
+    chroot = this->cf->find_chroot("chroot", "invalid");
     CPPUNIT_ASSERT((!chroot));
   }
 
@@ -132,39 +133,49 @@ public:
   {
     sbuild::chroot::ptr chroot;
 
-    chroot = this->cf->find_alias("sid");
+    chroot = this->cf->find_alias("chroot", "sid");
     CPPUNIT_ASSERT((chroot));
     CPPUNIT_ASSERT(chroot->get_name() == "sid");
 
-    chroot = this->cf->find_alias("stable");
+    chroot = this->cf->find_alias("chroot", "stable");
     CPPUNIT_ASSERT((chroot));
     CPPUNIT_ASSERT(chroot->get_name() == "sarge");
 
-    chroot = this->cf->find_alias("invalid");
+    chroot = this->cf->find_alias("chroot", "invalid");
     CPPUNIT_ASSERT((!chroot));
   }
 
   void test_get_chroot_list()
   {
-    sbuild::string_list chroots = this->cf->get_chroot_list();
+    sbuild::string_list chroots = this->cf->get_chroot_list("chroot");
+    CPPUNIT_ASSERT(chroots.size() == 4);
+    CPPUNIT_ASSERT(chroots[0] == "chroot:experimental");
+    CPPUNIT_ASSERT(chroots[1] == "chroot:sarge");
+    CPPUNIT_ASSERT(chroots[2] == "chroot:sid");
+    CPPUNIT_ASSERT(chroots[3] == "chroot:sid-local");
+  }
+
+  void test_get_alias_list()
+  {
+    sbuild::string_list chroots = this->cf->get_alias_list("chroot");
     CPPUNIT_ASSERT(chroots.size() == 7); // Includes aliases
-    CPPUNIT_ASSERT(chroots[0] == "default");
-    CPPUNIT_ASSERT(chroots[1] == "experimental");
-    CPPUNIT_ASSERT(chroots[2] == "sarge");
-    CPPUNIT_ASSERT(chroots[3] == "sid");
-    CPPUNIT_ASSERT(chroots[4] == "sid-local");
-    CPPUNIT_ASSERT(chroots[5] == "stable");
-    CPPUNIT_ASSERT(chroots[6] == "unstable");
+    CPPUNIT_ASSERT(chroots[0] == "chroot:default");
+    CPPUNIT_ASSERT(chroots[1] == "chroot:experimental");
+    CPPUNIT_ASSERT(chroots[2] == "chroot:sarge");
+    CPPUNIT_ASSERT(chroots[3] == "chroot:sid");
+    CPPUNIT_ASSERT(chroots[4] == "chroot:sid-local");
+    CPPUNIT_ASSERT(chroots[5] == "chroot:stable");
+    CPPUNIT_ASSERT(chroots[6] == "chroot:unstable");
   }
 
   void test_print_chroot_list()
   {
-    this->cf->print_chroot_list(sbuild::cnull);
+    this->cf->print_chroot_list(this->cf->get_chroot_list("chroot"), sbuild::cnull);
   }
 
   void test_print_chroot_info()
   {
-    this->cf->print_chroot_info(this->cf->get_chroot_list(), sbuild::cnull);
+    this->cf->print_chroot_info(this->cf->get_chroot_list("chroot"), sbuild::cnull);
   }
 
   void test_validate_chroots()
@@ -184,17 +195,17 @@ public:
 
   void test_config_fail()
   {
-    sbuild::chroot_config c(TESTDATADIR "/config-directory-fail.ex", false);
+    sbuild::chroot_config c("chroot", TESTDATADIR "/config-directory-fail.ex");
   }
 
   void test_config_deprecated()
   {
-    sbuild::chroot_config c(TESTDATADIR "/config-directory-deprecated.ex", false);
+    sbuild::chroot_config c("chroot", TESTDATADIR "/config-directory-deprecated.ex");
   }
 
   void test_config_valid()
   {
-    sbuild::chroot_config c(TESTDATADIR "/config-directory-valid.ex", false);
+    sbuild::chroot_config c("chroot", TESTDATADIR "/config-directory-valid.ex");
   }
 
 };
