@@ -189,6 +189,15 @@ chroot_config::add (std::string const& chroot_namespace,
       chroots.insert(std::make_pair(name, chroot));
       this->aliases.insert(std::make_pair(fullname, fullname));
 
+      // If a source chroot, add -source compatibility alias.
+      if (chroot_namespace == "source")
+	{
+	  std::string source_alias = std::string("chroot") +
+	    namespace_separator + chroot->get_name() + "-source";
+	  if (this->aliases.find(source_alias) == this->aliases.end())
+	    this->aliases.insert(std::make_pair(source_alias, fullname));
+	}
+
       // Set up aliases.
       string_list const& aliases = chroot->get_aliases();
       for (string_list::const_iterator pos = aliases.begin();
@@ -200,8 +209,6 @@ chroot_config::add (std::string const& chroot_namespace,
 	      // TODO: Remove alias_namespace in 1.5.  Only needed for
 	      // -source compatibility.
 	      std::string alias_namespace(chroot_namespace);
-	      if (chroot_namespace == "source")
-		alias_namespace = "chroot";
 	      if (this->aliases.insert(std::make_pair
 				       (alias_namespace + namespace_separator + *pos,
 					fullname))
@@ -241,6 +248,14 @@ chroot_config::add (std::string const& chroot_namespace,
 	  catch (std::runtime_error const& e)
 	    {
 	      log_exception_warning(e);
+	    }
+	  // If a source chroot, add -source compatibility alias.
+	  if (chroot_namespace == "source")
+	    {
+	      std::string source_alias = std::string("chroot") +
+		namespace_separator + *pos + "-source";
+	      if (this->aliases.find(source_alias) == this->aliases.end())
+		this->aliases.insert(std::make_pair(source_alias, fullname));
 	    }
 	}
     }
