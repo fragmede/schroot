@@ -272,7 +272,6 @@ main_base::run_impl ()
       pos != this->chroots.end();
       ++pos)
     {
-      std::cerr << "LOOKUP: " << *pos << std::endl;
       sbuild::chroot::ptr c = this->config->find_alias("", *pos);
       if (c)
 	chroot_objects.push_back(c);
