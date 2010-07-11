@@ -9,9 +9,17 @@ configuration.
 
 * Major changes in 1.5.0:
 
-  1) The deprecated options run-setup-scripts and run-exec-scripts
-     (all chroot types) and location ("plain" and "directory" chroot
-     types) have been obsoleted and removed from the documentation.
+  1) The deprecated options priority, run-setup-scripts and
+     run-exec-scripts (all chroot types) and location ("plain" and
+     "directory" chroot types) have been obsoleted and removed from
+     the documentation.
+
+  2) Source chroots no longer create a chroot with a -source suffix;
+     the source: namespace should be used instead.  Likewise sessions
+     are no longer present in the chroot: namespace, and are only
+     found in the session: namespace.  This means the fully-qualified
+     name must be used to refer to sessions except when performing
+     actions which use session: as the default namespace.
 
 * Major changes in 1.4.8:
 
