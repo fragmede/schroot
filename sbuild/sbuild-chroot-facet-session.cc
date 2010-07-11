@@ -83,7 +83,6 @@ void
 chroot_facet_session::get_details (chroot const&  chroot,
 				   format_detail& detail) const
 {
-  /// @todo: Replace base chroot session ID with local ID.
   if (!chroot.get_name().empty())
     detail.add(_("Session ID"), chroot.get_name());
 }
