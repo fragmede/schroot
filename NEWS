@@ -19,19 +19,20 @@ configuration.
      are used in this release, "chroot:", "source:" and "session:" for
      chroots, source chroots and sessions, respectively.  These may
      all be selected with the --all-chroots, --all-source-chroots and
-     all-sessions options.  Individual chroots may be referred to with
-     or without a prefix, depending upon the context.  For most
+     --all-sessions options.  Individual chroots may be referred to
+     with or without a prefix, depending upon the context.  For most
      actions, "chroot:" is the default prefix, while the
      --run-session, --recover-session and --end-session actions use
      "session:" as the default prefix.
 
   2) Source chroots previously used a -source suffix.  A chroot named
-     squeeze providing a source chroot would also create a source
+     "squeeze" providing a source chroot would also create a source
      chroot named "squeeze-source".  The source chroot is now named
      "source:squeeze", but a chroot with a -source suffix is still
      created for compatibility (actually now named
      "chroot:squeeze-source").  The -source suffix names will be
-     dropped in 1.5.x development releases and 1.6.x stable releases.
+     dropped in the 1.5.x development releases and 1.6.x stable
+     releases.
 
   3) Session chroots previously were in the same flat namespace as
      chroots.  Now that sessions are in a separate namespace, it is
@@ -41,13 +42,21 @@ configuration.
      For compatibility session names are also still placed in the
      "chroot:" namespace so that they still work without namespaces
      with actions such as --info (namespaces are not required for
-     session-specific actions such as --run-session).
+     session-specific actions such as --run-session).  The
+     compatibility name will be dropped in the 1.5.x development
+     releases and 1.6.x stable releases.
 
   4) The option --list, in addition to respecting the various --all
      options will now allow the use of --chroot as well.  This may be
      used to verify the existence of the specified chroots.  --list
      defaults to showing --all-chroots --all-source-chroots which is
      the effective behaviour of previous releases.
+
+  5) The key named priority in the configuration file has been
+     deprecated.  This was originally introduced for compatibility
+     with sbuild, but sbuild has never used the properly.  It will be
+     obsoleted and removed in the 1.5.x development releases and 1.6.x
+     stable releases.
 
 * Major changes in 1.4.7:
 
