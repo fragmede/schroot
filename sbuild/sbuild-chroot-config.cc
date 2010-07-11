@@ -69,10 +69,33 @@ namespace
       emap(chroot_config::NAMESPACE_NOTFOUND, N_("No such namespace"))
     };
 
-  bool chroot_alphasort (sbuild::chroot::ptr const& c1,
-			 sbuild::chroot::ptr const& c2)
+  bool
+  chroot_alphasort (sbuild::chroot::ptr const& c1,
+		    sbuild::chroot::ptr const& c2)
   {
     return c1->get_name() < c2->get_name();
+  }
+
+  void
+  get_namespace(std::string const& name,
+		std::string&       chroot_namespace,
+		std::string&       chroot_name)
+  {
+    std::string::size_type pos =
+      name.find_first_of(chroot_config::namespace_separator);
+
+    if (pos != std::string::npos) // Found namespace
+      {
+	chroot_namespace = name.substr(0, pos);
+	if (name.size() >= pos + 1)
+	  chroot_name = name.substr(pos + 1);
+      }
+    else // No namespace
+      {
+	chroot_namespace.clear();
+	chroot_name = name;
+      }
+
   }
 
 }
@@ -333,17 +356,8 @@ chroot_config::find_chroot (std::string const& name) const
   std::string chroot_namespace;
   std::string chroot_name;
 
-  std::string::size_type pos = name.find_first_of(namespace_separator);
-  if (pos != std::string::npos)
-    {
-      chroot_namespace = name.substr(0, pos);
-      if (name.size() >= pos + 1)
-	chroot_name = name.substr(pos + 1);
-    }
+  get_namespace(name, chroot_namespace, chroot_name);
 
-  log_debug(DEBUG_NOTICE) << "Looking for identified chroot " << chroot_name << " in identified namespace " << chroot_namespace << std::endl;
-
-  // TODO: Should an invalid namespace throw here?
   return find_chroot_in_namespace(chroot_namespace, chroot_name);
 }
 
@@ -354,24 +368,11 @@ chroot_config::find_chroot (std::string const& namespace_hint,
   std::string chroot_namespace(namespace_hint);
   std::string chroot_name(name);
 
+  get_namespace(name, chroot_namespace, chroot_name);
+
   if (chroot_namespace.empty())
     chroot_namespace = "chroot";
 
-  log_debug(DEBUG_NOTICE) << "Looking for chroot " << name << " with hint " << namespace_hint << std::endl;
-
-  std::string::size_type pos = name.find_first_of(namespace_separator);
-  if (pos != std::string::npos)
-    {
-      chroot_namespace = name.substr(0, pos);
-      if (name.size() >= pos + 1)
-	chroot_name = name.substr(pos + 1);
-      else
-	chroot_name = "";
-    }
-
-  log_debug(DEBUG_NOTICE) << "Looking for identified chroot " << chroot_name << " in identified namespace " << chroot_namespace << std::endl;
-
-  // TODO: Should an invalid namespace throw here?
   return find_chroot_in_namespace(chroot_namespace, chroot_name);
 }
 
@@ -401,18 +402,10 @@ chroot_config::find_alias (std::string const& namespace_hint,
   std::string chroot_namespace(namespace_hint);
   std::string alias_name(name);
 
+  get_namespace(name, chroot_namespace, alias_name);
+
   if (chroot_namespace.empty())
     chroot_namespace = "chroot";
-
-  std::string::size_type pos = name.find_first_of(namespace_separator);
-  if (pos != std::string::npos)
-    {
-      chroot_namespace = name.substr(0, pos);
-      if (name.size() >= pos + 1)
-	alias_name = name.substr(pos + 1);
-      else
-	alias_name = "";
-    }
 
   string_map::const_iterator found = this->aliases.find(chroot_namespace + namespace_separator + alias_name);
 
@@ -432,18 +425,11 @@ chroot_config::lookup_alias (std::string const& namespace_hint,
   std::string chroot_namespace(namespace_hint);
   std::string alias_name(name);
 
+
+  get_namespace(name, chroot_namespace, alias_name);
+
   if (chroot_namespace.empty())
     chroot_namespace = "chroot";
-
-  std::string::size_type pos = name.find_first_of(namespace_separator);
-  if (pos != std::string::npos)
-    {
-      chroot_namespace = name.substr(0, pos);
-      if (name.size() >= pos + 1)
-	alias_name = name.substr(pos + 1);
-      else
-	alias_name = "";
-    }
 
   string_map::const_iterator found = this->aliases.find(chroot_namespace + namespace_separator + alias_name);
 
