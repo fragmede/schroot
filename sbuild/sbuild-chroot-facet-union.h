@@ -76,6 +76,11 @@ namespace sbuild
     std::string const&
     get_name () const;
 
+    /**
+     * Set the defaults in the cloned source chroot.
+     *
+     * @param clone the chroot to set up.
+     */
     void
     clone_source_setup (chroot::ptr& clone) const;
 
@@ -141,7 +146,7 @@ namespace sbuild
     /**
      * Set the union overlay directory.
      *
-     * @returns the writeable overlay directory.
+     * @param directory the writeable overlay directory.
      */
     virtual void
     set_union_overlay_directory (std::string const& directory);
@@ -157,7 +162,7 @@ namespace sbuild
     /**
      * Set the union underlay directory.
      *
-     * @returns the writeable underlay directory.
+     * @param directory the writeable underlay directory.
      */
     virtual void
     set_union_underlay_directory (std::string const& directory);

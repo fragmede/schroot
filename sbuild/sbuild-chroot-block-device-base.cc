@@ -97,14 +97,6 @@ chroot_block_device_base::get_path () const
   return path;
 }
 
-std::string const&
-chroot_block_device_base::get_chroot_type () const
-{
-  static const std::string type("block-device");
-
-  return type;
-}
-
 void
 chroot_block_device_base::setup_env (chroot const& chroot,
 				     environment& env) const

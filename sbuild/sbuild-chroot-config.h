@@ -80,10 +80,10 @@ namespace sbuild
     /**
      * The constructor.
      *
+     * @param chroot_namespace the namespace to use for initialised
+     * configuration.
      * @param file initialise using a configuration file or a whole
      * directory containing configuration files.
-     * @param active true if the chroots in the configuration file are
-     * active sessions, otherwise false.
      */
     chroot_config (std::string const& chroot_namespace,
 		   std::string const& file);
@@ -95,10 +95,10 @@ namespace sbuild
      * Add a configuration file or directory.  The configuration file
      * or directory specified will be loaded.
      *
+     * @param chroot_namespace the namespace to use for initialised
+     * configuration.
      * @param location initialise using a configuration file or a
      * whole directory containing configuration files.
-     * @param active true if the chroots in the configuration file are
-     * active sessions, otherwise false.
      */
     void
     add (std::string const& chroot_namespace,
@@ -109,9 +109,9 @@ namespace sbuild
      * Add a configuration file.  The configuration file specified
      * will be loaded.
      *
+     * @param chroot_namespace the namespace to use for initialised
+     * configuration.
      * @param file the file to load.
-     * @param active true if the chroots in the configuration file are
-     * active sessions, otherwise false.
      */
     void
     add_config_file (std::string const& chroot_namespace,
@@ -121,9 +121,9 @@ namespace sbuild
      * Add a configuration directory.  The configuration files in the
      * directory specified will all be loaded.
      *
+     * @param chroot_namespace the namespace to use for initialised
+     * configuration.
      * @param dir the directory containing the files to load.
-     * @param active true if the chroots in the configuration file are
-     * active sessions, otherwise false.
      */
     void
     add_config_directory (std::string const& chroot_namespace,
@@ -137,7 +137,7 @@ namespace sbuild
      * of the aliases already exist, a warning will be logged, and the
      * alias will not be added.
      *
-     * @param chroot_namespace the chroot namespace
+     * @param chroot_namespace the namespace to use for the chroot.
      * @param chroot the chroot to add.
      * @param kconfig the chroot configuration.
      */
@@ -150,6 +150,7 @@ namespace sbuild
     /**
      * Get a list of available chroots.
      *
+     * @param chroot_namespace the chroot namespace to use.
      * @returns a list of available chroots.  The list will be empty
      * if no chroots are available.
      */
@@ -157,9 +158,23 @@ namespace sbuild
     get_chroots (std::string const& chroot_namespace) const;
 
   protected:
+    /**
+     * Find a chroot namespace.  If the namespace is not found, and
+     * exception will be thrown.
+     *
+     * @param chroot_namespace the chroot namespace.
+     * @returns the namespace.
+     */
     chroot_map&
     find_namespace (std::string const& chroot_namespace);
 
+    /**
+     * Find a chroot namespace.  If the namespace is not found, and
+     * exception will be thrown.
+     *
+     * @param chroot_namespace the chroot namespace.
+     * @returns the namespace.
+     */
     chroot_map const&
     find_namespace (std::string const& chroot_namespace) const;
 
@@ -167,6 +182,8 @@ namespace sbuild
     /**
      * Find a chroot by its name.
      *
+     * @param namespace_hint the namespace to use if non was
+     * explicitly specified.
      * @param name the chroot name
      * @returns the chroot if found, otherwise 0.
      */
@@ -174,6 +191,13 @@ namespace sbuild
     find_chroot (std::string const& namespace_hint,
 		 std::string const& name) const;
 
+    /**
+     * Find a chroot by its name in a specific namespace.
+     *
+     * @param chroot_namespace the namespace to search.
+     * @param name the chroot name
+     * @returns the chroot if found, otherwise 0.
+     */
     const sbuild::chroot::ptr
     find_chroot_in_namespace (std::string const& chroot_namespace,
 			      std::string const& name) const;
@@ -181,6 +205,8 @@ namespace sbuild
     /**
      * Find a chroot by its name or an alias.
      *
+     * @param namespace_hint the namespace to use if non was
+     * explicitly specified.
      * @param name the chroot name or alias.
      * @returns the chroot if found, otherwise 0.
      */
@@ -189,10 +215,12 @@ namespace sbuild
 		std::string const& name) const;
 
     /**
-     * Find a chroot by its name or an alias.
+     * Find the chroot name referred to by an alias.
      *
+     * @param namespace_hint the namespace to use if non was
+     * explicitly specified.
      * @param name the chroot name or alias.
-     * @returns the chroot if found, otherwise 0.
+     * @returns the chroot name if found, otherwise an empty string.
      */
     std::string
     lookup_alias (std::string const& namespace_hint,
@@ -202,6 +230,7 @@ namespace sbuild
      * Get the names (including aliases) of all the available chroots,
      * sorted in alphabetical order.
      *
+     * @param chroot_namespace the namespace to use.
      * @returns the list.  The list will be empty if no chroots are
      * available.
      */
@@ -212,6 +241,7 @@ namespace sbuild
      * Get the names (including aliases) of all the available chroots,
      * sorted in alphabetical order.
      *
+     * @param chroot_namespace the namespace to use.
      * @returns the list.  The list will be empty if no chroots are
      * available.
      */
@@ -219,8 +249,11 @@ namespace sbuild
     get_alias_list (std::string const& chroot_namespace) const;
 
     /**
-     * Print all the available chroots to the specified stream.
+     * Print all the available chroots to the specified stream.  If
+     * any of the specified chroots do not exist, an exception will be
+     * thrown.
      *
+     * @param chroots a list of chroots to print.
      * @param stream the stream to output to.
      */
     void
@@ -275,12 +308,14 @@ namespace sbuild
      * referenced absolutely by namespace, using chroot_namespace as a
      * namespace hint for chroots without a namespace.
      *
+     * @param namespace_hint the namespace to use if non was
+     * explicitly specified.
      * @param chroots a list of chroots to validate.
      * @returns a list of invalid chroots.  The list will be empty if
      * all chroots are valid.
      */
     string_list
-    validate_chroots (std::string const& chroot_namespace,
+    validate_chroots (std::string const& namespace_hint,
 		      string_list&       chroots) const;
 
   private:
@@ -289,9 +324,9 @@ namespace sbuild
      * configuration file, an error will be thrown.  The file must be
      * owned by root, not writable by other, and be a regular file.
      *
+     * @param chroot_namespace the namespace to use for the
+     * configuration.
      * @param file the file to load.
-     * @param active true if the chroots in the configuration file are
-     * active sessions, otherwise false.
      */
     void
     load_data (std::string const& chroot_namespace,
@@ -302,9 +337,9 @@ namespace sbuild
      * Parse a loaded configuration file.  If there are problems with
      * the configuration file, an error will be thrown.
      *
+     * @param chroot_namespace the namespace to use for the
+     * configuration.
      * @param stream the data stream to parse.
-     * @param active true if the chroots in the configuration file are
-     * active sessions, otherwise false.
      */
     virtual void
     parse_data (std::string const& chroot_namespace,
@@ -314,9 +349,9 @@ namespace sbuild
      * Load a keyfile.  If there are problems with the configuration
      * file, an error will be thrown.
      *
+     * @param chroot_namespace the namespace to use for the
+     * configuration.
      * @param kconfig the chroot configuration.
-     * @param active true if the chroots in the configuration file are
-     * active sessions, otherwise false.
      */
     virtual void
     load_keyfile (std::string const& chroot_namespace,

@@ -68,6 +68,7 @@ namespace sbuild
      * @param clone the chroot to set up.
      * @param session_id the identifier for the new session.
      * @param user the user creating the session.
+     * @param root whether or not the user is switching to root.
      */
     virtual void
     clone_session_setup (chroot::ptr&       clone,

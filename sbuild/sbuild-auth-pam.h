@@ -67,9 +67,19 @@ namespace sbuild
     virtual environment
     get_auth_environment () const;
 
+    /**
+     * Get the conversation handler.
+     *
+     * @returns a shared pointer to the conversation handler.
+     */
     auth_pam_conv::ptr&
     get_conv ();
 
+    /**
+     * Set the conversation handler.
+     *
+     * @param conv a shared pointer to the conversation handler.
+     */
     void
     set_conv (auth_pam_conv::ptr& conv);
 

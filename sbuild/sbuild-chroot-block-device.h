@@ -69,6 +69,9 @@ namespace sbuild
     virtual chroot::ptr
     clone_source () const;
 
+    std::string const&
+    get_chroot_type () const;
+
     virtual void
     setup_env (chroot const& chroot,
 	       environment& env) const;

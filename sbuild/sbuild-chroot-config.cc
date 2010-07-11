@@ -612,7 +612,7 @@ chroot_config::print_chroot_config (string_list const& chroots,
 }
 
 string_list
-chroot_config::validate_chroots (std::string const& chroot_namespace,
+chroot_config::validate_chroots (std::string const& namespace_hint,
 				 string_list&       chroots) const
 {
   string_list bad_chroots;
@@ -621,7 +621,7 @@ chroot_config::validate_chroots (std::string const& chroot_namespace,
        pos != chroots.end();
        ++pos)
     {
-      std::string chroot = lookup_alias(chroot_namespace, *pos);
+      std::string chroot = lookup_alias(namespace_hint, *pos);
       if (chroot.empty())
 	bad_chroots.push_back(*pos);
       else

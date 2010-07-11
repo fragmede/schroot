@@ -563,30 +563,68 @@ namespace sbuild
 	       int        status) = 0;
 
   public:
+    /**
+     * Get a chroot facet.  This is a templated method; use the
+     * correct type for the facet required.
+     *
+     * @returns a shared_ptr to the facet, or to NULL if the facet
+     * does not exist.
+     */
     template <typename T>
     std::tr1::shared_ptr<T>
     get_facet ();
 
+    /**
+     * Get a chroot facet.  This is a templated method; use the
+     * correct type for the facet required.
+     *
+     * @returns a shared_ptr to the facet, or to NULL if the facet
+     * does not exist.
+     */
     template <typename T>
     const std::tr1::shared_ptr<const T>
     get_facet () const;
 
+    /**
+     * Add a chroot facet.
+     *
+     * @param facet the facet to add.
+     */
     template <typename T>
     void
     add_facet (std::tr1::shared_ptr<T> facet);
 
+    /**
+     * Remove a chroot facet.  This is a templated method; use the
+     * correct type for the facet to remove.
+     */
     template <typename T>
     void
     remove_facet ();
 
+    /**
+     * Remove a chroot facet.
+     *
+     * @param facet the facet to remove.
+     */
     template <typename T>
     void
     remove_facet (std::tr1::shared_ptr<T> facet);
 
+    /**
+     * Replace an existing chroot facet with a new facet.
+     *
+     * @param facet the replacement facet.
+     */
     template <typename T>
     void
     replace_facet (std::tr1::shared_ptr<T> facet);
 
+    /**
+     * List all registered chroot facets.
+     *
+     * @returns a list of facets.
+     */
     string_list
     list_facets () const;
 
@@ -765,7 +803,9 @@ namespace sbuild
     /// The message verbosity.
     verbosity     message_verbosity;
 
+    /// A shared pointer to a chroot facet.
     typedef std::tr1::shared_ptr<chroot_facet> facet_ptr;
+    /// A list of chroot facets.
     typedef std::list<facet_ptr> facet_list;
     /// Contained chroot facets
     facet_list facets;

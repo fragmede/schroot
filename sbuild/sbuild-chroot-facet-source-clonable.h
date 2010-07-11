@@ -64,7 +64,7 @@ namespace sbuild
     get_name () const;
 
     /**
-     * Set the defaults in the cloned sourceg chroot.
+     * Set the defaults in the cloned source chroot.
      *
      * @param clone the chroot to set up.
      */
