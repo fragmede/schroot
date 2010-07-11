@@ -132,7 +132,8 @@ Print all messages.
 .BR \-c ", " \-\-chroot=\fIchroot\fP
 Specify a chroot or active session to use.  This option may be used multiple
 times to specify more than one chroot, in which case its effect is similar to
-\fI\-\-all\fP.
+\fI\-\-all\fP.  The chroot name may be prefixed with a \fInamespace\fP; see the
+section \[lq]\fIChroot Namespaces\fP\[rq], below.
 .TP
 .BR \-a ", " \-\-all
 Select all chroots, source chroots and active sessions.  When a command has
@@ -206,8 +207,9 @@ option.
 .TP
 .BR \-n ", " \-\-session\-name=\fIsession-name\fP
 Name a session.  The specified \fIsession-name\fP replaces the default session
-name containing an automatically-generated session ID.  Note that it is not
-currently possible to create a session with the same name as a chroot or alias.
+name containing an automatically-generated session ID.  The session name must
+not contain a namespace qualifier, since sessions are always created within the
+\[oq]session:\[cq] namespace.
 .TP
 .BR \-f ", " \-\-force
 Force a session operation, even if it would otherwise fail.  This may be used
@@ -235,19 +237,63 @@ permitted.  In such a situation, root must be added to the allowed users or
 groups as for any other user or group.  If PAM is not available, the root user
 will be permitted to access all chroots, even when not explicitly granted
 access.
+.SH CHROOT NAMESPACES
+.SS Namespace basics
+There are three different types of chroot: regular chroots, source chroots and
+session chroots.  These different types of chroot are separated into different
+\fInamespaces\fP.  A namespace is a prefix to a chroot name.  Currently there
+are three namespaces: \[oq]chroot:\[cq], \[oq]source:\[cq] and
+\[oq]session:\[cq].  Use \fI\-\-list \-\-all\fP to list all available chroots
+in all namespaces.  Because \[oq]:\[cq] is used as the separator between
+namespace and chroot names, it is not permitted to use this character in chroot
+names.
+.PP
+Depending upon the action you request schroot to take, it may look for the
+chroot in one of the three namespaces, or a particular namespace may be
+specified.  For example, a chroot named \[lq]sid\[rq] is actually named
+\[lq]chroot:sid\[rq] if the namespace is included, but the namespace may be
+omitted for most actions.
+.SS Source chroots
+Some chroot types, for example LVM snapshots and Btrfs snapshots, provide
+session-managed copy-on-write snapshots of the chroot.  These also provide a
+\fIsource chroot\fP to allow easy access to the filesystem used as a source for
+snapshotting.  These are regular chroots as well, just with the snapshotting
+disabled.  For a chroot named \[lq]sid\-snapshot\[rq] (i.e. with a fully
+qualified name of \[lq]chroot:sid\-snapshot\[rq]), there will also be a
+corresponding source chroot named \[lq]source:sid\-snapshot\[rq].  Earlier
+versions of schroot provided source chroots with a \[oq]\-source\[cq] suffix.
+These are also provided for compatibility.  In this example, this would be
+called \[lq]chroot:sid\-snapshot\-source\[rq].  These compatibility names will
+be dropped in a future version, so programs and scripts should switch to using
+the namespace-qualified names rather than the old suffix.
+.SS Session chroots
+All sessions created with \fI\-\-begin\-session\fP are placed within the
+\[oq]session:\[cq] namespace.  A session named with \fI\-\-session\-name\fP may
+have any name, even the same name as the chroot it was created from, providing
+that it is unique within this namespace.  This was not permitted in previous
+versions of schroot which did not have namespaces.
+.SS Actions and default namespaces
+All actions use \[oq]chroot:\[cq] as the default namespace, with some session
+actions being the exception.  \fI\-\-run\-session\fP,
+\fI\-\-recover\-session\fP and \fI\-\-end\-session\fP use \[oq]session:\[cq] as
+the default namespace instead, since these actions work on session chroots.
+The upshot is that the namespace is usually never required except when you need
+to work with a chroot in a namespace other than the default, such as when using
+a source chroot.  To make chroot selection unambiguous, it is always possible
+to use the full name including the namespace, even when not strictly required.
 .SH EXAMPLES
 .SS List available chroots
 \f[CR]%\ \f[CB]schroot \-l\fP\fP\[CR]
 .br
-\f[CR]default\fP
+\f[CR]chroot:default\fP
 .br
-\f[CR]etch\fP
+\f[CR]chroot:etch\fP
 .br
-\f[CR]sid\fP
+\f[CR]chroot:sid\fP
 .br
-\f[CR]testing\fP
+\f[CR]chroot:testing\fP
 .br
-\f[CR]unstable\fP
+\f[CR]chroot:unstable\fP
 .SS Get information about a chroot
 \f[CR]%\ \f[CB]schroot\ \-i\ \-c\ sid\fP\fP\[CR]
 .br
