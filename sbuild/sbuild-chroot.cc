@@ -104,7 +104,6 @@ error<sbuild::chroot::error_code>::error_strings
 sbuild::chroot::chroot ():
   name(),
   description(),
-  priority(0),
   users(),
   groups(),
   root_users(),
@@ -127,7 +126,6 @@ sbuild::chroot::chroot ():
 sbuild::chroot::chroot (const chroot& rhs):
   name(rhs.name),
   description(rhs.description),
-  priority(rhs.priority),
   users(rhs.users),
   groups(rhs.groups),
   root_users(rhs.root_users),
@@ -241,18 +239,6 @@ sbuild::chroot::set_mount_location (std::string const& location)
   if (!location.empty() && !is_absname(location))
     throw error(location, LOCATION_ABS);
   this->mount_location = location;
-}
-
-unsigned int
-sbuild::chroot::get_priority () const
-{
-  return this->priority;
-}
-
-void
-sbuild::chroot::set_priority (unsigned int priority)
-{
-  this->priority = priority;
 }
 
 string_list const&
@@ -599,7 +585,6 @@ sbuild::chroot::get_details (chroot const&  chroot,
   detail
     .add(_("Description"), chroot.get_description())
     .add(_("Type"), chroot.get_chroot_type())
-    .add(_("Priority"), chroot.get_priority())
     .add(_("Message Verbosity"), chroot.get_verbosity_string())
     .add(_("Users"), chroot.get_users())
     .add(_("Groups"), chroot.get_groups())
@@ -677,10 +662,6 @@ sbuild::chroot::get_keyfile (chroot const& chroot,
   keyfile::set_object_value(chroot, &chroot::get_script_config,
 			    keyfile, chroot.get_name(),
 			    "script-config");
-
-  keyfile::set_object_value(chroot, &chroot::get_priority,
-			    keyfile, chroot.get_name(),
-			    "priority");
 
   keyfile::set_object_list_value(chroot, &chroot::get_aliases,
 				 keyfile, chroot.get_name(),
@@ -799,10 +780,10 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("script-config");
 
-  keyfile::get_object_value(chroot, &chroot::set_priority,
+  keyfile::get_object_value(chroot, nullmethod,
 			    keyfile, chroot.get_name(),
 			    "priority",
-			    keyfile::PRIORITY_DEPRECATED);
+			    keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("priority");
 
   keyfile::get_object_list_value(chroot, &chroot::set_aliases,

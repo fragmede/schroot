@@ -107,7 +107,6 @@ class test_chroot : public test_chroot_base<basic_chroot>
   CPPUNIT_TEST(test_name);
   CPPUNIT_TEST(test_description);
   CPPUNIT_TEST(test_mount_location);
-  CPPUNIT_TEST(test_priority);
   CPPUNIT_TEST(test_groups);
   CPPUNIT_TEST(test_root_groups);
   CPPUNIT_TEST(test_aliases);
@@ -147,12 +146,6 @@ public:
     chroot->set_mount_location("/mnt/mount-location/example");
     CPPUNIT_ASSERT(chroot->get_mount_location() ==
 		   "/mnt/mount-location/example");
-  }
-
-  void test_priority()
-  {
-    chroot->set_priority(6);
-    CPPUNIT_ASSERT(chroot->get_priority() == 6);
   }
 
   void test_groups()

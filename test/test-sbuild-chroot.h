@@ -156,7 +156,6 @@ public:
       (chroot->get_facet<sbuild::chroot_facet_personality>());
     if (pfac)
       pfac->set_persona(sbuild::personality("undefined"));
-    chroot->set_priority(3);
 
     sbuild::chroot_facet_source_clonable::ptr usrc
       (chroot->template get_facet<sbuild::chroot_facet_source_clonable>());
@@ -185,7 +184,6 @@ public:
 			     std::string const& group)
   {
     keyfile.set_value(group, "description", "test-description");
-    keyfile.set_value(group, "priority", "3");
     keyfile.set_value(group, "aliases", "test-alias-1,test-alias-2");
     keyfile.set_value(group, "users", "user1,user2");
     keyfile.set_value(group, "root-users", "user3,user4");

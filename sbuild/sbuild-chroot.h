@@ -215,27 +215,6 @@ namespace sbuild
     get_path () const = 0;
 
     /**
-     * Get the priority of the chroot.  This is a number indicating
-     * whether than a ditribution is older than another.
-     *
-     * @returns the priority.
-     */
-    unsigned int
-    get_priority () const;
-
-    /**
-     * Set the priority of a chroot.  This is a number indicating
-     * whether a distribution is older than another.  For example,
-     * "oldstable" and "oldstable-security" might be 0, while "stable"
-     * and "stable-security" 1, "testing" 2 and "unstable" 3.  The
-     * values are not important, but the difference between them is.
-     *
-     * @param priority the priority.
-     */
-    void
-    set_priority (unsigned int priority);
-
-    /**
      * Get the users allowed to access the chroot.
      *
      * @returns a list of users.
@@ -782,8 +761,6 @@ namespace sbuild
     std::string   name;
     /// Chroot description.
     std::string   description;
-    /// Chroot priority.
-    unsigned int  priority;
     /// Users allowed to access the chroot.
     string_list   users;
     /// Groups allowed to access the chroot.
