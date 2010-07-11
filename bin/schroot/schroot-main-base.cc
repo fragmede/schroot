@@ -268,12 +268,12 @@ main_base::run_impl ()
 	}
     }
   this->chroot_objects.clear();
-    sbuild::session::chroot_list chroots;
   for(sbuild::string_list::const_iterator pos = this->chroots.begin();
       pos != this->chroots.end();
       ++pos)
     {
-      sbuild::chroot::ptr c = this->config->find_chroot(*pos);
+      std::cerr << "LOOKUP: " << *pos << std::endl;
+      sbuild::chroot::ptr c = this->config->find_alias("", *pos);
       if (c)
 	chroot_objects.push_back(c);
       else
