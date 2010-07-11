@@ -35,11 +35,22 @@ sbuild.log: sbuild.dox $(top_srcdir)/configure
 	$(RM) -rf sbuild/html
 	$(DOXYGEN) sbuild.dox
 	touch $@
+	@UNDOCUMENTED=$$(cat $@); \
+	if [ -n "$$UNDOCUMENTED" ]; then \
+	  echo "---------- UNDOCUMENTED CODE ----------"; \
+	  echo "$$UNDOCUMENTED"; \
+	fi
 
 schroot.log: sbuild.log schroot.dox $(top_srcdir)/configure
 	$(RM) -rf schroot/html
 	$(DOXYGEN) schroot.dox
 	touch $@
+	touch $@
+	@UNDOCUMENTED=$$(cat $@); \
+	if [ -n "$$UNDOCUMENTED" ]; then \
+	  echo "---------- UNDOCUMENTED CODE ----------"; \
+	  echo "$$UNDOCUMENTED"; \
+	fi
 
 PS_DEPS = \
 	$(top_builddir)/man/schroot.1			\
