@@ -27,6 +27,9 @@
 #include <string>
 #include <vector>
 
+/**
+ * Debian source builder components
+ */
 namespace sbuild
 {
 

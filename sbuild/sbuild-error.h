@@ -217,7 +217,7 @@ namespace sbuild
      * @returns a translated error message.
      */
     template <typename A, typename B, typename C,
-		typename R, typename D, typename E, typename F>
+	      typename R, typename D, typename E, typename F>
     static std::string
     format_reason (A const&   context1,
 		   B const&   context2,

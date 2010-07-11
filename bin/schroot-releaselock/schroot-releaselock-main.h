@@ -25,6 +25,9 @@
 
 #include <sbuild/sbuild-custom-error.h>
 
+/**
+ * schroot-releaselock program components
+ */
 namespace schroot_releaselock
 {
 

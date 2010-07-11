@@ -27,6 +27,7 @@
 namespace sbuild
 {
 
+  /// Error codes.
   enum ctty_error_code
     {
       /// The controlling terminal close-on-execute flag could not be
@@ -37,6 +38,7 @@ namespace sbuild
       CTTY_DUP
     };
 
+  /// Exception type.
   typedef parse_error<ctty_error_code> ctty_error;
 
   /**

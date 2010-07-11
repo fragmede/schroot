@@ -40,10 +40,10 @@ namespace dchroot
     /**
      * The constructor.
      *
+     * @param chroot_namespace the namespace to use for initialised
+     * configuration.
      * @param file initialise using a configuration file or a whole
      * directory containing configuration files.
-     * @param active true if the chroots in the configuration file are
-     * active sessions, otherwise false.
      */
     chroot_config (std::string const& chroot_namespace,
 		   std::string const& file);

@@ -21,6 +21,9 @@
 
 #include <dchroot/dchroot-main-base.h>
 
+/**
+ * dchroot-dsa program components.
+ */
 namespace dchroot_dsa
 {
 

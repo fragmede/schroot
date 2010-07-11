@@ -28,11 +28,13 @@
 namespace sbuild
 {
 
+  /// Error codes.
   enum parse_value_error_code
     {
       BAD_VALUE ///< The value could not be parsed.
     };
 
+  /// Exception type.
   typedef parse_error<parse_value_error_code> parse_value_error;
 
   /**

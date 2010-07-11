@@ -51,6 +51,7 @@ namespace schroot_base
   public:
     /// A shared_ptr to an options object.
     typedef std::tr1::shared_ptr<options> ptr;
+    /// Program action.
     typedef option_action::action_type action_type;
 
     /// The constructor.

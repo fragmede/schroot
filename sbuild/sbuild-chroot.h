@@ -53,7 +53,7 @@ namespace sbuild
 	SETUP_STOP     ///< Deactivate a chroot.
       };
 
-    /// Chroot session properties
+    /// Chroot session properties.
     enum session_flags
       {
 	SESSION_NOFLAGS = 0,      ///< No flags are set.
@@ -62,7 +62,7 @@ namespace sbuild
 	SESSION_PURGE   = 1 << 2  ///< The chroot should be purged.
       };
 
-    /// Message verbosity
+    /// Message verbosity.
     enum verbosity
       {
 	VERBOSITY_QUIET,  ///< Only print essential messages.
@@ -446,15 +446,15 @@ namespace sbuild
     /**
      * Get the message verbosity.
      *
-     * Returns the verbosity level.
+     * @returns the verbosity level.
      */
     verbosity
     get_verbosity () const;
 
     /**
-     * Get the message verbosity.
+     * Get the message verbosity as a readable string.
      *
-     * Returns the verbosity level.
+     * @returns the verbosity level as a readable string.
      */
     const char *
     get_verbosity_string () const;
@@ -666,6 +666,10 @@ namespace sbuild
 
     /**
      * Chroot initialisation from a keyfile.
+     *
+     * @param keyfile the keyfile to get the properties from.
+     * @param rhs the chroot to output.
+     * @returns the keyfile.
      */
     friend
     keyfile const&
@@ -680,6 +684,10 @@ namespace sbuild
 
     /**
      * Chroot serialisation to a keyfile.
+     *
+     * @param keyfile the keyfile to use.
+     * @param rhs the chroot to output.
+     * @returns the keyfile.
      */
     friend
     keyfile&
