@@ -681,33 +681,74 @@ namespace sbuild
   class passwd : public ::passwd
   {
   public:
+    /// A buffer for reentrant passwd functions.
     typedef std::vector<char> buffer_type;
 
+    /// The contructor.
     passwd ();
 
+    /**
+     * The constructor.
+     *
+     * @param uid the UID to search for.
+     */
     passwd (uid_t uid);
 
+    /**
+     * The constructor.
+     *
+     * @param name the user name to search for.
+     */
     passwd (const char *name);
 
+    /**
+     * The constructor.
+     *
+     * @param name the user name to search for.
+     */
     passwd (std::string const& name);
 
+    /**
+     * Clear search result.  The query result is undefined following
+     * this operation.
+     */
     void
     clear ();
 
+    /**
+     * Query using a UID.
+     *
+     * @param uid the UID to search for.
+     */
     void
     query_uid (uid_t uid);
 
+    /**
+     * Query using a name.
+     *
+     * @param name the user name to search for.
+     */
     void
     query_name (const char *name);
 
+    /**
+     * Query using a name.
+     *
+     * @param name the user name to search for.
+     */
     void
     query_name (std::string const& name);
 
+    /**
+     * Check if the query result is valid.
+     */
     bool
     operator ! () const;
 
   private:
+    /// Query result buffer.
     buffer_type buffer;
+    /// Object validity.
     bool        valid;
   };
 
@@ -717,33 +758,74 @@ namespace sbuild
   class group : public ::group
   {
   public:
+    /// A buffer for reentrant group functions.
     typedef std::vector<char> buffer_type;
 
+    /// The constructor.
     group ();
 
+    /**
+     * The constructor.
+     *
+     * @param gid the GID to search for.
+     */
     group (gid_t gid);
 
+    /**
+     * The constructor.
+     *
+     * @param name the group name to search for.
+     */
     group (const char *name);
 
+    /**
+     * The constructor.
+     *
+     * @param name the group name to search for.
+     */
     group (std::string const& name);
 
+    /**
+     * Clear search result.  The query result is undefined following
+     * this operation.
+     */
     void
     clear ();
 
+    /**
+     * Query using a GID.
+     *
+     * @param gid the GID to search for.
+     */
     void
     query_gid (gid_t gid);
 
+    /**
+     * Query using a name.
+     *
+     * @param name the group name to search for.
+     */
     void
     query_name (const char *name);
 
+    /**
+     * Query using a name.
+     *
+     * @param name the group name to search for.
+     */
     void
     query_name (std::string const& name);
 
+    /**
+     * Check if the query result is valid.
+     */
     bool
     operator ! () const;
 
   private:
+    /// Query result buffer.
     buffer_type buffer;
+    /// Object validity.
     bool        valid;
   };
 

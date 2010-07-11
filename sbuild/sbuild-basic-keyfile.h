@@ -38,7 +38,7 @@
 namespace sbuild
 {
   /**
-   *
+   * Basic keyfile parser template
    */
   template <typename K>
   class basic_keyfile_parser

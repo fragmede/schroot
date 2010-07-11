@@ -50,6 +50,11 @@ namespace sbuild
     /// The constructor.
     chroot_facet(): owner(0) {};
 
+    /**
+     * Set containing chroot.
+     *
+     * @param chroot the chroot containing this facet.
+     */
     void
     set_chroot(chroot& chroot)
     {

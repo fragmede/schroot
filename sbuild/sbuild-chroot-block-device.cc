@@ -190,6 +190,14 @@ chroot_block_device::setup_lock (chroot::setup_type type,
     }
 }
 
+std::string const&
+chroot_block_device::get_chroot_type () const
+{
+  static const std::string type("block-device");
+
+  return type;
+}
+
 sbuild::chroot::session_flags
 chroot_block_device::get_session_flags (chroot const& chroot) const
 {

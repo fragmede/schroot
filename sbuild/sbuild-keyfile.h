@@ -46,6 +46,9 @@ namespace sbuild
     typedef unsigned int size_type;
   };
 
+  /**
+   * Keyfile parser template
+   */
   template <typename K>
   class keyfile_parser : public basic_keyfile_parser<K>
   {
