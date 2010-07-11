@@ -212,24 +212,6 @@ chroot_config::add (std::string const& chroot_namespace,
       chroots.insert(std::make_pair(name, chroot));
       this->aliases.insert(std::make_pair(fullname, fullname));
 
-      // If a source chroot, add -source compatibility alias.
-      if (chroot_namespace == "source")
-	{
-	  std::string source_alias = std::string("chroot") +
-	    namespace_separator + chroot->get_name() + "-source";
-	  if (this->aliases.find(source_alias) == this->aliases.end())
-	    this->aliases.insert(std::make_pair(source_alias, fullname));
-	}
-
-      // If a session chroot, add compatibility alias.
-      if (chroot_namespace == "session")
-	{
-	  std::string session_alias = std::string("chroot") +
-	    namespace_separator + chroot->get_name();
-	  if (this->aliases.find(session_alias) == this->aliases.end())
-	    this->aliases.insert(std::make_pair(session_alias, fullname));
-	}
-
       // Set up aliases.
       string_list const& aliases = chroot->get_aliases();
       for (string_list::const_iterator pos = aliases.begin();
