@@ -36,6 +36,7 @@ namespace schroot_base
   class option_action
   {
   public:
+    /// Program action.
     typedef std::string action_type;
 
     /// The constructor.
@@ -52,7 +53,7 @@ namespace schroot_base
     void
     add (action_type const& action);
 
-    /*
+    /**
      * Get the default action.
      * @returns the default action, or an empty string if no default
      * action has been set.
@@ -67,7 +68,7 @@ namespace schroot_base
     void
     set_default (action_type const& action);
 
-    /*
+    /**
      * Get the action to perform.
      * @returns the action, or the default action if no action has
      * been set, or an empty string if no default action has been set.
@@ -93,12 +94,24 @@ namespace schroot_base
     bool
     valid (action_type const& action);
 
+    /**
+     * Set an action.
+     *
+     * @param action the action to set.
+     * @returns the option_action object.
+     */
     option_action& operator = (action_type const& action)
     {
       set(action);
       return *this;
     }
 
+    /**
+     * Does the option_action contain the same action as the specified action?
+     *
+     * @param action the action to check.
+     * @returns true if the same, otherwise false.
+     */
     bool operator == (action_type const& action)
     {
       if (get() == action)
@@ -107,6 +120,13 @@ namespace schroot_base
 	return false;
     }
 
+    /**
+     * Does the option_action not contain the same action as the
+     * specified action?
+     *
+     * @param action the action to check.
+     * @returns true if different, otherwise false.
+     */
     bool operator != (action_type const& action)
     {
       return !(*this == action);

@@ -21,6 +21,9 @@
 
 #include <dchroot/dchroot-main-base.h>
 
+/**
+ * dchroot program components.
+ */
 namespace dchroot
 {
 

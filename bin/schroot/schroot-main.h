@@ -22,6 +22,9 @@
 #include <schroot/schroot-main-base.h>
 #include <schroot/schroot-options-base.h>
 
+/**
+ * schroot program components.
+ */
 namespace schroot
 {
 

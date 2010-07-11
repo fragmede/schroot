@@ -25,6 +25,9 @@
 
 #include <sbuild/sbuild-custom-error.h>
 
+/**
+ * schroot-listmounts program components
+ */
 namespace schroot_listmounts
 {
 

@@ -25,6 +25,9 @@
 
 #include <sbuild/sbuild-custom-error.h>
 
+/**
+ * schroot-mount program components
+ */
 namespace schroot_mount
 {
 

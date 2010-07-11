@@ -60,6 +60,7 @@ namespace sbuild
      * hard-coded constant string literal for safety and security.
      * This is passed to pam_start() when initialising PAM, and is
      * used to load the correct configuration file from /etc/pam.d.
+     * @returns a shared pointer to the created object.
      */
     static auth::ptr
     create (std::string const& service_name);

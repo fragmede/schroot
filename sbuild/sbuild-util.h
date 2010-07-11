@@ -160,7 +160,17 @@ namespace sbuild
     return ret;
   }
 
-  // template
+  /**
+   * Split a string into a string_list.  The string is split using
+   * separator as a delimiter.  Multiple delimiters, or delimiters at
+   * the start of the start or end of the string will be discarded and
+   * not result in empty strings being returned (see
+   * split_string_strict).
+   *
+   * @param value the string to split.
+   * @param separator the delimiting character or characters.
+   * @returns a string_list.
+   */
   std::vector<std::string>
   split_string (std::string const& value,
 		std::string const& separator);
@@ -170,7 +180,7 @@ namespace sbuild
    * separator as a delimiter.  All delimiters are used as string
    * separators, so delimiters at the beginning or end of a string, or
    * which are concatenated together, will result in empty strings in
-   * the string list.
+   * the string list (use split_string to avoid this).
    *
    * @param value the string to split.
    * @param separator the delimiting character or characters.
@@ -209,7 +219,17 @@ namespace sbuild
     return ret;
   }
 
-  // template
+  /**
+   * Split a string into a string_list.  The string is split using
+   * separator as a delimiter.  All delimiters are used as string
+   * separators, so delimiters at the beginning or end of a string, or
+   * which are concatenated together, will result in empty strings in
+   * the string list.
+   *
+   * @param value the string to split.
+   * @param separator the delimiting character or characters.
+   * @returns a string_list.
+   */
   std::vector<std::string>
   split_string_strict (std::string const& value,
 		       std::string const& separator);
@@ -261,6 +281,7 @@ namespace sbuild
    * should be freed as a whole with strv_delete.
    *
    * @param str the string_list to use.
+   * @returns a string vector.
    */
   char **
   string_list_to_strv (string_list const& str);

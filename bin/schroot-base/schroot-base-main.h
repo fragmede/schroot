@@ -23,6 +23,13 @@
 
 #include <string>
 
+/**
+ * schroot generic program components.
+ *
+ * Common infrastructure used by all programs.  This includes options
+ * parsing and common options, top-level error handling and a generic
+ * method for program instantiation.
+ */
 namespace schroot_base
 {
 

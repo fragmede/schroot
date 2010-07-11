@@ -76,6 +76,7 @@ namespace sbuild
      *
      * @param auth The authentication object this conversation handler
      * will be associated with.
+     * @returns a shared pointer to the created object.
      */
     static ptr
     create (auth_ptr auth);
