@@ -137,7 +137,7 @@ chroot_block_device_base::get_keyfile (chroot const& chroot,
   chroot::get_keyfile(chroot, keyfile);
 
   keyfile::set_object_value(*this, &chroot_block_device_base::get_device,
-			    keyfile, get_keyfile_name(), "device");
+			    keyfile, get_name(), "device");
 }
 
 void
@@ -148,7 +148,7 @@ chroot_block_device_base::set_keyfile (chroot&        chroot,
   chroot::set_keyfile(chroot, keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_block_device_base::set_device,
-			    keyfile, get_keyfile_name(), "device",
+			    keyfile, get_name(), "device",
 			    keyfile::PRIORITY_REQUIRED);
   used_keys.push_back("device");
 }

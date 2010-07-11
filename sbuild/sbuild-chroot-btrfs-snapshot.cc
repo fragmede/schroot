@@ -211,19 +211,19 @@ chroot_btrfs_snapshot::get_keyfile (chroot const& chroot,
   if (!session)
     keyfile::set_object_value(*this,
 			      &chroot_btrfs_snapshot::get_source_subvolume,
-			      keyfile, get_keyfile_name(),
+			      keyfile, get_name(),
 			      "btrfs-source-subvolume");
 
   if (!session)
     keyfile::set_object_value(*this,
 			      &chroot_btrfs_snapshot::get_snapshot_directory,
-			      keyfile, get_keyfile_name(),
+			      keyfile, get_name(),
 			      "btrfs-snapshot-directory");
 
   if (session)
     keyfile::set_object_value(*this,
 			      &chroot_btrfs_snapshot::get_snapshot_name,
-			      keyfile, get_keyfile_name(),
+			      keyfile, get_name(),
 			      "btrfs-snapshot-name");
 }
 
@@ -237,7 +237,7 @@ chroot_btrfs_snapshot::set_keyfile (chroot&        chroot,
   bool session = static_cast<bool>(get_facet<chroot_facet_session>());
 
   keyfile::get_object_value(*this, &chroot_btrfs_snapshot::set_source_subvolume,
-			    keyfile, get_keyfile_name(), "btrfs-source-subvolume",
+			    keyfile, get_name(), "btrfs-source-subvolume",
 			    session ?
 			    keyfile::PRIORITY_DISALLOWED :
 			    keyfile::PRIORITY_REQUIRED
@@ -245,7 +245,7 @@ chroot_btrfs_snapshot::set_keyfile (chroot&        chroot,
   used_keys.push_back("btrfs-source-subvolume");
 
   keyfile::get_object_value(*this, &chroot_btrfs_snapshot::set_snapshot_directory,
-			    keyfile, get_keyfile_name(), "btrfs-snapshot-directory",
+			    keyfile, get_name(), "btrfs-snapshot-directory",
 			    session ?
 			    keyfile::PRIORITY_DISALLOWED :
 			    keyfile::PRIORITY_REQUIRED
@@ -253,7 +253,7 @@ chroot_btrfs_snapshot::set_keyfile (chroot&        chroot,
   used_keys.push_back("btrfs-snapshot-directory");
 
   keyfile::get_object_value(*this, &chroot_btrfs_snapshot::set_snapshot_name,
-			    keyfile, get_keyfile_name(), "btrfs-snapshot-name",
+			    keyfile, get_name(), "btrfs-snapshot-name",
 			    session ?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_DISALLOWED);

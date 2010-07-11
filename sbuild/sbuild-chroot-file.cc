@@ -229,15 +229,15 @@ chroot_file::get_keyfile (chroot const& chroot,
   bool session = static_cast<bool>(get_facet<chroot_facet_session>());
 
   keyfile::set_object_value(*this, &chroot_file::get_file,
-			    keyfile, get_keyfile_name(), "file");
+			    keyfile, get_name(), "file");
 
   keyfile::set_object_value(*this, &chroot_file::get_location,
-			    keyfile, chroot.get_keyfile_name(),
+			    keyfile, chroot.get_name(),
 			    "location");
 
   if (session)
     keyfile::set_object_value(*this, &chroot_file::get_file_repack,
-			      keyfile, get_keyfile_name(), "file-repack");
+			      keyfile, get_name(), "file-repack");
 }
 
 void
@@ -250,18 +250,18 @@ chroot_file::set_keyfile (chroot&        chroot,
   bool session = static_cast<bool>(get_facet<chroot_facet_session>());
 
   keyfile::get_object_value(*this, &chroot_file::set_file,
-			    keyfile, get_keyfile_name(), "file",
+			    keyfile, get_name(), "file",
 			    keyfile::PRIORITY_REQUIRED);
   used_keys.push_back("file");
 
   keyfile::get_object_value(*this, &chroot_file::set_location,
-			    keyfile, chroot.get_keyfile_name(),
+			    keyfile, chroot.get_name(),
 			    "location",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("location");
 
   keyfile::get_object_value(*this, &chroot_file::set_file_repack,
-			    keyfile, get_keyfile_name(), "file-repack",
+			    keyfile, get_name(), "file-repack",
 			    session ?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_DISALLOWED);

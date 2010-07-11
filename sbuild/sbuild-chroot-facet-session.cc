@@ -84,8 +84,8 @@ chroot_facet_session::get_details (chroot const&  chroot,
 				   format_detail& detail) const
 {
   /// @todo: Replace base chroot session ID with local ID.
-  if (!chroot.get_session_id().empty())
-    detail.add(_("Session ID"), chroot.get_session_id());
+  if (!chroot.get_name().empty())
+    detail.add(_("Session ID"), chroot.get_name());
 }
 
 void
@@ -108,31 +108,31 @@ chroot_facet_session::set_keyfile (chroot&        chroot,
   // sessions which have set this parameter (even though it's
   // useless).
   keyfile::get_object_value(*this, nullmethod,
-			    keyfile, chroot.get_keyfile_name(),
+			    keyfile, chroot.get_name(),
 			    "active",
 			    keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("active");
 
   keyfile::get_object_list_value(*this, nullvmethod,
-				 keyfile, chroot.get_keyfile_name(),
+				 keyfile, chroot.get_name(),
 				 "source-users",
 				 keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("source-users");
 
   keyfile::get_object_list_value(*this, nullvmethod,
-				 keyfile, chroot.get_keyfile_name(),
+				 keyfile, chroot.get_name(),
 				 "source-groups",
 				 keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("source-groups");
 
   keyfile::get_object_list_value(*this, nullvmethod,
-				 keyfile, chroot.get_keyfile_name(),
+				 keyfile, chroot.get_name(),
 				 "source-root-users",
 				 keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("source-root-users");
 
   keyfile::get_object_list_value(*this, nullvmethod,
-				 keyfile, chroot.get_keyfile_name(),
+				 keyfile, chroot.get_name(),
 				 "source-root-groups",
 				 keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("source-root-groups");

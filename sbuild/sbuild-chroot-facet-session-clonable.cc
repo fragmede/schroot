@@ -86,8 +86,8 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
   // Disable session, delete aliases.
   assert(clone->get_facet<chroot_facet_session>());
 
-  clone->set_session_id(session_id);
-  assert(clone->get_session_id() == session_id);
+  clone->set_name(session_id);
+  assert(clone->get_name() == session_id);
   clone->set_description
     (clone->get_description() + ' ' + _("(session chroot)"));
 
@@ -108,6 +108,7 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
     }
   clone->set_groups(empty_list);
   clone->set_root_groups(empty_list);
+  clone->set_aliases(empty_list);
 
   log_debug(DEBUG_INFO)
     << format("Cloned session %1%")
@@ -139,7 +140,7 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
   if (snapshot && !snapshot->get_device().empty())
     {
       std::string device(dirname(snapshot->get_device()));
-      device += "/" + clone->get_session_id();
+      device += "/" + clone->get_name();
       snapshot->set_snapshot_device(device);
     }
 #endif // SBUILD_FEATURE_LVMSNAP
@@ -150,7 +151,7 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
   if (btrfs_snapshot && !btrfs_snapshot->get_snapshot_directory().empty())
     {
       std::string snapname(btrfs_snapshot->get_snapshot_directory());
-      snapname += "/" + clone->get_session_id();
+      snapname += "/" + clone->get_name();
       btrfs_snapshot->set_snapshot_name(snapname);
     }
 #endif // SBUILD_FEATURE_BTRFSSNAP
@@ -162,11 +163,11 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
   if (puni)
     {
       std::string overlay = puni->get_union_overlay_directory();
-      overlay += "/" + clone->get_session_id();
+      overlay += "/" + clone->get_name();
       puni->set_union_overlay_directory(overlay);
 
       std::string underlay = puni->get_union_underlay_directory();
-      underlay += "/" + clone->get_session_id();
+      underlay += "/" + clone->get_name();
       puni->set_union_underlay_directory(underlay);
     }
 #endif // SBUILD_FEATURE_UNION
