@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-07-11 12:35+0100\n"
+"POT-Creation-Date: 2010-07-11 13:12+0100\n"
 "PO-Revision-Date: 2010-07-06 15:37+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -17,87 +17,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. TRANSLATORS: %1% = file
-#: bin/csbuild/csbuild-debian-changes.cc:44 sbuild/sbuild-keyfile-base.cc:41
 #, boost-format
 msgid "Can't open file '%1%'"
 msgstr "无法打开文件“%1%”"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:47
 #, boost-format
 msgid "line %1%: Deprecated key '%4%' used"
 msgstr "%1% 行：使用了废弃的密钥“%4%”"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:49
 #, boost-format
 msgid "Deprecated key '%4%' used"
 msgstr "使用了废弃的密钥“%4%”"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:52
 #, boost-format
 msgid "line %1%: Disallowed key '%4%' used"
 msgstr "%1% 行：使用了不允许的密钥“%4%”"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:54
 #, boost-format
 msgid "Disallowed key '%4%' used"
 msgstr "使用了不允许的密钥“%4%”"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:57
 #, boost-format
 msgid "line %1%: Duplicate key '%4%'"
 msgstr "行 %1%: 复制密钥“%4%”"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = line contents as read from the configuration file
-#: bin/csbuild/csbuild-debian-changes.cc:60 sbuild/sbuild-keyfile-base.cc:76
 #, boost-format
 msgid "line %1%: Invalid line: \"%4%\""
 msgstr "行 %1%: 无效行: “%4%”"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:63
 #, boost-format
 msgid "line %1%: Required key '%4%' is missing"
 msgstr "行 %1%: 未找到所需的密钥“%4%”"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:65
 #, boost-format
 msgid "Required key '%4%' is missing"
 msgstr "未找到所需的密钥“%4%”"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = line contents as read from the configuration file
-#: bin/csbuild/csbuild-debian-changes.cc:68 sbuild/sbuild-keyfile-base.cc:93
 #, boost-format
 msgid "line %1%: No key specified: \"%4%\""
 msgstr "行 %1%: 未指定密钥: “%4%”"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:71
 #, boost-format
 msgid "line %1%: Obsolete key '%4%' used"
 msgstr "行 %1%: 使用了废弃的密钥“%4%”"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#: bin/csbuild/csbuild-debian-changes.cc:73
 #, boost-format
 msgid "Obsolete key '%4%' used"
 msgstr "使用了废弃的密钥“%4%”"
 
 #. TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
 #. TRANSLATORS: %4% = additional details
-#: bin/csbuild/csbuild-debian-changes.cc:76
 #, boost-format
 msgid "%2%: %4%"
 msgstr "%2%: %4%"
@@ -105,247 +92,181 @@ msgstr "%2%: %4%"
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %3% = key name ("keyname=value" in configuration file)
 #. TRANSLATORS: %4% = additional details
-#: bin/csbuild/csbuild-debian-changes.cc:80
 #, boost-format
 msgid "line %1%: %3%: %4%"
 msgstr "行 %1%: %3%: %4%"
 
-#: bin/csbuild/csbuild-debian-changes.cc:279
-#: bin/csbuild/csbuild-debian-changes.cc:285
 msgid "This option will be removed in the future"
 msgstr "此选项将来会被删除"
 
-#: bin/csbuild/csbuild-debian-changes.cc:295
-#: bin/csbuild/csbuild-debian-changes.cc:301
-#: sbuild/sbuild-basic-keyfile.tcc:476 sbuild/sbuild-basic-keyfile.tcc:482
 msgid "This option has been removed, and no longer has any effect"
 msgstr "此选项已经被删除，不再有任何影响"
 
-#: bin/csbuild/csbuild-main.cc:55
-#: bin/schroot-releaselock/schroot-releaselock-main.cc:54
-#: sbuild/sbuild-chroot.cc:77
 msgid "File is not a block device"
 msgstr "文件不是一个块设备"
 
 #. TRANSLATORS: %4% = integer process ID
-#: bin/csbuild/csbuild-main.cc:57
-#: bin/schroot-releaselock/schroot-releaselock-main.cc:56
 #, boost-format
 msgid "Failed to release device lock (lock held by PID %4%)"
 msgstr "无法释放设备锁(进程号为 %4% 的程序拥有锁权)"
 
-#: bin/csbuild/csbuild-main.cc:58
-#: bin/schroot-releaselock/schroot-releaselock-main.cc:57
 msgid "Failed to release device lock"
 msgstr "无法释放设备锁"
 
-#: bin/csbuild/csbuild-main.cc:59
-#: bin/schroot-releaselock/schroot-releaselock-main.cc:58
 msgid "Failed to stat device"
 msgstr "无法获取设备状态"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#: bin/csbuild/csbuild-main.cc:74
 msgid "[OPTION...] - build Debian packages from source"
 msgstr "[选项...] - 从源码构建 Debian 包"
 
-#: bin/csbuild/csbuild-options.cc:73
 msgid "Build options"
 msgstr "构建选项"
 
-#: bin/csbuild/csbuild-options.cc:74
 msgid "Package version options"
 msgstr "软件包版本选项"
 
-#: bin/csbuild/csbuild-options.cc:75
 msgid "Build environment options"
 msgstr "构建环境选项"
 
-#: bin/csbuild/csbuild-options.cc:76
 msgid "User options"
 msgstr "用户选项"
 
-#: bin/csbuild/csbuild-options.cc:77
 msgid "Build dependency override options"
 msgstr "构建依赖覆盖选项"
 
-#: bin/csbuild/csbuild-options.cc:78
 msgid "Special options"
 msgstr "特殊选项"
 
-#: bin/csbuild/csbuild-options.cc:97
 msgid "Build source packages (default)"
 msgstr "构建源码包(默认)"
 
-#: bin/csbuild/csbuild-options.cc:100
 msgid "Don't log program output"
 msgstr "不要记录程序输出"
 
-#: bin/csbuild/csbuild-options.cc:101
 msgid "Run in batch mode"
 msgstr "以批处理模式运行"
 
-#: bin/csbuild/csbuild-options.cc:105
 msgid "dpkg-buildpackage option"
 msgstr "dpkg-buildpackage 选项"
 
-#: bin/csbuild/csbuild-options.cc:107
 msgid "dpkg-buildpackage options (space-separated)"
 msgstr "dpkg-buildpackage 选项(空格分隔)"
 
-#: bin/csbuild/csbuild-options.cc:109
 msgid "Distribution to build for"
 msgstr "要构建的发行版"
 
-#: bin/csbuild/csbuild-options.cc:111
 msgid "Archive to build for"
 msgstr "要构建的存档版"
 
-#: bin/csbuild/csbuild-options.cc:113
 msgid "Build architecture"
 msgstr "构建架构"
 
-#: bin/csbuild/csbuild-options.cc:115
 msgid "Build architecture \"all\" packages"
 msgstr "构建“所有”架构的包"
 
-#: bin/csbuild/csbuild-options.cc:117
 msgid "Build a source package"
 msgstr "构建一个源码包"
 
-#: bin/csbuild/csbuild-options.cc:119
 msgid "Force building of a source package, irrespective of Debian version"
 msgstr "强制构建一个源码包，无视Debian 版本"
 
-#: bin/csbuild/csbuild-options.cc:123
 msgid "Make a binary non-maintainer upload (changelog entry)"
 msgstr "制作一个二进制非维护者上传(changelog 记录)"
 
-#: bin/csbuild/csbuild-options.cc:125
 msgid "Make a binary non-maintainer upload (binNMU number)"
 msgstr "制作一个二进制非维护者上传(binNMU 号)"
 
-#: bin/csbuild/csbuild-options.cc:127
 msgid "Append version suffix"
 msgstr "添加版本后缀"
 
-#: bin/csbuild/csbuild-options.cc:130
 msgid "Update chroot environment"
 msgstr "更新chroot 环境变量"
 
-#: bin/csbuild/csbuild-options.cc:132
 msgid "Chroot environment to build in"
 msgstr "用以构建的chroot 环境变量"
 
-#: bin/csbuild/csbuild-options.cc:134
 msgid "Purge build mode"
 msgstr "清除构建环境"
 
-#: bin/csbuild/csbuild-options.cc:136
 msgid "Purge dependencies mode"
 msgstr "清除依赖性关系"
 
-#: bin/csbuild/csbuild-options.cc:138
 msgid "Run setup hook script in chroot prior to building"
 msgstr "chroot 中在构建之前运行设置脚本"
 
-#: bin/csbuild/csbuild-options.cc:142
 msgid "GPG key identifier"
 msgstr "GPG 密钥识别符"
 
-#: bin/csbuild/csbuild-options.cc:144
 msgid "Package maintainer"
 msgstr "包维护者"
 
-#: bin/csbuild/csbuild-options.cc:146
 msgid "Package uploader"
 msgstr "包上传者"
 
-#: bin/csbuild/csbuild-options.cc:150
 msgid "Add a build dependency"
 msgstr "添加构建依赖性"
 
-#: bin/csbuild/csbuild-options.cc:152
 msgid "Add a build conflict"
 msgstr "添加构建冲突"
 
-#: bin/csbuild/csbuild-options.cc:154
 msgid "Add an architecture-independent build dependency"
 msgstr "添加架构无关的构建依赖性"
 
-#: bin/csbuild/csbuild-options.cc:156
 msgid "Add an architecture-independent build conflict"
 msgstr "添加架构无关的构建冲突"
 
-#: bin/csbuild/csbuild-options.cc:160
 msgid "Specify algorithm for dependency checking"
 msgstr "指定检查依赖性的算法"
 
-#: bin/csbuild/csbuild-options.cc:162
 msgid "Build using the current GCC development snapshot"
 msgstr "用当前 GCC 开发快照构建"
 
-#: bin/csbuild/csbuild-options.cc:166
 msgid "Package to build"
 msgstr "要构建的包"
 
-#: bin/csbuild/csbuild-options.cc:228
 msgid "--makebinNMU missing"
 msgstr "缺少 --makebinNMU"
 
-#: bin/csbuild/csbuild-options.cc:235
 msgid "--binNMU missing"
 msgstr "缺少 --binNMU"
 
 #. TRANSLATORS: %1% = chroot name
-#: bin/dchroot-dsa/dchroot-dsa-chroot-config.cc:115
 #, boost-format
 msgid "%1% chroot (dchroot-dsa compatibility)"
 msgstr "chroot %1% (dchroot-dsa 兼容性)"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
-#: bin/dchroot-dsa/dchroot-dsa-main.cc:45
 msgid "[OPTION...] chroot [COMMAND] - run command or shell in a chroot"
 msgstr "[选项...]chroot [命令] - 在chroot 中运行命令或 shell"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:54
 msgid "Print paths to available chroots"
 msgstr "打印可用的chroots 路径"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:58 bin/dchroot/dchroot-options.cc:56
-#: bin/schroot/schroot-options.cc:58
 msgid "Select all chroots"
 msgstr "选中所有chroots"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:62 bin/dchroot/dchroot-options.cc:60
-#: bin/schroot/schroot-options.cc:66
 msgid "Directory to use"
 msgstr "使用的目录"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:98
 msgid "Only one command may be specified"
 msgstr "仅需指定一个命令"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:107
 msgid "Command must have an absolute path"
 msgstr "命令必须带有绝对路径"
 
-#: bin/dchroot-dsa/dchroot-dsa-options.cc:121
 msgid "No chroot specified"
 msgstr "未指定chroot"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
-#: bin/dchroot-dsa/dchroot-dsa-session.cc:144
-#: bin/dchroot/dchroot-session.cc:133
 #, boost-format
 msgid "[%1% chroot] Running command: \"%2%\""
 msgstr "[chroot %1%] 正在运行命令: “%2%”"
 
 #. TRANSLATORS: %1% = chroot name
-#: bin/dchroot/dchroot-chroot-config.cc:124
 #, boost-format
 msgid "%1% chroot (dchroot compatibility)"
 msgstr "%1% chroot (dchroot 兼容性)"
@@ -353,116 +274,94 @@ msgstr "%1% chroot (dchroot 兼容性)"
 #. TRANSLATORS: %1% = program name
 #. TRANSLATORS: %2% = program version
 #. TRANSLATORS: %3% = current date
-#: bin/dchroot/dchroot-main-base.cc:63 bin/schroot/schroot-main.cc:61
 #, boost-format
 msgid "schroot configuration generated by %1% %2% on %3%"
 msgstr "schroot 的配置由 %1% %2% 在 %3% 生成"
 
 #. TRANSLATORS: Do not translate "users" and "groups";
 #. these are keywords used in the configuration file.
-#: bin/dchroot/dchroot-main-base.cc:74
 msgid "To allow users access to the chroots, use the users or groups keys."
 msgstr "允许用户访问chroots，使用用户或用户组密钥。"
 
 #. TRANSLATORS: Do not translate "root-users" and
 #. "root-groups"; these are keywords used in the
 #. configuration file.
-#: bin/dchroot/dchroot-main-base.cc:80
 msgid ""
 "To allow password-less root access, use the root-users or root-groups keys."
 msgstr "允许无密码根用户访问，使用根用户或根用户组密钥。"
 
 #. TRANSLATORS: %1% = file
-#: bin/dchroot/dchroot-main-base.cc:83 bin/dchroot/dchroot-main-base.cc:144
 #, boost-format
 msgid "Remove '%1%' to use the new configuration."
 msgstr "删除“%1%”，使用新的配置文件"
 
 #. TRANSLATORS: %1% = program name
-#: bin/dchroot/dchroot-main-base.cc:104
 #, boost-format
 msgid "Running schroot in %1% compatibility mode"
 msgstr "正在以 %1% 兼容模式运行 schroot"
 
 #. TRANSLATORS: "full capabilities" in this context means "all
 #. features"
-#: bin/dchroot/dchroot-main-base.cc:110
 msgid "Run \"schroot\" for full capabilities"
 msgstr "开启全部特性运行“schroot”"
 
 #. TRANSLATORS: %1% = program name
 #. TRANSLATORS: %2% = configuration file
-#: bin/dchroot/dchroot-main-base.cc:129
 #, boost-format
 msgid "Using %1% configuration file: '%2%'"
 msgstr "使用 %1% 配置文件:“%2%”"
 
-#: bin/dchroot/dchroot-main-base.cc:133
 #, boost-format
 msgid "Run \"%1%\""
 msgstr "运行“%1%”"
 
-#: bin/dchroot/dchroot-main-base.cc:137
 msgid "to migrate to a schroot configuration."
 msgstr "迁移至 schroot 配置"
 
-#: bin/dchroot/dchroot-main-base.cc:140
 #, boost-format
 msgid "Edit '%1%' to add appropriate user and/or group access."
 msgstr "编辑“%1%”添加合适的用户和/或用户组访问权。"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
-#: bin/dchroot/dchroot-main.cc:46 bin/schroot/schroot-main.cc:44
 msgid "[OPTION...] [COMMAND] - run command or shell in a chroot"
 msgstr "[选项...] [命令] - 在chroot 环境中运行命令或是 shell"
 
-#: bin/dchroot/dchroot-options.cc:52
 msgid "Print path to selected chroot"
 msgstr "打印所选chroot 的路径"
 
-#: bin/dchroot/dchroot-options.cc:62 bin/schroot/schroot-options.cc:70
 msgid "Preserve user environment"
 msgstr "保存用户环境变量"
 
-#: bin/dchroot/dchroot-options.cc:87 bin/schroot/schroot-options-base.cc:172
 msgid "--quiet and --verbose may not be used at the same time"
 msgstr "不能同时使用 --quiet 和 --verbose"
 
-#: bin/dchroot/dchroot-options.cc:89 bin/schroot/schroot-options-base.cc:174
 msgid "Using verbose output"
 msgstr "使用详细输出"
 
-#: bin/dchroot/dchroot-options.cc:95 bin/schroot/schroot-options-base.cc:180
 msgid "--chroot and --all may not be used at the same time"
 msgstr "不能同时使用 --chroot 和 --all"
 
-#: bin/dchroot/dchroot-options.cc:97 bin/schroot/schroot-options-base.cc:182
 msgid "Using --chroots only"
 msgstr "仅使用 --chroots"
 
-#: bin/dchroot/dchroot-session-base.cc:73
 msgid "dchroot session restriction"
 msgstr "dchroot 会话限制"
 
 #. TRANSLATORS: %1% = program name
 #. TRANSLATORS: %2% = program version
 #. TRANSLATORS: %3% = release date
-#: bin/schroot-base/schroot-base-main.cc:61
 #, boost-format
 msgid "%1% (Debian sbuild) %2% (%3%)\n"
 msgstr "%1% (Debian sbuild) %2% (%3%)\n"
 
-#: bin/schroot-base/schroot-base-main.cc:67
 msgid "Written by Roger Leigh"
 msgstr "由 Roger Leigh 编写"
 
 #. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
-#: bin/schroot-base/schroot-base-main.cc:69
 msgid "Copyright (C) 2004-2010 Roger Leigh"
 msgstr "版权所有 © 2004–2010 Roger Leigh"
 
-#: bin/schroot-base/schroot-base-main.cc:70
 msgid ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
@@ -470,1062 +369,820 @@ msgstr ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 
-#: bin/schroot-base/schroot-base-main.cc:73
 msgid "Configured features:"
 msgstr "所含特性："
 
-#: bin/schroot-base/schroot-base-main.cc:75
 msgid "Device locking"
 msgstr "设备正锁定"
 
-#: bin/schroot-base/schroot-base-main.cc:78
 msgid "Pluggable Authentication Modules"
 msgstr "插入式验证模块"
 
-#: bin/schroot-base/schroot-base-main.cc:81
 msgid "Linux kernel Application Binary Interface switching"
 msgstr "Linux 内核二进制程序界面切换"
 
-#: bin/schroot-base/schroot-base-main.cc:84
 msgid "Support for filesystem unioning"
 msgstr "支持文件系统整合"
 
-#: bin/schroot-base/schroot-base-main.cc:93
 msgid "Usage:"
 msgstr "用法:"
 
 #. TRANSLATORS: %1% = program name
-#: bin/schroot-base/schroot-base-main.cc:130
 #, boost-format
 msgid "Run \"%1% --help\" to list usage example and all available options"
 msgstr "运行“%1% --help”列出示例用法和所有可用的选项"
 
-#: bin/schroot-base/schroot-base-option-action.cc:65
-#: bin/schroot-base/schroot-base-option-action.cc:93
 #, boost-format
 msgid "%1%: invalid action"
 msgstr "%1%: 非法操作"
 
-#: bin/schroot-base/schroot-base-option-action.cc:90
 msgid "Only one action may be specified"
 msgstr "仅可指义一个操作"
 
-#: bin/schroot-base/schroot-base-options.cc:44
 msgid "Actions"
 msgstr "操作"
 
-#: bin/schroot-base/schroot-base-options.cc:45
 msgid "General options"
 msgstr "一般选项"
 
-#: bin/schroot-base/schroot-base-options.cc:46
 msgid "Hidden options"
 msgstr "隐藏选项"
 
-#: bin/schroot-base/schroot-base-options.cc:87
 msgid "Show help options"
 msgstr "显示帮助选项"
 
-#: bin/schroot-base/schroot-base-options.cc:89
 msgid "Print version information"
 msgstr "打印版本信息"
 
-#: bin/schroot-base/schroot-base-options.cc:93
 msgid "Show less output"
 msgstr "显示较少输出"
 
-#: bin/schroot-base/schroot-base-options.cc:95
 msgid "Show more output"
 msgstr "显示较多输出"
 
-#: bin/schroot-base/schroot-base-options.cc:99
 msgid "Enable debugging messages"
 msgstr "开启调试信息"
 
-#: bin/schroot-base/schroot-base-options.cc:163
 msgid "Invalid debug level"
 msgstr "无效的调试级别"
 
 #. TRANSLATORS: %1% = file
-#: bin/schroot-listmounts/schroot-listmounts-main.cc:57
 #, boost-format
 msgid "Failed to find '%1%'"
 msgstr "无法找到“%1%”"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#: bin/schroot-listmounts/schroot-listmounts-main.cc:72
 msgid "[OPTION...] - list mount points"
 msgstr "[选项...] - 列出挂载选项"
 
-#: bin/schroot-listmounts/schroot-listmounts-options.cc:42
-#: bin/schroot-mount/schroot-mount-options.cc:45
 msgid "Mount"
 msgstr "挂载"
 
-#: bin/schroot-listmounts/schroot-listmounts-options.cc:61
-#: bin/schroot-mount/schroot-mount-options.cc:69
 msgid "Mountpoint to check (full path)"
 msgstr "检查挂载点(完整路径)"
 
-#: bin/schroot-listmounts/schroot-listmounts-options.cc:94
-#: bin/schroot-mount/schroot-mount-options.cc:107
 msgid "No mount point specified"
 msgstr "未指定挂载点"
 
-#: bin/schroot-mount/schroot-mount-main.cc:59 sbuild/sbuild-run-parts.cc:48
-#: sbuild/sbuild-session.cc:76
 msgid "Failed to fork child"
 msgstr "无法派生子进程"
 
-#: bin/schroot-mount/schroot-mount-main.cc:60 sbuild/sbuild-run-parts.cc:49
-#: sbuild/sbuild-session.cc:79
 msgid "Wait for child failed"
 msgstr "等待子进程出错"
 
 #. TRANSLATORS: %1% = command name
-#: bin/schroot-mount/schroot-mount-main.cc:62 sbuild/sbuild-run-parts.cc:51
 #, boost-format
 msgid "Failed to execute '%1%'"
 msgstr "无法运行“%1%”"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#: bin/schroot-mount/schroot-mount-main.cc:77
 msgid "[OPTION...] - mount filesystems"
 msgstr "[选项...] - 挂载文件系统"
 
-#: bin/schroot-mount/schroot-mount-main.cc:128
-#: bin/schroot-mount/schroot-mount-main.cc:192 sbuild/sbuild-auth-pam.cc:126
-#: sbuild/sbuild-log.cc:173 sbuild/sbuild-run-parts.cc:232
-#: sbuild/sbuild-session.cc:1131 sbuild/sbuild-session.cc:1412
 msgid "An unknown exception occurred"
 msgstr "发生了未知的异常"
 
-#: bin/schroot-mount/schroot-mount-options.cc:65
 msgid "Perform a simulation of actions which would be taken"
 msgstr "对将要进行的操作实行一次模拟动作"
 
-#: bin/schroot-mount/schroot-mount-options.cc:67
 msgid "fstab file to read (full path)"
 msgstr "要读取的 fstab 文件(完整路径)"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#: bin/schroot-releaselock/schroot-releaselock-main.cc:73
 msgid "[OPTION...] - release a device lock"
 msgstr "[选项...] - 释放设备锁"
 
-#: bin/schroot-releaselock/schroot-releaselock-main.cc:89
 msgid "No PID specified; forcing release of lock"
 msgstr "未指定进程号；强制释放锁"
 
-#: bin/schroot-releaselock/schroot-releaselock-options.cc:43
 msgid "Lock"
 msgstr "锁定"
 
-#: bin/schroot-releaselock/schroot-releaselock-options.cc:62
 msgid "Device to unlock (full path)"
 msgstr "解锁设备(完整路径)"
 
-#: bin/schroot-releaselock/schroot-releaselock-options.cc:64
 msgid "Process ID owning the lock"
 msgstr "进行 ID 拥有锁"
 
-#: bin/schroot-releaselock/schroot-releaselock-options.cc:97
 msgid "No device specified"
 msgstr "未指定设备"
 
 #. TRANSLATORS: %1% = comma-separated list of chroot names
-#: bin/schroot/schroot-main-base.cc:58
 #, boost-format
 msgid "%1%: Chroots not found"
 msgstr "%1%: 未找到chroots"
 
 #. TRANSLATORS: %4% = file
-#: bin/schroot/schroot-main-base.cc:60
 #, boost-format
 msgid "No chroots are defined in '%4%'"
 msgstr "“%4%”中未定义chroots"
 
 #. TRANSLATORS: %4% = file
 #. TRANSLATORS: %5% = file
-#: bin/schroot/schroot-main-base.cc:63
 #, boost-format
 msgid "No chroots are defined in '%4%' or '%5%'"
 msgstr "“%4%”或“%5%”中未定义chroots"
 
 #. TRANSLATORS: %1% = file
-#: bin/schroot/schroot-main-base.cc:65
 #, boost-format
 msgid "The specified chroots are not defined in '%1%'"
 msgstr "“%1%”中未定义指定的chroots"
 
 #. TRANSLATORS: %1% = chroot name
-#: bin/schroot/schroot-main-base.cc:67 sbuild/sbuild-session.cc:85
 #, boost-format
 msgid "%1%: Chroot not found"
 msgstr "%1%: 未找到chroot"
 
-#: bin/schroot/schroot-main-base.cc:68
 #, boost-format
 msgid "%1%: Invalid session name"
 msgstr "%1%: 非法会话名"
 
-#: bin/schroot/schroot-main-base.cc:103
 msgid "Available chroot types:"
 msgstr "可用的chroot 类型："
 
-#: bin/schroot/schroot-main-base.cc:105
 msgid "Support for 'block-device' chroots"
 msgstr "支持“块设备”chroot"
 
-#: bin/schroot/schroot-main-base.cc:108
 msgid "Support for 'btrfs-snapshot' chroots"
 msgstr "支持\"btrfs 快照\"chroot"
 
-#: bin/schroot/schroot-main-base.cc:110
 msgid "Support for 'directory' chroots"
 msgstr "支持“目录”chroot"
 
-#: bin/schroot/schroot-main-base.cc:111
 msgid "Support for 'file' chroots"
 msgstr "支持“文件”chroot"
 
-#: bin/schroot/schroot-main-base.cc:113
 msgid "Support for 'loopback' chroots"
 msgstr "支持“loopback”chroot"
 
-#: bin/schroot/schroot-main-base.cc:116
 msgid "Support for 'lvm-snapshot' chroots"
 msgstr "支持“lvm 快照”chroot"
 
-#: bin/schroot/schroot-main-base.cc:118
 msgid "Support for 'plain' chroots"
 msgstr "支持“普通”chroot"
 
-#: bin/schroot/schroot-options-base.cc:57
 msgid "Chroot selection"
 msgstr "chroot 选择"
 
-#: bin/schroot/schroot-options-base.cc:58
 msgid "Chroot environment"
 msgstr "chroot 环境变量"
 
-#: bin/schroot/schroot-options-base.cc:59
 msgid "Session actions"
 msgstr "会话操作"
 
-#: bin/schroot/schroot-options-base.cc:60
 msgid "Session options"
 msgstr "会话选项"
 
-#: bin/schroot/schroot-options-base.cc:87
 msgid "List available chroots"
 msgstr "列出可用的chroots"
 
-#: bin/schroot/schroot-options-base.cc:89
 msgid "Show information about selected chroots"
 msgstr "显示选中的chroots 的信息"
 
-#: bin/schroot/schroot-options-base.cc:91
 msgid "Dump configuration of selected chroots"
 msgstr "显示选中的chroots 的配置"
 
-#: bin/schroot/schroot-options-base.cc:95
 msgid "Use specified chroot"
 msgstr "使用指定的chroot"
 
-#: bin/schroot/schroot-options-base.cc:99
 msgid "Command to run"
 msgstr "要运行的命令"
 
-#: bin/schroot/schroot-options-base.cc:209
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "开始一个会话时必须明确指定一个chroot"
 
-#: bin/schroot/schroot-options-base.cc:226
 msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
 msgstr "指定操作不允许 --session-name；您打算用--chroot 吗？"
 
-#: bin/schroot/schroot-options-base.cc:266
 msgid "Unknown action specified"
 msgstr "未知的操作定义"
 
-#: bin/schroot/schroot-options-base.cc:275
 #, fuzzy
 msgid "--session-name is not permitted for the specified action"
 msgstr "指定操作不允许 --session-name；您打算用--chroot 吗？"
 
-#: bin/schroot/schroot-options.cc:52
 msgid "Print location of selected chroots"
 msgstr "打印所选的chroots 的位置"
 
-#: bin/schroot/schroot-options.cc:56
 msgid "Select all chroots and active sessions"
 msgstr "选中所有chroots 并激活会话"
 
-#: bin/schroot/schroot-options.cc:60
 msgid "Select all active sessions"
 msgstr "选中所有激活的会话"
 
-#: bin/schroot/schroot-options.cc:62
 #, fuzzy
 msgid "Select all source chroots"
 msgstr "选中所有chroots"
 
-#: bin/schroot/schroot-options.cc:68
 msgid "Username (default current user)"
 msgstr "用户名(默认为当前用户)"
 
-#: bin/schroot/schroot-options.cc:74
 msgid "Begin, run and end a session automatically (default)"
 msgstr "自动开始、运行以及终止会话(默认)"
 
-#: bin/schroot/schroot-options.cc:76
 msgid "Begin a session; returns a session ID"
 msgstr "开始会话；返回会话 ID"
 
-#: bin/schroot/schroot-options.cc:78
 msgid "Recover an existing session"
 msgstr "恢复一个已存在的会话"
 
-#: bin/schroot/schroot-options.cc:80
 msgid "Run an existing session"
 msgstr "运行一个已存在的会话"
 
-#: bin/schroot/schroot-options.cc:82
 msgid "End an existing session"
 msgstr "终止一个已存在的会话"
 
-#: bin/schroot/schroot-options.cc:86
 msgid "Session name (defaults to an automatically generated name)"
 msgstr "会话名(默认自动生成一个名字)"
 
-#: bin/schroot/schroot-options.cc:88
 msgid "Force operation, even if it fails"
 msgstr "即使出错也要强制执行"
 
 #. TRANSLATORS: %1% = program name (PAM service name)
-#: sbuild/sbuild-auth-null.cc:119 sbuild/sbuild-auth-pam.cc:312
 #, boost-format
 msgid "You do not have permission to access the %1% service."
 msgstr "您无权访问 %1% 服务。"
 
-#: sbuild/sbuild-auth-null.cc:121 sbuild/sbuild-auth-pam.cc:314
 msgid "This failure will be reported."
 msgstr "将报告此错误。"
 
-#: sbuild/sbuild-auth-pam-conv-tty.cc:48
 msgid "No controlling terminal"
 msgstr "未受控的终端"
 
-#: sbuild/sbuild-auth-pam-conv-tty.cc:49
 msgid "Timed out"
 msgstr "超时"
 
 #. TRANSLATORS: Please use an ellipsis e.g. U+2026
-#: sbuild/sbuild-auth-pam-conv-tty.cc:51
 msgid "Time is running out..."
 msgstr "时间在流逝..."
 
-#: sbuild/sbuild-auth-pam-conv-tty.cc:52
 msgid "Failed to get terminal settings"
 msgstr "无法获取终端设置"
 
 #. TRANSLATORS: %1% = integer
-#: sbuild/sbuild-auth-pam-conv-tty.cc:54
 #, boost-format
 msgid "Unsupported conversation type '%1%'"
 msgstr "不支持的会话类型“%1%”"
 
-#: sbuild/sbuild-auth-pam.cc:79
 msgid "Password: "
 msgstr "密码："
 
-#: sbuild/sbuild-auth-pam.cc:80
 msgid "Password:"
 msgstr "密码："
 
-#: sbuild/sbuild-auth-pam.cc:87
 #, boost-format
 msgid "[schroot] password for %1%: "
 msgstr "%1% 的[schroot] 密码："
 
-#: sbuild/sbuild-auth-pam.cc:240
 msgid "Set RUSER"
 msgstr "设置 RUSER"
 
-#: sbuild/sbuild-auth-pam.cc:258
 msgid "Set RHOST"
 msgstr "设置 RHOST"
 
-#: sbuild/sbuild-auth-pam.cc:277
 msgid "Set TTY"
 msgstr "设置 TTY"
 
-#: sbuild/sbuild-auth-pam.cc:289
 msgid "Set USER"
 msgstr "设置 USER"
 
-#: sbuild/sbuild-auth.cc:52
 msgid "Failed to get hostname"
 msgstr "无法获取主机名"
 
 #. TRANSLATORS: %1% = user name or user ID
-#: sbuild/sbuild-auth.cc:54
 #, boost-format
 msgid "User '%1%' not found"
 msgstr "未找到用户“%1%”"
 
 #. TRANSLATORS: %1% = group name or group ID
 #. TRANSLATORS: %1% = group name
-#: sbuild/sbuild-auth.cc:56 sbuild/sbuild-session.cc:105
 #, boost-format
 msgid "Group '%1%' not found"
 msgstr "未找到用户组“%1%”"
 
-#: sbuild/sbuild-auth.cc:57
 msgid "Authentication failed"
 msgstr "授权错误"
 
-#: sbuild/sbuild-auth.cc:58
 msgid "Access not authorised"
 msgstr "未授权访问"
 
-#: sbuild/sbuild-auth.cc:59
 msgid "PAM is already initialised"
 msgstr "PAM 模块已被初始化"
 
-#: sbuild/sbuild-auth.cc:60 sbuild/sbuild-session.cc:106
 msgid "PAM error"
 msgstr "PAM 模块错误"
 
-#: sbuild/sbuild-auth.cc:61
 msgid "PAM failed to shut down cleanly"
 msgstr "PAM 模块无法正常关闭"
 
-#: sbuild/sbuild-basic-keyfile.tcc:115
 msgid "This option may be present in a newer version"
 msgstr "此选项会在新版本中实现"
 
-#: sbuild/sbuild-basic-keyfile.tcc:460 sbuild/sbuild-basic-keyfile.tcc:466
 msgid ""
 "This option will be removed in the future; please update your configuration"
 msgstr "此选项将来会被删除；请更新您的配置文件"
 
-#: sbuild/sbuild-chroot-block-device-base.cc:122
 msgid "Device"
 msgstr "设备"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
-#: sbuild/sbuild-chroot-config.cc:60
 #, boost-format
 msgid "Alias '%1%' already associated with '%4%' chroot"
 msgstr "别名“%1%”已经与chroot 名“%4%”关联"
 
-#: sbuild/sbuild-chroot-config.cc:61
 msgid "No such chroot"
 msgstr "没有那样的chroot"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-chroot-config.cc:63
 #, boost-format
 msgid "A chroot or alias '%1%' already exists with this name"
 msgstr "已有与“%1%”同名的chroot 名或别名存在"
 
-#: sbuild/sbuild-chroot-config.cc:64 sbuild/sbuild-chroot.cc:84
 msgid "File is not a regular file"
 msgstr "文件不是普通文件"
 
-#: sbuild/sbuild-chroot-config.cc:65
 msgid "Failed to open file"
 msgstr "无法打开文件"
 
-#: sbuild/sbuild-chroot-config.cc:66 sbuild/sbuild-chroot.cc:85
 msgid "File is not owned by user root"
 msgstr "文件所有者不是 root 用户"
 
-#: sbuild/sbuild-chroot-config.cc:67 sbuild/sbuild-chroot.cc:86
 msgid "File has write permissions for others"
 msgstr "其他用户拥有文件写权"
 
-#: sbuild/sbuild-chroot-config.cc:68 sbuild/sbuild-chroot.cc:89
 #, fuzzy
 msgid "Invalid name"
 msgstr "%1%: 非法会话名"
 
-#: sbuild/sbuild-chroot-config.cc:69
 msgid "No such namespace"
 msgstr ""
 
-#: sbuild/sbuild-chroot-config.cc:280 sbuild/sbuild-chroot-config.cc:286
 msgid "Duplicate names are not allowed"
 msgstr "不允许的复制名称"
 
-#: sbuild/sbuild-chroot-config.cc:509
 msgid "Available chroots: "
 msgstr "可用的chroots: "
 
-#: sbuild/sbuild-chroot-directory-base.cc:86
 msgid "Directory"
 msgstr "目录"
 
-#: sbuild/sbuild-chroot-facet-mountable.cc:124
 msgid "Mount Device"
 msgstr "挂载设备"
 
-#: sbuild/sbuild-chroot-facet-mountable.cc:126
 msgid "Mount Options"
 msgstr "挂载选项"
 
-#: sbuild/sbuild-chroot-facet-mountable.cc:128
-#: sbuild/sbuild-chroot-file.cc:220
 msgid "Location"
 msgstr "位置"
 
 #. TRANSLATORS: "Personality" is the Linux kernel personality
 #. (process execution domain).  See schroot.conf(5).
-#: sbuild/sbuild-chroot-facet-personality.cc:89
 msgid "Personality"
 msgstr "进程私有空间"
 
-#: sbuild/sbuild-chroot-facet-session.cc:87
 msgid "Session ID"
 msgstr "会话ID"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:70
 msgid "(source chroot)"
 msgstr "(源chroot)"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:163
 msgid "Source Users"
 msgstr "源用户"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:164
 msgid "Source Groups"
 msgstr "源用户组"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:165
 msgid "Source Root Users"
 msgstr "源根用户"
 
-#: sbuild/sbuild-chroot-facet-source-clonable.cc:166
 msgid "Source Root Groups"
 msgstr "源根用户组"
 
 #. TRANSLATORS: %1% = chroot fs type
-#: sbuild/sbuild-chroot-facet-union.cc:44
 #, boost-format
 msgid "Unknown filesystem union type '%1%'"
 msgstr "未知的联合文件系统类型“%1%”"
 
-#: sbuild/sbuild-chroot-facet-union.cc:45
 msgid "Union overlay must have an absolute path"
 msgstr "向上型整合必须带上绝对路径"
 
-#: sbuild/sbuild-chroot-facet-union.cc:46
 msgid "Union underlay must have an absolute path"
 msgstr "向下型整合必须带上绝对路径"
 
-#: sbuild/sbuild-chroot-facet-union.cc:215
 msgid "Filesystem Union Type"
 msgstr "联合文件系统类型"
 
-#: sbuild/sbuild-chroot-facet-union.cc:219
 msgid "Filesystem Union Mount Options"
 msgstr "联合文件系统挂载选项"
 
-#: sbuild/sbuild-chroot-facet-union.cc:222
 msgid "Filesystem Union Overlay Directory"
 msgstr "联合文件系统置于目录之上"
 
-#: sbuild/sbuild-chroot-facet-union.cc:225
 msgid "Filesystem Union Underlay Directory"
 msgstr "联合文件系统置于目录之下"
 
-#: sbuild/sbuild-chroot-file.cc:217 sbuild/sbuild-chroot-loopback.cc:190
 msgid "File"
 msgstr "文件"
 
-#: sbuild/sbuild-chroot-file.cc:218
 msgid "File Repack"
 msgstr "重打包文件"
 
-#: sbuild/sbuild-chroot-lvm-snapshot.cc:235
 msgid "LVM Snapshot Device"
 msgstr "LVM 快照设备"
 
-#: sbuild/sbuild-chroot-lvm-snapshot.cc:237
 msgid "LVM Snapshot Options"
 msgstr "LVM 快照选项"
 
-#: sbuild/sbuild-chroot.cc:71
 msgid "Chroot creation failed"
 msgstr "创建chroot 环境失败"
 
-#: sbuild/sbuild-chroot.cc:72
 msgid "Device name not set"
 msgstr "未设置设备名"
 
 #. TRANSLATORS: %1% = chroot type name
-#: sbuild/sbuild-chroot.cc:74
 #, boost-format
 msgid "Unknown chroot type '%1%'"
 msgstr "未知的chroot 类型 “%1%”"
 
-#: sbuild/sbuild-chroot.cc:75
 msgid "Device must have an absolute path"
 msgstr "设备名必须带上绝对路径"
 
-#: sbuild/sbuild-chroot.cc:76 sbuild/sbuild-lock.cc:59
 msgid "Failed to lock device"
 msgstr "无法锁定设备"
 
-#: sbuild/sbuild-chroot.cc:78 sbuild/sbuild-lock.cc:64
 msgid "Failed to unlock device"
 msgstr "无法解锁设备"
 
-#: sbuild/sbuild-chroot.cc:79
 msgid "Directory must have an absolute path"
 msgstr "目录名必须带上绝对路径"
 
-#: sbuild/sbuild-chroot.cc:80
 msgid "Attempt to add object which is not a facet"
 msgstr "尝试添加非facet 对象"
 
-#: sbuild/sbuild-chroot.cc:81
 msgid "Attempt to add facet which is already in use"
 msgstr "尝试添加正在使用的facet"
 
-#: sbuild/sbuild-chroot.cc:82
 msgid "File must have an absolute path"
 msgstr "文件名必须带上绝对路径"
 
-#: sbuild/sbuild-chroot.cc:83
 msgid "Failed to acquire file lock"
 msgstr "无法获取文件锁"
 
-#: sbuild/sbuild-chroot.cc:87
 msgid "Failed to discard file lock"
 msgstr "无法释放文件锁"
 
-#: sbuild/sbuild-chroot.cc:88
 msgid "Location must have an absolute path"
 msgstr "位置必须带上绝对路径"
 
 #. TRANSLATORS: unlink refers to the C function which removes a file
-#: sbuild/sbuild-chroot.cc:91
 msgid "Failed to unlink session file"
 msgstr "无法删除会话文件"
 
-#: sbuild/sbuild-chroot.cc:92
 msgid "Failed to write session file"
 msgstr "无法写会话文件"
 
-#: sbuild/sbuild-chroot.cc:93
 msgid "Message verbosity is invalid"
 msgstr "无法显示详细信息"
 
-#: sbuild/sbuild-chroot.cc:597
 msgid "Name"
 msgstr "名字"
 
-#: sbuild/sbuild-chroot.cc:600
 msgid "Description"
 msgstr "描述"
 
-#: sbuild/sbuild-chroot.cc:601
 msgid "Type"
 msgstr "类型"
 
-#: sbuild/sbuild-chroot.cc:602
 msgid "Priority"
 msgstr "优先权"
 
-#: sbuild/sbuild-chroot.cc:603
 msgid "Message Verbosity"
 msgstr "详细信息"
 
-#: sbuild/sbuild-chroot.cc:604
 msgid "Users"
 msgstr "用户"
 
-#: sbuild/sbuild-chroot.cc:605
 msgid "Groups"
 msgstr "用户组"
 
-#: sbuild/sbuild-chroot.cc:606
 msgid "Root Users"
 msgstr "根用户"
 
-#: sbuild/sbuild-chroot.cc:607
 msgid "Root Groups"
 msgstr "根用户组"
 
-#: sbuild/sbuild-chroot.cc:608
 msgid "Aliases"
 msgstr "别名"
 
-#: sbuild/sbuild-chroot.cc:609
 msgid "Preserve Environment"
 msgstr "保存用户环境变量"
 
-#: sbuild/sbuild-chroot.cc:610
 msgid "Environment Filter"
 msgstr "环境变量过滤器"
 
-#: sbuild/sbuild-chroot.cc:611
 msgid "Run Setup Scripts"
 msgstr "运行安装脚本"
 
-#: sbuild/sbuild-chroot.cc:612
 msgid "Script Configuration"
 msgstr "脚本配置"
 
-#: sbuild/sbuild-chroot.cc:613
 msgid "Session Managed"
 msgstr "受控的会话"
 
-#: sbuild/sbuild-chroot.cc:615
 msgid "Session Cloned"
 msgstr "克隆的会话"
 
-#: sbuild/sbuild-chroot.cc:617
 msgid "Session Purged"
 msgstr "删除的会话"
 
-#: sbuild/sbuild-chroot.cc:621
 msgid "Command Prefix"
 msgstr "命令前缀"
 
-#: sbuild/sbuild-chroot.cc:625
 msgid "Mount Location"
 msgstr "挂载点"
 
-#: sbuild/sbuild-chroot.cc:627
 msgid "Path"
 msgstr "路径"
 
-#: sbuild/sbuild-chroot.cc:633
 msgid "Chroot"
 msgstr "Chroot"
 
-#: sbuild/sbuild-chroot.cc:636
 msgid "Session"
 msgstr "会话"
 
-#: sbuild/sbuild-chroot.cc:638
 #, fuzzy
 msgid "Source"
 msgstr "源用户"
 
-#: sbuild/sbuild-ctty.cc:46
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr "无法设置受控终端的 close-on-execute 标识"
 
-#: sbuild/sbuild-ctty.cc:47
 msgid "The controlling terminal file descriptor could not be duplicated"
 msgstr "无法复制受控终端的文件描述符"
 
-#: sbuild/sbuild-format-detail.cc:72
 msgid "true"
 msgstr "正确"
 
-#: sbuild/sbuild-format-detail.cc:74
 msgid "false"
 msgstr "错误"
 
 #. TRANSLATORS: %1% = title of section
 #. TRANSLATORS: Please format the --- as a continuous line, e.g. U+2500
-#: sbuild/sbuild-format-detail.cc:91
 #, boost-format
 msgid "--- %1% ---"
 msgstr "--- %1% ---"
 
-#: sbuild/sbuild-keyfile-base.cc:46
 #, boost-format
 msgid "line %1% [%2%]: Deprecated key '%4%' used"
 msgstr "行 %1% [%2%]: 使用了被废弃的密钥 “%4%”"
 
-#: sbuild/sbuild-keyfile-base.cc:50
 #, boost-format
 msgid "[%1%]: Deprecated key '%4%' used"
 msgstr "[%1%]: 使用了被废弃的密钥 “%4%”"
 
-#: sbuild/sbuild-keyfile-base.cc:55
 #, boost-format
 msgid "line %1% [%2%]: Disallowed key '%4%' used"
 msgstr "行 %1% [%2%]: 使用了不允许的的密钥 “%4%”"
 
-#: sbuild/sbuild-keyfile-base.cc:59
 #, boost-format
 msgid "[%1%]: Disallowed key '%4%' used"
 msgstr "[%1%]: 使用了不允许的的密钥 “%4%”"
 
-#: sbuild/sbuild-keyfile-base.cc:63
 #, boost-format
 msgid "line %1%: Duplicate group '%4%'"
 msgstr "行 %1%: 复制组“%4%”"
 
-#: sbuild/sbuild-keyfile-base.cc:68
 #, boost-format
 msgid "line %1% [%2%]: Duplicate key '%4%'"
 msgstr "行 %1% [%2%]: 复制密钥“%4%”"
 
-#: sbuild/sbuild-keyfile-base.cc:72
 #, boost-format
 msgid "line %1%: Invalid group: \"%4%\""
 msgstr "行 %1%: 无效用户组: “%4%”"
 
-#: sbuild/sbuild-keyfile-base.cc:81
 #, boost-format
 msgid "line %1% [%2%]: Required key '%4%' is missing"
 msgstr "行 %1% [%2%]: 未找到所需的密钥 “%4%”"
 
-#: sbuild/sbuild-keyfile-base.cc:85
 #, boost-format
 msgid "[%1%]: Required key '%4%' is missing"
 msgstr "[%1%]: 未找到所需的密钥 “%4%”"
 
-#: sbuild/sbuild-keyfile-base.cc:89
 #, boost-format
 msgid "line %1%: No group specified: \"%4%\""
 msgstr "行 %1%: 未指定用户组: “%4%”"
 
-#: sbuild/sbuild-keyfile-base.cc:98
 #, boost-format
 msgid "line %1% [%2%]: Obsolete key '%4%' used"
 msgstr "行 %1% [%2%]: 使用了过期的密钥“%4%”"
 
-#: sbuild/sbuild-keyfile-base.cc:102
 #, boost-format
 msgid "[%1%]: Obsolete key '%4%' used"
 msgstr "[%1%]: 使用了过期的密钥“%4%”"
 
-#: sbuild/sbuild-keyfile-base.cc:106
 #, boost-format
 msgid "[%1%]: %4%"
 msgstr "[%1%]: %4%"
 
-#: sbuild/sbuild-keyfile-base.cc:111
 #, boost-format
 msgid "[%1%] %2%: %4%"
 msgstr "[%1%] %2%: %4%"
 
-#: sbuild/sbuild-keyfile-base.cc:116
 #, boost-format
 msgid "line %1% [%2%]: %4%"
 msgstr "行 %1% [%2%]: %4%"
 
-#: sbuild/sbuild-keyfile-base.cc:122
 #, boost-format
 msgid "line %1% [%2%] %3%: %4%"
 msgstr "行 %1% [%2%] %3%: %4%"
 
-#: sbuild/sbuild-keyfile-base.cc:127
 #, boost-format
 msgid "line %1% [%2%]: Unknown key '%4%' used"
 msgstr "行 %1% [%2%]: 使用了未知的密钥“%4%”"
 
-#: sbuild/sbuild-lock.cc:50
 msgid "Failed to set timeout handler"
 msgstr "无法设置超时处理程序"
 
-#: sbuild/sbuild-lock.cc:51
 msgid "Failed to set timeout"
 msgstr "无法设置超时"
 
-#: sbuild/sbuild-lock.cc:52
 msgid "Failed to cancel timeout"
 msgstr "无法取消超时设置"
 
-#: sbuild/sbuild-lock.cc:53
 msgid "Failed to lock file"
 msgstr "无法锁定文件"
 
-#: sbuild/sbuild-lock.cc:54
 msgid "Failed to unlock file"
 msgstr "无法解锁文件"
 
 #. TRANSLATORS: %4% = time in seconds
-#: sbuild/sbuild-lock.cc:56
 #, boost-format
 msgid "Failed to lock file (timed out after %4% seconds)"
 msgstr "无法锁定文件( %4% 秒后超时)"
 
 #. TRANSLATORS: %4% = time in seconds
-#: sbuild/sbuild-lock.cc:58
 #, boost-format
 msgid "Failed to unlock file (timed out after %4% seconds)"
 msgstr "无法解锁文件( %4% 秒后超时)"
 
 #. TRANSLATORS: %4% = time in seconds
 #. TRANSLATORS: %5% = integer process ID
-#: sbuild/sbuild-lock.cc:62
 #, boost-format
 msgid ""
 "Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
 msgstr "无法锁定设备( %4% 秒后超时；进程号为 %5% 的程序拥有此锁定)"
 
-#: sbuild/sbuild-lock.cc:63
 msgid "Failed to test device lock"
 msgstr "无法测试设备锁"
 
 #. TRANSLATORS: %4% = time in seconds
 #. TRANSLATORS: %5% = integer process ID
-#: sbuild/sbuild-lock.cc:67
 #, boost-format
 msgid ""
 "Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
 msgstr "无法解锁设备( %4% 秒后超时；进程号为 %5% 的程序拥有此锁定)"
 
 #. TRANSLATORS: "I" is an abbreviation of "Information"
-#: sbuild/sbuild-log.cc:92 sbuild/sbuild-log.cc:125
 msgid "I: "
 msgstr "信息:"
 
 #. TRANSLATORS: "W" is an abbreviation of "Warning"
-#: sbuild/sbuild-log.cc:99 sbuild/sbuild-log.cc:132
 msgid "W: "
 msgstr "警告:"
 
 #. TRANSLATORS: "E" is an abbreviation of "Error"
-#: sbuild/sbuild-log.cc:106 sbuild/sbuild-log.cc:139
 msgid "E: "
 msgstr "错误:"
 
 #. TRANSLATORS: %1% = integer debug level
 #. TRANSLATORS: "D" is an abbreviation of "Debug"
-#: sbuild/sbuild-log.cc:116
 #, boost-format
 msgid "D(%1%): "
 msgstr "调试级别(%1%):"
 
 #. TRANSLATORS: %1% = mount file name
-#: sbuild/sbuild-mntstream.cc:40
 #, boost-format
 msgid "Failed to open mount file '%1%'"
 msgstr "无法打开挂载文件“%1%”"
 
 #. TRANSLATORS: %1% = mount file name
-#: sbuild/sbuild-mntstream.cc:42
 #, boost-format
 msgid "Failed to read mount file '%1%'"
 msgstr "无法读取挂载文件“%1%”"
 
-#: sbuild/sbuild-null.cc:29
 msgid "unknown"
 msgstr "未知"
 
 #. TRANSLATORS: %1% = value (arbitrary text)
-#: sbuild/sbuild-parse-value.cc:37
 #, boost-format
 msgid "Could not parse value '%1%'"
 msgstr "无法解释值“%1%”"
 
 #. TRANSLATORS: %1% = integer personality ID
-#: sbuild/sbuild-personality.cc:49
 #, boost-format
 msgid "Personality '%1%' is unknown"
 msgstr "未知的私有进程 “%1%”"
 
 #. TRANSLATORS: %1% = personality name
-#: sbuild/sbuild-personality.cc:51
 #, boost-format
 msgid "Failed to set personality '%1%'"
 msgstr "无法设置私有进程“%1%”"
 
 #. TRANSLATORS: %1% = a comma-separated list of personality names
-#: sbuild/sbuild-personality.cc:189
 #, boost-format
 msgid "Valid personalities: %1%\n"
 msgstr "合法的私有进程名: %1%\n"
 
-#: sbuild/sbuild-run-parts.cc:52
 msgid "Failed to create pipe"
 msgstr "无法创建管道"
 
-#: sbuild/sbuild-run-parts.cc:53
 msgid "Failed to duplicate file descriptor"
 msgstr "无法复制文件描述符"
 
-#: sbuild/sbuild-run-parts.cc:54
 msgid "Failed to poll file descriptor"
 msgstr "无法轮询文件描述符"
 
-#: sbuild/sbuild-run-parts.cc:55
 msgid "Failed to read file descriptor"
 msgstr "无法读取文件描述符"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-run-parts.cc:202
 #, boost-format
 msgid "Executing '%1%'"
 msgstr "正在执行“%1%”"
 
 #. TRANSLATORS: %1% = directory
-#: sbuild/sbuild-session.cc:71
 #, boost-format
 msgid "Failed to change to directory '%1%'"
 msgstr "无法更改目录“%1%”"
 
 #. TRANSLATORS: %4% = directory
-#: sbuild/sbuild-session.cc:73
 #, boost-format
 msgid "Falling back to directory '%4%'"
 msgstr "退回至目录“%4%”"
 
-#: sbuild/sbuild-session.cc:74
 msgid "Child dumped core"
 msgstr "子进程内核转储"
 
-#: sbuild/sbuild-session.cc:75
 msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr "子进程非正常退出(原因未知；非信号或是内核转储问题)"
 
 #. TRANSLATORS: %4% = signal name
-#: sbuild/sbuild-session.cc:78
 #, boost-format
 msgid "Child terminated by signal '%4%'"
 msgstr "用信号“%4%”终止子进程"
 
 #. TRANSLATORS: %1% = directory
-#: sbuild/sbuild-session.cc:81
 #, boost-format
 msgid "Failed to change root to directory '%1%'"
 msgstr "无法将根目录改为“%1%”"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-session.cc:83
 #, boost-format
 msgid "No chroot found matching name or alias '%1%'"
 msgstr "未找到匹配“%1%”的chroot 名字或是别名"
 
-#: sbuild/sbuild-session.cc:84
 msgid "Failed to lock chroot"
 msgstr "无法锁定chroot 环境"
 
-#: sbuild/sbuild-session.cc:86
 msgid "Chroot setup failed"
 msgstr "chroot 建立失败"
 
 #. TRANSLATORS: %1% = chroot name
-#: sbuild/sbuild-session.cc:88
 msgid "Failed to unlock chroot"
 msgstr "无法解锁chroot"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-session.cc:90
 #, boost-format
 msgid "Command \"%1%\" must have an absolute path"
 msgstr "命令“%1%”必须带上绝对路径"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-session.cc:92
 #, boost-format
 msgid "Failed to execute \"%1%\""
 msgstr "无法执行“%1%”"
@@ -1533,65 +1190,54 @@ msgstr "无法执行“%1%”"
 #. TRANSLATORS: A supplementary group is the list of additional
 #. system groups a user belongs to, in addition to their default
 #. group.
-#: sbuild/sbuild-session.cc:96
 msgid "Failed to get supplementary groups"
 msgstr "无法获取该帐户的其他用户组列表"
 
 #. TRANSLATORS: A supplementary group is the list of additional
 #. system groups a user belongs to, in addition to their default
 #. group.
-#: sbuild/sbuild-session.cc:100
 msgid "Failed to get supplementary group count"
 msgstr "无法获取该帐户的其他用户组数目"
 
 #. TRANSLATORS: %1% = integer group ID
-#: sbuild/sbuild-session.cc:102
 #, boost-format
 msgid "Failed to set group '%1%'"
 msgstr "无法设置组 ID “%1%”"
 
-#: sbuild/sbuild-session.cc:103
 msgid "Failed to set supplementary groups"
 msgstr "无法设置该帐户的其他用户组"
 
-#: sbuild/sbuild-session.cc:107
 msgid "Failed to drop root permissions"
 msgstr "无法放弃根用户权限"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = session identifier
-#: sbuild/sbuild-session.cc:110
 #, boost-format
 msgid ""
 "%1%: Chroot does not support setting a session ID; ignoring session ID '%4%'"
 msgstr "%1%: Chroot 不支持设置会话 ID；忽略会话 ID “%4%”"
 
 #. TRANSLATORS: %1% = command
-#: sbuild/sbuild-session.cc:112
 #, boost-format
 msgid "Shell '%1%' not available"
 msgstr "Shell 命令“%1%”不可用"
 
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:114
 #, boost-format
 msgid "Falling back to shell '%4%'"
 msgstr "返回至 shell 命令“%4%”"
 
 #. TRANSLATORS: %4% = signal name
-#: sbuild/sbuild-session.cc:116
 #, boost-format
 msgid "Caught signal '%4%'"
 msgstr "捕获信号“%4%”"
 
 #. TRANSLATORS: %4% = signal name
-#: sbuild/sbuild-session.cc:118
 #, boost-format
 msgid "Failed to set signal handler '%4%'"
 msgstr "无法为信号“%4%”设置信息处理程序"
 
 #. TRANSLATORS: %1% = integer user ID
-#: sbuild/sbuild-session.cc:120
 #, boost-format
 msgid "Failed to set user '%1%'"
 msgstr "无法设置用户 ID “%1%”"
@@ -1599,29 +1245,24 @@ msgstr "无法设置用户 ID “%1%”"
 #. TRANSLATORS: %1% = user name
 #. TRANSLATORS: %2% = user name
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:124
 #, boost-format
 msgid "(%1%->%2%): User switching is not permitted"
 msgstr "(%1%->%2%): 不允许用户切换"
 
-#: sbuild/sbuild-session.cc:394
 msgid "Error saving terminal settings"
 msgstr "保存终端设置时出错"
 
-#: sbuild/sbuild-session.cc:415
 msgid "Error restoring terminal settings"
 msgstr "还原终端设置时出错"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:913
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
 msgstr "[chroot %1%] 正在运行登录程序: “%4%”"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:917
 #, boost-format
 msgid "[%1% chroot] Running shell: '%4%'"
 msgstr "[chroot %1%] 正在运行程序: “%4%”"
@@ -1631,7 +1272,6 @@ msgstr "[chroot %1%] 正在运行程序: “%4%”"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:927
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr "[chroot %1%] (%2%->%3%) 正在运行登录程序: “%4%”"
@@ -1641,14 +1281,12 @@ msgstr "[chroot %1%] (%2%->%3%) 正在运行登录程序: “%4%”"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:934
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
 msgstr "[chroot %1%] (%2%->%3%) 正在运行程序: “%4%”"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#: sbuild/sbuild-session.cc:972
 #, boost-format
 msgid "[%1% chroot] Running command: \"%4%\""
 msgstr "[chroot %1%] 正在运行命令:“%4%”"
@@ -1658,17 +1296,14 @@ msgstr "[chroot %1%] 正在运行命令:“%4%”"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#: sbuild/sbuild-session.cc:979
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
 msgstr "[chroot %1%] (%2%->%3%) 正在运行命令:“%4%”"
 
-#: sbuild/sbuild-session.cc:1155
 #, boost-format
 msgid "stage=%1%"
 msgstr "stage=%1%"
 
-#: sbuild/sbuild-session.cc:1334 sbuild/sbuild-session.cc:1341
 msgid "terminating immediately"
 msgstr "立刻终止"
 
@@ -1680,15 +1315,12 @@ msgstr "立刻终止"
 #. format specifiers may be used instead, as long as
 #. the day, month and year are clearly displayed in
 #. the equivalent standard method for your locale.
-#: sbuild/sbuild-types.cc:37
 msgid "%d %b %Y"
 msgstr "%Y %b %d"
 
-#: sbuild/sbuild-util.cc:81
 msgid "Failed to stat file"
 msgstr "无法获取文件状态"
 
-#: sbuild/sbuild-util.cc:82
 msgid "Failed to stat file descriptor"
 msgstr "无法统计文件描述符"
 
