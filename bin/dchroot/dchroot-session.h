@@ -40,23 +40,21 @@ namespace dchroot
      * The constructor.
      *
      * @param service the PAM service name.
-     * @param config a shared_ptr to the chroot configuration.
      * @param operation the session operation to perform.
      * @param chroots the chroots to act upon.
      * @param compat true to enable full dchroot compatibility, or
      * false to enable schroot compatiblity (permissions checks).
      */
-    session (std::string const&         service,
-	     config_ptr&                config,
-	     operation                  operation,
-	     sbuild::string_list const& chroots,
-	     bool                       compat);
+    session (std::string const&                  service,
+	     operation                           operation,
+	     sbuild::session::chroot_list const& chroots,
+	     bool                                compat);
 
     /// The destructor.
     virtual ~session ();
 
     virtual sbuild::auth::status
-    get_chroot_auth_status (sbuild::auth::status status,
+    get_chroot_auth_status (sbuild::auth::status       status,
 			    sbuild::chroot::ptr const& chroot) const;
 
     virtual sbuild::string_list

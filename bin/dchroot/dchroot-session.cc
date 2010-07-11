@@ -40,12 +40,11 @@ using sbuild::auth;
 using boost::format;
 using namespace dchroot;
 
-session::session (std::string const&         service,
-		  config_ptr&                config,
-		  operation                  operation,
-		  sbuild::string_list const& chroots,
-		  bool                       compat):
-  session_base(service, config, operation, chroots, compat)
+session::session (std::string const&                  service,
+		  operation                           operation,
+		  sbuild::session::chroot_list const& chroots,
+		  bool                                compat):
+  session_base(service, operation, chroots, compat)
 {
 }
 

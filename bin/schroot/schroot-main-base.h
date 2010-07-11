@@ -22,6 +22,7 @@
 #include <schroot-base/schroot-base-main.h>
 #include <schroot/schroot-options-base.h>
 
+#include <sbuild/sbuild-chroot-config.h>
 #include <sbuild/sbuild-custom-error.h>
 
 namespace schroot
@@ -141,13 +142,15 @@ namespace schroot
 
   protected:
     /// The program options.
-    options_base::ptr          options;
+    options_base::ptr            options;
     /// The chroot configuration.
-    sbuild::chroot_config::ptr config;
+    sbuild::chroot_config::ptr   config;
     /// The chroots to use.
-    sbuild::string_list        chroots;
+    sbuild::string_list          chroots;
+    /// The chroots to use.
+    sbuild::session::chroot_list chroot_objects;
     /// The session.
-    sbuild::session::ptr       session;
+    sbuild::session::ptr         session;
   };
 
 }
