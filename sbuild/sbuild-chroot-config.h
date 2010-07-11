@@ -180,6 +180,16 @@ namespace sbuild
 
   public:
     /**
+     * Find a chroot by its name.  The name must be fully qualified
+     * with a namespace.
+     *
+     * @param name the chroot name
+     * @returns the chroot if found, otherwise 0.
+     */
+    const chroot::ptr
+    find_chroot (std::string const& name) const;
+
+    /**
      * Find a chroot by its name.
      *
      * @param namespace_hint the namespace to use if non was

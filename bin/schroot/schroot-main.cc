@@ -77,7 +77,7 @@ main::create_session(sbuild::session::operation sess_op)
   sbuild::log_debug(sbuild::DEBUG_INFO) << "Creating schroot session" << endl;
 
   this->session = sbuild::session::ptr
-    (new sbuild::session("schroot", this->config, sess_op, this->chroots));
+    (new sbuild::session("schroot", sess_op, this->chroot_objects));
 }
 
 void

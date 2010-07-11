@@ -250,7 +250,7 @@ main_base::run_impl ()
     log_exception_warning(error(CHROOT_FILE2, SCHROOT_CONF, SCHROOT_CONF_CHROOT_D));
 
   /* Get list of chroots to use */
-  chroots = get_chroot_options();
+  this->chroots = get_chroot_options();
   if (this->chroots.empty())
     {
       if (!(this->options->all_chroots == true ||
@@ -267,6 +267,18 @@ main_base::run_impl ()
 				      CHROOT_NOTDEFINED));
 	  return EXIT_SUCCESS;
 	}
+    }
+  this->chroot_objects.clear();
+    sbuild::session::chroot_list chroots;
+  for(sbuild::string_list::const_iterator pos = this->chroots.begin();
+      pos != this->chroots.end();
+      ++pos)
+    {
+      sbuild::chroot::ptr c = this->config->find_chroot(*pos);
+      if (c)
+	chroot_objects.push_back(c);
+      else
+	throw error(*pos, CHROOT_NOTFOUND);
     }
 
   /* Print chroot list (including aliases). */

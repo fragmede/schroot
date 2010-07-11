@@ -79,8 +79,7 @@ main::create_session(sbuild::session::operation sess_op)
   // not require user or group access.
   this->session = sbuild::session::ptr
     (new dchroot_dsa::session("schroot",
-			      this->config,
 			      sess_op,
-			      this->chroots,
+			      this->chroot_objects,
 			      this->use_dchroot_conf));
 }

@@ -328,6 +328,26 @@ chroot_config::find_namespace (std::string const& chroot_namespace) const
 }
 
 const sbuild::chroot::ptr
+chroot_config::find_chroot (std::string const& name) const
+{
+  std::string chroot_namespace;
+  std::string chroot_name;
+
+  std::string::size_type pos = name.find_first_of(namespace_separator);
+  if (pos != std::string::npos)
+    {
+      chroot_namespace = name.substr(0, pos);
+      if (name.size() >= pos + 1)
+	chroot_name = name.substr(pos + 1);
+    }
+
+  log_debug(DEBUG_NOTICE) << "Looking for identified chroot " << chroot_name << " in identified namespace " << chroot_namespace << std::endl;
+
+  // TODO: Should an invalid namespace throw here?
+  return find_chroot_in_namespace(chroot_namespace, chroot_name);
+}
+
+const sbuild::chroot::ptr
 chroot_config::find_chroot (std::string const& namespace_hint,
 			    std::string const& name) const
 {

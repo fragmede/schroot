@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "sbuild-chroot-config.h"
+#include "sbuild-chroot.h"
 #include "sbuild-chroot-facet-personality.h"
 #include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-session-clonable.h"
@@ -248,9 +248,8 @@ error<session::error_code>::error_strings
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
 session::session (std::string const&  service,
-		  config_ptr&         config,
 		  operation           operation,
-		  string_list const&  chroots):
+		  chroot_list const&  chroots):
   authstat(
 #ifdef SBUILD_FEATURE_PAM
 	   auth_pam::create(service)
@@ -258,7 +257,6 @@ session::session (std::string const&  service,
 	   auth_null::create(service)
 #endif // SBUILD_FEATURE_PAM
 	   ),
-  config(config),
   chroots(chroots),
   chroot_status(true),
   lock_status(true),
@@ -293,26 +291,14 @@ session::set_auth (auth::ptr& auth)
   this->authstat = auth;
 }
 
-session::config_ptr const&
-session::get_config () const
-{
-  return this->config;
-}
-
-void
-session::set_config (config_ptr& config)
-{
-  this->config = config;
-}
-
-string_list const&
+session::chroot_list const&
 session::get_chroots () const
 {
   return this->chroots;
 }
 
 void
-session::set_chroots (string_list const& chroots)
+session::set_chroots (chroot_list const& chroots)
 {
   this->chroots = chroots;
 }
@@ -525,7 +511,6 @@ auth::status
 session::get_auth_status () const
 {
   assert(!this->chroots.empty());
-  if (this->config.get() == 0) return auth::STATUS_FAIL;
 
   /*
    * Note that the root user can't escape authentication.  This is
@@ -540,15 +525,11 @@ session::get_auth_status () const
   /** @todo Use set difference rather than iteration and
    * is_group_member.
    */
-  for (string_list::const_iterator cur = this->chroots.begin();
+  for (chroot_list::const_iterator cur = this->chroots.begin();
        cur != this->chroots.end();
        ++cur)
     {
-      const chroot::ptr chroot = this->config->find_alias("", *cur);
-      if (!chroot) // Should never happen, but cater for it anyway.
-	throw error(*cur, CHROOT_NOTFOUND);
-
-      status = auth::change_auth(status, get_chroot_auth_status(status, chroot));
+      status = auth::change_auth(status, get_chroot_auth_status(status, *cur));
     }
 
   return status;
@@ -612,7 +593,6 @@ session::run ()
 void
 session::run_impl ()
 {
-  assert(this->config.get() != 0);
   assert(!this->chroots.empty());
 
   try
@@ -624,7 +604,7 @@ session::run_impl ()
       sigterm_called = false;
       set_sigterm_handler();
 
-      for (string_list::const_iterator cur = this->chroots.begin();
+      for (chroot_list::const_iterator cur = this->chroots.begin();
 	   cur != this->chroots.end();
 	   ++cur)
 	{
@@ -632,9 +612,7 @@ session::run_impl ()
 	    << format("Running session in %1% chroot:") % *cur
 	    << endl;
 
-	  const chroot::ptr ch = this->config->find_alias("", *cur);
-	  if (!ch) // Should never happen, but cater for it anyway.
-	    throw error(*cur, CHROOT_NOTFOUND);
+	  const chroot::ptr ch = *cur;
 
 	  // TODO: Make chroot/session selection automatically fail
 	  // if no session exists earlier on when selecting chroots.

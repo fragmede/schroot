@@ -20,7 +20,7 @@
 #define SBUILD_SESSION_H
 
 #include <sbuild/sbuild-auth.h>
-#include <sbuild/sbuild-chroot-config.h>
+#include <sbuild/sbuild-chroot.h>
 #include <sbuild/sbuild-custom-error.h>
 
 #include <string>
@@ -46,6 +46,9 @@ namespace sbuild
   class session
   {
   public:
+    /// A list of chroots.
+    typedef std::vector<chroot::ptr> chroot_list;
+
     /// Session operations.
     enum operation
       {
@@ -93,9 +96,6 @@ namespace sbuild
     /// Exception type.
     typedef custom_error<error_code> error;
 
-    /// A shared_ptr to a chroot_config object.
-    typedef std::tr1::shared_ptr<chroot_config> config_ptr;
-
     /// A shared_ptr to a session object.
     typedef std::tr1::shared_ptr<session> ptr;
 
@@ -103,14 +103,12 @@ namespace sbuild
      * The constructor.
      *
      * @param service the PAM service name.
-     * @param config a shared_ptr to the chroot configuration.
      * @param operation the session operation to perform.
      * @param chroots the chroots to act upon.
      */
     session (std::string const& service,
-	     config_ptr&        config,
 	     operation          operation,
-	     string_list const& chroots);
+	     chroot_list const& chroots);
 
     /// The destructor.
     virtual ~session ();
@@ -132,27 +130,11 @@ namespace sbuild
     set_auth (auth::ptr& auth);
 
     /**
-     * Get the configuration associated with this session.
-     *
-     * @returns a shared_ptr to the configuration.
-     */
-    config_ptr const&
-    get_config () const;
-
-    /**
-     * Set the configuration associated with this session.
-     *
-     * @param config a shared_ptr to the configuration.
-     */
-    void
-    set_config (config_ptr& config);
-
-    /**
      * Get the chroots to use in this session.
      *
      * @returns a list of chroots.
      */
-    string_list const&
+    chroot_list const&
     get_chroots () const;
 
     /**
@@ -161,7 +143,7 @@ namespace sbuild
      * @param chroots a list of chroots.
      */
     void
-    set_chroots (string_list const& chroots);
+    set_chroots (chroot_list const& chroots);
 
     /**
      * Get the operation this session will perform.
@@ -320,8 +302,7 @@ namespace sbuild
      * Get a list of directories to change to when running a login
      * shell.  Multiple directories are used as fallbacks.
      *
-     * @param session_chroot the chroot to setup.  This must be
-     * present in the chroot list and the chroot configuration object.
+     * @param session_chroot the chroot to setup.
      * @param env the environment to use for HOME
      * @returns a list of directories
      */
@@ -333,8 +314,7 @@ namespace sbuild
      * Get a list of directories to change to when running a command
      * Multiple directories are used as fallbacks.
      *
-     * @param session_chroot the chroot to setup.  This must be
-     * present in the chroot list and the chroot configuration object.
+     * @param session_chroot the chroot to setup.
      * @param env the environment to use for HOME
      * @returns a list of directories
      */
@@ -355,8 +335,7 @@ namespace sbuild
     /**
      * Get the command to run.
      *
-     * @param session_chroot the chroot to setup.  This must be
-     * present in the chroot list and the chroot configuration object.
+     * @param session_chroot the chroot to setup.
      * @param file the filename to pass to execve(2).
      * @param command the argv to pass to execve(2).
      * @param env the environment to use for PATH
@@ -370,8 +349,7 @@ namespace sbuild
     /**
      * Get the command to run a login shell.
      *
-     * @param session_chroot the chroot to setup.  This must be
-     * present in the chroot list and the chroot configuration object.
+     * @param session_chroot the chroot to setup.
      * @param file the filename to pass to execve(2).
      * @param command the argv to pass to execve(2).
      */
@@ -383,8 +361,7 @@ namespace sbuild
     /**
      * Get the command to run a user command.
      *
-     * @param session_chroot the chroot to setup.  This must be
-     * present in the chroot list and the chroot configuration object.
+     * @param session_chroot the chroot to setup.
      * @param file the filename to pass to execve(2).
      * @param command the argv to pass to execve(2).
      * @param env the environment to use for PATH
@@ -405,8 +382,7 @@ namespace sbuild
      *
      * An error will be thrown on failure.
      *
-     * @param session_chroot the chroot to setup.  This must be
-     * present in the chroot list and the chroot configuration object.
+     * @param session_chroot the chroot to setup.
      * @param setup_type the type of setup to perform.
      */
     void
@@ -418,8 +394,7 @@ namespace sbuild
      *
      * An error will be thrown on failure.
      *
-     * @param session_chroot the chroot to setup.  This must be
-     * present in the chroot list and the chroot configuration object.
+     * @param session_chroot the chroot to setup.
      */
     void
     run_chroot (chroot::ptr& session_chroot);
@@ -429,8 +404,7 @@ namespace sbuild
      * specified chroot.  This method is only ever to be run in a
      * child process, and will never return.
      *
-     * @param session_chroot the chroot to setup.  This must be
-     * present in the chroot list and the chroot configuration object.
+     * @param session_chroot the chroot to setup.
      */
     void
     run_child (chroot::ptr& session_chroot);
@@ -515,10 +489,8 @@ namespace sbuild
 
     /// Authentication state.
     auth::ptr        authstat;
-    /// The chroot configuration.
-    config_ptr       config;
     /// The chroots to run the session operation in.
-    string_list      chroots;
+    chroot_list      chroots;
     /// The current chroot status.
     int              chroot_status;
     /// Lock status for locks acquired during chroot setup.

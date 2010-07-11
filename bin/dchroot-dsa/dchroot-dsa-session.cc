@@ -43,11 +43,10 @@ using boost::format;
 using namespace dchroot_dsa;
 
 session::session (std::string const&         service,
-		  config_ptr&                config,
 		  operation                  operation,
-		  sbuild::string_list const& chroots,
+		  sbuild::session::chroot_list const& chroots,
 		  bool                       compat):
-  dchroot::session_base(service, config, operation, chroots, compat)
+  dchroot::session_base(service, operation, chroots, compat)
 {
 }
 
