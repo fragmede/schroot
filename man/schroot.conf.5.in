@@ -57,7 +57,9 @@ whether a distribution is older than another.  For example, \[lq]oldstable\[rq]
 and \[lq]oldstable-security\[rq] might be \[oq]0\[cq], while \[lq]stable\[rq]
 and \[lq]stable-security\[rq] are \[oq]1\[cq], \[lq]testing\[rq] is \[oq]2\[cq]
 and \[lq]unstable\[rq] is \[oq]3\[cq].  The values are not important, but the
-difference between them is.  This is used by sbuild and wanna-build.
+difference between them is.  This option is deprecated and no longer used by
+schroot, but is still permitted to be used; it will be obsoleted and removed in
+a future release.
 .TP
 \f[CBI]message-verbosity=\fP\f[CI]verbosity\fP
 Set the verbosity of messages printed by schroot when setting up, running
