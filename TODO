@@ -71,18 +71,6 @@ fashion.  expect might be useful for testing the PAM wrappers.
   Similar to debug level, but for normal messages
   e.g. quiet/normal/verbose/extra verbose.
 
-* Create separate namespaces for chroots and sessions
-
-Note: how to deal with duplicated names in both namespaces for --all?
-Maybe just list twice, first chroots and then sessions?
-
-Have separate namespaces for
-* chroots (for --all-chroots)
-* chroot aliases (for chroot commands)
-* source chroots (for --all-source-chroots)
-* source chroot aliases (for source chroot commands; add --source option)
-* sessions (for all session commands)
-
 * Testcase for chroot-loopback
 
 * Add a read-only mount option for union underlay (both for
@@ -115,3 +103,4 @@ Also, sbuild::session uses find_alias to find chroots, but it should
 specifically look for either chroots or sessions (and potentially
 also source chroots).  Teach sbuild::chroot_config to treat all these
 separately.  Aliases are only useful for SESSION_AUTOMATIC and BEGIN.
+
