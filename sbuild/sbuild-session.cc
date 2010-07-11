@@ -699,7 +699,7 @@ session::run_impl ()
 	      setup_chroot(chroot, chroot::SETUP_START);
 	      if (this->session_operation == OPERATION_BEGIN)
 		{
-		  cout << chroot->get_session_id() << endl;
+		  cout << chroot->get_name() << endl;
 		}
 
 	      /* Run recover scripts. */
@@ -1080,7 +1080,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   env.add("DATA_DIR", SCHROOT_DATA_DIR);
   env.add("SETUP_DATA_DIR", SCHROOT_SETUP_DATA_DIR);
   env.add("PID", getpid());
-  env.add("SESSION_ID", session_chroot->get_session_id());
+  env.add("SESSION_ID", session_chroot->get_name());
   env.add("HOST", SBUILD_HOST);
   env.add("HOST_OS", SBUILD_HOST_OS);
   env.add("HOST_VENDOR", SBUILD_HOST_VENDOR);
@@ -1277,7 +1277,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   env.add("SCHROOT_UID", this->authstat->get_ruid());
   env.add("SCHROOT_GID", this->authstat->get_rgid());
   // Add session ID.
-  env.add("SCHROOT_SESSION_ID", session_chroot->get_session_id());
+  env.add("SCHROOT_SESSION_ID", session_chroot->get_name());
 
   log_debug(DEBUG_INFO) << "Set environment:\n" << env;
 

@@ -96,7 +96,7 @@ chroot_facet_personality::get_keyfile (chroot const& chroot,
   // Only set if defined.
   if (get_persona().get_name() != "undefined")
     keyfile::set_object_value(*this, &chroot_facet_personality::get_persona,
-			      keyfile, chroot.get_keyfile_name(), "personality");
+			      keyfile, chroot.get_name(), "personality");
 }
 
 void
@@ -105,7 +105,7 @@ chroot_facet_personality::set_keyfile (chroot&        chroot,
 				       string_list&   used_keys)
 {
   keyfile::get_object_value(*this, &chroot_facet_personality::set_persona,
-			    keyfile, chroot.get_keyfile_name(), "personality",
+			    keyfile, chroot.get_name(), "personality",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("personality");
 }

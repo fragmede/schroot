@@ -705,7 +705,6 @@ chroot_config::load_keyfile (std::string const& chroot_namespace,
 
       // Set both; the keyfile load will correct them if needed.
       chroot->set_name(*group);
-      chroot->set_session_id(*group);
 
       // If we are (re-)creating session objects, we need to re-clone
       // the session chroot object from its basic state, in order to
@@ -732,7 +731,6 @@ chroot_config::load_keyfile (std::string const& chroot_namespace,
 	    (chroot->get_facet<chroot_facet_session>());
 	  assert(psess);
 	  chroot->set_name(*group);
-	  chroot->set_session_id(*group);
 	}
       else
 	{

@@ -232,23 +232,23 @@ chroot_facet_union::get_keyfile (chroot const& chroot,
 				 keyfile&      keyfile) const
 {
   keyfile::set_object_value(*this, &chroot_facet_union::get_union_type,
-			    keyfile, chroot.get_keyfile_name(), "union-type");
+			    keyfile, chroot.get_name(), "union-type");
 
   if (get_union_configured())
     {
       keyfile::set_object_value(*this,
 				&chroot_facet_union::get_union_mount_options,
-				keyfile, chroot.get_keyfile_name(),
+				keyfile, chroot.get_name(),
 				"union-mount-options");
 
       keyfile::set_object_value(*this,
 				&chroot_facet_union::get_union_overlay_directory,
-				keyfile, chroot.get_keyfile_name(),
+				keyfile, chroot.get_name(),
 				"union-overlay-directory");
 
       keyfile::set_object_value(*this,
 				&chroot_facet_union::get_union_underlay_directory,
-				keyfile, chroot.get_keyfile_name(),
+				keyfile, chroot.get_name(),
 				"union-underlay-directory");
     }
 }
@@ -261,7 +261,7 @@ chroot_facet_union::set_keyfile (chroot&        chroot,
   bool session = static_cast<bool>(chroot.get_facet<chroot_facet_session>());
 
   keyfile::get_object_value(*this, &chroot_facet_union::set_union_type,
-			    keyfile, chroot.get_keyfile_name(), "union-type",
+			    keyfile, chroot.get_name(), "union-type",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("union-type");
 
@@ -273,13 +273,13 @@ chroot_facet_union::set_keyfile (chroot&        chroot,
 
   keyfile::get_object_value(*this,
 			    &chroot_facet_union::set_union_mount_options,
-			    keyfile, chroot.get_keyfile_name(), "union-mount-options",
+			    keyfile, chroot.get_name(), "union-mount-options",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("union-mount-options");
 
   keyfile::get_object_value(*this,
 			    &chroot_facet_union::set_union_overlay_directory,
-			    keyfile, chroot.get_keyfile_name(),
+			    keyfile, chroot.get_name(),
 			    "union-overlay-directory",
 			    (session && get_union_configured())?
 			    keyfile::PRIORITY_REQUIRED :
@@ -288,7 +288,7 @@ chroot_facet_union::set_keyfile (chroot&        chroot,
 
   keyfile::get_object_value(*this,
 			    &chroot_facet_union::set_union_underlay_directory,
-			    keyfile, chroot.get_keyfile_name(),
+			    keyfile, chroot.get_name(),
 			    "union-underlay-directory",
 			    (session && get_union_configured())?
 			    keyfile::PRIORITY_REQUIRED :

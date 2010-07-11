@@ -136,15 +136,15 @@ chroot_facet_mountable::get_keyfile (chroot const& chroot,
 
   if (session)
     keyfile::set_object_value(*this, &chroot_facet_mountable::get_mount_device,
-			      keyfile, chroot.get_keyfile_name(),
+			      keyfile, chroot.get_name(),
 			      "mount-device");
 
   keyfile::set_object_value(*this, &chroot_facet_mountable::get_mount_options,
-			    keyfile, chroot.get_keyfile_name(),
+			    keyfile, chroot.get_name(),
 			    "mount-options");
 
   keyfile::set_object_value(*this, &chroot_facet_mountable::get_location,
-			    keyfile, chroot.get_keyfile_name(),
+			    keyfile, chroot.get_name(),
 			    "location");
 }
 
@@ -156,7 +156,7 @@ chroot_facet_mountable::set_keyfile (chroot&        chroot,
   bool session = static_cast<bool>(chroot.get_facet<chroot_facet_session>());
 
   keyfile::get_object_value(*this, &chroot_facet_mountable::set_mount_device,
-			    keyfile, chroot.get_keyfile_name(),
+			    keyfile, chroot.get_name(),
 			    "mount-device",
 			    session ?
 			    keyfile::PRIORITY_REQUIRED :
@@ -164,13 +164,13 @@ chroot_facet_mountable::set_keyfile (chroot&        chroot,
   used_keys.push_back("mount-device");
 
   keyfile::get_object_value(*this, &chroot_facet_mountable::set_mount_options,
-			    keyfile, chroot.get_keyfile_name(),
+			    keyfile, chroot.get_name(),
 			    "mount-options",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("mount-options");
 
   keyfile::get_object_value(*this, &chroot_facet_mountable::set_location,
-			    keyfile, chroot.get_keyfile_name(),
+			    keyfile, chroot.get_name(),
 			    "location",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("location");

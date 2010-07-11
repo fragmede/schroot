@@ -136,13 +136,13 @@ namespace sbuild
     /**
      * Create a session chroot.
      *
-     * @param session_id the identifier for the new session.
+     * @param name the identifier (session_id) for the new session.
      * @param user the user creating the session.
      * @param root true if the user has root access, otherwise false.
      * @returns a session chroot.
      */
     virtual chroot::ptr
-    clone_session (std::string const& session_id,
+    clone_session (std::string const& name,
 		   std::string const& user,
 		   bool               root) const = 0;
 
@@ -169,33 +169,6 @@ namespace sbuild
      */
     void
     set_name (std::string const& name);
-
-    /**
-     * Get the session ID of the chroot.
-     *
-     * @returns the session ID.
-     */
-    std::string const&
-    get_session_id () const;
-
-    /**
-     * Set the session ID of the chroot.
-     * @todo Create as chroot facet
-     *
-     * @param session_id the session ID.
-     */
-    void
-    set_session_id (std::string const& session_id);
-
-    /**
-     * Get the keyfile name of the chroot.
-     * Depending on whether the chroot is active or not, this will
-     * return the session ID or the chroot name, respectively.
-     *
-     * @returns the name.
-     */
-    std::string const&
-    get_keyfile_name () const;
 
     /**
      * Get the description of the chroot.
@@ -761,8 +734,6 @@ namespace sbuild
   private:
     /// Chroot name.
     std::string   name;
-    /// Chroot session ID.
-    std::string   session_id;
     /// Chroot description.
     std::string   description;
     /// Chroot priority.
