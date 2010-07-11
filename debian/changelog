@@ -6,8 +6,9 @@ schroot (1.4.7-1) unstable; urgency=low
     to Mario Holbe.
   * Update it and zh_CN translations.  Thanks to Vincenzo Campanella
     and Ji ZhengYu.
+  * Update cs translation (Closes: #588734).  Thanks to Miroslav Kure.
 
- -- Roger Leigh <rleigh@debian.org>  Tue, 06 Jul 2010 23:34:30 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 11 Jul 2010 18:01:13 +0100
 
 schroot (1.4.6-1) unstable; urgency=low
 
