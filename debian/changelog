@@ -9,8 +9,9 @@ schroot (1.4.8-1) unstable; urgency=low
 
   * New upstream stable release.
   * Update cs translation (Closes: #588734).  Thanks to Miroslav Kure.
+  * Update de translation (Closes: #588963).  Thanks to Holger Wansing.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 11 Jul 2010 18:27:40 +0100
+ -- Roger Leigh <rleigh@debian.org>  Tue, 13 Jul 2010 23:34:18 +0100
 
 schroot (1.4.7-1) unstable; urgency=low
 
