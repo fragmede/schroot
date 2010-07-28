@@ -3,8 +3,11 @@ schroot (1.4.8-1) unstable; urgency=low
   * New upstream stable release.
   * Update cs translation (Closes: #588734).  Thanks to Miroslav Kure.
   * Update de translation (Closes: #588963).  Thanks to Holger Wansing.
+  * sbuild::auth: Always preserve TERM and SHELL environment
+    variables (Closes: #589830, #589917).  Thanks to Bastian Blank and
+    Arno Renevier.
 
- -- Roger Leigh <rleigh@debian.org>  Tue, 13 Jul 2010 23:34:18 +0100
+ -- Roger Leigh <rleigh@debian.org>  Wed, 28 Jul 2010 21:11:34 +0100
 
 schroot (1.4.7-1) unstable; urgency=low
 
