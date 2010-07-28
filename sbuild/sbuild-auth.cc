@@ -240,25 +240,23 @@ auth::get_minimal_environment () const
   else
     minimal.add(std::make_pair("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games"));
 
-  if (this->user_environment.empty())
+  if (!this->home.empty() )
+    minimal.add(std::make_pair("HOME", this->home));
+  else
+    minimal.add(std::make_pair("HOME", "/"));
+
+  if (!this->user.empty())
     {
-      if (!this->home.empty() )
-	minimal.add(std::make_pair("HOME", this->home));
-      else
-	minimal.add(std::make_pair("HOME", "/"));
-      if (!this->user.empty())
-	{
-	  minimal.add(std::make_pair("LOGNAME", this->user));
-	  minimal.add(std::make_pair("USER", this->user));
-	}
-      {
-	const char *term = getenv("TERM");
-	if (term)
-	  minimal.add(std::make_pair("TERM", term));
-      }
-      if (!this->shell.empty())
-	minimal.add(std::make_pair("SHELL", this->shell));
+      minimal.add(std::make_pair("LOGNAME", this->user));
+      minimal.add(std::make_pair("USER", this->user));
     }
+  {
+    const char *term = getenv("TERM");
+    if (term)
+      minimal.add(std::make_pair("TERM", term));
+  }
+  if (!this->shell.empty())
+    minimal.add(std::make_pair("SHELL", this->shell));
 
   return minimal;
 }
