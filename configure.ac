@@ -565,7 +565,7 @@ AC_MSG_CHECKING([for boost::program_options::variables_map in -lboost_program_op
 saved_LIBS="${LIBS}"
 LIBS="${saved_LIBS} -lboost_program_options"
 define([testprog], [AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
-                                   [boost::program_options::variables_map::variables_map dummy()])])
+                                   [boost::program_options::variables_map dummy()])])
 AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
 	        BOOST_LIBS="${BOOST_LIBS} -lboost_program_options"],
