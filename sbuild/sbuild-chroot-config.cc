@@ -174,7 +174,7 @@ chroot_config::add_config_directory (std::string const& chroot_namespace,
 	continue;
 
       // Skip backup files and dpkg configuration backup files.
-      if (!is_valid_filename(name))
+      if (!is_valid_sessionname(name))
 	continue;
 
       std::string filename = dir + "/" + name;
