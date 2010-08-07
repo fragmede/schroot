@@ -170,6 +170,20 @@ sbuild::is_absname (std::string const& name)
 }
 
 bool
+sbuild::is_valid_sessionname (std::string const& name)
+{
+  bool match = false;
+
+  static regex file_namespace("^[a-zA-Z0-9][a-zA-Z0-9_-]*$");
+
+  if (regex_search(name, file_namespace)) {
+    match = true;
+  }
+
+  return match;
+}
+
+bool
 sbuild::is_valid_filename (std::string const& name,
 			   bool               lsb_mode)
 {

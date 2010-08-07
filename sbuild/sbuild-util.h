@@ -79,6 +79,17 @@ namespace sbuild
   /**
    * Check if a filename matches the allowed pattern(s).  This will
    * not match dotfiles, backup files, dpkg configuration backup
+   * files, etc. 
+   *
+   * @param name the filename to check.
+   * @returns true if it matches, false if not.
+   */
+  bool
+  is_valid_sessionname (std::string const& name);
+
+  /**
+   * Check if a filename matches the allowed pattern(s).  This will
+   * not match dotfiles, backup files, dpkg configuration backup
    * files, etc.  This uses the same rules as run-parts(8).
    *
    * @param name the filename to check.
