@@ -13,8 +13,10 @@ schroot (1.4.8-1) unstable; urgency=low
   * sbuild::auth: Always preserve TERM and SHELL environment
     variables (Closes: #589830, #589917).  Thanks to Bastian Blank and
     Arno Renevier.
+  * Don't restrict valid session names (Closes: #589889).  Thanks to
+    Zach Carter.
 
- -- Roger Leigh <rleigh@debian.org>  Wed, 28 Jul 2010 21:11:34 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 07 Aug 2010 09:58:00 +0100
 
 schroot (1.4.7-1) unstable; urgency=low
 
