@@ -18,6 +18,8 @@
 
 #include <config.h>
 
+#include <sbuild/sbuild-util.h>
+
 #include "schroot-options.h"
 
 #include <cstdlib>
@@ -274,4 +276,12 @@ options_base::check_actions ()
 #endif
        _("--session-name is not permitted for the specified action"));
 
+  if (!this->session_name.empty() &&
+      !sbuild::is_valid_sessionname(this->session_name))
+    throw opt::validation_error
+      (
+#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
+       opt::validation_error::invalid_option_value,
+#endif
+       _("Invalid session name"));
 }
