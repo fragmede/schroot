@@ -211,6 +211,15 @@ sbuild::chroot::set_name (std::string const& name)
       throw e;
     }
 
+  if (!is_valid_sessionname(name))
+    {
+      error e(name, NAME_INVALID);
+      format fmt("Only alphanumeric characters, underscores and hyphens are allowed");
+      fmt % chroot_config::namespace_separator;
+      e.set_reason(fmt.str());
+      throw e;
+    }
+
   this->name = name;
 }
 
