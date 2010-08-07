@@ -15,8 +15,10 @@ schroot (1.4.8-1) unstable; urgency=low
     Arno Renevier.
   * Don't restrict valid session names (Closes: #589889).  Thanks to
     Zach Carter.
+  * Correctly check for boost::program_options::variables_map
+    (Closes: #589658).  Thanks to Zach Carter.
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 07 Aug 2010 09:58:00 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 07 Aug 2010 12:02:27 +0100
 
 schroot (1.4.7-1) unstable; urgency=low
 
