@@ -22,8 +22,9 @@ schroot (1.4.8-1) unstable; urgency=low
   * Session names and chroot names may use the same names now that
     separate session: and chroot: namespaces are used
     (Closes: #512131).
+  * Upgrade to Standards Version 3.9.1 (no changes).
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 15 Aug 2010 11:26:08 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 15 Aug 2010 11:34:26 +0100
 
 schroot (1.4.7-1) unstable; urgency=low
 
