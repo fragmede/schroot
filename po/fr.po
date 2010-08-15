@@ -1,16 +1,15 @@
-# translation of fr.po to French
 # Translation of schroot in French.
-# Copyright © 2006-2008 Roger Leigh <rleigh@debian.org>
-# This file is distributed under the same license as the shroot package.
+# Copyright © 2006-2008, 2010 Debian French l10n team <debian-l10n-french@lists.debian.org>
+# This file is distributed under the same license as the schroot package.
 #
 # Nicolas François <nicolas.francois@centraliens.net>, 2006-2008.
 # Thomas Blein <tblein@tblein.eu>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: fr\n"
+"Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-07-11 13:12+0100\n"
-"PO-Revision-Date: 2010-02-23 18:12+0100\n"
+"POT-Creation-Date: 2010-08-15 10:19+0100\n"
+"PO-Revision-Date: 2010-07-06 21:34+0200\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -123,7 +122,7 @@ msgstr "Échec lors de l'exécution de « stat » sur le périphérique"
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
 msgid "[OPTION...] - build Debian packages from source"
-msgstr "[OPTION...] - Construire des paquets Debian depuis leurs sources"
+msgstr "[OPTION...] - construction de paquets Debian depuis leurs sources"
 
 msgid "Build options"
 msgstr "Options de construction"
@@ -153,10 +152,10 @@ msgid "Run in batch mode"
 msgstr "Exécuter en groupe"
 
 msgid "dpkg-buildpackage option"
-msgstr "option de « dpkg-buildpackage »"
+msgstr "Option de « dpkg-buildpackage »"
 
 msgid "dpkg-buildpackage options (space-separated)"
-msgstr "options de « dpkg-buildpackage » (séparées par des espaces)"
+msgstr "Options de « dpkg-buildpackage » (séparées par des espaces)"
 
 msgid "Distribution to build for"
 msgstr "La distribution pour laquelle construire"
@@ -179,10 +178,10 @@ msgstr ""
 "Debian"
 
 msgid "Make a binary non-maintainer upload (changelog entry)"
-msgstr "Faire un NMU (non-maintainer upload) binaire (entrée de changelog)"
+msgstr "Faire un envoi indépendant (NMU) binaire (entrée de changelog)"
 
 msgid "Make a binary non-maintainer upload (binNMU number)"
-msgstr "Faire un NMU (non-maintainer upload) binaire (nombre binNMU)"
+msgstr "Faire un envoi indépendant (NMU) binaire (nombre binNMU)"
 
 msgid "Append version suffix"
 msgstr "Ajouter le suffixe de version"
@@ -200,7 +199,8 @@ msgid "Purge dependencies mode"
 msgstr "Mode nettoyage des dépendances (« Purge dependencies »)"
 
 msgid "Run setup hook script in chroot prior to building"
-msgstr "Executer le script configuration dans le chroot avant la construction"
+msgstr ""
+"Exécuter le script de configuration dans le chroot avant la construction"
 
 msgid "GPG key identifier"
 msgstr "Identifiant de la clé GPG"
@@ -218,7 +218,7 @@ msgid "Add a build conflict"
 msgstr "Ajouter un conflit de construction"
 
 msgid "Add an architecture-independent build dependency"
-msgstr "Ajouter une dépendance de construction architecture independante"
+msgstr "Ajouter une dépendance de construction indépendant de l'architecture"
 
 msgid "Add an architecture-independent build conflict"
 msgstr "Ajouter un conflit de construction indépendant de l'architecture"
@@ -228,7 +228,7 @@ msgstr "Préciser l'algorithme pour la résolution des dépendances"
 
 msgid "Build using the current GCC development snapshot"
 msgstr ""
-"Contruire en utilisant la dernière version en développement de GCC (« GCC "
+"Contruire en utilisant la dernière version en développement de GCC (« GCC "
 "development snapshot »)"
 
 msgid "Package to build"
@@ -249,7 +249,7 @@ msgstr "chroot %1% (compatibilité dchroot-dsa)"
 #. is an em-dash.
 msgid "[OPTION...] chroot [COMMAND] - run command or shell in a chroot"
 msgstr ""
-"[OPTION...] chroot [COMMANDE) - Exécuter une commande ou un interpréteur de "
+"[OPTION...] chroot [COMMANDE) - exécution de commande ou d'interpréteur de "
 "commande dans un chroot"
 
 msgid "Print paths to available chroots"
@@ -344,7 +344,7 @@ msgstr ""
 #. is an em-dash.
 msgid "[OPTION...] [COMMAND] - run command or shell in a chroot"
 msgstr ""
-"[OPTION...] [COMMANDE] - Exécuter la commande ou l'interpréteur de commande "
+"[OPTION...] [COMMANDE] - exécution de commande ou d'interpréteur de commande "
 "dans le chroot"
 
 msgid "Print path to selected chroot"
@@ -405,7 +405,7 @@ msgid "Linux kernel Application Binary Interface switching"
 msgstr "Changement de l'Application Binary Interface du noyau Linux"
 
 msgid "Support for filesystem unioning"
-msgstr "Support de l'union de systèmes de fichiers"
+msgstr "Gestion de l'union de systèmes de fichiers"
 
 msgid "Usage:"
 msgstr "Utilisation :"
@@ -459,7 +459,7 @@ msgstr "Impossible de trouver « %1% »"
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
 msgid "[OPTION...] - list mount points"
-msgstr "[OPTION...] - Lister les points de montage"
+msgstr "[OPTION...] - liste des points de montage"
 
 msgid "Mount"
 msgstr "Montage"
@@ -484,7 +484,7 @@ msgstr "Échec lors de l'exécution de « %1% »"
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
 msgid "[OPTION...] - mount filesystems"
-msgstr "[OPTION...] - Monter les systèmes de fichiers"
+msgstr "[OPTION...] - montage des systèmes de fichiers"
 
 msgid "An unknown exception occurred"
 msgstr "Une exception inconnue est survenue"
@@ -498,7 +498,7 @@ msgstr "Fichier fstab à lire (chemin complet)"
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
 msgid "[OPTION...] - release a device lock"
-msgstr "[OPTION...] - Déverrouiller un périphérique"
+msgstr "[OPTION...] - déverrouillage de périphérique"
 
 msgid "No PID specified; forcing release of lock"
 msgstr "Aucun PID spécifié ; forçage du déverrouillage"
@@ -541,19 +541,18 @@ msgstr "Les chroots spécifiés ne sont pas définis dans « %1% »"
 msgid "%1%: Chroot not found"
 msgstr "%1% : chroot introuvable"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "%1%: Invalid session name"
-msgstr "%1% : action non valable"
+msgstr "%1% : nom de session non valable"
 
 msgid "Available chroot types:"
-msgstr "Type de chroot disponibles : "
+msgstr "Type de chroot disponibles :"
 
 msgid "Support for 'block-device' chroots"
 msgstr "chroots de type « périphériques bloc »"
 
-#, fuzzy
 msgid "Support for 'btrfs-snapshot' chroots"
-msgstr "chroots de type « lvm-snapshot »"
+msgstr "chroots de type « btrfs-snapshot »"
 
 msgid "Support for 'directory' chroots"
 msgstr "chroots de type « répertoire »"
@@ -616,6 +615,10 @@ msgstr ""
 "L'option --session-name n'est pas permise pour l'action spécifiée ; vouliez-"
 "vous utiliser l'option --chroot ?"
 
+#, fuzzy
+msgid "Invalid session name"
+msgstr "%1% : nom de session non valable"
+
 msgid "Print location of selected chroots"
 msgstr "Afficher l'emplacement des chroots sélectionnés"
 
@@ -665,11 +668,11 @@ msgid "No controlling terminal"
 msgstr "Pas de terminal de contrôle"
 
 msgid "Timed out"
-msgstr "Temporisation terminée"
+msgstr "Délai expiré"
 
 #. TRANSLATORS: Please use an ellipsis e.g. U+2026
 msgid "Time is running out..."
-msgstr "La temporisation va se terminer..."
+msgstr "Le délai va se terminer..."
 
 msgid "Failed to get terminal settings"
 msgstr "Échec lors de la récupération des paramètres du terminal"
@@ -680,14 +683,14 @@ msgid "Unsupported conversation type '%1%'"
 msgstr "Type de conversation non géré : « %1% »"
 
 msgid "Password: "
-msgstr "Mot de passe :"
+msgstr "Mot de passe : "
 
 msgid "Password:"
 msgstr "Mot de passe :"
 
 #, boost-format
 msgid "[schroot] password for %1%: "
-msgstr "[schroot] mot de passe pour %1% :"
+msgstr "[schroot] mot de passe pour %1% : "
 
 msgid "Set RUSER"
 msgstr "Configuration de RUSER"
@@ -728,7 +731,7 @@ msgid "PAM error"
 msgstr "Erreur PAM"
 
 msgid "PAM failed to shut down cleanly"
-msgstr ""
+msgstr "Échec de l'arrêt de PAM"
 
 msgid "This option may be present in a newer version"
 msgstr "Cette option sera peut être présente dans une prochaine version"
@@ -755,7 +758,7 @@ msgid "A chroot or alias '%1%' already exists with this name"
 msgstr "Un chroot ou alias « %1% » a déjà ce nom"
 
 msgid "File is not a regular file"
-msgstr "Le fichier n'est pas un fichier régulier"
+msgstr "Le fichier n'est pas un fichier classique"
 
 msgid "Failed to open file"
 msgstr "Échec lors de l'ouverture du fichier"
@@ -768,7 +771,7 @@ msgstr "Le fichier est accessible en écriture pour les autres"
 
 #, fuzzy
 msgid "Invalid name"
-msgstr "%1% : action non valable"
+msgstr "%1% : nom de session non valable"
 
 msgid "No such namespace"
 msgstr ""
@@ -825,21 +828,17 @@ msgstr "L'« overlay » d'union doit être précisé avec un chemin absolu"
 msgid "Union underlay must have an absolute path"
 msgstr "L'« underlay » d'union doit être précisé avec un chemin absolu"
 
-#, fuzzy
 msgid "Filesystem Union Type"
 msgstr "Type d'union de systèmes de fichiers"
 
-#, fuzzy
 msgid "Filesystem Union Mount Options"
 msgstr "Options de montage des unions de systèmes de fichiers"
 
-#, fuzzy
 msgid "Filesystem Union Overlay Directory"
-msgstr "Répertoire pour l' « overlay » de l'union de systèmes de fichiers"
+msgstr "Répertoire pour l'« overlay » de l'union de systèmes de fichiers"
 
-#, fuzzy
 msgid "Filesystem Union Underlay Directory"
-msgstr "Répertoire pour l' « underlay » de l'union de systèmes de fichiers"
+msgstr "Répertoire pour l'« underlay » de l'union de systèmes de fichiers"
 
 msgid "File"
 msgstr "Fichier"
@@ -877,7 +876,7 @@ msgid "Directory must have an absolute path"
 msgstr "Le répertoire doit être précisé avec un chemin absolu"
 
 msgid "Attempt to add object which is not a facet"
-msgstr "Tentative d'ajout d'un object qui n'est pas une facette"
+msgstr "Tentative d'ajout d'un objet qui n'est pas une facette"
 
 msgid "Attempt to add facet which is already in use"
 msgstr "Tentative d'ajout d'une facette déjà utilisée"
@@ -902,7 +901,7 @@ msgid "Failed to write session file"
 msgstr "Échec lors de l'écriture du fichier de session"
 
 msgid "Message verbosity is invalid"
-msgstr ""
+msgstr "Verbosité des messages non valable"
 
 msgid "Name"
 msgstr "Nom"
@@ -917,7 +916,7 @@ msgid "Priority"
 msgstr "Priorité"
 
 msgid "Message Verbosity"
-msgstr ""
+msgstr "Verbosité des messages"
 
 msgid "Users"
 msgstr "Utilisateurs"
@@ -934,9 +933,8 @@ msgstr "Groupes root"
 msgid "Aliases"
 msgstr "Alias"
 
-#, fuzzy
 msgid "Preserve Environment"
-msgstr "Conserver l'environnement de l'utilisateur"
+msgstr "Conservation de l'environnement"
 
 msgid "Environment Filter"
 msgstr "Filtre d'environnement"
@@ -977,7 +975,7 @@ msgstr "Utilisateurs des sources"
 
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr ""
-"Le drapeau « femeture à l'exécution » (« close-on-execute ») du terminal de "
+"Le drapeau « fermeture à l'exécution » (« close-on-execute ») du terminal de "
 "contrôle n'a pas pu être placé"
 
 msgid "The controlling terminal file descriptor could not be duplicated"
@@ -1084,15 +1082,13 @@ msgstr "Échec lors du déverrouillage du fichier"
 #, boost-format
 msgid "Failed to lock file (timed out after %4% seconds)"
 msgstr ""
-"Échec lors du verrouillage du fichier (temporisation écoulée après %4% "
-"secondes)"
+"Échec lors du verrouillage du fichier (délai expiré après %4% secondes)"
 
 #. TRANSLATORS: %4% = time in seconds
 #, boost-format
 msgid "Failed to unlock file (timed out after %4% seconds)"
 msgstr ""
-"Échec lors du déverrouillage du fichier (temporisation écoulée après %4% "
-"secondes)"
+"Échec lors du déverrouillage du fichier (délai expiré après %4% secondes)"
 
 #. TRANSLATORS: %4% = time in seconds
 #. TRANSLATORS: %5% = integer process ID
@@ -1100,7 +1096,7 @@ msgstr ""
 msgid ""
 "Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
 msgstr ""
-"Échec lors du verrouillage du périphérique (temporisation écoulée après %4% "
+"Échec lors du verrouillage du périphérique (délai expiré après %4% "
 "secondes ; le verrou est toujours tenu par le PID %5%)"
 
 msgid "Failed to test device lock"
@@ -1112,8 +1108,8 @@ msgstr "Échec lors du test du verrouillage du périphérique"
 msgid ""
 "Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
 msgstr ""
-"Échec lors du déverrouillage du périphérique (temporisation écoulée après "
-"%4% secondes ; le verrou est toujours tenu par le PID %5%)"
+"Échec lors du déverrouillage du périphérique (délai expiré après %4% "
+"secondes ; le verrou est toujours tenu par le PID %5%)"
 
 #. TRANSLATORS: "I" is an abbreviation of "Information"
 msgid "I: "
@@ -1174,7 +1170,7 @@ msgid "Failed to duplicate file descriptor"
 msgstr "Échec lors de la duplication du descripteur de fichier"
 
 msgid "Failed to poll file descriptor"
-msgstr "Échec lors de la vérification du descripteur de fichier "
+msgstr "Échec lors de la vérification du descripteur de fichier"
 
 msgid "Failed to read file descriptor"
 msgstr "Échec lors de la lecture du descripteur de fichier"
