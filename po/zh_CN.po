@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-07-11 13:12+0100\n"
+"POT-Creation-Date: 2010-08-15 10:19+0100\n"
 "PO-Revision-Date: 2010-07-06 15:37+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -585,6 +585,10 @@ msgstr "未知的操作定义"
 #, fuzzy
 msgid "--session-name is not permitted for the specified action"
 msgstr "指定操作不允许 --session-name；您打算用--chroot 吗？"
+
+#, fuzzy
+msgid "Invalid session name"
+msgstr "%1%: 非法会话名"
 
 msgid "Print location of selected chroots"
 msgstr "打印所选的chroots 的位置"
