@@ -66,6 +66,9 @@ configuration.
      obsoleted and removed in the 1.5.x development releases and 1.6.x
      stable releases.
 
+  6) The enviroment variables HOME and SESSION are always preserved
+     (this was a regression in 1.4.7).
+
 * Major changes in 1.4.7:
 
   1) Install profile configurations in the correct location.  1.4.6
