@@ -8,8 +8,10 @@ schroot (1.5.0-1) unstable; urgency=low
 schroot (1.4.8-1) unstable; urgency=low
 
   * New upstream stable release.
+  * Add da translation (Closes: #589082).  Thanks to Joe Hanson.
   * Update cs translation (Closes: #588734).  Thanks to Miroslav Kure.
   * Update de translation (Closes: #588963).  Thanks to Holger Wansing.
+  * Update fr translation (Closes: #589079).  Thanks to Thomas Blein.
   * sbuild::auth: Always preserve TERM and SHELL environment
     variables (Closes: #589830, #589917).  Thanks to Bastian Blank and
     Arno Renevier.
@@ -17,8 +19,9 @@ schroot (1.4.8-1) unstable; urgency=low
     Zach Carter.
   * Correctly check for boost::program_options::variables_map
     (Closes: #589658).  Thanks to Zach Carter.
+  * 
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 07 Aug 2010 12:02:27 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 15 Aug 2010 10:24:53 +0100
 
 schroot (1.4.7-1) unstable; urgency=low
 
