@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-07-11 13:12+0100\n"
+"POT-Creation-Date: 2010-08-15 10:19+0100\n"
 "PO-Revision-Date: 2010-01-16 15:43+0000\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <Librezale@librezale.org>\n"
@@ -612,6 +612,10 @@ msgstr "Ekintza ezezaguna zehaztua"
 
 msgid "--session-name is not permitted for the specified action"
 msgstr ""
+
+#, fuzzy
+msgid "Invalid session name"
+msgstr "%1%: ekintza baliogabea"
 
 msgid "Print location of selected chroots"
 msgstr "Inprimatu hautatutako chroot-en kokapena"
