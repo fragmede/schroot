@@ -21,7 +21,7 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-all-local: sbuild schroot
+doc: sbuild schroot
 
 if BUILD_DOXYGEN
 schroot: schroot.log
@@ -68,11 +68,8 @@ schroot.pdf: schroot.ps
 	ps2pdf $< $@
 
 CLEANFILES =		\
-	schroot.log	\
 	schroot.ps	\
 	schroot.pdf	\
-	sbuild.log	\
-	schroot.log	\
 	sbuild.log	\
 	schroot.log
 
@@ -80,4 +77,4 @@ clean-local:
 	$(RM) -r sbuild
 	$(RM) -r schroot
 
-.PHONY: sbuild schroot
+.PHONY: doc sbuild schroot
