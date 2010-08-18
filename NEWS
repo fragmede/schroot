@@ -21,6 +21,10 @@ configuration.
      name must be used to refer to sessions except when performing
      actions which use session: as the default namespace.
 
+* Major changes in 1.4.9:
+
+  None.
+
 * Major changes in 1.4.8:
 
   1) Chroot names are now prefixed by a namespace.  Three namespaces
