@@ -44,10 +44,13 @@ EXTRA_DIST =				\
 	HACKING				\
 	VERSION
 
+doc:
+	$(MAKE) -C doc doc
+
 ps:
 	$(MAKE) -C doc schroot.ps
 
 pdf:
 	$(MAKE) -C doc schroot.pdf
 
-.PHONY: ps pdf
+.PHONY: doc ps pdf
