@@ -50,19 +50,25 @@ debian/build/config.status: configure
 	  BTRFSCTL=/sbin/btrfsctl \
 	  LVCREATE=/sbin/lvcreate
 
-build: build-stamp
+build-indep: debian/build-indep-stamp
+debian/build-indep-stamp: debian/build/config.status
+	dh_testdir
+	$(MAKE) -C debian/build doc
+	touch "$@"
 
-build-stamp: debian/build/config.status
+build-arch: debian/build-arch-stamp
+debian/build-arch-stamp: debian/build/config.status
 	dh_testdir
 	$(MAKE) -C debian/build all
-	touch build-stamp
+	touch "$@"
 
 clean:
 	dh_testdir
 	dh_testroot
 	rm -rf debian/build
 	rm -rf debian/install
-	rm -f build-stamp
+	rm -f debian/build-indep-stamp
+	rm -f debian/build-arch-stamp
 
 ifneq "$(wildcard /usr/share/misc/config.sub)" ""
 	cp -f /usr/share/misc/config.sub scripts/config.sub
@@ -73,18 +79,25 @@ endif
 
 	dh_clean
 
-check: build
+check: build-arch
 	dh_testdir
 	dh_testroot
 	$(MAKE) -C debian/build check
 
-install: check
+install-indep: build-indep
+	dh_testdir
+	dh_testroot
+	dh_prep
+
+	dh_installdirs -i
+
+install-arch: build-arch check
 	dh_testdir
 	dh_testroot
 	dh_prep
 	rm -rf debian/install
 
-	dh_installdirs
+	dh_installdirs -a
 
 	$(MAKE) -C debian/build install DESTDIR=$(CURDIR)/debian/install
 	dh_install
@@ -97,7 +110,7 @@ install: check
 	cp $(CURDIR)/debian/schroot.lintian-overrides $(CURDIR)/debian/schroot/usr/share/lintian/overrides/schroot
 
 # Build architecture-independent files here.
-binary-indep: build install
+binary-indep: install-indep
 	dh_testdir -i
 	dh_testroot -i
 	dh_installchangelogs -i ChangeLog
@@ -115,7 +128,7 @@ binary-indep: build install
 	dh_builddeb -i
 
 # Build architecture-dependent files here.
-binary-arch: build install
+binary-arch: install-arch
 	dh_testdir -a
 	dh_testroot -a
 	dh_installchangelogs -a ChangeLog
@@ -142,4 +155,4 @@ binary-arch: build install
 	dh_builddeb -a
 
 binary: binary-indep binary-arch
-.PHONY: build check clean binary-indep binary-arch binary install
+.PHONY: build-indep build-arch check clean binary-indep binary-arch binary install-indep install-arch

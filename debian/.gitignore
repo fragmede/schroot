@@ -1,3 +1,5 @@
+build-indep-stamp
+build-arch-stamp
 dchroot-dsa
 dchroot
 files

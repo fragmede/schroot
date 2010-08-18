@@ -3,8 +3,14 @@ schroot (1.4.9-1) unstable; urgency=low
   * New upstream stable release.
   * Hide deprecation warning for deprecated priority= key name when
     reloading sessions (Closes: #593256).
+  * Build doxygen documentation in arch-indep build rule.  Split
+    build rule into build-arch and build-indep and also have
+    separate install-arch and install-indep rules to separate
+    binary and documentation installation.  This is to remove the
+    need to run doxygen on all platforms, since its use of threads
+    is breaking builds on some platforms.
 
- -- Roger Leigh <rleigh@debian.org>  Wed, 18 Aug 2010 23:06:29 +0100
+ -- Roger Leigh <rleigh@debian.org>  Wed, 18 Aug 2010 23:08:17 +0100
 
 schroot (1.4.8-1) unstable; urgency=low
 
