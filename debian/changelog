@@ -1,3 +1,11 @@
+schroot (1.4.9-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * Hide deprecation warning for deprecated priority= key name when
+    reloading sessions (Closes: #593256).
+
+ -- Roger Leigh <rleigh@debian.org>  Wed, 18 Aug 2010 23:06:29 +0100
+
 schroot (1.4.8-1) unstable; urgency=low
 
   * New upstream stable release.
