@@ -811,6 +811,8 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
   keyfile::get_object_value(chroot, &chroot::set_priority,
 			    keyfile, chroot.get_name(),
 			    "priority",
+			    session ?
+			    keyfile::PRIORITY_OPTIONAL :
 			    keyfile::PRIORITY_DEPRECATED);
   used_keys.push_back("priority");
 
