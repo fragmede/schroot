@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: schroot VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2010-08-15 10:19+0100\n"
-"PO-Revision-Date: 2010-07-06 15:37+0800\n"
+"PO-Revision-Date: 2010-08-18 11:30+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -582,13 +582,11 @@ msgstr "指定操作不允许 --session-name；您打算用--chroot 吗？"
 msgid "Unknown action specified"
 msgstr "未知的操作定义"
 
-#, fuzzy
 msgid "--session-name is not permitted for the specified action"
-msgstr "指定操作不允许 --session-name；您打算用--chroot 吗？"
+msgstr "所指定的操作不允许使用 --session-name"
 
-#, fuzzy
 msgid "Invalid session name"
-msgstr "%1%: 非法会话名"
+msgstr "非法会话名"
 
 msgid "Print location of selected chroots"
 msgstr "打印所选的chroots 的位置"
@@ -599,9 +597,8 @@ msgstr "选中所有chroots 并激活会话"
 msgid "Select all active sessions"
 msgstr "选中所有激活的会话"
 
-#, fuzzy
 msgid "Select all source chroots"
-msgstr "选中所有chroots"
+msgstr "选中所有chroots 源"
 
 msgid "Username (default current user)"
 msgstr "用户名(默认为当前用户)"
@@ -740,15 +737,14 @@ msgstr "文件所有者不是 root 用户"
 msgid "File has write permissions for others"
 msgstr "其他用户拥有文件写权"
 
-#, fuzzy
 msgid "Invalid name"
-msgstr "%1%: 非法会话名"
+msgstr "非法会话名"
 
 msgid "No such namespace"
-msgstr ""
+msgstr "不存在该会话"
 
 msgid "Duplicate names are not allowed"
-msgstr "不允许的复制名称"
+msgstr "不允许复制名称"
 
 msgid "Available chroots: "
 msgstr "可用的chroots: "
@@ -940,9 +936,8 @@ msgstr "Chroot"
 msgid "Session"
 msgstr "会话"
 
-#, fuzzy
 msgid "Source"
-msgstr "源用户"
+msgstr "源"
 
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr "无法设置受控终端的 close-on-execute 标识"
