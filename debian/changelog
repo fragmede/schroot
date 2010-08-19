@@ -9,8 +9,9 @@ schroot (1.4.9-1) unstable; urgency=low
     binary and documentation installation.  This is to remove the
     need to run doxygen on all platforms, since its use of threads
     is breaking builds on some platforms.
+  * Update it translation.  Thanks to Vincenzo Campanella.
 
- -- Roger Leigh <rleigh@debian.org>  Wed, 18 Aug 2010 23:08:17 +0100
+ -- Roger Leigh <rleigh@debian.org>  Thu, 19 Aug 2010 20:24:33 +0100
 
 schroot (1.4.8-1) unstable; urgency=low
 
