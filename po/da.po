@@ -2,6 +2,7 @@
 # Copyright (C) 2010 Roger Leigh <rleigh@debian.org> & Joe Hansen.
 # This file is distributed under the same license as the schroot package.
 # Joe Hansen <joedalton2@yahoo.dk>, 2010.
+# Korrekturlæst Kenneth og Ask, 2010.
 #
 # build -> kompilere
 # deprecated -> deprecieret (forældet bruges her om obsolete).
@@ -18,7 +19,7 @@ msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2010-08-15 10:19+0100\n"
-"PO-Revision-Date: 2010-07-08 17:34+0000\n"
+"PO-Revision-Date: 2010-08-19 17:34+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -619,15 +620,11 @@ msgstr ""
 msgid "Unknown action specified"
 msgstr "Ukendt handling angivet"
 
-#, fuzzy
 msgid "--session-name is not permitted for the specified action"
-msgstr ""
-"--session-name er ikke tilladt for den angivne handling; ønskede du at bruge "
-"--chroot?"
+msgstr "--session-name er ikke tilladt for den angivne handling"
 
-#, fuzzy
 msgid "Invalid session name"
-msgstr "%1%: Ugyldigt sessionsnavn"
+msgstr "Ugyldigt sessionsnavn"
 
 msgid "Print location of selected chroots"
 msgstr "Udskriv placering af valgte chroot'er"
@@ -638,9 +635,8 @@ msgstr "Vælg alle chroot'er og aktive sessioner"
 msgid "Select all active sessions"
 msgstr "Vælg alle aktive sessioner"
 
-#, fuzzy
 msgid "Select all source chroots"
-msgstr "Vælg alle chroot'er"
+msgstr "Vælg alle kildechroot'er"
 
 msgid "Username (default current user)"
 msgstr "Brugernavn (forvalg er aktuelle bruger)"
@@ -781,12 +777,11 @@ msgstr "Fil er ikke ejet af brugerrod"
 msgid "File has write permissions for others"
 msgstr "Fil har skriverettigheder for andre"
 
-#, fuzzy
 msgid "Invalid name"
-msgstr "%1%: Ugyldigt sessionsnavn"
+msgstr "Ugyldigt navn"
 
 msgid "No such namespace"
-msgstr ""
+msgstr "Intet sådant navnerum"
 
 msgid "Duplicate names are not allowed"
 msgstr "Ens navne er ikke tilladt"
@@ -981,9 +976,8 @@ msgstr "Chroot"
 msgid "Session"
 msgstr "Session"
 
-#, fuzzy
 msgid "Source"
-msgstr "Kildebrugere"
+msgstr "Kilde"
 
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr "Den kontrollerende terminals luk-ved-kørsel-flag kunne ikke angives"
