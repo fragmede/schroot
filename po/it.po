@@ -6,10 +6,10 @@
 # Vincenzo Campanella <vinz65@gmail.com>, 2009, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: schroot 1.4.6-1\n"
+"Project-Id-Version: schroot 1.4.8-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2010-08-15 10:19+0100\n"
-"PO-Revision-Date: 2010-07-06 09:02+0200\n"
+"PO-Revision-Date: 2010-08-16 13:23+0200\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
@@ -299,8 +299,8 @@ msgstr ""
 msgid ""
 "To allow password-less root access, use the root-users or root-groups keys."
 msgstr ""
-"Per consentire un accesso senza password, utilizzare le chiavi «root-users» "
-"o «root-groups»."
+"Per consentire un accesso senza password, utilizzare le chiavi «root-users» o "
+"«root-groups»."
 
 #. TRANSLATORS: %1% = file
 #, boost-format
@@ -333,8 +333,7 @@ msgstr "per migrare a una configurazione schroot."
 #, boost-format
 msgid "Edit '%1%' to add appropriate user and/or group access."
 msgstr ""
-"Modificare «%1%» per aggiungere l'accesso ai gruppi o agli utenti "
-"appropriati."
+"Modificare «%1%» per aggiungere l'accesso ai gruppi o agli utenti appropriati."
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
@@ -348,8 +347,7 @@ msgid "Preserve user environment"
 msgstr "Mantieni l'ambiente dell'utente"
 
 msgid "--quiet and --verbose may not be used at the same time"
-msgstr ""
-"«--quiet» e «--verbose» non possono essere utilizzati contemporaneamente"
+msgstr "«--quiet» e «--verbose» non possono essere utilizzati contemporaneamente"
 
 msgid "Using verbose output"
 msgstr "Utilizzando l'output prolisso"
@@ -407,8 +405,8 @@ msgstr "Uso:"
 #, boost-format
 msgid "Run \"%1% --help\" to list usage example and all available options"
 msgstr ""
-"Per visualizzare esempi sull'uso e tutte le opzioni disponibili eseguire "
-"«%1% --help»"
+"Per visualizzare esempi sull'uso e tutte le opzioni disponibili eseguire «%1% "
+"--help»"
 
 #, boost-format
 msgid "%1%: invalid action"
@@ -605,15 +603,14 @@ msgstr ""
 msgid "Unknown action specified"
 msgstr "È stata specificata un'azione sconosciuta"
 
-#, fuzzy
+#
 msgid "--session-name is not permitted for the specified action"
 msgstr ""
-"«--session-name» non è consentito per l'azione specificata. Si desiderava "
-"usare «--chroot »?"
+"«--session-name» non è consentito per l'azione specificata"
 
-#, fuzzy
+#
 msgid "Invalid session name"
-msgstr "%1%: nome di sessione non valido"
+msgstr "Nome di sessione non valido"
 
 msgid "Print location of selected chroots"
 msgstr "Visualizza la posizione dei chroot selezionati"
@@ -624,9 +621,9 @@ msgstr "Seleziona tutti i chroot e tutte le sessioni attive"
 msgid "Select all active sessions"
 msgstr "Seleziona tutte le sessioni attive"
 
-#, fuzzy
+#
 msgid "Select all source chroots"
-msgstr "Seleziona tutti i chroot"
+msgstr "Seleziona tutti i chroot sorgente"
 
 msgid "Username (default current user)"
 msgstr "Nome utente (predefinito: l'utente attuale)"
@@ -766,12 +763,12 @@ msgstr "Il proprietario del file non è l'utente root"
 msgid "File has write permissions for others"
 msgstr "Il file ha permessi di scrittura per altri"
 
-#, fuzzy
+#
 msgid "Invalid name"
-msgstr "%1%: nome di sessione non valido"
+msgstr "Nome non valido"
 
 msgid "No such namespace"
-msgstr ""
+msgstr "Namespace inesistente"
 
 msgid "Duplicate names are not allowed"
 msgstr "Non sono ammessi nomi duplicati"
@@ -966,9 +963,9 @@ msgstr "Chroot"
 msgid "Session"
 msgstr "Sessione"
 
-#, fuzzy
+#
 msgid "Source"
-msgstr "Utenti sorgente"
+msgstr "Sorgente"
 
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr ""
@@ -1314,8 +1311,7 @@ msgstr "[chroot %1%] esecuzione della shell in corso: «%4%»"
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
-msgstr ""
-"[chroot %1%] (%2%→%3%): esecuzione della shell di login in corso: «%4%»"
+msgstr "[chroot %1%] (%2%→%3%): esecuzione della shell di login in corso: «%4%»"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = user name
