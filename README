@@ -29,7 +29,7 @@ libboost-regex-dev           }
 uuid-dev (e2fsprogs)
 
 If building from GIT, you will also need:
-gettext (0.16)
+gettext (0.16 or greater)
 doxygen
 
 
@@ -48,9 +48,26 @@ Note that the testsuite ("make check") should be run under fakeroot or
 real root in order to work correctly.  There are the following
 additional options:
 
-  --enable-dchroot:      Build dchroot
-  --enable-dchroot-dsa:  Build DSA dchroot
-  --enable-debug:        Enable debugging features (not recommended)
+  --enable-dchroot:       Build dchroot for backward compatibility
+  --enable-dchroot-dsa:   Build DSA dchroot for backward compatibility
+  --enable-debug:         Enable debugging features
+                          (not recommended--use --debug at runtime instead)
+  --enable-environment-filter
+                          Enable default environment filtering (regex)
+  --enable-pam            Enable support for PAM authentication
+  --enable-block-device   Enable support for block devices
+  --enable-lvm-snapshot   Enable support for LVM snapshots
+  --enable-btrfs-snapshot Enable support for btrfs snapshots
+  --enable-loopback       Enable support for loopback mounts
+  --enable-uuid           Enable support for UUIDs
+  --enable-union          Enable support for union mounts
+  --enable-doxygen        Enable doxygen documentation
+
+Normally configure will autodetect and enable the recommended options
+if supported by your system, so the above options should not usually
+be required.
+
+Run "make doc" to make the doxygen documentation.
 
 
 Configuration
