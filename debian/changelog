@@ -12,8 +12,11 @@ schroot (1.4.9-1) unstable; urgency=low
   * Update it translation.  Thanks to Vincenzo Campanella.
   * Update zh_CN translation.  Thanks to Ji ZhengYu.
   * Update da translation (Closes: #593622).  Thanks to Joe Hanson.
+  * 10mount: Add lock around schroot-listmounts call to prevent
+    race condition reading /proc/mounts (Closes: #593516).  Thanks to
+    Greg Price for this patch.
 
- -- Roger Leigh <rleigh@debian.org>  Thu, 19 Aug 2010 21:24:16 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 21 Aug 2010 22:41:22 +0100
 
 schroot (1.4.8-1) unstable; urgency=low
 
