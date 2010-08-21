@@ -299,8 +299,8 @@ msgstr ""
 msgid ""
 "To allow password-less root access, use the root-users or root-groups keys."
 msgstr ""
-"Per consentire un accesso senza password, utilizzare le chiavi «root-users» o "
-"«root-groups»."
+"Per consentire un accesso senza password, utilizzare le chiavi «root-users» "
+"o «root-groups»."
 
 #. TRANSLATORS: %1% = file
 #, boost-format
@@ -333,7 +333,8 @@ msgstr "per migrare a una configurazione schroot."
 #, boost-format
 msgid "Edit '%1%' to add appropriate user and/or group access."
 msgstr ""
-"Modificare «%1%» per aggiungere l'accesso ai gruppi o agli utenti appropriati."
+"Modificare «%1%» per aggiungere l'accesso ai gruppi o agli utenti "
+"appropriati."
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
@@ -347,7 +348,8 @@ msgid "Preserve user environment"
 msgstr "Mantieni l'ambiente dell'utente"
 
 msgid "--quiet and --verbose may not be used at the same time"
-msgstr "«--quiet» e «--verbose» non possono essere utilizzati contemporaneamente"
+msgstr ""
+"«--quiet» e «--verbose» non possono essere utilizzati contemporaneamente"
 
 msgid "Using verbose output"
 msgstr "Utilizzando l'output prolisso"
@@ -405,8 +407,8 @@ msgstr "Uso:"
 #, boost-format
 msgid "Run \"%1% --help\" to list usage example and all available options"
 msgstr ""
-"Per visualizzare esempi sull'uso e tutte le opzioni disponibili eseguire «%1% "
-"--help»"
+"Per visualizzare esempi sull'uso e tutte le opzioni disponibili eseguire "
+"«%1% --help»"
 
 #, boost-format
 msgid "%1%: invalid action"
@@ -605,8 +607,7 @@ msgstr "È stata specificata un'azione sconosciuta"
 
 #
 msgid "--session-name is not permitted for the specified action"
-msgstr ""
-"«--session-name» non è consentito per l'azione specificata"
+msgstr "«--session-name» non è consentito per l'azione specificata"
 
 #
 msgid "Invalid session name"
@@ -1311,7 +1312,8 @@ msgstr "[chroot %1%] esecuzione della shell in corso: «%4%»"
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
-msgstr "[chroot %1%] (%2%→%3%): esecuzione della shell di login in corso: «%4%»"
+msgstr ""
+"[chroot %1%] (%2%→%3%): esecuzione della shell di login in corso: «%4%»"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = user name
