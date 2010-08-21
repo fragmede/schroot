@@ -569,8 +569,8 @@ define([testprog], [AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
 AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
 	        BOOST_LIBS="${BOOST_LIBS} -lboost_program_options"],
-LIBS="${saved_LIBS} -lboost_program_options-mt"
-[AC_LINK_IFELSE(testprog,
+[LIBS="${saved_LIBS} -lboost_program_options-mt"
+ AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
 	        BOOST_LIBS="${BOOST_LIBS} -lboost_program_options-mt"],
                [AC_MSG_RESULT([no])
@@ -587,8 +587,8 @@ define([testprog], [AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
 AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
                 BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS="current"],
-LIBS="${saved_LIBS} -lboost_program_options"
-[AC_LINK_IFELSE(testprog,
+[LIBS="${saved_LIBS} -lboost_program_options-mt"
+ AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
                 BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS="current"],
                [AC_MSG_RESULT([no])
@@ -611,8 +611,8 @@ define([boost_error_old], [AC_LANG_PROGRAM([#include <boost/program_options.hpp>
 AC_LINK_IFELSE(boost_error,
                [AC_MSG_RESULT([yes (Boost >= 1.42)])
                 BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR="current"],
-LIBS="${saved_LIBS} -lboost_program_options"
-[AC_LINK_IFELSE(boost_error_old,
+[LIBS="${saved_LIBS} -lboost_program_options-mt"
+AC_LINK_IFELSE(boost_error_old,
                [AC_MSG_RESULT([yes (Boost < 1.42)])
                 BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR="old"],
                [AC_MSG_RESULT([no])
@@ -631,8 +631,8 @@ define([testprog], [AC_LANG_PROGRAM([#include <boost/regex.hpp>],
 AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
 	        BOOST_LIBS="${BOOST_LIBS} -lboost_regex"],
-LIBS="${saved_LIBS} -lboost_regex-mt"
-[AC_LINK_IFELSE(testprog,
+[LIBS="${saved_LIBS} -lboost_regex-mt"
+ AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
 	        BOOST_LIBS="${BOOST_LIBS} -lboost_regex-mt"],
                [AC_MSG_RESULT([no])
@@ -641,16 +641,16 @@ LIBS="${saved_LIBS}"
 
 AC_MSG_CHECKING([for boost::filesystem in -lboost_filesystem])
 saved_LIBS="${LIBS}"
-LIBS="${saved_LIBS} -lboost_filesystem"
+LIBS="${saved_LIBS} -lboost_filesystem -lboost_system"
 define([testprog], [AC_LANG_PROGRAM([#include <boost/filesystem.hpp>],
                                    [boost::filesystem::is_directory("/")])])
 AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
-	        BOOST_FILESYSTEM_LIBS="-lboost_filesystem"],
-LIBS="${saved_LIBS} -lboost_filesystem-mt"
-[AC_LINK_IFELSE(testprog,
+	        BOOST_FILESYSTEM_LIBS="-lboost_filesystem -lboost_system"],
+[LIBS="${saved_LIBS} -lboost_filesystem-mt -lboost_system-mt"
+ AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
-	        BOOST_FILESYSTEM_LIBS="-lboost_filesystem-mt"],
+	        BOOST_FILESYSTEM_LIBS="-lboost_filesystem-mt -lboost_system-mt"],
                [AC_MSG_RESULT([no])
 	        AC_MSG_FAILURE([libboost_filesystem (Boost C++ Libraries) is not installed, but is required by schroot])])])
 LIBS="${saved_LIBS}"
