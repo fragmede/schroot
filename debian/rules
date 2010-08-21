@@ -93,6 +93,9 @@ install-indep: build-indep
 
 	dh_installdirs -i
 
+	$(MAKE) -C debian/build/po install DESTDIR=$(CURDIR)/debian/install
+	dh_install -i
+
 install-arch: build-arch check
 	dh_testdir
 	dh_testroot
@@ -102,7 +105,7 @@ install-arch: build-arch check
 	dh_installdirs -a
 
 	$(MAKE) -C debian/build install DESTDIR=$(CURDIR)/debian/install
-	dh_install
+	dh_install -a
 
 	mkdir -p $(CURDIR)/debian/dchroot/usr/share/lintian/overrides
 	mkdir -p $(CURDIR)/debian/dchroot-dsa/usr/share/lintian/overrides
