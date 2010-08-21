@@ -53,14 +53,27 @@ do_mount()
 do_umount_all()
 {
     if [ -d "$1" ]; then
-	mounts="$("$LIBEXEC_DIR/schroot-listmounts" -m "$1")"
-	if [ "x$mounts" != 'x' ]; then
-            echo "$mounts" |
-            while read mountloc; do
-                info "Unmounting $mountloc"
-		umount "$mountloc" || exit 1
-            done || exit 1
-	fi
+	# Note that flock is used here to prevent races reading
+	# /proc/mounts, which on current (Linux 2.6.32) kernels is
+	# racy.  If other processes are mounting or unmounting
+	# filesystems as we read it, we can miss mount entries due to
+	# the file changing as we read it.  This needs fixing in the
+	# kernel, but an exclusive lock surrounding the
+	# schroot-listmounts invocation is a partial fix.  This
+	# prevents racing when multiple schroot processes are running.
+	# Note that this does not prevent the problem when programs
+	# other than schroot mount and unmount filesystems (since they
+	# don't create the lock).
+	( flock 9
+	    mounts="$("$LIBEXEC_DIR/schroot-listmounts" -m "$1")"
+	    if [ "x$mounts" != 'x' ]; then
+		echo "$mounts" |
+		while read mountloc; do
+                    info "Unmounting $mountloc"
+		    umount "$mountloc" || exit 1
+		done || exit 1
+	    fi
+	) 9>"/var/lock/schroot-umount"
     else
 	warn "Mount location $1 no longer exists; skipping unmount"
     fi
