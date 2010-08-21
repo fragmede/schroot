@@ -89,14 +89,14 @@ check: build-arch
 install-indep: build-indep
 	dh_testdir
 	dh_testroot
-	dh_prep
+	dh_prep -i
 
 	dh_installdirs -i
 
 install-arch: build-arch check
 	dh_testdir
 	dh_testroot
-	dh_prep
+	dh_prep -a
 	rm -rf debian/install
 
 	dh_installdirs -a
