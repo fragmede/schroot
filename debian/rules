@@ -50,6 +50,8 @@ debian/build/config.status: configure
 	  BTRFSCTL=/sbin/btrfsctl \
 	  LVCREATE=/sbin/lvcreate
 
+build: build-indep build-arch
+
 build-indep: debian/build-indep-stamp
 debian/build-indep-stamp: debian/build/config.status
 	dh_testdir
