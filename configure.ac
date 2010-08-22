@@ -254,9 +254,8 @@ AC_ARG_ENABLE([doxygen], [AS_HELP_STRING([--enable-doxygen], [Enable doxygen doc
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-doxygen]) ;;
                 esac],
-	      [ enable_doxygen="no" ])
+	      [ enable_doxygen="auto" ])
 AC_MSG_RESULT([$enable_doxygen])
-AM_CONDITIONAL([BUILD_DOXYGEN], [test "$enable_doxygen" = "yes"])
 
 AC_MSG_CHECKING([for bash completion directory])
 bashcompletiondir='${sysconfdir}/bash_completion.d'
@@ -277,20 +276,28 @@ AM_GNU_GETTEXT_VERSION([0.16])
 AM_GNU_GETTEXT([external])
 AC_PATH_PROG([FIND], [find])
 AC_PATH_PROG([XARGS], [xargs])
+HAVE_DOXYGEN="yes"
 AC_PATH_PROG([DOXYGEN], [doxygen])
+if test -z "$DOXYGEN"; then
+  HAVE_DOXYGEN="no"
+fi
 HAVE_LVM="yes"
-AC_PATH_PROG([LVCREATE], [lvcreate], [HAVE_LVM="no"], [$PATH:/sbin:/usr/sbin])
-AC_PATH_PROG([LVREMOVE], [lvremove], [HAVE_LVM="no"], [$PATH:/sbin:/usr/sbin])
+AC_PATH_PROG([LVCREATE], [lvcreate], [], [$PATH:/sbin:/usr/sbin])
+AC_PATH_PROG([LVREMOVE], [lvremove], [], [$PATH:/sbin:/usr/sbin])
+if test -z "$LVCREATE" || test -z "$LVREMOVE"; then
+  HAVE_LVM="no"
+fi
 HAVE_BTRFS="yes"
-AC_PATH_PROG([BTRFS], [btrfs], [HAVE_BTRFS="no"], [$PATH:/sbin:/usr/sbin])
-AC_PATH_PROG([BTRFSCTL], [btrfsctl], [HAVE_BTRFS="no"], [$PATH:/sbin:/usr/sbin])
+AC_PATH_PROG([BTRFS], [btrfs], [], [$PATH:/sbin:/usr/sbin])
+AC_PATH_PROG([BTRFSCTL], [btrfsctl], [], [$PATH:/sbin:/usr/sbin])
+if test -z "$BTRFS" || test -z "$BTRFSCTL"; then
+  HAVE_BTRFS="no"
+fi
 HAVE_LOOPBACK="yes"
-AC_PATH_PROG([LOSETUP], [losetup], [HAVE_LOOPBACK="no"], [$PATH:/sbin:/usr/sbin])
-
-if test "$enable_doxygen" = "yes" && test -z "$DOXYGEN"; then
-  AC_MSG_FAILURE([doxygen is not installed, but is required by schroot])
-fi;
-AM_CONDITIONAL([BUILD_DOXYGEN], [test -n "$DOXYGEN" && test "$enable_doxygen" = "yes"])
+AC_PATH_PROG([LOSETUP], [losetup], [], [$PATH:/sbin:/usr/sbin])
+if test -z "$LOSETUP"; then
+  HAVE_LOOPBACK="no"
+fi
 
 
 # Check for host platform
@@ -560,6 +567,21 @@ AH_TEMPLATE(SBUILD_FEATURE_UNION, [Set if the union filesystem type is present])
 if test "$BUILD_UNION" = "yes"; then
   AC_DEFINE(SBUILD_FEATURE_UNION, 1)
 fi
+
+AC_MSG_CHECKING([whether to build doxygen documentation])
+BUILD_DOXYGEN="yes"
+if test "$enable_doxygen" = "yes"; then
+  :
+elif test "$enable_doxygen" = "no"; then
+  BUILD_DOXYGEN="no"
+elif test "$enable_doxygen" = "auto"; then
+  if test "$HAVE_DOXYGEN" = "no"; then
+    BUILD_DOXYGEN="no"
+  fi
+fi
+AC_MSG_RESULT([$BUILD_DOXYGEN])
+
+AM_CONDITIONAL([BUILD_DOXYGEN], [test "$BUILD_DOXYGEN" = "yes"])
 
 AC_MSG_CHECKING([for boost::program_options::variables_map in -lboost_program_options])
 saved_LIBS="${LIBS}"
