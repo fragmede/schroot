@@ -8,10 +8,12 @@ schroot (1.5.0-1) unstable; urgency=low
 schroot (1.4.10-1) unstable; urgency=low
 
   * New upstream stable release.
-  * debian/rules: Don't explicitly require doxygen support; it's
-    autodetected based upon the build dependencies.
+  * debian/rules:
+    - Don't explicitly require doxygen support; it's autodetected
+      based upon the build dependencies.
+    - Explicitly specify LVREMOVE.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 22 Aug 2010 09:45:53 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 22 Aug 2010 10:15:55 +0100
 
 schroot (1.4.9-1) unstable; urgency=low
 
