@@ -42,7 +42,6 @@ debian/build/config.status: configure
 	  --mandir=\$${prefix}/share/man \
 	  --infodir=\$${prefix}/share/info \
 	  --enable-dchroot --enable-dchroot-dsa \
-	  --enable-doxygen \
 	  --enable-static --disable-shared \
 	  --with-bash-completion-dir=/etc/bash_completion.d \
 	  $(LVMSNAP_OPTIONS) $(BTRFSSNAP_OPTIONS) \
