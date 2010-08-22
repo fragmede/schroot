@@ -47,7 +47,8 @@ debian/build/config.status: configure
 	  $(LVMSNAP_OPTIONS) $(BTRFSSNAP_OPTIONS) \
 	  BTRFS=/sbin/btrfs \
 	  BTRFSCTL=/sbin/btrfsctl \
-	  LVCREATE=/sbin/lvcreate
+	  LVCREATE=/sbin/lvcreate \
+	  LVREMOVE=/sbin/lvremove
 
 build: build-indep build-arch
 
