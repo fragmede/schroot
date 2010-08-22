@@ -21,15 +21,14 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-doc: sbuild schroot
-
 if BUILD_DOXYGEN
+doc: sbuild schroot
+else
+doc:
+endif
+
 schroot: schroot.log
 sbuild: sbuild.log
-else
-schroot:
-sbuild:
-endif
 
 sbuild.log: sbuild.dox $(top_srcdir)/configure
 	$(RM) -rf sbuild/html
