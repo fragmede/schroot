@@ -5,6 +5,13 @@ schroot (1.5.0-1) unstable; urgency=low
 
  -- Roger Leigh <rleigh@debian.org>  Fri, 18 Jun 2010 00:07:50 +0100
 
+schroot (1.4.10-2) unstable; urgency=low
+
+  * Update de translation (Closes: #594024).  Thanks to Holger Wansing.
+  * Update fr translation (Closes: #594239).  Thanks to Thomas Blein.
+
+ -- Roger Leigh <rleigh@debian.org>  Wed, 25 Aug 2010 22:02:22 +0100
+
 schroot (1.4.10-1) unstable; urgency=low
 
   * New upstream stable release.
