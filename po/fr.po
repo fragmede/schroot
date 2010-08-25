@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2010-08-15 10:19+0100\n"
-"PO-Revision-Date: 2010-07-06 21:34+0200\n"
+"PO-Revision-Date: 2010-08-15 22:28+0100\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -268,7 +268,7 @@ msgid "Command must have an absolute path"
 msgstr "Les commandes doivent être spécifiées avec un chemin absolu"
 
 msgid "No chroot specified"
-msgstr "Aucun chroot de spécifié"
+msgstr "Aucun chroot de indiqué"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
@@ -302,8 +302,8 @@ msgstr ""
 msgid ""
 "To allow password-less root access, use the root-users or root-groups keys."
 msgstr ""
-"Pour permettre un accès superutilisateur sans mot de passe, utilisez les "
-"clés « root-users » ou « root-groups »."
+"Pour permettre un accès superutilisateur sans mot de passe, utilisez les clés "
+"« root-users » ou « root-groups »."
 
 #. TRANSLATORS: %1% = file
 #, boost-format
@@ -337,8 +337,7 @@ msgstr "pour passer à une configuration schroot."
 #, boost-format
 msgid "Edit '%1%' to add appropriate user and/or group access."
 msgstr ""
-"Modifiez « %1% » pour autoriser l'accès aux utilisateurs et groupes "
-"appropriés."
+"Modifiez « %1% » pour autoriser l'accès aux utilisateurs et groupes appropriés."
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
@@ -414,8 +413,8 @@ msgstr "Utilisation :"
 #, boost-format
 msgid "Run \"%1% --help\" to list usage example and all available options"
 msgstr ""
-"Exécutez « %1% --help » pour obtenir des exemples d'utilisation et la liste "
-"de toutes les options disponibles"
+"Exécutez « %1% --help » pour obtenir des exemples d'utilisation et la liste de "
+"toutes les options disponibles"
 
 #, boost-format
 msgid "%1%: invalid action"
@@ -600,8 +599,8 @@ msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "Exactement un chroot doit être précisé lors du démarrage d'une session"
 
 msgid ""
-"--session-name is not permitted for the specified action; did you mean to "
-"use --chroot?"
+"--session-name is not permitted for the specified action; did you mean to use "
+"--chroot?"
 msgstr ""
 "L'option --session-name n'est pas permise pour l'action spécifiée ; vouliez-"
 "vous utiliser l'option --chroot ?"
@@ -609,15 +608,11 @@ msgstr ""
 msgid "Unknown action specified"
 msgstr "Action spécifiée inconnue"
 
-#, fuzzy
 msgid "--session-name is not permitted for the specified action"
-msgstr ""
-"L'option --session-name n'est pas permise pour l'action spécifiée ; vouliez-"
-"vous utiliser l'option --chroot ?"
+msgstr "L'option --session-name n'est pas permise pour l'action spécifiée."
 
-#, fuzzy
 msgid "Invalid session name"
-msgstr "%1% : nom de session non valable"
+msgstr "Nom de session non valable"
 
 msgid "Print location of selected chroots"
 msgstr "Afficher l'emplacement des chroots sélectionnés"
@@ -628,9 +623,8 @@ msgstr "Sélectionner tous les chroots et les sessions actives"
 msgid "Select all active sessions"
 msgstr "Sélectionner toutes les sessions actives"
 
-#, fuzzy
 msgid "Select all source chroots"
-msgstr "Sélectionner tous les chroots"
+msgstr "Sélectionner toutes les sources de chroots"
 
 msgid "Username (default current user)"
 msgstr "Nom d'utilisateur (l'utilisateur courant par défaut)"
@@ -662,7 +656,7 @@ msgid "You do not have permission to access the %1% service."
 msgstr "Vous n'avez pas les permissions pour accéder au service %1%."
 
 msgid "This failure will be reported."
-msgstr "Cet échec sera rapporté."
+msgstr "Cet échec sera signalé."
 
 msgid "No controlling terminal"
 msgstr "Pas de terminal de contrôle"
@@ -769,12 +763,11 @@ msgstr "Le propriétaire du fichier n'est pas root"
 msgid "File has write permissions for others"
 msgstr "Le fichier est accessible en écriture pour les autres"
 
-#, fuzzy
 msgid "Invalid name"
-msgstr "%1% : nom de session non valable"
+msgstr "Nom non valable"
 
 msgid "No such namespace"
-msgstr ""
+msgstr "Espace de nom inconnu"
 
 msgid "Duplicate names are not allowed"
 msgstr "Des noms semblables ne sont pas autorisés"
@@ -969,9 +962,8 @@ msgstr "Chroot"
 msgid "Session"
 msgstr "Session"
 
-#, fuzzy
 msgid "Source"
-msgstr "Utilisateurs des sources"
+msgstr "Source"
 
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr ""
@@ -1081,8 +1073,7 @@ msgstr "Échec lors du déverrouillage du fichier"
 #. TRANSLATORS: %4% = time in seconds
 #, boost-format
 msgid "Failed to lock file (timed out after %4% seconds)"
-msgstr ""
-"Échec lors du verrouillage du fichier (délai expiré après %4% secondes)"
+msgstr "Échec lors du verrouillage du fichier (délai expiré après %4% secondes)"
 
 #. TRANSLATORS: %4% = time in seconds
 #, boost-format
@@ -1096,8 +1087,8 @@ msgstr ""
 msgid ""
 "Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
 msgstr ""
-"Échec lors du verrouillage du périphérique (délai expiré après %4% "
-"secondes ; le verrou est toujours tenu par le PID %5%)"
+"Échec lors du verrouillage du périphérique (délai expiré après %4% secondes ; "
+"le verrou est toujours tenu par le PID %5%)"
 
 msgid "Failed to test device lock"
 msgstr "Échec lors du test du verrouillage du périphérique"
@@ -1307,8 +1298,7 @@ msgstr "Erreur lors de la restauration des paramètres du terminal"
 #. TRANSLATORS: %4% = command
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
-msgstr ""
-"[chroot %1%] Exécution de l'interpréteur de commandes initial : « %4% »"
+msgstr "[chroot %1%] Exécution de l'interpréteur de commandes initial : « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
@@ -1324,8 +1314,8 @@ msgstr "[chroot %1%] Exécution de l'interpréteur de commandes : « %4% »"
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr ""
-"[chroot %1%] (%2%->%3%) Exécution de l'interpréteur de commandes initial : "
-"« %4% »"
+"[chroot %1%] (%2%->%3%) Exécution de l'interpréteur de commandes initial : « %"
+"4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = user name
