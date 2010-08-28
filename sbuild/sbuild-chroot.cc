@@ -207,7 +207,7 @@ sbuild::chroot::set_name (std::string const& name)
   if (pos != std::string::npos)
     {
       error e(name, NAME_INVALID);
-      format fmt("Namespace separator '%1%' may not be used in a chroot name");
+      format fmt(_("Namespace separator '%1%' may not be used in a chroot name"));
       fmt % chroot_config::namespace_separator;
       e.set_reason(fmt.str());
       throw e;
@@ -216,7 +216,7 @@ sbuild::chroot::set_name (std::string const& name)
   if (!is_valid_sessionname(name))
     {
       error e(name, NAME_INVALID);
-      e.set_reason("Only alphanumeric characters, underscores and hyphens are allowed");
+      e.set_reason(_("Only alphanumeric characters, underscores and hyphens are allowed"));
       throw e;
     }
 
@@ -327,7 +327,7 @@ sbuild::chroot::set_aliases (string_list const& aliases)
       if (found != std::string::npos)
 	{
 	  error e(*pos, NAME_INVALID);
-	  format fmt("Namespace separator '%1%' may not be used in an alias name");
+	  format fmt(_("Namespace separator '%1%' may not be used in an alias name"));
 	  fmt % chroot_config::namespace_separator;
 	  e.set_reason(fmt.str());
 	  throw e;
