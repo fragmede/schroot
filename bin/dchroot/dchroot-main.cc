@@ -69,7 +69,7 @@ main::load_config ()
     {
       this->config = sbuild::chroot_config::ptr(new dchroot::chroot_config);
       if (this->options->load_chroots == true)
-	this->config->add(DCHROOT_CONF, false);
+	this->config->add("chroot", DCHROOT_CONF);
     }
   else
     {
