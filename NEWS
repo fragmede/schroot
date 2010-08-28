@@ -21,6 +21,10 @@ configuration.
      name must be used to refer to sessions except when performing
      actions which use session: as the default namespace.
 
+* Major changes in 1.4.11:
+
+  None.
+
 * Major changes in 1.4.10:
 
   None.
