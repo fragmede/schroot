@@ -1,3 +1,11 @@
+schroot (1.4.11-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * dchroot.conf loading no longer causes a segmentation fault
+    (Closes: #594677).
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 28 Aug 2010 12:35:19 +0100
+
 schroot (1.4.10-2) unstable; urgency=low
 
   * Update de translation (Closes: #594024).  Thanks to Holger Wansing.
