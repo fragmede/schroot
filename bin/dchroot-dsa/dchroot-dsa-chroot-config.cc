@@ -118,7 +118,7 @@ chroot_config::parse_data (std::string const& chroot_namespace,
 	  kconfig.set_value(chroot_name, "description", fmt, "", linecount);
 
 	  if (lstart != std::string::npos)
-	    kconfig.set_value(chroot_name, "location", location, "", linecount);
+	    kconfig.set_value(chroot_name, "directory", location, "", linecount);
 
 	  kconfig.set_list_value(chroot_name, "users",
 				 users.begin(), users.end(),
