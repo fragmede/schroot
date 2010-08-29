@@ -21,6 +21,10 @@ configuration.
      name must be used to refer to sessions except when performing
      actions which use session: as the default namespace.
 
+  3) Support for zip file archives has been removed.  zip was not able
+     to archive named pipes and device nodes, and so was not usable
+     for chroot archival.
+
 * Major changes in 1.4.11:
 
   None.

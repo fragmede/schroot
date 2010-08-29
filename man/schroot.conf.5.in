@@ -185,10 +185,12 @@ an archive of the chroot files.  They implement the \fBsource chroot\fP options
 .TP
 \f[CBI]file=\fP\f[CI]filename\fP
 The file containing the archived chroot environment.  This must be a tar (tape
-archive), optionally compressed with gzip or bzip2, or a zip archive.  The file
-extensions used to determine the type are are \fI.tar\fP, \fI.tar.gz\fP,
-\fI.tar.bz2\fP, \fI.tgz\fP, \fI.tbz\fP and \fI.zip\fP.  This file must be owned
-by the root user, and not be writable by other.
+archive), optionally compressed with gzip or bzip2.  The file extensions used
+to determine the type are are \fI.tar\fP, \fI.tar.gz\fP, \fI.tar.bz2\fP,
+\fI.tgz\fP and \fI.tbz\fP.  This file must be owned by the root user, and not
+be writable by other.  Note that zip archives are no longer supported; zip was
+not able to archive named pipes and device nodes, so was not suitable for
+archiving chroots.
 .TP
 \f[CBI]location=\fP\f[CI]path\fP
 This is the path to the chroot \fIinside\fP the archive.  For example, if the
