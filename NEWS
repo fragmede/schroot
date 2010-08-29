@@ -60,7 +60,7 @@ configuration.
 
   5) The key named priority in the configuration file has been
      deprecated.  This was originally introduced for compatibility
-     with sbuild, but sbuild has never used the properly.  It will be
+     with sbuild, but sbuild has never used the property.  It will be
      obsoleted and removed in the 1.5.x development releases and 1.6.x
      stable releases.
 
