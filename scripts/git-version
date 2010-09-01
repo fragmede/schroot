@@ -11,7 +11,7 @@ PACKAGE="$(sed -ne '/^Welcome to /{s/Welcome to[[:space:]][[:space:]]*\([[:alnum
 VERSION="$(sed -ne '/^Welcome to /{s/Welcome to[[:space:]][[:space:]]*\([[:alnum:]][[:alnum:]]*\)[[:space:]][[:space:]]*\([[:alnum:]][[:alnum:].-]*\)\..*/\2/p;q}' < NEWS)"
 
 TAG="release/${PACKAGE}-${VERSION}"
-COMMIT="$(git rev-parse "$TAG^{}")" 2>/dev/null || COMMIT=""
+COMMIT="$(git rev-parse "$TAG^{}" 2>/dev/null)" || COMMIT=""
 
 if [ -n "$COMMIT" ]; then
     COMMIT_DATE="$(git log -1 "$COMMIT" --pretty="format:%ai")"
