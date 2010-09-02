@@ -22,6 +22,7 @@
 ACLOCAL_AMFLAGS=-I m4
 
 include $(top_srcdir)/scripts/global.mk
+include $(top_srcdir)/scripts/git-dist.mk
 
 SUBDIRS = sbuild bin test etc contrib man doc po
 
