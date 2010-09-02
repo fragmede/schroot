@@ -36,21 +36,22 @@ GIT_CHECK_UNTRACKED=true
 
 # GPG sign release tags
 GIT_RELEASE_TAG_SIGN=true
-# Naming scheme for release tags.  Note: must include $(VERSION).
+# Naming scheme for release tags.  Note: must include $(VERSION)
 GIT_RELEASE_TAG_NAME=release/$(PACKAGE)-$(VERSION)
-# Message for release tags.
+# Message for release tags
 GIT_RELEASE_TAG_MESSAGE="Release of $(PACKAGE)-$(VERSION)"
 
 # GPG sign distribution tags
 GIT_DIST_TAG_SIGN=true
 # Branch to place distributed release on
 GIT_DIST_BRANCH="$(basename distribution-$(VERSION))"
+# Message for distribution commit
 GIT_DIST_COMMIT_MESSAGE="Distribution of $(PACKAGE) version $(VERSION)"
-# Naming scheme for distribution tags.  Note: must include $(VERSION).
+# Naming scheme for distribution tags.  Note: must include $(VERSION)
 GIT_DIST_TAG_NAME=distribution/$(PACKAGE)-$(VERSION)
-# Message for distribution tags.
+# Message for distribution tags
 GIT_DIST_TAG_MESSAGE="Distribution of $(PACKAGE)-$(VERSION)"
-# Release to distribute.
+# Release to distribute
 GIT_DIST_ROOT=$(distdir)
 
 # Check that the working tree and index are clean prior to making any
@@ -175,6 +176,7 @@ dist-git: distdir
 	$(am__remove_distdir)
 
 # Make a distribution of an arbitrary release.
+#
 # The same as dist-git, but this allows addition of any distribution
 # rather than just the release in the current working tree.  This rule
 # is intended for allowing retrospective addition of a project's
