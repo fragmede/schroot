@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-08-15 10:19+0100\n"
+"POT-Creation-Date: 2010-09-02 21:40+0100\n"
 "PO-Revision-Date: 2010-02-10 21:59+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -898,6 +898,17 @@ msgstr "Lỗi ghi tập tin phiên chạy"
 msgid "Message verbosity is invalid"
 msgstr ""
 
+#, boost-format
+msgid "Namespace separator '%1%' may not be used in a chroot name"
+msgstr ""
+
+msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+msgstr ""
+
+#, boost-format
+msgid "Namespace separator '%1%' may not be used in an alias name"
+msgstr ""
+
 msgid "Name"
 msgstr "Tên"
 
@@ -906,9 +917,6 @@ msgstr "Mô tả"
 
 msgid "Type"
 msgstr "Kiểu"
-
-msgid "Priority"
-msgstr "Ưu tiên"
 
 msgid "Message Verbosity"
 msgstr ""
@@ -1358,6 +1366,9 @@ msgstr "Lỗi lấy trạng thái về tập tin này"
 
 msgid "Failed to stat file descriptor"
 msgstr "Lỗi lấy trạng thái về bộ mô tả tập tin"
+
+#~ msgid "Priority"
+#~ msgstr "Ưu tiên"
 
 #~ msgid "--chroot may not be used with --list"
 #~ msgstr ""

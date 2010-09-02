@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.8-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-08-15 10:19+0100\n"
+"POT-Creation-Date: 2010-09-02 21:40+0100\n"
 "PO-Revision-Date: 2010-08-16 13:23+0200\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -898,6 +898,17 @@ msgstr "Impossibile scrivere il file di sessione"
 msgid "Message verbosity is invalid"
 msgstr "La verbosità del messaggio non è valida"
 
+#, boost-format
+msgid "Namespace separator '%1%' may not be used in a chroot name"
+msgstr ""
+
+msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+msgstr ""
+
+#, boost-format
+msgid "Namespace separator '%1%' may not be used in an alias name"
+msgstr ""
+
 msgid "Name"
 msgstr "Nome"
 
@@ -906,9 +917,6 @@ msgstr "Descrizione"
 
 msgid "Type"
 msgstr "Tipo"
-
-msgid "Priority"
-msgstr "Priorità"
 
 msgid "Message Verbosity"
 msgstr "Verbosità del messaggio"
@@ -1362,6 +1370,9 @@ msgstr "Impossibile effettuare lo stat del file"
 
 msgid "Failed to stat file descriptor"
 msgstr "Impossibile effettuare lo stat del descrittore del file"
+
+#~ msgid "Priority"
+#~ msgstr "Priorità"
 
 #~ msgid "--chroot may not be used with --list"
 #~ msgstr "«--chroot» non può essere utilizzato in combinazione con «--list»"

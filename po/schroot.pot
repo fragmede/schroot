@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-08-15 10:19+0100\n"
+"POT-Creation-Date: 2010-09-02 21:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -869,6 +869,17 @@ msgstr ""
 msgid "Message verbosity is invalid"
 msgstr ""
 
+#, boost-format
+msgid "Namespace separator '%1%' may not be used in a chroot name"
+msgstr ""
+
+msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+msgstr ""
+
+#, boost-format
+msgid "Namespace separator '%1%' may not be used in an alias name"
+msgstr ""
+
 msgid "Name"
 msgstr ""
 
@@ -876,9 +887,6 @@ msgid "Description"
 msgstr ""
 
 msgid "Type"
-msgstr ""
-
-msgid "Priority"
 msgstr ""
 
 msgid "Message Verbosity"

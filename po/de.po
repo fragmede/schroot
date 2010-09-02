@@ -9,13 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.8-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-08-15 10:19+0100\n"
+"POT-Creation-Date: 2010-09-02 21:40+0100\n"
 "PO-Revision-Date: 2010-08-23 09:21+0200\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #. TRANSLATORS: %1% = file
 #, boost-format
@@ -909,6 +910,17 @@ msgstr "Schreiben der Sitzungsdatei fehlgeschlagen"
 msgid "Message verbosity is invalid"
 msgstr "Nachrichtenausführlichkeit ist ungültig"
 
+#, boost-format
+msgid "Namespace separator '%1%' may not be used in a chroot name"
+msgstr ""
+
+msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+msgstr ""
+
+#, boost-format
+msgid "Namespace separator '%1%' may not be used in an alias name"
+msgstr ""
+
 msgid "Name"
 msgstr "Name"
 
@@ -917,9 +929,6 @@ msgstr "Beschreibung"
 
 msgid "Type"
 msgstr "Typ"
-
-msgid "Priority"
-msgstr "Priorität"
 
 msgid "Message Verbosity"
 msgstr "Nachrichtenausführlichkeit"
@@ -1380,3 +1389,5 @@ msgstr "Datei konnte nicht mit »stat« abgefragt werden"
 msgid "Failed to stat file descriptor"
 msgstr "Dateideskriptor konnte nicht mit »stat« abgefragt werden"
 
+#~ msgid "Priority"
+#~ msgstr "Priorität"

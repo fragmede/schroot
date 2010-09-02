@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-08-15 10:19+0100\n"
+"POT-Creation-Date: 2010-09-02 21:40+0100\n"
 "PO-Revision-Date: 2010-08-18 11:30+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -870,6 +870,17 @@ msgstr "无法写会话文件"
 msgid "Message verbosity is invalid"
 msgstr "无法显示详细信息"
 
+#, boost-format
+msgid "Namespace separator '%1%' may not be used in a chroot name"
+msgstr ""
+
+msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+msgstr ""
+
+#, boost-format
+msgid "Namespace separator '%1%' may not be used in an alias name"
+msgstr ""
+
 msgid "Name"
 msgstr "名字"
 
@@ -878,9 +889,6 @@ msgstr "描述"
 
 msgid "Type"
 msgstr "类型"
-
-msgid "Priority"
-msgstr "优先权"
 
 msgid "Message Verbosity"
 msgstr "详细信息"
@@ -1322,6 +1330,9 @@ msgstr "无法获取文件状态"
 
 msgid "Failed to stat file descriptor"
 msgstr "无法统计文件描述符"
+
+#~ msgid "Priority"
+#~ msgstr "优先权"
 
 #~ msgid "--chroot may not be used with --list"
 #~ msgstr "--chroot 不可与 --list 合用"
