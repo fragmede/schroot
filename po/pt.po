@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-08-15 10:19+0100\n"
+"POT-Creation-Date: 2010-09-05 18:41+0100\n"
 "PO-Revision-Date: 2010-01-17 18:50+0100\n"
 "Last-Translator: Pedro Ribeiro <p.m42.ribeiro@gmail.com>\n"
 "Language-Team: Portuguese <traduz@debianpt.org>\n"
@@ -894,6 +894,17 @@ msgid "Failed to write session file"
 msgstr "Falhou a escrita do ficheiro de sessão"
 
 msgid "Message verbosity is invalid"
+msgstr ""
+
+#, boost-format
+msgid "Namespace separator '%1%' may not be used in a chroot name"
+msgstr ""
+
+msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+msgstr ""
+
+#, boost-format
+msgid "Namespace separator '%1%' may not be used in an alias name"
 msgstr ""
 
 msgid "Name"
