@@ -7,6 +7,16 @@ schroot (1.5.0-1) unstable; urgency=low
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 29 Aug 2010 11:59:46 +0100
 
+schroot (1.4.12-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * Allow creation of sessions with the same name as chroots
+    (Closes: #595647).
+  * Issue correct error message when invalid chroot names are
+    used (Closes: #594720).
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 05 Sep 2010 17:57:53 +0100
+
 schroot (1.4.11-1) unstable; urgency=low
 
   * New upstream stable release.

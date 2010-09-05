@@ -1381,8 +1381,5 @@ msgstr "Kunne ikke stat fil"
 msgid "Failed to stat file descriptor"
 msgstr "Kunne ikke stat fildeskriptor"
 
-#~ msgid "Priority"
-#~ msgstr "Prioritet"
-
 #~ msgid "--chroot may not be used with --list"
 #~ msgstr "--chroot kan ikke bruges med --list"
