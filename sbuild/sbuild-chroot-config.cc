@@ -371,6 +371,8 @@ chroot_config::find_chroot (std::string const& namespace_hint,
   get_namespace(name, chroot_namespace, chroot_name);
 
   if (chroot_namespace.empty())
+    chroot_namespace = namespace_hint;
+  if (chroot_namespace.empty())
     chroot_namespace = "chroot";
 
   return find_chroot_in_namespace(chroot_namespace, chroot_name);
@@ -405,6 +407,8 @@ chroot_config::find_alias (std::string const& namespace_hint,
   get_namespace(name, chroot_namespace, alias_name);
 
   if (chroot_namespace.empty())
+    chroot_namespace = namespace_hint;
+  if (chroot_namespace.empty())
     chroot_namespace = "chroot";
 
   string_map::const_iterator found = this->aliases.find(chroot_namespace + namespace_separator + alias_name);
@@ -428,6 +432,8 @@ chroot_config::lookup_alias (std::string const& namespace_hint,
 
   get_namespace(name, chroot_namespace, alias_name);
 
+  if (chroot_namespace.empty())
+    chroot_namespace = namespace_hint;
   if (chroot_namespace.empty())
     chroot_namespace = "chroot";
 
