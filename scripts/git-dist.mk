@@ -153,8 +153,10 @@ release-git:
 # parents.  Thus distribution releases appear to git as merges (with
 # the exception of the initial release).
 #
-# NOTE: Set ENABLE_DIST_GIT=true when running make.  This is a safety
-# check to avoid accidental damage to the git repository.
+# NOTE: Set ENABLE_DIST_GIT=true when running make, plus
+# ENABLE_RELEASE_GIT=true if the working tree has not already been
+# tagged with a release tag.  This is a safety check to avoid
+# accidental damage to the git repository.
 #
 # Project customisation:
 # GIT_DIST_COMMIT_MESSAGE specifies the commit message for the commit,
@@ -164,7 +166,7 @@ release-git:
 # GIT_DIST_TAG_MESSAGE specifying an appropriate message for the
 # tag.
 dist-git: distdir
-	$(MAKE) $(AM_MAKEFLAGS) release-git; \
+	$(MAKE) $(AM_MAKEFLAGS) release-git ENABLE_RELEASE_GIT="$(ENABLE_RELEASE_GIT)"; \
 	RELEASE_COMMIT="$$(git rev-parse $(GIT_RELEASE_TAG_NAME)^{})"; \
 	HEAD_COMMIT="$$(git rev-parse HEAD)"; \
 	if [ "$$RELEASE_COMMIT" != "$$HEAD_COMMIT" ]; then \
@@ -172,7 +174,7 @@ dist-git: distdir
 	  exit 1; \
 	fi; \
 	$(MAKE) $(AM_MAKEFLAGS) check-git; \
-	$(MAKE) $(AM_MAKEFLAGS) dist-git-generic GIT_DIST_ROOT="$(abs_top_builddir)/$(distdir)"; \
+	$(MAKE) $(AM_MAKEFLAGS) dist-git-generic ENABLE_DIST_GIT="$(ENABLE_DIST_GIT)" GIT_DIST_ROOT="$(abs_top_builddir)/$(distdir)"; \
 	$(am__remove_distdir)
 
 # Make a distribution of an arbitrary release.
