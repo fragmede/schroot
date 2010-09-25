@@ -253,7 +253,8 @@ main_base::run_impl ()
   if (this->chroots.empty())
     {
       if (!(this->options->all_chroots == true ||
-	    this->options->all_sessions == true))
+	    this->options->all_sessions == true ||
+	    this->options->all_source_chroots == true))
 	throw error(SCHROOT_CONF, CHROOT_NOTDEFINED);
       else
 	{
