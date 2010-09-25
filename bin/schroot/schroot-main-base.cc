@@ -261,9 +261,10 @@ main_base::run_impl ()
 	  // the lack of chroots as an error.  TODO: Also check if any
 	  // additional chroots were specified with -c; this needs
 	  // changes in get_chroot_options.
-	  log_exception_warning(error((this->options->all_chroots == true) ?
-				      SCHROOT_CONF : SCHROOT_SESSION_DIR,
-				      CHROOT_NOTDEFINED));
+	  if (this->options->verbose)
+	    log_exception_warning(error((this->options->all_chroots == true) ?
+					SCHROOT_CONF : SCHROOT_SESSION_DIR,
+					CHROOT_NOTDEFINED));
 	  return EXIT_SUCCESS;
 	}
     }
