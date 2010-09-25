@@ -212,6 +212,17 @@ chroot_config::add (std::string const& chroot_namespace,
       chroots.insert(std::make_pair(name, chroot));
       this->aliases.insert(std::make_pair(fullname, fullname));
 
+      // If a plain chroot, add a proxy session so that --run-session
+      // works.
+      if (chroot_namespace == "chroot" &&
+	  chroot->get_chroot_type() == "plain")
+	{
+	  std::string session_alias = std::string("session") +
+	    namespace_separator + name;
+	  if (this->aliases.find(session_alias) == this->aliases.end())
+	    this->aliases.insert(std::make_pair(session_alias, fullname));
+	}
+
       // If a source chroot, add -source compatibility alias.
       if (chroot_namespace == "source")
 	{
