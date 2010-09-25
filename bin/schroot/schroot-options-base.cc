@@ -253,7 +253,7 @@ options_base::check_actions ()
       if (this->all_chroots || this->all_source_chroots)
 	this->load_chroots = true;
       if (this->all_sessions)
-	this->load_sessions = true;
+	this->load_chroots = this->load_sessions = true;
     }
   else
     {
