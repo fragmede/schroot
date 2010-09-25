@@ -1,3 +1,21 @@
+schroot (1.4.13-1) unstable; urgency=low
+
+  * Session actions work with plain chroots again (Closes: #597368).
+    Because plain chroots are not session-capable, actions such as
+    --run-session and --end-session, which look for chroots in the
+    "session" namespace, don't find plain chroots, which only exist
+    in the "chroot" namespace.  To work around this limitation,
+    proxy sessions are created as aliases in the session namespace
+    to allow session actions to work for plain chroots.
+  * Correct error handing for --all options:
+    - If no chroots are selected by an --all option, only warn when
+      verbose output is enabled.
+    - Don't abort prematurely if --all-source-chroots is used and
+      no chroots are found; previously only --all-chroots and
+      --all-sessions were handled correctly.
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 25 Sep 2010 10:51:36 +0100
+
 schroot (1.4.12-1) unstable; urgency=low
 
   * New upstream stable release.
