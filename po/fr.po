@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2010-09-05 18:41+0100\n"
-"PO-Revision-Date: 2010-08-15 22:28+0100\n"
+"PO-Revision-Date: 2010-09-09 11:00+0100\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -268,7 +268,7 @@ msgid "Command must have an absolute path"
 msgstr "Les commandes doivent être spécifiées avec un chemin absolu"
 
 msgid "No chroot specified"
-msgstr "Aucun chroot de indiqué"
+msgstr "Aucun chroot indiqué"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
@@ -308,7 +308,7 @@ msgstr ""
 #. TRANSLATORS: %1% = file
 #, boost-format
 msgid "Remove '%1%' to use the new configuration."
-msgstr "Supprimez « %1% » pour utiliser une nouvelle configuration."
+msgstr "Supprimez « %1% » pour utiliser la nouvelle configuration."
 
 #. TRANSLATORS: %1% = program name
 #, boost-format
@@ -900,13 +900,19 @@ msgstr "Verbosité des messages non valable"
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in a chroot name"
 msgstr ""
+"Le séparateur d'espace de nom « %1 » ne doit pas être utilisé dans un nom de "
+"schroot."
 
 msgid "Only alphanumeric characters, underscores and hyphens are allowed"
 msgstr ""
+"Seuls les caractères alphanumériques, les tirets bas et les traits d'union "
+"sont autorisés."
 
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in an alias name"
 msgstr ""
+"Le séparateur d'espace de nom « %1 » ne doit pas être utilisé dans un nom "
+"d'alias."
 
 msgid "Name"
 msgstr "Nom"
@@ -1311,8 +1317,7 @@ msgstr "Erreur lors de la restauration des paramètres du terminal"
 #. TRANSLATORS: %4% = command
 #, boost-format
 msgid "[%1% chroot] Running login shell: '%4%'"
-msgstr ""
-"[chroot %1%] Exécution de l'interpréteur de commandes initial : « %4% »"
+msgstr "[chroot %1%] Exécution de l'interpréteur de commandes initial : « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
@@ -1328,8 +1333,8 @@ msgstr "[chroot %1%] Exécution de l'interpréteur de commandes : « %4% »"
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
 msgstr ""
-"[chroot %1%] (%2%->%3%) Exécution de l'interpréteur de commandes initial : "
-"« %4% »"
+"[chroot %1%] (%2%->%3%) Exécution de l'interpréteur de commandes initial : « %"
+"4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = user name
