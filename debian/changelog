@@ -13,6 +13,12 @@ schroot (1.4.13-1) unstable; urgency=low
     - Don't abort prematurely if --all-source-chroots is used and
       no chroots are found; previously only --all-chroots and
       --all-sessions were handled correctly.
+  * Updated translations:
+    - de (Closes: #596597).  Thanks to Holger Wansing.
+    - fr (Closes: #596962).  Thanks to Thomas Blein.
+    - it.  Thanks to Vincenzo Campanella.
+    - pt (Closes: #596612).  Thanks to Pedro Ribeiro.
+    - zh_CN.  Thanks to Ji ZhengYu.
 
  -- Roger Leigh <rleigh@debian.org>  Sat, 25 Sep 2010 10:51:36 +0100
 
