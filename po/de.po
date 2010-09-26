@@ -913,19 +913,16 @@ msgstr "Nachrichtenausführlichkeit ist ungültig"
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in a chroot name"
 msgstr ""
-"Namespace-Separator »%1%« darf nicht in einem Chroot-Namen verwendet "
-"werden"
+"Namespace-Separator »%1%« darf nicht in einem Chroot-Namen verwendet werden"
 
 msgid "Only alphanumeric characters, underscores and hyphens are allowed"
 msgstr ""
-"Es sind nur alphanumerische Zeichen, Unterstriche und Bindestriche "
-"erlaubt"
+"Es sind nur alphanumerische Zeichen, Unterstriche und Bindestriche erlaubt"
 
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in an alias name"
 msgstr ""
-"Namespace-Separator »%1%« darf nicht in einem Alias-Namen verwendet "
-"werden"
+"Namespace-Separator »%1%« darf nicht in einem Alias-Namen verwendet werden"
 
 msgid "Name"
 msgstr "Name"
