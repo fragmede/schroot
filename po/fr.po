@@ -900,8 +900,8 @@ msgstr "Verbosité des messages non valable"
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in a chroot name"
 msgstr ""
-"Le séparateur d'espace de nom « %1 » ne doit pas être utilisé dans un nom de "
-"schroot."
+"Le séparateur d'espace de nom « %1% » ne doit pas être utilisé dans un nom "
+"de schroot."
 
 msgid "Only alphanumeric characters, underscores and hyphens are allowed"
 msgstr ""
@@ -911,7 +911,7 @@ msgstr ""
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in an alias name"
 msgstr ""
-"Le séparateur d'espace de nom « %1 » ne doit pas être utilisé dans un nom "
+"Le séparateur d'espace de nom « %1% » ne doit pas être utilisé dans un nom "
 "d'alias."
 
 msgid "Name"
