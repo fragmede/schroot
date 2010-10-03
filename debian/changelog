@@ -1,3 +1,11 @@
+schroot (1.4.14-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * Updated translations:
+    - vi (Closes: #598353).  Thanks to Clytie Siddall.
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 03 Oct 2010 11:57:08 +0100
+
 schroot (1.4.13-1) unstable; urgency=low
 
   * Session actions work with plain chroots again (Closes: #597368).
