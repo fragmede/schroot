@@ -1,8 +1,14 @@
 schroot (1.4.15-1) unstable; urgency=low
 
   * New upstream stable release.
+  * 10mount: Always purge mount directory for file type chroots
+    (Closes: #600966).  file chroots are now unpacked into a
+    separate unpack directory and then bind mounted into the
+    mount directory, making this special casing redundant and
+    causing stray session directories to be left in the mount
+    directory.
 
- -- Roger Leigh <rleigh@debian.org>  Fri, 22 Oct 2010 22:03:47 +0100
+ -- Roger Leigh <rleigh@debian.org>  Fri, 22 Oct 2010 22:08:52 +0100
 
 schroot (1.4.14-1) unstable; urgency=low
 
