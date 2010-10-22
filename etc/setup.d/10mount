@@ -212,11 +212,9 @@ if [ "$CHROOT_TYPE" = "directory" ] \
 	# Purge mount location.
 	# The contents of file chroots are purged separately, because
 	# we might want to repack the contents.
-	if [ "$CHROOT_TYPE" != "file" ]; then
-	    if echo "$CHROOT_MOUNT_LOCATION" | grep -q "^$MOUNT_DIR/"; then
-		if [ -d "$CHROOT_MOUNT_LOCATION" ]; then
-		    rmdir "$CHROOT_MOUNT_LOCATION"
-		fi
+	if echo "$CHROOT_MOUNT_LOCATION" | grep -q "^$MOUNT_DIR/"; then
+	    if [ -d "$CHROOT_MOUNT_LOCATION" ]; then
+		rmdir "$CHROOT_MOUNT_LOCATION"
 	    fi
 	fi
 
