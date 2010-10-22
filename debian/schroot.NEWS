@@ -1,6 +1,6 @@
 schroot (1.4.15-1) unstable; urgency=low
 
-  Users upgrading from squeeze should take note of the following
+  Users upgrading from lenny should take note of the following
   potentially incompatible changes which may require configuration
   updates:
 
