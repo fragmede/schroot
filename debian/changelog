@@ -7,8 +7,10 @@ schroot (1.4.15-1) unstable; urgency=low
     mount directory, making this special casing redundant and
     causing stray session directories to be left in the mount
     directory.
+  * schroot.NEWS: Document incompatible changes introduced in
+    1.4.0 and 1.4.1 (Closes: #597778).
 
- -- Roger Leigh <rleigh@debian.org>  Fri, 22 Oct 2010 22:08:52 +0100
+ -- Roger Leigh <rleigh@debian.org>  Fri, 22 Oct 2010 22:18:34 +0100
 
 schroot (1.4.14-1) unstable; urgency=low
 
