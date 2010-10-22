@@ -25,6 +25,8 @@ schroot (1.4.15-1) unstable; urgency=low
     'script-config' to 'script-defaults' in your chroot definitions,
     this will require updating.  If unset, no changes are required.
 
+ -- Roger Leigh <rleigh@debian.org>  Fri, 22 Oct 2010 22:18:34 +0100
+
 schroot (1.1.6-1) unstable; urgency=low
 
   * Per-chroot custom mountpoints are now possible through the use of an
