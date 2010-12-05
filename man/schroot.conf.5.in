@@ -117,6 +117,9 @@ single script by using conditionals checking the chroot name and/or type.  Note
 that the script will be sourced once for each and every script invocation, and
 must be idempotent.  The file format is documented in
 .BR schroot-script-config (5).
+.IP
+Note that the different profiles have different security implications; see the
+section \[lq]\fISecurity\fP\[rq] below for further details.
 .TP
 \f[CBI]command\-prefix=\fP\f[CI]command,option1,option2,...\fP
 A comma-separated list of a command and the options for the command.  This
@@ -367,13 +370,32 @@ This will localise the \f[CI]description\fP key for the en_GB locale.
 This will localise the \f[CI]description\fP key for all French locales.
 .br
 .SH SECURITY
+.SS Untrusted users
 Note that giving untrusted users root access to chroots is a \fBserious
 security risk\fP!  Although the untrusted user will only have root access to
 files inside the chroot, in practice there are many obvious ways of breaking
 out of the chroot and of disrupting services on the host system.  As always,
 this boils down to \fItrust\fP.
-.B Don't give chroot root access to users you would not trust
+.PP
+.B Do not give chroot root access to users you would not trust
 .B with root access to the host system.
+.SS Profiles
+Depending upon which profile you have configured with the
+\f[CI]script\-config\fP option, different filesystems will be mounted inside
+the chroot, and different files will be copied into the chroot from the host.
+Some profiles will mount the host's \fI/dev\fP, while others will not.  Some
+profiles also bind mount additional parts of the host filesystem in order to
+allow use of certain features, including user's home directories and specific
+parts of \fI/var\fP.  Check the profile's \fIfstab\fP file to be certain of
+what will be mounted, and the other profile files to see which files and system
+databases will be copied into the chroot.  Choose a different profile or edit
+the files to further restrict what is made available inside the chroot.
+.PP
+There is a tradeoff between security (keeping the chroot as minimal as
+possible) and usability (which sometimes requires access to parts of the host
+filesystem).  The different profiles make different tradeoffs, and it is
+important that you assess which meets the security/usability tradeoff you
+require.
 .SH EXAMPLE
 \f[CR]# Sample configuration\fP
 .br
