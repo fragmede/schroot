@@ -137,6 +137,9 @@ void
 chroot_config::add (std::string const& chroot_namespace,
 		    std::string const& location)
 {
+  /// @todo Remove and require explicit use of add_config_file or
+  /// add_config_directory; the caller should be aware which is
+  /// required.
   if (stat(location).is_directory())
     add_config_directory(chroot_namespace, location);
   else
@@ -148,6 +151,10 @@ chroot_config::add_config_file (std::string const& chroot_namespace,
 				std::string const& file)
 {
   log_debug(DEBUG_NOTICE) << "Loading config file: " << file << endl;
+
+  // Note adding a file skips filename validity checks performed by
+  // add_config_directory; the caller is assumed to have verified that
+  // the file is valid to load.
 
   load_data(chroot_namespace, file);
 }
