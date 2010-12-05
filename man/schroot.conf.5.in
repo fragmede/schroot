@@ -37,9 +37,8 @@ For example,
 .IP
 \f[CR]\[lB]sid\[rB]
 .PP
-The name may not contain a leading period (\[oq].\[cq]).  The characters
-\[oq]:\[cq] (colon), \[oq],\[cq] (comma) and \[oq]/\[cq] (forward slash) are
-not permitted anywhere in the name.
+The name is subject to certain naming restrictions.  For further details, see
+the section \[lq]\fIChroot Names\fP\[rq] below.
 .PP
 This is then followed by several key-value pairs, one per line:
 .TP
@@ -374,6 +373,48 @@ This will localise the \f[CI]description\fP key for the en_GB locale.
 .PP
 This will localise the \f[CI]description\fP key for all French locales.
 .br
+.SH CHROOT NAMES
+A number of characters or words are not permitted in a chroot name, session
+name or configuration filename.  The name may not contain a leading period
+(\[oq].\[cq]).  The characters \[oq]:\[cq] (colon), \[oq],\[cq] (comma) and
+\[oq]/\[cq] (forward slash) are not permitted anywhere in the name.  The name
+may also not contain a trailing tilde (\[oq]~\[cq]).  The rationale for these
+restrictions is given below.
+.TP
+.RB \[oq] . \[cq]
+A leading period could be used to create a name with a relative path in it, in
+combination with \[oq]/\[cq], and this could allow overwriting of files on the
+host filesystem.  Not allowing this character also means hidden files cannot be
+created.  It also means some editor backups are automatically ignored.  Periods
+are allowed anywhere else in the name.
+.TP
+.RB \[oq] : \[cq]
+A colon is used as a namespace delimiter, and so is not permitted as part of a
+chroot or session name.  LVM snapshot names may also not contain this character
+due to a naming restriction by
+.BR lvcreate (8).
+.TP
+.RB \[oq] / \[cq]
+Names containing this character are not valid filenames.  A forward slash would
+potentially allow creation of files in subdirectories.
+.TP
+.RB \[oq] , \[cq]
+Commas are used to separate items in lists.  Aliases are separated by commas
+and hence can't contain commas in their name.
+.TP
+.RB \[oq] ~ \[cq]
+Filenames containing trailing tildes are used for editor backup files, which
+are ignored.  Tildes are allowed anywhere else in the name.
+.TP
+.RB \[oq] dpkg-old \[cq]
+.TQ
+.RB \[oq] dpkg-dist \[cq]
+.TQ
+.RB \[oq] dpkg-new \[cq]
+.TQ
+.RB \[oq] dpkg-tmp \[cq]
+These names may not appear at the end of a name.  These are saved copies of
+conffiles used by the dpkg package manager, and will be ignored.
 .SH SECURITY
 .SS Untrusted users
 Note that giving untrusted users root access to chroots is a \fBserious
