@@ -8,8 +8,12 @@ schroot (1.4.16-1) unstable; urgency=low
   * 10mount: Respect mount options from configuration for all mountable
     chroot types (Closes: #605950).  Thanks to Nelson Elhage for this
     patch.
+  * Relax chroot naming restrictions (Closes: #601043, #605939).  The
+    name may not contain a leading period (‘.’).  The  characters ‘:’
+    (colon), ‘,’ (comma) and ‘/’ (forward slash) are not permitted
+    anywhere in the name.  Otherwise any characters are permitted.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 05 Dec 2010 19:09:23 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sun, 05 Dec 2010 21:52:37 +0000
 
 schroot (1.4.15-1) unstable; urgency=low
 
