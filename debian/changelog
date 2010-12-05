@@ -3,8 +3,11 @@ schroot (1.4.16-1) unstable; urgency=low
   * New upstream stable release.
   * Document schroot -- option delimiter in schroot(1)
     (Closes: #599380).
+  * 10mount: Respect mount options from configuration for all mountable
+    chroot types (Closes: #605950).  Thanks to Nelson Elhage for this
+    patch.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 05 Dec 2010 18:38:48 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sun, 05 Dec 2010 18:46:47 +0000
 
 schroot (1.4.15-1) unstable; urgency=low
 
