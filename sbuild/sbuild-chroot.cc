@@ -216,7 +216,7 @@ sbuild::chroot::set_name (std::string const& name)
   if (!is_valid_sessionname(name))
     {
       error e(name, NAME_INVALID);
-      e.set_reason(_("Only alphanumeric characters, underscores and hyphens are allowed"));
+      e.set_reason(_("Leading periods ('.'), and colons (':'), or forward slashes ('/') at any position are not allowed"));
       throw e;
     }
 
@@ -336,7 +336,7 @@ sbuild::chroot::set_aliases (string_list const& aliases)
       if (!is_valid_sessionname(*pos))
 	{
 	  error e(*pos, NAME_INVALID);
-	  e.set_reason(_("Only alphanumeric characters, underscores and hyphens are allowed"));
+	  e.set_reason(_("Leading periods ('.'), and colons (':'), or forward slashes ('/') at any position are not allowed"));
 	  throw e;
 	}
     }
