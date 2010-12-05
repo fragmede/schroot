@@ -175,9 +175,11 @@ sbuild::is_valid_sessionname (std::string const& name)
   bool match = false;
 
   static regex file_namespace("^[^:/,.][^:/,]*$");
+  static regex editor_backup("~$");
   static regex debian_dpkg_conffile_cruft("dpkg-(old|dist|new|tmp)$");
 
   if (regex_search(name, file_namespace) &&
+      !regex_search(name, editor_backup) &&
       !regex_search(name, debian_dpkg_conffile_cruft)) {
     match = true;
   }
