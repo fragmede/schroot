@@ -131,20 +131,20 @@ if [ "$CHROOT_TYPE" = "directory" ] \
 	esac
 
 	if [ "$CHROOT_TYPE" = "directory" ]; then
-	    CHROOT_MOUNT_OPTIONS="$BINDOPT"
+	    CHROOT_MOUNT_OPTIONS="$BINDOPT $CHROOT_MOUNT_OPTIONS"
 	    CHROOT_MOUNT_DEVICE="$CHROOT_DIRECTORY"
 	    if [ ! -d "$CHROOT_DIRECTORY" ]; then
 		fatal "Directory '$CHROOT_DIRECTORY' does not exist"
 	    fi
 	elif [ "$CHROOT_TYPE" = "file" ]; then
-	    CHROOT_MOUNT_OPTIONS="$BINDOPT"
+	    CHROOT_MOUNT_OPTIONS="$BINDOPT $CHROOT_MOUNT_OPTIONS"
 	    CHROOT_MOUNT_DEVICE="${CHROOT_FILE_UNPACK_DIR}/${SESSION_ID}"
 	elif [ "$CHROOT_TYPE" = "block-device" ]; then
 	    if [ ! "$DEVTYPE" "$CHROOT_DEVICE" ]; then
 		fatal "Device '$CHROOT_DEVICE' does not exist"
 	    fi
 	elif [ "$CHROOT_TYPE" = "btrfs-snapshot" ]; then
-	    CHROOT_MOUNT_OPTIONS="$BINDOPT"
+	    CHROOT_MOUNT_OPTIONS="$BINDOPT $CHROOT_MOUNT_OPTIONS"
 	    CHROOT_MOUNT_DEVICE="$CHROOT_BTRFS_SNAPSHOT_NAME"
 	elif [ "$CHROOT_TYPE" = "loopback" ]; then
 	    if [ ! -f "$CHROOT_FILE" ]; then
@@ -155,16 +155,14 @@ if [ "$CHROOT_TYPE" = "directory" ] \
 		freebsd* | k*bsd*-gnu):
 		    LOOP_DEVICE="/dev/$(/sbin/mdconfig -a -t vnode -f "$CHROOT_FILE")"
 		    CHROOT_MOUNT_DEVICE="$LOOP_DEVICE"
-		    CHROOT_MOUNT_OPTIONS=""
 		    ;;
 		*):
 		    LOOP_DEVICE="$(/sbin/losetup -j "$CHROOT_FILE" | sed -e 's/:.*$//')"
 		    if [ -z "$LOOP_DEVICE" ]; then
 			CHROOT_MOUNT_DEVICE="$CHROOT_FILE"
-			CHROOT_MOUNT_OPTIONS="-o loop"
+			CHROOT_MOUNT_OPTIONS="-o loop $CHROOT_MOUNT_OPTIONS"
 		    else
 			CHROOT_MOUNT_DEVICE="$LOOP_DEVICE"
-			CHROOT_MOUNT_OPTIONS=""
 		    fi
 		    ;;
 	    esac
