@@ -34,6 +34,7 @@ schroot \- securely enter a chroot environment
 .RB [ \-q \[or] \-\-quiet " \[or] " \-v \[or] \-\-verbose ]
 .RB [ "\-c \fIchroot\fP" \[or] "\-\-chroot=\fIchroot\fP"
 .RB " \[or] " \-\-all " \[or] " \-\-all\-chroots " \[or] " \-\-all\-source\-chroots " \[or] " \-\-all\-sessions ]
+.RB [ \-\- ]
 .RB [ COMMAND " [ " ARG1 " [ " ARG2 " [ " ARGn ]]]]
 .SH DESCRIPTION
 \fBschroot\fP allows the user to run a command or a login shell in a chroot
@@ -216,6 +217,11 @@ Force a session operation, even if it would otherwise fail.  This may be used
 to forcibly end a session, even if it has active users.  This does not
 guarantee that the session will be ended cleanly; filesystems may not be
 unmounted, for example.
+.SS Separator
+.TP
+.BR \-\-
+End of options.  Used to indicate the end of the schroot options; any following
+options will be passed to the command being run, rather than to schroot.
 .SH AUTHENTICATION
 If the user is not an allowed user, or a member of the allowed groups (or if
 changing to root, the allowed root users or allowed root groups) for the
