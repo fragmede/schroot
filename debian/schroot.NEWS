@@ -1,17 +1,21 @@
-schroot (1.4.15-1) unstable; urgency=low
+schroot (1.4.16-1) unstable; urgency=low
 
   Users upgrading from lenny should take note of the following
   potentially incompatible changes which may require configuration
   updates:
 
-  * In schroot 1.4.0, the naming of chroot configuration files under
-    /etc/schroot/chroot.d has been made stricter, in order to prevent
-    reading of editor backup files and dpkg conffile backups.  It uses
-    the same naming rules as specified in run-parts(8) for the
-    --lsbsysinit option.  Configuration files not matching the naming
-    rules will be ignored.  If some of your chroots are not available
-    after upgrading to 1.4.0, this may be the reason.  Simply rename
-    the files to a conforming name and they will become available.
+  * In schroot 1.4.16, the allowed names of chroot configuration files
+    under /etc/schroot/chroot.d, and also chroot and session names,
+    have been made stricter.  This was done to prevent reading of
+    editor backup files and dpkg conffile backups, and also prevent
+    security exploits.  The name may not contain a leading period
+    (‘.’).  The characters ‘:’ (colon), ‘,’ (comma) and ‘/’ (forward
+    slash) are not permitted anywhere in the name.  Configuration
+    files not matching the naming rules will be ignored.  If some of
+    your chroots are not available after upgrading to 1.4.0, this may
+    be the reason.  Simply rename the files to a conforming name and
+    they will become available.  See schroot.conf(5) for more
+    information.
 
   * In schroot 1.4.1, the files 'script-defaults', 'mount-defaults',
     'copyfiles-defaults' and 'nssdatabases-defaults' located in
@@ -25,7 +29,7 @@ schroot (1.4.15-1) unstable; urgency=low
     'script-config' to 'script-defaults' in your chroot definitions,
     this will require updating.  If unset, no changes are required.
 
- -- Roger Leigh <rleigh@debian.org>  Fri, 22 Oct 2010 22:18:34 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 05 Dec 2010 21:57:21 +0000
 
 schroot (1.1.6-1) unstable; urgency=low
 
