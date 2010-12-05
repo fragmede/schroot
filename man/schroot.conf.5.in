@@ -37,6 +37,10 @@ For example,
 .IP
 \f[CR]\[lB]sid\[rB]
 .PP
+The name may not contain a leading period (\[oq].\[cq]).  The characters
+\[oq]:\[cq] (colon), \[oq],\[cq] (comma) and \[oq]/\[cq] (forward slash) are
+not permitted anywhere in the name.
+.PP
 This is then followed by several key-value pairs, one per line:
 .TP
 \f[CBI]type=\fP\f[CI]type\fP
@@ -94,7 +98,8 @@ password).  See the section \[lq]\fISecurity\fP\[rq] below.
 \f[CBI]aliases=\fP\f[CI]alias1,alias2,...\fP
 A comma-separated list of aliases (alternate names) for this chroot.  For
 example, a chroot named \[lq]sid\[rq] might have an \[oq]unstable\[cq] alias
-for convenience.
+for convenience.  Aliases are subject to the same naming restrictions as the
+chroot name itself.
 .TP
 \f[CBI]script\-config=\fP\f[CI]filename\fP
 The behaviour of the chroot setup scripts may be customised on a per-chroot
