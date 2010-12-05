@@ -332,6 +332,13 @@ sbuild::chroot::set_aliases (string_list const& aliases)
 	  e.set_reason(fmt.str());
 	  throw e;
 	}
+
+      if (!is_valid_sessionname(*pos))
+	{
+	  error e(*pos, NAME_INVALID);
+	  e.set_reason(_("Only alphanumeric characters, underscores and hyphens are allowed"));
+	  throw e;
+	}
     }
 
   this->aliases = aliases;
