@@ -40,8 +40,7 @@ do_kill_all()
     info "Killing processes run inside $1"
     ls /proc | egrep '^[[:digit:]]+$' |
     while read pid; do
-        root=$(readlink /proc/"$pid"/root || true)
-        if [ "$root" = "$1" ]; then
+        if [ /proc/"$pid"/root -ef "$1" ]; then
             exe=$(readlink /proc/"$pid"/exe || true)
             info "Killing left-over pid $pid (${exe##$1})"
             info "  Sending SIGTERM to pid $pid"
