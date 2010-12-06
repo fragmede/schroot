@@ -10,12 +10,12 @@ schroot (1.4.16-1) unstable; urgency=low
     editor backup files and dpkg conffile backups, and also prevent
     security exploits.  The name may not contain a leading period
     (‘.’).  The characters ‘:’ (colon), ‘,’ (comma) and ‘/’ (forward
-    slash) are not permitted anywhere in the name.  Configuration
-    files not matching the naming rules will be ignored.  If some of
-    your chroots are not available after upgrading to 1.4.0, this may
-    be the reason.  Simply rename the files to a conforming name and
-    they will become available.  See schroot.conf(5) for more
-    information.
+    slash) are not permitted anywhere in the name.  The name may also
+    not contain a trailing tilde ('~').  Configuration files not
+    matching the naming rules will be ignored.  If some of your
+    chroots are not available after upgrading to 1.4.0, this may be
+    the reason.  Simply rename the files to a conforming name and they
+    will become available.  See schroot.conf(5) for more information.
 
   * In schroot 1.4.1, the files 'script-defaults', 'mount-defaults',
     'copyfiles-defaults' and 'nssdatabases-defaults' located in

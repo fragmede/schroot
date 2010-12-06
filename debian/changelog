@@ -11,7 +11,8 @@ schroot (1.4.16-1) unstable; urgency=low
   * Relax chroot naming restrictions (Closes: #601043, #605939).  The
     name may not contain a leading period (‘.’).  The  characters ‘:’
     (colon), ‘,’ (comma) and ‘/’ (forward slash) are not permitted
-    anywhere in the name.  Otherwise any characters are permitted.
+    anywhere in the name.  The name may also not contain a trailing
+    tilde ('~').  Otherwise any characters are permitted.
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 05 Dec 2010 21:52:37 +0000
 
