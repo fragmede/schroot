@@ -13,8 +13,12 @@ schroot (1.4.16-1) unstable; urgency=low
     (colon), ‘,’ (comma) and ‘/’ (forward slash) are not permitted
     anywhere in the name.  The name may also not contain a trailing
     tilde ('~').  Otherwise any characters are permitted.
+  * 15killprocs: Improve performance by omitting a readlink call for
+    each process running on the system, leading to a significant
+    reduction in overhead on busy systems (Closes: #606162).  Thanks
+    to Anders Kaseorg for this patch.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 05 Dec 2010 21:52:37 +0000
+ -- Roger Leigh <rleigh@debian.org>  Tue, 07 Dec 2010 12:29:25 +0000
 
 schroot (1.4.15-1) unstable; urgency=low
 
