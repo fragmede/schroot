@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.12-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-09-05 18:41+0100\n"
+"POT-Creation-Date: 2010-12-07 14:00+0000\n"
 "PO-Revision-Date: 2010-09-28 22:16+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -892,10 +892,8 @@ msgstr "Thông điệp có mức chi tiết không hợp lệ"
 msgid "Namespace separator '%1%' may not be used in a chroot name"
 msgstr "Không cho phép dùng dấu tách miền tên « %1% » trong một tên chroot"
 
-msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+msgid "Naming restrictions are documented in schroot.conf(5)"
 msgstr ""
-"Chỉ cho phép dùng các ký tự chữ số (A-Z,a-z,0-9), dấu gạch dưới (_) và dấu "
-"gạch nối (-)"
 
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in an alias name"
@@ -1359,6 +1357,11 @@ msgstr "Lỗi lấy trạng thái về tập tin này"
 
 msgid "Failed to stat file descriptor"
 msgstr "Lỗi lấy trạng thái về bộ mô tả tập tin"
+
+#~ msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+#~ msgstr ""
+#~ "Chỉ cho phép dùng các ký tự chữ số (A-Z,a-z,0-9), dấu gạch dưới (_) và "
+#~ "dấu gạch nối (-)"
 
 #~ msgid "--chroot may not be used with --list"
 #~ msgstr ""

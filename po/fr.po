@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-09-05 18:41+0100\n"
+"POT-Creation-Date: 2010-12-07 14:00+0000\n"
 "PO-Revision-Date: 2010-09-26 11:32+0100\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -903,10 +903,8 @@ msgstr ""
 "Le séparateur d'espace de nom « %1% » ne doit pas être utilisé dans un nom "
 "de schroot."
 
-msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+msgid "Naming restrictions are documented in schroot.conf(5)"
 msgstr ""
-"Seuls les caractères alphanumériques, les tirets bas et les traits d'union "
-"sont autorisés."
 
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in an alias name"
@@ -1385,6 +1383,11 @@ msgstr "Échec lors de l'exécution de « stat » sur le fichier"
 
 msgid "Failed to stat file descriptor"
 msgstr "Échec lors de l'exécution de « stat » sur le descripteur de fichier"
+
+#~ msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+#~ msgstr ""
+#~ "Seuls les caractères alphanumériques, les tirets bas et les traits "
+#~ "d'union sont autorisés."
 
 #~ msgid "--chroot may not be used with --list"
 #~ msgstr "--chroot ne peut pas être utilisé avec --list"
