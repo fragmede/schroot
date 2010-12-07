@@ -5,14 +5,14 @@ schroot (1.4.16-1) unstable; urgency=low
     (Closes: #599380).
   * Document security implications of bind-mounting /dev and other
     filesystems in schroot.conf(5) (Closes: #587758).
-  * 10mount: Respect mount options from configuration for all mountable
-    chroot types (Closes: #605950).  Thanks to Nelson Elhage for this
-    patch.
   * Relax chroot naming restrictions (Closes: #601043, #605939).  The
     name may not contain a leading period (‘.’).  The  characters ‘:’
     (colon), ‘,’ (comma) and ‘/’ (forward slash) are not permitted
     anywhere in the name.  The name may also not contain a trailing
     tilde ('~').  Otherwise any characters are permitted.
+  * 10mount: Respect mount options from configuration for all mountable
+    chroot types (Closes: #605950).  Thanks to Nelson Elhage for this
+    patch.
   * 15killprocs: Improve performance by omitting a readlink call for
     each process running on the system, leading to a significant
     reduction in overhead on busy systems (Closes: #606162).  Thanks
