@@ -9,14 +9,15 @@ msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2010-12-07 14:00+0000\n"
-"PO-Revision-Date: 2010-09-26 11:32+0100\n"
+"PO-Revision-Date: 2010-12-07 21:14+0100\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. TRANSLATORS: %1% = file
 #, boost-format
@@ -904,7 +905,7 @@ msgstr ""
 "de schroot."
 
 msgid "Naming restrictions are documented in schroot.conf(5)"
-msgstr ""
+msgstr "Les restrictions de nommage sont documentées dans schroot.conf(5)"
 
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in an alias name"
