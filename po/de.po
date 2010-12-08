@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: schroot 1.4.8-1\n"
+"Project-Id-Version: schroot 1.4.12-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-09-02 21:40+0100\n"
-"PO-Revision-Date: 2010-08-23 09:21+0200\n"
+"POT-Creation-Date: 2010-12-07 14:00+0000\n"
+"PO-Revision-Date: 2010-12-07 20:15+0100\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "Language: de\n"
@@ -772,7 +772,7 @@ msgid "Invalid name"
 msgstr "Ungültiger Name"
 
 msgid "No such namespace"
-msgstr "Kein solcher Namensraum"
+msgstr "Kein solcher Namespace"
 
 msgid "Duplicate names are not allowed"
 msgstr "Gleichlautende Namen sind nicht erlaubt"
@@ -913,13 +913,17 @@ msgstr "Nachrichtenausführlichkeit ist ungültig"
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in a chroot name"
 msgstr ""
+"Namespace-Separator »%1%« darf nicht in einem Chroot-Namen verwendet werden"
 
-msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+msgid "Naming restrictions are documented in schroot.conf(5)"
 msgstr ""
+"Einschränkungen bezüglich der Namensgebung sind in schroot.conf(5) "
+"dokumentiert"
 
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in an alias name"
 msgstr ""
+"Namespace-Separator »%1%« darf nicht in einem Alias-Namen verwendet werden"
 
 msgid "Name"
 msgstr "Name"
@@ -929,6 +933,9 @@ msgstr "Beschreibung"
 
 msgid "Type"
 msgstr "Typ"
+
+msgid "Priority"
+msgstr "Priorität"
 
 msgid "Message Verbosity"
 msgstr "Nachrichtenausführlichkeit"
@@ -1389,5 +1396,6 @@ msgstr "Datei konnte nicht mit »stat« abgefragt werden"
 msgid "Failed to stat file descriptor"
 msgstr "Dateideskriptor konnte nicht mit »stat« abgefragt werden"
 
-#~ msgid "Priority"
-#~ msgstr "Priorität"
+#~ msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+#~ msgstr ""
+#~ "Es sind nur alphanumerische Zeichen, Unterstriche und Bindestriche erlaubt"
