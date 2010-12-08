@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-09-02 21:40+0100\n"
-"PO-Revision-Date: 2010-08-19 17:34+0000\n"
+"POT-Creation-Date: 2010-12-07 14:00+0000\n"
+"PO-Revision-Date: 2010-12-08 17:34+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -912,14 +912,14 @@ msgstr "Detaljegrad for besked er ugyldig"
 
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in a chroot name"
-msgstr ""
+msgstr "Navnerumsadskiller '%1%' må ikke bruges i et chrootnavn"
 
-msgid "Only alphanumeric characters, underscores and hyphens are allowed"
-msgstr ""
+msgid "Naming restrictions are documented in schroot.conf(5)"
+msgstr "Navnebegrænsninger er dokumenteret i schroot.conf(5)"
 
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in an alias name"
-msgstr ""
+msgstr "Navnerumsadskiller '%1%' må ikke bruges i et aliasnavn"
 
 msgid "Name"
 msgstr "Navn"
@@ -929,6 +929,9 @@ msgstr "Beskrivelse"
 
 msgid "Type"
 msgstr "Type"
+
+msgid "Priority"
+msgstr "Prioritet"
 
 msgid "Message Verbosity"
 msgstr "Detaljegrad for besked"
@@ -1380,6 +1383,9 @@ msgstr "Kunne ikke stat fil"
 
 msgid "Failed to stat file descriptor"
 msgstr "Kunne ikke stat fildeskriptor"
+
+#~ msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+#~ msgstr "Kun alfanumeriske tegn, understregninger og bindestreger er tilladt"
 
 #~ msgid "--chroot may not be used with --list"
 #~ msgstr "--chroot kan ikke bruges med --list"
