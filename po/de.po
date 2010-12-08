@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: schroot 1.4.12-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2010-12-07 14:00+0000\n"
-"PO-Revision-Date: 2010-09-12 21:20+0200\n"
+"PO-Revision-Date: 2010-12-07 20:15+0100\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "Language: de\n"
@@ -917,6 +917,8 @@ msgstr ""
 
 msgid "Naming restrictions are documented in schroot.conf(5)"
 msgstr ""
+"Einschränkungen bezüglich der Namensgebung sind in schroot.conf(5) "
+"dokumentiert"
 
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in an alias name"
