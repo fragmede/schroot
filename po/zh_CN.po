@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-09-02 21:40+0100\n"
-"PO-Revision-Date: 2010-09-05 18:34+0100\n"
+"POT-Creation-Date: 2010-12-07 14:00+0000\n"
+"PO-Revision-Date: 2010-12-09 15:47+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -741,7 +741,7 @@ msgid "Invalid name"
 msgstr "非法会话名"
 
 msgid "No such namespace"
-msgstr "不存在该会话"
+msgstr "不存在该名字空间"
 
 msgid "Duplicate names are not allowed"
 msgstr "不允许复制名称"
@@ -872,14 +872,14 @@ msgstr "无法显示详细信息"
 
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in a chroot name"
-msgstr ""
+msgstr "名字空间分隔符\"%1%\"未在 chroot 环境中使用"
 
-msgid "Only alphanumeric characters, underscores and hyphens are allowed"
-msgstr ""
+msgid "Naming restrictions are documented in schroot.conf(5)"
+msgstr "schroot.conf(5) 中有命名规则介绍"
 
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in an alias name"
-msgstr ""
+msgstr "名字空间分隔符\"%1%\"未在别名中使用"
 
 msgid "Name"
 msgstr "名字"
@@ -889,6 +889,9 @@ msgstr "描述"
 
 msgid "Type"
 msgstr "类型"
+
+msgid "Priority"
+msgstr "优先权"
 
 msgid "Message Verbosity"
 msgstr "详细信息"
@@ -1331,8 +1334,8 @@ msgstr "无法获取文件状态"
 msgid "Failed to stat file descriptor"
 msgstr "无法统计文件描述符"
 
-#~ msgid "Priority"
-#~ msgstr "优先权"
+#~ msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+#~ msgstr "仅允许使用字母、数字、下划线及连字符"
 
 #~ msgid "--chroot may not be used with --list"
 #~ msgstr "--chroot 不可与 --list 合用"
