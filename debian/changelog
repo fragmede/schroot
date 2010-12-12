@@ -6,8 +6,9 @@ schroot (1.4.17-1) unstable; urgency=low
     - de (Closes: #606245).  Thanks to Holger Wansing.
     - fr (Closes: #606394).  Thanks to Thomas Blein.
     - it.  Thanks to Vincenzo Campanella.
+    - zh_CN.  Thanks to Ji ZhengYu.
 
- -- Roger Leigh <rleigh@debian.org>  Wed, 08 Dec 2010 22:40:32 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sun, 12 Dec 2010 12:03:47 +0000
 
 schroot (1.4.16-1) unstable; urgency=low
 
