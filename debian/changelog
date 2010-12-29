@@ -1,6 +1,11 @@
 schroot (1.4.17-1) unstable; urgency=low
 
   * New upstream stable release.
+  * 15killprocs: Don't kill processes in other sessions
+    (Closes: #608054).  Compare full chroot path in addition to device
+    and inode numbers, since the device and inode are not sufficiently
+    unique (they are shared between non-cloned sessions such as for
+    directory type chroots).
   * Updated translations:
     - da (Closes: #606305).  Thanks to Joe Hansen.
     - de (Closes: #606245).  Thanks to Holger Wansing.
@@ -8,7 +13,7 @@ schroot (1.4.17-1) unstable; urgency=low
     - it.  Thanks to Vincenzo Campanella.
     - zh_CN.  Thanks to Ji ZhengYu.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 12 Dec 2010 12:03:47 +0000
+ -- Roger Leigh <rleigh@debian.org>  Wed, 29 Dec 2010 16:41:30 +0000
 
 schroot (1.4.16-1) unstable; urgency=low
 
