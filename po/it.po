@@ -333,7 +333,8 @@ msgstr "per migrare a una configurazione schroot."
 #, boost-format
 msgid "Edit '%1%' to add appropriate user and/or group access."
 msgstr ""
-"Modificare «%1%» per aggiungere l'accesso ai gruppi o agli utenti appropriati."
+"Modificare «%1%» per aggiungere l'accesso ai gruppi o agli utenti "
+"appropriati."
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
@@ -347,7 +348,8 @@ msgid "Preserve user environment"
 msgstr "Mantieni l'ambiente dell'utente"
 
 msgid "--quiet and --verbose may not be used at the same time"
-msgstr "«--quiet» e «--verbose» non possono essere utilizzati contemporaneamente"
+msgstr ""
+"«--quiet» e «--verbose» non possono essere utilizzati contemporaneamente"
 
 msgid "Using verbose output"
 msgstr "Utilizzando l'output prolisso"
@@ -405,8 +407,8 @@ msgstr "Uso:"
 #, boost-format
 msgid "Run \"%1% --help\" to list usage example and all available options"
 msgstr ""
-"Per visualizzare esempi sull'uso e tutte le opzioni disponibili eseguire «%1% "
-"--help»"
+"Per visualizzare esempi sull'uso e tutte le opzioni disponibili eseguire "
+"«%1% --help»"
 
 #, boost-format
 msgid "%1%: invalid action"
@@ -902,7 +904,9 @@ msgstr ""
 "Il separatore di namespace «%1%» non può essere utilizzato in un nome chroot"
 
 msgid "Naming restrictions are documented in schroot.conf(5)"
-msgstr "Le restrizioni relative alle denominazioni sono documentate in schroot.conf(5)"
+msgstr ""
+"Le restrizioni relative alle denominazioni sono documentate in schroot.conf"
+"(5)"
 
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in an alias name"
@@ -1322,7 +1326,8 @@ msgstr "[chroot %1%] esecuzione della shell in corso: «%4%»"
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
 #, boost-format
 msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
-msgstr "[chroot %1%] (%2%→%3%): esecuzione della shell di login in corso: «%4%»"
+msgstr ""
+"[chroot %1%] (%2%→%3%): esecuzione della shell di login in corso: «%4%»"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = user name
