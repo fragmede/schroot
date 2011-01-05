@@ -106,7 +106,7 @@ main::run (int   argc,
       this->program_options->parse(argc, argv);
 
 #ifdef SBUILD_DEBUG
-      sbuild::debug_level = sbuild::DEBUG_CRITICAL;
+      sbuild::debug_log_level = sbuild::DEBUG_CRITICAL;
 #endif
 
       if (this->use_syslog)
