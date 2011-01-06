@@ -1,8 +1,21 @@
 schroot (1.4.18-1) unstable; urgency=low
 
   * New upstream stable release.
+  * Disable the use of long UUIDs in automatically-generated session
+    names on kfreebsd kernels (Closes: #609108).  Use the time and
+    process ID instead, which are far shorter than the UUID.  This is
+    required due to FreeBSD kernels using fixed-length character arrays
+    in their struct statfs structure which limits the mount and umount
+    commands to paths less than 88 characters in length (80 in
+    practice).  Disabling UUID support reduces the likelihood of mount
+    and umount failure when beginning and ending sessions, but can not
+    fix the underlying bug in FreeBSD.  It can still be triggered if
+    long session names are used, or filesystems are mounted deep inside
+    the chroot directory hierarchy.  Thanks to Guillem Jover, Julian
+    Moreno and Jakub Wilk for help fixing the configure script, Debian
+    packaging and testing.
 
- -- Roger Leigh <rleigh@debian.org>  Thu, 06 Jan 2011 21:58:49 +0000
+ -- Roger Leigh <rleigh@debian.org>  Thu, 06 Jan 2011 21:59:10 +0000
 
 schroot (1.4.17-1) unstable; urgency=low
 
