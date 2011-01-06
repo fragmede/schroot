@@ -19,6 +19,12 @@ else
 	BTRFSSNAP_OPTIONS = --enable-btrfs-snapshot
 endif
 
+ifneq ($(DEB_HOST_ARCH_OS),kfreebsd)
+	UUID_OPTIONS = --enable-uuid
+else
+	UUID_OPTIONS = --disable-uuid
+endif
+
 CFLAGS = -Wall -g
 
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
@@ -44,7 +50,7 @@ debian/build/config.status: configure
 	  --enable-dchroot --enable-dchroot-dsa \
 	  --enable-static --disable-shared \
 	  --with-bash-completion-dir=/etc/bash_completion.d \
-	  $(LVMSNAP_OPTIONS) $(BTRFSSNAP_OPTIONS) \
+	  $(LVMSNAP_OPTIONS) $(BTRFSSNAP_OPTIONS) $(UUID_OPTIONS) \
 	  BTRFS=/sbin/btrfs \
 	  BTRFSCTL=/sbin/btrfsctl \
 	  LVCREATE=/sbin/lvcreate \
