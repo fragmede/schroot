@@ -29,7 +29,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#ifdef HAVE_UUID
+#ifdef SBUILD_USE_UUID
 #include <uuid/uuid.h>
 #else
 #include <time.h>
@@ -237,7 +237,7 @@ sbuild::unique_identifier ()
   std::ostringstream id;
   id.imbue(std::locale::classic());
 
-#ifdef HAVE_UUID
+#ifdef SBUILD_USE_UUID
   uuid_t uuid;
   char uuid_str[37];
   uuid_generate(uuid);

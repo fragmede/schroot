@@ -331,8 +331,7 @@ AC_DEFINE_UNQUOTED(SBUILD_HOST_CPU, ["$host_cpu"])
 
 # Checks for libraries.
 PKG_CHECK_MODULES([UUID], [uuid],
-                  [AC_DEFINE(HAVE_UUID)
-		   HAVE_UUID=yes],
+                  [HAVE_UUID=yes],
                   [HAVE_UUID=no])
 
 AM_PATH_CPPUNIT([1.10.0], [HAVE_CPPUNIT=yes])
@@ -418,17 +417,25 @@ fi
 
 AC_MSG_CHECKING([whether to build UUID support])
 BUILD_UUID="yes"
-if test "$enable_uuid" = "yes"; then
+if test "$enable_uuid" = "no"; then
   BUILD_UUID="no"
-fi
-if test "$HAVE_UUID" = "no"; then
-  BUILD_UUID="no"
+elif test "$enable_uuid" = "yes"; then
+  if test "$HAVE_UUID" = "no"; then
+    AC_MSG_FAILURE([libuuid (e2fsprogs) is not installed, but is required by schroot])
+  fi
+elif test "$enable_uuid" = "auto"; then
+  if test "$HAVE_UUID" = "no"; then
+    BUILD_UUID="no"
+  fi
 fi
 AC_MSG_RESULT([$BUILD_UUID])
 
-AH_TEMPLATE(HAVE_UUID, [Set if UUID support is available])
+AM_CONDITIONAL([BUILD_UUID], [test "$BUILD_UUID" = "yes"])
+AH_TEMPLATE(SBUILD_USE_UUID, [Set if uuid support is present])
 if test "$BUILD_UUID" = "yes"; then
-  AC_DEFINE(HAVE_UUID, 1)
+  AC_DEFINE(SBUILD_USE_UUID, 1)
+else
+  UUID_LIBS=""
 fi
 
 AC_MSG_CHECKING([whether to build PAM support])
