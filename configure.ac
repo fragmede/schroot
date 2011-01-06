@@ -458,6 +458,8 @@ AM_CONDITIONAL([BUILD_PAM], [test "$BUILD_PAM" = "yes"])
 AH_TEMPLATE(SBUILD_FEATURE_PAM, [Set if PAM support is available])
 if test "$BUILD_PAM" = "yes"; then
   AC_DEFINE(SBUILD_FEATURE_PAM, 1)
+else
+  PAM_LIBS=""
 fi
 
 AC_MSG_CHECKING([whether to build block-device support])
