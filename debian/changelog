@@ -14,8 +14,11 @@ schroot (1.4.18-1) unstable; urgency=low
     the chroot directory hierarchy.  Thanks to Guillem Jover, Julián
     Moreno Patiño and Jakub Wilk for help fixing the configure script,
     Debian packaging and testing.
+  * 50chrootname: Strip time+PID from session name in addition to UUID.
+    This sets /etc/debian_chroot correctly (without automatically
+    generated suffix) on kfreebsd platforms.
 
- -- Roger Leigh <rleigh@debian.org>  Thu, 06 Jan 2011 22:09:13 +0000
+ -- Roger Leigh <rleigh@debian.org>  Fri, 07 Jan 2011 14:49:31 +0000
 
 schroot (1.4.17-1) unstable; urgency=low
 
