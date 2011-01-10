@@ -1,3 +1,9 @@
+schroot (1.4.19-1) unstable; urgency=low
+
+  * New upstream stable release.
+
+ -- Roger Leigh <rleigh@debian.org>  Mon, 10 Jan 2011 23:39:27 +0000
+
 schroot (1.4.18-1) unstable; urgency=low
 
   * New upstream stable release.
