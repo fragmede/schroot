@@ -33,8 +33,6 @@
 
 #include <boost/format.hpp>
 
-#include <uuid/uuid.h>
-
 using std::cout;
 using std::endl;
 using sbuild::_;
