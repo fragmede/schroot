@@ -1,8 +1,11 @@
 schroot (1.4.19-1) unstable; urgency=low
 
   * New upstream stable release.
+  * bin/dchroot-dsa/dchroot-dsa-session.cc: Don't include <uuid/uuid.h>.
+    This isn't required and breaks building on kfreebsd where we don't
+    build-depend on uuid-dev (Closes: #609619).
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 10 Jan 2011 23:39:27 +0000
+ -- Roger Leigh <rleigh@debian.org>  Tue, 11 Jan 2011 00:11:26 +0000
 
 schroot (1.4.18-1) unstable; urgency=low
 
