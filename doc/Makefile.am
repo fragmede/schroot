@@ -21,6 +21,8 @@
 
 include $(top_srcdir)/scripts/global.mk
 
+SUBDIRS = historical
+
 if BUILD_DOXYGEN
 doc: sbuild schroot
 else
