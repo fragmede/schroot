@@ -25,6 +25,10 @@ configuration.
      to archive named pipes and device nodes, and so was not usable
      for chroot archival.
 
+  4) AUTH_VERBOSITY is no longer set in setup scripts.  Please use
+     VERBOSE instead.  VERBOSITY replaced and deprecated
+     AUTH_VERBOSITY in version 1.4.5.
+
 * Major changes in 1.4.19:
 
   None.
