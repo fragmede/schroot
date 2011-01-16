@@ -8,10 +8,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: schroot 1.4.0-1\n"
+"Project-Id-Version: schroot 1.4.8-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-09-02 21:40+0100\n"
-"PO-Revision-Date: 2010-01-17 18:50+0100\n"
+"POT-Creation-Date: 2011-01-16 21:53+0000\n"
+"PO-Revision-Date: 2010-09-08 23:50+0100\n"
 "Last-Translator: Pedro Ribeiro <p.m42.ribeiro@gmail.com>\n"
 "Language-Team: Portuguese <traduz@debianpt.org>\n"
 "Language: pt\n"
@@ -301,7 +301,7 @@ msgstr ""
 #. TRANSLATORS: %1% = file
 #, boost-format
 msgid "Remove '%1%' to use the new configuration."
-msgstr "Remova '%1%' para usar a nova configuração"
+msgstr "Remova '%1%' para usar a nova configuração."
 
 #. TRANSLATORS: %1% = program name
 #, boost-format
@@ -528,19 +528,18 @@ msgstr "Os chroots especificados não estão definidos em '%1%'"
 msgid "%1%: Chroot not found"
 msgstr "%1%: Não foi encontrado o chroot"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "%1%: Invalid session name"
-msgstr "%1%: acção inválida"
+msgstr "%1%: Nome de sessão inválido"
 
 msgid "Available chroot types:"
-msgstr "Tipos de chroot disponíveis: "
+msgstr "Tipos de chroot disponíveis:"
 
 msgid "Support for 'block-device' chroots"
 msgstr "Suporte para chroots 'block-device'"
 
-#, fuzzy
 msgid "Support for 'btrfs-snapshot' chroots"
-msgstr "Suporte para chroots 'lvm-snapshot'"
+msgstr "Suporte para chroots 'btrfs-snapshot'"
 
 msgid "Support for 'directory' chroots"
 msgstr "Suporte para chroots 'directory'"
@@ -597,15 +596,11 @@ msgstr ""
 msgid "Unknown action specified"
 msgstr "Acção especificada desconhecida"
 
-#, fuzzy
 msgid "--session-name is not permitted for the specified action"
-msgstr ""
-"--session-name não é permitido para a acção especificada; quereria usar --"
-"chroot ?"
+msgstr "--session-name não é permitido para a acção especificada"
 
-#, fuzzy
 msgid "Invalid session name"
-msgstr "%1%: acção inválida"
+msgstr "Nome de sessão inválido"
 
 msgid "Print location of selected chroots"
 msgstr "Imprimir a localização dos chroots seleccionados"
@@ -616,9 +611,8 @@ msgstr "Seleccionar todos os chroots e sessões activas"
 msgid "Select all active sessions"
 msgstr "Seleccionar todas as sessões activas"
 
-#, fuzzy
 msgid "Select all source chroots"
-msgstr "Seleccionar todos os chroots"
+msgstr "Seleccionar todos os chroots de origem"
 
 msgid "Username (default current user)"
 msgstr "Nome de utilizador (pré-definido para utilizador actual)"
@@ -719,7 +713,7 @@ msgid "PAM error"
 msgstr "Erro de PAM"
 
 msgid "PAM failed to shut down cleanly"
-msgstr ""
+msgstr "PAM não encerrou correctamente"
 
 msgid "This option may be present in a newer version"
 msgstr "Esta opção poderá estar presente numa versão mais recente"
@@ -758,12 +752,11 @@ msgstr "O ficheiro não pertence ao utilizador root"
 msgid "File has write permissions for others"
 msgstr "O ficheiro tem permissões de escrita para outros"
 
-#, fuzzy
 msgid "Invalid name"
-msgstr "%1%: acção inválida"
+msgstr "Nome inválido"
 
 msgid "No such namespace"
-msgstr ""
+msgstr "Não existe esse 'namespace'"
 
 msgid "Duplicate names are not allowed"
 msgstr "Nomes duplicados não são permitidos"
@@ -817,21 +810,17 @@ msgstr "'Overlay' de união tem que ter um caminho absoluto"
 msgid "Union underlay must have an absolute path"
 msgstr "'Underlay' de união tem que ter um caminho absoluto"
 
-#, fuzzy
 msgid "Filesystem Union Type"
-msgstr "Tipo de sistema de ficheiros union"
+msgstr "Tipo de Sistema de Ficheiros Union"
 
-#, fuzzy
 msgid "Filesystem Union Mount Options"
-msgstr "Opções de montagem de sistema de ficheiros union"
+msgstr "Opções de montagem de Sistema de Ficheiros Union"
 
-#, fuzzy
 msgid "Filesystem Union Overlay Directory"
-msgstr "Directório de 'overlay' de sistema de ficheiros union"
+msgstr "Directório de 'overlay' de Sistema de Ficheiros Union"
 
-#, fuzzy
 msgid "Filesystem Union Underlay Directory"
-msgstr "Directório de 'underlay' de sistema de ficheiros union"
+msgstr "Directório de 'underlay' de Sistema de Ficheiros Union"
 
 msgid "File"
 msgstr "Ficheiro"
@@ -894,18 +883,18 @@ msgid "Failed to write session file"
 msgstr "Falhou a escrita do ficheiro de sessão"
 
 msgid "Message verbosity is invalid"
-msgstr ""
+msgstr "Verbosidade das mensagens é inválida"
 
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in a chroot name"
-msgstr ""
+msgstr "O separador de 'namespace' '%1%' não pode ser usado no nome de chroot."
 
-msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+msgid "Naming restrictions are documented in schroot.conf(5)"
 msgstr ""
 
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in an alias name"
-msgstr ""
+msgstr "O separador de 'namespace' '%1%' não pode ser usado no nome de alias."
 
 msgid "Name"
 msgstr "Nome"
@@ -917,7 +906,7 @@ msgid "Type"
 msgstr "Tipo"
 
 msgid "Message Verbosity"
-msgstr ""
+msgstr "Verbosidade das Mensagens"
 
 msgid "Users"
 msgstr "Utilizadores"
@@ -934,9 +923,8 @@ msgstr "Grupos Root"
 msgid "Aliases"
 msgstr "Aliases"
 
-#, fuzzy
 msgid "Preserve Environment"
-msgstr "Manter ambiente do utilizador"
+msgstr "Manter Ambiente"
 
 msgid "Environment Filter"
 msgstr "Filtro de Ambiente"
@@ -971,9 +959,8 @@ msgstr "Chroot"
 msgid "Session"
 msgstr "Sessão"
 
-#, fuzzy
 msgid "Source"
-msgstr "Utilizadores na Origem"
+msgstr "Origem"
 
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr "A flag close-on-execute do terminal de controlo não pôde ser activada"
@@ -1066,7 +1053,7 @@ msgid "Failed to set timeout handler"
 msgstr "Falhou definir um gestor de limite de tempo"
 
 msgid "Failed to set timeout"
-msgstr "Falhou definir o limite de tempo"
+msgstr "Falhou a definição do limite de tempo"
 
 msgid "Failed to cancel timeout"
 msgstr "Falhou o cancelar o limite de tempo"
@@ -1370,6 +1357,10 @@ msgstr "Falhou a obtenção do estado do descritor de ficheiro"
 
 #~ msgid "Priority"
 #~ msgstr "Prioridade"
+
+#~ msgid "Only alphanumeric characters, underscores and hyphens are allowed"
+#~ msgstr ""
+#~ "Apenas são permitidos caracteres alfanuméricos, sublinhados e hífens."
 
 #~ msgid "--chroot may not be used with --list"
 #~ msgstr "--chroot não pode ser usado com --list"

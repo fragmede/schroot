@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-12-07 14:00+0000\n"
+"POT-Creation-Date: 2011-01-16 21:53+0000\n"
 "PO-Revision-Date: 2010-12-09 15:47+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -890,9 +890,6 @@ msgstr "描述"
 msgid "Type"
 msgstr "类型"
 
-msgid "Priority"
-msgstr "优先权"
-
 msgid "Message Verbosity"
 msgstr "详细信息"
 
@@ -1333,6 +1330,9 @@ msgstr "无法获取文件状态"
 
 msgid "Failed to stat file descriptor"
 msgstr "无法统计文件描述符"
+
+#~ msgid "Priority"
+#~ msgstr "优先权"
 
 #~ msgid "Only alphanumeric characters, underscores and hyphens are allowed"
 #~ msgstr "仅允许使用字母、数字、下划线及连字符"
