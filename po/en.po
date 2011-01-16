@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2011-01-16 21:53+0000\n"
-"PO-Revision-Date: 2010-09-06 20:02+0100\n"
+"POT-Creation-Date: 2011-01-16 22:16+0000\n"
+"PO-Revision-Date: 2011-01-16 22:16+0000\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "Language: en\n"
@@ -359,8 +359,8 @@ msgid "Written by Roger Leigh"
 msgstr "Written by Roger Leigh"
 
 #. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
-msgid "Copyright (C) 2004-2010 Roger Leigh"
-msgstr "Copyright © 2004–2010 Roger Leigh"
+msgid "Copyright (C) 2004-2011 Roger Leigh"
+msgstr "Copyright © 2004–2011 Roger Leigh"
 
 msgid ""
 "This is free software; see the source for copying conditions.  There is NO\n"
@@ -878,7 +878,7 @@ msgid "Namespace separator '%1%' may not be used in a chroot name"
 msgstr "Namespace separator ‘%1%’ may not be used in a chroot name"
 
 msgid "Naming restrictions are documented in schroot.conf(5)"
-msgstr ""
+msgstr "Naming restrictions are documented in schroot.conf(5)"
 
 #, boost-format
 msgid "Namespace separator '%1%' may not be used in an alias name"
