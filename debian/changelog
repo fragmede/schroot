@@ -1,11 +1,26 @@
-schroot (1.5.0-1) unstable; urgency=low
+schroot (1.5.0-1) experimental; urgency=low
 
-  * New upstream development release.
-  * Enable lvm-snapshot and btrfs-snapshot only on Linux.
+  * New upstream development release:
+    - The deprecated options priority, run-setup-scripts and
+      run-exec-scripts (all chroot types) and location ("plain" and
+      "directory" chroot types) have been obsoleted and removed from
+      the documentation.
+    - Source chroots no longer create a chroot with a -source suffix;
+      the source: namespace should be used instead.  Likewise sessions
+      are no longer present in the chroot: namespace, and are only
+      found in the session: namespace.  This means the fully-qualified
+      name must be used to refer to sessions except when performing
+      actions which use session: as the default namespace.
+    - Support for zip file archives has been removed.  zip was not able
+      to archive named pipes and device nodes, and so was not usable
+      for chroot archival.
+    - AUTH_VERBOSITY is no longer set in setup scripts.  Please use
+      VERBOSE instead.  VERBOSITY replaced and deprecated
+      AUTH_VERBOSITY in version 1.4.5.
   * schroot: Don't Suggest unzip now zip is not a supported archive
     format.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 29 Aug 2010 11:59:46 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 16 Jan 2011 22:02:34 +0000
 
 schroot (1.4.19-1) unstable; urgency=low
 
