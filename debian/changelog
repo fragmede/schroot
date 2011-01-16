@@ -7,6 +7,123 @@ schroot (1.5.0-1) unstable; urgency=low
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 29 Aug 2010 11:59:46 +0100
 
+schroot (1.4.19-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * bin/dchroot-dsa/dchroot-dsa-session.cc: Don't include <uuid/uuid.h>.
+    This isn't required and breaks building on kfreebsd where we don't
+    build-depend on uuid-dev (Closes: #609619).
+
+ -- Roger Leigh <rleigh@debian.org>  Tue, 11 Jan 2011 00:11:26 +0000
+
+schroot (1.4.18-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * Disable the use of long UUIDs in automatically-generated session
+    names on kfreebsd kernels (Closes: #609108).  Use the time and
+    process ID instead, which are far shorter than the UUID.  This is
+    required due to FreeBSD kernels using fixed-length character arrays
+    in their struct statfs structure which limits the mount and umount
+    commands to paths less than 88 characters in length (80 in
+    practice).  Disabling UUID support reduces the likelihood of mount
+    and umount failure when beginning and ending sessions, but can not
+    fix the underlying bug in FreeBSD.  It can still be triggered if
+    long session names are used, or filesystems are mounted deep inside
+    the chroot directory hierarchy.  Thanks to Guillem Jover, Julián
+    Moreno Patiño and Jakub Wilk for help fixing the configure script,
+    Debian packaging and testing.
+  * 50chrootname: Strip time+PID from session name in addition to UUID.
+    This sets /etc/debian_chroot correctly (without automatically
+    generated suffix) on kfreebsd platforms.
+
+ -- Roger Leigh <rleigh@debian.org>  Fri, 07 Jan 2011 14:49:31 +0000
+
+schroot (1.4.17-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * 15killprocs: Don't kill processes in other sessions
+    (Closes: #608054).  Compare full chroot path in addition to device
+    and inode numbers, since the device and inode are not sufficiently
+    unique (they are shared between non-cloned sessions such as for
+    directory type chroots).
+  * Updated translations:
+    - da (Closes: #606305).  Thanks to Joe Hansen.
+    - de (Closes: #606245).  Thanks to Holger Wansing.
+    - fr (Closes: #606394).  Thanks to Thomas Blein.
+    - it.  Thanks to Vincenzo Campanella.
+    - zh_CN.  Thanks to Ji ZhengYu.
+
+ -- Roger Leigh <rleigh@debian.org>  Wed, 29 Dec 2010 16:41:30 +0000
+
+schroot (1.4.16-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * Document schroot -- option delimiter in schroot(1)
+    (Closes: #599380).
+  * Document security implications of bind-mounting /dev and other
+    filesystems in schroot.conf(5) (Closes: #587758).
+  * Relax chroot naming restrictions (Closes: #601043, #605939).  The
+    name may not contain a leading period (‘.’).  The  characters ‘:’
+    (colon), ‘,’ (comma) and ‘/’ (forward slash) are not permitted
+    anywhere in the name.  The name may also not contain a trailing
+    tilde ('~').  Otherwise any characters are permitted.
+  * 10mount: Respect mount options from configuration for all mountable
+    chroot types (Closes: #605950).  Thanks to Nelson Elhage for this
+    patch.
+  * 15killprocs: Improve performance by omitting a readlink call for
+    each process running on the system, leading to a significant
+    reduction in overhead on busy systems (Closes: #606162).  Thanks
+    to Anders Kaseorg for this patch.
+
+ -- Roger Leigh <rleigh@debian.org>  Tue, 07 Dec 2010 12:29:25 +0000
+
+schroot (1.4.15-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * 10mount: Always purge mount directory for file type chroots
+    (Closes: #600966).  file chroots are now unpacked into a
+    separate unpack directory and then bind mounted into the
+    mount directory, making this special casing redundant and
+    causing stray session directories to be left in the mount
+    directory.
+  * schroot.NEWS: Document incompatible changes introduced in
+    1.4.0 and 1.4.1 (Closes: #597778).
+
+ -- Roger Leigh <rleigh@debian.org>  Fri, 22 Oct 2010 22:18:34 +0100
+
+schroot (1.4.14-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * Updated translations:
+    - vi (Closes: #598353).  Thanks to Clytie Siddall.
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 03 Oct 2010 11:57:08 +0100
+
+schroot (1.4.13-1) unstable; urgency=low
+
+  * Session actions work with plain chroots again (Closes: #597368).
+    Because plain chroots are not session-capable, actions such as
+    --run-session and --end-session, which look for chroots in the
+    "session" namespace, don't find plain chroots, which only exist
+    in the "chroot" namespace.  To work around this limitation,
+    proxy sessions are created as aliases in the session namespace
+    to allow session actions to work for plain chroots.
+  * Correct error handing for --all options:
+    - If no chroots are selected by an --all option, only warn when
+      verbose output is enabled.
+    - Don't abort prematurely if --all-source-chroots is used and
+      no chroots are found; previously only --all-chroots and
+      --all-sessions were handled correctly.
+  * Updated translations:
+    - da (Closes: #596002).  Thanks to Joe Hansen.
+    - de (Closes: #596597).  Thanks to Holger Wansing.
+    - fr (Closes: #596962).  Thanks to Thomas Blein.
+    - it.  Thanks to Vincenzo Campanella.
+    - pt (Closes: #596612).  Thanks to Pedro Ribeiro.
+    - zh_CN.  Thanks to Ji ZhengYu.
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 26 Sep 2010 10:24:23 +0100
+
 schroot (1.4.12-1) unstable; urgency=low
 
   * New upstream stable release.

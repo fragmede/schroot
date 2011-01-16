@@ -25,6 +25,40 @@ configuration.
      to archive named pipes and device nodes, and so was not usable
      for chroot archival.
 
+* Major changes in 1.4.19:
+
+  None.
+
+* Major changes in 1.4.18:
+
+  None.
+
+* Major changes in 1.4.17:
+
+  None.
+
+* Major changes in 1.4.16:
+
+  1) Chroot naming restrictions introduced in 1.4.0 have been relaxed
+     following a code audit to evaluate the security implications.
+     The name may not contain a leading period (‘.’).  Any characters
+     are permitted, with the following restrictions.  The characters
+     ‘:’ (colon), ‘,’ (comma) and ‘/’ (forward slash) are not
+     permitted anywhere in the name.  The name may also not contain a
+     trailing tilde ('~').  See schroot.conf(5) for more information.
+
+* Major changes in 1.4.15:
+
+  None.
+
+* Major changes in 1.4.14:
+
+  None.
+
+* Major changes in 1.4.13:
+
+  None.
+
 * Major changes in 1.4.12:
 
   None.
