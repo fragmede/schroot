@@ -416,14 +416,14 @@ sbuild::chroot::set_command_prefix (string_list const& command_prefix)
   this->command_prefix = command_prefix;
 }
 
-chroot::verbosity
-chroot::get_verbosity () const
+sbuild::chroot::verbosity
+sbuild::chroot::get_verbosity () const
 {
   return this->message_verbosity;
 }
 
 const char *
-chroot::get_verbosity_string () const
+sbuild::chroot::get_verbosity_string () const
 {
   const char *verbosity = 0;
 
@@ -450,13 +450,13 @@ chroot::get_verbosity_string () const
 }
 
 void
-chroot::set_verbosity (chroot::verbosity verbosity)
+sbuild::chroot::set_verbosity (chroot::verbosity verbosity)
 {
   this->message_verbosity = verbosity;
 }
 
 void
-chroot::set_verbosity (std::string const& verbosity)
+sbuild::chroot::set_verbosity (std::string const& verbosity)
 {
   if (verbosity == "quiet")
     this->message_verbosity = VERBOSITY_QUIET;
