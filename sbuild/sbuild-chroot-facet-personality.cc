@@ -74,7 +74,7 @@ chroot_facet_personality::setup_env (chroot const& chroot,
 {
 }
 
-chroot::session_flags
+sbuild::chroot::session_flags
 chroot_facet_personality::get_session_flags (chroot const& chroot) const
 {
   return sbuild::chroot::SESSION_NOFLAGS;

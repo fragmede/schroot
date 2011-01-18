@@ -179,7 +179,7 @@ chroot_facet_session_clonable::setup_env (chroot const& chroot,
 {
 }
 
-chroot::session_flags
+sbuild::chroot::session_flags
 chroot_facet_session_clonable::get_session_flags (chroot const& chroot) const
 {
   return chroot::SESSION_CREATE;
