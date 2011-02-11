@@ -9,7 +9,9 @@ configuration.
 
 * Major changes in 1.4.20:
 
-  None.
+  1) Add support for the Boost filesystem v3 library, to permit
+     building with Boost version 1.46.  Older versions of Boost
+     continue to be supported.
 
 * Major changes in 1.4.19:
 
