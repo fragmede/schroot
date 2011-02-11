@@ -1,8 +1,12 @@
 schroot (1.4.20-1) unstable; urgency=low
 
   * New upstream stable release.
+  * Add support for the Boost filesystem v3 library, to permit building
+    with Boost version 1.46 (Closes: #612510).  Older versions of Boost
+    continue to be supported.  Thanks to Zach Carter for the initial
+    patch and testing.
 
- -- Roger Leigh <rleigh@debian.org>  Tue, 11 Jan 2011 22:59:45 +0000
+ -- Roger Leigh <rleigh@debian.org>  Fri, 11 Feb 2011 18:12:14 +0000
 
 schroot (1.4.19-1) unstable; urgency=low
 
