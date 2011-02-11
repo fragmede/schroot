@@ -81,7 +81,11 @@ run_parts::run_parts (std::string const& directory,
        dirent != end_iter;
        ++dirent)
     {
+#if !defined(BOOST_FILESYSTEM_VERSION) || BOOST_FILESYSTEM_VERSION == 2
       std::string name(dirent->leaf());
+#else
+      std::string name(dirent->path().filename().string());
+#endif
 
       // Skip common directories.
       if (name == "." || name == "..")
