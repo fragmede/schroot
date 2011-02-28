@@ -5,8 +5,11 @@ schroot (1.4.20-1) unstable; urgency=low
     with Boost version 1.46 (Closes: #612510).  Older versions of Boost
     continue to be supported.  Thanks to Zach Carter for the initial
     patch and testing.
+  * Build with Boost 1.46
+  * Remove versions from build dependencies where the required version
+    is also present in stable and oldstable
 
- -- Roger Leigh <rleigh@debian.org>  Fri, 11 Feb 2011 18:12:14 +0000
+ -- Roger Leigh <rleigh@debian.org>  Mon, 28 Feb 2011 08:10:15 +0000
 
 schroot (1.4.19-1) unstable; urgency=low
 
