@@ -19,10 +19,8 @@
 #ifndef SBUILD_CTTY_H
 #define SBUILD_CTTY_H
 
+#include <sbuild/sbuild-fdstream.h>
 #include <sbuild/sbuild-parse-error.h>
-
-#include <streambuf>
-#include <ostream>
 
 namespace sbuild
 {
@@ -51,7 +49,7 @@ namespace sbuild
    * CTTY stream.  A stream to the Controlling TTY, or standard input
    * if not available.
    */
-  extern std::iostream cctty;
+  extern fdstream cctty;
 
 }
 

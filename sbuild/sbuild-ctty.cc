@@ -23,8 +23,6 @@
 #include <cerrno>
 #include <cstring>
 
-#include <ext/stdio_filebuf.h>
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -121,9 +119,8 @@ namespace
   }
 
   /// A streambuf for cctty.
-  __gnu_cxx::stdio_filebuf<char> cttybuf(cttybuf_fd(),
-					 std::ios::in|std::ios::out);
+  //  boost::iostreams::file_descriptor cttybuf(cttybuf_fd(), close_handle);
 
 }
 
-std::iostream sbuild::cctty(&cttybuf);
+fdstream sbuild::cctty(cttybuf_fd(), boost::iostreams::close_handle);

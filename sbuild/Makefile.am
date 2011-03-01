@@ -48,6 +48,7 @@ sbuild_public_h_sources =			\
 	sbuild-environment.h			\
 	sbuild-error.h				\
 	sbuild-error.tcc			\
+	sbuild-fdstream.h			\
 	sbuild-format-detail.h			\
 	sbuild-i18n.h				\
 	sbuild-keyfile-base.h			\

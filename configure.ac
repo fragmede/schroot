@@ -360,10 +360,10 @@ AC_CHECK_HEADERS([boost/tuple/tuple.hpp],, [
   fi])
 
 AC_CHECK_HEADERS([boost/format.hpp],, [AC_MSG_ERROR([Boost.Format (Boost C++ Libraries) is not installed, but is required by schroot])])
+AC_CHECK_HEADERS([boost/iostreams/device/file_descriptor.hpp],, [AC_MSG_ERROR([Boost.Iostreams (Boost C++ Libraries) is not installed, but is required by schroot])])
 AC_CHECK_HEADERS([boost/program_options.hpp],, [AC_MSG_ERROR([Boost.Program_options (Boost C++ Libraries) is not installed, but is required by schroot])])
 AC_CHECK_HEADERS([boost/type_traits.hpp],, [AC_MSG_ERROR([Boost.TypeTraits (Boost C++ Libraries) is not installed, but is required by schroot])])
 
-AC_CHECK_HEADERS([ext/stdio_filebuf.h],, [AC_MSG_ERROR([__gnu_cxx::stdio_filebuf (GNU libstdc++) is not installed, but is required by schroot])])
 
 AC_CHECK_HEADERS([sys/personality.h],
 	         [PERSONALITY_HEADER="yes"],
@@ -670,6 +670,24 @@ AC_LINK_IFELSE(testprog,
 	        AC_MSG_FAILURE([libboost_regex (Boost C++ Libraries) is not installed, but is required by schroot])])])
 LIBS="${saved_LIBS}"
 
+AC_MSG_CHECKING([for boost::iostreams in -lboost_iostreams])
+saved_LIBS="${LIBS}"
+LIBS="${saved_LIBS} -lboost_iostreams"
+define([testprog], [AC_LANG_PROGRAM([#include <boost/iostreams/device/file_descriptor.hpp>
+#include <boost/iostreams/stream.hpp>
+],
+                                   [ boost::iostreams::stream<boost::iostreams::file_descriptor> fdstream;])])
+AC_LINK_IFELSE(testprog,
+               [AC_MSG_RESULT([yes])
+	        BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams"],
+[LIBS="${saved_LIBS} -lboost_iostreams-mt"
+ AC_LINK_IFELSE(testprog,
+               [AC_MSG_RESULT([yes])
+	        BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams-mt"],
+               [AC_MSG_RESULT([no])
+	        AC_MSG_FAILURE([libboost_iostreams (Boost C++ Libraries) is not installed, but is required by schroot])])])
+LIBS="${saved_LIBS}"
+
 AC_MSG_CHECKING([for boost::filesystem in -lboost_filesystem])
 saved_LIBS="${LIBS}"
 LIBS="${saved_LIBS} -lboost_filesystem -lboost_system"
@@ -688,14 +706,6 @@ LIBS="${saved_LIBS}"
 
 AC_SUBST([BOOST_LIBS])
 AC_SUBST([BOOST_FILESYSTEM_LIBS])
-
-AC_MSG_CHECKING([for __gnu_cxx::stdio_filebuf in libstdc++])
-AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <ext/stdio_filebuf.h>
-#include <unistd.h>],
-                                [__gnu_cxx::stdio_filebuf<char> fdbuf(STDOUT_FILENO, std::ios::out)])],
-               [AC_MSG_RESULT([yes])],
-               [AC_MSG_RESULT([no])
-                AC_MSG_FAILURE([__gnu_cxx::stdio_filebuf (GNU libstdc++) is not installed, but is required by schroot])])
 
 dnl Set PACKAGE_LOCALE_DIR in config.h
 AH_TEMPLATE(PACKAGE_LOCALE_DIR, [Package locale directory])

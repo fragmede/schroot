@@ -40,13 +40,12 @@
 #include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-chroot-facet-source.h"
+#include "sbuild-fdstream.h"
 #include "sbuild-lock.h"
 
 #include <cerrno>
 #include <map>
 #include <utility>
-
-#include <ext/stdio_filebuf.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -513,10 +512,9 @@ sbuild::chroot::setup_session_info (bool start)
       if (fd < 0)
 	throw error(file, SESSION_WRITE, strerror(errno));
 
-      // Create a stream buffer from the file descriptor.  The fd will
-      // be closed when the buffer is destroyed.
-      __gnu_cxx::stdio_filebuf<char> fdbuf(fd, std::ios::out);
-      std::ostream output(&fdbuf);
+      // Create a stream from the file descriptor.  The fd will be
+      // closed when the stream is destroyed.
+      fdostream output(fd, boost::iostreams::close_handle);
       output.imbue(std::locale::classic());
 
       file_lock lock(fd);

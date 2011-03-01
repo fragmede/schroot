@@ -23,14 +23,13 @@
 #include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-chroot-config.h"
+#include "sbuild-fdstream.h"
 #include "sbuild-lock.h"
 
 #include <cassert>
 #include <cerrno>
 #include <cstdlib>
 #include <cstring>
-
-#include <ext/stdio_filebuf.h>
 
 #include <boost/filesystem/operations.hpp>
 
@@ -676,10 +675,9 @@ chroot_config::load_data (std::string const& chroot_namespace,
   if (!file_status2.is_regular())
     throw error(file, FILE_NOTREG);
 
-  // Create a stream buffer from the file descriptor.  The fd will
-  // be closed when the buffer is destroyed.
-  __gnu_cxx::stdio_filebuf<char> fdbuf(fd, std::ios::in);
-  std::istream input(&fdbuf);
+  // Create a stream from the file descriptor.  The fd will be closed
+  // when the stream is destroyed.
+  fdistream input(fd, boost::iostreams::close_handle);
   input.imbue(std::locale::classic());
 
   try
