@@ -1,11 +1,16 @@
 NEWS                                                            -*- outline -*-
 ----
 
-Welcome to schroot 1.5.0.  Please read these release notes carefully.
+Welcome to schroot 1.5.1.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 1.5.1:
+
+  1) schroot no longer requires GCC to build, following the removal of
+     GCC-specific features.  It may now build with other C++ compilers.
 
 * Major changes in 1.5.0:
 
