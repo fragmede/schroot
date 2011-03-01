@@ -1,3 +1,10 @@
+schroot (1.5.1-1) experimental; urgency=low
+
+  * New upstream development release:
+  * Build with Boost 1.46, and add boost-iostreams build dependency.
+
+ -- Roger Leigh <rleigh@debian.org>  Tue, 01 Mar 2011 13:05:26 +0000
+
 schroot (1.5.0-1) experimental; urgency=low
 
   * New upstream development release:
