@@ -1269,6 +1269,8 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
       if (!env.get("PATH", path))
 	path.clear();
       file = find_program_in_path(full_command[0], path, "");
+      if (file.empty())
+	file = full_command[0];
     }
   for (string_list::const_iterator pos = command.begin();
        pos != command.end();
