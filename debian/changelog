@@ -3,8 +3,10 @@ schroot (1.4.21-1) unstable; urgency=low
   * New upstream stable release.
   * Fix building with --debug (Closes: #609067).  Thanks to
     Jonathan Callen.
+  * Document use of command-prefix=eatmydata to improve dpkg
+    performance in build chroots.
 
- -- Roger Leigh <rleigh@debian.org>  Tue, 01 Mar 2011 16:22:20 +0000
+ -- Roger Leigh <rleigh@debian.org>  Fri, 11 Mar 2011 13:13:26 +0000
 
 schroot (1.4.20-1) unstable; urgency=low
 
