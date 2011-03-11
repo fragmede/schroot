@@ -142,6 +142,11 @@ section \[lq]\fISecurity\fP\[rq] below for further details.
 \f[CBI]command\-prefix=\fP\f[CI]command,option1,option2,...\fP
 A comma-separated list of a command and the options for the command.  This
 command and its options will be prefixed to all commands run inside the chroot.
+This is useful for adding commands such as nice, ionice or eatmydata for all
+commands run inside the chroot.  nice and ionice will affect CPU and I/O
+scheduling.  eatmydata ingores filesystem fsync operations, and is useful for
+throwaway snapshot chroots where you don't care about dataloss, but do care
+about high speed.
 .TP
 \f[CBI]personality=\fP\f[CI]persona\fP
 Set the personality (process execution domain) to use.  This option is useful

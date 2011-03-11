@@ -289,6 +289,15 @@ The upshot is that the namespace is usually never required except when you need
 to work with a chroot in a namespace other than the default, such as when using
 a source chroot.  To make chroot selection unambiguous, it is always possible
 to use the full name including the namespace, even when not strictly required.
+.SH PERFORMANCE
+.PP
+Performance on some filesystems, for example Btrfs, is bad when running dpkg
+due to the amount of fsync operations performed.  This may be mitigated by
+installing the eatmydata package and then adding eatmydata to the
+\f[CI]command\-prefix\fP configuration key, which disables all fsync
+operations.  Note that this should only be done in snapshot chroots where data
+loss is not an issue.  This is useful when using a chroot for package building,
+for example.
 .SH EXAMPLES
 .SS List available chroots
 \f[CR]%\ \f[CB]schroot \-l\fP\fP\[CR]
