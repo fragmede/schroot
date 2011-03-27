@@ -23,8 +23,6 @@ include $(top_srcdir)/scripts/global.mk
 
 LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS)
 
-DEFS = -D_GNU_SOURCE
-
 lib_LTLIBRARIES = libsbuild.la
 
 sbuild_public_h_sources =			\

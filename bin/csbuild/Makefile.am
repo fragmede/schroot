@@ -23,7 +23,7 @@ include $(top_srcdir)/scripts/global.mk
 
 LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
 
-DEFS = -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
+LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\"
 
 if BUILD_CSBUILD
 csbuild = csbuild
