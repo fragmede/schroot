@@ -25,7 +25,7 @@ localedir = $(datadir)/locale
 
 LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
 
-DEFS = -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
+LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\"
 
 noinst_LTLIBRARIES = libschroot-base.la
 

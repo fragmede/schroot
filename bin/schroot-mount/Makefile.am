@@ -25,7 +25,7 @@ pkglibexecdir = $(SCHROOT_LIBEXEC_DIR)
 
 LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
 
-DEFS = -DLOCALEDIR=\"$(localedir)\" -D_GNU_SOURCE
+LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\"
 
 pkglibexec_PROGRAMS = schroot-mount
 
