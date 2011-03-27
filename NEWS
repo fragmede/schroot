@@ -1,11 +1,16 @@
 NEWS                                                            -*- outline -*-
 ----
 
-Welcome to schroot 1.4.21.  Please read these release notes carefully.
+Welcome to schroot 1.4.22.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 1.4.22:
+
+  1) Large file support is enabled by default.  This enables the use
+     of files over 2 GiB in size on 32 bit architectures.
 
 * Major changes in 1.4.21:
 
