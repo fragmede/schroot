@@ -12,6 +12,9 @@ configuration.
   1) schroot no longer requires GCC to build, following the removal of
      GCC-specific features.  It may now build with other C++ compilers.
 
+  2) Large file support is enabled by default.  This enables the use
+     of files over 2 GiB in size on 32 bit architectures.
+
 * Major changes in 1.5.0:
 
   1) The deprecated options priority, run-setup-scripts and
