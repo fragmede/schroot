@@ -365,6 +365,10 @@ AC_CHECK_HEADERS([boost/program_options.hpp],, [AC_MSG_ERROR([Boost.Program_opti
 AC_CHECK_HEADERS([boost/type_traits.hpp],, [AC_MSG_ERROR([Boost.TypeTraits (Boost C++ Libraries) is not installed, but is required by schroot])])
 
 
+AC_CHECK_HEADERS([sched.h],
+	         [UNSHARE_HEADER="yes"],
+	         [UNSHARE_HEADER="no"])
+
 AC_CHECK_HEADERS([sys/personality.h],
 	         [PERSONALITY_HEADER="yes"],
 	         [PERSONALITY_HEADER="no"])
@@ -392,6 +396,27 @@ AC_SUBST([LOCKDEV_LIBS])
 AH_TEMPLATE(SBUILD_FEATURE_DEVLOCK, [Set if the device locking with liblockdev is available])
 if test "$HAVE_LOCKDEV" = "yes"; then
   AC_DEFINE(SBUILD_FEATURE_DEVLOCK, 1)
+fi
+
+AC_CHECK_FUNC([unshare],
+              [UNSHARE_FUNC="yes"],
+	      [UNSHARE_FUNC="no"])
+
+# Determine which features to enable.
+AC_MSG_CHECKING([whether to build unshare support])
+BUILD_UNSHARE="yes"
+if test "$UNSHARE_HEADER" = "no"; then
+  BUILD_UNSHARE="no"
+fi
+if test "$UNSHARE_FUNC" = "no"; then
+  BUILD_UNSHARE="no"
+fi
+AC_MSG_RESULT([$BUILD_UNSHARE])
+
+AM_CONDITIONAL([BUILD_UNSHARE], [test "$BUILD_UNSHARE" = "yes"])
+AH_TEMPLATE(SBUILD_FEATURE_UNSHARE, [Set if unshare support is present])
+if test "$BUILD_UNSHARE" = "yes"; then
+  AC_DEFINE(SBUILD_FEATURE_UNSHARE, 1)
 fi
 
 AC_CHECK_FUNC([personality],
