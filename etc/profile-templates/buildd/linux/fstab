@@ -1,0 +1,3 @@
+/dev/pts	/dev/pts	none	rw,bind		0	0
+tmpfs		/dev/shm	tmpfs	defaults	0	0
+/home/buildd/build-trees	/build	none	rw,bind	0	0
