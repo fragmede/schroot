@@ -124,65 +124,6 @@ namespace
       emap(session::USER_SWITCH,    N_("(%1%->%2%): User switching is not permitted")),
     };
 
-  /**
-   * Check group membership.
-   *
-   * @param group the group to check for.
-   * @returns true if the user is a member of group, otherwise false.
-   */
-  bool
-  is_group_member (std::string const& groupname)
-  {
-    errno = 0;
-    sbuild::group grp(groupname);
-    if (!grp)
-      {
-	if (errno == 0)
-	  {
-	    session::error e(groupname, session::GROUP_UNKNOWN);
-	    log_exception_warning(e);
-	  }
-	else
-	  {
-	    session::error e(groupname, session::GROUP_UNKNOWN, strerror(errno));
-	    log_exception_warning(e);
-	  }
-	return false;
-      }
-
-    bool group_member = false;
-    if (grp.gr_gid == getgid())
-      {
-	group_member = true;
-      }
-    else
-      {
-	int supp_group_count = getgroups(0, 0);
-	if (supp_group_count < 0)
-	  throw session::error(session::GROUP_GET_SUPC, strerror(errno));
-	if (supp_group_count > 0)
-	  {
-	    gid_t *supp_groups = new gid_t[supp_group_count];
-	    assert (supp_groups);
-	    if (getgroups(supp_group_count, supp_groups) < 1)
-	      {
-		// Free supp_groups before throwing to avoid leak.
-		delete[] supp_groups;
-		throw session::error(session::GROUP_GET_SUP, strerror(errno));
-	      }
-
-	    for (int i = 0; i < supp_group_count; ++i)
-	      {
-		if (grp.gr_gid == supp_groups[i])
-		  group_member = true;
-	      }
-	    delete[] supp_groups;
-	  }
-      }
-
-    return group_member;
-  }
-
   volatile bool sighup_called = false;
   volatile bool sigint_called = false;
   volatile bool sigterm_called = false;
@@ -407,6 +348,65 @@ int
 session::get_child_status () const
 {
   return this->child_status;
+}
+
+/**
+ * Check group membership.
+ *
+ * @param group the group to check for.
+ * @returns true if the user is a member of group, otherwise false.
+ */
+bool
+session::is_group_member (std::string const& groupname) const
+{
+  errno = 0;
+  sbuild::group grp(groupname);
+  if (!grp)
+    {
+      if (errno == 0)
+	{
+	  session::error e(groupname, session::GROUP_UNKNOWN);
+	  log_exception_warning(e);
+	}
+      else
+	{
+	  session::error e(groupname, session::GROUP_UNKNOWN, strerror(errno));
+	  log_exception_warning(e);
+	}
+      return false;
+    }
+
+  bool group_member = false;
+  if (grp.gr_gid == getgid())
+    {
+      group_member = true;
+    }
+  else
+    {
+      int supp_group_count = getgroups(0, 0);
+      if (supp_group_count < 0)
+	throw session::error(session::GROUP_GET_SUPC, strerror(errno));
+      if (supp_group_count > 0)
+	{
+	  gid_t *supp_groups = new gid_t[supp_group_count];
+	  assert (supp_groups);
+	  if (getgroups(supp_group_count, supp_groups) < 1)
+	    {
+	      // Free supp_groups before throwing to avoid leak.
+	      delete[] supp_groups;
+	      throw session::error(session::GROUP_GET_SUP, strerror(errno));
+	    }
+
+	  for (int i = 0; i < supp_group_count; ++i)
+	    {
+	      if (grp.gr_gid == supp_groups[i])
+		group_member = true;
+	    }
+	  delete[] supp_groups;
+	}
+    }
+
+  return group_member;
 }
 
 void
