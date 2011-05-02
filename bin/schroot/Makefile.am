@@ -27,7 +27,7 @@ LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
 
 LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\"
 
-noinst_LTLIBRARIES = libschroot.la
+noinst_LTLIBRARIES = libschroot.la libschroot-all.la
 
 bin_PROGRAMS = schroot
 
@@ -40,11 +40,14 @@ libschroot_la_SOURCES =			\
 	schroot-main.cc
 libschroot_la_LIBADD = $(top_builddir)/bin/schroot-base/libschroot-base.la
 
-schroot_SOURCES =			\
+libschroot_all_la_SOURCES =		\
 	schroot-options.h		\
-	schroot-options.cc		\
+	schroot-options.cc
+libschroot_all_la_LIBADD = libschroot.la
+
+schroot_SOURCES =			\
 	schroot.cc
-schroot_LDADD = libschroot.la
+schroot_LDADD = libschroot-all.la
 
 install-exec-hook:
 # Install setuid root.
