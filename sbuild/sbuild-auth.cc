@@ -71,40 +71,20 @@ error<auth::error_code>::error_strings
 
 auth::auth (std::string const& service_name):
   service(service_name),
-  uid(0),
-  gid(0),
+  uid(getuid()),
+  gid(getgid()),
   user(),
   command(),
-  home(),
+  home("/"),
   wd(),
-  shell(),
+  shell("/bin/false"),
   user_environment(environ),
-  ruid(),
-  rgid(),
+  ruid(getuid()),
+  rgid(getgid()),
   ruser(),
   rgroup()
 {
-  this->ruid = getuid();
-  this->rgid = getgid();
-  passwd pwent(this->ruid);
-  if (!pwent)
-    {
-      if (errno)
-	throw error(this->ruid, USER, strerror(errno));
-      else
-	throw error(this->ruid, USER);
-    }
-  this->ruser = pwent.pw_name;
-
-  group grent(this->rgid);
-  if (!grent)
-    {
-      if (errno)
-	throw error(this->ruid, GROUP, strerror(errno));
-      else
-	throw error(this->ruid, GROUP);
-    }
-  this->rgroup = grent.gr_name;
+  set_ruser(this->ruid);
 
   /* By default, the auth user is the same as the remote user. */
   set_user(this->ruser);
@@ -129,6 +109,57 @@ auth::get_service () const
   return this->service;
 }
 
+void
+auth::set_ruser (uid_t ruid)
+{
+  passwd pwent(ruid);
+  if (!pwent)
+    {
+      if (errno)
+	throw error(ruid, USER, strerror(errno));
+      else
+	throw error(ruid, USER);
+    }
+
+  set_ruser(pwent);
+}
+
+void
+auth::set_ruser (std::string const& ruser)
+{
+  passwd pwent(ruser);
+  if (!pwent)
+    {
+      if (errno)
+	throw error(ruser, USER, strerror(errno));
+      else
+	throw error(ruser, USER);
+    }
+
+  set_ruser(pwent);
+}
+
+void
+auth::set_ruser (passwd const& rpwent)
+{
+  group grent(rpwent.pw_gid);
+  if (!grent)
+    {
+      if (errno)
+	throw error(rpwent.pw_gid, GROUP, strerror(errno));
+      else
+	throw error(rpwent.pw_gid, GROUP);
+    }
+  this->ruid = rpwent.pw_uid;
+  this->rgid = rpwent.pw_gid;
+  this->ruser = rpwent.pw_name;
+  this->rgroup = grent.gr_name;
+
+  log_debug(DEBUG_INFO)
+    << format("auth ruid = %1%, rgid = %2%") % this->ruid % this->rgid
+    << endl;
+}
+
 uid_t
 auth::get_uid () const
 {
@@ -148,16 +179,24 @@ auth::get_user () const
 }
 
 void
+auth::set_user (uid_t uid)
+{
+  passwd pwent(uid);
+  if (!pwent)
+    {
+      if (errno)
+	throw error(uid, USER, strerror(errno));
+      else
+	throw error(uid, USER);
+    }
+
+  set_user(pwent);
+}
+
+void
 auth::set_user (std::string const& user)
 {
-  this->uid = getuid();
-  this->gid = getgid();
-  this->home = "/";
-  this->shell = "/bin/false";
-
-  this->user = user;
-
-  passwd pwent(this->user);
+  passwd pwent(user);
   if (!pwent)
     {
       if (errno)
@@ -165,10 +204,19 @@ auth::set_user (std::string const& user)
       else
 	throw error(user, USER);
     }
+
+  set_user(pwent);
+}
+
+void
+auth::set_user (passwd const& pwent)
+{
   this->uid = pwent.pw_uid;
   this->gid = pwent.pw_gid;
+  this->user = pwent.pw_name;
   this->home = pwent.pw_dir;
   this->shell = pwent.pw_shell;
+
   log_debug(DEBUG_INFO)
     << format("auth uid = %1%, gid = %2%") % this->uid % this->gid
     << endl;

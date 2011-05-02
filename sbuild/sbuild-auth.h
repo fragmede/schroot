@@ -23,6 +23,7 @@
 #include <sbuild/sbuild-custom-error.h>
 #include <sbuild/sbuild-environment.h>
 #include <sbuild/sbuild-types.h>
+#include <sbuild/sbuild-util.h>
 #include <sbuild/sbuild-tr1types.h>
 
 #include <string>
@@ -157,11 +158,39 @@ namespace sbuild
      * will also be set, so calling the corresponding get methods will
      * now return meaningful values.
      *
+     * @param uid user to set as a uid.
+     */
+    void
+    set_user (uid_t uid);
+
+    /**
+     * Set the name of the user.  This is the user to run as in the
+     * session.
+     *
+     * As a side effect, the uid, gid, home and shell member variables
+     * will also be set, so calling the corresponding get methods will
+     * now return meaningful values.
+     *
      * @param user the name to set.
      */
     void
     set_user (std::string const& user);
 
+  protected:
+    /**
+     * Set the name of the user.  This is the user to run as in the
+     * session.
+     *
+     * As a side effect, the uid, gid, home and shell member variables
+     * will also be set, so calling the corresponding get methods will
+     * now return meaningful values.
+     *
+     * @param pwent user to set as a passwd entry.
+     */
+    void
+    set_user (passwd const& pwent);
+
+  public:
     /**
      * Get the command to run in the session.
      *
@@ -298,6 +327,47 @@ namespace sbuild
      */
     std::string const&
     get_ruser () const;
+
+    /**
+     * Set the "remote" name of the user.  This is the user which is
+     * requesting authentication.
+     *
+     * As a side effect, the uid, gid, home and shell member variables
+     * will also be set, so calling the corresponding get methods will
+     * now return meaningful values.
+     *
+     * @param ruid remote user to set as a uid.
+     */
+    void
+    set_ruser (uid_t ruid);
+
+    /**
+     * Set the "remote" name of the user.  This is the user which is
+     * requesting authentication.
+     *
+     * As a side effect, the uid, gid, home and shell member variables
+     * will also be set, so calling the corresponding get methods will
+     * now return meaningful values.
+     *
+     * @param ruser the remote user name to set.
+     */
+    void
+    set_ruser (std::string const& ruser);
+
+  protected:
+    /**
+     * Set the "remote" name of the user.  This is the user which is
+     * requesting authentication.
+     *
+     * As a side effect, the ruid, rgid, ruser and rgroup member
+     * variables will also be set, so calling the corresponding get
+     * methods will now return meaningful values.
+     *
+     * @param rpwent remote user to set as a passwd entry.
+     */
+    void
+    set_ruser (passwd const& rpwent);
+  public:
 
     /**
      * Get the "remote" name of the group.  This is the group which is
