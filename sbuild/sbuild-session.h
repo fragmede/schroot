@@ -249,7 +249,6 @@ namespace sbuild
     int
     get_child_status () const;
 
-  protected:
     /**
      * Check group membership.
      *
@@ -259,6 +258,7 @@ namespace sbuild
     bool
     is_group_member (std::string const& groupname) const;
 
+  protected:
     /**
      * Get the chroot authentication properties the user is included in.
      */
