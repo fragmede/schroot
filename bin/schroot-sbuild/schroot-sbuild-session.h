@@ -16,57 +16,42 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_MAIN_H
-#define SCHROOT_MAIN_H
+#ifndef SCHROOT_SBUILD_SESSION_H
+#define SCHROOT_SBUILD_SESSION_H
 
-#include <schroot/schroot-main-base.h>
-#include <schroot/schroot-options-base.h>
+#include <sbuild/sbuild-session.h>
 
-/**
- * schroot program components.
- */
-namespace schroot
+namespace schroot_sbuild
 {
 
   /**
-   * Frontend for schroot.  This class is used to "run" schroot.
+   * Session handler for schroot-sbuild sessions.
    */
-  class main : public main_base
+  class session : public sbuild::session
   {
   public:
     /**
      * The constructor.
      *
-     * @param options the command-line options to use.
+     * @param service the PAM service name.
+     * @param operation the session operation to perform.
+     * @param chroots the chroots to act upon.
      */
-    main (options_base::ptr& options);
+    session (std::string const&                  service,
+	     operation                           operation,
+	     sbuild::session::chroot_list const& chroots);
 
     /// The destructor.
-    virtual ~main ();
+    virtual ~session ();
 
-    /**
-     * List chroots.
-     */
-    virtual void
-    action_list ();
-
-    /**
-     * Dump configuration file for chroots.
-     */
-    virtual void
-    action_config ();
-
-  protected:
-    virtual void
-    create_session(sbuild::session::operation sess_op);
-
-    virtual void
-    add_session_auth ();
+    virtual sbuild::auth::status
+    get_chroot_auth_status (sbuild::auth::status       status,
+			    sbuild::chroot::ptr const& chroot) const;
   };
 
 }
 
-#endif /* SCHROOT_MAIN_H */
+#endif /* SCHROOT_SBUILD_SESSION_H */
 
 /*
  * Local Variables:
