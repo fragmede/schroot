@@ -16,22 +16,21 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_MAIN_H
-#define SCHROOT_MAIN_H
+#ifndef SCHROOT_SBUILD_MAIN_H
+#define SCHROOT_SBUILD_MAIN_H
 
-#include <schroot/schroot-main-base.h>
-#include <schroot/schroot-options-base.h>
+#include <schroot/schroot-main.h>
 
 /**
- * schroot program components.
+ * schroot-sbuild program components.
  */
-namespace schroot
+namespace schroot_sbuild
 {
 
   /**
-   * Frontend for schroot.  This class is used to "run" schroot.
+   * Frontend for schroot-sbuild.  This class is used to "run" schroot-sbuild.
    */
-  class main : public main_base
+  class main : public schroot::main
   {
   public:
     /**
@@ -39,34 +38,19 @@ namespace schroot
      *
      * @param options the command-line options to use.
      */
-    main (options_base::ptr& options);
+    main (schroot::options_base::ptr& options);
 
     /// The destructor.
     virtual ~main ();
 
-    /**
-     * List chroots.
-     */
-    virtual void
-    action_list ();
-
-    /**
-     * Dump configuration file for chroots.
-     */
-    virtual void
-    action_config ();
-
   protected:
-    virtual void
-    create_session(sbuild::session::operation sess_op);
-
     virtual void
     add_session_auth ();
   };
 
 }
 
-#endif /* SCHROOT_MAIN_H */
+#endif /* SCHROOT_SBUILD_MAIN_H */
 
 /*
  * Local Variables:
