@@ -4,8 +4,11 @@ schroot (1.4.22-1) unstable; urgency=low
   * Large file support is enabled by default.  This enables the use
     of files over 2 GiB in size on 32 bit architectures
     (Closes: #619825).
+  * dchroot-dsa: Use current interface for loading dchroot.conf,
+    rather than the old, which caused a fatal exception
+    (Closes: #626503).
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 27 Mar 2011 16:51:01 +0100
+ -- Roger Leigh <rleigh@debian.org>  Thu, 12 May 2011 13:58:59 +0100
 
 schroot (1.4.21-1) unstable; urgency=low
 
