@@ -249,6 +249,15 @@ namespace sbuild
     int
     get_child_status () const;
 
+    /**
+     * Check group membership.
+     *
+     * @param groupname the group to check for.
+     * @returns true if the user is a member of group, otherwise false.
+     */
+    bool
+    is_group_member (std::string const& groupname) const;
+
   protected:
     /**
      * Get the chroot authentication properties the user is included in.
