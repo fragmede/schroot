@@ -14,8 +14,10 @@ schroot (1.4.22-1) unstable; urgency=low
     mount points.  While rbind is still possible, it is not done by
     default, and instead only specific filesystems are mounted;
     additional mounts required must be added to the profile fstab file.
+  * man: Add missing newline for run-exec-scripts (Closes: #624303).
+    Thanks to Marc Haber.
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 14 May 2011 00:04:01 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 14 May 2011 00:45:56 +0100
 
 schroot (1.4.21-1) unstable; urgency=low
 
