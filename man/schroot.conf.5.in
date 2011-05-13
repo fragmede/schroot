@@ -170,7 +170,7 @@ using the following regular expression:
 Chroots of type \[oq]plain\[cq] or \[oq]directory\[cq] are directories
 accessible in the filesystem.  The two types are equivalent except for the fact
 that directory chroots run setup scripts, whereas plain chroots do not.  In
-consequence, filesystems such as \fI/proc\fI are not mounted in plain chroots;
+consequence, filesystems such as \fI/proc\fP are not mounted in plain chroots;
 it is the responsibility of the system administrator to configure such chroots
 by hand, whereas directory chroots are automatically configured.  Additionally,
 directory chroots implement the \fBfilesystem union chroot\fP options (see
