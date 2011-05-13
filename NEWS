@@ -12,6 +12,14 @@ configuration.
   1) Large file support is enabled by default.  This enables the use
      of files over 2 GiB in size on 32 bit architectures.
 
+  2) Chroot profiles no longer bind filesystems with rbind.  Recursive
+     bind mounting of /proc, /dev and /sys caused breakage with
+     systemd due to its use of autofs mounts.  autofs interacts badly
+     with bind mounting, leading to unmountable mount points.  While
+     rbind is still possible, it is not done by default, and instead
+     only specific filesystems are mounted; additional mounts required
+     must be added to the profile fstab file.
+
 * Major changes in 1.4.21:
 
   None.
