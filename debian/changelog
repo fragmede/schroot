@@ -15,9 +15,10 @@ schroot (1.4.22-1) unstable; urgency=low
     default, and instead only specific filesystems are mounted;
     additional mounts required must be added to the profile fstab file.
   * man: Add missing newline for run-exec-scripts (Closes: #624303).
+    Fix incorrectly terminated underlining of /proc (Closes: #624302).
     Thanks to Marc Haber.
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 14 May 2011 00:45:56 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 14 May 2011 00:49:44 +0100
 
 schroot (1.4.21-1) unstable; urgency=low
 
