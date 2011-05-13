@@ -107,9 +107,9 @@ scripts for all chroot types except \[oq]plain\[cq].  Setup scripts are
 deprecated and no longer used by schroot, but is still permitted to be used; it
 will be obsoleted and removed in a future release.
 .TP
-\f[CBI]run\-exec\-scripts=\fP\f[CI]true\fP|\f[CI]false\fP Set whether chroot
-execution scripts will be run.  The default is the same as the default for the
-\f[CI]run\-setup\-scripts\fP key.  This option was called
+\f[CBI]run\-exec\-scripts=\fP\f[CI]true\fP|\f[CI]false\fP
+Set whether chroot execution scripts will be run.  The default is the same as
+the default for the \f[CI]run\-setup\-scripts\fP key.  This option was called
 \f[CI]run\-session\-scripts\fP in versions prior to 0.2.5.  This option is
 deprecated and no longer used by schroot, but is still permitted to be used; it
 will be obsoleted and removed in a future release.
