@@ -53,6 +53,10 @@ than once, for example on failure.
 AUTH_USER
 The username of the user the command in the chroot will run as.
 .TP
+CHROOT_NAME
+The chroot name.  Note that this is the name of the orignal chroot before
+session creation; you probably want SESSION_ID.
+.TP
 HOST
 .TP
 HOST_OS

@@ -39,7 +39,8 @@ using std::endl;
 using namespace sbuild;
 
 chroot_facet_session::chroot_facet_session ():
-  chroot_facet()
+  chroot_facet(),
+  original_chroot_name()
 {
 }
 
@@ -67,10 +68,26 @@ chroot_facet_session::get_name () const
   return name;
 }
 
+std::string const&
+chroot_facet_session::get_original_name () const
+{
+  return this->original_chroot_name;
+}
+
+void
+chroot_facet_session::set_original_name (std::string const& name)
+{
+  this->original_chroot_name = name;
+}
+
 void
 chroot_facet_session::setup_env (chroot const& chroot,
-				     environment&  env) const
+				 environment&  env) const
 {
+  // Add original name to environment, but only if set (otherwise
+  // defaults to session ID).
+  if (!get_original_name().empty())
+    env.add("CHROOT_NAME", get_original_name());
 }
 
 sbuild::chroot::session_flags
@@ -83,6 +100,8 @@ void
 chroot_facet_session::get_details (chroot const&  chroot,
 				   format_detail& detail) const
 {
+  if (!get_original_name().empty())
+    detail.add(_("Original Chroot Name"), get_original_name());
   if (!chroot.get_name().empty())
     detail.add(_("Session ID"), chroot.get_name());
 }
@@ -91,6 +110,9 @@ void
 chroot_facet_session::get_keyfile (chroot const& chroot,
 				   keyfile&      keyfile) const
 {
+  keyfile::set_object_value(*this, &chroot_facet_session::get_original_name,
+			    keyfile, chroot.get_name(),
+			    "original-name");
 }
 
 void
@@ -135,4 +157,10 @@ chroot_facet_session::set_keyfile (chroot&        chroot,
 				 "source-root-groups",
 				 keyfile::PRIORITY_DEPRECATED);
   used_keys.push_back("source-root-groups");
+
+  keyfile::get_object_value(*this, &chroot_facet_session::set_original_name,
+			    keyfile, chroot.get_name(),
+			    "original-name",
+			    keyfile::PRIORITY_OPTIONAL);
+  used_keys.push_back("original-name");
 }

@@ -30,12 +30,9 @@ fi
 
 if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 
-# Strip any UUID or date and pid from the chroot name
-  NAME="$(echo "${CHROOT_NAME}" | sed -e 's/-[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9]-[a-z0-9][a-z0-9][a-z0-9][a-z0-9]-[a-z0-9][a-z0-9][a-z0-9][a-z0-9]-[a-z0-9][a-z0-9][a-z0-9][a-z0-9]-[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9]//g' -e 's/-[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]*-[0-9][0-9][0-9][0-9]*//g')"
+    info "Setting chroot name to ${CHROOT_NAME}"
 
-  info "Setting chroot name to ${NAME}"
-
-  echo "${NAME}" > "${CHROOT_PATH}/etc/debian_chroot"
+    echo "${CHROOT_NAME}" > "${CHROOT_PATH}/etc/debian_chroot"
 
 fi
 
