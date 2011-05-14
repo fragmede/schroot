@@ -17,8 +17,11 @@ schroot (1.4.22-1) unstable; urgency=low
   * man: Add missing newline for run-exec-scripts (Closes: #624303).
     Fix incorrectly terminated underlining of /proc (Closes: #624302).
     Thanks to Marc Haber.
+  * Session metadata includes the original chroot name.  This is
+    available in the user environment as SCHROOT_CHROOT_NAME and
+    in the setup scripts as CHROOT_NAME (Closes: #623828).
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 14 May 2011 00:49:44 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 14 May 2011 18:50:11 +0100
 
 schroot (1.4.21-1) unstable; urgency=low
 
