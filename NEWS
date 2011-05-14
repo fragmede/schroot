@@ -20,6 +20,10 @@ configuration.
      only specific filesystems are mounted; additional mounts required
      must be added to the profile fstab file.
 
+  3) Session metadata includes the original chroot name.  This is
+     available in the user environment as SCHROOT_CHROOT_NAME and
+     in the setup scripts as CHROOT_NAME.
+
 * Major changes in 1.4.21:
 
   None.
