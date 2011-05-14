@@ -84,8 +84,10 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
   clone->add_facet(chroot_facet_session::create());
 
   // Disable session, delete aliases.
-  assert(clone->get_facet<chroot_facet_session>());
+  chroot_facet_session::ptr psess(clone->get_facet<chroot_facet_session>());
+  assert(psess);
 
+  psess->set_original_name(clone->get_name());
   clone->set_name(session_id);
   assert(clone->get_name() == session_id);
   clone->set_description

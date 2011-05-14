@@ -63,6 +63,22 @@ namespace sbuild
     virtual std::string const&
     get_name () const;
 
+    /**
+     * Get the original name of the chroot (prior to session cloning).
+     *
+     * @returns the name.
+     */
+    std::string const&
+    get_original_name () const;
+
+    /**
+     * Set the original name of the chroot (prior to session cloning).
+     *
+     * @param name the name.
+     */
+    void
+    set_original_name (std::string const& name);
+
     virtual void
     setup_env (chroot const& chroot,
 	       environment&  env) const;
@@ -83,6 +99,9 @@ namespace sbuild
 		 keyfile const& keyfile,
 		 string_list&   used_keys);
 
+  private:
+    /// Original chroot name prior to session cloning.
+    std::string  original_chroot_name;
   };
 
 }

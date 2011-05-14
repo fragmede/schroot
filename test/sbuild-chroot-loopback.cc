@@ -158,7 +158,7 @@ public:
     sbuild::environment expected;
     setup_env_gen(expected);
 
-    expected.add("CHROOT_NAME",           "test-session-name");
+    expected.add("SESSION_ID",            "test-session-name");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(session chroot)"));
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
@@ -189,7 +189,7 @@ public:
     sbuild::environment expected;
     setup_env_gen(expected);
 
-    expected.add("CHROOT_NAME",           "test-union-session-name");
+    expected.add("SESSION_ID",            "test-union-session-name");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(session chroot)"));
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");

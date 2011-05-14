@@ -487,7 +487,7 @@ sbuild::chroot::setup_env (chroot const& chroot,
 {
   env.add("CHROOT_TYPE", chroot.get_chroot_type());
   env.add("CHROOT_NAME", chroot.get_name());
-  //  env.add("CHROOT_SESSION_NAME", chroot.get_name());
+  env.add("SESSION_ID", chroot.get_name());
   env.add("CHROOT_DESCRIPTION", chroot.get_description());
   env.add("CHROOT_MOUNT_LOCATION", chroot.get_mount_location());
   env.add("CHROOT_PATH", chroot.get_path());

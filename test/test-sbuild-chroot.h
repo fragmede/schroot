@@ -176,6 +176,7 @@ public:
   void setup_env_chroot (sbuild::environment& env)
   {
     env.add("CHROOT_NAME",           "test-name");
+    env.add("SESSION_ID",            "test-name");
     env.add("CHROOT_DESCRIPTION",    "test-description");
     env.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(SCHROOT_SYSCONF_DIR) + "/default/config"));
   }
@@ -201,6 +202,7 @@ public:
 			      std::string const& group)
   {
     setup_keyfile_chroot(keyfile, group);
+    keyfile.set_value(group, "original-name", "test-name");
     keyfile.set_value(group, "users", "user1");
     keyfile.set_value(group, "root-users", "");
     keyfile.set_value(group, "groups", "");
@@ -398,7 +400,7 @@ public:
 	     ++pos)
 	  {
 	    observed_keyfile.get_value(observed_group, *pos, value);
-	    std::cout << "Additional keys: " 
+	    std::cout << "Additional keys: "
 		      << *pos << "=" << value << std::endl;
 	  }
       }
