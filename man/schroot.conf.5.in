@@ -47,8 +47,8 @@ The type of the chroot.  Valid types are \[oq]plain\[cq], \[oq]directory\[cq],
 \[oq]file\[cq], \[oq]loopback\[cq], \[oq]block\-device\[cq],
 \[oq]btrfs\-snapshot\[cq] and \[oq]lvm\-snapshot\[cq].  If empty or omitted,
 the default type is \[oq]plain\[cq].  Note that \[oq]plain\[cq] chroots do not
-run setup scripts and mount filesystems; \[oq]directory\[cq] is recommended
-(see \[lq]\fIPlain and directory chroots\fP\[rq], below).
+run setup scripts and mount filesystems; \[oq]directory\[cq] is recommended for
+normal use (see \[lq]\fIPlain and directory chroots\fP\[rq], below).
 .TP
 \f[CBI]description=\fP\f[CI]description\fP
 A short description of the chroot.  This may be localised for different
@@ -307,21 +307,22 @@ If empty or omitted, no users will be allowed access.  This will become the
 \f[CI]groups\fP option in the source chroot.
 .TP
 \f[CBI]source\-root\-users=\fP\f[CI]user1,user2,...\fP
- A comma-separated list of users which are allowed \fBpassword-less\fP root
+A comma-separated list of users which are allowed \fBpassword-less\fP root
 access to the source chroot.  If empty or omitted, no users will be allowed
 root access without a password (but if a user is in \f[CI]users\fP, they may
 gain access with a password).  This will become the \f[CI]root\-users\fP option
 in the source chroot.  See the section \[lq]\fISecurity\fP\[rq] below.
 .TP
 \f[CBI]source\-root\-groups=\fP\f[CI]group1,group2,...\fP
- A comma-separated list of groups which are allowed \fBpassword-less\fP root
+A comma-separated list of groups which are allowed \fBpassword-less\fP root
 access to the source chroot.  If empty or omitted, no users will be allowed
 root access without a password (but if a user's group is in \f[CI]groups\fP,
 they may gain access with a password).  This will become the
 \f[CI]root\-groups\fP option in the source chroot.  See the section
 \[lq]\fISecurity\fP\[rq] below.
 .SS Mountable chroot options
-Some chroots implement device mounting.  These are chroots which require the
+The \[oq]block\-device\[cq], \[oq]loopback\[cq] and \[oq]lvm-snapshot\[cq]
+chroot types implement device mounting.  These are chroots which require the
 mounting of a device in order to access the chroot.  These chroots provide the
 following additional options:
 .TP
@@ -337,16 +338,17 @@ specify \[lq]/chroot/sid\[rq] here.  If the chroot is the only thing on the
 filesystem, i.e. \fI/\fP is the root filesystem for the chroot, this option
 should be left blank, or omitted entirely.
 .SS Filesystem Union chroot options
-Some chroots allow for the creation of a session using filesystem unions to
-overlay the original filesystem with a separate writable directory.  The
-original filesystem is read-only, with any modifications made to the filesystem
-made in the overlying writable directory, leaving the original filesystem
-unchanged.  A union permits multiple sessions to access and make changes to a
-single chroot simultaneously, while keeping the changes private to each
-session.  To enable this feature, set \f[CI]union\-type\fP to any supported
-value.  If enabled, the chroot will also be a \fBsource chroot\fP, which will
-provide additional options (see \[lq]\fISource chroot options\fP\[rq], above).
-All entries are optional.
+The \[oq]block\-device\[cq], \[oq]directory\[cq] and \[oq]loopback\[cq] chroot
+types allow for the creation of a session using filesystem unions to overlay
+the original filesystem with a separate writable directory.  The original
+filesystem is read-only, with any modifications made to the filesystem made in
+the overlying writable directory, leaving the original filesystem unchanged.  A
+union permits multiple sessions to access and make changes to a single chroot
+simultaneously, while keeping the changes private to each session.  To enable
+this feature, set \f[CI]union\-type\fP to any supported value.  If enabled, the
+chroot will also be a \fBsource chroot\fP, which will provide additional
+options (see \[lq]\fISource chroot options\fP\[rq], above).  All entries are
+optional.
 .TP
 \f[CBI]union\-type=\fP\f[CI]type\fP
 Set the union filesystem type.  Currently supported filesystems are
