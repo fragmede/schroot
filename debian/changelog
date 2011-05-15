@@ -25,8 +25,9 @@ schroot (1.4.22-1) unstable; urgency=low
     buildd package, but was not built for the specific host
     architecture due to the package being arch: all.  We therefore
     Replace: buildd for versions prior to 0.62.3-1.
+  * Drop obsolete Replaces: from schroot-common.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 15 May 2011 14:25:33 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 15 May 2011 14:31:24 +0100
 
 schroot (1.4.21-1) unstable; urgency=low
 

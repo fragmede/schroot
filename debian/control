@@ -12,7 +12,6 @@ Vcs-Git: git://git.debian.org/git/buildd-tools/schroot
 Package: schroot-common
 Architecture: all
 Depends: ${misc:Depends}
-Replaces: schroot (<< 1.1.1)
 Description: common files for schroot
  schroot allows users to execute commands or interactive shells in
  different chroots.  Any number of named chroots may be created, and
