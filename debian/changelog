@@ -21,13 +21,13 @@ schroot (1.4.22-1) unstable; urgency=low
   * Session metadata includes the original chroot name.  This is
     available in the user environment as SCHROOT_CHROOT_NAME and
     in the setup scripts as CHROOT_NAME (Closes: #623828).
-  * Include buildd profile.  This was previously included in the
-    buildd package, but was not built for the specific host
+  * Include buildd profile.  This was previously included in the buildd
+    and sbuild packages, but was not built for the specific host
     architecture due to the package being arch: all.  We therefore
-    Replace: buildd for versions prior to 0.62.3-1.
+    Replace: buildd and sbuild for versions prior to 0.62.3-1.
   * Drop obsolete Replaces: from schroot-common.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 15 May 2011 14:31:24 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 15 May 2011 16:06:43 +0100
 
 schroot (1.4.21-1) unstable; urgency=low
 
