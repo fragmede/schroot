@@ -93,7 +93,7 @@ Package: schroot
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, schroot-common (=${source:Version})
 Conflicts: dchroot (<< 0.13)
-Replaces: buildd (<< 0.62.3-1)
+Replaces: buildd (<< 0.62.3-1), sbuild (<< 0.62.3-1)
 Enhances: sbuild
 Suggests: debootstrap, lvm2, btrfs-tools, unzip, aufs-modules | unionfs-modules
 Description: Execute commands in a chroot environment
