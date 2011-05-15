@@ -24,6 +24,15 @@ configuration.
      available in the user environment as SCHROOT_CHROOT_NAME and
      in the setup scripts as CHROOT_NAME.
 
+  4) A buildd profile is now provided.  This was previously provided
+     by the sbuild package, but has now been consolidated with the
+     main collection of schroot profiles.
+
+  5) A helper program, schroot-sbuild has been provided in order to
+     provide better privilege separation with sbuild.  This permits an
+     authorised user in the sbuild group to run builds as the sbuild
+     user.
+
 * Major changes in 1.4.21:
 
   None.
