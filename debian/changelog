@@ -25,9 +25,13 @@ schroot (1.4.22-1) unstable; urgency=low
     and sbuild packages, but was not built for the specific host
     architecture due to the package being arch: all.  We therefore
     Replace: buildd and sbuild for versions prior to 0.62.3-1.
+    This also involved moving some parts of the base "all" profile
+    template into other profile templates in order to keep it
+    sufficiently minimal for buildd, and a simplification of
+    nssdatabases for the minimal and sbuild profiles.
   * Drop obsolete Replaces: from schroot-common.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 15 May 2011 16:06:43 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 15 May 2011 16:22:36 +0100
 
 schroot (1.4.21-1) unstable; urgency=low
 
