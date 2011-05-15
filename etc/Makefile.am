@@ -29,6 +29,7 @@ pkgsysconf_DATA = 		\
 	schroot.conf
 
 PROFILES =		\
+	buildd		\
 	default		\
 	desktop		\
 	minimal		\

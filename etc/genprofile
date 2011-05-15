@@ -46,7 +46,7 @@ COPYFILES="/etc/schroot/${PROFILE}/copyfiles"
 NSSDATABASES="/etc/schroot/${PROFILE}/nssdatabases"
 EOF
 
-for file in copyfiles fstab nssdatabases; do
+for file in config copyfiles fstab nssdatabases; do
     for profile in all "$PROFILE"; do
 	for arch in all "$PLATFORM"; do
 	    FILE="${SRCDIR}/${profile}/${arch}/${file}"
