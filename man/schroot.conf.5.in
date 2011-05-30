@@ -214,15 +214,17 @@ rather than \f[CI]location\fP.  Note that it is an error to use both
 .SS File chroots
 Chroots of type \[oq]file\[cq] are files on the current filesystem containing
 an archive of the chroot files.  They implement the \fBsource chroot\fP options
-(see \[lq]\fISource chroot options\fP\[rq], below) and have an additional
-(mandatory) configuration option:
+(see \[lq]\fISource chroot options\fP\[rq], below).  Note that a corresponding
+source chroot (of type \[oq]file\[cq]) will be created for each chroot of this
+type; this is for convenient access to the source archive, e.g. for the purpose
+of updating. These additional options are also implemented:
 .TP
 \f[CBI]file=\fP\f[CI]filename\fP
-The file containing the archived chroot environment.  This must be a tar (tape
-archive), optionally compressed with gzip or bzip2, or a zip archive.  The file
-extensions used to determine the type are are \fI.tar\fP, \fI.tar.gz\fP,
-\fI.tar.bz2\fP, \fI.tgz\fP, \fI.tbz\fP and \fI.zip\fP.  This file must be owned
-by the root user, and not be writable by other.
+The file containing the archived chroot environment (mandatory).  This must be
+a tar (tape archive), optionally compressed with gzip or bzip2, or a zip
+archive.  The file extensions used to determine the type are are \fI.tar\fP,
+\fI.tar.gz\fP, \fI.tar.bz2\fP, \fI.tgz\fP, \fI.tbz\fP and \fI.zip\fP.  This
+file must be owned by the root user, and not be writable by other.
 .TP
 \f[CBI]location=\fP\f[CI]path\fP
 This is the path to the chroot \fIinside\fP the archive.  For example, if the
@@ -257,13 +259,11 @@ Chroots of type \[oq]btrfs\-snapshot\[cq] are a Btrfs snapshot created from an
 existing Btrfs subvolume on a mounted Btrfs filesystem.  A snapshot will be
 created from this source subvolume on demand at the start of a session, and
 then the snapshot will be mounted.  At the end of the session, the snapshot
-will be unmounted and deleted.
-.PP
-For each chroot of this type, a corresponding \[oq]directory\[cq] chroot will
-be created, with a \fI\-source\fP suffix appended to the chroot name and all
-its aliases; this is for convenient access to the source subvolume.  This
-chroot type implements the \fBsource chroot\fP options (see \[lq]\fISource
-chroot options\fP\[rq], below), plus these additional options:
+will be unmounted and deleted.  This chroot type implements the \fBsource
+chroot\fP options (see \[lq]\fISource chroot options\fP\[rq], below).  Note
+that a corresponding source chroot (of type \[oq]directory\[cq]) will be
+created for each chroot of this type; this is for convenient access to the
+source volume. These additional options are also implemented:
 .TP
 \f[CBI]btrfs\-source\-subvolume=\fP\f[CI]directory\fP
 The directory containing the source subvolume.
@@ -274,14 +274,14 @@ The directory in which to store the snapshots of the above source subvolume.
 Chroots of type \[oq]lvm\-snapshot\[cq] are a filesystem available on an LVM
 logical volume (LV).  A snapshot LV will be created from this LV on demand, and
 then the snapshot will be mounted.  At the end of the session, the snapshot LV
-will be unmounted and removed.  For each chroot of this type, a corresponding
-\[oq]block\-device\[cq] chroot will be created, with a \fI\-source\fP suffix
-appended to the chroot name and all its aliases; this is for convenient access
-to the source device.
+will be unmounted and removed.
 .PP
-They implement the \fBsource chroot\fP options (see \[lq]\fISource chroot
-options\fP\[rq], below), and all the options for \[oq]block\-device\[cq], plus
-an additional option:
+LVM snapshot chroots implement the \fBsource chroot\fP options (see
+\[lq]\fISource chroot options\fP\[rq], below), and all the options for
+\[oq]block\-device\[cq].  Note that a corresponding source chroot (of type
+\[oq]block-device\[cq]) will be created for each chroot of this type; this is
+for convenient access to the source device. This additional option is also
+implemented:
 .TP
 \f[CBI]lvm-snapshot-options=\fP\f[CI]snapshot_options\fP
 Snapshot options.  These are additional options to pass to lvcreate(8).  For
@@ -296,9 +296,19 @@ enabled implement source chroots (see \[lq]\fIFilesystem Union chroot
 options\fP\[rq], below).  These are chroots which automatically create a copy
 of themselves before use, and are usually session managed.  These chroots
 additionally provide an extra chroot in the \fIsource:\fP namespace, to allow
-access to the original data, and to aid in chroot maintenance.  See
+convenient access to the original (non-snapshotted) data, and to aid in chroot
+maintenance.  I.e. for a chroot named \fIwheezy\fP (\fIchroot:wheezy\fP), a
+corresponding \fIsource:wheezy\fP chroot will be created.  For compatibility
+with older versions of schroot which did not support namespaces, a chroot with
+a \fI\-source\fP suffix appended to the chroot name will be created in addition
+(i.e. \fIwheezy\-source\fP using the above example).  Note that these
+compatibility names will be removed in schroot 1.5.0, so the use of the
+\fIsource:\fP namespace is preferred over the use of the \fI-source\fP suffix
+form.  See
 .BR schroot (1)
-for further details.  These chroots provide the following additional options:
+for further details.
+.PP
+These chroots provide the following additional options:
 .TP
 \f[CBI]source\-clone=\fP\f[CI]true\fP|\f[CI]false\fP
 Set whether the source chroot should be automatically cloned (created) for this
