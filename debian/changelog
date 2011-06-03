@@ -1,11 +1,12 @@
 schroot (1.5.1-1) experimental; urgency=low
 
   * New upstream development release:
+  * Build using dh and debhelper 8.1.
   * Build with Boost 1.46, and add boost-iostreams build dependency.
   * Fix building with --debug (Closes: #609067).  Thanks to
     Jonathan Callen.
 
- -- Roger Leigh <rleigh@debian.org>  Tue, 01 Mar 2011 16:18:57 +0000
+ -- Roger Leigh <rleigh@debian.org>  Fri, 03 Jun 2011 19:43:21 +0100
 
 schroot (1.5.0-1) experimental; urgency=low
 
