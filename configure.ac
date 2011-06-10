@@ -92,7 +92,7 @@ AC_SUBST([SBUILD_INTERFACE_AGE])
 AC_SUBST([SBUILD_BINARY_AGE])
 
 dnl Initialise automake stuff.
-AM_INIT_AUTOMAKE([1.10 gnu -Wno-portability check-news dist-bzip2 no-dist-gzip tar-pax])
+AM_INIT_AUTOMAKE([1.10 gnu -Wno-portability check-news dist-xz no-dist-gzip tar-pax])
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 RELEASE_DATE='sbuild_m4_esyscmd_s(date --date='sbuild_m4_esyscmd_s([sed -ne '/^Release-Date:/{s/Release-Date:[[:space:]][[:space:]]*//p;q}' VERSION])' '+%s')'
 RELEASE_DATE_S='sbuild_m4_esyscmd_s([sed -ne '/^Release-Date:/{s/Release-Date:[[:space:]][[:space:]]*//p;q}' VERSION])'
