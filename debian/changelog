@@ -1,8 +1,12 @@
 schroot (1.4.23-1) unstable; urgency=low
 
   * New upstream stable release.
+  * schroot: Breaks sbuild (<< 0.62.4-1) due to requirement for
+    /var/lib/sbuild/build to exist when using the sbuild or
+    buildd profiles.  /var/lib/sbuild/build is bind mounted on
+    /build in the build chroot.
 
- -- Roger Leigh <rleigh@debian.org>  Fri, 24 Jun 2011 23:25:52 +0100
+ -- Roger Leigh <rleigh@debian.org>  Fri, 24 Jun 2011 23:30:01 +0100
 
 schroot (1.4.22-1) unstable; urgency=low
 
