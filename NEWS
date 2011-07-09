@@ -37,6 +37,46 @@ configuration.
      VERBOSE instead.  VERBOSITY replaced and deprecated
      AUTH_VERBOSITY in version 1.4.5.
 
+* Major changes in 1.4.23:
+
+  None.
+
+* Major changes in 1.4.22:
+
+  1) Large file support is enabled by default.  This enables the use
+     of files over 2 GiB in size on 32 bit architectures.
+
+  2) Chroot profiles no longer bind filesystems with rbind.  Recursive
+     bind mounting of /proc, /dev and /sys caused breakage with
+     systemd due to its use of autofs mounts.  autofs interacts badly
+     with bind mounting, leading to unmountable mount points.  While
+     rbind is still possible, it is not done by default, and instead
+     only specific filesystems are mounted; additional mounts required
+     must be added to the profile fstab file.
+
+  3) Session metadata includes the original chroot name.  This is
+     available in the user environment as SCHROOT_CHROOT_NAME and
+     in the setup scripts as CHROOT_NAME.
+
+  4) A buildd profile is now provided.  This was previously provided
+     by the sbuild package, but has now been consolidated with the
+     main collection of schroot profiles.
+
+  5) A helper program, schroot-sbuild has been provided in order to
+     provide better privilege separation with sbuild.  This permits an
+     authorised user in the sbuild group to run builds as the sbuild
+     user.
+
+* Major changes in 1.4.21:
+
+  None.
+
+* Major changes in 1.4.20:
+
+  1) Add support for the Boost filesystem v3 library, to permit
+     building with Boost version 1.46.  Older versions of Boost
+     continue to be supported.
+
 * Major changes in 1.4.19:
 
   None.
