@@ -23,9 +23,11 @@ else
 	CFLAGS += -O2
 endif
 
+DH=dh $@ --with autotools_dev --builddirectory=debian/build --parallel
+
 # Use debhelper's dh
 %:
-	dh $@ --with autotools_dev --builddirectory=debian/build --parallel
+	$(DH)
 
 override_dh_auto_configure: debian/build/config.status
 
@@ -56,59 +58,44 @@ endif
 
 override_dh_auto_test:
 
+install-arch:
+	$(DH) $@
+# Setuid executables
+	chmod 4755 $(CURDIR)/debian/dchroot/usr/bin/dchroot
+	chmod 4755 $(CURDIR)/debian/dchroot-dsa/usr/bin/dchroot-dsa
+	chmod 4755 $(CURDIR)/debian/schroot/usr/bin/schroot
+# Lintian overrides
+	mkdir -p $(CURDIR)/debian/dchroot/usr/share/lintian/overrides
+	cp $(CURDIR)/debian/dchroot.lintian-overrides $(CURDIR)/debian/dchroot/usr/share/lintian/overrides/dchroot
+	mkdir -p $(CURDIR)/debian/dchroot-dsa/usr/share/lintian/overrides
+	cp $(CURDIR)/debian/dchroot-dsa.lintian-overrides $(CURDIR)/debian/dchroot-dsa/usr/share/lintian/overrides/dchroot-dsa
+	mkdir -p $(CURDIR)/debian/schroot/usr/share/lintian/overrides
+	cp $(CURDIR)/debian/schroot.lintian-overrides $(CURDIR)/debian/schroot/usr/share/lintian/overrides/schroot
+# Documentation symlinks
+	rm -rf $(CURDIR)/debian/dchroot/usr/share/doc/dchroot
+	ln -sf schroot $(CURDIR)/debian/dchroot/usr/share/doc/dchroot
+	rm -rf $(CURDIR)/debian/dchroot-dsa/usr/share/doc/dchroot-dsa
+	ln -sf schroot $(CURDIR)/debian/dchroot-dsa/usr/share/doc/dchroot-dsa
+# Requires fakeroot, so tests need running here.
+	dh_auto_test
+
+install-indep:
+	$(DH) $@
+# Remove cruft
+	find $(CURDIR)/debian/libsbuild-doc/usr/share/doc/libsbuild-doc -name '*.map' -print0 | xargs -0 rm -f
+	find $(CURDIR)/debian/libsbuild-doc/usr/share/doc/libsbuild-doc -name '*.md5' -print0 | xargs -0 rm -f
+
+
 override_dh_auto_install:
 ifneq (,$(shell dh_listpackages -a 2>/dev/null))
 	$(MAKE) -C debian/build install DESTDIR=$(CURDIR)/debian/install
 endif
-ifneq (,$(filter dchroot, $(shell dh_listpackages)))
-	mkdir -p $(CURDIR)/debian/dchroot/usr/share/lintian/overrides
-	cp $(CURDIR)/debian/dchroot.lintian-overrides $(CURDIR)/debian/dchroot/usr/share/lintian/overrides/dchroot
-endif
-ifneq (,$(filter dchroot-dsa, $(shell dh_listpackages)))
-	mkdir -p $(CURDIR)/debian/dchroot-dsa/usr/share/lintian/overrides
-	cp $(CURDIR)/debian/dchroot-dsa.lintian-overrides $(CURDIR)/debian/dchroot-dsa/usr/share/lintian/overrides/dchroot-dsa
-endif
-ifneq (,$(filter schroot, $(shell dh_listpackages)))
-	mkdir -p $(CURDIR)/debian/schroot/usr/share/lintian/overrides
-	cp $(CURDIR)/debian/schroot.lintian-overrides $(CURDIR)/debian/schroot/usr/share/lintian/overrides/schroot
-endif
-ifneq (,$(filter schroot-common, $(shell dh_listpackages)))
+ifneq (,$(shell dh_listpackages -i 2>/dev/null))
 	$(MAKE) -C debian/build/po install DESTDIR=$(CURDIR)/debian/install
-endif
-# Requires fakeroot, so needs doing here.
-ifneq (,$(shell dh_listpackages -a 2>/dev/null))
-	dh_auto_test
 endif
 
 override_dh_installchangelogs:
 	dh_installchangelogs ChangeLog
-
-override_dh_installdocs:
-	dh_installdocs
-ifneq (,$(filter dchroot, $(shell dh_listpackages)))
-	rm -rf $(CURDIR)/debian/dchroot/usr/share/doc/dchroot
-	ln -sf schroot $(CURDIR)/debian/dchroot/usr/share/doc/dchroot
-endif
-ifneq (,$(filter dchroot-dsa, $(shell dh_listpackages)))
-	rm -rf $(CURDIR)/debian/dchroot-dsa/usr/share/doc/dchroot-dsa
-	ln -sf schroot $(CURDIR)/debian/dchroot-dsa/usr/share/doc/dchroot-dsa
-endif
-ifneq (,$(filter libsbuild-doc, $(shell dh_listpackages)))
-	find $(CURDIR)/debian/libsbuild-doc/usr/share/doc/libsbuild-doc -name '*.map' -print0 | xargs -0 rm -f
-	find $(CURDIR)/debian/libsbuild-doc/usr/share/doc/libsbuild-doc -name '*.md5' -print0 | xargs -0 rm -f
-endif
-
-override_dh_fixperms:
-	dh_fixperms
-ifneq (,$(filter dchroot, $(shell dh_listpackages)))
-	chmod 4755 $(CURDIR)/debian/dchroot/usr/bin/dchroot
-endif
-ifneq (,$(filter dchroot-dsa, $(shell dh_listpackages)))
-	chmod 4755 $(CURDIR)/debian/dchroot-dsa/usr/bin/dchroot-dsa
-endif
-ifneq (,$(filter schroot, $(shell dh_listpackages)))
-	chmod 4755 $(CURDIR)/debian/schroot/usr/bin/schroot
-endif
 
 override_dh_installinit:
 	dh_installinit --no-start --update-rcd-params='start 75 S .'
@@ -116,4 +103,4 @@ override_dh_installinit:
 override_dh_strip:
 	dh_strip --dbg-package=schroot-dbg
 
-.PHONY: override_dh_auto_configure override_dh_auto_clean override_dh_auto_build override_dh_auto_test override_dh_auto_install override_dh_installchangelogs override_dh_installdocs override_dh_fixperms override_dh_installinit override_dh_strip
+.PHONY: override_dh_auto_configure override_dh_auto_clean override_dh_auto_build override_dh_auto_test override_dh_auto_install override_dh_installchangelogs override_dh_installinit override_dh_strip install-arch install-indep
