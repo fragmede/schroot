@@ -32,6 +32,61 @@ schroot (1.5.0-1) experimental; urgency=low
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 16 Jan 2011 22:02:34 +0000
 
+schroot (1.4.23-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * schroot: Breaks sbuild (<< 0.62.4-1) due to requirement for
+    /var/lib/sbuild/build to exist when using the sbuild or
+    buildd profiles.  /var/lib/sbuild/build is bind mounted on
+    /build in the build chroot.
+
+ -- Roger Leigh <rleigh@debian.org>  Fri, 24 Jun 2011 23:30:01 +0100
+
+schroot (1.4.22-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * Large file support is enabled by default.  This enables the use
+    of files over 2 GiB in size on 32 bit architectures
+    (Closes: #619825).
+  * dchroot-dsa: Use current interface for loading dchroot.conf,
+    rather than the old, which caused a fatal exception
+    (Closes: #626503).
+  * schroot: Don't use rbind when mounting filesystems in the chroot
+    (Closes: #622756).  Recursive bind mounting of /proc, /dev and
+    /sys caused breakage with systemd due to its use of autofs mounts.
+    autofs interacts badly with bind mounting, leading to unmountable
+    mount points.  While rbind is still possible, it is not done by
+    default, and instead only specific filesystems are mounted;
+    additional mounts required must be added to the profile fstab file.
+  * man: Add missing newline for run-exec-scripts (Closes: #624303).
+    Fix incorrectly terminated underlining of /proc (Closes: #624302).
+    Also document the chroot types implementing specific additional
+    options (Closes: #626221).  Thanks to Marc Haber and Brian May.
+  * Session metadata includes the original chroot name.  This is
+    available in the user environment as SCHROOT_CHROOT_NAME and
+    in the setup scripts as CHROOT_NAME (Closes: #623828).
+  * Include buildd profile.  This was previously included in the buildd
+    and sbuild packages, but was not built for the specific host
+    architecture due to the package being arch: all.  We therefore
+    Replace: buildd and sbuild for versions prior to 0.62.3-1.
+    This also involved moving some parts of the base "all" profile
+    template into other profile templates in order to keep it
+    sufficiently minimal for buildd, and a simplification of
+    nssdatabases for the minimal and sbuild profiles.
+  * Drop obsolete Replaces: from schroot-common.
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 15 May 2011 16:22:36 +0100
+
+schroot (1.4.21-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * Fix building with --debug (Closes: #609067).  Thanks to
+    Jonathan Callen.
+  * Document use of command-prefix=eatmydata to improve dpkg
+    performance in build chroots.
+
+ -- Roger Leigh <rleigh@debian.org>  Fri, 11 Mar 2011 13:13:26 +0000
+
 schroot (1.4.20-1) unstable; urgency=low
 
   * New upstream stable release.
