@@ -1,6 +1,12 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
+DEB_HOST_ARCH_OS   ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+LIBDIR = usr/lib/$(DEB_HOST_MULTIARCH)
+LIBEXECDIR = $(LIBDIR)/schroot
+
 ifneq ($(DEB_HOST_ARCH_OS),linux)
 	LVMSNAP_OPTIONS = --disable-lvm-snapshot
 	BTRFSSNAP_OPTIONS = --disable-btrfs-snapshot
@@ -23,17 +29,21 @@ else
 	CFLAGS += -O2
 endif
 
-DH=dh $@ --with autotools_dev --builddirectory=debian/build --parallel
+DH_OPTIONS = --with autotools_dev --builddirectory=debian/build --parallel
+
+DH_INSTALL_FILES = $(basename $(wildcard debian/*.install.in))
 
 # Use debhelper's dh
 %:
-	$(DH)
+	dh $@ $(DH_OPTIONS)
+
+%.install: %.install.in
+	sed -e 's;@LIBDIR@;$(LIBDIR);g' -e 's;@LIBEXECDIR@;$(LIBEXECDIR);g' <$< >$@
 
 override_dh_auto_configure: debian/build/config.status
 
 debian/build/config.status: configure
 	dh_auto_configure -- \
-	  --libexecdir=/usr/lib \
 	  --enable-dchroot --enable-dchroot-dsa \
 	  --enable-static --disable-shared \
 	  --with-bash-completion-dir=/etc/bash_completion.d \
@@ -58,8 +68,8 @@ endif
 
 override_dh_auto_test:
 
-install-arch:
-	$(DH) $@
+install-arch: build-arch $(DH_INSTALL_FILES)
+	dh $@ $(DH_OPTIONS)
 # Setuid executables
 	chmod 4755 $(CURDIR)/debian/dchroot/usr/bin/dchroot
 	chmod 4755 $(CURDIR)/debian/dchroot-dsa/usr/bin/dchroot-dsa
@@ -79,12 +89,14 @@ install-arch:
 # Requires fakeroot, so tests need running here.
 	dh_auto_test
 
-install-indep:
-	$(DH) $@
+install-indep: build-indep $(DH_INSTALL_FILES)
+	dh $@ $(DH_OPTIONS)
 # Remove cruft
 	find $(CURDIR)/debian/libsbuild-doc/usr/share/doc/libsbuild-doc -name '*.map' -print0 | xargs -0 rm -f
 	find $(CURDIR)/debian/libsbuild-doc/usr/share/doc/libsbuild-doc -name '*.md5' -print0 | xargs -0 rm -f
 
+install: build $(DH_INSTALL_FILES)
+	dh $@ $(DH_OPTIONS)
 
 override_dh_auto_install:
 ifneq (,$(shell dh_listpackages -a 2>/dev/null))

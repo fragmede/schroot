@@ -2,7 +2,7 @@ debian/install/etc/bash_completion.d/schroot     etc/bash_completion.d
 debian/install/etc/pam.d                         etc
 debian/install/etc/schroot                       etc
 debian/install/usr/bin/schroot                   usr/bin
-debian/install/usr/lib/schroot                   usr/lib
+debian/install/@LIBDIR@/schroot                  @LIBDIR@
 debian/install/usr/share/schroot                 usr/share
 contrib/setup.d/09fsck                           usr/share/doc/schroot/contrib/setup.d
 contrib/setup.d/10mount-ssh                      usr/share/doc/schroot/contrib/setup.d
