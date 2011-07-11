@@ -9,7 +9,9 @@ configuration.
 
 * Major changes in 1.4.24:
 
-  None.
+  1) Support for zip file archives has been removed.  zip was not able
+     to archive named pipes and device nodes, and so was not usable
+     for chroot archival.
 
 * Major changes in 1.4.23:
 
