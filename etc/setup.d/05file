@@ -37,8 +37,6 @@ check_filetype()
 	filetype="tgz"
     elif echo "$CHROOT_FILE" | egrep -q '(\.tar\.bz2|\.tbz)$'; then
 	filetype="tbz"
-    elif echo "$CHROOT_FILE" | grep -q '\.zip$'; then
-	filetype="zip"
     else
 	fatal "Unsupported filetype for $CHROOT_FILE"
     fi
@@ -57,8 +55,6 @@ unpack_file()
 	tar $TAR_VERBOSE -xzf "$CHROOT_FILE"
     elif [ "$filetype" = "tbz" ]; then
 	tar $TAR_VERBOSE -xjf "$CHROOT_FILE"
-    elif [ "$filetype" = "zip" ]; then
-	unzip $ZIP_VERBOSE "$CHROOT_FILE"
     else
 	fatal "Unsupported filetype for $CHROOT_FILE"
     fi
@@ -77,8 +73,6 @@ repack_file()
 	tar $TAR_VERBOSE -czf "$NEWFILE" .
     elif [ "$filetype" = "tbz" ]; then
 	tar $TAR_VERBOSE -cjf "$NEWFILE" .
-    elif [ "$filetype" = "zip" ]; then
-	zip $ZIP_VERBOSE -r "$NEWFILE" .
     else
 	fatal "Unsupported filetype for $CHROOT_FILE"
     fi
@@ -100,8 +94,6 @@ repack_file()
 
 if [ "$VERBOSE" = "verbose" ]; then
     TAR_VERBOSE="-v"
-else
-    ZIP_VERBOSE="-q"
 fi
 
 if [ "$CHROOT_TYPE" = "file" ]; then
