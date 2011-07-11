@@ -1,15 +1,11 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+DEB_HOST_ARCH_OS   ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
-
-# These are used for cross-compiling and for saving the configure script
-# from having to guess our platform (since we know it already)
-DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
-DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
-DEB_HOST_ARCH_OS    ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
+LIBDIR = usr/lib/$(DEB_HOST_MULTIARCH)
+LIBEXECDIR = $(LIBDIR)/schroot
 
 ifneq ($(DEB_HOST_ARCH_OS),linux)
 	LVMSNAP_OPTIONS = --disable-lvm-snapshot
@@ -33,20 +29,21 @@ else
 	CFLAGS += -O2
 endif
 
+DH_OPTIONS = --with autotools_dev --builddirectory=debian/build --parallel
+
+DH_INSTALL_FILES = $(basename $(wildcard debian/*.install.in))
+
+# Use debhelper's dh
+%:
+	dh $@ $(DH_OPTIONS)
+
+%.install: %.install.in
+	sed -e 's;@LIBDIR@;$(LIBDIR);g' -e 's;@LIBEXECDIR@;$(LIBEXECDIR);g' <$< >$@
+
+override_dh_auto_configure: debian/build/config.status
+
 debian/build/config.status: configure
-	dh_testdir
-
-	[ -d debian/build ] || mkdir debian/build
-
-	cd debian/build; \
-	CFLAGS="$(CFLAGS)" ../../configure \
-	  --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) \
-	  --prefix=/usr \
-	  --sysconfdir=/etc \
-	  --libexecdir=/usr/lib \
-	  --localstatedir=/var \
-	  --mandir=\$${prefix}/share/man \
-	  --infodir=\$${prefix}/share/info \
+	dh_auto_configure -- \
 	  --enable-dchroot --enable-dchroot-dsa \
 	  --enable-static --disable-shared \
 	  --with-bash-completion-dir=/etc/bash_completion.d \
@@ -55,115 +52,67 @@ debian/build/config.status: configure
 	  BTRFSCTL=/sbin/btrfsctl \
 	  LVCREATE=/sbin/lvcreate \
 	  LVREMOVE=/sbin/lvremove
-
-build: build-indep build-arch
-
-build-indep: debian/build-indep-stamp
-debian/build-indep-stamp: debian/build/config.status
 	dh_testdir
-	$(MAKE) -C debian/build doc
-	touch "$@"
 
-build-arch: debian/build-arch-stamp
-debian/build-arch-stamp: debian/build/config.status
-	dh_testdir
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -rf debian/install
+
+override_dh_auto_build:
+ifneq (,$(shell dh_listpackages -a 2>/dev/null))
 	$(MAKE) -C debian/build all
-	touch "$@"
-
-clean:
-	dh_testdir
-	dh_testroot
-	rm -rf debian/build
-	rm -rf debian/install
-	rm -f debian/build-indep-stamp
-	rm -f debian/build-arch-stamp
-
-ifneq "$(wildcard /usr/share/misc/config.sub)" ""
-	cp -f /usr/share/misc/config.sub scripts/config.sub
 endif
-ifneq "$(wildcard /usr/share/misc/config.guess)" ""
-	cp -f /usr/share/misc/config.guess scripts/config.guess
+ifneq (,$(shell dh_listpackages -i 2>/dev/null))
+	$(MAKE) -C debian/build doc
 endif
 
-	dh_clean
+override_dh_auto_test:
 
-check: build-arch
-	dh_testdir
-	dh_testroot
-	$(MAKE) -C debian/build check
-
-install-indep: build-indep
-	dh_testdir
-	dh_testroot
-	dh_prep -i
-
-	dh_installdirs -i
-
-	$(MAKE) -C debian/build/po install DESTDIR=$(CURDIR)/debian/install
-	dh_install -i
-
-install-arch: build-arch check
-	dh_testdir
-	dh_testroot
-	dh_prep -a
-	rm -rf debian/install
-
-	dh_installdirs -a
-
-	$(MAKE) -C debian/build install DESTDIR=$(CURDIR)/debian/install
-	dh_install -a
-
+install-arch: build-arch $(DH_INSTALL_FILES)
+	dh $@ $(DH_OPTIONS)
+# Setuid executables
+	chmod 4755 $(CURDIR)/debian/dchroot/usr/bin/dchroot
+	chmod 4755 $(CURDIR)/debian/dchroot-dsa/usr/bin/dchroot-dsa
+	chmod 4755 $(CURDIR)/debian/schroot/usr/bin/schroot
+# Lintian overrides
 	mkdir -p $(CURDIR)/debian/dchroot/usr/share/lintian/overrides
-	mkdir -p $(CURDIR)/debian/dchroot-dsa/usr/share/lintian/overrides
-	mkdir -p $(CURDIR)/debian/schroot/usr/share/lintian/overrides
 	cp $(CURDIR)/debian/dchroot.lintian-overrides $(CURDIR)/debian/dchroot/usr/share/lintian/overrides/dchroot
+	mkdir -p $(CURDIR)/debian/dchroot-dsa/usr/share/lintian/overrides
 	cp $(CURDIR)/debian/dchroot-dsa.lintian-overrides $(CURDIR)/debian/dchroot-dsa/usr/share/lintian/overrides/dchroot-dsa
+	mkdir -p $(CURDIR)/debian/schroot/usr/share/lintian/overrides
 	cp $(CURDIR)/debian/schroot.lintian-overrides $(CURDIR)/debian/schroot/usr/share/lintian/overrides/schroot
-
-# Build architecture-independent files here.
-binary-indep: install-indep
-	dh_testdir -i
-	dh_testroot -i
-	dh_installchangelogs -i ChangeLog
-	dh_installdocs -i
-	find $(CURDIR)/debian/libsbuild-doc/usr/share/doc/libsbuild-doc -name '*.map' -print0 | xargs -0 rm -f
-	find $(CURDIR)/debian/libsbuild-doc/usr/share/doc/libsbuild-doc -name '*.md5' -print0 | xargs -0 rm -f
-	dh_installexamples -i
-	dh_installman -i
-	dh_link -i
-	dh_compress -i
-	dh_fixperms -i
-	dh_installdeb -i
-	dh_gencontrol -i
-	dh_md5sums -i
-	dh_builddeb -i
-
-# Build architecture-dependent files here.
-binary-arch: install-arch
-	dh_testdir -a
-	dh_testroot -a
-	dh_installchangelogs -a ChangeLog
-	dh_installdocs -a
+# Documentation symlinks
 	rm -rf $(CURDIR)/debian/dchroot/usr/share/doc/dchroot
 	ln -sf schroot $(CURDIR)/debian/dchroot/usr/share/doc/dchroot
 	rm -rf $(CURDIR)/debian/dchroot-dsa/usr/share/doc/dchroot-dsa
 	ln -sf schroot $(CURDIR)/debian/dchroot-dsa/usr/share/doc/dchroot-dsa
-	dh_installexamples -a
-	dh_installman -a
-	dh_installinit -a --no-start --update-rcd-params='start 75 S .'
-	dh_link -a
-	dh_strip -a --dbg-package=schroot-dbg
-	dh_compress -a
-	dh_fixperms -a
-	chmod 4755 $(CURDIR)/debian/dchroot/usr/bin/dchroot
-	chmod 4755 $(CURDIR)/debian/dchroot-dsa/usr/bin/dchroot-dsa
-	chmod 4755 $(CURDIR)/debian/schroot/usr/bin/schroot
-	dh_makeshlibs -a
-	dh_installdeb -a
-	dh_shlibdeps -a -L libsbuild1 -l$(CURDIR)/debian/libsbuild1/usr/lib
-	dh_gencontrol -a
-	dh_md5sums -a
-	dh_builddeb -a
+# Requires fakeroot, so tests need running here.
+	dh_auto_test
 
-binary: binary-indep binary-arch
-.PHONY: build-indep build-arch check clean binary-indep binary-arch binary install-indep install-arch
+install-indep: build-indep $(DH_INSTALL_FILES)
+	dh $@ $(DH_OPTIONS)
+# Remove cruft
+	find $(CURDIR)/debian/libsbuild-doc/usr/share/doc/libsbuild-doc -name '*.map' -print0 | xargs -0 rm -f
+	find $(CURDIR)/debian/libsbuild-doc/usr/share/doc/libsbuild-doc -name '*.md5' -print0 | xargs -0 rm -f
+
+install: build $(DH_INSTALL_FILES)
+	dh $@ $(DH_OPTIONS)
+
+override_dh_auto_install:
+ifneq (,$(shell dh_listpackages -a 2>/dev/null))
+	$(MAKE) -C debian/build install DESTDIR=$(CURDIR)/debian/install
+endif
+ifneq (,$(shell dh_listpackages -i 2>/dev/null))
+	$(MAKE) -C debian/build/po install DESTDIR=$(CURDIR)/debian/install
+endif
+
+override_dh_installchangelogs:
+	dh_installchangelogs ChangeLog
+
+override_dh_installinit:
+	dh_installinit --no-start --update-rcd-params='start 75 S .'
+
+override_dh_strip:
+	dh_strip --dbg-package=schroot-dbg
+
+.PHONY: override_dh_auto_configure override_dh_auto_clean override_dh_auto_build override_dh_auto_test override_dh_auto_install override_dh_installchangelogs override_dh_installinit override_dh_strip install-arch install-indep

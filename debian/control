@@ -3,7 +3,7 @@ Section: admin
 Priority: optional
 Maintainer: Debian buildd-tools Developers <buildd-tools-devel@lists.alioth.debian.org>
 Uploaders: Roger Leigh <rleigh@debian.org>
-Build-Depends: debhelper (>= 7.0.0), autotools-dev, pkg-config, libpam0g-dev, uuid-dev [!kfreebsd-any], liblockdev1-dev, libboost1.46-dev, libboost-program-options1.46-dev, libboost-regex1.46-dev, libboost-filesystem1.46-dev, gettext, libcppunit-dev
+Build-Depends: debhelper (>= 8.1.0), autotools-dev, pkg-config, libpam0g-dev, uuid-dev [!kfreebsd-any], liblockdev1-dev, libboost1.46-dev, libboost-iostreams1.46-dev, libboost-program-options1.46-dev, libboost-regex1.46-dev, libboost-filesystem1.46-dev, gettext, libcppunit-dev
 Build-Depends-Indep: doxygen, graphviz
 Standards-Version: 3.9.1
 Vcs-Browser: http://git.debian.org/?p=buildd-tools/schroot.git
@@ -109,7 +109,7 @@ Description: Execute commands in a chroot environment
  Several different types of chroot are supported, including normal
  directories in the filesystem, and also block devices.  Sessions,
  persistent chroots created on the fly from files (tar with optional
- compression and zip) and LVM snapshots are also supported.
+ compression and zip) and Btrfs and LVM snapshots are also supported.
  .
  schroot supports kernel personalities, allowing the programs run
  inside the chroot to have a different personality.  For example,
@@ -118,7 +118,7 @@ Description: Execute commands in a chroot environment
  .
  schroot also integrates with sbuild, to allow building packages with
  all supported chroot types, including session-managed chroot types
- such as LVM snapshots.
+ such as Btrfs and LVM snapshots.
  .
  schroot shares most of its options with dchroot, but offers vastly
  more functionality.

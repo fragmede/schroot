@@ -1,3 +1,0 @@
-debian/install/usr/include          usr
-debian/install/usr/lib/libsbuild.a  usr/lib
-debian/install/usr/lib/pkgconfig    usr/lib
