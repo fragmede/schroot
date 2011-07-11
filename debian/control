@@ -96,7 +96,7 @@ Conflicts: dchroot (<< 0.13)
 Replaces: buildd (<< 0.62.3-1), sbuild (<< 0.62.3-1)
 Enhances: sbuild
 Breaks: sbuild (<< 0.62.4-1)
-Suggests: debootstrap, lvm2, btrfs-tools, unzip, aufs-modules | unionfs-modules
+Suggests: debootstrap, lvm2, btrfs-tools, aufs-modules | unionfs-modules
 Description: Execute commands in a chroot environment
  schroot allows users to execute commands or interactive shells in
  different chroots.  Any number of named chroots may be created, and
@@ -109,7 +109,7 @@ Description: Execute commands in a chroot environment
  Several different types of chroot are supported, including normal
  directories in the filesystem, and also block devices.  Sessions,
  persistent chroots created on the fly from files (tar with optional
- compression and zip) and Btrfs and LVM snapshots are also supported.
+ compression) and Btrfs and LVM snapshots are also supported.
  .
  schroot supports kernel personalities, allowing the programs run
  inside the chroot to have a different personality.  For example,

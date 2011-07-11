@@ -3,8 +3,13 @@ schroot (1.4.24-1) unstable; urgency=low
   * New upstream stable release.
   * Add multiarch support.
   * Use debhelper 8.1 and dh using compat level 9.
+  * Support for zip file archives has been removed.  zip was not able
+    to archive named pipes and device nodes, and so was not usable
+    for chroot archival.
+  * Don't Suggest unzip now zip is not a supported archive
+    format.
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 11 Jul 2011 13:10:43 +0100
+ -- Roger Leigh <rleigh@debian.org>  Mon, 11 Jul 2011 13:28:17 +0100
 
 schroot (1.4.23-1) unstable; urgency=low
 
