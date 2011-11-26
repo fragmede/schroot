@@ -8,8 +8,10 @@ schroot (1.4.24-1) unstable; urgency=low
     for chroot archival.
   * Don't Suggest unzip now zip is not a supported archive
     format.
+  * Correct race condition in 15killprocs (Closes: #645223).  Thanks to
+    Patrick Ohly for this patch.
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 11 Jul 2011 13:28:17 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 26 Nov 2011 20:36:29 +0000
 
 schroot (1.4.23-1) unstable; urgency=low
 
