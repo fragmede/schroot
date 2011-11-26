@@ -29,6 +29,17 @@ elif [ "$STATUS" = "ok" ]; then
     fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
 fi
 
+# Wrapper around kill command. Turns errors into
+# warnings when running in verbose mode, otherwise
+# it ignores them.
+# args: parameters for kill
+kill_proc()
+{
+    if ! kill "$@" 2>/dev/null; then
+        info "kill $@ failed: process already terminated?"
+    fi
+}
+
 # Kill all processes that were run from within the chroot environment
 # $1: mount base location
 do_kill_all()
@@ -51,7 +62,7 @@ do_kill_all()
 		info "Killing left-over pid $pid (${exe##$1})"
 		info "  Sending SIGTERM to pid $pid"
 
-		/bin/kill -TERM "$pid" 2>/dev/null
+		kill_proc -TERM "$pid"
 
 		count=0
 		max=5
@@ -62,7 +73,7 @@ do_kill_all()
                 # Wait for $max seconds for process to die before -9'ing it
                     if [ "$count" -eq "$max" ]; then
 			info "  Sending SIGKILL to pid $pid"
-			/bin/kill -KILL "$pid" 2>/dev/null
+			kill_proc -KILL "$pid"
 			sleep 1
 			break
                     fi
