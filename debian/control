@@ -3,9 +3,24 @@ Section: admin
 Priority: optional
 Maintainer: Debian buildd-tools Developers <buildd-tools-devel@lists.alioth.debian.org>
 Uploaders: Roger Leigh <rleigh@debian.org>
-Build-Depends: debhelper (>= 8.1.0), autotools-dev, pkg-config, libpam0g-dev, uuid-dev [!kfreebsd-any], liblockdev1-dev, libboost1.46-dev, libboost-iostreams1.46-dev, libboost-program-options1.46-dev, libboost-regex1.46-dev, libboost-filesystem1.46-dev, gettext, libcppunit-dev
-Build-Depends-Indep: doxygen, graphviz
-Standards-Version: 3.9.1
+Build-Depends:
+ debhelper (>= 8.1.0),
+ autotools-dev,
+ pkg-config,
+ libpam0g-dev,
+ uuid-dev [!kfreebsd-any],
+ liblockdev1-dev,
+ libboost1.46-dev,
+ libboost-iostreams1.46-dev,
+ libboost-program-options1.46-dev,
+ libboost-regex1.46-dev,
+ libboost-filesystem1.46-dev,
+ gettext,
+ libcppunit-dev
+Build-Depends-Indep:
+ doxygen,
+ graphviz
+Standards-Version: 3.9.2
 Vcs-Browser: http://git.debian.org/?p=buildd-tools/schroot.git
 Vcs-Git: git://git.debian.org/git/buildd-tools/schroot
 
@@ -27,8 +42,12 @@ Description: common files for schroot
 Package: libsbuild-dev
 Architecture: any
 Section: libdevel
-Depends: ${misc:Depends}, pkg-config (>= 0.14.0)
-Suggests: schroot-dbg, libsbuild-doc
+Depends:
+ ${misc:Depends},
+ pkg-config (>= 0.14.0)
+Suggests:
+ schroot-dbg,
+ libsbuild-doc
 Description: development files for the Debian source builder
  sbuild provides facilities to manage and access chroots, as part of
  schroot.
@@ -49,9 +68,11 @@ Package: schroot-dbg
 Architecture: any
 Section: debug
 Priority: extra
-Depends: ${misc:Depends}, schroot (= ${binary:Version}) | dchroot (= ${binary:Version})
- | dchroot-dsa (= ${binary:Version})
-Conflicts: schroot (<< ${binary:Version}), schroot (>> ${binary:Version}),
+Depends:
+ ${misc:Depends},
+ schroot (= ${binary:Version}) | dchroot (= ${binary:Version}) | dchroot-dsa (= ${binary:Version})
+Conflicts:
+ schroot (<< ${binary:Version}), schroot (>> ${binary:Version}),
  dchroot (<< ${binary:Version}), dchroot (>>${binary:Version}),
  dchroot-dsa (<< ${binary:Version}), dchroot-dsa (>>${binary:Version})
 Description: schroot, dchroot and dchroot-dsa debuggging symbols
@@ -91,9 +112,13 @@ Description: development documentation for the Debian source builder
 
 Package: schroot
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, schroot-common (=${source:Version})
+Depends:
+ ${shlibs:Depends}, ${misc:Depends},
+ schroot-common (=${source:Version})
 Conflicts: dchroot (<< 0.13)
-Replaces: buildd (<< 0.62.3-1), sbuild (<< 0.62.3-1)
+Replaces:
+ buildd (<< 0.62.3-1),
+ sbuild (<< 0.62.3-1)
 Enhances: sbuild
 Breaks: sbuild (<< 0.62.4-1)
 Suggests: debootstrap, lvm2, btrfs-tools, aufs-modules | unionfs-modules
@@ -126,7 +151,10 @@ Description: Execute commands in a chroot environment
 Package: dchroot
 Architecture: any
 Suggests: debootstrap
-Depends: ${misc:Depends}, schroot (= ${binary:Version}), ${shlibs:Depends}, schroot-common (=${source:Version})
+Depends:
+ ${misc:Depends}, ${shlibs:Depends},
+ schroot (= ${binary:Version}),
+ schroot-common (=${source:Version})
 Description: Execute commands in a chroot environment
  dchroot allows users to execute commands or interactive shells in
  different chroots.  A typical installation might provide 'stable',
@@ -149,7 +177,10 @@ Description: Execute commands in a chroot environment
 Package: dchroot-dsa
 Architecture: any
 Suggests: debootstrap
-Depends: ${misc:Depends}, schroot (= ${binary:Version}), ${shlibs:Depends}, schroot-common (=${source:Version})
+Depends:
+ ${misc:Depends}, ${shlibs:Depends}
+ schroot (= ${binary:Version}), ${shlibs:Depends},
+ schroot-common (=${source:Version})
 Description: Execute commands in a chroot environment
  dchroot allows users to execute commands or interactive shells in
  different chroots.  A typical installation might provide 'stable',

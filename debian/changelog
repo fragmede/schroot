@@ -6,8 +6,11 @@ schroot (1.5.1-1) experimental; urgency=low
   * Build with Boost 1.46, and add boost-iostreams build dependency.
   * Fix building with --debug (Closes: #609067).  Thanks to
     Jonathan Callen.
+  * debian/control:
+    - Use multiline fields.
+    - Upgrade to Standards-Version 3.9.2 (no changes).
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 11 Jul 2011 11:23:02 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 26 Nov 2011 20:25:53 +0000
 
 schroot (1.5.0-1) experimental; urgency=low
 
