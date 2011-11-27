@@ -179,7 +179,7 @@ Package: dchroot-dsa
 Architecture: any
 Suggests: debootstrap
 Depends:
- ${misc:Depends}, ${shlibs:Depends}
+ ${misc:Depends}, ${shlibs:Depends},
  schroot (= ${binary:Version}), ${shlibs:Depends},
  schroot-common (=${source:Version})
 Description: Execute commands in a chroot environment
