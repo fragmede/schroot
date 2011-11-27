@@ -1221,6 +1221,7 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
       if (chdir ((*dpos).c_str()) < 0)
 	{
 	  error e(*dpos, CHDIR, strerror(errno));
+	  e.set_reason(_("The directory does not exist inside the chroot.  Use the --directory option to run the command in a different directory."));
 
 	  if (dpos + 1 == dlist.end())
 	    throw e;
