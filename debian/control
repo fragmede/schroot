@@ -16,7 +16,8 @@ Build-Depends:
  libboost-regex1.46-dev,
  libboost-filesystem1.46-dev,
  gettext,
- libcppunit-dev
+ libcppunit-dev,
+ groff-base
 Build-Depends-Indep:
  doxygen,
  graphviz
