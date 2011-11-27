@@ -10,12 +10,14 @@ schroot (1.5.1-1) experimental; urgency=low
     SCHROOT_ALIAS_NAME to the user environment.  These may be used
     to conditionally alter behaviour depending upon the chroot alias
     used (Closes: #635320).
+  * Directory fallbacks are documented in the manual pages
+    (Closes: #633671).
   * debian/control:
     - Use multiline fields.
     - Upgrade to Standards-Version 3.9.2 (no changes).
     - Build-Depend upon groff-base for soelim.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 27 Nov 2011 13:59:44 +0000
+ -- Roger Leigh <rleigh@debian.org>  Sun, 27 Nov 2011 15:47:35 +0000
 
 schroot (1.5.0-1) experimental; urgency=low
 
