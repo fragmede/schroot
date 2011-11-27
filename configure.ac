@@ -274,6 +274,7 @@ AC_ENABLE_STATIC
 AC_PROG_LIBTOOL
 AM_GNU_GETTEXT_VERSION([0.16])
 AM_GNU_GETTEXT([external])
+AC_PATH_PROG([SOELIM], [soelim])
 AC_PATH_PROG([FIND], [find])
 AC_PATH_PROG([XARGS], [xargs])
 HAVE_DOXYGEN="yes"
@@ -697,178 +698,6 @@ AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <ext/stdio_filebuf.h>
                [AC_MSG_RESULT([no])
                 AC_MSG_FAILURE([__gnu_cxx::stdio_filebuf (GNU libstdc++) is not installed, but is required by schroot])])
 
-dnl Set PACKAGE_LOCALE_DIR in config.h
-AH_TEMPLATE(PACKAGE_LOCALE_DIR, [Package locale directory])
-if test "x${prefix}" = "xNONE"; then
-  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, ["${ac_default_prefix}/share/locale"])
-else
-  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, ["${prefix}/share/locale"])
-fi
-
-dnl Set PACKAGE_DATA_DIR in config.h.
-AH_TEMPLATE(PACKAGE_DATA_DIR, [Package data directory])
-if test "x${datadir}" = 'x${prefix}/share' || test "x${datadir}" = 'x${datarootdir}'; then
-  if test "x${prefix}" = "xNONE"; then
-    PACKAGE_DATA_DIR="${ac_default_prefix}/share/${PACKAGE}"
-  else
-    PACKAGE_DATA_DIR="${prefix}/share/${PACKAGE}"
-  fi
-else
-  PACKAGE_DATA_DIR="${datadir}/${PACKAGE}"
-fi
-
-SCHROOT_DATA_DIR="${PACKAGE_DATA_DIR}"
-AC_SUBST(SCHROOT_DATA_DIR)
-AH_TEMPLATE(SCHROOT_DATA_DIR, [Package data directory])
-AC_DEFINE_UNQUOTED(SCHROOT_DATA_DIR, ["$SCHROOT_DATA_DIR"])
-SCHROOT_SETUP_DATA_DIR="${SCHROOT_DATA_DIR}/setup"
-AC_SUBST(SCHROOT_SETUP_DATA_DIR)
-AH_TEMPLATE(SCHROOT_SETUP_DATA_DIR, [Package setup_data directory])
-AC_DEFINE_UNQUOTED(SCHROOT_SETUP_DATA_DIR, ["$SCHROOT_SETUP_DATA_DIR"])
-
-dnl Set PACKAGE_LIB_DIR in config.h.
-AH_TEMPLATE(PACKAGE_LIB_DIR, [Package lib directory])
-if test "x${libdir}" = 'x${exec_prefix}/lib'; then
-  if test "x${exec_prefix}" = "xNONE"; then
-    if test "x${prefix}" = "xNONE"; then
-      PACKAGE_LIB_DIR="${ac_default_prefix}/lib/${PACKAGE}"
-    else
-      PACKAGE_LIB_DIR="${prefix}/lib/${PACKAGE}"
-    fi
-  else
-    PACKAGE_LIB_DIR="${exec_prefix}/lib/${PACKAGE}"
-  fi
-else
-  PACKAGE_LIB_DIR="${libdir}/${PACKAGE}"
-fi
-
-dnl Set PACKAGE_LIBEXEC_DIR in config.h.
-AH_TEMPLATE(PACKAGE_LIBEXEC_DIR, [Package libexec directory])
-if test "x${libexecdir}" = 'x${exec_prefix}/libexec'; then
-  if test "x${exec_prefix}" = "xNONE"; then
-    if test "x${prefix}" = "xNONE"; then
-      PACKAGE_LIBEXEC_DIR="${ac_default_prefix}/libexec/${PACKAGE}"
-    else
-      PACKAGE_LIBEXEC_DIR="${prefix}/libexec/${PACKAGE}"
-    fi
-  else
-    PACKAGE_LIBEXEC_DIR="${exec_prefix}/libexec/${PACKAGE}"
-  fi
-else
-  PACKAGE_LIBEXEC_DIR="${libexecdir}/${PACKAGE}"
-fi
-
-SCHROOT_LIBEXEC_DIR="${PACKAGE_LIBEXEC_DIR}"
-AC_SUBST(SCHROOT_LIBEXEC_DIR)
-AH_TEMPLATE(SCHROOT_LIBEXEC_DIR, [Package libexec directory])
-AC_DEFINE_UNQUOTED(SCHROOT_LIBEXEC_DIR, ["$SCHROOT_LIBEXEC_DIR"])
-
-dnl Set PACKAGE_LOCALSTATE_DIR in config.h.
-AH_TEMPLATE(PACKAGE_LOCALSTATE_DIR, [Package localstate directory])
-if test "x${localstatedir}" = 'x${prefix}/var'; then
-  if test "x${prefix}" = "xNONE"; then
-    if test "x${prefix}" = "xNONE"; then
-      PACKAGE_LOCALSTATE_DIR="${ac_default_prefix}/var"
-    else
-      PACKAGE_LOCALSTATE_DIR="${prefix}/var"
-    fi
-  else
-    PACKAGE_LOCALSTATE_DIR="${prefix}/var"
-  fi
-else
-  PACKAGE_LOCALSTATE_DIR="${localstatedir}"
-fi
-
-SCHROOT_MOUNT_DIR="${PACKAGE_LOCALSTATE_DIR}/lib/${PACKAGE}/mount"
-AC_SUBST([SCHROOT_MOUNT_DIR])
-AH_TEMPLATE([SCHROOT_MOUNT_DIR], [schroot mount directory])
-AC_DEFINE_UNQUOTED(SCHROOT_MOUNT_DIR, ["$SCHROOT_MOUNT_DIR"])
-
-SCHROOT_SESSION_DIR="${PACKAGE_LOCALSTATE_DIR}/lib/${PACKAGE}/session"
-AC_SUBST([SCHROOT_SESSION_DIR])
-AH_TEMPLATE([SCHROOT_SESSION_DIR], [schroot session directory])
-AC_DEFINE_UNQUOTED(SCHROOT_SESSION_DIR, ["$SCHROOT_SESSION_DIR"])
-
-SCHROOT_FILE_UNPACK_DIR="${PACKAGE_LOCALSTATE_DIR}/lib/${PACKAGE}/unpack"
-AC_SUBST([SCHROOT_FILE_UNPACK_DIR])
-AH_TEMPLATE([SCHROOT_FILE_UNPACK_DIR], [schroot file unpack directory])
-AC_DEFINE_UNQUOTED(SCHROOT_FILE_UNPACK_DIR, ["$SCHROOT_FILE_UNPACK_DIR"])
-
-SCHROOT_OVERLAY_DIR="${PACKAGE_LOCALSTATE_DIR}/lib/${PACKAGE}/union/overlay"
-AC_SUBST([SCHROOT_OVERLAY_DIR])
-AH_TEMPLATE([SCHROOT_OVERLAY_DIR], [schroot overlay directory])
-AC_DEFINE_UNQUOTED(SCHROOT_OVERLAY_DIR, ["$SCHROOT_OVERLAY_DIR"])
-
-SCHROOT_UNDERLAY_DIR="${PACKAGE_LOCALSTATE_DIR}/lib/${PACKAGE}/union/underlay"
-AC_SUBST([SCHROOT_UNDERLAY_DIR])
-AH_TEMPLATE([SCHROOT_UNDERLAY_DIR], [schroot underlay directory])
-AC_DEFINE_UNQUOTED(SCHROOT_UNDERLAY_DIR, ["$SCHROOT_UNDERLAY_DIR"])
-
-dnl Set SCHROOT_SYSCONF_DIR in config.h.
-AH_TEMPLATE(SCHROOT_SYSCONF_DIR, [Package system configuration directory])
-if test "x${sysconfdir}" = 'x${prefix}/etc'; then
-  if test "x${prefix}" = "xNONE"; then
-    PACKAGE_SYSCONF_DIR="${ac_default_prefix}/etc"
-  else
-    PACKAGE_SYSCONF_DIR="${prefix}/etc"
-  fi
-else
-  PACKAGE_SYSCONF_DIR="${sysconfdir}"
-fi
-
-SCHROOT_SYSCONF_DIR="${PACKAGE_SYSCONF_DIR}/schroot"
-AH_TEMPLATE([SCHROOT_SYSCONF_DIR], [schroot system configuration directory])
-AC_DEFINE_UNQUOTED([SCHROOT_SYSCONF_DIR], ["$SCHROOT_SYSCONF_DIR"])
-AC_SUBST([SCHROOT_SYSCONF_DIR])
-
-SCHROOT_CONF="${SCHROOT_SYSCONF_DIR}/schroot.conf"
-AC_SUBST([SCHROOT_CONF])
-
-AH_TEMPLATE(SCHROOT_CONF, [schroot config file path])
-AC_DEFINE_UNQUOTED(SCHROOT_CONF, ["$SCHROOT_CONF"])
-
-SCHROOT_CONF_CHROOT_D="${SCHROOT_SYSCONF_DIR}/chroot.d"
-AC_SUBST([SCHROOT_CONF_CHROOT_D])
-
-AH_TEMPLATE(SCHROOT_CONF_CHROOT_D, [schroot chroot directory])
-AC_DEFINE_UNQUOTED(SCHROOT_CONF_CHROOT_D, ["$SCHROOT_CONF_CHROOT_D"])
-
-SCHROOT_CONF_SETUP_D="${SCHROOT_SYSCONF_DIR}/setup.d"
-AC_SUBST([SCHROOT_CONF_SETUP_D])
-
-AH_TEMPLATE(SCHROOT_CONF_SETUP_D, [schroot chroot setup directory])
-AC_DEFINE_UNQUOTED(SCHROOT_CONF_SETUP_D, ["$SCHROOT_CONF_SETUP_D"])
-
-AH_TEMPLATE(SCHROOT_DATADIR, [Package data directory])
-SCHROOT_DATADIR="${PACKAGE_DATA_DIR}/${PACKAGE_VERSION}"
-AC_DEFINE_UNQUOTED(SCHROOT_DATADIR, ["$SCHROOT_DATADIR"])
-
-AH_TEMPLATE(SCHROOT_MODULEDIR, [Package module directory])
-SCHROOT_MODULEDIR="${PACKAGE_LIB_DIR}/${PACKAGE_VERSION}/modules"
-AC_DEFINE_UNQUOTED(SCHROOT_MODULEDIR, ["$SCHROOT_MODULEDIR"])
-
-if test "x${sysconfdir}" = 'x${prefix}/etc'; then
-  if test "x${prefix}" = "xNONE"; then
-    DCHROOT_SYSCONF_DIR="${ac_default_prefix}/etc"
-  else
-    DCHROOT_SYSCONF_DIR="${prefix}/etc"
-  fi
-else
-  DCHROOT_SYSCONF_DIR="${sysconfdir}"
-fi
-
-DCHROOT_CONF="${DCHROOT_SYSCONF_DIR}/dchroot.conf"
-AC_SUBST([DCHROOT_CONF])
-
-AH_TEMPLATE(DCHROOT_CONF, [dchroot config file path])
-AC_DEFINE_UNQUOTED(DCHROOT_CONF, ["$DCHROOT_CONF"])
-
-CSBUILD_CONF="${CSBUILD_SYSCONF_DIR}/csbuild.conf"
-AC_SUBST([CSBUILD_CONF])
-
-AH_TEMPLATE(CSBUILD_CONF, [csbuild config file path])
-AC_DEFINE_UNQUOTED(CSBUILD_CONF, ["$CSBUILD_CONF"])
-
 dnl Configure which files to generate.
 AC_CONFIG_FILES([doc/Makefile])
 AC_CONFIG_FILES([doc/sbuild.dox])
@@ -893,14 +722,6 @@ AC_CONFIG_FILES([etc/pam/Makefile])
 AC_CONFIG_FILES([etc/setup.d/Makefile])
 AC_CONFIG_FILES([etc/bash_completion/Makefile])
 AC_CONFIG_FILES([man/Makefile])
-AC_CONFIG_FILES([man/schroot.1])
-AC_CONFIG_FILES([man/schroot-setup.5])
-AC_CONFIG_FILES([man/schroot.conf.5])
-AC_CONFIG_FILES([man/schroot-script-config.5])
-AC_CONFIG_FILES([man/schroot-faq.7])
-AC_CONFIG_FILES([man/dchroot.1])
-AC_CONFIG_FILES([man/dchroot-dsa.1])
-AC_CONFIG_FILES([man/csbuild.1])
 AC_CONFIG_FILES([scripts/po-notify])
 AC_CONFIG_FILES([test/Makefile])
 AC_CONFIG_FILES([Makefile])

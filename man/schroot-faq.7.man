@@ -14,7 +14,8 @@
 .\" along with this program.  If not, see
 .\" <http://www.gnu.org/licenses/>.
 .\"
-.TH SCHROOT-FAQ 7 "@RELEASE_DATE_S@" "Version @VERSION@" "Debian sbuild"
+.so config.man
+.TH SCHROOT-FAQ 7 "\*[RELEASE_DATE_S]" "Version \*[VERSION]" "Debian sbuild"
 .SH NAME
 schroot \- frequently asked questions
 .SH DESCRIPTION
@@ -33,8 +34,8 @@ these will disappear next time the databases are copied over.
 .PP
 The suggested workaround here is to disable the copying by removing or
 commenting out the databases in the NSSDATABASES file in the script-config file
-for the chroot.  These are \fI@SCHROOT_SYSCONF_DIR@/default/nssdatabases\fP and
-\fI@SCHROOT_SYSCONF_DIR@/default/config\fP by default.
+for the chroot.  These are \fI\*[SCHROOT_SYSCONF_DIR]/default/nssdatabases\fP and
+\fI\*[SCHROOT_SYSCONF_DIR]/default/config\fP by default.
 .PP
 In the future, we will be working on a better scheme for keeping the host and
 chroot databases in sync which can merge entries rather than overwriting the
@@ -118,18 +119,18 @@ For example, to remove a session named
 .IP \[bu]
 Remove the session configuration file
 .br
-\f[CR]%\ \f[CB]rm\ @SCHROOT_SESSION_DIR@/my\-session\fP\fP\[CR]
+\f[CR]%\ \f[CB]rm\ \*[SCHROOT_SESSION_DIR]/my\-session\fP\fP\[CR]
 .IP \[bu]
 Check for mounted filesystems
 .br
-\f[CR]%\ \f[CB]@SCHROOT_LIBEXEC_DIR@/schroot\-listmounts\ \-m\ @SCHROOT_MOUNT_DIR@/my\-session\fP\fP\[CR]
+\f[CR]%\ \f[CB]\*[SCHROOT_LIBEXEC_DIR]/schroot\-listmounts\ \-m\ \*[SCHROOT_MOUNT_DIR]/my\-session\fP\fP\[CR]
 .IP \[bu]
 Unmount any mounted filesystems
 .IP \[bu]
-Remove \fI@SCHROOT_MOUNT_DIR@/my\-session\fP
+Remove \fI\*[SCHROOT_MOUNT_DIR]/my\-session\fP
 .IP \[bu]
-Repeat for the other directories such as \fI@SCHROOT_UNDERLAY_DIR@\fP,
-\fI@SCHROOT_OVERLAY_DIR@\fP and \fI@SCHROOT_FILE_UNPACK_DIR@\fP
+Repeat for the other directories such as \fI\*[SCHROOT_UNDERLAY_DIR]\fP,
+\fI\*[SCHROOT_OVERLAY_DIR]\fP and \fI\*[SCHROOT_FILE_UNPACK_DIR]\fP
 .PP
 \fBNOTE:\fP Do not remove any directories without checking if there are any
 filesystems mounted below them, since filesystems such as \fI/home\fP could
@@ -238,15 +239,8 @@ latest sources from \f[CR]git://git.debian.org/git/buildd-tools/schroot\fP.
 The master branch containes the current development release.  Stable releases
 are found on branches, for example the 1.4 series of releases are on
 the schroot-1.4 branch.
-.SH AUTHORS
-Roger Leigh.
-.SH COPYRIGHT
-Copyright \(co 2005\-2010  Roger Leigh \f[CR]<rleigh@debian.org>\fP
-.PP
-\fBschroot\fP is free software: you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.
+.so authors.man
+.so copyright.man
 .SH SEE ALSO
 .BR dchroot (1),
 .BR schroot (1),

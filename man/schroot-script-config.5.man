@@ -14,13 +14,14 @@
 .\" along with this program.  If not, see
 .\" <http://www.gnu.org/licenses/>.
 .\"
-.TH SCHROOT-SCRIPT-CONFIG 5 "@RELEASE_DATE_S@" "Version @VERSION@" "Debian sbuild"
+.so config.man
+.TH SCHROOT-SCRIPT-CONFIG 5 "\*[RELEASE_DATE_S]" "Version \*[VERSION]" "Debian sbuild"
 .SH NAME
 schroot-script-config \- schroot chroot setup script configuration
 .SH DESCRIPTION
 \fBschroot\fP uses scripts to set up and then clean up the chroot
 environment.  These scripts may be customised using the \f[CI]script\-config\fP
-key in \fI@SCHROOT_CONF@\fP.  This key specifies a file which the setup scripts
+key in \fI\*[SCHROOT_CONF]\fP.  This key specifies a file which the setup scripts
 will source when they are run.  The file is a Bourne shell script, and in
 consequence may contain any valid shell code, in addition to simple variable
 assignments.  This will, for example, allow behaviour to be customised
@@ -56,15 +57,8 @@ databases are copied using
 .BR getent (1)
 so all database sources listed in \fI/etc/nsswitch.conf\fP will be used for
 each database.
-.SH AUTHORS
-Roger Leigh.
-.SH COPYRIGHT
-Copyright \(co 2005\-2010  Roger Leigh \f[CR]<rleigh@debian.org>\fP
-.PP
-\fBschroot\fP is free software: you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.
+.so authors.man
+.so copyright.man
 .SH SEE ALSO
 .BR sbuild (1),
 .BR schroot (1),

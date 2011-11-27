@@ -14,12 +14,13 @@
 .\" along with this program.  If not, see
 .\" <http://www.gnu.org/licenses/>.
 .\"
-.TH SCHROOT\-SETUP 5 "@RELEASE_DATE_S@" "Version @VERSION@" "Debian sbuild"
+.so config.man
+.TH SCHROOT\-SETUP 5 "\*[RELEASE_DATE_S]" "Version \*[VERSION]" "Debian sbuild"
 .SH NAME
 schroot\-setup \- schroot chroot setup scripts
 .SH DESCRIPTION
 \fBschroot\fP uses scripts to set up and then clean up the chroot environment.
-The directory \f[BI]@SCHROOT_CONF_SETUP_D@\fP contains scripts run when a
+The directory \f[BI]\*[SCHROOT_CONF_SETUP_D]\fP contains scripts run when a
 chroot is created and destroyed.  Several environment variables are set while
 the scripts are being run, which allows their behaviour to be customised,
 depending upon, for example, the type of chroot in use.
@@ -34,8 +35,8 @@ The setup scripts are all invoked with two options:
 The action to perform.
 .IP
 When a session is first started, the chroot is set up by running the scripts in
-@SCHROOT_CONF_SETUP_D@ with the \[oq]setup\-start\[cq] option.  When the
-session is ended, the scripts in \fI@SCHROOT_CONF_SETUP_D@\fP are run in
+\*[SCHROOT_CONF_SETUP_D] with the \[oq]setup\-start\[cq] option.  When the
+session is ended, the scripts in \fI\*[SCHROOT_CONF_SETUP_D]\fP are run in
 reverse order with the \[oq]setup\-stop\[cq] option.
 .IP 2
 The chroot status.
@@ -185,7 +186,7 @@ Options to pass to
 .BR lvcreate (8).
 .SH FILES
 .SS Setup script configuration
-The directory \f[BI]@SCHROOT_SYSCONF_DIR@/default\fP contains the default
+The directory \f[BI]\*[SCHROOT_SYSCONF_DIR]/default\fP contains the default
 settings used by setup scripts.
 .TP
 \f[BI]config\fP
@@ -193,26 +194,26 @@ Main configuration file read by setup scripts.  The format of this file is
 described in
 .BR schroot\-script\-config (5).
 This is the default value for the \f[CI]script\-config\fP key.  Note that this
-was formerly named \fI@SCHROOT_SYSCONF_DIR@/script\-defaults\fP.  The following
+was formerly named \fI\*[SCHROOT_SYSCONF_DIR]/script\-defaults\fP.  The following
 files are referenced by default:
 .TP
 \f[BI]copyfiles\fP
 A list of files to copy into the chroot from the host system.  Note that this
-was formerly named \fI@SCHROOT_SYSCONF_DIR@/copyfiles\-defaults\fP.
+was formerly named \fI\*[SCHROOT_SYSCONF_DIR]/copyfiles\-defaults\fP.
 .TP
 \f[BI]fstab\fP
 A file in the format decribed in
 .BR fstab (5),
 used to mount filesystems inside the chroot.  The mount location is relative to
 the root of the chroot.  Note that this was formerly named
-\fI@SCHROOT_SYSCONF_DIR@/mount\-defaults\fP.
+\fI\*[SCHROOT_SYSCONF_DIR]/mount\-defaults\fP.
 .TP
 \f[BI]nssdatabases\fP
 System databases (as described in \fI/etc/nsswitch.conf\fP on GNU/Linux
 systems) to copy into the chroot from the host.  Note that this was formerly
-named \fI@SCHROOT_SYSCONF_DIR@/nssdatabases\-defaults\fP.
+named \fI\*[SCHROOT_SYSCONF_DIR]/nssdatabases\-defaults\fP.
 .SS Setup scripts
-The directory \f[BI]@SCHROOT_CONF_SETUP_D@\fP contains the chroot setup scripts.
+The directory \f[BI]\*[SCHROOT_CONF_SETUP_D]\fP contains the chroot setup scripts.
 .TP
 \f[BI]00check\fP
 Print debugging diagnostics and perform basic sanity checking.
@@ -244,15 +245,8 @@ chroot.
 \f[BI]50chrootname\fP
 Set the chroot name (\fI/etc/debian_chroot\fP) in the chroot.  This may be used
 by the shell prompt to display the current chroot.
-.SH AUTHORS
-Roger Leigh.
-.SH COPYRIGHT
-Copyright \(co 2005\-2010  Roger Leigh \f[CR]<rleigh@debian.org>\fP
-.PP
-\fBschroot\fP is free software: you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.
+.so authors.man
+.so copyright.man
 .SH SEE ALSO
 .BR schroot (1),
 .BR fstab (5),

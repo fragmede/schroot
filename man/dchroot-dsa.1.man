@@ -14,7 +14,9 @@
 .\" along with this program.  If not, see
 .\" <http://www.gnu.org/licenses/>.
 .\"
-.TH DCHROOT-DSA 1 "@RELEASE_DATE_S@" "Version @VERSION@" "Debian sbuild"
+.so config.man
+.ds PROGRAM dchroot\-dsa
+.TH DCHROOT-DSA 1 "\*[RELEASE_DATE_S]" "Version \*[VERSION]" "Debian sbuild"
 .SH NAME
 dchroot\-dsa \- enter a chroot environment
 .SH SYNOPSIS
@@ -103,7 +105,7 @@ this option.
 .BR \-V ", " \-\-version
 Print version information.
 .SH CONFIGURATION
-The original \fBdchroot\-dsa\fP configuration file, \fI@DCHROOT_CONF@\fP, used
+The original \fBdchroot\-dsa\fP configuration file, \fI\*[DCHROOT_CONF]\fP, used
 by earlier versions of dchroot\-dsa, has the following format:
 .IP \[bu]
 \[oq]#\[cq] starts a comment line.
@@ -133,7 +135,7 @@ This file defines a chroot called \[oq]sarge\[cq], located at
 \fI/srv/chroot/sid\fP.  The second chroot specifies that it may only be used by
 the users \[lq]rleigh\[rq] and \[lq]fred\[rq].
 .SH INCOMPATIBILITIES
-.SS DSA dchroot 
+.SS DSA dchroot
 .IP \[bu]
 Log messages are worded and formatted differently.
 .IP \[bu]
@@ -164,21 +166,21 @@ To migrate an existing \fBdchroot\-dsa\fP configuration to \fBschroot\fP,
 perform the following steps:
 .IP 1
 Dump the dchroot\-dsa configuration in schroot keyfile format to
-\fI@SCHROOT_CONF@\fP.
+\fI\*[SCHROOT_CONF]\fP.
 .PP
 .RS
-\f[CR]# \f[CB]dchroot\-dsa --config >> @SCHROOT_CONF@
+\f[CR]# \f[CB]dchroot\-dsa --config >> \*[SCHROOT_CONF]
 .br
 .RE
 .PP
 .IP 2
-Edit \fI@SCHROOT_CONF@\fP to add access to the users and/or groups which are to
+Edit \fI\*[SCHROOT_CONF]\fP to add access to the users and/or groups which are to
 be allowed to access the chroots, and make any other desired changes to the
 configuration.  See
 .BR schroot.conf (5).
 .IP 3
-Remove \fI@DCHROOT_CONF@\fP, so that dchroot\-dsa will subsequently use
-\fI@SCHROOT_CONF@\fP for its configuration.
+Remove \fI\*[DCHROOT_CONF]\fP, so that dchroot\-dsa will subsequently use
+\fI\*[SCHROOT_CONF]\fP for its configuration.
 .SH EXAMPLES
 \f[CR]$ \f[CB]dchroot\-dsa -l\fP\fP
 .br
@@ -229,32 +231,25 @@ list:
 None known at this time.
 .SH FILES
 .TP
-\f[BI]@DCHROOT_CONF@\fP
+\f[BI]\*[DCHROOT_CONF]\fP
 The system-wide \fBdchroot\-dsa\fP chroot definition file.  This file must be
 owned by the root user, and not be writable by other.  If present, this file
-will be used in preference to \fI@SCHROOT_CONF@\fP.
+will be used in preference to \fI\*[SCHROOT_CONF]\fP.
 .TP
-\f[BI]@SCHROOT_CONF@\fP
+\f[BI]\*[SCHROOT_CONF]\fP
 The system-wide \fBschroot\fP definition file.  This file must be owned by the
 root user, and not be writable by other.  It is recommended that this file be
-used in preference to \fI@DCHROOT_CONF@\fP, because the chroots can be used
+used in preference to \fI\*[DCHROOT_CONF]\fP, because the chroots can be used
 interchangeably with schroot, and the user and group security policies provided
 by schroot are also enforced.
-.SH AUTHORS
-Roger Leigh.
+.so authors.man
 .PP
 This implementation of dchroot\-dsa uses the same command-line options as
 the \fBdchroot\fP found on machines run by the Debian System Administrators for
 the Debian Project.  These machines have a \fBdchroot-dsa\fP source package
 which provides a \fBdchroot\-dsa\fP package, written by Ben Collins
 \f[CR]<bcollins@debian.org>\fP and Martin Schulze \f[CR]<joey@debian.org>\fP.
-.SH COPYRIGHT
-Copyright \(co 2005\-2010  Roger Leigh \f[CR]<rleigh@debian.org>\fP
-.PP
-\fBdchroot-dsa\fP is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the Free
-Software Foundation, either version 3 of the License, or (at your option) any
-later version.
+.so copyright.man
 .SH SEE ALSO
 .BR schroot (1),
 .BR sbuild (1),

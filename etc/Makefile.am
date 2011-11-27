@@ -23,9 +23,7 @@ include $(top_srcdir)/scripts/global.mk
 
 SUBDIRS = pam setup.d bash_completion
 
-pkgsysconfdir = $(SCHROOT_SYSCONF_DIR)
-
-pkgsysconf_DATA = 		\
+schroot_sysconf_DATA = 		\
 	schroot.conf
 
 PROFILES =		\
@@ -47,9 +45,9 @@ all-local: profiles
 
 install-data-hook:
 	for profile in $(PROFILES); do 						\
-	  $(MKDIR_P) "$(DESTDIR)$(SCHROOT_SYSCONF_DIR)/$$profile";			\
+	  $(MKDIR_P) "$(DESTDIR)$(schroot_sysconfdir)/$$profile";			\
 	  for file in "profiles/$$profile"/*; do						\
-	    $(INSTALL_DATA) "$$file" "$(DESTDIR)$(SCHROOT_SYSCONF_DIR)/$$profile";	\
+	    $(INSTALL_DATA) "$$file" "$(DESTDIR)$(schroot_sysconfdir)/$$profile";	\
 	  done;									\
 	done
 
@@ -58,7 +56,7 @@ clean-local:
 	$(RM) -f profiles-stamp
 
 EXTRA_DIST =			\
-	$(pkgsysconf_DATA)	\
+	$(schroot_sysconf_DATA)	\
 	genprofile		\
 	profile-templates
 
