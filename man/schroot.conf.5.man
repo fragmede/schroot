@@ -15,7 +15,7 @@
 .\" <http://www.gnu.org/licenses/>.
 .\"
 .so config.man
-.TH SCHROOT.CONF 5 "@RELEASE_DATE_S@" "Version @VERSION@" "Debian sbuild"
+.TH SCHROOT.CONF 5 "\*[RELEASE_DATE]" "Version \*[VERSION]" "Debian sbuild"
 .SH NAME
 schroot.conf \- chroot definition file for schroot
 .SH DESCRIPTION
@@ -104,7 +104,7 @@ chroot name itself.
 \f[CBI]script\-config=\fP\f[CI]filename\fP
 The behaviour of the chroot setup scripts may be customised on a per-chroot
 basis by providing a shell script which the scripts will source.  The filename
-is relative to \fI@SCHROOT_SYSCONF_DIR@\fP.  The default filename is
+is relative to \fI\*[SCHROOT_SYSCONF_DIR]\fP.  The default filename is
 \[oq]default/config\[cq].  Alternatives are \[oq]minimal/config\[cq] (minimal
 configuration), \[oq]desktop/config\[cq] (for running desktop applications in
 the chroot, making more functionality from the host system available in the
@@ -372,29 +372,29 @@ for a complete variable list.
 .TP
 \f[CBI]union\-overlay\-directory\fP\f[CI]=directory\fP
 Specify the directory where the writeable overlay session directories will be
-created.  The default is \[oq]@SCHROOT_OVERLAY_DIR@\[cq].
+created.  The default is \[oq]\*[SCHROOT_OVERLAY_DIR]\[cq].
 .TP
 \f[CBI]union\-underlay\-directory\fP\f[CI]=directory\fP
 Specify the directory where the read-only underlying directories will be
-created.  The default is \[oq]@SCHROOT_UNDERLAY_DIR@\[cq].
+created.  The default is \[oq]\*[SCHROOT_UNDERLAY_DIR]\[cq].
 .SS Localisation
 .PP
 Some keys may be localised in multiple languages.  This is achieved by adding
 the locale name in square brackets after the key name.  For example:
-.br
 .RS
-\f[CR]description[en_GB]=\f[CI]British English translation\fP\fP
-.br
+.EX
+description[en_GB]=\f[CI]British English translation\fP
+.EE
 .RE
 .PP
 This will localise the \f[CI]description\fP key for the en_GB locale.
 .RS
-\f[CR]description[fr]=\f[CI]French translation\fP\fP
-.br
+.EX
+description[fr]=\f[CI]French translation\fP
+.EE
 .RE
 .PP
 This will localise the \f[CI]description\fP key for all French locales.
-.br
 .SH CHROOT NAMES
 A number of characters or words are not permitted in a chroot name, session
 name or configuration filename.  The name may not contain a leading period
@@ -465,102 +465,63 @@ filesystem).  The different profiles make different tradeoffs, and it is
 important that you assess which meets the security/usability tradeoff you
 require.
 .SH EXAMPLE
-\f[CR]# Sample configuration\fP
-.br
-\f[CR]\fP
-.br
-\f[CR][sid]\fP
-.br
-\f[CR]type=plain\fP
-.br
-\f[CR]description=Debian unstable\fP
-.br
-\f[CR]description[fr_FR]=Debian instable\fP
-.br
-\f[CR]directory=/srv/chroot/sid\fP
-.br
-\f[CR]priority=3\fP
-.br
-\f[CR]users=jim\fP
-.br
-\f[CR]groups=sbuild\fP
-.br
-\f[CR]root\-users=rleigh\fP
-.br
-\f[CR]aliases=unstable,default\fP
-.br
-\f[CR]\fP
-.br
-\f[CR][etch]\fP
-.br
-\f[CR]type=block\-device\fP
-.br
-\f[CR]description=Debian testing (32\-bit)\fP
-.br
-\f[CR]priority=2\fP
-.br
-\f[CR]groups=users\fP
-.br
-\f[CR]#groups=sbuild\-security\fP
-.br
-\f[CR]aliases=testing\fP
-.br
-\f[CR]device=/dev/hda_vg/etch_chroot\fP
-.br
-\f[CR]mount\-options=\-o atime\fP
-.br
-\f[CR]personality=linux32\fP
-.br
-\f[CR]\fP
-.br
-\f[CR][sid\-file]\fP
-.br
-\f[CR]type=file\fP
-.br
-\f[CR]description=Debian sid file\-based chroot\fP
-.br
-\f[CR]priority=3\fP
-.br
-\f[CR]groups=sbuild\fP
-.br
-\f[CR]file=/srv/chroots/sid.tar.gz\fP
-.br
-\f[CR]\fP
-.br
-\f[CR][sid\-snapshot]\fP
-.br
-\f[CR]type=lvm\-snapshot\fP
-.br
-\f[CR]description=Debian unstable LVM snapshot\fP
-.br
-\f[CR]priority=3\fP
-.br
-\f[CR]groups=sbuild\fP
-.br
-\f[CR]users=rleigh\fP
-.br
-\f[CR]source\-root\-users=rleigh\fP
-.br
-\f[CR]source\-root\-groups=admin\fP
-.br
-\f[CR]device=/dev/hda_vg/sid_chroot\fP
-.br
-\f[CR]mount\-options=\-o atime,sync,user_xattr\fP
-.br
-\f[CR]lvm\-snapshot\-options=\-\-size 2G\fP
+.EX
+# Sample configuration
+
+[sid]
+type=plain
+description=Debian unstable
+description[fr_FR]=Debian instable
+directory=/srv/chroot/sid
+priority=3
+users=jim
+groups=sbuild
+root\-users=rleigh
+aliases=unstable,default
+
+[etch]
+type=block\-device
+description=Debian testing (32\-bit)
+priority=2
+groups=users
+#groups=sbuild\-security
+aliases=testing
+device=/dev/hda_vg/etch_chroot
+mount\-options=\-o atime
+personality=linux32
+
+[sid\-file]
+type=file
+description=Debian sid file\-based chroot
+priority=3
+groups=sbuild
+file=/srv/chroots/sid.tar.gz
+
+[sid\-snapshot]
+type=lvm\-snapshot
+description=Debian unstable LVM snapshot
+priority=3
+groups=sbuild
+users=rleigh
+source\-root\-users=rleigh
+source\-root\-groups=admin
+device=/dev/hda_vg/sid_chroot
+mount\-options=\-o atime,sync,user_xattr
+lvm\-snapshot\-options=\-\-size 2G
+.EE
 .SH FILES
 .SS Chroot definitions
 .TP
-\f[BI]@SCHROOT_CONF@\fP
+\f[BI]\*[SCHROOT_CONF]\fP
 The system-wide chroot definition file.  This file must be owned by the root
 user, and not be writable by other.
 .TP
-\f[BI]@SCHROOT_CONF_CHROOT_D@\fP
+\f[BI]\*[SCHROOT_CONF_CHROOT_D]\fP
 Additional chroot definitions may be placed in files under this directory.
-They are treated in exactly that same manner as \fI@SCHROOT_CONF@\fP.  Each
+They are treated in exactly that same manner as \fI\*[SCHROOT_CONF]\fP.  Each
 file may contain one or more chroot definitions.
 .SS Setup script configuration
-The directory \f[BI]@SCHROOT_SYSCONF_DIR@/default\fP contains the default
+The directory \f[BI]\*[SCHROOT_SYSCONF_DIR]/default\fP contains the default
 settings used by setup scripts.
 .TP
 \f[BI]config\fP
@@ -568,24 +529,24 @@ Main configuration file read by setup scripts.  The format of this file is
 described in
 .BR schroot\-script\-config (5).
 This is the default value for the \f[CI]script\-config\fP key.  Note that this
-was formerly named \fI@SCHROOT_SYSCONF_DIR@/script\-defaults\fP.  The following
+was formerly named \fI\*[SCHROOT_SYSCONF_DIR]/script\-defaults\fP.  The following
 files are referenced by default:
 .TP
 \f[BI]copyfiles\fP
 A list of files to copy into the chroot from the host system.  Note that this
-was formerly named \fI@SCHROOT_SYSCONF_DIR@/copyfiles\-defaults\fP.
+was formerly named \fI\*[SCHROOT_SYSCONF_DIR]/copyfiles\-defaults\fP.
 .TP
 \f[BI]fstab\fP
 A file in the format decribed in
 .BR fstab (5),
 used to mount filesystems inside the chroot.  The mount location is relative to
 the root of the chroot.  Note that this was formerly named
-\fI@SCHROOT_SYSCONF_DIR@/mount\-defaults\fP.
+\fI\*[SCHROOT_SYSCONF_DIR]/mount\-defaults\fP.
 .TP
 \f[BI]nssdatabases\fP
 System databases (as described in \fI/etc/nsswitch.conf\fP on GNU/Linux
 systems) to copy into the chroot from the host.  Note that this was formerly
-named \fI@SCHROOT_SYSCONF_DIR@/nssdatabases\-defaults\fP.
+named \fI\*[SCHROOT_SYSCONF_DIR]/nssdatabases\-defaults\fP.
 .so authors.man
 .so copyright.man
 .SH SEE ALSO

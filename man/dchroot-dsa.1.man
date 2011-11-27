@@ -17,7 +17,7 @@
 .\"
 .so config.man
 .ds PROGRAM dchroot\-dsa
-.TH DCHROOT-DSA 1 "\*[RELEASE_DATE_S]" "Version \*[VERSION]" "Debian sbuild"
+.TH DCHROOT-DSA 1 "\*[RELEASE_DATE]" "Version \*[VERSION]" "Debian sbuild"
 .SH NAME
 dchroot\-dsa \- enter a chroot environment
 .SH SYNOPSIS
@@ -121,14 +121,12 @@ or comma (\[oq],\[cq]).
 An example file:
 .PP
 .RS
-\f[CR]# Example comment\fP
-.br
-\f[CR]\fP
-.br
-\f[CR]sarge /srv/chroot/sarge\fP
-.br
-\f[CR]sid /srv/chroot/sid rleigh,fred\fP
-.br
+.EX
+# Example comment
+\fP
+sarge /srv/chroot/sarge
+sid /srv/chroot/sid rleigh,fred
+.EE
 .RE
 .PP
 This file defines a chroot called \[oq]sarge\[cq], located at
@@ -170,8 +168,9 @@ Dump the dchroot\-dsa configuration in schroot keyfile format to
 \fI\*[SCHROOT_CONF]\fP.
 .PP
 .RS
-\f[CR]# \f[CB]dchroot\-dsa --config >> \*[SCHROOT_CONF]
-.br
+.EX
+# \f[CB]dchroot\-dsa --config >> \*[SCHROOT_CONF]\fP\[CR]
+.EE
 .RE
 .PP
 .IP 2
@@ -227,32 +226,21 @@ No fallbacks should exist under any circumstances.
 Note that \fI\-\-debug=notice\fP will show the internal fallback list computed
 for the session.
 .SH EXAMPLES
-\f[CR]$ \f[CB]dchroot\-dsa -l\fP\fP
-.br
-\f[CR]Available chroots: sarge, sid\fP
-.br
-\f[CR]\fP
-.br
-\f[CR]$ \f[CB]dchroot\-dsa \-\-listpaths\fP\fP
-.br
-\f[CR]/srv/chroot/sarge\fP
-.br
-\f[CR]/srv/chroot/sid\fP
-.br
-\f[CR]\fP
-.br
-\f[CR]$ \f[CB]dchroot\-dsa \-q sid \-\- /bin/uname\fP\fP
-.br
-\f[CR]Linux\fP
-.br
-\f[CR]\fP
-.br
-\f[CR]$ \f[CB]dchroot\-dsa sid\fP\fP
-.br
-\f[CR]I: [sid chroot] Running login shell: \[lq]/bin/bash\[rq]\fP
-.br
-\f[CR]$ \fP
-.br
+.EX
+$ \f[CB]dchroot\-dsa -l\fP\[CR]
+Available chroots: sarge, sid
+
+$ \f[CB]dchroot\-dsa \-\-listpaths\fP\[CR]
+/srv/chroot/sarge
+/srv/chroot/sid
+
+$ \f[CB]dchroot\-dsa \-q sid \-\- /bin/uname\fP\[CR]
+Linux
+
+$ \f[CB]dchroot\-dsa sid\fP\[CR]
+I: [sid chroot] Running login shell: \[lq]/bin/bash\[rq]
+$
+.EE
 .LP
 Note that the top line was echoed to standard error, and the remaining lines to
 standard output.  This is intentional, so that program output from commands run

@@ -17,7 +17,7 @@
 .\" <http://www.gnu.org/licenses/>.
 .\"
 .so config.man
-.TH SCHROOT 1 "\*[RELEASE_DATE_S]" "Version \*[VERSION]" "Debian sbuild"
+.TH SCHROOT 1 "\*[RELEASE_DATE]" "Version \*[VERSION]" "Debian sbuild"
 .SH NAME
 schroot \- securely enter a chroot environment
 .SH SYNOPSIS
@@ -367,90 +367,58 @@ Note that \fI\-\-debug=notice\fP will show the internal fallback list computed
 for the session.
 .SH EXAMPLES
 .SS List available chroots
-\f[CR]%\ \f[CB]schroot \-l\fP\fP\[CR]
-.br
-\f[CR]chroot:default\fP
-.br
-\f[CR]chroot:etch\fP
-.br
-\f[CR]chroot:sid\fP
-.br
-\f[CR]chroot:testing\fP
-.br
-\f[CR]chroot:unstable\fP
+.EX
+% \f[CB]schroot \-l\fP\[CR]
+chroot:default
+chroot:etch
+chroot:sid
+chroot:testing
+chroot:unstable
+.EE
 .SS Get information about a chroot
-\f[CR]%\ \f[CB]schroot\ \-i\ \-c\ sid\fP\fP\[CR]
-.br
-\f[CR]\ \ \[em]\[em]\[em]\ Chroot\ \[em]\[em]\[em]\fP
-.br
-\f[CR]\ \ Name\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sid\fP
-.br
-\f[CR]\ \ Description\ \ \ \ \ \ \ \ \ \ \ \ Debian sid (unstable)\fP
-.br
-\f[CR]\ \ Type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ plain\fP
-.br
-\f[CR]\ \ Priority\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3\fP
-.br
-\f[CR]\ \ Users\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rleigh\fP
-.br
-\f[CR]\ \ Groups\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sbuild\fP
-.br
-\f[CR]\ \ Root\ Users\fP
-.br
-\f[CR]\ \ Root\ Groups\ \ \ \ \ \ \ \ \ \ \ \ sbuild\fP
-.br
-\f[CR]\ \ Aliases\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ unstable\ unstable\-sbuild\ unstable\-p\fP
-.br
-\f[CR]owerpc\-sbuild\fP
-.br
-\f[CR]\ \ Environment\ Filter\ \ \ \ \ ^(BASH_ENV|CDPATH|ENV|HOSTALIASES|I\fP
-.br
-\f[CR]FS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMA\fP
-.br
-\f[CR]IN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TE\fP
-.br
-\f[CR]RMPATH)$\fP
-.br
-\f[CR]\ \ Run\ Setup\ Scripts\ \ \ \ \ \ true\fP
-.br
-\f[CR]\ \ Script\ Configuration\ \ \ script\-defaults\fP
-.br
-\f[CR]\ \ Session\ Managed\ \ \ \ \ \ \ \ true\fP
-.br
-\f[CR]\ \ Personality\ \ \ \ \ \ \ \ \ \ \ \ linux32\fP
-.br
-\f[CR]\ \ Location\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /srv/chroot/sid\fP
+.EX
+% \f[CB]schroot \-i \-c sid\fP\[CR]
+  \[em]\[em]\[em] Chroot \[em]\[em]\[em]
+  Name                   sid
+  Description            Debian sid (unstable)
+  Type                   plain
+  Priority               3
+  Users                  rleigh
+  Groups                 sbuild
+  Root Users
+  Root Groups            sbuild
+  Aliases                unstable unstable\-sbuild unstable\-p
+owerpc\-sbuild
+  Environment Filter     ^(BASH_ENV|CDPATH|ENV|HOSTALIASES|I\\
+FS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMA\\
+IN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TE\\
+RMPATH)$
+  Run Setup Scripts      true
+  Script Configuration   script\-defaults
+  Session Managed        true
+  Personality            linux32
+  Location               /srv/chroot/sid
+.EE
 .LP
 Use \fI\-\-all\fP or \fI\-c\fP multiple times to use all or multiple chroots,
 respectively.
 .SS Running commands in a chroot
-\f[CR]%\ \f[CB]schroot \-c sid /bin/ls\fP\fP\[CR]
-.br
-\f[CR][sid chroot] Running command: \[lq]/bin/ls\[rq]\fP
-.br
-\f[CR]CVS          sbuild\-chroot.c   sbuild\-session.h  schroot.conf.5\fP
-.br
-\f[CR]Makefile     sbuild\-chroot.h   schroot.1         schroot.conf.5.in\fP
-.br
-\f[CR]Makefile.am  sbuild\-config.c   schroot.1.in\fP
-.br
-\f[CR]Makefile.in  sbuild\-config.h   schroot.c\fP
-.br
-\f[CR]pam          sbuild\-session.c  schroot.conf\fP
-.PP
-\f[CR]%\ \f[CB]schroot \-c sid \-\- ls \-1 | head \-n 5\fP\fP\[CR]
-.br
-\f[CR][sid chroot] Running command: \[lq]ls \-1\[rq]\fP
-.br
-\f[CR]ABOUT\-NLS\fP
-.br
-\f[CR]AUTHORS\fP
-.br
-\f[CR]COPYING\fP
-.br
-\f[CR]ChangeLog\fP
-.br
-\f[CR]INSTALL\fP
+.EX
+% \f[CB]schroot \-c sid /bin/ls\fP\[CR]
+[sid chroot] Running command: \[lq]/bin/ls\[rq]
+CVS          sbuild\-chroot.c   sbuild\-session.h  schroot.conf.5
+Makefile     sbuild\-chroot.h   schroot.1         schroot.conf.5.in
+Makefile.am  sbuild\-config.c   schroot.1.in
+Makefile.in  sbuild\-config.h   schroot.c
+pam          sbuild\-session.c  schroot.conf
+% \f[CB]schroot \-c sid \-\- ls \-1 | head \-n 5\fP\[CR]
+[sid chroot] Running command: \[lq]ls \-1\[rq]
+ABOUT\-NLS
+AUTHORS
+COPYING
+ChangeLog
+INSTALL
+.EE
 .LP
 Use \fI\-\-\fP to allow options beginning with \[oq]\-\[cq] or \[oq]\-\-\[cq]
 in the command to run in the chroot.  This prevents them being interpreted as
@@ -460,13 +428,12 @@ that program output from commands run in the chroot may be piped and redirected
 as required; the data will be the same as if the command was run directly on
 the host system.
 .SS Switching users
-\f[CR]%\ \f[CB]schroot \-c sid \-u root\fP\fP\[CR]
-.br
-\f[CR]Password:\fP
-.br
-\f[CR][sid chroot] (rleigh\[->]root) Running login shell: \[lq]/bin/bash\[rq]\fP
-.br
-\f[CR]# \fP
+.EX
+% \f[CB]schroot \-c sid \-u root\fP\[CR]
+Password:
+[sid chroot] (rleigh\[->]root) Running login shell: \[lq]/bin/bash\[rq]
+# 
+.EE
 .LP
 If the user \[oq]rleigh\[cq] was in \f[CI]root\-users\fP in
 \fI\*[SCHROOT_CONF]\fP, or one of the groups he belonged to was in
@@ -482,175 +449,123 @@ strictly necessary.
 .PP
 Let's start by looking at a session-capable chroot:
 .PP
-\f[CR]%\ \f[CB]schroot\ \-i\ \-c\ sid\-snap\fP\fP\[CR]
-.br
-\f[CR]\ \ \[em]\[em]\[em]\ Chroot\ \[em]\[em]\[em]\fP
-.br
-\f[CR]\ \ Name\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sid\-snap\fP
-.br
-\f[CR]\ \ Description\ \ \ \ \ \ \ \ \ \ \ \ Debian sid snapshot\fP
-.br
-\f[CR]\ \ Type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvm\-snapshot\fP
-.br
-\f[CR]\ \ Priority\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3\fP
-.br
-\f[CR]\ \ Users\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maks rleigh\fP
-.br
-\f[CR]\ \ Groups\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sbuild\fP
-.br
-\f[CR]\ \ Root\ Users\fP
-.br
-\f[CR]\ \ Root\ Groups\ \ \ \ \ \ \ \ \ \ \ \ root sbuild\fP
-.br
-\f[CR]\ \ Aliases\fP
-.br
-\f[CR]\ \ Environment\ Filter\ \ \ \ \ ^(BASH_ENV|CDPATH|ENV|HOSTALIASES|I\fP
-.br
-\f[CR]FS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMA\fP
-.br
-\f[CR]IN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TE\fP
-.br
-\f[CR]RMPATH)$\fP
-.br
-\f[CR]\ \ Run\ Setup\ Scripts\ \ \ \ \ \ true\fP
-.br
-\f[CR]\ \ Script\ Configuration\ \ \ script\-defaults\fP
-.br
-\f[CR]\ \ Session\ Managed\ \ \ \ \ \ \ \ true\fP
-.br
-\f[CR]\ \ Personality\ \ \ \ \ \ \ \ \ \ \ \ linux\fP
-.br
-\f[CR]\ \ Device\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /dev/hda_vg/sid_chroot\fP
-.br
-\f[CR]\ \ Mount\ Options\ \ \ \ \ \ \ \ \ \ \-o atime,async,user_xattr\fP
-.br
-\f[CR]\ \ Source\ Users\fP
-.br
-\f[CR]\ \ Source\ Groups\ \ \ \ \ \ \ \ \ \ root rleigh\fP
-.br
-\f[CR]\ \ Source\ Root\ Users\fP
-.br
-\f[CR]\ \ Source\ Root\ Groups\ \ \ \ \ root rleigh\fP
-.br
-\f[CR]\ \ LVM\ Snapshot\ Options\ \ \ \-\-size 2G \-c 128\fP
+.EX
+% \f[CB]schroot \-i \-c sid\-snap\fP\[CR]
+  \[em]\[em]\[em] Chroot \[em]\[em]\[em]
+  Name                   sid\-snap
+  Description            Debian sid snapshot
+  Type                   lvm\-snapshot
+  Priority               3
+  Users                  maks rleigh
+  Groups                 sbuild
+  Root Users
+  Root Groups            root sbuild
+  Aliases
+  Environment Filter     ^(BASH_ENV|CDPATH|ENV|HOSTALIASES|I\\
+FS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMA\\
+IN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TE\\
+RMPATH)$
+  Run Setup Scripts      true
+  Script Configuration   script\-defaults
+  Session Managed        true
+  Personality            linux
+  Device                 /dev/hda_vg/sid_chroot
+  Mount Options          \-o atime,async,user_xattr
+  Source Users
+  Source Groups          root rleigh
+  Source Root Users
+  Source Root Groups     root rleigh
+  LVM Snapshot Options   \-\-size 2G \-c 128
+.EE
 .PP
 Note that the \fISession Managed\fP option is set to \[oq]true\[cq].  This is a
 requirement in order to use session management, and is supported by most chroot
 types.  Next, we will create a new session:
 .PP
-\f[CR]%\ \f[CB]schroot \-b \-c sid\-snap\fP\fP\[CR]
-.br
-\f[CR]sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP
+.EX
+% \f[CB]schroot \-b \-c sid\-snap\fP\[CR]
+sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f
+.EE
 .PP
 The session ID of the newly-created session is returned on standard output.  It
 is common to store it like this:
 .PP
-\f[CR]%\ \f[CB]SESSION=$(schroot \-b \-c sid\-snap)\fP\fP\[CR]
-.br
-\f[CR]%\ \f[CB]echo $SESSION\fP\fP\[CR]
-.br
-\f[CR]sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP
+.EX
+% \f[CB]SESSION=$(schroot \-b \-c sid\-snap)\fP\[CR]
+% \f[CB]echo $SESSION\fP\[CR]
+sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f
+.EE
 .PP
 The session may be used just like any normal chroot.  This is what the session
 looks like:
 .PP
-\f[CR]%\ \f[CB]schroot\ \-i\ \-c\ sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\fP\[CR]
-.br
-\f[CR]\ \ \[em]\[em]\[em]\ Session\ \[em]\[em]\[em]\fP
-.br
-\f[CR]\ \ Name\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d\fP
-.br
-\f[CR]4ccc899f0f\fP
-.br
-\f[CR]\ \ Description\ \ \ \ \ \ \ \ \ \ \ \ Debian sid snapshot\fP
-.br
-\f[CR]\ \ Type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lvm\-snapshot\fP
-.br
-\f[CR]\ \ Priority\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3\fP
-.br
-\f[CR]\ \ Users\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maks rleigh\fP
-.br
-\f[CR]\ \ Groups\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sbuild\fP
-.br
-\f[CR]\ \ Root\ Users\fP
-.br
-\f[CR]\ \ Root\ Groups\ \ \ \ \ \ \ \ \ \ \ \ root sbuild\fP
-.br
-\f[CR]\ \ Aliases\fP
-.br
-\f[CR]\ \ Environment\ Filter\ \ \ \ \ ^(BASH_ENV|CDPATH|ENV|HOSTALIASES|I\fP
-.br
-\f[CR]FS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMA\fP
-.br
-\f[CR]IN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TE\fP
-.br
-\f[CR]RMPATH)$\fP
-.br
-\f[CR]\ \ Run\ Setup\ Scripts\ \ \ \ \ \ true\fP
-.br
-\f[CR]\ \ Script\ Configuration\ \ \ script\-defaults\fP
-.br
-\f[CR]\ \ Session\ Managed\ \ \ \ \ \ \ \ true\fP
-.br
-\f[CR]\ \ Personality\ \ \ \ \ \ \ \ \ \ \ \ linux\fP
-.br
-\f[CR]\ \ Mount\ Location\ \ \ \ \ \ \ \ \ /var/lib/schroot/mount/sid\-snap\-461\fP
-.br
-\f[CR]95b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP
-.br
-\f[CR]\ \ Path\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /var/lib/schroot/mount/sid\-snap\-461\fP
-.br
-\f[CR]95b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP
-.br
-\f[CR]\ \ Mount\ Device\ \ \ \ \ \ \ \ \ \ \ /dev/hda_vg/sid\-snap\-46195b04\-0893\-\fP
-.br
-\f[CR]49bf\-beb8\-0d4ccc899f0f\fP
-.br
-\f[CR]\ \ Device\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /dev/hda_vg/sid_chroot\fP
-.br
-\f[CR]\ \ Mount\ Options\ \ \ \ \ \ \ \ \ \ \-o\ atime,async,user_xattr\fP
-.br
-\f[CR]\ \ Source\ Users\fP
-.br
-\f[CR]\ \ Source\ Groups\ \ \ \ \ \ \ \ \ \ root\ rleigh\fP
-.br
-\f[CR]\ \ Source\ Root\ Users\fP
-.br
-\f[CR]\ \ Source\ Root\ Groups\ \ \ \ \ root\ rleigh\fP
-.br
-\f[CR]\ \ LVM\ Snapshot\ Device\ \ \ \ /dev/hda_vg/sid\-snap\-46195b04\-0893\-\fP
-.br
-\f[CR]49bf\-beb8\-0d4ccc899f0f\fP
-.br
-\f[CR]\ \ LVM\ Snapshot\ Options\ \ \ \-\-size\ 2G\ \-c\ 128\fP
+.EX
+% \f[CB]schroot \-i \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\[CR]
+  \[em]\[em]\[em] Session \[em]\[em]\[em]
+  Name                   sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d\\
+4ccc899f0f
+  Description            Debian sid snapshot
+  Type                   lvm\-snapshot
+  Priority               3
+  Users                  maks rleigh
+  Groups                 sbuild
+  Root Users
+  Root Groups            root sbuild
+  Aliases
+  Environment Filter     ^(BASH_ENV|CDPATH|ENV|HOSTALIASES|I\\
+FS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMA\\
+IN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TE\\
+RMPATH)$
+  Run Setup Scripts      true
+  Script Configuration   script\-defaults
+  Session Managed        true
+  Personality            linux
+  Mount Location         /var/lib/schroot/mount/sid\-snap\-461\\
+95b04\-0893\-49bf\-beb8\-0d4ccc899f0f
+  Path                   /var/lib/schroot/mount/sid\-snap\-461\\
+95b04\-0893\-49bf\-beb8\-0d4ccc899f0f
+  Mount Device           /dev/hda_vg/sid\-snap\-46195b04\-0893\-\\
+49bf\-beb8\-0d4ccc899f0f
+  Device                 /dev/hda_vg/sid_chroot
+  Mount Options          \-o atime,async,user_xattr
+  Source Users
+  Source Groups          root rleigh
+  Source Root Users
+  Source Root Groups     root rleigh
+  LVM Snapshot Device    /dev/hda_vg/sid\-snap\-46195b04\-0893\-\\
+49bf\-beb8\-0d4ccc899f0f
+  LVM Snapshot Options   \-\-size 2G \-c 128
+.EE
 .PP
 Now the session has been created, commands may be run in it:
 .PP
-\f[CR]%\ \f[CB]schroot \-r \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f \-\- uname \-sr\fP\fP\[CR]
-.br
-\f[CR]I: [sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f chroot] Running command: \[lq]uname \-sr\[rq]\fP
-.br
-\f[CR]Linux 2.6.18\-3\-powerpc\fP
-.br
-\f[CR]%\ \f[CB]schroot \-r \-c $SESSION \-\- uname \-sr\fP\fP\[CR]
-.br
-\f[CR]I: [sid\-snap\-fe170af9\-d9be\-4800\-b1bd\-de275858b938 chroot] Running command: \[lq]uname \-sr\[rq]\fP
-.br
-\f[CR]Linux 2.6.18\-3\-powerpc\fP
+.EX
+% \f[CB]schroot \-r \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f \-\- \\
+  uname \-sr\fP\[CR]
+I: [sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f chroot] Running \\
+command: \[lq]uname \-sr\[rq]
+Linux 2.6.18\-3\-powerpc
+% \f[CB]schroot \-r \-c $SESSION \-\- uname \-sr\fP\[CR]
+I: [sid\-snap\-fe170af9\-d9be\-4800\-b1bd\-de275858b938 chroot] Running \\
+command: \[lq]uname \-sr\[rq]
+Linux 2.6.18\-3\-powerpc
+.EE
 .PP
 When all the commands to run in the session have been performed, the session
 may be ended:
 .PP
-\f[CR]%\ \f[CB]schroot \-e \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\fP\[CR]
-.br
-\f[CR]%\ \f[CB]schroot \-e \-c $SESSION\fP\fP\[CR]
+.EX
+\f[CR]% \f[CB]schroot \-e \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\fP\[CR]
+\f[CR]% \f[CB]schroot \-e \-c $SESSION\fP\fP\[CR]
+.EE
 .PP
 Finally, the session names can be long and unwieldy.  A name may be specified
 instead of using the automatically generated session ID:
 .PP
-\f[CR]%\ \f[CB]schroot \-b \-c sid\-snap \-n my\-session\-name\fP\fP\[CR]
-.br
+.EX
+\f[CR]% \f[CB]schroot \-b \-c sid\-snap \-n my\-session\-name\fP\fP\[CR]
 \f[CR]my\-session\-name\fP
+.EE
 .SH TROUBLESHOOTING
 If something is not working, and it's not clear from the error messages what is
 wrong, try using the \fB\-\-debug=\fP\fIlevel\fP option to turn on debugging

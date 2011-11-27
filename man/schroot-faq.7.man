@@ -15,7 +15,7 @@
 .\" <http://www.gnu.org/licenses/>.
 .\"
 .so config.man
-.TH SCHROOT-FAQ 7 "\*[RELEASE_DATE_S]" "Version \*[VERSION]" "Debian sbuild"
+.TH SCHROOT-FAQ 7 "\*[RELEASE_DATE]" "Version \*[VERSION]" "Debian sbuild"
 .SH NAME
 schroot \- frequently asked questions
 .SH DESCRIPTION
@@ -118,12 +118,15 @@ For example, to remove a session named
 \fImy-session\fP by hand:
 .IP \[bu]
 Remove the session configuration file
-.br
-\f[CR]%\ \f[CB]rm\ \*[SCHROOT_SESSION_DIR]/my\-session\fP\fP\[CR]
+.EX
+%\ \f[CB]rm\ \*[SCHROOT_SESSION_DIR]/my\-session\fP\[CR]
+.EE
 .IP \[bu]
 Check for mounted filesystems
-.br
-\f[CR]%\ \f[CB]\*[SCHROOT_LIBEXEC_DIR]/schroot\-listmounts\ \-m\ \*[SCHROOT_MOUNT_DIR]/my\-session\fP\fP\[CR]
+.EX
+%\ \f[CB]\*[SCHROOT_LIBEXEC_DIR]/schroot\-listmounts\ \-m\ \\
+  \*[SCHROOT_MOUNT_DIR]/my\-session\fP\[CR]
+.EE
 .IP \[bu]
 Unmount any mounted filesystems
 .IP \[bu]
@@ -138,8 +141,9 @@ still be bind mounted.  Doing so could cause irretrievable data loss!
 .SH ADVANCED USAGE
 .SS How do I use sessions?
 In normal use, running a command might look like this:
-.br
-\f[CR]%\ \f[CB]schroot\ \-c squeeze \-\- command\fP\fP\[CR]
+.EX
+%\ \f[CB]schroot\ \-c squeeze \-\- command\fP\[CR]
+.EE
 .PP
 which would run the command \fIcommand\fP in the \fIsqueeze\fP chroot.  While
 it's not apparent that a session is being used here, schroot is actually doing
@@ -169,54 +173,58 @@ is persistent and won't be automatically removed.  With a session, you can run
 as many commands as you like, but you need to create and delete the session by
 hand since schroot can't know by itself when you're done with it unlike in the
 single command case above.  This is quite easy:
-.br
-\f[CR]% \f[CB]schroot \-\-begin\-session \-c squeeze\fP\fP\[CR]
-.br
-\f[CR]squeeze\-57a69547\-e014\-4f5d\-a98b\-f4f35a005307\fP
+.EX
+% \f[CB]schroot \-\-begin\-session \-c squeeze\fP\[CR]
+squeeze\-57a69547\-e014\-4f5d\-a98b\-f4f35a005307
+.EE
 .PP
 This created a new session based upon the \fIsqueeze\fP chroot.  The unique
 name for the session, the session ID, was printed to standard output, so we
 could also save it as a shell variable at the same time like so:
-.br
-\f[CR]% \f[CB]SESSION=$(schroot \-\-begin\-session \-c squeeze)\fP\fP\[CR]
-.br
-\f[CR]% \f[CB]echo $SESSION\fP\fP\[CR]
-.br
-\f[CR]squeeze\-57a69547\-e014\-4f5d\-a98b\-f4f35a005307\fP
+.EX
+% \f[CB]SESSION=$(schroot \-\-begin\-session \-c squeeze)\fP\[CR]
+% \f[CB]echo $SESSION\fP\[CR]
+squeeze\-57a69547\-e014\-4f5d\-a98b\-f4f35a005307
+.EE
 .PP
 Now we have created the session and got the session ID, we can run commands in
 it using the session ID:
-.br
-\f[CR]% \f[CB]schroot \-\-run\-session \-c squeeze\-57a69547\-e014\-4f5d\-a98b\-f4f35a005307 \-\- command1\fP\fP\[CR]
+.EX
+% \f[CB]schroot \-\-run\-session \-c squeeze\-57a69547\-e014\-4f5d\-a98b\-f4f35a005307 \\
+  \-\- command1\fP\[CR]
+.EE
 .PP
 or
-.br
-\f[CR]% \f[CB]schroot \-\-run\-session \-c "$SESSION" \-\- command1\fP\fP\[CR]
+.EX
+% \f[CB]schroot \-\-run\-session \-c "$SESSION" \-\- command1\fP\[CR]
+.EE
 .PP
 and then as many more commands as we like
-.br
-\f[CR]% \f[CB]schroot \-\-run\-session \-c "$SESSION" \-\- command2\fP\fP\[CR]
-.br
-\f[CR]% \f[CB]schroot \-\-run\-session \-c "$SESSION" \-\- command3\fP\fP\[CR]
-.br
-\f[CR]% \f[CB]schroot \-\-run\-session \-c "$SESSION" \-\- command4\fP\fP\[CR]
+.EX
+% \f[CB]schroot \-\-run\-session \-c "$SESSION" \-\- command2\fP\[CR]
+% \f[CB]schroot \-\-run\-session \-c "$SESSION" \-\- command3\fP\[CR]
+% \f[CB]schroot \-\-run\-session \-c "$SESSION" \-\- command4\fP\[CR]
+.EE
 .PP
 etc.
 .PP
 When we are done with the session, we can remove it with \fI\-\-end\-session\fP:
-.br
-\f[CR]% \f[CB]schroot \-\-end\-session \-c squeeze\-57a69547\-e014\-4f5d\-a98b\-f4f35a005307\fP\fP\[CR]
+.EX
+% \f[CB]schroot \-\-end\-session \-c squeeze\-57a69547\-e014\-4f5d\-a98b\-f4f35a005307\fP\[CR]
+.EE
 .PP
 or
-.br
-\f[CR]% \f[CB]schroot \-\-end\-session \-c $SESSION\fP\fP\[CR]
+.EX
+% \f[CB]schroot \-\-end\-session \-c "$SESSION"\fP\[CR]
+.EE
 .PP
 Since the automatically generated session names can be long and unwieldy, the
 \fI\-\-session\-name\fP option allows you to provide you own name:
 .PP
-\f[CR]% \f[CB]schroot \-\-begin\-session \-c squeeze \-\-session\-name my\-name\fP\fP\[CR]
-.br
-\f[CR]my\-name\fP
+.EX
+% \f[CB]schroot \-\-begin\-session \-c squeeze \-\-session\-name my\-name\fP\[CR]
+my\-name
+.EE
 .SH CONTRIBUTING
 .SS Getting help and getting involved
 The mailing list \f[CR]<buildd-tools-devel@lists.alioth.debian.org>\fP is used
@@ -233,8 +241,9 @@ tool, or alternatively by mailing \f[CR]<submit@bugs.debian.org>\fP (see
 .SS Getting the latest sources
 schroot is maintained in the git version control system.  You can get the
 latest sources from \f[CR]git://git.debian.org/git/buildd-tools/schroot\fP.
-.br
-\f[CR]% \f[CB]git clone git://git.debian.org/git/buildd-tools/schroot\fP\fP\[CR]
+.EX
+% \f[CB]git clone git://git.debian.org/git/buildd-tools/schroot\fP\[CR]
+.EE
 .LP
 The master branch containes the current development release.  Stable releases
 are found on branches, for example the 1.4 series of releases are on

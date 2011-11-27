@@ -76,6 +76,15 @@ CLEANFILES = \
 %.7: %.7.man $(EXPAND)
 	$(SOELIM) $< >$@
 
+%.1.ps: %.1
+	groffer -Tps -man <$< >$@
+
+%.5.ps: %.5
+	groffer -Tps -man <$< >$@
+
+%.7.ps: %.7
+	groffer -Tps -man <$< >$@
+
 CONFIG =\
 .ds RELEASE_DATE $(RELEASE_DATE_S)\n\
 .ds VERSION $(VERSION)\n\

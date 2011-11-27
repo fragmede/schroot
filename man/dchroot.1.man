@@ -17,7 +17,7 @@
 .\"
 .so config.man
 .ds PROGRAM dchroot
-.TH DCHROOT 1 "\*[RELEASE_DATE_S]" "Version \*[VERSION]" "Debian sbuild"
+.TH DCHROOT 1 "\*[RELEASE_DATE]" "Version \*[VERSION]" "Debian sbuild"
 .SH NAME
 dchroot \- enter a chroot environment
 .SH SYNOPSIS
@@ -133,14 +133,12 @@ The first chroot is also the default chroot.
 An example file:
 .PP
 .RS
-\f[CR]# Example comment\fP
-.br
-\f[CR]\fP
-.br
-\f[CR]sarge /srv/chroot/sarge\fP
-.br
-\f[CR]sid /srv/chroot/sid linux32\fP
-.br
+.EX
+# Example comment
+
+sarge /srv/chroot/sarge
+sid /srv/chroot/sid linux32
+.EE
 .RE
 .PP
 This file defines a chroot called \[oq]sarge\[cq], located at
@@ -197,8 +195,9 @@ Dump the dchroot configuration in schroot keyfile format to
 \fI\*[SCHROOT_CONF]\fP.
 .PP
 .RS
-\f[CR]# \f[CB]dchroot --config >> \*[SCHROOT_CONF]
-.br
+.EX
+# \f[CB]dchroot --config >> \*[SCHROOT_CONF]\fP\[CR]
+.EE
 .RE
 .PP
 .IP 2
@@ -272,46 +271,28 @@ No fallbacks should exist under any circumstances.
 Note that \fI\-\-debug=notice\fP will show the internal fallback list computed
 for the session.
 .SH EXAMPLES
-\f[CR]$ \f[CB]dchroot \-l\fP\fP
-.br
-\f[CR]Available chroots: sarge [default], sid\fP
-.br
-\f[CR]\fP
-.br
-\f[CR]$ \f[CB]dchroot \-p sid\fP\fP
-.br
-\f[CR]/srv/chroot/sid\fP
-.br
-\f[CR]\fP
-.br
-\f[CR]$ \f[CB]dchroot \-q \-c sid \-\- uname \-smr\fP\fP
-.br
-\f[CR]Linux 2.6.16.17 ppc\fP
-.br
-\f[CR]$ \f[CB]dchroot \-q \-c sid \-\- "uname \-smr"\fP\fP
-.br
-\f[CR]Linux 2.6.16.17 ppc\fP
-.br
-\f[CR]\fP
-.br
-\f[CR]$ \f[CB]dchroot -q -c sid "ls -1 / | tac | head -n 4"\fP\fP
-.br
-\f[CR]var\fP
-.br
-\f[CR]usr\fP
-.br
-\f[CR]tmp\fP
-.br
-\f[CR]sys\fP
-.br
-\f[CR]\fP
-.br
-\f[CR]$ \f[CB]dchroot \-c sid\fP\fP
-.br
-\f[CR]I: [sid chroot] Running login shell: \[lq]/bin/bash\[rq]\fP
-.br
-\f[CR]$ \fP
-.br
+.EX
+$ \f[CB]dchroot \-l\fP\[CR]
+Available chroots: sarge [default], sid
+
+$ \f[CB]dchroot \-p sid\fP\[CR]
+/srv/chroot/sid
+
+$ \f[CB]dchroot \-q \-c sid \-\- uname \-smr\fP\[CR]
+Linux 2.6.16.17 ppc
+$ \f[CB]dchroot \-q \-c sid \-\- "uname \-smr"\fP\[CR]
+Linux 2.6.16.17 ppc
+
+$ \f[CB]dchroot -q -c sid "ls -1 / | tac | head -n 4"\fP\[CR]
+var
+usr
+tmp
+sys
+
+$ \f[CB]dchroot \-c sid\fP\[CR]
+I: [sid chroot] Running login shell: \[lq]/bin/bash\[rq]
+$ 
+.EE
 .LP
 Use \fI\-\-\fP to allow options beginning with \[oq]\-\[cq] or \[oq]\-\-\[cq]
 in the command to run in the chroot.  This prevents them being interpreted as

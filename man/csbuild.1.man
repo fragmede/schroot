@@ -16,7 +16,7 @@
 .\"
 .so config.man
 .ds PROGRAM csbuild
-.TH CSBUILD 1 "\*[RELEASE_DATE_S]" "Version \*[VERSION]" "Debian sbuild"
+.TH CSBUILD 1 "\*[RELEASE_DATE]" "Version \*[VERSION]" "Debian sbuild"
 .SH NAME
 csbuild \- build debian packages from source
 .SH SYNOPSIS
@@ -132,14 +132,12 @@ The first chroot is also the default chroot.
 An example file:
 .PP
 .RS
-\f[CR]# Example comment\fP
-.br
-\f[CR]\fP
-.br
-\f[CR]sarge /srv/chroot/sarge\fP
-.br
-\f[CR]sid /srv/chroot/sid linux32\fP
-.br
+.EX
+# Example comment
+
+sarge /srv/chroot/sarge
+sid /srv/chroot/sid linux32
+.EE
 .RE
 .PP
 This file defines a chroot called \[oq]sarge\[cq], located at
@@ -196,8 +194,9 @@ Dump the csbuild configuration in schroot keyfile format to
 \fI\*[SCHROOT_CONF]\fP.
 .PP
 .RS
-\f[CR]# \f[CB]csbuild --config >> \*[SCHROOT_CONF]
-.br
+.EX
+# \f[CB]csbuild --config >> \*[SCHROOT_CONF]\fP\[CR]
+.EE
 .RE
 .PP
 .IP 2
@@ -209,46 +208,28 @@ configuration.  See
 Remove \fI\*[CSBUILD_CONF]\fP, so that csbuild will subsequently use
 \fI\*[SCHROOT_CONF]\fP for its configuration.
 .SH EXAMPLES
-\f[CR]$ \f[CB]csbuild \-l\fP\fP
-.br
-\f[CR]Available chroots: sarge [default], sid\fP
-.br
-\f[CR]\fP
-.br
-\f[CR]$ \f[CB]csbuild \-p sid\fP\fP
-.br
-\f[CR]/srv/chroot/sid\fP
-.br
-\f[CR]\fP
-.br
-\f[CR]$ \f[CB]csbuild \-q \-c sid \-\- uname \-smr\fP\fP
-.br
-\f[CR]Linux 2.6.16.17 ppc\fP
-.br
-\f[CR]$ \f[CB]csbuild \-q \-c sid \-\- "uname \-smr"\fP\fP
-.br
-\f[CR]Linux 2.6.16.17 ppc\fP
-.br
-\f[CR]\fP
-.br
-\f[CR]$ \f[CB]csbuild -q -c sid "ls -1 / | tac | head -n 4"\fP\fP
-.br
-\f[CR]var\fP
-.br
-\f[CR]usr\fP
-.br
-\f[CR]tmp\fP
-.br
-\f[CR]sys\fP
-.br
-\f[CR]\fP
-.br
-\f[CR]$ \f[CB]csbuild \-c sid\fP\fP
-.br
-\f[CR]I: [sid chroot] Running login shell: \[lq]/bin/bash\[rq]\fP
-.br
-\f[CR]$ \fP
-.br
+.EX
+$ \f[CB]csbuild \-l\fP\[CR]
+Available chroots: sarge [default], sid
+
+$ \f[CB]csbuild \-p sid\fP\[CR]
+/srv/chroot/sid
+
+$ \f[CB]csbuild \-q \-c sid \-\- uname \-smr\fP\[CR]
+Linux 2.6.16.17 ppc
+$ \f[CB]csbuild \-q \-c sid \-\- "uname \-smr"\fP\[CR]
+Linux 2.6.16.17 ppc
+
+$ \f[CB]csbuild -q -c sid "ls -1 / | tac | head -n 4"\fP\[CR]
+var
+usr
+tmp
+sys
+
+$ \f[CB]csbuild \-c sid\fP\[CR]
+I: [sid chroot] Running login shell: \[lq]/bin/bash\[rq]
+$
+.EE
 .LP
 Use \fI\-\-\fP to allow options beginning with \[oq]\-\[cq] or \[oq]\-\-\[cq]
 in the command to run in the chroot.  This prevents them being interpreted as
