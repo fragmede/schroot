@@ -73,11 +73,28 @@ namespace sbuild
 
     /**
      * Set the original name of the chroot (prior to session cloning).
+     * This will also set the selected name.
      *
      * @param name the name.
      */
     void
     set_original_name (std::string const& name);
+
+    /**
+     * Get the selected name of the chroot (alias used).
+     *
+     * @returns the name.
+     */
+    std::string const&
+    get_selected_name () const;
+
+    /**
+     * Set the selected name of the chroot (alias used).
+     *
+     * @param name the name.
+     */
+    void
+    set_selected_name (std::string const& name);
 
     virtual void
     setup_env (chroot const& chroot,
@@ -102,6 +119,8 @@ namespace sbuild
   private:
     /// Original chroot name prior to session cloning.
     std::string  original_chroot_name;
+    /// Selected chroot name.
+    std::string  selected_chroot_name;
   };
 
 }

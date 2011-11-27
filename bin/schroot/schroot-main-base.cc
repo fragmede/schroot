@@ -276,7 +276,12 @@ main_base::run_impl ()
     {
       sbuild::chroot::ptr c = this->config->find_alias("", *pos);
       if (c)
-	chroot_objects.push_back(c);
+	{
+	  sbuild::session::chroot_list::value_type e;
+	  e.alias = *pos;
+	  e.chroot = c;
+	  chroot_objects.push_back(e);
+	}
       else
 	throw error(*pos, CHROOT_NOTFOUND);
     }

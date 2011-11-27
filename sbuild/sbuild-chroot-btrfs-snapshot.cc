@@ -64,6 +64,7 @@ chroot_btrfs_snapshot::clone () const
 
 sbuild::chroot::ptr
 chroot_btrfs_snapshot::clone_session (std::string const& session_id,
+				      std::string const& alias,
 				      std::string const& user,
 				      bool               root) const
 {
@@ -72,7 +73,7 @@ chroot_btrfs_snapshot::clone_session (std::string const& session_id,
   assert(psess);
 
   ptr session(new chroot_btrfs_snapshot(*this));
-  psess->clone_session_setup(session, session_id, user, root);
+  psess->clone_session_setup(session, session_id, alias, user, root);
 
   return session;
 }

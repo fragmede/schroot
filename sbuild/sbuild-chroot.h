@@ -136,13 +136,15 @@ namespace sbuild
     /**
      * Create a session chroot.
      *
-     * @param name the identifier (session_id) for the new session.
+     * @param session_id the identifier (session_id) for the new session.
+     * @param alias used to initially identify the chroot.
      * @param user the user creating the session.
      * @param root true if the user has root access, otherwise false.
      * @returns a session chroot.
      */
     virtual chroot::ptr
-    clone_session (std::string const& name,
+    clone_session (std::string const& session_id,
+		   std::string const& alias,
 		   std::string const& user,
 		   bool               root) const = 0;
 

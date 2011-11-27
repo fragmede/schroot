@@ -46,8 +46,16 @@ namespace sbuild
   class session
   {
   public:
+    struct chroot_list_entry
+    {
+      /// Name used to initially identify the chroot.
+      std::string         alias;
+      /// Pointer to chroot object.
+      sbuild::chroot::ptr chroot;
+    };
+
     /// A list of chroots.
-    typedef std::vector<chroot::ptr> chroot_list;
+    typedef std::vector<chroot_list_entry> chroot_list;
 
     /// Session operations.
     enum operation

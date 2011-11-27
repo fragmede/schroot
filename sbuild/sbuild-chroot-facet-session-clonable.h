@@ -73,6 +73,7 @@ namespace sbuild
     virtual void
     clone_session_setup (chroot::ptr&       clone,
 			 std::string const& session_id,
+			 std::string const& alias,
 			 std::string const& user,
 			 bool               root) const;
 

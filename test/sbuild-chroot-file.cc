@@ -169,6 +169,7 @@ public:
     sbuild::environment expected;
     setup_env_gen(expected);
     expected.add("SESSION_ID",           "test-session-name");
+    expected.add("CHROOT_ALIAS",         "test-session-name");
     expected.add("CHROOT_DESCRIPTION",    chroot->get_description() + ' ' + _("(session chroot)"));
     expected.add("CHROOT_FILE_REPACK",    "false");
     expected.add("CHROOT_SESSION_CLONE",  "false");
@@ -217,6 +218,7 @@ public:
     setup_keyfile_session(expected, group);
     setup_keyfile_file(expected, group);
     expected.set_value(group, "name", "test-session-name");
+    expected.set_value(group, "selected-name", "test-session-name");
     expected.set_value(group, "file-repack", "false");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
     setup_keyfile_session_clone(expected, group);

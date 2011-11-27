@@ -81,6 +81,7 @@ public:
     if (psess)
       {
 	this->session = this->chroot->clone_session("test-session-name",
+						    "test-session-name",
 						    "user1",
 						    false);
 	if (this->session)
@@ -127,6 +128,7 @@ public:
 
 	this->session_union =
 	  this->chroot_union->clone_session("test-union-session-name",
+					    "test-union-session-name",
 					    "user1",
 					    false);
 	this->source_union = chroot_union->clone_source();

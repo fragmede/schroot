@@ -141,6 +141,7 @@ public:
     setup_env_gen(expected);
 
     expected.add("SESSION_ID",            "test-session-name");
+    expected.add("CHROOT_ALIAS",          "test-session-name");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(session chroot)"));
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
@@ -173,6 +174,7 @@ public:
     setup_env_gen(expected);
 
     expected.add("SESSION_ID",            "test-union-session-name");
+    expected.add("CHROOT_ALIAS",          "test-union-session-name");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(session chroot)"));
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
@@ -220,6 +222,7 @@ public:
     setup_keyfile_session(expected, group);
     expected.set_value(group, "type", "directory");
     expected.set_value(group, "name", "test-session-name");
+    expected.set_value(group, "selected-name", "test-session-name");
     expected.set_value(group, "directory", "/srv/chroot/example-chroot");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
     setup_keyfile_session_clone(expected, group);
@@ -235,6 +238,7 @@ public:
   {
     // Create session owned by user in root-users.
     this->session = this->chroot->clone_session("test-session-name",
+						"test-session-name",
 						"user3",
 						true);
     if (this->session)
@@ -249,6 +253,7 @@ public:
     expected.set_value(group, "root-users", "user3");
     expected.set_value(group, "type", "directory");
     expected.set_value(group, "name", "test-session-name");
+    expected.set_value(group, "selected-name", "test-session-name");
     expected.set_value(group, "directory", "/srv/chroot/example-chroot");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
     setup_keyfile_session_clone(expected, group);
@@ -280,6 +285,7 @@ public:
     setup_keyfile_session(expected, group);
     expected.set_value(group, "type", "directory");
     expected.set_value(group, "name", "test-union-session-name");
+    expected.set_value(group, "selected-name", "test-union-session-name");
     expected.set_value(group, "directory", "/srv/chroot/example-chroot");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
     setup_keyfile_session_clone(expected, group);

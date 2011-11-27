@@ -63,6 +63,7 @@ chroot_lvm_snapshot::clone () const
 
 sbuild::chroot::ptr
 chroot_lvm_snapshot::clone_session (std::string const& session_id,
+				    std::string const& alias,
 				    std::string const& user,
 				    bool               root) const
 {
@@ -71,7 +72,7 @@ chroot_lvm_snapshot::clone_session (std::string const& session_id,
   assert(psess);
 
   ptr session(new chroot_lvm_snapshot(*this));
-  psess->clone_session_setup(session, session_id, user, root);
+  psess->clone_session_setup(session, session_id, alias, user, root);
 
   return session;
 }

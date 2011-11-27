@@ -112,6 +112,13 @@ CHROOT_NAME
 The name of the chroot.  This is useful for restricting a setup task to a
 particular chroot, or set of chroots.
 .TP
+CHROOT_ALIAS
+The name of the alias used to select the chroot.  This is useful for
+specialising a setup task based upon one of its alternative alias names, or the
+default chroot name.  For example, it could be used to specify additional
+sources in \fI/etc/apt/sources.list\fP, such as a stable-security alias for a
+stable chroot, or an experimental alias for an unstable chroot.
+.TP
 CHROOT_DESCRIPTION
 The description of the chroot.
 .TP

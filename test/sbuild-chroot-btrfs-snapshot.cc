@@ -177,6 +177,7 @@ public:
     setup_env_gen(expected);
     expected.add("CHROOT_TYPE",           "btrfs-snapshot");
     expected.add("SESSION_ID",            "test-session-name");
+    expected.add("CHROOT_ALIAS",          "test-session-name");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(session chroot)"));
     expected.add("CHROOT_BTRFS_SOURCE_SUBVOLUME",       "/srv/chroot/sid");
     expected.add("CHROOT_BTRFS_SNAPSHOT_DIRECTORY", "/srv/chroot/snapshot");
@@ -231,6 +232,7 @@ public:
     setup_keyfile_btrfs(expected, group);
     expected.set_value(group, "type", "btrfs-snapshot");
     expected.set_value(group, "name", "test-session-name");
+    expected.set_value(group, "selected-name", "test-session-name");
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(session chroot)"));
     expected.set_value(group, "aliases", "");
     expected.set_value(group, "btrfs-snapshot-name", "/srv/chroot/snapshot/test-session-name");

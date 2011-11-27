@@ -739,7 +739,7 @@ chroot_config::load_keyfile (std::string const& chroot_namespace,
       if (chroot_namespace == "session" &&
 	  chroot->get_facet<chroot_facet_session_clonable>())
 	{
-	  chroot = chroot->clone_session("dummy-session-name", "", false);
+	  chroot = chroot->clone_session("dummy-session-name", "dummy-session-name", "", false);
 	  assert(chroot);
 	  chroot_facet_session::const_ptr psess
 	    (chroot->get_facet<chroot_facet_session>());

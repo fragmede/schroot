@@ -40,7 +40,8 @@ using namespace sbuild;
 
 chroot_facet_session::chroot_facet_session ():
   chroot_facet(),
-  original_chroot_name()
+  original_chroot_name(),
+  selected_chroot_name()
 {
 }
 
@@ -78,6 +79,19 @@ void
 chroot_facet_session::set_original_name (std::string const& name)
 {
   this->original_chroot_name = name;
+  this->selected_chroot_name = name;
+}
+
+std::string const&
+chroot_facet_session::get_selected_name () const
+{
+  return this->selected_chroot_name;
+}
+
+void
+chroot_facet_session::set_selected_name (std::string const& name)
+{
+  this->selected_chroot_name = name;
 }
 
 void
@@ -88,6 +102,9 @@ chroot_facet_session::setup_env (chroot const& chroot,
   // defaults to session ID).
   if (!get_original_name().empty())
     env.add("CHROOT_NAME", get_original_name());
+
+  if (!get_selected_name().empty())
+    env.add("CHROOT_ALIAS", get_selected_name());
 }
 
 sbuild::chroot::session_flags
@@ -102,6 +119,8 @@ chroot_facet_session::get_details (chroot const&  chroot,
 {
   if (!get_original_name().empty())
     detail.add(_("Original Chroot Name"), get_original_name());
+  if (!get_original_name().empty())
+    detail.add(_("Selected Chroot Name"), get_selected_name());
   if (!chroot.get_name().empty())
     detail.add(_("Session ID"), chroot.get_name());
 }
@@ -113,6 +132,10 @@ chroot_facet_session::get_keyfile (chroot const& chroot,
   keyfile::set_object_value(*this, &chroot_facet_session::get_original_name,
 			    keyfile, chroot.get_name(),
 			    "original-name");
+
+  keyfile::set_object_value(*this, &chroot_facet_session::get_selected_name,
+			    keyfile, chroot.get_name(),
+			    "selected-name");
 }
 
 void
@@ -163,4 +186,10 @@ chroot_facet_session::set_keyfile (chroot&        chroot,
 			    "original-name",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("original-name");
+
+  keyfile::get_object_value(*this, &chroot_facet_session::set_selected_name,
+			    keyfile, chroot.get_name(),
+			    "selected-name",
+			    keyfile::PRIORITY_OPTIONAL);
+  used_keys.push_back("selected-name");
 }

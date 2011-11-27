@@ -529,7 +529,8 @@ session::get_auth_status () const
        cur != this->chroots.end();
        ++cur)
     {
-      status = auth::change_auth(status, get_chroot_auth_status(status, *cur));
+      status = auth::change_auth(status,
+				 get_chroot_auth_status(status, cur->chroot));
     }
 
   return status;
@@ -609,17 +610,17 @@ session::run_impl ()
 	   ++cur)
 	{
 	  log_debug(DEBUG_NOTICE)
-	    << format("Running session in %1% chroot:") % *cur
+	    << format("Running session in %1% chroot:") % cur->alias
 	    << endl;
 
-	  const chroot::ptr ch = *cur;
+	  const chroot::ptr ch = cur->chroot;
 
 	  // TODO: Make chroot/session selection automatically fail
 	  // if no session exists earlier on when selecting chroots.
 	  if (ch->get_session_flags() & chroot::SESSION_CREATE &&
 	      (this->session_operation != OPERATION_AUTOMATIC &&
 	       this->session_operation != OPERATION_BEGIN))
-	      throw error(*cur, CHROOT_NOTFOUND);
+	      throw error(cur->alias, CHROOT_NOTFOUND);
 
 	  // For now, use a copy of the chroot; if we create a session
 	  // later, we will replace it.
@@ -655,6 +656,7 @@ session::run_impl ()
 				    in_groups, in_root_groups);
 
 	      chroot = ch->clone_session(new_session_id,
+					 cur->alias,
 					 this->authstat->get_ruser(),
 					 (in_root_users || in_root_groups));
 	      assert(chroot->get_facet<chroot_facet_session>());
@@ -1259,6 +1261,10 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
     env.add("SCHROOT_CHROOT_NAME", psess->get_original_name());
   else
     env.add("SCHROOT_CHROOT_NAME", session_chroot->get_name());
+  if (psess && psess->get_selected_name().length())
+    env.add("SCHROOT_ALIAS_NAME", psess->get_selected_name());
+  else
+    env.add("SCHROOT_ALIAS_NAME", session_chroot->get_name());
   env.add("SCHROOT_SESSION_ID", session_chroot->get_name());
 
   log_debug(DEBUG_INFO) << "Set environment:\n" << env;

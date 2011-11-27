@@ -161,6 +161,7 @@ public:
     sbuild::environment expected;
     setup_env_gen(expected);
     expected.add("SESSION_ID",            "test-session-name");
+    expected.add("CHROOT_ALIAS",          "test-session-name");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(session chroot)"));
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
@@ -190,6 +191,7 @@ public:
     sbuild::environment expected;
     setup_env_gen(expected);
     expected.add("SESSION_ID",            "test-union-session-name");
+    expected.add("CHROOT_ALIAS",          "test-union-session-name");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(session chroot)"));
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
@@ -243,6 +245,7 @@ public:
     setup_keyfile_session(expected, group);
     setup_keyfile_block(expected, group);
     expected.set_value(group, "name", "test-session-name");
+    expected.set_value(group, "selected-name", "test-session-name");
     expected.set_value(group, "mount-device", "/dev/testdev");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
     setup_keyfile_session_clone(expected, group);
@@ -273,6 +276,7 @@ public:
     setup_keyfile_session(expected, group);
     setup_keyfile_block(expected, group);
     expected.set_value(group, "name", "test-union-session-name");
+    expected.set_value(group, "selected-name", "test-union-session-name");
     expected.set_value(group, "mount-device", "/dev/testdev");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
     setup_keyfile_session_clone(expected, group);

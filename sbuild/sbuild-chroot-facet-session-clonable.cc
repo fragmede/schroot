@@ -74,6 +74,7 @@ chroot_facet_session_clonable::get_name () const
 void
 chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
 						    std::string const& session_id,
+						    std::string const& alias,
 						    std::string const& user,
 						    bool               root) const
 {
@@ -88,6 +89,7 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
   assert(psess);
 
   psess->set_original_name(clone->get_name());
+  psess->set_selected_name(alias);
   clone->set_name(session_id);
   assert(clone->get_name() == session_id);
   clone->set_description

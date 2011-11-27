@@ -612,7 +612,10 @@ variables are defined: HOME, LOGNAME, PATH, SHELL, TERM (preserved if already
 defined), and USER.  The environment variables SCHROOT_COMMAND, SCHROOT_USER,
 SCHROOT_GROUP, SCHROOT_UID and SCHROOT_GID are set inside the chroot specifying
 the command being run, the user name, group name, user ID and group ID,
-respectively.
+respectively.  Additionally, the environment variables SCHROOT_SESSION_ID,
+SCHROOT_CHROOT_NAME and SCHROOT_ALIAS_NAME specify the session ID, the original
+chroot name prior to session creation, and the alias used to originally
+identify the selected chroot, respectively.
 .PP
 The following, potentially dangerous, environment variables are removed for
 safety by default: BASH_ENV, CDPATH, ENV, HOSTALIASES, IFS, KRB5_CONFIG,
