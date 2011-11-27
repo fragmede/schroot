@@ -1,3 +1,4 @@
+.\" t
 .\" Copyright © 2005-2010  Roger Leigh <rleigh@debian.org>
 .\"
 .\" schroot is free software: you can redistribute it and/or modify it
@@ -181,6 +182,50 @@ configuration.  See
 .IP 3
 Remove \fI\*[DCHROOT_CONF]\fP, so that dchroot\-dsa will subsequently use
 \fI\*[SCHROOT_CONF]\fP for its configuration.
+.SH DIRECTORY FALLBACKS
+.PP
+dchroot\-dsa will select an appropriate directory to use within the chroot
+based upon whether the \fI\-\-directory\fP option is used.  When explicitly
+specifying a directory, only one directory will be used for safety and
+consistency, while for a login shell or command several possibilities may be
+tried.  Note that due to multiple fallbacks being considered for commands, it
+is dangerous to run commands using dchroot\-dsa; use schroot instead.  The
+following subsections list the fallback sequence for each case.  CWD is the
+current working directory, DIR is the directory specified with
+\fI\-\-directory\fP.
+.SS Login shell or command
+.TS
+box;
+l|lw(4i).
+Transition
+(Host \[->] Chroot)	Comment
+_
+CWD \[->] passwd pw_dir	T{
+Normal behaviour (if \-\-directory is not used)
+T}
+CWD \[->] /	T{
+If passwd pw_dir is nonexistent
+T}
+\fBFAIL\fP	T{
+If / is nonexistent
+T}
+.TE
+.SS \-\-directory used
+.TS
+box;
+l|lw(4i).
+Transition
+(Host \[->] Chroot)	Comment
+_
+CWD \[->] DIR	Normal behaviour
+\fBFAIL\fP	If DIR is nonexistent
+.TE
+.PP
+No fallbacks should exist under any circumstances.
+.SS Debugging
+.PP
+Note that \fI\-\-debug=notice\fP will show the internal fallback list computed
+for the session.
 .SH EXAMPLES
 \f[CR]$ \f[CB]dchroot\-dsa -l\fP\fP
 .br

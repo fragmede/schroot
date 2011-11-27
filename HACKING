@@ -71,51 +71,10 @@ tests which must be run by hand:
 
 Chdir fallback behaviour:
 
-  schroot [login shell]
-    CWD → CWD            Normal behaviour
-    CWD → $HOME          If CWD nonexistent and -p used
-    CWD → passwd pw_dir  If CWD nonexistent (or -p used and no $HOME exists)
-    CWD → /              None of the above exist
-    *FAIL*               If / nonexistent
-
-  schroot [command]
-    CWD → CWD            Normal behaviour
-    *FAIL*               If CWD nonexistent
-
-    No fallbacks should exist under any circumstances.
-
-  schroot [--directory used]
-    CWD → DIR            Normal behaviour
-    *FAIL*               If DIR nonexistent
-
-    No fallbacks should exist under any circumstances.
-
-  dchroot [login shell or command]
-    CWD → passwd pw_dir  Normal behaviour (not if -d used)
-    CWD → CWD            If -d used
-    CWD → /              If CWD nonexistent and -d used
-    *FAIL*               If / nonexistent
-
-  dchroot [--directory used]
-    CWD → DIR            Normal behaviour
-    *FAIL*               If DIR nonexistent
-
-    No fallbacks should exist under any circumstances.
-
-  dchroot-dsa [login shell or command]
-    CWD → passwd pw_dir  Normal behaviour
-    CWD → /              If no passwd_pw dir
-    *FAIL*               If / nonexistent
-
-  dchroot-dsa [--directory used]
-    CWD → DIR            Normal behaviour
-    *FAIL*               If DIR nonexistent
-
-    No fallbacks should exist under any circumstances.
+  Fallback behaviour has been documented in the manual pages.
 
   Note that --debug=notice will show the internal fallback list
   computed for the session.
-
 
 Setup script behaviour:
 

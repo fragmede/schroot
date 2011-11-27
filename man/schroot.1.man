@@ -1,3 +1,4 @@
+.\" t
 .\" Copyright © 2005-2010  Roger Leigh <rleigh@debian.org>
 .\" Copyright © 2006       Andreas Bombe <aeb@debian.org>
 .\"
@@ -299,6 +300,71 @@ installing the eatmydata package and then adding eatmydata to the
 operations.  Note that this should only be done in snapshot chroots where data
 loss is not an issue.  This is useful when using a chroot for package building,
 for example.
+.SH DIRECTORY FALLBACKS
+.PP
+schroot will select an appropriate directory to use within the chroot based
+upon whether an interactive login shell will be used, or a command invoked, and
+additionally if the \fI\-\-directory\fP option is used.  In the case of running
+commands directly, or explicitly specifying a directory, only one directory
+will be used for safety and consistency, while for a login shell several
+possibilities may be tried.  The following subsections list the fallback
+sequence for each case.  CWD is the current working directory, DIR is the
+directory specified with \fI\-\-directory\fP.
+.SS Login shell
+.TS
+box;
+l|lw(4i).
+Transition
+(Host \[->] Chroot)	Comment
+_
+CWD \[->] CWD	T{
+Normal behaviour (if \fI\-\-directory\fP is not used)
+T}
+CWD \[->] $HOME	T{
+If CWD is nonexistent and \-\-preserve\-environment is used
+T}
+CWD \[->] passwd pw_dir	T{
+If CWD is nonexistent (or \-\-preserve\-environment is used and no $HOME exists)
+T}
+CWD \[->] /	T{
+None of the above exist
+T}
+\fBFAIL\fP	T{
+If / is nonexistent
+T}
+.TE
+.SS Command
+.TS
+box;
+l|lw(4i).
+Transition
+(Host \[->] Chroot)	Comment
+_
+CWD \[->] CWD	T{
+Normal behaviour (if \fI\-\-directory\fP is not used)
+T}
+\fBFAIL\fP	T{
+If CWD is nonexistent
+T}
+.TE
+.PP
+No fallbacks should exist under any circumstances.
+.SS \-\-directory used
+.TS
+box;
+l|lw(4i).
+Transition
+(Host \[->] Chroot)	Comment
+_
+CWD \[->] DIR	Normal behaviour
+\fBFAIL\fP	If DIR is nonexistent
+.TE
+.PP
+No fallbacks should exist under any circumstances.
+.SS Debugging
+.PP
+Note that \fI\-\-debug=notice\fP will show the internal fallback list computed
+for the session.
 .SH EXAMPLES
 .SS List available chroots
 \f[CR]%\ \f[CB]schroot \-l\fP\fP\[CR]
