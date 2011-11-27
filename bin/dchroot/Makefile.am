@@ -23,7 +23,7 @@ include $(top_srcdir)/scripts/global.mk
 
 LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
 
-LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\"
+LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\" -DDCHROOT_CONF=\"$(DCHROOT_CONF)\"
 
 if BUILD_LIBDCHROOT
 noinst_LTLIBRARIES = libdchroot.la

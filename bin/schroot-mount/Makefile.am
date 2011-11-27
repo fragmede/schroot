@@ -21,8 +21,6 @@
 
 include $(top_srcdir)/scripts/global.mk
 
-pkglibexecdir = $(SCHROOT_LIBEXEC_DIR)
-
 LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
 
 LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\"

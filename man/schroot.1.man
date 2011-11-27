@@ -15,7 +15,8 @@
 .\" along with this program.  If not, see
 .\" <http://www.gnu.org/licenses/>.
 .\"
-.TH SCHROOT 1 "@RELEASE_DATE_S@" "Version @VERSION@" "Debian sbuild"
+.so config.man
+.TH SCHROOT 1 "\*[RELEASE_DATE_S]" "Version \*[VERSION]" "Debian sbuild"
 .SH NAME
 schroot \- securely enter a chroot environment
 .SH SYNOPSIS
@@ -402,7 +403,7 @@ the host system.
 \f[CR]# \fP
 .LP
 If the user \[oq]rleigh\[cq] was in \f[CI]root\-users\fP in
-\fI@SCHROOT_CONF@\fP, or one of the groups he belonged to was in
+\fI\*[SCHROOT_CONF]\fP, or one of the groups he belonged to was in
 \f[CI]root\-groups\fP, they would be granted root access without
 authentication, but the PAM authorisation step is still applied.
 .SS Sessions
@@ -628,19 +629,19 @@ for further details.
 .SH FILES
 .SS Configuration files
 .TP
-\f[BI]@SCHROOT_CONF@\fP
+\f[BI]\*[SCHROOT_CONF]\fP
 The system-wide chroot definition file.  This file must be owned by the root
 user, and not be writable by other.
 .TP
-\f[BI]@SCHROOT_CONF_CHROOT_D@\fP
+\f[BI]\*[SCHROOT_CONF_CHROOT_D]\fP
 Additional chroot definitions may be placed in files under this directory.
-They are treated in exactly that same manner as \fI@SCHROOT_CONF@\fP.  Each
+They are treated in exactly that same manner as \fI\*[SCHROOT_CONF]\fP.  Each
 file may contain one or more chroot definitions.  Note that the files in this
 directory follow the same naming rules as
 .BR run\-parts (8)
 when run with the \fI\-\-lsbsysinit\fP option.
 .TP
-\f[BI]@SCHROOT_CONF_SETUP_D@\fP
+\f[BI]\*[SCHROOT_CONF_SETUP_D]\fP
 The system-wide chroot setup script directories.  See
 .BR schroot-setup (5).
 .TP
@@ -648,35 +649,28 @@ The system-wide chroot setup script directories.  See
 PAM configuration.
 .SS System directories
 .TP
-\f[BI]@SCHROOT_LIBEXEC_DIR@\fP
+\f[BI]\*[SCHROOT_LIBEXEC_DIR]\fP
 Directory containing helper programs used by setup scripts.
 .SS Session directories
 Each directory contains a directory or file with the name of each session.  Not
 all chroot types make use of all the following directories.
 .TP
-\f[BI]@SCHROOT_SESSION_DIR@\fP
+\f[BI]\*[SCHROOT_SESSION_DIR]\fP
 Directory containing the session configuration for each active session.
 .TP
-\f[BI]@SCHROOT_MOUNT_DIR@\fP
+\f[BI]\*[SCHROOT_MOUNT_DIR]\fP
 Directory used to mount the filesystems used by each active session.
 .TP
-\f[BI]@SCHROOT_UNDERLAY_DIR@\fP
+\f[BI]\*[SCHROOT_UNDERLAY_DIR]\fP
 Directory used for filesystem union source (underlay).
 .TP
-\f[BI]@SCHROOT_OVERLAY_DIR@\fP
+\f[BI]\*[SCHROOT_OVERLAY_DIR]\fP
 Directory used for filesystem union writeable overlay.
 .TP
-\f[BI]@SCHROOT_FILE_UNPACK_DIR@\fP
+\f[BI]\*[SCHROOT_FILE_UNPACK_DIR]\fP
 Directory used for unpacking file chroots.
-.SH AUTHORS
-Roger Leigh.
-.SH COPYRIGHT
-Copyright \(co 2005\-2010  Roger Leigh \f[CR]<rleigh@debian.org>\fP
-.PP
-\fBschroot\fP is free software: you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.
+.so authors.man
+.so copyright.man
 .SH SEE ALSO
 .BR dchroot (1),
 .BR sbuild (1),
