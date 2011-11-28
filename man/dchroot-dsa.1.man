@@ -47,10 +47,8 @@ This version of dchroot\-dsa is a compatibility wrapper around the
 .BR schroot (1)
 program.  It is provided for backward compatibility with the dchroot\-dsa
 command-line options, but schroot is recommended for future use.  See the
-section \[lq]\fIMigration\fP\[rq] below for help migrating your existing
-dchroot\-dsa configuration to schroot.  See the section
-\[lq]\fIIncompatibilities\fP\[rq] below for known incompatibilities with older
-versions of dchroot\-dsa.
+section \[lq]\fIIncompatibilities\fP\[rq] below for known incompatibilities
+with older versions of dchroot\-dsa.
 .PP
 .SH OPTIONS
 \fBdchroot\-dsa\fP accepts the following options:
@@ -106,34 +104,14 @@ this option.
 .BR \-V ", " \-\-version
 Print version information.
 .SH CONFIGURATION
-The original \fBdchroot\-dsa\fP configuration file, \fI\*[DCHROOT_CONF]\fP, used
-by earlier versions of dchroot\-dsa, has the following format:
-.IP \[bu]
-\[oq]#\[cq] starts a comment line.
-.IP \[bu]
-Blank lines are ignored.
-.IP \[bu]
-Chroot definitions are a single line containing an \f[CBI]identifier\fP,
-\f[CBI]path\fP, and \f[CBI]users\fP, an optional user list separated by
-whitespace (space and tab), or a colon (\[oq]:\[cq]), semicolon (\[oq];\[cq]),
-or comma (\[oq],\[cq]).
-.PP
-An example file:
-.PP
-.RS
-.EX
-# Example comment
-\fP
-sarge /srv/chroot/sarge
-sid /srv/chroot/sid rleigh,fred
-.EE
-.RE
-.PP
-This file defines a chroot called \[oq]sarge\[cq], located at
-\fI/srv/chroot/sarge\fP, and a second chroot called \[oq]sid\[cq], located at
-\fI/srv/chroot/sid\fP.  The second chroot specifies that it may only be used by
-the users \[lq]rleigh\[rq] and \[lq]fred\[rq].
 .SH INCOMPATIBILITIES
+.SS Debian dchroot prior to version 1.5.1
+.IP \[bu]
+This version of dchroot\-dsa uses \fIschroot.conf\fP to store the configuration
+for available chroots, rather than the \fIdchroot.conf\fP file used
+historically.  dchroot\-dsa supported automatic migration of \fIdchroot.conf\fP
+to the \fIschroot.conf\fP keyfile format with its \fI\-\-config\fP option from
+versions 0.2.2 to 1.5.0; support for the old format is now no longer available.
 .SS DSA dchroot
 .IP \[bu]
 Log messages are worded and formatted differently.
@@ -153,34 +131,6 @@ of those options are supported or have equivalent options by a different name,
 the \fI\-c\fP option is required to specify a chroot.  It also allows a shell
 script to be used as the option instead of a single absolute path, and allows
 multiple command options instead of a single option.
-.IP \[bu]
-This version of dchroot has an incompatible format for \fIdchroot.conf\fP.
-While the first two fields are the same, the third field is a optional
-\f[CBI]personality\fP, instead of the \f[CI]users\fP user list permitted to
-access the chroot allowed by this version.  If personality support is needed,
-please use \fIschroot.conf\fP and add the allowed users there, as shown in
-\[lq]\fIMigration\fP\[rq] below.
-.SH MIGRATION
-To migrate an existing \fBdchroot\-dsa\fP configuration to \fBschroot\fP,
-perform the following steps:
-.IP 1
-Dump the dchroot\-dsa configuration in schroot keyfile format to
-\fI\*[SCHROOT_CONF]\fP.
-.PP
-.RS
-.EX
-# \f[CB]dchroot\-dsa --config >> \*[SCHROOT_CONF]\fP\[CR]
-.EE
-.RE
-.PP
-.IP 2
-Edit \fI\*[SCHROOT_CONF]\fP to add access to the users and/or groups which are to
-be allowed to access the chroots, and make any other desired changes to the
-configuration.  See
-.BR schroot.conf (5).
-.IP 3
-Remove \fI\*[DCHROOT_CONF]\fP, so that dchroot\-dsa will subsequently use
-\fI\*[SCHROOT_CONF]\fP for its configuration.
 .SH DIRECTORY FALLBACKS
 .PP
 dchroot\-dsa will select an appropriate directory to use within the chroot
@@ -261,20 +211,18 @@ list:
 .br
 <buildd-tools-devel@lists.alioth.debian.org>\fP
 .SH BUGS
-None known at this time.
+On the \fBmips\fP and \fBmipsel\fP architectures, Linux kernels up to and
+including at least version 2.6.17 have broken
+.BR personality (2)
+support, which results in a failure to set the personality.  This will be seen
+as an \[lq]Operation not permitted\[rq] (EPERM) error.  To work around this
+problem, set \f[CI]personality\fP to \[oq]undefined\[cq], or upgrade to a more
+recent kernel.
 .SH FILES
-.TP
-\f[BI]\*[DCHROOT_CONF]\fP
-The system-wide \fBdchroot\-dsa\fP chroot definition file.  This file must be
-owned by the root user, and not be writable by other.  If present, this file
-will be used in preference to \fI\*[SCHROOT_CONF]\fP.
 .TP
 \f[BI]\*[SCHROOT_CONF]\fP
 The system-wide \fBschroot\fP definition file.  This file must be owned by the
-root user, and not be writable by other.  It is recommended that this file be
-used in preference to \fI\*[DCHROOT_CONF]\fP, because the chroots can be used
-interchangeably with schroot, and the user and group security policies provided
-by schroot are also enforced.
+root user, and not be writable by other.
 .so authors.man
 .PP
 This implementation of dchroot\-dsa uses the same command-line options as
