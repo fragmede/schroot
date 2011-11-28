@@ -37,9 +37,6 @@ dist-hook:
 	  git log > $(distdir)/ChangeLog;	\
 	fi
 
-# Update POT and POs for manual pages
-	po4a --rm-backups man/po4a/po4a.cfg
-
 EXTRA_DIST =				\
 	bootstrap			\
 	debian				\

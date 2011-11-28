@@ -108,3 +108,10 @@ CONFIG =\
 config.man: Makefile
 	echo -e "$(CONFIG)" | sed -e 's/^[ ]//' > $@
 
+update-po:
+	$(PO4A) po4a/po4a.cfg
+
+dist-hook:
+# Update POT and POs for manual pages
+	$(PO4A) --rm-backups po4a/po4a.cfg
+
