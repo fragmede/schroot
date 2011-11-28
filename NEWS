@@ -20,6 +20,13 @@ configuration.
      environment.  These may be used to conditionally alter behaviour
      depending upon the chroot alias used.
 
+  4) dchroot and dchroot-dsa no longer use dchroot.conf.  Both
+     programs now always use schroot.conf, and additionally use the
+     same authentication mechanisms as schroot.  This is intended to
+     provide the same basic configuration for all tools, and to also
+     improve security by only having a single set of authentication
+     rules.
+
 * Major changes in 1.5.0:
 
   1) The deprecated options priority, run-setup-scripts and
