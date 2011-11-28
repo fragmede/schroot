@@ -50,12 +50,6 @@ namespace schroot
     virtual void
     action_list ();
 
-    /**
-     * Dump configuration file for chroots.
-     */
-    virtual void
-    action_config ();
-
   protected:
     virtual void
     create_session(sbuild::session::operation sess_op);

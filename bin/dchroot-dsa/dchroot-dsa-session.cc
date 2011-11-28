@@ -42,48 +42,13 @@ using namespace dchroot_dsa;
 
 session::session (std::string const&         service,
 		  operation                  operation,
-		  sbuild::session::chroot_list const& chroots,
-		  bool                       compat):
-  dchroot::session_base(service, operation, chroots, compat)
+		  sbuild::session::chroot_list const& chroots):
+  dchroot::session_base(service, operation, chroots)
 {
 }
 
 session::~session ()
 {
-}
-
-sbuild::auth::status
-session::get_chroot_auth_status (sbuild::auth::status status,
-				 sbuild::chroot::ptr const& chroot) const
-{
-  /* DSA dchroot checks for a valid user in the groups list, unless
-     the groups lists is empty in which case there are no
-     restrictions.  This only applies if not switching users (dchroot
-     does not support user switching) */
-
-  if (get_compat() == true)
-    {
-      sbuild::string_list const& users = chroot->get_users();
-      sbuild::string_list const& groups = chroot->get_groups();
-
-      if (get_auth()->get_ruid() == get_auth()->get_uid() &&
-	  users.empty() && groups.empty())
-	status = auth::change_auth(status, auth::STATUS_NONE);
-      else
-	status =
-	  auth::change_auth(status,
-			    sbuild::session::get_chroot_auth_status(status,
-								    chroot));
-    }
-  else // schroot compatibility
-    {
-      status =
-	auth::change_auth(status,
-			  sbuild::session::get_chroot_auth_status(status,
-								  chroot));
-    }
-
-  return status;
 }
 
 sbuild::string_list

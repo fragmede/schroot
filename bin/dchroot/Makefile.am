@@ -43,8 +43,6 @@ libdchroot_la_SOURCES =			\
 libdchroot_la_LIBADD = $(top_builddir)/bin/schroot/libschroot.la
 
 dchroot_SOURCES =			\
-	dchroot-chroot-config.h		\
-	dchroot-chroot-config.cc	\
 	dchroot-session.h		\
 	dchroot-session.cc		\
 	dchroot-options.h		\

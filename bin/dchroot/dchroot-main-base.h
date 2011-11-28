@@ -46,24 +46,11 @@ namespace dchroot
     virtual ~main_base ();
 
   protected:
-    /**
-     * Check dchroot.conf exists.  If it exists, and using verbose
-     * messages, print a warning about upgrading to schroot.conf.
-     */
-    void
-    check_dchroot_conf();
-
-    virtual void
-    compat_check ();
-
     virtual void
     action_config ();
 
     virtual void
     action_list ();
-
-    /// Use dchroot.conf as the configuration file.
-    bool use_dchroot_conf;
   };
 
 }

@@ -41,27 +41,13 @@ using namespace dchroot;
 
 session_base::session_base (std::string const&  service,
 			    operation           operation,
-			    sbuild::session::chroot_list const& chroots,
-			    bool                compat):
-  sbuild::session(service, operation, chroots),
-  compat(compat)
+			    sbuild::session::chroot_list const& chroots):
+  sbuild::session(service, operation, chroots)
 {
 }
 
 session_base::~session_base ()
 {
-}
-
-bool
-session_base::get_compat () const
-{
-  return this->compat;
-}
-
-void
-session_base::set_compat (bool state)
-{
-  this->compat = state;
 }
 
 void

@@ -45,9 +45,6 @@ namespace dchroot
 
   protected:
     virtual void
-    load_config();
-
-    virtual void
     action_location ();
 
     virtual void

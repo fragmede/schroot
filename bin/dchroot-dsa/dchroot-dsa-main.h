@@ -44,8 +44,6 @@ namespace dchroot_dsa
     virtual ~main ();
 
   protected:
-    virtual void
-    load_config();
 
     virtual void
     create_session (sbuild::session::operation sess_op);

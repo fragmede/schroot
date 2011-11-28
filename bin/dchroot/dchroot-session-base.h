@@ -41,32 +41,13 @@ namespace dchroot
      * @param service the PAM service name.
      * @param operation the session operation to perform.
      * @param chroots the chroots to act upon.
-     * @param compat true to enable full dchroot compatibility, or
-     * false to enable schroot compatiblity (permissions checks).
      */
     session_base (std::string const&         service,
 		  operation                  operation,
-		  sbuild::session::chroot_list const& chroots,
-		  bool                       compat);
+		  sbuild::session::chroot_list const& chroots);
 
     /// The destructor.
     virtual ~session_base ();
-
-    /**
-     * Get the dchroot compatibility state.
-     *
-     * @returns the state.
-     */
-    bool
-    get_compat () const;
-
-    /**
-     * Set the dchroot compatibility state.
-     *
-     * @param state the dchroot compatibility state.
-     */
-    void
-    set_compat (bool state);
 
   protected:
     virtual void
@@ -75,10 +56,6 @@ namespace dchroot
     virtual sbuild::string_list
     get_command_directories (sbuild::chroot::ptr&       session_chroot,
 			     sbuild::environment const& env) const;
-
-  private:
-    /// dchroot compatibility enabled?
-    bool compat;
   };
 
 }

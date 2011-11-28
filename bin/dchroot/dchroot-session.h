@@ -28,10 +28,9 @@ namespace dchroot
    * Session handler for dchroot sessions.
    *
    * This class provides the session handling for dchroot
-   * compatibility.  It overrides the normal authentication checks to
-   * allow all users to access the service, and it specialises the
-   * session behaviour to be compatible with the chdir and command
-   * execution behaviour of dchroot.
+   * compatibility.  It specialises the session behaviour to be
+   * compatible with the chdir and command execution behaviour of
+   * dchroot.
    */
   class session : public session_base
   {
@@ -42,20 +41,13 @@ namespace dchroot
      * @param service the PAM service name.
      * @param operation the session operation to perform.
      * @param chroots the chroots to act upon.
-     * @param compat true to enable full dchroot compatibility, or
-     * false to enable schroot compatiblity (permissions checks).
      */
     session (std::string const&                  service,
 	     operation                           operation,
-	     sbuild::session::chroot_list const& chroots,
-	     bool                                compat);
+	     sbuild::session::chroot_list const& chroots);
 
     /// The destructor.
     virtual ~session ();
-
-    virtual sbuild::auth::status
-    get_chroot_auth_status (sbuild::auth::status       status,
-			    sbuild::chroot::ptr const& chroot) const;
 
     virtual sbuild::string_list
     get_login_directories (sbuild::chroot::ptr&        session_chroot,

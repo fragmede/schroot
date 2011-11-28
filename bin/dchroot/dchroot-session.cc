@@ -42,28 +42,13 @@ using namespace dchroot;
 
 session::session (std::string const&                  service,
 		  operation                           operation,
-		  sbuild::session::chroot_list const& chroots,
-		  bool                                compat):
-  session_base(service, operation, chroots, compat)
+		  sbuild::session::chroot_list const& chroots):
+  session_base(service, operation, chroots)
 {
 }
 
 session::~session ()
 {
-}
-
-sbuild::auth::status
-session::get_chroot_auth_status (sbuild::auth::status status,
-				 sbuild::chroot::ptr const& chroot) const
-{
-  if (get_compat() == true)
-    status = auth::change_auth(status, auth::STATUS_NONE);
-  else
-    status = auth::change_auth(status,
-			       sbuild::session::get_chroot_auth_status(status,
-								       chroot));
-
-  return status;
 }
 
 sbuild::string_list

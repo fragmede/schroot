@@ -19,7 +19,6 @@
 #include <config.h>
 
 #include "dchroot-dsa-main.h"
-#include "dchroot-dsa-chroot-config.h"
 #include "dchroot-dsa-session.h"
 
 #include <cstdlib>
@@ -52,24 +51,6 @@ main::~main ()
 }
 
 void
-main::load_config ()
-{
-  check_dchroot_conf();
-
-  if (this->use_dchroot_conf)
-    {
-      this->config =
-	sbuild::chroot_config::ptr(new dchroot_dsa::chroot_config);
-      if (this->options->load_chroots == true)
-	this->config->add("chroot", DCHROOT_CONF);
-    }
-  else
-    {
-      schroot::main_base::load_config();
-    }
-}
-
-void
 main::create_session(sbuild::session::operation sess_op)
 {
   sbuild::log_debug(sbuild::DEBUG_INFO)
@@ -80,6 +61,5 @@ main::create_session(sbuild::session::operation sess_op)
   this->session = sbuild::session::ptr
     (new dchroot_dsa::session("schroot",
 			      sess_op,
-			      this->chroot_objects,
-			      this->use_dchroot_conf));
+			      this->chroot_objects));
 }

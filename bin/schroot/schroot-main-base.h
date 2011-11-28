@@ -92,7 +92,7 @@ namespace schroot
      * Dump configuration file for chroots.
      */
     virtual void
-    action_config () = 0;
+    action_config ();
 
   protected:
     /**
@@ -112,13 +112,6 @@ namespace schroot
      */
     virtual sbuild::string_list
     get_chroot_options ();
-
-    /**
-     * Check compatibility.  Does nothing, but derived classes may use
-     * it as they see fit.
-     */
-    virtual void
-    compat_check ();
 
     /**
      * Load configuration.

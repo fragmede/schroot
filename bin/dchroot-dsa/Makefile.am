@@ -32,8 +32,6 @@ endif
 bin_PROGRAMS = $(dchroot_dsa)
 
 dchroot_dsa_SOURCES =			\
-	dchroot-dsa-chroot-config.h	\
-	dchroot-dsa-chroot-config.cc	\
 	dchroot-dsa-session.h		\
 	dchroot-dsa-session.cc		\
 	dchroot-dsa-options.h		\
