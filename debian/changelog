@@ -12,12 +12,18 @@ schroot (1.5.1-1) experimental; urgency=low
     used (Closes: #635320).
   * Directory fallbacks are documented in the manual pages
     (Closes: #633671).
+  * dchroot and dchroot-dsa no longer use dchroot.conf.  Both
+    programs now always use schroot.conf, and additionally use the
+    same authentication mechanisms as schroot.  This is intended to
+    provide the same basic configuration for all tools, and to also
+    improve security by only having a single set of authentication
+    rules.
   * debian/control:
     - Use multiline fields.
     - Upgrade to Standards-Version 3.9.2 (no changes).
     - Build-Depend upon groff-base for soelim.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 27 Nov 2011 15:47:35 +0000
+ -- Roger Leigh <rleigh@debian.org>  Mon, 28 Nov 2011 21:57:37 +0000
 
 schroot (1.5.0-1) experimental; urgency=low
 
