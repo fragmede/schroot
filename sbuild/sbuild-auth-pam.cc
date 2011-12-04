@@ -20,6 +20,7 @@
 
 #include "sbuild-auth-pam.h"
 #include "sbuild-auth-pam-conv.h"
+#include "sbuild-feature.h"
 
 #include <cassert>
 #include <cerrno>
@@ -129,6 +130,8 @@ namespace
     return PAM_CONV_ERR;
   }
 
+  sbuild::feature feature_devlock("PAM",
+				  N_("Pluggable Authentication Modules"));
 }
 
 auth_pam::auth_pam (std::string const& service_name):

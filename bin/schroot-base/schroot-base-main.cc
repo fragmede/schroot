@@ -21,6 +21,7 @@
 #include <sbuild/sbuild-i18n.h>
 #include <sbuild/sbuild-log.h>
 #include <sbuild/sbuild-types.h>
+#include <sbuild/sbuild-feature.h>
 
 #include "schroot-base-main.h"
 
@@ -71,18 +72,7 @@ main::action_version (std::ostream& stream)
 	      "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
 	 << '\n'
 	 << _("Configured features:") << '\n';
-#ifdef SBUILD_FEATURE_DEVLOCK
-  stream << feature % "DEVLOCK" % _("Device locking");
-#endif
-#ifdef SBUILD_FEATURE_PAM
-  stream << feature % "PAM" % _("Pluggable Authentication Modules");
-#endif
-#ifdef SBUILD_FEATURE_PERSONALITY
-  stream << feature % "PERSONALITY" % _("Linux kernel Application Binary Interface switching");
-#endif
-#ifdef SBUILD_FEATURE_UNION
-  stream << feature % "UNION" % _("Support for filesystem unioning");
-#endif
+  sbuild::feature::print_features(stream);
   stream << std::flush;
 }
 

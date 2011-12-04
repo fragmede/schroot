@@ -23,6 +23,7 @@
 #include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-union.h"
 #include "sbuild-chroot-facet-source-clonable.h"
+#include "sbuild-feature.h"
 
 #include <cassert>
 
@@ -45,6 +46,8 @@ namespace
       emap(chroot_facet_union::UNION_OVERLAY_ABS,  N_("Union overlay must have an absolute path")),
       emap(chroot_facet_union::UNION_UNDERLAY_ABS, N_("Union underlay must have an absolute path"))
     };
+
+  sbuild::feature feature_union("UNION", N_("Support for filesystem unioning"));
 }
 
 template<>

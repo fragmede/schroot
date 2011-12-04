@@ -20,6 +20,7 @@
 
 #include "sbuild-config.h"
 #include "sbuild-personality.h"
+#include "sbuild-feature.h"
 
 #include <cstring>
 #include <cerrno>
@@ -82,6 +83,12 @@ namespace
       pmap("osf4", PER_OSF4),
 #endif // SBUILD_FEATURE_PERSONALITY && __linux__
     };
+
+#ifdef SBUILD_FEATURE_PERSONALITY
+  sbuild::feature feature_personality
+  ("PERSONALITY",
+   N_("Linux kernel Application Binary Interface switching"));
+#endif
 
 }
 

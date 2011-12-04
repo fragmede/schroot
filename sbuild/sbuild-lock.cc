@@ -20,6 +20,7 @@
 
 #include "sbuild-lock.h"
 #include "sbuild-log.h"
+#include "sbuild-feature.h"
 
 #include <cerrno>
 #include <cstdlib>
@@ -238,6 +239,11 @@ file_lock::unset_lock ()
 }
 
 #ifdef SBUILD_FEATURE_DEVLOCK
+
+namespace
+{
+  sbuild::feature feature_devlock("DEVLOCK", N_("Device locking"));
+}
 
 device_lock::device_lock (std::string const& device):
   lock(),
