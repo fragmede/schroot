@@ -123,4 +123,8 @@ namespace
 
 }
 
+#ifdef BOOST_IOSTREAMS_CLOSE_HANDLE_OLD
+fdstream sbuild::cctty(cttybuf_fd(), true);
+#else
 fdstream sbuild::cctty(cttybuf_fd(), boost::iostreams::close_handle);
+#endif

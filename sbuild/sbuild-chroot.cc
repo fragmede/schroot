@@ -514,7 +514,11 @@ sbuild::chroot::setup_session_info (bool start)
 
       // Create a stream from the file descriptor.  The fd will be
       // closed when the stream is destroyed.
+#ifdef BOOST_IOSTREAMS_CLOSE_HANDLE_OLD
+      fdostream output(fd, true);
+#else
       fdostream output(fd, boost::iostreams::close_handle);
+#endif
       output.imbue(std::locale::classic());
 
       file_lock lock(fd);

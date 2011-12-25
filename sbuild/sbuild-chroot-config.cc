@@ -677,7 +677,12 @@ chroot_config::load_data (std::string const& chroot_namespace,
 
   // Create a stream from the file descriptor.  The fd will be closed
   // when the stream is destroyed.
+
+#ifdef BOOST_IOSTREAMS_CLOSE_HANDLE_OLD
+  fdistream input(fd, true);
+#else
   fdistream input(fd, boost::iostreams::close_handle);
+#endif
   input.imbue(std::locale::classic());
 
   try

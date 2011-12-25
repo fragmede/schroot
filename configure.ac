@@ -714,6 +714,30 @@ AC_LINK_IFELSE(testprog,
 	        AC_MSG_FAILURE([libboost_iostreams (Boost C++ Libraries) is not installed, but is required by schroot])])])
 LIBS="${saved_LIBS}"
 
+AC_MSG_CHECKING([for boost::iostreams::file_descriptor_source in -lboost_iostreams])
+saved_LIBS="${LIBS}"
+LIBS="${saved_LIBS} -lboost_iostreams"
+define([testprog], [AC_LANG_PROGRAM([#include <boost/iostreams/device/file_descriptor.hpp>
+#include <boost/iostreams/stream.hpp>
+#include <unistd.h>],
+                                   [boost::iostreams::file_descriptor_sink dummy(STDOUT_FILENO, boost::iostreams::close_handle)])])
+AC_LINK_IFELSE(testprog,
+               [AC_MSG_RESULT([yes (Boost >= 1.44)])
+	       BOOST_IOSTREAMS_CLOSE_HANDLE="current"
+	        BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams"],
+[LIBS="${saved_LIBS} -lboost_iostreams-mt"
+ AC_LINK_IFELSE(testprog,
+               [AC_MSG_RESULT([yes (Boost >= 1.44)])
+	       BOOST_IOSTREAMS_CLOSE_HANDLE="current"
+	        BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams-mt"],
+               [AC_MSG_RESULT([yes (Boost < 1.44)])
+	       BOOST_IOSTREAMS_CLOSE_HANDLE="old"])])
+LIBS="${saved_LIBS}"
+AH_TEMPLATE(BOOST_IOSTREAMS_CLOSE_HANDLE_OLD, [Set if boost::iostreams::file_descriptor close_handle is not available])
+if test "$BOOST_IOSTREAMS_CLOSE_HANDLE" = "old"; then
+  AC_DEFINE(BOOST_IOSTREAMS_CLOSE_HANDLE_OLD, 1)
+fi
+
 AC_MSG_CHECKING([for boost::filesystem in -lboost_filesystem])
 saved_LIBS="${LIBS}"
 LIBS="${saved_LIBS} -lboost_filesystem -lboost_system"
