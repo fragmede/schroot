@@ -56,7 +56,7 @@ clean-local:
 	$(RM) -f profiles-stamp
 
 EXTRA_DIST =			\
-	$(pkgsysconf_DATA)	\
+	$(schroot_sysconf_DATA)	\
 	genprofile		\
 	profile-templates
 
