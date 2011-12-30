@@ -45,8 +45,8 @@ MAN_FILES = \
 
 EXPAND = \
 	config.man \
-	authors.man \
-	copyright.man
+	$(srcdir)/authors.man \
+	$(srcdir)/copyright.man
 
 man_MANS =			\
 	schroot.1		\
@@ -68,13 +68,13 @@ CLEANFILES = \
 	$(basename $(MAN_FILES))
 
 %.1: %.1.man $(EXPAND)
-	$(SOELIM) $< >$@
+	$(SOELIM) -I "$(srcdir)" $< >$@
 
 %.5: %.5.man $(EXPAND)
-	$(SOELIM) $< >$@
+	$(SOELIM) -I "$(srcdir)" $< >$@
 
 %.7: %.7.man $(EXPAND)
-	$(SOELIM) $< >$@
+	$(SOELIM) -I "$(srcdir)" $< >$@
 
 %.1.ps: %.1
 	groffer -Tps -man <$< >$@
