@@ -121,7 +121,7 @@ Replaces:
  buildd (<< 0.62.3-1),
  sbuild (<< 0.62.3-1)
 Enhances: sbuild
-Breaks: sbuild (<< 0.62.4-1)
+Breaks: sbuild (<< 0.62.6)
 Suggests: debootstrap, lvm2, btrfs-tools, aufs-modules | unionfs-modules
 Description: Execute commands in a chroot environment
  schroot allows users to execute commands or interactive shells in

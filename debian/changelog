@@ -22,8 +22,10 @@ schroot (1.5.1-1) experimental; urgency=low
     - Use multiline fields.
     - Upgrade to Standards-Version 3.9.2 (no changes).
     - Build-Depend upon groff-base for soelim.
+    - schroot Breaks sbuild << 0.62.6, which did not support namespaces
+      correctly.
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 28 Nov 2011 21:57:37 +0000
+ -- Roger Leigh <rleigh@debian.org>  Fri, 30 Dec 2011 11:59:40 +0000
 
 schroot (1.5.0-1) experimental; urgency=low
 
