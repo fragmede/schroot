@@ -3,8 +3,10 @@ schroot (1.5.2-1) experimental; urgency=low
   * New upstream development release.
   * Build with current Boost libraries (currently 1.46, will be
     1.48 soon).
+  * debian/control:
+    - Fix typo (debuggging, Closes: #653732).  Thanks to Vincent Blut.
 
- -- Roger Leigh <rleigh@debian.org>  Fri, 30 Dec 2011 15:56:37 +0000
+ -- Roger Leigh <rleigh@debian.org>  Fri, 30 Dec 2011 15:57:45 +0000
 
 schroot (1.5.1-1) experimental; urgency=low
 

@@ -76,7 +76,7 @@ Conflicts:
  schroot (<< ${binary:Version}), schroot (>> ${binary:Version}),
  dchroot (<< ${binary:Version}), dchroot (>>${binary:Version}),
  dchroot-dsa (<< ${binary:Version}), dchroot-dsa (>>${binary:Version})
-Description: schroot, dchroot and dchroot-dsa debuggging symbols
+Description: schroot, dchroot and dchroot-dsa debugging symbols
  sbuild provides facilities to manage and access chroots, as part of
  schroot.
  .
