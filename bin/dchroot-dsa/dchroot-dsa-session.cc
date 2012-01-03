@@ -103,7 +103,7 @@ session::get_user_command (sbuild::chroot::ptr&       session_chroot,
       std::string format_string;
       // TRANSLATORS: %1% = chroot name
       // TRANSLATORS: %2% = command
-      format_string = (_("[%1% chroot] Running command: \"%2%\""));
+      format_string = (_("[%1% chroot] Running command: “%2%”"));
 
       format fmt(format_string);
       fmt % session_chroot->get_name()

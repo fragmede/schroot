@@ -54,7 +54,7 @@ namespace
   emap init_errors[] =
     {
       // TRANSLATORS: %1% = file
-      emap(main::FIND,  N_("Failed to find '%1%'"))
+      emap(main::FIND,  N_("Failed to find ‘%1%’"))
     };
 
 }
@@ -69,7 +69,7 @@ main::main (options::ptr& options):
   schroot_base::main("schroot-listmounts",
 		     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 		     // and '-' is an em-dash.
-		     _("[OPTION...] - list mount points"),
+		     _("[OPTION…] — list mount points"),
 		     options,
 		     false),
   opts(options)

@@ -42,7 +42,7 @@ main::main (schroot::options_base::ptr& options):
   main_base("dchroot",
 	    // TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 	    // is an em-dash.
-	    _("[OPTION...] [COMMAND] - run command or shell in a chroot"),
+	    _("[OPTION…] [COMMAND] — run command or shell in a chroot"),
 	    options)
 {
 }

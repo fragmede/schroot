@@ -51,9 +51,9 @@ namespace
     {
       emap(auth::HOSTNAME,        N_("Failed to get hostname")),
       // TRANSLATORS: %1% = user name or user ID
-      emap(auth::USER,            N_("User '%1%' not found")),
+      emap(auth::USER,            N_("User ‘%1%’ not found")),
       // TRANSLATORS: %1% = group name or group ID
-      emap(auth::GROUP,           N_("Group '%1%' not found")),
+      emap(auth::GROUP,           N_("Group ‘%1%’ not found")),
       emap(auth::AUTHENTICATION,  N_("Authentication failed")),
       emap(auth::AUTHORISATION,   N_("Access not authorised")),
       emap(auth::PAM_DOUBLE_INIT, N_("PAM is already initialised")),

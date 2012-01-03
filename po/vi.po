@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.12-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2011-12-30 13:58+0000\n"
+"POT-Creation-Date: 2012-01-03 21:29+0000\n"
 "PO-Revision-Date: 2010-09-28 22:16+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -18,70 +18,70 @@ msgstr ""
 "X-Generator: LocFactoryEditor 1.8\n"
 
 #. TRANSLATORS: %1% = file
-#, boost-format
-msgid "Can't open file '%1%'"
+#, fuzzy, boost-format
+msgid "Can't open file ‘%1%’"
 msgstr "Không thể mở tập tin « %1% »"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Deprecated key '%4%' used"
+#, fuzzy, boost-format
+msgid "line %1%: Deprecated key ‘%4%’ used"
 msgstr "dòng %1%: dùng khoá bị phản đối « %4% »"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Deprecated key '%4%' used"
+#, fuzzy, boost-format
+msgid "Deprecated key ‘%4%’ used"
 msgstr "Dùng khoá bị phản đối « %4% »"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Disallowed key '%4%' used"
+#, fuzzy, boost-format
+msgid "line %1%: Disallowed key ‘%4%’ used"
 msgstr "dòng %1%: dùng khoá bị cấm « %4% »"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Disallowed key '%4%' used"
+#, fuzzy, boost-format
+msgid "Disallowed key ‘%4%’ used"
 msgstr "Dùng khoá bị cấm « %4% »"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Duplicate key '%4%'"
+#, fuzzy, boost-format
+msgid "line %1%: Duplicate key ‘%4%’"
 msgstr "dòng %1%: khoá trùng « %4% »"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = line contents as read from the configuration file
-#, boost-format
-msgid "line %1%: Invalid line: \"%4%\""
+#, fuzzy, boost-format
+msgid "line %1%: Invalid line: “%4%”"
 msgstr "dòng %1%: dòng không hợp lệ: « %4% »"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Required key '%4%' is missing"
+#, fuzzy, boost-format
+msgid "line %1%: Required key ‘%4%’ is missing"
 msgstr "dòng %1%: thiếu khoá cần thiết « %4% »"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Required key '%4%' is missing"
+#, fuzzy, boost-format
+msgid "Required key ‘%4%’ is missing"
 msgstr "Thiếu khoá cần thiết « %4% »"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = line contents as read from the configuration file
-#, boost-format
-msgid "line %1%: No key specified: \"%4%\""
+#, fuzzy, boost-format
+msgid "line %1%: No key specified: “%4%”"
 msgstr "dòng %1%: chưa xác định khoá: « %4% »"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Obsolete key '%4%' used"
+#, fuzzy, boost-format
+msgid "line %1%: Obsolete key ‘%4%’ used"
 msgstr "dòng %1%: dùng khoá cũ « %4% »"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Obsolete key '%4%' used"
+#, fuzzy, boost-format
+msgid "Obsolete key ‘%4%’ used"
 msgstr "Dùng khoá cũ « %4% »"
 
 #. TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
@@ -119,7 +119,8 @@ msgstr "Lỗi lấy trạng thái về thiết bị"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-msgid "[OPTION...] - build Debian packages from source"
+#, fuzzy
+msgid "[OPTION…] — build Debian packages from source"
 msgstr "[TÙY_CHỌN...] — xây dựng các gói Debian từ mã nguồn"
 
 msgid "Build options"
@@ -238,7 +239,8 @@ msgstr "--binNMU còn thiếu"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
-msgid "[OPTION...] chroot [COMMAND] - run command or shell in a chroot"
+#, fuzzy
+msgid "[OPTION…] chroot [COMMAND] — run command or shell in a chroot"
 msgstr "[TÙY_CHỌN...] chroot [LỆNH] — chạy lệnh hay trình bao trong một chroot"
 
 msgid "Print paths to available chroots"
@@ -261,8 +263,8 @@ msgstr "Chưa xác định chroot"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
-#, boost-format
-msgid "[%1% chroot] Running command: \"%2%\""
+#, fuzzy, boost-format
+msgid "[%1% chroot] Running command: “%2%”"
 msgstr "[%1% chroot] Đang chạy lệnh: « %2% »"
 
 #. TRANSLATORS: %1% = program name
@@ -274,7 +276,8 @@ msgstr "Cấu hình schroot do %1% %2% tạo ra vào %3%"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
-msgid "[OPTION...] [COMMAND] - run command or shell in a chroot"
+#, fuzzy
+msgid "[OPTION…] [COMMAND] — run command or shell in a chroot"
 msgstr "[TÙY_CHỌN...] [LỆNH] — chạy lệnh hoặc trình bao trong một chroot"
 
 msgid "Print path to selected chroot"
@@ -312,7 +315,8 @@ msgid "Written by Roger Leigh"
 msgstr "Tác giả: Roger Leigh"
 
 #. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
-msgid "Copyright (C) 2004-2011 Roger Leigh"
+#, fuzzy
+msgid "Copyright © 2004–2011 Roger Leigh"
 msgstr "Tác quyền © năm 2004–2011 của Roger Leigh"
 
 msgid ""
@@ -330,8 +334,8 @@ msgid "Usage:"
 msgstr "Sử dụng:"
 
 #. TRANSLATORS: %1% = program name
-#, boost-format
-msgid "Run \"%1% --help\" to list usage example and all available options"
+#, fuzzy, boost-format
+msgid "Run “%1% --help” to list usage example and all available options"
 msgstr ""
 "Hãy chạy lệnh « %1% --help » để liệt kê thí dụ sử dụng và các tùy chọn sẵn "
 "sàng"
@@ -371,13 +375,14 @@ msgid "Invalid debug level"
 msgstr "Cấp gỡ lỗi không hợp lệ"
 
 #. TRANSLATORS: %1% = file
-#, boost-format
-msgid "Failed to find '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to find ‘%1%’"
 msgstr "Không tìm thấy « %1% »"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-msgid "[OPTION...] - list mount points"
+#, fuzzy
+msgid "[OPTION…] — list mount points"
 msgstr "[TÙY_CHỌN...] — liệt kê các điểm lắp"
 
 msgid "Mount"
@@ -396,13 +401,15 @@ msgid "Wait for child failed"
 msgstr "Lỗi đợi tiến trình con"
 
 #. TRANSLATORS: %1% = command name
-#, boost-format
-msgid "Failed to execute '%1%'"
+#. TRANSLATORS: %1% = command
+#, fuzzy, boost-format
+msgid "Failed to execute “%1%”"
 msgstr "Lỗi thực hiện « %1% »"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-msgid "[OPTION...] - mount filesystems"
+#, fuzzy
+msgid "[OPTION…] — mount filesystems"
 msgstr "[TÙY_CHỌN...] — lắp hệ thống tập tin"
 
 msgid "An unknown exception occurred"
@@ -416,7 +423,8 @@ msgstr "Tập tin fstab cần đọc (đường dẫn đầy đủ)"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-msgid "[OPTION...] - release a device lock"
+#, fuzzy
+msgid "[OPTION…] — release a device lock"
 msgstr "TÙY_CHỌN...] — nhả khoá thiết bị"
 
 msgid "No PID specified; forcing release of lock"
@@ -440,19 +448,19 @@ msgid "%1%: Chroots not found"
 msgstr "%1%: không tìm thấy chroot"
 
 #. TRANSLATORS: %4% = file
-#, boost-format
-msgid "No chroots are defined in '%4%'"
+#, fuzzy, boost-format
+msgid "No chroots are defined in ‘%4%’"
 msgstr "Chưa định nghĩa chroot trong « %4% »"
 
 #. TRANSLATORS: %4% = file
 #. TRANSLATORS: %5% = file
-#, boost-format
-msgid "No chroots are defined in '%4%' or '%5%'"
+#, fuzzy, boost-format
+msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
 msgstr "Chưa định nghĩa chroot trong « %4% » hay trong « %5% »"
 
 #. TRANSLATORS: %1% = file
-#, boost-format
-msgid "The specified chroots are not defined in '%1%'"
+#, fuzzy, boost-format
+msgid "The specified chroots are not defined in ‘%1%’"
 msgstr "Những chroot được ghi rõ chưa được định nghĩa trong « %1% »"
 
 #. TRANSLATORS: %1% = chroot name
@@ -467,25 +475,32 @@ msgstr "%1%: tên buổi hợp không hợp lệ"
 msgid "Available chroot types:"
 msgstr "Kiểu chroot sẵn sàng:"
 
-msgid "Support for 'block-device' chroots"
+#, fuzzy
+msgid "Support for ‘block-device’ chroots"
 msgstr "Hỗ trợ chroot kiểu thiết bị khối"
 
-msgid "Support for 'btrfs-snapshot' chroots"
+#, fuzzy
+msgid "Support for ‘btrfs-snapshot’ chroots"
 msgstr "Hỗ trợ chroot kiểu « btrfs-snapshot »"
 
-msgid "Support for 'directory' chroots"
+#, fuzzy
+msgid "Support for ‘directory’ chroots"
 msgstr "Hỗ trợ chroot kiểu thư mục"
 
-msgid "Support for 'file' chroots"
+#, fuzzy
+msgid "Support for ‘file’ chroots"
 msgstr "Hỗ trợ chroot kiểu tập tin"
 
-msgid "Support for 'loopback' chroots"
+#, fuzzy
+msgid "Support for ‘loopback’ chroots"
 msgstr "Hỗ trợ chroot kiểu mạch nội bộ"
 
-msgid "Support for 'lvm-snapshot' chroots"
+#, fuzzy
+msgid "Support for ‘lvm-snapshot’ chroots"
 msgstr "Hỗ trợ chroot kiểu « lvm-snapshot »"
 
-msgid "Support for 'plain' chroots"
+#, fuzzy
+msgid "Support for ‘plain’ chroots"
 msgstr "Hỗ trợ chroot kiểu giản dị"
 
 msgid "Chroot selection"
@@ -575,14 +590,14 @@ msgid "Failed to get hostname"
 msgstr "Lỗi lấy tên máy"
 
 #. TRANSLATORS: %1% = user name or user ID
-#, boost-format
-msgid "User '%1%' not found"
+#, fuzzy, boost-format
+msgid "User ‘%1%’ not found"
 msgstr "Không tìm thấy người dùng « %1% »"
 
 #. TRANSLATORS: %1% = group name or group ID
 #. TRANSLATORS: %1% = group name
-#, boost-format
-msgid "Group '%1%' not found"
+#, fuzzy, boost-format
+msgid "Group ‘%1%’ not found"
 msgstr "Không tìm thấy nhóm « %1% »"
 
 msgid "Authentication failed"
@@ -640,15 +655,16 @@ msgid "Timed out"
 msgstr "Quá hạn"
 
 #. TRANSLATORS: Please use an ellipsis e.g. U+2026
-msgid "Time is running out..."
+#, fuzzy
+msgid "Time is running out…"
 msgstr "Gần hết thời gian..."
 
 msgid "Failed to get terminal settings"
 msgstr "Lỗi lấy thiết lập thiết bị cuối"
 
 #. TRANSLATORS: %1% = integer
-#, boost-format
-msgid "Unsupported conversation type '%1%'"
+#, fuzzy, boost-format
+msgid "Unsupported conversation type ‘%1%’"
 msgstr "Kiểu cuộc đối thoại không được hỗ trợ « %1% »"
 
 msgid "This option may be present in a newer version"
@@ -678,8 +694,8 @@ msgid "Device name not set"
 msgstr "Chưa đặt tên thiết bị"
 
 #. TRANSLATORS: %1% = chroot type name
-#, boost-format
-msgid "Unknown chroot type '%1%'"
+#, fuzzy, boost-format
+msgid "Unknown chroot type ‘%1%’"
 msgstr "Không rõ kiểu chroot « %1% »"
 
 msgid "Device must have an absolute path"
@@ -734,15 +750,15 @@ msgstr "Lỗi ghi tập tin phiên chạy"
 msgid "Message verbosity is invalid"
 msgstr "Thông điệp có mức chi tiết không hợp lệ"
 
-#, boost-format
-msgid "Namespace separator '%1%' may not be used in a chroot name"
+#, fuzzy, boost-format
+msgid "Namespace separator ‘%1%’ may not be used in a chroot name"
 msgstr "Không cho phép dùng dấu tách miền tên « %1% » trong một tên chroot"
 
 msgid "Naming restrictions are documented in schroot.conf(5)"
 msgstr ""
 
-#, boost-format
-msgid "Namespace separator '%1%' may not be used in an alias name"
+#, fuzzy, boost-format
+msgid "Namespace separator ‘%1%’ may not be used in an alias name"
 msgstr "Không cho phép dùng dấu tách miền tên « %1% » trong một tên bí danh"
 
 msgid "Name"
@@ -814,16 +830,16 @@ msgstr "Nguồn"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
-#, boost-format
-msgid "Alias '%1%' already associated with '%4%' chroot"
+#, fuzzy, boost-format
+msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
 msgstr "Bí danh « %1% » đã tương ứng với chroot « %4% »"
 
 msgid "No such chroot"
 msgstr "Không có chroot như vậy"
 
 #. TRANSLATORS: %1% = chroot name
-#, boost-format
-msgid "A chroot or alias '%1%' already exists with this name"
+#, fuzzy, boost-format
+msgid "A chroot or alias ‘%1%’ already exists with this name"
 msgstr "Một chroot hay bí danh « %1% » đã có tên này"
 
 msgid "Failed to open file"
@@ -885,8 +901,8 @@ msgid "Source Root Groups"
 msgstr "Nhóm chủ nguồn"
 
 #. TRANSLATORS: %1% = chroot fs type
-#, boost-format
-msgid "Unknown filesystem union type '%1%'"
+#, fuzzy, boost-format
+msgid "Unknown filesystem union type ‘%1%’"
 msgstr "Không rõ kiểu hợp hệ thống tập tin « %1% »"
 
 msgid "Union overlay must have an absolute path"
@@ -938,55 +954,55 @@ msgstr "sai"
 #. TRANSLATORS: %1% = title of section
 #. TRANSLATORS: Please format the --- as a continuous line, e.g. U+2500
 #, boost-format
-msgid "--- %1% ---"
-msgstr "━━━ %1% ━━━"
+msgid "─── %1% ───"
+msgstr ""
 
-#, boost-format
-msgid "line %1% [%2%]: Deprecated key '%4%' used"
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Deprecated key ‘%4%’ used"
 msgstr "dòng %1% [%2%]: dùng khoá bị phản đối « %4% »"
 
-#, boost-format
-msgid "[%1%]: Deprecated key '%4%' used"
+#, fuzzy, boost-format
+msgid "[%1%]: Deprecated key ‘%4%’ used"
 msgstr "[%1%]: dùng khoá bị phản đối « %4% »"
 
-#, boost-format
-msgid "line %1% [%2%]: Disallowed key '%4%' used"
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Disallowed key ‘%4%’ used"
 msgstr "dòng %1% [%2%]: dùng khoá bị cấm « %4% »"
 
-#, boost-format
-msgid "[%1%]: Disallowed key '%4%' used"
+#, fuzzy, boost-format
+msgid "[%1%]: Disallowed key ‘%4%’ used"
 msgstr "[%1%]: dùng khoá bị cấm « %4% »"
 
-#, boost-format
-msgid "line %1%: Duplicate group '%4%'"
+#, fuzzy, boost-format
+msgid "line %1%: Duplicate group ‘%4%’"
 msgstr "dòng %1%: nhóm trùng « %4% »"
 
-#, boost-format
-msgid "line %1% [%2%]: Duplicate key '%4%'"
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Duplicate key ‘%4%’"
 msgstr "dòng %1% [%2%]: khoá trùng « %4% »"
 
-#, boost-format
-msgid "line %1%: Invalid group: \"%4%\""
+#, fuzzy, boost-format
+msgid "line %1%: Invalid group: “%4%”"
 msgstr "dòng %1%: nhóm không hợp lệ: « %4% »"
 
-#, boost-format
-msgid "line %1% [%2%]: Required key '%4%' is missing"
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Required key ‘%4%’ is missing"
 msgstr "dòng %1% [%2%]: khoá cần thiết « %4% » còn thiếu"
 
-#, boost-format
-msgid "[%1%]: Required key '%4%' is missing"
+#, fuzzy, boost-format
+msgid "[%1%]: Required key ‘%4%’ is missing"
 msgstr "[%1%]: khoá cần thiết « %4% » còn thiếu"
 
-#, boost-format
-msgid "line %1%: No group specified: \"%4%\""
+#, fuzzy, boost-format
+msgid "line %1%: No group specified: “%4%”"
 msgstr "dòng %1%: chưa xác định nhóm: « %4% »"
 
-#, boost-format
-msgid "line %1% [%2%]: Obsolete key '%4%' used"
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Obsolete key ‘%4%’ used"
 msgstr "dòng %1% [%2%]: dùng khoá cũ « %4% »"
 
-#, boost-format
-msgid "[%1%]: Obsolete key '%4%' used"
+#, fuzzy, boost-format
+msgid "[%1%]: Obsolete key ‘%4%’ used"
 msgstr "[%1%]: dùng khoá cũ « %4% »"
 
 #, boost-format
@@ -1005,8 +1021,8 @@ msgstr "dòng %1% [%2%]: %4%"
 msgid "line %1% [%2%] %3%: %4%"
 msgstr "dòng %1% [%2%] %3%: %4%"
 
-#, boost-format
-msgid "line %1% [%2%]: Unknown key '%4%' used"
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Unknown key ‘%4%’ used"
 msgstr "dòng %1% [%2%]: dùng khoá không rõ « %4% »"
 
 msgid "Failed to set timeout handler"
@@ -1073,31 +1089,31 @@ msgid "D(%1%): "
 msgstr "G(%1%): "
 
 #. TRANSLATORS: %1% = mount file name
-#, boost-format
-msgid "Failed to open mount file '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to open mount file ‘%1%’"
 msgstr "Lỗi mở tập tin lắp « %1% »"
 
 #. TRANSLATORS: %1% = mount file name
-#, boost-format
-msgid "Failed to read mount file '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to read mount file ‘%1%’"
 msgstr "Lỗi đọc tập tin lắp « %1% »"
 
 msgid "unknown"
 msgstr "không rõ"
 
 #. TRANSLATORS: %1% = value (arbitrary text)
-#, boost-format
-msgid "Could not parse value '%1%'"
+#, fuzzy, boost-format
+msgid "Could not parse value ‘%1%’"
 msgstr "Không thể phân tích giá trị « %1% »"
 
 #. TRANSLATORS: %1% = integer personality ID
-#, boost-format
-msgid "Personality '%1%' is unknown"
+#, fuzzy, boost-format
+msgid "Personality ‘%1%’ is unknown"
 msgstr "Không rõ cá tính « %1% »"
 
 #. TRANSLATORS: %1% = personality name
-#, boost-format
-msgid "Failed to set personality '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to set personality ‘%1%’"
 msgstr "Lỗi đặt cá tính « %1% »"
 
 msgid "Linux kernel Application Binary Interface switching"
@@ -1121,18 +1137,18 @@ msgid "Failed to read file descriptor"
 msgstr "Lỗi đọc bộ mô tả tập tin"
 
 #. TRANSLATORS: %1% = command
-#, boost-format
-msgid "Executing '%1%'"
+#, fuzzy, boost-format
+msgid "Executing ‘%1%’"
 msgstr "Đang thực hiện « %1% »..."
 
 #. TRANSLATORS: %1% = directory
-#, boost-format
-msgid "Failed to change to directory '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to change to directory ‘%1%’"
 msgstr "Lỗi chuyển đổi sang thư mục « %1% »"
 
 #. TRANSLATORS: %4% = directory
-#, boost-format
-msgid "Falling back to directory '%4%'"
+#, fuzzy, boost-format
+msgid "Falling back to directory ‘%4%’"
 msgstr "Đang dự trữ về thư mục « %4% »"
 
 msgid "Child dumped core"
@@ -1144,18 +1160,18 @@ msgstr ""
 "hay sự đổ lõi)"
 
 #. TRANSLATORS: %4% = signal name
-#, boost-format
-msgid "Child terminated by signal '%4%'"
+#, fuzzy, boost-format
+msgid "Child terminated by signal ‘%4%’"
 msgstr "Tiến trình con bị chấm dứt do tín hiệu « %4% »"
 
 #. TRANSLATORS: %1% = directory
-#, boost-format
-msgid "Failed to change root to directory '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to change root to directory ‘%1%’"
 msgstr "Lỗi thay đổi gốc tới thư mục « %1% »"
 
 #. TRANSLATORS: %1% = chroot name
-#, boost-format
-msgid "No chroot found matching name or alias '%1%'"
+#, fuzzy, boost-format
+msgid "No chroot found matching name or alias ‘%1%’"
 msgstr "Không tìm thấy chroot tương ứng với tên hay bí danh « %1% »"
 
 msgid "Failed to lock chroot"
@@ -1169,14 +1185,9 @@ msgid "Failed to unlock chroot"
 msgstr "Lỗi mở khoá chroot"
 
 #. TRANSLATORS: %1% = command
-#, boost-format
-msgid "Command \"%1%\" must have an absolute path"
+#, fuzzy, boost-format
+msgid "Command “%1%” must have an absolute path"
 msgstr "Lệnh « %1% » phải có đường dẫn tuyệt đối"
-
-#. TRANSLATORS: %1% = command
-#, boost-format
-msgid "Failed to execute \"%1%\""
-msgstr "Lỗi thực hiện « %1% »"
 
 #. TRANSLATORS: A supplementary group is the list of additional
 #. system groups a user belongs to, in addition to their default
@@ -1191,8 +1202,8 @@ msgid "Failed to get supplementary group count"
 msgstr "Lỗi lấy số đếm nhóm bổ sung"
 
 #. TRANSLATORS: %1% = integer group ID
-#, boost-format
-msgid "Failed to set group '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to set group ‘%1%’"
 msgstr "Lỗi đặt nhóm « %1% »"
 
 msgid "Failed to set supplementary groups"
@@ -1203,43 +1214,43 @@ msgstr "Lỗi bỏ ra quyền chủ"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = session identifier
-#, boost-format
+#, fuzzy, boost-format
 msgid ""
-"%1%: Chroot does not support setting a session ID; ignoring session ID '%4%'"
+"%1%: Chroot does not support setting a session ID; ignoring session ID ‘%4%’"
 msgstr ""
 "%1%: Chroot không hỗ trợ chức năng đặt mã số phiên chạy (Session ID) nên bỏ "
 "qua mã số phiên chạy « %4% »"
 
 #. TRANSLATORS: %1% = command
-#, boost-format
-msgid "Shell '%1%' not available"
+#, fuzzy, boost-format
+msgid "Shell ‘%1%’ not available"
 msgstr "Trình bao « %1% » không sẵn sàng"
 
 #. TRANSLATORS: %4% = command
-#, boost-format
-msgid "Falling back to shell '%4%'"
+#, fuzzy, boost-format
+msgid "Falling back to shell ‘%4%’"
 msgstr "Đang dự trữ về trình bao « %4% »"
 
 #. TRANSLATORS: %4% = signal name
-#, boost-format
-msgid "Caught signal '%4%'"
+#, fuzzy, boost-format
+msgid "Caught signal ‘%4%’"
 msgstr "Mới bắt tín hiệu « %4% »"
 
 #. TRANSLATORS: %4% = signal name
-#, boost-format
-msgid "Failed to set signal handler '%4%'"
+#, fuzzy, boost-format
+msgid "Failed to set signal handler ‘%4%’"
 msgstr "Lỗi đặt bộ quản lý tín hiệu « %4% »"
 
 #. TRANSLATORS: %1% = integer user ID
-#, boost-format
-msgid "Failed to set user '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to set user ‘%1%’"
 msgstr "Lỗi đặt người dùng « %1% »"
 
 #. TRANSLATORS: %1% = user name
 #. TRANSLATORS: %2% = user name
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, boost-format
-msgid "(%1%->%2%): User switching is not permitted"
+#, fuzzy, boost-format
+msgid "(%1%→%2%): User switching is not permitted"
 msgstr "(%1%->%2%): không cho phép chuyển đổi người dùng"
 
 msgid "Error saving terminal settings"
@@ -1250,14 +1261,14 @@ msgstr "Gặp lỗi khi phục hồi thiết lập thiết bị cuối"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#, boost-format
-msgid "[%1% chroot] Running login shell: '%4%'"
+#, fuzzy, boost-format
+msgid "[%1% chroot] Running login shell: ‘%4%’"
 msgstr "[%1% chroot] Đang chạy trình bao đăng nhập: « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#, boost-format
-msgid "[%1% chroot] Running shell: '%4%'"
+#, fuzzy, boost-format
+msgid "[%1% chroot] Running shell: ‘%4%’"
 msgstr "[%1% chroot] Đang chạy trình bao : « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
@@ -1265,8 +1276,8 @@ msgstr "[%1% chroot] Đang chạy trình bao : « %4% »"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, boost-format
-msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
+#, fuzzy, boost-format
+msgid "[%1% chroot] (%2%→%3%) Running login shell: ‘%4%’"
 msgstr "[%1% chroot] (%2% → %3%) Đang chạy trình bao đăng nhập: « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
@@ -1274,14 +1285,14 @@ msgstr "[%1% chroot] (%2% → %3%) Đang chạy trình bao đăng nhập: « %4%
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, boost-format
-msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
+#, fuzzy, boost-format
+msgid "[%1% chroot] (%2%→%3%) Running shell: ‘%4%’"
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy trình bao : « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#, boost-format
-msgid "[%1% chroot] Running command: \"%4%\""
+#, fuzzy, boost-format
+msgid "[%1% chroot] Running command: “%4%”"
 msgstr "[%1% chroot] Đang chạy lệnh: « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
@@ -1289,8 +1300,8 @@ msgstr "[%1% chroot] Đang chạy lệnh: « %4% »"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, boost-format
-msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
+#, fuzzy, boost-format
+msgid "[%1% chroot] (%2%→%3%) Running command: “%4%”"
 msgstr "[%1% chroot] (%2%->%3%) Đang chạy lệnh: « %4% »"
 
 #, boost-format
@@ -1321,6 +1332,19 @@ msgstr "Lỗi lấy trạng thái về tập tin này"
 
 msgid "Failed to stat file descriptor"
 msgstr "Lỗi lấy trạng thái về bộ mô tả tập tin"
+
+#, fuzzy
+#~ msgid "Failed to execute ‘%1%’"
+#~ msgstr "Lỗi thực hiện « %1% »"
+
+#~ msgid "Failed to execute \"%1%\""
+#~ msgstr "Lỗi thực hiện « %1% »"
+
+#~ msgid "--- %1% ---"
+#~ msgstr "━━━ %1% ━━━"
+
+#~ msgid "Failed to execute '%1%'"
+#~ msgstr "Lỗi thực hiện « %1% »"
 
 #~ msgid "%1% chroot (dchroot-dsa compatibility)"
 #~ msgstr "%1% chroot (tính tương thích với dchroot-dsa)"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2011-12-30 13:58+0000\n"
+"POT-Creation-Date: 2012-01-03 21:29+0000\n"
 "PO-Revision-Date: 2010-01-16 15:43+0000\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <Librezale@librezale.org>\n"
@@ -18,70 +18,70 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 
 #. TRANSLATORS: %1% = file
-#, boost-format
-msgid "Can't open file '%1%'"
+#, fuzzy, boost-format
+msgid "Can't open file ‘%1%’"
 msgstr "Ezin da '%1%' fitxategia ireki"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Deprecated key '%4%' used"
+#, fuzzy, boost-format
+msgid "line %1%: Deprecated key ‘%4%’ used"
 msgstr "%1% lerroa: Zaharkituriko'%4%' gakoa erabilia"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Deprecated key '%4%' used"
+#, fuzzy, boost-format
+msgid "Deprecated key ‘%4%’ used"
 msgstr "Zaharkituriko'%4%' gakoa erabilia"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Disallowed key '%4%' used"
+#, fuzzy, boost-format
+msgid "line %1%: Disallowed key ‘%4%’ used"
 msgstr "%1% lerroa: Ezgaituriko '%4%' gakoa erabilia"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Disallowed key '%4%' used"
+#, fuzzy, boost-format
+msgid "Disallowed key ‘%4%’ used"
 msgstr "Ezgaituriko '%4%' gakoa erabilia"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Duplicate key '%4%'"
+#, fuzzy, boost-format
+msgid "line %1%: Duplicate key ‘%4%’"
 msgstr "%1% lerroa: Bikoizturiko '%4%' gakoa"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = line contents as read from the configuration file
-#, boost-format
-msgid "line %1%: Invalid line: \"%4%\""
+#, fuzzy, boost-format
+msgid "line %1%: Invalid line: “%4%”"
 msgstr "%1% lerroa: \"%4%\" lerro baliogabea"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Required key '%4%' is missing"
+#, fuzzy, boost-format
+msgid "line %1%: Required key ‘%4%’ is missing"
 msgstr "%1% lerroa: Beharrezko '%4%' gakoa falta da"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Required key '%4%' is missing"
+#, fuzzy, boost-format
+msgid "Required key ‘%4%’ is missing"
 msgstr "Beharrezko '%4%' gakoa falta da"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = line contents as read from the configuration file
-#, boost-format
-msgid "line %1%: No key specified: \"%4%\""
+#, fuzzy, boost-format
+msgid "line %1%: No key specified: “%4%”"
 msgstr "%1% lerroa : Ez da gakorik ezarri: \"%4%\""
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Obsolete key '%4%' used"
+#, fuzzy, boost-format
+msgid "line %1%: Obsolete key ‘%4%’ used"
 msgstr "%1% lerroa: '%4%' gako zaharkitua erabilia"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Obsolete key '%4%' used"
+#, fuzzy, boost-format
+msgid "Obsolete key ‘%4%’ used"
 msgstr "Zaharkitutako '%4%' gakoa erabilia"
 
 #. TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
@@ -120,7 +120,8 @@ msgstr "Huts egin du gailu egoera eskuratzean"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-msgid "[OPTION...] - build Debian packages from source"
+#, fuzzy
+msgid "[OPTION…] — build Debian packages from source"
 msgstr "[AUKERA...] - eraiki Debian paketeak iturburutik"
 
 msgid "Build options"
@@ -250,7 +251,8 @@ msgstr ""
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
-msgid "[OPTION...] chroot [COMMAND] - run command or shell in a chroot"
+#, fuzzy
+msgid "[OPTION…] chroot [COMMAND] — run command or shell in a chroot"
 msgstr ""
 "[AUKERA...] chroot [KOMANDOA] - chroot batetako shell-ean exekutatu komandoa"
 
@@ -274,8 +276,8 @@ msgstr "Ez da chrrot-a ezarri"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
-#, boost-format
-msgid "[%1% chroot] Running command: \"%2%\""
+#, fuzzy, boost-format
+msgid "[%1% chroot] Running command: “%2%”"
 msgstr "[%1% chroot] Komandoa exekutatzen: \"%2%\""
 
 #. TRANSLATORS: %1% = program name
@@ -287,7 +289,8 @@ msgstr "%1% %2%-ek %3%-ean sortutako schroot konfigurazioa"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
-msgid "[OPTION...] [COMMAND] - run command or shell in a chroot"
+#, fuzzy
+msgid "[OPTION…] [COMMAND] — run command or shell in a chroot"
 msgstr "[AUKERA...] [KOMANDOA] - komandoa edo shell bat chroot-ean abiarazi"
 
 msgid "Print path to selected chroot"
@@ -322,7 +325,8 @@ msgid "Written by Roger Leigh"
 msgstr "Roger Leigh-ek idatzia"
 
 #. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
-msgid "Copyright (C) 2004-2011 Roger Leigh"
+#, fuzzy
+msgid "Copyright © 2004–2011 Roger Leigh"
 msgstr "Copyright © 2004–2011 Roger Leigh"
 
 msgid ""
@@ -341,8 +345,8 @@ msgid "Usage:"
 msgstr "Erabilera:"
 
 #. TRANSLATORS: %1% = program name
-#, boost-format
-msgid "Run \"%1% --help\" to list usage example and all available options"
+#, fuzzy, boost-format
+msgid "Run “%1% --help” to list usage example and all available options"
 msgstr ""
 "\"%1% --help\" exekutatu erabilera adibide zerrenda eta aukera erabilgarriak "
 "zerrendatzeko"
@@ -382,13 +386,14 @@ msgid "Invalid debug level"
 msgstr "Arazpen maila baliogabea"
 
 #. TRANSLATORS: %1% = file
-#, boost-format
-msgid "Failed to find '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to find ‘%1%’"
 msgstr "Huts '%1%' bilatzerakoan"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-msgid "[OPTION...] - list mount points"
+#, fuzzy
+msgid "[OPTION…] — list mount points"
 msgstr "[AUKERA...] - list muntatze puntuak"
 
 msgid "Mount"
@@ -407,13 +412,15 @@ msgid "Wait for child failed"
 msgstr "Huts umea itxoitean"
 
 #. TRANSLATORS: %1% = command name
-#, boost-format
-msgid "Failed to execute '%1%'"
+#. TRANSLATORS: %1% = command
+#, fuzzy, boost-format
+msgid "Failed to execute “%1%”"
 msgstr "Huts egin du '%1%' exekutatzean"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-msgid "[OPTION...] - mount filesystems"
+#, fuzzy
+msgid "[OPTION…] — mount filesystems"
 msgstr "[AUKERAK...] - muntatu fitxategi-sistemak"
 
 msgid "An unknown exception occurred"
@@ -427,7 +434,8 @@ msgstr "irakurtzeko fstab fitxategia (bide osoa)"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-msgid "[OPTION...] - release a device lock"
+#, fuzzy
+msgid "[OPTION…] — release a device lock"
 msgstr "[AUKERA...] - askatu gailu blokeoa"
 
 msgid "No PID specified; forcing release of lock"
@@ -451,19 +459,19 @@ msgid "%1%: Chroots not found"
 msgstr "%1%: Ez da chroot-ik aurkitu"
 
 #. TRANSLATORS: %4% = file
-#, boost-format
-msgid "No chroots are defined in '%4%'"
+#, fuzzy, boost-format
+msgid "No chroots are defined in ‘%4%’"
 msgstr "Ez dago chroot definiturik '%4%'-en"
 
 #. TRANSLATORS: %4% = file
 #. TRANSLATORS: %5% = file
-#, boost-format
-msgid "No chroots are defined in '%4%' or '%5%'"
+#, fuzzy, boost-format
+msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
 msgstr "Ez dago chroot definiturik '%4%' edo '%5%'-en"
 
 #. TRANSLATORS: %1% = file
-#, boost-format
-msgid "The specified chroots are not defined in '%1%'"
+#, fuzzy, boost-format
+msgid "The specified chroots are not defined in ‘%1%’"
 msgstr "Ezarritako choot-ak ez daude %1%-en definiturik"
 
 #. TRANSLATORS: %1% = chroot name
@@ -479,25 +487,25 @@ msgstr "%1%: ekintza baliogabea"
 msgid "Available chroot types:"
 msgstr "Chroot erabilgarriak: "
 
-msgid "Support for 'block-device' chroots"
+msgid "Support for ‘block-device’ chroots"
 msgstr ""
 
-msgid "Support for 'btrfs-snapshot' chroots"
+msgid "Support for ‘btrfs-snapshot’ chroots"
 msgstr ""
 
-msgid "Support for 'directory' chroots"
+msgid "Support for ‘directory’ chroots"
 msgstr ""
 
-msgid "Support for 'file' chroots"
+msgid "Support for ‘file’ chroots"
 msgstr ""
 
-msgid "Support for 'loopback' chroots"
+msgid "Support for ‘loopback’ chroots"
 msgstr ""
 
-msgid "Support for 'lvm-snapshot' chroots"
+msgid "Support for ‘lvm-snapshot’ chroots"
 msgstr ""
 
-msgid "Support for 'plain' chroots"
+msgid "Support for ‘plain’ chroots"
 msgstr ""
 
 msgid "Chroot selection"
@@ -586,14 +594,14 @@ msgid "Failed to get hostname"
 msgstr "Huts ostalari-izena eskuratzerakoan"
 
 #. TRANSLATORS: %1% = user name or user ID
-#, boost-format
-msgid "User '%1%' not found"
+#, fuzzy, boost-format
+msgid "User ‘%1%’ not found"
 msgstr "'%1%' erabiltzailea ez da aurkitu"
 
 #. TRANSLATORS: %1% = group name or group ID
 #. TRANSLATORS: %1% = group name
-#, boost-format
-msgid "Group '%1%' not found"
+#, fuzzy, boost-format
+msgid "Group ‘%1%’ not found"
 msgstr "'%1%' taldea ez da aurkitu"
 
 msgid "Authentication failed"
@@ -652,15 +660,16 @@ msgid "Timed out"
 msgstr "Denboraz kanpo"
 
 #. TRANSLATORS: Please use an ellipsis e.g. U+2026
-msgid "Time is running out..."
+#, fuzzy
+msgid "Time is running out…"
 msgstr "Denbora amaitzen ari da..."
 
 msgid "Failed to get terminal settings"
 msgstr "Huts egin du terminala ezarpenak eskuratzean"
 
 #. TRANSLATORS: %1% = integer
-#, boost-format
-msgid "Unsupported conversation type '%1%'"
+#, fuzzy, boost-format
+msgid "Unsupported conversation type ‘%1%’"
 msgstr "Onartzen ez den '%1%' elkarrizketa mota"
 
 #, fuzzy
@@ -692,8 +701,8 @@ msgid "Device name not set"
 msgstr "Ez da gailu izena ezarri"
 
 #. TRANSLATORS: %1% = chroot type name
-#, boost-format
-msgid "Unknown chroot type '%1%'"
+#, fuzzy, boost-format
+msgid "Unknown chroot type ‘%1%’"
 msgstr "Chroot '%1%' mota ezezaguna"
 
 msgid "Device must have an absolute path"
@@ -751,14 +760,14 @@ msgid "Message verbosity is invalid"
 msgstr ""
 
 #, boost-format
-msgid "Namespace separator '%1%' may not be used in a chroot name"
+msgid "Namespace separator ‘%1%’ may not be used in a chroot name"
 msgstr ""
 
 msgid "Naming restrictions are documented in schroot.conf(5)"
 msgstr ""
 
 #, boost-format
-msgid "Namespace separator '%1%' may not be used in an alias name"
+msgid "Namespace separator ‘%1%’ may not be used in an alias name"
 msgstr ""
 
 msgid "Name"
@@ -831,16 +840,16 @@ msgstr "Iturburua erabiltzaileak"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
-#, boost-format
-msgid "Alias '%1%' already associated with '%4%' chroot"
+#, fuzzy, boost-format
+msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
 msgstr "'%1%' ezizena oraindik '%4%' chroot-arekin loturik dago"
 
 msgid "No such chroot"
 msgstr "Ez dago chroot hori"
 
 #. TRANSLATORS: %1% = chroot name
-#, boost-format
-msgid "A chroot or alias '%1%' already exists with this name"
+#, fuzzy, boost-format
+msgid "A chroot or alias ‘%1%’ already exists with this name"
 msgstr "'%1%' izeneko chroot edo ezizena  badago dagoeneko"
 
 msgid "Failed to open file"
@@ -905,7 +914,7 @@ msgstr "Iturburu erro taldeak"
 
 #. TRANSLATORS: %1% = chroot fs type
 #, fuzzy, boost-format
-msgid "Unknown filesystem union type '%1%'"
+msgid "Unknown filesystem union type ‘%1%’"
 msgstr "Chroot '%1%' mota ezezaguna"
 
 #, fuzzy
@@ -963,55 +972,55 @@ msgstr "gezurra"
 #. TRANSLATORS: %1% = title of section
 #. TRANSLATORS: Please format the --- as a continuous line, e.g. U+2500
 #, boost-format
-msgid "--- %1% ---"
-msgstr "--- %1% ---"
+msgid "─── %1% ───"
+msgstr ""
 
-#, boost-format
-msgid "line %1% [%2%]: Deprecated key '%4%' used"
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Deprecated key ‘%4%’ used"
 msgstr "%1% lerroa [%2%]: Zaharkiturik dagoen'%4%' gakoa erabilia"
 
-#, boost-format
-msgid "[%1%]: Deprecated key '%4%' used"
+#, fuzzy, boost-format
+msgid "[%1%]: Deprecated key ‘%4%’ used"
 msgstr "[%1%]: Zaharkiturik dagoen'%4%' gakoa erabilia"
 
-#, boost-format
-msgid "line %1% [%2%]: Disallowed key '%4%' used"
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Disallowed key ‘%4%’ used"
 msgstr "%1% lerroa [%2%]: Onartzen ez den '%4%' gakoa erabilia"
 
-#, boost-format
-msgid "[%1%]: Disallowed key '%4%' used"
+#, fuzzy, boost-format
+msgid "[%1%]: Disallowed key ‘%4%’ used"
 msgstr "[%1%]: Onartzen ez den '%4%' gakoa erabilia"
 
-#, boost-format
-msgid "line %1%: Duplicate group '%4%'"
+#, fuzzy, boost-format
+msgid "line %1%: Duplicate group ‘%4%’"
 msgstr "%1% lerroa: Bikoizturiko '%4%' taldea"
 
-#, boost-format
-msgid "line %1% [%2%]: Duplicate key '%4%'"
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Duplicate key ‘%4%’"
 msgstr "%1% [%2%] lerroa: Bikoiztutako '%4%' gakoa"
 
-#, boost-format
-msgid "line %1%: Invalid group: \"%4%\""
+#, fuzzy, boost-format
+msgid "line %1%: Invalid group: “%4%”"
 msgstr "%1% lerroa: \"%4%\" talde baliogabea"
 
-#, boost-format
-msgid "line %1% [%2%]: Required key '%4%' is missing"
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Required key ‘%4%’ is missing"
 msgstr "%1% lerroa [%2%]: Beharrezko '%4%' gakoa falta da"
 
-#, boost-format
-msgid "[%1%]: Required key '%4%' is missing"
+#, fuzzy, boost-format
+msgid "[%1%]: Required key ‘%4%’ is missing"
 msgstr "[%1%]: Beharrezko '%4%' gakoa falta da"
 
-#, boost-format
-msgid "line %1%: No group specified: \"%4%\""
+#, fuzzy, boost-format
+msgid "line %1%: No group specified: “%4%”"
 msgstr "%1% lerroa : Ez da talderik ezarri: \"%4%\""
 
-#, boost-format
-msgid "line %1% [%2%]: Obsolete key '%4%' used"
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Obsolete key ‘%4%’ used"
 msgstr "%1% [%2%] lerroa: Zaharkituriko '%4%' gakoa erabilia"
 
-#, boost-format
-msgid "[%1%]: Obsolete key '%4%' used"
+#, fuzzy, boost-format
+msgid "[%1%]: Obsolete key ‘%4%’ used"
 msgstr "[%1%]: Zaharkituriko '%4%' gakoa erabilia"
 
 #, boost-format
@@ -1030,8 +1039,8 @@ msgstr "%1% lerroa [%2%]: %4%"
 msgid "line %1% [%2%] %3%: %4%"
 msgstr "%1% lerroa [%2%] %3%: %4%"
 
-#, boost-format
-msgid "line %1% [%2%]: Unknown key '%4%' used"
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Unknown key ‘%4%’ used"
 msgstr "%1% lerroa [%2%]: '%4%' gako ezezaguna erabilia"
 
 msgid "Failed to set timeout handler"
@@ -1105,31 +1114,31 @@ msgid "D(%1%): "
 msgstr "D(%1%): "
 
 #. TRANSLATORS: %1% = mount file name
-#, boost-format
-msgid "Failed to open mount file '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to open mount file ‘%1%’"
 msgstr "Huts egin du muntaturiko '%1%' fitxategia irekitzean"
 
 #. TRANSLATORS: %1% = mount file name
-#, boost-format
-msgid "Failed to read mount file '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to read mount file ‘%1%’"
 msgstr "Huts egin du muntaturiko '%1%' fitxategia irakurtzean"
 
 msgid "unknown"
 msgstr "ezezaguna"
 
 #. TRANSLATORS: %1% = value (arbitrary text)
-#, boost-format
-msgid "Could not parse value '%1%'"
+#, fuzzy, boost-format
+msgid "Could not parse value ‘%1%’"
 msgstr "Ezin da '%1%' analizatu"
 
 #. TRANSLATORS: %1% = integer personality ID
-#, boost-format
-msgid "Personality '%1%' is unknown"
+#, fuzzy, boost-format
+msgid "Personality ‘%1%’ is unknown"
 msgstr "'%1%' pertsonalitatea ezezaguna da"
 
 #. TRANSLATORS: %1% = personality name
-#, boost-format
-msgid "Failed to set personality '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to set personality ‘%1%’"
 msgstr "Huts egin du '%1%' pertsonalitatea ezartzean"
 
 msgid "Linux kernel Application Binary Interface switching"
@@ -1157,18 +1166,18 @@ msgid "Failed to read file descriptor"
 msgstr "Huts egin du fitxategia deskriptorea egoera eskuratzean"
 
 #. TRANSLATORS: %1% = command
-#, boost-format
-msgid "Executing '%1%'"
+#, fuzzy, boost-format
+msgid "Executing ‘%1%’"
 msgstr "'%1%' exekutatzen"
 
 #. TRANSLATORS: %1% = directory
-#, boost-format
-msgid "Failed to change to directory '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to change to directory ‘%1%’"
 msgstr "Huts egin du '%1%' direktoriora aldatzerakoan"
 
 #. TRANSLATORS: %4% = directory
-#, boost-format
-msgid "Falling back to directory '%4%'"
+#, fuzzy, boost-format
+msgid "Falling back to directory ‘%4%’"
 msgstr "Huts egin du '%4%' direktoriora itzultzerakoan"
 
 msgid "Child dumped core"
@@ -1180,18 +1189,18 @@ msgstr ""
 "iraultzerik)"
 
 #. TRANSLATORS: %4% = signal name
-#, boost-format
-msgid "Child terminated by signal '%4%'"
+#, fuzzy, boost-format
+msgid "Child terminated by signal ‘%4%’"
 msgstr "Umea '%4%' seinaleak amaitu du"
 
 #. TRANSLATORS: %1% = directory
-#, boost-format
-msgid "Failed to change root to directory '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to change root to directory ‘%1%’"
 msgstr "Huts egin du erroa '%1%' direktoriora aldatzean"
 
 #. TRANSLATORS: %1% = chroot name
-#, boost-format
-msgid "No chroot found matching name or alias '%1%'"
+#, fuzzy, boost-format
+msgid "No chroot found matching name or alias ‘%1%’"
 msgstr "Ez da chroot-ik aurkitu emandako '%1%' izen edo ezizenarekin"
 
 msgid "Failed to lock chroot"
@@ -1205,14 +1214,9 @@ msgid "Failed to unlock chroot"
 msgstr "Huts egin du chroot-a desblokeatzean"
 
 #. TRANSLATORS: %1% = command
-#, boost-format
-msgid "Command \"%1%\" must have an absolute path"
+#, fuzzy, boost-format
+msgid "Command “%1%” must have an absolute path"
 msgstr "'%1%' komandoak bide basolutu bat izan behar du"
-
-#. TRANSLATORS: %1% = command
-#, boost-format
-msgid "Failed to execute \"%1%\""
-msgstr "Huts egin du '%1%' exekutatzean"
 
 #. TRANSLATORS: A supplementary group is the list of additional
 #. system groups a user belongs to, in addition to their default
@@ -1227,8 +1231,8 @@ msgid "Failed to get supplementary group count"
 msgstr "Huts talde gehigarria kopurua eskuratzean"
 
 #. TRANSLATORS: %1% = integer group ID
-#, boost-format
-msgid "Failed to set group '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to set group ‘%1%’"
 msgstr "Huts egin du '%1%' taldea ezartzean"
 
 msgid "Failed to set supplementary groups"
@@ -1239,43 +1243,43 @@ msgstr "Huts egin root baimenak kentzean"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = session identifier
-#, boost-format
+#, fuzzy, boost-format
 msgid ""
-"%1%: Chroot does not support setting a session ID; ignoring session ID '%4%'"
+"%1%: Chroot does not support setting a session ID; ignoring session ID ‘%4%’"
 msgstr ""
 "%1%: Chroot-ek ez du onartzen saio ID bat ezartzea; saio ID-a alde batetara "
 "uzten '%4%'"
 
 #. TRANSLATORS: %1% = command
-#, boost-format
-msgid "Shell '%1%' not available"
+#, fuzzy, boost-format
+msgid "Shell ‘%1%’ not available"
 msgstr "'%1%' shell-a ez dago eskuragarri"
 
 #. TRANSLATORS: %4% = command
-#, boost-format
-msgid "Falling back to shell '%4%'"
+#, fuzzy, boost-format
+msgid "Falling back to shell ‘%4%’"
 msgstr "Huts '%4%' shell-era itzultzean"
 
 #. TRANSLATORS: %4% = signal name
-#, boost-format
-msgid "Caught signal '%4%'"
+#, fuzzy, boost-format
+msgid "Caught signal ‘%4%’"
 msgstr "Harrapatze '%4%' seinalea"
 
 #. TRANSLATORS: %4% = signal name
-#, boost-format
-msgid "Failed to set signal handler '%4%'"
+#, fuzzy, boost-format
+msgid "Failed to set signal handler ‘%4%’"
 msgstr "Huts '%4%' seinale kudeatzailea ezartzean"
 
 #. TRANSLATORS: %1% = integer user ID
-#, boost-format
-msgid "Failed to set user '%1%'"
+#, fuzzy, boost-format
+msgid "Failed to set user ‘%1%’"
 msgstr "Huts egin du '%1%' erabiltzailea ezartzean"
 
 #. TRANSLATORS: %1% = user name
 #. TRANSLATORS: %2% = user name
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, boost-format
-msgid "(%1%->%2%): User switching is not permitted"
+#, fuzzy, boost-format
+msgid "(%1%→%2%): User switching is not permitted"
 msgstr "(%1%->%2%): Erabiltzaile aldatzea ez dago baimendurik"
 
 msgid "Error saving terminal settings"
@@ -1286,14 +1290,14 @@ msgstr "Errorea terminal ezarpenak berreskuratzean"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#, boost-format
-msgid "[%1% chroot] Running login shell: '%4%'"
+#, fuzzy, boost-format
+msgid "[%1% chroot] Running login shell: ‘%4%’"
 msgstr "[%1% chroot] Saio shell-a abiarazten: '%4%'"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#, boost-format
-msgid "[%1% chroot] Running shell: '%4%'"
+#, fuzzy, boost-format
+msgid "[%1% chroot] Running shell: ‘%4%’"
 msgstr "[%1% chroot] Shell-a abiarazten: '%4%'"
 
 #. TRANSLATORS: %1% = chroot name
@@ -1301,8 +1305,8 @@ msgstr "[%1% chroot] Shell-a abiarazten: '%4%'"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, boost-format
-msgid "[%1% chroot] (%2%->%3%) Running login shell: '%4%'"
+#, fuzzy, boost-format
+msgid "[%1% chroot] (%2%→%3%) Running login shell: ‘%4%’"
 msgstr "[%1% chroot] (%2%->%3%) Saio shell-a abiarazten: '%4%'"
 
 #. TRANSLATORS: %1% = chroot name
@@ -1310,14 +1314,14 @@ msgstr "[%1% chroot] (%2%->%3%) Saio shell-a abiarazten: '%4%'"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, boost-format
-msgid "[%1% chroot] (%2%->%3%) Running shell: '%4%'"
+#, fuzzy, boost-format
+msgid "[%1% chroot] (%2%→%3%) Running shell: ‘%4%’"
 msgstr "[%1% chroot] (%2%->%3%) Shell-a abiarazten: '%4%'"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#, boost-format
-msgid "[%1% chroot] Running command: \"%4%\""
+#, fuzzy, boost-format
+msgid "[%1% chroot] Running command: “%4%”"
 msgstr "[%1% chroot] Komandoa exekutatzen: \"%4%\""
 
 #. TRANSLATORS: %1% = chroot name
@@ -1325,8 +1329,8 @@ msgstr "[%1% chroot] Komandoa exekutatzen: \"%4%\""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, boost-format
-msgid "[%1% chroot] (%2%->%3%) Running command: \"%4%\""
+#, fuzzy, boost-format
+msgid "[%1% chroot] (%2%→%3%) Running command: “%4%”"
 msgstr "[%1% chroot] (%2%->%3%) Komandoa exekutatzen: \"%4%\""
 
 #, boost-format
@@ -1357,6 +1361,19 @@ msgstr "Huts egin du fitxategi egoera eskuratzean"
 
 msgid "Failed to stat file descriptor"
 msgstr "Huts egin du fitxategia deskriptorea egoera eskuratzean"
+
+#, fuzzy
+#~ msgid "Failed to execute ‘%1%’"
+#~ msgstr "Huts egin du '%1%' exekutatzean"
+
+#~ msgid "Failed to execute \"%1%\""
+#~ msgstr "Huts egin du '%1%' exekutatzean"
+
+#~ msgid "--- %1% ---"
+#~ msgstr "--- %1% ---"
+
+#~ msgid "Failed to execute '%1%'"
+#~ msgstr "Huts egin du '%1%' exekutatzean"
 
 #~ msgid "%1% chroot (dchroot-dsa compatibility)"
 #~ msgstr "%1% chroot (dchroot-dsa bateragarritasuna)"

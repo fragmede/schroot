@@ -70,7 +70,7 @@ namespace
       emap(sbuild::chroot::CHROOT_CREATE,     N_("Chroot creation failed")),
       emap(sbuild::chroot::CHROOT_DEVICE,     N_("Device name not set")),
       // TRANSLATORS: %1% = chroot type name
-      emap(sbuild::chroot::CHROOT_TYPE,       N_("Unknown chroot type '%1%'")),
+      emap(sbuild::chroot::CHROOT_TYPE,       N_("Unknown chroot type ‘%1%’")),
       emap(sbuild::chroot::DEVICE_ABS,        N_("Device must have an absolute path")),
       emap(sbuild::chroot::DEVICE_LOCK,       N_("Failed to lock device")),
       emap(sbuild::chroot::DEVICE_NOTBLOCK,   N_("File is not a block device")),
@@ -204,7 +204,7 @@ sbuild::chroot::set_name (std::string const& name)
   if (pos != std::string::npos)
     {
       error e(name, NAME_INVALID);
-      format fmt(_("Namespace separator '%1%' may not be used in a chroot name"));
+      format fmt(_("Namespace separator ‘%1%’ may not be used in a chroot name"));
       fmt % chroot_config::namespace_separator;
       e.set_reason(fmt.str());
       throw e;
@@ -312,7 +312,7 @@ sbuild::chroot::set_aliases (string_list const& aliases)
       if (found != std::string::npos)
 	{
 	  error e(*pos, NAME_INVALID);
-	  format fmt(_("Namespace separator '%1%' may not be used in an alias name"));
+	  format fmt(_("Namespace separator ‘%1%’ may not be used in an alias name"));
 	  fmt % chroot_config::namespace_separator;
 	  e.set_reason(fmt.str());
 	  throw e;

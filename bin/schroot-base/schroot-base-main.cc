@@ -67,7 +67,7 @@ main::action_version (std::ostream& stream)
   stream << fmt
 	 << _("Written by Roger Leigh") << '\n' << '\n'
     // TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
-	 << _("Copyright (C) 2004-2011 Roger Leigh") << '\n'
+	 << _("Copyright © 2004–2011 Roger Leigh") << '\n'
 	 << _("This is free software; see the source for copying conditions.  There is NO\n"
 	      "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
 	 << '\n'
@@ -117,7 +117,7 @@ main::run (int   argc,
 	  dynamic_cast<boost::program_options::error const&>(e);
 	  sbuild::log_info()
 	    // TRANSLATORS: %1% = program name
-	    << format(_("Run \"%1% --help\" to list usage example and all available options"))
+	    << format(_("Run “%1% --help” to list usage example and all available options"))
 	    % argv[0]
 	    << endl;
 	}

@@ -42,7 +42,7 @@ namespace
   emap init_errors[] =
     {
       // TRANSLATORS: %1% = chroot fs type
-      emap(chroot_facet_union::UNION_TYPE_UNKNOWN, N_("Unknown filesystem union type '%1%'")),
+      emap(chroot_facet_union::UNION_TYPE_UNKNOWN, N_("Unknown filesystem union type ‘%1%’")),
       emap(chroot_facet_union::UNION_OVERLAY_ABS,  N_("Union overlay must have an absolute path")),
       emap(chroot_facet_union::UNION_UNDERLAY_ABS, N_("Union underlay must have an absolute path"))
     };

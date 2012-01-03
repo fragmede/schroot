@@ -88,7 +88,7 @@ format_detail::get_title () const
 {
   // TRANSLATORS: %1% = title of section
   // TRANSLATORS: Please format the --- as a continuous line, e.g. U+2500
-  boost::format fmt(_("--- %1% ---"));
+  boost::format fmt(_("─── %1% ───"));
   fmt %this->title;
 
   return fmt.str();

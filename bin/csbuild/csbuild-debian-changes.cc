@@ -41,36 +41,36 @@ namespace
   emap init_errors[] =
     {
       // TRANSLATORS: %1% = file
-      emap(debian_changes::BAD_FILE,          N_("Can't open file '%1%'")),
+      emap(debian_changes::BAD_FILE,          N_("Can't open file ‘%1%’")),
       // TRANSLATORS: %1% = line number in configuration file
       // TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-      emap(debian_changes::DEPRECATED_KEY,    N_("line %1%: Deprecated key '%4%' used")),
+      emap(debian_changes::DEPRECATED_KEY,    N_("line %1%: Deprecated key ‘%4%’ used")),
       // TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-      emap(debian_changes::DEPRECATED_KEY_NL, N_("Deprecated key '%4%' used")),
+      emap(debian_changes::DEPRECATED_KEY_NL, N_("Deprecated key ‘%4%’ used")),
       // TRANSLATORS: %1% = line number in configuration file
       // TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-      emap(debian_changes::DISALLOWED_KEY,    N_("line %1%: Disallowed key '%4%' used")),
+      emap(debian_changes::DISALLOWED_KEY,    N_("line %1%: Disallowed key ‘%4%’ used")),
       // TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-      emap(debian_changes::DISALLOWED_KEY_NL, N_("Disallowed key '%4%' used")),
+      emap(debian_changes::DISALLOWED_KEY_NL, N_("Disallowed key ‘%4%’ used")),
       // TRANSLATORS: %1% = line number in configuration file
       // TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-      emap(debian_changes::DUPLICATE_KEY,     N_("line %1%: Duplicate key '%4%'")),
-      // TRANSLATORS: %1% = line number in configuration file
-      // TRANSLATORS: %4% = line contents as read from the configuration file
-      emap(debian_changes::INVALID_LINE,      N_("line %1%: Invalid line: \"%4%\"")),
-      // TRANSLATORS: %1% = line number in configuration file
-      // TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-      emap(debian_changes::MISSING_KEY,       N_("line %1%: Required key '%4%' is missing")),
-      // TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-      emap(debian_changes::MISSING_KEY_NL,    N_("Required key '%4%' is missing")),
+      emap(debian_changes::DUPLICATE_KEY,     N_("line %1%: Duplicate key ‘%4%’")),
       // TRANSLATORS: %1% = line number in configuration file
       // TRANSLATORS: %4% = line contents as read from the configuration file
-      emap(debian_changes::NO_KEY,            N_("line %1%: No key specified: \"%4%\"")),
+      emap(debian_changes::INVALID_LINE,      N_("line %1%: Invalid line: “%4%”")),
       // TRANSLATORS: %1% = line number in configuration file
       // TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-      emap(debian_changes::OBSOLETE_KEY,      N_("line %1%: Obsolete key '%4%' used")),
+      emap(debian_changes::MISSING_KEY,       N_("line %1%: Required key ‘%4%’ is missing")),
       // TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-      emap(debian_changes::OBSOLETE_KEY_NL,   N_("Obsolete key '%4%' used")),
+      emap(debian_changes::MISSING_KEY_NL,    N_("Required key ‘%4%’ is missing")),
+      // TRANSLATORS: %1% = line number in configuration file
+      // TRANSLATORS: %4% = line contents as read from the configuration file
+      emap(debian_changes::NO_KEY,            N_("line %1%: No key specified: “%4%”")),
+      // TRANSLATORS: %1% = line number in configuration file
+      // TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+      emap(debian_changes::OBSOLETE_KEY,      N_("line %1%: Obsolete key ‘%4%’ used")),
+      // TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+      emap(debian_changes::OBSOLETE_KEY_NL,   N_("Obsolete key ‘%4%’ used")),
       // TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
       // TRANSLATORS: %4% = additional details
       emap(debian_changes::PASSTHROUGH_K,    N_("%2%: %4%")),

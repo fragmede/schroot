@@ -37,9 +37,9 @@ namespace
   emap init_errors[] =
     {
       // TRANSLATORS: %1% = mount file name
-      emap(mntstream::MNT_OPEN,    N_("Failed to open mount file '%1%'")),
+      emap(mntstream::MNT_OPEN,    N_("Failed to open mount file ‘%1%’")),
       // TRANSLATORS: %1% = mount file name
-      emap(mntstream::MNT_READ,    N_("Failed to read mount file '%1%'"))
+      emap(mntstream::MNT_READ,    N_("Failed to read mount file ‘%1%’"))
     };
 
 }

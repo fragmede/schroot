@@ -59,7 +59,7 @@ namespace
       emap(main::CHILD_FORK, N_("Failed to fork child")),
       emap(main::CHILD_WAIT, N_("Wait for child failed")),
       // TRANSLATORS: %1% = command name
-      emap(main::EXEC,       N_("Failed to execute '%1%'"))
+      emap(main::EXEC,       N_("Failed to execute “%1%”"))
     };
 
 }
@@ -74,7 +74,7 @@ main::main (options::ptr& options):
   schroot_base::main("schroot-mount",
 		     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 		     // and '-' is an em-dash.
-		     _("[OPTION...] - mount filesystems"),
+		     _("[OPTION…] — mount filesystems"),
 		     options,
 		     false),
   opts(options)
@@ -106,7 +106,7 @@ main::action_mount ()
       if (!boost::filesystem::exists(directory))
 	{
 	  sbuild::log_debug(sbuild::DEBUG_INFO)
-	    << boost::format("Creating '%1%' in '%2%'")
+	    << boost::format("Creating ‘%1%' in '%2%’")
 	    % entry.directory
 	    % opts->mountpoint
 	    << std::endl;
@@ -132,7 +132,7 @@ main::action_mount ()
         }
 
       sbuild::log_debug(sbuild::DEBUG_INFO)
-      	<< boost::format("Mounting '%1%' on '%2%'")
+	<< boost::format("Mounting ‘%1%’ on ‘%2%’")
 	% entry.filesystem_name
 	% directory
 	<< std::endl;

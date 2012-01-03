@@ -47,9 +47,9 @@ namespace
   emap init_errors[] =
     {
       // TRANSLATORS: %1% = integer personality ID
-      emap(sbuild::personality::BAD, N_("Personality '%1%' is unknown")),
+      emap(sbuild::personality::BAD, N_("Personality ‘%1%’ is unknown")),
       // TRANSLATORS: %1% = personality name
-      emap(sbuild::personality::SET, N_("Failed to set personality '%1%'"))
+      emap(sbuild::personality::SET, N_("Failed to set personality ‘%1%’"))
     };
 
   typedef std::pair<std::string,sbuild::personality::type> pmap;

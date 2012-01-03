@@ -56,10 +56,10 @@ namespace
     {
       // TRANSLATORS: %1% = chroot alias name
       // TRANSLATORS: %4% = chroot name
-      emap(chroot_config::ALIAS_EXIST,        N_("Alias '%1%' already associated with '%4%' chroot")),
+      emap(chroot_config::ALIAS_EXIST,        N_("Alias ‘%1%’ already associated with ‘%4%’ chroot")),
       emap(chroot_config::CHROOT_NOTFOUND,    N_("No such chroot")),
       // TRANSLATORS: %1% = chroot name
-      emap(chroot_config::CHROOT_EXIST,       N_("A chroot or alias '%1%' already exists with this name")),
+      emap(chroot_config::CHROOT_EXIST,       N_("A chroot or alias ‘%1%’ already exists with this name")),
       emap(chroot_config::FILE_NOTREG,        N_("File is not a regular file")),
       emap(chroot_config::FILE_OPEN,          N_("Failed to open file")),
       emap(chroot_config::FILE_OWNER,         N_("File is not owned by user root")),

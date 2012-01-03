@@ -48,10 +48,10 @@ namespace
       emap(auth_pam_conv_tty::CTTY,            N_("No controlling terminal")),
       emap(auth_pam_conv_tty::TIMEOUT,         N_("Timed out")),
       // TRANSLATORS: Please use an ellipsis e.g. U+2026
-      emap(auth_pam_conv_tty::TIMEOUT_PENDING, N_("Time is running out...")),
+      emap(auth_pam_conv_tty::TIMEOUT_PENDING, N_("Time is running out…")),
       emap(auth_pam_conv_tty::TERMIOS,         N_("Failed to get terminal settings")),
       // TRANSLATORS: %1% = integer
-      emap(auth_pam_conv_tty::CONV_TYPE,       N_("Unsupported conversation type '%1%'"))
+      emap(auth_pam_conv_tty::CONV_TYPE,       N_("Unsupported conversation type ‘%1%’"))
     };
 
   volatile sig_atomic_t timer_expired = false;

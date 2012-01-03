@@ -48,7 +48,7 @@ namespace
       emap(run_parts::CHILD_FORK, N_("Failed to fork child")),
       emap(run_parts::CHILD_WAIT, N_("Wait for child failed")),
       // TRANSLATORS: %1% = command name
-      emap(run_parts::EXEC,       N_("Failed to execute '%1%'")),
+      emap(run_parts::EXEC,       N_("Failed to execute “%1%”")),
       emap(run_parts::PIPE,       N_("Failed to create pipe")),
       emap(run_parts::DUP,        N_("Failed to duplicate file descriptor")),
       emap(run_parts::POLL,       N_("Failed to poll file descriptor")),
@@ -203,7 +203,7 @@ run_parts::run_child (std::string const& file,
 				    << std::endl;
 	      if (this->verbose)
 		// TRANSLATORS: %1% = command
-		log_info() << format(_("Executing '%1%'"))
+		log_info() << format(_("Executing ‘%1%’"))
 		  % string_list_to_string(command, " ")
 			   << std::endl;
 	      ::umask(this->umask);
