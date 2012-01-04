@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.16-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-01-03 21:29+0000\n"
+"POT-Creation-Date: 2012-01-04 00:18+0000\n"
 "PO-Revision-Date: 2010-12-07 20:01+0100\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -309,17 +309,18 @@ msgstr "Restrizioni della sessione dchroot"
 #. TRANSLATORS: %1% = program name
 #. TRANSLATORS: %2% = program version
 #. TRANSLATORS: %3% = release date
-#, boost-format
-msgid "%1% (Debian sbuild) %2% (%3%)\n"
+#, fuzzy, boost-format
+msgid "%1% (Debian sbuild) %2% (%3%)"
 msgstr "%1% (sbuild Debian) %2% (%3%)\n"
+
+#. TRANSLATORS: %1% = copyright year (start)
+#. TRANSLATORS: %2% = copyright year (end)
+#, fuzzy, boost-format
+msgid "Copyright © %1%–%2% Roger Leigh"
+msgstr "Copyright © 2004–2011 Roger Leigh"
 
 msgid "Written by Roger Leigh"
 msgstr "Scritto da Roger Leigh"
-
-#. TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
-#, fuzzy
-msgid "Copyright © 2004–2011 Roger Leigh"
-msgstr "Copyright © 2004–2011 Roger Leigh"
 
 msgid ""
 "This is free software; see the source for copying conditions.  There is NO\n"

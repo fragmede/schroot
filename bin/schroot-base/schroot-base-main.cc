@@ -59,15 +59,17 @@ main::action_version (std::ostream& stream)
   // TRANSLATORS: %1% = program name
   // TRANSLATORS: %2% = program version
   // TRANSLATORS: %3% = release date
-  format fmt(_("%1% (Debian sbuild) %2% (%3%)\n"));
-  fmt % this->program_name % VERSION % sbuild::gmdate(RELEASE_DATE);
+  format fmtr(_("%1% (Debian sbuild) %2% (%3%)"));
+  fmtr % this->program_name % VERSION % sbuild::gmdate(RELEASE_DATE);
 
-  format feature("  %1$-12s %2%\n");
+  // TRANSLATORS: %1% = copyright year (start)
+  // TRANSLATORS: %2% = copyright year (end)
+  format fmtc(_("Copyright © %1%–%2% Roger Leigh"));
+  fmtc % "2004" % "2012";
 
-  stream << fmt
+  stream << fmtr << '\n'
 	 << _("Written by Roger Leigh") << '\n' << '\n'
-    // TRANSLATORS: '(C)' is a copyright symbol and '-' is an en-dash.
-	 << _("Copyright © 2004–2011 Roger Leigh") << '\n'
+	 << fmtc << '\n'
 	 << _("This is free software; see the source for copying conditions.  There is NO\n"
 	      "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
 	 << '\n'
