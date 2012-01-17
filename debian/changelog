@@ -1,7 +1,7 @@
 schroot (1.4.24-1) unstable; urgency=low
 
   * New upstream stable release.
-  * Add multiarch support.
+  * Add multiarch support.  Backported from schroot 1.5.1.
   * Use debhelper 9 and dh using compat level 9.
   * Use Standards-Version 3.9.2.
   * Build-Depend upon groff-base for soelim.
@@ -15,7 +15,7 @@ schroot (1.4.24-1) unstable; urgency=low
   * Fix name lookup issue causing FTBFS with GCC 4.7 (Closes: #656239).
     Thanks to Ralf Corsépius for this patch.
 
- -- Roger Leigh <rleigh@debian.org>  Tue, 17 Jan 2012 21:59:38 +0000
+ -- Roger Leigh <rleigh@debian.org>  Tue, 17 Jan 2012 22:40:09 +0000
 
 schroot (1.4.23-1) unstable; urgency=low
 
