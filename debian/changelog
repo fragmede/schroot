@@ -61,6 +61,25 @@ schroot (1.5.0-1) experimental; urgency=low
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 16 Jan 2011 22:02:34 +0000
 
+schroot (1.4.24-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * Add multiarch support.  Backported from schroot 1.5.1.
+  * Use debhelper 9 and dh using compat level 9.
+  * Use Standards-Version 3.9.2.
+  * Build-Depend upon groff-base for soelim.
+  * Support for zip file archives has been removed.  zip was not able
+    to archive named pipes and device nodes, and so was not usable
+    for chroot archival.
+  * Don't Suggest unzip now zip is not a supported archive
+    format.
+  * Correct race condition in 15killprocs (Closes: #645223).  Thanks to
+    Patrick Ohly for this patch.
+  * Fix name lookup issue causing FTBFS with GCC 4.7 (Closes: #656239).
+    Thanks to Ralf Corsépius for this patch.
+
+ -- Roger Leigh <rleigh@debian.org>  Tue, 17 Jan 2012 22:40:09 +0000
+
 schroot (1.4.23-1) unstable; urgency=low
 
   * New upstream stable release.

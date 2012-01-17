@@ -53,6 +53,15 @@ configuration.
      VERBOSE instead.  VERBOSITY replaced and deprecated
      AUTH_VERBOSITY in version 1.4.5.
 
+* Major changes in 1.4.24:
+
+  1) Support for zip file archives has been removed.  zip was not able
+     to archive named pipes and device nodes, and so was not usable
+     for chroot archival.
+
+  2) The autoconf and automake build logic from schroot 1.5.1 has been
+     backported to add multi-arch support to schroot 1.4.
+
 * Major changes in 1.4.23:
 
   None.
