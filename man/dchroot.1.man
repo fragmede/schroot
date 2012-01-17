@@ -16,7 +16,7 @@
 .\"
 .so config.man
 .ds PROGRAM dchroot
-.TH DCHROOT 1 "\*[RELEASE_DATE_S]" "Version \*[VERSION]" "Debian sbuild"
+.TH DCHROOT 1 "\*[RELEASE_DATE]" "Version \*[VERSION]" "Debian sbuild"
 .SH NAME
 dchroot \- enter a chroot environment
 .SH SYNOPSIS

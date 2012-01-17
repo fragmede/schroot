@@ -16,7 +16,7 @@
 .\"
 .so config.man
 .ds PROGRAM csbuild
-.TH CSBUILD 1 "\*[RELEASE_DATE_S]" "Version \*[VERSION]" "Debian sbuild"
+.TH CSBUILD 1 "\*[RELEASE_DATE]" "Version \*[VERSION]" "Debian sbuild"
 .SH NAME
 csbuild \- build debian packages from source
 .SH SYNOPSIS

@@ -15,7 +15,7 @@
 .\" <http://www.gnu.org/licenses/>.
 .\"
 .so config.man
-.TH SCHROOT.CONF 5 "@RELEASE_DATE_S@" "Version @VERSION@" "Debian sbuild"
+.TH SCHROOT.CONF 5 "@RELEASE_DATE@" "Version @VERSION@" "Debian sbuild"
 .SH NAME
 schroot.conf \- chroot definition file for schroot
 .SH DESCRIPTION

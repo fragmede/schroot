@@ -15,7 +15,7 @@
 .\" <http://www.gnu.org/licenses/>.
 .\"
 .so config.man
-.TH SCHROOT\-SETUP 5 "\*[RELEASE_DATE_S]" "Version \*[VERSION]" "Debian sbuild"
+.TH SCHROOT\-SETUP 5 "\*[RELEASE_DATE]" "Version \*[VERSION]" "Debian sbuild"
 .SH NAME
 schroot\-setup \- schroot chroot setup scripts
 .SH DESCRIPTION
