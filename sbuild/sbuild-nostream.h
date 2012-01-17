@@ -58,7 +58,7 @@ namespace sbuild
       std::basic_ios<cT, traits>(&nbuf),
       std::basic_ostream<cT, traits>(&nbuf)
     {
-      init(&nbuf);
+      this->init(&nbuf);
     }
 
   private:
