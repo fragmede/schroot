@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2010-12-07 14:00+0000\n"
+"POT-Creation-Date: 2012-01-17 20:50+0000\n"
 "PO-Revision-Date: 2010-01-16 15:44+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -795,6 +795,9 @@ msgstr "Plats"
 #. (process execution domain).  See schroot.conf(5).
 msgid "Personality"
 msgstr "Personlighet"
+
+msgid "Original Chroot Name"
+msgstr ""
 
 #, fuzzy
 msgid "Session ID"
