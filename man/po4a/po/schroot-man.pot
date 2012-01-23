@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Roger Leigh <rleigh@debian.org>
+# This file is distributed under the same license as the schroot package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-11-28 23:37+0000\n"
+"Project-Id-Version: schroot 1.5.2\n"
+"POT-Creation-Date: 2012-01-23 09:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
