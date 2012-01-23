@@ -1,8 +1,11 @@
 schroot (1.4.25-1) unstable; urgency=low
 
   * New upstream stable release.
+  * Support for overlayfs has been added in addition to aufs and
+    unionfs (Closes: #648450).  Thanks to Evan Broder.  Backported
+    from schroot-1.5.2.
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 23 Jan 2012 09:54:27 +0000
+ -- Roger Leigh <rleigh@debian.org>  Mon, 23 Jan 2012 09:55:41 +0000
 
 schroot (1.4.24-1) unstable; urgency=low
 
