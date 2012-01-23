@@ -1,11 +1,15 @@
 NEWS                                                            -*- outline -*-
 ----
 
-Welcome to schroot 1.4.24.  Please read these release notes carefully.
+Welcome to schroot 1.4.25.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 1.4.25:
+
+  None.
 
 * Major changes in 1.4.24:
 
