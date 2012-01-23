@@ -6,10 +6,12 @@ schroot (1.5.2-1) experimental; urgency=low
   * Support translation of the documentation with po4a
     (Closes: #588962).  Thanks to David Prévot.  Note that there are
     not yet any translations making use of this facility yet.
+  * Support for overlayfs has been added in addition to aufs and
+    unionfs (Closes: #648450).  Thanks to Evan Broder.
   * debian/control:
     - Fix typo (debuggging, Closes: #653732).  Thanks to Vincent Blut.
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 23 Jan 2012 09:34:04 +0000
+ -- Roger Leigh <rleigh@debian.org>  Mon, 23 Jan 2012 09:48:11 +0000
 
 schroot (1.5.1-1) experimental; urgency=low
 
