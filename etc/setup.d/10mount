@@ -92,6 +92,9 @@ do_mount_fs_union()
 	    aufs)
 		CHROOT_UNION_MOUNT_OPTIONS="br:${CHROOT_UNION_OVERLAY_DIRECTORY}:${CHROOT_UNION_UNDERLAY_DIRECTORY}=ro"
 		;;
+	    overlayfs)
+                CHROOT_UNION_MOUNT_OPTIONS="lowerdir=${CHROOT_UNION_UNDERLAY_DIRECTORY},upperdir=${CHROOT_UNION_OVERLAY_DIRECTORY}"
+                ;;
 	esac
     fi
 

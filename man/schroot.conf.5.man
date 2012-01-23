@@ -353,15 +353,15 @@ optional.
 .TP
 \f[CBI]union\-type=\fP\f[CI]type\fP
 Set the union filesystem type.  Currently supported filesystems are
-\[oq]aufs\[cq] and \[oq]unionfs\[cq].  The default is \[oq]none\[cq], which
-disables this feature.
+\[oq]aufs\[cq], \[oq]overlayfs\[cq] and \[oq]unionfs\[cq].  The default is
+\[oq]none\[cq], which disables this feature.
 .TP
 \f[CBI]union\-mount\-options=\fP\f[CI]options\fP
 Union filesystem mount options (branch configuration), used for mounting the
 union filesystem specified with \fIunion\-type\fP.  This replaces the complete
 \[lq]\-o\[rq] string for mount and allows for the creation of complex
-filesystem unions.  Note that \[oq]aufs\[cq] and \[oq]unionfs\[cq] have
-different supported mount options.
+filesystem unions.  Note that \[oq]aufs\[cq], \[oq]overlayfs\[cq] and
+\[oq]unionfs\[cq] each have different supported mount options.
 .B Note:
 One can use the variables \[lq]${CHROOT_UNION_OVERLAY_DIRECTORY}\[rq] and
 \[lq]${CHROOT_UNION_UNDERLAY_DIRECTORY}\[rq] to refer to the writable overlay

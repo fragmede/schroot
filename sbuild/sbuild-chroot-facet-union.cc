@@ -153,6 +153,7 @@ void
 chroot_facet_union::set_union_type (std::string const& type)
 {
   if (type == "aufs" ||
+      type == "overlayfs" ||
       type == "unionfs" ||
       type == "none")
     this->union_type = type;
