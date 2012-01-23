@@ -27,10 +27,12 @@ libboost-dev                 }
 libboost-program-options-dev } The Boost C++ libraries
 libboost-regex-dev           }
 uuid-dev (e2fsprogs)
+groff (or troff) soelim
 
 If building from GIT, you will also need:
 gettext (0.16 or greater)
 doxygen
+po4a (>=0.40)
 
 
 Translation
@@ -38,6 +40,9 @@ Translation
 
 If you would like to see the schroot messages output in your own
 language, please consider translating the pot file (po/schroot.pot).
+If you would like to see the schroot man pages in your own language,
+please consider translating the pot file
+(man/po4a/po/schroot-man.pot).
 
 
 Building and installation
