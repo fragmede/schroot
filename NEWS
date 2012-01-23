@@ -9,7 +9,8 @@ configuration.
 
 * Major changes in 1.5.2:
 
-  None.
+  1) Support for overlayfs has been added in addition to the existing
+     aufs and unionfs support.
 
 * Major changes in 1.5.1:
 
