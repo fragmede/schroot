@@ -3,10 +3,13 @@ schroot (1.5.2-1) experimental; urgency=low
   * New upstream development release.
   * Build with current Boost libraries (currently 1.46, will be
     1.48 soon).
+  * Support translation of the documentation with po4a
+    (Closes: #588962).  Thanks to David Prévot.  Note that there are
+    not yet any translations making use of this facility yet.
   * debian/control:
     - Fix typo (debuggging, Closes: #653732).  Thanks to Vincent Blut.
 
- -- Roger Leigh <rleigh@debian.org>  Fri, 30 Dec 2011 15:57:45 +0000
+ -- Roger Leigh <rleigh@debian.org>  Mon, 23 Jan 2012 09:34:04 +0000
 
 schroot (1.5.1-1) experimental; urgency=low
 
