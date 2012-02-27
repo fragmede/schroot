@@ -59,7 +59,9 @@ options::add_options ()
     ("all-sessions",
      _("Select all active sessions"))
     ("all-source-chroots",
-     _("Select all source chroots"));
+     _("Select all source chroots"))
+    ("exclude-aliases",
+     _("Do not include aliases"));
 
   chrootenv.add_options()
     ("directory,d", opt::value<std::string>(&this->directory),
@@ -106,6 +108,8 @@ options::check_options ()
     this->all_sessions = true;
   if (vm.count("all-source-chroots"))
     this->all_source_chroots = true;
+  if (vm.count("exclude-aliases"))
+    this->exclude_aliases = true;
 
   if (vm.count("preserve-environment"))
     this->preserve = true;

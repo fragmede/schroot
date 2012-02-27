@@ -97,6 +97,8 @@ namespace schroot
     bool                 all_sessions;
     /// Use all source_chroots.
     bool                 all_source_chroots;
+    /// Exclude aliases in output.
+    bool                 exclude_aliases;
     /// Load chroots.
     bool                 load_chroots;
     /// Load sessions.
