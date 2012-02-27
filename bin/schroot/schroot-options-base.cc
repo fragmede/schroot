@@ -54,6 +54,7 @@ options_base::options_base ():
   all_chroots(false),
   all_sessions(false),
   all_source_chroots(false),
+  exclude_aliases(false),
   session_name(),
   session_force(false),
   chroot(_("Chroot selection")),

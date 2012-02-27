@@ -147,7 +147,8 @@ main_base::get_chroot_options ()
       if (this->options->all_chroots)
 	{
 	  sbuild::string_list chroots;
-	  if (this->options->action == options_base::ACTION_LIST)
+	  if (this->options->action == options_base::ACTION_LIST &&
+	      !this->options->exclude_aliases)
 	    chroots = this->config->get_alias_list("chroot");
 	  else
 	    chroots = this->config->get_chroot_list("chroot");
@@ -156,7 +157,8 @@ main_base::get_chroot_options ()
       if (this->options->all_sessions)
 	{
 	  sbuild::string_list sessions;
-	  if (this->options->action == options_base::ACTION_LIST)
+	  if (this->options->action == options_base::ACTION_LIST &&
+	      !this->options->exclude_aliases)
 	    sessions = this->config->get_alias_list("session");
 	  else
 	    sessions = this->config->get_chroot_list("session");
@@ -165,7 +167,8 @@ main_base::get_chroot_options ()
       if (this->options->all_source_chroots)
 	{
 	  sbuild::string_list sources;
-	  if (this->options->action == options_base::ACTION_LIST)
+	  if (this->options->action == options_base::ACTION_LIST &&
+	      !this->options->exclude_aliases)
 	    sources = this->config->get_alias_list("source");
 	  else
 	    sources = this->config->get_chroot_list("source");
@@ -281,7 +284,7 @@ main_base::run_impl ()
 	throw error(*pos, CHROOT_NOTFOUND);
     }
 
-  /* Print chroot list (including aliases). */
+  /* Print chroot list. */
   if (this->options->action == options_base::ACTION_LIST)
     {
       action_list();

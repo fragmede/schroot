@@ -35,6 +35,7 @@ schroot \- securely enter a chroot environment
 .RB [ \-q \[or] \-\-quiet " \[or] " \-v \[or] \-\-verbose ]
 .RB [ "\-c \fIchroot\fP" \[or] "\-\-chroot=\fIchroot\fP"
 .RB " \[or] " \-\-all " \[or] " \-\-all\-chroots " \[or] " \-\-all\-source\-chroots " \[or] " \-\-all\-sessions ]
+.RB " \[or] " \-\-exclude\-aliases
 .RB [ \-\- ]
 .RB [ COMMAND " [ " ARG1 " [ " ARG2 " [ " ARGn ]]]]
 .SH DESCRIPTION
@@ -156,6 +157,10 @@ and source chroots are not considered.
 .BR \-\-all\-source\-chroots
 Select all source chroots.  Identical to \fI\-\-all\fP, except that chroots
 and sessions are not considered.
+.TP
+.BR \-\-exclude\-aliases
+Do not select aliases in addition to chroots.  This ensures that only real
+chroots are selected, and are only listed once.
 .SS Chroot environment
 .TP
 .BR \-d ", " \-\-directory=\fIdirectory\fP
