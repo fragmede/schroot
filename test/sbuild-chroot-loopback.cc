@@ -96,7 +96,7 @@ public:
   {
     test_chroot_base<chroot_loopback>::setup_chroot_props(chroot);
 
-    std::tr1::shared_ptr<sbuild::chroot_loopback> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
+    std::shared_ptr<sbuild::chroot_loopback> c = std::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
     c->set_file(loopback_file);
 
     sbuild::chroot_facet_mountable::ptr pmnt(chroot->get_facet<sbuild::chroot_facet_mountable>());
@@ -109,7 +109,7 @@ public:
   void
   test_file()
   {
-    std::tr1::shared_ptr<sbuild::chroot_loopback> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
+    std::shared_ptr<sbuild::chroot_loopback> c = std::dynamic_pointer_cast<sbuild::chroot_loopback>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_file("/dev/some/file");
     CPPUNIT_ASSERT(c->get_file() == "/dev/some/file");

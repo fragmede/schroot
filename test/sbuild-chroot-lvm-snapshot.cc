@@ -83,7 +83,7 @@ public:
   {
     test_chroot_base<chroot_lvm_snapshot>::setup_chroot_props(chroot);
 
-    std::tr1::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
 
     c->set_device("/dev/volgroup/testdev");
     c->set_snapshot_options("--size 1G");
@@ -99,7 +99,7 @@ public:
   void
   test_snapshot_device()
   {
-    std::tr1::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_snapshot_device("/dev/volgroup/some/snapshot/device");
     CPPUNIT_ASSERT(c->get_snapshot_device() == "/dev/volgroup/some/snapshot/device");
@@ -108,7 +108,7 @@ public:
   void
   test_snapshot_options()
   {
-    std::tr1::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_snapshot_options("-o opt1,opt2");
     CPPUNIT_ASSERT(c->get_snapshot_options() == "-o opt1,opt2");
@@ -144,7 +144,7 @@ public:
 
   void test_setup_env_session()
   {
-    std::tr1::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
 
     sbuild::environment expected;
     setup_env_gen(expected);

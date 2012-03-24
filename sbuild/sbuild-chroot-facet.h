@@ -41,10 +41,10 @@ namespace sbuild
   {
   public:
     /// A shared_ptr to a chroot facet object.
-    typedef std::tr1::shared_ptr<chroot_facet> ptr;
+    typedef std::shared_ptr<chroot_facet> ptr;
 
     /// A shared_ptr to a const chroot facet object.
-    typedef std::tr1::shared_ptr<const chroot_facet> const_ptr;
+    typedef std::shared_ptr<const chroot_facet> const_ptr;
 
   protected:
     /// The constructor.

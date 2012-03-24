@@ -81,7 +81,7 @@ namespace
 		message.message == dgettext(PAM_TEXT_DOMAIN, "Password:"))
 	      {
 		std::string user = "unknown"; // Set in case auth is void
-		std::tr1::shared_ptr<auth_pam> auth = conv->get_auth();
+		std::shared_ptr<auth_pam> auth = conv->get_auth();
 		assert(auth && auth.get() != 0); // Check auth is not void
 		if (auth && auth.get() != 0)
 		  user = auth->get_user();

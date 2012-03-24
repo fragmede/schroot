@@ -72,7 +72,7 @@ namespace sbuild
     typedef custom_error<error_code> error;
 
     /// A shared_ptr to a chroot_config object.
-    typedef std::tr1::shared_ptr<chroot_config> ptr;
+    typedef std::shared_ptr<chroot_config> ptr;
 
     /// The constructor.
     chroot_config ();

@@ -60,11 +60,11 @@ namespace sbuild
     /// A list of messages.
     typedef std::vector<auth_pam_message> message_list;
     /// A shared pointer to an auth_pam object.
-    typedef std::tr1::shared_ptr<auth_pam> auth_ptr;
+    typedef std::shared_ptr<auth_pam> auth_ptr;
     /// A weak pointer to an auth_pam object.
-    typedef std::tr1::weak_ptr<auth_pam> weak_auth_ptr;
+    typedef std::weak_ptr<auth_pam> weak_auth_ptr;
     /// A shared_ptr to an auth_pam_conv object.
-    typedef std::tr1::shared_ptr<auth_pam_conv> ptr;
+    typedef std::shared_ptr<auth_pam_conv> ptr;
 
   protected:
     /// The constructor.

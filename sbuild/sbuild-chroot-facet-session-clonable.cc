@@ -123,7 +123,7 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
      session id.  Only set for non-plain chroots which run
      setup scripts. */
   {
-    std::tr1::shared_ptr<chroot_plain> plain(std::tr1::dynamic_pointer_cast<chroot_plain>(clone));
+    std::shared_ptr<chroot_plain> plain(std::dynamic_pointer_cast<chroot_plain>(clone));
 
     if (clone->get_mount_location().empty() && !plain)
       {
@@ -140,7 +140,7 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
 
 #ifdef SBUILD_FEATURE_LVMSNAP
   /* LVM devices need the snapshot device name specifying. */
-  std::tr1::shared_ptr<chroot_lvm_snapshot> snapshot(std::tr1::dynamic_pointer_cast<chroot_lvm_snapshot>(clone));
+  std::shared_ptr<chroot_lvm_snapshot> snapshot(std::dynamic_pointer_cast<chroot_lvm_snapshot>(clone));
   if (snapshot && !snapshot->get_device().empty())
     {
       std::string device(dirname(snapshot->get_device()));
@@ -151,7 +151,7 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
 
 #ifdef SBUILD_FEATURE_BTRFSSNAP
   /* Btrfs snapshots need the snapshot name specifying. */
-  std::tr1::shared_ptr<chroot_btrfs_snapshot> btrfs_snapshot(std::tr1::dynamic_pointer_cast<chroot_btrfs_snapshot>(clone));
+  std::shared_ptr<chroot_btrfs_snapshot> btrfs_snapshot(std::dynamic_pointer_cast<chroot_btrfs_snapshot>(clone));
   if (btrfs_snapshot && !btrfs_snapshot->get_snapshot_directory().empty())
     {
       std::string snapname(btrfs_snapshot->get_snapshot_directory());

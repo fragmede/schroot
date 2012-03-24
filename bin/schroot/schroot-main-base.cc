@@ -21,6 +21,7 @@
 #include "schroot-main-base.h"
 
 #include <sbuild/sbuild-config.h>
+#include <sbuild/sbuild-tr1types.h>
 #ifdef SBUILD_FEATURE_PAM
 #include <sbuild/sbuild-auth-pam.h>
 #include <sbuild/sbuild-auth-pam-conv.h>
@@ -81,7 +82,7 @@ main_base::main_base (std::string const& program_name,
 		      options_base::ptr& options,
 		      bool               use_syslog):
   schroot_base::main(program_name, program_usage,
-		     std::tr1::static_pointer_cast<schroot_base::options>(options),
+		     std::static_pointer_cast<schroot_base::options>(options),
 		     use_syslog),
   options(options)
 {
@@ -376,7 +377,7 @@ main_base::add_session_auth ()
   sbuild::auth::ptr auth = sbuild::auth_pam::create("schroot");
 
   sbuild::auth_pam_conv::auth_ptr pam_auth =
-    std::tr1::dynamic_pointer_cast<sbuild::auth_pam>(auth);
+    std::dynamic_pointer_cast<sbuild::auth_pam>(auth);
 
   sbuild::auth_pam_conv::ptr conv = sbuild::auth_pam_conv_tty::create(pam_auth);
 

@@ -80,7 +80,7 @@ sbuild::basic_keyfile<K, P>::get_keys (group_name_type const& group) const
   const group_type *found_group = find_group(group);
   if (found_group)
     {
-      item_map_type const& items(std::tr1::get<1>(*found_group));
+      item_map_type const& items(std::get<1>(*found_group));
       for (typename item_map_type::const_iterator pos = items.begin();
 	   pos != items.end();
 	   ++pos)
@@ -161,7 +161,7 @@ sbuild::basic_keyfile<K, P>::get_comment (group_name_type const& group) const
 {
   const group_type *found_group = find_group(group);
   if (found_group)
-    return std::tr1::get<2>(*found_group);
+    return std::get<2>(*found_group);
   else
     return comment_type();
 }
@@ -173,7 +173,7 @@ sbuild::basic_keyfile<K, P>::get_comment (group_name_type const& group,
 {
   const item_type *found_item = find_item(group, key);
   if (found_item)
-      return std::tr1::get<2>(*found_item);
+      return std::get<2>(*found_item);
   else
     return comment_type();
 }
@@ -184,7 +184,7 @@ sbuild::basic_keyfile<K, P>::get_line (group_name_type const& group) const
 {
   const group_type *found_group = find_group(group);
   if (found_group)
-    return std::tr1::get<3>(*found_group);
+    return std::get<3>(*found_group);
   else
     return 0;
 }
@@ -196,7 +196,7 @@ sbuild::basic_keyfile<K, P>::get_line (group_name_type const& group,
 {
   const item_type *found_item = find_item(group, key);
   if (found_item)
-      return std::tr1::get<3>(*found_item);
+      return std::get<3>(*found_item);
   else
     return 0;
 }
@@ -292,7 +292,7 @@ sbuild::basic_keyfile<K, P>::remove_key (group_name_type const& group,
   group_type *found_group = find_group(group);
   if (found_group)
     {
-      item_map_type& items = std::tr1::get<1>(*found_group);
+      item_map_type& items = std::get<1>(*found_group);
       typename item_map_type::iterator pos = items.find(key);
       if (pos != items.end())
 	items.erase(pos);
@@ -308,21 +308,21 @@ sbuild::basic_keyfile<K, P>::operator += (basic_keyfile const& rhs)
        ++gp)
     {
       group_type const& group = gp->second;
-      group_name_type const& groupname = std::tr1::get<0>(group);
-      comment_type const& comment = std::tr1::get<2>(group);
-      size_type const& line = std::tr1::get<3>(group);
+      group_name_type const& groupname = std::get<0>(group);
+      comment_type const& comment = std::get<2>(group);
+      size_type const& line = std::get<3>(group);
       set_group(groupname, comment, line);
 
-      item_map_type const& items(std::tr1::get<1>(group));
+      item_map_type const& items(std::get<1>(group));
       for (typename item_map_type::const_iterator it = items.begin();
 	   it != items.end();
 	   ++it)
 	{
 	  item_type const& item = it->second;
-	  key_type const& key(std::tr1::get<0>(item));
-	  value_type const& value(std::tr1::get<1>(item));
-	  comment_type const& comment(std::tr1::get<2>(item));
-	  size_type const& line(std::tr1::get<3>(item));
+	  key_type const& key(std::get<0>(item));
+	  value_type const& value(std::get<1>(item));
+	  comment_type const& comment(std::get<2>(item));
+	  size_type const& line(std::get<3>(item));
 	  set_value(groupname, key, value, comment, line);
 	}
     }
@@ -369,7 +369,7 @@ sbuild::basic_keyfile<K, P>::find_item (group_name_type const& group,
   const group_type *found_group = find_group(group);
   if (found_group)
     {
-      item_map_type const& items = std::tr1::get<1>(*found_group);
+      item_map_type const& items = std::get<1>(*found_group);
       typename item_map_type::const_iterator pos = items.find(key);
       if (pos != items.end())
 	return &pos->second;
@@ -386,7 +386,7 @@ sbuild::basic_keyfile<K, P>::find_item (group_name_type const& group,
   group_type *found_group = find_group(group);
   if (found_group)
     {
-      item_map_type& items = std::tr1::get<1>(*found_group);
+      item_map_type& items = std::get<1>(*found_group);
       typename item_map_type::iterator pos = items.find(key);
       if (pos != items.end())
 	return &pos->second;

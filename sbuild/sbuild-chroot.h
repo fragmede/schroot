@@ -100,10 +100,10 @@ namespace sbuild
     typedef custom_error<error_code> error;
 
     /// A shared_ptr to a chroot object.
-    typedef std::tr1::shared_ptr<chroot> ptr;
+    typedef std::shared_ptr<chroot> ptr;
 
     /// A shared_ptr to a const chroot object.
-    typedef std::tr1::shared_ptr<const chroot> const_ptr;
+    typedef std::shared_ptr<const chroot> const_ptr;
 
   protected:
     /// The constructor.
@@ -552,7 +552,7 @@ namespace sbuild
      * does not exist.
      */
     template <typename T>
-    std::tr1::shared_ptr<T>
+    std::shared_ptr<T>
     get_facet ();
 
     /**
@@ -563,7 +563,7 @@ namespace sbuild
      * does not exist.
      */
     template <typename T>
-    const std::tr1::shared_ptr<const T>
+    const std::shared_ptr<const T>
     get_facet () const;
 
     /**
@@ -573,7 +573,7 @@ namespace sbuild
      */
     template <typename T>
     void
-    add_facet (std::tr1::shared_ptr<T> facet);
+    add_facet (std::shared_ptr<T> facet);
 
     /**
      * Remove a chroot facet.  This is a templated method; use the
@@ -590,7 +590,7 @@ namespace sbuild
      */
     template <typename T>
     void
-    remove_facet (std::tr1::shared_ptr<T> facet);
+    remove_facet (std::shared_ptr<T> facet);
 
     /**
      * Replace an existing chroot facet with a new facet.
@@ -599,7 +599,7 @@ namespace sbuild
      */
     template <typename T>
     void
-    replace_facet (std::tr1::shared_ptr<T> facet);
+    replace_facet (std::shared_ptr<T> facet);
 
     /**
      * List all registered chroot facets.
@@ -791,7 +791,7 @@ namespace sbuild
     verbosity     message_verbosity;
 
     /// A shared pointer to a chroot facet.
-    typedef std::tr1::shared_ptr<chroot_facet> facet_ptr;
+    typedef std::shared_ptr<chroot_facet> facet_ptr;
     /// A list of chroot facets.
     typedef std::list<facet_ptr> facet_list;
     /// Contained chroot facets
@@ -834,16 +834,16 @@ namespace sbuild
 {
 
   template <typename T>
-  std::tr1::shared_ptr<T>
+  std::shared_ptr<T>
   chroot::get_facet ()
   {
-    std::tr1::shared_ptr<T> ret;
+    std::shared_ptr<T> ret;
 
     for (facet_list::const_iterator pos = facets.begin();
 	 pos != facets.end();
 	 ++pos)
       {
-	if (ret = std::tr1::dynamic_pointer_cast<T>(*pos))
+	if (ret = std::dynamic_pointer_cast<T>(*pos))
 	  break;
       }
 
@@ -851,27 +851,27 @@ namespace sbuild
   }
 
   template <typename T>
-  const std::tr1::shared_ptr<const T>
+  const std::shared_ptr<const T>
   chroot::get_facet () const
   {
-    std::tr1::shared_ptr<T> ret;
+    std::shared_ptr<T> ret;
 
     for (facet_list::const_iterator pos = facets.begin();
 	 pos != facets.end();
 	 ++pos)
       {
-	if (ret = std::tr1::dynamic_pointer_cast<T>(*pos))
+	if (ret = std::dynamic_pointer_cast<T>(*pos))
 	  break;
       }
 
-    return std::tr1::const_pointer_cast<T>(ret);
+    return std::const_pointer_cast<T>(ret);
   }
 
   template <typename T>
   void
-  chroot::add_facet (std::tr1::shared_ptr<T> facet)
+  chroot::add_facet (std::shared_ptr<T> facet)
   {
-    facet_ptr new_facet = std::tr1::dynamic_pointer_cast<chroot_facet>(facet);
+    facet_ptr new_facet = std::dynamic_pointer_cast<chroot_facet>(facet);
     if (!new_facet)
       throw error(FACET_INVALID);
 
@@ -879,7 +879,7 @@ namespace sbuild
 	 pos != facets.end();
 	 ++pos)
       {
-	if (std::tr1::dynamic_pointer_cast<T>(*pos))
+	if (std::dynamic_pointer_cast<T>(*pos))
 	  throw error(FACET_PRESENT);
       }
 
@@ -895,7 +895,7 @@ namespace sbuild
 	 pos != facets.end();
 	 ++pos)
       {
-	if (std::tr1::dynamic_pointer_cast<T>(*pos))
+	if (std::dynamic_pointer_cast<T>(*pos))
 	  {
 	    facets.erase(pos);
 	    break;
@@ -905,14 +905,14 @@ namespace sbuild
 
   template <typename T>
   void
-  chroot::remove_facet (std::tr1::shared_ptr<T> facet)
+  chroot::remove_facet (std::shared_ptr<T> facet)
   {
     remove_facet<T>();
   }
 
   template <typename T>
   void
-  chroot::replace_facet (std::tr1::shared_ptr<T> facet)
+  chroot::replace_facet (std::shared_ptr<T> facet)
   {
     remove_facet<T>();
     add_facet(facet);

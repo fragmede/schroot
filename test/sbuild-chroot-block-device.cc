@@ -90,7 +90,7 @@ public:
   {
     test_chroot_base<chroot_block_device>::setup_chroot_props(chroot);
 
-    std::tr1::shared_ptr<sbuild::chroot_block_device> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_block_device>(chroot);
+    std::shared_ptr<sbuild::chroot_block_device> c = std::dynamic_pointer_cast<sbuild::chroot_block_device>(chroot);
 
     c->set_device("/dev/testdev");
 
@@ -104,7 +104,7 @@ public:
   void
   test_device()
   {
-    std::tr1::shared_ptr<sbuild::chroot_block_device> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_block_device>(chroot);
+    std::shared_ptr<sbuild::chroot_block_device> c = std::dynamic_pointer_cast<sbuild::chroot_block_device>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_device("/dev/some/device");
     CPPUNIT_ASSERT(c->get_device() == "/dev/some/device");

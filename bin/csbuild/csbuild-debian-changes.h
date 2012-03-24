@@ -50,7 +50,7 @@ namespace csbuild
     typedef unsigned int size_type;
 
     /// Key-value-line tuple.
-    typedef std::tr1::tuple<key_type,value_type,size_type>
+    typedef std::tuple<key_type,value_type,size_type>
     item_type;
 
     /// Map between key name and key-value-comment tuple.
@@ -153,7 +153,7 @@ namespace csbuild
       const item_type *found_item = find_item(key);
       if (found_item)
 	{
-	  value_type const& strval(std::tr1::get<1>(*found_item));
+	  value_type const& strval(std::get<1>(*found_item));
 	  try
 	    {
 	      sbuild::parse_value(strval, value);
@@ -538,8 +538,8 @@ namespace csbuild
 	   ++it)
 	{
 	  item_type const& item = it->second;
-	  key_type const& key(std::tr1::get<0>(item));
-	  value_type const& value(std::tr1::get<1>(item));
+	  key_type const& key(std::get<0>(item));
+	  value_type const& value(std::get<1>(item));
 
 	  stream << key << '=' << value << '\n';
 	}

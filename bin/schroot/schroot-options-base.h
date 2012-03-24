@@ -69,7 +69,7 @@ namespace schroot
     static const action_type ACTION_CONFIG;
 
     /// A shared_ptr to an options_base object.
-    typedef std::tr1::shared_ptr<options_base> ptr;
+    typedef std::shared_ptr<options_base> ptr;
 
     /// The constructor.
     options_base ();

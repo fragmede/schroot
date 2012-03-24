@@ -142,7 +142,7 @@ debian_changes::get_line (key_type const& key) const
 {
   const item_type *found_item = find_item(key);
   if (found_item)
-      return std::tr1::get<2>(*found_item);
+      return std::get<2>(*found_item);
   else
     return 0;
 }
@@ -156,7 +156,7 @@ debian_changes::get_value (key_type const& key,
   const item_type *found_item = find_item(key);
   if (found_item)
     {
-      value_type const& val(std::tr1::get<1>(*found_item));
+      value_type const& val(std::get<1>(*found_item));
       value = val;
       return true;
     }
@@ -204,9 +204,9 @@ debian_changes::operator += (debian_changes const& rhs)
        ++it)
     {
       item_type const& item = it->second;
-      key_type const& key(std::tr1::get<0>(item));
-      value_type const& value(std::tr1::get<1>(item));
-      size_type const& line(std::tr1::get<2>(item));
+      key_type const& key(std::get<0>(item));
+      value_type const& value(std::get<1>(item));
+      size_type const& line(std::get<2>(item));
       set_value(key, value, line);
     }
 

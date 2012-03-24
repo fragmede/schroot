@@ -105,7 +105,7 @@ namespace sbuild
     typedef custom_error<error_code> error;
 
     /// A shared_ptr to a session object.
-    typedef std::tr1::shared_ptr<session> ptr;
+    typedef std::shared_ptr<session> ptr;
 
     /**
      * The constructor.

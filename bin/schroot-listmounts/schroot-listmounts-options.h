@@ -33,7 +33,7 @@ namespace schroot_listmounts
   {
   public:
     /// A shared_ptr to an options object.
-    typedef std::tr1::shared_ptr<options> ptr;
+    typedef std::shared_ptr<options> ptr;
 
     /// Begin, run and end a session.
     static const action_type ACTION_LISTMOUNTS;

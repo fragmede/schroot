@@ -83,7 +83,7 @@ public:
   {
     test_chroot_base<chroot_file>::setup_chroot_props(chroot);
 
-    std::tr1::shared_ptr<sbuild::chroot_file> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
+    std::shared_ptr<sbuild::chroot_file> c = std::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
 
     c->set_file("/srv/chroot/example.tar.bz2");
     c->set_location("/sid");
@@ -92,7 +92,7 @@ public:
   void
   test_file()
   {
-    std::tr1::shared_ptr<sbuild::chroot_file> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
+    std::shared_ptr<sbuild::chroot_file> c = std::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_file("/srv/chroot-images/unstable.tar.gz");
     CPPUNIT_ASSERT(c->get_file() == "/srv/chroot-images/unstable.tar.gz");
@@ -105,7 +105,7 @@ public:
 
   void test_location()
   {
-    std::tr1::shared_ptr<sbuild::chroot_file> fc = std::tr1::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
+    std::shared_ptr<sbuild::chroot_file> fc = std::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
 
     fc->set_location("");
     CPPUNIT_ASSERT(fc->get_location() == "");
@@ -118,16 +118,16 @@ public:
 
   void test_location_invalid()
   {
-    std::tr1::shared_ptr<sbuild::chroot_file> fc = std::tr1::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
+    std::shared_ptr<sbuild::chroot_file> fc = std::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
 
     fc->set_location("invalid");
   }
 
   void test_repack()
   {
-    std::tr1::shared_ptr<sbuild::chroot_file> fc = std::tr1::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
-    std::tr1::shared_ptr<sbuild::chroot_file> fss = std::tr1::dynamic_pointer_cast<sbuild::chroot_file>(session);
-    std::tr1::shared_ptr<sbuild::chroot_file> fs = std::tr1::dynamic_pointer_cast<sbuild::chroot_file>(source);
+    std::shared_ptr<sbuild::chroot_file> fc = std::dynamic_pointer_cast<sbuild::chroot_file>(chroot);
+    std::shared_ptr<sbuild::chroot_file> fss = std::dynamic_pointer_cast<sbuild::chroot_file>(session);
+    std::shared_ptr<sbuild::chroot_file> fs = std::dynamic_pointer_cast<sbuild::chroot_file>(source);
 
 
     CPPUNIT_ASSERT(fc->get_file_repack() == false);

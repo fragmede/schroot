@@ -86,7 +86,7 @@ public:
   {
     test_chroot_base<chroot_btrfs_snapshot>::setup_chroot_props(chroot);
 
-    std::tr1::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
 
     c->set_source_subvolume("/srv/chroot/sid");
     c->set_snapshot_directory("/srv/chroot/snapshot");
@@ -95,7 +95,7 @@ public:
   void
   test_source_subvolume()
   {
-    std::tr1::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_source_subvolume("/srv/chroot/chroot");
     CPPUNIT_ASSERT(c->get_source_subvolume() == "/srv/chroot/chroot");
@@ -104,7 +104,7 @@ public:
   void
   test_snapshot_directory()
   {
-    std::tr1::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_snapshot_directory("/srv/chroot/snapshot2");
     CPPUNIT_ASSERT(c->get_snapshot_directory() == "/srv/chroot/snapshot2");
@@ -113,7 +113,7 @@ public:
   void
   test_snapshot_name()
   {
-    std::tr1::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_snapshot_directory("/srv/chroot/snapshot2/test-session-id");
     CPPUNIT_ASSERT(c->get_snapshot_directory() == "/srv/chroot/snapshot2/test-session-id");
@@ -122,7 +122,7 @@ public:
   void
   test_source_subvolume_error()
   {
-    std::tr1::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_source_subvolume("chroot/invalid");
   }
@@ -130,7 +130,7 @@ public:
   void
   test_snapshot_directory_error()
   {
-    std::tr1::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_snapshot_directory("chroot/invalid");
   }
@@ -138,7 +138,7 @@ public:
   void
   test_snapshot_name_error()
   {
-    std::tr1::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_snapshot_name("invalid");
   }
@@ -171,7 +171,7 @@ public:
 
   void test_setup_env_session()
   {
-    std::tr1::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot_btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_btrfs_snapshot>(chroot);
 
     sbuild::environment expected;
     setup_env_gen(expected);

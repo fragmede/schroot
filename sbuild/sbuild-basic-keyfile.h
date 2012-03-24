@@ -164,14 +164,14 @@ namespace sbuild
     typedef P parse_type;
 
     /// Key-value-comment-line tuple.
-    typedef std::tr1::tuple<key_type,value_type,comment_type,size_type>
+    typedef std::tuple<key_type,value_type,comment_type,size_type>
     item_type;
 
     /// Map between key name and key-value-comment tuple.
     typedef std::map<key_type,item_type> item_map_type;
 
     /// Group-items-comment-line tuple.
-    typedef std::tr1::tuple<group_name_type,item_map_type,comment_type,size_type> group_type;
+    typedef std::tuple<group_name_type,item_map_type,comment_type,size_type> group_type;
 
     /// Map between group name and group-items-comment tuple.
     typedef std::map<group_name_type,group_type> group_map_type;
@@ -336,7 +336,7 @@ namespace sbuild
       const item_type *found_item = find_item(group, key);
       if (found_item)
 	{
-	  value_type const& strval(std::tr1::get<1>(*found_item));
+	  value_type const& strval(std::get<1>(*found_item));
 	  try
 	    {
 	      parse_value(strval, value);
@@ -598,7 +598,7 @@ namespace sbuild
       group_type *found_group = find_group(group);
       assert (found_group != 0); // should not fail
 
-      item_map_type& items = std::tr1::get<1>(*found_group);
+      item_map_type& items = std::get<1>(*found_group);
 
       typename item_map_type::iterator pos = items.find(key);
       if (pos != items.end())
@@ -799,23 +799,23 @@ namespace sbuild
 	    stream << '\n';
 
 	  group_type const& group = gp->second;
-	  group_name_type const& groupname = std::tr1::get<0>(group);
-	  comment_type const& comment = std::tr1::get<2>(group);
+	  group_name_type const& groupname = std::get<0>(group);
+	  comment_type const& comment = std::get<2>(group);
 
 	  if (comment.length() > 0)
 	    print_comment(comment, stream);
 
 	  stream << '[' << groupname << ']' << '\n';
 
-	  item_map_type const& items(std::tr1::get<1>(group));
+	  item_map_type const& items(std::get<1>(group));
 	  for (typename item_map_type::const_iterator it = items.begin();
 	       it != items.end();
 	       ++it)
 	    {
 	      item_type const& item = it->second;
-	      key_type const& key(std::tr1::get<0>(item));
-	      value_type const& value(std::tr1::get<1>(item));
-	      comment_type const& comment(std::tr1::get<2>(item));
+	      key_type const& key(std::get<0>(item));
+	      value_type const& value(std::get<1>(item));
+	      comment_type const& comment(std::get<2>(item));
 
 	      if (comment.length() > 0)
 		print_comment(comment, stream);

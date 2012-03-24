@@ -204,7 +204,7 @@ public:
 
   void test_run_setup_scripts()
   {
-    std::tr1::shared_ptr<basic_chroot> c = std::tr1::dynamic_pointer_cast<basic_chroot>(chroot);
+    std::shared_ptr<basic_chroot> c = std::dynamic_pointer_cast<basic_chroot>(chroot);
 
     CPPUNIT_ASSERT(chroot->get_run_setup_scripts() == true);
     c->set_run_setup_scripts(false);
@@ -215,7 +215,7 @@ public:
 
   void test_verbose()
   {
-    std::tr1::shared_ptr<basic_chroot> c = std::tr1::dynamic_pointer_cast<basic_chroot>(chroot);
+    std::shared_ptr<basic_chroot> c = std::dynamic_pointer_cast<basic_chroot>(chroot);
 
     CPPUNIT_ASSERT(chroot->get_verbosity() == sbuild::chroot::VERBOSITY_QUIET);
     c->set_verbosity(sbuild::chroot::VERBOSITY_VERBOSE);
@@ -228,7 +228,7 @@ public:
 
   void test_preserve_environment()
   {
-    std::tr1::shared_ptr<basic_chroot> c = std::tr1::dynamic_pointer_cast<basic_chroot>(chroot);
+    std::shared_ptr<basic_chroot> c = std::dynamic_pointer_cast<basic_chroot>(chroot);
 
     CPPUNIT_ASSERT(chroot->get_preserve_environment() == false);
     c->set_preserve_environment(true);
@@ -239,7 +239,7 @@ public:
 
   void test_verbose_error()
   {
-    std::tr1::shared_ptr<basic_chroot> c = std::tr1::dynamic_pointer_cast<basic_chroot>(chroot);
+    std::shared_ptr<basic_chroot> c = std::dynamic_pointer_cast<basic_chroot>(chroot);
     c->set_verbosity("invalid");
   }
 

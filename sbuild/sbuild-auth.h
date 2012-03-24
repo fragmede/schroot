@@ -94,7 +94,7 @@ namespace sbuild
     typedef custom_error<error_code> error;
 
     /// A shared_ptr to a auth object.
-    typedef std::tr1::shared_ptr<auth> ptr;
+    typedef std::shared_ptr<auth> ptr;
 
   protected:
     /**

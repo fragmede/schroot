@@ -35,10 +35,10 @@ namespace sbuild
   {
   public:
     /// A shared_ptr to a chroot facet object.
-    typedef std::tr1::shared_ptr<chroot_facet_session_clonable> ptr;
+    typedef std::shared_ptr<chroot_facet_session_clonable> ptr;
 
     /// A shared_ptr to a const chroot facet object.
-    typedef std::tr1::shared_ptr<const chroot_facet_session_clonable> const_ptr;
+    typedef std::shared_ptr<const chroot_facet_session_clonable> const_ptr;
 
   private:
     /// The constructor.

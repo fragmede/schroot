@@ -54,6 +54,9 @@
 /* Define to 1 if you have the <boost/program_options.hpp> header file. */
 #undef HAVE_BOOST_PROGRAM_OPTIONS_HPP
 
+/* Define to 1 if the <memory> header file includes std::shared_ptr */
+#undef HAVE_MEMORY_SHARED_PTR
+
 /* Define to 1 if you have the <boost/shared_ptr.hpp> header file. */
 #undef HAVE_BOOST_SHARED_PTR_HPP
 
@@ -65,6 +68,9 @@
 
 /* Define to 1 if you have the <tr1/tuple> header file. */
 #undef HAVE_TR1_TUPLE
+
+/* Define to 1 if you have the <tuple> header file. */
+#undef HAVE_TUPLE
 
 /* Default regular expression used to filter user environment */
 #undef SBUILD_DEFAULT_ENVIRONMENT_FILTER

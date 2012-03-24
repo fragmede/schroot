@@ -18,39 +18,58 @@
 
 /**
  * @file sbuild-tr1types.h TR1 type substitution.  This header
- * substitutes Boost types as TR1 types when the Standard Library does
- * not support TR1.
+ * substitutes TR1 types or their equivalent Boost types for the same
+ * types in the std namespace when not using a conforming C++11
+ * compiler.  This permits all code to use the C++11 standard types
+ * irrespective of the compiler being used.
  */
 
 #ifndef SBUILD_TR1TYPES_H
-#define SBUILD_TR1TYPES_H
+# define SBUILD_TR1TYPES_H
 
-#include <sbuild/sbuild-config.h>
+# include <sbuild/sbuild-config.h>
 
-#ifdef HAVE_TR1_MEMORY
-#include <tr1/memory>
-#elif HAVE_BOOST_SHARED_PTR_HPP
-#include <boost/shared_ptr.hpp>
+# ifdef HAVE_MEMORY_SHARED_PTR
+#  include <memory>
+# elif HAVE_TR1_MEMORY
+# include <tr1/memory>
 namespace std {
-  namespace tr1 {
+    using std::tr1::shared_ptr;
+    using std::tr1::weak_ptr;
+    using std::tr1::static_pointer_cast;
+    using std::tr1::const_pointer_cast;
+    using std::tr1::dynamic_pointer_cast;
+}
+# elif HAVE_BOOST_SHARED_PTR_HPP
+#  include <boost/shared_ptr.hpp>
+namespace std {
     using boost::shared_ptr;
+    using boost::weak_ptr;
     using boost::static_pointer_cast;
     using boost::const_pointer_cast;
     using boost::dynamic_pointer_cast;
-  }
 }
-#else
-#error A shared_ptr implementation is not available
-#endif
+# else
+#  error A shared_ptr implementation is not available
+# endif
 
-#ifdef HAVE_TR1_TUPLE
-#include <tr1/tuple>
-#elif HAVE_BOOST_TUPLE_TUPLE_HPP
-#include <boost/tuple/tuple.hpp>
-namespace std { namespace tr1 { using boost::tuple; using boost::get; } }
-#else
-#error A tuple implementation is not available
-#endif
+# ifdef HAVE_TUPLE
+#  include <tuple>
+# elif HAVE_TR1_TUPLE
+#  include <tr1/tuple>
+namespace std {
+  using tr1::tuple;
+  using tr1::get;
+}
+# elif HAVE_BOOST_TUPLE_TUPLE_HPP
+#  include <boost/tuple/tuple.hpp>
+namespace std {
+  using boost::tuple;
+  using boost::get;
+}
+# else
+#  error A tuple implementation is not available
+# endif
 
 #endif /* SBUILD_TR1TYPES_H */
 

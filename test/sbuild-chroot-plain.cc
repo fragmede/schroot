@@ -73,7 +73,7 @@ public:
   {
     test_chroot_base<chroot_plain>::setup_chroot_props(chroot);
 
-    std::tr1::shared_ptr<sbuild::chroot_plain> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_plain>(chroot);
+    std::shared_ptr<sbuild::chroot_plain> c = std::dynamic_pointer_cast<sbuild::chroot_plain>(chroot);
 
     c->set_mount_location("");
     c->set_directory("/srv/chroot/example-chroot");
@@ -82,7 +82,7 @@ public:
   void
   test_directory()
   {
-    std::tr1::shared_ptr<sbuild::chroot_plain> c = std::tr1::dynamic_pointer_cast<sbuild::chroot_plain>(chroot);
+    std::shared_ptr<sbuild::chroot_plain> c = std::dynamic_pointer_cast<sbuild::chroot_plain>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_directory("/mnt/mount-location/example");
     CPPUNIT_ASSERT(c->get_directory() == "/mnt/mount-location/example");
