@@ -20,6 +20,8 @@
 
 #include "sbuild-environment.h"
 
+#include <cstring>
+
 using boost::format;
 using namespace sbuild;
 

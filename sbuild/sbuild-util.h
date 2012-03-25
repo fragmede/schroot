@@ -26,6 +26,7 @@
 
 #include <string>
 #include <cerrno>
+#include <cstring>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -406,12 +407,12 @@ namespace sbuild
       if (this->errorno)
 	{
 	  if (!this->file.empty())
-	    throw error(this->file, FILE, strerror(this->errorno));
+	    throw error(this->file, FILE, std::strerror(this->errorno));
 	  else
 	    {
 	      std::ostringstream str;
 	      str << "fd " << fd;
-	      throw error(str.str(), FD, strerror(this->errorno));
+	      throw error(str.str(), FD, std::strerror(this->errorno));
 	    }
 	}
     }
