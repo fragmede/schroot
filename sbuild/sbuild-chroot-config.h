@@ -51,7 +51,7 @@ namespace sbuild
     /// A map between a chroot namespace and a chroot map object.
     typedef std::map<std::string, chroot_map> chroot_namespace_map;
 
-    /// Namspace separating character.
+    /// Namespace separating character.
     static const std::string namespace_separator;
 
     /// Error codes.
