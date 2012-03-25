@@ -1,4 +1,4 @@
-/* Copyright © 2006-2007  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2006-2007,2012  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -23,20 +23,42 @@
 #include <ostream>
 #include <string>
 
-#include <boost/regex.hpp>
+#include <sbuild/sbuild-config.h>
+#ifdef HAVE_REGEX_REGEX
+# include <regex>
+#else
+# include <boost/regex.hpp>
+namespace std {
+  using boost::regex;
+  using boost::regex_error;
+  using boost::regex_search;
+}
+#endif
 
 namespace sbuild
 {
 
   /**
-   * POSIX extended regular expression.
+   * POSIX extended regular expression.  Note that this extends the
+   * C++ std::regex type to provide the stream interface needed by the
+   * keyfile class.  Not all methods are overloaded, so this is not
+   * safe enough to be generally usable.  For example, it's possible
+   * to use non-overloaded assignment operators which will not update
+   * the stored string (which is required due to the C++ regex class
+   * not providing str() and compare() methods, while the Boost
+   * version does.  This class provides these methods in order to be
+   * compatible with both the C++11 and Boost regex classes.
+   * Additionally, this class always uses extended regexes, which
+   * using non-overloaded methods would permit this expectation to be
+   * broken.
    */
-  class regex : public boost::regex
+  class regex
   {
   public:
     /// The constructor
     regex ():
-      boost::regex()
+      comp(),
+      rstr()
     {}
 
     /**
@@ -47,7 +69,8 @@ namespace sbuild
      * @param pattern a regex
      */
     regex (std::string const& pattern):
-      boost::regex(pattern, boost::regex::extended)
+      comp(pattern, std::regex::extended),
+      rstr(pattern)
     {}
 
     /**
@@ -58,12 +81,43 @@ namespace sbuild
      * @param pattern a regex
      */
     regex (const char *pattern):
-      boost::regex(pattern, boost::regex::extended)
+      comp(pattern, std::regex::extended),
+      rstr(pattern)
     {}
 
     ///* The destructor.
     ~regex ()
     {}
+
+    /**
+     * The copy constructor.
+     *
+     * May throw if the regex is invalid.
+     *
+     * @param pattern a regex
+     */
+    regex (const regex& rhs):
+      comp(rhs.comp),
+      rstr(rhs.rstr)
+    {}
+
+    std::string const&
+    str() const
+    {
+      return rstr;
+    }
+
+    bool
+    compare (regex const& rhs) const
+    {
+      return this->rstr != rhs.rstr;
+    }
+
+    bool
+    search (std::string const& str) const
+    {
+      return std::regex_search(str, this->comp);
+    }
 
     /**
      * Get the regex name from a stream.
@@ -84,7 +138,8 @@ namespace sbuild
 
       if (std::getline(stream, regex))
 	{
-	  rhs.assign(regex, boost::regex::extended);
+	  rhs.comp.assign(regex, std::regex::extended);
+	  rhs.rstr = regex;
 	}
 
       return stream;
@@ -105,7 +160,23 @@ namespace sbuild
     {
       return stream << rhs.str();
     }
+
+  private:
+    /// Compiled regular expression.
+    std::regex comp;
+    /// String containing the regex.
+    std::string rstr;
   };
+
+  /**
+   * Search using the regular expression.
+   */
+  inline bool
+  regex_search (const std::string& str,
+		regex const& regex)
+  {
+    return regex.search(str);
+  }
 
 }
 

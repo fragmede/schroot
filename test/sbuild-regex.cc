@@ -29,10 +29,11 @@ class test_regex : public TestCase
 {
   CPPUNIT_TEST_SUITE(test_regex);
   CPPUNIT_TEST(test_construction);
-  CPPUNIT_TEST_EXCEPTION(test_construction_fail, boost::regex_error);
+  CPPUNIT_TEST_EXCEPTION(test_construction_fail, std::regex_error);
   CPPUNIT_TEST(test_output);
   CPPUNIT_TEST(test_input);
-  CPPUNIT_TEST_EXCEPTION(test_input_fail, boost::regex_error);
+  CPPUNIT_TEST(test_match);
+  CPPUNIT_TEST_EXCEPTION(test_input_fail, std::regex_error);
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -65,6 +66,7 @@ public:
     sbuild::regex r("foo");
     std::ostringstream o;
     o << r;
+    CPPUNIT_ASSERT(r.str() == "foo");
     CPPUNIT_ASSERT(o.str() == "foo");
   }
 
@@ -74,7 +76,15 @@ public:
     sbuild::regex r;
     std::istringstream i("foo");
     i >> r;
+    std::cerr << "str='" << r.str() << "'" << std::endl;
     CPPUNIT_ASSERT(r.str() == "foo");
+  }
+
+  void
+  test_match()
+  {
+    sbuild::regex r("^[^:/,.][^:/,]*$");
+    sbuild::regex_search("foobar", r);
   }
 
   void
