@@ -50,6 +50,7 @@ sbuild/sbuild-chroot-facet-session-clonable.cc
 sbuild/sbuild-chroot-facet-source.cc
 sbuild/sbuild-chroot-facet-source-clonable.cc
 sbuild/sbuild-chroot-facet-union.cc
+sbuild/sbuild-chroot-facet-userdata.cc
 sbuild/sbuild-chroot-file.cc
 sbuild/sbuild-chroot-loopback.cc
 sbuild/sbuild-chroot-lvm-snapshot.cc

@@ -1,4 +1,4 @@
-/* Copyright © 2005-2007  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2005-2012  Roger Leigh <rleigh@debian.org>
  *
  * schroot is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -69,7 +69,9 @@ options::add_options ()
     ("user,u", opt::value<std::string>(&this->user),
      _("Username (default current user)"))
     ("preserve-environment,p",
-     _("Preserve user environment"));
+     _("Preserve user environment"))
+    ("option,o", opt::value<sbuild::string_list>(&this->useroptions),
+     _("Set option"));
 
   session_actions.add_options()
     ("automatic-session",
@@ -132,5 +134,16 @@ options::check_options ()
       this->all_chroots = true;
       this->all_sessions = true;
       this->all_source_chroots = true;
+    }
+
+  for (sbuild::string_list::const_iterator pos = this->useroptions.begin();
+       pos != this->useroptions.end();
+       ++pos)
+    {
+      std::string::size_type sep = pos->find_first_of('=', 0);
+      std::string key = pos->substr(0,sep);
+      ++sep;
+      std::string value = pos->substr(sep);
+      this->useroptions_map.insert(std::make_pair(key,value));
     }
 }

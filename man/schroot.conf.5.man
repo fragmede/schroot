@@ -377,6 +377,46 @@ created.  The default is \[oq]\*[SCHROOT_OVERLAY_DIR]\[cq].
 \f[CBI]union\-underlay\-directory\fP\f[CI]=directory\fP
 Specify the directory where the read-only underlying directories will be
 created.  The default is \[oq]\*[SCHROOT_UNDERLAY_DIR]\[cq].
+.SS Customisation
+.PP
+In addition to the configuration keys listed above, it is possible to add
+custom keys.  These keys will be used to add additional environment
+variables to the setup script environment when setup scripts are run.  The only
+restriction is that the key name consists only of alphanumeric characters and
+hyphens, begins with an alphabet character and contains at least one period.
+That is to say, that it matches the extended regular expression
+\[lq]^([a-z][a-z0-9]*\\.)+[a-z][a-z0-9-]*$\[rq].
+.PP
+For example:
+.RS
+.EX
+debian.apt-update=true
+debian.distribution=unstable
+.EE
+.RE
+.PP
+would set the following environment:
+.RS
+.EX
+DEBIAN_APT_UPDATE=true
+DEBIAN_DISTRIBUTION=unstable
+.EE
+.RE
+.PP
+Note that it is an error to use different key names which would set the same
+environment variable by mixing periods and hyphens.
+.PP
+Custom configuration keys may also be modified at runtime using the
+\fI\-\-option\fP option.  However, for security, only selected keys may be
+modified.  These keys are specified using the following options:
+.TP
+\f[CBI]user\-modifiable\-keys=\fP\f[CI]key1,key2,..\fP
+Set the keys which users may modify using \fI\-\-option\fP.
+.TP
+\f[CBI]root\-modifiable\-keys=\fP\f[CI]key1,key2,..\fP Set the keys which the
+root user may modify using \fI\-\-option\fP.  Note that the root user may use
+the keys specified in \f[CI]user\-modifiable\-keys\fP in addition to those
+specified here.
 .SS Localisation
 .PP
 Some keys may be localised in multiple languages.  This is achieved by adding

@@ -221,6 +221,22 @@ namespace sbuild
     set_preserve_environment (bool preserve_environment);
 
     /**
+     * Get user options.
+     *
+     * @returns map of user options.
+     */
+    string_map const&
+    get_user_options () const;
+
+    /**
+     * Set user options.
+     *
+     * @param user_options map of user options.
+     */
+    void
+    set_user_options (string_map const& user_options);
+
+    /**
      * Get the force status of this session.
      *
      * @returns true if operation will be forced, otherwise false.
@@ -534,6 +550,8 @@ namespace sbuild
     std::string verbosity;
     /// Preserve environment?
     bool        preserve_environment;
+    /// User-defined options.
+    string_map  user_options;
 
   protected:
     /// Current working directory.

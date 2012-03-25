@@ -351,6 +351,7 @@ main_base::run_impl ()
 	this->session->set_verbosity("quiet");
       else if (this->options->verbose)
 	this->session->set_verbosity("verbose");
+      this->session->set_user_options(this->options->useroptions_map);
 
       /* Run session. */
       this->session->run();

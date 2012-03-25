@@ -36,6 +36,7 @@ noinst_PROGRAMS = 			\
 	sbuild-chroot-lvm-snapshot	\
 	sbuild-chroot-btrfs-snapshot	\
 	sbuild-chroot-config		\
+	sbuild-chroot-facet-userdata	\
 	sbuild-environment		\
 	sbuild-keyfile			\
 	sbuild-lock			\
@@ -60,6 +61,7 @@ TESTS = setup-test-data			\
 	sbuild-chroot-lvm-snapshot	\
 	sbuild-chroot-btrfs-snapshot	\
 	sbuild-chroot-config		\
+	sbuild-chroot-facet-userdata	\
 	sbuild-environment		\
 	sbuild-keyfile			\
 	sbuild-log			\
@@ -137,6 +139,11 @@ sbuild_chroot_loopback_SOURCES =		\
 	$(sbuild_chroot_loopback_sources)	\
 	test-sbuild-chroot.h
 sbuild_chroot_loopback_LDADD =  libtest.la
+
+sbuild_chroot_facet_userdata_SOURCES =		\
+	sbuild-chroot-facet-userdata.cc		\
+	test-sbuild-chroot.h
+sbuild_chroot_facet_userdata_LDADD =  libtest.la
 
 sbuild_chroot_config_SOURCES = sbuild-chroot-config.cc
 sbuild_chroot_config_LDADD = libtest.la

@@ -71,6 +71,11 @@ namespace
       emap(keyfile_base::INVALID_GROUP,
 	   N_("line %1%: Invalid group: “%4%”")),
       // TRANSLATORS: %1% = line number in configuration file
+      // TRANSLATORS: %2% = group name ("[groupname]" in configuration file)
+      // TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
+      emap(keyfile_base::INVALID_KEY,
+	   N_("line %1% [%2%]: Invalid key ‘%4%’ used")),
+      // TRANSLATORS: %1% = line number in configuration file
       // TRANSLATORS: %4% = line contents as read from the configuration file
       emap(keyfile_base::INVALID_LINE,
 	   N_("line %1%: Invalid line: “%4%”")),
@@ -124,7 +129,7 @@ namespace
       // TRANSLATORS: %2% = group name ("[groupname]" in configuration file)
       // TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
       emap(keyfile_base::UNKNOWN_KEY,
-	   N_("line %1% [%2%]: Unknown key ‘%4%’ used")),
+	   N_("line %1% [%2%]: Unknown key ‘%4%’ used"))
     };
 
 }

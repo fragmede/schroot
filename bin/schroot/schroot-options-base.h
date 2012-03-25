@@ -25,6 +25,7 @@
 #include <schroot-base/schroot-base-options.h>
 
 #include <string>
+#include <vector>
 
 #ifdef HAVE_TR1_MEMORY
 #include <tr1/memory>
@@ -107,6 +108,10 @@ namespace schroot
     std::string          session_name;
     /// Force session operations.
     bool                 session_force;
+    /// Options as a key=value list.
+    sbuild::string_list  useroptions;
+    /// Options in a string-string map.
+    sbuild::string_map   useroptions_map;
 
   protected:
     /**

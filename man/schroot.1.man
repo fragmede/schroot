@@ -37,6 +37,7 @@ schroot \- securely enter a chroot environment
 .RB [ "\-c \fIchroot\fP" \[or] "\-\-chroot=\fIchroot\fP"
 .RB " \[or] " \-\-all " \[or] " \-\-all\-chroots " \[or] " \-\-all\-source\-chroots " \[or] " \-\-all\-sessions ]
 .RB " \[or] " \-\-exclude\-aliases
+.RB [ -o \[or] "\-\-option=\fIkey=value\fP" ]
 .RB [ \-\- ]
 .RB [ COMMAND " [ " ARG1 " [ " ARG2 " [ " ARGn ]]]]
 .SH DESCRIPTION
@@ -186,6 +187,15 @@ Preserve the user's environment inside the chroot environment.  The default is
 to use a clean environment; this option copies the entire user environment and
 sets it in the session.  The environment variables allowed are subject to
 certain restrictions; see the section \[lq]\fIEnvironment\fP\[rq], below.
+.TP
+.BR \-o ", " \-\-option=\fIkey=value\fP
+Set an option.  The value of selected configuration keys in \fIschroot.conf\fP
+may be modified using this option.  The key must be present in the
+\f[CI]user\-modifiable\-keys\fP configuration key in \fIschroot.conf\fP, or
+additionally the \f[CI]user\-modifiable\-keys\fP key if running as (or
+switching to) the root user.  The key and value set here will be set in the
+environment of the setup scripts, and may hence be used to customise the chroot
+on a per-session basis.
 .SS Session actions
 .TP
 .BR \-\-automatic\-session

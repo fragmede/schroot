@@ -40,6 +40,7 @@
 #include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-chroot-facet-source.h"
+#include "sbuild-chroot-facet-userdata.h"
 #include "sbuild-fdstream.h"
 #include "sbuild-lock.h"
 
@@ -120,6 +121,7 @@ sbuild::chroot::chroot ():
 {
   add_facet(sbuild::chroot_facet_personality::create());
   add_facet(sbuild::chroot_facet_session_clonable::create());
+  add_facet(sbuild::chroot_facet_userdata::create());
 }
 
 sbuild::chroot::chroot (const chroot& rhs):
@@ -739,7 +741,68 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
       (*pos)->set_keyfile(*this, keyfile, used_keys);
     }
 
-  keyfile.check_keys(this->get_name(), used_keys);
+  // Check for keys which weren't set above.  These may be either
+  // invalid keys or user-set keys.  The latter must have a namespace
+  // separated with one or more periods.  These may be later
+  // overridden by the user on the commandline.
+  {
+    std::string const& group = this->get_name();
+    const string_list total(keyfile.get_keys(group));
+
+    const string_set a(total.begin(), total.end());
+    const string_set b(used_keys.begin(), used_keys.end());
+
+    string_set unused;
+
+    set_difference(a.begin(), a.end(),
+		   b.begin(), b.end(),
+		   inserter(unused, unused.begin()));
+
+    string_map userdata_keys;
+    chroot_facet_userdata::ptr userdata =
+      get_facet<chroot_facet_userdata>();
+    for (string_set::const_iterator pos = unused.begin();
+	 pos != unused.end();
+	 ++pos)
+      {
+	if (userdata)
+	  {
+	    try
+	      {
+		std::string value;
+		if (keyfile.get_value(get_name(), *pos, value))
+		  userdata->set_data(*pos, value);
+	      }
+	    catch (std::runtime_error const& e)
+	      {
+		keyfile::size_type line = keyfile.get_line(group, *pos);
+		keyfile::error w(line, group, *pos,
+				 keyfile::PASSTHROUGH_LGK, e.what());
+
+		try
+		  {
+		    sbuild::error_base const& r =
+		      dynamic_cast<sbuild::error_base const&>(e);
+		    w.set_reason(r.get_reason());
+		  }
+		catch (...)
+		  {
+		  }
+		log_exception_warning(w);
+	      }
+	  }
+	else
+	  {
+	    // This should never happen since userdata should
+	    // always be present.  Note the error is duplicated in
+	    // the facet.
+	    keyfile::size_type line = keyfile.get_line(group, *pos);
+	    keyfile::error e(line, group, keyfile::INVALID_KEY, *pos);
+	    e.set_reason(_("This option is not valid for this chroot type"));
+	    log_exception_warning(e);
+	  }
+      }
+  }
 }
 
 void

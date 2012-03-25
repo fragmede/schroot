@@ -22,6 +22,7 @@
 #include "sbuild-chroot-facet-personality.h"
 #include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-session-clonable.h"
+#include "sbuild-chroot-facet-userdata.h"
 #ifdef SBUILD_FEATURE_PAM
 #include "sbuild-auth-pam.h"
 #include "sbuild-auth-pam-conv.h"
@@ -212,6 +213,7 @@ session::session (std::string const&  service,
   termios_ok(false),
   verbosity(),
   preserve_environment(false),
+  user_options(),
   cwd(sbuild::getcwd())
 {
 }
@@ -290,6 +292,18 @@ void
 session::set_preserve_environment (bool preserve_environment)
 {
   this->preserve_environment = preserve_environment;
+}
+
+string_map const&
+session::get_user_options () const
+{
+  return this->user_options;
+}
+
+void
+session::set_user_options (string_map const& user_options)
+{
+  this->user_options = user_options;
 }
 
 bool
@@ -666,6 +680,22 @@ session::run_impl ()
 	  // Override chroot verbosity if needed.
 	  if (!this->verbosity.empty())
 	    chroot->set_verbosity(this->verbosity);
+
+	  // Set user options.
+	  chroot_facet_userdata::ptr userdata =
+	    chroot->get_facet<chroot_facet_userdata>();
+	  if (userdata)
+	    {
+	      // If the user running the command is root, or the user
+	      // being switched to is root, permit setting of
+	      // root-modifiable options in addition to
+	      // user-modifiable options.
+	      if (this->authstat->get_uid() == 0 ||
+		  this->authstat->get_ruid() == 0)
+		userdata->set_root_data(this->user_options);
+	      else
+		userdata->set_user_data(this->user_options);
+	    }
 
 	  // Following authentication success, default child status to
 	  // success so that operations such as beginning, ending and

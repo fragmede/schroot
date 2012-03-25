@@ -23,6 +23,7 @@
 #include <ctime>
 #include <ios>
 #include <locale>
+#include <map>
 #include <set>
 #include <string>
 #include <vector>
@@ -38,6 +39,9 @@ namespace sbuild
 
   /// A string set.
   typedef std::set<std::string> string_set;
+
+  /// A string map.
+  typedef std::map<std::string, std::string> string_map;
 
   /**
    * A date representation.

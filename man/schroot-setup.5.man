@@ -191,6 +191,11 @@ The name of the LVM snapshot device.
 CHROOT_LVM_SNAPSHOT_OPTIONS
 Options to pass to
 .BR lvcreate (8).
+.SS Custom variables
+.PP
+Custom keys set in \fIschroot.conf\fP will be uppercased and set in the
+environment as described in
+.BR schroot.conf (5).
 .SH FILES
 .SS Setup script configuration
 The directory \f[BI]\*[SCHROOT_SYSCONF_DIR]/default\fP contains the default

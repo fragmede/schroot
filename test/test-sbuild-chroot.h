@@ -27,7 +27,9 @@
 #include <sbuild/sbuild-chroot-facet-source.h>
 #include <sbuild/sbuild-chroot-facet-source-clonable.h>
 #include <sbuild/sbuild-chroot-facet-union.h>
+#include <sbuild/sbuild-chroot-facet-userdata.h>
 #include <sbuild/sbuild-i18n.h>
+#include <sbuild/sbuild-types.h>
 #include <sbuild/sbuild-util.h>
 
 #include <algorithm>
@@ -168,6 +170,21 @@ public:
 	usrc->set_source_groups(sbuild::split_string("sgroup1,sgroup2", ","));
 	usrc->set_source_root_groups(sbuild::split_string("sgroup3,sgroup4", ","));
       }
+
+    sbuild::chroot_facet_userdata::ptr pusr
+      (chroot->get_facet<sbuild::chroot_facet_userdata>());
+    if (pusr)
+      {
+	pusr->set_data("custom.test1", "testval");
+	sbuild::string_set userkeys;
+	userkeys.insert("sbuild.resolver");
+	userkeys.insert("debian.dist");
+	userkeys.insert("sbuild.purge");
+	sbuild::string_set rootkeys;
+	rootkeys.insert("debian.apt-update");
+	pusr->set_user_modifiable_keys(userkeys);
+	pusr->set_root_modifiable_keys(rootkeys);
+      }
   }
 
   void tearDown()
@@ -181,6 +198,7 @@ public:
     env.add("SESSION_ID",            "test-name");
     env.add("CHROOT_DESCRIPTION",    "test-description");
     env.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(SCHROOT_SYSCONF_DIR) + "/default/config"));
+    env.add("CUSTOM_TEST1",          "testval");
   }
 
   void setup_keyfile_chroot (sbuild::keyfile&   keyfile,
@@ -198,6 +216,9 @@ public:
     keyfile.set_value(group, "script-config", "default/config");
     keyfile.set_value(group, "message-verbosity", "quiet");
     keyfile.set_value(group, "preserve-environment", "false");
+    keyfile.set_value(group, "user-modifiable-keys", "debian.dist,sbuild.purge,sbuild.resolver");
+    keyfile.set_value(group, "root-modifiable-keys", "debian.apt-update");
+    keyfile.set_value(group, "custom.test1", "testval");
   }
 
   void setup_keyfile_session (sbuild::keyfile&   keyfile,

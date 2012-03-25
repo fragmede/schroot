@@ -537,6 +537,89 @@ namespace sbuild
     }
 
     /**
+     * Get a key value as a set.
+     *
+     * @param group the group the key is in.
+     * @param key the key to get.
+     * @param container the container to store the key's value in.
+     * The value type must be settable from an istream and be
+     * copyable.  The set must be a container with a standard insert
+     * method.
+     * @returns true if the key was found, otherwise false (in which
+     * case value will be undefined).
+     */
+    template <typename C>
+    bool
+    get_set_value (group_name_type const& group,
+		   key_type const&        key,
+		   C&                     container) const
+    {
+      value_type item_value;
+      if (get_value(group, key, item_value))
+	{
+	  value_list items = split_string(item_value,
+					  this->separator);
+	  for (typename value_list::const_iterator pos = items.begin();
+	       pos != items.end();
+	       ++pos
+	       )
+	    {
+	      typename C::value_type tmp;
+
+	      try
+		{
+		  parse_value(*pos, tmp);
+		}
+	      catch (parse_value_error const& e)
+		{
+		  size_type line = get_line(group, key);
+		  if (line)
+		    {
+		      error ep(line, group, key, PASSTHROUGH_LGK, e);
+		      log_exception_warning(ep);
+		    }
+		  else
+		    {
+		      error ep(group, key, PASSTHROUGH_GK, e);
+		      log_exception_warning(ep);
+		    }
+		  return false;
+		}
+
+	      container.insert(tmp);
+	    }
+	  return true;
+	}
+      return false;
+    }
+
+    /**
+     * Get a key value as a set.  If the value does not exist, is
+     * deprecated or obsolete, warn appropriately.
+     *
+     * @param group the group the key is in.
+     * @param key the key to get.
+     * @param priority the priority of the option.
+     * @param container the container to store the key's value in.
+     * The value type must be settable from an istream and be
+     * copyable.  The set must be a container with a standard insert
+     * method.
+     * @returns true if the key was found, otherwise false (in which
+     * case value will be undefined).
+     */
+    template <typename C>
+    bool
+    get_set_value (group_name_type const& group,
+		   key_type const&        key,
+		   priority               priority,
+		   C&                     container) const
+    {
+      bool status = get_set_value(group, key, container);
+      check_priority(group, key, priority, status);
+      return status;
+    }
+
+    /**
      * Set a key value.
      *
      * @param group the group the key is in.
@@ -671,7 +754,7 @@ namespace sbuild
     {
       value_type strval;
 
-      for (I pos = begin; pos != end; ++ pos)
+      for (I pos = begin; pos != end;)
 	{
 	  std::ostringstream os;
 	  os.imbue(std::locale::classic());
@@ -679,12 +762,81 @@ namespace sbuild
 	  if (os)
 	    {
 	      strval += os.str();
-	      if (pos + 1 != end)
+	      if (++pos != end)
 		strval += this->separator;
 	    }
 	}
 
       set_value (group, key, strval, comment, line);
+    }
+
+    /**
+     * Set a key value from a set.
+     *
+     * @param group the group the key is in.
+     * @param key the key to set.
+     * @param begin an iterator referring to the start of the
+     * set. The value type must allow output to an ostream.
+     * @param end an iterator referring to the end of the set.
+     */
+    template <typename I>
+    void
+    set_set_value (group_name_type const& group,
+		   key_type const&        key,
+		   I                      begin,
+		   I                      end)
+    {
+      std::vector<typename std::iterator_traits<I>::value_type> l(begin, end);
+      std::sort(l.begin(), l.end());
+      set_list_value(group, key, l.begin(), l.end());
+    }
+
+    /**
+     * Set a key value from a set.
+     *
+     * @param group the group the key is in.
+     * @param key the key to set.
+     * @param begin an iterator referring to the start of the
+     * set. The value type must allow output to an ostream.
+     * @param end an iterator referring to the end of the set.
+     * @param comment the comment for this key.
+     */
+    template <typename I>
+    void
+    set_set_value (group_name_type const& group,
+		   key_type const&        key,
+		   I                      begin,
+		   I                      end,
+		   comment_type const&    comment)
+    {
+      std::vector<typename std::iterator_traits<I>::value_type> l(begin, end);
+      std::sort(l.begin(), l.end());
+      set_list_value(group, key, l.begin(), l.end(), comment);
+    }
+
+    /**
+     * Set a key value from a set.
+     *
+     * @param group the group the key is in.
+     * @param key the key to set.
+     * @param begin an iterator referring to the start of the
+     * set. The value type must allow output to an ostream.
+     * @param end an iterator referring to the end of the set.
+     * @param comment the comment for this key.
+     * @param line the line number in the input file, or 0 otherwise.
+     */
+    template <typename I>
+    void
+    set_set_value (group_name_type const& group,
+		   key_type const&        key,
+		   I                      begin,
+		   I                      end,
+		   comment_type const&    comment,
+		   size_type              line)
+    {
+      std::vector<typename std::iterator_traits<I>::value_type> l(begin, end);
+      std::sort(l.begin(), l.end());
+      set_list_value(group, key, l.begin(), l.end(), comment, line);
     }
 
     /**
@@ -1035,6 +1187,75 @@ namespace sbuild
     }
 
     /**
+     * Set a key set value from an object method return value.  The
+     * method must return a container with begin() and end() methods
+     * which return forward iterators.  This is the same as calling
+     * set_set_value directly, but handles exceptions being thrown by
+     * the object method, which are turned into error exceptions.
+     *
+     * @param object the object to use.
+     * @param method the object method to call.
+     * @param basic_keyfile the basic_keyfile to use.
+     * @param group the group the key is in.
+     * @param key the key to set.
+     */
+    template<class C, typename T>
+    static void
+    set_object_set_value (C const&               object,
+			  T                (C::* method)() const,
+			  basic_keyfile&         basic_keyfile,
+			  group_name_type const& group,
+			  key_type const&        key)
+    {
+      try
+	{
+	  if (method)
+	    basic_keyfile.set_set_value(group, key,
+					(object.*method)().begin(),
+					(object.*method)().end());
+	}
+      catch (std::runtime_error const& e)
+	{
+	  throw error(group, key, PASSTHROUGH_GK, e);
+	}
+    }
+
+    /**
+     * Set a key set value from an object method return value.  The
+     * method must return a container reference with begin() and end()
+     * methods which return forward iterators.  This is the same as
+     * calling set_set_value directly, but handles exceptions being
+     * thrown by the object method, which are turned into error
+     * exceptions.
+     *
+     * @param object the object to use.
+     * @param method the object method to call.
+     * @param basic_keyfile the basic_keyfile to use.
+     * @param group the group the key is in.
+     * @param key the key to set.
+     */
+    template<class C, typename T>
+    static void
+    set_object_set_value (C const&               object,
+			  T const&         (C::* method)() const,
+			  basic_keyfile&         basic_keyfile,
+			  group_name_type const& group,
+			  key_type const&        key)
+    {
+      try
+	{
+	  if (method)
+	    basic_keyfile.set_set_value(group, key,
+					(object.*method)().begin(),
+					(object.*method)().end());
+	}
+      catch (std::runtime_error const& e)
+	{
+	  throw error(group, key, PASSTHROUGH_GK, e);
+	}
+    }
+
+    /**
      * Get a key value and set it in an object using an object method.
      * This is the same as calling get_value directly, but handles
      * exceptions being thrown by the object method, and
@@ -1184,6 +1405,91 @@ namespace sbuild
 	{
 	  T value;
 	  if (basic_keyfile.get_list_value(group, key, priority, value)
+	      && method)
+	    (object.*method)(value);
+	}
+      catch (std::runtime_error const& e)
+	{
+	  size_type line = basic_keyfile.get_line(group, key);
+	  if (line)
+	    throw error(line, group, key, PASSTHROUGH_LGK, e);
+	  else
+	    throw error(group, key, PASSTHROUGH_GK, e);
+	  throw error(basic_keyfile.get_line(group, key),
+		      group, key, e);
+	}
+    }
+
+    /**
+     * Get a key set value and set it in an object using an object
+     * method.  This is the same as calling get_set_value directly,
+     * but handles exceptions being thrown by the object method, and
+     * deserialisation errors, which are turned into error exceptions
+     * pointing to the group, key and line number in the input file.
+     *
+     * @param object the object to use.
+     * @param method the object method to call.
+     * @param basic_keyfile the basic_keyfile to use.
+     * @param group the group the key is in.
+     * @param key the key to set.
+     * @param priority the key priority.
+     */
+    template<class C, typename T>
+    static void
+    get_object_set_value (C&                      object,
+			  void              (C::* method)(T param),
+			  basic_keyfile const&    basic_keyfile,
+			  group_name_type const&  group,
+			  key_type const&         key,
+			  basic_keyfile::priority priority)
+    {
+      try
+	{
+	  T value;
+	  if (basic_keyfile.get_set_value(group, key, priority, value)
+	      && method)
+	    (object.*method)(value);
+	}
+      catch (std::runtime_error const& e)
+	{
+	  size_type line = basic_keyfile.get_line(group, key);
+	  if (line)
+	    throw error(line, group, key, PASSTHROUGH_LGK, e);
+	  else
+	    throw error(group, key, PASSTHROUGH_GK, e);
+	  throw error(basic_keyfile.get_line(group, key),
+		      group, key, e);
+	}
+    }
+
+    /**
+     * Get a key set value and set it by reference in an object using
+     * an object method.  This is the same as calling get_set_value
+     * directly, but handles exceptions being thrown by the object
+     * method, and deserialisation errors, which are turned into error
+     * exceptions pointing to the group, key and line number in the
+     * input file.
+     *
+     * @param object the object to use.
+     * @param method the object method to call.
+     * @param basic_keyfile the basic_keyfile to use.
+     * @param group the group the key is in.
+     * @param key the key to set.
+     * @param priority the key priority.
+     */
+    template<class C, typename T>
+    static void
+    get_object_set_value (C&                      object,
+			  void              (C::* method)(T const& param),
+			  basic_keyfile const&    basic_keyfile,
+			  group_name_type const&  group,
+			  key_type const&         key,
+			  basic_keyfile::priority priority)
+    {
+      try
+	{
+	  T value;
+	  if (basic_keyfile.get_set_value(group, key, priority, value)
 	      && method)
 	    (object.*method)(value);
 	}

@@ -64,6 +64,7 @@ namespace sbuild
 	DUPLICATE_GROUP,   ///< The group is a duplicate.
 	DUPLICATE_KEY,     ///< The key is a duplicate.
 	INVALID_GROUP,     ///< The group is invalid.
+	INVALID_KEY,       ///< The key is invalid.
 	INVALID_LINE,      ///< The line is invalid.
 	MISSING_KEY,       ///< The key is missing.
 	MISSING_KEY_NL,    ///< The key is missing (no line specified).

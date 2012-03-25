@@ -57,6 +57,8 @@ options_base::options_base ():
   exclude_aliases(false),
   session_name(),
   session_force(false),
+  useroptions(),
+  useroptions_map(),
   chroot(_("Chroot selection")),
   chrootenv(_("Chroot environment")),
   session_actions(_("Session actions")),

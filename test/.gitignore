@@ -7,6 +7,7 @@ sbuild-chroot-btrfs-snapshot
 sbuild-chroot-lvm-snapshot
 sbuild-chroot-plain
 sbuild-chroot-config
+sbuild-chroot-facet-userdata
 sbuild-environment
 sbuild-keyfile
 sbuild-lock
