@@ -726,9 +726,10 @@ sbuild::chroot::get_keyfile (chroot const& chroot,
 }
 
 void
-sbuild::chroot::set_keyfile (keyfile const& keyfile,
-			     string_list&   used_keys)
+sbuild::chroot::set_keyfile (keyfile const& keyfile)
 {
+  string_list used_keys;
+
   set_keyfile(*this, keyfile, used_keys);
 
   for (facet_list::const_iterator pos = facets.begin();
@@ -737,6 +738,8 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile,
     {
       (*pos)->set_keyfile(*this, keyfile, used_keys);
     }
+
+  keyfile.check_keys(this->get_name(), used_keys);
 }
 
 void

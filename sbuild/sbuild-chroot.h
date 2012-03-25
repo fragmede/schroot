@@ -657,9 +657,7 @@ namespace sbuild
     operator >> (keyfile const& keyfile,
 		 ptr&           rhs)
     {
-      string_list used;
-      rhs->set_keyfile(keyfile, used);
-      keyfile.check_keys(rhs->get_name(), used);
+      rhs->set_keyfile(keyfile);
       return keyfile;
     }
 
@@ -737,11 +735,9 @@ namespace sbuild
      * be determined.
      *
      * @param keyfile the keyfile to get the properties from.
-     * @param used_keys a list of the keys used will be set.
      */
     void
-    set_keyfile (keyfile const& keyfile,
-		 string_list&   used_keys);
+    set_keyfile (keyfile const& keyfile);
 
   protected:
     /**
