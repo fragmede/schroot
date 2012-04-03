@@ -101,19 +101,30 @@ example, a chroot named \[lq]sid\[rq] might have an \[oq]unstable\[cq] alias
 for convenience.  Aliases are subject to the same naming restrictions as the
 chroot name itself.
 .TP
+\f[CBI]profile\=\fP\f[CI]directory\fP
+.TP
 \f[CBI]script\-config=\fP\f[CI]filename\fP
 The behaviour of the chroot setup scripts may be customised on a per-chroot
-basis by providing a shell script which the scripts will source.  The filename
-is relative to \fI\*[SCHROOT_SYSCONF_DIR]\fP.  The default filename is
-\[oq]default/config\[cq].  Alternatives are \[oq]minimal/config\[cq] (minimal
-configuration), \[oq]desktop/config\[cq] (for running desktop applications in
-the chroot, making more functionality from the host system available in the
-chroot) and \[oq]sbuild/config\[cq] (for using the chroot for Debian package
-building).
+basis by setting a specific configuration profile.  The directory is relative
+to \fI\*[SCHROOT_SYSCONF_DIR]\fP.  The default is \[oq]default\[cq].  The files
+in this directory are sourced by the setup scripts, and so their behaviour may
+be customised by selecting the appropriate profile.  Alternatives are
+\[oq]minimal\[cq] (minimal configuration), \[oq]desktop\[cq] (for running
+desktop applications in the chroot, making more functionality from the host
+system available in the chroot) and \[oq]sbuild\[cq] (for using the chroot for
+Debian package building).  Other packages may provide additional profiles.
+.IP
+Note that the \f[CI]profile\fP key replaces the older \f[CI]script\-config\fP
+key.  The \f[CI]script\-config\fP is exactly the same as \f[CI]profile\fP, but
+has \[lq]\fI/config\fP\[rq] appended to it.  The default filename is
+\[oq]default/config\[cq].  Either of these keys may be used.  If both are
+present, then \f[CI]profile\fP will take precedence.  \f[CI]script\-config\fP
+is deprecated and will be removed in a future release.
 .IP
 Desktop users should note that the fstab file \fIdesktop/fstab\fP will need
-editing if you use gdm3.  The \f[CI]preserve\-environment\fP key should also be
-set to \[oq]true\[cq] so that the environment is preserved inside the chroot.
+editing if you use gdm3; please see the comments in this file for further
+instructions.  The \f[CI]preserve\-environment\fP key should also be set to
+\[oq]true\[cq] so that the environment is preserved inside the chroot.
 .IP
 If none of the configuration profiles provided above meet your needs, then they
 may be edited to further customise them, and/or copied and used as a template
