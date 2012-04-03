@@ -22,12 +22,7 @@ set -e
 
 . "$SETUP_DATA_DIR/common-data"
 . "$SETUP_DATA_DIR/common-functions"
-
-if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
-    . "$CHROOT_SCRIPT_CONFIG"
-elif [ "$STATUS" = "ok" ]; then
-    fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
-fi
+. "$SETUP_DATA_DIR/common-config"
 
 # Mount a filesystem
 # $1: mount options
@@ -194,12 +189,19 @@ if [ "$CHROOT_TYPE" = "directory" ] \
 	    do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
 	fi
 
-	if [ -n "$FSTAB" ]; then
-	    if [ -f "$FSTAB" ]; then
+	# For backward compatibility
+	if [ -z "$SETUP_FSTAB" ]; then
+	    SETUP_FSTAB="$FSTAB"
+	else
+	    SETUP_FSTAB="${SCHROOT_SYSCONF_DIR}/${SETUP_FSTAB}"
+	fi
+
+	if [ -n "$SETUP_FSTAB" ]; then
+	    if [ -f "$SETUP_FSTAB" ]; then
 		"$LIBEXEC_DIR/schroot-mount" $MOUNT_VERBOSE \
-		    -f "$FSTAB" -m "$CHROOT_PATH"
+		    -f "$SETUP_FSTAB" -m "$CHROOT_PATH"
 	    else
-		fatal "fstab file '$FSTAB' does not exist"
+		fatal "setup_fstab file '$SETUP_FSTAB' does not exist"
 	    fi
 	fi
 

@@ -21,12 +21,7 @@ set -e
 
 . "$SETUP_DATA_DIR/common-data"
 . "$SETUP_DATA_DIR/common-functions"
-
-if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
-    . "$CHROOT_SCRIPT_CONFIG"
-elif [ "$STATUS" = "ok" ]; then
-    fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
-fi
+. "$SETUP_DATA_DIR/common-config"
 
 if [ "$VERBOSE" = "verbose" ]; then
   CP_VERBOSE="--verbose"
@@ -82,8 +77,15 @@ copy_file()
 
 if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 
-    if [ -n "$COPYFILES" ]; then
-	if [ -f "$COPYFILES" ]; then
+    # For backward compatibility
+    if [ -z "$SETUP_COPYFILES" ]; then
+	SETUP_COPYFILES="$COPYFILES"
+    else
+	SETUP_COPYFILES="${SCHROOT_SYSCONF_DIR}/${SETUP_COPYFILES}"
+    fi
+
+    if [ -n "$SETUP_COPYFILES" ]; then
+	if [ -f "$SETUP_COPYFILES" ]; then
 	    while read file; do
 		if echo "$file" | egrep -q '^(#|$)' ; then
 		    continue
@@ -93,9 +95,9 @@ if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 		else
 		    warn "Not copying file with relative path: $file"
 		fi
-	    done < "$COPYFILES"
+	    done < "$SETUP_COPYFILES"
 	else
-	    fatal "copyfiles file '$COPYFILES' does not exist"
+	    fatal "copyfiles file '$SETUP_COPYFILES' does not exist"
 	fi
     fi
 

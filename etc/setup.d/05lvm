@@ -21,12 +21,7 @@ set -e
 
 . "$SETUP_DATA_DIR/common-data"
 . "$SETUP_DATA_DIR/common-functions"
-
-if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
-    . "$CHROOT_SCRIPT_CONFIG"
-elif [ "$STATUS" = "ok" ]; then
-    fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
-fi
+. "$SETUP_DATA_DIR/common-config"
 
 if [ "$VERBOSE" = "verbose" ]; then
     LVM_VERBOSE="-v"

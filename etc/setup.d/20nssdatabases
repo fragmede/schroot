@@ -21,12 +21,7 @@ set -e
 
 . "$SETUP_DATA_DIR/common-data"
 . "$SETUP_DATA_DIR/common-functions"
-
-if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
-    . "$CHROOT_SCRIPT_CONFIG"
-elif [ "$STATUS" = "ok" ]; then
-    fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
-fi
+. "$SETUP_DATA_DIR/common-config"
 
 # Copy NSS database from host to chroot
 # $1: database name
@@ -39,8 +34,15 @@ dup_nss()
 
 if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 
-    if [ -n "$NSSDATABASES" ]; then
-	if [ -f "$NSSDATABASES" ]; then
+    # For backward compatibility
+    if [ -z "$SETUP_NSSDATABASES" ]; then
+	SETUP_NSSDATABASES="$NSSDATABASES"
+    else
+	SETUP_NSSDATABASES="${SCHROOT_SYSCONF_DIR}/${SETUP_NSSDATABASES}"
+    fi
+
+    if [ -n "$SETUP_NSSDATABASES" ]; then
+	if [ -f "$SETUP_NSSDATABASES" ]; then
 	    while read db; do
 		if echo "$db" | egrep -q '^(#|$)' ; then
 		    continue
@@ -60,9 +62,9 @@ if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 		fi
 
 		dup_nss "$db" "${CHROOT_PATH}/etc/$db"
-	    done < "$NSSDATABASES"
+	    done < "$SETUP_NSSDATABASES"
 	else
-	    fatal "nssdatabases file '$NSSDATABASES' does not exist"
+	    fatal "nssdatabases file '$SETUP_NSSDATABASES' does not exist"
 	fi
     fi
 

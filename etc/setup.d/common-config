@@ -1,7 +1,4 @@
-# schroot Makefile template
-#
-#
-# Copyright © 2004-2008  Roger Leigh <rleigh@debian.org>
+# Copyright © 2012  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -19,30 +16,19 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
+# Common configuration for use in schroot setup scripts
 
-schroot_setupdata_DATA =	\
-	common-config		\
-	common-data		\
-	common-functions
-
-schroot_sysconf_setup_SCRIPTS =	\
-	00check			\
-	05file			\
-	05btrfs			\
-	05lvm			\
-	05union			\
-	10mount			\
-	15killprocs		\
-	20copyfiles		\
-	20nssdatabases		\
-	50chrootname
-
-install-exec-hook:
-	$(MKDIR_P) "$(DESTDIR)$(schroot_sysconf_setupdir)"
-	ln -sf "00check" "$(DESTDIR)$(schroot_sysconf_setupdir)/99check"
-
-EXTRA_DIST =					\
-	$(schroot_setupdata_DATA)		\
-	$(schroot_sysconf_setup_SCRIPTS)
-
+if [ -n "${SETUP_CONFIG}" ]; then
+    SETUP_CONFIG="${SCHROOT_SYSCONF_DIR}/${SETUP_CONFIG}"
+    if [ -f "$SETUP_CONFIG" ]; then
+	. "$SETUP_CONFIG"
+    elif [ "$STATUS" = "ok" ]; then
+	fatal "setup script config file '$SETUP_CONFIG' does not exist"
+    fi
+else
+    if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
+	. "$CHROOT_SCRIPT_CONFIG"
+    elif [ "$STATUS" = "ok" ]; then
+	fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
+    fi
+fi
