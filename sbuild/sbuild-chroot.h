@@ -91,6 +91,7 @@ namespace sbuild
 	FILE_UNLOCK,      ///< Failed to discard lock.
 	LOCATION_ABS,     ///< Location must have an absolute path.
 	NAME_INVALID,     ///< Invalid name.
+	SCRIPT_CONFIG_CV, ///< Could not set profile from script configuration path.
 	SESSION_UNLINK,   ///< Failed to unlink session file.
 	SESSION_WRITE,    ///< Failed to write session file.
 	VERBOSITY_INVALID ///< Message verbosity is invalid.
@@ -405,6 +406,26 @@ namespace sbuild
      */
     void
     set_script_config (std::string const& script_config);
+
+    /**
+     * Get the configuration profile for the chroot.  This is a
+     * directory, either relative to the configured pkgsysconfdir or
+     * an absolute path.
+     *
+     * @returns the configuration file name.
+     */
+    std::string const&
+    get_profile () const;
+
+    /**
+     * Set configuration profile for the chroot.  This is a directory,
+     * either relative to the configured pkgsysconfdir or an absolute
+     * path.
+     *
+     * @param profile the script configuration file.
+     */
+    void
+    set_profile (std::string const& profile);
 
     /**
      * Get the command_prefix for the chroot.  This is a command to
@@ -781,6 +802,8 @@ namespace sbuild
     bool          run_setup_scripts;
     /// Configuration of the setup and exec scripts.
     std::string   script_config;
+    /// Configuration profile for setup scripts (replaces script_config).
+    std::string   profile;
     /// Command prefix.
     string_list   command_prefix;
     /// The message verbosity.

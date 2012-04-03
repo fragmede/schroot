@@ -87,6 +87,8 @@ namespace
       emap(sbuild::chroot::FILE_UNLOCK,       N_("Failed to discard file lock")),
       emap(sbuild::chroot::LOCATION_ABS,      N_("Location must have an absolute path")),
       emap(sbuild::chroot::NAME_INVALID,      N_("Invalid name")),
+      emap(sbuild::chroot::SCRIPT_CONFIG_CV,  N_("Could not set profile name from script configuration path ‘%1%’")),
+
       // TRANSLATORS: unlink refers to the C function which removes a file
       emap(sbuild::chroot::SESSION_UNLINK,    N_("Failed to unlink session file")),
       emap(sbuild::chroot::SESSION_WRITE,     N_("Failed to write session file")),
@@ -115,6 +117,7 @@ sbuild::chroot::chroot ():
   original(true),
   run_setup_scripts(true),
   script_config("default/config"),
+  profile("default"),
   command_prefix(),
   message_verbosity(VERBOSITY_NORMAL),
   facets()
@@ -138,6 +141,7 @@ sbuild::chroot::chroot (const chroot& rhs):
   original(rhs.original),
   run_setup_scripts(rhs.run_setup_scripts),
   script_config(rhs.script_config),
+  profile(rhs.profile),
   command_prefix(rhs.command_prefix),
   message_verbosity(rhs.message_verbosity),
   facets()
@@ -389,6 +393,46 @@ void
 sbuild::chroot::set_script_config (std::string const& script_config)
 {
   this->script_config = script_config;
+
+  // For backward compatibility, set profile too.
+  std::string end("/config");
+
+  if (this->script_config.length() >= end.length() &&
+      this->script_config.compare (this->script_config.length() - end.length(),
+				   end.length(), end) == 0)
+    this->profile = this->script_config.substr
+      (0,this->script_config.length() - end.length());
+  else
+    {
+      error e(this->script_config, SCRIPT_CONFIG_CV);
+      // TRANSLATORS: ‘/config’ is a path name; not for translation.
+      e.set_reason(_("The path does not end with ‘/config’"));
+      throw e;
+    }
+}
+
+std::string const&
+sbuild::chroot::get_profile () const
+{
+  return this->profile;
+}
+
+void
+sbuild::chroot::set_profile (std::string const& profile)
+{
+  this->profile = profile;
+
+  this->script_config = this->profile + "/config";
+
+  chroot_facet_userdata::ptr userdata =
+    get_facet<chroot_facet_userdata>();
+  if (userdata)
+    {
+      userdata->set_system_data("setup.config", this->profile + "/config");
+      userdata->set_system_data("setup.copyfiles", this->profile + "/copyfiles");
+      userdata->set_system_data("setup.nssdatabases", this->profile + "/nssdatabases");
+      userdata->set_system_data("setup.fstab", this->profile + "/fstab");
+    }
 }
 
 string_list const&
@@ -494,6 +538,7 @@ sbuild::chroot::setup_env (chroot const& chroot,
   env.add("CHROOT_MOUNT_LOCATION", chroot.get_mount_location());
   env.add("CHROOT_PATH", chroot.get_path());
   env.add("CHROOT_SCRIPT_CONFIG", normalname(std::string(SCHROOT_SYSCONF_DIR) +  '/' + chroot.get_script_config()));
+  env.add("CHROOT_PROFILE", normalname(std::string(SCHROOT_SYSCONF_DIR) +  '/' + chroot.get_profile()));
   env.add("CHROOT_SESSION_CREATE",
 	  static_cast<bool>(chroot.get_session_flags() & SESSION_CREATE));
   env.add("CHROOT_SESSION_CLONE",
@@ -612,6 +657,7 @@ sbuild::chroot::get_details (chroot const&  chroot,
     .add(_("Preserve Environment"), chroot.get_preserve_environment())
     .add(_("Environment Filter"), chroot.get_environment_filter())
     .add(_("Run Setup Scripts"), chroot.get_run_setup_scripts())
+    .add(_("Configuration Profile"), chroot.get_profile())
     .add(_("Script Configuration"), chroot.get_script_config())
     .add(_("Session Managed"),
 	 static_cast<bool>(chroot.get_session_flags() & chroot::SESSION_CREATE))
@@ -677,9 +723,11 @@ sbuild::chroot::get_keyfile (chroot const& chroot,
 			    keyfile, chroot.get_name(),
 			    "type");
 
-  keyfile::set_object_value(chroot, &chroot::get_script_config,
+  // "script-config" is no longer set--it's replaced by "profile".
+
+  keyfile::set_object_value(chroot, &chroot::get_profile,
 			    keyfile, chroot.get_name(),
-			    "script-config");
+			    "profile");
 
   keyfile::set_object_list_value(chroot, &chroot::get_aliases,
 				 keyfile, chroot.get_name(),
@@ -859,6 +907,14 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
   keyfile::get_object_value(chroot, &chroot::set_script_config,
 			    keyfile, chroot.get_name(),
 			    "script-config",
+			    session ?
+			    keyfile::PRIORITY_OPTIONAL :
+			    keyfile::PRIORITY_DEPRECATED);
+  used_keys.push_back("script-config");
+
+  keyfile::get_object_value(chroot, &chroot::set_profile,
+			    keyfile, chroot.get_name(),
+			    "profile",
 			    keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("script-config");
 
