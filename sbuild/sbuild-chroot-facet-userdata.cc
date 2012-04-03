@@ -207,12 +207,9 @@ chroot_facet_userdata::get_data (std::string const& key,
 }
 
 void
-chroot_facet_userdata::set_data (std::string const& key,
-				 std::string const& value)
+chroot_facet_userdata::set_system_data (std::string const& key,
+					std::string const& value)
 {
-  if (!validate_keyname(key))
-    throw error(key, KEYNAME_INVALID);
-
   string_map::const_iterator inserted = userdata.find(key);
   if (inserted == userdata.end()) // Requires uniqueness checking.
     {
@@ -232,6 +229,16 @@ chroot_facet_userdata::set_data (std::string const& key,
     this->userdata.erase(key);
 
   this->userdata.insert(std::make_pair(key, value));
+}
+
+void
+chroot_facet_userdata::set_data (std::string const& key,
+				 std::string const& value)
+{
+  if (!validate_keyname(key))
+    throw error(key, KEYNAME_INVALID);
+
+  set_system_data(key, value);
 }
 
 void
@@ -260,6 +267,15 @@ chroot_facet_userdata::set_root_data(string_map const&  data)
 	    this->root_modifiable_keys.end(),
 	    inserter(modifiable_keys, modifiable_keys.begin()));
   set_data(data, modifiable_keys, true);
+}
+
+void
+chroot_facet_userdata::set_system_data(string_map const&  data)
+{
+  for (string_map::const_iterator pos = data.begin();
+       pos != data.end();
+       ++pos)
+    set_system_data(pos->first, pos->second);
 }
 
 void

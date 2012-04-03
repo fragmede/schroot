@@ -136,6 +136,17 @@ namespace sbuild
 	      std::string const& value);
 
     /**
+     * Set a single key-value pair.  Note that this method does not
+     * perform permissions checking or key name validation.
+     *
+     * @param key the key to set.
+     * @param value the value of the key.
+     */
+    void
+    set_system_data (std::string const& key,
+		     std::string const& value);
+
+    /**
      * Get the set of keys allowed to be modified by a user.
      *
      * @returns a string set of keys.
@@ -186,6 +197,14 @@ namespace sbuild
      */
     void
     set_root_data(string_map const&  data);
+
+    /**
+     * Set data without user or root checks.
+     *
+     * @param string_map a map of key-value pairs.
+     */
+    void
+    set_system_data(string_map const&  data);
 
   private:
     /**
