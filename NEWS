@@ -12,6 +12,18 @@ configuration.
   1) Support for overlayfs has been added in addition to the existing
      aufs and unionfs support.
 
+  2) Arbitrary options may now be set in a chroot definition in
+     schroot.conf.  These options are also set in the environment when
+     running setup scripts, making this a simple means by which setup
+     scripts may be customised without writing code.
+
+  3) The above options may be set (where permitted) on the schroot
+     command-line by using the new --option command-line option to set
+     the option to a user-defined value, which will permit users to
+     customise the behaviour of setup scripts.  Note that only keys
+     specified in the new user-modifiable-keys or root-modifiable-keys
+     settings are permitted to be set, for security reasons.
+
 * Major changes in 1.5.1:
 
   1) schroot no longer requires GCC to build, following the removal of
