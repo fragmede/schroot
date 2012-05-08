@@ -19,7 +19,7 @@
 # Common configuration for use in schroot setup scripts
 
 if [ -n "${SETUP_CONFIG}" ]; then
-    SETUP_CONFIG="${SCHROOT_SYSCONF_DIR}/${SETUP_CONFIG}"
+    SETUP_CONFIG="${SYSCONF_DIR}/${SETUP_CONFIG}"
     if [ -f "$SETUP_CONFIG" ]; then
 	. "$SETUP_CONFIG"
     elif [ "$STATUS" = "ok" ]; then
@@ -31,4 +31,16 @@ else
     elif [ "$STATUS" = "ok" ]; then
 	fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
     fi
+fi
+
+if [ -n "${SETUP_FSTAB}" ]; then
+    SETUP_FSTAB="${SYSCONF_DIR}/${SETUP_FSTAB}"
+fi
+
+if [ -n "${SETUP_COPYFILES}" ]; then
+    SETUP_COPYFILES="${SYSCONF_DIR}/${SETUP_COPYFILES}"
+fi
+
+if [ -n "${SETUP_NSSDATABASES}" ]; then
+    SETUP_NSSDATABASES="${SYSCONF_DIR}/${SETUP_NSSDATABASES}"
 fi
