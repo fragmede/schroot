@@ -33,6 +33,8 @@ class test_chroot_facet_userdata : public TestFixture
   CPPUNIT_TEST(test_data_set);
   CPPUNIT_TEST_EXCEPTION(test_data_fail1, sbuild::chroot_facet_userdata::error);
   CPPUNIT_TEST_EXCEPTION(test_data_fail2, sbuild::chroot_facet_userdata::error);
+  CPPUNIT_TEST_EXCEPTION(test_data_fail3, sbuild::chroot_facet_userdata::error);
+  CPPUNIT_TEST_EXCEPTION(test_data_fail4, sbuild::chroot_facet_userdata::error);
   CPPUNIT_TEST(test_user_set);
   CPPUNIT_TEST_EXCEPTION(test_user_fail1, sbuild::chroot_facet_userdata::error);
   CPPUNIT_TEST_EXCEPTION(test_user_fail2, sbuild::chroot_facet_userdata::error);
@@ -74,6 +76,7 @@ public:
   {
     userdata->set_data("custom.test1", "testval");
     userdata->set_data("sbuild.resolver", "apt");
+    userdata->set_data("setup.fstab", "custom/fstab");
 
     std::string t1;
     CPPUNIT_ASSERT(userdata->get_data("custom.test1", t1));
@@ -83,9 +86,13 @@ public:
     CPPUNIT_ASSERT(userdata->get_data("sbuild.resolver", t2));
     CPPUNIT_ASSERT(t2 == "apt");
 
-    std::string t3("invalid");
-    CPPUNIT_ASSERT(!userdata->get_data("invalidkey", t3));
-    CPPUNIT_ASSERT(t3 == "invalid");
+    std::string t3;
+    CPPUNIT_ASSERT(userdata->get_data("setup.fstab", t3));
+    CPPUNIT_ASSERT(t3 == "custom/fstab");
+
+    std::string t4("invalid");
+    CPPUNIT_ASSERT(!userdata->get_data("invalidkey", t4));
+    CPPUNIT_ASSERT(t4 == "invalid");
   }
 
   void test_data_fail1()
@@ -97,6 +104,16 @@ public:
   {
     userdata->set_data("custom.key.set", "testval1");
     userdata->set_data("custom.key_set", "testval2");
+  }
+
+  void test_data_fail3()
+  {
+    userdata->set_data("setup-data-dir", "testval3");
+  }
+
+  void test_data_fail4()
+  {
+    userdata->set_data("setup.data.dir", "testval4");
   }
 
   void test_user_set()

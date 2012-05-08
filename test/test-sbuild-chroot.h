@@ -198,6 +198,7 @@ public:
     env.add("SESSION_ID",            "test-name");
     env.add("CHROOT_DESCRIPTION",    "test-description");
     env.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(SCHROOT_SYSCONF_DIR) + "/default/config"));
+    env.add("CHROOT_PROFILE",        "/etc/schroot/default");
     env.add("CUSTOM_TEST1",          "testval");
   }
 
@@ -213,7 +214,7 @@ public:
     keyfile.set_value(group, "environment-filter",
 		      SBUILD_DEFAULT_ENVIRONMENT_FILTER);
     keyfile.set_value(group, "command-prefix", "");
-    keyfile.set_value(group, "script-config", "default/config");
+    keyfile.set_value(group, "profile", "default");
     keyfile.set_value(group, "message-verbosity", "quiet");
     keyfile.set_value(group, "preserve-environment", "false");
     keyfile.set_value(group, "user-modifiable-keys", "debian.dist,sbuild.purge,sbuild.resolver");

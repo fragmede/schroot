@@ -63,7 +63,7 @@ namespace
     // These would permit clashes with existing setup environment
     // variables, and potentially security issues if they were
     // user-settable.
-    static sbuild::regex reserved("^(auth|chroot|host|libexec|mount|session|setup.data.dir|status|sysconf)\\.");
+    static sbuild::regex reserved("^(((auth|chroot|host|libexec|mount|session|status|sysconf)\\..*)|setup.data.dir)$");
 
     return regex_search(key, permitted) && !regex_search(key, reserved);
   }
