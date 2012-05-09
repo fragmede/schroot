@@ -1,3 +1,9 @@
+schroot (1.5.2-2) UNRELEASED; urgency=low
+
+  * 
+
+ -- Roger Leigh <rleigh@debian.org>  Thu, 10 May 2012 00:13:57 +0100
+
 schroot (1.5.2-1) experimental; urgency=low
 
   * New upstream development release.
@@ -6,6 +12,9 @@ schroot (1.5.2-1) experimental; urgency=low
     - Fix typo (debuggging, Closes: #653732).  Thanks to Vincent Blut.
     - Build-Depend on debhelper 9, and po4a 0.40.
     - Upgrade to Standards-Version 3.9.3.
+  * schroot preinst: Remove default (script-config) conffiles on
+    upgrade.  These are deprecated and support will be dropped in
+    the future.
   * Support translation of the documentation with po4a
     (Closes: #588962).  Thanks to David Prévot.  Note that there are
     not yet any translations making use of this facility yet.

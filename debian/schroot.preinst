@@ -56,6 +56,14 @@ install|upgrade)
          rm_conffile "schroot" "/etc/schroot/copyfiles-defaults"
          rm_conffile "schroot" "/etc/schroot/nssdatabases-defaults"
     fi
+    if dpkg --compare-versions "$2" lt "1.5.2-1"; then
+         rm_conffile "schroot" "/etc/schroot/buildd/config"
+         rm_conffile "schroot" "/etc/schroot/default/config"
+         rm_conffile "schroot" "/etc/schroot/desktop/config"
+         rm_conffile "schroot" "/etc/schroot/minimal/config"
+         rm_conffile "schroot" "/etc/schroot/sbuild/config"
+
+    fi
 esac
 
 # dh_installdeb will replace this with shell code automatically
