@@ -24,6 +24,14 @@ configuration.
      specified in the new user-modifiable-keys or root-modifiable-keys
      settings are permitted to be set, for security reasons.
 
+  4) A new "custom" chroot type has been added.  This permits the
+     testing and development of new specialised chroot types without
+     the need to write any C++ chroot modules.  It just requires a
+     custom setup script, which can use arbitrary options set in your
+     schroot.conf for configuration.  Options are provided to set up
+     the session cloning and purging behaviour for the custom chroot.
+     See schroot.conf(5) for further details.
+
 * Major changes in 1.5.1:
 
   1) schroot no longer requires GCC to build, following the removal of
