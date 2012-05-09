@@ -23,12 +23,6 @@ set -e
 . "$SETUP_DATA_DIR/common-functions"
 . "$SETUP_DATA_DIR/common-config"
 
-if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
-    . "$CHROOT_SCRIPT_CONFIG"
-elif [ "$STATUS" = "ok" ]; then
-    fatal "script-config file '$CHROOT_SCRIPT_CONFIG' does not exist"
-fi
-
 if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 
     info "Setting chroot name to ${CHROOT_NAME}"
