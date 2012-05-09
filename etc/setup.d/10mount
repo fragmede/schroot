@@ -189,22 +189,6 @@ if [ "$CHROOT_TYPE" = "directory" ] \
 	    do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
 	fi
 
-	# For backward compatibility
-	if [ -z "$SETUP_FSTAB" ]; then
-	    SETUP_FSTAB="$FSTAB"
-	else
-	    SETUP_FSTAB="${SCHROOT_SYSCONF_DIR}/${SETUP_FSTAB}"
-	fi
-
-	if [ -n "$SETUP_FSTAB" ]; then
-	    if [ -f "$SETUP_FSTAB" ]; then
-		"$LIBEXEC_DIR/schroot-mount" $MOUNT_VERBOSE \
-		    -f "$SETUP_FSTAB" -m "$CHROOT_PATH"
-	    else
-		fatal "setup_fstab file '$SETUP_FSTAB' does not exist"
-	    fi
-	fi
-
     elif [ $STAGE = "setup-stop" ]; then
 
 	do_umount_all "$CHROOT_MOUNT_LOCATION"
@@ -225,3 +209,21 @@ if [ "$CHROOT_TYPE" = "directory" ] \
 
 fi
 
+# Mount filesystems from fstab for all chroot types
+if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
+    # For backward compatibility
+    if [ -z "$SETUP_FSTAB" ]; then
+	SETUP_FSTAB="$FSTAB"
+    else
+	SETUP_FSTAB="${SCHROOT_SYSCONF_DIR}/${SETUP_FSTAB}"
+    fi
+
+    if [ -n "$SETUP_FSTAB" ]; then
+	if [ -f "$SETUP_FSTAB" ]; then
+	    "$LIBEXEC_DIR/schroot-mount" $MOUNT_VERBOSE \
+		-f "$SETUP_FSTAB" -m "$CHROOT_PATH"
+	else
+	    fatal "setup_fstab file '$SETUP_FSTAB' does not exist"
+	fi
+    fi
+fi
