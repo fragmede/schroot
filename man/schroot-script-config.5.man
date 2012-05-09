@@ -26,6 +26,11 @@ will source when they are run.  The file is a Bourne shell script, and in
 consequence may contain any valid shell code, in addition to simple variable
 assignments.  This will, for example, allow behaviour to be customised
 according to the specific chroot type or name.
+.PP
+This file is deprecated, but is still used if present; it will be obsoleted and
+removed in a future release.  All the settings in this file are now settable
+using configuration keys in \fIschroot.conf\fP, as detailed below.  Existing
+configuration should be modified to use these keys in place of this file.
 .SH ENVIRONMENT
 The environment is the same as for all setup scripts, described in
 .BR schroot-setup (5).
@@ -36,18 +41,20 @@ schroot which add their own setup scripts may add additional variables which
 are not documented here; consult the extension documentation for further
 details.
 .TP
-COPYFILES
+SETUP_COPYFILES
 A file containing a list of files to copy into the chroot (one file per line).
-The file will have the same absolute location inside the chroot.
+The file will have the same absolute location inside the chroot.  Note that
+this is settable using the \f[CI]setup.copyfiles\fP key.
 .TP
-FSTAB
+SETUP_FSTAB
 The filesystem table file to be used to mount filesystems within the chroot.
 The format of this file is the same as for \fI/etc/fstab\fP, documented in
 .BR fstab (5).
 The only difference is that the mountpoint path \fIfs_dir\fP is relative to the
-chroot, rather than the root.
+chroot, rather than the root.  Note that this is settable using the
+\f[CI]setup.fstab\fP key.
 .TP
-NSSDATABASES
+SETUP_NSSDATABASES
 A file listing the system databases to copy into the chroot.  The default
 databases are \[oq]passwd\[cq], \[oq]shadow\[cq], \[oq]group\[cq],
 \[oq]services\[cq], \[oq]protocols\[cq], \[oq]networks\[cq], and
@@ -56,7 +63,8 @@ being supported by all but the most recent version of the GNU C library.  The
 databases are copied using
 .BR getent (1)
 so all database sources listed in \fI/etc/nsswitch.conf\fP will be used for
-each database.
+each database.  Note that this is settable using the
+\f[CI]setup.nssdatabases\fP key.
 .so authors.man
 .so copyright.man
 .SH SEE ALSO
