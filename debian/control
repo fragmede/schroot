@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian buildd-tools Developers <buildd-tools-devel@lists.alioth.debian.org>
 Uploaders: Roger Leigh <rleigh@debian.org>
 Build-Depends:
- debhelper (>= 8.1.0),
+ debhelper (>= 9),
  autotools-dev,
  pkg-config,
  libpam0g-dev,
@@ -18,11 +18,11 @@ Build-Depends:
  gettext,
  libcppunit-dev,
  groff-base,
- po4a (>= 0.40-1)
+ po4a (>= 0.40)
 Build-Depends-Indep:
  doxygen,
  graphviz
-Standards-Version: 3.9.2
+Standards-Version: 3.9.3
 Vcs-Browser: http://git.debian.org/?p=buildd-tools/schroot.git
 Vcs-Git: git://git.debian.org/git/buildd-tools/schroot
 
