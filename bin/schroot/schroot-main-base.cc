@@ -107,6 +107,7 @@ main_base::action_version (std::ostream& stream)
 #ifdef SBUILD_FEATURE_BTRFSSNAP
   stream << feature % "BTRFSSNAP" % _("Support for ‘btrfs-snapshot’ chroots");
 #endif
+  stream << feature % "CUSTOM" % _("Support for ‘custom’ chroots");
   stream << feature % "DIRECTORY" % _("Support for ‘directory’ chroots");
   stream << feature % "FILE" % _("Support for ‘file’ chroots");
 #ifdef SBUILD_FEATURE_LOOPBACK

@@ -281,6 +281,28 @@ example, \[lq]\-L 2g\[rq] to create a snapshot 2 GiB in size.
 .B Note:
 the LV name (\fI\-n\fP), the snapshot option (\fI\-s\fP) and the original LV
 path may not be specfied here; they are set automatically by schroot.
+.SS Custom chroots
+Chroots of type \[oq]custom\[cq] are a special type of chroot, used for
+implementing new types of chroot not supported by any of the above chroot
+types.  This may be useful for implementing and testing a new chroot type
+without needing to write any C++ code.  However, you will need to write your
+own setup script to do the setup work, since by itself this chroot type does
+very little.  You will also need to add custom keys to your chroot definition
+for use in the setup script; unlike the configuration for the above chroot
+types, no validation of the options will take place unless you do it yourself
+in your custom setup script.  These additional options are also implemented:
+.TP
+\f[CBI]custom-session-cloneable=\fP\f[CI]true\fP|\f[CI]false\fP
+Set whether or not sessions may be cloned using this chroot (enabled by
+default).
+.TP
+\f[CBI]custom-session-purgeable=\fP\f[CI]true\fP|\f[CI]false\fP
+Set whether or not sessions may be cloned using this chroot (disabled by
+default).
+.TP
+\f[CBI]custom-source-cloneable=\fP\f[CI]true\fP|\f[CI]false\fP
+Set whether or not source chroots may be cloned using this chroot (disabled by
+default).
 .SS Source chroot options
 The \[oq]btrfs\-snapshot\[cq], \[oq]file\[cq] and \[oq]lvm-snapshot\[cq] chroot
 types implement source chroots.  Additionally, chroot types with union support

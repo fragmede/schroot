@@ -29,6 +29,7 @@ sbuild_public_h_sources =			\
 	sbuild-auth.h				\
 	sbuild-auth-null.h			\
 	sbuild-chroot.h				\
+	sbuild-chroot-custom.h			\
 	sbuild-chroot-directory.h		\
 	sbuild-chroot-directory-base.h		\
 	sbuild-chroot-facet.h			\
@@ -111,6 +112,7 @@ sbuild_public_cc_sources =			\
 	sbuild-auth.cc				\
 	sbuild-auth-null.cc			\
 	sbuild-chroot.cc			\
+	sbuild-chroot-custom.cc			\
 	sbuild-chroot-directory.cc		\
 	sbuild-chroot-directory-base.cc		\
 	sbuild-chroot-facet-mountable.cc	\

@@ -29,6 +29,7 @@ noinst_LTLIBRARIES = libtest.la
 noinst_PROGRAMS = 			\
 	sbuild-chroot			\
 	sbuild-chroot-plain		\
+	sbuild-chroot-custom		\
 	sbuild-chroot-file		\
 	sbuild-chroot-directory		\
 	sbuild-chroot-block-device	\
@@ -54,6 +55,7 @@ noinst_PROGRAMS = 			\
 TESTS = setup-test-data			\
 	sbuild-chroot			\
 	sbuild-chroot-plain		\
+	sbuild-chroot-custom		\
 	sbuild-chroot-file		\
 	sbuild-chroot-directory		\
 	sbuild-chroot-block-device	\
@@ -109,6 +111,11 @@ sbuild_chroot_plain_SOURCES =	\
 	sbuild-chroot-plain.cc	\
 	test-sbuild-chroot.h
 sbuild_chroot_plain_LDADD =  libtest.la
+
+sbuild_chroot_custom_SOURCES =   \
+	sbuild-chroot-custom.cc  \
+	test-sbuild-chroot.h
+sbuild_chroot_custom_LDADD =  libtest.la
 
 sbuild_chroot_file_SOURCES =	\
 	sbuild-chroot-file.cc	\

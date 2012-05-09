@@ -22,6 +22,7 @@
 #include "sbuild-chroot-config.h"
 #include "sbuild-chroot-directory.h"
 #include "sbuild-chroot-plain.h"
+#include "sbuild-chroot-custom.h"
 #include "sbuild-chroot-file.h"
 #ifdef SBUILD_FEATURE_BLOCKDEV
 #include "sbuild-chroot-block-device.h"
@@ -170,6 +171,8 @@ sbuild::chroot::create (std::string const& type)
     new_chroot = new chroot_directory();
   else if (type == "plain")
     new_chroot = new chroot_plain();
+  else if (type == "custom")
+    new_chroot = new chroot_custom();
   else if (type == "file")
     new_chroot = new chroot_file();
 #ifdef SBUILD_FEATURE_BLOCKDEV
