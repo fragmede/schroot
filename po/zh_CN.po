@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-01-04 00:18+0000\n"
+"POT-Creation-Date: 2012-05-09 23:27+0100\n"
 "PO-Revision-Date: 2010-12-09 15:47+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -475,6 +475,10 @@ msgid "Support for ‘btrfs-snapshot’ chroots"
 msgstr "支持\"btrfs 快照\"chroot"
 
 #, fuzzy
+msgid "Support for ‘custom’ chroots"
+msgstr "支持“目录”chroot"
+
+#, fuzzy
 msgid "Support for ‘directory’ chroots"
 msgstr "支持“目录”chroot"
 
@@ -550,8 +554,15 @@ msgstr "选中所有激活的会话"
 msgid "Select all source chroots"
 msgstr "选中所有chroots 源"
 
+msgid "Do not include aliases"
+msgstr ""
+
 msgid "Username (default current user)"
 msgstr "用户名(默认为当前用户)"
+
+#, fuzzy
+msgid "Set option"
+msgstr "用户选项"
 
 msgid "Begin, run and end a session automatically (default)"
 msgstr "自动开始、运行以及终止会话(默认)"
@@ -728,6 +739,10 @@ msgstr "位置必须带上绝对路径"
 msgid "Invalid name"
 msgstr "非法会话名"
 
+#, boost-format
+msgid "Could not set profile name from script configuration path ‘%1%’"
+msgstr ""
+
 #. TRANSLATORS: unlink refers to the C function which removes a file
 msgid "Failed to unlink session file"
 msgstr "无法删除会话文件"
@@ -748,6 +763,10 @@ msgstr "schroot.conf(5) 中有命名规则介绍"
 #, fuzzy, boost-format
 msgid "Namespace separator ‘%1%’ may not be used in an alias name"
 msgstr "名字空间分隔符\"%1%\"未在别名中使用"
+
+#. TRANSLATORS: ‘/config’ is a path name; not for translation.
+msgid "The path does not end with ‘/config’"
+msgstr ""
 
 msgid "Name"
 msgstr "名字"
@@ -785,6 +804,10 @@ msgstr "环境变量过滤器"
 msgid "Run Setup Scripts"
 msgstr "运行安装脚本"
 
+#, fuzzy
+msgid "Configuration Profile"
+msgstr "脚本配置"
+
 msgid "Script Configuration"
 msgstr "脚本配置"
 
@@ -814,6 +837,9 @@ msgstr "会话"
 
 msgid "Source"
 msgstr "源"
+
+msgid "This option is not valid for this chroot type"
+msgstr ""
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -913,6 +939,48 @@ msgstr "联合文件系统置于目录之上"
 msgid "Filesystem Union Underlay Directory"
 msgstr "联合文件系统置于目录之下"
 
+#, boost-format
+msgid "Environment variable ‘%1%’ is ambiguous"
+msgstr ""
+
+#, fuzzy, boost-format
+msgid "Configuration key ‘%1%’ is ambiguous"
+msgstr "未找到所需的密钥“%4%”"
+
+#, boost-format
+msgid "Configuration key ‘%1%’ is not permitted to be modified."
+msgstr ""
+
+#, boost-format
+msgid "Configuration key name ‘%1%’ is not a permitted name."
+msgstr ""
+
+#, boost-format
+msgid ""
+"Configuration keys additional to ‘%1%’ would set this setup script "
+"environment variable"
+msgstr ""
+
+msgid "User Modifiable Keys"
+msgstr ""
+
+msgid "Root Modifiable Keys"
+msgstr ""
+
+msgid "User Data"
+msgstr ""
+
+#, boost-format
+msgid ""
+"More than one configuration key would set the ‘%1%’ environment variable"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys"
+msgstr ""
+
 msgid "File"
 msgstr "文件"
 
@@ -970,6 +1038,10 @@ msgstr "行 %1% [%2%]: 复制密钥“%4%”"
 #, fuzzy, boost-format
 msgid "line %1%: Invalid group: “%4%”"
 msgstr "行 %1%: 无效用户组: “%4%”"
+
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
+msgstr "行 %1% [%2%]: 使用了不允许的的密钥 “%4%”"
 
 #, fuzzy, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"

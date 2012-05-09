@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.12-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-01-04 00:18+0000\n"
+"POT-Creation-Date: 2012-05-09 23:27+0100\n"
 "PO-Revision-Date: 2010-09-28 22:16+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -485,6 +485,10 @@ msgid "Support for ‘btrfs-snapshot’ chroots"
 msgstr "Hỗ trợ chroot kiểu « btrfs-snapshot »"
 
 #, fuzzy
+msgid "Support for ‘custom’ chroots"
+msgstr "Hỗ trợ chroot kiểu thư mục"
+
+#, fuzzy
 msgid "Support for ‘directory’ chroots"
 msgstr "Hỗ trợ chroot kiểu thư mục"
 
@@ -563,8 +567,15 @@ msgstr "Chọn mọi phiên chạy hoạt động"
 msgid "Select all source chroots"
 msgstr "Chọn mọi chroot nguồn"
 
+msgid "Do not include aliases"
+msgstr ""
+
 msgid "Username (default current user)"
 msgstr "Tên người dùng (người dùng hiện thời mặc định)"
+
+#, fuzzy
+msgid "Set option"
+msgstr "Tùy chọn người dùng"
 
 msgid "Begin, run and end a session automatically (default)"
 msgstr "Tự động khởi chạy, chạy và dừng chạy phiên chạy (mặc định)"
@@ -741,6 +752,10 @@ msgstr "Vị trí phải có đường dẫn tuyệt đối"
 msgid "Invalid name"
 msgstr "Tên không hợp lệ"
 
+#, boost-format
+msgid "Could not set profile name from script configuration path ‘%1%’"
+msgstr ""
+
 #. TRANSLATORS: unlink refers to the C function which removes a file
 msgid "Failed to unlink session file"
 msgstr "Lỗi bỏ liên kết tập tin phiên chạy"
@@ -761,6 +776,10 @@ msgstr ""
 #, fuzzy, boost-format
 msgid "Namespace separator ‘%1%’ may not be used in an alias name"
 msgstr "Không cho phép dùng dấu tách miền tên « %1% » trong một tên bí danh"
+
+#. TRANSLATORS: ‘/config’ is a path name; not for translation.
+msgid "The path does not end with ‘/config’"
+msgstr ""
 
 msgid "Name"
 msgstr "Tên"
@@ -798,6 +817,10 @@ msgstr "Lọc môi trường"
 msgid "Run Setup Scripts"
 msgstr "Chạy các văn lệnh thiết lập"
 
+#, fuzzy
+msgid "Configuration Profile"
+msgstr "Cấu hình Văn lệnh"
+
 msgid "Script Configuration"
 msgstr "Cấu hình Văn lệnh"
 
@@ -828,6 +851,9 @@ msgstr "Phiên chạy"
 
 msgid "Source"
 msgstr "Nguồn"
+
+msgid "This option is not valid for this chroot type"
+msgstr ""
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -927,6 +953,48 @@ msgstr "Thư mục phủ hợp hệ thống tập tin"
 msgid "Filesystem Union Underlay Directory"
 msgstr "Thư mục lót hợp hệ thống tập tin"
 
+#, boost-format
+msgid "Environment variable ‘%1%’ is ambiguous"
+msgstr ""
+
+#, fuzzy, boost-format
+msgid "Configuration key ‘%1%’ is ambiguous"
+msgstr "Thiếu khoá cần thiết « %4% »"
+
+#, boost-format
+msgid "Configuration key ‘%1%’ is not permitted to be modified."
+msgstr ""
+
+#, boost-format
+msgid "Configuration key name ‘%1%’ is not a permitted name."
+msgstr ""
+
+#, boost-format
+msgid ""
+"Configuration keys additional to ‘%1%’ would set this setup script "
+"environment variable"
+msgstr ""
+
+msgid "User Modifiable Keys"
+msgstr ""
+
+msgid "Root Modifiable Keys"
+msgstr ""
+
+msgid "User Data"
+msgstr ""
+
+#, boost-format
+msgid ""
+"More than one configuration key would set the ‘%1%’ environment variable"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys"
+msgstr ""
+
 msgid "File"
 msgstr "Tập tin"
 
@@ -985,6 +1053,10 @@ msgstr "dòng %1% [%2%]: khoá trùng « %4% »"
 #, fuzzy, boost-format
 msgid "line %1%: Invalid group: “%4%”"
 msgstr "dòng %1%: nhóm không hợp lệ: « %4% »"
+
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
+msgstr "dòng %1% [%2%]: dùng khoá bị cấm « %4% »"
 
 #, fuzzy, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"

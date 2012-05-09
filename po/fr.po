@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-01-04 00:18+0000\n"
+"POT-Creation-Date: 2012-05-09 23:27+0100\n"
 "PO-Revision-Date: 2010-12-07 21:14+0100\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -493,6 +493,10 @@ msgid "Support for ‘btrfs-snapshot’ chroots"
 msgstr "chroots de type « btrfs-snapshot »"
 
 #, fuzzy
+msgid "Support for ‘custom’ chroots"
+msgstr "chroots de type « répertoire »"
+
+#, fuzzy
 msgid "Support for ‘directory’ chroots"
 msgstr "chroots de type « répertoire »"
 
@@ -570,8 +574,15 @@ msgstr "Sélectionner toutes les sessions actives"
 msgid "Select all source chroots"
 msgstr "Sélectionner toutes les sources de chroots"
 
+msgid "Do not include aliases"
+msgstr ""
+
 msgid "Username (default current user)"
 msgstr "Nom d'utilisateur (l'utilisateur courant par défaut)"
+
+#, fuzzy
+msgid "Set option"
+msgstr "Options utilisateur"
 
 msgid "Begin, run and end a session automatically (default)"
 msgstr "Démarre, exécute et termine une session automatiquement (par défaut)"
@@ -748,6 +759,10 @@ msgstr "L'emplacement doit être précisé avec un chemin absolu"
 msgid "Invalid name"
 msgstr "Nom non valable"
 
+#, boost-format
+msgid "Could not set profile name from script configuration path ‘%1%’"
+msgstr ""
+
 #. TRANSLATORS: unlink refers to the C function which removes a file
 msgid "Failed to unlink session file"
 msgstr "Échec lors de la suppression (« unlink ») du fichier de session"
@@ -772,6 +787,10 @@ msgid "Namespace separator ‘%1%’ may not be used in an alias name"
 msgstr ""
 "Le séparateur d'espace de nom « %1% » ne doit pas être utilisé dans un nom "
 "d'alias."
+
+#. TRANSLATORS: ‘/config’ is a path name; not for translation.
+msgid "The path does not end with ‘/config’"
+msgstr ""
 
 msgid "Name"
 msgstr "Nom"
@@ -809,6 +828,10 @@ msgstr "Filtre d'environnement"
 msgid "Run Setup Scripts"
 msgstr "Exécuter les scripts de configuration (« Setup Scripts »)"
 
+#, fuzzy
+msgid "Configuration Profile"
+msgstr "Script de configuration"
+
 msgid "Script Configuration"
 msgstr "Script de configuration"
 
@@ -838,6 +861,9 @@ msgstr "Session"
 
 msgid "Source"
 msgstr "Source"
+
+msgid "This option is not valid for this chroot type"
+msgstr ""
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -937,6 +963,48 @@ msgstr "Répertoire pour l'« overlay » de l'union de systèmes de fichiers"
 msgid "Filesystem Union Underlay Directory"
 msgstr "Répertoire pour l'« underlay » de l'union de systèmes de fichiers"
 
+#, boost-format
+msgid "Environment variable ‘%1%’ is ambiguous"
+msgstr ""
+
+#, fuzzy, boost-format
+msgid "Configuration key ‘%1%’ is ambiguous"
+msgstr "La clé obligatoire « %4% » est manquante"
+
+#, boost-format
+msgid "Configuration key ‘%1%’ is not permitted to be modified."
+msgstr ""
+
+#, boost-format
+msgid "Configuration key name ‘%1%’ is not a permitted name."
+msgstr ""
+
+#, boost-format
+msgid ""
+"Configuration keys additional to ‘%1%’ would set this setup script "
+"environment variable"
+msgstr ""
+
+msgid "User Modifiable Keys"
+msgstr ""
+
+msgid "Root Modifiable Keys"
+msgstr ""
+
+msgid "User Data"
+msgstr ""
+
+#, boost-format
+msgid ""
+"More than one configuration key would set the ‘%1%’ environment variable"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys"
+msgstr ""
+
 msgid "File"
 msgstr "Fichier"
 
@@ -998,6 +1066,10 @@ msgstr "ligne %1% [%2%] : clé en double « %4% »"
 #, fuzzy, boost-format
 msgid "line %1%: Invalid group: “%4%”"
 msgstr "ligne %1% : groupe non valable : « %4% »"
+
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
+msgstr "ligne %1% [%2%] : la clé « %4% » n'est pas autorisée"
 
 #, fuzzy, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"

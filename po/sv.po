@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-01-04 00:18+0000\n"
+"POT-Creation-Date: 2012-05-09 23:27+0100\n"
 "PO-Revision-Date: 2010-01-16 15:44+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -485,6 +485,9 @@ msgstr ""
 msgid "Support for ‘btrfs-snapshot’ chroots"
 msgstr ""
 
+msgid "Support for ‘custom’ chroots"
+msgstr ""
+
 msgid "Support for ‘directory’ chroots"
 msgstr ""
 
@@ -560,8 +563,15 @@ msgstr "Välj alla aktiva sessioner"
 msgid "Select all source chroots"
 msgstr "Välj alla chroot"
 
+msgid "Do not include aliases"
+msgstr ""
+
 msgid "Username (default current user)"
 msgstr "Användarnamn (förval är nuvarande användare)"
+
+#, fuzzy
+msgid "Set option"
+msgstr "Allmänna flaggor"
 
 msgid "Begin, run and end a session automatically (default)"
 msgstr ""
@@ -743,6 +753,10 @@ msgstr "Platsen måste ha en absolut sökväg"
 msgid "Invalid name"
 msgstr "ogiltig grupp"
 
+#, boost-format
+msgid "Could not set profile name from script configuration path ‘%1%’"
+msgstr ""
+
 #. TRANSLATORS: unlink refers to the C function which removes a file
 msgid "Failed to unlink session file"
 msgstr "Misslyckades med att ta bort sessionsfilen"
@@ -762,6 +776,10 @@ msgstr ""
 
 #, boost-format
 msgid "Namespace separator ‘%1%’ may not be used in an alias name"
+msgstr ""
+
+#. TRANSLATORS: ‘/config’ is a path name; not for translation.
+msgid "The path does not end with ‘/config’"
 msgstr ""
 
 msgid "Name"
@@ -801,6 +819,10 @@ msgstr ""
 msgid "Run Setup Scripts"
 msgstr "Kör konfigurationsskript"
 
+#, fuzzy
+msgid "Configuration Profile"
+msgstr "Använder konfigurationsfilen för %1%: \"%2%\""
+
 msgid "Script Configuration"
 msgstr ""
 
@@ -833,6 +855,9 @@ msgstr "Session"
 #, fuzzy
 msgid "Source"
 msgstr "Källanvändare"
+
+msgid "This option is not valid for this chroot type"
+msgstr ""
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -940,6 +965,48 @@ msgstr "Misslyckades med att öppna katalogen"
 msgid "Filesystem Union Underlay Directory"
 msgstr "Misslyckades med att öppna katalogen"
 
+#, boost-format
+msgid "Environment variable ‘%1%’ is ambiguous"
+msgstr ""
+
+#, fuzzy, boost-format
+msgid "Configuration key ‘%1%’ is ambiguous"
+msgstr "[%1%]: Nödvändiga nyckeln \"%4%\" saknas"
+
+#, boost-format
+msgid "Configuration key ‘%1%’ is not permitted to be modified."
+msgstr ""
+
+#, boost-format
+msgid "Configuration key name ‘%1%’ is not a permitted name."
+msgstr ""
+
+#, boost-format
+msgid ""
+"Configuration keys additional to ‘%1%’ would set this setup script "
+"environment variable"
+msgstr ""
+
+msgid "User Modifiable Keys"
+msgstr ""
+
+msgid "Root Modifiable Keys"
+msgstr ""
+
+msgid "User Data"
+msgstr ""
+
+#, boost-format
+msgid ""
+"More than one configuration key would set the ‘%1%’ environment variable"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys"
+msgstr ""
+
 msgid "File"
 msgstr "Fil"
 
@@ -998,6 +1065,10 @@ msgstr "rad %1% [%2%]: Dubblett av nyckeln \"%4%\""
 #, fuzzy, boost-format
 msgid "line %1%: Invalid group: “%4%”"
 msgstr "rad %1%: Ogiltig grupp: \"%4%\""
+
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
+msgstr "rad %1% [%2%]: Otillåtna nyckeln \"%4%\" används"
 
 #, fuzzy, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"
@@ -1396,9 +1467,6 @@ msgstr "Misslyckades med att läsa status på filen"
 
 #~ msgid "Run \"schroot\" for full capabilities"
 #~ msgstr "Kör \"schroot\" med fullständiga färdigheter"
-
-#~ msgid "Using %1% configuration file: '%2%'"
-#~ msgstr "Använder konfigurationsfilen för %1%: \"%2%\""
 
 #~ msgid "Run \"%1%\""
 #~ msgstr "Kör \"%1%\""
