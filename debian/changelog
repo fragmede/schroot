@@ -1,8 +1,7 @@
 schroot (1.5.2-1) experimental; urgency=low
 
   * New upstream development release.
-  * Build with current Boost libraries (currently 1.46, will be
-    1.48 soon).
+  * Build with current Boost libraries (1.49).
   * Support translation of the documentation with po4a
     (Closes: #588962).  Thanks to David Prévot.  Note that there are
     not yet any translations making use of this facility yet.
