@@ -30,23 +30,7 @@ DESTDIR="$4"
 [ -d "$DESTDIR" ] && rm -rf "$DESTDIR"
 mkdir "$DESTDIR"
 
-cat << EOF > "${DESTDIR}/config"
-# Settings for "${PROFILE}" profile.
-# See schroot.conf(5) and schroot-script-config(5) for further details.
-# The files detailed below may also be edited to further customise
-# this profile.
-
-# Filesystems to mount inside the chroot.
-FSTAB="/etc/schroot/${PROFILE}/fstab"
-
-# Files to copy from the host system into the chroot.
-COPYFILES="/etc/schroot/${PROFILE}/copyfiles"
-
-# System NSS databases to copy into the chroot.
-NSSDATABASES="/etc/schroot/${PROFILE}/nssdatabases"
-EOF
-
-for file in config copyfiles fstab nssdatabases; do
+for file in copyfiles fstab nssdatabases; do
     for profile in all "$PROFILE"; do
 	for arch in all "$PLATFORM"; do
 	    FILE="${SRCDIR}/${profile}/${arch}/${file}"
