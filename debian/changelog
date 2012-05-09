@@ -10,8 +10,25 @@ schroot (1.5.2-1) experimental; urgency=low
     unionfs (Closes: #648450).  Thanks to Evan Broder.
   * debian/control:
     - Fix typo (debuggging, Closes: #653732).  Thanks to Vincent Blut.
+  * Arbitrary options may now be set in a chroot definition in
+    schroot.conf.  These options are also set in the environment when
+    running setup scripts, making this a simple means by which setup
+    scripts may be customised without writing code.
+  * The above options may be set (where permitted) on the schroot
+    command-line by using the new --option command-line option to set
+    the option to a user-defined value, which will permit users to
+    customise the behaviour of setup scripts.  Note that only keys
+    specified in the new user-modifiable-keys or root-modifiable-keys
+    settings are permitted to be set, for security reasons.
+  * A new "custom" chroot type has been added (Closes: #477937).  This
+    permits the testing and development of new specialised chroot types
+    without the need to write any C++ chroot modules.  It just requires
+    a custom setup script, which can use arbitrary options set in your
+    schroot.conf for configuration.  Options are provided to set up
+    the session cloning and purging behaviour for the custom chroot.
+    See schroot.conf(5) for further details.
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 23 Jan 2012 09:48:11 +0000
+ -- Roger Leigh <rleigh@debian.org>  Wed, 09 May 2012 22:48:57 +0100
 
 schroot (1.5.1-1) experimental; urgency=low
 
