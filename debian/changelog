@@ -36,6 +36,7 @@ schroot (1.5.2-1) experimental; urgency=low
   * Updated translations:
     - da (Closes: #658544).  Thanks to Joe Hansen.
     - de (Closes: #659524).  Thanks to Holger Wansing.
+    - pt (Closes: #660040).  Thanks to Pedro Ribeiro.
 
  -- Roger Leigh <rleigh@debian.org>  Wed, 09 May 2012 22:48:57 +0100
 
