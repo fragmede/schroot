@@ -1,14 +1,13 @@
 # Chinese translations for schroot package.
 # Copyright (C) 2008 Roger Leigh <rleigh@debian.org>
 # This file is distributed under the same license as the schroot package.
-# Ji ZhengYu <zhengyuji@gmail.com>, 2008, 2009, 2010.
-#
+# Ji ZhengYu <zhengyuji@gmail.com>, 2008, 2009, 2010, 2011, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: schroot VERSION\n"
+"Project-Id-Version: schroot 1.5.2-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-09 23:27+0100\n"
-"PO-Revision-Date: 2010-12-09 15:47+0800\n"
+"POT-Creation-Date: 2012-01-04 00:18+0000\n"
+"PO-Revision-Date: 2012-02-15 19:54+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -17,71 +16,71 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
+#, boost-format
 msgid "Can't open file ‘%1%’"
 msgstr "无法打开文件“%1%”"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Deprecated key ‘%4%’ used"
-msgstr "%1% 行：使用了废弃的密钥“%4%”"
+msgstr "第 %1% 行：使用了作废的密钥“%4%”"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "Deprecated key ‘%4%’ used"
-msgstr "使用了废弃的密钥“%4%”"
+msgstr "使用了作废的密钥“%4%”"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Disallowed key ‘%4%’ used"
-msgstr "%1% 行：使用了不允许的密钥“%4%”"
+msgstr "第 %1% 行：使用了未经许可的密钥“%4%”"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "Disallowed key ‘%4%’ used"
-msgstr "使用了不允许的密钥“%4%”"
+msgstr "使用了未经许可的密钥“%4%”"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Duplicate key ‘%4%’"
-msgstr "行 %1%: 复制密钥“%4%”"
+msgstr "第 %1% 行: 重复的密钥“%4%”"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = line contents as read from the configuration file
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Invalid line: “%4%”"
-msgstr "行 %1%: 无效行: “%4%”"
+msgstr "第 %1% 行: 无效行: “%4%”"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Required key ‘%4%’ is missing"
-msgstr "行 %1%: 未找到所需的密钥“%4%”"
+msgstr "第 %1% 行: 未找到所需的密钥“%4%”"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "Required key ‘%4%’ is missing"
 msgstr "未找到所需的密钥“%4%”"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = line contents as read from the configuration file
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: No key specified: “%4%”"
-msgstr "行 %1%: 未指定密钥: “%4%”"
+msgstr "第 %1% 行: 未指定密钥: “%4%”"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Obsolete key ‘%4%’ used"
-msgstr "行 %1%: 使用了废弃的密钥“%4%”"
+msgstr "第 %1% 行: 使用了过期的密钥“%4%”"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "Obsolete key ‘%4%’ used"
-msgstr "使用了废弃的密钥“%4%”"
+msgstr "使用了过期的密钥“%4%”"
 
 #. TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
 #. TRANSLATORS: %4% = additional details
@@ -118,7 +117,6 @@ msgstr "无法获取设备状态"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#, fuzzy
 msgid "[OPTION…] — build Debian packages from source"
 msgstr "[选项...] - 从源码构建 Debian 包"
 
@@ -235,9 +233,8 @@ msgstr "缺少 --binNMU"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
-#, fuzzy
 msgid "[OPTION…] chroot [COMMAND] — run command or shell in a chroot"
-msgstr "[选项...]chroot [命令] - 在chroot 中运行命令或 shell"
+msgstr "[选项...]chroot [命令] - 在chroot 中运行命令或shell 命令"
 
 msgid "Print paths to available chroots"
 msgstr "打印可用的chroots 路径"
@@ -259,7 +256,7 @@ msgstr "未指定chroot"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1% chroot] Running command: “%2%”"
 msgstr "[chroot %1%] 正在运行命令: “%2%”"
 
@@ -272,9 +269,8 @@ msgstr "schroot 的配置由 %1% %2% 在 %3% 生成"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
-#, fuzzy
 msgid "[OPTION…] [COMMAND] — run command or shell in a chroot"
-msgstr "[选项...] [命令] - 在chroot 环境中运行命令或是 shell"
+msgstr "[选项...] [命令] - 在chroot 环境中运行命令或是shell 命令"
 
 msgid "Print path to selected chroot"
 msgstr "打印所选chroot 的路径"
@@ -300,15 +296,15 @@ msgstr "dchroot 会话限制"
 #. TRANSLATORS: %1% = program name
 #. TRANSLATORS: %2% = program version
 #. TRANSLATORS: %3% = release date
-#, fuzzy, boost-format
+#, boost-format
 msgid "%1% (Debian sbuild) %2% (%3%)"
-msgstr "%1% (Debian sbuild) %2% (%3%)\n"
+msgstr "%1% (Debian sbuild) %2% (%3%)"
 
 #. TRANSLATORS: %1% = copyright year (start)
 #. TRANSLATORS: %2% = copyright year (end)
-#, fuzzy, boost-format
+#, boost-format
 msgid "Copyright © %1%–%2% Roger Leigh"
-msgstr "版权所有 © 2004–2011 Roger Leigh"
+msgstr "版权所有 © %1%-%2% Roger Leigh"
 
 msgid "Written by Roger Leigh"
 msgstr "由 Roger Leigh 编写"
@@ -327,7 +323,7 @@ msgid "Usage:"
 msgstr "用法:"
 
 #. TRANSLATORS: %1% = program name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Run “%1% --help” to list usage example and all available options"
 msgstr "运行“%1% --help”列出示例用法和所有可用的选项"
 
@@ -366,13 +362,12 @@ msgid "Invalid debug level"
 msgstr "无效的调试级别"
 
 #. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to find ‘%1%’"
 msgstr "无法找到“%1%”"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#, fuzzy
 msgid "[OPTION…] — list mount points"
 msgstr "[选项...] - 列出挂载选项"
 
@@ -393,13 +388,12 @@ msgstr "等待子进程出错"
 
 #. TRANSLATORS: %1% = command name
 #. TRANSLATORS: %1% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to execute “%1%”"
 msgstr "无法运行“%1%”"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#, fuzzy
 msgid "[OPTION…] — mount filesystems"
 msgstr "[选项...] - 挂载文件系统"
 
@@ -414,7 +408,6 @@ msgstr "要读取的 fstab 文件(完整路径)"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#, fuzzy
 msgid "[OPTION…] — release a device lock"
 msgstr "[选项...] - 释放设备锁"
 
@@ -439,20 +432,20 @@ msgid "%1%: Chroots not found"
 msgstr "%1%: 未找到chroots"
 
 #. TRANSLATORS: %4% = file
-#, fuzzy, boost-format
+#, boost-format
 msgid "No chroots are defined in ‘%4%’"
-msgstr "“%4%”中未定义chroots"
+msgstr "“%4%”中未定义chroot 环境"
 
 #. TRANSLATORS: %4% = file
 #. TRANSLATORS: %5% = file
-#, fuzzy, boost-format
+#, boost-format
 msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
-msgstr "“%4%”或“%5%”中未定义chroots"
+msgstr "“%4%”或“%5%”中未定义chroot 环境"
 
 #. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
+#, boost-format
 msgid "The specified chroots are not defined in ‘%1%’"
-msgstr "“%1%”中未定义指定的chroots"
+msgstr "“%1%”中未定义所选chroot 环境"
 
 #. TRANSLATORS: %1% = chroot name
 #, boost-format
@@ -466,43 +459,32 @@ msgstr "%1%: 非法会话名"
 msgid "Available chroot types:"
 msgstr "可用的chroot 类型："
 
-#, fuzzy
 msgid "Support for ‘block-device’ chroots"
-msgstr "支持“块设备”chroot"
+msgstr "支持\"block-device\"的chroot 环境"
 
-#, fuzzy
 msgid "Support for ‘btrfs-snapshot’ chroots"
-msgstr "支持\"btrfs 快照\"chroot"
+msgstr "支持\"btrfs-snapshot\"的chroot 环境"
 
-#, fuzzy
-msgid "Support for ‘custom’ chroots"
-msgstr "支持“目录”chroot"
-
-#, fuzzy
 msgid "Support for ‘directory’ chroots"
-msgstr "支持“目录”chroot"
+msgstr "支持\"directory\"的chroot 环境"
 
-#, fuzzy
 msgid "Support for ‘file’ chroots"
-msgstr "支持“文件”chroot"
+msgstr "支持\"file\"的chroot 环境"
 
-#, fuzzy
 msgid "Support for ‘loopback’ chroots"
-msgstr "支持“loopback”chroot"
+msgstr "支持\"loopback\"的chroot 环境"
 
-#, fuzzy
 msgid "Support for ‘lvm-snapshot’ chroots"
-msgstr "支持“lvm 快照”chroot"
+msgstr "支持“lvm-snapshot”的chroot 环境"
 
-#, fuzzy
 msgid "Support for ‘plain’ chroots"
-msgstr "支持“普通”chroot"
+msgstr "支持\"plain\"的chroot 环境"
 
 msgid "Chroot selection"
-msgstr "chroot 选择"
+msgstr "Chroot 选择"
 
 msgid "Chroot environment"
-msgstr "chroot 环境变量"
+msgstr "Chroot 环境变量"
 
 msgid "Session actions"
 msgstr "会话操作"
@@ -554,15 +536,8 @@ msgstr "选中所有激活的会话"
 msgid "Select all source chroots"
 msgstr "选中所有chroots 源"
 
-msgid "Do not include aliases"
-msgstr ""
-
 msgid "Username (default current user)"
 msgstr "用户名(默认为当前用户)"
-
-#, fuzzy
-msgid "Set option"
-msgstr "用户选项"
 
 msgid "Begin, run and end a session automatically (default)"
 msgstr "自动开始、运行以及终止会话(默认)"
@@ -589,13 +564,13 @@ msgid "Failed to get hostname"
 msgstr "无法获取主机名"
 
 #. TRANSLATORS: %1% = user name or user ID
-#, fuzzy, boost-format
+#, boost-format
 msgid "User ‘%1%’ not found"
 msgstr "未找到用户“%1%”"
 
 #. TRANSLATORS: %1% = group name or group ID
 #. TRANSLATORS: %1% = group name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Group ‘%1%’ not found"
 msgstr "未找到用户组“%1%”"
 
@@ -654,15 +629,14 @@ msgid "Timed out"
 msgstr "超时"
 
 #. TRANSLATORS: Please use an ellipsis e.g. U+2026
-#, fuzzy
 msgid "Time is running out…"
-msgstr "时间在流逝..."
+msgstr "即将超时..."
 
 msgid "Failed to get terminal settings"
 msgstr "无法获取终端设置"
 
 #. TRANSLATORS: %1% = integer
-#, fuzzy, boost-format
+#, boost-format
 msgid "Unsupported conversation type ‘%1%’"
 msgstr "不支持的会话类型“%1%”"
 
@@ -677,14 +651,13 @@ msgid "Device"
 msgstr "设备"
 
 msgid "Btrfs Source Subvolume"
-msgstr ""
+msgstr "Btrfs 子卷源"
 
-#, fuzzy
 msgid "Btrfs Snapshot Directory"
-msgstr "LVM 快照设备"
+msgstr "Btrfs 快照目录"
 
 msgid "Btrfs Snapshot Name"
-msgstr ""
+msgstr "Btrfs 快照名称"
 
 msgid "Chroot creation failed"
 msgstr "创建chroot 环境失败"
@@ -693,7 +666,7 @@ msgid "Device name not set"
 msgstr "未设置设备名"
 
 #. TRANSLATORS: %1% = chroot type name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Unknown chroot type ‘%1%’"
 msgstr "未知的chroot 类型 “%1%”"
 
@@ -739,10 +712,6 @@ msgstr "位置必须带上绝对路径"
 msgid "Invalid name"
 msgstr "非法会话名"
 
-#, boost-format
-msgid "Could not set profile name from script configuration path ‘%1%’"
-msgstr ""
-
 #. TRANSLATORS: unlink refers to the C function which removes a file
 msgid "Failed to unlink session file"
 msgstr "无法删除会话文件"
@@ -753,20 +722,16 @@ msgstr "无法写会话文件"
 msgid "Message verbosity is invalid"
 msgstr "无法显示详细信息"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "Namespace separator ‘%1%’ may not be used in a chroot name"
-msgstr "名字空间分隔符\"%1%\"未在 chroot 环境中使用"
+msgstr "名字空间分隔符\"%1%\"可能无法用在 chroot 环境中"
 
 msgid "Naming restrictions are documented in schroot.conf(5)"
 msgstr "schroot.conf(5) 中有命名规则介绍"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "Namespace separator ‘%1%’ may not be used in an alias name"
-msgstr "名字空间分隔符\"%1%\"未在别名中使用"
-
-#. TRANSLATORS: ‘/config’ is a path name; not for translation.
-msgid "The path does not end with ‘/config’"
-msgstr ""
+msgstr "名字空间分隔符\"%1%\"可能无法用在别名中"
 
 msgid "Name"
 msgstr "名字"
@@ -804,10 +769,6 @@ msgstr "环境变量过滤器"
 msgid "Run Setup Scripts"
 msgstr "运行安装脚本"
 
-#, fuzzy
-msgid "Configuration Profile"
-msgstr "脚本配置"
-
 msgid "Script Configuration"
 msgstr "脚本配置"
 
@@ -838,22 +799,19 @@ msgstr "会话"
 msgid "Source"
 msgstr "源"
 
-msgid "This option is not valid for this chroot type"
-msgstr ""
-
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
-msgstr "别名“%1%”已经与chroot 名“%4%”关联"
+msgstr "别名“%1%”已经与chroot“%4%”关联"
 
 msgid "No such chroot"
 msgstr "没有那样的chroot"
 
 #. TRANSLATORS: %1% = chroot name
-#, fuzzy, boost-format
+#, boost-format
 msgid "A chroot or alias ‘%1%’ already exists with this name"
-msgstr "已有与“%1%”同名的chroot 名或别名存在"
+msgstr "已有与“%1%”同名的chroot 或别名存在"
 
 msgid "Failed to open file"
 msgstr "无法打开文件"
@@ -862,7 +820,7 @@ msgid "No such namespace"
 msgstr "不存在该名字空间"
 
 msgid "Duplicate names are not allowed"
-msgstr "不允许复制名称"
+msgstr "不允许重复的名字"
 
 msgid "Available chroots: "
 msgstr "可用的chroots: "
@@ -885,18 +843,16 @@ msgid "Personality"
 msgstr "进程私有空间"
 
 msgid "Original Chroot Name"
-msgstr ""
+msgstr "原Chroot 名称"
 
-#, fuzzy
 msgid "Selected Chroot Name"
-msgstr "选中所有chroots"
+msgstr "所选Chroot 名称"
 
 msgid "Session ID"
 msgstr "会话ID"
 
-#, fuzzy
 msgid "(session chroot)"
-msgstr "(源chroot)"
+msgstr "(chroot 进程)"
 
 msgid "(source chroot)"
 msgstr "(源chroot)"
@@ -914,9 +870,9 @@ msgid "Source Root Groups"
 msgstr "源根用户组"
 
 #. TRANSLATORS: %1% = chroot fs type
-#, fuzzy, boost-format
+#, boost-format
 msgid "Unknown filesystem union type ‘%1%’"
-msgstr "未知的联合文件系统类型“%1%”"
+msgstr "未知的文件系统类型“%1%”"
 
 msgid "Union overlay must have an absolute path"
 msgstr "向上型整合必须带上绝对路径"
@@ -938,48 +894,6 @@ msgstr "联合文件系统置于目录之上"
 
 msgid "Filesystem Union Underlay Directory"
 msgstr "联合文件系统置于目录之下"
-
-#, boost-format
-msgid "Environment variable ‘%1%’ is ambiguous"
-msgstr ""
-
-#, fuzzy, boost-format
-msgid "Configuration key ‘%1%’ is ambiguous"
-msgstr "未找到所需的密钥“%4%”"
-
-#, boost-format
-msgid "Configuration key ‘%1%’ is not permitted to be modified."
-msgstr ""
-
-#, boost-format
-msgid "Configuration key name ‘%1%’ is not a permitted name."
-msgstr ""
-
-#, boost-format
-msgid ""
-"Configuration keys additional to ‘%1%’ would set this setup script "
-"environment variable"
-msgstr ""
-
-msgid "User Modifiable Keys"
-msgstr ""
-
-msgid "Root Modifiable Keys"
-msgstr ""
-
-msgid "User Data"
-msgstr ""
-
-#, boost-format
-msgid ""
-"More than one configuration key would set the ‘%1%’ environment variable"
-msgstr ""
-
-msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
-msgstr ""
-
-msgid "The key is not present in user-modifiable-keys"
-msgstr ""
 
 msgid "File"
 msgstr "文件"
@@ -1009,57 +923,53 @@ msgstr "错误"
 #. TRANSLATORS: Please format the --- as a continuous line, e.g. U+2500
 #, boost-format
 msgid "─── %1% ───"
-msgstr ""
+msgstr "─── %1% ───"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1% [%2%]: Deprecated key ‘%4%’ used"
-msgstr "行 %1% [%2%]: 使用了被废弃的密钥 “%4%”"
+msgstr "行 %1% [%2%]: 使用了作废的密钥 “%4%”"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1%]: Deprecated key ‘%4%’ used"
-msgstr "[%1%]: 使用了被废弃的密钥 “%4%”"
+msgstr "[%1%]: 使用了作废的密钥 “%4%”"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1% [%2%]: Disallowed key ‘%4%’ used"
-msgstr "行 %1% [%2%]: 使用了不允许的的密钥 “%4%”"
+msgstr "行 %1% [%2%]: 使用了未经许可的的密钥 “%4%”"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1%]: Disallowed key ‘%4%’ used"
-msgstr "[%1%]: 使用了不允许的的密钥 “%4%”"
+msgstr "[%1%]: 使用了未经许可的的密钥 “%4%”"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Duplicate group ‘%4%’"
-msgstr "行 %1%: 复制组“%4%”"
+msgstr "行 %1%: 重复的组“%4%”"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1% [%2%]: Duplicate key ‘%4%’"
-msgstr "行 %1% [%2%]: 复制密钥“%4%”"
+msgstr "行 %1% [%2%]: 重复的密钥“%4%”"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Invalid group: “%4%”"
 msgstr "行 %1%: 无效用户组: “%4%”"
 
-#, fuzzy, boost-format
-msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
-msgstr "行 %1% [%2%]: 使用了不允许的的密钥 “%4%”"
-
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"
 msgstr "行 %1% [%2%]: 未找到所需的密钥 “%4%”"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1%]: Required key ‘%4%’ is missing"
 msgstr "[%1%]: 未找到所需的密钥 “%4%”"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: No group specified: “%4%”"
-msgstr "行 %1%: 未指定用户组: “%4%”"
+msgstr "第 %1% 行: 未指定用户组: “%4%”"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1% [%2%]: Obsolete key ‘%4%’ used"
-msgstr "行 %1% [%2%]: 使用了过期的密钥“%4%”"
+msgstr "第 %1% [%2%] 行: 使用了过期的密钥“%4%”"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1%]: Obsolete key ‘%4%’ used"
 msgstr "[%1%]: 使用了过期的密钥“%4%”"
 
@@ -1079,9 +989,9 @@ msgstr "行 %1% [%2%]: %4%"
 msgid "line %1% [%2%] %3%: %4%"
 msgstr "行 %1% [%2%] %3%: %4%"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1% [%2%]: Unknown key ‘%4%’ used"
-msgstr "行 %1% [%2%]: 使用了未知的密钥“%4%”"
+msgstr "第 %1% [%2%] 行: 使用了未知的值“%4%”"
 
 msgid "Failed to set timeout handler"
 msgstr "无法设置超时处理程序"
@@ -1147,12 +1057,12 @@ msgid "D(%1%): "
 msgstr "调试级别(%1%):"
 
 #. TRANSLATORS: %1% = mount file name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to open mount file ‘%1%’"
 msgstr "无法打开挂载文件“%1%”"
 
 #. TRANSLATORS: %1% = mount file name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to read mount file ‘%1%’"
 msgstr "无法读取挂载文件“%1%”"
 
@@ -1160,19 +1070,19 @@ msgid "unknown"
 msgstr "未知"
 
 #. TRANSLATORS: %1% = value (arbitrary text)
-#, fuzzy, boost-format
+#, boost-format
 msgid "Could not parse value ‘%1%’"
-msgstr "无法解释值“%1%”"
+msgstr "无法分析数值“%1%”"
 
 #. TRANSLATORS: %1% = integer personality ID
-#, fuzzy, boost-format
+#, boost-format
 msgid "Personality ‘%1%’ is unknown"
-msgstr "未知的私有进程 “%1%”"
+msgstr "未知的私有ID “%1%”"
 
 #. TRANSLATORS: %1% = personality name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to set personality ‘%1%’"
-msgstr "无法设置私有进程“%1%”"
+msgstr "无法设置私有名“%1%”"
 
 msgid "Linux kernel Application Binary Interface switching"
 msgstr "Linux 内核二进制程序界面切换"
@@ -1195,19 +1105,19 @@ msgid "Failed to read file descriptor"
 msgstr "无法读取文件描述符"
 
 #. TRANSLATORS: %1% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "Executing ‘%1%’"
 msgstr "正在执行“%1%”"
 
 #. TRANSLATORS: %1% = directory
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to change to directory ‘%1%’"
-msgstr "无法更改目录“%1%”"
+msgstr "无法更改至目录“%1%”"
 
 #. TRANSLATORS: %4% = directory
-#, fuzzy, boost-format
+#, boost-format
 msgid "Falling back to directory ‘%4%’"
-msgstr "退回至目录“%4%”"
+msgstr "无法退至目录“%4%”"
 
 msgid "Child dumped core"
 msgstr "子进程内核转储"
@@ -1216,17 +1126,17 @@ msgid "Child exited abnormally (reason unknown; not a signal or core dump)"
 msgstr "子进程非正常退出(原因未知；非信号或是内核转储问题)"
 
 #. TRANSLATORS: %4% = signal name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Child terminated by signal ‘%4%’"
 msgstr "用信号“%4%”终止子进程"
 
 #. TRANSLATORS: %1% = directory
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to change root to directory ‘%1%’"
 msgstr "无法将根目录改为“%1%”"
 
 #. TRANSLATORS: %1% = chroot name
-#, fuzzy, boost-format
+#, boost-format
 msgid "No chroot found matching name or alias ‘%1%’"
 msgstr "未找到匹配“%1%”的chroot 名字或是别名"
 
@@ -1241,7 +1151,7 @@ msgid "Failed to unlock chroot"
 msgstr "无法解锁chroot"
 
 #. TRANSLATORS: %1% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "Command “%1%” must have an absolute path"
 msgstr "命令“%1%”必须带上绝对路径"
 
@@ -1258,7 +1168,7 @@ msgid "Failed to get supplementary group count"
 msgstr "无法获取该帐户的其他用户组数目"
 
 #. TRANSLATORS: %1% = integer group ID
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to set group ‘%1%’"
 msgstr "无法设置组 ID “%1%”"
 
@@ -1270,40 +1180,40 @@ msgstr "无法放弃根用户权限"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = session identifier
-#, fuzzy, boost-format
+#, boost-format
 msgid ""
 "%1%: Chroot does not support setting a session ID; ignoring session ID ‘%4%’"
 msgstr "%1%: Chroot 不支持设置会话 ID；忽略会话 ID “%4%”"
 
 #. TRANSLATORS: %1% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "Shell ‘%1%’ not available"
 msgstr "Shell 命令“%1%”不可用"
 
 #. TRANSLATORS: %4% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "Falling back to shell ‘%4%’"
-msgstr "返回至 shell 命令“%4%”"
+msgstr "无法返回至 shell 命令“%4%”"
 
 #. TRANSLATORS: %4% = signal name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Caught signal ‘%4%’"
 msgstr "捕获信号“%4%”"
 
 #. TRANSLATORS: %4% = signal name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to set signal handler ‘%4%’"
 msgstr "无法为信号“%4%”设置信息处理程序"
 
 #. TRANSLATORS: %1% = integer user ID
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to set user ‘%1%’"
 msgstr "无法设置用户 ID “%1%”"
 
 #. TRANSLATORS: %1% = user name
 #. TRANSLATORS: %2% = user name
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, fuzzy, boost-format
+#, boost-format
 msgid "(%1%→%2%): User switching is not permitted"
 msgstr "(%1%->%2%): 不允许用户切换"
 
@@ -1315,13 +1225,13 @@ msgstr "还原终端设置时出错"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1% chroot] Running login shell: ‘%4%’"
 msgstr "[chroot %1%] 正在运行登录程序: “%4%”"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1% chroot] Running shell: ‘%4%’"
 msgstr "[chroot %1%] 正在运行程序: “%4%”"
 
@@ -1330,7 +1240,7 @@ msgstr "[chroot %1%] 正在运行程序: “%4%”"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1% chroot] (%2%→%3%) Running login shell: ‘%4%’"
 msgstr "[chroot %1%] (%2%->%3%) 正在运行登录程序: “%4%”"
 
@@ -1339,13 +1249,13 @@ msgstr "[chroot %1%] (%2%->%3%) 正在运行登录程序: “%4%”"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1% chroot] (%2%→%3%) Running shell: ‘%4%’"
 msgstr "[chroot %1%] (%2%->%3%) 正在运行程序: “%4%”"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1% chroot] Running command: “%4%”"
 msgstr "[chroot %1%] 正在运行命令:“%4%”"
 
@@ -1354,7 +1264,7 @@ msgstr "[chroot %1%] 正在运行命令:“%4%”"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1% chroot] (%2%→%3%) Running command: “%4%”"
 msgstr "[chroot %1%] (%2%->%3%) 正在运行命令:“%4%”"
 
@@ -1365,7 +1275,7 @@ msgstr "stage=%1%"
 msgid ""
 "The directory does not exist inside the chroot.  Use the --directory option "
 "to run the command in a different directory."
-msgstr ""
+msgstr "目录在chroot 中不存在。使用--directory 选项在其它目录下运行命令。"
 
 msgid "terminating immediately"
 msgstr "立刻终止"
