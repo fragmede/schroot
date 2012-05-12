@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.5.2-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-01-04 00:18+0000\n"
+"POT-Creation-Date: 2012-05-09 23:27+0100\n"
 "PO-Revision-Date: 2012-02-08 00:40+0100\n"
 "Last-Translator: Pedro Ribeiro <p.m42.ribeiro@gmail.com>\n"
 "Language-Team: Portuguese <traduz@debianpt.org>\n"
@@ -332,8 +332,7 @@ msgstr "Uso:"
 #, boost-format
 msgid "Run “%1% --help” to list usage example and all available options"
 msgstr ""
-"Correr “%1% --help” para listar exemplos de uso e todas as opções "
-"disponíveis"
+"Correr “%1% --help” para listar exemplos de uso e todas as opções disponíveis"
 
 #, boost-format
 msgid "%1%: invalid action"
@@ -473,6 +472,10 @@ msgstr "Suporte para chroots ‘'block-device’'"
 msgid "Support for ‘btrfs-snapshot’ chroots"
 msgstr "Suporte para chroots ‘btrfs-snapshot’"
 
+#, fuzzy
+msgid "Support for ‘custom’ chroots"
+msgstr "Suporte para chroots ‘directory’"
+
 msgid "Support for ‘directory’ chroots"
 msgstr "Suporte para chroots ‘directory’"
 
@@ -546,8 +549,15 @@ msgstr "Seleccionar todas as sessões activas"
 msgid "Select all source chroots"
 msgstr "Seleccionar todos os chroots de origem"
 
+msgid "Do not include aliases"
+msgstr ""
+
 msgid "Username (default current user)"
 msgstr "Nome de utilizador (pré-definido para utilizador actual)"
+
+#, fuzzy
+msgid "Set option"
+msgstr "Opções de utilizador"
 
 msgid "Begin, run and end a session automatically (default)"
 msgstr "Iniciar, correr e finalizar uma sessão automaticamente (pré-definido)"
@@ -723,6 +733,10 @@ msgstr "A localização tem que ter um caminho absoluto"
 msgid "Invalid name"
 msgstr "Nome inválido"
 
+#, boost-format
+msgid "Could not set profile name from script configuration path ‘%1%’"
+msgstr ""
+
 #. TRANSLATORS: unlink refers to the C function which removes a file
 msgid "Failed to unlink session file"
 msgstr "Falhou a remoção do ficheiro de sessão"
@@ -743,6 +757,10 @@ msgstr "Restriçoes de nomes estão documentadas em schroot.conf(5)"
 #, boost-format
 msgid "Namespace separator ‘%1%’ may not be used in an alias name"
 msgstr "O separador de 'namespace' ‘%1%’ não pode ser usado no nome de alias."
+
+#. TRANSLATORS: ‘/config’ is a path name; not for translation.
+msgid "The path does not end with ‘/config’"
+msgstr ""
 
 msgid "Name"
 msgstr "Nome"
@@ -780,6 +798,10 @@ msgstr "Filtro de Ambiente"
 msgid "Run Setup Scripts"
 msgstr "Correr Scripts de Configuração"
 
+#, fuzzy
+msgid "Configuration Profile"
+msgstr "Configuração de Scripts"
+
 msgid "Script Configuration"
 msgstr "Configuração de Scripts"
 
@@ -809,6 +831,9 @@ msgstr "Sessão"
 
 msgid "Source"
 msgstr "Origem"
+
+msgid "This option is not valid for this chroot type"
+msgstr ""
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -906,6 +931,48 @@ msgstr "Directório de 'overlay' de Sistema de Ficheiros Union"
 msgid "Filesystem Union Underlay Directory"
 msgstr "Directório de 'underlay' de Sistema de Ficheiros Union"
 
+#, boost-format
+msgid "Environment variable ‘%1%’ is ambiguous"
+msgstr ""
+
+#, fuzzy, boost-format
+msgid "Configuration key ‘%1%’ is ambiguous"
+msgstr "Falta chave necessária ‘%4%’"
+
+#, boost-format
+msgid "Configuration key ‘%1%’ is not permitted to be modified."
+msgstr ""
+
+#, boost-format
+msgid "Configuration key name ‘%1%’ is not a permitted name."
+msgstr ""
+
+#, boost-format
+msgid ""
+"Configuration keys additional to ‘%1%’ would set this setup script "
+"environment variable"
+msgstr ""
+
+msgid "User Modifiable Keys"
+msgstr ""
+
+msgid "Root Modifiable Keys"
+msgstr ""
+
+msgid "User Data"
+msgstr ""
+
+#, boost-format
+msgid ""
+"More than one configuration key would set the ‘%1%’ environment variable"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys"
+msgstr ""
+
 msgid "File"
 msgstr "Ficheiro"
 
@@ -964,6 +1031,10 @@ msgstr "linha %1% [%2%]: Chave duplicada ‘%4%’"
 #, boost-format
 msgid "line %1%: Invalid group: “%4%”"
 msgstr "linha %1%: Grupo inválido: “%4%”"
+
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
+msgstr "linha %1% [%2%]: Usada chave não autorizada ‘%4%’"
 
 #, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"
@@ -1232,7 +1303,7 @@ msgstr "Falhou a definição do utilizador ‘%1%’"
 
 #. TRANSLATORS: %1% = user name
 #. TRANSLATORS: %2% = user name
-#. TRANSLATORS: Please translate "→" as a right arrow, e.g. U+2192
+#. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
 #, boost-format
 msgid "(%1%→%2%): User switching is not permitted"
 msgstr "(%1%→%2%): Mudança de utilizador não permitida"
@@ -1259,7 +1330,7 @@ msgstr "[chroot %1%] Executando a 'shell': ‘%4%’"
 #. TRANSLATORS: %2% = user name
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
-#. TRANSLATORS: Please translate "→" as a right arrow, e.g. U+2192
+#. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
 #, boost-format
 msgid "[%1% chroot] (%2%→%3%) Running login shell: ‘%4%’"
 msgstr "[chroot %1%] (%2%→%3%) Executando a 'shell' de login: ‘%4%’"
@@ -1268,7 +1339,7 @@ msgstr "[chroot %1%] (%2%→%3%) Executando a 'shell' de login: ‘%4%’"
 #. TRANSLATORS: %2% = user name
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
-#. TRANSLATORS: Please translate "→" as a right arrow, e.g. U+2192
+#. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
 #, boost-format
 msgid "[%1% chroot] (%2%→%3%) Running shell: ‘%4%’"
 msgstr "[chroot %1%] (%2%→%3%) Executando a 'shell': ‘%4%’"
@@ -1283,7 +1354,7 @@ msgstr "[chroot %1%] Executando comando: “%4%”"
 #. TRANSLATORS: %2% = user name
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
-#. TRANSLATORS: Please translate "→" as a right arrow, e.g. U+2192
+#. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
 #, boost-format
 msgid "[%1% chroot] (%2%→%3%) Running command: “%4%”"
 msgstr "[chroot %1%] (%2%→%3%) Executando comando: “%4%”"
@@ -1318,4 +1389,3 @@ msgstr "Falhou o 'stat' ao ficheiro"
 
 msgid "Failed to stat file descriptor"
 msgstr "Falhou a obtenção do estado do descritor de ficheiro"
-

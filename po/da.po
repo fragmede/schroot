@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.5.2-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-01-04 00:18+0000\n"
+"POT-Creation-Date: 2012-05-09 23:27+0100\n"
 "PO-Revision-Date: 2012-02-03 17:34+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -491,6 +491,10 @@ msgstr "Understøttelse af »block-device« chroot'er"
 msgid "Support for ‘btrfs-snapshot’ chroots"
 msgstr "Understøttelse af »btrfs-snapshot« chroot'er"
 
+#, fuzzy
+msgid "Support for ‘custom’ chroots"
+msgstr "Understøttelse af »directory« chroot'er"
+
 msgid "Support for ‘directory’ chroots"
 msgstr "Understøttelse af »directory« chroot'er"
 
@@ -564,8 +568,15 @@ msgstr "Vælg alle aktive sessioner"
 msgid "Select all source chroots"
 msgstr "Vælg alle kildechroot'er"
 
+msgid "Do not include aliases"
+msgstr ""
+
 msgid "Username (default current user)"
 msgstr "Brugernavn (forvalg er aktuelle bruger)"
+
+#, fuzzy
+msgid "Set option"
+msgstr "Brugertilvalg"
 
 msgid "Begin, run and end a session automatically (default)"
 msgstr "Begynd, kør og afslut en session automatisk (standard)"
@@ -743,6 +754,10 @@ msgstr "Sted skal have en absolut sti"
 msgid "Invalid name"
 msgstr "Ugyldigt navn"
 
+#, boost-format
+msgid "Could not set profile name from script configuration path ‘%1%’"
+msgstr ""
+
 #. TRANSLATORS: unlink refers to the C function which removes a file
 msgid "Failed to unlink session file"
 msgstr "Kunne ikke fjerne henvisning på sessionsfil"
@@ -763,6 +778,10 @@ msgstr "Navnebegrænsninger er dokumenteret i schroot.conf(5)"
 #, boost-format
 msgid "Namespace separator ‘%1%’ may not be used in an alias name"
 msgstr "Navnerumsadskiller »%1%« må ikke bruges i et aliasnavn"
+
+#. TRANSLATORS: ‘/config’ is a path name; not for translation.
+msgid "The path does not end with ‘/config’"
+msgstr ""
 
 msgid "Name"
 msgstr "Navn"
@@ -800,6 +819,10 @@ msgstr "Miljøfilter"
 msgid "Run Setup Scripts"
 msgstr "Kør opsætningsskripter"
 
+#, fuzzy
+msgid "Configuration Profile"
+msgstr "Skriptkonfiguration"
+
 msgid "Script Configuration"
 msgstr "Skriptkonfiguration"
 
@@ -829,6 +852,9 @@ msgstr "Session"
 
 msgid "Source"
 msgstr "Kilde"
+
+msgid "This option is not valid for this chroot type"
+msgstr ""
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -926,6 +952,48 @@ msgstr "Mappe for filsystemets foreningsoverlægning"
 msgid "Filesystem Union Underlay Directory"
 msgstr "Mappe for filsystemets foreningsunderlægning"
 
+#, boost-format
+msgid "Environment variable ‘%1%’ is ambiguous"
+msgstr ""
+
+#, fuzzy, boost-format
+msgid "Configuration key ‘%1%’ is ambiguous"
+msgstr "Påkrævet nøgle »%4%« mangler"
+
+#, boost-format
+msgid "Configuration key ‘%1%’ is not permitted to be modified."
+msgstr ""
+
+#, boost-format
+msgid "Configuration key name ‘%1%’ is not a permitted name."
+msgstr ""
+
+#, boost-format
+msgid ""
+"Configuration keys additional to ‘%1%’ would set this setup script "
+"environment variable"
+msgstr ""
+
+msgid "User Modifiable Keys"
+msgstr ""
+
+msgid "Root Modifiable Keys"
+msgstr ""
+
+msgid "User Data"
+msgstr ""
+
+#, boost-format
+msgid ""
+"More than one configuration key would set the ‘%1%’ environment variable"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys"
+msgstr ""
+
 msgid "File"
 msgstr "Fil"
 
@@ -983,6 +1051,10 @@ msgstr "linje %1% [%2%]: Duplikeret nøgle »%4%«"
 #, boost-format
 msgid "line %1%: Invalid group: “%4%”"
 msgstr "linje %1%: Ugyldig gruppe: »%4%«"
+
+#, fuzzy, boost-format
+msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
+msgstr "linje %1% [%2%]: Ikke tilladt nøgle »%4%« brugt"
 
 #, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"
@@ -1342,5 +1414,3 @@ msgstr "Kunne ikke stat fil"
 
 msgid "Failed to stat file descriptor"
 msgstr "Kunne ikke stat fildeskriptor"
-
-
