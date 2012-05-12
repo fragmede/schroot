@@ -1,9 +1,3 @@
-schroot (1.5.2-2) UNRELEASED; urgency=low
-
-  * 
-
- -- Roger Leigh <rleigh@debian.org>  Thu, 10 May 2012 00:13:57 +0100
-
 schroot (1.5.2-1) experimental; urgency=low
 
   * New upstream development release.
@@ -39,6 +33,8 @@ schroot (1.5.2-1) experimental; urgency=low
     schroot.conf for configuration.  Options are provided to set up
     the session cloning and purging behaviour for the custom chroot.
     See schroot.conf(5) for further details.
+  * Updated translations:
+    - da (Closes: #658544).  Thanks to Joe Hansen.
 
  -- Roger Leigh <rleigh@debian.org>  Wed, 09 May 2012 22:48:57 +0100
 
