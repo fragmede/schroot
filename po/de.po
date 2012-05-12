@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the schroot package.
 # Jens Seidel <jensseidel@users.sf.net>, 2006, 2008, 2009.
 # Helge Kreutzmann <debian@helgefjell.de>, 2009.
-# Holger Wansing <linux@wansing-online.de>, 2009, 2010.
+# Holger Wansing <linux@wansing-online.de>, 2009, 2010, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: schroot 1.4.12-1\n"
+"Project-Id-Version: schroot 1.4.25-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2012-01-17 20:50+0000\n"
-"PO-Revision-Date: 2010-12-07 20:15+0100\n"
+"PO-Revision-Date: 2012-02-11 21:14+0100\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "Language: de\n"
@@ -798,7 +798,7 @@ msgid "Personality"
 msgstr "Persönlichkeit"
 
 msgid "Original Chroot Name"
-msgstr ""
+msgstr "Original-Chroot-Name"
 
 msgid "Session ID"
 msgstr "Sitzungs-ID"
