@@ -95,6 +95,30 @@ schroot (1.5.0-1) experimental; urgency=low
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 16 Jan 2011 22:02:34 +0000
 
+schroot (1.4.26-1) unstable; urgency=low
+
+  * Upgrade to Standards Version 3.9.3.
+  * Updated translations:
+    - da (Closes: #658517).  Thanks to Joe Hansen.
+    - de (Closes: #659523).  Thanks to Holger Wansing.
+    - fr (Closes: #661512).  Thanks to Thomas Blein.
+    - pt (Closes: #660040).  Thanks to Pedro Ribeiro.
+    - zh_CN (Closes: #659875).  Thanks to Ji ZhengYu.
+  * Added --exclude-aliases option.  This removes aliases from the
+    chroot selection.
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 12 May 2012 15:57:33 +0100
+
+schroot (1.4.25-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * Build-Depend on generic Boost pacakges, to build against v1.48.
+  * Support for overlayfs has been added in addition to aufs and
+    unionfs (Closes: #648450).  Thanks to Evan Broder.  Backported
+    from schroot-1.5.2.
+
+ -- Roger Leigh <rleigh@debian.org>  Fri, 03 Feb 2012 10:56:57 +0000
+
 schroot (1.4.24-1) unstable; urgency=low
 
   * New upstream stable release.
