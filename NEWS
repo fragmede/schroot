@@ -1,11 +1,16 @@
 NEWS                                                            -*- outline -*-
 ----
 
-Welcome to schroot 1.4.25.  Please read these release notes carefully.
+Welcome to schroot 1.4.26.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 1.4.26:
+
+  1) Added --exclude-aliases option.  This removes aliases from the
+     chroot selection.
 
 * Major changes in 1.4.25:
 
