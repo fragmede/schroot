@@ -3,88 +3,88 @@
 # This file is distributed under the same license as the schroot package.
 #
 # Nicolas François <nicolas.francois@centraliens.net>, 2006-2008.
-# Thomas Blein <tblein@tblein.eu>, 2010.
+# Thomas Blein <tblein@tblein.eu>, 2010, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-09 23:27+0100\n"
-"PO-Revision-Date: 2010-12-07 21:14+0100\n"
+"POT-Creation-Date: 2012-01-04 00:18+0000\n"
+"PO-Revision-Date: 2012-02-03 22:06+0100\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
+#, boost-format
 msgid "Can't open file ‘%1%’"
 msgstr "Impossible d'ouvrir le fichier « %1% »"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Deprecated key ‘%4%’ used"
 msgstr "Ligne %1% : la clé « %4% » n'est plus gérée"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "Deprecated key ‘%4%’ used"
 msgstr "La clé « %4% » n'est plus gérée"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Disallowed key ‘%4%’ used"
 msgstr "ligne %1% : la clé « %4% » n'est pas autorisée"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "Disallowed key ‘%4%’ used"
 msgstr "La clé « %4% » n'est pas autorisée"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Duplicate key ‘%4%’"
-msgstr "ligne %1% : clé en double « %4% »"
+msgstr "ligne %1% : la clé « %4% » est dupliquée"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = line contents as read from the configuration file
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Invalid line: “%4%”"
 msgstr "ligne %1% : ligne non valable : « %4% »"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Required key ‘%4%’ is missing"
 msgstr "ligne %1% : la clé obligatoire « %4% » est manquante"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "Required key ‘%4%’ is missing"
 msgstr "La clé obligatoire « %4% » est manquante"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = line contents as read from the configuration file
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: No key specified: “%4%”"
 msgstr "ligne %1% : aucune clé spécifiée : « %4% »"
 
 #. TRANSLATORS: %1% = line number in configuration file
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Obsolete key ‘%4%’ used"
-msgstr "ligne %1% : clé obsolète : « %4% »"
+msgstr "ligne %1% : la clé obsolète « %4% » est utilisée"
 
 #. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
+#, boost-format
 msgid "Obsolete key ‘%4%’ used"
-msgstr "Clé obsolète « %4% »"
+msgstr "La clé obsolète « %4% » est utilisée"
 
 #. TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
 #. TRANSLATORS: %4% = additional details
@@ -122,9 +122,8 @@ msgstr "Échec lors de l'exécution de « stat » sur le périphérique"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#, fuzzy
 msgid "[OPTION…] — build Debian packages from source"
-msgstr "[OPTION...] - construction de paquets Debian depuis leurs sources"
+msgstr "[OPTION...] — construction de paquets Debian depuis leurs sources"
 
 msgid "Build options"
 msgstr "Options de construction"
@@ -220,7 +219,7 @@ msgid "Add a build conflict"
 msgstr "Ajouter un conflit de construction"
 
 msgid "Add an architecture-independent build dependency"
-msgstr "Ajouter une dépendance de construction indépendant de l'architecture"
+msgstr "Ajouter une dépendance de construction indépendante de l'architecture"
 
 msgid "Add an architecture-independent build conflict"
 msgstr "Ajouter un conflit de construction indépendant de l'architecture"
@@ -244,10 +243,9 @@ msgstr "--binNMU est manquant"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
-#, fuzzy
 msgid "[OPTION…] chroot [COMMAND] — run command or shell in a chroot"
 msgstr ""
-"[OPTION...] chroot [COMMANDE) - exécution de commande ou d'interpréteur de "
+"[OPTION...] chroot [COMMANDE) — exécution de commande ou d'interpréteur de "
 "commande dans un chroot"
 
 msgid "Print paths to available chroots"
@@ -270,7 +268,7 @@ msgstr "Aucun chroot indiqué"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1% chroot] Running command: “%2%”"
 msgstr "[chroot %1%] Exécution de la commande : « %2% »"
 
@@ -283,10 +281,9 @@ msgstr "Configuration schroot générée par %1% %2% le %3%"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
-#, fuzzy
 msgid "[OPTION…] [COMMAND] — run command or shell in a chroot"
 msgstr ""
-"[OPTION...] [COMMANDE] - exécution de commande ou d'interpréteur de commande "
+"[OPTION...] [COMMANDE] — exécution de commande ou d'interpréteur de commande "
 "dans le chroot"
 
 msgid "Print path to selected chroot"
@@ -307,7 +304,7 @@ msgstr "--chroot et --all ne doivent pas être utilisées en même temps"
 
 # NOTE: s/--chroots/--chroot/
 msgid "Using --chroots only"
-msgstr "Seul --chroot sera utilisé"
+msgstr "Seul --chroot sera utilisée"
 
 msgid "dchroot session restriction"
 msgstr "Restriction des sessions dchroot"
@@ -315,15 +312,15 @@ msgstr "Restriction des sessions dchroot"
 #. TRANSLATORS: %1% = program name
 #. TRANSLATORS: %2% = program version
 #. TRANSLATORS: %3% = release date
-#, fuzzy, boost-format
+#, boost-format
 msgid "%1% (Debian sbuild) %2% (%3%)"
-msgstr "%1% (sbuild Debian) %2% (%3%)\n"
+msgstr "%1% (sbuild Debian) %2% (%3%)"
 
 #. TRANSLATORS: %1% = copyright year (start)
 #. TRANSLATORS: %2% = copyright year (end)
-#, fuzzy, boost-format
+#, boost-format
 msgid "Copyright © %1%–%2% Roger Leigh"
-msgstr "Copyright © 2004–2011 Roger Leigh"
+msgstr "Copyright © %1%–%2% Roger Leigh"
 
 msgid "Written by Roger Leigh"
 msgstr "Écrit par Roger Leigh"
@@ -343,7 +340,7 @@ msgid "Usage:"
 msgstr "Utilisation :"
 
 #. TRANSLATORS: %1% = program name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Run “%1% --help” to list usage example and all available options"
 msgstr ""
 "Exécutez « %1% --help » pour obtenir des exemples d'utilisation et la liste "
@@ -384,15 +381,14 @@ msgid "Invalid debug level"
 msgstr "Niveau de débogage non valable"
 
 #. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to find ‘%1%’"
 msgstr "Impossible de trouver « %1% »"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#, fuzzy
 msgid "[OPTION…] — list mount points"
-msgstr "[OPTION...] - liste des points de montage"
+msgstr "[OPTION...] — liste des points de montage"
 
 msgid "Mount"
 msgstr "Montage"
@@ -411,15 +407,14 @@ msgstr "Échec lors de l'attente du fils"
 
 #. TRANSLATORS: %1% = command name
 #. TRANSLATORS: %1% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to execute “%1%”"
 msgstr "Échec lors de l'exécution de « %1% »"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#, fuzzy
 msgid "[OPTION…] — mount filesystems"
-msgstr "[OPTION...] - montage des systèmes de fichiers"
+msgstr "[OPTION...] — montage des systèmes de fichiers"
 
 msgid "An unknown exception occurred"
 msgstr "Une exception inconnue est survenue"
@@ -432,9 +427,8 @@ msgstr "Fichier fstab à lire (chemin complet)"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
-#, fuzzy
 msgid "[OPTION…] — release a device lock"
-msgstr "[OPTION...] - déverrouillage de périphérique"
+msgstr "[OPTION...] — déverrouillage de périphérique"
 
 msgid "No PID specified; forcing release of lock"
 msgstr "Aucun PID spécifié ; forçage du déverrouillage"
@@ -457,18 +451,18 @@ msgid "%1%: Chroots not found"
 msgstr "%1% : chroot introuvable"
 
 #. TRANSLATORS: %4% = file
-#, fuzzy, boost-format
+#, boost-format
 msgid "No chroots are defined in ‘%4%’"
 msgstr "Aucun chroot défini dans « %4% »"
 
 #. TRANSLATORS: %4% = file
 #. TRANSLATORS: %5% = file
-#, fuzzy, boost-format
+#, boost-format
 msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
 msgstr "Aucun chroot défini dans « %4% » ou « %5% »"
 
 #. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
+#, boost-format
 msgid "The specified chroots are not defined in ‘%1%’"
 msgstr "Les chroots spécifiés ne sont pas définis dans « %1% »"
 
@@ -484,35 +478,24 @@ msgstr "%1% : nom de session non valable"
 msgid "Available chroot types:"
 msgstr "Type de chroot disponibles :"
 
-#, fuzzy
 msgid "Support for ‘block-device’ chroots"
 msgstr "chroots de type « périphériques bloc »"
 
-#, fuzzy
 msgid "Support for ‘btrfs-snapshot’ chroots"
 msgstr "chroots de type « btrfs-snapshot »"
 
-#, fuzzy
-msgid "Support for ‘custom’ chroots"
-msgstr "chroots de type « répertoire »"
-
-#, fuzzy
 msgid "Support for ‘directory’ chroots"
 msgstr "chroots de type « répertoire »"
 
-#, fuzzy
 msgid "Support for ‘file’ chroots"
 msgstr "chroots de type « fichier »"
 
-#, fuzzy
 msgid "Support for ‘loopback’ chroots"
 msgstr "chroots de type « loopback »"
 
-#, fuzzy
 msgid "Support for ‘lvm-snapshot’ chroots"
 msgstr "chroots de type « lvm-snapshot »"
 
-#, fuzzy
 msgid "Support for ‘plain’ chroots"
 msgstr "chroots de type « plain »"
 
@@ -574,15 +557,8 @@ msgstr "Sélectionner toutes les sessions actives"
 msgid "Select all source chroots"
 msgstr "Sélectionner toutes les sources de chroots"
 
-msgid "Do not include aliases"
-msgstr ""
-
 msgid "Username (default current user)"
 msgstr "Nom d'utilisateur (l'utilisateur courant par défaut)"
-
-#, fuzzy
-msgid "Set option"
-msgstr "Options utilisateur"
 
 msgid "Begin, run and end a session automatically (default)"
 msgstr "Démarre, exécute et termine une session automatiquement (par défaut)"
@@ -609,13 +585,13 @@ msgid "Failed to get hostname"
 msgstr "Échec lors de la récupération du nom d'hôte"
 
 #. TRANSLATORS: %1% = user name or user ID
-#, fuzzy, boost-format
+#, boost-format
 msgid "User ‘%1%’ not found"
 msgstr "Utilisateur « %1% » inconnu"
 
 #. TRANSLATORS: %1% = group name or group ID
 #. TRANSLATORS: %1% = group name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Group ‘%1%’ not found"
 msgstr "Impossible de trouver le groupe « %1% »"
 
@@ -674,15 +650,14 @@ msgid "Timed out"
 msgstr "Délai expiré"
 
 #. TRANSLATORS: Please use an ellipsis e.g. U+2026
-#, fuzzy
 msgid "Time is running out…"
-msgstr "Le délai va se terminer..."
+msgstr "Le délai va expirer..."
 
 msgid "Failed to get terminal settings"
 msgstr "Échec lors de la récupération des paramètres du terminal"
 
 #. TRANSLATORS: %1% = integer
-#, fuzzy, boost-format
+#, boost-format
 msgid "Unsupported conversation type ‘%1%’"
 msgstr "Type de conversation non géré : « %1% »"
 
@@ -697,14 +672,13 @@ msgid "Device"
 msgstr "Périphérique"
 
 msgid "Btrfs Source Subvolume"
-msgstr ""
+msgstr "Sous volume source de Btrfs"
 
-#, fuzzy
 msgid "Btrfs Snapshot Directory"
-msgstr "Périphérique de cliché LVM"
+msgstr "Périphérique de cliché Btrfs"
 
 msgid "Btrfs Snapshot Name"
-msgstr ""
+msgstr "Nom du cliché Btrfs"
 
 msgid "Chroot creation failed"
 msgstr "Échec lors de la création du chroot"
@@ -713,7 +687,7 @@ msgid "Device name not set"
 msgstr "Nom du périphérique non défini"
 
 #. TRANSLATORS: %1% = chroot type name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Unknown chroot type ‘%1%’"
 msgstr "Type de chroot inconnu : « %1% »"
 
@@ -759,10 +733,6 @@ msgstr "L'emplacement doit être précisé avec un chemin absolu"
 msgid "Invalid name"
 msgstr "Nom non valable"
 
-#, boost-format
-msgid "Could not set profile name from script configuration path ‘%1%’"
-msgstr ""
-
 #. TRANSLATORS: unlink refers to the C function which removes a file
 msgid "Failed to unlink session file"
 msgstr "Échec lors de la suppression (« unlink ») du fichier de session"
@@ -773,7 +743,7 @@ msgstr "Échec lors de l'écriture du fichier de session"
 msgid "Message verbosity is invalid"
 msgstr "Verbosité des messages non valable"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "Namespace separator ‘%1%’ may not be used in a chroot name"
 msgstr ""
 "Le séparateur d'espace de nom « %1% » ne doit pas être utilisé dans un nom "
@@ -782,15 +752,11 @@ msgstr ""
 msgid "Naming restrictions are documented in schroot.conf(5)"
 msgstr "Les restrictions de nommage sont documentées dans schroot.conf(5)"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "Namespace separator ‘%1%’ may not be used in an alias name"
 msgstr ""
 "Le séparateur d'espace de nom « %1% » ne doit pas être utilisé dans un nom "
 "d'alias."
-
-#. TRANSLATORS: ‘/config’ is a path name; not for translation.
-msgid "The path does not end with ‘/config’"
-msgstr ""
 
 msgid "Name"
 msgstr "Nom"
@@ -828,10 +794,6 @@ msgstr "Filtre d'environnement"
 msgid "Run Setup Scripts"
 msgstr "Exécuter les scripts de configuration (« Setup Scripts »)"
 
-#, fuzzy
-msgid "Configuration Profile"
-msgstr "Script de configuration"
-
 msgid "Script Configuration"
 msgstr "Script de configuration"
 
@@ -862,12 +824,9 @@ msgstr "Session"
 msgid "Source"
 msgstr "Source"
 
-msgid "This option is not valid for this chroot type"
-msgstr ""
-
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
 msgstr "L'alias « %1% » est déjà associé au chroot « %4% »"
 
@@ -875,7 +834,7 @@ msgid "No such chroot"
 msgstr "Le chroot spécifié n'existe pas"
 
 #. TRANSLATORS: %1% = chroot name
-#, fuzzy, boost-format
+#, boost-format
 msgid "A chroot or alias ‘%1%’ already exists with this name"
 msgstr "Un chroot ou alias « %1% » a déjà ce nom"
 
@@ -889,7 +848,7 @@ msgid "Duplicate names are not allowed"
 msgstr "Des noms semblables ne sont pas autorisés"
 
 msgid "Available chroots: "
-msgstr "Chroot disponibles : "
+msgstr "Chroots disponibles : "
 
 msgid "Directory"
 msgstr "Répertoire"
@@ -909,18 +868,16 @@ msgid "Personality"
 msgstr "Personnalité"
 
 msgid "Original Chroot Name"
-msgstr ""
+msgstr "Nom d'origine du chroot"
 
-#, fuzzy
 msgid "Selected Chroot Name"
-msgstr "Sélectionner tous les chroots"
+msgstr "Sélectionner le nom du chroot"
 
 msgid "Session ID"
 msgstr "Identifiant de session"
 
-#, fuzzy
 msgid "(session chroot)"
-msgstr "(chroot source)"
+msgstr "(chroot session)"
 
 msgid "(source chroot)"
 msgstr "(chroot source)"
@@ -938,7 +895,7 @@ msgid "Source Root Groups"
 msgstr "Groupes superutilisateurs des sources"
 
 #. TRANSLATORS: %1% = chroot fs type
-#, fuzzy, boost-format
+#, boost-format
 msgid "Unknown filesystem union type ‘%1%’"
 msgstr "Type d'union de système de fichier inconnu : « %1% »"
 
@@ -962,48 +919,6 @@ msgstr "Répertoire pour l'« overlay » de l'union de systèmes de fichiers"
 
 msgid "Filesystem Union Underlay Directory"
 msgstr "Répertoire pour l'« underlay » de l'union de systèmes de fichiers"
-
-#, boost-format
-msgid "Environment variable ‘%1%’ is ambiguous"
-msgstr ""
-
-#, fuzzy, boost-format
-msgid "Configuration key ‘%1%’ is ambiguous"
-msgstr "La clé obligatoire « %4% » est manquante"
-
-#, boost-format
-msgid "Configuration key ‘%1%’ is not permitted to be modified."
-msgstr ""
-
-#, boost-format
-msgid "Configuration key name ‘%1%’ is not a permitted name."
-msgstr ""
-
-#, boost-format
-msgid ""
-"Configuration keys additional to ‘%1%’ would set this setup script "
-"environment variable"
-msgstr ""
-
-msgid "User Modifiable Keys"
-msgstr ""
-
-msgid "Root Modifiable Keys"
-msgstr ""
-
-msgid "User Data"
-msgstr ""
-
-#, boost-format
-msgid ""
-"More than one configuration key would set the ‘%1%’ environment variable"
-msgstr ""
-
-msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
-msgstr ""
-
-msgid "The key is not present in user-modifiable-keys"
-msgstr ""
 
 msgid "File"
 msgstr "Fichier"
@@ -1037,59 +952,55 @@ msgstr "faux"
 #. TRANSLATORS: Please format the --- as a continuous line, e.g. U+2500
 #, boost-format
 msgid "─── %1% ───"
-msgstr ""
+msgstr "─── %1% ───"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1% [%2%]: Deprecated key ‘%4%’ used"
 msgstr "Ligne %1% [%2%] : la clé « %4% » n'est plus gérée"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1%]: Deprecated key ‘%4%’ used"
 msgstr "[%1%] : la clé « %4% » n'est plus gérée"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1% [%2%]: Disallowed key ‘%4%’ used"
 msgstr "ligne %1% [%2%] : la clé « %4% » n'est pas autorisée"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1%]: Disallowed key ‘%4%’ used"
 msgstr "[%1%] : la clé « %4% » n'est pas autorisée"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Duplicate group ‘%4%’"
 msgstr "ligne %1% : groupe en double « %4% »"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1% [%2%]: Duplicate key ‘%4%’"
 msgstr "ligne %1% [%2%] : clé en double « %4% »"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: Invalid group: “%4%”"
 msgstr "ligne %1% : groupe non valable : « %4% »"
 
-#, fuzzy, boost-format
-msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
-msgstr "ligne %1% [%2%] : la clé « %4% » n'est pas autorisée"
-
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"
 msgstr "ligne %1% [%2%] : la clé obligatoire « %4% » est manquante"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1%]: Required key ‘%4%’ is missing"
 msgstr "[%1%] : la clé obligatoire « %4% » est manquante"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1%: No group specified: “%4%”"
 msgstr "ligne %1% : aucun groupe de spécifié : « %4% »"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1% [%2%]: Obsolete key ‘%4%’ used"
-msgstr "ligne %1% [%2%] : clé obsolète : « %4% »"
+msgstr "ligne %1% [%2%] : la clé obsolète « %4% » est utilisée"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1%]: Obsolete key ‘%4%’ used"
-msgstr "[%1%] : clé obsolète « %4% »"
+msgstr "[%1%] : la clé obsolète « %4% » est utilisée"
 
 #, boost-format
 msgid "[%1%]: %4%"
@@ -1107,7 +1018,7 @@ msgstr "ligne %1% [%2%] : %4%"
 msgid "line %1% [%2%] %3%: %4%"
 msgstr "ligne %1% [%2%] %3% : %4%"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1% [%2%]: Unknown key ‘%4%’ used"
 msgstr "ligne %1% [%2%] : la clé « %4% » utilisée est inconnue"
 
@@ -1181,12 +1092,12 @@ msgid "D(%1%): "
 msgstr "D(%1%) : "
 
 #. TRANSLATORS: %1% = mount file name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to open mount file ‘%1%’"
 msgstr "Échec lors de l'ouverture du fichier à monter « %1% »"
 
 #. TRANSLATORS: %1% = mount file name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to read mount file ‘%1%’"
 msgstr "Échec lors de la lecture du fichier à monter « %1% »"
 
@@ -1195,17 +1106,17 @@ msgid "unknown"
 msgstr "inconnu"
 
 #. TRANSLATORS: %1% = value (arbitrary text)
-#, fuzzy, boost-format
+#, boost-format
 msgid "Could not parse value ‘%1%’"
 msgstr "Échec lors de l'analyse de la valeur « %1% »"
 
 #. TRANSLATORS: %1% = integer personality ID
-#, fuzzy, boost-format
+#, boost-format
 msgid "Personality ‘%1%’ is unknown"
 msgstr "La personnalité « %1% » n'est pas connue"
 
 #. TRANSLATORS: %1% = personality name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to set personality ‘%1%’"
 msgstr "Échec lors de l'utilisation de la personnalité « %1% »"
 
@@ -1230,17 +1141,17 @@ msgid "Failed to read file descriptor"
 msgstr "Échec lors de la lecture du descripteur de fichier"
 
 #. TRANSLATORS: %1% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "Executing ‘%1%’"
 msgstr "Exécution de « %1% »"
 
 #. TRANSLATORS: %1% = directory
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to change to directory ‘%1%’"
 msgstr "Échec lors du changement de répertoire vers « %1% »"
 
 #. TRANSLATORS: %4% = directory
-#, fuzzy, boost-format
+#, boost-format
 msgid "Falling back to directory ‘%4%’"
 msgstr "Retour au répertoire « %4% »"
 
@@ -1253,17 +1164,17 @@ msgstr ""
 "fichier core)"
 
 #. TRANSLATORS: %4% = signal name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Child terminated by signal ‘%4%’"
 msgstr "Le processus fils s'est terminé avec le signal « %4% »"
 
 #. TRANSLATORS: %1% = directory
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to change root to directory ‘%1%’"
 msgstr "Échec lors du changement de racine vers « %1% »"
 
 #. TRANSLATORS: %1% = chroot name
-#, fuzzy, boost-format
+#, boost-format
 msgid "No chroot found matching name or alias ‘%1%’"
 msgstr "Aucun chroot trouvé avec pour nom ou alias « %1% »"
 
@@ -1278,7 +1189,7 @@ msgid "Failed to unlock chroot"
 msgstr "Échec lors du déverrouillage du chroot"
 
 #. TRANSLATORS: %1% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "Command “%1%” must have an absolute path"
 msgstr "La commande « %1% » doit utiliser un chemin absolu"
 
@@ -1295,7 +1206,7 @@ msgid "Failed to get supplementary group count"
 msgstr "Échec lors de la récupération du nombre de groupes supplémentaires"
 
 #. TRANSLATORS: %1% = integer group ID
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to set group ‘%1%’"
 msgstr "Échec lors du positionnement du groupe à « %1% »"
 
@@ -1307,7 +1218,7 @@ msgstr "Échec lors de l'abandon des permissions du superutilisateur"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = session identifier
-#, fuzzy, boost-format
+#, boost-format
 msgid ""
 "%1%: Chroot does not support setting a session ID; ignoring session ID ‘%4%’"
 msgstr ""
@@ -1315,36 +1226,36 @@ msgstr ""
 "identifiant de session « %4% » ignoré"
 
 #. TRANSLATORS: %1% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "Shell ‘%1%’ not available"
 msgstr "L'interpréteur de commandes « %1% » n'est pas disponible"
 
 #. TRANSLATORS: %4% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "Falling back to shell ‘%4%’"
 msgstr "Retour à l'interpréteur de commandes « %4% »"
 
 #. TRANSLATORS: %4% = signal name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Caught signal ‘%4%’"
 msgstr "Signal intercepté : « %4% »"
 
 #. TRANSLATORS: %4% = signal name
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to set signal handler ‘%4%’"
 msgstr "Échec lors de la mise en place du gestionnaire de signaux « %4% »"
 
 #. TRANSLATORS: %1% = integer user ID
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to set user ‘%1%’"
 msgstr "Échec lors du passage à l'utilisateur « %1% »"
 
 #. TRANSLATORS: %1% = user name
 #. TRANSLATORS: %2% = user name
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, fuzzy, boost-format
+#, boost-format
 msgid "(%1%→%2%): User switching is not permitted"
-msgstr "(%1%->%2%) : le changement d'utilisateur n'est pas autorisé"
+msgstr "(%1%→%2%) : le changement d'utilisateur n'est pas autorisé"
 
 msgid "Error saving terminal settings"
 msgstr "Erreur lors de la sauvegarde des paramètres du terminal"
@@ -1354,14 +1265,14 @@ msgstr "Erreur lors de la restauration des paramètres du terminal"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1% chroot] Running login shell: ‘%4%’"
 msgstr ""
 "[chroot %1%] Exécution de l'interpréteur de commandes initial : « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1% chroot] Running shell: ‘%4%’"
 msgstr "[chroot %1%] Exécution de l'interpréteur de commandes : « %4% »"
 
@@ -1370,10 +1281,10 @@ msgstr "[chroot %1%] Exécution de l'interpréteur de commandes : « %4% »"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1% chroot] (%2%→%3%) Running login shell: ‘%4%’"
 msgstr ""
-"[chroot %1%] (%2%->%3%) Exécution de l'interpréteur de commandes initial : "
+"[chroot %1%] (%2%→%3%) Exécution de l'interpréteur de commandes initial : "
 "« %4% »"
 
 #. TRANSLATORS: %1% = chroot name
@@ -1381,14 +1292,14 @@ msgstr ""
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1% chroot] (%2%→%3%) Running shell: ‘%4%’"
 msgstr ""
-"[chroot %1%] (%2%->%3%) Exécution de l'interpréteur de commandes : « %4% »"
+"[chroot %1%] (%2%→%3%) Exécution de l'interpréteur de commandes : « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1% chroot] Running command: “%4%”"
 msgstr "[chroot %1%] Exécution de la commande : « %4% »"
 
@@ -1397,9 +1308,9 @@ msgstr "[chroot %1%] Exécution de la commande : « %4% »"
 #. TRANSLATORS: %3% = user name
 #. TRANSLATORS: %4% = command
 #. TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-#, fuzzy, boost-format
+#, boost-format
 msgid "[%1% chroot] (%2%→%3%) Running command: “%4%”"
-msgstr "[chroot %1%] (%2%->%3%) Exécution de la commande « %4% »"
+msgstr "[chroot %1%] (%2%→%3%) Exécution de la commande « %4% »"
 
 #, boost-format
 msgid "stage=%1%"
@@ -1409,6 +1320,8 @@ msgid ""
 "The directory does not exist inside the chroot.  Use the --directory option "
 "to run the command in a different directory."
 msgstr ""
+"Le répertoire n'existe pas dans le chroot. Utilisez l'option --directory pour "
+"exécuter la commande dans un autre répertoire."
 
 msgid "terminating immediately"
 msgstr "fin immédiate"
