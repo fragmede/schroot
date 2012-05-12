@@ -3,6 +3,7 @@ schroot (1.4.25-2) UNRELEASED; urgency=low
   * Updated translations:
     - da (Closes: #658517).  Thanks to Joe Hansen.
     - de (Closes: #659523).  Thanks to Holger Wansing.
+    - fr (Closes: #661512).  Thanks to Thomas Blein.
     - pt (Closes: #660040).  Thanks to Pedro Ribeiro.
 
  -- Roger Leigh <rleigh@debian.org>  Sat, 12 May 2012 15:57:33 +0100
