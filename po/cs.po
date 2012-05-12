@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-01-17 20:50+0000\n"
+"POT-Creation-Date: 2012-05-12 16:23+0100\n"
 "PO-Revision-Date: 2010-07-11 18:39+0200\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -608,6 +608,9 @@ msgstr "Vybere všechna aktivní sezení"
 #, fuzzy
 msgid "Select all source chroots"
 msgstr "Vybere všechna chroot prostředí"
+
+msgid "Do not include aliases"
+msgstr ""
 
 msgid "Username (default current user)"
 msgstr "Uživatelské jméno (implicitně aktuální uživatel)"

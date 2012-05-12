@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-01-17 20:50+0000\n"
+"POT-Creation-Date: 2012-05-12 16:23+0100\n"
 "PO-Revision-Date: 2010-09-06 20:02+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -601,6 +601,9 @@ msgstr "Select all active sessions"
 
 msgid "Select all source chroots"
 msgstr "Select all source chroots"
+
+msgid "Do not include aliases"
+msgstr ""
 
 msgid "Username (default current user)"
 msgstr "Username (default current user)"
