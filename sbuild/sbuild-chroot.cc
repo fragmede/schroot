@@ -919,7 +919,7 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
 			    keyfile, chroot.get_name(),
 			    "profile",
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("script-config");
+  used_keys.push_back("profile");
 
   keyfile::get_object_value(chroot, nullmethod,
 			    keyfile, chroot.get_name(),
