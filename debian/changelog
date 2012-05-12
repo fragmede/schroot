@@ -6,6 +6,8 @@ schroot (1.4.25-2) UNRELEASED; urgency=low
     - fr (Closes: #661512).  Thanks to Thomas Blein.
     - pt (Closes: #660040).  Thanks to Pedro Ribeiro.
     - zh_CN (Closes: #659875).  Thanks to Ji ZhengYu. 
+  * Added --exclude-aliases option.  This removes aliases from the
+    chroot selection.
 
  -- Roger Leigh <rleigh@debian.org>  Sat, 12 May 2012 15:57:33 +0100
 
