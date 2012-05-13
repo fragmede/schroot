@@ -49,9 +49,9 @@ doc:
 	$(MAKE) -C doc doc
 
 ps:
-	$(MAKE) -C doc schroot.ps
+	$(MAKE) -C man ps
 
 pdf:
-	$(MAKE) -C doc schroot.pdf
+	$(MAKE) -C man pdf
 
 .PHONY: doc ps pdf

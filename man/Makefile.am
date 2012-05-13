@@ -1,7 +1,7 @@
 # schroot Makefile template
 #
 #
-# Copyright © 2004-2009  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2012  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -20,6 +20,21 @@
 #####################################################################
 
 include $(top_srcdir)/scripts/global.mk
+
+# Available translations
+LINGUAS=$(shell if [ -n "$(PO4A)" ]; then cat $(srcdir)/po/LINGUAS; fi)
+# Actual translatable manual pages (missing pages are not be translated yet)
+TRANSMAN = $(shell for MAN in $(foreach LANG,$(LINGUAS),$(addprefix translated/$(LANG)/,$(man_MANS))); do if [ -e "$$MAN.man" ]; then echo $$MAN; fi; done)
+
+schroot.ps: $(man_MANS)
+	tbl $(man_MANS) | groff -T ps -man > $@
+
+%.ps: PSMAN=$(addprefix translated/$(patsubst .%,%,$(suffix $(basename %)))/,$(man_MANS))
+%.ps: $(TRANSMAN)
+	tbl $^ | groff -T ps -man > $@
+
+%.pdf: %.ps
+	ps2pdf $< $@
 
 if BUILD_DCHROOT
 dchroot_mans = dchroot.1
@@ -58,23 +73,26 @@ man_MANS =			\
 	$(dchroot_dsa_mans)	\
 	$(csbuild_mans)
 
-EXTRA_DIST = \
-	$(MAN_FILES) \
-	authors.man \
+EXTRA_DIST =		\
+	$(MAN_FILES)	\
+	authors.man	\
 	copyright.man
 
-CLEANFILES = \
-	config.man \
-	$(basename $(MAN_FILES))
+CLEANFILES =				\
+	config.man			\
+	$(basename $(MAN_FILES))	\
+	translated			\
+	schroot.ps			\
+	schroot.pdf
 
 %.1: %.1.man $(EXPAND)
-	$(SOELIM) -I "$(srcdir)" $< >$@
+	$(SOELIM) -I $(dir $<) -I "$(srcdir)" $< >$@
 
 %.5: %.5.man $(EXPAND)
-	$(SOELIM) -I "$(srcdir)" $< >$@
+	$(SOELIM) -I $(dir $<) -I "$(srcdir)" $< >$@
 
 %.7: %.7.man $(EXPAND)
-	$(SOELIM) -I "$(srcdir)" $< >$@
+	$(SOELIM) -I $(dir $<) -I "$(srcdir)" $< >$@
 
 %.1.ps: %.1
 	groffer -Tps -man <$< >$@
@@ -84,6 +102,13 @@ CLEANFILES = \
 
 %.7.ps: %.7
 	groffer -Tps -man <$< >$@
+
+all-local: update-po $(TRANSMAN)
+	echo "T=$(TRANSMAN)"
+
+ps: schroot.ps $(addprefix schroot.,$(addsuffix .ps,$(LINGUAS)))
+
+pdf: schroot.pdf $(addprefix schroot.,$(addsuffix .pdf,$(LINGUAS)))
 
 CONFIG =\
 .ds RELEASE_DATE $(RELEASE_DATE_S)\n\
@@ -109,9 +134,10 @@ config.man: Makefile
 	echo -e "$(CONFIG)" | sed -e 's/^[ ]//' > $@
 
 update-po:
-	$(PO4A) --package-name $(PACKAGE) --package-version $(VERSION) --copyright-holder "Roger Leigh <rleigh@debian.org>" po4a/po4a.cfg
+	[ -n "$(PO4A)" ] && $(PO4A) --package-name $(PACKAGE) --package-version $(VERSION) --copyright-holder "Roger Leigh <rleigh@debian.org>" po4a.cfg
 
-dist-hook:
-# Update POT and POs for manual pages
-	$(PO4A) --package-name $(PACKAGE) --package-version $(VERSION) --copyright-holder "Roger Leigh <rleigh@debian.org>" --rm-backups po4a/po4a.cfg
+dist-hook: update-po
 
+
+
+.PHONY: update-po ps pdf

@@ -46,31 +46,14 @@ schroot.log: sbuild.log schroot.dox $(top_srcdir)/configure
 	$(RM) -rf schroot/html
 	$(DOXYGEN) schroot.dox
 	touch $@
-	touch $@
 	@UNDOCUMENTED=$$(cat $@); \
 	if [ -n "$$UNDOCUMENTED" ]; then \
 	  echo "---------- UNDOCUMENTED CODE ----------"; \
 	  echo "$$UNDOCUMENTED"; \
 	fi
 
-PS_DEPS = \
-	$(top_builddir)/man/schroot.1			\
-	$(top_builddir)/man/schroot.conf.5		\
-	$(top_builddir)/man/schroot-setup.5		\
-	$(top_builddir)/man/schroot-script-config.5	\
-	$(top_builddir)/man/schroot-faq.7		\
-	$(top_builddir)/man/dchroot.1			\
-	$(top_builddir)/man/dchroot-dsa.1
-
-schroot.ps: $(PS_DEPS)
-	tbl $(PS_DEPS) | groff -T ps -man > $@
-
-schroot.pdf: schroot.ps
-	ps2pdf $< $@
 
 CLEANFILES =		\
-	schroot.ps	\
-	schroot.pdf	\
 	sbuild.log	\
 	schroot.log
 
