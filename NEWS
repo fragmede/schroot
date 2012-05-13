@@ -32,6 +32,11 @@ configuration.
      the session cloning and purging behaviour for the custom chroot.
      See schroot.conf(5) for further details.
 
+  5) Services may be started and stopped inside the chroot on session
+     creation and session ending.  These are specified using the new
+     setup.services key, and are started and stopped using
+     invoke-rc.d.  See schroot.conf(5) for further details.
+
 * Major changes in 1.5.1:
 
   1) schroot no longer requires GCC to build, following the removal of
