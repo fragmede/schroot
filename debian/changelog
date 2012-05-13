@@ -9,6 +9,12 @@ schroot (1.5.2-1) experimental; urgency=low
   * schroot preinst: Remove default (script-config) conffiles on
     upgrade.  These are deprecated and support will be dropped in
     the future.
+  * /etc/default/schroot supports ending sessions on stop
+    (Closes: #625202).  The existing SESSIONS_RECOVER option has been
+    renamed to START_ACTION, and an additional STOP_ACTION option has
+    been added.  Both of these may be set to "end" to cause all
+    sessions to be ended when run with a "start" or "stop" argument,
+    respectively.
   * Support translation of the documentation with po4a
     (Closes: #588962).  Thanks to David Prévot.  Note that there are
     not yet any translations making use of this facility yet.
