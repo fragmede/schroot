@@ -26,6 +26,10 @@ schroot (1.5.2-1) experimental; urgency=low
     schroot.conf.  These options are also set in the environment when
     running setup scripts, making this a simple means by which setup
     scripts may be customised without writing code.
+  * Services may be started and stopped inside the chroot on session
+    creation and session ending (Closes: #625205).  These are specified
+    using the new setup.services key, and are started and stopped using
+    invoke-rc.d.  See schroot.conf(5) for further details.
   * The above options may be set (where permitted) on the schroot
     command-line by using the new --option command-line option to set
     the option to a user-defined value, which will permit users to
