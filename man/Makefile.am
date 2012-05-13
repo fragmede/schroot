@@ -85,7 +85,6 @@ EXTRA_DIST =		\
 clean-local:
 	rm -rf translated *.ps *.pdf
 
-
 CLEANFILES =				\
 	config.man			\
 	$(basename $(MAN_FILES))	\
@@ -112,9 +111,9 @@ CLEANFILES =				\
 
 all-local: update-po $(TRANSMAN)
 
-ps: schroot.ps $(addprefix schroot.,$(addsuffix .ps,$(LINGUAS)))
+ps: schroot.ps $(addprefix translated/,$(addsuffix /schroot.ps,$(LINGUAS)))
 
-pdf: schroot.pdf $(addprefix schroot.,$(addsuffix .pdf,$(LINGUAS)))
+pdf: schroot.pdf $(addprefix translated/,$(addsuffix /schroot.pdf,$(LINGUAS)))
 
 CONFIG =\
 .ds RELEASE_DATE $(RELEASE_DATE_S)\n\
