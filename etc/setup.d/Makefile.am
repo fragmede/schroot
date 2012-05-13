@@ -36,7 +36,8 @@ schroot_sysconf_setup_SCRIPTS =	\
 	15killprocs		\
 	20copyfiles		\
 	20nssdatabases		\
-	50chrootname
+	50chrootname		\
+	70services
 
 install-exec-hook:
 	$(MKDIR_P) "$(DESTDIR)$(schroot_sysconf_setupdir)"
