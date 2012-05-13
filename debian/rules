@@ -111,7 +111,7 @@ override_dh_installchangelogs:
 	dh_installchangelogs ChangeLog
 
 override_dh_installinit:
-	dh_installinit --no-start --update-rcd-params='start 75 S .'
+	dh_installinit --no-start --update-rcd-params='defaults'
 
 override_dh_strip:
 	dh_strip --dbg-package=schroot-dbg

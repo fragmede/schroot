@@ -6,15 +6,15 @@
 # Required-Stop:
 # Should-Start:      lvm
 # Should-Stop:
-# Default-Start:     S
-# Default-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
 # Short-Description: Recover schroot sessions.
 # Description:       Activate any persistent sessions after a reboot.
 #                    Setup scripts will be run to mount filesystems and
 #                    bring the chroot back to a working state.
 ### END INIT INFO
 #
-# Copyright © 2006-2007  Roger Leigh <rleigh@debian.org>
+# Copyright © 2006-2012  Roger Leigh <rleigh@debian.org>
 # Copyright © 2007       Federico Di Gregorio <fog@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
@@ -70,13 +70,16 @@ end_sessions()
 
 case "$1" in
     start|restart|force-reload)
-        if [ "$SESSIONS_RECOVER" = "end" ] ; then
+        if [ "$START_ACTION" = "end" ] || [ "$SESSIONS_RECOVER" = "end" ] ; then
             end_sessions
 	else
             recover_sessions
 	fi
 	;;
     stop)
+        if [ "$STOP_ACTION" = "end" ] ; then
+            end_sessions
+	fi
 	;;
     status)
 	;;
