@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.5.2\n"
-"POT-Creation-Date: 2012-05-09 23:27+0200\n"
+"POT-Creation-Date: 2012-05-13 00:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,7 +35,7 @@ msgstr ""
 
 #. type: Plain text
 #: copyright.man:3
-msgid "Copyright \\(co 2005-2011 Roger Leigh \\f[CR]E<lt>rleigh@debian.orgE<gt>\\fR"
+msgid "Copyright \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@debian.orgE<gt>\\fR"
 msgstr ""
 
 #. type: Plain text
