@@ -26,6 +26,8 @@ LINGUAS=$(shell if [ -n "$(PO4A)" ]; then cat $(srcdir)/po/LINGUAS; fi)
 # Actual translatable manual pages (missing pages are not be translated yet)
 TRANSMAN = $(shell for MAN in $(foreach LANG,$(LINGUAS),$(addprefix translated/$(LANG)/,$(man_MANS))); do if [ -e "$$MAN.man" ]; then echo $$MAN; fi; done)
 
+translated/%.man: update-po
+
 schroot.ps: $(man_MANS)
 	tbl $(man_MANS) | groff -T ps -man > $@
 
@@ -76,12 +78,17 @@ man_MANS =			\
 EXTRA_DIST =		\
 	$(MAN_FILES)	\
 	authors.man	\
-	copyright.man
+	copyright.man	\
+	po		\
+	po4a.cfg
+
+clean-local:
+	rm -rf translated *.ps *.pdf
+
 
 CLEANFILES =				\
 	config.man			\
 	$(basename $(MAN_FILES))	\
-	translated			\
 	schroot.ps			\
 	schroot.pdf
 
@@ -104,7 +111,6 @@ CLEANFILES =				\
 	groffer -Tps -man <$< >$@
 
 all-local: update-po $(TRANSMAN)
-	echo "T=$(TRANSMAN)"
 
 ps: schroot.ps $(addprefix schroot.,$(addsuffix .ps,$(LINGUAS)))
 
