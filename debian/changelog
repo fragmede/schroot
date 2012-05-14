@@ -27,6 +27,8 @@ schroot (1.5.2-1) experimental; urgency=low
     scripts may be customised without writing code.  As part of this
     change, the error message for invalid keys has been reworded to
     make it more helpful (Closes: #666274).
+  * The gshadow database is now copied into the chroot using the
+    nssdatabases setup script, rather than copyfiles.
   * Services may be started and stopped inside the chroot on session
     creation and session ending (Closes: #625205).  These are specified
     using the new setup.services key, and are started and stopped using
