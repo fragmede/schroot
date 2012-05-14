@@ -24,6 +24,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <stdexcept>
 
 #include <boost/format.hpp>
 #include <boost/program_options.hpp>
@@ -206,12 +207,8 @@ options_base::check_actions ()
       this->load_chroots = true;
       this->load_sessions = false;
       if (this->chroots.size() != 1 || all_used())
-	throw opt::validation_error
-	  (
-#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
-	   opt::validation_error::multiple_values_not_allowed,
-#endif
-	   _("Exactly one chroot must be specified when beginning a session"));
+	throw error
+	  (_("Exactly one chroot must be specified when beginning a session"));
 
       this->all = this->all_chroots = this->all_source_chroots = this->all_sessions = false;
     }
@@ -223,12 +220,8 @@ options_base::check_actions ()
       this->load_chroots = this->load_sessions = true;
 
       if (!this->session_name.empty())
-        throw opt::validation_error
-	  (
-#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
-	   opt::validation_error::invalid_option,
-#endif
-	   _("--session-name is not permitted for the specified action; did you mean to use --chroot?"));
+        throw error
+	  (_("--session-name is not permitted for the specified action; did you mean to use --chroot?"));
     }
   else if (this->action == ACTION_HELP ||
 	   this->action == ACTION_VERSION)
@@ -263,28 +256,14 @@ options_base::check_actions ()
       // Something went wrong
       this->load_chroots = this->load_sessions = false;
       this->all = this->all_chroots = this->all_source_chroots = this->all_sessions = false;
-      throw opt::validation_error
-	(
-#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
-	 opt::validation_error::invalid_option,
-#endif
-	 _("Unknown action specified"));
+      throw error(_("Unknown action specified"));
     }
 
   if (!this->session_name.empty() && this->action != ACTION_SESSION_BEGIN)
-    throw opt::validation_error
-      (
-#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
-       opt::validation_error::invalid_option,
-#endif
-       _("--session-name is not permitted for the specified action"));
+    throw error
+      (_("--session-name is not permitted for the specified action"));
 
   if (!this->session_name.empty() &&
       !sbuild::is_valid_sessionname(this->session_name))
-    throw opt::validation_error
-      (
-#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
-       opt::validation_error::invalid_option_value,
-#endif
-       _("Invalid session name"));
+    throw error(_("Invalid session name"));
 }

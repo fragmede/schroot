@@ -17,15 +17,13 @@
  *********************************************************************/
 
 #include <schroot-base/schroot-base-option-action.h>
-
-#include <boost/program_options.hpp>
+#include <schroot-base/schroot-base-options.h>
 
 #include <iostream>
 
 #include <cppunit/extensions/HelperMacros.h>
 
 using schroot_base::option_action;
-namespace opt = boost::program_options;
 using namespace CppUnit;
 
 class test_option_action : public TestFixture
@@ -33,14 +31,14 @@ class test_option_action : public TestFixture
   CPPUNIT_TEST_SUITE(test_option_action);
   CPPUNIT_TEST(test_construction);
   CPPUNIT_TEST(test_default);
-  CPPUNIT_TEST_EXCEPTION(test_default_fail, std::logic_error);
+  CPPUNIT_TEST_EXCEPTION(test_default_fail, schroot_base::options::error);
   CPPUNIT_TEST(test_current);
-  CPPUNIT_TEST_EXCEPTION(test_current_fail, std::logic_error);
+  CPPUNIT_TEST_EXCEPTION(test_current_fail, schroot_base::options::error);
   CPPUNIT_TEST_EXCEPTION(test_current_fail_multipleset,
-			 opt::validation_error);
+			 schroot_base::options::error);
   CPPUNIT_TEST(test_operators);
   CPPUNIT_TEST_EXCEPTION(test_operators_fail_multipleset,
-			 opt::validation_error);
+			 schroot_base::options::error);
   CPPUNIT_TEST_SUITE_END();
 
 protected:

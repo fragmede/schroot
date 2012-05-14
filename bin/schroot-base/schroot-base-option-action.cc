@@ -21,6 +21,7 @@
 #include <sbuild/sbuild-i18n.h>
 
 #include "schroot-base-option-action.h"
+#include "schroot-base-options.h"
 
 #include <iomanip>
 
@@ -62,7 +63,7 @@ option_action::set_default (action_type const& action)
   if (valid(action))
     this->default_action = action;
   else
-    throw std::logic_error((format(_("%1%: invalid action")) % action).str());
+    throw schroot_base::options::error((format(_("%1%: invalid action")) % action).str());
 }
 
 option_action::action_type const&
@@ -82,15 +83,11 @@ option_action::set (action_type const& action)
       if (this->current_action == "")
 	this->current_action = action;
       else
-	throw opt::validation_error
-	  (
-#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
-	   opt::validation_error::multiple_values_not_allowed,
-#endif
-	   _("Only one action may be specified"));
+	throw schroot_base::options::error
+	  (_("Only one action may be specified"));
     }
   else
-    throw std::logic_error((format(_("%1%: invalid action")) % action).str());
+    throw schroot_base::options::error((format(_("%1%: invalid action")) % action).str());
 }
 
 bool

@@ -116,7 +116,7 @@ main::run (int   argc,
 
       try
 	{
-	  dynamic_cast<boost::program_options::error const&>(e);
+	  dynamic_cast<schroot_base::options::error const&>(e);
 	  sbuild::log_info()
 	    // TRANSLATORS: %1% = program name
 	    << format(_("Run “%1% --help” to list usage example and all available options"))

@@ -25,6 +25,7 @@
 #include <schroot-base/schroot-base-option-action.h>
 
 #include <string>
+#include <stdexcept>
 
 #ifdef HAVE_TR1_MEMORY
 #include <tr1/memory>
@@ -53,6 +54,19 @@ namespace schroot_base
     typedef std::shared_ptr<options> ptr;
     /// Program action.
     typedef option_action::action_type action_type;
+
+    /// Exception type.
+    class error : public std::runtime_error
+    {
+    public:
+      error(std::string const& error):
+	runtime_error(error)
+      {
+      }
+
+      virtual
+      ~error() throw() {}
+    };
 
     /// The constructor.
     options ();

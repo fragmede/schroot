@@ -155,12 +155,7 @@ options::check_options ()
       else if (this->debug_level == "critical")
 	sbuild::debug_log_level = sbuild::DEBUG_CRITICAL;
       else
-	throw opt::validation_error
-	  (
-#ifndef BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD
-	   opt::validation_error::invalid_option_value,
-#endif
-	   _("Invalid debug level"));
+	throw error(_("Invalid debug level"));
     }
   else
     sbuild::debug_log_level = sbuild::DEBUG_NONE;

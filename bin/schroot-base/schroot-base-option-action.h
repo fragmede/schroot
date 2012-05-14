@@ -31,7 +31,6 @@ namespace schroot_base
    * extension of the options by inheritance.
    *
    * @todo Construct from iterator pair.
-   * @todo: Throw logic_error if an invalid action is set.
    */
   class option_action
   {
