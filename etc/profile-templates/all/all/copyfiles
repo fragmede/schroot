@@ -2,4 +2,3 @@
 #
 # <source and destination>
 /etc/resolv.conf
-/etc/gshadow

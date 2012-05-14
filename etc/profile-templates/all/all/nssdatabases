@@ -4,3 +4,4 @@
 passwd
 shadow
 group
+gshadow
