@@ -16,16 +16,17 @@ schroot (1.5.2-1) experimental; urgency=low
     sessions to be ended when run with a "start" or "stop" argument,
     respectively.
   * Support translation of the documentation with po4a
-    (Closes: #588962).  Thanks to David Prévot.  Note that there are
-    not yet any translations making use of this facility yet.
+    (Closes: #588962).  A French translation of the manual pages has
+    been added, and translated manual pages are built, but is not yet
+    installed.  Thanks to David Prévot.
   * Support for overlayfs has been added in addition to aufs and
     unionfs (Closes: #648450).  Thanks to Evan Broder.
-  * debian/control:
-    - Fix typo (debuggging, Closes: #653732).  Thanks to Vincent Blut.
   * Arbitrary options may now be set in a chroot definition in
     schroot.conf.  These options are also set in the environment when
     running setup scripts, making this a simple means by which setup
-    scripts may be customised without writing code.
+    scripts may be customised without writing code.  As part of this
+    change, the error message for invalid keys has been reworded to
+    make it more helpful (Closes: #666274).
   * Services may be started and stopped inside the chroot on session
     creation and session ending (Closes: #625205).  These are specified
     using the new setup.services key, and are started and stopped using
@@ -35,16 +36,14 @@ schroot (1.5.2-1) experimental; urgency=low
     the option to a user-defined value, which will permit users to
     customise the behaviour of setup scripts.  Note that only keys
     specified in the new user-modifiable-keys or root-modifiable-keys
-    settings are permitted to be set, for security reasons.  As part
-    of this change, the error message for invalid keys has been
-    reworded to make it more helpful (Closes: #666274).
+    settings are permitted to be set, for security reasons.
   * A new "custom" chroot type has been added (Closes: #477937).  This
-    permits the testing and development of new specialised chroot types
-    without the need to write any C++ chroot modules.  It just requires
-    a custom setup script, which can use arbitrary options set in your
-    schroot.conf for configuration.  Options are provided to set up
-    the session cloning and purging behaviour for the custom chroot.
-    See schroot.conf(5) for further details.
+    permits the testing and development of new specialised chroot
+    types without the need to write any C++ chroot modules.  It just
+    requires a custom setup script, which can use arbitrary options
+    set in your schroot.conf for configuration.  Options are provided
+    to set up the session cloning and purging behaviour for the custom
+    chroot.  See schroot.conf(5) for further details.
   * Exceptions thrown for command-line options validation errors no
     longer use the Boost validation_error exception, which formatted
     the exception reason text badly (Closes: #666497).
@@ -59,7 +58,7 @@ schroot (1.5.2-1) experimental; urgency=low
     - pt (Closes: #660040).  Thanks to Pedro Ribeiro.
     - zh_CN (Closes: #659967).  Thanks to Ji ZhengYu.
 
- -- Roger Leigh <rleigh@debian.org>  Wed, 09 May 2012 22:48:57 +0100
+ -- Roger Leigh <rleigh@debian.org>  Mon, 14 May 2012 23:29:22 +0100
 
 schroot (1.5.1-1) experimental; urgency=low
 
