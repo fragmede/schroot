@@ -35,7 +35,9 @@ schroot (1.5.2-1) experimental; urgency=low
     the option to a user-defined value, which will permit users to
     customise the behaviour of setup scripts.  Note that only keys
     specified in the new user-modifiable-keys or root-modifiable-keys
-    settings are permitted to be set, for security reasons.
+    settings are permitted to be set, for security reasons.  As part
+    of this change, the error message for invalid keys has been
+    reworded to make it more helpful (Closes: #666274).
   * A new "custom" chroot type has been added (Closes: #477937).  This
     permits the testing and development of new specialised chroot types
     without the need to write any C++ chroot modules.  It just requires
