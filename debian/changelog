@@ -51,6 +51,7 @@ schroot (1.5.2-1) experimental; urgency=low
   * schroot(1): Update overview text, including explaining the
     restriction of the plain chroot type not running setup scripts
     (Closes: #670881).
+  * PATH is now set when running setup scripts.
   * Updated translations:
     - da (Closes: #658544).  Thanks to Joe Hansen.
     - de (Closes: #659524).  Thanks to Holger Wansing.
