@@ -45,6 +45,9 @@ schroot (1.5.2-1) experimental; urgency=low
     schroot.conf for configuration.  Options are provided to set up
     the session cloning and purging behaviour for the custom chroot.
     See schroot.conf(5) for further details.
+  * Exceptions thrown for command-line options validation errors no
+    longer use the Boost validation_error exception, which formatted
+    the exception reason text badly (Closes: #666497).
   * schroot(1): Update overview text, including explaining the
     restriction of the plain chroot type not running setup scripts
     (Closes: #670881).
