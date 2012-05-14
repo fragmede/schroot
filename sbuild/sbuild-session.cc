@@ -1095,6 +1095,8 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
   env.add("HOST_CPU", SBUILD_HOST_CPU);
   env.add("PLATFORM", SBUILD_PLATFORM);
 
+  env.add("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
+
   run_parts rp(SCHROOT_CONF_SETUP_D,
 	       true, true, 022);
   rp.set_reverse(setup_type == chroot::SETUP_STOP);
