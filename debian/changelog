@@ -33,6 +33,9 @@ schroot (1.5.2-1) experimental; urgency=low
     creation and session ending (Closes: #625205).  These are specified
     using the new setup.services key, and are started and stopped using
     invoke-rc.d.  See schroot.conf(5) for further details.
+  * 15killprocs kills processes under CHROOT_PATH rather than
+    CHROOT_MOUNT_LOCATION (Closes: #672113).  Thanks to Julien Viard de
+    Galbert.
   * The above options may be set (where permitted) on the schroot
     command-line by using the new --option command-line option to set
     the option to a user-defined value, which will permit users to
