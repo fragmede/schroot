@@ -43,6 +43,9 @@ schroot (1.5.2-1) experimental; urgency=low
     schroot.conf for configuration.  Options are provided to set up
     the session cloning and purging behaviour for the custom chroot.
     See schroot.conf(5) for further details.
+  * schroot(1): Update overview text, including explaining the
+    restriction of the plain chroot type not running setup scripts
+    (Closes: #670881).
   * Updated translations:
     - da (Closes: #658544).  Thanks to Joe Hansen.
     - de (Closes: #659524).  Thanks to Holger Wansing.
