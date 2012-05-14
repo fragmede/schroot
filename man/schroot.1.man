@@ -95,11 +95,25 @@ own images)
 A chroot may be used directly as root by running
 .BR chroot (8),
 but normal users are not able to use this command.  \fBschroot\fP allows access
-to chroots for normal users using the same mechanism, but with permissions
-checking and allowing additional automated setup of the chroot environment,
-such as mounting additional filesystems and other configuration tasks.  This
+to chroots for normal users using the same mechanism, but with several
+additional features.  While schroot uses a directory as a chroot just like
+.BR chroot (8),
+it does not require this to be a regular directory in the filesystem.  While
+this is the default, the chroot can also be created from a file, a filesystem,
+including LVM and Btrfs snapshots and loopback mounts, or composed of a unionfs
+overlay.  Being user-extensible, the scope for creating chroots from different
+sources is limited only by your imagination.  schroot performs permissions
+checking and allows additional automated setup of the chroot environment, such
+as mounting additional filesystems and other configuration tasks.  This
 automated setup is done through the action of \fIsetup scripts\fP which may be
-customised and extended to perform any actions required.
+customised and extended to perform any actions required.  Typical actions
+include mounting the user's home directory, setting up networking and system
+databases, and even starting up services.  These are again entirely
+customisable by the admin.  The setup scripts are run for all types of chroot,
+with the exception of the \[oq]plain\[cq] type, the simplest chroot type,
+offering no automated setup features at all.  The configuration of schroot is
+covered in more detail in
+.BR schroot.conf (5).
 .SH OPTIONS
 \fBschroot\fP accepts the following options:
 .SS Actions
