@@ -79,5 +79,5 @@ do_kill_all()
 }
 
 if [ $STAGE = "setup-recover" ] || [ $STAGE = "setup-stop" ]; then
-    do_kill_all "$CHROOT_MOUNT_LOCATION"
+    do_kill_all "$CHROOT_PATH"
 fi
