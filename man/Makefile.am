@@ -139,7 +139,7 @@ config.man: Makefile
 	echo -e "$(CONFIG)" | sed -e 's/^[ ]//' > $@
 
 update-po:
-	[ -n "$(PO4A)" ] && $(PO4A) --package-name $(PACKAGE) --package-version $(VERSION) --copyright-holder "Roger Leigh <rleigh@debian.org>" "--srcdir=$(srcdir)" "--destdir=$(builddir)" "$(srcdir)/po4a.cfg"
+	if [ -n "$(PO4A)" ]; then $(PO4A) --package-name $(PACKAGE) --package-version $(VERSION) --copyright-holder "Roger Leigh <rleigh@debian.org>" "--srcdir=$(srcdir)" "--destdir=$(builddir)" "$(srcdir)/po4a.cfg"; fi
 
 dist-hook: update-po
 
