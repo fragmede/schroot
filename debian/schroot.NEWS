@@ -1,3 +1,46 @@
+schroot (1.5.2-1) experimental; urgency=low
+
+  Users upgrading from squeeze should take note of the following
+  changes which require configuration updates:
+
+  * Chroot profiles are now selectable using the new "profile" key.
+    This replaces the older "script-config" key, which is now
+    deprecated.  The profile configuration file referenced by
+    script-config is also deprecated, the individual settings it
+    contained now being directly configurable in schroot.conf.  See
+    schroot.conf(5) for further details.  Please upgrade your
+    configuration by replacing "script-config=profilename/config" with
+    "profile=profilename".
+
+  * schroot namespace prefixes are now required.  The compatibility
+    names used in 1.4 releases have been removed.  For example, the
+    source chroot "source:wheezy" is now only accessible using this
+    name; the compatibility "wheezy-source" chroot name is no longer
+    created.  The same applies to session chroot names using the
+    "session:" prefix, which also had a compatibility name with a
+    "-session" suffix.  See the "Chroot Namespaces" section in
+    schroot(1).
+
+  * The obsolete configuration options "priority", "run-setup-scripts"
+    and "run-exec-scripts" (all chroot types) and "location" ("plain"
+    and "directory" chroot types) have been removed.
+
+  * Users of the older dchroot and dchroot-dsa programs, which are
+    compatibility wrappers around schroot, should note that
+    configuration file /etc/dchroot.conf is no longer used.  This file
+    has been long deprecated in favour of using
+    /etc/schroot/schroot.conf, which offers more flexible
+    configuration and more features than dchroot.conf.  Please run
+    "dchroot --config > /etc/schroot/chroot.d/dchroot" (prior to
+    upgrading) to convert your existing dchroot.conf into schroot.conf
+    format.  If you were already using schroot.conf, then this is not
+    required.  Also note that these compatibility programs are likely
+    to be removed in a future release; users of dchroot and
+    dchroot-dsa are highly encouraged to use schroot as a superior
+    replacement for both tools.
+
+ -- Roger Leigh <rleigh@debian.org>  Tue, 15 May 2012 21:08:50 +0100
+
 schroot (1.4.16-1) unstable; urgency=low
 
   Users upgrading from lenny should take note of the following
