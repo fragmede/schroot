@@ -61,10 +61,10 @@ override_dh_auto_clean:
 
 override_dh_auto_build:
 ifneq (,$(shell dh_listpackages -a 2>/dev/null))
-	$(MAKE) -C debian/build all
+	$(MAKE) -C debian/build all PO4A=
 endif
 ifneq (,$(shell dh_listpackages -i 2>/dev/null))
-	$(MAKE) -C debian/build doc
+	$(MAKE) -C debian/build doc PO4A=
 endif
 
 override_dh_auto_test:
@@ -101,10 +101,10 @@ install: build $(DH_INSTALL_FILES)
 
 override_dh_auto_install:
 ifneq (,$(shell dh_listpackages -a 2>/dev/null))
-	$(MAKE) -C debian/build install DESTDIR=$(CURDIR)/debian/install
+	$(MAKE) -C debian/build install DESTDIR=$(CURDIR)/debian/install PO4A=
 endif
 ifneq (,$(shell dh_listpackages -i 2>/dev/null))
-	$(MAKE) -C debian/build/po install DESTDIR=$(CURDIR)/debian/install
+	$(MAKE) -C debian/build/po install DESTDIR=$(CURDIR)/debian/install PO4A=
 endif
 
 override_dh_installchangelogs:
