@@ -29,11 +29,11 @@ TRANSMAN = $(shell for MAN in $(foreach LANG,$(LINGUAS),$(addprefix translated/$
 translated/%.man: update-po
 
 schroot.ps: $(man_MANS)
-	tbl $(man_MANS) | groff -T ps -man > $@
+	tbl $(man_MANS) | groff -K UTF8 -T ps -man > $@
 
 %.ps: PSMAN=$(addprefix translated/$(patsubst .%,%,$(suffix $(basename %)))/,$(man_MANS))
 %.ps: $(TRANSMAN)
-	tbl $^ | groff -T ps -man > $@
+	tbl $^ | groff -K UTF8 -T ps -man > $@
 
 %.pdf: %.ps
 	ps2pdf $< $@
