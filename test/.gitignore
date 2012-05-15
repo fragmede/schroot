@@ -6,6 +6,7 @@ sbuild-chroot-loopback
 sbuild-chroot-btrfs-snapshot
 sbuild-chroot-lvm-snapshot
 sbuild-chroot-plain
+sbuild-chroot-custom
 sbuild-chroot-config
 sbuild-chroot-facet-userdata
 sbuild-environment
