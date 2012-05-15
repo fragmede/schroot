@@ -37,6 +37,13 @@ configuration.
      setup.services key, and are started and stopped using
      invoke-rc.d.  See schroot.conf(5) for further details.
 
+  6) Chroot profiles are now selectable using the new "profile" key.
+     This replaces the older "script-config" key, which is now
+     deprecated.  The profile configuration file referenced by
+     script-config is also deprecated, the individual settings it
+     contained now being directly configurable in schroot.conf.  See
+     schroot.conf(5) for further details.
+
 * Major changes in 1.5.1:
 
   1) schroot no longer requires GCC to build, following the removal of
