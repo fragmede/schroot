@@ -1,6 +1,9 @@
 schroot (1.5.3-1) UNRELEASED; urgency=low
 
   * New upstream development release.
+  * dchroot:
+    - Always use "/bin/sh -c" to run the specified command, rather than
+      the user's shell, in order to ensure consistent behaviour.
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 20 May 2012 10:29:28 +0100
 
