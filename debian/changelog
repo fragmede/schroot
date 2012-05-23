@@ -10,6 +10,8 @@ schroot (1.5.3-1) UNRELEASED; urgency=low
       pw_shell, then /bin/bash and finally /bin/sh.  This may be
       overidden using the shell configuration key, which may in turn be
       overidden by the --shell option.
+    - Don't warn the user about groups which do not exist
+      (Closes: #674041).  This is now debug log info only.
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 20 May 2012 10:29:28 +0100
 
