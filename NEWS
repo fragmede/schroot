@@ -9,7 +9,9 @@ configuration.
 
 * Major changes in 1.5.3:
 
-  None.
+  1) dchroot always uses "/bin/sh -c" to run the specified command,
+     rather than the user's shell, in order to ensure consistent
+     behaviour.
 
 * Major changes in 1.5.2:
 
