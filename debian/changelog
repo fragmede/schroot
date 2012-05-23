@@ -4,6 +4,12 @@ schroot (1.5.3-1) UNRELEASED; urgency=low
   * dchroot:
     - Always use "/bin/sh -c" to run the specified command, rather than
       the user's shell, in order to ensure consistent behaviour.
+  * schroot:
+    - Add shell fallbacks (Closes: #674040).  When running a login
+      shell, try $SHELL (if preserving the environment), or else passwd
+      pw_shell, then /bin/bash and finally /bin/sh.  This may be
+      overidden using the shell configuration key, which may in turn be
+      overidden by the --shell option.
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 20 May 2012 10:29:28 +0100
 
