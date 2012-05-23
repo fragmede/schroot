@@ -324,6 +324,22 @@ namespace sbuild
     set_preserve_environment (bool preserve_environment);
 
     /**
+     * Get default shell.
+     *
+     * @returns default shell, or empty string if unset
+     */
+    std::string const&
+    get_default_shell () const;
+
+    /**
+     * Set the default shell.  This is the default interactive shell.
+     *
+     * @param default_shell the default shell.
+     */
+    void
+    set_default_shell (std::string const& default_shell);
+
+    /**
      * Get the environment filter of the chroot.  This is a POSIX
      * extended regular expression used to remove insecure environment
      * variables from the chroot environment.
@@ -792,6 +808,8 @@ namespace sbuild
     string_list   aliases;
     /// Preserve environment?
     bool          preserve_environment;
+    /// Default shell
+    std::string   default_shell;
     /// Environment filter regex.
     regex         environment_filter;
     /// Location to mount chroot in the filesystem (if any).

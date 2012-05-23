@@ -213,6 +213,7 @@ session::session (std::string const&  service,
   termios_ok(false),
   verbosity(),
   preserve_environment(false),
+  shell(),
   user_options(),
   cwd(sbuild::getcwd())
 {
@@ -292,6 +293,18 @@ void
 session::set_preserve_environment (bool preserve_environment)
 {
   this->preserve_environment = preserve_environment;
+}
+
+std::string const&
+session::get_shell_override () const
+{
+  return this->shell;
+}
+
+void
+session::set_shell_override (std::string const& shell)
+{
+  this->shell = shell;
 }
 
 string_map const&
@@ -828,27 +841,79 @@ session::get_command_directories (sbuild::chroot::ptr& session_chroot,
   return ret;
 }
 
-std::string
-session::get_shell () const
+string_list
+session::get_shells (sbuild::chroot::ptr& session_chroot) const
 {
-  assert (!this->authstat->get_shell().empty());
-  std::string shell = this->authstat->get_shell();
+  string_list ret;
 
-  try
+  // Shell set with --shell (if any)
+  if (!this->shell.empty())
     {
-      stat(shell).check();
+      ret.push_back(this->shell);
     }
-  catch (std::runtime_error const& e)
+  else if (!session_chroot->get_default_shell().empty())
     {
-      error e1(shell, SHELL, e.what());
-      log_exception_warning(e1);
-
-      if (shell != "/bin/sh")
+      ret.push_back(session_chroot->get_default_shell());
+    }
+  else
+    {
+      if (get_preserve_environment())
 	{
-	  shell = "/bin/sh";
-	  error e2(SHELL_FB, shell);
-	  log_exception_warning(e2);
+	  // $SHELL (if --preserve-environment used)
+	  environment const& env(this->authstat->get_complete_environment());
+
+	  std::string envshell;
+	  if (env.get("SHELL", envshell) &&
+	      std::find(ret.begin(), ret.end(), envshell) == ret.end())
+	    ret.push_back(envshell);
 	}
+
+      // passwd pw_shell
+      std::string const& shell = this->authstat->get_shell();
+      if (!shell.empty())
+	ret.push_back(shell);
+
+      // Fallback nice interactive shell
+      if (std::find(ret.begin(), ret.end(), "/bin/bash") == ret.end())
+	ret.push_back("/bin/bash");
+
+      // Fallback basic interactive shell
+      if (std::find(ret.begin(), ret.end(), "/bin/sh") == ret.end())
+	ret.push_back("/bin/sh");
+    }
+
+  return ret;
+}
+
+std::string
+session::get_shell (sbuild::chroot::ptr& session_chroot) const
+{
+  string_list shells(get_shells(session_chroot));
+
+  std::string shell;
+
+  for (string_list::const_iterator pos = shells.begin();
+       pos != shells.end();
+       ++pos)
+    {
+      shell = *pos;
+
+      try
+	{
+	  stat(shell).check();
+	  break;
+	}
+      catch (std::runtime_error const& e)
+	{
+	  error e1(shell, SHELL, e.what());
+	  log_exception_warning(e1);
+	}
+    }
+
+  if (shell != *shells.begin())
+    {
+      error e2(SHELL_FB, shell);
+      log_exception_warning(e2);
     }
 
   return shell;
@@ -858,12 +923,12 @@ void
 session::get_command (sbuild::chroot::ptr& session_chroot,
 		      std::string&         file,
 		      string_list&         command,
-		      environment const&   env) const
+		      environment&         env) const
 {
   /* Run login shell */
   if (command.empty() ||
       command[0].empty()) // No command
-    get_login_command(session_chroot, file, command);
+    get_login_command(session_chroot, file, command, env);
   else
     get_user_command(session_chroot, file, command, env);
 }
@@ -871,12 +936,14 @@ session::get_command (sbuild::chroot::ptr& session_chroot,
 void
 session::get_login_command (sbuild::chroot::ptr& session_chroot,
 			    std::string&         file,
-			    string_list&         command) const
+			    string_list&         command,
+			    environment&         env) const
 {
   command.clear();
 
-  std::string shell = get_shell();
+  std::string shell = get_shell(session_chroot);
   file = shell;
+  env.add("SHELL", shell);
 
   bool login_shell =
     !(get_preserve_environment() ||
@@ -1174,7 +1241,6 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   assert(!session_chroot->get_name().empty());
 
   assert(!this->authstat->get_user().empty());
-  assert(!get_shell().empty());
   assert(this->authstat->is_initialised()); // PAM must be initialised
 
   /* Set up environment */

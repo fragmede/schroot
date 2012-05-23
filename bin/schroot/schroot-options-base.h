@@ -86,6 +86,8 @@ namespace schroot
     sbuild::string_list  command;
     /// Directory to use.
     std::string          directory;
+    /// Shell to use.
+    std::string          shell;
     /// User to run as.
     std::string          user;
     /// Preserve environment.

@@ -155,6 +155,7 @@ public:
     chroot->set_root_groups(sbuild::split_string("group3,group4", ","));
     chroot->set_verbosity("quiet");
     chroot->set_preserve_environment(false);
+    chroot->set_default_shell("/bin/testshell");
 
     sbuild::chroot_facet_personality::ptr pfac
       (chroot->get_facet<sbuild::chroot_facet_personality>());
@@ -217,6 +218,7 @@ public:
     keyfile.set_value(group, "profile", "default");
     keyfile.set_value(group, "message-verbosity", "quiet");
     keyfile.set_value(group, "preserve-environment", "false");
+    keyfile.set_value(group, "shell", "/bin/testshell");
     keyfile.set_value(group, "user-modifiable-keys", "debian.dist,sbuild.purge,sbuild.resolver");
     keyfile.set_value(group, "root-modifiable-keys", "debian.apt-update");
     keyfile.set_value(group, "custom.test1", "testval");

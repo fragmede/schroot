@@ -49,6 +49,8 @@ options_base::options_base ():
   schroot_base::options (),
   chroots(),
   command(),
+  directory(),
+  shell(),
   user(),
   preserve(false),
   all(false),

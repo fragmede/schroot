@@ -345,6 +345,8 @@ main_base::run_impl ()
 	this->session->get_auth()->set_command(this->options->command);
       if (!this->options->directory.empty())
 	this->session->get_auth()->set_wd(this->options->directory);
+      if (!this->options->shell.empty())
+	this->session->set_shell_override(this->options->shell);
       this->session->set_preserve_environment(this->options->preserve);
       this->session->set_session_id(this->options->session_name);
       this->session->set_force(this->options->session_force);

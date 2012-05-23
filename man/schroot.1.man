@@ -33,10 +33,11 @@ schroot \- securely enter a chroot environment
 .RB [ "\-d \fIdirectory\fP" \[or] "\-\-directory=\fIdirectory\fP" ]
 .RB [ "\-u \fIuser\fP" \[or] "\-\-user=\fIuser\fP" ]
 .RB [ \-p \[or] \-\-preserve\-environment ]
+.RB [ "\-s \fIshell\fP" \[or] "\-\-shell=\fIshell\fP" ]
 .RB [ \-q \[or] \-\-quiet " \[or] " \-v \[or] \-\-verbose ]
 .RB [ "\-c \fIchroot\fP" \[or] "\-\-chroot=\fIchroot\fP"
-.RB " \[or] " \-\-all " \[or] " \-\-all\-chroots " \[or] " \-\-all\-source\-chroots " \[or] " \-\-all\-sessions ]
-.RB " \[or] " \-\-exclude\-aliases
+.RB " \[or] [" \-\-all " \[or] " \-\-all\-chroots " \[or] " \-\-all\-source\-chroots " \[or] " \-\-all\-sessions ]
+.RB [ \-\-exclude\-aliases ]]
 .RB [ -o \[or] "\-\-option=\fIkey=value\fP" ]
 .RB [ \-\- ]
 .RB [ COMMAND " [ " ARG1 " [ " ARG2 " [ " ARGn ]]]]
@@ -158,8 +159,8 @@ section \[lq]\fIChroot Namespaces\fP\[rq], below.
 Select all chroots, source chroots and active sessions.  When a command has
 been specified, the command will be run in all chroots, source chroots and
 active sessions.  If \fI\-\-info\fP has been used, display information about
-all chroots.  This option does not make sense to use with a login shell (when
-no command has been specified).  This option is equivalent to
+all chroots.  This option does not make sense to use with a login shell (run
+when no command has been specified).  This option is equivalent to
 \[lq]\-\-all\-chroots \-\-all\-source\-chroots \-\-all\-sessions\[rq].
 .TP
 .BR \-\-all\-chroots
@@ -201,6 +202,15 @@ Preserve the user's environment inside the chroot environment.  The default is
 to use a clean environment; this option copies the entire user environment and
 sets it in the session.  The environment variables allowed are subject to
 certain restrictions; see the section \[lq]\fIEnvironment\fP\[rq], below.
+.TP
+.BR \-s ", " \-\-shell=\fIshell\fP
+Use \fIshell\fP as the login shell.  When running a login shell a number of
+potential shells will be considered, in this order: the command in the SHELL
+environment variable (if \fI\-\-preserve\-environment\fP is used, or
+\f[CI]preserve\-environment\fP is enabled), the user's shell in the
+\[oq]passwd\[cq] database, \fI/bin/bash\fP and finally \fI/bin/sh\fP.  This
+option overrides this list, and will use the shell specified.  This option also
+overrides the \f[CI]shell\fP configuration key, if set.
 .TP
 .BR \-o ", " \-\-option=\fIkey=value\fP
 Set an option.  The value of selected configuration keys in \fIschroot.conf\fP

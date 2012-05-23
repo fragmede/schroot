@@ -66,6 +66,8 @@ options::add_options ()
   chrootenv.add_options()
     ("directory,d", opt::value<std::string>(&this->directory),
      _("Directory to use"))
+    ("shell,s", opt::value<std::string>(&this->shell),
+     _("Shell to use as login shell"))
     ("user,u", opt::value<std::string>(&this->user),
      _("Username (default current user)"))
     ("preserve-environment,p",

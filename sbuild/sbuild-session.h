@@ -221,6 +221,22 @@ namespace sbuild
     set_preserve_environment (bool preserve_environment);
 
     /**
+     * Get user-specified login shell.
+     *
+     * @returns true to preserve or false to clean.
+     */
+    std::string const&
+    get_shell_override () const;
+
+    /**
+     * Set user-specified login shell.
+     *
+     * @param shell true to preserve or false to clean.
+     */
+    void
+    set_shell_override (std::string const& shell);
+
+    /**
      * Get user options.
      *
      * @returns map of user options.
@@ -356,14 +372,26 @@ namespace sbuild
 			     environment const&   env) const;
 
     /**
+     * Get a list of candidate shells to run.  This is typically the
+     * user login shell, plus /bin/bash and/or /bin/sh if these are
+     * not already present as the user's login shell.
+     *
+     * @param session_chroot the chroot to setup.
+     * @returns a list of shells.
+     */
+    virtual string_list
+    get_shells (sbuild::chroot::ptr& session_chroot) const;
+
+    /**
      * Get the shell to run.  This finds a suitable shell to run in
      * the chroot, falling back to /bin/sh if necessary.  Note that it
      * assumes it is inside the chroot when called.
      *
+     * @param session_chroot the chroot to setup.
      * @returns the shell.
      */
     virtual std::string
-    get_shell () const;
+    get_shell (sbuild::chroot::ptr& session_chroot) const;
 
     /**
      * Get the command to run.
@@ -371,13 +399,13 @@ namespace sbuild
      * @param session_chroot the chroot to setup.
      * @param file the filename to pass to execve(2).
      * @param command the argv to pass to execve(2).
-     * @param env the environment to use for PATH
+     * @param env the environment to use for PATH.
      */
     virtual void
-    get_command (chroot::ptr&       session_chroot,
-		 std::string&       file,
-		 string_list&       command,
-		 environment const& env) const;
+    get_command (chroot::ptr& session_chroot,
+		 std::string& file,
+		 string_list& command,
+		 environment& env) const;
 
     /**
      * Get the command to run a login shell.
@@ -385,11 +413,13 @@ namespace sbuild
      * @param session_chroot the chroot to setup.
      * @param file the filename to pass to execve(2).
      * @param command the argv to pass to execve(2).
+     * @param env the environment to set SHELL.
      */
     virtual void
     get_login_command (chroot::ptr& session_chroot,
 		       std::string& file,
-		       string_list& command) const;
+		       string_list& command,
+		       environment& env) const;
 
     /**
      * Get the command to run a user command.
@@ -550,6 +580,8 @@ namespace sbuild
     std::string verbosity;
     /// Preserve environment?
     bool        preserve_environment;
+    /// Login shell.
+    std::string shell;
     /// User-defined options.
     string_map  user_options;
 
