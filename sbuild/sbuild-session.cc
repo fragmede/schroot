@@ -391,15 +391,10 @@ session::is_group_member (std::string const& groupname) const
   if (!grp)
     {
       if (errno == 0)
-	{
-	  session::error e(groupname, session::GROUP_UNKNOWN);
-	  log_exception_warning(e);
-	}
+	log_debug(DEBUG_INFO) << "Group " << groupname << "not found" << endl;
       else
-	{
-	  session::error e(groupname, session::GROUP_UNKNOWN, strerror(errno));
-	  log_exception_warning(e);
-	}
+	log_debug(DEBUG_INFO) << "Group " << groupname
+			      << "not found: " << strerror(errno) << endl;
       return false;
     }
 
