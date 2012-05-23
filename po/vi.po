@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.12-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-09 23:27+0100\n"
+"POT-Creation-Date: 2012-05-23 21:42+0100\n"
 "PO-Revision-Date: 2010-09-28 22:16+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -538,6 +538,11 @@ msgstr "Lệnh cần chạy"
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "Có thể ghi rõ chỉ một chroot khi khởi chạy phiên"
 
+#, fuzzy
+msgid ""
+"Exactly one chroot must be specified when creating or removing a session"
+msgstr "Có thể ghi rõ chỉ một chroot khi khởi chạy phiên"
+
 msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
@@ -558,6 +563,14 @@ msgstr "Tên buổi hợp không hợp lệ"
 msgid "Print location of selected chroots"
 msgstr "In ra vị trí của các chroot đã chọn"
 
+#, fuzzy
+msgid "Create a chroot"
+msgstr "Chọn mọi chroot"
+
+#, fuzzy
+msgid "Remove a chroot"
+msgstr "Chọn mọi chroot"
+
 msgid "Select all chroots and active sessions"
 msgstr "Chọn mọi chroot và phiên chạy hoạt động"
 
@@ -568,6 +581,9 @@ msgid "Select all source chroots"
 msgstr "Chọn mọi chroot nguồn"
 
 msgid "Do not include aliases"
+msgstr ""
+
+msgid "Shell to use as login shell"
 msgstr ""
 
 msgid "Username (default current user)"
@@ -810,6 +826,9 @@ msgstr "Bí danh"
 
 msgid "Preserve Environment"
 msgstr "Bảo tồn môi trường"
+
+msgid "Default Shell"
+msgstr ""
 
 msgid "Environment Filter"
 msgstr "Lọc môi trường"

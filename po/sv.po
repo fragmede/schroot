@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-09 23:27+0100\n"
+"POT-Creation-Date: 2012-05-23 21:42+0100\n"
 "PO-Revision-Date: 2010-01-16 15:44+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -535,6 +535,11 @@ msgstr "Kommando att köra"
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "Endast en chroot får anges vid början av en session"
 
+#, fuzzy
+msgid ""
+"Exactly one chroot must be specified when creating or removing a session"
+msgstr "Endast en chroot får anges vid början av en session"
+
 msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
@@ -553,6 +558,14 @@ msgstr "ogiltig grupp"
 msgid "Print location of selected chroots"
 msgstr "Skriv ut platsen för valda chroot"
 
+#, fuzzy
+msgid "Create a chroot"
+msgstr "Välj alla chroot"
+
+#, fuzzy
+msgid "Remove a chroot"
+msgstr "Välj alla chroot"
+
 msgid "Select all chroots and active sessions"
 msgstr "Välj alla chroot och aktiva sessioner"
 
@@ -564,6 +577,9 @@ msgid "Select all source chroots"
 msgstr "Välj alla chroot"
 
 msgid "Do not include aliases"
+msgstr ""
+
+msgid "Shell to use as login shell"
 msgstr ""
 
 msgid "Username (default current user)"
@@ -812,6 +828,9 @@ msgstr "Alias"
 #, fuzzy
 msgid "Preserve Environment"
 msgstr "Behåll användarens miljövariabler"
+
+msgid "Default Shell"
+msgstr ""
 
 msgid "Environment Filter"
 msgstr ""

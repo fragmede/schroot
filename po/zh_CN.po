@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.5.2-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-09 23:27+0100\n"
+"POT-Creation-Date: 2012-05-23 21:42+0100\n"
 "PO-Revision-Date: 2012-02-15 19:54+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -514,6 +514,11 @@ msgstr "要运行的命令"
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "开始一个会话时必须明确指定一个chroot"
 
+#, fuzzy
+msgid ""
+"Exactly one chroot must be specified when creating or removing a session"
+msgstr "开始一个会话时必须明确指定一个chroot"
+
 msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
@@ -531,6 +536,14 @@ msgstr "非法会话名"
 msgid "Print location of selected chroots"
 msgstr "打印所选的chroots 的位置"
 
+#, fuzzy
+msgid "Create a chroot"
+msgstr "选中所有chroots"
+
+#, fuzzy
+msgid "Remove a chroot"
+msgstr "选中所有chroots"
+
 msgid "Select all chroots and active sessions"
 msgstr "选中所有chroots 并激活会话"
 
@@ -541,6 +554,9 @@ msgid "Select all source chroots"
 msgstr "选中所有chroots 源"
 
 msgid "Do not include aliases"
+msgstr ""
+
+msgid "Shell to use as login shell"
 msgstr ""
 
 msgid "Username (default current user)"
@@ -781,6 +797,9 @@ msgstr "别名"
 
 msgid "Preserve Environment"
 msgstr "保存用户环境变量"
+
+msgid "Default Shell"
+msgstr ""
 
 msgid "Environment Filter"
 msgstr "环境变量过滤器"

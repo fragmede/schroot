@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-09 23:27+0100\n"
+"POT-Creation-Date: 2012-05-23 21:42+0100\n"
 "PO-Revision-Date: 2010-01-16 15:43+0000\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <Librezale@librezale.org>\n"
@@ -542,6 +542,11 @@ msgstr "Abiarazteko komandoa"
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "Zehazki chroot bat zehaztu berhar da saioa hasterakoan"
 
+#, fuzzy
+msgid ""
+"Exactly one chroot must be specified when creating or removing a session"
+msgstr "Zehazki chroot bat zehaztu berhar da saioa hasterakoan"
+
 msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
@@ -560,6 +565,14 @@ msgstr "%1%: ekintza baliogabea"
 msgid "Print location of selected chroots"
 msgstr "Inprimatu hautatutako chroot-en kokapena"
 
+#, fuzzy
+msgid "Create a chroot"
+msgstr "Chroot guztiak hautatu"
+
+#, fuzzy
+msgid "Remove a chroot"
+msgstr "Chroot guztiak hautatu"
+
 msgid "Select all chroots and active sessions"
 msgstr "Chroot eta saio aktibo guztiak hautatu"
 
@@ -571,6 +584,9 @@ msgid "Select all source chroots"
 msgstr "Chroot guztiak hautatu"
 
 msgid "Do not include aliases"
+msgstr ""
+
+msgid "Shell to use as login shell"
 msgstr ""
 
 msgid "Username (default current user)"
@@ -819,6 +835,9 @@ msgstr "Ezizenak"
 #, fuzzy
 msgid "Preserve Environment"
 msgstr "Mantendu erabiltzaile ingurunea"
+
+msgid "Default Shell"
+msgstr ""
 
 msgid "Environment Filter"
 msgstr "Ingurune Iragazkia"

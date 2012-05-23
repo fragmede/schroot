@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.5.2-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-09 23:27+0100\n"
+"POT-Creation-Date: 2012-05-23 21:42+0100\n"
 "PO-Revision-Date: 2012-02-11 21:05+0100\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -533,6 +533,12 @@ msgid "Exactly one chroot must be specified when beginning a session"
 msgstr ""
 "Genau ein Chroot muss angegeben werden, wenn eine Sitzung begonnen wird"
 
+#, fuzzy
+msgid ""
+"Exactly one chroot must be specified when creating or removing a session"
+msgstr ""
+"Genau ein Chroot muss angegeben werden, wenn eine Sitzung begonnen wird"
+
 msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
@@ -552,6 +558,14 @@ msgstr "Ungültiger Sitzungsname"
 msgid "Print location of selected chroots"
 msgstr "Ort der gewählten Chroots ausgeben"
 
+#, fuzzy
+msgid "Create a chroot"
+msgstr "Alle Chroots auswählen"
+
+#, fuzzy
+msgid "Remove a chroot"
+msgstr "Alle Chroots auswählen"
+
 msgid "Select all chroots and active sessions"
 msgstr "Alle Chroots und aktiven Sitzungen auswählen"
 
@@ -562,6 +576,9 @@ msgid "Select all source chroots"
 msgstr "Alle Quell-Chroots auswählen"
 
 msgid "Do not include aliases"
+msgstr ""
+
+msgid "Shell to use as login shell"
 msgstr ""
 
 msgid "Username (default current user)"
@@ -812,6 +829,9 @@ msgstr "Aliase"
 
 msgid "Preserve Environment"
 msgstr "Umgebungsvariablen beibehalten"
+
+msgid "Default Shell"
+msgstr ""
 
 msgid "Environment Filter"
 msgstr "Umgebungsfilter"
