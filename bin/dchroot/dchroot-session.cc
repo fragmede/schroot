@@ -90,7 +90,7 @@ session::get_user_command (sbuild::chroot::ptr&       session_chroot,
   std::string programstring = sbuild::string_list_to_string(command, " ");
 
   command.clear();
-  command.push_back(get_shell());
+  command.push_back("/bin/sh");
   command.push_back("-c");
   command.push_back(programstring);
 
