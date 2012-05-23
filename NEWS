@@ -13,6 +13,12 @@ configuration.
      rather than the user's shell, in order to ensure consistent
      behaviour.
 
+  2) Add shell fallbacks.  When running a login shell, try $SHELL (if
+     preserving the environment), or else passwd pw_shell, then
+     /bin/bash and finally /bin/sh.  This may be overidden using the
+     shell configuration key, which may in turn be overidden by the
+     --shell option.
+
 * Major changes in 1.5.2:
 
   1) Support for overlayfs has been added in addition to the existing
