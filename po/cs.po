@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-23 21:42+0100\n"
+"POT-Creation-Date: 2012-05-23 23:49+0100\n"
 "PO-Revision-Date: 2010-07-11 18:39+0200\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -528,11 +528,6 @@ msgstr "Příkaz ke spuštění"
 msgid "Exactly one chroot must be specified when beginning a session"
 msgstr "Při zahájení sezení musí být zadán alespoň jeden chroot"
 
-#, fuzzy
-msgid ""
-"Exactly one chroot must be specified when creating or removing a session"
-msgstr "Při zahájení sezení musí být zadán alespoň jeden chroot"
-
 msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
@@ -553,14 +548,6 @@ msgstr "%1%: Neplatný název sezení"
 
 msgid "Print location of selected chroots"
 msgstr "Vytiskne umístění vybraných chroot prostředí"
-
-#, fuzzy
-msgid "Create a chroot"
-msgstr "Vybere všechna chroot prostředí"
-
-#, fuzzy
-msgid "Remove a chroot"
-msgstr "Vybere všechna chroot prostředí"
 
 msgid "Select all chroots and active sessions"
 msgstr "Vybere všechna chroot prostředí a aktivní sezení"
@@ -1421,6 +1408,19 @@ msgstr "Nepodařilo se zjistit stav souboru"
 
 msgid "Failed to stat file descriptor"
 msgstr "Nepodařilo se zjistit stav popisovače souboru"
+
+#, fuzzy
+#~ msgid ""
+#~ "Exactly one chroot must be specified when creating or removing a session"
+#~ msgstr "Při zahájení sezení musí být zadán alespoň jeden chroot"
+
+#, fuzzy
+#~ msgid "Create a chroot"
+#~ msgstr "Vybere všechna chroot prostředí"
+
+#, fuzzy
+#~ msgid "Remove a chroot"
+#~ msgstr "Vybere všechna chroot prostředí"
 
 #, fuzzy
 #~ msgid "Failed to execute ‘%1%’"

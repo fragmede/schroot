@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-23 21:42+0100\n"
+"POT-Creation-Date: 2012-05-23 23:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -514,10 +514,6 @@ msgid "Exactly one chroot must be specified when beginning a session"
 msgstr ""
 
 msgid ""
-"Exactly one chroot must be specified when creating or removing a session"
-msgstr ""
-
-msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
 msgstr ""
@@ -532,12 +528,6 @@ msgid "Invalid session name"
 msgstr ""
 
 msgid "Print location of selected chroots"
-msgstr ""
-
-msgid "Create a chroot"
-msgstr ""
-
-msgid "Remove a chroot"
 msgstr ""
 
 msgid "Select all chroots and active sessions"
