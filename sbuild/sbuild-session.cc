@@ -1181,7 +1181,8 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 	  // The setup scripts don't use our syslog fd.
 	  closelog();
 
-	  chdir("/");
+	  if (chdir("/"))
+	    throw error("/", CHDIR, strerror(errno));
 	  /* This is required to ensure the scripts run with uid=0 and gid=0,
 	     otherwise setuid programs such as mount(8) will fail.  This
 	     should always succeed, because our euid=0 and egid=0.*/
