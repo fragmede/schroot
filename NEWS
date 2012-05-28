@@ -19,6 +19,13 @@ configuration.
      shell configuration key, which may in turn be overidden by the
      --shell option.
 
+  3) Support for QEMU linux user emulation using binfmt_misc on Linux
+     is enabled by default.  If binfmt_misc is available, and a
+     suitable program is available for running non-native architecture
+     programs, it will be made available in the chroot automatically.
+     This permits chroots for other architectures to be used
+     transparently.
+
 * Major changes in 1.5.2:
 
   1) Support for overlayfs has been added in addition to the existing
