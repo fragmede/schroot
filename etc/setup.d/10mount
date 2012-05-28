@@ -32,6 +32,9 @@ do_mount()
 {
     info "Mounting $2 on $3"
 
+    if [ -h "$3" ]; then
+	fatal "$3 is a symbolic link, not usable as a mountpoint"
+    fi
     if [ ! -d "$3" ]; then
 	mkdir -p "$3"
     fi
