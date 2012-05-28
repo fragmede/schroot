@@ -12,6 +12,10 @@ schroot (1.5.3-1) UNRELEASED; urgency=low
       overidden by the --shell option.
     - Don't warn the user about groups which do not exist
       (Closes: #674041).  This is now debug log info only.
+    - Add support for running programs in non-native architecture
+      chroots using binfmt support for qemu user binaries
+      (Closes: #604268).  Thanks to Loïc Minier, Julian Andres Klode
+      and Colin Watson.
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 20 May 2012 10:29:28 +0100
 
