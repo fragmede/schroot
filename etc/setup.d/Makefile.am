@@ -33,6 +33,7 @@ schroot_sysconf_setup_SCRIPTS =	\
 	05lvm			\
 	05union			\
 	10mount			\
+	15binfmt		\
 	15killprocs		\
 	20copyfiles		\
 	20nssdatabases		\

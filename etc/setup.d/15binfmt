@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright © 2011 Julian Andres Klode <jak@debian.org>
+# Copyright Â© 2011 Julian Andres Klode <jak@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@ set -e
 
 . "$SETUP_DATA_DIR/common-data"
 . "$SETUP_DATA_DIR/common-functions"
+. "$SETUP_DATA_DIR/common-config"
 
 
 if [ "$STAGE" != "setup-start" ] && \
@@ -28,7 +29,7 @@ if [ "$STAGE" != "setup-start" ] && \
    [ "$STAGE" != "setup-recover" ]; then
     exit 0
 elif ! which update-binfmts > /dev/null; then
-    info "Missing update-binfmts"
+    info "Missing update-binfmts; not enabling binfmt support"
     exit 0
 fi
 
@@ -37,7 +38,7 @@ shell="${CHROOT_PATH}/bin/sh"
 for emulator in $(update-binfmts --find "$shell"); do
     dst="${CHROOT_PATH}$emulator"
     if [ ! -e "$emulator" ]; then
-	info "Missing emulator: $emulator"
+	info "Missing emulator: $emulator; not enabling binfmt support"
     else
 	[ -e "$dst" ] || touch "$dst"
 	mount --bind "$emulator" "$dst"
