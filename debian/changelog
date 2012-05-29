@@ -1,4 +1,4 @@
-schroot (1.5.3-1) UNRELEASED; urgency=low
+schroot (1.5.3-1) unstable; urgency=low
 
   * New upstream development release.
   * dchroot:
@@ -17,7 +17,7 @@ schroot (1.5.3-1) UNRELEASED; urgency=low
       (Closes: #604268).  Thanks to Loïc Minier, Julian Andres Klode
       and Colin Watson.
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 20 May 2012 10:29:28 +0100
+ -- Roger Leigh <rleigh@debian.org>  Tue, 29 May 2012 21:26:47 +0100
 
 schroot (1.5.2-1) experimental; urgency=low
 
