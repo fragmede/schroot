@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.5.3\n"
-"POT-Creation-Date: 2012-05-23 22:14+0200\n"
+"POT-Creation-Date: 2012-05-29 20:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1541,7 +1541,7 @@ msgid "Directory used for unpacking file chroots."
 msgstr ""
 
 #. type: SH
-#: schroot.1.man:694 schroot-setup.5.man:262 schroot.conf.5.man:671 schroot-script-config.5.man:70 schroot-faq.7.man:253 dchroot.1.man:279 dchroot-dsa.1.man:234
+#: schroot.1.man:694 schroot-setup.5.man:267 schroot.conf.5.man:671 schroot-script-config.5.man:70 schroot-faq.7.man:253 dchroot.1.man:279 dchroot-dsa.1.man:234
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
@@ -2246,57 +2246,71 @@ msgstr ""
 #. type: TP
 #: schroot-setup.5.man:244
 #, no-wrap
+msgid "\\f[BI]15binfmt\\fR"
+msgstr ""
+
+#. type: Plain text
+#: schroot-setup.5.man:249
+msgid ""
+"Sets up the QEMU user emulator using binfmt-support.  This permits a chroot "
+"for a different CPU architecture to be used transparently, providing an "
+"alternative to cross-compiling or whole-machine emulation."
+msgstr ""
+
+#. type: TP
+#: schroot-setup.5.man:249
+#, no-wrap
 msgid "\\f[BI]15killprocs\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot-setup.5.man:248
+#: schroot-setup.5.man:253
 msgid ""
 "Kill processes still running inside the chroot when ending a session, which "
 "would prevent unmounting of filesystems and cleanup of any other resources."
 msgstr ""
 
 #. type: TP
-#: schroot-setup.5.man:248
+#: schroot-setup.5.man:253
 #, no-wrap
 msgid "\\f[BI]20copyfiles\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot-setup.5.man:252
+#: schroot-setup.5.man:257
 msgid ""
 "Copy files from the host system into the chroot.  Configure networking by "
 "copying I<hosts> and I<resolv.conf>, for example."
 msgstr ""
 
 #. type: TP
-#: schroot-setup.5.man:252
+#: schroot-setup.5.man:257
 #, no-wrap
 msgid "\\f[BI]20nssdatabases\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot-setup.5.man:256
+#: schroot-setup.5.man:261
 msgid ""
 "Configure system databases by copying passwd, shadow, group etc. into the "
 "chroot."
 msgstr ""
 
 #. type: TP
-#: schroot-setup.5.man:256
+#: schroot-setup.5.man:261
 #, no-wrap
 msgid "\\f[BI]50chrootname\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot-setup.5.man:260
+#: schroot-setup.5.man:265
 msgid ""
 "Set the chroot name (I</etc/debian_chroot>) in the chroot.  This may be used "
 "by the shell prompt to display the current chroot."
 msgstr ""
 
 #. type: Plain text
-#: schroot-setup.5.man:267
+#: schroot-setup.5.man:272
 msgid ""
 "B<schroot>(1), B<fstab>(5), B<schroot.conf>(5), B<schroot-script-config>(5), "
 "B<run-parts>(8)."

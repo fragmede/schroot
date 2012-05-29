@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2012-05-23 22:14+0200\n"
+"POT-Creation-Date: 2012-05-29 20:51+0200\n"
 "PO-Revision-Date: 2012-04-18 01:42+0200\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -2056,7 +2056,7 @@ msgid "Directory used for unpacking file chroots."
 msgstr "Répertoire utilisé pour le dépaquetage de chroots de fichiers."
 
 #. type: SH
-#: schroot.1.man:694 schroot-setup.5.man:262 schroot.conf.5.man:671
+#: schroot.1.man:694 schroot-setup.5.man:267 schroot.conf.5.man:671
 #: schroot-script-config.5.man:70 schroot-faq.7.man:253 dchroot.1.man:279
 #: dchroot-dsa.1.man:234
 #, no-wrap
@@ -2866,12 +2866,27 @@ msgstr "Monter et démonter les systèmes de fichiers."
 
 #. type: TP
 #: schroot-setup.5.man:244
+#, fuzzy, no-wrap
+#| msgid "\\f[BI]10mount\\fR"
+msgid "\\f[BI]15binfmt\\fR"
+msgstr "\\f[BI]10mount\\fR"
+
+#. type: Plain text
+#: schroot-setup.5.man:249
+msgid ""
+"Sets up the QEMU user emulator using binfmt-support.  This permits a chroot "
+"for a different CPU architecture to be used transparently, providing an "
+"alternative to cross-compiling or whole-machine emulation."
+msgstr ""
+
+#. type: TP
+#: schroot-setup.5.man:249
 #, no-wrap
 msgid "\\f[BI]15killprocs\\fR"
 msgstr "\\f[BI]15killprocs\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:248
+#: schroot-setup.5.man:253
 msgid ""
 "Kill processes still running inside the chroot when ending a session, which "
 "would prevent unmounting of filesystems and cleanup of any other resources."
@@ -2881,13 +2896,13 @@ msgstr ""
 "fichiers et le nettoyage des autres ressources."
 
 #. type: TP
-#: schroot-setup.5.man:248
+#: schroot-setup.5.man:253
 #, no-wrap
 msgid "\\f[BI]20copyfiles\\fR"
 msgstr "\\f[BI]20copyfiles\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:252
+#: schroot-setup.5.man:257
 msgid ""
 "Copy files from the host system into the chroot.  Configure networking by "
 "copying I<hosts> and I<resolv.conf>, for example."
@@ -2896,13 +2911,13 @@ msgstr ""
 "configure le réseau en copiant I<hosts> et I<resolv.conf>."
 
 #. type: TP
-#: schroot-setup.5.man:252
+#: schroot-setup.5.man:257
 #, no-wrap
 msgid "\\f[BI]20nssdatabases\\fR"
 msgstr "\\f[BI]20nssdatabases\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:256
+#: schroot-setup.5.man:261
 msgid ""
 "Configure system databases by copying passwd, shadow, group etc. into the "
 "chroot."
@@ -2911,13 +2926,13 @@ msgstr ""
 "group, etc. dans le chroot."
 
 #. type: TP
-#: schroot-setup.5.man:256
+#: schroot-setup.5.man:261
 #, no-wrap
 msgid "\\f[BI]50chrootname\\fR"
 msgstr "\\f[BI]50chrootname\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:260
+#: schroot-setup.5.man:265
 msgid ""
 "Set the chroot name (I</etc/debian_chroot>) in the chroot.  This may be used "
 "by the shell prompt to display the current chroot."
@@ -2926,7 +2941,7 @@ msgstr ""
 "être utilisé par une invite de commande pour afficher le chroot courant."
 
 #. type: Plain text
-#: schroot-setup.5.man:267
+#: schroot-setup.5.man:272
 msgid ""
 "B<schroot>(1), B<fstab>(5), B<schroot.conf>(5), B<schroot-script-config>(5), "
 "B<run-parts>(8)."
