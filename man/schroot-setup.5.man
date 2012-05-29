@@ -242,6 +242,11 @@ Create and remove LVM snapshots.
 \f[BI]10mount\fP
 Mount and unmount filesystems.
 .TP
+\f[BI]15binfmt\fP
+Sets up the QEMU user emulator using binfmt-support.  This permits a chroot for
+a different CPU architecture to be used transparently, providing an alternative
+to cross-compiling or whole-machine emulation.
+.TP
 \f[BI]15killprocs\fP
 Kill processes still running inside the chroot when ending a session, which
 would prevent unmounting of filesystems and cleanup of any other resources.
