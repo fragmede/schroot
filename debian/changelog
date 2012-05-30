@@ -1,6 +1,8 @@
 schroot (1.5.4-1) UNRELEASED; urgency=low
 
-  * New upstream stable release.
+  * New upstream development release.
+  * schroot: Correctly initialise the "profile" property
+    (Closes: #675189).
 
  -- Roger Leigh <rleigh@debian.org>  Tue, 29 May 2012 22:53:23 +0100
 
