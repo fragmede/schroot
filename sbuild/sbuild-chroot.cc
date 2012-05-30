@@ -127,6 +127,8 @@ sbuild::chroot::chroot ():
   add_facet(sbuild::chroot_facet_personality::create());
   add_facet(sbuild::chroot_facet_session_clonable::create());
   add_facet(sbuild::chroot_facet_userdata::create());
+
+  set_profile(get_profile());
 }
 
 sbuild::chroot::chroot (const chroot& rhs):
