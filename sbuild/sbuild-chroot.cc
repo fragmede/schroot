@@ -419,8 +419,8 @@ sbuild::chroot::set_script_config (std::string const& script_config)
   if (this->script_config.length() >= end.length() &&
       this->script_config.compare (this->script_config.length() - end.length(),
 				   end.length(), end) == 0)
-    this->profile = this->script_config.substr
-      (0,this->script_config.length() - end.length());
+    set_profile(this->script_config.substr
+		(0,this->script_config.length() - end.length()));
   else
     {
       error e(this->script_config, SCRIPT_CONFIG_CV);
