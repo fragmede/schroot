@@ -1,4 +1,4 @@
-schroot (1.5.4-1) UNRELEASED; urgency=low
+schroot (1.5.4-1) unstable; urgency=low
 
   * New upstream development release.
   * schroot: Correctly initialise the "profile" property
