@@ -32,10 +32,13 @@ this is not always desirable, particularly if installing a package in the
 chroot creates system users and groups which are not present on the host, since
 these will disappear next time the databases are copied over.
 .PP
-The suggested workaround here is to disable the copying by removing or
-commenting out the databases in the NSSDATABASES file in the script-config file
-for the chroot.  These are \fI\*[SCHROOT_SYSCONF_DIR]/default/nssdatabases\fP and
-\fI\*[SCHROOT_SYSCONF_DIR]/default/config\fP by default.
+The suggested workaround here is to disable the copying.  This may be achieved
+by setting the \f[CI]setup.nssdatabases\fP key to be empty in
+\fIschroot.conf\fP.  In prior schroot releases, this was done by commenting out
+the NSSDATABASES file for the chroot
+(\fI\*[SCHROOT_SYSCONF_DIR]/default/config\fP by default).  The database list
+may also be customised by editing the file containing the database list
+(\fI\*[SCHROOT_SYSCONF_DIR]/default/nssdatabases\fP by default).
 .PP
 In the future, we will be working on a better scheme for keeping the host and
 chroot databases in sync which can merge entries rather than overwriting the
