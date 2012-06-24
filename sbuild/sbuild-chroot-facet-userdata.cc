@@ -232,6 +232,12 @@ chroot_facet_userdata::set_system_data (std::string const& key,
 }
 
 void
+chroot_facet_userdata::remove_data (std::string const& key)
+{
+  this->userdata.erase(key);
+}
+
+void
 chroot_facet_userdata::set_data (std::string const& key,
 				 std::string const& value)
 {

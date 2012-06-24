@@ -147,6 +147,14 @@ namespace sbuild
 		     std::string const& value);
 
     /**
+     * Remove a single key.  If present, the specified key is removed.
+     *
+     * @param key the key to remove.
+     */
+    void
+    remove_data (std::string const& key);
+
+    /**
      * Get the set of keys allowed to be modified by a user.
      *
      * @returns a string set of keys.

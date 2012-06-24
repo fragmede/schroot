@@ -34,13 +34,6 @@ dup_nss()
 
 if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 
-    # For backward compatibility
-    if [ -z "$SETUP_NSSDATABASES" ]; then
-	SETUP_NSSDATABASES="$NSSDATABASES"
-    else
-	SETUP_NSSDATABASES="${SCHROOT_SYSCONF_DIR}/${SETUP_NSSDATABASES}"
-    fi
-
     if [ -n "$SETUP_NSSDATABASES" ]; then
 	if [ -f "$SETUP_NSSDATABASES" ]; then
 	    while read db; do

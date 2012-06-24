@@ -416,18 +416,18 @@ sbuild::chroot::set_script_config (std::string const& script_config)
   // For backward compatibility, set profile too.
   std::string end("/config");
 
-  if (this->script_config.length() >= end.length() &&
-      this->script_config.compare (this->script_config.length() - end.length(),
-				   end.length(), end) == 0)
-    set_profile(this->script_config.substr
-		(0,this->script_config.length() - end.length()));
-  else
+  // Undo work of set_profile, so profile is completely unset.
+  this->profile.clear();
+  chroot_facet_userdata::ptr userdata =
+    get_facet<chroot_facet_userdata>();
+  if (userdata)
     {
-      error e(this->script_config, SCRIPT_CONFIG_CV);
-      // TRANSLATORS: ‘/config’ is a path name; not for translation.
-      e.set_reason(_("The path does not end with ‘/config’"));
-      throw e;
+      userdata->remove_data("setup.config");
+      userdata->remove_data("setup.copyfiles");
+      userdata->remove_data("setup.nssdatabases");
+      userdata->remove_data("setup.fstab");
     }
+
 }
 
 std::string const&
@@ -743,7 +743,9 @@ sbuild::chroot::get_keyfile (chroot const& chroot,
 			    keyfile, chroot.get_name(),
 			    "type");
 
-  // "script-config" is no longer set--it's replaced by "profile".
+  keyfile::set_object_value(chroot, &chroot::get_script_config,
+                            keyfile, chroot.get_name(),
+                            "script-config");
 
   keyfile::set_object_value(chroot, &chroot::get_profile,
 			    keyfile, chroot.get_name(),

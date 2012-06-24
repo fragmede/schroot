@@ -77,13 +77,6 @@ copy_file()
 
 if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 
-    # For backward compatibility
-    if [ -z "$SETUP_COPYFILES" ]; then
-	SETUP_COPYFILES="$COPYFILES"
-    else
-	SETUP_COPYFILES="${SCHROOT_SYSCONF_DIR}/${SETUP_COPYFILES}"
-    fi
-
     if [ -n "$SETUP_COPYFILES" ]; then
 	if [ -f "$SETUP_COPYFILES" ]; then
 	    while read file; do

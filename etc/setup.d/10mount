@@ -214,12 +214,6 @@ fi
 
 # Mount filesystems from fstab for all chroot types
 if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
-    # For backward compatibility
-    if [ -z "$SETUP_FSTAB" ]; then
-	SETUP_FSTAB="$FSTAB"
-    else
-	SETUP_FSTAB="${SCHROOT_SYSCONF_DIR}/${SETUP_FSTAB}"
-    fi
 
     if [ -n "$SETUP_FSTAB" ]; then
 	if [ -f "$SETUP_FSTAB" ]; then
@@ -229,4 +223,5 @@ if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 	    fatal "setup_fstab file '$SETUP_FSTAB' does not exist"
 	fi
     fi
+
 fi
