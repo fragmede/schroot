@@ -25,9 +25,16 @@ if [ -n "${SETUP_CONFIG}" ]; then
 	. "$SETUP_CONFIG"
     fi
 fi
-# Source script-config if set.
-if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
-    . "$CHROOT_SCRIPT_CONFIG"
+# Source script-config if set.  If the file is no longer present
+# (likely for upgrades), then set the defaults here.
+if [ -n "$CHROOT_SCRIPT_CONFIG" ]; then
+    if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
+	. "$CHROOT_SCRIPT_CONFIG"
+    else
+	FSTAB="$(dirname "$CHROOT_SCRIPT_CONFIG")/fstab"
+	COPYFILES="$(dirname "$CHROOT_SCRIPT_CONFIG")/copyfiles"
+	NSSDATABASES="$(dirname "$CHROOT_SCRIPT_CONFIG")/nssdatabases"
+    fi
 fi
 
 # Set absolute paths
