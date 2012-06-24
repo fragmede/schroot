@@ -121,8 +121,9 @@ Note that the \f[CI]profile\fP key replaces the older \f[CI]script\-config\fP
 key.  The \f[CI]script\-config\fP key is exactly the same as \f[CI]profile\fP,
 but has \[lq]\fI/config\fP\[rq] appended to it.  The default filename is
 \[oq]default/config\[cq].  Either of these keys may be used.  If both are
-present, then \f[CI]profile\fP will take precedence.  \f[CI]script\-config\fP
-is deprecated and will be removed in a future release.
+present, then \f[CI]script\-config\fP will take precedence (\f[CI]profile\fP
+will be unset).  \f[CI]script\-config\fP is deprecated and will be removed in a
+future release.
 .IP
 Desktop users should note that the fstab file \fIdesktop/fstab\fP will need
 editing if you use gdm3; please see the comments in this file for further
@@ -174,6 +175,10 @@ databases are \[oq]passwd\[cq], \[oq]shadow\[cq], \[oq]group\[cq] and
 .BR getent (1)
 so all database sources listed in \fI/etc/nsswitch.conf\fP will be used for
 each database.
+.TP
+\f[CBI]setup.services=\fP\f[CI]service1,service2,...\fP
+A comma-separated list of services to run in the chroot.  These will be started
+when the session is started, and stopped when the session is ended.
 .TP
 \f[CBI]command\-prefix=\fP\f[CI]command,option1,option2,...\fP
 A comma-separated list of a command and the options for the command.  This
