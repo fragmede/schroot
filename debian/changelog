@@ -1,6 +1,9 @@
 schroot (1.6.0-1) UNRELEASED; urgency=low
 
   * New upstream stable release.
+  * schroot:
+    - Ensure that the schroot init script is migrated from using rcS to
+      using standard runlevels (Closes: #677501).
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 24 Jun 2012 20:18:30 +0100
 
