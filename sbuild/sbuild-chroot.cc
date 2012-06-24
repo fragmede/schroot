@@ -118,7 +118,7 @@ sbuild::chroot::chroot ():
   mount_location(),
   original(true),
   run_setup_scripts(true),
-  script_config("default/config"),
+  script_config(),
   profile("default"),
   command_prefix(),
   message_verbosity(VERBOSITY_NORMAL),
@@ -413,9 +413,6 @@ sbuild::chroot::set_script_config (std::string const& script_config)
 {
   this->script_config = script_config;
 
-  // For backward compatibility, set profile too.
-  std::string end("/config");
-
   // Undo work of set_profile, so profile is completely unset.
   this->profile.clear();
   chroot_facet_userdata::ptr userdata =
@@ -440,8 +437,6 @@ void
 sbuild::chroot::set_profile (std::string const& profile)
 {
   this->profile = profile;
-
-  this->script_config = this->profile + "/config";
 
   chroot_facet_userdata::ptr userdata =
     get_facet<chroot_facet_userdata>();
@@ -743,13 +738,13 @@ sbuild::chroot::get_keyfile (chroot const& chroot,
 			    keyfile, chroot.get_name(),
 			    "type");
 
-  keyfile::set_object_value(chroot, &chroot::get_script_config,
-                            keyfile, chroot.get_name(),
-                            "script-config");
-
   keyfile::set_object_value(chroot, &chroot::get_profile,
 			    keyfile, chroot.get_name(),
 			    "profile");
+
+  keyfile::set_object_value(chroot, &chroot::get_script_config,
+                            keyfile, chroot.get_name(),
+                            "script-config");
 
   keyfile::set_object_list_value(chroot, &chroot::get_aliases,
 				 keyfile, chroot.get_name(),
@@ -930,6 +925,12 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
 			    keyfile::PRIORITY_OBSOLETE);
   used_keys.push_back("run-exec-scripts");
 
+  keyfile::get_object_value(chroot, &chroot::set_profile,
+			    keyfile, chroot.get_name(),
+			    "profile",
+			    keyfile::PRIORITY_OPTIONAL);
+  used_keys.push_back("profile");
+
   keyfile::get_object_value(chroot, &chroot::set_script_config,
 			    keyfile, chroot.get_name(),
 			    "script-config",
@@ -937,12 +938,6 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
 			    keyfile::PRIORITY_OPTIONAL :
 			    keyfile::PRIORITY_DEPRECATED);
   used_keys.push_back("script-config");
-
-  keyfile::get_object_value(chroot, &chroot::set_profile,
-			    keyfile, chroot.get_name(),
-			    "profile",
-			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("profile");
 
   keyfile::get_object_value(chroot, nullmethod,
 			    keyfile, chroot.get_name(),
