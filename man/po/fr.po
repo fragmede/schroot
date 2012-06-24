@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2012-06-24 22:21+0200\n"
+"POT-Creation-Date: 2012-06-24 22:59+0200\n"
 "PO-Revision-Date: 2012-04-18 01:42+0200\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -243,10 +243,10 @@ msgstr ""
 
 #. type: IP
 #: schroot.1.man:71 schroot.1.man:75 schroot.1.man:78 schroot.1.man:81
-#: schroot.1.man:83 schroot.1.man:88 schroot-faq.7.man:119
-#: schroot-faq.7.man:124 schroot-faq.7.man:130 schroot-faq.7.man:132
-#: schroot-faq.7.man:134 schroot-faq.7.man:151 schroot-faq.7.man:156
-#: schroot-faq.7.man:158 schroot-faq.7.man:160 schroot-faq.7.man:162
+#: schroot.1.man:83 schroot.1.man:88 schroot-faq.7.man:122
+#: schroot-faq.7.man:127 schroot-faq.7.man:133 schroot-faq.7.man:135
+#: schroot-faq.7.man:137 schroot-faq.7.man:154 schroot-faq.7.man:159
+#: schroot-faq.7.man:161 schroot-faq.7.man:163 schroot-faq.7.man:165
 #: dchroot.1.man:120 dchroot.1.man:122 dchroot.1.man:127 dchroot.1.man:134
 #: dchroot.1.man:143 dchroot.1.man:145 dchroot-dsa.1.man:109
 #: dchroot-dsa.1.man:116 dchroot-dsa.1.man:118 dchroot-dsa.1.man:126
@@ -2057,7 +2057,7 @@ msgstr "Répertoire utilisé pour le dépaquetage de chroots de fichiers."
 
 #. type: SH
 #: schroot.1.man:694 schroot-setup.5.man:267 schroot.conf.5.man:676
-#: schroot-script-config.5.man:70 schroot-faq.7.man:253 dchroot.1.man:279
+#: schroot-script-config.5.man:70 schroot-faq.7.man:256 dchroot.1.man:279
 #: dchroot-dsa.1.man:234
 #, no-wrap
 msgid "SEE ALSO"
@@ -5061,21 +5061,19 @@ msgstr ""
 "la prochaine fois que les bases de données seront copiées."
 
 #. type: Plain text
-#: schroot-faq.7.man:39
+#: schroot-faq.7.man:42
 msgid ""
-"The suggested workaround here is to disable the copying by removing or "
-"commenting out the databases in the NSSDATABASES file in the script-config "
-"file for the chroot.  These are I<\\*[SCHROOT_SYSCONF_DIR]/default/"
-"nssdatabases> and I<\\*[SCHROOT_SYSCONF_DIR]/default/config> by default."
+"The suggested workaround here is to disable the copying.  This may be "
+"achieved by setting the \\f[CI]setup.nssdatabases\\fR key to be empty in "
+"I<schroot.conf>.  In prior schroot releases, this was done by commenting out "
+"the NSSDATABASES file for the chroot (I<\\*[SCHROOT_SYSCONF_DIR]/default/"
+"config> by default).  The database list may also be customised by editing "
+"the file containing the database list (I<\\*[SCHROOT_SYSCONF_DIR]/default/"
+"nssdatabases> by default)."
 msgstr ""
-"La solution suggérée ici est de désactiver la copie des bases de données en "
-"enlevant ou commentant les bases de données dans le fichier NSSDATABASES "
-"dans le fichier script-config du chroot. Ce sont par défaut I<\\*"
-"[SCHROOT_SYSCONF_DIR]/default/nssdatabases> et I<\\*[SCHROOT_SYSCONF_DIR]/"
-"default/config>."
 
 #. type: Plain text
-#: schroot-faq.7.man:43
+#: schroot-faq.7.man:46
 msgid ""
 "In the future, we will be working on a better scheme for keeping the host "
 "and chroot databases in sync which can merge entries rather than overwriting "
@@ -5087,13 +5085,13 @@ msgstr ""
 "les changements spécifiques du chroot."
 
 #. type: SS
-#: schroot-faq.7.man:43
+#: schroot-faq.7.man:46
 #, no-wrap
 msgid "Should I use the plain or directory chroot type?"
 msgstr "Quel type de chroot dois-je utiliser : « plain » ou « directory » ?"
 
 #. type: Plain text
-#: schroot-faq.7.man:54
+#: schroot-faq.7.man:57
 msgid ""
 "These two chroot types are basically equivalent, since they are both just "
 "directories in the filesystem.  plain is very simple and does not perform "
@@ -5114,19 +5112,19 @@ msgstr ""
 "place."
 
 #. type: SH
-#: schroot-faq.7.man:54
+#: schroot-faq.7.man:57
 #, no-wrap
 msgid "ADVANCED CONFIGURATION"
 msgstr "CONFIGURATION AVANCÉE"
 
 #. type: SS
-#: schroot-faq.7.man:55
+#: schroot-faq.7.man:58
 #, no-wrap
 msgid "What are snapshots and unions?"
 msgstr "Que sont les « clichés » (« snapshots ») et les « unions » ?"
 
 #. type: Plain text
-#: schroot-faq.7.man:67
+#: schroot-faq.7.man:70
 msgid ""
 "Some chroot types support I<cloning>.  This means when you start a session, "
 "you get a I<copy> of the chroot which lasts just for the lifetime of the "
@@ -5153,7 +5151,7 @@ msgstr ""
 "suivante."
 
 #. type: Plain text
-#: schroot-faq.7.man:77
+#: schroot-faq.7.man:80
 msgid ""
 "The most commonly-used snapshotting method is to use LVM snapshots (chroot "
 "type \\[oq]lvm-snapshot\\[cq]).  In this case the chroot must exist on an "
@@ -5176,7 +5174,7 @@ msgstr ""
 "mature."
 
 #. type: Plain text
-#: schroot-faq.7.man:84
+#: schroot-faq.7.man:87
 msgid ""
 "Unions are an alternative to snapshots.  In this situation, instead of "
 "creating a copy of the chroot filesystem, we overlay a read-write temporary "
@@ -5195,19 +5193,19 @@ msgstr ""
 "ainsi les clichés LVM restent la méthode recommandée pour le moment."
 
 #. type: SH
-#: schroot-faq.7.man:84
+#: schroot-faq.7.man:87
 #, no-wrap
 msgid "USAGE"
 msgstr "UTILISATION"
 
 #. type: SS
-#: schroot-faq.7.man:85
+#: schroot-faq.7.man:88
 #, no-wrap
 msgid "Can I run a d\\[ae]mons in a chroot?"
 msgstr "Puis-je exécuter un service (« daemon ») dans un chroot ?"
 
 #. type: Plain text
-#: schroot-faq.7.man:89
+#: schroot-faq.7.man:92
 msgid ""
 "A common problem is trying to run a d\\[ae]mon in a chroot, and finding that "
 "this doesn't work.  Typically, the d\\[ae]mon is killed shortly after it "
@@ -5218,7 +5216,7 @@ msgstr ""
 "après avoir été démarré."
 
 #. type: Plain text
-#: schroot-faq.7.man:99
+#: schroot-faq.7.man:102
 msgid ""
 "When schroot runs, it begins a session, runs the specified command or shell, "
 "waits for the command or shell to exit, and then it ends the session.  For a "
@@ -5243,7 +5241,7 @@ msgstr ""
 "dire tuer le service lors de la fermeture de la session."
 
 #. type: Plain text
-#: schroot-faq.7.man:105
+#: schroot-faq.7.man:108
 msgid ""
 "In consequence, it's not possible to run a d\\[ae]mon I<directly> with "
 "schroot.  You can however do it if you create a session with I<--begin-"
@@ -5258,13 +5256,13 @@ msgstr ""
 "session> quand le service a terminé ou que vous n'en avez plus besoin."
 
 #. type: SS
-#: schroot-faq.7.man:105
+#: schroot-faq.7.man:108
 #, no-wrap
 msgid "How do I manually cleaning up a broken session?"
 msgstr "Comment puis-je nettoyer manuellement une session cassée ?"
 
 #. type: Plain text
-#: schroot-faq.7.man:116
+#: schroot-faq.7.man:119
 msgid ""
 "Occasionally, it may be necessary to manually clean up sessions.  If "
 "something changes on your system which causes the setup scripts to fail when "
@@ -5286,29 +5284,29 @@ msgstr ""
 "a des systèmes de fichiers montés à l'intérieur) et également supprimé."
 
 #. type: Plain text
-#: schroot-faq.7.man:119
+#: schroot-faq.7.man:122
 msgid "For example, to remove a session named I<my-session> by hand:"
 msgstr ""
 "Par exemple, pour supprimer une session nommée I<ma-session> à la main :"
 
 #. type: Plain text
-#: schroot-faq.7.man:121
+#: schroot-faq.7.man:124
 msgid "Remove the session configuration file"
 msgstr "Supprimez le fichier de configuration de la session"
 
 #. type: Plain text
-#: schroot-faq.7.man:123
+#: schroot-faq.7.man:126
 #, no-wrap
 msgid "%\\ \\f[CB]rm\\ \\*[SCHROOT_SESSION_DIR]/my-session\\fR\\[CR]\n"
 msgstr "%\\ \\f[CB]rm\\ \\*[SCHROOT_SESSION_DIR]/ma-session\\fR\\[CR]\n"
 
 #. type: Plain text
-#: schroot-faq.7.man:126
+#: schroot-faq.7.man:129
 msgid "Check for mounted filesystems"
 msgstr "Vérifiez les systèmes de fichiers"
 
 #. type: Plain text
-#: schroot-faq.7.man:129
+#: schroot-faq.7.man:132
 #, no-wrap
 msgid ""
 "%\\ \\f[CB]\\*[SCHROOT_LIBEXEC_DIR]/schroot-listmounts\\ -m\\ \\e\n"
@@ -5318,17 +5316,17 @@ msgstr ""
 "  \\*[SCHROOT_MOUNT_DIR]/ma-session\\fR\\[CR]\n"
 
 #. type: Plain text
-#: schroot-faq.7.man:132
+#: schroot-faq.7.man:135
 msgid "Unmount any mounted filesystems"
 msgstr "Démontez tout système de fichiers"
 
 #. type: Plain text
-#: schroot-faq.7.man:134
+#: schroot-faq.7.man:137
 msgid "Remove I<\\*[SCHROOT_MOUNT_DIR]/my-session>"
 msgstr "Supprimez  I<\\*[SCHROOT_MOUNT_DIR]/ma-session>"
 
 #. type: Plain text
-#: schroot-faq.7.man:137
+#: schroot-faq.7.man:140
 msgid ""
 "Repeat for the other directories such as I<\\*[SCHROOT_UNDERLAY_DIR]>, I<\\*"
 "[SCHROOT_OVERLAY_DIR]> and I<\\*[SCHROOT_FILE_UNPACK_DIR]>"
@@ -5337,7 +5335,7 @@ msgstr ""
 "[SCHROOT_OVERLAY_DIR]> et I<\\*[SCHROOT_FILE_UNPACK_DIR]>"
 
 #. type: Plain text
-#: schroot-faq.7.man:141
+#: schroot-faq.7.man:144
 msgid ""
 "B<NOTE:> Do not remove any directories without checking if there are any "
 "filesystems mounted below them, since filesystems such as I</home> could "
@@ -5349,31 +5347,31 @@ msgstr ""
 "irréparable de données."
 
 #. type: SH
-#: schroot-faq.7.man:141
+#: schroot-faq.7.man:144
 #, no-wrap
 msgid "ADVANCED USAGE"
 msgstr "UTILISATION AVANCÉE"
 
 #. type: SS
-#: schroot-faq.7.man:142
+#: schroot-faq.7.man:145
 #, no-wrap
 msgid "How do I use sessions?"
 msgstr "Comment utiliser les sessions ?"
 
 #. type: Plain text
-#: schroot-faq.7.man:144
+#: schroot-faq.7.man:147
 msgid "In normal use, running a command might look like this:"
 msgstr ""
 "Lors d'une utilisation normale, lancer une commande peut ressembler à ça :"
 
 #. type: Plain text
-#: schroot-faq.7.man:146
+#: schroot-faq.7.man:149
 #, no-wrap
 msgid "%\\ \\f[CB]schroot\\ -c squeeze -- command\\fR\\[CR]\n"
 msgstr "%\\ \\f[CB]schroot\\ -c squeeze -- commande\\fR\\[CR]\n"
 
 #. type: Plain text
-#: schroot-faq.7.man:151
+#: schroot-faq.7.man:154
 msgid ""
 "which would run the command I<command> in the I<squeeze> chroot.  While it's "
 "not apparent that a session is being used here, schroot is actually doing "
@@ -5384,7 +5382,7 @@ msgstr ""
 "étapes suivantes :"
 
 #. type: Plain text
-#: schroot-faq.7.man:156
+#: schroot-faq.7.man:159
 msgid ""
 "Creating a session using the I<squeeze> chroot.  This will be automatically "
 "given a unique name, such as I<squeeze-57a69547-e014-4f5d-a98b-"
@@ -5395,7 +5393,7 @@ msgstr ""
 "f4f35a005307>, que normalement vous n'avez pas besoin de connaître."
 
 #. type: Plain text
-#: schroot-faq.7.man:158
+#: schroot-faq.7.man:161
 msgid ""
 "Setup scripts are run to create the session chroot and configure it for you"
 msgstr ""
@@ -5403,24 +5401,24 @@ msgstr ""
 "et la configurent pour vous."
 
 #. type: Plain text
-#: schroot-faq.7.man:160
+#: schroot-faq.7.man:163
 msgid "The command I<command> is run inside the session chroot"
 msgstr "La commande I<commande> est exécutée dans la session de chroot."
 
 #. type: Plain text
-#: schroot-faq.7.man:162
+#: schroot-faq.7.man:165
 msgid "Setup scripts are run to clean up the session chroot"
 msgstr ""
 "Les scripts de mise en place sont exécutés pour nettoyer le session de "
 "chroot."
 
 #. type: Plain text
-#: schroot-faq.7.man:164
+#: schroot-faq.7.man:167
 msgid "The session is deleted"
 msgstr "La session est supprimée."
 
 #. type: Plain text
-#: schroot-faq.7.man:176
+#: schroot-faq.7.man:179
 msgid ""
 "Now, if you wanted to run more than one command, you could run a shell and "
 "run them interactively, or you could put them into shell script and run that "
@@ -5450,7 +5448,7 @@ msgstr ""
 "relativement facile :"
 
 #. type: Plain text
-#: schroot-faq.7.man:179
+#: schroot-faq.7.man:182
 #, no-wrap
 msgid ""
 "% \\f[CB]schroot --begin-session -c squeeze\\fR\\[CR]\n"
@@ -5460,7 +5458,7 @@ msgstr ""
 "squeeze-57a69547-e014-4f5d-a98b-f4f35a005307\n"
 
 #. type: Plain text
-#: schroot-faq.7.man:184
+#: schroot-faq.7.man:187
 msgid ""
 "This created a new session based upon the I<squeeze> chroot.  The unique "
 "name for the session, the session ID, was printed to standard output, so we "
@@ -5472,7 +5470,7 @@ msgstr ""
 "comme cela :"
 
 #. type: Plain text
-#: schroot-faq.7.man:188
+#: schroot-faq.7.man:191
 #, no-wrap
 msgid ""
 "% \\f[CB]SESSION=$(schroot --begin-session -c squeeze)\\fR\\[CR]\n"
@@ -5484,7 +5482,7 @@ msgstr ""
 "squeeze-57a69547-e014-4f5d-a98b-f4f35a005307\n"
 
 #. type: Plain text
-#: schroot-faq.7.man:192
+#: schroot-faq.7.man:195
 msgid ""
 "Now we have created the session and got the session ID, we can run commands "
 "in it using the session ID:"
@@ -5493,7 +5491,7 @@ msgstr ""
 "pouvons y lancer des commandes en utilisant l'identifiant de session :"
 
 #. type: Plain text
-#: schroot-faq.7.man:195
+#: schroot-faq.7.man:198
 #, no-wrap
 msgid ""
 "% \\f[CB]schroot --run-session -c squeeze-57a69547-e014-4f5d-a98b-f4f35a005307 \\e\n"
@@ -5503,23 +5501,23 @@ msgstr ""
 "  -- commande1\\fR\\[CR]\n"
 
 #. type: Plain text
-#: schroot-faq.7.man:198 schroot-faq.7.man:217
+#: schroot-faq.7.man:201 schroot-faq.7.man:220
 msgid "or"
 msgstr "ou"
 
 #. type: Plain text
-#: schroot-faq.7.man:200
+#: schroot-faq.7.man:203
 #, no-wrap
 msgid "% \\f[CB]schroot --run-session -c \"$SESSION\" -- command1\\fR\\[CR]\n"
 msgstr "% \\f[CB]schroot --run-session -c \"$SESSION\" -- commande1\\fR\\[CR]\n"
 
 #. type: Plain text
-#: schroot-faq.7.man:203
+#: schroot-faq.7.man:206
 msgid "and then as many more commands as we like"
 msgstr "et ensuite nous pouvons avoir autant de commande que nous le voulons"
 
 #. type: Plain text
-#: schroot-faq.7.man:207
+#: schroot-faq.7.man:210
 #, no-wrap
 msgid ""
 "% \\f[CB]schroot --run-session -c \"$SESSION\" -- command2\\fR\\[CR]\n"
@@ -5531,12 +5529,12 @@ msgstr ""
 "% \\f[CB]schroot --run-session -c \"$SESSION\" -- commande4\\fR\\[CR]\n"
 
 #. type: Plain text
-#: schroot-faq.7.man:210
+#: schroot-faq.7.man:213
 msgid "etc."
 msgstr "etc."
 
 #. type: Plain text
-#: schroot-faq.7.man:212
+#: schroot-faq.7.man:215
 msgid ""
 "When we are done with the session, we can remove it with I<--end-session>:"
 msgstr ""
@@ -5544,19 +5542,19 @@ msgstr ""
 "end-session> :"
 
 #. type: Plain text
-#: schroot-faq.7.man:214
+#: schroot-faq.7.man:217
 #, no-wrap
 msgid "% \\f[CB]schroot --end-session -c squeeze-57a69547-e014-4f5d-a98b-f4f35a005307\\fR\\[CR]\n"
 msgstr "% \\f[CB]schroot --end-session -c squeeze-57a69547-e014-4f5d-a98b-f4f35a005307\\fR\\[CR]\n"
 
 #. type: Plain text
-#: schroot-faq.7.man:219
+#: schroot-faq.7.man:222
 #, no-wrap
 msgid "% \\f[CB]schroot --end-session -c \"$SESSION\"\\fR\\[CR]\n"
 msgstr "% \\f[CB]schroot --end-session -c \"$SESSION\"\\fR\\[CR]\n"
 
 #. type: Plain text
-#: schroot-faq.7.man:223
+#: schroot-faq.7.man:226
 msgid ""
 "Since the automatically generated session names can be long and unwieldy, "
 "the I<--session-name> option allows you to provide you own name:"
@@ -5566,7 +5564,7 @@ msgstr ""
 "nom :"
 
 #. type: Plain text
-#: schroot-faq.7.man:227
+#: schroot-faq.7.man:230
 #, no-wrap
 msgid ""
 "% \\f[CB]schroot --begin-session -c squeeze --session-name my-name\\fR\\[CR]\n"
@@ -5576,19 +5574,19 @@ msgstr ""
 "mon-nom\n"
 
 #. type: SH
-#: schroot-faq.7.man:228
+#: schroot-faq.7.man:231
 #, no-wrap
 msgid "CONTRIBUTING"
 msgstr "CONTRIBUER"
 
 #. type: SS
-#: schroot-faq.7.man:229
+#: schroot-faq.7.man:232
 #, no-wrap
 msgid "Getting help and getting involved"
 msgstr "Recevoir de l'aide ou s'impliquer."
 
 #. type: Plain text
-#: schroot-faq.7.man:236
+#: schroot-faq.7.man:239
 msgid ""
 "The mailing list \\f[CR]E<lt>buildd-tools-devel@lists.alioth.debian.orgE<gt>"
 "\\fR is used for both user support and development discussion.  The list may "
@@ -5604,13 +5602,13 @@ msgstr ""
 "lists.alioth.debian.org/mailman/listinfo/buildd-tools-devel\\fR."
 
 #. type: SS
-#: schroot-faq.7.man:236
+#: schroot-faq.7.man:239
 #, no-wrap
 msgid "Reporting bugs"
 msgstr "Signaler des bogues."
 
 #. type: Plain text
-#: schroot-faq.7.man:241
+#: schroot-faq.7.man:244
 msgid ""
 "On Debian systems, bugs may be reported using the B<reportbug>(1)  tool, or "
 "alternatively by mailing \\f[CR]E<lt>submit@bugs.debian.orgE<gt>\\fR (see \\f"
@@ -5622,13 +5620,13 @@ msgstr ""
 "\\fR pour plus de détail sur comment le faire)."
 
 #. type: SS
-#: schroot-faq.7.man:241
+#: schroot-faq.7.man:244
 #, no-wrap
 msgid "Getting the latest sources"
 msgstr "Obtenir les dernières sources."
 
 #. type: Plain text
-#: schroot-faq.7.man:244
+#: schroot-faq.7.man:247
 msgid ""
 "schroot is maintained in the git version control system.  You can get the "
 "latest sources from \\f[CR]git://git.debian.org/git/buildd-tools/schroot\\fR."
@@ -5638,13 +5636,13 @@ msgstr ""
 "buildd-tools/schroot\\fR."
 
 #. type: Plain text
-#: schroot-faq.7.man:246
+#: schroot-faq.7.man:249
 #, no-wrap
 msgid "% \\f[CB]git clone git://git.debian.org/git/buildd-tools/schroot\\fR\\[CR]\n"
 msgstr "% \\f[CB]git clone git://git.debian.org/git/buildd-tools/schroot\\fR\\[CR]\n"
 
 #. type: Plain text
-#: schroot-faq.7.man:251
+#: schroot-faq.7.man:254
 msgid ""
 "The master branch containes the current development release.  Stable "
 "releases are found on branches, for example the 1.4 series of releases are "
@@ -5655,7 +5653,7 @@ msgstr ""
 "série de version 1.4 est la branche schroot-1.4."
 
 #. type: Plain text
-#: schroot-faq.7.man:258
+#: schroot-faq.7.man:261
 msgid ""
 "B<dchroot>(1), B<schroot>(1), B<sbuild>(1), B<schroot-setup>(5), B<schroot."
 "conf>(5)."
@@ -6509,6 +6507,18 @@ msgstr ""
 "paquet source B<dchroot-dsa> qui fournit un paquet B<dchroot-dsa>, écrit par "
 "Ben Collins \\f[CR] E<lt>bcollins@debian.orgE<gt>\\fR et Martin Schulze \\f"
 "[CR]E<lt>joey@debian.orgE<gt>\\fR."
+
+#~ msgid ""
+#~ "The suggested workaround here is to disable the copying by removing or "
+#~ "commenting out the databases in the NSSDATABASES file in the script-"
+#~ "config file for the chroot.  These are I<\\*[SCHROOT_SYSCONF_DIR]/default/"
+#~ "nssdatabases> and I<\\*[SCHROOT_SYSCONF_DIR]/default/config> by default."
+#~ msgstr ""
+#~ "La solution suggérée ici est de désactiver la copie des bases de données "
+#~ "en enlevant ou commentant les bases de données dans le fichier "
+#~ "NSSDATABASES dans le fichier script-config du chroot. Ce sont par défaut "
+#~ "I<\\*[SCHROOT_SYSCONF_DIR]/default/nssdatabases> et I<\\*"
+#~ "[SCHROOT_SYSCONF_DIR]/default/config>."
 
 #~ msgid ""
 #~ "If none of the configuration profiles provided above meet your needs, "
