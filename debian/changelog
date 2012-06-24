@@ -19,6 +19,7 @@ schroot (1.6.0-1) UNRELEASED; urgency=low
   * Updated translations:
     - pt (Closes: #676813).  Thanks to Pedro Ribeiro.
     - fr (Closes: #676413, #676416).  Thanks to Thomas Blein.
+    - de (Closes: #676380).  Thanks to Holger Wansing.
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 24 Jun 2012 20:18:30 +0100
 
