@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2012-05-23 23:49+0100\n"
-"PO-Revision-Date: 2012-02-03 22:06+0100\n"
+"PO-Revision-Date: 2012-05-31 22:30+0200\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
@@ -245,8 +245,8 @@ msgstr "--binNMU est manquant"
 #. is an em-dash.
 msgid "[OPTION…] chroot [COMMAND] — run command or shell in a chroot"
 msgstr ""
-"[OPTION...] chroot [COMMANDE) — exécution de commande ou d'interpréteur de "
-"commande dans un chroot"
+"[OPTION...] chroot [COMMANDE] — exécution de commande ou d'interpréteur de "
+"commandes dans un chroot"
 
 msgid "Print paths to available chroots"
 msgstr "Afficher les chemins vers les chroots disponibles"
@@ -283,7 +283,7 @@ msgstr "Configuration schroot générée par %1% %2% le %3%"
 #. is an em-dash.
 msgid "[OPTION…] [COMMAND] — run command or shell in a chroot"
 msgstr ""
-"[OPTION...] [COMMANDE] — exécution de commande ou d'interpréteur de commande "
+"[OPTION...] [COMMANDE] — exécution de commande ou d'interpréteur de commandes "
 "dans le chroot"
 
 msgid "Print path to selected chroot"
@@ -484,9 +484,8 @@ msgstr "chroots de type « périphériques bloc »"
 msgid "Support for ‘btrfs-snapshot’ chroots"
 msgstr "chroots de type « btrfs-snapshot »"
 
-#, fuzzy
 msgid "Support for ‘custom’ chroots"
-msgstr "chroots de type « répertoire »"
+msgstr "chroots de type « custom »"
 
 msgid "Support for ‘directory’ chroots"
 msgstr "chroots de type « répertoire »"
@@ -562,17 +561,18 @@ msgid "Select all source chroots"
 msgstr "Sélectionner toutes les sources de chroots"
 
 msgid "Do not include aliases"
-msgstr ""
+msgstr "N'inclut pas les alias."
 
 msgid "Shell to use as login shell"
 msgstr ""
+"Interpréteur de commandes à utilisé en tant qu'interpréteur de commande de "
+"connexion"
 
 msgid "Username (default current user)"
 msgstr "Nom d'utilisateur (l'utilisateur courant par défaut)"
 
-#, fuzzy
 msgid "Set option"
-msgstr "Options utilisateur"
+msgstr "Définir des options"
 
 msgid "Begin, run and end a session automatically (default)"
 msgstr "Démarre, exécute et termine une session automatiquement (par défaut)"
@@ -750,6 +750,8 @@ msgstr "Nom non valable"
 #, boost-format
 msgid "Could not set profile name from script configuration path ‘%1%’"
 msgstr ""
+"Impossible de définir le nom du profil à partir du chemin du script de "
+"configuration « %1% »"
 
 #. TRANSLATORS: unlink refers to the C function which removes a file
 msgid "Failed to unlink session file"
@@ -778,7 +780,7 @@ msgstr ""
 
 #. TRANSLATORS: ‘/config’ is a path name; not for translation.
 msgid "The path does not end with ‘/config’"
-msgstr ""
+msgstr "Le chemin ne se termine pas par « /config »"
 
 msgid "Name"
 msgstr "Nom"
@@ -811,7 +813,7 @@ msgid "Preserve Environment"
 msgstr "Conservation de l'environnement"
 
 msgid "Default Shell"
-msgstr ""
+msgstr "Interpréteur de commandes par défaut"
 
 msgid "Environment Filter"
 msgstr "Filtre d'environnement"
@@ -819,9 +821,8 @@ msgstr "Filtre d'environnement"
 msgid "Run Setup Scripts"
 msgstr "Exécuter les scripts de configuration (« Setup Scripts »)"
 
-#, fuzzy
 msgid "Configuration Profile"
-msgstr "Script de configuration"
+msgstr "Profil de configuration"
 
 msgid "Script Configuration"
 msgstr "Script de configuration"
@@ -854,7 +855,7 @@ msgid "Source"
 msgstr "Source"
 
 msgid "This option is not valid for this chroot type"
-msgstr ""
+msgstr "Cette option n'est pas valable pour ce type de chroot."
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -954,45 +955,51 @@ msgstr "Répertoire pour l'« underlay » de l'union de systèmes de fichiers"
 
 #, boost-format
 msgid "Environment variable ‘%1%’ is ambiguous"
-msgstr ""
+msgstr "La variable d'environnement « %1% » est ambiguë."
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "Configuration key ‘%1%’ is ambiguous"
-msgstr "La clé obligatoire « %4% » est manquante"
+msgstr "La clé de configuration « %1% » est ambiguë."
 
 #, boost-format
 msgid "Configuration key ‘%1%’ is not permitted to be modified."
-msgstr ""
+msgstr "Il n'est pas permis de modifier la clé de configuration « %1% »."
 
 #, boost-format
 msgid "Configuration key name ‘%1%’ is not a permitted name."
-msgstr ""
+msgstr "Le nom de la clé de configuration « %1% » n'est pas un nom autorisé."
 
 #, boost-format
 msgid ""
 "Configuration keys additional to ‘%1%’ would set this setup script "
 "environment variable"
 msgstr ""
+"Les clés de configuration autres que « %1% » définiront les variables "
+"d'environnement de ce script."
 
 msgid "User Modifiable Keys"
-msgstr ""
+msgstr "Clés modifiables par l'utilisateur"
 
 msgid "Root Modifiable Keys"
-msgstr ""
+msgstr "Clés modifiables par le super-utilisateur"
 
 msgid "User Data"
-msgstr ""
+msgstr "Données utilisateur"
 
 #, boost-format
 msgid ""
 "More than one configuration key would set the ‘%1%’ environment variable"
 msgstr ""
+"Plus d'une clé de configuration pourrait définir la variable d'environnement "
+"« %1% »."
 
 msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
 msgstr ""
+"La clé n'est ni présente dans user-modifiable-keys ni dans root-modifiable-"
+"keys."
 
 msgid "The key is not present in user-modifiable-keys"
-msgstr ""
+msgstr "La clé n'est pas présente dans user-modifiable-keys."
 
 msgid "File"
 msgstr "Fichier"
@@ -1056,9 +1063,9 @@ msgstr "ligne %1% [%2%] : clé en double « %4% »"
 msgid "line %1%: Invalid group: “%4%”"
 msgstr "ligne %1% : groupe non valable : « %4% »"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
-msgstr "ligne %1% [%2%] : la clé « %4% » n'est pas autorisée"
+msgstr "ligne %1% [%2%] : la clé « %4% » utilisée n'est pas valable"
 
 #, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"
@@ -1346,7 +1353,7 @@ msgstr "Erreur lors de la restauration des paramètres du terminal"
 #, boost-format
 msgid "[%1% chroot] Running login shell: ‘%4%’"
 msgstr ""
-"[chroot %1%] Exécution de l'interpréteur de commandes initial : « %4% »"
+"[chroot %1%] Exécution de l'interpréteur de commande de connexion : « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %4% = command
@@ -1362,7 +1369,7 @@ msgstr "[chroot %1%] Exécution de l'interpréteur de commandes : « %4% »"
 #, boost-format
 msgid "[%1% chroot] (%2%→%3%) Running login shell: ‘%4%’"
 msgstr ""
-"[chroot %1%] (%2%→%3%) Exécution de l'interpréteur de commandes initial : "
+"[chroot %1%] (%2%→%3%) Exécution de l'interpréteur de commande de connexion : "
 "« %4% »"
 
 #. TRANSLATORS: %1% = chroot name
