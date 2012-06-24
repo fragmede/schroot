@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2012-06-25 00:08+0100\n"
-"PO-Revision-Date: 2012-01-04 00:19+0000\n"
+"PO-Revision-Date: 2012-06-25 00:11+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "Language: en\n"
@@ -465,9 +465,8 @@ msgstr "Support for ‘block-device’ chroots"
 msgid "Support for ‘btrfs-snapshot’ chroots"
 msgstr "Support for ‘btrfs-snapshot’ chroots"
 
-#, fuzzy
 msgid "Support for ‘custom’ chroots"
-msgstr "Support for ‘directory’ chroots"
+msgstr "Support for ‘custom’ chroots"
 
 msgid "Support for ‘directory’ chroots"
 msgstr "Support for ‘directory’ chroots"
@@ -543,17 +542,16 @@ msgid "Select all source chroots"
 msgstr "Select all source chroots"
 
 msgid "Do not include aliases"
-msgstr ""
+msgstr "Do not include aliases"
 
 msgid "Shell to use as login shell"
-msgstr ""
+msgstr "Shell to use as login shell"
 
 msgid "Username (default current user)"
 msgstr "Username (default current user)"
 
-#, fuzzy
 msgid "Set option"
-msgstr "User options"
+msgstr "Set option"
 
 msgid "Begin, run and end a session automatically (default)"
 msgstr "Begin, run and end a session automatically (default)"
@@ -731,7 +729,7 @@ msgstr "Invalid name"
 
 #, boost-format
 msgid "Could not set profile name from script configuration path ‘%1%’"
-msgstr ""
+msgstr "Could not set profile name from script configuration path ‘%1%’"
 
 #. TRANSLATORS: unlink refers to the C function which removes a file
 msgid "Failed to unlink session file"
@@ -785,7 +783,7 @@ msgid "Preserve Environment"
 msgstr "Preserve Environment"
 
 msgid "Default Shell"
-msgstr ""
+msgstr "Default Shell"
 
 msgid "Environment Filter"
 msgstr "Environment Filter"
@@ -793,9 +791,8 @@ msgstr "Environment Filter"
 msgid "Run Setup Scripts"
 msgstr "Run Setup Scripts"
 
-#, fuzzy
 msgid "Configuration Profile"
-msgstr "Script Configuration"
+msgstr "Configuration Profile"
 
 msgid "Script Configuration"
 msgstr "Script Configuration"
@@ -828,7 +825,7 @@ msgid "Source"
 msgstr "Source"
 
 msgid "This option is not valid for this chroot type"
-msgstr ""
+msgstr "This option is not valid for this chroot type"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -928,45 +925,45 @@ msgstr "Filesystem Union Underlay Directory"
 
 #, boost-format
 msgid "Environment variable ‘%1%’ is ambiguous"
-msgstr ""
+msgstr "Environment variable ‘%1%’ is ambiguous"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "Configuration key ‘%1%’ is ambiguous"
-msgstr "Required key ‘%4%’ is missing"
+msgstr "Configuration key ‘%1%’ is ambiguous"
 
 #, boost-format
 msgid "Configuration key ‘%1%’ is not permitted to be modified."
-msgstr ""
+msgstr "Configuration key ‘%1%’ is not permitted to be modified."
 
 #, boost-format
 msgid "Configuration key name ‘%1%’ is not a permitted name."
-msgstr ""
+msgstr "Configuration key name ‘%1%’ is not a permitted name."
 
 #, boost-format
 msgid ""
 "Configuration keys additional to ‘%1%’ would set this setup script "
 "environment variable"
-msgstr ""
+msgstr "Configuration keys additional to ‘%1%’ would set this setup script environment variable"
 
 msgid "User Modifiable Keys"
-msgstr ""
+msgstr "User Modifiable Keys"
 
 msgid "Root Modifiable Keys"
-msgstr ""
+msgstr "Root Modifiable Keys"
 
 msgid "User Data"
-msgstr ""
+msgstr "User Data"
 
 #, boost-format
 msgid ""
 "More than one configuration key would set the ‘%1%’ environment variable"
-msgstr ""
+msgstr "More than one configuration key would set the ‘%1%’ environment variable"
 
 msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
-msgstr ""
+msgstr "The key is not present in user-modifiable-keys or root-modifiable-keys"
 
 msgid "The key is not present in user-modifiable-keys"
-msgstr ""
+msgstr "The key is not present in user-modifiable-keys"
 
 msgid "File"
 msgstr "File"
@@ -1026,9 +1023,9 @@ msgstr "line %1% [%2%]: Duplicate key ‘%4%’"
 msgid "line %1%: Invalid group: “%4%”"
 msgstr "line %1%: Invalid group: “%4%”"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
-msgstr "line %1% [%2%]: Disallowed key ‘%4%’ used"
+msgstr "line %1% [%2%]: Invalid key ‘%4%’ used"
 
 #, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"
@@ -1378,16 +1375,3 @@ msgstr "Failed to stat file"
 
 msgid "Failed to stat file descriptor"
 msgstr "Failed to stat file descriptor"
-
-#, fuzzy
-#~ msgid ""
-#~ "Exactly one chroot must be specified when creating or removing a session"
-#~ msgstr "Exactly one chroot must be specified when beginning a session"
-
-#, fuzzy
-#~ msgid "Create a chroot"
-#~ msgstr "Select all chroots"
-
-#, fuzzy
-#~ msgid "Remove a chroot"
-#~ msgstr "Select all chroots"
