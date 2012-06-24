@@ -16,6 +16,8 @@ schroot (1.6.0-1) UNRELEASED; urgency=low
       to continue to function if present.  script-config will be
       removed in 1.7.x/1.8.x, so it is advisable to replace usage of
       script-config with profile.
+  * Updated translations:
+    - pt (Closes: #676813).  Thanks to Pedro Ribeiro.
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 24 Jun 2012 20:18:30 +0100
 
