@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.5.2-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-23 23:49+0100\n"
+"POT-Creation-Date: 2012-06-25 00:08+0100\n"
 "PO-Revision-Date: 2012-02-15 19:54+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -750,10 +750,6 @@ msgstr "schroot.conf(5) 中有命名规则介绍"
 #, boost-format
 msgid "Namespace separator ‘%1%’ may not be used in an alias name"
 msgstr "名字空间分隔符\"%1%\"可能无法用在别名中"
-
-#. TRANSLATORS: ‘/config’ is a path name; not for translation.
-msgid "The path does not end with ‘/config’"
-msgstr ""
 
 msgid "Name"
 msgstr "名字"

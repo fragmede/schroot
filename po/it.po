@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.16-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-23 23:49+0100\n"
+"POT-Creation-Date: 2012-06-25 00:08+0100\n"
 "PO-Revision-Date: 2010-12-07 20:01+0100\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -791,10 +791,6 @@ msgstr ""
 #, fuzzy, boost-format
 msgid "Namespace separator ‘%1%’ may not be used in an alias name"
 msgstr "Il separatore di namespace «%1%» non può essere utilizzato in un alias"
-
-#. TRANSLATORS: ‘/config’ is a path name; not for translation.
-msgid "The path does not end with ‘/config’"
-msgstr ""
 
 msgid "Name"
 msgstr "Nome"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-23 23:49+0100\n"
+"POT-Creation-Date: 2012-06-25 00:08+0100\n"
 "PO-Revision-Date: 2012-05-31 22:30+0200\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -283,8 +283,8 @@ msgstr "Configuration schroot générée par %1% %2% le %3%"
 #. is an em-dash.
 msgid "[OPTION…] [COMMAND] — run command or shell in a chroot"
 msgstr ""
-"[OPTION...] [COMMANDE] — exécution de commande ou d'interpréteur de commandes "
-"dans le chroot"
+"[OPTION...] [COMMANDE] — exécution de commande ou d'interpréteur de "
+"commandes dans le chroot"
 
 msgid "Print path to selected chroot"
 msgstr "Afficher le chemin vers le chroot sélectionné"
@@ -777,10 +777,6 @@ msgid "Namespace separator ‘%1%’ may not be used in an alias name"
 msgstr ""
 "Le séparateur d'espace de nom « %1% » ne doit pas être utilisé dans un nom "
 "d'alias."
-
-#. TRANSLATORS: ‘/config’ is a path name; not for translation.
-msgid "The path does not end with ‘/config’"
-msgstr "Le chemin ne se termine pas par « /config »"
 
 msgid "Name"
 msgstr "Nom"
@@ -1369,8 +1365,8 @@ msgstr "[chroot %1%] Exécution de l'interpréteur de commandes : « %4% »"
 #, boost-format
 msgid "[%1% chroot] (%2%→%3%) Running login shell: ‘%4%’"
 msgstr ""
-"[chroot %1%] (%2%→%3%) Exécution de l'interpréteur de commande de connexion : "
-"« %4% »"
+"[chroot %1%] (%2%→%3%) Exécution de l'interpréteur de commande de "
+"connexion : « %4% »"
 
 #. TRANSLATORS: %1% = chroot name
 #. TRANSLATORS: %2% = user name
@@ -1427,6 +1423,9 @@ msgstr "Échec lors de l'exécution de « stat » sur le fichier"
 
 msgid "Failed to stat file descriptor"
 msgstr "Échec lors de l'exécution de « stat » sur le descripteur de fichier"
+
+#~ msgid "The path does not end with ‘/config’"
+#~ msgstr "Le chemin ne se termine pas par « /config »"
 
 #, fuzzy
 #~ msgid ""

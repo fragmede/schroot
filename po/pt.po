@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.6.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-23 23:49+0100\n"
+"POT-Creation-Date: 2012-06-25 00:08+0100\n"
 "PO-Revision-Date: 2012-05-30 23:40+0100\n"
 "Last-Translator: Pedro Ribeiro <p.m42.ribeiro@gmail.com>\n"
 "Language-Team: Portuguese <traduz@debianpt.org>\n"
@@ -761,10 +761,6 @@ msgstr "Restriçoes de nomes estão documentadas em schroot.conf(5)"
 msgid "Namespace separator ‘%1%’ may not be used in an alias name"
 msgstr "O separador de 'namespace' ‘%1%’ não pode ser usado no nome de alias."
 
-#. TRANSLATORS: ‘/config’ is a path name; not for translation.
-msgid "The path does not end with ‘/config’"
-msgstr "O caminho não acaba com ‘/config’"
-
 msgid "Name"
 msgstr "Nome"
 
@@ -1398,6 +1394,9 @@ msgstr "Falhou o 'stat' ao ficheiro"
 
 msgid "Failed to stat file descriptor"
 msgstr "Falhou a obtenção do estado do descritor de ficheiro"
+
+#~ msgid "The path does not end with ‘/config’"
+#~ msgstr "O caminho não acaba com ‘/config’"
 
 #, fuzzy
 #~ msgid ""
