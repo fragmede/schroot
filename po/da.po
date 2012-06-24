@@ -16,10 +16,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: schroot 1.5.2-1\n"
+"Project-Id-Version: schroot 1.6.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
 "POT-Creation-Date: 2012-05-23 23:49+0100\n"
-"PO-Revision-Date: 2012-02-03 17:34+0000\n"
+"PO-Revision-Date: 2012-05-31 17:34+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -491,9 +491,8 @@ msgstr "Understøttelse af »block-device« chroot'er"
 msgid "Support for ‘btrfs-snapshot’ chroots"
 msgstr "Understøttelse af »btrfs-snapshot« chroot'er"
 
-#, fuzzy
 msgid "Support for ‘custom’ chroots"
-msgstr "Understøttelse af »directory« chroot'er"
+msgstr "Understøttelse af »tilpassede« chroot'er"
 
 msgid "Support for ‘directory’ chroots"
 msgstr "Understøttelse af »directory« chroot'er"
@@ -569,17 +568,16 @@ msgid "Select all source chroots"
 msgstr "Vælg alle kildechroot'er"
 
 msgid "Do not include aliases"
-msgstr ""
+msgstr "Inkluder ikke aliasser"
 
 msgid "Shell to use as login shell"
-msgstr ""
+msgstr "Skal der skal bruges som logindskal"
 
 msgid "Username (default current user)"
 msgstr "Brugernavn (forvalg er aktuelle bruger)"
 
-#, fuzzy
 msgid "Set option"
-msgstr "Brugertilvalg"
+msgstr "Angiv tilvalg"
 
 msgid "Begin, run and end a session automatically (default)"
 msgstr "Begynd, kør og afslut en session automatisk (standard)"
@@ -759,7 +757,7 @@ msgstr "Ugyldigt navn"
 
 #, boost-format
 msgid "Could not set profile name from script configuration path ‘%1%’"
-msgstr ""
+msgstr "Kunne ikke angive profilnavn fra skriptkonfigurationssti »%1%«"
 
 #. TRANSLATORS: unlink refers to the C function which removes a file
 msgid "Failed to unlink session file"
@@ -784,7 +782,7 @@ msgstr "Navnerumsadskiller »%1%« må ikke bruges i et aliasnavn"
 
 #. TRANSLATORS: ‘/config’ is a path name; not for translation.
 msgid "The path does not end with ‘/config’"
-msgstr ""
+msgstr "Stien afsluttes ikke med »/config«"
 
 msgid "Name"
 msgstr "Navn"
@@ -817,7 +815,7 @@ msgid "Preserve Environment"
 msgstr "Bevar miljø"
 
 msgid "Default Shell"
-msgstr ""
+msgstr "Standardskal"
 
 msgid "Environment Filter"
 msgstr "Miljøfilter"
@@ -825,9 +823,8 @@ msgstr "Miljøfilter"
 msgid "Run Setup Scripts"
 msgstr "Kør opsætningsskripter"
 
-#, fuzzy
 msgid "Configuration Profile"
-msgstr "Skriptkonfiguration"
+msgstr "Konfigurationsprofil"
 
 msgid "Script Configuration"
 msgstr "Skriptkonfiguration"
@@ -860,7 +857,7 @@ msgid "Source"
 msgstr "Kilde"
 
 msgid "This option is not valid for this chroot type"
-msgstr ""
+msgstr "Dette tilvalg er ikke gyldigt for denne chroot-type"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -960,45 +957,48 @@ msgstr "Mappe for filsystemets foreningsunderlægning"
 
 #, boost-format
 msgid "Environment variable ‘%1%’ is ambiguous"
-msgstr ""
+msgstr "Miljøvariabel »%1%« er tvetydig"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "Configuration key ‘%1%’ is ambiguous"
-msgstr "Påkrævet nøgle »%4%« mangler"
+msgstr "Konfigurationsnøgle »%1%« er tvetydig"
 
 #, boost-format
 msgid "Configuration key ‘%1%’ is not permitted to be modified."
-msgstr ""
+msgstr "Konfigurationsnøgle »%1%« har ikke tilladelse til at blive ændret."
 
 #, boost-format
 msgid "Configuration key name ‘%1%’ is not a permitted name."
-msgstr ""
+msgstr "Konfigurationsnøglenavnet »%1%« er ikke et tilladt navn."
 
 #, boost-format
 msgid ""
 "Configuration keys additional to ‘%1%’ would set this setup script "
 "environment variable"
 msgstr ""
+"Konfigurationsnøgler udover »%1%« vil angive dette opsætningsskripts "
+"miljøvariabel"
 
 msgid "User Modifiable Keys"
-msgstr ""
+msgstr "Nøgler der kan ændres af bruger"
 
 msgid "Root Modifiable Keys"
-msgstr ""
+msgstr "Nøgler der kan ændres af administrator (root)"
 
 msgid "User Data"
-msgstr ""
+msgstr "Brugerdata"
 
 #, boost-format
 msgid ""
 "More than one configuration key would set the ‘%1%’ environment variable"
 msgstr ""
+"Mere end en konfigurationsnøgle vil angive miljøvariablen »%1%«"
 
 msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
-msgstr ""
+msgstr "Nøglen er ikke til stede i nøgler-der-kan-ændres-af-brugeren eller nøgler-der-kan-ændres-af-root"
 
 msgid "The key is not present in user-modifiable-keys"
-msgstr ""
+msgstr "Nøglen er ikke til stede i nøgler-der-kan-ændres-af-brugeren"
 
 msgid "File"
 msgstr "Fil"
@@ -1058,7 +1058,7 @@ msgstr "linje %1% [%2%]: Duplikeret nøgle »%4%«"
 msgid "line %1%: Invalid group: “%4%”"
 msgstr "linje %1%: Ugyldig gruppe: »%4%«"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
 msgstr "linje %1% [%2%]: Ikke tilladt nøgle »%4%« brugt"
 
@@ -1421,15 +1421,4 @@ msgstr "Kunne ikke stat fil"
 msgid "Failed to stat file descriptor"
 msgstr "Kunne ikke stat fildeskriptor"
 
-#, fuzzy
-#~ msgid ""
-#~ "Exactly one chroot must be specified when creating or removing a session"
-#~ msgstr "Præcis en chroot skal angives, når en session påbegyndes"
 
-#, fuzzy
-#~ msgid "Create a chroot"
-#~ msgstr "Vælg alle chroot'er"
-
-#, fuzzy
-#~ msgid "Remove a chroot"
-#~ msgstr "Vælg alle chroot'er"
