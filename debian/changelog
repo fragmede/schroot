@@ -4,6 +4,18 @@ schroot (1.6.0-1) UNRELEASED; urgency=low
   * schroot:
     - Ensure that the schroot init script is migrated from using rcS to
       using standard runlevels (Closes: #677501).
+    - script-config sets FSTAB, COPYFILES and NSSDATABASES, plus the
+      new names prefixed with SETUP_ (Closes: #675408).  The old
+      script-config and new profile keys are mutually exclusive.  If
+      both are set, script-config will be used.  If the script-config
+      file is not present, create default settings for FSTAB, COPYFILES
+      and NSSDATABASES for backward compatibility, needed since the
+      standard config files are removed on upgrade.  Note that in 1.5.x
+      releases, profile was set in all cases, which set setup.fstab etc.
+      but this is now no longer the case, to permit script-config files
+      to continue to function if present.  script-config will be
+      removed in 1.7.x/1.8.x, so it is advisable to replace usage of
+      script-config with profile.
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 24 Jun 2012 20:18:30 +0100
 
