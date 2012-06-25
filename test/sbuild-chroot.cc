@@ -227,6 +227,7 @@ public:
       sbuild::environment expected;
       setup_env_chroot(expected);
       expected.remove("CHROOT_PROFILE");
+      expected.remove("CHROOT_PROFILE_DIR");
       expected.remove("SETUP_CONFIG");
       expected.remove("SETUP_COPYFILES");
       expected.remove("SETUP_FSTAB");

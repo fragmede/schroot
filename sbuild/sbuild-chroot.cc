@@ -554,7 +554,10 @@ sbuild::chroot::setup_env (chroot const& chroot,
   if (!chroot.get_script_config().empty())
     env.add("CHROOT_SCRIPT_CONFIG", normalname(std::string(SCHROOT_SYSCONF_DIR) +  '/' + chroot.get_script_config()));
   if (!chroot.get_profile().empty())
-    env.add("CHROOT_PROFILE", normalname(std::string(SCHROOT_SYSCONF_DIR) +  '/' + chroot.get_profile()));
+    {
+      env.add("CHROOT_PROFILE", chroot.get_profile());
+      env.add("CHROOT_PROFILE_DIR", normalname(std::string(SCHROOT_SYSCONF_DIR) +  '/' + chroot.get_profile()));
+    }
   env.add("CHROOT_SESSION_CREATE",
 	  static_cast<bool>(chroot.get_session_flags() & SESSION_CREATE));
   env.add("CHROOT_SESSION_CLONE",

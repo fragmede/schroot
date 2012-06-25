@@ -199,7 +199,8 @@ public:
     env.add("SESSION_ID",            "test-name");
     env.add("CHROOT_DESCRIPTION",    "test-description");
     //    env.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(SCHROOT_SYSCONF_DIR) + "/default/config"));
-    env.add("CHROOT_PROFILE",        sbuild::normalname(std::string(SCHROOT_SYSCONF_DIR) + "/default"));
+    env.add("CHROOT_PROFILE",        "default");
+    env.add("CHROOT_PROFILE_DIR",    sbuild::normalname(std::string(SCHROOT_SYSCONF_DIR) + "/default"));
     env.add("CUSTOM_TEST1",          "testval");
     env.add("SETUP_CONFIG", "default/config");
     env.add("SETUP_COPYFILES", "default/copyfiles");
