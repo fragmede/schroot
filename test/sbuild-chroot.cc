@@ -238,7 +238,7 @@ public:
       expected.add("CHROOT_SESSION_CLONE",  "false");
       expected.add("CHROOT_SESSION_CREATE", "true");
       expected.add("CHROOT_SESSION_PURGE",  "false");
-      expected.add("CHROOT_SCRIPT_CONFIG", "/etc/schroot/desktop/config");
+      expected.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(SCHROOT_SYSCONF_DIR) + "/desktop/config"));
 
       sbuild::environment observed;
       chroot->setup_env(observed);
