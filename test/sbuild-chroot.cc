@@ -113,6 +113,7 @@ class test_chroot : public test_chroot_base<basic_chroot>
   CPPUNIT_TEST(test_aliases);
   CPPUNIT_TEST(test_environment_filter);
   CPPUNIT_TEST(test_active);
+  CPPUNIT_TEST(test_script_config);
   CPPUNIT_TEST(test_run_setup_scripts);
   CPPUNIT_TEST(test_verbose);
   CPPUNIT_TEST(test_preserve_environment);
@@ -200,6 +201,49 @@ public:
   void test_active()
   {
     CPPUNIT_ASSERT(!chroot->get_facet<sbuild::chroot_facet_session>());
+  }
+
+  void test_script_config()
+  {
+    chroot->set_script_config("desktop/config");
+
+    {
+      sbuild::keyfile expected;
+      const std::string group(chroot->get_name());
+      setup_keyfile_chroot(expected, group);
+      expected.remove_key(group, "setup.config");
+      expected.remove_key(group, "setup.copyfiles");
+      expected.remove_key(group, "setup.fstab");
+      expected.remove_key(group, "setup.nssdatabases");
+      expected.set_value(group, "type", "test");
+      expected.set_value(group, "profile", "");
+      expected.set_value(group, "script-config", "desktop/config");
+
+      test_chroot_base<basic_chroot>::test_setup_keyfile
+	(chroot, expected, group);
+    }
+
+    {
+      sbuild::environment expected;
+      setup_env_chroot(expected);
+      expected.remove("CHROOT_PROFILE");
+      expected.remove("SETUP_CONFIG");
+      expected.remove("SETUP_COPYFILES");
+      expected.remove("SETUP_FSTAB");
+      expected.remove("SETUP_NSSDATABASES");
+      expected.add("CHROOT_TYPE",           "test");
+      expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
+      expected.add("CHROOT_PATH",           "/mnt/mount-location");
+      expected.add("CHROOT_SESSION_CLONE",  "false");
+      expected.add("CHROOT_SESSION_CREATE", "true");
+      expected.add("CHROOT_SESSION_PURGE",  "false");
+      expected.add("CHROOT_SCRIPT_CONFIG", "/etc/schroot/desktop/config");
+
+      sbuild::environment observed;
+      chroot->setup_env(observed);
+
+      test_chroot_base<basic_chroot>::test_setup_env(observed, expected);
+    }
   }
 
   void test_run_setup_scripts()

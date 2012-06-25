@@ -198,10 +198,14 @@ public:
     env.add("CHROOT_NAME",           "test-name");
     env.add("SESSION_ID",            "test-name");
     env.add("CHROOT_DESCRIPTION",    "test-description");
-    env.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(SCHROOT_SYSCONF_DIR) + "/default/config"));
+    //    env.add("CHROOT_SCRIPT_CONFIG",  sbuild::normalname(std::string(SCHROOT_SYSCONF_DIR) + "/default/config"));
     env.add("CHROOT_PROFILE",        sbuild::normalname(std::string(SCHROOT_SYSCONF_DIR) + "/default"));
     env.add("CUSTOM_TEST1",          "testval");
-  }
+    env.add("SETUP_CONFIG", "default/config");
+    env.add("SETUP_COPYFILES", "default/copyfiles");
+    env.add("SETUP_FSTAB", "default/fstab");
+    env.add("SETUP_NSSDATABASES", "default/nssdatabases");
+   }
 
   void setup_keyfile_chroot (sbuild::keyfile&   keyfile,
 			     std::string const& group)
@@ -221,6 +225,10 @@ public:
     keyfile.set_value(group, "shell", "/bin/testshell");
     keyfile.set_value(group, "user-modifiable-keys", "debian.dist,sbuild.purge,sbuild.resolver");
     keyfile.set_value(group, "root-modifiable-keys", "debian.apt-update");
+    keyfile.set_value(group, "setup.config", "default/config");
+    keyfile.set_value(group, "setup.copyfiles", "default/copyfiles");
+    keyfile.set_value(group, "setup.fstab", "default/fstab");
+    keyfile.set_value(group, "setup.nssdatabases", "default/nssdatabases");
     keyfile.set_value(group, "custom.test1", "testval");
   }
 
