@@ -9,7 +9,17 @@ configuration.
 
 * Major changes in 1.6.0:
 
-  None.
+  1) The new profile and old script-config options are mutually
+     exclusive.  While profile is set by default, if script-config is
+     set, it will unset and override the effect of the profile
+     setting.  script-config is deprecated and will be removed in
+     schroot 1.7.x.  Please update your configuration to use the
+     profile key.
+
+  2) The CHROOT_PROFILE setup-script variable has been renamed to
+     CHROOT_PROFILE_DIR.  CHROOT_PROFILE now contains the profile name
+     only, while CHROOT_PROFILE_DIR contains the absolute path to the
+     profile directory.
 
 * Major changes in 1.5.4:
 
