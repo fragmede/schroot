@@ -29,6 +29,8 @@ and test for particular permissions.
 
   - Setup scripts such as 20nssdatabases can blank them out.
 
+* Document all environment variables in schroot-setup(5).
+
 
 POTENTIAL
 ---------
