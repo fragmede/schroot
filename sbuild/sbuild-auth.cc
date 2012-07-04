@@ -284,9 +284,9 @@ auth::get_minimal_environment () const
   // For security, PATH is always set to a sane state for root, but
   // only set in other cases if not preserving the environment.
   if (this->uid == 0)
-    minimal.add(std::make_pair("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11"));
+    minimal.add(std::make_pair("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"));
   else
-    minimal.add(std::make_pair("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games"));
+    minimal.add(std::make_pair("PATH", "/usr/local/bin:/usr/bin:/bin"));
 
   if (!this->home.empty() )
     minimal.add(std::make_pair("HOME", this->home));
