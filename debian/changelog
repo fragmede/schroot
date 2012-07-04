@@ -1,3 +1,14 @@
+schroot (1.6.1-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * schroot:
+    - PAM pam_env is used to set up additional environment from
+      /etc/security/pam_env.conf and /etc/default/locale.
+    - /usr/bin/X11 and /usr/games have been removed from the
+      default PATH.
+
+ -- Roger Leigh <rleigh@debian.org>  Wed, 04 Jul 2012 08:29:25 +0100
+
 schroot (1.6.0-1) unstable; urgency=low
 
   * New upstream stable release.
