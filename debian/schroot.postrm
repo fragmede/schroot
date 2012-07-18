@@ -56,10 +56,6 @@ case "$1" in
 	;;
 
     remove)
-	LINKS="/etc/schroot/copyfiles-defaults /etc/schroot/mount-defaults /etc/schroot/nssdatabases-defaults /etc/schroot/script-defaults"
-	for link in $LINKS; do
-	    [ -L "$link" ] && rm -f "$link"
-	done
         ;;
 
     purge|disappear)
