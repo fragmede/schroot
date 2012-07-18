@@ -8,6 +8,8 @@ schroot (1.6.1-1) UNRELEASED; urgency=low
     - Fix 15binfmt setup script to bind mount binfmt binary correctly
       (Closes: #677811).  Thanks to Vagrant Cascadian and Julian Andres
       Klode.
+    - Building from git has been documented, as has the upstream
+      release process (Closes: #680882).
   * dchroot:
     - Migrate dchroot.conf to schroot.conf format on upgrade
       (Closes: #681876).  Also documented caveats in NEWS.Debian.
