@@ -1,6 +1,10 @@
 schroot (1.6.1-1) UNRELEASED; urgency=low
 
   * New upstream stable release.
+  * schroot:
+    - Remove invalid and obsolete symlinks which were being created
+      on install and upgrade, and no longer create them
+      (Closes: #681931).
 
  -- Roger Leigh <rleigh@debian.org>  Wed, 18 Jul 2012 20:04:41 +0100
 
