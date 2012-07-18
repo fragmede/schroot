@@ -5,6 +5,12 @@ schroot (1.6.1-1) UNRELEASED; urgency=low
     - Remove invalid and obsolete symlinks which were being created
       on install and upgrade, and no longer create them
       (Closes: #681931).
+  * dchroot:
+    - Migrate dchroot.conf to schroot.conf format on upgrade
+      (Closes: #681876).  Also documented caveats in NEWS.Debian.
+  * dchroot-dsa:
+    - Migrate dchroot.conf to schroot.conf format on upgrade.
+      Also documented caveats in NEWS.Debian.
 
  -- Roger Leigh <rleigh@debian.org>  Wed, 18 Jul 2012 20:04:41 +0100
 
