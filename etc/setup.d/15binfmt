@@ -42,6 +42,6 @@ for emulator in $(update-binfmts --find "$shell"); do
     else
 	[ -e "$dst" ] || touch "$dst"
 	mount --bind "$emulator" "$dst"
-	mount -o remount,ro "$dst"
+	mount -o remount,ro,bind "$dst"
     fi
 done
