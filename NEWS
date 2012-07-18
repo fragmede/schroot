@@ -1,11 +1,19 @@
 NEWS                                                            -*- outline -*-
 ----
 
-Welcome to schroot 1.6.1.  Please read these release notes carefully.
+Welcome to schroot 1.6.2.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 1.6.2:
+
+  1) PAM pam_env is used to set up additional environment from
+     /etc/security/pam_env.conf and /etc/default/locale.
+
+  2) /usr/bin/X11 and /usr/games have been removed from the
+     default PATH.
 
 * Major changes in 1.6.1:
 
