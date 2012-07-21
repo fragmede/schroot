@@ -1,3 +1,9 @@
+schroot (1.6.3-1) UNRELEASED; urgency=low
+
+  * New upstream stable release.
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 21 Jul 2012 10:42:53 +0100
+
 schroot (1.6.2-1) unstable; urgency=low
 
   * New upstream stable release.
