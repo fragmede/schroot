@@ -1,4 +1,4 @@
-schroot (1.6.3-1) UNRELEASED; urgency=low
+schroot (1.6.3-1) unstable; urgency=low
 
   * New upstream stable release.
   * Revert pam_env change in 1.6.2-1.  This is due to running the
