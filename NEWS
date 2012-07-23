@@ -11,6 +11,13 @@ configuration.
 
   None.
 
+* Major changes in 1.6.3:
+
+  1) Revert pam_env change from 1.6.2.  This is due to running the PAM
+     module on the host, it would inappropriately set LANG, LANGUAGE
+     and potentially other environment variables which would be
+     incorrect inside the chroot.
+
 * Major changes in 1.6.2:
 
   1) PAM pam_env is used to set up additional environment from

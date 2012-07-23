@@ -4,6 +4,16 @@ schroot (1.7.0-1) UNRELEASED; urgency=low
 
  -- Roger Leigh <rleigh@debian.org>  Sat, 21 Jul 2012 10:44:09 +0100
 
+schroot (1.6.3-1) unstable; urgency=low
+
+  * New upstream stable release.
+  * Revert pam_env change in 1.6.2-1.  This is due to running the
+    PAM module on the host, it would inappropriately set LANG, LANGUAGE
+    and potentially other environment variables which would be
+    incorrect inside the chroot.
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 21 Jul 2012 10:42:53 +0100
+
 schroot (1.6.2-1) unstable; urgency=low
 
   * New upstream stable release.

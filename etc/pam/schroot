@@ -16,14 +16,6 @@
 # be allowed to use schroot at all.
 # auth       required   pam_wheel.so deny group=noschroot
 
-# This module parses environment configuration file(s)
-# and also allows you to use an extended config
-# file /etc/security/pam_env.conf.
-#
-session       required   pam_env.so readenv=1
-session       required   pam_env.so readenv=1 envfile=/etc/default/locale
-
-
 # This allows root to use schroot without passwords (normal operation)
 auth       sufficient pam_rootok.so
 
