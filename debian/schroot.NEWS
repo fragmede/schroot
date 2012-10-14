@@ -1,4 +1,4 @@
-schroot (1.5.2-1) experimental; urgency=low
+schroot (1.6.4-1) experimental; urgency=low
 
   Users upgrading from squeeze should take note of the following
   changes which require configuration updates:
@@ -11,6 +11,14 @@ schroot (1.5.2-1) experimental; urgency=low
     schroot.conf(5) for further details.  Please upgrade your
     configuration by replacing "script-config=profilename/config" with
     "profile=profilename".
+
+    Note that if you added any variables or script fragments in
+    addition to the standard values, you should set
+    setup.config=profilename/config if you wish to continue to source
+    the configuration file in the setup scripts.  If your needs are
+    met by the new user-definable keys in schroot.conf, these are
+    recommended, but it will continue to be possible to source a
+    configuration file with setup.config if required.
 
   * schroot namespace prefixes are now required.  The compatibility
     names used in 1.4 releases have been removed.  For example, the
@@ -39,7 +47,7 @@ schroot (1.5.2-1) experimental; urgency=low
     dchroot-dsa are highly encouraged to use schroot as a superior
     replacement for both tools.
 
- -- Roger Leigh <rleigh@debian.org>  Tue, 15 May 2012 21:08:50 +0100
+ -- Roger Leigh <rleigh@debian.org>  Tue, Tue, 14 Aug 2012 21:36:06 +0100
 
 schroot (1.4.16-1) unstable; urgency=low
 
