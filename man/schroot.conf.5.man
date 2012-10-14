@@ -170,7 +170,10 @@ The filesystem table file to be used to mount filesystems within the chroot.
 The format of this file is the same as for \fI/etc/fstab\fP, documented in
 .BR fstab (5).
 The only difference is that the mountpoint path \fIfs_dir\fP is relative to the
-chroot, rather than the root.
+chroot, rather than the root.  Also note that mountpoints are canonicalised on
+the host, which will ensure that absolute symlinks point inside the chroot, but
+complex paths containing multiple symlinks may be resolved incorrectly; it is
+inadvisable to use nested symlinks as mountpoints.
 .TP
 \f[CBI]setup.nssdatabases=\fP\f[CI]filename\fP
 A file listing the system databases to copy into the chroot.  The default
