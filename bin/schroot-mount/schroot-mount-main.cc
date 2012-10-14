@@ -59,7 +59,8 @@ namespace
       emap(main::CHILD_FORK, N_("Failed to fork child")),
       emap(main::CHILD_WAIT, N_("Wait for child failed")),
       // TRANSLATORS: %1% = command name
-      emap(main::EXEC,       N_("Failed to execute “%1%”"))
+      emap(main::EXEC,       N_("Failed to execute “%1%”")),
+      emap(main::REALPATH,   N_("Failed to resolve path “%1%”"))
     };
 
 }
@@ -102,6 +103,18 @@ main::action_mount ()
 	d = std::string("/") + d;
 
       std::string directory(opts->mountpoint + entry.directory);
+      // Canonicalise path to remove any symlinks.
+      char *resolved_path = realpath(directory.c_str(), 0);
+      if (resolved_path == 0)
+	throw error(directory, EXEC, strerror(errno));
+      directory = resolved_path;
+      std::free(resolved_path);
+      // If the link was absolute (i.e. points somewhere on the host,
+      // outside the chroot, make sure that this is modified to be
+      // inside.
+      if (directory.size() < opts->mountpoint.size() ||
+	  directory.substr(0,opts->mountpoint.size()) != opts->mountpoint)
+	directory = opts->mountpoint + directory;
 
       if (!boost::filesystem::exists(directory))
 	{
