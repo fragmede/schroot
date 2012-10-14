@@ -42,7 +42,8 @@ namespace schroot_mount
       {
 	CHILD_FORK, ///< Failed to fork child.
 	CHILD_WAIT, ///< Wait for child failed.
-	EXEC        ///< Failed to execute.
+	EXEC,       ///< Failed to execute.
+	REALPATH    ///< Failed to resolve path.
       };
 
     /// Exception type.
