@@ -123,7 +123,14 @@ but has \[lq]\fI/config\fP\[rq] appended to it.  The default filename is
 \[oq]default/config\[cq].  Either of these keys may be used.  If both are
 present, then \f[CI]script\-config\fP will take precedence (\f[CI]profile\fP
 will be unset).  \f[CI]script\-config\fP is deprecated and will be removed in a
-future release.
+future release.  Note that \f[CI]profile\fP is equivalent to
+\f[CI]script\-config\fP if the file sourced by \f[CI]script\-config\fP only
+contains the standard variables provided by schroot; if any additional
+variables or shell script fragments have been added, please also set
+\f[CI]setup.config\fP, which will continue to allow this file to be sourced.
+It is recommended to replace the use of the sourced file with additional keys
+in schroot.conf where possible, but it will continue to be possible to source
+an additional configuration file using \f[CI]setup.config\fP.
 .IP
 Desktop users should note that the fstab file \fIdesktop/fstab\fP will need
 editing if you use gdm3; please see the comments in this file for further
@@ -146,14 +153,13 @@ allow behaviour to be customised according to the specific chroot type or name.
 Note that the script will be sourced once for each and every script invocation,
 and must be idempotent.
 .IP
-This file is deprecated, and no longer exists in the current schroot version,
-but is still used if present for backward compatibility; it will be obsoleted
-and removed in a future release.  All the settings in this file are now
-settable using configuration keys in \fIschroot.conf\fP, as detailed below.
-Existing configuration should be modified to use these keys in place of this
-file.  See
-.BR schroot-script-config (5).
-for further details.
+All the default settings in this file are now settable using configuration keys
+in \fIschroot.conf\fP, as detailed below.  Existing configuration should be
+modified to use these keys in place of this file.  See
+.BR schroot-script-config (5)
+for further details.  This type of setup script configuration file is no longer
+provided as part of the standard profiles, but will continue to be sourced if
+present and this key is set.
 .TP
 \f[CBI]setup.copyfiles=\fP\f[CI]filename\fP
 A file containing a list of files to copy into the chroot (one file per line).
