@@ -5,6 +5,8 @@ schroot (1.6.4-1) UNRELEASED; urgency=low
     use of the profile key in a backward-compatible manner also
     using setup.config, to mimic the behaviour of the deprecated
     script-config key.
+  * schroot.conf(5) additionally updated to document script-config
+    deprecation and use of user keys such as setup.config.
 
  -- Roger Leigh <rleigh@debian.org>  Mon, 23 Jul 2012 23:28:39 +0100
 
