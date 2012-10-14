@@ -7,6 +7,10 @@ schroot (1.6.4-1) UNRELEASED; urgency=low
     script-config key.
   * schroot.conf(5) additionally updated to document script-config
     deprecation and use of user keys such as setup.config.
+  * schroot-mount: Canonicalise mountpoints with symlinks to avoid
+    mounting absolute paths on the host rather than inside the chroot
+    (Closes: #686148).  Note the caveat regarding paths with multiple
+    symlinks in schroot-script-config(5).
 
  -- Roger Leigh <rleigh@debian.org>  Mon, 23 Jul 2012 23:28:39 +0100
 
