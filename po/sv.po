@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-06-25 00:08+0100\n"
+"POT-Creation-Date: 2012-10-15 22:30+0100\n"
 "PO-Revision-Date: 2010-01-16 15:44+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -405,6 +405,10 @@ msgstr "Väntan på barnprocess misslyckades"
 #. TRANSLATORS: %1% = command
 #, fuzzy, boost-format
 msgid "Failed to execute “%1%”"
+msgstr "Misslyckades med att starta \"%1%\""
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
 msgstr "Misslyckades med att starta \"%1%\""
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,

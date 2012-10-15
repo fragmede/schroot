@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.6.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-06-25 00:08+0100\n"
+"POT-Creation-Date: 2012-10-15 22:30+0100\n"
 "PO-Revision-Date: 2012-06-06 17:33+0200\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -405,6 +405,10 @@ msgstr "Warten auf Kindprozess fehlgeschlagen"
 #. TRANSLATORS: %1% = command
 #, boost-format
 msgid "Failed to execute “%1%”"
+msgstr "Ausführung von »%1%« fehlgeschlagen"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
 msgstr "Ausführung von »%1%« fehlgeschlagen"
 
 # CHECKME: stimmt "[OPTION …]" oder sollte es "[OPTIONEN …]" oder

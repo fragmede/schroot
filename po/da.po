@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.6.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-06-25 00:08+0100\n"
+"POT-Creation-Date: 2012-10-15 22:30+0100\n"
 "PO-Revision-Date: 2012-05-31 17:34+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -415,6 +415,10 @@ msgstr "Vent på underproces mislykkedes"
 #. TRANSLATORS: %1% = command
 #, boost-format
 msgid "Failed to execute “%1%”"
+msgstr "Kunne ikke køre »%1%«"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
 msgstr "Kunne ikke køre »%1%«"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,

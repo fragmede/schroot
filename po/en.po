@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-06-25 00:08+0100\n"
-"PO-Revision-Date: 2012-06-25 00:11+0100\n"
+"POT-Creation-Date: 2012-10-15 22:30+0100\n"
+"PO-Revision-Date: 2012-10-15 22:47+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
 "Language: en\n"
@@ -391,6 +391,10 @@ msgstr "Wait for child failed"
 #, boost-format
 msgid "Failed to execute “%1%”"
 msgstr "Failed to execute “%1%”"
+
+#, boost-format
+msgid "Failed to resolve path “%1%”"
+msgstr "Failed to resolve path “%1%”"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.

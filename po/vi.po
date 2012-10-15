@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.12-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-06-25 00:08+0100\n"
+"POT-Creation-Date: 2012-10-15 22:30+0100\n"
 "PO-Revision-Date: 2010-09-28 22:16+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -405,6 +405,10 @@ msgstr "Lỗi đợi tiến trình con"
 #. TRANSLATORS: %1% = command
 #, fuzzy, boost-format
 msgid "Failed to execute “%1%”"
+msgstr "Lỗi thực hiện « %1% »"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
 msgstr "Lỗi thực hiện « %1% »"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
