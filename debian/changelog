@@ -13,6 +13,10 @@ schroot (1.6.4-1) UNRELEASED; urgency=low
     symlinks in schroot-script-config(5).
   * 15binfmt no longer pollutes output, by redirecting stderr from
     "which update-binfmts" (Closes: #688304).
+  * Ensure that CHROOT_ALIAS (setup scripts) and SCHROOT_ALIAS_NAME
+    (user environment) always refer to the alias used to create the
+    session (Closes: #689078).  The alias is no longer canonicalised
+    by sbuild::chroot_config::validate_chroots.
 
  -- Roger Leigh <rleigh@debian.org>  Mon, 23 Jul 2012 23:28:39 +0100
 
