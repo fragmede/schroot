@@ -28,7 +28,7 @@ if [ "$STAGE" != "setup-start" ] && \
    [ "$STAGE" != "setup-stop"  ] && \
    [ "$STAGE" != "setup-recover" ]; then
     exit 0
-elif ! which update-binfmts > /dev/null; then
+elif ! which update-binfmts > /dev/null 2>&1; then
     info "Missing update-binfmts; not enabling binfmt support"
     exit 0
 fi
