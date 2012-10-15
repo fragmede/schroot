@@ -1,4 +1,4 @@
-schroot (1.6.4-1) UNRELEASED; urgency=low
+schroot (1.6.4-1) unstable; urgency=low
 
   * New upstream stable release.
   * NEWS: Provide guidance for wheezy upgrades with regard to
@@ -18,7 +18,7 @@ schroot (1.6.4-1) UNRELEASED; urgency=low
     session (Closes: #689078).  The alias is no longer canonicalised
     by sbuild::chroot_config::validate_chroots.
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 23 Jul 2012 23:28:39 +0100
+ -- Roger Leigh <rleigh@debian.org>  Mon, 15 Oct 2012 21:56:21 +0100
 
 schroot (1.6.3-1) unstable; urgency=low
 
