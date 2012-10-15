@@ -416,7 +416,7 @@ chroot_config::find_alias (std::string const& namespace_hint,
 
   string_map::const_iterator found = this->aliases.find(chroot_namespace + namespace_separator + alias_name);
 
-  log_debug(DEBUG_NOTICE) << "Looking for alias " << name << " with hint " << namespace_hint << std::endl;
+  log_debug(DEBUG_NOTICE) << "Finding alias " << name << " with hint " << namespace_hint << std::endl;
   log_debug(DEBUG_NOTICE) << "Alias " << (found != this->aliases.end() ? "found" : "not found") << std::endl;
 
   if (found != this->aliases.end())
