@@ -7,6 +7,10 @@ schroot (1.4.27-1) UNRELEASED; urgency=low
     mounting absolute paths on the host rather than inside the chroot
     (Closes: #686148).  Note the caveat regarding paths with multiple
     symlinks in schroot-script-config(5).
+  * Ensure that CHROOT_ALIAS (setup scripts) and SCHROOT_ALIAS_NAME
+    (user environment) always refer to the alias used to create the
+    session (Closes: #689078).  The alias is no longer canonicalised
+    by sbuild::chroot_config::validate_chroots. 
 
  -- Roger Leigh <rleigh@debian.org>  Tue, 16 Oct 2012 22:55:39 +0100
 
