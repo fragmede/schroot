@@ -62,6 +62,20 @@ do_umount_all()
 	# Note that this does not prevent the problem when programs
 	# other than schroot mount and unmount filesystems (since they
 	# don't create the lock).
+	if [ -e /var/lock/schroot ]; then
+	    if [ ! -d /var/lock/schroot ]; then
+		error "/var/lock/schroot is not a directory"
+		exit 1
+	    fi
+	else
+	    mkdir -m 0700 /var/lock/schroot
+	fi
+
+	if [ "$(stat -c "%u %g %a" /var/lock/schroot)" != "0 0 700" ]; then
+	    error "/var/lock/schroot is not owned by root:root, or lacks 0700 permissions"
+	    exit 1
+	fi
+
 	( flock 9
 	    mounts="$("$LIBEXEC_DIR/schroot-listmounts" -m "$1")"
 	    if [ "x$mounts" != 'x' ]; then
@@ -71,7 +85,7 @@ do_umount_all()
 		    umount "$mountloc" || exit 1
 		done || exit 1
 	    fi
-	) 9>"/var/lock/schroot-umount"
+	) 9>"/var/lock/schroot/umount"
     else
 	warn "Mount location $1 no longer exists; skipping unmount"
     fi
