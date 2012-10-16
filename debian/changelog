@@ -1,3 +1,11 @@
+schroot (1.4.27-1) UNRELEASED; urgency=low
+
+  * New upstream stable release.
+  * 10mount: Use secure lock directory /var/lock/schroot in place
+    of insecure use of lockfiles directly in /var/lock.
+
+ -- Roger Leigh <rleigh@debian.org>  Tue, 16 Oct 2012 22:55:39 +0100
+
 schroot (1.4.26-1) unstable; urgency=low
 
   * Upgrade to Standards Version 3.9.3.
