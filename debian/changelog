@@ -17,6 +17,9 @@ schroot (1.6.4-1) unstable; urgency=low
     (user environment) always refer to the alias used to create the
     session (Closes: #689078).  The alias is no longer canonicalised
     by sbuild::chroot_config::validate_chroots.
+  * 10mount uses a lock directory /var/lock/schroot to contain its
+    lockfile, rather than directly using /var/lock, which is less
+    secure.
 
  -- Roger Leigh <rleigh@debian.org>  Mon, 15 Oct 2012 21:56:21 +0100
 
