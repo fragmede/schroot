@@ -31,6 +31,7 @@
 #include "sbuild-auth-null.h"
 #endif // SBUILD_FEATURE_PAM
 #include "sbuild-ctty.h"
+#include "sbuild-feature.h"
 #include "sbuild-run-parts.h"
 #include "sbuild-session.h"
 #include "sbuild-util.h"
@@ -49,6 +50,10 @@
 #include <unistd.h>
 
 #include <syslog.h>
+
+#ifdef SBUILD_FEATURE_UNSHARE
+#include <sched.h>
+#endif // SBUILD_FEATURE_UNSHARE
 
 #include <boost/format.hpp>
 
@@ -176,6 +181,12 @@ namespace
     /* This exists so that system calls get interrupted. */
     sigterm_called = true;
   }
+
+#ifdef SBUILD_FEATURE_UNSHARE
+  sbuild::feature feature_unshare
+  ("UNSHARE",
+   N_("Linux dissassociation of shared execution context"));
+#endif
 
 #ifdef SBUILD_DEBUG
   volatile bool child_wait = true;
@@ -1262,6 +1273,12 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   if (initgroups (this->authstat->get_user().c_str(), this->authstat->get_gid()))
     throw error(GROUP_SET_SUP, strerror(errno));
   log_debug(DEBUG_NOTICE) << "Set supplementary groups" << std::endl;
+
+  /* Unshare execution context */
+#ifdef SBUILD_FEATURE_UNSHARE
+  unshare(CLONE_NEWNET);
+#endif // SBUILD_FEATURE_UNSHARE
+
 
   /* Set the process execution domain. */
   /* Will throw on failure. */
