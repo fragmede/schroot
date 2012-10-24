@@ -640,12 +640,7 @@ chroot_config::validate_chroots (std::string const& namespace_hint,
       if (chroot.empty())
 	bad_chroots.push_back(*pos);
       else
-	{
-	  std::string ns;
-	  std::string name(*pos);
-	  get_namespace(*pos, ns, name);
-	  *pos = name;
-	}
+	*pos = chroot;
     }
 
   return bad_chroots;
