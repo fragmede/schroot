@@ -75,28 +75,6 @@ namespace
     return c1->get_name() < c2->get_name();
   }
 
-  void
-  get_namespace(std::string const& name,
-		std::string&       chroot_namespace,
-		std::string&       chroot_name)
-  {
-    std::string::size_type pos =
-      name.find_first_of(chroot_config::namespace_separator);
-
-    if (pos != std::string::npos) // Found namespace
-      {
-	chroot_namespace = name.substr(0, pos);
-	if (name.size() >= pos + 1)
-	  chroot_name = name.substr(pos + 1);
-      }
-    else // No namespace
-      {
-	chroot_namespace.clear();
-	chroot_name = name;
-      }
-
-  }
-
 }
 
 template<>
@@ -774,5 +752,26 @@ chroot_config::load_keyfile (std::string const& chroot_namespace,
 	      add("source", source_chroot, kconfig);
 	  }
       }
+    }
+}
+
+void
+chroot_config::get_namespace(std::string const& name,
+			     std::string&       chroot_namespace,
+			     std::string&       chroot_name)
+{
+  std::string::size_type pos =
+    name.find_first_of(chroot_config::namespace_separator);
+
+  if (pos != std::string::npos) // Found namespace
+    {
+      chroot_namespace = name.substr(0, pos);
+      if (name.size() >= pos + 1)
+	chroot_name = name.substr(pos + 1);
+    }
+  else // No namespace
+    {
+      chroot_namespace.clear();
+      chroot_name = name;
     }
 }

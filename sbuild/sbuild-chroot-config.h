@@ -180,6 +180,18 @@ namespace sbuild
 
   public:
     /**
+     * Split a chroot name into a namespace and name.
+     *
+     * @param name the name to split
+     * @param chroot_namespace the namespace (cleared if no namespace)
+     * @param chroot_name the name without any namespace
+     */
+    static void
+    get_namespace(std::string const& name,
+		  std::string&       chroot_namespace,
+		  std::string&       chroot_name);
+
+    /**
      * Find a chroot by its name.  The name must be fully qualified
      * with a namespace.
      *

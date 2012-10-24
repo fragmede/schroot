@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include "sbuild-chroot.h"
+#include "sbuild-chroot-config.h"
 #include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-chroot-plain.h"
@@ -91,7 +92,9 @@ chroot_facet_session::get_selected_name () const
 void
 chroot_facet_session::set_selected_name (std::string const& name)
 {
-  this->selected_chroot_name = name;
+  std::string ns, shortname;
+  chroot_config::get_namespace(name, ns, shortname);
+  this->selected_chroot_name = shortname;
 }
 
 void
