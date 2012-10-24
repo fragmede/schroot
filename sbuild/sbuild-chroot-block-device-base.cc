@@ -46,12 +46,8 @@ chroot_block_device_base::chroot_block_device_base ():
 chroot_block_device_base::chroot_block_device_base
 (const chroot_block_device_base& rhs):
   chroot(rhs),
-  device()
+  device(rhs.device)
 {
-  /// @todo Required to set mount_device.  Remove once no longer
-  /// needed.
-  if (!rhs.device.empty())
-    set_device(rhs.device);
 }
 
 chroot_block_device_base::~chroot_block_device_base ()
@@ -71,16 +67,6 @@ chroot_block_device_base::set_device (std::string const& device)
     throw error(device, DEVICE_ABS);
 
   this->device = device;
-
-  /// @todo: This may not be appropriate for derived classes such as
-  /// lvm_snapshot, since re-setting the device could overwrite the
-  /// mount device.
-  chroot_facet_mountable::ptr pmnt
-    (get_facet<chroot_facet_mountable>());
-#ifdef SBUILD_FEATURE_LVMSNAP
-  if (!dynamic_cast<chroot_lvm_snapshot *>(this))
-#endif
-    pmnt->set_mount_device(this->device);
 }
 
 std::string

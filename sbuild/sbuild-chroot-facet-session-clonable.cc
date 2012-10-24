@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include "sbuild-chroot.h"
+#include "sbuild-chroot-facet-mountable.h"
 #include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-chroot-facet-source-clonable.h"
@@ -137,6 +138,19 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
   log_debug(DEBUG_NOTICE)
     << format("Mount Location: %1%") % clone->get_mount_location()
     << endl;
+
+  /* Block devices need the mount device name specifying. */
+  /* Note that this will be overridden by LVM snapshot, below, so the
+     order here is important. */
+  std::shared_ptr<chroot_block_device_base> blockdevbase(std::dynamic_pointer_cast<chroot_block_device_base>(clone));
+  if (blockdevbase)
+    {
+      chroot_facet_mountable::ptr pmnt
+	(clone->get_facet<chroot_facet_mountable>());
+      if (pmnt)
+	pmnt->set_mount_device(blockdevbase->get_device());
+    }
+
 
 #ifdef SBUILD_FEATURE_LVMSNAP
   /* LVM devices need the snapshot device name specifying. */
