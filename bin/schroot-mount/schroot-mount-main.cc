@@ -101,11 +101,9 @@ main::resolve_path (std::string const& mountpoint)
   char *resolved_path = realpath(directory.c_str(), 0);
   if (resolved_path == 0)
     {
-      int err = errno;
       // The path is either not present or is an invalid link.  If
       // it's not present, we'll create it later.  If it's a link,
       // bail out now.
-      bool exists = true;
       bool link = false;
       try
 	{
