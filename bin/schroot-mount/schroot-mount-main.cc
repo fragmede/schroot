@@ -113,25 +113,22 @@ main::resolve_path (std::string const& mountpoint)
 	    link = true;
 	}
       catch (...)
-	{
-	  exists = false;
-	}
+	{} // Does not exist, not a link
 
-      std::cerr << "MOUNTPT= " << directory << "E=" << exists << "L=" << link << std::endl;
-
-      if (exists && link)
+      if (link)
 	throw error(directory, REALPATH, strerror(ENOTDIR));
       else
 	{
 	  // Try validating the parent directory.
 	  sbuild::string_list dirs = sbuild::split_string(mountpoint, "/");
-	  if (dirs.size() == 1) // Not possible to recurse.
-	    throw error(directory, REALPATH, strerror(err));
-	  std::string saveddir = *dirs.rbegin();
-	  dirs.pop_back();
+	  if (dirs.size() > 1) // Recurse if possible, otherwise continue
+	    {
+	      std::string saveddir = *dirs.rbegin();
+	      dirs.pop_back();
 
-	  std::string newpath(resolve_path(sbuild::string_list_to_string(dirs, "/")));
-	  directory = newpath + "/" + saveddir;
+	      std::string newpath(resolve_path(sbuild::string_list_to_string(dirs, "/")));
+	      directory = newpath + "/" + saveddir;
+	    }
 	}
     }
   else
