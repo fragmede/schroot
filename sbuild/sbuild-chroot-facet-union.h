@@ -77,14 +77,6 @@ namespace sbuild
     get_name () const;
 
     /**
-     * Set the defaults in the cloned source chroot.
-     *
-     * @param clone the chroot to set up.
-     */
-    void
-    clone_source_setup (chroot::ptr& clone) const;
-
-    /**
      * Get fs union configured state.
      *
      * @returns if fs union is configured

@@ -62,11 +62,10 @@ public:
   void setUp()
   {
     test_chroot_base<chroot_plain>::setUp();
+    CPPUNIT_ASSERT(chroot);
     CPPUNIT_ASSERT(!session);
     CPPUNIT_ASSERT(!source);
-    CPPUNIT_ASSERT(!chroot_union);
-    CPPUNIT_ASSERT(!session_union);
-    CPPUNIT_ASSERT(!source_union);
+    CPPUNIT_ASSERT(!session_source);
   }
 
   virtual void setup_chroot_props (sbuild::chroot::ptr& chroot)

@@ -41,8 +41,6 @@ class test_config : public TestFixture
   CPPUNIT_TEST(test_find_alias);
   CPPUNIT_TEST(test_get_chroot_list);
   CPPUNIT_TEST(test_get_alias_list);
-  CPPUNIT_TEST(test_print_chroot_list);
-  CPPUNIT_TEST(test_print_chroot_info);
   CPPUNIT_TEST(test_validate_chroots);
   CPPUNIT_TEST_EXCEPTION(test_validate_chroots_fail, sbuild::error_base);
   CPPUNIT_TEST_EXCEPTION(test_config_fail, sbuild::error_base);
@@ -167,16 +165,6 @@ public:
     CPPUNIT_ASSERT(chroots[4] == "chroot:sid-local");
     CPPUNIT_ASSERT(chroots[5] == "chroot:stable");
     CPPUNIT_ASSERT(chroots[6] == "chroot:unstable");
-  }
-
-  void test_print_chroot_list()
-  {
-    this->cf->print_chroot_list(this->cf->get_chroot_list("chroot"), sbuild::cnull);
-  }
-
-  void test_print_chroot_info()
-  {
-    this->cf->print_chroot_info(this->cf->get_chroot_list("chroot"), sbuild::cnull);
   }
 
   void test_validate_chroots()

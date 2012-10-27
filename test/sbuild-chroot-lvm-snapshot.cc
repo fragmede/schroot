@@ -55,9 +55,11 @@ class test_chroot_lvm_snapshot : public test_chroot_base<chroot_lvm_snapshot>
   CPPUNIT_TEST(test_setup_env);
   CPPUNIT_TEST(test_setup_env_session);
   CPPUNIT_TEST(test_setup_env_source);
+  CPPUNIT_TEST(test_setup_env_session_source);
   CPPUNIT_TEST(test_setup_keyfile);
   CPPUNIT_TEST(test_setup_keyfile_session);
   CPPUNIT_TEST(test_setup_keyfile_source);
+  CPPUNIT_TEST(test_setup_keyfile_session_source);
   CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
@@ -72,11 +74,10 @@ public:
   void setUp()
   {
     test_chroot_base<chroot_lvm_snapshot>::setUp();
+    CPPUNIT_ASSERT(chroot);
     CPPUNIT_ASSERT(session);
     CPPUNIT_ASSERT(source);
-    CPPUNIT_ASSERT(!chroot_union);
-    CPPUNIT_ASSERT(!session_union);
-    CPPUNIT_ASSERT(!source_union);
+    CPPUNIT_ASSERT(session_source);
   }
 
   virtual void setup_chroot_props (sbuild::chroot::ptr& chroot)
@@ -170,13 +171,28 @@ public:
     expected.add("CHROOT_TYPE",           "block-device");
     expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot)"));
-    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/volgroup/testdev");
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
-    expected.add("CHROOT_UNION_TYPE",     "none");
 
     test_chroot_base<chroot_lvm_snapshot>::test_setup_env(source, expected);
+  }
+
+  void test_setup_env_session_source()
+  {
+    sbuild::environment expected;
+    setup_env_gen(expected);
+    expected.add("CHROOT_TYPE",           "block-device");
+    expected.add("CHROOT_NAME",           "test-name");
+    expected.add("SESSION_ID",            "test-session-name");
+    expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot) (session chroot)"));
+    expected.add("CHROOT_ALIAS",          "test-session-name");
+    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/volgroup/testdev");
+    expected.add("CHROOT_SESSION_CLONE",  "false");
+    expected.add("CHROOT_SESSION_CREATE", "false");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
+
+    test_chroot_base<chroot_lvm_snapshot>::test_setup_env(session_source, expected);
   }
 
   void setup_keyfile_lvm(sbuild::keyfile &expected, std::string group)
@@ -214,7 +230,6 @@ public:
     expected.set_value(group, "lvm-snapshot-device", "/dev/volgroup/test-session-name");
     expected.set_value(group, "mount-device", "/dev/volgroup/test-session-name");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
-    expected.set_value(group, "mount-device", "/dev/volgroup/test-session-name");
 
     test_chroot_base<chroot_lvm_snapshot>::test_setup_keyfile
       (session, expected, group);
@@ -229,11 +244,25 @@ public:
     expected.set_value(group, "type", "block-device");
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
     expected.set_value(group, "aliases", "test-name-source,test-alias-1-source,test-alias-2-source");
-    expected.set_value(group, "union-type", "none");
     setup_keyfile_source_clone(expected, group);
 
     test_chroot_base<chroot_lvm_snapshot>::test_setup_keyfile
       (source, expected, group);
+  }
+
+  void test_setup_keyfile_session_source()
+  {
+    sbuild::keyfile expected;
+    const std::string group(source->get_name());
+    setup_keyfile_chroot(expected, group);
+    setup_keyfile_lvm(expected, group);
+    expected.set_value(group, "type", "block-device");
+    expected.set_value(group, "mount-device", "/dev/volgroup/testdev");
+    expected.set_value(group, "mount-location", "/mnt/mount-location");
+    setup_keyfile_session_source_clone(expected, group);
+
+    test_chroot_base<chroot_lvm_snapshot>::test_setup_keyfile
+      (session_source, expected, group);
   }
 
   void test_session_flags()

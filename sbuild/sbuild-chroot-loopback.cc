@@ -20,6 +20,7 @@
 
 #include "sbuild-chroot-loopback.h"
 #include "sbuild-chroot-facet-session-clonable.h"
+#include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-chroot-facet-mountable.h"
 #ifdef SBUILD_FEATURE_UNION
 #include "sbuild-chroot-facet-union.h"
@@ -74,7 +75,7 @@ chroot_loopback::clone_session (std::string const& session_id,
   assert(psess);
 
   ptr session(new chroot_loopback(*this));
-  psess->clone_session_setup(session, session_id, alias, user, root);
+  psess->clone_session_setup(*this, session, session_id, alias, user, root);
 
   return session;
 }
@@ -82,17 +83,13 @@ chroot_loopback::clone_session (std::string const& session_id,
 sbuild::chroot::ptr
 chroot_loopback::clone_source () const
 {
-  ptr clone;
+  ptr clone(new chroot_loopback(*this));
 
-#ifdef SBUILD_FEATURE_UNION
-  chroot_facet_union::const_ptr puni(get_facet<chroot_facet_union>());
-  assert(puni);
+  chroot_facet_source_clonable::const_ptr psrc
+    (get_facet<chroot_facet_source_clonable>());
+  assert(psrc);
 
-  if (puni->get_union_configured()) {
-    clone = ptr(new chroot_loopback(*this));
-    puni->clone_source_setup(clone);
-  }
-#endif // SBUILD_FEATURE_UNION
+  psrc->clone_source_setup(*this, clone);
 
   return clone;
 }
@@ -110,10 +107,6 @@ chroot_loopback::set_file (std::string const& file)
     throw error(file, FILE_ABS);
 
   this->file = file;
-
-  chroot_facet_mountable::ptr pmnt
-    (get_facet<chroot_facet_mountable>());
-  pmnt->set_mount_device(this->file);
 }
 
 std::string

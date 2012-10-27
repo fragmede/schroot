@@ -88,23 +88,6 @@ chroot_facet_union::get_name () const
   return name;
 }
 
-void
-chroot_facet_union::clone_source_setup (chroot::ptr& clone) const
-{
-  const chroot *base = dynamic_cast<const chroot *>(this->owner);
-  assert(base);
-
-  chroot_facet_source_clonable::const_ptr psrc
-    (base->get_facet<chroot_facet_source_clonable>());
-  if (psrc)
-    psrc->clone_source_setup(clone);
-
-  chroot_facet_union::ptr puni
-    (clone->get_facet<chroot_facet_union>());
-  if (puni)
-    puni->set_union_type("none");
-}
-
 bool
 chroot_facet_union::get_union_configured () const
 {

@@ -110,7 +110,7 @@ namespace schroot
      *
      * @returns a list of chroots.
      */
-    virtual chroot_map
+    void
     get_chroot_options ();
 
     /**

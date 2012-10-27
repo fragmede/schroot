@@ -55,9 +55,11 @@ class test_chroot_file : public test_chroot_base<chroot_file>
   CPPUNIT_TEST(test_setup_env);
   CPPUNIT_TEST(test_setup_env_session);
   CPPUNIT_TEST(test_setup_env_source);
+  CPPUNIT_TEST(test_setup_env_session_source);
   CPPUNIT_TEST(test_setup_keyfile);
   CPPUNIT_TEST(test_setup_keyfile_session);
   CPPUNIT_TEST(test_setup_keyfile_source);
+  CPPUNIT_TEST(test_setup_keyfile_session_source);
   CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
@@ -72,11 +74,16 @@ public:
   void setUp()
   {
     test_chroot_base<chroot_file>::setUp();
+    CPPUNIT_ASSERT(chroot);
     CPPUNIT_ASSERT(session);
     CPPUNIT_ASSERT(source);
+    CPPUNIT_ASSERT(session_source);
+#ifdef SBUILD_FEATURE_UNION
     CPPUNIT_ASSERT(!chroot_union);
     CPPUNIT_ASSERT(!session_union);
     CPPUNIT_ASSERT(!source_union);
+    CPPUNIT_ASSERT(!session_source_union);
+#endif // SBUILD_FEATURE_UNION
   }
 
   virtual void setup_chroot_props (sbuild::chroot::ptr& chroot)
@@ -192,6 +199,21 @@ public:
     test_chroot_base<chroot_file>::test_setup_env(source, expected);
   }
 
+  void test_setup_env_session_source()
+  {
+    sbuild::environment expected;
+    setup_env_gen(expected);
+    expected.add("SESSION_ID",           "test-session-name");
+    expected.add("CHROOT_ALIAS",         "test-session-name");
+    expected.add("CHROOT_DESCRIPTION",    chroot->get_description() + ' ' + _("(source chroot) (session chroot)"));
+    expected.add("CHROOT_FILE_REPACK",    "true");
+    expected.add("CHROOT_SESSION_CLONE",  "false");
+    expected.add("CHROOT_SESSION_CREATE", "false");
+    expected.add("CHROOT_SESSION_PURGE",  "true");
+
+    test_chroot_base<chroot_file>::test_setup_env(session_source, expected);
+  }
+
   void setup_keyfile_file(sbuild::keyfile &expected, const std::string group)
   {
     expected.set_value(group, "type", "file");
@@ -238,6 +260,21 @@ public:
 
     test_chroot_base<chroot_file>::test_setup_keyfile
       (source, expected, group);
+  }
+
+  void test_setup_keyfile_session_source()
+  {
+    sbuild::keyfile expected;
+    const std::string group(source->get_name());
+    setup_keyfile_chroot(expected, group);
+    setup_keyfile_file(expected, group);
+    setup_keyfile_session_source_clone(expected, group);
+    expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot) (session chroot)"));
+    expected.set_value(group, "file-repack", "true");
+    expected.set_value(group, "mount-location", "/mnt/mount-location");
+
+    test_chroot_base<chroot_file>::test_setup_keyfile
+      (session_source, expected, group);
   }
 
   void test_session_flags()

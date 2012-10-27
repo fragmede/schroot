@@ -27,6 +27,9 @@
 #ifdef SBUILD_FEATURE_LVMSNAP
 #include "sbuild-chroot-lvm-snapshot.h"
 #endif // SBUILD_FEATURE_LVMSNAP
+#ifdef SBUILD_FEATURE_LOOPBACK
+#include "sbuild-chroot-loopback.h"
+#endif // SBUILD_FEATURE_LOOPBACK
 #ifdef SBUILD_FEATURE_BTRFSSNAP
 #include "sbuild-chroot-btrfs-snapshot.h"
 #endif // SBUILD_FEATURE_BTRFSSNAP
@@ -73,7 +76,8 @@ chroot_facet_session_clonable::get_name () const
 }
 
 void
-chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
+chroot_facet_session_clonable::clone_session_setup (chroot const&      parent,
+						    chroot::ptr&       clone,
 						    std::string const& session_id,
 						    std::string const& alias,
 						    std::string const& user,
@@ -139,6 +143,7 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
     << format("Mount Location: %1%") % clone->get_mount_location()
     << endl;
 
+#ifdef SBUILD_FEATURE_BLOCKDEV
   /* Block devices need the mount device name specifying. */
   /* Note that this will be overridden by LVM snapshot, below, so the
      order here is important. */
@@ -150,7 +155,19 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
       if (pmnt)
 	pmnt->set_mount_device(blockdevbase->get_device());
     }
+#endif // SBUILD_FEATURE_BLOCKDEV
 
+#ifdef SBUILD_FEATURE_LOOPBACK
+  /* Loopback chroots need the mount device name specifying. */
+  std::shared_ptr<chroot_loopback> loopback(std::dynamic_pointer_cast<chroot_loopback>(clone));
+  if (loopback)
+    {
+      chroot_facet_mountable::ptr pmnt
+	(clone->get_facet<chroot_facet_mountable>());
+      if (pmnt)
+	pmnt->set_mount_device(loopback->get_file());
+    }
+#endif // SBUILD_FEATURE_LOOPBACK
 
 #ifdef SBUILD_FEATURE_LVMSNAP
   /* LVM devices need the snapshot device name specifying. */
@@ -175,6 +192,11 @@ chroot_facet_session_clonable::clone_session_setup (chroot::ptr&       clone,
 #endif // SBUILD_FEATURE_BTRFSSNAP
 
 #ifdef SBUILD_FEATURE_UNION
+  // If the parent did not have a union facet, then neither should we.
+  chroot_facet_union::const_ptr pparentuni(parent.get_facet<chroot_facet_union>());
+  if (!pparentuni)
+    clone->remove_facet<chroot_facet_union>();
+
   /* Filesystem unions need the overlay directory specifying. */
   chroot_facet_union::ptr puni(clone->get_facet<chroot_facet_union>());
 
