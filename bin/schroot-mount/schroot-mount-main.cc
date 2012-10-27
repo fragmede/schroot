@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/sbuild-mntstream.h>
+#include <sbuild/sbuild-util.h>
 
 #include "schroot-mount-main.h"
 
@@ -86,6 +87,68 @@ main::~main ()
 {
 }
 
+std::string
+main::resolve_path (std::string const& mountpoint)
+{
+  // Ensure entry has a leading / to prevent security hole where
+  // mountpoint might be outside the chroot.
+  std::string absmountpoint(mountpoint);
+  if (absmountpoint.empty() || absmountpoint[0] != '/')
+    absmountpoint = std::string("/") + absmountpoint;
+
+  std::string directory(opts->mountpoint + absmountpoint);
+  // Canonicalise path to remove any symlinks.
+  char *resolved_path = realpath(directory.c_str(), 0);
+  if (resolved_path == 0)
+    {
+      int err = errno;
+      // The path is either not present or is an invalid link.  If
+      // it's not present, we'll create it later.  If it's a link,
+      // bail out now.
+      bool exists = true;
+      bool link = false;
+      try
+	{
+	  if (sbuild::stat(directory, true).is_link())
+	    link = true;
+	}
+      catch (...)
+	{
+	  exists = false;
+	}
+
+      std::cerr << "MOUNTPT= " << directory << "E=" << exists << "L=" << link << std::endl;
+
+      if (exists && link)
+	throw error(directory, REALPATH, strerror(ENOTDIR));
+      else
+	{
+	  // Try validating the parent directory.
+	  sbuild::string_list dirs = sbuild::split_string(mountpoint, "/");
+	  if (dirs.size() == 1) // Not possible to recurse.
+	    throw error(directory, REALPATH, strerror(err));
+	  std::string saveddir = *dirs.rbegin();
+	  dirs.pop_back();
+
+	  std::string newpath(resolve_path(sbuild::string_list_to_string(dirs, "/")));
+	  directory = newpath + "/" + saveddir;
+	}
+    }
+  else
+    {
+      directory = resolved_path;
+      std::free(resolved_path);
+    }
+  // If the link was absolute (i.e. points somewhere on the host,
+  // outside the chroot, make sure that this is modified to be
+  // inside.
+  if (directory.size() < opts->mountpoint.size() ||
+      directory.substr(0,opts->mountpoint.size()) != opts->mountpoint)
+    directory = opts->mountpoint + directory;
+
+  return directory;
+}
+
 void
 main::action_mount ()
 {
@@ -96,25 +159,7 @@ main::action_mount ()
 
   while (mounts >> entry)
     {
-      // Ensure entry has a leading / to prevent security hole where
-      // mountpoint might be outside the chroot.
-      std::string d = entry.directory;
-      if (d.empty() || d[0] != '/')
-	d = std::string("/") + d;
-
-      std::string directory(opts->mountpoint + entry.directory);
-      // Canonicalise path to remove any symlinks.
-      char *resolved_path = realpath(directory.c_str(), 0);
-      if (resolved_path == 0)
-	throw error(directory, EXEC, strerror(errno));
-      directory = resolved_path;
-      std::free(resolved_path);
-      // If the link was absolute (i.e. points somewhere on the host,
-      // outside the chroot, make sure that this is modified to be
-      // inside.
-      if (directory.size() < opts->mountpoint.size() ||
-	  directory.substr(0,opts->mountpoint.size()) != opts->mountpoint)
-	directory = opts->mountpoint + directory;
+      std::string directory = resolve_path(entry.directory);
 
       if (!boost::filesystem::exists(directory))
 	{
