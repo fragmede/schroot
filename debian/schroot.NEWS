@@ -1,4 +1,4 @@
-schroot (1.6.4-1) experimental; urgency=low
+schroot (1.6.4-1) unstable; urgency=low
 
   Users upgrading from squeeze should take note of the following
   changes which require configuration updates:
@@ -47,7 +47,7 @@ schroot (1.6.4-1) experimental; urgency=low
     dchroot-dsa are highly encouraged to use schroot as a superior
     replacement for both tools.
 
- -- Roger Leigh <rleigh@debian.org>  Tue, Tue, 14 Aug 2012 21:36:06 +0100
+ -- Roger Leigh <rleigh@debian.org>  Tue, 14 Aug 2012 21:36:06 +0100
 
 schroot (1.4.16-1) unstable; urgency=low
 
