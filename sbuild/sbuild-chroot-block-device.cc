@@ -138,8 +138,7 @@ chroot_block_device::setup_lock (chroot::setup_type type,
 	  assert(base);
 	  chroot_facet_union::const_ptr puni
 	    (base->get_facet<chroot_facet_union>());
-	  assert(puni);
-	  if (!puni->get_union_configured())
+	  if (!puni || !puni->get_union_configured())
 #endif
 	    {
 	      device_lock dlock(this->device);
