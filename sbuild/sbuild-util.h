@@ -370,14 +370,18 @@ namespace sbuild
     /**
      * The constructor.
      * @param file the filename to use.
+     * @param link use lstat rather than stat (i.e. don't follow symlinks).
      */
-    stat (const char *file);
+    stat (const char *file,
+	  bool        link = false);
 
     /**
      * The constructor.
      * @param file the filename to use.
+     * @param link use lstat rather than stat (i.e. don't follow symlinks).
      */
-    stat (std::string const& file);
+    stat (std::string const& file,
+	  bool               link = false);
 
     /**
      * The constructor.
