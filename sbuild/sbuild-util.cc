@@ -504,24 +504,42 @@ sbuild::exec (std::string const& file,
   return status;
 }
 
-sbuild::stat::stat (const char *file):
+sbuild::stat::stat (const char *file,
+		    bool        link):
   file(file),
   fd(0),
   errorno(0),
   status()
 {
-  if (::stat(file, &this->status) < 0)
-    this->errorno = errno;
+  if (link)
+    {
+      if (::lstat(file, &this->status) < 0)
+	this->errorno = errno;
+    }
+  else
+    {
+      if (::stat(file, &this->status) < 0)
+	this->errorno = errno;
+    }
 }
 
-sbuild::stat::stat (std::string const& file):
+sbuild::stat::stat (std::string const& file,
+		    bool               link):
   file(file),
   fd(0),
   errorno(0),
   status()
 {
-  if (::stat(file.c_str(), &this->status) < 0)
-    this->errorno = errno;
+  if (link)
+    {
+      if (::lstat(file.c_str(), &this->status) < 0)
+	this->errorno = errno;
+    }
+  else
+    {
+      if (::stat(file.c_str(), &this->status) < 0)
+	this->errorno = errno;
+    }
 }
 
 sbuild::stat::stat (std::string const& file,

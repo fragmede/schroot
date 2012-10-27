@@ -81,6 +81,20 @@ namespace schroot_mount
 	      sbuild::environment const& env);
 
     /**
+     * Ensure that the mountpoint is a valid absolute path inside the
+     * chroot.  This is to avoid absolute or relative symlinks
+     * pointing outside the chroot causing filesystems to be mounted
+     * on the host.  An exception will be thrown if it is not possible
+     * to resolve the path.
+     *
+     * @param mountpoint the mountpoint to check,
+     * @returns the validated path.
+     */
+
+    std::string
+    resolve_path (std::string const& mountpoint);
+
+    /**
      * Wait for a child process to complete, and check its exit status.
      *
      * An error will be thrown on failure.
