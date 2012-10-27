@@ -58,9 +58,11 @@ class test_chroot_btrfs_snapshot : public test_chroot_base<chroot_btrfs_snapshot
   CPPUNIT_TEST(test_setup_env);
   CPPUNIT_TEST(test_setup_env_session);
   CPPUNIT_TEST(test_setup_env_source);
+  CPPUNIT_TEST(test_setup_env_session_source);
   CPPUNIT_TEST(test_setup_keyfile);
   CPPUNIT_TEST(test_setup_keyfile_session);
   CPPUNIT_TEST(test_setup_keyfile_source);
+  CPPUNIT_TEST(test_setup_keyfile_session_source);
   CPPUNIT_TEST(test_session_flags);
   CPPUNIT_TEST(test_print_details);
   CPPUNIT_TEST(test_print_config);
@@ -75,11 +77,10 @@ public:
   void setUp()
   {
     test_chroot_base<chroot_btrfs_snapshot>::setUp();
+    CPPUNIT_ASSERT(chroot);
     CPPUNIT_ASSERT(session);
     CPPUNIT_ASSERT(source);
-    CPPUNIT_ASSERT(!chroot_union);
-    CPPUNIT_ASSERT(!session_union);
-    CPPUNIT_ASSERT(!source_union);
+    CPPUNIT_ASSERT(session_source);
   }
 
   virtual void setup_chroot_props (sbuild::chroot::ptr& chroot)
@@ -200,7 +201,21 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
-    expected.add("CHROOT_UNION_TYPE",     "none");
+
+    test_chroot_base<chroot_btrfs_snapshot>::test_setup_env(source, expected);
+  }
+
+  void test_setup_env_session_source()
+  {
+    sbuild::environment expected;
+    setup_env_gen(expected);
+    expected.add("CHROOT_TYPE",           "directory");
+    expected.add("CHROOT_NAME",           "test-name");
+    expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot)"));
+    expected.add("CHROOT_DIRECTORY",       "/srv/chroot/sid");
+    expected.add("CHROOT_SESSION_CLONE",  "false");
+    expected.add("CHROOT_SESSION_CREATE", "true");
+    expected.add("CHROOT_SESSION_PURGE",  "false");
 
     test_chroot_base<chroot_btrfs_snapshot>::test_setup_env(source, expected);
   }
@@ -251,12 +266,28 @@ public:
     expected.set_value(group, "type", "directory");
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
     expected.set_value(group, "aliases", "test-alias-1-source,test-alias-2-source");
-    expected.set_value(group, "union-type", "none");
     expected.set_value(group, "directory", "/srv/chroot/sid");
     setup_keyfile_source_clone(expected, group);
 
     test_chroot_base<chroot_btrfs_snapshot>::test_setup_keyfile
       (source, expected, group);
+  }
+
+  void test_setup_keyfile_session_source()
+  {
+    sbuild::keyfile expected;
+    const std::string group(source->get_name());
+    setup_keyfile_chroot(expected, group);
+    setup_keyfile_btrfs(expected, group);
+    expected.set_value(group, "type", "directory");
+    expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
+    expected.set_value(group, "aliases", "test-alias-1-source,test-alias-2-source");
+    expected.set_value(group, "directory", "/srv/chroot/sid");
+    expected.set_value(group, "mount-location", "/mnt/mount-location");
+    setup_keyfile_session_source_clone(expected, group);
+
+    test_chroot_base<chroot_btrfs_snapshot>::test_setup_keyfile
+      (session_source, expected, group);
   }
 
   void test_session_flags()

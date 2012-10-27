@@ -26,7 +26,9 @@
 #include <sbuild/sbuild-chroot-facet-session-clonable.h>
 #include <sbuild/sbuild-chroot-facet-source.h>
 #include <sbuild/sbuild-chroot-facet-source-clonable.h>
+#ifdef SBUILD_FEATURE_UNION
 #include <sbuild/sbuild-chroot-facet-union.h>
+#endif // SBUILD_FEATURE_UNION
 #include <sbuild/sbuild-chroot-facet-userdata.h>
 #include <sbuild/sbuild-i18n.h>
 #include <sbuild/sbuild-types.h>
@@ -48,9 +50,13 @@ protected:
   sbuild::chroot::ptr chroot;
   sbuild::chroot::ptr session;
   sbuild::chroot::ptr source;
+  sbuild::chroot::ptr session_source;
+#ifdef SBUILD_FEATURE_UNION
   sbuild::chroot::ptr chroot_union;
   sbuild::chroot::ptr session_union;
   sbuild::chroot::ptr source_union;
+  sbuild::chroot::ptr session_source_union;
+#endif // SBUILD_FEATURE_UNION
   std::string abs_testdata_dir;
 
 public:
@@ -109,6 +115,24 @@ public:
 	CPPUNIT_ASSERT(pfsrc);
       }
 
+    if (source)
+      {
+	sbuild::chroot_facet_session_clonable::const_ptr psess_src
+	  (this->source->template get_facet<sbuild::chroot_facet_session_clonable>());
+	if (psess_src)
+	  {
+	    this->session_source = this->source->clone_session("test-session-name",
+							       "test-session-name",
+							       "user1",
+							       false);
+	    if (this->session_source)
+	      {
+		CPPUNIT_ASSERT(this->session_source->template get_facet<sbuild::chroot_facet_session>());
+	      }
+	  }
+      }
+
+#ifdef SBUILD_FEATURE_UNION
     this->chroot_union = sbuild::chroot::ptr(new T);
     sbuild::chroot_facet_union::ptr un =
       this->chroot_union->template get_facet<sbuild::chroot_facet_union>();
@@ -135,10 +159,24 @@ public:
 					    false);
 	this->source_union = chroot_union->clone_source();
 
+	sbuild::chroot_facet_session_clonable::const_ptr puni_sess_src
+	  (this->source_union->template get_facet<sbuild::chroot_facet_session_clonable>());
+	if (puni_sess_src)
+	  {
+	    this->session_source_union = this->source_union->clone_session("test-session-name",
+									   "test-session-name",
+									   "user1",
+									   false);
+	  }
+
 	CPPUNIT_ASSERT(this->session_union);
 	CPPUNIT_ASSERT(this->session_union->template get_facet<sbuild::chroot_facet_session>());
 	CPPUNIT_ASSERT(this->source_union);
+	CPPUNIT_ASSERT(this->session_source_union);
+	CPPUNIT_ASSERT(this->session_source_union->template get_facet<sbuild::chroot_facet_session>());
       }
+#endif // SBUILD_FEATURE_UNION
+
   }
 
   virtual void setup_chroot_props (sbuild::chroot::ptr& chroot)
@@ -244,35 +282,31 @@ public:
     keyfile.set_value(group, "root-groups", "");
   }
 
+#ifdef SBUILD_FEATURE_UNION
   void setup_keyfile_union_unconfigured (sbuild::keyfile&   keyfile,
 					 std::string const& group)
   {
-#ifdef SBUILD_FEATURE_UNION
     keyfile.set_value(group, "union-type", "none");
-#endif // SBUILD_FEATURE_UNION
   }
 
   void setup_keyfile_union_configured (sbuild::keyfile&   keyfile,
 				       std::string const& group)
   {
-#ifdef SBUILD_FEATURE_UNION
     keyfile.set_value(group, "union-type", "aufs");
     keyfile.set_value(group, "union-mount-options", "union-mount-options");
     keyfile.set_value(group, "union-overlay-directory", "/overlay");
     keyfile.set_value(group, "union-underlay-directory", "/underlay");
-#endif // SBUILD_FEATURE_UNION
   }
 
   void setup_keyfile_union_session (sbuild::keyfile&   keyfile,
 				    std::string const& group)
   {
-#ifdef SBUILD_FEATURE_UNION
     keyfile.set_value(group, "union-type", "aufs");
     keyfile.set_value(group, "union-mount-options", "union-mount-options");
     keyfile.set_value(group, "union-overlay-directory", "/overlay/test-union-session-name");
     keyfile.set_value(group, "union-underlay-directory", "/underlay/test-union-session-name");
-#endif // SBUILD_FEATURE_UNION
   }
+#endif // SBUILD_FEATURE_UNION
 
   void setup_keyfile_session_clone (sbuild::keyfile&   keyfile,
 				    std::string const& group)
@@ -305,6 +339,22 @@ public:
   void setup_keyfile_source_clone (sbuild::keyfile& keyfile)
   {
     setup_keyfile_source_clone(keyfile, chroot->get_name());
+  }
+
+  void setup_keyfile_session_source_clone (sbuild::keyfile&   keyfile,
+					   std::string const& group)
+  {
+    setup_keyfile_chroot(keyfile, group);
+    keyfile.set_value(group, "name", "test-session-name");
+    keyfile.set_value(group, "original-name", "test-name");
+    keyfile.set_value(group, "selected-name", "test-session-name");
+    keyfile.set_value(group, "aliases", "");
+    keyfile.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot) (session chroot)"));
+    keyfile.set_value(group, "original-name", "test-name");
+    keyfile.set_value(group, "users", "user1");
+    keyfile.set_value(group, "root-users", "");
+    keyfile.set_value(group, "groups", "");
+    keyfile.set_value(group, "root-groups", "");
   }
 
   void test_setup_env(const sbuild::environment& observed_environment,

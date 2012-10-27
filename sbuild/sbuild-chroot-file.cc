@@ -72,7 +72,7 @@ chroot_file::clone_session (std::string const& session_id,
   assert(psess);
 
   ptr session(new chroot_file(*this));
-  psess->clone_session_setup(session, session_id, alias, user, root);
+  psess->clone_session_setup(*this, session, session_id, alias, user, root);
 
   return session;
 }
@@ -87,7 +87,7 @@ chroot_file::clone_source () const
     (get_facet<chroot_facet_source_clonable>());
   assert(psrc);
 
-  psrc->clone_source_setup(clone);
+  psrc->clone_source_setup(*this, clone);
   clone_file->repack = true;
 
   return clone;

@@ -22,6 +22,9 @@
 #include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-chroot-facet-source.h"
+#ifdef SBUILD_FEATURE_UNION
+#include "sbuild-chroot-facet-union.h"
+#endif // SBUILD_FEATURE_UNION
 
 #include <cassert>
 
@@ -64,7 +67,8 @@ chroot_facet_source_clonable::get_name () const
 }
 
 void
-chroot_facet_source_clonable::clone_source_setup (chroot::ptr& clone) const
+chroot_facet_source_clonable::clone_source_setup (chroot const& parent,
+						  chroot::ptr&  clone) const
 {
   clone->set_description
     (clone->get_description() + ' ' + _("(source chroot)"));
@@ -74,6 +78,10 @@ chroot_facet_source_clonable::clone_source_setup (chroot::ptr& clone) const
   clone->set_root_users(this->get_source_root_users());
   clone->set_root_groups(this->get_source_root_groups());
   clone->set_aliases(clone->get_aliases());
+
+#ifdef SBUILD_FEATURE_UNION
+  clone->remove_facet<chroot_facet_union>();
+#endif // SBUILD_FEATURE_UNION
 
   clone->remove_facet<chroot_facet_source_clonable>();
   clone->add_facet(chroot_facet_source::create());

@@ -185,7 +185,7 @@ main_base::action_config ()
   std::cout << info << std::flush;
 }
 
-main_base::chroot_map
+void
 main_base::get_chroot_options ()
 {
 
@@ -225,7 +225,7 @@ main_base::get_chroot_options ()
 	}
 
       // Validate and normalise
-      return this->config->validate_chroots("", this->chroot_names);
+      this->chroots = this->config->validate_chroots("", this->chroot_names);
     }
   else
     {
@@ -238,7 +238,7 @@ main_base::get_chroot_options ()
 
       // Validate and normalise
       this->chroot_names = this->options->chroots;
-      return this->chroots = this->config->validate_chroots
+      this->chroots = this->config->validate_chroots
 	(chroot_namespace, this->chroot_names);
     }
 }
@@ -284,7 +284,7 @@ main_base::run_impl ()
     log_exception_warning(error(CHROOT_FILE2, SCHROOT_CONF, SCHROOT_CONF_CHROOT_D));
 
   /* Get list of chroots to use */
-  this->chroots = get_chroot_options();
+  get_chroot_options();
   if (this->chroots.empty())
     {
       if (!(this->options->all_chroots == true ||

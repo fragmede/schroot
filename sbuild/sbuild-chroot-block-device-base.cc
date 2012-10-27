@@ -21,9 +21,6 @@
 #include "sbuild-chroot-block-device.h"
 #include "sbuild-chroot-lvm-snapshot.h"
 #include "sbuild-chroot-facet-mountable.h"
-#ifdef SBUILD_FEATURE_UNION
-#include "sbuild-chroot-facet-union.h"
-#endif // SBUILD_FEATURE_UNION
 #include "sbuild-format-detail.h"
 #include "sbuild-lock.h"
 #include "sbuild-util.h"

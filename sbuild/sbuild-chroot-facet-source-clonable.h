@@ -66,10 +66,12 @@ namespace sbuild
     /**
      * Set the defaults in the cloned source chroot.
      *
+     * @param parent the parent of the cloned chroot.
      * @param clone the chroot to set up.
      */
     virtual void
-    clone_source_setup (chroot::ptr& clone) const;
+    clone_source_setup (chroot const& parent,
+			chroot::ptr&  clone) const;
 
     /**
      * Is cloning a source chroot automatically permitted?  Note that
