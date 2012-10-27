@@ -55,8 +55,6 @@ namespace
    */
   emap init_errors[] =
     {
-      // TRANSLATORS: %1% = comma-separated list of chroot names
-      emap(main_base::CHROOTS_NOTFOUND,  N_("%1%: Chroots not found")),
       // TRANSLATORS: %4% = file
       emap(main_base::CHROOT_FILE,       N_("No chroots are defined in ‘%4%’")),
       // TRANSLATORS: %4% = file
@@ -64,8 +62,6 @@ namespace
       emap(main_base::CHROOT_FILE2,      N_("No chroots are defined in ‘%4%’ or ‘%5%’")),
       // TRANSLATORS: %1% = file
       emap(main_base::CHROOT_NOTDEFINED, N_("The specified chroots are not defined in ‘%1%’")),
-      // TRANSLATORS: %1% = chroot name
-      emap(main_base::CHROOT_NOTFOUND,   N_("%1%: Chroot not found")),
       emap(main_base::SESSION_INVALID,   N_("%1%: Invalid session name"))
     };
 
@@ -123,13 +119,39 @@ main_base::action_version (std::ostream& stream)
 void
 main_base::action_info ()
 {
-  this->config->print_chroot_info(this->chroots, std::cout);
+  for(sbuild::string_list::const_iterator pos = this->chroot_names.begin();
+      pos != this->chroot_names.end();
+      ++pos)
+    {
+      // This should never fail, so no error handling here--we already
+      // validated everything when we got the chroot map.
+      sbuild::chroot_config::chroot_map::const_iterator c = this->chroots.find(*pos);
+      assert(c->second);
+
+      std::cout << c->second;
+      if (pos + 1 != this->chroot_names.end())
+	std::cout << '\n';
+    }
+
+  std::cout << std::flush;
 }
 
 void
 main_base::action_location ()
 {
-  this->config->print_chroot_location(this->chroots, std::cout);
+  for(sbuild::string_list::const_iterator pos = this->chroot_names.begin();
+      pos != this->chroot_names.end();
+      ++pos)
+    {
+      // This should never fail, so no error handling here--we already
+      // validated everything when we got the chroot map.
+      sbuild::chroot_config::chroot_map::const_iterator c = this->chroots.find(*pos);
+      assert(c->second);
+
+      std::cout << c->second->get_path() << '\n';
+    }
+
+  std::cout << std::flush;
 }
 
 void
@@ -143,13 +165,29 @@ main_base::action_config ()
     % this->program_name % VERSION % sbuild::date(time(0))
 	    << endl;
   std::cout << endl;
-  this->config->print_chroot_config(this->chroots, std::cout);
+
+  sbuild::keyfile info;
+
+  for(sbuild::string_list::const_iterator pos = this->chroot_names.begin();
+      pos != this->chroot_names.end();
+      ++pos)
+    {
+      // This should never fail, so no error handling here--we already
+      // validated everything when we got the chroot map.
+      sbuild::chroot_config::chroot_map::const_iterator c = this->chroots.find(*pos);
+      assert(c->second);
+
+      // Generated chroots (e.g. source chroots) are not printed.
+      if (c->second->get_original())
+	info << c->second;
+    }
+
+  std::cout << info << std::flush;
 }
 
-sbuild::string_list
+main_base::chroot_map
 main_base::get_chroot_options ()
 {
-  sbuild::string_list ret;
 
   if (this->options->all_chroots == true ||
       this->options->all_sessions == true ||
@@ -163,7 +201,7 @@ main_base::get_chroot_options ()
 	    chroots = this->config->get_alias_list("chroot");
 	  else
 	    chroots = this->config->get_chroot_list("chroot");
-	  ret.insert(ret.end(), chroots.begin(), chroots.end());
+	  this->chroot_names.insert(this->chroot_names.end(), chroots.begin(), chroots.end());
 	}
       if (this->options->all_sessions)
 	{
@@ -173,7 +211,7 @@ main_base::get_chroot_options ()
 	    sessions = this->config->get_alias_list("session");
 	  else
 	    sessions = this->config->get_chroot_list("session");
-	  ret.insert(ret.end(), sessions.begin(), sessions.end());
+	  this->chroot_names.insert(this->chroot_names.end(), sessions.begin(), sessions.end());
 	}
       if (this->options->all_source_chroots)
 	{
@@ -183,8 +221,11 @@ main_base::get_chroot_options ()
 	    sources = this->config->get_alias_list("source");
 	  else
 	    sources = this->config->get_chroot_list("source");
-	  ret.insert(ret.end(), sources.begin(), sources.end());
+	  this->chroot_names.insert(this->chroot_names.end(), sources.begin(), sources.end());
 	}
+
+      // Validate and normalise
+      return this->config->validate_chroots("", this->chroot_names);
     }
   else
     {
@@ -195,29 +236,11 @@ main_base::get_chroot_options ()
 	  this->options->action == options_base::ACTION_SESSION_END)
 	chroot_namespace = "session";
 
-      sbuild::string_list invalid_chroots =
-	this->config->validate_chroots(chroot_namespace, this->options->chroots);
-
-      if (!invalid_chroots.empty())
-	{
-	  std::string invalid_list;
-	  for (sbuild::string_list::const_iterator chroot =
-		 invalid_chroots.begin();
-	       chroot != invalid_chroots.end();
-	       ++chroot)
-	    {
-	      invalid_list += *chroot;
-	      if (chroot + 1 != invalid_chroots.end())
-		invalid_list += ", ";
-	    }
-	  throw error(invalid_list,
-		      (invalid_chroots.size() == 1)
-		      ? CHROOT_NOTFOUND : CHROOTS_NOTFOUND);
-	}
-      ret = this->options->chroots;
+      // Validate and normalise
+      this->chroot_names = this->options->chroots;
+      return this->chroots = this->config->validate_chroots
+	(chroot_namespace, this->chroot_names);
     }
-
-  return ret;
 }
 
 void
@@ -282,20 +305,18 @@ main_base::run_impl ()
 	}
     }
   this->chroot_objects.clear();
-  for(sbuild::string_list::const_iterator pos = this->chroots.begin();
-      pos != this->chroots.end();
+  for(sbuild::string_list::const_iterator pos = this->chroot_names.begin();
+      pos != this->chroot_names.end();
       ++pos)
     {
-      sbuild::chroot::ptr c = this->config->find_alias("", *pos);
-      if (c)
-	{
-	  sbuild::session::chroot_list::value_type e;
-	  e.alias = *pos;
-	  e.chroot = c;
-	  chroot_objects.push_back(e);
-	}
-      else
-	throw error(*pos, CHROOT_NOTFOUND);
+      // This should never fail, so no error handling here--we already
+      // validated everything when we got the chroot map.
+      sbuild::chroot_config::chroot_map::const_iterator c = this->chroots.find(*pos);
+      assert(c->second);
+      sbuild::session::chroot_list::value_type e;
+      e.alias = c->first;
+      e.chroot = c->second;
+      chroot_objects.push_back(e);
     }
 
   /* Print chroot list. */

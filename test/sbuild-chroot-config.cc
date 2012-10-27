@@ -44,6 +44,7 @@ class test_config : public TestFixture
   CPPUNIT_TEST(test_print_chroot_list);
   CPPUNIT_TEST(test_print_chroot_info);
   CPPUNIT_TEST(test_validate_chroots);
+  CPPUNIT_TEST_EXCEPTION(test_validate_chroots_fail, sbuild::error_base);
   CPPUNIT_TEST_EXCEPTION(test_config_fail, sbuild::error_base);
   CPPUNIT_TEST(test_config_deprecated);
   CPPUNIT_TEST(test_config_valid);
@@ -182,15 +183,23 @@ public:
   {
     sbuild::string_list chroots;
     chroots.push_back("default");
+    chroots.push_back("sarge");
+    chroots.push_back("unstable");
+
+    sbuild::chroot_config::chroot_map m = this->cf->validate_chroots("chroot", chroots);
+    assert(m.size() == 3);
+  }
+
+  void test_validate_chroots_fail()
+  {
+    sbuild::string_list chroots;
+    chroots.push_back("default");
     chroots.push_back("invalid");
     chroots.push_back("invalid2");
     chroots.push_back("sarge");
     chroots.push_back("unstable");
 
-    sbuild::string_list invalid = this->cf->validate_chroots("chroot", chroots);
-    CPPUNIT_ASSERT(invalid.size() == 2);
-    CPPUNIT_ASSERT(invalid[0] == "invalid");
-    CPPUNIT_ASSERT(invalid[1] == "invalid2");
+    this->cf->validate_chroots("chroot", chroots);
   }
 
   void test_config_fail()

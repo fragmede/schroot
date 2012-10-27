@@ -45,9 +45,6 @@ namespace dchroot
 
   protected:
     virtual void
-    action_location ();
-
-    virtual void
     create_session (sbuild::session::operation sess_op);
   };
 

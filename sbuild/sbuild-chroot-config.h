@@ -58,7 +58,8 @@ namespace sbuild
     enum error_code
       {
 	ALIAS_EXIST,       ///< Alias already associated with chroot.
-	CHROOT_NOTFOUND,   ///< No such chroot.
+	CHROOT_NOTFOUND,   ///< Chroot not found.
+	CHROOTS_NOTFOUND,  ///< Chroots not found.
 	CHROOT_EXIST,      ///< A chroot or alias already exists with this name.
 	FILE_NOTREG,       ///< File is not a regular file.
 	FILE_OPEN,         ///< Failed to open file.
@@ -271,18 +272,6 @@ namespace sbuild
     get_alias_list (std::string const& chroot_namespace) const;
 
     /**
-     * Print all the available chroots to the specified stream.  If
-     * any of the specified chroots do not exist, an exception will be
-     * thrown.
-     *
-     * @param chroots a list of chroots to print.
-     * @param stream the stream to output to.
-     */
-    void
-    print_chroot_list (string_list const& chroots,
-		       std::ostream& stream) const;
-
-    /**
      * Print a single line of all the available chroots to the
      * specified stream.
      *
@@ -292,53 +281,20 @@ namespace sbuild
     print_chroot_list_simple (std::ostream& stream) const;
 
     /**
-     * Print information about the specified chroots to the specified
-     * stream.
-     *
-     * @param chroots a list of chroots to print.
-     * @param stream the stream to output to.
-     */
-    void
-    print_chroot_info (string_list const& chroots,
-		       std::ostream&      stream) const;
-
-    /**
-     * Print location information about the specified chroots to the
-     * specified stream.
-     *
-     * @param chroots a list of chroots to print.
-     * @param stream the stream to output to.
-     */
-    void
-    print_chroot_location (string_list const& chroots,
-			   std::ostream&      stream) const;
-
-    /**
-     * Print configuration of the specified chroots to the specified
-     * stream.
-     *
-     * @param chroots a list of chroots to print.
-     * @param stream the stream to output to.
-     */
-    void
-    print_chroot_config (string_list const& chroots,
-			 std::ostream&      stream) const;
-
-    /**
      * Check that all the chroots specified exist.  The specified
      * chroot names will also be canonicalised so that they are all
      * referenced absolutely by namespace, using chroot_namespace as a
-     * namespace hint for chroots without a namespace.
+     * namespace hint for chroots without a namespace.  If validation
+     * fails, and exception will be thrown.
      *
      * @param namespace_hint the namespace to use if non was
      * explicitly specified.
      * @param chroots a list of chroots to validate.
-     * @returns a list of invalid chroots.  The list will be empty if
-     * all chroots are valid.
+     * @returns an alias-chroot mapping.
      */
-    string_list
+    chroot_map
     validate_chroots (std::string const& namespace_hint,
-		      string_list&       chroots) const;
+		      string_list const& chroots) const;
 
   private:
     /**
