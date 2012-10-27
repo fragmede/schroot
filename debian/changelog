@@ -10,18 +10,32 @@ schroot (1.6.4-1) unstable; urgency=low
   * schroot-mount: Canonicalise mountpoints with symlinks to avoid
     mounting absolute paths on the host rather than inside the chroot
     (Closes: #686148).  Note the caveat regarding paths with multiple
-    symlinks in schroot-script-config(5).
+    symlinks in schroot-script-config(5).  This permits safe use of
+    symlinks as mountpoints in some common circumstances, e.g. on
+    /var/lock, which is a symlink to /run/lock, though this is not
+    recommended practice.
   * 15binfmt no longer pollutes output, by redirecting stderr from
     "which update-binfmts" (Closes: #688304).
   * Ensure that CHROOT_ALIAS (setup scripts) and SCHROOT_ALIAS_NAME
     (user environment) always refer to the alias used to create the
     session (Closes: #689078).  The alias is no longer canonicalised
-    by sbuild::chroot_config::validate_chroots.
+    by sbuild::chroot_config::validate_chroots.  The logic for
+    chroot validation and information display in sbuild::chroot_config
+    and schroot::main_base (and derived classes) required refactoring
+    to allow the unresolved alias name to be passed through to the
+    session clone operation in sbuild::session, so that it could be
+    stored in the chroot's sbuild::chroot_facet_session facet.
+  * On session recovery, mount the snapshot LV rather than the source
+    LV for LVM snapshot chroots (Closes: #691376).  The code which
+    sets the mount device for all mountable chroots (with an
+    sbuild::chroot_facet_mountable facet) is in
+    sbuild::chroot_facet_session_clonable::clone_session_setup().
+    All chroot types refactored to set the mount device here.
   * 10mount uses a lock directory /var/lock/schroot to contain its
     lockfile, rather than directly using /var/lock, which is less
     secure.
 
- -- Roger Leigh <rleigh@debian.org>  Mon, 15 Oct 2012 21:56:21 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sat, 27 Oct 2012 23:30:38 +0100
 
 schroot (1.6.3-1) unstable; urgency=low
 
