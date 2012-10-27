@@ -57,7 +57,10 @@ namespace
       // TRANSLATORS: %1% = chroot alias name
       // TRANSLATORS: %4% = chroot name
       emap(chroot_config::ALIAS_EXIST,        N_("Alias ‘%1%’ already associated with ‘%4%’ chroot")),
-      emap(chroot_config::CHROOT_NOTFOUND,    N_("No such chroot")),
+      // TRANSLATORS: %1% = chroot name
+      emap(chroot_config::CHROOT_NOTFOUND,    N_("%1%: Chroot not found")),
+      // TRANSLATORS: %1% = comma-separated list of chroot names
+      emap(chroot_config::CHROOTS_NOTFOUND,   N_("%1%: Chroots not found")),
       // TRANSLATORS: %1% = chroot name
       emap(chroot_config::CHROOT_EXIST,       N_("A chroot or alias ‘%1%’ already exists with this name")),
       emap(chroot_config::FILE_NOTREG,        N_("File is not a regular file")),
@@ -474,29 +477,6 @@ chroot_config::get_alias_list (std::string const& chroot_namespace) const
 }
 
 void
-chroot_config::print_chroot_list (string_list const& chroots,
-				  std::ostream& stream) const
-{
-  for (string_list::const_iterator pos = chroots.begin();
-       pos != chroots.end();
-       ++pos)
-    {
-      log_debug(DEBUG_NOTICE) << "C: " << *pos << std::endl;
-
-      const chroot::ptr chroot = find_alias("", *pos);
-      if (chroot)
-	{
-	  stream << *pos << '\n';
-	}
-      else
-	{
-	  error e(*pos, CHROOT_NOTFOUND);
-	  log_exception_error(e);
-	}
-    }
-}
-
-void
 chroot_config::print_chroot_list_simple (std::ostream& stream) const
 {
   stream << _("Available chroots: ");
@@ -530,98 +510,30 @@ chroot_config::print_chroot_list_simple (std::ostream& stream) const
   stream << endl;
 }
 
-void
-chroot_config::print_chroot_info (string_list const& chroots,
-				  std::ostream&      stream) const
-{
-  for (string_list::const_iterator pos = chroots.begin();
-       pos != chroots.end();
-       ++pos)
-    {
-      const chroot::ptr chroot = find_alias("", *pos);
-      if (chroot)
-	{
-	  stream << chroot;
-	  if (pos + 1 != chroots.end())
-	    stream << '\n';
-	}
-      else
-	{
-	  error e(*pos, CHROOT_NOTFOUND);
-	  log_exception_error(e);
-	}
-    }
-}
-
-void
-chroot_config::print_chroot_location (string_list const& chroots,
-				      std::ostream&      stream) const
-{
-  for (string_list::const_iterator pos = chroots.begin();
-       pos != chroots.end();
-       ++pos)
-    {
-      const chroot::ptr chroot = find_alias("", *pos);
-      if (chroot)
-	{
-	  stream << chroot->get_path() << '\n';
-	}
-      else
-	{
-	  error e(*pos, CHROOT_NOTFOUND);
-	  log_exception_error(e);
-	}
-    }
-
-  stream << std::flush;
-}
-
-void
-chroot_config::print_chroot_config (string_list const& chroots,
-				    std::ostream&      stream) const
-{
-  keyfile info;
-
-  for (string_list::const_iterator pos = chroots.begin();
-       pos != chroots.end();
-       ++pos)
-    {
-      const chroot::ptr chroot = find_alias("", *pos);
-
-      // Generated chroots (e.g. source chroots) are not printed.
-      if (chroot)
-	{
-	  if (chroot->get_original())
-	    info << chroot;
-	}
-      else
-	{
-	  error e(*pos, CHROOT_NOTFOUND);
-	  log_exception_error(e);
-	}
-    }
-
-  stream << info;
-}
-
-string_list
+chroot_config::chroot_map
 chroot_config::validate_chroots (std::string const& namespace_hint,
-				 string_list&       chroots) const
+				 string_list const& chroots) const
 {
   string_list bad_chroots;
+  chroot_map validated;
 
-  for (string_list::iterator pos = chroots.begin();
+  for (string_list::const_iterator pos = chroots.begin();
        pos != chroots.end();
        ++pos)
     {
-      std::string chroot = lookup_alias(namespace_hint, *pos);
-      if (chroot.empty())
+      chroot::ptr chroot = find_alias(namespace_hint, *pos);
+      if (!chroot)
 	bad_chroots.push_back(*pos);
       else
-	*pos = chroot;
+	validated.insert(std::make_pair(*pos, chroot));
     }
 
-  return bad_chroots;
+  if (!bad_chroots.empty())
+    throw error(string_list_to_string(bad_chroots, ", "),
+		(bad_chroots.size() == 1)
+		? CHROOT_NOTFOUND : CHROOTS_NOTFOUND);
+
+  return validated;
 }
 
 void

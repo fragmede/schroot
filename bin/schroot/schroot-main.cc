@@ -52,7 +52,12 @@ main::~main ()
 void
 main::action_list ()
 {
-  this->config->print_chroot_list(this->chroots, std::cout);
+  // This list is pre-validated.
+  for(sbuild::string_list::const_iterator pos = this->chroot_names.begin();
+      pos != this->chroot_names.end();
+      ++pos)
+    std::cout << *pos << '\n';
+  std::cout << std::flush;
 }
 
 void

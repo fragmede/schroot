@@ -39,16 +39,16 @@ namespace schroot
     /// Error codes.
     enum error_code
       {
-	CHROOTS_NOTFOUND,  ///< Chroots not found.
 	CHROOT_FILE,       ///< No chroots are defined in ....
 	CHROOT_FILE2,      ///< No chroots are defined in ... or ....
 	CHROOT_NOTDEFINED, ///< The specified chroots are not defined.
-	CHROOT_NOTFOUND,   ///< Chroot not found.
 	SESSION_INVALID    ///< Invalid session name.
       };
 
     /// Exception type.
     typedef sbuild::custom_error<error_code> error;
+
+    typedef sbuild::chroot_config::chroot_map chroot_map;
 
     /**
      * The constructor.
@@ -110,7 +110,7 @@ namespace schroot
      *
      * @returns a list of chroots.
      */
-    virtual sbuild::string_list
+    virtual chroot_map
     get_chroot_options ();
 
     /**
@@ -138,9 +138,11 @@ namespace schroot
     options_base::ptr            options;
     /// The chroot configuration.
     sbuild::chroot_config::ptr   config;
-    /// The chroots to use.
-    sbuild::string_list          chroots;
-    /// The chroots to use.
+    /// The chroots to use (original names or aliases).
+    sbuild::string_list          chroot_names;
+    /// The chroots to use (alias to chroot mapping).
+    chroot_map                   chroots;
+    /// The chroots to use (for session).
     sbuild::session::chroot_list chroot_objects;
     /// The session.
     sbuild::session::ptr         session;

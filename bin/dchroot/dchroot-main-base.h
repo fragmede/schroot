@@ -47,9 +47,6 @@ namespace dchroot
 
   protected:
     virtual void
-    action_config ();
-
-    virtual void
     action_list ();
   };
 

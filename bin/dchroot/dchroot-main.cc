@@ -52,14 +52,6 @@ main::~main ()
 }
 
 void
-main::action_location ()
-{
-  sbuild::string_list chroot;
-  chroot.push_back(this->options->chroot_path);
-  this->config->print_chroot_location(chroot, std::cout);
-}
-
-void
 main::create_session (sbuild::session::operation sess_op)
 {
   sbuild::log_debug(sbuild::DEBUG_INFO) << "Creating dchroot session" << endl;
