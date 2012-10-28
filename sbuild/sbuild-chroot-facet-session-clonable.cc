@@ -24,6 +24,9 @@
 #include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-chroot-plain.h"
+#ifdef SBUILD_FEATURE_BLOCKDEV
+#include "sbuild-chroot-block-device-base.h"
+#endif
 #ifdef SBUILD_FEATURE_LVMSNAP
 #include "sbuild-chroot-lvm-snapshot.h"
 #endif // SBUILD_FEATURE_LVMSNAP
