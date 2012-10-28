@@ -1,3 +1,12 @@
+schroot (1.6.4-2) unstable; urgency=low
+
+  * sbuild::chroot_facet_session_clonable: Include
+    sbuild-chroot-block-device-base.h, which was missing on
+    kFreeBSD and Hurd builds (it's included indirectly on Linux
+    via the LVM snapshot header).
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 28 Oct 2012 11:49:57 +0000
+
 schroot (1.6.4-1) unstable; urgency=low
 
   * New upstream stable release.
