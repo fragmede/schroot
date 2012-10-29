@@ -60,7 +60,7 @@ namespace
       emap(main::CHILD_FORK, N_("Failed to fork child")),
       emap(main::CHILD_WAIT, N_("Wait for child failed")),
       // TRANSLATORS: %1% = command name
-      emap(main::EXEC,       N_("Failed to execute '%1%'"))
+      emap(main::EXEC,       N_("Failed to execute '%1%'")),
       emap(main::REALPATH,   N_("Failed to resolve path '%1%'"))
     };
 
