@@ -96,9 +96,15 @@ main::resolve_path (std::string const& mountpoint)
   if (absmountpoint.empty() || absmountpoint[0] != '/')
     absmountpoint = std::string("/") + absmountpoint;
 
+  char *resolved_path = realpath(opts->mountpoint.c_str(), 0);
+  if (!resolved_path)
+    throw error(opts->mountpoint, REALPATH, strerror(errno));
+  std::string basepath(resolved_path);
+  std::free(resolved_path);
+
   std::string directory(opts->mountpoint + absmountpoint);
   // Canonicalise path to remove any symlinks.
-  char *resolved_path = realpath(directory.c_str(), 0);
+  resolved_path = realpath(directory.c_str(), 0);
   if (resolved_path == 0)
     {
       // The path is either not present or is an invalid link.  If
@@ -137,9 +143,9 @@ main::resolve_path (std::string const& mountpoint)
   // If the link was absolute (i.e. points somewhere on the host,
   // outside the chroot, make sure that this is modified to be
   // inside.
-  if (directory.size() < opts->mountpoint.size() ||
-      directory.substr(0,opts->mountpoint.size()) != opts->mountpoint)
-    directory = opts->mountpoint + directory;
+  if (directory.size() < basepath.size() ||
+      directory.substr(0,basepath.size()) != basepath)
+    directory = basepath + directory;
 
   return directory;
 }
