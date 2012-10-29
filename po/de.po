@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.25-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-12 16:23+0100\n"
+"POT-Creation-Date: 2012-10-29 20:28+0000\n"
 "PO-Revision-Date: 2012-02-11 21:14+0100\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -475,6 +475,10 @@ msgstr "Warten auf Kindprozess fehlgeschlagen"
 #, boost-format
 msgid "Failed to execute '%1%'"
 msgstr "Ausführung von »%1%« fehlgeschlagen"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path '%1%'"
+msgstr "Setzen von Gruppe »%1%« fehlgeschlagen"
 
 # CHECKME: stimmt "[OPTION …]" oder sollte es "[OPTIONEN …]" oder
 # "[OPTION…]" heißen?

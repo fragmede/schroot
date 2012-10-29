@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-12 16:23+0100\n"
+"POT-Creation-Date: 2012-10-29 20:28+0000\n"
 "PO-Revision-Date: 2010-07-11 18:39+0200\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -459,6 +459,10 @@ msgstr "Čekání na potomka selhalo"
 #, boost-format
 msgid "Failed to execute '%1%'"
 msgstr "Nepodařilo se spustit „%1%“"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path '%1%'"
+msgstr "Nepodařilo se nastavit skupinu „%1%“"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.

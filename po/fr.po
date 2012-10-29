@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-12 16:23+0100\n"
+"POT-Creation-Date: 2012-10-29 20:28+0000\n"
 "PO-Revision-Date: 2012-02-03 22:06+0100\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -481,6 +481,10 @@ msgstr "Échec lors de l'attente du fils"
 #, boost-format
 msgid "Failed to execute '%1%'"
 msgstr "Échec lors de l'exécution de « %1% »"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path '%1%'"
+msgstr "Échec lors du positionnement du groupe à « %1% »"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.

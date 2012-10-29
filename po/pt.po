@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.25-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-12 16:23+0100\n"
+"POT-Creation-Date: 2012-10-29 20:28+0000\n"
 "PO-Revision-Date: 2012-02-06 21:50+0100\n"
 "Last-Translator: Pedro Ribeiro <p.m42.ribeiro@gmail.com>\n"
 "Language-Team: Portuguese <traduz@debianpt.org>\n"
@@ -467,6 +467,10 @@ msgstr "Espera pelo processo filho falhou"
 #, boost-format
 msgid "Failed to execute '%1%'"
 msgstr "Falhou a execução de '%1%'"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path '%1%'"
+msgstr "Falhou a definição do grupo '%1%'"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.

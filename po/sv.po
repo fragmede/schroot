@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2012-05-12 16:23+0100\n"
+"POT-Creation-Date: 2012-10-29 20:28+0000\n"
 "PO-Revision-Date: 2010-01-16 15:44+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -473,6 +473,10 @@ msgstr "Väntan på barnprocess misslyckades"
 #, boost-format
 msgid "Failed to execute '%1%'"
 msgstr "Misslyckades med att starta \"%1%\""
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path '%1%'"
+msgstr "Misslyckades med att ställa in gruppen \"%1%\""
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
