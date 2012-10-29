@@ -1,3 +1,10 @@
+schroot (1.6.4-3) unstable; urgency=low
+
+  * schroot-mount canonicalises both the base path and full
+    path when sanity checking mountpoints (Closes: #691694).
+
+ -- Roger Leigh <rleigh@debian.org>  Mon, 29 Oct 2012 19:25:30 +0000
+
 schroot (1.6.4-2) unstable; urgency=low
 
   * sbuild::chroot_facet_session_clonable: Include
