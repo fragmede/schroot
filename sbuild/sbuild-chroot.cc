@@ -713,6 +713,51 @@ sbuild::chroot::print_details (std::ostream& stream) const
   stream << fmt;
 }
 
+string_list
+sbuild::chroot::get_used_keys () const
+{
+  string_list used_keys;
+
+  get_used_keys(used_keys);
+
+  for (facet_list::const_iterator pos = facets.begin();
+       pos != facets.end();
+       ++pos)
+    {
+      (*pos)->get_used_keys(used_keys);
+    }
+
+  return used_keys;
+}
+
+void
+sbuild::chroot::get_used_keys (string_list& used_keys) const
+{
+  // Keys which are used elsewhere, but should be counted as "used".
+  used_keys.push_back("type");
+
+  used_keys.push_back("active");
+  used_keys.push_back("run-setup-scripts");
+  used_keys.push_back("run-session-scripts");
+  used_keys.push_back("run-exec-scripts");
+  used_keys.push_back("profile");
+  used_keys.push_back("script-config");
+  used_keys.push_back("priority");
+  used_keys.push_back("aliases");
+  used_keys.push_back("environment-filter");
+  used_keys.push_back("description");
+  used_keys.push_back("users");
+  used_keys.push_back("groups");
+  used_keys.push_back("root-users");
+  used_keys.push_back("root-groups");
+  used_keys.push_back("mount-location");
+  used_keys.push_back("name");
+  used_keys.push_back("command-prefix");
+  used_keys.push_back("message-verbosity");
+  used_keys.push_back("preserve-environment");
+  used_keys.push_back("shell");
+}
+
 void
 sbuild::chroot::get_keyfile (keyfile& keyfile) const
 {
@@ -805,15 +850,13 @@ sbuild::chroot::get_keyfile (chroot const& chroot,
 void
 sbuild::chroot::set_keyfile (keyfile const& keyfile)
 {
-  string_list used_keys;
-
-  set_keyfile(*this, keyfile, used_keys);
+  set_keyfile(*this, keyfile);
 
   for (facet_list::const_iterator pos = facets.begin();
        pos != facets.end();
        ++pos)
     {
-      (*pos)->set_keyfile(*this, keyfile, used_keys);
+      (*pos)->set_keyfile(*this, keyfile);
     }
 
   // Check for keys which weren't set above.  These may be either
@@ -821,6 +864,7 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
   // separated with one or more periods.  These may be later
   // overridden by the user on the commandline.
   {
+    string_list used_keys = get_used_keys();
     std::string const& group = this->get_name();
     const string_list total(keyfile.get_keys(group));
 
@@ -840,6 +884,11 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 	 pos != unused.end();
 	 ++pos)
       {
+	// Skip language-specific key variants.
+	static regex description_keys("\\[.*\\]$");
+	if (regex_search(*pos, description_keys))
+	  continue;
+
 	if (userdata)
 	  {
 	    try
@@ -882,32 +931,17 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 
 void
 sbuild::chroot::set_keyfile (chroot&        chroot,
-			     keyfile const& keyfile,
-			     string_list&   used_keys)
+			     keyfile const& keyfile)
 {
   // Null method for obsolete keys.
   void (sbuild::chroot::* nullmethod)(bool) = 0;
 
   bool session = static_cast<bool>(get_facet<chroot_facet_session>());
 
-  // Keys which are used elsewhere, but should be counted as "used".
-  used_keys.push_back("type");
-
-  string_list keys = keyfile.get_keys(chroot.get_name());
-  for (string_list::const_iterator pos = keys.begin();
-       pos != keys.end();
-       ++pos)
-    {
-      static regex description_keys("^description\\[.*\\]$");
-      if (regex_search(*pos, description_keys))
-	used_keys.push_back(*pos);
-    }
-
   keyfile::get_object_value(chroot, nullmethod,
 			    keyfile, chroot.get_name(),
 			    "active",
 			    keyfile::PRIORITY_OBSOLETE);
-  used_keys.push_back("active");
 
   // Setup scripts are run depending on the chroot type in use, and is
   // no longer user-configurable.  They need to run for all types
@@ -916,7 +950,6 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
 			    keyfile, chroot.get_name(),
 			    "run-setup-scripts",
 			    keyfile::PRIORITY_OBSOLETE);
-  used_keys.push_back("run-setup-scripts");
 
   // Exec scripts have been removed, so these two calls do nothing
   // except to warn the user that the options are no longer used.
@@ -924,18 +957,15 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
 			    keyfile, chroot.get_name(),
 			    "run-session-scripts",
 			    keyfile::PRIORITY_OBSOLETE);
-  used_keys.push_back("run-session-scripts");
   keyfile::get_object_value(chroot, nullmethod,
 			    keyfile, chroot.get_name(),
 			    "run-exec-scripts",
 			    keyfile::PRIORITY_OBSOLETE);
-  used_keys.push_back("run-exec-scripts");
 
   keyfile::get_object_value(chroot, &chroot::set_profile,
 			    keyfile, chroot.get_name(),
 			    "profile",
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("profile");
 
   keyfile::get_object_value(chroot, &chroot::set_script_config,
 			    keyfile, chroot.get_name(),
@@ -943,7 +973,6 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
 			    session ?
 			    keyfile::PRIORITY_OPTIONAL :
 			    keyfile::PRIORITY_DEPRECATED);
-  used_keys.push_back("script-config");
 
   keyfile::get_object_value(chroot, nullmethod,
 			    keyfile, chroot.get_name(),
@@ -951,49 +980,41 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
 			    session ?
 			    keyfile::PRIORITY_OPTIONAL :
 			    keyfile::PRIORITY_OBSOLETE);
-  used_keys.push_back("priority");
 
   keyfile::get_object_list_value(chroot, &chroot::set_aliases,
 				 keyfile, chroot.get_name(),
 				 "aliases",
 				 keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("aliases");
 
   keyfile::get_object_value(chroot, &chroot::set_environment_filter,
 			    keyfile, chroot.get_name(),
 			    "environment-filter",
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("environment-filter");
 
   keyfile::get_object_value(chroot, &chroot::set_description,
 			    keyfile, chroot.get_name(),
 			    "description",
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("description");
 
   keyfile::get_object_list_value(chroot, &chroot::set_users,
 				 keyfile, chroot.get_name(),
 				 "users",
 				 keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("users");
 
   keyfile::get_object_list_value(chroot, &chroot::set_groups,
 				 keyfile, chroot.get_name(),
 				 "groups",
 				 keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("groups");
 
   keyfile::get_object_list_value(chroot, &chroot::set_root_users,
 				 keyfile, chroot.get_name(),
 				 "root-users",
 				 keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("root-users");
 
   keyfile::get_object_list_value(chroot, &chroot::set_root_groups,
 				 keyfile, chroot.get_name(),
 				 "root-groups",
 				 keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("root-groups");
 
   keyfile::get_object_value(chroot, &chroot::set_mount_location,
 			    keyfile, chroot.get_name(),
@@ -1001,7 +1022,6 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
 			    session ?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_DISALLOWED);
-  used_keys.push_back("mount-location");
 
   keyfile::get_object_value(chroot, &chroot::set_name,
 			    keyfile, chroot.get_name(),
@@ -1009,29 +1029,24 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
 			    session ?
 			    keyfile::PRIORITY_OPTIONAL :
 			    keyfile::PRIORITY_DISALLOWED);
-  used_keys.push_back("name");
 
   keyfile::get_object_list_value(chroot, &chroot::set_command_prefix,
 				 keyfile, chroot.get_name(),
 				 "command-prefix",
 				 keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("command-prefix");
 
   keyfile::get_object_value(chroot, &chroot::set_verbosity,
 			    keyfile, chroot.get_name(),
 			    "message-verbosity",
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("message-verbosity");
 
   keyfile::get_object_value(chroot, &chroot::set_preserve_environment,
 			    keyfile, chroot.get_name(),
 			    "preserve-environment",
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("preserve-environment");
 
   keyfile::get_object_value(chroot, &chroot::set_default_shell,
 			    keyfile, chroot.get_name(),
 			    "shell",
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("shell");
 }

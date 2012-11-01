@@ -239,6 +239,15 @@ chroot_lvm_snapshot::get_details (chroot const& chroot,
 }
 
 void
+chroot_lvm_snapshot::get_used_keys (string_list& used_keys) const
+{
+  chroot_block_device_base::get_used_keys(used_keys);
+
+  used_keys.push_back("lvm-snapshot-device");
+  used_keys.push_back("lvm-snapshot-options");
+}
+
+void
 chroot_lvm_snapshot::get_keyfile (chroot const& chroot,
 				  keyfile& keyfile) const
 {
@@ -261,10 +270,9 @@ chroot_lvm_snapshot::get_keyfile (chroot const& chroot,
 
 void
 chroot_lvm_snapshot::set_keyfile (chroot&        chroot,
-				  keyfile const& keyfile,
-				  string_list&   used_keys)
+				  keyfile const& keyfile)
 {
-  chroot_block_device_base::set_keyfile(chroot, keyfile, used_keys);
+  chroot_block_device_base::set_keyfile(chroot, keyfile);
 
   bool session = static_cast<bool>(get_facet<chroot_facet_session>());
 
@@ -273,12 +281,10 @@ chroot_lvm_snapshot::set_keyfile (chroot&        chroot,
 			    session ?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_DISALLOWED);
-  used_keys.push_back("lvm-snapshot-device");
 
   keyfile::get_object_value(*this, &chroot_lvm_snapshot::set_snapshot_options,
 			    keyfile, get_name(), "lvm-snapshot-options",
 			    session ?
 			    keyfile::PRIORITY_DEPRECATED :
 			    keyfile::PRIORITY_REQUIRED); // Only needed for creating snapshot, not using snapshot
-  used_keys.push_back("lvm-snapshot-options");
 }

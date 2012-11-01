@@ -185,6 +185,14 @@ chroot_loopback::get_details (chroot const&  chroot,
 }
 
 void
+chroot_loopback::get_used_keys (string_list& used_keys) const
+{
+  chroot::get_used_keys(used_keys);
+
+  used_keys.push_back("file");
+}
+
+void
 chroot_loopback::get_keyfile (chroot const& chroot,
 			      keyfile&      keyfile) const
 {
@@ -196,13 +204,11 @@ chroot_loopback::get_keyfile (chroot const& chroot,
 
 void
 chroot_loopback::set_keyfile (chroot&        chroot,
-			      keyfile const& keyfile,
-			      string_list&   used_keys)
+			      keyfile const& keyfile)
 {
-  chroot::set_keyfile(chroot, keyfile, used_keys);
+  chroot::set_keyfile(chroot, keyfile);
 
   keyfile::get_object_value(*this, &chroot_loopback::set_file,
 			    keyfile, get_name(), "file",
 			    keyfile::PRIORITY_REQUIRED);
-  used_keys.push_back("file");
 }

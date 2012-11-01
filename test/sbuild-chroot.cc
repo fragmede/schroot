@@ -91,15 +91,18 @@ public:
   { return sbuild::chroot::SESSION_CREATE; }
 
   virtual void
+  get_used_keys (sbuild::string_list& used_keys) const
+  { sbuild::chroot::get_used_keys(used_keys); }
+
+  virtual void
   get_keyfile (sbuild::chroot const& chroot,
 	       sbuild::keyfile&      keyfile) const
   { sbuild::chroot::get_keyfile(chroot, keyfile); }
 
   virtual void
   set_keyfile (sbuild::chroot&        chroot,
-	       sbuild::keyfile const& keyfile,
-	       sbuild::string_list&   used_keys)
-  { sbuild::chroot::set_keyfile(chroot, keyfile, used_keys); }
+	       sbuild::keyfile const& keyfile)
+  { sbuild::chroot::set_keyfile(chroot, keyfile); }
 };
 
 class test_chroot : public test_chroot_base<basic_chroot>

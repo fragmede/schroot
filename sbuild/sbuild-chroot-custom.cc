@@ -177,6 +177,16 @@ chroot_custom::get_details (chroot const&  chroot,
 }
 
 void
+chroot_custom::get_used_keys (string_list& used_keys) const
+{
+  chroot::get_used_keys(used_keys);
+
+  used_keys.push_back("custom-cloneable");
+  used_keys.push_back("custom-purgeable");
+  used_keys.push_back("custom-source-cloneable");
+}
+
+void
 chroot_custom::get_keyfile (chroot const& chroot,
 			    keyfile&      keyfile) const
 {
@@ -190,10 +200,9 @@ chroot_custom::get_keyfile (chroot const& chroot,
 
 void
 chroot_custom::set_keyfile (chroot& chroot,
-			    keyfile const& keyfile,
-			    string_list&   used_keys)
+			    keyfile const& keyfile)
 {
-  chroot::set_keyfile(chroot, keyfile, used_keys);
+  chroot::set_keyfile(chroot, keyfile);
 
   bool session = static_cast<bool>(get_facet<chroot_facet_session>());
 
@@ -202,17 +211,14 @@ chroot_custom::set_keyfile (chroot& chroot,
 			    session ?
 			    keyfile::PRIORITY_DISALLOWED :
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("custom-cloneable");
 
   keyfile::get_object_value(*this, &chroot_custom::set_session_purgeable,
 			    keyfile, get_name(), "custom-session-purgeable",
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("custom-purgeable");
 
   keyfile::get_object_value(*this, &chroot_custom::set_source_cloneable,
 			    keyfile, get_name(), "custom-source-cloneable",
 			    session ?
 			    keyfile::PRIORITY_DISALLOWED :
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("custom-source-cloneable");
 }

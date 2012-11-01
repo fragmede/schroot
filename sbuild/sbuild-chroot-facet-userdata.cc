@@ -334,6 +334,13 @@ chroot_facet_userdata::set_root_modifiable_keys (string_set const& keys)
 }
 
 void
+chroot_facet_userdata::get_used_keys (string_list& used_keys) const
+{
+  used_keys.push_back("user-modifiable-keys");
+  used_keys.push_back("root-modifiable-keys");
+}
+
+void
 chroot_facet_userdata::get_keyfile (chroot const& chroot,
 				    keyfile&      keyfile) const
 {
@@ -359,20 +366,17 @@ chroot_facet_userdata::get_keyfile (chroot const& chroot,
 
 void
 chroot_facet_userdata::set_keyfile (chroot&        chroot,
-				    keyfile const& keyfile,
-				    string_list&   used_keys)
+				    keyfile const& keyfile)
 {
   keyfile::get_object_set_value(*this,
 				&chroot_facet_userdata::set_user_modifiable_keys,
 				keyfile, chroot.get_name(),
 				"user-modifiable-keys",
 				keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("user-modifiable-keys");
 
   keyfile::get_object_set_value(*this,
 				&chroot_facet_userdata::set_root_modifiable_keys,
 				keyfile, chroot.get_name(),
 				"root-modifiable-keys",
 				keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("root-modifiable-keys");
 }

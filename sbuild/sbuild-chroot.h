@@ -776,7 +776,18 @@ namespace sbuild
     void
     set_keyfile (keyfile const& keyfile);
 
+    /**
+     * Get a list of the keys used during keyfile parsing.
+     *
+     * @returns a list of key names.
+     */
+    string_list
+    get_used_keys () const;
+
   protected:
+    virtual void
+    get_used_keys (string_list& used_keys) const = 0;
+
     /**
      * Set the chroot properties from a keyfile.  The chroot name must
      * have previously been set, so that the correct keyfile group may
@@ -788,8 +799,7 @@ namespace sbuild
      */
     virtual void
     set_keyfile (chroot&        chroot,
-		 keyfile const& keyfile,
-		 string_list&   used_keys) = 0;
+		 keyfile const& keyfile) = 0;
 
   private:
     /// Chroot name.

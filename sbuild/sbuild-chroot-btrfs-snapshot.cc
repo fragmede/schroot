@@ -202,6 +202,16 @@ chroot_btrfs_snapshot::get_details (chroot const& chroot,
 }
 
 void
+chroot_btrfs_snapshot::get_used_keys (string_list& used_keys) const
+{
+  chroot::get_used_keys(used_keys);
+
+  used_keys.push_back("btrfs-source-subvolume");
+  used_keys.push_back("btrfs-snapshot-directory");
+  used_keys.push_back("btrfs-snapshot-name");
+}
+
+void
 chroot_btrfs_snapshot::get_keyfile (chroot const& chroot,
 				    keyfile& keyfile) const
 {
@@ -230,10 +240,9 @@ chroot_btrfs_snapshot::get_keyfile (chroot const& chroot,
 
 void
 chroot_btrfs_snapshot::set_keyfile (chroot&        chroot,
-				    keyfile const& keyfile,
-				    string_list&   used_keys)
+				    keyfile const& keyfile)
 {
-  chroot::set_keyfile(chroot, keyfile, used_keys);
+  chroot::set_keyfile(chroot, keyfile);
 
   bool session = static_cast<bool>(get_facet<chroot_facet_session>());
 
@@ -243,7 +252,6 @@ chroot_btrfs_snapshot::set_keyfile (chroot&        chroot,
 			    keyfile::PRIORITY_DISALLOWED :
 			    keyfile::PRIORITY_REQUIRED
 			    ); // Only needed for creating snapshot, not using snapshot
-  used_keys.push_back("btrfs-source-subvolume");
 
   keyfile::get_object_value(*this, &chroot_btrfs_snapshot::set_snapshot_directory,
 			    keyfile, get_name(), "btrfs-snapshot-directory",
@@ -251,12 +259,10 @@ chroot_btrfs_snapshot::set_keyfile (chroot&        chroot,
 			    keyfile::PRIORITY_DISALLOWED :
 			    keyfile::PRIORITY_REQUIRED
 			    ); // Only needed for creating snapshot, not using snapshot
-  used_keys.push_back("btrfs-snapshot-directory");
 
   keyfile::get_object_value(*this, &chroot_btrfs_snapshot::set_snapshot_name,
 			    keyfile, get_name(), "btrfs-snapshot-name",
 			    session ?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_DISALLOWED);
-  used_keys.push_back("btrfs-snapshot-name");
 }

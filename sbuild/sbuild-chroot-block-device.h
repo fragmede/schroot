@@ -92,13 +92,15 @@ namespace sbuild
 		 format_detail& detail) const;
 
     virtual void
+    get_used_keys (string_list& used_keys) const;
+
+    virtual void
     get_keyfile (chroot const& chroot,
 		 keyfile&      keyfile) const;
 
     virtual void
     set_keyfile (chroot&        chroot,
-		 keyfile const& keyfile,
-		 string_list&   used_keys);
+		 keyfile const& keyfile);
   };
 
 }

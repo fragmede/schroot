@@ -208,6 +208,12 @@ chroot_block_device::get_details (chroot const& chroot,
 }
 
 void
+chroot_block_device::get_used_keys (string_list& used_keys) const
+{
+  chroot_block_device_base::get_used_keys(used_keys);
+}
+
+void
 chroot_block_device::get_keyfile (chroot const& chroot,
 				  keyfile&      keyfile) const
 {
@@ -216,8 +222,7 @@ chroot_block_device::get_keyfile (chroot const& chroot,
 
 void
 chroot_block_device::set_keyfile (chroot&        chroot,
-				  keyfile const& keyfile,
-				  string_list&   used_keys)
+				  keyfile const& keyfile)
 {
-  chroot_block_device_base::set_keyfile(chroot, keyfile, used_keys);
+  chroot_block_device_base::set_keyfile(chroot, keyfile);
 }

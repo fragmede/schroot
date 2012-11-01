@@ -115,6 +115,14 @@ namespace sbuild
 		 format_detail& detail) const = 0;
 
     /**
+     * Get a list of the keys used during keyfile parsing.
+     *
+     * @returns a list of key names.
+     */
+    virtual void
+    get_used_keys (string_list& used_keys) const = 0;
+
+    /**
      * Copy the chroot properties into a keyfile.  The keyfile group
      * with the name of the chroot will be set; if it already exists,
      * it will be removed before setting it.
@@ -137,8 +145,7 @@ namespace sbuild
      */
     virtual void
     set_keyfile (chroot&        chroot,
-		 keyfile const& keyfile,
-		 string_list&   used_keys) = 0;
+		 keyfile const& keyfile) = 0;
 
   protected:
     /// Chroot owning this facet.

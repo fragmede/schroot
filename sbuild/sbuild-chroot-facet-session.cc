@@ -129,6 +129,18 @@ chroot_facet_session::get_details (chroot const&  chroot,
 }
 
 void
+chroot_facet_session::get_used_keys (string_list& used_keys) const
+{
+  used_keys.push_back("active");
+  used_keys.push_back("source-users");
+  used_keys.push_back("source-groups");
+  used_keys.push_back("source-root-users");
+  used_keys.push_back("source-root-groups");
+  used_keys.push_back("original-name");
+  used_keys.push_back("selected-name");
+}
+
+void
 chroot_facet_session::get_keyfile (chroot const& chroot,
 				   keyfile&      keyfile) const
 {
@@ -143,8 +155,7 @@ chroot_facet_session::get_keyfile (chroot const& chroot,
 
 void
 chroot_facet_session::set_keyfile (chroot&        chroot,
-				   keyfile const& keyfile,
-				   string_list&   used_keys)
+				   keyfile const& keyfile)
 {
   // Null methods for obsolete keys.
   void (chroot_facet_session::* nullmethod)(bool) = 0;
@@ -158,41 +169,34 @@ chroot_facet_session::set_keyfile (chroot&        chroot,
 			    keyfile, chroot.get_name(),
 			    "active",
 			    keyfile::PRIORITY_OBSOLETE);
-  used_keys.push_back("active");
 
   keyfile::get_object_list_value(*this, nullvmethod,
 				 keyfile, chroot.get_name(),
 				 "source-users",
 				 keyfile::PRIORITY_OBSOLETE);
-  used_keys.push_back("source-users");
 
   keyfile::get_object_list_value(*this, nullvmethod,
 				 keyfile, chroot.get_name(),
 				 "source-groups",
 				 keyfile::PRIORITY_OBSOLETE);
-  used_keys.push_back("source-groups");
 
   keyfile::get_object_list_value(*this, nullvmethod,
 				 keyfile, chroot.get_name(),
 				 "source-root-users",
 				 keyfile::PRIORITY_OBSOLETE);
-  used_keys.push_back("source-root-users");
 
   keyfile::get_object_list_value(*this, nullvmethod,
 				 keyfile, chroot.get_name(),
 				 "source-root-groups",
 				 keyfile::PRIORITY_OBSOLETE);
-  used_keys.push_back("source-root-groups");
 
   keyfile::get_object_value(*this, &chroot_facet_session::set_original_name,
 			    keyfile, chroot.get_name(),
 			    "original-name",
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("original-name");
 
   keyfile::get_object_value(*this, &chroot_facet_session::set_selected_name,
 			    keyfile, chroot.get_name(),
 			    "selected-name",
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("selected-name");
 }

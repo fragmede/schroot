@@ -152,6 +152,12 @@ chroot_directory::get_details (chroot const&  chroot,
 }
 
 void
+chroot_directory::get_used_keys (string_list& used_keys) const
+{
+  chroot_directory_base::get_used_keys(used_keys);
+}
+
+void
 chroot_directory::get_keyfile (chroot const& chroot,
 			       keyfile&      keyfile) const
 {
@@ -160,8 +166,7 @@ chroot_directory::get_keyfile (chroot const& chroot,
 
 void
 chroot_directory::set_keyfile (chroot& chroot,
-			       keyfile const& keyfile,
-			       string_list&   used_keys)
+			       keyfile const& keyfile)
 {
-  chroot_directory_base::set_keyfile(chroot, keyfile, used_keys);
+  chroot_directory_base::set_keyfile(chroot, keyfile);
 }

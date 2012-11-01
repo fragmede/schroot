@@ -215,6 +215,15 @@ chroot_facet_union::get_details (chroot const& chroot,
 }
 
 void
+chroot_facet_union::get_used_keys (string_list& used_keys) const
+{
+  used_keys.push_back("union-type");
+  used_keys.push_back("union-mount-options");
+  used_keys.push_back("union-overlay-directory");
+  used_keys.push_back("union-underlay-directory");
+}
+
+void
 chroot_facet_union::get_keyfile (chroot const& chroot,
 				 keyfile&      keyfile) const
 {
@@ -242,27 +251,24 @@ chroot_facet_union::get_keyfile (chroot const& chroot,
 
 void
 chroot_facet_union::set_keyfile (chroot&        chroot,
-				 keyfile const& keyfile,
-				 string_list&   used_keys)
+				 keyfile const& keyfile)
 {
   bool session = static_cast<bool>(chroot.get_facet<chroot_facet_session>());
 
   keyfile::get_object_value(*this, &chroot_facet_union::set_union_type,
 			    keyfile, chroot.get_name(), "union-type",
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("union-type");
 
   // If we are a union, add specific source options here.
   chroot_facet_source_clonable::ptr psrc
     (chroot.get_facet<chroot_facet_source_clonable>());
   if (psrc)
-    psrc->set_keyfile(chroot, keyfile, used_keys);
+    psrc->set_keyfile(chroot, keyfile);
 
   keyfile::get_object_value(*this,
 			    &chroot_facet_union::set_union_mount_options,
 			    keyfile, chroot.get_name(), "union-mount-options",
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("union-mount-options");
 
   keyfile::get_object_value(*this,
 			    &chroot_facet_union::set_union_overlay_directory,
@@ -271,7 +277,6 @@ chroot_facet_union::set_keyfile (chroot&        chroot,
 			    (session && get_union_configured())?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("union-overlay-directory");
 
   keyfile::get_object_value(*this,
 			    &chroot_facet_union::set_union_underlay_directory,
@@ -280,5 +285,4 @@ chroot_facet_union::set_keyfile (chroot&        chroot,
 			    (session && get_union_configured())?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("union-underlay-directory");
 }

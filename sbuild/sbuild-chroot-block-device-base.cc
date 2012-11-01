@@ -106,6 +106,14 @@ chroot_block_device_base::get_details (chroot const& chroot,
 }
 
 void
+chroot_block_device_base::get_used_keys (string_list& used_keys) const
+{
+  chroot::get_used_keys(used_keys);
+
+  used_keys.push_back("device");
+}
+
+void
 chroot_block_device_base::get_keyfile (chroot const& chroot,
 				       keyfile&      keyfile) const
 {
@@ -117,13 +125,11 @@ chroot_block_device_base::get_keyfile (chroot const& chroot,
 
 void
 chroot_block_device_base::set_keyfile (chroot&        chroot,
-				       keyfile const& keyfile,
-				       string_list&   used_keys)
+				       keyfile const& keyfile)
 {
-  chroot::set_keyfile(chroot, keyfile, used_keys);
+  chroot::set_keyfile(chroot, keyfile);
 
   keyfile::get_object_value(*this, &chroot_block_device_base::set_device,
 			    keyfile, get_name(), "device",
 			    keyfile::PRIORITY_REQUIRED);
-  used_keys.push_back("device");
 }

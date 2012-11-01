@@ -235,6 +235,11 @@ chroot_facet_session_clonable::get_details (chroot const&  chroot,
 }
 
 void
+chroot_facet_session_clonable::get_used_keys (string_list& used_keys) const
+{
+}
+
+void
 chroot_facet_session_clonable::get_keyfile (chroot const& chroot,
 					    keyfile&      keyfile) const
 {
@@ -242,7 +247,6 @@ chroot_facet_session_clonable::get_keyfile (chroot const& chroot,
 
 void
 chroot_facet_session_clonable::set_keyfile (chroot&        chroot,
-					    keyfile const& keyfile,
-					    string_list&   used_keys)
+					    keyfile const& keyfile)
 {
 }

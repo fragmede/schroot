@@ -222,6 +222,16 @@ chroot_file::get_details (chroot const&  chroot,
 }
 
 void
+chroot_file::get_used_keys (string_list& used_keys) const
+{
+  chroot::get_used_keys(used_keys);
+
+  used_keys.push_back("file");
+  used_keys.push_back("location");
+  used_keys.push_back("file-repack");
+}
+
+void
 chroot_file::get_keyfile (chroot const& chroot,
 			  keyfile&      keyfile) const
 {
@@ -243,28 +253,24 @@ chroot_file::get_keyfile (chroot const& chroot,
 
 void
 chroot_file::set_keyfile (chroot&        chroot,
-			  keyfile const& keyfile,
-			  string_list&   used_keys)
+			  keyfile const& keyfile)
 {
-  chroot::set_keyfile(chroot, keyfile, used_keys);
+  chroot::set_keyfile(chroot, keyfile);
 
   bool session = static_cast<bool>(get_facet<chroot_facet_session>());
 
   keyfile::get_object_value(*this, &chroot_file::set_file,
 			    keyfile, get_name(), "file",
 			    keyfile::PRIORITY_REQUIRED);
-  used_keys.push_back("file");
 
   keyfile::get_object_value(*this, &chroot_file::set_location,
 			    keyfile, chroot.get_name(),
 			    "location",
 			    keyfile::PRIORITY_OPTIONAL);
-  used_keys.push_back("location");
 
   keyfile::get_object_value(*this, &chroot_file::set_file_repack,
 			    keyfile, get_name(), "file-repack",
 			    session ?
 			    keyfile::PRIORITY_REQUIRED :
 			    keyfile::PRIORITY_DISALLOWED);
-  used_keys.push_back("file-repack");
 }

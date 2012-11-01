@@ -87,6 +87,15 @@ chroot_directory_base::get_details (chroot const& chroot,
 }
 
 void
+chroot_directory_base::get_used_keys (string_list& used_keys) const
+{
+  chroot::get_used_keys(used_keys);
+
+  used_keys.push_back("directory");
+  used_keys.push_back("location");
+}
+
+void
 chroot_directory_base::get_keyfile (chroot const& chroot,
 				    keyfile& keyfile) const
 {
@@ -98,10 +107,9 @@ chroot_directory_base::get_keyfile (chroot const& chroot,
 
 void
 chroot_directory_base::set_keyfile (chroot&        chroot,
-				    keyfile const& keyfile,
-				    string_list&   used_keys)
+				    keyfile const& keyfile)
 {
-  chroot::set_keyfile(chroot, keyfile, used_keys);
+  chroot::set_keyfile(chroot, keyfile);
 
   // "directory" should be required, but we also accept "location" as
   // an alternative (but deprecated) variant.  Therefore, ensure by
@@ -125,10 +133,8 @@ chroot_directory_base::set_keyfile (chroot&        chroot,
   keyfile::get_object_value(*this, &chroot_directory_base::set_directory,
 			    keyfile, get_name(), "directory",
 			    directory_priority);
-  used_keys.push_back("directory");
 
   keyfile::get_object_value(*this, &chroot_directory_base::set_directory,
 			    keyfile, get_name(), "location",
 			    location_priority);
-  used_keys.push_back("location");
 }
