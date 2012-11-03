@@ -38,10 +38,11 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
-	ENV_AMBIGUOUS,  ///< Environment variable name is ambiguous.
-	KEY_AMBIGUOUS,  ///< Configuration key name is ambiguous.
-	KEY_DISALLOWED, ///< Configuration key is not allowed to be modified.
-	KEYNAME_INVALID ///< Invalid name for configuration key.
+	ENV_AMBIGUOUS,   ///< Environment variable name is ambiguous.
+	KEY_AMBIGUOUS,   ///< Configuration key name is ambiguous.
+	KEY_DISALLOWED,  ///< Configuration key is not allowed to be modified.
+	KEYNAME_INVALID, ///< Invalid name for configuration key.
+	PARSE_ERROR      ///< Error parsing value.
       };
 
     /// Exception type.
@@ -87,13 +88,40 @@ namespace sbuild
 		 format_detail& detail) const;
 
     virtual void
+    get_used_keys (string_list& used_keys) const;
+
+    virtual void
     get_keyfile (chroot const& chroot,
 		 keyfile&      keyfile) const;
 
     virtual void
     set_keyfile (chroot&        chroot,
-		 keyfile const& keyfile,
-		 string_list&   used_keys);
+		 keyfile const& keyfile);
+
+
+    template <typename T>
+    bool
+    get_value (std::string const& key,
+	       T&                 value) const
+    {
+      log_debug(DEBUG_INFO) << "Getting userdata key=" << key << std::endl;
+      const string_map::const_iterator found_item = this->userdata.find(key);
+      if (found_item != this->userdata.end())
+	{
+	  try
+	    {
+	      parse_value(found_item->second, value);
+	      return true;
+	    }
+	  catch (parse_value_error const& e)
+	    {
+	      error ep(key, PARSE_ERROR, e);
+	      log_exception_warning(ep);
+	      return false;
+	    }
+	}
+      return false;
+    }
 
     /**
      * Get user data as a map of key-value pairs.

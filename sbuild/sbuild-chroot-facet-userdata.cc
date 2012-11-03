@@ -46,7 +46,10 @@ namespace
       emap(chroot_facet_userdata::KEY_DISALLOWED,
 	   N_("Configuration key ‘%1%’ is not permitted to be modified.")),
       emap(chroot_facet_userdata::KEYNAME_INVALID,
-	   N_("Configuration key name ‘%1%’ is not a permitted name."))
+	   N_("Configuration key name ‘%1%’ is not a permitted name.")),
+      // TRANSLATORS: %1% = key name for which value parsing failed
+      // TRANSLATORS: %4% = additional details of error
+      emap(chroot_facet_userdata::PARSE_ERROR, N_("%1%: %4%"))
     };
 
   bool
