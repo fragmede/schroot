@@ -291,6 +291,16 @@ chroot_facet_userdata::set_data(string_map const&  data,
 {
   // Require the key to be present in order to set it.  This ensures
   // that the key name has been pre-validated.
+  string_list used_keys = this->owner->get_used_keys();
+  string_set used_set(used_keys.begin(), used_keys.end());
+
+  sbuild::keyfile kf;
+  // Ideally, we'd only set the changed keys, but currently the
+  // set_keyfile validation requires all PRIORITY_REQUIRED keys to be
+  // present.  This can be changed if the priority can be made
+  // optional when only updating a subset of the total keys.
+  this->owner->get_keyfile(kf);
+
   for (string_map::const_iterator pos = data.begin();
        pos != data.end();
        ++pos)
@@ -305,8 +315,14 @@ chroot_facet_userdata::set_data(string_map const&  data,
 	    e.set_reason(_("The key is not present in user-modifiable-keys"));
 	  throw e;
 	}
-      set_data(pos->first, pos->second);
+      string_set::const_iterator found = used_set.find(pos->first);
+      if (found != used_set.end()) // Used in other facet
+	kf.set_value(this->owner->get_name(), pos->first, pos->second);
+      else
+	set_data(pos->first, pos->second);
     }
+
+  this->owner->set_keyfile(kf);
 }
 
 string_set const&
@@ -379,4 +395,59 @@ chroot_facet_userdata::set_keyfile (chroot&        chroot,
 				keyfile, chroot.get_name(),
 				"root-modifiable-keys",
 				keyfile::PRIORITY_OPTIONAL);
+
+  // Check for keys which weren't set above.  These may be either
+  // invalid keys or user-set keys.  The latter must have a namespace
+  // separated with one or more periods.  These may be later
+  // overridden by the user on the commandline.
+  {
+    string_list used_keys = chroot.get_used_keys();
+    std::string const& group = chroot.get_name();
+    const string_list total(keyfile.get_keys(group));
+
+    const string_set a(total.begin(), total.end());
+    const string_set b(used_keys.begin(), used_keys.end());
+
+    string_set unused;
+
+    set_difference(a.begin(), a.end(),
+		   b.begin(), b.end(),
+		   inserter(unused, unused.begin()));
+
+    string_map userdata_keys;
+    for (string_set::const_iterator pos = unused.begin();
+	 pos != unused.end();
+	 ++pos)
+      {
+	// Skip language-specific key variants.
+	static regex description_keys("\\[.*\\]$");
+	if (regex_search(*pos, description_keys))
+	  continue;
+
+	try
+	  {
+	    std::string value;
+	    if (keyfile.get_value(get_name(), *pos, value))
+	      set_data(*pos, value);
+	  }
+	catch (std::runtime_error const& e)
+	  {
+	    keyfile::size_type line = keyfile.get_line(group, *pos);
+	    keyfile::error w(line, group, *pos,
+			     keyfile::PASSTHROUGH_LGK, e.what());
+
+	    try
+	      {
+		sbuild::error_base const& r =
+		  dynamic_cast<sbuild::error_base const&>(e);
+		w.set_reason(r.get_reason());
+	      }
+	    catch (...)
+	      {
+	      }
+	    log_exception_warning(w);
+	  }
+      }
+  }
+
 }

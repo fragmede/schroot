@@ -53,6 +53,10 @@ public:
     chroot = sbuild::chroot::create("directory");
     CPPUNIT_ASSERT(chroot);
 
+    std::shared_ptr<sbuild::chroot_directory> dir(std::dynamic_pointer_cast<sbuild::chroot_directory>(chroot));
+    CPPUNIT_ASSERT(dir);
+    dir->set_directory("/chroots/test");
+
     userdata = chroot->get_facet<sbuild::chroot_facet_userdata>();
     CPPUNIT_ASSERT(userdata);
 
