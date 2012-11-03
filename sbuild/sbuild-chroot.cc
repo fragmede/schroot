@@ -42,6 +42,9 @@
 #include "sbuild-chroot-facet-session-clonable.h"
 #include "sbuild-chroot-facet-source.h"
 #include "sbuild-chroot-facet-userdata.h"
+#ifdef SBUILD_FEATURE_UNSHARE
+#include "sbuild-chroot-facet-unshare.h"
+#endif // SBUILD_FEATURE_UNSHARE
 #include "sbuild-fdstream.h"
 #include "sbuild-lock.h"
 
@@ -125,6 +128,9 @@ sbuild::chroot::chroot ():
   facets()
 {
   add_facet(sbuild::chroot_facet_personality::create());
+#ifdef SBUILD_FEATURE_UNSHARE
+  add_facet(sbuild::chroot_facet_unshare::create());
+#endif // SBUILD_FEATURE_UNSHARE
   add_facet(sbuild::chroot_facet_session_clonable::create());
   add_facet(sbuild::chroot_facet_userdata::create());
 

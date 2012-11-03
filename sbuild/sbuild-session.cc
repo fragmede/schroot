@@ -22,6 +22,9 @@
 #include "sbuild-chroot-facet-personality.h"
 #include "sbuild-chroot-facet-session.h"
 #include "sbuild-chroot-facet-session-clonable.h"
+#ifdef SBUILD_FEATURE_UNSHARE
+#include "sbuild-chroot-facet-unshare.h"
+#endif // SBUILD_FEATURE_UNSHARE
 #include "sbuild-chroot-facet-userdata.h"
 #ifdef SBUILD_FEATURE_PAM
 #include "sbuild-auth-pam.h"
@@ -51,9 +54,6 @@
 
 #include <syslog.h>
 
-#ifdef SBUILD_FEATURE_UNSHARE
-#include <sched.h>
-#endif // SBUILD_FEATURE_UNSHARE
 
 #include <boost/format.hpp>
 
@@ -181,12 +181,6 @@ namespace
     /* This exists so that system calls get interrupted. */
     sigterm_called = true;
   }
-
-#ifdef SBUILD_FEATURE_UNSHARE
-  sbuild::feature feature_unshare
-  ("UNSHARE",
-   N_("Linux dissassociation of shared execution context"));
-#endif
 
 #ifdef SBUILD_DEBUG
   volatile bool child_wait = true;
@@ -734,27 +728,51 @@ session::run_impl ()
 	      /* Run recover scripts. */
 	      setup_chroot(chroot, chroot::SETUP_RECOVER);
 
-	      /* Run session if setup succeeded. */
-	      if (this->session_operation == OPERATION_AUTOMATIC ||
-		  this->session_operation == OPERATION_RUN)
+	      try
 		{
-		  try
+#ifdef SBUILD_FEATURE_UNSHARE
+		  /* Unshare execution context */
+		  chroot_facet_unshare::const_ptr pu = chroot->get_facet<chroot_facet_unshare>();
+		  if (pu)
+		    pu->unshare();
+#endif // SBUILD_FEATURE_UNSHARE
+
+		  /* Run exec-start scripts. */
+		  setup_chroot(chroot, chroot::EXEC_START);
+
+		  /* Run session if setup succeeded. */
+		  if (this->session_operation == OPERATION_AUTOMATIC ||
+		      this->session_operation == OPERATION_RUN)
 		    {
-		      this->authstat->open_session();
-		      save_termios();
-		      run_chroot(chroot);
-		    }
-		  catch (std::runtime_error const& e)
-		    {
-		      log_debug(DEBUG_WARNING)
-			<< "Chroot session failed" << endl;
+		      try
+			{
+			  this->authstat->open_session();
+			  save_termios();
+			  run_chroot(chroot);
+			}
+		      catch (std::runtime_error const& e)
+			{
+			  log_debug(DEBUG_WARNING)
+			    << "Chroot session failed" << endl;
+			  restore_termios();
+			  this->authstat->close_session();
+			  throw;
+			}
 		      restore_termios();
 		      this->authstat->close_session();
-		      throw;
 		    }
-		  restore_termios();
-		  this->authstat->close_session();
 		}
+	      catch (error const& e)
+		{
+		  log_debug(DEBUG_WARNING)
+		    << "Chroot exec scripts or session failed" << endl;
+		  setup_chroot(chroot, chroot::EXEC_STOP);
+		  throw;
+		}
+
+	      /* Run exec-stop scripts whether or not there was an
+		 error. */
+	      setup_chroot(chroot, chroot::EXEC_STOP);
 	    }
 	  catch (error const& e)
 	    {
@@ -1085,19 +1103,26 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 	 setup_type == chroot::SETUP_RECOVER) ||
 	(this->session_operation == OPERATION_END &&
 	 setup_type == chroot::SETUP_STOP) ||
+	(this->session_operation == OPERATION_RUN &&
+	 (setup_type == chroot::EXEC_START ||
+	  setup_type == chroot::EXEC_STOP)) ||
 	(this->session_operation == OPERATION_AUTOMATIC &&
 	 (setup_type == chroot::SETUP_START ||
-	  setup_type == chroot::SETUP_STOP))))
+	  setup_type == chroot::SETUP_STOP ||
+	  setup_type == chroot::EXEC_START ||
+	  setup_type == chroot::EXEC_STOP))))
     return;
 
   // Don't clean up chroot on a lock failure--it's actually in use.
   if (this->lock_status == false)
     return;
 
-  if ((setup_type == chroot::SETUP_START   ||
-       setup_type == chroot::SETUP_RECOVER ||
-       setup_type == chroot::SETUP_STOP) &&
-      session_chroot->get_run_setup_scripts() == false)
+  if (((setup_type == chroot::SETUP_START   ||
+	setup_type == chroot::SETUP_RECOVER ||
+	setup_type == chroot::SETUP_STOP ||
+	setup_type == chroot::EXEC_START ||
+	setup_type == chroot::EXEC_STOP) &&
+       session_chroot->get_run_setup_scripts() == false))
     return;
 
   if (setup_type == chroot::SETUP_START)
@@ -1129,6 +1154,10 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
     setup_type_string = "setup-recover";
   else if (setup_type == chroot::SETUP_STOP)
     setup_type_string = "setup-stop";
+  else if (setup_type == chroot::EXEC_START)
+    setup_type_string = "exec-start";
+  else if (setup_type == chroot::EXEC_STOP)
+    setup_type_string = "exec-stop";
 
   std::string chroot_status_string;
   if (this->chroot_status)
@@ -1172,7 +1201,8 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 
   run_parts rp(SCHROOT_CONF_SETUP_D,
 	       true, true, 022);
-  rp.set_reverse(setup_type == chroot::SETUP_STOP);
+  rp.set_reverse(setup_type == chroot::SETUP_STOP ||
+		 setup_type == chroot::EXEC_STOP);
   rp.set_verbose(session_chroot->get_verbosity() == chroot::VERBOSITY_VERBOSE);
 
   log_debug(DEBUG_INFO) << rp << std::endl;
@@ -1273,11 +1303,6 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
   if (initgroups (this->authstat->get_user().c_str(), this->authstat->get_gid()))
     throw error(GROUP_SET_SUP, strerror(errno));
   log_debug(DEBUG_NOTICE) << "Set supplementary groups" << std::endl;
-
-  /* Unshare execution context */
-#ifdef SBUILD_FEATURE_UNSHARE
-  unshare(CLONE_NEWNET);
-#endif // SBUILD_FEATURE_UNSHARE
 
 
   /* Set the process execution domain. */

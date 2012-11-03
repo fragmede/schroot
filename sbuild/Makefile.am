@@ -108,6 +108,11 @@ sbuild_public_union_h_sources =	\
 	sbuild-chroot-facet-union.h
 endif
 
+if BUILD_UNSHARE
+sbuild_public_unshare_h_sources =	\
+	sbuild-chroot-facet-unshare.h
+endif
+
 sbuild_public_cc_sources =			\
 	sbuild-auth.cc				\
 	sbuild-auth-null.cc			\
@@ -179,6 +184,11 @@ sbuild_public_union_cc_sources =	\
 	sbuild-chroot-facet-union.cc
 endif
 
+if BUILD_UNSHARE
+sbuild_public_unshare_cc_sources =	\
+	sbuild-chroot-facet-unshare.cc
+endif
+
 pkgincludedir = $(includedir)/sbuild
 
 pkginclude_HEADERS =					\
@@ -188,7 +198,8 @@ pkginclude_HEADERS =					\
 	$(sbuild_public_lvmsnap_h_sources)		\
 	$(sbuild_public_btrfssnap_h_sources)		\
 	$(sbuild_public_loopback_h_sources)		\
-	$(sbuild_public_union_h_sources)
+	$(sbuild_public_union_h_sources)		\
+	$(sbuild_public_unshare_h_sources)
 
 libsbuild_la_SOURCES =					\
 	$(sbuild_public_h_sources)			\
@@ -206,7 +217,9 @@ libsbuild_la_SOURCES =					\
 	$(sbuild_public_loopback_h_sources)		\
 	$(sbuild_public_loopback_cc_sources)		\
 	$(sbuild_public_union_h_sources)		\
-	$(sbuild_public_union_cc_sources)
+	$(sbuild_public_union_cc_sources)		\
+	$(sbuild_public_unshare_h_sources)		\
+	$(sbuild_public_unshare_cc_sources)
 
 nodist_libsbuild_la_SOURCES =	\
 	sbuild-config.h

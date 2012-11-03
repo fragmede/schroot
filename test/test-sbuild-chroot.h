@@ -29,6 +29,9 @@
 #ifdef SBUILD_FEATURE_UNION
 #include <sbuild/sbuild-chroot-facet-union.h>
 #endif // SBUILD_FEATURE_UNION
+#ifdef SBUILD_FEATURE_UNSHARE
+#include <sbuild/sbuild-chroot-facet-unshare.h>
+#endif // SBUILD_FEATURE_UNSHARE
 #include <sbuild/sbuild-chroot-facet-userdata.h>
 #include <sbuild/sbuild-i18n.h>
 #include <sbuild/sbuild-types.h>
@@ -244,6 +247,9 @@ public:
     env.add("SETUP_COPYFILES", "default/copyfiles");
     env.add("SETUP_FSTAB", "default/fstab");
     env.add("SETUP_NSSDATABASES", "default/nssdatabases");
+#ifdef SBUILD_FEATURE_UNSHARE
+    env.add("UNSHARE_NEWNET", "false");
+#endif // SBUILD_FEATURE_UNSHARE
    }
 
   void setup_keyfile_chroot (sbuild::keyfile&   keyfile,
@@ -269,6 +275,9 @@ public:
     keyfile.set_value(group, "setup.fstab", "default/fstab");
     keyfile.set_value(group, "setup.nssdatabases", "default/nssdatabases");
     keyfile.set_value(group, "custom.test1", "testval");
+#ifdef SBUILD_FEATURE_UNSHARE
+    keyfile.set_value(group, "unshare.newnet", "false");
+#endif // SBUILD_FEATURE_UNSHARE
   }
 
   void setup_keyfile_session (sbuild::keyfile&   keyfile,
