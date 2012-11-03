@@ -248,7 +248,10 @@ public:
     env.add("SETUP_FSTAB", "default/fstab");
     env.add("SETUP_NSSDATABASES", "default/nssdatabases");
 #ifdef SBUILD_FEATURE_UNSHARE
-    env.add("UNSHARE_NEWNET", "false");
+    env.add("UNSHARE_NET", "false");
+    env.add("UNSHARE_SYSVIPC", "false");
+    env.add("UNSHARE_SYSVSEM", "false");
+    env.add("UNSHARE_UTS", "false");
 #endif // SBUILD_FEATURE_UNSHARE
    }
 
@@ -276,7 +279,10 @@ public:
     keyfile.set_value(group, "setup.nssdatabases", "default/nssdatabases");
     keyfile.set_value(group, "custom.test1", "testval");
 #ifdef SBUILD_FEATURE_UNSHARE
-    keyfile.set_value(group, "unshare.newnet", "false");
+    keyfile.set_value(group, "unshare.net", "false");
+    keyfile.set_value(group, "unshare.sysvipc", "false");
+    keyfile.set_value(group, "unshare.sysvsem", "false");
+    keyfile.set_value(group, "unshare.uts", "false");
 #endif // SBUILD_FEATURE_UNSHARE
   }
 

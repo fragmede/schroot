@@ -70,7 +70,7 @@ namespace sbuild
     /**
      * Is networking unshared?
      *
-     * @returns true if unsharing networking, otherwise false.
+     * @returns true if unshared, otherwise false.
      */
     bool
     get_unshare_net () const;
@@ -78,10 +78,58 @@ namespace sbuild
     /**
      * Set network unsharing.
      *
-     * @param unshare unshare networking?
+     * @param unshare unshare?
      */
     void
     set_unshare_net (bool unshare);
+
+    /**
+     * Is System V IPC unshared?
+     *
+     * @returns true if unshared, otherwise false.
+     */
+    bool
+    get_unshare_sysvipc () const;
+
+    /**
+     * Set System V IPC unsharing.
+     *
+     * @param unshare unshare?
+     */
+    void
+    set_unshare_sysvipc (bool unshare);
+
+    /**
+     * Is System V SEM unshared?
+     *
+     * @returns true if unshared, otherwise false.
+     */
+    bool
+    get_unshare_sysvsem () const;
+
+    /**
+     * Set System V SEM unsharing.
+     *
+     * @param unshare unshare?
+     */
+    void
+    set_unshare_sysvsem (bool unshare);
+
+    /**
+     * Is UTS namespace unshared?
+     *
+     * @returns true if unshared, otherwise false.
+     */
+    bool
+    get_unshare_uts () const;
+
+    /**
+     * Set System UTS namespace unsharing.
+     *
+     * @param unshare unshare?
+     */
+    void
+    set_unshare_uts (bool unshare);
 
     /**
      * Unshare process execution context.
@@ -114,6 +162,12 @@ namespace sbuild
   private:
     /// Unshare networking.
     bool unshare_net;
+    /// Unshare System V IPC.
+    bool unshare_sysvipc;
+    /// Unshare System V SEM.
+    bool unshare_sysvsem;
+    /// Unshare System V SEM.
+    bool unshare_uts;
   };
 
 }

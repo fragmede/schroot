@@ -470,6 +470,44 @@ created.  The default is \[oq]\*[SCHROOT_OVERLAY_DIR]\[cq].
 \f[CBI]union\-underlay\-directory\fP\f[CI]=directory\fP
 Specify the directory where the read-only underlying directories will be
 created.  The default is \[oq]\*[SCHROOT_UNDERLAY_DIR]\[cq].
+.SS Chroot isolation
+.PP
+On Linux systems, it is possible to isolate some resources when running a
+command inside the chroot.  These include:
+.TP
+\[bu]
+The network
+.TP
+\[bu]
+System V semaphore undo lists
+.TP
+\[bu]
+System V IPC messages, semaphores and shared memory
+.TP
+\[bu]
+The UTS (uname) namespace
+.PP
+.TP
+\f[CBI]unshare.net=\fP\f[CI]true\fP|\f[CI]false\fP
+Unshare networking.  Network devices will not be shared with the host.  By
+default, only the local loopback interface will be available.  A custom setup
+script could make additional adjustments to the networking configuration.
+.TP
+\f[CBI]unshare.sysvipc=\fP\f[CI]true\fP|\f[CI]false\fP
+Unshare System V IPC.  This creates a new IPC namespace (messages, semaphores
+and shared memory are not shared with the host).
+.TP
+\f[CBI]unshare.sysvsem=\fP\f[CI]true\fP|\f[CI]false\fP
+Unshare System V semaphore undo values.  This creates a separate undo list.
+.TP
+\f[CBI]unshare.uts=\fP\f[CI]true\fP|\f[CI]false\fP
+Unshare the UTS namespace.  A different hostname and domainname may be
+configured in the chroot, and will not be shared with the host.
+.PP
+Note that to specify this as overrides on the command-line, the key names
+should be added to the \f[CI]user\-modifiable\-keys\fP or
+\f[CI]rootr\-modifiable\-keys\fP keys keys.  See the section
+\[lq]\fICustomisation\fP\[rq] below.
 .SS Customisation
 .PP
 In addition to the configuration keys listed above, it is possible to add
