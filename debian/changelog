@@ -1,4 +1,4 @@
-schroot (1.6.4-4) UNRELEASED; urgency=low
+schroot (1.6.4-4) unstable; urgency=low
 
   * schroot: Add sbuild profile fstab file for freebsd
     (Closes: #692213).  This mounts /dev, /dev/fd and /build.
