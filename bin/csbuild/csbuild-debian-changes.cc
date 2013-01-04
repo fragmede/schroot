@@ -149,7 +149,7 @@ debian_changes::get_line (key_type const& key) const
 
 bool
 debian_changes::get_value (key_type const& key,
-			   value_type&     value) const
+                           value_type&     value) const
 {
   sbuild::log_debug(sbuild::DEBUG_INFO)
     << "Getting debian_changes key=" << key << std::endl;
@@ -167,8 +167,8 @@ debian_changes::get_value (key_type const& key,
 
 bool
 debian_changes::get_value (key_type const& key,
-			   priority        priority,
-			   value_type&     value) const
+                           priority        priority,
+                           value_type&     value) const
 {
   bool status = get_value(key, value);
   check_priority(key, priority, status);
@@ -177,15 +177,15 @@ debian_changes::get_value (key_type const& key,
 
 void
 debian_changes::set_value (key_type const&   key,
-			   value_type const& value,
-			   size_type         line)
+                           value_type const& value,
+                           size_type         line)
 {
   item_map_type::iterator pos = items.find(key);
   if (pos != items.end())
     items.erase(pos);
   items.insert
     (item_map_type::value_type(key,
-			       item_type(key, value, line)));
+                               item_type(key, value, line)));
 }
 
 void
@@ -215,7 +215,7 @@ debian_changes::operator += (debian_changes const& rhs)
 
 debian_changes
 operator + (debian_changes const& lhs,
-	    debian_changes const& rhs)
+            debian_changes const& rhs)
 {
   debian_changes ret(lhs);
   ret += rhs;
@@ -244,75 +244,75 @@ debian_changes::find_item (key_type const& key)
 
 void
 debian_changes::check_priority (key_type const& key,
-				priority        priority,
-				bool            valid) const
+                                priority        priority,
+                                bool            valid) const
 {
   if (valid == false)
     {
       size_type line = get_line(key);
 
       switch (priority)
-	{
-	case PRIORITY_REQUIRED:
-	  {
-	    if (line)
-	      throw error(line, MISSING_KEY, key);
-	    else
-	      throw error(MISSING_KEY_NL, key);
-	  }
-	  break;
-	default:
-	  break;
-	}
+        {
+        case PRIORITY_REQUIRED:
+          {
+            if (line)
+              throw error(line, MISSING_KEY, key);
+            else
+              throw error(MISSING_KEY_NL, key);
+          }
+          break;
+        default:
+          break;
+        }
     }
   else
     {
       size_type line = get_line(key);
 
       switch (priority)
-	{
-	case PRIORITY_DEPRECATED:
-	  {
-	    if (line)
-	      {
-		error e(line, DEPRECATED_KEY, key);
-		e.set_reason(_("This option will be removed in the future"));
-		log_exception_warning(e);
-	      }
-	    else
-	      {
-		error e(DEPRECATED_KEY_NL, key);
-		e.set_reason(_("This option will be removed in the future"));
-		log_exception_warning(e);
-	      }
-	  }
-	  break;
-	case PRIORITY_OBSOLETE:
-	  {
-	    if (line)
-	      {
-		error e(line, OBSOLETE_KEY, key);
-		e.set_reason(_("This option has been removed, and no longer has any effect"));
-		log_exception_warning(e);
-	      }
-	    else
-	      {
-		error e(OBSOLETE_KEY_NL, key);
-		e.set_reason(_("This option has been removed, and no longer has any effect"));
-		log_exception_warning(e);
-	      }
-	  }
-	  break;
-	case PRIORITY_DISALLOWED:
-	  {
-	    if (line)
-	      throw error(line, DISALLOWED_KEY, key);
-	    else
-	      throw error(DISALLOWED_KEY_NL, key);
-	  }
-	  break;
-	default:
-	  break;
-	}
+        {
+        case PRIORITY_DEPRECATED:
+          {
+            if (line)
+              {
+                error e(line, DEPRECATED_KEY, key);
+                e.set_reason(_("This option will be removed in the future"));
+                log_exception_warning(e);
+              }
+            else
+              {
+                error e(DEPRECATED_KEY_NL, key);
+                e.set_reason(_("This option will be removed in the future"));
+                log_exception_warning(e);
+              }
+          }
+          break;
+        case PRIORITY_OBSOLETE:
+          {
+            if (line)
+              {
+                error e(line, OBSOLETE_KEY, key);
+                e.set_reason(_("This option has been removed, and no longer has any effect"));
+                log_exception_warning(e);
+              }
+            else
+              {
+                error e(OBSOLETE_KEY_NL, key);
+                e.set_reason(_("This option has been removed, and no longer has any effect"));
+                log_exception_warning(e);
+              }
+          }
+          break;
+        case PRIORITY_DISALLOWED:
+          {
+            if (line)
+              throw error(line, DISALLOWED_KEY, key);
+            else
+              throw error(DISALLOWED_KEY_NL, key);
+          }
+          break;
+        default:
+          break;
+        }
     }
 }

@@ -35,10 +35,10 @@ class test_option_action : public TestFixture
   CPPUNIT_TEST(test_current);
   CPPUNIT_TEST_EXCEPTION(test_current_fail, schroot_base::options::error);
   CPPUNIT_TEST_EXCEPTION(test_current_fail_multipleset,
-			 schroot_base::options::error);
+                         schroot_base::options::error);
   CPPUNIT_TEST(test_operators);
   CPPUNIT_TEST_EXCEPTION(test_operators_fail_multipleset,
-			 schroot_base::options::error);
+                         schroot_base::options::error);
   CPPUNIT_TEST_SUITE_END();
 
 protected:

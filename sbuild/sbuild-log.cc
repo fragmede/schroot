@@ -44,17 +44,17 @@ namespace
    */
   void
   log_reason (std::exception const& e,
-	      bool                  ctty)
+              bool                  ctty)
   {
     try
       {
-	error_base const& eb(dynamic_cast<error_base const&>(e));
-	string_list lines = split_string(eb.why(), "\n");
-	for (string_list::const_iterator line = lines.begin();
-	     line != lines.end();
-	     ++line)
-	  ctty ? log_ctty_info() : log_info()
-	    << *line << std::endl;
+        error_base const& eb(dynamic_cast<error_base const&>(e));
+        string_list lines = split_string(eb.why(), "\n");
+        for (string_list::const_iterator line = lines.begin();
+             line != lines.end();
+             ++line)
+          ctty ? log_ctty_info() : log_info()
+            << *line << std::endl;
       }
     catch (std::bad_cast const& discard)
       {

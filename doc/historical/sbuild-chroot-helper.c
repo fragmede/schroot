@@ -142,7 +142,7 @@ static GOptionEntry entries[] =
 
 static void
 parse_options(int   argc,
-	      char *argv[])
+              char *argv[])
 {
   GError *error = NULL;
 
@@ -153,38 +153,38 @@ parse_options(int   argc,
 
 gboolean
 config_check_security(int      fd,
-		      GError **error)
+                      GError **error)
 {
   struct stat statbuf;
   if (fstat(fd, &statbuf) < 0)
     {
       g_set_error(error,
-		  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_STAT_FAIL,
-		  "failed to stat file: %s", strerror(errno));
+                  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_STAT_FAIL,
+                  "failed to stat file: %s", strerror(errno));
       return FALSE;
     }
 
   if (statbuf.st_uid != 0 || statbuf.st_gid != 0)
     {
       g_set_error(error,
-		  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_OWNERSHIP,
-		  "not owned by user and group root", strerror(errno));
+                  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_OWNERSHIP,
+                  "not owned by user and group root", strerror(errno));
       return FALSE;
     }
 
   if (statbuf.st_mode & S_IWOTH)
     {
       g_set_error(error,
-		  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_PERMISSIONS,
-		  "others have write permission");
+                  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_PERMISSIONS,
+                  "others have write permission");
       return FALSE;
     }
 
   if (!S_ISREG(statbuf.st_mode))
     {
       g_set_error(error,
-		  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_NOT_REGULAR,
-		  "not a regular file");
+                  SBUILD_CONFIG_FILE_ERROR, SBUILD_CONFIG_FILE_ERROR_NOT_REGULAR,
+                  "not a regular file");
       return FALSE;
     }
 
@@ -229,9 +229,9 @@ is_sbuild_member (void)
   if (sbuild_group == NULL)
     {
       if (errno == 0)
-	fprintf(stderr, "group " SBUILD_GROUP " not found\n");
+        fprintf(stderr, "group " SBUILD_GROUP " not found\n");
       else
-	fprintf(stderr, "group " SBUILD_GROUP " not found: %s\n", strerror(errno));
+        fprintf(stderr, "group " SBUILD_GROUP " not found: %s\n", strerror(errno));
       exit (EXIT_FAILURE);
     }
 
@@ -253,7 +253,7 @@ is_sbuild_member (void)
   for (int i = 0; i < supp_group_count; ++i)
     {
       if (sbuild_group->gr_gid == supp_groups[i])
-	sbuild_group_member = true;
+        sbuild_group_member = true;
     }
 
   return sbuild_group_member;
@@ -302,13 +302,13 @@ main (int   argc,
   if (chdir (CHROOT))
     {
       fprintf (stderr, "Could not chdir to %s: %s\n", CHROOT,
-	       strerror (errno));
+               strerror (errno));
       exit (EXIT_FAILURE);
     }
   if (chroot (CHROOT))
     {
       fprintf (stderr, "Could not chroot to %s: %s\n", CHROOT,
-	       strerror (errno));
+               strerror (errno));
       exit (EXIT_FAILURE);
     }
   /* printf ("Entered chroot: %s\n", CHROOT); */
@@ -335,7 +335,7 @@ main (int   argc,
   if (chdir (getenv("HOME")))
     {
       fprintf (stderr, "warning: Could not chdir to %s: %s\n", getenv("HOME"),
-	       strerror (errno));
+               strerror (errno));
     }
 
   /* Run login shell */

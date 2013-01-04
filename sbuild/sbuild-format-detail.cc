@@ -27,7 +27,7 @@
 using namespace sbuild;
 
 format_detail::format_detail (std::string const& title,
-			      std::locale        locale):
+                              std::locale        locale):
   title(title),
   locale(locale),
   items()
@@ -40,32 +40,32 @@ format_detail::~format_detail ()
 
 format_detail&
 format_detail::add (std::string const& name,
-		    std::string const& value)
+                    std::string const& value)
 {
   for (list_type::iterator pos = this->items.begin();
        pos != this->items.end();
        ++pos)
     {
       if (pos->first == name)
-	{
-	  log_debug(DEBUG_WARNING) << "format_detail: name \""
-				   << name << "\" is already added"
-				   << std::endl;
-	  return *this;
-	}
+        {
+          log_debug(DEBUG_WARNING) << "format_detail: name \""
+                                   << name << "\" is already added"
+                                   << std::endl;
+          return *this;
+        }
     }
 
   this->items.push_back(value_type(name, value));
   log_debug(DEBUG_INFO) << "format_detail: added name \""
-			<< name << "\""
-			<< std::endl;
+                        << name << "\""
+                        << std::endl;
 
   return *this;
 }
 
 format_detail&
 format_detail::add (std::string const& name,
-		    bool               value)
+                    bool               value)
 {
   const char *desc = 0;
   if (value)
@@ -78,7 +78,7 @@ format_detail::add (std::string const& name,
 
 format_detail&
 format_detail::add (std::string const& name,
-		    string_list const& value)
+                    string_list const& value)
 {
   return add(name, string_list_to_string(value, " "));
 }

@@ -39,10 +39,10 @@ namespace schroot
     /// Error codes.
     enum error_code
       {
-	CHROOT_FILE,       ///< No chroots are defined in ....
-	CHROOT_FILE2,      ///< No chroots are defined in ... or ....
-	CHROOT_NOTDEFINED, ///< The specified chroots are not defined.
-	SESSION_INVALID    ///< Invalid session name.
+        CHROOT_FILE,       ///< No chroots are defined in ....
+        CHROOT_FILE2,      ///< No chroots are defined in ... or ....
+        CHROOT_NOTDEFINED, ///< The specified chroots are not defined.
+        SESSION_INVALID    ///< Invalid session name.
       };
 
     /// Exception type.
@@ -60,9 +60,9 @@ namespace schroot
      * logger.
      */
     main_base (std::string const& program_name,
-	       std::string const& program_usage,
-	       options_base::ptr& options,
-	       bool               use_syslog);
+               std::string const& program_usage,
+               options_base::ptr& options,
+               bool               use_syslog);
 
     /// The destructor.
     virtual ~main_base ();

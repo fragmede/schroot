@@ -174,13 +174,13 @@ file_lock::~file_lock ()
       read_lock.l_pid = 0;
 
       if (fcntl(this->fd, F_SETLK, &read_lock) == -1)
-	log_exception_warning(error(UNLOCK, strerror(errno)));
+        log_exception_warning(error(UNLOCK, strerror(errno)));
     }
 }
 
 void
 file_lock::set_lock (lock::type   lock_type,
-		     unsigned int timeout)
+                     unsigned int timeout)
 {
   try
     {
@@ -191,11 +191,11 @@ file_lock::set_lock (lock::type   lock_type,
       set_timer(timeout_timer);
 
       /* Now the signal handler and itimer are set, the function can't
-	 return without stopping the timer and restoring the signal
-	 handler to its original state. */
+         return without stopping the timer and restoring the signal
+         handler to its original state. */
 
       /* Wait on lock until interrupted by a signal if a timeout was set,
-	 otherwise return immediately. */
+         otherwise return immediately. */
       struct flock read_lock;
       read_lock.l_type = lock_type;
       read_lock.l_whence = SEEK_SET;
@@ -204,24 +204,24 @@ file_lock::set_lock (lock::type   lock_type,
       read_lock.l_pid = 0;
 
       if (fcntl(this->fd,
-		(timeout != 0) ? F_SETLKW : F_SETLK,
-		&read_lock) == -1)
-	{
-	  if (errno == EINTR)
-	    throw error((lock_type == LOCK_SHARED ||
-			 lock_type == LOCK_EXCLUSIVE)
-			? LOCK_TIMEOUT : UNLOCK_TIMEOUT,
-			timeout);
-	  else
-	    throw error((lock_type == LOCK_SHARED ||
-			 lock_type == LOCK_EXCLUSIVE) ? LOCK : UNLOCK,
-			strerror(errno));
-	}
+                (timeout != 0) ? F_SETLKW : F_SETLK,
+                &read_lock) == -1)
+        {
+          if (errno == EINTR)
+            throw error((lock_type == LOCK_SHARED ||
+                         lock_type == LOCK_EXCLUSIVE)
+                        ? LOCK_TIMEOUT : UNLOCK_TIMEOUT,
+                        timeout);
+          else
+            throw error((lock_type == LOCK_SHARED ||
+                         lock_type == LOCK_EXCLUSIVE) ? LOCK : UNLOCK,
+                        strerror(errno));
+        }
 
       if (lock_type == LOCK_SHARED || lock_type == LOCK_EXCLUSIVE)
-	this->locked = true;
+        this->locked = true;
       else
-	this->locked = false;
+        this->locked = false;
 
       unset_timer();
     }
@@ -259,13 +259,13 @@ device_lock::~device_lock ()
       pid_t status = 0;
       status = dev_unlock(this->device.c_str(), getpid());
       if (status < 0) // Failure
-	log_exception_warning(error(DEVICE_UNLOCK));
+        log_exception_warning(error(DEVICE_UNLOCK));
     }
 }
 
 void
 device_lock::set_lock (lock::type   lock_type,
-		       unsigned int timeout)
+                       unsigned int timeout)
 {
   try
     {
@@ -278,59 +278,59 @@ device_lock::set_lock (lock::type   lock_type,
       set_timer(timeout_timer);
 
       /* Now the signal handler and itimer are set, the function can't
-	 return without stopping the timer and restoring the signal
-	 handler to its original state. */
+         return without stopping the timer and restoring the signal
+         handler to its original state. */
 
       /* Wait on lock until interrupted by a signal if a timeout was set,
-	 otherwise return immediately. */
+         otherwise return immediately. */
       pid_t status = 0;
       while (lock_timeout == false)
-	{
-	  if (lock_type == LOCK_SHARED || lock_type == LOCK_EXCLUSIVE)
-	    {
-	      status = dev_lock(this->device.c_str());
-	      if (status == 0) // Success
-		{
-		  this->locked = true;
-		  break;
-		}
-	      else if (status < 0) // Failure
-		{
-		  throw error(DEVICE_LOCK);
-		}
-	    }
-	  else
-	    {
-	      pid_t cur_lock_pid = dev_testlock(this->device.c_str());
-	      if (cur_lock_pid < 0) // Test failure
-		{
-		  throw error(DEVICE_TEST);
-		}
-	      else if (cur_lock_pid > 0 && cur_lock_pid != getpid())
-		{
-		  // Another process owns the lock, so we successfully
-		  // "drop" our nonexistent lock.
-		  break;
-		}
-	      status = dev_unlock(this->device.c_str(), getpid());
-	      if (status == 0) // Success
-		{
-		  this->locked = false;
-		  break;
-		}
-	      else if (status < 0) // Failure
-		{
-		  throw error(DEVICE_UNLOCK);
-		}
-	    }
-	}
+        {
+          if (lock_type == LOCK_SHARED || lock_type == LOCK_EXCLUSIVE)
+            {
+              status = dev_lock(this->device.c_str());
+              if (status == 0) // Success
+                {
+                  this->locked = true;
+                  break;
+                }
+              else if (status < 0) // Failure
+                {
+                  throw error(DEVICE_LOCK);
+                }
+            }
+          else
+            {
+              pid_t cur_lock_pid = dev_testlock(this->device.c_str());
+              if (cur_lock_pid < 0) // Test failure
+                {
+                  throw error(DEVICE_TEST);
+                }
+              else if (cur_lock_pid > 0 && cur_lock_pid != getpid())
+                {
+                  // Another process owns the lock, so we successfully
+                  // "drop" our nonexistent lock.
+                  break;
+                }
+              status = dev_unlock(this->device.c_str(), getpid());
+              if (status == 0) // Success
+                {
+                  this->locked = false;
+                  break;
+                }
+              else if (status < 0) // Failure
+                {
+                  throw error(DEVICE_UNLOCK);
+                }
+            }
+        }
 
       if (lock_timeout)
-	{
-	  throw error(((lock_type == LOCK_SHARED || lock_type == LOCK_EXCLUSIVE)
-		       ? DEVICE_LOCK_TIMEOUT : DEVICE_UNLOCK_TIMEOUT),
-		      timeout, status);
-	}
+        {
+          throw error(((lock_type == LOCK_SHARED || lock_type == LOCK_EXCLUSIVE)
+                       ? DEVICE_LOCK_TIMEOUT : DEVICE_UNLOCK_TIMEOUT),
+                      timeout, status);
+        }
 
       unset_timer();
     }

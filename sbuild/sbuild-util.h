@@ -99,7 +99,7 @@ namespace sbuild
    */
   bool
   is_valid_filename (std::string const& name,
-		     bool               lsb_mode = true);
+                     bool               lsb_mode = true);
 
   /**
    * Get the current working directory.  If it can't be found, fall
@@ -131,7 +131,7 @@ namespace sbuild
    */
   std::string
   string_list_to_string (string_list const& list,
-			 std::string const& separator);
+                         std::string const& separator);
 
   /**
    * Split a string into a string_list.  The string is split using
@@ -150,7 +150,7 @@ namespace sbuild
   template <typename S>
   std::vector<S>
   split_string (S const& value,
-		S const& separator)
+                S const& separator)
   {
     std::vector<S> ret;
 
@@ -162,11 +162,11 @@ namespace sbuild
 
     while (pos !=S::npos || last_pos != S::npos)
       {
-	// Add to list
-	ret.push_back(value.substr(last_pos, pos - last_pos));
-	// Find next
-	last_pos = value.find_first_not_of(separator, pos);
-	pos = value.find_first_of(separator, last_pos);
+        // Add to list
+        ret.push_back(value.substr(last_pos, pos - last_pos));
+        // Find next
+        last_pos = value.find_first_not_of(separator, pos);
+        pos = value.find_first_of(separator, last_pos);
       }
 
     return ret;
@@ -185,7 +185,7 @@ namespace sbuild
    */
   std::vector<std::string>
   split_string (std::string const& value,
-		std::string const& separator);
+                std::string const& separator);
 
   /**
    * Split a string into a string_list.  The string is split using
@@ -204,7 +204,7 @@ namespace sbuild
   template <typename S>
   std::vector<S>
   split_string_strict (S const& value,
-		       S const& separator)
+                       S const& separator)
   {
     std::vector<S> ret;
 
@@ -215,17 +215,17 @@ namespace sbuild
 
     while (pos !=S::npos || last_pos != S::npos)
       {
-	// Add to list
-	if (pos == std::string::npos)
-	  // Entire string from last_pos
-	  ret.push_back(value.substr(last_pos, pos));
-	else
-	  // Between pos and last_pos
-	  ret.push_back(value.substr(last_pos, pos - last_pos));
+        // Add to list
+        if (pos == std::string::npos)
+          // Entire string from last_pos
+          ret.push_back(value.substr(last_pos, pos));
+        else
+          // Between pos and last_pos
+          ret.push_back(value.substr(last_pos, pos - last_pos));
 
-	// Find next
-	last_pos = pos + separator.length();
-	pos = value.find_first_of(separator, last_pos);
+        // Find next
+        last_pos = pos + separator.length();
+        pos = value.find_first_of(separator, last_pos);
       }
 
     return ret;
@@ -244,7 +244,7 @@ namespace sbuild
    */
   std::vector<std::string>
   split_string_strict (std::string const& value,
-		       std::string const& separator);
+                       std::string const& separator);
 
   /**
    * Widen a string.  The narrow string is converted into a wide
@@ -257,7 +257,7 @@ namespace sbuild
    */
   std::wstring
   widen_string (std::string const& str,
-		std::locale        locale);
+                std::locale        locale);
 
   /**
    * Narrow a string.  The wide string is converted into a narrow
@@ -270,7 +270,7 @@ namespace sbuild
    */
   std::string
   narrow_string (std::wstring const& str,
-		 std::locale         locale);
+                 std::locale         locale);
 
   /**
    * Find a program in the PATH search path.
@@ -284,8 +284,8 @@ namespace sbuild
    */
   std::string
   find_program_in_path (std::string const& program,
-			std::string const& path,
-			std::string const& prefix);
+                        std::string const& path,
+                        std::string const& prefix);
 
   /**
    * Create a string vector from a string_list.  The strings in the
@@ -320,8 +320,8 @@ namespace sbuild
    */
   int
   exec (std::string const& file,
-	string_list const& command,
-	environment const& env);
+        string_list const& command,
+        environment const& env);
 
   /**
    * Get file status.  stat(2) wrapper.
@@ -332,36 +332,36 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
-	FILE, ///< Failed to stat file.
-	FD    ///< Failed to stat file descriptor.
+        FILE, ///< Failed to stat file.
+        FD    ///< Failed to stat file descriptor.
       };
 
     /// Mode bits.
     enum mode_bits
       {
-	FILE_TYPE_MASK      = S_IFMT,   ///< Mask for file type bit fields.
-	FILE_TYPE_SOCKET    = S_IFSOCK, ///< Socket file type.
-	FILE_TYPE_LINK      = S_IFLNK,  ///< Symbolic link file type.
-	FILE_TYPE_REGULAR   = S_IFREG,  ///< Regular file type.
-	FILE_TYPE_BLOCK     = S_IFBLK,  ///< Block device file type.
-	FILE_TYPE_DIRECTORY = S_IFDIR,  ///< Directory file type.
-	FILE_TYPE_CHARACTER = S_IFCHR,  ///< Character device file type.
-	FILE_TYPE_FIFO      = S_IFIFO,  ///< Named pipe (FIFO) file type.
-	PERM_SETUID         = S_ISUID,  ///< Set user ID permission.
-	PERM_SETGIT         = S_ISGID,  ///< Set group ID permission.
-	PERM_STICKY         = S_ISVTX,  ///< Sticky permission.
-	PERM_USER_MASK      = S_IRWXU,  ///< Mask for user permissions.
-	PERM_USER_READ      = S_IRUSR,  ///< User read permission.
-	PERM_USER_WRITE     = S_IWUSR,  ///< User write permission.
-	PERM_USER_EXECUTE   = S_IXUSR,  ///< User execute permission.
-	PERM_GROUP_MASK     = S_IRWXG,  ///< Mask for group permissions.
-	PERM_GROUP_READ     = S_IRGRP,  ///< Group read permission.
-	PERM_GROUP_WRITE    = S_IWGRP,  ///< Group write permission.
-	PERM_GROUP_EXECUTE  = S_IXGRP,  ///< Group execute permission.
-	PERM_OTHER_MASK     = S_IRWXO,  ///< Mask for other permissions.
-	PERM_OTHER_READ     = S_IROTH,  ///< Other read permission.
-	PERM_OTHER_WRITE    = S_IWOTH,  ///< Other write permission.
-	PERM_OTHER_EXECUTE  = S_IXOTH   ///< Other execute permission.
+        FILE_TYPE_MASK      = S_IFMT,   ///< Mask for file type bit fields.
+        FILE_TYPE_SOCKET    = S_IFSOCK, ///< Socket file type.
+        FILE_TYPE_LINK      = S_IFLNK,  ///< Symbolic link file type.
+        FILE_TYPE_REGULAR   = S_IFREG,  ///< Regular file type.
+        FILE_TYPE_BLOCK     = S_IFBLK,  ///< Block device file type.
+        FILE_TYPE_DIRECTORY = S_IFDIR,  ///< Directory file type.
+        FILE_TYPE_CHARACTER = S_IFCHR,  ///< Character device file type.
+        FILE_TYPE_FIFO      = S_IFIFO,  ///< Named pipe (FIFO) file type.
+        PERM_SETUID         = S_ISUID,  ///< Set user ID permission.
+        PERM_SETGIT         = S_ISGID,  ///< Set group ID permission.
+        PERM_STICKY         = S_ISVTX,  ///< Sticky permission.
+        PERM_USER_MASK      = S_IRWXU,  ///< Mask for user permissions.
+        PERM_USER_READ      = S_IRUSR,  ///< User read permission.
+        PERM_USER_WRITE     = S_IWUSR,  ///< User write permission.
+        PERM_USER_EXECUTE   = S_IXUSR,  ///< User execute permission.
+        PERM_GROUP_MASK     = S_IRWXG,  ///< Mask for group permissions.
+        PERM_GROUP_READ     = S_IRGRP,  ///< Group read permission.
+        PERM_GROUP_WRITE    = S_IWGRP,  ///< Group write permission.
+        PERM_GROUP_EXECUTE  = S_IXGRP,  ///< Group execute permission.
+        PERM_OTHER_MASK     = S_IRWXO,  ///< Mask for other permissions.
+        PERM_OTHER_READ     = S_IROTH,  ///< Other read permission.
+        PERM_OTHER_WRITE    = S_IWOTH,  ///< Other write permission.
+        PERM_OTHER_EXECUTE  = S_IXOTH   ///< Other execute permission.
       };
 
     /// Exception type.
@@ -373,7 +373,7 @@ namespace sbuild
      * @param link use lstat rather than stat (i.e. don't follow symlinks).
      */
     stat (const char *file,
-	  bool        link = false);
+          bool        link = false);
 
     /**
      * The constructor.
@@ -381,7 +381,7 @@ namespace sbuild
      * @param link use lstat rather than stat (i.e. don't follow symlinks).
      */
     stat (std::string const& file,
-	  bool               link = false);
+          bool               link = false);
 
     /**
      * The constructor.
@@ -390,7 +390,7 @@ namespace sbuild
      * @param fd the file descriptor to use.
      */
     stat (std::string const& file,
-	  int                fd);
+          int                fd);
 
     /**
      * The constructor.
@@ -409,16 +409,16 @@ namespace sbuild
     void check () const
     {
       if (this->errorno)
-	{
-	  if (!this->file.empty())
-	    throw error(this->file, FILE, std::strerror(this->errorno));
-	  else
-	    {
-	      std::ostringstream str;
-	      str << "fd " << fd;
-	      throw error(str.str(), FD, std::strerror(this->errorno));
-	    }
-	}
+        {
+          if (!this->file.empty())
+            throw error(this->file, FILE, std::strerror(this->errorno));
+          else
+            {
+              std::ostringstream str;
+              str << "fd " << fd;
+              throw error(str.str(), FD, std::strerror(this->errorno));
+            }
+        }
     }
 
     /**
@@ -601,7 +601,7 @@ namespace sbuild
    */
   stat::mode_bits
   inline operator | (stat::mode_bits const& lhs,
-		     stat::mode_bits const& rhs)
+                     stat::mode_bits const& rhs)
   {
     return static_cast<stat::mode_bits>
       (static_cast<int>(lhs) | static_cast<int>(rhs));
@@ -615,7 +615,7 @@ namespace sbuild
    */
   stat::mode_bits
   inline operator | (mode_t const&          lhs,
-		     stat::mode_bits const& rhs)
+                     stat::mode_bits const& rhs)
   {
     return static_cast<stat::mode_bits>
       (lhs | static_cast<int>(rhs));
@@ -629,7 +629,7 @@ namespace sbuild
    */
   stat::mode_bits
   inline operator | (stat::mode_bits const& lhs,
-		     mode_t const&          rhs)
+                     mode_t const&          rhs)
   {
     return static_cast<stat::mode_bits>
       (static_cast<int>(lhs) | rhs);
@@ -643,7 +643,7 @@ namespace sbuild
    */
   stat::mode_bits
   inline operator & (stat::mode_bits const& lhs,
-		     stat::mode_bits const& rhs)
+                     stat::mode_bits const& rhs)
   {
     return static_cast<stat::mode_bits>
       (static_cast<int>(lhs) & static_cast<int>(rhs));
@@ -657,7 +657,7 @@ namespace sbuild
    */
   stat::mode_bits
   inline operator & (mode_t const&          lhs,
-		     stat::mode_bits const& rhs)
+                     stat::mode_bits const& rhs)
   {
     return static_cast<stat::mode_bits>
       (lhs & static_cast<int>(rhs));
@@ -671,7 +671,7 @@ namespace sbuild
    */
   stat::mode_bits
   inline operator & (stat::mode_bits const& lhs,
-		     mode_t const&          rhs)
+                     mode_t const&          rhs)
   {
     return static_cast<stat::mode_bits>
       (static_cast<int>(lhs) & rhs);

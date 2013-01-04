@@ -265,12 +265,12 @@ public:
   {
     // Create session owned by user in root-users.
     this->session = this->chroot->clone_session("test-session-name",
-						"test-session-name",
-						"user3",
-						true);
+                                                "test-session-name",
+                                                "user3",
+                                                true);
     if (this->session)
       {
-	CPPUNIT_ASSERT(this->session->get_facet<sbuild::chroot_facet_session>());
+        CPPUNIT_ASSERT(this->session->get_facet<sbuild::chroot_facet_session>());
       }
 
     sbuild::keyfile expected;
@@ -358,21 +358,21 @@ public:
 void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-		   sbuild::chroot::SESSION_CREATE);
+                   sbuild::chroot::SESSION_CREATE);
 
     CPPUNIT_ASSERT(session->get_session_flags() ==
-		   sbuild::chroot::SESSION_NOFLAGS);
+                   sbuild::chroot::SESSION_NOFLAGS);
 
 #ifdef SBUILD_FEATURE_UNION
     CPPUNIT_ASSERT(chroot_union->get_session_flags() ==
-		   (sbuild::chroot::SESSION_CREATE |
-		    sbuild::chroot::SESSION_CLONE));
+                   (sbuild::chroot::SESSION_CREATE |
+                    sbuild::chroot::SESSION_CLONE));
 
     CPPUNIT_ASSERT(session_union->get_session_flags() ==
-		   sbuild::chroot::SESSION_PURGE);
+                   sbuild::chroot::SESSION_PURGE);
 
     CPPUNIT_ASSERT(source_union->get_session_flags() ==
-		   sbuild::chroot::SESSION_CREATE);
+                   sbuild::chroot::SESSION_CREATE);
 #endif // SBUILD_FEATURE_UNION
   }
 

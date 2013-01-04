@@ -41,26 +41,26 @@ namespace sbuild
     /// Lock type.
     enum type
       {
-	LOCK_SHARED    = F_RDLCK, ///< A shared (read) lock.
-	LOCK_EXCLUSIVE = F_WRLCK, ///< An exclusive (write) lock.
-	LOCK_NONE      = F_UNLCK  ///< No lock.
+        LOCK_SHARED    = F_RDLCK, ///< A shared (read) lock.
+        LOCK_EXCLUSIVE = F_WRLCK, ///< An exclusive (write) lock.
+        LOCK_NONE      = F_UNLCK  ///< No lock.
       };
 
     /// Error codes.
     enum error_code
       {
-	TIMEOUT_HANDLER,      ///< Failed to set timeout handler.
-	TIMEOUT_SET,          ///< Failed to set timeout.
-	TIMEOUT_CANCEL,       ///< Failed to cancel timeout.
-	LOCK,                 ///< Failed to lock file.
-	UNLOCK,               ///< Failed to unlock file.
-	LOCK_TIMEOUT,         ///< Failed to lock file (timed out).
-	UNLOCK_TIMEOUT,       ///< Failed to unlock file (timed out).
-	DEVICE_LOCK,          ///< Failed to lock device.
-	DEVICE_LOCK_TIMEOUT,  ///< Failed to lock device (timed out).
-	DEVICE_TEST,          ///< Failed to test device lock.
-	DEVICE_UNLOCK,        ///< Failed to unlock device.
-	DEVICE_UNLOCK_TIMEOUT ///< Failed to unlock device (timed out)
+        TIMEOUT_HANDLER,      ///< Failed to set timeout handler.
+        TIMEOUT_SET,          ///< Failed to set timeout.
+        TIMEOUT_CANCEL,       ///< Failed to cancel timeout.
+        LOCK,                 ///< Failed to lock file.
+        UNLOCK,               ///< Failed to unlock file.
+        LOCK_TIMEOUT,         ///< Failed to lock file (timed out).
+        UNLOCK_TIMEOUT,       ///< Failed to unlock file (timed out).
+        DEVICE_LOCK,          ///< Failed to lock device.
+        DEVICE_LOCK_TIMEOUT,  ///< Failed to lock device (timed out).
+        DEVICE_TEST,          ///< Failed to test device lock.
+        DEVICE_UNLOCK,        ///< Failed to unlock device.
+        DEVICE_UNLOCK_TIMEOUT ///< Failed to unlock device (timed out)
       };
 
     /// Exception type.
@@ -74,7 +74,7 @@ namespace sbuild
      */
     virtual void
     set_lock (type         lock_type,
-	      unsigned int timeout) = 0;
+              unsigned int timeout) = 0;
 
     /**
      * Release a lock.  This is equivalent to set_lock with a
@@ -149,7 +149,7 @@ namespace sbuild
 
     virtual void
     set_lock (lock::type   lock_type,
-	      unsigned int timeout);
+              unsigned int timeout);
 
     virtual void
     unset_lock ();
@@ -183,7 +183,7 @@ namespace sbuild
 
     virtual void
     set_lock (lock::type   lock_type,
-	      unsigned int timeout);
+              unsigned int timeout);
 
     virtual void
     unset_lock ();

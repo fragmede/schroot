@@ -75,7 +75,7 @@ auth_null::start ()
   if (this->initialised)
     {
       log_debug(DEBUG_CRITICAL)
-	<< "pam_start FAIL (already initialised)" << endl;
+        << "pam_start FAIL (already initialised)" << endl;
       throw error("Init PAM", PAM_DOUBLE_INIT);
     }
 
@@ -105,25 +105,25 @@ auth_null::authenticate (status auth_status)
       // be used to escape pam_rootok restrictions on systems with PAM
       // also available and pam_rootok not enabled.
       if (this->ruid != 0)
-	throw error(AUTHENTICATION, strerror(ENOTSUP));
+        throw error(AUTHENTICATION, strerror(ENOTSUP));
       break;
 
     case STATUS_FAIL:
-	{
-	  log_debug(DEBUG_INFO) << "PAM auth premature FAIL" << endl;
-	  syslog(LOG_AUTH|LOG_WARNING,
-		 "%s->%s Unauthorised",
-		 this->ruser.c_str(), this->user.c_str());
-	  error e(AUTHORISATION);
-	  // TRANSLATORS: %1% = program name (PAM service name)
-	  std::string reason(_("You do not have permission to access the %1% service."));
-	  reason += '\n';
-	  reason += _("This failure will be reported.");
-	  format fmt(reason);
-	  fmt % this->service;
-	  e.set_reason(fmt.str());
-	  throw e;
-	}
+        {
+          log_debug(DEBUG_INFO) << "PAM auth premature FAIL" << endl;
+          syslog(LOG_AUTH|LOG_WARNING,
+                 "%s->%s Unauthorised",
+                 this->ruser.c_str(), this->user.c_str());
+          error e(AUTHORISATION);
+          // TRANSLATORS: %1% = program name (PAM service name)
+          std::string reason(_("You do not have permission to access the %1% service."));
+          reason += '\n';
+          reason += _("This failure will be reported.");
+          format fmt(reason);
+          fmt % this->service;
+          e.set_reason(fmt.str());
+          throw e;
+        }
     default:
       break;
     }

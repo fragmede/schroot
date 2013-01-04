@@ -81,10 +81,10 @@ option_action::set (action_type const& action)
   if (valid(action))
     {
       if (this->current_action == "")
-	this->current_action = action;
+        this->current_action = action;
       else
-	throw schroot_base::options::error
-	  (_("Only one action may be specified"));
+        throw schroot_base::options::error
+          (_("Only one action may be specified"));
     }
   else
     throw schroot_base::options::error((format(_("%1%: invalid action")) % action).str());

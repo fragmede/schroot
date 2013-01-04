@@ -1301,7 +1301,7 @@ PREDEFINED             = SBUILD_FEATURE_DEVLOCK \
                          SBUILD_FEATURE_PERSONALITY \
                          SBUILD_FEATURE_BLOCKDEV \
                          SBUILD_FEATURE_BTRFSSNAP \
-			 SBUILD_FEATURE_LVMSNAP \
+                         SBUILD_FEATURE_LVMSNAP \
                          SBUILD_FEATURE_LOOPBACK \
                          SBUILD_FEATURE_UNION \
                          HAVE_BOOST_FORMAT_HPP \

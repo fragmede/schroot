@@ -48,55 +48,55 @@ namespace sbuild
     /// Type of setup to perform.
     enum setup_type
       {
-	SETUP_START,   ///< Activate a chroot.
-	SETUP_RECOVER, ///< Reactivate a chroot.
-	SETUP_STOP,    ///< Deactivate a chroot.
-	EXEC_START,    ///< Prepare for executing a command.
-	EXEC_STOP      ///< Clean up after executing a command.
+        SETUP_START,   ///< Activate a chroot.
+        SETUP_RECOVER, ///< Reactivate a chroot.
+        SETUP_STOP,    ///< Deactivate a chroot.
+        EXEC_START,    ///< Prepare for executing a command.
+        EXEC_STOP      ///< Clean up after executing a command.
       };
 
     /// Chroot session properties.
     enum session_flags
       {
-	SESSION_NOFLAGS = 0,      ///< No flags are set.
-	SESSION_CREATE  = 1 << 0, ///< The chroot supports session creation.
-	SESSION_CLONE   = 1 << 1, ///< The chroot supports cloning.
-	SESSION_PURGE   = 1 << 2  ///< The chroot should be purged.
+        SESSION_NOFLAGS = 0,      ///< No flags are set.
+        SESSION_CREATE  = 1 << 0, ///< The chroot supports session creation.
+        SESSION_CLONE   = 1 << 1, ///< The chroot supports cloning.
+        SESSION_PURGE   = 1 << 2  ///< The chroot should be purged.
       };
 
     /// Message verbosity.
     enum verbosity
       {
-	VERBOSITY_QUIET,  ///< Only print essential messages.
-	VERBOSITY_NORMAL, ///< Print messages (the default).
-	VERBOSITY_VERBOSE ///< Print all messages.
+        VERBOSITY_QUIET,  ///< Only print essential messages.
+        VERBOSITY_NORMAL, ///< Print messages (the default).
+        VERBOSITY_VERBOSE ///< Print all messages.
       };
 
     /// Error codes.
     enum error_code
       {
-	CHROOT_CREATE,    ///< Chroot creation failed.
-	CHROOT_DEVICE,    ///< Chroot device name not set.
-	CHROOT_TYPE,      ///< Unknown chroot type.
-	DEVICE_ABS,       ///< Device must have an absolute path.
-	DEVICE_LOCK,      ///< Failed to lock device.
-	DEVICE_NOTBLOCK,  ///< File is not a block device.
-	DEVICE_UNLOCK,    ///< Failed to unlock device.
-	DIRECTORY_ABS,    ///< Directory must have an absolute path.
-	FACET_INVALID,    ///< Attempt to add object which is not a facet.
-	FACET_PRESENT,    ///< Attempt to add facet which is already in use.
-	FILE_ABS,         ///< File must have an absolute path.
-	FILE_LOCK,        ///< Failed to acquire lock.
-	FILE_NOTREG,      ///< File is not a regular file.
-	FILE_OWNER,       ///< File is not owned by user root.
-	FILE_PERMS,       ///< File has write permissions for others.
-	FILE_UNLOCK,      ///< Failed to discard lock.
-	LOCATION_ABS,     ///< Location must have an absolute path.
-	NAME_INVALID,     ///< Invalid name.
-	SCRIPT_CONFIG_CV, ///< Could not set profile from script configuration path.
-	SESSION_UNLINK,   ///< Failed to unlink session file.
-	SESSION_WRITE,    ///< Failed to write session file.
-	VERBOSITY_INVALID ///< Message verbosity is invalid.
+        CHROOT_CREATE,    ///< Chroot creation failed.
+        CHROOT_DEVICE,    ///< Chroot device name not set.
+        CHROOT_TYPE,      ///< Unknown chroot type.
+        DEVICE_ABS,       ///< Device must have an absolute path.
+        DEVICE_LOCK,      ///< Failed to lock device.
+        DEVICE_NOTBLOCK,  ///< File is not a block device.
+        DEVICE_UNLOCK,    ///< Failed to unlock device.
+        DIRECTORY_ABS,    ///< Directory must have an absolute path.
+        FACET_INVALID,    ///< Attempt to add object which is not a facet.
+        FACET_PRESENT,    ///< Attempt to add facet which is already in use.
+        FILE_ABS,         ///< File must have an absolute path.
+        FILE_LOCK,        ///< Failed to acquire lock.
+        FILE_NOTREG,      ///< File is not a regular file.
+        FILE_OWNER,       ///< File is not owned by user root.
+        FILE_PERMS,       ///< File has write permissions for others.
+        FILE_UNLOCK,      ///< Failed to discard lock.
+        LOCATION_ABS,     ///< Location must have an absolute path.
+        NAME_INVALID,     ///< Invalid name.
+        SCRIPT_CONFIG_CV, ///< Could not set profile from script configuration path.
+        SESSION_UNLINK,   ///< Failed to unlink session file.
+        SESSION_WRITE,    ///< Failed to write session file.
+        VERBOSITY_INVALID ///< Message verbosity is invalid.
       };
 
     /// Exception type.
@@ -147,9 +147,9 @@ namespace sbuild
      */
     virtual chroot::ptr
     clone_session (std::string const& session_id,
-		   std::string const& alias,
-		   std::string const& user,
-		   bool               root) const = 0;
+                   std::string const& alias,
+                   std::string const& user,
+                   bool               root) const = 0;
 
     /**
      * Create a source chroot.
@@ -521,7 +521,7 @@ namespace sbuild
      */
     virtual void
     setup_env (chroot const& chroot,
-	       environment& env) const = 0;
+               environment& env) const = 0;
 
     /**
      * Lock a chroot during setup.  The locking technique (if any) may
@@ -552,7 +552,7 @@ namespace sbuild
      */
     void
     unlock (setup_type type,
-	    int        status);
+            int        status);
 
   protected:
     /**
@@ -579,8 +579,8 @@ namespace sbuild
      */
     virtual void
     setup_lock(setup_type type,
-	       bool       lock,
-	       int        status) = 0;
+               bool       lock,
+               int        status) = 0;
 
   public:
     /**
@@ -678,7 +678,7 @@ namespace sbuild
      */
     friend std::ostream&
     operator << (std::ostream& stream,
-		 ptr const&    rhs)
+                 ptr const&    rhs)
     {
       rhs->print_details(stream);
       return stream;
@@ -694,7 +694,7 @@ namespace sbuild
     friend
     keyfile const&
     operator >> (keyfile const& keyfile,
-		 ptr&           rhs)
+                 ptr&           rhs)
     {
       rhs->set_keyfile(keyfile);
       return keyfile;
@@ -710,7 +710,7 @@ namespace sbuild
     friend
     keyfile&
     operator << (keyfile&   keyfile,
-		 ptr const& rhs)
+                 ptr const& rhs)
     {
       rhs->get_keyfile(keyfile);
       return keyfile;
@@ -732,7 +732,7 @@ namespace sbuild
      */
     virtual void
     get_details (chroot const&  chroot,
-		 format_detail& detail) const = 0;
+                 format_detail& detail) const = 0;
 
     /**
      * Print detailed information about the chroot to a stream.  The
@@ -765,7 +765,7 @@ namespace sbuild
      */
     virtual void
     get_keyfile (chroot const& chroot,
-		 keyfile&      keyfile) const = 0;
+                 keyfile&      keyfile) const = 0;
 
   public:
     /**
@@ -801,7 +801,7 @@ namespace sbuild
      */
     virtual void
     set_keyfile (chroot&        chroot,
-		 keyfile const& keyfile) = 0;
+                 keyfile const& keyfile) = 0;
 
   private:
     /// Chroot name.
@@ -855,7 +855,7 @@ namespace sbuild
    */
   chroot::session_flags
   inline operator | (chroot::session_flags const& lhs,
-		     chroot::session_flags const& rhs)
+                     chroot::session_flags const& rhs)
   {
     return static_cast<chroot::session_flags>
       (static_cast<int>(lhs) | static_cast<int>(rhs));
@@ -869,7 +869,7 @@ namespace sbuild
    */
   chroot::session_flags
   inline operator & (chroot::session_flags const& lhs,
-		     chroot::session_flags const& rhs)
+                     chroot::session_flags const& rhs)
   {
     return static_cast<chroot::session_flags>
       (static_cast<int>(lhs) & static_cast<int>(rhs));
@@ -889,11 +889,11 @@ namespace sbuild
     std::shared_ptr<T> ret;
 
     for (facet_list::const_iterator pos = facets.begin();
-	 pos != facets.end();
-	 ++pos)
+         pos != facets.end();
+         ++pos)
       {
-	if (ret = std::dynamic_pointer_cast<T>(*pos))
-	  break;
+        if (ret = std::dynamic_pointer_cast<T>(*pos))
+          break;
       }
 
     return ret;
@@ -906,11 +906,11 @@ namespace sbuild
     std::shared_ptr<T> ret;
 
     for (facet_list::const_iterator pos = facets.begin();
-	 pos != facets.end();
-	 ++pos)
+         pos != facets.end();
+         ++pos)
       {
-	if (ret = std::dynamic_pointer_cast<T>(*pos))
-	  break;
+        if (ret = std::dynamic_pointer_cast<T>(*pos))
+          break;
       }
 
     return std::const_pointer_cast<T>(ret);
@@ -925,11 +925,11 @@ namespace sbuild
       throw error(FACET_INVALID);
 
     for (facet_list::const_iterator pos = facets.begin();
-	 pos != facets.end();
-	 ++pos)
+         pos != facets.end();
+         ++pos)
       {
-	if (std::dynamic_pointer_cast<T>(*pos))
-	  throw error(FACET_PRESENT);
+        if (std::dynamic_pointer_cast<T>(*pos))
+          throw error(FACET_PRESENT);
       }
 
     new_facet->set_chroot(*this);
@@ -941,14 +941,14 @@ namespace sbuild
   chroot::remove_facet ()
   {
     for (facet_list::iterator pos = facets.begin();
-	 pos != facets.end();
-	 ++pos)
+         pos != facets.end();
+         ++pos)
       {
-	if (std::dynamic_pointer_cast<T>(*pos))
-	  {
-	    facets.erase(pos);
-	    break;
-	  }
+        if (std::dynamic_pointer_cast<T>(*pos))
+          {
+            facets.erase(pos);
+            break;
+          }
       }
   }
 

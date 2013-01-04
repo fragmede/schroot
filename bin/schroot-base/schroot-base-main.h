@@ -51,9 +51,9 @@ namespace schroot_base
      * logger.
      */
     main (std::string const&  program_name,
-	  std::string const&  program_usage,
-	  options::ptr const& program_options,
-	  bool                use_syslog);
+          std::string const&  program_usage,
+          options::ptr const& program_options,
+          bool                use_syslog);
 
     /// The destructor.
     virtual ~main ();
@@ -68,7 +68,7 @@ namespace schroot_base
      */
     int
     run (int   argc,
-	 char *argv[]);
+         char *argv[]);
 
     /**
      * Print help information.

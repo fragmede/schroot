@@ -72,23 +72,23 @@ namespace sbuild
 
     virtual void
     setup_env (chroot const& chroot,
-	       environment& env) const;
+               environment& env) const;
 
   protected:
     virtual void
     get_details (chroot const& chroot,
-		 format_detail& detail) const;
+                 format_detail& detail) const;
 
     virtual void
     get_used_keys (string_list& used_keys) const;
 
     virtual void
     get_keyfile (chroot const& chroot,
-		 keyfile& keyfile) const;
+                 keyfile& keyfile) const;
 
     virtual void
     set_keyfile (chroot&        chroot,
-		 keyfile const& keyfile);
+                 keyfile const& keyfile);
 
   private:
     /// The directory to use.

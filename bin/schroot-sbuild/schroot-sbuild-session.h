@@ -38,15 +38,15 @@ namespace schroot_sbuild
      * @param chroots the chroots to act upon.
      */
     session (std::string const&                  service,
-	     operation                           operation,
-	     sbuild::session::chroot_list const& chroots);
+             operation                           operation,
+             sbuild::session::chroot_list const& chroots);
 
     /// The destructor.
     virtual ~session ();
 
     virtual sbuild::auth::status
     get_chroot_auth_status (sbuild::auth::status       status,
-			    sbuild::chroot::ptr const& chroot) const;
+                            sbuild::chroot::ptr const& chroot) const;
   };
 
 }

@@ -18,17 +18,17 @@ set -e
 case "$1" in
     install|upgrade)
         if dpkg --compare-versions "$2" lt "1.5.1"; then
-	    if [ -f /etc/dchroot.conf ]; then
-		if [ -x /usr/bin/dchroot ]; then
-		    :
-		elif [ -x /usr/bin/dchroot-dsa ]; then
-		    echo "Converting old dchroot-dsa configuration to schroot.conf format..."
-		    tmpfile=$(tempfile -d/etc/schroot/chroot.d -pconv- -s-dchroot-dsa)
-		    echo "/etc/dchroot.conf written to $tmpfile; please add appropriate access permissions"
-		    dchroot-dsa --config >> "$tmpfile"
-		fi
-	    fi
-	fi
+            if [ -f /etc/dchroot.conf ]; then
+                if [ -x /usr/bin/dchroot ]; then
+                    :
+                elif [ -x /usr/bin/dchroot-dsa ]; then
+                    echo "Converting old dchroot-dsa configuration to schroot.conf format..."
+                    tmpfile=$(tempfile -d/etc/schroot/chroot.d -pconv- -s-dchroot-dsa)
+                    echo "/etc/dchroot.conf written to $tmpfile; please add appropriate access permissions"
+                    dchroot-dsa --config >> "$tmpfile"
+                fi
+            fi
+        fi
     ;;
 
     abort-upgrade)

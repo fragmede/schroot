@@ -50,21 +50,21 @@ namespace
    * @returns a string with any duplicates removed.
    */
   std::string remove_duplicates (std::string const& str,
-				 char               dup)
+                                 char               dup)
   {
     std::string ret;
 
     for (std::string::size_type pos = 0;
-	 pos < str.length();
-	 ++pos)
+         pos < str.length();
+         ++pos)
       {
-	ret += str[pos];
-	if (str[pos] == dup)
-	  {
-	    while (pos + 1 < str.length() &&
-		   str[pos + 1] == dup)
-	      ++pos;
-	  }
+        ret += str[pos];
+        if (str[pos] == dup)
+          {
+            while (pos + 1 < str.length() &&
+                   str[pos + 1] == dup)
+              ++pos;
+          }
       }
 
     return ret;
@@ -83,7 +83,7 @@ namespace
     };
 
   bool chroot_alphasort (sbuild::chroot::ptr const& c1,
-			 sbuild::chroot::ptr const& c2)
+                         sbuild::chroot::ptr const& c2)
   {
     return c1->get_name() < c2->get_name();
   }
@@ -189,7 +189,7 @@ sbuild::is_valid_sessionname (std::string const& name)
 
 bool
 sbuild::is_valid_filename (std::string const& name,
-			   bool               lsb_mode)
+                           bool               lsb_mode)
 {
   bool match = false;
 
@@ -201,16 +201,16 @@ sbuild::is_valid_filename (std::string const& name,
       static regex debian_dpkg_conffile_cruft("dpkg-(old|dist|new|tmp)$");
 
       if ((regex_search(name, lanana_namespace) ||
-	   regex_search(name, lsb_namespace) ||
-	   regex_search(name, debian_cron_namespace)) &&
-	  !regex_search(name, debian_dpkg_conffile_cruft))
-	match = true;
+           regex_search(name, lsb_namespace) ||
+           regex_search(name, debian_cron_namespace)) &&
+          !regex_search(name, debian_dpkg_conffile_cruft))
+        match = true;
     }
   else
     {
       static regex traditional_namespace("^[a-zA-Z0-9_-]$");
       if (regex_search(name, traditional_namespace))
-	match = true;
+        match = true;
     }
 
   return match;
@@ -254,7 +254,7 @@ sbuild::unique_identifier ()
 
 std::string
 sbuild::string_list_to_string (string_list const& list,
-			       std::string const& separator)
+                               std::string const& separator)
 {
   std::string ret;
 
@@ -264,7 +264,7 @@ sbuild::string_list_to_string (string_list const& list,
     {
       ret += *cur;
       if (cur + 1 != list.end())
-	ret += separator;
+        ret += separator;
     }
 
   return ret;
@@ -272,7 +272,7 @@ sbuild::string_list_to_string (string_list const& list,
 
 string_list
 sbuild::split_string (std::string const& value,
-		      std::string const& separator)
+                      std::string const& separator)
 {
   string_list ret;
 
@@ -286,11 +286,11 @@ sbuild::split_string (std::string const& value,
     {
       // Add to list
       if (pos == std::string::npos)
-	// Entire string from last_pos
-	ret.push_back(value.substr(last_pos, pos));
+        // Entire string from last_pos
+        ret.push_back(value.substr(last_pos, pos));
       else
-	// Between pos and last_pos
-	ret.push_back(value.substr(last_pos, pos - last_pos));
+        // Between pos and last_pos
+        ret.push_back(value.substr(last_pos, pos - last_pos));
 
       // Find next
       last_pos = value.find_first_not_of(separator, pos);
@@ -302,7 +302,7 @@ sbuild::split_string (std::string const& value,
 
 string_list
 sbuild::split_string_strict (std::string const& value,
-			     std::string const& separator)
+                             std::string const& separator)
 {
   string_list ret;
 
@@ -314,11 +314,11 @@ sbuild::split_string_strict (std::string const& value,
     {
       // Add to list
       if (pos == std::string::npos)
-	// Entire string from last_pos
-	ret.push_back(value.substr(last_pos, pos));
+        // Entire string from last_pos
+        ret.push_back(value.substr(last_pos, pos));
       else
-	// Between pos and last_pos
-	ret.push_back(value.substr(last_pos, pos - last_pos));
+        // Between pos and last_pos
+        ret.push_back(value.substr(last_pos, pos - last_pos));
 
       // Find next
       last_pos = pos + separator.length();
@@ -330,7 +330,7 @@ sbuild::split_string_strict (std::string const& value,
 
 std::wstring
 sbuild::widen_string (std::string const& str,
-		      std::locale        locale)
+                      std::locale        locale)
 {
   typedef std::codecvt<wchar_t, char, mbstate_t> codecvt_type;
   codecvt_type const& cvt = std::use_facet<codecvt_type>(locale);
@@ -345,29 +345,29 @@ sbuild::widen_string (std::string const& str,
   while (1)
     {
       std::codecvt_base::result res =
-	cvt.in(state,
-	       cbegin, cend, cnext,
-	       wcbuf, wcbuf + (sizeof(wcbuf) / sizeof(wcbuf[0])), wcnext);
+        cvt.in(state,
+               cbegin, cend, cnext,
+               wcbuf, wcbuf + (sizeof(wcbuf) / sizeof(wcbuf[0])), wcnext);
 
       if (res == std::codecvt_base::ok || res == std::codecvt_base::partial)
-	{
-	  ret += std::wstring(wcbuf, wcnext);
-	  if (cend == cnext)
-	    break;
-	}
+        {
+          ret += std::wstring(wcbuf, wcnext);
+          if (cend == cnext)
+            break;
+        }
       else if (res == std::codecvt_base::noconv)
-	{
-	  ret += std::wstring(cbegin, cend);
-	  break;
-	}
+        {
+          ret += std::wstring(cbegin, cend);
+          break;
+        }
       else if (res == std::codecvt_base::error)
-	{
-	  throw std::runtime_error
-	    ("A character set conversion failed.  Please report this bug.");
-	  break;
-	}
+        {
+          throw std::runtime_error
+            ("A character set conversion failed.  Please report this bug.");
+          break;
+        }
       else
-	break;
+        break;
 
       cbegin = cnext;
     }
@@ -377,7 +377,7 @@ sbuild::widen_string (std::string const& str,
 
 std::string
 sbuild::narrow_string (std::wstring const& str,
-		       std::locale         locale)
+                       std::locale         locale)
 {
   typedef std::codecvt<wchar_t, char, mbstate_t> codecvt_type;
   codecvt_type const& cvt = std::use_facet<codecvt_type>(locale);
@@ -392,29 +392,29 @@ sbuild::narrow_string (std::wstring const& str,
   while (1)
     {
       std::codecvt_base::result res =
-	cvt.out(state,
-		wcbegin, wcend, wcnext,
-		cbuf, cbuf + (sizeof(cbuf) / sizeof(cbuf[0])), cnext);
+        cvt.out(state,
+                wcbegin, wcend, wcnext,
+                cbuf, cbuf + (sizeof(cbuf) / sizeof(cbuf[0])), cnext);
 
       if (res == std::codecvt_base::ok || res == std::codecvt_base::partial)
-	{
-	  ret += std::string(cbuf, cnext);
-	  if (wcend == wcnext)
-	    break;
-	}
+        {
+          ret += std::string(cbuf, cnext);
+          if (wcend == wcnext)
+            break;
+        }
       else if (res == std::codecvt_base::noconv)
-	{
-	  ret += std::string(wcbegin, wcend);
-	  break;
-	}
+        {
+          ret += std::string(wcbegin, wcend);
+          break;
+        }
       else if (res == std::codecvt_base::error)
-	{
-	  throw std::runtime_error
-	    ("A character set conversion failed.  Please report this bug.");
-	  break;
-	}
+        {
+          throw std::runtime_error
+            ("A character set conversion failed.  Please report this bug.");
+          break;
+        }
       else
-	break;
+        break;
 
       wcbegin = wcnext;
     }
@@ -424,8 +424,8 @@ sbuild::narrow_string (std::wstring const& str,
 
 std::string
 sbuild::find_program_in_path (std::string const& program,
-			      std::string const& path,
-			      std::string const& prefix)
+                              std::string const& path,
+                              std::string const& prefix)
 {
   if (program.find_first_of('/') != std::string::npos)
     return program;
@@ -439,22 +439,22 @@ sbuild::find_program_in_path (std::string const& program,
       std::string realname = *dir + '/' + program;
       std::string absname;
       if (prefix.length() > 0)
-	{
-	  absname = prefix;
-	  if (dir->length() > 0 && (*dir)[0] != '/')
-	    absname += '/';
-	}
+        {
+          absname = prefix;
+          if (dir->length() > 0 && (*dir)[0] != '/')
+            absname += '/';
+        }
       absname += realname;
 
       try
-	{
-	  if (stat(absname).is_regular() &&
-	      access (absname.c_str(), X_OK) == 0)
-	    return realname;
-	}
+        {
+          if (stat(absname).is_regular() &&
+              access (absname.c_str(), X_OK) == 0)
+            return realname;
+        }
       catch (std::runtime_error const& e)
-	{
-	}
+        {
+        }
     }
 
   return "";
@@ -488,8 +488,8 @@ sbuild::strv_delete (char **strv)
 
 int
 sbuild::exec (std::string const& file,
-	      string_list const& command,
-	      environment const& env)
+              string_list const& command,
+              environment const& env)
 {
   char **argv = string_list_to_strv(command);
   char **envp = env.get_strv();
@@ -505,7 +505,7 @@ sbuild::exec (std::string const& file,
 }
 
 sbuild::stat::stat (const char *file,
-		    bool        link):
+                    bool        link):
   file(file),
   fd(0),
   errorno(0),
@@ -514,17 +514,17 @@ sbuild::stat::stat (const char *file,
   if (link)
     {
       if (::lstat(file, &this->status) < 0)
-	this->errorno = errno;
+        this->errorno = errno;
     }
   else
     {
       if (::stat(file, &this->status) < 0)
-	this->errorno = errno;
+        this->errorno = errno;
     }
 }
 
 sbuild::stat::stat (std::string const& file,
-		    bool               link):
+                    bool               link):
   file(file),
   fd(0),
   errorno(0),
@@ -533,17 +533,17 @@ sbuild::stat::stat (std::string const& file,
   if (link)
     {
       if (::lstat(file.c_str(), &this->status) < 0)
-	this->errorno = errno;
+        this->errorno = errno;
     }
   else
     {
       if (::stat(file.c_str(), &this->status) < 0)
-	this->errorno = errno;
+        this->errorno = errno;
     }
 }
 
 sbuild::stat::stat (std::string const& file,
-		    int                fd):
+                    int                fd):
   file(file),
   fd(fd),
   errorno(0),
@@ -631,8 +631,8 @@ sbuild::passwd::query_uid (uid_t uid)
   ::passwd *pwd_result;
 
   while ((error = getpwuid_r(uid, this,
-			     &buffer[0], buffer.capacity(),
-			     &pwd_result)))
+                             &buffer[0], buffer.capacity(),
+                             &pwd_result)))
     {
       size <<= 1;
       buffer.reserve(size);
@@ -654,8 +654,8 @@ sbuild::passwd::query_name (const char *name)
   ::passwd *pwd_result;
 
   while ((error = getpwnam_r(name, this,
-			     &buffer[0], buffer.capacity(),
-			     &pwd_result)))
+                             &buffer[0], buffer.capacity(),
+                             &pwd_result)))
     {
       size <<= 1;
       buffer.reserve(size);
@@ -740,8 +740,8 @@ sbuild::group::query_gid (gid_t gid)
   ::group *grp_result;
 
   while ((error = getgrgid_r(gid, this,
-			     &buffer[0], buffer.capacity(),
-			     &grp_result)))
+                             &buffer[0], buffer.capacity(),
+                             &grp_result)))
     {
       size <<= 1;
       buffer.reserve(size);
@@ -763,8 +763,8 @@ sbuild::group::query_name (const char *name)
   ::group *grp_result;
 
   while ((error = getgrnam_r(name, this,
-			     &buffer[0], buffer.capacity(),
-			     &grp_result)))
+                             &buffer[0], buffer.capacity(),
+                             &grp_result)))
     {
       size <<= 1;
       buffer.reserve(size);

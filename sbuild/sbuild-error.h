@@ -54,7 +54,7 @@ namespace sbuild
      * @param reason further information about the error
      */
     error_base(std::string const& error,
-	  std::string const& reason):
+          std::string const& reason):
       runtime_error(error),
       reason(reason)
     {
@@ -132,7 +132,7 @@ namespace sbuild
      * @param reason further information about the error
      */
     error(std::string const& error,
-	  std::string const& reason):
+          std::string const& reason):
       error_base(error, reason)
     {
     }
@@ -171,15 +171,15 @@ namespace sbuild
      * prevent code duplication.
      */
     template <typename A, typename B, typename C,
-	      typename D, typename E, typename F>
+              typename D, typename E, typename F>
     static std::string
     format_error (A const&   context1,
-		  B const&   context2,
-		  C const&   context3,
-		  error_type error,
-		  D const&   detail1,
-		  E const&   detail2,
-		  F const&   detail3);
+                  B const&   context2,
+                  C const&   context3,
+                  error_type error,
+                  D const&   detail1,
+                  E const&   detail2,
+                  F const&   detail3);
 
     /**
      * Format an error message.
@@ -194,15 +194,15 @@ namespace sbuild
      * @returns a translated error message.
      */
     template <typename A, typename B, typename C,
-	      typename D, typename E, typename F>
+              typename D, typename E, typename F>
     static std::string
     format_error (A const&                  context1,
-		  B const&                  context2,
-		  C const&                  context3,
-		  std::runtime_error const& error,
-		  D const&                  detail1,
-		  E const&                  detail2,
-		  F const&                  detail3);
+                  B const&                  context2,
+                  C const&                  context3,
+                  std::runtime_error const& error,
+                  D const&                  detail1,
+                  E const&                  detail2,
+                  F const&                  detail3);
 
     /**
      * Format an reason string.
@@ -217,15 +217,15 @@ namespace sbuild
      * @returns a translated error message.
      */
     template <typename A, typename B, typename C,
-	      typename R, typename D, typename E, typename F>
+              typename R, typename D, typename E, typename F>
     static std::string
     format_reason (A const&   context1,
-		   B const&   context2,
-		   C const&   context3,
-		   R const&   error,
-		   D const&   detail1,
-		   E const&   detail2,
-		   F const&   detail3);
+                   B const&   context2,
+                   C const&   context3,
+                   R const&   error,
+                   D const&   detail1,
+                   E const&   detail2,
+                   F const&   detail3);
 
     /**
      * Add detail to format string.
@@ -236,7 +236,7 @@ namespace sbuild
     template<typename A>
     static void
     add_detail(boost::format& fmt,
-	       A const&       value);
+               A const&       value);
 
     /**
      * Helper class to add detail to format string.
@@ -252,9 +252,9 @@ namespace sbuild
        * @param value the value to add.
        */
       add_detail_helper(boost::format& fmt,
-			A const&       value)
+                        A const&       value)
       {
-	fmt % value;
+        fmt % value;
       }
     };
 
@@ -272,9 +272,9 @@ namespace sbuild
        * @param value the exception to add.
        */
       add_detail_helper(boost::format& fmt,
-			A const&       value)
+                        A const&       value)
       {
-	fmt % value.what();
+        fmt % value.what();
       }
     };
 
@@ -287,7 +287,7 @@ namespace sbuild
     template<typename A>
     static void
     add_reason(std::string& reason,
-	       A const&     value);
+               A const&     value);
 
     /**
      * Helper class to add reason to reason string.
@@ -303,7 +303,7 @@ namespace sbuild
        * @param value the value to add.
        */
       add_reason_helper(std::string& reason,
-			A const&     value)
+                        A const&     value)
       {
       }
     };
@@ -322,18 +322,18 @@ namespace sbuild
        * @param value the exception to add.
        */
       add_reason_helper(std::string& reason,
-			A const&     value)
+                        A const&     value)
       {
-	try
-	  {
-	    sbuild::error_base const& eb(dynamic_cast<sbuild::error_base const&>(value));
-	    if (!reason.empty())
-	      reason += '\n';
-	    reason += eb.why();
-	  }
-	catch (std::bad_cast const& discard)
-	  {
-	  }
+        try
+          {
+            sbuild::error_base const& eb(dynamic_cast<sbuild::error_base const&>(value));
+            if (!reason.empty())
+              reason += '\n';
+            reason += eb.why();
+          }
+        catch (std::bad_cast const& discard)
+          {
+          }
       }
     };
 

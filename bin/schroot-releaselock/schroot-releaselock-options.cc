@@ -89,5 +89,5 @@ options::check_options ()
 
   if (this->action == ACTION_RELEASELOCK &&
       this->device.empty())
-	throw error(_("No device specified"));
+        throw error(_("No device specified"));
 }

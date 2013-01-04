@@ -41,8 +41,8 @@ using schroot::options_base;
 using namespace dchroot;
 
 main_base::main_base (std::string const& program_name,
-		      std::string const& program_usage,
-		      schroot::options_base::ptr& options):
+                      std::string const& program_usage,
+                      schroot::options_base::ptr& options):
   schroot::main_base(program_name, program_usage, options, true)
 {
 }

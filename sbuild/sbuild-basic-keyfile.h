@@ -229,7 +229,7 @@ namespace sbuild
      */
     void
     check_keys (group_name_type const& group,
-		key_list const&        keys) const;
+                key_list const&        keys) const;
 
     /**
      * Check if a group exists.
@@ -249,7 +249,7 @@ namespace sbuild
      */
     bool
     has_key (group_name_type const& group,
-	     key_type const&        key) const;
+             key_type const&        key) const;
 
     /**
      * Set a group.  The group will be created (and the comment set)
@@ -260,7 +260,7 @@ namespace sbuild
      */
     void
     set_group (group_name_type const& group,
-	       comment_type const&    comment);
+               comment_type const&    comment);
 
     /**
      * Set a group.  The group will be created (and the comment set)
@@ -272,8 +272,8 @@ namespace sbuild
      */
     void
     set_group (group_name_type const& group,
-	       comment_type const&    comment,
-	       size_type              line);
+               comment_type const&    comment,
+               size_type              line);
 
     /**
      * Get a group comment.
@@ -293,7 +293,7 @@ namespace sbuild
      */
     comment_type
     get_comment (group_name_type const& group,
-		 key_type const&        key) const;
+                 key_type const&        key) const;
 
     /**
      * Get a group line number.
@@ -313,7 +313,7 @@ namespace sbuild
      */
     size_type
     get_line (group_name_type const& group,
-	      key_type const&        key) const;
+              key_type const&        key) const;
 
     /**
      * Get a key value.
@@ -328,36 +328,36 @@ namespace sbuild
     template <typename T>
     bool
     get_value (group_name_type const& group,
-	       key_type const&        key,
-	       T&                     value) const
+               key_type const&        key,
+               T&                     value) const
     {
       log_debug(DEBUG_INFO) << "Getting keyfile group=" << group
-			    << ", key=" << key << std::endl;
+                            << ", key=" << key << std::endl;
       const item_type *found_item = find_item(group, key);
       if (found_item)
-	{
-	  value_type const& strval(std::get<1>(*found_item));
-	  try
-	    {
-	      parse_value(strval, value);
-	      return true;
-	    }
-	  catch (parse_value_error const& e)
-	    {
-	      size_type line = get_line(group, key);
-	      if (line)
-		{
-		  error ep(line, group, key, PASSTHROUGH_LGK, e);
-		  log_exception_warning(ep);
-		}
-	      else
-		{
-		  error ep(group, key, PASSTHROUGH_GK, e);
-		  log_exception_warning(ep);
-		}
-	      return false;
-	    }
-	}
+        {
+          value_type const& strval(std::get<1>(*found_item));
+          try
+            {
+              parse_value(strval, value);
+              return true;
+            }
+          catch (parse_value_error const& e)
+            {
+              size_type line = get_line(group, key);
+              if (line)
+                {
+                  error ep(line, group, key, PASSTHROUGH_LGK, e);
+                  log_exception_warning(ep);
+                }
+              else
+                {
+                  error ep(group, key, PASSTHROUGH_GK, e);
+                  log_exception_warning(ep);
+                }
+              return false;
+            }
+        }
       log_debug(DEBUG_NOTICE) << "key not found" << std::endl;
       return false;
     }
@@ -377,9 +377,9 @@ namespace sbuild
     template <typename T>
     bool
     get_value (group_name_type const& group,
-	       key_type const&        key,
-	       priority               priority,
-	       T&                     value) const
+               key_type const&        key,
+               priority               priority,
+               T&                     value) const
     {
       bool status = get_value(group, key, value);
       check_priority(group, key, priority, status);
@@ -397,8 +397,8 @@ namespace sbuild
      */
     bool
     get_locale_string (group_name_type const& group,
-		       key_type const&        key,
-		       value_type&            value) const;
+                       key_type const&        key,
+                       value_type&            value) const;
 
     /**
      * Get a localised key string value.  If the value does not exist,
@@ -413,9 +413,9 @@ namespace sbuild
      */
     bool
     get_locale_string (group_name_type const& group,
-		       key_type const&        key,
-		       priority               priority,
-		       value_type&            value) const;
+                       key_type const&        key,
+                       priority               priority,
+                       value_type&            value) const;
 
     /**
      * Get a localised key string value for a specific locale.
@@ -429,9 +429,9 @@ namespace sbuild
      */
     bool
     get_locale_string (group_name_type const& group,
-		       key_type const&        key,
-		       std::string const&     locale,
-		       value_type&            value) const;
+                       key_type const&        key,
+                       std::string const&     locale,
+                       value_type&            value) const;
 
     /**
      * Get a localised key string value for a specific locale.  If the
@@ -448,10 +448,10 @@ namespace sbuild
      */
     bool
     get_locale_string (group_name_type const& group,
-		       key_type const&        key,
-		       std::string const&     locale,
-		       priority               priority,
-		       value_type&            value) const;
+                       key_type const&        key,
+                       std::string const&     locale,
+                       priority               priority,
+                       value_type&            value) const;
 
     /**
      * Get a key value as a list.
@@ -468,45 +468,45 @@ namespace sbuild
     template <typename C>
     bool
     get_list_value (group_name_type const& group,
-		    key_type const&        key,
-		    C&                     container) const
+                    key_type const&        key,
+                    C&                     container) const
     {
       value_type item_value;
       if (get_value(group, key, item_value))
-	{
-	  value_list items = split_string(item_value,
-					  this->separator);
-	  for (typename value_list::const_iterator pos = items.begin();
-	       pos != items.end();
-	       ++pos
-	       )
-	    {
-	      typename C::value_type tmp;
+        {
+          value_list items = split_string(item_value,
+                                          this->separator);
+          for (typename value_list::const_iterator pos = items.begin();
+               pos != items.end();
+               ++pos
+               )
+            {
+              typename C::value_type tmp;
 
-	      try
-		{
-		  parse_value(*pos, tmp);
-		}
-	      catch (parse_value_error const& e)
-		{
-		  size_type line = get_line(group, key);
-		  if (line)
-		    {
-		      error ep(line, group, key, PASSTHROUGH_LGK, e);
-		      log_exception_warning(ep);
-		    }
-		  else
-		    {
-		      error ep(group, key, PASSTHROUGH_GK, e);
-		      log_exception_warning(ep);
-		    }
-		  return false;
-		}
+              try
+                {
+                  parse_value(*pos, tmp);
+                }
+              catch (parse_value_error const& e)
+                {
+                  size_type line = get_line(group, key);
+                  if (line)
+                    {
+                      error ep(line, group, key, PASSTHROUGH_LGK, e);
+                      log_exception_warning(ep);
+                    }
+                  else
+                    {
+                      error ep(group, key, PASSTHROUGH_GK, e);
+                      log_exception_warning(ep);
+                    }
+                  return false;
+                }
 
-	      container.push_back(tmp);
-	    }
-	  return true;
-	}
+              container.push_back(tmp);
+            }
+          return true;
+        }
       return false;
     }
 
@@ -527,9 +527,9 @@ namespace sbuild
     template <typename C>
     bool
     get_list_value (group_name_type const& group,
-		    key_type const&        key,
-		    priority               priority,
-		    C&                     container) const
+                    key_type const&        key,
+                    priority               priority,
+                    C&                     container) const
     {
       bool status = get_list_value(group, key, container);
       check_priority(group, key, priority, status);
@@ -551,45 +551,45 @@ namespace sbuild
     template <typename C>
     bool
     get_set_value (group_name_type const& group,
-		   key_type const&        key,
-		   C&                     container) const
+                   key_type const&        key,
+                   C&                     container) const
     {
       value_type item_value;
       if (get_value(group, key, item_value))
-	{
-	  value_list items = split_string(item_value,
-					  this->separator);
-	  for (typename value_list::const_iterator pos = items.begin();
-	       pos != items.end();
-	       ++pos
-	       )
-	    {
-	      typename C::value_type tmp;
+        {
+          value_list items = split_string(item_value,
+                                          this->separator);
+          for (typename value_list::const_iterator pos = items.begin();
+               pos != items.end();
+               ++pos
+               )
+            {
+              typename C::value_type tmp;
 
-	      try
-		{
-		  parse_value(*pos, tmp);
-		}
-	      catch (parse_value_error const& e)
-		{
-		  size_type line = get_line(group, key);
-		  if (line)
-		    {
-		      error ep(line, group, key, PASSTHROUGH_LGK, e);
-		      log_exception_warning(ep);
-		    }
-		  else
-		    {
-		      error ep(group, key, PASSTHROUGH_GK, e);
-		      log_exception_warning(ep);
-		    }
-		  return false;
-		}
+              try
+                {
+                  parse_value(*pos, tmp);
+                }
+              catch (parse_value_error const& e)
+                {
+                  size_type line = get_line(group, key);
+                  if (line)
+                    {
+                      error ep(line, group, key, PASSTHROUGH_LGK, e);
+                      log_exception_warning(ep);
+                    }
+                  else
+                    {
+                      error ep(group, key, PASSTHROUGH_GK, e);
+                      log_exception_warning(ep);
+                    }
+                  return false;
+                }
 
-	      container.insert(tmp);
-	    }
-	  return true;
-	}
+              container.insert(tmp);
+            }
+          return true;
+        }
       return false;
     }
 
@@ -610,9 +610,9 @@ namespace sbuild
     template <typename C>
     bool
     get_set_value (group_name_type const& group,
-		   key_type const&        key,
-		   priority               priority,
-		   C&                     container) const
+                   key_type const&        key,
+                   priority               priority,
+                   C&                     container) const
     {
       bool status = get_set_value(group, key, container);
       check_priority(group, key, priority, status);
@@ -630,8 +630,8 @@ namespace sbuild
     template <typename T>
     void
     set_value (group_name_type const& group,
-	       key_type const&        key,
-	       T const&               value)
+               key_type const&        key,
+               T const&               value)
     {
       set_value(group, key, value, comment_type());
     }
@@ -648,9 +648,9 @@ namespace sbuild
     template <typename T>
     void
     set_value (group_name_type const& group,
-	       key_type const&        key,
-	       T const&               value,
-	       comment_type const&    comment)
+               key_type const&        key,
+               T const&               value,
+               comment_type const&    comment)
     {
       set_value(group, key, value, comment, 0);
     }
@@ -668,10 +668,10 @@ namespace sbuild
     template <typename T>
     void
     set_value (group_name_type const& group,
-	       key_type const&        key,
-	       T const&               value,
-	       comment_type const&    comment,
-	       size_type              line)
+               key_type const&        key,
+               T const&               value,
+               comment_type const&    comment,
+               size_type              line)
     {
       std::ostringstream os;
       os.imbue(std::locale::classic());
@@ -685,11 +685,11 @@ namespace sbuild
 
       typename item_map_type::iterator pos = items.find(key);
       if (pos != items.end())
-	items.erase(pos);
+        items.erase(pos);
       items.insert
-	(typename item_map_type::value_type(key,
-					    item_type(key, os.str(),
-						      comment, line)));
+        (typename item_map_type::value_type(key,
+                                            item_type(key, os.str(),
+                                                      comment, line)));
     }
 
     /**
@@ -704,9 +704,9 @@ namespace sbuild
     template <typename I>
     void
     set_list_value (group_name_type const& group,
-		    key_type const&        key,
-		    I                      begin,
-		    I                      end)
+                    key_type const&        key,
+                    I                      begin,
+                    I                      end)
     {
       set_list_value(group, key, begin, end, comment_type());
     }
@@ -724,10 +724,10 @@ namespace sbuild
     template <typename I>
     void
     set_list_value (group_name_type const& group,
-		    key_type const&        key,
-		    I                      begin,
-		    I                      end,
-		    comment_type const&    comment)
+                    key_type const&        key,
+                    I                      begin,
+                    I                      end,
+                    comment_type const&    comment)
     {
       set_list_value (group, key, begin, end, comment, 0);
     }
@@ -746,26 +746,26 @@ namespace sbuild
     template <typename I>
     void
     set_list_value (group_name_type const& group,
-		    key_type const&        key,
-		    I                      begin,
-		    I                      end,
-		    comment_type const&    comment,
-		    size_type              line)
+                    key_type const&        key,
+                    I                      begin,
+                    I                      end,
+                    comment_type const&    comment,
+                    size_type              line)
     {
       value_type strval;
 
       for (I pos = begin; pos != end;)
-	{
-	  std::ostringstream os;
-	  os.imbue(std::locale::classic());
-	  os << std::boolalpha << *pos;
-	  if (os)
-	    {
-	      strval += os.str();
-	      if (++pos != end)
-		strval += this->separator;
-	    }
-	}
+        {
+          std::ostringstream os;
+          os.imbue(std::locale::classic());
+          os << std::boolalpha << *pos;
+          if (os)
+            {
+              strval += os.str();
+              if (++pos != end)
+                strval += this->separator;
+            }
+        }
 
       set_value (group, key, strval, comment, line);
     }
@@ -782,9 +782,9 @@ namespace sbuild
     template <typename I>
     void
     set_set_value (group_name_type const& group,
-		   key_type const&        key,
-		   I                      begin,
-		   I                      end)
+                   key_type const&        key,
+                   I                      begin,
+                   I                      end)
     {
       std::vector<typename std::iterator_traits<I>::value_type> l(begin, end);
       std::sort(l.begin(), l.end());
@@ -804,10 +804,10 @@ namespace sbuild
     template <typename I>
     void
     set_set_value (group_name_type const& group,
-		   key_type const&        key,
-		   I                      begin,
-		   I                      end,
-		   comment_type const&    comment)
+                   key_type const&        key,
+                   I                      begin,
+                   I                      end,
+                   comment_type const&    comment)
     {
       std::vector<typename std::iterator_traits<I>::value_type> l(begin, end);
       std::sort(l.begin(), l.end());
@@ -828,11 +828,11 @@ namespace sbuild
     template <typename I>
     void
     set_set_value (group_name_type const& group,
-		   key_type const&        key,
-		   I                      begin,
-		   I                      end,
-		   comment_type const&    comment,
-		   size_type              line)
+                   key_type const&        key,
+                   I                      begin,
+                   I                      end,
+                   comment_type const&    comment,
+                   size_type              line)
     {
       std::vector<typename std::iterator_traits<I>::value_type> l(begin, end);
       std::sort(l.begin(), l.end());
@@ -855,7 +855,7 @@ namespace sbuild
      */
     void
     remove_key (group_name_type const& group,
-		key_type const&        key);
+                key_type const&        key);
 
     /**
      * Add a basic_keyfile to the basic_keyfile.
@@ -876,7 +876,7 @@ namespace sbuild
     template <typename _K, typename _P>
     friend basic_keyfile<_K, _P>
     operator + (basic_keyfile<_K, _P> const& lhs,
-		basic_keyfile<_K, _P> const& rhs);
+                basic_keyfile<_K, _P> const& rhs);
 
     /**
      * basic_keyfile initialisation from an istream.
@@ -889,7 +889,7 @@ namespace sbuild
     friend
     std::basic_istream<charT,traits>&
     operator >> (std::basic_istream<charT,traits>& stream,
-		 basic_keyfile&                    kf)
+                 basic_keyfile&                    kf)
     {
       basic_keyfile tmp;
       parse_type state;
@@ -899,25 +899,25 @@ namespace sbuild
 
       while (std::getline(stream, line))
       {
-	state.parse_line(line);
+        state.parse_line(line);
 
-	// Insert group
-	if (state.group_set)
-	  {
-	    if (tmp.has_group(state.group))
-	      throw error(state.line_number, DUPLICATE_GROUP, state.group);
-	    else
-	      tmp.set_group(state.group, state.comment, state.line_number);
-	  }
+        // Insert group
+        if (state.group_set)
+          {
+            if (tmp.has_group(state.group))
+              throw error(state.line_number, DUPLICATE_GROUP, state.group);
+            else
+              tmp.set_group(state.group, state.comment, state.line_number);
+          }
 
-	// Insert item
-	if (state.key_set && state.value_set)
-	  {
-	    if (tmp.has_key(state.group, state.key))
-	      throw error(state.line_number, state.group, DUPLICATE_KEY, state.key);
-	    else
-	      tmp.set_value(state.group, state.key, state.value, state.comment, state.line_number);
-	  }
+        // Insert item
+        if (state.key_set && state.value_set)
+          {
+            if (tmp.has_key(state.group, state.key))
+              throw error(state.line_number, state.group, DUPLICATE_KEY, state.key);
+            else
+              tmp.set_value(state.group, state.key, state.value, state.comment, state.line_number);
+          }
       }
 
       state.end();
@@ -939,42 +939,42 @@ namespace sbuild
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-		 basic_keyfile const&              kf)
+                 basic_keyfile const&              kf)
     {
       size_type group_count = 0;
 
       for (typename group_map_type::const_iterator gp = kf.groups.begin();
-	   gp != kf.groups.end();
-	   ++gp, ++group_count)
-	{
-	  if (group_count > 0)
-	    stream << '\n';
+           gp != kf.groups.end();
+           ++gp, ++group_count)
+        {
+          if (group_count > 0)
+            stream << '\n';
 
-	  group_type const& group = gp->second;
-	  group_name_type const& groupname = std::get<0>(group);
-	  comment_type const& comment = std::get<2>(group);
+          group_type const& group = gp->second;
+          group_name_type const& groupname = std::get<0>(group);
+          comment_type const& comment = std::get<2>(group);
 
-	  if (comment.length() > 0)
-	    print_comment(comment, stream);
+          if (comment.length() > 0)
+            print_comment(comment, stream);
 
-	  stream << '[' << groupname << ']' << '\n';
+          stream << '[' << groupname << ']' << '\n';
 
-	  item_map_type const& items(std::get<1>(group));
-	  for (typename item_map_type::const_iterator it = items.begin();
-	       it != items.end();
-	       ++it)
-	    {
-	      item_type const& item = it->second;
-	      key_type const& key(std::get<0>(item));
-	      value_type const& value(std::get<1>(item));
-	      comment_type const& comment(std::get<2>(item));
+          item_map_type const& items(std::get<1>(group));
+          for (typename item_map_type::const_iterator it = items.begin();
+               it != items.end();
+               ++it)
+            {
+              item_type const& item = it->second;
+              key_type const& key(std::get<0>(item));
+              value_type const& value(std::get<1>(item));
+              comment_type const& comment(std::get<2>(item));
 
-	      if (comment.length() > 0)
-		print_comment(comment, stream);
+              if (comment.length() > 0)
+                print_comment(comment, stream);
 
-	      stream << key << '=' << value << '\n';
-	    }
-	}
+              stream << key << '=' << value << '\n';
+            }
+        }
 
       return stream;
     }
@@ -1007,7 +1007,7 @@ namespace sbuild
      */
     const item_type *
     find_item (group_name_type const& group,
-	       key_type const&        key) const;
+               key_type const&        key) const;
 
     /**
      * Find a key by it's group and name.
@@ -1018,7 +1018,7 @@ namespace sbuild
      */
     item_type *
     find_item (group_name_type const& group,
-	       key_type const&        key);
+               key_type const&        key);
 
     /**
      * Check if a key is missing or present when not permitted.
@@ -1030,9 +1030,9 @@ namespace sbuild
      */
     void
     check_priority (group_name_type const& group,
-		    key_type const&        key,
-		    priority               priority,
-		    bool                   valid) const;
+                    key_type const&        key,
+                    priority               priority,
+                    bool                   valid) const;
 
     /**
      * Print a comment to a stream.  The comment will have hash ('#')
@@ -1047,7 +1047,7 @@ namespace sbuild
      */
     static void
     print_comment (comment_type const& comment,
-		   std::ostream&       stream);
+                   std::ostream&       stream);
 
     /// The top-level groups.
     group_map_type groups;
@@ -1070,20 +1070,20 @@ namespace sbuild
     template<class C, typename T>
     static void
     set_object_value (C const&               object,
-		      T                (C::* method)() const,
-		      basic_keyfile&         basic_keyfile,
-		      group_name_type const& group,
-		      key_type const&        key)
+                      T                (C::* method)() const,
+                      basic_keyfile&         basic_keyfile,
+                      group_name_type const& group,
+                      key_type const&        key)
     {
       try
-	{
-	  if (method)
-	    basic_keyfile.set_value(group, key, (object.*method)());
-	}
+        {
+          if (method)
+            basic_keyfile.set_value(group, key, (object.*method)());
+        }
       catch (std::runtime_error const& e)
-	{
-	  throw error(group, key, PASSTHROUGH_GK, e);
-	}
+        {
+          throw error(group, key, PASSTHROUGH_GK, e);
+        }
     }
 
     /**
@@ -1101,20 +1101,20 @@ namespace sbuild
     template<class C, typename T>
     static void
     set_object_value (C const&               object,
-		      T const&         (C::* method)() const,
-		      basic_keyfile&         basic_keyfile,
-		      group_name_type const& group,
-		      key_type const&        key)
+                      T const&         (C::* method)() const,
+                      basic_keyfile&         basic_keyfile,
+                      group_name_type const& group,
+                      key_type const&        key)
     {
       try
-	{
-	  if (method)
-	    basic_keyfile.set_value(group, key, (object.*method)());
-	}
+        {
+          if (method)
+            basic_keyfile.set_value(group, key, (object.*method)());
+        }
       catch (std::runtime_error const& e)
-	{
-	  throw error(group, key, PASSTHROUGH_GK, e);
-	}
+        {
+          throw error(group, key, PASSTHROUGH_GK, e);
+        }
     }
 
     /**
@@ -1133,22 +1133,22 @@ namespace sbuild
     template<class C, typename T>
     static void
     set_object_list_value (C const&               object,
-			   T                (C::* method)() const,
-			   basic_keyfile&         basic_keyfile,
-			   group_name_type const& group,
-			   key_type const&        key)
+                           T                (C::* method)() const,
+                           basic_keyfile&         basic_keyfile,
+                           group_name_type const& group,
+                           key_type const&        key)
     {
       try
-	{
-	  if (method)
-	    basic_keyfile.set_list_value(group, key,
-					 (object.*method)().begin(),
-					 (object.*method)().end());
-	}
+        {
+          if (method)
+            basic_keyfile.set_list_value(group, key,
+                                         (object.*method)().begin(),
+                                         (object.*method)().end());
+        }
       catch (std::runtime_error const& e)
-	{
-	  throw error(group, key, PASSTHROUGH_GK, e);
-	}
+        {
+          throw error(group, key, PASSTHROUGH_GK, e);
+        }
     }
 
     /**
@@ -1168,22 +1168,22 @@ namespace sbuild
     template<class C, typename T>
     static void
     set_object_list_value (C const&               object,
-			   T const&         (C::* method)() const,
-			   basic_keyfile&         basic_keyfile,
-			   group_name_type const& group,
-			   key_type const&        key)
+                           T const&         (C::* method)() const,
+                           basic_keyfile&         basic_keyfile,
+                           group_name_type const& group,
+                           key_type const&        key)
     {
       try
-	{
-	  if (method)
-	    basic_keyfile.set_list_value(group, key,
-					 (object.*method)().begin(),
-					 (object.*method)().end());
-	}
+        {
+          if (method)
+            basic_keyfile.set_list_value(group, key,
+                                         (object.*method)().begin(),
+                                         (object.*method)().end());
+        }
       catch (std::runtime_error const& e)
-	{
-	  throw error(group, key, PASSTHROUGH_GK, e);
-	}
+        {
+          throw error(group, key, PASSTHROUGH_GK, e);
+        }
     }
 
     /**
@@ -1202,22 +1202,22 @@ namespace sbuild
     template<class C, typename T>
     static void
     set_object_set_value (C const&               object,
-			  T                (C::* method)() const,
-			  basic_keyfile&         basic_keyfile,
-			  group_name_type const& group,
-			  key_type const&        key)
+                          T                (C::* method)() const,
+                          basic_keyfile&         basic_keyfile,
+                          group_name_type const& group,
+                          key_type const&        key)
     {
       try
-	{
-	  if (method)
-	    basic_keyfile.set_set_value(group, key,
-					(object.*method)().begin(),
-					(object.*method)().end());
-	}
+        {
+          if (method)
+            basic_keyfile.set_set_value(group, key,
+                                        (object.*method)().begin(),
+                                        (object.*method)().end());
+        }
       catch (std::runtime_error const& e)
-	{
-	  throw error(group, key, PASSTHROUGH_GK, e);
-	}
+        {
+          throw error(group, key, PASSTHROUGH_GK, e);
+        }
     }
 
     /**
@@ -1237,22 +1237,22 @@ namespace sbuild
     template<class C, typename T>
     static void
     set_object_set_value (C const&               object,
-			  T const&         (C::* method)() const,
-			  basic_keyfile&         basic_keyfile,
-			  group_name_type const& group,
-			  key_type const&        key)
+                          T const&         (C::* method)() const,
+                          basic_keyfile&         basic_keyfile,
+                          group_name_type const& group,
+                          key_type const&        key)
     {
       try
-	{
-	  if (method)
-	    basic_keyfile.set_set_value(group, key,
-					(object.*method)().begin(),
-					(object.*method)().end());
-	}
+        {
+          if (method)
+            basic_keyfile.set_set_value(group, key,
+                                        (object.*method)().begin(),
+                                        (object.*method)().end());
+        }
       catch (std::runtime_error const& e)
-	{
-	  throw error(group, key, PASSTHROUGH_GK, e);
-	}
+        {
+          throw error(group, key, PASSTHROUGH_GK, e);
+        }
     }
 
     /**
@@ -1272,27 +1272,27 @@ namespace sbuild
     template<class C, typename T>
     static void
     get_object_value (C&                      object,
-		      void              (C::* method)(T param),
-		      basic_keyfile const&    basic_keyfile,
-		      group_name_type const&  group,
-		      key_type const&         key,
-		      basic_keyfile::priority priority)
+                      void              (C::* method)(T param),
+                      basic_keyfile const&    basic_keyfile,
+                      group_name_type const&  group,
+                      key_type const&         key,
+                      basic_keyfile::priority priority)
     {
       try
-	{
-	  T value;
-	  if (basic_keyfile.get_value(group, key, priority, value)
-	      && method)
-	    (object.*method)(value);
-	}
+        {
+          T value;
+          if (basic_keyfile.get_value(group, key, priority, value)
+              && method)
+            (object.*method)(value);
+        }
       catch (std::runtime_error const& e)
-	{
-	  size_type line = basic_keyfile.get_line(group, key);
-	  if (line)
-	    throw error(line, group, key, PASSTHROUGH_LGK, e);
-	  else
-	    throw error(group, key, PASSTHROUGH_GK, e);
-	}
+        {
+          size_type line = basic_keyfile.get_line(group, key);
+          if (line)
+            throw error(line, group, key, PASSTHROUGH_LGK, e);
+          else
+            throw error(group, key, PASSTHROUGH_GK, e);
+        }
     }
 
     /**
@@ -1312,27 +1312,27 @@ namespace sbuild
     template<class C, typename T>
     static void
     get_object_value (C&                      object,
-		      void              (C::* method)(T const& param),
-		      basic_keyfile const&    basic_keyfile,
-		      group_name_type const&  group,
-		      key_type const&         key,
-		      basic_keyfile::priority priority)
+                      void              (C::* method)(T const& param),
+                      basic_keyfile const&    basic_keyfile,
+                      group_name_type const&  group,
+                      key_type const&         key,
+                      basic_keyfile::priority priority)
     {
       try
-	{
-	  T value;
-	  if (basic_keyfile.get_value(group, key, priority, value)
-	      && method)
-	    (object.*method)(value);
-	}
+        {
+          T value;
+          if (basic_keyfile.get_value(group, key, priority, value)
+              && method)
+            (object.*method)(value);
+        }
       catch (std::runtime_error const& e)
-	{
-	  size_type line = basic_keyfile.get_line(group, key);
-	  if (line)
-	    throw error(line, group, key, PASSTHROUGH_LGK, e);
-	  else
-	    throw error(group, key, PASSTHROUGH_GK, e);
-	}
+        {
+          size_type line = basic_keyfile.get_line(group, key);
+          if (line)
+            throw error(line, group, key, PASSTHROUGH_LGK, e);
+          else
+            throw error(group, key, PASSTHROUGH_GK, e);
+        }
     }
 
     /**
@@ -1352,29 +1352,29 @@ namespace sbuild
     template<class C, typename T>
     static void
     get_object_list_value (C&                      object,
-			   void              (C::* method)(T param),
-			   basic_keyfile const&    basic_keyfile,
-			   group_name_type const&  group,
-			   key_type const&         key,
-			   basic_keyfile::priority priority)
+                           void              (C::* method)(T param),
+                           basic_keyfile const&    basic_keyfile,
+                           group_name_type const&  group,
+                           key_type const&         key,
+                           basic_keyfile::priority priority)
     {
       try
-	{
-	  T value;
-	  if (basic_keyfile.get_list_value(group, key, priority, value)
-	      && method)
-	    (object.*method)(value);
-	}
+        {
+          T value;
+          if (basic_keyfile.get_list_value(group, key, priority, value)
+              && method)
+            (object.*method)(value);
+        }
       catch (std::runtime_error const& e)
-	{
-	  size_type line = basic_keyfile.get_line(group, key);
-	  if (line)
-	    throw error(line, group, key, PASSTHROUGH_LGK, e);
-	  else
-	    throw error(group, key, PASSTHROUGH_GK, e);
-	  throw error(basic_keyfile.get_line(group, key),
-		      group, key, e);
-	}
+        {
+          size_type line = basic_keyfile.get_line(group, key);
+          if (line)
+            throw error(line, group, key, PASSTHROUGH_LGK, e);
+          else
+            throw error(group, key, PASSTHROUGH_GK, e);
+          throw error(basic_keyfile.get_line(group, key),
+                      group, key, e);
+        }
     }
 
     /**
@@ -1395,29 +1395,29 @@ namespace sbuild
     template<class C, typename T>
     static void
     get_object_list_value (C&                      object,
-			   void              (C::* method)(T const& param),
-			   basic_keyfile const&    basic_keyfile,
-			   group_name_type const&  group,
-			   key_type const&         key,
-			   basic_keyfile::priority priority)
+                           void              (C::* method)(T const& param),
+                           basic_keyfile const&    basic_keyfile,
+                           group_name_type const&  group,
+                           key_type const&         key,
+                           basic_keyfile::priority priority)
     {
       try
-	{
-	  T value;
-	  if (basic_keyfile.get_list_value(group, key, priority, value)
-	      && method)
-	    (object.*method)(value);
-	}
+        {
+          T value;
+          if (basic_keyfile.get_list_value(group, key, priority, value)
+              && method)
+            (object.*method)(value);
+        }
       catch (std::runtime_error const& e)
-	{
-	  size_type line = basic_keyfile.get_line(group, key);
-	  if (line)
-	    throw error(line, group, key, PASSTHROUGH_LGK, e);
-	  else
-	    throw error(group, key, PASSTHROUGH_GK, e);
-	  throw error(basic_keyfile.get_line(group, key),
-		      group, key, e);
-	}
+        {
+          size_type line = basic_keyfile.get_line(group, key);
+          if (line)
+            throw error(line, group, key, PASSTHROUGH_LGK, e);
+          else
+            throw error(group, key, PASSTHROUGH_GK, e);
+          throw error(basic_keyfile.get_line(group, key),
+                      group, key, e);
+        }
     }
 
     /**
@@ -1437,29 +1437,29 @@ namespace sbuild
     template<class C, typename T>
     static void
     get_object_set_value (C&                      object,
-			  void              (C::* method)(T param),
-			  basic_keyfile const&    basic_keyfile,
-			  group_name_type const&  group,
-			  key_type const&         key,
-			  basic_keyfile::priority priority)
+                          void              (C::* method)(T param),
+                          basic_keyfile const&    basic_keyfile,
+                          group_name_type const&  group,
+                          key_type const&         key,
+                          basic_keyfile::priority priority)
     {
       try
-	{
-	  T value;
-	  if (basic_keyfile.get_set_value(group, key, priority, value)
-	      && method)
-	    (object.*method)(value);
-	}
+        {
+          T value;
+          if (basic_keyfile.get_set_value(group, key, priority, value)
+              && method)
+            (object.*method)(value);
+        }
       catch (std::runtime_error const& e)
-	{
-	  size_type line = basic_keyfile.get_line(group, key);
-	  if (line)
-	    throw error(line, group, key, PASSTHROUGH_LGK, e);
-	  else
-	    throw error(group, key, PASSTHROUGH_GK, e);
-	  throw error(basic_keyfile.get_line(group, key),
-		      group, key, e);
-	}
+        {
+          size_type line = basic_keyfile.get_line(group, key);
+          if (line)
+            throw error(line, group, key, PASSTHROUGH_LGK, e);
+          else
+            throw error(group, key, PASSTHROUGH_GK, e);
+          throw error(basic_keyfile.get_line(group, key),
+                      group, key, e);
+        }
     }
 
     /**
@@ -1480,29 +1480,29 @@ namespace sbuild
     template<class C, typename T>
     static void
     get_object_set_value (C&                      object,
-			  void              (C::* method)(T const& param),
-			  basic_keyfile const&    basic_keyfile,
-			  group_name_type const&  group,
-			  key_type const&         key,
-			  basic_keyfile::priority priority)
+                          void              (C::* method)(T const& param),
+                          basic_keyfile const&    basic_keyfile,
+                          group_name_type const&  group,
+                          key_type const&         key,
+                          basic_keyfile::priority priority)
     {
       try
-	{
-	  T value;
-	  if (basic_keyfile.get_set_value(group, key, priority, value)
-	      && method)
-	    (object.*method)(value);
-	}
+        {
+          T value;
+          if (basic_keyfile.get_set_value(group, key, priority, value)
+              && method)
+            (object.*method)(value);
+        }
       catch (std::runtime_error const& e)
-	{
-	  size_type line = basic_keyfile.get_line(group, key);
-	  if (line)
-	    throw error(line, group, key, PASSTHROUGH_LGK, e);
-	  else
-	    throw error(group, key, PASSTHROUGH_GK, e);
-	  throw error(basic_keyfile.get_line(group, key),
-		      group, key, e);
-	}
+        {
+          size_type line = basic_keyfile.get_line(group, key);
+          if (line)
+            throw error(line, group, key, PASSTHROUGH_LGK, e);
+          else
+            throw error(group, key, PASSTHROUGH_GK, e);
+          throw error(basic_keyfile.get_line(group, key),
+                      group, key, e);
+        }
     }
   };
 

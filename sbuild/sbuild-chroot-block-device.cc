@@ -73,9 +73,9 @@ chroot_block_device::clone () const
 
 sbuild::chroot::ptr
 chroot_block_device::clone_session (std::string const& session_id,
-				    std::string const& alias,
-				    std::string const& user,
-				    bool               root) const
+                                    std::string const& alias,
+                                    std::string const& user,
+                                    bool               root) const
 {
   chroot_facet_session_clonable::const_ptr psess
     (get_facet<chroot_facet_session_clonable>());
@@ -103,15 +103,15 @@ chroot_block_device::clone_source () const
 
 void
 chroot_block_device::setup_env (chroot const& chroot,
-				environment&  env) const
+                                environment&  env) const
 {
   chroot_block_device_base::setup_env(chroot, env);
 }
 
 void
 chroot_block_device::setup_lock (chroot::setup_type type,
-				 bool               lock,
-				 int                status)
+                                 bool               lock,
+                                 int                status)
 {
   /* Lock is preserved through the entire session. */
   if ((type == SETUP_START && lock == false) ||
@@ -122,50 +122,50 @@ chroot_block_device::setup_lock (chroot::setup_type type,
     {
       if (!stat
 #if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
-	  (this->get_device()).is_character()
+          (this->get_device()).is_character()
 #else
-	  (this->get_device()).is_block()
+          (this->get_device()).is_block()
 #endif
-	  )
-	{
-	  throw error(get_device(), DEVICE_NOTBLOCK);
-	}
+          )
+        {
+          throw error(get_device(), DEVICE_NOTBLOCK);
+        }
       else
-	{
+        {
 #ifdef SBUILD_FEATURE_UNION
-	  /* We don't lock the device if union is configured. */
-	  const chroot *base = dynamic_cast<const chroot *>(this);
-	  assert(base);
-	  chroot_facet_union::const_ptr puni
-	    (base->get_facet<chroot_facet_union>());
-	  if (!puni || !puni->get_union_configured())
+          /* We don't lock the device if union is configured. */
+          const chroot *base = dynamic_cast<const chroot *>(this);
+          assert(base);
+          chroot_facet_union::const_ptr puni
+            (base->get_facet<chroot_facet_union>());
+          if (!puni || !puni->get_union_configured())
 #endif
-	    {
-	      device_lock dlock(this->device);
-	      if (lock)
-		{
-		  try
-		    {
-		      dlock.set_lock(lock::LOCK_EXCLUSIVE, 15);
-		    }
-		  catch (lock::error const& e)
-		    {
-		      throw error(get_device(), DEVICE_LOCK, e);
-		    }
-		}
-	      else
-		{
-		  try
-		    {
-		      dlock.unset_lock();
-		    }
-		  catch (lock::error const& e)
-		    {
-		      throw error(get_device(), DEVICE_UNLOCK, e);
-		    }
-		}
-	    }
-	}
+            {
+              device_lock dlock(this->device);
+              if (lock)
+                {
+                  try
+                    {
+                      dlock.set_lock(lock::LOCK_EXCLUSIVE, 15);
+                    }
+                  catch (lock::error const& e)
+                    {
+                      throw error(get_device(), DEVICE_LOCK, e);
+                    }
+                }
+              else
+                {
+                  try
+                    {
+                      dlock.unset_lock();
+                    }
+                  catch (lock::error const& e)
+                    {
+                      throw error(get_device(), DEVICE_UNLOCK, e);
+                    }
+                }
+            }
+        }
     }
   catch (sbuild::stat::error const& e) // Failed to stat
     {
@@ -174,7 +174,7 @@ chroot_block_device::setup_lock (chroot::setup_type type,
       // to be run if the block device no longer exists, which
       // would prevent the session from being ended.
       if (type != SETUP_STOP)
-	throw;
+        throw;
     }
 
   /* Create or unlink session information. */
@@ -202,7 +202,7 @@ chroot_block_device::get_session_flags (chroot const& chroot) const
 
 void
 chroot_block_device::get_details (chroot const& chroot,
-				  format_detail& detail) const
+                                  format_detail& detail) const
 {
   chroot_block_device_base::get_details(chroot, detail);
 }
@@ -215,14 +215,14 @@ chroot_block_device::get_used_keys (string_list& used_keys) const
 
 void
 chroot_block_device::get_keyfile (chroot const& chroot,
-				  keyfile&      keyfile) const
+                                  keyfile&      keyfile) const
 {
   chroot_block_device_base::get_keyfile(chroot, keyfile);
 }
 
 void
 chroot_block_device::set_keyfile (chroot&        chroot,
-				  keyfile const& keyfile)
+                                  keyfile const& keyfile)
 {
   chroot_block_device_base::set_keyfile(chroot, keyfile);
 }

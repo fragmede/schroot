@@ -25,15 +25,15 @@
 
 template <typename T>
 template <typename A, typename B, typename C,
-	  typename D, typename E, typename F>
+          typename D, typename E, typename F>
 inline std::string
 sbuild::error<T>::format_error (A const&   context1,
-				B const&   context2,
-				C const&   context3,
-				error_type error,
-				D const&   detail1,
-				E const&   detail2,
-				F const&   detail3)
+                                B const&   context2,
+                                C const&   context3,
+                                error_type error,
+                                D const&   detail1,
+                                E const&   detail2,
+                                F const&   detail3)
 {
   std::string format;
   std::string msg(get_error(error));
@@ -78,9 +78,9 @@ sbuild::error<T>::format_error (A const&   context1,
   else if (typeid(detail1) != typeid(sbuild::null))
     {
       if (msg.empty())
-	format += "%4%";
+        format += "%4%";
       else
-	format += ": %4%";
+        format += ": %4%";
       nargs = 4;
     }
 
@@ -91,9 +91,9 @@ sbuild::error<T>::format_error (A const&   context1,
   else if (typeid(detail2) != typeid(sbuild::null))
     {
       if (msg.empty() && nargs < 4)
-	format += "%5%";
+        format += "%5%";
       else
-	format += ": %5%";
+        format += ": %5%";
       nargs = 5;
     }
 
@@ -104,9 +104,9 @@ sbuild::error<T>::format_error (A const&   context1,
   else if (typeid(detail3) != typeid(sbuild::null))
     {
       if (msg.empty() && nargs < 4)
-	format += "%6%";
+        format += "%6%";
       else
-	format += ": %6%";
+        format += ": %6%";
       nargs = 6;
     }
 
@@ -129,15 +129,15 @@ sbuild::error<T>::format_error (A const&   context1,
 
 template <typename T>
 template <typename A, typename B, typename C,
-	  typename D, typename E, typename F>
+          typename D, typename E, typename F>
 inline std::string
 sbuild::error<T>::format_error (A const&   context1,
-				B const&   context2,
-				C const&   context3,
-				std::runtime_error const& error,
-				D const&   detail1,
-				E const&   detail2,
-				F const&   detail3)
+                                B const&   context2,
+                                C const&   context3,
+                                std::runtime_error const& error,
+                                D const&   detail1,
+                                E const&   detail2,
+                                F const&   detail3)
 {
   std::string format;
   std::string msg(error.what());
@@ -166,9 +166,9 @@ sbuild::error<T>::format_error (A const&   context1,
   if (typeid(detail1) != typeid(sbuild::null))
     {
       if (msg.empty())
-	format += "%4%";
+        format += "%4%";
       else
-	format += ": %4%";
+        format += ": %4%";
       nargs = 4;
 
     }
@@ -176,18 +176,18 @@ sbuild::error<T>::format_error (A const&   context1,
   if (typeid(detail2) != typeid(sbuild::null))
     {
       if (msg.empty() && nargs < 4)
-	format += "%5%";
+        format += "%5%";
       else
-	format += ": %5%";
+        format += ": %5%";
       nargs = 5;
     }
 
   if (typeid(detail3) != typeid(sbuild::null))
     {
       if (msg.empty() && nargs < 4)
-	format += "%6%";
+        format += "%6%";
       else
-	format += ": %6%";
+        format += ": %6%";
       nargs = 6;
     }
 
@@ -212,7 +212,7 @@ template<typename T>
 template<typename A>
 inline void
 sbuild::error<T>::add_detail(boost::format& fmt,
-			     A const&       value)
+                             A const&       value)
 {
   add_detail_helper<A, boost::is_base_and_derived<std::exception, A>::value>
     (fmt, value);
@@ -220,15 +220,15 @@ sbuild::error<T>::add_detail(boost::format& fmt,
 
 template <typename T>
 template <typename A, typename B, typename C, typename R,
-	  typename D, typename E, typename F>
+          typename D, typename E, typename F>
 inline std::string
 sbuild::error<T>::format_reason (A const&   context1,
-				 B const&   context2,
-				 C const&   context3,
-				 R const&   error,
-				 D const&   detail1,
-				 E const&   detail2,
-				 F const&   detail3)
+                                 B const&   context2,
+                                 C const&   context3,
+                                 R const&   error,
+                                 D const&   detail1,
+                                 E const&   detail2,
+                                 F const&   detail3)
 {
   std::string reason;
 
@@ -247,7 +247,7 @@ template<typename T>
 template<typename A>
 inline void
 sbuild::error<T>::add_reason(std::string& reason,
-			     A const&     value)
+                             A const&     value)
 {
   add_reason_helper<A, boost::is_base_and_derived<std::exception, A>::value>
     (reason, value);

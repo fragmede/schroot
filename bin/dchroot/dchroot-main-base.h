@@ -39,8 +39,8 @@ namespace dchroot
      * @param options the command-line options to use.
      */
     main_base (std::string const& program_name,
-	       std::string const& program_usage,
-	       schroot::options_base::ptr& options);
+               std::string const& program_usage,
+               schroot::options_base::ptr& options);
 
     /// The destructor.
     virtual ~main_base ();

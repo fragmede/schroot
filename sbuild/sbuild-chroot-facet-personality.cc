@@ -70,7 +70,7 @@ chroot_facet_personality::set_persona (personality const& persona)
 
 void
 chroot_facet_personality::setup_env (chroot const& chroot,
-				     environment&  env) const
+                                     environment&  env) const
 {
 }
 
@@ -82,7 +82,7 @@ chroot_facet_personality::get_session_flags (chroot const& chroot) const
 
 void
 chroot_facet_personality::get_details (chroot const&  chroot,
-				       format_detail& detail) const
+                                       format_detail& detail) const
 {
   // TRANSLATORS: "Personality" is the Linux kernel personality
   // (process execution domain).  See schroot.conf(5).
@@ -97,19 +97,19 @@ chroot_facet_personality::get_used_keys (string_list& used_keys) const
 
 void
 chroot_facet_personality::get_keyfile (chroot const& chroot,
-				       keyfile&      keyfile) const
+                                       keyfile&      keyfile) const
 {
   // Only set if defined.
   if (get_persona().get_name() != "undefined")
     keyfile::set_object_value(*this, &chroot_facet_personality::get_persona,
-			      keyfile, chroot.get_name(), "personality");
+                              keyfile, chroot.get_name(), "personality");
 }
 
 void
 chroot_facet_personality::set_keyfile (chroot&        chroot,
-				       keyfile const& keyfile)
+                                       keyfile const& keyfile)
 {
   keyfile::get_object_value(*this, &chroot_facet_personality::set_persona,
-			    keyfile, chroot.get_name(), "personality",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, chroot.get_name(), "personality",
+                            keyfile::PRIORITY_OPTIONAL);
 }

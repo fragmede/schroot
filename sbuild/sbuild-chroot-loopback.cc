@@ -66,9 +66,9 @@ chroot_loopback::clone () const
 
 sbuild::chroot::ptr
 chroot_loopback::clone_session (std::string const& session_id,
-				std::string const& alias,
-				std::string const& user,
-				bool               root) const
+                                std::string const& alias,
+                                std::string const& user,
+                                bool               root) const
 {
   chroot_facet_session_clonable::const_ptr psess
     (get_facet<chroot_facet_session_clonable>());
@@ -133,7 +133,7 @@ chroot_loopback::get_chroot_type () const
 
 void
 chroot_loopback::setup_env (chroot const& chroot,
-			    environment&  env) const
+                            environment&  env) const
 {
   chroot::setup_env(chroot, env);
 
@@ -142,8 +142,8 @@ chroot_loopback::setup_env (chroot const& chroot,
 
 void
 chroot_loopback::setup_lock (chroot::setup_type type,
-			     bool               lock,
-			     int                status)
+                             bool               lock,
+                             int                status)
 {
   // Check ownership and permissions.
   if (type == SETUP_START && lock == true)
@@ -152,11 +152,11 @@ chroot_loopback::setup_lock (chroot::setup_type type,
 
       // NOTE: taken from chroot_config::check_security.
       if (file_status.uid() != 0)
-	throw error(this->file, FILE_OWNER);
+        throw error(this->file, FILE_OWNER);
       if (file_status.check_mode(stat::PERM_OTHER_WRITE))
-	throw error(this->file, FILE_PERMS);
+        throw error(this->file, FILE_PERMS);
       if (!file_status.is_regular())
-	throw error(this->file, FILE_NOTREG);
+        throw error(this->file, FILE_NOTREG);
     }
 
   /* Create or unlink session information. */
@@ -176,7 +176,7 @@ chroot_loopback::get_session_flags (chroot const& chroot) const
 
 void
 chroot_loopback::get_details (chroot const&  chroot,
-			      format_detail& detail) const
+                              format_detail& detail) const
 {
   chroot::get_details(chroot, detail);
 
@@ -194,21 +194,21 @@ chroot_loopback::get_used_keys (string_list& used_keys) const
 
 void
 chroot_loopback::get_keyfile (chroot const& chroot,
-			      keyfile&      keyfile) const
+                              keyfile&      keyfile) const
 {
   chroot::get_keyfile(chroot, keyfile);
 
   keyfile::set_object_value(*this, &chroot_loopback::get_file,
-			    keyfile, get_name(), "file");
+                            keyfile, get_name(), "file");
 }
 
 void
 chroot_loopback::set_keyfile (chroot&        chroot,
-			      keyfile const& keyfile)
+                              keyfile const& keyfile)
 {
   chroot::set_keyfile(chroot, keyfile);
 
   keyfile::get_object_value(*this, &chroot_loopback::set_file,
-			    keyfile, get_name(), "file",
-			    keyfile::PRIORITY_REQUIRED);
+                            keyfile, get_name(), "file",
+                            keyfile::PRIORITY_REQUIRED);
 }

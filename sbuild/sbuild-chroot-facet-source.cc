@@ -58,7 +58,7 @@ chroot_facet_source::get_name () const
 
 void
 chroot_facet_source::setup_env (chroot const& chroot,
-				environment&  env) const
+                                environment&  env) const
 {
 }
 
@@ -70,7 +70,7 @@ chroot_facet_source::get_session_flags (chroot const& chroot) const
 
 void
 chroot_facet_source::get_details (chroot const&  chroot,
-				  format_detail& detail) const
+                                  format_detail& detail) const
 {
 }
 
@@ -81,12 +81,12 @@ chroot_facet_source::get_used_keys (string_list& used_keys) const
 
 void
 chroot_facet_source::get_keyfile (chroot const& chroot,
-				  keyfile&      keyfile) const
+                                  keyfile&      keyfile) const
 {
 }
 
 void
 chroot_facet_source::set_keyfile (chroot&        chroot,
-				  keyfile const& keyfile)
+                                  keyfile const& keyfile)
 {
 }

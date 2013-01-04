@@ -59,7 +59,7 @@ environment::add (char **environment)
   if (environment)
     {
       for (char **ev = environment; ev != 0 && *ev != 0; ++ev)
-	add(std::string(*ev));
+        add(std::string(*ev));
     }
 }
 
@@ -81,7 +81,7 @@ environment::add (std::string const& value)
       std::string key = value.substr(0, pos);
       std::string val;
       if (pos < value.length())
-	val = value.substr(pos + 1);
+        val = value.substr(pos + 1);
       add(std::make_pair(key, val));
     }
   else
@@ -97,16 +97,16 @@ environment::add (value_type const& value)
   if (!value.first.empty() && !value.second.empty())
     {
       if (this->filter.str().empty() ||
-	  !regex_search(value.first, this->filter))
-	{
-	  insert(value);
-	  log_debug(DEBUG_NOTICE) << "Inserted into environment: "
-				  << value.first << '=' << value.second
-				  << std::endl;
-	}
+          !regex_search(value.first, this->filter))
+        {
+          insert(value);
+          log_debug(DEBUG_NOTICE) << "Inserted into environment: "
+                                  << value.first << '=' << value.second
+                                  << std::endl;
+        }
       else
-	log_debug(DEBUG_INFO) << "Filtered from environment: " << value.first
-			      << std::endl;
+        log_debug(DEBUG_INFO) << "Filtered from environment: " << value.first
+                              << std::endl;
     }
 }
 
@@ -116,7 +116,7 @@ environment::remove (char **environment)
   if (environment)
     {
       for (char **ev = environment; ev != 0 && *ev != 0; ++ev)
-	remove(std::string(*ev));
+        remove(std::string(*ev));
     }
 }
 
@@ -138,7 +138,7 @@ environment::remove (std::string const& value)
       std::string key = value.substr(0, pos);
       std::string val;
       if (pos < value.length())
-	val = value.substr(pos + 1);
+        val = value.substr(pos + 1);
       remove(std::make_pair(key, val));
     }
   else

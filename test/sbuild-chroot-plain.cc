@@ -123,7 +123,7 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-		   sbuild::chroot::SESSION_NOFLAGS);
+                   sbuild::chroot::SESSION_NOFLAGS);
   }
 
   void test_print_details()

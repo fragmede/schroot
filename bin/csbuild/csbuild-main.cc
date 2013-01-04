@@ -69,11 +69,11 @@ sbuild::error<main::error_code>::error_strings
 
 main::main (options::ptr& options):
   schroot_base::main("csbuild",
-		     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-		     // and '-' is an em-dash.
-		     _("[OPTION…] — build Debian packages from source"),
-		     options,
-		     false),
+                     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+                     // and '-' is an em-dash.
+                     _("[OPTION…] — build Debian packages from source"),
+                     options,
+                     false),
   opts(options)
 {
 }
@@ -259,7 +259,7 @@ main::action_build ()
     command.push_back("--use-snapshot");
 
   std::copy(opts->packages.begin(), opts->packages.end(),
-	    std::back_inserter(command));
+            std::back_inserter(command));
 
   sbuild::log_debug(sbuild::DEBUG_NOTICE)
     << "command="

@@ -43,21 +43,21 @@ namespace dchroot
      * @param chroots the chroots to act upon.
      */
     session (std::string const&                  service,
-	     operation                           operation,
-	     sbuild::session::chroot_list const& chroots);
+             operation                           operation,
+             sbuild::session::chroot_list const& chroots);
 
     /// The destructor.
     virtual ~session ();
 
     virtual sbuild::string_list
     get_login_directories (sbuild::chroot::ptr&        session_chroot,
-			   sbuild::environment const&  env) const;
+                           sbuild::environment const&  env) const;
 
     virtual void
     get_user_command (sbuild::chroot::ptr&       session_chroot,
-		      std::string&               file,
-		      sbuild::string_list&       command,
-		      sbuild::environment const& env) const;
+                      std::string&               file,
+                      sbuild::string_list&       command,
+                      sbuild::environment const& env) const;
   };
 
 }

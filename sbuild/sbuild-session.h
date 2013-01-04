@@ -60,45 +60,45 @@ namespace sbuild
     /// Session operations.
     enum operation
       {
-	OPERATION_AUTOMATIC, ///< Begin, end and run a session automatically.
-	OPERATION_BEGIN,     ///< Begin a session.
-	OPERATION_RECOVER,   ///< Recover an existing (but inactive) session.
-	OPERATION_END,       ///< End a session.
-	OPERATION_RUN        ///< Run a command in an existing session.
+        OPERATION_AUTOMATIC, ///< Begin, end and run a session automatically.
+        OPERATION_BEGIN,     ///< Begin a session.
+        OPERATION_RECOVER,   ///< Recover an existing (but inactive) session.
+        OPERATION_END,       ///< End a session.
+        OPERATION_RUN        ///< Run a command in an existing session.
       };
 
     /// Error codes.
     enum error_code
       {
-	CHDIR,          ///< Failed to change to directory.
-	CHDIR_FB,       ///< Falling back to directory.
-	CHILD_CORE,     ///< Child dumped core.
-	CHILD_FAIL,     ///< Child exited abnormally (reason unknown)
-	CHILD_FORK,     ///< Failed to fork child.
-	CHILD_SIGNAL,   ///< Child terminated by signal.
-	CHILD_WAIT,     ///< Wait for child failed.
-	CHROOT,         ///< Failed to change root to directory.
-	CHROOT_ALIAS,   ///< No chroot found matching alias.
-	CHROOT_LOCK,    ///< Failed to lock chroot.
-	CHROOT_NOTFOUND,///< Chroot not found.
-	CHROOT_SETUP,   ///< Setup failed.
-	CHROOT_UNLOCK,  ///< Failed to unlock chroot.
-	COMMAND_ABS,    ///< Command must have an absolute path.
-	EXEC,           ///< Failed to execute.
-	GROUP_GET_SUP,  ///< Failed to get supplementary groups.
-	GROUP_GET_SUPC, ///< Failed to get supplementary group count
-	GROUP_SET,      ///< Failed to set group.
-	GROUP_SET_SUP,  ///< Failed to set supplementary groups.
-	GROUP_UNKNOWN,  ///< Group not found.
-	PAM,            ///< PAM error.
-	ROOT_DROP,      ///< Failed to drop root permissions.
+        CHDIR,          ///< Failed to change to directory.
+        CHDIR_FB,       ///< Falling back to directory.
+        CHILD_CORE,     ///< Child dumped core.
+        CHILD_FAIL,     ///< Child exited abnormally (reason unknown)
+        CHILD_FORK,     ///< Failed to fork child.
+        CHILD_SIGNAL,   ///< Child terminated by signal.
+        CHILD_WAIT,     ///< Wait for child failed.
+        CHROOT,         ///< Failed to change root to directory.
+        CHROOT_ALIAS,   ///< No chroot found matching alias.
+        CHROOT_LOCK,    ///< Failed to lock chroot.
+        CHROOT_NOTFOUND,///< Chroot not found.
+        CHROOT_SETUP,   ///< Setup failed.
+        CHROOT_UNLOCK,  ///< Failed to unlock chroot.
+        COMMAND_ABS,    ///< Command must have an absolute path.
+        EXEC,           ///< Failed to execute.
+        GROUP_GET_SUP,  ///< Failed to get supplementary groups.
+        GROUP_GET_SUPC, ///< Failed to get supplementary group count
+        GROUP_SET,      ///< Failed to set group.
+        GROUP_SET_SUP,  ///< Failed to set supplementary groups.
+        GROUP_UNKNOWN,  ///< Group not found.
+        PAM,            ///< PAM error.
+        ROOT_DROP,      ///< Failed to drop root permissions.
         SET_SESSION_ID, ///< Chroot does not support setting a session ID.
-	SHELL,          ///< Shell not available.
-	SHELL_FB,       ///< Falling back to shell.
-	SIGNAL_CATCH,   ///< Caught signal.
-	SIGNAL_SET,     ///< Failed to set signal handler.
-	USER_SET,       ///< Failed to set user.
-	USER_SWITCH     ///< User switching is not permitted.
+        SHELL,          ///< Shell not available.
+        SHELL_FB,       ///< Falling back to shell.
+        SIGNAL_CATCH,   ///< Caught signal.
+        SIGNAL_SET,     ///< Failed to set signal handler.
+        USER_SET,       ///< Failed to set user.
+        USER_SWITCH     ///< User switching is not permitted.
       };
 
     /// Exception type.
@@ -115,8 +115,8 @@ namespace sbuild
      * @param chroots the chroots to act upon.
      */
     session (std::string const& service,
-	     operation          operation,
-	     chroot_list const& chroots);
+             operation          operation,
+             chroot_list const& chroots);
 
     /// The destructor.
     virtual ~session ();
@@ -304,10 +304,10 @@ namespace sbuild
      */
     void
     get_chroot_membership (chroot::ptr const& chroot,
-			   bool&              in_users,
-			   bool&              in_root_users,
-			   bool&              in_groups,
-			   bool&              in_root_groups) const;
+                           bool&              in_users,
+                           bool&              in_root_users,
+                           bool&              in_groups,
+                           bool&              in_root_groups) const;
 
     /**
      * Check if authentication is required for a single chroot, taking
@@ -316,7 +316,7 @@ namespace sbuild
      */
     virtual auth::status
     get_chroot_auth_status (auth::status status,
-			    chroot::ptr const& chroot) const;
+                            chroot::ptr const& chroot) const;
 
   public:
     /**
@@ -357,7 +357,7 @@ namespace sbuild
      */
     virtual string_list
     get_login_directories (sbuild::chroot::ptr& session_chroot,
-			   environment const&   env) const;
+                           environment const&   env) const;
 
     /**
      * Get a list of directories to change to when running a command
@@ -369,7 +369,7 @@ namespace sbuild
      */
     virtual string_list
     get_command_directories (sbuild::chroot::ptr& session_chroot,
-			     environment const&   env) const;
+                             environment const&   env) const;
 
     /**
      * Get a list of candidate shells to run.  This is typically the
@@ -403,9 +403,9 @@ namespace sbuild
      */
     virtual void
     get_command (chroot::ptr& session_chroot,
-		 std::string& file,
-		 string_list& command,
-		 environment& env) const;
+                 std::string& file,
+                 string_list& command,
+                 environment& env) const;
 
     /**
      * Get the command to run a login shell.
@@ -417,9 +417,9 @@ namespace sbuild
      */
     virtual void
     get_login_command (chroot::ptr& session_chroot,
-		       std::string& file,
-		       string_list& command,
-		       environment& env) const;
+                       std::string& file,
+                       string_list& command,
+                       environment& env) const;
 
     /**
      * Get the command to run a user command.
@@ -431,9 +431,9 @@ namespace sbuild
      */
     virtual void
     get_user_command (chroot::ptr&       session_chroot,
-		      std::string&       file,
-		      string_list&       command,
-		      environment const& env) const;
+                      std::string&       file,
+                      string_list&       command,
+                      environment const& env) const;
 
   private:
     /**
@@ -450,7 +450,7 @@ namespace sbuild
      */
     void
     setup_chroot (chroot::ptr&       session_chroot,
-		  chroot::setup_type setup_type);
+                  chroot::setup_type setup_type);
 
     /**
      * Run command or login shell in the specified chroot.
@@ -482,7 +482,7 @@ namespace sbuild
      */
     void
     wait_for_child (pid_t pid,
-		    int&  child_status);
+                    int&  child_status);
 
     /**
      * Set the SIGHUP handler.
@@ -536,8 +536,8 @@ namespace sbuild
      */
     void
     set_signal_handler (int                signal,
-			struct sigaction  *saved_signal,
-			void             (*handler)(int));
+                        struct sigaction  *saved_signal,
+                        void             (*handler)(int));
 
     /**
      * Restore the state of the signal prior to setting the handler.
@@ -548,7 +548,7 @@ namespace sbuild
      */
     void
     clear_signal_handler (int               signal,
-			  struct sigaction *saved_signal);
+                          struct sigaction *saved_signal);
 
     /// Authentication state.
     auth::ptr        authstat;

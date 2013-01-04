@@ -68,7 +68,7 @@ public:
     items.push_back("baz");
 
     CPPUNIT_ASSERT(sbuild::string_list_to_string(items, "--") ==
-		   "foo--bar--baz");
+                   "foo--bar--baz");
   }
 
   void test_split_string()
@@ -77,9 +77,9 @@ public:
       sbuild::split_string("/usr/share/info", "/");
 
     CPPUNIT_ASSERT(items.size() == 3 &&
-		   items[0] == "usr" &&
-		   items[1] == "share" &&
-		   items[2] == "info");
+                   items[0] == "usr" &&
+                   items[1] == "share" &&
+                   items[2] == "info");
   }
 
   void test_find_program_in_path()

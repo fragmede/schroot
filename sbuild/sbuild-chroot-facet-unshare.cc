@@ -44,7 +44,7 @@ namespace
     {
       // TRANSLATORS: %1% = the name of the context being unshared
       emap(sbuild::chroot_facet_unshare::UNSHARE,
-	   N_("Could not unshare ‘%1%’ process execution context"))
+           N_("Could not unshare ‘%1%’ process execution context"))
     };
 
 #ifdef SBUILD_FEATURE_UNSHARE
@@ -150,7 +150,7 @@ chroot_facet_unshare::unshare () const
     {
       log_debug(DEBUG_INFO) << "Unsharing network" << std::endl;
       if (::unshare(CLONE_NEWNET) < 0)
-	throw error("NET", UNSHARE, strerror(errno));
+        throw error("NET", UNSHARE, strerror(errno));
     }
 #endif
 #ifdef CLONE_NEWIPC
@@ -158,7 +158,7 @@ chroot_facet_unshare::unshare () const
     {
       log_debug(DEBUG_INFO) << "Unsharing System V IPC" << std::endl;
       if (::unshare(CLONE_NEWIPC) < 0)
-	throw error("SYSVIPC", UNSHARE, strerror(errno));
+        throw error("SYSVIPC", UNSHARE, strerror(errno));
     }
 #endif
 #ifdef CLONE_SYSVSEM
@@ -166,7 +166,7 @@ chroot_facet_unshare::unshare () const
     {
       log_debug(DEBUG_INFO) << "Unsharing System V SEM" << std::endl;
       if (::unshare(CLONE_SYSVSEM) < 0)
-	throw error("SYSVSEM", UNSHARE, strerror(errno));
+        throw error("SYSVSEM", UNSHARE, strerror(errno));
     }
 #endif
 #ifdef CLONE_UTS
@@ -174,14 +174,14 @@ chroot_facet_unshare::unshare () const
     {
       log_debug(DEBUG_INFO) << "Unsharing UTS namespace" << std::endl;
       if (::unshare(CLONE_UTS) < 0)
-	throw error("UTS", UNSHARE, strerror(errno));
+        throw error("UTS", UNSHARE, strerror(errno));
     }
 #endif
 }
 
 void
 chroot_facet_unshare::setup_env (chroot const& chroot,
-				 environment&  env) const
+                                 environment&  env) const
 {
   env.add("UNSHARE_NET", get_unshare_net());
   env.add("UNSHARE_SYSVIPC", get_unshare_sysvipc());
@@ -197,7 +197,7 @@ chroot_facet_unshare::get_session_flags (chroot const& chroot) const
 
 void
 chroot_facet_unshare::get_details (chroot const&  chroot,
-				   format_detail& detail) const
+                                   format_detail& detail) const
 {
   detail.add(_("Unshare Networking"), get_unshare_net());
   detail.add(_("Unshare System V IPC"), get_unshare_sysvipc());
@@ -216,32 +216,32 @@ chroot_facet_unshare::get_used_keys (string_list& used_keys) const
 
 void
 chroot_facet_unshare::get_keyfile (chroot const& chroot,
-				   keyfile&      keyfile) const
+                                   keyfile&      keyfile) const
 {
   keyfile::set_object_value(*this, &chroot_facet_unshare::get_unshare_net,
-			    keyfile, chroot.get_name(), "unshare.net");
+                            keyfile, chroot.get_name(), "unshare.net");
   keyfile::set_object_value(*this, &chroot_facet_unshare::get_unshare_sysvipc,
-			    keyfile, chroot.get_name(), "unshare.sysvipc");
+                            keyfile, chroot.get_name(), "unshare.sysvipc");
   keyfile::set_object_value(*this, &chroot_facet_unshare::get_unshare_sysvsem,
-			    keyfile, chroot.get_name(), "unshare.sysvsem");
+                            keyfile, chroot.get_name(), "unshare.sysvsem");
   keyfile::set_object_value(*this, &chroot_facet_unshare::get_unshare_uts,
-			    keyfile, chroot.get_name(), "unshare.uts");
+                            keyfile, chroot.get_name(), "unshare.uts");
 }
 
 void
 chroot_facet_unshare::set_keyfile (chroot&        chroot,
-				   keyfile const& keyfile)
+                                   keyfile const& keyfile)
 {
   keyfile::get_object_value(*this, &chroot_facet_unshare::set_unshare_net,
-			    keyfile, chroot.get_name(), "unshare.net",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, chroot.get_name(), "unshare.net",
+                            keyfile::PRIORITY_OPTIONAL);
   keyfile::get_object_value(*this, &chroot_facet_unshare::set_unshare_sysvipc,
-			    keyfile, chroot.get_name(), "unshare.sysvipc",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, chroot.get_name(), "unshare.sysvipc",
+                            keyfile::PRIORITY_OPTIONAL);
   keyfile::get_object_value(*this, &chroot_facet_unshare::set_unshare_sysvsem,
-			    keyfile, chroot.get_name(), "unshare.sysvsem",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, chroot.get_name(), "unshare.sysvsem",
+                            keyfile::PRIORITY_OPTIONAL);
   keyfile::get_object_value(*this, &chroot_facet_unshare::set_unshare_uts,
-			    keyfile, chroot.get_name(), "unshare.uts",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, chroot.get_name(), "unshare.uts",
+                            keyfile::PRIORITY_OPTIONAL);
 }

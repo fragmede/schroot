@@ -38,10 +38,10 @@ shell="${CHROOT_PATH}/bin/sh"
 for emulator in $(update-binfmts --find "$shell"); do
     dst="${CHROOT_PATH}$emulator"
     if [ ! -e "$emulator" ]; then
-	info "Missing emulator: $emulator; not enabling binfmt support"
+        info "Missing emulator: $emulator; not enabling binfmt support"
     else
-	[ -e "$dst" ] || touch "$dst"
-	mount --bind "$emulator" "$dst"
-	mount -o remount,ro,bind "$dst"
+        [ -e "$dst" ] || touch "$dst"
+        mount --bind "$emulator" "$dst"
+        mount -o remount,ro,bind "$dst"
     fi
 done

@@ -101,9 +101,9 @@ namespace csbuild
     /// Purge modes.
     enum purge_mode
       {
-	PURGE_ALWAYS,  ///< Always purge build.
-	PURGE_SUCCESS, ///< Purge build on success only.
-	PURGE_NEVER    ///< Never purge build.
+        PURGE_ALWAYS,  ///< Always purge build.
+        PURGE_SUCCESS, ///< Purge build on success only.
+        PURGE_NEVER    ///< Never purge build.
       };
 
     /// Purge build directory.

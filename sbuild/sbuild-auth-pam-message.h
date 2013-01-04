@@ -42,14 +42,14 @@ namespace sbuild
     /// Message type
     enum message_type
       {
-	/// Display a prompt, with no echoing of user input.
-	MESSAGE_PROMPT_NOECHO = PAM_PROMPT_ECHO_OFF,
-	/// Display a prompt, echoing user input.
-	MESSAGE_PROMPT_ECHO = PAM_PROMPT_ECHO_ON,
-	/// Display an error message.
-	MESSAGE_ERROR = PAM_ERROR_MSG,
-	/// Display an informational message.
-	MESSAGE_INFO = PAM_TEXT_INFO
+        /// Display a prompt, with no echoing of user input.
+        MESSAGE_PROMPT_NOECHO = PAM_PROMPT_ECHO_OFF,
+        /// Display a prompt, echoing user input.
+        MESSAGE_PROMPT_ECHO = PAM_PROMPT_ECHO_ON,
+        /// Display an error message.
+        MESSAGE_ERROR = PAM_ERROR_MSG,
+        /// Display an informational message.
+        MESSAGE_INFO = PAM_TEXT_INFO
       };
 
     /**
@@ -59,7 +59,7 @@ namespace sbuild
      * @param message the message to display.
      */
     auth_pam_message (message_type       type,
-		      std::string const& message);
+                      std::string const& message);
 
     /// The destructor.
     virtual ~auth_pam_message ();

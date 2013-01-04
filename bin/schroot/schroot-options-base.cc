@@ -177,16 +177,16 @@ options_base::check_actions ()
   if (this->quiet && this->verbose)
     {
       sbuild::log_warning()
-	<< _("--quiet and --verbose may not be used at the same time")
-	<< endl;
+        << _("--quiet and --verbose may not be used at the same time")
+        << endl;
       sbuild::log_info() << _("Using verbose output") << endl;
     }
 
   if (!this->chroots.empty() && all_used())
     {
       sbuild::log_warning()
-	<< _("--chroot and --all may not be used at the same time")
-	<< endl;
+        << _("--chroot and --all may not be used at the same time")
+        << endl;
       sbuild::log_info() << _("Using --chroots only") << endl;
       this->all = this->all_chroots = this->all_source_chroots = this->all_sessions = false;
     }
@@ -201,7 +201,7 @@ options_base::check_actions ()
 
       // If no chroot was specified, fall back to the "default" chroot.
       if (this->chroots.empty() && all_used() == false)
-	this->chroots.push_back("default");
+        this->chroots.push_back("default");
     }
   else if (this->action == ACTION_SESSION_BEGIN)
     {
@@ -209,49 +209,49 @@ options_base::check_actions ()
       this->load_chroots = true;
       this->load_sessions = false;
       if (this->chroots.size() != 1 || all_used())
-	throw error
-	  (_("Exactly one chroot must be specified when beginning a session"));
+        throw error
+          (_("Exactly one chroot must be specified when beginning a session"));
 
       this->all = this->all_chroots = this->all_source_chroots = this->all_sessions = false;
     }
   else if (this->action == ACTION_SESSION_RECOVER ||
-	   this->action == ACTION_SESSION_RUN ||
-	   this->action == ACTION_SESSION_END)
+           this->action == ACTION_SESSION_RUN ||
+           this->action == ACTION_SESSION_END)
     {
       // Session operations work on all chroots.
       this->load_chroots = this->load_sessions = true;
 
       if (!this->session_name.empty())
         throw error
-	  (_("--session-name is not permitted for the specified action; did you mean to use --chroot?"));
+          (_("--session-name is not permitted for the specified action; did you mean to use --chroot?"));
     }
   else if (this->action == ACTION_HELP ||
-	   this->action == ACTION_VERSION)
+           this->action == ACTION_VERSION)
     {
       // Chroots don't make sense here.
       this->load_chroots = this->load_sessions = false;
       this->all = this->all_chroots = this->all_source_chroots = this->all_sessions = false;
     }
   else if (this->action == ACTION_LIST ||
-	   this->action == ACTION_INFO ||
-	   this->action == ACTION_LOCATION ||
-	   this->action == ACTION_CONFIG)
+           this->action == ACTION_INFO ||
+           this->action == ACTION_LOCATION ||
+           this->action == ACTION_CONFIG)
     {
       // If not specified otherwise, load normal chroots, but allow
       // --all options.
       if (!this->chroots.empty()) // chroot specified
-	this->load_chroots = this->load_sessions = true;
+        this->load_chroots = this->load_sessions = true;
       else if (!all_used()) // no chroots specified
-	{
-	  this->all_chroots = true;
-	  if (this->action == ACTION_LIST || this->action == ACTION_INFO)
-	    this->all_source_chroots = true;
-	  this->load_chroots = true;
-	}
+        {
+          this->all_chroots = true;
+          if (this->action == ACTION_LIST || this->action == ACTION_INFO)
+            this->all_source_chroots = true;
+          this->load_chroots = true;
+        }
       if (this->all_chroots || this->all_source_chroots)
-	this->load_chroots = true;
+        this->load_chroots = true;
       if (this->all_sessions)
-	this->load_chroots = this->load_sessions = true;
+        this->load_chroots = this->load_sessions = true;
     }
   else
     {

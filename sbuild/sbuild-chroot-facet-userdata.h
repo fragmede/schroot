@@ -38,11 +38,11 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
-	ENV_AMBIGUOUS,   ///< Environment variable name is ambiguous.
-	KEY_AMBIGUOUS,   ///< Configuration key name is ambiguous.
-	KEY_DISALLOWED,  ///< Configuration key is not allowed to be modified.
-	KEYNAME_INVALID, ///< Invalid name for configuration key.
-	PARSE_ERROR      ///< Error parsing value.
+        ENV_AMBIGUOUS,   ///< Environment variable name is ambiguous.
+        KEY_AMBIGUOUS,   ///< Configuration key name is ambiguous.
+        KEY_DISALLOWED,  ///< Configuration key is not allowed to be modified.
+        KEYNAME_INVALID, ///< Invalid name for configuration key.
+        PARSE_ERROR      ///< Error parsing value.
       };
 
     /// Exception type.
@@ -78,48 +78,48 @@ namespace sbuild
 
     virtual void
     setup_env (chroot const& chroot,
-	       environment&  env) const;
+               environment&  env) const;
 
     virtual chroot::session_flags
     get_session_flags (chroot const& chroot) const;
 
     virtual void
     get_details (chroot const&  chroot,
-		 format_detail& detail) const;
+                 format_detail& detail) const;
 
     virtual void
     get_used_keys (string_list& used_keys) const;
 
     virtual void
     get_keyfile (chroot const& chroot,
-		 keyfile&      keyfile) const;
+                 keyfile&      keyfile) const;
 
     virtual void
     set_keyfile (chroot&        chroot,
-		 keyfile const& keyfile);
+                 keyfile const& keyfile);
 
 
     template <typename T>
     bool
     get_value (std::string const& key,
-	       T&                 value) const
+               T&                 value) const
     {
       log_debug(DEBUG_INFO) << "Getting userdata key=" << key << std::endl;
       const string_map::const_iterator found_item = this->userdata.find(key);
       if (found_item != this->userdata.end())
-	{
-	  try
-	    {
-	      parse_value(found_item->second, value);
-	      return true;
-	    }
-	  catch (parse_value_error const& e)
-	    {
-	      error ep(key, PARSE_ERROR, e);
-	      log_exception_warning(ep);
-	      return false;
-	    }
-	}
+        {
+          try
+            {
+              parse_value(found_item->second, value);
+              return true;
+            }
+          catch (parse_value_error const& e)
+            {
+              error ep(key, PARSE_ERROR, e);
+              log_exception_warning(ep);
+              return false;
+            }
+        }
       return false;
     }
 
@@ -141,7 +141,7 @@ namespace sbuild
      */
     bool
     get_data (std::string const& key,
-	      std::string&       value) const;
+              std::string&       value) const;
 
     /**
      * Set user data from a string map.  Note that this method does
@@ -161,7 +161,7 @@ namespace sbuild
      */
     void
     set_data (std::string const& key,
-	      std::string const& value);
+              std::string const& value);
 
     /**
      * Set a single key-value pair.  Note that this method does not
@@ -172,7 +172,7 @@ namespace sbuild
      */
     void
     set_system_data (std::string const& key,
-		     std::string const& value);
+                     std::string const& value);
 
     /**
      * Remove a single key.  If present, the specified key is removed.
@@ -252,8 +252,8 @@ namespace sbuild
      */
     void
     set_data(string_map const&  data,
-	     string_set const&  allowed_keys,
-	     bool               root);
+             string_set const&  allowed_keys,
+             bool               root);
 
     /// Mapping between user keys and values.
     string_map userdata;

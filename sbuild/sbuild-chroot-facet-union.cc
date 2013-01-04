@@ -149,7 +149,7 @@ chroot_facet_union::set_union_type (std::string const& type)
   if (this->union_type != "none")
     {
       if (!base->get_facet<chroot_facet_source_clonable>())
-	base->add_facet(chroot_facet_source_clonable::create());
+        base->add_facet(chroot_facet_source_clonable::create());
     }
   else
     base->remove_facet<chroot_facet_source_clonable>();
@@ -170,17 +170,17 @@ chroot_facet_union::set_union_mount_options
 
 void
 chroot_facet_union::setup_env (chroot const& chroot,
-			       environment&  env) const
+                               environment&  env) const
 {
   env.add("CHROOT_UNION_TYPE", get_union_type());
   if (get_union_configured())
     {
       env.add("CHROOT_UNION_MOUNT_OPTIONS",
-	      get_union_mount_options());
+              get_union_mount_options());
       env.add("CHROOT_UNION_OVERLAY_DIRECTORY",
-	      get_union_overlay_directory());
+              get_union_overlay_directory());
       env.add("CHROOT_UNION_UNDERLAY_DIRECTORY",
-	      get_union_underlay_directory());
+              get_union_underlay_directory());
     }
 }
 
@@ -197,20 +197,20 @@ chroot_facet_union::get_session_flags (chroot const& chroot) const
 
 void
 chroot_facet_union::get_details (chroot const& chroot,
-				 format_detail& detail) const
+                                 format_detail& detail) const
 {
   detail.add(_("Filesystem Union Type"), get_union_type());
   if (get_union_configured())
     {
       if (!this->union_mount_options.empty())
-	detail.add(_("Filesystem Union Mount Options"),
-		   get_union_mount_options());
+        detail.add(_("Filesystem Union Mount Options"),
+                   get_union_mount_options());
       if (!this->union_overlay_directory.empty())
-	detail.add(_("Filesystem Union Overlay Directory"),
-		   get_union_overlay_directory());
+        detail.add(_("Filesystem Union Overlay Directory"),
+                   get_union_overlay_directory());
       if (!this->union_underlay_directory.empty())
-	detail.add(_("Filesystem Union Underlay Directory"),
-		   get_union_underlay_directory());
+        detail.add(_("Filesystem Union Underlay Directory"),
+                   get_union_underlay_directory());
     }
 }
 
@@ -225,39 +225,39 @@ chroot_facet_union::get_used_keys (string_list& used_keys) const
 
 void
 chroot_facet_union::get_keyfile (chroot const& chroot,
-				 keyfile&      keyfile) const
+                                 keyfile&      keyfile) const
 {
   keyfile::set_object_value(*this, &chroot_facet_union::get_union_type,
-			    keyfile, chroot.get_name(), "union-type");
+                            keyfile, chroot.get_name(), "union-type");
 
   if (get_union_configured())
     {
       keyfile::set_object_value(*this,
-				&chroot_facet_union::get_union_mount_options,
-				keyfile, chroot.get_name(),
-				"union-mount-options");
+                                &chroot_facet_union::get_union_mount_options,
+                                keyfile, chroot.get_name(),
+                                "union-mount-options");
 
       keyfile::set_object_value(*this,
-				&chroot_facet_union::get_union_overlay_directory,
-				keyfile, chroot.get_name(),
-				"union-overlay-directory");
+                                &chroot_facet_union::get_union_overlay_directory,
+                                keyfile, chroot.get_name(),
+                                "union-overlay-directory");
 
       keyfile::set_object_value(*this,
-				&chroot_facet_union::get_union_underlay_directory,
-				keyfile, chroot.get_name(),
-				"union-underlay-directory");
+                                &chroot_facet_union::get_union_underlay_directory,
+                                keyfile, chroot.get_name(),
+                                "union-underlay-directory");
     }
 }
 
 void
 chroot_facet_union::set_keyfile (chroot&        chroot,
-				 keyfile const& keyfile)
+                                 keyfile const& keyfile)
 {
   bool session = static_cast<bool>(chroot.get_facet<chroot_facet_session>());
 
   keyfile::get_object_value(*this, &chroot_facet_union::set_union_type,
-			    keyfile, chroot.get_name(), "union-type",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, chroot.get_name(), "union-type",
+                            keyfile::PRIORITY_OPTIONAL);
 
   // If we are a union, add specific source options here.
   chroot_facet_source_clonable::ptr psrc
@@ -266,23 +266,23 @@ chroot_facet_union::set_keyfile (chroot&        chroot,
     psrc->set_keyfile(chroot, keyfile);
 
   keyfile::get_object_value(*this,
-			    &chroot_facet_union::set_union_mount_options,
-			    keyfile, chroot.get_name(), "union-mount-options",
-			    keyfile::PRIORITY_OPTIONAL);
+                            &chroot_facet_union::set_union_mount_options,
+                            keyfile, chroot.get_name(), "union-mount-options",
+                            keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_value(*this,
-			    &chroot_facet_union::set_union_overlay_directory,
-			    keyfile, chroot.get_name(),
-			    "union-overlay-directory",
-			    (session && get_union_configured())?
-			    keyfile::PRIORITY_REQUIRED :
-			    keyfile::PRIORITY_OPTIONAL);
+                            &chroot_facet_union::set_union_overlay_directory,
+                            keyfile, chroot.get_name(),
+                            "union-overlay-directory",
+                            (session && get_union_configured())?
+                            keyfile::PRIORITY_REQUIRED :
+                            keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_value(*this,
-			    &chroot_facet_union::set_union_underlay_directory,
-			    keyfile, chroot.get_name(),
-			    "union-underlay-directory",
-			    (session && get_union_configured())?
-			    keyfile::PRIORITY_REQUIRED :
-			    keyfile::PRIORITY_OPTIONAL);
+                            &chroot_facet_union::set_union_underlay_directory,
+                            keyfile, chroot.get_name(),
+                            "union-underlay-directory",
+                            (session && get_union_configured())?
+                            keyfile::PRIORITY_REQUIRED :
+                            keyfile::PRIORITY_OPTIONAL);
 }

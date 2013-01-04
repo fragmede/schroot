@@ -26,34 +26,34 @@ rm_conffile() {
     local delete; delete="false"
 
     if [ -f "$CONFFILE" ]; then
-	local fpkg; fpkg=""
-	local pkg; pkg=""
-	if fpkg=$(dpkg -S "$CONFFILE" 2>/dev/null); then
-	    # Don't delete, but check which package it came from.
-	    pkg=$(echo $fpkg | sed -e  's/\(^[[:print:]][[:print:]]*\): .*$/\1/')
-	    if [ "$pkg" = "$PACKAGE" ]; then
-		delete="true"
-	    fi
-	else
-	    rm -f "$CONFFILE"
-	    delete="true"
-	fi
+        local fpkg; fpkg=""
+        local pkg; pkg=""
+        if fpkg=$(dpkg -S "$CONFFILE" 2>/dev/null); then
+            # Don't delete, but check which package it came from.
+            pkg=$(echo $fpkg | sed -e  's/\(^[[:print:]][[:print:]]*\): .*$/\1/')
+            if [ "$pkg" = "$PACKAGE" ]; then
+                delete="true"
+            fi
+        else
+            rm -f "$CONFFILE"
+            delete="true"
+        fi
     else
-	delete="true"
+        delete="true"
     fi
 
     # Remove dpkg cruft
     if [ "$delete" = "true" ]; then
-	rm -f "${CONFFILE}.dpkg-old"
-	rm -f "${CONFFILE}.dpkg-new"
-	rm -f "${CONFFILE}.dpkg-dist"
+        rm -f "${CONFFILE}.dpkg-old"
+        rm -f "${CONFFILE}.dpkg-new"
+        rm -f "${CONFFILE}.dpkg-dist"
     fi
 }
 
 case "$1" in
 
     upgrade|failed-upgrade|abort-install|abort-upgrade)
-	;;
+        ;;
 
     remove)
         ;;
@@ -66,7 +66,7 @@ case "$1" in
         echo "postrm called with unknown argument \`$1'" >&2
         exit 0
 
-	;;
+        ;;
 esac
 
 # dh_installdeb will replace this with shell code automatically

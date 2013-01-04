@@ -67,13 +67,13 @@ public:
 
     try
       {
-	sbuild::parse_value("invalid", result);
+        sbuild::parse_value("invalid", result);
       }
     catch (sbuild::parse_value_error const& e)
       {
-	// Exception thown, and original value unmodified.
-	CPPUNIT_ASSERT(result == true);
-	return;
+        // Exception thown, and original value unmodified.
+        CPPUNIT_ASSERT(result == true);
+        return;
       }
     // Should never be reached
     CPPUNIT_ASSERT(false);
@@ -92,13 +92,13 @@ public:
 
     try
       {
-	sbuild::parse_value("invalid", result);
+        sbuild::parse_value("invalid", result);
       }
     catch (sbuild::parse_value_error const& e)
       {
-	// Exception thown, and original value unmodified.
-	CPPUNIT_ASSERT(result == 22);
-	return;
+        // Exception thown, and original value unmodified.
+        CPPUNIT_ASSERT(result == 22);
+        return;
       }
     // Should never be reached
     CPPUNIT_ASSERT(false);

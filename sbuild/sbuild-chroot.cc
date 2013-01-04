@@ -329,20 +329,20 @@ sbuild::chroot::set_aliases (string_list const& aliases)
     {
       std::string::size_type found = pos->find_first_of(chroot_config::namespace_separator);
       if (found != std::string::npos)
-	{
-	  error e(*pos, NAME_INVALID);
-	  format fmt(_("Namespace separator ‘%1%’ may not be used in an alias name"));
-	  fmt % chroot_config::namespace_separator;
-	  e.set_reason(fmt.str());
-	  throw e;
-	}
+        {
+          error e(*pos, NAME_INVALID);
+          format fmt(_("Namespace separator ‘%1%’ may not be used in an alias name"));
+          fmt % chroot_config::namespace_separator;
+          e.set_reason(fmt.str());
+          throw e;
+        }
 
       if (!is_valid_sessionname(*pos))
-	{
-	  error e(*pos, NAME_INVALID);
-	  e.set_reason(_("Naming restrictions are documented in schroot.conf(5)"));
-	  throw e;
-	}
+        {
+          error e(*pos, NAME_INVALID);
+          e.set_reason(_("Naming restrictions are documented in schroot.conf(5)"));
+          throw e;
+        }
     }
 
   this->aliases = aliases;
@@ -491,8 +491,8 @@ sbuild::chroot::get_verbosity_string () const
       break;
     default:
       log_debug(DEBUG_CRITICAL) << format("Invalid verbosity level: %1%, falling back to 'normal'")
-	% static_cast<int>(this->message_verbosity)
-				<< std::endl;
+        % static_cast<int>(this->message_verbosity)
+                                << std::endl;
       verbosity = "normal";
       break;
     }
@@ -549,7 +549,7 @@ sbuild::chroot::setup_env (environment& env) const
 
 void
 sbuild::chroot::setup_env (chroot const& chroot,
-			   environment&  env) const
+                           environment&  env) const
 {
   env.add("CHROOT_TYPE", chroot.get_chroot_type());
   env.add("CHROOT_NAME", chroot.get_name());
@@ -565,11 +565,11 @@ sbuild::chroot::setup_env (chroot const& chroot,
       env.add("CHROOT_PROFILE_DIR", normalname(std::string(SCHROOT_SYSCONF_DIR) +  '/' + chroot.get_profile()));
     }
   env.add("CHROOT_SESSION_CREATE",
-	  static_cast<bool>(chroot.get_session_flags() & SESSION_CREATE));
+          static_cast<bool>(chroot.get_session_flags() & SESSION_CREATE));
   env.add("CHROOT_SESSION_CLONE",
-	  static_cast<bool>(chroot.get_session_flags() & SESSION_CLONE));
+          static_cast<bool>(chroot.get_session_flags() & SESSION_CLONE));
   env.add("CHROOT_SESSION_PURGE",
-	  static_cast<bool>(chroot.get_session_flags() & SESSION_PURGE));
+          static_cast<bool>(chroot.get_session_flags() & SESSION_PURGE));
 }
 
 void
@@ -582,7 +582,7 @@ sbuild::chroot::setup_session_info (bool start)
     {
       int fd = open(file.c_str(), O_CREAT|O_EXCL|O_WRONLY, 0664);
       if (fd < 0)
-	throw error(file, SESSION_WRITE, strerror(errno));
+        throw error(file, SESSION_WRITE, strerror(errno));
 
       // Create a stream from the file descriptor.  The fd will be
       // closed when the stream is destroyed.
@@ -595,31 +595,31 @@ sbuild::chroot::setup_session_info (bool start)
 
       file_lock lock(fd);
       try
-	{
-	  lock.set_lock(lock::LOCK_EXCLUSIVE, 2);
-	}
+        {
+          lock.set_lock(lock::LOCK_EXCLUSIVE, 2);
+        }
       catch (lock::error const& e)
-	{
-	  throw error(file, FILE_LOCK, e);
-	}
+        {
+          throw error(file, FILE_LOCK, e);
+        }
 
       keyfile details;
       get_keyfile(details);
       output << details;
 
       try
-	{
-	  lock.unset_lock();
-	}
+        {
+          lock.unset_lock();
+        }
       catch (lock::error const& e)
-	{
-	  throw error(file, FILE_UNLOCK, e);
-	}
+        {
+          throw error(file, FILE_UNLOCK, e);
+        }
     }
   else /* start == false */
     {
       if (unlink(file.c_str()) != 0)
-	throw error(file, SESSION_UNLINK, strerror(errno));
+        throw error(file, SESSION_UNLINK, strerror(errno));
     }
 }
 
@@ -631,7 +631,7 @@ sbuild::chroot::lock (setup_type type)
 
 void
 sbuild::chroot::unlock (setup_type type,
-			int        status)
+                        int        status)
 {
   setup_lock(type, false, status);
 }
@@ -666,7 +666,7 @@ sbuild::chroot::get_details (format_detail& detail) const
 
 void
 sbuild::chroot::get_details (chroot const&  chroot,
-			     format_detail& detail) const
+                             format_detail& detail) const
 {
   detail.add(_("Name"), chroot.get_name());
 
@@ -686,11 +686,11 @@ sbuild::chroot::get_details (chroot const&  chroot,
     .add(_("Configuration Profile"), chroot.get_profile())
     .add(_("Script Configuration"), chroot.get_script_config())
     .add(_("Session Managed"),
-	 static_cast<bool>(chroot.get_session_flags() & chroot::SESSION_CREATE))
+         static_cast<bool>(chroot.get_session_flags() & chroot::SESSION_CREATE))
     .add(_("Session Cloned"),
-	 static_cast<bool>(chroot.get_session_flags() & chroot::SESSION_CLONE))
+         static_cast<bool>(chroot.get_session_flags() & chroot::SESSION_CLONE))
     .add(_("Session Purged"),
-	 static_cast<bool>(chroot.get_session_flags() & chroot::SESSION_PURGE));
+         static_cast<bool>(chroot.get_session_flags() & chroot::SESSION_PURGE));
 
   if (!chroot.get_command_prefix().empty())
     detail.add(_("Command Prefix"), chroot.get_command_prefix());
@@ -779,7 +779,7 @@ sbuild::chroot::get_keyfile (keyfile& keyfile) const
 
 void
 sbuild::chroot::get_keyfile (chroot const& chroot,
-			     keyfile&      keyfile) const
+                             keyfile&      keyfile) const
 {
   keyfile.remove_group(chroot.get_name());
 
@@ -787,70 +787,70 @@ sbuild::chroot::get_keyfile (chroot const& chroot,
 
   if (session)
     keyfile::set_object_value(chroot, &chroot::get_name,
-			      keyfile, chroot.get_name(),
-			      "name");
+                              keyfile, chroot.get_name(),
+                              "name");
 
   keyfile::set_object_value(chroot, &chroot::get_chroot_type,
-			    keyfile, chroot.get_name(),
-			    "type");
+                            keyfile, chroot.get_name(),
+                            "type");
 
   keyfile::set_object_value(chroot, &chroot::get_profile,
-			    keyfile, chroot.get_name(),
-			    "profile");
+                            keyfile, chroot.get_name(),
+                            "profile");
 
   if (!get_script_config().empty())
     keyfile::set_object_value(chroot, &chroot::get_script_config,
-			      keyfile, chroot.get_name(),
-			      "script-config");
+                              keyfile, chroot.get_name(),
+                              "script-config");
 
   keyfile::set_object_list_value(chroot, &chroot::get_aliases,
-				 keyfile, chroot.get_name(),
-				 "aliases");
+                                 keyfile, chroot.get_name(),
+                                 "aliases");
 
   keyfile::set_object_value(chroot, &chroot::get_environment_filter,
-			    keyfile, chroot.get_name(),
-			    "environment-filter");
+                            keyfile, chroot.get_name(),
+                            "environment-filter");
 
   keyfile::set_object_value(chroot, &chroot::get_description,
-			    keyfile, chroot.get_name(),
-			    "description");
+                            keyfile, chroot.get_name(),
+                            "description");
 
   keyfile::set_object_list_value(chroot, &chroot::get_users,
-				 keyfile, chroot.get_name(),
-				 "users");
+                                 keyfile, chroot.get_name(),
+                                 "users");
 
   keyfile::set_object_list_value(chroot, &chroot::get_groups,
-				 keyfile, chroot.get_name(),
-				 "groups");
+                                 keyfile, chroot.get_name(),
+                                 "groups");
 
   keyfile::set_object_list_value(chroot, &chroot::get_root_users,
-				 keyfile, chroot.get_name(),
-				 "root-users");
+                                 keyfile, chroot.get_name(),
+                                 "root-users");
 
   keyfile::set_object_list_value(chroot, &chroot::get_root_groups,
-				 keyfile, chroot.get_name(),
-				 "root-groups");
+                                 keyfile, chroot.get_name(),
+                                 "root-groups");
 
   if (session)
     keyfile::set_object_value(chroot, &chroot::get_mount_location,
-			      keyfile, chroot.get_name(),
-			      "mount-location");
+                              keyfile, chroot.get_name(),
+                              "mount-location");
 
   keyfile::set_object_list_value(chroot, &chroot::get_command_prefix,
-				 keyfile, chroot.get_name(),
-				 "command-prefix");
+                                 keyfile, chroot.get_name(),
+                                 "command-prefix");
 
   keyfile::set_object_value(chroot, &chroot::get_verbosity_string,
-			    keyfile, chroot.get_name(),
-			    "message-verbosity");
+                            keyfile, chroot.get_name(),
+                            "message-verbosity");
 
   keyfile::set_object_value(chroot, &chroot::get_preserve_environment,
-			    keyfile, chroot.get_name(),
-			    "preserve-environment");
+                            keyfile, chroot.get_name(),
+                            "preserve-environment");
 
   keyfile::set_object_value(chroot, &chroot::get_default_shell,
-			    keyfile, chroot.get_name(),
-			    "shell");
+                            keyfile, chroot.get_name(),
+                            "shell");
 }
 
 void
@@ -868,7 +868,7 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 
 void
 sbuild::chroot::set_keyfile (chroot&        chroot,
-			     keyfile const& keyfile)
+                             keyfile const& keyfile)
 {
   // Null method for obsolete keys.
   void (sbuild::chroot::* nullmethod)(bool) = 0;
@@ -876,114 +876,114 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
   bool session = static_cast<bool>(get_facet<chroot_facet_session>());
 
   keyfile::get_object_value(chroot, nullmethod,
-			    keyfile, chroot.get_name(),
-			    "active",
-			    keyfile::PRIORITY_OBSOLETE);
+                            keyfile, chroot.get_name(),
+                            "active",
+                            keyfile::PRIORITY_OBSOLETE);
 
   // Setup scripts are run depending on the chroot type in use, and is
   // no longer user-configurable.  They need to run for all types
   // except "plain".
   keyfile::get_object_value(chroot, nullmethod,
-			    keyfile, chroot.get_name(),
-			    "run-setup-scripts",
-			    keyfile::PRIORITY_OBSOLETE);
+                            keyfile, chroot.get_name(),
+                            "run-setup-scripts",
+                            keyfile::PRIORITY_OBSOLETE);
 
   // Exec scripts have been removed, so these two calls do nothing
   // except to warn the user that the options are no longer used.
   keyfile::get_object_value(chroot, nullmethod,
-			    keyfile, chroot.get_name(),
-			    "run-session-scripts",
-			    keyfile::PRIORITY_OBSOLETE);
+                            keyfile, chroot.get_name(),
+                            "run-session-scripts",
+                            keyfile::PRIORITY_OBSOLETE);
   keyfile::get_object_value(chroot, nullmethod,
-			    keyfile, chroot.get_name(),
-			    "run-exec-scripts",
-			    keyfile::PRIORITY_OBSOLETE);
+                            keyfile, chroot.get_name(),
+                            "run-exec-scripts",
+                            keyfile::PRIORITY_OBSOLETE);
 
   keyfile::get_object_value(chroot, &chroot::set_profile,
-			    keyfile, chroot.get_name(),
-			    "profile",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, chroot.get_name(),
+                            "profile",
+                            keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_value(chroot, &chroot::set_script_config,
-			    keyfile, chroot.get_name(),
-			    "script-config",
-			    session ?
-			    keyfile::PRIORITY_OPTIONAL :
-			    keyfile::PRIORITY_DEPRECATED);
+                            keyfile, chroot.get_name(),
+                            "script-config",
+                            session ?
+                            keyfile::PRIORITY_OPTIONAL :
+                            keyfile::PRIORITY_DEPRECATED);
 
   keyfile::get_object_value(chroot, nullmethod,
-			    keyfile, chroot.get_name(),
-			    "priority",
-			    session ?
-			    keyfile::PRIORITY_OPTIONAL :
-			    keyfile::PRIORITY_OBSOLETE);
+                            keyfile, chroot.get_name(),
+                            "priority",
+                            session ?
+                            keyfile::PRIORITY_OPTIONAL :
+                            keyfile::PRIORITY_OBSOLETE);
 
   keyfile::get_object_list_value(chroot, &chroot::set_aliases,
-				 keyfile, chroot.get_name(),
-				 "aliases",
-				 keyfile::PRIORITY_OPTIONAL);
+                                 keyfile, chroot.get_name(),
+                                 "aliases",
+                                 keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_value(chroot, &chroot::set_environment_filter,
-			    keyfile, chroot.get_name(),
-			    "environment-filter",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, chroot.get_name(),
+                            "environment-filter",
+                            keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_value(chroot, &chroot::set_description,
-			    keyfile, chroot.get_name(),
-			    "description",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, chroot.get_name(),
+                            "description",
+                            keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_list_value(chroot, &chroot::set_users,
-				 keyfile, chroot.get_name(),
-				 "users",
-				 keyfile::PRIORITY_OPTIONAL);
+                                 keyfile, chroot.get_name(),
+                                 "users",
+                                 keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_list_value(chroot, &chroot::set_groups,
-				 keyfile, chroot.get_name(),
-				 "groups",
-				 keyfile::PRIORITY_OPTIONAL);
+                                 keyfile, chroot.get_name(),
+                                 "groups",
+                                 keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_list_value(chroot, &chroot::set_root_users,
-				 keyfile, chroot.get_name(),
-				 "root-users",
-				 keyfile::PRIORITY_OPTIONAL);
+                                 keyfile, chroot.get_name(),
+                                 "root-users",
+                                 keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_list_value(chroot, &chroot::set_root_groups,
-				 keyfile, chroot.get_name(),
-				 "root-groups",
-				 keyfile::PRIORITY_OPTIONAL);
+                                 keyfile, chroot.get_name(),
+                                 "root-groups",
+                                 keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_value(chroot, &chroot::set_mount_location,
-			    keyfile, chroot.get_name(),
-			    "mount-location",
-			    session ?
-			    keyfile::PRIORITY_REQUIRED :
-			    keyfile::PRIORITY_DISALLOWED);
+                            keyfile, chroot.get_name(),
+                            "mount-location",
+                            session ?
+                            keyfile::PRIORITY_REQUIRED :
+                            keyfile::PRIORITY_DISALLOWED);
 
   keyfile::get_object_value(chroot, &chroot::set_name,
-			    keyfile, chroot.get_name(),
-			    "name",
-			    session ?
-			    keyfile::PRIORITY_OPTIONAL :
-			    keyfile::PRIORITY_DISALLOWED);
+                            keyfile, chroot.get_name(),
+                            "name",
+                            session ?
+                            keyfile::PRIORITY_OPTIONAL :
+                            keyfile::PRIORITY_DISALLOWED);
 
   keyfile::get_object_list_value(chroot, &chroot::set_command_prefix,
-				 keyfile, chroot.get_name(),
-				 "command-prefix",
-				 keyfile::PRIORITY_OPTIONAL);
+                                 keyfile, chroot.get_name(),
+                                 "command-prefix",
+                                 keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_value(chroot, &chroot::set_verbosity,
-			    keyfile, chroot.get_name(),
-			    "message-verbosity",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, chroot.get_name(),
+                            "message-verbosity",
+                            keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_value(chroot, &chroot::set_preserve_environment,
-			    keyfile, chroot.get_name(),
-			    "preserve-environment",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, chroot.get_name(),
+                            "preserve-environment",
+                            keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_value(chroot, &chroot::set_default_shell,
-			    keyfile, chroot.get_name(),
-			    "shell",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, chroot.get_name(),
+                            "shell",
+                            keyfile::PRIORITY_OPTIONAL);
 }

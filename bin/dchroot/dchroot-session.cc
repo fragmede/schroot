@@ -41,8 +41,8 @@ using boost::format;
 using namespace dchroot;
 
 session::session (std::string const&                  service,
-		  operation                           operation,
-		  sbuild::session::chroot_list const& chroots):
+                  operation                           operation,
+                  sbuild::session::chroot_list const& chroots):
   session_base(service, operation, chroots)
 {
 }
@@ -53,7 +53,7 @@ session::~session ()
 
 sbuild::string_list
 session::get_login_directories (sbuild::chroot::ptr&       session_chroot,
-				sbuild::environment const& env) const
+                                sbuild::environment const& env) const
 {
   sbuild::string_list ret;
 
@@ -68,14 +68,14 @@ session::get_login_directories (sbuild::chroot::ptr&       session_chroot,
       // Set current working directory only if preserving environment.
       // Only change to home if not preserving the environment.
       if (get_preserve_environment() ||
-	  session_chroot->get_preserve_environment())
-	ret.push_back(this->sbuild::session::cwd);
+          session_chroot->get_preserve_environment())
+        ret.push_back(this->sbuild::session::cwd);
       else
-	ret.push_back(get_auth()->get_home());
+        ret.push_back(get_auth()->get_home());
 
       // Final fallback to root.
       if (std::find(ret.begin(), ret.end(), "/") == ret.end())
-	ret.push_back("/");
+        ret.push_back("/");
     }
 
   return ret;
@@ -83,9 +83,9 @@ session::get_login_directories (sbuild::chroot::ptr&       session_chroot,
 
 void
 session::get_user_command (sbuild::chroot::ptr&       session_chroot,
-			   std::string&               file,
-			   sbuild::string_list&       command,
-			   sbuild::environment const& env) const
+                           std::string&               file,
+                           sbuild::string_list&       command,
+                           sbuild::environment const& env) const
 {
   std::string programstring = sbuild::string_list_to_string(command, " ");
 
@@ -104,10 +104,10 @@ session::get_user_command (sbuild::chroot::ptr&       session_chroot,
   if (get_auth()->get_uid() == 0 ||
       get_auth()->get_ruid() != get_auth()->get_uid())
     syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
-	   session_chroot->get_name().c_str(),
-	   get_auth()->get_ruser().c_str(),
-	   get_auth()->get_user().c_str(),
-	   commandstring.c_str());
+           session_chroot->get_name().c_str(),
+           get_auth()->get_ruser().c_str(),
+           get_auth()->get_user().c_str(),
+           commandstring.c_str());
 
   if (session_chroot->get_verbosity() != sbuild::chroot::VERBOSITY_QUIET)
     {
@@ -118,7 +118,7 @@ session::get_user_command (sbuild::chroot::ptr&       session_chroot,
 
       format fmt(format_string);
       fmt % session_chroot->get_name()
-	% programstring;
+        % programstring;
       sbuild::log_info() << fmt << endl;
     }
 }

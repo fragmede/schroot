@@ -39,7 +39,7 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
-	UNSHARE ///< Could not unshare process execution context
+        UNSHARE ///< Could not unshare process execution context
       };
 
     /// Exception type.
@@ -139,25 +139,25 @@ namespace sbuild
 
     virtual void
     setup_env (chroot const& chroot,
-	       environment&  env) const;
+               environment&  env) const;
 
     virtual chroot::session_flags
     get_session_flags (chroot const& chroot) const;
 
     virtual void
     get_details (chroot const&  chroot,
-		 format_detail& detail) const;
+                 format_detail& detail) const;
 
     virtual void
     get_used_keys (string_list& used_keys) const;
 
     virtual void
     get_keyfile (chroot const& chroot,
-		 keyfile&      keyfile) const;
+                 keyfile&      keyfile) const;
 
     virtual void
     set_keyfile (chroot&        chroot,
-		 keyfile const& keyfile);
+                 keyfile const& keyfile);
 
   private:
     /// Unshare networking.

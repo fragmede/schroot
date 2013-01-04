@@ -60,30 +60,30 @@ namespace csbuild
     /// Configuration parameter priority.
     enum priority
       {
-	PRIORITY_OPTIONAL,   ///< The parameter is optional.
-	PRIORITY_REQUIRED,   ///< The parameter is required.
-	PRIORITY_DISALLOWED, ///< The parameter is not allowed in this context.
-	PRIORITY_DEPRECATED, ///< The parameter is deprecated, but functional.
-	PRIORITY_OBSOLETE    ///< The parameter is obsolete, and not functional.
+        PRIORITY_OPTIONAL,   ///< The parameter is optional.
+        PRIORITY_REQUIRED,   ///< The parameter is required.
+        PRIORITY_DISALLOWED, ///< The parameter is not allowed in this context.
+        PRIORITY_DEPRECATED, ///< The parameter is deprecated, but functional.
+        PRIORITY_OBSOLETE    ///< The parameter is obsolete, and not functional.
       };
 
     /// Error codes.
     enum error_code
       {
-	BAD_FILE,          ///< The file to parse couldn't be opened.
-	DEPRECATED_KEY,    ///< The key is deprecated.
-	DEPRECATED_KEY_NL, ///< The key is deprecated (no line specified).
-	DISALLOWED_KEY,    ///< The key is not allowed.
-	DISALLOWED_KEY_NL, ///< The key is not allowed (no line specified).
-	DUPLICATE_KEY,     ///< The key is a duplicate.
-	INVALID_LINE,      ///< The line is invalid.
-	MISSING_KEY,       ///< The key is missing.
-	MISSING_KEY_NL,    ///< The key is missing (no line specified).
-	NO_KEY,            ///< No key was specified.
-	OBSOLETE_KEY,      ///< The key is obsolete.
-	OBSOLETE_KEY_NL,   ///< The key is obsolete (no line specified).
-	PASSTHROUGH_K,    ///< Pass through exception with key.
-	PASSTHROUGH_LK    ///< Pass through exception with line and key.
+        BAD_FILE,          ///< The file to parse couldn't be opened.
+        DEPRECATED_KEY,    ///< The key is deprecated.
+        DEPRECATED_KEY_NL, ///< The key is deprecated (no line specified).
+        DISALLOWED_KEY,    ///< The key is not allowed.
+        DISALLOWED_KEY_NL, ///< The key is not allowed (no line specified).
+        DUPLICATE_KEY,     ///< The key is a duplicate.
+        INVALID_LINE,      ///< The line is invalid.
+        MISSING_KEY,       ///< The key is missing.
+        MISSING_KEY_NL,    ///< The key is missing (no line specified).
+        NO_KEY,            ///< No key was specified.
+        OBSOLETE_KEY,      ///< The key is obsolete.
+        OBSOLETE_KEY_NL,   ///< The key is obsolete (no line specified).
+        PASSTHROUGH_K,    ///< Pass through exception with key.
+        PASSTHROUGH_LK    ///< Pass through exception with line and key.
       };
 
     /// Exception type.
@@ -146,37 +146,37 @@ namespace csbuild
     template <typename T>
     bool
     get_value (key_type const& key,
-	       T&              value) const
+               T&              value) const
     {
       sbuild::log_debug(sbuild::DEBUG_INFO)
-	<< "Getting debian_changes key=" << key << std::endl;
+        << "Getting debian_changes key=" << key << std::endl;
       const item_type *found_item = find_item(key);
       if (found_item)
-	{
-	  value_type const& strval(std::get<1>(*found_item));
-	  try
-	    {
-	      sbuild::parse_value(strval, value);
-	      return true;
-	    }
-	  catch (sbuild::parse_value_error const& e)
-	    {
-	      size_type line = get_line(key);
-	      if (line)
-		{
-		  error ep(line, key, PASSTHROUGH_LK, e);
-		  log_exception_warning(ep);
-		}
-	      else
-		{
-		  error ep(key, PASSTHROUGH_K, e);
-		  log_exception_warning(ep);
-		}
-	      return false;
-	    }
-	}
+        {
+          value_type const& strval(std::get<1>(*found_item));
+          try
+            {
+              sbuild::parse_value(strval, value);
+              return true;
+            }
+          catch (sbuild::parse_value_error const& e)
+            {
+              size_type line = get_line(key);
+              if (line)
+                {
+                  error ep(line, key, PASSTHROUGH_LK, e);
+                  log_exception_warning(ep);
+                }
+              else
+                {
+                  error ep(key, PASSTHROUGH_K, e);
+                  log_exception_warning(ep);
+                }
+              return false;
+            }
+        }
       sbuild::log_debug(sbuild::DEBUG_NOTICE)
-	<< "key not found" << std::endl;
+        << "key not found" << std::endl;
       return false;
     }
 
@@ -194,8 +194,8 @@ namespace csbuild
     template <typename T>
     bool
     get_value (key_type const& key,
-	       priority        priority,
-	       T&              value) const
+               priority        priority,
+               T&              value) const
     {
       bool status = get_value(key, value);
       check_priority(key, priority, status);
@@ -212,7 +212,7 @@ namespace csbuild
      */
     bool
     get_value (key_type const& key,
-	       value_type&     value) const;
+               value_type&     value) const;
 
     /**
      * Get a key value.  If the value does not exist, is deprecated or
@@ -226,8 +226,8 @@ namespace csbuild
      */
     bool
     get_value (key_type const& key,
-	       priority        priority,
-	       value_type&     value) const;
+               priority        priority,
+               value_type&     value) const;
 
     /**
      * Get a key value as a list.
@@ -245,50 +245,50 @@ namespace csbuild
     template <typename C>
     bool
     get_list_value (key_type const&    key,
-		    C&                 container,
-		    std::string const& separator) const
+                    C&                 container,
+                    std::string const& separator) const
     {
       value_type item_value;
       if (get_value(key, item_value))
-	{
-	  for (value_type::const_iterator vpos = item_value.begin();
-	       vpos != item_value.end();
-	       ++vpos)
-	    {
-	      sbuild::string_list items =
-		sbuild::split_string(*vpos, std::string(1, separator));
-	      for (sbuild::string_list::const_iterator pos = items.begin();
-		   pos != items.end();
-		   ++pos
-		   )
-		{
-		  typename C::value_type tmp;
+        {
+          for (value_type::const_iterator vpos = item_value.begin();
+               vpos != item_value.end();
+               ++vpos)
+            {
+              sbuild::string_list items =
+                sbuild::split_string(*vpos, std::string(1, separator));
+              for (sbuild::string_list::const_iterator pos = items.begin();
+                   pos != items.end();
+                   ++pos
+                   )
+                {
+                  typename C::value_type tmp;
 
-		  try
-		    {
-		      sbuild::parse_value(*pos, tmp);
-		    }
-		  catch (sbuild::parse_value_error const& e)
-		    {
-		      size_type line = get_line(key);
-		      if (line)
-			{
-			  error ep(line, key, PASSTHROUGH_LK, e);
-			  log_exception_warning(ep);
-			}
-		      else
-			{
-			  error ep(key, PASSTHROUGH_K, e);
-			  log_exception_warning(ep);
-			}
-		      return false;
-		    }
+                  try
+                    {
+                      sbuild::parse_value(*pos, tmp);
+                    }
+                  catch (sbuild::parse_value_error const& e)
+                    {
+                      size_type line = get_line(key);
+                      if (line)
+                        {
+                          error ep(line, key, PASSTHROUGH_LK, e);
+                          log_exception_warning(ep);
+                        }
+                      else
+                        {
+                          error ep(key, PASSTHROUGH_K, e);
+                          log_exception_warning(ep);
+                        }
+                      return false;
+                    }
 
-		  container.push_back(tmp);
-		}
-	    }
-	  return true;
-	}
+                  container.push_back(tmp);
+                }
+            }
+          return true;
+        }
       return false;
     }
 
@@ -308,8 +308,8 @@ namespace csbuild
     template <typename C>
     bool
     get_list_value (key_type const& key,
-		    priority        priority,
-		    C&              container) const
+                    priority        priority,
+                    C&              container) const
     {
       bool status = get_list_value(key, container);
       check_priority(key, priority, status);
@@ -326,7 +326,7 @@ namespace csbuild
     template <typename T>
     void
     set_value (key_type const& key,
-	       T const&        value)
+               T const&        value)
     {
       set_value(key, value, 0);
     }
@@ -342,8 +342,8 @@ namespace csbuild
     template <typename T>
     void
     set_value (key_type const& key,
-	       T const&        value,
-	       size_type       line)
+               T const&        value,
+               size_type       line)
     {
       std::ostringstream os;
       os.imbue(std::locale::classic());
@@ -353,10 +353,10 @@ namespace csbuild
 
       item_map_type::iterator pos = items.find(key);
       if (pos != items.end())
-	items.erase(pos);
+        items.erase(pos);
       items.insert
-	(item_map_type::value_type(key,
-				   item_type(key, val, line)));
+        (item_map_type::value_type(key,
+                                   item_type(key, val, line)));
     }
 
     /**
@@ -367,7 +367,7 @@ namespace csbuild
      */
     void
     set_value (key_type const&   key,
-	       value_type const& value)
+               value_type const& value)
     {
       set_value(key, value, 0);
     }
@@ -381,8 +381,8 @@ namespace csbuild
      */
     void
     set_value (key_type const&   key,
-	       value_type const& value,
-	       size_type         line);
+               value_type const& value,
+               size_type         line);
 
     /**
      * Set a key value from a list.
@@ -395,8 +395,8 @@ namespace csbuild
     template <typename I>
     void
     set_list_value (key_type const& key,
-		    I               begin,
-		    I               end)
+                    I               begin,
+                    I               end)
     {
       set_list_value (key, begin, end, 0);
     }
@@ -414,25 +414,25 @@ namespace csbuild
     template <typename I>
     void
     set_list_value (key_type const&    key,
-		    I                  begin,
-		    I                  end,
-		    std::string const& separator,
-		    size_type          line)
+                    I                  begin,
+                    I                  end,
+                    std::string const& separator,
+                    size_type          line)
     {
       std::string strval;
 
       for (I pos = begin; pos != end; ++ pos)
-	{
-	  std::ostringstream os;
-	  os.imbue(std::locale::classic());
-	  os << std::boolalpha << *pos;
-	  if (os)
-	    {
-	      strval += os.str();
-	      if (pos + 1 != end)
-		strval += separator;
-	    }
-	}
+        {
+          std::ostringstream os;
+          os.imbue(std::locale::classic());
+          os << std::boolalpha << *pos;
+          if (os)
+            {
+              strval += os.str();
+              if (pos + 1 != end)
+                strval += separator;
+            }
+        }
 
       set_value (key, strval, line);
     }
@@ -463,7 +463,7 @@ namespace csbuild
      */
     friend debian_changes
     operator + (debian_changes const& lhs,
-		debian_changes const& rhs);
+                debian_changes const& rhs);
 
     /**
      * debian_changes initialisation from an istream.
@@ -476,7 +476,7 @@ namespace csbuild
     friend
     std::basic_istream<charT,traits>&
     operator >> (std::basic_istream<charT,traits>& stream,
-		 debian_changes&                   dc)
+                 debian_changes&                   dc)
     {
       debian_changes tmp;
       size_t linecount = 0;
@@ -486,31 +486,31 @@ namespace csbuild
 
       while (std::getline(stream, line))
       {
-	linecount++;
+        linecount++;
 
-	if (line.length() == 0)
-	  {
-	    // Empty line; do nothing.
-	  }
-	else // Item
-	  {
-	    std::string::size_type pos = line.find_first_of('=');
-	    if (pos == std::string::npos)
-	      throw error(linecount, INVALID_LINE, line);
-	    if (pos == 0)
-	      throw error(linecount, NO_KEY, line);
-	    key = line.substr(0, pos);
-	    if (pos == line.length() - 1)
-	      value = "";
-	    else
-	      value = line.substr(pos + 1);
+        if (line.length() == 0)
+          {
+            // Empty line; do nothing.
+          }
+        else // Item
+          {
+            std::string::size_type pos = line.find_first_of('=');
+            if (pos == std::string::npos)
+              throw error(linecount, INVALID_LINE, line);
+            if (pos == 0)
+              throw error(linecount, NO_KEY, line);
+            key = line.substr(0, pos);
+            if (pos == line.length() - 1)
+              value = "";
+            else
+              value = line.substr(pos + 1);
 
-	    // Insert item
-	    if (tmp.has_key(key))
-	      throw error(linecount, DUPLICATE_KEY, key);
-	    else
-	      tmp.set_value(key, value, linecount);
-	  }
+            // Insert item
+            if (tmp.has_key(key))
+              throw error(linecount, DUPLICATE_KEY, key);
+            else
+              tmp.set_value(key, value, linecount);
+          }
       }
 
       dc += tmp;
@@ -529,20 +529,20 @@ namespace csbuild
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-		 debian_changes const&             dc)
+                 debian_changes const&             dc)
     {
       size_type group_count = 0;
 
       for (item_map_type::const_iterator it = dc.items.begin();
-	   it != dc.items.end();
-	   ++it)
-	{
-	  item_type const& item = it->second;
-	  key_type const& key(std::get<0>(item));
-	  value_type const& value(std::get<1>(item));
+           it != dc.items.end();
+           ++it)
+        {
+          item_type const& item = it->second;
+          key_type const& key(std::get<0>(item));
+          value_type const& value(std::get<1>(item));
 
-	  stream << key << '=' << value << '\n';
-	}
+          stream << key << '=' << value << '\n';
+        }
 
       return stream;
     }
@@ -575,8 +575,8 @@ namespace csbuild
      */
     void
     check_priority (key_type const& key,
-		    priority        priority,
-		    bool            valid) const;
+                    priority        priority,
+                    bool            valid) const;
 
     /// The top-level items.
     item_map_type items;
@@ -596,18 +596,18 @@ namespace csbuild
     template<class C, typename T>
     static void
     set_object_value (C const&                        object,
-		      T                         (C::* method)() const,
-		      debian_changes&                 debian_changes,
-		      debian_changes::key_type const& key)
+                      T                         (C::* method)() const,
+                      debian_changes&                 debian_changes,
+                      debian_changes::key_type const& key)
     {
       try
-	{
-	  debian_changes.set_value(key, (object.*method)());
-	}
+        {
+          debian_changes.set_value(key, (object.*method)());
+        }
       catch (std::runtime_error const& e)
-	{
-	  throw error(key, PASSTHROUGH_K, e);
-	}
+        {
+          throw error(key, PASSTHROUGH_K, e);
+        }
     }
 
     /**
@@ -624,18 +624,18 @@ namespace csbuild
     template<class C, typename T>
     static void
     set_object_value (C const&                        object,
-		      T const&                  (C::* method)() const,
-		      debian_changes&                 debian_changes,
-		      debian_changes::key_type const& key)
+                      T const&                  (C::* method)() const,
+                      debian_changes&                 debian_changes,
+                      debian_changes::key_type const& key)
     {
       try
-	{
-	  debian_changes.set_value(key, (object.*method)());
-	}
+        {
+          debian_changes.set_value(key, (object.*method)());
+        }
       catch (std::runtime_error const& e)
-	{
-	  throw error(key, PASSTHROUGH_K, e);
-	}
+        {
+          throw error(key, PASSTHROUGH_K, e);
+        }
     }
 
     /**
@@ -653,20 +653,20 @@ namespace csbuild
     template<class C, typename T>
     static void
     set_object_list_value (C const&                        object,
-			   T                         (C::* method)() const,
-			   debian_changes&                 debian_changes,
-			   debian_changes::key_type const& key)
+                           T                         (C::* method)() const,
+                           debian_changes&                 debian_changes,
+                           debian_changes::key_type const& key)
     {
       try
-	{
-	  debian_changes.set_list_value(key,
-				 (object.*method)().begin(),
-				 (object.*method)().end());
-	}
+        {
+          debian_changes.set_list_value(key,
+                                 (object.*method)().begin(),
+                                 (object.*method)().end());
+        }
       catch (std::runtime_error const& e)
-	{
-	  throw error(key, PASSTHROUGH_K, e);
-	}
+        {
+          throw error(key, PASSTHROUGH_K, e);
+        }
     }
 
     /**
@@ -685,20 +685,20 @@ namespace csbuild
     template<class C, typename T>
     static void
     set_object_list_value (C const&                        object,
-			   T const&                  (C::* method)() const,
-			   debian_changes&                 debian_changes,
-			   debian_changes::key_type const& key)
+                           T const&                  (C::* method)() const,
+                           debian_changes&                 debian_changes,
+                           debian_changes::key_type const& key)
     {
       try
-	{
-	  debian_changes.set_list_value(key,
-				 (object.*method)().begin(),
-				 (object.*method)().end());
-	}
+        {
+          debian_changes.set_list_value(key,
+                                 (object.*method)().begin(),
+                                 (object.*method)().end());
+        }
       catch (std::runtime_error const& e)
-	{
-	  throw error(key, PASSTHROUGH_K, e);
-	}
+        {
+          throw error(key, PASSTHROUGH_K, e);
+        }
     }
 
     /**
@@ -717,25 +717,25 @@ namespace csbuild
     template<class C, typename T>
     static void
     get_object_value (C&                              object,
-		      void                      (C::* method)(T param),
-		      debian_changes const&           debian_changes,
-		      debian_changes::key_type const& key,
-		      debian_changes::priority        priority)
+                      void                      (C::* method)(T param),
+                      debian_changes const&           debian_changes,
+                      debian_changes::key_type const& key,
+                      debian_changes::priority        priority)
     {
       try
-	{
-	  T value;
-	  if (debian_changes.get_value(key, priority, value))
-	    (object.*method)(value);
-	}
+        {
+          T value;
+          if (debian_changes.get_value(key, priority, value))
+            (object.*method)(value);
+        }
       catch (std::runtime_error const& e)
-	{
-	  size_type line = debian_changes.get_line(key);
-	  if (line)
-	    throw error(line, key, PASSTHROUGH_LK, e);
-	  else
-	    throw error(key, PASSTHROUGH_K, e);
-	}
+        {
+          size_type line = debian_changes.get_line(key);
+          if (line)
+            throw error(line, key, PASSTHROUGH_LK, e);
+          else
+            throw error(key, PASSTHROUGH_K, e);
+        }
     }
 
     /**
@@ -754,25 +754,25 @@ namespace csbuild
     template<class C, typename T>
     static void
     get_object_value (C&                              object,
-		      void                      (C::* method)(T const& param),
-		      debian_changes const&           debian_changes,
-		      debian_changes::key_type const& key,
-		      debian_changes::priority        priority)
+                      void                      (C::* method)(T const& param),
+                      debian_changes const&           debian_changes,
+                      debian_changes::key_type const& key,
+                      debian_changes::priority        priority)
     {
       try
-	{
-	  T value;
-	  if (debian_changes.get_value(key, priority, value))
-	    (object.*method)(value);
-	}
+        {
+          T value;
+          if (debian_changes.get_value(key, priority, value))
+            (object.*method)(value);
+        }
       catch (std::runtime_error const& e)
-	{
-	  size_type line = debian_changes.get_line(key);
-	  if (line)
-	    throw error(line, key, PASSTHROUGH_LK, e);
-	  else
-	    throw error(key, PASSTHROUGH_K, e);
-	}
+        {
+          size_type line = debian_changes.get_line(key);
+          if (line)
+            throw error(line, key, PASSTHROUGH_LK, e);
+          else
+            throw error(key, PASSTHROUGH_K, e);
+        }
     }
 
     /**
@@ -791,27 +791,27 @@ namespace csbuild
     template<class C, typename T>
     static void
     get_object_list_value (C&                              object,
-			   void                      (C::* method)(T param),
-			   debian_changes const&           debian_changes,
-			   debian_changes::key_type const& key,
-			   debian_changes::priority        priority)
+                           void                      (C::* method)(T param),
+                           debian_changes const&           debian_changes,
+                           debian_changes::key_type const& key,
+                           debian_changes::priority        priority)
     {
       try
-	{
-	  T value;
-	  if (debian_changes.get_list_value(key, priority, value))
-	    (object.*method)(value);
-	}
+        {
+          T value;
+          if (debian_changes.get_list_value(key, priority, value))
+            (object.*method)(value);
+        }
       catch (std::runtime_error const& e)
-	{
-	  size_type line = debian_changes.get_line(key);
-	  if (line)
-	    throw error(line, key, PASSTHROUGH_LK, e);
-	  else
-	    throw error(key, PASSTHROUGH_K, e);
-	  throw error(debian_changes.get_line(key),
-		      key, e);
-	}
+        {
+          size_type line = debian_changes.get_line(key);
+          if (line)
+            throw error(line, key, PASSTHROUGH_LK, e);
+          else
+            throw error(key, PASSTHROUGH_K, e);
+          throw error(debian_changes.get_line(key),
+                      key, e);
+        }
     }
 
     /**
@@ -831,27 +831,27 @@ namespace csbuild
     template<class C, typename T>
     static void
     get_object_list_value (C&                              object,
-			   void                      (C::* method)(T const& param),
-			   debian_changes const&           debian_changes,
-			   debian_changes::key_type const& key,
-			   debian_changes::priority        priority)
+                           void                      (C::* method)(T const& param),
+                           debian_changes const&           debian_changes,
+                           debian_changes::key_type const& key,
+                           debian_changes::priority        priority)
     {
       try
-	{
-	  T value;
-	  if (debian_changes.get_list_value(key, priority, value))
-	    (object.*method)(value);
-	}
+        {
+          T value;
+          if (debian_changes.get_list_value(key, priority, value))
+            (object.*method)(value);
+        }
       catch (std::runtime_error const& e)
-	{
-	  size_type line = debian_changes.get_line(key);
-	  if (line)
-	    throw error(line, key, PASSTHROUGH_LK, e);
-	  else
-	    throw error(key, PASSTHROUGH_K, e);
-	  throw error(debian_changes.get_line(key),
-		      key, e);
-	}
+        {
+          size_type line = debian_changes.get_line(key);
+          if (line)
+            throw error(line, key, PASSTHROUGH_LK, e);
+          else
+            throw error(key, PASSTHROUGH_K, e);
+          throw error(debian_changes.get_line(key),
+                      key, e);
+        }
     }
   };
 

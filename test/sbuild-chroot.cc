@@ -46,9 +46,9 @@ public:
 
   virtual ptr
   clone_session (std::string const& session_id,
-		 std::string const& alias,
-		 std::string const& user,
-		 bool               root) const
+                 std::string const& alias,
+                 std::string const& user,
+                 bool               root) const
   { return ptr(); }
 
 
@@ -72,18 +72,18 @@ public:
 
   virtual void
   setup_env (sbuild::chroot const& chroot,
-	     sbuild::environment&  env) const
+             sbuild::environment&  env) const
   { sbuild::chroot::setup_env(chroot, env); }
 
   virtual void
   get_details (sbuild::chroot const&  chroot,
-	       sbuild::format_detail& detail) const
+               sbuild::format_detail& detail) const
   { sbuild::chroot::get_details(chroot, detail); }
 
   virtual void
   setup_lock (setup_type type,
-	      bool       lock,
-	      int        status)
+              bool       lock,
+              int        status)
   {}
 
   virtual sbuild::chroot::session_flags
@@ -96,12 +96,12 @@ public:
 
   virtual void
   get_keyfile (sbuild::chroot const& chroot,
-	       sbuild::keyfile&      keyfile) const
+               sbuild::keyfile&      keyfile) const
   { sbuild::chroot::get_keyfile(chroot, keyfile); }
 
   virtual void
   set_keyfile (sbuild::chroot&        chroot,
-	       sbuild::keyfile const& keyfile)
+               sbuild::keyfile const& keyfile)
   { sbuild::chroot::set_keyfile(chroot, keyfile); }
 };
 
@@ -150,7 +150,7 @@ public:
   {
     chroot->set_mount_location("/mnt/mount-location/example");
     CPPUNIT_ASSERT(chroot->get_mount_location() ==
-		   "/mnt/mount-location/example");
+                   "/mnt/mount-location/example");
   }
 
   void test_groups()
@@ -162,9 +162,9 @@ public:
     groups.push_back("users");
 
     test_list(*chroot.get(),
-	      groups,
-	      &sbuild::chroot::get_groups,
-	      &sbuild::chroot::set_groups);
+              groups,
+              &sbuild::chroot::get_groups,
+              &sbuild::chroot::set_groups);
   }
 
   void test_root_groups()
@@ -175,9 +175,9 @@ public:
     groups.push_back("root");
 
     test_list(*chroot.get(),
-	      groups,
-	      &sbuild::chroot::get_root_groups,
-	      &sbuild::chroot::set_root_groups);
+              groups,
+              &sbuild::chroot::get_root_groups,
+              &sbuild::chroot::set_root_groups);
   }
 
   void test_aliases()
@@ -187,9 +187,9 @@ public:
     aliases.push_back("alias2");
 
     test_list(*chroot.get(),
-	      aliases,
-	      &sbuild::chroot::get_aliases,
-	      &sbuild::chroot::set_aliases);
+              aliases,
+              &sbuild::chroot::get_aliases,
+              &sbuild::chroot::set_aliases);
   }
 
   void test_environment_filter()
@@ -223,7 +223,7 @@ public:
       expected.set_value(group, "script-config", "desktop/config");
 
       test_chroot_base<basic_chroot>::test_setup_keyfile
-	(chroot, expected, group);
+        (chroot, expected, group);
     }
 
     {
@@ -327,7 +327,7 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-		   sbuild::chroot::SESSION_CREATE);
+                   sbuild::chroot::SESSION_CREATE);
   }
 
   void test_print_details()

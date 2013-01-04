@@ -39,7 +39,7 @@ SOCK_DIR="$(dirname "${SSH_AUTH_SOCK}")"
 
 if [ "$ACTION" = "setup-start" ] ; then
     if [ -e "${CHROOT_PATH}/${SSH_AUTH_SOCK}" ] ; then
-	exit 0
+        exit 0
     fi
     mkdir -p "${CHROOT_PATH}/${SOCK_DIR}"
     mount -o bind "${SOCK_DIR}" "${CHROOT_PATH}/${SOCK_DIR}"

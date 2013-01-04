@@ -44,9 +44,9 @@ namespace sbuild
       friend
       std::basic_ostream<charT,traits>&
       operator << (std::basic_ostream<charT,traits>& stream,
-		   null const&                       rhs)
+                   null const&                       rhs)
       {
-	return stream << null_output();
+        return stream << null_output();
       }
 
     private:

@@ -68,7 +68,7 @@ chroot_facet_source_clonable::get_name () const
 
 void
 chroot_facet_source_clonable::clone_source_setup (chroot const& parent,
-						  chroot::ptr&  clone) const
+                                                  chroot::ptr&  clone) const
 {
   clone->set_description
     (clone->get_description() + ' ' + _("(source chroot)"));
@@ -149,7 +149,7 @@ chroot_facet_source_clonable::set_source_root_groups (string_list const& groups)
 
 void
 chroot_facet_source_clonable::setup_env (chroot const& chroot,
-					 environment&  env) const
+                                         environment&  env) const
 {
 }
 
@@ -175,7 +175,7 @@ chroot_facet_source_clonable::get_used_keys (string_list& used_keys) const
 
 void
 chroot_facet_source_clonable::get_details (chroot const&  chroot,
-					   format_detail& detail) const
+                                           format_detail& detail) const
 {
   detail
     .add(_("Source Users"), get_source_users())
@@ -186,55 +186,55 @@ chroot_facet_source_clonable::get_details (chroot const&  chroot,
 
 void
 chroot_facet_source_clonable::get_keyfile (chroot const& chroot,
-					   keyfile&      keyfile) const
+                                           keyfile&      keyfile) const
 {
   keyfile::set_object_value(*this, &chroot_facet_source_clonable::get_source_clone,
-			    keyfile, chroot.get_name(),
-			    "source-clone");
+                            keyfile, chroot.get_name(),
+                            "source-clone");
 
   keyfile::set_object_list_value(*this, &chroot_facet_source_clonable::get_source_users,
-				 keyfile, chroot.get_name(),
-				 "source-users");
+                                 keyfile, chroot.get_name(),
+                                 "source-users");
 
   keyfile::set_object_list_value(*this, &chroot_facet_source_clonable::get_source_groups,
-				 keyfile, chroot.get_name(),
-				 "source-groups");
+                                 keyfile, chroot.get_name(),
+                                 "source-groups");
 
   keyfile::set_object_list_value(*this, &chroot_facet_source_clonable::get_source_root_users,
-				 keyfile, chroot.get_name(),
-				 "source-root-users");
+                                 keyfile, chroot.get_name(),
+                                 "source-root-users");
 
   keyfile::set_object_list_value(*this, &chroot_facet_source_clonable::get_source_root_groups,
-				 keyfile, chroot.get_name(),
-				 "source-root-groups");
+                                 keyfile, chroot.get_name(),
+                                 "source-root-groups");
 }
 
 void
 chroot_facet_source_clonable::set_keyfile (chroot&        chroot,
-					   keyfile const& keyfile)
+                                           keyfile const& keyfile)
 {
   keyfile::get_object_value(*this, &chroot_facet_source_clonable::set_source_clone,
-			    keyfile, chroot.get_name(),
-			    "source-clone",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, chroot.get_name(),
+                            "source-clone",
+                            keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_list_value(*this, &chroot_facet_source_clonable::set_source_users,
-				 keyfile, chroot.get_name(),
-				 "source-users",
-				 keyfile::PRIORITY_OPTIONAL);
+                                 keyfile, chroot.get_name(),
+                                 "source-users",
+                                 keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_list_value(*this, &chroot_facet_source_clonable::set_source_groups,
-				 keyfile, chroot.get_name(),
-				 "source-groups",
-				 keyfile::PRIORITY_OPTIONAL);
+                                 keyfile, chroot.get_name(),
+                                 "source-groups",
+                                 keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_list_value(*this, &chroot_facet_source_clonable::set_source_root_users,
-				 keyfile, chroot.get_name(),
-				 "source-root-users",
-				 keyfile::PRIORITY_OPTIONAL);
+                                 keyfile, chroot.get_name(),
+                                 "source-root-users",
+                                 keyfile::PRIORITY_OPTIONAL);
 
   keyfile::get_object_list_value(*this, &chroot_facet_source_clonable::set_source_root_groups,
-				 keyfile, chroot.get_name(),
-				 "source-root-groups",
-				 keyfile::PRIORITY_OPTIONAL);
+                                 keyfile, chroot.get_name(),
+                                 "source-root-groups",
+                                 keyfile::PRIORITY_OPTIONAL);
 }

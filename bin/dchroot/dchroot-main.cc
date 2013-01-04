@@ -40,10 +40,10 @@ using namespace dchroot;
 
 main::main (schroot::options_base::ptr& options):
   main_base("dchroot",
-	    // TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
-	    // is an em-dash.
-	    _("[OPTION…] [COMMAND] — run command or shell in a chroot"),
-	    options)
+            // TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
+            // is an em-dash.
+            _("[OPTION…] [COMMAND] — run command or shell in a chroot"),
+            options)
 {
 }
 
@@ -60,6 +60,6 @@ main::create_session (sbuild::session::operation sess_op)
   // not require user or group access.
   this->session = sbuild::session::ptr
     (new dchroot::session("schroot",
-			  sess_op,
-			  this->chroot_objects));
+                          sess_op,
+                          this->chroot_objects));
 }

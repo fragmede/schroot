@@ -75,9 +75,9 @@ chroot_directory::clone () const
 
 sbuild::chroot::ptr
 chroot_directory::clone_session (std::string const& session_id,
-				 std::string const& alias,
-				 std::string const& user,
-				 bool               root) const
+                                 std::string const& alias,
+                                 std::string const& user,
+                                 bool               root) const
 {
   chroot_facet_session_clonable::const_ptr psess
     (get_facet<chroot_facet_session_clonable>());
@@ -111,7 +111,7 @@ chroot_directory::get_path () const
 
 void
 chroot_directory::setup_env (chroot const& chroot,
-			     environment& env) const
+                             environment& env) const
 {
   chroot_directory_base::setup_env(chroot, env);
 }
@@ -126,8 +126,8 @@ chroot_directory::get_chroot_type () const
 
 void
 chroot_directory::setup_lock (chroot::setup_type type,
-			      bool               lock,
-			      int                status)
+                              bool               lock,
+                              int                status)
 {
   /* Create or unlink session information. */
   if ((type == SETUP_START && lock == true) ||
@@ -146,7 +146,7 @@ chroot_directory::get_session_flags (chroot const& chroot) const
 
 void
 chroot_directory::get_details (chroot const&  chroot,
-			       format_detail& detail) const
+                               format_detail& detail) const
 {
   chroot_directory_base::get_details(chroot, detail);
 }
@@ -159,14 +159,14 @@ chroot_directory::get_used_keys (string_list& used_keys) const
 
 void
 chroot_directory::get_keyfile (chroot const& chroot,
-			       keyfile&      keyfile) const
+                               keyfile&      keyfile) const
 {
   chroot_directory_base::get_keyfile(chroot, keyfile);
 }
 
 void
 chroot_directory::set_keyfile (chroot& chroot,
-			       keyfile const& keyfile)
+                               keyfile const& keyfile)
 {
   chroot_directory_base::set_keyfile(chroot, keyfile);
 }

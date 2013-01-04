@@ -22,7 +22,7 @@
 if [ -n "${SETUP_CONFIG}" ]; then
     SETUP_CONFIG="${SYSCONF_DIR}/${SETUP_CONFIG}"
     if [ -f "$SETUP_CONFIG" ]; then
-	. "$SETUP_CONFIG"
+        . "$SETUP_CONFIG"
     fi
 fi
 # Source script-config if set.  If the file is no longer present
@@ -32,7 +32,7 @@ if [ -n "$CHROOT_SCRIPT_CONFIG" ]; then
     COPYFILES="$(dirname "$CHROOT_SCRIPT_CONFIG")/copyfiles"
     NSSDATABASES="$(dirname "$CHROOT_SCRIPT_CONFIG")/nssdatabases"
     if [ -f "$CHROOT_SCRIPT_CONFIG" ]; then
-	. "$CHROOT_SCRIPT_CONFIG"
+        . "$CHROOT_SCRIPT_CONFIG"
     fi
 fi
 

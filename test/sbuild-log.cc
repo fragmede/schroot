@@ -78,7 +78,7 @@ public:
 
   std::string
   debug(sbuild::debug_level level,
-	std::string const& msg)
+        std::string const& msg)
   {
     this->monitor->str("");
     sbuild::log_debug(level) << msg;
@@ -99,60 +99,60 @@ public:
   {
     sbuild::debug_log_level = sbuild::DEBUG_NOTICE;
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NONE,
-			 "Discard me") == "");
+                         "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NOTICE,
-			 "Discard me") == "D(1): Discard me");
+                         "Discard me") == "D(1): Discard me");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_INFO,
-			 "Discard me") == "D(2): Discard me");
+                         "Discard me") == "D(2): Discard me");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_WARNING,
-			 "Discard me") == "D(3): Discard me");
+                         "Discard me") == "D(3): Discard me");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_CRITICAL,
-			 "Discard me") == "D(4): Discard me");
+                         "Discard me") == "D(4): Discard me");
   }
 
   void test_debug_info()
   {
     sbuild::debug_log_level = sbuild::DEBUG_INFO;
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NONE,
-			 "Discard me") == "");
+                         "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NOTICE,
-			 "Discard me") == "");
+                         "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_INFO,
-			 "Discard me") == "D(2): Discard me");
+                         "Discard me") == "D(2): Discard me");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_WARNING,
-			 "Discard me") == "D(3): Discard me");
+                         "Discard me") == "D(3): Discard me");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_CRITICAL,
-			 "Discard me") == "D(4): Discard me");
+                         "Discard me") == "D(4): Discard me");
   }
 
   void test_debug_warning()
   {
     sbuild::debug_log_level = sbuild::DEBUG_WARNING;
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NONE,
-			 "Discard me") == "");
+                         "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NOTICE,
-			 "Discard me") == "");
+                         "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_INFO,
-			 "Discard me") == "");
+                         "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_WARNING,
-			 "Discard me") == "D(3): Discard me");
+                         "Discard me") == "D(3): Discard me");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_CRITICAL,
-			 "Discard me") == "D(4): Discard me");
+                         "Discard me") == "D(4): Discard me");
   }
 
   void test_debug_critical()
   {
     sbuild::debug_log_level = sbuild::DEBUG_CRITICAL;
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NONE,
-			 "Discard me") == "");
+                         "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_NOTICE,
-			 "Discard me") == "");
+                         "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_INFO,
-			 "Discard me") == "");
+                         "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_WARNING,
-			 "Discard me") == "");
+                         "Discard me") == "");
     CPPUNIT_ASSERT(debug(sbuild::DEBUG_CRITICAL,
-			 "Discard me") == "D(4): Discard me");
+                         "Discard me") == "D(4): Discard me");
   }
 };
 

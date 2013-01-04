@@ -46,10 +46,10 @@ do_mount()
     info "Mounting $2 on $3"
 
     if [ ! -d "$3" ]; then
-	mkdir -p "$3"
+        mkdir -p "$3"
     fi
     if [ ! -d "$3" ]; then
-	fatal "$3 does not exist, and could not be created"
+        fatal "$3 does not exist, and could not be created"
     fi
 
     info "$MOUNT_VERBOSE $1 $2 $3"
@@ -62,30 +62,30 @@ if [ "$CHROOT_TYPE" = "custom" ] && [ -n "$CUSTOM_DIR" ]; then
 
         info "CUSTOM SETUP using $CUSTOM_DIR"
 
-	case "$HOST_OS" in
-	    freebsd* | k*bsd*-gnu) :
-		BINDOPT="-t nullfs"
-		;;
-	    *):
-		BINDOPT="--bind"
-		;;
-	esac
+        case "$HOST_OS" in
+            freebsd* | k*bsd*-gnu) :
+                BINDOPT="-t nullfs"
+                ;;
+            *):
+                BINDOPT="--bind"
+                ;;
+        esac
 
-	CHROOT_MOUNT_OPTIONS="$BINDOPT $CHROOT_MOUNT_OPTIONS"
-	CHROOT_MOUNT_DEVICE="$CUSTOM_DIR"
+        CHROOT_MOUNT_OPTIONS="$BINDOPT $CHROOT_MOUNT_OPTIONS"
+        CHROOT_MOUNT_DEVICE="$CUSTOM_DIR"
 
-	if [ ! -d "$CUSTOM_DIR" ]; then
-	    fatal "Directory '$CUSTOM_DIR' does not exist"
-	fi
+        if [ ! -d "$CUSTOM_DIR" ]; then
+            fatal "Directory '$CUSTOM_DIR' does not exist"
+        fi
 
         if [ ! -d "$CHROOT_MOUNT_LOCATION" ]; then
-	    mkdir -p "$CHROOT_MOUNT_LOCATION"
+            mkdir -p "$CHROOT_MOUNT_LOCATION"
         fi
-	if [ ! -d "$CHROOT_MOUNT_LOCATION" ]; then
-	    fatal "$CHROOT_MOUNT_LOCATION does not exist, and could not be created"
-	fi
+        if [ ! -d "$CHROOT_MOUNT_LOCATION" ]; then
+            fatal "$CHROOT_MOUNT_LOCATION does not exist, and could not be created"
+        fi
 
-	do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
+        do_mount "$CHROOT_MOUNT_OPTIONS" "$CHROOT_MOUNT_DEVICE" "$CHROOT_MOUNT_LOCATION"
 
     fi
 

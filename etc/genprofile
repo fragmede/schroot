@@ -32,13 +32,13 @@ mkdir "$DESTDIR"
 
 for file in copyfiles fstab nssdatabases; do
     for profile in all "$PROFILE"; do
-	for arch in all "$PLATFORM"; do
-	    FILE="${SRCDIR}/${profile}/${arch}/${file}"
-	    if [ -f "$FILE" ]; then
-		echo "Including $FILE"
-		cat $FILE >> "${DESTDIR}/${file}"
-	    fi
-	done
+        for arch in all "$PLATFORM"; do
+            FILE="${SRCDIR}/${profile}/${arch}/${file}"
+            if [ -f "$FILE" ]; then
+                echo "Including $FILE"
+                cat $FILE >> "${DESTDIR}/${file}"
+            fi
+        done
     done
     echo "Wrote ${DESTDIR}/${file}"
 done

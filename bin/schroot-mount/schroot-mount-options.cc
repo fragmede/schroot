@@ -99,5 +99,5 @@ options::check_options ()
 
   if (this->action == ACTION_MOUNT &&
       this->mountpoint.empty())
-	throw error(_("No mount point specified"));
+        throw error(_("No mount point specified"));
 }

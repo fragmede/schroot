@@ -47,7 +47,7 @@ error<parse_value_error_code>::error_strings
 
 void
 sbuild::parse_value (std::string const& value,
-		     bool&              parsed_value)
+                     bool&              parsed_value)
 {
   if (value == "true" || value == "yes" || value == "1")
     parsed_value = true;
@@ -64,7 +64,7 @@ sbuild::parse_value (std::string const& value,
 
 void
 sbuild::parse_value (std::string const& value,
-		     std::string&       parsed_value)
+                     std::string&       parsed_value)
 {
   parsed_value = value;
   log_debug(DEBUG_NOTICE) << "value=" << parsed_value << std::endl;

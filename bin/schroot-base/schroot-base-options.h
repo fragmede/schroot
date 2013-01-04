@@ -60,7 +60,7 @@ namespace schroot_base
     {
     public:
       error(std::string const& error):
-	runtime_error(error)
+        runtime_error(error)
       {
       }
 
@@ -82,7 +82,7 @@ namespace schroot_base
      */
     void
     parse (int   argc,
-	   char *argv[]);
+           char *argv[]);
 
     /// Display program help.
     static const action_type ACTION_HELP;

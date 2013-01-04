@@ -40,41 +40,41 @@ kill_proc()
 do_kill_all()
 {
     if [ -z "$1" ]; then
-	fatal "No path for finding stray processes: not reaping processes in chroot"
+        fatal "No path for finding stray processes: not reaping processes in chroot"
     fi
 
     info "Killing processes run inside $1"
     ls /proc | egrep '^[[:digit:]]+$' |
     while read pid; do
-	# Check if process root are the same device/inode as chroot
-	# root (for efficiency)
+        # Check if process root are the same device/inode as chroot
+        # root (for efficiency)
         if [ /proc/"$pid"/root -ef "$1" ]; then
-	    # Check if process and chroot root are the same (may be
-	    # different even if device/inode match).
-	    root=$(readlink /proc/"$pid"/root || true)
-	    if [ "$root" = "$1" ]; then
-		exe=$(readlink /proc/"$pid"/exe || true)
-		info "Killing left-over pid $pid (${exe##$1})"
-		info "  Sending SIGTERM to pid $pid"
+            # Check if process and chroot root are the same (may be
+            # different even if device/inode match).
+            root=$(readlink /proc/"$pid"/root || true)
+            if [ "$root" = "$1" ]; then
+                exe=$(readlink /proc/"$pid"/exe || true)
+                info "Killing left-over pid $pid (${exe##$1})"
+                info "  Sending SIGTERM to pid $pid"
 
-		kill_proc -TERM "$pid"
+                kill_proc -TERM "$pid"
 
-		count=0
-		max=5
-		while [ -d /proc/"$pid" ]; do
+                count=0
+                max=5
+                while [ -d /proc/"$pid" ]; do
                     count=$(( $count + 1 ))
                     info "  Waiting for pid $pid to shut down... ($count/$max)"
                     sleep 1
                 # Wait for $max seconds for process to die before -9'ing it
                     if [ "$count" -eq "$max" ]; then
-			info "  Sending SIGKILL to pid $pid"
-			kill_proc -KILL "$pid"
-			sleep 1
-			break
+                        info "  Sending SIGKILL to pid $pid"
+                        kill_proc -KILL "$pid"
+                        sleep 1
+                        break
                     fi
-		done
+                done
             fi
-	fi
+        fi
     done
 }
 

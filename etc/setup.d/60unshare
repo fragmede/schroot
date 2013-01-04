@@ -31,8 +31,8 @@ set -e
 if [ $STAGE = "exec-start" ]; then
 
     if [ "$UNSHARE_NEWNET" = "true" ]; then
-	info "Bringing up netdev lo"
-	ip link set dev lo up
+        info "Bringing up netdev lo"
+        ip link set dev lo up
     fi
 
 fi

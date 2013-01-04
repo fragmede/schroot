@@ -31,40 +31,40 @@ if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
 
     if [ $STAGE = "setup-start" ]; then
 
-	if [ ! "$DEVTYPE" "$CHROOT_DEVICE" ]; then
-	    fatal "Device '$CHROOT_DEVICE' does not exist"
-	fi
+        if [ ! "$DEVTYPE" "$CHROOT_DEVICE" ]; then
+            fatal "Device '$CHROOT_DEVICE' does not exist"
+        fi
 
-	if [ "$VERBOSE" = "verbose" ]; then
-	    lvcreate $LVM_VERBOSE --snapshot --name "$CHROOT_LVM_SNAPSHOT_NAME" \
-		"$CHROOT_DEVICE" $CHROOT_LVM_SNAPSHOT_OPTIONS
-	else
-	    lvcreate $LVM_VERBOSE --snapshot --name "$CHROOT_LVM_SNAPSHOT_NAME" \
-		"$CHROOT_DEVICE" $CHROOT_LVM_SNAPSHOT_OPTIONS > /dev/null
-	fi
+        if [ "$VERBOSE" = "verbose" ]; then
+            lvcreate $LVM_VERBOSE --snapshot --name "$CHROOT_LVM_SNAPSHOT_NAME" \
+                "$CHROOT_DEVICE" $CHROOT_LVM_SNAPSHOT_OPTIONS
+        else
+            lvcreate $LVM_VERBOSE --snapshot --name "$CHROOT_LVM_SNAPSHOT_NAME" \
+                "$CHROOT_DEVICE" $CHROOT_LVM_SNAPSHOT_OPTIONS > /dev/null
+        fi
 
     elif [ $STAGE = "setup-stop" ]; then
 
-	if [ "$DEVTYPE" "$CHROOT_LVM_SNAPSHOT_DEVICE" ]; then
+        if [ "$DEVTYPE" "$CHROOT_LVM_SNAPSHOT_DEVICE" ]; then
             # The lock needs to be dropped immediately before
             # destroying the device.  There is a small race here, but
             # the lock can't be dropped once the device has been
             # removed.
-	    info "Removing device lock for $CHROOT_LVM_SNAPSHOT_DEVICE, owned by pid $PID"
+            info "Removing device lock for $CHROOT_LVM_SNAPSHOT_DEVICE, owned by pid $PID"
             "$LIBEXEC_DIR/schroot-releaselock" \
-		--device="$CHROOT_LVM_SNAPSHOT_DEVICE" \
-		--pid=$PID || true
+                --device="$CHROOT_LVM_SNAPSHOT_DEVICE" \
+                --pid=$PID || true
 
-	    if [ "$VERBOSE" = "verbose" ]; then
-		lvremove $LVM_VERBOSE -f "$CHROOT_LVM_SNAPSHOT_DEVICE" || true
-	    else
-		lvremove $LVM_VERBOSE -f "$CHROOT_LVM_SNAPSHOT_DEVICE" > /dev/null || true
-	    fi
-	else
-	    # The block device no longer exists, or was never created,
-	    # for example on lvcreate failure.
-	    warn "$CHROOT_LVM_SNAPSHOT_DEVICE does not exist (it may have been removed previously)"
-	fi
+            if [ "$VERBOSE" = "verbose" ]; then
+                lvremove $LVM_VERBOSE -f "$CHROOT_LVM_SNAPSHOT_DEVICE" || true
+            else
+                lvremove $LVM_VERBOSE -f "$CHROOT_LVM_SNAPSHOT_DEVICE" > /dev/null || true
+            fi
+        else
+            # The block device no longer exists, or was never created,
+            # for example on lvcreate failure.
+            warn "$CHROOT_LVM_SNAPSHOT_DEVICE does not exist (it may have been removed previously)"
+        fi
 
     fi
 

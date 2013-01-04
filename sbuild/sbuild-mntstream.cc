@@ -110,15 +110,15 @@ mntstream::read(int quantity)
       entry = getmntent(mntfile);
 
       if (entry == 0) // EOF or error
-	{
-	  //std::cerr << "Mount file read error: ";
-	  if (errno) // error
-	    {
-	      this->error_status = true;
-	      throw error(this->file, MNT_READ, strerror(errno));
-	    }
-	  return;
-	}
+        {
+          //std::cerr << "Mount file read error: ";
+          if (errno) // error
+            {
+              this->error_status = true;
+              throw error(this->file, MNT_READ, strerror(errno));
+            }
+          return;
+        }
 
       mntentry newentry(*entry); // make a mntentry
       this->data.push_back(newentry); // push onto the end of the list
@@ -130,8 +130,8 @@ mntstream::close()
 {
   if (this->mntfile)
     endmntent(this->mntfile); // don't throw an exception on failure
-			      // -- it could be called in the
-			      // destructor
+                              // -- it could be called in the
+                              // destructor
   this->mntfile = 0;
   this->data.clear();    // clear all data
   this->file.clear();
@@ -166,7 +166,7 @@ mntstream::operator ! ()
 
 mntstream&
 sbuild::operator >> (mntstream&            stream,
-		     mntstream::mntentry&  entry)
+                     mntstream::mntentry&  entry)
 {
   stream.read(); // read a new entry
   if (stream && !stream.data.empty()) // not at end of file or bad.
