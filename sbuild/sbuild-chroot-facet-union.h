@@ -40,9 +40,9 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
-	UNION_TYPE_UNKNOWN, ///< Unknown filesystem union type.
-	UNION_OVERLAY_ABS,  ///< Union overlay must have an absolute path.
-	UNION_UNDERLAY_ABS  ///< Union underlay must have an absolute path.
+        UNION_TYPE_UNKNOWN, ///< Unknown filesystem union type.
+        UNION_OVERLAY_ABS,  ///< Union overlay must have an absolute path.
+        UNION_UNDERLAY_ABS  ///< Union underlay must have an absolute path.
       };
 
     /// Exception type.
@@ -161,23 +161,23 @@ namespace sbuild
 
     virtual void
     setup_env (chroot const& chroot,
-	       environment&  env) const;
+               environment&  env) const;
 
     virtual chroot::session_flags
     get_session_flags (chroot const& chroot) const;
 
     virtual void
     get_details (chroot const&  chroot,
-		 format_detail& detail) const;
+                 format_detail& detail) const;
 
     virtual void
     get_keyfile (chroot const& chroot,
-		 keyfile&      keyfile) const;
+                 keyfile&      keyfile) const;
 
     virtual void
     set_keyfile (chroot&        chroot,
-		 keyfile const& keyfile,
-		 string_list&   used_keys);
+                 keyfile const& keyfile,
+                 string_list&   used_keys);
 
   private:
     /// filesystem union type.

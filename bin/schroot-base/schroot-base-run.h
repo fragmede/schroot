@@ -49,34 +49,34 @@ namespace schroot_base
 
     try
       {
-	// Set up locale.
-	try
-	  {
-	    std::locale::global(std::locale(""));
-	  }
-	catch (std::runtime_error const& e) // Invalid locale
-	  {
-	    std::locale::global(std::locale::classic());
-	  }
-	std::cout.imbue(std::locale());
-	std::cerr.imbue(std::locale());
+        // Set up locale.
+        try
+          {
+            std::locale::global(std::locale(""));
+          }
+        catch (std::runtime_error const& e) // Invalid locale
+          {
+            std::locale::global(std::locale::classic());
+          }
+        std::cout.imbue(std::locale());
+        std::cerr.imbue(std::locale());
 
-	bindtextdomain (SBUILD_MESSAGE_CATALOGUE, LOCALEDIR);
-	textdomain (SBUILD_MESSAGE_CATALOGUE);
+        bindtextdomain (SBUILD_MESSAGE_CATALOGUE, LOCALEDIR);
+        textdomain (SBUILD_MESSAGE_CATALOGUE);
 
-	typename options_type::ptr opts(new options_type);
-	main_type kit(opts);
-	exit (kit.run(argc, argv));
+        typename options_type::ptr opts(new options_type);
+        main_type kit(opts);
+        exit (kit.run(argc, argv));
       }
     catch (std::exception const& e)
       {
-	sbuild::log_exception_error(e);
-	exit(EXIT_FAILURE);
+        sbuild::log_exception_error(e);
+        exit(EXIT_FAILURE);
       }
     catch (...)
       {
-	sbuild::log_unknown_exception_error();
-	exit(EXIT_FAILURE);
+        sbuild::log_unknown_exception_error();
+        exit(EXIT_FAILURE);
       }
   }
 

@@ -106,7 +106,7 @@ public:
   test_construction()
   {
     const char *items[] = {"TERM=wy50", "SHELL=/bin/sh",
-			   "USER=root", "COLUMNS=80", 0};
+                           "USER=root", "COLUMNS=80", 0};
     sbuild::environment e(const_cast<char **>(&items[0]));
 
     CPPUNIT_ASSERT(e.size() == 4);
@@ -118,7 +118,7 @@ public:
   test_add_strv()
   {
     const char *items[] = {"TERM=wy50", "SHELL=/bin/sh",
-			   "USER=root", "COLUMNS=80", 0};
+                           "USER=root", "COLUMNS=80", 0};
     sbuild::environment e;
     e.add(const_cast<char **>(&items[0]));
 
@@ -202,7 +202,7 @@ public:
   test_remove_strv()
   {
     const char *items[] = {"SHELL=/bin/bash",
-			   "COLUMNS=160", 0};
+                           "COLUMNS=160", 0};
     this->env->remove(const_cast<char **>(&items[0]));
 
     CPPUNIT_ASSERT(this->env->size() == 2);
@@ -373,10 +373,10 @@ public:
     os << *this->env;
 
     CPPUNIT_ASSERT(os.str() ==
-		   "COLUMNS=80\n"
-		   "SHELL=/bin/sh\n"
-		   "TERM=wy50\n"
-		   "USER=root\n");
+                   "COLUMNS=80\n"
+                   "SHELL=/bin/sh\n"
+                   "TERM=wy50\n"
+                   "USER=root\n");
   }
 };
 

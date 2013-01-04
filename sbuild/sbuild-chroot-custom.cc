@@ -58,9 +58,9 @@ chroot_custom::clone () const
 
 sbuild::chroot::ptr
 chroot_custom::clone_session (std::string const& session_id,
-			      std::string const& alias,
-			      std::string const& user,
-			      bool               root) const
+                              std::string const& alias,
+                              std::string const& user,
+                              bool               root) const
 {
   chroot_facet_session_clonable::const_ptr psess
     (get_facet<chroot_facet_session_clonable>());
@@ -126,7 +126,7 @@ chroot_custom::get_path () const
 
 void
 chroot_custom::setup_env (chroot const& chroot,
-			  environment& env) const
+                          environment& env) const
 {
   chroot::setup_env(chroot, env);
 }
@@ -141,8 +141,8 @@ chroot_custom::get_chroot_type () const
 
 void
 chroot_custom::setup_lock (chroot::setup_type type,
-			   bool               lock,
-			   int                status)
+                           bool               lock,
+                           int                status)
 {
   /* By default, custom chroots do no locking. */
   /* Create or unlink session information. */
@@ -171,48 +171,48 @@ chroot_custom::get_session_flags (chroot const& chroot) const
 
 void
 chroot_custom::get_details (chroot const&  chroot,
-			    format_detail& detail) const
+                            format_detail& detail) const
 {
   chroot::get_details(chroot, detail);
 }
 
 void
 chroot_custom::get_keyfile (chroot const& chroot,
-			    keyfile&      keyfile) const
+                            keyfile&      keyfile) const
 {
   chroot::get_keyfile(chroot, keyfile);
 
   keyfile::set_object_value(*this,
-			    &chroot_custom::get_session_purgeable,
-			    keyfile, get_name(),
-			    "custom-session-purgeable");
+                            &chroot_custom::get_session_purgeable,
+                            keyfile, get_name(),
+                            "custom-session-purgeable");
 }
 
 void
 chroot_custom::set_keyfile (chroot& chroot,
-			    keyfile const& keyfile,
-			    string_list&   used_keys)
+                            keyfile const& keyfile,
+                            string_list&   used_keys)
 {
   chroot::set_keyfile(chroot, keyfile, used_keys);
 
   bool session = static_cast<bool>(get_facet<chroot_facet_session>());
 
   keyfile::get_object_value(*this, &chroot_custom::set_session_cloneable,
-			    keyfile, get_name(), "custom-session-cloneable",
-			    session ?
-			    keyfile::PRIORITY_DISALLOWED :
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, get_name(), "custom-session-cloneable",
+                            session ?
+                            keyfile::PRIORITY_DISALLOWED :
+                            keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("custom-cloneable");
 
   keyfile::get_object_value(*this, &chroot_custom::set_session_purgeable,
-			    keyfile, get_name(), "custom-session-purgeable",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, get_name(), "custom-session-purgeable",
+                            keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("custom-purgeable");
 
   keyfile::get_object_value(*this, &chroot_custom::set_source_cloneable,
-			    keyfile, get_name(), "custom-source-cloneable",
-			    session ?
-			    keyfile::PRIORITY_DISALLOWED :
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, get_name(), "custom-source-cloneable",
+                            session ?
+                            keyfile::PRIORITY_DISALLOWED :
+                            keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("custom-source-cloneable");
 }

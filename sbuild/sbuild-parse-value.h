@@ -45,7 +45,7 @@ namespace sbuild
    */
   void
   parse_value (std::string const& value,
-	       bool&              parsed_value);
+               bool&              parsed_value);
 
   /**
    * Parse a string value.
@@ -55,7 +55,7 @@ namespace sbuild
    */
   void
   parse_value (std::string const& value,
-	       std::string&       parsed_value);
+               std::string&       parsed_value);
 
   /**
    * Parse a value of type T.
@@ -66,20 +66,20 @@ namespace sbuild
   template <typename T>
   void
   parse_value (std::string const& value,
-	       T& parsed_value)
+               T& parsed_value)
   {
     std::istringstream is(value);
     is.imbue(std::locale::classic());
     T tmpval;
     if (is >> tmpval)
       {
-	parsed_value = tmpval;
-	log_debug(DEBUG_NOTICE) << "value=" << parsed_value << std::endl;
+        parsed_value = tmpval;
+        log_debug(DEBUG_NOTICE) << "value=" << parsed_value << std::endl;
       }
     else
       {
-	log_debug(DEBUG_NOTICE) << "parse error" << std::endl;
-	throw parse_value_error(value, BAD_VALUE);
+        log_debug(DEBUG_NOTICE) << "parse error" << std::endl;
+        throw parse_value_error(value, BAD_VALUE);
       }
   }
 

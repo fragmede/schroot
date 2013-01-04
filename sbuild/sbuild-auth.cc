@@ -116,9 +116,9 @@ auth::set_ruser (uid_t ruid)
   if (!pwent)
     {
       if (errno)
-	throw error(ruid, USER, strerror(errno));
+        throw error(ruid, USER, strerror(errno));
       else
-	throw error(ruid, USER);
+        throw error(ruid, USER);
     }
 
   set_ruser(pwent);
@@ -131,9 +131,9 @@ auth::set_ruser (std::string const& ruser)
   if (!pwent)
     {
       if (errno)
-	throw error(ruser, USER, strerror(errno));
+        throw error(ruser, USER, strerror(errno));
       else
-	throw error(ruser, USER);
+        throw error(ruser, USER);
     }
 
   set_ruser(pwent);
@@ -146,9 +146,9 @@ auth::set_ruser (passwd const& rpwent)
   if (!grent)
     {
       if (errno)
-	throw error(rpwent.pw_gid, GROUP, strerror(errno));
+        throw error(rpwent.pw_gid, GROUP, strerror(errno));
       else
-	throw error(rpwent.pw_gid, GROUP);
+        throw error(rpwent.pw_gid, GROUP);
     }
   this->ruid = rpwent.pw_uid;
   this->rgid = rpwent.pw_gid;
@@ -185,9 +185,9 @@ auth::set_user (uid_t uid)
   if (!pwent)
     {
       if (errno)
-	throw error(uid, USER, strerror(errno));
+        throw error(uid, USER, strerror(errno));
       else
-	throw error(uid, USER);
+        throw error(uid, USER);
     }
 
   set_user(pwent);
@@ -200,9 +200,9 @@ auth::set_user (std::string const& user)
   if (!pwent)
     {
       if (errno)
-	throw error(user, USER, strerror(errno));
+        throw error(user, USER, strerror(errno));
       else
-	throw error(user, USER);
+        throw error(user, USER);
     }
 
   set_user(pwent);

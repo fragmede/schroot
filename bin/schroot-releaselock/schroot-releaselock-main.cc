@@ -68,11 +68,11 @@ sbuild::error<main::error_code>::error_strings
 
 main::main (options::ptr& options):
   schroot_base::main("schroot-releaselock",
-		     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-		     // and '-' is an em-dash.
-		     _("[OPTION…] — release a device lock"),
-		     options,
-		     false),
+                     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+                     // and '-' is an em-dash.
+                     _("[OPTION…] — release a device lock"),
+                     options,
+                     false),
   opts(options)
 {
 }
@@ -87,7 +87,7 @@ main::action_releaselock ()
   if (this->opts->pid == 0)
     {
       sbuild::log_warning() << _("No PID specified; forcing release of lock")
-			    << endl;
+                            << endl;
     }
 
   struct stat statbuf;

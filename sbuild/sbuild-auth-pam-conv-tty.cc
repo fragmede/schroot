@@ -91,7 +91,7 @@ namespace
    */
   bool
   set_alarm (int delay,
-	     struct sigaction *orig_sa)
+             struct sigaction *orig_sa)
   {
     struct sigaction new_sa;
     sigemptyset(&new_sa.sa_mask);
@@ -100,12 +100,12 @@ namespace
 
     if (sigaction(SIGALRM, &new_sa, orig_sa) != 0)
       {
-	return false;
+        return false;
       }
     if (alarm(delay) != 0)
       {
-	sigaction(SIGALRM, orig_sa, 0);
-	return false;
+        sigaction(SIGALRM, orig_sa, 0);
+        return false;
       }
 
     return true;
@@ -189,7 +189,7 @@ auth_pam_conv_tty::get_delay ()
       error e(TIMEOUT_PENDING);
       log_ctty_exception_warning(e);
       return (this->fatal_timeout ?
-	      this->fatal_timeout - this->start_time : 0);
+              this->fatal_timeout - this->start_time : 0);
     }
 
   if (this->warning_timeout != 0)
@@ -202,7 +202,7 @@ auth_pam_conv_tty::get_delay ()
 
 std::string
 auth_pam_conv_tty::read_string (std::string message,
-				bool        echo)
+                                bool        echo)
 {
   if (CTTY_FILENO < 0)
     throw error(CTTY);
@@ -218,12 +218,12 @@ auth_pam_conv_tty::read_string (std::string message,
       use_termios = true;
 
       if (tcgetattr(CTTY_FILENO, &orig_termios) != 0)
-	throw error(TERMIOS);
+        throw error(TERMIOS);
 
       memcpy(&noecho_termios, &orig_termios, sizeof(struct termios));
 
       if (echo == false)
-	noecho_termios.c_lflag &= ~(ECHO);
+        noecho_termios.c_lflag &= ~(ECHO);
 
       sigemptyset(&new_sigs);
       sigaddset(&new_sigs, SIGINT);
@@ -240,47 +240,47 @@ auth_pam_conv_tty::read_string (std::string message,
       cctty << message << std::flush;
 
       if (use_termios == true)
-	tcsetattr(CTTY_FILENO, TCSAFLUSH, &noecho_termios);
+        tcsetattr(CTTY_FILENO, TCSAFLUSH, &noecho_termios);
 
       if (delay > 0 && set_alarm(delay, &saved_signals) == false)
-	break;
+        break;
       else
-	{
-	  int nchars = read(CTTY_FILENO, input, PAM_MAX_MSG_SIZE - 1);
-	  if (use_termios)
-	    {
-	      tcsetattr(CTTY_FILENO, TCSADRAIN, &orig_termios);
-	      if (echo == false && timer_expired == true)
-		cctty << endl;
-	    }
-	  if (delay > 0)
-	    reset_alarm(&saved_signals);
-	  if (timer_expired == true)
-	    {
-	      delay = get_delay();
-	    }
-	  else if (nchars > 0)
-	    {
-	      if (echo == false)
-		cctty << endl;
+        {
+          int nchars = read(CTTY_FILENO, input, PAM_MAX_MSG_SIZE - 1);
+          if (use_termios)
+            {
+              tcsetattr(CTTY_FILENO, TCSADRAIN, &orig_termios);
+              if (echo == false && timer_expired == true)
+                cctty << endl;
+            }
+          if (delay > 0)
+            reset_alarm(&saved_signals);
+          if (timer_expired == true)
+            {
+              delay = get_delay();
+            }
+          else if (nchars > 0)
+            {
+              if (echo == false)
+                cctty << endl;
 
-	      if (input[nchars-1] == '\n')
-		input[--nchars] = '\0';
-	      else
-		input[nchars] = '\0';
+              if (input[nchars-1] == '\n')
+                input[--nchars] = '\0';
+              else
+                input[nchars] = '\0';
 
-	      retval = input;
-	      break;
-	    }
-	  else if (nchars == 0)
-	    {
-	      if (echo == false)
-		cctty << endl;
+              retval = input;
+              break;
+            }
+          else if (nchars == 0)
+            {
+              if (echo == false)
+                cctty << endl;
 
-	      retval = "";
-	      break;
-	    }
-	}
+              retval = "";
+              break;
+            }
+        }
     }
 
   memset(input, 0, sizeof(input));
@@ -304,27 +304,27 @@ auth_pam_conv_tty::conversation (auth_pam_conv::message_list& messages)
        ++cur)
     {
       switch (cur->type)
-	{
-	case auth_pam_message::MESSAGE_PROMPT_NOECHO:
-	  log_debug(DEBUG_NOTICE) << "PAM TTY input prompt (noecho)" << endl;
-	  cur->response = read_string(cur->message, false);
-	  break;
-	case auth_pam_message::MESSAGE_PROMPT_ECHO:
-	  log_debug(DEBUG_NOTICE) << "PAM TTY input prompt (echo)" << endl;
-	  cur->response = read_string(cur->message, true);
-	  break;
-	case auth_pam_message::MESSAGE_ERROR:
-	  log_debug(DEBUG_NOTICE) << "PAM TTY output error" << endl;
-	  log_ctty_error() << cur->message << endl;
-	  break;
-	case auth_pam_message::MESSAGE_INFO:
-	  log_debug(DEBUG_NOTICE) << "PAM TTY output info" << endl;
-	  log_ctty_info() << cur->message << endl;
-	  break;
-	default:
-	  throw error(cur->type, CONV_TYPE);
-	  break;
-	}
+        {
+        case auth_pam_message::MESSAGE_PROMPT_NOECHO:
+          log_debug(DEBUG_NOTICE) << "PAM TTY input prompt (noecho)" << endl;
+          cur->response = read_string(cur->message, false);
+          break;
+        case auth_pam_message::MESSAGE_PROMPT_ECHO:
+          log_debug(DEBUG_NOTICE) << "PAM TTY input prompt (echo)" << endl;
+          cur->response = read_string(cur->message, true);
+          break;
+        case auth_pam_message::MESSAGE_ERROR:
+          log_debug(DEBUG_NOTICE) << "PAM TTY output error" << endl;
+          log_ctty_error() << cur->message << endl;
+          break;
+        case auth_pam_message::MESSAGE_INFO:
+          log_debug(DEBUG_NOTICE) << "PAM TTY output info" << endl;
+          log_ctty_info() << cur->message << endl;
+          break;
+        default:
+          throw error(cur->type, CONV_TYPE);
+          break;
+        }
     }
 
   log_debug(DEBUG_NOTICE) << "PAM TTY conversation handler ended" << endl;

@@ -61,18 +61,18 @@ public:
   void setUp()
   {
     std::istringstream is("# Comment\n"
-			  "[group1]\n"
-			  "name=Fred Walker\n"
-			  "age=32\n"
-			  "# Test item comment\n"
-			  "#\n"
-			  "# spanning multiple lines\n"
-			  "numbers=1,2,3,4,5,6\n"
-			  "\n"
-			  "[group2]\n"
-			  "name=Mary King\n"
-			  "age=43\n"
-			  "photo=mary.jpeg\n");
+                          "[group1]\n"
+                          "name=Fred Walker\n"
+                          "age=32\n"
+                          "# Test item comment\n"
+                          "#\n"
+                          "# spanning multiple lines\n"
+                          "numbers=1,2,3,4,5,6\n"
+                          "\n"
+                          "[group2]\n"
+                          "name=Mary King\n"
+                          "age=43\n"
+                          "photo=mary.jpeg\n");
     this->kf = new sbuild::keyfile(is);
   }
 
@@ -224,7 +224,7 @@ public:
     std::vector<int> found;
 
     this->kf->set_list_value("listgroup", "numbers2",
-			     expected.begin(), expected.end());
+                             expected.begin(), expected.end());
     CPPUNIT_ASSERT(this->kf->get_list_value("listgroup", "numbers2", found) == true);
     CPPUNIT_ASSERT(found == expected);
   }
@@ -264,19 +264,19 @@ public:
     os << *this->kf;
 
     CPPUNIT_ASSERT(os.str() ==
-		   "# Comment\n"
-		   "[group1]\n"
-		   "age=32\n"
-		   "name=Fred Walker\n"
-		   "# Test item comment\n"
-		   "#\n"
-		   "# spanning multiple lines\n"
-		   "numbers=1,2,3,4,5,6\n"
-		   "\n"
-		   "[group2]\n"
-		   "age=43\n"
-		   "name=Mary King\n"
-		   "photo=mary.jpeg\n");
+                   "# Comment\n"
+                   "[group1]\n"
+                   "age=32\n"
+                   "name=Fred Walker\n"
+                   "# Test item comment\n"
+                   "#\n"
+                   "# spanning multiple lines\n"
+                   "numbers=1,2,3,4,5,6\n"
+                   "\n"
+                   "[group2]\n"
+                   "age=43\n"
+                   "name=Mary King\n"
+                   "photo=mary.jpeg\n");
   }
 
 };

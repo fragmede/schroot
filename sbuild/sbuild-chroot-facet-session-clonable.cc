@@ -80,11 +80,11 @@ chroot_facet_session_clonable::get_name () const
 
 void
 chroot_facet_session_clonable::clone_session_setup (chroot const&      parent,
-						    chroot::ptr&       clone,
-						    std::string const& session_id,
-						    std::string const& alias,
-						    std::string const& user,
-						    bool               root) const
+                                                    chroot::ptr&       clone,
+                                                    std::string const& session_id,
+                                                    std::string const& alias,
+                                                    std::string const& user,
+                                                    bool               root) const
 {
   // Disable session cloning.
   clone->remove_facet<chroot_facet_session_clonable>();
@@ -135,10 +135,10 @@ chroot_facet_session_clonable::clone_session_setup (chroot const&      parent,
 
     if (clone->get_mount_location().empty() && !plain)
       {
-	log_debug(DEBUG_NOTICE) << "Setting mount location" << endl;
-	std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
-			     session_id);
-	clone->set_mount_location(location);
+        log_debug(DEBUG_NOTICE) << "Setting mount location" << endl;
+        std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
+                             session_id);
+        clone->set_mount_location(location);
       }
   }
 
@@ -154,9 +154,9 @@ chroot_facet_session_clonable::clone_session_setup (chroot const&      parent,
   if (blockdevbase)
     {
       chroot_facet_mountable::ptr pmnt
-	(clone->get_facet<chroot_facet_mountable>());
+        (clone->get_facet<chroot_facet_mountable>());
       if (pmnt)
-	pmnt->set_mount_device(blockdevbase->get_device());
+        pmnt->set_mount_device(blockdevbase->get_device());
     }
 #endif // SBUILD_FEATURE_BLOCKDEV
 
@@ -166,9 +166,9 @@ chroot_facet_session_clonable::clone_session_setup (chroot const&      parent,
   if (loopback)
     {
       chroot_facet_mountable::ptr pmnt
-	(clone->get_facet<chroot_facet_mountable>());
+        (clone->get_facet<chroot_facet_mountable>());
       if (pmnt)
-	pmnt->set_mount_device(loopback->get_file());
+        pmnt->set_mount_device(loopback->get_file());
     }
 #endif // SBUILD_FEATURE_LOOPBACK
 
@@ -218,7 +218,7 @@ chroot_facet_session_clonable::clone_session_setup (chroot const&      parent,
 
 void
 chroot_facet_session_clonable::setup_env (chroot const& chroot,
-					  environment&  env) const
+                                          environment&  env) const
 {
 }
 
@@ -230,19 +230,19 @@ chroot_facet_session_clonable::get_session_flags (chroot const& chroot) const
 
 void
 chroot_facet_session_clonable::get_details (chroot const&  chroot,
-					    format_detail& detail) const
+                                            format_detail& detail) const
 {
 }
 
 void
 chroot_facet_session_clonable::get_keyfile (chroot const& chroot,
-					    keyfile&      keyfile) const
+                                            keyfile&      keyfile) const
 {
 }
 
 void
 chroot_facet_session_clonable::set_keyfile (chroot&        chroot,
-					    keyfile const& keyfile,
-					    string_list&   used_keys)
+                                            keyfile const& keyfile,
+                                            string_list&   used_keys)
 {
 }

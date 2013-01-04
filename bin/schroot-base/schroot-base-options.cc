@@ -63,13 +63,13 @@ options::get_visible_options() const
 
 void
 options::parse (int   argc,
-		char *argv[])
+                char *argv[])
 {
   add_options();
   add_option_groups();
 
   opt::store(opt::command_line_parser(argc, argv).
-	     options(global).positional(positional).run(), vm);
+             options(global).positional(positional).run(), vm);
   opt::notify(vm);
 
   check_options();
@@ -145,17 +145,17 @@ options::check_options ()
   if (vm.count("debug"))
     {
       if (this->debug_level == "none")
-	sbuild::debug_log_level = sbuild::DEBUG_NONE;
+        sbuild::debug_log_level = sbuild::DEBUG_NONE;
       else if (this->debug_level == "notice")
-	sbuild::debug_log_level = sbuild::DEBUG_NOTICE;
+        sbuild::debug_log_level = sbuild::DEBUG_NOTICE;
       else if (this->debug_level == "info")
-	sbuild::debug_log_level = sbuild::DEBUG_INFO;
+        sbuild::debug_log_level = sbuild::DEBUG_INFO;
       else if (this->debug_level == "warning")
-	sbuild::debug_log_level = sbuild::DEBUG_WARNING;
+        sbuild::debug_log_level = sbuild::DEBUG_WARNING;
       else if (this->debug_level == "critical")
-	sbuild::debug_log_level = sbuild::DEBUG_CRITICAL;
+        sbuild::debug_log_level = sbuild::DEBUG_CRITICAL;
       else
-	throw error(_("Invalid debug level"));
+        throw error(_("Invalid debug level"));
     }
   else
     sbuild::debug_log_level = sbuild::DEBUG_NONE;

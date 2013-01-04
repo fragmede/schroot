@@ -70,7 +70,7 @@ chroot_directory_base::set_directory (std::string const& directory)
 
 void
 chroot_directory_base::setup_env (chroot const& chroot,
-				  environment& env) const
+                                  environment& env) const
 {
   chroot::setup_env(chroot, env);
 
@@ -79,7 +79,7 @@ chroot_directory_base::setup_env (chroot const& chroot,
 
 void
 chroot_directory_base::get_details (chroot const& chroot,
-				    format_detail& detail) const
+                                    format_detail& detail) const
 {
   chroot::get_details(chroot, detail);
 
@@ -88,18 +88,18 @@ chroot_directory_base::get_details (chroot const& chroot,
 
 void
 chroot_directory_base::get_keyfile (chroot const& chroot,
-				    keyfile& keyfile) const
+                                    keyfile& keyfile) const
 {
   chroot::get_keyfile(chroot, keyfile);
 
   keyfile::set_object_value(*this, &chroot_directory_base::get_directory,
-			    keyfile, get_name(), "directory");
+                            keyfile, get_name(), "directory");
 }
 
 void
 chroot_directory_base::set_keyfile (chroot&        chroot,
-				    keyfile const& keyfile,
-				    string_list&   used_keys)
+                                    keyfile const& keyfile,
+                                    string_list&   used_keys)
 {
   chroot::set_keyfile(chroot, keyfile, used_keys);
 
@@ -123,12 +123,12 @@ chroot_directory_base::set_keyfile (chroot&        chroot,
     location_priority = keyfile::PRIORITY_DISALLOWED;
 
   keyfile::get_object_value(*this, &chroot_directory_base::set_directory,
-			    keyfile, get_name(), "directory",
-			    directory_priority);
+                            keyfile, get_name(), "directory",
+                            directory_priority);
   used_keys.push_back("directory");
 
   keyfile::get_object_value(*this, &chroot_directory_base::set_directory,
-			    keyfile, get_name(), "location",
-			    location_priority);
+                            keyfile, get_name(), "location",
+                            location_priority);
   used_keys.push_back("location");
 }

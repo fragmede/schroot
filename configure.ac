@@ -121,7 +121,7 @@ AC_ARG_ENABLE([dchroot-dsa], [AS_HELP_STRING([--enable-dchroot-dsa], [Enable dch
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-dchroot-dsa]) ;;
                 esac ],
-	      [ enable_dchroot_dsa_compat="no" ])
+              [ enable_dchroot_dsa_compat="no" ])
 AC_MSG_RESULT([$enable_dchroot_dsa_compat])
 AM_CONDITIONAL([BUILD_DCHROOT_DSA], [test "$enable_dchroot_dsa_compat" = "yes"])
 AM_CONDITIONAL([BUILD_LIBDCHROOT], [test "$enable_dchroot_compat" = "yes" || test "$enable_dchroot_dsa_compat" = "yes"])
@@ -193,7 +193,7 @@ AC_MSG_CHECKING([whether to enable support for LVM snapshots])
 AC_ARG_ENABLE([lvm-snapshot], [AS_HELP_STRING([--enable-lvm-snapshot], [Enable support for LVM snapshots (requires LVM and liblockdev)])],
               [ case "${enableval}" in
                 yes) enable_lvmsnapshot="yes"
-		     enable_blockdev="yes" ;;
+                     enable_blockdev="yes" ;;
                 no)  enable_lvmsnapshot="no" ;;
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-lvm-snapshot]) ;;
@@ -205,7 +205,7 @@ AC_MSG_CHECKING([whether to enable support for BTRFS snapshots])
 AC_ARG_ENABLE([btrfs-snapshot], [AS_HELP_STRING([--enable-btrfs-snapshot], [Enable support for btrfs snapshots (requires btrfs)])],
               [ case "${enableval}" in
                 yes) enable_btrfssnapshot="yes"
-		     enable_blockdev="yes" ;;
+                     enable_blockdev="yes" ;;
                 no)  enable_btrfssnapshot="no" ;;
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-btrfs-snapshot]) ;;
@@ -254,7 +254,7 @@ AC_ARG_ENABLE([doxygen], [AS_HELP_STRING([--enable-doxygen], [Enable doxygen doc
                 *) AC_MSG_RESULT([unknown])
                    AC_MSG_ERROR([bad value ${enableval} for --enable-doxygen]) ;;
                 esac],
-	      [ enable_doxygen="auto" ])
+              [ enable_doxygen="auto" ])
 AC_MSG_RESULT([$enable_doxygen])
 
 AC_MSG_CHECKING([for bash completion directory])
@@ -307,9 +307,9 @@ AC_MSG_CHECKING([for supported host platform type])
 PLATFORM="generic"
 case $host_os in
     linux*):
-	PLATFORM="linux";;
+        PLATFORM="linux";;
     freebsd* | k*bsd*-gnu) :
-	PLATFORM="freebsd";;
+        PLATFORM="freebsd";;
 esac
 AC_MSG_RESULT([$PLATFORM])
 AC_SUBST([PLATFORM], [$PLATFORM])
@@ -369,16 +369,16 @@ AC_CHECK_HEADERS([boost/type_traits.hpp],, [AC_MSG_ERROR([Boost.TypeTraits (Boos
 
 
 AC_CHECK_HEADERS([sched.h],
-	         [UNSHARE_HEADER="yes"],
-	         [UNSHARE_HEADER="no"])
+                 [UNSHARE_HEADER="yes"],
+                 [UNSHARE_HEADER="no"])
 
 AC_CHECK_HEADERS([sys/personality.h],
-	         [PERSONALITY_HEADER="yes"],
-	         [PERSONALITY_HEADER="no"])
+                 [PERSONALITY_HEADER="yes"],
+                 [PERSONALITY_HEADER="no"])
 
 AC_CHECK_HEADERS([security/pam_appl.h],
-	         [PAM_HEADER="yes"],
-	         [PAM_HEADER="no"])
+                 [PAM_HEADER="yes"],
+                 [PAM_HEADER="no"])
 
 # Checks for typedefs, structures, and compiler characteristics.
 
@@ -389,9 +389,9 @@ define([testprog], [AC_LANG_PROGRAM([#include <memory>
                                    [ std::shared_ptr<int> intptr;])])
 AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
-	        HAVE_MEMORY_SHARED_PTR=yes],
+                HAVE_MEMORY_SHARED_PTR=yes],
                [AC_MSG_RESULT([no])
-	        HAVE_MEMORY_SHARED_PTR=no])
+                HAVE_MEMORY_SHARED_PTR=no])
 AH_TEMPLATE(HAVE_MEMORY_SHARED_PTR, [Set if the <memory> header file includes std::shared_ptr])
 if test "$HAVE_MEMORY_SHARED_PTR" = "yes"; then
   AC_DEFINE(HAVE_MEMORY_SHARED_PTR, 1)
@@ -400,16 +400,16 @@ fi
 
 AC_CHECK_LIB([pam], [pam_authenticate],
              [PAM_LIBS="-lpam"
-	      PAM_FUNC="yes"],
-	     [PAM_LIBS=""
-	      PAM_FUNC="no"])
+              PAM_FUNC="yes"],
+             [PAM_LIBS=""
+              PAM_FUNC="no"])
 AC_SUBST([PAM_LIBS])
 
 AC_CHECK_LIB([lockdev], [dev_lock],
              [LOCKDEV_LIBS="-llockdev"
-	      HAVE_LOCKDEV="yes"],
+              HAVE_LOCKDEV="yes"],
              [LOCKDEV_LIBS=""
-	      HAVE_LOCKDEV="no"])
+              HAVE_LOCKDEV="no"])
 AC_SUBST([LOCKDEV_LIBS])
 AH_TEMPLATE(SBUILD_FEATURE_DEVLOCK, [Set if the device locking with liblockdev is available])
 if test "$HAVE_LOCKDEV" = "yes"; then
@@ -418,7 +418,7 @@ fi
 
 AC_CHECK_FUNC([unshare],
               [UNSHARE_FUNC="yes"],
-	      [UNSHARE_FUNC="no"])
+              [UNSHARE_FUNC="no"])
 
 # Determine which features to enable.
 AC_MSG_CHECKING([whether to build unshare support])
@@ -439,7 +439,7 @@ fi
 
 AC_CHECK_FUNC([personality],
               [PERSONALITY_FUNC="yes"],
-	      [PERSONALITY_FUNC="no"])
+              [PERSONALITY_FUNC="no"])
 
 # Determine which features to enable.
 AC_MSG_CHECKING([whether to build personality support])
@@ -642,13 +642,13 @@ define([testprog], [AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
                                    [boost::program_options::variables_map dummy()])])
 AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
-	        BOOST_LIBS="${BOOST_LIBS} -lboost_program_options"],
+                BOOST_LIBS="${BOOST_LIBS} -lboost_program_options"],
 [LIBS="${saved_LIBS} -lboost_program_options-mt"
  AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
-	        BOOST_LIBS="${BOOST_LIBS} -lboost_program_options-mt"],
+                BOOST_LIBS="${BOOST_LIBS} -lboost_program_options-mt"],
                [AC_MSG_RESULT([no])
-	        AC_MSG_FAILURE([libboost_program_options (Boost C++ Libraries) is not installed, but is required by schroot])])])
+                AC_MSG_FAILURE([libboost_program_options (Boost C++ Libraries) is not installed, but is required by schroot])])])
 LIBS="${saved_LIBS}"
 
 AC_MSG_CHECKING([for boost::program_options::options_description::options() in -lboost_program_options])
@@ -690,7 +690,7 @@ AC_LINK_IFELSE(boost_error_old,
                [AC_MSG_RESULT([yes (Boost < 1.42)])
                 BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR="old"],
                [AC_MSG_RESULT([no])
-	        AC_MSG_FAILURE([libboost_program_options (Boost C++ Libraries) is not installed, but is required by schroot])])])
+                AC_MSG_FAILURE([libboost_program_options (Boost C++ Libraries) is not installed, but is required by schroot])])])
 LIBS="${saved_LIBS}"
 AH_TEMPLATE(BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD, [Set if boost::program_options::validation error uses old construction semantics])
 if test "$BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR" = "old"; then
@@ -702,15 +702,15 @@ AH_TEMPLATE(HAVE_REGEX_REGEX, [Set if the <regex> header file includes std::rege
 AC_MSG_CHECKING([for std::regex])
 define([testprog], [AC_LANG_PROGRAM([#include <regex>],
                                    [std::regex foo("^foo@<:@bar@:>@$");
-				    std::regex bar("^foo@<:@bar@:>@$", std::regex::extended);
-				    std::regex check("^@<:@^:/,.@:>@@<:@^:/,@:>@*$", std::regex::extended);])])
+                                    std::regex bar("^foo@<:@bar@:>@$", std::regex::extended);
+                                    std::regex check("^@<:@^:/,.@:>@@<:@^:/,@:>@*$", std::regex::extended);])])
 AC_RUN_IFELSE(testprog,
   [AC_MSG_RESULT([yes])
    AC_DEFINE(HAVE_REGEX_REGEX, 1)],
   [dnl Check if std::regex is present but broken.
 define([testprog], [AC_LANG_PROGRAM([#include <regex>],
                                    [std::regex foo("^foo@<:@bar@:>@$");
-				    std::regex bar("^foo@<:@bar@:>@$", std::regex::extended);])])
+                                    std::regex bar("^foo@<:@bar@:>@$", std::regex::extended);])])
 AC_LINK_IFELSE(testprog,
   [AC_MSG_RESULT([broken])],
   [AC_MSG_RESULT([no])
@@ -720,16 +720,16 @@ AC_LINK_IFELSE(testprog,
    LIBS="${saved_LIBS} -lboost_regex"
    define([testprog], [AC_LANG_PROGRAM([#include <boost/regex.hpp>],
                                    [boost::regex("^foo@<:@bar@:>@$");
-				    boost::regex bar("^foo@<:@bar@:>@$", boost::regex::extended);])])
+                                    boost::regex bar("^foo@<:@bar@:>@$", boost::regex::extended);])])
    AC_LINK_IFELSE(testprog,
-	          [AC_MSG_RESULT([yes])
-		   BOOST_LIBS="${BOOST_LIBS} -lboost_regex"],
-		  [LIBS="${saved_LIBS} -lboost_regex-mt"
-		   AC_LINK_IFELSE(testprog,
-               	   [AC_MSG_RESULT([yes])
-	            BOOST_LIBS="${BOOST_LIBS} -lboost_regex-mt"],
-               	   [AC_MSG_RESULT([no])
-	            AC_MSG_FAILURE([libboost_regex (Boost C++ Libraries) is not installed, but is required by schroot])])])
+                  [AC_MSG_RESULT([yes])
+                   BOOST_LIBS="${BOOST_LIBS} -lboost_regex"],
+                  [LIBS="${saved_LIBS} -lboost_regex-mt"
+                   AC_LINK_IFELSE(testprog,
+                          [AC_MSG_RESULT([yes])
+                    BOOST_LIBS="${BOOST_LIBS} -lboost_regex-mt"],
+                          [AC_MSG_RESULT([no])
+                    AC_MSG_FAILURE([libboost_regex (Boost C++ Libraries) is not installed, but is required by schroot])])])
    LIBS="${saved_LIBS}"
 ])
 
@@ -742,13 +742,13 @@ define([testprog], [AC_LANG_PROGRAM([#include <boost/iostreams/device/file_descr
                                    [ boost::iostreams::stream<boost::iostreams::file_descriptor> fdstream;])])
 AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
-	        BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams"],
+                BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams"],
 [LIBS="${saved_LIBS} -lboost_iostreams-mt"
  AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
-	        BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams-mt"],
+                BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams-mt"],
                [AC_MSG_RESULT([no])
-	        AC_MSG_FAILURE([libboost_iostreams (Boost C++ Libraries) is not installed, but is required by schroot])])])
+                AC_MSG_FAILURE([libboost_iostreams (Boost C++ Libraries) is not installed, but is required by schroot])])])
 LIBS="${saved_LIBS}"
 
 AC_MSG_CHECKING([for boost::iostreams::file_descriptor_source in -lboost_iostreams])
@@ -760,15 +760,15 @@ define([testprog], [AC_LANG_PROGRAM([#include <boost/iostreams/device/file_descr
                                    [boost::iostreams::file_descriptor_sink dummy(STDOUT_FILENO, boost::iostreams::close_handle)])])
 AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes (Boost >= 1.44)])
-	       BOOST_IOSTREAMS_CLOSE_HANDLE="current"
-	        BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams"],
+               BOOST_IOSTREAMS_CLOSE_HANDLE="current"
+                BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams"],
 [LIBS="${saved_LIBS} -lboost_iostreams-mt"
  AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes (Boost >= 1.44)])
-	       BOOST_IOSTREAMS_CLOSE_HANDLE="current"
-	        BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams-mt"],
+               BOOST_IOSTREAMS_CLOSE_HANDLE="current"
+                BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams-mt"],
                [AC_MSG_RESULT([yes (Boost < 1.44)])
-	       BOOST_IOSTREAMS_CLOSE_HANDLE="old"])])
+               BOOST_IOSTREAMS_CLOSE_HANDLE="old"])])
 LIBS="${saved_LIBS}"
 AH_TEMPLATE(BOOST_IOSTREAMS_CLOSE_HANDLE_OLD, [Set if boost::iostreams::file_descriptor close_handle is not available])
 if test "$BOOST_IOSTREAMS_CLOSE_HANDLE" = "old"; then
@@ -782,13 +782,13 @@ define([testprog], [AC_LANG_PROGRAM([#include <boost/filesystem.hpp>],
                                    [boost::filesystem::is_directory("/")])])
 AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
-	        BOOST_FILESYSTEM_LIBS="-lboost_filesystem -lboost_system"],
+                BOOST_FILESYSTEM_LIBS="-lboost_filesystem -lboost_system"],
 [LIBS="${saved_LIBS} -lboost_filesystem-mt -lboost_system-mt"
  AC_LINK_IFELSE(testprog,
                [AC_MSG_RESULT([yes])
-	        BOOST_FILESYSTEM_LIBS="-lboost_filesystem-mt -lboost_system-mt"],
+                BOOST_FILESYSTEM_LIBS="-lboost_filesystem-mt -lboost_system-mt"],
                [AC_MSG_RESULT([no])
-	        AC_MSG_FAILURE([libboost_filesystem (Boost C++ Libraries) is not installed, but is required by schroot])])])
+                AC_MSG_FAILURE([libboost_filesystem (Boost C++ Libraries) is not installed, but is required by schroot])])])
 LIBS="${saved_LIBS}"
 
 AC_SUBST([BOOST_LIBS])

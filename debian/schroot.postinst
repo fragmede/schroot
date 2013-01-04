@@ -36,22 +36,22 @@ mv_conffile() {
 
 # This is needed in order to migrate from using rcS to standard runlevels.
 if dpkg --compare-versions "$2" lt "1.6.0-1"; then
-	update-rc.d -f schroot remove >/dev/null
+        update-rc.d -f schroot remove >/dev/null
 fi
 
 if dpkg --compare-versions "$2" lt "1.6.4-1"; then
     # Delete /var/lock/schroot if it's not root:root 0700, or if
     # it's not a directory.
     if [ -e /var/lock/schroot ]; then
-	if [ "$(stat -c "%u %g %a" /var/lock/schroot)" != "0 0 700" ]; then
-	    rm -rf /var/lock/schroot
-	fi
-	if [ ! -d /var/lock/schroot ]; then
-	    rm -rf /var/lock/schroot
-	fi
+        if [ "$(stat -c "%u %g %a" /var/lock/schroot)" != "0 0 700" ]; then
+            rm -rf /var/lock/schroot
+        fi
+        if [ ! -d /var/lock/schroot ]; then
+            rm -rf /var/lock/schroot
+        fi
     fi
     if [ ! -d /var/lock/schroot ]; then
-	mkdir -m 0700 /var/lock/schroot
+        mkdir -m 0700 /var/lock/schroot
     fi
 fi
 

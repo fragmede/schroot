@@ -59,7 +59,7 @@ namespace sbuild
      * @param break_time the function to split up the time.
      */
     date_base (time_t          unix_time,
-	       break_time_func break_time):
+               break_time_func break_time):
       unix_time(unix_time),
       break_time(break_time)
     {}
@@ -79,63 +79,63 @@ namespace sbuild
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-		 date_base const&                  dt)
+                 date_base const&                  dt)
     {
       std::ios_base::iostate err = std::ios_base::goodbit;
 
       std::tm dtm;
       if ((dt.break_time(&dt.unix_time, &dtm)) == 0)
-	{
-	  err = std::ios_base::badbit;
-	}
+        {
+          err = std::ios_base::badbit;
+        }
       else
-	{
-	  try
-	    {
-	      typename std::basic_ostream<charT, traits>::sentry sentry(stream);
-	      if (sentry)
-		{
-		  const std::basic_string<char>
-		    nfmt(dt.get_date_format());
-		  std::basic_string<charT> wfmt(nfmt.size(), 0);
-		  assert(nfmt.size() == wfmt.size());
-		  const char *nptr = nfmt.c_str();
-		  charT *wptr = const_cast<charT *>(wfmt.c_str());
+        {
+          try
+            {
+              typename std::basic_ostream<charT, traits>::sentry sentry(stream);
+              if (sentry)
+                {
+                  const std::basic_string<char>
+                    nfmt(dt.get_date_format());
+                  std::basic_string<charT> wfmt(nfmt.size(), 0);
+                  assert(nfmt.size() == wfmt.size());
+                  const char *nptr = nfmt.c_str();
+                  charT *wptr = const_cast<charT *>(wfmt.c_str());
 
-		  std::use_facet<std::ctype<charT> >(stream.getloc())
-		    .widen(nptr, nptr + nfmt.size(), wptr);
+                  std::use_facet<std::ctype<charT> >(stream.getloc())
+                    .widen(nptr, nptr + nfmt.size(), wptr);
 
-		  typedef std::time_put<charT,std::ostreambuf_iterator<charT,traits> >
-		    time_type;
-		  if (std::use_facet<time_type>(stream.getloc())
-		      .put(stream, stream, stream.fill(),
-			   &dtm,
-			   wptr, wptr + wfmt.size())
-		      .failed())
-		    {
-		      err = std::ios_base::badbit;
-		    }
-		  stream.width(0);
-		}
-	    }
-	  catch (...)
-	    {
-	      bool flag = false;
-	      try
-		{
-		  stream.setstate(std::ios::failbit);
-		}
-	      catch (std::ios_base::failure const& discard)
-		{
-		  flag = true;
-		}
-	      if (flag)
-		throw;
-	    }
-	}
+                  typedef std::time_put<charT,std::ostreambuf_iterator<charT,traits> >
+                    time_type;
+                  if (std::use_facet<time_type>(stream.getloc())
+                      .put(stream, stream, stream.fill(),
+                           &dtm,
+                           wptr, wptr + wfmt.size())
+                      .failed())
+                    {
+                      err = std::ios_base::badbit;
+                    }
+                  stream.width(0);
+                }
+            }
+          catch (...)
+            {
+              bool flag = false;
+              try
+                {
+                  stream.setstate(std::ios::failbit);
+                }
+              catch (std::ios_base::failure const& discard)
+                {
+                  flag = true;
+                }
+              if (flag)
+                throw;
+            }
+        }
 
       if (err)
-	stream.setstate(err);
+        stream.setstate(err);
 
       return stream;
     }

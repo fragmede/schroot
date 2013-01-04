@@ -40,13 +40,13 @@ namespace
   emap init_errors[] =
     {
       emap(chroot_facet_userdata::ENV_AMBIGUOUS,
-	   N_("Environment variable ‘%1%’ is ambiguous")),
+           N_("Environment variable ‘%1%’ is ambiguous")),
       emap(chroot_facet_userdata::KEY_AMBIGUOUS,
-	   N_("Configuration key ‘%1%’ is ambiguous")),
+           N_("Configuration key ‘%1%’ is ambiguous")),
       emap(chroot_facet_userdata::KEY_DISALLOWED,
-	   N_("Configuration key ‘%1%’ is not permitted to be modified.")),
+           N_("Configuration key ‘%1%’ is not permitted to be modified.")),
       emap(chroot_facet_userdata::KEYNAME_INVALID,
-	   N_("Configuration key name ‘%1%’ is not a permitted name."))
+           N_("Configuration key name ‘%1%’ is not a permitted name."))
     };
 
   bool
@@ -76,9 +76,9 @@ namespace
     static const std::ctype<char>& ct = std::use_facet<std::ctype<char> >(std::locale::classic());
     for (std::string::iterator pos = ret.begin(); pos != ret.end(); ++pos)
       {
-	*pos = ct.toupper(*pos);
-	if (*pos == '-' || *pos == '.')
-	  *pos = '_';
+        *pos = ct.toupper(*pos);
+        if (*pos == '-' || *pos == '.')
+          *pos = '_';
       }
     return ret;
   }
@@ -125,7 +125,7 @@ chroot_facet_userdata::get_name () const
 
 void
 chroot_facet_userdata::setup_env (chroot const& chroot,
-				  environment&  env) const
+                                  environment&  env) const
 {
   for (string_map::const_iterator pos = userdata.begin();
        pos != userdata.end();
@@ -134,15 +134,15 @@ chroot_facet_userdata::setup_env (chroot const& chroot,
       std::string name = envname(pos->first);
       std::string dummy;
       if (!env.get(name, dummy))
-	env.add(name, pos->second);
+        env.add(name, pos->second);
       else
-	{
-	  error e(name, ENV_AMBIGUOUS);
-	  format fmt(_("Configuration keys additional to ‘%1%’ would set this setup script environment variable"));
-	  fmt % pos->first;
-	  e.set_reason(fmt.str());
-	  throw e;
-	}
+        {
+          error e(name, ENV_AMBIGUOUS);
+          format fmt(_("Configuration keys additional to ‘%1%’ would set this setup script environment variable"));
+          fmt % pos->first;
+          e.set_reason(fmt.str());
+          throw e;
+        }
     }
 }
 
@@ -154,14 +154,14 @@ chroot_facet_userdata::get_session_flags (chroot const& chroot) const
 
 void
 chroot_facet_userdata::get_details (chroot const&  chroot,
-				    format_detail& detail) const
+                                    format_detail& detail) const
 {
   string_list userkeys(this->user_modifiable_keys.begin(),
-		       this->user_modifiable_keys.end());
+                       this->user_modifiable_keys.end());
   std::sort(userkeys.begin(), userkeys.end());
 
   string_list rootkeys(this->root_modifiable_keys.begin(),
-		       this->root_modifiable_keys.end());
+                       this->root_modifiable_keys.end());
   std::sort(rootkeys.begin(), rootkeys.end());
 
   detail.add(_("User Modifiable Keys"), userkeys);
@@ -181,11 +181,11 @@ chroot_facet_userdata::get_details (chroot const&  chroot,
     {
       string_map::const_iterator key = userdata.find(*pos);
       if (key != userdata.end())
-	{
-	  std::string name("  ");
-	  name += key->first;
-	  detail.add(name, key->second);
-	}
+        {
+          std::string name("  ");
+          name += key->first;
+          detail.add(name, key->second);
+        }
     }
 }
 
@@ -197,7 +197,7 @@ chroot_facet_userdata::get_data () const
 
 bool
 chroot_facet_userdata::get_data (std::string const& key,
-				 std::string& value) const
+                                 std::string& value) const
 {
   string_map::const_iterator pos = this->userdata.find(key);
   bool found = (pos != this->userdata.end());
@@ -208,7 +208,7 @@ chroot_facet_userdata::get_data (std::string const& key,
 
 void
 chroot_facet_userdata::set_system_data (std::string const& key,
-					std::string const& value)
+                                        std::string const& value)
 {
   string_map::const_iterator inserted = userdata.find(key);
   if (inserted == userdata.end()) // Requires uniqueness checking.
@@ -216,13 +216,13 @@ chroot_facet_userdata::set_system_data (std::string const& key,
       std::string name = envname(key);
       string_set::const_iterator found = this->env.find(name);
       if (found != this->env.end())
-	{
-	  error e(key, KEY_AMBIGUOUS);
-	  format fmt(_("More than one configuration key would set the ‘%1%’ environment variable"));
-	  fmt % name;
-	  e.set_reason(fmt.str());
-	  throw e;
-	}
+        {
+          error e(key, KEY_AMBIGUOUS);
+          format fmt(_("More than one configuration key would set the ‘%1%’ environment variable"));
+          fmt % name;
+          e.set_reason(fmt.str());
+          throw e;
+        }
       this->env.insert(name);
     }
   else
@@ -239,7 +239,7 @@ chroot_facet_userdata::remove_data (std::string const& key)
 
 void
 chroot_facet_userdata::set_data (std::string const& key,
-				 std::string const& value)
+                                 std::string const& value)
 {
   if (!validate_keyname(key))
     throw error(key, KEYNAME_INVALID);
@@ -268,10 +268,10 @@ chroot_facet_userdata::set_root_data(string_map const&  data)
   // root can use both user and root keys, so combine the sets.
   string_set modifiable_keys;
   set_union(this->user_modifiable_keys.begin(),
-	    this->user_modifiable_keys.end(),
-	    this->root_modifiable_keys.begin(),
-	    this->root_modifiable_keys.end(),
-	    inserter(modifiable_keys, modifiable_keys.begin()));
+            this->user_modifiable_keys.end(),
+            this->root_modifiable_keys.begin(),
+            this->root_modifiable_keys.end(),
+            inserter(modifiable_keys, modifiable_keys.begin()));
   set_data(data, modifiable_keys, true);
 }
 
@@ -286,8 +286,8 @@ chroot_facet_userdata::set_system_data(string_map const&  data)
 
 void
 chroot_facet_userdata::set_data(string_map const&  data,
-				string_set const&  allowed_keys,
-				bool               root)
+                                string_set const&  allowed_keys,
+                                bool               root)
 {
   // Require the key to be present in order to set it.  This ensures
   // that the key name has been pre-validated.
@@ -297,14 +297,14 @@ chroot_facet_userdata::set_data(string_map const&  data,
     {
       string_set::const_iterator allowed = allowed_keys.find(pos->first);
       if (allowed == allowed_keys.end())
-	{
-	  error e(pos->first, KEY_DISALLOWED);
-	  if (root)
-	    e.set_reason(_("The key is not present in user-modifiable-keys or root-modifiable-keys"));
-	  else
-	    e.set_reason(_("The key is not present in user-modifiable-keys"));
-	  throw e;
-	}
+        {
+          error e(pos->first, KEY_DISALLOWED);
+          if (root)
+            e.set_reason(_("The key is not present in user-modifiable-keys or root-modifiable-keys"));
+          else
+            e.set_reason(_("The key is not present in user-modifiable-keys"));
+          throw e;
+        }
       set_data(pos->first, pos->second);
     }
 }
@@ -335,44 +335,44 @@ chroot_facet_userdata::set_root_modifiable_keys (string_set const& keys)
 
 void
 chroot_facet_userdata::get_keyfile (chroot const& chroot,
-				    keyfile&      keyfile) const
+                                    keyfile&      keyfile) const
 {
   keyfile::set_object_set_value(*this,
-				&chroot_facet_userdata::get_user_modifiable_keys,
-				keyfile, chroot.get_name(),
-				"user-modifiable-keys");
+                                &chroot_facet_userdata::get_user_modifiable_keys,
+                                keyfile, chroot.get_name(),
+                                "user-modifiable-keys");
 
   keyfile::set_object_set_value(*this,
-				&chroot_facet_userdata::get_root_modifiable_keys,
-				keyfile, chroot.get_name(),
-				"root-modifiable-keys");
+                                &chroot_facet_userdata::get_root_modifiable_keys,
+                                keyfile, chroot.get_name(),
+                                "root-modifiable-keys");
 
   for (string_map::const_iterator pos = userdata.begin();
        pos != userdata.end();
        ++pos)
     {
       keyfile.set_value(chroot.get_name(),
-			pos->first,
-			pos->second);
+                        pos->first,
+                        pos->second);
     }
 }
 
 void
 chroot_facet_userdata::set_keyfile (chroot&        chroot,
-				    keyfile const& keyfile,
-				    string_list&   used_keys)
+                                    keyfile const& keyfile,
+                                    string_list&   used_keys)
 {
   keyfile::get_object_set_value(*this,
-				&chroot_facet_userdata::set_user_modifiable_keys,
-				keyfile, chroot.get_name(),
-				"user-modifiable-keys",
-				keyfile::PRIORITY_OPTIONAL);
+                                &chroot_facet_userdata::set_user_modifiable_keys,
+                                keyfile, chroot.get_name(),
+                                "user-modifiable-keys",
+                                keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("user-modifiable-keys");
 
   keyfile::get_object_set_value(*this,
-				&chroot_facet_userdata::set_root_modifiable_keys,
-				keyfile, chroot.get_name(),
-				"root-modifiable-keys",
-				keyfile::PRIORITY_OPTIONAL);
+                                &chroot_facet_userdata::set_root_modifiable_keys,
+                                keyfile, chroot.get_name(),
+                                "root-modifiable-keys",
+                                keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("root-modifiable-keys");
 }

@@ -25,7 +25,7 @@
 using namespace sbuild;
 
 feature::feature(std::string const& feature,
-		 std::string const& description)
+                 std::string const& description)
 {
   registered_features().insert(std::make_pair(feature, description));
 }
@@ -41,7 +41,7 @@ feature::print_features(std::ostream& stream)
 
   std::map<std::string,std::string>& features = registered_features();
   for (std::map<std::string,std::string>::const_iterator pos =
-	 features.begin();
+         features.begin();
        pos != features.end();
        ++pos)
     {

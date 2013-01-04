@@ -54,9 +54,9 @@ namespace sbuild
 
     virtual chroot::ptr
     clone_session (std::string const& session_id,
-		   std::string const& alias,
-		   std::string const& user,
-		   bool               root) const;
+                   std::string const& alias,
+                   std::string const& user,
+                   bool               root) const;
 
     virtual chroot::ptr
     clone_source () const;
@@ -85,7 +85,7 @@ namespace sbuild
 
     virtual void
     setup_env (chroot const& chroot,
-	       environment&  env) const;
+               environment&  env) const;
 
     virtual session_flags
     get_session_flags (chroot const& chroot) const;
@@ -93,21 +93,21 @@ namespace sbuild
   protected:
     virtual void
     setup_lock (chroot::setup_type type,
-		bool               lock,
-		int                status);
+                bool               lock,
+                int                status);
 
     virtual void
     get_details (chroot const&  chroot,
-		 format_detail& detail) const;
+                 format_detail& detail) const;
 
     virtual void
     get_keyfile (chroot const& chroot,
-		 keyfile&      keyfile) const;
+                 keyfile&      keyfile) const;
 
     virtual void
     set_keyfile (chroot&        chroot,
-		 keyfile const& keyfile,
-		 string_list&   used_keys);
+                 keyfile const& keyfile,
+                 string_list&   used_keys);
 
   private:
     /// The file to use.

@@ -70,38 +70,38 @@ end_sessions()
 
 case "$1" in
     start|restart|force-reload)
-	# Delete /var/lock/schroot if it's not root:root 0700, or if
-	# it's not a directory.
-	if [ -e /var/lock/schroot ]; then
-	    if [ "$(stat -c "%u %g %a" /var/lock/schroot)" != "0 0 700" ]; then
-		rm -rf /var/lock/schroot
-	    fi
-	    if [ ! -d /var/lock/schroot ]; then
-		rm -rf /var/lock/schroot
-	    fi
-	fi
-	if [ ! -d /var/lock/schroot ]; then
-	    mkdir -m 0700 /var/lock/schroot
-	fi
+        # Delete /var/lock/schroot if it's not root:root 0700, or if
+        # it's not a directory.
+        if [ -e /var/lock/schroot ]; then
+            if [ "$(stat -c "%u %g %a" /var/lock/schroot)" != "0 0 700" ]; then
+                rm -rf /var/lock/schroot
+            fi
+            if [ ! -d /var/lock/schroot ]; then
+                rm -rf /var/lock/schroot
+            fi
+        fi
+        if [ ! -d /var/lock/schroot ]; then
+            mkdir -m 0700 /var/lock/schroot
+        fi
 
         if [ "$START_ACTION" = "end" ] || [ "$SESSIONS_RECOVER" = "end" ] ; then
             end_sessions
-	else
+        else
             recover_sessions
-	fi
-	;;
+        fi
+        ;;
     stop)
         if [ "$STOP_ACTION" = "end" ] ; then
             end_sessions
-	fi
-	;;
+        fi
+        ;;
     status)
-	;;
+        ;;
     *)
-	N=/etc/init.d/$NAME
-	echo "Usage: $N {start|stop|restart|force-reload|status}" >&2
-	exit 1
-	;;
+        N=/etc/init.d/$NAME
+        echo "Usage: $N {start|stop|restart|force-reload|status}" >&2
+        exit 1
+        ;;
 esac
 
 exit 0

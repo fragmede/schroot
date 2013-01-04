@@ -88,14 +88,14 @@ public:
       (this->chroot->template get_facet<sbuild::chroot_facet_session_clonable>());
     if (psess)
       {
-	this->session = this->chroot->clone_session("test-session-name",
-						    "test-session-name",
-						    "user1",
-						    false);
-	if (this->session)
-	  {
-	    CPPUNIT_ASSERT(this->session->template get_facet<sbuild::chroot_facet_session>());
-	  }
+        this->session = this->chroot->clone_session("test-session-name",
+                                                    "test-session-name",
+                                                    "user1",
+                                                    false);
+        if (this->session)
+          {
+            CPPUNIT_ASSERT(this->session->template get_facet<sbuild::chroot_facet_session>());
+          }
       }
 
     sbuild::chroot_facet_source_clonable::const_ptr psrc
@@ -105,31 +105,31 @@ public:
       this->source = this->chroot->clone_source();
     if (this->source)
       {
-	sbuild::chroot_facet_source_clonable::const_ptr pfsrcc
-	  (this->source->
-	   template get_facet<sbuild::chroot_facet_source_clonable>());
-	CPPUNIT_ASSERT(!pfsrcc);
-	sbuild::chroot_facet_source::const_ptr pfsrc
-	  (this->source->
-	   template get_facet<sbuild::chroot_facet_source>());
-	CPPUNIT_ASSERT(pfsrc);
+        sbuild::chroot_facet_source_clonable::const_ptr pfsrcc
+          (this->source->
+           template get_facet<sbuild::chroot_facet_source_clonable>());
+        CPPUNIT_ASSERT(!pfsrcc);
+        sbuild::chroot_facet_source::const_ptr pfsrc
+          (this->source->
+           template get_facet<sbuild::chroot_facet_source>());
+        CPPUNIT_ASSERT(pfsrc);
       }
 
     if (source)
       {
-	sbuild::chroot_facet_session_clonable::const_ptr psess_src
-	  (this->source->template get_facet<sbuild::chroot_facet_session_clonable>());
-	if (psess_src)
-	  {
-	    this->session_source = this->source->clone_session("test-session-name",
-							       "test-session-name",
-							       "user1",
-							       false);
-	    if (this->session_source)
-	      {
-		CPPUNIT_ASSERT(this->session_source->template get_facet<sbuild::chroot_facet_session>());
-	      }
-	  }
+        sbuild::chroot_facet_session_clonable::const_ptr psess_src
+          (this->source->template get_facet<sbuild::chroot_facet_session_clonable>());
+        if (psess_src)
+          {
+            this->session_source = this->source->clone_session("test-session-name",
+                                                               "test-session-name",
+                                                               "user1",
+                                                               false);
+            if (this->session_source)
+              {
+                CPPUNIT_ASSERT(this->session_source->template get_facet<sbuild::chroot_facet_session>());
+              }
+          }
       }
 
 #ifdef SBUILD_FEATURE_UNION
@@ -138,42 +138,42 @@ public:
       this->chroot_union->template get_facet<sbuild::chroot_facet_union>();
     if (!un)
       {
-	this->chroot_union.reset();
+        this->chroot_union.reset();
       }
     else
       {
-	un->set_union_type("aufs");
+        un->set_union_type("aufs");
 
-	setup_chroot_props(this->chroot_union);
-	CPPUNIT_ASSERT(!(this->chroot_union->template get_facet<sbuild::chroot_facet_session>()));
-	CPPUNIT_ASSERT(this->chroot_union->get_name().length());
+        setup_chroot_props(this->chroot_union);
+        CPPUNIT_ASSERT(!(this->chroot_union->template get_facet<sbuild::chroot_facet_session>()));
+        CPPUNIT_ASSERT(this->chroot_union->get_name().length());
 
-	un->set_union_overlay_directory("/overlay");
-	un->set_union_underlay_directory("/underlay");
-	un->set_union_mount_options("union-mount-options");
+        un->set_union_overlay_directory("/overlay");
+        un->set_union_underlay_directory("/underlay");
+        un->set_union_mount_options("union-mount-options");
 
-	this->session_union =
-	  this->chroot_union->clone_session("test-union-session-name",
-					    "test-union-session-name",
-					    "user1",
-					    false);
-	this->source_union = chroot_union->clone_source();
+        this->session_union =
+          this->chroot_union->clone_session("test-union-session-name",
+                                            "test-union-session-name",
+                                            "user1",
+                                            false);
+        this->source_union = chroot_union->clone_source();
 
-	sbuild::chroot_facet_session_clonable::const_ptr puni_sess_src
-	  (this->source_union->template get_facet<sbuild::chroot_facet_session_clonable>());
-	if (puni_sess_src)
-	  {
-	    this->session_source_union = this->source_union->clone_session("test-session-name",
-									   "test-session-name",
-									   "user1",
-									   false);
-	  }
+        sbuild::chroot_facet_session_clonable::const_ptr puni_sess_src
+          (this->source_union->template get_facet<sbuild::chroot_facet_session_clonable>());
+        if (puni_sess_src)
+          {
+            this->session_source_union = this->source_union->clone_session("test-session-name",
+                                                                           "test-session-name",
+                                                                           "user1",
+                                                                           false);
+          }
 
-	CPPUNIT_ASSERT(this->session_union);
-	CPPUNIT_ASSERT(this->session_union->template get_facet<sbuild::chroot_facet_session>());
-	CPPUNIT_ASSERT(this->source_union);
-	CPPUNIT_ASSERT(this->session_source_union);
-	CPPUNIT_ASSERT(this->session_source_union->template get_facet<sbuild::chroot_facet_session>());
+        CPPUNIT_ASSERT(this->session_union);
+        CPPUNIT_ASSERT(this->session_union->template get_facet<sbuild::chroot_facet_session>());
+        CPPUNIT_ASSERT(this->source_union);
+        CPPUNIT_ASSERT(this->session_source_union);
+        CPPUNIT_ASSERT(this->session_source_union->template get_facet<sbuild::chroot_facet_session>());
       }
 #endif // SBUILD_FEATURE_UNION
 
@@ -204,25 +204,25 @@ public:
       (chroot->template get_facet<sbuild::chroot_facet_source_clonable>());
     if (usrc)
       {
-	usrc->set_source_users(sbuild::split_string("suser1,suser2", ","));
-	usrc->set_source_root_users(sbuild::split_string("suser3,suser4", ","));
-	usrc->set_source_groups(sbuild::split_string("sgroup1,sgroup2", ","));
-	usrc->set_source_root_groups(sbuild::split_string("sgroup3,sgroup4", ","));
+        usrc->set_source_users(sbuild::split_string("suser1,suser2", ","));
+        usrc->set_source_root_users(sbuild::split_string("suser3,suser4", ","));
+        usrc->set_source_groups(sbuild::split_string("sgroup1,sgroup2", ","));
+        usrc->set_source_root_groups(sbuild::split_string("sgroup3,sgroup4", ","));
       }
 
     sbuild::chroot_facet_userdata::ptr pusr
       (chroot->get_facet<sbuild::chroot_facet_userdata>());
     if (pusr)
       {
-	pusr->set_data("custom.test1", "testval");
-	sbuild::string_set userkeys;
-	userkeys.insert("sbuild.resolver");
-	userkeys.insert("debian.dist");
-	userkeys.insert("sbuild.purge");
-	sbuild::string_set rootkeys;
-	rootkeys.insert("debian.apt-update");
-	pusr->set_user_modifiable_keys(userkeys);
-	pusr->set_root_modifiable_keys(rootkeys);
+        pusr->set_data("custom.test1", "testval");
+        sbuild::string_set userkeys;
+        userkeys.insert("sbuild.resolver");
+        userkeys.insert("debian.dist");
+        userkeys.insert("sbuild.purge");
+        sbuild::string_set rootkeys;
+        rootkeys.insert("debian.apt-update");
+        pusr->set_user_modifiable_keys(userkeys);
+        pusr->set_root_modifiable_keys(rootkeys);
       }
   }
 
@@ -247,7 +247,7 @@ public:
    }
 
   void setup_keyfile_chroot (sbuild::keyfile&   keyfile,
-			     std::string const& group)
+                             std::string const& group)
   {
     keyfile.set_value(group, "description", "test-description");
     keyfile.set_value(group, "aliases", "test-alias-1,test-alias-2");
@@ -256,7 +256,7 @@ public:
     keyfile.set_value(group, "groups", "group1,group2");
     keyfile.set_value(group, "root-groups", "group3,group4");
     keyfile.set_value(group, "environment-filter",
-		      SBUILD_DEFAULT_ENVIRONMENT_FILTER);
+                      SBUILD_DEFAULT_ENVIRONMENT_FILTER);
     keyfile.set_value(group, "command-prefix", "");
     keyfile.set_value(group, "profile", "default");
     keyfile.set_value(group, "message-verbosity", "quiet");
@@ -272,7 +272,7 @@ public:
   }
 
   void setup_keyfile_session (sbuild::keyfile&   keyfile,
-			      std::string const& group)
+                              std::string const& group)
   {
     setup_keyfile_chroot(keyfile, group);
     keyfile.set_value(group, "original-name", "test-name");
@@ -284,13 +284,13 @@ public:
 
 #ifdef SBUILD_FEATURE_UNION
   void setup_keyfile_union_unconfigured (sbuild::keyfile&   keyfile,
-					 std::string const& group)
+                                         std::string const& group)
   {
     keyfile.set_value(group, "union-type", "none");
   }
 
   void setup_keyfile_union_configured (sbuild::keyfile&   keyfile,
-				       std::string const& group)
+                                       std::string const& group)
   {
     keyfile.set_value(group, "union-type", "aufs");
     keyfile.set_value(group, "union-mount-options", "union-mount-options");
@@ -299,7 +299,7 @@ public:
   }
 
   void setup_keyfile_union_session (sbuild::keyfile&   keyfile,
-				    std::string const& group)
+                                    std::string const& group)
   {
     keyfile.set_value(group, "union-type", "aufs");
     keyfile.set_value(group, "union-mount-options", "union-mount-options");
@@ -309,14 +309,14 @@ public:
 #endif // SBUILD_FEATURE_UNION
 
   void setup_keyfile_session_clone (sbuild::keyfile&   keyfile,
-				    std::string const& group)
+                                    std::string const& group)
   {
     keyfile.set_value(group, "description", chroot->get_description() + ' ' + _("(session chroot)"));
     keyfile.set_value(group, "aliases", "");
   }
 
   void setup_keyfile_source (sbuild::keyfile&   keyfile,
-			     std::string const& group)
+                             std::string const& group)
   {
     keyfile.set_value(group, "source-clone", "true");
     keyfile.set_value(group, "source-users", "suser1,suser2");
@@ -326,7 +326,7 @@ public:
   }
 
   void setup_keyfile_source_clone (sbuild::keyfile&   keyfile,
-				   std::string const& group)
+                                   std::string const& group)
   {
     keyfile.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
     keyfile.set_value(group, "users", "suser1,suser2");
@@ -342,7 +342,7 @@ public:
   }
 
   void setup_keyfile_session_source_clone (sbuild::keyfile&   keyfile,
-					   std::string const& group)
+                                           std::string const& group)
   {
     setup_keyfile_chroot(keyfile, group);
     keyfile.set_value(group, "name", "test-session-name");
@@ -358,77 +358,77 @@ public:
   }
 
   void test_setup_env(const sbuild::environment& observed_environment,
-		      const sbuild::environment& expected_environment)
+                      const sbuild::environment& expected_environment)
   {
     CPPUNIT_ASSERT(observed_environment.size() != 0);
     CPPUNIT_ASSERT(expected_environment.size() != 0);
 
     std::set<std::string> expected;
     for (sbuild::environment::const_iterator pos = expected_environment.begin();
-	 pos != expected_environment.end();
-	 ++pos)
+         pos != expected_environment.end();
+         ++pos)
       expected.insert(pos->first);
 
     std::set<std::string> found;
     for (sbuild::environment::const_iterator pos = observed_environment.begin();
-	 pos != observed_environment.end();
-	 ++pos)
+         pos != observed_environment.end();
+         ++pos)
       found.insert(pos->first);
 
     sbuild::string_list missing;
     set_difference(expected.begin(), expected.end(),
-		   found.begin(), found.end(),
-		   std::back_inserter(missing));
+                   found.begin(), found.end(),
+                   std::back_inserter(missing));
     if (!missing.empty())
       {
-	std::string value;
-	for (sbuild::string_list::const_iterator pos = missing.begin();
-	     pos != missing.end();
-	     ++pos)
-	  {
-	    expected_environment.get(*pos, value);
-	    std::cout << "Missing environment: "
-		      << *pos << "=" << value << std::endl;
-	  }
+        std::string value;
+        for (sbuild::string_list::const_iterator pos = missing.begin();
+             pos != missing.end();
+             ++pos)
+          {
+            expected_environment.get(*pos, value);
+            std::cout << "Missing environment: "
+                      << *pos << "=" << value << std::endl;
+          }
       }
     CPPUNIT_ASSERT(missing.empty());
 
     sbuild::string_list extra;
     set_difference(found.begin(), found.end(),
-		   expected.begin(), expected.end(),
-		   std::back_inserter(extra));
+                   expected.begin(), expected.end(),
+                   std::back_inserter(extra));
     if (!extra.empty())
       {
-	std::string value;
-	for (sbuild::string_list::const_iterator pos = extra.begin();
-	     pos != extra.end();
-	     ++pos)
-	  {
-	    observed_environment.get(*pos, value);
-	    std::cout << "Additional environment: "
-		      << *pos << "=" << value << std::endl;
-	  }
+        std::string value;
+        for (sbuild::string_list::const_iterator pos = extra.begin();
+             pos != extra.end();
+             ++pos)
+          {
+            observed_environment.get(*pos, value);
+            std::cout << "Additional environment: "
+                      << *pos << "=" << value << std::endl;
+          }
       }
     CPPUNIT_ASSERT(extra.empty());
 
     for (sbuild::environment::const_iterator pos = expected_environment.begin();
-	 pos != expected_environment.end();
-	 ++pos)
+         pos != expected_environment.end();
+         ++pos)
       {
-	std::string checkval;
-	CPPUNIT_ASSERT(observed_environment.get(pos->first, checkval) == true);
+        std::string checkval;
+        CPPUNIT_ASSERT(observed_environment.get(pos->first, checkval) == true);
 
-	if (checkval != pos->second)
-	  std::cout << "Environment error (" << pos->first << "): "
-		    << checkval << " [observed] != "
-		    << pos->second << " [expected]"
-		    << std::endl;
-	CPPUNIT_ASSERT(checkval == pos->second);
+        if (checkval != pos->second)
+          std::cout << "Environment error (" << pos->first << "): "
+                    << checkval << " [observed] != "
+                    << pos->second << " [expected]"
+                    << std::endl;
+        CPPUNIT_ASSERT(checkval == pos->second);
       }
   }
 
   void test_setup_env(sbuild::chroot::ptr&       chroot,
-		      const sbuild::environment& expected_environment)
+                      const sbuild::environment& expected_environment)
   {
     sbuild::environment observed_environment;
     chroot->setup_env(observed_environment);
@@ -439,9 +439,9 @@ public:
   }
 
   void test_setup_keyfile(const sbuild::keyfile& observed_keyfile,
-			  const std::string&     observed_group,
-			  const sbuild::keyfile& expected_keyfile,
-			  const std::string&     expected_group)
+                          const std::string&     observed_group,
+                          const sbuild::keyfile& expected_keyfile,
+                          const std::string&     expected_group)
   {
     CPPUNIT_ASSERT(observed_keyfile.get_keys(observed_group).size() != 0);
     CPPUNIT_ASSERT(expected_keyfile.get_keys(expected_group).size() != 0);
@@ -457,70 +457,70 @@ public:
 
     sbuild::string_list missing;
     set_difference(expected.begin(), expected.end(),
-		   observed.begin(), observed.end(),
-		   std::back_inserter(missing));
+                   observed.begin(), observed.end(),
+                   std::back_inserter(missing));
     if (!missing.empty())
       {
-	std::string value;
-	for (sbuild::string_list::const_iterator pos = missing.begin();
-	     pos != missing.end();
-	     ++pos)
-	  {
-	    expected_keyfile.get_value(expected_group, *pos, value);
-	    std::cout << "Missing keys: "
-		      << *pos << "=" << value << std::endl;
-	  }
+        std::string value;
+        for (sbuild::string_list::const_iterator pos = missing.begin();
+             pos != missing.end();
+             ++pos)
+          {
+            expected_keyfile.get_value(expected_group, *pos, value);
+            std::cout << "Missing keys: "
+                      << *pos << "=" << value << std::endl;
+          }
       }
     CPPUNIT_ASSERT(missing.empty());
 
     sbuild::string_list extra;
     set_difference(observed.begin(), observed.end(),
-		   expected.begin(), expected.end(),
-		   std::back_inserter(extra));
+                   expected.begin(), expected.end(),
+                   std::back_inserter(extra));
     if (!extra.empty())
       {
-	std::string value;
-	for (sbuild::string_list::const_iterator pos = extra.begin();
-	     pos != extra.end();
-	     ++pos)
-	  {
-	    observed_keyfile.get_value(observed_group, *pos, value);
-	    std::cout << "Additional keys: "
-		      << *pos << "=" << value << std::endl;
-	  }
+        std::string value;
+        for (sbuild::string_list::const_iterator pos = extra.begin();
+             pos != extra.end();
+             ++pos)
+          {
+            observed_keyfile.get_value(observed_group, *pos, value);
+            std::cout << "Additional keys: "
+                      << *pos << "=" << value << std::endl;
+          }
       }
     CPPUNIT_ASSERT(extra.empty());
 
     for (sbuild::string_list::const_iterator pos = expected_keys.begin();
-	 pos != expected_keys.end();
-	 ++pos)
+         pos != expected_keys.end();
+         ++pos)
       {
-	std::string expected_val;
-	CPPUNIT_ASSERT(expected_keyfile.get_value(expected_group,
-						  *pos, expected_val) == true);
+        std::string expected_val;
+        CPPUNIT_ASSERT(expected_keyfile.get_value(expected_group,
+                                                  *pos, expected_val) == true);
 
-	std::string observed_val;
-	CPPUNIT_ASSERT(observed_keyfile.get_value(observed_group,
-						  *pos, observed_val) == true);
+        std::string observed_val;
+        CPPUNIT_ASSERT(observed_keyfile.get_value(observed_group,
+                                                  *pos, observed_val) == true);
 
-	if (expected_val != observed_val)
-	  std::cout << "Keyfile error (" << *pos << "): "
-		    << observed_val << " [observed] != "
-		    << expected_val << " [expected]"
-		    << std::endl;
-	CPPUNIT_ASSERT(expected_val == observed_val);
+        if (expected_val != observed_val)
+          std::cout << "Keyfile error (" << *pos << "): "
+                    << observed_val << " [observed] != "
+                    << expected_val << " [expected]"
+                    << std::endl;
+        CPPUNIT_ASSERT(expected_val == observed_val);
       }
   }
 
   void test_setup_keyfile(sbuild::chroot::ptr&   chroot,
-			  const sbuild::keyfile& expected_keyfile,
-			  const std::string&     group)
+                          const sbuild::keyfile& expected_keyfile,
+                          const std::string&     group)
   {
     sbuild::keyfile keys;
     chroot->get_keyfile(keys);
 
     test_setup_keyfile(keys, chroot->get_name(),
-		       expected_keyfile, group);
+                       expected_keyfile, group);
   }
 
   // TODO: All chroot types should check text output matches.  If

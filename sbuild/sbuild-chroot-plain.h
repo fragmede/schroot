@@ -48,9 +48,9 @@ namespace sbuild
 
     virtual chroot::ptr
     clone_session (std::string const& session_id,
-		   std::string const& alias,
-		   std::string const& user,
-		   bool               root) const;
+                   std::string const& alias,
+                   std::string const& user,
+                   bool               root) const;
 
     virtual chroot::ptr
     clone_source () const;
@@ -67,8 +67,8 @@ namespace sbuild
   protected:
     virtual void
     setup_lock (chroot::setup_type type,
-		bool               lock,
-		int                status);
+                bool               lock,
+                int                status);
   };
 
 }

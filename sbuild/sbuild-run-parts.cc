@@ -64,9 +64,9 @@ error<run_parts::error_code>::error_strings
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
 run_parts::run_parts (std::string const& directory,
-		      bool               lsb_mode,
-		      bool               abort_on_error,
-		      mode_t             umask):
+                      bool               lsb_mode,
+                      bool               abort_on_error,
+                      mode_t             umask):
   lsb_mode(true),
   abort_on_error(abort_on_error),
   umask(umask),
@@ -89,11 +89,11 @@ run_parts::run_parts (std::string const& directory,
 
       // Skip common directories.
       if (name == "." || name == "..")
-	continue;
+        continue;
 
       // Skip backup files and dpkg configuration backup files.
       if (is_valid_filename(name, this->lsb_mode))
-	this->programs.insert(name);
+        this->programs.insert(name);
     }
 }
 
@@ -127,47 +127,47 @@ run_parts::set_reverse (bool reverse)
 
 int
 run_parts::run (string_list const& command,
-		environment const& env)
+                environment const& env)
 {
   int exit_status = 0;
 
   if (!this->reverse)
     {
       for (program_set::const_iterator pos = this->programs.begin();
-	   pos != this->programs.end();
-	   ++pos)
-	{
-	  string_list real_command;
-	  real_command.push_back(*pos);
-	  for (string_list::const_iterator spos = command.begin();
-	       spos != command.end();
-	       ++spos)
-	    real_command.push_back(*spos);
+           pos != this->programs.end();
+           ++pos)
+        {
+          string_list real_command;
+          real_command.push_back(*pos);
+          for (string_list::const_iterator spos = command.begin();
+               spos != command.end();
+               ++spos)
+            real_command.push_back(*spos);
 
-	  exit_status = run_child(*pos, real_command, env);
+          exit_status = run_child(*pos, real_command, env);
 
-	  if (exit_status && this->abort_on_error)
-	    return exit_status;
-	}
+          if (exit_status && this->abort_on_error)
+            return exit_status;
+        }
     }
   else
     {
       for (program_set::const_reverse_iterator pos = this->programs.rbegin();
-	   pos != this->programs.rend();
-	   ++pos)
-	{
-	  string_list real_command;
-	  real_command.push_back(*pos);
-	  for (string_list::const_iterator spos = command.begin();
-	       spos != command.end();
-	       ++spos)
-	    real_command.push_back(*spos);
+           pos != this->programs.rend();
+           ++pos)
+        {
+          string_list real_command;
+          real_command.push_back(*pos);
+          for (string_list::const_iterator spos = command.begin();
+               spos != command.end();
+               ++spos)
+            real_command.push_back(*spos);
 
-	  exit_status = run_child(*pos, real_command, env);
+          exit_status = run_child(*pos, real_command, env);
 
-	  if (exit_status && this->abort_on_error)
-	    return exit_status;
-	}
+          if (exit_status && this->abort_on_error)
+            return exit_status;
+        }
     }
 
   return exit_status;
@@ -175,8 +175,8 @@ run_parts::run (string_list const& command,
 
 int
 run_parts::run_child (std::string const& file,
-		      string_list const& command,
-		      environment const& env)
+                      string_list const& command,
+                      environment const& env)
 {
   int stdout_pipe[2];
   int stderr_pipe[2];
@@ -186,57 +186,57 @@ run_parts::run_child (std::string const& file,
   try
     {
       if (pipe(stdout_pipe) < 0)
-	throw error(PIPE, strerror(errno));
+        throw error(PIPE, strerror(errno));
       if (pipe(stderr_pipe) < 0)
-	throw error(PIPE, strerror(errno));
+        throw error(PIPE, strerror(errno));
 
       if ((pid = fork()) == -1)
-	{
-	  throw error(CHILD_FORK, strerror(errno));
-	}
+        {
+          throw error(CHILD_FORK, strerror(errno));
+        }
       else if (pid == 0)
-	{
-	  try
-	    {
-	      log_debug(DEBUG_INFO) << "run_parts: executing "
-				    << string_list_to_string(command, ", ")
-				    << std::endl;
-	      if (this->verbose)
-		// TRANSLATORS: %1% = command
-		log_info() << format(_("Executing ‘%1%’"))
-		  % string_list_to_string(command, " ")
-			   << std::endl;
-	      ::umask(this->umask);
+        {
+          try
+            {
+              log_debug(DEBUG_INFO) << "run_parts: executing "
+                                    << string_list_to_string(command, ", ")
+                                    << std::endl;
+              if (this->verbose)
+                // TRANSLATORS: %1% = command
+                log_info() << format(_("Executing ‘%1%’"))
+                  % string_list_to_string(command, " ")
+                           << std::endl;
+              ::umask(this->umask);
 
-	      // Don't leak syslog file descriptor to child processes.
-	      closelog();
+              // Don't leak syslog file descriptor to child processes.
+              closelog();
 
-	      // Set up pipes for stdout and stderr
-	      if (dup2(stdout_pipe[1], STDOUT_FILENO) < 0)
-		throw error(DUP, strerror(errno));
-	      if (dup2(stderr_pipe[1], STDERR_FILENO) < 0)
-		throw error(DUP, strerror(errno));
+              // Set up pipes for stdout and stderr
+              if (dup2(stdout_pipe[1], STDOUT_FILENO) < 0)
+                throw error(DUP, strerror(errno));
+              if (dup2(stderr_pipe[1], STDERR_FILENO) < 0)
+                throw error(DUP, strerror(errno));
 
-	      close(stdout_pipe[0]);
-	      close(stdout_pipe[1]);
-	      close(stderr_pipe[0]);
-	      close(stderr_pipe[1]);
+              close(stdout_pipe[0]);
+              close(stdout_pipe[1]);
+              close(stderr_pipe[0]);
+              close(stderr_pipe[1]);
 
-	      exec(this->directory + '/' + file, command, env);
-	      error e(file, EXEC, strerror(errno));
-	      log_exception_error(e);
-	    }
-	  catch (std::exception const& e)
-	    {
-	      log_exception_error(e);
-	    }
-	  catch (...)
-	    {
-	      log_error()
-		<< _("An unknown exception occurred") << std::endl;
-	    }
-	  _exit(EXIT_FAILURE);
-	}
+              exec(this->directory + '/' + file, command, env);
+              error e(file, EXEC, strerror(errno));
+              log_exception_error(e);
+            }
+          catch (std::exception const& e)
+            {
+              log_exception_error(e);
+            }
+          catch (...)
+            {
+              log_error()
+                << _("An unknown exception occurred") << std::endl;
+            }
+          _exit(EXIT_FAILURE);
+        }
 
       // Log stdout and stderr.
       close(stdout_pipe[1]);
@@ -256,86 +256,86 @@ run_parts::run_child (std::string const& file,
       std::string stderr_buf;
 
       while (1)
-	{
-	  int status;
-	  if ((status = poll(pollfds, 2, -1)) < 0)
-	    throw error(POLL, strerror(errno));
+        {
+          int status;
+          if ((status = poll(pollfds, 2, -1)) < 0)
+            throw error(POLL, strerror(errno));
 
-	  int outdata = 0;
-	  int errdata = 0;
+          int outdata = 0;
+          int errdata = 0;
 
-	  if (pollfds[1].revents & POLLIN)
-	    {
-	      if ((errdata = read(pollfds[1].fd, buffer, BUFSIZ)) < 0
-		  && errno != EINTR)
-		throw error(READ, strerror(errno));
+          if (pollfds[1].revents & POLLIN)
+            {
+              if ((errdata = read(pollfds[1].fd, buffer, BUFSIZ)) < 0
+                  && errno != EINTR)
+                throw error(READ, strerror(errno));
 
-	      if (errdata)
-		stderr_buf += std::string(&buffer[0], errdata);
-	    }
+              if (errdata)
+                stderr_buf += std::string(&buffer[0], errdata);
+            }
 
-	  if (pollfds[0].revents & POLLIN)
-	    {
-	      if ((outdata = read(pollfds[0].fd, buffer, BUFSIZ)) < 0
-		  && errno != EINTR)
-		throw error(READ, strerror(errno));
+          if (pollfds[0].revents & POLLIN)
+            {
+              if ((outdata = read(pollfds[0].fd, buffer, BUFSIZ)) < 0
+                  && errno != EINTR)
+                throw error(READ, strerror(errno));
 
-	      if (outdata)
-		stdout_buf += std::string(&buffer[0], outdata);
-	    }
+              if (outdata)
+                stdout_buf += std::string(&buffer[0], outdata);
+            }
 
-	  if (!stderr_buf.empty())
-	    {
-	      string_list lines = split_string_strict(stderr_buf, "\n");
-	      // If the buffer ends in a newline before splitting,
-	      // it's OK to flush all lines.
-	      bool flush = *stderr_buf.rbegin() == '\n';
+          if (!stderr_buf.empty())
+            {
+              string_list lines = split_string_strict(stderr_buf, "\n");
+              // If the buffer ends in a newline before splitting,
+              // it's OK to flush all lines.
+              bool flush = *stderr_buf.rbegin() == '\n';
 
-	      for (string_list::const_iterator pos = lines.begin();
-		   pos != lines.end();
-		   ++pos)
-		{
-		  if (pos + 1 != lines.end() || flush)
-		    log_error() << file << ": " << *pos << '\n';
-		  else // Save possibly incompete line
-		    stderr_buf = *pos;
-		}
+              for (string_list::const_iterator pos = lines.begin();
+                   pos != lines.end();
+                   ++pos)
+                {
+                  if (pos + 1 != lines.end() || flush)
+                    log_error() << file << ": " << *pos << '\n';
+                  else // Save possibly incompete line
+                    stderr_buf = *pos;
+                }
 
-	      if (flush)
-		stderr_buf.clear();
-	    }
+              if (flush)
+                stderr_buf.clear();
+            }
 
-	  if (!stdout_buf.empty())
-	    {
-	      string_list lines = split_string_strict(stdout_buf, "\n");
-	      // If the buffer ends in a newline before splitting,
-	      // it's OK to flush all lines.
-	      bool flush = *stdout_buf.rbegin() == '\n';
+          if (!stdout_buf.empty())
+            {
+              string_list lines = split_string_strict(stdout_buf, "\n");
+              // If the buffer ends in a newline before splitting,
+              // it's OK to flush all lines.
+              bool flush = *stdout_buf.rbegin() == '\n';
 
-	      for (string_list::const_iterator pos = lines.begin();
-		   pos != lines.end();
-		   ++pos)
-		{
-		  if (pos + 1 != lines.end() || flush)
-		    log_info() << file << ": " << *pos << '\n';
-		  else // Save possibly incompete line
-		    stdout_buf = *pos;
-		}
+              for (string_list::const_iterator pos = lines.begin();
+                   pos != lines.end();
+                   ++pos)
+                {
+                  if (pos + 1 != lines.end() || flush)
+                    log_info() << file << ": " << *pos << '\n';
+                  else // Save possibly incompete line
+                    stdout_buf = *pos;
+                }
 
-	      if (flush)
-		stdout_buf.clear();
-	    }
+              if (flush)
+                stdout_buf.clear();
+            }
 
-	  if (outdata == 0 && errdata == 0) // pipes closed
-	    {
-	      // Flush any remaining lines
-	      if (!stderr_buf.empty())
-		log_error() << file << ": " << stderr_buf << '\n';
-	      if (!stdout_buf.empty())
-		log_info() << file << ": " << stdout_buf << '\n';
-	      break;
-	    }
-	}
+          if (outdata == 0 && errdata == 0) // pipes closed
+            {
+              // Flush any remaining lines
+              if (!stderr_buf.empty())
+                log_error() << file << ": " << stderr_buf << '\n';
+              if (!stdout_buf.empty())
+                log_info() << file << ": " << stdout_buf << '\n';
+              break;
+            }
+        }
 
       close(stdout_pipe[0]);
       close(stderr_pipe[0]);
@@ -352,19 +352,19 @@ run_parts::run_child (std::string const& file,
 
   if (exit_status)
     log_debug(DEBUG_INFO) << "run_parts: " << file
-			  << " failed with status " << exit_status
-			  << std::endl;
+                          << " failed with status " << exit_status
+                          << std::endl;
   else
     log_debug(DEBUG_INFO) << "run_parts: " << file
-			  << " succeeded"
-			  << std::endl;
+                          << " succeeded"
+                          << std::endl;
 
   return exit_status;
 }
 
 void
 run_parts::wait_for_child (pid_t pid,
-			   int&  child_status)
+                           int&  child_status)
 {
   child_status = EXIT_FAILURE; // Default exit status
 
@@ -373,14 +373,14 @@ run_parts::wait_for_child (pid_t pid,
   while (1)
     {
       if (waitpid(pid, &status, 0) == -1)
-	{
-	  if (errno == EINTR)
-	    continue; // Wait again.
-	  else
-	    throw error(CHILD_WAIT, strerror(errno));
-	}
+        {
+          if (errno == EINTR)
+            continue; // Wait again.
+          else
+            throw error(CHILD_WAIT, strerror(errno));
+        }
       else
-	break;
+        break;
     }
 
   if (WIFEXITED(status))

@@ -30,9 +30,9 @@ using namespace CppUnit;
 
 template<class T>
 void test_list(T&                         itype,
-	       sbuild::string_list const& list,
-	       sbuild::string_list const& (T::*getter)(void) const,
-	       void (T::*setter)(sbuild::string_list const&))
+               sbuild::string_list const& list,
+               sbuild::string_list const& (T::*getter)(void) const,
+               void (T::*setter)(sbuild::string_list const&))
 {
   // Set items from list.
   (itype.*setter)(list);
@@ -46,8 +46,8 @@ void test_list(T&                         itype,
 
   sbuild::string_list missing;
   set_symmetric_difference(orig_list.begin(), orig_list.end(),
-			   set_items.begin(), set_items.end(),
-			   std::back_inserter(missing));
+                           set_items.begin(), set_items.end(),
+                           std::back_inserter(missing));
 
   if (!missing.empty())
   for (sbuild::string_list::const_iterator pos = missing.begin();

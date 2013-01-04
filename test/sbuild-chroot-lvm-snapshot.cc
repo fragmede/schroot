@@ -268,17 +268,17 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-		   (sbuild::chroot::SESSION_CREATE |
-		    sbuild::chroot::SESSION_CLONE));
+                   (sbuild::chroot::SESSION_CREATE |
+                    sbuild::chroot::SESSION_CLONE));
 
     CPPUNIT_ASSERT(session->get_session_flags() ==
-		   (sbuild::chroot::SESSION_PURGE));
+                   (sbuild::chroot::SESSION_PURGE));
 
     /// @todo: Should return NOFLAGS?  This depends upon if source
     /// chroots need transforming into sessions as well (which should
     /// probably happen and be tested for independently).
     CPPUNIT_ASSERT(source->get_session_flags() ==
-		   (sbuild::chroot::SESSION_CREATE));
+                   (sbuild::chroot::SESSION_CREATE));
   }
 
   void test_print_details()

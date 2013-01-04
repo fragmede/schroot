@@ -43,8 +43,8 @@ namespace dchroot
      * @param chroots the chroots to act upon.
      */
     session_base (std::string const&         service,
-		  operation                  operation,
-		  sbuild::session::chroot_list const& chroots);
+                  operation                  operation,
+                  sbuild::session::chroot_list const& chroots);
 
     /// The destructor.
     virtual ~session_base ();
@@ -55,7 +55,7 @@ namespace dchroot
 
     virtual sbuild::string_list
     get_command_directories (sbuild::chroot::ptr&       session_chroot,
-			     sbuild::environment const& env) const;
+                             sbuild::environment const& env) const;
   };
 
 }

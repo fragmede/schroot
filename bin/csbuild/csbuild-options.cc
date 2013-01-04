@@ -229,15 +229,15 @@ options::check_options ()
   if (!deb_build_options_string.empty())
     {
       string_list bopts = sbuild::split_string(deb_build_options_string,
-					       std::string(1, ' '));
+                                               std::string(1, ' '));
 
       for (string_list::const_iterator pos = bopts.begin();
-	   pos != bopts.end();
-	   ++pos)
-	{
-	  if (!pos->empty())
-	    deb_build_options.push_back(*pos);
-	}
+           pos != bopts.end();
+           ++pos)
+        {
+          if (!pos->empty())
+            deb_build_options.push_back(*pos);
+        }
     }
 
   if (vm.count("apt-update"))

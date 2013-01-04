@@ -72,22 +72,22 @@ namespace sbuild
     /// Authentication status
     enum status
       {
-	STATUS_NONE, ///< Authentication is not required.
-	STATUS_USER, ///< Authentication is required by the user.
-	STATUS_FAIL  ///< Authentication has failed.
+        STATUS_NONE, ///< Authentication is not required.
+        STATUS_USER, ///< Authentication is required by the user.
+        STATUS_FAIL  ///< Authentication has failed.
       };
 
     /// Error codes.
     enum error_code
       {
-	HOSTNAME,        ///< Failed to get hostname.
-	USER,            ///< User not found.
-	GROUP,           ///< Group not found.
-	AUTHENTICATION,  ///< Authentication failed.
-	AUTHORISATION,   ///< Authorisation failed.
-	PAM_DOUBLE_INIT, ///< PAM was already initialised.
-	PAM,             ///< PAM error.
-	PAM_END          ///< PAM failed to shut down cleanly.
+        HOSTNAME,        ///< Failed to get hostname.
+        USER,            ///< User not found.
+        GROUP,           ///< Group not found.
+        AUTHENTICATION,  ///< Authentication failed.
+        AUTHORISATION,   ///< Authorisation failed.
+        PAM_DOUBLE_INIT, ///< PAM was already initialised.
+        PAM,             ///< PAM error.
+        PAM_END          ///< PAM failed to shut down cleanly.
       };
 
     /// Exception type.
@@ -475,13 +475,13 @@ namespace sbuild
      */
     static status
     change_auth (status oldauth,
-		 status newauth)
+                 status newauth)
     {
       /* Ensure auth level always escalates. */
       if (newauth > oldauth)
-	return newauth;
+        return newauth;
       else
-	return oldauth;
+        return oldauth;
     }
 
     /**

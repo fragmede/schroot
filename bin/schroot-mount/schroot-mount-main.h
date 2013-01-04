@@ -40,10 +40,10 @@ namespace schroot_mount
     /// Error codes.
     enum error_code
       {
-	CHILD_FORK, ///< Failed to fork child.
-	CHILD_WAIT, ///< Wait for child failed.
-	EXEC,       ///< Failed to execute.
-	REALPATH    ///< Failed to resolve path.
+        CHILD_FORK, ///< Failed to fork child.
+        CHILD_WAIT, ///< Wait for child failed.
+        EXEC,       ///< Failed to execute.
+        REALPATH    ///< Failed to resolve path.
       };
 
     /// Exception type.
@@ -77,8 +77,8 @@ namespace schroot_mount
      */
     int
     run_child(std::string const& file,
-	      sbuild::string_list const& command,
-	      sbuild::environment const& env);
+              sbuild::string_list const& command,
+              sbuild::environment const& env);
 
     /**
      * Ensure that the mountpoint is a valid absolute path inside the
@@ -104,7 +104,7 @@ namespace schroot_mount
      */
     void
     wait_for_child (pid_t pid,
-		    int&  child_status);
+                    int&  child_status);
 
   protected:
     /**

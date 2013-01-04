@@ -28,9 +28,9 @@ _schroot()
     options=$(schroot --help | sed 's/\(^\|[[:space:]]\)[^[:space:]-][^[:space:]]*//g')
 
     if [ "$prev" = "-c" ] || [ "$prev" = "--chroot" ]; then
-	COMPREPLY=( $(compgen -W "$(schroot -a -l)" -- $cur) )
+        COMPREPLY=( $(compgen -W "$(schroot -a -l)" -- $cur) )
     else
-	COMPREPLY=( $(compgen -W "$options" -- $cur) )
+        COMPREPLY=( $(compgen -W "$options" -- $cur) )
     fi
     return 0
 }

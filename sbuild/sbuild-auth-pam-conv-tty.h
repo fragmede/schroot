@@ -48,11 +48,11 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
-	CTTY,            ///< No controlling terminal.
-	TIMEOUT,         ///< Timed out.
-	TIMEOUT_PENDING, ///< Time is running out...
-	TERMIOS,         ///< Failed to get terminal settings.
-	CONV_TYPE        ///< Unsupported conversation type.
+        CTTY,            ///< No controlling terminal.
+        TIMEOUT,         ///< Timed out.
+        TIMEOUT_PENDING, ///< Time is running out...
+        TERMIOS,         ///< Failed to get terminal settings.
+        CONV_TYPE        ///< Unsupported conversation type.
       };
 
     /// Exception type.
@@ -132,7 +132,7 @@ namespace sbuild
      */
     std::string
     read_string (std::string message,
-		 bool        echo);
+                 bool        echo);
 
     /// The auth object.
     weak_auth_ptr  auth;

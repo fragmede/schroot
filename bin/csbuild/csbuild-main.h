@@ -37,10 +37,10 @@ namespace csbuild
     /// Error codes.
     enum error_code
       {
-	DEVICE_NOTBLOCK, ///< File is not a block device.
-	DEVICE_OWNED,    ///< Failed to release device lock (lock held by PID).
-	DEVICE_RELEASE,  ///< Failed to release device lock.
-	DEVICE_STAT      ///< Failed to stat device.
+        DEVICE_NOTBLOCK, ///< File is not a block device.
+        DEVICE_OWNED,    ///< Failed to release device lock (lock held by PID).
+        DEVICE_RELEASE,  ///< Failed to release device lock.
+        DEVICE_STAT      ///< Failed to stat device.
       };
 
     /// Exception type.

@@ -43,8 +43,8 @@ using boost::format;
 using namespace schroot_sbuild;
 
 session::session (std::string const&                  service,
-		  operation                           operation,
-		  sbuild::session::chroot_list const& chroots):
+                  operation                           operation,
+                  sbuild::session::chroot_list const& chroots):
   sbuild::session(service, operation, chroots)
 {
 }
@@ -55,14 +55,14 @@ session::~session ()
 
 sbuild::auth::status
 session::get_chroot_auth_status (sbuild::auth::status status,
-				 sbuild::chroot::ptr const& chroot) const
+                                 sbuild::chroot::ptr const& chroot) const
 {
   sbuild::passwd pwent("sbuild");
 
 
   status = auth::change_auth(status,
-			     sbuild::session::get_chroot_auth_status(status,
-								     chroot));
+                             sbuild::session::get_chroot_auth_status(status,
+                                                                     chroot));
 
   return status;
 }

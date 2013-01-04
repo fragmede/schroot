@@ -38,7 +38,7 @@ if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
     SETUP_SERVICES=$(echo "$SETUP_SERVICES" | tr ',' '\n')
 
     for service in $SETUP_SERVICES; do
-	chroot "$CHROOT_PATH" /usr/sbin/invoke-rc.d --force "$service" start
+        chroot "$CHROOT_PATH" /usr/sbin/invoke-rc.d --force "$service" start
     done
 
 elif [ $STAGE = "setup-stop" ]; then
@@ -48,7 +48,7 @@ elif [ $STAGE = "setup-stop" ]; then
     SETUP_SERVICES=$(echo "$SETUP_SERVICES" | tr ',' '\n' | tac)
 
     for service in $SETUP_SERVICES; do
-	chroot "$CHROOT_PATH" /usr/sbin/invoke-rc.d --force "$service" stop || true
+        chroot "$CHROOT_PATH" /usr/sbin/invoke-rc.d --force "$service" stop || true
     done
 fi
 

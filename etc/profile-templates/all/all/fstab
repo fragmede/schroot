@@ -2,4 +2,4 @@
 # Note that the mount point will be prefixed by the chroot path
 # (CHROOT_PATH)
 #
-# <file system>	<mount point>	<type>	<options>	<dump>	<pass>
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>

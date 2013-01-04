@@ -40,8 +40,8 @@ using boost::format;
 using namespace dchroot;
 
 session_base::session_base (std::string const&  service,
-			    operation           operation,
-			    sbuild::session::chroot_list const& chroots):
+                            operation           operation,
+                            sbuild::session::chroot_list const& chroots):
   sbuild::session(service, operation, chroots)
 {
 }
@@ -55,14 +55,14 @@ session_base::run_impl ()
 {
   if (get_auth()->get_ruid() != get_auth()->get_uid())
     throw error(get_auth()->get_ruser(), get_auth()->get_user(), USER_SWITCH,
-		_("dchroot session restriction"));
+                _("dchroot session restriction"));
 
   sbuild::session::run_impl();
 }
 
 sbuild::string_list
 session_base::get_command_directories (sbuild::chroot::ptr&       session_chroot,
-				       sbuild::environment const& env) const
+                                       sbuild::environment const& env) const
 {
   // dchroot does not treat logins differently from commands with
   // respect to the cwd inside the chroot.

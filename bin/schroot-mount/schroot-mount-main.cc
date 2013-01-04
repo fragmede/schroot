@@ -74,11 +74,11 @@ sbuild::error<main::error_code>::error_strings
 
 main::main (options::ptr& options):
   schroot_base::main("schroot-mount",
-		     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-		     // and '-' is an em-dash.
-		     _("[OPTION…] — mount filesystems"),
-		     options,
-		     false),
+                     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+                     // and '-' is an em-dash.
+                     _("[OPTION…] — mount filesystems"),
+                     options,
+                     false),
   opts(options)
 {
 }
@@ -112,28 +112,28 @@ main::resolve_path (std::string const& mountpoint)
       // bail out now.
       bool link = false;
       try
-	{
-	  if (sbuild::stat(directory, true).is_link())
-	    link = true;
-	}
+        {
+          if (sbuild::stat(directory, true).is_link())
+            link = true;
+        }
       catch (...)
-	{} // Does not exist, not a link
+        {} // Does not exist, not a link
 
       if (link)
-	throw error(directory, REALPATH, strerror(ENOTDIR));
+        throw error(directory, REALPATH, strerror(ENOTDIR));
       else
-	{
-	  // Try validating the parent directory.
-	  sbuild::string_list dirs = sbuild::split_string(mountpoint, "/");
-	  if (dirs.size() > 1) // Recurse if possible, otherwise continue
-	    {
-	      std::string saveddir = *dirs.rbegin();
-	      dirs.pop_back();
+        {
+          // Try validating the parent directory.
+          sbuild::string_list dirs = sbuild::split_string(mountpoint, "/");
+          if (dirs.size() > 1) // Recurse if possible, otherwise continue
+            {
+              std::string saveddir = *dirs.rbegin();
+              dirs.pop_back();
 
-	      std::string newpath(resolve_path(sbuild::string_list_to_string(dirs, "/")));
-	      directory = newpath + "/" + saveddir;
-	    }
-	}
+              std::string newpath(resolve_path(sbuild::string_list_to_string(dirs, "/")));
+              directory = newpath + "/" + saveddir;
+            }
+        }
     }
   else
     {
@@ -163,64 +163,64 @@ main::action_mount ()
       std::string directory = resolve_path(entry.directory);
 
       if (!boost::filesystem::exists(directory))
-	{
-	  sbuild::log_debug(sbuild::DEBUG_INFO)
-	    << boost::format("Creating ‘%1%' in '%2%’")
-	    % entry.directory
-	    % opts->mountpoint
-	    << std::endl;
+        {
+          sbuild::log_debug(sbuild::DEBUG_INFO)
+            << boost::format("Creating ‘%1%' in '%2%’")
+            % entry.directory
+            % opts->mountpoint
+            << std::endl;
 
-	  if (!opts->dry_run)
-	    {
-	      try
-	        {
-	          boost::filesystem::create_directories(directory);
-	        }
-	      catch (std::exception const& e)
-	        {
-	          sbuild::log_exception_error(e);
-	          exit(EXIT_FAILURE);
-	        }
-	      catch (...)
-	        {
-	          sbuild::log_error()
-	            << _("An unknown exception occurred") << std::endl;
-	          exit(EXIT_FAILURE);
-	        }
-	    }
+          if (!opts->dry_run)
+            {
+              try
+                {
+                  boost::filesystem::create_directories(directory);
+                }
+              catch (std::exception const& e)
+                {
+                  sbuild::log_exception_error(e);
+                  exit(EXIT_FAILURE);
+                }
+              catch (...)
+                {
+                  sbuild::log_error()
+                    << _("An unknown exception occurred") << std::endl;
+                  exit(EXIT_FAILURE);
+                }
+            }
         }
 
       sbuild::log_debug(sbuild::DEBUG_INFO)
-	<< boost::format("Mounting ‘%1%’ on ‘%2%’")
-	% entry.filesystem_name
-	% directory
-	<< std::endl;
+        << boost::format("Mounting ‘%1%’ on ‘%2%’")
+        % entry.filesystem_name
+        % directory
+        << std::endl;
 
       if (!opts->dry_run)
-	{
-	  sbuild::string_list command;
-	  command.push_back("/bin/mount");
-	  if (opts->verbose)
-	    command.push_back("-v");
-	  command.push_back("-t");
-	  command.push_back(entry.type);
-	  command.push_back("-o");
-	  command.push_back(entry.options);
-	  command.push_back(entry.filesystem_name);
-	  command.push_back(directory);
+        {
+          sbuild::string_list command;
+          command.push_back("/bin/mount");
+          if (opts->verbose)
+            command.push_back("-v");
+          command.push_back("-t");
+          command.push_back(entry.type);
+          command.push_back("-o");
+          command.push_back(entry.options);
+          command.push_back(entry.filesystem_name);
+          command.push_back(directory);
 
-	  int status = run_child(command[0], command, sbuild::environment());
+          int status = run_child(command[0], command, sbuild::environment());
 
-	  if (status)
-	    exit(status);
-	}
+          if (status)
+            exit(status);
+        }
     }
 }
 
 int
 main::run_child (std::string const& file,
-		 sbuild::string_list const& command,
-		 sbuild::environment const& env)
+                 sbuild::string_list const& command,
+                 sbuild::environment const& env)
 {
   int exit_status = 0;
   pid_t pid;
@@ -232,24 +232,24 @@ main::run_child (std::string const& file,
   else if (pid == 0)
     {
       try
-	{
-	  sbuild::log_debug(sbuild::DEBUG_INFO)
-	    << "mount_main: executing "
-	    << sbuild::string_list_to_string(command, ", ")
-	    << std::endl;
-	  exec(file, command, env);
-	  error e(file, EXEC, strerror(errno));
-	  sbuild::log_exception_error(e);
-	}
+        {
+          sbuild::log_debug(sbuild::DEBUG_INFO)
+            << "mount_main: executing "
+            << sbuild::string_list_to_string(command, ", ")
+            << std::endl;
+          exec(file, command, env);
+          error e(file, EXEC, strerror(errno));
+          sbuild::log_exception_error(e);
+        }
       catch (std::exception const& e)
-	{
-	  sbuild::log_exception_error(e);
-	}
+        {
+          sbuild::log_exception_error(e);
+        }
       catch (...)
-	{
-	  sbuild::log_error()
-	    << _("An unknown exception occurred") << std::endl;
-	}
+        {
+          sbuild::log_error()
+            << _("An unknown exception occurred") << std::endl;
+        }
       _exit(EXIT_FAILURE);
     }
   else
@@ -273,7 +273,7 @@ main::run_child (std::string const& file,
 
 void
 main::wait_for_child (pid_t pid,
-		      int&  child_status)
+                      int&  child_status)
 {
   child_status = EXIT_FAILURE; // Default exit status
 
@@ -282,14 +282,14 @@ main::wait_for_child (pid_t pid,
   while (1)
     {
       if (waitpid(pid, &status, 0) == -1)
-	{
-	  if (errno == EINTR)
-	    continue; // Wait again.
-	  else
-	    throw error(CHILD_WAIT, strerror(errno));
-	}
+        {
+          if (errno == EINTR)
+            continue; // Wait again.
+          else
+            throw error(CHILD_WAIT, strerror(errno));
+        }
       else
-	break;
+        break;
     }
 
   if (WIFEXITED(status))

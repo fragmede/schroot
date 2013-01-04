@@ -67,11 +67,11 @@ sbuild::error<main::error_code>::error_strings
 
 main::main (options::ptr& options):
   schroot_base::main("schroot-listmounts",
-		     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-		     // and '-' is an em-dash.
-		     _("[OPTION…] — list mount points"),
-		     options,
-		     false),
+                     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+                     // and '-' is an em-dash.
+                     _("[OPTION…] — list mount points"),
+                     options,
+                     false),
   opts(options)
 {
 }
@@ -105,13 +105,13 @@ main::action_listmounts ()
     {
       std::string mount_dir(entry.directory);
       if (to_find == "/" ||
-	  (mount_dir.find(to_find) == 0 &&
-	   (// Names are the same.
-	    mount_dir.size() == to_find.size() ||
-	    // Must have a following /, or not the same directory.
-	    (mount_dir.size() > to_find.size() &&
-	     mount_dir[to_find.size()] == '/'))))
-	mountlist.push_back(mount_dir);
+          (mount_dir.find(to_find) == 0 &&
+           (// Names are the same.
+            mount_dir.size() == to_find.size() ||
+            // Must have a following /, or not the same directory.
+            (mount_dir.size() > to_find.size() &&
+             mount_dir[to_find.size()] == '/'))))
+        mountlist.push_back(mount_dir);
     }
 
   for (sbuild::string_list::const_reverse_iterator pos = mountlist.rbegin();

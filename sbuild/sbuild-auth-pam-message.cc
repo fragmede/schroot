@@ -23,7 +23,7 @@
 using namespace sbuild;
 
 auth_pam_message::auth_pam_message (message_type       type,
-				    std::string const& message):
+                                    std::string const& message):
   type(type),
   message(message),
   response()

@@ -69,8 +69,8 @@ public:
     CPPUNIT_ASSERT(this->fd >= 0);
 
     ssize_t wsize = write(this->fd,
-			 "This file exists in order to test "
-			  "sbuild::file_lock locking.\n", 61);
+                         "This file exists in order to test "
+                          "sbuild::file_lock locking.\n", 61);
     CPPUNIT_ASSERT(wsize == 61);
 
     this->lck = new sbuild::file_lock(this->fd);
@@ -88,52 +88,52 @@ public:
   }
 
   void test(sbuild::lock::type initial,
-	    sbuild::lock::type establish)
+            sbuild::lock::type establish)
   {
     this->lck->unset_lock();
     int pid = fork();
     CPPUNIT_ASSERT(pid >= 0);
     if (pid == 0)
       {
-	try
-	  {
-	    this->lck->set_lock(initial, 1);
-	    // Note: can cause unexpected success if < 4.  Set to 8 to
-	    // allow for slow or heavily-loaded machines.
-	    sleep(4);
-	    this->lck->unset_lock();
-	  }
-	catch (std::exception const& e)
-	  {
-	    try
-	      {
-		this->lck->unset_lock();
-	      }
-	    catch (std::exception const& ignore)
-	      {
-	      }
-	    std::cerr << "Child fail: " << e.what() << std::endl;
-	    _exit(EXIT_FAILURE);
-	  }
-	_exit(EXIT_SUCCESS);
+        try
+          {
+            this->lck->set_lock(initial, 1);
+            // Note: can cause unexpected success if < 4.  Set to 8 to
+            // allow for slow or heavily-loaded machines.
+            sleep(4);
+            this->lck->unset_lock();
+          }
+        catch (std::exception const& e)
+          {
+            try
+              {
+                this->lck->unset_lock();
+              }
+            catch (std::exception const& ignore)
+              {
+              }
+            std::cerr << "Child fail: " << e.what() << std::endl;
+            _exit(EXIT_FAILURE);
+          }
+        _exit(EXIT_SUCCESS);
       }
     else
       {
-	try
-	  {
-	    sleep(2);
-	    this->lck->set_lock(establish, 1);
+        try
+          {
+            sleep(2);
+            this->lck->set_lock(establish, 1);
 
-	    int status;
-	    CPPUNIT_ASSERT(waitpid(pid, &status, 0) >= 0);
-	    CPPUNIT_ASSERT(WIFEXITED(status) && WEXITSTATUS(status) == 0);
-	  }
-	catch (std::exception const& e)
-	  {
-	    int status;
-	    waitpid(pid, &status, 0);
-	    throw;
-	  }
+            int status;
+            CPPUNIT_ASSERT(waitpid(pid, &status, 0) >= 0);
+            CPPUNIT_ASSERT(WIFEXITED(status) && WEXITSTATUS(status) == 0);
+          }
+        catch (std::exception const& e)
+          {
+            int status;
+            waitpid(pid, &status, 0);
+            throw;
+          }
       }
   }
 
@@ -232,53 +232,53 @@ public:
   }
 
   void test(sbuild::lock::type initial,
-	    sbuild::lock::type establish)
+            sbuild::lock::type establish)
   {
     unlock();
     int pid = fork();
     CPPUNIT_ASSERT(pid >= 0);
     if (pid == 0)
       {
-	try
-	  {
-	    this->lck->set_lock(initial, 1);
-	    // Note: can cause unexpected success if < 4.  Set to 8 to
-	    // allow for slow or heavily-loaded machines.
-	    sleep(4);
-	    this->lck->unset_lock();
-	  }
-	catch (std::exception const& e)
-	  {
-	    try
-	      {
-		this->lck->unset_lock();
-	      }
-	    catch (std::exception const& ignore)
-	      {
-	      }
-	    std::cerr << "Child fail: " << e.what() << std::endl;
-	    _exit(EXIT_FAILURE);
-	  }
-	_exit(EXIT_SUCCESS);
+        try
+          {
+            this->lck->set_lock(initial, 1);
+            // Note: can cause unexpected success if < 4.  Set to 8 to
+            // allow for slow or heavily-loaded machines.
+            sleep(4);
+            this->lck->unset_lock();
+          }
+        catch (std::exception const& e)
+          {
+            try
+              {
+                this->lck->unset_lock();
+              }
+            catch (std::exception const& ignore)
+              {
+              }
+            std::cerr << "Child fail: " << e.what() << std::endl;
+            _exit(EXIT_FAILURE);
+          }
+        _exit(EXIT_SUCCESS);
       }
     else
       {
-	try
-	  {
-	    sleep(2);
-	    this->lck->set_lock(establish, 1);
-	    this->lck->unset_lock();
+        try
+          {
+            sleep(2);
+            this->lck->set_lock(establish, 1);
+            this->lck->unset_lock();
 
-	    int status;
-	    CPPUNIT_ASSERT(waitpid(pid, &status, 0) >= 0);
-	    CPPUNIT_ASSERT(WIFEXITED(status) && WEXITSTATUS(status) == 0);
-	  }
-	catch (std::exception const& e)
-	  {
-	    int status;
-	    waitpid(pid, &status, 0);
-	    throw;
-	  }
+            int status;
+            CPPUNIT_ASSERT(waitpid(pid, &status, 0) >= 0);
+            CPPUNIT_ASSERT(WIFEXITED(status) && WEXITSTATUS(status) == 0);
+          }
+        catch (std::exception const& e)
+          {
+            int status;
+            waitpid(pid, &status, 0);
+            throw;
+          }
       }
   }
 

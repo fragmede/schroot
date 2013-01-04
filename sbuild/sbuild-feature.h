@@ -32,7 +32,7 @@ namespace sbuild
   {
   public:
     feature (std::string const& feature,
-	     std::string const& description);
+             std::string const& description);
 
     ~feature ();
 

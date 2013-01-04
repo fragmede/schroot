@@ -50,88 +50,88 @@ namespace
   /* This is the glue to link PAM user interaction with auth_pam_conv. */
   int
   auth_pam_conv_hook (int                        num_msg,
-		      const struct pam_message **msgm,
-		      struct pam_response      **response,
-		      void                      *appdata_ptr)
+                      const struct pam_message **msgm,
+                      struct pam_response      **response,
+                      void                      *appdata_ptr)
   {
     log_debug(DEBUG_NOTICE) << "PAM conversation hook started" << endl;
 
     try
       {
-	if (appdata_ptr == 0)
-	  return PAM_CONV_ERR;
+        if (appdata_ptr == 0)
+          return PAM_CONV_ERR;
 
-	auth_pam_conv *conv = static_cast<auth_pam_conv *>(appdata_ptr);
-	assert (conv != 0);
+        auth_pam_conv *conv = static_cast<auth_pam_conv *>(appdata_ptr);
+        assert (conv != 0);
 
-	log_debug(DEBUG_INFO) << "Found PAM conversation handler" << endl;
+        log_debug(DEBUG_INFO) << "Found PAM conversation handler" << endl;
 
-	/* Construct a message vector */
-	auth_pam_conv::message_list messages;
-	for (int i = 0; i < num_msg; ++i)
-	  {
-	    const struct pam_message *source = msgm[i];
+        /* Construct a message vector */
+        auth_pam_conv::message_list messages;
+        for (int i = 0; i < num_msg; ++i)
+          {
+            const struct pam_message *source = msgm[i];
 
-	    auth_pam_message
-	      message(static_cast<auth_pam_message::message_type>(source->msg_style),
-		      source->msg);
+            auth_pam_message
+              message(static_cast<auth_pam_message::message_type>(source->msg_style),
+                      source->msg);
 
-	    /* Replace PAM prompt */
-	    if (message.message == dgettext(PAM_TEXT_DOMAIN, "Password: ") ||
-		message.message == dgettext(PAM_TEXT_DOMAIN, "Password:"))
-	      {
-		std::string user = "unknown"; // Set in case auth is void
-		std::shared_ptr<auth_pam> auth = conv->get_auth();
-		assert(auth && auth.get() != 0); // Check auth is not void
-		if (auth && auth.get() != 0)
-		  user = auth->get_user();
-		format fmt(_("[schroot] password for %1%: "));
-		fmt % user;
-		message.message = fmt.str();
-	      }
+            /* Replace PAM prompt */
+            if (message.message == dgettext(PAM_TEXT_DOMAIN, "Password: ") ||
+                message.message == dgettext(PAM_TEXT_DOMAIN, "Password:"))
+              {
+                std::string user = "unknown"; // Set in case auth is void
+                std::shared_ptr<auth_pam> auth = conv->get_auth();
+                assert(auth && auth.get() != 0); // Check auth is not void
+                if (auth && auth.get() != 0)
+                  user = auth->get_user();
+                format fmt(_("[schroot] password for %1%: "));
+                fmt % user;
+                message.message = fmt.str();
+              }
 
-	    messages.push_back(message);
-	  }
+            messages.push_back(message);
+          }
 
-	log_debug(DEBUG_INFO) << "Set PAM conversation message vector" << endl;
+        log_debug(DEBUG_INFO) << "Set PAM conversation message vector" << endl;
 
-	/* Do the conversation; an exception will be thrown on failure */
-	conv->conversation(messages);
+        /* Do the conversation; an exception will be thrown on failure */
+        conv->conversation(messages);
 
-	log_debug(DEBUG_INFO) << "Run PAM conversation" << endl;
+        log_debug(DEBUG_INFO) << "Run PAM conversation" << endl;
 
-	/* Copy response into **reponse */
-	struct pam_response *reply =
-	  static_cast<struct pam_response *>
-	  (malloc(sizeof(struct pam_response) * num_msg));
+        /* Copy response into **reponse */
+        struct pam_response *reply =
+          static_cast<struct pam_response *>
+          (malloc(sizeof(struct pam_response) * num_msg));
 
-	for (int i = 0; i < num_msg; ++i)
-	  {
-	    reply[i].resp_retcode = 0;
-	    reply[i].resp = strdup(messages[i].response.c_str());
-	  }
+        for (int i = 0; i < num_msg; ++i)
+          {
+            reply[i].resp_retcode = 0;
+            reply[i].resp = strdup(messages[i].response.c_str());
+          }
 
-	*response = reply;
-	reply = 0;
+        *response = reply;
+        reply = 0;
 
-	log_debug(DEBUG_INFO) << "Set PAM conversation reply" << endl;
+        log_debug(DEBUG_INFO) << "Set PAM conversation reply" << endl;
 
-	return PAM_SUCCESS;
+        return PAM_SUCCESS;
       }
     catch (std::exception const& e)
       {
-	log_exception_error(e);
+        log_exception_error(e);
       }
     catch (...)
       {
-	log_error() << _("An unknown exception occurred") << endl;
+        log_error() << _("An unknown exception occurred") << endl;
       }
 
     return PAM_CONV_ERR;
   }
 
   sbuild::feature feature_devlock("PAM",
-				  N_("Pluggable Authentication Modules"));
+                                  N_("Pluggable Authentication Modules"));
 }
 
 auth_pam::auth_pam (std::string const& service_name):
@@ -186,7 +186,7 @@ auth_pam::start ()
   if (this->pam != 0)
     {
       log_debug(DEBUG_CRITICAL)
-	<< "pam_start FAIL (already initialised)" << endl;
+        << "pam_start FAIL (already initialised)" << endl;
       throw error("Init PAM", PAM_DOUBLE_INIT);
     }
 
@@ -200,7 +200,7 @@ auth_pam::start ()
 
   if ((pam_status =
        pam_start(this->service.c_str(), this->user.c_str(),
-		 &conv_hook, &this->pam)) != PAM_SUCCESS)
+                 &conv_hook, &this->pam)) != PAM_SUCCESS)
     {
       log_debug(DEBUG_WARNING) << "pam_start FAIL" << endl;
       throw error(PAM, pam_strerror(pam_status));
@@ -217,10 +217,10 @@ auth_pam::stop ()
     int pam_status;
 
     if ((pam_status =
-	 pam_end(this->pam, PAM_SUCCESS)) != PAM_SUCCESS)
+         pam_end(this->pam, PAM_SUCCESS)) != PAM_SUCCESS)
       {
-	log_debug(DEBUG_WARNING) << "pam_end FAIL" << endl;
-	throw error(PAM_END);
+        log_debug(DEBUG_WARNING) << "pam_end FAIL" << endl;
+        throw error(PAM_END);
       }
 
     this->pam = 0;
@@ -249,17 +249,17 @@ auth_pam::authenticate (status auth_status)
   try
     {
       if (gethostname(hostname, hl) != 0)
-	{
-	  log_debug(DEBUG_CRITICAL) << "gethostname FAIL" << endl;
-	  throw error(HOSTNAME, strerror(errno));
-	}
+        {
+          log_debug(DEBUG_CRITICAL) << "gethostname FAIL" << endl;
+          throw error(HOSTNAME, strerror(errno));
+        }
 
       if ((pam_status =
-	   pam_set_item(this->pam, PAM_RHOST, hostname)) != PAM_SUCCESS)
-	{
-	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_RHOST) FAIL" << endl;
-	  throw error(_("Set RHOST"), PAM, pam_strerror(pam_status));
-	}
+           pam_set_item(this->pam, PAM_RHOST, hostname)) != PAM_SUCCESS)
+        {
+          log_debug(DEBUG_WARNING) << "pam_set_item (PAM_RHOST) FAIL" << endl;
+          throw error(_("Set RHOST"), PAM, pam_strerror(pam_status));
+        }
     }
   catch (error const& e)
     {
@@ -274,11 +274,11 @@ auth_pam::authenticate (status auth_status)
   if (tty)
     {
       if ((pam_status =
-	   pam_set_item(this->pam, PAM_TTY, tty)) != PAM_SUCCESS)
-	{
-	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_TTY) FAIL" << endl;
-	  throw error(_("Set TTY"), PAM, pam_strerror(pam_status));
-	}
+           pam_set_item(this->pam, PAM_TTY, tty)) != PAM_SUCCESS)
+        {
+          log_debug(DEBUG_WARNING) << "pam_set_item (PAM_TTY) FAIL" << endl;
+          throw error(_("Set TTY"), PAM, pam_strerror(pam_status));
+        }
     }
 
   /* Authenticate as required. */
@@ -286,40 +286,40 @@ auth_pam::authenticate (status auth_status)
     {
     case STATUS_NONE:
       if ((pam_status = pam_set_item(this->pam, PAM_USER, this->user.c_str()))
-	  != PAM_SUCCESS)
-	{
-	  log_debug(DEBUG_WARNING) << "pam_set_item (PAM_USER) FAIL" << endl;
-	  throw error(_("Set USER"), PAM, pam_strerror(pam_status));
-	}
+          != PAM_SUCCESS)
+        {
+          log_debug(DEBUG_WARNING) << "pam_set_item (PAM_USER) FAIL" << endl;
+          throw error(_("Set USER"), PAM, pam_strerror(pam_status));
+        }
       break;
 
     case STATUS_USER:
       if ((pam_status = pam_authenticate(this->pam, 0)) != PAM_SUCCESS)
-	{
-	  log_debug(DEBUG_INFO) << "pam_authenticate FAIL" << endl;
-	  syslog(LOG_AUTH|LOG_WARNING, "%s->%s Authentication failure",
-		 this->ruser.c_str(), this->user.c_str());
-	  throw error(AUTHENTICATION, pam_strerror(pam_status));
-	}
+        {
+          log_debug(DEBUG_INFO) << "pam_authenticate FAIL" << endl;
+          syslog(LOG_AUTH|LOG_WARNING, "%s->%s Authentication failure",
+                 this->ruser.c_str(), this->user.c_str());
+          throw error(AUTHENTICATION, pam_strerror(pam_status));
+        }
       log_debug(DEBUG_NOTICE) << "pam_authenticate OK" << endl;
       break;
 
     case STATUS_FAIL:
-	{
-	  log_debug(DEBUG_INFO) << "PAM auth premature FAIL" << endl;
-	  syslog(LOG_AUTH|LOG_WARNING,
-		 "%s->%s Unauthorised",
-		 this->ruser.c_str(), this->user.c_str());
-	  error e(AUTHORISATION);
-	  // TRANSLATORS: %1% = program name (PAM service name)
-	  std::string reason(_("You do not have permission to access the %1% service."));
-	  reason += '\n';
-	  reason += _("This failure will be reported.");
-	  format fmt(reason);
-	  fmt % this->service;
-	  e.set_reason(fmt.str());
-	  throw e;
-	}
+        {
+          log_debug(DEBUG_INFO) << "PAM auth premature FAIL" << endl;
+          syslog(LOG_AUTH|LOG_WARNING,
+                 "%s->%s Unauthorised",
+                 this->ruser.c_str(), this->user.c_str());
+          error e(AUTHORISATION);
+          // TRANSLATORS: %1% = program name (PAM service name)
+          std::string reason(_("You do not have permission to access the %1% service."));
+          reason += '\n';
+          reason += _("This failure will be reported.");
+          format fmt(reason);
+          fmt % this->service;
+          e.set_reason(fmt.str());
+          throw e;
+        }
     default:
       break;
     }
@@ -341,14 +341,14 @@ auth_pam::setupenv ()
     {
       std::string env_string = cur->first + "=" + cur->second;
       if ((pam_status =
-	   pam_putenv(this->pam, env_string.c_str())) != PAM_SUCCESS)
-	{
-	  log_debug(DEBUG_WARNING) << "pam_putenv FAIL" << endl;
-	  throw error(PAM, pam_strerror(pam_status));
-	}
+           pam_putenv(this->pam, env_string.c_str())) != PAM_SUCCESS)
+        {
+          log_debug(DEBUG_WARNING) << "pam_putenv FAIL" << endl;
+          throw error(PAM, pam_strerror(pam_status));
+        }
       log_debug(DEBUG_INFO)
-	<< format("pam_putenv: set %1%=%2%") % cur->first % cur->second
-	<< endl;
+        << format("pam_putenv: set %1%=%2%") % cur->first % cur->second
+        << endl;
     }
 
   log_debug(DEBUG_NOTICE) << "pam_putenv OK" << endl;
@@ -365,7 +365,7 @@ auth_pam::account ()
        pam_acct_mgmt(this->pam, 0)) != PAM_SUCCESS)
     {
       /* We don't handle changing expired passwords here, since we are
-	 not login or ssh. */
+         not login or ssh. */
       log_debug(DEBUG_WARNING) << "pam_acct_mgmt FAIL" << endl;
       throw error(PAM, pam_strerror(pam_status));
     }

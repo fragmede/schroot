@@ -45,7 +45,7 @@ namespace sbuild
      * @param locale the locale to use for formatting the values.
      */
     format_detail (const std::string& title,
-		   std::locale        locale);
+                   std::locale        locale);
 
     virtual ~format_detail ();
 
@@ -58,7 +58,7 @@ namespace sbuild
      */
     format_detail&
     add (std::string const& name,
-	 std::string const& value);
+         std::string const& value);
 
     /**
      * Add a name-value pair (bool specialisation).
@@ -69,7 +69,7 @@ namespace sbuild
      */
     format_detail&
     add (std::string const& name,
-	 bool               value);
+         bool               value);
 
     /**
      * Add a name-value pair (string_list specialisation).
@@ -80,7 +80,7 @@ namespace sbuild
      */
     format_detail&
     add (std::string const& name,
-	 string_list const& value);
+         string_list const& value);
 
     /**
      * Add a name-value pair.
@@ -92,7 +92,7 @@ namespace sbuild
     template<typename T>
     format_detail&
     add (std::string const& name,
-	 T const&           value)
+         T const&           value)
     {
       std::ostringstream varstring;
       varstring.imbue(this->locale);
@@ -121,41 +121,41 @@ namespace sbuild
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-		 format_detail const& rhs)
+                 format_detail const& rhs)
     {
       std::locale loc = stream.getloc();
       int max_width = 0;
 
       for (format_detail::list_type::const_iterator pos = rhs.items.begin();
-	   pos != rhs.items.end();
-	   ++pos)
-	{
-	  std::wstring wide = widen_string(pos->first, loc);
-	  int width = wcswidth(wide.c_str(), wide.length());
+           pos != rhs.items.end();
+           ++pos)
+        {
+          std::wstring wide = widen_string(pos->first, loc);
+          int width = wcswidth(wide.c_str(), wide.length());
 
-	  if (max_width < width)
-	    max_width = width;
-	}
+          if (max_width < width)
+            max_width = width;
+        }
 
       if (max_width < 20)
-	max_width = 20;
+        max_width = 20;
       // To ensure 2 spaces of separation between name and value
       max_width += 2;
 
       stream << "  " << rhs.get_title() << '\n';
 
       for (format_detail::list_type::const_iterator pos = rhs.items.begin();
-	   pos != rhs.items.end();
-	   ++pos)
-	{
-	  std::wostringstream ws;
-	  ws.imbue(loc);
+           pos != rhs.items.end();
+           ++pos)
+        {
+          std::wostringstream ws;
+          ws.imbue(loc);
 
-	  std::wstring wide = widen_string(pos->first, loc);
-	  ws << L"  " << std::setw(max_width) << std::left << wide;
+          std::wstring wide = widen_string(pos->first, loc);
+          ws << L"  " << std::setw(max_width) << std::left << wide;
 
-	  stream << narrow_string(ws.str(), loc) << pos->second << '\n';
-	}
+          stream << narrow_string(ws.str(), loc) << pos->second << '\n';
+        }
 
       return stream;
     }

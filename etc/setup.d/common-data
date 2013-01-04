@@ -26,9 +26,9 @@ STATUS="$2"
 # FreeBSD uses character devices in place of block devices
 case "$HOST_OS" in
     freebsd* | k*bsd*-gnu) :
-	DEVTYPE="-c"
-	;;
+        DEVTYPE="-c"
+        ;;
     *):
-	DEVTYPE="-b"
-	;;
+        DEVTYPE="-b"
+        ;;
 esac

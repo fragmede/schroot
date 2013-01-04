@@ -100,7 +100,7 @@ error<sbuild::personality::error_code>::error_strings
 
 std::map<std::string,sbuild::personality::type>
 sbuild::personality::personalities(initial_personalities,
-				   initial_personalities + (sizeof(initial_personalities) / sizeof(initial_personalities[0])));
+                                   initial_personalities + (sizeof(initial_personalities) / sizeof(initial_personalities[0])));
 
 sbuild::personality::personality ():
   persona_name("undefined"),
@@ -203,7 +203,7 @@ sbuild::personality::get_personalities ()
       ps += pos->first;
       std::map<std::string,type>::const_iterator stpos = pos;
       if (++stpos != personalities.end())
-	ps += ", ";
+        ps += ", ";
     }
 
   fmt % ps;

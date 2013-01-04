@@ -46,8 +46,8 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
-	BAD, ///< Personality is unknown.
-	SET  ///< Could not set personality.
+        BAD, ///< Personality is unknown.
+        SET  ///< Could not set personality.
       };
 
     /// Exception type.
@@ -120,14 +120,14 @@ namespace sbuild
     friend
     std::basic_istream<charT,traits>&
     operator >> (std::basic_istream<charT,traits>& stream,
-		 personality&                      rhs)
+                 personality&                      rhs)
     {
       std::string personality_name;
 
       if (std::getline(stream, personality_name))
-	{
-	  rhs.set_name(personality_name);
-	}
+        {
+          rhs.set_name(personality_name);
+        }
 
       return stream;
     }
@@ -143,7 +143,7 @@ namespace sbuild
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-		 personality const&                rhs)
+                 personality const&                rhs)
     {
       return stream << find_personality(rhs.persona);
     }

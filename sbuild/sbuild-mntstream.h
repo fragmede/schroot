@@ -48,10 +48,10 @@ namespace sbuild
     public:
       /// Error codes.
       enum error_code
-	{
-	  MNT_OPEN, ///< Failed to open mount file.
-	  MNT_READ  ///< Failed to read mount file.
-	};
+        {
+          MNT_OPEN, ///< Failed to open mount file.
+          MNT_READ  ///< Failed to read mount file.
+        };
 
       /// Exception type.
       typedef sbuild::custom_error<error_code> error;
@@ -64,29 +64,29 @@ namespace sbuild
        */
       struct mntentry
       {
-	/// The constructor.
-	mntentry ()
-	{};
+        /// The constructor.
+        mntentry ()
+        {};
 
-	/**
-	 * The contructor.
-	 *
-	 * @param entry the mntent structure to wrap.
-	 */
-	mntentry (struct mntent const&  entry);
+        /**
+         * The contructor.
+         *
+         * @param entry the mntent structure to wrap.
+         */
+        mntentry (struct mntent const&  entry);
 
-	/// Name of mounted filesystem.
-	std::string  filesystem_name;
-	/// File system path prefix.
-	std::string  directory;
-	/// Mount type.
-	std::string  type;
-	/// Mount options.
-	std::string  options;
-	/// Dump frequency (days).
-	int          dump_frequency;
-	/// Parallel fsck pass number.
-	int          fsck_pass;
+        /// Name of mounted filesystem.
+        std::string  filesystem_name;
+        /// File system path prefix.
+        std::string  directory;
+        /// Mount type.
+        std::string  type;
+        /// Mount options.
+        std::string  options;
+        /// Dump frequency (days).
+        int          dump_frequency;
+        /// Parallel fsck pass number.
+        int          fsck_pass;
       };
 
       /**
@@ -157,7 +157,7 @@ namespace sbuild
 
       friend mntstream&
       operator >> (mntstream& stream,
-		   mntentry&  entry);
+                   mntentry&  entry);
 
     private:
       /**
@@ -201,7 +201,7 @@ namespace sbuild
    */
   mntstream&
   operator >> (mntstream&            stream,
-	       mntstream::mntentry&  entry);
+               mntstream::mntentry&  entry);
 
 }
 

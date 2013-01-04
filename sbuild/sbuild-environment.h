@@ -111,7 +111,7 @@ namespace sbuild
      */
     void
     add (std::string const& name,
-	 std::string const& value)
+         std::string const& value)
     {
       add(std::make_pair(name, value));
     }
@@ -126,7 +126,7 @@ namespace sbuild
     template<typename T>
     void
     add (std::string const& name,
-	 T const&           value)
+         T const&           value)
     {
       std::ostringstream varstring;
       varstring.imbue(std::locale::classic());
@@ -192,25 +192,25 @@ namespace sbuild
     template <typename T>
     bool
     get (std::string const& name,
-	 T&                 value) const
+         T&                 value) const
     {
       log_debug(DEBUG_INFO) << "Getting environment variable=" << name
-			    << std::endl;
+                            << std::endl;
       const_iterator pos = find(name);
       if (pos != end())
-	{
-	  try
-	    {
-	      parse_value(pos->second, value);
-	      return true;
-	    }
-	  catch (parse_value_error const& e)
-	    {
-	      log_warning() << boost::format("%1%: %2%\n")
-		% name % e.what();
-	      return false;
-	    }
-	}
+        {
+          try
+            {
+              parse_value(pos->second, value);
+              return true;
+            }
+          catch (parse_value_error const& e)
+            {
+              log_warning() << boost::format("%1%: %2%\n")
+                % name % e.what();
+              return false;
+            }
+        }
       log_debug(DEBUG_NOTICE) << "name not found: " << name << std::endl;
       return false;
     }
@@ -263,7 +263,7 @@ namespace sbuild
     template <typename T>
     friend environment
     operator + (environment const& lhs,
-		T const&           rhs)
+                T const&           rhs)
     {
       environment ret(lhs);
       ret += rhs;
@@ -280,7 +280,7 @@ namespace sbuild
     template <typename T>
     friend environment
     operator - (environment const& lhs,
-		T const&           rhs)
+                T const&           rhs)
     {
       environment ret(lhs);
       ret -= rhs;
@@ -298,14 +298,14 @@ namespace sbuild
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-		 environment const& rhs)
+                 environment const& rhs)
     {
       for (environment::const_iterator pos = rhs.begin();
-	   pos != rhs.end();
-	   ++pos)
-	{
-	  stream << pos->first << '=' << pos->second << '\n';
-	}
+           pos != rhs.end();
+           ++pos)
+        {
+          stream << pos->first << '=' << pos->second << '\n';
+        }
 
       return stream;
     }

@@ -40,7 +40,7 @@ namespace schroot_listmounts
     /// Error codes.
     enum error_code
       {
-	FIND ///< Failed to find file.
+        FIND ///< Failed to find file.
       };
 
     /// Exception type.

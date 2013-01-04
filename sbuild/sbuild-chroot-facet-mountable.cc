@@ -103,7 +103,7 @@ chroot_facet_mountable::set_location (std::string const& location)
 
 void
 chroot_facet_mountable::setup_env (chroot const& chroot,
-				   environment&  env) const
+                                   environment&  env) const
 {
   env.add("CHROOT_MOUNT_DEVICE", get_mount_device());
   env.add("CHROOT_MOUNT_OPTIONS", get_mount_options());
@@ -118,7 +118,7 @@ chroot_facet_mountable::get_session_flags (chroot const& chroot) const
 
 void
 chroot_facet_mountable::get_details (chroot const&  chroot,
-				     format_detail& detail) const
+                                     format_detail& detail) const
 {
   if (!get_mount_device().empty())
     detail.add(_("Mount Device"), get_mount_device());
@@ -130,48 +130,48 @@ chroot_facet_mountable::get_details (chroot const&  chroot,
 
 void
 chroot_facet_mountable::get_keyfile (chroot const& chroot,
-				     keyfile&      keyfile) const
+                                     keyfile&      keyfile) const
 {
   bool session = static_cast<bool>(chroot.get_facet<chroot_facet_session>());
 
   if (session)
     keyfile::set_object_value(*this, &chroot_facet_mountable::get_mount_device,
-			      keyfile, chroot.get_name(),
-			      "mount-device");
+                              keyfile, chroot.get_name(),
+                              "mount-device");
 
   keyfile::set_object_value(*this, &chroot_facet_mountable::get_mount_options,
-			    keyfile, chroot.get_name(),
-			    "mount-options");
+                            keyfile, chroot.get_name(),
+                            "mount-options");
 
   keyfile::set_object_value(*this, &chroot_facet_mountable::get_location,
-			    keyfile, chroot.get_name(),
-			    "location");
+                            keyfile, chroot.get_name(),
+                            "location");
 }
 
 void
 chroot_facet_mountable::set_keyfile (chroot&        chroot,
-				     keyfile const& keyfile,
-				     string_list&   used_keys)
+                                     keyfile const& keyfile,
+                                     string_list&   used_keys)
 {
   bool session = static_cast<bool>(chroot.get_facet<chroot_facet_session>());
 
   keyfile::get_object_value(*this, &chroot_facet_mountable::set_mount_device,
-			    keyfile, chroot.get_name(),
-			    "mount-device",
-			    session ?
-			    keyfile::PRIORITY_REQUIRED :
-			    keyfile::PRIORITY_DISALLOWED);
+                            keyfile, chroot.get_name(),
+                            "mount-device",
+                            session ?
+                            keyfile::PRIORITY_REQUIRED :
+                            keyfile::PRIORITY_DISALLOWED);
   used_keys.push_back("mount-device");
 
   keyfile::get_object_value(*this, &chroot_facet_mountable::set_mount_options,
-			    keyfile, chroot.get_name(),
-			    "mount-options",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, chroot.get_name(),
+                            "mount-options",
+                            keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("mount-options");
 
   keyfile::get_object_value(*this, &chroot_facet_mountable::set_location,
-			    keyfile, chroot.get_name(),
-			    "location",
-			    keyfile::PRIORITY_OPTIONAL);
+                            keyfile, chroot.get_name(),
+                            "location",
+                            keyfile::PRIORITY_OPTIONAL);
   used_keys.push_back("location");
 }

@@ -82,7 +82,7 @@ chroot_block_device_base::get_path () const
 
 void
 chroot_block_device_base::setup_env (chroot const& chroot,
-				     environment& env) const
+                                     environment& env) const
 {
   chroot::setup_env(chroot, env);
 
@@ -97,7 +97,7 @@ chroot_block_device_base::get_session_flags (chroot const& chroot) const
 
 void
 chroot_block_device_base::get_details (chroot const& chroot,
-				       format_detail& detail) const
+                                       format_detail& detail) const
 {
   this->chroot::get_details(chroot, detail);
 
@@ -107,23 +107,23 @@ chroot_block_device_base::get_details (chroot const& chroot,
 
 void
 chroot_block_device_base::get_keyfile (chroot const& chroot,
-				       keyfile&      keyfile) const
+                                       keyfile&      keyfile) const
 {
   chroot::get_keyfile(chroot, keyfile);
 
   keyfile::set_object_value(*this, &chroot_block_device_base::get_device,
-			    keyfile, get_name(), "device");
+                            keyfile, get_name(), "device");
 }
 
 void
 chroot_block_device_base::set_keyfile (chroot&        chroot,
-				       keyfile const& keyfile,
-				       string_list&   used_keys)
+                                       keyfile const& keyfile,
+                                       string_list&   used_keys)
 {
   chroot::set_keyfile(chroot, keyfile, used_keys);
 
   keyfile::get_object_value(*this, &chroot_block_device_base::set_device,
-			    keyfile, get_name(), "device",
-			    keyfile::PRIORITY_REQUIRED);
+                            keyfile, get_name(), "device",
+                            keyfile::PRIORITY_REQUIRED);
   used_keys.push_back("device");
 }

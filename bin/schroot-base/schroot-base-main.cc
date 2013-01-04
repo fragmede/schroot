@@ -39,9 +39,9 @@ using sbuild::_;
 using namespace schroot_base;
 
 main::main (std::string const&  program_name,
-	    std::string const&  program_usage,
-	    options::ptr const& program_options,
-	    bool                use_syslog):
+            std::string const&  program_usage,
+            options::ptr const& program_options,
+            bool                use_syslog):
   program_name(program_name),
   program_usage(program_usage),
   program_options(program_options),
@@ -68,12 +68,12 @@ main::action_version (std::ostream& stream)
   fmtc % "2004" % "2012";
 
   stream << fmtr << '\n'
-	 << _("Written by Roger Leigh") << '\n' << '\n'
-	 << fmtc << '\n'
-	 << _("This is free software; see the source for copying conditions.  There is NO\n"
-	      "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
-	 << '\n'
-	 << _("Configured features:") << '\n';
+         << _("Written by Roger Leigh") << '\n' << '\n'
+         << fmtc << '\n'
+         << _("This is free software; see the source for copying conditions.  There is NO\n"
+              "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
+         << '\n'
+         << _("Configured features:") << '\n';
   sbuild::feature::print_features(stream);
   stream << std::flush;
 }
@@ -91,7 +91,7 @@ main::action_help (std::ostream& stream)
 
 int
 main::run (int   argc,
-	   char *argv[])
+           char *argv[])
 {
   try
     {
@@ -102,7 +102,7 @@ main::run (int   argc,
 #endif
 
       if (this->use_syslog)
-	openlog(this->program_name.c_str(), LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
+        openlog(this->program_name.c_str(), LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
 
       int status = run_impl();
 
@@ -115,20 +115,20 @@ main::run (int   argc,
       sbuild::log_exception_error(e);
 
       try
-	{
-	  dynamic_cast<schroot_base::options::error const&>(e);
-	  sbuild::log_info()
-	    // TRANSLATORS: %1% = program name
-	    << format(_("Run “%1% --help” to list usage example and all available options"))
-	    % argv[0]
-	    << endl;
-	}
+        {
+          dynamic_cast<schroot_base::options::error const&>(e);
+          sbuild::log_info()
+            // TRANSLATORS: %1% = program name
+            << format(_("Run “%1% --help” to list usage example and all available options"))
+            % argv[0]
+            << endl;
+        }
       catch (std::bad_cast const& discard)
-	{
-	}
+        {
+        }
 
       if (this->use_syslog)
-	closelog();
+        closelog();
 
       return EXIT_FAILURE;
     }

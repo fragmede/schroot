@@ -38,10 +38,10 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
-	ENV_AMBIGUOUS,  ///< Environment variable name is ambiguous.
-	KEY_AMBIGUOUS,  ///< Configuration key name is ambiguous.
-	KEY_DISALLOWED, ///< Configuration key is not allowed to be modified.
-	KEYNAME_INVALID ///< Invalid name for configuration key.
+        ENV_AMBIGUOUS,  ///< Environment variable name is ambiguous.
+        KEY_AMBIGUOUS,  ///< Configuration key name is ambiguous.
+        KEY_DISALLOWED, ///< Configuration key is not allowed to be modified.
+        KEYNAME_INVALID ///< Invalid name for configuration key.
       };
 
     /// Exception type.
@@ -77,23 +77,23 @@ namespace sbuild
 
     virtual void
     setup_env (chroot const& chroot,
-	       environment&  env) const;
+               environment&  env) const;
 
     virtual chroot::session_flags
     get_session_flags (chroot const& chroot) const;
 
     virtual void
     get_details (chroot const&  chroot,
-		 format_detail& detail) const;
+                 format_detail& detail) const;
 
     virtual void
     get_keyfile (chroot const& chroot,
-		 keyfile&      keyfile) const;
+                 keyfile&      keyfile) const;
 
     virtual void
     set_keyfile (chroot&        chroot,
-		 keyfile const& keyfile,
-		 string_list&   used_keys);
+                 keyfile const& keyfile,
+                 string_list&   used_keys);
 
     /**
      * Get user data as a map of key-value pairs.
@@ -113,7 +113,7 @@ namespace sbuild
      */
     bool
     get_data (std::string const& key,
-	      std::string&       value) const;
+              std::string&       value) const;
 
     /**
      * Set user data from a string map.  Note that this method does
@@ -133,7 +133,7 @@ namespace sbuild
      */
     void
     set_data (std::string const& key,
-	      std::string const& value);
+              std::string const& value);
 
     /**
      * Set a single key-value pair.  Note that this method does not
@@ -144,7 +144,7 @@ namespace sbuild
      */
     void
     set_system_data (std::string const& key,
-		     std::string const& value);
+                     std::string const& value);
 
     /**
      * Remove a single key.  If present, the specified key is removed.
@@ -224,8 +224,8 @@ namespace sbuild
      */
     void
     set_data(string_map const&  data,
-	     string_set const&  allowed_keys,
-	     bool               root);
+             string_set const&  allowed_keys,
+             bool               root);
 
     /// Mapping between user keys and values.
     string_map userdata;

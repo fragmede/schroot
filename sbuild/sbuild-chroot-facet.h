@@ -92,7 +92,7 @@ namespace sbuild
      */
     virtual void
     setup_env (chroot const& chroot,
-	       environment&  env) const = 0;
+               environment&  env) const = 0;
 
     /**
      * Get the session flags of the chroot.  These determine how the
@@ -112,7 +112,7 @@ namespace sbuild
      */
     virtual void
     get_details (chroot const&  chroot,
-		 format_detail& detail) const = 0;
+                 format_detail& detail) const = 0;
 
     /**
      * Copy the chroot properties into a keyfile.  The keyfile group
@@ -124,7 +124,7 @@ namespace sbuild
      */
     virtual void
     get_keyfile (chroot const& chroot,
-		 keyfile&      keyfile) const = 0;
+                 keyfile&      keyfile) const = 0;
 
     /**
      * Set the chroot properties from a keyfile.  The chroot name must
@@ -137,8 +137,8 @@ namespace sbuild
      */
     virtual void
     set_keyfile (chroot&        chroot,
-		 keyfile const& keyfile,
-		 string_list&   used_keys) = 0;
+                 keyfile const& keyfile,
+                 string_list&   used_keys) = 0;
 
   protected:
     /// Chroot owning this facet.

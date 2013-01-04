@@ -52,9 +52,9 @@ chroot_plain::clone () const
 
 sbuild::chroot::ptr
 sbuild::chroot_plain::clone_session (std::string const& session_id,
-				     std::string const& alias,
-				     std::string const& user,
-				     bool               root) const
+                                     std::string const& alias,
+                                     std::string const& user,
+                                     bool               root) const
 {
   return ptr();
 }
@@ -81,8 +81,8 @@ chroot_plain::get_path () const
 
 void
 chroot_plain::setup_lock (chroot::setup_type type,
-			  bool               lock,
-			  int                status)
+                          bool               lock,
+                          int                status)
 {
   /* By default, plain chroots do no locking. */
 }

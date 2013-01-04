@@ -132,15 +132,15 @@ namespace sbuild
     friend
     std::basic_istream<charT,traits>&
     operator >> (std::basic_istream<charT,traits>& stream,
-		 regex&                            rhs)
+                 regex&                            rhs)
     {
       std::string regex;
 
       if (std::getline(stream, regex))
-	{
-	  rhs.comp.assign(regex, std::regex::extended);
-	  rhs.rstr = regex;
-	}
+        {
+          rhs.comp.assign(regex, std::regex::extended);
+          rhs.rstr = regex;
+        }
 
       return stream;
     }
@@ -156,7 +156,7 @@ namespace sbuild
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-		 regex const&                rhs)
+                 regex const&                rhs)
     {
       return stream << rhs.str();
     }
@@ -173,7 +173,7 @@ namespace sbuild
    */
   inline bool
   regex_search (const std::string& str,
-		regex const& regex)
+                regex const& regex)
   {
     return regex.search(str);
   }

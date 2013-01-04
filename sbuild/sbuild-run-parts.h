@@ -41,13 +41,13 @@ namespace sbuild
     /// Error codes.
     enum error_code
       {
-	CHILD_FORK, ///< Failed to fork child.
-	CHILD_WAIT, ///< Wait for child failed.
-	EXEC,       ///< Failed to execute.
-	PIPE,       ///< Failed to create pipe.
-	DUP,        ///< Failed to duplicate file descriptor.
-	POLL,       ///< Failed to poll file descriptor.
-	READ        ///< Failed to read file descriptor.
+        CHILD_FORK, ///< Failed to fork child.
+        CHILD_WAIT, ///< Wait for child failed.
+        EXEC,       ///< Failed to execute.
+        PIPE,       ///< Failed to create pipe.
+        DUP,        ///< Failed to duplicate file descriptor.
+        POLL,       ///< Failed to poll file descriptor.
+        READ        ///< Failed to read file descriptor.
       };
 
     /// Exception type.
@@ -68,9 +68,9 @@ namespace sbuild
      * @param umask the umask to set when running scripts.
      */
     run_parts (std::string const& directory,
-	       bool               lsb_mode = true,
-	       bool               abort_on_error = true,
-	       mode_t             umask = 022);
+               bool               lsb_mode = true,
+               bool               abort_on_error = true,
+               mode_t             umask = 022);
 
     /// The destructor.
     ~run_parts ();
@@ -118,7 +118,7 @@ namespace sbuild
      */
     int
     run(string_list const& command,
-	environment const& env);
+        environment const& env);
 
     /**
      * Output the environment to an ostream.
@@ -131,22 +131,22 @@ namespace sbuild
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-		 run_parts const&                  rhs)
+                 run_parts const&                  rhs)
     {
       if (!rhs.reverse)
-	{
-	  for (program_set::const_iterator pos = rhs.programs.begin();
-	       pos != rhs.programs.end();
-	       ++pos)
-	    stream << *pos << '\n';
-	}
+        {
+          for (program_set::const_iterator pos = rhs.programs.begin();
+               pos != rhs.programs.end();
+               ++pos)
+            stream << *pos << '\n';
+        }
       else
-	{
-	  for (program_set::const_reverse_iterator pos = rhs.programs.rbegin();
-	       pos != rhs.programs.rend();
-	       ++pos)
-	    stream << *pos << '\n';
-	}
+        {
+          for (program_set::const_reverse_iterator pos = rhs.programs.rbegin();
+               pos != rhs.programs.rend();
+               ++pos)
+            stream << *pos << '\n';
+        }
       return stream;
     }
 
@@ -162,8 +162,8 @@ namespace sbuild
      */
     int
     run_child(std::string const& file,
-	      string_list const& command,
-	      environment const& env);
+              string_list const& command,
+              environment const& env);
 
     /**
      * Wait for a child process to complete, and check its exit status.
@@ -175,7 +175,7 @@ namespace sbuild
      */
     void
     wait_for_child (pid_t pid,
-		    int&  child_status);
+                    int&  child_status);
 
     /// A sorted set of filenames to use.
     typedef std::set<std::string> program_set;

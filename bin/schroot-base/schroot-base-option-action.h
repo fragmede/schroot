@@ -114,9 +114,9 @@ namespace schroot_base
     bool operator == (action_type const& action)
     {
       if (get() == action)
-	return true;
+        return true;
       else
-	return false;
+        return false;
     }
 
     /**

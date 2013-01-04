@@ -63,9 +63,9 @@ chroot_lvm_snapshot::clone () const
 
 sbuild::chroot::ptr
 chroot_lvm_snapshot::clone_session (std::string const& session_id,
-				    std::string const& alias,
-				    std::string const& user,
-				    bool               root) const
+                                    std::string const& alias,
+                                    std::string const& user,
+                                    bool               root) const
 {
   chroot_facet_session_clonable::const_ptr psess
     (get_facet<chroot_facet_session_clonable>());
@@ -133,7 +133,7 @@ chroot_lvm_snapshot::get_chroot_type () const
 
 void
 chroot_lvm_snapshot::setup_env (chroot const& chroot,
-				environment&  env) const
+                                environment&  env) const
 {
   chroot_block_device_base::setup_env(chroot, env);
 
@@ -144,8 +144,8 @@ chroot_lvm_snapshot::setup_env (chroot const& chroot,
 
 void
 chroot_lvm_snapshot::setup_lock (chroot::setup_type type,
-				 bool               lock,
-				 int                status)
+                                 bool               lock,
+                                 int                status)
 {
   std::string device;
 
@@ -154,56 +154,56 @@ chroot_lvm_snapshot::setup_lock (chroot::setup_type type,
   if (!(type == SETUP_STOP && lock == false))
     {
       if (type == SETUP_START)
-	device = get_device();
+        device = get_device();
       else
-	device = get_snapshot_device();
+        device = get_snapshot_device();
 
       if (device.empty())
-	throw error(CHROOT_DEVICE);
+        throw error(CHROOT_DEVICE);
 
       try
-	{
-	  stat file_status(device);
-	  if (!file_status.is_block())
-	    {
-	      throw error(get_device(), DEVICE_NOTBLOCK);
-	    }
-	  else
-	    {
-	      device_lock dlock(device);
-	      if (lock)
-		{
-		  try
-		    {
-		      dlock.set_lock(lock::LOCK_EXCLUSIVE, 15);
-		    }
-		  catch (lock::error const& e)
-		    {
-		      throw error(get_device(), DEVICE_LOCK, e);
-		    }
-		}
-	      else
-		{
-		  try
-		    {
-		      dlock.unset_lock();
-		    }
-		  catch (lock::error const& e)
-		    {
-		      throw error(get_device(), DEVICE_UNLOCK, e);
-		    }
-		}
-	    }
-	}
+        {
+          stat file_status(device);
+          if (!file_status.is_block())
+            {
+              throw error(get_device(), DEVICE_NOTBLOCK);
+            }
+          else
+            {
+              device_lock dlock(device);
+              if (lock)
+                {
+                  try
+                    {
+                      dlock.set_lock(lock::LOCK_EXCLUSIVE, 15);
+                    }
+                  catch (lock::error const& e)
+                    {
+                      throw error(get_device(), DEVICE_LOCK, e);
+                    }
+                }
+              else
+                {
+                  try
+                    {
+                      dlock.unset_lock();
+                    }
+                  catch (lock::error const& e)
+                    {
+                      throw error(get_device(), DEVICE_UNLOCK, e);
+                    }
+                }
+            }
+        }
       catch (sbuild::stat::error const& e) // Failed to stat
-	{
-	  // Don't throw if stopping a session and the device stat
-	  // failed.  This is because the setup scripts shouldn't fail
-	  // to be run if the LVM snapshot no longer exists, which
-	  // would prevent the session from being ended.
-	  if (type != SETUP_STOP)
-	    throw;
-	}
+        {
+          // Don't throw if stopping a session and the device stat
+          // failed.  This is because the setup scripts shouldn't fail
+          // to be run if the LVM snapshot no longer exists, which
+          // would prevent the session from being ended.
+          if (type != SETUP_STOP)
+            throw;
+        }
     }
 
   /* Create or unlink session information. */
@@ -228,7 +228,7 @@ chroot_lvm_snapshot::get_session_flags (chroot const& chroot) const
 
 void
 chroot_lvm_snapshot::get_details (chroot const& chroot,
-				  format_detail& detail) const
+                                  format_detail& detail) const
 {
   chroot_block_device_base::get_details(chroot, detail);
 
@@ -240,7 +240,7 @@ chroot_lvm_snapshot::get_details (chroot const& chroot,
 
 void
 chroot_lvm_snapshot::get_keyfile (chroot const& chroot,
-				  keyfile& keyfile) const
+                                  keyfile& keyfile) const
 {
   chroot_block_device_base::get_keyfile(chroot, keyfile);
 
@@ -248,37 +248,37 @@ chroot_lvm_snapshot::get_keyfile (chroot const& chroot,
 
   if (session)
     keyfile::set_object_value(*this,
-			      &chroot_lvm_snapshot::get_snapshot_device,
-			      keyfile, get_name(),
-			      "lvm-snapshot-device");
+                              &chroot_lvm_snapshot::get_snapshot_device,
+                              keyfile, get_name(),
+                              "lvm-snapshot-device");
 
   if (!session)
     keyfile::set_object_value(*this,
-			      &chroot_lvm_snapshot::get_snapshot_options,
-			      keyfile, get_name(),
-			      "lvm-snapshot-options");
+                              &chroot_lvm_snapshot::get_snapshot_options,
+                              keyfile, get_name(),
+                              "lvm-snapshot-options");
 }
 
 void
 chroot_lvm_snapshot::set_keyfile (chroot&        chroot,
-				  keyfile const& keyfile,
-				  string_list&   used_keys)
+                                  keyfile const& keyfile,
+                                  string_list&   used_keys)
 {
   chroot_block_device_base::set_keyfile(chroot, keyfile, used_keys);
 
   bool session = static_cast<bool>(get_facet<chroot_facet_session>());
 
   keyfile::get_object_value(*this, &chroot_lvm_snapshot::set_snapshot_device,
-			    keyfile, get_name(), "lvm-snapshot-device",
-			    session ?
-			    keyfile::PRIORITY_REQUIRED :
-			    keyfile::PRIORITY_DISALLOWED);
+                            keyfile, get_name(), "lvm-snapshot-device",
+                            session ?
+                            keyfile::PRIORITY_REQUIRED :
+                            keyfile::PRIORITY_DISALLOWED);
   used_keys.push_back("lvm-snapshot-device");
 
   keyfile::get_object_value(*this, &chroot_lvm_snapshot::set_snapshot_options,
-			    keyfile, get_name(), "lvm-snapshot-options",
-			    session ?
-			    keyfile::PRIORITY_DEPRECATED :
-			    keyfile::PRIORITY_REQUIRED); // Only needed for creating snapshot, not using snapshot
+                            keyfile, get_name(), "lvm-snapshot-options",
+                            session ?
+                            keyfile::PRIORITY_DEPRECATED :
+                            keyfile::PRIORITY_REQUIRED); // Only needed for creating snapshot, not using snapshot
   used_keys.push_back("lvm-snapshot-options");
 }

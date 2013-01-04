@@ -70,11 +70,11 @@ namespace
     int ctty = open("/dev/tty", O_RDWR|O_NOCTTY);
     if (ctty >= 0)
       {
-	set_cloexec(ctty);
+        set_cloexec(ctty);
       }
     else
       {
-	ctty = -1;
+        ctty = -1;
       }
 
     return ctty;
@@ -107,12 +107,12 @@ namespace
 
     if (ctty < 0)
       {
-	ctty = dup(STDIN_FILENO);
+        ctty = dup(STDIN_FILENO);
 
-	if (ctty < 0)
-	  throw ctty_error(CTTY_DUP, strerror(errno));
+        if (ctty < 0)
+          throw ctty_error(CTTY_DUP, strerror(errno));
 
-	set_cloexec(ctty);
+        set_cloexec(ctty);
       }
 
     return ctty;

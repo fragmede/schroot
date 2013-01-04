@@ -27,13 +27,13 @@ set -e
 check_filetype()
 {
     if echo "$CHROOT_FILE" | grep -q '\.tar$'; then
-	filetype="tar"
+        filetype="tar"
     elif echo "$CHROOT_FILE" | egrep -q '(\.tar\.gz|\.tgz)$'; then
-	filetype="tgz"
+        filetype="tgz"
     elif echo "$CHROOT_FILE" | egrep -q '(\.tar\.bz2|\.tbz)$'; then
-	filetype="tbz"
+        filetype="tbz"
     else
-	fatal "Unsupported filetype for $CHROOT_FILE"
+        fatal "Unsupported filetype for $CHROOT_FILE"
     fi
 }
 
@@ -41,17 +41,17 @@ check_filetype()
 unpack_file()
 {
     if [ ! -f "$CHROOT_FILE" ]; then
-	fatal "File '$CHROOT_FILE' does not exist"
+        fatal "File '$CHROOT_FILE' does not exist"
     fi
 
     if [ "$filetype" = "tar" ]; then
-	tar $TAR_VERBOSE -xf "$CHROOT_FILE"
+        tar $TAR_VERBOSE -xf "$CHROOT_FILE"
     elif [ "$filetype" = "tgz" ]; then
-	tar $TAR_VERBOSE -xzf "$CHROOT_FILE"
+        tar $TAR_VERBOSE -xzf "$CHROOT_FILE"
     elif [ "$filetype" = "tbz" ]; then
-	tar $TAR_VERBOSE -xjf "$CHROOT_FILE"
+        tar $TAR_VERBOSE -xjf "$CHROOT_FILE"
     else
-	fatal "Unsupported filetype for $CHROOT_FILE"
+        fatal "Unsupported filetype for $CHROOT_FILE"
     fi
 }
 
@@ -63,24 +63,24 @@ repack_file()
     trap "if [ -f \"$NEWFILE\" ]; then rm -f \"$NEWFILE\"; fi" 0
 
     if [ "$filetype" = "tar" ]; then
-	tar $TAR_VERBOSE -cf "$NEWFILE" .
+        tar $TAR_VERBOSE -cf "$NEWFILE" .
     elif [ "$filetype" = "tgz" ]; then
-	tar $TAR_VERBOSE -czf "$NEWFILE" .
+        tar $TAR_VERBOSE -czf "$NEWFILE" .
     elif [ "$filetype" = "tbz" ]; then
-	tar $TAR_VERBOSE -cjf "$NEWFILE" .
+        tar $TAR_VERBOSE -cjf "$NEWFILE" .
     else
-	fatal "Unsupported filetype for $CHROOT_FILE"
+        fatal "Unsupported filetype for $CHROOT_FILE"
     fi
 
     if [ -f "$CHROOT_FILE" ]; then
-	info "Setting ownership and permissions from old archive"
-	chown --reference="$CHROOT_FILE" "$NEWFILE"
-	chmod --reference="$CHROOT_FILE" "$NEWFILE"
+        info "Setting ownership and permissions from old archive"
+        chown --reference="$CHROOT_FILE" "$NEWFILE"
+        chmod --reference="$CHROOT_FILE" "$NEWFILE"
     else
-	warn "Old archive no longer exists"
-	warn "Setting ownership and permissions to root:root 0600"
-	chown root:root "$NEWFILE"
-	chmod 0600 "$NEWFILE"
+        warn "Old archive no longer exists"
+        warn "Setting ownership and permissions to root:root 0600"
+        chown root:root "$NEWFILE"
+        chmod 0600 "$NEWFILE"
     fi
     mv "$NEWFILE" "$CHROOT_FILE"
 
@@ -99,34 +99,34 @@ if [ "$CHROOT_TYPE" = "file" ]; then
 
     if [ $STAGE = "setup-start" ]; then
 
-	info "File unpack directory: $UNPACK_LOCATION"
+        info "File unpack directory: $UNPACK_LOCATION"
 
         if [ ! -d "$UNPACK_LOCATION" ]; then
-	    mkdir -p "$UNPACK_LOCATION"
-	    info "Created file unpack directory: $UNPACK_LOCATION"
+            mkdir -p "$UNPACK_LOCATION"
+            info "Created file unpack directory: $UNPACK_LOCATION"
         fi
-	cd "$UNPACK_LOCATION"
-	info "Changed CWD to $UNPACK_LOCATION"
+        cd "$UNPACK_LOCATION"
+        info "Changed CWD to $UNPACK_LOCATION"
 
-	unpack_file
+        unpack_file
 
     elif [ "$STAGE" = "setup-stop" ]; then
 
-	if [ "$STATUS" = "ok" ] && [ "$CHROOT_FILE_REPACK" = "true" ]; then
-	    if [ -d "$UNPACK_LOCATION" ]; then
-		info "Repacking chroot archive file $CHROOT_FILE from $UNPACK_LOCATION"
-		cd "$UNPACK_LOCATION" && repack_file
-	    else
-		warn "Not repacking chroot archive file: $UNPACK_LOCATION does not exist (it may have been removed previously)"
-	    fi
-	fi
+        if [ "$STATUS" = "ok" ] && [ "$CHROOT_FILE_REPACK" = "true" ]; then
+            if [ -d "$UNPACK_LOCATION" ]; then
+                info "Repacking chroot archive file $CHROOT_FILE from $UNPACK_LOCATION"
+                cd "$UNPACK_LOCATION" && repack_file
+            else
+                warn "Not repacking chroot archive file: $UNPACK_LOCATION does not exist (it may have been removed previously)"
+            fi
+        fi
 
-	if [ "$CHROOT_SESSION_PURGE" = "true" ]; then
-	    info "Purging $UNPACK_LOCATION"
-	    if [ -d "$UNPACK_LOCATION" ]; then
-		rm -rf "$UNPACK_LOCATION"
-	    fi
-	fi
+        if [ "$CHROOT_SESSION_PURGE" = "true" ]; then
+            info "Purging $UNPACK_LOCATION"
+            if [ -d "$UNPACK_LOCATION" ]; then
+                rm -rf "$UNPACK_LOCATION"
+            fi
+        fi
 
     fi
 
