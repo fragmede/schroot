@@ -13,6 +13,29 @@ schroot (1.7.0-1) UNRELEASED; urgency=low
 
  -- Roger Leigh <rleigh@debian.org>  Sat, 21 Jul 2012 10:44:09 +0100
 
+schroot (1.6.4-4) unstable; urgency=low
+
+  * schroot: Add sbuild profile fstab file for freebsd
+    (Closes: #692213).  This mounts /dev, /dev/fd and /build.
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 03 Nov 2012 15:19:16 +0000
+
+schroot (1.6.4-3) unstable; urgency=low
+
+  * schroot-mount canonicalises both the base path and full
+    path when sanity checking mountpoints (Closes: #691694).
+
+ -- Roger Leigh <rleigh@debian.org>  Mon, 29 Oct 2012 19:25:30 +0000
+
+schroot (1.6.4-2) unstable; urgency=low
+
+  * sbuild::chroot_facet_session_clonable: Include
+    sbuild-chroot-block-device-base.h, which was missing on
+    kFreeBSD and Hurd builds (it's included indirectly on Linux
+    via the LVM snapshot header).
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 28 Oct 2012 11:49:57 +0000
+
 schroot (1.6.4-1) unstable; urgency=low
 
   * New upstream stable release.
