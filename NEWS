@@ -9,6 +9,16 @@ configuration.
 
 * Major changes in 1.7.0:
 
+  1) Support for disassociating networking in the chroot from the host
+     system has been added.  This may be enabled by setting
+     "unshare.net".
+
+  2) Support for execution scripts has been re-added.  These are used
+     to set up the environment when a single command is executed, such
+     as for disassociating networking.
+
+* Major changes in 1.6.4:
+
   1) Canonicalise symlink mount points.  If a mount point in fstab
      contains a path with symlinks as mountpoint, canonicalise the
      path, and ensure that absolute paths are mounted inside the
@@ -16,14 +26,6 @@ configuration.
      than inside the chroot, so complex paths containing multiple
      symlinks may not resolve correctly; but in the simple case of a
      single link will resolve paths accurately.
-
-  2) Support for disassociating networking in the chroot from the host
-     system has been added.  This may be enabled by setting
-     "unshare.net".
-
-  3) Support for execution scripts has been re-added.  These are used
-     to set up the environment when a single command is executed, such
-     as for disassociating networking.
 
 * Major changes in 1.6.3:
 
