@@ -162,6 +162,16 @@ configuration.
      VERBOSE instead.  VERBOSITY replaced and deprecated
      AUTH_VERBOSITY in version 1.4.5.
 
+* Major changes in 1.4.27:
+
+  1) Canonicalise symlink mount points.  If a mount point in fstab
+     contains a path with symlinks as mountpoint, canonicalise the
+     path, and ensure that absolute paths are mounted inside the
+     chroot.  The canonicalisation is performed on the host rather
+     than inside the chroot, so complex paths containing multiple
+     symlinks may not resolve correctly; but in the simple case of a
+     single link will resolve paths accurately.
+
 * Major changes in 1.4.26:
 
   1) Added --exclude-aliases option.  This removes aliases from the

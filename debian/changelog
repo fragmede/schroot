@@ -292,6 +292,17 @@ schroot (1.5.0-1) experimental; urgency=low
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 16 Jan 2011 22:02:34 +0000
 
+schroot (1.4.27-1) unstable; urgency=low
+  * New upstream stable release.
+  * 10mount: Use secure lock directory /var/lock/schroot in place
+    of insecure use of lockfiles directly in /var/lock.
+  * schroot-mount: Canonicalise mountpoints with symlinks to avoid
+    mounting absolute paths on the host rather than inside the chroot
+    (Closes: #686148).  Note the caveat regarding paths with multiple
+    symlinks in schroot-script-config(5).
+
+ -- Roger Leigh <rleigh@debian.org>  Mon, 29 Oct 2012 20:13:36 +0000
+
 schroot (1.4.26-1) unstable; urgency=low
 
   * Upgrade to Standards Version 3.9.3.
