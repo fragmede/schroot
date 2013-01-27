@@ -1,11 +1,17 @@
 NEWS                                                            -*- outline -*-
 ----
 
-Welcome to schroot 1.6.4.  Please read these release notes carefully.
+Welcome to schroot 1.6.5.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 1.6.5:
+
+  1) Portability fixes for kFreeBSD and Hurd.
+
+  2) Extra sanity checking of mountpoint paths.
 
 * Major changes in 1.6.4:
 
