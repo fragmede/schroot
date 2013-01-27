@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: schroot 1.6.0\n"
-"POT-Creation-Date: 2012-06-24 22:59+0200\n"
+"Project-Id-Version: schroot 1.6.5\n"
+"POT-Creation-Date: 2013-01-27 23:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1393,7 +1393,7 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: schroot.1.man:649 schroot-setup.5.man:199 schroot.conf.5.man:636 dchroot.1.man:268 dchroot-dsa.1.man:221
+#: schroot.1.man:649 schroot-setup.5.man:199 schroot.conf.5.man:645 dchroot.1.man:268 dchroot-dsa.1.man:221
 #, no-wrap
 msgid "FILES"
 msgstr ""
@@ -1405,20 +1405,20 @@ msgid "Configuration files"
 msgstr ""
 
 #. type: TP
-#: schroot.1.man:651 schroot.conf.5.man:638 dchroot.1.man:269 dchroot-dsa.1.man:222
+#: schroot.1.man:651 schroot.conf.5.man:647 dchroot.1.man:269 dchroot-dsa.1.man:222
 #, no-wrap
 msgid "\\f[BI]\\*[SCHROOT_CONF]\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.1.man:655 schroot.conf.5.man:642
+#: schroot.1.man:655 schroot.conf.5.man:651
 msgid ""
 "The system-wide chroot definition file.  This file must be owned by the root "
 "user, and not be writable by other."
 msgstr ""
 
 #. type: TP
-#: schroot.1.man:655 schroot.conf.5.man:642
+#: schroot.1.man:655 schroot.conf.5.man:651
 #, no-wrap
 msgid "\\f[BI]\\*[SCHROOT_CONF_CHROOT_D]\\fR"
 msgstr ""
@@ -1541,7 +1541,7 @@ msgid "Directory used for unpacking file chroots."
 msgstr ""
 
 #. type: SH
-#: schroot.1.man:694 schroot-setup.5.man:267 schroot.conf.5.man:676 schroot-script-config.5.man:70 schroot-faq.7.man:256 dchroot.1.man:279 dchroot-dsa.1.man:234
+#: schroot.1.man:694 schroot-setup.5.man:267 schroot.conf.5.man:685 schroot-script-config.5.man:73 schroot-faq.7.man:256 dchroot.1.man:279 dchroot-dsa.1.man:234
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
@@ -2105,26 +2105,26 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: schroot-setup.5.man:200 schroot.conf.5.man:647
+#: schroot-setup.5.man:200 schroot.conf.5.man:656
 #, no-wrap
 msgid "Setup script configuration"
 msgstr ""
 
 #. type: Plain text
-#: schroot-setup.5.man:203 schroot.conf.5.man:650
+#: schroot-setup.5.man:203 schroot.conf.5.man:659
 msgid ""
 "The directory \\f[BI]\\*[SCHROOT_SYSCONF_DIR]/default\\fR contains the "
 "default settings used by setup scripts."
 msgstr ""
 
 #. type: TP
-#: schroot-setup.5.man:203 schroot.conf.5.man:650
+#: schroot-setup.5.man:203 schroot.conf.5.man:659
 #, no-wrap
 msgid "\\f[BI]config\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot-setup.5.man:211 schroot.conf.5.man:658
+#: schroot-setup.5.man:211 schroot.conf.5.man:667
 msgid ""
 "Main configuration file read by setup scripts.  The format of this file is "
 "described in B<schroot-script-config>(5).  This is the default value for the "
@@ -2134,26 +2134,26 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot-setup.5.man:211 schroot.conf.5.man:658
+#: schroot-setup.5.man:211 schroot.conf.5.man:667
 #, no-wrap
 msgid "\\f[BI]copyfiles\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot-setup.5.man:215 schroot.conf.5.man:662
+#: schroot-setup.5.man:215 schroot.conf.5.man:671
 msgid ""
 "A list of files to copy into the chroot from the host system.  Note that "
 "this was formerly named I<\\*[SCHROOT_SYSCONF_DIR]/copyfiles-defaults>."
 msgstr ""
 
 #. type: TP
-#: schroot-setup.5.man:215 schroot.conf.5.man:662
+#: schroot-setup.5.man:215 schroot.conf.5.man:671
 #, no-wrap
 msgid "\\f[BI]fstab\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot-setup.5.man:222 schroot.conf.5.man:669
+#: schroot-setup.5.man:222 schroot.conf.5.man:678
 msgid ""
 "A file in the format decribed in B<fstab>(5), used to mount filesystems "
 "inside the chroot.  The mount location is relative to the root of the "
@@ -2162,13 +2162,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot-setup.5.man:222 schroot.conf.5.man:669
+#: schroot-setup.5.man:222 schroot.conf.5.man:678
 #, no-wrap
 msgid "\\f[BI]nssdatabases\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot-setup.5.man:227 schroot.conf.5.man:674
+#: schroot-setup.5.man:227 schroot.conf.5.man:683
 msgid ""
 "System databases (as described in I</etc/nsswitch.conf> on GNU/Linux "
 "systems) to copy into the chroot from the host.  Note that this was formerly "
@@ -2554,7 +2554,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:127
+#: schroot.conf.5.man:134
 msgid ""
 "Note that the \\f[CI]profile\\fR key replaces the older "
 "\\f[CI]script-config\\fR key.  The \\f[CI]script-config\\fR key is exactly "
@@ -2563,11 +2563,19 @@ msgid ""
 "keys may be used.  If both are present, then \\f[CI]script-config\\fR will "
 "take precedence (\\f[CI]profile\\fR will be unset).  "
 "\\f[CI]script-config\\fR is deprecated and will be removed in a future "
-"release."
+"release.  Note that \\f[CI]profile\\fR is equivalent to "
+"\\f[CI]script-config\\fR if the file sourced by \\f[CI]script-config\\fR "
+"only contains the standard variables provided by schroot; if any additional "
+"variables or shell script fragments have been added, please also set "
+"\\f[CI]setup.config\\fR, which will continue to allow this file to be "
+"sourced.  It is recommended to replace the use of the sourced file with "
+"additional keys in schroot.conf where possible, but it will continue to be "
+"possible to source an additional configuration file using "
+"\\f[CI]setup.config\\fR."
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:132
+#: schroot.conf.5.man:139
 msgid ""
 "Desktop users should note that the fstab file I<desktop/fstab> will need "
 "editing if you use gdm3; please see the comments in this file for further "
@@ -2576,7 +2584,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:136
+#: schroot.conf.5.man:143
 msgid ""
 "If none of the configuration profiles provided above meet your needs, then "
 "they may be edited to further customise them, and/or copied and used as a "
@@ -2584,20 +2592,20 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:139
+#: schroot.conf.5.man:146
 msgid ""
 "Note that the different profiles have different security implications; see "
 "the section \\[lq]I<Security>\\[rq] below for further details."
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:139
+#: schroot.conf.5.man:146
 #, no-wrap
 msgid "\\f[CBI]setup.config=\\f[CI]filename\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:148
+#: schroot.conf.5.man:155
 msgid ""
 "This key specifies a file which the setup scripts will source when they are "
 "run.  This defaults to the same value as set by \\f[CI]script-config\\fR.  "
@@ -2609,52 +2617,56 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:157
+#: schroot.conf.5.man:163
 msgid ""
-"This file is deprecated, and no longer exists in the current schroot "
-"version, but is still used if present for backward compatibility; it will be "
-"obsoleted and removed in a future release.  All the settings in this file "
-"are now settable using configuration keys in I<schroot.conf>, as detailed "
-"below.  Existing configuration should be modified to use these keys in place "
-"of this file.  See B<schroot-script-config>(5).  for further details."
+"All the default settings in this file are now settable using configuration "
+"keys in I<schroot.conf>, as detailed below.  Existing configuration should "
+"be modified to use these keys in place of this file.  See "
+"B<schroot-script-config>(5)  for further details.  This type of setup script "
+"configuration file is no longer provided as part of the standard profiles, "
+"but will continue to be sourced if present and this key is set."
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:157
+#: schroot.conf.5.man:163
 #, no-wrap
 msgid "\\f[CBI]setup.copyfiles=\\f[CI]filename\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:161
+#: schroot.conf.5.man:167
 msgid ""
 "A file containing a list of files to copy into the chroot (one file per "
 "line).  The file will have the same absolute location inside the chroot."
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:161
+#: schroot.conf.5.man:167
 #, no-wrap
 msgid "\\f[CBI]setup.fstab=\\f[CI]filename\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:168
+#: schroot.conf.5.man:177
 msgid ""
 "The filesystem table file to be used to mount filesystems within the "
 "chroot.  The format of this file is the same as for I</etc/fstab>, "
 "documented in B<fstab>(5).  The only difference is that the mountpoint path "
-"I<fs_dir> is relative to the chroot, rather than the root."
+"I<fs_dir> is relative to the chroot, rather than the root.  Also note that "
+"mountpoints are canonicalised on the host, which will ensure that absolute "
+"symlinks point inside the chroot, but complex paths containing multiple "
+"symlinks may be resolved incorrectly; it is inadvisable to use nested "
+"symlinks as mountpoints."
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:168
+#: schroot.conf.5.man:177
 #, no-wrap
 msgid "\\f[CBI]setup.nssdatabases=\\f[CI]filename\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:178
+#: schroot.conf.5.man:187
 msgid ""
 "A file listing the system databases to copy into the chroot.  The default "
 "databases are \\[oq]passwd\\[cq], \\[oq]shadow\\[cq], \\[oq]group\\[cq] and "
@@ -2666,26 +2678,26 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:178
+#: schroot.conf.5.man:187
 #, no-wrap
 msgid "\\f[CBI]setup.services=\\f[CI]service1,service2,...\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:182
+#: schroot.conf.5.man:191
 msgid ""
 "A comma-separated list of services to run in the chroot.  These will be "
 "started when the session is started, and stopped when the session is ended."
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:182
+#: schroot.conf.5.man:191
 #, no-wrap
 msgid "\\f[CBI]command-prefix=\\f[CI]command,option1,option2,...\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:191
+#: schroot.conf.5.man:200
 msgid ""
 "A comma-separated list of a command and the options for the command.  This "
 "command and its options will be prefixed to all commands run inside the "
@@ -2697,13 +2709,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:191
+#: schroot.conf.5.man:200
 #, no-wrap
 msgid "\\f[CBI]personality=\\f[CI]persona\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:205
+#: schroot.conf.5.man:214
 msgid ""
 "Set the personality (process execution domain) to use.  This option is "
 "useful when using a 32-bit chroot on 64-bit system, for example.  Valid "
@@ -2721,13 +2733,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:205
+#: schroot.conf.5.man:214
 #, no-wrap
 msgid "\\f[CBI]preserve-environment=\\f[CI]true\\fR|\\f[CI]false\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:212
+#: schroot.conf.5.man:221
 msgid ""
 "By default, the environment will not be preserved inside the chroot, instead "
 "a minimal environment will be used.  Set to \\f[CI]true\\fR to always "
@@ -2738,13 +2750,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:212
+#: schroot.conf.5.man:221
 #, no-wrap
 msgid "\\f[CBI]shell=\\f[CI]shell\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:220
+#: schroot.conf.5.man:229
 msgid ""
 "When running a login shell a number of potential shells will be considered, "
 "in this order: the command in the SHELL environment variable (if "
@@ -2755,13 +2767,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:220
+#: schroot.conf.5.man:229
 #, no-wrap
 msgid "\\f[CBI]environment-filter=\\f[CI]regex\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:226
+#: schroot.conf.5.man:235
 msgid ""
 "The environment to be set in the chroot will be filtered in order to remove "
 "environment variables which may pose a security risk.  Any environment "
@@ -2770,25 +2782,25 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:229
+#: schroot.conf.5.man:238
 msgid ""
 "Potentially dangerous environment variables are removed for safety by "
 "default using the following regular expression:"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:231
+#: schroot.conf.5.man:240
 msgid "\\[lq]\\f[CR]^(BASH_ENV\\:|CDPATH\\:|ENV\\:|HOSTALIASES\\:|IFS\\:|KRB5_CONFIG\\:|KRBCONFDIR\\:|KRBTKFILE\\:|KRB_CONF\\:|LD_.*\\:|LOCALDOMAIN\\:|NLSPATH\\:|PATH_LOCALE\\:|RES_OPTIONS\\:|TERMINFO\\:|TERMINFO_DIRS\\:|TERMPATH)$\\fR\\[rq]."
 msgstr ""
 
 #. type: SS
-#: schroot.conf.5.man:232
+#: schroot.conf.5.man:241
 #, no-wrap
 msgid "Plain and directory chroots"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:241
+#: schroot.conf.5.man:250
 msgid ""
 "Chroots of type \\[oq]plain\\[cq] or \\[oq]directory\\[cq] are directories "
 "accessible in the filesystem.  The two types are equivalent except for the "
@@ -2802,18 +2814,18 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:243
+#: schroot.conf.5.man:252
 msgid "These chroot types have an additional (mandatory) configuration option:"
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:243
+#: schroot.conf.5.man:252
 #, no-wrap
 msgid "\\f[CBI]directory=\\f[CI]directory\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:255
+#: schroot.conf.5.man:264
 msgid ""
 "The directory containing the chroot environment.  This is where the root "
 "will be changed to when executing a login shell or a command.  The directory "
@@ -2826,13 +2838,13 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: schroot.conf.5.man:255
+#: schroot.conf.5.man:264
 #, no-wrap
 msgid "File chroots"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:262
+#: schroot.conf.5.man:271
 msgid ""
 "Chroots of type \\[oq]file\\[cq] are files on the current filesystem "
 "containing an archive of the chroot files.  They implement the B<source "
@@ -2844,13 +2856,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:262 schroot.conf.5.man:285
+#: schroot.conf.5.man:271 schroot.conf.5.man:294
 #, no-wrap
 msgid "\\f[CBI]file=\\f[CI]filename\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:271
+#: schroot.conf.5.man:280
 msgid ""
 "The file containing the archived chroot environment (mandatory).  This must "
 "be a tar (tape archive), optionally compressed with gzip or bzip2.  The file "
@@ -2862,13 +2874,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:271 schroot.conf.5.man:418
+#: schroot.conf.5.man:280 schroot.conf.5.man:427
 #, no-wrap
 msgid "\\f[CBI]location=\\f[CI]path\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:278
+#: schroot.conf.5.man:287
 msgid ""
 "This is the path to the chroot I<inside> the archive.  For example, if the "
 "archive contains a chroot in I</squeeze>, you would specify "
@@ -2878,13 +2890,13 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: schroot.conf.5.man:278
+#: schroot.conf.5.man:287
 #, no-wrap
 msgid "Loopback chroots"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:285
+#: schroot.conf.5.man:294
 msgid ""
 "Chroots of type \\[oq]loopback\\[cq] are a filesystem available as a file on "
 "disk, accessed via a loopback mount.  The file will be loopback mounted and "
@@ -2895,20 +2907,20 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:289
+#: schroot.conf.5.man:298
 msgid ""
 "This is the filename of the file containing the filesystem, including the "
 "absolute path.  For example \\[lq]/srv/chroot/sid\\[rq]."
 msgstr ""
 
 #. type: SS
-#: schroot.conf.5.man:289
+#: schroot.conf.5.man:298
 #, no-wrap
 msgid "Block device chroots"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:296
+#: schroot.conf.5.man:305
 msgid ""
 "Chroots of type \\[oq]block-device\\[cq] are a filesystem available on an "
 "unmounted block device.  The device will be mounted and unmounted on "
@@ -2919,26 +2931,26 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:296
+#: schroot.conf.5.man:305
 #, no-wrap
 msgid "\\f[CBI]device=\\f[CI]device\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:300
+#: schroot.conf.5.man:309
 msgid ""
 "This is the device name of the block device, including the absolute path.  "
 "For example, \\[lq]/dev/sda5\\[rq]."
 msgstr ""
 
 #. type: SS
-#: schroot.conf.5.man:300
+#: schroot.conf.5.man:309
 #, no-wrap
 msgid "Btrfs snapshot chroots"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:310
+#: schroot.conf.5.man:319
 msgid ""
 "Chroots of type \\[oq]btrfs-snapshot\\[cq] are a Btrfs snapshot created from "
 "an existing Btrfs subvolume on a mounted Btrfs filesystem.  A snapshot will "
@@ -2952,35 +2964,35 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:310
+#: schroot.conf.5.man:319
 #, no-wrap
 msgid "\\f[CBI]btrfs-source-subvolume=\\f[CI]directory\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:313
+#: schroot.conf.5.man:322
 msgid "The directory containing the source subvolume."
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:313
+#: schroot.conf.5.man:322
 #, no-wrap
 msgid "\\f[CBI]btrfs-snapshot-directory=\\f[CI]directory\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:316
+#: schroot.conf.5.man:325
 msgid "The directory in which to store the snapshots of the above source subvolume."
 msgstr ""
 
 #. type: SS
-#: schroot.conf.5.man:316
+#: schroot.conf.5.man:325
 #, no-wrap
 msgid "LVM snapshot chroots"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:321
+#: schroot.conf.5.man:330
 msgid ""
 "Chroots of type \\[oq]lvm-snapshot\\[cq] are a filesystem available on an "
 "LVM logical volume (LV).  A snapshot LV will be created from this LV on "
@@ -2989,7 +3001,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:328
+#: schroot.conf.5.man:337
 msgid ""
 "LVM snapshot chroots implement the B<source chroot> options (see "
 "\\[lq]I<Source chroot options>\\[rq], below), and all the options for "
@@ -3000,13 +3012,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:328
+#: schroot.conf.5.man:337
 #, no-wrap
 msgid "\\f[CBI]lvm-snapshot-options=\\f[CI]snapshot_options\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:335
+#: schroot.conf.5.man:344
 msgid ""
 "Snapshot options.  These are additional options to pass to lvcreate(8).  For "
 "example, \\[lq]-L 2g\\[rq] to create a snapshot 2 GiB in size.  B<Note:> the "
@@ -3015,13 +3027,13 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: schroot.conf.5.man:335
+#: schroot.conf.5.man:344
 #, no-wrap
 msgid "Custom chroots"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:345
+#: schroot.conf.5.man:354
 msgid ""
 "Chroots of type \\[oq]custom\\[cq] are a special type of chroot, used for "
 "implementing new types of chroot not supported by any of the above chroot "
@@ -3036,52 +3048,52 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:345
+#: schroot.conf.5.man:354
 #, no-wrap
 msgid "\\f[CBI]custom-session-cloneable=\\f[CI]true\\fR|\\f[CI]false\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:349
+#: schroot.conf.5.man:358
 msgid ""
 "Set whether or not sessions may be cloned using this chroot (enabled by "
 "default)."
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:349
+#: schroot.conf.5.man:358
 #, no-wrap
 msgid "\\f[CBI]custom-session-purgeable=\\f[CI]true\\fR|\\f[CI]false\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:353
+#: schroot.conf.5.man:362
 msgid ""
 "Set whether or not sessions may be cloned using this chroot (disabled by "
 "default)."
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:353
+#: schroot.conf.5.man:362
 #, no-wrap
 msgid "\\f[CBI]custom-source-cloneable=\\f[CI]true\\fR|\\f[CI]false\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:357
+#: schroot.conf.5.man:366
 msgid ""
 "Set whether or not source chroots may be cloned using this chroot (disabled "
 "by default)."
 msgstr ""
 
 #. type: SS
-#: schroot.conf.5.man:357
+#: schroot.conf.5.man:366
 #, no-wrap
 msgid "Source chroot options"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:375
+#: schroot.conf.5.man:384
 msgid ""
 "The \\[oq]btrfs-snapshot\\[cq], \\[oq]file\\[cq] and "
 "\\[oq]lvm-snapshot\\[cq] chroot types implement source chroots.  "
@@ -3102,18 +3114,18 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:377
+#: schroot.conf.5.man:386
 msgid "These chroots provide the following additional options:"
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:377
+#: schroot.conf.5.man:386
 #, no-wrap
 msgid "\\f[CBI]source-clone=\\f[CI]true\\fR|\\f[CI]false\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:383
+#: schroot.conf.5.man:392
 msgid ""
 "Set whether the source chroot should be automatically cloned (created) for "
 "this chroot.  The default is \\f[CI]true\\fR to automatically clone, but if "
@@ -3122,13 +3134,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:383
+#: schroot.conf.5.man:392
 #, no-wrap
 msgid "\\f[CBI]source-users=\\f[CI]user1,user2,...\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:388
+#: schroot.conf.5.man:397
 msgid ""
 "A comma-separated list of users which are allowed access to the source "
 "chroot.  If empty or omitted, no users will be allowed access.  This will "
@@ -3136,13 +3148,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:388
+#: schroot.conf.5.man:397
 #, no-wrap
 msgid "\\f[CBI]source-groups=\\f[CI]group1,group2,...\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:393
+#: schroot.conf.5.man:402
 msgid ""
 "A comma-separated list of groups which are allowed access to the source "
 "chroot.  If empty or omitted, no users will be allowed access.  This will "
@@ -3150,13 +3162,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:393
+#: schroot.conf.5.man:402
 #, no-wrap
 msgid "\\f[CBI]source-root-users=\\f[CI]user1,user2,...\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:400
+#: schroot.conf.5.man:409
 msgid ""
 "A comma-separated list of users which are allowed B<password-less> root "
 "access to the source chroot.  If empty or omitted, no users will be allowed "
@@ -3167,13 +3179,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:400
+#: schroot.conf.5.man:409
 #, no-wrap
 msgid "\\f[CBI]source-root-groups=\\f[CI]group1,group2,...\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:408
+#: schroot.conf.5.man:417
 msgid ""
 "A comma-separated list of groups which are allowed B<password-less> root "
 "access to the source chroot.  If empty or omitted, no users will be allowed "
@@ -3184,13 +3196,13 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: schroot.conf.5.man:408
+#: schroot.conf.5.man:417
 #, no-wrap
 msgid "Mountable chroot options"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:413
+#: schroot.conf.5.man:422
 msgid ""
 "The \\[oq]block-device\\[cq], \\[oq]loopback\\[cq] and "
 "\\[oq]lvm-snapshot\\[cq] chroot types implement device mounting.  These are "
@@ -3199,20 +3211,20 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:413
+#: schroot.conf.5.man:422
 #, no-wrap
 msgid "\\f[CBI]mount-options=\\f[CI]options\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:418
+#: schroot.conf.5.man:427
 msgid ""
 "Mount options for the block device.  These are additional options to pass to "
 "B<mount>(8).  For example, \\[lq]-o atime,sync,user_xattr\\[rq]."
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:425
+#: schroot.conf.5.man:434
 msgid ""
 "This is the path to the chroot I<inside> the filesystem on the device.  For "
 "example, if the filesystem contains a chroot in I</chroot/sid>, you would "
@@ -3222,13 +3234,13 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: schroot.conf.5.man:425
+#: schroot.conf.5.man:434
 #, no-wrap
 msgid "Filesystem Union chroot options"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:437
+#: schroot.conf.5.man:446
 msgid ""
 "The \\[oq]block-device\\[cq], \\[oq]directory\\[cq] and \\[oq]loopback\\[cq] "
 "chroot types allow for the creation of a session using filesystem unions to "
@@ -3244,13 +3256,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:437
+#: schroot.conf.5.man:446
 #, no-wrap
 msgid "\\f[CBI]union-type=\\f[CI]type\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:442
+#: schroot.conf.5.man:451
 msgid ""
 "Set the union filesystem type.  Currently supported filesystems are "
 "\\[oq]aufs\\[cq], \\[oq]overlayfs\\[cq] and \\[oq]unionfs\\[cq].  The "
@@ -3258,13 +3270,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:442
+#: schroot.conf.5.man:451
 #, no-wrap
 msgid "\\f[CBI]union-mount-options=\\f[CI]options\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:456
+#: schroot.conf.5.man:465
 msgid ""
 "Union filesystem mount options (branch configuration), used for mounting the "
 "union filesystem specified with I<union-type>.  This replaces the complete "
@@ -3278,39 +3290,39 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:456
+#: schroot.conf.5.man:465
 #, no-wrap
 msgid "\\f[CBI]union-overlay-directory\\f[CI]=directory\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:460
+#: schroot.conf.5.man:469
 msgid ""
 "Specify the directory where the writeable overlay session directories will "
 "be created.  The default is \\[oq]\\*[SCHROOT_OVERLAY_DIR]\\[cq]."
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:460
+#: schroot.conf.5.man:469
 #, no-wrap
 msgid "\\f[CBI]union-underlay-directory\\f[CI]=directory\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:464
+#: schroot.conf.5.man:473
 msgid ""
 "Specify the directory where the read-only underlying directories will be "
 "created.  The default is \\[oq]\\*[SCHROOT_UNDERLAY_DIR]\\[cq]."
 msgstr ""
 
 #. type: SS
-#: schroot.conf.5.man:464
+#: schroot.conf.5.man:473
 #, no-wrap
 msgid "Customisation"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:473
+#: schroot.conf.5.man:482
 msgid ""
 "In addition to the configuration keys listed above, it is possible to add "
 "custom keys.  These keys will be used to add additional environment "
@@ -3322,12 +3334,12 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:475
+#: schroot.conf.5.man:484
 msgid "For example:"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:479
+#: schroot.conf.5.man:488
 #, no-wrap
 msgid ""
 "debian.apt-update=true\n"
@@ -3335,12 +3347,12 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:483
+#: schroot.conf.5.man:492
 msgid "would set the following environment:"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:487
+#: schroot.conf.5.man:496
 #, no-wrap
 msgid ""
 "DEBIAN_APT_UPDATE=true\n"
@@ -3348,14 +3360,14 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:492
+#: schroot.conf.5.man:501
 msgid ""
 "Note that it is an error to use different key names which would set the same "
 "environment variable by mixing periods and hyphens."
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:496
+#: schroot.conf.5.man:505
 msgid ""
 "Custom configuration keys may also be modified at runtime using the "
 "I<--option> option.  However, for security, only selected keys may be "
@@ -3363,24 +3375,24 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:496
+#: schroot.conf.5.man:505
 #, no-wrap
 msgid "\\f[CBI]user-modifiable-keys=\\f[CI]key1,key2,..\\fR"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:499
+#: schroot.conf.5.man:508
 msgid "Set the keys which users may modify using I<--option>."
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:499
+#: schroot.conf.5.man:508
 #, no-wrap
 msgid "\\f[CBI]root-modifiable-keys=\\f[CI]key1,key2,..\\fR Set the keys which the"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:504
+#: schroot.conf.5.man:513
 msgid ""
 "root user may modify using I<--option>.  Note that the root user may use the "
 "keys specified in \\f[CI]user-modifiable-keys\\fR in addition to those "
@@ -3388,48 +3400,48 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: schroot.conf.5.man:504
+#: schroot.conf.5.man:513
 #, no-wrap
 msgid "Localisation"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:508
+#: schroot.conf.5.man:517
 msgid ""
 "Some keys may be localised in multiple languages.  This is achieved by "
 "adding the locale name in square brackets after the key name.  For example:"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:511
+#: schroot.conf.5.man:520
 #, no-wrap
 msgid "description[en_GB]=\\f[CI]British English translation\\fR\n"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:515
+#: schroot.conf.5.man:524
 msgid "This will localise the \\f[CI]description\\fR key for the en_GB locale."
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:518
+#: schroot.conf.5.man:527
 #, no-wrap
 msgid "description[fr]=\\f[CI]French translation\\fR\n"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:522
+#: schroot.conf.5.man:531
 msgid "This will localise the \\f[CI]description\\fR key for all French locales."
 msgstr ""
 
 #. type: SH
-#: schroot.conf.5.man:522
+#: schroot.conf.5.man:531
 #, no-wrap
 msgid "CHROOT NAMES"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:529
+#: schroot.conf.5.man:538
 msgid ""
 "A number of characters or words are not permitted in a chroot name, session "
 "name or configuration filename.  The name may not contain a leading period "
@@ -3440,13 +3452,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:529
+#: schroot.conf.5.man:538
 #, no-wrap
 msgid "\\[oq]B<.>\\[cq]"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:536
+#: schroot.conf.5.man:545
 msgid ""
 "A leading period could be used to create a name with a relative path in it, "
 "in combination with \\[oq]/\\[cq], and this could allow overwriting of files "
@@ -3456,13 +3468,13 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:536
+#: schroot.conf.5.man:545
 #, no-wrap
 msgid "\\[oq]B<:>\\[cq]"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:542
+#: schroot.conf.5.man:551
 msgid ""
 "A colon is used as a namespace delimiter, and so is not permitted as part of "
 "a chroot or session name.  LVM snapshot names may also not contain this "
@@ -3470,89 +3482,89 @@ msgid ""
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:542
+#: schroot.conf.5.man:551
 #, no-wrap
 msgid "\\[oq]B</>\\[cq]"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:546
+#: schroot.conf.5.man:555
 msgid ""
 "Names containing this character are not valid filenames.  A forward slash "
 "would potentially allow creation of files in subdirectories."
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:546
+#: schroot.conf.5.man:555
 #, no-wrap
 msgid "\\[oq]B<,>\\[cq]"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:550
+#: schroot.conf.5.man:559
 msgid ""
 "Commas are used to separate items in lists.  Aliases are separated by commas "
 "and hence can't contain commas in their name."
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:550
+#: schroot.conf.5.man:559
 #, no-wrap
 msgid "\\[oq]B<~>\\[cq]"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:554
+#: schroot.conf.5.man:563
 msgid ""
 "Filenames containing trailing tildes are used for editor backup files, which "
 "are ignored.  Tildes are allowed anywhere else in the name."
 msgstr ""
 
 #. type: TP
-#: schroot.conf.5.man:554
+#: schroot.conf.5.man:563
 #, no-wrap
 msgid "\\[oq]B<dpkg-old>\\[cq]"
 msgstr ""
 
 #. type: TQ
-#: schroot.conf.5.man:556
+#: schroot.conf.5.man:565
 #, no-wrap
 msgid "\\[oq]B<dpkg-dist>\\[cq]"
 msgstr ""
 
 #. type: TQ
-#: schroot.conf.5.man:558
+#: schroot.conf.5.man:567
 #, no-wrap
 msgid "\\[oq]B<dpkg-new>\\[cq]"
 msgstr ""
 
 #. type: TQ
-#: schroot.conf.5.man:560
+#: schroot.conf.5.man:569
 #, no-wrap
 msgid "\\[oq]B<dpkg-tmp>\\[cq]"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:564
+#: schroot.conf.5.man:573
 msgid ""
 "These names may not appear at the end of a name.  These are saved copies of "
 "conffiles used by the dpkg package manager, and will be ignored."
 msgstr ""
 
 #. type: SH
-#: schroot.conf.5.man:564
+#: schroot.conf.5.man:573
 #, no-wrap
 msgid "SECURITY"
 msgstr ""
 
 #. type: SS
-#: schroot.conf.5.man:565
+#: schroot.conf.5.man:574
 #, no-wrap
 msgid "Untrusted users"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:571
+#: schroot.conf.5.man:580
 msgid ""
 "Note that giving untrusted users root access to chroots is a B<serious "
 "security risk>! Although the untrusted user will only have root access to "
@@ -3562,20 +3574,20 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:574
+#: schroot.conf.5.man:583
 msgid ""
 "B<Do not give chroot root access to users you would not trust> B<with root "
 "access to the host system.>"
 msgstr ""
 
 #. type: SS
-#: schroot.conf.5.man:574
+#: schroot.conf.5.man:583
 #, no-wrap
 msgid "Profiles"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:585
+#: schroot.conf.5.man:594
 msgid ""
 "Depending upon which profile you have configured with the "
 "\\f[CI]script-config\\fR option, different filesystems will be mounted "
@@ -3591,7 +3603,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:591
+#: schroot.conf.5.man:600
 msgid ""
 "There is a tradeoff between security (keeping the chroot as minimal as "
 "possible) and usability (which sometimes requires access to parts of the "
@@ -3601,19 +3613,19 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: schroot.conf.5.man:591
+#: schroot.conf.5.man:600
 #, no-wrap
 msgid "EXAMPLE"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:594
+#: schroot.conf.5.man:603
 #, no-wrap
 msgid "# Sample configuration\n"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:605
+#: schroot.conf.5.man:614
 #, no-wrap
 msgid ""
 "[sid]\n"
@@ -3629,7 +3641,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:616
+#: schroot.conf.5.man:625
 #, no-wrap
 msgid ""
 "[etch]\n"
@@ -3645,7 +3657,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:623
+#: schroot.conf.5.man:632
 #, no-wrap
 msgid ""
 "[sid-file]\n"
@@ -3657,7 +3669,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:635
+#: schroot.conf.5.man:644
 #, no-wrap
 msgid ""
 "[sid-snapshot]\n"
@@ -3674,13 +3686,13 @@ msgid ""
 msgstr ""
 
 #. type: SS
-#: schroot.conf.5.man:637
+#: schroot.conf.5.man:646
 #, no-wrap
 msgid "Chroot definitions"
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:647
+#: schroot.conf.5.man:656
 msgid ""
 "Additional chroot definitions may be placed in files under this directory.  "
 "They are treated in exactly that same manner as I<\\*[SCHROOT_CONF]>.  Each "
@@ -3688,7 +3700,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:681
+#: schroot.conf.5.man:690
 msgid ""
 "B<sbuild>(1), B<schroot>(1), B<schroot-script-config>(5), B<schroot-faq>(7), "
 "B<mount>(8)."
@@ -3771,23 +3783,27 @@ msgid "SETUP_FSTAB"
 msgstr ""
 
 #. type: Plain text
-#: schroot-script-config.5.man:56
+#: schroot-script-config.5.man:59
 msgid ""
 "The filesystem table file to be used to mount filesystems within the "
 "chroot.  The format of this file is the same as for I</etc/fstab>, "
 "documented in B<fstab>(5).  The only difference is that the mountpoint path "
 "I<fs_dir> is relative to the chroot, rather than the root.  Note that this "
-"is settable using the \\f[CI]setup.fstab\\fR key."
+"is settable using the \\f[CI]setup.fstab\\fR key.  Also note that "
+"mountpoints are canonicalised on the host, which will ensure that absolute "
+"symlinks point inside the chroot, but complex paths containing multiple "
+"symlinks may be resolved incorrectly; it is advised to not use nested "
+"symlinks as mountpoints."
 msgstr ""
 
 #. type: TP
-#: schroot-script-config.5.man:56
+#: schroot-script-config.5.man:59
 #, no-wrap
 msgid "SETUP_NSSDATABASES"
 msgstr ""
 
 #. type: Plain text
-#: schroot-script-config.5.man:68
+#: schroot-script-config.5.man:71
 msgid ""
 "A file listing the system databases to copy into the chroot.  The default "
 "databases are \\[oq]passwd\\[cq], \\[oq]shadow\\[cq], \\[oq]group\\[cq], "
@@ -3800,7 +3816,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot-script-config.5.man:75
+#: schroot-script-config.5.man:78
 msgid ""
 "B<sbuild>(1), B<schroot>(1), B<sh>(1), B<schroot.conf>(5), "
 "B<schroot-setup>(5)."
