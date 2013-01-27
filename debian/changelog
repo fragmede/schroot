@@ -1,3 +1,9 @@
+schroot (1.6.5-1) unstable; urgency=low
+
+  * New upstream stable release.
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 27 Jan 2013 23:07:10 +0000
+
 schroot (1.6.4-4) unstable; urgency=low
 
   * schroot: Add sbuild profile fstab file for freebsd
