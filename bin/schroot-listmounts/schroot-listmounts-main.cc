@@ -42,28 +42,13 @@ using sbuild::_;
 using sbuild::N_;
 using namespace schroot_listmounts;
 
-namespace
-{
-
-  typedef std::pair<main::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      // TRANSLATORS: %1% = file
-      emap(main::FIND,  N_("Failed to find ‘%1%’"))
-    };
-
-}
-
 template<>
 sbuild::error<main::error_code>::map_type
-sbuild::error<main::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+sbuild::error<main::error_code>::error_strings =
+  {
+    // TRANSLATORS: %1% = file
+    {main::FIND,  N_("Failed to find ‘%1%’")}
+  };
 
 main::main (options::ptr& options):
   schroot_base::main("schroot-listmounts",

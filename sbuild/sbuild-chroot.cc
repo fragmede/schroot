@@ -61,51 +61,36 @@
 using boost::format;
 using namespace sbuild;
 
-namespace
-{
-
-  typedef std::pair<sbuild::chroot::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      emap(sbuild::chroot::CHROOT_CREATE,     N_("Chroot creation failed")),
-      emap(sbuild::chroot::CHROOT_DEVICE,     N_("Device name not set")),
-      // TRANSLATORS: %1% = chroot type name
-      emap(sbuild::chroot::CHROOT_TYPE,       N_("Unknown chroot type ‘%1%’")),
-      emap(sbuild::chroot::DEVICE_ABS,        N_("Device must have an absolute path")),
-      emap(sbuild::chroot::DEVICE_LOCK,       N_("Failed to lock device")),
-      emap(sbuild::chroot::DEVICE_NOTBLOCK,   N_("File is not a block device")),
-      emap(sbuild::chroot::DEVICE_UNLOCK,     N_("Failed to unlock device")),
-      emap(sbuild::chroot::DIRECTORY_ABS,     N_("Directory must have an absolute path")),
-      emap(sbuild::chroot::FACET_INVALID,     N_("Attempt to add object which is not a facet")),
-      emap(sbuild::chroot::FACET_PRESENT,     N_("Attempt to add facet which is already in use")),
-      emap(sbuild::chroot::FILE_ABS,          N_("File must have an absolute path")),
-      emap(sbuild::chroot::FILE_LOCK,         N_("Failed to acquire file lock")),
-      emap(sbuild::chroot::FILE_NOTREG,       N_("File is not a regular file")),
-      emap(sbuild::chroot::FILE_OWNER,        N_("File is not owned by user root")),
-      emap(sbuild::chroot::FILE_PERMS,        N_("File has write permissions for others")),
-      emap(sbuild::chroot::FILE_UNLOCK,       N_("Failed to discard file lock")),
-      emap(sbuild::chroot::LOCATION_ABS,      N_("Location must have an absolute path")),
-      emap(sbuild::chroot::NAME_INVALID,      N_("Invalid name")),
-      emap(sbuild::chroot::SCRIPT_CONFIG_CV,  N_("Could not set profile name from script configuration path ‘%1%’")),
-
-      // TRANSLATORS: unlink refers to the C function which removes a file
-      emap(sbuild::chroot::SESSION_UNLINK,    N_("Failed to unlink session file")),
-      emap(sbuild::chroot::SESSION_WRITE,     N_("Failed to write session file")),
-      emap(sbuild::chroot::VERBOSITY_INVALID, N_("Message verbosity is invalid"))
-    };
-
-}
-
 template<>
 error<sbuild::chroot::error_code>::map_type
-error<sbuild::chroot::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+error<sbuild::chroot::error_code>::error_strings =
+  {
+    {sbuild::chroot::CHROOT_CREATE,     N_("Chroot creation failed")},
+    {sbuild::chroot::CHROOT_DEVICE,     N_("Device name not set")},
+    // TRANSLATORS: %1% = chroot type name
+    {sbuild::chroot::CHROOT_TYPE,       N_("Unknown chroot type ‘%1%’")},
+    {sbuild::chroot::DEVICE_ABS,        N_("Device must have an absolute path")},
+    {sbuild::chroot::DEVICE_LOCK,       N_("Failed to lock device")},
+    {sbuild::chroot::DEVICE_NOTBLOCK,   N_("File is not a block device")},
+    {sbuild::chroot::DEVICE_UNLOCK,     N_("Failed to unlock device")},
+    {sbuild::chroot::DIRECTORY_ABS,     N_("Directory must have an absolute path")},
+    {sbuild::chroot::FACET_INVALID,     N_("Attempt to add object which is not a facet")},
+    {sbuild::chroot::FACET_PRESENT,     N_("Attempt to add facet which is already in use")},
+    {sbuild::chroot::FILE_ABS,          N_("File must have an absolute path")},
+    {sbuild::chroot::FILE_LOCK,         N_("Failed to acquire file lock")},
+    {sbuild::chroot::FILE_NOTREG,       N_("File is not a regular file")},
+    {sbuild::chroot::FILE_OWNER,        N_("File is not owned by user root")},
+    {sbuild::chroot::FILE_PERMS,        N_("File has write permissions for others")},
+    {sbuild::chroot::FILE_UNLOCK,       N_("Failed to discard file lock")},
+    {sbuild::chroot::LOCATION_ABS,      N_("Location must have an absolute path")},
+    {sbuild::chroot::NAME_INVALID,      N_("Invalid name")},
+    {sbuild::chroot::SCRIPT_CONFIG_CV,  N_("Could not set profile name from script configuration path ‘%1%’")},
+
+    // TRANSLATORS: unlink refers to the C function which removes a file
+    {sbuild::chroot::SESSION_UNLINK,    N_("Failed to unlink session file")},
+    {sbuild::chroot::SESSION_WRITE,     N_("Failed to write session file")},
+    {sbuild::chroot::VERBOSITY_INVALID, N_("Message verbosity is invalid")}
+  };
 
 sbuild::chroot::chroot ():
   name(),

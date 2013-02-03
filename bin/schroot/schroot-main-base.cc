@@ -43,34 +43,19 @@ using sbuild::_;
 using sbuild::N_;
 using namespace schroot;
 
-namespace
-{
-
-  typedef std::pair<main_base::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      // TRANSLATORS: %4% = file
-      emap(main_base::CHROOT_FILE,       N_("No chroots are defined in ‘%4%’")),
-      // TRANSLATORS: %4% = file
-      // TRANSLATORS: %5% = file
-      emap(main_base::CHROOT_FILE2,      N_("No chroots are defined in ‘%4%’ or ‘%5%’")),
-      // TRANSLATORS: %1% = file
-      emap(main_base::CHROOT_NOTDEFINED, N_("The specified chroots are not defined in ‘%1%’")),
-      emap(main_base::SESSION_INVALID,   N_("%1%: Invalid session name"))
-    };
-
-}
-
 template<>
 sbuild::error<main_base::error_code>::map_type
-sbuild::error<main_base::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+sbuild::error<main_base::error_code>::error_strings =
+  {
+    // TRANSLATORS: %4% = file
+    {main_base::CHROOT_FILE,       N_("No chroots are defined in ‘%4%’")},
+    // TRANSLATORS: %4% = file
+    // TRANSLATORS: %5% = file
+    {main_base::CHROOT_FILE2,      N_("No chroots are defined in ‘%4%’ or ‘%5%’")},
+    // TRANSLATORS: %1% = file
+    {main_base::CHROOT_NOTDEFINED, N_("The specified chroots are not defined in ‘%1%’")},
+    {main_base::SESSION_INVALID,   N_("%1%: Invalid session name")}
+  };
 
 main_base::main_base (std::string const& program_name,
                       std::string const& program_usage,

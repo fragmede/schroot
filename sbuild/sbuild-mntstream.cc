@@ -25,31 +25,15 @@
 
 using namespace sbuild;
 
-namespace
-{
-
-  typedef std::pair<mntstream::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      // TRANSLATORS: %1% = mount file name
-      emap(mntstream::MNT_OPEN,    N_("Failed to open mount file ‘%1%’")),
-      // TRANSLATORS: %1% = mount file name
-      emap(mntstream::MNT_READ,    N_("Failed to read mount file ‘%1%’"))
-    };
-
-}
-
 template<>
 error<mntstream::error_code>::map_type
-error<mntstream::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
-
+error<mntstream::error_code>::error_strings =
+  {
+    // TRANSLATORS: %1% = mount file name
+    {mntstream::MNT_OPEN,    N_("Failed to open mount file ‘%1%’")},
+    // TRANSLATORS: %1% = mount file name
+    {mntstream::MNT_READ,    N_("Failed to read mount file ‘%1%’")}
+  };
 
 mntstream::mntentry::mntentry (struct mntent const&  entry):
   filesystem_name(entry.mnt_fsname),

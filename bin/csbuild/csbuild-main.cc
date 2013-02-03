@@ -41,32 +41,6 @@ using sbuild::_;
 using sbuild::N_;
 using namespace csbuild;
 
-namespace
-{
-
-  typedef std::pair<main::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      emap(main::DEVICE_NOTBLOCK, N_("File is not a block device")),
-      // TRANSLATORS: %4% = integer process ID
-      emap(main::DEVICE_OWNED,    N_("Failed to release device lock (lock held by PID %4%)")),
-      emap(main::DEVICE_RELEASE,  N_("Failed to release device lock")),
-      emap(main::DEVICE_STAT,     N_("Failed to stat device"))
-};
-
-}
-
-template<>
-sbuild::error<main::error_code>::map_type
-sbuild::error<main::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
-
 main::main (options::ptr& options):
   schroot_base::main("csbuild",
                      // TRANSLATORS: '...' is an ellipsis e.g. U+2026,

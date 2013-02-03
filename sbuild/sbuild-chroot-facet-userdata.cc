@@ -31,26 +31,6 @@ using namespace sbuild;
 
 namespace
 {
-  typedef std::pair<chroot_facet_userdata::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      emap(chroot_facet_userdata::ENV_AMBIGUOUS,
-           N_("Environment variable ‘%1%’ is ambiguous")),
-      emap(chroot_facet_userdata::KEY_AMBIGUOUS,
-           N_("Configuration key ‘%1%’ is ambiguous")),
-      emap(chroot_facet_userdata::KEY_DISALLOWED,
-           N_("Configuration key ‘%1%’ is not permitted to be modified.")),
-      emap(chroot_facet_userdata::KEYNAME_INVALID,
-           N_("Configuration key name ‘%1%’ is not a permitted name.")),
-      // TRANSLATORS: %1% = key name for which value parsing failed
-      // TRANSLATORS: %4% = additional details of error
-      emap(chroot_facet_userdata::PARSE_ERROR, N_("%1%: %4%"))
-    };
 
   bool
   validate_keyname(std::string const& key)
@@ -85,13 +65,25 @@ namespace
       }
     return ret;
   }
+
 }
 
 template<>
 error<chroot_facet_userdata::error_code>::map_type
-error<chroot_facet_userdata::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+error<chroot_facet_userdata::error_code>::error_strings =
+  {
+    {chroot_facet_userdata::ENV_AMBIGUOUS,
+         N_("Environment variable ‘%1%’ is ambiguous")},
+    {chroot_facet_userdata::KEY_AMBIGUOUS,
+         N_("Configuration key ‘%1%’ is ambiguous")},
+    {chroot_facet_userdata::KEY_DISALLOWED,
+         N_("Configuration key ‘%1%’ is not permitted to be modified.")},
+    {chroot_facet_userdata::KEYNAME_INVALID,
+         N_("Configuration key name ‘%1%’ is not a permitted name.")},
+    // TRANSLATORS: %1% = key name for which value parsing failed
+    // TRANSLATORS: %4% = additional details of error
+    {chroot_facet_userdata::PARSE_ERROR, N_("%1%: %4%")}
+  };
 
 chroot_facet_userdata::chroot_facet_userdata ():
   chroot_facet(),

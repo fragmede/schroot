@@ -65,71 +65,6 @@ using namespace sbuild;
 namespace
 {
 
-  typedef std::pair<session::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      // TRANSLATORS: %1% = directory
-      emap(session::CHDIR,          N_("Failed to change to directory ‘%1%’")),
-      // TRANSLATORS: %4% = directory
-      emap(session::CHDIR_FB,       N_("Falling back to directory ‘%4%’")),
-      emap(session::CHILD_CORE,     N_("Child dumped core")),
-      emap(session::CHILD_FAIL,     N_("Child exited abnormally (reason unknown; not a signal or core dump)")),
-      emap(session::CHILD_FORK,     N_("Failed to fork child")),
-      // TRANSLATORS: %4% = signal name
-      emap(session::CHILD_SIGNAL,   N_("Child terminated by signal ‘%4%’")),
-      emap(session::CHILD_WAIT,     N_("Wait for child failed")),
-      // TRANSLATORS: %1% = directory
-      emap(session::CHROOT,         N_("Failed to change root to directory ‘%1%’")),
-      // TRANSLATORS: %1% = chroot name
-      emap(session::CHROOT_ALIAS,   N_("No chroot found matching name or alias ‘%1%’")),
-      emap(session::CHROOT_LOCK,    N_("Failed to lock chroot")),
-      emap(session::CHROOT_NOTFOUND,N_("%1%: Chroot not found")),
-      emap(session::CHROOT_SETUP,   N_("Chroot setup failed")),
-      // TRANSLATORS: %1% = chroot name
-      emap(session::CHROOT_UNLOCK,  N_("Failed to unlock chroot")),
-      // TRANSLATORS: %1% = command
-      emap(session::COMMAND_ABS,    N_("Command “%1%” must have an absolute path")),
-      // TRANSLATORS: %1% = command
-      emap(session::EXEC,           N_("Failed to execute “%1%”")),
-      // TRANSLATORS: A supplementary group is the list of additional
-      // system groups a user belongs to, in addition to their default
-      // group.
-      emap(session::GROUP_GET_SUP,  N_("Failed to get supplementary groups")),
-      // TRANSLATORS: A supplementary group is the list of additional
-      // system groups a user belongs to, in addition to their default
-      // group.
-      emap(session::GROUP_GET_SUPC, N_("Failed to get supplementary group count")),
-      // TRANSLATORS: %1% = integer group ID
-      emap(session::GROUP_SET,      N_("Failed to set group ‘%1%’")),
-      emap(session::GROUP_SET_SUP,  N_("Failed to set supplementary groups")),
-      // TRANSLATORS: %1% = group name
-      emap(session::GROUP_UNKNOWN,  N_("Group ‘%1%’ not found")),
-      emap(session::PAM,            N_("PAM error")),
-      emap(session::ROOT_DROP,      N_("Failed to drop root permissions")),
-      // TRANSLATORS: %1% = chroot name
-      // TRANSLATORS: %4% = session identifier
-      emap(session::SET_SESSION_ID, N_("%1%: Chroot does not support setting a session ID; ignoring session ID ‘%4%’")),
-      // TRANSLATORS: %1% = command
-      emap(session::SHELL,          N_("Shell ‘%1%’ not available")),
-      // TRANSLATORS: %4% = command
-      emap(session::SHELL_FB,       N_("Falling back to shell ‘%4%’")),
-      // TRANSLATORS: %4% = signal name
-      emap(session::SIGNAL_CATCH,   N_("Caught signal ‘%4%’")),
-      // TRANSLATORS: %4% = signal name
-      emap(session::SIGNAL_SET,     N_("Failed to set signal handler ‘%4%’")),
-      // TRANSLATORS: %1% = integer user ID
-      emap(session::USER_SET,       N_("Failed to set user ‘%1%’")),
-      // TRANSLATORS: %1% = user name
-      // TRANSLATORS: %2% = user name
-      // TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
-      emap(session::USER_SWITCH,    N_("(%1%→%2%): User switching is not permitted")),
-    };
-
   volatile bool sighup_called = false;
   volatile bool sigint_called = false;
   volatile bool sigterm_called = false;
@@ -190,9 +125,64 @@ namespace
 
 template<>
 error<session::error_code>::map_type
-error<session::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+error<session::error_code>::error_strings =
+  {
+    // TRANSLATORS: %1% = directory
+    {session::CHDIR,          N_("Failed to change to directory ‘%1%’")},
+    // TRANSLATORS: %4% = directory
+    {session::CHDIR_FB,       N_("Falling back to directory ‘%4%’")},
+    {session::CHILD_CORE,     N_("Child dumped core")},
+    {session::CHILD_FAIL,     N_("Child exited abnormally (reason unknown; not a signal or core dump)")},
+    {session::CHILD_FORK,     N_("Failed to fork child")},
+    // TRANSLATORS: %4% = signal name
+    {session::CHILD_SIGNAL,   N_("Child terminated by signal ‘%4%’")},
+    {session::CHILD_WAIT,     N_("Wait for child failed")},
+    // TRANSLATORS: %1% = directory
+    {session::CHROOT,         N_("Failed to change root to directory ‘%1%’")},
+    // TRANSLATORS: %1% = chroot name
+    {session::CHROOT_ALIAS,   N_("No chroot found matching name or alias ‘%1%’")},
+    {session::CHROOT_LOCK,    N_("Failed to lock chroot")},
+    {session::CHROOT_NOTFOUND,N_("%1%: Chroot not found")},
+    {session::CHROOT_SETUP,   N_("Chroot setup failed")},
+    // TRANSLATORS: %1% = chroot name
+    {session::CHROOT_UNLOCK,  N_("Failed to unlock chroot")},
+    // TRANSLATORS: %1% = command
+    {session::COMMAND_ABS,    N_("Command “%1%” must have an absolute path")},
+    // TRANSLATORS: %1% = command
+    {session::EXEC,           N_("Failed to execute “%1%”")},
+    // TRANSLATORS: A supplementary group is the list of additional
+    // system groups a user belongs to, in addition to their default
+    // group.
+    {session::GROUP_GET_SUP,  N_("Failed to get supplementary groups")},
+    // TRANSLATORS: A supplementary group is the list of additional
+    // system groups a user belongs to, in addition to their default
+    // group.
+    {session::GROUP_GET_SUPC, N_("Failed to get supplementary group count")},
+    // TRANSLATORS: %1% = integer group ID
+    {session::GROUP_SET,      N_("Failed to set group ‘%1%’")},
+    {session::GROUP_SET_SUP,  N_("Failed to set supplementary groups")},
+    // TRANSLATORS: %1% = group name
+    {session::GROUP_UNKNOWN,  N_("Group ‘%1%’ not found")},
+    {session::PAM,            N_("PAM error")},
+    {session::ROOT_DROP,      N_("Failed to drop root permissions")},
+    // TRANSLATORS: %1% = chroot name
+    // TRANSLATORS: %4% = session identifier
+    {session::SET_SESSION_ID, N_("%1%: Chroot does not support setting a session ID; ignoring session ID ‘%4%’")},
+    // TRANSLATORS: %1% = command
+    {session::SHELL,          N_("Shell ‘%1%’ not available")},
+    // TRANSLATORS: %4% = command
+    {session::SHELL_FB,       N_("Falling back to shell ‘%4%’")},
+    // TRANSLATORS: %4% = signal name
+    {session::SIGNAL_CATCH,   N_("Caught signal ‘%4%’")},
+    // TRANSLATORS: %4% = signal name
+    {session::SIGNAL_SET,     N_("Failed to set signal handler ‘%4%’")},
+    // TRANSLATORS: %1% = integer user ID
+    {session::USER_SET,       N_("Failed to set user ‘%1%’")},
+    // TRANSLATORS: %1% = user name
+    // TRANSLATORS: %2% = user name
+    // TRANSLATORS: Please translate "->" as a right arrow, e.g. U+2192
+    {session::USER_SWITCH,    N_("(%1%→%2%): User switching is not permitted")}
+  };
 
 session::session (std::string const&  service,
                   operation           operation,

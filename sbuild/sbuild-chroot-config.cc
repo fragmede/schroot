@@ -46,31 +46,6 @@ using namespace sbuild;
 namespace
 {
 
-  typedef std::pair<chroot_config::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      // TRANSLATORS: %1% = chroot alias name
-      // TRANSLATORS: %4% = chroot name
-      emap(chroot_config::ALIAS_EXIST,        N_("Alias ‘%1%’ already associated with ‘%4%’ chroot")),
-      // TRANSLATORS: %1% = chroot name
-      emap(chroot_config::CHROOT_NOTFOUND,    N_("%1%: Chroot not found")),
-      // TRANSLATORS: %1% = comma-separated list of chroot names
-      emap(chroot_config::CHROOTS_NOTFOUND,   N_("%1%: Chroots not found")),
-      // TRANSLATORS: %1% = chroot name
-      emap(chroot_config::CHROOT_EXIST,       N_("A chroot or alias ‘%1%’ already exists with this name")),
-      emap(chroot_config::FILE_NOTREG,        N_("File is not a regular file")),
-      emap(chroot_config::FILE_OPEN,          N_("Failed to open file")),
-      emap(chroot_config::FILE_OWNER,         N_("File is not owned by user root")),
-      emap(chroot_config::FILE_PERMS,         N_("File has write permissions for others")),
-      emap(chroot_config::NAME_INVALID,       N_("Invalid name")),
-      emap(chroot_config::NAMESPACE_NOTFOUND, N_("No such namespace"))
-    };
-
   bool
   chroot_alphasort (sbuild::chroot::ptr const& c1,
                     sbuild::chroot::ptr const& c2)
@@ -82,9 +57,24 @@ namespace
 
 template<>
 error<chroot_config::error_code>::map_type
-error<chroot_config::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+error<chroot_config::error_code>::error_strings =
+  {
+    // TRANSLATORS: %1% = chroot alias name
+    // TRANSLATORS: %4% = chroot name
+    {chroot_config::ALIAS_EXIST,        N_("Alias ‘%1%’ already associated with ‘%4%’ chroot")},
+    // TRANSLATORS: %1% = chroot name
+    {chroot_config::CHROOT_NOTFOUND,    N_("%1%: Chroot not found")},
+    // TRANSLATORS: %1% = comma-separated list of chroot names
+    {chroot_config::CHROOTS_NOTFOUND,   N_("%1%: Chroots not found")},
+    // TRANSLATORS: %1% = chroot name
+    {chroot_config::CHROOT_EXIST,       N_("A chroot or alias ‘%1%’ already exists with this name")},
+    {chroot_config::FILE_NOTREG,        N_("File is not a regular file")},
+    {chroot_config::FILE_OPEN,          N_("Failed to open file")},
+    {chroot_config::FILE_OWNER,         N_("File is not owned by user root")},
+    {chroot_config::FILE_PERMS,         N_("File has write permissions for others")},
+    {chroot_config::NAME_INVALID,       N_("Invalid name")},
+    {chroot_config::NAMESPACE_NOTFOUND, N_("No such namespace")}
+  };
 
 const std::string chroot_config::namespace_separator(":");
 

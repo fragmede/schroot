@@ -46,31 +46,16 @@ using sbuild::_;
 using sbuild::N_;
 using namespace schroot_mount;
 
-namespace
-{
-
-  typedef std::pair<main::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      emap(main::CHILD_FORK, N_("Failed to fork child")),
-      emap(main::CHILD_WAIT, N_("Wait for child failed")),
-      // TRANSLATORS: %1% = command name
-      emap(main::EXEC,       N_("Failed to execute “%1%”")),
-      emap(main::REALPATH,   N_("Failed to resolve path “%1%”"))
-    };
-
-}
-
 template<>
 sbuild::error<main::error_code>::map_type
-sbuild::error<main::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+sbuild::error<main::error_code>::error_strings =
+  {
+    {main::CHILD_FORK, N_("Failed to fork child")},
+    {main::CHILD_WAIT, N_("Wait for child failed")},
+    // TRANSLATORS: %1% = command name
+    {main::EXEC,       N_("Failed to execute “%1%”")},
+    {main::REALPATH,   N_("Failed to resolve path “%1%”")}
+  };
 
 main::main (options::ptr& options):
   schroot_base::main("schroot-mount",

@@ -33,28 +33,20 @@ using namespace sbuild;
 
 namespace
 {
-  typedef std::pair<chroot_facet_union::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      // TRANSLATORS: %1% = chroot fs type
-      emap(chroot_facet_union::UNION_TYPE_UNKNOWN, N_("Unknown filesystem union type ‘%1%’")),
-      emap(chroot_facet_union::UNION_OVERLAY_ABS,  N_("Union overlay must have an absolute path")),
-      emap(chroot_facet_union::UNION_UNDERLAY_ABS, N_("Union underlay must have an absolute path"))
-    };
 
   sbuild::feature feature_union("UNION", N_("Support for filesystem unioning"));
+
 }
 
 template<>
 error<chroot_facet_union::error_code>::map_type
-error<chroot_facet_union::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+error<chroot_facet_union::error_code>::error_strings =
+  {
+    // TRANSLATORS: %1% = chroot fs type
+    {chroot_facet_union::UNION_TYPE_UNKNOWN, N_("Unknown filesystem union type ‘%1%’")},
+    {chroot_facet_union::UNION_OVERLAY_ABS,  N_("Union overlay must have an absolute path")},
+    {chroot_facet_union::UNION_UNDERLAY_ABS, N_("Union underlay must have an absolute path")}
+  };
 
 chroot_facet_union::chroot_facet_union ():
   chroot_facet(),

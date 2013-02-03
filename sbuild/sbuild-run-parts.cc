@@ -34,34 +34,19 @@
 using boost::format;
 using namespace sbuild;
 
-namespace
-{
-
-  typedef std::pair<run_parts::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      emap(run_parts::CHILD_FORK, N_("Failed to fork child")),
-      emap(run_parts::CHILD_WAIT, N_("Wait for child failed")),
-      // TRANSLATORS: %1% = command name
-      emap(run_parts::EXEC,       N_("Failed to execute “%1%”")),
-      emap(run_parts::PIPE,       N_("Failed to create pipe")),
-      emap(run_parts::DUP,        N_("Failed to duplicate file descriptor")),
-      emap(run_parts::POLL,       N_("Failed to poll file descriptor")),
-      emap(run_parts::READ,       N_("Failed to read file descriptor"))
-    };
-
-}
-
 template<>
 error<run_parts::error_code>::map_type
-error<run_parts::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+error<run_parts::error_code>::error_strings =
+  {
+    {run_parts::CHILD_FORK, N_("Failed to fork child")},
+    {run_parts::CHILD_WAIT, N_("Wait for child failed")},
+    // TRANSLATORS: %1% = command name
+    {run_parts::EXEC,       N_("Failed to execute “%1%”")},
+    {run_parts::PIPE,       N_("Failed to create pipe")},
+    {run_parts::DUP,        N_("Failed to duplicate file descriptor")},
+    {run_parts::POLL,       N_("Failed to poll file descriptor")},
+    {run_parts::READ,       N_("Failed to read file descriptor")}
+  };
 
 run_parts::run_parts (std::string const& directory,
                       bool               lsb_mode,

@@ -22,28 +22,13 @@
 
 using namespace sbuild;
 
-namespace
-{
-
-  typedef std::pair<parse_value_error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      // TRANSLATORS: %1% = value (arbitrary text)
-      emap(BAD_VALUE, N_("Could not parse value ‘%1%’"))
-    };
-
-}
-
 template<>
 error<parse_value_error_code>::map_type
-error<parse_value_error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+error<parse_value_error_code>::error_strings =
+  {
+    // TRANSLATORS: %1% = value (arbitrary text)
+    {BAD_VALUE, N_("Could not parse value ‘%1%’")}
+  };
 
 void
 sbuild::parse_value (std::string const& value,

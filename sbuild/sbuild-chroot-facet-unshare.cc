@@ -34,19 +34,6 @@ using namespace sbuild;
 namespace
 {
 
-  typedef std::pair<sbuild::chroot_facet_unshare::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      // TRANSLATORS: %1% = the name of the context being unshared
-      emap(sbuild::chroot_facet_unshare::UNSHARE,
-           N_("Could not unshare ‘%1%’ process execution context"))
-    };
-
 #ifdef SBUILD_FEATURE_UNSHARE
   sbuild::feature feature_unshare
   ("UNSHARE",
@@ -57,9 +44,12 @@ namespace
 
 template<>
 error<sbuild::chroot_facet_unshare::error_code>::map_type
-error<sbuild::chroot_facet_unshare::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+error<sbuild::chroot_facet_unshare::error_code>::error_strings =
+  {
+    // TRANSLATORS: %1% = the name of the context being unshared
+    {sbuild::chroot_facet_unshare::UNSHARE,
+     N_("Could not unshare ‘%1%’ process execution context")}
+  };
 
 chroot_facet_unshare::chroot_facet_unshare ():
   chroot_facet(),

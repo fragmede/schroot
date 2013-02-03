@@ -38,52 +38,6 @@ using namespace sbuild;
 namespace
 {
 
-  typedef std::pair<sbuild::personality::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      // TRANSLATORS: %1% = integer personality ID
-      emap(sbuild::personality::BAD, N_("Personality ‘%1%’ is unknown")),
-      // TRANSLATORS: %1% = personality name
-      emap(sbuild::personality::SET, N_("Failed to set personality ‘%1%’"))
-    };
-
-  typedef std::pair<std::string,sbuild::personality::type> pmap;
-
-  /**
-   * This is a list of the supported personalities.  It's used to
-   * construct the real personalities map.
-   */
-  pmap initial_personalities[] =
-    {
-      pmap("undefined", 0xffffffff),
-#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
-      pmap("linux", PER_LINUX),
-      pmap("linux_32bit", PER_LINUX_32BIT),
-      pmap("svr4", PER_SVR4),
-      pmap("scorvr3", PER_SCOSVR3),
-      pmap("osr5", PER_OSR5),
-      pmap("wysev386", PER_WYSEV386),
-      pmap("iscr4", PER_ISCR4),
-      pmap("bsd", PER_BSD),
-      pmap("sunos", PER_SUNOS),
-      pmap("xenix", PER_XENIX),
-      pmap("linux32", PER_LINUX32),
-      pmap("irix32", PER_IRIX32),
-      pmap("irixn32", PER_IRIXN32),
-      pmap("irix64", PER_IRIX64),
-      pmap("riscos", PER_RISCOS),
-      pmap("solaris", PER_SOLARIS),
-      pmap("uw7", PER_UW7),
-      pmap("hpux", PER_HPUX),
-      pmap("osf4", PER_OSF4),
-#endif // SBUILD_FEATURE_PERSONALITY && __linux__
-    };
-
 #ifdef SBUILD_FEATURE_PERSONALITY
   sbuild::feature feature_personality
   ("PERSONALITY",
@@ -94,13 +48,40 @@ namespace
 
 template<>
 error<sbuild::personality::error_code>::map_type
-error<sbuild::personality::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+error<sbuild::personality::error_code>::error_strings =
+  {
+    // TRANSLATORS: %1% = integer personality ID
+    {sbuild::personality::BAD, N_("Personality ‘%1%’ is unknown")},
+    // TRANSLATORS: %1% = personality name
+    {sbuild::personality::SET, N_("Failed to set personality ‘%1%’")}
+  };
 
 std::map<std::string,sbuild::personality::type>
-sbuild::personality::personalities(initial_personalities,
-                                   initial_personalities + (sizeof(initial_personalities) / sizeof(initial_personalities[0])));
+sbuild::personality::personalities =
+  {
+    {"undefined", 0xffffffff},
+#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
+    {"linux", PER_LINUX},
+    {"linux_32bit", PER_LINUX_32BIT},
+    {"svr4", PER_SVR4},
+    {"scorvr3", PER_SCOSVR3},
+    {"osr5", PER_OSR5},
+    {"wysev386", PER_WYSEV386},
+    {"iscr4", PER_ISCR4},
+    {"bsd", PER_BSD},
+    {"sunos", PER_SUNOS},
+    {"xenix", PER_XENIX},
+    {"linux32", PER_LINUX32},
+    {"irix32", PER_IRIX32},
+    {"irixn32", PER_IRIXN32},
+    {"irix64", PER_IRIX64},
+    {"riscos", PER_RISCOS},
+    {"solaris", PER_SOLARIS},
+    {"uw7", PER_UW7},
+    {"hpux", PER_HPUX},
+    {"osf4", PER_OSF4}
+#endif // SBUILD_FEATURE_PERSONALITY && __linux__
+  };
 
 sbuild::personality::personality ():
   persona_name("undefined"),

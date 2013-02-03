@@ -38,36 +38,21 @@ using std::endl;
 using boost::format;
 using namespace sbuild;
 
-namespace
-{
-
-  typedef std::pair<auth::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      emap(auth::HOSTNAME,        N_("Failed to get hostname")),
-      // TRANSLATORS: %1% = user name or user ID
-      emap(auth::USER,            N_("User ‘%1%’ not found")),
-      // TRANSLATORS: %1% = group name or group ID
-      emap(auth::GROUP,           N_("Group ‘%1%’ not found")),
-      emap(auth::AUTHENTICATION,  N_("Authentication failed")),
-      emap(auth::AUTHORISATION,   N_("Access not authorised")),
-      emap(auth::PAM_DOUBLE_INIT, N_("PAM is already initialised")),
-      emap(auth::PAM,             N_("PAM error")),
-      emap(auth::PAM_END,         N_("PAM failed to shut down cleanly"))
-    };
-
-}
-
 template<>
 error<auth::error_code>::map_type
-error<auth::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+error<auth::error_code>::error_strings =
+  {
+    {auth::HOSTNAME,        N_("Failed to get hostname")},
+    // TRANSLATORS: %1% = user name or user ID
+    {auth::USER,            N_("User ‘%1%’ not found")},
+    // TRANSLATORS: %1% = group name or group ID
+    {auth::GROUP,           N_("Group ‘%1%’ not found")},
+    {auth::AUTHENTICATION,  N_("Authentication failed")},
+    {auth::AUTHORISATION,   N_("Access not authorised")},
+    {auth::PAM_DOUBLE_INIT, N_("PAM is already initialised")},
+    {auth::PAM,             N_("PAM error")},
+    {auth::PAM_END,         N_("PAM failed to shut down cleanly")}
+  };
 
 auth::auth (std::string const& service_name):
   service(service_name),

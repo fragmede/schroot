@@ -37,44 +37,29 @@
 using boost::format;
 using namespace sbuild;
 
-namespace
-{
-
-  typedef std::pair<lock::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      emap(lock::TIMEOUT_HANDLER,        N_("Failed to set timeout handler")),
-      emap(lock::TIMEOUT_SET,            N_("Failed to set timeout")),
-      emap(lock::TIMEOUT_CANCEL,         N_("Failed to cancel timeout")),
-      emap(lock::LOCK,                   N_("Failed to lock file")),
-      emap(lock::UNLOCK,                 N_("Failed to unlock file")),
-      // TRANSLATORS: %4% = time in seconds
-      emap(lock::LOCK_TIMEOUT,           N_("Failed to lock file (timed out after %4% seconds)")),
-      // TRANSLATORS: %4% = time in seconds
-      emap(lock::UNLOCK_TIMEOUT,         N_("Failed to unlock file (timed out after %4% seconds)")),
-      emap(lock::DEVICE_LOCK,            N_("Failed to lock device")),
-      // TRANSLATORS: %4% = time in seconds
-      // TRANSLATORS: %5% = integer process ID
-      emap(lock::DEVICE_LOCK_TIMEOUT,    N_("Failed to lock device (timed out after %4% seconds; lock held by PID %5%)")),
-      emap(lock::DEVICE_TEST,            N_("Failed to test device lock")),
-      emap(lock::DEVICE_UNLOCK,         N_("Failed to unlock device")),
-      // TRANSLATORS: %4% = time in seconds
-      // TRANSLATORS: %5% = integer process ID
-      emap(lock::DEVICE_UNLOCK_TIMEOUT, N_("Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"))
-    };
-
-}
-
 template<>
 error<lock::error_code>::map_type
-error<lock::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+error<lock::error_code>::error_strings =
+  {
+    {lock::TIMEOUT_HANDLER,        N_("Failed to set timeout handler")},
+    {lock::TIMEOUT_SET,            N_("Failed to set timeout")},
+    {lock::TIMEOUT_CANCEL,         N_("Failed to cancel timeout")},
+    {lock::LOCK,                   N_("Failed to lock file")},
+    {lock::UNLOCK,                 N_("Failed to unlock file")},
+    // TRANSLATORS: %4% = time in seconds
+    {lock::LOCK_TIMEOUT,           N_("Failed to lock file (timed out after %4% seconds)")},
+    // TRANSLATORS: %4% = time in seconds
+    {lock::UNLOCK_TIMEOUT,         N_("Failed to unlock file (timed out after %4% seconds)")},
+    {lock::DEVICE_LOCK,            N_("Failed to lock device")},
+    // TRANSLATORS: %4% = time in seconds
+    // TRANSLATORS: %5% = integer process ID
+    {lock::DEVICE_LOCK_TIMEOUT,    N_("Failed to lock device (timed out after %4% seconds; lock held by PID %5%)")},
+    {lock::DEVICE_TEST,            N_("Failed to test device lock")},
+    {lock::DEVICE_UNLOCK,         N_("Failed to unlock device")},
+    // TRANSLATORS: %4% = time in seconds
+    // TRANSLATORS: %5% = integer process ID
+    {lock::DEVICE_UNLOCK_TIMEOUT, N_("Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)")}
+  };
 
 namespace
 {

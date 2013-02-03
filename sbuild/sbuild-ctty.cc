@@ -33,18 +33,6 @@ using namespace sbuild;
 namespace
 {
 
-  typedef std::pair<ctty_error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      emap(CTTY_CLOEXEC, N_("The controlling terminal close-on-execute flag could not be set")),
-      emap(CTTY_DUP,     N_("The controlling terminal file descriptor could not be duplicated"))
-    };
-
   /**
    * Set close-on-exec flag.  An error will be thrown on failure.
    *
@@ -84,9 +72,11 @@ namespace
 
 template<>
 error<ctty_error_code>::map_type
-error<ctty_error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+error<ctty_error_code>::error_strings =
+  {
+    {CTTY_CLOEXEC, N_("The controlling terminal close-on-execute flag could not be set")},
+    {CTTY_DUP,     N_("The controlling terminal file descriptor could not be duplicated")}
+  };
 
 const int sbuild::CTTY_FILENO(open_ctty());
 

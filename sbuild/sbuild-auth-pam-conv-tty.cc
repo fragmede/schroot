@@ -37,23 +37,6 @@ using namespace sbuild;
 namespace
 {
 
-  typedef std::pair<auth_pam_conv_tty::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      emap(auth_pam_conv_tty::CTTY,            N_("No controlling terminal")),
-      emap(auth_pam_conv_tty::TIMEOUT,         N_("Timed out")),
-      // TRANSLATORS: Please use an ellipsis e.g. U+2026
-      emap(auth_pam_conv_tty::TIMEOUT_PENDING, N_("Time is running out…")),
-      emap(auth_pam_conv_tty::TERMIOS,         N_("Failed to get terminal settings")),
-      // TRANSLATORS: %1% = integer
-      emap(auth_pam_conv_tty::CONV_TYPE,       N_("Unsupported conversation type ‘%1%’"))
-    };
-
   volatile sig_atomic_t timer_expired = false;
 
   /**
@@ -115,9 +98,16 @@ namespace
 
 template<>
 error<auth_pam_conv_tty::error_code>::map_type
-error<auth_pam_conv_tty::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+error<auth_pam_conv_tty::error_code>::error_strings =
+  {
+    {auth_pam_conv_tty::CTTY,            N_("No controlling terminal")},
+    {auth_pam_conv_tty::TIMEOUT,         N_("Timed out")},
+    // TRANSLATORS: Please use an ellipsis e.g. U+2026
+    {auth_pam_conv_tty::TIMEOUT_PENDING, N_("Time is running out…")},
+    {auth_pam_conv_tty::TERMIOS,         N_("Failed to get terminal settings")},
+    // TRANSLATORS: %1% = integer
+    {auth_pam_conv_tty::CONV_TYPE,       N_("Unsupported conversation type ‘%1%’")}
+  };
 
 auth_pam_conv_tty::auth_pam_conv_tty (auth_ptr auth):
   auth(weak_auth_ptr(auth)),

@@ -70,18 +70,6 @@ namespace
     return ret;
   }
 
-  typedef std::pair<sbuild::stat::error_code,const char *> emap;
-
-  /**
-   * This is a list of the supported error codes.  It's used to
-   * construct the real error codes map.
-   */
-  emap init_errors[] =
-    {
-      emap(sbuild::stat::FILE, N_("Failed to stat file")),
-      emap(sbuild::stat::FD,   N_("Failed to stat file descriptor"))
-    };
-
   bool chroot_alphasort (sbuild::chroot::ptr const& c1,
                          sbuild::chroot::ptr const& c2)
   {
@@ -92,9 +80,11 @@ namespace
 
 template<>
 error<sbuild::stat::error_code>::map_type
-error<sbuild::stat::error_code>::error_strings
-(init_errors,
- init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
+error<sbuild::stat::error_code>::error_strings =
+  {
+    {sbuild::stat::FILE, N_("Failed to stat file")},
+    {sbuild::stat::FD,   N_("Failed to stat file descriptor")}
+  };
 
 std::string
 sbuild::basename (std::string name)
