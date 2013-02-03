@@ -37,103 +37,13 @@
 
 namespace sbuild
 {
-  /**
-   * Basic keyfile parser template
-   */
-  class basic_keyfile_parser
-  {
-  public:
-    /// Exception type.
-    typedef keyfile_base::error error;
-
-    /// The constructor.
-    basic_keyfile_parser ():
-      group(),
-      group_set(false),
-      key(),
-      key_set(false),
-      value(),
-      value_set(false),
-      comment(),
-      comment_set(false),
-      line_number(0)
-    {
-    }
-
-    /// The destructor.
-    virtual ~basic_keyfile_parser ()
-    {
-    }
-
-    /// Group name.
-    std::string  group;
-
-    /// Group name is set.
-    bool         group_set;
-
-    /// Key name.
-    std::string  key;
-
-    /// Key name is set.
-    bool         key_set;
-
-    /// Value.
-    std::string  value;
-
-    /// Value is set.
-    bool         value_set;
-
-    /// Comment.
-    std::string  comment;
-
-    /// Comment is set.
-    bool         comment_set;
-
-    /// Line number.
-    unsigned int line_number;
-
-    /**
-     * Start processing input.
-     * Any setup may be done here.
-     */
-    virtual void
-    begin ()
-    {
-      line_number = 0;
-    }
-
-    /**
-     * Parse a line of input.  This function will be called for every
-     * line of input in the source file.  The input line, line, is
-     * parsed appropriately.  Any of the group, key, value, and
-     * comment members are set as required.  If any of these members
-     * are ready for insertion into the keyfile, then the
-     * corresponding _set member must be set to true to signal the
-     * fact to the caller.
-     * @param line the line to parse.
-     */
-    virtual void
-    parse_line (std::string const& line)
-    {
-      ++line_number;
-    }
-
-    /**
-     * Stop processing input.  Any cleanup may be done here.  For
-     * example, any cached group or item may be set here.
-     */
-    virtual void
-    end()
-    {
-    }
-  };
 
   /**
    * Configuration file parser.  This class loads an INI-style
    * configuration file from a file or stream.  The format is
    * documented in schroot.conf(5).
    */
-  template <typename K, typename P = basic_keyfile_parser >
+  template <typename K>
   class basic_keyfile : public keyfile_base
   {
   public:
@@ -158,10 +68,7 @@ namespace sbuild
     /// Vector of values
     typedef std::vector<value_type> value_list;
 
-  private:
-    /// Parse type.
-    typedef P parse_type;
-
+  protected:
     /// Key-value-comment-line tuple.
     typedef std::tuple<key_type,value_type,comment_type,size_type>
     item_type;
@@ -866,111 +773,12 @@ namespace sbuild
      * @param rhs the values to add.
      * @returns the new basic_keyfile.
      */
-    template <typename _K, typename _P>
-    friend basic_keyfile<_K, _P>
-    operator + (basic_keyfile<_K, _P> const& lhs,
-                basic_keyfile<_K, _P> const& rhs);
+    template <typename _K, typename>
+    friend basic_keyfile<_K>
+    operator + (basic_keyfile<_K> const& lhs,
+                basic_keyfile<_K> const& rhs);
 
-    /**
-     * basic_keyfile initialisation from an istream.
-     *
-     * @param stream the stream to input from.
-     * @param kf the basic_keyfile to set.
-     * @returns the stream.
-     */
-    template <class charT, class traits>
-    friend
-    std::basic_istream<charT,traits>&
-    operator >> (std::basic_istream<charT,traits>& stream,
-                 basic_keyfile&                    kf)
-    {
-      basic_keyfile tmp;
-      parse_type state;
-      std::string line;
-
-      state.begin();
-
-      while (std::getline(stream, line))
-      {
-        state.parse_line(line);
-
-        // Insert group
-        if (state.group_set)
-          {
-            if (tmp.has_group(state.group))
-              throw error(state.line_number, DUPLICATE_GROUP, state.group);
-            else
-              tmp.set_group(state.group, state.comment, state.line_number);
-          }
-
-        // Insert item
-        if (state.key_set && state.value_set)
-          {
-            if (tmp.has_key(state.group, state.key))
-              throw error(state.line_number, state.group, DUPLICATE_KEY, state.key);
-            else
-              tmp.set_value(state.group, state.key, state.value, state.comment, state.line_number);
-          }
-      }
-
-      state.end();
-      // TODO: do inserts here as well.
-
-      kf += tmp;
-
-      return stream;
-    }
-
-    /**
-     * basic_keyfile output to an ostream.
-     *
-     * @param stream the stream to output to.
-     * @param kf the basic_keyfile to output.
-     * @returns the stream.
-     */
-    template <class charT, class traits>
-    friend
-    std::basic_ostream<charT,traits>&
-    operator << (std::basic_ostream<charT,traits>& stream,
-                 basic_keyfile const&              kf)
-    {
-      size_type group_count = 0;
-
-      for (typename group_map_type::const_iterator gp = kf.groups.begin();
-           gp != kf.groups.end();
-           ++gp, ++group_count)
-        {
-          if (group_count > 0)
-            stream << '\n';
-
-          group_type const& group = gp->second;
-          group_name_type const& groupname = std::get<0>(group);
-          comment_type const& comment = std::get<2>(group);
-
-          if (comment.length() > 0)
-            print_comment(comment, stream);
-
-          stream << '[' << groupname << ']' << '\n';
-
-          item_map_type const& items(std::get<1>(group));
-          for (const auto& it : items)
-            {
-              item_type const& item = it.second;
-              key_type const& key(std::get<0>(item));
-              value_type const& value(std::get<1>(item));
-              comment_type const& comment(std::get<2>(item));
-
-              if (comment.length() > 0)
-                print_comment(comment, stream);
-
-              stream << key << '=' << value << '\n';
-            }
-        }
-
-      return stream;
-    }
-
-  private:
+  protected:
     /**
      * Find a group by it's name.
      *

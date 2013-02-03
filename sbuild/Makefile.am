@@ -133,6 +133,7 @@ sbuild_public_cc_sources =			\
 	sbuild-feature.cc			\
 	sbuild-format-detail.cc			\
 	sbuild-keyfile-base.cc			\
+	sbuild-keyfile.cc			\
 	sbuild-lock.cc				\
 	sbuild-log.cc				\
 	sbuild-mntstream.cc			\

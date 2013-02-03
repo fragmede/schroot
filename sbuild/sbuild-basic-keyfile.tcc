@@ -20,46 +20,21 @@
 #include <fstream>
 #include <set>
 
-template <typename K, typename P>
-sbuild::basic_keyfile<K, P>::basic_keyfile ():
+template <typename K>
+sbuild::basic_keyfile<K>::basic_keyfile ():
   groups(),
   separator(",")
 {
 }
 
-template <typename K, typename P>
-sbuild::basic_keyfile<K, P>::basic_keyfile (std::string const& file):
-  groups(),
-  separator(",")
-{
-  std::ifstream fs(file.c_str());
-  if (fs)
-    {
-      fs.imbue(std::locale::classic());
-      fs >> *this;
-    }
-  else
-    {
-      throw error(file, BAD_FILE);
-    }
-}
-
-template <typename K, typename P>
-sbuild::basic_keyfile<K, P>::basic_keyfile (std::istream& stream):
-  groups(),
-  separator(",")
-{
-  stream >> *this;
-}
-
-template <typename K, typename P>
-sbuild::basic_keyfile<K, P>::~basic_keyfile()
+template <typename K>
+sbuild::basic_keyfile<K>::~basic_keyfile()
 {
 }
 
-template <typename K, typename P>
-typename sbuild::basic_keyfile<K, P>::group_list
-sbuild::basic_keyfile<K, P>::get_groups () const
+template <typename K>
+typename sbuild::basic_keyfile<K>::group_list
+sbuild::basic_keyfile<K>::get_groups () const
 {
   group_list ret;
 
@@ -69,9 +44,9 @@ sbuild::basic_keyfile<K, P>::get_groups () const
   return ret;
 }
 
-template <typename K, typename P>
-typename sbuild::basic_keyfile<K, P>::key_list
-sbuild::basic_keyfile<K, P>::get_keys (group_name_type const& group) const
+template <typename K>
+typename sbuild::basic_keyfile<K>::key_list
+sbuild::basic_keyfile<K>::get_keys (group_name_type const& group) const
 {
   key_list ret;
 
@@ -86,9 +61,9 @@ sbuild::basic_keyfile<K, P>::get_keys (group_name_type const& group) const
   return ret;
 }
 
-template <typename K, typename P>
+template <typename K>
 void
-sbuild::basic_keyfile<K, P>::check_keys (group_name_type const& group,
+sbuild::basic_keyfile<K>::check_keys (group_name_type const& group,
                                          key_list const&        keys) const
 {
   const string_list total(get_keys(group));
@@ -111,32 +86,32 @@ sbuild::basic_keyfile<K, P>::check_keys (group_name_type const& group,
     }
 }
 
-template <typename K, typename P>
+template <typename K>
 bool
-sbuild::basic_keyfile<K, P>::has_group (group_name_type const& group) const
+sbuild::basic_keyfile<K>::has_group (group_name_type const& group) const
 {
   return (find_group(group) != 0);
 }
 
-template <typename K, typename P>
+template <typename K>
 bool
-sbuild::basic_keyfile<K, P>::has_key (group_name_type const& group,
+sbuild::basic_keyfile<K>::has_key (group_name_type const& group,
                                       key_type const&        key) const
 {
   return (find_item(group, key) != 0);
 }
 
-template <typename K, typename P>
+template <typename K>
 void
-sbuild::basic_keyfile<K, P>::set_group (group_name_type const& group,
+sbuild::basic_keyfile<K>::set_group (group_name_type const& group,
                                         comment_type const&    comment)
 {
   set_group(group, comment, 0);
 }
 
-template <typename K, typename P>
+template <typename K>
 void
-sbuild::basic_keyfile<K, P>::set_group (group_name_type const& group,
+sbuild::basic_keyfile<K>::set_group (group_name_type const& group,
                                         comment_type const&    comment,
                                         size_type              line)
 {
@@ -149,9 +124,9 @@ sbuild::basic_keyfile<K, P>::set_group (group_name_type const& group,
                                                       line)));
 }
 
-template <typename K, typename P>
-typename sbuild::basic_keyfile<K, P>::comment_type
-sbuild::basic_keyfile<K, P>::get_comment (group_name_type const& group) const
+template <typename K>
+typename sbuild::basic_keyfile<K>::comment_type
+sbuild::basic_keyfile<K>::get_comment (group_name_type const& group) const
 {
   const group_type *found_group = find_group(group);
   if (found_group)
@@ -160,9 +135,9 @@ sbuild::basic_keyfile<K, P>::get_comment (group_name_type const& group) const
     return comment_type();
 }
 
-template <typename K, typename P>
-typename sbuild::basic_keyfile<K, P>::comment_type
-sbuild::basic_keyfile<K, P>::get_comment (group_name_type const& group,
+template <typename K>
+typename sbuild::basic_keyfile<K>::comment_type
+sbuild::basic_keyfile<K>::get_comment (group_name_type const& group,
                                           key_type const&        key) const
 {
   const item_type *found_item = find_item(group, key);
@@ -172,9 +147,9 @@ sbuild::basic_keyfile<K, P>::get_comment (group_name_type const& group,
     return comment_type();
 }
 
-template <typename K, typename P>
-typename sbuild::basic_keyfile<K, P>::size_type
-sbuild::basic_keyfile<K, P>::get_line (group_name_type const& group) const
+template <typename K>
+typename sbuild::basic_keyfile<K>::size_type
+sbuild::basic_keyfile<K>::get_line (group_name_type const& group) const
 {
   const group_type *found_group = find_group(group);
   if (found_group)
@@ -183,9 +158,9 @@ sbuild::basic_keyfile<K, P>::get_line (group_name_type const& group) const
     return 0;
 }
 
-template <typename K, typename P>
-typename sbuild::basic_keyfile<K, P>::size_type
-sbuild::basic_keyfile<K, P>::get_line (group_name_type const& group,
+template <typename K>
+typename sbuild::basic_keyfile<K>::size_type
+sbuild::basic_keyfile<K>::get_line (group_name_type const& group,
                                        key_type const&        key) const
 {
   const item_type *found_item = find_item(group, key);
@@ -195,9 +170,9 @@ sbuild::basic_keyfile<K, P>::get_line (group_name_type const& group,
     return 0;
 }
 
-template <typename K, typename P>
+template <typename K>
 bool
-sbuild::basic_keyfile<K, P>::get_locale_string (group_name_type const& group,
+sbuild::basic_keyfile<K>::get_locale_string (group_name_type const& group,
                                                 key_type const&        key,
                                                 value_type&            value) const
 {
@@ -233,9 +208,9 @@ sbuild::basic_keyfile<K, P>::get_locale_string (group_name_type const& group,
   return status;
 }
 
-template <typename K, typename P>
+template <typename K>
 bool
-sbuild::basic_keyfile<K, P>::get_locale_string (group_name_type const& group,
+sbuild::basic_keyfile<K>::get_locale_string (group_name_type const& group,
                                                 key_type const&        key,
                                                 priority               priority,
                                                 value_type&            value) const
@@ -245,9 +220,9 @@ sbuild::basic_keyfile<K, P>::get_locale_string (group_name_type const& group,
   return status;
 }
 
-template <typename K, typename P>
+template <typename K>
 bool
-sbuild::basic_keyfile<K, P>::get_locale_string (group_name_type const& group,
+sbuild::basic_keyfile<K>::get_locale_string (group_name_type const& group,
                                                 key_type const&        key,
                                                 std::string const&     locale,
                                                 value_type&            value) const
@@ -256,9 +231,9 @@ sbuild::basic_keyfile<K, P>::get_locale_string (group_name_type const& group,
   return get_value(group, lkey, value);
 }
 
-template <typename K, typename P>
+template <typename K>
 bool
-sbuild::basic_keyfile<K, P>::get_locale_string (group_name_type const& group,
+sbuild::basic_keyfile<K>::get_locale_string (group_name_type const& group,
                                                 key_type const&        key,
                                                 std::string const&     locale,
                                                 priority               priority,
@@ -269,18 +244,18 @@ sbuild::basic_keyfile<K, P>::get_locale_string (group_name_type const& group,
   return status;
 }
 
-template <typename K, typename P>
+template <typename K>
 void
-sbuild::basic_keyfile<K, P>::remove_group (group_name_type const& group)
+sbuild::basic_keyfile<K>::remove_group (group_name_type const& group)
 {
   typename group_map_type::iterator pos = this->groups.find(group);
   if (pos != this->groups.end())
     this->groups.erase(pos);
 }
 
-template <typename K, typename P>
+template <typename K>
 void
-sbuild::basic_keyfile<K, P>::remove_key (group_name_type const& group,
+sbuild::basic_keyfile<K>::remove_key (group_name_type const& group,
                                          key_type const&        key)
 {
   group_type *found_group = find_group(group);
@@ -293,9 +268,9 @@ sbuild::basic_keyfile<K, P>::remove_key (group_name_type const& group,
     }
 }
 
-template <typename K, typename P>
-sbuild::basic_keyfile<K, P>&
-sbuild::basic_keyfile<K, P>::operator += (basic_keyfile const& rhs)
+template <typename K>
+sbuild::basic_keyfile<K>&
+sbuild::basic_keyfile<K>::operator += (basic_keyfile const& rhs)
 {
   for (const auto& gp : rhs.groups)
     {
@@ -329,9 +304,9 @@ operator + (sbuild::basic_keyfile<_K> const& lhs,
   return ret;
 }
 
-template <typename K, typename P>
-const typename sbuild::basic_keyfile<K, P>::group_type *
-sbuild::basic_keyfile<K, P>::find_group (group_name_type const& group) const
+template <typename K>
+const typename sbuild::basic_keyfile<K>::group_type *
+sbuild::basic_keyfile<K>::find_group (group_name_type const& group) const
 {
   typename group_map_type::const_iterator pos = this->groups.find(group);
   if (pos != this->groups.end())
@@ -340,9 +315,9 @@ sbuild::basic_keyfile<K, P>::find_group (group_name_type const& group) const
   return 0;
 }
 
-template <typename K, typename P>
-typename sbuild::basic_keyfile<K, P>::group_type *
-sbuild::basic_keyfile<K, P>::find_group (group_name_type const& group)
+template <typename K>
+typename sbuild::basic_keyfile<K>::group_type *
+sbuild::basic_keyfile<K>::find_group (group_name_type const& group)
 {
   typename group_map_type::iterator pos = this->groups.find(group);
   if (pos != this->groups.end())
@@ -351,9 +326,9 @@ sbuild::basic_keyfile<K, P>::find_group (group_name_type const& group)
   return 0;
 }
 
-template <typename K, typename P>
-const typename sbuild::basic_keyfile<K, P>::item_type *
-sbuild::basic_keyfile<K, P>::find_item (group_name_type const& group,
+template <typename K>
+const typename sbuild::basic_keyfile<K>::item_type *
+sbuild::basic_keyfile<K>::find_item (group_name_type const& group,
                                         key_type const&        key) const
 {
   const group_type *found_group = find_group(group);
@@ -368,9 +343,9 @@ sbuild::basic_keyfile<K, P>::find_item (group_name_type const& group,
   return 0;
 }
 
-template <typename K, typename P>
-typename sbuild::basic_keyfile<K, P>::item_type *
-sbuild::basic_keyfile<K, P>::find_item (group_name_type const& group,
+template <typename K>
+typename sbuild::basic_keyfile<K>::item_type *
+sbuild::basic_keyfile<K>::find_item (group_name_type const& group,
                                         key_type const&        key)
 {
   group_type *found_group = find_group(group);
@@ -385,9 +360,9 @@ sbuild::basic_keyfile<K, P>::find_item (group_name_type const& group,
   return 0;
 }
 
-template <typename K, typename P>
+template <typename K>
 void
-sbuild::basic_keyfile<K, P>::print_comment (comment_type const& comment,
+sbuild::basic_keyfile<K>::print_comment (comment_type const& comment,
                                             std::ostream&       stream)
 {
   std::string::size_type last_pos = 0;
@@ -411,9 +386,9 @@ sbuild::basic_keyfile<K, P>::print_comment (comment_type const& comment,
     }
 }
 
-template <typename K, typename P>
+template <typename K>
 void
-sbuild::basic_keyfile<K, P>::check_priority (group_name_type const& group,
+sbuild::basic_keyfile<K>::check_priority (group_name_type const& group,
                                              key_type const&        key,
                                              priority               priority,
                                              bool                   valid) const
