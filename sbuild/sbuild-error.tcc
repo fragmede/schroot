@@ -21,7 +21,6 @@
 
 #include <sbuild/sbuild-i18n.h>
 #include <sbuild/sbuild-custom-error.h>
-#include <sbuild/sbuild-null.h>
 
 template <typename T>
 template <typename A, typename B, typename C,
@@ -43,7 +42,7 @@ sbuild::error<T>::format_error (A const&   context1,
     {
       nargs = 1;
     }
-  else if(typeid(context1) != typeid(sbuild::null))
+  else if(typeid(context1) != typeid(nullptr))
     {
       format += "%1%: ";
       nargs = 1;
@@ -53,7 +52,7 @@ sbuild::error<T>::format_error (A const&   context1,
     {
       nargs = 2;
     }
-  else if (typeid(context2) != typeid(sbuild::null))
+  else if (typeid(context2) != typeid(nullptr))
     {
       format += "%2%: ";
       nargs = 2;
@@ -63,7 +62,7 @@ sbuild::error<T>::format_error (A const&   context1,
     {
       nargs = 3;
     }
-  else if (typeid(context3) != typeid(sbuild::null))
+  else if (typeid(context3) != typeid(nullptr))
     {
       format += "%3%: ";
       nargs = 3;
@@ -75,7 +74,7 @@ sbuild::error<T>::format_error (A const&   context1,
     {
       nargs = 4;
     }
-  else if (typeid(detail1) != typeid(sbuild::null))
+  else if (typeid(detail1) != typeid(nullptr))
     {
       if (msg.empty())
         format += "%4%";
@@ -88,7 +87,7 @@ sbuild::error<T>::format_error (A const&   context1,
     {
       nargs = 5;
     }
-  else if (typeid(detail2) != typeid(sbuild::null))
+  else if (typeid(detail2) != typeid(nullptr))
     {
       if (msg.empty() && nargs < 4)
         format += "%5%";
@@ -101,7 +100,7 @@ sbuild::error<T>::format_error (A const&   context1,
     {
       nargs = 6;
     }
-  else if (typeid(detail3) != typeid(sbuild::null))
+  else if (typeid(detail3) != typeid(nullptr))
     {
       if (msg.empty() && nargs < 4)
         format += "%6%";
@@ -143,19 +142,19 @@ sbuild::error<T>::format_error (A const&   context1,
   std::string msg(error.what());
   unsigned int nargs(0);
 
-  if (typeid(context1) != typeid(sbuild::null))
+  if (typeid(context1) != typeid(nullptr))
     {
       format += "%1%: ";
       nargs = 1;
     }
 
-  if (typeid(context2) != typeid(sbuild::null))
+  if (typeid(context2) != typeid(nullptr))
     {
       format += "%2%: ";
       nargs = 2;
     }
 
-  if (typeid(context3) != typeid(sbuild::null))
+  if (typeid(context3) != typeid(nullptr))
     {
       format += "%3%: ";
       nargs = 3;
@@ -163,7 +162,7 @@ sbuild::error<T>::format_error (A const&   context1,
 
   format += msg;
 
-  if (typeid(detail1) != typeid(sbuild::null))
+  if (typeid(detail1) != typeid(nullptr))
     {
       if (msg.empty())
         format += "%4%";
@@ -173,7 +172,7 @@ sbuild::error<T>::format_error (A const&   context1,
 
     }
 
-  if (typeid(detail2) != typeid(sbuild::null))
+  if (typeid(detail2) != typeid(nullptr))
     {
       if (msg.empty() && nargs < 4)
         format += "%5%";
@@ -182,7 +181,7 @@ sbuild::error<T>::format_error (A const&   context1,
       nargs = 5;
     }
 
-  if (typeid(detail3) != typeid(sbuild::null))
+  if (typeid(detail3) != typeid(nullptr))
     {
       if (msg.empty() && nargs < 4)
         format += "%6%";
@@ -206,6 +205,16 @@ sbuild::error<T>::format_error (A const&   context1,
     add_detail(fmt, detail3);
 
   return fmt.str();
+}
+
+template<typename T>
+inline void
+sbuild::error<T>::add_detail(boost::format&        fmt,
+                             std::nullptr_t const& value)
+{
+  // Current versions of boost::format don't like being passed
+  // nullptr.  Hence this specialisation.
+  fmt % "";
 }
 
 template<typename T>

@@ -60,7 +60,6 @@ sbuild_public_h_sources =			\
 	sbuild-log.h				\
 	sbuild-mntstream.h			\
 	sbuild-nostream.h			\
-	sbuild-null.h				\
 	sbuild-parse-error.h			\
 	sbuild-parse-value.h			\
 	sbuild-personality.h			\
@@ -138,7 +137,6 @@ sbuild_public_cc_sources =			\
 	sbuild-log.cc				\
 	sbuild-mntstream.cc			\
 	sbuild-nostream.cc			\
-	sbuild-null.cc				\
 	sbuild-parse-value.cc			\
 	sbuild-personality.cc			\
 	sbuild-run-parts.cc			\

@@ -228,6 +228,17 @@ namespace sbuild
                    F const&   detail3);
 
     /**
+     * Add detail to format string.  Specialised for nullptr.  Current
+     * versions of boost::format don't like nullptr.
+     *
+     * @param fmt the format string.
+     * @param value the value to add.
+     */
+    static void
+    add_detail(boost::format&        fmt,
+               std::nullptr_t const& value);
+
+    /**
      * Add detail to format string.
      *
      * @param fmt the format string.

@@ -20,7 +20,6 @@
 #define SBUILD_PARSE_ERROR_H
 
 #include <sbuild/sbuild-custom-error.h>
-#include <sbuild/sbuild-null.h>
 
 #include <map>
 #include <string>
@@ -46,8 +45,8 @@ namespace sbuild
     template<typename C>
     parse_error (C const&   context,
                  error_type error):
-      sbuild::error<T>(this->format_error(context, null(), null(), error, null(), null(), null()),
-                       this->format_reason(context, null(), null(), error, null(), null(), null()))
+      sbuild::error<T>(this->format_error(context, nullptr, nullptr, error, nullptr, nullptr, nullptr),
+                       this->format_reason(context, nullptr, nullptr, error, nullptr, nullptr, nullptr))
     {
     }
 
@@ -60,8 +59,8 @@ namespace sbuild
     template<typename D>
     parse_error (error_type error,
                  D const&   detail):
-      sbuild::error<T>(this->format_error(null(), null(), null(), error, detail, null(), null()),
-                       this->format_reason(null(), null(), null(), error, detail, null(), null()))
+      sbuild::error<T>(this->format_error(nullptr, nullptr, nullptr, error, detail, nullptr, nullptr),
+                       this->format_reason(nullptr, nullptr, nullptr, error, detail, nullptr, nullptr))
     {
     }
 
@@ -76,8 +75,8 @@ namespace sbuild
     parse_error (size_t     line,
                  error_type error,
                  D const&   detail):
-      sbuild::error<T>(this->format_error(line, null(), null(), error, detail, null(), null()),
-                       this->format_reason(line, null(), null(), error, detail, null(), null()))
+      sbuild::error<T>(this->format_error(line, nullptr, nullptr, error, detail, nullptr, nullptr),
+                       this->format_reason(line, nullptr, nullptr, error, detail, nullptr, nullptr))
     {
     }
 
@@ -94,8 +93,8 @@ namespace sbuild
                  std::string const& group,
                  error_type         error,
                  D const&           detail):
-      sbuild::error<T>(this->format_error(line, group, null(), error, detail, null(), null()),
-                       this->format_reason(line, group, null(), error, detail, null(), null()))
+      sbuild::error<T>(this->format_error(line, group, nullptr, error, detail, nullptr, nullptr),
+                       this->format_reason(line, group, nullptr, error, detail, nullptr, nullptr))
     {
     }
 
@@ -114,8 +113,8 @@ namespace sbuild
                  std::string const& key,
                  error_type         error,
                  D const&           detail):
-      sbuild::error<T>(this->format_error(line, group, key, error, detail, null(), null()),
-                       this->format_reason(line, group, key, error, detail, null(), null()))
+      sbuild::error<T>(this->format_error(line, group, key, error, detail, nullptr, nullptr),
+                       this->format_reason(line, group, key, error, detail, nullptr, nullptr))
     {
     }
 
@@ -130,8 +129,8 @@ namespace sbuild
     parse_error (std::string const& group,
                  error_type         error,
                  D const&           detail):
-      sbuild::error<T>(this->format_error(group, null(), null(), error, detail, null(), null()),
-                       this->format_reason(group, null(), null(), error, detail, null(), null()))
+      sbuild::error<T>(this->format_error(group, nullptr, nullptr, error, detail, nullptr, nullptr),
+                       this->format_reason(group, nullptr, nullptr, error, detail, nullptr, nullptr))
     {
     }
 
@@ -148,8 +147,8 @@ namespace sbuild
                  std::string const& key,
                  error_type         error,
                  D const&           detail):
-      sbuild::error<T>(this->format_error(group, key, null(), error, detail, null(), null()),
-                       this->format_reason(group, key, null(), error, detail, null(), null()))
+      sbuild::error<T>(this->format_error(group, key, nullptr, error, detail, nullptr, nullptr),
+                       this->format_reason(group, key, nullptr, error, detail, nullptr, nullptr))
     {
     }
 
@@ -162,8 +161,8 @@ namespace sbuild
     template<typename C>
     parse_error (C const&                  context,
                  std::runtime_error const& error):
-      sbuild::error<T>(sbuild::error<T>::format_error(context, null(), null(), error, null(), null(), null()),
-                       sbuild::error<T>::format_reason(context, null(), null(), error, null(), null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(context, nullptr, nullptr, error, nullptr, nullptr, nullptr),
+                       sbuild::error<T>::format_reason(context, nullptr, nullptr, error, nullptr, nullptr, nullptr))
     {
     }
 
@@ -175,8 +174,8 @@ namespace sbuild
      */
     parse_error (size_t                    line,
                  std::runtime_error const& error):
-      sbuild::error<T>(sbuild::error<T>::format_error(line, null(), null(), error, null(), null(), null()),
-                       sbuild::error<T>::format_reason(line, null(), null(), error, null(), null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(line, nullptr, nullptr, error, nullptr, nullptr, nullptr),
+                       sbuild::error<T>::format_reason(line, nullptr, nullptr, error, nullptr, nullptr, nullptr))
     {
     }
 
@@ -190,8 +189,8 @@ namespace sbuild
     parse_error (size_t                    line,
                  std::string const&        group,
                  std::runtime_error const& error):
-      sbuild::error<T>(sbuild::error<T>::format_error(line, group, null(), error, null(), null(), null()),
-                       sbuild::error<T>::format_reason(line, group, null(), error, null(), null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(line, group, nullptr, error, nullptr, nullptr, nullptr),
+                       sbuild::error<T>::format_reason(line, group, nullptr, error, nullptr, nullptr, nullptr))
     {
     }
 
@@ -207,8 +206,8 @@ namespace sbuild
                  std::string const&        group,
                  std::string const&        key,
                  std::runtime_error const& error):
-      sbuild::error<T>(sbuild::error<T>::format_error(line, group, key, error, null(), null(), null()),
-                       sbuild::error<T>::format_reason(line, group, key, error, null(), null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(line, group, key, error, nullptr, nullptr, nullptr),
+                       sbuild::error<T>::format_reason(line, group, key, error, nullptr, nullptr, nullptr))
     {
     }
 
@@ -220,8 +219,8 @@ namespace sbuild
      */
     parse_error (std::string const&        group,
                  std::runtime_error const& error):
-      sbuild::error<T>(sbuild::error<T>::format_error(group, null(), null(), error, null(), null(), null()),
-                       sbuild::error<T>::format_reason(group, null(), null(), error, null(), null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(group, nullptr, nullptr, error, nullptr, nullptr, nullptr),
+                       sbuild::error<T>::format_reason(group, nullptr, nullptr, error, nullptr, nullptr, nullptr))
     {
     }
 
@@ -235,8 +234,8 @@ namespace sbuild
     parse_error (std::string const&        group,
                  std::string const&        key,
                  std::runtime_error const& error):
-      sbuild::error<T>(sbuild::error<T>::format_error(group, key, null(), error, null(), null(), null()),
-                       sbuild::error<T>::format_reason(group, key, null(), error, null(), null(), null()))
+      sbuild::error<T>(sbuild::error<T>::format_error(group, key, nullptr, error, nullptr, nullptr, nullptr),
+                       sbuild::error<T>::format_reason(group, key, nullptr, error, nullptr, nullptr, nullptr))
     {
     }
 
