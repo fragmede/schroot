@@ -21,7 +21,6 @@
 #include "schroot-main-base.h"
 
 #include <sbuild/sbuild-config.h>
-#include <sbuild/sbuild-tr1types.h>
 #ifdef SBUILD_FEATURE_PAM
 #include <sbuild/sbuild-auth-pam.h>
 #include <sbuild/sbuild-auth-pam-conv.h>

@@ -54,14 +54,8 @@
 /* Define to 1 if you have the <boost/program_options.hpp> header file. */
 #undef HAVE_BOOST_PROGRAM_OPTIONS_HPP
 
-/* Define to 1 if the <memory> header file includes std::shared_ptr */
-#undef HAVE_MEMORY_SHARED_PTR
-
-/* Define to 1 if you have the <boost/shared_ptr.hpp> header file. */
-#undef HAVE_BOOST_SHARED_PTR_HPP
-
-/* Define to 1 if you have the <boost/tuple/tuple.hpp> header file. */
-#undef HAVE_BOOST_TUPLE_TUPLE_HPP
+/* Define to 1 if you have the <memory> header file. */
+#undef HAVE_MEMORY
 
 /* Define to 1 if you have the <tr1/memory> header file. */
 #undef HAVE_TR1_MEMORY

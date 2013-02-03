@@ -24,9 +24,9 @@
 #include <sbuild/sbuild-format-detail.h>
 #include <sbuild/sbuild-keyfile.h>
 #include <sbuild/sbuild-regex.h>
-#include <sbuild/sbuild-tr1types.h>
 
 #include <list>
+#include <memory>
 #include <ostream>
 #include <string>
 

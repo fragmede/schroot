@@ -24,17 +24,9 @@
 
 #include <schroot-base/schroot-base-options.h>
 
+#include <memory>
 #include <string>
 #include <vector>
-
-#ifdef HAVE_TR1_MEMORY
-#include <tr1/memory>
-#elif HAVE_BOOST_SHARED_PTR_HPP
-#include <boost/shared_ptr.hpp>
-namespace std { namespace tr1 { using boost::shared_ptr; } }
-#else
-#error A shared_ptr implementation is not available
-#endif
 
 #include <boost/program_options.hpp>
 

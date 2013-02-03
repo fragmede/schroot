@@ -24,9 +24,9 @@
 #include <sbuild/sbuild-environment.h>
 #include <sbuild/sbuild-types.h>
 #include <sbuild/sbuild-util.h>
-#include <sbuild/sbuild-tr1types.h>
 
 #include <string>
+#include <memory>
 
 #include <sys/types.h>
 #include <sys/wait.h>

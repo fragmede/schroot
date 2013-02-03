@@ -21,8 +21,8 @@
 
 #include <sbuild/sbuild-auth-pam-message.h>
 #include <sbuild/sbuild-error.h>
-#include <sbuild/sbuild-tr1types.h>
 
+#include <memory>
 #include <vector>
 
 #include <security/pam_appl.h>

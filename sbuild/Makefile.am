@@ -68,7 +68,6 @@ sbuild_public_h_sources =			\
 	sbuild-run-parts.h			\
 	sbuild-session.h			\
 	sbuild-types.h				\
-	sbuild-tr1types.h			\
 	sbuild-util.h
 
 if BUILD_PAM

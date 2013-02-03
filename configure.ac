@@ -343,24 +343,8 @@ SCHROOT_CFLAGS="$UUID_CFLAGS"
 AC_SUBST([SCHROOT_CFLAGS])
 
 # Checks for header files.
-AC_CHECK_HEADERS([tr1/memory])
-
-AC_CHECK_HEADERS([boost/shared_ptr.hpp],, [
-  if test $ac_cv_header_tr1_memory = yes; then
-    :
-  else
-    AC_MSG_ERROR([Boost.shared_ptr (Boost C++ Libraries) is not installed, but is required by schroot])
-  fi])
-
-AC_CHECK_HEADERS([tuple])
-AC_CHECK_HEADERS([tr1/tuple])
-
-AC_CHECK_HEADERS([boost/tuple/tuple.hpp],, [
-  if test $ac_cv_header_tr1_memory = yes; then
-    :
-  else
-    AC_MSG_ERROR([Boost.Tuple (Boost C++ Libraries) is not installed, but is required by schroot])
-  fi])
+AC_CHECK_HEADERS([memory],, [AC_MSG_ERROR([std::shared_ptr (C++11) is not available, but is required by schroot])])
+AC_CHECK_HEADERS([tuple],, [AC_MSG_ERROR([std::tuple (C++11) is not available, but is required by schroot])])
 
 AC_CHECK_HEADERS([boost/format.hpp],, [AC_MSG_ERROR([Boost.Format (Boost C++ Libraries) is not installed, but is required by schroot])])
 AC_CHECK_HEADERS([boost/iostreams/device/file_descriptor.hpp],, [AC_MSG_ERROR([Boost.Iostreams (Boost C++ Libraries) is not installed, but is required by schroot])])
@@ -383,20 +367,6 @@ AC_CHECK_HEADERS([security/pam_appl.h],
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
-AC_MSG_CHECKING([for std::shared_ptr])
-define([testprog], [AC_LANG_PROGRAM([#include <memory>
-],
-                                   [ std::shared_ptr<int> intptr;])])
-AC_LINK_IFELSE(testprog,
-               [AC_MSG_RESULT([yes])
-                HAVE_MEMORY_SHARED_PTR=yes],
-               [AC_MSG_RESULT([no])
-                HAVE_MEMORY_SHARED_PTR=no])
-AH_TEMPLATE(HAVE_MEMORY_SHARED_PTR, [Set if the <memory> header file includes std::shared_ptr])
-if test "$HAVE_MEMORY_SHARED_PTR" = "yes"; then
-  AC_DEFINE(HAVE_MEMORY_SHARED_PTR, 1)
-fi
-
 
 AC_CHECK_LIB([pam], [pam_authenticate],
              [PAM_LIBS="-lpam"

@@ -24,13 +24,13 @@
 #include <sbuild/sbuild-parse-error.h>
 #include <sbuild/sbuild-parse-value.h>
 #include <sbuild/sbuild-types.h>
-#include <sbuild/sbuild-tr1types.h>
 #include <sbuild/sbuild-util.h>
 
 #include <cassert>
 #include <map>
 #include <string>
 #include <sstream>
+#include <tuple>
 
 #include <boost/format.hpp>
 
