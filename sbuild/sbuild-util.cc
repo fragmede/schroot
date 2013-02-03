@@ -432,16 +432,14 @@ sbuild::find_program_in_path (std::string const& program,
 
   string_list dirs = split_string(path, std::string(1, ':'));
 
-  for (string_list::const_iterator dir = dirs.begin();
-       dir != dirs.end();
-       ++dir)
+  for (const auto& dir : dirs)
     {
-      std::string realname = *dir + '/' + program;
+      std::string realname = dir + '/' + program;
       std::string absname;
       if (prefix.length() > 0)
         {
           absname = prefix;
-          if (dir->length() > 0 && (*dir)[0] != '/')
+          if (dir.length() > 0 && (dir)[0] != '/')
             absname += '/';
         }
       absname += realname;

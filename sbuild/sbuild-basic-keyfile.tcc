@@ -63,10 +63,8 @@ sbuild::basic_keyfile<K, P>::get_groups () const
 {
   group_list ret;
 
-  for (typename group_map_type::const_iterator pos = this->groups.begin();
-       pos != this->groups.end();
-       ++pos)
-    ret.push_back(pos->first);
+  for (const auto& group : this->groups)
+    ret.push_back(group.first);
 
   return ret;
 }
@@ -81,10 +79,8 @@ sbuild::basic_keyfile<K, P>::get_keys (group_name_type const& group) const
   if (found_group)
     {
       item_map_type const& items(std::get<1>(*found_group));
-      for (typename item_map_type::const_iterator pos = items.begin();
-           pos != items.end();
-           ++pos)
-        ret.push_back(pos->first);
+      for (const auto& item : items)
+        ret.push_back(item.first);
     }
 
   return ret;
@@ -106,12 +102,10 @@ sbuild::basic_keyfile<K, P>::check_keys (group_name_type const& group,
                  b.begin(), b.end(),
                  inserter(unused, unused.begin()));
 
-  for (string_set::const_iterator pos = unused.begin();
-       pos != unused.end();
-       ++pos)
+  for (const auto& item : unused)
     {
-      size_type line = get_line(group, *pos);
-      error e(line, group, UNKNOWN_KEY, *pos);
+      size_type line = get_line(group, item);
+      error e(line, group, UNKNOWN_KEY, item);
       e.set_reason(_("This option may be present in a newer version"));
       log_exception_warning(e);
     }
@@ -303,22 +297,18 @@ template <typename K, typename P>
 sbuild::basic_keyfile<K, P>&
 sbuild::basic_keyfile<K, P>::operator += (basic_keyfile const& rhs)
 {
-  for (typename group_map_type::const_iterator gp = rhs.groups.begin();
-       gp != rhs.groups.end();
-       ++gp)
+  for (const auto& gp : rhs.groups)
     {
-      group_type const& group = gp->second;
+      group_type const& group = gp.second;
       group_name_type const& groupname = std::get<0>(group);
       comment_type const& comment = std::get<2>(group);
       size_type const& line = std::get<3>(group);
       set_group(groupname, comment, line);
 
       item_map_type const& items(std::get<1>(group));
-      for (typename item_map_type::const_iterator it = items.begin();
-           it != items.end();
-           ++it)
+      for (const auto& it : items)
         {
-          item_type const& item = it->second;
+          item_type const& item = it.second;
           key_type const& key(std::get<0>(item));
           value_type const& value(std::get<1>(item));
           comment_type const& comment(std::get<2>(item));

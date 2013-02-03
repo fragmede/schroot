@@ -888,11 +888,9 @@ namespace sbuild
   {
     std::shared_ptr<T> ret;
 
-    for (facet_list::const_iterator pos = facets.begin();
-         pos != facets.end();
-         ++pos)
+    for (const auto& facet : facets)
       {
-        if (ret = std::dynamic_pointer_cast<T>(*pos))
+        if (ret = std::dynamic_pointer_cast<T>(facet))
           break;
       }
 
@@ -905,11 +903,9 @@ namespace sbuild
   {
     std::shared_ptr<T> ret;
 
-    for (facet_list::const_iterator pos = facets.begin();
-         pos != facets.end();
-         ++pos)
+    for (const auto& facet : facets)
       {
-        if (ret = std::dynamic_pointer_cast<T>(*pos))
+        if (ret = std::dynamic_pointer_cast<T>(facet))
           break;
       }
 
@@ -924,11 +920,9 @@ namespace sbuild
     if (!new_facet)
       throw error(FACET_INVALID);
 
-    for (facet_list::const_iterator pos = facets.begin();
-         pos != facets.end();
-         ++pos)
+    for (const auto& facet : facets)
       {
-        if (std::dynamic_pointer_cast<T>(*pos))
+        if (std::dynamic_pointer_cast<T>(facet))
           throw error(FACET_PRESENT);
       }
 
@@ -940,13 +934,13 @@ namespace sbuild
   void
   chroot::remove_facet ()
   {
-    for (facet_list::iterator pos = facets.begin();
-         pos != facets.end();
-         ++pos)
+    for (facet_list::iterator facet = facets.begin();
+         facet != facets.end();
+         ++facet)
       {
-        if (std::dynamic_pointer_cast<T>(*pos))
+        if (std::dynamic_pointer_cast<T>(*facet))
           {
-            facets.erase(pos);
+            facets.erase(facet);
             break;
           }
       }

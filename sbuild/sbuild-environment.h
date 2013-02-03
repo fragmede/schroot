@@ -300,11 +300,9 @@ namespace sbuild
     operator << (std::basic_ostream<charT,traits>& stream,
                  environment const& rhs)
     {
-      for (environment::const_iterator pos = rhs.begin();
-           pos != rhs.end();
-           ++pos)
+      for (const auto& env : rhs)
         {
-          stream << pos->first << '=' << pos->second << '\n';
+          stream << env.first << '=' << env.second << '\n';
         }
 
       return stream;

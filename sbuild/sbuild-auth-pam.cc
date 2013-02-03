@@ -335,11 +335,9 @@ auth_pam::setupenv ()
   environment minimal(get_minimal_environment());
 
   // Move into PAM environment.
-  for (environment::const_iterator cur = minimal.begin();
-       cur != minimal.end();
-       ++cur)
+  for (const auto& env : minimal)
     {
-      std::string env_string = cur->first + "=" + cur->second;
+      std::string env_string = env.first + "=" + env.second;
       if ((pam_status =
            pam_putenv(this->pam, env_string.c_str())) != PAM_SUCCESS)
         {
@@ -347,7 +345,7 @@ auth_pam::setupenv ()
           throw error(PAM, pam_strerror(pam_status));
         }
       log_debug(DEBUG_INFO)
-        << format("pam_putenv: set %1%=%2%") % cur->first % cur->second
+        << format("pam_putenv: set %1%=%2%") % env.first % env.second
         << endl;
     }
 

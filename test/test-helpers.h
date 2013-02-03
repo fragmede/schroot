@@ -50,12 +50,10 @@ void test_list(T&                         itype,
                            std::back_inserter(missing));
 
   if (!missing.empty())
-  for (sbuild::string_list::const_iterator pos = missing.begin();
-       pos != missing.end();
-       ++pos)
-    {
-      std::cout << "Missing list item: " << *pos << std::endl;
-    }
+    for (const auto& item : missing)
+      {
+        std::cout << "Missing list item: " << item << std::endl;
+      }
   // Ensure the test is working.
   CPPUNIT_ASSERT(missing.empty());
   CPPUNIT_ASSERT(set_items.size() == list.size());

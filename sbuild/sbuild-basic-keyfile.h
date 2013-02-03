@@ -476,16 +476,13 @@ namespace sbuild
         {
           value_list items = split_string(item_value,
                                           this->separator);
-          for (typename value_list::const_iterator pos = items.begin();
-               pos != items.end();
-               ++pos
-               )
+          for (const auto& item : items)
             {
               typename C::value_type tmp;
 
               try
                 {
-                  parse_value(*pos, tmp);
+                  parse_value(item, tmp);
                 }
               catch (parse_value_error const& e)
                 {
@@ -559,16 +556,13 @@ namespace sbuild
         {
           value_list items = split_string(item_value,
                                           this->separator);
-          for (typename value_list::const_iterator pos = items.begin();
-               pos != items.end();
-               ++pos
-               )
+          for (const auto& item : items)
             {
               typename C::value_type tmp;
 
               try
                 {
-                  parse_value(*pos, tmp);
+                  parse_value(item, tmp);
                 }
               catch (parse_value_error const& e)
                 {
@@ -960,11 +954,9 @@ namespace sbuild
           stream << '[' << groupname << ']' << '\n';
 
           item_map_type const& items(std::get<1>(group));
-          for (typename item_map_type::const_iterator it = items.begin();
-               it != items.end();
-               ++it)
+          for (const auto& it : items)
             {
-              item_type const& item = it->second;
+              item_type const& item = it.second;
               key_type const& key(std::get<0>(item));
               value_type const& value(std::get<1>(item));
               comment_type const& comment(std::get<2>(item));

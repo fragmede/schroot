@@ -66,10 +66,8 @@ environment::add (char **environment)
 void
 environment::add (environment const& environment)
 {
-  for (const_iterator pos = environment.begin();
-       pos != environment.end();
-       ++pos)
-    add(*pos);
+  for (const auto& env : environment)
+    add(env);
 }
 
 void
@@ -123,10 +121,8 @@ environment::remove (char **environment)
 void
 environment::remove (environment const& environment)
 {
-  for (const_iterator pos = environment.begin();
-       pos != environment.end();
-       ++pos)
-    remove(*pos);
+  for (const auto& env : environment)
+    remove(env);
 }
 
 void

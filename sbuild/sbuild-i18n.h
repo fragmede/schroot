@@ -26,6 +26,8 @@
 
 #include <sbuild/sbuild-config.h>
 
+#include <string>
+
 #include <libintl.h>
 
 // Undefine macros which would interfere with our functions.
@@ -54,6 +56,18 @@ namespace sbuild
   gettext (const char *message)
   {
     return dgettext (SBUILD_MESSAGE_CATALOGUE, message);
+  }
+
+  /**
+   * Get a translated message.
+   *
+   * @param message the message to translate.
+   * @returns the translated message.
+   */
+  inline const char *
+  gettext (std::string const& message)
+  {
+    return gettext(message.c_str());
   }
 
   /**

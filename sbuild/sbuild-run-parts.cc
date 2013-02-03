@@ -133,18 +133,14 @@ run_parts::run (string_list const& command,
 
   if (!this->reverse)
     {
-      for (program_set::const_iterator pos = this->programs.begin();
-           pos != this->programs.end();
-           ++pos)
+      for (const auto& program : this->programs)
         {
           string_list real_command;
-          real_command.push_back(*pos);
-          for (string_list::const_iterator spos = command.begin();
-               spos != command.end();
-               ++spos)
-            real_command.push_back(*spos);
+          real_command.push_back(program);
+          for (const auto& arg : command)
+            real_command.push_back(arg);
 
-          exit_status = run_child(*pos, real_command, env);
+          exit_status = run_child(program, real_command, env);
 
           if (exit_status && this->abort_on_error)
             return exit_status;
@@ -152,18 +148,16 @@ run_parts::run (string_list const& command,
     }
   else
     {
-      for (program_set::const_reverse_iterator pos = this->programs.rbegin();
-           pos != this->programs.rend();
-           ++pos)
+      for (program_set::const_reverse_iterator program = this->programs.rbegin();
+           program != this->programs.rend();
+           ++program)
         {
           string_list real_command;
-          real_command.push_back(*pos);
-          for (string_list::const_iterator spos = command.begin();
-               spos != command.end();
-               ++spos)
-            real_command.push_back(*spos);
+          real_command.push_back(*program);
+          for (const auto& arg : command)
+            real_command.push_back(arg);
 
-          exit_status = run_child(*pos, real_command, env);
+          exit_status = run_child(*program, real_command, env);
 
           if (exit_status && this->abort_on_error)
             return exit_status;

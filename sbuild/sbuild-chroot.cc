@@ -158,11 +158,9 @@ sbuild::chroot::chroot (const chroot& rhs):
   facets()
 {
   /// @todo Use internal version of add_facet to add chroot pointer.
-  for (facet_list::const_iterator pos = rhs.facets.begin();
-       pos != rhs.facets.end();
-       ++pos)
+  for (const auto& facet : rhs.facets)
     {
-      facet_ptr fp = (*pos)->clone();
+      facet_ptr fp = facet->clone();
       fp->set_chroot(*this);
       facets.push_back(fp);
     }
@@ -323,23 +321,21 @@ sbuild::chroot::get_aliases () const
 void
 sbuild::chroot::set_aliases (string_list const& aliases)
 {
-  for (string_list::const_iterator pos = aliases.begin();
-       pos != aliases.end();
-       ++pos)
+  for (const auto& alias : aliases)
     {
-      std::string::size_type found = pos->find_first_of(chroot_config::namespace_separator);
+      std::string::size_type found = alias.find_first_of(chroot_config::namespace_separator);
       if (found != std::string::npos)
         {
-          error e(*pos, NAME_INVALID);
+          error e(alias, NAME_INVALID);
           format fmt(_("Namespace separator ‘%1%’ may not be used in an alias name"));
           fmt % chroot_config::namespace_separator;
           e.set_reason(fmt.str());
           throw e;
         }
 
-      if (!is_valid_sessionname(*pos))
+      if (!is_valid_sessionname(alias))
         {
-          error e(*pos, NAME_INVALID);
+          error e(alias, NAME_INVALID);
           e.set_reason(_("Naming restrictions are documented in schroot.conf(5)"));
           throw e;
         }
@@ -522,16 +518,12 @@ sbuild::chroot::set_verbosity (std::string const& verbosity)
 string_list
 sbuild::chroot::list_facets () const
 {
-  string_list fnames;
+  string_list facet_names;
 
-  for (facet_list::const_iterator pos = facets.begin();
-       pos != facets.end();
-       ++pos)
-    {
-      fnames.push_back((*pos)->get_name());
-    }
+  for (const auto& facet : facets)
+    facet_names.push_back(facet->get_name());
 
-  return fnames;
+  return facet_names;
 }
 
 void
@@ -539,12 +531,8 @@ sbuild::chroot::setup_env (environment& env) const
 {
   setup_env(*this, env);
 
-  for (facet_list::const_iterator pos = facets.begin();
-       pos != facets.end();
-       ++pos)
-    {
-      (*pos)->setup_env(*this, env);
-    }
+  for (const auto& facet : facets)
+    facet->setup_env(*this, env);
 }
 
 void
@@ -641,12 +629,8 @@ sbuild::chroot::get_session_flags () const
 {
   session_flags flags = get_session_flags(*this);
 
-  for (facet_list::const_iterator pos = facets.begin();
-       pos != facets.end();
-       ++pos)
-    {
-      flags = flags | (*pos)->get_session_flags(*this);
-    }
+  for (const auto& facet : facets)
+    flags = flags | facet->get_session_flags(*this);
 
   return flags;
 }
@@ -656,12 +640,8 @@ sbuild::chroot::get_details (format_detail& detail) const
 {
   get_details(*this, detail);
 
-  for (facet_list::const_iterator pos = facets.begin();
-       pos != facets.end();
-       ++pos)
-    {
-      (*pos)->get_details(*this, detail);
-    }
+  for (const auto& facet : facets)
+    facet->get_details(*this, detail);
 }
 
 void
@@ -726,12 +706,8 @@ sbuild::chroot::get_used_keys () const
 
   get_used_keys(used_keys);
 
-  for (facet_list::const_iterator pos = facets.begin();
-       pos != facets.end();
-       ++pos)
-    {
-      (*pos)->get_used_keys(used_keys);
-    }
+  for (const auto& facet : facets)
+    facet->get_used_keys(used_keys);
 
   return used_keys;
 }
@@ -769,12 +745,8 @@ sbuild::chroot::get_keyfile (keyfile& keyfile) const
 {
   get_keyfile(*this, keyfile);
 
-  for (facet_list::const_iterator pos = facets.begin();
-       pos != facets.end();
-       ++pos)
-    {
-      (*pos)->get_keyfile(*this, keyfile);
-    }
+  for (const auto& facet : facets)
+    facet->get_keyfile(*this, keyfile);
 }
 
 void
@@ -858,12 +830,8 @@ sbuild::chroot::set_keyfile (keyfile const& keyfile)
 {
   set_keyfile(*this, keyfile);
 
-  for (facet_list::const_iterator pos = facets.begin();
-       pos != facets.end();
-       ++pos)
-    {
-      (*pos)->set_keyfile(*this, keyfile);
-    }
+  for (const auto& facet : facets)
+    facet->set_keyfile(*this, keyfile);
 }
 
 void

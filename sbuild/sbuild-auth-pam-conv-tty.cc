@@ -299,30 +299,28 @@ auth_pam_conv_tty::conversation (auth_pam_conv::message_list& messages)
 {
   log_debug(DEBUG_NOTICE) << "PAM TTY conversation handler started" << endl;
 
-  for (std::vector<auth_pam_message>::iterator cur = messages.begin();
-       cur != messages.end();
-       ++cur)
+  for (auto& msg : messages)
     {
-      switch (cur->type)
+      switch (msg.type)
         {
         case auth_pam_message::MESSAGE_PROMPT_NOECHO:
           log_debug(DEBUG_NOTICE) << "PAM TTY input prompt (noecho)" << endl;
-          cur->response = read_string(cur->message, false);
+          msg.response = read_string(msg.message, false);
           break;
         case auth_pam_message::MESSAGE_PROMPT_ECHO:
           log_debug(DEBUG_NOTICE) << "PAM TTY input prompt (echo)" << endl;
-          cur->response = read_string(cur->message, true);
+          msg.response = read_string(msg.message, true);
           break;
         case auth_pam_message::MESSAGE_ERROR:
           log_debug(DEBUG_NOTICE) << "PAM TTY output error" << endl;
-          log_ctty_error() << cur->message << endl;
+          log_ctty_error() << msg.message << endl;
           break;
         case auth_pam_message::MESSAGE_INFO:
           log_debug(DEBUG_NOTICE) << "PAM TTY output info" << endl;
-          log_ctty_info() << cur->message << endl;
+          log_ctty_info() << msg.message << endl;
           break;
         default:
-          throw error(cur->type, CONV_TYPE);
+          throw error(msg.type, CONV_TYPE);
           break;
         }
     }

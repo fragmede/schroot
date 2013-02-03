@@ -135,10 +135,8 @@ namespace sbuild
     {
       if (!rhs.reverse)
         {
-          for (program_set::const_iterator pos = rhs.programs.begin();
-               pos != rhs.programs.end();
-               ++pos)
-            stream << *pos << '\n';
+          for (const auto& program : rhs.programs)
+            stream << program << '\n';
         }
       else
         {

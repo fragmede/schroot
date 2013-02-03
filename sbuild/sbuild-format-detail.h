@@ -126,11 +126,9 @@ namespace sbuild
       std::locale loc = stream.getloc();
       int max_width = 0;
 
-      for (format_detail::list_type::const_iterator pos = rhs.items.begin();
-           pos != rhs.items.end();
-           ++pos)
+      for (const auto& item : rhs.items)
         {
-          std::wstring wide = widen_string(pos->first, loc);
+          std::wstring wide = widen_string(item.first, loc);
           int width = wcswidth(wide.c_str(), wide.length());
 
           if (max_width < width)
@@ -144,17 +142,15 @@ namespace sbuild
 
       stream << "  " << rhs.get_title() << '\n';
 
-      for (format_detail::list_type::const_iterator pos = rhs.items.begin();
-           pos != rhs.items.end();
-           ++pos)
+      for (const auto& item : rhs.items)
         {
           std::wostringstream ws;
           ws.imbue(loc);
 
-          std::wstring wide = widen_string(pos->first, loc);
+          std::wstring wide = widen_string(item.first, loc);
           ws << L"  " << std::setw(max_width) << std::left << wide;
 
-          stream << narrow_string(ws.str(), loc) << pos->second << '\n';
+          stream << narrow_string(ws.str(), loc) << item.second << '\n';
         }
 
       return stream;

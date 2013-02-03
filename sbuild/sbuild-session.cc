@@ -465,19 +465,15 @@ session::get_chroot_membership (chroot::ptr const& chroot,
 
   if (!groups.empty())
     {
-      for (string_list::const_iterator gp = groups.begin();
-           gp != groups.end();
-           ++gp)
-        if (is_group_member(*gp))
+      for (const auto& gp : groups)
+        if (is_group_member(gp))
           in_groups = true;
     }
 
   if (!root_groups.empty())
     {
-      for (string_list::const_iterator gp = root_groups.begin();
-           gp != root_groups.end();
-           ++gp)
-        if (is_group_member(*gp))
+      for (const auto& rgp : root_groups)
+        if (is_group_member(rgp))
           in_root_groups = true;
     }
 
@@ -552,13 +548,9 @@ session::get_auth_status () const
   /** @todo Use set difference rather than iteration and
    * is_group_member.
    */
-  for (chroot_list::const_iterator cur = this->chroots.begin();
-       cur != this->chroots.end();
-       ++cur)
-    {
-      status = auth::change_auth(status,
-                                 get_chroot_auth_status(status, cur->chroot));
-    }
+  for (const auto& chrootent : this->chroots)
+    status = auth::change_auth(status,
+                               get_chroot_auth_status(status, chrootent.chroot));
 
   return status;
 }
@@ -632,22 +624,20 @@ session::run_impl ()
       sigterm_called = false;
       set_sigterm_handler();
 
-      for (chroot_list::const_iterator cur = this->chroots.begin();
-           cur != this->chroots.end();
-           ++cur)
+      for (const auto& chrootent : this->chroots)
         {
           log_debug(DEBUG_NOTICE)
-            << format("Running session in %1% chroot:") % cur->alias
+            << format("Running session in %1% chroot:") % chrootent.alias
             << endl;
 
-          const chroot::ptr ch = cur->chroot;
+          const chroot::ptr ch = chrootent.chroot;
 
           // TODO: Make chroot/session selection automatically fail
           // if no session exists earlier on when selecting chroots.
           if (ch->get_session_flags() & chroot::SESSION_CREATE &&
               (this->session_operation != OPERATION_AUTOMATIC &&
                this->session_operation != OPERATION_BEGIN))
-              throw error(cur->alias, CHROOT_NOTFOUND);
+              throw error(chrootent.alias, CHROOT_NOTFOUND);
 
           // For now, use a copy of the chroot; if we create a session
           // later, we will replace it.
@@ -683,7 +673,7 @@ session::run_impl ()
                                     in_groups, in_root_groups);
 
               chroot = ch->clone_session(new_session_id,
-                                         cur->alias,
+                                         chrootent.alias,
                                          this->authstat->get_ruser(),
                                          (in_root_users || in_root_groups));
               assert(chroot->get_facet<chroot_facet_session>());
@@ -914,17 +904,14 @@ session::get_shell (sbuild::chroot::ptr& session_chroot) const
 {
   string_list shells(get_shells(session_chroot));
 
-  std::string shell;
+  std::string found_shell;
 
-  for (string_list::const_iterator pos = shells.begin();
-       pos != shells.end();
-       ++pos)
+  for (const auto& shell : shells)
     {
-      shell = *pos;
-
       try
         {
           stat(shell).check();
+          found_shell = shell;
           break;
         }
       catch (std::runtime_error const& e)
@@ -934,13 +921,13 @@ session::get_shell (sbuild::chroot::ptr& session_chroot) const
         }
     }
 
-  if (shell != *shells.begin())
+  if (found_shell != *shells.begin())
     {
       error e2(SHELL_FB, shell);
       log_exception_warning(e2);
     }
 
-  return shell;
+  return found_shell;
 }
 
 void
@@ -1420,10 +1407,8 @@ session::run_child (sbuild::chroot::ptr& session_chroot)
       if (file.empty())
         file = full_command[0];
     }
-  for (string_list::const_iterator pos = command.begin();
-       pos != command.end();
-       ++pos)
-    full_command.push_back(*pos);
+  for (const auto& arg : command)
+    full_command.push_back(arg);
 
   /* Execute */
   if (exec (file, full_command, env))

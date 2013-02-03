@@ -118,17 +118,17 @@ main_base::action_version (std::ostream& stream)
 void
 main_base::action_info ()
 {
-  for(sbuild::string_list::const_iterator pos = this->chroot_names.begin();
-      pos != this->chroot_names.end();
-      ++pos)
+  for(auto chroot_name = this->chroot_names.begin();
+      chroot_name != this->chroot_names.end();
+      ++chroot_name)
     {
       // This should never fail, so no error handling here--we already
       // validated everything when we got the chroot map.
-      sbuild::chroot_config::chroot_map::const_iterator c = this->chroots.find(*pos);
+      sbuild::chroot_config::chroot_map::const_iterator c = this->chroots.find(*chroot_name);
       assert(c->second);
 
       std::cout << c->second;
-      if (pos + 1 != this->chroot_names.end())
+      if (chroot_name + 1 != this->chroot_names.end())
         std::cout << '\n';
     }
 
@@ -138,16 +138,14 @@ main_base::action_info ()
 void
 main_base::action_location ()
 {
-  for(sbuild::string_list::const_iterator pos = this->chroot_names.begin();
-      pos != this->chroot_names.end();
-      ++pos)
+  for(const auto& chroot_name : this->chroot_names)
     {
       // This should never fail, so no error handling here--we already
       // validated everything when we got the chroot map.
-      sbuild::chroot_config::chroot_map::const_iterator c = this->chroots.find(*pos);
-      assert(c->second);
+      const auto chroot = this->chroots.find(chroot_name);
+      assert(chroot->second);
 
-      std::cout << c->second->get_path() << '\n';
+      std::cout << chroot->second->get_path() << '\n';
     }
 
   std::cout << std::flush;
@@ -167,18 +165,16 @@ main_base::action_config ()
 
   sbuild::keyfile info;
 
-  for(sbuild::string_list::const_iterator pos = this->chroot_names.begin();
-      pos != this->chroot_names.end();
-      ++pos)
+  for(const auto& chroot_name : this->chroot_names)
     {
       // This should never fail, so no error handling here--we already
       // validated everything when we got the chroot map.
-      sbuild::chroot_config::chroot_map::const_iterator c = this->chroots.find(*pos);
-      assert(c->second);
+      const auto chroot = this->chroots.find(chroot_name);
+      assert(chroot->second);
 
       // Generated chroots (e.g. source chroots) are not printed.
-      if (c->second->get_original())
-        info << c->second;
+      if (chroot->second->get_original())
+        info << chroot->second;
     }
 
   std::cout << info << std::flush;
@@ -304,17 +300,15 @@ main_base::run_impl ()
         }
     }
   this->chroot_objects.clear();
-  for(sbuild::string_list::const_iterator pos = this->chroot_names.begin();
-      pos != this->chroot_names.end();
-      ++pos)
+  for(const auto& chroot_name : this->chroot_names)
     {
       // This should never fail, so no error handling here--we already
       // validated everything when we got the chroot map.
-      sbuild::chroot_config::chroot_map::const_iterator c = this->chroots.find(*pos);
-      assert(c->second);
+      const auto chroot = this->chroots.find(chroot_name);
+      assert(chroot->second);
       sbuild::session::chroot_list::value_type e;
-      e.alias = c->first;
-      e.chroot = c->second;
+      e.alias = chroot->first;
+      e.chroot = chroot->second;
       chroot_objects.push_back(e);
     }
 

@@ -50,11 +50,9 @@ namespace
       {
         error_base const& eb(dynamic_cast<error_base const&>(e));
         string_list lines = split_string(eb.why(), "\n");
-        for (string_list::const_iterator line = lines.begin();
-             line != lines.end();
-             ++line)
+        for (const auto& line : lines)
           ctty ? log_ctty_info() : log_info()
-            << *line << std::endl;
+            << line << std::endl;
       }
     catch (std::bad_cast const& discard)
       {

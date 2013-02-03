@@ -53,10 +53,8 @@ void
 main::action_list ()
 {
   // This list is pre-validated.
-  for(sbuild::string_list::const_iterator pos = this->chroot_names.begin();
-      pos != this->chroot_names.end();
-      ++pos)
-    std::cout << *pos << '\n';
+  for (const auto& chroot : this->chroot_names)
+    std::cout << chroot << '\n';
   std::cout << std::flush;
 }
 

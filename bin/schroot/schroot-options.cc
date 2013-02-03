@@ -138,14 +138,12 @@ options::check_options ()
       this->all_source_chroots = true;
     }
 
-  for (sbuild::string_list::const_iterator pos = this->useroptions.begin();
-       pos != this->useroptions.end();
-       ++pos)
+  for (const auto& useroption : this->useroptions)
     {
-      std::string::size_type sep = pos->find_first_of('=', 0);
-      std::string key = pos->substr(0,sep);
+      std::string::size_type sep = useroption.find_first_of('=', 0);
+      std::string key = useroption.substr(0,sep);
       ++sep;
-      std::string value = pos->substr(sep);
+      std::string value = useroption.substr(sep);
       this->useroptions_map.insert(std::make_pair(key,value));
     }
 }

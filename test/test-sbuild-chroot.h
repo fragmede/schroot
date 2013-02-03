@@ -379,16 +379,12 @@ public:
     CPPUNIT_ASSERT(expected_environment.size() != 0);
 
     std::set<std::string> expected;
-    for (sbuild::environment::const_iterator pos = expected_environment.begin();
-         pos != expected_environment.end();
-         ++pos)
-      expected.insert(pos->first);
+    for (const auto& env : expected_environment)
+      expected.insert(env.first);
 
     std::set<std::string> found;
-    for (sbuild::environment::const_iterator pos = observed_environment.begin();
-         pos != observed_environment.end();
-         ++pos)
-      found.insert(pos->first);
+    for (const auto& env : observed_environment)
+      found.insert(env.first);
 
     sbuild::string_list missing;
     set_difference(expected.begin(), expected.end(),
@@ -397,13 +393,11 @@ public:
     if (!missing.empty())
       {
         std::string value;
-        for (sbuild::string_list::const_iterator pos = missing.begin();
-             pos != missing.end();
-             ++pos)
+        for (const auto& env : missing)
           {
-            expected_environment.get(*pos, value);
+            expected_environment.get(env, value);
             std::cout << "Missing environment: "
-                      << *pos << "=" << value << std::endl;
+                      << env << "=" << value << std::endl;
           }
       }
     CPPUNIT_ASSERT(missing.empty());
@@ -415,30 +409,26 @@ public:
     if (!extra.empty())
       {
         std::string value;
-        for (sbuild::string_list::const_iterator pos = extra.begin();
-             pos != extra.end();
-             ++pos)
+        for (const auto&  env : extra)
           {
-            observed_environment.get(*pos, value);
+            observed_environment.get(env, value);
             std::cout << "Additional environment: "
-                      << *pos << "=" << value << std::endl;
+                      << env << "=" << value << std::endl;
           }
       }
     CPPUNIT_ASSERT(extra.empty());
 
-    for (sbuild::environment::const_iterator pos = expected_environment.begin();
-         pos != expected_environment.end();
-         ++pos)
+    for (const auto& env : expected_environment)
       {
         std::string checkval;
-        CPPUNIT_ASSERT(observed_environment.get(pos->first, checkval) == true);
+        CPPUNIT_ASSERT(observed_environment.get(env.first, checkval) == true);
 
-        if (checkval != pos->second)
-          std::cout << "Environment error (" << pos->first << "): "
+        if (checkval != env.second)
+          std::cout << "Environment error (" << env.first << "): "
                     << checkval << " [observed] != "
-                    << pos->second << " [expected]"
+                    << env.second << " [expected]"
                     << std::endl;
-        CPPUNIT_ASSERT(checkval == pos->second);
+        CPPUNIT_ASSERT(checkval == env.second);
       }
   }
 
@@ -477,13 +467,11 @@ public:
     if (!missing.empty())
       {
         std::string value;
-        for (sbuild::string_list::const_iterator pos = missing.begin();
-             pos != missing.end();
-             ++pos)
+        for (const auto& key : missing)
           {
-            expected_keyfile.get_value(expected_group, *pos, value);
+            expected_keyfile.get_value(expected_group, key, value);
             std::cout << "Missing keys: "
-                      << *pos << "=" << value << std::endl;
+                      << key << "=" << value << std::endl;
           }
       }
     CPPUNIT_ASSERT(missing.empty());
@@ -495,31 +483,27 @@ public:
     if (!extra.empty())
       {
         std::string value;
-        for (sbuild::string_list::const_iterator pos = extra.begin();
-             pos != extra.end();
-             ++pos)
+        for (const auto& key : extra)
           {
-            observed_keyfile.get_value(observed_group, *pos, value);
+            observed_keyfile.get_value(observed_group, key, value);
             std::cout << "Additional keys: "
-                      << *pos << "=" << value << std::endl;
+                      << key << "=" << value << std::endl;
           }
       }
     CPPUNIT_ASSERT(extra.empty());
 
-    for (sbuild::string_list::const_iterator pos = expected_keys.begin();
-         pos != expected_keys.end();
-         ++pos)
+    for (const auto& key : expected_keys)
       {
         std::string expected_val;
         CPPUNIT_ASSERT(expected_keyfile.get_value(expected_group,
-                                                  *pos, expected_val) == true);
+                                                  key, expected_val) == true);
 
         std::string observed_val;
         CPPUNIT_ASSERT(observed_keyfile.get_value(observed_group,
-                                                  *pos, observed_val) == true);
+                                                  key, observed_val) == true);
 
         if (expected_val != observed_val)
-          std::cout << "Keyfile error (" << *pos << "): "
+          std::cout << "Keyfile error (" << key << "): "
                     << observed_val << " [observed] != "
                     << expected_val << " [expected]"
                     << std::endl;

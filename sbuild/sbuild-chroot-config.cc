@@ -216,9 +216,7 @@ chroot_config::add (std::string const& chroot_namespace,
 
       // Set up aliases.
       string_list const& aliases = chroot->get_aliases();
-      for (string_list::const_iterator pos = aliases.begin();
-           pos != aliases.end();
-           ++pos)
+      for (const auto& alias : aliases)
         {
           try
             {
@@ -226,11 +224,11 @@ chroot_config::add (std::string const& chroot_namespace,
               // -source compatibility.
               std::string alias_namespace(chroot_namespace);
               if (this->aliases.insert(std::make_pair
-                                       (alias_namespace + namespace_separator + *pos,
+                                       (alias_namespace + namespace_separator + alias,
                                         fullname))
                   .second == false)
                 {
-                  string_map::const_iterator dup = this->aliases.find(*pos);
+                  string_map::const_iterator dup = this->aliases.find(alias);
                   // Don't warn if alias is for chroot of same name.
                   if (dup == this->aliases.end() ||
                       fullname != dup->first)
@@ -240,7 +238,7 @@ chroot_config::add (std::string const& chroot_namespace,
 
                       if (dup == this->aliases.end())
                         {
-                          error e(*pos, ALIAS_EXIST);
+                          error e(alias, ALIAS_EXIST);
                           if (line)
                             throw keyfile::error(line, name, key,
                                                  keyfile::PASSTHROUGH_LGK, e);
@@ -269,7 +267,7 @@ chroot_config::add (std::string const& chroot_namespace,
           if (chroot_namespace == "source")
             {
               std::string source_alias = std::string("chroot") +
-                namespace_separator + *pos + "-source";
+                namespace_separator + alias + "-source";
               if (this->aliases.find(source_alias) == this->aliases.end())
                 this->aliases.insert(std::make_pair(source_alias, fullname));
             }
@@ -302,10 +300,8 @@ chroot_config::get_chroots (std::string const& chroot_namespace) const
   chroot_list ret;
   chroot_map const& chroots = find_namespace(chroot_namespace);
 
-  for (chroot_map::const_iterator pos = chroots.begin();
-       pos != chroots.end();
-       ++pos)
-    ret.push_back(pos->second);
+  for (const auto& chroot : chroots)
+    ret.push_back(chroot.second);
 
   std::sort(ret.begin(), ret.end(), chroot_alphasort);
 
@@ -440,10 +436,8 @@ chroot_config::get_chroot_list (std::string const& chroot_namespace) const
   string_list ret;
   chroot_map const& chroots = find_namespace(chroot_namespace);
 
-  for (chroot_map::const_iterator pos = chroots.begin();
-       pos != chroots.end();
-       ++pos)
-    ret.push_back(chroot_namespace + namespace_separator + pos->first);
+  for (const auto& chroot : chroots)
+    ret.push_back(chroot_namespace + namespace_separator + chroot.first);
 
   std::sort(ret.begin(), ret.end());
 
@@ -458,16 +452,14 @@ chroot_config::get_alias_list (std::string const& chroot_namespace) const
   // To validate namespace.
   find_namespace(chroot_namespace);
 
-  for (string_map::const_iterator pos = aliases.begin();
-       pos != aliases.end();
-       ++pos)
+  for (const auto& alias : aliases)
     {
-      std::string::size_type seppos = pos->first.find_first_of(namespace_separator);
+      std::string::size_type seppos = alias.first.find_first_of(namespace_separator);
       if (seppos != std::string::npos)
         {
-          std::string alias_namespace = pos->first.substr(0, seppos);
+          std::string alias_namespace = alias.first.substr(0, seppos);
           if (alias_namespace == chroot_namespace)
-            ret.push_back(pos->first);
+            ret.push_back(alias.first);
         }
     }
 
@@ -517,15 +509,13 @@ chroot_config::validate_chroots (std::string const& namespace_hint,
   string_list bad_chroots;
   chroot_map validated;
 
-  for (string_list::const_iterator pos = chroots.begin();
-       pos != chroots.end();
-       ++pos)
+  for (const auto& chrootname : chroots)
     {
-      chroot::ptr chroot = find_alias(namespace_hint, *pos);
-      if (!chroot)
-        bad_chroots.push_back(*pos);
+      chroot::ptr chrootptr = find_alias(namespace_hint, chrootname);
+      if (!chrootptr)
+        bad_chroots.push_back(chrootname);
       else
-        validated.insert(std::make_pair(*pos, chroot));
+        validated.insert(std::make_pair(chrootname, chrootptr));
     }
 
   if (!bad_chroots.empty())
@@ -604,16 +594,14 @@ chroot_config::load_keyfile (std::string const& chroot_namespace,
 {
   /* Create chroot objects from key file */
   string_list const& groups = kconfig.get_groups();
-  for (string_list::const_iterator group = groups.begin();
-       group != groups.end();
-       ++group)
+  for (const auto& group : groups)
     {
       std::string type = "plain"; // "plain" is the default type.
-      kconfig.get_value(*group, "type", type);
+      kconfig.get_value(group, "type", type);
       chroot::ptr chroot = chroot::create(type);
 
       // Set both; the keyfile load will correct them if needed.
-      chroot->set_name(*group);
+      chroot->set_name(group);
 
       // If we are (re-)creating session objects, we need to re-clone
       // the session chroot object from its basic state, in order to
@@ -621,7 +609,7 @@ chroot_config::load_keyfile (std::string const& chroot_namespace,
       // great if sessions could serialise their facet usage to allow
       // automatic reconstruction.
       log_debug(DEBUG_INFO) << "Created template chroot (type=" << type
-                            << "  name/session-id=" << *group
+                            << "  name/session-id=" << group
                             << "  namespace=" << chroot_namespace
                             << "  source-clonable="
                             << static_cast<bool>(chroot->get_facet<chroot_facet_session_clonable>())
@@ -639,7 +627,7 @@ chroot_config::load_keyfile (std::string const& chroot_namespace,
           chroot_facet_session::const_ptr psess
             (chroot->get_facet<chroot_facet_session>());
           assert(psess);
-          chroot->set_name(*group);
+          chroot->set_name(group);
         }
       else
         {

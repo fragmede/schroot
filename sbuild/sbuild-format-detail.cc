@@ -42,11 +42,9 @@ format_detail&
 format_detail::add (std::string const& name,
                     std::string const& value)
 {
-  for (list_type::iterator pos = this->items.begin();
-       pos != this->items.end();
-       ++pos)
+  for (const auto& item : this->items)
     {
-      if (pos->first == name)
+      if (item.first == name)
         {
           log_debug(DEBUG_WARNING) << "format_detail: name \""
                                    << name << "\" is already added"

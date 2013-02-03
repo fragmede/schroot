@@ -77,11 +77,11 @@ namespace
     std::string ret(key);
 
     static const std::ctype<char>& ct = std::use_facet<std::ctype<char> >(std::locale::classic());
-    for (std::string::iterator pos = ret.begin(); pos != ret.end(); ++pos)
+    for (auto& chr : ret)
       {
-        *pos = ct.toupper(*pos);
-        if (*pos == '-' || *pos == '.')
-          *pos = '_';
+        chr = ct.toupper(chr);
+        if (chr == '-' || chr == '.')
+          chr = '_';
       }
     return ret;
   }
@@ -130,19 +130,17 @@ void
 chroot_facet_userdata::setup_env (chroot const& chroot,
                                   environment&  env) const
 {
-  for (string_map::const_iterator pos = userdata.begin();
-       pos != userdata.end();
-       ++pos)
+  for (const auto& data : userdata)
     {
-      std::string name = envname(pos->first);
+      std::string name = envname(data.first);
       std::string dummy;
       if (!env.get(name, dummy))
-        env.add(name, pos->second);
+        env.add(name, data.second);
       else
         {
           error e(name, ENV_AMBIGUOUS);
           format fmt(_("Configuration keys additional to ‘%1%’ would set this setup script environment variable"));
-          fmt % pos->first;
+          fmt % data.first;
           e.set_reason(fmt.str());
           throw e;
         }
@@ -172,17 +170,13 @@ chroot_facet_userdata::get_details (chroot const&  chroot,
   detail.add(_("User Data"), "");
 
   string_list keys;
-  for (string_map::const_iterator pos = userdata.begin();
-       pos != userdata.end();
-       ++pos)
-    keys.push_back(pos->first);
+  for (const auto& data : userdata)
+    keys.push_back(data.first);
   std::sort(keys.begin(), keys.end());
 
-  for (string_list::const_iterator pos = keys.begin();
-       pos != keys.end();
-       ++pos)
+  for (const auto& keyname : keys)
     {
-      string_map::const_iterator key = userdata.find(*pos);
+      string_map::const_iterator key = userdata.find(keyname);
       if (key != userdata.end())
         {
           std::string name("  ");
@@ -253,10 +247,8 @@ chroot_facet_userdata::set_data (std::string const& key,
 void
 chroot_facet_userdata::set_data (string_map const& data)
 {
-  for (string_map::const_iterator pos = data.begin();
-       pos != data.end();
-       ++pos)
-    set_data(pos->first, pos->second);
+  for (const auto& elem : data)
+    set_data(elem.first, elem.second);
 }
 
 void
@@ -281,10 +273,8 @@ chroot_facet_userdata::set_root_data(string_map const&  data)
 void
 chroot_facet_userdata::set_system_data(string_map const&  data)
 {
-  for (string_map::const_iterator pos = data.begin();
-       pos != data.end();
-       ++pos)
-    set_system_data(pos->first, pos->second);
+  for (const auto& elem : data)
+    set_system_data(elem.first, elem.second);
 }
 
 void
@@ -304,25 +294,23 @@ chroot_facet_userdata::set_data(string_map const&  data,
   // optional when only updating a subset of the total keys.
   this->owner->get_keyfile(kf);
 
-  for (string_map::const_iterator pos = data.begin();
-       pos != data.end();
-       ++pos)
+  for (const auto& elem : data)
     {
-      string_set::const_iterator allowed = allowed_keys.find(pos->first);
+      string_set::const_iterator allowed = allowed_keys.find(elem.first);
       if (allowed == allowed_keys.end())
         {
-          error e(pos->first, KEY_DISALLOWED);
+          error e(elem.first, KEY_DISALLOWED);
           if (root)
             e.set_reason(_("The key is not present in user-modifiable-keys or root-modifiable-keys"));
           else
             e.set_reason(_("The key is not present in user-modifiable-keys"));
           throw e;
         }
-      string_set::const_iterator found = used_set.find(pos->first);
+      string_set::const_iterator found = used_set.find(elem.first);
       if (found != used_set.end()) // Used in other facet
-        kf.set_value(this->owner->get_name(), pos->first, pos->second);
+        kf.set_value(this->owner->get_name(), elem.first, elem.second);
       else
-        set_data(pos->first, pos->second);
+        set_data(elem.first, elem.second);
     }
 
   this->owner->set_keyfile(kf);
@@ -373,13 +361,11 @@ chroot_facet_userdata::get_keyfile (chroot const& chroot,
                                 keyfile, chroot.get_name(),
                                 "root-modifiable-keys");
 
-  for (string_map::const_iterator pos = userdata.begin();
-       pos != userdata.end();
-       ++pos)
+  for (const auto& data : userdata)
     {
       keyfile.set_value(chroot.get_name(),
-                        pos->first,
-                        pos->second);
+                        data.first,
+                        data.second);
     }
 }
 
@@ -418,25 +404,23 @@ chroot_facet_userdata::set_keyfile (chroot&        chroot,
                    inserter(unused, unused.begin()));
 
     string_map userdata_keys;
-    for (string_set::const_iterator pos = unused.begin();
-         pos != unused.end();
-         ++pos)
+    for (const auto& elem : unused)
       {
         // Skip language-specific key variants.
         static regex description_keys("\\[.*\\]$");
-        if (regex_search(*pos, description_keys))
+        if (regex_search(elem, description_keys))
           continue;
 
         try
           {
             std::string value;
-            if (keyfile.get_value(get_name(), *pos, value))
-              set_data(*pos, value);
+            if (keyfile.get_value(get_name(), elem, value))
+              set_data(elem, value);
           }
         catch (std::runtime_error const& e)
           {
-            keyfile::size_type line = keyfile.get_line(group, *pos);
-            keyfile::error w(line, group, *pos,
+            keyfile::size_type line = keyfile.get_line(group, elem);
+            keyfile::error w(line, group, elem,
                              keyfile::PASSTHROUGH_LGK, e.what());
 
             try

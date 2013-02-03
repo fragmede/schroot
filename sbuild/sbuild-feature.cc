@@ -21,6 +21,7 @@
 #include <iostream>
 
 #include "sbuild-feature.h"
+#include "sbuild-i18n.h"
 
 using namespace sbuild;
 
@@ -37,16 +38,11 @@ feature::~feature()
 std::ostream&
 feature::print_features(std::ostream& stream)
 {
-  boost::format feature("  %1$-12s %2%\n");
+  boost::format fmt("  %1$-12s %2%\n");
 
   std::map<std::string,std::string>& features = registered_features();
-  for (std::map<std::string,std::string>::const_iterator pos =
-         features.begin();
-       pos != features.end();
-       ++pos)
-    {
-      stream << feature % pos->first % gettext(pos->second.c_str());
-    }
+  for (const auto& feature : features)
+    stream << fmt % feature.first % gettext(feature.second);
 
   return stream;
 }

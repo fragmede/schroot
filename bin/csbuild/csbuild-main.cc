@@ -101,12 +101,10 @@ main::action_build ()
   if (opts->batch_mode)
     command.push_back("--batch");
 
-  for (sbuild::string_list::const_iterator pos = opts->deb_build_options.begin();
-       pos != opts->deb_build_options.end();
-       ++pos)
+  for (const auto& buildopt : opts->deb_build_options)
     {
       std::string bopt("--debbuildopt=");
-      bopt += *pos;
+      bopt += buildopt;
       command.push_back(bopt);
     }
 
@@ -212,39 +210,31 @@ main::action_build ()
       command.push_back(uploader);
     }
 
-  for (sbuild::string_list::const_iterator bd = opts->build_depends.begin();
-       bd != opts->build_depends.end();
-       ++bd)
+  for (const auto& bd : opts->build_depends)
     {
       std::string dep("--add-depends=");
-      dep += *bd;
+      dep += bd;
       command.push_back(dep);
     }
 
-  for (sbuild::string_list::const_iterator bc = opts->build_conflicts.begin();
-       bc != opts->build_conflicts.end();
-       ++bc)
+  for (const auto& bc : opts->build_conflicts)
     {
       std::string dep("--add-conflicts=");
-      dep += *bc;
+      dep += bc;
       command.push_back(dep);
     }
 
-  for (sbuild::string_list::const_iterator bdi = opts->build_depends_indep.begin();
-       bdi != opts->build_depends_indep.end();
-       ++bdi)
+  for (const auto& bdi : opts->build_depends_indep)
     {
       std::string dep("--add-depends=");
-      dep += *bdi;
+      dep += bdi;
       command.push_back(dep);
     }
 
-  for (sbuild::string_list::const_iterator bci = opts->build_conflicts_indep.begin();
-       bci != opts->build_conflicts_indep.end();
-       ++bci)
+  for (const auto& bci : opts->build_conflicts_indep)
     {
       std::string dep("--add-conflicts=");
-      dep += *bci;
+      dep += bci;
       command.push_back(dep);
     }
 

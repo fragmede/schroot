@@ -231,12 +231,10 @@ options::check_options ()
       string_list bopts = sbuild::split_string(deb_build_options_string,
                                                std::string(1, ' '));
 
-      for (string_list::const_iterator pos = bopts.begin();
-           pos != bopts.end();
-           ++pos)
+      for (const auto& bopt : bopts)
         {
-          if (!pos->empty())
-            deb_build_options.push_back(*pos);
+          if (!bopt.empty())
+            deb_build_options.push_back(bopt);
         }
     }
 

@@ -123,10 +123,8 @@ debian_changes::get_keys () const
 {
   sbuild::string_list ret;
 
-  for (item_map_type::const_iterator pos = items.begin();
-       pos != items.end();
-       ++pos)
-    ret.push_back(pos->first);
+  for (const auto& item : items)
+    ret.push_back(item.first);
 
   return ret;
 }
@@ -199,11 +197,9 @@ debian_changes::remove_key (key_type const& key)
 debian_changes&
 debian_changes::operator += (debian_changes const& rhs)
 {
-  for (item_map_type::const_iterator it = rhs.items.begin();
-       it != rhs.items.end();
-       ++it)
+  for (const auto& it : rhs.items)
     {
-      item_type const& item = it->second;
+      item_type const& item = it.second;
       key_type const& key(std::get<0>(item));
       value_type const& value(std::get<1>(item));
       size_type const& line(std::get<2>(item));
