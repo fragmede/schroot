@@ -26,6 +26,13 @@
 #include <sbuild/sbuild-config.h>
 #ifdef HAVE_REGEX_REGEX
 # include <regex>
+#elif HAVE_TR1_REGEX_REGEX
+# include <tr1/regex>
+namespace std {
+  using std::tr1::regex;
+  using std::tr1::regex_error;
+  using std::tr1::regex_search;
+}
 #else
 # include <boost/regex.hpp>
 namespace std {

@@ -683,6 +683,21 @@ define([testprog], [AC_LANG_PROGRAM([#include <regex>],
                                     std::regex bar("^foo@<:@bar@:>@$", std::regex::extended);])])
 AC_LINK_IFELSE(testprog,
   [AC_MSG_RESULT([broken])],
+  [AC_MSG_RESULT([no])])
+   AC_MSG_CHECKING([for std::tr1::regex])
+define([testprog], [AC_LANG_PROGRAM([#include <tr1/regex>],
+                                   [std::regex foo("^foo@<:@bar@:>@$");
+                                    std::tr1::regex bar("^foo@<:@bar@:>@$", std::tr1::regex::extended);
+                                    std::tr1::regex check("^@<:@^:/,.@:>@@<:@^:/,@:>@*$", std::tr1::regex::extended);])])
+AC_RUN_IFELSE(testprog,
+  [AC_MSG_RESULT([yes])
+   AC_DEFINE(HAVE_REGEX_REGEX, 1)],
+  [dnl Check if std::regex is present but broken.
+define([testprog], [AC_LANG_PROGRAM([#include <regex>],
+                                   [std::regex foo("^foo@<:@bar@:>@$");
+                                    std::regex bar("^foo@<:@bar@:>@$", std::regex::extended);])])
+AC_LINK_IFELSE(testprog,
+  [AC_MSG_RESULT([broken])],
   [AC_MSG_RESULT([no])
    AC_MSG_RESULT([no])])
    AC_MSG_CHECKING([for boost::regex in -lboost_regex])
@@ -701,7 +716,7 @@ AC_LINK_IFELSE(testprog,
                           [AC_MSG_RESULT([no])
                     AC_MSG_FAILURE([libboost_regex (Boost C++ Libraries) is not installed, but is required by schroot])])])
    LIBS="${saved_LIBS}"
-])
+])])
 
 AC_MSG_CHECKING([for boost::iostreams in -lboost_iostreams])
 saved_LIBS="${LIBS}"
