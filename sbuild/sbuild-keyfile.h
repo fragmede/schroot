@@ -49,28 +49,11 @@ namespace sbuild
   /**
    * Keyfile parser template
    */
-  template <typename K>
-  class keyfile_parser : public basic_keyfile_parser<K>
+  class keyfile_parser : public basic_keyfile_parser
   {
   public:
-    // Workaround for GCC bug.
-    typedef keyfile_base::error error;
-    // This is the correct form, but is not currently supported by
-    // GCC.  http://gcc.gnu.org/bugzilla/show_bug.cgi?id=14258
-    // using typename basic_keyfile_parser<K>::error;
-
-    using basic_keyfile_parser<K>::group;
-    using basic_keyfile_parser<K>::group_set;
-    using basic_keyfile_parser<K>::key;
-    using basic_keyfile_parser<K>::key_set;
-    using basic_keyfile_parser<K>::value;
-    using basic_keyfile_parser<K>::value_set;
-    using basic_keyfile_parser<K>::comment;
-    using basic_keyfile_parser<K>::comment_set;
-    using basic_keyfile_parser<K>::line_number;
-
     keyfile_parser():
-      basic_keyfile_parser<K>()
+      basic_keyfile_parser()
     {}
 
     virtual ~keyfile_parser()
@@ -147,7 +130,7 @@ namespace sbuild
           value_set = true;
         }
 
-      basic_keyfile_parser<K>::parse_line(line);
+      basic_keyfile_parser::parse_line(line);
     }
   };
 
@@ -156,7 +139,7 @@ namespace sbuild
    * configuration file from a file or stream.  The format is
    * documented in schroot.conf(5).
    */
-  typedef basic_keyfile<keyfile_traits, keyfile_parser<keyfile_traits> > keyfile;
+  typedef basic_keyfile<keyfile_traits, keyfile_parser> keyfile;
 
 }
 

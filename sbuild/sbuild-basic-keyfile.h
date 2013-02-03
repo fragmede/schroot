@@ -40,7 +40,6 @@ namespace sbuild
   /**
    * Basic keyfile parser template
    */
-  template <typename K>
   class basic_keyfile_parser
   {
   public:
@@ -67,31 +66,31 @@ namespace sbuild
     }
 
     /// Group name.
-    typename K::group_name_type group;
+    std::string  group;
 
     /// Group name is set.
-    bool                        group_set;
+    bool         group_set;
 
     /// Key name.
-    typename K::key_type        key;
+    std::string  key;
 
     /// Key name is set.
-    bool                        key_set;
+    bool         key_set;
 
     /// Value.
-    typename K::value_type      value;
+    std::string  value;
 
     /// Value is set.
-    bool                        value_set;
+    bool         value_set;
 
     /// Comment.
-    typename K::comment_type    comment;
+    std::string  comment;
 
     /// Comment is set.
-    bool                        comment_set;
+    bool         comment_set;
 
     /// Line number.
-    typename K::size_type       line_number;
+    unsigned int line_number;
 
     /**
      * Start processing input.
@@ -134,7 +133,7 @@ namespace sbuild
    * configuration file from a file or stream.  The format is
    * documented in schroot.conf(5).
    */
-  template <typename K, typename P = basic_keyfile_parser<K> >
+  template <typename K, typename P = basic_keyfile_parser >
   class basic_keyfile : public keyfile_base
   {
   public:
