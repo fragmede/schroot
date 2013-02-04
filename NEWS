@@ -17,6 +17,13 @@ configuration.
      to set up the environment when a single command is executed, such
      as for disassociating networking.
 
+  3) schroot now requires a C++11 compiler to build.  Several C++11
+     features are now used to make the code more robust and
+     maintainable, including range-based for loops, auto (automatic
+     type detection), container initialiser lists.  Existing use of
+     TR1 types has been replaced with the use of the C++11
+     equivalents.
+
 * Major changes in 1.6.4:
 
   1) Canonicalise symlink mount points.  If a mount point in fstab
