@@ -25,28 +25,6 @@ namespace sbuild
 {
 
   /**
-   * Traits class for an INI-style configuration file.  The format is
-   * documented in schroot.conf(5).
-   */
-  struct keyfile_traits
-  {
-    /// Group name.
-    typedef std::string group_name_type;
-
-    /// Key name.
-    typedef std::string key_type;
-
-    /// Value.
-    typedef std::string value_type;
-
-    /// Comment.
-    typedef std::string comment_type;
-
-    /// Line number.
-    typedef unsigned int size_type;
-  };
-
-  /**
    * Keyfile parser template
    */
   class keyfile_parser
@@ -209,7 +187,7 @@ namespace sbuild
    * configuration file from a file or stream.  The format is
    * documented in schroot.conf(5).
    */
-  class keyfile : public basic_keyfile<keyfile_traits>
+  class keyfile : public basic_keyfile
   {
   public:
     /// The constructor.

@@ -18,16 +18,18 @@
 
 #include <config.h>
 
+#include <fstream>
+
 #include "sbuild-keyfile.h"
 
 using namespace sbuild;
 
 keyfile::keyfile():
-  basic_keyfile<keyfile_traits>()
+  basic_keyfile()
 {}
 
 keyfile::keyfile (std::string const& file):
-  basic_keyfile<keyfile_traits>()
+  basic_keyfile()
 {
   std::ifstream fs(file.c_str());
   if (fs)
@@ -42,7 +44,7 @@ keyfile::keyfile (std::string const& file):
 }
 
 keyfile::keyfile (std::istream& stream):
-  basic_keyfile<keyfile_traits>()
+  basic_keyfile()
 {
   stream >> *this;
 }

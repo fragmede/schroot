@@ -43,24 +43,23 @@ namespace sbuild
    * configuration file from a file or stream.  The format is
    * documented in schroot.conf(5).
    */
-  template <typename K>
   class basic_keyfile : public keyfile_base
   {
   public:
     /// Group name.
-    typedef typename K::group_name_type group_name_type;
+    typedef std::string group_name_type;
 
     /// Key name.
-    typedef typename K::key_type key_type;
+    typedef std::string key_type;
 
     /// Value.
-    typedef typename K::value_type value_type;
+    typedef std::string value_type;
 
     /// Comment.
-    typedef typename K::comment_type comment_type;
+    typedef std::string comment_type;
 
     /// Line number.
-    typedef typename K::size_type size_type;
+    typedef unsigned int size_type;
 
     /// Vector of groups
     typedef std::vector<group_name_type> group_list;
@@ -773,10 +772,9 @@ namespace sbuild
      * @param rhs the values to add.
      * @returns the new basic_keyfile.
      */
-    template <typename _K, typename>
-    friend basic_keyfile<_K>
-    operator + (basic_keyfile<_K> const& lhs,
-                basic_keyfile<_K> const& rhs);
+    friend basic_keyfile
+    operator + (basic_keyfile const& lhs,
+                basic_keyfile const& rhs);
 
   protected:
     /**
@@ -1306,8 +1304,6 @@ namespace sbuild
   };
 
 }
-
-#include <sbuild/sbuild-basic-keyfile.tcc>
 
 #endif /* SBUILD_BASIC_KEYFILE_H */
 
