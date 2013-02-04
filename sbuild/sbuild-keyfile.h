@@ -154,31 +154,31 @@ namespace sbuild
     }
 
     /// Group name.
-    std::string  group;
+    basic_keyfile::group_name_type group;
 
     /// Group name is set.
-    bool         group_set;
+    bool group_set;
 
     /// Key name.
-    std::string  key;
+    basic_keyfile::key_type key;
 
     /// Key name is set.
-    bool         key_set;
+    bool key_set;
 
     /// Value.
-    std::string  value;
+    basic_keyfile::value_type value;
 
     /// Value is set.
-    bool         value_set;
+    bool value_set;
 
     /// Comment.
-    std::string  comment;
+    basic_keyfile::comment_type comment;
 
     /// Comment is set.
     bool         comment_set;
 
     /// Line number.
-    unsigned int line_number;
+    basic_keyfile::size_type line_number;
 
   };
 
