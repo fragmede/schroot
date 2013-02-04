@@ -31,7 +31,7 @@ namespace sbuild
   {
   public:
     /// Exception type.
-    typedef keyfile_base::error error;
+    typedef basic_keyfile::error error;
 
     /// The constructor.
     keyfile_parser():
@@ -110,11 +110,11 @@ namespace sbuild
           std::string::size_type lpos = line.find_last_of(']');
           if (fpos == std::string::npos || lpos == std::string::npos ||
               fpos != lpos)
-            throw error(line_number, keyfile_base::INVALID_GROUP, line);
+            throw error(line_number, basic_keyfile::INVALID_GROUP, line);
           group = line.substr(1, fpos - 1);
 
           if (group.length() == 0)
-            throw error(line_number, keyfile_base::INVALID_GROUP, line);
+            throw error(line_number, basic_keyfile::INVALID_GROUP, line);
 
           comment_set = true;
           group_set = true;
@@ -123,9 +123,9 @@ namespace sbuild
         {
           std::string::size_type pos = line.find_first_of('=');
           if (pos == std::string::npos)
-            throw error(line_number, keyfile_base::INVALID_LINE, line);
+            throw error(line_number, basic_keyfile::INVALID_LINE, line);
           if (pos == 0)
-            throw error(line_number, keyfile_base::NO_KEY, line);
+            throw error(line_number, basic_keyfile::NO_KEY, line);
           key = line.substr(0, pos);
           if (pos == line.length() - 1)
             value = "";
@@ -134,7 +134,7 @@ namespace sbuild
 
           // No group specified
           if (group.empty())
-            throw error(line_number, keyfile_base::NO_GROUP, line);
+            throw error(line_number, basic_keyfile::NO_GROUP, line);
 
           comment_set = true;
           key_set = true;

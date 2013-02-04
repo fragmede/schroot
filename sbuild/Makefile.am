@@ -52,7 +52,6 @@ sbuild_public_h_sources =			\
 	sbuild-feature.h			\
 	sbuild-format-detail.h			\
 	sbuild-i18n.h				\
-	sbuild-keyfile-base.h			\
 	sbuild-basic-keyfile.h			\
 	sbuild-keyfile.h			\
 	sbuild-lock.h				\
@@ -131,7 +130,6 @@ sbuild_public_cc_sources =			\
 	sbuild-environment.cc			\
 	sbuild-feature.cc			\
 	sbuild-format-detail.cc			\
-	sbuild-keyfile-base.cc			\
 	sbuild-basic-keyfile.cc			\
 	sbuild-keyfile.cc			\
 	sbuild-lock.cc				\
