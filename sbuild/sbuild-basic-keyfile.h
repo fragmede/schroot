@@ -33,6 +33,7 @@
 #include <tuple>
 
 #include <boost/format.hpp>
+#include <boost/any.hpp>
 
 namespace sbuild
 {
@@ -106,11 +107,14 @@ namespace sbuild
     typedef std::vector<value_type> value_list;
 
   protected:
+    /// Internal value.
+    typedef boost::any internal_value_type;
+
     /// Key-value-comment-line tuple.
-    typedef std::tuple<key_type,value_type,comment_type,size_type>
+    typedef std::tuple<key_type,internal_value_type,comment_type,size_type>
     item_type;
 
-    /// Map between key name and key-value-comment tuple.
+    /// Map between key name and key-internal_value-comment tuple.
     typedef std::map<key_type,item_type> item_map_type;
 
     /// Group-items-comment-line tuple.
@@ -279,10 +283,10 @@ namespace sbuild
       const item_type *found_item = find_item(group, key);
       if (found_item)
         {
-          value_type const& strval(std::get<1>(*found_item));
+          internal_value_type const& strval(std::get<1>(*found_item));
           try
             {
-              parse_value(strval, value);
+              parse_value(boost::any_cast<std::string const&>(strval), value);
               return true;
             }
           catch (parse_value_error const& e)
@@ -591,6 +595,39 @@ namespace sbuild
     {
       set_value(group, key, value, comment, 0);
     }
+
+  protected:
+    /**
+     * Set a key value.
+     *
+     * @param group the group the key is in.
+     * @param key the key to set.
+     * @param value the value to get the key's value from.
+     * @param comment the comment for this key.
+     * @param line the line number in the input file, or 0 otherwise.
+     */
+    void
+    set_value (group_name_type const&     group,
+               key_type const&            key,
+               internal_value_type const& value,
+               comment_type const&        comment,
+               size_type                  line)
+    {
+      set_group(group, "");
+      group_type *found_group = find_group(group);
+      assert (found_group != 0); // should not fail
+
+      item_map_type& items = std::get<1>(*found_group);
+
+      typename item_map_type::iterator pos = items.find(key);
+      if (pos != items.end())
+        items.erase(pos);
+      items.insert
+        (typename item_map_type::value_type(key,
+                                            item_type(key, value,
+                                                      comment, line)));
+    }
+  public:
 
     /**
      * Set a key value.

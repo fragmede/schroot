@@ -294,13 +294,13 @@ namespace sbuild
             {
               item_type const& item = it.second;
               key_type const& key(std::get<0>(item));
-              value_type const& value(std::get<1>(item));
+              internal_value_type const& value(std::get<1>(item));
               comment_type const& comment(std::get<2>(item));
 
               if (comment.length() > 0)
                 print_comment(comment, stream);
 
-              stream << key << '=' << value << '\n';
+              stream << key << '=' << boost::any_cast<std::string const&>(value) << '\n';
             }
         }
 

@@ -374,7 +374,7 @@ sbuild::basic_keyfile::operator += (basic_keyfile const& rhs)
         {
           item_type const& item = it.second;
           key_type const& key(std::get<0>(item));
-          value_type const& value(std::get<1>(item));
+          internal_value_type const& value(std::get<1>(item));
           comment_type const& comment(std::get<2>(item));
           size_type const& line(std::get<3>(item));
           set_value(groupname, key, value, comment, line);
