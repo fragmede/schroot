@@ -24,6 +24,7 @@
 #include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-chroot-config.h"
 #include "sbuild-fdstream.h"
+#include "sbuild-keyfile-reader.h"
 #include "sbuild-lock.h"
 
 #include <cassert>
@@ -573,7 +574,8 @@ chroot_config::parse_data (std::string const& chroot_namespace,
                            std::istream& stream)
 {
   /* Create key file */
-  keyfile kconfig(stream);
+  keyfile kconfig;
+  keyfile_reader(kconfig, stream);
 
   load_keyfile(chroot_namespace, kconfig);
 }

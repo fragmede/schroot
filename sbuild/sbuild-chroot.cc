@@ -46,6 +46,7 @@
 #include "sbuild-chroot-facet-unshare.h"
 #endif // SBUILD_FEATURE_UNSHARE
 #include "sbuild-fdstream.h"
+#include "sbuild-keyfile-writer.h"
 #include "sbuild-lock.h"
 
 #include <cerrno>
@@ -578,7 +579,7 @@ sbuild::chroot::setup_session_info (bool start)
 
       keyfile details;
       get_keyfile(details);
-      output << details;
+      output << keyfile_writer(details);
 
       try
         {

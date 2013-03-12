@@ -24,6 +24,7 @@
 #include <sbuild/sbuild-chroot-block-device.h>
 #include <sbuild/sbuild-chroot-facet-mountable.h>
 #include <sbuild/sbuild-i18n.h>
+#include <sbuild/sbuild-keyfile-writer.h>
 
 #include "test-helpers.h"
 #include "test-sbuild-chroot.h"
@@ -344,7 +345,7 @@ public:
     std::ostringstream os;
     sbuild::keyfile config;
     config << chroot;
-    os << config;
+    os << sbuild::keyfile_writer(config);
     // TODO: Compare output.
     CPPUNIT_ASSERT(!os.str().empty());
   }

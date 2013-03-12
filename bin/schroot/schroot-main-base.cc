@@ -26,6 +26,7 @@
 #include <sbuild/sbuild-auth-pam-conv.h>
 #include <sbuild/sbuild-auth-pam-conv-tty.h>
 #endif // SBUILD_FEATURE_PAM
+#include <sbuild/sbuild-keyfile-writer.h>
 
 #include <cstdlib>
 #include <ctime>
@@ -162,7 +163,7 @@ main_base::action_config ()
         info << chroot->second;
     }
 
-  std::cout << info << std::flush;
+  std::cout << sbuild::keyfile_writer(info) << std::flush;
 }
 
 void

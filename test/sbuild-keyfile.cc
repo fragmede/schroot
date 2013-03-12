@@ -17,6 +17,8 @@
  *********************************************************************/
 
 #include <sbuild/sbuild-keyfile.h>
+#include <sbuild/sbuild-keyfile-reader.h>
+#include <sbuild/sbuild-keyfile-writer.h>
 
 #include <fstream>
 #include <sstream>
@@ -73,7 +75,9 @@ public:
                           "name=Mary King\n"
                           "age=43\n"
                           "photo=mary.jpeg\n");
-    this->kf = new sbuild::keyfile(is);
+    this->kf = new sbuild::keyfile;
+    sbuild::keyfile_reader kp(*this->kf);
+    is >> kp;
   }
 
   void tearDown()
@@ -84,7 +88,8 @@ public:
   void
   test_construction_file()
   {
-    sbuild::keyfile k(TESTDATADIR "/keyfile.ex1");
+    sbuild::keyfile k;
+    sbuild::keyfile_reader(k, TESTDATADIR "/keyfile.ex1");
   }
 
   void
@@ -92,13 +97,15 @@ public:
   {
     std::ifstream strm(TESTDATADIR "/keyfile.ex1");
     CPPUNIT_ASSERT(strm);
-    sbuild::keyfile k(strm);
+    sbuild::keyfile k;
+    sbuild::keyfile_reader(k, strm);
   }
 
   void
   test_construction_fail()
   {
-    sbuild::keyfile k(TESTDATADIR "/nonexistent-keyfile-will-throw-exception");
+    sbuild::keyfile k;
+    sbuild::keyfile_reader(k, TESTDATADIR "/nonexistent-keyfile-will-throw-exception");
   }
 
   void test_get_groups()
@@ -257,11 +264,16 @@ public:
     CPPUNIT_ASSERT(l[1] == "name");
   }
 
+#include <iostream>
+
   void test_output()
   {
     // TODO: Add comments, when available.
     std::ostringstream os;
-    os << *this->kf;
+
+    std::cerr << sbuild::keyfile_writer(*this->kf);
+
+    os << sbuild::keyfile_writer(*this->kf);
 
     CPPUNIT_ASSERT(os.str() ==
                    "# Comment\n"
