@@ -19,40 +19,34 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
-
-LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
-
-LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\" -DDCHROOT_CONF=\"$(DCHROOT_CONF)\"
-
 if BUILD_LIBDCHROOT
-noinst_LTLIBRARIES = libdchroot.la
+noinst_LTLIBRARIES += bin/dchroot/libdchroot.la
 endif
 
 if BUILD_DCHROOT
-dchroot = dchroot
+dchroot = bin/dchroot/dchroot
 endif
 
-bin_PROGRAMS = $(dchroot)
+bin_PROGRAMS += $(dchroot)
 
-libdchroot_la_SOURCES =			\
-	dchroot-main-base.h		\
-	dchroot-main-base.cc		\
-	dchroot-session-base.h		\
-	dchroot-session-base.cc
-libdchroot_la_LIBADD = $(top_builddir)/bin/schroot/libschroot.la
+bin_dchroot_libdchroot_la_SOURCES =		\
+	bin/dchroot/dchroot-main-base.h		\
+	bin/dchroot/dchroot-main-base.cc	\
+	bin/dchroot/dchroot-session-base.h	\
+	bin/dchroot/dchroot-session-base.cc
+bin_dchroot_libdchroot_la_LIBADD = $(top_builddir)/bin/schroot/libschroot.la
 
-dchroot_SOURCES =			\
-	dchroot-session.h		\
-	dchroot-session.cc		\
-	dchroot-options.h		\
-	dchroot-options.cc		\
-	dchroot-main.h			\
-	dchroot-main.cc			\
-	dchroot.cc
-dchroot_LDADD = libdchroot.la
+bin_dchroot_dchroot_SOURCES =			\
+	bin/dchroot/dchroot-session.h		\
+	bin/dchroot/dchroot-session.cc		\
+	bin/dchroot/dchroot-options.h		\
+	bin/dchroot/dchroot-options.cc		\
+	bin/dchroot/dchroot-main.h		\
+	bin/dchroot/dchroot-main.cc		\
+	bin/dchroot/dchroot.cc
+bin_dchroot_dchroot_LDADD = $(top_builddir)/bin/dchroot/libdchroot.la
 
-install-exec-hook:
+install-exec-hook::
 # Install setuid root.
 	if [ -f "$(DESTDIR)$(bindir)/dchroot" ]; then \
 	  chmod 4755 "$(DESTDIR)$(bindir)/dchroot"; \

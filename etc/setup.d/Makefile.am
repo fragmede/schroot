@@ -19,32 +19,30 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
+schroot_setupdata_DATA =		\
+	etc/setup.d/common-config	\
+	etc/setup.d/common-data		\
+	etc/setup.d/common-functions
 
-schroot_setupdata_DATA =	\
-	common-config		\
-	common-data		\
-	common-functions
+schroot_sysconf_setup_SCRIPTS =		\
+	etc/setup.d/00check		\
+	etc/setup.d/05file		\
+	etc/setup.d/05btrfs		\
+	etc/setup.d/05lvm		\
+	etc/setup.d/05union		\
+	etc/setup.d/10mount		\
+	etc/setup.d/15binfmt		\
+	etc/setup.d/15killprocs		\
+	etc/setup.d/20copyfiles		\
+	etc/setup.d/20nssdatabases	\
+	etc/setup.d/50chrootname	\
+	etc/setup.d/70services
 
-schroot_sysconf_setup_SCRIPTS =	\
-	00check			\
-	05file			\
-	05btrfs			\
-	05lvm			\
-	05union			\
-	10mount			\
-	15binfmt		\
-	15killprocs		\
-	20copyfiles		\
-	20nssdatabases		\
-	50chrootname		\
-	70services
-
-install-exec-hook:
+install-exec-hook::
 	$(MKDIR_P) "$(DESTDIR)$(schroot_sysconf_setupdir)"
 	ln -sf "00check" "$(DESTDIR)$(schroot_sysconf_setupdir)/99check"
 
-EXTRA_DIST =					\
+EXTRA_DIST +=					\
 	$(schroot_setupdata_DATA)		\
 	$(schroot_sysconf_setup_SCRIPTS)
 

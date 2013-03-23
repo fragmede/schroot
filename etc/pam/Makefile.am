@@ -19,11 +19,9 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
-
 pamdir = /etc/pam.d
 
-pam_DATA = schroot
+pam_DATA = etc/pam/schroot
 
-EXTRA_DIST = $(pam_DATA)
+EXTRA_DIST += $(pam_DATA)
 

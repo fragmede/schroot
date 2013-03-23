@@ -21,37 +21,64 @@
 
 ACLOCAL_AMFLAGS=-I m4
 
+MAKEFLAGS = -rR --no-print-directory
+
 include $(top_srcdir)/scripts/global.mk
 include $(top_srcdir)/scripts/git-dist.mk
 
-SUBDIRS = sbuild bin test etc contrib man doc po
+localedir = $(datadir)/locale
 
-dist-hook:
+LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -DTESTDATADIR='"test/testdata"' -I$(top_srcdir)/bin
+
+LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\" -DDCHROOT_CONF=\"$(DCHROOT_CONF)\" -DCSBUILD_CONF=\"$(CSBUILD_CONF)\"
+
+bin_PROGRAMS =
+pkglibexec_PROGRAMS =
+noinst_LTLIBRARIES =
+noinst_PROGRAMS =
+noinst_SCRIPTS =
+schroot_sysconf_DATA =
+man_MANS =
+CLEANFILES =
+EXTRA_DIST =
+
+include etc/Makefile.am
+include etc/pam/Makefile.am
+include etc/setup.d/Makefile.am
+include etc/bash_completion/Makefile.am
+include contrib/setup.d/Makefile.am
+include doc/Makefile.am
+include doc/historical/Makefile.am
+include man/Makefile.am
+include sbuild/Makefile.am
+include bin/schroot-listmounts/Makefile.am
+include bin/dchroot-dsa/Makefile.am
+include bin/csbuild/Makefile.am
+include bin/dchroot/Makefile.am
+include bin/schroot-sbuild/Makefile.am
+include bin/schroot-releaselock/Makefile.am
+include bin/schroot-base/Makefile.am
+include bin/schroot-mount/Makefile.am
+include bin/schroot/Makefile.am
+include test/Makefile.am
+
+SUBDIRS = po
+
+dist-hook::
 # Remove junk from the generated tarball.
-	$(FIND) $(distdir) -name '.*' -print | $(XARGS) xargs $(RM) -rf
-	$(FIND) $(distdir) -name '#*' -print | $(XARGS) $(RM) -rf
-	$(FIND) $(distdir) -name '*~' -print | $(XARGS) $(RM) -rf
+	$(FIND) $(distdir) -name '.*' -print | $(XARGS) xargs rm -rf
+	$(FIND) $(distdir) -name '#*' -print | $(XARGS) rm -rf
+	$(FIND) $(distdir) -name '*~' -print | $(XARGS) rm -rf
 
 # Generate ChangeLog
 	if [ -d .git ]; then			\
 	  git log > $(distdir)/ChangeLog;	\
 	fi
 
-EXTRA_DIST =				\
+EXTRA_DIST +=				\
 	bootstrap			\
 	debian				\
 	scripts/schroot_release.m4.in	\
 	m4				\
 	HACKING				\
 	VERSION
-
-doc:
-	$(MAKE) -C doc doc
-
-ps:
-	$(MAKE) -C man ps
-
-pdf:
-	$(MAKE) -C man pdf
-
-.PHONY: doc ps pdf

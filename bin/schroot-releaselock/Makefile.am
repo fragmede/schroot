@@ -19,20 +19,14 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
-
-LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
-
-LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\"
-
 if BUILD_BLOCKDEV
-pkglibexec_PROGRAMS = schroot-releaselock
+pkglibexec_PROGRAMS += bin/schroot-releaselock/schroot-releaselock
 endif
 
-schroot_releaselock_SOURCES = 		\
-	schroot-releaselock-main.h	\
-	schroot-releaselock-main.cc	\
-	schroot-releaselock-options.h	\
-	schroot-releaselock-options.cc	\
-	schroot-releaselock.cc
-schroot_releaselock_LDADD = $(top_builddir)/bin/schroot-base/libschroot-base.la
+bin_schroot_releaselock_schroot_releaselock_SOURCES = 		\
+	bin/schroot-releaselock/schroot-releaselock-main.h	\
+	bin/schroot-releaselock/schroot-releaselock-main.cc	\
+	bin/schroot-releaselock/schroot-releaselock-options.h	\
+	bin/schroot-releaselock/schroot-releaselock-options.cc	\
+	bin/schroot-releaselock/schroot-releaselock.cc
+bin_schroot_releaselock_schroot_releaselock_LDADD = $(top_builddir)/bin/schroot-base/libschroot-base.la

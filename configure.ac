@@ -92,7 +92,7 @@ AC_SUBST([SBUILD_INTERFACE_AGE])
 AC_SUBST([SBUILD_BINARY_AGE])
 
 dnl Initialise automake stuff.
-AM_INIT_AUTOMAKE([1.10 gnu -Wno-portability check-news dist-xz no-dist-gzip tar-pax])
+AM_INIT_AUTOMAKE([1.10 gnu -Wno-portability subdir-objects check-news dist-xz no-dist-gzip tar-pax])
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 RELEASE_DATE='sbuild_m4_esyscmd_s(date --date='sbuild_m4_esyscmd_s([sed -ne '/^Release-Date:/{s/Release-Date:[[:space:]][[:space:]]*//p;q}' VERSION])' '+%s')'
 RELEASE_DATE_S='sbuild_m4_esyscmd_s([sed -ne '/^Release-Date:/{s/Release-Date:[[:space:]][[:space:]]*//p;q}' VERSION])'
@@ -780,32 +780,11 @@ AC_SUBST([BOOST_LIBS])
 AC_SUBST([BOOST_FILESYSTEM_LIBS])
 
 dnl Configure which files to generate.
-AC_CONFIG_FILES([doc/Makefile])
 AC_CONFIG_FILES([doc/sbuild.dox])
 AC_CONFIG_FILES([doc/schroot.dox])
-AC_CONFIG_FILES([doc/historical/Makefile])
 AC_CONFIG_FILES([po/Makefile.in])
-AC_CONFIG_FILES([sbuild/Makefile])
 AC_CONFIG_FILES([sbuild/sbuild.pc])
-AC_CONFIG_FILES([bin/Makefile])
-AC_CONFIG_FILES([bin/schroot-base/Makefile])
-AC_CONFIG_FILES([bin/schroot/Makefile])
-AC_CONFIG_FILES([bin/schroot-listmounts/Makefile])
-AC_CONFIG_FILES([bin/schroot-mount/Makefile])
-AC_CONFIG_FILES([bin/schroot-releaselock/Makefile])
-AC_CONFIG_FILES([bin/schroot-sbuild/Makefile])
-AC_CONFIG_FILES([bin/dchroot/Makefile])
-AC_CONFIG_FILES([bin/dchroot-dsa/Makefile])
-AC_CONFIG_FILES([bin/csbuild/Makefile])
-AC_CONFIG_FILES([contrib/Makefile])
-AC_CONFIG_FILES([contrib/setup.d/Makefile])
-AC_CONFIG_FILES([etc/Makefile])
-AC_CONFIG_FILES([etc/pam/Makefile])
-AC_CONFIG_FILES([etc/setup.d/Makefile])
-AC_CONFIG_FILES([etc/bash_completion/Makefile])
-AC_CONFIG_FILES([man/Makefile])
 AC_CONFIG_FILES([scripts/po-notify])
-AC_CONFIG_FILES([test/Makefile])
 AC_CONFIG_FILES([Makefile])
 dnl Output the generated config.status script.
 AC_OUTPUT

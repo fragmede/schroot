@@ -19,19 +19,17 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
-
 # Available translations
 LINGUAS=$(shell if [ -n "$(PO4A)" ]; then cat $(srcdir)/po/LINGUAS; fi)
 # Actual translatable manual pages (missing pages are not be translated yet)
 TRANSMAN = $(shell for MAN in $(foreach LANG,$(LINGUAS),$(addprefix translated/$(LANG)/,$(man_MANS))); do if [ -e "$$MAN.man" ]; then echo $$MAN; fi; done)
 
-translated/%.man: update-po
+man/translated/%.man: man-update-po
 
-schroot.ps: $(man_MANS)
+man/schroot.ps: $(man_MANS)
 	tbl $(man_MANS) | groff -K UTF8 -T ps -man > $@
 
-%.ps: PSMAN=$(addprefix translated/$(patsubst .%,%,$(suffix $(basename %)))/,$(man_MANS))
+%.ps: PSMAN=$(addprefix man/translated/$(patsubst .%,%,$(suffix $(basename %)))/,$(man_MANS))
 %.ps: $(TRANSMAN)
 	tbl $^ | groff -K UTF8 -T ps -man > $@
 
@@ -39,57 +37,57 @@ schroot.ps: $(man_MANS)
 	ps2pdf $< $@
 
 if BUILD_DCHROOT
-dchroot_mans = dchroot.1
+dchroot_mans = man/dchroot.1
 endif
 
 if BUILD_DCHROOT_DSA
-dchroot_dsa_mans = dchroot-dsa.1
+dchroot_dsa_mans = man/dchroot-dsa.1
 endif
 
 if BUILD_CSBUILD
-csbuild_mans = csbuild.1
+csbuild_mans = man/csbuild.1
 endif
 
 MAN_FILES = \
-	csbuild.1.man \
-	dchroot.1.man \
-	dchroot-dsa.1.man \
-	schroot.1.man \
-	schroot.conf.5.man \
-	schroot-faq.7.man \
-	schroot-script-config.5.man \
-	schroot-setup.5.man
+	man/csbuild.1.man \
+	man/dchroot.1.man \
+	man/dchroot-dsa.1.man \
+	man/schroot.1.man \
+	man/schroot.conf.5.man \
+	man/schroot-faq.7.man \
+	man/schroot-script-config.5.man \
+	man/schroot-setup.5.man
 
 EXPAND = \
-	config.man \
-	$(srcdir)/authors.man \
-	$(srcdir)/copyright.man
+	man/config.man \
+	$(srcdir)/man/authors.man \
+	$(srcdir)/man/copyright.man
 
-man_MANS =			\
-	schroot.1		\
-	schroot-setup.5		\
-	schroot.conf.5		\
-	schroot-script-config.5	\
-	schroot-faq.7		\
+man_MANS +=			\
+	man/schroot.1		\
+	man/schroot-setup.5		\
+	man/schroot.conf.5		\
+	man/schroot-script-config.5	\
+	man/schroot-faq.7		\
 	$(dchroot_mans)		\
 	$(dchroot_dsa_mans)	\
 	$(csbuild_mans)
 
-EXTRA_DIST =		\
+EXTRA_DIST +=		\
 	$(MAN_FILES)	\
-	authors.man	\
-	copyright.man	\
-	po		\
-	po4a.cfg
+	man/authors.man	\
+	man/copyright.man	\
+	man/po		\
+	man/po4a.cfg
 
-clean-local:
-	rm -rf translated *.ps *.pdf
+clean-local::
+	rm -rf man/translated man/*.ps man/*.pdf
 
-CLEANFILES =				\
-	config.man			\
+CLEANFILES +=				\
+	man/config.man			\
 	$(basename $(MAN_FILES))	\
-	schroot.ps			\
-	schroot.pdf
+	man/schroot.ps			\
+	man/schroot.pdf
 
 %.1: %.1.man $(EXPAND)
 	$(SOELIM) -I $(dir $<) -I "$(srcdir)" $< >$@
@@ -109,11 +107,11 @@ CLEANFILES =				\
 %.7.ps: %.7
 	groffer -Tps -man <$< >$@
 
-all-local: update-po $(TRANSMAN)
+all-local:: man-update-po $(TRANSMAN)
 
-ps: schroot.ps $(addprefix translated/,$(addsuffix /schroot.ps,$(LINGUAS)))
+ps: man/schroot.ps $(addprefix translated/,$(addsuffix /schroot.ps,$(LINGUAS)))
 
-pdf: schroot.pdf $(addprefix translated/,$(addsuffix /schroot.pdf,$(LINGUAS)))
+pdf: man/schroot.pdf $(addprefix translated/,$(addsuffix /schroot.pdf,$(LINGUAS)))
 
 CONFIG =\
 .ds RELEASE_DATE $(RELEASE_DATE_S)\n\
@@ -135,12 +133,12 @@ CONFIG =\
 .ds CSBUILD_CONF $(CSBUILD_CONF)\n\
 .ds PROGRAM schroot
 
-config.man: Makefile
+man/config.man: Makefile
 	echo -e "$(CONFIG)" | sed -e 's/^[ ]//' > $@
 
-update-po:
-	if [ -n "$(PO4A)" ]; then $(PO4A) --package-name $(PACKAGE) --package-version $(VERSION) --copyright-holder "Roger Leigh <rleigh@debian.org>" "--srcdir=$(srcdir)" "--destdir=$(builddir)" "$(srcdir)/po4a.cfg"; fi
+man-update-po:
+	if [ -n "$(PO4A)" ]; then $(PO4A) --package-name $(PACKAGE) --package-version $(VERSION) --copyright-holder "Roger Leigh <rleigh@debian.org>" "--srcdir=$(srcdir)" "--destdir=$(builddir)" "$(srcdir)/man/po4a.cfg"; fi
 
-dist-hook: update-po
+dist-hook:: man-update-po
 
-.PHONY: update-po ps pdf
+.PHONY: man-update-po ps pdf

@@ -19,13 +19,11 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
+noinst_SCRIPTS +=			\
+	contrib/setup.d/05customdir	\
+	contrib/setup.d/09fsck		\
+	contrib/setup.d/10mount-ssh
 
-noinst_SCRIPTS =	\
-	05customdir	\
-	09fsck		\
-	10mount-ssh
-
-EXTRA_DIST =			\
+EXTRA_DIST +=			\
 	$(noinst_SCRIPTS)
 

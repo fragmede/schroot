@@ -19,29 +19,23 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
-
-LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
-
-LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\" -DCSBUILD_CONF=\"$(CSBUILD_CONF)\"
-
 if BUILD_CSBUILD
-csbuild = csbuild
+csbuild = bin/csbuild/csbuild
 endif
 
-bin_PROGRAMS = $(csbuild)
+bin_PROGRAMS += $(csbuild)
 
-csbuild_SOURCES =			\
-	csbuild-debian-changes.h	\
-	csbuild-debian-changes.cc	\
-	csbuild-options.h		\
-	csbuild-options.cc		\
-	csbuild-main.h			\
-	csbuild-main.cc			\
-	csbuild.cc
-csbuild_LDADD = $(top_builddir)/bin/schroot/libschroot.la
+bin_csbuild_csbuild_SOURCES =			\
+	bin/csbuild/csbuild-debian-changes.h	\
+	bin/csbuild/csbuild-debian-changes.cc	\
+	bin/csbuild/csbuild-options.h		\
+	bin/csbuild/csbuild-options.cc		\
+	bin/csbuild/csbuild-main.h		\
+	bin/csbuild/csbuild-main.cc		\
+	bin/csbuild/csbuild.cc
+bin_csbuild_csbuild_LDADD = $(top_builddir)/bin/schroot/libschroot.la
 
-install-exec-hook:
+install-exec-hook::
 # Install setuid root.
 	if [ -f "$(DESTDIR)$(bindir)/csbuild" ]; then \
 	  chmod 4755 "$(DESTDIR)$(bindir)/csbuild"; \

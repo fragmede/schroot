@@ -19,7 +19,5 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
-
-EXTRA_DIST =				\
-	sbuild-chroot-helper.c
+EXTRA_DIST +=				\
+	doc/historical/sbuild-chroot-helper.c

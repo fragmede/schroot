@@ -19,25 +19,19 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
+schroot_sbuild = bin/schroot-sbuild/schroot-sbuild
 
-LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
+bin_PROGRAMS += $(schroot_sbuild)
 
-LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\"
+bin_schroot_sbuild_schroot_sbuild_SOURCES =		\
+	bin/schroot-sbuild/schroot-sbuild-session.h	\
+	bin/schroot-sbuild/schroot-sbuild-session.cc	\
+	bin/schroot-sbuild/schroot-sbuild-main.h	\
+	bin/schroot-sbuild/schroot-sbuild-main.cc	\
+	bin/schroot-sbuild/schroot-sbuild.cc
+bin_schroot_sbuild_schroot_sbuild_LDADD = $(top_builddir)/bin/schroot/libschroot-all.la
 
-schroot_sbuild = schroot-sbuild
-
-bin_PROGRAMS = $(schroot_sbuild)
-
-schroot_sbuild_SOURCES =                        \
-	schroot-sbuild-session.h		\
-	schroot-sbuild-session.cc		\
-	schroot-sbuild-main.h			\
-	schroot-sbuild-main.cc			\
-	schroot-sbuild.cc
-schroot_sbuild_LDADD = $(top_builddir)/bin/schroot/libschroot-all.la
-
-install-exec-hook:
+install-exec-hook::
 # Install setuid root.
 	if [ -f "$(DESTDIR)$(bindir)/schroot-sbuild" ]; then \
 	  chmod 4755 "$(DESTDIR)$(bindir)/schroot-sbuild"; \

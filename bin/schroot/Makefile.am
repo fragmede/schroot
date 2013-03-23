@@ -19,41 +19,35 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
+noinst_LTLIBRARIES +=			\
+	bin/schroot/libschroot.la	\
+	bin/schroot/libschroot-all.la
 
-localedir = $(datadir)/locale
+bin_PROGRAMS += bin/schroot/schroot
 
-LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
+bin_schroot_libschroot_la_SOURCES =		\
+	bin/schroot/schroot-options-base.h	\
+	bin/schroot/schroot-options-base.cc	\
+	bin/schroot/schroot-main-base.h		\
+	bin/schroot/schroot-main-base.cc	\
+	bin/schroot/schroot-main.h		\
+	bin/schroot/schroot-main.cc
+bin_schroot_libschroot_la_LIBADD = $(top_builddir)/bin/schroot-base/libschroot-base.la
 
-LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\"
+bin_schroot_libschroot_all_la_SOURCES =		\
+	bin/schroot/schroot-options.h		\
+	bin/schroot/schroot-options.cc
+bin_schroot_libschroot_all_la_LIBADD = bin/schroot/libschroot.la
 
-noinst_LTLIBRARIES = libschroot.la libschroot-all.la
+bin_schroot_schroot_SOURCES =			\
+	bin/schroot/schroot.cc
+bin_schroot_schroot_LDADD = bin/schroot/libschroot-all.la
 
-bin_PROGRAMS = schroot
-
-libschroot_la_SOURCES =			\
-	schroot-options-base.h		\
-	schroot-options-base.cc		\
-	schroot-main-base.h		\
-	schroot-main-base.cc		\
-	schroot-main.h			\
-	schroot-main.cc
-libschroot_la_LIBADD = $(top_builddir)/bin/schroot-base/libschroot-base.la
-
-libschroot_all_la_SOURCES =		\
-	schroot-options.h		\
-	schroot-options.cc
-libschroot_all_la_LIBADD = libschroot.la
-
-schroot_SOURCES =			\
-	schroot.cc
-schroot_LDADD = libschroot-all.la
-
-install-exec-hook:
+install-exec-hook::
 # Install setuid root.
 	chmod 4755 "$(DESTDIR)$(bindir)/schroot"
 
-install-data-hook:
+install-data-hook::
 	$(MKDIR_P) $(DESTDIR)$(schroot_sysconf_chrootdir)
 	$(MKDIR_P) $(DESTDIR)$(schroot_mountdir)
 	$(MKDIR_P) $(DESTDIR)$(schroot_sessiondir)

@@ -19,22 +19,18 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
-
-SUBDIRS = historical
-
 if BUILD_DOXYGEN
-doc: sbuild schroot
+doc: doc/sbuild doc/schroot
 else
 doc:
 endif
 
-schroot: schroot.log
-sbuild: sbuild.log
+doc/schroot: doc/schroot.log
+doc/sbuild: doc/sbuild.log
 
-sbuild.log: sbuild.dox $(top_srcdir)/configure
-	$(RM) -rf sbuild/html
-	$(DOXYGEN) sbuild.dox
+doc/sbuild.log: doc/sbuild.dox $(top_srcdir)/configure
+	rm -rf doc/sbuild/html
+	$(DOXYGEN) doc/sbuild.dox
 	touch $@
 	@UNDOCUMENTED=$$(cat $@); \
 	if [ -n "$$UNDOCUMENTED" ]; then \
@@ -42,9 +38,9 @@ sbuild.log: sbuild.dox $(top_srcdir)/configure
 	  echo "$$UNDOCUMENTED"; \
 	fi
 
-schroot.log: sbuild.log schroot.dox $(top_srcdir)/configure
-	$(RM) -rf schroot/html
-	$(DOXYGEN) schroot.dox
+doc/schroot.log: doc/sbuild.log doc/schroot.dox $(top_srcdir)/configure
+	rm -rf doc/schroot/html
+	$(DOXYGEN) doc/schroot.dox
 	touch $@
 	@UNDOCUMENTED=$$(cat $@); \
 	if [ -n "$$UNDOCUMENTED" ]; then \
@@ -53,12 +49,12 @@ schroot.log: sbuild.log schroot.dox $(top_srcdir)/configure
 	fi
 
 
-CLEANFILES =		\
-	sbuild.log	\
-	schroot.log
+CLEANFILES +=		\
+	doc/sbuild.log	\
+	doc/schroot.log
 
-clean-local:
-	$(RM) -r sbuild
-	$(RM) -r schroot
+clean-local::
+	rm -rf doc/sbuild
+	rm -rf doc/schroot
 
-.PHONY: doc sbuild schroot
+.PHONY: doc doc/sbuild doc/schroot

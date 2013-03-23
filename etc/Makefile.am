@@ -19,12 +19,8 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
-
-SUBDIRS = pam setup.d bash_completion
-
-schroot_sysconf_DATA = 		\
-	schroot.conf
+schroot_sysconf_DATA += \
+	etc/schroot.conf
 
 PROFILES =		\
 	buildd		\
@@ -33,31 +29,31 @@ PROFILES =		\
 	minimal		\
 	sbuild
 
-profiles: profiles-stamp
-profiles-stamp: genprofile
-	$(MKDIR_P) profiles
+profiles: etc/profiles-stamp
+etc/profiles-stamp: etc/genprofile
+	$(MKDIR_P) etc/profiles
 	for profile in $(PROFILES); do 					\
-	  $(srcdir)/genprofile "$$profile" "$(PLATFORM)" "$(srcdir)/profile-templates" "profiles/$$profile";	\
+	  $(srcdir)/etc/genprofile "$$profile" "$(PLATFORM)" "$(srcdir)/etc/profile-templates" "etc/profiles/$$profile";	\
 	done
 	touch $@
 
-all-local: profiles
+all-local:: profiles
 
-install-data-hook:
+install-data-hook::
 	for profile in $(PROFILES); do 						\
 	  $(MKDIR_P) "$(DESTDIR)$(schroot_sysconfdir)/$$profile";			\
-	  for file in "profiles/$$profile"/*; do						\
+	  for file in "etc/profiles/$$profile"/*; do						\
 	    $(INSTALL_DATA) "$$file" "$(DESTDIR)$(schroot_sysconfdir)/$$profile";	\
 	  done;									\
 	done
 
-clean-local:
-	$(RM) -rf profiles
-	$(RM) -f profiles-stamp
+clean-local::
+	rm -rf etc/profiles
+	rm -f etc/profiles-stamp
 
-EXTRA_DIST =			\
+EXTRA_DIST +=			\
 	$(schroot_sysconf_DATA)	\
-	genprofile		\
-	profile-templates
+	etc/genprofile		\
+	etc/profile-templates
 
 .PHONY: profiles

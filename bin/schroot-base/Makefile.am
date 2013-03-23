@@ -19,22 +19,14 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
+noinst_LTLIBRARIES += bin/schroot-base/libschroot-base.la
 
-localedir = $(datadir)/locale
-
-LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
-
-LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\"
-
-noinst_LTLIBRARIES = libschroot-base.la
-
-libschroot_base_la_SOURCES =		\
-	schroot-base-main.h		\
-	schroot-base-main.cc		\
-	schroot-base-option-action.h	\
-	schroot-base-option-action.cc	\
-	schroot-base-options.h		\
-	schroot-base-options.cc		\
-	schroot-base-run.h
-libschroot_base_la_LIBADD = $(top_builddir)/sbuild/libsbuild.la
+bin_schroot_base_libschroot_base_la_SOURCES =		\
+	bin/schroot-base/schroot-base-main.h		\
+	bin/schroot-base/schroot-base-main.cc		\
+	bin/schroot-base/schroot-base-option-action.h	\
+	bin/schroot-base/schroot-base-option-action.cc	\
+	bin/schroot-base/schroot-base-options.h		\
+	bin/schroot-base/schroot-base-options.cc	\
+	bin/schroot-base/schroot-base-run.h
+bin_schroot_base_libschroot_base_la_LIBADD = $(top_builddir)/sbuild/libsbuild.la

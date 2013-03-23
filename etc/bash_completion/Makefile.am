@@ -19,10 +19,8 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
-
 bashcompletion_DATA =		\
-	schroot
+	etc/bash_completion/schroot
 
-EXTRA_DIST =			\
+EXTRA_DIST +=			\
 	$(bashcompletion_DATA)

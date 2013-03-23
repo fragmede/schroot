@@ -19,18 +19,13 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
+pkglibexec_PROGRAMS += bin/schroot-listmounts/schroot-listmounts
 
-LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
-
-LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\"
-
-pkglibexec_PROGRAMS = schroot-listmounts
-
-schroot_listmounts_SOURCES =		\
-	schroot-listmounts-main.h	\
-	schroot-listmounts-main.cc	\
-	schroot-listmounts-options.h	\
-	schroot-listmounts-options.cc	\
-	schroot-listmounts.cc
-schroot_listmounts_LDADD = $(top_builddir)/bin/schroot-base/libschroot-base.la
+bin_schroot_listmounts_schroot_listmounts_SOURCES =		\
+	bin/schroot-listmounts/schroot-listmounts-main.h	\
+	bin/schroot-listmounts/schroot-listmounts-main.cc	\
+	bin/schroot-listmounts/schroot-listmounts-options.h	\
+	bin/schroot-listmounts/schroot-listmounts-options.cc	\
+	bin/schroot-listmounts/schroot-listmounts.cc
+bin_schroot_listmounts_schroot_listmounts_LDADD = \
+	$(top_builddir)/bin/schroot-base/libschroot-base.la

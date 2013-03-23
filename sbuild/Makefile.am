@@ -19,172 +19,168 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
+lib_LTLIBRARIES = sbuild/libsbuild.la
 
-LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS)
-
-lib_LTLIBRARIES = libsbuild.la
-
-sbuild_public_h_sources =			\
-	sbuild-auth.h				\
-	sbuild-auth-null.h			\
-	sbuild-chroot.h				\
-	sbuild-chroot-custom.h			\
-	sbuild-chroot-directory.h		\
-	sbuild-chroot-directory-base.h		\
-	sbuild-chroot-facet.h			\
-	sbuild-chroot-facet-mountable.h		\
-	sbuild-chroot-facet-personality.h	\
-	sbuild-chroot-facet-session.h		\
-	sbuild-chroot-facet-session-clonable.h	\
-	sbuild-chroot-facet-source.h		\
-	sbuild-chroot-facet-source-clonable.h	\
-	sbuild-chroot-facet-userdata.h		\
-	sbuild-chroot-file.h			\
-	sbuild-chroot-plain.h			\
-	sbuild-chroot-config.h			\
-	sbuild-ctty.h				\
-	sbuild-custom-error.h			\
-	sbuild-environment.h			\
-	sbuild-error.h				\
-	sbuild-error.tcc			\
-	sbuild-fdstream.h			\
-	sbuild-feature.h			\
-	sbuild-format-detail.h			\
-	sbuild-i18n.h				\
-	sbuild-keyfile.h			\
-	sbuild-keyfile-reader.h			\
-	sbuild-keyfile-writer.h			\
-	sbuild-lock.h				\
-	sbuild-log.h				\
-	sbuild-mntstream.h			\
-	sbuild-nostream.h			\
-	sbuild-parse-error.h			\
-	sbuild-parse-value.h			\
-	sbuild-personality.h			\
-	sbuild-regex.h				\
-	sbuild-run-parts.h			\
-	sbuild-session.h			\
-	sbuild-types.h				\
-	sbuild-util.h
+sbuild_public_h_sources =				\
+	sbuild/sbuild-auth.h				\
+	sbuild/sbuild-auth-null.h			\
+	sbuild/sbuild-chroot.h				\
+	sbuild/sbuild-chroot-custom.h			\
+	sbuild/sbuild-chroot-directory.h		\
+	sbuild/sbuild-chroot-directory-base.h		\
+	sbuild/sbuild-chroot-facet.h			\
+	sbuild/sbuild-chroot-facet-mountable.h		\
+	sbuild/sbuild-chroot-facet-personality.h	\
+	sbuild/sbuild-chroot-facet-session.h		\
+	sbuild/sbuild-chroot-facet-session-clonable.h	\
+	sbuild/sbuild-chroot-facet-source.h		\
+	sbuild/sbuild-chroot-facet-source-clonable.h	\
+	sbuild/sbuild-chroot-facet-userdata.h		\
+	sbuild/sbuild-chroot-file.h			\
+	sbuild/sbuild-chroot-plain.h			\
+	sbuild/sbuild-chroot-config.h			\
+	sbuild/sbuild-ctty.h				\
+	sbuild/sbuild-custom-error.h			\
+	sbuild/sbuild-environment.h			\
+	sbuild/sbuild-error.h				\
+	sbuild/sbuild-error.tcc				\
+	sbuild/sbuild-fdstream.h			\
+	sbuild/sbuild-feature.h				\
+	sbuild/sbuild-format-detail.h			\
+	sbuild/sbuild-i18n.h				\
+	sbuild/sbuild-keyfile.h				\
+	sbuild/sbuild-keyfile-reader.h			\
+	sbuild/sbuild-keyfile-writer.h			\
+	sbuild/sbuild-lock.h				\
+	sbuild/sbuild-log.h				\
+	sbuild/sbuild-mntstream.h			\
+	sbuild/sbuild-nostream.h			\
+	sbuild/sbuild-parse-error.h			\
+	sbuild/sbuild-parse-value.h			\
+	sbuild/sbuild-personality.h			\
+	sbuild/sbuild-regex.h				\
+	sbuild/sbuild-run-parts.h			\
+	sbuild/sbuild-session.h				\
+	sbuild/sbuild-types.h				\
+	sbuild/sbuild-util.h
 
 if BUILD_PAM
-sbuild_public_auth_pam_h_sources =	\
-	sbuild-auth-pam-conv.h		\
-	sbuild-auth-pam-conv-tty.h	\
-	sbuild-auth-pam.h		\
-	sbuild-auth-pam-message.h
+sbuild_public_auth_pam_h_sources =		\
+	sbuild/sbuild-auth-pam-conv.h		\
+	sbuild/sbuild-auth-pam-conv-tty.h	\
+	sbuild/sbuild-auth-pam.h		\
+	sbuild/sbuild-auth-pam-message.h
 endif
 
 if BUILD_BLOCKDEV
 sbuild_public_blockdev_base_h_sources =	\
-	sbuild-chroot-block-device-base.h
+	sbuild/sbuild-chroot-block-device-base.h
 sbuild_public_blockdev_h_sources =	\
-	sbuild-chroot-block-device.h
+	sbuild/sbuild-chroot-block-device.h
 endif
 
 if BUILD_LVMSNAP
 sbuild_public_blockdev_base_h_sources =	\
-	sbuild-chroot-block-device-base.h
+	sbuild/sbuild-chroot-block-device-base.h
 sbuild_public_lvmsnap_h_sources =	\
-	sbuild-chroot-lvm-snapshot.h
+	sbuild/sbuild-chroot-lvm-snapshot.h
 endif
 
 if BUILD_BTRFSSNAP
 sbuild_public_btrfssnap_h_sources =	\
-	sbuild-chroot-btrfs-snapshot.h
+	sbuild/sbuild-chroot-btrfs-snapshot.h
 endif
 
 if BUILD_LOOPBACK
 sbuild_public_loopback_h_sources =	\
-	sbuild-chroot-loopback.h
+	sbuild/sbuild-chroot-loopback.h
 endif
 
 if BUILD_UNION
 sbuild_public_union_h_sources =	\
-	sbuild-chroot-facet-union.h
+	sbuild/sbuild-chroot-facet-union.h
 endif
 
 if BUILD_UNSHARE
 sbuild_public_unshare_h_sources =	\
-	sbuild-chroot-facet-unshare.h
+	sbuild/sbuild-chroot-facet-unshare.h
 endif
 
-sbuild_public_cc_sources =			\
-	sbuild-auth.cc				\
-	sbuild-auth-null.cc			\
-	sbuild-chroot.cc			\
-	sbuild-chroot-custom.cc			\
-	sbuild-chroot-directory.cc		\
-	sbuild-chroot-directory-base.cc		\
-	sbuild-chroot-facet-mountable.cc	\
-	sbuild-chroot-facet-personality.cc	\
-	sbuild-chroot-facet-session.cc		\
-	sbuild-chroot-facet-session-clonable.cc	\
-	sbuild-chroot-facet-source.cc		\
-	sbuild-chroot-facet-source-clonable.cc	\
-	sbuild-chroot-facet-userdata.cc		\
-	sbuild-chroot-file.cc			\
-	sbuild-chroot-plain.cc			\
-	sbuild-chroot-config.cc			\
-	sbuild-ctty.cc				\
-	sbuild-environment.cc			\
-	sbuild-feature.cc			\
-	sbuild-format-detail.cc			\
-	sbuild-keyfile.cc			\
-	sbuild-keyfile-reader.cc		\
-	sbuild-keyfile-writer.cc		\
-	sbuild-lock.cc				\
-	sbuild-log.cc				\
-	sbuild-mntstream.cc			\
-	sbuild-nostream.cc			\
-	sbuild-parse-value.cc			\
-	sbuild-personality.cc			\
-	sbuild-run-parts.cc			\
-	sbuild-session.cc			\
-	sbuild-types.cc				\
-	sbuild-util.cc
+sbuild_public_cc_sources =				\
+	sbuild/sbuild-auth.cc				\
+	sbuild/sbuild-auth-null.cc			\
+	sbuild/sbuild-chroot.cc				\
+	sbuild/sbuild-chroot-custom.cc			\
+	sbuild/sbuild-chroot-directory.cc		\
+	sbuild/sbuild-chroot-directory-base.cc		\
+	sbuild/sbuild-chroot-facet-mountable.cc		\
+	sbuild/sbuild-chroot-facet-personality.cc	\
+	sbuild/sbuild-chroot-facet-session.cc		\
+	sbuild/sbuild-chroot-facet-session-clonable.cc	\
+	sbuild/sbuild-chroot-facet-source.cc		\
+	sbuild/sbuild-chroot-facet-source-clonable.cc	\
+	sbuild/sbuild-chroot-facet-userdata.cc		\
+	sbuild/sbuild-chroot-file.cc			\
+	sbuild/sbuild-chroot-plain.cc			\
+	sbuild/sbuild-chroot-config.cc			\
+	sbuild/sbuild-ctty.cc				\
+	sbuild/sbuild-environment.cc			\
+	sbuild/sbuild-feature.cc			\
+	sbuild/sbuild-format-detail.cc			\
+	sbuild/sbuild-keyfile.cc			\
+	sbuild/sbuild-keyfile-reader.cc			\
+	sbuild/sbuild-keyfile-writer.cc			\
+	sbuild/sbuild-lock.cc				\
+	sbuild/sbuild-log.cc				\
+	sbuild/sbuild-mntstream.cc			\
+	sbuild/sbuild-nostream.cc			\
+	sbuild/sbuild-parse-value.cc			\
+	sbuild/sbuild-personality.cc			\
+	sbuild/sbuild-run-parts.cc			\
+	sbuild/sbuild-session.cc			\
+	sbuild/sbuild-types.cc				\
+	sbuild/sbuild-util.cc
 
 if BUILD_PAM
-sbuild_public_auth_pam_cc_sources =	\
-	sbuild-auth-pam-conv.cc		\
-	sbuild-auth-pam-conv-tty.cc	\
-	sbuild-auth-pam.cc		\
-	sbuild-auth-pam-message.cc
+sbuild_public_auth_pam_cc_sources =		\
+	sbuild/sbuild-auth-pam-conv.cc		\
+	sbuild/sbuild-auth-pam-conv-tty.cc	\
+	sbuild/sbuild-auth-pam.cc		\
+	sbuild/sbuild-auth-pam-message.cc
 endif
 
 if BUILD_BLOCKDEV
 sbuild_public_blockdev_base_cc_sources =	\
-	sbuild-chroot-block-device-base.cc
+	sbuild/sbuild-chroot-block-device-base.cc
 sbuild_public_blockdev_cc_sources =	\
-	sbuild-chroot-block-device.cc
+	sbuild/sbuild-chroot-block-device.cc
 endif
 
 if BUILD_LVMSNAP
 sbuild_public_blockdev_base_cc_sources =	\
-	sbuild-chroot-block-device-base.cc
+	sbuild/sbuild-chroot-block-device-base.cc
 sbuild_public_lvmsnap_cc_sources =	\
-	sbuild-chroot-lvm-snapshot.cc
+	sbuild/sbuild-chroot-lvm-snapshot.cc
 endif
 
 if BUILD_BTRFSSNAP
 sbuild_public_btrfssnap_cc_sources =	\
-	sbuild-chroot-btrfs-snapshot.cc
+	sbuild/sbuild-chroot-btrfs-snapshot.cc
 endif
 
 if BUILD_LOOPBACK
 sbuild_public_loopback_cc_sources =	\
-	sbuild-chroot-loopback.cc
+	sbuild/sbuild-chroot-loopback.cc
 endif
 
 if BUILD_UNION
 sbuild_public_union_cc_sources =	\
-	sbuild-chroot-facet-union.cc
+	sbuild/sbuild-chroot-facet-union.cc
 endif
 
 if BUILD_UNSHARE
 sbuild_public_unshare_cc_sources =	\
-	sbuild-chroot-facet-unshare.cc
+	sbuild/sbuild-chroot-facet-unshare.cc
 endif
 
 pkgincludedir = $(includedir)/sbuild
@@ -199,7 +195,7 @@ pkginclude_HEADERS =					\
 	$(sbuild_public_union_h_sources)		\
 	$(sbuild_public_unshare_h_sources)
 
-libsbuild_la_SOURCES =					\
+sbuild_libsbuild_la_SOURCES =				\
 	$(sbuild_public_h_sources)			\
 	$(sbuild_public_cc_sources)			\
 	$(sbuild_public_auth_pam_h_sources)		\
@@ -219,18 +215,18 @@ libsbuild_la_SOURCES =					\
 	$(sbuild_public_unshare_h_sources)		\
 	$(sbuild_public_unshare_cc_sources)
 
-nodist_libsbuild_la_SOURCES =	\
-	sbuild-config.h
+nodist_sbuild_libsbuild_la_SOURCES =	\
+	sbuild/sbuild-config.h
 
-libsbuild_la_LIBADD = $(UUID_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(BOOST_LIBS) $(BOOST_FILESYSTEM_LIBS) $(LIBINTL)
+sbuild_libsbuild_la_LIBADD = $(UUID_LIBS) $(PAM_LIBS) $(LOCKDEV_LIBS) $(BOOST_LIBS) $(BOOST_FILESYSTEM_LIBS) $(LIBINTL)
 
 pkgconfigdatadir = $(libdir)/pkgconfig
 
-pkgconfigdata_DATA = sbuild.pc
+pkgconfigdata_DATA = sbuild/sbuild.pc
 
 # Uncommment to build an unversioned library (version in soname)
-#libsbuild_version = -release $(SBUILD_VERSION)
+#sbuild_libsbuild_version = -release $(SBUILD_VERSION)
 # Uncomment to build a versioned library
-libsbuild_version = -version-info $(SBUILD_CURRENT_INTERFACE):$(SBUILD_INTERFACE_AGE):$(SBUILD_BINARY_AGE)
-libsbuild_la_LDFLAGS = $(libsbuild_version) \
+sbuild_libsbuild_version = -version-info $(SBUILD_CURRENT_INTERFACE):$(SBUILD_INTERFACE_AGE):$(SBUILD_BINARY_AGE)
+sbuild_libsbuild_la_LDFLAGS = $(libsbuild_version) \
         -rpath $(libdir) -no-undefined

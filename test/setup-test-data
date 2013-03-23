@@ -1,7 +1,9 @@
 #!/bin/sh
 # This script ensures that the test data is owned by root.
 
-rm -rf testdata
-mkdir testdata
-cp -r ${srcdir}/*.ex* testdata
-chown -R root:root testdata
+set -e
+
+rm -rf test/testdata
+mkdir test/testdata
+cp -r ${srcdir}/test/*.ex* test/testdata
+chown -R root:root test/testdata

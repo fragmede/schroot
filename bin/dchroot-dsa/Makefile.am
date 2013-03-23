@@ -19,29 +19,23 @@
 #
 #####################################################################
 
-include $(top_srcdir)/scripts/global.mk
-
-LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) -I$(top_srcdir)/bin
-
-LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\" -DDCHROOT_CONF=\"$(DCHROOT_CONF)\"
-
 if BUILD_DCHROOT_DSA
-dchroot_dsa = dchroot-dsa
+dchroot_dsa = bin/dchroot-dsa/dchroot-dsa
 endif
 
-bin_PROGRAMS = $(dchroot_dsa)
+bin_PROGRAMS += $(dchroot_dsa)
 
-dchroot_dsa_SOURCES =			\
-	dchroot-dsa-session.h		\
-	dchroot-dsa-session.cc		\
-	dchroot-dsa-options.h		\
-	dchroot-dsa-options.cc		\
-	dchroot-dsa-main.h		\
-	dchroot-dsa-main.cc		\
-	dchroot-dsa.cc
-dchroot_dsa_LDADD = $(top_builddir)/bin/dchroot/libdchroot.la
+bin_dchroot_dsa_dchroot_dsa_SOURCES =			\
+	bin/dchroot-dsa/dchroot-dsa-session.h		\
+	bin/dchroot-dsa/dchroot-dsa-session.cc		\
+	bin/dchroot-dsa/dchroot-dsa-options.h		\
+	bin/dchroot-dsa/dchroot-dsa-options.cc		\
+	bin/dchroot-dsa/dchroot-dsa-main.h		\
+	bin/dchroot-dsa/dchroot-dsa-main.cc		\
+	bin/dchroot-dsa/dchroot-dsa.cc
+bin_dchroot_dsa_dchroot_dsa_LDADD = $(top_builddir)/bin/dchroot/libdchroot.la
 
-install-exec-hook:
+install-exec-hook::
 # Install setuid root.
 	if [ -f "$(DESTDIR)$(bindir)/dchroot-dsa" ]; then \
 	  chmod 4755 "$(DESTDIR)$(bindir)/dchroot-dsa"; \
