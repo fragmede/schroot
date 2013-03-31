@@ -14,7 +14,7 @@
 #                    bring the chroot back to a working state.
 ### END INIT INFO
 #
-# Copyright © 2006-2012  Roger Leigh <rleigh@debian.org>
+# Copyright © 2006-2013  Roger Leigh <rleigh@debian.org>
 # Copyright © 2007       Federico Di Gregorio <fog@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it

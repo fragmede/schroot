@@ -11,7 +11,7 @@ Upstream Authors: Roger Leigh - Architecture, Coding, Documentation.
                   Andreas Bombe - Documentation improvements
                   Kees Cook - 15killprocs and schroot-mount improvements
 
-Copyright: © 2005-2008 Roger Leigh <rleigh@debian.org>
+Copyright: © 2005-2013 Roger Leigh <rleigh@debian.org>
            © 2006      Andreas Bombe <aeb@debian.org>
            © 2007-2008 Kees Cook <kees@outflux.net>
 
