@@ -1,5 +1,5 @@
 #                                                              -*- Autoconf -*-
-# Copyright © 2004-2009  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2013  Roger Leigh <rleigh@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -38,16 +38,10 @@ dnl
 dnl For more detailed information, see the libtool info documentation.
 dnl
 dnl m4 magic from Eric Blake <ebb9@byu.net>, prior to automake inclusion
-m4_define([sbuild_m4_chomp],
-[m4_format([[%.*s]], m4_bregexp(m4_translit([$1], [
-]]m4_dquote(_m4_defn([m4_cr_all]))[, [/]]m4_format([%255s], [])[),
-  [/*$]), [$1])])
-m4_define([sbuild_m4_esyscmd_s],
-[sbuild_m4_chomp(m4_esyscmd([$1]))])
 AC_PREREQ(2.59)
 dnl Quoting the first argument results in a bizarrely corrupted package tarname
-AC_INIT(sbuild_m4_esyscmd_s([sed -ne '/^Package:/{s/Package:[[:space:]][[:space:]]*//p;q}' VERSION]),
-        [sbuild_m4_esyscmd_s([sed -ne '/^Version:/{s/Version:[[:space:]][[:space:]]*//p;q}' VERSION])],
+AC_INIT(m4_esyscmd_s([sed -ne '/^Package:/{s/Package:[[:space:]][[:space:]]*//p;q}' VERSION]),
+        m4_esyscmd_s([sed -ne '/^Version:/{s/Version:[[:space:]][[:space:]]*//p;q}' VERSION]),
         [buildd-tools-devel@lists.alioth.debian.org])
 pushdef([SBUILD_CURRENT_INTERFACE], [1])
 pushdef([SBUILD_INTERFACE_AGE],     [0])
@@ -63,18 +57,17 @@ AC_CONFIG_HEADER([sbuild/sbuild-config.h])
 
 AC_COPYRIGHT(
 [
-Copyright © 2004-2009  Roger Leigh <rleigh@debian.org>
+Copyright © 2004-2013  Roger Leigh <rleigh@debian.org>
 
-Parts of this configure script come from the 'configure.ac' file, and
-are not based on freely-redistributable m4 macros; you can
-redistribute it and/or modify it under the terms of the GNU General
-Public License as published by the Free Software Foundation, either
-version 3 of the License, or (at your option) any later version.
+schroot is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
 
-This software is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-General Public License for more details.
+schroot is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -94,8 +87,8 @@ AC_SUBST([SBUILD_BINARY_AGE])
 dnl Initialise automake stuff.
 AM_INIT_AUTOMAKE([1.10 gnu -Wno-portability subdir-objects check-news dist-xz no-dist-gzip tar-pax])
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
-RELEASE_DATE='sbuild_m4_esyscmd_s(date --date='sbuild_m4_esyscmd_s([sed -ne '/^Release-Date:/{s/Release-Date:[[:space:]][[:space:]]*//p;q}' VERSION])' '+%s')'
-RELEASE_DATE_S='sbuild_m4_esyscmd_s([sed -ne '/^Release-Date:/{s/Release-Date:[[:space:]][[:space:]]*//p;q}' VERSION])'
+RELEASE_DATE='m4_esyscmd_s(date --date='m4_esyscmd_s([sed -ne '/^Release-Date:/{s/Release-Date:[[:space:]][[:space:]]*//p;q}' VERSION])' '+%s')'
+RELEASE_DATE_S='m4_esyscmd_s([sed -ne '/^Release-Date:/{s/Release-Date:[[:space:]][[:space:]]*//p;q}' VERSION])'
 AC_DEFINE_UNQUOTED([RELEASE_DATE_S], ["$RELEASE_DATE_S"], [Package release date (string).])
 AC_DEFINE_UNQUOTED([RELEASE_DATE], [$RELEASE_DATE], [Package release date (integer).])
 AC_SUBST([RELEASE_DATE])
@@ -608,59 +601,77 @@ AM_CONDITIONAL([BUILD_DOXYGEN], [test "$BUILD_DOXYGEN" = "yes"])
 AC_MSG_CHECKING([for boost::program_options::variables_map in -lboost_program_options])
 saved_LIBS="${LIBS}"
 LIBS="${saved_LIBS} -lboost_program_options"
-define([testprog], [AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
-                                   [boost::program_options::variables_map dummy()])])
-AC_LINK_IFELSE(testprog,
+
+AC_DEFUN([BOOST_PROGRAM_OPTIONS_TEST_HEADER],
+[#include <boost/program_options.hpp>
+])
+AC_DEFUN([BOOST_PROGRAM_OPTIONS_TEST_BODY],
+[boost::program_options::variables_map dummy()
+])
+
+AC_LINK_IFELSE([AC_LANG_PROGRAM([BOOST_PROGRAM_OPTIONS_TEST_HEADER],
+                                [BOOST_PROGRAM_OPTIONS_TEST_BODY])],
                [AC_MSG_RESULT([yes])
                 BOOST_LIBS="${BOOST_LIBS} -lboost_program_options"],
-[LIBS="${saved_LIBS} -lboost_program_options-mt"
- AC_LINK_IFELSE(testprog,
-               [AC_MSG_RESULT([yes])
-                BOOST_LIBS="${BOOST_LIBS} -lboost_program_options-mt"],
-               [AC_MSG_RESULT([no])
-                AC_MSG_FAILURE([libboost_program_options (Boost C++ Libraries) is not installed, but is required by schroot])])])
+               [LIBS="${saved_LIBS} -lboost_program_options-mt"
+                AC_LINK_IFELSE([AC_LANG_PROGRAM([BOOST_PROGRAM_OPTIONS_TEST_HEADER],
+                                                [BOOST_PROGRAM_OPTIONS_TEST_BODY])],
+                               [AC_MSG_RESULT([yes])
+                                BOOST_LIBS="${BOOST_LIBS} -lboost_program_options-mt"],
+                               [AC_MSG_RESULT([no])
+                                AC_MSG_FAILURE([libboost_program_options (Boost C++ Libraries) is not installed, but is required by schroot])])])
 LIBS="${saved_LIBS}"
 
 AC_MSG_CHECKING([for boost::program_options::options_description::options() in -lboost_program_options])
 saved_LIBS="${LIBS}"
 LIBS="${saved_LIBS} -lboost_program_options"
-define([testprog], [AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
-                                   [boost::program_options::options_description testgrp("test group");
-                                    bool notused = testgrp.options().empty();
-])])
-AC_LINK_IFELSE(testprog,
+
+AC_DEFUN([BOOST_PROGRAM_OPTIONS_TEST_HEADER],
+[#include <boost/program_options.hpp>
+])
+AC_DEFUN([BOOST_PROGRAM_OPTIONS_DESCRIPTION_TEST_BODY],
+[boost::program_options::options_description testgrp("test group");
+bool notused = testgrp.options().empty();
+])
+
+AC_LINK_IFELSE([AC_LANG_PROGRAM([BOOST_PROGRAM_OPTIONS_TEST_HEADER],
+                                [BOOST_PROGRAM_OPTIONS_DESCRIPTION_TEST_BODY])],
                [AC_MSG_RESULT([yes])
                 BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS="current"],
-[LIBS="${saved_LIBS} -lboost_program_options-mt"
- AC_LINK_IFELSE(testprog,
-               [AC_MSG_RESULT([yes])
-                BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS="current"],
-               [AC_MSG_RESULT([no])
-                BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS="old"])])
+               [LIBS="${saved_LIBS} -lboost_program_options-mt"
+                AC_LINK_IFELSE([AC_LANG_PROGRAM([BOOST_PROGRAM_OPTIONS_TEST_HEADER],
+                                                [BOOST_PROGRAM_OPTIONS_DESCRIPTION_TEST_BODY])],
+                               [AC_MSG_RESULT([yes])
+                                BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS="current"],
+                               [AC_MSG_RESULT([no])
+                                BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS="old"])])
 LIBS="${saved_LIBS}"
 AH_TEMPLATE(BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD, [Set if boost::program_options::options_description::options() is not available])
 if test "$BOOST_PROGRAM_OPTIONS_DESCRIPTION_METHODS" = "old"; then
   AC_DEFINE(BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD, 1)
 fi
 
+AC_DEFUN([BOOST_PROGRAM_OPTIONS_VALIDATION_TEST_BODY],
+[boost::program_options::validation_error err(boost::program_options::validation_error::invalid_option, "error");
+])
+AC_DEFUN([BOOST_PROGRAM_OPTIONS_VALIDATION_TEST_BODY_OLD],
+[boost::program_options::validation_error err("error");
+])
+
 AC_MSG_CHECKING([for boost::program_options::validation_error in -lboost_program_options])
 saved_LIBS="${LIBS}"
 LIBS="${saved_LIBS} -lboost_program_options"
-define([boost_error], [AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
-                                   [boost::program_options::validation_error err(boost::program_options::validation_error::invalid_option, "error");
-])])
-define([boost_error_old], [AC_LANG_PROGRAM([#include <boost/program_options.hpp>],
-                                   [boost::program_options::validation_error err("error");
-])])
-AC_LINK_IFELSE(boost_error,
+AC_LINK_IFELSE([AC_LANG_PROGRAM([BOOST_PROGRAM_OPTIONS_TEST_HEADER],
+                                [BOOST_PROGRAM_OPTIONS_VALIDATION_TEST_BODY])],
                [AC_MSG_RESULT([yes (Boost >= 1.42)])
                 BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR="current"],
-[LIBS="${saved_LIBS} -lboost_program_options-mt"
-AC_LINK_IFELSE(boost_error_old,
-               [AC_MSG_RESULT([yes (Boost < 1.42)])
-                BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR="old"],
-               [AC_MSG_RESULT([no])
-                AC_MSG_FAILURE([libboost_program_options (Boost C++ Libraries) is not installed, but is required by schroot])])])
+               [LIBS="${saved_LIBS} -lboost_program_options-mt"
+                AC_LINK_IFELSE([AC_LANG_PROGRAM([BOOST_PROGRAM_OPTIONS_TEST_HEADER],
+                                                [BOOST_PROGRAM_OPTIONS_VALIDATION_TEST_BODY_OLD])],
+                               [AC_MSG_RESULT([yes (Boost < 1.42)])
+                                BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR="old"],
+                               [AC_MSG_RESULT([no])
+                                AC_MSG_FAILURE([libboost_program_options (Boost C++ Libraries) is not installed, but is required by schroot])])])
 LIBS="${saved_LIBS}"
 AH_TEMPLATE(BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD, [Set if boost::program_options::validation error uses old construction semantics])
 if test "$BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR" = "old"; then
@@ -668,112 +679,154 @@ if test "$BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR" = "old"; then
 fi
 
 dnl Note the use of quadrigraphs to quote [ and ] in regexes.
+
+AC_DEFUN([STD_REGEX_TEST_HEADER],
+[#include <regex>
+])
+AC_DEFUN([STD_REGEX_TEST_BODY],
+[std::regex foo("^foo@<:@bar@:>@$");
+std::regex bar("^foo@<:@bar@:>@$", std::regex::extended);
+std::regex check("^@<:@^:/,.@:>@@<:@^:/,@:>@*$", std::regex::extended);
+])
+AC_DEFUN([STD_REGEX_TEST_BODY_BROKEN],
+[std::regex foo("^foo@<:@bar@:>@$");
+std::regex bar("^foo@<:@bar@:>@$", std::regex::extended);
+])
+AC_DEFUN([TR1_REGEX_TEST_HEADER],
+[#include <tr1/regex>
+])
+AC_DEFUN([TR1_REGEX_TEST_BODY],
+[std::tr1::regex foo("^foo@<:@bar@:>@$");
+std::tr1::regex bar("^foo@<:@bar@:>@$", std::tr1::regex::extended);
+std::tr1::regex check("^@<:@^:/,.@:>@@<:@^:/,@:>@*$", std::tr1::regex::extended);
+])
+AC_DEFUN([TR1_REGEX_TEST_BODY_BROKEN],
+[std::tr1::regex foo("^foo@<:@bar@:>@$");
+std::tr1::regex bar("^foo@<:@bar@:>@$", std::tr1::regex::extended);
+])
+AC_DEFUN([BOOST_REGEX_TEST_HEADER],
+[#include <boost/regex.hpp>
+])
+AC_DEFUN([BOOST_REGEX_TEST_BODY],
+[boost::regex("^foo@<:@bar@:>@$");
+boost::regex bar("^foo@<:@bar@:>@$", boost::regex::extended);
+])
+
 AH_TEMPLATE(HAVE_REGEX_REGEX, [Set if the <regex> header file includes std::regex])
 AC_MSG_CHECKING([for std::regex])
-define([testprog], [AC_LANG_PROGRAM([#include <regex>],
-                                   [std::regex foo("^foo@<:@bar@:>@$");
-                                    std::regex bar("^foo@<:@bar@:>@$", std::regex::extended);
-                                    std::regex check("^@<:@^:/,.@:>@@<:@^:/,@:>@*$", std::regex::extended);])])
-AC_RUN_IFELSE(testprog,
-  [AC_MSG_RESULT([yes])
-   AC_DEFINE(HAVE_REGEX_REGEX, 1)],
-  [dnl Check if std::regex is present but broken.
-define([testprog], [AC_LANG_PROGRAM([#include <regex>],
-                                   [std::regex foo("^foo@<:@bar@:>@$");
-                                    std::regex bar("^foo@<:@bar@:>@$", std::regex::extended);])])
-AC_LINK_IFELSE(testprog,
-  [AC_MSG_RESULT([broken])],
-  [AC_MSG_RESULT([no])])
-   AC_MSG_CHECKING([for std::tr1::regex])
-define([testprog], [AC_LANG_PROGRAM([#include <tr1/regex>],
-                                   [std::regex foo("^foo@<:@bar@:>@$");
-                                    std::tr1::regex bar("^foo@<:@bar@:>@$", std::tr1::regex::extended);
-                                    std::tr1::regex check("^@<:@^:/,.@:>@@<:@^:/,@:>@*$", std::tr1::regex::extended);])])
-AC_RUN_IFELSE(testprog,
-  [AC_MSG_RESULT([yes])
-   AC_DEFINE(HAVE_REGEX_REGEX, 1)],
-  [dnl Check if std::regex is present but broken.
-define([testprog], [AC_LANG_PROGRAM([#include <regex>],
-                                   [std::regex foo("^foo@<:@bar@:>@$");
-                                    std::regex bar("^foo@<:@bar@:>@$", std::regex::extended);])])
-AC_LINK_IFELSE(testprog,
-  [AC_MSG_RESULT([broken])],
-  [AC_MSG_RESULT([no])
-   AC_MSG_RESULT([no])])
-   AC_MSG_CHECKING([for boost::regex in -lboost_regex])
-   saved_LIBS="${LIBS}"
-   LIBS="${saved_LIBS} -lboost_regex"
-   define([testprog], [AC_LANG_PROGRAM([#include <boost/regex.hpp>],
-                                   [boost::regex("^foo@<:@bar@:>@$");
-                                    boost::regex bar("^foo@<:@bar@:>@$", boost::regex::extended);])])
-   AC_LINK_IFELSE(testprog,
-                  [AC_MSG_RESULT([yes])
-                   BOOST_LIBS="${BOOST_LIBS} -lboost_regex"],
-                  [LIBS="${saved_LIBS} -lboost_regex-mt"
-                   AC_LINK_IFELSE(testprog,
-                          [AC_MSG_RESULT([yes])
-                    BOOST_LIBS="${BOOST_LIBS} -lboost_regex-mt"],
-                          [AC_MSG_RESULT([no])
-                    AC_MSG_FAILURE([libboost_regex (Boost C++ Libraries) is not installed, but is required by schroot])])])
-   LIBS="${saved_LIBS}"
+
+AC_RUN_IFELSE([AC_LANG_PROGRAM([STD_REGEX_TEST_HEADER],
+                               [STD_REGEX_TEST_BODY])],
+              [AC_MSG_RESULT([yes])
+               AC_DEFINE(HAVE_REGEX_REGEX, 1)],
+              [dnl Check if std::regex is present but broken.
+               AC_LINK_IFELSE([AC_LANG_PROGRAM([STD_REGEX_TEST_HEADER],
+                                               [STD_REGEX_TEST_BODY_BROKEN])],
+                              [AC_MSG_RESULT([broken])],
+                              [AC_MSG_RESULT([no])])
+                               AC_MSG_CHECKING([for std::tr1::regex])
+               AC_RUN_IFELSE([AC_LANG_PROGRAM([TR1_REGEX_TEST_HEADER],
+                                              [TR1_REGEX_TEST_BODY])],
+                             [AC_MSG_RESULT([yes])
+                              AC_DEFINE(HAVE_REGEX_REGEX, 1)],
+                             [dnl Check if std::tr1::regex is present but broken.
+                              AC_LINK_IFELSE([AC_LANG_PROGRAM([TR1_REGEX_TEST_HEADER],
+                                                              [TR1_REGEX_TEST_BODY_BROKEN])],
+                                             [AC_MSG_RESULT([broken])],
+                                             [AC_MSG_RESULT([no])])
+                              AC_MSG_CHECKING([for boost::regex in -lboost_regex])
+                              saved_LIBS="${LIBS}"
+                              LIBS="${saved_LIBS} -lboost_regex"
+                              AC_LINK_IFELSE([AC_LANG_PROGRAM([BOOST_REGEX_TEST_HEADER],
+                                                              [BOOST_REGEX_TEST_BODY])],
+                                             [AC_MSG_RESULT([yes])
+                                              BOOST_LIBS="${BOOST_LIBS} -lboost_regex"],
+                                             [LIBS="${saved_LIBS} -lboost_regex-mt"
+                                              AC_LINK_IFELSE([AC_LANG_PROGRAM([BOOST_REGEX_TEST_HEADER],
+                                                                              [BOOST_REGEX_TEST_BODY])],
+                                                             [AC_MSG_RESULT([yes])
+                                                              BOOST_LIBS="${BOOST_LIBS} -lboost_regex-mt"],
+                                                             [AC_MSG_RESULT([no])
+                                                              AC_MSG_FAILURE([libboost_regex (Boost C++ Libraries) is not installed, but is required by schroot])])])
+                              LIBS="${saved_LIBS}"
 ])])
+
+AC_DEFUN([BOOST_IOSTREAMS_TEST_HEADER],
+[#include <boost/iostreams/device/file_descriptor.hpp>
+#include <boost/iostreams/stream.hpp>
+])
+AC_DEFUN([BOOST_IOSTREAMS_TEST_BODY],
+[boost::iostreams::stream<boost::iostreams::file_descriptor> fdstream;
+])
 
 AC_MSG_CHECKING([for boost::iostreams in -lboost_iostreams])
 saved_LIBS="${LIBS}"
 LIBS="${saved_LIBS} -lboost_iostreams"
-define([testprog], [AC_LANG_PROGRAM([#include <boost/iostreams/device/file_descriptor.hpp>
-#include <boost/iostreams/stream.hpp>
-],
-                                   [ boost::iostreams::stream<boost::iostreams::file_descriptor> fdstream;])])
-AC_LINK_IFELSE(testprog,
+AC_LINK_IFELSE([AC_LANG_PROGRAM([BOOST_IOSTREAMS_TEST_HEADER],
+                                [BOOST_IOSTREAMS_TEST_BODY])],
                [AC_MSG_RESULT([yes])
                 BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams"],
-[LIBS="${saved_LIBS} -lboost_iostreams-mt"
- AC_LINK_IFELSE(testprog,
-               [AC_MSG_RESULT([yes])
-                BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams-mt"],
-               [AC_MSG_RESULT([no])
-                AC_MSG_FAILURE([libboost_iostreams (Boost C++ Libraries) is not installed, but is required by schroot])])])
+               [LIBS="${saved_LIBS} -lboost_iostreams-mt"
+                AC_LINK_IFELSE([AC_LANG_PROGRAM([BOOST_IOSTREAMS_TEST_HEADER],
+                                                [BOOST_IOSTREAMS_TEST_BODY])],
+                               [AC_MSG_RESULT([yes])
+                                BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams-mt"],
+                               [AC_MSG_RESULT([no])
+                                AC_MSG_FAILURE([libboost_iostreams (Boost C++ Libraries) is not installed, but is required by schroot])])])
 LIBS="${saved_LIBS}"
+
+AC_DEFUN([BOOST_IOSTREAMS_FILEDES_TEST_HEADER],
+[#include <boost/iostreams/device/file_descriptor.hpp>
+#include <boost/iostreams/stream.hpp>
+#include <unistd.h>
+])
+AC_DEFUN([BOOST_IOSTREAMS_FILEDES_TEST_BODY],
+[boost::iostreams::file_descriptor_sink dummy(STDOUT_FILENO, boost::iostreams::close_handle);
+])
 
 AC_MSG_CHECKING([for boost::iostreams::file_descriptor_source in -lboost_iostreams])
 saved_LIBS="${LIBS}"
 LIBS="${saved_LIBS} -lboost_iostreams"
-define([testprog], [AC_LANG_PROGRAM([#include <boost/iostreams/device/file_descriptor.hpp>
-#include <boost/iostreams/stream.hpp>
-#include <unistd.h>],
-                                   [boost::iostreams::file_descriptor_sink dummy(STDOUT_FILENO, boost::iostreams::close_handle)])])
-AC_LINK_IFELSE(testprog,
+AC_LINK_IFELSE([AC_LANG_PROGRAM([BOOST_IOSTREAMS_FILEDES_TEST_HEADER],
+                                [BOOST_IOSTREAMS_FILEDES_TEST_BODY])],
                [AC_MSG_RESULT([yes (Boost >= 1.44)])
-               BOOST_IOSTREAMS_CLOSE_HANDLE="current"
+                BOOST_IOSTREAMS_CLOSE_HANDLE="current"
                 BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams"],
-[LIBS="${saved_LIBS} -lboost_iostreams-mt"
- AC_LINK_IFELSE(testprog,
-               [AC_MSG_RESULT([yes (Boost >= 1.44)])
-               BOOST_IOSTREAMS_CLOSE_HANDLE="current"
-                BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams-mt"],
-               [AC_MSG_RESULT([yes (Boost < 1.44)])
-               BOOST_IOSTREAMS_CLOSE_HANDLE="old"])])
+               [LIBS="${saved_LIBS} -lboost_iostreams-mt"
+                AC_LINK_IFELSE([AC_LANG_PROGRAM([BOOST_IOSTREAMS_FILEDES_TEST_HEADER],
+                                                [BOOST_IOSTREAMS_FILEDES_TEST_BODY])],
+                               [AC_MSG_RESULT([yes (Boost >= 1.44)])
+                                BOOST_IOSTREAMS_CLOSE_HANDLE="current"
+                                BOOST_LIBS="${BOOST_LIBS} -lboost_iostreams-mt"],
+                               [AC_MSG_RESULT([yes (Boost < 1.44)])
+                                BOOST_IOSTREAMS_CLOSE_HANDLE="old"])])
 LIBS="${saved_LIBS}"
 AH_TEMPLATE(BOOST_IOSTREAMS_CLOSE_HANDLE_OLD, [Set if boost::iostreams::file_descriptor close_handle is not available])
 if test "$BOOST_IOSTREAMS_CLOSE_HANDLE" = "old"; then
   AC_DEFINE(BOOST_IOSTREAMS_CLOSE_HANDLE_OLD, 1)
 fi
 
+AC_DEFUN([BOOST_FILESYSTEM_TEST_HEADER],
+[#include <boost/filesystem.hpp>
+])
+AC_DEFUN([BOOST_FILESYSTEM_TEST_BODY],
+[boost::filesystem::is_directory("/");
+])
+
 AC_MSG_CHECKING([for boost::filesystem in -lboost_filesystem])
 saved_LIBS="${LIBS}"
 LIBS="${saved_LIBS} -lboost_filesystem -lboost_system"
-define([testprog], [AC_LANG_PROGRAM([#include <boost/filesystem.hpp>],
-                                   [boost::filesystem::is_directory("/")])])
-AC_LINK_IFELSE(testprog,
+AC_LINK_IFELSE([AC_LANG_PROGRAM([BOOST_FILESYSTEM_TEST_HEADER],
+                                [BOOST_FILESYSTEM_TEST_BODY])],
                [AC_MSG_RESULT([yes])
                 BOOST_FILESYSTEM_LIBS="-lboost_filesystem -lboost_system"],
-[LIBS="${saved_LIBS} -lboost_filesystem-mt -lboost_system-mt"
- AC_LINK_IFELSE(testprog,
-               [AC_MSG_RESULT([yes])
-                BOOST_FILESYSTEM_LIBS="-lboost_filesystem-mt -lboost_system-mt"],
-               [AC_MSG_RESULT([no])
-                AC_MSG_FAILURE([libboost_filesystem (Boost C++ Libraries) is not installed, but is required by schroot])])])
+               [LIBS="${saved_LIBS} -lboost_filesystem-mt -lboost_system-mt"
+                AC_LINK_IFELSE([AC_LANG_PROGRAM([BOOST_FILESYSTEM_TEST_HEADER],
+                                                [BOOST_FILESYSTEM_TEST_BODY])],
+                               [AC_MSG_RESULT([yes])
+                                BOOST_FILESYSTEM_LIBS="-lboost_filesystem-mt -lboost_system-mt"],
+                               [AC_MSG_RESULT([no])
+                                AC_MSG_FAILURE([libboost_filesystem (Boost C++ Libraries) is not installed, but is required by schroot])])])
 LIBS="${saved_LIBS}"
 
 AC_SUBST([BOOST_LIBS])
