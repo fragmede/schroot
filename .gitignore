@@ -9,6 +9,8 @@ Makefile.in
 *.la
 *.pc
 *.gmo
+*.dirstamp
+*.xz
 Makefile
 ABOUT-NLS
 INSTALL
@@ -23,7 +25,6 @@ libtool
 autom4te.cache
 m4
 build-stamp
-*.bz2
 ChangeLog
 VERSION
 .gdb_history
