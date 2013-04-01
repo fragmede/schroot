@@ -25,7 +25,6 @@ libpam0g-dev (Linux-PAM)
 libboost-dev                 }
 libboost-program-options-dev } The Boost C++ libraries
 libboost-regex-dev           }
-uuid-dev (e2fsprogs)
 groff (or troff) soelim
 
 If building from GIT, you will also need:
