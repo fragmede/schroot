@@ -215,7 +215,7 @@ sbuild_libsbuild_la_SOURCES =				\
 nodist_sbuild_libsbuild_la_SOURCES =	\
 	sbuild/sbuild-config.h
 
-sbuild_libsbuild_la_LIBADD = $(UUID_LIBS) $(PAM_LIBS) $(BOOST_LIBS) $(BOOST_FILESYSTEM_LIBS) $(LIBINTL)
+sbuild_libsbuild_la_LIBADD = $(PAM_LIBS) $(BOOST_LIBS) $(BOOST_FILESYSTEM_LIBS) $(LIBINTL)
 
 pkgconfigdatadir = $(libdir)/pkgconfig
 

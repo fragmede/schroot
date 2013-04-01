@@ -28,12 +28,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-
-#ifdef SBUILD_USE_UUID
-#include <uuid/uuid.h>
-#else
 #include <time.h>
-#endif
 
 #include <boost/filesystem/convenience.hpp>
 
@@ -227,17 +222,7 @@ sbuild::unique_identifier ()
   std::ostringstream id;
   id.imbue(std::locale::classic());
 
-#ifdef SBUILD_USE_UUID
-  uuid_t uuid;
-  char uuid_str[37];
-  uuid_generate(uuid);
-  uuid_unparse(uuid, uuid_str);
-  uuid_clear(uuid);
-
-  id << uuid_str;
-#else
   id << time(0) << '-' << getpid();
-#endif
 
   return id.str();
 }

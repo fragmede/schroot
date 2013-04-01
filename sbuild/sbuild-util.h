@@ -112,9 +112,7 @@ namespace sbuild
 
 
   /**
-   * Get a unique string for use as a session identifier.  Depending
-   * upon the available facilities, this may be a UUID or a combinatin
-   * of the process ID and system time.
+   * Get a unique string for use as a session identifier.
    *
    * @returns a session identifier.
    */

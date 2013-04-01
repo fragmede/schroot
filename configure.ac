@@ -217,17 +217,6 @@ AC_ARG_ENABLE([loopback], [AS_HELP_STRING([--enable-loopback], [Enable support f
               [enable_loopback="auto"])
 AC_MSG_RESULT([$enable_loopback])
 
-AC_MSG_CHECKING([whether to enable support for UUIDs in session names])
-AC_ARG_ENABLE([uuid], [AS_HELP_STRING([--enable-uuid], [Enable support for UUIDs])],
-              [ case "${enableval}" in
-                yes) enable_uuid="yes" ;;
-                no)  enable_uuid="no" ;;
-                *) AC_MSG_RESULT([unknown])
-                   AC_MSG_ERROR([bad value ${enableval} for --enable-uuid]) ;;
-                esac],
-              [enable_uuid="auto"])
-AC_MSG_RESULT([$enable_uuid])
-
 AC_MSG_CHECKING([whether to enable support for union mounts])
 AC_ARG_ENABLE([union], [AS_HELP_STRING([--enable-union], [Enable support for union mounts])],
               [ case "${enableval}" in
@@ -325,14 +314,10 @@ AC_DEFINE_UNQUOTED(SBUILD_HOST_CPU, ["$host_cpu"])
 
 
 # Checks for libraries.
-PKG_CHECK_MODULES([UUID], [uuid],
-                  [HAVE_UUID=yes],
-                  [HAVE_UUID=no])
-
 AM_PATH_CPPUNIT([1.10.0], [HAVE_CPPUNIT=yes])
 AM_CONDITIONAL([USE_UNIT_TESTS], [test -n "$HAVE_CPPUNIT"])
 
-SCHROOT_CFLAGS="$UUID_CFLAGS"
+SCHROOT_CFLAGS=""
 AC_SUBST([SCHROOT_CFLAGS])
 
 # Checks for header files.
@@ -408,29 +393,6 @@ AM_CONDITIONAL([BUILD_PERSONALITY], [test "$BUILD_PERSONALITY" = "yes"])
 AH_TEMPLATE(SBUILD_FEATURE_PERSONALITY, [Set if personality support is present])
 if test "$BUILD_PERSONALITY" = "yes"; then
   AC_DEFINE(SBUILD_FEATURE_PERSONALITY, 1)
-fi
-
-AC_MSG_CHECKING([whether to build UUID support])
-BUILD_UUID="yes"
-if test "$enable_uuid" = "no"; then
-  BUILD_UUID="no"
-elif test "$enable_uuid" = "yes"; then
-  if test "$HAVE_UUID" = "no"; then
-    AC_MSG_FAILURE([libuuid (e2fsprogs) is not installed, but is required by schroot])
-  fi
-elif test "$enable_uuid" = "auto"; then
-  if test "$HAVE_UUID" = "no"; then
-    BUILD_UUID="no"
-  fi
-fi
-AC_MSG_RESULT([$BUILD_UUID])
-
-AM_CONDITIONAL([BUILD_UUID], [test "$BUILD_UUID" = "yes"])
-AH_TEMPLATE(SBUILD_USE_UUID, [Set if uuid support is present])
-if test "$BUILD_UUID" = "yes"; then
-  AC_DEFINE(SBUILD_USE_UUID, 1)
-else
-  UUID_LIBS=""
 fi
 
 AC_MSG_CHECKING([whether to build PAM support])
