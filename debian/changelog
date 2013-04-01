@@ -12,7 +12,9 @@ schroot (1.7.0-1) UNRELEASED; urgency=low
       exec-start argument.
   * debian/copyright: Update to use DEP-5 copyright format v1.0.
   * debian/control: Remove liblockdev from Build-Depends. 
-  * debian/rules: Build using g++ in C++11 mode.
+  * debian/rules:
+    - Build using g++ in C++11 mode.
+    - Remove UUID support.
 
  -- Roger Leigh <rleigh@debian.org>  Sat, 21 Jul 2012 10:44:09 +0100
 
