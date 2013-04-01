@@ -26,9 +26,9 @@
 #include <cstring>
 
 #include <sys/types.h>
+#include <sys/time.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <time.h>
 
 #include <boost/filesystem/convenience.hpp>
 
@@ -222,7 +222,19 @@ sbuild::unique_identifier ()
   std::ostringstream id;
   id.imbue(std::locale::classic());
 
-  id << time(0) << '-' << getpid();
+  struct timeval tv;
+  gettimeofday(&tv, nullptr);
+
+  uint64_t bits = static_cast<uint64_t>(tv.tv_usec << 16) ^ tv.tv_sec;
+  static const std::string letters("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+  std::string ids;
+  for (int i=0; i<6; ++i)
+    {
+      ids += letters[bits % 62];
+      bits /= 62;
+    }
+
+  id << ids << '-' << getpid();
 
   return id.str();
 }
