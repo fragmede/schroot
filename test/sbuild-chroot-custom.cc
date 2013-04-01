@@ -18,12 +18,12 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-config.h>
-#include <sbuild/sbuild-chroot-custom.h>
-#include <sbuild/sbuild-chroot-facet-session-clonable.h>
-#include <sbuild/sbuild-chroot-facet-source-clonable.h>
-#include <sbuild/sbuild-chroot-facet-userdata.h>
-#include <sbuild/sbuild-keyfile-writer.h>
+#include <sbuild/config.h>
+#include <sbuild/chroot-custom.h>
+#include <sbuild/chroot-facet-session-clonable.h>
+#include <sbuild/chroot-facet-source-clonable.h>
+#include <sbuild/chroot-facet-userdata.h>
+#include <sbuild/keyfile-writer.h>
 
 #include "test-helpers.h"
 #include "test-sbuild-chroot.h"

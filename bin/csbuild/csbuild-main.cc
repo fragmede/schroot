@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "sbuild-log.h"
+#include <sbuild/log.h>
 
 #include "csbuild-main.h"
 

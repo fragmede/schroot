@@ -22,8 +22,8 @@
 #include <schroot-base/schroot-base-main.h>
 #include <schroot/schroot-options-base.h>
 
-#include <sbuild/sbuild-chroot-config.h>
-#include <sbuild/sbuild-custom-error.h>
+#include <sbuild/chroot-config.h>
+#include <sbuild/custom-error.h>
 
 namespace schroot
 {

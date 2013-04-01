@@ -18,9 +18,9 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-config.h>
-#include <sbuild/sbuild-chroot-plain.h>
-#include <sbuild/sbuild-keyfile-writer.h>
+#include <sbuild/config.h>
+#include <sbuild/chroot-plain.h>
+#include <sbuild/keyfile-writer.h>
 
 #include "test-helpers.h"
 #include "test-sbuild-chroot.h"

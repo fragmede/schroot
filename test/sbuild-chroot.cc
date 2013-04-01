@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-chroot.h>
-#include <sbuild/sbuild-keyfile-writer.h>
+#include <sbuild/chroot.h>
+#include <sbuild/keyfile-writer.h>
 
 #include "test-helpers.h"
 #include "test-sbuild-chroot.h"

@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-chroot-directory.h>
-#include <sbuild/sbuild-chroot-facet-userdata.h>
+#include <sbuild/chroot-directory.h>
+#include <sbuild/chroot-facet-userdata.h>
 
 #include <cppunit/extensions/HelperMacros.h>
 

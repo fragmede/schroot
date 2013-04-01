@@ -16,7 +16,7 @@
  *
  *********************************************************************/
 
-#include <sbuild/sbuild-nostream.h>
+#include <sbuild/nostream.h>
 
 #include <cstdlib>
 

@@ -18,10 +18,10 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-i18n.h>
-#include <sbuild/sbuild-log.h>
-#include <sbuild/sbuild-types.h>
-#include <sbuild/sbuild-feature.h>
+#include <sbuild/i18n.h>
+#include <sbuild/log.h>
+#include <sbuild/types.h>
+#include <sbuild/feature.h>
 
 #include "schroot-base-main.h"
 

@@ -21,7 +21,7 @@
 
 #include <schroot-base/schroot-base-options.h>
 
-#include <sbuild/sbuild-config.h>
+#include <sbuild/config.h>
 
 #include <cstdlib>
 #include <iostream>

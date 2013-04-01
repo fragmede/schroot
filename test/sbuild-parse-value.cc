@@ -16,7 +16,7 @@
  *
  *********************************************************************/
 
-#include <sbuild/sbuild-parse-value.h>
+#include <sbuild/parse-value.h>
 
 #include <cppunit/extensions/HelperMacros.h>
 

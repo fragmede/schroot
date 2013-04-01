@@ -19,12 +19,12 @@
 #ifndef CSBUILD_DEBIAN_CHANGES_H
 #define CSBUILD_DEBIAN_CHANGES_H
 
-#include <sbuild/sbuild-i18n.h>
-#include <sbuild/sbuild-log.h>
-#include <sbuild/sbuild-parse-error.h>
-#include <sbuild/sbuild-parse-value.h>
-#include <sbuild/sbuild-types.h>
-#include <sbuild/sbuild-util.h>
+#include <sbuild/i18n.h>
+#include <sbuild/log.h>
+#include <sbuild/parse-error.h>
+#include <sbuild/parse-value.h>
+#include <sbuild/types.h>
+#include <sbuild/util.h>
 
 #include <cassert>
 #include <map>

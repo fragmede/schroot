@@ -48,12 +48,12 @@ pushdef([SBUILD_INTERFACE_AGE],     [0])
 pushdef([SBUILD_BINARY_AGE],        [0])
 dnl For safety, check we are in the right directory by
 dnl checking for a known unique file.
-AC_CONFIG_SRCDIR([sbuild/sbuild-session.cc])
+AC_CONFIG_SRCDIR([sbuild/session.cc])
 dnl Place auxilliary scripts here.
 AC_CONFIG_AUX_DIR([scripts])
 dnl Add config headers.
 AC_CONFIG_HEADER([config.h])
-AC_CONFIG_HEADER([sbuild/sbuild-config.h])
+AC_CONFIG_HEADER([sbuild/config.h])
 
 AC_COPYRIGHT(
 [

@@ -20,13 +20,13 @@
 
 #include "schroot-main-base.h"
 
-#include <sbuild/sbuild-config.h>
+#include <sbuild/config.h>
 #ifdef SBUILD_FEATURE_PAM
-#include <sbuild/sbuild-auth-pam.h>
-#include <sbuild/sbuild-auth-pam-conv.h>
-#include <sbuild/sbuild-auth-pam-conv-tty.h>
+#include <sbuild/auth-pam.h>
+#include <sbuild/auth-pam-conv.h>
+#include <sbuild/auth-pam-conv-tty.h>
 #endif // SBUILD_FEATURE_PAM
-#include <sbuild/sbuild-keyfile-writer.h>
+#include <sbuild/keyfile-writer.h>
 
 #include <cstdlib>
 #include <ctime>

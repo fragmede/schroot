@@ -16,7 +16,7 @@
  *
  *********************************************************************/
 
-#include <sbuild/sbuild-lock.h>
+#include <sbuild/lock.h>
 
 #include <iostream>
 

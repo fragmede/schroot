@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-config.h>
+#include <sbuild/config.h>
 
 #include "schroot-main.h"
 

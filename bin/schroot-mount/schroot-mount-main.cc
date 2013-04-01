@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-mntstream.h>
-#include <sbuild/sbuild-util.h>
+#include <sbuild/mntstream.h>
+#include <sbuild/util.h>
 
 #include "schroot-mount-main.h"
 

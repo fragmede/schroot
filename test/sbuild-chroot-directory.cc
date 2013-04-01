@@ -18,9 +18,9 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-chroot-directory.h>
-#include <sbuild/sbuild-i18n.h>
-#include <sbuild/sbuild-keyfile-writer.h>
+#include <sbuild/chroot-directory.h>
+#include <sbuild/i18n.h>
+#include <sbuild/keyfile-writer.h>
 
 #include "test-helpers.h"
 #include "test-sbuild-chroot.h"

@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-mntstream.h>
+#include <sbuild/mntstream.h>
 
 #include "schroot-listmounts-main.h"
 

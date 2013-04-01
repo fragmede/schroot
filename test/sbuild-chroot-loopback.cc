@@ -22,10 +22,10 @@
 #include <algorithm>
 #include <set>
 
-#include <sbuild/sbuild-chroot-loopback.h>
-#include <sbuild/sbuild-chroot-facet-mountable.h>
-#include <sbuild/sbuild-i18n.h>
-#include <sbuild/sbuild-keyfile-writer.h>
+#include <sbuild/chroot-loopback.h>
+#include <sbuild/chroot-facet-mountable.h>
+#include <sbuild/i18n.h>
+#include <sbuild/keyfile-writer.h>
 
 #include "test-helpers.h"
 #include "test-sbuild-chroot.h"

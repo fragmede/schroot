@@ -21,7 +21,7 @@
 
 #include <schroot-base/schroot-base-options.h>
 
-#include <sbuild/sbuild-types.h>
+#include <sbuild/types.h>
 
 #include <string>
 

@@ -19,7 +19,7 @@
 #ifndef TEST_HELPERS_H
 #define TEST_HELPERS_H
 
-#include <sbuild/sbuild-types.h>
+#include <sbuild/types.h>
 
 #include <algorithm>
 #include <iostream>

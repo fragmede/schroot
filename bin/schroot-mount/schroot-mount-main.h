@@ -23,7 +23,7 @@
 
 #include <schroot-mount/schroot-mount-options.h>
 
-#include <sbuild/sbuild-custom-error.h>
+#include <sbuild/custom-error.h>
 
 /**
  * schroot-mount program components

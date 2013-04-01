@@ -19,7 +19,7 @@
 #ifndef DCHROOT_SESSION_BASE_H
 #define DCHROOT_SESSION_BASE_H
 
-#include <sbuild/sbuild-session.h>
+#include <sbuild/session.h>
 
 namespace dchroot
 {

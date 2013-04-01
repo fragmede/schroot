@@ -16,9 +16,9 @@
  *
  *********************************************************************/
 
-#include <sbuild/sbuild-nostream.h>
-#include <sbuild/sbuild-run-parts.h>
-#include <sbuild/sbuild-util.h>
+#include <sbuild/nostream.h>
+#include <sbuild/run-parts.h>
+#include <sbuild/util.h>
 
 #include <iostream>
 #include <sstream>

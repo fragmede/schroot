@@ -18,11 +18,11 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-chroot-lvm-snapshot.h>
-#include <sbuild/sbuild-chroot-facet-mountable.h>
-#include <sbuild/sbuild-i18n.h>
-#include <sbuild/sbuild-keyfile-writer.h>
-#include <sbuild/sbuild-util.h>
+#include <sbuild/chroot-lvm-snapshot.h>
+#include <sbuild/chroot-facet-mountable.h>
+#include <sbuild/i18n.h>
+#include <sbuild/keyfile-writer.h>
+#include <sbuild/util.h>
 
 #include "test-helpers.h"
 #include "test-sbuild-chroot.h"

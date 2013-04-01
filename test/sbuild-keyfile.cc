@@ -16,9 +16,9 @@
  *
  *********************************************************************/
 
-#include <sbuild/sbuild-keyfile.h>
-#include <sbuild/sbuild-keyfile-reader.h>
-#include <sbuild/sbuild-keyfile-writer.h>
+#include <sbuild/keyfile.h>
+#include <sbuild/keyfile-reader.h>
+#include <sbuild/keyfile-writer.h>
 
 #include <fstream>
 #include <sstream>

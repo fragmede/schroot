@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-util.h>
+#include <sbuild/util.h>
 
 #include "schroot-sbuild-session.h"
 

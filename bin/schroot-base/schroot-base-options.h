@@ -19,8 +19,8 @@
 #ifndef SCHROOT_BASE_OPTIONS_H
 #define SCHROOT_BASE_OPTIONS_H
 
-#include <sbuild/sbuild-session.h>
-#include <sbuild/sbuild-types.h>
+#include <sbuild/session.h>
+#include <sbuild/types.h>
 
 #include <schroot-base/schroot-base-option-action.h>
 

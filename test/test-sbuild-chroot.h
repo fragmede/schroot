@@ -19,23 +19,23 @@
 #ifndef TEST_SBUILD_CHROOT_H
 #define TEST_SBUILD_CHROOT_H
 
-#include <sbuild/sbuild-config.h>
-#include <sbuild/sbuild-chroot.h>
-#include <sbuild/sbuild-chroot-facet-personality.h>
-#include <sbuild/sbuild-chroot-facet-session.h>
-#include <sbuild/sbuild-chroot-facet-session-clonable.h>
-#include <sbuild/sbuild-chroot-facet-source.h>
-#include <sbuild/sbuild-chroot-facet-source-clonable.h>
+#include <sbuild/config.h>
+#include <sbuild/chroot.h>
+#include <sbuild/chroot-facet-personality.h>
+#include <sbuild/chroot-facet-session.h>
+#include <sbuild/chroot-facet-session-clonable.h>
+#include <sbuild/chroot-facet-source.h>
+#include <sbuild/chroot-facet-source-clonable.h>
 #ifdef SBUILD_FEATURE_UNION
-#include <sbuild/sbuild-chroot-facet-union.h>
+#include <sbuild/chroot-facet-union.h>
 #endif // SBUILD_FEATURE_UNION
 #ifdef SBUILD_FEATURE_UNSHARE
-#include <sbuild/sbuild-chroot-facet-unshare.h>
+#include <sbuild/chroot-facet-unshare.h>
 #endif // SBUILD_FEATURE_UNSHARE
-#include <sbuild/sbuild-chroot-facet-userdata.h>
-#include <sbuild/sbuild-i18n.h>
-#include <sbuild/sbuild-types.h>
-#include <sbuild/sbuild-util.h>
+#include <sbuild/chroot-facet-userdata.h>
+#include <sbuild/i18n.h>
+#include <sbuild/types.h>
+#include <sbuild/util.h>
 
 #include <algorithm>
 #include <iostream>

@@ -16,8 +16,8 @@
  *
  *********************************************************************/
 
-#include <sbuild/sbuild-environment.h>
-#include <sbuild/sbuild-util.h>
+#include <sbuild/environment.h>
+#include <sbuild/util.h>
 
 #include <iostream>
 #include <sstream>

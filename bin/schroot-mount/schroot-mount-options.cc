@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include <sbuild/sbuild-i18n.h>
-#include <sbuild/sbuild-util.h>
+#include <sbuild/i18n.h>
+#include <sbuild/util.h>
 
 #include "schroot-mount-options.h"
 

@@ -16,7 +16,7 @@
  *
  *********************************************************************/
 
-#include <sbuild/sbuild-regex.h>
+#include <sbuild/regex.h>
 
 #include <iostream>
 #include <sstream>

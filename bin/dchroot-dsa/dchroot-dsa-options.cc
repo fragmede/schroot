@@ -20,7 +20,7 @@
 
 #include "dchroot-dsa-options.h"
 
-#include <sbuild/sbuild-util.h>
+#include <sbuild/util.h>
 
 #include <cstdlib>
 #include <iostream>

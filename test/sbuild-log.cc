@@ -16,7 +16,7 @@
  *
  *********************************************************************/
 
-#include <sbuild/sbuild-log.h>
+#include <sbuild/log.h>
 
 #include <iostream>
 #include <ios>

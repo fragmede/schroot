@@ -16,7 +16,7 @@
  *
  *********************************************************************/
 
-#include <sbuild/sbuild-personality.h>
+#include <sbuild/personality.h>
 
 #include <iostream>
 #include <sstream>

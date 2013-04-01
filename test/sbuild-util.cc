@@ -16,7 +16,7 @@
  *
  *********************************************************************/
 
-#include <sbuild/sbuild-util.h>
+#include <sbuild/util.h>
 
 #include <cstdlib>
 

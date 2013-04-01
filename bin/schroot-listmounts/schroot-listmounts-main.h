@@ -23,7 +23,7 @@
 
 #include <schroot-listmounts/schroot-listmounts-options.h>
 
-#include <sbuild/sbuild-custom-error.h>
+#include <sbuild/custom-error.h>
 
 /**
  * schroot-listmounts program components

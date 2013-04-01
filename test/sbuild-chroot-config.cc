@@ -16,8 +16,8 @@
  *
  *********************************************************************/
 
-#include <sbuild/sbuild-chroot-config.h>
-#include <sbuild/sbuild-nostream.h>
+#include <sbuild/chroot-config.h>
+#include <sbuild/nostream.h>
 
 #include <fstream>
 #include <sstream>

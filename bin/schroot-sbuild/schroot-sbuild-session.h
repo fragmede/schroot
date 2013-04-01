@@ -19,7 +19,7 @@
 #ifndef SCHROOT_SBUILD_SESSION_H
 #define SCHROOT_SBUILD_SESSION_H
 
-#include <sbuild/sbuild-session.h>
+#include <sbuild/session.h>
 
 namespace schroot_sbuild
 {
