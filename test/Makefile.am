@@ -122,7 +122,7 @@ test_sbuild_chroot_directory_LDADD =  test/libtest.la
 
 test_sbuild_chroot_block_device_SOURCES =		\
 	$(test_sbuild_chroot_blockdev_sources)	\
-	test-test/sbuild-chroot.h
+	test/test-sbuild-chroot.h
 test_sbuild_chroot_block_device_LDADD =  test/libtest.la
 
 test_sbuild_chroot_lvm_snapshot_SOURCES =		\
@@ -132,7 +132,7 @@ test_sbuild_chroot_lvm_snapshot_LDADD =  test/libtest.la
 
 test_sbuild_chroot_btrfs_snapshot_SOURCES =		\
 	$(test_sbuild_chroot_btrfssnap_sources)	\
-	test-test/sbuild-chroot.h
+	test/test-sbuild-chroot.h
 test_sbuild_chroot_btrfs_snapshot_LDADD =  test/libtest.la
 
 test_sbuild_chroot_loopback_SOURCES =		\
