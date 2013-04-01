@@ -99,8 +99,10 @@ main::action_listmounts ()
         mountlist.push_back(mount_dir);
     }
 
-  for (const auto& mount : mountlist)
-    std::cout << mount << '\n';
+  for (sbuild::string_list::const_reverse_iterator mount = mountlist.rbegin();
+       mount != mountlist.rend();
+       ++mount)
+    std::cout << *mount << '\n';
   std::cout << std::flush;
 }
 
