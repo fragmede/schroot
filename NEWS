@@ -24,6 +24,25 @@ configuration.
      TR1 types has been replaced with the use of the C++11
      equivalents.
 
+  4) The build system has been refactored to use nonrecursive make.
+     It is no longer possible to build individual subdirectories, but
+     parallel building is far faster and dependencies between objects
+     in different directories may now be described directly.
+
+  5) Support for device locking with liblockdev has been removed;
+     liblockdev is no longer required for using "block-device" or
+     "lvm-snapshot" chroot types.  lockdev locking was not
+     particularly useful, and there is no decrease in safety with this
+     change.
+
+  6) Session identifiers are no longer UUIDs.  The requirement for
+     libuuid has been removed.  Session identifiers are now six random
+     alphanumeric characters (derived from the current system time)
+     plus the process ID.  The new IDs are rather shorter and more
+     readable than UUIDs, and will remain sufficiently unique that
+     there should be no clashes between automatically-created session
+     names.
+
 * Major changes in 1.6.4:
 
   1) Canonicalise symlink mount points.  If a mount point in fstab
