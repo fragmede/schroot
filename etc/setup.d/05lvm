@@ -46,15 +46,6 @@ if [ "$CHROOT_TYPE" = "lvm-snapshot" ]; then
     elif [ $STAGE = "setup-stop" ]; then
 
         if [ "$DEVTYPE" "$CHROOT_LVM_SNAPSHOT_DEVICE" ]; then
-            # The lock needs to be dropped immediately before
-            # destroying the device.  There is a small race here, but
-            # the lock can't be dropped once the device has been
-            # removed.
-            info "Removing device lock for $CHROOT_LVM_SNAPSHOT_DEVICE, owned by pid $PID"
-            "$LIBEXEC_DIR/schroot-releaselock" \
-                --device="$CHROOT_LVM_SNAPSHOT_DEVICE" \
-                --pid=$PID || true
-
             if [ "$VERBOSE" = "verbose" ]; then
                 lvremove $LVM_VERBOSE -f "$CHROOT_LVM_SNAPSHOT_DEVICE" || true
             else

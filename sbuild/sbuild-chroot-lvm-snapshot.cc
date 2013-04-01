@@ -25,7 +25,6 @@
 #include "sbuild-chroot-facet-source-clonable.h"
 #include "sbuild-chroot-facet-mountable.h"
 #include "sbuild-format-detail.h"
-#include "sbuild-lock.h"
 
 #include <cassert>
 #include <cerrno>
@@ -167,32 +166,6 @@ chroot_lvm_snapshot::setup_lock (chroot::setup_type type,
           if (!file_status.is_block())
             {
               throw error(get_device(), DEVICE_NOTBLOCK);
-            }
-          else
-            {
-              device_lock dlock(device);
-              if (lock)
-                {
-                  try
-                    {
-                      dlock.set_lock(lock::LOCK_EXCLUSIVE, 15);
-                    }
-                  catch (lock::error const& e)
-                    {
-                      throw error(get_device(), DEVICE_LOCK, e);
-                    }
-                }
-              else
-                {
-                  try
-                    {
-                      dlock.unset_lock();
-                    }
-                  catch (lock::error const& e)
-                    {
-                      throw error(get_device(), DEVICE_UNLOCK, e);
-                    }
-                }
             }
         }
       catch (sbuild::stat::error const& e) // Failed to stat

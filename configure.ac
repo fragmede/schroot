@@ -172,7 +172,7 @@ AC_ARG_ENABLE([pam], [AS_HELP_STRING([--enable-pam], [Enable support for PAM aut
 AC_MSG_RESULT([$enable_pam])
 
 AC_MSG_CHECKING([whether to enable support for block devices])
-AC_ARG_ENABLE([block-device], [AS_HELP_STRING([--enable-block-device], [Enable support for block devices (requires liblockdev)])],
+AC_ARG_ENABLE([block-device], [AS_HELP_STRING([--enable-block-device], [Enable support for block devices])],
               [ case "${enableval}" in
                 yes) enable_blockdev="yes" ;;
                 no)  enable_blockdev="no" ;;
@@ -183,7 +183,7 @@ AC_ARG_ENABLE([block-device], [AS_HELP_STRING([--enable-block-device], [Enable s
 AC_MSG_RESULT([$enable_blockdev])
 
 AC_MSG_CHECKING([whether to enable support for LVM snapshots])
-AC_ARG_ENABLE([lvm-snapshot], [AS_HELP_STRING([--enable-lvm-snapshot], [Enable support for LVM snapshots (requires LVM and liblockdev)])],
+AC_ARG_ENABLE([lvm-snapshot], [AS_HELP_STRING([--enable-lvm-snapshot], [Enable support for LVM snapshots (requires LVM)])],
               [ case "${enableval}" in
                 yes) enable_lvmsnapshot="yes"
                      enable_blockdev="yes" ;;
@@ -368,17 +368,6 @@ AC_CHECK_LIB([pam], [pam_authenticate],
               PAM_FUNC="no"])
 AC_SUBST([PAM_LIBS])
 
-AC_CHECK_LIB([lockdev], [dev_lock],
-             [LOCKDEV_LIBS="-llockdev"
-              HAVE_LOCKDEV="yes"],
-             [LOCKDEV_LIBS=""
-              HAVE_LOCKDEV="no"])
-AC_SUBST([LOCKDEV_LIBS])
-AH_TEMPLATE(SBUILD_FEATURE_DEVLOCK, [Set if the device locking with liblockdev is available])
-if test "$HAVE_LOCKDEV" = "yes"; then
-  AC_DEFINE(SBUILD_FEATURE_DEVLOCK, 1)
-fi
-
 AC_CHECK_FUNC([unshare],
               [UNSHARE_FUNC="yes"],
               [UNSHARE_FUNC="no"])
@@ -477,17 +466,8 @@ fi
 
 AC_MSG_CHECKING([whether to build block-device support])
 BUILD_BLOCKDEV="yes"
-if test "$enable_blockdev" = "yes"; then
-  if test "$HAVE_LOCKDEV" = "no"; then
+if test "$enable_blockdev" = "no"; then
     BUILD_BLOCKDEV="no"
-    AC_MSG_FAILURE([liblockdev (lockdev) is not installed, but is required by schroot])
-  fi
-elif test "$enable_blockdev" = "no"; then
-    BUILD_BLOCKDEV="no"
-elif test "$enable_blockdev" = "auto"; then
-  if test "$HAVE_LOCKDEV" = "no"; then
-    BUILD_BLOCKDEV="no"
-  fi
 fi
 AC_MSG_RESULT([$BUILD_BLOCKDEV])
 
@@ -507,9 +487,6 @@ if test "$enable_lvmsnapshot" = "yes"; then
 elif test "$enable_lvmsnapshot" = "no"; then
     BUILD_LVMSNAP="no"
 elif test "$enable_lvmsnapshot" = "auto"; then
-  if test "$HAVE_LOCKDEV" = "no"; then
-    BUILD_LVMSNAP="no"
-  fi
   if test "$HAVE_LVM" = "no"; then
     BUILD_LVMSNAP="no"
   fi

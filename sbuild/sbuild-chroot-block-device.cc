@@ -25,7 +25,6 @@
 #include "sbuild-chroot-facet-union.h"
 #endif // SBUILD_FEATURE_UNION
 #include "sbuild-format-detail.h"
-#include "sbuild-lock.h"
 #include "sbuild-util.h"
 
 #include <cassert>
@@ -138,33 +137,7 @@ chroot_block_device::setup_lock (chroot::setup_type type,
           assert(base);
           chroot_facet_union::const_ptr puni
             (base->get_facet<chroot_facet_union>());
-          if (!puni || !puni->get_union_configured())
 #endif
-            {
-              device_lock dlock(this->device);
-              if (lock)
-                {
-                  try
-                    {
-                      dlock.set_lock(lock::LOCK_EXCLUSIVE, 15);
-                    }
-                  catch (lock::error const& e)
-                    {
-                      throw error(get_device(), DEVICE_LOCK, e);
-                    }
-                }
-              else
-                {
-                  try
-                    {
-                      dlock.unset_lock();
-                    }
-                  catch (lock::error const& e)
-                    {
-                      throw error(get_device(), DEVICE_UNLOCK, e);
-                    }
-                }
-            }
         }
     }
   catch (sbuild::stat::error const& e) // Failed to stat

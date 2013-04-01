@@ -30,10 +30,6 @@
 
 #include <boost/format.hpp>
 
-#ifdef SBUILD_FEATURE_DEVLOCK
-#include <lockdev.h>
-#endif // SBUILD_FEATURE_DEVLOCK
-
 using boost::format;
 using namespace sbuild;
 
@@ -63,21 +59,15 @@ error<lock::error_code>::error_strings =
 
 namespace
 {
-  /// Set to true when a SIGALRM is received.
-  volatile bool lock_timeout = false;
-
   /**
-   * Handle the SIGALRM signal.
+   * Handle the SIGALRM signal.  This exists so that system calls get
+   * interrupted.
    *
    * @param ignore the signal number.
    */
   void
   alarm_handler (int ignore)
   {
-    /* This exists so that system calls get interrupted. */
-    /* lock_timeout is used for polling for a timeout, rather than
-       interruption, used by the device_lock code. */
-    lock_timeout = true;
   }
 }
 
@@ -222,115 +212,3 @@ file_lock::unset_lock ()
 {
   set_lock(LOCK_NONE, 0);
 }
-
-#ifdef SBUILD_FEATURE_DEVLOCK
-
-namespace
-{
-  sbuild::feature feature_devlock("DEVLOCK", N_("Device locking"));
-}
-
-device_lock::device_lock (std::string const& device):
-  lock(),
-  device(device),
-  locked(false)
-{
-}
-
-device_lock::~device_lock ()
-{
-  if (locked)
-    {
-      pid_t status = 0;
-      status = dev_unlock(this->device.c_str(), getpid());
-      if (status < 0) // Failure
-        log_exception_warning(error(DEVICE_UNLOCK));
-    }
-}
-
-void
-device_lock::set_lock (lock::type   lock_type,
-                       unsigned int timeout)
-{
-  try
-    {
-      lock_timeout = false;
-
-      struct itimerval timeout_timer;
-      timeout_timer.it_interval.tv_sec = timeout_timer.it_interval.tv_usec = 0;
-      timeout_timer.it_value.tv_sec = timeout;
-      timeout_timer.it_value.tv_usec = 0;
-      set_timer(timeout_timer);
-
-      /* Now the signal handler and itimer are set, the function can't
-         return without stopping the timer and restoring the signal
-         handler to its original state. */
-
-      /* Wait on lock until interrupted by a signal if a timeout was set,
-         otherwise return immediately. */
-      pid_t status = 0;
-      while (lock_timeout == false)
-        {
-          if (lock_type == LOCK_SHARED || lock_type == LOCK_EXCLUSIVE)
-            {
-              status = dev_lock(this->device.c_str());
-              if (status == 0) // Success
-                {
-                  this->locked = true;
-                  break;
-                }
-              else if (status < 0) // Failure
-                {
-                  throw error(DEVICE_LOCK);
-                }
-            }
-          else
-            {
-              pid_t cur_lock_pid = dev_testlock(this->device.c_str());
-              if (cur_lock_pid < 0) // Test failure
-                {
-                  throw error(DEVICE_TEST);
-                }
-              else if (cur_lock_pid > 0 && cur_lock_pid != getpid())
-                {
-                  // Another process owns the lock, so we successfully
-                  // "drop" our nonexistent lock.
-                  break;
-                }
-              status = dev_unlock(this->device.c_str(), getpid());
-              if (status == 0) // Success
-                {
-                  this->locked = false;
-                  break;
-                }
-              else if (status < 0) // Failure
-                {
-                  throw error(DEVICE_UNLOCK);
-                }
-            }
-        }
-
-      if (lock_timeout)
-        {
-          throw error(((lock_type == LOCK_SHARED || lock_type == LOCK_EXCLUSIVE)
-                       ? DEVICE_LOCK_TIMEOUT : DEVICE_UNLOCK_TIMEOUT),
-                      timeout, status);
-        }
-
-      unset_timer();
-    }
-  catch (error const& e)
-    {
-      unset_timer();
-      throw;
-    }
-}
-
-void
-device_lock::unset_lock ()
-{
-  set_lock(LOCK_NONE, 0);
-}
-
-#endif // SBUILD_FEATURE_DEVLOCK
-

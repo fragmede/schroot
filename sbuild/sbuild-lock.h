@@ -161,41 +161,6 @@ namespace sbuild
     bool locked;
   };
 
-#ifdef SBUILD_FEATURE_DEVLOCK
-  /**
-   * Device lock.  Set an advisory lock on a device.  The lock is
-   * acquired using liblockdev lock_dev().  Note that a lock_type of
-   * LOCK_SHARED is equivalent to LOCK_EXCLUSIVE, because this lock
-   * type does not support shared locks.
-   */
-  class device_lock : public lock
-  {
-  public:
-    /**
-     * The constructor.
-     *
-     * @param device the device to lock (full pathname).
-     */
-    device_lock (std::string const& device);
-
-    /// The destructor.
-    virtual ~device_lock ();
-
-    virtual void
-    set_lock (lock::type   lock_type,
-              unsigned int timeout);
-
-    virtual void
-    unset_lock ();
-
-  private:
-    /// The device to lock.
-    std::string device;
-    /// Is the file locked?
-    bool locked;
-  };
-#endif // SBUILD_FEATURE_DEVLOCK
-
 }
 
 #endif /* SBUILD_LOCK_H */
