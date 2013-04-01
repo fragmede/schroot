@@ -11,7 +11,7 @@ schroot (1.7.0-1) UNRELEASED; urgency=low
       are regular setup scripts, called with an exec-start or
       exec-start argument.
   * debian/copyright: Update to use DEP-5 copyright format v1.0.
-  * debian/control: Remove liblockdev from Build-Depends. 
+  * debian/control: Remove liblockdev and libuuid from Build-Depends. 
   * debian/rules:
     - Build using g++ in C++11 mode.
     - Remove UUID support.

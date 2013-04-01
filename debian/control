@@ -8,7 +8,6 @@ Build-Depends:
  autotools-dev,
  pkg-config,
  libpam0g-dev,
- uuid-dev [!kfreebsd-any],
  libboost-dev,
  libboost-iostreams-dev,
  libboost-program-options-dev,
