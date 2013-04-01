@@ -126,11 +126,11 @@ CONFIG =\
 .ds SCHROOT_DATA_DIR $(pkgdatadir)\n\
 .ds SCHROOT_SETUP_DATA_DIR $(schroot_setupdatadir)\n\
 .ds PACKAGE_LOCALE_DIR $(prefix)/share/locale\n\
-.ds DCHROOT_CONF $(DCHROOT_CONF)\n\
 .ds CSBUILD_CONF $(CSBUILD_CONF)\n\
 .ds PROGRAM schroot
 
 man/config.man: Makefile
+	$(MKDIR_P) man
 	echo -e "$(CONFIG)" | sed -e 's/^[ ]//' > $@
 
 man-update-po:

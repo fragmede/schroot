@@ -27,7 +27,6 @@ schroot_sysconf_setupdir=$(schroot_sysconfdir)/setup.d
 schroot_setupdatadir=$(pkgdatadir)/setup
 
 SCHROOT_CONF=$(schroot_sysconfdir)/schroot.conf
-DCHROOT_CONF="$(sysconfdir)/dchroot.conf"
 CSBUILD_CONF=$(sysconfdir)/csbuild.conf
 
 # Global options for use in all Makefiles.

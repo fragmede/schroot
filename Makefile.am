@@ -27,7 +27,7 @@ localedir = $(datadir)/locale
 
 LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -DTESTDATADIR='"test/testdata"' -I$(top_srcdir)/bin
 
-LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\" -DDCHROOT_CONF=\"$(DCHROOT_CONF)\" -DCSBUILD_CONF=\"$(CSBUILD_CONF)\"
+LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\" -DCSBUILD_CONF=\"$(CSBUILD_CONF)\"
 
 bin_PROGRAMS =
 pkglibexec_PROGRAMS =
