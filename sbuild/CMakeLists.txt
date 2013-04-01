@@ -210,7 +210,6 @@ add_library(sbuild STATIC
             ${public_chroot_facet_cc_sources})
 target_link_libraries(sbuild
                       ${CMAKE_THREAD_LIBS_INIT}
-                      ${LOCKDEV_LIBRARY}
                       ${PAM_LIBRARY}
                       ${UUID_LIBRARY}
                       ${REGEX_LIBRARY}

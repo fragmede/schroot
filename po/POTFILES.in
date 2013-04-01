@@ -21,9 +21,6 @@ bin/schroot-listmounts/schroot-listmounts.cc
 bin/schroot-mount/schroot-mount-main.cc
 bin/schroot-mount/schroot-mount-options.cc
 bin/schroot-mount/schroot-mount.cc
-bin/schroot-releaselock/schroot-releaselock-main.cc
-bin/schroot-releaselock/schroot-releaselock-options.cc
-bin/schroot-releaselock/schroot-releaselock.cc
 bin/schroot/schroot-main-base.cc
 bin/schroot/schroot-main.cc
 bin/schroot/schroot-options-base.cc

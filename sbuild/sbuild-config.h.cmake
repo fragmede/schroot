@@ -24,9 +24,6 @@
    correct library to use.  This depends upon the libraries found at
    configure time. */
 
-/* Set if device locking support is available */
-#cmakedefine SBUILD_FEATURE_DEVLOCK 1
-
 /* Set if NLS support is available */
 #cmakedefine SBUILD_FEATURE_NLS 1
 

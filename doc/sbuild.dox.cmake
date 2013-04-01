@@ -1603,8 +1603,7 @@ INCLUDE_FILE_PATTERNS  =
 # undefined via #undef or recursively expanded use the := operator
 # instead of the = operator.
 
-PREDEFINED             = SBUILD_FEATURE_DEVLOCK \
-                         SBUILD_FEATURE_PAM \
+PREDEFINED             = SBUILD_FEATURE_PAM \
                          SBUILD_FEATURE_PERSONALITY \
                          SBUILD_FEATURE_BLOCKDEV \
                          SBUILD_FEATURE_BTRFSSNAP \

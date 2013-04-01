@@ -26,7 +26,6 @@ SUBDIRS =	 		\
 	schroot			\
 	schroot-listmounts	\
 	schroot-mount		\
-	schroot-releaselock	\
 	schroot-sbuild		\
 	dchroot			\
 	dchroot-dsa		\

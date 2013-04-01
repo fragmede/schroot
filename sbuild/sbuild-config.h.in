@@ -24,9 +24,6 @@
    correct library to use.  This depends upon the libraries found at
    configure time. */
 
-/* Set if the device locking with liblockdev is available */
-#undef SBUILD_FEATURE_DEVLOCK
-
 /* Set if NLS support is available */
 #undef SBUILD_FEATURE_NLS
 

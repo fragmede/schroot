@@ -201,14 +201,6 @@ set(SCHROOT_CONF "${SCHROOT_SYSCONF_DIR}/schroot.conf")
 # Platform
 string(TOLOWER ${CMAKE_SYSTEM_NAME} SBUILD_PLATFORM)
 
-# Device locking
-check_library_exists(lockdev dev_lock "" LOCKDEV_FUNC)
-set(BUILD_LOCKDEV ${LOCKDEV_FUNC})
-if(BUILD_LOCKDEV)
-  set(LOCKDEV_LIBRARY lockdev)
-endif(BUILD_LOCKDEV)
-set (SBUILD_FEATURE_DEVLOCK ${BUILD_LOCKDEV})
-
 # Localisation with gettext
 include(FindGettext)
 find_package(Gettext)
