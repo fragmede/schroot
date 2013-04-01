@@ -7,6 +7,7 @@ schroot (1.6.6-1) UNRELEASED; urgency=low
   * debian/control:
     - Build-Depend on cmake, drop autotools-dev.
     - Upgrade to Standards-Version 3.9.4 (no changes).
+    - Remove liblockdev from Build-Depends.
   * debian/rules:
     - Replace configure usage with cmake and convert logic for
       configure options to use the cmake equivalents.

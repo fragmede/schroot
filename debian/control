@@ -9,7 +9,6 @@ Build-Depends:
  pkg-config,
  libpam0g-dev,
  uuid-dev [!kfreebsd-any],
- liblockdev1-dev,
  libboost-dev,
  libboost-iostreams-dev,
  libboost-program-options-dev,
