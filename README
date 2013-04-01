@@ -22,7 +22,6 @@ An ISO C++ compiler supporting TR1 (e.g. GCC 4.x), or an ISO C++
 compiler and the Boost libraries
 libstdc++ (GNU libstdc++)
 libpam0g-dev (Linux-PAM)
-liblockdev1-dev
 libboost-dev                 }
 libboost-program-options-dev } The Boost C++ libraries
 libboost-regex-dev           }
@@ -117,7 +116,6 @@ options:
   --enable-lvm-snapshot   Enable support for LVM snapshots
   --enable-btrfs-snapshot Enable support for btrfs snapshots
   --enable-loopback       Enable support for loopback mounts
-  --enable-uuid           Enable support for UUIDs
   --enable-union          Enable support for union mounts
   --enable-doxygen        Enable doxygen documentation
 
