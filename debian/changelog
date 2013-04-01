@@ -15,6 +15,7 @@ schroot (1.7.0-1) UNRELEASED; urgency=low
   * debian/rules:
     - Build using g++ in C++11 mode.
     - Remove UUID support.
+    - Support parallel= in DEB_BUILD_OPTIONS.
 
  -- Roger Leigh <rleigh@debian.org>  Sat, 21 Jul 2012 10:44:09 +0100
 
