@@ -51,7 +51,8 @@ debian/build/config.status: configure
 	  BTRFS=/sbin/btrfs \
 	  BTRFSCTL=/sbin/btrfsctl \
 	  LVCREATE=/sbin/lvcreate \
-	  LVREMOVE=/sbin/lvremove
+	  LVREMOVE=/sbin/lvremove \
+	  CXX='g++ -std=gnu++11'
 	dh_testdir
 
 override_dh_auto_clean:
