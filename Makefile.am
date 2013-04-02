@@ -39,23 +39,23 @@ man_MANS =
 CLEANFILES =
 EXTRA_DIST =
 
-include etc/Makefile.am
-include etc/pam/Makefile.am
-include etc/setup.d/Makefile.am
-include etc/bash_completion/Makefile.am
+include bin/csbuild/Makefile.am
+include bin/dchroot-dsa/Makefile.am
+include bin/dchroot/Makefile.am
+include bin/schroot-base/Makefile.am
+include bin/schroot-sbuild/Makefile.am
+include bin/schroot/Makefile.am
 include contrib/setup.d/Makefile.am
 include doc/Makefile.am
 include doc/historical/Makefile.am
+include etc/Makefile.am
+include etc/bash_completion/Makefile.am
+include etc/pam/Makefile.am
+include etc/setup.d/Makefile.am
+include libexec/schroot-listmounts/Makefile.am
+include libexec/schroot-mount/Makefile.am
 include man/Makefile.am
 include sbuild/Makefile.am
-include bin/schroot-listmounts/Makefile.am
-include bin/dchroot-dsa/Makefile.am
-include bin/csbuild/Makefile.am
-include bin/dchroot/Makefile.am
-include bin/schroot-sbuild/Makefile.am
-include bin/schroot-base/Makefile.am
-include bin/schroot-mount/Makefile.am
-include bin/schroot/Makefile.am
 include test/Makefile.am
 
 SUBDIRS = po
