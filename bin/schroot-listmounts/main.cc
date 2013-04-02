@@ -20,7 +20,7 @@
 
 #include <sbuild/mntstream.h>
 
-#include "schroot-listmounts-main.h"
+#include "main.h"
 
 #include <cerrno>
 #include <climits>

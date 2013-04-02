@@ -19,10 +19,10 @@
 pkglibexec_PROGRAMS += bin/schroot-listmounts/schroot-listmounts
 
 bin_schroot_listmounts_schroot_listmounts_SOURCES =		\
-	bin/schroot-listmounts/schroot-listmounts-main.h	\
-	bin/schroot-listmounts/schroot-listmounts-main.cc	\
-	bin/schroot-listmounts/schroot-listmounts-options.h	\
-	bin/schroot-listmounts/schroot-listmounts-options.cc	\
+	bin/schroot-listmounts/main.h	\
+	bin/schroot-listmounts/main.cc	\
+	bin/schroot-listmounts/options.h	\
+	bin/schroot-listmounts/options.cc	\
 	bin/schroot-listmounts/schroot-listmounts.cc
 bin_schroot_listmounts_schroot_listmounts_LDADD = \
 	$(top_builddir)/bin/schroot-base/libschroot-base.la

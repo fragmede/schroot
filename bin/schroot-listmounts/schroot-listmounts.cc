@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include "schroot-listmounts-options.h"
-#include "schroot-listmounts-main.h"
+#include "options.h"
+#include "main.h"
 
 #include <schroot-base/run.h>
 
