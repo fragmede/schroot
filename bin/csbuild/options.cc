@@ -20,7 +20,7 @@
 
 #include <sbuild/i18n.h>
 
-#include "csbuild-options.h"
+#include "options.h"
 
 #include <cstdlib>
 #include <iostream>

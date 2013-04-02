@@ -20,7 +20,7 @@
 
 #include <sbuild/log.h>
 
-#include "csbuild-main.h"
+#include "main.h"
 
 #include <cerrno>
 #include <cstdlib>

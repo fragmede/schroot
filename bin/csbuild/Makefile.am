@@ -23,12 +23,12 @@ endif
 bin_PROGRAMS += $(csbuild)
 
 bin_csbuild_csbuild_SOURCES =			\
-	bin/csbuild/csbuild-debian-changes.h	\
-	bin/csbuild/csbuild-debian-changes.cc	\
-	bin/csbuild/csbuild-options.h		\
-	bin/csbuild/csbuild-options.cc		\
-	bin/csbuild/csbuild-main.h		\
-	bin/csbuild/csbuild-main.cc		\
+	bin/csbuild/debian-changes.h	\
+	bin/csbuild/debian-changes.cc	\
+	bin/csbuild/options.h		\
+	bin/csbuild/options.cc		\
+	bin/csbuild/main.h		\
+	bin/csbuild/main.cc		\
 	bin/csbuild/csbuild.cc
 bin_csbuild_csbuild_LDADD = $(top_builddir)/bin/schroot/libschroot.la
 

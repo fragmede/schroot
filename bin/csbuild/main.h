@@ -19,7 +19,7 @@
 #ifndef CSBUILD_MAIN_H
 #define CSBUILD_MAIN_H
 
-#include <csbuild/csbuild-options.h>
+#include <csbuild/options.h>
 
 #include <schroot-base/main.h>
 

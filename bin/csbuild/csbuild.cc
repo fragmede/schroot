@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include "csbuild-options.h"
-#include "csbuild-main.h"
+#include "options.h"
+#include "main.h"
 
 #include <schroot-base/run.h>
 

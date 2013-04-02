@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "csbuild-debian-changes.h"
+#include "debian-changes.h"
 
 #include <fstream>
 
