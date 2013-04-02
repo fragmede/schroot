@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "dchroot-options.h"
+#include "options.h"
 
 #include <cstdlib>
 #include <iostream>

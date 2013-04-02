@@ -19,7 +19,7 @@
 #ifndef DCHROOT_MAIN_H
 #define DCHROOT_MAIN_H
 
-#include <dchroot/dchroot-main-base.h>
+#include <dchroot/main-base.h>
 
 /**
  * dchroot program components.
