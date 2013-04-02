@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include "schroot-mount-options.h"
-#include "schroot-mount-main.h"
+#include "options.h"
+#include "main.h"
 
 #include <schroot-base/run.h>
 

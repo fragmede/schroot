@@ -19,10 +19,10 @@
 pkglibexec_PROGRAMS += bin/schroot-mount/schroot-mount
 
 bin_schroot_mount_schroot_mount_SOURCES =		\
-	bin/schroot-mount/schroot-mount-main.h		\
-	bin/schroot-mount/schroot-mount-main.cc		\
-	bin/schroot-mount/schroot-mount-options.h	\
-	bin/schroot-mount/schroot-mount-options.cc	\
+	bin/schroot-mount/main.h		\
+	bin/schroot-mount/main.cc		\
+	bin/schroot-mount/options.h	\
+	bin/schroot-mount/options.cc	\
 	bin/schroot-mount/schroot-mount.cc
 
 bin_schroot_mount_schroot_mount_LDADD = $(BOOST_FILESYSTEM_LIBS)	\

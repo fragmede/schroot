@@ -21,7 +21,7 @@
 #include <sbuild/i18n.h>
 #include <sbuild/util.h>
 
-#include "schroot-mount-options.h"
+#include "options.h"
 
 #include <cstdlib>
 #include <iostream>
