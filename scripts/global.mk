@@ -30,12 +30,12 @@ SCHROOT_CONF=$(schroot_sysconfdir)/schroot.conf
 CSBUILD_CONF=$(sysconfdir)/csbuild.conf
 
 # Global options for use in all Makefiles.
-AM_CXXFLAGS = -I$(top_srcdir) $(LOCAL_CXXFLAGS) $(PTHREAD_CFLAGS) -pedantic -Wall -Wcast-align -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
+AM_CXXFLAGS = -I$(top_builddir)/lib -I$(top_srcdir)/lib -I$(top_srcdir)/bin $(LOCAL_CXXFLAGS) $(PTHREAD_CFLAGS) -pedantic -Wall -Wcast-align -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
 
 AM_LDFLAGS = $(LOCAL_LDFLAGS) $(PTHREAD_LIBS)
 
 # Note, if new definitions are added, also update the manual page
-DEFS = $(LOCAL_DEFS) -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE \
+DEFS = -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE \
 -DSCHROOT_LIBEXEC_DIR=\"$(pkglibexecdir)\" \
 -DSCHROOT_MOUNT_DIR=\"$(schroot_mountdir)\" \
 -DSCHROOT_SESSION_DIR=\"$(schroot_sessiondir)\" \
@@ -49,4 +49,6 @@ DEFS = $(LOCAL_DEFS) -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE \
 -DSCHROOT_SETUP_DATA_DIR=\"$(schroot_setupdatadir)\" \
 -DPACKAGE_LOCALE_DIR=\"$(localedir)\" \
 -DSCHROOT_DATA_DIR=\"$(schroot_datadir)\" \
--DSCHROOT_MODULE_DIR=\"$(schroot_moduledir)\"
+-DSCHROOT_MODULE_DIR=\"$(schroot_moduledir)\" \
+-DLOCALEDIR=\"$(localedir)\" \
+-DCSBUILD_CONF=\"$(CSBUILD_CONF)\"

@@ -25,9 +25,7 @@ include $(top_srcdir)/scripts/git-dist.mk
 
 localedir = $(datadir)/locale
 
-LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -DTESTDATADIR='"test/testdata"' -I$(top_srcdir)/lib -I$(top_srcdir)/bin
-
-LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\" -DCSBUILD_CONF=\"$(CSBUILD_CONF)\"
+LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -DTESTDATADIR='"test/testdata"'
 
 bin_PROGRAMS =
 pkglibexec_PROGRAMS =
