@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include "dchroot-dsa-main.h"
-#include "dchroot-dsa-session.h"
+#include "main.h"
+#include "session.h"
 
 #include <cstdlib>
 #include <iostream>

@@ -22,13 +22,13 @@ endif
 
 bin_PROGRAMS += $(dchroot_dsa)
 
-bin_dchroot_dsa_dchroot_dsa_SOURCES =			\
-	bin/dchroot-dsa/dchroot-dsa-session.h		\
-	bin/dchroot-dsa/dchroot-dsa-session.cc		\
-	bin/dchroot-dsa/dchroot-dsa-options.h		\
-	bin/dchroot-dsa/dchroot-dsa-options.cc		\
-	bin/dchroot-dsa/dchroot-dsa-main.h		\
-	bin/dchroot-dsa/dchroot-dsa-main.cc		\
+bin_dchroot_dsa_dchroot_dsa_SOURCES =	\
+	bin/dchroot-dsa/session.h	\
+	bin/dchroot-dsa/session.cc	\
+	bin/dchroot-dsa/options.h	\
+	bin/dchroot-dsa/options.cc	\
+	bin/dchroot-dsa/main.h		\
+	bin/dchroot-dsa/main.cc		\
 	bin/dchroot-dsa/dchroot-dsa.cc
 bin_dchroot_dsa_dchroot_dsa_LDADD = $(top_builddir)/bin/dchroot/libdchroot.la
 

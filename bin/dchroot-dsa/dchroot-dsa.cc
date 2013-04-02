@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include "dchroot-dsa-main.h"
-#include "dchroot-dsa-options.h"
+#include "main.h"
+#include "options.h"
 
 #include <schroot-base/schroot-base-run.h>
 
