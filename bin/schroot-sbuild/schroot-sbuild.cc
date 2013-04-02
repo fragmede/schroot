@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "schroot-sbuild-main.h"
+#include "main.h"
 #include <schroot/options.h>
 
 #include <schroot-base/run.h>

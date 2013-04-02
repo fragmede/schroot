@@ -20,7 +20,7 @@
 
 #include <sbuild/util.h>
 
-#include "schroot-sbuild-session.h"
+#include "session.h"
 
 #include <cassert>
 #include <cerrno>

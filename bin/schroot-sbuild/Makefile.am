@@ -21,10 +21,10 @@ schroot_sbuild = bin/schroot-sbuild/schroot-sbuild
 bin_PROGRAMS += $(schroot_sbuild)
 
 bin_schroot_sbuild_schroot_sbuild_SOURCES =		\
-	bin/schroot-sbuild/schroot-sbuild-session.h	\
-	bin/schroot-sbuild/schroot-sbuild-session.cc	\
-	bin/schroot-sbuild/schroot-sbuild-main.h	\
-	bin/schroot-sbuild/schroot-sbuild-main.cc	\
+	bin/schroot-sbuild/session.h	\
+	bin/schroot-sbuild/session.cc	\
+	bin/schroot-sbuild/main.h	\
+	bin/schroot-sbuild/main.cc	\
 	bin/schroot-sbuild/schroot-sbuild.cc
 bin_schroot_sbuild_schroot_sbuild_LDADD = $(top_builddir)/bin/schroot/libschroot-all.la
 

@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include "schroot-sbuild-main.h"
-#include "schroot-sbuild-session.h"
+#include "main.h"
+#include "session.h"
 
 #include <cstdlib>
 #include <iostream>
