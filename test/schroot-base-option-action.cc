@@ -16,8 +16,8 @@
  *
  *********************************************************************/
 
-#include <schroot-base/schroot-base-option-action.h>
-#include <schroot-base/schroot-base-options.h>
+#include <schroot-base/option-action.h>
+#include <schroot-base/options.h>
 
 #include <iostream>
 
