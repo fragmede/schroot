@@ -231,7 +231,7 @@ if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 
     if [ -n "$SETUP_FSTAB" ]; then
         if [ -f "$SETUP_FSTAB" ]; then
-            "$LIBEXEC_DIR/schroot-mount" $MOUNT_VERBOSE \
+            "$LIBEXEC_DIR/mount" $MOUNT_VERBOSE \
                 -f "$SETUP_FSTAB" -m "$CHROOT_PATH"
         else
             fatal "setup_fstab file '$SETUP_FSTAB' does not exist"

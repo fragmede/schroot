@@ -16,15 +16,15 @@
 #
 #####################################################################
 
-pkglibexec_PROGRAMS += libexec/schroot-mount/schroot-mount
+pkglibexec_PROGRAMS += libexec/schroot-mount/mount
 
-bin_schroot_mount_schroot_mount_SOURCES =		\
+libexec_schroot_mount_mount_SOURCES =		\
 	libexec/schroot-mount/main.h		\
 	libexec/schroot-mount/main.cc		\
-	libexec/schroot-mount/options.h	\
+	libexec/schroot-mount/options.h		\
 	libexec/schroot-mount/options.cc	\
-	libexec/schroot-mount/schroot-mount.cc
+	libexec/schroot-mount/mount.cc
 
-bin_schroot_mount_schroot_mount_LDADD = $(BOOST_FILESYSTEM_LIBS)	\
+libexec_schroot_mount_mount_LDADD = $(BOOST_FILESYSTEM_LIBS)	\
 	$(top_builddir)/bin/schroot-base/libschroot-base.la
 
