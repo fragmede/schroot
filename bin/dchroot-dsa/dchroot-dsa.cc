@@ -21,7 +21,7 @@
 #include "main.h"
 #include "options.h"
 
-#include <schroot-base/schroot-base-run.h>
+#include <schroot-base/run.h>
 
 using std::endl;
 using boost::format;

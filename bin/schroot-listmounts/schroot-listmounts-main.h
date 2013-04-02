@@ -19,7 +19,7 @@
 #ifndef SCHROOT_LISTMOUNTS_MAIN_H
 #define SCHROOT_LISTMOUNTS_MAIN_H
 
-#include <schroot-base/schroot-base-main.h>
+#include <schroot-base/main.h>
 
 #include <schroot-listmounts/schroot-listmounts-options.h>
 

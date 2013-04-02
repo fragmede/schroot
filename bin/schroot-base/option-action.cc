@@ -20,8 +20,8 @@
 
 #include <sbuild/i18n.h>
 
-#include "schroot-base-option-action.h"
-#include "schroot-base-options.h"
+#include "option-action.h"
+#include "options.h"
 
 #include <iomanip>
 

@@ -19,7 +19,7 @@
 #ifndef SCHROOT_MOUNT_MAIN_H
 #define SCHROOT_MOUNT_MAIN_H
 
-#include <schroot-base/schroot-base-main.h>
+#include <schroot-base/main.h>
 
 #include <schroot-mount/schroot-mount-options.h>
 

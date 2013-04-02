@@ -21,7 +21,7 @@
 #include "schroot-mount-options.h"
 #include "schroot-mount-main.h"
 
-#include <schroot-base/schroot-base-run.h>
+#include <schroot-base/run.h>
 
 using std::endl;
 using boost::format;

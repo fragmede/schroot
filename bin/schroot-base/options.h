@@ -22,7 +22,7 @@
 #include <sbuild/session.h>
 #include <sbuild/types.h>
 
-#include <schroot-base/schroot-base-option-action.h>
+#include <schroot-base/option-action.h>
 
 #include <memory>
 #include <string>

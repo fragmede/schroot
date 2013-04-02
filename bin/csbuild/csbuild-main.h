@@ -21,7 +21,7 @@
 
 #include <csbuild/csbuild-options.h>
 
-#include <schroot-base/schroot-base-main.h>
+#include <schroot-base/main.h>
 
 namespace csbuild
 {

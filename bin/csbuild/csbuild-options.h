@@ -19,7 +19,7 @@
 #ifndef CSBUILD_OPTIONS_H
 #define CSBUILD_OPTIONS_H
 
-#include <schroot-base/schroot-base-options.h>
+#include <schroot-base/options.h>
 
 #include <sbuild/types.h>
 

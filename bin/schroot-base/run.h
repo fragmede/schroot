@@ -19,7 +19,7 @@
 #ifndef SCHROOT_BASE_RUN_H
 #define SCHROOT_BASE_RUN_H
 
-#include <schroot-base/schroot-base-options.h>
+#include <schroot-base/options.h>
 
 #include <sbuild/config.h>
 

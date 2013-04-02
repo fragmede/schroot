@@ -18,12 +18,12 @@
 
 noinst_LTLIBRARIES += bin/schroot-base/libschroot-base.la
 
-bin_schroot_base_libschroot_base_la_SOURCES =		\
-	bin/schroot-base/schroot-base-main.h		\
-	bin/schroot-base/schroot-base-main.cc		\
-	bin/schroot-base/schroot-base-option-action.h	\
-	bin/schroot-base/schroot-base-option-action.cc	\
-	bin/schroot-base/schroot-base-options.h		\
-	bin/schroot-base/schroot-base-options.cc	\
-	bin/schroot-base/schroot-base-run.h
+bin_schroot_base_libschroot_base_la_SOURCES =	\
+	bin/schroot-base/main.h			\
+	bin/schroot-base/main.cc		\
+	bin/schroot-base/option-action.h	\
+	bin/schroot-base/option-action.cc	\
+	bin/schroot-base/options.h		\
+	bin/schroot-base/options.cc		\
+	bin/schroot-base/run.h
 bin_schroot_base_libschroot_base_la_LIBADD = $(top_builddir)/sbuild/libsbuild.la
