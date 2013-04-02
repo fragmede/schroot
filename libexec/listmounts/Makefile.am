@@ -25,4 +25,4 @@ libexec_listmounts_listmounts_SOURCES =	\
 	libexec/listmounts/options.cc	\
 	libexec/listmounts/listmounts.cc
 libexec_listmounts_listmounts_LDADD = \
-	$(top_builddir)/bin/schroot-base/libschroot-base.la
+	$(top_builddir)/lib/schroot-base/libschroot-base.la

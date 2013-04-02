@@ -42,7 +42,6 @@ EXTRA_DIST =
 include bin/csbuild/Makefile.am
 include bin/dchroot-dsa/Makefile.am
 include bin/dchroot/Makefile.am
-include bin/schroot-base/Makefile.am
 include bin/schroot-sbuild/Makefile.am
 include bin/schroot/Makefile.am
 include contrib/setup.d/Makefile.am
@@ -53,6 +52,7 @@ include etc/bash_completion/Makefile.am
 include etc/pam/Makefile.am
 include etc/setup.d/Makefile.am
 include lib/sbuild/Makefile.am
+include lib/schroot-base/Makefile.am
 include libexec/listmounts/Makefile.am
 include libexec/mount/Makefile.am
 include man/Makefile.am

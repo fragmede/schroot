@@ -179,7 +179,7 @@ test_sbuild_util_SOURCES = test/sbuild/util.cc
 test_sbuild_util_LDADD = test/libtest.la
 
 test_schroot_base_option_action_SOURCES = test/schroot-base/option-action.cc
-test_schroot_base_option_action_LDADD = $(top_builddir)/bin/schroot-base/libschroot-base.la test/libtest.la
+test_schroot_base_option_action_LDADD = $(top_builddir)/lib/schroot-base/libschroot-base.la test/libtest.la
 
 EXTRA_DIST += 					\
 	test/keyfile.ex1			\

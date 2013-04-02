@@ -22,7 +22,7 @@ endif
 
 bin_PROGRAMS += $(csbuild)
 
-bin_csbuild_csbuild_SOURCES =			\
+bin_csbuild_csbuild_SOURCES =		\
 	bin/csbuild/debian-changes.h	\
 	bin/csbuild/debian-changes.cc	\
 	bin/csbuild/options.h		\
