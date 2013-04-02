@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.6.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-04-01 17:41+0100\n"
+"POT-Creation-Date: 2013-04-02 23:26+0100\n"
 "PO-Revision-Date: 2012-05-31 17:34+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -294,125 +294,6 @@ msgstr "Bruger kun --chroots"
 msgid "dchroot session restriction"
 msgstr "dchrootsessionsbegrænsning"
 
-#. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = release date
-#, boost-format
-msgid "%1% (Debian sbuild) %2% (%3%)"
-msgstr "%1% (Debian sbuild) %2% (%3%)"
-
-#. TRANSLATORS: %1% = copyright year (start)
-#. TRANSLATORS: %2% = copyright year (end)
-#, boost-format
-msgid "Copyright © %1%–%2% Roger Leigh"
-msgstr "Ophavsret %1%–%2% Roger Leigh"
-
-msgid "Written by Roger Leigh"
-msgstr "Skrevet af Roger Leigh"
-
-msgid ""
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
-msgstr ""
-"Dette er fri software; se kildekoden for kopieringsbetingelser. Der er "
-"INGEN\n"
-"garanti; end ikke for SALGBARHED eller EGNETHED TIL ET SPECIFIKT FORMÅL.\n"
-
-msgid "Configured features:"
-msgstr "Konfigurerede funktioner:"
-
-msgid "Usage:"
-msgstr "Brug:"
-
-#. TRANSLATORS: %1% = program name
-#, boost-format
-msgid "Run “%1% --help” to list usage example and all available options"
-msgstr "Kør »%1% --help« for at vise eksempel og alle tilgængelige tilvalg"
-
-#, boost-format
-msgid "%1%: invalid action"
-msgstr "%1%: Ugyldig handling"
-
-msgid "Only one action may be specified"
-msgstr "Kun en handling må angives"
-
-msgid "Actions"
-msgstr "Handlinger"
-
-msgid "General options"
-msgstr "Generelle tilvalg"
-
-msgid "Hidden options"
-msgstr "Skjulte tilvalg"
-
-msgid "Show help options"
-msgstr "Vis hjælpetilvalg"
-
-msgid "Print version information"
-msgstr "Udskriv versionsinformation"
-
-# tror jeg ville skrive mindre/mere, men det er sikkert forkert
-msgid "Show less output"
-msgstr "Vis færre uddata"
-
-msgid "Show more output"
-msgstr "Vis flere uddata"
-
-msgid "Enable debugging messages"
-msgstr "Aktiver fejlsøgningsbeskeder"
-
-msgid "Invalid debug level"
-msgstr "Ugyldigt fejlsøgningsniveau"
-
-#. TRANSLATORS: %1% = file
-#, boost-format
-msgid "Failed to find ‘%1%’"
-msgstr "Kunne ikke finde »%1%«"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-msgid "[OPTION…] — list mount points"
-msgstr "[TILVALG…] — vis monteringspunkter"
-
-msgid "Mount"
-msgstr "Monter"
-
-msgid "Mountpoint to check (full path)"
-msgstr "Monteringspunkt at tjekke (fuld sti)"
-
-msgid "No mount point specified"
-msgstr "Intet monteringspunkt angivet"
-
-msgid "Failed to fork child"
-msgstr "Kunne ikke forgrene underproces"
-
-msgid "Wait for child failed"
-msgstr "Vent på underproces mislykkedes"
-
-#. TRANSLATORS: %1% = command name
-#. TRANSLATORS: %1% = command
-#, boost-format
-msgid "Failed to execute “%1%”"
-msgstr "Kunne ikke køre »%1%«"
-
-#, fuzzy, boost-format
-msgid "Failed to resolve path “%1%”"
-msgstr "Kunne ikke køre »%1%«"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-msgid "[OPTION…] — mount filesystems"
-msgstr "[TILVALG…] — monter filsystemer"
-
-msgid "An unknown exception occurred"
-msgstr "Der opstod en ukendt fejl"
-
-msgid "Perform a simulation of actions which would be taken"
-msgstr "Udfør en simulering af handlinger som vil blive udført"
-
-msgid "fstab file to read (full path)"
-msgstr "fstba-fil at læse (fuld sti)"
-
 #. TRANSLATORS: %4% = file
 #, boost-format
 msgid "No chroots are defined in ‘%4%’"
@@ -559,6 +440,177 @@ msgstr "Sessionsnavn (er som standard et automatisk oprettet navn)"
 msgid "Force operation, even if it fails"
 msgstr "Gennemtving handling, selv hvis den fejler"
 
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = release date
+#, boost-format
+msgid "%1% (Debian sbuild) %2% (%3%)"
+msgstr "%1% (Debian sbuild) %2% (%3%)"
+
+#. TRANSLATORS: %1% = copyright year (start)
+#. TRANSLATORS: %2% = copyright year (end)
+#, boost-format
+msgid "Copyright © %1%–%2% Roger Leigh"
+msgstr "Ophavsret %1%–%2% Roger Leigh"
+
+msgid "Written by Roger Leigh"
+msgstr "Skrevet af Roger Leigh"
+
+msgid ""
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"Dette er fri software; se kildekoden for kopieringsbetingelser. Der er "
+"INGEN\n"
+"garanti; end ikke for SALGBARHED eller EGNETHED TIL ET SPECIFIKT FORMÅL.\n"
+
+msgid "Configured features:"
+msgstr "Konfigurerede funktioner:"
+
+msgid "Usage:"
+msgstr "Brug:"
+
+#. TRANSLATORS: %1% = program name
+#, boost-format
+msgid "Run “%1% --help” to list usage example and all available options"
+msgstr "Kør »%1% --help« for at vise eksempel og alle tilgængelige tilvalg"
+
+#, boost-format
+msgid "%1%: invalid action"
+msgstr "%1%: Ugyldig handling"
+
+msgid "Only one action may be specified"
+msgstr "Kun en handling må angives"
+
+msgid "Actions"
+msgstr "Handlinger"
+
+msgid "General options"
+msgstr "Generelle tilvalg"
+
+msgid "Hidden options"
+msgstr "Skjulte tilvalg"
+
+msgid "Show help options"
+msgstr "Vis hjælpetilvalg"
+
+msgid "Print version information"
+msgstr "Udskriv versionsinformation"
+
+# tror jeg ville skrive mindre/mere, men det er sikkert forkert
+msgid "Show less output"
+msgstr "Vis færre uddata"
+
+msgid "Show more output"
+msgstr "Vis flere uddata"
+
+msgid "Enable debugging messages"
+msgstr "Aktiver fejlsøgningsbeskeder"
+
+msgid "Invalid debug level"
+msgstr "Ugyldigt fejlsøgningsniveau"
+
+#. TRANSLATORS: %1% = file
+#, boost-format
+msgid "Failed to find ‘%1%’"
+msgstr "Kunne ikke finde »%1%«"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+msgid "[OPTION…] — list mount points"
+msgstr "[TILVALG…] — vis monteringspunkter"
+
+msgid "Mount"
+msgstr "Monter"
+
+msgid "Mountpoint to check (full path)"
+msgstr "Monteringspunkt at tjekke (fuld sti)"
+
+msgid "No mount point specified"
+msgstr "Intet monteringspunkt angivet"
+
+msgid "Failed to fork child"
+msgstr "Kunne ikke forgrene underproces"
+
+msgid "Wait for child failed"
+msgstr "Vent på underproces mislykkedes"
+
+#. TRANSLATORS: %1% = command name
+#. TRANSLATORS: %1% = command
+#, boost-format
+msgid "Failed to execute “%1%”"
+msgstr "Kunne ikke køre »%1%«"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
+msgstr "Kunne ikke køre »%1%«"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+msgid "[OPTION…] — mount filesystems"
+msgstr "[TILVALG…] — monter filsystemer"
+
+msgid "An unknown exception occurred"
+msgstr "Der opstod en ukendt fejl"
+
+msgid "Perform a simulation of actions which would be taken"
+msgstr "Udfør en simulering af handlinger som vil blive udført"
+
+msgid "fstab file to read (full path)"
+msgstr "fstba-fil at læse (fuld sti)"
+
+#. TRANSLATORS: %1% = program name (PAM service name)
+#, boost-format
+msgid "You do not have permission to access the %1% service."
+msgstr "Du har ikke tilladelse til at tilgå tjenesten %1%."
+
+msgid "This failure will be reported."
+msgstr "Denne fejl vil blive rapporteret."
+
+msgid "No controlling terminal"
+msgstr "Ingen kontrollerende terminal"
+
+msgid "Timed out"
+msgstr "Fik tidsudløb"
+
+#. TRANSLATORS: Please use an ellipsis e.g. U+2026
+msgid "Time is running out…"
+msgstr "Tiden løber ud…"
+
+msgid "Failed to get terminal settings"
+msgstr "Kunne ikke indhente terminalopsætning"
+
+#. TRANSLATORS: %1% = integer
+#, boost-format
+msgid "Unsupported conversation type ‘%1%’"
+msgstr "Konversationstype »%1%« er ikke understøttet"
+
+msgid "Password: "
+msgstr "Adgangskode: "
+
+msgid "Password:"
+msgstr "Adgangskode:"
+
+#, boost-format
+msgid "[schroot] password for %1%: "
+msgstr "[schroot] adgangskode for %1%: "
+
+# engelsk fejl plugable?
+msgid "Pluggable Authentication Modules"
+msgstr "Indstikbare godkendelsesmoduler"
+
+msgid "Set RUSER"
+msgstr "Angiv RUSER"
+
+msgid "Set RHOST"
+msgstr "Angiv RHOST"
+
+msgid "Set TTY"
+msgstr "Angiv TTY"
+
+msgid "Set USER"
+msgstr "Angiv BRUGER"
+
 msgid "Failed to get hostname"
 msgstr "Kunne ikke indhente værtsnavn"
 
@@ -588,58 +640,6 @@ msgstr "PAM-fejl"
 msgid "PAM failed to shut down cleanly"
 msgstr "PAM kunne ikke lukke pænt ned"
 
-#. TRANSLATORS: %1% = program name (PAM service name)
-#, boost-format
-msgid "You do not have permission to access the %1% service."
-msgstr "Du har ikke tilladelse til at tilgå tjenesten %1%."
-
-msgid "This failure will be reported."
-msgstr "Denne fejl vil blive rapporteret."
-
-msgid "Password: "
-msgstr "Adgangskode: "
-
-msgid "Password:"
-msgstr "Adgangskode:"
-
-#, boost-format
-msgid "[schroot] password for %1%: "
-msgstr "[schroot] adgangskode for %1%: "
-
-# engelsk fejl plugable?
-msgid "Pluggable Authentication Modules"
-msgstr "Indstikbare godkendelsesmoduler"
-
-msgid "Set RUSER"
-msgstr "Angiv RUSER"
-
-msgid "Set RHOST"
-msgstr "Angiv RHOST"
-
-msgid "Set TTY"
-msgstr "Angiv TTY"
-
-msgid "Set USER"
-msgstr "Angiv BRUGER"
-
-msgid "No controlling terminal"
-msgstr "Ingen kontrollerende terminal"
-
-msgid "Timed out"
-msgstr "Fik tidsudløb"
-
-#. TRANSLATORS: Please use an ellipsis e.g. U+2026
-msgid "Time is running out…"
-msgstr "Tiden løber ud…"
-
-msgid "Failed to get terminal settings"
-msgstr "Kunne ikke indhente terminalopsætning"
-
-#. TRANSLATORS: %1% = integer
-#, boost-format
-msgid "Unsupported conversation type ‘%1%’"
-msgstr "Konversationstype »%1%« er ikke understøttet"
-
 msgid "Device"
 msgstr "Enhed"
 
@@ -651,159 +651,6 @@ msgstr "Mappe for Btrfs-øjebliksbillede"
 
 msgid "Btrfs Snapshot Name"
 msgstr "Navn for Btrfs-øjebliksbillede"
-
-msgid "Chroot creation failed"
-msgstr "Chrootoprettelse mislykkedes"
-
-msgid "Device name not set"
-msgstr "Enhedsnavn ikke angivet"
-
-#. TRANSLATORS: %1% = chroot type name
-#, boost-format
-msgid "Unknown chroot type ‘%1%’"
-msgstr "Ukendt chroottype »%1%«"
-
-msgid "Device must have an absolute path"
-msgstr "Enhed skal have en absolut sti"
-
-msgid "Failed to lock device"
-msgstr "Kunne ikke låse enhed"
-
-msgid "File is not a block device"
-msgstr "Fil er ikke en blokenhed"
-
-msgid "Failed to unlock device"
-msgstr "Kunne ikke låse enhed op"
-
-msgid "Directory must have an absolute path"
-msgstr "Mappe skal have en absolut sti"
-
-msgid "Attempt to add object which is not a facet"
-msgstr "Forsøg at tilføje objekt som ikke er en facet"
-
-msgid "Attempt to add facet which is already in use"
-msgstr "Forsøg at tilføje facet som allerede er i brug"
-
-msgid "File must have an absolute path"
-msgstr "Fil skal have en absolut sti"
-
-msgid "Failed to acquire file lock"
-msgstr "Kunne ikke opnå fillås"
-
-msgid "File is not a regular file"
-msgstr "Fil er ikke en regulær fil"
-
-msgid "File is not owned by user root"
-msgstr "Fil er ikke ejet af brugerrod"
-
-msgid "File has write permissions for others"
-msgstr "Fil har skriverettigheder for andre"
-
-msgid "Failed to discard file lock"
-msgstr "Kunne ikke fjerne fillås"
-
-msgid "Location must have an absolute path"
-msgstr "Sted skal have en absolut sti"
-
-msgid "Invalid name"
-msgstr "Ugyldigt navn"
-
-#, boost-format
-msgid "Could not set profile name from script configuration path ‘%1%’"
-msgstr "Kunne ikke angive profilnavn fra skriptkonfigurationssti »%1%«"
-
-#. TRANSLATORS: unlink refers to the C function which removes a file
-msgid "Failed to unlink session file"
-msgstr "Kunne ikke fjerne henvisning på sessionsfil"
-
-msgid "Failed to write session file"
-msgstr "Kunne ikke skrive sessionsfil"
-
-msgid "Message verbosity is invalid"
-msgstr "Detaljegrad for besked er ugyldig"
-
-#, boost-format
-msgid "Namespace separator ‘%1%’ may not be used in a chroot name"
-msgstr "Navnerumsadskiller »%1%« må ikke bruges i et chrootnavn"
-
-msgid "Naming restrictions are documented in schroot.conf(5)"
-msgstr "Navnebegrænsninger er dokumenteret i schroot.conf(5)"
-
-#, boost-format
-msgid "Namespace separator ‘%1%’ may not be used in an alias name"
-msgstr "Navnerumsadskiller »%1%« må ikke bruges i et aliasnavn"
-
-msgid "Name"
-msgstr "Navn"
-
-msgid "Description"
-msgstr "Beskrivelse"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Message Verbosity"
-msgstr "Detaljegrad for besked"
-
-msgid "Users"
-msgstr "Brugere"
-
-msgid "Groups"
-msgstr "Grupper"
-
-msgid "Root Users"
-msgstr "Rodbrugere (root)"
-
-msgid "Root Groups"
-msgstr "Rodgrupper (root)"
-
-msgid "Aliases"
-msgstr "Aliasser"
-
-msgid "Preserve Environment"
-msgstr "Bevar miljø"
-
-msgid "Default Shell"
-msgstr "Standardskal"
-
-msgid "Environment Filter"
-msgstr "Miljøfilter"
-
-msgid "Run Setup Scripts"
-msgstr "Kør opsætningsskripter"
-
-msgid "Configuration Profile"
-msgstr "Konfigurationsprofil"
-
-msgid "Script Configuration"
-msgstr "Skriptkonfiguration"
-
-msgid "Session Managed"
-msgstr "Session håndteret"
-
-msgid "Session Cloned"
-msgstr "Session klonet"
-
-msgid "Session Purged"
-msgstr "Session fjernet"
-
-msgid "Command Prefix"
-msgstr "Kommandopræfiks"
-
-msgid "Mount Location"
-msgstr "Monteringssted"
-
-msgid "Path"
-msgstr "Sti"
-
-msgid "Chroot"
-msgstr "Chroot"
-
-msgid "Session"
-msgstr "Session"
-
-msgid "Source"
-msgstr "Kilde"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -826,8 +673,20 @@ msgstr "%1%: Chroot'er ikke fundet"
 msgid "A chroot or alias ‘%1%’ already exists with this name"
 msgstr "En chroot eller alias »%1%« findes allerede med dette navn"
 
+msgid "File is not a regular file"
+msgstr "Fil er ikke en regulær fil"
+
 msgid "Failed to open file"
 msgstr "Kunne ikke åben fil"
+
+msgid "File is not owned by user root"
+msgstr "Fil er ikke ejet af brugerrod"
+
+msgid "File has write permissions for others"
+msgstr "Fil har skriverettigheder for andre"
+
+msgid "Invalid name"
+msgstr "Ugyldigt navn"
 
 msgid "No such namespace"
 msgstr "Intet sådant navnerum"
@@ -855,6 +714,9 @@ msgstr "Sted"
 msgid "Personality"
 msgstr "Personalitet"
 
+msgid "(session chroot)"
+msgstr "(sessionschroot)"
+
 msgid "Original Chroot Name"
 msgstr "Oprindeligt Chrootnavn"
 
@@ -863,9 +725,6 @@ msgstr "Valgt Chrootnavn"
 
 msgid "Session ID"
 msgstr "Session-id"
-
-msgid "(session chroot)"
-msgstr "(sessionschroot)"
 
 msgid "(source chroot)"
 msgstr "(kildechroot)"
@@ -971,6 +830,147 @@ msgstr "Øjebliksbilledenhed for LVM"
 
 msgid "LVM Snapshot Options"
 msgstr "Øjebliksbilledtilvalg for LVM"
+
+msgid "Chroot creation failed"
+msgstr "Chrootoprettelse mislykkedes"
+
+msgid "Device name not set"
+msgstr "Enhedsnavn ikke angivet"
+
+#. TRANSLATORS: %1% = chroot type name
+#, boost-format
+msgid "Unknown chroot type ‘%1%’"
+msgstr "Ukendt chroottype »%1%«"
+
+msgid "Device must have an absolute path"
+msgstr "Enhed skal have en absolut sti"
+
+msgid "Failed to lock device"
+msgstr "Kunne ikke låse enhed"
+
+msgid "File is not a block device"
+msgstr "Fil er ikke en blokenhed"
+
+msgid "Failed to unlock device"
+msgstr "Kunne ikke låse enhed op"
+
+msgid "Directory must have an absolute path"
+msgstr "Mappe skal have en absolut sti"
+
+msgid "Attempt to add object which is not a facet"
+msgstr "Forsøg at tilføje objekt som ikke er en facet"
+
+msgid "Attempt to add facet which is already in use"
+msgstr "Forsøg at tilføje facet som allerede er i brug"
+
+msgid "File must have an absolute path"
+msgstr "Fil skal have en absolut sti"
+
+msgid "Failed to acquire file lock"
+msgstr "Kunne ikke opnå fillås"
+
+msgid "Failed to discard file lock"
+msgstr "Kunne ikke fjerne fillås"
+
+msgid "Location must have an absolute path"
+msgstr "Sted skal have en absolut sti"
+
+#, boost-format
+msgid "Could not set profile name from script configuration path ‘%1%’"
+msgstr "Kunne ikke angive profilnavn fra skriptkonfigurationssti »%1%«"
+
+#. TRANSLATORS: unlink refers to the C function which removes a file
+msgid "Failed to unlink session file"
+msgstr "Kunne ikke fjerne henvisning på sessionsfil"
+
+msgid "Failed to write session file"
+msgstr "Kunne ikke skrive sessionsfil"
+
+msgid "Message verbosity is invalid"
+msgstr "Detaljegrad for besked er ugyldig"
+
+#, boost-format
+msgid "Namespace separator ‘%1%’ may not be used in a chroot name"
+msgstr "Navnerumsadskiller »%1%« må ikke bruges i et chrootnavn"
+
+msgid "Naming restrictions are documented in schroot.conf(5)"
+msgstr "Navnebegrænsninger er dokumenteret i schroot.conf(5)"
+
+#, boost-format
+msgid "Namespace separator ‘%1%’ may not be used in an alias name"
+msgstr "Navnerumsadskiller »%1%« må ikke bruges i et aliasnavn"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid "Description"
+msgstr "Beskrivelse"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Message Verbosity"
+msgstr "Detaljegrad for besked"
+
+msgid "Users"
+msgstr "Brugere"
+
+msgid "Groups"
+msgstr "Grupper"
+
+msgid "Root Users"
+msgstr "Rodbrugere (root)"
+
+msgid "Root Groups"
+msgstr "Rodgrupper (root)"
+
+msgid "Aliases"
+msgstr "Aliasser"
+
+msgid "Preserve Environment"
+msgstr "Bevar miljø"
+
+msgid "Default Shell"
+msgstr "Standardskal"
+
+msgid "Environment Filter"
+msgstr "Miljøfilter"
+
+msgid "Run Setup Scripts"
+msgstr "Kør opsætningsskripter"
+
+msgid "Configuration Profile"
+msgstr "Konfigurationsprofil"
+
+msgid "Script Configuration"
+msgstr "Skriptkonfiguration"
+
+msgid "Session Managed"
+msgstr "Session håndteret"
+
+msgid "Session Cloned"
+msgstr "Session klonet"
+
+msgid "Session Purged"
+msgstr "Session fjernet"
+
+msgid "Command Prefix"
+msgstr "Kommandopræfiks"
+
+msgid "Mount Location"
+msgstr "Monteringssted"
+
+msgid "Path"
+msgstr "Sti"
+
+msgid "Chroot"
+msgstr "Chroot"
+
+msgid "Session"
+msgstr "Session"
+
+msgid "Source"
+msgstr "Kilde"
 
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr "Den kontrollerende terminals luk-ved-kørsel-flag kunne ikke angives"

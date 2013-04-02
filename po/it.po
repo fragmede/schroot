@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.16-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-04-01 17:41+0100\n"
+"POT-Creation-Date: 2013-04-02 23:26+0100\n"
 "PO-Revision-Date: 2010-12-07 20:01+0100\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -283,128 +283,6 @@ msgstr "Utilizzando solo «--chroots»"
 msgid "dchroot session restriction"
 msgstr "Restrizioni della sessione dchroot"
 
-#. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = release date
-#, fuzzy, boost-format
-msgid "%1% (Debian sbuild) %2% (%3%)"
-msgstr "%1% (sbuild Debian) %2% (%3%)\n"
-
-#. TRANSLATORS: %1% = copyright year (start)
-#. TRANSLATORS: %2% = copyright year (end)
-#, fuzzy, boost-format
-msgid "Copyright © %1%–%2% Roger Leigh"
-msgstr "Copyright © 2004–2011 Roger Leigh"
-
-msgid "Written by Roger Leigh"
-msgstr "Scritto da Roger Leigh"
-
-msgid ""
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
-msgstr ""
-"Questo è software libero; per le condizioni di copia si veda il sorgente.\n"
-"NON viene fornita alcuna garanzia, nemmeno di USABILITÀ o di ADATTABILITÀ\n"
-"PER UNO SCOPO PARTICOLARE.\n"
-
-msgid "Configured features:"
-msgstr "Funzionalità configurate:"
-
-msgid "Usage:"
-msgstr "Uso:"
-
-#. TRANSLATORS: %1% = program name
-#, fuzzy, boost-format
-msgid "Run “%1% --help” to list usage example and all available options"
-msgstr ""
-"Per visualizzare esempi sull'uso e tutte le opzioni disponibili eseguire "
-"«%1% --help»"
-
-#, boost-format
-msgid "%1%: invalid action"
-msgstr "%1%: azione non valida"
-
-msgid "Only one action may be specified"
-msgstr "È possibile specificare una sola azione"
-
-msgid "Actions"
-msgstr "Azioni"
-
-msgid "General options"
-msgstr "Opzioni generali"
-
-msgid "Hidden options"
-msgstr "Opzioni nascoste"
-
-msgid "Show help options"
-msgstr "Mostra le opzioni di aiuto"
-
-msgid "Print version information"
-msgstr "Mostra le informazioni sulla versione"
-
-msgid "Show less output"
-msgstr "Mostra meno output"
-
-msgid "Show more output"
-msgstr "Mostra più output"
-
-msgid "Enable debugging messages"
-msgstr "Abilita i messaggi di debug"
-
-msgid "Invalid debug level"
-msgstr "Livello di debug non valido"
-
-#. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
-msgid "Failed to find ‘%1%’"
-msgstr "Impossibile trovare «%1%»"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — list mount points"
-msgstr "[OPZIONE...] - elenca i punti di montaggio"
-
-msgid "Mount"
-msgstr "Monta"
-
-msgid "Mountpoint to check (full path)"
-msgstr "Punto di montaggio da controllare (percorso completo)"
-
-msgid "No mount point specified"
-msgstr "Non è stato specificato alcun punto di montaggio"
-
-msgid "Failed to fork child"
-msgstr "Impossibile effettuare il fork del figlio"
-
-msgid "Wait for child failed"
-msgstr "Attesa per il figlio non riuscita"
-
-#. TRANSLATORS: %1% = command name
-#. TRANSLATORS: %1% = command
-#, fuzzy, boost-format
-msgid "Failed to execute “%1%”"
-msgstr "Esecuzione di «%1%» non riuscita"
-
-#, fuzzy, boost-format
-msgid "Failed to resolve path “%1%”"
-msgstr "Esecuzione di «%1%» non riuscita"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — mount filesystems"
-msgstr "[OPZIONE...] - monta i file system"
-
-msgid "An unknown exception occurred"
-msgstr "Si è verificato un errore sconosciuto"
-
-msgid "Perform a simulation of actions which would be taken"
-msgstr "Esegue una simulazione delle azioni che verrebbero intraprese"
-
-msgid "fstab file to read (full path)"
-msgstr "fstab da leggere (percorso completo)"
-
 #. TRANSLATORS: %4% = file
 #, fuzzy, boost-format
 msgid "No chroots are defined in ‘%4%’"
@@ -564,6 +442,180 @@ msgstr "Nome della sessione (predefinito: un nome generato automaticamente)"
 msgid "Force operation, even if it fails"
 msgstr "Forza l'operazione anche se non riesce"
 
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = release date
+#, fuzzy, boost-format
+msgid "%1% (Debian sbuild) %2% (%3%)"
+msgstr "%1% (sbuild Debian) %2% (%3%)\n"
+
+#. TRANSLATORS: %1% = copyright year (start)
+#. TRANSLATORS: %2% = copyright year (end)
+#, fuzzy, boost-format
+msgid "Copyright © %1%–%2% Roger Leigh"
+msgstr "Copyright © 2004–2011 Roger Leigh"
+
+msgid "Written by Roger Leigh"
+msgstr "Scritto da Roger Leigh"
+
+msgid ""
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"Questo è software libero; per le condizioni di copia si veda il sorgente.\n"
+"NON viene fornita alcuna garanzia, nemmeno di USABILITÀ o di ADATTABILITÀ\n"
+"PER UNO SCOPO PARTICOLARE.\n"
+
+msgid "Configured features:"
+msgstr "Funzionalità configurate:"
+
+msgid "Usage:"
+msgstr "Uso:"
+
+#. TRANSLATORS: %1% = program name
+#, fuzzy, boost-format
+msgid "Run “%1% --help” to list usage example and all available options"
+msgstr ""
+"Per visualizzare esempi sull'uso e tutte le opzioni disponibili eseguire "
+"«%1% --help»"
+
+#, boost-format
+msgid "%1%: invalid action"
+msgstr "%1%: azione non valida"
+
+msgid "Only one action may be specified"
+msgstr "È possibile specificare una sola azione"
+
+msgid "Actions"
+msgstr "Azioni"
+
+msgid "General options"
+msgstr "Opzioni generali"
+
+msgid "Hidden options"
+msgstr "Opzioni nascoste"
+
+msgid "Show help options"
+msgstr "Mostra le opzioni di aiuto"
+
+msgid "Print version information"
+msgstr "Mostra le informazioni sulla versione"
+
+msgid "Show less output"
+msgstr "Mostra meno output"
+
+msgid "Show more output"
+msgstr "Mostra più output"
+
+msgid "Enable debugging messages"
+msgstr "Abilita i messaggi di debug"
+
+msgid "Invalid debug level"
+msgstr "Livello di debug non valido"
+
+#. TRANSLATORS: %1% = file
+#, fuzzy, boost-format
+msgid "Failed to find ‘%1%’"
+msgstr "Impossibile trovare «%1%»"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#, fuzzy
+msgid "[OPTION…] — list mount points"
+msgstr "[OPZIONE...] - elenca i punti di montaggio"
+
+msgid "Mount"
+msgstr "Monta"
+
+msgid "Mountpoint to check (full path)"
+msgstr "Punto di montaggio da controllare (percorso completo)"
+
+msgid "No mount point specified"
+msgstr "Non è stato specificato alcun punto di montaggio"
+
+msgid "Failed to fork child"
+msgstr "Impossibile effettuare il fork del figlio"
+
+msgid "Wait for child failed"
+msgstr "Attesa per il figlio non riuscita"
+
+#. TRANSLATORS: %1% = command name
+#. TRANSLATORS: %1% = command
+#, fuzzy, boost-format
+msgid "Failed to execute “%1%”"
+msgstr "Esecuzione di «%1%» non riuscita"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
+msgstr "Esecuzione di «%1%» non riuscita"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#, fuzzy
+msgid "[OPTION…] — mount filesystems"
+msgstr "[OPZIONE...] - monta i file system"
+
+msgid "An unknown exception occurred"
+msgstr "Si è verificato un errore sconosciuto"
+
+msgid "Perform a simulation of actions which would be taken"
+msgstr "Esegue una simulazione delle azioni che verrebbero intraprese"
+
+msgid "fstab file to read (full path)"
+msgstr "fstab da leggere (percorso completo)"
+
+#. TRANSLATORS: %1% = program name (PAM service name)
+#, boost-format
+msgid "You do not have permission to access the %1% service."
+msgstr "Non si posseggono i permessi per accedere al servizio «%1%»."
+
+msgid "This failure will be reported."
+msgstr "Questo errore verrà segnalato."
+
+msgid "No controlling terminal"
+msgstr "Nessun terminale di controllo"
+
+msgid "Timed out"
+msgstr "Scaduto"
+
+#. TRANSLATORS: Please use an ellipsis e.g. U+2026
+#, fuzzy
+msgid "Time is running out…"
+msgstr "Il tempo a disposizione sta per scadere"
+
+msgid "Failed to get terminal settings"
+msgstr "Impossibile ottenere le impostazioni del terminale"
+
+#. TRANSLATORS: %1% = integer
+#, fuzzy, boost-format
+msgid "Unsupported conversation type ‘%1%’"
+msgstr "Tipo di conversazione «%1%» non supportato"
+
+msgid "Password: "
+msgstr "Password: "
+
+msgid "Password:"
+msgstr "Password:"
+
+#, boost-format
+msgid "[schroot] password for %1%: "
+msgstr "[schroot] password per «%1%»: "
+
+msgid "Pluggable Authentication Modules"
+msgstr "Moduli PAM (Pluggable Authentication Modules)"
+
+msgid "Set RUSER"
+msgstr "Imposta RUSER"
+
+msgid "Set RHOST"
+msgstr "Imposta RHOST"
+
+msgid "Set TTY"
+msgstr "Imposta TTY"
+
+msgid "Set USER"
+msgstr "Imposta USER"
+
 msgid "Failed to get hostname"
 msgstr "Impossibile ottenere il nome dell'host"
 
@@ -593,58 +645,6 @@ msgstr "Errore di PAM"
 msgid "PAM failed to shut down cleanly"
 msgstr "PAM si è chiuso in modo non corretto"
 
-#. TRANSLATORS: %1% = program name (PAM service name)
-#, boost-format
-msgid "You do not have permission to access the %1% service."
-msgstr "Non si posseggono i permessi per accedere al servizio «%1%»."
-
-msgid "This failure will be reported."
-msgstr "Questo errore verrà segnalato."
-
-msgid "Password: "
-msgstr "Password: "
-
-msgid "Password:"
-msgstr "Password:"
-
-#, boost-format
-msgid "[schroot] password for %1%: "
-msgstr "[schroot] password per «%1%»: "
-
-msgid "Pluggable Authentication Modules"
-msgstr "Moduli PAM (Pluggable Authentication Modules)"
-
-msgid "Set RUSER"
-msgstr "Imposta RUSER"
-
-msgid "Set RHOST"
-msgstr "Imposta RHOST"
-
-msgid "Set TTY"
-msgstr "Imposta TTY"
-
-msgid "Set USER"
-msgstr "Imposta USER"
-
-msgid "No controlling terminal"
-msgstr "Nessun terminale di controllo"
-
-msgid "Timed out"
-msgstr "Scaduto"
-
-#. TRANSLATORS: Please use an ellipsis e.g. U+2026
-#, fuzzy
-msgid "Time is running out…"
-msgstr "Il tempo a disposizione sta per scadere"
-
-msgid "Failed to get terminal settings"
-msgstr "Impossibile ottenere le impostazioni del terminale"
-
-#. TRANSLATORS: %1% = integer
-#, fuzzy, boost-format
-msgid "Unsupported conversation type ‘%1%’"
-msgstr "Tipo di conversazione «%1%» non supportato"
-
 msgid "Device"
 msgstr "Device"
 
@@ -657,6 +657,184 @@ msgstr "Immagine del device LVM"
 
 msgid "Btrfs Snapshot Name"
 msgstr ""
+
+#. TRANSLATORS: %1% = chroot alias name
+#. TRANSLATORS: %4% = chroot name
+#, fuzzy, boost-format
+msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
+msgstr "L'alias «%1%» è già associato con il chroot «%4%»"
+
+#. TRANSLATORS: %1% = chroot name
+#, boost-format
+msgid "%1%: Chroot not found"
+msgstr "%1%: chroot non trovato"
+
+#. TRANSLATORS: %1% = comma-separated list of chroot names
+#, boost-format
+msgid "%1%: Chroots not found"
+msgstr "%1%: chroot non trovati"
+
+#. TRANSLATORS: %1% = chroot name
+#, fuzzy, boost-format
+msgid "A chroot or alias ‘%1%’ already exists with this name"
+msgstr "Esiste già un chroot o un alias con il nome «%1%»"
+
+msgid "File is not a regular file"
+msgstr "Il file non è un file regolare"
+
+msgid "Failed to open file"
+msgstr "Impossibile aprire il file"
+
+msgid "File is not owned by user root"
+msgstr "Il proprietario del file non è l'utente root"
+
+msgid "File has write permissions for others"
+msgstr "Il file ha permessi di scrittura per altri"
+
+#
+msgid "Invalid name"
+msgstr "Nome non valido"
+
+msgid "No such namespace"
+msgstr "Namespace inesistente"
+
+msgid "Duplicate names are not allowed"
+msgstr "Non sono ammessi nomi duplicati"
+
+msgid "Available chroots: "
+msgstr "chroot disponibili: "
+
+msgid "Directory"
+msgstr "Directory"
+
+msgid "Mount Device"
+msgstr "Device da montare"
+
+msgid "Mount Options"
+msgstr "Opzioni di montaggio"
+
+msgid "Location"
+msgstr "Posizione"
+
+#. TRANSLATORS: "Personality" is the Linux kernel personality
+#. (process execution domain).  See schroot.conf(5).
+msgid "Personality"
+msgstr "Personalità"
+
+#, fuzzy
+msgid "(session chroot)"
+msgstr "(chroot sorgente)"
+
+msgid "Original Chroot Name"
+msgstr ""
+
+#, fuzzy
+msgid "Selected Chroot Name"
+msgstr "Seleziona tutti i chroot"
+
+msgid "Session ID"
+msgstr "ID della sessione"
+
+msgid "(source chroot)"
+msgstr "(chroot sorgente)"
+
+msgid "Source Users"
+msgstr "Utenti sorgente"
+
+msgid "Source Groups"
+msgstr "Gruppi sorgente"
+
+msgid "Source Root Users"
+msgstr "Utenti root sorgente"
+
+msgid "Source Root Groups"
+msgstr "Gruppi root sorgente"
+
+msgid "Support for filesystem unioning"
+msgstr "Supporto all'unione del file system"
+
+#. TRANSLATORS: %1% = chroot fs type
+#, fuzzy, boost-format
+msgid "Unknown filesystem union type ‘%1%’"
+msgstr "Tipo di unione del file system «%1%» sconosciuto"
+
+msgid "Union overlay must have an absolute path"
+msgstr "L'overlay dell'unione deve avere un percorso assoluto"
+
+msgid "Union underlay must have an absolute path"
+msgstr "L'underlay dell'unione deve avere un percorso assoluto"
+
+msgid "Filesystem Union Type"
+msgstr "Tipo di unione del file system"
+
+msgid "Filesystem Union Mount Options"
+msgstr "Opzioni di montaggio dell'unione del file system"
+
+msgid "Filesystem Union Overlay Directory"
+msgstr "Directory overlay dell'unione del file system"
+
+msgid "Filesystem Union Underlay Directory"
+msgstr "Directory underlay dell'unione del file system"
+
+#, boost-format
+msgid "Environment variable ‘%1%’ is ambiguous"
+msgstr ""
+
+#, fuzzy, boost-format
+msgid "Configuration key ‘%1%’ is ambiguous"
+msgstr "Manca la chiave richiesta «%4%»"
+
+#, boost-format
+msgid "Configuration key ‘%1%’ is not permitted to be modified."
+msgstr ""
+
+#, boost-format
+msgid "Configuration key name ‘%1%’ is not a permitted name."
+msgstr ""
+
+#. TRANSLATORS: %1% = key name for which value parsing failed
+#. TRANSLATORS: %4% = additional details of error
+#, fuzzy, boost-format
+msgid "%1%: %4%"
+msgstr "[%1%]: %4%"
+
+#, boost-format
+msgid ""
+"Configuration keys additional to ‘%1%’ would set this setup script "
+"environment variable"
+msgstr ""
+
+msgid "User Modifiable Keys"
+msgstr ""
+
+msgid "Root Modifiable Keys"
+msgstr ""
+
+msgid "User Data"
+msgstr ""
+
+#, boost-format
+msgid ""
+"More than one configuration key would set the ‘%1%’ environment variable"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys"
+msgstr ""
+
+msgid "File"
+msgstr "File"
+
+msgid "File Repack"
+msgstr "Reimpacchettamento del file"
+
+msgid "LVM Snapshot Device"
+msgstr "Immagine del device LVM"
+
+msgid "LVM Snapshot Options"
+msgstr "Opzioni dell'immagine di LVM"
 
 msgid "Chroot creation failed"
 msgstr "Impossibile creare il chroot"
@@ -696,24 +874,11 @@ msgstr "Il file deve avere un percorso assoluto"
 msgid "Failed to acquire file lock"
 msgstr "Impossibile ottenere il blocco del file"
 
-msgid "File is not a regular file"
-msgstr "Il file non è un file regolare"
-
-msgid "File is not owned by user root"
-msgstr "Il proprietario del file non è l'utente root"
-
-msgid "File has write permissions for others"
-msgstr "Il file ha permessi di scrittura per altri"
-
 msgid "Failed to discard file lock"
 msgstr "Impossibile scartare il blocco del file"
 
 msgid "Location must have an absolute path"
 msgstr "La posizione deve avere un percorso assoluto"
-
-#
-msgid "Invalid name"
-msgstr "Nome non valido"
 
 #, boost-format
 msgid "Could not set profile name from script configuration path ‘%1%’"
@@ -816,171 +981,6 @@ msgstr "Sessione"
 #
 msgid "Source"
 msgstr "Sorgente"
-
-#. TRANSLATORS: %1% = chroot alias name
-#. TRANSLATORS: %4% = chroot name
-#, fuzzy, boost-format
-msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
-msgstr "L'alias «%1%» è già associato con il chroot «%4%»"
-
-#. TRANSLATORS: %1% = chroot name
-#, boost-format
-msgid "%1%: Chroot not found"
-msgstr "%1%: chroot non trovato"
-
-#. TRANSLATORS: %1% = comma-separated list of chroot names
-#, boost-format
-msgid "%1%: Chroots not found"
-msgstr "%1%: chroot non trovati"
-
-#. TRANSLATORS: %1% = chroot name
-#, fuzzy, boost-format
-msgid "A chroot or alias ‘%1%’ already exists with this name"
-msgstr "Esiste già un chroot o un alias con il nome «%1%»"
-
-msgid "Failed to open file"
-msgstr "Impossibile aprire il file"
-
-msgid "No such namespace"
-msgstr "Namespace inesistente"
-
-msgid "Duplicate names are not allowed"
-msgstr "Non sono ammessi nomi duplicati"
-
-msgid "Available chroots: "
-msgstr "chroot disponibili: "
-
-msgid "Directory"
-msgstr "Directory"
-
-msgid "Mount Device"
-msgstr "Device da montare"
-
-msgid "Mount Options"
-msgstr "Opzioni di montaggio"
-
-msgid "Location"
-msgstr "Posizione"
-
-#. TRANSLATORS: "Personality" is the Linux kernel personality
-#. (process execution domain).  See schroot.conf(5).
-msgid "Personality"
-msgstr "Personalità"
-
-msgid "Original Chroot Name"
-msgstr ""
-
-#, fuzzy
-msgid "Selected Chroot Name"
-msgstr "Seleziona tutti i chroot"
-
-msgid "Session ID"
-msgstr "ID della sessione"
-
-#, fuzzy
-msgid "(session chroot)"
-msgstr "(chroot sorgente)"
-
-msgid "(source chroot)"
-msgstr "(chroot sorgente)"
-
-msgid "Source Users"
-msgstr "Utenti sorgente"
-
-msgid "Source Groups"
-msgstr "Gruppi sorgente"
-
-msgid "Source Root Users"
-msgstr "Utenti root sorgente"
-
-msgid "Source Root Groups"
-msgstr "Gruppi root sorgente"
-
-msgid "Support for filesystem unioning"
-msgstr "Supporto all'unione del file system"
-
-#. TRANSLATORS: %1% = chroot fs type
-#, fuzzy, boost-format
-msgid "Unknown filesystem union type ‘%1%’"
-msgstr "Tipo di unione del file system «%1%» sconosciuto"
-
-msgid "Union overlay must have an absolute path"
-msgstr "L'overlay dell'unione deve avere un percorso assoluto"
-
-msgid "Union underlay must have an absolute path"
-msgstr "L'underlay dell'unione deve avere un percorso assoluto"
-
-msgid "Filesystem Union Type"
-msgstr "Tipo di unione del file system"
-
-msgid "Filesystem Union Mount Options"
-msgstr "Opzioni di montaggio dell'unione del file system"
-
-msgid "Filesystem Union Overlay Directory"
-msgstr "Directory overlay dell'unione del file system"
-
-msgid "Filesystem Union Underlay Directory"
-msgstr "Directory underlay dell'unione del file system"
-
-#, boost-format
-msgid "Environment variable ‘%1%’ is ambiguous"
-msgstr ""
-
-#, fuzzy, boost-format
-msgid "Configuration key ‘%1%’ is ambiguous"
-msgstr "Manca la chiave richiesta «%4%»"
-
-#, boost-format
-msgid "Configuration key ‘%1%’ is not permitted to be modified."
-msgstr ""
-
-#, boost-format
-msgid "Configuration key name ‘%1%’ is not a permitted name."
-msgstr ""
-
-#. TRANSLATORS: %1% = key name for which value parsing failed
-#. TRANSLATORS: %4% = additional details of error
-#, fuzzy, boost-format
-msgid "%1%: %4%"
-msgstr "[%1%]: %4%"
-
-#, boost-format
-msgid ""
-"Configuration keys additional to ‘%1%’ would set this setup script "
-"environment variable"
-msgstr ""
-
-msgid "User Modifiable Keys"
-msgstr ""
-
-msgid "Root Modifiable Keys"
-msgstr ""
-
-msgid "User Data"
-msgstr ""
-
-#, boost-format
-msgid ""
-"More than one configuration key would set the ‘%1%’ environment variable"
-msgstr ""
-
-msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
-msgstr ""
-
-msgid "The key is not present in user-modifiable-keys"
-msgstr ""
-
-msgid "File"
-msgstr "File"
-
-msgid "File Repack"
-msgstr "Reimpacchettamento del file"
-
-msgid "LVM Snapshot Device"
-msgstr "Immagine del device LVM"
-
-msgid "LVM Snapshot Options"
-msgstr "Opzioni dell'immagine di LVM"
 
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr ""

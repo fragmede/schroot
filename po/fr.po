@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-04-01 17:41+0100\n"
+"POT-Creation-Date: 2013-04-02 23:26+0100\n"
 "PO-Revision-Date: 2012-05-31 22:30+0200\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -287,126 +287,6 @@ msgstr "Seul --chroot sera utilisée"
 msgid "dchroot session restriction"
 msgstr "Restriction des sessions dchroot"
 
-#. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = release date
-#, boost-format
-msgid "%1% (Debian sbuild) %2% (%3%)"
-msgstr "%1% (sbuild Debian) %2% (%3%)"
-
-#. TRANSLATORS: %1% = copyright year (start)
-#. TRANSLATORS: %2% = copyright year (end)
-#, boost-format
-msgid "Copyright © %1%–%2% Roger Leigh"
-msgstr "Copyright © %1%–%2% Roger Leigh"
-
-msgid "Written by Roger Leigh"
-msgstr "Écrit par Roger Leigh"
-
-msgid ""
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
-msgstr ""
-"Ce programme est un logiciel libre, voyez les sources pour les conditions\n"
-"de copie. Il n'y a AUCUNE GARANTIE, pas même pour sa VALEUR MARCHANDE ou\n"
-"son APTITUDE pour un USAGE PARTICULIER.\n"
-
-msgid "Configured features:"
-msgstr "Fonctionnalités configurées :"
-
-msgid "Usage:"
-msgstr "Utilisation :"
-
-#. TRANSLATORS: %1% = program name
-#, boost-format
-msgid "Run “%1% --help” to list usage example and all available options"
-msgstr ""
-"Exécutez « %1% --help » pour obtenir des exemples d'utilisation et la liste "
-"de toutes les options disponibles"
-
-#, boost-format
-msgid "%1%: invalid action"
-msgstr "%1% : action non valable"
-
-msgid "Only one action may be specified"
-msgstr "Une seule action peut être spécifiée"
-
-msgid "Actions"
-msgstr "Actions"
-
-msgid "General options"
-msgstr "Options générales"
-
-msgid "Hidden options"
-msgstr "Options cachées"
-
-msgid "Show help options"
-msgstr "Afficher les options d'aide"
-
-msgid "Print version information"
-msgstr "Afficher les informations sur la version"
-
-msgid "Show less output"
-msgstr "Affiche moins de messages"
-
-msgid "Show more output"
-msgstr "Affiche plus de messages"
-
-msgid "Enable debugging messages"
-msgstr "Activer les messages de débogage"
-
-msgid "Invalid debug level"
-msgstr "Niveau de débogage non valable"
-
-#. TRANSLATORS: %1% = file
-#, boost-format
-msgid "Failed to find ‘%1%’"
-msgstr "Impossible de trouver « %1% »"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-msgid "[OPTION…] — list mount points"
-msgstr "[OPTION...] — liste des points de montage"
-
-msgid "Mount"
-msgstr "Montage"
-
-msgid "Mountpoint to check (full path)"
-msgstr "Point de montage à vérifier (chemin complet)"
-
-msgid "No mount point specified"
-msgstr "Aucun point de montage spécifié"
-
-msgid "Failed to fork child"
-msgstr "Échec lors de la création d'un processus fils (« fork »)"
-
-msgid "Wait for child failed"
-msgstr "Échec lors de l'attente du fils"
-
-#. TRANSLATORS: %1% = command name
-#. TRANSLATORS: %1% = command
-#, boost-format
-msgid "Failed to execute “%1%”"
-msgstr "Échec lors de l'exécution de « %1% »"
-
-#, fuzzy, boost-format
-msgid "Failed to resolve path “%1%”"
-msgstr "Échec lors de l'exécution de « %1% »"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-msgid "[OPTION…] — mount filesystems"
-msgstr "[OPTION...] — montage des systèmes de fichiers"
-
-msgid "An unknown exception occurred"
-msgstr "Une exception inconnue est survenue"
-
-msgid "Perform a simulation of actions which would be taken"
-msgstr "Faire une simulation des actions à effectuer"
-
-msgid "fstab file to read (full path)"
-msgstr "Fichier fstab à lire (chemin complet)"
-
 #. TRANSLATORS: %4% = file
 #, boost-format
 msgid "No chroots are defined in ‘%4%’"
@@ -554,6 +434,177 @@ msgstr "Nom de session (un nom généré automatiquement par défaut)"
 msgid "Force operation, even if it fails"
 msgstr "Force l'opération, même si elle échoue"
 
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = release date
+#, boost-format
+msgid "%1% (Debian sbuild) %2% (%3%)"
+msgstr "%1% (sbuild Debian) %2% (%3%)"
+
+#. TRANSLATORS: %1% = copyright year (start)
+#. TRANSLATORS: %2% = copyright year (end)
+#, boost-format
+msgid "Copyright © %1%–%2% Roger Leigh"
+msgstr "Copyright © %1%–%2% Roger Leigh"
+
+msgid "Written by Roger Leigh"
+msgstr "Écrit par Roger Leigh"
+
+msgid ""
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"Ce programme est un logiciel libre, voyez les sources pour les conditions\n"
+"de copie. Il n'y a AUCUNE GARANTIE, pas même pour sa VALEUR MARCHANDE ou\n"
+"son APTITUDE pour un USAGE PARTICULIER.\n"
+
+msgid "Configured features:"
+msgstr "Fonctionnalités configurées :"
+
+msgid "Usage:"
+msgstr "Utilisation :"
+
+#. TRANSLATORS: %1% = program name
+#, boost-format
+msgid "Run “%1% --help” to list usage example and all available options"
+msgstr ""
+"Exécutez « %1% --help » pour obtenir des exemples d'utilisation et la liste "
+"de toutes les options disponibles"
+
+#, boost-format
+msgid "%1%: invalid action"
+msgstr "%1% : action non valable"
+
+msgid "Only one action may be specified"
+msgstr "Une seule action peut être spécifiée"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "General options"
+msgstr "Options générales"
+
+msgid "Hidden options"
+msgstr "Options cachées"
+
+msgid "Show help options"
+msgstr "Afficher les options d'aide"
+
+msgid "Print version information"
+msgstr "Afficher les informations sur la version"
+
+msgid "Show less output"
+msgstr "Affiche moins de messages"
+
+msgid "Show more output"
+msgstr "Affiche plus de messages"
+
+msgid "Enable debugging messages"
+msgstr "Activer les messages de débogage"
+
+msgid "Invalid debug level"
+msgstr "Niveau de débogage non valable"
+
+#. TRANSLATORS: %1% = file
+#, boost-format
+msgid "Failed to find ‘%1%’"
+msgstr "Impossible de trouver « %1% »"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+msgid "[OPTION…] — list mount points"
+msgstr "[OPTION...] — liste des points de montage"
+
+msgid "Mount"
+msgstr "Montage"
+
+msgid "Mountpoint to check (full path)"
+msgstr "Point de montage à vérifier (chemin complet)"
+
+msgid "No mount point specified"
+msgstr "Aucun point de montage spécifié"
+
+msgid "Failed to fork child"
+msgstr "Échec lors de la création d'un processus fils (« fork »)"
+
+msgid "Wait for child failed"
+msgstr "Échec lors de l'attente du fils"
+
+#. TRANSLATORS: %1% = command name
+#. TRANSLATORS: %1% = command
+#, boost-format
+msgid "Failed to execute “%1%”"
+msgstr "Échec lors de l'exécution de « %1% »"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
+msgstr "Échec lors de l'exécution de « %1% »"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+msgid "[OPTION…] — mount filesystems"
+msgstr "[OPTION...] — montage des systèmes de fichiers"
+
+msgid "An unknown exception occurred"
+msgstr "Une exception inconnue est survenue"
+
+msgid "Perform a simulation of actions which would be taken"
+msgstr "Faire une simulation des actions à effectuer"
+
+msgid "fstab file to read (full path)"
+msgstr "Fichier fstab à lire (chemin complet)"
+
+#. TRANSLATORS: %1% = program name (PAM service name)
+#, boost-format
+msgid "You do not have permission to access the %1% service."
+msgstr "Vous n'avez pas les permissions pour accéder au service %1%."
+
+msgid "This failure will be reported."
+msgstr "Cet échec sera signalé."
+
+msgid "No controlling terminal"
+msgstr "Pas de terminal de contrôle"
+
+msgid "Timed out"
+msgstr "Délai expiré"
+
+#. TRANSLATORS: Please use an ellipsis e.g. U+2026
+msgid "Time is running out…"
+msgstr "Le délai va expirer..."
+
+msgid "Failed to get terminal settings"
+msgstr "Échec lors de la récupération des paramètres du terminal"
+
+#. TRANSLATORS: %1% = integer
+#, boost-format
+msgid "Unsupported conversation type ‘%1%’"
+msgstr "Type de conversation non géré : « %1% »"
+
+msgid "Password: "
+msgstr "Mot de passe : "
+
+msgid "Password:"
+msgstr "Mot de passe :"
+
+#, boost-format
+msgid "[schroot] password for %1%: "
+msgstr "[schroot] mot de passe pour %1% : "
+
+msgid "Pluggable Authentication Modules"
+msgstr "Pluggable Authentication Modules"
+
+msgid "Set RUSER"
+msgstr "Configuration de RUSER"
+
+msgid "Set RHOST"
+msgstr "Configuration de RHOST"
+
+msgid "Set TTY"
+msgstr "Configuration de TTY"
+
+msgid "Set USER"
+msgstr "Configuration de USER"
+
 msgid "Failed to get hostname"
 msgstr "Échec lors de la récupération du nom d'hôte"
 
@@ -583,57 +634,6 @@ msgstr "Erreur PAM"
 msgid "PAM failed to shut down cleanly"
 msgstr "Échec de l'arrêt de PAM"
 
-#. TRANSLATORS: %1% = program name (PAM service name)
-#, boost-format
-msgid "You do not have permission to access the %1% service."
-msgstr "Vous n'avez pas les permissions pour accéder au service %1%."
-
-msgid "This failure will be reported."
-msgstr "Cet échec sera signalé."
-
-msgid "Password: "
-msgstr "Mot de passe : "
-
-msgid "Password:"
-msgstr "Mot de passe :"
-
-#, boost-format
-msgid "[schroot] password for %1%: "
-msgstr "[schroot] mot de passe pour %1% : "
-
-msgid "Pluggable Authentication Modules"
-msgstr "Pluggable Authentication Modules"
-
-msgid "Set RUSER"
-msgstr "Configuration de RUSER"
-
-msgid "Set RHOST"
-msgstr "Configuration de RHOST"
-
-msgid "Set TTY"
-msgstr "Configuration de TTY"
-
-msgid "Set USER"
-msgstr "Configuration de USER"
-
-msgid "No controlling terminal"
-msgstr "Pas de terminal de contrôle"
-
-msgid "Timed out"
-msgstr "Délai expiré"
-
-#. TRANSLATORS: Please use an ellipsis e.g. U+2026
-msgid "Time is running out…"
-msgstr "Le délai va expirer..."
-
-msgid "Failed to get terminal settings"
-msgstr "Échec lors de la récupération des paramètres du terminal"
-
-#. TRANSLATORS: %1% = integer
-#, boost-format
-msgid "Unsupported conversation type ‘%1%’"
-msgstr "Type de conversation non géré : « %1% »"
-
 msgid "Device"
 msgstr "Périphérique"
 
@@ -645,165 +645,6 @@ msgstr "Périphérique de cliché Btrfs"
 
 msgid "Btrfs Snapshot Name"
 msgstr "Nom du cliché Btrfs"
-
-msgid "Chroot creation failed"
-msgstr "Échec lors de la création du chroot"
-
-msgid "Device name not set"
-msgstr "Nom du périphérique non défini"
-
-#. TRANSLATORS: %1% = chroot type name
-#, boost-format
-msgid "Unknown chroot type ‘%1%’"
-msgstr "Type de chroot inconnu : « %1% »"
-
-msgid "Device must have an absolute path"
-msgstr "Le périphérique doit être précisé avec un chemin absolu"
-
-msgid "Failed to lock device"
-msgstr "Échec lors du verrouillage du périphérique"
-
-msgid "File is not a block device"
-msgstr "Le fichier n'est pas un périphérique de type bloc"
-
-msgid "Failed to unlock device"
-msgstr "Échec lors du déverrouillage du périphérique"
-
-msgid "Directory must have an absolute path"
-msgstr "Le répertoire doit être précisé avec un chemin absolu"
-
-msgid "Attempt to add object which is not a facet"
-msgstr "Tentative d'ajout d'un objet qui n'est pas une facette"
-
-msgid "Attempt to add facet which is already in use"
-msgstr "Tentative d'ajout d'une facette déjà utilisée"
-
-msgid "File must have an absolute path"
-msgstr "Le fichier doit être précisé avec un chemin absolu"
-
-msgid "Failed to acquire file lock"
-msgstr "Échec lors du verrouillage du fichier"
-
-msgid "File is not a regular file"
-msgstr "Le fichier n'est pas un fichier classique"
-
-msgid "File is not owned by user root"
-msgstr "Le propriétaire du fichier n'est pas root"
-
-msgid "File has write permissions for others"
-msgstr "Le fichier est accessible en écriture pour les autres"
-
-msgid "Failed to discard file lock"
-msgstr "Échec lors du déverrouillage du fichier"
-
-msgid "Location must have an absolute path"
-msgstr "L'emplacement doit être précisé avec un chemin absolu"
-
-msgid "Invalid name"
-msgstr "Nom non valable"
-
-#, boost-format
-msgid "Could not set profile name from script configuration path ‘%1%’"
-msgstr ""
-"Impossible de définir le nom du profil à partir du chemin du script de "
-"configuration « %1% »"
-
-#. TRANSLATORS: unlink refers to the C function which removes a file
-msgid "Failed to unlink session file"
-msgstr "Échec lors de la suppression (« unlink ») du fichier de session"
-
-msgid "Failed to write session file"
-msgstr "Échec lors de l'écriture du fichier de session"
-
-msgid "Message verbosity is invalid"
-msgstr "Verbosité des messages non valable"
-
-#, boost-format
-msgid "Namespace separator ‘%1%’ may not be used in a chroot name"
-msgstr ""
-"Le séparateur d'espace de nom « %1% » ne doit pas être utilisé dans un nom "
-"de schroot."
-
-msgid "Naming restrictions are documented in schroot.conf(5)"
-msgstr "Les restrictions de nommage sont documentées dans schroot.conf(5)"
-
-#, boost-format
-msgid "Namespace separator ‘%1%’ may not be used in an alias name"
-msgstr ""
-"Le séparateur d'espace de nom « %1% » ne doit pas être utilisé dans un nom "
-"d'alias."
-
-msgid "Name"
-msgstr "Nom"
-
-msgid "Description"
-msgstr "Description"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Message Verbosity"
-msgstr "Verbosité des messages"
-
-msgid "Users"
-msgstr "Utilisateurs"
-
-msgid "Groups"
-msgstr "Groupes"
-
-msgid "Root Users"
-msgstr "Utilisateurs root"
-
-msgid "Root Groups"
-msgstr "Groupes root"
-
-msgid "Aliases"
-msgstr "Alias"
-
-msgid "Preserve Environment"
-msgstr "Conservation de l'environnement"
-
-msgid "Default Shell"
-msgstr "Interpréteur de commandes par défaut"
-
-msgid "Environment Filter"
-msgstr "Filtre d'environnement"
-
-msgid "Run Setup Scripts"
-msgstr "Exécuter les scripts de configuration (« Setup Scripts »)"
-
-msgid "Configuration Profile"
-msgstr "Profil de configuration"
-
-msgid "Script Configuration"
-msgstr "Script de configuration"
-
-msgid "Session Managed"
-msgstr "Session gérée (« Session Managed »)"
-
-msgid "Session Cloned"
-msgstr "Session clonée (« Session Cloned »)"
-
-msgid "Session Purged"
-msgstr "Session nettoyée (« Session Purged »)"
-
-msgid "Command Prefix"
-msgstr "Préfixe des commandes"
-
-msgid "Mount Location"
-msgstr "Point de montage"
-
-msgid "Path"
-msgstr "Chemin"
-
-msgid "Chroot"
-msgstr "Chroot"
-
-msgid "Session"
-msgstr "Session"
-
-msgid "Source"
-msgstr "Source"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -826,8 +667,20 @@ msgstr "%1% : chroot introuvable"
 msgid "A chroot or alias ‘%1%’ already exists with this name"
 msgstr "Un chroot ou alias « %1% » a déjà ce nom"
 
+msgid "File is not a regular file"
+msgstr "Le fichier n'est pas un fichier classique"
+
 msgid "Failed to open file"
 msgstr "Échec lors de l'ouverture du fichier"
+
+msgid "File is not owned by user root"
+msgstr "Le propriétaire du fichier n'est pas root"
+
+msgid "File has write permissions for others"
+msgstr "Le fichier est accessible en écriture pour les autres"
+
+msgid "Invalid name"
+msgstr "Nom non valable"
 
 msgid "No such namespace"
 msgstr "Espace de nom inconnu"
@@ -855,6 +708,9 @@ msgstr "Emplacement"
 msgid "Personality"
 msgstr "Personnalité"
 
+msgid "(session chroot)"
+msgstr "(chroot session)"
+
 msgid "Original Chroot Name"
 msgstr "Nom d'origine du chroot"
 
@@ -863,9 +719,6 @@ msgstr "Sélectionner le nom du chroot"
 
 msgid "Session ID"
 msgstr "Identifiant de session"
-
-msgid "(session chroot)"
-msgstr "(chroot session)"
 
 msgid "(source chroot)"
 msgstr "(chroot source)"
@@ -973,6 +826,153 @@ msgstr "Périphérique de cliché LVM"
 
 msgid "LVM Snapshot Options"
 msgstr "Options pour les clichés LVM"
+
+msgid "Chroot creation failed"
+msgstr "Échec lors de la création du chroot"
+
+msgid "Device name not set"
+msgstr "Nom du périphérique non défini"
+
+#. TRANSLATORS: %1% = chroot type name
+#, boost-format
+msgid "Unknown chroot type ‘%1%’"
+msgstr "Type de chroot inconnu : « %1% »"
+
+msgid "Device must have an absolute path"
+msgstr "Le périphérique doit être précisé avec un chemin absolu"
+
+msgid "Failed to lock device"
+msgstr "Échec lors du verrouillage du périphérique"
+
+msgid "File is not a block device"
+msgstr "Le fichier n'est pas un périphérique de type bloc"
+
+msgid "Failed to unlock device"
+msgstr "Échec lors du déverrouillage du périphérique"
+
+msgid "Directory must have an absolute path"
+msgstr "Le répertoire doit être précisé avec un chemin absolu"
+
+msgid "Attempt to add object which is not a facet"
+msgstr "Tentative d'ajout d'un objet qui n'est pas une facette"
+
+msgid "Attempt to add facet which is already in use"
+msgstr "Tentative d'ajout d'une facette déjà utilisée"
+
+msgid "File must have an absolute path"
+msgstr "Le fichier doit être précisé avec un chemin absolu"
+
+msgid "Failed to acquire file lock"
+msgstr "Échec lors du verrouillage du fichier"
+
+msgid "Failed to discard file lock"
+msgstr "Échec lors du déverrouillage du fichier"
+
+msgid "Location must have an absolute path"
+msgstr "L'emplacement doit être précisé avec un chemin absolu"
+
+#, boost-format
+msgid "Could not set profile name from script configuration path ‘%1%’"
+msgstr ""
+"Impossible de définir le nom du profil à partir du chemin du script de "
+"configuration « %1% »"
+
+#. TRANSLATORS: unlink refers to the C function which removes a file
+msgid "Failed to unlink session file"
+msgstr "Échec lors de la suppression (« unlink ») du fichier de session"
+
+msgid "Failed to write session file"
+msgstr "Échec lors de l'écriture du fichier de session"
+
+msgid "Message verbosity is invalid"
+msgstr "Verbosité des messages non valable"
+
+#, boost-format
+msgid "Namespace separator ‘%1%’ may not be used in a chroot name"
+msgstr ""
+"Le séparateur d'espace de nom « %1% » ne doit pas être utilisé dans un nom "
+"de schroot."
+
+msgid "Naming restrictions are documented in schroot.conf(5)"
+msgstr "Les restrictions de nommage sont documentées dans schroot.conf(5)"
+
+#, boost-format
+msgid "Namespace separator ‘%1%’ may not be used in an alias name"
+msgstr ""
+"Le séparateur d'espace de nom « %1% » ne doit pas être utilisé dans un nom "
+"d'alias."
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Message Verbosity"
+msgstr "Verbosité des messages"
+
+msgid "Users"
+msgstr "Utilisateurs"
+
+msgid "Groups"
+msgstr "Groupes"
+
+msgid "Root Users"
+msgstr "Utilisateurs root"
+
+msgid "Root Groups"
+msgstr "Groupes root"
+
+msgid "Aliases"
+msgstr "Alias"
+
+msgid "Preserve Environment"
+msgstr "Conservation de l'environnement"
+
+msgid "Default Shell"
+msgstr "Interpréteur de commandes par défaut"
+
+msgid "Environment Filter"
+msgstr "Filtre d'environnement"
+
+msgid "Run Setup Scripts"
+msgstr "Exécuter les scripts de configuration (« Setup Scripts »)"
+
+msgid "Configuration Profile"
+msgstr "Profil de configuration"
+
+msgid "Script Configuration"
+msgstr "Script de configuration"
+
+msgid "Session Managed"
+msgstr "Session gérée (« Session Managed »)"
+
+msgid "Session Cloned"
+msgstr "Session clonée (« Session Cloned »)"
+
+msgid "Session Purged"
+msgstr "Session nettoyée (« Session Purged »)"
+
+msgid "Command Prefix"
+msgstr "Préfixe des commandes"
+
+msgid "Mount Location"
+msgstr "Point de montage"
+
+msgid "Path"
+msgstr "Chemin"
+
+msgid "Chroot"
+msgstr "Chroot"
+
+msgid "Session"
+msgstr "Session"
+
+msgid "Source"
+msgstr "Source"
 
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr ""

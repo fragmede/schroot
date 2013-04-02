@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-04-01 17:41+0100\n"
+"POT-Creation-Date: 2013-04-02 23:26+0100\n"
 "PO-Revision-Date: 2010-01-16 15:43+0000\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <Librezale@librezale.org>\n"
@@ -292,129 +292,6 @@ msgstr "--chroots bakarrik erabiltzen"
 msgid "dchroot session restriction"
 msgstr "dchroot saio murrizpenak"
 
-#. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = release date
-#, fuzzy, boost-format
-msgid "%1% (Debian sbuild) %2% (%3%)"
-msgstr "%1% (Debian sbuild) %2% (%3%)\n"
-
-#. TRANSLATORS: %1% = copyright year (start)
-#. TRANSLATORS: %2% = copyright year (end)
-#, fuzzy, boost-format
-msgid "Copyright © %1%–%2% Roger Leigh"
-msgstr "Copyright © 2004–2011 Roger Leigh"
-
-msgid "Written by Roger Leigh"
-msgstr "Roger Leigh-ek idatzia"
-
-msgid ""
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
-msgstr ""
-"Hau software librea da, begiratu iturburua kopiatze baldintzetarako.  EZ "
-"dago\n"
-"bermerik; ezta ere EGOKITASUNA MERKATURATZEKO edo HELBURU PARTIKULARRETARAKO "
-"ERABILTZEKO.\n"
-
-msgid "Configured features:"
-msgstr ""
-
-msgid "Usage:"
-msgstr "Erabilera:"
-
-#. TRANSLATORS: %1% = program name
-#, fuzzy, boost-format
-msgid "Run “%1% --help” to list usage example and all available options"
-msgstr ""
-"\"%1% --help\" exekutatu erabilera adibide zerrenda eta aukera erabilgarriak "
-"zerrendatzeko"
-
-#, boost-format
-msgid "%1%: invalid action"
-msgstr "%1%: ekintza baliogabea"
-
-msgid "Only one action may be specified"
-msgstr "Soilik ekintza bat ezarri daiteke"
-
-msgid "Actions"
-msgstr "Ekintzak"
-
-msgid "General options"
-msgstr "Aukera orokorrak"
-
-msgid "Hidden options"
-msgstr "Ezkutuko aukerak"
-
-msgid "Show help options"
-msgstr "Erakutsi laguntzako aukerak"
-
-msgid "Print version information"
-msgstr "Inprimatu bertsioa"
-
-msgid "Show less output"
-msgstr "Irteera gutxiago ikusi"
-
-msgid "Show more output"
-msgstr "Irteera gehiago ikusi"
-
-msgid "Enable debugging messages"
-msgstr "Mezu arazpena gaitu"
-
-msgid "Invalid debug level"
-msgstr "Arazpen maila baliogabea"
-
-#. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
-msgid "Failed to find ‘%1%’"
-msgstr "Huts '%1%' bilatzerakoan"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — list mount points"
-msgstr "[AUKERA...] - list muntatze puntuak"
-
-msgid "Mount"
-msgstr "Muntatu"
-
-msgid "Mountpoint to check (full path)"
-msgstr "Egiaztatzeko muntatze puntua (bide osoa)"
-
-msgid "No mount point specified"
-msgstr "Ez da muntatze punturik zehaztu"
-
-msgid "Failed to fork child"
-msgstr "Huts egin du umea zatitzean"
-
-msgid "Wait for child failed"
-msgstr "Huts umea itxoitean"
-
-#. TRANSLATORS: %1% = command name
-#. TRANSLATORS: %1% = command
-#, fuzzy, boost-format
-msgid "Failed to execute “%1%”"
-msgstr "Huts egin du '%1%' exekutatzean"
-
-#, fuzzy, boost-format
-msgid "Failed to resolve path “%1%”"
-msgstr "Huts egin du '%1%' exekutatzean"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — mount filesystems"
-msgstr "[AUKERAK...] - muntatu fitxategi-sistemak"
-
-msgid "An unknown exception occurred"
-msgstr "Salbuespen ezezagun bat gertatu da"
-
-msgid "Perform a simulation of actions which would be taken"
-msgstr "Egin egingo lirateken ekintzen simulazio bat"
-
-msgid "fstab file to read (full path)"
-msgstr "irakurtzeko fstab fitxategia (bide osoa)"
-
 #. TRANSLATORS: %4% = file
 #, fuzzy, boost-format
 msgid "No chroots are defined in ‘%4%’"
@@ -562,6 +439,182 @@ msgstr "Saio izena (lehenespena automatikoki sortutako izen bat erabiltzea da)"
 msgid "Force operation, even if it fails"
 msgstr "Behartu ekintza, nahiz huts egin"
 
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = release date
+#, fuzzy, boost-format
+msgid "%1% (Debian sbuild) %2% (%3%)"
+msgstr "%1% (Debian sbuild) %2% (%3%)\n"
+
+#. TRANSLATORS: %1% = copyright year (start)
+#. TRANSLATORS: %2% = copyright year (end)
+#, fuzzy, boost-format
+msgid "Copyright © %1%–%2% Roger Leigh"
+msgstr "Copyright © 2004–2011 Roger Leigh"
+
+msgid "Written by Roger Leigh"
+msgstr "Roger Leigh-ek idatzia"
+
+msgid ""
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"Hau software librea da, begiratu iturburua kopiatze baldintzetarako.  EZ "
+"dago\n"
+"bermerik; ezta ere EGOKITASUNA MERKATURATZEKO edo HELBURU PARTIKULARRETARAKO "
+"ERABILTZEKO.\n"
+
+msgid "Configured features:"
+msgstr ""
+
+msgid "Usage:"
+msgstr "Erabilera:"
+
+#. TRANSLATORS: %1% = program name
+#, fuzzy, boost-format
+msgid "Run “%1% --help” to list usage example and all available options"
+msgstr ""
+"\"%1% --help\" exekutatu erabilera adibide zerrenda eta aukera erabilgarriak "
+"zerrendatzeko"
+
+#, boost-format
+msgid "%1%: invalid action"
+msgstr "%1%: ekintza baliogabea"
+
+msgid "Only one action may be specified"
+msgstr "Soilik ekintza bat ezarri daiteke"
+
+msgid "Actions"
+msgstr "Ekintzak"
+
+msgid "General options"
+msgstr "Aukera orokorrak"
+
+msgid "Hidden options"
+msgstr "Ezkutuko aukerak"
+
+msgid "Show help options"
+msgstr "Erakutsi laguntzako aukerak"
+
+msgid "Print version information"
+msgstr "Inprimatu bertsioa"
+
+msgid "Show less output"
+msgstr "Irteera gutxiago ikusi"
+
+msgid "Show more output"
+msgstr "Irteera gehiago ikusi"
+
+msgid "Enable debugging messages"
+msgstr "Mezu arazpena gaitu"
+
+msgid "Invalid debug level"
+msgstr "Arazpen maila baliogabea"
+
+#. TRANSLATORS: %1% = file
+#, fuzzy, boost-format
+msgid "Failed to find ‘%1%’"
+msgstr "Huts '%1%' bilatzerakoan"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#, fuzzy
+msgid "[OPTION…] — list mount points"
+msgstr "[AUKERA...] - list muntatze puntuak"
+
+msgid "Mount"
+msgstr "Muntatu"
+
+msgid "Mountpoint to check (full path)"
+msgstr "Egiaztatzeko muntatze puntua (bide osoa)"
+
+msgid "No mount point specified"
+msgstr "Ez da muntatze punturik zehaztu"
+
+msgid "Failed to fork child"
+msgstr "Huts egin du umea zatitzean"
+
+msgid "Wait for child failed"
+msgstr "Huts umea itxoitean"
+
+#. TRANSLATORS: %1% = command name
+#. TRANSLATORS: %1% = command
+#, fuzzy, boost-format
+msgid "Failed to execute “%1%”"
+msgstr "Huts egin du '%1%' exekutatzean"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
+msgstr "Huts egin du '%1%' exekutatzean"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#, fuzzy
+msgid "[OPTION…] — mount filesystems"
+msgstr "[AUKERAK...] - muntatu fitxategi-sistemak"
+
+msgid "An unknown exception occurred"
+msgstr "Salbuespen ezezagun bat gertatu da"
+
+msgid "Perform a simulation of actions which would be taken"
+msgstr "Egin egingo lirateken ekintzen simulazio bat"
+
+msgid "fstab file to read (full path)"
+msgstr "irakurtzeko fstab fitxategia (bide osoa)"
+
+#. TRANSLATORS: %1% = program name (PAM service name)
+#, boost-format
+msgid "You do not have permission to access the %1% service."
+msgstr "Zuk ez duzu %1% zerbitzura sartzeko baimenik."
+
+msgid "This failure will be reported."
+msgstr "Huts honen berri emango da."
+
+msgid "No controlling terminal"
+msgstr "Ez da terminalik kontrolatzen"
+
+msgid "Timed out"
+msgstr "Denboraz kanpo"
+
+#. TRANSLATORS: Please use an ellipsis e.g. U+2026
+#, fuzzy
+msgid "Time is running out…"
+msgstr "Denbora amaitzen ari da..."
+
+msgid "Failed to get terminal settings"
+msgstr "Huts egin du terminala ezarpenak eskuratzean"
+
+#. TRANSLATORS: %1% = integer
+#, fuzzy, boost-format
+msgid "Unsupported conversation type ‘%1%’"
+msgstr "Onartzen ez den '%1%' elkarrizketa mota"
+
+msgid "Password: "
+msgstr ""
+
+msgid "Password:"
+msgstr ""
+
+#, boost-format
+msgid "[schroot] password for %1%: "
+msgstr ""
+
+#, fuzzy
+msgid "Pluggable Authentication Modules"
+msgstr "Huts egin du autentifikatzean."
+
+msgid "Set RUSER"
+msgstr "RUSER ezarri"
+
+msgid "Set RHOST"
+msgstr "RHOST ezarri"
+
+msgid "Set TTY"
+msgstr "TTY ezarri "
+
+msgid "Set USER"
+msgstr "ERABILTZAILEA ezarri"
+
 msgid "Failed to get hostname"
 msgstr "Huts ostalari-izena eskuratzerakoan"
 
@@ -591,59 +644,6 @@ msgstr "PAM errorea"
 msgid "PAM failed to shut down cleanly"
 msgstr ""
 
-#. TRANSLATORS: %1% = program name (PAM service name)
-#, boost-format
-msgid "You do not have permission to access the %1% service."
-msgstr "Zuk ez duzu %1% zerbitzura sartzeko baimenik."
-
-msgid "This failure will be reported."
-msgstr "Huts honen berri emango da."
-
-msgid "Password: "
-msgstr ""
-
-msgid "Password:"
-msgstr ""
-
-#, boost-format
-msgid "[schroot] password for %1%: "
-msgstr ""
-
-#, fuzzy
-msgid "Pluggable Authentication Modules"
-msgstr "Huts egin du autentifikatzean."
-
-msgid "Set RUSER"
-msgstr "RUSER ezarri"
-
-msgid "Set RHOST"
-msgstr "RHOST ezarri"
-
-msgid "Set TTY"
-msgstr "TTY ezarri "
-
-msgid "Set USER"
-msgstr "ERABILTZAILEA ezarri"
-
-msgid "No controlling terminal"
-msgstr "Ez da terminalik kontrolatzen"
-
-msgid "Timed out"
-msgstr "Denboraz kanpo"
-
-#. TRANSLATORS: Please use an ellipsis e.g. U+2026
-#, fuzzy
-msgid "Time is running out…"
-msgstr "Denbora amaitzen ari da..."
-
-msgid "Failed to get terminal settings"
-msgstr "Huts egin du terminala ezarpenak eskuratzean"
-
-#. TRANSLATORS: %1% = integer
-#, fuzzy, boost-format
-msgid "Unsupported conversation type ‘%1%’"
-msgstr "Onartzen ez den '%1%' elkarrizketa mota"
-
 msgid "Device"
 msgstr "Gailua"
 
@@ -656,164 +656,6 @@ msgstr "LVM egoera-argazki gailua"
 
 msgid "Btrfs Snapshot Name"
 msgstr ""
-
-msgid "Chroot creation failed"
-msgstr "Huts chroot-a sortzean"
-
-msgid "Device name not set"
-msgstr "Ez da gailu izena ezarri"
-
-#. TRANSLATORS: %1% = chroot type name
-#, fuzzy, boost-format
-msgid "Unknown chroot type ‘%1%’"
-msgstr "Chroot '%1%' mota ezezaguna"
-
-msgid "Device must have an absolute path"
-msgstr "Gailuak bide absolutu bat izan behar du"
-
-msgid "Failed to lock device"
-msgstr "Huts egin du gailua blokeatzerakoan"
-
-msgid "File is not a block device"
-msgstr "Fitxategia da ez bloke gailu bat"
-
-msgid "Failed to unlock device"
-msgstr "Huts egin du gailua desblokeatzean"
-
-#, fuzzy
-msgid "Directory must have an absolute path"
-msgstr "Gailuak bide absolutu bat izan behar du"
-
-msgid "Attempt to add object which is not a facet"
-msgstr ""
-
-msgid "Attempt to add facet which is already in use"
-msgstr ""
-
-msgid "File must have an absolute path"
-msgstr "Fitxategia bide absolutua izan behar du"
-
-msgid "Failed to acquire file lock"
-msgstr "Huts egin du fitxategi blokeoa atzitzean"
-
-msgid "File is not a regular file"
-msgstr "Fitxategia ez da fitxategia erregular bat"
-
-msgid "File is not owned by user root"
-msgstr "Fitxategia ez da root erabiltzailearena"
-
-msgid "File has write permissions for others"
-msgstr "Fitxategiak beste batzuentzat idazketa baimenak ditu"
-
-msgid "Failed to discard file lock"
-msgstr "Huts egin du fitxategi blokeoa baztertzean"
-
-msgid "Location must have an absolute path"
-msgstr "Kokalekuak bide absolutua izan behar du"
-
-#, fuzzy
-msgid "Invalid name"
-msgstr "%1%: ekintza baliogabea"
-
-#, boost-format
-msgid "Could not set profile name from script configuration path ‘%1%’"
-msgstr ""
-
-#. TRANSLATORS: unlink refers to the C function which removes a file
-msgid "Failed to unlink session file"
-msgstr "Huts egin du saio fitxategia askatzerakoan"
-
-msgid "Failed to write session file"
-msgstr "Huts saio fitxategia idaztean"
-
-msgid "Message verbosity is invalid"
-msgstr ""
-
-#, boost-format
-msgid "Namespace separator ‘%1%’ may not be used in a chroot name"
-msgstr ""
-
-msgid "Naming restrictions are documented in schroot.conf(5)"
-msgstr ""
-
-#, boost-format
-msgid "Namespace separator ‘%1%’ may not be used in an alias name"
-msgstr ""
-
-msgid "Name"
-msgstr "Izena"
-
-msgid "Description"
-msgstr "Azalpena"
-
-msgid "Type"
-msgstr "Mota"
-
-msgid "Message Verbosity"
-msgstr ""
-
-msgid "Users"
-msgstr "Erabiltzaileak"
-
-msgid "Groups"
-msgstr "Taldeak"
-
-msgid "Root Users"
-msgstr "Root Erabiltzaileak"
-
-msgid "Root Groups"
-msgstr "Root Taldeak"
-
-msgid "Aliases"
-msgstr "Ezizenak"
-
-#, fuzzy
-msgid "Preserve Environment"
-msgstr "Mantendu erabiltzaile ingurunea"
-
-msgid "Default Shell"
-msgstr ""
-
-msgid "Environment Filter"
-msgstr "Ingurune Iragazkia"
-
-msgid "Run Setup Scripts"
-msgstr "Abiarazi Konfigurazio script-ak"
-
-#, fuzzy
-msgid "Configuration Profile"
-msgstr "Script konfigurazioa"
-
-msgid "Script Configuration"
-msgstr "Script konfigurazioa"
-
-msgid "Session Managed"
-msgstr "Saioa kudeatua"
-
-msgid "Session Cloned"
-msgstr "Saioa bikoiztua"
-
-msgid "Session Purged"
-msgstr "Saioa garbitua"
-
-msgid "Command Prefix"
-msgstr "Komando aurrizkia"
-
-msgid "Mount Location"
-msgstr "Muntatze kokalekua"
-
-msgid "Path"
-msgstr "Bidea"
-
-msgid "Chroot"
-msgstr "Chroot"
-
-msgid "Session"
-msgstr "Saioa"
-
-#, fuzzy
-msgid "Source"
-msgstr "Iturburua erabiltzaileak"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -836,8 +678,21 @@ msgstr "%1%: Ez da chroot-ik aurkitu"
 msgid "A chroot or alias ‘%1%’ already exists with this name"
 msgstr "'%1%' izeneko chroot edo ezizena  badago dagoeneko"
 
+msgid "File is not a regular file"
+msgstr "Fitxategia ez da fitxategia erregular bat"
+
 msgid "Failed to open file"
 msgstr "Huts egin du fitxategia irekitzean"
+
+msgid "File is not owned by user root"
+msgstr "Fitxategia ez da root erabiltzailearena"
+
+msgid "File has write permissions for others"
+msgstr "Fitxategiak beste batzuentzat idazketa baimenak ditu"
+
+#, fuzzy
+msgid "Invalid name"
+msgstr "%1%: ekintza baliogabea"
 
 msgid "No such namespace"
 msgstr ""
@@ -866,6 +721,10 @@ msgstr "Kokalekua"
 msgid "Personality"
 msgstr "Pertsonalitatea"
 
+#, fuzzy
+msgid "(session chroot)"
+msgstr "(iturburu chroot-a)"
+
 msgid "Original Chroot Name"
 msgstr ""
 
@@ -876,10 +735,6 @@ msgstr "Chroot guztiak hautatu"
 #, fuzzy
 msgid "Session ID"
 msgstr "Saioa"
-
-#, fuzzy
-msgid "(session chroot)"
-msgstr "(iturburu chroot-a)"
 
 msgid "(source chroot)"
 msgstr "(iturburu chroot-a)"
@@ -987,6 +842,151 @@ msgstr "LVM egoera-argazki gailua"
 
 msgid "LVM Snapshot Options"
 msgstr "LVM egoera-argazki aukerak"
+
+msgid "Chroot creation failed"
+msgstr "Huts chroot-a sortzean"
+
+msgid "Device name not set"
+msgstr "Ez da gailu izena ezarri"
+
+#. TRANSLATORS: %1% = chroot type name
+#, fuzzy, boost-format
+msgid "Unknown chroot type ‘%1%’"
+msgstr "Chroot '%1%' mota ezezaguna"
+
+msgid "Device must have an absolute path"
+msgstr "Gailuak bide absolutu bat izan behar du"
+
+msgid "Failed to lock device"
+msgstr "Huts egin du gailua blokeatzerakoan"
+
+msgid "File is not a block device"
+msgstr "Fitxategia da ez bloke gailu bat"
+
+msgid "Failed to unlock device"
+msgstr "Huts egin du gailua desblokeatzean"
+
+#, fuzzy
+msgid "Directory must have an absolute path"
+msgstr "Gailuak bide absolutu bat izan behar du"
+
+msgid "Attempt to add object which is not a facet"
+msgstr ""
+
+msgid "Attempt to add facet which is already in use"
+msgstr ""
+
+msgid "File must have an absolute path"
+msgstr "Fitxategia bide absolutua izan behar du"
+
+msgid "Failed to acquire file lock"
+msgstr "Huts egin du fitxategi blokeoa atzitzean"
+
+msgid "Failed to discard file lock"
+msgstr "Huts egin du fitxategi blokeoa baztertzean"
+
+msgid "Location must have an absolute path"
+msgstr "Kokalekuak bide absolutua izan behar du"
+
+#, boost-format
+msgid "Could not set profile name from script configuration path ‘%1%’"
+msgstr ""
+
+#. TRANSLATORS: unlink refers to the C function which removes a file
+msgid "Failed to unlink session file"
+msgstr "Huts egin du saio fitxategia askatzerakoan"
+
+msgid "Failed to write session file"
+msgstr "Huts saio fitxategia idaztean"
+
+msgid "Message verbosity is invalid"
+msgstr ""
+
+#, boost-format
+msgid "Namespace separator ‘%1%’ may not be used in a chroot name"
+msgstr ""
+
+msgid "Naming restrictions are documented in schroot.conf(5)"
+msgstr ""
+
+#, boost-format
+msgid "Namespace separator ‘%1%’ may not be used in an alias name"
+msgstr ""
+
+msgid "Name"
+msgstr "Izena"
+
+msgid "Description"
+msgstr "Azalpena"
+
+msgid "Type"
+msgstr "Mota"
+
+msgid "Message Verbosity"
+msgstr ""
+
+msgid "Users"
+msgstr "Erabiltzaileak"
+
+msgid "Groups"
+msgstr "Taldeak"
+
+msgid "Root Users"
+msgstr "Root Erabiltzaileak"
+
+msgid "Root Groups"
+msgstr "Root Taldeak"
+
+msgid "Aliases"
+msgstr "Ezizenak"
+
+#, fuzzy
+msgid "Preserve Environment"
+msgstr "Mantendu erabiltzaile ingurunea"
+
+msgid "Default Shell"
+msgstr ""
+
+msgid "Environment Filter"
+msgstr "Ingurune Iragazkia"
+
+msgid "Run Setup Scripts"
+msgstr "Abiarazi Konfigurazio script-ak"
+
+#, fuzzy
+msgid "Configuration Profile"
+msgstr "Script konfigurazioa"
+
+msgid "Script Configuration"
+msgstr "Script konfigurazioa"
+
+msgid "Session Managed"
+msgstr "Saioa kudeatua"
+
+msgid "Session Cloned"
+msgstr "Saioa bikoiztua"
+
+msgid "Session Purged"
+msgstr "Saioa garbitua"
+
+msgid "Command Prefix"
+msgstr "Komando aurrizkia"
+
+msgid "Mount Location"
+msgstr "Muntatze kokalekua"
+
+msgid "Path"
+msgstr "Bidea"
+
+msgid "Chroot"
+msgstr "Chroot"
+
+msgid "Session"
+msgstr "Saioa"
+
+#, fuzzy
+msgid "Source"
+msgstr "Iturburua erabiltzaileak"
 
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr ""
