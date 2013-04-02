@@ -528,6 +528,37 @@ public:
 
 };
 
+template<class T>
+void test_list(T&                         itype,
+               sbuild::string_list const& list,
+               sbuild::string_list const& (T::*getter)(void) const,
+               void (T::*setter)(sbuild::string_list const&))
+{
+  // Set items from list.
+  (itype.*setter)(list);
+
+  // Check set items exist, but make no assumptions about ordering.
+  sbuild::string_list set_items = (itype.*getter)();
+
+  sbuild::string_list orig_list = list;
+  sort(orig_list.begin(), orig_list.end());
+  sort(set_items.begin(), set_items.end());
+
+  sbuild::string_list missing;
+  set_symmetric_difference(orig_list.begin(), orig_list.end(),
+                           set_items.begin(), set_items.end(),
+                           std::back_inserter(missing));
+
+  if (!missing.empty())
+    for (const auto& item : missing)
+      {
+        std::cout << "Missing list item: " << item << std::endl;
+      }
+  // Ensure the test is working.
+  CPPUNIT_ASSERT(missing.empty());
+  CPPUNIT_ASSERT(set_items.size() == list.size());
+}
+
 #endif /* TEST_SBUILD_CHROOT_H */
 
 /*

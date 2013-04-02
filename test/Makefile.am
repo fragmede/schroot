@@ -71,7 +71,6 @@ TESTS = test/setup-test-data			\
 endif
 
 test_libtest_la_SOURCES =	\
-	test/helpers.h		\
 	test/testmain.cc
 test_libtest_la_LIBADD = $(top_builddir)/lib/sbuild/libsbuild.la $(CPPUNIT_LIBS)
 
