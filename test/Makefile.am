@@ -73,7 +73,7 @@ endif
 test_libtest_la_SOURCES =	\
 	test/helpers.h		\
 	test/testmain.cc
-test_libtest_la_LIBADD = $(top_builddir)/sbuild/libsbuild.la $(CPPUNIT_LIBS)
+test_libtest_la_LIBADD = $(top_builddir)/lib/sbuild/libsbuild.la $(CPPUNIT_LIBS)
 
 if BUILD_BLOCKDEV
 test_sbuild_chroot_blockdev_sources =	\

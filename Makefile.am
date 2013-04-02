@@ -25,7 +25,7 @@ include $(top_srcdir)/scripts/git-dist.mk
 
 localedir = $(datadir)/locale
 
-LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -DTESTDATADIR='"test/testdata"' -I$(top_srcdir)/bin
+LOCAL_CXXFLAGS = $(SCHROOT_CFLAGS) $(CPPUNIT_CFLAGS) -DTESTDATADIR='"test/testdata"' -I$(top_srcdir)/lib -I$(top_srcdir)/bin
 
 LOCAL_DEFS = -DLOCALEDIR=\"$(localedir)\" -DCSBUILD_CONF=\"$(CSBUILD_CONF)\"
 
@@ -52,10 +52,10 @@ include etc/Makefile.am
 include etc/bash_completion/Makefile.am
 include etc/pam/Makefile.am
 include etc/setup.d/Makefile.am
+include lib/sbuild/Makefile.am
 include libexec/listmounts/Makefile.am
 include libexec/mount/Makefile.am
 include man/Makefile.am
-include sbuild/Makefile.am
 include test/Makefile.am
 
 SUBDIRS = po

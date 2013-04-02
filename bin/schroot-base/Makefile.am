@@ -26,4 +26,4 @@ bin_schroot_base_libschroot_base_la_SOURCES =	\
 	bin/schroot-base/options.h		\
 	bin/schroot-base/options.cc		\
 	bin/schroot-base/run.h
-bin_schroot_base_libschroot_base_la_LIBADD = $(top_builddir)/sbuild/libsbuild.la
+bin_schroot_base_libschroot_base_la_LIBADD = $(top_builddir)/lib/sbuild/libsbuild.la
