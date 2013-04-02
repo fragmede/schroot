@@ -19,7 +19,7 @@
 #ifndef DCHROOT_DSA_OPTIONS_H
 #define DCHROOT_DSA_OPTIONS_H
 
-#include <schroot/schroot-options-base.h>
+#include <schroot/options-base.h>
 
 namespace dchroot_dsa
 {

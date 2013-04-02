@@ -20,7 +20,7 @@
 
 #include <sbuild/config.h>
 
-#include "schroot-main.h"
+#include "main.h"
 
 #include <cstdlib>
 #include <ctime>

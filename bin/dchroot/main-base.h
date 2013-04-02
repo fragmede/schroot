@@ -19,7 +19,7 @@
 #ifndef DCHROOT_MAIN_BASE_H
 #define DCHROOT_MAIN_BASE_H
 
-#include <schroot/schroot-main-base.h>
+#include <schroot/main-base.h>
 
 namespace dchroot
 {

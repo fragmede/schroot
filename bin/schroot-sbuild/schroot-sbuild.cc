@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include "schroot-sbuild-main.h"
-#include <schroot/schroot-options.h>
+#include <schroot/options.h>
 
 #include <schroot-base/run.h>
 

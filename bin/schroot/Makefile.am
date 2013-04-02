@@ -22,21 +22,21 @@ noinst_LTLIBRARIES +=			\
 
 bin_PROGRAMS += bin/schroot/schroot
 
-bin_schroot_libschroot_la_SOURCES =		\
-	bin/schroot/schroot-options-base.h	\
-	bin/schroot/schroot-options-base.cc	\
-	bin/schroot/schroot-main-base.h		\
-	bin/schroot/schroot-main-base.cc	\
-	bin/schroot/schroot-main.h		\
-	bin/schroot/schroot-main.cc
+bin_schroot_libschroot_la_SOURCES =	\
+	bin/schroot/options-base.h	\
+	bin/schroot/options-base.cc	\
+	bin/schroot/main-base.h		\
+	bin/schroot/main-base.cc	\
+	bin/schroot/main.h		\
+	bin/schroot/main.cc
 bin_schroot_libschroot_la_LIBADD = $(top_builddir)/bin/schroot-base/libschroot-base.la
 
-bin_schroot_libschroot_all_la_SOURCES =		\
-	bin/schroot/schroot-options.h		\
-	bin/schroot/schroot-options.cc
+bin_schroot_libschroot_all_la_SOURCES =	\
+	bin/schroot/options.h		\
+	bin/schroot/options.cc
 bin_schroot_libschroot_all_la_LIBADD = bin/schroot/libschroot.la
 
-bin_schroot_schroot_SOURCES =			\
+bin_schroot_schroot_SOURCES =		\
 	bin/schroot/schroot.cc
 bin_schroot_schroot_LDADD = bin/schroot/libschroot-all.la
 

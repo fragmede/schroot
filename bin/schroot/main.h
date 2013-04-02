@@ -19,8 +19,8 @@
 #ifndef SCHROOT_MAIN_H
 #define SCHROOT_MAIN_H
 
-#include <schroot/schroot-main-base.h>
-#include <schroot/schroot-options-base.h>
+#include <schroot/main-base.h>
+#include <schroot/options-base.h>
 
 /**
  * schroot program components.

@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include "schroot-main.h"
-#include "schroot-options.h"
+#include "main.h"
+#include "options.h"
 
 #include <schroot-base/run.h>
 

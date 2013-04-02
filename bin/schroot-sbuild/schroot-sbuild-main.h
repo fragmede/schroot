@@ -19,7 +19,7 @@
 #ifndef SCHROOT_SBUILD_MAIN_H
 #define SCHROOT_SBUILD_MAIN_H
 
-#include <schroot/schroot-main.h>
+#include <schroot/main.h>
 
 /**
  * schroot-sbuild program components.
