@@ -16,13 +16,13 @@
 #
 #####################################################################
 
-pkglibexec_PROGRAMS += libexec/schroot-listmounts/schroot-listmounts
+pkglibexec_PROGRAMS += libexec/schroot-listmounts/listmounts
 
-bin_schroot_listmounts_schroot_listmounts_SOURCES =		\
+libexec_schroot_listmounts_listmounts_SOURCES =	\
 	libexec/schroot-listmounts/main.h	\
 	libexec/schroot-listmounts/main.cc	\
 	libexec/schroot-listmounts/options.h	\
 	libexec/schroot-listmounts/options.cc	\
-	libexec/schroot-listmounts/schroot-listmounts.cc
-bin_schroot_listmounts_schroot_listmounts_LDADD = \
+	libexec/schroot-listmounts/listmounts.cc
+libexec_schroot_listmounts_listmounts_LDADD = \
 	$(top_builddir)/bin/schroot-base/libschroot-base.la
