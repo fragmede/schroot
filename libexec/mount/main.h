@@ -21,7 +21,7 @@
 
 #include <schroot-base/main.h>
 
-#include <schroot-mount/options.h>
+#include <libexec/mount/options.h>
 
 #include <sbuild/custom-error.h>
 
