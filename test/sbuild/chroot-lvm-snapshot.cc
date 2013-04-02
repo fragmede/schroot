@@ -25,7 +25,7 @@
 #include <sbuild/util.h>
 
 #include <test/helpers.h>
-#include "test-sbuild-chroot.h"
+#include <test/sbuild/chroot.h>
 
 #include <algorithm>
 #include <set>

@@ -97,52 +97,52 @@ endif
 
 test_sbuild_chroot_SOURCES =		\
 	test/sbuild/chroot.cc	\
-	test/test-sbuild-chroot.h
+	test/sbuild/chroot.h
 test_sbuild_chroot_LDADD =  test/libtest.la
 
 test_sbuild_chroot_plain_SOURCES =	\
 	test/sbuild/chroot-plain.cc	\
-	test/test-sbuild-chroot.h
+	test/sbuild/chroot.h
 test_sbuild_chroot_plain_LDADD =  test/libtest.la
 
 test_sbuild_chroot_custom_SOURCES =   \
 	test/sbuild/chroot-custom.cc  \
-	test/test-sbuild-chroot.h
+	test/sbuild/chroot.h
 test_sbuild_chroot_custom_LDADD =  test/libtest.la
 
 test_sbuild_chroot_file_SOURCES =	\
 	test/sbuild/chroot-file.cc	\
-	test/test-sbuild-chroot.h
+	test/sbuild/chroot.h
 test_sbuild_chroot_file_LDADD =  test/libtest.la
 
 test_sbuild_chroot_directory_SOURCES =	\
 	test/sbuild/chroot-directory.cc	\
-	test/test-sbuild-chroot.h
+	test/sbuild/chroot.h
 test_sbuild_chroot_directory_LDADD =  test/libtest.la
 
 test_sbuild_chroot_block_device_SOURCES =		\
 	$(test_sbuild_chroot_blockdev_sources)	\
-	test/test-sbuild-chroot.h
+	test/sbuild/chroot.h
 test_sbuild_chroot_block_device_LDADD =  test/libtest.la
 
 test_sbuild_chroot_lvm_snapshot_SOURCES =		\
 	$(test_sbuild_chroot_lvmsnap_sources)	\
-	test/test-sbuild-chroot.h
+	test/sbuild/chroot.h
 test_sbuild_chroot_lvm_snapshot_LDADD =  test/libtest.la
 
 test_sbuild_chroot_btrfs_snapshot_SOURCES =		\
 	$(test_sbuild_chroot_btrfssnap_sources)	\
-	test/test-sbuild-chroot.h
+	test/sbuild/chroot.h
 test_sbuild_chroot_btrfs_snapshot_LDADD =  test/libtest.la
 
 test_sbuild_chroot_loopback_SOURCES =		\
 	$(test_sbuild_chroot_loopback_sources)	\
-	test/test-sbuild-chroot.h
+	test/sbuild/chroot.h
 test_sbuild_chroot_loopback_LDADD =  test/libtest.la
 
 test_sbuild_chroot_facet_userdata_SOURCES =		\
 	test/sbuild/chroot-facet-userdata.cc		\
-	test/test-sbuild-chroot.h
+	test/sbuild/chroot.h
 test_sbuild_chroot_facet_userdata_LDADD =  test/libtest.la
 
 test_sbuild_chroot_config_SOURCES = test/sbuild/chroot-config.cc
