@@ -22,7 +22,7 @@
 #include <sbuild/chroot-plain.h>
 #include <sbuild/keyfile-writer.h>
 
-#include "test-helpers.h"
+#include <test/helpers.h>
 #include "test-sbuild-chroot.h"
 
 #include <algorithm>

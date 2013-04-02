@@ -20,103 +20,103 @@ if USE_UNIT_TESTS
 noinst_LTLIBRARIES += test/libtest.la
 
 noinst_PROGRAMS += 				\
-	test/sbuild-chroot			\
-	test/sbuild-chroot-plain		\
-	test/sbuild-chroot-custom		\
-	test/sbuild-chroot-file			\
-	test/sbuild-chroot-directory		\
-	test/sbuild-chroot-block-device		\
-	test/sbuild-chroot-loopback		\
-	test/sbuild-chroot-lvm-snapshot		\
-	test/sbuild-chroot-btrfs-snapshot	\
-	test/sbuild-chroot-config		\
-	test/sbuild-chroot-facet-userdata	\
-	test/sbuild-environment			\
-	test/sbuild-keyfile			\
-	test/sbuild-lock			\
-	test/sbuild-log				\
-	test/sbuild-nostream			\
-	test/sbuild-parse-value			\
-	test/sbuild-personality			\
-	test/sbuild-regex			\
-	test/sbuild-run-parts			\
-	test/sbuild-util			\
-	test/schroot-base-option-action
+	test/sbuild/chroot			\
+	test/sbuild/chroot-plain		\
+	test/sbuild/chroot-custom		\
+	test/sbuild/chroot-file			\
+	test/sbuild/chroot-directory		\
+	test/sbuild/chroot-block-device		\
+	test/sbuild/chroot-loopback		\
+	test/sbuild/chroot-lvm-snapshot		\
+	test/sbuild/chroot-btrfs-snapshot	\
+	test/sbuild/chroot-config		\
+	test/sbuild/chroot-facet-userdata	\
+	test/sbuild/environment			\
+	test/sbuild/keyfile			\
+	test/sbuild/lock			\
+	test/sbuild/log				\
+	test/sbuild/nostream			\
+	test/sbuild/parse-value			\
+	test/sbuild/personality			\
+	test/sbuild/regex			\
+	test/sbuild/run-parts			\
+	test/sbuild/util			\
+	test/schroot-base/option-action
 
 # sbuild-lock is excluded, because it is timing dependent and can fail
 # randomly on slow or heavily-loaded systems.
 TESTS = test/setup-test-data			\
-	test/sbuild-chroot			\
-	test/sbuild-chroot-plain		\
-	test/sbuild-chroot-custom		\
-	test/sbuild-chroot-file			\
-	test/sbuild-chroot-directory		\
-	test/sbuild-chroot-block-device		\
-	test/sbuild-chroot-loopback		\
-	test/sbuild-chroot-lvm-snapshot		\
-	test/sbuild-chroot-btrfs-snapshot	\
-	test/sbuild-chroot-config		\
-	test/sbuild-chroot-facet-userdata	\
-	test/sbuild-environment			\
-	test/sbuild-keyfile			\
-	test/sbuild-log				\
-	test/sbuild-nostream			\
-	test/sbuild-parse-value			\
-	test/sbuild-personality			\
-	test/sbuild-run-parts			\
-	test/sbuild-regex			\
-	test/sbuild-util			\
-	test/schroot-base-option-action		\
+	test/sbuild/chroot			\
+	test/sbuild/chroot-plain		\
+	test/sbuild/chroot-custom		\
+	test/sbuild/chroot-file			\
+	test/sbuild/chroot-directory		\
+	test/sbuild/chroot-block-device		\
+	test/sbuild/chroot-loopback		\
+	test/sbuild/chroot-lvm-snapshot		\
+	test/sbuild/chroot-btrfs-snapshot	\
+	test/sbuild/chroot-config		\
+	test/sbuild/chroot-facet-userdata	\
+	test/sbuild/environment			\
+	test/sbuild/keyfile			\
+	test/sbuild/log				\
+	test/sbuild/nostream			\
+	test/sbuild/parse-value			\
+	test/sbuild/personality			\
+	test/sbuild/run-parts			\
+	test/sbuild/regex			\
+	test/sbuild/util			\
+	test/schroot-base/option-action		\
 	test/cleanup-test-data
 endif
 
 test_libtest_la_SOURCES =	\
-	test/test-helpers.h	\
+	test/helpers.h		\
 	test/testmain.cc
 test_libtest_la_LIBADD = $(top_builddir)/sbuild/libsbuild.la $(CPPUNIT_LIBS)
 
 if BUILD_BLOCKDEV
 test_sbuild_chroot_blockdev_sources =	\
-	test/sbuild-chroot-block-device.cc
+	test/sbuild/chroot-block-device.cc
 endif
 
 if BUILD_LOOPBACK
 test_sbuild_chroot_loopback_sources =	\
-	test/sbuild-chroot-loopback.cc
+	test/sbuild/chroot-loopback.cc
 endif
 
 if BUILD_LVMSNAP
 test_sbuild_chroot_lvmsnap_sources =	\
-	test/sbuild-chroot-lvm-snapshot.cc
+	test/sbuild/chroot-lvm-snapshot.cc
 endif
 
 if BUILD_BTRFSSNAP
 test_sbuild_chroot_btrfssnap_sources =	\
-	test/sbuild-chroot-btrfs-snapshot.cc
+	test/sbuild/chroot-btrfs-snapshot.cc
 endif
 
 test_sbuild_chroot_SOURCES =		\
-	test/sbuild-chroot.cc	\
+	test/sbuild/chroot.cc	\
 	test/test-sbuild-chroot.h
 test_sbuild_chroot_LDADD =  test/libtest.la
 
 test_sbuild_chroot_plain_SOURCES =	\
-	test/sbuild-chroot-plain.cc	\
+	test/sbuild/chroot-plain.cc	\
 	test/test-sbuild-chroot.h
 test_sbuild_chroot_plain_LDADD =  test/libtest.la
 
 test_sbuild_chroot_custom_SOURCES =   \
-	test/sbuild-chroot-custom.cc  \
+	test/sbuild/chroot-custom.cc  \
 	test/test-sbuild-chroot.h
 test_sbuild_chroot_custom_LDADD =  test/libtest.la
 
 test_sbuild_chroot_file_SOURCES =	\
-	test/sbuild-chroot-file.cc	\
+	test/sbuild/chroot-file.cc	\
 	test/test-sbuild-chroot.h
 test_sbuild_chroot_file_LDADD =  test/libtest.la
 
 test_sbuild_chroot_directory_SOURCES =	\
-	test/sbuild-chroot-directory.cc	\
+	test/sbuild/chroot-directory.cc	\
 	test/test-sbuild-chroot.h
 test_sbuild_chroot_directory_LDADD =  test/libtest.la
 
@@ -141,44 +141,44 @@ test_sbuild_chroot_loopback_SOURCES =		\
 test_sbuild_chroot_loopback_LDADD =  test/libtest.la
 
 test_sbuild_chroot_facet_userdata_SOURCES =		\
-	test/sbuild-chroot-facet-userdata.cc		\
+	test/sbuild/chroot-facet-userdata.cc		\
 	test/test-sbuild-chroot.h
 test_sbuild_chroot_facet_userdata_LDADD =  test/libtest.la
 
-test_sbuild_chroot_config_SOURCES = test/sbuild-chroot-config.cc
+test_sbuild_chroot_config_SOURCES = test/sbuild/chroot-config.cc
 test_sbuild_chroot_config_LDADD = test/libtest.la
 
-test_sbuild_environment_SOURCES = test/sbuild-environment.cc
+test_sbuild_environment_SOURCES = test/sbuild/environment.cc
 test_sbuild_environment_LDADD = test/libtest.la
 
-test_sbuild_keyfile_SOURCES = test/sbuild-keyfile.cc
+test_sbuild_keyfile_SOURCES = test/sbuild/keyfile.cc
 test_sbuild_keyfile_LDADD = test/libtest.la
 
-test_sbuild_lock_SOURCES = test/sbuild-lock.cc
+test_sbuild_lock_SOURCES = test/sbuild/lock.cc
 test_sbuild_lock_LDADD = test/libtest.la
 
-test_sbuild_log_SOURCES = test/sbuild-log.cc
+test_sbuild_log_SOURCES = test/sbuild/log.cc
 test_sbuild_log_LDADD = test/libtest.la
 
-test_sbuild_nostream_SOURCES = test/sbuild-nostream.cc
+test_sbuild_nostream_SOURCES = test/sbuild/nostream.cc
 test_sbuild_nostream_LDADD = test/libtest.la
 
-test_sbuild_parse_value_SOURCES = test/sbuild-parse-value.cc
+test_sbuild_parse_value_SOURCES = test/sbuild/parse-value.cc
 test_sbuild_parse_value_LDADD = test/libtest.la
 
-test_sbuild_personality_SOURCES = test/sbuild-personality.cc
+test_sbuild_personality_SOURCES = test/sbuild/personality.cc
 test_sbuild_personality_LDADD = test/libtest.la
 
-test_sbuild_regex_SOURCES = test/sbuild-regex.cc
+test_sbuild_regex_SOURCES = test/sbuild/regex.cc
 test_sbuild_regex_LDADD = test/libtest.la
 
-test_sbuild_run_parts_SOURCES = test/sbuild-run-parts.cc
+test_sbuild_run_parts_SOURCES = test/sbuild/run-parts.cc
 test_sbuild_run_parts_LDADD = test/libtest.la
 
-test_sbuild_util_SOURCES = test/sbuild-util.cc
+test_sbuild_util_SOURCES = test/sbuild/util.cc
 test_sbuild_util_LDADD = test/libtest.la
 
-test_schroot_base_option_action_SOURCES = test/schroot-base-option-action.cc
+test_schroot_base_option_action_SOURCES = test/schroot-base/option-action.cc
 test_schroot_base_option_action_LDADD = $(top_builddir)/bin/schroot-base/libschroot-base.la test/libtest.la
 
 EXTRA_DIST += 					\

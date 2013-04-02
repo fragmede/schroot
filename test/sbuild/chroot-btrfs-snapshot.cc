@@ -23,7 +23,7 @@
 #include <sbuild/keyfile-writer.h>
 #include <sbuild/util.h>
 
-#include "test-helpers.h"
+#include <test/helpers.h>
 #include "test-sbuild-chroot.h"
 
 #include <algorithm>
