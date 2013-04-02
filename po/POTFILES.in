@@ -12,14 +12,14 @@ bin/dchroot/main.cc
 bin/dchroot/options.cc
 bin/dchroot/session-base.cc
 bin/dchroot/session.cc
-bin/schroot-base/main.cc
-bin/schroot-base/option-action.cc
-bin/schroot-base/options.cc
 bin/schroot/main-base.cc
 bin/schroot/main.cc
 bin/schroot/options-base.cc
 bin/schroot/options.cc
 bin/schroot/schroot.cc
+lib/schroot-base/main.cc
+lib/schroot-base/option-action.cc
+lib/schroot-base/options.cc
 libexec/listmounts/listmounts.cc
 libexec/listmounts/main.cc
 libexec/listmounts/options.cc
