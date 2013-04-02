@@ -16,8 +16,8 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_LISTMOUNTS_MAIN_H
-#define SCHROOT_LISTMOUNTS_MAIN_H
+#ifndef LIBEXEC_LISTMOUNTS_MAIN_H
+#define LIBEXEC_LISTMOUNTS_MAIN_H
 
 #include <schroot-base/main.h>
 
@@ -80,7 +80,7 @@ namespace schroot_listmounts
 
 }
 
-#endif /* SCHROOT_LISTMOUNTS_MAIN_H */
+#endif /* LIBEXEC_LISTMOUNTS_MAIN_H */
 
 /*
  * Local Variables:

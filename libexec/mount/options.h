@@ -16,8 +16,8 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_MOUNT_OPTIONS_H
-#define SCHROOT_MOUNT_OPTIONS_H
+#ifndef LIBEXEC_MOUNT_OPTIONS_H
+#define LIBEXEC_MOUNT_OPTIONS_H
 
 #include <schroot-base/options.h>
 
@@ -69,7 +69,7 @@ namespace schroot_mount
 
 }
 
-#endif /* SCHROOT_MOUNT_OPTIONS_H */
+#endif /* LIBEXEC_MOUNT_OPTIONS_H */
 
 /*
  * Local Variables:
