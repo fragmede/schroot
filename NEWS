@@ -20,7 +20,7 @@ configuration.
   3) schroot now requires a C++11 compiler to build.  Several C++11
      features are now used to make the code more robust and
      maintainable, including range-based for loops, auto (automatic
-     type detection), container initialiser lists.  Existing use of
+     type detection) and container initialiser lists.  Existing use of
      TR1 types has been replaced with the use of the C++11
      equivalents.
 
@@ -42,6 +42,9 @@ configuration.
      readable than UUIDs, and will remain sufficiently unique that
      there should be no clashes between automatically-created session
      names.
+
+  7) The unused and incomplete csbuild and schroot-sbuild wrappers for
+     sbuild have been removed.
 
 * Major changes in 1.6.4:
 
