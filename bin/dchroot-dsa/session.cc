@@ -43,7 +43,7 @@ using namespace dchroot_dsa;
 session::session (std::string const&         service,
                   operation                  operation,
                   sbuild::session::chroot_list const& chroots):
-  dchroot::session_base(service, operation, chroots)
+  dchroot_common::session_base(service, operation, chroots)
 {
 }
 

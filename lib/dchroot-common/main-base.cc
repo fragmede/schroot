@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include "main.h"
-#include "session.h"
+#include "main-base.h"
+#include "session-base.h"
 
 #include <cstdlib>
 #include <iostream>
@@ -37,7 +37,7 @@
 using std::endl;
 using boost::format;
 using sbuild::_;
-using namespace dchroot;
+using namespace dchroot_common;
 
 main_base::main_base (std::string const&                 program_name,
                       std::string const&                 program_usage,

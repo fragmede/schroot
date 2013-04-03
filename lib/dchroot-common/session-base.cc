@@ -37,7 +37,7 @@ using std::cout;
 using std::endl;
 using sbuild::_;
 using boost::format;
-using namespace dchroot;
+using namespace dchroot_common;
 
 session_base::session_base (std::string const&  service,
                             operation           operation,

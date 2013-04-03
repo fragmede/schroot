@@ -16,12 +16,12 @@
  *
  *********************************************************************/
 
-#ifndef DCHROOT_SESSION_BASE_H
-#define DCHROOT_SESSION_BASE_H
+#ifndef DCHROOT_COMMON_SESSION_BASE_H
+#define DCHROOT_COMMON_SESSION_BASE_H
 
 #include <sbuild/session.h>
 
-namespace dchroot
+namespace dchroot_common
 {
 
   /**
@@ -60,7 +60,7 @@ namespace dchroot
 
 }
 
-#endif /* DCHROOT_SESSION_BASE_H */
+#endif /* DCHROOT_COMMON_SESSION_BASE_H */
 
 /*
  * Local Variables:

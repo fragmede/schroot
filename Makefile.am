@@ -49,6 +49,7 @@ include etc/pam/Makefile.am
 include etc/setup.d/Makefile.am
 include lib/sbuild/Makefile.am
 include lib/bin-common/Makefile.am
+include lib/dchroot-common/Makefile.am
 include lib/schroot-common/Makefile.am
 include lib/test/Makefile.am
 include libexec/listmounts/Makefile.am

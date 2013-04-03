@@ -16,12 +16,12 @@
  *
  *********************************************************************/
 
-#ifndef DCHROOT_MAIN_BASE_H
-#define DCHROOT_MAIN_BASE_H
+#ifndef DCHROOT_COMMON_MAIN_BASE_H
+#define DCHROOT_COMMON_MAIN_BASE_H
 
 #include <schroot-common/main-base.h>
 
-namespace dchroot
+namespace dchroot_common
 {
 
   /**
@@ -52,7 +52,7 @@ namespace dchroot
 
 }
 
-#endif /* DCHROOT_MAIN_BASE_H */
+#endif /* DCHROOT_COMMON_MAIN_BASE_H */
 
 /*
  * Local Variables:

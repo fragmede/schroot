@@ -16,22 +16,11 @@
 #
 #####################################################################
 
-if BUILD_LIBDCHROOT
-noinst_LTLIBRARIES += bin/dchroot/libdchroot.la
-endif
-
 if BUILD_DCHROOT
 dchroot = bin/dchroot/dchroot
 endif
 
 bin_PROGRAMS += $(dchroot)
-
-bin_dchroot_libdchroot_la_SOURCES =	\
-	bin/dchroot/main-base.h		\
-	bin/dchroot/main-base.cc	\
-	bin/dchroot/session-base.h	\
-	bin/dchroot/session-base.cc
-bin_dchroot_libdchroot_la_LIBADD = $(top_builddir)/lib/schroot-common/libschroot-common.la
 
 bin_dchroot_dchroot_SOURCES =		\
 	bin/dchroot/session.h		\
@@ -41,7 +30,7 @@ bin_dchroot_dchroot_SOURCES =		\
 	bin/dchroot/main.h		\
 	bin/dchroot/main.cc		\
 	bin/dchroot/dchroot.cc
-bin_dchroot_dchroot_LDADD = $(top_builddir)/bin/dchroot/libdchroot.la
+bin_dchroot_dchroot_LDADD = $(top_builddir)/lib/dchroot-common/libdchroot-common.la
 
 install-exec-hook::
 # Install setuid root.

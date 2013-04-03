@@ -38,7 +38,7 @@ using boost::format;
 using namespace dchroot_dsa;
 
 main::main (schroot_common::options_base::ptr& options):
-  main_base("dchroot-dsa",
+  dchroot_common::main_base("dchroot-dsa",
             // TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
             // is an em-dash.
             _("[OPTION…] chroot [COMMAND] — run command or shell in a chroot"),

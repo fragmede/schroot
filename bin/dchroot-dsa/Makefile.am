@@ -30,7 +30,7 @@ bin_dchroot_dsa_dchroot_dsa_SOURCES =	\
 	bin/dchroot-dsa/main.h		\
 	bin/dchroot-dsa/main.cc		\
 	bin/dchroot-dsa/dchroot-dsa.cc
-bin_dchroot_dsa_dchroot_dsa_LDADD = $(top_builddir)/bin/dchroot/libdchroot.la
+bin_dchroot_dsa_dchroot_dsa_LDADD = $(top_builddir)/lib/dchroot-common/libdchroot-common.la
 
 install-exec-hook::
 # Install setuid root.

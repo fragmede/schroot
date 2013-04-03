@@ -19,7 +19,7 @@
 #ifndef DCHROOT_DSA_MAIN_H
 #define DCHROOT_DSA_MAIN_H
 
-#include <dchroot/main-base.h>
+#include <dchroot-common/main-base.h>
 
 /**
  * dchroot-dsa program components.
@@ -30,7 +30,7 @@ namespace dchroot_dsa
   /**
    * Frontend for dchroot-dsa.  This class is used to "run" dchroot-dsa.
    */
-  class main : public dchroot::main_base
+  class main : public dchroot_common::main_base
   {
   public:
     /**
