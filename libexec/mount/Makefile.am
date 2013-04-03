@@ -26,5 +26,5 @@ libexec_mount_mount_SOURCES =		\
 	libexec/mount/mount.cc
 
 libexec_mount_mount_LDADD = $(BOOST_FILESYSTEM_LIBS)	\
-	$(top_builddir)/lib/schroot-base/libschroot-base.la
+	$(top_builddir)/lib/bin-common/libbin-common.la
 

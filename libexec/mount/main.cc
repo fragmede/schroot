@@ -58,12 +58,12 @@ sbuild::error<main::error_code>::error_strings =
   };
 
 main::main (options::ptr& options):
-  schroot_base::main("schroot-mount",
-                     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-                     // and '-' is an em-dash.
-                     _("[OPTION…] — mount filesystems"),
-                     options,
-                     false),
+  bin_common::main("schroot-mount",
+                   // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+                   // and '-' is an em-dash.
+                   _("[OPTION…] — mount filesystems"),
+                   options,
+                   false),
   opts(options)
 {
 }

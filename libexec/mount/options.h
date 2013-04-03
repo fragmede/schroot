@@ -19,7 +19,7 @@
 #ifndef LIBEXEC_MOUNT_OPTIONS_H
 #define LIBEXEC_MOUNT_OPTIONS_H
 
-#include <schroot-base/options.h>
+#include <bin-common/options.h>
 
 #include <string>
 
@@ -29,7 +29,7 @@ namespace schroot_mount
   /**
    * schroot-mount command-line options.
    */
-  class options : public schroot_base::options
+  class options : public bin_common::options
   {
   public:
     /// A shared_ptr to an options object.

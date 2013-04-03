@@ -22,7 +22,7 @@
 #include <sbuild/session.h>
 #include <sbuild/types.h>
 
-#include <schroot-base/options.h>
+#include <bin-common/options.h>
 
 #include <memory>
 #include <string>
@@ -39,7 +39,7 @@ namespace schroot
    * behaviour.  This class contains functionality and options common
    * to all schroot programs (schroot, dchroot, dchroot-dsa).
    */
-  class options_base : public schroot_base::options
+  class options_base : public bin_common::options
   {
   public:
     /// Begin, run and end a session.

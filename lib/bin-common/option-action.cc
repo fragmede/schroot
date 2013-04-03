@@ -32,7 +32,7 @@ using std::endl;
 using boost::format;
 using sbuild::_;
 namespace opt = boost::program_options;
-using namespace schroot_base;
+using namespace bin_common;
 
 option_action::option_action ():
   default_action(),
@@ -63,7 +63,7 @@ option_action::set_default (action_type const& action)
   if (valid(action))
     this->default_action = action;
   else
-    throw schroot_base::options::error((format(_("%1%: invalid action")) % action).str());
+    throw bin_common::options::error((format(_("%1%: invalid action")) % action).str());
 }
 
 option_action::action_type const&
@@ -83,11 +83,11 @@ option_action::set (action_type const& action)
       if (this->current_action == "")
         this->current_action = action;
       else
-        throw schroot_base::options::error
+        throw bin_common::options::error
           (_("Only one action may be specified"));
     }
   else
-    throw schroot_base::options::error((format(_("%1%: invalid action")) % action).str());
+    throw bin_common::options::error((format(_("%1%: invalid action")) % action).str());
 }
 
 bool

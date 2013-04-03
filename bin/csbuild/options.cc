@@ -38,7 +38,7 @@ using namespace csbuild;
 const options::action_type options::ACTION_BUILD ("build");
 
 options::options ():
-  schroot_base::options(),
+  bin_common::options(),
   packages(),
   nolog(false),
   batch_mode(false),
@@ -87,7 +87,7 @@ void
 options::add_options ()
 {
   // Chain up to add basic options.
-  schroot_base::options::add_options();
+  bin_common::options::add_options();
 
   action.add(ACTION_BUILD);
   action.set_default(ACTION_BUILD);
@@ -172,7 +172,7 @@ void
 options::add_option_groups ()
 {
   // Chain up to add basic option groups.
-  schroot_base::options::add_option_groups();
+  bin_common::options::add_option_groups();
 
   visible.add(build);
   global.add(build);
@@ -197,7 +197,7 @@ void
 options::check_options ()
 {
   // Chain up to check basic options.
-  schroot_base::options::check_options();
+  bin_common::options::check_options();
 
   if (vm.count("build"))
     this->action = ACTION_BUILD;

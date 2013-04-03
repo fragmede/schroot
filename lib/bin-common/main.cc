@@ -36,7 +36,7 @@
 using std::endl;
 using boost::format;
 using sbuild::_;
-using namespace schroot_base;
+using namespace bin_common;
 
 main::main (std::string const&  program_name,
             std::string const&  program_usage,
@@ -116,7 +116,7 @@ main::run (int   argc,
 
       try
         {
-          dynamic_cast<schroot_base::options::error const&>(e);
+          dynamic_cast<bin_common::options::error const&>(e);
           sbuild::log_info()
             // TRANSLATORS: %1% = program name
             << format(_("Run “%1% --help” to list usage example and all available options"))

@@ -42,12 +42,12 @@ using sbuild::N_;
 using namespace csbuild;
 
 main::main (options::ptr& options):
-  schroot_base::main("csbuild",
-                     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-                     // and '-' is an em-dash.
-                     _("[OPTION…] — build Debian packages from source"),
-                     options,
-                     false),
+  bin_common::main("csbuild",
+                   // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+                   // and '-' is an em-dash.
+                   _("[OPTION…] — build Debian packages from source"),
+                   options,
+                   false),
   opts(options)
 {
 }

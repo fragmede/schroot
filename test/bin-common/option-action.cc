@@ -16,14 +16,14 @@
  *
  *********************************************************************/
 
-#include <schroot-base/option-action.h>
-#include <schroot-base/options.h>
+#include <bin-common/option-action.h>
+#include <bin-common/options.h>
 
 #include <iostream>
 
 #include <cppunit/extensions/HelperMacros.h>
 
-using schroot_base::option_action;
+using bin_common::option_action;
 using namespace CppUnit;
 
 class test_option_action : public TestFixture
@@ -31,14 +31,14 @@ class test_option_action : public TestFixture
   CPPUNIT_TEST_SUITE(test_option_action);
   CPPUNIT_TEST(test_construction);
   CPPUNIT_TEST(test_default);
-  CPPUNIT_TEST_EXCEPTION(test_default_fail, schroot_base::options::error);
+  CPPUNIT_TEST_EXCEPTION(test_default_fail, bin_common::options::error);
   CPPUNIT_TEST(test_current);
-  CPPUNIT_TEST_EXCEPTION(test_current_fail, schroot_base::options::error);
+  CPPUNIT_TEST_EXCEPTION(test_current_fail, bin_common::options::error);
   CPPUNIT_TEST_EXCEPTION(test_current_fail_multipleset,
-                         schroot_base::options::error);
+                         bin_common::options::error);
   CPPUNIT_TEST(test_operators);
   CPPUNIT_TEST_EXCEPTION(test_operators_fail_multipleset,
-                         schroot_base::options::error);
+                         bin_common::options::error);
   CPPUNIT_TEST_SUITE_END();
 
 protected:

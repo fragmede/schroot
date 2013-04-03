@@ -16,13 +16,13 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_BASE_OPTION_ACTION_H
-#define SCHROOT_BASE_OPTION_ACTION_H
+#ifndef BIN_COMMON_OPTION_ACTION_H
+#define BIN_COMMON_OPTION_ACTION_H
 
 #include <set>
 #include <string>
 
-namespace schroot_base
+namespace bin_common
 {
 
   /**
@@ -147,7 +147,7 @@ namespace schroot_base
 
 }
 
-#endif /* SCHROOT_BASE_OPTION_ACTION_H */
+#endif /* BIN_COMMON_OPTION_ACTION_H */
 
 /*
  * Local Variables:

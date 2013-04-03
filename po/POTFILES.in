@@ -17,9 +17,9 @@ bin/schroot/main.cc
 bin/schroot/options-base.cc
 bin/schroot/options.cc
 bin/schroot/schroot.cc
-lib/schroot-base/main.cc
-lib/schroot-base/option-action.cc
-lib/schroot-base/options.cc
+lib/bin-common/main.cc
+lib/bin-common/option-action.cc
+lib/bin-common/options.cc
 libexec/listmounts/listmounts.cc
 libexec/listmounts/main.cc
 libexec/listmounts/options.cc

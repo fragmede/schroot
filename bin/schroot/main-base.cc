@@ -62,9 +62,9 @@ main_base::main_base (std::string const& program_name,
                       std::string const& program_usage,
                       options_base::ptr& options,
                       bool               use_syslog):
-  schroot_base::main(program_name, program_usage,
-                     std::static_pointer_cast<schroot_base::options>(options),
-                     use_syslog),
+  bin_common::main(program_name, program_usage,
+                   std::static_pointer_cast<bin_common::options>(options),
+                   use_syslog),
   options(options)
 {
 }
@@ -76,7 +76,7 @@ main_base::~main_base ()
 void
 main_base::action_version (std::ostream& stream)
 {
-  schroot_base::main::action_version(stream);
+  bin_common::main::action_version(stream);
 
   format feature("  %1$-12s %2%\n");
 

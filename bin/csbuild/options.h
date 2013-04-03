@@ -19,7 +19,7 @@
 #ifndef CSBUILD_OPTIONS_H
 #define CSBUILD_OPTIONS_H
 
-#include <schroot-base/options.h>
+#include <bin-common/options.h>
 
 #include <sbuild/types.h>
 
@@ -31,7 +31,7 @@ namespace csbuild
   /**
    * csbuild command-line options.
    */
-  class options : public schroot_base::options
+  class options : public bin_common::options
   {
   public:
     /// A shared_ptr to an options object.

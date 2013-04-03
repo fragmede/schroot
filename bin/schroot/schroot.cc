@@ -21,7 +21,7 @@
 #include "main.h"
 #include "options.h"
 
-#include <schroot-base/run.h>
+#include <bin-common/run.h>
 
 using std::endl;
 using boost::format;
@@ -40,5 +40,5 @@ int
 main (int   argc,
       char *argv[])
 {
-  return schroot_base::run<schroot::options, schroot::main>(argc, argv);
+  return bin_common::run<schroot::options, schroot::main>(argc, argv);
 }

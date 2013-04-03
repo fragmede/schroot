@@ -37,7 +37,7 @@ using namespace schroot_listmounts;
 const options::action_type options::ACTION_LISTMOUNTS ("listmounts");
 
 options::options ():
-  schroot_base::options(),
+  bin_common::options(),
   mountpoint(),
   mount(_("Mount"))
 {
@@ -51,7 +51,7 @@ void
 options::add_options ()
 {
   // Chain up to add basic options.
-  schroot_base::options::add_options();
+  bin_common::options::add_options();
 
   action.add(ACTION_LISTMOUNTS);
   action.set_default(ACTION_LISTMOUNTS);
@@ -65,7 +65,7 @@ void
 options::add_option_groups ()
 {
   // Chain up to add basic option groups.
-  schroot_base::options::add_option_groups();
+  bin_common::options::add_option_groups();
 
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!mount.options().empty())
@@ -82,7 +82,7 @@ void
 options::check_options ()
 {
   // Chain up to check basic options.
-  schroot_base::options::check_options();
+  bin_common::options::check_options();
 
   if (this->action == ACTION_LISTMOUNTS &&
       this->mountpoint.empty())

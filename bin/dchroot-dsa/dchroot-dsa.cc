@@ -21,7 +21,7 @@
 #include "main.h"
 #include "options.h"
 
-#include <schroot-base/run.h>
+#include <bin-common/run.h>
 
 using std::endl;
 using boost::format;
@@ -40,6 +40,6 @@ int
 main (int   argc,
       char *argv[])
 {
-  return schroot_base::run
+  return bin_common::run
     <dchroot_dsa::options, dchroot_dsa::main>(argc, argv);
 }

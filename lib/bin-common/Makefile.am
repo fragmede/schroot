@@ -16,14 +16,14 @@
 #
 #####################################################################
 
-noinst_LTLIBRARIES += lib/schroot-base/libschroot-base.la
+noinst_LTLIBRARIES += lib/bin-common/libbin-common.la
 
-lib_schroot_base_libschroot_base_la_SOURCES =	\
-	lib/schroot-base/main.h			\
-	lib/schroot-base/main.cc		\
-	lib/schroot-base/option-action.h	\
-	lib/schroot-base/option-action.cc	\
-	lib/schroot-base/options.h		\
-	lib/schroot-base/options.cc		\
-	lib/schroot-base/run.h
-lib_schroot_base_libschroot_base_la_LIBADD = $(top_builddir)/lib/sbuild/libsbuild.la
+lib_bin_common_libbin_common_la_SOURCES =	\
+	lib/bin-common/main.h			\
+	lib/bin-common/main.cc			\
+	lib/bin-common/option-action.h		\
+	lib/bin-common/option-action.cc		\
+	lib/bin-common/options.h		\
+	lib/bin-common/options.cc		\
+	lib/bin-common/run.h
+lib_bin_common_libbin_common_la_LIBADD = $(top_builddir)/lib/sbuild/libsbuild.la

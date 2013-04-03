@@ -16,13 +16,12 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_BASE_OPTIONS_H
-#define SCHROOT_BASE_OPTIONS_H
+#ifndef BIN_COMMON_OPTIONS_H
+#define BIN_COMMON_OPTIONS_H
 
-#include <sbuild/session.h>
 #include <sbuild/types.h>
 
-#include <schroot-base/option-action.h>
+#include <bin-common/option-action.h>
 
 #include <memory>
 #include <string>
@@ -30,7 +29,7 @@
 
 #include <boost/program_options.hpp>
 
-namespace schroot_base
+namespace bin_common
 {
 
   /**
@@ -145,7 +144,7 @@ namespace schroot_base
 
 }
 
-#endif /* SCHROOT_BASE_OPTIONS_H */
+#endif /* BIN_COMMON_OPTIONS_H */
 
 /*
  * Local Variables:

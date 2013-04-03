@@ -19,7 +19,7 @@
 #ifndef SCHROOT_MAIN_BASE_H
 #define SCHROOT_MAIN_BASE_H
 
-#include <schroot-base/main.h>
+#include <bin-common/main.h>
 #include <schroot/options-base.h>
 
 #include <sbuild/chroot-config.h>
@@ -33,7 +33,7 @@ namespace schroot
    * schroot programs.  This class contains functionality common to
    * all schroot programs (schroot, dchroot, dchroot-dsa).
    */
-  class main_base : public schroot_base::main
+  class main_base : public bin_common::main
   {
   public:
     /// Error codes.

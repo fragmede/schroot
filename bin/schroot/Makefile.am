@@ -29,7 +29,7 @@ bin_schroot_libschroot_la_SOURCES =	\
 	bin/schroot/main-base.cc	\
 	bin/schroot/main.h		\
 	bin/schroot/main.cc
-bin_schroot_libschroot_la_LIBADD = $(top_builddir)/lib/schroot-base/libschroot-base.la
+bin_schroot_libschroot_la_LIBADD = $(top_builddir)/lib/bin-common/libbin-common.la
 
 bin_schroot_libschroot_all_la_SOURCES =	\
 	bin/schroot/options.h		\

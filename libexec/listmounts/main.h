@@ -19,7 +19,7 @@
 #ifndef LIBEXEC_LISTMOUNTS_MAIN_H
 #define LIBEXEC_LISTMOUNTS_MAIN_H
 
-#include <schroot-base/main.h>
+#include <bin-common/main.h>
 
 #include <libexec/listmounts/options.h>
 
@@ -34,7 +34,7 @@ namespace schroot_listmounts
   /**
    * Frontend for schroot.  This class is used to "run" schroot.
    */
-  class main : public schroot_base::main
+  class main : public bin_common::main
   {
   public:
     /// Error codes.

@@ -21,7 +21,7 @@
 
 #include <csbuild/options.h>
 
-#include <schroot-base/main.h>
+#include <bin-common/main.h>
 
 namespace csbuild
 {
@@ -29,7 +29,7 @@ namespace csbuild
   /**
    * Frontend for schroot.  This class is used to "run" schroot.
    */
-  class main : public schroot_base::main
+  class main : public bin_common::main
   {
   public:
     /**

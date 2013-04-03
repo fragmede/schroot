@@ -16,10 +16,10 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_BASE_RUN_H
-#define SCHROOT_BASE_RUN_H
+#ifndef BIN_COMMON_RUN_H
+#define BIN_COMMON_RUN_H
 
-#include <schroot-base/options.h>
+#include <bin-common/options.h>
 
 #include <sbuild/config.h>
 
@@ -27,7 +27,7 @@
 #include <iostream>
 #include <string>
 
-namespace schroot_base
+namespace bin_common
 {
 
   /**
@@ -82,7 +82,7 @@ namespace schroot_base
 
 }
 
-#endif /* SCHROOT_BASE_RUN_H */
+#endif /* BIN_COMMON_RUN_H */
 
 /*
  * Local Variables:

@@ -19,7 +19,7 @@
 #ifndef LIBEXEC_MOUNT_MAIN_H
 #define LIBEXEC_MOUNT_MAIN_H
 
-#include <schroot-base/main.h>
+#include <bin-common/main.h>
 
 #include <libexec/mount/options.h>
 
@@ -34,7 +34,7 @@ namespace schroot_mount
   /**
    * Frontend for schroot-mount.  This class is used to "run" schroot-mount.
    */
-  class main : public schroot_base::main
+  class main : public bin_common::main
   {
   public:
     /// Error codes.

@@ -16,10 +16,10 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_BASE_MAIN_H
-#define SCHROOT_BASE_MAIN_H
+#ifndef BIN_COMMON_MAIN_H
+#define BIN_COMMON_MAIN_H
 
-#include <schroot-base/options.h>
+#include <bin-common/options.h>
 
 #include <string>
 
@@ -30,7 +30,7 @@
  * parsing and common options, top-level error handling and a generic
  * method for program instantiation.
  */
-namespace schroot_base
+namespace bin_common
 {
 
   /**
@@ -109,7 +109,7 @@ namespace schroot_base
 
 }
 
-#endif /* SCHROOT_BASE_MAIN_H */
+#endif /* BIN_COMMON_MAIN_H */
 
 /*
  * Local Variables:

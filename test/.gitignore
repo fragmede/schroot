@@ -19,5 +19,5 @@ sbuild/personality
 sbuild/regex
 sbuild/run-parts
 sbuild/util
-schroot-base/option-action
+bin-common/option-action
 

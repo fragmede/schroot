@@ -30,7 +30,7 @@ using std::endl;
 using boost::format;
 using sbuild::_;
 namespace opt = boost::program_options;
-using namespace schroot_base;
+using namespace bin_common;
 
 /// Display program help.
 const options::action_type options::ACTION_HELP ("help");

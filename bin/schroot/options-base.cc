@@ -46,7 +46,7 @@ const options_base::action_type options_base::ACTION_LOCATION ("location");
 const options_base::action_type options_base::ACTION_CONFIG ("config");
 
 options_base::options_base ():
-  schroot_base::options (),
+  bin_common::options (),
   chroots(),
   command(),
   directory(),
@@ -77,7 +77,7 @@ void
 options_base::add_options ()
 {
   // Chain up to add basic options.
-  schroot_base::options::add_options();
+  bin_common::options::add_options();
 
   action.add(ACTION_SESSION_AUTO);
   action.set_default(ACTION_SESSION_AUTO);
@@ -113,7 +113,7 @@ void
 options_base::add_option_groups ()
 {
   // Chain up to add basic option groups.
-  schroot_base::options::add_option_groups();
+  bin_common::options::add_option_groups();
 
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!chroot.options().empty())
@@ -158,7 +158,7 @@ void
 options_base::check_options ()
 {
   // Chain up to check basic options.
-  schroot_base::options::check_options();
+  bin_common::options::check_options();
 
   if (vm.count("list"))
     this->action = ACTION_LIST;
@@ -172,7 +172,7 @@ void
 options_base::check_actions ()
 {
   // Chain up to check basic actions.
-  schroot_base::options::check_actions();
+  bin_common::options::check_actions();
 
   if (this->quiet && this->verbose)
     {

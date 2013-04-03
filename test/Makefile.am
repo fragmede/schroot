@@ -40,7 +40,7 @@ noinst_PROGRAMS += 				\
 	test/sbuild/regex			\
 	test/sbuild/run-parts			\
 	test/sbuild/util			\
-	test/schroot-base/option-action
+	test/bin-common/option-action
 
 # sbuild-lock is excluded, because it is timing dependent and can fail
 # randomly on slow or heavily-loaded systems.
@@ -65,7 +65,7 @@ TESTS = test/setup-test-data			\
 	test/sbuild/run-parts			\
 	test/sbuild/regex			\
 	test/sbuild/util			\
-	test/schroot-base/option-action		\
+	test/bin-common/option-action		\
 	test/cleanup-test-data
 endif
 
@@ -172,8 +172,8 @@ test_sbuild_run_parts_LDADD = lib/test/libtest.la
 test_sbuild_util_SOURCES = test/sbuild/util.cc
 test_sbuild_util_LDADD = lib/test/libtest.la
 
-test_schroot_base_option_action_SOURCES = test/schroot-base/option-action.cc
-test_schroot_base_option_action_LDADD = $(top_builddir)/lib/schroot-base/libschroot-base.la lib/test/libtest.la
+test_bin_common_option_action_SOURCES = test/bin-common/option-action.cc
+test_bin_common_option_action_LDADD = $(top_builddir)/lib/bin-common/libbin-common.la lib/test/libtest.la
 
 EXTRA_DIST += 					\
 	test/keyfile.ex1			\
