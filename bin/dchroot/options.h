@@ -19,7 +19,7 @@
 #ifndef DCHROOT_OPTIONS_H
 #define DCHROOT_OPTIONS_H
 
-#include <schroot/options-base.h>
+#include <schroot-common/options-base.h>
 
 namespace dchroot
 {
@@ -27,7 +27,7 @@ namespace dchroot
   /**
    * dchroot command-line options.
    */
-  class options : public schroot::options_base
+  class options : public schroot_common::options_base
   {
   public:
     /// The constructor.

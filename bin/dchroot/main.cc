@@ -35,10 +35,9 @@
 using std::endl;
 using sbuild::_;
 using boost::format;
-using schroot::options_base;
 using namespace dchroot;
 
-main::main (schroot::options_base::ptr& options):
+main::main (schroot_common::options_base::ptr& options):
   main_base("dchroot",
             // TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
             // is an em-dash.

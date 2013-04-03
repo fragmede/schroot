@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "main.h"
+#include <schroot-common/main.h>
 #include "options.h"
 
 #include <bin-common/run.h>
@@ -40,5 +40,5 @@ int
 main (int   argc,
       char *argv[])
 {
-  return bin_common::run<schroot::options, schroot::main>(argc, argv);
+  return bin_common::run<schroot::options, schroot_common::main>(argc, argv);
 }

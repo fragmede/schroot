@@ -37,13 +37,12 @@
 using std::endl;
 using boost::format;
 using sbuild::_;
-using schroot::options_base;
 using namespace dchroot;
 
-main_base::main_base (std::string const& program_name,
-                      std::string const& program_usage,
-                      schroot::options_base::ptr& options):
-  schroot::main_base(program_name, program_usage, options, true)
+main_base::main_base (std::string const&                 program_name,
+                      std::string const&                 program_usage,
+                      schroot_common::options_base::ptr& options):
+  schroot_common::main_base(program_name, program_usage, options, true)
 {
 }
 

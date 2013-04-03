@@ -35,7 +35,7 @@ namespace opt = boost::program_options;
 using namespace dchroot_dsa;
 
 options::options ():
-  schroot::options_base()
+  schroot_common::options_base()
 {
 }
 
@@ -47,7 +47,7 @@ void
 options::add_options ()
 {
   // Chain up to add general schroot options.
-  schroot::options_base::add_options();
+  schroot_common::options_base::add_options();
 
   actions.add_options()
     ("listpaths,p",
@@ -66,7 +66,7 @@ void
 options::check_options ()
 {
   // Chain up to check general schroot options.
-  schroot::options_base::check_options();
+  schroot_common::options_base::check_options();
 
   if (vm.count("listpaths"))
     this->action = ACTION_LOCATION;

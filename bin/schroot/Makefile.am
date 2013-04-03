@@ -16,25 +16,13 @@
 #
 #####################################################################
 
-noinst_LTLIBRARIES +=			\
-	bin/schroot/libschroot.la
-
 bin_PROGRAMS += bin/schroot/schroot
-
-bin_schroot_libschroot_la_SOURCES =	\
-	bin/schroot/options-base.h	\
-	bin/schroot/options-base.cc	\
-	bin/schroot/main-base.h		\
-	bin/schroot/main-base.cc	\
-	bin/schroot/main.h		\
-	bin/schroot/main.cc
-bin_schroot_libschroot_la_LIBADD = $(top_builddir)/lib/bin-common/libbin-common.la
 
 bin_schroot_schroot_SOURCES =		\
 	bin/schroot/schroot.cc		\
 	bin/schroot/options.h		\
 	bin/schroot/options.cc
-bin_schroot_schroot_LDADD = bin/schroot/libschroot.la
+bin_schroot_schroot_LDADD = $(top_builddir)/lib/schroot-common/libschroot-common.la
 
 install-exec-hook::
 # Install setuid root.

@@ -31,7 +31,7 @@ bin_dchroot_libdchroot_la_SOURCES =	\
 	bin/dchroot/main-base.cc	\
 	bin/dchroot/session-base.h	\
 	bin/dchroot/session-base.cc
-bin_dchroot_libdchroot_la_LIBADD = $(top_builddir)/bin/schroot/libschroot.la
+bin_dchroot_libdchroot_la_LIBADD = $(top_builddir)/lib/schroot-common/libschroot-common.la
 
 bin_dchroot_dchroot_SOURCES =		\
 	bin/dchroot/session.h		\
