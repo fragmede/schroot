@@ -41,12 +41,7 @@ if BUILD_DCHROOT_DSA
 dchroot_dsa_mans = man/dchroot-dsa.1
 endif
 
-if BUILD_CSBUILD
-csbuild_mans = man/csbuild.1
-endif
-
 MAN_FILES = \
-	man/csbuild.1.man \
 	man/dchroot.1.man \
 	man/dchroot-dsa.1.man \
 	man/schroot.1.man \
@@ -67,8 +62,7 @@ man_MANS +=			\
 	man/schroot-script-config.5	\
 	man/schroot-faq.7		\
 	$(dchroot_mans)		\
-	$(dchroot_dsa_mans)	\
-	$(csbuild_mans)
+	$(dchroot_dsa_mans)
 
 EXTRA_DIST +=		\
 	$(MAN_FILES)	\

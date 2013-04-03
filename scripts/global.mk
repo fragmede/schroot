@@ -27,7 +27,6 @@ schroot_sysconf_setupdir=$(schroot_sysconfdir)/setup.d
 schroot_setupdatadir=$(pkgdatadir)/setup
 
 SCHROOT_CONF=$(schroot_sysconfdir)/schroot.conf
-CSBUILD_CONF=$(sysconfdir)/csbuild.conf
 
 # Global options for use in all Makefiles.
 AM_CXXFLAGS = -I$(top_builddir)/lib -I$(top_srcdir)/lib -I$(top_srcdir)/bin $(LOCAL_CXXFLAGS) $(PTHREAD_CFLAGS) -pedantic -Wall -Wcast-align -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
@@ -50,5 +49,4 @@ DEFS = -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE \
 -DPACKAGE_LOCALE_DIR=\"$(localedir)\" \
 -DSCHROOT_DATA_DIR=\"$(schroot_datadir)\" \
 -DSCHROOT_MODULE_DIR=\"$(schroot_moduledir)\" \
--DLOCALEDIR=\"$(localedir)\" \
--DCSBUILD_CONF=\"$(CSBUILD_CONF)\"
+-DLOCALEDIR=\"$(localedir)\"

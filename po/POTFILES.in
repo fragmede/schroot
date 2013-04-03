@@ -1,7 +1,3 @@
-bin/csbuild/csbuild.cc
-bin/csbuild/debian-changes.cc
-bin/csbuild/main.cc
-bin/csbuild/options.cc
 bin/dchroot-dsa/dchroot-dsa.cc
 bin/dchroot-dsa/main.cc
 bin/dchroot-dsa/options.cc

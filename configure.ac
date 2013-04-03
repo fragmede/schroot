@@ -119,19 +119,6 @@ AC_MSG_RESULT([$enable_dchroot_dsa_compat])
 AM_CONDITIONAL([BUILD_DCHROOT_DSA], [test "$enable_dchroot_dsa_compat" = "yes"])
 AM_CONDITIONAL([BUILD_LIBDCHROOT], [test "$enable_dchroot_compat" = "yes" || test "$enable_dchroot_dsa_compat" = "yes"])
 
-AC_MSG_CHECKING([whether to enable csbuild])
-AC_ARG_ENABLE([csbuild], [AS_HELP_STRING([--enable-csbuild], [Enable csbuild])],
-              [ case "${enableval}" in
-                yes) enable_csbuild_compat="yes" ;;
-                no)  enable_csbuild_compat="no" ;;
-                *) AC_MSG_RESULT([unknown])
-                   AC_MSG_ERROR([bad value ${enableval} for --enable-csbuild]) ;;
-                esac ],
-              [ enable_csbuild_compat="no" ])
-
-AC_MSG_RESULT([$enable_csbuild_compat])
-AM_CONDITIONAL([BUILD_CSBUILD], [test "$enable_csbuild_compat" = "yes"])
-
 AC_MSG_CHECKING([whether to enable debugging messages])
 AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug], [Enable debugging messages])],
               [ case "${enableval}" in

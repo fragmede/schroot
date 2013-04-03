@@ -37,10 +37,8 @@ man_MANS =
 CLEANFILES =
 EXTRA_DIST =
 
-include bin/csbuild/Makefile.am
 include bin/dchroot-dsa/Makefile.am
 include bin/dchroot/Makefile.am
-include bin/schroot-sbuild/Makefile.am
 include bin/schroot/Makefile.am
 include contrib/setup.d/Makefile.am
 include doc/Makefile.am
