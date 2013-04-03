@@ -22,8 +22,10 @@
 #include <bin-common/options.h>
 
 #include <sbuild/config.h>
+#include <sbuild/log.h>
 
 #include <cstdlib>
+#include <exception>
 #include <iostream>
 #include <string>
 

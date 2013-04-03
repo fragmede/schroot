@@ -24,6 +24,7 @@
 #include <libexec/mount/options.h>
 
 #include <sbuild/custom-error.h>
+#include <sbuild/environment.h>
 
 /**
  * schroot-mount program components

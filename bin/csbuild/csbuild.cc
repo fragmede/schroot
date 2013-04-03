@@ -23,6 +23,8 @@
 
 #include <bin-common/run.h>
 
+#include <boost/format.hpp>
+
 using std::endl;
 using boost::format;
 namespace opt = boost::program_options;

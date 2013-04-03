@@ -18,6 +18,9 @@
 
 #include <config.h>
 
+#include <sbuild/i18n.h>
+#include <sbuild/log.h>
+
 #include "options.h"
 
 #include <cstdlib>

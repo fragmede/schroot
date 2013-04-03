@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/mntstream.h>
+#include <sbuild/util.h>
 
 #include "main.h"
 
