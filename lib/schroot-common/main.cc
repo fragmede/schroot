@@ -35,7 +35,7 @@
 using std::endl;
 using boost::format;
 using sbuild::_;
-using namespace schroot;
+using namespace schroot_common;
 
 main::main (options_base::ptr& options):
   main_base("schroot",

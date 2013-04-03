@@ -20,7 +20,7 @@
 
 #include <sbuild/util.h>
 
-#include "options.h"
+#include "options-base.h"
 
 #include <cstdlib>
 #include <iostream>
@@ -33,7 +33,7 @@ using std::endl;
 using boost::format;
 using sbuild::_;
 namespace opt = boost::program_options;
-using namespace schroot;
+using namespace schroot_common;
 
 const options_base::action_type options_base::ACTION_SESSION_AUTO ("session_auto");
 const options_base::action_type options_base::ACTION_SESSION_BEGIN ("session_begin");

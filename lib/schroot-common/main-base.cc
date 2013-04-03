@@ -42,7 +42,7 @@ using std::endl;
 using boost::format;
 using sbuild::_;
 using sbuild::N_;
-using namespace schroot;
+using namespace schroot_common;
 
 template<>
 sbuild::error<main_base::error_code>::map_type

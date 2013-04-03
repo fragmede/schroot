@@ -16,16 +16,16 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_MAIN_H
-#define SCHROOT_MAIN_H
+#ifndef SCHROOT_COMMON_MAIN_H
+#define SCHROOT_COMMON_MAIN_H
 
-#include <schroot/main-base.h>
-#include <schroot/options-base.h>
+#include <schroot-common/main-base.h>
+#include <schroot-common/options-base.h>
 
 /**
  * schroot program components.
  */
-namespace schroot
+namespace schroot_common
 {
 
   /**
@@ -60,7 +60,7 @@ namespace schroot
 
 }
 
-#endif /* SCHROOT_MAIN_H */
+#endif /* SCHROOT_COMMON_MAIN_H */
 
 /*
  * Local Variables:

@@ -16,8 +16,8 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_OPTIONS_BASE_H
-#define SCHROOT_OPTIONS_BASE_H
+#ifndef SCHROOT_COMMON_OPTIONS_BASE_H
+#define SCHROOT_COMMON_OPTIONS_BASE_H
 
 #include <sbuild/session.h>
 #include <sbuild/types.h>
@@ -30,7 +30,7 @@
 
 #include <boost/program_options.hpp>
 
-namespace schroot
+namespace schroot_common
 {
 
   /**
@@ -144,7 +144,7 @@ namespace schroot
 
 }
 
-#endif /* SCHROOT_OPTIONS_BASE_H */
+#endif /* SCHROOT_COMMON_OPTIONS_BASE_H */
 
 /*
  * Local Variables:

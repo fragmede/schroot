@@ -16,16 +16,16 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_MAIN_BASE_H
-#define SCHROOT_MAIN_BASE_H
+#ifndef SCHROOT_COMMON_MAIN_BASE_H
+#define SCHROOT_COMMON_MAIN_BASE_H
 
 #include <bin-common/main.h>
-#include <schroot/options-base.h>
+#include <schroot-common/options-base.h>
 
 #include <sbuild/chroot-config.h>
 #include <sbuild/custom-error.h>
 
-namespace schroot
+namespace schroot_common
 {
 
   /**
@@ -150,7 +150,7 @@ namespace schroot
 
 }
 
-#endif /* SCHROOT_MAIN_BASE_H */
+#endif /* SCHROOT_COMMON_MAIN_BASE_H */
 
 /*
  * Local Variables:
