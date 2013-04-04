@@ -38,7 +38,7 @@ using sbuild::_;
 using namespace schroot;
 
 main::main (schroot_common::options_base::ptr& options):
-  schroot_common::main_base("schroot",
+  schroot_common::main("schroot",
             _("[OPTION…] [COMMAND] — run command or shell in a chroot"),
             options,
             true)
@@ -70,7 +70,7 @@ main::create_session(sbuild::session::operation sess_op)
 void
 main::add_session_auth ()
 {
-  main_base::add_session_auth();
+  schroot_common::main::add_session_auth();
 
   if (!this->options->user.empty())
     this->session->get_auth()->set_user(this->options->user);

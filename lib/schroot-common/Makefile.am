@@ -22,7 +22,7 @@ noinst_LTLIBRARIES +=				\
 lib_schroot_common_libschroot_common_la_SOURCES =	\
 	lib/schroot-common/options-base.h		\
 	lib/schroot-common/options-base.cc		\
-	lib/schroot-common/main-base.h			\
-	lib/schroot-common/main-base.cc
+	lib/schroot-common/main.h			\
+	lib/schroot-common/main.cc
 lib_schroot_common_libschroot_common_la_LIBADD = $(top_builddir)/lib/bin-common/libbin-common.la
 

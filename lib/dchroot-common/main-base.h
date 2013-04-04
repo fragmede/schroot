@@ -19,7 +19,7 @@
 #ifndef DCHROOT_COMMON_MAIN_BASE_H
 #define DCHROOT_COMMON_MAIN_BASE_H
 
-#include <schroot-common/main-base.h>
+#include <schroot-common/main.h>
 
 namespace dchroot_common
 {
@@ -28,7 +28,7 @@ namespace dchroot_common
    * Frontend base class for dchroot.  This class contains frontend
    * functionality common to dchroot and dchroot-dsa.
    */
-  class main_base : public schroot_common::main_base
+  class main_base : public schroot_common::main
   {
   public:
     /**

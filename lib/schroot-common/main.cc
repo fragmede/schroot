@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "main-base.h"
+#include "main.h"
 
 #include <sbuild/config.h>
 #ifdef SBUILD_FEATURE_PAM
@@ -45,23 +45,23 @@ using sbuild::N_;
 using namespace schroot_common;
 
 template<>
-sbuild::error<main_base::error_code>::map_type
-sbuild::error<main_base::error_code>::error_strings =
+sbuild::error<main::error_code>::map_type
+sbuild::error<main::error_code>::error_strings =
   {
     // TRANSLATORS: %4% = file
-    {main_base::CHROOT_FILE,       N_("No chroots are defined in ‘%4%’")},
+    {main::CHROOT_FILE,       N_("No chroots are defined in ‘%4%’")},
     // TRANSLATORS: %4% = file
     // TRANSLATORS: %5% = file
-    {main_base::CHROOT_FILE2,      N_("No chroots are defined in ‘%4%’ or ‘%5%’")},
+    {main::CHROOT_FILE2,      N_("No chroots are defined in ‘%4%’ or ‘%5%’")},
     // TRANSLATORS: %1% = file
-    {main_base::CHROOT_NOTDEFINED, N_("The specified chroots are not defined in ‘%1%’")},
-    {main_base::SESSION_INVALID,   N_("%1%: Invalid session name")}
+    {main::CHROOT_NOTDEFINED, N_("The specified chroots are not defined in ‘%1%’")},
+    {main::SESSION_INVALID,   N_("%1%: Invalid session name")}
   };
 
-main_base::main_base (std::string const& program_name,
-                      std::string const& program_usage,
-                      options_base::ptr& options,
-                      bool               use_syslog):
+main::main (std::string const& program_name,
+            std::string const& program_usage,
+            options_base::ptr& options,
+            bool               use_syslog):
   bin_common::main(program_name, program_usage,
                    std::static_pointer_cast<bin_common::options>(options),
                    use_syslog),
@@ -69,12 +69,12 @@ main_base::main_base (std::string const& program_name,
 {
 }
 
-main_base::~main_base ()
+main::~main ()
 {
 }
 
 void
-main_base::action_version (std::ostream& stream)
+main::action_version (std::ostream& stream)
 {
   bin_common::main::action_version(stream);
 
@@ -102,7 +102,7 @@ main_base::action_version (std::ostream& stream)
 }
 
 void
-main_base::action_info ()
+main::action_info ()
 {
   for(auto chroot_name = this->chroot_names.begin();
       chroot_name != this->chroot_names.end();
@@ -122,7 +122,7 @@ main_base::action_info ()
 }
 
 void
-main_base::action_location ()
+main::action_location ()
 {
   for(const auto& chroot_name : this->chroot_names)
     {
@@ -138,7 +138,7 @@ main_base::action_location ()
 }
 
 void
-main_base::action_config ()
+main::action_config ()
 {
   std::cout << "# "
     // TRANSLATORS: %1% = program name
@@ -167,7 +167,7 @@ main_base::action_config ()
 }
 
 void
-main_base::get_chroot_options ()
+main::get_chroot_options ()
 {
 
   if (this->options->all_chroots == true ||
@@ -225,7 +225,7 @@ main_base::get_chroot_options ()
 }
 
 void
-main_base::load_config ()
+main::load_config ()
 {
   this->config = sbuild::chroot_config::ptr(new sbuild::chroot_config);
   /* The normal chroot list is used when starting a session or running
@@ -242,7 +242,7 @@ main_base::load_config ()
 }
 
 int
-main_base::run_impl ()
+main::run_impl ()
 {
   if (this->options->action == options_base::ACTION_HELP)
     {
@@ -372,7 +372,7 @@ main_base::run_impl ()
 }
 
 void
-main_base::add_session_auth ()
+main::add_session_auth ()
 {
   // Add PAM authentication handler.  If PAM isn't available, just
   // continue to use the default handler

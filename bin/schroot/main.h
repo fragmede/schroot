@@ -19,7 +19,7 @@
 #ifndef SCHROOT_MAIN_H
 #define SCHROOT_MAIN_H
 
-#include <schroot-common/main-base.h>
+#include <schroot-common/main.h>
 #include <schroot-common/options-base.h>
 
 /**
@@ -31,7 +31,7 @@ namespace schroot
   /**
    * Frontend for schroot.  This class is used to "run" schroot.
    */
-  class main : public schroot_common::main_base
+  class main : public schroot_common::main
   {
   public:
     /**

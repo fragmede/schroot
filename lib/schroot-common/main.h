@@ -16,8 +16,8 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_COMMON_MAIN_BASE_H
-#define SCHROOT_COMMON_MAIN_BASE_H
+#ifndef SCHROOT_COMMON_MAIN_H
+#define SCHROOT_COMMON_MAIN_H
 
 #include <bin-common/main.h>
 #include <schroot-common/options-base.h>
@@ -33,7 +33,7 @@ namespace schroot_common
    * schroot programs.  This class contains functionality common to
    * all schroot programs (schroot, dchroot, dchroot-dsa).
    */
-  class main_base : public bin_common::main
+  class main : public bin_common::main
   {
   public:
     /// Error codes.
@@ -59,13 +59,13 @@ namespace schroot_common
      * @param use_syslog whether to open a connection to the system
      * logger.
      */
-    main_base (std::string const& program_name,
-               std::string const& program_usage,
-               options_base::ptr& options,
-               bool               use_syslog);
+    main (std::string const& program_name,
+          std::string const& program_usage,
+          options_base::ptr& options,
+          bool               use_syslog);
 
     /// The destructor.
-    virtual ~main_base ();
+    virtual ~main ();
 
     virtual void
     action_version (std::ostream& stream);
@@ -150,7 +150,7 @@ namespace schroot_common
 
 }
 
-#endif /* SCHROOT_COMMON_MAIN_BASE_H */
+#endif /* SCHROOT_COMMON_MAIN_H */
 
 /*
  * Local Variables:

@@ -42,7 +42,7 @@ using namespace dchroot_common;
 main_base::main_base (std::string const&                 program_name,
                       std::string const&                 program_usage,
                       schroot_common::options_base::ptr& options):
-  schroot_common::main_base(program_name, program_usage, options, true)
+  schroot_common::main(program_name, program_usage, options, true)
 {
 }
 
