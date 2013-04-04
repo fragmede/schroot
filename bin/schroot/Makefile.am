@@ -19,6 +19,8 @@
 bin_PROGRAMS += bin/schroot/schroot
 
 bin_schroot_schroot_SOURCES =		\
+	bin/schroot/main.h		\
+	bin/schroot/main.cc		\
 	bin/schroot/schroot.cc		\
 	bin/schroot/options.h		\
 	bin/schroot/options.cc

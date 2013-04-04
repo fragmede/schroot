@@ -16,8 +16,8 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_COMMON_MAIN_H
-#define SCHROOT_COMMON_MAIN_H
+#ifndef SCHROOT_MAIN_H
+#define SCHROOT_MAIN_H
 
 #include <schroot-common/main-base.h>
 #include <schroot-common/options-base.h>
@@ -25,13 +25,13 @@
 /**
  * schroot program components.
  */
-namespace schroot_common
+namespace schroot
 {
 
   /**
    * Frontend for schroot.  This class is used to "run" schroot.
    */
-  class main : public main_base
+  class main : public schroot_common::main_base
   {
   public:
     /**
@@ -39,7 +39,7 @@ namespace schroot_common
      *
      * @param options the command-line options to use.
      */
-    main (options_base::ptr& options);
+    main (schroot_common::options_base::ptr& options);
 
     /// The destructor.
     virtual ~main ();
@@ -60,7 +60,7 @@ namespace schroot_common
 
 }
 
-#endif /* SCHROOT_COMMON_MAIN_H */
+#endif /* SCHROOT_MAIN_H */
 
 /*
  * Local Variables:

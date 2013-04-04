@@ -35,10 +35,10 @@
 using std::endl;
 using boost::format;
 using sbuild::_;
-using namespace schroot_common;
+using namespace schroot;
 
-main::main (options_base::ptr& options):
-  main_base("schroot",
+main::main (schroot_common::options_base::ptr& options):
+  schroot_common::main_base("schroot",
             _("[OPTION…] [COMMAND] — run command or shell in a chroot"),
             options,
             true)
