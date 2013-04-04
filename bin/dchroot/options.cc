@@ -33,7 +33,7 @@ namespace opt = boost::program_options;
 using namespace dchroot;
 
 options::options ():
-  schroot_common::options_base()
+  schroot_common::options()
 {
 }
 
@@ -45,7 +45,7 @@ void
 options::add_options ()
 {
   // Chain up to add general schroot options.
-  schroot_common::options_base::add_options();
+  schroot_common::options::add_options();
 
   actions.add_options()
     ("path,p", opt::value<std::string>(&this->chroot_path),
@@ -66,7 +66,7 @@ void
 options::check_options ()
 {
   // Chain up to check general schroot options.
-  schroot_common::options_base::check_options();
+  schroot_common::options::check_options();
 
   if (vm.count("path"))
     {

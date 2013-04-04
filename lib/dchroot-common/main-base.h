@@ -20,6 +20,7 @@
 #define DCHROOT_COMMON_MAIN_BASE_H
 
 #include <schroot-common/main.h>
+#include <schroot-common/options.h>
 
 namespace dchroot_common
 {
@@ -38,9 +39,9 @@ namespace dchroot_common
      * @param program_usage the program usage message.
      * @param options the command-line options to use.
      */
-    main_base (std::string const&                 program_name,
-               std::string const&                 program_usage,
-               schroot_common::options_base::ptr& options);
+    main_base (std::string const&            program_name,
+               std::string const&            program_usage,
+               schroot_common::options::ptr& options);
 
     /// The destructor.
     virtual ~main_base ();

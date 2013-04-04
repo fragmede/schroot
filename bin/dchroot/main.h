@@ -38,7 +38,7 @@ namespace dchroot
      *
      * @param options the command-line options to use.
      */
-    main (schroot_common::options_base::ptr& options);
+    main (schroot_common::options::ptr& options);
 
     /// The destructor.
     virtual ~main ();

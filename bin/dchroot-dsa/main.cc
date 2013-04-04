@@ -37,7 +37,7 @@ using sbuild::_;
 using boost::format;
 using namespace dchroot_dsa;
 
-main::main (schroot_common::options_base::ptr& options):
+main::main (schroot_common::options::ptr& options):
   dchroot_common::main_base("dchroot-dsa",
             // TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
             // is an em-dash.

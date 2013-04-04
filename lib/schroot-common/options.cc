@@ -20,7 +20,7 @@
 
 #include <sbuild/util.h>
 
-#include "options-base.h"
+#include "options.h"
 
 #include <cstdlib>
 #include <iostream>
@@ -35,17 +35,17 @@ using sbuild::_;
 namespace opt = boost::program_options;
 using namespace schroot_common;
 
-const options_base::action_type options_base::ACTION_SESSION_AUTO ("session_auto");
-const options_base::action_type options_base::ACTION_SESSION_BEGIN ("session_begin");
-const options_base::action_type options_base::ACTION_SESSION_RECOVER ("session_recover");
-const options_base::action_type options_base::ACTION_SESSION_RUN ("session_run");
-const options_base::action_type options_base::ACTION_SESSION_END ("session_end");
-const options_base::action_type options_base::ACTION_LIST ("list");
-const options_base::action_type options_base::ACTION_INFO ("info");
-const options_base::action_type options_base::ACTION_LOCATION ("location");
-const options_base::action_type options_base::ACTION_CONFIG ("config");
+const options::action_type options::ACTION_SESSION_AUTO ("session_auto");
+const options::action_type options::ACTION_SESSION_BEGIN ("session_begin");
+const options::action_type options::ACTION_SESSION_RECOVER ("session_recover");
+const options::action_type options::ACTION_SESSION_RUN ("session_run");
+const options::action_type options::ACTION_SESSION_END ("session_end");
+const options::action_type options::ACTION_LIST ("list");
+const options::action_type options::ACTION_INFO ("info");
+const options::action_type options::ACTION_LOCATION ("location");
+const options::action_type options::ACTION_CONFIG ("config");
 
-options_base::options_base ():
+options::options ():
   bin_common::options (),
   chroots(),
   command(),
@@ -69,12 +69,12 @@ options_base::options_base ():
 {
 }
 
-options_base::~options_base ()
+options::~options ()
 {
 }
 
 void
-options_base::add_options ()
+options::add_options ()
 {
   // Chain up to add basic options.
   bin_common::options::add_options();
@@ -110,7 +110,7 @@ options_base::add_options ()
 }
 
 void
-options_base::add_option_groups ()
+options::add_option_groups ()
 {
   // Chain up to add basic option groups.
   bin_common::options::add_option_groups();
@@ -155,7 +155,7 @@ options_base::add_option_groups ()
 }
 
 void
-options_base::check_options ()
+options::check_options ()
 {
   // Chain up to check basic options.
   bin_common::options::check_options();
@@ -169,7 +169,7 @@ options_base::check_options ()
 }
 
 void
-options_base::check_actions ()
+options::check_actions ()
 {
   // Chain up to check basic actions.
   bin_common::options::check_actions();

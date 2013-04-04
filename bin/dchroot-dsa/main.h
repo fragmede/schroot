@@ -20,6 +20,7 @@
 #define DCHROOT_DSA_MAIN_H
 
 #include <dchroot-common/main-base.h>
+#include <schroot-common/options.h>
 
 /**
  * dchroot-dsa program components.
@@ -38,7 +39,7 @@ namespace dchroot_dsa
      *
      * @param options the command-line options to use.
      */
-    main (schroot_common::options_base::ptr& options);
+    main (schroot_common::options::ptr& options);
 
     /// The destructor.
     virtual ~main ();

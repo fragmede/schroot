@@ -37,7 +37,7 @@ using boost::format;
 using sbuild::_;
 using namespace schroot;
 
-main::main (schroot_common::options_base::ptr& options):
+main::main (schroot_common::options::ptr& options):
   schroot_common::main("schroot",
             _("[OPTION…] [COMMAND] — run command or shell in a chroot"),
             options,

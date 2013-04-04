@@ -16,8 +16,8 @@
  *
  *********************************************************************/
 
-#ifndef SCHROOT_COMMON_OPTIONS_BASE_H
-#define SCHROOT_COMMON_OPTIONS_BASE_H
+#ifndef SCHROOT_COMMON_OPTIONS_H
+#define SCHROOT_COMMON_OPTIONS_H
 
 #include <sbuild/session.h>
 #include <sbuild/types.h>
@@ -39,7 +39,7 @@ namespace schroot_common
    * behaviour.  This class contains functionality and options common
    * to all schroot programs (schroot, dchroot, dchroot-dsa).
    */
-  class options_base : public bin_common::options
+  class options : public bin_common::options
   {
   public:
     /// Begin, run and end a session.
@@ -61,14 +61,14 @@ namespace schroot_common
     /// Display chroot configuration.
     static const action_type ACTION_CONFIG;
 
-    /// A shared_ptr to an options_base object.
-    typedef std::shared_ptr<options_base> ptr;
+    /// A shared_ptr to an options object.
+    typedef std::shared_ptr<options> ptr;
 
     /// The constructor.
-    options_base ();
+    options ();
 
     /// The destructor.
-    virtual ~options_base ();
+    virtual ~options ();
 
     /// Chroots to use.
     sbuild::string_list  chroots;
@@ -144,7 +144,7 @@ namespace schroot_common
 
 }
 
-#endif /* SCHROOT_COMMON_OPTIONS_BASE_H */
+#endif /* SCHROOT_COMMON_OPTIONS_H */
 
 /*
  * Local Variables:

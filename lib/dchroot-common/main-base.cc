@@ -39,9 +39,9 @@ using boost::format;
 using sbuild::_;
 using namespace dchroot_common;
 
-main_base::main_base (std::string const&                 program_name,
-                      std::string const&                 program_usage,
-                      schroot_common::options_base::ptr& options):
+main_base::main_base (std::string const&            program_name,
+                      std::string const&            program_usage,
+                      schroot_common::options::ptr& options):
   schroot_common::main(program_name, program_usage, options, true)
 {
 }

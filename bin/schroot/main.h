@@ -20,7 +20,7 @@
 #define SCHROOT_MAIN_H
 
 #include <schroot-common/main.h>
-#include <schroot-common/options-base.h>
+#include <schroot-common/options.h>
 
 /**
  * schroot program components.
@@ -39,7 +39,7 @@ namespace schroot
      *
      * @param options the command-line options to use.
      */
-    main (schroot_common::options_base::ptr& options);
+    main (schroot_common::options::ptr& options);
 
     /// The destructor.
     virtual ~main ();

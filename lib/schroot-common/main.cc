@@ -60,7 +60,7 @@ sbuild::error<main::error_code>::error_strings =
 
 main::main (std::string const& program_name,
             std::string const& program_usage,
-            options_base::ptr& options,
+            options::ptr&      options,
             bool               use_syslog):
   bin_common::main(program_name, program_usage,
                    std::static_pointer_cast<bin_common::options>(options),
@@ -177,7 +177,7 @@ main::get_chroot_options ()
       if (this->options->all_chroots)
         {
           sbuild::string_list chroots;
-          if (this->options->action == options_base::ACTION_LIST &&
+          if (this->options->action == options::ACTION_LIST &&
               !this->options->exclude_aliases)
             chroots = this->config->get_alias_list("chroot");
           else
@@ -187,7 +187,7 @@ main::get_chroot_options ()
       if (this->options->all_sessions)
         {
           sbuild::string_list sessions;
-          if (this->options->action == options_base::ACTION_LIST &&
+          if (this->options->action == options::ACTION_LIST &&
               !this->options->exclude_aliases)
             sessions = this->config->get_alias_list("session");
           else
@@ -197,7 +197,7 @@ main::get_chroot_options ()
       if (this->options->all_source_chroots)
         {
           sbuild::string_list sources;
-          if (this->options->action == options_base::ACTION_LIST &&
+          if (this->options->action == options::ACTION_LIST &&
               !this->options->exclude_aliases)
             sources = this->config->get_alias_list("source");
           else
@@ -212,9 +212,9 @@ main::get_chroot_options ()
     {
       // Search in the appropriate namespace.
       std::string chroot_namespace("chroot");
-      if (this->options->action == options_base::ACTION_SESSION_RECOVER ||
-          this->options->action == options_base::ACTION_SESSION_RUN ||
-          this->options->action == options_base::ACTION_SESSION_END)
+      if (this->options->action == options::ACTION_SESSION_RECOVER ||
+          this->options->action == options::ACTION_SESSION_RUN ||
+          this->options->action == options::ACTION_SESSION_END)
         chroot_namespace = "session";
 
       // Validate and normalise
@@ -244,13 +244,13 @@ main::load_config ()
 int
 main::run_impl ()
 {
-  if (this->options->action == options_base::ACTION_HELP)
+  if (this->options->action == options::ACTION_HELP)
     {
       action_help(std::cout);
       return EXIT_SUCCESS;
     }
 
-  if (this->options->action == options_base::ACTION_VERSION)
+  if (this->options->action == options::ACTION_VERSION)
     {
       action_version(std::cout);
       return EXIT_SUCCESS;
@@ -299,7 +299,7 @@ main::run_impl ()
     }
 
   /* Print chroot list. */
-  if (this->options->action == options_base::ACTION_LIST)
+  if (this->options->action == options::ACTION_LIST)
     {
       action_list();
       return EXIT_SUCCESS;
@@ -309,17 +309,17 @@ main::run_impl ()
     throw error(this->options->session_name, SESSION_INVALID);
 
   /* Print chroot information for specified chroots. */
-  if (this->options->action == options_base::ACTION_INFO)
+  if (this->options->action == options::ACTION_INFO)
     {
       action_info();
       return EXIT_SUCCESS;
     }
-  if (this->options->action == options_base::ACTION_LOCATION)
+  if (this->options->action == options::ACTION_LOCATION)
     {
       action_location();
       return EXIT_SUCCESS;
     }
-  if (this->options->action == options_base::ACTION_CONFIG)
+  if (this->options->action == options::ACTION_CONFIG)
     {
       action_config();
       return EXIT_SUCCESS;
@@ -327,13 +327,13 @@ main::run_impl ()
 
   /* Create a session. */
   sbuild::session::operation sess_op(sbuild::session::OPERATION_AUTOMATIC);
-  if (this->options->action == options_base::ACTION_SESSION_BEGIN)
+  if (this->options->action == options::ACTION_SESSION_BEGIN)
     sess_op = sbuild::session::OPERATION_BEGIN;
-  else if (this->options->action == options_base::ACTION_SESSION_RECOVER)
+  else if (this->options->action == options::ACTION_SESSION_RECOVER)
     sess_op = sbuild::session::OPERATION_RECOVER;
-  else if (this->options->action == options_base::ACTION_SESSION_RUN)
+  else if (this->options->action == options::ACTION_SESSION_RUN)
     sess_op = sbuild::session::OPERATION_RUN;
-  else if (this->options->action == options_base::ACTION_SESSION_END)
+  else if (this->options->action == options::ACTION_SESSION_END)
     sess_op = sbuild::session::OPERATION_END;
 
   try

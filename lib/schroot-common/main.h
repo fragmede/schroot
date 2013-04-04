@@ -20,7 +20,7 @@
 #define SCHROOT_COMMON_MAIN_H
 
 #include <bin-common/main.h>
-#include <schroot-common/options-base.h>
+#include <schroot-common/options.h>
 
 #include <sbuild/chroot-config.h>
 #include <sbuild/custom-error.h>
@@ -59,9 +59,9 @@ namespace schroot_common
      * @param use_syslog whether to open a connection to the system
      * logger.
      */
-    main (std::string const& program_name,
-          std::string const& program_usage,
-          options_base::ptr& options,
+    main (std::string const&                 program_name,
+          std::string const&                 program_usage,
+          schroot_common::options::ptr&      options,
           bool               use_syslog);
 
     /// The destructor.
@@ -135,7 +135,7 @@ namespace schroot_common
 
   protected:
     /// The program options.
-    options_base::ptr            options;
+    schroot_common::options::ptr options;
     /// The chroot configuration.
     sbuild::chroot_config::ptr   config;
     /// The chroots to use (original names or aliases).
