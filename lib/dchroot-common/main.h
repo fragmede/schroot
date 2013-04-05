@@ -16,8 +16,8 @@
  *
  *********************************************************************/
 
-#ifndef DCHROOT_COMMON_MAIN_BASE_H
-#define DCHROOT_COMMON_MAIN_BASE_H
+#ifndef DCHROOT_COMMON_MAIN_H
+#define DCHROOT_COMMON_MAIN_H
 
 #include <schroot-common/main.h>
 #include <schroot-common/options.h>
@@ -29,7 +29,7 @@ namespace dchroot_common
    * Frontend base class for dchroot.  This class contains frontend
    * functionality common to dchroot and dchroot-dsa.
    */
-  class main_base : public schroot_common::main
+  class main : public schroot_common::main
   {
   public:
     /**
@@ -39,12 +39,12 @@ namespace dchroot_common
      * @param program_usage the program usage message.
      * @param options the command-line options to use.
      */
-    main_base (std::string const&            program_name,
-               std::string const&            program_usage,
-               schroot_common::options::ptr& options);
+    main (std::string const&            program_name,
+          std::string const&            program_usage,
+          schroot_common::options::ptr& options);
 
     /// The destructor.
-    virtual ~main_base ();
+    virtual ~main ();
 
   protected:
     virtual void
@@ -53,7 +53,7 @@ namespace dchroot_common
 
 }
 
-#endif /* DCHROOT_COMMON_MAIN_BASE_H */
+#endif /* DCHROOT_COMMON_MAIN_H */
 
 /*
  * Local Variables:

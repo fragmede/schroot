@@ -19,7 +19,7 @@
 #ifndef DCHROOT_MAIN_H
 #define DCHROOT_MAIN_H
 
-#include <dchroot-common/main-base.h>
+#include <dchroot-common/main.h>
 
 /**
  * dchroot program components.
@@ -30,7 +30,7 @@ namespace dchroot
   /**
    * Frontend for dchroot.  This class is used to "run" dchroot.
    */
-  class main : public dchroot_common::main_base
+  class main : public dchroot_common::main
   {
   public:
     /**

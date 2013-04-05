@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "main-base.h"
+#include "main.h"
 #include "session-base.h"
 
 #include <cstdlib>
@@ -39,19 +39,19 @@ using boost::format;
 using sbuild::_;
 using namespace dchroot_common;
 
-main_base::main_base (std::string const&            program_name,
-                      std::string const&            program_usage,
-                      schroot_common::options::ptr& options):
+main::main (std::string const&            program_name,
+            std::string const&            program_usage,
+            schroot_common::options::ptr& options):
   schroot_common::main(program_name, program_usage, options, true)
 {
 }
 
-main_base::~main_base ()
+main::~main ()
 {
 }
 
 void
-main_base::action_list ()
+main::action_list ()
 {
   this->config->print_chroot_list_simple(std::cout);
 }

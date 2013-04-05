@@ -21,8 +21,8 @@ noinst_LTLIBRARIES += lib/dchroot-common/libdchroot-common.la
 endif
 
 lib_dchroot_common_libdchroot_common_la_SOURCES =	\
-	lib/dchroot-common/main-base.h			\
-	lib/dchroot-common/main-base.cc			\
+	lib/dchroot-common/main.h			\
+	lib/dchroot-common/main.cc			\
 	lib/dchroot-common/session-base.h		\
 	lib/dchroot-common/session-base.cc
 lib_dchroot_common_libdchroot_common_la_LIBADD = $(top_builddir)/lib/schroot-common/libschroot-common.la
