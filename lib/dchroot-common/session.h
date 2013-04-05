@@ -16,8 +16,8 @@
  *
  *********************************************************************/
 
-#ifndef DCHROOT_COMMON_SESSION_BASE_H
-#define DCHROOT_COMMON_SESSION_BASE_H
+#ifndef DCHROOT_COMMON_SESSION_H
+#define DCHROOT_COMMON_SESSION_H
 
 #include <sbuild/session.h>
 
@@ -32,7 +32,7 @@ namespace dchroot_common
    * also prevents user switching when running sessions, which is
    * forbidden.
    */
-  class session_base : public sbuild::session
+  class session : public sbuild::session
   {
   public:
     /**
@@ -42,12 +42,12 @@ namespace dchroot_common
      * @param operation the session operation to perform.
      * @param chroots the chroots to act upon.
      */
-    session_base (std::string const&         service,
-                  operation                  operation,
-                  sbuild::session::chroot_list const& chroots);
+    session (std::string const&         service,
+             operation                  operation,
+             sbuild::session::chroot_list const& chroots);
 
     /// The destructor.
-    virtual ~session_base ();
+    virtual ~session ();
 
   protected:
     virtual void
@@ -60,7 +60,7 @@ namespace dchroot_common
 
 }
 
-#endif /* DCHROOT_COMMON_SESSION_BASE_H */
+#endif /* DCHROOT_COMMON_SESSION_H */
 
 /*
  * Local Variables:

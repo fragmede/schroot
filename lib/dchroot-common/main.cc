@@ -19,7 +19,6 @@
 #include <config.h>
 
 #include "main.h"
-#include "session-base.h"
 
 #include <cstdlib>
 #include <iostream>

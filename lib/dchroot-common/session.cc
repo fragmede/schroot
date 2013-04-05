@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "session-base.h"
+#include "session.h"
 
 #include <cassert>
 #include <cerrno>
@@ -39,19 +39,19 @@ using sbuild::_;
 using boost::format;
 using namespace dchroot_common;
 
-session_base::session_base (std::string const&  service,
-                            operation           operation,
-                            sbuild::session::chroot_list const& chroots):
+session::session (std::string const&  service,
+                  operation           operation,
+                  sbuild::session::chroot_list const& chroots):
   sbuild::session(service, operation, chroots)
 {
 }
 
-session_base::~session_base ()
+session::~session ()
 {
 }
 
 void
-session_base::run_impl ()
+session::run_impl ()
 {
   if (get_auth()->get_ruid() != get_auth()->get_uid())
     throw error(get_auth()->get_ruser(), get_auth()->get_user(), USER_SWITCH,
@@ -61,8 +61,8 @@ session_base::run_impl ()
 }
 
 sbuild::string_list
-session_base::get_command_directories (sbuild::chroot::ptr&       session_chroot,
-                                       sbuild::environment const& env) const
+session::get_command_directories (sbuild::chroot::ptr&       session_chroot,
+                                  sbuild::environment const& env) const
 {
   // dchroot does not treat logins differently from commands with
   // respect to the cwd inside the chroot.

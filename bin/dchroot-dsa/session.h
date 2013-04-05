@@ -19,7 +19,7 @@
 #ifndef DCHROOT_DSA_SESSION_H
 #define DCHROOT_DSA_SESSION_H
 
-#include <dchroot-common/session-base.h>
+#include <dchroot-common/session.h>
 
 namespace dchroot_dsa
 {
@@ -32,7 +32,7 @@ namespace dchroot_dsa
    * compatible with the chdir and command execution behaviour of
    * dchroot-dsa.
    */
-  class session : public dchroot_common::session_base
+  class session : public dchroot_common::session
   {
   public:
     /**
