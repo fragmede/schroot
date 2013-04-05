@@ -55,8 +55,6 @@ main::create_session (sbuild::session::operation sess_op)
 {
   sbuild::log_debug(sbuild::DEBUG_INFO) << "Creating dchroot session" << endl;
 
-  // Using dchroot.conf implies using dchroot_session_base, which does
-  // not require user or group access.
   this->session = sbuild::session::ptr
     (new dchroot::session("schroot",
                           sess_op,
