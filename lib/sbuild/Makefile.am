@@ -95,7 +95,7 @@ endif
 
 if BUILD_UNION
 lib_sbuild_public_union_h_sources =	\
-	lib/sbuild/chroot-facet-union.h
+	lib/sbuild/chroot/facet/fsunion.h
 endif
 
 if BUILD_UNSHARE
@@ -172,7 +172,7 @@ endif
 
 if BUILD_UNION
 lib_sbuild_public_union_cc_sources =	\
-	lib/sbuild/chroot-facet-union.cc
+	lib/sbuild/chroot/facet/fsunion.cc
 endif
 
 if BUILD_UNSHARE

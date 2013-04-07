@@ -23,7 +23,7 @@
 #include <sbuild/chroot/facet/source-clonable.h>
 #include <sbuild/chroot/facet/mountable.h>
 #ifdef SBUILD_FEATURE_UNION
-#include "chroot-facet-union.h"
+#include <sbuild/chroot/facet/fsunion.h>
 #endif // SBUILD_FEATURE_UNION
 #include "format-detail.h"
 #include "lock.h"
@@ -49,7 +49,7 @@ namespace sbuild
     {
       add_facet(facet::mountable::create());
 #ifdef SBUILD_FEATURE_UNION
-      add_facet(chroot_facet_union::create());
+      add_facet(facet::fsunion::create());
 #endif // SBUILD_FEATURE_UNION
     }
 

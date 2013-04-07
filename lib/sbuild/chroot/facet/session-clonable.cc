@@ -37,7 +37,7 @@
 #include <sbuild/chroot/btrfs-snapshot.h>
 #endif // SBUILD_FEATURE_BTRFSSNAP
 #ifdef SBUILD_FEATURE_UNION
-#include "chroot-facet-union.h"
+#include <sbuild/chroot/facet/fsunion.h>
 #endif // SBUILD_FEATURE_UNION
 #include "format-detail.h"
 
@@ -203,12 +203,12 @@ namespace sbuild
 
 #ifdef SBUILD_FEATURE_UNION
         // If the parent did not have a union facet, then neither should we.
-        chroot_facet_union::const_ptr pparentuni(parent.get_facet<chroot_facet_union>());
+        fsunion::const_ptr pparentuni(parent.get_facet<fsunion>());
         if (!pparentuni)
-          clone->remove_facet<chroot_facet_union>();
+          clone->remove_facet<fsunion>();
 
         /* Filesystem unions need the overlay directory specifying. */
-        chroot_facet_union::ptr puni(clone->get_facet<chroot_facet_union>());
+        fsunion::ptr puni(clone->get_facet<fsunion>());
 
         if (puni)
           {

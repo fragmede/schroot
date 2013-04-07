@@ -22,7 +22,7 @@
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
 #ifdef SBUILD_FEATURE_UNION
-#include "chroot-facet-union.h"
+#include <sbuild/chroot/facet/fsunion.h>
 #endif // SBUILD_FEATURE_UNION
 #include "format-detail.h"
 #include "lock.h"
@@ -46,7 +46,7 @@ namespace sbuild
       directory_base()
     {
 #ifdef SBUILD_FEATURE_UNION
-      add_facet(chroot_facet_union::create());
+      add_facet(facet::fsunion::create());
 #endif // SBUILD_FEATURE_UNION
     }
 
@@ -60,8 +60,8 @@ namespace sbuild
       directory_base(rhs)
     {
 #ifdef SBUILD_FEATURE_UNION
-      if (!get_facet<chroot_facet_union>())
-        add_facet(chroot_facet_union::create());
+      if (!get_facet<facet::fsunion>())
+        add_facet(facet::fsunion::create());
 #endif // SBUILD_FEATURE_UNION
 
       set_directory(rhs.get_source_subvolume());

@@ -22,7 +22,7 @@
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
 #ifdef SBUILD_FEATURE_UNION
-#include "chroot-facet-union.h"
+#include <sbuild/chroot/facet/fsunion.h>
 #endif // SBUILD_FEATURE_UNION
 #include "format-detail.h"
 #include "util.h"
@@ -45,7 +45,7 @@ namespace sbuild
       block_device_base()
     {
 #ifdef SBUILD_FEATURE_UNION
-      add_facet(chroot_facet_union::create());
+      add_facet(facet::fsunion::create());
 #endif // SBUILD_FEATURE_UNION
     }
 
@@ -63,8 +63,8 @@ namespace sbuild
       block_device_base(rhs)
     {
 #ifdef SBUILD_FEATURE_UNION
-      if (!get_facet<chroot_facet_union>())
-        add_facet(chroot_facet_union::create());
+      if (!get_facet<facet::fsunion>())
+        add_facet(facet::fsunion::create());
 #endif // SBUILD_FEATURE_UNION
     }
 #endif // SBUILD_FEATURE_LVMSNAP
@@ -137,12 +137,12 @@ namespace sbuild
           else
             {
 #ifdef SBUILD_FEATURE_UNION
-              /* We don't lock the device if union is configured. */
+              /* We don't lock the device if fsunion is configured. */
               const chroot *base = dynamic_cast<const chroot *>(this);
               assert(base);
-              chroot_facet_union::const_ptr puni
-                (base->get_facet<chroot_facet_union>());
-#endif
+              facet::fsunion::const_ptr puni
+                (base->get_facet<facet::fsunion>());
+#endif // SBUILD_FEATURE_UNION
             }
         }
       catch (sbuild::stat::error const& e) // Failed to stat

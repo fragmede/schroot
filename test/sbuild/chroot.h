@@ -27,7 +27,7 @@
 #include <sbuild/chroot/facet/source.h>
 #include <sbuild/chroot/facet/source-clonable.h>
 #ifdef SBUILD_FEATURE_UNION
-#include <sbuild/chroot-facet-union.h>
+#include <sbuild/chroot/facet/fsunion.h>
 #endif // SBUILD_FEATURE_UNION
 #ifdef SBUILD_FEATURE_UNSHARE
 #include <sbuild/chroot-facet-unshare.h>
@@ -137,8 +137,8 @@ public:
 
 #ifdef SBUILD_FEATURE_UNION
     this->chroot_union = sbuild::chroot::chroot::ptr(new T);
-    sbuild::chroot_facet_union::ptr un =
-      this->chroot_union->template get_facet<sbuild::chroot_facet_union>();
+    sbuild::chroot::facet::fsunion::ptr un =
+      this->chroot_union->template get_facet<sbuild::chroot::facet::fsunion>();
     if (!un)
       {
         this->chroot_union.reset();

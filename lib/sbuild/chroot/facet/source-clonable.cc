@@ -23,7 +23,7 @@
 #include <sbuild/chroot/facet/source-clonable.h>
 #include <sbuild/chroot/facet/source.h>
 #ifdef SBUILD_FEATURE_UNION
-#include "chroot-facet-union.h"
+#include <sbuild/chroot/facet/fsunion.h>
 #endif // SBUILD_FEATURE_UNION
 
 #include <cassert>
@@ -87,7 +87,7 @@ namespace sbuild
         clone->set_aliases(clone->get_aliases());
 
 #ifdef SBUILD_FEATURE_UNION
-        clone->remove_facet<chroot_facet_union>();
+        clone->remove_facet<fsunion>();
 #endif // SBUILD_FEATURE_UNION
 
         clone->remove_facet<source_clonable>();
