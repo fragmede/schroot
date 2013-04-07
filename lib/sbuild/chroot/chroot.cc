@@ -28,7 +28,7 @@
 #include <sbuild/chroot/block-device.h>
 #endif // SBUILD_FEATURE_BLOCKDEV
 #ifdef SBUILD_FEATURE_LOOPBACK
-#include "chroot-loopback.h"
+#include <sbuild/chroot/loopback.h>
 #endif // SBUILD_FEATURE_LOOPBACK
 #ifdef SBUILD_FEATURE_LVMSNAP
 #include <sbuild/chroot/lvm-snapshot.h>
@@ -179,7 +179,7 @@ namespace sbuild
 #endif // SBUILD_FEATURE_BLOCKDEV
 #ifdef SBUILD_FEATURE_LOOPBACK
       else if (type == "loopback")
-        new_chroot = new chroot_loopback();
+        new_chroot = new loopback();
 #endif // SBUILD_FEATURE_LOOPBACK
 #ifdef SBUILD_FEATURE_LVMSNAP
       else if (type == "lvm-snapshot")

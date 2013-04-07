@@ -90,7 +90,7 @@ endif
 
 if BUILD_LOOPBACK
 lib_sbuild_public_loopback_h_sources =	\
-	lib/sbuild/chroot-loopback.h
+	lib/sbuild/chroot/loopback.h
 endif
 
 if BUILD_UNION
@@ -167,7 +167,7 @@ endif
 
 if BUILD_LOOPBACK
 lib_sbuild_public_loopback_cc_sources =	\
-	lib/sbuild/chroot-loopback.cc
+	lib/sbuild/chroot/loopback.cc
 endif
 
 if BUILD_UNION
