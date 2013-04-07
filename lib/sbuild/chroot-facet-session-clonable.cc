@@ -34,7 +34,7 @@
 #include <sbuild/chroot/loopback.h>
 #endif // SBUILD_FEATURE_LOOPBACK
 #ifdef SBUILD_FEATURE_BTRFSSNAP
-#include "chroot-btrfs-snapshot.h"
+#include <sbuild/chroot/btrfs-snapshot.h>
 #endif // SBUILD_FEATURE_BTRFSSNAP
 #ifdef SBUILD_FEATURE_UNION
 #include "chroot-facet-union.h"
@@ -185,7 +185,7 @@ chroot_facet_session_clonable::clone_session_setup (chroot::chroot const& parent
 
 #ifdef SBUILD_FEATURE_BTRFSSNAP
   /* Btrfs snapshots need the snapshot name specifying. */
-  std::shared_ptr<chroot_btrfs_snapshot> btrfs_snapshot(std::dynamic_pointer_cast<chroot_btrfs_snapshot>(clone));
+  std::shared_ptr<chroot::btrfs_snapshot> btrfs_snapshot(std::dynamic_pointer_cast<chroot::btrfs_snapshot>(clone));
   if (btrfs_snapshot && !btrfs_snapshot->get_snapshot_directory().empty())
     {
       std::string snapname(btrfs_snapshot->get_snapshot_directory());

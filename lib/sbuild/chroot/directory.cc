@@ -56,7 +56,7 @@ namespace sbuild
     }
 
 #ifdef SBUILD_FEATURE_BTRFSSNAP
-    directory::directory (const chroot_btrfs_snapshot& rhs):
+    directory::directory (const btrfs_snapshot& rhs):
       directory_base(rhs)
     {
 #ifdef SBUILD_FEATURE_UNION

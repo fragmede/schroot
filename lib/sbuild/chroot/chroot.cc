@@ -34,7 +34,7 @@
 #include <sbuild/chroot/lvm-snapshot.h>
 #endif // SBUILD_FEATURE_LVMSNAP
 #ifdef SBUILD_FEATURE_BTRFSSNAP
-#include "chroot-btrfs-snapshot.h"
+#include <sbuild/chroot/btrfs-snapshot.h>
 #endif // SBUILD_FEATURE_BTRFSSNAP
 #include "chroot-facet.h"
 #include "chroot-facet-personality.h"
@@ -187,7 +187,7 @@ namespace sbuild
 #endif // SBUILD_FEATURE_LVMSNAP
 #ifdef SBUILD_FEATURE_BTRFSSNAP
       else if (type == "btrfs-snapshot")
-        new_chroot = new chroot_btrfs_snapshot();
+        new_chroot = new btrfs_snapshot();
 #endif // SBUILD_FEATURE_BTRFSSNAP
       else
         throw error(type, CHROOT_TYPE);

@@ -85,7 +85,7 @@ endif
 
 if BUILD_BTRFSSNAP
 lib_sbuild_public_btrfssnap_h_sources =	\
-	lib/sbuild/chroot-btrfs-snapshot.h
+	lib/sbuild/chroot/btrfs-snapshot.h
 endif
 
 if BUILD_LOOPBACK
@@ -162,7 +162,7 @@ endif
 
 if BUILD_BTRFSSNAP
 lib_sbuild_public_btrfssnap_cc_sources =	\
-	lib/sbuild/chroot-btrfs-snapshot.cc
+	lib/sbuild/chroot/btrfs-snapshot.cc
 endif
 
 if BUILD_LOOPBACK
