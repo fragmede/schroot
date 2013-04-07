@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include "chroot-btrfs-snapshot.h"
-#include "chroot-directory.h"
+#include <sbuild/chroot/directory.h>
 #include "chroot-facet-session.h"
 #include "chroot-facet-session-clonable.h"
 #include "chroot-facet-source-clonable.h"
@@ -81,7 +81,7 @@ chroot_btrfs_snapshot::clone_session (std::string const& session_id,
 chroot::chroot::ptr
 chroot_btrfs_snapshot::clone_source () const
 {
-  ptr clone(new chroot_directory(*this));
+  ptr clone(new sbuild::chroot::directory(*this));
 
   chroot_facet_source_clonable::const_ptr psrc
     (get_facet<chroot_facet_source_clonable>());

@@ -23,7 +23,7 @@
 #include "chroot-facet-session.h"
 #include "chroot-facet-session-clonable.h"
 #include "chroot-facet-source-clonable.h"
-#include "chroot-plain.h"
+#include <sbuild/chroot/plain.h>
 #ifdef SBUILD_FEATURE_BLOCKDEV
 #include "chroot-block-device-base.h"
 #endif
@@ -131,7 +131,7 @@ chroot_facet_session_clonable::clone_session_setup (chroot::chroot const& parent
      session id.  Only set for non-plain chroots which run
      setup scripts. */
   {
-    std::shared_ptr<chroot_plain> plain(std::dynamic_pointer_cast<chroot_plain>(clone));
+    std::shared_ptr<chroot::plain> plain(std::dynamic_pointer_cast<chroot::plain>(clone));
 
     if (clone->get_mount_location().empty() && !plain)
       {

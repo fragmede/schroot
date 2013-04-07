@@ -23,8 +23,8 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/auth-null.h				\
 	lib/sbuild/chroot/chroot.h			\
 	lib/sbuild/chroot-custom.h			\
-	lib/sbuild/chroot-directory.h			\
-	lib/sbuild/chroot-directory-base.h		\
+	lib/sbuild/chroot/directory.h			\
+	lib/sbuild/chroot/directory-base.h		\
 	lib/sbuild/chroot-facet.h			\
 	lib/sbuild/chroot-facet-mountable.h		\
 	lib/sbuild/chroot-facet-personality.h		\
@@ -34,7 +34,7 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/chroot-facet-source-clonable.h	\
 	lib/sbuild/chroot-facet-userdata.h		\
 	lib/sbuild/chroot-file.h			\
-	lib/sbuild/chroot-plain.h			\
+	lib/sbuild/chroot/plain.h			\
 	lib/sbuild/chroot/config.h			\
 	lib/sbuild/ctty.h				\
 	lib/sbuild/custom-error.h			\
@@ -108,8 +108,8 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/auth-null.cc				\
 	lib/sbuild/chroot/chroot.cc			\
 	lib/sbuild/chroot-custom.cc			\
-	lib/sbuild/chroot-directory.cc			\
-	lib/sbuild/chroot-directory-base.cc		\
+	lib/sbuild/chroot/directory.cc			\
+	lib/sbuild/chroot/directory-base.cc		\
 	lib/sbuild/chroot-facet-mountable.cc		\
 	lib/sbuild/chroot-facet-personality.cc		\
 	lib/sbuild/chroot-facet-session.cc		\
@@ -118,7 +118,7 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/chroot-facet-source-clonable.cc	\
 	lib/sbuild/chroot-facet-userdata.cc		\
 	lib/sbuild/chroot-file.cc			\
-	lib/sbuild/chroot-plain.cc			\
+	lib/sbuild/chroot/plain.cc			\
 	lib/sbuild/chroot/config.cc			\
 	lib/sbuild/ctty.cc				\
 	lib/sbuild/environment.cc			\

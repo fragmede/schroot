@@ -20,8 +20,8 @@
 
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/config.h>
-#include "chroot-directory.h"
-#include "chroot-plain.h"
+#include <sbuild/chroot/directory.h>
+#include <sbuild/chroot/plain.h>
 #include "chroot-custom.h"
 #include "chroot-file.h"
 #ifdef SBUILD_FEATURE_BLOCKDEV
@@ -166,9 +166,9 @@ namespace sbuild
       chroot *new_chroot = 0;
 
       if (type == "directory")
-        new_chroot = new chroot_directory();
+        new_chroot = new directory();
       else if (type == "plain")
-        new_chroot = new chroot_plain();
+        new_chroot = new plain();
       else if (type == "custom")
         new_chroot = new chroot_custom();
       else if (type == "file")

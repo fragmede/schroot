@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <sbuild/chroot-directory.h>
+#include <sbuild/chroot/directory.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
 
@@ -33,11 +33,11 @@ using namespace CppUnit;
 
 using sbuild::_;
 
-class chroot_directory : public sbuild::chroot_directory
+class chroot_directory : public sbuild::chroot::directory
 {
 public:
   chroot_directory():
-    sbuild::chroot_directory()
+    sbuild::chroot::directory()
   {}
 
   virtual ~chroot_directory()
@@ -96,7 +96,7 @@ public:
   {
     test_chroot_base<chroot_directory>::setup_chroot_props(chroot);
 
-    std::shared_ptr<sbuild::chroot_directory> c = std::dynamic_pointer_cast<sbuild::chroot_directory>(chroot);
+    std::shared_ptr<sbuild::chroot::directory> c = std::dynamic_pointer_cast<sbuild::chroot::directory>(chroot);
 
     c->set_directory("/srv/chroot/example-chroot");
   }
@@ -104,7 +104,7 @@ public:
   void
   test_directory()
   {
-    std::shared_ptr<sbuild::chroot_directory> c = std::dynamic_pointer_cast<sbuild::chroot_directory>(chroot);
+    std::shared_ptr<sbuild::chroot::directory> c = std::dynamic_pointer_cast<sbuild::chroot::directory>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_directory("/mnt/chroot/example");
     CPPUNIT_ASSERT(chroot->get_mount_location() == "/mnt/mount-location");
