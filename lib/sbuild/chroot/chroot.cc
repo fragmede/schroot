@@ -43,7 +43,7 @@
 #include <sbuild/chroot/facet/source.h>
 #include "chroot-facet-userdata.h"
 #ifdef SBUILD_FEATURE_UNSHARE
-#include "chroot-facet-unshare.h"
+#include <sbuild/chroot/facet/unshare.h>
 #endif // SBUILD_FEATURE_UNSHARE
 #include "fdstream.h"
 #include "keyfile-writer.h"
@@ -119,7 +119,7 @@ namespace sbuild
     {
       add_facet(facet::personality::create());
 #ifdef SBUILD_FEATURE_UNSHARE
-      add_facet(chroot_facet_unshare::create());
+      add_facet(facet::unshare::create());
 #endif // SBUILD_FEATURE_UNSHARE
       add_facet(facet::session_clonable::create());
       add_facet(chroot_facet_userdata::create());

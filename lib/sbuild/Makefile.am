@@ -100,7 +100,7 @@ endif
 
 if BUILD_UNSHARE
 lib_sbuild_public_unshare_h_sources =	\
-	lib/sbuild/chroot-facet-unshare.h
+	lib/sbuild/chroot/facet/unshare.h
 endif
 
 lib_sbuild_public_cc_sources =				\
@@ -177,7 +177,7 @@ endif
 
 if BUILD_UNSHARE
 lib_sbuild_public_unshare_cc_sources =	\
-	lib/sbuild/chroot-facet-unshare.cc
+	lib/sbuild/chroot/facet/unshare.cc
 endif
 
 pkgincludedir = $(includedir)/sbuild

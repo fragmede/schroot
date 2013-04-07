@@ -30,7 +30,7 @@
 #include <sbuild/chroot/facet/fsunion.h>
 #endif // SBUILD_FEATURE_UNION
 #ifdef SBUILD_FEATURE_UNSHARE
-#include <sbuild/chroot-facet-unshare.h>
+#include <sbuild/chroot/facet/unshare.h>
 #endif // SBUILD_FEATURE_UNSHARE
 #include <sbuild/chroot-facet-userdata.h>
 #include <sbuild/i18n.h>

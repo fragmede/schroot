@@ -23,7 +23,7 @@
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #ifdef SBUILD_FEATURE_UNSHARE
-#include "chroot-facet-unshare.h"
+#include <sbuild/chroot/facet/unshare.h>
 #endif // SBUILD_FEATURE_UNSHARE
 #include "chroot-facet-userdata.h"
 #ifdef SBUILD_FEATURE_PAM
@@ -712,9 +712,9 @@ session::run_impl ()
                 {
 #ifdef SBUILD_FEATURE_UNSHARE
                   /* Unshare execution context */
-                  chroot_facet_unshare::const_ptr pu = chroot->get_facet<chroot_facet_unshare>();
+                  chroot::facet::unshare::const_ptr pu = chroot->get_facet<chroot::facet::unshare>();
                   if (pu)
-                    pu->unshare();
+                    pu->do_unshare();
 #endif // SBUILD_FEATURE_UNSHARE
 
                   /* Run exec-start scripts. */
