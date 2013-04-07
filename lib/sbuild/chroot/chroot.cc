@@ -25,13 +25,13 @@
 #include "chroot-custom.h"
 #include "chroot-file.h"
 #ifdef SBUILD_FEATURE_BLOCKDEV
-#include "chroot-block-device.h"
+#include <sbuild/chroot/block-device.h>
 #endif // SBUILD_FEATURE_BLOCKDEV
 #ifdef SBUILD_FEATURE_LOOPBACK
 #include "chroot-loopback.h"
 #endif // SBUILD_FEATURE_LOOPBACK
 #ifdef SBUILD_FEATURE_LVMSNAP
-#include "chroot-lvm-snapshot.h"
+#include <sbuild/chroot/lvm-snapshot.h>
 #endif // SBUILD_FEATURE_LVMSNAP
 #ifdef SBUILD_FEATURE_BTRFSSNAP
 #include "chroot-btrfs-snapshot.h"
@@ -175,7 +175,7 @@ namespace sbuild
         new_chroot = new chroot_file();
 #ifdef SBUILD_FEATURE_BLOCKDEV
       else if (type == "block-device")
-        new_chroot = new chroot_block_device();
+        new_chroot = new block_device();
 #endif // SBUILD_FEATURE_BLOCKDEV
 #ifdef SBUILD_FEATURE_LOOPBACK
       else if (type == "loopback")
@@ -183,7 +183,7 @@ namespace sbuild
 #endif // SBUILD_FEATURE_LOOPBACK
 #ifdef SBUILD_FEATURE_LVMSNAP
       else if (type == "lvm-snapshot")
-        new_chroot = new chroot_lvm_snapshot();
+        new_chroot = new lvm_snapshot();
 #endif // SBUILD_FEATURE_LVMSNAP
 #ifdef SBUILD_FEATURE_BTRFSSNAP
       else if (type == "btrfs-snapshot")

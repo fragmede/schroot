@@ -25,10 +25,10 @@
 #include "chroot-facet-source-clonable.h"
 #include <sbuild/chroot/plain.h>
 #ifdef SBUILD_FEATURE_BLOCKDEV
-#include "chroot-block-device-base.h"
+#include <sbuild/chroot/block-device-base.h>
 #endif
 #ifdef SBUILD_FEATURE_LVMSNAP
-#include "chroot-lvm-snapshot.h"
+#include <sbuild/chroot/lvm-snapshot.h>
 #endif // SBUILD_FEATURE_LVMSNAP
 #ifdef SBUILD_FEATURE_LOOPBACK
 #include "chroot-loopback.h"
@@ -150,7 +150,7 @@ chroot_facet_session_clonable::clone_session_setup (chroot::chroot const& parent
   /* Block devices need the mount device name specifying. */
   /* Note that this will be overridden by LVM snapshot, below, so the
      order here is important. */
-  std::shared_ptr<chroot_block_device_base> blockdevbase(std::dynamic_pointer_cast<chroot_block_device_base>(clone));
+  std::shared_ptr<chroot::block_device_base> blockdevbase(std::dynamic_pointer_cast<chroot::block_device_base>(clone));
   if (blockdevbase)
     {
       chroot_facet_mountable::ptr pmnt
@@ -174,7 +174,7 @@ chroot_facet_session_clonable::clone_session_setup (chroot::chroot const& parent
 
 #ifdef SBUILD_FEATURE_LVMSNAP
   /* LVM devices need the snapshot device name specifying. */
-  std::shared_ptr<chroot_lvm_snapshot> snapshot(std::dynamic_pointer_cast<chroot_lvm_snapshot>(clone));
+  std::shared_ptr<chroot::lvm_snapshot> snapshot(std::dynamic_pointer_cast<chroot::lvm_snapshot>(clone));
   if (snapshot && !snapshot->get_device().empty())
     {
       std::string device(dirname(snapshot->get_device()));

@@ -21,7 +21,7 @@
 #include <algorithm>
 #include <set>
 
-#include <sbuild/chroot-block-device.h>
+#include <sbuild/chroot/block-device.h>
 #include <sbuild/chroot-facet-mountable.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
@@ -34,11 +34,11 @@ using namespace CppUnit;
 
 using sbuild::_;
 
-class chroot_block_device : public sbuild::chroot_block_device
+class chroot_block_device : public sbuild::chroot::block_device
 {
 public:
   chroot_block_device():
-    sbuild::chroot_block_device()
+    sbuild::chroot::block_device()
   {}
 
   virtual ~chroot_block_device()
@@ -95,7 +95,7 @@ public:
   {
     test_chroot_base<chroot_block_device>::setup_chroot_props(chroot);
 
-    std::shared_ptr<sbuild::chroot_block_device> c = std::dynamic_pointer_cast<sbuild::chroot_block_device>(chroot);
+    std::shared_ptr<sbuild::chroot::block_device> c = std::dynamic_pointer_cast<sbuild::chroot::block_device>(chroot);
 
     c->set_device("/dev/testdev");
 
@@ -109,7 +109,7 @@ public:
   void
   test_device()
   {
-    std::shared_ptr<sbuild::chroot_block_device> c = std::dynamic_pointer_cast<sbuild::chroot_block_device>(chroot);
+    std::shared_ptr<sbuild::chroot::block_device> c = std::dynamic_pointer_cast<sbuild::chroot::block_device>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_device("/dev/some/device");
     CPPUNIT_ASSERT(c->get_device() == "/dev/some/device");

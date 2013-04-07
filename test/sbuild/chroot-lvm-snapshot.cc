@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <sbuild/chroot-lvm-snapshot.h>
+#include <sbuild/chroot/lvm-snapshot.h>
 #include <sbuild/chroot-facet-mountable.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
@@ -35,11 +35,11 @@ using namespace CppUnit;
 
 using sbuild::_;
 
-class chroot_lvm_snapshot : public sbuild::chroot_lvm_snapshot
+class chroot_lvm_snapshot : public sbuild::chroot::lvm_snapshot
 {
 public:
   chroot_lvm_snapshot():
-    sbuild::chroot_lvm_snapshot()
+    sbuild::chroot::lvm_snapshot()
   {}
 
   virtual ~chroot_lvm_snapshot()
@@ -84,7 +84,7 @@ public:
   {
     test_chroot_base<chroot_lvm_snapshot>::setup_chroot_props(chroot);
 
-    std::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot::lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::lvm_snapshot>(chroot);
 
     c->set_device("/dev/volgroup/testdev");
     c->set_snapshot_options("--size 1G");
@@ -100,7 +100,7 @@ public:
   void
   test_snapshot_device()
   {
-    std::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot::lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::lvm_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_snapshot_device("/dev/volgroup/some/snapshot/device");
     CPPUNIT_ASSERT(c->get_snapshot_device() == "/dev/volgroup/some/snapshot/device");
@@ -109,7 +109,7 @@ public:
   void
   test_snapshot_options()
   {
-    std::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot::lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::lvm_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
     c->set_snapshot_options("-o opt1,opt2");
     CPPUNIT_ASSERT(c->get_snapshot_options() == "-o opt1,opt2");
@@ -145,7 +145,7 @@ public:
 
   void test_setup_env_session()
   {
-    std::shared_ptr<sbuild::chroot_lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot_lvm_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot::lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::lvm_snapshot>(chroot);
 
     sbuild::environment expected;
     setup_env_gen(expected);

@@ -22,12 +22,6 @@
 #include <sbuild/chroot/config.h>
 #include "chroot-facet-session.h"
 #include "chroot-facet-source-clonable.h"
-#ifdef SBUILD_FEATURE_LVMSNAP
-#include "chroot-lvm-snapshot.h"
-#endif // SBUILD_FEATURE_LVMSNAP
-#ifdef SBUILD_FEATURE_UNION
-#include "chroot-facet-union.h"
-#endif // SBUILD_FEATURE_UNION
 #include "format-detail.h"
 
 #include <cassert>

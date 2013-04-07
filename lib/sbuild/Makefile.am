@@ -71,16 +71,16 @@ endif
 
 if BUILD_BLOCKDEV
 lib_sbuild_public_blockdev_base_h_sources =	\
-	lib/sbuild/chroot-block-device-base.h
+	lib/sbuild/chroot/block-device-base.h
 lib_sbuild_public_blockdev_h_sources =	\
-	lib/sbuild/chroot-block-device.h
+	lib/sbuild/chroot/block-device.h
 endif
 
 if BUILD_LVMSNAP
 lib_sbuild_public_blockdev_base_h_sources =	\
-	lib/sbuild/chroot-block-device-base.h
+	lib/sbuild/chroot/block-device-base.h
 lib_sbuild_public_lvmsnap_h_sources =	\
-	lib/sbuild/chroot-lvm-snapshot.h
+	lib/sbuild/chroot/lvm-snapshot.h
 endif
 
 if BUILD_BTRFSSNAP
@@ -148,16 +148,16 @@ endif
 
 if BUILD_BLOCKDEV
 lib_sbuild_public_blockdev_base_cc_sources =	\
-	lib/sbuild/chroot-block-device-base.cc
+	lib/sbuild/chroot/block-device-base.cc
 lib_sbuild_public_blockdev_cc_sources =	\
-	lib/sbuild/chroot-block-device.cc
+	lib/sbuild/chroot/block-device.cc
 endif
 
 if BUILD_LVMSNAP
 lib_sbuild_public_blockdev_base_cc_sources =	\
-	lib/sbuild/chroot-block-device-base.cc
+	lib/sbuild/chroot/block-device-base.cc
 lib_sbuild_public_lvmsnap_cc_sources =	\
-	lib/sbuild/chroot-lvm-snapshot.cc
+	lib/sbuild/chroot/lvm-snapshot.cc
 endif
 
 if BUILD_BTRFSSNAP
