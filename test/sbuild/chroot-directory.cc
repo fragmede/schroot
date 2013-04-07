@@ -92,7 +92,7 @@ public:
 #endif
   }
 
-  virtual void setup_chroot_props (sbuild::chroot::ptr& chroot)
+  virtual void setup_chroot_props (sbuild::chroot::chroot::chroot::ptr& chroot)
   {
     test_chroot_base<chroot_directory>::setup_chroot_props(chroot);
 
@@ -358,21 +358,21 @@ public:
 void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-                   sbuild::chroot::SESSION_CREATE);
+                   sbuild::chroot::chroot::SESSION_CREATE);
 
     CPPUNIT_ASSERT(session->get_session_flags() ==
-                   sbuild::chroot::SESSION_NOFLAGS);
+                   sbuild::chroot::chroot::SESSION_NOFLAGS);
 
 #ifdef SBUILD_FEATURE_UNION
     CPPUNIT_ASSERT(chroot_union->get_session_flags() ==
-                   (sbuild::chroot::SESSION_CREATE |
-                    sbuild::chroot::SESSION_CLONE));
+                   (sbuild::chroot::chroot::SESSION_CREATE |
+                    sbuild::chroot::chroot::SESSION_CLONE));
 
     CPPUNIT_ASSERT(session_union->get_session_flags() ==
-                   sbuild::chroot::SESSION_PURGE);
+                   sbuild::chroot::chroot::SESSION_PURGE);
 
     CPPUNIT_ASSERT(source_union->get_session_flags() ==
-                   sbuild::chroot::SESSION_CREATE);
+                   sbuild::chroot::chroot::SESSION_CREATE);
 #endif // SBUILD_FEATURE_UNION
   }
 

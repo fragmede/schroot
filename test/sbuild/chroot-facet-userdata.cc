@@ -50,7 +50,7 @@ public:
 
   void setUp()
   {
-    chroot = sbuild::chroot::create("directory");
+    chroot = sbuild::chroot::chroot::create("directory");
     CPPUNIT_ASSERT(chroot);
 
     std::shared_ptr<sbuild::chroot_directory> dir(std::dynamic_pointer_cast<sbuild::chroot_directory>(chroot));
@@ -72,7 +72,7 @@ public:
 
   void tearDown()
   {
-    this->chroot = sbuild::chroot::ptr();
+    this->chroot = sbuild::chroot::chroot::ptr();
     this->userdata = sbuild::chroot_facet_userdata::ptr();
   }
 
@@ -170,7 +170,7 @@ public:
   }
 
 private:
-  sbuild::chroot::ptr chroot;
+  sbuild::chroot::chroot::ptr chroot;
   sbuild::chroot_facet_userdata::ptr userdata;
 };
 

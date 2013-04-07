@@ -19,7 +19,7 @@
 #ifndef SBUILD_CHROOT_CONFIG_H
 #define SBUILD_CHROOT_CONFIG_H
 
-#include <sbuild/chroot.h>
+#include <sbuild/chroot/chroot.h>
 #include <sbuild/custom-error.h>
 
 #include <map>
@@ -43,11 +43,11 @@ namespace sbuild
   {
   public:
     /// A list of chroots.
-    typedef std::vector<chroot::ptr> chroot_list;
+    typedef std::vector<chroot::chroot::ptr> chroot_list;
     /// A map between key-value string pairs.
     typedef std::map<std::string, std::string> string_map;
     /// A map between a chroot name and a chroot object.
-    typedef std::map<std::string, chroot::ptr> chroot_map;
+    typedef std::map<std::string, chroot::chroot::ptr> chroot_map;
     /// A map between a chroot namespace and a chroot map object.
     typedef std::map<std::string, chroot_map> chroot_namespace_map;
 
@@ -143,9 +143,9 @@ namespace sbuild
      * @param kconfig the chroot configuration.
      */
     void
-    add (std::string const& chroot_namespace,
-         chroot::ptr&       chroot,
-         keyfile const&     kconfig);
+    add (std::string const&   chroot_namespace,
+         chroot::chroot::ptr& chroot,
+         keyfile const&       kconfig);
 
   public:
     /**
@@ -199,7 +199,7 @@ namespace sbuild
      * @param name the chroot name
      * @returns the chroot if found, otherwise 0.
      */
-    const chroot::ptr
+    const chroot::chroot::ptr
     find_chroot (std::string const& name) const;
 
     /**
@@ -210,7 +210,7 @@ namespace sbuild
      * @param name the chroot name
      * @returns the chroot if found, otherwise 0.
      */
-    const chroot::ptr
+    const chroot::chroot::ptr
     find_chroot (std::string const& namespace_hint,
                  std::string const& name) const;
 
@@ -221,7 +221,7 @@ namespace sbuild
      * @param name the chroot name
      * @returns the chroot if found, otherwise 0.
      */
-    const sbuild::chroot::ptr
+    const chroot::chroot::ptr
     find_chroot_in_namespace (std::string const& chroot_namespace,
                               std::string const& name) const;
 
@@ -233,7 +233,7 @@ namespace sbuild
      * @param name the chroot name or alias.
      * @returns the chroot if found, otherwise 0.
      */
-    const chroot::ptr
+    const chroot::chroot::ptr
     find_alias (std::string const& namespace_hint,
                 std::string const& name) const;
 

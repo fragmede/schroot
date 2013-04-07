@@ -51,9 +51,9 @@ class test_chroot_btrfs_snapshot : public test_chroot_base<chroot_btrfs_snapshot
   CPPUNIT_TEST(test_source_subvolume);
   CPPUNIT_TEST(test_snapshot_directory);
   CPPUNIT_TEST(test_snapshot_name);
-  CPPUNIT_TEST_EXCEPTION(test_source_subvolume_error, sbuild::chroot::error);
-  CPPUNIT_TEST_EXCEPTION(test_snapshot_directory_error, sbuild::chroot::error);
-  CPPUNIT_TEST_EXCEPTION(test_snapshot_name_error, sbuild::chroot::error);
+  CPPUNIT_TEST_EXCEPTION(test_source_subvolume_error, sbuild::chroot::chroot::error);
+  CPPUNIT_TEST_EXCEPTION(test_snapshot_directory_error, sbuild::chroot::chroot::error);
+  CPPUNIT_TEST_EXCEPTION(test_snapshot_name_error, sbuild::chroot::chroot::error);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
   CPPUNIT_TEST(test_setup_env_session);
@@ -83,7 +83,7 @@ public:
     CPPUNIT_ASSERT(session_source);
   }
 
-  virtual void setup_chroot_props (sbuild::chroot::ptr& chroot)
+  virtual void setup_chroot_props (sbuild::chroot::chroot::ptr& chroot)
   {
     test_chroot_base<chroot_btrfs_snapshot>::setup_chroot_props(chroot);
 
@@ -293,17 +293,17 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-                   (sbuild::chroot::SESSION_CREATE |
-                    sbuild::chroot::SESSION_CLONE));
+                   (sbuild::chroot::chroot::SESSION_CREATE |
+                    sbuild::chroot::chroot::SESSION_CLONE));
 
     CPPUNIT_ASSERT(session->get_session_flags() ==
-                   (sbuild::chroot::SESSION_PURGE));
+                   (sbuild::chroot::chroot::SESSION_PURGE));
 
     /// @todo: Should return NOFLAGS?  This depends upon if source
     /// chroots need transforming into sessions as well (which should
     /// probably happen and be tested for independently).
     CPPUNIT_ASSERT(source->get_session_flags() ==
-                   (sbuild::chroot::SESSION_CREATE));
+                   (sbuild::chroot::chroot::SESSION_CREATE));
   }
 
   void test_print_details()

@@ -50,14 +50,14 @@ namespace dchroot
     virtual ~session ();
 
     virtual sbuild::string_list
-    get_login_directories (sbuild::chroot::ptr&        session_chroot,
-                           sbuild::environment const&  env) const;
+    get_login_directories (sbuild::chroot::chroot::ptr& session_chroot,
+                           sbuild::environment const&   env) const;
 
     virtual void
-    get_user_command (sbuild::chroot::ptr&       session_chroot,
-                      std::string&               file,
-                      sbuild::string_list&       command,
-                      sbuild::environment const& env) const;
+    get_user_command (sbuild::chroot::chroot::ptr& session_chroot,
+                      std::string&                 file,
+                      sbuild::string_list&         command,
+                      sbuild::environment const&   env) const;
   };
 
 }

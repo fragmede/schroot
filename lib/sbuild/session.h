@@ -20,7 +20,7 @@
 #define SBUILD_SESSION_H
 
 #include <sbuild/auth.h>
-#include <sbuild/chroot.h>
+#include <sbuild/chroot/chroot.h>
 #include <sbuild/custom-error.h>
 
 #include <string>
@@ -51,7 +51,7 @@ namespace sbuild
       /// Name used to initially identify the chroot.
       std::string         alias;
       /// Pointer to chroot object.
-      sbuild::chroot::ptr chroot;
+      chroot::chroot::ptr chroot;
     };
 
     /// A list of chroots.
@@ -303,11 +303,11 @@ namespace sbuild
      * Get the chroot authentication properties the user is included in.
      */
     void
-    get_chroot_membership (chroot::ptr const& chroot,
-                           bool&              in_users,
-                           bool&              in_root_users,
-                           bool&              in_groups,
-                           bool&              in_root_groups) const;
+    get_chroot_membership (chroot::chroot::ptr const& chroot,
+                           bool&                      in_users,
+                           bool&                      in_root_users,
+                           bool&                      in_groups,
+                           bool&                      in_root_groups) const;
 
     /**
      * Check if authentication is required for a single chroot, taking
@@ -315,8 +315,8 @@ namespace sbuild
      * account.
      */
     virtual auth::status
-    get_chroot_auth_status (auth::status status,
-                            chroot::ptr const& chroot) const;
+    get_chroot_auth_status (auth::status               status,
+                            chroot::chroot::ptr const& chroot) const;
 
   public:
     /**
@@ -356,7 +356,7 @@ namespace sbuild
      * @returns a list of directories
      */
     virtual string_list
-    get_login_directories (sbuild::chroot::ptr& session_chroot,
+    get_login_directories (chroot::chroot::ptr& session_chroot,
                            environment const&   env) const;
 
     /**
@@ -368,7 +368,7 @@ namespace sbuild
      * @returns a list of directories
      */
     virtual string_list
-    get_command_directories (sbuild::chroot::ptr& session_chroot,
+    get_command_directories (chroot::chroot::ptr& session_chroot,
                              environment const&   env) const;
 
     /**
@@ -380,7 +380,7 @@ namespace sbuild
      * @returns a list of shells.
      */
     virtual string_list
-    get_shells (sbuild::chroot::ptr& session_chroot) const;
+    get_shells (chroot::chroot::ptr& session_chroot) const;
 
     /**
      * Get the shell to run.  This finds a suitable shell to run in
@@ -391,7 +391,7 @@ namespace sbuild
      * @returns the shell.
      */
     virtual std::string
-    get_shell (sbuild::chroot::ptr& session_chroot) const;
+    get_shell (chroot::chroot::ptr& session_chroot) const;
 
     /**
      * Get the command to run.
@@ -402,10 +402,10 @@ namespace sbuild
      * @param env the environment to use for PATH.
      */
     virtual void
-    get_command (chroot::ptr& session_chroot,
-                 std::string& file,
-                 string_list& command,
-                 environment& env) const;
+    get_command (chroot::chroot::ptr& session_chroot,
+                 std::string&         file,
+                 string_list&         command,
+                 environment&         env) const;
 
     /**
      * Get the command to run a login shell.
@@ -416,10 +416,10 @@ namespace sbuild
      * @param env the environment to set SHELL.
      */
     virtual void
-    get_login_command (chroot::ptr& session_chroot,
-                       std::string& file,
-                       string_list& command,
-                       environment& env) const;
+    get_login_command (chroot::chroot::ptr& session_chroot,
+                       std::string&         file,
+                       string_list&         command,
+                       environment&         env) const;
 
     /**
      * Get the command to run a user command.
@@ -430,10 +430,10 @@ namespace sbuild
      * @param env the environment to use for PATH
      */
     virtual void
-    get_user_command (chroot::ptr&       session_chroot,
-                      std::string&       file,
-                      string_list&       command,
-                      environment const& env) const;
+    get_user_command (chroot::chroot::ptr& session_chroot,
+                      std::string&         file,
+                      string_list&         command,
+                      environment const&   env) const;
 
   private:
     /**
@@ -449,8 +449,8 @@ namespace sbuild
      * @param setup_type the type of setup to perform.
      */
     void
-    setup_chroot (chroot::ptr&       session_chroot,
-                  chroot::setup_type setup_type);
+    setup_chroot (chroot::chroot::ptr&       session_chroot,
+                  chroot::chroot::setup_type setup_type);
 
     /**
      * Run command or login shell in the specified chroot.
@@ -460,7 +460,7 @@ namespace sbuild
      * @param session_chroot the chroot to setup.
      */
     void
-    run_chroot (chroot::ptr& session_chroot);
+    run_chroot (chroot::chroot::ptr& session_chroot);
 
     /**
      * Run a command or login shell as a child process in the
@@ -470,7 +470,7 @@ namespace sbuild
      * @param session_chroot the chroot to setup.
      */
     void
-    run_child (chroot::ptr& session_chroot);
+    run_child (chroot::chroot::ptr& session_chroot);
 
     /**
      * Wait for a child process to complete, and check its exit status.

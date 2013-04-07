@@ -19,7 +19,7 @@
 #ifndef SBUILD_CHROOT_CUSTOM_H
 #define SBUILD_CHROOT_CUSTOM_H
 
-#include <sbuild/chroot.h>
+#include <sbuild/chroot/chroot.h>
 
 namespace sbuild
 {
@@ -34,7 +34,7 @@ namespace sbuild
    * infrastructural work.  It also makes schroot extensible without
    * requiring any C++ coding.
    */
-  class chroot_custom : public chroot
+  class chroot_custom : public chroot::chroot
   {
   protected:
     /// The constructor.
@@ -101,7 +101,7 @@ namespace sbuild
 
     virtual void
     setup_env (chroot const& chroot,
-               environment& env) const;
+               environment&  env) const;
 
     virtual std::string const&
     get_chroot_type () const;
@@ -119,7 +119,7 @@ namespace sbuild
                 int                status);
 
     virtual void
-    get_details (chroot const& chroot,
+    get_details (chroot const&  chroot,
                  format_detail& detail) const;
 
     virtual void
@@ -127,7 +127,7 @@ namespace sbuild
 
     virtual void
     get_keyfile (chroot const& chroot,
-                 keyfile& keyfile) const;
+                 keyfile&      keyfile) const;
 
     virtual void
     set_keyfile (chroot&        chroot,

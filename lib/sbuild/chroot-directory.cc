@@ -67,13 +67,13 @@ chroot_directory::~chroot_directory ()
 {
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_directory::clone () const
 {
   return ptr(new chroot_directory(*this));
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_directory::clone_session (std::string const& session_id,
                                  std::string const& alias,
                                  std::string const& user,
@@ -89,7 +89,7 @@ chroot_directory::clone_session (std::string const& session_id,
   return session;
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_directory::clone_source () const
 {
   ptr clone(new chroot_directory(*this));
@@ -138,10 +138,10 @@ chroot_directory::setup_lock (chroot::setup_type type,
     }
 }
 
-sbuild::chroot::session_flags
+chroot::chroot::session_flags
 chroot_directory::get_session_flags (chroot const& chroot) const
 {
-  return chroot::SESSION_NOFLAGS;
+  return SESSION_NOFLAGS;
 }
 
 void

@@ -80,7 +80,7 @@ public:
     CPPUNIT_ASSERT(session_source);
   }
 
-  virtual void setup_chroot_props (sbuild::chroot::ptr& chroot)
+  virtual void setup_chroot_props (sbuild::chroot::chroot::ptr& chroot)
   {
     test_chroot_base<chroot_lvm_snapshot>::setup_chroot_props(chroot);
 
@@ -268,17 +268,17 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-                   (sbuild::chroot::SESSION_CREATE |
-                    sbuild::chroot::SESSION_CLONE));
+                   (sbuild::chroot::chroot::SESSION_CREATE |
+                    sbuild::chroot::chroot::SESSION_CLONE));
 
     CPPUNIT_ASSERT(session->get_session_flags() ==
-                   (sbuild::chroot::SESSION_PURGE));
+                   (sbuild::chroot::chroot::SESSION_PURGE));
 
     /// @todo: Should return NOFLAGS?  This depends upon if source
     /// chroots need transforming into sessions as well (which should
     /// probably happen and be tested for independently).
     CPPUNIT_ASSERT(source->get_session_flags() ==
-                   (sbuild::chroot::SESSION_CREATE));
+                   (sbuild::chroot::chroot::SESSION_CREATE));
   }
 
   void test_print_details()

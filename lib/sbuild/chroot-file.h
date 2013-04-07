@@ -19,7 +19,7 @@
 #ifndef SBUILD_CHROOT_FILE_H
 #define SBUILD_CHROOT_FILE_H
 
-#include <sbuild/chroot.h>
+#include <sbuild/chroot/chroot.h>
 
 namespace sbuild
 {
@@ -29,7 +29,7 @@ namespace sbuild
    *
    * The archive will be unpacked and repacked on demand.
    */
-  class chroot_file : public chroot
+  class chroot_file : public chroot::chroot
   {
   protected:
     /// The constructor.
@@ -44,16 +44,16 @@ namespace sbuild
     /// The destructor.
     virtual ~chroot_file ();
 
-    virtual chroot::ptr
+    virtual chroot::chroot::ptr
     clone () const;
 
-    virtual chroot::ptr
+    virtual chroot::chroot::ptr
     clone_session (std::string const& session_id,
                    std::string const& alias,
                    std::string const& user,
                    bool               root) const;
 
-    virtual chroot::ptr
+    virtual chroot::chroot::ptr
     clone_source () const;
 
     /**

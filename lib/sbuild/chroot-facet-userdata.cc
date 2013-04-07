@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "chroot.h"
+#include <sbuild/chroot/chroot.h>
 #include "chroot-facet-userdata.h"
 #include "regex.h"
 
@@ -119,8 +119,8 @@ chroot_facet_userdata::get_name () const
 }
 
 void
-chroot_facet_userdata::setup_env (chroot const& chroot,
-                                  environment&  env) const
+chroot_facet_userdata::setup_env (chroot::chroot const& chroot,
+                                  environment&          env) const
 {
   for (const auto& data : userdata)
     {
@@ -139,15 +139,15 @@ chroot_facet_userdata::setup_env (chroot const& chroot,
     }
 }
 
-sbuild::chroot::session_flags
-chroot_facet_userdata::get_session_flags (chroot const& chroot) const
+chroot::chroot::session_flags
+chroot_facet_userdata::get_session_flags (chroot::chroot const& chroot) const
 {
-  return sbuild::chroot::SESSION_NOFLAGS;
+  return chroot::chroot::SESSION_NOFLAGS;
 }
 
 void
-chroot_facet_userdata::get_details (chroot const&  chroot,
-                                    format_detail& detail) const
+chroot_facet_userdata::get_details (chroot::chroot const& chroot,
+                                    format_detail&        detail) const
 {
   string_list userkeys(this->user_modifiable_keys.begin(),
                        this->user_modifiable_keys.end());
@@ -340,8 +340,8 @@ chroot_facet_userdata::get_used_keys (string_list& used_keys) const
 }
 
 void
-chroot_facet_userdata::get_keyfile (chroot const& chroot,
-                                    keyfile&      keyfile) const
+chroot_facet_userdata::get_keyfile (chroot::chroot const& chroot,
+                                    keyfile&              keyfile) const
 {
   keyfile::set_object_set_value(*this,
                                 &chroot_facet_userdata::get_user_modifiable_keys,
@@ -362,8 +362,8 @@ chroot_facet_userdata::get_keyfile (chroot const& chroot,
 }
 
 void
-chroot_facet_userdata::set_keyfile (chroot&        chroot,
-                                    keyfile const& keyfile)
+chroot_facet_userdata::set_keyfile (chroot::chroot& chroot,
+                                    keyfile const&  keyfile)
 {
   keyfile::get_object_set_value(*this,
                                 &chroot_facet_userdata::set_user_modifiable_keys,

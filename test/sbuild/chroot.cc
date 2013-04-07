@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <sbuild/chroot.h>
+#include <sbuild/chroot/chroot.h>
 #include <sbuild/keyfile-writer.h>
 
 #include <test/sbuild/chroot.h>
@@ -30,11 +30,11 @@
 
 using namespace CppUnit;
 
-class basic_chroot : public sbuild::chroot
+class basic_chroot : public sbuild::chroot::chroot
 {
 public:
   basic_chroot ():
-    sbuild::chroot()
+    sbuild::chroot::chroot()
   {}
 
   virtual ~basic_chroot()
@@ -63,7 +63,7 @@ public:
   void
   set_run_setup_scripts (bool run_setup_scripts)
   {
-    sbuild::chroot::set_run_setup_scripts(run_setup_scripts);
+    sbuild::chroot::chroot::set_run_setup_scripts(run_setup_scripts);
   }
 
   virtual std::string
@@ -71,14 +71,14 @@ public:
   { return get_mount_location(); }
 
   virtual void
-  setup_env (sbuild::chroot const& chroot,
-             sbuild::environment&  env) const
-  { sbuild::chroot::setup_env(chroot, env); }
+  setup_env (sbuild::chroot::chroot const& chroot,
+             sbuild::environment&          env) const
+  { sbuild::chroot::chroot::setup_env(chroot, env); }
 
   virtual void
-  get_details (sbuild::chroot const&  chroot,
-               sbuild::format_detail& detail) const
-  { sbuild::chroot::get_details(chroot, detail); }
+  get_details (sbuild::chroot::chroot const& chroot,
+               sbuild::format_detail&        detail) const
+  { sbuild::chroot::chroot::get_details(chroot, detail); }
 
   virtual void
   setup_lock (setup_type type,
@@ -86,23 +86,23 @@ public:
               int        status)
   {}
 
-  virtual sbuild::chroot::session_flags
-  get_session_flags (sbuild::chroot const& chroot) const
-  { return sbuild::chroot::SESSION_CREATE; }
+  virtual sbuild::chroot::chroot::session_flags
+  get_session_flags (sbuild::chroot::chroot const& chroot) const
+  { return sbuild::chroot::chroot::SESSION_CREATE; }
 
   virtual void
   get_used_keys (sbuild::string_list& used_keys) const
-  { sbuild::chroot::get_used_keys(used_keys); }
+  { sbuild::chroot::chroot::get_used_keys(used_keys); }
 
   virtual void
-  get_keyfile (sbuild::chroot const& chroot,
-               sbuild::keyfile&      keyfile) const
-  { sbuild::chroot::get_keyfile(chroot, keyfile); }
+  get_keyfile (sbuild::chroot::chroot const& chroot,
+               sbuild::keyfile&              keyfile) const
+  { sbuild::chroot::chroot::get_keyfile(chroot, keyfile); }
 
   virtual void
-  set_keyfile (sbuild::chroot&        chroot,
-               sbuild::keyfile const& keyfile)
-  { sbuild::chroot::set_keyfile(chroot, keyfile); }
+  set_keyfile (sbuild::chroot::chroot& chroot,
+               sbuild::keyfile const&  keyfile)
+  { sbuild::chroot::chroot::set_keyfile(chroot, keyfile); }
 };
 
 class test_chroot : public test_chroot_base<basic_chroot>
@@ -120,7 +120,7 @@ class test_chroot : public test_chroot_base<basic_chroot>
   CPPUNIT_TEST(test_run_setup_scripts);
   CPPUNIT_TEST(test_verbose);
   CPPUNIT_TEST(test_preserve_environment);
-  CPPUNIT_TEST_EXCEPTION(test_verbose_error, sbuild::chroot::error);
+  CPPUNIT_TEST_EXCEPTION(test_verbose_error, sbuild::chroot::chroot::error);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
   CPPUNIT_TEST(test_setup_keyfile);
@@ -163,8 +163,8 @@ public:
 
     test_list(*chroot.get(),
               groups,
-              &sbuild::chroot::get_groups,
-              &sbuild::chroot::set_groups);
+              &sbuild::chroot::chroot::get_groups,
+              &sbuild::chroot::chroot::set_groups);
   }
 
   void test_root_groups()
@@ -176,8 +176,8 @@ public:
 
     test_list(*chroot.get(),
               groups,
-              &sbuild::chroot::get_root_groups,
-              &sbuild::chroot::set_root_groups);
+              &sbuild::chroot::chroot::get_root_groups,
+              &sbuild::chroot::chroot::set_root_groups);
   }
 
   void test_aliases()
@@ -188,8 +188,8 @@ public:
 
     test_list(*chroot.get(),
               aliases,
-              &sbuild::chroot::get_aliases,
-              &sbuild::chroot::set_aliases);
+              &sbuild::chroot::chroot::get_aliases,
+              &sbuild::chroot::chroot::set_aliases);
   }
 
   void test_environment_filter()
@@ -265,12 +265,12 @@ public:
   {
     std::shared_ptr<basic_chroot> c = std::dynamic_pointer_cast<basic_chroot>(chroot);
 
-    CPPUNIT_ASSERT(chroot->get_verbosity() == sbuild::chroot::VERBOSITY_QUIET);
-    c->set_verbosity(sbuild::chroot::VERBOSITY_VERBOSE);
-    CPPUNIT_ASSERT(chroot->get_verbosity() == sbuild::chroot::VERBOSITY_VERBOSE);
+    CPPUNIT_ASSERT(chroot->get_verbosity() == sbuild::chroot::chroot::VERBOSITY_QUIET);
+    c->set_verbosity(sbuild::chroot::chroot::VERBOSITY_VERBOSE);
+    CPPUNIT_ASSERT(chroot->get_verbosity() == sbuild::chroot::chroot::VERBOSITY_VERBOSE);
     CPPUNIT_ASSERT(std::string(chroot->get_verbosity_string()) == "verbose");
     c->set_verbosity("normal");
-    CPPUNIT_ASSERT(chroot->get_verbosity() == sbuild::chroot::VERBOSITY_NORMAL);
+    CPPUNIT_ASSERT(chroot->get_verbosity() == sbuild::chroot::chroot::VERBOSITY_NORMAL);
     CPPUNIT_ASSERT(std::string(chroot->get_verbosity_string()) == "normal");
   }
 
@@ -327,7 +327,7 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-                   sbuild::chroot::SESSION_CREATE);
+                   sbuild::chroot::chroot::SESSION_CREATE);
   }
 
   void test_print_details()

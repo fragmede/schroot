@@ -52,8 +52,8 @@ session::~session ()
 }
 
 sbuild::string_list
-session::get_login_directories (sbuild::chroot::ptr&       session_chroot,
-                                sbuild::environment const& env) const
+session::get_login_directories (sbuild::chroot::chroot::ptr& session_chroot,
+                                sbuild::environment const&   env) const
 {
   sbuild::string_list ret;
 
@@ -76,10 +76,10 @@ session::get_login_directories (sbuild::chroot::ptr&       session_chroot,
 }
 
 void
-session::get_user_command (sbuild::chroot::ptr&       session_chroot,
-                           std::string&               file,
-                           sbuild::string_list&       command,
-                           sbuild::environment const& env) const
+session::get_user_command (sbuild::chroot::chroot::ptr& session_chroot,
+                           std::string&                 file,
+                           sbuild::string_list&         command,
+                           sbuild::environment const&   env) const
 {
   std::string programstring = command[0];
   file = programstring;
@@ -98,7 +98,7 @@ session::get_user_command (sbuild::chroot::ptr&       session_chroot,
            get_auth()->get_user().c_str(),
            commandstring.c_str());
 
-  if (session_chroot->get_verbosity() != sbuild::chroot::VERBOSITY_QUIET)
+  if (session_chroot->get_verbosity() != sbuild::chroot::chroot::VERBOSITY_QUIET)
     {
       std::string format_string;
       // TRANSLATORS: %1% = chroot name

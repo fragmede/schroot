@@ -23,7 +23,7 @@
 #include <sbuild/format-detail.h>
 #include <sbuild/keyfile.h>
 #include <sbuild/types.h>
-#include <sbuild/chroot.h>
+#include <sbuild/chroot/chroot.h>
 
 #include <string>
 
@@ -56,12 +56,12 @@ namespace sbuild
      * @param chroot the chroot containing this facet.
      */
     void
-    set_chroot(chroot& chroot)
+    set_chroot(chroot::chroot& chroot)
     {
       this->owner = &chroot;
     }
 
-    friend class chroot;
+    friend class chroot::chroot;
 
   public:
     /// The destructor.
@@ -91,8 +91,8 @@ namespace sbuild
      * @param env the environment to set.
      */
     virtual void
-    setup_env (chroot const& chroot,
-               environment&  env) const = 0;
+    setup_env (chroot::chroot const& chroot,
+               environment&          env) const = 0;
 
     /**
      * Get the session flags of the chroot.  These determine how the
@@ -101,8 +101,8 @@ namespace sbuild
      * @param chroot the chroot to use.
      * @returns the session flags.
      */
-    virtual chroot::session_flags
-    get_session_flags (chroot const& chroot) const = 0;
+    virtual chroot::chroot::session_flags
+    get_session_flags (chroot::chroot const& chroot) const = 0;
 
     /**
      * Get detailed information about the chroot for output.
@@ -111,8 +111,8 @@ namespace sbuild
      * @param detail the details to output to.
      */
     virtual void
-    get_details (chroot const&  chroot,
-                 format_detail& detail) const = 0;
+    get_details (chroot::chroot const& chroot,
+                 format_detail&        detail) const = 0;
 
     /**
      * Get a list of the keys used during keyfile parsing.
@@ -131,8 +131,8 @@ namespace sbuild
      * @param keyfile the keyfile to use.
      */
     virtual void
-    get_keyfile (chroot const& chroot,
-                 keyfile&      keyfile) const = 0;
+    get_keyfile (chroot::chroot const& chroot,
+                 keyfile&              keyfile) const = 0;
 
     /**
      * Set the chroot properties from a keyfile.  The chroot name must
@@ -144,12 +144,12 @@ namespace sbuild
      * @param used_keys a list of the keys used will be set.
      */
     virtual void
-    set_keyfile (chroot&        chroot,
-                 keyfile const& keyfile) = 0;
+    set_keyfile (chroot::chroot& chroot,
+                 keyfile const&  keyfile) = 0;
 
   protected:
     /// Chroot owning this facet.
-    chroot *owner;
+    chroot::chroot *owner;
   };
 
 }

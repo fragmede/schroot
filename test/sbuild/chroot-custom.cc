@@ -75,7 +75,7 @@ public:
     CPPUNIT_ASSERT(!session_source);
   }
 
-  virtual void setup_chroot_props (sbuild::chroot::ptr& chroot)
+  virtual void setup_chroot_props (sbuild::chroot::chroot::ptr& chroot)
   {
     test_chroot_base<chroot_custom>::setup_chroot_props(chroot);
 
@@ -143,7 +143,7 @@ public:
     CPPUNIT_ASSERT(c);
 
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-                   sbuild::chroot::SESSION_CREATE);
+                   sbuild::chroot::chroot::SESSION_CREATE);
 
     CPPUNIT_ASSERT(c->get_facet<sbuild::chroot_facet_session_clonable>());
     CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot_facet_source_clonable>());
@@ -156,7 +156,7 @@ public:
     c->set_session_cloneable(false);
 
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-                   sbuild::chroot::SESSION_NOFLAGS);
+                   sbuild::chroot::chroot::SESSION_NOFLAGS);
 
     CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot_facet_session_clonable>());
     CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot_facet_source_clonable>());
@@ -169,7 +169,7 @@ public:
     c->set_source_cloneable(true);
 
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-                   (sbuild::chroot::SESSION_CREATE|sbuild::chroot::SESSION_CLONE));
+                   (sbuild::chroot::chroot::SESSION_CREATE|sbuild::chroot::chroot::SESSION_CLONE));
 
     CPPUNIT_ASSERT(c->get_facet<sbuild::chroot_facet_session_clonable>());
     CPPUNIT_ASSERT(c->get_facet<sbuild::chroot_facet_source_clonable>());
@@ -183,7 +183,7 @@ public:
     c->set_source_cloneable(true);
 
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-                   sbuild::chroot::SESSION_CLONE);
+                   sbuild::chroot::chroot::SESSION_CLONE);
 
     CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot_facet_session_clonable>());
     CPPUNIT_ASSERT(c->get_facet<sbuild::chroot_facet_source_clonable>());

@@ -61,8 +61,8 @@ session::run_impl ()
 }
 
 sbuild::string_list
-session::get_command_directories (sbuild::chroot::ptr&       session_chroot,
-                                  sbuild::environment const& env) const
+session::get_command_directories (sbuild::chroot::chroot::ptr& session_chroot,
+                                  sbuild::environment const&   env) const
 {
   // dchroot does not treat logins differently from commands with
   // respect to the cwd inside the chroot.

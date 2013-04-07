@@ -68,7 +68,7 @@ public:
     CPPUNIT_ASSERT(!session_source);
   }
 
-  virtual void setup_chroot_props (sbuild::chroot::ptr& chroot)
+  virtual void setup_chroot_props (sbuild::chroot::chroot::ptr& chroot)
   {
     test_chroot_base<chroot_plain>::setup_chroot_props(chroot);
 
@@ -123,7 +123,7 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-                   sbuild::chroot::SESSION_NOFLAGS);
+                   sbuild::chroot::chroot::SESSION_NOFLAGS);
   }
 
   void test_print_details()

@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include "chroot.h"
 #include "error.h"
 #include "util.h"
 
@@ -65,11 +64,6 @@ namespace
     return ret;
   }
 
-  bool chroot_alphasort (sbuild::chroot::ptr const& c1,
-                         sbuild::chroot::ptr const& c2)
-  {
-    return c1->get_name() < c2->get_name();
-  }
 
 }
 

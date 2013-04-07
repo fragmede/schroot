@@ -54,13 +54,13 @@ chroot_lvm_snapshot::~chroot_lvm_snapshot ()
 {
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_lvm_snapshot::clone () const
 {
   return ptr(new chroot_lvm_snapshot(*this));
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_lvm_snapshot::clone_session (std::string const& session_id,
                                     std::string const& alias,
                                     std::string const& user,
@@ -76,7 +76,7 @@ chroot_lvm_snapshot::clone_session (std::string const& session_id,
   return session;
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_lvm_snapshot::clone_source () const
 {
   ptr clone(new chroot_block_device(*this));
@@ -188,7 +188,7 @@ chroot_lvm_snapshot::setup_lock (chroot::setup_type type,
     }
 }
 
-sbuild::chroot::session_flags
+chroot::chroot::session_flags
 chroot_lvm_snapshot::get_session_flags (chroot const& chroot) const
 {
   session_flags flags = SESSION_NOFLAGS;

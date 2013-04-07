@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "chroot.h"
+#include <sbuild/chroot/chroot.h>
 #include "chroot-config.h"
 #include "chroot-facet-session.h"
 #include "chroot-facet-source-clonable.h"
@@ -98,8 +98,8 @@ chroot_facet_session::set_selected_name (std::string const& name)
 }
 
 void
-chroot_facet_session::setup_env (chroot const& chroot,
-                                 environment&  env) const
+chroot_facet_session::setup_env (chroot::chroot const& chroot,
+                                 environment&          env) const
 {
   // Add original name to environment, but only if set (otherwise
   // defaults to session ID).
@@ -110,15 +110,15 @@ chroot_facet_session::setup_env (chroot const& chroot,
     env.add("CHROOT_ALIAS", get_selected_name());
 }
 
-sbuild::chroot::session_flags
-chroot_facet_session::get_session_flags (chroot const& chroot) const
+chroot::chroot::session_flags
+chroot_facet_session::get_session_flags (chroot::chroot const& chroot) const
 {
-  return chroot::SESSION_NOFLAGS;
+  return chroot::chroot::SESSION_NOFLAGS;
 }
 
 void
-chroot_facet_session::get_details (chroot const&  chroot,
-                                   format_detail& detail) const
+chroot_facet_session::get_details (chroot::chroot const& chroot,
+                                   format_detail&        detail) const
 {
   if (!get_original_name().empty())
     detail.add(_("Original Chroot Name"), get_original_name());
@@ -141,8 +141,8 @@ chroot_facet_session::get_used_keys (string_list& used_keys) const
 }
 
 void
-chroot_facet_session::get_keyfile (chroot const& chroot,
-                                   keyfile&      keyfile) const
+chroot_facet_session::get_keyfile (chroot::chroot const& chroot,
+                                   keyfile&              keyfile) const
 {
   keyfile::set_object_value(*this, &chroot_facet_session::get_original_name,
                             keyfile, chroot.get_name(),
@@ -154,8 +154,8 @@ chroot_facet_session::get_keyfile (chroot const& chroot,
 }
 
 void
-chroot_facet_session::set_keyfile (chroot&        chroot,
-                                   keyfile const& keyfile)
+chroot_facet_session::set_keyfile (chroot::chroot& chroot,
+                                   keyfile const&  keyfile)
 {
   // Null methods for obsolete keys.
   void (chroot_facet_session::* nullmethod)(bool) = 0;

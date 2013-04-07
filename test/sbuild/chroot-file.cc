@@ -50,7 +50,7 @@ class test_chroot_file : public test_chroot_base<chroot_file>
   CPPUNIT_TEST(test_file);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_location);
-  CPPUNIT_TEST_EXCEPTION(test_location_invalid, sbuild::chroot::error);
+  CPPUNIT_TEST_EXCEPTION(test_location_invalid, sbuild::chroot::chroot::error);
   CPPUNIT_TEST(test_repack);
   CPPUNIT_TEST(test_setup_env);
   CPPUNIT_TEST(test_setup_env_session);
@@ -86,7 +86,7 @@ public:
 #endif // SBUILD_FEATURE_UNION
   }
 
-  virtual void setup_chroot_props (sbuild::chroot::ptr& chroot)
+  virtual void setup_chroot_props (sbuild::chroot::chroot::ptr& chroot)
   {
     test_chroot_base<chroot_file>::setup_chroot_props(chroot);
 
@@ -280,14 +280,14 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-                   (sbuild::chroot::SESSION_CREATE |
-                    sbuild::chroot::SESSION_CLONE));
+                   (sbuild::chroot::chroot::SESSION_CREATE |
+                    sbuild::chroot::chroot::SESSION_CLONE));
 
     CPPUNIT_ASSERT(session->get_session_flags() ==
-                   sbuild::chroot::SESSION_PURGE);
+                   sbuild::chroot::chroot::SESSION_PURGE);
 
     CPPUNIT_ASSERT(source->get_session_flags() ==
-                   sbuild::chroot::SESSION_CREATE);
+                   sbuild::chroot::chroot::SESSION_CREATE);
   }
 
   void test_print_details()

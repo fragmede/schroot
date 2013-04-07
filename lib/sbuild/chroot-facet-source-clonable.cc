@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "chroot.h"
+#include <sbuild/chroot/chroot.h>
 #include "chroot-facet-session.h"
 #include "chroot-facet-source-clonable.h"
 #include "chroot-facet-source.h"
@@ -67,8 +67,8 @@ chroot_facet_source_clonable::get_name () const
 }
 
 void
-chroot_facet_source_clonable::clone_source_setup (chroot const& parent,
-                                                  chroot::ptr&  clone) const
+chroot_facet_source_clonable::clone_source_setup (chroot::chroot const& parent,
+                                                  chroot::chroot::ptr&  clone) const
 {
   clone->set_description
     (clone->get_description() + ' ' + _("(source chroot)"));
@@ -148,19 +148,19 @@ chroot_facet_source_clonable::set_source_root_groups (string_list const& groups)
 }
 
 void
-chroot_facet_source_clonable::setup_env (chroot const& chroot,
-                                         environment&  env) const
+chroot_facet_source_clonable::setup_env (chroot::chroot const& chroot,
+                                         environment&          env) const
 {
 }
 
-sbuild::chroot::session_flags
-chroot_facet_source_clonable::get_session_flags (chroot const& chroot) const
+chroot::chroot::session_flags
+chroot_facet_source_clonable::get_session_flags (chroot::chroot const& chroot) const
 {
   // Cloning is only possible for non-source and inactive chroots.
   if (chroot.get_facet<chroot_facet_session>())
-    return chroot::SESSION_NOFLAGS;
+    return chroot::chroot::SESSION_NOFLAGS;
   else
-    return chroot::SESSION_CLONE;
+    return chroot::chroot::SESSION_CLONE;
 }
 
 void
@@ -174,8 +174,8 @@ chroot_facet_source_clonable::get_used_keys (string_list& used_keys) const
 }
 
 void
-chroot_facet_source_clonable::get_details (chroot const&  chroot,
-                                           format_detail& detail) const
+chroot_facet_source_clonable::get_details (chroot::chroot const& chroot,
+                                           format_detail&        detail) const
 {
   detail
     .add(_("Source Users"), get_source_users())
@@ -185,8 +185,8 @@ chroot_facet_source_clonable::get_details (chroot const&  chroot,
 }
 
 void
-chroot_facet_source_clonable::get_keyfile (chroot const& chroot,
-                                           keyfile&      keyfile) const
+chroot_facet_source_clonable::get_keyfile (chroot::chroot const& chroot,
+                                           keyfile&              keyfile) const
 {
   keyfile::set_object_value(*this, &chroot_facet_source_clonable::get_source_clone,
                             keyfile, chroot.get_name(),
@@ -210,8 +210,8 @@ chroot_facet_source_clonable::get_keyfile (chroot const& chroot,
 }
 
 void
-chroot_facet_source_clonable::set_keyfile (chroot&        chroot,
-                                           keyfile const& keyfile)
+chroot_facet_source_clonable::set_keyfile (chroot::chroot& chroot,
+                                           keyfile const&  keyfile)
 {
   keyfile::get_object_value(*this, &chroot_facet_source_clonable::set_source_clone,
                             keyfile, chroot.get_name(),

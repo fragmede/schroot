@@ -19,7 +19,7 @@
 
 #include <config.h>
 
-#include "chroot.h"
+#include <sbuild/chroot/chroot.h>
 #include "chroot-facet-session.h"
 #include "chroot-facet-union.h"
 #include "chroot-facet-source-clonable.h"
@@ -135,7 +135,7 @@ chroot_facet_union::set_union_type (std::string const& type)
   else
     throw error(type, UNION_TYPE_UNKNOWN);
 
-  chroot *base = dynamic_cast<chroot *>(this->owner);
+  chroot::chroot *base = dynamic_cast<chroot::chroot *>(this->owner);
   assert(base);
 
   if (this->union_type != "none")
@@ -161,8 +161,8 @@ chroot_facet_union::set_union_mount_options
 }
 
 void
-chroot_facet_union::setup_env (chroot const& chroot,
-                               environment&  env) const
+chroot_facet_union::setup_env (chroot::chroot const& chroot,
+                               environment&          env) const
 {
   env.add("CHROOT_UNION_TYPE", get_union_type());
   if (get_union_configured())
@@ -176,20 +176,20 @@ chroot_facet_union::setup_env (chroot const& chroot,
     }
 }
 
-sbuild::chroot::session_flags
-chroot_facet_union::get_session_flags (chroot const& chroot) const
+chroot::chroot::session_flags
+chroot_facet_union::get_session_flags (chroot::chroot const& chroot) const
 {
-  sbuild::chroot::session_flags flags = sbuild::chroot::SESSION_NOFLAGS;
+  chroot::chroot::session_flags flags = chroot::chroot::SESSION_NOFLAGS;
 
   if (get_union_configured() && chroot.get_facet<chroot_facet_session>())
-    flags = sbuild::chroot::SESSION_PURGE;
+    flags = chroot::chroot::SESSION_PURGE;
 
   return flags;
 }
 
 void
-chroot_facet_union::get_details (chroot const& chroot,
-                                 format_detail& detail) const
+chroot_facet_union::get_details (chroot::chroot const& chroot,
+                                 format_detail&        detail) const
 {
   detail.add(_("Filesystem Union Type"), get_union_type());
   if (get_union_configured())
@@ -216,8 +216,8 @@ chroot_facet_union::get_used_keys (string_list& used_keys) const
 }
 
 void
-chroot_facet_union::get_keyfile (chroot const& chroot,
-                                 keyfile&      keyfile) const
+chroot_facet_union::get_keyfile (chroot::chroot const& chroot,
+                                 keyfile&              keyfile) const
 {
   keyfile::set_object_value(*this, &chroot_facet_union::get_union_type,
                             keyfile, chroot.get_name(), "union-type");
@@ -242,8 +242,8 @@ chroot_facet_union::get_keyfile (chroot const& chroot,
 }
 
 void
-chroot_facet_union::set_keyfile (chroot&        chroot,
-                                 keyfile const& keyfile)
+chroot_facet_union::set_keyfile (chroot::chroot& chroot,
+                                 keyfile const&  keyfile)
 {
   bool session = static_cast<bool>(chroot.get_facet<chroot_facet_session>());
 

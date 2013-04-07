@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "chroot.h"
+#include <sbuild/chroot/chroot.h>
 #include "chroot-facet-personality.h"
 
 #include <boost/format.hpp>
@@ -69,20 +69,20 @@ chroot_facet_personality::set_persona (personality const& persona)
 }
 
 void
-chroot_facet_personality::setup_env (chroot const& chroot,
-                                     environment&  env) const
+chroot_facet_personality::setup_env (chroot::chroot const& chroot,
+                                     environment&          env) const
 {
 }
 
-sbuild::chroot::session_flags
-chroot_facet_personality::get_session_flags (chroot const& chroot) const
+chroot::chroot::session_flags
+chroot_facet_personality::get_session_flags (chroot::chroot const& chroot) const
 {
-  return sbuild::chroot::SESSION_NOFLAGS;
+  return chroot::chroot::SESSION_NOFLAGS;
 }
 
 void
-chroot_facet_personality::get_details (chroot const&  chroot,
-                                       format_detail& detail) const
+chroot_facet_personality::get_details (chroot::chroot const& chroot,
+                                       format_detail&        detail) const
 {
   // TRANSLATORS: "Personality" is the Linux kernel personality
   // (process execution domain).  See schroot.conf(5).
@@ -96,8 +96,8 @@ chroot_facet_personality::get_used_keys (string_list& used_keys) const
 }
 
 void
-chroot_facet_personality::get_keyfile (chroot const& chroot,
-                                       keyfile&      keyfile) const
+chroot_facet_personality::get_keyfile (chroot::chroot const& chroot,
+                                       keyfile&              keyfile) const
 {
   // Only set if defined.
   if (get_persona().get_name() != "undefined")
@@ -106,8 +106,8 @@ chroot_facet_personality::get_keyfile (chroot const& chroot,
 }
 
 void
-chroot_facet_personality::set_keyfile (chroot&        chroot,
-                                       keyfile const& keyfile)
+chroot_facet_personality::set_keyfile (chroot::chroot& chroot,
+                                       keyfile const&  keyfile)
 {
   keyfile::get_object_value(*this, &chroot_facet_personality::set_persona,
                             keyfile, chroot.get_name(), "personality",

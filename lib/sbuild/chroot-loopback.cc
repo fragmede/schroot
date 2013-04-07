@@ -58,13 +58,13 @@ chroot_loopback::chroot_loopback (const chroot_loopback& rhs):
 {
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_loopback::clone () const
 {
   return ptr(new chroot_loopback(*this));
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_loopback::clone_session (std::string const& session_id,
                                 std::string const& alias,
                                 std::string const& user,
@@ -80,7 +80,7 @@ chroot_loopback::clone_session (std::string const& session_id,
   return session;
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_loopback::clone_source () const
 {
   ptr clone(new chroot_loopback(*this));
@@ -168,10 +168,10 @@ chroot_loopback::setup_lock (chroot::setup_type type,
     }
 }
 
-sbuild::chroot::session_flags
+chroot::chroot::session_flags
 chroot_loopback::get_session_flags (chroot const& chroot) const
 {
-  return chroot::SESSION_NOFLAGS;
+  return SESSION_NOFLAGS;
 }
 
 void

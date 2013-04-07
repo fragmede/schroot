@@ -44,13 +44,13 @@ chroot_plain::~chroot_plain ()
 {
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_plain::clone () const
 {
   return ptr(new chroot_plain(*this));
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 sbuild::chroot_plain::clone_session (std::string const& session_id,
                                      std::string const& alias,
                                      std::string const& user,
@@ -59,7 +59,7 @@ sbuild::chroot_plain::clone_session (std::string const& session_id,
   return ptr();
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 sbuild::chroot_plain::clone_source () const
 {
   return ptr();
@@ -87,7 +87,7 @@ chroot_plain::setup_lock (chroot::setup_type type,
   /* By default, plain chroots do no locking. */
 }
 
-sbuild::chroot::session_flags
+chroot::chroot::session_flags
 chroot_plain::get_session_flags (chroot const& chroot) const
 {
   return SESSION_NOFLAGS;

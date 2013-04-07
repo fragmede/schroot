@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "chroot.h"
+#include <sbuild/chroot/chroot.h>
 #include "chroot-facet-mountable.h"
 #include "chroot-facet-session.h"
 #include "chroot-facet-session-clonable.h"
@@ -79,12 +79,12 @@ chroot_facet_session_clonable::get_name () const
 }
 
 void
-chroot_facet_session_clonable::clone_session_setup (chroot const&      parent,
-                                                    chroot::ptr&       clone,
-                                                    std::string const& session_id,
-                                                    std::string const& alias,
-                                                    std::string const& user,
-                                                    bool               root) const
+chroot_facet_session_clonable::clone_session_setup (chroot::chroot const& parent,
+                                                    chroot::chroot::ptr&  clone,
+                                                    std::string const&    session_id,
+                                                    std::string const&    alias,
+                                                    std::string const&    user,
+                                                    bool                  root) const
 {
   // Disable session cloning.
   clone->remove_facet<chroot_facet_session_clonable>();
@@ -217,20 +217,20 @@ chroot_facet_session_clonable::clone_session_setup (chroot const&      parent,
 }
 
 void
-chroot_facet_session_clonable::setup_env (chroot const& chroot,
-                                          environment&  env) const
+chroot_facet_session_clonable::setup_env (chroot::chroot const& chroot,
+                                          environment&          env) const
 {
 }
 
-sbuild::chroot::session_flags
-chroot_facet_session_clonable::get_session_flags (chroot const& chroot) const
+chroot::chroot::session_flags
+chroot_facet_session_clonable::get_session_flags (chroot::chroot const& chroot) const
 {
-  return chroot::SESSION_CREATE;
+  return chroot::chroot::SESSION_CREATE;
 }
 
 void
-chroot_facet_session_clonable::get_details (chroot const&  chroot,
-                                            format_detail& detail) const
+chroot_facet_session_clonable::get_details (chroot::chroot const&  chroot,
+                                            format_detail&         detail) const
 {
 }
 
@@ -240,13 +240,13 @@ chroot_facet_session_clonable::get_used_keys (string_list& used_keys) const
 }
 
 void
-chroot_facet_session_clonable::get_keyfile (chroot const& chroot,
-                                            keyfile&      keyfile) const
+chroot_facet_session_clonable::get_keyfile (chroot::chroot const& chroot,
+                                            keyfile&              keyfile) const
 {
 }
 
 void
-chroot_facet_session_clonable::set_keyfile (chroot&        chroot,
-                                            keyfile const& keyfile)
+chroot_facet_session_clonable::set_keyfile (chroot::chroot& chroot,
+                                            keyfile const&  keyfile)
 {
 }

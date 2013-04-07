@@ -19,7 +19,7 @@
 #ifndef SBUILD_CHROOT_BTRFS_SNAPSHOT_H
 #define SBUILD_CHROOT_BTRFS_SNAPSHOT_H
 
-#include <sbuild/chroot.h>
+#include <sbuild/chroot/chroot.h>
 
 namespace sbuild
 {
@@ -29,7 +29,7 @@ namespace sbuild
    *
    * A snapshot LV will be created and mounted on demand.
    */
-  class chroot_btrfs_snapshot : public chroot
+  class chroot_btrfs_snapshot : public chroot::chroot
   {
   protected:
     /// The constructor.
@@ -128,7 +128,7 @@ namespace sbuild
                 int                status);
 
     virtual void
-    get_details (chroot const& chroot,
+    get_details (chroot const&  chroot,
                  format_detail& detail) const;
 
     virtual void
@@ -136,10 +136,10 @@ namespace sbuild
 
     virtual void
     get_keyfile (chroot const& chroot,
-                 keyfile& keyfile) const;
+                 keyfile&      keyfile) const;
 
     virtual void
-    set_keyfile (chroot&        chroot,
+    set_keyfile (chroot& chroot,
                  keyfile const& keyfile);
 
   private:

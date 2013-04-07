@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "chroot.h"
+#include <sbuild/chroot/chroot.h>
 #include "chroot-facet-personality.h"
 #include "chroot-facet-session.h"
 #include "chroot-facet-session-clonable.h"
@@ -427,11 +427,11 @@ session::is_group_member (std::string const& groupname) const
 }
 
 void
-session::get_chroot_membership (chroot::ptr const& chroot,
-                                bool&              in_users,
-                                bool&              in_root_users,
-                                bool&              in_groups,
-                                bool&              in_root_groups) const
+session::get_chroot_membership (chroot::chroot::ptr const& chroot,
+                                bool&                      in_users,
+                                bool&                      in_root_users,
+                                bool&                      in_groups,
+                                bool&                      in_root_groups) const
 {
   string_list const& users = chroot->get_users();
   string_list const& root_users = chroot->get_root_users();
@@ -476,8 +476,8 @@ session::get_chroot_membership (chroot::ptr const& chroot,
 }
 
 auth::status
-session::get_chroot_auth_status (auth::status status,
-                                 chroot::ptr const& chroot) const
+session::get_chroot_auth_status (auth::status               status,
+                                 chroot::chroot::ptr const& chroot) const
 {
   bool in_users = false;
   bool in_root_users = false;
@@ -620,22 +620,22 @@ session::run_impl ()
             << format("Running session in %1% chroot:") % chrootent.alias
             << endl;
 
-          const chroot::ptr ch = chrootent.chroot;
+          const chroot::chroot::ptr ch = chrootent.chroot;
 
           // TODO: Make chroot/session selection automatically fail
           // if no session exists earlier on when selecting chroots.
-          if (ch->get_session_flags() & chroot::SESSION_CREATE &&
+          if (ch->get_session_flags() & chroot::chroot::SESSION_CREATE &&
               (this->session_operation != OPERATION_AUTOMATIC &&
                this->session_operation != OPERATION_BEGIN))
               throw error(chrootent.alias, CHROOT_NOTFOUND);
 
           // For now, use a copy of the chroot; if we create a session
           // later, we will replace it.
-          chroot::ptr chroot(ch->clone());
+          chroot::chroot::ptr chroot(ch->clone());
           assert(chroot);
 
           /* Create a session using randomly-generated session ID. */
-          if (ch->get_session_flags() & chroot::SESSION_CREATE)
+          if (ch->get_session_flags() & chroot::chroot::SESSION_CREATE)
             {
               assert(ch->get_facet<chroot_facet_session_clonable>());
 
@@ -699,14 +699,14 @@ session::run_impl ()
           try
             {
               /* Run setup-start chroot setup scripts. */
-              setup_chroot(chroot, chroot::SETUP_START);
+              setup_chroot(chroot, chroot::chroot::SETUP_START);
               if (this->session_operation == OPERATION_BEGIN)
                 {
                   cout << chroot->get_name() << endl;
                 }
 
               /* Run recover scripts. */
-              setup_chroot(chroot, chroot::SETUP_RECOVER);
+              setup_chroot(chroot, chroot::chroot::SETUP_RECOVER);
 
               try
                 {
@@ -718,7 +718,7 @@ session::run_impl ()
 #endif // SBUILD_FEATURE_UNSHARE
 
                   /* Run exec-start scripts. */
-                  setup_chroot(chroot, chroot::EXEC_START);
+                  setup_chroot(chroot, chroot::chroot::EXEC_START);
 
                   /* Run session if setup succeeded. */
                   if (this->session_operation == OPERATION_AUTOMATIC ||
@@ -746,13 +746,13 @@ session::run_impl ()
                 {
                   log_debug(DEBUG_WARNING)
                     << "Chroot exec scripts or session failed" << endl;
-                  setup_chroot(chroot, chroot::EXEC_STOP);
+                  setup_chroot(chroot, chroot::chroot::EXEC_STOP);
                   throw;
                 }
 
               /* Run exec-stop scripts whether or not there was an
                  error. */
-              setup_chroot(chroot, chroot::EXEC_STOP);
+              setup_chroot(chroot, chroot::chroot::EXEC_STOP);
             }
           catch (error const& e)
             {
@@ -760,7 +760,7 @@ session::run_impl ()
                 << "Chroot setup scripts, exec scripts or session failed" << endl;
               try
                 {
-                  setup_chroot(chroot, chroot::SETUP_STOP);
+                  setup_chroot(chroot, chroot::chroot::SETUP_STOP);
                 }
               catch (error const& discard)
                 {
@@ -772,7 +772,7 @@ session::run_impl ()
 
           /* Run setup-stop chroot setup scripts whether or not there
              was an error. */
-          setup_chroot(chroot, chroot::SETUP_STOP);
+          setup_chroot(chroot, chroot::chroot::SETUP_STOP);
         }
     }
   catch (error const& e)
@@ -794,7 +794,7 @@ session::run_impl ()
 }
 
 string_list
-session::get_login_directories (sbuild::chroot::ptr& session_chroot,
+session::get_login_directories (chroot::chroot::ptr& session_chroot,
                                 environment const&   env) const
 {
   string_list ret;
@@ -829,7 +829,7 @@ session::get_login_directories (sbuild::chroot::ptr& session_chroot,
 }
 
 string_list
-session::get_command_directories (sbuild::chroot::ptr& session_chroot,
+session::get_command_directories (chroot::chroot::ptr& session_chroot,
                                   environment const&   env) const
 {
   string_list ret;
@@ -846,7 +846,7 @@ session::get_command_directories (sbuild::chroot::ptr& session_chroot,
 }
 
 string_list
-session::get_shells (sbuild::chroot::ptr& session_chroot) const
+session::get_shells (chroot::chroot::ptr& session_chroot) const
 {
   string_list ret;
 
@@ -890,7 +890,7 @@ session::get_shells (sbuild::chroot::ptr& session_chroot) const
 }
 
 std::string
-session::get_shell (sbuild::chroot::ptr& session_chroot) const
+session::get_shell (chroot::chroot::ptr& session_chroot) const
 {
   string_list shells(get_shells(session_chroot));
 
@@ -921,7 +921,7 @@ session::get_shell (sbuild::chroot::ptr& session_chroot) const
 }
 
 void
-session::get_command (sbuild::chroot::ptr& session_chroot,
+session::get_command (chroot::chroot::ptr& session_chroot,
                       std::string&         file,
                       string_list&         command,
                       environment&         env) const
@@ -935,7 +935,7 @@ session::get_command (sbuild::chroot::ptr& session_chroot,
 }
 
 void
-session::get_login_command (sbuild::chroot::ptr& session_chroot,
+session::get_login_command (chroot::chroot::ptr& session_chroot,
                             std::string&         file,
                             string_list&         command,
                             environment&         env) const
@@ -980,7 +980,7 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
                shell.c_str());
     }
 
-  if (session_chroot->get_verbosity() == chroot::VERBOSITY_VERBOSE)
+  if (session_chroot->get_verbosity() == chroot::chroot::VERBOSITY_VERBOSE)
     {
       std::string format_string;
       if (this->authstat->get_ruid() == this->authstat->get_uid())
@@ -1021,7 +1021,7 @@ session::get_login_command (sbuild::chroot::ptr& session_chroot,
 }
 
 void
-session::get_user_command (sbuild::chroot::ptr& session_chroot,
+session::get_user_command (chroot::chroot::ptr& session_chroot,
                            std::string&         file,
                            string_list&         command,
                            environment const&   env) const
@@ -1041,7 +1041,7 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
     syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
            session_chroot->get_name().c_str(), this->authstat->get_ruser().c_str(), this->authstat->get_user().c_str(), commandstring.c_str());
 
-  if (session_chroot->get_verbosity() == chroot::VERBOSITY_VERBOSE)
+  if (session_chroot->get_verbosity() == chroot::chroot::VERBOSITY_VERBOSE)
     {
       std::string format_string;
       if (this->authstat->get_ruid() == this->authstat->get_uid())
@@ -1065,8 +1065,8 @@ session::get_user_command (sbuild::chroot::ptr& session_chroot,
 }
 
 void
-session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
-                       sbuild::chroot::setup_type setup_type)
+session::setup_chroot (chroot::chroot::ptr&       session_chroot,
+                       chroot::chroot::setup_type setup_type)
 {
   assert(!session_chroot->get_name().empty());
 
@@ -1075,41 +1075,41 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
                         << std::endl;
 
   if (!((this->session_operation == OPERATION_BEGIN &&
-         setup_type == chroot::SETUP_START) ||
+         setup_type == chroot::chroot::SETUP_START) ||
         (this->session_operation == OPERATION_RECOVER &&
-         setup_type == chroot::SETUP_RECOVER) ||
+         setup_type == chroot::chroot::SETUP_RECOVER) ||
         (this->session_operation == OPERATION_END &&
-         setup_type == chroot::SETUP_STOP) ||
+         setup_type == chroot::chroot::SETUP_STOP) ||
         (this->session_operation == OPERATION_RUN &&
-         (setup_type == chroot::EXEC_START ||
-          setup_type == chroot::EXEC_STOP)) ||
+         (setup_type == chroot::chroot::EXEC_START ||
+          setup_type == chroot::chroot::EXEC_STOP)) ||
         (this->session_operation == OPERATION_AUTOMATIC &&
-         (setup_type == chroot::SETUP_START ||
-          setup_type == chroot::SETUP_STOP ||
-          setup_type == chroot::EXEC_START ||
-          setup_type == chroot::EXEC_STOP))))
+         (setup_type == chroot::chroot::SETUP_START ||
+          setup_type == chroot::chroot::SETUP_STOP ||
+          setup_type == chroot::chroot::EXEC_START ||
+          setup_type == chroot::chroot::EXEC_STOP))))
     return;
 
   // Don't clean up chroot on a lock failure--it's actually in use.
   if (this->lock_status == false)
     return;
 
-  if (((setup_type == chroot::SETUP_START   ||
-        setup_type == chroot::SETUP_RECOVER ||
-        setup_type == chroot::SETUP_STOP ||
-        setup_type == chroot::EXEC_START ||
-        setup_type == chroot::EXEC_STOP) &&
+  if (((setup_type == chroot::chroot::SETUP_START   ||
+        setup_type == chroot::chroot::SETUP_RECOVER ||
+        setup_type == chroot::chroot::SETUP_STOP ||
+        setup_type == chroot::chroot::EXEC_START ||
+        setup_type == chroot::chroot::EXEC_STOP) &&
        session_chroot->get_run_setup_scripts() == false))
     return;
 
-  if (setup_type == chroot::SETUP_START)
+  if (setup_type == chroot::chroot::SETUP_START)
     this->chroot_status = true;
 
   try
     {
       session_chroot->lock(setup_type);
     }
-  catch (chroot::error const& e)
+  catch (chroot::chroot::error const& e)
     {
       this->chroot_status = false;
       this->lock_status = false;
@@ -1118,22 +1118,22 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
           // Release lock, which also removes session metadata.
           session_chroot->unlock(setup_type, 0);
         }
-      catch (chroot::error const& ignore)
+      catch (chroot::chroot::error const& ignore)
         {
         }
       throw error(session_chroot->get_name(), CHROOT_LOCK, e);
     }
 
   std::string setup_type_string;
-  if (setup_type == chroot::SETUP_START)
+  if (setup_type == chroot::chroot::SETUP_START)
     setup_type_string = "setup-start";
-  else if (setup_type == chroot::SETUP_RECOVER)
+  else if (setup_type == chroot::chroot::SETUP_RECOVER)
     setup_type_string = "setup-recover";
-  else if (setup_type == chroot::SETUP_STOP)
+  else if (setup_type == chroot::chroot::SETUP_STOP)
     setup_type_string = "setup-stop";
-  else if (setup_type == chroot::EXEC_START)
+  else if (setup_type == chroot::chroot::EXEC_START)
     setup_type_string = "exec-start";
-  else if (setup_type == chroot::EXEC_STOP)
+  else if (setup_type == chroot::chroot::EXEC_STOP)
     setup_type_string = "exec-stop";
 
   std::string chroot_status_string;
@@ -1178,9 +1178,9 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 
   run_parts rp(SCHROOT_CONF_SETUP_D,
                true, true, 022);
-  rp.set_reverse(setup_type == chroot::SETUP_STOP ||
-                 setup_type == chroot::EXEC_STOP);
-  rp.set_verbose(session_chroot->get_verbosity() == chroot::VERBOSITY_VERBOSE);
+  rp.set_reverse(setup_type == chroot::chroot::SETUP_STOP ||
+                 setup_type == chroot::chroot::EXEC_STOP);
+  rp.set_verbose(session_chroot->get_verbosity() == chroot::chroot::VERBOSITY_VERBOSE);
 
   log_debug(DEBUG_INFO) << rp << std::endl;
 
@@ -1232,7 +1232,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
     {
       session_chroot->unlock(setup_type, exit_status);
     }
-  catch (chroot::error const& e)
+  catch (chroot::chroot::error const& e)
     {
       this->chroot_status = false;
       this->lock_status = false;
@@ -1250,7 +1250,7 @@ session::setup_chroot (sbuild::chroot::ptr&       session_chroot,
 }
 
 void
-session::run_child (sbuild::chroot::ptr& session_chroot)
+session::run_child (chroot::chroot::ptr& session_chroot)
 {
   assert(!session_chroot->get_name().empty());
 
@@ -1485,7 +1485,7 @@ session::wait_for_child (pid_t pid,
 }
 
 void
-session::run_chroot (sbuild::chroot::ptr& session_chroot)
+session::run_chroot (chroot::chroot::ptr& session_chroot)
 {
   assert(!session_chroot->get_name().empty());
 

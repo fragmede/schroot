@@ -89,10 +89,10 @@ chroot_block_device_base::setup_env (chroot const& chroot,
   env.add("CHROOT_DEVICE", get_device());
 }
 
-sbuild::chroot::session_flags
+chroot::chroot::session_flags
 chroot_block_device_base::get_session_flags (chroot const& chroot) const
 {
-  return chroot::SESSION_NOFLAGS;
+  return SESSION_NOFLAGS;
 }
 
 void

@@ -19,7 +19,7 @@
 #ifndef SBUILD_CHROOT_BLOCK_DEVICE_BASE_H
 #define SBUILD_CHROOT_BLOCK_DEVICE_BASE_H
 
-#include <sbuild/chroot.h>
+#include <sbuild/chroot/chroot.h>
 
 namespace sbuild
 {
@@ -34,7 +34,7 @@ namespace sbuild
    * but this was changed when union support was introduced.  This
    * design prevents lvm-snapshot offering union based sessions.
    */
-  class chroot_block_device_base : public chroot
+  class chroot_block_device_base : public chroot::chroot
   {
   protected:
     /// The constructor.
@@ -73,14 +73,14 @@ namespace sbuild
 
     virtual void
     setup_env (chroot const& chroot,
-               environment& env) const;
+               environment&  env) const;
 
     virtual session_flags
     get_session_flags (chroot const& chroot) const;
 
   protected:
     virtual void
-    get_details (chroot const& chroot,
+    get_details (chroot const&  chroot,
                  format_detail& detail) const;
 
     virtual void
@@ -88,7 +88,7 @@ namespace sbuild
 
     virtual void
     get_keyfile (chroot const& chroot,
-                 keyfile& keyfile) const;
+                 keyfile&      keyfile) const;
 
     virtual void
     set_keyfile (chroot&        chroot,

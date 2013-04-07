@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "chroot.h"
+#include <sbuild/chroot/chroot.h>
 #include "chroot-facet-session.h"
 #include "chroot-facet-session-clonable.h"
 #include "chroot-facet-source-clonable.h"
@@ -48,8 +48,8 @@ namespace
 {
 
   bool
-  chroot_alphasort (sbuild::chroot::ptr const& c1,
-                    sbuild::chroot::ptr const& c2)
+  chroot_alphasort (chroot::chroot::ptr const& c1,
+                    chroot::chroot::ptr const& c2)
   {
     return c1->get_name() < c2->get_name();
   }
@@ -177,9 +177,9 @@ chroot_config::add_config_directory (std::string const& chroot_namespace,
 }
 
 void
-chroot_config::add (std::string const& chroot_namespace,
-                    chroot::ptr&       chroot,
-                    keyfile const&     kconfig)
+chroot_config::add (std::string const&   chroot_namespace,
+                    chroot::chroot::ptr& chroot,
+                    keyfile const&       kconfig)
 {
   std::string const& name(chroot->get_name());
   std::string const& fullname(chroot_namespace + namespace_separator + chroot->get_name());
@@ -321,7 +321,7 @@ chroot_config::find_namespace (std::string const& chroot_namespace) const
   return pos->second;
 }
 
-const sbuild::chroot::ptr
+const chroot::chroot::ptr
 chroot_config::find_chroot (std::string const& name) const
 {
   std::string chroot_namespace;
@@ -332,7 +332,7 @@ chroot_config::find_chroot (std::string const& name) const
   return find_chroot_in_namespace(chroot_namespace, chroot_name);
 }
 
-const sbuild::chroot::ptr
+const chroot::chroot::ptr
 chroot_config::find_chroot (std::string const& namespace_hint,
                             std::string const& name) const
 {
@@ -349,7 +349,7 @@ chroot_config::find_chroot (std::string const& namespace_hint,
   return find_chroot_in_namespace(chroot_namespace, chroot_name);
 }
 
-const sbuild::chroot::ptr
+const chroot::chroot::ptr
 chroot_config::find_chroot_in_namespace (std::string const& chroot_namespace,
                                          std::string const& name) const
 {
@@ -363,12 +363,12 @@ chroot_config::find_chroot_in_namespace (std::string const& chroot_namespace,
     return pos->second;
   else
     {
-      chroot *null_chroot = 0;
-      return chroot::ptr(null_chroot);
+      chroot::chroot *null_chroot = 0;
+      return chroot::chroot::ptr(null_chroot);
     }
 }
 
-const sbuild::chroot::ptr
+const chroot::chroot::ptr
 chroot_config::find_alias (std::string const& namespace_hint,
                            std::string const& name) const
 {
@@ -502,7 +502,7 @@ chroot_config::validate_chroots (std::string const& namespace_hint,
 
   for (const auto& chrootname : chroots)
     {
-      chroot::ptr chrootptr = find_alias(namespace_hint, chrootname);
+      chroot::chroot::ptr chrootptr = find_alias(namespace_hint, chrootname);
       if (!chrootptr)
         bad_chroots.push_back(chrootname);
       else
@@ -590,7 +590,7 @@ chroot_config::load_keyfile (std::string const& chroot_namespace,
     {
       std::string type = "plain"; // "plain" is the default type.
       kconfig.get_value(group, "type", type);
-      chroot::ptr chroot = chroot::create(type);
+      chroot::chroot::ptr chroot = chroot::chroot::create(type);
 
       // Set both; the keyfile load will correct them if needed.
       chroot->set_name(group);
@@ -639,7 +639,7 @@ chroot_config::load_keyfile (std::string const& chroot_namespace,
         if (psrc && psrc->get_source_clone() &&
             !chroot->get_facet<chroot_facet_session>())
           {
-            chroot::ptr source_chroot = chroot->clone_source();
+            chroot::chroot::ptr source_chroot = chroot->clone_source();
             if (source_chroot)
               add("source", source_chroot, kconfig);
           }

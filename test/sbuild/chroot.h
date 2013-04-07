@@ -20,7 +20,7 @@
 #define TEST_SBUILD_CHROOT_H
 
 #include <sbuild/config.h>
-#include <sbuild/chroot.h>
+#include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot-facet-personality.h>
 #include <sbuild/chroot-facet-session.h>
 #include <sbuild/chroot-facet-session-clonable.h>
@@ -50,15 +50,15 @@ template <class T>
 class test_chroot_base : public TestFixture
 {
 protected:
-  sbuild::chroot::ptr chroot;
-  sbuild::chroot::ptr session;
-  sbuild::chroot::ptr source;
-  sbuild::chroot::ptr session_source;
+  sbuild::chroot::chroot::ptr chroot;
+  sbuild::chroot::chroot::ptr session;
+  sbuild::chroot::chroot::ptr source;
+  sbuild::chroot::chroot::ptr session_source;
 #ifdef SBUILD_FEATURE_UNION
-  sbuild::chroot::ptr chroot_union;
-  sbuild::chroot::ptr session_union;
-  sbuild::chroot::ptr source_union;
-  sbuild::chroot::ptr session_source_union;
+  sbuild::chroot::chroot::ptr chroot_union;
+  sbuild::chroot::chroot::ptr session_union;
+  sbuild::chroot::chroot::ptr source_union;
+  sbuild::chroot::chroot::ptr session_source_union;
 #endif // SBUILD_FEATURE_UNION
   std::string abs_testdata_dir;
 
@@ -78,7 +78,7 @@ public:
   void setUp()
   {
     // Create new chroot
-    this->chroot = sbuild::chroot::ptr(new T);
+    this->chroot = sbuild::chroot::chroot::ptr(new T);
     CPPUNIT_ASSERT(this->chroot);
     CPPUNIT_ASSERT(!(static_cast<bool>(this->chroot->template get_facet<sbuild::chroot_facet_session>())));
 
@@ -136,7 +136,7 @@ public:
       }
 
 #ifdef SBUILD_FEATURE_UNION
-    this->chroot_union = sbuild::chroot::ptr(new T);
+    this->chroot_union = sbuild::chroot::chroot::ptr(new T);
     sbuild::chroot_facet_union::ptr un =
       this->chroot_union->template get_facet<sbuild::chroot_facet_union>();
     if (!un)
@@ -182,7 +182,7 @@ public:
 
   }
 
-  virtual void setup_chroot_props (sbuild::chroot::ptr& chroot)
+  virtual void setup_chroot_props (sbuild::chroot::chroot::ptr& chroot)
   {
     chroot->set_name("test-name");
     chroot->set_description("test-description");
@@ -231,7 +231,7 @@ public:
 
   void tearDown()
   {
-    this->chroot = sbuild::chroot::ptr();
+    this->chroot = sbuild::chroot::chroot::ptr();
   }
 
   void setup_env_chroot (sbuild::environment& env)
@@ -432,8 +432,8 @@ public:
       }
   }
 
-  void test_setup_env(sbuild::chroot::ptr&       chroot,
-                      const sbuild::environment& expected_environment)
+  void test_setup_env(sbuild::chroot::chroot::ptr& chroot,
+                      const sbuild::environment&   expected_environment)
   {
     sbuild::environment observed_environment;
     chroot->setup_env(observed_environment);
@@ -511,9 +511,9 @@ public:
       }
   }
 
-  void test_setup_keyfile(sbuild::chroot::ptr&   chroot,
-                          const sbuild::keyfile& expected_keyfile,
-                          const std::string&     group)
+  void test_setup_keyfile(sbuild::chroot::chroot::ptr& chroot,
+                          const sbuild::keyfile&       expected_keyfile,
+                          const std::string&           group)
   {
     sbuild::keyfile keys;
     chroot->get_keyfile(keys);

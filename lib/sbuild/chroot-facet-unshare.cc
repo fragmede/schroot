@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "chroot.h"
+#include <sbuild/chroot/chroot.h>
 #include "chroot-facet-unshare.h"
 #include "feature.h"
 
@@ -170,8 +170,8 @@ chroot_facet_unshare::unshare () const
 }
 
 void
-chroot_facet_unshare::setup_env (chroot const& chroot,
-                                 environment&  env) const
+chroot_facet_unshare::setup_env (chroot::chroot const& chroot,
+                                 environment&          env) const
 {
   env.add("UNSHARE_NET", get_unshare_net());
   env.add("UNSHARE_SYSVIPC", get_unshare_sysvipc());
@@ -179,15 +179,15 @@ chroot_facet_unshare::setup_env (chroot const& chroot,
   env.add("UNSHARE_UTS", get_unshare_uts());
 }
 
-sbuild::chroot::session_flags
-chroot_facet_unshare::get_session_flags (chroot const& chroot) const
+chroot::chroot::session_flags
+chroot_facet_unshare::get_session_flags (chroot::chroot const& chroot) const
 {
-  return sbuild::chroot::SESSION_NOFLAGS;
+  return chroot::chroot::SESSION_NOFLAGS;
 }
 
 void
-chroot_facet_unshare::get_details (chroot const&  chroot,
-                                   format_detail& detail) const
+chroot_facet_unshare::get_details (chroot::chroot const&  chroot,
+                                   format_detail&         detail) const
 {
   detail.add(_("Unshare Networking"), get_unshare_net());
   detail.add(_("Unshare System V IPC"), get_unshare_sysvipc());
@@ -205,8 +205,8 @@ chroot_facet_unshare::get_used_keys (string_list& used_keys) const
 }
 
 void
-chroot_facet_unshare::get_keyfile (chroot const& chroot,
-                                   keyfile&      keyfile) const
+chroot_facet_unshare::get_keyfile (chroot::chroot const& chroot,
+                                   keyfile&              keyfile) const
 {
   keyfile::set_object_value(*this, &chroot_facet_unshare::get_unshare_net,
                             keyfile, chroot.get_name(), "unshare.net");
@@ -219,8 +219,8 @@ chroot_facet_unshare::get_keyfile (chroot const& chroot,
 }
 
 void
-chroot_facet_unshare::set_keyfile (chroot&        chroot,
-                                   keyfile const& keyfile)
+chroot_facet_unshare::set_keyfile (chroot::chroot& chroot,
+                                   keyfile const&  keyfile)
 {
   keyfile::get_object_value(*this, &chroot_facet_unshare::set_unshare_net,
                             keyfile, chroot.get_name(), "unshare.net",

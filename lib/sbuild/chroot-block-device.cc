@@ -64,13 +64,13 @@ chroot_block_device::chroot_block_device (const chroot_lvm_snapshot& rhs):
 }
 #endif // SBUILD_FEATURE_LVMSNAP
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_block_device::clone () const
 {
   return ptr(new chroot_block_device(*this));
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_block_device::clone_session (std::string const& session_id,
                                     std::string const& alias,
                                     std::string const& user,
@@ -86,7 +86,7 @@ chroot_block_device::clone_session (std::string const& session_id,
   return session;
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_block_device::clone_source () const
 {
   ptr clone(new chroot_block_device(*this));
@@ -167,7 +167,7 @@ chroot_block_device::get_chroot_type () const
   return type;
 }
 
-sbuild::chroot::session_flags
+chroot::chroot::session_flags
 chroot_block_device::get_session_flags (chroot const& chroot) const
 {
   return chroot_block_device_base::get_session_flags(chroot);

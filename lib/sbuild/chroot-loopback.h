@@ -20,7 +20,7 @@
 #define SBUILD_CHROOT_LOOPBACK_H
 
 #include <sbuild/config.h>
-#include <sbuild/chroot.h>
+#include <sbuild/chroot/chroot.h>
 
 namespace sbuild
 {
@@ -30,7 +30,7 @@ namespace sbuild
    *
    * The file will be mounted on demand.
    */
-  class chroot_loopback : public chroot
+  class chroot_loopback : public chroot::chroot
   {
   public:
     /// Exception type.

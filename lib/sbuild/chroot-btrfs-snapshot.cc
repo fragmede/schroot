@@ -56,13 +56,13 @@ chroot_btrfs_snapshot::~chroot_btrfs_snapshot ()
 {
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_btrfs_snapshot::clone () const
 {
   return ptr(new chroot_btrfs_snapshot(*this));
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_btrfs_snapshot::clone_session (std::string const& session_id,
                                       std::string const& alias,
                                       std::string const& user,
@@ -78,7 +78,7 @@ chroot_btrfs_snapshot::clone_session (std::string const& session_id,
   return session;
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_btrfs_snapshot::clone_source () const
 {
   ptr clone(new chroot_directory(*this));
@@ -176,7 +176,7 @@ chroot_btrfs_snapshot::setup_lock (chroot::setup_type type,
     }
 }
 
-sbuild::chroot::session_flags
+chroot::chroot::session_flags
 chroot_btrfs_snapshot::get_session_flags (chroot const& chroot) const
 {
   session_flags flags = SESSION_NOFLAGS;

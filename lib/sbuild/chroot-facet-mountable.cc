@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "chroot.h"
+#include <sbuild/chroot/chroot.h>
 #include "chroot-facet-mountable.h"
 #include "chroot-facet-session.h"
 
@@ -96,29 +96,29 @@ void
 chroot_facet_mountable::set_location (std::string const& location)
 {
   if (!location.empty() && !is_absname(location))
-    throw chroot::error(location, chroot::LOCATION_ABS);
+    throw chroot::chroot::error(location, chroot::chroot::LOCATION_ABS);
 
   this->location = location;
 }
 
 void
-chroot_facet_mountable::setup_env (chroot const& chroot,
-                                   environment&  env) const
+chroot_facet_mountable::setup_env (chroot::chroot const& chroot,
+                                   environment&          env) const
 {
   env.add("CHROOT_MOUNT_DEVICE", get_mount_device());
   env.add("CHROOT_MOUNT_OPTIONS", get_mount_options());
   env.add("CHROOT_LOCATION", get_location());
 }
 
-sbuild::chroot::session_flags
-chroot_facet_mountable::get_session_flags (chroot const& chroot) const
+chroot::chroot::session_flags
+chroot_facet_mountable::get_session_flags (chroot::chroot const& chroot) const
 {
-  return chroot::SESSION_NOFLAGS;
+  return chroot::chroot::SESSION_NOFLAGS;
 }
 
 void
-chroot_facet_mountable::get_details (chroot const&  chroot,
-                                     format_detail& detail) const
+chroot_facet_mountable::get_details (chroot::chroot const& chroot,
+                                     format_detail&        detail) const
 {
   if (!get_mount_device().empty())
     detail.add(_("Mount Device"), get_mount_device());
@@ -137,7 +137,7 @@ chroot_facet_mountable::get_used_keys (string_list& used_keys) const
 }
 
 void
-chroot_facet_mountable::get_keyfile (chroot const& chroot,
+chroot_facet_mountable::get_keyfile (chroot::chroot const& chroot,
                                      keyfile&      keyfile) const
 {
   bool session = static_cast<bool>(chroot.get_facet<chroot_facet_session>());
@@ -157,8 +157,8 @@ chroot_facet_mountable::get_keyfile (chroot const& chroot,
 }
 
 void
-chroot_facet_mountable::set_keyfile (chroot&        chroot,
-                                     keyfile const& keyfile)
+chroot_facet_mountable::set_keyfile (chroot::chroot& chroot,
+                                     keyfile const&  keyfile)
 {
   bool session = static_cast<bool>(chroot.get_facet<chroot_facet_session>());
 

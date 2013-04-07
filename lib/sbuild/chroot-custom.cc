@@ -50,13 +50,13 @@ chroot_custom::~chroot_custom ()
 {
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_custom::clone () const
 {
   return ptr(new chroot_custom(*this));
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_custom::clone_session (std::string const& session_id,
                               std::string const& alias,
                               std::string const& user,
@@ -72,7 +72,7 @@ chroot_custom::clone_session (std::string const& session_id,
   return session;
 }
 
-sbuild::chroot::ptr
+chroot::chroot::ptr
 chroot_custom::clone_source () const
 {
   chroot_custom *clone_custom = new chroot_custom(*this);
@@ -155,7 +155,7 @@ chroot_custom::setup_lock (chroot::setup_type type,
     }
 }
 
-sbuild::chroot::session_flags
+chroot::chroot::session_flags
 chroot_custom::get_session_flags (chroot const& chroot) const
 {
   session_flags flags = SESSION_NOFLAGS;
