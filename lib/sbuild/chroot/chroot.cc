@@ -41,7 +41,7 @@
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source.h>
-#include "chroot-facet-userdata.h"
+#include <sbuild/chroot/facet/userdata.h>
 #ifdef SBUILD_FEATURE_UNSHARE
 #include <sbuild/chroot/facet/unshare.h>
 #endif // SBUILD_FEATURE_UNSHARE
@@ -122,7 +122,7 @@ namespace sbuild
       add_facet(facet::unshare::create());
 #endif // SBUILD_FEATURE_UNSHARE
       add_facet(facet::session_clonable::create());
-      add_facet(chroot_facet_userdata::create());
+      add_facet(facet::userdata::create());
 
       set_profile(get_profile());
     }
@@ -407,8 +407,8 @@ namespace sbuild
 
       // Undo work of set_profile, so profile is completely unset.
       this->profile.clear();
-      chroot_facet_userdata::ptr userdata =
-        get_facet<chroot_facet_userdata>();
+      facet::userdata::ptr userdata =
+        get_facet<facet::userdata>();
       if (userdata)
         {
           userdata->remove_data("setup.config");
@@ -430,8 +430,8 @@ namespace sbuild
     {
       this->profile = profile;
 
-      chroot_facet_userdata::ptr userdata =
-        get_facet<chroot_facet_userdata>();
+      facet::userdata::ptr userdata =
+        get_facet<facet::userdata>();
       if (userdata)
         {
           userdata->set_system_data("setup.config", this->profile + "/config");

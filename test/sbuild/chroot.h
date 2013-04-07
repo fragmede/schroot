@@ -32,7 +32,7 @@
 #ifdef SBUILD_FEATURE_UNSHARE
 #include <sbuild/chroot/facet/unshare.h>
 #endif // SBUILD_FEATURE_UNSHARE
-#include <sbuild/chroot-facet-userdata.h>
+#include <sbuild/chroot/facet/userdata.h>
 #include <sbuild/i18n.h>
 #include <sbuild/types.h>
 #include <sbuild/util.h>
@@ -213,8 +213,8 @@ public:
         usrc->set_source_root_groups(sbuild::split_string("sgroup3,sgroup4", ","));
       }
 
-    sbuild::chroot_facet_userdata::ptr pusr
-      (chroot->get_facet<sbuild::chroot_facet_userdata>());
+    sbuild::chroot::facet::userdata::ptr pusr
+      (chroot->get_facet<sbuild::chroot::facet::userdata>());
     if (pusr)
       {
         pusr->set_data("custom.test1", "testval");

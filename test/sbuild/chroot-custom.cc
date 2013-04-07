@@ -22,7 +22,7 @@
 #include <sbuild/chroot/custom.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
-#include <sbuild/chroot-facet-userdata.h>
+#include <sbuild/chroot/facet/userdata.h>
 #include <sbuild/keyfile-writer.h>
 
 #include <test/sbuild/chroot.h>
@@ -81,7 +81,7 @@ public:
 
     std::shared_ptr<sbuild::chroot::custom> c = std::dynamic_pointer_cast<sbuild::chroot::custom>(chroot);
 
-    sbuild::chroot_facet_userdata::ptr userdata = c->get_facet<sbuild::chroot_facet_userdata>();
+    sbuild::chroot::facet::userdata::ptr userdata = c->get_facet<sbuild::chroot::facet::userdata>();
     CPPUNIT_ASSERT(userdata);
     userdata->set_data("custom.directory", "/srv/chroots/sid");
     userdata->set_data("custom.options", "foobar");

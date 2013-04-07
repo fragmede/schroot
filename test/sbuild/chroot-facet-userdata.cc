@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/directory.h>
-#include <sbuild/chroot-facet-userdata.h>
+#include <sbuild/chroot/facet/userdata.h>
 
 #include <cppunit/extensions/HelperMacros.h>
 
@@ -31,15 +31,15 @@ class test_chroot_facet_userdata : public TestFixture
 {
   CPPUNIT_TEST_SUITE(test_chroot_facet_userdata);
   CPPUNIT_TEST(test_data_set);
-  CPPUNIT_TEST_EXCEPTION(test_data_fail1, sbuild::chroot_facet_userdata::error);
-  CPPUNIT_TEST_EXCEPTION(test_data_fail2, sbuild::chroot_facet_userdata::error);
-  CPPUNIT_TEST_EXCEPTION(test_data_fail3, sbuild::chroot_facet_userdata::error);
-  CPPUNIT_TEST_EXCEPTION(test_data_fail4, sbuild::chroot_facet_userdata::error);
+  CPPUNIT_TEST_EXCEPTION(test_data_fail1, sbuild::chroot::facet::userdata::error);
+  CPPUNIT_TEST_EXCEPTION(test_data_fail2, sbuild::chroot::facet::userdata::error);
+  CPPUNIT_TEST_EXCEPTION(test_data_fail3, sbuild::chroot::facet::userdata::error);
+  CPPUNIT_TEST_EXCEPTION(test_data_fail4, sbuild::chroot::facet::userdata::error);
   CPPUNIT_TEST(test_user_set);
-  CPPUNIT_TEST_EXCEPTION(test_user_fail1, sbuild::chroot_facet_userdata::error);
-  CPPUNIT_TEST_EXCEPTION(test_user_fail2, sbuild::chroot_facet_userdata::error);
+  CPPUNIT_TEST_EXCEPTION(test_user_fail1, sbuild::chroot::facet::userdata::error);
+  CPPUNIT_TEST_EXCEPTION(test_user_fail2, sbuild::chroot::facet::userdata::error);
   CPPUNIT_TEST(test_root_set);
-  CPPUNIT_TEST_EXCEPTION(test_root_fail, sbuild::chroot_facet_userdata::error);
+  CPPUNIT_TEST_EXCEPTION(test_root_fail, sbuild::chroot::facet::userdata::error);
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -57,7 +57,7 @@ public:
     CPPUNIT_ASSERT(dir);
     dir->set_directory("/chroots/test");
 
-    userdata = chroot->get_facet<sbuild::chroot_facet_userdata>();
+    userdata = chroot->get_facet<sbuild::chroot::facet::userdata>();
     CPPUNIT_ASSERT(userdata);
 
     sbuild::string_set userkeys;
@@ -73,7 +73,7 @@ public:
   void tearDown()
   {
     this->chroot = sbuild::chroot::chroot::ptr();
-    this->userdata = sbuild::chroot_facet_userdata::ptr();
+    this->userdata = sbuild::chroot::facet::userdata::ptr();
   }
 
   void test_data_set()
@@ -171,7 +171,7 @@ public:
 
 private:
   sbuild::chroot::chroot::ptr chroot;
-  sbuild::chroot_facet_userdata::ptr userdata;
+  sbuild::chroot::facet::userdata::ptr userdata;
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(test_chroot_facet_userdata);

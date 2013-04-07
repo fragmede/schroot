@@ -25,7 +25,7 @@
 #ifdef SBUILD_FEATURE_UNSHARE
 #include <sbuild/chroot/facet/unshare.h>
 #endif // SBUILD_FEATURE_UNSHARE
-#include "chroot-facet-userdata.h"
+#include <sbuild/chroot/facet/userdata.h>
 #ifdef SBUILD_FEATURE_PAM
 #include "auth-pam.h"
 #include "auth-pam-conv.h"
@@ -675,8 +675,8 @@ session::run_impl ()
             chroot->set_verbosity(this->verbosity);
 
           // Set user options.
-          chroot_facet_userdata::ptr userdata =
-            chroot->get_facet<chroot_facet_userdata>();
+          chroot::facet::userdata::ptr userdata =
+            chroot->get_facet<chroot::facet::userdata>();
           if (userdata)
             {
               // If the user running the command is root, or the user
