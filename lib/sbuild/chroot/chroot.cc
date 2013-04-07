@@ -40,7 +40,7 @@
 #include <sbuild/chroot/facet/personality.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
-#include "chroot-facet-source.h"
+#include <sbuild/chroot/facet/source.h>
 #include "chroot-facet-userdata.h"
 #ifdef SBUILD_FEATURE_UNSHARE
 #include "chroot-facet-unshare.h"
@@ -679,7 +679,7 @@ namespace sbuild
 
       if (get_facet<facet::session>())
         title = _("Session");
-      if (get_facet<chroot_facet_source>())
+      if (get_facet<facet::source>())
         title = _("Source");
 
       format_detail fmt(title, stream.getloc());

@@ -22,7 +22,7 @@
 #include <sbuild/chroot/directory.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
-#include "chroot-facet-source-clonable.h"
+#include <sbuild/chroot/facet/source-clonable.h>
 #include "format-detail.h"
 #include "lock.h"
 
@@ -46,7 +46,7 @@ namespace sbuild
       snapshot_directory(),
       snapshot_name()
     {
-      add_facet(chroot_facet_source_clonable::create());
+      add_facet(facet::source_clonable::create());
     }
 
     btrfs_snapshot::btrfs_snapshot (const btrfs_snapshot& rhs):
@@ -88,8 +88,8 @@ namespace sbuild
     {
       ptr clone(new directory(*this));
 
-      chroot_facet_source_clonable::const_ptr psrc
-        (get_facet<chroot_facet_source_clonable>());
+      facet::source_clonable::const_ptr psrc
+        (get_facet<facet::source_clonable>());
       assert(psrc);
 
       psrc->clone_source_setup(*this, clone);

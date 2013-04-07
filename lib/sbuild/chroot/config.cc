@@ -22,7 +22,7 @@
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
-#include "chroot-facet-source-clonable.h"
+#include <sbuild/chroot/facet/source-clonable.h>
 #include "fdstream.h"
 #include "keyfile-reader.h"
 #include "lock.h"
@@ -638,8 +638,8 @@ namespace sbuild
           add(chroot_namespace, chroot, kconfig);
 
           {
-            chroot_facet_source_clonable::const_ptr psrc
-              (chroot->get_facet<chroot_facet_source_clonable>());
+            facet::source_clonable::const_ptr psrc
+              (chroot->get_facet<facet::source_clonable>());
 
             if (psrc && psrc->get_source_clone() &&
                 !chroot->get_facet<facet::session>())

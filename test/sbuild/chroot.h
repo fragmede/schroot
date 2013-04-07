@@ -24,8 +24,8 @@
 #include <sbuild/chroot/facet/personality.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
-#include <sbuild/chroot-facet-source.h>
-#include <sbuild/chroot-facet-source-clonable.h>
+#include <sbuild/chroot/facet/source.h>
+#include <sbuild/chroot/facet/source-clonable.h>
 #ifdef SBUILD_FEATURE_UNION
 #include <sbuild/chroot-facet-union.h>
 #endif // SBUILD_FEATURE_UNION
@@ -101,20 +101,20 @@ public:
           }
       }
 
-    sbuild::chroot_facet_source_clonable::const_ptr psrc
+    sbuild::chroot::facet::source_clonable::const_ptr psrc
       (this->chroot->
-       template get_facet<sbuild::chroot_facet_source_clonable>());
+       template get_facet<sbuild::chroot::facet::source_clonable>());
     if (psrc)
       this->source = this->chroot->clone_source();
     if (this->source)
       {
-        sbuild::chroot_facet_source_clonable::const_ptr pfsrcc
+        sbuild::chroot::facet::source_clonable::const_ptr pfsrcc
           (this->source->
-           template get_facet<sbuild::chroot_facet_source_clonable>());
+           template get_facet<sbuild::chroot::facet::source_clonable>());
         CPPUNIT_ASSERT(!pfsrcc);
-        sbuild::chroot_facet_source::const_ptr pfsrc
+        sbuild::chroot::facet::source::const_ptr pfsrc
           (this->source->
-           template get_facet<sbuild::chroot_facet_source>());
+           template get_facet<sbuild::chroot::facet::source>());
         CPPUNIT_ASSERT(pfsrc);
       }
 
@@ -203,8 +203,8 @@ public:
     if (pfac)
       pfac->set_persona(sbuild::personality("undefined"));
 
-    sbuild::chroot_facet_source_clonable::ptr usrc
-      (chroot->template get_facet<sbuild::chroot_facet_source_clonable>());
+    sbuild::chroot::facet::source_clonable::ptr usrc
+      (chroot->template get_facet<sbuild::chroot::facet::source_clonable>());
     if (usrc)
       {
         usrc->set_source_users(sbuild::split_string("suser1,suser2", ","));

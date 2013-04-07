@@ -22,7 +22,7 @@
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/facet/session.h>
 #include "chroot-facet-union.h"
-#include "chroot-facet-source-clonable.h"
+#include <sbuild/chroot/facet/source-clonable.h>
 #include "feature.h"
 
 #include <cassert>
@@ -140,11 +140,11 @@ chroot_facet_union::set_union_type (std::string const& type)
 
   if (this->union_type != "none")
     {
-      if (!base->get_facet<chroot_facet_source_clonable>())
-        base->add_facet(chroot_facet_source_clonable::create());
+      if (!base->get_facet<chroot::facet::source_clonable>())
+        base->add_facet(chroot::facet::source_clonable::create());
     }
   else
-    base->remove_facet<chroot_facet_source_clonable>();
+    base->remove_facet<chroot::facet::source_clonable>();
 }
 
 std::string const&
@@ -252,8 +252,8 @@ chroot_facet_union::set_keyfile (chroot::chroot& chroot,
                             keyfile::PRIORITY_OPTIONAL);
 
   // If we are a union, add specific source options here.
-  chroot_facet_source_clonable::ptr psrc
-    (chroot.get_facet<chroot_facet_source_clonable>());
+  chroot::facet::source_clonable::ptr psrc
+    (chroot.get_facet<chroot::facet::source_clonable>());
   if (psrc)
     psrc->set_keyfile(chroot, keyfile);
 

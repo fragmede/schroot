@@ -20,7 +20,7 @@
 
 #include <sbuild/chroot/block-device.h>
 #include <sbuild/chroot/facet/session-clonable.h>
-#include "chroot-facet-source-clonable.h"
+#include <sbuild/chroot/facet/source-clonable.h>
 #ifdef SBUILD_FEATURE_UNION
 #include "chroot-facet-union.h"
 #endif // SBUILD_FEATURE_UNION
@@ -96,8 +96,8 @@ namespace sbuild
     {
       ptr clone(new block_device(*this));
 
-      chroot_facet_source_clonable::const_ptr psrc
-        (get_facet<chroot_facet_source_clonable>());
+      facet::source_clonable::const_ptr psrc
+        (get_facet<facet::source_clonable>());
       assert(psrc);
 
       psrc->clone_source_setup(*this, clone);

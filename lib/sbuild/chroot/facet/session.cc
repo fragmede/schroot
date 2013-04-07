@@ -21,7 +21,6 @@
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/config.h>
 #include <sbuild/chroot/facet/session.h>
-#include "chroot-facet-source-clonable.h"
 #include "format-detail.h"
 
 #include <cassert>

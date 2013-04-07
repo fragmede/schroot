@@ -21,7 +21,7 @@
 #include <sbuild/chroot/custom.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
-#include "chroot-facet-source-clonable.h"
+#include <sbuild/chroot/facet/source-clonable.h>
 #include "format-detail.h"
 #include "lock.h"
 
@@ -83,8 +83,8 @@ namespace sbuild
       custom *clone_custom = new custom(*this);
       ptr clone(clone_custom);
 
-      chroot_facet_source_clonable::const_ptr psrc
-        (get_facet<chroot_facet_source_clonable>());
+      facet::source_clonable::const_ptr psrc
+        (get_facet<facet::source_clonable>());
       assert(psrc);
 
       psrc->clone_source_setup(*this, clone);
@@ -117,9 +117,9 @@ namespace sbuild
     custom::set_source_cloneable (bool cloneable)
     {
       if (cloneable)
-        add_facet(chroot_facet_source_clonable::create());
+        add_facet(facet::source_clonable::create());
       else
-        remove_facet<chroot_facet_source_clonable>();
+        remove_facet<facet::source_clonable>();
     }
 
     std::string

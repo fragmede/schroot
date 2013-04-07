@@ -22,7 +22,7 @@
 #include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
-#include "chroot-facet-source-clonable.h"
+#include <sbuild/chroot/facet/source-clonable.h>
 #include <sbuild/chroot/plain.h>
 #ifdef SBUILD_FEATURE_BLOCKDEV
 #include <sbuild/chroot/block-device-base.h>
@@ -96,7 +96,7 @@ namespace sbuild
         // Disable session cloning.
         clone->remove_facet<session_clonable>();
         // Disable source cloning.
-        clone->remove_facet<chroot_facet_source_clonable>();
+        clone->remove_facet<source_clonable>();
         clone->add_facet(session::create());
 
         // Disable session, delete aliases.
