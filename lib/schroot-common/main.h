@@ -22,7 +22,7 @@
 #include <bin-common/main.h>
 #include <schroot-common/options.h>
 
-#include <sbuild/chroot-config.h>
+#include <sbuild/chroot/config.h>
 #include <sbuild/custom-error.h>
 
 namespace schroot_common
@@ -48,7 +48,7 @@ namespace schroot_common
     /// Exception type.
     typedef sbuild::custom_error<error_code> error;
 
-    typedef sbuild::chroot_config::chroot_map chroot_map;
+    typedef sbuild::chroot::config::chroot_map chroot_map;
 
     /**
      * The constructor.
@@ -137,7 +137,7 @@ namespace schroot_common
     /// The program options.
     schroot_common::options::ptr options;
     /// The chroot configuration.
-    sbuild::chroot_config::ptr   config;
+    sbuild::chroot::config::ptr  config;
     /// The chroots to use (original names or aliases).
     sbuild::string_list          chroot_names;
     /// The chroots to use (alias to chroot mapping).

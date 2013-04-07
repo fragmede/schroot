@@ -110,7 +110,7 @@ main::action_info ()
     {
       // This should never fail, so no error handling here--we already
       // validated everything when we got the chroot map.
-      sbuild::chroot_config::chroot_map::const_iterator c = this->chroots.find(*chroot_name);
+      sbuild::chroot::config::chroot_map::const_iterator c = this->chroots.find(*chroot_name);
       assert(c->second);
 
       std::cout << c->second;
@@ -227,7 +227,7 @@ main::get_chroot_options ()
 void
 main::load_config ()
 {
-  this->config = sbuild::chroot_config::ptr(new sbuild::chroot_config);
+  this->config = sbuild::chroot::config::ptr(new sbuild::chroot::config);
   /* The normal chroot list is used when starting a session or running
      any chroot type or session, or displaying chroot information. */
   if (this->options->load_chroots == true)

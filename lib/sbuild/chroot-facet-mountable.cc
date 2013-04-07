@@ -138,7 +138,7 @@ chroot_facet_mountable::get_used_keys (string_list& used_keys) const
 
 void
 chroot_facet_mountable::get_keyfile (chroot::chroot const& chroot,
-                                     keyfile&      keyfile) const
+                                     keyfile&              keyfile) const
 {
   bool session = static_cast<bool>(chroot.get_facet<chroot_facet_session>());
 

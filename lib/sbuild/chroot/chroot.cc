@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
-#include "chroot-config.h"
+#include <sbuild/chroot/config.h>
 #include "chroot-directory.h"
 #include "chroot-plain.h"
 #include "chroot-custom.h"
@@ -207,12 +207,12 @@ namespace sbuild
     void
     chroot::set_name (std::string const& name)
     {
-      std::string::size_type pos = name.find_first_of(chroot_config::namespace_separator);
+      std::string::size_type pos = name.find_first_of(config::namespace_separator);
       if (pos != std::string::npos)
         {
           error e(name, NAME_INVALID);
           format fmt(_("Namespace separator ‘%1%’ may not be used in a chroot name"));
-          fmt % chroot_config::namespace_separator;
+          fmt % config::namespace_separator;
           e.set_reason(fmt.str());
           throw e;
         }
@@ -313,12 +313,12 @@ namespace sbuild
     {
       for (const auto& alias : aliases)
         {
-          std::string::size_type found = alias.find_first_of(chroot_config::namespace_separator);
+          std::string::size_type found = alias.find_first_of(config::namespace_separator);
           if (found != std::string::npos)
             {
               error e(alias, NAME_INVALID);
               format fmt(_("Namespace separator ‘%1%’ may not be used in an alias name"));
-              fmt % chroot_config::namespace_separator;
+              fmt % config::namespace_separator;
               e.set_reason(fmt.str());
               throw e;
             }

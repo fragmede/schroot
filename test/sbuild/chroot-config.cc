@@ -16,7 +16,7 @@
  *
  *********************************************************************/
 
-#include <sbuild/chroot-config.h>
+#include <sbuild/chroot/config.h>
 #include <sbuild/nostream.h>
 
 #include <fstream>
@@ -49,7 +49,7 @@ class test_config : public TestFixture
   CPPUNIT_TEST_SUITE_END();
 
 protected:
-  sbuild::chroot_config *cf;
+  sbuild::chroot::config *cf;
 
 public:
   test_config():
@@ -62,7 +62,7 @@ public:
 
   void setUp()
   {
-    this->cf = new sbuild::chroot_config("chroot", TESTDATADIR "/config.ex1");
+    this->cf = new sbuild::chroot::config("chroot", TESTDATADIR "/config.ex1");
   }
 
   void tearDown()
@@ -72,39 +72,39 @@ public:
 
   void test_construction_file()
   {
-    sbuild::chroot_config c("chroot", TESTDATADIR "/config.ex1");
+    sbuild::chroot::config c("chroot", TESTDATADIR "/config.ex1");
   }
 
   void test_construction_dir()
   {
-    sbuild::chroot_config c("chroot", TESTDATADIR "/config.ex2");
+    sbuild::chroot::config c("chroot", TESTDATADIR "/config.ex2");
   }
 
   void test_construction_fail()
   {
-    sbuild::chroot_config c("chroot", TESTDATADIR "/config.nonexistent");
+    sbuild::chroot::config c("chroot", TESTDATADIR "/config.nonexistent");
   }
 
   void test_construction_fail_wrong()
   {
-    sbuild::chroot_config c("chroot", TESTDATADIR "/config.ex3");
+    sbuild::chroot::config c("chroot", TESTDATADIR "/config.ex3");
   }
 
   void test_add_file()
   {
-    sbuild::chroot_config c;
+    sbuild::chroot::config c;
     c.add("chroot", TESTDATADIR "/config.ex1");
   }
 
   void test_add_dir()
   {
-    sbuild::chroot_config c;
+    sbuild::chroot::config c;
     c.add("chroot", TESTDATADIR "/config.ex2");
   }
 
   void test_add_fail()
   {
-    sbuild::chroot_config c;
+    sbuild::chroot::config c;
     c.add("chroot", TESTDATADIR "/config.nonexistent");
   }
 
@@ -174,7 +174,7 @@ public:
     chroots.push_back("sarge");
     chroots.push_back("unstable");
 
-    sbuild::chroot_config::chroot_map m = this->cf->validate_chroots("chroot", chroots);
+    sbuild::chroot::config::chroot_map m = this->cf->validate_chroots("chroot", chroots);
     assert(m.size() == 3);
   }
 
@@ -192,17 +192,17 @@ public:
 
   void test_config_fail()
   {
-    sbuild::chroot_config c("chroot", TESTDATADIR "/config-directory-fail.ex");
+    sbuild::chroot::config c("chroot", TESTDATADIR "/config-directory-fail.ex");
   }
 
   void test_config_deprecated()
   {
-    sbuild::chroot_config c("chroot", TESTDATADIR "/config-directory-deprecated.ex");
+    sbuild::chroot::config c("chroot", TESTDATADIR "/config-directory-deprecated.ex");
   }
 
   void test_config_valid()
   {
-    sbuild::chroot_config c("chroot", TESTDATADIR "/config-directory-valid.ex");
+    sbuild::chroot::config c("chroot", TESTDATADIR "/config-directory-valid.ex");
   }
 
 };

@@ -139,7 +139,7 @@ namespace sbuild
                  keyfile&      keyfile) const;
 
     virtual void
-    set_keyfile (chroot& chroot,
+    set_keyfile (chroot&        chroot,
                  keyfile const& keyfile);
 
   private:
