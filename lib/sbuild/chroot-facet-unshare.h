@@ -19,7 +19,7 @@
 #ifndef SBUILD_CHROOT_FACET_UNSHARE_H
 #define SBUILD_CHROOT_FACET_UNSHARE_H
 
-#include <sbuild/chroot-facet.h>
+#include <sbuild/chroot/facet/facet.h>
 
 namespace sbuild
 {
@@ -27,7 +27,7 @@ namespace sbuild
   /**
    * Chroot support for unsharing process execution context
    */
-  class chroot_facet_unshare : public chroot_facet
+  class chroot_facet_unshare : public chroot::facet::facet
   {
   public:
     /// A shared_ptr to a chroot facet object.
@@ -61,7 +61,7 @@ namespace sbuild
     static ptr
     create ();
 
-    virtual chroot_facet::ptr
+    virtual facet::ptr
     clone () const;
 
     virtual std::string const&

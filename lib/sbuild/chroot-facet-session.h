@@ -19,7 +19,7 @@
 #ifndef SBUILD_CHROOT_FACET_SESSION_H
 #define SBUILD_CHROOT_FACET_SESSION_H
 
-#include <sbuild/chroot-facet.h>
+#include <sbuild/chroot/facet/facet.h>
 #include <sbuild/session.h>
 
 namespace sbuild
@@ -32,7 +32,7 @@ namespace sbuild
    * parallel chroot environment usage.  The presence of this facet
    * indicates that the chroot is an active session.
    */
-  class chroot_facet_session : public chroot_facet
+  class chroot_facet_session : public chroot::facet::facet
   {
   public:
     /// A shared_ptr to a chroot facet object.
@@ -57,7 +57,7 @@ namespace sbuild
     static ptr
     create ();
 
-    virtual chroot_facet::ptr
+    virtual facet::ptr
     clone () const;
 
     virtual std::string const&

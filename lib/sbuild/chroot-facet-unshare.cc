@@ -52,7 +52,7 @@ error<sbuild::chroot_facet_unshare::error_code>::error_strings =
   };
 
 chroot_facet_unshare::chroot_facet_unshare ():
-  chroot_facet(),
+  chroot::facet::facet(),
   unshare_net(false),
   unshare_sysvipc(false),
   unshare_sysvsem(false),
@@ -70,7 +70,7 @@ chroot_facet_unshare::create ()
   return ptr(new chroot_facet_unshare());
 }
 
-chroot_facet::ptr
+chroot::facet::facet::ptr
 chroot_facet_unshare::clone () const
 {
   return ptr(new chroot_facet_unshare(*this));

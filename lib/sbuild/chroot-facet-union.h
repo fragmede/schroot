@@ -20,7 +20,7 @@
 #ifndef SBUILD_CHROOT_FACET_UNION_H
 #define SBUILD_CHROOT_FACET_UNION_H
 
-#include <sbuild/chroot-facet.h>
+#include <sbuild/chroot/facet/facet.h>
 
 namespace sbuild
 {
@@ -34,7 +34,7 @@ namespace sbuild
    * directory.  The overlay directory and union setup is already
    * handled.
    */
-  class chroot_facet_union : public chroot_facet
+  class chroot_facet_union : public chroot::facet::facet
   {
   public:
     /// Error codes.
@@ -70,7 +70,7 @@ namespace sbuild
     static ptr
     create ();
 
-    virtual chroot_facet::ptr
+    virtual facet::ptr
     clone () const;
 
     std::string const&

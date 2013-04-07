@@ -16,8 +16,8 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_FACET_H
-#define SBUILD_CHROOT_FACET_H
+#ifndef SBUILD_CHROOT_FACET_FACET_H
+#define SBUILD_CHROOT_FACET_FACET_H
 
 #include <sbuild/environment.h>
 #include <sbuild/format-detail.h>
@@ -29,6 +29,10 @@
 
 namespace sbuild
 {
+  namespace chroot
+  {
+    namespace facet
+    {
 
   /**
    * Common chroot data.  This class contains all of the metadata
@@ -37,18 +41,18 @@ namespace sbuild
    * configuration file, and may be initialised directly from an open
    * keyfile.
    */
-  class chroot_facet
+  class facet
   {
   public:
     /// A shared_ptr to a chroot facet object.
-    typedef std::shared_ptr<chroot_facet> ptr;
+    typedef std::shared_ptr<facet> ptr;
 
     /// A shared_ptr to a const chroot facet object.
-    typedef std::shared_ptr<const chroot_facet> const_ptr;
+    typedef std::shared_ptr<const facet> const_ptr;
 
   protected:
     /// The constructor.
-    chroot_facet(): owner(0) {};
+    facet(): owner(0) {};
 
     /**
      * Set containing chroot.
@@ -56,16 +60,16 @@ namespace sbuild
      * @param chroot the chroot containing this facet.
      */
     void
-    set_chroot(chroot::chroot& chroot)
+    set_chroot(chroot& chroot)
     {
       this->owner = &chroot;
     }
 
-    friend class chroot::chroot;
+    friend class ::sbuild::chroot::chroot;
 
   public:
     /// The destructor.
-    virtual ~chroot_facet () {};
+    virtual ~facet () {};
 
     /**
      * Copy the chroot facet.  This is a virtual copy constructor.
@@ -91,8 +95,8 @@ namespace sbuild
      * @param env the environment to set.
      */
     virtual void
-    setup_env (chroot::chroot const& chroot,
-               environment&          env) const = 0;
+    setup_env (chroot const& chroot,
+               environment&  env) const = 0;
 
     /**
      * Get the session flags of the chroot.  These determine how the
@@ -101,8 +105,8 @@ namespace sbuild
      * @param chroot the chroot to use.
      * @returns the session flags.
      */
-    virtual chroot::chroot::session_flags
-    get_session_flags (chroot::chroot const& chroot) const = 0;
+    virtual chroot::session_flags
+    get_session_flags (chroot const& chroot) const = 0;
 
     /**
      * Get detailed information about the chroot for output.
@@ -111,8 +115,8 @@ namespace sbuild
      * @param detail the details to output to.
      */
     virtual void
-    get_details (chroot::chroot const& chroot,
-                 format_detail&        detail) const = 0;
+    get_details (chroot const&  chroot,
+                 format_detail& detail) const = 0;
 
     /**
      * Get a list of the keys used during keyfile parsing.
@@ -131,8 +135,8 @@ namespace sbuild
      * @param keyfile the keyfile to use.
      */
     virtual void
-    get_keyfile (chroot::chroot const& chroot,
-                 keyfile&              keyfile) const = 0;
+    get_keyfile (chroot const& chroot,
+                 keyfile&      keyfile) const = 0;
 
     /**
      * Set the chroot properties from a keyfile.  The chroot name must
@@ -144,17 +148,19 @@ namespace sbuild
      * @param used_keys a list of the keys used will be set.
      */
     virtual void
-    set_keyfile (chroot::chroot& chroot,
+    set_keyfile (chroot&         chroot,
                  keyfile const&  keyfile) = 0;
 
   protected:
     /// Chroot owning this facet.
-    chroot::chroot *owner;
+    chroot *owner;
   };
 
 }
+  }
+}
 
-#endif /* SBUILD_CHROOT_FACET_H */
+#endif /* SBUILD_CHROOT_FACET_FACET_H */
 
 /*
  * Local Variables:

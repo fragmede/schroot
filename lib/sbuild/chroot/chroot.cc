@@ -36,7 +36,7 @@
 #ifdef SBUILD_FEATURE_BTRFSSNAP
 #include <sbuild/chroot/btrfs-snapshot.h>
 #endif // SBUILD_FEATURE_BTRFSSNAP
-#include "chroot-facet.h"
+#include <sbuild/chroot/facet/facet.h>
 #include "chroot-facet-personality.h"
 #include "chroot-facet-session.h"
 #include "chroot-facet-session-clonable.h"

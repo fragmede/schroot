@@ -19,7 +19,7 @@
 #ifndef SBUILD_CHROOT_FACET_SESSION_CLONABLE_H
 #define SBUILD_CHROOT_FACET_SESSION_CLONABLE_H
 
-#include <sbuild/chroot-facet.h>
+#include <sbuild/chroot/facet/facet.h>
 
 namespace sbuild
 {
@@ -31,7 +31,7 @@ namespace sbuild
    * parallel chroot environment usage.  This facet allows the chroot
    * to support session creation.
    */
-  class chroot_facet_session_clonable : public chroot_facet
+  class chroot_facet_session_clonable : public chroot::facet::facet
   {
   public:
     /// A shared_ptr to a chroot facet object.
@@ -56,7 +56,7 @@ namespace sbuild
     static ptr
     create ();
 
-    virtual chroot_facet::ptr
+    virtual facet::ptr
     clone () const;
 
     virtual std::string const&

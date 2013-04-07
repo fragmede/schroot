@@ -86,7 +86,7 @@ error<chroot_facet_userdata::error_code>::error_strings =
   };
 
 chroot_facet_userdata::chroot_facet_userdata ():
-  chroot_facet(),
+  chroot::facet::facet(),
   userdata(),
   env(),
   user_modifiable_keys(),
@@ -104,7 +104,7 @@ chroot_facet_userdata::create ()
   return ptr(new chroot_facet_userdata());
 }
 
-chroot_facet::ptr
+chroot::facet::facet::ptr
 chroot_facet_userdata::clone () const
 {
   return ptr(new chroot_facet_userdata(*this));

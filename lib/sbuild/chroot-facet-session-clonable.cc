@@ -50,7 +50,7 @@ using std::endl;
 using namespace sbuild;
 
 chroot_facet_session_clonable::chroot_facet_session_clonable ():
-  chroot_facet()
+  chroot::facet::facet()
 {
 }
 
@@ -64,7 +64,7 @@ chroot_facet_session_clonable::create ()
   return ptr(new chroot_facet_session_clonable());
 }
 
-chroot_facet::ptr
+chroot::facet::facet::ptr
 chroot_facet_session_clonable::clone () const
 {
   return ptr(new chroot_facet_session_clonable(*this));

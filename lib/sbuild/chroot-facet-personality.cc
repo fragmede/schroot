@@ -27,7 +27,7 @@ using boost::format;
 using namespace sbuild;
 
 chroot_facet_personality::chroot_facet_personality ():
-  chroot_facet(),
+  chroot::facet::facet(),
   persona()
 {
 }
@@ -42,7 +42,7 @@ chroot_facet_personality::create ()
   return ptr(new chroot_facet_personality());
 }
 
-chroot_facet::ptr
+chroot::facet::facet::ptr
 chroot_facet_personality::clone () const
 {
   return ptr(new chroot_facet_personality(*this));

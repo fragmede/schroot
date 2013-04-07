@@ -19,7 +19,7 @@
 #ifndef SBUILD_CHROOT_FACET_MOUNTABLE_H
 #define SBUILD_CHROOT_FACET_MOUNTABLE_H
 
-#include <sbuild/chroot-facet.h>
+#include <sbuild/chroot/facet/facet.h>
 
 namespace sbuild
 {
@@ -35,7 +35,7 @@ namespace sbuild
    * used for network filesystems, loopback files and other
    * mountable objects.
    */
-  class chroot_facet_mountable : public chroot_facet
+  class chroot_facet_mountable : public chroot::facet::facet
   {
   public:
     /// A shared_ptr to a chroot facet object.
@@ -60,7 +60,7 @@ namespace sbuild
     static ptr
     create ();
 
-    virtual chroot_facet::ptr
+    virtual facet::ptr
     clone () const;
 
     virtual std::string const&

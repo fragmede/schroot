@@ -32,11 +32,12 @@
 
 namespace sbuild
 {
-  class chroot_facet;
-
   namespace chroot
   {
-
+    namespace facet
+    {
+      class facet;
+    }
 
     /**
      * Common chroot data.  This class contains all of the metadata
@@ -843,7 +844,7 @@ namespace sbuild
       verbosity     message_verbosity;
 
       /// A shared pointer to a chroot facet.
-      typedef std::shared_ptr<chroot_facet> facet_ptr;
+      typedef std::shared_ptr<facet::facet> facet_ptr;
       /// A list of chroot facets.
       typedef std::list<facet_ptr> facet_list;
       /// Contained chroot facets
@@ -881,7 +882,7 @@ namespace sbuild
   }
 }
 
-#include <sbuild/chroot-facet.h>
+#include <sbuild/chroot/facet/facet.h>
 
 namespace sbuild
 {
@@ -922,7 +923,7 @@ namespace sbuild
     void
     chroot::add_facet (std::shared_ptr<T> facet)
     {
-      facet_ptr new_facet = std::dynamic_pointer_cast<chroot_facet>(facet);
+      facet_ptr new_facet = std::dynamic_pointer_cast<facet::facet>(facet);
       if (!new_facet)
         throw error(FACET_INVALID);
 

@@ -25,7 +25,7 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/chroot/custom.h			\
 	lib/sbuild/chroot/directory.h			\
 	lib/sbuild/chroot/directory-base.h		\
-	lib/sbuild/chroot-facet.h			\
+	lib/sbuild/chroot/facet/facet.h			\
 	lib/sbuild/chroot-facet-mountable.h		\
 	lib/sbuild/chroot-facet-personality.h		\
 	lib/sbuild/chroot-facet-session.h		\

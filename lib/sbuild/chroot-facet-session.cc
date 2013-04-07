@@ -33,7 +33,7 @@ using std::endl;
 using namespace sbuild;
 
 chroot_facet_session::chroot_facet_session ():
-  chroot_facet(),
+  chroot::facet::facet(),
   original_chroot_name(),
   selected_chroot_name()
 {
@@ -49,7 +49,7 @@ chroot_facet_session::create ()
   return ptr(new chroot_facet_session());
 }
 
-chroot_facet::ptr
+chroot::facet::facet::ptr
 chroot_facet_session::clone () const
 {
   return ptr(new chroot_facet_session(*this));

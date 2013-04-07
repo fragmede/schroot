@@ -28,7 +28,7 @@ using std::endl;
 using namespace sbuild;
 
 chroot_facet_source::chroot_facet_source ():
-  chroot_facet()
+  chroot::facet::facet()
 {
 }
 
@@ -42,7 +42,7 @@ chroot_facet_source::create ()
   return ptr(new chroot_facet_source());
 }
 
-chroot_facet::ptr
+chroot::facet::facet::ptr
 chroot_facet_source::clone () const
 {
   return ptr(new chroot_facet_source(*this));

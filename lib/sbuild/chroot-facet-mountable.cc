@@ -31,7 +31,7 @@ using std::endl;
 using namespace sbuild;
 
 chroot_facet_mountable::chroot_facet_mountable ():
-  chroot_facet(),
+  chroot::facet::facet(),
   mount_device(),
   mount_options(),
   location()
@@ -48,7 +48,7 @@ chroot_facet_mountable::create ()
   return ptr(new chroot_facet_mountable());
 }
 
-chroot_facet::ptr
+chroot::facet::facet::ptr
 chroot_facet_mountable::clone () const
 {
   return ptr(new chroot_facet_mountable(*this));

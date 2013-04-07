@@ -19,7 +19,7 @@
 #ifndef SBUILD_CHROOT_FACET_USERDATA_H
 #define SBUILD_CHROOT_FACET_USERDATA_H
 
-#include <sbuild/chroot-facet.h>
+#include <sbuild/chroot/facet/facet.h>
 #include <sbuild/custom-error.h>
 #include <sbuild/types.h>
 
@@ -32,7 +32,7 @@ namespace sbuild
    * This facet contains user-specific configuration, both additional
    * keys in schroot.conf, and also set from the command-line.
    */
-  class chroot_facet_userdata : public chroot_facet
+  class chroot_facet_userdata : public chroot::facet::facet
   {
   public:
     /// Error codes.
@@ -70,7 +70,7 @@ namespace sbuild
     static ptr
     create ();
 
-    virtual chroot_facet::ptr
+    virtual facet::ptr
     clone () const;
 
     virtual std::string const&

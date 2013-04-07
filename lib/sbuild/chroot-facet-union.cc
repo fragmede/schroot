@@ -49,7 +49,7 @@ error<chroot_facet_union::error_code>::error_strings =
   };
 
 chroot_facet_union::chroot_facet_union ():
-  chroot_facet(),
+  chroot::facet::facet(),
   union_type("none"),
   union_overlay_directory(SCHROOT_OVERLAY_DIR),
   union_underlay_directory(SCHROOT_UNDERLAY_DIR)
@@ -66,7 +66,7 @@ chroot_facet_union::create ()
   return ptr(new chroot_facet_union());
 }
 
-chroot_facet::ptr
+chroot::facet::facet::ptr
 chroot_facet_union::clone () const
 {
   return ptr(new chroot_facet_union(*this));
