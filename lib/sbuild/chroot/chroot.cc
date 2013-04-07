@@ -22,7 +22,7 @@
 #include <sbuild/chroot/config.h>
 #include <sbuild/chroot/directory.h>
 #include <sbuild/chroot/plain.h>
-#include "chroot-custom.h"
+#include <sbuild/chroot/custom.h>
 #include <sbuild/chroot/file.h>
 #ifdef SBUILD_FEATURE_BLOCKDEV
 #include <sbuild/chroot/block-device.h>
@@ -170,7 +170,7 @@ namespace sbuild
       else if (type == "plain")
         new_chroot = new plain();
       else if (type == "custom")
-        new_chroot = new chroot_custom();
+        new_chroot = new custom();
       else if (type == "file")
         new_chroot = new file();
 #ifdef SBUILD_FEATURE_BLOCKDEV

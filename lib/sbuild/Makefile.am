@@ -22,7 +22,7 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/auth.h				\
 	lib/sbuild/auth-null.h				\
 	lib/sbuild/chroot/chroot.h			\
-	lib/sbuild/chroot-custom.h			\
+	lib/sbuild/chroot/custom.h			\
 	lib/sbuild/chroot/directory.h			\
 	lib/sbuild/chroot/directory-base.h		\
 	lib/sbuild/chroot-facet.h			\
@@ -107,7 +107,7 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/auth.cc				\
 	lib/sbuild/auth-null.cc				\
 	lib/sbuild/chroot/chroot.cc			\
-	lib/sbuild/chroot-custom.cc			\
+	lib/sbuild/chroot/custom.cc			\
 	lib/sbuild/chroot/directory.cc			\
 	lib/sbuild/chroot/directory-base.cc		\
 	lib/sbuild/chroot-facet-mountable.cc		\
