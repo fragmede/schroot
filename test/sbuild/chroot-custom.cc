@@ -20,7 +20,7 @@
 
 #include <sbuild/config.h>
 #include <sbuild/chroot/custom.h>
-#include <sbuild/chroot-facet-session-clonable.h>
+#include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot-facet-source-clonable.h>
 #include <sbuild/chroot-facet-userdata.h>
 #include <sbuild/keyfile-writer.h>
@@ -145,7 +145,7 @@ public:
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
                    sbuild::chroot::chroot::SESSION_CREATE);
 
-    CPPUNIT_ASSERT(c->get_facet<sbuild::chroot_facet_session_clonable>());
+    CPPUNIT_ASSERT(c->get_facet<sbuild::chroot::facet::session_clonable>());
     CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot_facet_source_clonable>());
   }
 
@@ -158,7 +158,7 @@ public:
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
                    sbuild::chroot::chroot::SESSION_NOFLAGS);
 
-    CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot_facet_session_clonable>());
+    CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot::facet::session_clonable>());
     CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot_facet_source_clonable>());
   }
 
@@ -171,7 +171,7 @@ public:
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
                    (sbuild::chroot::chroot::SESSION_CREATE|sbuild::chroot::chroot::SESSION_CLONE));
 
-    CPPUNIT_ASSERT(c->get_facet<sbuild::chroot_facet_session_clonable>());
+    CPPUNIT_ASSERT(c->get_facet<sbuild::chroot::facet::session_clonable>());
     CPPUNIT_ASSERT(c->get_facet<sbuild::chroot_facet_source_clonable>());
   }
 
@@ -185,7 +185,7 @@ public:
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
                    sbuild::chroot::chroot::SESSION_CLONE);
 
-    CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot_facet_session_clonable>());
+    CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot::facet::session_clonable>());
     CPPUNIT_ASSERT(c->get_facet<sbuild::chroot_facet_source_clonable>());
   }
 

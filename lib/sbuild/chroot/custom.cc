@@ -19,8 +19,8 @@
 #include <config.h>
 
 #include <sbuild/chroot/custom.h>
-#include "chroot-facet-session.h"
-#include "chroot-facet-session-clonable.h"
+#include <sbuild/chroot/facet/session.h>
+#include <sbuild/chroot/facet/session-clonable.h>
 #include "chroot-facet-source-clonable.h"
 #include "format-detail.h"
 #include "lock.h"
@@ -67,8 +67,8 @@ namespace sbuild
                            std::string const& user,
                            bool               root) const
     {
-      chroot_facet_session_clonable::const_ptr psess
-        (get_facet<chroot_facet_session_clonable>());
+      facet::session_clonable::const_ptr psess
+        (get_facet<facet::session_clonable>());
       assert(psess);
 
       ptr session(new custom(*this));
@@ -96,9 +96,9 @@ namespace sbuild
     custom::set_session_cloneable (bool cloneable)
     {
       if (cloneable)
-        add_facet(sbuild::chroot_facet_session_clonable::create());
+        add_facet(facet::session_clonable::create());
       else
-        remove_facet<chroot_facet_session_clonable>();
+        remove_facet<facet::session_clonable>();
     }
 
     void
@@ -167,7 +167,7 @@ namespace sbuild
 
       // TODO: Only set if purge is set.
 
-      if (chroot.get_facet<chroot_facet_session>() &&
+      if (chroot.get_facet<facet::session>() &&
           get_session_purgeable())
         flags = SESSION_PURGE;
 
@@ -209,7 +209,7 @@ namespace sbuild
     {
       chroot::set_keyfile(chroot, keyfile);
 
-      bool session = static_cast<bool>(get_facet<chroot_facet_session>());
+      bool session = static_cast<bool>(get_facet<facet::session>());
 
       keyfile::get_object_value(*this, &custom::set_session_cloneable,
                                 keyfile, get_name(), "custom-session-cloneable",

@@ -24,6 +24,10 @@
 
 namespace sbuild
 {
+namespace chroot
+{
+namespace facet
+{
 
   /**
    * Chroot support for sessions.
@@ -32,22 +36,22 @@ namespace sbuild
    * parallel chroot environment usage.  The presence of this facet
    * indicates that the chroot is an active session.
    */
-  class chroot_facet_session : public chroot::facet::facet
+  class session : public facet
   {
   public:
     /// A shared_ptr to a chroot facet object.
-    typedef std::shared_ptr<chroot_facet_session> ptr;
+    typedef std::shared_ptr<session> ptr;
 
     /// A shared_ptr to a const chroot facet object.
-    typedef std::shared_ptr<const chroot_facet_session> const_ptr;
+    typedef std::shared_ptr<const session> const_ptr;
 
   private:
     /// The constructor.
-    chroot_facet_session ();
+    session ();
 
   public:
     /// The destructor.
-    virtual ~chroot_facet_session ();
+    virtual ~session ();
 
     /**
      * Create a chroot facet.
@@ -97,25 +101,25 @@ namespace sbuild
     set_selected_name (std::string const& name);
 
     virtual void
-    setup_env (chroot::chroot const& chroot,
-               environment&          env) const;
+    setup_env (chroot const& chroot,
+               environment&  env) const;
 
-    virtual chroot::chroot::session_flags
-    get_session_flags (chroot::chroot const& chroot) const;
+    virtual chroot::session_flags
+    get_session_flags (chroot const& chroot) const;
 
     virtual void
-    get_details (chroot::chroot const&  chroot,
-                 format_detail&         detail) const;
+    get_details (chroot const&  chroot,
+                 format_detail& detail) const;
 
     virtual void
     get_used_keys (string_list& used_keys) const;
 
     virtual void
-    get_keyfile (chroot::chroot const& chroot,
-                 keyfile&              keyfile) const;
+    get_keyfile (chroot const& chroot,
+                 keyfile&      keyfile) const;
 
     virtual void
-    set_keyfile (chroot::chroot&        chroot,
+    set_keyfile (chroot&        chroot,
                  keyfile const& keyfile);
 
   private:
@@ -125,6 +129,8 @@ namespace sbuild
     std::string  selected_chroot_name;
   };
 
+}
+}
 }
 
 #endif /* SBUILD_CHROOT_FACET_SESSION_H */

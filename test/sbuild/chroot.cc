@@ -203,7 +203,7 @@ public:
 
   void test_active()
   {
-    CPPUNIT_ASSERT(!chroot->get_facet<sbuild::chroot_facet_session>());
+    CPPUNIT_ASSERT(!chroot->get_facet<sbuild::chroot::facet::session>());
   }
 
   void test_script_config()

@@ -20,7 +20,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
-#include "chroot-facet-session.h"
+#include <sbuild/chroot/facet/session.h>
 #include "chroot-facet-union.h"
 #include "chroot-facet-source-clonable.h"
 #include "feature.h"
@@ -181,7 +181,7 @@ chroot_facet_union::get_session_flags (chroot::chroot const& chroot) const
 {
   chroot::chroot::session_flags flags = chroot::chroot::SESSION_NOFLAGS;
 
-  if (get_union_configured() && chroot.get_facet<chroot_facet_session>())
+  if (get_union_configured() && chroot.get_facet<chroot::facet::session>())
     flags = chroot::chroot::SESSION_PURGE;
 
   return flags;
@@ -245,7 +245,7 @@ void
 chroot_facet_union::set_keyfile (chroot::chroot& chroot,
                                  keyfile const&  keyfile)
 {
-  bool session = static_cast<bool>(chroot.get_facet<chroot_facet_session>());
+  bool issession = static_cast<bool>(chroot.get_facet<chroot::facet::session>());
 
   keyfile::get_object_value(*this, &chroot_facet_union::set_union_type,
                             keyfile, chroot.get_name(), "union-type",
@@ -266,7 +266,7 @@ chroot_facet_union::set_keyfile (chroot::chroot& chroot,
                             &chroot_facet_union::set_union_overlay_directory,
                             keyfile, chroot.get_name(),
                             "union-overlay-directory",
-                            (session && get_union_configured())?
+                            (issession && get_union_configured()) ?
                             keyfile::PRIORITY_REQUIRED :
                             keyfile::PRIORITY_OPTIONAL);
 
@@ -274,7 +274,7 @@ chroot_facet_union::set_keyfile (chroot::chroot& chroot,
                             &chroot_facet_union::set_union_underlay_directory,
                             keyfile, chroot.get_name(),
                             "union-underlay-directory",
-                            (session && get_union_configured())?
+                            (issession && get_union_configured()) ?
                             keyfile::PRIORITY_REQUIRED :
                             keyfile::PRIORITY_OPTIONAL);
 }

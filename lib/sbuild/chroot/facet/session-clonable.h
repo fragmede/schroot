@@ -23,6 +23,10 @@
 
 namespace sbuild
 {
+namespace chroot
+{
+namespace facet
+{
 
   /**
    * Chroot support for creation of sessions.
@@ -31,22 +35,22 @@ namespace sbuild
    * parallel chroot environment usage.  This facet allows the chroot
    * to support session creation.
    */
-  class chroot_facet_session_clonable : public chroot::facet::facet
+  class session_clonable : public facet
   {
   public:
     /// A shared_ptr to a chroot facet object.
-    typedef std::shared_ptr<chroot_facet_session_clonable> ptr;
+    typedef std::shared_ptr<session_clonable> ptr;
 
     /// A shared_ptr to a const chroot facet object.
-    typedef std::shared_ptr<const chroot_facet_session_clonable> const_ptr;
+    typedef std::shared_ptr<const session_clonable> const_ptr;
 
   private:
     /// The constructor.
-    chroot_facet_session_clonable ();
+    session_clonable ();
 
   public:
     /// The destructor.
-    virtual ~chroot_facet_session_clonable ();
+    virtual ~session_clonable ();
 
     /**
      * Create a chroot facet.
@@ -72,36 +76,38 @@ namespace sbuild
      * @param root whether or not the user is switching to root.
      */
     virtual void
-    clone_session_setup (chroot::chroot const& parent,
-                         chroot::chroot::ptr&  clone,
-                         std::string const&    session_id,
-                         std::string const&    alias,
-                         std::string const&    user,
-                         bool                  root) const;
+    clone_session_setup (chroot const&      parent,
+                         chroot::ptr&       clone,
+                         std::string const& session_id,
+                         std::string const& alias,
+                         std::string const& user,
+                         bool               root) const;
 
     virtual void
-    setup_env (chroot::chroot const& chroot,
-               environment&          env) const;
+    setup_env (chroot const& chroot,
+               environment&  env) const;
 
-    virtual chroot::chroot::session_flags
-    get_session_flags (chroot::chroot const& chroot) const;
+    virtual chroot::session_flags
+    get_session_flags (chroot const& chroot) const;
 
     virtual void
-    get_details (chroot::chroot const&  chroot,
-                 format_detail&         detail) const;
+    get_details (chroot const&  chroot,
+                 format_detail& detail) const;
 
     virtual void
     get_used_keys (string_list& used_keys) const;
 
     virtual void
-    get_keyfile (chroot::chroot const& chroot,
-                 keyfile&              keyfile) const;
+    get_keyfile (chroot const& chroot,
+                 keyfile&      keyfile) const;
 
     virtual void
-    set_keyfile (chroot::chroot& chroot,
-                 keyfile const&  keyfile);
+    set_keyfile (chroot&        chroot,
+                 keyfile const& keyfile);
   };
 
+}
+}
 }
 
 #endif /* SBUILD_CHROOT_FACET_SESSION_CLONABLE_H */

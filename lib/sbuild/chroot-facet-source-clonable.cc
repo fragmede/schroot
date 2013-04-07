@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
-#include "chroot-facet-session.h"
+#include <sbuild/chroot/facet/session.h>
 #include "chroot-facet-source-clonable.h"
 #include "chroot-facet-source.h"
 #ifdef SBUILD_FEATURE_UNION
@@ -157,7 +157,7 @@ chroot::chroot::session_flags
 chroot_facet_source_clonable::get_session_flags (chroot::chroot const& chroot) const
 {
   // Cloning is only possible for non-source and inactive chroots.
-  if (chroot.get_facet<chroot_facet_session>())
+  if (chroot.get_facet<session>())
     return chroot::chroot::SESSION_NOFLAGS;
   else
     return chroot::chroot::SESSION_CLONE;

@@ -38,8 +38,8 @@
 #endif // SBUILD_FEATURE_BTRFSSNAP
 #include <sbuild/chroot/facet/facet.h>
 #include <sbuild/chroot/facet/personality.h>
-#include "chroot-facet-session.h"
-#include "chroot-facet-session-clonable.h"
+#include <sbuild/chroot/facet/session.h>
+#include <sbuild/chroot/facet/session-clonable.h>
 #include "chroot-facet-source.h"
 #include "chroot-facet-userdata.h"
 #ifdef SBUILD_FEATURE_UNSHARE
@@ -121,7 +121,7 @@ namespace sbuild
 #ifdef SBUILD_FEATURE_UNSHARE
       add_facet(chroot_facet_unshare::create());
 #endif // SBUILD_FEATURE_UNSHARE
-      add_facet(chroot_facet_session_clonable::create());
+      add_facet(facet::session_clonable::create());
       add_facet(chroot_facet_userdata::create());
 
       set_profile(get_profile());
@@ -677,7 +677,7 @@ namespace sbuild
     {
       std::string title(_("Chroot"));
 
-      if (get_facet<chroot_facet_session>())
+      if (get_facet<facet::session>())
         title = _("Session");
       if (get_facet<chroot_facet_source>())
         title = _("Source");
@@ -745,7 +745,7 @@ namespace sbuild
     {
       keyfile.remove_group(chroot.get_name());
 
-      bool session = static_cast<bool>(get_facet<chroot_facet_session>());
+      bool session = static_cast<bool>(get_facet<facet::session>());
 
       if (session)
         keyfile::set_object_value(chroot, &chroot::get_name,
@@ -831,7 +831,7 @@ namespace sbuild
       // Null method for obsolete keys.
       void (chroot::* nullmethod)(bool) = 0;
 
-      bool session = static_cast<bool>(get_facet<chroot_facet_session>());
+      bool session = static_cast<bool>(get_facet<facet::session>());
 
       keyfile::get_object_value(chroot, nullmethod,
                                 keyfile, chroot.get_name(),

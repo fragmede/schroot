@@ -270,7 +270,7 @@ public:
                                                 true);
     if (this->session)
       {
-        CPPUNIT_ASSERT(this->session->get_facet<sbuild::chroot_facet_session>());
+        CPPUNIT_ASSERT(this->session->get_facet<sbuild::chroot::facet::session>());
       }
 
     sbuild::keyfile expected;

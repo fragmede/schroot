@@ -20,8 +20,8 @@
 
 #include <sbuild/chroot/config.h>
 #include <sbuild/chroot/chroot.h>
-#include "chroot-facet-session.h"
-#include "chroot-facet-session-clonable.h"
+#include <sbuild/chroot/facet/session.h>
+#include <sbuild/chroot/facet/session-clonable.h>
 #include "chroot-facet-source-clonable.h"
 #include "fdstream.h"
 #include "keyfile-reader.h"
@@ -609,7 +609,7 @@ namespace sbuild
                                 << "  name/session-id=" << group
                                 << "  namespace=" << chroot_namespace
                                 << "  source-clonable="
-                                << static_cast<bool>(chroot->get_facet<chroot_facet_session_clonable>())
+                                << static_cast<bool>(chroot->get_facet<facet::session_clonable>())
                                 << ")" << endl;
 
           // The "session" namespace is special.  We don't clone for other
@@ -617,19 +617,19 @@ namespace sbuild
           // removed.  Ideally, the chroot state should be stored in the
           // serialised session file (or chroot definition).
           if (chroot_namespace == "session" &&
-              chroot->get_facet<chroot_facet_session_clonable>())
+              chroot->get_facet<facet::session_clonable>())
             {
               chroot = chroot->clone_session("dummy-session-name", "dummy-session-name", "", false);
               assert(chroot);
-              chroot_facet_session::const_ptr psess
-                (chroot->get_facet<chroot_facet_session>());
+              facet::session::const_ptr psess
+                (chroot->get_facet<facet::session>());
               assert(psess);
               chroot->set_name(group);
             }
           else
             {
-              chroot_facet_session::const_ptr psess
-                (chroot->get_facet<chroot_facet_session>());
+              facet::session::const_ptr psess
+                (chroot->get_facet<facet::session>());
               assert(!psess);
             }
 
@@ -642,7 +642,7 @@ namespace sbuild
               (chroot->get_facet<chroot_facet_source_clonable>());
 
             if (psrc && psrc->get_source_clone() &&
-                !chroot->get_facet<chroot_facet_session>())
+                !chroot->get_facet<facet::session>())
               {
                 chroot::ptr source_chroot = chroot->clone_source();
                 if (source_chroot)

@@ -22,8 +22,8 @@
 #include <sbuild/config.h>
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/facet/personality.h>
-#include <sbuild/chroot-facet-session.h>
-#include <sbuild/chroot-facet-session-clonable.h>
+#include <sbuild/chroot/facet/session.h>
+#include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot-facet-source.h>
 #include <sbuild/chroot-facet-source-clonable.h>
 #ifdef SBUILD_FEATURE_UNION
@@ -80,15 +80,15 @@ public:
     // Create new chroot
     this->chroot = sbuild::chroot::chroot::ptr(new T);
     CPPUNIT_ASSERT(this->chroot);
-    CPPUNIT_ASSERT(!(static_cast<bool>(this->chroot->template get_facet<sbuild::chroot_facet_session>())));
+    CPPUNIT_ASSERT(!(static_cast<bool>(this->chroot->template get_facet<sbuild::chroot::facet::session>())));
 
     setup_chroot_props(this->chroot);
 
     CPPUNIT_ASSERT(this->chroot->get_name().length());
 
     // Create new source chroot.
-    sbuild::chroot_facet_session_clonable::const_ptr psess
-      (this->chroot->template get_facet<sbuild::chroot_facet_session_clonable>());
+    sbuild::chroot::facet::session_clonable::const_ptr psess
+      (this->chroot->template get_facet<sbuild::chroot::facet::session_clonable>());
     if (psess)
       {
         this->session = this->chroot->clone_session("test-session-name",
@@ -97,7 +97,7 @@ public:
                                                     false);
         if (this->session)
           {
-            CPPUNIT_ASSERT(this->session->template get_facet<sbuild::chroot_facet_session>());
+            CPPUNIT_ASSERT(this->session->template get_facet<sbuild::chroot::facet::session>());
           }
       }
 
@@ -120,8 +120,8 @@ public:
 
     if (source)
       {
-        sbuild::chroot_facet_session_clonable::const_ptr psess_src
-          (this->source->template get_facet<sbuild::chroot_facet_session_clonable>());
+        sbuild::chroot::facet::session_clonable::const_ptr psess_src
+          (this->source->template get_facet<sbuild::chroot::facet::session_clonable>());
         if (psess_src)
           {
             this->session_source = this->source->clone_session("test-session-name",
@@ -130,7 +130,7 @@ public:
                                                                false);
             if (this->session_source)
               {
-                CPPUNIT_ASSERT(this->session_source->template get_facet<sbuild::chroot_facet_session>());
+                CPPUNIT_ASSERT(this->session_source->template get_facet<sbuild::chroot::facet::session>());
               }
           }
       }
@@ -148,7 +148,7 @@ public:
         un->set_union_type("aufs");
 
         setup_chroot_props(this->chroot_union);
-        CPPUNIT_ASSERT(!(this->chroot_union->template get_facet<sbuild::chroot_facet_session>()));
+        CPPUNIT_ASSERT(!(this->chroot_union->template get_facet<sbuild::chroot::facet::session>()));
         CPPUNIT_ASSERT(this->chroot_union->get_name().length());
 
         un->set_union_overlay_directory("/overlay");
@@ -162,8 +162,8 @@ public:
                                             false);
         this->source_union = chroot_union->clone_source();
 
-        sbuild::chroot_facet_session_clonable::const_ptr puni_sess_src
-          (this->source_union->template get_facet<sbuild::chroot_facet_session_clonable>());
+        sbuild::chroot::facet::session_clonable::const_ptr puni_sess_src
+          (this->source_union->template get_facet<sbuild::chroot::facet::session_clonable>());
         if (puni_sess_src)
           {
             this->session_source_union = this->source_union->clone_session("test-session-name",
@@ -173,10 +173,10 @@ public:
           }
 
         CPPUNIT_ASSERT(this->session_union);
-        CPPUNIT_ASSERT(this->session_union->template get_facet<sbuild::chroot_facet_session>());
+        CPPUNIT_ASSERT(this->session_union->template get_facet<sbuild::chroot::facet::session>());
         CPPUNIT_ASSERT(this->source_union);
         CPPUNIT_ASSERT(this->session_source_union);
-        CPPUNIT_ASSERT(this->session_source_union->template get_facet<sbuild::chroot_facet_session>());
+        CPPUNIT_ASSERT(this->session_source_union->template get_facet<sbuild::chroot::facet::session>());
       }
 #endif // SBUILD_FEATURE_UNION
 

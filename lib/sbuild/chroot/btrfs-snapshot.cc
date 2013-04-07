@@ -20,8 +20,8 @@
 
 #include <chroot/btrfs-snapshot.h>
 #include <sbuild/chroot/directory.h>
-#include "chroot-facet-session.h"
-#include "chroot-facet-session-clonable.h"
+#include <sbuild/chroot/facet/session.h>
+#include <sbuild/chroot/facet/session-clonable.h>
 #include "chroot-facet-source-clonable.h"
 #include "format-detail.h"
 #include "lock.h"
@@ -73,8 +73,8 @@ namespace sbuild
                                    std::string const& user,
                                    bool               root) const
     {
-      chroot_facet_session_clonable::const_ptr psess
-        (get_facet<chroot_facet_session_clonable>());
+      facet::session_clonable::const_ptr psess
+        (get_facet<facet::session_clonable>());
       assert(psess);
 
       ptr session(new btrfs_snapshot(*this));
@@ -186,7 +186,7 @@ namespace sbuild
     {
       session_flags flags = SESSION_NOFLAGS;
 
-      if (get_facet<chroot_facet_session>())
+      if (get_facet<facet::session>())
         flags = flags | SESSION_PURGE;
 
       return flags;
@@ -222,21 +222,21 @@ namespace sbuild
     {
       chroot::get_keyfile(chroot, keyfile);
 
-      bool session = static_cast<bool>(get_facet<chroot_facet_session>());
+      bool issession = static_cast<bool>(get_facet<facet::session>());
 
-      if (!session)
+      if (!issession)
         keyfile::set_object_value(*this,
                                   &btrfs_snapshot::get_source_subvolume,
                                   keyfile, get_name(),
                                   "btrfs-source-subvolume");
 
-      if (!session)
+      if (!issession)
         keyfile::set_object_value(*this,
                                   &btrfs_snapshot::get_snapshot_directory,
                                   keyfile, get_name(),
                                   "btrfs-snapshot-directory");
 
-      if (session)
+      if (issession)
         keyfile::set_object_value(*this,
                                   &btrfs_snapshot::get_snapshot_name,
                                   keyfile, get_name(),
@@ -249,25 +249,25 @@ namespace sbuild
     {
       chroot::set_keyfile(chroot, keyfile);
 
-      bool session = static_cast<bool>(get_facet<chroot_facet_session>());
+      bool issession = static_cast<bool>(get_facet<facet::session>());
 
       keyfile::get_object_value(*this, &btrfs_snapshot::set_source_subvolume,
                                 keyfile, get_name(), "btrfs-source-subvolume",
-                                session ?
+                                issession ?
                                 keyfile::PRIORITY_DISALLOWED :
                                 keyfile::PRIORITY_REQUIRED
                                 ); // Only needed for creating snapshot, not using snapshot
 
       keyfile::get_object_value(*this, &btrfs_snapshot::set_snapshot_directory,
                                 keyfile, get_name(), "btrfs-snapshot-directory",
-                                session ?
+                                issession ?
                                 keyfile::PRIORITY_DISALLOWED :
                                 keyfile::PRIORITY_REQUIRED
                                 ); // Only needed for creating snapshot, not using snapshot
 
       keyfile::get_object_value(*this, &btrfs_snapshot::set_snapshot_name,
                                 keyfile, get_name(), "btrfs-snapshot-name",
-                                session ?
+                                issession ?
                                 keyfile::PRIORITY_REQUIRED :
                                 keyfile::PRIORITY_DISALLOWED);
     }

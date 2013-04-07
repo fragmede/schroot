@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/block-device.h>
-#include "chroot-facet-session-clonable.h"
+#include <sbuild/chroot/facet/session-clonable.h>
 #include "chroot-facet-source-clonable.h"
 #ifdef SBUILD_FEATURE_UNION
 #include "chroot-facet-union.h"
@@ -81,8 +81,8 @@ namespace sbuild
                                  std::string const& user,
                                  bool               root) const
     {
-      chroot_facet_session_clonable::const_ptr psess
-        (get_facet<chroot_facet_session_clonable>());
+      facet::session_clonable::const_ptr psess
+        (get_facet<facet::session_clonable>());
       assert(psess);
 
       ptr session(new block_device(*this));

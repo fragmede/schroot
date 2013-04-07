@@ -19,9 +19,9 @@
 #include <config.h>
 
 #include <sbuild/chroot/lvm-snapshot.h>
-#include <chroot/block-device.h>
-#include "chroot-facet-session.h"
-#include "chroot-facet-session-clonable.h"
+#include <sbuild/chroot/block-device.h>
+#include <sbuild/chroot/facet/session.h>
+#include <sbuild/chroot/facet/session-clonable.h>
 #include "chroot-facet-source-clonable.h"
 #include <sbuild/chroot/facet/mountable.h>
 #include "format-detail.h"
@@ -71,8 +71,8 @@ namespace sbuild
                                  std::string const& user,
                                  bool               root) const
     {
-      chroot_facet_session_clonable::const_ptr psess
-        (get_facet<chroot_facet_session_clonable>());
+      facet::session_clonable::const_ptr psess
+        (get_facet<facet::session_clonable>());
       assert(psess);
 
       ptr session(new lvm_snapshot(*this));
@@ -198,7 +198,7 @@ namespace sbuild
     {
       session_flags flags = SESSION_NOFLAGS;
 
-      if (get_facet<chroot_facet_session>())
+      if (get_facet<facet::session>())
         flags = flags | SESSION_PURGE;
 
       return flags;
@@ -231,7 +231,7 @@ namespace sbuild
     {
       block_device_base::get_keyfile(chroot, keyfile);
 
-      bool session = static_cast<bool>(get_facet<chroot_facet_session>());
+      bool session = static_cast<bool>(get_facet<facet::session>());
 
       if (session)
         keyfile::set_object_value(*this,
@@ -252,7 +252,7 @@ namespace sbuild
     {
       block_device_base::set_keyfile(chroot, keyfile);
 
-      bool session = static_cast<bool>(get_facet<chroot_facet_session>());
+      bool session = static_cast<bool>(get_facet<facet::session>());
 
       keyfile::get_object_value(*this, &lvm_snapshot::set_snapshot_device,
                                 keyfile, get_name(), "lvm-snapshot-device",

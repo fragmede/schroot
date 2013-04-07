@@ -20,8 +20,8 @@
 
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/facet/personality.h>
-#include "chroot-facet-session.h"
-#include "chroot-facet-session-clonable.h"
+#include <sbuild/chroot/facet/session.h>
+#include <sbuild/chroot/facet/session-clonable.h>
 #ifdef SBUILD_FEATURE_UNSHARE
 #include "chroot-facet-unshare.h"
 #endif // SBUILD_FEATURE_UNSHARE
@@ -637,7 +637,7 @@ session::run_impl ()
           /* Create a session using randomly-generated session ID. */
           if (ch->get_session_flags() & chroot::chroot::SESSION_CREATE)
             {
-              assert(ch->get_facet<chroot_facet_session_clonable>());
+              assert(ch->get_facet<chroot::facet::session_clonable>());
 
               std::string new_session_id;
 
@@ -666,7 +666,7 @@ session::run_impl ()
                                          chrootent.alias,
                                          this->authstat->get_ruser(),
                                          (in_root_users || in_root_groups));
-              assert(chroot->get_facet<chroot_facet_session>());
+              assert(chroot->get_facet<chroot::facet::session>());
             }
           assert(chroot);
 
@@ -1369,8 +1369,8 @@ session::run_child (chroot::chroot::ptr& session_chroot)
   env.add("SCHROOT_UID", this->authstat->get_ruid());
   env.add("SCHROOT_GID", this->authstat->get_rgid());
   // Add session ID.
-  chroot_facet_session::const_ptr psess =
-    session_chroot->get_facet<chroot_facet_session>();
+  chroot::facet::session::const_ptr psess =
+    session_chroot->get_facet<chroot::facet::session>();
   if (psess && psess->get_original_name().length())
     env.add("SCHROOT_CHROOT_NAME", psess->get_original_name());
   else
