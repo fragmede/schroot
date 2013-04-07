@@ -20,7 +20,7 @@
 
 #include <sbuild/chroot/block-device-base.h>
 #include <sbuild/chroot/lvm-snapshot.h>
-#include "chroot-facet-mountable.h"
+#include <sbuild/chroot/facet/mountable.h>
 #include "format-detail.h"
 #include "lock.h"
 #include "util.h"
@@ -42,7 +42,7 @@ namespace sbuild
       chroot(),
       device()
     {
-      add_facet(chroot_facet_mountable::create());
+      add_facet(facet::mountable::create());
     }
 
     block_device_base::block_device_base
@@ -74,8 +74,8 @@ namespace sbuild
     std::string
     block_device_base::get_path () const
     {
-      chroot_facet_mountable::const_ptr pmnt
-        (get_facet<chroot_facet_mountable>());
+      facet::mountable::const_ptr pmnt
+        (get_facet<facet::mountable>());
 
       std::string path(get_mount_location());
 

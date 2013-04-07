@@ -23,7 +23,7 @@
 #include "chroot-facet-session.h"
 #include "chroot-facet-session-clonable.h"
 #include "chroot-facet-source-clonable.h"
-#include "chroot-facet-mountable.h"
+#include <sbuild/chroot/facet/mountable.h>
 #include "format-detail.h"
 
 #include <cassert>
@@ -109,8 +109,8 @@ namespace sbuild
 
       this->snapshot_device = snapshot_device;
 
-      chroot_facet_mountable::ptr pmnt
-        (get_facet<chroot_facet_mountable>());
+      facet::mountable::ptr pmnt
+        (get_facet<facet::mountable>());
       if (pmnt)
         pmnt->set_mount_device(this->snapshot_device);
     }

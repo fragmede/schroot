@@ -21,7 +21,7 @@
 #include <sbuild/chroot/loopback.h>
 #include "chroot-facet-session-clonable.h"
 #include "chroot-facet-source-clonable.h"
-#include "chroot-facet-mountable.h"
+#include <sbuild/chroot/facet/mountable.h>
 #ifdef SBUILD_FEATURE_UNION
 #include "chroot-facet-union.h"
 #endif // SBUILD_FEATURE_UNION
@@ -47,7 +47,7 @@ namespace sbuild
       chroot(),
       filename()
     {
-      add_facet(chroot_facet_mountable::create());
+      add_facet(facet::mountable::create());
 #ifdef SBUILD_FEATURE_UNION
       add_facet(chroot_facet_union::create());
 #endif // SBUILD_FEATURE_UNION
@@ -117,8 +117,8 @@ namespace sbuild
     std::string
     loopback::get_path () const
     {
-      chroot_facet_mountable::const_ptr pmnt
-        (get_facet<chroot_facet_mountable>());
+      facet::mountable::const_ptr pmnt
+        (get_facet<facet::mountable>());
 
       std::string path(get_mount_location());
 

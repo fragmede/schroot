@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/lvm-snapshot.h>
-#include <sbuild/chroot-facet-mountable.h>
+#include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
 #include <sbuild/util.h>
@@ -89,7 +89,7 @@ public:
     c->set_device("/dev/volgroup/testdev");
     c->set_snapshot_options("--size 1G");
 
-    sbuild::chroot_facet_mountable::ptr pmnt(chroot->get_facet<sbuild::chroot_facet_mountable>());
+    sbuild::chroot::facet::mountable::ptr pmnt(chroot->get_facet<sbuild::chroot::facet::mountable>());
     CPPUNIT_ASSERT(pmnt);
 
     pmnt->set_mount_options("-t jfs -o quota,rw");

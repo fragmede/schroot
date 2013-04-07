@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
-#include "chroot-facet-mountable.h"
+#include <sbuild/chroot/facet/mountable.h>
 #include "chroot-facet-session.h"
 #include "chroot-facet-session-clonable.h"
 #include "chroot-facet-source-clonable.h"
@@ -153,8 +153,8 @@ chroot_facet_session_clonable::clone_session_setup (chroot::chroot const& parent
   std::shared_ptr<chroot::block_device_base> blockdevbase(std::dynamic_pointer_cast<chroot::block_device_base>(clone));
   if (blockdevbase)
     {
-      chroot_facet_mountable::ptr pmnt
-        (clone->get_facet<chroot_facet_mountable>());
+      chroot::facet::mountable::ptr pmnt
+        (clone->get_facet<chroot::facet::mountable>());
       if (pmnt)
         pmnt->set_mount_device(blockdevbase->get_device());
     }
@@ -165,8 +165,8 @@ chroot_facet_session_clonable::clone_session_setup (chroot::chroot const& parent
   std::shared_ptr<chroot::loopback> loopback(std::dynamic_pointer_cast<chroot::loopback>(clone));
   if (loopback)
     {
-      chroot_facet_mountable::ptr pmnt
-        (clone->get_facet<chroot_facet_mountable>());
+      chroot::facet::mountable::ptr pmnt
+        (clone->get_facet<chroot::facet::mountable>());
       if (pmnt)
         pmnt->set_mount_device(loopback->get_filename());
     }

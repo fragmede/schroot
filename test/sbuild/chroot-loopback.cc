@@ -23,7 +23,7 @@
 #include <set>
 
 #include <sbuild/chroot/loopback.h>
-#include <sbuild/chroot-facet-mountable.h>
+#include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
 
@@ -107,7 +107,7 @@ public:
     std::shared_ptr<sbuild::chroot::loopback> c = std::dynamic_pointer_cast<sbuild::chroot::loopback>(chroot);
     c->set_filename(loopback_file);
 
-    sbuild::chroot_facet_mountable::ptr pmnt(chroot->get_facet<sbuild::chroot_facet_mountable>());
+    sbuild::chroot::facet::mountable::ptr pmnt(chroot->get_facet<sbuild::chroot::facet::mountable>());
     CPPUNIT_ASSERT(pmnt);
 
     pmnt->set_mount_options("-t jfs -o quota,rw");
@@ -126,7 +126,7 @@ public:
   void
   test_mount_options()
   {
-    sbuild::chroot_facet_mountable::ptr pmnt(chroot->get_facet<sbuild::chroot_facet_mountable>());
+    sbuild::chroot::facet::mountable::ptr pmnt(chroot->get_facet<sbuild::chroot::facet::mountable>());
     CPPUNIT_ASSERT(pmnt);
     pmnt->set_mount_options("-o opt1,opt2");
     CPPUNIT_ASSERT(pmnt->get_mount_options() == "-o opt1,opt2");

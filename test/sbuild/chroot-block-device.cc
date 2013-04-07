@@ -22,7 +22,7 @@
 #include <set>
 
 #include <sbuild/chroot/block-device.h>
-#include <sbuild/chroot-facet-mountable.h>
+#include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
 
@@ -99,7 +99,7 @@ public:
 
     c->set_device("/dev/testdev");
 
-    sbuild::chroot_facet_mountable::ptr pmnt(chroot->get_facet<sbuild::chroot_facet_mountable>());
+    sbuild::chroot::facet::mountable::ptr pmnt(chroot->get_facet<sbuild::chroot::facet::mountable>());
     CPPUNIT_ASSERT(pmnt);
 
     pmnt->set_mount_options("-t jfs -o quota,rw");
@@ -118,7 +118,7 @@ public:
   void
   test_mount_options()
   {
-    sbuild::chroot_facet_mountable::ptr pmnt(chroot->get_facet<sbuild::chroot_facet_mountable>());
+    sbuild::chroot::facet::mountable::ptr pmnt(chroot->get_facet<sbuild::chroot::facet::mountable>());
     CPPUNIT_ASSERT(pmnt);
 
     pmnt->set_mount_options("-o opt1,opt2");
