@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
-#include "chroot-facet-personality.h"
+#include <sbuild/chroot/facet/personality.h>
 #include "chroot-facet-session.h"
 #include "chroot-facet-session-clonable.h"
 #ifdef SBUILD_FEATURE_UNSHARE
@@ -1284,8 +1284,8 @@ session::run_child (chroot::chroot::ptr& session_chroot)
 
   /* Set the process execution domain. */
   /* Will throw on failure. */
-  chroot_facet_personality::const_ptr pfac =
-    session_chroot->get_facet<chroot_facet_personality>();
+  chroot::facet::personality::const_ptr pfac =
+    session_chroot->get_facet<chroot::facet::personality>();
   if (pfac)
     {
       pfac->get_persona().set();

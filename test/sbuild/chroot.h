@@ -21,7 +21,7 @@
 
 #include <sbuild/config.h>
 #include <sbuild/chroot/chroot.h>
-#include <sbuild/chroot-facet-personality.h>
+#include <sbuild/chroot/facet/personality.h>
 #include <sbuild/chroot-facet-session.h>
 #include <sbuild/chroot-facet-session-clonable.h>
 #include <sbuild/chroot-facet-source.h>
@@ -198,8 +198,8 @@ public:
     chroot->set_preserve_environment(false);
     chroot->set_default_shell("/bin/testshell");
 
-    sbuild::chroot_facet_personality::ptr pfac
-      (chroot->get_facet<sbuild::chroot_facet_personality>());
+    sbuild::chroot::facet::personality::ptr pfac
+      (chroot->get_facet<sbuild::chroot::facet::personality>());
     if (pfac)
       pfac->set_persona(sbuild::personality("undefined"));
 

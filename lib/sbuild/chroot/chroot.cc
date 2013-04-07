@@ -37,7 +37,7 @@
 #include <sbuild/chroot/btrfs-snapshot.h>
 #endif // SBUILD_FEATURE_BTRFSSNAP
 #include <sbuild/chroot/facet/facet.h>
-#include "chroot-facet-personality.h"
+#include <sbuild/chroot/facet/personality.h>
 #include "chroot-facet-session.h"
 #include "chroot-facet-session-clonable.h"
 #include "chroot-facet-source.h"
@@ -117,7 +117,7 @@ namespace sbuild
       message_verbosity(VERBOSITY_NORMAL),
       facets()
     {
-      add_facet(chroot_facet_personality::create());
+      add_facet(facet::personality::create());
 #ifdef SBUILD_FEATURE_UNSHARE
       add_facet(chroot_facet_unshare::create());
 #endif // SBUILD_FEATURE_UNSHARE
