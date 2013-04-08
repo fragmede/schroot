@@ -31,6 +31,9 @@ namespace sbuild
 {
   namespace chroot
   {
+    /**
+     * Facets of functionality and state of individual chroots
+     */
     namespace facet
     {
 
