@@ -27,11 +27,11 @@
 #endif // SBUILD_FEATURE_UNSHARE
 #include <sbuild/chroot/facet/userdata.h>
 #ifdef SBUILD_FEATURE_PAM
-#include "auth-pam.h"
-#include "auth-pam-conv.h"
-#include "auth-pam-conv-tty.h"
+#include <sbuild/auth/pam.h>
+#include <sbuild/auth/pam-conv.h>
+#include <sbuild/auth/pam-conv-tty.h>
 #else
-#include "auth-null.h"
+#include <sbuild/auth/deny.h>
 #endif // SBUILD_FEATURE_PAM
 #include "ctty.h"
 #include "feature.h"
@@ -189,9 +189,9 @@ session::session (std::string const&  service,
                   chroot_list const&  chroots):
   authstat(
 #ifdef SBUILD_FEATURE_PAM
-           auth_pam::create(service)
+           auth::pam::create(service)
 #else
-           auth_null::create(service)
+           auth::deny::create(service)
 #endif // SBUILD_FEATURE_PAM
            ),
   chroots(chroots),
@@ -218,14 +218,14 @@ session::~session ()
 {
 }
 
-auth::ptr const&
+auth::auth::ptr const&
 session::get_auth () const
 {
   return this->authstat;
 }
 
 void
-session::set_auth (auth::ptr& auth)
+session::set_auth (auth::auth::ptr& auth)
 {
   this->authstat = auth;
 }
@@ -475,8 +475,8 @@ session::get_chroot_membership (chroot::chroot::ptr const& chroot,
 
 }
 
-auth::status
-session::get_chroot_auth_status (auth::status               status,
+auth::auth::status
+session::get_chroot_auth_status (auth::auth::status         status,
                                  chroot::chroot::ptr const& chroot) const
 {
   bool in_users = false;
@@ -497,30 +497,30 @@ session::get_chroot_auth_status (auth::status               status,
        in_root_users == true || in_root_groups == true) &&
       this->authstat->get_ruid() == this->authstat->get_uid())
     {
-      status = auth::change_auth(status, auth::STATUS_NONE);
+      status = auth::auth::change_auth(status, auth::auth::STATUS_NONE);
     }
   else if ((in_root_users == true || in_root_groups == true) &&
            this->authstat->get_uid() == 0)
     {
-      status = auth::change_auth(status, auth::STATUS_NONE);
+      status = auth::auth::change_auth(status, auth::auth::STATUS_NONE);
     }
   else if (in_users == true || in_groups == true)
     // Auth required if not in root group
     {
-      status = auth::change_auth(status, auth::STATUS_USER);
+      status = auth::auth::change_auth(status, auth::auth::STATUS_USER);
     }
   else // Not in any groups
     {
       if (this->authstat->get_ruid() == 0)
-        status = auth::change_auth(status, auth::STATUS_USER);
+        status = auth::auth::change_auth(status, auth::auth::STATUS_USER);
       else
-        status = auth::change_auth(status, auth::STATUS_FAIL);
+        status = auth::auth::change_auth(status, auth::auth::STATUS_FAIL);
     }
 
   return status;
 }
 
-auth::status
+auth::auth::status
 session::get_auth_status () const
 {
   assert(!this->chroots.empty());
@@ -533,14 +533,14 @@ session::get_auth_status () const
    * root groups lists.
    */
 
-  auth::status status = auth::STATUS_NONE;
+  auth::auth::status status = auth::auth::STATUS_NONE;
 
   /** @todo Use set difference rather than iteration and
    * is_group_member.
    */
   for (const auto& chrootent : this->chroots)
-    status = auth::change_auth(status,
-                               get_chroot_auth_status(status, chrootent.chroot));
+    status = auth::auth::change_auth(status,
+                                     get_chroot_auth_status(status, chrootent.chroot));
 
   return status;
 }
@@ -571,20 +571,20 @@ session::run ()
              already bailing out, and an error may already
              have been raised */
         }
-      catch (auth::error const& e)
+      catch (auth::auth::error const& e)
         {
           try
             {
               this->authstat->cred_delete();
             }
-          catch (auth::error const& discard)
+          catch (auth::auth::error const& discard)
             {
             }
           throw;
         }
       this->authstat->cred_delete();
     }
-  catch (auth::error const& e)
+  catch (auth::auth::error const& e)
     {
       try
         {
@@ -592,7 +592,7 @@ session::run ()
              and an error may already have been raised */
           this->authstat->stop();
         }
-      catch (auth::error const& discard)
+      catch (auth::auth::error const& discard)
         {
         }
       throw;

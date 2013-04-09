@@ -18,18 +18,26 @@
 
 #include <config.h>
 
-#include "auth-pam-message.h"
+#include <sbuild/auth/pam-message.h>
 
 using namespace sbuild;
 
-auth_pam_message::auth_pam_message (message_type       type,
-                                    std::string const& message):
-  type(type),
-  message(message),
-  response()
+namespace sbuild
 {
-}
+  namespace auth
+  {
 
-auth_pam_message::~auth_pam_message ()
-{
+    pam_message::pam_message (message_type       type,
+                              std::string const& message):
+      type(type),
+      message(message),
+      response()
+    {
+    }
+
+    pam_message::~pam_message ()
+    {
+    }
+
+  }
 }

@@ -22,9 +22,9 @@
 
 #include <sbuild/config.h>
 #ifdef SBUILD_FEATURE_PAM
-#include <sbuild/auth-pam.h>
-#include <sbuild/auth-pam-conv.h>
-#include <sbuild/auth-pam-conv-tty.h>
+#include <sbuild/auth/pam.h>
+#include <sbuild/auth/pam-conv.h>
+#include <sbuild/auth/pam-conv-tty.h>
 #endif // SBUILD_FEATURE_PAM
 #include <sbuild/keyfile-writer.h>
 
@@ -378,12 +378,12 @@ main::add_session_auth ()
   // continue to use the default handler
 
 #ifdef SBUILD_FEATURE_PAM
-  sbuild::auth::ptr auth = sbuild::auth_pam::create("schroot");
+  sbuild::auth::auth::ptr auth = sbuild::auth::pam::create("schroot");
 
-  sbuild::auth_pam_conv::auth_ptr pam_auth =
-    std::dynamic_pointer_cast<sbuild::auth_pam>(auth);
+  sbuild::auth::pam_conv::auth_ptr pam_auth =
+    std::dynamic_pointer_cast<sbuild::auth::pam>(auth);
 
-  sbuild::auth_pam_conv::ptr conv = sbuild::auth_pam_conv_tty::create(pam_auth);
+  sbuild::auth::pam_conv::ptr conv = sbuild::auth::pam_conv_tty::create(pam_auth);
 
 
   /* Set up authentication timeouts. */

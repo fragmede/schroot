@@ -36,7 +36,6 @@
 using std::cout;
 using std::endl;
 using sbuild::_;
-using sbuild::auth;
 using boost::format;
 using namespace dchroot_dsa;
 

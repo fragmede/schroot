@@ -18,14 +18,22 @@
 
 #include <config.h>
 
-#include "auth-pam-conv.h"
+#include <sbuild/auth/pam-conv.h>
 
 using namespace sbuild;
 
-auth_pam_conv::auth_pam_conv ()
+namespace sbuild
 {
-}
+  namespace auth
+  {
 
-auth_pam_conv::~auth_pam_conv ()
-{
+    pam_conv::pam_conv ()
+    {
+    }
+
+    pam_conv::~pam_conv ()
+    {
+    }
+
+  }
 }

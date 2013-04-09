@@ -19,7 +19,7 @@
 #ifndef SBUILD_SESSION_H
 #define SBUILD_SESSION_H
 
-#include <sbuild/auth.h>
+#include <sbuild/auth/auth.h>
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/custom-error.h>
 
@@ -126,7 +126,7 @@ namespace sbuild
      *
      * @returns a shared_ptr to the authentication state.
      */
-    auth::ptr const&
+    auth::auth::ptr const&
     get_auth () const;
 
     /**
@@ -135,7 +135,7 @@ namespace sbuild
      * @param auth a shared_ptr to the authentication state.
      */
     void
-    set_auth (auth::ptr& auth);
+    set_auth (auth::auth::ptr& auth);
 
     /**
      * Get the chroots to use in this session.
@@ -314,8 +314,8 @@ namespace sbuild
      * users, groups, root-users and root-groups membership into
      * account.
      */
-    virtual auth::status
-    get_chroot_auth_status (auth::status               status,
+    virtual auth::auth::status
+    get_chroot_auth_status (auth::auth::status         status,
                             chroot::chroot::ptr const& chroot) const;
 
   public:
@@ -324,14 +324,14 @@ namespace sbuild
      * root-users and root-groups membership of all chroots specified
      * into account.
      */
-    virtual sbuild::auth::status
+    virtual auth::auth::status
     get_auth_status () const;
 
     /**
      * Run a session.  The user will be asked for authentication if
      * required, and then the run_impl virtual method will be called.
      *
-     * An auth::error will be thrown on failure.
+     * An auth::auth::error will be thrown on failure.
      */
     void
     run ();
@@ -551,7 +551,7 @@ namespace sbuild
                           struct sigaction *saved_signal);
 
     /// Authentication state.
-    auth::ptr        authstat;
+    auth::auth::ptr  authstat;
     /// The chroots to run the session operation in.
     chroot_list      chroots;
     /// The current chroot status.

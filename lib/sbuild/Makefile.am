@@ -19,8 +19,8 @@
 lib_LTLIBRARIES = lib/sbuild/libsbuild.la
 
 lib_sbuild_public_h_sources =				\
-	lib/sbuild/auth.h				\
-	lib/sbuild/auth-null.h				\
+	lib/sbuild/auth/auth.h				\
+	lib/sbuild/auth/deny.h				\
 	lib/sbuild/chroot/chroot.h			\
 	lib/sbuild/chroot/custom.h			\
 	lib/sbuild/chroot/directory.h			\
@@ -63,10 +63,10 @@ lib_sbuild_public_h_sources =				\
 
 if BUILD_PAM
 lib_sbuild_public_auth_pam_h_sources =	\
-	lib/sbuild/auth-pam-conv.h	\
-	lib/sbuild/auth-pam-conv-tty.h	\
-	lib/sbuild/auth-pam.h		\
-	lib/sbuild/auth-pam-message.h
+	lib/sbuild/auth/pam-conv.h	\
+	lib/sbuild/auth/pam-conv-tty.h	\
+	lib/sbuild/auth/pam.h		\
+	lib/sbuild/auth/pam-message.h
 endif
 
 if BUILD_BLOCKDEV
@@ -104,8 +104,8 @@ lib_sbuild_public_unshare_h_sources =	\
 endif
 
 lib_sbuild_public_cc_sources =				\
-	lib/sbuild/auth.cc				\
-	lib/sbuild/auth-null.cc				\
+	lib/sbuild/auth/auth.cc				\
+	lib/sbuild/auth/deny.cc				\
 	lib/sbuild/chroot/chroot.cc			\
 	lib/sbuild/chroot/custom.cc			\
 	lib/sbuild/chroot/directory.cc			\
@@ -139,11 +139,11 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/util.cc
 
 if BUILD_PAM
-lib_sbuild_public_auth_pam_cc_sources =		\
-	lib/sbuild/auth-pam-conv.cc		\
-	lib/sbuild/auth-pam-conv-tty.cc		\
-	lib/sbuild/auth-pam.cc			\
-	lib/sbuild/auth-pam-message.cc
+lib_sbuild_public_auth_pam_cc_sources =	\
+	lib/sbuild/auth/pam-conv.cc	\
+	lib/sbuild/auth/pam-conv-tty.cc	\
+	lib/sbuild/auth/pam.cc		\
+	lib/sbuild/auth/pam-message.cc
 endif
 
 if BUILD_BLOCKDEV
