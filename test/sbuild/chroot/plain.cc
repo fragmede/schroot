@@ -22,7 +22,7 @@
 #include <sbuild/chroot/plain.h>
 #include <sbuild/keyfile-writer.h>
 
-#include <test/sbuild/chroot.h>
+#include <test/sbuild/chroot/chroot.h>
 
 #include <algorithm>
 #include <set>

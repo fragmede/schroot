@@ -27,7 +27,7 @@
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
 
-#include <test/sbuild/chroot.h>
+#include <test/sbuild/chroot/chroot.h>
 
 #include <cppunit/extensions/HelperMacros.h>
 

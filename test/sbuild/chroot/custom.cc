@@ -25,7 +25,7 @@
 #include <sbuild/chroot/facet/userdata.h>
 #include <sbuild/keyfile-writer.h>
 
-#include <test/sbuild/chroot.h>
+#include <test/sbuild/chroot/chroot.h>
 
 #include <algorithm>
 #include <set>

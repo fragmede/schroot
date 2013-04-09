@@ -18,12 +18,13 @@
 
 #include <config.h>
 
-#include <sbuild/chroot/btrfs-snapshot.h>
+#include <sbuild/chroot/lvm-snapshot.h>
+#include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
 #include <sbuild/util.h>
 
-#include <test/sbuild/chroot.h>
+#include <test/sbuild/chroot/chroot.h>
 
 #include <algorithm>
 #include <set>
@@ -34,26 +35,22 @@ using namespace CppUnit;
 
 using sbuild::_;
 
-class chroot_btrfs_snapshot : public sbuild::chroot::btrfs_snapshot
+class chroot_lvm_snapshot : public sbuild::chroot::lvm_snapshot
 {
 public:
-  chroot_btrfs_snapshot():
-    sbuild::chroot::btrfs_snapshot()
+  chroot_lvm_snapshot():
+    sbuild::chroot::lvm_snapshot()
   {}
 
-  virtual ~chroot_btrfs_snapshot()
+  virtual ~chroot_lvm_snapshot()
   {}
 };
 
-class test_chroot_btrfs_snapshot : public test_chroot_base<chroot_btrfs_snapshot>
+class test_chroot_lvm_snapshot : public test_chroot_base<chroot_lvm_snapshot>
 {
-  CPPUNIT_TEST_SUITE(test_chroot_btrfs_snapshot);
-  CPPUNIT_TEST(test_source_subvolume);
-  CPPUNIT_TEST(test_snapshot_directory);
-  CPPUNIT_TEST(test_snapshot_name);
-  CPPUNIT_TEST_EXCEPTION(test_source_subvolume_error, sbuild::chroot::chroot::error);
-  CPPUNIT_TEST_EXCEPTION(test_snapshot_directory_error, sbuild::chroot::chroot::error);
-  CPPUNIT_TEST_EXCEPTION(test_snapshot_name_error, sbuild::chroot::chroot::error);
+  CPPUNIT_TEST_SUITE(test_chroot_lvm_snapshot);
+  CPPUNIT_TEST(test_snapshot_device);
+  CPPUNIT_TEST(test_snapshot_options);
   CPPUNIT_TEST(test_chroot_type);
   CPPUNIT_TEST(test_setup_env);
   CPPUNIT_TEST(test_setup_env_session);
@@ -70,13 +67,13 @@ class test_chroot_btrfs_snapshot : public test_chroot_base<chroot_btrfs_snapshot
   CPPUNIT_TEST_SUITE_END();
 
 public:
-  test_chroot_btrfs_snapshot():
-    test_chroot_base<chroot_btrfs_snapshot>()
+  test_chroot_lvm_snapshot():
+    test_chroot_base<chroot_lvm_snapshot>()
   {}
 
   void setUp()
   {
-    test_chroot_base<chroot_btrfs_snapshot>::setUp();
+    test_chroot_base<chroot_lvm_snapshot>::setUp();
     CPPUNIT_ASSERT(chroot);
     CPPUNIT_ASSERT(session);
     CPPUNIT_ASSERT(source);
@@ -85,143 +82,124 @@ public:
 
   virtual void setup_chroot_props (sbuild::chroot::chroot::ptr& chroot)
   {
-    test_chroot_base<chroot_btrfs_snapshot>::setup_chroot_props(chroot);
+    test_chroot_base<chroot_lvm_snapshot>::setup_chroot_props(chroot);
 
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot::lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::lvm_snapshot>(chroot);
 
-    c->set_source_subvolume("/srv/chroot/sid");
-    c->set_snapshot_directory("/srv/chroot/snapshot");
+    c->set_device("/dev/volgroup/testdev");
+    c->set_snapshot_options("--size 1G");
+
+    sbuild::chroot::facet::mountable::ptr pmnt(chroot->get_facet<sbuild::chroot::facet::mountable>());
+    CPPUNIT_ASSERT(pmnt);
+
+    pmnt->set_mount_options("-t jfs -o quota,rw");
+    pmnt->set_location("/squeeze");
+    //c->set_snapshot_device("/dev/volgroup/snaptestdev");
   }
 
   void
-  test_source_subvolume()
+  test_snapshot_device()
   {
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot::lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::lvm_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_source_subvolume("/srv/chroot/chroot");
-    CPPUNIT_ASSERT(c->get_source_subvolume() == "/srv/chroot/chroot");
+    c->set_snapshot_device("/dev/volgroup/some/snapshot/device");
+    CPPUNIT_ASSERT(c->get_snapshot_device() == "/dev/volgroup/some/snapshot/device");
   }
 
   void
-  test_snapshot_directory()
+  test_snapshot_options()
   {
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot::lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::lvm_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_snapshot_directory("/srv/chroot/snapshot2");
-    CPPUNIT_ASSERT(c->get_snapshot_directory() == "/srv/chroot/snapshot2");
-  }
-
-  void
-  test_snapshot_name()
-  {
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_snapshot_directory("/srv/chroot/snapshot2/test-session-id");
-    CPPUNIT_ASSERT(c->get_snapshot_directory() == "/srv/chroot/snapshot2/test-session-id");
-  }
-
-  void
-  test_source_subvolume_error()
-  {
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_source_subvolume("chroot/invalid");
-  }
-
-  void
-  test_snapshot_directory_error()
-  {
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_snapshot_directory("chroot/invalid");
-  }
-
-  void
-  test_snapshot_name_error()
-  {
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_snapshot_name("invalid");
+    c->set_snapshot_options("-o opt1,opt2");
+    CPPUNIT_ASSERT(c->get_snapshot_options() == "-o opt1,opt2");
   }
 
   void test_chroot_type()
   {
-    CPPUNIT_ASSERT(chroot->get_chroot_type() == "btrfs-snapshot");
+    CPPUNIT_ASSERT(chroot->get_chroot_type() == "lvm-snapshot");
   }
 
   void setup_env_gen(sbuild::environment &expected)
   {
     setup_env_chroot(expected);
+    expected.add("CHROOT_LOCATION",       "/squeeze");
     expected.add("CHROOT_MOUNT_LOCATION", "/mnt/mount-location");
-    expected.add("CHROOT_PATH",           "/mnt/mount-location");
+    expected.add("CHROOT_PATH",           "/mnt/mount-location/squeeze");
+    expected.add("CHROOT_DEVICE",         "/dev/volgroup/testdev");
+    expected.add("CHROOT_MOUNT_OPTIONS",  "-t jfs -o quota,rw");
   }
 
   void test_setup_env()
   {
     sbuild::environment expected;
     setup_env_gen(expected);
-    expected.add("CHROOT_TYPE",           "btrfs-snapshot");
-    expected.add("CHROOT_BTRFS_SOURCE_SUBVOLUME",       "/srv/chroot/sid");
-    expected.add("CHROOT_BTRFS_SNAPSHOT_DIRECTORY", "/srv/chroot/snapshot");
+    expected.add("CHROOT_TYPE",           "lvm-snapshot");
+    expected.add("CHROOT_LVM_SNAPSHOT_OPTIONS", "--size 1G");
     expected.add("CHROOT_SESSION_CLONE",  "true");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_env(chroot, expected);
+    test_chroot_base<chroot_lvm_snapshot>::test_setup_env(chroot, expected);
   }
 
   void test_setup_env_session()
   {
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
+    std::shared_ptr<sbuild::chroot::lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::lvm_snapshot>(chroot);
 
     sbuild::environment expected;
     setup_env_gen(expected);
-    expected.add("CHROOT_TYPE",           "btrfs-snapshot");
+    expected.add("CHROOT_TYPE",           "lvm-snapshot");
     expected.add("SESSION_ID",            "test-session-name");
     expected.add("CHROOT_ALIAS",          "test-session-name");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(session chroot)"));
-    expected.add("CHROOT_BTRFS_SOURCE_SUBVOLUME",       "/srv/chroot/sid");
-    expected.add("CHROOT_BTRFS_SNAPSHOT_DIRECTORY", "/srv/chroot/snapshot");
-    expected.add("CHROOT_BTRFS_SNAPSHOT_NAME", "/srv/chroot/snapshot/test-session-name");
+    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/volgroup/test-session-name");
+    expected.add("CHROOT_LVM_SNAPSHOT_NAME",    "test-session-name");
+    expected.add("CHROOT_LVM_SNAPSHOT_DEVICE",  "/dev/volgroup/test-session-name");
+    expected.add("CHROOT_LVM_SNAPSHOT_OPTIONS", "--size 1G");
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "true");
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_env(session, expected);
+    test_chroot_base<chroot_lvm_snapshot>::test_setup_env(session, expected);
   }
 
   void test_setup_env_source()
   {
     sbuild::environment expected;
     setup_env_gen(expected);
-    expected.add("CHROOT_TYPE",           "directory");
+    expected.add("CHROOT_TYPE",           "block-device");
     expected.add("CHROOT_NAME",           "test-name");
     expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot)"));
-    expected.add("CHROOT_DIRECTORY",       "/srv/chroot/sid");
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_env(source, expected);
+    test_chroot_base<chroot_lvm_snapshot>::test_setup_env(source, expected);
   }
 
   void test_setup_env_session_source()
   {
     sbuild::environment expected;
     setup_env_gen(expected);
-    expected.add("CHROOT_TYPE",           "directory");
+    expected.add("CHROOT_TYPE",           "block-device");
     expected.add("CHROOT_NAME",           "test-name");
-    expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot)"));
-    expected.add("CHROOT_DIRECTORY",       "/srv/chroot/sid");
+    expected.add("SESSION_ID",            "test-session-name");
+    expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot) (session chroot)"));
+    expected.add("CHROOT_ALIAS",          "test-session-name");
+    expected.add("CHROOT_MOUNT_DEVICE",   "/dev/volgroup/testdev");
     expected.add("CHROOT_SESSION_CLONE",  "false");
-    expected.add("CHROOT_SESSION_CREATE", "true");
+    expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_env(source, expected);
+    test_chroot_base<chroot_lvm_snapshot>::test_setup_env(session_source, expected);
   }
 
-  void setup_keyfile_btrfs(sbuild::keyfile &expected, std::string group)
+  void setup_keyfile_lvm(sbuild::keyfile &expected, std::string group)
   {
+    expected.set_value(group, "device", "/dev/volgroup/testdev");
+    expected.set_value(group, "location", "/squeeze");
+    expected.set_value(group, "mount-options", "-t jfs -o quota,rw");
   }
 
   void test_setup_keyfile()
@@ -230,12 +208,11 @@ public:
     std::string group = chroot->get_name();
     setup_keyfile_chroot(expected, group);
     setup_keyfile_source(expected, group);
-    setup_keyfile_btrfs(expected, group);
-    expected.set_value(group, "type", "btrfs-snapshot");
-    expected.set_value(group, "btrfs-source-subvolume", "/srv/chroot/sid");
-    expected.set_value(group, "btrfs-snapshot-directory", "/srv/chroot/snapshot");
+    setup_keyfile_lvm(expected, group);
+    expected.set_value(group, "type", "lvm-snapshot");
+    expected.set_value(group, "lvm-snapshot-options", "--size 1G");
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_keyfile
+    test_chroot_base<chroot_lvm_snapshot>::test_setup_keyfile
       (chroot,expected, chroot->get_name());
   }
 
@@ -244,16 +221,17 @@ public:
     sbuild::keyfile expected;
     const std::string group(session->get_name());
     setup_keyfile_session(expected, group);
-    setup_keyfile_btrfs(expected, group);
-    expected.set_value(group, "type", "btrfs-snapshot");
+    setup_keyfile_lvm(expected, group);
+    expected.set_value(group, "type", "lvm-snapshot");
     expected.set_value(group, "name", "test-session-name");
     expected.set_value(group, "selected-name", "test-session-name");
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(session chroot)"));
     expected.set_value(group, "aliases", "");
-    expected.set_value(group, "btrfs-snapshot-name", "/srv/chroot/snapshot/test-session-name");
+    expected.set_value(group, "lvm-snapshot-device", "/dev/volgroup/test-session-name");
+    expected.set_value(group, "mount-device", "/dev/volgroup/test-session-name");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_keyfile
+    test_chroot_base<chroot_lvm_snapshot>::test_setup_keyfile
       (session, expected, group);
   }
 
@@ -262,14 +240,13 @@ public:
     sbuild::keyfile expected;
     const std::string group(source->get_name());
     setup_keyfile_chroot(expected, group);
-    setup_keyfile_btrfs(expected, group);
-    expected.set_value(group, "type", "directory");
+    setup_keyfile_lvm(expected, group);
+    expected.set_value(group, "type", "block-device");
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
-    expected.set_value(group, "aliases", "test-alias-1-source,test-alias-2-source");
-    expected.set_value(group, "directory", "/srv/chroot/sid");
+    expected.set_value(group, "aliases", "test-name-source,test-alias-1-source,test-alias-2-source");
     setup_keyfile_source_clone(expected, group);
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_keyfile
+    test_chroot_base<chroot_lvm_snapshot>::test_setup_keyfile
       (source, expected, group);
   }
 
@@ -278,15 +255,13 @@ public:
     sbuild::keyfile expected;
     const std::string group(source->get_name());
     setup_keyfile_chroot(expected, group);
-    setup_keyfile_btrfs(expected, group);
-    expected.set_value(group, "type", "directory");
-    expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
-    expected.set_value(group, "aliases", "test-alias-1-source,test-alias-2-source");
-    expected.set_value(group, "directory", "/srv/chroot/sid");
+    setup_keyfile_lvm(expected, group);
+    expected.set_value(group, "type", "block-device");
+    expected.set_value(group, "mount-device", "/dev/volgroup/testdev");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
     setup_keyfile_session_source_clone(expected, group);
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_keyfile
+    test_chroot_base<chroot_lvm_snapshot>::test_setup_keyfile
       (session_source, expected, group);
   }
 
@@ -331,4 +306,4 @@ public:
 
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(test_chroot_btrfs_snapshot);
+CPPUNIT_TEST_SUITE_REGISTRATION(test_chroot_lvm_snapshot);
