@@ -659,6 +659,8 @@ INPUT                  = @abs_top_srcdir@/bin/dchroot \
                          @abs_top_srcdir@/bin/dchroot-dsa \
                          @abs_top_srcdir@/bin/schroot \
                          @abs_top_srcdir@/lib/bin-common \
+                         @abs_top_srcdir@/lib/dchroot-common \
+                         @abs_top_srcdir@/lib/schroot-common \
                          @abs_top_srcdir@/libexec/listmounts \
                          @abs_top_srcdir@/libexec/mount \
 
