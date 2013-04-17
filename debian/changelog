@@ -1002,7 +1002,7 @@ schroot (1.1.4-1) unstable; urgency=low
 schroot (1.1.3-1) unstable; urgency=low
 
   * New upstream development release.
-  * bin/schroot-base/schroot-base-run.h, sbuild/sbuild-basic-keyfile.tcc:
+  * bin/bin-common/schroot-base-run.h, sbuild/sbuild-basic-keyfile.tcc:
     Cope with failure when the locale set in the user's environment is
     invalid, by falling back to the C locale (Closes: #425117).  Thanks to
     Martin Michlmayr for reporting this bug.

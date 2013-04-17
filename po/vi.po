@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.12-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-04-01 17:41+0100\n"
+"POT-Creation-Date: 2013-04-02 23:26+0100\n"
 "PO-Revision-Date: 2010-09-28 22:16+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -283,128 +283,6 @@ msgstr "Đang dùng chỉ tùy chọn « --chroots »"
 msgid "dchroot session restriction"
 msgstr "sự hạn chế phiên chạy dchroot"
 
-#. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = release date
-#, fuzzy, boost-format
-msgid "%1% (Debian sbuild) %2% (%3%)"
-msgstr "%1% (Debian sbuild) %2% (%3%)\n"
-
-#. TRANSLATORS: %1% = copyright year (start)
-#. TRANSLATORS: %2% = copyright year (end)
-#, fuzzy, boost-format
-msgid "Copyright © %1%–%2% Roger Leigh"
-msgstr "Tác quyền © năm 2004–2011 của Roger Leigh"
-
-msgid "Written by Roger Leigh"
-msgstr "Tác giả: Roger Leigh"
-
-msgid ""
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
-msgstr ""
-"Đây là phần mềm tự do; xem mã nguồn để tìm điều kiện sao chép.\n"
-"KHÔNG CÓ BẢO HÀNH GÌ CẢ, THẬM CHÍ KHÔNG CÓ BẢO ĐẢM ĐƯỢC NGỤ Ý\n"
-"KHẢ NĂNG BÁN HAY KHẢ NĂNG LÀM ĐƯỢC VIỆC DỨT KHOÁT.\n"
-
-msgid "Configured features:"
-msgstr "Tính năng đã cấu hình:"
-
-msgid "Usage:"
-msgstr "Sử dụng:"
-
-#. TRANSLATORS: %1% = program name
-#, fuzzy, boost-format
-msgid "Run “%1% --help” to list usage example and all available options"
-msgstr ""
-"Hãy chạy lệnh « %1% --help » để liệt kê thí dụ sử dụng và các tùy chọn sẵn "
-"sàng"
-
-#, boost-format
-msgid "%1%: invalid action"
-msgstr "%1%: hành động không hợp lệ"
-
-msgid "Only one action may be specified"
-msgstr "Có thể ghi rõ chỉ một hành động"
-
-msgid "Actions"
-msgstr "Hành động"
-
-msgid "General options"
-msgstr "Tùy chọn chung"
-
-msgid "Hidden options"
-msgstr "Tùy chọn bị ẩn"
-
-msgid "Show help options"
-msgstr "Hiện các tùy chọn trợ giúp"
-
-msgid "Print version information"
-msgstr "In ra thông tin phiên bản"
-
-msgid "Show less output"
-msgstr "Xuất ít hơn"
-
-msgid "Show more output"
-msgstr "Xuất nhiều hơn"
-
-msgid "Enable debugging messages"
-msgstr "Bật hiển thị các thông điệp gỡ lỗi"
-
-msgid "Invalid debug level"
-msgstr "Cấp gỡ lỗi không hợp lệ"
-
-#. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
-msgid "Failed to find ‘%1%’"
-msgstr "Không tìm thấy « %1% »"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — list mount points"
-msgstr "[TÙY_CHỌN...] — liệt kê các điểm lắp"
-
-msgid "Mount"
-msgstr "Lắp"
-
-msgid "Mountpoint to check (full path)"
-msgstr "Điểm lắp cần kiểm tra (đường dẫn đầy đủ)"
-
-msgid "No mount point specified"
-msgstr "Chưa xác định điểm lắp"
-
-msgid "Failed to fork child"
-msgstr "Lỗi tạo tiến trình con"
-
-msgid "Wait for child failed"
-msgstr "Lỗi đợi tiến trình con"
-
-#. TRANSLATORS: %1% = command name
-#. TRANSLATORS: %1% = command
-#, fuzzy, boost-format
-msgid "Failed to execute “%1%”"
-msgstr "Lỗi thực hiện « %1% »"
-
-#, fuzzy, boost-format
-msgid "Failed to resolve path “%1%”"
-msgstr "Lỗi thực hiện « %1% »"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — mount filesystems"
-msgstr "[TÙY_CHỌN...] — lắp hệ thống tập tin"
-
-msgid "An unknown exception occurred"
-msgstr "Gặp ngoại lệ không rõ"
-
-msgid "Perform a simulation of actions which would be taken"
-msgstr "Mô phỏng các hành động cần làm"
-
-msgid "fstab file to read (full path)"
-msgstr "Tập tin fstab cần đọc (đường dẫn đầy đủ)"
-
 #. TRANSLATORS: %4% = file
 #, fuzzy, boost-format
 msgid "No chroots are defined in ‘%4%’"
@@ -560,6 +438,180 @@ msgstr "Tên phiên chạy (giá trị mặc định là tên được tạo ra 
 msgid "Force operation, even if it fails"
 msgstr "Ép buộc thao tác, thậm chí nếu nó bị lỗi"
 
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = release date
+#, fuzzy, boost-format
+msgid "%1% (Debian sbuild) %2% (%3%)"
+msgstr "%1% (Debian sbuild) %2% (%3%)\n"
+
+#. TRANSLATORS: %1% = copyright year (start)
+#. TRANSLATORS: %2% = copyright year (end)
+#, fuzzy, boost-format
+msgid "Copyright © %1%–%2% Roger Leigh"
+msgstr "Tác quyền © năm 2004–2011 của Roger Leigh"
+
+msgid "Written by Roger Leigh"
+msgstr "Tác giả: Roger Leigh"
+
+msgid ""
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"Đây là phần mềm tự do; xem mã nguồn để tìm điều kiện sao chép.\n"
+"KHÔNG CÓ BẢO HÀNH GÌ CẢ, THẬM CHÍ KHÔNG CÓ BẢO ĐẢM ĐƯỢC NGỤ Ý\n"
+"KHẢ NĂNG BÁN HAY KHẢ NĂNG LÀM ĐƯỢC VIỆC DỨT KHOÁT.\n"
+
+msgid "Configured features:"
+msgstr "Tính năng đã cấu hình:"
+
+msgid "Usage:"
+msgstr "Sử dụng:"
+
+#. TRANSLATORS: %1% = program name
+#, fuzzy, boost-format
+msgid "Run “%1% --help” to list usage example and all available options"
+msgstr ""
+"Hãy chạy lệnh « %1% --help » để liệt kê thí dụ sử dụng và các tùy chọn sẵn "
+"sàng"
+
+#, boost-format
+msgid "%1%: invalid action"
+msgstr "%1%: hành động không hợp lệ"
+
+msgid "Only one action may be specified"
+msgstr "Có thể ghi rõ chỉ một hành động"
+
+msgid "Actions"
+msgstr "Hành động"
+
+msgid "General options"
+msgstr "Tùy chọn chung"
+
+msgid "Hidden options"
+msgstr "Tùy chọn bị ẩn"
+
+msgid "Show help options"
+msgstr "Hiện các tùy chọn trợ giúp"
+
+msgid "Print version information"
+msgstr "In ra thông tin phiên bản"
+
+msgid "Show less output"
+msgstr "Xuất ít hơn"
+
+msgid "Show more output"
+msgstr "Xuất nhiều hơn"
+
+msgid "Enable debugging messages"
+msgstr "Bật hiển thị các thông điệp gỡ lỗi"
+
+msgid "Invalid debug level"
+msgstr "Cấp gỡ lỗi không hợp lệ"
+
+#. TRANSLATORS: %1% = file
+#, fuzzy, boost-format
+msgid "Failed to find ‘%1%’"
+msgstr "Không tìm thấy « %1% »"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#, fuzzy
+msgid "[OPTION…] — list mount points"
+msgstr "[TÙY_CHỌN...] — liệt kê các điểm lắp"
+
+msgid "Mount"
+msgstr "Lắp"
+
+msgid "Mountpoint to check (full path)"
+msgstr "Điểm lắp cần kiểm tra (đường dẫn đầy đủ)"
+
+msgid "No mount point specified"
+msgstr "Chưa xác định điểm lắp"
+
+msgid "Failed to fork child"
+msgstr "Lỗi tạo tiến trình con"
+
+msgid "Wait for child failed"
+msgstr "Lỗi đợi tiến trình con"
+
+#. TRANSLATORS: %1% = command name
+#. TRANSLATORS: %1% = command
+#, fuzzy, boost-format
+msgid "Failed to execute “%1%”"
+msgstr "Lỗi thực hiện « %1% »"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
+msgstr "Lỗi thực hiện « %1% »"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#, fuzzy
+msgid "[OPTION…] — mount filesystems"
+msgstr "[TÙY_CHỌN...] — lắp hệ thống tập tin"
+
+msgid "An unknown exception occurred"
+msgstr "Gặp ngoại lệ không rõ"
+
+msgid "Perform a simulation of actions which would be taken"
+msgstr "Mô phỏng các hành động cần làm"
+
+msgid "fstab file to read (full path)"
+msgstr "Tập tin fstab cần đọc (đường dẫn đầy đủ)"
+
+#. TRANSLATORS: %1% = program name (PAM service name)
+#, boost-format
+msgid "You do not have permission to access the %1% service."
+msgstr "Bạn không có quyền truy cập đến dịch vụ %1%."
+
+msgid "This failure will be reported."
+msgstr "Lỗi này sẽ được thông báo."
+
+msgid "No controlling terminal"
+msgstr "Không có thiết bị cuối điều khiển"
+
+msgid "Timed out"
+msgstr "Quá hạn"
+
+#. TRANSLATORS: Please use an ellipsis e.g. U+2026
+#, fuzzy
+msgid "Time is running out…"
+msgstr "Gần hết thời gian..."
+
+msgid "Failed to get terminal settings"
+msgstr "Lỗi lấy thiết lập thiết bị cuối"
+
+#. TRANSLATORS: %1% = integer
+#, fuzzy, boost-format
+msgid "Unsupported conversation type ‘%1%’"
+msgstr "Kiểu cuộc đối thoại không được hỗ trợ « %1% »"
+
+msgid "Password: "
+msgstr "Mật khẩu : "
+
+msgid "Password:"
+msgstr "Mật khẩu :"
+
+#, boost-format
+msgid "[schroot] password for %1%: "
+msgstr "Mật khẩu [schroot] cho %1%: "
+
+msgid "Pluggable Authentication Modules"
+msgstr "Mô-đun Xác thực Dễ Kết hợp"
+
+msgid "Set RUSER"
+msgstr "Đặt RUSER"
+
+msgid "Set RHOST"
+msgstr "Đặt RHOST"
+
+msgid "Set TTY"
+msgstr "Đặt TTY"
+
+msgid "Set USER"
+msgstr "Đặt USER"
+
 msgid "Failed to get hostname"
 msgstr "Lỗi lấy tên máy"
 
@@ -589,58 +641,6 @@ msgstr "Lỗi PAM"
 msgid "PAM failed to shut down cleanly"
 msgstr "PAM đã không tắt đúng"
 
-#. TRANSLATORS: %1% = program name (PAM service name)
-#, boost-format
-msgid "You do not have permission to access the %1% service."
-msgstr "Bạn không có quyền truy cập đến dịch vụ %1%."
-
-msgid "This failure will be reported."
-msgstr "Lỗi này sẽ được thông báo."
-
-msgid "Password: "
-msgstr "Mật khẩu : "
-
-msgid "Password:"
-msgstr "Mật khẩu :"
-
-#, boost-format
-msgid "[schroot] password for %1%: "
-msgstr "Mật khẩu [schroot] cho %1%: "
-
-msgid "Pluggable Authentication Modules"
-msgstr "Mô-đun Xác thực Dễ Kết hợp"
-
-msgid "Set RUSER"
-msgstr "Đặt RUSER"
-
-msgid "Set RHOST"
-msgstr "Đặt RHOST"
-
-msgid "Set TTY"
-msgstr "Đặt TTY"
-
-msgid "Set USER"
-msgstr "Đặt USER"
-
-msgid "No controlling terminal"
-msgstr "Không có thiết bị cuối điều khiển"
-
-msgid "Timed out"
-msgstr "Quá hạn"
-
-#. TRANSLATORS: Please use an ellipsis e.g. U+2026
-#, fuzzy
-msgid "Time is running out…"
-msgstr "Gần hết thời gian..."
-
-msgid "Failed to get terminal settings"
-msgstr "Lỗi lấy thiết lập thiết bị cuối"
-
-#. TRANSLATORS: %1% = integer
-#, fuzzy, boost-format
-msgid "Unsupported conversation type ‘%1%’"
-msgstr "Kiểu cuộc đối thoại không được hỗ trợ « %1% »"
-
 msgid "Device"
 msgstr "Thiết bị"
 
@@ -653,161 +653,6 @@ msgstr "Thiết bị hiện trạng Bộ Quản lý Khối tin Hợp lý"
 
 msgid "Btrfs Snapshot Name"
 msgstr ""
-
-msgid "Chroot creation failed"
-msgstr "Lỗi tạo chroot"
-
-msgid "Device name not set"
-msgstr "Chưa đặt tên thiết bị"
-
-#. TRANSLATORS: %1% = chroot type name
-#, fuzzy, boost-format
-msgid "Unknown chroot type ‘%1%’"
-msgstr "Không rõ kiểu chroot « %1% »"
-
-msgid "Device must have an absolute path"
-msgstr "Thiết bị phải có đường dẫn tuyệt đối"
-
-msgid "Failed to lock device"
-msgstr "Lỗi khoá thiết bị"
-
-msgid "File is not a block device"
-msgstr "Tập tin không phải là thiết bị khối"
-
-msgid "Failed to unlock device"
-msgstr "Lỗi mở khoá thiết bị"
-
-msgid "Directory must have an absolute path"
-msgstr "Thư mục phải có đường dẫn tuyệt đối"
-
-msgid "Attempt to add object which is not a facet"
-msgstr "Việc thử thêm một đối tượng không phải là mặt (facet)"
-
-msgid "Attempt to add facet which is already in use"
-msgstr "Việc thử thêm một mặt (facet) đang được sử dụng"
-
-msgid "File must have an absolute path"
-msgstr "Tập tin phải có đường dẫn tuyệt đối"
-
-msgid "Failed to acquire file lock"
-msgstr "Lỗi giành khoá tập tin"
-
-msgid "File is not a regular file"
-msgstr "Tập tin không phải là tập tin chuẩn"
-
-msgid "File is not owned by user root"
-msgstr "Người dùng chủ không sở hữu tập tin này"
-
-msgid "File has write permissions for others"
-msgstr "Người khác có quyền ghi tập tin này"
-
-msgid "Failed to discard file lock"
-msgstr "Lỗi hủy khoá tập tin"
-
-msgid "Location must have an absolute path"
-msgstr "Vị trí phải có đường dẫn tuyệt đối"
-
-msgid "Invalid name"
-msgstr "Tên không hợp lệ"
-
-#, boost-format
-msgid "Could not set profile name from script configuration path ‘%1%’"
-msgstr ""
-
-#. TRANSLATORS: unlink refers to the C function which removes a file
-msgid "Failed to unlink session file"
-msgstr "Lỗi bỏ liên kết tập tin phiên chạy"
-
-msgid "Failed to write session file"
-msgstr "Lỗi ghi tập tin phiên chạy"
-
-msgid "Message verbosity is invalid"
-msgstr "Thông điệp có mức chi tiết không hợp lệ"
-
-#, fuzzy, boost-format
-msgid "Namespace separator ‘%1%’ may not be used in a chroot name"
-msgstr "Không cho phép dùng dấu tách miền tên « %1% » trong một tên chroot"
-
-msgid "Naming restrictions are documented in schroot.conf(5)"
-msgstr ""
-
-#, fuzzy, boost-format
-msgid "Namespace separator ‘%1%’ may not be used in an alias name"
-msgstr "Không cho phép dùng dấu tách miền tên « %1% » trong một tên bí danh"
-
-msgid "Name"
-msgstr "Tên"
-
-msgid "Description"
-msgstr "Mô tả"
-
-msgid "Type"
-msgstr "Kiểu"
-
-msgid "Message Verbosity"
-msgstr "Mức chi tiết thông điệp"
-
-msgid "Users"
-msgstr "Người dùng"
-
-msgid "Groups"
-msgstr "Nhóm"
-
-msgid "Root Users"
-msgstr "Người dùng chủ"
-
-msgid "Root Groups"
-msgstr "Nhóm chủ"
-
-msgid "Aliases"
-msgstr "Bí danh"
-
-msgid "Preserve Environment"
-msgstr "Bảo tồn môi trường"
-
-msgid "Default Shell"
-msgstr ""
-
-msgid "Environment Filter"
-msgstr "Lọc môi trường"
-
-msgid "Run Setup Scripts"
-msgstr "Chạy các văn lệnh thiết lập"
-
-#, fuzzy
-msgid "Configuration Profile"
-msgstr "Cấu hình Văn lệnh"
-
-msgid "Script Configuration"
-msgstr "Cấu hình Văn lệnh"
-
-msgid "Session Managed"
-msgstr "Phiên chạy đã quản lý"
-
-msgid "Session Cloned"
-msgstr "Phiên chạy đã nhân đôi"
-
-msgid "Session Purged"
-msgstr "Phiên chạy bị tẩy"
-
-msgid "Command Prefix"
-msgstr "Tiền tố lệnh"
-
-msgid "Mount Location"
-msgstr "Vị trí lắp"
-
-msgid "Path"
-msgstr "Đường dẫn"
-
-# Literal: don't translate / Nghĩa chữ: đừng dịch
-msgid "Chroot"
-msgstr "Chroot"
-
-msgid "Session"
-msgstr "Phiên chạy"
-
-msgid "Source"
-msgstr "Nguồn"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -830,8 +675,20 @@ msgstr "%1%: không tìm thấy chroot"
 msgid "A chroot or alias ‘%1%’ already exists with this name"
 msgstr "Một chroot hay bí danh « %1% » đã có tên này"
 
+msgid "File is not a regular file"
+msgstr "Tập tin không phải là tập tin chuẩn"
+
 msgid "Failed to open file"
 msgstr "Lỗi mở tập tin"
+
+msgid "File is not owned by user root"
+msgstr "Người dùng chủ không sở hữu tập tin này"
+
+msgid "File has write permissions for others"
+msgstr "Người khác có quyền ghi tập tin này"
+
+msgid "Invalid name"
+msgstr "Tên không hợp lệ"
 
 msgid "No such namespace"
 msgstr "Không có miền tên như vậy"
@@ -859,6 +716,10 @@ msgstr "Vị trí"
 msgid "Personality"
 msgstr "Cá tính"
 
+#, fuzzy
+msgid "(session chroot)"
+msgstr "(chroot nguồn)"
+
 msgid "Original Chroot Name"
 msgstr ""
 
@@ -868,10 +729,6 @@ msgstr "Chọn mọi chroot"
 
 msgid "Session ID"
 msgstr "Mã phiên chạy"
-
-#, fuzzy
-msgid "(session chroot)"
-msgstr "(chroot nguồn)"
 
 msgid "(source chroot)"
 msgstr "(chroot nguồn)"
@@ -973,6 +830,149 @@ msgstr "Thiết bị hiện trạng Bộ Quản lý Khối tin Hợp lý"
 
 msgid "LVM Snapshot Options"
 msgstr "Tùy chọn hiện trạng Bộ Quản lý Khối tin Hợp lý"
+
+msgid "Chroot creation failed"
+msgstr "Lỗi tạo chroot"
+
+msgid "Device name not set"
+msgstr "Chưa đặt tên thiết bị"
+
+#. TRANSLATORS: %1% = chroot type name
+#, fuzzy, boost-format
+msgid "Unknown chroot type ‘%1%’"
+msgstr "Không rõ kiểu chroot « %1% »"
+
+msgid "Device must have an absolute path"
+msgstr "Thiết bị phải có đường dẫn tuyệt đối"
+
+msgid "Failed to lock device"
+msgstr "Lỗi khoá thiết bị"
+
+msgid "File is not a block device"
+msgstr "Tập tin không phải là thiết bị khối"
+
+msgid "Failed to unlock device"
+msgstr "Lỗi mở khoá thiết bị"
+
+msgid "Directory must have an absolute path"
+msgstr "Thư mục phải có đường dẫn tuyệt đối"
+
+msgid "Attempt to add object which is not a facet"
+msgstr "Việc thử thêm một đối tượng không phải là mặt (facet)"
+
+msgid "Attempt to add facet which is already in use"
+msgstr "Việc thử thêm một mặt (facet) đang được sử dụng"
+
+msgid "File must have an absolute path"
+msgstr "Tập tin phải có đường dẫn tuyệt đối"
+
+msgid "Failed to acquire file lock"
+msgstr "Lỗi giành khoá tập tin"
+
+msgid "Failed to discard file lock"
+msgstr "Lỗi hủy khoá tập tin"
+
+msgid "Location must have an absolute path"
+msgstr "Vị trí phải có đường dẫn tuyệt đối"
+
+#, boost-format
+msgid "Could not set profile name from script configuration path ‘%1%’"
+msgstr ""
+
+#. TRANSLATORS: unlink refers to the C function which removes a file
+msgid "Failed to unlink session file"
+msgstr "Lỗi bỏ liên kết tập tin phiên chạy"
+
+msgid "Failed to write session file"
+msgstr "Lỗi ghi tập tin phiên chạy"
+
+msgid "Message verbosity is invalid"
+msgstr "Thông điệp có mức chi tiết không hợp lệ"
+
+#, fuzzy, boost-format
+msgid "Namespace separator ‘%1%’ may not be used in a chroot name"
+msgstr "Không cho phép dùng dấu tách miền tên « %1% » trong một tên chroot"
+
+msgid "Naming restrictions are documented in schroot.conf(5)"
+msgstr ""
+
+#, fuzzy, boost-format
+msgid "Namespace separator ‘%1%’ may not be used in an alias name"
+msgstr "Không cho phép dùng dấu tách miền tên « %1% » trong một tên bí danh"
+
+msgid "Name"
+msgstr "Tên"
+
+msgid "Description"
+msgstr "Mô tả"
+
+msgid "Type"
+msgstr "Kiểu"
+
+msgid "Message Verbosity"
+msgstr "Mức chi tiết thông điệp"
+
+msgid "Users"
+msgstr "Người dùng"
+
+msgid "Groups"
+msgstr "Nhóm"
+
+msgid "Root Users"
+msgstr "Người dùng chủ"
+
+msgid "Root Groups"
+msgstr "Nhóm chủ"
+
+msgid "Aliases"
+msgstr "Bí danh"
+
+msgid "Preserve Environment"
+msgstr "Bảo tồn môi trường"
+
+msgid "Default Shell"
+msgstr ""
+
+msgid "Environment Filter"
+msgstr "Lọc môi trường"
+
+msgid "Run Setup Scripts"
+msgstr "Chạy các văn lệnh thiết lập"
+
+#, fuzzy
+msgid "Configuration Profile"
+msgstr "Cấu hình Văn lệnh"
+
+msgid "Script Configuration"
+msgstr "Cấu hình Văn lệnh"
+
+msgid "Session Managed"
+msgstr "Phiên chạy đã quản lý"
+
+msgid "Session Cloned"
+msgstr "Phiên chạy đã nhân đôi"
+
+msgid "Session Purged"
+msgstr "Phiên chạy bị tẩy"
+
+msgid "Command Prefix"
+msgstr "Tiền tố lệnh"
+
+msgid "Mount Location"
+msgstr "Vị trí lắp"
+
+msgid "Path"
+msgstr "Đường dẫn"
+
+# Literal: don't translate / Nghĩa chữ: đừng dịch
+msgid "Chroot"
+msgstr "Chroot"
+
+msgid "Session"
+msgstr "Phiên chạy"
+
+msgid "Source"
+msgstr "Nguồn"
 
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr ""

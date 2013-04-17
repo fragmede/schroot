@@ -48,12 +48,12 @@ pushdef([SBUILD_INTERFACE_AGE],     [0])
 pushdef([SBUILD_BINARY_AGE],        [0])
 dnl For safety, check we are in the right directory by
 dnl checking for a known unique file.
-AC_CONFIG_SRCDIR([sbuild/sbuild-session.cc])
+AC_CONFIG_SRCDIR([lib/sbuild/session.cc])
 dnl Place auxilliary scripts here.
 AC_CONFIG_AUX_DIR([scripts])
 dnl Add config headers.
 AC_CONFIG_HEADER([config.h])
-AC_CONFIG_HEADER([sbuild/sbuild-config.h])
+AC_CONFIG_HEADER([lib/sbuild/config.h])
 
 AC_COPYRIGHT(
 [
@@ -118,19 +118,6 @@ AC_ARG_ENABLE([dchroot-dsa], [AS_HELP_STRING([--enable-dchroot-dsa], [Enable dch
 AC_MSG_RESULT([$enable_dchroot_dsa_compat])
 AM_CONDITIONAL([BUILD_DCHROOT_DSA], [test "$enable_dchroot_dsa_compat" = "yes"])
 AM_CONDITIONAL([BUILD_LIBDCHROOT], [test "$enable_dchroot_compat" = "yes" || test "$enable_dchroot_dsa_compat" = "yes"])
-
-AC_MSG_CHECKING([whether to enable csbuild])
-AC_ARG_ENABLE([csbuild], [AS_HELP_STRING([--enable-csbuild], [Enable csbuild])],
-              [ case "${enableval}" in
-                yes) enable_csbuild_compat="yes" ;;
-                no)  enable_csbuild_compat="no" ;;
-                *) AC_MSG_RESULT([unknown])
-                   AC_MSG_ERROR([bad value ${enableval} for --enable-csbuild]) ;;
-                esac ],
-              [ enable_csbuild_compat="no" ])
-
-AC_MSG_RESULT([$enable_csbuild_compat])
-AM_CONDITIONAL([BUILD_CSBUILD], [test "$enable_csbuild_compat" = "yes"])
 
 AC_MSG_CHECKING([whether to enable debugging messages])
 AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug], [Enable debugging messages])],
@@ -775,7 +762,7 @@ dnl Configure which files to generate.
 AC_CONFIG_FILES([doc/sbuild.dox])
 AC_CONFIG_FILES([doc/schroot.dox])
 AC_CONFIG_FILES([po/Makefile.in])
-AC_CONFIG_FILES([sbuild/sbuild.pc])
+AC_CONFIG_FILES([lib/sbuild/sbuild.pc])
 AC_CONFIG_FILES([scripts/po-notify])
 AC_CONFIG_FILES([Makefile])
 dnl Output the generated config.status script.

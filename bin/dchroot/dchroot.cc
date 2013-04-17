@@ -18,10 +18,10 @@
 
 #include <config.h>
 
-#include "dchroot-main.h"
-#include "dchroot-options.h"
+#include "main.h"
+#include "options.h"
 
-#include <schroot-base/schroot-base-run.h>
+#include <bin-common/run.h>
 
 using std::endl;
 using boost::format;
@@ -40,5 +40,5 @@ int
 main (int   argc,
       char *argv[])
 {
-  return schroot_base::run<dchroot::options, dchroot::main>(argc, argv);
+  return bin_common::run<dchroot::options, dchroot::main>(argc, argv);
 }

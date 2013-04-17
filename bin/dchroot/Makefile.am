@@ -16,32 +16,21 @@
 #
 #####################################################################
 
-if BUILD_LIBDCHROOT
-noinst_LTLIBRARIES += bin/dchroot/libdchroot.la
-endif
-
 if BUILD_DCHROOT
 dchroot = bin/dchroot/dchroot
 endif
 
 bin_PROGRAMS += $(dchroot)
 
-bin_dchroot_libdchroot_la_SOURCES =		\
-	bin/dchroot/dchroot-main-base.h		\
-	bin/dchroot/dchroot-main-base.cc	\
-	bin/dchroot/dchroot-session-base.h	\
-	bin/dchroot/dchroot-session-base.cc
-bin_dchroot_libdchroot_la_LIBADD = $(top_builddir)/bin/schroot/libschroot.la
-
-bin_dchroot_dchroot_SOURCES =			\
-	bin/dchroot/dchroot-session.h		\
-	bin/dchroot/dchroot-session.cc		\
-	bin/dchroot/dchroot-options.h		\
-	bin/dchroot/dchroot-options.cc		\
-	bin/dchroot/dchroot-main.h		\
-	bin/dchroot/dchroot-main.cc		\
+bin_dchroot_dchroot_SOURCES =		\
+	bin/dchroot/session.h		\
+	bin/dchroot/session.cc		\
+	bin/dchroot/options.h		\
+	bin/dchroot/options.cc		\
+	bin/dchroot/main.h		\
+	bin/dchroot/main.cc		\
 	bin/dchroot/dchroot.cc
-bin_dchroot_dchroot_LDADD = $(top_builddir)/bin/dchroot/libdchroot.la
+bin_dchroot_dchroot_LDADD = $(top_builddir)/lib/dchroot-common/libdchroot-common.la
 
 install-exec-hook::
 # Install setuid root.

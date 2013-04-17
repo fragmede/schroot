@@ -644,7 +644,7 @@ WARN_FORMAT            = "$file:$line: $text"
 # and error messages should be written. If left blank the output is written
 # to stderr.
 
-WARN_LOGFILE           = schroot.log
+WARN_LOGFILE           = doc/schroot.log
 
 #---------------------------------------------------------------------------
 # configuration options related to the input files
@@ -655,11 +655,14 @@ WARN_LOGFILE           = schroot.log
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  = @abs_top_srcdir@/bin/schroot-base \
+INPUT                  = @abs_top_srcdir@/bin/dchroot \
+                         @abs_top_srcdir@/bin/dchroot-dsa \
                          @abs_top_srcdir@/bin/schroot \
-                         @abs_top_srcdir@/bin/schroot-listmounts \
-                         @abs_top_srcdir@/bin/dchroot \
-                         @abs_top_srcdir@/bin/dchroot-dsa
+                         @abs_top_srcdir@/lib/bin-common \
+                         @abs_top_srcdir@/lib/dchroot-common \
+                         @abs_top_srcdir@/lib/schroot-common \
+                         @abs_top_srcdir@/libexec/listmounts \
+                         @abs_top_srcdir@/libexec/mount \
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -1548,7 +1551,7 @@ SKIP_FUNCTION_MACROS   = YES
 # NOT include the path). If a tag file is not located in the directory in which
 # doxygen is run, you must also specify the path to the tagfile here.
 
-TAGFILES               = "sbuild.tag = @abs_top_builddir@/doc/sbuild/html"
+TAGFILES               = "doc/sbuild/sbuild.tag = @abs_top_builddir@/doc/sbuild/html"
 
 # When a file name is specified after GENERATE_TAGFILE, doxygen will create
 # a tag file that is based on the input files it reads.

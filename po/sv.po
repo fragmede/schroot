@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-04-01 17:41+0100\n"
+"POT-Creation-Date: 2013-04-02 23:26+0100\n"
 "PO-Revision-Date: 2010-01-16 15:44+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -282,130 +282,6 @@ msgstr "Använder endast --chroots"
 msgid "dchroot session restriction"
 msgstr "sessionsbegränsning för dchroot"
 
-#. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = release date
-#, fuzzy, boost-format
-msgid "%1% (Debian sbuild) %2% (%3%)"
-msgstr "%1% (Debian sbuild) %2% (%3%)\n"
-
-#. TRANSLATORS: %1% = copyright year (start)
-#. TRANSLATORS: %2% = copyright year (end)
-#, fuzzy, boost-format
-msgid "Copyright © %1%–%2% Roger Leigh"
-msgstr "Copyright © 2004–2011 Roger Leigh"
-
-msgid "Written by Roger Leigh"
-msgstr "Skrivet av Roger Leigh"
-
-msgid ""
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
-msgstr ""
-"Detta är fri programvara; se källkoden för kopieringsvillkor. Det finns "
-"INGEN GARANTI;\n"
-"inte ens för SÄLJBARHET eller LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL.\n"
-
-msgid "Configured features:"
-msgstr ""
-
-msgid "Usage:"
-msgstr "Användning:"
-
-#. TRANSLATORS: %1% = program name
-#, fuzzy, boost-format
-msgid "Run “%1% --help” to list usage example and all available options"
-msgstr ""
-"Kör \"%1% --help\" för att lista exempel på användning och alla tillgängliga "
-"flaggor"
-
-#, boost-format
-msgid "%1%: invalid action"
-msgstr ""
-
-msgid "Only one action may be specified"
-msgstr "Endast en åtgärd får anges"
-
-#, fuzzy
-msgid "Actions"
-msgstr "Plats"
-
-msgid "General options"
-msgstr "Allmänna flaggor"
-
-msgid "Hidden options"
-msgstr "Dolda flaggor"
-
-msgid "Show help options"
-msgstr "Visa hjälpflaggor"
-
-msgid "Print version information"
-msgstr "Skriv ut versionsinformation"
-
-msgid "Show less output"
-msgstr "Visa mindre utdata"
-
-msgid "Show more output"
-msgstr "Visa mer utdata"
-
-msgid "Enable debugging messages"
-msgstr "Aktivera felsökningsmeddelanden"
-
-msgid "Invalid debug level"
-msgstr "Ogiltig felsökningsnivå"
-
-#. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
-msgid "Failed to find ‘%1%’"
-msgstr "Misslyckades med att hitta chroot \"%1%\""
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — list mount points"
-msgstr "[FLAGGA...] - lista monteringspunkter"
-
-msgid "Mount"
-msgstr "Montera"
-
-msgid "Mountpoint to check (full path)"
-msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
-
-msgid "No mount point specified"
-msgstr "Ingen monteringspunkt angiven"
-
-msgid "Failed to fork child"
-msgstr "Misslyckades med att grena barnprocess"
-
-msgid "Wait for child failed"
-msgstr "Väntan på barnprocess misslyckades"
-
-#. TRANSLATORS: %1% = command name
-#. TRANSLATORS: %1% = command
-#, fuzzy, boost-format
-msgid "Failed to execute “%1%”"
-msgstr "Misslyckades med att starta \"%1%\""
-
-#, fuzzy, boost-format
-msgid "Failed to resolve path “%1%”"
-msgstr "Misslyckades med att starta \"%1%\""
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — mount filesystems"
-msgstr "[FLAGGA...] - lista monteringspunkter"
-
-msgid "An unknown exception occurred"
-msgstr "Ett okänt undantag inträffade"
-
-msgid "Perform a simulation of actions which would be taken"
-msgstr ""
-
-#, fuzzy
-msgid "fstab file to read (full path)"
-msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
-
 #. TRANSLATORS: %4% = file
 #, fuzzy, boost-format
 msgid "No chroots are defined in ‘%4%’"
@@ -555,6 +431,183 @@ msgstr ""
 msgid "Force operation, even if it fails"
 msgstr "Tvinga operation, även om den misslyckas"
 
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = release date
+#, fuzzy, boost-format
+msgid "%1% (Debian sbuild) %2% (%3%)"
+msgstr "%1% (Debian sbuild) %2% (%3%)\n"
+
+#. TRANSLATORS: %1% = copyright year (start)
+#. TRANSLATORS: %2% = copyright year (end)
+#, fuzzy, boost-format
+msgid "Copyright © %1%–%2% Roger Leigh"
+msgstr "Copyright © 2004–2011 Roger Leigh"
+
+msgid "Written by Roger Leigh"
+msgstr "Skrivet av Roger Leigh"
+
+msgid ""
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"Detta är fri programvara; se källkoden för kopieringsvillkor. Det finns "
+"INGEN GARANTI;\n"
+"inte ens för SÄLJBARHET eller LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL.\n"
+
+msgid "Configured features:"
+msgstr ""
+
+msgid "Usage:"
+msgstr "Användning:"
+
+#. TRANSLATORS: %1% = program name
+#, fuzzy, boost-format
+msgid "Run “%1% --help” to list usage example and all available options"
+msgstr ""
+"Kör \"%1% --help\" för att lista exempel på användning och alla tillgängliga "
+"flaggor"
+
+#, boost-format
+msgid "%1%: invalid action"
+msgstr ""
+
+msgid "Only one action may be specified"
+msgstr "Endast en åtgärd får anges"
+
+#, fuzzy
+msgid "Actions"
+msgstr "Plats"
+
+msgid "General options"
+msgstr "Allmänna flaggor"
+
+msgid "Hidden options"
+msgstr "Dolda flaggor"
+
+msgid "Show help options"
+msgstr "Visa hjälpflaggor"
+
+msgid "Print version information"
+msgstr "Skriv ut versionsinformation"
+
+msgid "Show less output"
+msgstr "Visa mindre utdata"
+
+msgid "Show more output"
+msgstr "Visa mer utdata"
+
+msgid "Enable debugging messages"
+msgstr "Aktivera felsökningsmeddelanden"
+
+msgid "Invalid debug level"
+msgstr "Ogiltig felsökningsnivå"
+
+#. TRANSLATORS: %1% = file
+#, fuzzy, boost-format
+msgid "Failed to find ‘%1%’"
+msgstr "Misslyckades med att hitta chroot \"%1%\""
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#, fuzzy
+msgid "[OPTION…] — list mount points"
+msgstr "[FLAGGA...] - lista monteringspunkter"
+
+msgid "Mount"
+msgstr "Montera"
+
+msgid "Mountpoint to check (full path)"
+msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
+
+msgid "No mount point specified"
+msgstr "Ingen monteringspunkt angiven"
+
+msgid "Failed to fork child"
+msgstr "Misslyckades med att grena barnprocess"
+
+msgid "Wait for child failed"
+msgstr "Väntan på barnprocess misslyckades"
+
+#. TRANSLATORS: %1% = command name
+#. TRANSLATORS: %1% = command
+#, fuzzy, boost-format
+msgid "Failed to execute “%1%”"
+msgstr "Misslyckades med att starta \"%1%\""
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
+msgstr "Misslyckades med att starta \"%1%\""
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#, fuzzy
+msgid "[OPTION…] — mount filesystems"
+msgstr "[FLAGGA...] - lista monteringspunkter"
+
+msgid "An unknown exception occurred"
+msgstr "Ett okänt undantag inträffade"
+
+msgid "Perform a simulation of actions which would be taken"
+msgstr ""
+
+#, fuzzy
+msgid "fstab file to read (full path)"
+msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
+
+#. TRANSLATORS: %1% = program name (PAM service name)
+#, boost-format
+msgid "You do not have permission to access the %1% service."
+msgstr "Du har inte behörighet att komma åt %1%-tjänsten."
+
+msgid "This failure will be reported."
+msgstr "Det här felet kommer att rapporteras."
+
+msgid "No controlling terminal"
+msgstr ""
+
+msgid "Timed out"
+msgstr "Tidsgräns överstigen"
+
+#. TRANSLATORS: Please use an ellipsis e.g. U+2026
+#, fuzzy
+msgid "Time is running out…"
+msgstr "Tiden rinner iväg..."
+
+msgid "Failed to get terminal settings"
+msgstr "Misslyckades med att få tag på terminalinställningar"
+
+#. TRANSLATORS: %1% = integer
+#, fuzzy, boost-format
+msgid "Unsupported conversation type ‘%1%’"
+msgstr "Konversationstypen \"%1%\" stöds inte"
+
+msgid "Password: "
+msgstr ""
+
+msgid "Password:"
+msgstr ""
+
+#, boost-format
+msgid "[schroot] password for %1%: "
+msgstr ""
+
+#, fuzzy
+msgid "Pluggable Authentication Modules"
+msgstr "Autentisering misslyckades"
+
+msgid "Set RUSER"
+msgstr "Ställ in RUSER"
+
+msgid "Set RHOST"
+msgstr "Ställ in RHOST"
+
+msgid "Set TTY"
+msgstr "Ställ in TTY"
+
+msgid "Set USER"
+msgstr "Ställ in USER"
+
 msgid "Failed to get hostname"
 msgstr "Misslyckades med att få värdnamn"
 
@@ -584,59 +637,6 @@ msgstr "PAM-fel"
 msgid "PAM failed to shut down cleanly"
 msgstr ""
 
-#. TRANSLATORS: %1% = program name (PAM service name)
-#, boost-format
-msgid "You do not have permission to access the %1% service."
-msgstr "Du har inte behörighet att komma åt %1%-tjänsten."
-
-msgid "This failure will be reported."
-msgstr "Det här felet kommer att rapporteras."
-
-msgid "Password: "
-msgstr ""
-
-msgid "Password:"
-msgstr ""
-
-#, boost-format
-msgid "[schroot] password for %1%: "
-msgstr ""
-
-#, fuzzy
-msgid "Pluggable Authentication Modules"
-msgstr "Autentisering misslyckades"
-
-msgid "Set RUSER"
-msgstr "Ställ in RUSER"
-
-msgid "Set RHOST"
-msgstr "Ställ in RHOST"
-
-msgid "Set TTY"
-msgstr "Ställ in TTY"
-
-msgid "Set USER"
-msgstr "Ställ in USER"
-
-msgid "No controlling terminal"
-msgstr ""
-
-msgid "Timed out"
-msgstr "Tidsgräns överstigen"
-
-#. TRANSLATORS: Please use an ellipsis e.g. U+2026
-#, fuzzy
-msgid "Time is running out…"
-msgstr "Tiden rinner iväg..."
-
-msgid "Failed to get terminal settings"
-msgstr "Misslyckades med att få tag på terminalinställningar"
-
-#. TRANSLATORS: %1% = integer
-#, fuzzy, boost-format
-msgid "Unsupported conversation type ‘%1%’"
-msgstr "Konversationstypen \"%1%\" stöds inte"
-
 msgid "Device"
 msgstr "Enhet"
 
@@ -649,166 +649,6 @@ msgstr "Enhet för LVM-snapshot"
 
 msgid "Btrfs Snapshot Name"
 msgstr ""
-
-msgid "Chroot creation failed"
-msgstr "Skapandet av chroot misslyckades"
-
-msgid "Device name not set"
-msgstr "Enhetsnamnet är inte inställt"
-
-#. TRANSLATORS: %1% = chroot type name
-#, fuzzy, boost-format
-msgid "Unknown chroot type ‘%1%’"
-msgstr "Okänd chroot-typ \"%1%\""
-
-msgid "Device must have an absolute path"
-msgstr "Enheten måste ha en absolut sökväg"
-
-msgid "Failed to lock device"
-msgstr "Misslyckades med att låsa enheten"
-
-msgid "File is not a block device"
-msgstr "Filen är inte en blockenhet"
-
-msgid "Failed to unlock device"
-msgstr "Misslyckades med att låsa upp enheten"
-
-#, fuzzy
-msgid "Directory must have an absolute path"
-msgstr "Enheten måste ha en absolut sökväg"
-
-msgid "Attempt to add object which is not a facet"
-msgstr ""
-
-msgid "Attempt to add facet which is already in use"
-msgstr ""
-
-msgid "File must have an absolute path"
-msgstr "Filen måste ha en absolut sökväg"
-
-msgid "Failed to acquire file lock"
-msgstr "Misslyckades med att skaffa enhetslås"
-
-msgid "File is not a regular file"
-msgstr "Filen är inte en vanlig fil"
-
-msgid "File is not owned by user root"
-msgstr "Filen ägs inte av användaren root"
-
-msgid "File has write permissions for others"
-msgstr "Filen har skrivrättigheter för andra"
-
-msgid "Failed to discard file lock"
-msgstr "Misslyckades med att kasta enhetslåset"
-
-msgid "Location must have an absolute path"
-msgstr "Platsen måste ha en absolut sökväg"
-
-#, fuzzy
-msgid "Invalid name"
-msgstr "ogiltig grupp"
-
-#, boost-format
-msgid "Could not set profile name from script configuration path ‘%1%’"
-msgstr ""
-
-#. TRANSLATORS: unlink refers to the C function which removes a file
-msgid "Failed to unlink session file"
-msgstr "Misslyckades med att ta bort sessionsfilen"
-
-msgid "Failed to write session file"
-msgstr "Misslyckades med att skriva till sessionsfilen"
-
-msgid "Message verbosity is invalid"
-msgstr ""
-
-#, boost-format
-msgid "Namespace separator ‘%1%’ may not be used in a chroot name"
-msgstr ""
-
-msgid "Naming restrictions are documented in schroot.conf(5)"
-msgstr ""
-
-#, boost-format
-msgid "Namespace separator ‘%1%’ may not be used in an alias name"
-msgstr ""
-
-msgid "Name"
-msgstr "Namn"
-
-msgid "Description"
-msgstr "Beskrivning"
-
-msgid "Type"
-msgstr "Typ"
-
-msgid "Message Verbosity"
-msgstr ""
-
-msgid "Users"
-msgstr "Användare"
-
-msgid "Groups"
-msgstr "Grupper"
-
-msgid "Root Users"
-msgstr "Rootanvändare"
-
-msgid "Root Groups"
-msgstr "Rotgrupper"
-
-msgid "Aliases"
-msgstr "Alias"
-
-#, fuzzy
-msgid "Preserve Environment"
-msgstr "Behåll användarens miljövariabler"
-
-msgid "Default Shell"
-msgstr ""
-
-msgid "Environment Filter"
-msgstr ""
-
-msgid "Run Setup Scripts"
-msgstr "Kör konfigurationsskript"
-
-#, fuzzy
-msgid "Configuration Profile"
-msgstr "Använder konfigurationsfilen för %1%: \"%2%\""
-
-msgid "Script Configuration"
-msgstr ""
-
-msgid "Session Managed"
-msgstr "Session hanterad"
-
-#, fuzzy
-msgid "Session Cloned"
-msgstr "Session hanterad"
-
-#, fuzzy
-msgid "Session Purged"
-msgstr "Session hanterad"
-
-msgid "Command Prefix"
-msgstr "Kommandoprefix"
-
-msgid "Mount Location"
-msgstr "Montera plats"
-
-msgid "Path"
-msgstr "Sökväg"
-
-msgid "Chroot"
-msgstr "Chroot"
-
-msgid "Session"
-msgstr "Session"
-
-#, fuzzy
-msgid "Source"
-msgstr "Källanvändare"
 
 #. TRANSLATORS: %1% = chroot alias name
 #. TRANSLATORS: %4% = chroot name
@@ -831,8 +671,21 @@ msgstr "%1%: Chrootmiljöer hittades inte"
 msgid "A chroot or alias ‘%1%’ already exists with this name"
 msgstr "En chroot eller aliaset \"%1%\" finns redan med det här namnet"
 
+msgid "File is not a regular file"
+msgstr "Filen är inte en vanlig fil"
+
 msgid "Failed to open file"
 msgstr "Misslyckades med att öppna filen"
+
+msgid "File is not owned by user root"
+msgstr "Filen ägs inte av användaren root"
+
+msgid "File has write permissions for others"
+msgstr "Filen har skrivrättigheter för andra"
+
+#, fuzzy
+msgid "Invalid name"
+msgstr "ogiltig grupp"
 
 msgid "No such namespace"
 msgstr ""
@@ -861,6 +714,10 @@ msgstr "Plats"
 msgid "Personality"
 msgstr "Personlighet"
 
+#, fuzzy
+msgid "(session chroot)"
+msgstr "(käll-chroot)"
+
 msgid "Original Chroot Name"
 msgstr ""
 
@@ -871,10 +728,6 @@ msgstr "Välj alla chroot"
 #, fuzzy
 msgid "Session ID"
 msgstr "Session"
-
-#, fuzzy
-msgid "(session chroot)"
-msgstr "(käll-chroot)"
 
 msgid "(source chroot)"
 msgstr "(käll-chroot)"
@@ -983,6 +836,153 @@ msgstr "Enhet för LVM-snapshot"
 # Finns det ett svenskt ord för snapshot?
 msgid "LVM Snapshot Options"
 msgstr "Flaggor för LVM-snapshot"
+
+msgid "Chroot creation failed"
+msgstr "Skapandet av chroot misslyckades"
+
+msgid "Device name not set"
+msgstr "Enhetsnamnet är inte inställt"
+
+#. TRANSLATORS: %1% = chroot type name
+#, fuzzy, boost-format
+msgid "Unknown chroot type ‘%1%’"
+msgstr "Okänd chroot-typ \"%1%\""
+
+msgid "Device must have an absolute path"
+msgstr "Enheten måste ha en absolut sökväg"
+
+msgid "Failed to lock device"
+msgstr "Misslyckades med att låsa enheten"
+
+msgid "File is not a block device"
+msgstr "Filen är inte en blockenhet"
+
+msgid "Failed to unlock device"
+msgstr "Misslyckades med att låsa upp enheten"
+
+#, fuzzy
+msgid "Directory must have an absolute path"
+msgstr "Enheten måste ha en absolut sökväg"
+
+msgid "Attempt to add object which is not a facet"
+msgstr ""
+
+msgid "Attempt to add facet which is already in use"
+msgstr ""
+
+msgid "File must have an absolute path"
+msgstr "Filen måste ha en absolut sökväg"
+
+msgid "Failed to acquire file lock"
+msgstr "Misslyckades med att skaffa enhetslås"
+
+msgid "Failed to discard file lock"
+msgstr "Misslyckades med att kasta enhetslåset"
+
+msgid "Location must have an absolute path"
+msgstr "Platsen måste ha en absolut sökväg"
+
+#, boost-format
+msgid "Could not set profile name from script configuration path ‘%1%’"
+msgstr ""
+
+#. TRANSLATORS: unlink refers to the C function which removes a file
+msgid "Failed to unlink session file"
+msgstr "Misslyckades med att ta bort sessionsfilen"
+
+msgid "Failed to write session file"
+msgstr "Misslyckades med att skriva till sessionsfilen"
+
+msgid "Message verbosity is invalid"
+msgstr ""
+
+#, boost-format
+msgid "Namespace separator ‘%1%’ may not be used in a chroot name"
+msgstr ""
+
+msgid "Naming restrictions are documented in schroot.conf(5)"
+msgstr ""
+
+#, boost-format
+msgid "Namespace separator ‘%1%’ may not be used in an alias name"
+msgstr ""
+
+msgid "Name"
+msgstr "Namn"
+
+msgid "Description"
+msgstr "Beskrivning"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Message Verbosity"
+msgstr ""
+
+msgid "Users"
+msgstr "Användare"
+
+msgid "Groups"
+msgstr "Grupper"
+
+msgid "Root Users"
+msgstr "Rootanvändare"
+
+msgid "Root Groups"
+msgstr "Rotgrupper"
+
+msgid "Aliases"
+msgstr "Alias"
+
+#, fuzzy
+msgid "Preserve Environment"
+msgstr "Behåll användarens miljövariabler"
+
+msgid "Default Shell"
+msgstr ""
+
+msgid "Environment Filter"
+msgstr ""
+
+msgid "Run Setup Scripts"
+msgstr "Kör konfigurationsskript"
+
+#, fuzzy
+msgid "Configuration Profile"
+msgstr "Använder konfigurationsfilen för %1%: \"%2%\""
+
+msgid "Script Configuration"
+msgstr ""
+
+msgid "Session Managed"
+msgstr "Session hanterad"
+
+#, fuzzy
+msgid "Session Cloned"
+msgstr "Session hanterad"
+
+#, fuzzy
+msgid "Session Purged"
+msgstr "Session hanterad"
+
+msgid "Command Prefix"
+msgstr "Kommandoprefix"
+
+msgid "Mount Location"
+msgstr "Montera plats"
+
+msgid "Path"
+msgstr "Sökväg"
+
+msgid "Chroot"
+msgstr "Chroot"
+
+msgid "Session"
+msgstr "Session"
+
+#, fuzzy
+msgid "Source"
+msgstr "Källanvändare"
 
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr ""

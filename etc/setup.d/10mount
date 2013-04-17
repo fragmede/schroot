@@ -57,7 +57,7 @@ do_umount_all()
         # filesystems as we read it, we can miss mount entries due to
         # the file changing as we read it.  This needs fixing in the
         # kernel, but an exclusive lock surrounding the
-        # schroot-listmounts invocation is a partial fix.  This
+        # listmounts invocation is a partial fix.  This
         # prevents racing when multiple schroot processes are running.
         # Note that this does not prevent the problem when programs
         # other than schroot mount and unmount filesystems (since they
@@ -77,7 +77,7 @@ do_umount_all()
         fi
 
         ( flock 9
-            mounts="$("$LIBEXEC_DIR/schroot-listmounts" -m "$1")"
+            mounts="$("$LIBEXEC_DIR/listmounts" -m "$1")"
             if [ "x$mounts" != 'x' ]; then
                 echo "$mounts" |
                 while read mountloc; do
@@ -231,7 +231,7 @@ if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 
     if [ -n "$SETUP_FSTAB" ]; then
         if [ -f "$SETUP_FSTAB" ]; then
-            "$LIBEXEC_DIR/schroot-mount" $MOUNT_VERBOSE \
+            "$LIBEXEC_DIR/mount" $MOUNT_VERBOSE \
                 -f "$SETUP_FSTAB" -m "$CHROOT_PATH"
         else
             fatal "setup_fstab file '$SETUP_FSTAB' does not exist"
