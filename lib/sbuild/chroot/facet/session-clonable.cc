@@ -223,39 +223,10 @@ namespace sbuild
 #endif // SBUILD_FEATURE_UNION
       }
 
-      void
-      session_clonable::setup_env (chroot const& chroot,
-                                   environment&  env) const
-      {
-      }
-
       chroot::session_flags
       session_clonable::get_session_flags (chroot const& chroot) const
       {
         return chroot::SESSION_CREATE;
-      }
-
-      void
-      session_clonable::get_details (chroot const&  chroot,
-                                     format_detail& detail) const
-      {
-      }
-
-      void
-      session_clonable::get_used_keys (string_list& used_keys) const
-      {
-      }
-
-      void
-      session_clonable::get_keyfile (chroot const& chroot,
-                                     keyfile&      keyfile) const
-      {
-      }
-
-      void
-      session_clonable::set_keyfile (chroot&        chroot,
-                                     keyfile const& keyfile)
-      {
       }
 
     }

@@ -63,41 +63,6 @@ namespace sbuild
         return name;
       }
 
-      void
-      source::setup_env (chroot const& chroot,
-                         environment&  env) const
-      {
-      }
-
-      chroot::session_flags
-      source::get_session_flags (chroot const& chroot) const
-      {
-        return chroot::SESSION_NOFLAGS;
-      }
-
-      void
-      source::get_details (chroot const&  chroot,
-                           format_detail& detail) const
-      {
-      }
-
-      void
-      source::get_used_keys (string_list& used_keys) const
-      {
-      }
-
-      void
-      source::get_keyfile (chroot const& chroot,
-                           keyfile&      keyfile) const
-      {
-      }
-
-      void
-      source::set_keyfile (chroot&        chroot,
-                           keyfile const& keyfile)
-      {
-      }
-
     }
   }
 }

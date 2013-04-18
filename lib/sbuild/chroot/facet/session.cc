@@ -109,12 +109,6 @@ namespace sbuild
           env.add("CHROOT_ALIAS", get_selected_name());
       }
 
-      chroot::session_flags
-      session::get_session_flags (chroot const& chroot) const
-      {
-        return chroot::SESSION_NOFLAGS;
-      }
-
       void
       session::get_details (chroot const&  chroot,
                             format_detail& detail) const

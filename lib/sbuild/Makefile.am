@@ -110,6 +110,7 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/chroot/custom.cc			\
 	lib/sbuild/chroot/directory.cc			\
 	lib/sbuild/chroot/directory-base.cc		\
+	lib/sbuild/chroot/facet/facet.cc		\
 	lib/sbuild/chroot/facet/mountable.cc		\
 	lib/sbuild/chroot/facet/personality.cc		\
 	lib/sbuild/chroot/facet/session.cc		\

@@ -76,18 +76,6 @@ namespace sbuild
       }
 
       void
-      personality::setup_env (chroot const& chroot,
-                              environment&  env) const
-      {
-      }
-
-      chroot::session_flags
-      personality::get_session_flags (chroot const& chroot) const
-      {
-        return chroot::SESSION_NOFLAGS;
-      }
-
-      void
       personality::get_details (chroot const&  chroot,
                                 format_detail& detail) const
       {

@@ -167,10 +167,6 @@ namespace sbuild
         virtual void
         set_source_root_groups (string_list const& groups);
 
-        virtual void
-        setup_env (chroot const& chroot,
-                   environment&  env) const;
-
         virtual chroot::session_flags
         get_session_flags (chroot const& chroot) const;
 

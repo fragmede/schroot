@@ -55,7 +55,7 @@ namespace sbuild
 
   protected:
     /// The constructor.
-    facet(): owner(0) {};
+    facet();
 
     /**
      * Set containing chroot.
@@ -63,16 +63,13 @@ namespace sbuild
      * @param chroot the chroot containing this facet.
      */
     void
-    set_chroot(chroot& chroot)
-    {
-      this->owner = &chroot;
-    }
+    set_chroot(chroot& chroot);
 
     friend class ::sbuild::chroot::chroot;
 
   public:
     /// The destructor.
-    virtual ~facet () {};
+    virtual ~facet ();
 
     /**
      * Copy the chroot facet.  This is a virtual copy constructor.
@@ -99,7 +96,7 @@ namespace sbuild
      */
     virtual void
     setup_env (chroot const& chroot,
-               environment&  env) const = 0;
+               environment&  env) const;
 
     /**
      * Get the session flags of the chroot.  These determine how the
@@ -109,7 +106,7 @@ namespace sbuild
      * @returns the session flags.
      */
     virtual chroot::session_flags
-    get_session_flags (chroot const& chroot) const = 0;
+    get_session_flags (chroot const& chroot) const;
 
     /**
      * Get detailed information about the chroot for output.
@@ -119,7 +116,7 @@ namespace sbuild
      */
     virtual void
     get_details (chroot const&  chroot,
-                 format_detail& detail) const = 0;
+                 format_detail& detail) const;
 
     /**
      * Get a list of the keys used during keyfile parsing.
@@ -127,7 +124,7 @@ namespace sbuild
      * @returns a list of key names.
      */
     virtual void
-    get_used_keys (string_list& used_keys) const = 0;
+    get_used_keys (string_list& used_keys) const;
 
     /**
      * Copy the chroot properties into a keyfile.  The keyfile group
@@ -139,7 +136,7 @@ namespace sbuild
      */
     virtual void
     get_keyfile (chroot const& chroot,
-                 keyfile&      keyfile) const = 0;
+                 keyfile&      keyfile) const;
 
     /**
      * Set the chroot properties from a keyfile.  The chroot name must
@@ -152,7 +149,7 @@ namespace sbuild
      */
     virtual void
     set_keyfile (chroot&         chroot,
-                 keyfile const&  keyfile) = 0;
+                 keyfile const&  keyfile);
 
   protected:
     /// Chroot owning this facet.

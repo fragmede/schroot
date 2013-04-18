@@ -154,12 +154,6 @@ namespace sbuild
         this->source_root_groups = groups;
       }
 
-      void
-      source_clonable::setup_env (chroot const& chroot,
-                                  environment&  env) const
-      {
-      }
-
       chroot::session_flags
       source_clonable::get_session_flags (chroot const& chroot) const
       {

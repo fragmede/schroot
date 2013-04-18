@@ -146,12 +146,6 @@ namespace sbuild
           }
       }
 
-      chroot::session_flags
-      userdata::get_session_flags (chroot const& chroot) const
-      {
-        return chroot::SESSION_NOFLAGS;
-      }
-
       void
       userdata::get_details (chroot const&  chroot,
                              format_detail& detail) const

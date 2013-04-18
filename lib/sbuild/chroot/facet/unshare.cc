@@ -186,12 +186,6 @@ namespace sbuild
         env.add("UNSHARE_UTS", get_unshare_uts());
       }
 
-      chroot::session_flags
-      unshare::get_session_flags (chroot const& chroot) const
-      {
-        return chroot::SESSION_NOFLAGS;
-      }
-
       void
       unshare::get_details (chroot const&  chroot,
                             format_detail& detail) const

@@ -117,12 +117,6 @@ namespace sbuild
         env.add("CHROOT_LOCATION", get_location());
       }
 
-      chroot::session_flags
-      mountable::get_session_flags (chroot const& chroot) const
-      {
-        return chroot::SESSION_NOFLAGS;
-      }
-
       void
       mountable::get_details (chroot const&  chroot,
                               format_detail& detail) const
