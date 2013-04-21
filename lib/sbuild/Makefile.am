@@ -32,6 +32,7 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/chroot/facet/session-clonable.h	\
 	lib/sbuild/chroot/facet/source.h		\
 	lib/sbuild/chroot/facet/source-clonable.h	\
+	lib/sbuild/chroot/facet/storage.h		\
 	lib/sbuild/chroot/facet/userdata.h		\
 	lib/sbuild/chroot/file.h			\
 	lib/sbuild/chroot/plain.h			\
@@ -117,6 +118,7 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/chroot/facet/session-clonable.cc	\
 	lib/sbuild/chroot/facet/source.cc		\
 	lib/sbuild/chroot/facet/source-clonable.cc	\
+	lib/sbuild/chroot/facet/storage.cc		\
 	lib/sbuild/chroot/facet/userdata.cc		\
 	lib/sbuild/chroot/file.cc			\
 	lib/sbuild/chroot/plain.cc			\
