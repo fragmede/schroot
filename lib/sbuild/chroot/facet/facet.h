@@ -55,15 +55,15 @@ namespace sbuild
 
   protected:
     /// The constructor.
-    facet();
+    facet ();
 
     /**
      * Set containing chroot.
      *
      * @param chroot the chroot containing this facet.
      */
-    void
-    set_chroot(chroot& chroot);
+    virtual void
+    set_chroot (chroot& chroot);
 
     friend class ::sbuild::chroot::chroot;
 
