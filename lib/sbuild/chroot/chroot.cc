@@ -79,6 +79,7 @@ namespace sbuild
         {chroot::chroot::DEVICE_NOTBLOCK,   N_("File is not a block device")},
         {chroot::chroot::DEVICE_UNLOCK,     N_("Failed to unlock device")},
         {chroot::chroot::DIRECTORY_ABS,     N_("Directory must have an absolute path")},
+        {chroot::chroot::FACET_ABSENT,      N_("Attempt to use facet which is not present")},
         {chroot::chroot::FACET_INVALID,     N_("Attempt to add object which is not a facet")},
         {chroot::chroot::FACET_PRESENT,     N_("Attempt to add facet which is already in use")},
         {chroot::chroot::FILE_ABS,          N_("File must have an absolute path")},

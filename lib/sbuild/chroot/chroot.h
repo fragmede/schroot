@@ -90,6 +90,7 @@ namespace sbuild
           DEVICE_NOTBLOCK,  ///< File is not a block device.
           DEVICE_UNLOCK,    ///< Failed to unlock device.
           DIRECTORY_ABS,    ///< Directory must have an absolute path.
+          FACET_ABSENT,     ///< Attempt to use facet which is not present.
           FACET_INVALID,    ///< Attempt to add object which is not a facet.
           FACET_PRESENT,    ///< Attempt to add facet which is already in use.
           FILE_ABS,         ///< File must have an absolute path.
@@ -613,6 +614,28 @@ namespace sbuild
       get_facet () const;
 
       /**
+       * Get a chroot facet.  This is a templated method; use the
+       * correct type for the facet required.
+       *
+       * @returns a shared_ptr to the facet, or throws an error if
+       * the facet does not exist.
+       */
+      template <typename T>
+      std::shared_ptr<T>
+      get_facet_strict ();
+
+      /**
+       * Get a chroot facet.  This is a templated method; use the
+       * correct type for the facet required.
+       *
+       * @returns a shared_ptr to the facet, or throws an error if
+       * the facet does not exist.
+       */
+      template <typename T>
+      const std::shared_ptr<const T>
+      get_facet_strict () const;
+
+      /**
        * Add a chroot facet.
        *
        * @param facet the facet to add.
@@ -920,6 +943,30 @@ namespace sbuild
         }
 
       return std::const_pointer_cast<T>(ret);
+    }
+
+    template <typename T>
+    std::shared_ptr<T>
+    chroot::get_facet_strict ()
+    {
+      auto ret = get_facet<T>();
+
+      if (!ret)
+        throw error(FACET_ABSENT);
+
+      return ret;
+    }
+
+    template <typename T>
+    const std::shared_ptr<const T>
+    chroot::get_facet_strict () const
+    {
+      auto ret = get_facet<T>();
+
+      if (!ret)
+        throw error(FACET_ABSENT);
+
+      return ret;
     }
 
     template <typename T>
