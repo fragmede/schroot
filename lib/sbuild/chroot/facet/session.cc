@@ -21,9 +21,16 @@
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/config.h>
 #include <sbuild/chroot/facet/session.h>
-#include "format-detail.h"
+#include <sbuild/keyfile-writer.h>
+#include <sbuild/lock.h>
+#include <sbuild/fdstream.h>
+#include <sbuild/format-detail.h>
 
 #include <cassert>
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #include <boost/format.hpp>
 
@@ -94,6 +101,57 @@ namespace sbuild
         std::string ns, shortname;
         config::get_namespace(name, ns, shortname);
         this->selected_chroot_name = shortname;
+      }
+
+      void
+      session::setup_session_info (bool start)
+      {
+        /* Create or unlink session information. */
+        std::string file = std::string(SCHROOT_SESSION_DIR) + "/" + owner->get_name();
+
+        if (start)
+          {
+            int fd = open(file.c_str(), O_CREAT|O_EXCL|O_WRONLY, 0664);
+            if (fd < 0)
+              throw error(file, chroot::SESSION_WRITE, strerror(errno));
+
+            // Create a stream from the file descriptor.  The fd will be
+            // closed when the stream is destroyed.
+#ifdef BOOST_IOSTREAMS_CLOSE_HANDLE_OLD
+            fdostream output(fd, true);
+#else
+            fdostream output(fd, boost::iostreams::close_handle);
+#endif
+            output.imbue(std::locale::classic());
+
+            file_lock lock(fd);
+            try
+              {
+                lock.set_lock(lock::LOCK_EXCLUSIVE, 2);
+              }
+            catch (lock::error const& e)
+              {
+                throw error(file, chroot::FILE_LOCK, e);
+            }
+
+            keyfile details;
+            owner->get_keyfile(details);
+            output << keyfile_writer(details);
+
+            try
+              {
+                lock.unset_lock();
+              }
+            catch (lock::error const& e)
+              {
+                throw error(file, chroot::FILE_UNLOCK, e);
+              }
+          }
+        else /* start == false */
+          {
+            if (unlink(file.c_str()) != 0)
+              throw error(file, chroot::SESSION_UNLINK, strerror(errno));
+          }
       }
 
       void

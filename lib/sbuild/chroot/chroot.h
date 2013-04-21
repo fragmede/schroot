@@ -564,14 +564,6 @@ namespace sbuild
 
     protected:
       /**
-       * Set up persistent session information.
-       *
-       * @param start true if startion, or false if ending a session.
-       */
-      virtual void
-      setup_session_info (bool start);
-
-      /**
        * Unlock a chroot during setup.  The locking technique (if any) may
        * vary depending upon the chroot type and setup stage.  For
        * example, during creation of an LVM snapshot a block device

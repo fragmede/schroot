@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/loopback.h>
+#include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
 #include <sbuild/chroot/facet/mountable.h>
@@ -169,7 +170,7 @@ namespace sbuild
           (type == SETUP_STOP && lock == false && status == 0))
         {
           bool start = (type == SETUP_START);
-          setup_session_info(start);
+          get_facet_strict<facet::session>()->setup_session_info(start);
         }
     }
 

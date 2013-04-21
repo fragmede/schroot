@@ -39,6 +39,9 @@ namespace facet
   class session : public facet
   {
   public:
+    /// Exception type.
+    typedef chroot::error error;
+
     /// A shared_ptr to a chroot facet object.
     typedef std::shared_ptr<session> ptr;
 
@@ -99,6 +102,14 @@ namespace facet
      */
     void
     set_selected_name (std::string const& name);
+
+    /**
+     * Set up persistent session information.
+     *
+     * @param start true if starting, or false if ending a session.
+     */
+    void
+    setup_session_info (bool start);
 
     virtual void
     setup_env (chroot const& chroot,

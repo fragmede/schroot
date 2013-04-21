@@ -41,21 +41,17 @@
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source.h>
+#include <sbuild/chroot/facet/storage.h>
 #include <sbuild/chroot/facet/userdata.h>
 #ifdef SBUILD_FEATURE_UNSHARE
 #include <sbuild/chroot/facet/unshare.h>
 #endif // SBUILD_FEATURE_UNSHARE
 #include "fdstream.h"
-#include "keyfile-writer.h"
-#include "lock.h"
 
+#include <cassert>
 #include <cerrno>
 #include <map>
 #include <utility>
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 
 #include <boost/format.hpp>
 
@@ -549,57 +545,6 @@ namespace sbuild
               static_cast<bool>(chroot.get_session_flags() & SESSION_CLONE));
       env.add("CHROOT_SESSION_PURGE",
               static_cast<bool>(chroot.get_session_flags() & SESSION_PURGE));
-    }
-
-    void
-    chroot::setup_session_info (bool start)
-    {
-      /* Create or unlink session information. */
-      std::string file = std::string(SCHROOT_SESSION_DIR) + "/" + get_name();
-
-      if (start)
-        {
-          int fd = open(file.c_str(), O_CREAT|O_EXCL|O_WRONLY, 0664);
-          if (fd < 0)
-            throw error(file, SESSION_WRITE, strerror(errno));
-
-          // Create a stream from the file descriptor.  The fd will be
-          // closed when the stream is destroyed.
-#ifdef BOOST_IOSTREAMS_CLOSE_HANDLE_OLD
-          fdostream output(fd, true);
-#else
-          fdostream output(fd, boost::iostreams::close_handle);
-#endif
-          output.imbue(std::locale::classic());
-
-          file_lock lock(fd);
-          try
-            {
-              lock.set_lock(lock::LOCK_EXCLUSIVE, 2);
-            }
-          catch (lock::error const& e)
-            {
-              throw error(file, FILE_LOCK, e);
-            }
-
-          keyfile details;
-          get_keyfile(details);
-          output << keyfile_writer(details);
-
-          try
-            {
-              lock.unset_lock();
-            }
-          catch (lock::error const& e)
-            {
-              throw error(file, FILE_UNLOCK, e);
-            }
-        }
-      else /* start == false */
-        {
-          if (unlink(file.c_str()) != 0)
-            throw error(file, SESSION_UNLINK, strerror(errno));
-        }
     }
 
     void

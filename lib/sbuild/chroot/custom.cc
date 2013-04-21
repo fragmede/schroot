@@ -156,7 +156,7 @@ namespace sbuild
         {
 
           bool start = (type == SETUP_START);
-          setup_session_info(start);
+          get_facet_strict<facet::session>()->setup_session_info(start);
         }
     }
 

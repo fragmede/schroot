@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/directory.h>
+#include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
 #ifdef SBUILD_FEATURE_UNION
@@ -139,7 +140,7 @@ namespace sbuild
           (type == SETUP_STOP && lock == false && status == 0))
         {
           bool start = (type == SETUP_START);
-          setup_session_info(start);
+          get_facet_strict<facet::session>()->setup_session_info(start);
         }
     }
 
