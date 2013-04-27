@@ -33,6 +33,11 @@
 #include <pwd.h>
 #include <grp.h>
 #include <unistd.h>
+#include <typeinfo>
+
+#ifdef __GNUG__
+#include <cxxabi.h>
+#endif
 
 namespace sbuild
 {
@@ -320,6 +325,32 @@ namespace sbuild
   exec (std::string const& file,
         string_list const& command,
         environment const& env);
+
+  /**
+   * Get the type name of a type, demangled if possible.
+   */
+  template <typename T>
+  std::string
+  type_name()
+  {
+    std::string name;
+
+    const std::type_info& info = typeid(T);
+
+#ifdef __GNUG__
+    int status;
+    char *demangled = abi::__cxa_demangle(info.name(), 0, 0, &status);
+    if (status)
+      name = info.name();
+    else
+      name = demangled;
+    free(demangled);
+#else
+    name = info.name();
+#endif
+
+    return name;
+  }
 
   /**
    * Get file status.  stat(2) wrapper.

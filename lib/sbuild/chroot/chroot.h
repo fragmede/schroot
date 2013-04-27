@@ -24,6 +24,7 @@
 #include <sbuild/format-detail.h>
 #include <sbuild/keyfile.h>
 #include <sbuild/regex.h>
+#include <sbuild/util.h>
 
 #include <list>
 #include <memory>
@@ -957,7 +958,7 @@ namespace sbuild
       auto ret = get_facet<T>();
 
       if (!ret)
-        throw error(FACET_ABSENT);
+        throw error(type_name<T>(), FACET_ABSENT);
 
       return ret;
     }
@@ -969,7 +970,7 @@ namespace sbuild
       auto ret = get_facet<T>();
 
       if (!ret)
-        throw error(FACET_ABSENT);
+        throw error(type_name<T>(), FACET_ABSENT);
 
       return ret;
     }
@@ -980,12 +981,12 @@ namespace sbuild
     {
       facet_ptr new_facet = std::dynamic_pointer_cast<facet::facet>(facet);
       if (!new_facet)
-        throw error(FACET_INVALID);
+        throw error(type_name<T>(), FACET_INVALID);
 
       for (const auto& facet : facets)
         {
           if (std::dynamic_pointer_cast<T>(facet))
-            throw error(FACET_PRESENT);
+            throw error(type_name<T>(), FACET_PRESENT);
         }
 
       new_facet->set_chroot(*this);
