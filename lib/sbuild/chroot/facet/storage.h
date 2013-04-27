@@ -54,6 +54,23 @@ namespace sbuild
       public:
         /// The destructor.
         virtual ~storage ();
+
+        /**
+         * Get the path to the chroot.  This is the absolute path to the
+         * root of the chroot, and is typically the same as the mount
+         * location and location concatenated together, but is overridden
+         * by the chroot type if required.
+         *
+         * @returns the path.
+         */
+        virtual std::string
+        get_path () const = 0;
+
+        virtual void
+        setup_lock(chroot::setup_type type,
+                   bool               lock,
+                   int                status);
+
       };
 
     }

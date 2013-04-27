@@ -38,6 +38,13 @@ namespace sbuild
       {
       }
 
+      void
+      storage::setup_lock(chroot::setup_type type,
+                          bool               lock,
+                          int                status)
+      {
+      }
+
     }
   }
 }
