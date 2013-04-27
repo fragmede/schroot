@@ -58,10 +58,6 @@ namespace sbuild
         /// The destructor.
         virtual ~directory_base ();
 
-      protected:
-        void
-        set_chroot (chroot& chroot);
-
       public:
         /**
          * Get the directory containing the chroot.
@@ -78,9 +74,6 @@ namespace sbuild
          */
         void
         set_directory (std::string const& directory);
-
-        virtual std::string
-        get_path () const;
 
         virtual void
         setup_env (chroot const& chroot,

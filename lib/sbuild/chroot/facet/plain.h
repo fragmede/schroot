@@ -16,67 +16,72 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_PLAIN_H
-#define SBUILD_CHROOT_PLAIN_H
+#ifndef SBUILD_CHROOT_FACET_PLAIN_H
+#define SBUILD_CHROOT_FACET_PLAIN_H
 
-#include <sbuild/chroot/directory-base.h>
+#include <sbuild/config.h>
+#include <sbuild/chroot/facet/directory-base.h>
 
 namespace sbuild
 {
   namespace chroot
   {
-
-    /**
-     * A chroot located in the filesystem (scripts disabled).
-     *
-     * This doesn't run any setup scripts and doesn't provide any
-     * session support.  If you need any of these functions, the
-     * directory chroot type is more suited to your needs.
-     */
-    class plain : public directory_base
+    namespace facet
     {
-    protected:
-      /// The constructor.
-      plain ();
 
-      friend class chroot;
+      /**
+       * A chroot stored on an unmounted block device.
+       *
+       * The device will be mounted on demand.
+       */
+      class plain : public directory_base
+      {
+      public:
+        /// A shared_ptr to a chroot facet object.
+        typedef std::shared_ptr<plain> ptr;
 
-    public:
-      /// The destructor.
-      virtual ~plain ();
+        /// A shared_ptr to a const chroot facet object.
+        typedef std::shared_ptr<const plain> const_ptr;
 
-      virtual chroot::ptr
-      clone () const;
+      protected:
+        /// The constructor.
+        plain ();
 
-      virtual chroot::ptr
-      clone_session (std::string const& session_id,
-                     std::string const& alias,
-                     std::string const& user,
-                     bool               root) const;
+        /// The copy constructor.
+        plain (const plain& rhs);
 
-      virtual chroot::ptr
-      clone_source () const;
+        void
+        set_chroot (chroot& chroot);
 
-      virtual std::string
-      get_path () const;
+        friend class chroot;
 
-      virtual std::string const&
-      get_chroot_type () const;
+      public:
+        /// The destructor.
+        virtual ~plain ();
 
-      virtual session_flags
-      get_session_flags (chroot const& chroot) const;
+        virtual std::string const&
+        get_name () const;
 
-    protected:
-      virtual void
-      setup_lock (chroot::setup_type type,
-                  bool               lock,
-                  int                status);
-    };
+        /**
+         * Create a chroot facet.
+         *
+         * @returns a shared_ptr to the new chroot facet.
+         */
+        static ptr
+        create ();
 
+        virtual facet::ptr
+        clone () const;
+
+        virtual std::string
+        get_path () const;
+      };
+
+    }
   }
 }
 
-#endif /* SBUILD_CHROOT_PLAIN_H */
+#endif /* SBUILD_CHROOT_FACET_PLAIN_H */
 
 /*
  * Local Variables:

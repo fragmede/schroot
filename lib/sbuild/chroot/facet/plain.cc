@@ -18,85 +18,74 @@
 
 #include <config.h>
 
-#include <sbuild/chroot/plain.h>
+#include <sbuild/chroot/facet/plain.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include "format-detail.h"
-#include "lock.h"
+#include "util.h"
 
+#include <cassert>
 #include <cerrno>
+#include <cstring>
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/sysmacros.h>
-#include <unistd.h>
+#include <boost/format.hpp>
 
+using boost::format;
 using namespace sbuild;
 
 namespace sbuild
 {
   namespace chroot
   {
-
-    plain::plain ():
-      directory_base()
+    namespace facet
     {
-      set_run_setup_scripts(false);
 
-      remove_facet<facet::session_clonable>();
+      plain::plain ():
+        directory_base()
+      {
+      }
+
+      plain::~plain ()
+      {
+      }
+
+      plain::plain (const plain& rhs):
+        directory_base(rhs)
+      {
+      }
+
+      void
+      plain::set_chroot (chroot& chroot)
+      {
+        directory_base::set_chroot(chroot);
+        owner->remove_facet<session_clonable>();
+      }
+
+      std::string const&
+      plain::get_name () const
+      {
+        static const std::string name("plain");
+
+        return name;
+      }
+
+      plain::ptr
+      plain::create ()
+      {
+        return ptr(new plain());
+      }
+
+      facet::ptr
+      plain::clone () const
+      {
+        return ptr(new plain(*this));
+      }
+
+      std::string
+      plain::get_path () const
+      {
+        return get_directory();
+      }
+
     }
-
-    plain::~plain ()
-    {
-    }
-
-    chroot::ptr
-    plain::clone () const
-    {
-      return ptr(new plain(*this));
-    }
-
-    chroot::ptr
-    plain::clone_session (std::string const& session_id,
-                          std::string const& alias,
-                          std::string const& user,
-                          bool               root) const
-    {
-      return ptr();
-    }
-
-    chroot::ptr
-    plain::clone_source () const
-    {
-      return ptr();
-    }
-
-    std::string const&
-    plain::get_chroot_type () const
-    {
-      static const std::string type("plain");
-
-      return type;
-    }
-
-    std::string
-    plain::get_path () const
-    {
-      return get_directory();
-    }
-
-    void
-    plain::setup_lock (setup_type type,
-                       bool       lock,
-                       int        status)
-    {
-      /* By default, plain chroots do no locking. */
-    }
-
-    chroot::session_flags
-    plain::get_session_flags (chroot const& chroot) const
-    {
-      return SESSION_NOFLAGS;
-    }
-
   }
 }

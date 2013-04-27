@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/plain.h>
-#include <sbuild/chroot/facet/session-clonable.h>
+#include <sbuild/chroot/facet/plain.h>
 #include "format-detail.h"
 #include "lock.h"
 
@@ -38,11 +38,9 @@ namespace sbuild
   {
 
     plain::plain ():
-      directory_base()
+      chroot()
     {
-      set_run_setup_scripts(false);
-
-      remove_facet<facet::session_clonable>();
+      add_facet(facet::plain::create());
     }
 
     plain::~plain ()
@@ -68,34 +66,6 @@ namespace sbuild
     plain::clone_source () const
     {
       return ptr();
-    }
-
-    std::string const&
-    plain::get_chroot_type () const
-    {
-      static const std::string type("plain");
-
-      return type;
-    }
-
-    std::string
-    plain::get_path () const
-    {
-      return get_directory();
-    }
-
-    void
-    plain::setup_lock (setup_type type,
-                       bool       lock,
-                       int        status)
-    {
-      /* By default, plain chroots do no locking. */
-    }
-
-    chroot::session_flags
-    plain::get_session_flags (chroot const& chroot) const
-    {
-      return SESSION_NOFLAGS;
     }
 
   }

@@ -19,7 +19,7 @@
 #ifndef SBUILD_CHROOT_PLAIN_H
 #define SBUILD_CHROOT_PLAIN_H
 
-#include <sbuild/chroot/directory-base.h>
+#include <sbuild/chroot/chroot.h>
 
 namespace sbuild
 {
@@ -33,7 +33,7 @@ namespace sbuild
      * session support.  If you need any of these functions, the
      * directory chroot type is more suited to your needs.
      */
-    class plain : public directory_base
+    class plain : public chroot
     {
     protected:
       /// The constructor.
@@ -56,21 +56,6 @@ namespace sbuild
 
       virtual chroot::ptr
       clone_source () const;
-
-      virtual std::string
-      get_path () const;
-
-      virtual std::string const&
-      get_chroot_type () const;
-
-      virtual session_flags
-      get_session_flags (chroot const& chroot) const;
-
-    protected:
-      virtual void
-      setup_lock (chroot::setup_type type,
-                  bool               lock,
-                  int                status);
     };
 
   }

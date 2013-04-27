@@ -38,6 +38,7 @@
 #endif // SBUILD_FEATURE_BTRFSSNAP
 #include <sbuild/chroot/facet/facet.h>
 #include <sbuild/chroot/facet/personality.h>
+#include <sbuild/chroot/facet/plain.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source.h>
@@ -106,7 +107,6 @@ namespace sbuild
       environment_filter(SBUILD_DEFAULT_ENVIRONMENT_FILTER),
       mount_location(),
       original(true),
-      run_setup_scripts(true),
       script_config(),
       profile("default"),
       command_prefix(),
@@ -136,7 +136,6 @@ namespace sbuild
       environment_filter(rhs.environment_filter),
       mount_location(rhs.mount_location),
       original(rhs.original),
-      run_setup_scripts(rhs.run_setup_scripts),
       script_config(rhs.script_config),
       profile(rhs.profile),
       command_prefix(rhs.command_prefix),
@@ -387,13 +386,9 @@ namespace sbuild
     bool
     chroot::get_run_setup_scripts () const
     {
-      return this->run_setup_scripts;
-    }
+      facet::plain::const_ptr plain = get_facet<facet::plain>();
 
-    void
-    chroot::set_run_setup_scripts (bool run_setup_scripts)
-    {
-      this->run_setup_scripts = run_setup_scripts;
+      return !static_cast<bool>(plain);
     }
 
     std::string const&

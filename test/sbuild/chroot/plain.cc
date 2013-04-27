@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/config.h>
+#include <sbuild/chroot/facet/plain.h>
 #include <sbuild/chroot/plain.h>
 #include <sbuild/keyfile-writer.h>
 
@@ -73,9 +74,10 @@ public:
     test_chroot_base<chroot_plain>::setup_chroot_props(chroot);
 
     std::shared_ptr<sbuild::chroot::plain> c = std::dynamic_pointer_cast<sbuild::chroot::plain>(chroot);
-
     c->set_mount_location("");
-    c->set_directory("/srv/chroot/example-chroot");
+
+    sbuild::chroot::facet::plain::ptr plfac = chroot->get_facet<sbuild::chroot::facet::plain>();
+    plfac->set_directory("/srv/chroot/example-chroot");
   }
 
   void
@@ -83,8 +85,9 @@ public:
   {
     std::shared_ptr<sbuild::chroot::plain> c = std::dynamic_pointer_cast<sbuild::chroot::plain>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_directory("/mnt/mount-location/example");
-    CPPUNIT_ASSERT(c->get_directory() == "/mnt/mount-location/example");
+    sbuild::chroot::facet::plain::ptr plfac = chroot->get_facet<sbuild::chroot::facet::plain>();
+    plfac->set_directory("/mnt/mount-location/example");
+    CPPUNIT_ASSERT(plfac->get_directory() == "/mnt/mount-location/example");
     CPPUNIT_ASSERT(chroot->get_path() == "/mnt/mount-location/example");
     CPPUNIT_ASSERT(chroot->get_mount_location() == "");
   }

@@ -404,16 +404,6 @@ namespace sbuild
       bool
       get_run_setup_scripts () const;
 
-    protected:
-      /**
-       * Set whether chroot setup scripts will be run.
-       *
-       * @param run_setup_scripts true if setup scripts will be run,
-       * otherwise false.
-       */
-      void
-      set_run_setup_scripts (bool run_setup_scripts);
-
     public:
       /**
        * Get the script configuration file for the chroot.  This is a
@@ -864,8 +854,6 @@ namespace sbuild
       std::string   mount_location;
       /// Was the chroot automatically generated?
       bool          original;
-      /// Run chroot setup scripts?
-      bool          run_setup_scripts;
       /// Configuration of the setup and exec scripts.
       std::string   script_config;
       /// Configuration profile for setup scripts (replaces script_config).
