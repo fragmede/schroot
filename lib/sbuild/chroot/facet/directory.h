@@ -16,10 +16,14 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_BLOCK_DEVICE_BASE_H
-#define SBUILD_CHROOT_BLOCK_DEVICE_BASE_H
+#ifndef SBUILD_CHROOT_DIRECTORY_H
+#define SBUILD_CHROOT_DIRECTORY_H
 
-#include <sbuild/chroot/chroot.h>
+#include <sbuild/config.h>
+#include <sbuild/chroot/directory-base.h>
+#ifdef SBUILD_FEATURE_BTRFSSNAP
+#include <sbuild/chroot/btrfs-snapshot.h>
+#endif
 
 namespace sbuild
 {
@@ -27,62 +31,67 @@ namespace sbuild
   {
 
     /**
-     * A base class for block-device chroots.
+     * A chroot located in the filesystem.
      *
-     * This class doesn't implement a chroot (get_chroot_type
-     * is not implemented).
-     *
-     * Originally lvm-snapshot inherited from the block-device chroot,
-     * but this was changed when union support was introduced.  This
-     * design prevents lvm-snapshot offering union based sessions.
+     * It runs setup scripts and can provide multiple sessions
+     * using the union facet.
      */
-    class block_device_base : public chroot::chroot
+    class directory : public directory_base
     {
     protected:
       /// The constructor.
-      block_device_base ();
+      directory ();
 
       /// The copy constructor.
-      block_device_base (const block_device_base& rhs);
+      directory (const directory& rhs);
+
+#ifdef SBUILD_FEATURE_BTRFSSNAP
+      /// The copy constructor.
+      directory (const btrfs_snapshot& rhs);
+#endif
 
       friend class chroot;
+#ifdef SBUILD_FEATURE_BTRFSSNAP
+      friend class btrfs_snapshot;
+#endif
 
     public:
       /// The destructor.
-      virtual ~block_device_base ();
+      virtual ~directory ();
 
-      /**
-       * Get the block device of the chroot.
-       *
-       * @returns the device.
-       */
-      std::string const&
-      get_device () const;
+      virtual chroot::ptr
+      clone () const;
 
-      /**
-       * Set the block device of the chroot.  This is the "source" device.
-       * It may be the case that the real device is different (for
-       * example, an LVM snapshot PV), but by default will be the device
-       * to mount.
-       *
-       * @param device the device.
-       */
-      void
-      set_device (std::string const& device);
+      virtual chroot::ptr
+      clone_session (std::string const& session_id,
+                     std::string const& alias,
+                     std::string const& user,
+                     bool               root) const;
+
+      virtual chroot::ptr
+      clone_source () const;
 
       virtual std::string
       get_path () const;
 
       virtual void
       setup_env (chroot const& chroot,
-                 environment&  env) const;
+                 environment& env) const;
+
+      virtual std::string const&
+      get_chroot_type () const;
 
       virtual session_flags
       get_session_flags (chroot const& chroot) const;
 
     protected:
       virtual void
-      get_details (chroot const&  chroot,
+      setup_lock (chroot::setup_type type,
+                  bool               lock,
+                  int                status);
+
+      virtual void
+      get_details (chroot const& chroot,
                    format_detail& detail) const;
 
       virtual void
@@ -90,20 +99,17 @@ namespace sbuild
 
       virtual void
       get_keyfile (chroot const& chroot,
-                   keyfile&      keyfile) const;
+                   keyfile& keyfile) const;
 
       virtual void
       set_keyfile (chroot&        chroot,
                    keyfile const& keyfile);
-
-      /// The block device to use.
-      std::string device;
     };
 
   }
 }
 
-#endif /* SBUILD_CHROOT_BLOCK_DEVICE_BASE_H */
+#endif /* SBUILD_CHROOT_DIRECTORY_H */
 
 /*
  * Local Variables:

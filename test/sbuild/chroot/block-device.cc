@@ -22,6 +22,7 @@
 #include <set>
 
 #include <sbuild/chroot/block-device.h>
+#include <sbuild/chroot/facet/block-device.h>
 #include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
@@ -97,7 +98,7 @@ public:
 
     std::shared_ptr<sbuild::chroot::block_device> c = std::dynamic_pointer_cast<sbuild::chroot::block_device>(chroot);
 
-    c->set_device("/dev/testdev");
+    c->get_facet_strict<sbuild::chroot::facet::block_device>()->set_device("/dev/testdev");
 
     sbuild::chroot::facet::mountable::ptr pmnt(chroot->get_facet<sbuild::chroot::facet::mountable>());
     CPPUNIT_ASSERT(pmnt);
@@ -111,8 +112,8 @@ public:
   {
     std::shared_ptr<sbuild::chroot::block_device> c = std::dynamic_pointer_cast<sbuild::chroot::block_device>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_device("/dev/some/device");
-    CPPUNIT_ASSERT(c->get_device() == "/dev/some/device");
+    c->get_facet_strict<sbuild::chroot::facet::block_device>()->set_device("/dev/some/device");
+    CPPUNIT_ASSERT(c->get_facet_strict<sbuild::chroot::facet::block_device>()->get_device() == "/dev/some/device");
   }
 
   void

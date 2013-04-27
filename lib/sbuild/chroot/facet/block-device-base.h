@@ -42,6 +42,7 @@ namespace sbuild
       class block_device_base : public storage
       {
       public:
+        /// Exception type.
         typedef chroot::error error;
 
       protected:

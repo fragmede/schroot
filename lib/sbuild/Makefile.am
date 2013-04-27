@@ -25,7 +25,6 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/chroot/custom.h			\
 	lib/sbuild/chroot/directory.h			\
 	lib/sbuild/chroot/directory-base.h		\
-	lib/sbuild/chroot/facet/block-device-base.h	\
 	lib/sbuild/chroot/facet/facet.h			\
 	lib/sbuild/chroot/facet/mountable.h		\
 	lib/sbuild/chroot/facet/personality.h		\
@@ -72,17 +71,19 @@ lib_sbuild_public_auth_pam_h_sources =	\
 endif
 
 if BUILD_BLOCKDEV
-lib_sbuild_public_blockdev_base_h_sources =	\
-	lib/sbuild/chroot/block-device-base.h
-lib_sbuild_public_blockdev_h_sources =	\
-	lib/sbuild/chroot/block-device.h
+lib_sbuild_public_blockdev_base_h_sources =		\
+	lib/sbuild/chroot/facet/block-device-base.h
+lib_sbuild_public_blockdev_h_sources =		\
+	lib/sbuild/chroot/block-device.h	\
+	lib/sbuild/chroot/facet/block-device.h
 endif
 
 if BUILD_LVMSNAP
-lib_sbuild_public_blockdev_base_h_sources =	\
-	lib/sbuild/chroot/block-device-base.h
-lib_sbuild_public_lvmsnap_h_sources =	\
-	lib/sbuild/chroot/lvm-snapshot.h
+lib_sbuild_public_blockdev_base_h_sources =		\
+	lib/sbuild/chroot/facet/block-device-base.h
+lib_sbuild_public_lvmsnap_h_sources =		\
+	lib/sbuild/chroot/lvm-snapshot.h	\
+	lib/sbuild/chroot/facet/lvm-snapshot.h
 endif
 
 if BUILD_BTRFSSNAP
@@ -113,7 +114,6 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/chroot/directory.cc			\
 	lib/sbuild/chroot/directory-base.cc		\
 	lib/sbuild/chroot/facet/facet.cc		\
-	lib/sbuild/chroot/facet/block-device-base.cc	\
 	lib/sbuild/chroot/facet/mountable.cc		\
 	lib/sbuild/chroot/facet/personality.cc		\
 	lib/sbuild/chroot/facet/session.cc		\
@@ -152,17 +152,19 @@ lib_sbuild_public_auth_pam_cc_sources =	\
 endif
 
 if BUILD_BLOCKDEV
-lib_sbuild_public_blockdev_base_cc_sources =	\
-	lib/sbuild/chroot/block-device-base.cc
-lib_sbuild_public_blockdev_cc_sources =	\
-	lib/sbuild/chroot/block-device.cc
+lib_sbuild_public_blockdev_base_cc_sources =		\
+	lib/sbuild/chroot/facet/block-device-base.cc
+lib_sbuild_public_blockdev_cc_sources =		\
+	lib/sbuild/chroot/block-device.cc	\
+	lib/sbuild/chroot/facet/block-device.cc
 endif
 
 if BUILD_LVMSNAP
-lib_sbuild_public_blockdev_base_cc_sources =	\
-	lib/sbuild/chroot/block-device-base.cc
-lib_sbuild_public_lvmsnap_cc_sources =	\
-	lib/sbuild/chroot/lvm-snapshot.cc
+lib_sbuild_public_blockdev_base_cc_sources =		\
+	lib/sbuild/chroot/facet/block-device-base.cc
+lib_sbuild_public_lvmsnap_cc_sources =		\
+	lib/sbuild/chroot/lvm-snapshot.cc	\
+	lib/sbuild/chroot/facet/lvm-snapshot.cc
 endif
 
 if BUILD_BTRFSSNAP

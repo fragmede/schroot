@@ -16,10 +16,10 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_LVM_SNAPSHOT_H
-#define SBUILD_CHROOT_LVM_SNAPSHOT_H
+#ifndef SBUILD_CHROOT_PLAIN_H
+#define SBUILD_CHROOT_PLAIN_H
 
-#include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/directory-base.h>
 
 namespace sbuild
 {
@@ -27,24 +27,23 @@ namespace sbuild
   {
 
     /**
-     * A chroot stored on an LVM logical volume (LV).
+     * A chroot located in the filesystem (scripts disabled).
      *
-     * A snapshot LV will be created and mounted on demand.
+     * This doesn't run any setup scripts and doesn't provide any
+     * session support.  If you need any of these functions, the
+     * directory chroot type is more suited to your needs.
      */
-    class lvm_snapshot : public chroot
+    class plain : public directory_base
     {
     protected:
       /// The constructor.
-      lvm_snapshot ();
-
-      /// The copy constructor.
-      lvm_snapshot (const lvm_snapshot& rhs);
+      plain ();
 
       friend class chroot;
 
     public:
       /// The destructor.
-      virtual ~lvm_snapshot ();
+      virtual ~plain ();
 
       virtual chroot::ptr
       clone () const;
@@ -57,12 +56,27 @@ namespace sbuild
 
       virtual chroot::ptr
       clone_source () const;
+
+      virtual std::string
+      get_path () const;
+
+      virtual std::string const&
+      get_chroot_type () const;
+
+      virtual session_flags
+      get_session_flags (chroot const& chroot) const;
+
+    protected:
+      virtual void
+      setup_lock (chroot::setup_type type,
+                  bool               lock,
+                  int                status);
     };
 
   }
 }
 
-#endif /* SBUILD_CHROOT_LVM_SNAPSHOT_H */
+#endif /* SBUILD_CHROOT_PLAIN_H */
 
 /*
  * Local Variables:

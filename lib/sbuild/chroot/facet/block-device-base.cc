@@ -26,6 +26,7 @@
 
 #include <cerrno>
 #include <cstring>
+#include <iostream>
 
 using namespace sbuild;
 
@@ -57,7 +58,8 @@ namespace sbuild
       block_device_base::set_chroot (chroot& chroot)
       {
         facet::set_chroot(chroot);
-        this->owner->add_facet(mountable::create());
+        if (!this->owner->get_facet<mountable>())
+          this->owner->add_facet(mountable::create());
       }
 
       std::string const&
@@ -115,7 +117,7 @@ namespace sbuild
                                       keyfile&      keyfile) const
       {
         keyfile::set_object_value(*this, &block_device_base::get_device,
-                                  keyfile, get_name(), "device");
+                                  keyfile, chroot.get_name(), "device");
       }
 
       void
@@ -123,7 +125,7 @@ namespace sbuild
                                       keyfile const& keyfile)
       {
         keyfile::get_object_value(*this, &block_device_base::set_device,
-                                  keyfile, get_name(), "device",
+                                  keyfile, chroot.get_name(), "device",
                                   keyfile::PRIORITY_REQUIRED);
       }
 

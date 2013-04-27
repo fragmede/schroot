@@ -25,10 +25,10 @@
 #include <sbuild/chroot/facet/source-clonable.h>
 #include <sbuild/chroot/plain.h>
 #ifdef SBUILD_FEATURE_BLOCKDEV
-#include <sbuild/chroot/block-device-base.h>
+#include <sbuild/chroot/facet/block-device-base.h>
 #endif
 #ifdef SBUILD_FEATURE_LVMSNAP
-#include <sbuild/chroot/lvm-snapshot.h>
+#include <sbuild/chroot/facet/lvm-snapshot.h>
 #endif // SBUILD_FEATURE_LVMSNAP
 #ifdef SBUILD_FEATURE_LOOPBACK
 #include <sbuild/chroot/loopback.h>
@@ -157,7 +157,7 @@ namespace sbuild
         /* Block devices need the mount device name specifying. */
         /* Note that this will be overridden by LVM snapshot, below, so the
            order here is important. */
-        std::shared_ptr<block_device_base> blockdevbase(std::dynamic_pointer_cast<block_device_base>(clone));
+        std::shared_ptr<block_device_base> blockdevbase(clone->get_facet<block_device_base>());
         if (blockdevbase)
           {
             mountable::ptr pmnt
@@ -181,7 +181,7 @@ namespace sbuild
 
 #ifdef SBUILD_FEATURE_LVMSNAP
         /* LVM devices need the snapshot device name specifying. */
-        std::shared_ptr<lvm_snapshot> snapshot(std::dynamic_pointer_cast<lvm_snapshot>(clone));
+        lvm_snapshot::ptr snapshot(clone->get_facet<lvm_snapshot>());
         if (snapshot && !snapshot->get_device().empty())
           {
             std::string device(dirname(snapshot->get_device()));
