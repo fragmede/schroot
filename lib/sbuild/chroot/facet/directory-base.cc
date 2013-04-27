@@ -18,16 +18,14 @@
 
 #include <config.h>
 
-#include <sbuild/chroot/directory-base.h>
-#include <sbuild/format-detail.h>
-#include <sbuild/lock.h>
+#include <sbuild/chroot/facet/directory-base.h>
+#include "format-detail.h"
+#include "lock.h"
+#include "util.h"
 
 #include <cerrno>
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/sysmacros.h>
-#include <unistd.h>
+#include <cstring>
+#include <iostream>
 
 using namespace sbuild;
 
@@ -35,114 +33,101 @@ namespace sbuild
 {
   namespace chroot
   {
-
-    directory_base::directory_base ():
-      chroot(),
-      directory()
+    namespace facet
     {
+
+      directory_base::directory_base ():
+        storage(),
+        directory()
+      {
+      }
+
+      directory_base::directory_base (const directory_base& rhs):
+        storage(rhs),
+        directory(rhs.directory)
+      {
+      }
+
+      directory_base::~directory_base ()
+      {
+      }
+
+      std::string const&
+      directory_base::get_directory () const
+      {
+        return this->directory;
+      }
+
+      void
+      directory_base::set_directory (std::string const& directory)
+      {
+        if (!is_absname(directory))
+          throw chroot::error(directory, chroot::DIRECTORY_ABS);
+
+        this->directory = directory;
+      }
+
+      void
+      directory_base::setup_env (chroot const& chroot,
+                                 environment& env) const
+      {
+        env.add("CHROOT_DIRECTORY", get_directory());
+      }
+
+      void
+      directory_base::get_details (chroot const& chroot,
+                                   format_detail& detail) const
+      {
+        detail.add(_("Directory"), get_directory());
+      }
+
+      void
+      directory_base::get_used_keys (string_list& used_keys) const
+      {
+        used_keys.push_back("directory");
+        used_keys.push_back("location");
+      }
+
+      void
+      directory_base::get_keyfile (chroot const& chroot,
+                                   keyfile& keyfile) const
+      {
+        keyfile::set_object_value(*this, &directory_base::get_directory,
+                                  keyfile, chroot.get_name(), "directory");
+      }
+
+      void
+      directory_base::set_keyfile (chroot&        chroot,
+                                   keyfile const& keyfile)
+      {
+        // "directory" should be required, but we also accept "location" as
+        // an alternative (but deprecated) variant.  Therefore, ensure by
+        // hand that one of them is defined, but not both.
+
+        bool directory_key = keyfile.has_key(chroot.get_name(), "directory");
+        bool location_key = keyfile.has_key(chroot.get_name(), "location");
+
+        keyfile::priority directory_priority = keyfile::PRIORITY_OPTIONAL;
+        keyfile::priority location_priority = keyfile::PRIORITY_OBSOLETE;
+
+        if (!directory_key && !location_key)
+          throw keyfile::error(chroot.get_name(), keyfile::MISSING_KEY_NL, "directory");
+
+        // Using both keys is not allowed (which one is the correct one?),
+        // so force an exception to be thrown when reading the old location
+        // key.
+        if (directory_key && location_key)
+          location_priority = keyfile::PRIORITY_DISALLOWED;
+
+        keyfile::get_object_value(*this, &directory_base::set_directory,
+                                  keyfile, chroot.get_name(), "directory",
+                                  directory_priority);
+
+        keyfile::get_object_value(*this, &directory_base::set_directory,
+                                  keyfile, chroot.get_name(), "location",
+                                  location_priority);
+      }
+
     }
-
-    directory_base::directory_base (const directory_base& rhs):
-      chroot(rhs),
-      directory(rhs.directory)
-    {
-    }
-
-    directory_base::directory_base (const chroot& rhs):
-      chroot(rhs),
-      directory()
-    {
-    }
-
-    directory_base::~directory_base ()
-    {
-    }
-
-    std::string const&
-    directory_base::get_directory () const
-    {
-      return this->directory;
-    }
-
-    void
-    directory_base::set_directory (std::string const& directory)
-    {
-      if (!is_absname(directory))
-        throw chroot::error(directory, DIRECTORY_ABS);
-
-      this->directory = directory;
-    }
-
-    void
-    directory_base::setup_env (chroot const& chroot,
-                               environment& env) const
-    {
-      chroot::setup_env(chroot, env);
-
-      env.add("CHROOT_DIRECTORY", get_directory());
-    }
-
-    void
-    directory_base::get_details (chroot const& chroot,
-                                 format_detail& detail) const
-    {
-      chroot::get_details(chroot, detail);
-
-      detail.add(_("Directory"), get_directory());
-    }
-
-    void
-    directory_base::get_used_keys (string_list& used_keys) const
-    {
-      chroot::get_used_keys(used_keys);
-
-      used_keys.push_back("directory");
-      used_keys.push_back("location");
-    }
-
-    void
-    directory_base::get_keyfile (chroot const& chroot,
-                                 keyfile& keyfile) const
-    {
-      chroot::get_keyfile(chroot, keyfile);
-
-      keyfile::set_object_value(*this, &directory_base::get_directory,
-                                keyfile, get_name(), "directory");
-    }
-
-    void
-    directory_base::set_keyfile (chroot&        chroot,
-                                 keyfile const& keyfile)
-    {
-      chroot::set_keyfile(chroot, keyfile);
-
-      // "directory" should be required, but we also accept "location" as
-      // an alternative (but deprecated) variant.  Therefore, ensure by
-      // hand that one of them is defined, but not both.
-
-      bool directory_key = keyfile.has_key(get_name(), "directory");
-      bool location_key = keyfile.has_key(get_name(), "location");
-
-      keyfile::priority directory_priority = keyfile::PRIORITY_OPTIONAL;
-      keyfile::priority location_priority = keyfile::PRIORITY_OBSOLETE;
-
-      if (!directory_key && !location_key)
-        throw keyfile::error(get_name(), keyfile::MISSING_KEY_NL, "directory");
-
-      // Using both keys is not allowed (which one is the correct one?),
-      // so force an exception to be thrown when reading the old location
-      // key.
-      if (directory_key && location_key)
-        location_priority = keyfile::PRIORITY_DISALLOWED;
-
-      keyfile::get_object_value(*this, &directory_base::set_directory,
-                                keyfile, get_name(), "directory",
-                                directory_priority);
-
-      keyfile::get_object_value(*this, &directory_base::set_directory,
-                                keyfile, get_name(), "location",
-                                location_priority);
-    }
-
   }
 }

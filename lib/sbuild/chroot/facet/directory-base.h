@@ -16,91 +16,101 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_DIRECTORY_BASE_H
-#define SBUILD_CHROOT_DIRECTORY_BASE_H
+#ifndef SBUILD_CHROOT_FACET_DIRECTORY_BASE_H
+#define SBUILD_CHROOT_FACET_DIRECTORY_BASE_H
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/storage.h>
 
 namespace sbuild
 {
   namespace chroot
   {
-
-    /**
-     * A base class for chroots located in a local directory.
-     *
-     * This class doesn't implement a chroot (get_chroot_type is not
-     * implemented).  plain and directory chroots inherit from this
-     * class.
-     *
-     * Originally plain inherited from the directory chroot, but this
-     * had to be changed when union support was introduced.  As plain
-     * chroots don't run any setup scripts and basically just call
-     * 'chroot' on a directory, they can't support union based sessions.
-     */
-    class directory_base : public chroot::chroot
+    namespace facet
     {
-    protected:
-      /// The constructor.
-      directory_base ();
-
-      /// The copy constructor.
-      directory_base (const directory_base& rhs);
-
-      /// The copy constructor.
-      directory_base (const chroot& rhs);
-
-      friend class chroot;
-
-    public:
-      /// The destructor.
-      virtual ~directory_base ();
 
       /**
-       * Get the directory containing the chroot.
+       * A base class for block-device chroots.
        *
-       * @returns the location.
-       */
-      std::string const&
-      get_directory () const;
-
-      /**
-       * Set the directory containing the chroot.
+       * This class doesn't implement a chroot (get_chroot_type
+       * is not implemented).
        *
-       * @param directory the directory.
+       * Originally lvm-snapshot inherited from the block-device chroot,
+       * but this was changed when union support was introduced.  This
+       * design prevents lvm-snapshot offering union based sessions.
        */
-      void
-      set_directory (std::string const& directory);
+      class directory_base : public storage
+      {
+      public:
+        /// Exception type.
+        typedef chroot::error error;
 
-      virtual void
-      setup_env (chroot const& chroot,
-                 environment&  env) const;
+      protected:
+        /// The constructor.
+        directory_base ();
 
-    protected:
-      virtual void
-      get_details (chroot const&  chroot,
-                   format_detail& detail) const;
+        /// The copy constructor.
+        directory_base (const directory_base& rhs);
 
-      virtual void
-      get_used_keys (string_list& used_keys) const;
+        friend class chroot;
 
-      virtual void
-      get_keyfile (chroot const& chroot,
-                   keyfile&      keyfile) const;
+      public:
+        /// The destructor.
+        virtual ~directory_base ();
 
-      virtual void
-      set_keyfile (chroot&        chroot,
-                   keyfile const& keyfile);
+      protected:
+        void
+        set_chroot (chroot& chroot);
 
-    private:
-      /// The directory to use.
-      std::string directory;
-    };
+      public:
+        /**
+         * Get the directory containing the chroot.
+         *
+         * @returns the location.
+         */
+        std::string const&
+        get_directory () const;
 
+        /**
+         * Set the directory containing the chroot.
+         *
+         * @param directory the directory.
+         */
+        void
+        set_directory (std::string const& directory);
+
+        virtual std::string
+        get_path () const;
+
+        virtual void
+        setup_env (chroot const& chroot,
+                   environment&  env) const;
+
+      protected:
+        virtual void
+        get_details (chroot const&  chroot,
+                     format_detail& detail) const;
+
+        virtual void
+        get_used_keys (string_list& used_keys) const;
+
+        virtual void
+        get_keyfile (chroot const& chroot,
+                     keyfile&      keyfile) const;
+
+        virtual void
+        set_keyfile (chroot&        chroot,
+                     keyfile const& keyfile);
+
+        /// The directory to use.
+        std::string directory;
+      };
+
+    }
   }
 }
 
-#endif /* SBUILD_CHROOT_DIRECTORY_BASE_H */
+#endif /* SBUILD_CHROOT_FACET_DIRECTORY_BASE_H */
 
 /*
  * Local Variables:
