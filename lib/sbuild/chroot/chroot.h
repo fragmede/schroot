@@ -223,9 +223,10 @@ namespace sbuild
        * by the chroot type if required.
        *
        * @returns the path.
+       * @todo Remove once migrated to storage facet, or delegate.
        */
       virtual std::string
-      get_path () const = 0;
+      get_path () const;
 
       /**
        * Get the users allowed to access the chroot.
@@ -507,9 +508,10 @@ namespace sbuild
        * Get the type of the chroot.
        *
        * @returns the chroot type.
+       * @todo Delegate to storage facet name.
        */
       virtual std::string const&
-      get_chroot_type () const = 0;
+      get_chroot_type () const;
 
       /**
        * Set environment.  Set the environment that the setup scripts
@@ -526,10 +528,11 @@ namespace sbuild
        *
        * @param chroot the chroot to use.
        * @param env the environment to set.
+       * @todo Delegate entirely to facets.
        */
       virtual void
       setup_env (chroot const& chroot,
-                 environment& env) const = 0;
+                 environment& env) const;
 
       /**
        * Lock a chroot during setup.  The locking technique (if any) may
@@ -576,11 +579,12 @@ namespace sbuild
        * @param lock true to lock, false to unlock
        * @param status the exit status of the setup commands (0 for
        * success, nonzero for failure).
+       * @todo Delegate to storate or other facet?
        */
       virtual void
       setup_lock(setup_type type,
                  bool       lock,
-                 int        status) = 0;
+                 int        status);
 
     public:
       /**
@@ -685,9 +689,10 @@ namespace sbuild
        *
        * @param chroot the chroot to use.
        * @returns the session flags.
+       * @todo Delegate entirely to facets.
        */
       virtual chroot::session_flags
-      get_session_flags (chroot const& chroot) const = 0;
+      get_session_flags (chroot const& chroot) const;
 
       /**
        * Print detailed information about the chroot to a stream.  The
@@ -751,10 +756,11 @@ namespace sbuild
        *
        * @param chroot the chroot to use.
        * @param detail the details to output to.
+       * @todo Delegate entirely to facets
        */
       virtual void
       get_details (chroot const&  chroot,
-                   format_detail& detail) const = 0;
+                   format_detail& detail) const;
 
       /**
        * Print detailed information about the chroot to a stream.  The
@@ -784,10 +790,11 @@ namespace sbuild
        *
        * @param chroot the chroot to use.
        * @param keyfile the keyfile to use.
+       * @todo Delegate to facets
        */
       virtual void
       get_keyfile (chroot const& chroot,
-                   keyfile&      keyfile) const = 0;
+                   keyfile&      keyfile) const;
 
     public:
       /**
@@ -809,8 +816,13 @@ namespace sbuild
       get_used_keys () const;
 
     protected:
+      /**
+       * Get keys used during keyfile parsing.  If keys are missing or
+       * present when not expected, this may be used for diagnostic
+       * purposes.
+       */
       virtual void
-      get_used_keys (string_list& used_keys) const = 0;
+      get_used_keys (string_list& used_keys) const;
 
       /**
        * Set the chroot properties from a keyfile.  The chroot name must
@@ -820,10 +832,11 @@ namespace sbuild
        * @param chroot the chroot to use.
        * @param keyfile the keyfile to get the properties from.
        * @param used_keys a list of the keys used will be set.
+       * @todo Delegate entirely to facets
        */
       virtual void
       set_keyfile (chroot&        chroot,
-                   keyfile const& keyfile) = 0;
+                   keyfile const& keyfile);
 
     private:
       /// Chroot name.

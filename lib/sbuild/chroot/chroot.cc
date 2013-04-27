@@ -48,7 +48,6 @@
 #endif // SBUILD_FEATURE_UNSHARE
 #include "fdstream.h"
 
-#include <cassert>
 #include <cerrno>
 #include <map>
 #include <utility>
@@ -249,6 +248,12 @@ namespace sbuild
       if (!location.empty() && !is_absname(location))
         throw error(location, LOCATION_ABS);
       this->mount_location = location;
+    }
+
+    std::string
+    chroot::get_path () const
+    {
+      return get_facet_strict<facet::storage>()->get_path();
     }
 
     string_list const&
@@ -513,6 +518,12 @@ namespace sbuild
       return facet_names;
     }
 
+    std::string const&
+    chroot::get_chroot_type () const
+    {
+      return get_facet_strict<facet::storage>()->get_name();
+    }
+
     void
     chroot::setup_env (environment& env) const
     {
@@ -560,6 +571,14 @@ namespace sbuild
       setup_lock(type, false, status);
     }
 
+    void
+    chroot::setup_lock(setup_type type,
+                       bool       lock,
+                       int        status)
+    {
+      get_facet_strict<facet::storage>()->setup_lock(type, lock, status);
+    }
+
     chroot::session_flags
     chroot::get_session_flags () const
     {
@@ -569,6 +588,12 @@ namespace sbuild
         flags = flags | facet->get_session_flags(*this);
 
       return flags;
+    }
+
+    chroot::session_flags
+    chroot::get_session_flags (chroot const& chroot) const
+    {
+      return SESSION_NOFLAGS;
     }
 
     void
