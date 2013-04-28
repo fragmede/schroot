@@ -54,8 +54,8 @@ namespace sbuild
         directory (const directory& rhs);
 
 #ifdef SBUILD_FEATURE_BTRFSSNAP
-      /// The copy constructor.
-      directory (const btrfs_snapshot& rhs);
+        /// The copy constructor.
+        directory (const btrfs_snapshot& rhs);
 #endif // SBUILD_FEATURE_BTRFSSNAP
 
         void
@@ -63,7 +63,7 @@ namespace sbuild
 
         friend class chroot;
 #ifdef SBUILD_FEATURE_BTRFSSNAP
-      friend class btrfs_snapshot;
+        friend class btrfs_snapshot;
 #endif // SBUILD_FEATURE_BTRFSSNAP
 
       public:
@@ -89,7 +89,7 @@ namespace sbuild
          */
         static ptr
         create (const btrfs_snapshot& rhs);
- #endif // SBUILD_FEATURE_BTRFSSNAP
+#endif // SBUILD_FEATURE_BTRFSSNAP
 
         virtual facet::ptr
         clone () const;

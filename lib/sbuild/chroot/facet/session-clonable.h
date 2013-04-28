@@ -23,72 +23,72 @@
 
 namespace sbuild
 {
-namespace chroot
-{
-namespace facet
-{
-
-  /**
-   * Chroot support for creation of sessions.
-   *
-   * A chroot may offer a "session" facet to signal restorable or
-   * parallel chroot environment usage.  This facet allows the chroot
-   * to support session creation.
-   */
-  class session_clonable : public facet
+  namespace chroot
   {
-  public:
-    /// A shared_ptr to a chroot facet object.
-    typedef std::shared_ptr<session_clonable> ptr;
+    namespace facet
+    {
 
-    /// A shared_ptr to a const chroot facet object.
-    typedef std::shared_ptr<const session_clonable> const_ptr;
+      /**
+       * Chroot support for creation of sessions.
+       *
+       * A chroot may offer a "session" facet to signal restorable or
+       * parallel chroot environment usage.  This facet allows the chroot
+       * to support session creation.
+       */
+      class session_clonable : public facet
+      {
+      public:
+        /// A shared_ptr to a chroot facet object.
+        typedef std::shared_ptr<session_clonable> ptr;
 
-  private:
-    /// The constructor.
-    session_clonable ();
+        /// A shared_ptr to a const chroot facet object.
+        typedef std::shared_ptr<const session_clonable> const_ptr;
 
-  public:
-    /// The destructor.
-    virtual ~session_clonable ();
+      private:
+        /// The constructor.
+        session_clonable ();
 
-    /**
-     * Create a chroot facet.
-     *
-     * @returns a shared_ptr to the new chroot facet.
-     */
-    static ptr
-    create ();
+      public:
+        /// The destructor.
+        virtual ~session_clonable ();
 
-    virtual facet::ptr
-    clone () const;
+        /**
+         * Create a chroot facet.
+         *
+         * @returns a shared_ptr to the new chroot facet.
+         */
+        static ptr
+        create ();
 
-    virtual std::string const&
-    get_name () const;
+        virtual facet::ptr
+        clone () const;
 
-    /**
-     * Set the defaults in the cloned session chroot.
-     *
-     * @param parent the parent of the cloned chroot.
-     * @param clone the chroot to set up.
-     * @param session_id the identifier for the new session.
-     * @param user the user creating the session.
-     * @param root whether or not the user is switching to root.
-     */
-    virtual void
-    clone_session_setup (chroot const&      parent,
-                         chroot::ptr&       clone,
-                         std::string const& session_id,
-                         std::string const& alias,
-                         std::string const& user,
-                         bool               root) const;
+        virtual std::string const&
+        get_name () const;
 
-    virtual chroot::session_flags
-    get_session_flags (chroot const& chroot) const;
-  };
+        /**
+         * Set the defaults in the cloned session chroot.
+         *
+         * @param parent the parent of the cloned chroot.
+         * @param clone the chroot to set up.
+         * @param session_id the identifier for the new session.
+         * @param user the user creating the session.
+         * @param root whether or not the user is switching to root.
+         */
+        virtual void
+        clone_session_setup (chroot const&      parent,
+                             chroot::ptr&       clone,
+                             std::string const& session_id,
+                             std::string const& alias,
+                             std::string const& user,
+                             bool               root) const;
 
-}
-}
+        virtual chroot::session_flags
+        get_session_flags (chroot const& chroot) const;
+      };
+
+    }
+  }
 }
 
 #endif /* SBUILD_CHROOT_FACET_SESSION_CLONABLE_H */

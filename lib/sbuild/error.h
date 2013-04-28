@@ -54,7 +54,7 @@ namespace sbuild
      * @param reason further information about the error
      */
     error_base(std::string const& error,
-          std::string const& reason):
+               std::string const& reason):
       runtime_error(error),
       reason(reason)
     {

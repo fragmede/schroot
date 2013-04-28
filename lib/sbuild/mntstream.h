@@ -44,151 +44,151 @@ namespace sbuild
    * the >> operator.
    */
   class mntstream
-    {
-    public:
-      /// Error codes.
-      enum error_code
-        {
-          MNT_OPEN, ///< Failed to open mount file.
-          MNT_READ  ///< Failed to read mount file.
-        };
-
-      /// Exception type.
-      typedef sbuild::custom_error<error_code> error;
-
-      /**
-       * An entry in a mntstream.  It is a wrapper around the mntent
-       * structure declared in mntent.h.  Unlike a mntent pointer returned
-       * by getmntent(3), a mntentry does not become invalid when the
-       * mntstream it was extracted from is destroyed.
-       */
-      struct mntentry
+  {
+  public:
+    /// Error codes.
+    enum error_code
       {
-        /// The constructor.
-        mntentry ()
-        {};
-
-        /**
-         * The contructor.
-         *
-         * @param entry the mntent structure to wrap.
-         */
-        mntentry (struct mntent const&  entry);
-
-        /// Name of mounted filesystem.
-        std::string  filesystem_name;
-        /// File system path prefix.
-        std::string  directory;
-        /// Mount type.
-        std::string  type;
-        /// Mount options.
-        std::string  options;
-        /// Dump frequency (days).
-        int          dump_frequency;
-        /// Parallel fsck pass number.
-        int          fsck_pass;
+        MNT_OPEN, ///< Failed to open mount file.
+        MNT_READ  ///< Failed to read mount file.
       };
 
-      /**
-       * The constructor.
-       *
-       * @param file the file to read.
-       */
-      mntstream(std::string const& file);
+    /// Exception type.
+    typedef sbuild::custom_error<error_code> error;
 
-      /// The destructor.
-      virtual ~mntstream();
-
-      /**
-       * Open a mount file for reading.  This uses the openmnt(3) call
-       * to open the underlying FILE stream.  Any previously open
-       * mount file is closed before opening the new one.  The
-       * mntstream error state is set if the open fails, and an
-       * exception will be thrown.
-       *
-       * @param file the file to read.
-       * @see close()
-       */
-      void open(std::string const& file);
+    /**
+     * An entry in a mntstream.  It is a wrapper around the mntent
+     * structure declared in mntent.h.  Unlike a mntent pointer returned
+     * by getmntent(3), a mntentry does not become invalid when the
+     * mntstream it was extracted from is destroyed.
+     */
+    struct mntentry
+    {
+      /// The constructor.
+      mntentry ()
+      {};
 
       /**
-       * Close the mount file.  This uses the closemnt(3) call to
-       * close the underlying FILE stream.  All cached data is deleted
-       * and the error state set until open() is called.
+       * The contructor.
        *
-       * @see open()
+       * @param entry the mntent structure to wrap.
        */
-      void close();
+      mntentry (struct mntent const&  entry);
 
-      /**
-       * Check for End Of File.  Note that the end of file status is
-       * only set adter a read fails, so this should be checked after
-       * each read.
-       *
-       * @returns true if the mntstream is empty, otherwise false.
-       */
-      bool eof() const;
+      /// Name of mounted filesystem.
+      std::string  filesystem_name;
+      /// File system path prefix.
+      std::string  directory;
+      /// Mount type.
+      std::string  type;
+      /// Mount options.
+      std::string  options;
+      /// Dump frequency (days).
+      int          dump_frequency;
+      /// Parallel fsck pass number.
+      int          fsck_pass;
+    };
 
-      /**
-       * Check for errors.  If there is an error, the mntstream is
-       * unusable until the next open() call.
-       *
-       * @returns true if the mntstream is in an error state, otherwise
-       * false.
-       */
-      bool bad() const;
+    /**
+     * The constructor.
+     *
+     * @param file the file to read.
+     */
+    mntstream(std::string const& file);
 
-      /**
-       * Check if the mntstream status is good.
-       *
-       * @returns true if the status is good (eof() and bad() both
-       * return false).
-       */
-      operator bool ();
+    /// The destructor.
+    virtual ~mntstream();
 
-      /**
-       * Check if the mntstream status is bad.
-       *
-       * @returns true if the status is bad (eof() or bad() return
-       * true).
-       */
-      bool
-      operator ! ();
+    /**
+     * Open a mount file for reading.  This uses the openmnt(3) call
+     * to open the underlying FILE stream.  Any previously open
+     * mount file is closed before opening the new one.  The
+     * mntstream error state is set if the open fails, and an
+     * exception will be thrown.
+     *
+     * @param file the file to read.
+     * @see close()
+     */
+    void open(std::string const& file);
 
-      friend mntstream&
-      operator >> (mntstream& stream,
-                   mntentry&  entry);
+    /**
+     * Close the mount file.  This uses the closemnt(3) call to
+     * close the underlying FILE stream.  All cached data is deleted
+     * and the error state set until open() is called.
+     *
+     * @see open()
+     */
+    void close();
 
-    private:
-      /**
-       * Read mntents from the underlying FILE stream into the data
-       * deque.  If the read fails, the error state will be set, and
-       * an exception will be thrown.
-       *
-       * @param quantity the number of mntents to read.
-       *
-       * @todo Add mntentry constructor to do automatic struct mntent
-       * to mntentry conversion.
-       */
-      void read (int quantity=1);
+    /**
+     * Check for End Of File.  Note that the end of file status is
+     * only set adter a read fails, so this should be checked after
+     * each read.
+     *
+     * @returns true if the mntstream is empty, otherwise false.
+     */
+    bool eof() const;
 
-      /// The file name.
-      std::string file;
+    /**
+     * Check for errors.  If there is an error, the mntstream is
+     * unusable until the next open() call.
+     *
+     * @returns true if the mntstream is in an error state, otherwise
+     * false.
+     */
+    bool bad() const;
 
-      /// The underlying FILE stream.
-      FILE *mntfile;
+    /**
+     * Check if the mntstream status is good.
+     *
+     * @returns true if the status is good (eof() and bad() both
+     * return false).
+     */
+    operator bool ();
 
-      /**
-       * A list of mntentries represents the mount file stream as a
-       * LIFO stack.
-       */
-      std::deque<mntentry> data;
+    /**
+     * Check if the mntstream status is bad.
+     *
+     * @returns true if the status is bad (eof() or bad() return
+     * true).
+     */
+    bool
+    operator ! ();
 
-      /// Error status.
-      bool error_status;
+    friend mntstream&
+    operator >> (mntstream& stream,
+                 mntentry&  entry);
 
-      /// End of File status.
-      bool eof_status;
+  private:
+    /**
+     * Read mntents from the underlying FILE stream into the data
+     * deque.  If the read fails, the error state will be set, and
+     * an exception will be thrown.
+     *
+     * @param quantity the number of mntents to read.
+     *
+     * @todo Add mntentry constructor to do automatic struct mntent
+     * to mntentry conversion.
+     */
+    void read (int quantity=1);
+
+    /// The file name.
+    std::string file;
+
+    /// The underlying FILE stream.
+    FILE *mntfile;
+
+    /**
+     * A list of mntentries represents the mount file stream as a
+     * LIFO stack.
+     */
+    std::deque<mntentry> data;
+
+    /// Error status.
+    bool error_status;
+
+    /// End of File status.
+    bool eof_status;
   };
 
   /**

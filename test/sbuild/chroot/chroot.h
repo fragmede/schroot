@@ -253,7 +253,7 @@ public:
     env.add("UNSHARE_SYSVSEM", "false");
     env.add("UNSHARE_UTS", "false");
 #endif // SBUILD_FEATURE_UNSHARE
-   }
+  }
 
   void setup_keyfile_chroot (sbuild::keyfile&   keyfile,
                              std::string const& group)

@@ -37,126 +37,126 @@ namespace sbuild
     namespace facet
     {
 
-  /**
-   * Common chroot data.  This class contains all of the metadata
-   * associated with a single chroot, for all chroot types.  This is
-   * the in-core representation of a chroot definition in the
-   * configuration file, and may be initialised directly from an open
-   * keyfile.
-   */
-  class facet
-  {
-  public:
-    /// A shared_ptr to a chroot facet object.
-    typedef std::shared_ptr<facet> ptr;
+      /**
+       * Common chroot data.  This class contains all of the metadata
+       * associated with a single chroot, for all chroot types.  This is
+       * the in-core representation of a chroot definition in the
+       * configuration file, and may be initialised directly from an open
+       * keyfile.
+       */
+      class facet
+      {
+      public:
+        /// A shared_ptr to a chroot facet object.
+        typedef std::shared_ptr<facet> ptr;
 
-    /// A shared_ptr to a const chroot facet object.
-    typedef std::shared_ptr<const facet> const_ptr;
+        /// A shared_ptr to a const chroot facet object.
+        typedef std::shared_ptr<const facet> const_ptr;
 
-  protected:
-    /// The constructor.
-    facet ();
+      protected:
+        /// The constructor.
+        facet ();
 
-    /**
-     * Set containing chroot.
-     *
-     * @param chroot the chroot containing this facet.
-     */
-    virtual void
-    set_chroot (chroot& chroot);
+        /**
+         * Set containing chroot.
+         *
+         * @param chroot the chroot containing this facet.
+         */
+        virtual void
+        set_chroot (chroot& chroot);
 
-    friend class ::sbuild::chroot::chroot;
+        friend class ::sbuild::chroot::chroot;
 
-  public:
-    /// The destructor.
-    virtual ~facet ();
+      public:
+        /// The destructor.
+        virtual ~facet ();
 
-    /**
-     * Copy the chroot facet.  This is a virtual copy constructor.
-     *
-     * @returns a shared_ptr to the new copy of the chroot facet.
-     */
-    virtual ptr
-    clone () const = 0;
+        /**
+         * Copy the chroot facet.  This is a virtual copy constructor.
+         *
+         * @returns a shared_ptr to the new copy of the chroot facet.
+         */
+        virtual ptr
+        clone () const = 0;
 
-    /**
-     * Get the name of the chroot facet.
-     *
-     * @returns the chroot facet name.
-     */
-    virtual std::string const&
-    get_name () const = 0;
+        /**
+         * Get the name of the chroot facet.
+         *
+         * @returns the chroot facet name.
+         */
+        virtual std::string const&
+        get_name () const = 0;
 
-    /**
-     * Set environment.  Set the environment that the setup scripts
-     * will see during execution.
-     *
-     * @param chroot the chroot to use.
-     * @param env the environment to set.
-     */
-    virtual void
-    setup_env (chroot const& chroot,
-               environment&  env) const;
+        /**
+         * Set environment.  Set the environment that the setup scripts
+         * will see during execution.
+         *
+         * @param chroot the chroot to use.
+         * @param env the environment to set.
+         */
+        virtual void
+        setup_env (chroot const& chroot,
+                   environment&  env) const;
 
-    /**
-     * Get the session flags of the chroot.  These determine how the
-     * Session controlling the chroot will operate.
-     *
-     * @param chroot the chroot to use.
-     * @returns the session flags.
-     */
-    virtual chroot::session_flags
-    get_session_flags (chroot const& chroot) const;
+        /**
+         * Get the session flags of the chroot.  These determine how the
+         * Session controlling the chroot will operate.
+         *
+         * @param chroot the chroot to use.
+         * @returns the session flags.
+         */
+        virtual chroot::session_flags
+        get_session_flags (chroot const& chroot) const;
 
-    /**
-     * Get detailed information about the chroot for output.
-     *
-     * @param chroot the chroot to use.
-     * @param detail the details to output to.
-     */
-    virtual void
-    get_details (chroot const&  chroot,
-                 format_detail& detail) const;
+        /**
+         * Get detailed information about the chroot for output.
+         *
+         * @param chroot the chroot to use.
+         * @param detail the details to output to.
+         */
+        virtual void
+        get_details (chroot const&  chroot,
+                     format_detail& detail) const;
 
-    /**
-     * Get a list of the keys used during keyfile parsing.
-     *
-     * @returns a list of key names.
-     */
-    virtual void
-    get_used_keys (string_list& used_keys) const;
+        /**
+         * Get a list of the keys used during keyfile parsing.
+         *
+         * @returns a list of key names.
+         */
+        virtual void
+        get_used_keys (string_list& used_keys) const;
 
-    /**
-     * Copy the chroot properties into a keyfile.  The keyfile group
-     * with the name of the chroot will be set; if it already exists,
-     * it will be removed before setting it.
-     *
-     * @param chroot the chroot to use.
-     * @param keyfile the keyfile to use.
-     */
-    virtual void
-    get_keyfile (chroot const& chroot,
-                 keyfile&      keyfile) const;
+        /**
+         * Copy the chroot properties into a keyfile.  The keyfile group
+         * with the name of the chroot will be set; if it already exists,
+         * it will be removed before setting it.
+         *
+         * @param chroot the chroot to use.
+         * @param keyfile the keyfile to use.
+         */
+        virtual void
+        get_keyfile (chroot const& chroot,
+                     keyfile&      keyfile) const;
 
-    /**
-     * Set the chroot properties from a keyfile.  The chroot name must
-     * have previously been set, so that the correct keyfile group may
-     * be determined.
-     *
-     * @param chroot the chroot to use.
-     * @param keyfile the keyfile to get the properties from.
-     * @param used_keys a list of the keys used will be set.
-     */
-    virtual void
-    set_keyfile (chroot&         chroot,
-                 keyfile const&  keyfile);
+        /**
+         * Set the chroot properties from a keyfile.  The chroot name must
+         * have previously been set, so that the correct keyfile group may
+         * be determined.
+         *
+         * @param chroot the chroot to use.
+         * @param keyfile the keyfile to get the properties from.
+         * @param used_keys a list of the keys used will be set.
+         */
+        virtual void
+        set_keyfile (chroot&         chroot,
+                     keyfile const&  keyfile);
 
-  protected:
-    /// Chroot owning this facet.
-    chroot *owner;
-  };
+      protected:
+        /// Chroot owning this facet.
+        chroot *owner;
+      };
 
-}
+    }
   }
 }
 

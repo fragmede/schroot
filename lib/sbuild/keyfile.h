@@ -985,8 +985,8 @@ namespace sbuild
         {
           if (method)
             keyfile.set_list_value(group, key,
-                                         (object.*method)().begin(),
-                                         (object.*method)().end());
+                                   (object.*method)().begin(),
+                                   (object.*method)().end());
         }
       catch (std::runtime_error const& e)
         {
@@ -1020,8 +1020,8 @@ namespace sbuild
         {
           if (method)
             keyfile.set_list_value(group, key,
-                                         (object.*method)().begin(),
-                                         (object.*method)().end());
+                                   (object.*method)().begin(),
+                                   (object.*method)().end());
         }
       catch (std::runtime_error const& e)
         {
@@ -1054,8 +1054,8 @@ namespace sbuild
         {
           if (method)
             keyfile.set_set_value(group, key,
-                                        (object.*method)().begin(),
-                                        (object.*method)().end());
+                                  (object.*method)().begin(),
+                                  (object.*method)().end());
         }
       catch (std::runtime_error const& e)
         {
@@ -1089,8 +1089,8 @@ namespace sbuild
         {
           if (method)
             keyfile.set_set_value(group, key,
-                                        (object.*method)().begin(),
-                                        (object.*method)().end());
+                                  (object.*method)().begin(),
+                                  (object.*method)().end());
         }
       catch (std::runtime_error const& e)
         {
