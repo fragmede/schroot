@@ -18,163 +18,108 @@
 
 #include <config.h>
 
-#include <sbuild/chroot/directory.h>
-#include <sbuild/chroot/facet/session-clonable.h>
-#include <sbuild/chroot/facet/source-clonable.h>
-#ifdef SBUILD_FEATURE_UNION
+#include <sbuild/chroot/facet/directory.h>
 #include <sbuild/chroot/facet/fsunion.h>
-#endif // SBUILD_FEATURE_UNION
+#include <sbuild/chroot/facet/session.h>
 #include "format-detail.h"
-#include "lock.h"
+#include "util.h"
 
 #include <cassert>
 #include <cerrno>
+#include <cstring>
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/sysmacros.h>
-#include <unistd.h>
+#include <boost/format.hpp>
 
+using boost::format;
 using namespace sbuild;
 
 namespace sbuild
 {
   namespace chroot
   {
-
-    directory::directory ():
-      directory_base()
+    namespace facet
     {
-#ifdef SBUILD_FEATURE_UNION
-      add_facet(facet::fsunion::create());
-#endif // SBUILD_FEATURE_UNION
-    }
 
-    directory::directory (const directory& rhs):
-      directory_base(rhs)
-    {
-    }
+      directory::directory ():
+        directory_base()
+      {
+      }
+
+      directory::~directory ()
+      {
+      }
+
+      directory::directory (const directory& rhs):
+        directory_base(rhs)
+      {
+      }
 
 #ifdef SBUILD_FEATURE_BTRFSSNAP
-    directory::directory (const btrfs_snapshot& rhs):
-      directory_base(rhs)
-    {
-#ifdef SBUILD_FEATURE_UNION
-      if (!get_facet<facet::fsunion>())
-        add_facet(facet::fsunion::create());
-#endif // SBUILD_FEATURE_UNION
-
-      set_directory(rhs.get_source_subvolume());
-    }
+      directory::directory (const btrfs_snapshot& rhs):
+        directory_base()
+      {
+        set_directory(rhs.get_source_subvolume());
+      }
 #endif // SBUILD_FEATURE_BTRFSSNAP
 
-    directory::~directory ()
-    {
+      void
+      directory::set_chroot (chroot& chroot)
+      {
+        directory_base::set_chroot(chroot);
+#ifdef SBUILD_FEATURE_UNION
+      if (!owner->get_facet<fsunion>())
+        owner->add_facet(fsunion::create());
+#endif // SBUILD_FEATURE_UNION
+      }
+
+      std::string const&
+      directory::get_name () const
+      {
+        static const std::string name("directory");
+
+        return name;
+      }
+
+      directory::ptr
+      directory::create ()
+      {
+        return ptr(new directory());
+      }
+
+#ifdef SBUILD_FEATURE_BTRFSSNAP
+      directory::ptr
+      directory::create (const btrfs_snapshot& rhs)
+      {
+        return ptr(new directory(rhs));
+      }
+ #endif // SBUILD_FEATURE_BTRFSSNAP
+
+      facet::ptr
+      directory::clone () const
+      {
+        return ptr(new directory(*this));
+      }
+
+      std::string
+      directory::get_path () const
+      {
+        return owner->get_mount_location();
+      }
+
+      void
+      directory::setup_lock (chroot::setup_type type,
+                             bool               lock,
+                             int                status)
+      {
+        /* Create or unlink session information. */
+        if ((type == chroot::SETUP_START && lock == true) ||
+            (type == chroot::SETUP_STOP && lock == false && status == 0))
+          {
+            bool start = (type == chroot::SETUP_START);
+            owner->get_facet_strict<session>()->setup_session_info(start);
+          }
+      }
+
     }
-
-    chroot::ptr
-    directory::clone () const
-    {
-      return ptr(new directory(*this));
-    }
-
-    chroot::ptr
-    directory::clone_session (std::string const& session_id,
-                              std::string const& alias,
-                              std::string const& user,
-                              bool               root) const
-    {
-      facet::session_clonable::const_ptr psess
-        (get_facet<facet::session_clonable>());
-      assert(psess);
-
-      ptr session(new directory(*this));
-      psess->clone_session_setup(*this, session, session_id, alias, user, root);
-
-      return session;
-    }
-
-    chroot::ptr
-    directory::clone_source () const
-    {
-      ptr clone(new directory(*this));
-
-      facet::source_clonable::const_ptr psrc
-        (get_facet<facet::source_clonable>());
-      assert(psrc);
-
-      psrc->clone_source_setup(*this, clone);
-
-      return clone;
-    }
-
-    std::string
-    directory::get_path () const
-    {
-      return get_mount_location();
-    }
-
-    void
-    directory::setup_env (chroot const& chroot,
-                          environment&  env) const
-    {
-      directory_base::setup_env(chroot, env);
-    }
-
-    std::string const&
-    directory::get_chroot_type () const
-    {
-      static const std::string type("directory");
-
-      return type;
-    }
-
-    void
-    directory::setup_lock (setup_type type,
-                           bool       lock,
-                           int        status)
-    {
-      /* Create or unlink session information. */
-      if ((type == SETUP_START && lock == true) ||
-          (type == SETUP_STOP && lock == false && status == 0))
-        {
-          bool start = (type == SETUP_START);
-          setup_session_info(start);
-        }
-    }
-
-    chroot::session_flags
-    directory::get_session_flags (chroot const& chroot) const
-    {
-      return SESSION_NOFLAGS;
-    }
-
-    void
-    directory::get_details (chroot const&  chroot,
-                            format_detail& detail) const
-    {
-      directory_base::get_details(chroot, detail);
-    }
-
-    void
-    directory::get_used_keys (string_list& used_keys) const
-    {
-      directory_base::get_used_keys(used_keys);
-    }
-
-    void
-    directory::get_keyfile (chroot const& chroot,
-                            keyfile&      keyfile) const
-    {
-      directory_base::get_keyfile(chroot, keyfile);
-    }
-
-    void
-    directory::set_keyfile (chroot&        chroot,
-                            keyfile const& keyfile)
-    {
-      directory_base::set_keyfile(chroot, keyfile);
-    }
-
   }
 }

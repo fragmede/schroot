@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/directory.h>
+#include <sbuild/chroot/facet/directory.h>
 #include <sbuild/chroot/facet/userdata.h>
 
 #include <cppunit/extensions/HelperMacros.h>
@@ -53,9 +54,9 @@ public:
     chroot = sbuild::chroot::chroot::create("directory");
     CPPUNIT_ASSERT(chroot);
 
-    std::shared_ptr<sbuild::chroot::directory> dir(std::dynamic_pointer_cast<sbuild::chroot::directory>(chroot));
-    CPPUNIT_ASSERT(dir);
-    dir->set_directory("/chroots/test");
+    sbuild::chroot::facet::directory::ptr dirfac = chroot->get_facet<sbuild::chroot::facet::directory>();
+    CPPUNIT_ASSERT(dirfac);
+    dirfac->set_directory("/chroots/test");
 
     userdata = chroot->get_facet<sbuild::chroot::facet::userdata>();
     CPPUNIT_ASSERT(userdata);

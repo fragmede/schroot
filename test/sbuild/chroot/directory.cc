@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/directory.h>
+#include <sbuild/chroot/facet/directory.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
 
@@ -96,9 +97,10 @@ public:
   {
     test_chroot_base<chroot_directory>::setup_chroot_props(chroot);
 
-    std::shared_ptr<sbuild::chroot::directory> c = std::dynamic_pointer_cast<sbuild::chroot::directory>(chroot);
+    sbuild::chroot::facet::directory::ptr dirfac = chroot->get_facet<sbuild::chroot::facet::directory>();
+    CPPUNIT_ASSERT(dirfac);
 
-    c->set_directory("/srv/chroot/example-chroot");
+    dirfac->set_directory("/srv/chroot/example-chroot");
   }
 
   void
@@ -106,9 +108,11 @@ public:
   {
     std::shared_ptr<sbuild::chroot::directory> c = std::dynamic_pointer_cast<sbuild::chroot::directory>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_directory("/mnt/chroot/example");
+    sbuild::chroot::facet::directory::ptr dirfac = chroot->get_facet<sbuild::chroot::facet::directory>();
+    CPPUNIT_ASSERT(dirfac);
+    dirfac->set_directory("/mnt/chroot/example");
     CPPUNIT_ASSERT(chroot->get_mount_location() == "/mnt/mount-location");
-    CPPUNIT_ASSERT(c->get_directory() == "/mnt/chroot/example");
+    CPPUNIT_ASSERT(dirfac->get_directory() == "/mnt/chroot/example");
     CPPUNIT_ASSERT(chroot->get_path() == "/mnt/mount-location");
   }
 

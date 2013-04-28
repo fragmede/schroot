@@ -16,100 +16,99 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_DIRECTORY_H
-#define SBUILD_CHROOT_DIRECTORY_H
+#ifndef SBUILD_CHROOT_FACET_DIRECTORY_H
+#define SBUILD_CHROOT_FACET_DIRECTORY_H
 
 #include <sbuild/config.h>
-#include <sbuild/chroot/directory-base.h>
+#include <sbuild/chroot/facet/directory-base.h>
 #ifdef SBUILD_FEATURE_BTRFSSNAP
-#include <sbuild/chroot/btrfs-snapshot.h>
+#include <sbuild/chroot/facet/btrfs-snapshot.h>
 #endif
 
 namespace sbuild
 {
   namespace chroot
   {
-
-    /**
-     * A chroot located in the filesystem.
-     *
-     * It runs setup scripts and can provide multiple sessions
-     * using the union facet.
-     */
-    class directory : public directory_base
+    namespace facet
     {
-    protected:
-      /// The constructor.
-      directory ();
 
-      /// The copy constructor.
-      directory (const directory& rhs);
+      /**
+       * A chroot stored on an unmounted block device.
+       *
+       * The device will be mounted on demand.
+       */
+      class directory : public directory_base
+      {
+      public:
+        /// A shared_ptr to a chroot facet object.
+        typedef std::shared_ptr<directory> ptr;
+
+        /// A shared_ptr to a const chroot facet object.
+        typedef std::shared_ptr<const directory> const_ptr;
+
+      protected:
+        /// The constructor.
+        directory ();
+
+        /// The copy constructor.
+        directory (const directory& rhs);
 
 #ifdef SBUILD_FEATURE_BTRFSSNAP
       /// The copy constructor.
       directory (const btrfs_snapshot& rhs);
-#endif
+#endif // SBUILD_FEATURE_BTRFSSNAP
 
-      friend class chroot;
+        void
+        set_chroot (chroot& chroot);
+
+        friend class chroot;
 #ifdef SBUILD_FEATURE_BTRFSSNAP
       friend class btrfs_snapshot;
-#endif
+#endif // SBUILD_FEATURE_BTRFSSNAP
 
-    public:
-      /// The destructor.
-      virtual ~directory ();
+      public:
+        /// The destructor.
+        virtual ~directory ();
 
-      virtual chroot::ptr
-      clone () const;
+        virtual std::string const&
+        get_name () const;
 
-      virtual chroot::ptr
-      clone_session (std::string const& session_id,
-                     std::string const& alias,
-                     std::string const& user,
-                     bool               root) const;
+        /**
+         * Create a chroot facet.
+         *
+         * @returns a shared_ptr to the new chroot facet.
+         */
+        static ptr
+        create ();
 
-      virtual chroot::ptr
-      clone_source () const;
+#ifdef SBUILD_FEATURE_BTRFSSNAP
+        /**
+         * Create a chroot facet from a btrfs snapshot.
+         *
+         * @returns a shared_ptr to the new chroot facet.
+         */
+        static ptr
+        create (const btrfs_snapshot& rhs);
+ #endif // SBUILD_FEATURE_BTRFSSNAP
 
-      virtual std::string
-      get_path () const;
+        virtual facet::ptr
+        clone () const;
 
-      virtual void
-      setup_env (chroot const& chroot,
-                 environment& env) const;
+        virtual std::string
+        get_path () const;
 
-      virtual std::string const&
-      get_chroot_type () const;
+      protected:
+        virtual void
+        setup_lock (chroot::setup_type type,
+                    bool               lock,
+                    int                status);
+      };
 
-      virtual session_flags
-      get_session_flags (chroot const& chroot) const;
-
-    protected:
-      virtual void
-      setup_lock (chroot::setup_type type,
-                  bool               lock,
-                  int                status);
-
-      virtual void
-      get_details (chroot const& chroot,
-                   format_detail& detail) const;
-
-      virtual void
-      get_used_keys (string_list& used_keys) const;
-
-      virtual void
-      get_keyfile (chroot const& chroot,
-                   keyfile& keyfile) const;
-
-      virtual void
-      set_keyfile (chroot&        chroot,
-                   keyfile const& keyfile);
-    };
-
+    }
   }
 }
 
-#endif /* SBUILD_CHROOT_DIRECTORY_H */
+#endif /* SBUILD_CHROOT_FACET_DIRECTORY_H */
 
 /*
  * Local Variables:

@@ -19,6 +19,8 @@
 #include <config.h>
 
 #include <sbuild/chroot/directory.h>
+#include <sbuild/chroot/facet/btrfs-snapshot.h>
+#include <sbuild/chroot/facet/directory.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
@@ -44,28 +46,22 @@ namespace sbuild
   {
 
     directory::directory ():
-      directory_base()
+      chroot()
     {
-#ifdef SBUILD_FEATURE_UNION
-      add_facet(facet::fsunion::create());
-#endif // SBUILD_FEATURE_UNION
+      add_facet(facet::directory::create());
     }
 
     directory::directory (const directory& rhs):
-      directory_base(rhs)
+      chroot(rhs)
     {
     }
 
 #ifdef SBUILD_FEATURE_BTRFSSNAP
     directory::directory (const btrfs_snapshot& rhs):
-      directory_base(rhs)
+      chroot(rhs)
     {
-#ifdef SBUILD_FEATURE_UNION
-      if (!get_facet<facet::fsunion>())
-        add_facet(facet::fsunion::create());
-#endif // SBUILD_FEATURE_UNION
-
-      set_directory(rhs.get_source_subvolume());
+      facet::storage::ptr dir = facet::directory::create(*get_facet_strict<facet::btrfs_snapshot>());
+      replace_facet<facet::storage>(dir);
     }
 #endif // SBUILD_FEATURE_BTRFSSNAP
 
@@ -107,74 +103,6 @@ namespace sbuild
       psrc->clone_source_setup(*this, clone);
 
       return clone;
-    }
-
-    std::string
-    directory::get_path () const
-    {
-      return get_mount_location();
-    }
-
-    void
-    directory::setup_env (chroot const& chroot,
-                          environment&  env) const
-    {
-      directory_base::setup_env(chroot, env);
-    }
-
-    std::string const&
-    directory::get_chroot_type () const
-    {
-      static const std::string type("directory");
-
-      return type;
-    }
-
-    void
-    directory::setup_lock (setup_type type,
-                           bool       lock,
-                           int        status)
-    {
-      /* Create or unlink session information. */
-      if ((type == SETUP_START && lock == true) ||
-          (type == SETUP_STOP && lock == false && status == 0))
-        {
-          bool start = (type == SETUP_START);
-          get_facet_strict<facet::session>()->setup_session_info(start);
-        }
-    }
-
-    chroot::session_flags
-    directory::get_session_flags (chroot const& chroot) const
-    {
-      return SESSION_NOFLAGS;
-    }
-
-    void
-    directory::get_details (chroot const&  chroot,
-                            format_detail& detail) const
-    {
-      directory_base::get_details(chroot, detail);
-    }
-
-    void
-    directory::get_used_keys (string_list& used_keys) const
-    {
-      directory_base::get_used_keys(used_keys);
-    }
-
-    void
-    directory::get_keyfile (chroot const& chroot,
-                            keyfile&      keyfile) const
-    {
-      directory_base::get_keyfile(chroot, keyfile);
-    }
-
-    void
-    directory::set_keyfile (chroot&        chroot,
-                            keyfile const& keyfile)
-    {
-      directory_base::set_keyfile(chroot, keyfile);
     }
 
   }
