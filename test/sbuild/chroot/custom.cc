@@ -20,6 +20,7 @@
 
 #include <sbuild/config.h>
 #include <sbuild/chroot/custom.h>
+#include <sbuild/chroot/facet/custom.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
 #include <sbuild/chroot/facet/userdata.h>
@@ -153,40 +154,43 @@ public:
   {
     std::shared_ptr<sbuild::chroot::custom> c = std::dynamic_pointer_cast<sbuild::chroot::custom>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_session_cloneable(false);
+    sbuild::chroot::facet::custom::ptr custp = chroot->get_facet_strict<sbuild::chroot::facet::custom>();
+    custp->set_session_cloneable(false);
 
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
                    sbuild::chroot::chroot::SESSION_NOFLAGS);
 
-    CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot::facet::session_clonable>());
-    CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot::facet::source_clonable>());
+    CPPUNIT_ASSERT(!chroot->get_facet<sbuild::chroot::facet::session_clonable>());
+    CPPUNIT_ASSERT(!chroot->get_facet<sbuild::chroot::facet::source_clonable>());
   }
 
   void test_session_flags3()
   {
     std::shared_ptr<sbuild::chroot::custom> c = std::dynamic_pointer_cast<sbuild::chroot::custom>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_source_cloneable(true);
+    sbuild::chroot::facet::custom::ptr custp = chroot->get_facet_strict<sbuild::chroot::facet::custom>();
+    custp->set_source_cloneable(true);
 
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
                    (sbuild::chroot::chroot::SESSION_CREATE|sbuild::chroot::chroot::SESSION_CLONE));
 
-    CPPUNIT_ASSERT(c->get_facet<sbuild::chroot::facet::session_clonable>());
-    CPPUNIT_ASSERT(c->get_facet<sbuild::chroot::facet::source_clonable>());
+    CPPUNIT_ASSERT(chroot->get_facet<sbuild::chroot::facet::session_clonable>());
+    CPPUNIT_ASSERT(chroot->get_facet<sbuild::chroot::facet::source_clonable>());
   }
 
   void test_session_flags4()
   {
     std::shared_ptr<sbuild::chroot::custom> c = std::dynamic_pointer_cast<sbuild::chroot::custom>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_session_cloneable(false);
-    c->set_source_cloneable(true);
+    sbuild::chroot::facet::custom::ptr custp = chroot->get_facet_strict<sbuild::chroot::facet::custom>();
+    custp->set_session_cloneable(false);
+    custp->set_source_cloneable(true);
 
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
                    sbuild::chroot::chroot::SESSION_CLONE);
 
-    CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot::facet::session_clonable>());
-    CPPUNIT_ASSERT(c->get_facet<sbuild::chroot::facet::source_clonable>());
+    CPPUNIT_ASSERT(!chroot->get_facet<sbuild::chroot::facet::session_clonable>());
+    CPPUNIT_ASSERT(chroot->get_facet<sbuild::chroot::facet::source_clonable>());
   }
 
   void test_print_details()

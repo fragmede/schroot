@@ -18,20 +18,19 @@
 
 #include <config.h>
 
-#include <sbuild/chroot/custom.h>
 #include <sbuild/chroot/facet/factory.h>
-#include <sbuild/chroot/facet/session.h>
+#include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/chroot/facet/session-clonable.h>
+#include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/source-clonable.h>
 #include "format-detail.h"
-#include "lock.h"
 
 #include <cassert>
 #include <cerrno>
-#include <cstring>
 
 #include <boost/format.hpp>
 
+using std::endl;
 using boost::format;
 using namespace sbuild;
 
@@ -39,209 +38,172 @@ namespace sbuild
 {
   namespace chroot
   {
+    namespace facet
+    {
 
-      namespace
+      custom::custom ():
+        storage(),
+        purgeable(false)
       {
-
-        factory::facet_info custom_info =
-          {
-            "custom",
-            N_("Support for ‘custom’ chroots"),
-            []() -> facet::ptr { return custom::create(); }
-          };
-
-        factory custom_register(custom_info);
-
       }
 
-    custom::custom ():
-      chroot(),
-      purgeable(false)
-    {
+      custom::custom (const custom& rhs):
+        storage(rhs),
+        purgeable(rhs.purgeable)
+      {
+      }
+
+      custom::~custom ()
+      {
+      }
+
+      std::string const&
+      custom::get_name () const
+      {
+        static const std::string name("custom");
+
+        return name;
+      }
+
+      custom::ptr
+      custom::create ()
+      {
+        return ptr(new custom());
+      }
+
+      facet::ptr
+      custom::clone () const
+      {
+        return ptr(new custom(*this));
+      }
+
+      void
+      custom::set_session_cloneable (bool cloneable)
+      {
+        if (cloneable)
+          owner->add_facet(session_clonable::create());
+        else
+          owner->remove_facet<session_clonable>();
+      }
+
+      void
+      custom::set_session_purgeable (bool purgeable)
+      {
+        this->purgeable = purgeable;
+      }
+
+      bool
+      custom::get_session_purgeable () const
+      {
+        return this->purgeable;
+      }
+
+      void
+      custom::set_source_cloneable (bool cloneable)
+      {
+        if (cloneable)
+          owner->add_facet(source_clonable::create());
+        else
+          owner->remove_facet<source_clonable>();
+      }
+
+      std::string
+      custom::get_path () const
+      {
+        // TODO: Allow customisation?  Or require use of mount location?
+        return owner->get_mount_location();
+      }
+
+      void
+      custom::setup_env (chroot const& chroot,
+                         environment& env) const
+      {
+        storage::setup_env(chroot, env);
+      }
+
+      void
+      custom::setup_lock (chroot::setup_type type,
+                          bool               lock,
+                          int                status)
+      {
+        /* By default, custom chroots do no locking. */
+        /* Create or unlink session information. */
+        if ((type == chroot::SETUP_START && lock == true) ||
+            (type == chroot::SETUP_STOP && lock == false && status == 0))
+          {
+
+            bool start = (type == chroot::SETUP_START);
+            owner->get_facet_strict<session>()->setup_session_info(start);
+          }
+      }
+
+      chroot::session_flags
+      custom::get_session_flags (chroot const& chroot) const
+      {
+        chroot::session_flags flags = chroot::SESSION_NOFLAGS;
+
+        // TODO: Only set if purge is set.
+
+        if (chroot.get_facet<session>() &&
+            get_session_purgeable())
+          flags = chroot::SESSION_PURGE;
+
+        return flags;
+      }
+
+      void
+      custom::get_details (chroot const&  chroot,
+                           format_detail& detail) const
+      {
+        storage::get_details(chroot, detail);
+      }
+
+      void
+      custom::get_used_keys (string_list& used_keys) const
+      {
+        storage::get_used_keys(used_keys);
+
+        used_keys.push_back("custom-cloneable");
+        used_keys.push_back("custom-purgeable");
+        used_keys.push_back("custom-source-cloneable");
+      }
+
+      void
+      custom::get_keyfile (chroot const& chroot,
+                           keyfile&      keyfile) const
+      {
+        storage::get_keyfile(chroot, keyfile);
+
+        keyfile::set_object_value(*this,
+                                  &custom::get_session_purgeable,
+                                  keyfile, chroot.get_name(),
+                                  "custom-session-purgeable");
+      }
+
+      void
+      custom::set_keyfile (chroot& chroot,
+                           keyfile const& keyfile)
+      {
+        storage::set_keyfile(chroot, keyfile);
+
+        bool is_session = static_cast<bool>(chroot.get_facet<session>());
+
+        keyfile::get_object_value(*this, &custom::set_session_cloneable,
+                                  keyfile, chroot.get_name(), "custom-session-cloneable",
+                                  is_session ?
+                                  keyfile::PRIORITY_DISALLOWED :
+                                  keyfile::PRIORITY_OPTIONAL);
+
+        keyfile::get_object_value(*this, &custom::set_session_purgeable,
+                                  keyfile, chroot.get_name(), "custom-session-purgeable",
+                                  keyfile::PRIORITY_OPTIONAL);
+
+        keyfile::get_object_value(*this, &custom::set_source_cloneable,
+                                  keyfile, chroot.get_name(), "custom-source-cloneable",
+                                  is_session ?
+                                  keyfile::PRIORITY_DISALLOWED :
+                                  keyfile::PRIORITY_OPTIONAL);
+      }
     }
-
-    custom::custom (const custom& rhs):
-      chroot(rhs),
-      purgeable(false)
-    {
-    }
-
-    custom::~custom ()
-    {
-    }
-
-    chroot::chroot::ptr
-    custom::clone () const
-    {
-      return ptr(new custom(*this));
-    }
-
-    chroot::chroot::ptr
-    custom::clone_session (std::string const& session_id,
-                           std::string const& alias,
-                           std::string const& user,
-                           bool               root) const
-    {
-      facet::session_clonable::const_ptr psess
-        (get_facet<facet::session_clonable>());
-      assert(psess);
-
-      ptr session(new custom(*this));
-      psess->clone_session_setup(*this, session, session_id, alias, user, root);
-
-      return session;
-    }
-
-    chroot::chroot::ptr
-    custom::clone_source () const
-    {
-      custom *clone_custom = new custom(*this);
-      ptr clone(clone_custom);
-
-      facet::source_clonable::const_ptr psrc
-        (get_facet<facet::source_clonable>());
-      assert(psrc);
-
-      psrc->clone_source_setup(*this, clone);
-
-      return clone;
-    }
-
-    void
-    custom::set_session_cloneable (bool cloneable)
-    {
-      if (cloneable)
-        add_facet(facet::session_clonable::create());
-      else
-        remove_facet<facet::session_clonable>();
-    }
-
-    void
-    custom::set_session_purgeable (bool purgeable)
-    {
-      this->purgeable = purgeable;
-    }
-
-    bool
-    custom::get_session_purgeable () const
-    {
-      return this->purgeable;
-    }
-
-    void
-    custom::set_source_cloneable (bool cloneable)
-    {
-      if (cloneable)
-        add_facet(facet::source_clonable::create());
-      else
-        remove_facet<facet::source_clonable>();
-    }
-
-    std::string
-    custom::get_path () const
-    {
-      // TODO: Allow customisation?  Or require use of mount location?
-      return get_mount_location();
-    }
-
-    void
-    custom::setup_env (chroot const& chroot,
-                       environment& env) const
-    {
-      chroot::setup_env(chroot, env);
-    }
-
-    std::string const&
-    custom::get_chroot_type () const
-    {
-      static const std::string type("custom");
-
-      return type;
-    }
-
-    void
-    custom::setup_lock (chroot::setup_type type,
-                        bool               lock,
-                        int                status)
-    {
-      /* By default, custom chroots do no locking. */
-      /* Create or unlink session information. */
-      if ((type == SETUP_START && lock == true) ||
-          (type == SETUP_STOP && lock == false && status == 0))
-        {
-
-          bool start = (type == SETUP_START);
-          setup_session_info(start);
-        }
-    }
-
-    chroot::chroot::session_flags
-    custom::get_session_flags (chroot const& chroot) const
-    {
-      session_flags flags = SESSION_NOFLAGS;
-
-      // TODO: Only set if purge is set.
-
-      if (chroot.get_facet<facet::session>() &&
-          get_session_purgeable())
-        flags = SESSION_PURGE;
-
-      return flags;
-    }
-
-    void
-    custom::get_details (chroot const&  chroot,
-                         format_detail& detail) const
-    {
-      chroot::get_details(chroot, detail);
-    }
-
-    void
-    custom::get_used_keys (string_list& used_keys) const
-    {
-      chroot::get_used_keys(used_keys);
-
-      used_keys.push_back("custom-cloneable");
-      used_keys.push_back("custom-purgeable");
-      used_keys.push_back("custom-source-cloneable");
-    }
-
-    void
-    custom::get_keyfile (chroot const& chroot,
-                         keyfile&      keyfile) const
-    {
-      chroot::get_keyfile(chroot, keyfile);
-
-      keyfile::set_object_value(*this,
-                                &custom::get_session_purgeable,
-                                keyfile, get_name(),
-                                "custom-session-purgeable");
-    }
-
-    void
-    custom::set_keyfile (chroot& chroot,
-                         keyfile const& keyfile)
-    {
-      chroot::set_keyfile(chroot, keyfile);
-
-      bool session = static_cast<bool>(get_facet<facet::session>());
-
-      keyfile::get_object_value(*this, &custom::set_session_cloneable,
-                                keyfile, get_name(), "custom-session-cloneable",
-                                session ?
-                                keyfile::PRIORITY_DISALLOWED :
-                                keyfile::PRIORITY_OPTIONAL);
-
-      keyfile::get_object_value(*this, &custom::set_session_purgeable,
-                                keyfile, get_name(), "custom-session-purgeable",
-                                keyfile::PRIORITY_OPTIONAL);
-
-      keyfile::get_object_value(*this, &custom::set_source_cloneable,
-                                keyfile, get_name(), "custom-source-cloneable",
-                                session ?
-                                keyfile::PRIORITY_DISALLOWED :
-                                keyfile::PRIORITY_OPTIONAL);
-    }
-
   }
 }

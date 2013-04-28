@@ -16,133 +16,146 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_CUSTOM_H
-#define SBUILD_CHROOT_CUSTOM_H
+#ifndef SBUILD_CHROOT_FACET_CUSTOM_H
+#define SBUILD_CHROOT_FACET_CUSTOM_H
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/storage.h>
 
 namespace sbuild
 {
   namespace chroot
   {
-
-    /**
-     * A chroot stored with custom parameters.
-     *
-     * This chroot specifies no behaviour or policy.  It is entirely
-     * configured using user options and setup scripts.  The intent is
-     * to permit the prototyping of and experimentation with new chroot
-     * types without requiring a "full" class definition and associated
-     * infrastructural work.  It also makes schroot extensible without
-     * requiring any C++ coding.
-     */
-    class custom : public chroot
+    namespace facet
     {
-    protected:
-      /// The constructor.
-      custom ();
-
-      /// The copy constructor.
-      custom (const custom& rhs);
-
-      friend class chroot;
-
-    public:
-      /// The destructor.
-      virtual ~custom ();
-
-      virtual chroot::ptr
-      clone () const;
-
-      virtual chroot::ptr
-      clone_session (std::string const& session_id,
-                     std::string const& alias,
-                     std::string const& user,
-                     bool               root) const;
-
-      virtual chroot::ptr
-      clone_source () const;
 
       /**
-       * Enable or disable cloning of the chroot session.  This simply
-       * creates or removes the chroot_facet_session_cloneable facet,
-       * hence there is no companion get method.
+       * A chroot stored with custom parameters.
        *
-       * @param cloneable true if cloneable, false if not.
+       * This chroot specifies no behaviour or policy.  It is entirely
+       * configured using user options and setup scripts.  The intent is
+       * to permit the prototyping of and experimentation with new chroot
+       * types without requiring a "full" class definition and associated
+       * infrastructural work.  It also makes schroot extensible without
+       * requiring any C++ coding.
        */
-      void
-      set_session_cloneable (bool cloneable);
+      class custom : public storage
+      {
+      public:
+        /// Exception type.
+        typedef chroot::error error;
 
-      /**
-       * Enable or disable purging of the chroot session.  Note that
-       * this is only usable if the chroot supports session cloning,
-       * otherwise this does nothing.
-       *
-       * @param purgeable true if purgeable, false if not.
-       */
-      void
-      set_session_purgeable (bool purgeable);
+        /// A shared_ptr to a chroot facet object.
+        typedef std::shared_ptr<custom> ptr;
 
-      /**
-       * Get status of chroot session purging.
-       *
-       * @returns true if purgeable, false if not.
-       */
-      bool
-      get_session_purgeable () const;
+        /// A shared_ptr to a const chroot facet object.
+        typedef std::shared_ptr<const custom> const_ptr;
 
-      /**
-       * Enable or disable cloning of the source chroot.  This simply
-       * creates or removes the chroot_facet_source_cloneable facet,
-       * hence there is no companion get method.
-       *
-       * @param cloneable true if source cloneable, false if not.
-       */
-      void
-      set_source_cloneable (bool cloneable);
+      protected:
+        /// The constructor.
+        custom ();
 
-      virtual void
-      setup_env (chroot const& chroot,
-                 environment&  env) const;
+        /// The copy constructor.
+        custom (const custom& rhs);
 
-      virtual std::string const&
-      get_chroot_type () const;
+        friend class chroot;
 
-      std::string
-      get_path () const;
+      public:
+        /// The destructor.
+        virtual ~custom ();
 
-      virtual session_flags
-      get_session_flags (chroot const& chroot) const;
+        virtual std::string const&
+        get_name () const;
 
-    protected:
-      virtual void
-      setup_lock (chroot::setup_type type,
-                  bool               lock,
-                  int                status);
+        /**
+         * Create a chroot facet.
+         *
+         * @returns a shared_ptr to the new chroot facet.
+         */
+        static ptr
+        create ();
 
-      virtual void
-      get_details (chroot const&  chroot,
-                   format_detail& detail) const;
+        facet::ptr
+        clone () const;
 
-      virtual void
-      get_used_keys (string_list& used_keys) const;
+        /**
+         * Enable or disable cloning of the chroot session.  This simply
+         * creates or removes the chroot_facet_session_cloneable facet,
+         * hence there is no companion get method.
+         *
+         * @param cloneable true if cloneable, false if not.
+         */
+        void
+        set_session_cloneable (bool cloneable);
 
-      virtual void
-      get_keyfile (chroot const& chroot,
-                   keyfile&      keyfile) const;
+        /**
+         * Enable or disable purging of the chroot session.  Note that
+         * this is only usable if the chroot supports session cloning,
+         * otherwise this does nothing.
+         *
+         * @param purgeable true if purgeable, false if not.
+         */
+        void
+        set_session_purgeable (bool purgeable);
 
-      virtual void
-      set_keyfile (chroot&        chroot,
-                   keyfile const& keyfile);
+        /**
+         * Get status of chroot session purging.
+         *
+         * @returns true if purgeable, false if not.
+         */
+        bool
+        get_session_purgeable () const;
 
-    private:
-      bool purgeable;
-    };
+        /**
+         * Enable or disable cloning of the source chroot.  This simply
+         * creates or removes the chroot_facet_source_cloneable facet,
+         * hence there is no companion get method.
+         *
+         * @param cloneable true if source cloneable, false if not.
+         */
+        void
+        set_source_cloneable (bool cloneable);
 
+        virtual void
+        setup_env (chroot const& chroot,
+                   environment&  env) const;
+
+        std::string
+        get_path () const;
+
+        virtual chroot::session_flags
+        get_session_flags (chroot const& chroot) const;
+
+      protected:
+        virtual void
+        setup_lock (chroot::setup_type type,
+                    bool               lock,
+                    int                status);
+
+        virtual void
+        get_details (chroot const&  chroot,
+                     format_detail& detail) const;
+
+        virtual void
+        get_used_keys (string_list& used_keys) const;
+
+        virtual void
+        get_keyfile (chroot const& chroot,
+                     keyfile&      keyfile) const;
+
+        virtual void
+        set_keyfile (chroot&        chroot,
+                     keyfile const& keyfile);
+
+      private:
+        bool purgeable;
+      };
+
+    }
   }
 }
 
-#endif /* SBUILD_CHROOT_CUSTOM_H */
+#endif /* SBUILD_CHROOT_FACET_CUSTOM_H */
 
 /*
  * Local Variables:
