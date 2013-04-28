@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/fsunion.h>
 #include <sbuild/chroot/facet/source-clonable.h>
@@ -44,6 +45,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info fsunion_info =
+          {
+            "union",
+            N_("Support for filesystem unioning"),
+            []() -> facet::ptr { return fsunion::create(); }
+          };
+
+        factory fsunion_register(fsunion_info);
+
+      }
 
       template<>
       error<fsunion::error_code>::map_type

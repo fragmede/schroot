@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/facet/directory.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/fsunion.h>
 #include <sbuild/chroot/facet/session.h>
 #include "format-detail.h"
@@ -39,6 +40,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info directory_info =
+          {
+            "directory",
+            N_("Support for ‘directory’ chroots"),
+            []() -> facet::ptr { return directory::create(); }
+          };
+
+        factory directory_register(directory_info);
+
+      }
 
       directory::directory ():
         directory_base()

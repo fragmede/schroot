@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/chroot/facet/session.h>
 
@@ -36,6 +37,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info mountable_info =
+          {
+            "mountable",
+            N_("Support for filesystem mounting"),
+            []() -> facet::ptr { return mountable::create(); }
+          };
+
+        factory mountable_register(mountable_info);
+
+      }
 
       mountable::mountable ():
         facet(),

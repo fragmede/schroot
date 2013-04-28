@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
@@ -55,6 +56,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info session_clonable_info =
+          {
+            "session-clonable",
+            N_("Support for session chroot cloning"),
+            []() -> facet::ptr { return session_clonable::create(); }
+          };
+
+        factory session_clonable_register(session_clonable_info);
+
+      }
 
       session_clonable::session_clonable ():
         facet()

@@ -20,6 +20,7 @@
 
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/config.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/keyfile-writer.h>
 #include <sbuild/lock.h>
@@ -44,6 +45,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info session_info =
+          {
+            "session",
+            N_("Support for session chroots"),
+            []() -> facet::ptr { return session::create(); }
+          };
+
+        factory session_register(session_info);
+
+      }
 
       session::session ():
         facet(),

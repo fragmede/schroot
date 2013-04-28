@@ -33,9 +33,10 @@ namespace sbuild
     {
 
       /**
-       * A chroot stored on an unmounted block device.
+       * A chroot located in the filesystem.
        *
-       * The device will be mounted on demand.
+       * It runs setup scripts and can provide multiple sessions
+       * using the union facet.
        */
       class directory : public directory_base
       {

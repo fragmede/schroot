@@ -30,14 +30,16 @@ namespace sbuild
     {
 
       /**
-       * A base class for block-device chroots.
+       * A base class for chroots located in a local directory.
        *
-       * This class doesn't implement a chroot (get_chroot_type
-       * is not implemented).
+       * This class doesn't implement a chroot (get_chroot_type is not
+       * implemented).  plain and directory chroots inherit from this
+       * class.
        *
-       * Originally lvm-snapshot inherited from the block-device chroot,
-       * but this was changed when union support was introduced.  This
-       * design prevents lvm-snapshot offering union based sessions.
+       * Originally plain inherited from the directory chroot, but this
+       * had to be changed when union support was introduced.  As plain
+       * chroots don't run any setup scripts and basically just call
+       * 'chroot' on a directory, they can't support union based sessions.
        */
       class directory_base : public storage
       {

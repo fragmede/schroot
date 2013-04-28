@@ -30,7 +30,7 @@ namespace sbuild
     {
 
       /**
-       * A chroot stored on an BTRFS subvolume.
+       * A chroot stored on a Btrfs subvolume.
        *
        * A snapshot subvolume will be created and mounted on demand.
        */

@@ -30,9 +30,11 @@ namespace sbuild
     {
 
       /**
-       * A chroot stored on an unmounted block device.
+       * A chroot located in the filesystem (scripts disabled).
        *
-       * The device will be mounted on demand.
+       * This doesn't run any setup scripts and doesn't provide any
+       * session support.  If you need any of these functions, the
+       * directory chroot type is more suited to your needs.
        */
       class plain : public directory_base
       {

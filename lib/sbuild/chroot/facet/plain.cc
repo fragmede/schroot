@@ -18,6 +18,7 @@
 
 #include <config.h>
 
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/plain.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include "format-detail.h"
@@ -38,6 +39,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info plain_info =
+          {
+            "plain",
+            N_("Support for ‘plain’ chroots"),
+            []() -> facet::ptr { return plain::create(); }
+          };
+
+        factory plain_register(plain_info);
+
+      }
 
       plain::plain ():
         directory_base()

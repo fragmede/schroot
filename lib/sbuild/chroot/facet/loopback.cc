@@ -18,6 +18,7 @@
 
 #include <config.h>
 
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/fsunion.h>
 #include <sbuild/chroot/facet/loopback.h>
 #include <sbuild/chroot/facet/mountable.h>
@@ -39,6 +40,19 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+        factory::facet_info loopback_info =
+          {
+            "loopback",
+            N_("Support for ‘loopback’ chroots"),
+            []() -> facet::ptr { return loopback::create(); }
+          };
+
+        factory loopback_register(loopback_info);
+
+      }
 
       loopback::loopback ():
         storage(),

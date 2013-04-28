@@ -18,6 +18,7 @@
 
 #include <config.h>
 
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/block-device.h>
 #include <sbuild/chroot/facet/lvm-snapshot.h>
 #include <sbuild/chroot/facet/mountable.h>
@@ -41,6 +42,19 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+        factory::facet_info lvm_snapshot_info =
+          {
+            "lvm-snapshot",
+            N_("Support for ‘lvm-snapshot’ chroots"),
+            []() -> facet::ptr { return lvm_snapshot::create(); }
+          };
+
+        factory lvm_snapshot_register(lvm_snapshot_info);
+
+      }
 
       lvm_snapshot::lvm_snapshot ():
         block_device_base(),

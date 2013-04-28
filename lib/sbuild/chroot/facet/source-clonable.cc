@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/source-clonable.h>
 #include <sbuild/chroot/facet/source.h>
@@ -38,6 +39,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info source_clonable_info =
+          {
+            "source-clonable",
+            N_("Support for source chroot cloning"),
+            []() -> facet::ptr { return source_clonable::create(); }
+          };
+
+        factory source_clonable_register(source_clonable_info);
+
+      }
 
       source_clonable::source_clonable ():
         facet(),

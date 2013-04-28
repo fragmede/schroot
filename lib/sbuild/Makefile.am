@@ -26,10 +26,11 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/chroot/directory.h			\
 	lib/sbuild/chroot/directory-base.h		\
 	lib/sbuild/chroot/facet/btrfs-snapshot.cc	\
-	lib/sbuild/chroot/facet/facet.h			\
-	lib/sbuild/chroot/facet/file.h			\
 	lib/sbuild/chroot/facet/directory.h		\
 	lib/sbuild/chroot/facet/directory-base.h	\
+	lib/sbuild/chroot/facet/facet.h			\
+	lib/sbuild/chroot/facet/factory.h		\
+	lib/sbuild/chroot/facet/file.h			\
 	lib/sbuild/chroot/facet/loopback.h		\
 	lib/sbuild/chroot/facet/mountable.h		\
 	lib/sbuild/chroot/facet/personality.h		\
@@ -121,9 +122,10 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/chroot/directory-base.cc		\
 	lib/sbuild/chroot/facet/btrfs-snapshot.cc	\
 	lib/sbuild/chroot/facet/directory.cc		\
-	lib/sbuild/chroot/facet/facet.cc		\
-	lib/sbuild/chroot/facet/file.cc			\
 	lib/sbuild/chroot/facet/directory-base.cc	\
+	lib/sbuild/chroot/facet/facet.cc		\
+	lib/sbuild/chroot/facet/factory.cc		\
+	lib/sbuild/chroot/facet/file.cc			\
 	lib/sbuild/chroot/facet/loopback.cc		\
 	lib/sbuild/chroot/facet/mountable.cc		\
 	lib/sbuild/chroot/facet/personality.cc		\

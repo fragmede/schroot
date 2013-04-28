@@ -18,6 +18,7 @@
 
 #include <config.h>
 
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/file.h>
 #include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/chroot/facet/session-clonable.h>
@@ -40,6 +41,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info file_info =
+          {
+            "file",
+            N_("Support for ‘file’ chroots"),
+            []() -> facet::ptr { return file::create(); }
+          };
+
+        factory file_register(file_info);
+
+      }
 
       file::file ():
         storage(),

@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/unshare.h>
 #include "feature.h"
 
@@ -48,6 +49,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info unshare_info =
+          {
+            "unshare",
+            N_("Linux dissassociation of shared execution context"),
+            []() -> facet::ptr { return unshare::create(); }
+          };
+
+        factory unshare_register(unshare_info);
+
+      }
 
       template<>
       error<unshare::error_code>::map_type

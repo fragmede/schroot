@@ -20,6 +20,7 @@
 
 #include <sbuild/chroot/facet/block-device.h>
 #include <sbuild/chroot/facet/lvm-snapshot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
@@ -44,6 +45,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info block_device_info =
+          {
+            "block-device",
+            N_("Support for ‘block-device’ chroots"),
+            []() -> facet::ptr { return block_device::create(); }
+          };
+
+        factory block_device_register(block_device_info);
+
+      }
 
       block_device::block_device ():
         block_device_base()

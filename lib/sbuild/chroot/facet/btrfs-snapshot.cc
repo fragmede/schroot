@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/facet/btrfs-snapshot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/session.h>
@@ -40,6 +41,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info btrfs_snapshot_info =
+          {
+            "btrfs-snapshot",
+            N_("Support for ‘btrfs-snapshot’ chroots"),
+            []() -> facet::ptr { return btrfs_snapshot::create(); }
+          };
+
+        factory btrfs_snapshot_register(btrfs_snapshot_info);
+
+      }
 
       btrfs_snapshot::btrfs_snapshot ():
         storage(),

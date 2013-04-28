@@ -26,6 +26,7 @@
 #include <sbuild/auth/pam-conv.h>
 #include <sbuild/auth/pam-conv-tty.h>
 #endif // SBUILD_FEATURE_PAM
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/keyfile-writer.h>
 
 #include <cstdlib>
@@ -78,26 +79,11 @@ main::action_version (std::ostream& stream)
 {
   bin_common::main::action_version(stream);
 
-  format feature("  %1$-12s %2%\n");
-
   stream << '\n'
-         << _("Available chroot types:") << '\n';
-#ifdef SBUILD_FEATURE_BLOCKDEV
-  stream << feature % "BLOCKDEV" % _("Support for ‘block-device’ chroots");
-#endif
-#ifdef SBUILD_FEATURE_BTRFSSNAP
-  stream << feature % "BTRFSSNAP" % _("Support for ‘btrfs-snapshot’ chroots");
-#endif
-  stream << feature % "CUSTOM" % _("Support for ‘custom’ chroots");
-  stream << feature % "DIRECTORY" % _("Support for ‘directory’ chroots");
-  stream << feature % "FILE" % _("Support for ‘file’ chroots");
-#ifdef SBUILD_FEATURE_LOOPBACK
-  stream << feature % "LOOPBACK" % _("Support for ‘loopback’ chroots");
-#endif
-#ifdef SBUILD_FEATURE_LVMSNAP
-  stream << feature % "LVMSNAP" % _("Support for ‘lvm-snapshot’ chroots");
-#endif
-  stream << feature % "PLAIN" % _("Support for ‘plain’ chroots");
+         << _("Installed chroot facets:")
+         << '\n';
+  sbuild::chroot::facet::factory::print_facets(stream);
+
   stream << std::flush;
 }
 

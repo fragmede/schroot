@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/source.h>
 
 #include <cassert>
@@ -33,6 +34,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info source_info =
+          {
+            "source",
+            N_("Support for source chroots"),
+            []() -> facet::ptr { return source::create(); }
+          };
+
+        factory source_register(source_info);
+
+      }
 
       source::source ():
         facet()
