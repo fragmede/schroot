@@ -19,10 +19,12 @@
 #include <config.h>
 
 #include <sbuild/chroot/file.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/file.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
+#include <sbuild/chroot/facet/storage.h>
 #include "format-detail.h"
 #include "lock.h"
 
@@ -43,7 +45,7 @@ namespace sbuild
     file::file ():
       chroot()
     {
-      add_facet(facet::file::create());
+      add_facet(std::dynamic_pointer_cast<facet::storage>(facet::factory::create("file")));
     }
 
     file::file (const file& rhs):

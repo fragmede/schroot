@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/directory.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/btrfs-snapshot.h>
 #include <sbuild/chroot/facet/directory.h>
 #include <sbuild/chroot/facet/session.h>
@@ -48,7 +49,7 @@ namespace sbuild
     directory::directory ():
       chroot()
     {
-      add_facet(facet::directory::create());
+      add_facet(std::dynamic_pointer_cast<facet::storage>(facet::factory::create("directory")));
     }
 
     directory::directory (const directory& rhs):

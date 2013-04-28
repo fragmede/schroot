@@ -19,7 +19,8 @@
 #include <config.h>
 
 #include <sbuild/chroot/plain.h>
-#include <sbuild/chroot/facet/plain.h>
+#include <sbuild/chroot/facet/factory.h>
+#include <sbuild/chroot/facet/storage.h>
 #include "format-detail.h"
 #include "lock.h"
 
@@ -40,7 +41,7 @@ namespace sbuild
     plain::plain ():
       chroot()
     {
-      add_facet(facet::plain::create());
+      add_facet(std::dynamic_pointer_cast<facet::storage>(facet::factory::create("plain")));
     }
 
     plain::~plain ()

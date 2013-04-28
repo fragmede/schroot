@@ -20,10 +20,11 @@
 
 #include <sbuild/chroot/btrfs-snapshot.h>
 #include <sbuild/chroot/directory.h>
-#include <sbuild/chroot/facet/btrfs-snapshot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
+#include <sbuild/chroot/facet/storage.h>
 #include "format-detail.h"
 #include "lock.h"
 
@@ -44,7 +45,7 @@ namespace sbuild
     btrfs_snapshot::btrfs_snapshot ():
       chroot()
     {
-      add_facet(facet::btrfs_snapshot::create());
+      add_facet(std::dynamic_pointer_cast<facet::storage>(facet::factory::create("btrfs-snapshot")));
     }
 
     btrfs_snapshot::btrfs_snapshot (const btrfs_snapshot& rhs):

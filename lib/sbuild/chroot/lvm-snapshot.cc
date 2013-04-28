@@ -20,11 +20,12 @@
 
 #include <sbuild/chroot/lvm-snapshot.h>
 #include <sbuild/chroot/block-device.h>
-#include <sbuild/chroot/facet/lvm-snapshot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
 #include <sbuild/chroot/facet/mountable.h>
+#include <sbuild/chroot/facet/storage.h>
 #include "format-detail.h"
 
 #include <cassert>
@@ -44,7 +45,7 @@ namespace sbuild
     lvm_snapshot::lvm_snapshot ():
       chroot()
     {
-      add_facet(facet::lvm_snapshot::create());
+      add_facet(std::dynamic_pointer_cast<facet::storage>(facet::factory::create("lvm-snapshot")));
     }
 
     lvm_snapshot::lvm_snapshot (const lvm_snapshot& rhs):

@@ -20,10 +20,12 @@
 
 #include <sbuild/chroot/block-device.h>
 #include <sbuild/chroot/facet/block-device.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/lvm-snapshot.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
+#include <sbuild/chroot/facet/storage.h>
 #ifdef SBUILD_FEATURE_UNION
 #include <sbuild/chroot/facet/fsunion.h>
 #endif // SBUILD_FEATURE_UNION
@@ -47,7 +49,7 @@ namespace sbuild
     block_device::block_device ():
       chroot()
     {
-      add_facet(facet::block_device::create());
+      add_facet(std::dynamic_pointer_cast<facet::storage>(facet::factory::create("block-device")));
     }
 
     block_device::~block_device ()
@@ -65,10 +67,6 @@ namespace sbuild
     {
       facet::storage::ptr bdev = facet::block_device::create(*get_facet_strict<facet::lvm_snapshot>());
       replace_facet<facet::storage>(bdev);
-#ifdef SBUILD_FEATURE_UNION
-      if (!get_facet<facet::fsunion>())
-        add_facet(facet::fsunion::create());
-#endif // SBUILD_FEATURE_UNION
     }
 #endif // SBUILD_FEATURE_LVMSNAP
 

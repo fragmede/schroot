@@ -19,11 +19,12 @@
 #include <config.h>
 
 #include <sbuild/chroot/loopback.h>
-#include <sbuild/chroot/facet/loopback.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
 #include <sbuild/chroot/facet/mountable.h>
+#include <sbuild/chroot/facet/storage.h>
 #ifdef SBUILD_FEATURE_UNION
 #include <sbuild/chroot/facet/fsunion.h>
 #endif // SBUILD_FEATURE_UNION
@@ -48,7 +49,7 @@ namespace sbuild
     loopback::loopback ():
       chroot()
     {
-      add_facet(facet::loopback::create());
+      add_facet(std::dynamic_pointer_cast<facet::storage>(facet::factory::create("loopback")));
     }
 
     loopback::~loopback ()

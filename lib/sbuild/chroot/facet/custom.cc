@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/facet/factory.h>
+#include <sbuild/chroot/facet/custom.h>
 #include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/session.h>
@@ -40,6 +41,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info custom_info =
+          {
+            "custom",
+            N_("Support for ‘custom’ chroots"),
+            []() -> facet::ptr { return custom::create(); }
+          };
+
+        factory custom_register(custom_info);
+
+      }
 
       custom::custom ():
         storage(),

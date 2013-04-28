@@ -19,10 +19,11 @@
 #include <config.h>
 
 #include <sbuild/chroot/custom.h>
-#include <sbuild/chroot/facet/custom.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
+#include <sbuild/chroot/facet/storage.h>
 #include "format-detail.h"
 #include "lock.h"
 
@@ -43,7 +44,7 @@ namespace sbuild
     custom::custom ():
       chroot()
     {
-      add_facet(facet::custom::create());
+      add_facet(std::dynamic_pointer_cast<facet::storage>(facet::factory::create("custom")));
     }
 
     custom::custom (const custom& rhs):
