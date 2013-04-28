@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/file.h>
+#include <sbuild/chroot/facet/file.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
 
@@ -92,8 +93,9 @@ public:
 
     std::shared_ptr<sbuild::chroot::file> c = std::dynamic_pointer_cast<sbuild::chroot::file>(chroot);
 
-    c->set_filename("/srv/chroot/example.tar.bz2");
-    c->set_location("/sid");
+    sbuild::chroot::facet::file::ptr filefac = chroot->get_facet_strict<sbuild::chroot::facet::file>();
+    filefac->set_filename("/srv/chroot/example.tar.bz2");
+    filefac->set_location("/sid");
   }
 
   void
@@ -101,8 +103,9 @@ public:
   {
     std::shared_ptr<sbuild::chroot::file> c = std::dynamic_pointer_cast<sbuild::chroot::file>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_filename("/srv/chroot-images/unstable.tar.gz");
-    CPPUNIT_ASSERT(c->get_filename() == "/srv/chroot-images/unstable.tar.gz");
+    sbuild::chroot::facet::file::ptr filefac = chroot->get_facet_strict<sbuild::chroot::facet::file>();
+    filefac->set_filename("/srv/chroot-images/unstable.tar.gz");
+    CPPUNIT_ASSERT(filefac->get_filename() == "/srv/chroot-images/unstable.tar.gz");
   }
 
   void test_chroot_type()
@@ -113,21 +116,23 @@ public:
   void test_location()
   {
     std::shared_ptr<sbuild::chroot::file> fc = std::dynamic_pointer_cast<sbuild::chroot::file>(chroot);
+    sbuild::chroot::facet::file::ptr filefac = chroot->get_facet_strict<sbuild::chroot::facet::file>();
 
-    fc->set_location("");
-    CPPUNIT_ASSERT(fc->get_location() == "");
-    CPPUNIT_ASSERT(fc->get_path() == fc->get_mount_location());
+    filefac->set_location("");
+    CPPUNIT_ASSERT(filefac->get_location() == "");
+    CPPUNIT_ASSERT(filefac->get_path() == chroot->get_mount_location());
 
-    fc->set_location("/test");
-    CPPUNIT_ASSERT(fc->get_location() == "/test");
-    CPPUNIT_ASSERT(fc->get_path() == "/mnt/mount-location/test");
+    filefac->set_location("/test");
+    CPPUNIT_ASSERT(filefac->get_location() == "/test");
+    CPPUNIT_ASSERT(filefac->get_path() == "/mnt/mount-location/test");
  }
 
   void test_location_invalid()
   {
     std::shared_ptr<sbuild::chroot::file> fc = std::dynamic_pointer_cast<sbuild::chroot::file>(chroot);
+    sbuild::chroot::facet::file::ptr filefac = chroot->get_facet_strict<sbuild::chroot::facet::file>();
 
-    fc->set_location("invalid");
+    filefac->set_location("invalid");
   }
 
   void test_repack()
@@ -136,10 +141,14 @@ public:
     std::shared_ptr<sbuild::chroot::file> fss = std::dynamic_pointer_cast<sbuild::chroot::file>(session);
     std::shared_ptr<sbuild::chroot::file> fs = std::dynamic_pointer_cast<sbuild::chroot::file>(source);
 
+    sbuild::chroot::facet::file::ptr filechrootfac = chroot->get_facet_strict<sbuild::chroot::facet::file>();
+    sbuild::chroot::facet::file::ptr filesessionfac = session->get_facet_strict<sbuild::chroot::facet::file>();
+    sbuild::chroot::facet::file::ptr filesourcefac = source->get_facet_strict<sbuild::chroot::facet::file>();
 
-    CPPUNIT_ASSERT(fc->get_file_repack() == false);
-    CPPUNIT_ASSERT(fss->get_file_repack() == false);
-    CPPUNIT_ASSERT(fs->get_file_repack() == true);
+
+    CPPUNIT_ASSERT(filechrootfac->get_file_repack() == false);
+    CPPUNIT_ASSERT(filesessionfac->get_file_repack() == false);
+    CPPUNIT_ASSERT(filesourcefac->get_file_repack() == true);
   }
 
   void setup_env_gen(sbuild::environment &expected)

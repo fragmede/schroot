@@ -16,148 +16,164 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_FILE_H
-#define SBUILD_CHROOT_FILE_H
+#ifndef SBUILD_CHROOT_FACET_FILE_H
+#define SBUILD_CHROOT_FACET_FILE_H
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/storage.h>
 
 namespace sbuild
 {
   namespace chroot
   {
-
-    /**
-     * A chroot stored in a file archive (tar with optional compression).
-     *
-     * The archive will be unpacked and repacked on demand.
-     */
-    class file : public chroot
+    namespace facet
     {
-    protected:
-      /// The constructor.
-      file ();
-
-      /// The copy constructor.
-      file (const file& rhs);
-
-      friend class chroot;
-
-    public:
-      /// The destructor.
-      virtual ~file ();
-
-      virtual chroot::chroot::ptr
-      clone () const;
-
-      virtual chroot::chroot::ptr
-      clone_session (std::string const& session_id,
-                     std::string const& alias,
-                     std::string const& user,
-                     bool               root) const;
-
-      virtual chroot::chroot::ptr
-      clone_source () const;
 
       /**
-       * Get the filename used by the chroot.
+       * A chroot stored in a file archive (tar with optional compression).
        *
-       * @returns the filename.
+       * The archive will be unpacked and repacked on demand.
        */
-      std::string const&
-      get_filename () const;
+      class file : public storage
+      {
+      public:
+        /// Exception type.
+        typedef chroot::error error;
 
-      /**
-       * Set the filename used by the chroot.
-       *
-       * @param filename the filename.
-       */
-      void
-      set_filename (std::string const& filename);
+        /// A shared_ptr to a chroot facet object.
+        typedef std::shared_ptr<file> ptr;
 
-      /**
-       * Get the location.  This is a path to the chroot directory
-       * inside the archive (absolute path from the archive root).
-       *
-       * @returns the location.
-       */
-      virtual std::string const&
-      get_location () const;
+        /// A shared_ptr to a const chroot facet object.
+        typedef std::shared_ptr<const file> const_ptr;
 
-      /**
-       * Set the location.  This is a path to the chroot directory
-       * inside the archive (absolute path from the archive root).
-       *
-       * @param location the location.
-       */
-      virtual void
-      set_location (std::string const& location);
+      protected:
+        /// The constructor.
+        file ();
 
-      /**
-       * Get the repack status.  This is true if the unpacked archive
-       * file will be repacked.
-       *
-       * @returns the repack status.
-       */
-      bool
-      get_file_repack () const;
+        /// The copy constructor.
+        file (const file& rhs);
 
-      /**
-       * Set the file repack status.  Set to true if the unpacked
-       * archive file will be repacked on session cleanup, or false to
-       * discard.
-       *
-       * @param repack the repack status.
-       */
-      void
-      set_file_repack (bool repack);
+        void
+        set_chroot (chroot& chroot);
 
-      virtual std::string const&
-      get_chroot_type () const;
+        friend class chroot;
 
-      virtual void
-      setup_env (chroot const& chroot,
-                 environment& env) const;
+      public:
+        /// The destructor.
+        virtual ~file ();
 
-      std::string
-      get_path () const;
+        virtual std::string const&
+        get_name () const;
 
-      virtual session_flags
-      get_session_flags (chroot const& chroot) const;
+        /**
+         * Create a chroot facet.
+         *
+         * @returns a shared_ptr to the new chroot facet.
+         */
+        static ptr
+        create ();
 
-    protected:
-      virtual void
-      setup_lock (chroot::setup_type type,
-                  bool               lock,
-                  int                status);
+        facet::ptr
+        clone () const;
 
-      virtual void
-      get_details (chroot const&  chroot,
-                   format_detail& detail) const;
+        /**
+         * Get the filename used by the chroot.
+         *
+         * @returns the filename.
+         */
+        std::string const&
+        get_filename () const;
 
-      virtual void
-      get_used_keys (string_list& used_keys) const;
+        /**
+         * Set the filename used by the chroot.
+         *
+         * @param filename the filename.
+         */
+        void
+        set_filename (std::string const& filename);
 
-      virtual void
-      get_keyfile (chroot const& chroot,
-                   keyfile&      keyfile) const;
+        /**
+         * Get the location.  This is a path to the chroot directory
+         * inside the archive (absolute path from the archive root).
+         *
+         * @returns the location.
+         */
+        virtual std::string const&
+        get_location () const;
 
-      virtual void
-      set_keyfile (chroot&        chroot,
-                   keyfile const& keyfile);
+        /**
+         * Set the location.  This is a path to the chroot directory
+         * inside the archive (absolute path from the archive root).
+         *
+         * @param location the location.
+         */
+        virtual void
+        set_location (std::string const& location);
 
-    private:
-      /// The file to use.
-      std::string filename;
-      /// Location inside the mount location root.
-      std::string location;
-      /// Should the chroot be repacked?
-      bool repack;
-    };
+        /**
+         * Get the repack status.  This is true if the unpacked archive
+         * file will be repacked.
+         *
+         * @returns the repack status.
+         */
+        bool
+        get_file_repack () const;
 
+        /**
+         * Set the file repack status.  Set to true if the unpacked
+         * archive file will be repacked on session cleanup, or false to
+         * discard.
+         *
+         * @param repack the repack status.
+         */
+        void
+        set_file_repack (bool repack);
+
+        virtual void
+        setup_env (chroot const& chroot,
+                   environment&  env) const;
+
+        std::string
+        get_path () const;
+
+        virtual chroot::session_flags
+        get_session_flags (chroot const& chroot) const;
+
+      protected:
+        virtual void
+        setup_lock (chroot::setup_type type,
+                    bool               lock,
+                    int                status);
+
+        virtual void
+        get_details (chroot const&  chroot,
+                     format_detail& detail) const;
+
+        virtual void
+        get_used_keys (string_list& used_keys) const;
+
+        virtual void
+        get_keyfile (chroot const& chroot,
+                     keyfile&      keyfile) const;
+
+        virtual void
+        set_keyfile (chroot&        chroot,
+                     keyfile const& keyfile);
+
+      private:
+        /// The file to use.
+        std::string filename;
+        /// Location inside the mount location root.
+        std::string location;
+        /// Should the chroot be repacked?
+        bool repack;
+      };
+
+    }
   }
 }
 
-#endif /* SBUILD_CHROOT_FILE_H */
+#endif /* SBUILD_CHROOT_FACET_FILE_H */
 
 /*
  * Local Variables:
