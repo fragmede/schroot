@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/btrfs-snapshot.h>
+#include <sbuild/chroot/facet/btrfs-snapshot.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
 #include <sbuild/util.h>
@@ -89,8 +90,9 @@ public:
 
     std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
 
-    c->set_source_subvolume("/srv/chroot/sid");
-    c->set_snapshot_directory("/srv/chroot/snapshot");
+    sbuild::chroot::facet::btrfs_snapshot::ptr bfac = chroot->get_facet_strict<sbuild::chroot::facet::btrfs_snapshot>();
+    bfac->set_source_subvolume("/srv/chroot/sid");
+    bfac->set_snapshot_directory("/srv/chroot/snapshot");
   }
 
   void
@@ -98,8 +100,9 @@ public:
   {
     std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_source_subvolume("/srv/chroot/chroot");
-    CPPUNIT_ASSERT(c->get_source_subvolume() == "/srv/chroot/chroot");
+    sbuild::chroot::facet::btrfs_snapshot::ptr bfac = chroot->get_facet_strict<sbuild::chroot::facet::btrfs_snapshot>();
+    bfac->set_source_subvolume("/srv/chroot/chroot");
+    CPPUNIT_ASSERT(bfac->get_source_subvolume() == "/srv/chroot/chroot");
   }
 
   void
@@ -107,8 +110,9 @@ public:
   {
     std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_snapshot_directory("/srv/chroot/snapshot2");
-    CPPUNIT_ASSERT(c->get_snapshot_directory() == "/srv/chroot/snapshot2");
+    sbuild::chroot::facet::btrfs_snapshot::ptr bfac = chroot->get_facet_strict<sbuild::chroot::facet::btrfs_snapshot>();
+    bfac->set_snapshot_directory("/srv/chroot/snapshot2");
+    CPPUNIT_ASSERT(bfac->get_snapshot_directory() == "/srv/chroot/snapshot2");
   }
 
   void
@@ -116,8 +120,9 @@ public:
   {
     std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_snapshot_directory("/srv/chroot/snapshot2/test-session-id");
-    CPPUNIT_ASSERT(c->get_snapshot_directory() == "/srv/chroot/snapshot2/test-session-id");
+    sbuild::chroot::facet::btrfs_snapshot::ptr bfac = chroot->get_facet_strict<sbuild::chroot::facet::btrfs_snapshot>();
+    bfac->set_snapshot_directory("/srv/chroot/snapshot2/test-session-id");
+    CPPUNIT_ASSERT(bfac->get_snapshot_directory() == "/srv/chroot/snapshot2/test-session-id");
   }
 
   void
@@ -125,7 +130,8 @@ public:
   {
     std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_source_subvolume("chroot/invalid");
+    sbuild::chroot::facet::btrfs_snapshot::ptr bfac = chroot->get_facet_strict<sbuild::chroot::facet::btrfs_snapshot>();
+    bfac->set_source_subvolume("chroot/invalid");
   }
 
   void
@@ -133,7 +139,8 @@ public:
   {
     std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_snapshot_directory("chroot/invalid");
+    sbuild::chroot::facet::btrfs_snapshot::ptr bfac = chroot->get_facet_strict<sbuild::chroot::facet::btrfs_snapshot>();
+    bfac->set_snapshot_directory("chroot/invalid");
   }
 
   void
@@ -141,7 +148,8 @@ public:
   {
     std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_snapshot_name("invalid");
+    sbuild::chroot::facet::btrfs_snapshot::ptr bfac = chroot->get_facet_strict<sbuild::chroot::facet::btrfs_snapshot>();
+    bfac->set_snapshot_name("invalid");
   }
 
   void test_chroot_type()

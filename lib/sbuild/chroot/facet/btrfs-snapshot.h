@@ -16,146 +16,163 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_BTRFS_SNAPSHOT_H
-#define SBUILD_CHROOT_BTRFS_SNAPSHOT_H
+#ifndef SBUILD_CHROOT_FACET_BTRFS_SNAPSHOT_H
+#define SBUILD_CHROOT_FACET_BTRFS_SNAPSHOT_H
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/storage.h>
 
 namespace sbuild
 {
   namespace chroot
   {
-    /**
-     * A chroot stored on an BTRFS logical volume (LV).
-     *
-     * A snapshot LV will be created and mounted on demand.
-     */
-    class btrfs_snapshot : public chroot
+    namespace facet
     {
-    protected:
-      /// The constructor.
-      btrfs_snapshot ();
-
-      /// The copy constructor.
-      btrfs_snapshot (const btrfs_snapshot& rhs);
-
-      friend class chroot;
-
-    public:
-      /// The destructor.
-      virtual ~btrfs_snapshot ();
-
-      virtual chroot::ptr
-      clone () const;
-
-      virtual chroot::ptr
-      clone_session (std::string const& session_id,
-                     std::string const& alias,
-                     std::string const& user,
-                     bool               root) const;
-
-      virtual chroot::ptr
-      clone_source () const;
 
       /**
-       * Get the source subvolume path.  This is used by "btrfs
-       * subvolume snapshot".
+       * A chroot stored on an BTRFS subvolume.
        *
-       * @returns the source subvolume.
+       * A snapshot subvolume will be created and mounted on demand.
        */
-      std::string const&
-      get_source_subvolume () const;
+      class btrfs_snapshot : public storage
+      {
+      public:
+        /// Exception type.
+        typedef chroot::error error;
 
-      /**
-       * Set the source subvolume path.  This is used by "btrfs
-       * subvolume snapshot".
-       *
-       * @param source_subvolume the source subvolume.
-       */
-      void
-      set_source_subvolume (std::string const& source_subvolume);
+        /// A shared_ptr to a chroot facet object.
+        typedef std::shared_ptr<btrfs_snapshot> ptr;
 
-      /**
-       * Get the snapshot directory.
-       *
-       * @returns the directory.
-       */
-      std::string const&
-      get_snapshot_directory () const;
+        /// A shared_ptr to a const chroot facet object.
+        typedef std::shared_ptr<const btrfs_snapshot> const_ptr;
 
-      /**
-       * Set the snapshot directory.
-       *
-       * @param snapshot_directory the snapshot directory.
-       */
-      void
-      set_snapshot_directory (std::string const& snapshot_directory);
+      protected:
+        /// The constructor.
+        btrfs_snapshot ();
 
-      /**
-       * Get the snapshot name.  This is used by "btrfs subvolume
-       * snapshot", and is the full path to the snapshot.
-       *
-       * @returns the name.
-       */
-      std::string const&
-      get_snapshot_name () const;
+        /// The copy constructor.
+        btrfs_snapshot (const btrfs_snapshot& rhs);
 
-      /**
-       * Set the snapshot name.  This is used by "btrfs subvolume
-       * snapshot", and is the full path to the snapshot.
-       *
-       * @param snapshot_name the snapshot name.
-       */
-      void
-      set_snapshot_name (std::string const& snapshot_name);
+        void
+        set_chroot (chroot& chroot);
 
-      virtual std::string const&
-      get_chroot_type () const;
+        friend class chroot;
 
-      virtual std::string
-      get_path () const;
+      public:
+        /// The destructor.
+        virtual ~btrfs_snapshot ();
 
-      virtual void
-      setup_env (chroot const& chroot,
-                 environment&  env) const;
+        virtual std::string const&
+        get_name () const;
 
-      virtual session_flags
-      get_session_flags (chroot const& chroot) const;
+        /**
+         * Create a chroot facet.
+         *
+         * @returns a shared_ptr to the new chroot facet.
+         */
+        static ptr
+        create ();
 
-    protected:
-      virtual void
-      setup_lock (chroot::setup_type type,
-                  bool               lock,
-                  int                status);
+        facet::ptr
+        clone () const;
 
-      virtual void
-      get_details (chroot const&  chroot,
-                   format_detail& detail) const;
+        /**
+         * Get the source subvolume path.  This is used by "btrfs
+         * subvolume snapshot".
+         *
+         * @returns the source subvolume.
+         */
+        std::string const&
+        get_source_subvolume () const;
 
-      virtual void
-      get_used_keys (string_list& used_keys) const;
+        /**
+         * Set the source subvolume path.  This is used by "btrfs
+         * subvolume snapshot".
+         *
+         * @param source_subvolume the source subvolume.
+         */
+        void
+        set_source_subvolume (std::string const& source_subvolume);
 
-      virtual void
-      get_keyfile (chroot const& chroot,
-                   keyfile&      keyfile) const;
+        /**
+         * Get the snapshot directory.
+         *
+         * @returns the directory.
+         */
+        std::string const&
+        get_snapshot_directory () const;
 
-      virtual void
-      set_keyfile (chroot&        chroot,
-                   keyfile const& keyfile);
+        /**
+         * Set the snapshot directory.
+         *
+         * @param snapshot_directory the snapshot directory.
+         */
+        void
+        set_snapshot_directory (std::string const& snapshot_directory);
 
-    private:
-      /// Btrfs source subvolume
-      std::string source_subvolume;
-      /// Btrfs snapshot path
-      std::string snapshot_directory;
-      /// Btrfs snapshot name
-      std::string snapshot_name;
-    };
+        /**
+         * Get the snapshot name.  This is used by "btrfs subvolume
+         * snapshot", and is the full path to the snapshot.
+         *
+         * @returns the name.
+         */
+        std::string const&
+        get_snapshot_name () const;
 
+        /**
+         * Set the snapshot name.  This is used by "btrfs subvolume
+         * snapshot", and is the full path to the snapshot.
+         *
+         * @param snapshot_name the snapshot name.
+         */
+        void
+        set_snapshot_name (std::string const& snapshot_name);
+
+        virtual std::string
+        get_path () const;
+
+        virtual void
+        setup_env (chroot const& chroot,
+                   environment&  env) const;
+
+        virtual chroot::session_flags
+        get_session_flags (chroot const& chroot) const;
+
+      protected:
+        virtual void
+        setup_lock (chroot::setup_type type,
+                    bool               lock,
+                    int                status);
+
+        virtual void
+        get_details (chroot const&  chroot,
+                     format_detail& detail) const;
+
+        virtual void
+        get_used_keys (string_list& used_keys) const;
+
+        virtual void
+        get_keyfile (chroot const& chroot,
+                     keyfile&      keyfile) const;
+
+        virtual void
+        set_keyfile (chroot&        chroot,
+                     keyfile const& keyfile);
+
+      private:
+        /// Btrfs source subvolume
+        std::string source_subvolume;
+        /// Btrfs snapshot path
+        std::string snapshot_directory;
+        /// Btrfs snapshot name
+        std::string snapshot_name;
+      };
+
+    }
   }
 }
 
-#endif /* SBUILD_CHROOT_BTRFS_SNAPSHOT_H */
+#endif /* SBUILD_CHROOT_FACET_BTRFS_SNAPSHOT_H */
 
 /*
  * Local Variables:

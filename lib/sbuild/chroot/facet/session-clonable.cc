@@ -34,7 +34,7 @@
 #include <sbuild/chroot/loopback.h>
 #endif // SBUILD_FEATURE_LOOPBACK
 #ifdef SBUILD_FEATURE_BTRFSSNAP
-#include <sbuild/chroot/btrfs-snapshot.h>
+#include <sbuild/chroot/facet/btrfs-snapshot.h>
 #endif // SBUILD_FEATURE_BTRFSSNAP
 #ifdef SBUILD_FEATURE_UNION
 #include <sbuild/chroot/facet/fsunion.h>
@@ -192,12 +192,12 @@ namespace sbuild
 
 #ifdef SBUILD_FEATURE_BTRFSSNAP
         /* Btrfs snapshots need the snapshot name specifying. */
-        std::shared_ptr<btrfs_snapshot> btrfs_snapshot(std::dynamic_pointer_cast<btrfs_snapshot>(clone));
-        if (btrfs_snapshot && !btrfs_snapshot->get_snapshot_directory().empty())
+        btrfs_snapshot::ptr btrfs_snap(clone->get_facet<btrfs_snapshot>());
+        if (btrfs_snap && !btrfs_snap->get_snapshot_directory().empty())
           {
-            std::string snapname(btrfs_snapshot->get_snapshot_directory());
+            std::string snapname(btrfs_snap->get_snapshot_directory());
             snapname += "/" + clone->get_name();
-            btrfs_snapshot->set_snapshot_name(snapname);
+            btrfs_snap->set_snapshot_name(snapname);
           }
 #endif // SBUILD_FEATURE_BTRFSSNAP
 

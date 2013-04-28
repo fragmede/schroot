@@ -25,6 +25,7 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/chroot/custom.h			\
 	lib/sbuild/chroot/directory.h			\
 	lib/sbuild/chroot/directory-base.h		\
+	lib/sbuild/chroot/facet/btrfs-snapshot.cc	\
 	lib/sbuild/chroot/facet/facet.h			\
 	lib/sbuild/chroot/facet/directory-base.h	\
 	lib/sbuild/chroot/facet/mountable.h		\
@@ -115,6 +116,7 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/chroot/custom.cc			\
 	lib/sbuild/chroot/directory.cc			\
 	lib/sbuild/chroot/directory-base.cc		\
+	lib/sbuild/chroot/facet/btrfs-snapshot.cc	\
 	lib/sbuild/chroot/facet/facet.cc		\
 	lib/sbuild/chroot/facet/directory-base.cc	\
 	lib/sbuild/chroot/facet/mountable.cc		\
