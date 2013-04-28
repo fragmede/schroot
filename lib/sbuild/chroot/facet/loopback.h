@@ -16,111 +16,120 @@
  *
  *********************************************************************/
 
-#ifndef SBUILD_CHROOT_LOOPBACK_H
-#define SBUILD_CHROOT_LOOPBACK_H
+#ifndef SBUILD_CHROOT_FACET_LOOPBACK_H
+#define SBUILD_CHROOT_FACET_LOOPBACK_H
 
-#include <sbuild/config.h>
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/storage.h>
 
 namespace sbuild
 {
   namespace chroot
   {
-    /**
-     * A chroot stored in a file for loopback mounting.
-     *
-     * The file will be mounted on demand.
-     */
-    class loopback : public chroot
+    namespace facet
     {
-    public:
-      /// Exception type.
-      typedef chroot::error error;
-
-    protected:
-      /// The constructor.
-      loopback ();
-
-      /// The copy constructor.
-      loopback (const loopback& rhs);
-
-      friend class chroot;
-
-    public:
-      /// The destructor.
-      virtual ~loopback ();
-
-      virtual chroot::ptr
-      clone () const;
-
-      virtual chroot::ptr
-      clone_session (std::string const& session_id,
-                     std::string const& alias,
-                     std::string const& user,
-                     bool               root) const;
-
-      virtual chroot::ptr
-      clone_source () const;
 
       /**
-       * Get the filename containing the chroot.
+       * A chroot stored in a file for loopback mounting.
        *
-       * @returns the filename.
+       * The file will be mounted on demand.
        */
-      std::string const&
-      get_filename () const;
+      class loopback : public storage
+      {
+      public:
+        /// Exception type.
+        typedef chroot::error error;
 
-      /**
-       * Set the filename containing the chroot.
-       *
-       * @param filename the filename.
-       */
-      void
-      set_filename (std::string const& filename);
+        /// A shared_ptr to a chroot facet object.
+        typedef std::shared_ptr<loopback> ptr;
 
-      std::string const&
-      get_chroot_type () const;
+        /// A shared_ptr to a const chroot facet object.
+        typedef std::shared_ptr<const loopback> const_ptr;
 
-      virtual std::string
-      get_path () const;
+      protected:
+        /// The constructor.
+        loopback ();
 
-      virtual void
-      setup_env (chroot const& chroot,
-                 environment&  env) const;
+        /// The copy constructor.
+        loopback (const loopback& rhs);
 
-      virtual session_flags
-      get_session_flags (chroot const& chroot) const;
+        void
+        set_chroot (chroot& chroot);
 
-    protected:
-      virtual void
-      setup_lock (chroot::setup_type type,
-                  bool               lock,
-                  int                status);
+        friend class chroot;
 
-      virtual void
-      get_details (chroot const&  chroot,
-                   format_detail& detail) const;
+      public:
+        /// The destructor.
+        virtual ~loopback ();
 
-      virtual void
-      get_used_keys (string_list& used_keys) const;
+        virtual std::string const&
+        get_name () const;
 
-      virtual void
-      get_keyfile (chroot const& chroot,
-                   keyfile&      keyfile) const;
+        /**
+         * Create a chroot facet.
+         *
+         * @returns a shared_ptr to the new chroot facet.
+         */
+        static ptr
+        create ();
 
-      virtual void
-      set_keyfile (chroot&        chroot,
-                   keyfile const& keyfile);
+        facet::ptr
+        clone () const;
 
-    private:
-      /// The file to use.
-      std::string filename;
-    };
+        /**
+         * Get the filename containing the chroot.
+         *
+         * @returns the filename.
+         */
+        std::string const&
+        get_filename () const;
 
+        /**
+         * Set the filename containing the chroot.
+         *
+         * @param filename the filename.
+         */
+        void
+        set_filename (std::string const& filename);
+
+        virtual std::string
+        get_path () const;
+
+        virtual void
+        setup_env (chroot const& chroot,
+                   environment&  env) const;
+
+      protected:
+        virtual void
+        setup_lock (chroot::setup_type type,
+                    bool               lock,
+                    int                status);
+
+        virtual void
+        get_details (chroot const&  chroot,
+                     format_detail& detail) const;
+
+        virtual void
+        get_used_keys (string_list& used_keys) const;
+
+        virtual void
+        get_keyfile (chroot const& chroot,
+                     keyfile&      keyfile) const;
+
+        virtual void
+        set_keyfile (chroot&        chroot,
+                     keyfile const& keyfile);
+
+      private:
+        /// The file to use.
+        std::string filename;
+      };
+
+    }
   }
 }
 
-#endif /* SBUILD_CHROOT_LOOPBACK_H */
+#endif /* SBUILD_CHROOT_FACET_LOOPBACK_H */
 
 /*
  * Local Variables:

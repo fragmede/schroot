@@ -61,60 +61,6 @@ namespace sbuild
 
       virtual chroot::ptr
       clone_source () const;
-
-      /**
-       * Get the filename containing the chroot.
-       *
-       * @returns the filename.
-       */
-      std::string const&
-      get_filename () const;
-
-      /**
-       * Set the filename containing the chroot.
-       *
-       * @param filename the filename.
-       */
-      void
-      set_filename (std::string const& filename);
-
-      std::string const&
-      get_chroot_type () const;
-
-      virtual std::string
-      get_path () const;
-
-      virtual void
-      setup_env (chroot const& chroot,
-                 environment&  env) const;
-
-      virtual session_flags
-      get_session_flags (chroot const& chroot) const;
-
-    protected:
-      virtual void
-      setup_lock (chroot::setup_type type,
-                  bool               lock,
-                  int                status);
-
-      virtual void
-      get_details (chroot const&  chroot,
-                   format_detail& detail) const;
-
-      virtual void
-      get_used_keys (string_list& used_keys) const;
-
-      virtual void
-      get_keyfile (chroot const& chroot,
-                   keyfile&      keyfile) const;
-
-      virtual void
-      set_keyfile (chroot&        chroot,
-                   keyfile const& keyfile);
-
-    private:
-      /// The file to use.
-      std::string filename;
     };
 
   }

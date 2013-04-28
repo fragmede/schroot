@@ -21,8 +21,10 @@
 
 #include <algorithm>
 #include <set>
+#include <iostream>
 
 #include <sbuild/chroot/loopback.h>
+#include <sbuild/chroot/facet/loopback.h>
 #include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
@@ -105,7 +107,10 @@ public:
     test_chroot_base<chroot_loopback>::setup_chroot_props(chroot);
 
     std::shared_ptr<sbuild::chroot::loopback> c = std::dynamic_pointer_cast<sbuild::chroot::loopback>(chroot);
-    c->set_filename(loopback_file);
+    sbuild::chroot::facet::loopback::ptr loop = chroot->get_facet_strict<sbuild::chroot::facet::loopback>();
+
+    CPPUNIT_ASSERT(loop);
+    loop->set_filename(loopback_file);
 
     sbuild::chroot::facet::mountable::ptr pmnt(chroot->get_facet<sbuild::chroot::facet::mountable>());
     CPPUNIT_ASSERT(pmnt);
@@ -119,8 +124,10 @@ public:
   {
     std::shared_ptr<sbuild::chroot::loopback> c = std::dynamic_pointer_cast<sbuild::chroot::loopback>(chroot);
     CPPUNIT_ASSERT(c);
-    c->set_filename("/dev/some/file");
-    CPPUNIT_ASSERT(c->get_filename() == "/dev/some/file");
+    sbuild::chroot::facet::loopback::ptr loop = chroot->get_facet_strict<sbuild::chroot::facet::loopback>();
+    CPPUNIT_ASSERT(loop);
+    loop->set_filename("/dev/some/file");
+    CPPUNIT_ASSERT(loop->get_filename() == "/dev/some/file");
   }
 
   void

@@ -18,23 +18,18 @@
 
 #include <config.h>
 
-#include <sbuild/chroot/loopback.h>
-#include <sbuild/chroot/facet/session-clonable.h>
-#include <sbuild/chroot/facet/source-clonable.h>
-#include <sbuild/chroot/facet/mountable.h>
-#ifdef SBUILD_FEATURE_UNION
 #include <sbuild/chroot/facet/fsunion.h>
-#endif // SBUILD_FEATURE_UNION
+#include <sbuild/chroot/facet/loopback.h>
+#include <sbuild/chroot/facet/mountable.h>
+#include <sbuild/chroot/facet/session.h>
 #include "format-detail.h"
-#include "lock.h"
-#include "util.h"
 
 #include <cassert>
 #include <cerrno>
-#include <cstring>
 
 #include <boost/format.hpp>
 
+using std::endl;
 using boost::format;
 using namespace sbuild;
 
@@ -42,181 +37,162 @@ namespace sbuild
 {
   namespace chroot
   {
-
-    loopback::loopback ():
-      chroot(),
-      filename()
+    namespace facet
     {
-      add_facet(facet::mountable::create());
+
+      loopback::loopback ():
+        storage(),
+        filename()
+      {
+      }
+
+      loopback::loopback (const loopback& rhs):
+        storage(rhs),
+        filename(rhs.filename)
+      {
+      }
+
+      loopback::~loopback ()
+      {
+      }
+
+      void
+      loopback::set_chroot (chroot& chroot)
+      {
+        storage::set_chroot(chroot);
+        if (!owner->get_facet<mountable>())
+          owner->add_facet(mountable::create());
 #ifdef SBUILD_FEATURE_UNION
-      add_facet(facet::fsunion::create());
+        if (!owner->get_facet<fsunion>())
+          owner->add_facet(fsunion::create());
 #endif // SBUILD_FEATURE_UNION
+      }
+
+      std::string const&
+      loopback::get_name () const
+      {
+        static const std::string name("loopback");
+
+        return name;
+      }
+
+      loopback::ptr
+      loopback::create ()
+      {
+        return ptr(new loopback());
+      }
+
+      facet::ptr
+      loopback::clone () const
+      {
+        return ptr(new loopback(*this));
+      }
+
+      std::string const&
+      loopback::get_filename () const
+      {
+        return this->filename;
+      }
+
+      void
+      loopback::set_filename (std::string const& filename)
+      {
+        if (!is_absname(filename))
+          throw error(filename, chroot::FILE_ABS);
+
+        this->filename = filename;
+      }
+
+      std::string
+      loopback::get_path () const
+      {
+        mountable::const_ptr pmnt
+          (owner->get_facet<mountable>());
+
+        std::string path(owner->get_mount_location());
+
+        if (pmnt)
+          path += pmnt->get_location();
+
+        return path;
+      }
+
+      void
+      loopback::setup_env (chroot const& chroot,
+                           environment&  env) const
+      {
+        storage::setup_env(chroot, env);
+
+        env.add("CHROOT_FILE", get_filename());
+      }
+
+      void
+      loopback::setup_lock (chroot::setup_type type,
+                            bool               lock,
+                            int                status)
+      {
+        // Check ownership and permissions.
+        if (type == chroot::SETUP_START && lock == true)
+          {
+            stat file_status(this->filename);
+
+            // NOTE: taken from chroot_config::check_security.
+            if (file_status.uid() != 0)
+              throw error(this->filename, chroot::FILE_OWNER);
+            if (file_status.check_mode(stat::PERM_OTHER_WRITE))
+              throw error(this->filename, chroot::FILE_PERMS);
+            if (!file_status.is_regular())
+              throw error(this->filename, chroot::FILE_NOTREG);
+          }
+
+        /* Create or unlink session information. */
+        if ((type == chroot::SETUP_START && lock == true) ||
+            (type == chroot::SETUP_STOP && lock == false && status == 0))
+          {
+            bool start = (type == chroot::SETUP_START);
+            owner->get_facet_strict<session>()->setup_session_info(start);
+          }
+      }
+
+      void
+      loopback::get_details (chroot const&  chroot,
+                             format_detail& detail) const
+      {
+        storage::get_details(chroot, detail);
+
+        if (!this->filename.empty())
+          detail.add(_("File"), get_filename());
+      }
+
+      void
+      loopback::get_used_keys (string_list& used_keys) const
+      {
+        storage::get_used_keys(used_keys);
+
+        used_keys.push_back("file");
+      }
+
+      void
+      loopback::get_keyfile (chroot const& chroot,
+                             keyfile&      keyfile) const
+      {
+        storage::get_keyfile(chroot, keyfile);
+
+        keyfile::set_object_value(*this, &loopback::get_filename,
+                                  keyfile, chroot.get_name(), "file");
+      }
+
+      void
+      loopback::set_keyfile (chroot&        chroot,
+                             keyfile const& keyfile)
+      {
+        storage::set_keyfile(chroot, keyfile);
+
+        keyfile::get_object_value(*this, &loopback::set_filename,
+                                  keyfile, chroot.get_name(), "file",
+                                  keyfile::PRIORITY_REQUIRED);
+      }
+
     }
-
-    loopback::~loopback ()
-    {
-    }
-
-    loopback::loopback (const loopback& rhs):
-      chroot(rhs),
-      filename(rhs.filename)
-    {
-    }
-
-    chroot::chroot::ptr
-    loopback::clone () const
-    {
-      return ptr(new loopback(*this));
-    }
-
-    chroot::chroot::ptr
-    loopback::clone_session (std::string const& session_id,
-                             std::string const& alias,
-                             std::string const& user,
-                             bool               root) const
-    {
-      facet::session_clonable::const_ptr psess
-        (get_facet<facet::session_clonable>());
-      assert(psess);
-
-      ptr session(new loopback(*this));
-      psess->clone_session_setup(*this, session, session_id, alias, user, root);
-
-      return session;
-    }
-
-    chroot::chroot::ptr
-    loopback::clone_source () const
-    {
-      ptr clone(new loopback(*this));
-
-      facet::source_clonable::const_ptr psrc
-        (get_facet<facet::source_clonable>());
-      assert(psrc);
-
-      psrc->clone_source_setup(*this, clone);
-
-      return clone;
-    }
-
-    std::string const&
-    loopback::get_filename () const
-    {
-      return this->filename;
-    }
-
-    void
-    loopback::set_filename (std::string const& filename)
-    {
-      if (!is_absname(filename))
-        throw error(filename, FILE_ABS);
-
-      this->filename = filename;
-    }
-
-    std::string
-    loopback::get_path () const
-    {
-      facet::mountable::const_ptr pmnt
-        (get_facet<facet::mountable>());
-
-      std::string path(get_mount_location());
-
-      if (pmnt)
-        path += pmnt->get_location();
-
-      return path;
-    }
-
-    std::string const&
-    loopback::get_chroot_type () const
-    {
-      static const std::string type("loopback");
-
-      return type;
-    }
-
-    void
-    loopback::setup_env (chroot const& chroot,
-                         environment&  env) const
-    {
-      chroot::setup_env(chroot, env);
-
-      env.add("CHROOT_FILE", get_filename());
-    }
-
-    void
-    loopback::setup_lock (chroot::setup_type type,
-                          bool               lock,
-                          int                status)
-    {
-      // Check ownership and permissions.
-      if (type == SETUP_START && lock == true)
-        {
-          stat file_status(this->filename);
-
-          // NOTE: taken from chroot_config::check_security.
-          if (file_status.uid() != 0)
-            throw error(this->filename, FILE_OWNER);
-          if (file_status.check_mode(stat::PERM_OTHER_WRITE))
-            throw error(this->filename, FILE_PERMS);
-          if (!file_status.is_regular())
-            throw error(this->filename, FILE_NOTREG);
-        }
-
-      /* Create or unlink session information. */
-      if ((type == SETUP_START && lock == true) ||
-          (type == SETUP_STOP && lock == false && status == 0))
-        {
-          bool start = (type == SETUP_START);
-          setup_session_info(start);
-        }
-    }
-
-    chroot::chroot::session_flags
-    loopback::get_session_flags (chroot const& chroot) const
-    {
-      return SESSION_NOFLAGS;
-    }
-
-    void
-    loopback::get_details (chroot const&  chroot,
-                           format_detail& detail) const
-    {
-      chroot::get_details(chroot, detail);
-
-      if (!this->filename.empty())
-        detail.add(_("File"), get_filename());
-    }
-
-    void
-    loopback::get_used_keys (string_list& used_keys) const
-    {
-      chroot::get_used_keys(used_keys);
-
-      used_keys.push_back("file");
-    }
-
-    void
-    loopback::get_keyfile (chroot const& chroot,
-                           keyfile&      keyfile) const
-    {
-      chroot::get_keyfile(chroot, keyfile);
-
-      keyfile::set_object_value(*this, &loopback::get_filename,
-                                keyfile, get_name(), "file");
-    }
-
-    void
-    loopback::set_keyfile (chroot&        chroot,
-                           keyfile const& keyfile)
-    {
-      chroot::set_keyfile(chroot, keyfile);
-
-      keyfile::get_object_value(*this, &loopback::set_filename,
-                                keyfile, get_name(), "file",
-                                keyfile::PRIORITY_REQUIRED);
-    }
-
   }
 }

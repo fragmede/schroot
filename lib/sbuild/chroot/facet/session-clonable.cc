@@ -31,7 +31,7 @@
 #include <sbuild/chroot/facet/lvm-snapshot.h>
 #endif // SBUILD_FEATURE_LVMSNAP
 #ifdef SBUILD_FEATURE_LOOPBACK
-#include <sbuild/chroot/loopback.h>
+#include <sbuild/chroot/facet/loopback.h>
 #endif // SBUILD_FEATURE_LOOPBACK
 #ifdef SBUILD_FEATURE_BTRFSSNAP
 #include <sbuild/chroot/facet/btrfs-snapshot.h>
@@ -169,13 +169,13 @@ namespace sbuild
 
 #ifdef SBUILD_FEATURE_LOOPBACK
         /* Loopback chroots need the mount device name specifying. */
-        std::shared_ptr<loopback> loopback(std::dynamic_pointer_cast<loopback>(clone));
-        if (loopback)
+        loopback::ptr loop(clone->get_facet<loopback>());
+        if (loop)
           {
             mountable::ptr pmnt
               (clone->get_facet<mountable>());
             if (pmnt)
-              pmnt->set_mount_device(loopback->get_filename());
+              pmnt->set_mount_device(loop->get_filename());
           }
 #endif // SBUILD_FEATURE_LOOPBACK
 

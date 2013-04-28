@@ -30,6 +30,7 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/chroot/facet/file.h			\
 	lib/sbuild/chroot/facet/directory.h		\
 	lib/sbuild/chroot/facet/directory-base.h	\
+	lib/sbuild/chroot/facet/loopback.h		\
 	lib/sbuild/chroot/facet/mountable.h		\
 	lib/sbuild/chroot/facet/personality.h		\
 	lib/sbuild/chroot/facet/plain.h			\
@@ -123,6 +124,7 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/chroot/facet/facet.cc		\
 	lib/sbuild/chroot/facet/file.cc			\
 	lib/sbuild/chroot/facet/directory-base.cc	\
+	lib/sbuild/chroot/facet/loopback.cc		\
 	lib/sbuild/chroot/facet/mountable.cc		\
 	lib/sbuild/chroot/facet/personality.cc		\
 	lib/sbuild/chroot/facet/plain.cc		\

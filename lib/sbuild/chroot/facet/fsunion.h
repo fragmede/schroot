@@ -20,6 +20,7 @@
 #ifndef SBUILD_CHROOT_FACET_FSUNION_H
 #define SBUILD_CHROOT_FACET_FSUNION_H
 
+#include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/facet/facet.h>
 
 namespace sbuild
