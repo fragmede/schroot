@@ -108,27 +108,27 @@ options::add_option_groups ()
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!actions.options().empty())
 #else
-  if (!actions.primary_keys().empty())
+    if (!actions.primary_keys().empty())
 #endif
-    {
-      visible.add(actions);
-      global.add(actions);
-    }
+      {
+        visible.add(actions);
+        global.add(actions);
+      }
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!general.options().empty())
 #else
-  if (!general.primary_keys().empty())
+    if (!general.primary_keys().empty())
 #endif
-    {
-      visible.add(general);
-      global.add(general);
-    }
+      {
+        visible.add(general);
+        global.add(general);
+      }
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!hidden.options().empty())
 #else
-  if (!hidden.primary_keys().empty())
+    if (!hidden.primary_keys().empty())
 #endif
-    global.add(hidden);
+      global.add(hidden);
 }
 
 void

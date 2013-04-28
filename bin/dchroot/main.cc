@@ -39,10 +39,10 @@ using namespace dchroot;
 
 main::main (schroot_common::options::ptr& options):
   dchroot_common::main("dchroot",
-            // TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
-            // is an em-dash.
-            _("[OPTION…] [COMMAND] — run command or shell in a chroot"),
-            options)
+                       // TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
+                       // is an em-dash.
+                       _("[OPTION…] [COMMAND] — run command or shell in a chroot"),
+                       options)
 {
 }
 

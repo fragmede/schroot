@@ -67,8 +67,8 @@ namespace sbuild
       {
         directory_base::set_chroot(chroot);
 #ifdef SBUILD_FEATURE_UNION
-      if (!owner->get_facet<fsunion>())
-        owner->add_facet(fsunion::create());
+        if (!owner->get_facet<fsunion>())
+          owner->add_facet(fsunion::create());
 #endif // SBUILD_FEATURE_UNION
       }
 
@@ -92,7 +92,7 @@ namespace sbuild
       {
         return ptr(new directory(rhs));
       }
- #endif // SBUILD_FEATURE_BTRFSSNAP
+#endif // SBUILD_FEATURE_BTRFSSNAP
 
       facet::ptr
       directory::clone () const

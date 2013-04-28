@@ -132,7 +132,7 @@ namespace sbuild
             catch (lock::error const& e)
               {
                 throw error(file, chroot::FILE_LOCK, e);
-            }
+              }
 
             keyfile details;
             owner->get_keyfile(details);

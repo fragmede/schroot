@@ -359,7 +359,7 @@ public:
   }
 #endif // SBUILD_FEATURE_UNION
 
-void test_session_flags()
+  void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
                    sbuild::chroot::chroot::SESSION_CREATE);

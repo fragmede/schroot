@@ -125,7 +125,7 @@ public:
     filefac->set_location("/test");
     CPPUNIT_ASSERT(filefac->get_location() == "/test");
     CPPUNIT_ASSERT(filefac->get_path() == "/mnt/mount-location/test");
- }
+  }
 
   void test_location_invalid()
   {

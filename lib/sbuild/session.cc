@@ -627,7 +627,7 @@ session::run_impl ()
           if (ch->get_session_flags() & chroot::chroot::SESSION_CREATE &&
               (this->session_operation != OPERATION_AUTOMATIC &&
                this->session_operation != OPERATION_BEGIN))
-              throw error(chrootent.alias, CHROOT_NOTFOUND);
+            throw error(chrootent.alias, CHROOT_NOTFOUND);
 
           // For now, use a copy of the chroot; if we create a session
           // later, we will replace it.
@@ -951,8 +951,8 @@ session::get_login_command (chroot::chroot::ptr& session_chroot,
       session_chroot->get_preserve_environment()) &&
     session_chroot->get_command_prefix().empty();
 
-    // Not keeping environment and can setup argv correctly; login shell
-    if (login_shell)
+  // Not keeping environment and can setup argv correctly; login shell
+  if (login_shell)
     {
       std::string shellbase = basename(shell);
       std::string loginshell = "-" + shellbase;

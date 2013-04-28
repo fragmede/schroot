@@ -39,9 +39,9 @@ using namespace schroot;
 
 main::main (schroot_common::options::ptr& options):
   schroot_common::main("schroot",
-            _("[OPTION…] [COMMAND] — run command or shell in a chroot"),
-            options,
-            true)
+                       _("[OPTION…] [COMMAND] — run command or shell in a chroot"),
+                       options,
+                       true)
 {
 }
 

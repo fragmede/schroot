@@ -65,7 +65,7 @@ public:
     CPPUNIT_ASSERT(this->fd >= 0);
 
     ssize_t wsize = write(this->fd,
-                         "This file exists in order to test "
+                          "This file exists in order to test "
                           "sbuild::file_lock locking.\n", 61);
     CPPUNIT_ASSERT(wsize == 61);
 
