@@ -226,7 +226,7 @@ namespace sbuild
        * @returns the path.
        * @todo Remove once migrated to storage facet, or delegate.
        */
-      virtual std::string
+      std::string
       get_path () const;
 
       /**
@@ -501,7 +501,7 @@ namespace sbuild
        * @returns the chroot type.
        * @todo Delegate to storage facet name.
        */
-      virtual std::string const&
+      std::string const&
       get_chroot_type () const;
 
       /**
@@ -512,18 +512,6 @@ namespace sbuild
        */
       void
       setup_env (environment& env) const;
-
-      /**
-       * Set environment.  Set the environment that the setup scripts
-       * will see during execution.
-       *
-       * @param chroot the chroot to use.
-       * @param env the environment to set.
-       * @todo Delegate entirely to facets.
-       */
-      virtual void
-      setup_env (chroot const& chroot,
-                 environment& env) const;
 
       /**
        * Lock a chroot during setup.  The locking technique (if any) may
@@ -572,7 +560,7 @@ namespace sbuild
        * success, nonzero for failure).
        * @todo Delegate to storate or other facet?
        */
-      virtual void
+      void
       setup_lock(setup_type type,
                  bool       lock,
                  int        status);
@@ -675,17 +663,6 @@ namespace sbuild
       get_session_flags () const;
 
       /**
-       * Get the session flags of the chroot.  These determine how the
-       * Session controlling the chroot will operate.
-       *
-       * @param chroot the chroot to use.
-       * @returns the session flags.
-       * @todo Delegate entirely to facets.
-       */
-      virtual chroot::session_flags
-      get_session_flags (chroot const& chroot) const;
-
-      /**
        * Print detailed information about the chroot to a stream.  The
        * information is printed in plain text with one line per
        * property.
@@ -743,17 +720,6 @@ namespace sbuild
       get_details (format_detail& detail) const;
 
       /**
-       * Get detailed information about the chroot for output.
-       *
-       * @param chroot the chroot to use.
-       * @param detail the details to output to.
-       * @todo Delegate entirely to facets
-       */
-      virtual void
-      get_details (chroot const&  chroot,
-                   format_detail& detail) const;
-
-      /**
        * Print detailed information about the chroot to a stream.  The
        * information is printed in plain text with one line per
        * property.
@@ -773,20 +739,6 @@ namespace sbuild
       void
       get_keyfile (keyfile& keyfile) const;
 
-    protected:
-      /**
-       * Copy the chroot properties into a keyfile.  The keyfile group
-       * with the name of the chroot will be set; if it already exists,
-       * it will be removed before setting it.
-       *
-       * @param chroot the chroot to use.
-       * @param keyfile the keyfile to use.
-       * @todo Delegate to facets
-       */
-      virtual void
-      get_keyfile (chroot const& chroot,
-                   keyfile&      keyfile) const;
-
     public:
       /**
        * Set the chroot properties from a keyfile.  The chroot name must
@@ -805,29 +757,6 @@ namespace sbuild
        */
       string_list
       get_used_keys () const;
-
-    protected:
-      /**
-       * Get keys used during keyfile parsing.  If keys are missing or
-       * present when not expected, this may be used for diagnostic
-       * purposes.
-       */
-      virtual void
-      get_used_keys (string_list& used_keys) const;
-
-      /**
-       * Set the chroot properties from a keyfile.  The chroot name must
-       * have previously been set, so that the correct keyfile group may
-       * be determined.
-       *
-       * @param chroot the chroot to use.
-       * @param keyfile the keyfile to get the properties from.
-       * @param used_keys a list of the keys used will be set.
-       * @todo Delegate entirely to facets
-       */
-      virtual void
-      set_keyfile (chroot&        chroot,
-                   keyfile const& keyfile);
 
     private:
       /// Chroot name.

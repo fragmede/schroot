@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/storage.h>
 #include <sbuild/keyfile-writer.h>
 
 #include <test/sbuild/chroot/chroot.h>
@@ -31,12 +32,72 @@
 
 using namespace CppUnit;
 
+class test_chroot_facet : public sbuild::chroot::facet::storage
+{
+public:
+  /// A shared_ptr to a chroot facet object.
+  typedef std::shared_ptr<test_chroot_facet> ptr;
+
+  /// A shared_ptr to a const chroot facet object.
+  typedef std::shared_ptr<const test_chroot_facet> const_ptr;
+
+protected:
+  /// The constructor.
+  test_chroot_facet ():
+    storage()
+  {
+  }
+
+  /// The copy constructor.
+  test_chroot_facet (const test_chroot_facet& rhs):
+    storage(rhs)
+  {
+  }
+
+  friend class chroot;
+
+public:
+  /// The destructor.
+  virtual ~test_chroot_facet ()
+  {
+  }
+
+  virtual std::string const&
+  get_name () const
+  {
+    static const std::string name("test");
+
+    return name;
+  }
+
+
+  static ptr
+  create ()
+  {
+    return ptr(new test_chroot_facet());
+  }
+
+  virtual facet::ptr
+  clone () const
+  {
+    return ptr(new test_chroot_facet(*this));
+  }
+
+  virtual std::string
+  get_path () const
+  {
+    return owner->get_mount_location();
+  }
+};
+
 class basic_chroot : public sbuild::chroot::chroot
 {
 public:
   basic_chroot ():
     sbuild::chroot::chroot()
-  {}
+  {
+    add_facet(test_chroot_facet::create());
+  }
 
   virtual ~basic_chroot()
   {}
@@ -56,48 +117,6 @@ public:
   chroot::ptr
   clone_source () const
   { return ptr(); }
-
-  virtual std::string const&
-  get_chroot_type () const
-  { static const std::string type("test"); return type; }
-
-  virtual std::string
-  get_path () const
-  { return get_mount_location(); }
-
-  virtual void
-  setup_env (sbuild::chroot::chroot const& chroot,
-             sbuild::environment&          env) const
-  { sbuild::chroot::chroot::setup_env(chroot, env); }
-
-  virtual void
-  get_details (sbuild::chroot::chroot const& chroot,
-               sbuild::format_detail&        detail) const
-  { sbuild::chroot::chroot::get_details(chroot, detail); }
-
-  virtual void
-  setup_lock (setup_type type,
-              bool       lock,
-              int        status)
-  {}
-
-  virtual sbuild::chroot::chroot::session_flags
-  get_session_flags (sbuild::chroot::chroot const& chroot) const
-  { return sbuild::chroot::chroot::SESSION_CREATE; }
-
-  virtual void
-  get_used_keys (sbuild::string_list& used_keys) const
-  { sbuild::chroot::chroot::get_used_keys(used_keys); }
-
-  virtual void
-  get_keyfile (sbuild::chroot::chroot const& chroot,
-               sbuild::keyfile&              keyfile) const
-  { sbuild::chroot::chroot::get_keyfile(chroot, keyfile); }
-
-  virtual void
-  set_keyfile (sbuild::chroot::chroot& chroot,
-               sbuild::keyfile const&  keyfile)
-  { sbuild::chroot::chroot::set_keyfile(chroot, keyfile); }
 };
 
 class test_chroot : public test_chroot_base<basic_chroot>
@@ -127,7 +146,8 @@ class test_chroot : public test_chroot_base<basic_chroot>
 public:
   test_chroot():
     test_chroot_base<basic_chroot>()
-  {}
+  {
+  }
 
   void test_name()
   {
