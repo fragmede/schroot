@@ -79,23 +79,5 @@ namespace sbuild
       return session;
     }
 
-    chroot::chroot::ptr
-    file::clone_source () const
-    {
-      file *clone_file = new file(*this);
-      ptr clone(clone_file);
-
-      facet::source_clonable::const_ptr psrc
-        (get_facet<facet::source_clonable>());
-      assert(psrc);
-
-      psrc->clone_source_setup(*this, clone);
-
-      facet::file::ptr filefac = clone->get_facet_strict<facet::file>();
-      filefac->set_file_repack(true);
-
-      return clone;
-    }
-
   }
 }

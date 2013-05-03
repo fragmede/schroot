@@ -79,19 +79,5 @@ namespace sbuild
       return session;
     }
 
-    chroot::chroot::ptr
-    btrfs_snapshot::clone_source () const
-    {
-      ptr clone(new directory(*this));
-
-      facet::source_clonable::const_ptr psrc
-        (get_facet<facet::source_clonable>());
-      assert(psrc);
-
-      psrc->clone_source_setup(*this, clone);
-
-      return clone;
-    }
-
   }
 }

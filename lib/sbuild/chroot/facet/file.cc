@@ -278,6 +278,12 @@ namespace sbuild
                                   keyfile::PRIORITY_DISALLOWED);
       }
 
+      void
+      file::chroot_source_setup (chroot const& parent)
+      {
+        set_file_repack(true);
+      }
+
     }
   }
 }

@@ -117,14 +117,12 @@ namespace sbuild
       /// A shared_ptr to a const chroot object.
       typedef std::shared_ptr<const chroot> const_ptr;
 
-    protected:
       /// The constructor.
       chroot ();
 
       /// The copy constructor.
       chroot (const chroot& rhs);
 
-    public:
       /// The destructor.
       virtual ~chroot ();
 
@@ -134,7 +132,7 @@ namespace sbuild
        * @param type the type of chroot to create.
        * @returns a shared_ptr to the new chroot.
        */
-      static ptr
+      static chroot::ptr
       create (std::string const& type);
 
       /**
@@ -142,8 +140,8 @@ namespace sbuild
        *
        * @returns a shared_ptr to the new copy of the chroot.
        */
-      virtual ptr
-      clone () const = 0;
+      virtual chroot::ptr
+      clone () const;
 
       /**
        * Create a session chroot.
@@ -158,7 +156,7 @@ namespace sbuild
       clone_session (std::string const& session_id,
                      std::string const& alias,
                      std::string const& user,
-                     bool               root) const = 0;
+                     bool               root) const;
 
       /**
        * Create a source chroot.
@@ -166,7 +164,7 @@ namespace sbuild
        * @returns a source chroot.
        */
       virtual chroot::ptr
-      clone_source () const = 0;
+      clone_source () const;
 
       /**
        * Get the name of the chroot.

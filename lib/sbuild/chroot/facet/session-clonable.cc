@@ -95,7 +95,7 @@ namespace sbuild
       std::string const&
       session_clonable::get_name () const
       {
-        static const std::string name("session");
+        static const std::string name("session-clonable");
 
         return name;
       }

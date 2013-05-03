@@ -266,6 +266,13 @@ namespace sbuild
                                   keyfile::PRIORITY_REQUIRED); // Only needed for creating snapshot, not using snapshot
       }
 
+      void
+      lvm_snapshot::chroot_source_setup (chroot const& parent)
+      {
+        storage::ptr source_block(block_device::create(*this));
+        owner->replace_facet<storage>(source_block);
+      }
+
     }
   }
 }

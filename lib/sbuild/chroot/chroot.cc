@@ -41,6 +41,8 @@
 #include <sbuild/chroot/facet/plain.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
+#include <sbuild/chroot/facet/source-clonable.h>
+#include <sbuild/chroot/facet/source-setup.h>
 #include <sbuild/chroot/facet/source.h>
 #include <sbuild/chroot/facet/storage.h>
 #include <sbuild/chroot/facet/userdata.h>
@@ -49,6 +51,7 @@
 #endif // SBUILD_FEATURE_UNSHARE
 #include "fdstream.h"
 
+#include <iostream>
 #include <cerrno>
 #include <map>
 #include <utility>
@@ -191,6 +194,50 @@ namespace sbuild
         throw error(CHROOT_CREATE);
 
       return ptr(new_chroot);
+    }
+
+    chroot::ptr
+    chroot::clone () const
+    {
+      return ptr(new chroot(*this));
+    }
+
+    chroot::ptr
+    chroot::clone_session (std::string const& session_id,
+                           std::string const& alias,
+                           std::string const& user,
+                           bool               root) const
+    {
+      ptr session = 0;
+      session = clone();
+      return session;
+    }
+
+    chroot::ptr
+    chroot::clone_source () const
+    {
+      ptr source = 0;
+
+      facet::source_clonable::const_ptr psrc
+        (get_facet<facet::source_clonable>());
+      if (psrc)
+        {
+          source = clone();
+
+          for (facet_list::iterator facet = source->facets.begin();
+               facet != source->facets.end();)
+            {
+              facet_list::iterator current = facet;
+              ++facet;
+              auto requested = std::dynamic_pointer_cast<facet::source_setup>(*current);
+              if (requested)
+                {
+                  requested->chroot_source_setup(*this);
+                }
+            }
+        }
+
+      return source;
     }
 
     std::string const&

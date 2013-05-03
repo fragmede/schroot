@@ -58,9 +58,6 @@ namespace sbuild
                      std::string const& alias,
                      std::string const& user,
                      bool               root) const;
-
-      virtual chroot::ptr
-      clone_source () const;
     };
 
   }

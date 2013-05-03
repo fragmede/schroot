@@ -21,6 +21,7 @@
 
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/facet/storage.h>
+#include <sbuild/chroot/facet/source-setup.h>
 
 namespace sbuild
 {
@@ -34,7 +35,7 @@ namespace sbuild
        *
        * A snapshot subvolume will be created and mounted on demand.
        */
-      class btrfs_snapshot : public storage
+      class btrfs_snapshot : public storage, public source_setup
       {
       public:
         /// Exception type.
@@ -158,6 +159,9 @@ namespace sbuild
         virtual void
         set_keyfile (chroot&        chroot,
                      keyfile const& keyfile);
+
+        virtual void
+        chroot_source_setup (chroot const& parent);
 
       private:
         /// Btrfs source subvolume

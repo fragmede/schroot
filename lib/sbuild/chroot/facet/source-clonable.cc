@@ -88,27 +88,6 @@ namespace sbuild
         return name;
       }
 
-      void
-      source_clonable::clone_source_setup (chroot const& parent,
-                                           chroot::ptr&  clone) const
-      {
-        clone->set_description
-          (clone->get_description() + ' ' + _("(source chroot)"));
-        clone->set_original(false);
-        clone->set_users(this->get_source_users());
-        clone->set_groups(this->get_source_groups());
-        clone->set_root_users(this->get_source_root_users());
-        clone->set_root_groups(this->get_source_root_groups());
-        clone->set_aliases(clone->get_aliases());
-
-#ifdef SBUILD_FEATURE_UNION
-        clone->remove_facet<fsunion>();
-#endif // SBUILD_FEATURE_UNION
-
-        clone->remove_facet<source_clonable>();
-        clone->add_facet(source::create());
-      }
-
       bool
       source_clonable::get_source_clone () const
       {
@@ -253,6 +232,22 @@ namespace sbuild
                                        keyfile, chroot.get_name(),
                                        "source-root-groups",
                                        keyfile::PRIORITY_OPTIONAL);
+      }
+
+      void
+      source_clonable::chroot_source_setup (chroot const& parent)
+      {
+        owner->set_description
+          (owner->get_description() + ' ' + _("(source chroot)"));
+        owner->set_original(false);
+        owner->set_users(this->get_source_users());
+        owner->set_groups(this->get_source_groups());
+        owner->set_root_users(this->get_source_root_users());
+        owner->set_root_groups(this->get_source_root_groups());
+        owner->set_aliases(owner->get_aliases());
+
+        owner->remove_facet<source_clonable>();
+        owner->add_facet(source::create());
       }
 
     }

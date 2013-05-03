@@ -92,19 +92,5 @@ namespace sbuild
       return session;
     }
 
-    chroot::chroot::ptr
-    block_device::clone_source () const
-    {
-      ptr clone(new block_device(*this));
-
-      facet::source_clonable::const_ptr psrc
-        (get_facet<facet::source_clonable>());
-      assert(psrc);
-
-      psrc->clone_source_setup(*this, clone);
-
-      return clone;
-    }
-
   }
 }

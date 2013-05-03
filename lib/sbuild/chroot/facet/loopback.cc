@@ -43,6 +43,7 @@ namespace sbuild
 
       namespace
       {
+
         factory::facet_info loopback_info =
           {
             "loopback",

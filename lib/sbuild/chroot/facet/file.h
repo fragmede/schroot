@@ -20,6 +20,7 @@
 #define SBUILD_CHROOT_FACET_FILE_H
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/source-setup.h>
 #include <sbuild/chroot/facet/storage.h>
 
 namespace sbuild
@@ -34,7 +35,7 @@ namespace sbuild
        *
        * The archive will be unpacked and repacked on demand.
        */
-      class file : public storage
+      class file : public storage, public source_setup
       {
       public:
         /// Exception type.
@@ -159,6 +160,9 @@ namespace sbuild
         virtual void
         set_keyfile (chroot&        chroot,
                      keyfile const& keyfile);
+
+        virtual void
+        chroot_source_setup (chroot const& parent);
 
       private:
         /// The file to use.

@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/facet/btrfs-snapshot.h>
+#include <sbuild/chroot/facet/directory.h>
 #include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/chroot/facet/session-clonable.h>
@@ -269,6 +270,13 @@ namespace sbuild
                                   issession ?
                                   keyfile::PRIORITY_REQUIRED :
                                   keyfile::PRIORITY_DISALLOWED);
+      }
+
+      void
+      btrfs_snapshot::chroot_source_setup (chroot const& parent)
+      {
+        storage::ptr source_directory(directory::create(*this));
+        owner->replace_facet<storage>(source_directory);
       }
 
     }

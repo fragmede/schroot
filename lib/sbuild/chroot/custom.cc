@@ -78,20 +78,5 @@ namespace sbuild
       return session;
     }
 
-    chroot::chroot::ptr
-    custom::clone_source () const
-    {
-      custom *clone_custom = new custom(*this);
-      ptr clone(clone_custom);
-
-      facet::source_clonable::const_ptr psrc
-        (get_facet<facet::source_clonable>());
-      assert(psrc);
-
-      psrc->clone_source_setup(*this, clone);
-
-      return clone;
-    }
-
   }
 }

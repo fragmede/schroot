@@ -301,6 +301,12 @@ namespace sbuild
                                   keyfile::PRIORITY_OPTIONAL);
       }
 
+      void
+      fsunion::chroot_source_setup (chroot const& parent)
+      {
+        owner->remove_facet<fsunion>();
+      }
+
     }
   }
 }

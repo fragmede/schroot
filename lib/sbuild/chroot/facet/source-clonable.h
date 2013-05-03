@@ -20,6 +20,7 @@
 #define SBUILD_CHROOT_FACET_SOURCE_CLONABLE_H
 
 #include <sbuild/chroot/facet/facet.h>
+#include <sbuild/chroot/facet/source-setup.h>
 
 namespace sbuild
 {
@@ -36,7 +37,7 @@ namespace sbuild
        * facet can be used by any chroot wishing to provide such
        * functionality.
        */
-      class source_clonable : public facet
+      class source_clonable : public facet, public source_setup
       {
       public:
         /// A shared_ptr to a chroot facet object.
@@ -66,16 +67,6 @@ namespace sbuild
 
         virtual std::string const&
         get_name () const;
-
-        /**
-         * Set the defaults in the cloned source chroot.
-         *
-         * @param parent the parent of the cloned chroot.
-         * @param clone the chroot to set up.
-         */
-        virtual void
-        clone_source_setup (chroot const& parent,
-                            chroot::ptr&  clone) const;
 
         /**
          * Is cloning a source chroot automatically permitted?  Note that
@@ -184,6 +175,9 @@ namespace sbuild
         virtual void
         set_keyfile (chroot&        chroot,
                      keyfile const& keyfile);
+
+        virtual void
+        chroot_source_setup (chroot const& parent);
 
       private:
         /// Is source chroot cloning permitted?
