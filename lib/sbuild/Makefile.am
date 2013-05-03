@@ -24,14 +24,12 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/chroot/chroot.h			\
 	lib/sbuild/chroot/custom.h			\
 	lib/sbuild/chroot/directory.h			\
-	lib/sbuild/chroot/facet/btrfs-snapshot.cc	\
 	lib/sbuild/chroot/facet/custom.h		\
 	lib/sbuild/chroot/facet/directory.h		\
 	lib/sbuild/chroot/facet/directory-base.h	\
 	lib/sbuild/chroot/facet/facet.h			\
 	lib/sbuild/chroot/facet/factory.h		\
 	lib/sbuild/chroot/facet/file.h			\
-	lib/sbuild/chroot/facet/loopback.h		\
 	lib/sbuild/chroot/facet/mountable.h		\
 	lib/sbuild/chroot/facet/personality.h		\
 	lib/sbuild/chroot/facet/plain.h			\
@@ -39,6 +37,7 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/chroot/facet/session-clonable.h	\
 	lib/sbuild/chroot/facet/source.h		\
 	lib/sbuild/chroot/facet/source-clonable.h	\
+	lib/sbuild/chroot/facet/source-setup.h		\
 	lib/sbuild/chroot/facet/storage.h		\
 	lib/sbuild/chroot/facet/userdata.h		\
 	lib/sbuild/chroot/file.h			\
@@ -94,13 +93,15 @@ lib_sbuild_public_lvmsnap_h_sources =		\
 endif
 
 if BUILD_BTRFSSNAP
-lib_sbuild_public_btrfssnap_h_sources =	\
-	lib/sbuild/chroot/btrfs-snapshot.h
+lib_sbuild_public_btrfssnap_h_sources =			\
+	lib/sbuild/chroot/btrfs-snapshot.h		\
+	lib/sbuild/chroot/facet/btrfs-snapshot.h
 endif
 
 if BUILD_LOOPBACK
-lib_sbuild_public_loopback_h_sources =	\
-	lib/sbuild/chroot/loopback.h
+lib_sbuild_public_loopback_h_sources =		\
+	lib/sbuild/chroot/loopback.h		\
+	lib/sbuild/chroot/facet/loopback.h
 endif
 
 if BUILD_UNION
@@ -119,14 +120,12 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/chroot/chroot.cc			\
 	lib/sbuild/chroot/custom.cc			\
 	lib/sbuild/chroot/directory.cc			\
-	lib/sbuild/chroot/facet/btrfs-snapshot.cc	\
 	lib/sbuild/chroot/facet/custom.cc		\
 	lib/sbuild/chroot/facet/directory.cc		\
 	lib/sbuild/chroot/facet/directory-base.cc	\
 	lib/sbuild/chroot/facet/facet.cc		\
 	lib/sbuild/chroot/facet/factory.cc		\
 	lib/sbuild/chroot/facet/file.cc			\
-	lib/sbuild/chroot/facet/loopback.cc		\
 	lib/sbuild/chroot/facet/mountable.cc		\
 	lib/sbuild/chroot/facet/personality.cc		\
 	lib/sbuild/chroot/facet/plain.cc		\
@@ -134,6 +133,7 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/chroot/facet/session-clonable.cc	\
 	lib/sbuild/chroot/facet/source.cc		\
 	lib/sbuild/chroot/facet/source-clonable.cc	\
+	lib/sbuild/chroot/facet/source-setup.cc		\
 	lib/sbuild/chroot/facet/storage.cc		\
 	lib/sbuild/chroot/facet/userdata.cc		\
 	lib/sbuild/chroot/file.cc			\
@@ -182,13 +182,15 @@ lib_sbuild_public_lvmsnap_cc_sources =		\
 endif
 
 if BUILD_BTRFSSNAP
-lib_sbuild_public_btrfssnap_cc_sources =	\
-	lib/sbuild/chroot/btrfs-snapshot.cc
+lib_sbuild_public_btrfssnap_cc_sources =		\
+	lib/sbuild/chroot/btrfs-snapshot.cc		\
+	lib/sbuild/chroot/facet/btrfs-snapshot.cc
 endif
 
 if BUILD_LOOPBACK
-lib_sbuild_public_loopback_cc_sources =	\
-	lib/sbuild/chroot/loopback.cc
+lib_sbuild_public_loopback_cc_sources =		\
+	lib/sbuild/chroot/loopback.cc		\
+	lib/sbuild/chroot/facet/loopback.cc
 endif
 
 if BUILD_UNION
