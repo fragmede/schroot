@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include "error.h"
-#include "util.h"
+#include <sbuild/error.h>
+#include <sbuild/util.h>
 
 #include <cerrno>
 #include <cstring>

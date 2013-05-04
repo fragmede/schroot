@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "ctty.h"
+#include <sbuild/ctty.h>
 
 #include <cerrno>
 #include <cstring>

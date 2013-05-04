@@ -18,9 +18,9 @@
 
 #include <config.h>
 
-#include "format-detail.h"
-#include "i18n.h"
-#include "log.h"
+#include <sbuild/format-detail.h>
+#include <sbuild/i18n.h>
+#include <sbuild/log.h>
 
 #include <boost/format.hpp>
 

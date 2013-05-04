@@ -23,7 +23,7 @@
 #include <sbuild/chroot/facet/loopback.h>
 #include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/chroot/facet/session.h>
-#include "format-detail.h"
+#include <sbuild/format-detail.h>
 
 #include <cassert>
 #include <cerrno>

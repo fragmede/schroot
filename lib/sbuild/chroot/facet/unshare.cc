@@ -21,7 +21,7 @@
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/unshare.h>
-#include "feature.h"
+#include <sbuild/feature.h>
 
 #include <boost/format.hpp>
 

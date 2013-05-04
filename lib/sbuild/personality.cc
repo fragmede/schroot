@@ -18,9 +18,9 @@
 
 #include <config.h>
 
-#include "config.h"
-#include "personality.h"
-#include "feature.h"
+#include <sbuild/config.h>
+#include <sbuild/personality.h>
+#include <sbuild/feature.h>
 
 #include <cstring>
 #include <cerrno>

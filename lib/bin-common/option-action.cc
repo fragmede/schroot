@@ -20,8 +20,8 @@
 
 #include <sbuild/i18n.h>
 
-#include "option-action.h"
-#include "options.h"
+#include <bin-common/option-action.h>
+#include <bin-common/options.h>
 
 #include <iomanip>
 

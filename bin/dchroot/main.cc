@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include "main.h"
-#include "session.h"
+#include <dchroot/main.h>
+#include <dchroot/session.h>
 
 #include <cstdlib>
 #include <iostream>

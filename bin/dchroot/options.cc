@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "options.h"
+#include <dchroot/options.h>
 
 #include <cstdlib>
 #include <iostream>

@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include "options.h"
-#include "main.h"
+#include <mount/options.h>
+#include <mount/main.h>
 
 #include <bin-common/run.h>
 

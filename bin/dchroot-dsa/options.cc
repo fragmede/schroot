@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "options.h"
+#include <dchroot-dsa/options.h>
 
 #include <sbuild/util.h>
 

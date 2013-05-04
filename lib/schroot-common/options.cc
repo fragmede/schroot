@@ -20,7 +20,7 @@
 
 #include <sbuild/util.h>
 
-#include "options.h"
+#include <schroot-common/options.h>
 
 #include <cstdlib>
 #include <iostream>

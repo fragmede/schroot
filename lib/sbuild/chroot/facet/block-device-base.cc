@@ -20,9 +20,9 @@
 
 #include <sbuild/chroot/facet/block-device-base.h>
 #include <sbuild/chroot/facet/mountable.h>
-#include "format-detail.h"
-#include "lock.h"
-#include "util.h"
+#include <sbuild/format-detail.h>
+#include <sbuild/lock.h>
+#include <sbuild/util.h>
 
 #include <cerrno>
 #include <cstring>

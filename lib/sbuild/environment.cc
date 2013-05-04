@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "environment.h"
+#include <sbuild/environment.h>
 
 #include <cstring>
 

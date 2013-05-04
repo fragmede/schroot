@@ -21,7 +21,7 @@
 #include <algorithm>
 #include <set>
 
-#include "keyfile.h"
+#include <sbuild/keyfile.h>
 
 #include <boost/format.hpp>
 

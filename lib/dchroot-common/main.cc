@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "main.h"
+#include <dchroot-common/main.h>
 
 #include <cstdlib>
 #include <iostream>

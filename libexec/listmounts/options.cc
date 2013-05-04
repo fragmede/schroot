@@ -20,7 +20,7 @@
 
 #include <sbuild/i18n.h>
 
-#include "options.h"
+#include <listmounts/options.h>
 
 #include <cstdlib>
 #include <iostream>

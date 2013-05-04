@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include "run-parts.h"
-#include "util.h"
+#include <sbuild/run-parts.h>
+#include <sbuild/util.h>
 
 #include <cerrno>
 

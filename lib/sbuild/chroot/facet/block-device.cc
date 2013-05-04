@@ -27,8 +27,8 @@
 #ifdef SBUILD_FEATURE_UNION
 #include <sbuild/chroot/facet/fsunion.h>
 #endif // SBUILD_FEATURE_UNION
-#include "format-detail.h"
-#include "util.h"
+#include <sbuild/format-detail.h>
+#include <sbuild/util.h>
 
 #include <cassert>
 #include <cerrno>

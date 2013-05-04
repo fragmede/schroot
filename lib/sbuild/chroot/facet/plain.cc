@@ -21,8 +21,8 @@
 #include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/plain.h>
 #include <sbuild/chroot/facet/session-clonable.h>
-#include "format-detail.h"
-#include "util.h"
+#include <sbuild/format-detail.h>
+#include <sbuild/util.h>
 
 #include <cassert>
 #include <cerrno>

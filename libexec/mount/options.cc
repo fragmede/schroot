@@ -21,7 +21,7 @@
 #include <sbuild/i18n.h>
 #include <sbuild/util.h>
 
-#include "options.h"
+#include <mount/options.h>
 
 #include <cstdlib>
 #include <iostream>

@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include "main.h"
-#include "options.h"
+#include <dchroot/main.h>
+#include <dchroot/options.h>
 
 #include <bin-common/run.h>
 

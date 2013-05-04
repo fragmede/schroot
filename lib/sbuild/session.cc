@@ -33,11 +33,11 @@
 #else
 #include <sbuild/auth/deny.h>
 #endif // SBUILD_FEATURE_PAM
-#include "ctty.h"
-#include "feature.h"
-#include "run-parts.h"
-#include "session.h"
-#include "util.h"
+#include <sbuild/ctty.h>
+#include <sbuild/feature.h>
+#include <sbuild/run-parts.h>
+#include <sbuild/session.h>
+#include <sbuild/util.h>
 
 #include <cassert>
 #include <cerrno>

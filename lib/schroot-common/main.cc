@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "main.h"
+#include <schroot-common/main.h>
 
 #include <sbuild/config.h>
 #ifdef SBUILD_FEATURE_PAM

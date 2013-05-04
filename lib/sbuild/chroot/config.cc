@@ -23,9 +23,9 @@
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
-#include "fdstream.h"
-#include "keyfile-reader.h"
-#include "lock.h"
+#include <sbuild/fdstream.h>
+#include <sbuild/keyfile-reader.h>
+#include <sbuild/lock.h>
 
 #include <cassert>
 #include <cerrno>

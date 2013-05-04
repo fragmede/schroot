@@ -352,7 +352,7 @@ namespace sbuild
 
 }
 
-#include "error.tcc"
+#include <sbuild/error.tcc>
 
 #endif /* SBUILD_ERROR_H */
 

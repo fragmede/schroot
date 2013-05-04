@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "mntstream.h"
+#include <sbuild/mntstream.h>
 
 #include <cerrno>
 #include <cstring>

@@ -21,7 +21,7 @@
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/userdata.h>
-#include "regex.h"
+#include <sbuild/regex.h>
 
 #include <locale>
 

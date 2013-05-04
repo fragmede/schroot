@@ -33,7 +33,7 @@
 #ifdef SBUILD_FEATURE_UNSHARE
 #include <sbuild/chroot/facet/unshare.h>
 #endif // SBUILD_FEATURE_UNSHARE
-#include "fdstream.h"
+#include <sbuild/fdstream.h>
 
 #include <iostream>
 #include <cerrno>

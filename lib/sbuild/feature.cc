@@ -20,8 +20,8 @@
 
 #include <iostream>
 
-#include "feature.h"
-#include "i18n.h"
+#include <sbuild/feature.h>
+#include <sbuild/i18n.h>
 
 using namespace sbuild;
 

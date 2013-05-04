@@ -24,7 +24,7 @@
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/source-clonable.h>
-#include "format-detail.h"
+#include <sbuild/format-detail.h>
 
 #include <cassert>
 #include <cerrno>

@@ -24,7 +24,7 @@
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/fsunion.h>
 #include <sbuild/chroot/facet/source-clonable.h>
-#include "feature.h"
+#include <sbuild/feature.h>
 
 #include <cassert>
 

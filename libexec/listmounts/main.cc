@@ -21,7 +21,7 @@
 #include <sbuild/mntstream.h>
 #include <sbuild/util.h>
 
-#include "main.h"
+#include <listmounts/main.h>
 
 #include <cerrno>
 #include <climits>

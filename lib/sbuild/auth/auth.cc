@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include <sbuild/auth/auth.h>
-#include "util.h"
+#include <sbuild/util.h>
 
 #include <cassert>
 #include <cerrno>

@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "types.h"
+#include <sbuild/types.h>
 #include <sbuild/i18n.h>
 
 using namespace sbuild;

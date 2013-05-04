@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include <schroot/main.h>
-#include "options.h"
+#include <schroot/options.h>
 
 #include <bin-common/run.h>
 
