@@ -72,7 +72,7 @@ namespace sbuild
     virtual void
     write_stream(std::ostream& stream) const;
 
-    protected:
+  protected:
     /// The keyfile to operate with.
     keyfile const& store;
 

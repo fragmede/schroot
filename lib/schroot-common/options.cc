@@ -20,7 +20,7 @@
 
 #include <sbuild/util.h>
 
-#include "options.h"
+#include <schroot-common/options.h>
 
 #include <cstdlib>
 #include <iostream>
@@ -118,40 +118,40 @@ options::add_option_groups ()
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!chroot.options().empty())
 #else
-  if (!chroot.primary_keys().empty())
+    if (!chroot.primary_keys().empty())
 #endif
-    {
-      visible.add(chroot);
-      global.add(chroot);
-    }
+      {
+        visible.add(chroot);
+        global.add(chroot);
+      }
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!chrootenv.options().empty())
 #else
-  if (!chrootenv.primary_keys().empty())
+    if (!chrootenv.primary_keys().empty())
 #endif
-    {
-      visible.add(chrootenv);
-      global.add(chrootenv);
-    }
+      {
+        visible.add(chrootenv);
+        global.add(chrootenv);
+      }
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!session_actions.options().empty())
 #else
-  if (!session_actions.primary_keys().empty())
+    if (!session_actions.primary_keys().empty())
 #endif
-    {
-      visible.add(session_actions);
-      global.add(session_actions);
-    }
+      {
+        visible.add(session_actions);
+        global.add(session_actions);
+      }
 
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!session_options.options().empty())
 #else
-  if (!session_options.primary_keys().empty())
+    if (!session_options.primary_keys().empty())
 #endif
-    {
-      visible.add(session_options);
-      global.add(session_options);
-    }
+      {
+        visible.add(session_options);
+        global.add(session_options);
+      }
 }
 
 void

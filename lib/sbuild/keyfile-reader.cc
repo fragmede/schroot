@@ -20,7 +20,7 @@
 
 #include <fstream>
 
-#include "keyfile-reader.h"
+#include <sbuild/keyfile-reader.h>
 
 using namespace sbuild;
 

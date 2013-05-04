@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "session.h"
+#include <dchroot-common/session.h>
 
 #include <cassert>
 #include <cerrno>

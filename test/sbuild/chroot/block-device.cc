@@ -21,7 +21,7 @@
 #include <algorithm>
 #include <set>
 
-#include <sbuild/chroot/block-device.h>
+#include <sbuild/chroot/facet/block-device.h>
 #include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
@@ -34,18 +34,7 @@ using namespace CppUnit;
 
 using sbuild::_;
 
-class chroot_block_device : public sbuild::chroot::block_device
-{
-public:
-  chroot_block_device():
-    sbuild::chroot::block_device()
-  {}
-
-  virtual ~chroot_block_device()
-  {}
-};
-
-class test_chroot_block_device : public test_chroot_base<chroot_block_device>
+class test_chroot_block_device : public test_chroot_base
 {
   CPPUNIT_TEST_SUITE(test_chroot_block_device);
   CPPUNIT_TEST(test_device);
@@ -73,12 +62,12 @@ class test_chroot_block_device : public test_chroot_base<chroot_block_device>
 
 public:
   test_chroot_block_device():
-    test_chroot_base<chroot_block_device>()
+    test_chroot_base("block-device")
   {}
 
   void setUp()
   {
-    test_chroot_base<chroot_block_device>::setUp();
+    test_chroot_base::setUp();
     CPPUNIT_ASSERT(chroot);
     CPPUNIT_ASSERT(session);
     CPPUNIT_ASSERT(!source);
@@ -93,11 +82,9 @@ public:
 
   virtual void setup_chroot_props (sbuild::chroot::chroot::ptr& chroot)
   {
-    test_chroot_base<chroot_block_device>::setup_chroot_props(chroot);
+    test_chroot_base::setup_chroot_props(chroot);
 
-    std::shared_ptr<sbuild::chroot::block_device> c = std::dynamic_pointer_cast<sbuild::chroot::block_device>(chroot);
-
-    c->set_device("/dev/testdev");
+    chroot->get_facet_strict<sbuild::chroot::facet::block_device>()->set_device("/dev/testdev");
 
     sbuild::chroot::facet::mountable::ptr pmnt(chroot->get_facet<sbuild::chroot::facet::mountable>());
     CPPUNIT_ASSERT(pmnt);
@@ -109,10 +96,8 @@ public:
   void
   test_device()
   {
-    std::shared_ptr<sbuild::chroot::block_device> c = std::dynamic_pointer_cast<sbuild::chroot::block_device>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_device("/dev/some/device");
-    CPPUNIT_ASSERT(c->get_device() == "/dev/some/device");
+    chroot->get_facet_strict<sbuild::chroot::facet::block_device>()->set_device("/dev/some/device");
+    CPPUNIT_ASSERT(chroot->get_facet_strict<sbuild::chroot::facet::block_device>()->get_device() == "/dev/some/device");
   }
 
   void
@@ -156,7 +141,7 @@ public:
     expected.add("CHROOT_UNION_TYPE",     "none");
 #endif // SBUILD_FEATURE_UNION
 
-    test_chroot_base<chroot_block_device>::test_setup_env(chroot, expected);
+    test_chroot_base::test_setup_env(chroot, expected);
   }
 
   void test_setup_env_session()
@@ -173,7 +158,7 @@ public:
 #ifdef SBUILD_FEATURE_UNION
     expected.add("CHROOT_UNION_TYPE",     "none");
 #endif // SBUILD_FEATURE_UNION
-    test_chroot_base<chroot_block_device>::test_setup_env(session, expected);
+    test_chroot_base::test_setup_env(session, expected);
   }
 
 #ifdef SBUILD_FEATURE_UNION
@@ -189,7 +174,7 @@ public:
     expected.add("CHROOT_UNION_OVERLAY_DIRECTORY",  "/overlay");
     expected.add("CHROOT_UNION_UNDERLAY_DIRECTORY", "/underlay");
 
-    test_chroot_base<chroot_block_device>::test_setup_env(chroot_union, expected);
+    test_chroot_base::test_setup_env(chroot_union, expected);
   }
 
   void test_setup_env_session_union()
@@ -207,7 +192,7 @@ public:
     expected.add("CHROOT_UNION_MOUNT_OPTIONS",      "union-mount-options");
     expected.add("CHROOT_UNION_OVERLAY_DIRECTORY",  "/overlay/test-union-session-name");
     expected.add("CHROOT_UNION_UNDERLAY_DIRECTORY", "/underlay/test-union-session-name");
-    test_chroot_base<chroot_block_device>::test_setup_env(session_union, expected);
+    test_chroot_base::test_setup_env(session_union, expected);
   }
 
   void test_setup_env_source_union()
@@ -221,7 +206,7 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_block_device>::test_setup_env(source_union, expected);
+    test_chroot_base::test_setup_env(source_union, expected);
   }
 #endif // SBUILD_FEATURE_UNION
 
@@ -242,7 +227,7 @@ public:
 #ifdef SBUILD_FEATURE_UNION
     setup_keyfile_union_unconfigured(expected, group);
 #endif
-    test_chroot_base<chroot_block_device>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (chroot, expected, group);
   }
 
@@ -261,7 +246,7 @@ public:
     setup_keyfile_union_unconfigured(expected, group);
 #endif
 
-    test_chroot_base<chroot_block_device>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (session, expected, group);
   }
 
@@ -275,7 +260,7 @@ public:
     setup_keyfile_source(expected, group);
     setup_keyfile_block(expected, group);
 
-    test_chroot_base<chroot_block_device>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (chroot_union, expected, group);
   }
 
@@ -292,7 +277,7 @@ public:
     setup_keyfile_session_clone(expected, group);
     setup_keyfile_union_session(expected, group);
 
-    test_chroot_base<chroot_block_device>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (session_union, expected, group);
   }
 
@@ -305,7 +290,7 @@ public:
     setup_keyfile_block(expected, group);
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
 
-    test_chroot_base<chroot_block_device>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (source_union, expected, group);
   }
 #endif // SBUILD_FEATURE_UNION

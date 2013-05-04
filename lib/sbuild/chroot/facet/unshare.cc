@@ -19,8 +19,9 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/unshare.h>
-#include "feature.h"
+#include <sbuild/feature.h>
 
 #include <boost/format.hpp>
 
@@ -48,6 +49,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info unshare_info =
+          {
+            "unshare",
+            N_("Linux dissassociation of shared execution context"),
+            []() -> facet::ptr { return unshare::create(); }
+          };
+
+        factory unshare_register(unshare_info);
+
+      }
 
       template<>
       error<unshare::error_code>::map_type
@@ -184,12 +199,6 @@ namespace sbuild
         env.add("UNSHARE_SYSVIPC", get_unshare_sysvipc());
         env.add("UNSHARE_SYSVSEM", get_unshare_sysvsem());
         env.add("UNSHARE_UTS", get_unshare_uts());
-      }
-
-      chroot::session_flags
-      unshare::get_session_flags (chroot const& chroot) const
-      {
-        return chroot::SESSION_NOFLAGS;
       }
 
       void

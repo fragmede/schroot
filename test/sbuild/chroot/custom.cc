@@ -19,7 +19,7 @@
 #include <config.h>
 
 #include <sbuild/config.h>
-#include <sbuild/chroot/custom.h>
+#include <sbuild/chroot/facet/custom.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/source-clonable.h>
 #include <sbuild/chroot/facet/userdata.h>
@@ -34,18 +34,7 @@
 
 using namespace CppUnit;
 
-class chroot_custom : public sbuild::chroot::custom
-{
-public:
-  chroot_custom():
-    sbuild::chroot::custom()
-  {}
-
-  virtual ~chroot_custom()
-  {}
-};
-
-class test_chroot_custom : public test_chroot_base<chroot_custom>
+class test_chroot_custom : public test_chroot_base
 {
   CPPUNIT_TEST_SUITE(test_chroot_custom);
   CPPUNIT_TEST(test_directory);
@@ -63,12 +52,12 @@ class test_chroot_custom : public test_chroot_base<chroot_custom>
 
 public:
   test_chroot_custom():
-    test_chroot_base<chroot_custom>()
+    test_chroot_base("custom")
   {}
 
   void setUp()
   {
-    test_chroot_base<chroot_custom>::setUp();
+    test_chroot_base::setUp();
     CPPUNIT_ASSERT(chroot);
     CPPUNIT_ASSERT(session);
     CPPUNIT_ASSERT(!source);
@@ -77,11 +66,9 @@ public:
 
   virtual void setup_chroot_props (sbuild::chroot::chroot::ptr& chroot)
   {
-    test_chroot_base<chroot_custom>::setup_chroot_props(chroot);
+    test_chroot_base::setup_chroot_props(chroot);
 
-    std::shared_ptr<sbuild::chroot::custom> c = std::dynamic_pointer_cast<sbuild::chroot::custom>(chroot);
-
-    sbuild::chroot::facet::userdata::ptr userdata = c->get_facet<sbuild::chroot::facet::userdata>();
+    sbuild::chroot::facet::userdata::ptr userdata = chroot->get_facet<sbuild::chroot::facet::userdata>();
     CPPUNIT_ASSERT(userdata);
     userdata->set_data("custom.directory", "/srv/chroots/sid");
     userdata->set_data("custom.options", "foobar");
@@ -90,8 +77,6 @@ public:
   void
   test_directory()
   {
-    std::shared_ptr<sbuild::chroot::custom> c = std::dynamic_pointer_cast<sbuild::chroot::custom>(chroot);
-    CPPUNIT_ASSERT(c);
     CPPUNIT_ASSERT(chroot->get_path() == "/mnt/mount-location");
     CPPUNIT_ASSERT(chroot->get_mount_location() == "/mnt/mount-location");
   }
@@ -120,7 +105,7 @@ public:
     sbuild::environment expected;
     setup_env_gen(expected);
 
-    test_chroot_base<chroot_custom>::test_setup_env(chroot, expected);
+    test_chroot_base::test_setup_env(chroot, expected);
   }
 
   void test_setup_keyfile()
@@ -133,60 +118,54 @@ public:
     expected.set_value(group, "custom.directory", "/srv/chroots/sid");
     expected.set_value(group, "custom.options", "foobar");
 
-    test_chroot_base<chroot_custom>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (chroot, expected, group);
   }
 
   void test_session_flags1()
   {
-    std::shared_ptr<sbuild::chroot::custom> c = std::dynamic_pointer_cast<sbuild::chroot::custom>(chroot);
-    CPPUNIT_ASSERT(c);
-
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
                    sbuild::chroot::chroot::SESSION_CREATE);
 
-    CPPUNIT_ASSERT(c->get_facet<sbuild::chroot::facet::session_clonable>());
-    CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot::facet::source_clonable>());
+    CPPUNIT_ASSERT(chroot->get_facet<sbuild::chroot::facet::session_clonable>());
+    CPPUNIT_ASSERT(!chroot->get_facet<sbuild::chroot::facet::source_clonable>());
   }
 
   void test_session_flags2()
   {
-    std::shared_ptr<sbuild::chroot::custom> c = std::dynamic_pointer_cast<sbuild::chroot::custom>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_session_cloneable(false);
+    sbuild::chroot::facet::custom::ptr custp = chroot->get_facet_strict<sbuild::chroot::facet::custom>();
+    custp->set_session_cloneable(false);
 
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
                    sbuild::chroot::chroot::SESSION_NOFLAGS);
 
-    CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot::facet::session_clonable>());
-    CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot::facet::source_clonable>());
+    CPPUNIT_ASSERT(!chroot->get_facet<sbuild::chroot::facet::session_clonable>());
+    CPPUNIT_ASSERT(!chroot->get_facet<sbuild::chroot::facet::source_clonable>());
   }
 
   void test_session_flags3()
   {
-    std::shared_ptr<sbuild::chroot::custom> c = std::dynamic_pointer_cast<sbuild::chroot::custom>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_source_cloneable(true);
+    sbuild::chroot::facet::custom::ptr custp = chroot->get_facet_strict<sbuild::chroot::facet::custom>();
+    custp->set_source_cloneable(true);
 
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
                    (sbuild::chroot::chroot::SESSION_CREATE|sbuild::chroot::chroot::SESSION_CLONE));
 
-    CPPUNIT_ASSERT(c->get_facet<sbuild::chroot::facet::session_clonable>());
-    CPPUNIT_ASSERT(c->get_facet<sbuild::chroot::facet::source_clonable>());
+    CPPUNIT_ASSERT(chroot->get_facet<sbuild::chroot::facet::session_clonable>());
+    CPPUNIT_ASSERT(chroot->get_facet<sbuild::chroot::facet::source_clonable>());
   }
 
   void test_session_flags4()
   {
-    std::shared_ptr<sbuild::chroot::custom> c = std::dynamic_pointer_cast<sbuild::chroot::custom>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_session_cloneable(false);
-    c->set_source_cloneable(true);
+    sbuild::chroot::facet::custom::ptr custp = chroot->get_facet_strict<sbuild::chroot::facet::custom>();
+    custp->set_session_cloneable(false);
+    custp->set_source_cloneable(true);
 
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
                    sbuild::chroot::chroot::SESSION_CLONE);
 
-    CPPUNIT_ASSERT(!c->get_facet<sbuild::chroot::facet::session_clonable>());
-    CPPUNIT_ASSERT(c->get_facet<sbuild::chroot::facet::source_clonable>());
+    CPPUNIT_ASSERT(!chroot->get_facet<sbuild::chroot::facet::session_clonable>());
+    CPPUNIT_ASSERT(chroot->get_facet<sbuild::chroot::facet::source_clonable>());
   }
 
   void test_print_details()

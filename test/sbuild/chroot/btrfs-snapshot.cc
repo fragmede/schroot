@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <sbuild/chroot/btrfs-snapshot.h>
+#include <sbuild/chroot/facet/btrfs-snapshot.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
 #include <sbuild/util.h>
@@ -34,18 +34,7 @@ using namespace CppUnit;
 
 using sbuild::_;
 
-class chroot_btrfs_snapshot : public sbuild::chroot::btrfs_snapshot
-{
-public:
-  chroot_btrfs_snapshot():
-    sbuild::chroot::btrfs_snapshot()
-  {}
-
-  virtual ~chroot_btrfs_snapshot()
-  {}
-};
-
-class test_chroot_btrfs_snapshot : public test_chroot_base<chroot_btrfs_snapshot>
+class test_chroot_btrfs_snapshot : public test_chroot_base
 {
   CPPUNIT_TEST_SUITE(test_chroot_btrfs_snapshot);
   CPPUNIT_TEST(test_source_subvolume);
@@ -71,12 +60,12 @@ class test_chroot_btrfs_snapshot : public test_chroot_base<chroot_btrfs_snapshot
 
 public:
   test_chroot_btrfs_snapshot():
-    test_chroot_base<chroot_btrfs_snapshot>()
+    test_chroot_base("btrfs-snapshot")
   {}
 
   void setUp()
   {
-    test_chroot_base<chroot_btrfs_snapshot>::setUp();
+    test_chroot_base::setUp();
     CPPUNIT_ASSERT(chroot);
     CPPUNIT_ASSERT(session);
     CPPUNIT_ASSERT(source);
@@ -85,63 +74,56 @@ public:
 
   virtual void setup_chroot_props (sbuild::chroot::chroot::ptr& chroot)
   {
-    test_chroot_base<chroot_btrfs_snapshot>::setup_chroot_props(chroot);
+    test_chroot_base::setup_chroot_props(chroot);
 
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
-
-    c->set_source_subvolume("/srv/chroot/sid");
-    c->set_snapshot_directory("/srv/chroot/snapshot");
+    sbuild::chroot::facet::btrfs_snapshot::ptr bfac = chroot->get_facet_strict<sbuild::chroot::facet::btrfs_snapshot>();
+    bfac->set_source_subvolume("/srv/chroot/sid");
+    bfac->set_snapshot_directory("/srv/chroot/snapshot");
   }
 
   void
   test_source_subvolume()
   {
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_source_subvolume("/srv/chroot/chroot");
-    CPPUNIT_ASSERT(c->get_source_subvolume() == "/srv/chroot/chroot");
+    sbuild::chroot::facet::btrfs_snapshot::ptr bfac = chroot->get_facet_strict<sbuild::chroot::facet::btrfs_snapshot>();
+    bfac->set_source_subvolume("/srv/chroot/chroot");
+    CPPUNIT_ASSERT(bfac->get_source_subvolume() == "/srv/chroot/chroot");
   }
 
   void
   test_snapshot_directory()
   {
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_snapshot_directory("/srv/chroot/snapshot2");
-    CPPUNIT_ASSERT(c->get_snapshot_directory() == "/srv/chroot/snapshot2");
+    sbuild::chroot::facet::btrfs_snapshot::ptr bfac = chroot->get_facet_strict<sbuild::chroot::facet::btrfs_snapshot>();
+    bfac->set_snapshot_directory("/srv/chroot/snapshot2");
+    CPPUNIT_ASSERT(bfac->get_snapshot_directory() == "/srv/chroot/snapshot2");
   }
 
   void
   test_snapshot_name()
   {
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_snapshot_directory("/srv/chroot/snapshot2/test-session-id");
-    CPPUNIT_ASSERT(c->get_snapshot_directory() == "/srv/chroot/snapshot2/test-session-id");
+    sbuild::chroot::facet::btrfs_snapshot::ptr bfac = chroot->get_facet_strict<sbuild::chroot::facet::btrfs_snapshot>();
+    bfac->set_snapshot_directory("/srv/chroot/snapshot2/test-session-id");
+    CPPUNIT_ASSERT(bfac->get_snapshot_directory() == "/srv/chroot/snapshot2/test-session-id");
   }
 
   void
   test_source_subvolume_error()
   {
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_source_subvolume("chroot/invalid");
+    sbuild::chroot::facet::btrfs_snapshot::ptr bfac = chroot->get_facet_strict<sbuild::chroot::facet::btrfs_snapshot>();
+    bfac->set_source_subvolume("chroot/invalid");
   }
 
   void
   test_snapshot_directory_error()
   {
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_snapshot_directory("chroot/invalid");
+    sbuild::chroot::facet::btrfs_snapshot::ptr bfac = chroot->get_facet_strict<sbuild::chroot::facet::btrfs_snapshot>();
+    bfac->set_snapshot_directory("chroot/invalid");
   }
 
   void
   test_snapshot_name_error()
   {
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_snapshot_name("invalid");
+    sbuild::chroot::facet::btrfs_snapshot::ptr bfac = chroot->get_facet_strict<sbuild::chroot::facet::btrfs_snapshot>();
+    bfac->set_snapshot_name("invalid");
   }
 
   void test_chroot_type()
@@ -167,13 +149,11 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_env(chroot, expected);
+    test_chroot_base::test_setup_env(chroot, expected);
   }
 
   void test_setup_env_session()
   {
-    std::shared_ptr<sbuild::chroot::btrfs_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::btrfs_snapshot>(chroot);
-
     sbuild::environment expected;
     setup_env_gen(expected);
     expected.add("CHROOT_TYPE",           "btrfs-snapshot");
@@ -187,7 +167,7 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "true");
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_env(session, expected);
+    test_chroot_base::test_setup_env(session, expected);
   }
 
   void test_setup_env_source()
@@ -202,7 +182,7 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_env(source, expected);
+    test_chroot_base::test_setup_env(source, expected);
   }
 
   void test_setup_env_session_source()
@@ -217,7 +197,7 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_env(source, expected);
+    test_chroot_base::test_setup_env(source, expected);
   }
 
   void setup_keyfile_btrfs(sbuild::keyfile &expected, std::string group)
@@ -235,7 +215,7 @@ public:
     expected.set_value(group, "btrfs-source-subvolume", "/srv/chroot/sid");
     expected.set_value(group, "btrfs-snapshot-directory", "/srv/chroot/snapshot");
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (chroot,expected, chroot->get_name());
   }
 
@@ -253,7 +233,7 @@ public:
     expected.set_value(group, "btrfs-snapshot-name", "/srv/chroot/snapshot/test-session-name");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (session, expected, group);
   }
 
@@ -269,7 +249,7 @@ public:
     expected.set_value(group, "directory", "/srv/chroot/sid");
     setup_keyfile_source_clone(expected, group);
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (source, expected, group);
   }
 
@@ -286,7 +266,7 @@ public:
     expected.set_value(group, "mount-location", "/mnt/mount-location");
     setup_keyfile_session_source_clone(expected, group);
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (session_source, expected, group);
   }
 

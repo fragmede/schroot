@@ -20,7 +20,7 @@
 
 #include <sbuild/auth/pam.h>
 #include <sbuild/auth/pam-conv.h>
-#include "feature.h"
+#include <sbuild/feature.h>
 
 #include <cassert>
 #include <cerrno>

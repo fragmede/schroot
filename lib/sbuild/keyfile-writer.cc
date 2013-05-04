@@ -20,7 +20,7 @@
 
 #include <fstream>
 
-#include "keyfile-writer.h"
+#include <sbuild/keyfile-writer.h>
 
 using namespace sbuild;
 

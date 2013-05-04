@@ -24,113 +24,121 @@
 
 namespace sbuild
 {
-namespace chroot
-{
-namespace facet
-{
-
-  /**
-   * Chroot support for sessions.
-   *
-   * A chroot may offer a "session" facet to signal restorable or
-   * parallel chroot environment usage.  The presence of this facet
-   * indicates that the chroot is an active session.
-   */
-  class session : public facet
+  namespace chroot
   {
-  public:
-    /// A shared_ptr to a chroot facet object.
-    typedef std::shared_ptr<session> ptr;
+    namespace facet
+    {
 
-    /// A shared_ptr to a const chroot facet object.
-    typedef std::shared_ptr<const session> const_ptr;
+      /**
+       * Chroot support for sessions.
+       *
+       * A chroot may offer a "session" facet to signal restorable or
+       * parallel chroot environment usage.  The presence of this facet
+       * indicates that the chroot is an active session.
+       */
+      class session : public facet
+      {
+      public:
+        /// Exception type.
+        typedef chroot::error error;
 
-  private:
-    /// The constructor.
-    session ();
+        /// A shared_ptr to a chroot facet object.
+        typedef std::shared_ptr<session> ptr;
 
-  public:
-    /// The destructor.
-    virtual ~session ();
+        /// A shared_ptr to a const chroot facet object.
+        typedef std::shared_ptr<const session> const_ptr;
 
-    /**
-     * Create a chroot facet.
-     *
-     * @returns a shared_ptr to the new chroot facet.
-     */
-    static ptr
-    create ();
+      private:
+        /// The constructor.
+        session ();
 
-    virtual facet::ptr
-    clone () const;
+      public:
+        /// The destructor.
+        virtual ~session ();
 
-    virtual std::string const&
-    get_name () const;
+        /**
+         * Create a chroot facet.
+         *
+         * @returns a shared_ptr to the new chroot facet.
+         */
+        static ptr
+        create ();
 
-    /**
-     * Get the original name of the chroot (prior to session cloning).
-     *
-     * @returns the name.
-     */
-    std::string const&
-    get_original_name () const;
+        virtual facet::ptr
+        clone () const;
 
-    /**
-     * Set the original name of the chroot (prior to session cloning).
-     * This will also set the selected name.
-     *
-     * @param name the name.
-     */
-    void
-    set_original_name (std::string const& name);
+        virtual std::string const&
+        get_name () const;
 
-    /**
-     * Get the selected name of the chroot (alias used).
-     *
-     * @returns the name.
-     */
-    std::string const&
-    get_selected_name () const;
+        /**
+         * Get the original name of the chroot (prior to session cloning).
+         *
+         * @returns the name.
+         */
+        std::string const&
+        get_original_name () const;
 
-    /**
-     * Set the selected name of the chroot (alias used).
-     *
-     * @param name the name.
-     */
-    void
-    set_selected_name (std::string const& name);
+        /**
+         * Set the original name of the chroot (prior to session cloning).
+         * This will also set the selected name.
+         *
+         * @param name the name.
+         */
+        void
+        set_original_name (std::string const& name);
 
-    virtual void
-    setup_env (chroot const& chroot,
-               environment&  env) const;
+        /**
+         * Get the selected name of the chroot (alias used).
+         *
+         * @returns the name.
+         */
+        std::string const&
+        get_selected_name () const;
 
-    virtual chroot::session_flags
-    get_session_flags (chroot const& chroot) const;
+        /**
+         * Set the selected name of the chroot (alias used).
+         *
+         * @param name the name.
+         */
+        void
+        set_selected_name (std::string const& name);
 
-    virtual void
-    get_details (chroot const&  chroot,
-                 format_detail& detail) const;
+        /**
+         * Set up persistent session information.
+         *
+         * @param start true if starting, or false if ending a session.
+         */
+        void
+        setup_session_info (bool start);
 
-    virtual void
-    get_used_keys (string_list& used_keys) const;
+        virtual void
+        setup_env (chroot const& chroot,
+                   environment&  env) const;
 
-    virtual void
-    get_keyfile (chroot const& chroot,
-                 keyfile&      keyfile) const;
+        virtual void
+        get_details (chroot const&  chroot,
+                     format_detail& detail) const;
 
-    virtual void
-    set_keyfile (chroot&        chroot,
-                 keyfile const& keyfile);
+        virtual void
+        get_used_keys (string_list& used_keys) const;
 
-  private:
-    /// Original chroot name prior to session cloning.
-    std::string  original_chroot_name;
-    /// Selected chroot name.
-    std::string  selected_chroot_name;
-  };
+        virtual void
+        get_keyfile (chroot const& chroot,
+                     keyfile&      keyfile) const;
 
-}
-}
+        virtual void
+        set_keyfile (chroot&        chroot,
+                     keyfile const& keyfile);
+
+      private:
+        /// Original chroot name prior to session cloning.
+        std::string  original_chroot_name;
+        /// Selected chroot name.
+        std::string  selected_chroot_name;
+      };
+
+    }
+  }
 }
 
 #endif /* SBUILD_CHROOT_FACET_SESSION_H */

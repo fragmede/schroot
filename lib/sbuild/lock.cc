@@ -18,9 +18,9 @@
 
 #include <config.h>
 
-#include "lock.h"
-#include "log.h"
-#include "feature.h"
+#include <sbuild/lock.h>
+#include <sbuild/log.h>
+#include <sbuild/feature.h>
 
 #include <cerrno>
 #include <cstdlib>

@@ -20,10 +20,11 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/fsunion.h>
 #include <sbuild/chroot/facet/source-clonable.h>
-#include "feature.h"
+#include <sbuild/feature.h>
 
 #include <cassert>
 
@@ -44,6 +45,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info fsunion_info =
+          {
+            "union",
+            N_("Support for filesystem unioning"),
+            []() -> facet::ptr { return fsunion::create(); }
+          };
+
+        factory fsunion_register(fsunion_info);
+
+      }
 
       template<>
       error<fsunion::error_code>::map_type
@@ -284,6 +299,37 @@ namespace sbuild
                                   (issession && get_union_configured()) ?
                                   keyfile::PRIORITY_REQUIRED :
                                   keyfile::PRIORITY_OPTIONAL);
+      }
+
+      void
+      fsunion::chroot_session_setup (chroot const&      parent,
+                                     std::string const& session_id,
+                                     std::string const& alias,
+                                     std::string const& user,
+                                     bool               root)
+      {
+        // If the parent did not have a union facet, then neither should we.
+        fsunion::const_ptr pparentuni(parent.get_facet<fsunion>());
+        if (!pparentuni)
+          {
+            owner->remove_facet<fsunion>();
+            return;
+          }
+
+        // Filesystem unions need the overlay directory specifying.
+        std::string overlay = get_union_overlay_directory();
+        overlay += "/" + owner->get_name();
+        set_union_overlay_directory(overlay);
+
+        std::string underlay = get_union_underlay_directory();
+        underlay += "/" + owner->get_name();
+        set_union_underlay_directory(underlay);
+      }
+
+      void
+      fsunion::chroot_source_setup (chroot const& parent)
+      {
+        owner->remove_facet<fsunion>();
       }
 
     }

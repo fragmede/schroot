@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/source-clonable.h>
 #include <sbuild/chroot/facet/source.h>
@@ -38,6 +39,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info source_clonable_info =
+          {
+            "source-clonable",
+            N_("Support for source chroot cloning"),
+            []() -> facet::ptr { return source_clonable::create(); }
+          };
+
+        factory source_clonable_register(source_clonable_info);
+
+      }
 
       source_clonable::source_clonable ():
         facet(),
@@ -71,27 +86,6 @@ namespace sbuild
         static const std::string name("source-clonable");
 
         return name;
-      }
-
-      void
-      source_clonable::clone_source_setup (chroot const& parent,
-                                           chroot::ptr&  clone) const
-      {
-        clone->set_description
-          (clone->get_description() + ' ' + _("(source chroot)"));
-        clone->set_original(false);
-        clone->set_users(this->get_source_users());
-        clone->set_groups(this->get_source_groups());
-        clone->set_root_users(this->get_source_root_users());
-        clone->set_root_groups(this->get_source_root_groups());
-        clone->set_aliases(clone->get_aliases());
-
-#ifdef SBUILD_FEATURE_UNION
-        clone->remove_facet<fsunion>();
-#endif // SBUILD_FEATURE_UNION
-
-        clone->remove_facet<source_clonable>();
-        clone->add_facet(source::create());
       }
 
       bool
@@ -152,12 +146,6 @@ namespace sbuild
       source_clonable::set_source_root_groups (string_list const& groups)
       {
         this->source_root_groups = groups;
-      }
-
-      void
-      source_clonable::setup_env (chroot const& chroot,
-                                  environment&  env) const
-      {
       }
 
       chroot::session_flags
@@ -244,6 +232,39 @@ namespace sbuild
                                        keyfile, chroot.get_name(),
                                        "source-root-groups",
                                        keyfile::PRIORITY_OPTIONAL);
+      }
+
+      chroot::ptr
+      source_clonable::clone_source () const
+      {
+        chroot::ptr clone = owner->clone();
+
+        clone->set_description
+          (clone->get_description() + ' ' + _("(source chroot)"));
+        clone->set_original(false);
+        clone->set_users(this->get_source_users());
+        clone->set_groups(this->get_source_groups());
+        clone->set_root_users(this->get_source_root_users());
+        clone->set_root_groups(this->get_source_root_groups());
+        clone->set_aliases(clone->get_aliases());
+
+        clone->remove_facet<source_clonable>();
+        clone->add_facet(source::create());
+
+        chroot::facet_list& facets = clone->get_facets();
+
+        for (chroot::facet_list::iterator facet = facets.begin();
+             facet != facets.end();)
+          {
+            chroot::facet_list::iterator current = facet;
+            ++facet;
+            auto setup_facet = std::dynamic_pointer_cast<source_setup>(*current);
+            if (setup_facet)
+              setup_facet->chroot_source_setup(*owner);
+          }
+
+        return clone;
+
       }
 
     }

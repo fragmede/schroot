@@ -31,9 +31,9 @@ int
 main()
 {
 #ifdef SBUILD_DEBUG
-      sbuild::debug_log_level = sbuild::DEBUG_NOTICE;
+  sbuild::debug_log_level = sbuild::DEBUG_NOTICE;
 #else
-      sbuild::debug_log_level = sbuild::DEBUG_NONE;
+  sbuild::debug_log_level = sbuild::DEBUG_NONE;
 #endif
 
   TextUi::TestRunner runner;

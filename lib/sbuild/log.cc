@@ -18,12 +18,12 @@
 
 #include <config.h>
 
-#include "ctty.h"
-#include "error.h"
-#include "i18n.h"
-#include "log.h"
-#include "nostream.h"
-#include "util.h"
+#include <sbuild/ctty.h>
+#include <sbuild/error.h>
+#include <sbuild/i18n.h>
+#include <sbuild/log.h>
+#include <sbuild/nostream.h>
+#include <sbuild/util.h>
 
 #include <iostream>
 

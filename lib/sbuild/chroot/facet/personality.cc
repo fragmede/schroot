@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/personality.h>
 
 #include <boost/format.hpp>
@@ -32,6 +33,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info personality_info =
+          {
+            "personality",
+            N_("Linux kernel Application Binary Interface switching"),
+            []() -> facet::ptr { return personality::create(); }
+          };
+
+        factory personality_register(personality_info);
+
+      }
 
       personality::personality ():
         facet(),
@@ -73,18 +88,6 @@ namespace sbuild
       personality::set_persona (sbuild::personality const& persona)
       {
         this->persona = persona;
-      }
-
-      void
-      personality::setup_env (chroot const& chroot,
-                              environment&  env) const
-      {
-      }
-
-      chroot::session_flags
-      personality::get_session_flags (chroot const& chroot) const
-      {
-        return chroot::SESSION_NOFLAGS;
       }
 
       void

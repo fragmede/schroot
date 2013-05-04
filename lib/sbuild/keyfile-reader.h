@@ -72,7 +72,7 @@ namespace sbuild
     virtual void
     read_stream(std::istream& stream);
 
-    protected:
+  protected:
     /**
      * Start processing input.
      * Any setup may be done here.

@@ -40,8 +40,8 @@ namespace sbuild
      * @param error the error code.
      */
     custom_error (error_type error):
-      sbuild::error<T>(this->format_error(nullptr, nullptr, nullptr, error, nullptr, nullptr, nullptr),
-                       this->format_reason(nullptr, nullptr, nullptr, error, nullptr, nullptr, nullptr))
+    sbuild::error<T>(this->format_error(nullptr, nullptr, nullptr, error, nullptr, nullptr, nullptr),
+                     this->format_reason(nullptr, nullptr, nullptr, error, nullptr, nullptr, nullptr))
     {
     }
 
@@ -196,8 +196,8 @@ namespace sbuild
      * @param error the error.
      */
     custom_error (error_base const& error):
-      sbuild::error<T>(sbuild::error<T>::format_error(nullptr, nullptr, nullptr, error, nullptr, nullptr, nullptr),
-                       sbuild::error<T>::format_reason(nullptr, nullptr, nullptr, error, nullptr, nullptr, nullptr))
+    sbuild::error<T>(sbuild::error<T>::format_error(nullptr, nullptr, nullptr, error, nullptr, nullptr, nullptr),
+                     sbuild::error<T>::format_reason(nullptr, nullptr, nullptr, error, nullptr, nullptr, nullptr))
     {
     }
 

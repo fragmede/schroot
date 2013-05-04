@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <sbuild/chroot/directory.h>
+#include <sbuild/chroot/facet/directory.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
 
@@ -33,18 +33,7 @@ using namespace CppUnit;
 
 using sbuild::_;
 
-class chroot_directory : public sbuild::chroot::directory
-{
-public:
-  chroot_directory():
-    sbuild::chroot::directory()
-  {}
-
-  virtual ~chroot_directory()
-  {}
-};
-
-class test_chroot_directory : public test_chroot_base<chroot_directory>
+class test_chroot_directory : public test_chroot_base
 {
   CPPUNIT_TEST_SUITE(test_chroot_directory);
   CPPUNIT_TEST(test_directory);
@@ -74,12 +63,12 @@ class test_chroot_directory : public test_chroot_base<chroot_directory>
 
 public:
   test_chroot_directory():
-    test_chroot_base<chroot_directory>()
+    test_chroot_base("directory")
   {}
 
   void setUp()
   {
-    test_chroot_base<chroot_directory>::setUp();
+    test_chroot_base::setUp();
     CPPUNIT_ASSERT(chroot);
     CPPUNIT_ASSERT(session);
     CPPUNIT_ASSERT(!source);
@@ -94,21 +83,22 @@ public:
 
   virtual void setup_chroot_props (sbuild::chroot::chroot::chroot::ptr& chroot)
   {
-    test_chroot_base<chroot_directory>::setup_chroot_props(chroot);
+    test_chroot_base::setup_chroot_props(chroot);
 
-    std::shared_ptr<sbuild::chroot::directory> c = std::dynamic_pointer_cast<sbuild::chroot::directory>(chroot);
+    sbuild::chroot::facet::directory::ptr dirfac = chroot->get_facet<sbuild::chroot::facet::directory>();
+    CPPUNIT_ASSERT(dirfac);
 
-    c->set_directory("/srv/chroot/example-chroot");
+    dirfac->set_directory("/srv/chroot/example-chroot");
   }
 
   void
   test_directory()
   {
-    std::shared_ptr<sbuild::chroot::directory> c = std::dynamic_pointer_cast<sbuild::chroot::directory>(chroot);
-    CPPUNIT_ASSERT(c);
-    c->set_directory("/mnt/chroot/example");
+    sbuild::chroot::facet::directory::ptr dirfac = chroot->get_facet<sbuild::chroot::facet::directory>();
+    CPPUNIT_ASSERT(dirfac);
+    dirfac->set_directory("/mnt/chroot/example");
     CPPUNIT_ASSERT(chroot->get_mount_location() == "/mnt/mount-location");
-    CPPUNIT_ASSERT(c->get_directory() == "/mnt/chroot/example");
+    CPPUNIT_ASSERT(dirfac->get_directory() == "/mnt/chroot/example");
     CPPUNIT_ASSERT(chroot->get_path() == "/mnt/mount-location");
   }
 
@@ -139,7 +129,7 @@ public:
     expected.add("CHROOT_UNION_TYPE",     "none");
 #endif // SBUILD_FEATURE_UNION
 
-    test_chroot_base<chroot_directory>::test_setup_env(chroot, expected);
+    test_chroot_base::test_setup_env(chroot, expected);
   }
 
   void test_setup_env_session()
@@ -157,7 +147,7 @@ public:
     expected.add("CHROOT_UNION_TYPE",     "none");
 #endif // SBUILD_FEATURE_UNION
 
-    test_chroot_base<chroot_directory>::test_setup_env(session, expected);
+    test_chroot_base::test_setup_env(session, expected);
   }
 
 #ifdef SBUILD_FEATURE_UNION
@@ -174,7 +164,7 @@ public:
     expected.add("CHROOT_UNION_OVERLAY_DIRECTORY",  "/overlay");
     expected.add("CHROOT_UNION_UNDERLAY_DIRECTORY", "/underlay");
 
-    test_chroot_base<chroot_directory>::test_setup_env(chroot_union, expected);
+    test_chroot_base::test_setup_env(chroot_union, expected);
   }
 
   void test_setup_env_session_union()
@@ -193,7 +183,7 @@ public:
     expected.add("CHROOT_UNION_OVERLAY_DIRECTORY",  "/overlay/test-union-session-name");
     expected.add("CHROOT_UNION_UNDERLAY_DIRECTORY", "/underlay/test-union-session-name");
 
-    test_chroot_base<chroot_directory>::test_setup_env(session_union, expected);
+    test_chroot_base::test_setup_env(session_union, expected);
   }
 
   void test_setup_env_source_union()
@@ -206,7 +196,7 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_directory>::test_setup_env(source_union, expected);
+    test_chroot_base::test_setup_env(source_union, expected);
   }
 
   void test_setup_env_session_source_union()
@@ -221,7 +211,7 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_directory>::test_setup_env(session_source_union, expected);
+    test_chroot_base::test_setup_env(session_source_union, expected);
   }
 #endif // SBUILD_FEATURE_UNION
 
@@ -236,7 +226,7 @@ public:
     setup_keyfile_union_unconfigured(expected, group);
 #endif // SBUILD_FEATURE_UNION
 
-    test_chroot_base<chroot_directory>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (chroot, expected, group);
   }
 
@@ -255,7 +245,7 @@ public:
     setup_keyfile_union_unconfigured(expected, group);
 #endif // SBUILD_FEATURE_UNION
 
-    test_chroot_base<chroot_directory>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (session, expected, group);
   }
 
@@ -288,7 +278,7 @@ public:
     setup_keyfile_union_unconfigured(expected, group);
 #endif // SBUILD_FEATURE_UNION
 
-    test_chroot_base<chroot_directory>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (session, expected, group);
   }
 
@@ -303,7 +293,7 @@ public:
     expected.set_value(group, "directory", "/srv/chroot/example-chroot");
     setup_keyfile_union_configured(expected, group);
 
-    test_chroot_base<chroot_directory>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (chroot_union, expected, group);
   }
 
@@ -320,7 +310,7 @@ public:
     setup_keyfile_session_clone(expected, group);
     setup_keyfile_union_session(expected, group);
 
-    test_chroot_base<chroot_directory>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (session_union, expected, group);
   }
 
@@ -334,7 +324,7 @@ public:
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
     expected.set_value(group, "directory", "/srv/chroot/example-chroot");
 
-    test_chroot_base<chroot_directory>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (source_union, expected, group);
   }
 
@@ -350,12 +340,12 @@ public:
     expected.set_value(group, "mount-location", "/mnt/mount-location");
     setup_keyfile_session_source_clone(expected, group);
 
-    test_chroot_base<chroot_directory>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (session_source_union, expected, group);
   }
 #endif // SBUILD_FEATURE_UNION
 
-void test_session_flags()
+  void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
                    sbuild::chroot::chroot::SESSION_CREATE);

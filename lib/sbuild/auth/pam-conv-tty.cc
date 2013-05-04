@@ -19,8 +19,8 @@
 #include <config.h>
 
 #include <sbuild/auth/pam-conv-tty.h>
-#include "ctty.h"
-#include "log.h"
+#include <sbuild/ctty.h>
+#include <sbuild/log.h>
 
 #include <iostream>
 

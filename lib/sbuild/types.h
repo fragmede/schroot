@@ -168,7 +168,7 @@ namespace sbuild
      * @param unix_time the time in UTC.
      */
     gmdate (time_t          unix_time):
-      date_base(unix_time, gmtime_r)
+    date_base(unix_time, gmtime_r)
     {}
 
     /// The destructor.
@@ -188,7 +188,7 @@ namespace sbuild
      * @param unix_time the time in the local timezone.
      */
     date (time_t           unix_time):
-      date_base(unix_time, localtime_r)
+    date_base(unix_time, localtime_r)
     {}
 
     /// The destructor.
@@ -208,7 +208,7 @@ namespace sbuild
      * @param unix_time the time in UTC.
      */
     isodate (time_t        unix_time):
-      date_base(unix_time, gmtime_r)
+    date_base(unix_time, gmtime_r)
     {}
 
     /// The destructor.

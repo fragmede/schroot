@@ -23,7 +23,7 @@
 #include <sbuild/types.h>
 #include <sbuild/feature.h>
 
-#include "main.h"
+#include <bin-common/main.h>
 
 #include <cstdlib>
 #include <ctime>

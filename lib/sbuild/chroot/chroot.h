@@ -24,6 +24,7 @@
 #include <sbuild/format-detail.h>
 #include <sbuild/keyfile.h>
 #include <sbuild/regex.h>
+#include <sbuild/util.h>
 
 #include <list>
 #include <memory>
@@ -90,6 +91,7 @@ namespace sbuild
           DEVICE_NOTBLOCK,  ///< File is not a block device.
           DEVICE_UNLOCK,    ///< Failed to unlock device.
           DIRECTORY_ABS,    ///< Directory must have an absolute path.
+          FACET_ABSENT,     ///< Attempt to use facet which is not present.
           FACET_INVALID,    ///< Attempt to add object which is not a facet.
           FACET_PRESENT,    ///< Attempt to add facet which is already in use.
           FILE_ABS,         ///< File must have an absolute path.
@@ -115,14 +117,18 @@ namespace sbuild
       /// A shared_ptr to a const chroot object.
       typedef std::shared_ptr<const chroot> const_ptr;
 
-    protected:
+      /// A shared pointer to a chroot facet.
+      typedef std::shared_ptr<facet::facet> facet_ptr;
+
+      /// A list of chroot facets.
+      typedef std::list<facet_ptr> facet_list;
+
       /// The constructor.
       chroot ();
 
       /// The copy constructor.
       chroot (const chroot& rhs);
 
-    public:
       /// The destructor.
       virtual ~chroot ();
 
@@ -132,7 +138,7 @@ namespace sbuild
        * @param type the type of chroot to create.
        * @returns a shared_ptr to the new chroot.
        */
-      static ptr
+      static chroot::ptr
       create (std::string const& type);
 
       /**
@@ -140,31 +146,31 @@ namespace sbuild
        *
        * @returns a shared_ptr to the new copy of the chroot.
        */
-      virtual ptr
-      clone () const = 0;
+      chroot::ptr
+      clone () const;
 
       /**
        * Create a session chroot.
        *
        * @param session_id the identifier (session_id) for the new session.
-       * @param alias used to initially identify the chroot.
+       * @param alias the alias used to initially identify the chroot.
        * @param user the user creating the session.
        * @param root true if the user has root access, otherwise false.
        * @returns a session chroot.
        */
-      virtual chroot::ptr
+      chroot::ptr
       clone_session (std::string const& session_id,
                      std::string const& alias,
                      std::string const& user,
-                     bool               root) const = 0;
+                     bool               root) const;
 
       /**
        * Create a source chroot.
        *
        * @returns a source chroot.
        */
-      virtual chroot::ptr
-      clone_source () const = 0;
+      chroot::ptr
+      clone_source () const;
 
       /**
        * Get the name of the chroot.
@@ -222,9 +228,10 @@ namespace sbuild
        * by the chroot type if required.
        *
        * @returns the path.
+       * @todo Remove once migrated to storage facet, or delegate.
        */
-      virtual std::string
-      get_path () const = 0;
+      std::string
+      get_path () const;
 
       /**
        * Get the users allowed to access the chroot.
@@ -401,16 +408,6 @@ namespace sbuild
       bool
       get_run_setup_scripts () const;
 
-    protected:
-      /**
-       * Set whether chroot setup scripts will be run.
-       *
-       * @param run_setup_scripts true if setup scripts will be run,
-       * otherwise false.
-       */
-      void
-      set_run_setup_scripts (bool run_setup_scripts);
-
     public:
       /**
        * Get the script configuration file for the chroot.  This is a
@@ -506,9 +503,10 @@ namespace sbuild
        * Get the type of the chroot.
        *
        * @returns the chroot type.
+       * @todo Delegate to storage facet name.
        */
-      virtual std::string const&
-      get_chroot_type () const = 0;
+      std::string const&
+      get_chroot_type () const;
 
       /**
        * Set environment.  Set the environment that the setup scripts
@@ -518,17 +516,6 @@ namespace sbuild
        */
       void
       setup_env (environment& env) const;
-
-      /**
-       * Set environment.  Set the environment that the setup scripts
-       * will see during execution.
-       *
-       * @param chroot the chroot to use.
-       * @param env the environment to set.
-       */
-      virtual void
-      setup_env (chroot const& chroot,
-                 environment& env) const = 0;
 
       /**
        * Lock a chroot during setup.  The locking technique (if any) may
@@ -563,14 +550,6 @@ namespace sbuild
 
     protected:
       /**
-       * Set up persistent session information.
-       *
-       * @param start true if startion, or false if ending a session.
-       */
-      virtual void
-      setup_session_info (bool start);
-
-      /**
        * Unlock a chroot during setup.  The locking technique (if any) may
        * vary depending upon the chroot type and setup stage.  For
        * example, during creation of an LVM snapshot a block device
@@ -583,11 +562,12 @@ namespace sbuild
        * @param lock true to lock, false to unlock
        * @param status the exit status of the setup commands (0 for
        * success, nonzero for failure).
+       * @todo Delegate to storate or other facet?
        */
-      virtual void
+      void
       setup_lock(setup_type type,
                  bool       lock,
-                 int        status) = 0;
+                 int        status);
 
     public:
       /**
@@ -611,6 +591,44 @@ namespace sbuild
       template <typename T>
       const std::shared_ptr<const T>
       get_facet () const;
+
+      /**
+       * Get a chroot facet.  This is a templated method; use the
+       * correct type for the facet required.
+       *
+       * @returns a shared_ptr to the facet, or throws an error if
+       * the facet does not exist.
+       */
+      template <typename T>
+      std::shared_ptr<T>
+      get_facet_strict ();
+
+      /**
+       * Get a chroot facet.  This is a templated method; use the
+       * correct type for the facet required.
+       *
+       * @returns a shared_ptr to the facet, or throws an error if
+       * the facet does not exist.
+       */
+      template <typename T>
+      const std::shared_ptr<const T>
+      get_facet_strict () const;
+
+      /**
+       * Get the list of all chroot facets.
+       *
+       * @returns the facet list.
+       */
+      facet_list&
+      get_facets ();
+
+      /**
+       * Get the list of all chroot facets.
+       *
+       * @returns the facet list.
+       */
+      const facet_list&
+      get_facets () const;
 
       /**
        * Add a chroot facet.
@@ -663,16 +681,6 @@ namespace sbuild
        */
       session_flags
       get_session_flags () const;
-
-      /**
-       * Get the session flags of the chroot.  These determine how the
-       * Session controlling the chroot will operate.
-       *
-       * @param chroot the chroot to use.
-       * @returns the session flags.
-       */
-      virtual chroot::session_flags
-      get_session_flags (chroot const& chroot) const = 0;
 
       /**
        * Print detailed information about the chroot to a stream.  The
@@ -732,16 +740,6 @@ namespace sbuild
       get_details (format_detail& detail) const;
 
       /**
-       * Get detailed information about the chroot for output.
-       *
-       * @param chroot the chroot to use.
-       * @param detail the details to output to.
-       */
-      virtual void
-      get_details (chroot const&  chroot,
-                   format_detail& detail) const = 0;
-
-      /**
        * Print detailed information about the chroot to a stream.  The
        * information is printed in plain text with one line per
        * property.
@@ -761,19 +759,6 @@ namespace sbuild
       void
       get_keyfile (keyfile& keyfile) const;
 
-    protected:
-      /**
-       * Copy the chroot properties into a keyfile.  The keyfile group
-       * with the name of the chroot will be set; if it already exists,
-       * it will be removed before setting it.
-       *
-       * @param chroot the chroot to use.
-       * @param keyfile the keyfile to use.
-       */
-      virtual void
-      get_keyfile (chroot const& chroot,
-                   keyfile&      keyfile) const = 0;
-
     public:
       /**
        * Set the chroot properties from a keyfile.  The chroot name must
@@ -792,23 +777,6 @@ namespace sbuild
        */
       string_list
       get_used_keys () const;
-
-    protected:
-      virtual void
-      get_used_keys (string_list& used_keys) const = 0;
-
-      /**
-       * Set the chroot properties from a keyfile.  The chroot name must
-       * have previously been set, so that the correct keyfile group may
-       * be determined.
-       *
-       * @param chroot the chroot to use.
-       * @param keyfile the keyfile to get the properties from.
-       * @param used_keys a list of the keys used will be set.
-       */
-      virtual void
-      set_keyfile (chroot&        chroot,
-                   keyfile const& keyfile) = 0;
 
     private:
       /// Chroot name.
@@ -835,8 +803,6 @@ namespace sbuild
       std::string   mount_location;
       /// Was the chroot automatically generated?
       bool          original;
-      /// Run chroot setup scripts?
-      bool          run_setup_scripts;
       /// Configuration of the setup and exec scripts.
       std::string   script_config;
       /// Configuration profile for setup scripts (replaces script_config).
@@ -846,10 +812,6 @@ namespace sbuild
       /// The message verbosity.
       verbosity     message_verbosity;
 
-      /// A shared pointer to a chroot facet.
-      typedef std::shared_ptr<facet::facet> facet_ptr;
-      /// A list of chroot facets.
-      typedef std::list<facet_ptr> facet_list;
       /// Contained chroot facets
       facet_list facets;
     };
@@ -923,20 +885,44 @@ namespace sbuild
     }
 
     template <typename T>
+    std::shared_ptr<T>
+    chroot::get_facet_strict ()
+    {
+      auto ret = get_facet<T>();
+
+      if (!ret)
+        throw error(type_name<T>(), FACET_ABSENT);
+
+      return ret;
+    }
+
+    template <typename T>
+    const std::shared_ptr<const T>
+    chroot::get_facet_strict () const
+    {
+      auto ret = get_facet<T>();
+
+      if (!ret)
+        throw error(type_name<T>(), FACET_ABSENT);
+
+      return ret;
+    }
+
+    template <typename T>
     void
     chroot::add_facet (std::shared_ptr<T> facet)
     {
       facet_ptr new_facet = std::dynamic_pointer_cast<facet::facet>(facet);
       if (!new_facet)
-        throw error(FACET_INVALID);
+        throw error(type_name<T>(), FACET_INVALID);
 
       for (const auto& facet : facets)
         {
           if (std::dynamic_pointer_cast<T>(facet))
-            throw error(FACET_PRESENT);
+            throw error(type_name<T>(), FACET_PRESENT);
         }
 
-      new_facet->set_chroot(*this);
+      new_facet->set_chroot(*this, false);
       facets.push_back(new_facet);
     }
 

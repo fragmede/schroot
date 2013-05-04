@@ -19,23 +19,6 @@
 lib_LTLIBRARIES = lib/sbuild/libsbuild.la
 
 lib_sbuild_public_h_sources =				\
-	lib/sbuild/auth/auth.h				\
-	lib/sbuild/auth/deny.h				\
-	lib/sbuild/chroot/chroot.h			\
-	lib/sbuild/chroot/custom.h			\
-	lib/sbuild/chroot/directory.h			\
-	lib/sbuild/chroot/directory-base.h		\
-	lib/sbuild/chroot/facet/facet.h			\
-	lib/sbuild/chroot/facet/mountable.h		\
-	lib/sbuild/chroot/facet/personality.h		\
-	lib/sbuild/chroot/facet/session.h		\
-	lib/sbuild/chroot/facet/session-clonable.h	\
-	lib/sbuild/chroot/facet/source.h		\
-	lib/sbuild/chroot/facet/source-clonable.h	\
-	lib/sbuild/chroot/facet/userdata.h		\
-	lib/sbuild/chroot/file.h			\
-	lib/sbuild/chroot/plain.h			\
-	lib/sbuild/chroot/config.h			\
 	lib/sbuild/ctty.h				\
 	lib/sbuild/custom-error.h			\
 	lib/sbuild/environment.h			\
@@ -61,6 +44,33 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/types.h				\
 	lib/sbuild/util.h
 
+lib_sbuild_auth_public_h_sources =			\
+	lib/sbuild/auth/auth.h				\
+	lib/sbuild/auth/deny.h
+
+lib_sbuild_chroot_public_h_sources =			\
+	lib/sbuild/chroot/chroot.h			\
+	lib/sbuild/chroot/config.h
+
+lib_sbuild_chroot_facet_public_h_sources =		\
+	lib/sbuild/chroot/facet/custom.h		\
+	lib/sbuild/chroot/facet/directory.h		\
+	lib/sbuild/chroot/facet/directory-base.h	\
+	lib/sbuild/chroot/facet/facet.h			\
+	lib/sbuild/chroot/facet/factory.h		\
+	lib/sbuild/chroot/facet/file.h			\
+	lib/sbuild/chroot/facet/mountable.h		\
+	lib/sbuild/chroot/facet/personality.h		\
+	lib/sbuild/chroot/facet/plain.h			\
+	lib/sbuild/chroot/facet/session.h		\
+	lib/sbuild/chroot/facet/session-clonable.h	\
+	lib/sbuild/chroot/facet/session-setup.h		\
+	lib/sbuild/chroot/facet/source.h		\
+	lib/sbuild/chroot/facet/source-clonable.h	\
+	lib/sbuild/chroot/facet/source-setup.h		\
+	lib/sbuild/chroot/facet/storage.h		\
+	lib/sbuild/chroot/facet/userdata.h
+
 if BUILD_PAM
 lib_sbuild_public_auth_pam_h_sources =	\
 	lib/sbuild/auth/pam-conv.h	\
@@ -70,27 +80,27 @@ lib_sbuild_public_auth_pam_h_sources =	\
 endif
 
 if BUILD_BLOCKDEV
-lib_sbuild_public_blockdev_base_h_sources =	\
-	lib/sbuild/chroot/block-device-base.h
-lib_sbuild_public_blockdev_h_sources =	\
-	lib/sbuild/chroot/block-device.h
+lib_sbuild_public_blockdev_base_h_sources =		\
+	lib/sbuild/chroot/facet/block-device-base.h
+lib_sbuild_public_blockdev_h_sources =		\
+	lib/sbuild/chroot/facet/block-device.h
 endif
 
 if BUILD_LVMSNAP
-lib_sbuild_public_blockdev_base_h_sources =	\
-	lib/sbuild/chroot/block-device-base.h
-lib_sbuild_public_lvmsnap_h_sources =	\
-	lib/sbuild/chroot/lvm-snapshot.h
+lib_sbuild_public_blockdev_base_h_sources =		\
+	lib/sbuild/chroot/facet/block-device-base.h
+lib_sbuild_public_lvmsnap_h_sources =		\
+	lib/sbuild/chroot/facet/lvm-snapshot.h
 endif
 
 if BUILD_BTRFSSNAP
-lib_sbuild_public_btrfssnap_h_sources =	\
-	lib/sbuild/chroot/btrfs-snapshot.h
+lib_sbuild_public_btrfssnap_h_sources =			\
+	lib/sbuild/chroot/facet/btrfs-snapshot.h
 endif
 
 if BUILD_LOOPBACK
-lib_sbuild_public_loopback_h_sources =	\
-	lib/sbuild/chroot/loopback.h
+lib_sbuild_public_loopback_h_sources =		\
+	lib/sbuild/chroot/facet/loopback.h
 endif
 
 if BUILD_UNION
@@ -107,18 +117,23 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/auth/auth.cc				\
 	lib/sbuild/auth/deny.cc				\
 	lib/sbuild/chroot/chroot.cc			\
-	lib/sbuild/chroot/custom.cc			\
-	lib/sbuild/chroot/directory.cc			\
-	lib/sbuild/chroot/directory-base.cc		\
+	lib/sbuild/chroot/facet/custom.cc		\
+	lib/sbuild/chroot/facet/directory.cc		\
+	lib/sbuild/chroot/facet/directory-base.cc	\
+	lib/sbuild/chroot/facet/facet.cc		\
+	lib/sbuild/chroot/facet/factory.cc		\
+	lib/sbuild/chroot/facet/file.cc			\
 	lib/sbuild/chroot/facet/mountable.cc		\
 	lib/sbuild/chroot/facet/personality.cc		\
+	lib/sbuild/chroot/facet/plain.cc		\
 	lib/sbuild/chroot/facet/session.cc		\
 	lib/sbuild/chroot/facet/session-clonable.cc	\
+	lib/sbuild/chroot/facet/session-setup.cc	\
 	lib/sbuild/chroot/facet/source.cc		\
 	lib/sbuild/chroot/facet/source-clonable.cc	\
+	lib/sbuild/chroot/facet/source-setup.cc		\
+	lib/sbuild/chroot/facet/storage.cc		\
 	lib/sbuild/chroot/facet/userdata.cc		\
-	lib/sbuild/chroot/file.cc			\
-	lib/sbuild/chroot/plain.cc			\
 	lib/sbuild/chroot/config.cc			\
 	lib/sbuild/ctty.cc				\
 	lib/sbuild/environment.cc			\
@@ -147,27 +162,27 @@ lib_sbuild_public_auth_pam_cc_sources =	\
 endif
 
 if BUILD_BLOCKDEV
-lib_sbuild_public_blockdev_base_cc_sources =	\
-	lib/sbuild/chroot/block-device-base.cc
-lib_sbuild_public_blockdev_cc_sources =	\
-	lib/sbuild/chroot/block-device.cc
+lib_sbuild_public_blockdev_base_cc_sources =		\
+	lib/sbuild/chroot/facet/block-device-base.cc
+lib_sbuild_public_blockdev_cc_sources =		\
+	lib/sbuild/chroot/facet/block-device.cc
 endif
 
 if BUILD_LVMSNAP
-lib_sbuild_public_blockdev_base_cc_sources =	\
-	lib/sbuild/chroot/block-device-base.cc
-lib_sbuild_public_lvmsnap_cc_sources =	\
-	lib/sbuild/chroot/lvm-snapshot.cc
+lib_sbuild_public_blockdev_base_cc_sources =		\
+	lib/sbuild/chroot/facet/block-device-base.cc
+lib_sbuild_public_lvmsnap_cc_sources =		\
+	lib/sbuild/chroot/facet/lvm-snapshot.cc
 endif
 
 if BUILD_BTRFSSNAP
-lib_sbuild_public_btrfssnap_cc_sources =	\
-	lib/sbuild/chroot/btrfs-snapshot.cc
+lib_sbuild_public_btrfssnap_cc_sources =		\
+	lib/sbuild/chroot/facet/btrfs-snapshot.cc
 endif
 
 if BUILD_LOOPBACK
-lib_sbuild_public_loopback_cc_sources =	\
-	lib/sbuild/chroot/loopback.cc
+lib_sbuild_public_loopback_cc_sources =		\
+	lib/sbuild/chroot/facet/loopback.cc
 endif
 
 if BUILD_UNION
@@ -181,9 +196,22 @@ lib_sbuild_public_unshare_cc_sources =	\
 endif
 
 pkgincludedir = $(includedir)/sbuild
+pkgincludeauthdir = $(includedir)/sbuild/auth
+pkgincludechrootdir = $(includedir)/sbuild/chroot
+pkgincludefacetdir = $(includedir)/sbuild/chroot/facet
 
 pkginclude_HEADERS =					\
-	$(lib_sbuild_public_h_sources)			\
+	$(lib_sbuild_public_h_sources)
+
+pkgincludeauth_HEADERS =				\
+	$(lib_sbuild_auth_public_h_sources)		\
+	$(lib_sbuild_public_auth_pam_h_sources)
+
+pkgincludechroot_HEADERS =				\
+	$(lib_sbuild_chroot_public_h_sources)
+
+pkgincludefacet_HEADERS =				\
+	$(lib_sbuild_chroot_facet_public_h_sources)	\
 	$(lib_sbuild_public_blockdev_base_h_sources)	\
 	$(lib_sbuild_public_blockdev_h_sources)		\
 	$(lib_sbuild_public_lvmsnap_h_sources)		\
@@ -222,8 +250,8 @@ pkgconfigdatadir = $(libdir)/pkgconfig
 pkgconfigdata_DATA = lib/sbuild/sbuild.pc
 
 # Uncommment to build an unversioned library (version in soname)
-#lib_sbuild_libsbuild_version = -release $(SBUILD_VERSION)
+lib_sbuild_libsbuild_version = -release $(VERSION)
 # Uncomment to build a versioned library
-lib_sbuild_libsbuild_version = -version-info $(SBUILD_CURRENT_INTERFACE):$(SBUILD_INTERFACE_AGE):$(SBUILD_BINARY_AGE)
-lib_sbuild_libsbuild_la_LDFLAGS = $(libsbuild_version) \
+#lib_sbuild_libsbuild_version = -version-info $(SBUILD_CURRENT_INTERFACE):$(SBUILD_INTERFACE_AGE):$(SBUILD_BINARY_AGE)
+lib_sbuild_libsbuild_la_LDFLAGS = $(lib_sbuild_libsbuild_version) \
         -rpath $(libdir) -no-undefined

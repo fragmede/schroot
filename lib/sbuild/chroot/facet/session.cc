@@ -20,10 +20,18 @@
 
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/config.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/session.h>
-#include "format-detail.h"
+#include <sbuild/keyfile-writer.h>
+#include <sbuild/lock.h>
+#include <sbuild/fdstream.h>
+#include <sbuild/format-detail.h>
 
 #include <cassert>
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #include <boost/format.hpp>
 
@@ -37,6 +45,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info session_info =
+          {
+            "session",
+            N_("Support for session chroots"),
+            []() -> facet::ptr { return session::create(); }
+          };
+
+        factory session_register(session_info);
+
+      }
 
       session::session ():
         facet(),
@@ -97,6 +119,57 @@ namespace sbuild
       }
 
       void
+      session::setup_session_info (bool start)
+      {
+        /* Create or unlink session information. */
+        std::string file = std::string(SCHROOT_SESSION_DIR) + "/" + owner->get_name();
+
+        if (start)
+          {
+            int fd = open(file.c_str(), O_CREAT|O_EXCL|O_WRONLY, 0664);
+            if (fd < 0)
+              throw error(file, chroot::SESSION_WRITE, strerror(errno));
+
+            // Create a stream from the file descriptor.  The fd will be
+            // closed when the stream is destroyed.
+#ifdef BOOST_IOSTREAMS_CLOSE_HANDLE_OLD
+            fdostream output(fd, true);
+#else
+            fdostream output(fd, boost::iostreams::close_handle);
+#endif
+            output.imbue(std::locale::classic());
+
+            file_lock lock(fd);
+            try
+              {
+                lock.set_lock(lock::LOCK_EXCLUSIVE, 2);
+              }
+            catch (lock::error const& e)
+              {
+                throw error(file, chroot::FILE_LOCK, e);
+              }
+
+            keyfile details;
+            owner->get_keyfile(details);
+            output << keyfile_writer(details);
+
+            try
+              {
+                lock.unset_lock();
+              }
+            catch (lock::error const& e)
+              {
+                throw error(file, chroot::FILE_UNLOCK, e);
+              }
+          }
+        else /* start == false */
+          {
+            if (unlink(file.c_str()) != 0)
+              throw error(file, chroot::SESSION_UNLINK, strerror(errno));
+          }
+      }
+
+      void
       session::setup_env (chroot const& chroot,
                           environment&  env) const
       {
@@ -107,12 +180,6 @@ namespace sbuild
 
         if (!get_selected_name().empty())
           env.add("CHROOT_ALIAS", get_selected_name());
-      }
-
-      chroot::session_flags
-      session::get_session_flags (chroot const& chroot) const
-      {
-        return chroot::SESSION_NOFLAGS;
       }
 
       void

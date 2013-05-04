@@ -16,6 +16,6 @@
  *
  *********************************************************************/
 
-#include "nostream.h"
+#include <sbuild/nostream.h>
 
 sbuild::nostream sbuild::cnull;

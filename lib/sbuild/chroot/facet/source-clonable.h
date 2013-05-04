@@ -68,14 +68,12 @@ namespace sbuild
         get_name () const;
 
         /**
-         * Set the defaults in the cloned source chroot.
+         * Clone a source chroot.
          *
-         * @param parent the parent of the cloned chroot.
-         * @param clone the chroot to set up.
+         * @returns a source chroot.
          */
-        virtual void
-        clone_source_setup (chroot const& parent,
-                            chroot::ptr&  clone) const;
+        virtual chroot::ptr
+        clone_source () const;
 
         /**
          * Is cloning a source chroot automatically permitted?  Note that
@@ -166,10 +164,6 @@ namespace sbuild
          */
         virtual void
         set_source_root_groups (string_list const& groups);
-
-        virtual void
-        setup_env (chroot const& chroot,
-                   environment&  env) const;
 
         virtual chroot::session_flags
         get_session_flags (chroot const& chroot) const;

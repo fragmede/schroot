@@ -21,7 +21,7 @@
 #include <sbuild/i18n.h>
 #include <sbuild/util.h>
 
-#include "options.h"
+#include <mount/options.h>
 
 #include <cstdlib>
 #include <iostream>
@@ -78,12 +78,12 @@ options::add_option_groups ()
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
   if (!mount.options().empty())
 #else
-  if (!mount.primary_keys().empty())
+    if (!mount.primary_keys().empty())
 #endif
-    {
-      visible.add(mount);
-      global.add(mount);
-    }
+      {
+        visible.add(mount);
+        global.add(mount);
+      }
 }
 
 void
@@ -99,5 +99,5 @@ options::check_options ()
 
   if (this->action == ACTION_MOUNT &&
       this->mountpoint.empty())
-        throw error(_("No mount point specified"));
+    throw error(_("No mount point specified"));
 }

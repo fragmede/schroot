@@ -145,9 +145,6 @@ namespace sbuild
         setup_env (chroot const& chroot,
                    environment&  env) const;
 
-        virtual chroot::session_flags
-        get_session_flags (chroot const& chroot) const;
-
         virtual void
         get_details (chroot const&  chroot,
                      format_detail& detail) const;

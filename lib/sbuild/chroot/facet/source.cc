@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/source.h>
 
 #include <cassert>
@@ -33,6 +34,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info source_info =
+          {
+            "source",
+            N_("Support for source chroots"),
+            []() -> facet::ptr { return source::create(); }
+          };
+
+        factory source_register(source_info);
+
+      }
 
       source::source ():
         facet()
@@ -61,41 +76,6 @@ namespace sbuild
         static const std::string name("source");
 
         return name;
-      }
-
-      void
-      source::setup_env (chroot const& chroot,
-                         environment&  env) const
-      {
-      }
-
-      chroot::session_flags
-      source::get_session_flags (chroot const& chroot) const
-      {
-        return chroot::SESSION_NOFLAGS;
-      }
-
-      void
-      source::get_details (chroot const&  chroot,
-                           format_detail& detail) const
-      {
-      }
-
-      void
-      source::get_used_keys (string_list& used_keys) const
-      {
-      }
-
-      void
-      source::get_keyfile (chroot const& chroot,
-                           keyfile&      keyfile) const
-      {
-      }
-
-      void
-      source::set_keyfile (chroot&        chroot,
-                           keyfile const& keyfile)
-      {
       }
 
     }

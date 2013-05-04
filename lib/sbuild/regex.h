@@ -88,8 +88,8 @@ namespace sbuild
      * @param pattern a regex
      */
     regex (const char *pattern):
-      comp(pattern, std::regex::extended),
-      rstr(pattern)
+    comp(pattern, std::regex::extended),
+    rstr(pattern)
     {}
 
     ///* The destructor.
@@ -104,8 +104,8 @@ namespace sbuild
      * @param pattern a regex
      */
     regex (const regex& rhs):
-      comp(rhs.comp),
-      rstr(rhs.rstr)
+    comp(rhs.comp),
+    rstr(rhs.rstr)
     {}
 
     std::string const&

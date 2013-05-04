@@ -19,27 +19,13 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
+#include <sbuild/chroot/facet/session-setup.h>
 #include <sbuild/chroot/facet/source-clonable.h>
-#include <sbuild/chroot/plain.h>
-#ifdef SBUILD_FEATURE_BLOCKDEV
-#include <sbuild/chroot/block-device-base.h>
-#endif
-#ifdef SBUILD_FEATURE_LVMSNAP
-#include <sbuild/chroot/lvm-snapshot.h>
-#endif // SBUILD_FEATURE_LVMSNAP
-#ifdef SBUILD_FEATURE_LOOPBACK
-#include <sbuild/chroot/loopback.h>
-#endif // SBUILD_FEATURE_LOOPBACK
-#ifdef SBUILD_FEATURE_BTRFSSNAP
-#include <sbuild/chroot/btrfs-snapshot.h>
-#endif // SBUILD_FEATURE_BTRFSSNAP
-#ifdef SBUILD_FEATURE_UNION
-#include <sbuild/chroot/facet/fsunion.h>
-#endif // SBUILD_FEATURE_UNION
-#include "format-detail.h"
+#include <sbuild/format-detail.h>
 
 #include <cassert>
 
@@ -55,6 +41,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info session_clonable_info =
+          {
+            "session-clonable",
+            N_("Support for session chroot cloning"),
+            []() -> facet::ptr { return session_clonable::create(); }
+          };
+
+        factory session_clonable_register(session_clonable_info);
+
+      }
 
       session_clonable::session_clonable ():
         facet()
@@ -80,19 +80,19 @@ namespace sbuild
       std::string const&
       session_clonable::get_name () const
       {
-        static const std::string name("session");
+        static const std::string name("session-clonable");
 
         return name;
       }
 
-      void
-      session_clonable::clone_session_setup (chroot const&      parent,
-                                             chroot::ptr&       clone,
-                                             std::string const& session_id,
-                                             std::string const& alias,
-                                             std::string const& user,
-                                             bool               root) const
+      chroot::ptr
+      session_clonable::clone_session (std::string const& session_id,
+                                       std::string const& alias,
+                                       std::string const& user,
+                                       bool               root) const
       {
+        chroot::ptr clone = owner->clone();
+
         // Disable session cloning.
         clone->remove_facet<session_clonable>();
         // Disable source cloning.
@@ -133,129 +133,44 @@ namespace sbuild
           << format("Cloned session %1%")
           % clone->get_name() << endl;
 
-        /* If a chroot mount location has not yet been set, and the
-           chroot is not a plain chroot, set a mount location with the
-           session id.  Only set for non-plain chroots which run
-           setup scripts. */
-        {
-          std::shared_ptr<plain> plain(std::dynamic_pointer_cast<plain>(clone));
-
-          if (clone->get_mount_location().empty() && !plain)
-            {
-              log_debug(DEBUG_NOTICE) << "Setting mount location" << endl;
-              std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
-                                   session_id);
-              clone->set_mount_location(location);
-            }
-        }
+        /* If a chroot mount location has not yet been set, set a
+           mount location with the session id.  Only set for non-plain
+           chroots which run setup scripts (plain chroots don't use
+           this facet). */
+        if (clone->get_mount_location().empty())
+          {
+            log_debug(DEBUG_NOTICE) << "Setting mount location" << endl;
+            std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
+                                 session_id);
+            clone->set_mount_location(location);
+          }
 
         log_debug(DEBUG_NOTICE)
           << format("Mount Location: %1%") % clone->get_mount_location()
           << endl;
 
-#ifdef SBUILD_FEATURE_BLOCKDEV
-        /* Block devices need the mount device name specifying. */
-        /* Note that this will be overridden by LVM snapshot, below, so the
-           order here is important. */
-        std::shared_ptr<block_device_base> blockdevbase(std::dynamic_pointer_cast<block_device_base>(clone));
-        if (blockdevbase)
+        chroot::facet_list& facets = clone->get_facets();
+
+        for (chroot::facet_list::iterator facet = facets.begin();
+             facet != facets.end();)
           {
-            mountable::ptr pmnt
-              (clone->get_facet<mountable>());
-            if (pmnt)
-              pmnt->set_mount_device(blockdevbase->get_device());
+            chroot::facet_list::iterator current = facet;
+            ++facet;
+            auto setup_facet = std::dynamic_pointer_cast<session_setup>(*current);
+            if (setup_facet)
+              {
+                setup_facet->chroot_session_setup
+                  (*owner, session_id, alias, user, root);
+              }
           }
-#endif // SBUILD_FEATURE_BLOCKDEV
 
-#ifdef SBUILD_FEATURE_LOOPBACK
-        /* Loopback chroots need the mount device name specifying. */
-        std::shared_ptr<loopback> loopback(std::dynamic_pointer_cast<loopback>(clone));
-        if (loopback)
-          {
-            mountable::ptr pmnt
-              (clone->get_facet<mountable>());
-            if (pmnt)
-              pmnt->set_mount_device(loopback->get_filename());
-          }
-#endif // SBUILD_FEATURE_LOOPBACK
-
-#ifdef SBUILD_FEATURE_LVMSNAP
-        /* LVM devices need the snapshot device name specifying. */
-        std::shared_ptr<lvm_snapshot> snapshot(std::dynamic_pointer_cast<lvm_snapshot>(clone));
-        if (snapshot && !snapshot->get_device().empty())
-          {
-            std::string device(dirname(snapshot->get_device()));
-            device += "/" + clone->get_name();
-            snapshot->set_snapshot_device(device);
-          }
-#endif // SBUILD_FEATURE_LVMSNAP
-
-#ifdef SBUILD_FEATURE_BTRFSSNAP
-        /* Btrfs snapshots need the snapshot name specifying. */
-        std::shared_ptr<btrfs_snapshot> btrfs_snapshot(std::dynamic_pointer_cast<btrfs_snapshot>(clone));
-        if (btrfs_snapshot && !btrfs_snapshot->get_snapshot_directory().empty())
-          {
-            std::string snapname(btrfs_snapshot->get_snapshot_directory());
-            snapname += "/" + clone->get_name();
-            btrfs_snapshot->set_snapshot_name(snapname);
-          }
-#endif // SBUILD_FEATURE_BTRFSSNAP
-
-#ifdef SBUILD_FEATURE_UNION
-        // If the parent did not have a union facet, then neither should we.
-        fsunion::const_ptr pparentuni(parent.get_facet<fsunion>());
-        if (!pparentuni)
-          clone->remove_facet<fsunion>();
-
-        /* Filesystem unions need the overlay directory specifying. */
-        fsunion::ptr puni(clone->get_facet<fsunion>());
-
-        if (puni)
-          {
-            std::string overlay = puni->get_union_overlay_directory();
-            overlay += "/" + clone->get_name();
-            puni->set_union_overlay_directory(overlay);
-
-            std::string underlay = puni->get_union_underlay_directory();
-            underlay += "/" + clone->get_name();
-            puni->set_union_underlay_directory(underlay);
-          }
-#endif // SBUILD_FEATURE_UNION
-      }
-
-      void
-      session_clonable::setup_env (chroot const& chroot,
-                                   environment&  env) const
-      {
+        return clone;
       }
 
       chroot::session_flags
       session_clonable::get_session_flags (chroot const& chroot) const
       {
         return chroot::SESSION_CREATE;
-      }
-
-      void
-      session_clonable::get_details (chroot const&  chroot,
-                                     format_detail& detail) const
-      {
-      }
-
-      void
-      session_clonable::get_used_keys (string_list& used_keys) const
-      {
-      }
-
-      void
-      session_clonable::get_keyfile (chroot const& chroot,
-                                     keyfile&      keyfile) const
-      {
-      }
-
-      void
-      session_clonable::set_keyfile (chroot&        chroot,
-                                     keyfile const& keyfile)
-      {
       }
 
     }

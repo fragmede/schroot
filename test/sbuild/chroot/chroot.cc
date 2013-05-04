@@ -19,8 +19,11 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/factory.h>
+#include <sbuild/chroot/facet/storage.h>
 #include <sbuild/keyfile-writer.h>
 
+#include <test/sbuild/chroot/chroot.h>
 #include <test/sbuild/chroot/chroot.h>
 
 #include <algorithm>
@@ -30,82 +33,79 @@
 
 using namespace CppUnit;
 
-class basic_chroot : public sbuild::chroot::chroot
+class test_chroot_facet : public sbuild::chroot::facet::storage
 {
 public:
-  basic_chroot ():
-    sbuild::chroot::chroot()
-  {}
+  /// A shared_ptr to a chroot facet object.
+  typedef std::shared_ptr<test_chroot_facet> ptr;
 
-  virtual ~basic_chroot()
-  {}
+  /// A shared_ptr to a const chroot facet object.
+  typedef std::shared_ptr<const test_chroot_facet> const_ptr;
 
-  virtual ptr
-  clone () const
-  { return ptr(new basic_chroot(*this)); }
+protected:
+  /// The constructor.
+  test_chroot_facet ():
+    storage()
+  {
+  }
 
-  virtual ptr
-  clone_session (std::string const& session_id,
-                 std::string const& alias,
-                 std::string const& user,
-                 bool               root) const
-  { return ptr(); }
+  /// The copy constructor.
+  test_chroot_facet (const test_chroot_facet& rhs):
+    storage(rhs)
+  {
+  }
 
+  friend class chroot;
 
-  chroot::ptr
-  clone_source () const
-  { return ptr(); }
+public:
+  /// The destructor.
+  virtual ~test_chroot_facet ()
+  {
+  }
 
   virtual std::string const&
-  get_chroot_type () const
-  { static const std::string type("test"); return type; }
-
-  void
-  set_run_setup_scripts (bool run_setup_scripts)
+  get_name () const
   {
-    sbuild::chroot::chroot::set_run_setup_scripts(run_setup_scripts);
+    static const std::string name("test");
+
+    return name;
+  }
+
+
+  static ptr
+  create ()
+  {
+    return ptr(new test_chroot_facet());
+  }
+
+  virtual facet::ptr
+  clone () const
+  {
+    return ptr(new test_chroot_facet(*this));
   }
 
   virtual std::string
   get_path () const
-  { return get_mount_location(); }
-
-  virtual void
-  setup_env (sbuild::chroot::chroot const& chroot,
-             sbuild::environment&          env) const
-  { sbuild::chroot::chroot::setup_env(chroot, env); }
-
-  virtual void
-  get_details (sbuild::chroot::chroot const& chroot,
-               sbuild::format_detail&        detail) const
-  { sbuild::chroot::chroot::get_details(chroot, detail); }
-
-  virtual void
-  setup_lock (setup_type type,
-              bool       lock,
-              int        status)
-  {}
-
-  virtual sbuild::chroot::chroot::session_flags
-  get_session_flags (sbuild::chroot::chroot const& chroot) const
-  { return sbuild::chroot::chroot::SESSION_CREATE; }
-
-  virtual void
-  get_used_keys (sbuild::string_list& used_keys) const
-  { sbuild::chroot::chroot::get_used_keys(used_keys); }
-
-  virtual void
-  get_keyfile (sbuild::chroot::chroot const& chroot,
-               sbuild::keyfile&              keyfile) const
-  { sbuild::chroot::chroot::get_keyfile(chroot, keyfile); }
-
-  virtual void
-  set_keyfile (sbuild::chroot::chroot& chroot,
-               sbuild::keyfile const&  keyfile)
-  { sbuild::chroot::chroot::set_keyfile(chroot, keyfile); }
+  {
+    return owner->get_mount_location();
+  }
 };
 
-class test_chroot : public test_chroot_base<basic_chroot>
+namespace
+{
+
+  sbuild::chroot::facet::factory::facet_info test_info =
+    {
+      "test",
+      "Support for ‘test’ chroots",
+      []() -> sbuild::chroot::facet::facet::ptr { return test_chroot_facet::create(); }
+    };
+
+  sbuild::chroot::facet::factory test_register(test_info);
+
+}
+
+class test_chroot : public test_chroot_base
 {
   CPPUNIT_TEST_SUITE(test_chroot);
   CPPUNIT_TEST(test_name);
@@ -131,8 +131,9 @@ class test_chroot : public test_chroot_base<basic_chroot>
 
 public:
   test_chroot():
-    test_chroot_base<basic_chroot>()
-  {}
+    test_chroot_base("test")
+  {
+  }
 
   void test_name()
   {
@@ -222,7 +223,7 @@ public:
       expected.set_value(group, "profile", "");
       expected.set_value(group, "script-config", "desktop/config");
 
-      test_chroot_base<basic_chroot>::test_setup_keyfile
+      test_chroot_base::test_setup_keyfile
         (chroot, expected, group);
     }
 
@@ -246,49 +247,38 @@ public:
       sbuild::environment observed;
       chroot->setup_env(observed);
 
-      test_chroot_base<basic_chroot>::test_setup_env(observed, expected);
+      test_chroot_base::test_setup_env(observed, expected);
     }
   }
 
   void test_run_setup_scripts()
   {
-    std::shared_ptr<basic_chroot> c = std::dynamic_pointer_cast<basic_chroot>(chroot);
-
-    CPPUNIT_ASSERT(chroot->get_run_setup_scripts() == true);
-    c->set_run_setup_scripts(false);
-    CPPUNIT_ASSERT(chroot->get_run_setup_scripts() == false);
-    c->set_run_setup_scripts(true);
     CPPUNIT_ASSERT(chroot->get_run_setup_scripts() == true);
   }
 
   void test_verbose()
   {
-    std::shared_ptr<basic_chroot> c = std::dynamic_pointer_cast<basic_chroot>(chroot);
-
     CPPUNIT_ASSERT(chroot->get_verbosity() == sbuild::chroot::chroot::VERBOSITY_QUIET);
-    c->set_verbosity(sbuild::chroot::chroot::VERBOSITY_VERBOSE);
+    chroot->set_verbosity(sbuild::chroot::chroot::VERBOSITY_VERBOSE);
     CPPUNIT_ASSERT(chroot->get_verbosity() == sbuild::chroot::chroot::VERBOSITY_VERBOSE);
     CPPUNIT_ASSERT(std::string(chroot->get_verbosity_string()) == "verbose");
-    c->set_verbosity("normal");
+    chroot->set_verbosity("normal");
     CPPUNIT_ASSERT(chroot->get_verbosity() == sbuild::chroot::chroot::VERBOSITY_NORMAL);
     CPPUNIT_ASSERT(std::string(chroot->get_verbosity_string()) == "normal");
   }
 
   void test_preserve_environment()
   {
-    std::shared_ptr<basic_chroot> c = std::dynamic_pointer_cast<basic_chroot>(chroot);
-
     CPPUNIT_ASSERT(chroot->get_preserve_environment() == false);
-    c->set_preserve_environment(true);
+    chroot->set_preserve_environment(true);
     CPPUNIT_ASSERT(chroot->get_preserve_environment() == true);
-    c->set_preserve_environment(false);
+    chroot->set_preserve_environment(false);
     CPPUNIT_ASSERT(chroot->get_preserve_environment() == false);
   }
 
   void test_verbose_error()
   {
-    std::shared_ptr<basic_chroot> c = std::dynamic_pointer_cast<basic_chroot>(chroot);
-    c->set_verbosity("invalid");
+    chroot->set_verbosity("invalid");
   }
 
   void test_chroot_type()
@@ -310,7 +300,7 @@ public:
     sbuild::environment observed;
     chroot->setup_env(observed);
 
-    test_chroot_base<basic_chroot>::test_setup_env(observed, expected);
+    test_chroot_base::test_setup_env(observed, expected);
   }
 
   void test_setup_keyfile()
@@ -320,7 +310,7 @@ public:
     setup_keyfile_chroot(expected, group);
     expected.set_value(group, "type", "test");
 
-    test_chroot_base<basic_chroot>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (chroot, expected, group);
   }
 

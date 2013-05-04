@@ -19,8 +19,9 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/userdata.h>
-#include "regex.h"
+#include <sbuild/regex.h>
 
 #include <locale>
 
@@ -74,6 +75,20 @@ namespace sbuild
   {
     namespace facet
     {
+
+      namespace
+      {
+
+        factory::facet_info userdata_info =
+          {
+            "userdata",
+            N_("User setting of custom configuration parameters"),
+            []() -> facet::ptr { return userdata::create(); }
+          };
+
+        factory userdata_register(userdata_info);
+
+      }
 
       template<>
       error<userdata::error_code>::map_type
@@ -144,12 +159,6 @@ namespace sbuild
                 throw e;
               }
           }
-      }
-
-      chroot::session_flags
-      userdata::get_session_flags (chroot const& chroot) const
-      {
-        return chroot::SESSION_NOFLAGS;
       }
 
       void

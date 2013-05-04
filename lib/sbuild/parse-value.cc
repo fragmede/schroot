@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "parse-value.h"
+#include <sbuild/parse-value.h>
 
 using namespace sbuild;
 
