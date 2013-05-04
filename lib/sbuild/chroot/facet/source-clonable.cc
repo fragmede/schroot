@@ -148,14 +148,14 @@ namespace sbuild
         this->source_root_groups = groups;
       }
 
-      chroot::session_flags
+      facet::session_flags
       source_clonable::get_session_flags () const
       {
         // Cloning is only possible for non-source and inactive chroots.
         if (owner->get_facet<session>())
-          return chroot::SESSION_NOFLAGS;
+          return SESSION_NOFLAGS;
         else
-          return chroot::SESSION_CLONE;
+          return SESSION_CLONE;
       }
 
       void

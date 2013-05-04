@@ -626,7 +626,7 @@ session::run_impl ()
 
           // TODO: Make chroot/session selection automatically fail
           // if no session exists earlier on when selecting chroots.
-          if (ch->get_session_flags() & chroot::chroot::SESSION_CREATE &&
+          if (ch->get_session_flags() & chroot::facet::facet::SESSION_CREATE &&
               (this->session_operation != OPERATION_AUTOMATIC &&
                this->session_operation != OPERATION_BEGIN))
             throw error(chrootent.alias, CHROOT_NOTFOUND);
@@ -637,7 +637,7 @@ session::run_impl ()
           assert(chroot);
 
           /* Create a session using randomly-generated session ID. */
-          if (ch->get_session_flags() & chroot::chroot::SESSION_CREATE)
+          if (ch->get_session_flags() & chroot::facet::facet::SESSION_CREATE)
             {
               assert(ch->get_facet<chroot::facet::session_clonable>());
 

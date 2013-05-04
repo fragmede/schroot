@@ -267,14 +267,14 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-                   (sbuild::chroot::chroot::SESSION_CREATE |
-                    sbuild::chroot::chroot::SESSION_CLONE));
+                   (sbuild::chroot::facet::facet::SESSION_CREATE |
+                    sbuild::chroot::facet::facet::SESSION_CLONE));
 
     CPPUNIT_ASSERT(session->get_session_flags() ==
-                   sbuild::chroot::chroot::SESSION_PURGE);
+                   sbuild::chroot::facet::facet::SESSION_PURGE);
 
     CPPUNIT_ASSERT(source->get_session_flags() ==
-                   sbuild::chroot::chroot::SESSION_CREATE);
+                   sbuild::chroot::facet::facet::SESSION_CREATE);
   }
 
   void test_print_details()

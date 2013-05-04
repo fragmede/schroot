@@ -19,6 +19,7 @@
 #ifndef SBUILD_CHROOT_CHROOT_H
 #define SBUILD_CHROOT_CHROOT_H
 
+#include <sbuild/chroot/facet/facet.h>
 #include <sbuild/custom-error.h>
 #include <sbuild/environment.h>
 #include <sbuild/format-detail.h>
@@ -38,10 +39,6 @@ namespace sbuild
    */
   namespace chroot
   {
-    namespace facet
-    {
-      class facet;
-    }
 
     /**
      * Common chroot data.  This class contains all of the metadata
@@ -61,15 +58,6 @@ namespace sbuild
           SETUP_STOP,    ///< Deactivate a chroot.
           EXEC_START,    ///< Prepare for executing a command.
           EXEC_STOP      ///< Clean up after executing a command.
-        };
-
-      /// Chroot session properties.
-      enum session_flags
-        {
-          SESSION_NOFLAGS = 0,      ///< No flags are set.
-          SESSION_CREATE  = 1 << 0, ///< The chroot supports session creation.
-          SESSION_CLONE   = 1 << 1, ///< The chroot supports cloning.
-          SESSION_PURGE   = 1 << 2  ///< The chroot should be purged.
         };
 
       /// Message verbosity.
@@ -679,7 +667,7 @@ namespace sbuild
        *
        * @returns the session flags.
        */
-      session_flags
+      facet::facet::session_flags
       get_session_flags () const;
 
       /**
@@ -816,38 +804,8 @@ namespace sbuild
       facet_list facets;
     };
 
-    /**
-     * Bitwise-OR of specifed session properties
-     * @param lhs session properties
-     * @param rhs session properties
-     * @returns result of OR.
-     */
-    chroot::session_flags
-    inline operator | (chroot::session_flags const& lhs,
-                       chroot::session_flags const& rhs)
-    {
-      return static_cast<chroot::session_flags>
-        (static_cast<int>(lhs) | static_cast<int>(rhs));
-    }
-
-    /**
-     * Bitwise-AND of specifed session properties
-     * @param lhs session properties
-     * @param rhs session properties
-     * @returns result of AND.
-     */
-    chroot::session_flags
-    inline operator & (chroot::session_flags const& lhs,
-                       chroot::session_flags const& rhs)
-    {
-      return static_cast<chroot::session_flags>
-        (static_cast<int>(lhs) & static_cast<int>(rhs));
-    }
-
   }
 }
-
-#include <sbuild/chroot/facet/facet.h>
 
 namespace sbuild
 {

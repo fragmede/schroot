@@ -167,10 +167,10 @@ namespace sbuild
         return clone;
       }
 
-      chroot::session_flags
+      facet::session_flags
       session_clonable::get_session_flags () const
       {
-        return chroot::SESSION_CREATE;
+        return SESSION_CREATE;
       }
 
     }

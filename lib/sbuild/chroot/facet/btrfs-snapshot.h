@@ -139,7 +139,7 @@ namespace sbuild
         virtual void
         setup_env (environment& env) const;
 
-        virtual chroot::session_flags
+        virtual session_flags
         get_session_flags () const;
 
       protected:

@@ -62,10 +62,10 @@ namespace sbuild
       {
       }
 
-      chroot::session_flags
+      facet::session_flags
       facet::get_session_flags () const
       {
-        return chroot::SESSION_NOFLAGS;
+        return SESSION_NOFLAGS;
       }
 
       void

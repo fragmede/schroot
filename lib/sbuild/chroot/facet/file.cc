@@ -199,13 +199,13 @@ namespace sbuild
           }
       }
 
-      chroot::session_flags
+      facet::session_flags
       file::get_session_flags () const
       {
-        chroot::session_flags flags = chroot::SESSION_NOFLAGS;
+        session_flags flags = SESSION_NOFLAGS;
 
         if (owner->get_facet<session>())
-          flags = chroot::SESSION_PURGE;
+          flags = SESSION_PURGE;
 
         return flags;
       }

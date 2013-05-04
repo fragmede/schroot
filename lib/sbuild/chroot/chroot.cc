@@ -553,11 +553,11 @@ namespace sbuild
           env.add("CHROOT_PROFILE_DIR", normalname(std::string(SCHROOT_SYSCONF_DIR) +  '/' + get_profile()));
         }
       env.add("CHROOT_SESSION_CREATE",
-              static_cast<bool>(get_session_flags() & SESSION_CREATE));
+              static_cast<bool>(get_session_flags() & facet::facet::SESSION_CREATE));
       env.add("CHROOT_SESSION_CLONE",
-              static_cast<bool>(get_session_flags() & SESSION_CLONE));
+              static_cast<bool>(get_session_flags() & facet::facet::SESSION_CLONE));
       env.add("CHROOT_SESSION_PURGE",
-              static_cast<bool>(get_session_flags() & SESSION_PURGE));
+              static_cast<bool>(get_session_flags() & facet::facet::SESSION_PURGE));
 
       for (const auto& facet : facets)
         facet->setup_env(env);
@@ -584,10 +584,10 @@ namespace sbuild
       get_facet_strict<facet::storage>()->setup_lock(type, lock, status);
     }
 
-    chroot::session_flags
+    facet::facet::session_flags
     chroot::get_session_flags () const
     {
-      session_flags flags = SESSION_NOFLAGS;
+      facet::facet::session_flags flags = facet::facet::SESSION_NOFLAGS;
 
       for (const auto& facet : facets)
         flags = flags | facet->get_session_flags();
@@ -616,11 +616,11 @@ namespace sbuild
         .add(_("Configuration Profile"), get_profile())
         .add(_("Script Configuration"), get_script_config())
         .add(_("Session Managed"),
-             static_cast<bool>(get_session_flags() & chroot::SESSION_CREATE))
+             static_cast<bool>(get_session_flags() & facet::facet::SESSION_CREATE))
         .add(_("Session Cloned"),
-             static_cast<bool>(get_session_flags() & chroot::SESSION_CLONE))
+             static_cast<bool>(get_session_flags() & facet::facet::SESSION_CLONE))
         .add(_("Session Purged"),
-             static_cast<bool>(get_session_flags() & chroot::SESSION_PURGE));
+             static_cast<bool>(get_session_flags() & facet::facet::SESSION_PURGE));
 
       if (!get_command_prefix().empty())
         detail.add(_("Command Prefix"), get_command_prefix());

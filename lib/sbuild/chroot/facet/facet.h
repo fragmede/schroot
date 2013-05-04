@@ -31,6 +31,8 @@ namespace sbuild
 {
   namespace chroot
   {
+    class chroot;
+
     /**
      * Facets of functionality and state of individual chroots
      */
@@ -47,6 +49,15 @@ namespace sbuild
       class facet
       {
       public:
+        /// Chroot session properties.
+        enum session_flags
+          {
+            SESSION_NOFLAGS = 0,      ///< No flags are set.
+            SESSION_CREATE  = 1 << 0, ///< The chroot supports session creation.
+            SESSION_CLONE   = 1 << 1, ///< The chroot supports cloning.
+            SESSION_PURGE   = 1 << 2  ///< The chroot should be purged.
+          };
+
         /// A shared_ptr to a chroot facet object.
         typedef std::shared_ptr<facet> ptr;
 
@@ -110,7 +121,7 @@ namespace sbuild
          * @param chroot the chroot to use.
          * @returns the session flags.
          */
-        virtual chroot::session_flags
+        virtual session_flags
         get_session_flags () const;
 
         /**
@@ -153,6 +164,34 @@ namespace sbuild
         /// Chroot owning this facet.
         chroot *owner;
       };
+
+      /**
+       * Bitwise-OR of specifed session properties
+       * @param lhs session properties
+       * @param rhs session properties
+       * @returns result of OR.
+       */
+      facet::session_flags
+      inline operator | (facet::session_flags const& lhs,
+                         facet::session_flags const& rhs)
+      {
+        return static_cast<facet::session_flags>
+          (static_cast<int>(lhs) | static_cast<int>(rhs));
+      }
+
+      /**
+       * Bitwise-AND of specifed session properties
+       * @param lhs session properties
+       * @param rhs session properties
+       * @returns result of AND.
+       */
+      facet::session_flags
+      inline operator & (facet::session_flags const& lhs,
+                         facet::session_flags const& rhs)
+      {
+        return static_cast<facet::session_flags>
+          (static_cast<int>(lhs) & static_cast<int>(rhs));
+      }
 
     }
   }

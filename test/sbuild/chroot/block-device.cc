@@ -298,21 +298,21 @@ public:
   void test_session_flags()
   {
     CPPUNIT_ASSERT(chroot->get_session_flags() ==
-                   sbuild::chroot::chroot::SESSION_CREATE);
+                   sbuild::chroot::facet::facet::SESSION_CREATE);
 
     CPPUNIT_ASSERT(session->get_session_flags() ==
-                   sbuild::chroot::chroot::SESSION_NOFLAGS);
+                   sbuild::chroot::facet::facet::SESSION_NOFLAGS);
 
 #ifdef SBUILD_FEATURE_UNION
     CPPUNIT_ASSERT(chroot_union->get_session_flags() ==
-                   (sbuild::chroot::chroot::SESSION_CREATE |
-                    sbuild::chroot::chroot::SESSION_CLONE));
+                   (sbuild::chroot::facet::facet::SESSION_CREATE |
+                    sbuild::chroot::facet::facet::SESSION_CLONE));
 
     CPPUNIT_ASSERT(session_union->get_session_flags() ==
-                   sbuild::chroot::chroot::SESSION_PURGE);
+                   sbuild::chroot::facet::facet::SESSION_PURGE);
 
     CPPUNIT_ASSERT(source_union->get_session_flags() ==
-                   sbuild::chroot::chroot::SESSION_CREATE);
+                   sbuild::chroot::facet::facet::SESSION_CREATE);
 #endif // SBUILD_FEATURE_UNION
   }
 

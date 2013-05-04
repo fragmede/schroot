@@ -122,7 +122,7 @@ namespace sbuild
         std::string
         get_path () const;
 
-        virtual chroot::session_flags
+        virtual session_flags
         get_session_flags () const;
 
       protected:

@@ -151,16 +151,16 @@ namespace sbuild
           }
       }
 
-      chroot::session_flags
+      facet::session_flags
       custom::get_session_flags () const
       {
-        chroot::session_flags flags = chroot::SESSION_NOFLAGS;
+        session_flags flags = SESSION_NOFLAGS;
 
         // TODO: Only set if purge is set.
 
         if (owner->get_facet<session>() &&
             get_session_purgeable())
-          flags = chroot::SESSION_PURGE;
+          flags = SESSION_PURGE;
 
         return flags;
       }
