@@ -22,8 +22,6 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/auth/auth.h				\
 	lib/sbuild/auth/deny.h				\
 	lib/sbuild/chroot/chroot.h			\
-	lib/sbuild/chroot/custom.h			\
-	lib/sbuild/chroot/directory.h			\
 	lib/sbuild/chroot/facet/custom.h		\
 	lib/sbuild/chroot/facet/directory.h		\
 	lib/sbuild/chroot/facet/directory-base.h	\
@@ -41,8 +39,6 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/chroot/facet/source-setup.h		\
 	lib/sbuild/chroot/facet/storage.h		\
 	lib/sbuild/chroot/facet/userdata.h		\
-	lib/sbuild/chroot/file.h			\
-	lib/sbuild/chroot/plain.h			\
 	lib/sbuild/chroot/config.h			\
 	lib/sbuild/ctty.h				\
 	lib/sbuild/custom-error.h			\
@@ -81,7 +77,6 @@ if BUILD_BLOCKDEV
 lib_sbuild_public_blockdev_base_h_sources =		\
 	lib/sbuild/chroot/facet/block-device-base.h
 lib_sbuild_public_blockdev_h_sources =		\
-	lib/sbuild/chroot/block-device.h	\
 	lib/sbuild/chroot/facet/block-device.h
 endif
 
@@ -89,19 +84,16 @@ if BUILD_LVMSNAP
 lib_sbuild_public_blockdev_base_h_sources =		\
 	lib/sbuild/chroot/facet/block-device-base.h
 lib_sbuild_public_lvmsnap_h_sources =		\
-	lib/sbuild/chroot/lvm-snapshot.h	\
 	lib/sbuild/chroot/facet/lvm-snapshot.h
 endif
 
 if BUILD_BTRFSSNAP
 lib_sbuild_public_btrfssnap_h_sources =			\
-	lib/sbuild/chroot/btrfs-snapshot.h		\
 	lib/sbuild/chroot/facet/btrfs-snapshot.h
 endif
 
 if BUILD_LOOPBACK
 lib_sbuild_public_loopback_h_sources =		\
-	lib/sbuild/chroot/loopback.h		\
 	lib/sbuild/chroot/facet/loopback.h
 endif
 
@@ -119,8 +111,6 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/auth/auth.cc				\
 	lib/sbuild/auth/deny.cc				\
 	lib/sbuild/chroot/chroot.cc			\
-	lib/sbuild/chroot/custom.cc			\
-	lib/sbuild/chroot/directory.cc			\
 	lib/sbuild/chroot/facet/custom.cc		\
 	lib/sbuild/chroot/facet/directory.cc		\
 	lib/sbuild/chroot/facet/directory-base.cc	\
@@ -138,8 +128,6 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/chroot/facet/source-setup.cc		\
 	lib/sbuild/chroot/facet/storage.cc		\
 	lib/sbuild/chroot/facet/userdata.cc		\
-	lib/sbuild/chroot/file.cc			\
-	lib/sbuild/chroot/plain.cc			\
 	lib/sbuild/chroot/config.cc			\
 	lib/sbuild/ctty.cc				\
 	lib/sbuild/environment.cc			\
@@ -171,7 +159,6 @@ if BUILD_BLOCKDEV
 lib_sbuild_public_blockdev_base_cc_sources =		\
 	lib/sbuild/chroot/facet/block-device-base.cc
 lib_sbuild_public_blockdev_cc_sources =		\
-	lib/sbuild/chroot/block-device.cc	\
 	lib/sbuild/chroot/facet/block-device.cc
 endif
 
@@ -179,19 +166,16 @@ if BUILD_LVMSNAP
 lib_sbuild_public_blockdev_base_cc_sources =		\
 	lib/sbuild/chroot/facet/block-device-base.cc
 lib_sbuild_public_lvmsnap_cc_sources =		\
-	lib/sbuild/chroot/lvm-snapshot.cc	\
 	lib/sbuild/chroot/facet/lvm-snapshot.cc
 endif
 
 if BUILD_BTRFSSNAP
 lib_sbuild_public_btrfssnap_cc_sources =		\
-	lib/sbuild/chroot/btrfs-snapshot.cc		\
 	lib/sbuild/chroot/facet/btrfs-snapshot.cc
 endif
 
 if BUILD_LOOPBACK
 lib_sbuild_public_loopback_cc_sources =		\
-	lib/sbuild/chroot/loopback.cc		\
 	lib/sbuild/chroot/facet/loopback.cc
 endif
 
