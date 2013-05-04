@@ -77,10 +77,11 @@ namespace sbuild
       }
 
       void
-      file::set_chroot (chroot& chroot)
+      file::set_chroot (chroot& chroot,
+                        bool    copy)
       {
         storage::set_chroot(chroot);
-        if (!owner->get_facet<source_clonable>())
+        if (!copy && !owner->get_facet<source_clonable>())
           owner->add_facet(source_clonable::create());
       }
 

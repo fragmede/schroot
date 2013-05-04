@@ -75,10 +75,11 @@ namespace sbuild
       }
 
       void
-      lvm_snapshot::set_chroot (chroot& chroot)
+      lvm_snapshot::set_chroot (chroot& chroot,
+                                bool    copy)
       {
-        block_device_base::set_chroot(chroot);
-        if (!owner->get_facet<source_clonable>())
+        block_device_base::set_chroot(chroot, copy);
+        if (!copy && !owner->get_facet<source_clonable>())
           owner->add_facet(source_clonable::create());
       }
 

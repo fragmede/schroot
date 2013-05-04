@@ -60,7 +60,8 @@ namespace sbuild
 
       protected:
         void
-        set_chroot (chroot& chroot);
+        set_chroot (chroot& chroot,
+                    bool    copy);
 
       public:
         /**

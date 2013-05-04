@@ -82,11 +82,12 @@ namespace sbuild
 #endif // SBUILD_FEATURE_LVMSNAP
 
       void
-      block_device::set_chroot (chroot& chroot)
+      block_device::set_chroot (chroot& chroot,
+                                bool    copy)
       {
-        block_device_base::set_chroot(chroot);
+        block_device_base::set_chroot(chroot, copy);
 #ifdef SBUILD_FEATURE_UNION
-        if (!owner->get_facet<fsunion>())
+        if (!copy && !owner->get_facet<fsunion>())
           owner->add_facet(fsunion::create());
 #endif // SBUILD_FEATURE_UNION
       }

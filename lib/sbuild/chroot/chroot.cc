@@ -149,7 +149,7 @@ namespace sbuild
       for (const auto& facet : rhs.facets)
         {
           facet_ptr fp = facet->clone();
-          fp->set_chroot(*this);
+          fp->set_chroot(*this, true);
           facets.push_back(fp);
         }
     }

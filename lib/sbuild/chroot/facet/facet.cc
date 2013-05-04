@@ -43,7 +43,8 @@ namespace sbuild
       }
 
       void
-      facet::set_chroot (chroot& chroot)
+      facet::set_chroot (chroot& chroot,
+                         bool    copy)
       {
         this->owner = &chroot;
       }

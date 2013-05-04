@@ -54,7 +54,8 @@ namespace sbuild
         loopback (const loopback& rhs);
 
         void
-        set_chroot (chroot& chroot);
+        set_chroot (chroot& chroot,
+                    bool    copy);
 
         friend class chroot;
 

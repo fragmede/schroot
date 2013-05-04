@@ -58,12 +58,19 @@ namespace sbuild
         facet ();
 
         /**
-         * Set containing chroot.
+         * Set containing chroot.  The copy parameter is used to
+         * inform the facet if it is new or a copy; this is intended
+         * to allow additional facets to only be added if the facet is
+         * new, for example, to avoid re-adding removed facets when
+         * copying a chroot.
          *
          * @param chroot the chroot containing this facet.
+         * @param copy true if the facet has been copied, or false if
+         * this is a new instance.
          */
         virtual void
-        set_chroot (chroot& chroot);
+        set_chroot (chroot& chroot,
+                    bool    copy = false);
 
         friend class ::sbuild::chroot::chroot;
 

@@ -72,13 +72,14 @@ namespace sbuild
       }
 
       void
-      loopback::set_chroot (chroot& chroot)
+      loopback::set_chroot (chroot& chroot,
+                            bool    copy)
       {
         storage::set_chroot(chroot);
-        if (!owner->get_facet<mountable>())
+        if (!copy && !owner->get_facet<mountable>())
           owner->add_facet(mountable::create());
 #ifdef SBUILD_FEATURE_UNION
-        if (!owner->get_facet<fsunion>())
+        if (!copy && !owner->get_facet<fsunion>())
           owner->add_facet(fsunion::create());
 #endif // SBUILD_FEATURE_UNION
       }

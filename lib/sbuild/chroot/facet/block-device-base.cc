@@ -55,10 +55,11 @@ namespace sbuild
       }
 
       void
-      block_device_base::set_chroot (chroot& chroot)
+      block_device_base::set_chroot (chroot& chroot,
+                                     bool    copy)
       {
-        facet::set_chroot(chroot);
-        if (!this->owner->get_facet<mountable>())
+        facet::set_chroot(chroot, copy);
+        if (!copy && !this->owner->get_facet<mountable>())
           this->owner->add_facet(mountable::create());
       }
 

@@ -78,11 +78,12 @@ namespace sbuild
 #endif // SBUILD_FEATURE_BTRFSSNAP
 
       void
-      directory::set_chroot (chroot& chroot)
+      directory::set_chroot (chroot& chroot,
+                             bool    copy)
       {
         directory_base::set_chroot(chroot);
 #ifdef SBUILD_FEATURE_UNION
-        if (!owner->get_facet<fsunion>())
+        if (!copy && !owner->get_facet<fsunion>())
           owner->add_facet(fsunion::create());
 #endif // SBUILD_FEATURE_UNION
       }

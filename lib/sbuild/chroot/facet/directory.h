@@ -60,7 +60,8 @@ namespace sbuild
 #endif // SBUILD_FEATURE_BTRFSSNAP
 
         void
-        set_chroot (chroot& chroot);
+        set_chroot (chroot& chroot,
+                    bool    copy);
 
         friend class chroot;
 #ifdef SBUILD_FEATURE_BTRFSSNAP

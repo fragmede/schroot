@@ -55,7 +55,8 @@ namespace sbuild
         btrfs_snapshot (const btrfs_snapshot& rhs);
 
         void
-        set_chroot (chroot& chroot);
+        set_chroot (chroot& chroot,
+                    bool    copy);
 
         friend class chroot;
 

@@ -69,10 +69,12 @@ namespace sbuild
       }
 
       void
-      plain::set_chroot (chroot& chroot)
+      plain::set_chroot (chroot& chroot,
+                         bool    copy)
       {
         directory_base::set_chroot(chroot);
-        owner->remove_facet<session_clonable>();
+        if (!copy)
+          owner->remove_facet<session_clonable>();
       }
 
       std::string const&

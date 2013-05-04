@@ -904,7 +904,7 @@ namespace sbuild
             throw error(type_name<T>(), FACET_PRESENT);
         }
 
-      new_facet->set_chroot(*this);
+      new_facet->set_chroot(*this, false);
       facets.push_back(new_facet);
     }
 
