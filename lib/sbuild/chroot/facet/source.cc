@@ -42,6 +42,7 @@ namespace sbuild
           {
             "source",
             N_("Support for source chroots"),
+            false,
             []() -> facet::ptr { return source::create(); }
           };
 

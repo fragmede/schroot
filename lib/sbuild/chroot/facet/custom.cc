@@ -49,6 +49,7 @@ namespace sbuild
           {
             "custom",
             N_("Support for ‘custom’ chroots"),
+            false,
             []() -> facet::ptr { return custom::create(); }
           };
 

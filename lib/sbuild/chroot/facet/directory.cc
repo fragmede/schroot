@@ -48,6 +48,7 @@ namespace sbuild
           {
             "directory",
             N_("Support for ‘directory’ chroots"),
+            false,
             []() -> facet::ptr { return directory::create(); }
           };
 

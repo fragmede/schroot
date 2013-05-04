@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <iostream>
+#include <ostream>
 
 #include <sbuild/chroot/facet/factory.h>
 #include <sbuild/i18n.h>
@@ -64,6 +64,20 @@ namespace sbuild
         if (info == facets.end())
           throw chroot::error(name, chroot::FACET_INVALID);
         ret = info->second->create();
+
+        return ret;
+      }
+
+      std::vector<facet::ptr>
+      factory::create_auto ()
+      {
+        std::vector<facet::ptr> ret;
+
+        for (const auto& facet : registered_facets())
+          {
+            if (facet.second->auto_install)
+              ret.push_back(facet.second->create());
+          }
 
         return ret;
       }

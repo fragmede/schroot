@@ -45,6 +45,7 @@ namespace sbuild
           {
             "mountable",
             N_("Support for filesystem mounting"),
+            false,
             []() -> facet::ptr { return mountable::create(); }
           };
 

@@ -98,6 +98,7 @@ namespace
     {
       "test",
       "Support for ‘test’ chroots",
+      false,
       []() -> sbuild::chroot::facet::facet::ptr { return test_chroot_facet::create(); }
     };
 

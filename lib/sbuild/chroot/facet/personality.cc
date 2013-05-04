@@ -41,6 +41,7 @@ namespace sbuild
           {
             "personality",
             N_("Linux kernel Application Binary Interface switching"),
+            true,
             []() -> facet::ptr { return personality::create(); }
           };
 

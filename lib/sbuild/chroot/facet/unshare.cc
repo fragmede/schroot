@@ -57,6 +57,7 @@ namespace sbuild
           {
             "unshare",
             N_("Linux dissassociation of shared execution context"),
+            true,
             []() -> facet::ptr { return unshare::create(); }
           };
 

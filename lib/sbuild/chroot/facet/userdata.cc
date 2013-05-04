@@ -83,6 +83,7 @@ namespace sbuild
           {
             "userdata",
             N_("User setting of custom configuration parameters"),
+            true,
             []() -> facet::ptr { return userdata::create(); }
           };
 

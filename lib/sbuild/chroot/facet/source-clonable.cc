@@ -47,6 +47,7 @@ namespace sbuild
           {
             "source-clonable",
             N_("Support for source chroot cloning"),
+            false,
             []() -> facet::ptr { return source_clonable::create(); }
           };
 

@@ -49,6 +49,7 @@ namespace sbuild
           {
             "file",
             N_("Support for ‘file’ chroots"),
+            false,
             []() -> facet::ptr { return file::create(); }
           };
 

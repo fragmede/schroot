@@ -50,6 +50,7 @@ namespace sbuild
           {
             "btrfs-snapshot",
             N_("Support for ‘btrfs-snapshot’ chroots"),
+            false,
             []() -> facet::ptr { return btrfs_snapshot::create(); }
           };
 

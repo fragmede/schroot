@@ -49,6 +49,7 @@ namespace sbuild
           {
             "session-clonable",
             N_("Support for session chroot cloning"),
+            false,
             []() -> facet::ptr { return session_clonable::create(); }
           };
 

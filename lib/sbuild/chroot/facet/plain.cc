@@ -47,6 +47,7 @@ namespace sbuild
           {
             "plain",
             N_("Support for ‘plain’ chroots"),
+            false,
             []() -> facet::ptr { return plain::create(); }
           };
 

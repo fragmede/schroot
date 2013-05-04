@@ -48,6 +48,7 @@ namespace sbuild
           {
             "loopback",
             N_("Support for ‘loopback’ chroots"),
+            false,
             []() -> facet::ptr { return loopback::create(); }
           };
 

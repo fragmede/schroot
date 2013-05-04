@@ -38,8 +38,13 @@ namespace sbuild
       public:
         struct facet_info
         {
+          /// Facet name.
           std::string  name;
+          /// Facet description.
           std::string  description;
+          /// Install in a chroot automatically on chroot creation.
+          bool         auto_install;
+          /// Function to create an instance of this facet.
           facet::ptr (*create)();
         };
 
@@ -52,6 +57,9 @@ namespace sbuild
 
         static facet::ptr
         create (const std::string& name);
+
+        static std::vector<facet::ptr>
+        create_auto ();
 
       private:
         typedef std::map<std::string,const facet_info *> map_type;

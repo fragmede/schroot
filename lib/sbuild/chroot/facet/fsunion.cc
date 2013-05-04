@@ -53,6 +53,7 @@ namespace sbuild
           {
             "union",
             N_("Support for filesystem unioning"),
+            false,
             []() -> facet::ptr { return fsunion::create(); }
           };
 

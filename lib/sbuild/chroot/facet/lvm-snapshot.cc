@@ -49,6 +49,7 @@ namespace sbuild
           {
             "lvm-snapshot",
             N_("Support for ‘lvm-snapshot’ chroots"),
+            false,
             []() -> facet::ptr { return lvm_snapshot::create(); }
           };
 

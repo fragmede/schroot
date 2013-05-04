@@ -53,6 +53,7 @@ namespace sbuild
           {
             "block-device",
             N_("Support for ‘block-device’ chroots"),
+            false,
             []() -> facet::ptr { return block_device::create(); }
           };
 

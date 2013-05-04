@@ -53,6 +53,7 @@ namespace sbuild
           {
             "session",
             N_("Support for session chroots"),
+            false,
             []() -> facet::ptr { return session::create(); }
           };
 
