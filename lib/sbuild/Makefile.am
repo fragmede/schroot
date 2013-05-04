@@ -19,27 +19,6 @@
 lib_LTLIBRARIES = lib/sbuild/libsbuild.la
 
 lib_sbuild_public_h_sources =				\
-	lib/sbuild/auth/auth.h				\
-	lib/sbuild/auth/deny.h				\
-	lib/sbuild/chroot/chroot.h			\
-	lib/sbuild/chroot/facet/custom.h		\
-	lib/sbuild/chroot/facet/directory.h		\
-	lib/sbuild/chroot/facet/directory-base.h	\
-	lib/sbuild/chroot/facet/facet.h			\
-	lib/sbuild/chroot/facet/factory.h		\
-	lib/sbuild/chroot/facet/file.h			\
-	lib/sbuild/chroot/facet/mountable.h		\
-	lib/sbuild/chroot/facet/personality.h		\
-	lib/sbuild/chroot/facet/plain.h			\
-	lib/sbuild/chroot/facet/session.h		\
-	lib/sbuild/chroot/facet/session-clonable.h	\
-	lib/sbuild/chroot/facet/session-setup.h		\
-	lib/sbuild/chroot/facet/source.h		\
-	lib/sbuild/chroot/facet/source-clonable.h	\
-	lib/sbuild/chroot/facet/source-setup.h		\
-	lib/sbuild/chroot/facet/storage.h		\
-	lib/sbuild/chroot/facet/userdata.h		\
-	lib/sbuild/chroot/config.h			\
 	lib/sbuild/ctty.h				\
 	lib/sbuild/custom-error.h			\
 	lib/sbuild/environment.h			\
@@ -64,6 +43,33 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/session.h				\
 	lib/sbuild/types.h				\
 	lib/sbuild/util.h
+
+lib_sbuild_auth_public_h_sources =			\
+	lib/sbuild/auth/auth.h				\
+	lib/sbuild/auth/deny.h
+
+lib_sbuild_chroot_public_h_sources =			\
+	lib/sbuild/chroot/chroot.h			\
+	lib/sbuild/chroot/config.h
+
+lib_sbuild_chroot_facet_public_h_sources =		\
+	lib/sbuild/chroot/facet/custom.h		\
+	lib/sbuild/chroot/facet/directory.h		\
+	lib/sbuild/chroot/facet/directory-base.h	\
+	lib/sbuild/chroot/facet/facet.h			\
+	lib/sbuild/chroot/facet/factory.h		\
+	lib/sbuild/chroot/facet/file.h			\
+	lib/sbuild/chroot/facet/mountable.h		\
+	lib/sbuild/chroot/facet/personality.h		\
+	lib/sbuild/chroot/facet/plain.h			\
+	lib/sbuild/chroot/facet/session.h		\
+	lib/sbuild/chroot/facet/session-clonable.h	\
+	lib/sbuild/chroot/facet/session-setup.h		\
+	lib/sbuild/chroot/facet/source.h		\
+	lib/sbuild/chroot/facet/source-clonable.h	\
+	lib/sbuild/chroot/facet/source-setup.h		\
+	lib/sbuild/chroot/facet/storage.h		\
+	lib/sbuild/chroot/facet/userdata.h
 
 if BUILD_PAM
 lib_sbuild_public_auth_pam_h_sources =	\
@@ -190,9 +196,22 @@ lib_sbuild_public_unshare_cc_sources =	\
 endif
 
 pkgincludedir = $(includedir)/sbuild
+pkgincludeauthdir = $(includedir)/sbuild/auth
+pkgincludechrootdir = $(includedir)/sbuild/chroot
+pkgincludefacetdir = $(includedir)/sbuild/chroot/facet
 
 pkginclude_HEADERS =					\
-	$(lib_sbuild_public_h_sources)			\
+	$(lib_sbuild_public_h_sources)
+
+pkgincludeauth_HEADERS =				\
+	$(lib_sbuild_auth_public_h_sources)		\
+	$(lib_sbuild_public_auth_pam_h_sources)
+
+pkgincludechroot_HEADERS =				\
+	$(lib_sbuild_chroot_public_h_sources)
+
+pkgincludefacet_HEADERS =				\
+	$(lib_sbuild_chroot_facet_public_h_sources)	\
 	$(lib_sbuild_public_blockdev_base_h_sources)	\
 	$(lib_sbuild_public_blockdev_h_sources)		\
 	$(lib_sbuild_public_lvmsnap_h_sources)		\
@@ -231,8 +250,8 @@ pkgconfigdatadir = $(libdir)/pkgconfig
 pkgconfigdata_DATA = lib/sbuild/sbuild.pc
 
 # Uncommment to build an unversioned library (version in soname)
-#lib_sbuild_libsbuild_version = -release $(SBUILD_VERSION)
+lib_sbuild_libsbuild_version = -release $(VERSION)
 # Uncomment to build a versioned library
-lib_sbuild_libsbuild_version = -version-info $(SBUILD_CURRENT_INTERFACE):$(SBUILD_INTERFACE_AGE):$(SBUILD_BINARY_AGE)
-lib_sbuild_libsbuild_la_LDFLAGS = $(libsbuild_version) \
+#lib_sbuild_libsbuild_version = -version-info $(SBUILD_CURRENT_INTERFACE):$(SBUILD_INTERFACE_AGE):$(SBUILD_BINARY_AGE)
+lib_sbuild_libsbuild_la_LDFLAGS = $(lib_sbuild_libsbuild_version) \
         -rpath $(libdir) -no-undefined
