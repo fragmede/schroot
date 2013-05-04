@@ -25,7 +25,6 @@
 
 using std::endl;
 using boost::format;
-using namespace schroot;
 
 /**
  * Main routine.

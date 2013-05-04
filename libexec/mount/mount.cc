@@ -18,16 +18,14 @@
 
 #include <config.h>
 
-#include <mount/options.h>
-#include <mount/main.h>
+#include <libexec/mount/options.h>
+#include <libexec/mount/main.h>
 
 #include <bin-common/run.h>
 
 using std::endl;
 using boost::format;
 namespace opt = boost::program_options;
-
-using namespace schroot_mount;
 
 /**
  * Main routine.

@@ -35,43 +35,47 @@
 using std::endl;
 using boost::format;
 using sbuild::_;
-using namespace schroot;
 
-main::main (schroot_common::options::ptr& options):
-  schroot_common::main("schroot",
-                       _("[OPTION…] [COMMAND] — run command or shell in a chroot"),
-                       options,
-                       true)
+namespace schroot
 {
-}
 
-main::~main ()
-{
-}
+  main::main (schroot_common::options::ptr& options):
+    schroot_common::main("schroot",
+                         _("[OPTION…] [COMMAND] — run command or shell in a chroot"),
+                         options,
+                         true)
+  {
+  }
 
-void
-main::action_list ()
-{
-  // This list is pre-validated.
-  for (const auto& chroot : this->chroot_names)
-    std::cout << chroot << '\n';
-  std::cout << std::flush;
-}
+  main::~main ()
+  {
+  }
 
-void
-main::create_session(sbuild::session::operation sess_op)
-{
-  sbuild::log_debug(sbuild::DEBUG_INFO) << "Creating schroot session" << endl;
+  void
+  main::action_list ()
+  {
+    // This list is pre-validated.
+    for (const auto& chroot : this->chroot_names)
+      std::cout << chroot << '\n';
+    std::cout << std::flush;
+  }
 
-  this->session = sbuild::session::ptr
-    (new sbuild::session("schroot", sess_op, this->chroot_objects));
-}
+  void
+  main::create_session(sbuild::session::operation sess_op)
+  {
+    sbuild::log_debug(sbuild::DEBUG_INFO) << "Creating schroot session" << endl;
 
-void
-main::add_session_auth ()
-{
-  schroot_common::main::add_session_auth();
+    this->session = sbuild::session::ptr
+      (new sbuild::session("schroot", sess_op, this->chroot_objects));
+  }
 
-  if (!this->options->user.empty())
-    this->session->get_auth()->set_user(this->options->user);
+  void
+  main::add_session_auth ()
+  {
+    schroot_common::main::add_session_auth();
+
+    if (!this->options->user.empty())
+      this->session->get_auth()->set_user(this->options->user);
+  }
+
 }

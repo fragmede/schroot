@@ -32,76 +32,80 @@ using std::endl;
 using sbuild::_;
 using boost::format;
 namespace opt = boost::program_options;
-using namespace dchroot_dsa;
 
-options::options ():
-  schroot_common::options()
+namespace dchroot_dsa
 {
-}
 
-options::~options ()
-{
-}
+  options::options ():
+    schroot_common::options()
+  {
+  }
 
-void
-options::add_options ()
-{
-  // Chain up to add general schroot options.
-  schroot_common::options::add_options();
+  options::~options ()
+  {
+  }
 
-  actions.add_options()
-    ("listpaths,p",
-     _("Print paths to available chroots"));
+  void
+  options::add_options ()
+  {
+    // Chain up to add general schroot options.
+    schroot_common::options::add_options();
 
-  chroot.add_options()
-    ("all,a",
-     _("Select all chroots"));
+    actions.add_options()
+      ("listpaths,p",
+       _("Print paths to available chroots"));
 
-  chrootenv.add_options()
-    ("directory,d", opt::value<std::string>(&this->directory),
-     _("Directory to use"));
-}
+    chroot.add_options()
+      ("all,a",
+       _("Select all chroots"));
 
-void
-options::check_options ()
-{
-  // Chain up to check general schroot options.
-  schroot_common::options::check_options();
+    chrootenv.add_options()
+      ("directory,d", opt::value<std::string>(&this->directory),
+       _("Directory to use"));
+  }
 
-  if (vm.count("listpaths"))
-    this->action = ACTION_LOCATION;
+  void
+  options::check_options ()
+  {
+    // Chain up to check general schroot options.
+    schroot_common::options::check_options();
 
-  if (vm.count("all"))
-    {
-      this->all = false;
-      this->all_chroots = true;
-      this->all_sessions = false;
-    }
+    if (vm.count("listpaths"))
+      this->action = ACTION_LOCATION;
 
-  // Always preserve environment.
-  this->preserve = true;
+    if (vm.count("all"))
+      {
+        this->all = false;
+        this->all_chroots = true;
+        this->all_sessions = false;
+      }
 
-  // If no chroots specified, use the first non-option.
-  if (this->chroots.empty() && !this->command.empty())
-    {
-      this->chroots.push_back(this->command[0]);
-      this->command.erase(this->command.begin());
-    }
+    // Always preserve environment.
+    this->preserve = true;
 
-  // dchroot-dsa only allows one command.
-  if (this->command.size() > 1)
-    throw error(_("Only one command may be specified"));
+    // If no chroots specified, use the first non-option.
+    if (this->chroots.empty() && !this->command.empty())
+      {
+        this->chroots.push_back(this->command[0]);
+        this->command.erase(this->command.begin());
+      }
 
-  if (!this->command.empty() &&
-      !sbuild::is_absname(this->command[0]))
-    throw error(_("Command must have an absolute path"));
+    // dchroot-dsa only allows one command.
+    if (this->command.size() > 1)
+      throw error(_("Only one command may be specified"));
 
-  if (this->chroots.empty() && !all_used() &&
-      (this->action != ACTION_CONFIG &&
-       this->action != ACTION_INFO &&
-       this->action != ACTION_LIST &&
-       this->action != ACTION_LOCATION &&
-       this->action != ACTION_HELP &&
-       this->action != ACTION_VERSION))
-    throw error(_("No chroot specified"));
+    if (!this->command.empty() &&
+        !sbuild::is_absname(this->command[0]))
+      throw error(_("Command must have an absolute path"));
+
+    if (this->chroots.empty() && !all_used() &&
+        (this->action != ACTION_CONFIG &&
+         this->action != ACTION_INFO &&
+         this->action != ACTION_LIST &&
+         this->action != ACTION_LOCATION &&
+         this->action != ACTION_HELP &&
+         this->action != ACTION_VERSION))
+      throw error(_("No chroot specified"));
+  }
+
 }

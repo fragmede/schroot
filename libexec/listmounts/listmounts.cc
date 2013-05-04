@@ -18,16 +18,14 @@
 
 #include <config.h>
 
-#include <listmounts/options.h>
-#include <listmounts/main.h>
+#include <libexec/listmounts/options.h>
+#include <libexec/listmounts/main.h>
 
 #include <bin-common/run.h>
 
 using std::endl;
 using boost::format;
 namespace opt = boost::program_options;
-
-using namespace schroot_listmounts;
 
 /**
  * Main routine.

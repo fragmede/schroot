@@ -37,87 +37,91 @@ using std::cout;
 using std::endl;
 using sbuild::_;
 using boost::format;
-using namespace dchroot;
 
-session::session (std::string const&                  service,
-                  operation                           operation,
-                  sbuild::session::chroot_list const& chroots):
-  dchroot_common::session(service, operation, chroots)
+namespace dchroot
 {
-}
 
-session::~session ()
-{
-}
+  session::session (std::string const&                  service,
+                    operation                           operation,
+                    sbuild::session::chroot_list const& chroots):
+    dchroot_common::session(service, operation, chroots)
+  {
+  }
 
-sbuild::string_list
-session::get_login_directories (sbuild::chroot::chroot::ptr& session_chroot,
-                                sbuild::environment const&   env) const
-{
-  sbuild::string_list ret;
+  session::~session ()
+  {
+  }
 
-  std::string const& wd(get_auth()->get_wd());
-  if (!wd.empty())
-    {
-      // Set specified working directory.
-      ret.push_back(wd);
-    }
-  else
-    {
-      // Set current working directory only if preserving environment.
-      // Only change to home if not preserving the environment.
-      if (get_preserve_environment() ||
-          session_chroot->get_preserve_environment())
-        ret.push_back(this->sbuild::session::cwd);
-      else
-        ret.push_back(get_auth()->get_home());
+  sbuild::string_list
+  session::get_login_directories (sbuild::chroot::chroot::ptr& session_chroot,
+                                  sbuild::environment const&   env) const
+  {
+    sbuild::string_list ret;
 
-      // Final fallback to root.
-      if (std::find(ret.begin(), ret.end(), "/") == ret.end())
-        ret.push_back("/");
-    }
+    std::string const& wd(get_auth()->get_wd());
+    if (!wd.empty())
+      {
+        // Set specified working directory.
+        ret.push_back(wd);
+      }
+    else
+      {
+        // Set current working directory only if preserving environment.
+        // Only change to home if not preserving the environment.
+        if (get_preserve_environment() ||
+            session_chroot->get_preserve_environment())
+          ret.push_back(this->sbuild::session::cwd);
+        else
+          ret.push_back(get_auth()->get_home());
 
-  return ret;
-}
+        // Final fallback to root.
+        if (std::find(ret.begin(), ret.end(), "/") == ret.end())
+          ret.push_back("/");
+      }
 
-void
-session::get_user_command (sbuild::chroot::chroot::ptr& session_chroot,
-                           std::string&                 file,
-                           sbuild::string_list&         command,
-                           sbuild::environment const&   env) const
-{
-  std::string programstring = sbuild::string_list_to_string(command, " ");
+    return ret;
+  }
 
-  command.clear();
-  command.push_back("/bin/sh");
-  command.push_back("-c");
-  command.push_back(programstring);
+  void
+  session::get_user_command (sbuild::chroot::chroot::ptr& session_chroot,
+                             std::string&                 file,
+                             sbuild::string_list&         command,
+                             sbuild::environment const&   env) const
+  {
+    std::string programstring = sbuild::string_list_to_string(command, " ");
 
-  file = command[0];
+    command.clear();
+    command.push_back("/bin/sh");
+    command.push_back("-c");
+    command.push_back(programstring);
 
-  sbuild::log_debug(sbuild::DEBUG_NOTICE) << "file=" << file << endl;
+    file = command[0];
 
-  std::string commandstring = sbuild::string_list_to_string(command, " ");
-  sbuild::log_debug(sbuild::DEBUG_NOTICE)
-    << format("Running command: %1%") % commandstring << endl;
-  if (get_auth()->get_uid() == 0 ||
-      get_auth()->get_ruid() != get_auth()->get_uid())
-    syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
-           session_chroot->get_name().c_str(),
-           get_auth()->get_ruser().c_str(),
-           get_auth()->get_user().c_str(),
-           commandstring.c_str());
+    sbuild::log_debug(sbuild::DEBUG_NOTICE) << "file=" << file << endl;
 
-  if (session_chroot->get_verbosity() != sbuild::chroot::chroot::VERBOSITY_QUIET)
-    {
-      std::string format_string;
-      // TRANSLATORS: %1% = chroot name
-      // TRANSLATORS: %2% = command
-      format_string = (_("[%1% chroot] Running command: “%2%”"));
+    std::string commandstring = sbuild::string_list_to_string(command, " ");
+    sbuild::log_debug(sbuild::DEBUG_NOTICE)
+      << format("Running command: %1%") % commandstring << endl;
+    if (get_auth()->get_uid() == 0 ||
+        get_auth()->get_ruid() != get_auth()->get_uid())
+      syslog(LOG_USER|LOG_NOTICE, "[%s chroot] (%s->%s) Running command: \"%s\"",
+             session_chroot->get_name().c_str(),
+             get_auth()->get_ruser().c_str(),
+             get_auth()->get_user().c_str(),
+             commandstring.c_str());
 
-      format fmt(format_string);
-      fmt % session_chroot->get_name()
-        % programstring;
-      sbuild::log_info() << fmt << endl;
-    }
+    if (session_chroot->get_verbosity() != sbuild::chroot::chroot::VERBOSITY_QUIET)
+      {
+        std::string format_string;
+        // TRANSLATORS: %1% = chroot name
+        // TRANSLATORS: %2% = command
+        format_string = (_("[%1% chroot] Running command: “%2%”"));
+
+        format fmt(format_string);
+        fmt % session_chroot->get_name()
+          % programstring;
+        sbuild::log_info() << fmt << endl;
+      }
+  }
+
 }

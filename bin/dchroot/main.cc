@@ -35,28 +35,32 @@
 using std::endl;
 using sbuild::_;
 using boost::format;
-using namespace dchroot;
 
-main::main (schroot_common::options::ptr& options):
-  dchroot_common::main("dchroot",
-                       // TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
-                       // is an em-dash.
-                       _("[OPTION…] [COMMAND] — run command or shell in a chroot"),
-                       options)
+namespace dchroot
 {
-}
 
-main::~main ()
-{
-}
+  main::main (schroot_common::options::ptr& options):
+    dchroot_common::main("dchroot",
+                         // TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
+                         // is an em-dash.
+                         _("[OPTION…] [COMMAND] — run command or shell in a chroot"),
+                         options)
+  {
+  }
 
-void
-main::create_session (sbuild::session::operation sess_op)
-{
-  sbuild::log_debug(sbuild::DEBUG_INFO) << "Creating dchroot session" << endl;
+  main::~main ()
+  {
+  }
 
-  this->session = sbuild::session::ptr
-    (new dchroot::session("schroot",
-                          sess_op,
-                          this->chroot_objects));
+  void
+  main::create_session (sbuild::session::operation sess_op)
+  {
+    sbuild::log_debug(sbuild::DEBUG_INFO) << "Creating dchroot session" << endl;
+
+    this->session = sbuild::session::ptr
+      (new dchroot::session("schroot",
+                            sess_op,
+                            this->chroot_objects));
+  }
+
 }

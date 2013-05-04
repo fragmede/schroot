@@ -25,7 +25,6 @@
 
 using std::endl;
 using boost::format;
-using namespace dchroot;
 
 /**
  * Main routine.
