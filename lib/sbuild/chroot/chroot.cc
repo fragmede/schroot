@@ -20,31 +20,14 @@
 
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/config.h>
-#include <sbuild/chroot/directory.h>
-#include <sbuild/chroot/plain.h>
-#include <sbuild/chroot/custom.h>
-#include <sbuild/chroot/file.h>
-#ifdef SBUILD_FEATURE_BLOCKDEV
-#include <sbuild/chroot/block-device.h>
-#endif // SBUILD_FEATURE_BLOCKDEV
-#ifdef SBUILD_FEATURE_LOOPBACK
-#include <sbuild/chroot/loopback.h>
-#endif // SBUILD_FEATURE_LOOPBACK
-#ifdef SBUILD_FEATURE_LVMSNAP
-#include <sbuild/chroot/lvm-snapshot.h>
-#endif // SBUILD_FEATURE_LVMSNAP
-#ifdef SBUILD_FEATURE_BTRFSSNAP
-#include <sbuild/chroot/btrfs-snapshot.h>
-#endif // SBUILD_FEATURE_BTRFSSNAP
 #include <sbuild/chroot/facet/facet.h>
+#include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/personality.h>
 #include <sbuild/chroot/facet/plain.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
-#include <sbuild/chroot/facet/session-setup.h>
 #include <sbuild/chroot/facet/source.h>
 #include <sbuild/chroot/facet/source-clonable.h>
-#include <sbuild/chroot/facet/source-setup.h>
 #include <sbuild/chroot/facet/storage.h>
 #include <sbuild/chroot/facet/userdata.h>
 #ifdef SBUILD_FEATURE_UNSHARE
@@ -162,39 +145,17 @@ namespace sbuild
     chroot::ptr
     chroot::create (std::string const& type)
     {
-      chroot *new_chroot = 0;
+      facet::facet::ptr fac = facet::factory::create(type);
+      facet::storage::ptr store = std::dynamic_pointer_cast<facet::storage>(fac);
 
-      if (type == "directory")
-        new_chroot = new directory();
-      else if (type == "plain")
-        new_chroot = new plain();
-      else if (type == "custom")
-        new_chroot = new custom();
-      else if (type == "file")
-        new_chroot = new file();
-#ifdef SBUILD_FEATURE_BLOCKDEV
-      else if (type == "block-device")
-        new_chroot = new block_device();
-#endif // SBUILD_FEATURE_BLOCKDEV
-#ifdef SBUILD_FEATURE_LOOPBACK
-      else if (type == "loopback")
-        new_chroot = new loopback();
-#endif // SBUILD_FEATURE_LOOPBACK
-#ifdef SBUILD_FEATURE_LVMSNAP
-      else if (type == "lvm-snapshot")
-        new_chroot = new lvm_snapshot();
-#endif // SBUILD_FEATURE_LVMSNAP
-#ifdef SBUILD_FEATURE_BTRFSSNAP
-      else if (type == "btrfs-snapshot")
-        new_chroot = new btrfs_snapshot();
-#endif // SBUILD_FEATURE_BTRFSSNAP
-      else
+      if (!store)
         throw error(type, CHROOT_TYPE);
 
-      if (new_chroot == 0)
-        throw error(CHROOT_CREATE);
 
-      return ptr(new_chroot);
+      chroot::ptr new_chroot(new chroot());
+      new_chroot->add_facet(store);
+
+      return new_chroot;
     }
 
     chroot::ptr
