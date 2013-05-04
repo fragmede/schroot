@@ -40,11 +40,12 @@ namespace sbuild
     {
 
       /**
-       * Common chroot data.  This class contains all of the metadata
-       * associated with a single chroot, for all chroot types.  This is
-       * the in-core representation of a chroot definition in the
-       * configuration file, and may be initialised directly from an open
-       * keyfile.
+       * Base class for all facets.  This class provides the basic
+       * interfaces and properties required for all facets.  All
+       * facets must be derived from this type.  Note that this class
+       * can not be used independently of a chroot, and most methods
+       * can not be called until the instance is installed in a chroot
+       * instance using chroot::add_facet() or related methods.
        */
       class facet
       {
