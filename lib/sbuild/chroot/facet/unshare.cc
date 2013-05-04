@@ -192,8 +192,7 @@ namespace sbuild
       }
 
       void
-      unshare::setup_env (chroot const& chroot,
-                          environment&  env) const
+      unshare::setup_env (environment& env) const
       {
         env.add("UNSHARE_NET", get_unshare_net());
         env.add("UNSHARE_SYSVIPC", get_unshare_sysvipc());
@@ -202,8 +201,7 @@ namespace sbuild
       }
 
       void
-      unshare::get_details (chroot const&  chroot,
-                            format_detail& detail) const
+      unshare::get_details (format_detail& detail) const
       {
         detail.add(_("Unshare Networking"), get_unshare_net());
         detail.add(_("Unshare System V IPC"), get_unshare_sysvipc());
@@ -221,34 +219,32 @@ namespace sbuild
       }
 
       void
-      unshare::get_keyfile (chroot const& chroot,
-                            keyfile&      keyfile) const
+      unshare::get_keyfile (keyfile& keyfile) const
       {
         keyfile::set_object_value(*this, &unshare::get_unshare_net,
-                                  keyfile, chroot.get_name(), "unshare.net");
+                                  keyfile, owner->get_name(), "unshare.net");
         keyfile::set_object_value(*this, &unshare::get_unshare_sysvipc,
-                                  keyfile, chroot.get_name(), "unshare.sysvipc");
+                                  keyfile, owner->get_name(), "unshare.sysvipc");
         keyfile::set_object_value(*this, &unshare::get_unshare_sysvsem,
-                                  keyfile, chroot.get_name(), "unshare.sysvsem");
+                                  keyfile, owner->get_name(), "unshare.sysvsem");
         keyfile::set_object_value(*this, &unshare::get_unshare_uts,
-                                  keyfile, chroot.get_name(), "unshare.uts");
+                                  keyfile, owner->get_name(), "unshare.uts");
       }
 
       void
-      unshare::set_keyfile (chroot&        chroot,
-                            keyfile const& keyfile)
+      unshare::set_keyfile (keyfile const& keyfile)
       {
         keyfile::get_object_value(*this, &unshare::set_unshare_net,
-                                  keyfile, chroot.get_name(), "unshare.net",
+                                  keyfile, owner->get_name(), "unshare.net",
                                   keyfile::PRIORITY_OPTIONAL);
         keyfile::get_object_value(*this, &unshare::set_unshare_sysvipc,
-                                  keyfile, chroot.get_name(), "unshare.sysvipc",
+                                  keyfile, owner->get_name(), "unshare.sysvipc",
                                   keyfile::PRIORITY_OPTIONAL);
         keyfile::get_object_value(*this, &unshare::set_unshare_sysvsem,
-                                  keyfile, chroot.get_name(), "unshare.sysvsem",
+                                  keyfile, owner->get_name(), "unshare.sysvsem",
                                   keyfile::PRIORITY_OPTIONAL);
         keyfile::get_object_value(*this, &unshare::set_unshare_uts,
-                                  keyfile, chroot.get_name(), "unshare.uts",
+                                  keyfile, owner->get_name(), "unshare.uts",
                                   keyfile::PRIORITY_OPTIONAL);
       }
 

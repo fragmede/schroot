@@ -134,10 +134,9 @@ namespace sbuild
       }
 
       void
-      loopback::setup_env (chroot const& chroot,
-                           environment&  env) const
+      loopback::setup_env (environment& env) const
       {
-        storage::setup_env(chroot, env);
+        storage::setup_env(env);
 
         env.add("CHROOT_FILE", get_filename());
       }
@@ -171,10 +170,9 @@ namespace sbuild
       }
 
       void
-      loopback::get_details (chroot const&  chroot,
-                             format_detail& detail) const
+      loopback::get_details (format_detail& detail) const
       {
-        storage::get_details(chroot, detail);
+        storage::get_details(detail);
 
         if (!this->filename.empty())
           detail.add(_("File"), get_filename());
@@ -189,23 +187,21 @@ namespace sbuild
       }
 
       void
-      loopback::get_keyfile (chroot const& chroot,
-                             keyfile&      keyfile) const
+      loopback::get_keyfile (keyfile& keyfile) const
       {
-        storage::get_keyfile(chroot, keyfile);
+        storage::get_keyfile(keyfile);
 
         keyfile::set_object_value(*this, &loopback::get_filename,
-                                  keyfile, chroot.get_name(), "file");
+                                  keyfile, owner->get_name(), "file");
       }
 
       void
-      loopback::set_keyfile (chroot&        chroot,
-                             keyfile const& keyfile)
+      loopback::set_keyfile (keyfile const& keyfile)
       {
-        storage::set_keyfile(chroot, keyfile);
+        storage::set_keyfile(keyfile);
 
         keyfile::get_object_value(*this, &loopback::set_filename,
-                                  keyfile, chroot.get_name(), "file",
+                                  keyfile, owner->get_name(), "file",
                                   keyfile::PRIORITY_REQUIRED);
       }
 

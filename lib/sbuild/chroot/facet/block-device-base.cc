@@ -93,15 +93,13 @@ namespace sbuild
       }
 
       void
-      block_device_base::setup_env (chroot const& chroot,
-                                    environment& env) const
+      block_device_base::setup_env (environment& env) const
       {
         env.add("CHROOT_DEVICE", get_device());
       }
 
       void
-      block_device_base::get_details (chroot const& chroot,
-                                      format_detail& detail) const
+      block_device_base::get_details (format_detail& detail) const
       {
         if (!this->device.empty())
           detail.add(_("Device"), get_device());
@@ -114,19 +112,17 @@ namespace sbuild
       }
 
       void
-      block_device_base::get_keyfile (chroot const& chroot,
-                                      keyfile&      keyfile) const
+      block_device_base::get_keyfile (keyfile& keyfile) const
       {
         keyfile::set_object_value(*this, &block_device_base::get_device,
-                                  keyfile, chroot.get_name(), "device");
+                                  keyfile, owner->get_name(), "device");
       }
 
       void
-      block_device_base::set_keyfile (chroot&        chroot,
-                                      keyfile const& keyfile)
+      block_device_base::set_keyfile (keyfile const& keyfile)
       {
         keyfile::get_object_value(*this, &block_device_base::set_device,
-                                  keyfile, chroot.get_name(), "device",
+                                  keyfile, owner->get_name(), "device",
                                   keyfile::PRIORITY_REQUIRED);
       }
 

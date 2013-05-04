@@ -68,15 +68,13 @@ namespace sbuild
       }
 
       void
-      directory_base::setup_env (chroot const& chroot,
-                                 environment& env) const
+      directory_base::setup_env (environment& env) const
       {
         env.add("CHROOT_DIRECTORY", get_directory());
       }
 
       void
-      directory_base::get_details (chroot const& chroot,
-                                   format_detail& detail) const
+      directory_base::get_details (format_detail& detail) const
       {
         detail.add(_("Directory"), get_directory());
       }
@@ -89,29 +87,27 @@ namespace sbuild
       }
 
       void
-      directory_base::get_keyfile (chroot const& chroot,
-                                   keyfile& keyfile) const
+      directory_base::get_keyfile (keyfile& keyfile) const
       {
         keyfile::set_object_value(*this, &directory_base::get_directory,
-                                  keyfile, chroot.get_name(), "directory");
+                                  keyfile, owner->get_name(), "directory");
       }
 
       void
-      directory_base::set_keyfile (chroot&        chroot,
-                                   keyfile const& keyfile)
+      directory_base::set_keyfile (keyfile const& keyfile)
       {
         // "directory" should be required, but we also accept "location" as
         // an alternative (but deprecated) variant.  Therefore, ensure by
         // hand that one of them is defined, but not both.
 
-        bool directory_key = keyfile.has_key(chroot.get_name(), "directory");
-        bool location_key = keyfile.has_key(chroot.get_name(), "location");
+        bool directory_key = keyfile.has_key(owner->get_name(), "directory");
+        bool location_key = keyfile.has_key(owner->get_name(), "location");
 
         keyfile::priority directory_priority = keyfile::PRIORITY_OPTIONAL;
         keyfile::priority location_priority = keyfile::PRIORITY_OBSOLETE;
 
         if (!directory_key && !location_key)
-          throw keyfile::error(chroot.get_name(), keyfile::MISSING_KEY_NL, "directory");
+          throw keyfile::error(owner->get_name(), keyfile::MISSING_KEY_NL, "directory");
 
         // Using both keys is not allowed (which one is the correct one?),
         // so force an exception to be thrown when reading the old location
@@ -120,11 +116,11 @@ namespace sbuild
           location_priority = keyfile::PRIORITY_DISALLOWED;
 
         keyfile::get_object_value(*this, &directory_base::set_directory,
-                                  keyfile, chroot.get_name(), "directory",
+                                  keyfile, owner->get_name(), "directory",
                                   directory_priority);
 
         keyfile::get_object_value(*this, &directory_base::set_directory,
-                                  keyfile, chroot.get_name(), "location",
+                                  keyfile, owner->get_name(), "location",
                                   location_priority);
       }
 

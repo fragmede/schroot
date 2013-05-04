@@ -81,23 +81,19 @@ namespace sbuild
         get_name () const;
 
         virtual void
-        setup_env (chroot const& chroot,
-                   environment&  env) const;
+        setup_env (environment& env) const;
 
         virtual void
-        get_details (chroot const&  chroot,
-                     format_detail& detail) const;
+        get_details (format_detail& detail) const;
 
         virtual void
         get_used_keys (string_list& used_keys) const;
 
         virtual void
-        get_keyfile (chroot const& chroot,
-                     keyfile&      keyfile) const;
+        get_keyfile (keyfile& keyfile) const;
 
         virtual void
-        set_keyfile (chroot&        chroot,
-                     keyfile const& keyfile);
+        set_keyfile (keyfile const& keyfile);
 
 
         template <typename T>

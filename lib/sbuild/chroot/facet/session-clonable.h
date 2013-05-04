@@ -66,6 +66,9 @@ namespace sbuild
         virtual std::string const&
         get_name () const;
 
+        virtual chroot::session_flags
+        get_session_flags () const;
+
         /**
          * Clone a session chroot.
          *
@@ -80,9 +83,6 @@ namespace sbuild
                        std::string const& alias,
                        std::string const& user,
                        bool               root) const;
-
-        virtual chroot::session_flags
-        get_session_flags (chroot const& chroot) const;
       };
 
     }

@@ -170,8 +170,7 @@ namespace sbuild
       }
 
       void
-      session::setup_env (chroot const& chroot,
-                          environment&  env) const
+      session::setup_env (environment& env) const
       {
         // Add original name to environment, but only if set (otherwise
         // defaults to session ID).
@@ -183,15 +182,14 @@ namespace sbuild
       }
 
       void
-      session::get_details (chroot const&  chroot,
-                            format_detail& detail) const
+      session::get_details (format_detail& detail) const
       {
         if (!get_original_name().empty())
           detail.add(_("Original Chroot Name"), get_original_name());
         if (!get_original_name().empty())
           detail.add(_("Selected Chroot Name"), get_selected_name());
-        if (!chroot.get_name().empty())
-          detail.add(_("Session ID"), chroot.get_name());
+        if (!owner->get_name().empty())
+          detail.add(_("Session ID"), owner->get_name());
       }
 
       void
@@ -207,29 +205,27 @@ namespace sbuild
       }
 
       void
-      session::get_keyfile (chroot const& chroot,
-                            keyfile&      keyfile) const
+      session::get_keyfile (keyfile& keyfile) const
       {
         keyfile::set_object_value(*this, &session::get_original_name,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "original-name");
 
         keyfile::set_object_value(*this, &session::get_selected_name,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "selected-name");
       }
 
       void
-      session::set_keyfile (chroot&        chroot,
-                            keyfile const& keyfile)
+      session::set_keyfile (keyfile const& keyfile)
       {
         keyfile::get_object_value(*this, &session::set_original_name,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "original-name",
                                   keyfile::PRIORITY_OPTIONAL);
 
         keyfile::get_object_value(*this, &session::set_selected_name,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "selected-name",
                                   keyfile::PRIORITY_OPTIONAL);
       }

@@ -168,7 +168,7 @@ namespace sbuild
       }
 
       chroot::session_flags
-      session_clonable::get_session_flags (chroot const& chroot) const
+      session_clonable::get_session_flags () const
       {
         return chroot::SESSION_CREATE;
       }

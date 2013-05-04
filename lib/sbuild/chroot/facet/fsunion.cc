@@ -183,8 +183,7 @@ namespace sbuild
       }
 
       void
-      fsunion::setup_env (chroot const& chroot,
-                          environment&  env) const
+      fsunion::setup_env (environment& env) const
       {
         env.add("CHROOT_UNION_TYPE", get_union_type());
         if (get_union_configured())
@@ -199,19 +198,18 @@ namespace sbuild
       }
 
       chroot::session_flags
-      fsunion::get_session_flags (chroot const& chroot) const
+      fsunion::get_session_flags () const
       {
         chroot::session_flags flags = chroot::SESSION_NOFLAGS;
 
-        if (get_union_configured() && chroot.get_facet<session>())
+        if (get_union_configured() && owner->get_facet<session>())
           flags = chroot::SESSION_PURGE;
 
         return flags;
       }
 
       void
-      fsunion::get_details (chroot const& chroot,
-                            format_detail&        detail) const
+      fsunion::get_details (format_detail& detail) const
       {
         detail.add(_("Filesystem Union Type"), get_union_type());
         if (get_union_configured())
@@ -238,59 +236,57 @@ namespace sbuild
       }
 
       void
-      fsunion::get_keyfile (chroot const& chroot,
-                            keyfile&      keyfile) const
+      fsunion::get_keyfile (keyfile& keyfile) const
       {
         keyfile::set_object_value(*this, &fsunion::get_union_type,
-                                  keyfile, chroot.get_name(), "union-type");
+                                  keyfile, owner->get_name(), "union-type");
 
         if (get_union_configured())
           {
             keyfile::set_object_value(*this,
                                       &fsunion::get_union_mount_options,
-                                      keyfile, chroot.get_name(),
+                                      keyfile, owner->get_name(),
                                       "union-mount-options");
 
             keyfile::set_object_value(*this,
                                       &fsunion::get_union_overlay_directory,
-                                      keyfile, chroot.get_name(),
+                                      keyfile, owner->get_name(),
                                       "union-overlay-directory");
 
             keyfile::set_object_value(*this,
                                       &fsunion::get_union_underlay_directory,
-                                      keyfile, chroot.get_name(),
+                                      keyfile, owner->get_name(),
                                       "union-underlay-directory");
           }
       }
 
       void
-      fsunion::set_keyfile (chroot&        chroot,
-                            keyfile const& keyfile)
+      fsunion::set_keyfile (keyfile const& keyfile)
       {
-        bool issession = static_cast<bool>(chroot.get_facet<session>());
+        bool is_session = static_cast<bool>(owner->get_facet<session>());
 
         keyfile::get_object_value(*this, &fsunion::set_union_type,
-                                  keyfile, chroot.get_name(), "union-type",
+                                  keyfile, owner->get_name(), "union-type",
                                   keyfile::PRIORITY_OPTIONAL);
 
         keyfile::get_object_value(*this,
                                   &fsunion::set_union_mount_options,
-                                  keyfile, chroot.get_name(), "union-mount-options",
+                                  keyfile, owner->get_name(), "union-mount-options",
                                   keyfile::PRIORITY_OPTIONAL);
 
         keyfile::get_object_value(*this,
                                   &fsunion::set_union_overlay_directory,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "union-overlay-directory",
-                                  (issession && get_union_configured()) ?
+                                  (is_session && get_union_configured()) ?
                                   keyfile::PRIORITY_REQUIRED :
                                   keyfile::PRIORITY_OPTIONAL);
 
         keyfile::get_object_value(*this,
                                   &fsunion::set_union_underlay_directory,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "union-underlay-directory",
-                                  (issession && get_union_configured()) ?
+                                  (is_session && get_union_configured()) ?
                                   keyfile::PRIORITY_REQUIRED :
                                   keyfile::PRIORITY_OPTIONAL);
       }

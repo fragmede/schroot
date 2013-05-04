@@ -159,10 +159,9 @@ namespace sbuild
       }
 
       void
-      file::setup_env (chroot const& chroot,
-                       environment&  env) const
+      file::setup_env (environment& env) const
       {
-        storage::setup_env(chroot, env);
+        storage::setup_env(env);
 
         env.add("CHROOT_FILE", get_filename());
         env.add("CHROOT_LOCATION", get_location());
@@ -201,21 +200,20 @@ namespace sbuild
       }
 
       chroot::session_flags
-      file::get_session_flags (chroot const& chroot) const
+      file::get_session_flags () const
       {
         chroot::session_flags flags = chroot::SESSION_NOFLAGS;
 
-        if (chroot.get_facet<session>())
+        if (owner->get_facet<session>())
           flags = chroot::SESSION_PURGE;
 
         return flags;
       }
 
       void
-      file::get_details (chroot const&  chroot,
-                         format_detail& detail) const
+      file::get_details (format_detail& detail) const
       {
-        storage::get_details(chroot, detail);
+        storage::get_details(detail);
 
         if (!this->filename.empty())
           detail
@@ -236,44 +234,42 @@ namespace sbuild
       }
 
       void
-      file::get_keyfile (chroot const& chroot,
-                         keyfile&      keyfile) const
+      file::get_keyfile (keyfile& keyfile) const
       {
-        storage::get_keyfile(chroot, keyfile);
+        storage::get_keyfile(keyfile);
 
-        bool is_session = static_cast<bool>(chroot.get_facet<session>());
+        bool is_session = static_cast<bool>(owner->get_facet<session>());
 
         keyfile::set_object_value(*this, &file::get_filename,
-                                  keyfile, chroot.get_name(), "file");
+                                  keyfile, owner->get_name(), "file");
 
         keyfile::set_object_value(*this, &file::get_location,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "location");
 
         if (is_session)
           keyfile::set_object_value(*this, &file::get_file_repack,
-                                    keyfile, chroot.get_name(), "file-repack");
+                                    keyfile, owner->get_name(), "file-repack");
       }
 
       void
-      file::set_keyfile (chroot&        chroot,
-                         keyfile const& keyfile)
+      file::set_keyfile (keyfile const& keyfile)
       {
-        storage::set_keyfile(chroot, keyfile);
+        storage::set_keyfile(keyfile);
 
-        bool is_session = static_cast<bool>(chroot.get_facet<session>());
+        bool is_session = static_cast<bool>(owner->get_facet<session>());
 
         keyfile::get_object_value(*this, &file::set_filename,
-                                  keyfile, chroot.get_name(), "file",
+                                  keyfile, owner->get_name(), "file",
                                   keyfile::PRIORITY_REQUIRED);
 
         keyfile::get_object_value(*this, &file::set_location,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "location",
                                   keyfile::PRIORITY_OPTIONAL);
 
         keyfile::get_object_value(*this, &file::set_file_repack,
-                                  keyfile, chroot.get_name(), "file-repack",
+                                  keyfile, owner->get_name(), "file-repack",
                                   is_session ?
                                   keyfile::PRIORITY_REQUIRED :
                                   keyfile::PRIORITY_DISALLOWED);

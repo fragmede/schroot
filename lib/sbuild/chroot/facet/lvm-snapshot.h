@@ -114,11 +114,10 @@ namespace sbuild
         set_snapshot_options (std::string const& snapshot_options);
 
         virtual void
-        setup_env (chroot const& chroot,
-                   environment&  env) const;
+        setup_env (environment& env) const;
 
         virtual chroot::session_flags
-        get_session_flags (chroot const& chroot) const;
+        get_session_flags () const;
 
       protected:
         virtual void
@@ -127,19 +126,16 @@ namespace sbuild
                     int                status);
 
         virtual void
-        get_details (chroot const& chroot,
-                     format_detail& detail) const;
+        get_details (format_detail& detail) const;
 
         virtual void
         get_used_keys (string_list& used_keys) const;
 
         virtual void
-        get_keyfile (chroot const& chroot,
-                     keyfile& keyfile) const;
+        get_keyfile (keyfile& keyfile) const;
 
         virtual void
-        set_keyfile (chroot&        chroot,
-                     keyfile const& keyfile);
+        set_keyfile (keyfile const& keyfile);
 
         virtual void
         chroot_session_setup (chroot const&      parent,

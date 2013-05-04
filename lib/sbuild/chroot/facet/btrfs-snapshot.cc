@@ -158,10 +158,9 @@ namespace sbuild
       }
 
       void
-      btrfs_snapshot::setup_env (chroot const& chroot,
-                                 environment&  env) const
+      btrfs_snapshot::setup_env (environment& env) const
       {
-        storage::setup_env(chroot, env);
+        storage::setup_env(env);
 
         env.add("CHROOT_BTRFS_SOURCE_SUBVOLUME", get_source_subvolume());
         env.add("CHROOT_BTRFS_SNAPSHOT_DIRECTORY", get_snapshot_directory());
@@ -183,7 +182,7 @@ namespace sbuild
       }
 
       chroot::session_flags
-      btrfs_snapshot::get_session_flags (chroot const& chroot) const
+      btrfs_snapshot::get_session_flags () const
       {
         chroot::session_flags flags = chroot::SESSION_NOFLAGS;
 
@@ -194,10 +193,9 @@ namespace sbuild
       }
 
       void
-      btrfs_snapshot::get_details (chroot const&  chroot,
-                                   format_detail& detail) const
+      btrfs_snapshot::get_details (format_detail& detail) const
       {
-        storage::get_details(chroot, detail);
+        storage::get_details(detail);
 
         if (!this->get_source_subvolume().empty())
           detail.add(_("Btrfs Source Subvolume"), get_source_subvolume());
@@ -218,56 +216,54 @@ namespace sbuild
       }
 
       void
-      btrfs_snapshot::get_keyfile (chroot const& chroot,
-                                   keyfile&      keyfile) const
+      btrfs_snapshot::get_keyfile (keyfile& keyfile) const
       {
-        storage::get_keyfile(chroot, keyfile);
+        storage::get_keyfile(keyfile);
 
         bool issession = static_cast<bool>(owner->get_facet<session>());
 
         if (!issession)
           keyfile::set_object_value(*this,
                                     &btrfs_snapshot::get_source_subvolume,
-                                    keyfile, chroot.get_name(),
+                                    keyfile, owner->get_name(),
                                     "btrfs-source-subvolume");
 
         if (!issession)
           keyfile::set_object_value(*this,
                                     &btrfs_snapshot::get_snapshot_directory,
-                                    keyfile, chroot.get_name(),
+                                    keyfile, owner->get_name(),
                                     "btrfs-snapshot-directory");
 
         if (issession)
           keyfile::set_object_value(*this,
                                     &btrfs_snapshot::get_snapshot_name,
-                                    keyfile, chroot.get_name(),
+                                    keyfile, owner->get_name(),
                                     "btrfs-snapshot-name");
       }
 
       void
-      btrfs_snapshot::set_keyfile (chroot&        chroot,
-                                   keyfile const& keyfile)
+      btrfs_snapshot::set_keyfile (keyfile const& keyfile)
       {
-        storage::set_keyfile(chroot, keyfile);
+        storage::set_keyfile(keyfile);
 
         bool issession = static_cast<bool>(owner->get_facet<session>());
 
         keyfile::get_object_value(*this, &btrfs_snapshot::set_source_subvolume,
-                                  keyfile, chroot.get_name(), "btrfs-source-subvolume",
+                                  keyfile, owner->get_name(), "btrfs-source-subvolume",
                                   issession ?
                                   keyfile::PRIORITY_DISALLOWED :
                                   keyfile::PRIORITY_REQUIRED
                                   ); // Only needed for creating snapshot, not using snapshot
 
         keyfile::get_object_value(*this, &btrfs_snapshot::set_snapshot_directory,
-                                  keyfile, chroot.get_name(), "btrfs-snapshot-directory",
+                                  keyfile, owner->get_name(), "btrfs-snapshot-directory",
                                   issession ?
                                   keyfile::PRIORITY_DISALLOWED :
                                   keyfile::PRIORITY_REQUIRED
                                   ); // Only needed for creating snapshot, not using snapshot
 
         keyfile::get_object_value(*this, &btrfs_snapshot::set_snapshot_name,
-                                  keyfile, chroot.get_name(), "btrfs-snapshot-name",
+                                  keyfile, owner->get_name(), "btrfs-snapshot-name",
                                   issession ?
                                   keyfile::PRIORITY_REQUIRED :
                                   keyfile::PRIORITY_DISALLOWED);

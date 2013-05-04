@@ -58,20 +58,18 @@ namespace sbuild
       }
 
       void
-      facet::setup_env (chroot const& chroot,
-                        environment&  env) const
+      facet::setup_env (environment& env) const
       {
       }
 
       chroot::session_flags
-      facet::get_session_flags (chroot const& chroot) const
+      facet::get_session_flags () const
       {
         return chroot::SESSION_NOFLAGS;
       }
 
       void
-      facet::get_details (chroot const&  chroot,
-                          format_detail& detail) const
+      facet::get_details (format_detail& detail) const
       {
       }
 
@@ -81,14 +79,12 @@ namespace sbuild
       }
 
       void
-      facet::get_keyfile (chroot const& chroot,
-                          keyfile&      keyfile) const
+      facet::get_keyfile (keyfile& keyfile) const
       {
       }
 
       void
-      facet::set_keyfile (chroot&        chroot,
-                          keyfile const& keyfile)
+      facet::set_keyfile (keyfile const& keyfile)
       {
       }
 

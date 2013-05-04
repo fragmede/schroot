@@ -136,10 +136,9 @@ namespace sbuild
       }
 
       void
-      lvm_snapshot::setup_env (chroot const& chroot,
-                               environment&  env) const
+      lvm_snapshot::setup_env (environment& env) const
       {
-        block_device_base::setup_env(chroot, env);
+        block_device_base::setup_env(env);
 
         env.add("CHROOT_LVM_SNAPSHOT_NAME", sbuild::basename(get_snapshot_device()));
         env.add("CHROOT_LVM_SNAPSHOT_DEVICE", get_snapshot_device());
@@ -194,7 +193,7 @@ namespace sbuild
       }
 
       chroot::session_flags
-      lvm_snapshot::get_session_flags (chroot const& chroot) const
+      lvm_snapshot::get_session_flags () const
       {
         chroot::session_flags flags = chroot::SESSION_NOFLAGS;
 
@@ -205,10 +204,9 @@ namespace sbuild
       }
 
       void
-      lvm_snapshot::get_details (chroot const&  chroot,
-                                 format_detail& detail) const
+      lvm_snapshot::get_details (format_detail& detail) const
       {
-        block_device_base::get_details(chroot, detail);
+        block_device_base::get_details(detail);
 
         if (!this->snapshot_device.empty())
           detail.add(_("LVM Snapshot Device"), get_snapshot_device());
@@ -226,42 +224,40 @@ namespace sbuild
       }
 
       void
-      lvm_snapshot::get_keyfile (chroot const& chroot,
-                                 keyfile& keyfile) const
+      lvm_snapshot::get_keyfile (keyfile& keyfile) const
       {
-        block_device_base::get_keyfile(chroot, keyfile);
+        block_device_base::get_keyfile(keyfile);
 
         session::const_ptr is_session = owner->get_facet<session>();
 
         if (is_session)
           keyfile::set_object_value(*this,
                                     &lvm_snapshot::get_snapshot_device,
-                                    keyfile, chroot.get_name(),
+                                    keyfile, owner->get_name(),
                                     "lvm-snapshot-device");
 
         if (!is_session)
           keyfile::set_object_value(*this,
                                     &lvm_snapshot::get_snapshot_options,
-                                    keyfile, chroot.get_name(),
+                                    keyfile, owner->get_name(),
                                     "lvm-snapshot-options");
       }
 
       void
-      lvm_snapshot::set_keyfile (chroot&        chroot,
-                                 keyfile const& keyfile)
+      lvm_snapshot::set_keyfile (keyfile const& keyfile)
       {
-        block_device_base::set_keyfile(chroot, keyfile);
+        block_device_base::set_keyfile(keyfile);
 
         session::const_ptr is_session = owner->get_facet<session>();
 
         keyfile::get_object_value(*this, &lvm_snapshot::set_snapshot_device,
-                                  keyfile, chroot.get_name(), "lvm-snapshot-device",
+                                  keyfile, owner->get_name(), "lvm-snapshot-device",
                                   is_session ?
                                   keyfile::PRIORITY_REQUIRED :
                                   keyfile::PRIORITY_DISALLOWED);
 
         keyfile::get_object_value(*this, &lvm_snapshot::set_snapshot_options,
-                                  keyfile, chroot.get_name(), "lvm-snapshot-options",
+                                  keyfile, owner->get_name(), "lvm-snapshot-options",
                                   is_session ?
                                   keyfile::PRIORITY_DEPRECATED :
                                   keyfile::PRIORITY_REQUIRED); // Only needed for creating snapshot, not using snapshot

@@ -130,10 +130,9 @@ namespace sbuild
       }
 
       void
-      custom::setup_env (chroot const& chroot,
-                         environment& env) const
+      custom::setup_env (environment& env) const
       {
-        storage::setup_env(chroot, env);
+        storage::setup_env(env);
       }
 
       void
@@ -153,13 +152,13 @@ namespace sbuild
       }
 
       chroot::session_flags
-      custom::get_session_flags (chroot const& chroot) const
+      custom::get_session_flags () const
       {
         chroot::session_flags flags = chroot::SESSION_NOFLAGS;
 
         // TODO: Only set if purge is set.
 
-        if (chroot.get_facet<session>() &&
+        if (owner->get_facet<session>() &&
             get_session_purgeable())
           flags = chroot::SESSION_PURGE;
 
@@ -167,10 +166,9 @@ namespace sbuild
       }
 
       void
-      custom::get_details (chroot const&  chroot,
-                           format_detail& detail) const
+      custom::get_details (format_detail& detail) const
       {
-        storage::get_details(chroot, detail);
+        storage::get_details(detail);
       }
 
       void
@@ -184,37 +182,35 @@ namespace sbuild
       }
 
       void
-      custom::get_keyfile (chroot const& chroot,
-                           keyfile&      keyfile) const
+      custom::get_keyfile (keyfile& keyfile) const
       {
-        storage::get_keyfile(chroot, keyfile);
+        storage::get_keyfile(keyfile);
 
         keyfile::set_object_value(*this,
                                   &custom::get_session_purgeable,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "custom-session-purgeable");
       }
 
       void
-      custom::set_keyfile (chroot& chroot,
-                           keyfile const& keyfile)
+      custom::set_keyfile (keyfile const& keyfile)
       {
-        storage::set_keyfile(chroot, keyfile);
+        storage::set_keyfile(keyfile);
 
-        bool is_session = static_cast<bool>(chroot.get_facet<session>());
+        bool is_session = static_cast<bool>(owner->get_facet<session>());
 
         keyfile::get_object_value(*this, &custom::set_session_cloneable,
-                                  keyfile, chroot.get_name(), "custom-session-cloneable",
+                                  keyfile, owner->get_name(), "custom-session-cloneable",
                                   is_session ?
                                   keyfile::PRIORITY_DISALLOWED :
                                   keyfile::PRIORITY_OPTIONAL);
 
         keyfile::get_object_value(*this, &custom::set_session_purgeable,
-                                  keyfile, chroot.get_name(), "custom-session-purgeable",
+                                  keyfile, owner->get_name(), "custom-session-purgeable",
                                   keyfile::PRIORITY_OPTIONAL);
 
         keyfile::get_object_value(*this, &custom::set_source_cloneable,
-                                  keyfile, chroot.get_name(), "custom-source-cloneable",
+                                  keyfile, owner->get_name(), "custom-source-cloneable",
                                   is_session ?
                                   keyfile::PRIORITY_DISALLOWED :
                                   keyfile::PRIORITY_OPTIONAL);

@@ -124,8 +124,7 @@ namespace sbuild
       }
 
       void
-      mountable::setup_env (chroot const& chroot,
-                            environment&  env) const
+      mountable::setup_env (environment& env) const
       {
         env.add("CHROOT_MOUNT_DEVICE", get_mount_device());
         env.add("CHROOT_MOUNT_OPTIONS", get_mount_options());
@@ -133,8 +132,7 @@ namespace sbuild
       }
 
       void
-      mountable::get_details (chroot const&  chroot,
-                              format_detail& detail) const
+      mountable::get_details (format_detail& detail) const
       {
         if (!get_mount_device().empty())
           detail.add(_("Mount Device"), get_mount_device());
@@ -153,45 +151,43 @@ namespace sbuild
       }
 
       void
-      mountable::get_keyfile (chroot const& chroot,
-                              keyfile&      keyfile) const
+      mountable::get_keyfile (keyfile& keyfile) const
       {
-        bool issession = static_cast<bool>(chroot.get_facet<session>());
+        bool issession = static_cast<bool>(owner->get_facet<session>());
 
         if (issession)
           keyfile::set_object_value(*this, &mountable::get_mount_device,
-                                    keyfile, chroot.get_name(),
+                                    keyfile, owner->get_name(),
                                     "mount-device");
 
         keyfile::set_object_value(*this, &mountable::get_mount_options,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "mount-options");
 
         keyfile::set_object_value(*this, &mountable::get_location,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "location");
       }
 
       void
-      mountable::set_keyfile (chroot&        chroot,
-                              keyfile const& keyfile)
+      mountable::set_keyfile (keyfile const& keyfile)
       {
-        bool issession = static_cast<bool>(chroot.get_facet<session>());
+        bool issession = static_cast<bool>(owner->get_facet<session>());
 
         keyfile::get_object_value(*this, &mountable::set_mount_device,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "mount-device",
                                   issession ?
                                   keyfile::PRIORITY_REQUIRED :
                                   keyfile::PRIORITY_DISALLOWED);
 
         keyfile::get_object_value(*this, &mountable::set_mount_options,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "mount-options",
                                   keyfile::PRIORITY_OPTIONAL);
 
         keyfile::get_object_value(*this, &mountable::set_location,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "location",
                                   keyfile::PRIORITY_OPTIONAL);
       }

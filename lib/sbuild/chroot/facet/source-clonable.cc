@@ -149,10 +149,10 @@ namespace sbuild
       }
 
       chroot::session_flags
-      source_clonable::get_session_flags (chroot const& chroot) const
+      source_clonable::get_session_flags () const
       {
         // Cloning is only possible for non-source and inactive chroots.
-        if (chroot.get_facet<session>())
+        if (owner->get_facet<session>())
           return chroot::SESSION_NOFLAGS;
         else
           return chroot::SESSION_CLONE;
@@ -169,8 +169,7 @@ namespace sbuild
       }
 
       void
-      source_clonable::get_details (chroot const&  chroot,
-                                    format_detail& detail) const
+      source_clonable::get_details (format_detail& detail) const
       {
         detail
           .add(_("Source Users"), get_source_users())
@@ -180,56 +179,54 @@ namespace sbuild
       }
 
       void
-      source_clonable::get_keyfile (chroot const& chroot,
-                                    keyfile&      keyfile) const
+      source_clonable::get_keyfile (keyfile& keyfile) const
       {
         keyfile::set_object_value(*this, &source_clonable::get_source_clone,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "source-clone");
 
         keyfile::set_object_list_value(*this, &source_clonable::get_source_users,
-                                       keyfile, chroot.get_name(),
+                                       keyfile, owner->get_name(),
                                        "source-users");
 
         keyfile::set_object_list_value(*this, &source_clonable::get_source_groups,
-                                       keyfile, chroot.get_name(),
+                                       keyfile, owner->get_name(),
                                        "source-groups");
 
         keyfile::set_object_list_value(*this, &source_clonable::get_source_root_users,
-                                       keyfile, chroot.get_name(),
+                                       keyfile, owner->get_name(),
                                        "source-root-users");
 
         keyfile::set_object_list_value(*this, &source_clonable::get_source_root_groups,
-                                       keyfile, chroot.get_name(),
+                                       keyfile, owner->get_name(),
                                        "source-root-groups");
       }
 
       void
-      source_clonable::set_keyfile (chroot&        chroot,
-                                    keyfile const& keyfile)
+      source_clonable::set_keyfile (keyfile const& keyfile)
       {
         keyfile::get_object_value(*this, &source_clonable::set_source_clone,
-                                  keyfile, chroot.get_name(),
+                                  keyfile, owner->get_name(),
                                   "source-clone",
                                   keyfile::PRIORITY_OPTIONAL);
 
         keyfile::get_object_list_value(*this, &source_clonable::set_source_users,
-                                       keyfile, chroot.get_name(),
+                                       keyfile, owner->get_name(),
                                        "source-users",
                                        keyfile::PRIORITY_OPTIONAL);
 
         keyfile::get_object_list_value(*this, &source_clonable::set_source_groups,
-                                       keyfile, chroot.get_name(),
+                                       keyfile, owner->get_name(),
                                        "source-groups",
                                        keyfile::PRIORITY_OPTIONAL);
 
         keyfile::get_object_list_value(*this, &source_clonable::set_source_root_users,
-                                       keyfile, chroot.get_name(),
+                                       keyfile, owner->get_name(),
                                        "source-root-users",
                                        keyfile::PRIORITY_OPTIONAL);
 
         keyfile::get_object_list_value(*this, &source_clonable::set_source_root_groups,
-                                       keyfile, chroot.get_name(),
+                                       keyfile, owner->get_name(),
                                        "source-root-groups",
                                        keyfile::PRIORITY_OPTIONAL);
       }

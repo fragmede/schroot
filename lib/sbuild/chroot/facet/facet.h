@@ -98,12 +98,10 @@ namespace sbuild
          * Set environment.  Set the environment that the setup scripts
          * will see during execution.
          *
-         * @param chroot the chroot to use.
          * @param env the environment to set.
          */
         virtual void
-        setup_env (chroot const& chroot,
-                   environment&  env) const;
+        setup_env (environment& env) const;
 
         /**
          * Get the session flags of the chroot.  These determine how the
@@ -113,17 +111,15 @@ namespace sbuild
          * @returns the session flags.
          */
         virtual chroot::session_flags
-        get_session_flags (chroot const& chroot) const;
+        get_session_flags () const;
 
         /**
          * Get detailed information about the chroot for output.
          *
-         * @param chroot the chroot to use.
          * @param detail the details to output to.
          */
         virtual void
-        get_details (chroot const&  chroot,
-                     format_detail& detail) const;
+        get_details (format_detail& detail) const;
 
         /**
          * Get a list of the keys used during keyfile parsing.
@@ -138,25 +134,20 @@ namespace sbuild
          * with the name of the chroot will be set; if it already exists,
          * it will be removed before setting it.
          *
-         * @param chroot the chroot to use.
          * @param keyfile the keyfile to use.
          */
         virtual void
-        get_keyfile (chroot const& chroot,
-                     keyfile&      keyfile) const;
+        get_keyfile (keyfile& keyfile) const;
 
         /**
          * Set the chroot properties from a keyfile.  The chroot name must
          * have previously been set, so that the correct keyfile group may
          * be determined.
          *
-         * @param chroot the chroot to use.
          * @param keyfile the keyfile to get the properties from.
-         * @param used_keys a list of the keys used will be set.
          */
         virtual void
-        set_keyfile (chroot&         chroot,
-                     keyfile const&  keyfile);
+        set_keyfile (keyfile const& keyfile);
 
       protected:
         /// Chroot owning this facet.

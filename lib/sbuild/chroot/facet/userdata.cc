@@ -141,8 +141,7 @@ namespace sbuild
       }
 
       void
-      userdata::setup_env (chroot const& chroot,
-                           environment&  env) const
+      userdata::setup_env (environment& env) const
       {
         for (const auto& item : data)
           {
@@ -162,8 +161,7 @@ namespace sbuild
       }
 
       void
-      userdata::get_details (chroot const&  chroot,
-                             format_detail& detail) const
+      userdata::get_details (format_detail& detail) const
       {
         string_list userkeys(this->user_modifiable_keys.begin(),
                              this->user_modifiable_keys.end());
@@ -356,40 +354,38 @@ namespace sbuild
       }
 
       void
-      userdata::get_keyfile (chroot const& chroot,
-                             keyfile&      keyfile) const
+      userdata::get_keyfile (keyfile& keyfile) const
       {
         keyfile::set_object_set_value(*this,
                                       &userdata::get_user_modifiable_keys,
-                                      keyfile, chroot.get_name(),
+                                      keyfile, owner->get_name(),
                                       "user-modifiable-keys");
 
         keyfile::set_object_set_value(*this,
                                       &userdata::get_root_modifiable_keys,
-                                      keyfile, chroot.get_name(),
+                                      keyfile, owner->get_name(),
                                       "root-modifiable-keys");
 
         for (const auto& item : data)
           {
-            keyfile.set_value(chroot.get_name(),
+            keyfile.set_value(owner->get_name(),
                               item.first,
                               item.second);
           }
       }
 
       void
-      userdata::set_keyfile (chroot&        chroot,
-                             keyfile const& keyfile)
+      userdata::set_keyfile (keyfile const& keyfile)
       {
         keyfile::get_object_set_value(*this,
                                       &userdata::set_user_modifiable_keys,
-                                      keyfile, chroot.get_name(),
+                                      keyfile, owner->get_name(),
                                       "user-modifiable-keys",
                                       keyfile::PRIORITY_OPTIONAL);
 
         keyfile::get_object_set_value(*this,
                                       &userdata::set_root_modifiable_keys,
-                                      keyfile, chroot.get_name(),
+                                      keyfile, owner->get_name(),
                                       "root-modifiable-keys",
                                       keyfile::PRIORITY_OPTIONAL);
 
@@ -398,8 +394,8 @@ namespace sbuild
         // separated with one or more periods.  These may be later
         // overridden by the user on the commandline.
         {
-          string_list used_keys = chroot.get_used_keys();
-          std::string const& group = chroot.get_name();
+          string_list used_keys = owner->get_used_keys();
+          std::string const& group = owner->get_name();
           const string_list total(keyfile.get_keys(group));
 
           const string_set a(total.begin(), total.end());

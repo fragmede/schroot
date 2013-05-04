@@ -560,7 +560,7 @@ namespace sbuild
               static_cast<bool>(get_session_flags() & SESSION_PURGE));
 
       for (const auto& facet : facets)
-        facet->setup_env(*this, env);
+        facet->setup_env(env);
     }
 
     void
@@ -590,7 +590,7 @@ namespace sbuild
       session_flags flags = SESSION_NOFLAGS;
 
       for (const auto& facet : facets)
-        flags = flags | facet->get_session_flags(*this);
+        flags = flags | facet->get_session_flags();
 
       return flags;
     }
@@ -632,7 +632,7 @@ namespace sbuild
         detail.add(_("Path"), get_path());
 
       for (const auto& facet : facets)
-        facet->get_details(*this, detail);
+        facet->get_details(detail);
     }
 
     void
@@ -762,7 +762,7 @@ namespace sbuild
                                 "shell");
 
       for (const auto& facet : facets)
-        facet->get_keyfile(*this, keyfile);
+        facet->get_keyfile(keyfile);
     }
 
     void
@@ -852,7 +852,7 @@ namespace sbuild
                                 keyfile::PRIORITY_OPTIONAL);
 
       for (const auto& facet : facets)
-        facet->set_keyfile(*this, keyfile);
+        facet->set_keyfile(keyfile);
     }
 
   }
