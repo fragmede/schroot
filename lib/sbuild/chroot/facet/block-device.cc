@@ -170,7 +170,20 @@ namespace sbuild
           }
       }
 
+      void
+      block_device::chroot_session_setup (chroot const&      parent,
+                                          std::string const& session_id,
+                                          std::string const& alias,
+                                          std::string const& user,
+                                          bool               root)
+      {
+        // Block devices need the mount device name specifying.
+        mountable::ptr pmnt
+          (owner->get_facet<mountable>());
+        if (pmnt)
+          pmnt->set_mount_device(get_device());
+      }
+
     }
   }
 }
-

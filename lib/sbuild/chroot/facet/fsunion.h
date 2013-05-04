@@ -22,6 +22,7 @@
 
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/facet/facet.h>
+#include <sbuild/chroot/facet/session-setup.h>
 #include <sbuild/chroot/facet/source-setup.h>
 
 namespace sbuild
@@ -40,7 +41,9 @@ namespace sbuild
        * directory.  The overlay directory and union setup is already
        * handled.
        */
-      class fsunion : public facet, public source_setup
+      class fsunion : public facet,
+                      public session_setup,
+                      public source_setup
       {
       public:
         /// Error codes.
@@ -186,6 +189,13 @@ namespace sbuild
         virtual void
         set_keyfile (chroot&        chroot,
                      keyfile const& keyfile);
+
+        virtual void
+        chroot_session_setup (chroot const&      parent,
+                              std::string const& session_id,
+                              std::string const& alias,
+                              std::string const& user,
+                              bool               root);
 
         virtual void
         chroot_source_setup (chroot const& parent);

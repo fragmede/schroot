@@ -268,6 +268,22 @@ namespace sbuild
       }
 
       void
+      lvm_snapshot::chroot_session_setup (chroot const&      parent,
+                                          std::string const& session_id,
+                                          std::string const& alias,
+                                          std::string const& user,
+                                          bool               root)
+      {
+        // LVM devices need the snapshot device name specifying.
+        if (!get_device().empty())
+          {
+            std::string device(dirname(get_device()));
+            device += "/" + owner->get_name();
+            set_snapshot_device(device);
+          }
+      }
+
+      void
       lvm_snapshot::chroot_source_setup (chroot const& parent)
       {
         storage::ptr source_block(block_device::create(*this));

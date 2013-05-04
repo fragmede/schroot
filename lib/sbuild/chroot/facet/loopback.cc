@@ -209,6 +209,20 @@ namespace sbuild
                                   keyfile::PRIORITY_REQUIRED);
       }
 
+      void
+      loopback::chroot_session_setup (chroot const&      parent,
+                                      std::string const& session_id,
+                                      std::string const& alias,
+                                      std::string const& user,
+                                      bool               root)
+      {
+        // Loopback chroots need the mount device name specifying.
+        mountable::ptr pmnt
+          (owner->get_facet<mountable>());
+        if (pmnt)
+          pmnt->set_mount_device(get_filename());
+      }
+
     }
   }
 }

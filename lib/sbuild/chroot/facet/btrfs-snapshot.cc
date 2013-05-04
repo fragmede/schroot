@@ -274,6 +274,22 @@ namespace sbuild
       }
 
       void
+      btrfs_snapshot::chroot_session_setup (chroot const&      parent,
+                                            std::string const& session_id,
+                                            std::string const& alias,
+                                            std::string const& user,
+                                            bool               root)
+      {
+        // Btrfs snapshots need the snapshot name specifying.
+        if (!get_snapshot_directory().empty())
+          {
+            std::string snapname(get_snapshot_directory());
+            snapname += "/" + owner->get_name();
+            set_snapshot_name(snapname);
+          }
+      }
+
+      void
       btrfs_snapshot::chroot_source_setup (chroot const& parent)
       {
         storage::ptr source_directory(directory::create(*this));

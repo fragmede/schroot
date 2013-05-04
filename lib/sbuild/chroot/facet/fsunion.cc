@@ -302,6 +302,31 @@ namespace sbuild
       }
 
       void
+      fsunion::chroot_session_setup (chroot const&      parent,
+                                     std::string const& session_id,
+                                     std::string const& alias,
+                                     std::string const& user,
+                                     bool               root)
+      {
+        // If the parent did not have a union facet, then neither should we.
+        fsunion::const_ptr pparentuni(parent.get_facet<fsunion>());
+        if (!pparentuni)
+          {
+            owner->remove_facet<fsunion>();
+            return;
+          }
+
+        // Filesystem unions need the overlay directory specifying.
+        std::string overlay = get_union_overlay_directory();
+        overlay += "/" + owner->get_name();
+        set_union_overlay_directory(overlay);
+
+        std::string underlay = get_union_underlay_directory();
+        underlay += "/" + owner->get_name();
+        set_union_underlay_directory(underlay);
+      }
+
+      void
       fsunion::chroot_source_setup (chroot const& parent)
       {
         owner->remove_facet<fsunion>();

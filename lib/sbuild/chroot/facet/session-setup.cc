@@ -16,51 +16,23 @@
  *
  *********************************************************************/
 
-#include <config.h>
-
-#include <sbuild/chroot/custom.h>
-#include <sbuild/chroot/facet/factory.h>
-#include <sbuild/chroot/facet/session.h>
-#include <sbuild/chroot/facet/session-clonable.h>
-#include <sbuild/chroot/facet/source-clonable.h>
-#include <sbuild/chroot/facet/storage.h>
-#include "format-detail.h"
-#include "lock.h"
-
-#include <cassert>
-#include <cerrno>
-#include <cstring>
-
-#include <boost/format.hpp>
-
-using boost::format;
-using namespace sbuild;
+#include <sbuild/chroot/facet/session-setup.h>
 
 namespace sbuild
 {
   namespace chroot
   {
-
-    custom::custom ():
-      chroot()
+    namespace facet
     {
-      add_facet(std::dynamic_pointer_cast<facet::storage>(facet::factory::create("custom")));
-    }
 
-    custom::custom (const custom& rhs):
-      chroot(rhs)
-    {
-    }
+      session_setup::session_setup ()
+      {
+      }
 
-    custom::~custom ()
-    {
-    }
+      session_setup::~session_setup ()
+      {
+      }
 
-    chroot::chroot::ptr
-    custom::clone () const
-    {
-      return ptr(new custom(*this));
     }
-
   }
 }

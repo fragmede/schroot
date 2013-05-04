@@ -41,9 +41,10 @@
 #include <sbuild/chroot/facet/plain.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
+#include <sbuild/chroot/facet/session-setup.h>
+#include <sbuild/chroot/facet/source.h>
 #include <sbuild/chroot/facet/source-clonable.h>
 #include <sbuild/chroot/facet/source-setup.h>
-#include <sbuild/chroot/facet/source.h>
 #include <sbuild/chroot/facet/storage.h>
 #include <sbuild/chroot/facet/userdata.h>
 #ifdef SBUILD_FEATURE_UNSHARE
@@ -209,7 +210,16 @@ namespace sbuild
                            bool               root) const
     {
       ptr session = 0;
-      session = clone();
+
+      facet::session_clonable::const_ptr psrc
+        (get_facet<facet::session_clonable>());
+      if (psrc)
+        {
+
+          session = psrc->clone_session
+            (session_id, alias, user, root);
+        }
+
       return session;
     }
 
@@ -547,6 +557,18 @@ namespace sbuild
         this->message_verbosity = VERBOSITY_VERBOSE;
       else
         throw error(verbosity, VERBOSITY_INVALID);
+    }
+
+    chroot::facet_list&
+    chroot::get_facets ()
+    {
+      return facets;
+    }
+
+    const chroot::facet_list&
+    chroot::get_facets () const
+    {
+      return facets;
     }
 
     string_list

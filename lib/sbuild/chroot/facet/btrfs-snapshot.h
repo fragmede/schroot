@@ -21,6 +21,7 @@
 
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/facet/storage.h>
+#include <sbuild/chroot/facet/session-setup.h>
 #include <sbuild/chroot/facet/source-setup.h>
 
 namespace sbuild
@@ -35,7 +36,9 @@ namespace sbuild
        *
        * A snapshot subvolume will be created and mounted on demand.
        */
-      class btrfs_snapshot : public storage, public source_setup
+      class btrfs_snapshot : public storage,
+                             public session_setup,
+                             public source_setup
       {
       public:
         /// Exception type.
@@ -160,6 +163,13 @@ namespace sbuild
         virtual void
         set_keyfile (chroot&        chroot,
                      keyfile const& keyfile);
+
+        virtual void
+        chroot_session_setup (chroot const&      parent,
+                              std::string const& session_id,
+                              std::string const& alias,
+                              std::string const& user,
+                              bool               root);
 
         virtual void
         chroot_source_setup (chroot const& parent);

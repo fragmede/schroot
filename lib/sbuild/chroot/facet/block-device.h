@@ -22,6 +22,8 @@
 #include <sbuild/config.h>
 #include <sbuild/chroot/facet/block-device-base.h>
 #include <sbuild/chroot/facet/lvm-snapshot.h>
+#include <sbuild/chroot/facet/mountable.h>
+#include <sbuild/chroot/facet/session-setup.h>
 
 namespace sbuild
 {
@@ -35,7 +37,8 @@ namespace sbuild
        *
        * The device will be mounted on demand.
        */
-      class block_device : public block_device_base
+      class block_device : public block_device_base,
+                           public session_setup
       {
       public:
         /// A shared_ptr to a chroot facet object.
@@ -93,6 +96,13 @@ namespace sbuild
 
         virtual facet::ptr
         clone () const;
+
+        virtual void
+        chroot_session_setup (chroot const&      parent,
+                              std::string const& session_id,
+                              std::string const& alias,
+                              std::string const& user,
+                              bool               root);
 
       protected:
         virtual void

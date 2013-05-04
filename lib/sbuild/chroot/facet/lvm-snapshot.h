@@ -20,6 +20,7 @@
 #define SBUILD_CHROOT_FACET_LVM_SNAPSHOT_H
 
 #include <sbuild/chroot/facet/block-device-base.h>
+#include <sbuild/chroot/facet/session-setup.h>
 #include <sbuild/chroot/facet/source-setup.h>
 
 namespace sbuild
@@ -34,7 +35,9 @@ namespace sbuild
        *
        * A snapshot LV will be created and mounted on demand.
        */
-      class lvm_snapshot : public block_device_base, public source_setup
+      class lvm_snapshot : public block_device_base,
+                           public session_setup,
+                           public source_setup
       {
       public:
         /// A shared_ptr to a chroot facet object.
@@ -137,6 +140,13 @@ namespace sbuild
         virtual void
         set_keyfile (chroot&        chroot,
                      keyfile const& keyfile);
+
+        virtual void
+        chroot_session_setup (chroot const&      parent,
+                              std::string const& session_id,
+                              std::string const& alias,
+                              std::string const& user,
+                              bool               root);
 
         virtual void
         chroot_source_setup (chroot const& parent);

@@ -67,21 +67,5 @@ namespace sbuild
       return ptr(new loopback(*this));
     }
 
-    chroot::chroot::ptr
-    loopback::clone_session (std::string const& session_id,
-                             std::string const& alias,
-                             std::string const& user,
-                             bool               root) const
-    {
-      facet::session_clonable::const_ptr psess
-        (get_facet<facet::session_clonable>());
-      assert(psess);
-
-      ptr session(new loopback(*this));
-      psess->clone_session_setup(*this, session, session_id, alias, user, root);
-
-      return session;
-    }
-
   }
 }

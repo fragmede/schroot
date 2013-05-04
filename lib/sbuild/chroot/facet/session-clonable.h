@@ -75,13 +75,11 @@ namespace sbuild
          * @param user the user creating the session.
          * @param root whether or not the user is switching to root.
          */
-        virtual void
-        clone_session_setup (chroot const&      parent,
-                             chroot::ptr&       clone,
-                             std::string const& session_id,
-                             std::string const& alias,
-                             std::string const& user,
-                             bool               root) const;
+        virtual chroot::ptr
+        clone_session (std::string const& session_id,
+                       std::string const& alias,
+                       std::string const& user,
+                       bool               root) const;
 
         virtual chroot::session_flags
         get_session_flags (chroot const& chroot) const;

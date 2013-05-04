@@ -20,6 +20,7 @@
 #define SBUILD_CHROOT_FACET_LOOPBACK_H
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/session-setup.h>
 #include <sbuild/chroot/facet/storage.h>
 
 namespace sbuild
@@ -34,7 +35,8 @@ namespace sbuild
        *
        * The file will be mounted on demand.
        */
-      class loopback : public storage
+      class loopback : public storage,
+                       public session_setup
       {
       public:
         /// Exception type.
@@ -120,6 +122,13 @@ namespace sbuild
         virtual void
         set_keyfile (chroot&        chroot,
                      keyfile const& keyfile);
+
+        virtual void
+        chroot_session_setup (chroot const&      parent,
+                              std::string const& session_id,
+                              std::string const& alias,
+                              std::string const& user,
+                              bool               root);
 
       private:
         /// The file to use.

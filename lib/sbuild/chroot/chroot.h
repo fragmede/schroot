@@ -117,6 +117,12 @@ namespace sbuild
       /// A shared_ptr to a const chroot object.
       typedef std::shared_ptr<const chroot> const_ptr;
 
+      /// A shared pointer to a chroot facet.
+      typedef std::shared_ptr<facet::facet> facet_ptr;
+
+      /// A list of chroot facets.
+      typedef std::list<facet_ptr> facet_list;
+
       /// The constructor.
       chroot ();
 
@@ -152,7 +158,7 @@ namespace sbuild
        * @param root true if the user has root access, otherwise false.
        * @returns a session chroot.
        */
-      virtual chroot::ptr
+      chroot::ptr
       clone_session (std::string const& session_id,
                      std::string const& alias,
                      std::string const& user,
@@ -163,7 +169,7 @@ namespace sbuild
        *
        * @returns a source chroot.
        */
-      virtual chroot::ptr
+      chroot::ptr
       clone_source () const;
 
       /**
@@ -609,6 +615,22 @@ namespace sbuild
       get_facet_strict () const;
 
       /**
+       * Get the list of all chroot facets.
+       *
+       * @returns the facet list.
+       */
+      facet_list&
+      get_facets ();
+
+      /**
+       * Get the list of all chroot facets.
+       *
+       * @returns the facet list.
+       */
+      const facet_list&
+      get_facets () const;
+
+      /**
        * Add a chroot facet.
        *
        * @param facet the facet to add.
@@ -790,10 +812,6 @@ namespace sbuild
       /// The message verbosity.
       verbosity     message_verbosity;
 
-      /// A shared pointer to a chroot facet.
-      typedef std::shared_ptr<facet::facet> facet_ptr;
-      /// A list of chroot facets.
-      typedef std::list<facet_ptr> facet_list;
       /// Contained chroot facets
       facet_list facets;
     };

@@ -63,21 +63,5 @@ namespace sbuild
       return ptr(new file(*this));
     }
 
-    chroot::chroot::ptr
-    file::clone_session (std::string const& session_id,
-                         std::string const& alias,
-                         std::string const& user,
-                         bool               root) const
-    {
-      facet::session_clonable::const_ptr psess
-        (get_facet<facet::session_clonable>());
-      assert(psess);
-
-      ptr session(new file(*this));
-      psess->clone_session_setup(*this, session, session_id, alias, user, root);
-
-      return session;
-    }
-
   }
 }
