@@ -46,6 +46,16 @@ configuration.
   7) The unused and incomplete csbuild and schroot-sbuild wrappers for
      sbuild have been removed.
 
+  8) The source code has been reorganised and refactored to be more
+     useful for third-party developers.  libsbuild is now built as a
+     shared library by default.  While it is possible to use static
+     linking, this is discouraged, and it also requires the use of
+     -Wl,--whole-archive when linking, to prevent loss of chroot
+     facets which are used indirectly.
+
+  9) The output of "schroot --version" now displays installed chroot
+     facets rather than available chroot types.
+
 * Major changes in 1.6.4:
 
   1) Canonicalise symlink mount points.  If a mount point in fstab
