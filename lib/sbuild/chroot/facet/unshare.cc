@@ -25,9 +25,7 @@
 
 #include <boost/format.hpp>
 
-#ifdef SBUILD_FEATURE_UNSHARE
 #include <sched.h>
-#endif // SBUILD_FEATURE_UNSHARE
 
 using boost::format;
 
@@ -43,11 +41,9 @@ namespace sbuild
       namespace
       {
 
-#ifdef SBUILD_FEATURE_UNSHARE
         feature feature_unshare
         ("UNSHARE",
          N_("Linux dissassociation of shared execution context"));
-#endif
 
         factory::facet_info unshare_info =
           {
