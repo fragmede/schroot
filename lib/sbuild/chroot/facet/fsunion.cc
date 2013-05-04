@@ -273,12 +273,6 @@ namespace sbuild
                                   keyfile, chroot.get_name(), "union-type",
                                   keyfile::PRIORITY_OPTIONAL);
 
-        // If we are a union, add specific source options here.
-        source_clonable::ptr psrc
-          (chroot.get_facet<source_clonable>());
-        if (psrc)
-          psrc->set_keyfile(chroot, keyfile);
-
         keyfile::get_object_value(*this,
                                   &fsunion::set_union_mount_options,
                                   keyfile, chroot.get_name(), "union-mount-options",
