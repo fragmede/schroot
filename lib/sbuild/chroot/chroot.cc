@@ -22,7 +22,9 @@
 #include <sbuild/chroot/config.h>
 #include <sbuild/chroot/facet/facet.h>
 #include <sbuild/chroot/facet/factory.h>
+#ifdef SBUILD_FEATURE_PERSONALITY
 #include <sbuild/chroot/facet/personality.h>
+#endif // SBUILD_FEATURE_PERSONALITY
 #include <sbuild/chroot/facet/plain.h>
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
@@ -100,7 +102,9 @@ namespace sbuild
       message_verbosity(VERBOSITY_NORMAL),
       facets()
     {
+#ifdef SBUILD_FEATURE_PERSONALITY
       add_facet(facet::personality::create());
+#endif // SBUILD_FEATURE_PERSONALITY
 #ifdef SBUILD_FEATURE_UNSHARE
       add_facet(facet::unshare::create());
 #endif // SBUILD_FEATURE_UNSHARE

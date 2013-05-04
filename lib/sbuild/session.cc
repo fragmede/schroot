@@ -19,7 +19,9 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#ifdef SBUILD_FEATURE_PERSONALITY
 #include <sbuild/chroot/facet/personality.h>
+#endif // SBUILD_FEATURE_PERSONALITY
 #include <sbuild/chroot/facet/session.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #ifdef SBUILD_FEATURE_UNSHARE
@@ -1282,6 +1284,7 @@ session::run_child (chroot::chroot::ptr& session_chroot)
   log_debug(DEBUG_NOTICE) << "Set supplementary groups" << std::endl;
 
 
+#ifdef SBUILD_FEATURE_PERSONALITY
   /* Set the process execution domain. */
   /* Will throw on failure. */
   chroot::facet::personality::const_ptr pfac =
@@ -1296,6 +1299,7 @@ session::run_child (chroot::chroot::ptr& session_chroot)
     {
       log_debug(DEBUG_NOTICE) << "Personality support unavailable" << std::endl;
     }
+#endif // SBUILD_FEATURE_PERSONALITY
 
   /* Enter the chroot */
   if (chdir (location.c_str()))

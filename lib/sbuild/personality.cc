@@ -26,9 +26,7 @@
 #include <cerrno>
 #include <utility>
 
-#ifdef SBUILD_FEATURE_PERSONALITY
 #include <sys/personality.h>
-#endif // SBUILD_FEATURE_PERSONALITY
 
 #include <boost/format.hpp>
 
@@ -38,11 +36,9 @@ using namespace sbuild;
 namespace
 {
 
-#ifdef SBUILD_FEATURE_PERSONALITY
   sbuild::feature feature_personality
   ("PERSONALITY",
    N_("Linux kernel Application Binary Interface switching"));
-#endif
 
 }
 
@@ -60,7 +56,6 @@ std::map<std::string,sbuild::personality::type>
 sbuild::personality::personalities =
   {
     {"undefined", 0xffffffff},
-#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
     {"linux", PER_LINUX},
     {"linux_32bit", PER_LINUX_32BIT},
     {"svr4", PER_SVR4},
@@ -80,7 +75,6 @@ sbuild::personality::personalities =
     {"uw7", PER_UW7},
     {"hpux", PER_HPUX},
     {"osf4", PER_OSF4}
-#endif // SBUILD_FEATURE_PERSONALITY && __linux__
   };
 
 sbuild::personality::personality ():
@@ -160,14 +154,12 @@ sbuild::personality::get () const
 void
 sbuild::personality::set () const
 {
-#ifdef SBUILD_FEATURE_PERSONALITY
   /* Set the process execution domain using personality(2). */
   if (this->persona != find_personality("undefined") &&
       ::personality (this->persona) < 0)
     {
       throw error(get_name(), SET, strerror(errno));
     }
-#endif // SBUILD_FEATURE_PERSONALITY
 }
 
 std::string

@@ -36,11 +36,16 @@ noinst_PROGRAMS += 				\
 	test/sbuild/log				\
 	test/sbuild/nostream			\
 	test/sbuild/parse-value			\
-	test/sbuild/personality			\
 	test/sbuild/regex			\
 	test/sbuild/run-parts			\
 	test/sbuild/util			\
 	test/bin-common/option-action
+
+if BUILD_PERSONALITY
+noinst_PROGRAMS += 				\
+	test/sbuild/personality
+personality_tests = test/sbuild/personality
+endif
 
 # sbuild-lock is excluded, because it is timing dependent and can fail
 # randomly on slow or heavily-loaded systems.
@@ -61,7 +66,7 @@ TESTS = test/setup-test-data			\
 	test/sbuild/log				\
 	test/sbuild/nostream			\
 	test/sbuild/parse-value			\
-	test/sbuild/personality			\
+	$(personality_tests)			\
 	test/sbuild/run-parts			\
 	test/sbuild/regex			\
 	test/sbuild/util			\

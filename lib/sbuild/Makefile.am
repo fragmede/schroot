@@ -37,7 +37,6 @@ lib_sbuild_public_h_sources =				\
 	lib/sbuild/nostream.h				\
 	lib/sbuild/parse-error.h			\
 	lib/sbuild/parse-value.h			\
-	lib/sbuild/personality.h			\
 	lib/sbuild/regex.h				\
 	lib/sbuild/run-parts.h				\
 	lib/sbuild/session.h				\
@@ -60,7 +59,6 @@ lib_sbuild_chroot_facet_public_h_sources =		\
 	lib/sbuild/chroot/facet/factory.h		\
 	lib/sbuild/chroot/facet/file.h			\
 	lib/sbuild/chroot/facet/mountable.h		\
-	lib/sbuild/chroot/facet/personality.h		\
 	lib/sbuild/chroot/facet/plain.h			\
 	lib/sbuild/chroot/facet/session.h		\
 	lib/sbuild/chroot/facet/session-clonable.h	\
@@ -77,6 +75,13 @@ lib_sbuild_public_auth_pam_h_sources =	\
 	lib/sbuild/auth/pam-conv-tty.h	\
 	lib/sbuild/auth/pam.h		\
 	lib/sbuild/auth/pam-message.h
+endif
+
+if BUILD_PERSONALITY
+lib_sbuild_public_personality_facet_h_sources =	\
+	lib/sbuild/chroot/facet/personality.h
+lib_sbuild_public_personality_h_sources =	\
+	lib/sbuild/personality.h
 endif
 
 if BUILD_BLOCKDEV
@@ -124,7 +129,6 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/chroot/facet/factory.cc		\
 	lib/sbuild/chroot/facet/file.cc			\
 	lib/sbuild/chroot/facet/mountable.cc		\
-	lib/sbuild/chroot/facet/personality.cc		\
 	lib/sbuild/chroot/facet/plain.cc		\
 	lib/sbuild/chroot/facet/session.cc		\
 	lib/sbuild/chroot/facet/session-clonable.cc	\
@@ -147,7 +151,6 @@ lib_sbuild_public_cc_sources =				\
 	lib/sbuild/mntstream.cc				\
 	lib/sbuild/nostream.cc				\
 	lib/sbuild/parse-value.cc			\
-	lib/sbuild/personality.cc			\
 	lib/sbuild/run-parts.cc				\
 	lib/sbuild/session.cc				\
 	lib/sbuild/types.cc				\
@@ -159,6 +162,13 @@ lib_sbuild_public_auth_pam_cc_sources =	\
 	lib/sbuild/auth/pam-conv-tty.cc	\
 	lib/sbuild/auth/pam.cc		\
 	lib/sbuild/auth/pam-message.cc
+endif
+
+if BUILD_PERSONALITY
+lib_sbuild_public_personality_facet_cc_sources =	\
+	lib/sbuild/chroot/facet/personality.cc
+lib_sbuild_public_personality_cc_sources =	\
+	lib/sbuild/personality.cc
 endif
 
 if BUILD_BLOCKDEV
@@ -201,7 +211,8 @@ pkgincludechrootdir = $(includedir)/sbuild/chroot
 pkgincludefacetdir = $(includedir)/sbuild/chroot/facet
 
 pkginclude_HEADERS =					\
-	$(lib_sbuild_public_h_sources)
+	$(lib_sbuild_public_h_sources)			\
+	$(lib_sbuild_public_personality_h_sources)
 
 pkgincludeauth_HEADERS =				\
 	$(lib_sbuild_auth_public_h_sources)		\
@@ -210,34 +221,39 @@ pkgincludeauth_HEADERS =				\
 pkgincludechroot_HEADERS =				\
 	$(lib_sbuild_chroot_public_h_sources)
 
-pkgincludefacet_HEADERS =				\
-	$(lib_sbuild_chroot_facet_public_h_sources)	\
-	$(lib_sbuild_public_blockdev_base_h_sources)	\
-	$(lib_sbuild_public_blockdev_h_sources)		\
-	$(lib_sbuild_public_lvmsnap_h_sources)		\
-	$(lib_sbuild_public_btrfssnap_h_sources)	\
-	$(lib_sbuild_public_loopback_h_sources)		\
-	$(lib_sbuild_public_union_h_sources)		\
+pkgincludefacet_HEADERS =					\
+	$(lib_sbuild_chroot_facet_public_h_sources)		\
+	$(lib_sbuild_public_blockdev_base_h_sources)		\
+	$(lib_sbuild_public_blockdev_h_sources)			\
+	$(lib_sbuild_public_lvmsnap_h_sources)			\
+	$(lib_sbuild_public_btrfssnap_h_sources)		\
+	$(lib_sbuild_public_loopback_h_sources)			\
+	$(lib_sbuild_public_personality_facet_h_sources)	\
+	$(lib_sbuild_public_union_h_sources)			\
 	$(lib_sbuild_public_unshare_h_sources)
 
-lib_sbuild_libsbuild_la_SOURCES =			\
-	$(lib_sbuild_public_h_sources)			\
-	$(lib_sbuild_public_cc_sources)			\
-	$(lib_sbuild_public_auth_pam_h_sources)		\
-	$(lib_sbuild_public_auth_pam_cc_sources)	\
-	$(lib_sbuild_public_blockdev_base_h_sources)	\
-	$(lib_sbuild_public_blockdev_base_cc_sources)	\
-	$(lib_sbuild_public_blockdev_h_sources)		\
-	$(lib_sbuild_public_blockdev_cc_sources)	\
-	$(lib_sbuild_public_lvmsnap_h_sources)		\
-	$(lib_sbuild_public_lvmsnap_cc_sources)		\
-	$(lib_sbuild_public_btrfssnap_h_sources)	\
-	$(lib_sbuild_public_btrfssnap_cc_sources)	\
-	$(lib_sbuild_public_loopback_h_sources)		\
-	$(lib_sbuild_public_loopback_cc_sources)	\
-	$(lib_sbuild_public_union_h_sources)		\
-	$(lib_sbuild_public_union_cc_sources)		\
-	$(lib_sbuild_public_unshare_h_sources)		\
+lib_sbuild_libsbuild_la_SOURCES =				\
+	$(lib_sbuild_public_h_sources)				\
+	$(lib_sbuild_public_cc_sources)				\
+	$(lib_sbuild_public_auth_pam_h_sources)			\
+	$(lib_sbuild_public_auth_pam_cc_sources)		\
+	$(lib_sbuild_public_blockdev_base_h_sources)		\
+	$(lib_sbuild_public_blockdev_base_cc_sources)		\
+	$(lib_sbuild_public_blockdev_h_sources)			\
+	$(lib_sbuild_public_blockdev_cc_sources)		\
+	$(lib_sbuild_public_lvmsnap_h_sources)			\
+	$(lib_sbuild_public_lvmsnap_cc_sources)			\
+	$(lib_sbuild_public_btrfssnap_h_sources)		\
+	$(lib_sbuild_public_btrfssnap_cc_sources)		\
+	$(lib_sbuild_public_loopback_h_sources)			\
+	$(lib_sbuild_public_loopback_cc_sources)		\
+	$(lib_sbuild_public_personality_facet_h_sources)	\
+	$(lib_sbuild_public_personality_facet_cc_sources)	\
+	$(lib_sbuild_public_personality_h_sources)		\
+	$(lib_sbuild_public_personality_cc_sources)		\
+	$(lib_sbuild_public_union_h_sources)			\
+	$(lib_sbuild_public_union_cc_sources)			\
+	$(lib_sbuild_public_unshare_h_sources)			\
 	$(lib_sbuild_public_unshare_cc_sources)
 
 nodist_lib_sbuild_libsbuild_la_SOURCES =	\
