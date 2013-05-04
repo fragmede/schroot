@@ -46,10 +46,10 @@
 using namespace CppUnit;
 using sbuild::_;
 
-template <class T>
 class test_chroot_base : public TestFixture
 {
 protected:
+  std::string                 type;
   sbuild::chroot::chroot::ptr chroot;
   sbuild::chroot::chroot::ptr session;
   sbuild::chroot::chroot::ptr source;
@@ -63,9 +63,19 @@ protected:
   std::string abs_testdata_dir;
 
 public:
-  test_chroot_base():
+  test_chroot_base(std::string const& type):
     TestFixture(),
+    type(type),
     chroot(),
+    session(),
+    source(),
+    session_source(),
+#ifdef SBUILD_FEATURE_UNION
+    chroot_union(),
+    session_union(),
+    source_union(),
+    session_source_union(),
+#endif // SBUILD_FEATURE_UNION
     abs_testdata_dir()
   {
     abs_testdata_dir = sbuild::getcwd();
@@ -78,7 +88,7 @@ public:
   void setUp()
   {
     // Create new chroot
-    this->chroot = sbuild::chroot::chroot::ptr(new T);
+    this->chroot = sbuild::chroot::chroot::create(type);
     CPPUNIT_ASSERT(this->chroot);
     CPPUNIT_ASSERT(!(static_cast<bool>(this->chroot->template get_facet<sbuild::chroot::facet::session>())));
 
@@ -136,7 +146,7 @@ public:
       }
 
 #ifdef SBUILD_FEATURE_UNION
-    this->chroot_union = sbuild::chroot::chroot::ptr(new T);
+    this->chroot_union = sbuild::chroot::chroot::create(type);
     sbuild::chroot::facet::fsunion::ptr un =
       this->chroot_union->template get_facet<sbuild::chroot::facet::fsunion>();
     if (!un)

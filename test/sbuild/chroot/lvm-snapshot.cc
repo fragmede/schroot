@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <sbuild/chroot/lvm-snapshot.h>
 #include <sbuild/chroot/facet/lvm-snapshot.h>
 #include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/i18n.h>
@@ -36,18 +35,7 @@ using namespace CppUnit;
 
 using sbuild::_;
 
-class chroot_lvm_snapshot : public sbuild::chroot::lvm_snapshot
-{
-public:
-  chroot_lvm_snapshot():
-    sbuild::chroot::lvm_snapshot()
-  {}
-
-  virtual ~chroot_lvm_snapshot()
-  {}
-};
-
-class test_chroot_lvm_snapshot : public test_chroot_base<chroot_lvm_snapshot>
+class test_chroot_lvm_snapshot : public test_chroot_base
 {
   CPPUNIT_TEST_SUITE(test_chroot_lvm_snapshot);
   CPPUNIT_TEST(test_snapshot_device);
@@ -69,12 +57,12 @@ class test_chroot_lvm_snapshot : public test_chroot_base<chroot_lvm_snapshot>
 
 public:
   test_chroot_lvm_snapshot():
-    test_chroot_base<chroot_lvm_snapshot>()
+    test_chroot_base("lvm-snapshot")
   {}
 
   void setUp()
   {
-    test_chroot_base<chroot_lvm_snapshot>::setUp();
+    test_chroot_base::setUp();
     CPPUNIT_ASSERT(chroot);
     CPPUNIT_ASSERT(session);
     CPPUNIT_ASSERT(source);
@@ -83,7 +71,7 @@ public:
 
   virtual void setup_chroot_props (sbuild::chroot::chroot::ptr& chroot)
   {
-    test_chroot_base<chroot_lvm_snapshot>::setup_chroot_props(chroot);
+    test_chroot_base::setup_chroot_props(chroot);
 
     sbuild::chroot::facet::lvm_snapshot::ptr psnap(chroot->get_facet_strict<sbuild::chroot::facet::lvm_snapshot>());
 
@@ -139,13 +127,11 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_lvm_snapshot>::test_setup_env(chroot, expected);
+    test_chroot_base::test_setup_env(chroot, expected);
   }
 
   void test_setup_env_session()
   {
-    std::shared_ptr<sbuild::chroot::lvm_snapshot> c = std::dynamic_pointer_cast<sbuild::chroot::lvm_snapshot>(chroot);
-
     sbuild::environment expected;
     setup_env_gen(expected);
     expected.add("CHROOT_TYPE",           "lvm-snapshot");
@@ -160,7 +146,7 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "true");
 
-    test_chroot_base<chroot_lvm_snapshot>::test_setup_env(session, expected);
+    test_chroot_base::test_setup_env(session, expected);
   }
 
   void test_setup_env_source()
@@ -174,7 +160,7 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_lvm_snapshot>::test_setup_env(source, expected);
+    test_chroot_base::test_setup_env(source, expected);
   }
 
   void test_setup_env_session_source()
@@ -191,7 +177,7 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_lvm_snapshot>::test_setup_env(session_source, expected);
+    test_chroot_base::test_setup_env(session_source, expected);
   }
 
   void setup_keyfile_lvm(sbuild::keyfile &expected, std::string group)
@@ -211,7 +197,7 @@ public:
     expected.set_value(group, "type", "lvm-snapshot");
     expected.set_value(group, "lvm-snapshot-options", "--size 1G");
 
-    test_chroot_base<chroot_lvm_snapshot>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (chroot,expected, chroot->get_name());
   }
 
@@ -230,7 +216,7 @@ public:
     expected.set_value(group, "mount-device", "/dev/volgroup/test-session-name");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
 
-    test_chroot_base<chroot_lvm_snapshot>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (session, expected, group);
   }
 
@@ -245,7 +231,7 @@ public:
     expected.set_value(group, "aliases", "test-name-source,test-alias-1-source,test-alias-2-source");
     setup_keyfile_source_clone(expected, group);
 
-    test_chroot_base<chroot_lvm_snapshot>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (source, expected, group);
   }
 
@@ -260,7 +246,7 @@ public:
     expected.set_value(group, "mount-location", "/mnt/mount-location");
     setup_keyfile_session_source_clone(expected, group);
 
-    test_chroot_base<chroot_lvm_snapshot>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (session_source, expected, group);
   }
 

@@ -20,7 +20,6 @@
 
 #include <sbuild/config.h>
 #include <sbuild/chroot/facet/plain.h>
-#include <sbuild/chroot/plain.h>
 #include <sbuild/keyfile-writer.h>
 
 #include <test/sbuild/chroot/chroot.h>
@@ -32,18 +31,7 @@
 
 using namespace CppUnit;
 
-class chroot_plain : public sbuild::chroot::plain
-{
-public:
-  chroot_plain():
-    sbuild::chroot::plain()
-  {}
-
-  virtual ~chroot_plain()
-  {}
-};
-
-class test_chroot_plain : public test_chroot_base<chroot_plain>
+class test_chroot_plain : public test_chroot_base
 {
   CPPUNIT_TEST_SUITE(test_chroot_plain);
   CPPUNIT_TEST(test_directory);
@@ -57,12 +45,12 @@ class test_chroot_plain : public test_chroot_base<chroot_plain>
 
 public:
   test_chroot_plain():
-    test_chroot_base<chroot_plain>()
+    test_chroot_base("plain")
   {}
 
   void setUp()
   {
-    test_chroot_base<chroot_plain>::setUp();
+    test_chroot_base::setUp();
     CPPUNIT_ASSERT(chroot);
     CPPUNIT_ASSERT(!session);
     CPPUNIT_ASSERT(!source);
@@ -71,10 +59,9 @@ public:
 
   virtual void setup_chroot_props (sbuild::chroot::chroot::ptr& chroot)
   {
-    test_chroot_base<chroot_plain>::setup_chroot_props(chroot);
+    test_chroot_base::setup_chroot_props(chroot);
 
-    std::shared_ptr<sbuild::chroot::plain> c = std::dynamic_pointer_cast<sbuild::chroot::plain>(chroot);
-    c->set_mount_location("");
+    chroot->set_mount_location("");
 
     sbuild::chroot::facet::plain::ptr plfac = chroot->get_facet<sbuild::chroot::facet::plain>();
     plfac->set_directory("/srv/chroot/example-chroot");
@@ -83,8 +70,6 @@ public:
   void
   test_directory()
   {
-    std::shared_ptr<sbuild::chroot::plain> c = std::dynamic_pointer_cast<sbuild::chroot::plain>(chroot);
-    CPPUNIT_ASSERT(c);
     sbuild::chroot::facet::plain::ptr plfac = chroot->get_facet<sbuild::chroot::facet::plain>();
     plfac->set_directory("/mnt/mount-location/example");
     CPPUNIT_ASSERT(plfac->get_directory() == "/mnt/mount-location/example");
@@ -108,7 +93,7 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_plain>::test_setup_env(chroot, expected);
+    test_chroot_base::test_setup_env(chroot, expected);
   }
 
   void test_setup_keyfile()
@@ -119,7 +104,7 @@ public:
     expected.set_value(group, "type", "plain");
     expected.set_value(group, "directory", "/srv/chroot/example-chroot");
 
-    test_chroot_base<chroot_plain>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (chroot, expected, group);
   }
 

@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <sbuild/chroot/file.h>
 #include <sbuild/chroot/facet/file.h>
 #include <sbuild/i18n.h>
 #include <sbuild/keyfile-writer.h>
@@ -34,18 +33,7 @@ using namespace CppUnit;
 
 using sbuild::_;
 
-class chroot_file : public sbuild::chroot::file
-{
-public:
-  chroot_file():
-    sbuild::chroot::file()
-  {}
-
-  virtual ~chroot_file()
-  {}
-};
-
-class test_chroot_file : public test_chroot_base<chroot_file>
+class test_chroot_file : public test_chroot_base
 {
   CPPUNIT_TEST_SUITE(test_chroot_file);
   CPPUNIT_TEST(test_file);
@@ -69,12 +57,12 @@ class test_chroot_file : public test_chroot_base<chroot_file>
 
 public:
   test_chroot_file():
-    test_chroot_base<chroot_file>()
+    test_chroot_base("file")
   {}
 
   void setUp()
   {
-    test_chroot_base<chroot_file>::setUp();
+    test_chroot_base::setUp();
     CPPUNIT_ASSERT(chroot);
     CPPUNIT_ASSERT(session);
     CPPUNIT_ASSERT(source);
@@ -89,9 +77,7 @@ public:
 
   virtual void setup_chroot_props (sbuild::chroot::chroot::ptr& chroot)
   {
-    test_chroot_base<chroot_file>::setup_chroot_props(chroot);
-
-    std::shared_ptr<sbuild::chroot::file> c = std::dynamic_pointer_cast<sbuild::chroot::file>(chroot);
+    test_chroot_base::setup_chroot_props(chroot);
 
     sbuild::chroot::facet::file::ptr filefac = chroot->get_facet_strict<sbuild::chroot::facet::file>();
     filefac->set_filename("/srv/chroot/example.tar.bz2");
@@ -101,8 +87,6 @@ public:
   void
   test_file()
   {
-    std::shared_ptr<sbuild::chroot::file> c = std::dynamic_pointer_cast<sbuild::chroot::file>(chroot);
-    CPPUNIT_ASSERT(c);
     sbuild::chroot::facet::file::ptr filefac = chroot->get_facet_strict<sbuild::chroot::facet::file>();
     filefac->set_filename("/srv/chroot-images/unstable.tar.gz");
     CPPUNIT_ASSERT(filefac->get_filename() == "/srv/chroot-images/unstable.tar.gz");
@@ -115,7 +99,6 @@ public:
 
   void test_location()
   {
-    std::shared_ptr<sbuild::chroot::file> fc = std::dynamic_pointer_cast<sbuild::chroot::file>(chroot);
     sbuild::chroot::facet::file::ptr filefac = chroot->get_facet_strict<sbuild::chroot::facet::file>();
 
     filefac->set_location("");
@@ -129,7 +112,6 @@ public:
 
   void test_location_invalid()
   {
-    std::shared_ptr<sbuild::chroot::file> fc = std::dynamic_pointer_cast<sbuild::chroot::file>(chroot);
     sbuild::chroot::facet::file::ptr filefac = chroot->get_facet_strict<sbuild::chroot::facet::file>();
 
     filefac->set_location("invalid");
@@ -137,10 +119,6 @@ public:
 
   void test_repack()
   {
-    std::shared_ptr<sbuild::chroot::file> fc = std::dynamic_pointer_cast<sbuild::chroot::file>(chroot);
-    std::shared_ptr<sbuild::chroot::file> fss = std::dynamic_pointer_cast<sbuild::chroot::file>(session);
-    std::shared_ptr<sbuild::chroot::file> fs = std::dynamic_pointer_cast<sbuild::chroot::file>(source);
-
     sbuild::chroot::facet::file::ptr filechrootfac = chroot->get_facet_strict<sbuild::chroot::facet::file>();
     sbuild::chroot::facet::file::ptr filesessionfac = session->get_facet_strict<sbuild::chroot::facet::file>();
     sbuild::chroot::facet::file::ptr filesourcefac = source->get_facet_strict<sbuild::chroot::facet::file>();
@@ -165,7 +143,7 @@ public:
     expected.add("CHROOT_SESSION_CREATE",  "true");
     expected.add("CHROOT_SESSION_PURGE",   "false");
 
-    test_chroot_base<chroot_file>::test_setup_env(chroot, expected);
+    test_chroot_base::test_setup_env(chroot, expected);
   }
 
   void test_setup_env()
@@ -177,7 +155,7 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_file>::test_setup_env(chroot, expected);
+    test_chroot_base::test_setup_env(chroot, expected);
   }
 
   void test_setup_env_session()
@@ -192,7 +170,7 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "true");
 
-    test_chroot_base<chroot_file>::test_setup_env(session, expected);
+    test_chroot_base::test_setup_env(session, expected);
   }
 
   void test_setup_env_source()
@@ -205,7 +183,7 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
 
-    test_chroot_base<chroot_file>::test_setup_env(source, expected);
+    test_chroot_base::test_setup_env(source, expected);
   }
 
   void test_setup_env_session_source()
@@ -220,7 +198,7 @@ public:
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "true");
 
-    test_chroot_base<chroot_file>::test_setup_env(session_source, expected);
+    test_chroot_base::test_setup_env(session_source, expected);
   }
 
   void setup_keyfile_file(sbuild::keyfile &expected, const std::string group)
@@ -238,7 +216,7 @@ public:
     setup_keyfile_source(expected, group);
     setup_keyfile_file(expected, group);
 
-    test_chroot_base<chroot_file>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (chroot, expected, group);
   }
 
@@ -254,7 +232,7 @@ public:
     expected.set_value(group, "mount-location", "/mnt/mount-location");
     setup_keyfile_session_clone(expected, group);
 
-    test_chroot_base<chroot_file>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (session, expected, group);
   }
 
@@ -267,7 +245,7 @@ public:
     setup_keyfile_file(expected, group);
     expected.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
 
-    test_chroot_base<chroot_file>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (source, expected, group);
   }
 
@@ -282,7 +260,7 @@ public:
     expected.set_value(group, "file-repack", "true");
     expected.set_value(group, "mount-location", "/mnt/mount-location");
 
-    test_chroot_base<chroot_file>::test_setup_keyfile
+    test_chroot_base::test_setup_keyfile
       (session_source, expected, group);
   }
 

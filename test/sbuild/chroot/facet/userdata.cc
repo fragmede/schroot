@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <sbuild/chroot/directory.h>
 #include <sbuild/chroot/facet/directory.h>
 #include <sbuild/chroot/facet/userdata.h>
 
