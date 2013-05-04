@@ -234,20 +234,37 @@ namespace sbuild
                                        keyfile::PRIORITY_OPTIONAL);
       }
 
-      void
-      source_clonable::chroot_source_setup (chroot const& parent)
+      chroot::ptr
+      source_clonable::clone_source () const
       {
-        owner->set_description
-          (owner->get_description() + ' ' + _("(source chroot)"));
-        owner->set_original(false);
-        owner->set_users(this->get_source_users());
-        owner->set_groups(this->get_source_groups());
-        owner->set_root_users(this->get_source_root_users());
-        owner->set_root_groups(this->get_source_root_groups());
-        owner->set_aliases(owner->get_aliases());
+        chroot::ptr clone = owner->clone();
 
-        owner->remove_facet<source_clonable>();
-        owner->add_facet(source::create());
+        clone->set_description
+          (clone->get_description() + ' ' + _("(source chroot)"));
+        clone->set_original(false);
+        clone->set_users(this->get_source_users());
+        clone->set_groups(this->get_source_groups());
+        clone->set_root_users(this->get_source_root_users());
+        clone->set_root_groups(this->get_source_root_groups());
+        clone->set_aliases(clone->get_aliases());
+
+        clone->remove_facet<source_clonable>();
+        clone->add_facet(source::create());
+
+        chroot::facet_list& facets = clone->get_facets();
+
+        for (chroot::facet_list::iterator facet = facets.begin();
+             facet != facets.end();)
+          {
+            chroot::facet_list::iterator current = facet;
+            ++facet;
+            auto setup_facet = std::dynamic_pointer_cast<source_setup>(*current);
+            if (setup_facet)
+              setup_facet->chroot_source_setup(*owner);
+          }
+
+        return clone;
+
       }
 
     }

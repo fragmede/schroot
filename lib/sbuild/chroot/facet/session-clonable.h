@@ -67,13 +67,13 @@ namespace sbuild
         get_name () const;
 
         /**
-         * Set the defaults in the cloned session chroot.
+         * Clone a session chroot.
          *
-         * @param parent the parent of the cloned chroot.
-         * @param clone the chroot to set up.
          * @param session_id the identifier for the new session.
+         * @param alias the alias used to initially identify the chroot.
          * @param user the user creating the session.
          * @param root whether or not the user is switching to root.
+         * @returns a session chroot.
          */
         virtual chroot::ptr
         clone_session (std::string const& session_id,

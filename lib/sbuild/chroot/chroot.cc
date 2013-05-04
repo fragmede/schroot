@@ -211,14 +211,11 @@ namespace sbuild
     {
       ptr session = 0;
 
-      facet::session_clonable::const_ptr psrc
+      facet::session_clonable::const_ptr psess
         (get_facet<facet::session_clonable>());
-      if (psrc)
-        {
-
-          session = psrc->clone_session
-            (session_id, alias, user, root);
-        }
+      if (psess)
+        session = psess->clone_session
+          (session_id, alias, user, root);
 
       return session;
     }
@@ -231,21 +228,7 @@ namespace sbuild
       facet::source_clonable::const_ptr psrc
         (get_facet<facet::source_clonable>());
       if (psrc)
-        {
-          source = clone();
-
-          for (facet_list::iterator facet = source->facets.begin();
-               facet != source->facets.end();)
-            {
-              facet_list::iterator current = facet;
-              ++facet;
-              auto requested = std::dynamic_pointer_cast<facet::source_setup>(*current);
-              if (requested)
-                {
-                  requested->chroot_source_setup(*this);
-                }
-            }
-        }
+        source = psrc->clone_source();
 
       return source;
     }

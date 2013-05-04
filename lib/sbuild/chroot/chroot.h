@@ -153,7 +153,7 @@ namespace sbuild
        * Create a session chroot.
        *
        * @param session_id the identifier (session_id) for the new session.
-       * @param alias used to initially identify the chroot.
+       * @param alias the alias used to initially identify the chroot.
        * @param user the user creating the session.
        * @param root true if the user has root access, otherwise false.
        * @returns a session chroot.
