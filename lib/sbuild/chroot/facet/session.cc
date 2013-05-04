@@ -223,39 +223,6 @@ namespace sbuild
       session::set_keyfile (chroot&        chroot,
                             keyfile const& keyfile)
       {
-        // Null methods for obsolete keys.
-        void (session::* nullmethod)(bool) = 0;
-        void (session::* nullvmethod)(string_list const&) = 0;
-
-        // Setting when not clonable is deprecated.  It can't be obsoleted
-        // yet because it is required to allow use and ending of existing
-        // sessions which have set this parameter (even though it's
-        // useless).
-        keyfile::get_object_value(*this, nullmethod,
-                                  keyfile, chroot.get_name(),
-                                  "active",
-                                  keyfile::PRIORITY_OBSOLETE);
-
-        keyfile::get_object_list_value(*this, nullvmethod,
-                                       keyfile, chroot.get_name(),
-                                       "source-users",
-                                       keyfile::PRIORITY_OBSOLETE);
-
-        keyfile::get_object_list_value(*this, nullvmethod,
-                                       keyfile, chroot.get_name(),
-                                       "source-groups",
-                                       keyfile::PRIORITY_OBSOLETE);
-
-        keyfile::get_object_list_value(*this, nullvmethod,
-                                       keyfile, chroot.get_name(),
-                                       "source-root-users",
-                                       keyfile::PRIORITY_OBSOLETE);
-
-        keyfile::get_object_list_value(*this, nullvmethod,
-                                       keyfile, chroot.get_name(),
-                                       "source-root-groups",
-                                       keyfile::PRIORITY_OBSOLETE);
-
         keyfile::get_object_value(*this, &session::set_original_name,
                                   keyfile, chroot.get_name(),
                                   "original-name",

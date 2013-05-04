@@ -768,34 +768,7 @@ namespace sbuild
     void
     chroot::set_keyfile (keyfile const& keyfile)
     {
-      // Null method for obsolete keys.
-      void (chroot::* nullmethod)(bool) = 0;
-
       bool session = static_cast<bool>(get_facet<facet::session>());
-
-      keyfile::get_object_value(*this, nullmethod,
-                                keyfile, get_name(),
-                                "active",
-                                keyfile::PRIORITY_OBSOLETE);
-
-      // Setup scripts are run depending on the chroot type in use, and is
-      // no longer user-configurable.  They need to run for all types
-      // except "plain".
-      keyfile::get_object_value(*this, nullmethod,
-                                keyfile, get_name(),
-                                "run-setup-scripts",
-                                keyfile::PRIORITY_OBSOLETE);
-
-      // Exec scripts have been removed, so these two calls do nothing
-      // except to warn the user that the options are no longer used.
-      keyfile::get_object_value(*this, nullmethod,
-                                keyfile, get_name(),
-                                "run-session-scripts",
-                                keyfile::PRIORITY_OBSOLETE);
-      keyfile::get_object_value(*this, nullmethod,
-                                keyfile, get_name(),
-                                "run-exec-scripts",
-                                keyfile::PRIORITY_OBSOLETE);
 
       keyfile::get_object_value(*this, &chroot::set_profile,
                                 keyfile, get_name(),
@@ -808,13 +781,6 @@ namespace sbuild
                                 session ?
                                 keyfile::PRIORITY_OPTIONAL :
                                 keyfile::PRIORITY_DEPRECATED);
-
-      keyfile::get_object_value(*this, nullmethod,
-                                keyfile, get_name(),
-                                "priority",
-                                session ?
-                                keyfile::PRIORITY_OPTIONAL :
-                                keyfile::PRIORITY_OBSOLETE);
 
       keyfile::get_object_list_value(*this, &chroot::set_aliases,
                                      keyfile, get_name(),
