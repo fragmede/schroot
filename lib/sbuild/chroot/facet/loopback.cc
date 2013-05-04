@@ -23,6 +23,7 @@
 #include <sbuild/chroot/facet/loopback.h>
 #include <sbuild/chroot/facet/mountable.h>
 #include <sbuild/chroot/facet/session.h>
+#include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/format-detail.h>
 
 #include <cassert>
@@ -77,8 +78,13 @@ namespace sbuild
                             bool    copy)
       {
         storage::set_chroot(chroot);
+
+        if (!copy && !owner->get_facet<session_clonable>())
+          owner->add_facet(session_clonable::create());
+
         if (!copy && !owner->get_facet<mountable>())
           owner->add_facet(mountable::create());
+
 #ifdef SBUILD_FEATURE_UNION
         if (!copy && !owner->get_facet<fsunion>())
           owner->add_facet(fsunion::create());

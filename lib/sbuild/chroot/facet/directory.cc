@@ -22,6 +22,7 @@
 #include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/fsunion.h>
 #include <sbuild/chroot/facet/session.h>
+#include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/format-detail.h>
 #include <sbuild/util.h>
 
@@ -83,6 +84,10 @@ namespace sbuild
                              bool    copy)
       {
         directory_base::set_chroot(chroot);
+
+        if (!copy && !owner->get_facet<session_clonable>())
+          owner->add_facet(session_clonable::create());
+
 #ifdef SBUILD_FEATURE_UNION
         if (!copy && !owner->get_facet<fsunion>())
           owner->add_facet(fsunion::create());

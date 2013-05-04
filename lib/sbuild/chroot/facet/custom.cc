@@ -73,6 +73,16 @@ namespace sbuild
       {
       }
 
+      void
+      custom::set_chroot (chroot& chroot,
+                             bool    copy)
+      {
+        storage::set_chroot(chroot);
+
+        if (!copy && !owner->get_facet<session_clonable>())
+          owner->add_facet(session_clonable::create());
+      }
+
       std::string const&
       custom::get_name () const
       {

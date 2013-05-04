@@ -102,8 +102,6 @@ namespace sbuild
       message_verbosity(VERBOSITY_NORMAL),
       facets()
     {
-      add_facet(facet::session_clonable::create());
-
       for (auto& facet : facet::factory::create_auto())
         add_facet_by_name(facet);
 

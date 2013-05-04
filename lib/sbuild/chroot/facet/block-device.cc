@@ -87,6 +87,10 @@ namespace sbuild
                                 bool    copy)
       {
         block_device_base::set_chroot(chroot, copy);
+
+        if (!copy && !owner->get_facet<session_clonable>())
+          owner->add_facet(session_clonable::create());
+
 #ifdef SBUILD_FEATURE_UNION
         if (!copy && !owner->get_facet<fsunion>())
           owner->add_facet(fsunion::create());

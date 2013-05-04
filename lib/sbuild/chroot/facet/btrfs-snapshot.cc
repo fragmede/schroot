@@ -83,6 +83,10 @@ namespace sbuild
                                   bool    copy)
       {
         storage::set_chroot(chroot);
+
+        if (!copy && !owner->get_facet<session_clonable>())
+          owner->add_facet(session_clonable::create());
+
         if (!copy && !owner->get_facet<source_clonable>())
           owner->add_facet(source_clonable::create());
       }

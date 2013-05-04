@@ -58,6 +58,10 @@ namespace sbuild
         /// The copy constructor.
         custom (const custom& rhs);
 
+        void
+        set_chroot (chroot& chroot,
+                    bool    copy);
+
         friend class chroot;
 
       public:

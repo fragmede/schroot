@@ -20,6 +20,7 @@
 
 #include <sbuild/chroot/chroot.h>
 #include <sbuild/chroot/facet/factory.h>
+#include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/storage.h>
 #include <sbuild/keyfile-writer.h>
 
@@ -53,6 +54,16 @@ protected:
   test_chroot_facet (const test_chroot_facet& rhs):
     storage(rhs)
   {
+  }
+
+  void
+  set_chroot (sbuild::chroot::chroot& chroot,
+              bool                    copy)
+  {
+    storage::set_chroot(chroot, copy);
+
+    if (!copy)
+      owner->add_facet(sbuild::chroot::facet::session_clonable::create());
   }
 
   friend class chroot;
