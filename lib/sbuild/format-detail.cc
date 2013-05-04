@@ -24,70 +24,73 @@
 
 #include <boost/format.hpp>
 
-using namespace sbuild;
-
-format_detail::format_detail (std::string const& title,
-                              std::locale        locale):
-  title(title),
-  locale(locale),
-  items()
+namespace sbuild
 {
-}
 
-format_detail::~format_detail ()
-{
-}
+  format_detail::format_detail (std::string const& title,
+                                std::locale        locale):
+    title(title),
+    locale(locale),
+    items()
+  {
+  }
 
-format_detail&
-format_detail::add (std::string const& name,
-                    std::string const& value)
-{
-  for (const auto& item : this->items)
-    {
-      if (item.first == name)
-        {
-          log_debug(DEBUG_WARNING) << "format_detail: name \""
-                                   << name << "\" is already added"
-                                   << std::endl;
-          return *this;
-        }
-    }
+  format_detail::~format_detail ()
+  {
+  }
 
-  this->items.push_back(value_type(name, value));
-  log_debug(DEBUG_INFO) << "format_detail: added name \""
-                        << name << "\""
-                        << std::endl;
+  format_detail&
+  format_detail::add (std::string const& name,
+                      std::string const& value)
+  {
+    for (const auto& item : this->items)
+      {
+        if (item.first == name)
+          {
+            log_debug(DEBUG_WARNING) << "format_detail: name \""
+                                     << name << "\" is already added"
+                                     << std::endl;
+            return *this;
+          }
+      }
 
-  return *this;
-}
+    this->items.push_back(value_type(name, value));
+    log_debug(DEBUG_INFO) << "format_detail: added name \""
+                          << name << "\""
+                          << std::endl;
 
-format_detail&
-format_detail::add (std::string const& name,
-                    bool               value)
-{
-  const char *desc = 0;
-  if (value)
-    desc =  _("true");
-  else
-    desc = _("false");
+    return *this;
+  }
 
-  return add(name, std::string(desc));
-}
+  format_detail&
+  format_detail::add (std::string const& name,
+                      bool               value)
+  {
+    const char *desc = 0;
+    if (value)
+      desc =  _("true");
+    else
+      desc = _("false");
 
-format_detail&
-format_detail::add (std::string const& name,
-                    string_list const& value)
-{
-  return add(name, string_list_to_string(value, " "));
-}
+    return add(name, std::string(desc));
+  }
 
-std::string
-format_detail::get_title () const
-{
-  // TRANSLATORS: %1% = title of section
-  // TRANSLATORS: Please format the --- as a continuous line, e.g. U+2500
-  boost::format fmt(_("─── %1% ───"));
-  fmt %this->title;
+  format_detail&
+  format_detail::add (std::string const& name,
+                      string_list const& value)
+  {
+    return add(name, string_list_to_string(value, " "));
+  }
 
-  return fmt.str();
+  std::string
+  format_detail::get_title () const
+  {
+    // TRANSLATORS: %1% = title of section
+    // TRANSLATORS: Please format the --- as a continuous line, e.g. U+2500
+    boost::format fmt(_("─── %1% ───"));
+    fmt %this->title;
+
+    return fmt.str();
+  }
+
 }

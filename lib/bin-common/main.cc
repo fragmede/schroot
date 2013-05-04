@@ -36,100 +36,104 @@
 using std::endl;
 using boost::format;
 using sbuild::_;
-using namespace bin_common;
 
-main::main (std::string const&  program_name,
-            std::string const&  program_usage,
-            options::ptr const& program_options,
-            bool                use_syslog):
-  program_name(program_name),
-  program_usage(program_usage),
-  program_options(program_options),
-  use_syslog(use_syslog)
+namespace bin_common
 {
-}
 
-main::~main ()
-{
-}
+  main::main (std::string const&  program_name,
+              std::string const&  program_usage,
+              options::ptr const& program_options,
+              bool                use_syslog):
+    program_name(program_name),
+    program_usage(program_usage),
+    program_options(program_options),
+    use_syslog(use_syslog)
+  {
+  }
 
-void
-main::action_version (std::ostream& stream)
-{
-  // TRANSLATORS: %1% = program name
-  // TRANSLATORS: %2% = program version
-  // TRANSLATORS: %3% = release date
-  format fmtr(_("%1% (Debian sbuild) %2% (%3%)"));
-  fmtr % this->program_name % VERSION % sbuild::gmdate(RELEASE_DATE);
+  main::~main ()
+  {
+  }
 
-  // TRANSLATORS: %1% = copyright year (start)
-  // TRANSLATORS: %2% = copyright year (end)
-  format fmtc(_("Copyright © %1%–%2% Roger Leigh"));
-  fmtc % "2004" % "2012";
+  void
+  main::action_version (std::ostream& stream)
+  {
+    // TRANSLATORS: %1% = program name
+    // TRANSLATORS: %2% = program version
+    // TRANSLATORS: %3% = release date
+    format fmtr(_("%1% (Debian sbuild) %2% (%3%)"));
+    fmtr % this->program_name % VERSION % sbuild::gmdate(RELEASE_DATE);
 
-  stream << fmtr << '\n'
-         << _("Written by Roger Leigh") << '\n' << '\n'
-         << fmtc << '\n'
-         << _("This is free software; see the source for copying conditions.  There is NO\n"
-              "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
-         << '\n'
-         << _("Configured features:") << '\n';
-  sbuild::feature::print_features(stream);
-  stream << std::flush;
-}
+    // TRANSLATORS: %1% = copyright year (start)
+    // TRANSLATORS: %2% = copyright year (end)
+    format fmtc(_("Copyright © %1%–%2% Roger Leigh"));
+    fmtc % "2004" % "2012";
 
-void
-main::action_help (std::ostream& stream)
-{
-  stream
-    << _("Usage:") << '\n'
-    << "  " << this->program_name << "  "
-    << this->program_usage << std::endl;
+    stream << fmtr << '\n'
+           << _("Written by Roger Leigh") << '\n' << '\n'
+           << fmtc << '\n'
+           << _("This is free software; see the source for copying conditions.  There is NO\n"
+                "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
+           << '\n'
+           << _("Configured features:") << '\n';
+    sbuild::feature::print_features(stream);
+    stream << std::flush;
+  }
 
-  stream << this->program_options->get_visible_options() << std::flush;
-}
+  void
+  main::action_help (std::ostream& stream)
+  {
+    stream
+      << _("Usage:") << '\n'
+      << "  " << this->program_name << "  "
+      << this->program_usage << std::endl;
 
-int
-main::run (int   argc,
-           char *argv[])
-{
-  try
-    {
-      this->program_options->parse(argc, argv);
+    stream << this->program_options->get_visible_options() << std::flush;
+  }
+
+  int
+  main::run (int   argc,
+             char *argv[])
+  {
+    try
+      {
+        this->program_options->parse(argc, argv);
 
 #ifdef SBUILD_DEBUG
-      sbuild::debug_log_level = sbuild::DEBUG_CRITICAL;
+        sbuild::debug_log_level = sbuild::DEBUG_CRITICAL;
 #endif
 
-      if (this->use_syslog)
-        openlog(this->program_name.c_str(), LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
+        if (this->use_syslog)
+          openlog(this->program_name.c_str(), LOG_PID|LOG_NDELAY, LOG_AUTHPRIV);
 
-      int status = run_impl();
+        int status = run_impl();
 
-      closelog();
-
-      return status;
-    }
-  catch (std::exception const& e)
-    {
-      sbuild::log_exception_error(e);
-
-      try
-        {
-          dynamic_cast<bin_common::options::error const&>(e);
-          sbuild::log_info()
-            // TRANSLATORS: %1% = program name
-            << format(_("Run “%1% --help” to list usage example and all available options"))
-            % argv[0]
-            << endl;
-        }
-      catch (std::bad_cast const& discard)
-        {
-        }
-
-      if (this->use_syslog)
         closelog();
 
-      return EXIT_FAILURE;
-    }
+        return status;
+      }
+    catch (std::exception const& e)
+      {
+        sbuild::log_exception_error(e);
+
+        try
+          {
+            dynamic_cast<bin_common::options::error const&>(e);
+            sbuild::log_info()
+              // TRANSLATORS: %1% = program name
+              << format(_("Run “%1% --help” to list usage example and all available options"))
+              % argv[0]
+              << endl;
+          }
+        catch (std::bad_cast const& discard)
+          {
+          }
+
+        if (this->use_syslog)
+          closelog();
+
+        return EXIT_FAILURE;
+      }
+  }
+
 }

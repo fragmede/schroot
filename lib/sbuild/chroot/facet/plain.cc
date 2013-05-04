@@ -31,7 +31,6 @@
 #include <boost/format.hpp>
 
 using boost::format;
-using namespace sbuild;
 
 namespace sbuild
 {

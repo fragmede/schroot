@@ -31,738 +31,741 @@
 
 #include <boost/filesystem/convenience.hpp>
 
-using namespace sbuild;
-
-namespace
+namespace sbuild
 {
 
-  /**
-   * Remove duplicate adjacent characters from a string.
-   *
-   * @param str the string to check.
-   * @param dup the duplicate character to check for.
-   * @returns a string with any duplicates removed.
-   */
-  std::string remove_duplicates (std::string const& str,
-                                 char               dup)
+  namespace
+  {
+
+    /**
+     * Remove duplicate adjacent characters from a string.
+     *
+     * @param str the string to check.
+     * @param dup the duplicate character to check for.
+     * @returns a string with any duplicates removed.
+     */
+    std::string remove_duplicates (std::string const& str,
+                                   char               dup)
+    {
+      std::string ret;
+
+      for (std::string::size_type pos = 0;
+           pos < str.length();
+           ++pos)
+        {
+          ret += str[pos];
+          if (str[pos] == dup)
+            {
+              while (pos + 1 < str.length() &&
+                     str[pos + 1] == dup)
+                ++pos;
+            }
+        }
+
+      return ret;
+    }
+
+
+  }
+
+  template<>
+  error<stat::error_code>::map_type
+  error<stat::error_code>::error_strings =
+    {
+      {stat::FILE, N_("Failed to stat file")},
+      {stat::FD,   N_("Failed to stat file descriptor")}
+    };
+
+  std::string
+  basename (std::string name)
+  {
+    const char separator = '/';
+
+    // Remove trailing separators
+    std::string::size_type cur = name.length();
+    while (cur - 1 != 0 && name[cur - 1] == separator)
+      --cur;
+    name.resize(cur);
+
+    // Find last separator
+    std::string::size_type pos = name.rfind(separator);
+
+    std::string ret;
+    if (pos == std::string::npos)
+      ret = name; // No separators
+    else if (pos == 0 && name.length() == 1 && name[0] == separator)
+      ret = separator; // Only separators
+    else
+      ret = name.substr(pos + 1); // Basename only
+
+    return remove_duplicates(ret, separator);
+  }
+
+  std::string
+  dirname (std::string name)
+  {
+    const char separator = '/';
+
+    // Remove trailing separators
+    std::string::size_type cur = name.length();
+    while (cur - 1 != 0 && name[cur - 1] == separator)
+      --cur;
+    name.resize(cur);
+
+    // Find last separator
+    std::string::size_type pos = name.rfind(separator);
+
+    std::string ret;
+    if (pos == std::string::npos)
+      ret = "."; // No directory components
+    else if (pos == 0)
+      ret = separator;
+    else
+      ret = name.substr(0, pos); // Dirname part
+
+    return remove_duplicates(ret, separator);
+  }
+
+  std::string
+  normalname (std::string name)
+  {
+    const char separator = '/';
+
+    // Remove trailing separators
+    std::string::size_type cur = name.length();
+    while (cur - 1 != 0 && name[cur - 1] == separator)
+      --cur;
+    name.resize(cur);
+
+    return remove_duplicates(name, separator);
+  }
+
+  bool
+  is_absname (std::string const& name)
+  {
+    if (name.empty() || name[0] != '/')
+      return false;
+    else
+      return true;
+  }
+
+  bool
+  is_valid_sessionname (std::string const& name)
+  {
+    bool match = false;
+
+    static regex file_namespace("^[^:/,.][^:/,]*$");
+    static regex editor_backup("~$");
+    static regex debian_dpkg_conffile_cruft("dpkg-(old|dist|new|tmp)$");
+
+    if (regex_search(name, file_namespace) &&
+        !regex_search(name, editor_backup) &&
+        !regex_search(name, debian_dpkg_conffile_cruft)) {
+      match = true;
+    }
+
+    return match;
+  }
+
+  bool
+  is_valid_filename (std::string const& name,
+                     bool               lsb_mode)
+  {
+    bool match = false;
+
+    if (lsb_mode)
+      {
+        static regex lanana_namespace("^[a-z0-9]+$");
+        static regex lsb_namespace("^_?([a-z0-9_.]+-)+[a-z0-9]+$");
+        static regex debian_cron_namespace("^[a-z0-9][a-z0-9-]*$");
+        static regex debian_dpkg_conffile_cruft("dpkg-(old|dist|new|tmp)$");
+
+        if ((regex_search(name, lanana_namespace) ||
+             regex_search(name, lsb_namespace) ||
+             regex_search(name, debian_cron_namespace)) &&
+            !regex_search(name, debian_dpkg_conffile_cruft))
+          match = true;
+      }
+    else
+      {
+        static regex traditional_namespace("^[a-zA-Z0-9_-]$");
+        if (regex_search(name, traditional_namespace))
+          match = true;
+      }
+
+    return match;
+  }
+
+  std::string
+  getcwd ()
+  {
+    std::string cwd;
+
+    char *raw_cwd = ::getcwd (0, 0);
+    if (raw_cwd)
+      cwd = raw_cwd;
+    else
+      cwd = "/";
+    free(raw_cwd);
+
+    return cwd;
+  }
+
+  std::string
+  unique_identifier ()
+  {
+    std::ostringstream id;
+    id.imbue(std::locale::classic());
+
+    struct timeval tv;
+    gettimeofday(&tv, nullptr);
+
+    uint64_t bits = static_cast<uint64_t>(tv.tv_usec << 16) ^ tv.tv_sec;
+    static const std::string letters("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+    std::string ids;
+    for (int i=0; i<6; ++i)
+      {
+        ids += letters[bits % 62];
+        bits /= 62;
+      }
+
+    id << ids << '-' << getpid();
+
+    return id.str();
+  }
+
+  std::string
+  string_list_to_string (string_list const& list,
+                         std::string const& separator)
   {
     std::string ret;
 
-    for (std::string::size_type pos = 0;
-         pos < str.length();
-         ++pos)
+    for (string_list::const_iterator cur = list.begin();
+         cur != list.end();
+         ++cur)
       {
-        ret += str[pos];
-        if (str[pos] == dup)
-          {
-            while (pos + 1 < str.length() &&
-                   str[pos + 1] == dup)
-              ++pos;
-          }
+        ret += *cur;
+        if (cur + 1 != list.end())
+          ret += separator;
       }
 
     return ret;
   }
 
-
-}
-
-template<>
-error<sbuild::stat::error_code>::map_type
-error<sbuild::stat::error_code>::error_strings =
+  string_list
+  split_string (std::string const& value,
+                std::string const& separator)
   {
-    {sbuild::stat::FILE, N_("Failed to stat file")},
-    {sbuild::stat::FD,   N_("Failed to stat file descriptor")}
-  };
+    string_list ret;
 
-std::string
-sbuild::basename (std::string name)
-{
-  const char separator = '/';
+    // Skip any separators at the start
+    std::string::size_type last_pos =
+      value.find_first_not_of(separator, 0);
+    // Find first separator.
+    std::string::size_type pos = value.find_first_of(separator, last_pos);
 
-  // Remove trailing separators
-  std::string::size_type cur = name.length();
-  while (cur - 1 != 0 && name[cur - 1] == separator)
-    --cur;
-  name.resize(cur);
+    while (pos !=std::string::npos || last_pos != std::string::npos)
+      {
+        // Add to list
+        if (pos == std::string::npos)
+          // Entire string from last_pos
+          ret.push_back(value.substr(last_pos, pos));
+        else
+          // Between pos and last_pos
+          ret.push_back(value.substr(last_pos, pos - last_pos));
 
-  // Find last separator
-  std::string::size_type pos = name.rfind(separator);
+        // Find next
+        last_pos = value.find_first_not_of(separator, pos);
+        pos = value.find_first_of(separator, last_pos);
+      }
 
-  std::string ret;
-  if (pos == std::string::npos)
-    ret = name; // No separators
-  else if (pos == 0 && name.length() == 1 && name[0] == separator)
-    ret = separator; // Only separators
-  else
-    ret = name.substr(pos + 1); // Basename only
-
-  return remove_duplicates(ret, separator);
-}
-
-std::string
-sbuild::dirname (std::string name)
-{
-  const char separator = '/';
-
-  // Remove trailing separators
-  std::string::size_type cur = name.length();
-  while (cur - 1 != 0 && name[cur - 1] == separator)
-    --cur;
-  name.resize(cur);
-
-  // Find last separator
-  std::string::size_type pos = name.rfind(separator);
-
-  std::string ret;
-  if (pos == std::string::npos)
-    ret = "."; // No directory components
-  else if (pos == 0)
-    ret = separator;
-  else
-    ret = name.substr(0, pos); // Dirname part
-
-  return remove_duplicates(ret, separator);
-}
-
-std::string
-sbuild::normalname (std::string name)
-{
-  const char separator = '/';
-
-  // Remove trailing separators
-  std::string::size_type cur = name.length();
-  while (cur - 1 != 0 && name[cur - 1] == separator)
-    --cur;
-  name.resize(cur);
-
-  return remove_duplicates(name, separator);
-}
-
-bool
-sbuild::is_absname (std::string const& name)
-{
-  if (name.empty() || name[0] != '/')
-    return false;
-  else
-    return true;
-}
-
-bool
-sbuild::is_valid_sessionname (std::string const& name)
-{
-  bool match = false;
-
-  static regex file_namespace("^[^:/,.][^:/,]*$");
-  static regex editor_backup("~$");
-  static regex debian_dpkg_conffile_cruft("dpkg-(old|dist|new|tmp)$");
-
-  if (regex_search(name, file_namespace) &&
-      !regex_search(name, editor_backup) &&
-      !regex_search(name, debian_dpkg_conffile_cruft)) {
-    match = true;
+    return ret;
   }
 
-  return match;
-}
+  string_list
+  split_string_strict (std::string const& value,
+                       std::string const& separator)
+  {
+    string_list ret;
 
-bool
-sbuild::is_valid_filename (std::string const& name,
-                           bool               lsb_mode)
-{
-  bool match = false;
+    std::string::size_type last_pos = 0;
+    // Find first separator.
+    std::string::size_type pos = value.find_first_of(separator, last_pos);
 
-  if (lsb_mode)
-    {
-      static regex lanana_namespace("^[a-z0-9]+$");
-      static regex lsb_namespace("^_?([a-z0-9_.]+-)+[a-z0-9]+$");
-      static regex debian_cron_namespace("^[a-z0-9][a-z0-9-]*$");
-      static regex debian_dpkg_conffile_cruft("dpkg-(old|dist|new|tmp)$");
+    while (pos !=std::string::npos)
+      {
+        // Add to list
+        if (pos == std::string::npos)
+          // Entire string from last_pos
+          ret.push_back(value.substr(last_pos, pos));
+        else
+          // Between pos and last_pos
+          ret.push_back(value.substr(last_pos, pos - last_pos));
 
-      if ((regex_search(name, lanana_namespace) ||
-           regex_search(name, lsb_namespace) ||
-           regex_search(name, debian_cron_namespace)) &&
-          !regex_search(name, debian_dpkg_conffile_cruft))
-        match = true;
-    }
-  else
-    {
-      static regex traditional_namespace("^[a-zA-Z0-9_-]$");
-      if (regex_search(name, traditional_namespace))
-        match = true;
-    }
+        // Find next
+        last_pos = pos + separator.length();
+        pos = value.find_first_of(separator, last_pos);
+      }
 
-  return match;
-}
+    return ret;
+  }
 
-std::string
-sbuild::getcwd ()
-{
-  std::string cwd;
+  std::wstring
+  widen_string (std::string const& str,
+                std::locale        locale)
+  {
+    typedef std::codecvt<wchar_t, char, mbstate_t> codecvt_type;
+    codecvt_type const& cvt = std::use_facet<codecvt_type>(locale);
+    mbstate_t state;
+    const char *cbegin = str.data(), *cend = str.data() + str.size(), *cnext;
+    wchar_t *wcnext;
+    wchar_t wcbuf[80];
+    std::wstring ret;
 
-  char *raw_cwd = ::getcwd (0, 0);
-  if (raw_cwd)
-    cwd = raw_cwd;
-  else
-    cwd = "/";
-  free(raw_cwd);
+    std::memset(&state, 0, sizeof(mbstate_t));
 
-  return cwd;
-}
+    while (1)
+      {
+        std::codecvt_base::result res =
+          cvt.in(state,
+                 cbegin, cend, cnext,
+                 wcbuf, wcbuf + (sizeof(wcbuf) / sizeof(wcbuf[0])), wcnext);
 
-std::string
-sbuild::unique_identifier ()
-{
-  std::ostringstream id;
-  id.imbue(std::locale::classic());
-
-  struct timeval tv;
-  gettimeofday(&tv, nullptr);
-
-  uint64_t bits = static_cast<uint64_t>(tv.tv_usec << 16) ^ tv.tv_sec;
-  static const std::string letters("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
-  std::string ids;
-  for (int i=0; i<6; ++i)
-    {
-      ids += letters[bits % 62];
-      bits /= 62;
-    }
-
-  id << ids << '-' << getpid();
-
-  return id.str();
-}
-
-std::string
-sbuild::string_list_to_string (string_list const& list,
-                               std::string const& separator)
-{
-  std::string ret;
-
-  for (string_list::const_iterator cur = list.begin();
-       cur != list.end();
-       ++cur)
-    {
-      ret += *cur;
-      if (cur + 1 != list.end())
-        ret += separator;
-    }
-
-  return ret;
-}
-
-string_list
-sbuild::split_string (std::string const& value,
-                      std::string const& separator)
-{
-  string_list ret;
-
-  // Skip any separators at the start
-  std::string::size_type last_pos =
-    value.find_first_not_of(separator, 0);
-  // Find first separator.
-  std::string::size_type pos = value.find_first_of(separator, last_pos);
-
-  while (pos !=std::string::npos || last_pos != std::string::npos)
-    {
-      // Add to list
-      if (pos == std::string::npos)
-        // Entire string from last_pos
-        ret.push_back(value.substr(last_pos, pos));
-      else
-        // Between pos and last_pos
-        ret.push_back(value.substr(last_pos, pos - last_pos));
-
-      // Find next
-      last_pos = value.find_first_not_of(separator, pos);
-      pos = value.find_first_of(separator, last_pos);
-    }
-
-  return ret;
-}
-
-string_list
-sbuild::split_string_strict (std::string const& value,
-                             std::string const& separator)
-{
-  string_list ret;
-
-  std::string::size_type last_pos = 0;
-  // Find first separator.
-  std::string::size_type pos = value.find_first_of(separator, last_pos);
-
-  while (pos !=std::string::npos)
-    {
-      // Add to list
-      if (pos == std::string::npos)
-        // Entire string from last_pos
-        ret.push_back(value.substr(last_pos, pos));
-      else
-        // Between pos and last_pos
-        ret.push_back(value.substr(last_pos, pos - last_pos));
-
-      // Find next
-      last_pos = pos + separator.length();
-      pos = value.find_first_of(separator, last_pos);
-    }
-
-  return ret;
-}
-
-std::wstring
-sbuild::widen_string (std::string const& str,
-                      std::locale        locale)
-{
-  typedef std::codecvt<wchar_t, char, mbstate_t> codecvt_type;
-  codecvt_type const& cvt = std::use_facet<codecvt_type>(locale);
-  mbstate_t state;
-  const char *cbegin = str.data(), *cend = str.data() + str.size(), *cnext;
-  wchar_t *wcnext;
-  wchar_t wcbuf[80];
-  std::wstring ret;
-
-  std::memset(&state, 0, sizeof(mbstate_t));
-
-  while (1)
-    {
-      std::codecvt_base::result res =
-        cvt.in(state,
-               cbegin, cend, cnext,
-               wcbuf, wcbuf + (sizeof(wcbuf) / sizeof(wcbuf[0])), wcnext);
-
-      if (res == std::codecvt_base::ok || res == std::codecvt_base::partial)
-        {
-          ret += std::wstring(wcbuf, wcnext);
-          if (cend == cnext)
+        if (res == std::codecvt_base::ok || res == std::codecvt_base::partial)
+          {
+            ret += std::wstring(wcbuf, wcnext);
+            if (cend == cnext)
+              break;
+          }
+        else if (res == std::codecvt_base::noconv)
+          {
+            ret += std::wstring(cbegin, cend);
             break;
-        }
-      else if (res == std::codecvt_base::noconv)
-        {
-          ret += std::wstring(cbegin, cend);
-          break;
-        }
-      else if (res == std::codecvt_base::error)
-        {
-          throw std::runtime_error
-            ("A character set conversion failed.  Please report this bug.");
-          break;
-        }
-      else
-        break;
-
-      cbegin = cnext;
-    }
-
-  return ret;
-}
-
-std::string
-sbuild::narrow_string (std::wstring const& str,
-                       std::locale         locale)
-{
-  typedef std::codecvt<wchar_t, char, mbstate_t> codecvt_type;
-  codecvt_type const& cvt = std::use_facet<codecvt_type>(locale);
-  mbstate_t state;
-  const wchar_t *wcbegin = str.data(), *wcend = str.data() + str.size(), *wcnext;
-  char *cnext;
-  char cbuf[80];
-  std::string ret;
-
-  std::memset(&state, 0, sizeof(mbstate_t));
-
-  while (1)
-    {
-      std::codecvt_base::result res =
-        cvt.out(state,
-                wcbegin, wcend, wcnext,
-                cbuf, cbuf + (sizeof(cbuf) / sizeof(cbuf[0])), cnext);
-
-      if (res == std::codecvt_base::ok || res == std::codecvt_base::partial)
-        {
-          ret += std::string(cbuf, cnext);
-          if (wcend == wcnext)
+          }
+        else if (res == std::codecvt_base::error)
+          {
+            throw std::runtime_error
+              ("A character set conversion failed.  Please report this bug.");
             break;
-        }
-      else if (res == std::codecvt_base::noconv)
-        {
-          ret += std::string(wcbegin, wcend);
+          }
+        else
           break;
-        }
-      else if (res == std::codecvt_base::error)
-        {
-          throw std::runtime_error
-            ("A character set conversion failed.  Please report this bug.");
+
+        cbegin = cnext;
+      }
+
+    return ret;
+  }
+
+  std::string
+  narrow_string (std::wstring const& str,
+                 std::locale         locale)
+  {
+    typedef std::codecvt<wchar_t, char, mbstate_t> codecvt_type;
+    codecvt_type const& cvt = std::use_facet<codecvt_type>(locale);
+    mbstate_t state;
+    const wchar_t *wcbegin = str.data(), *wcend = str.data() + str.size(), *wcnext;
+    char *cnext;
+    char cbuf[80];
+    std::string ret;
+
+    std::memset(&state, 0, sizeof(mbstate_t));
+
+    while (1)
+      {
+        std::codecvt_base::result res =
+          cvt.out(state,
+                  wcbegin, wcend, wcnext,
+                  cbuf, cbuf + (sizeof(cbuf) / sizeof(cbuf[0])), cnext);
+
+        if (res == std::codecvt_base::ok || res == std::codecvt_base::partial)
+          {
+            ret += std::string(cbuf, cnext);
+            if (wcend == wcnext)
+              break;
+          }
+        else if (res == std::codecvt_base::noconv)
+          {
+            ret += std::string(wcbegin, wcend);
+            break;
+          }
+        else if (res == std::codecvt_base::error)
+          {
+            throw std::runtime_error
+              ("A character set conversion failed.  Please report this bug.");
+            break;
+          }
+        else
           break;
-        }
-      else
-        break;
 
-      wcbegin = wcnext;
-    }
+        wcbegin = wcnext;
+      }
 
-  return ret;
-}
+    return ret;
+  }
 
-std::string
-sbuild::find_program_in_path (std::string const& program,
-                              std::string const& path,
-                              std::string const& prefix)
-{
-  if (program.find_first_of('/') != std::string::npos)
-    return program;
+  std::string
+  find_program_in_path (std::string const& program,
+                        std::string const& path,
+                        std::string const& prefix)
+  {
+    if (program.find_first_of('/') != std::string::npos)
+      return program;
 
-  string_list dirs = split_string(path, std::string(1, ':'));
+    string_list dirs = split_string(path, std::string(1, ':'));
 
-  for (const auto& dir : dirs)
-    {
-      std::string realname = dir + '/' + program;
-      std::string absname;
-      if (prefix.length() > 0)
-        {
-          absname = prefix;
-          if (dir.length() > 0 && (dir)[0] != '/')
-            absname += '/';
-        }
-      absname += realname;
+    for (const auto& dir : dirs)
+      {
+        std::string realname = dir + '/' + program;
+        std::string absname;
+        if (prefix.length() > 0)
+          {
+            absname = prefix;
+            if (dir.length() > 0 && (dir)[0] != '/')
+              absname += '/';
+          }
+        absname += realname;
 
-      try
-        {
-          if (stat(absname).is_regular() &&
-              access (absname.c_str(), X_OK) == 0)
-            return realname;
-        }
-      catch (std::runtime_error const& e)
-        {
-        }
-    }
+        try
+          {
+            if (stat(absname).is_regular() &&
+                access (absname.c_str(), X_OK) == 0)
+              return realname;
+          }
+        catch (std::runtime_error const& e)
+          {
+          }
+      }
 
-  return "";
-}
+    return "";
+  }
 
-char **
-sbuild::string_list_to_strv (string_list const& str)
-{
-  char **ret = new char *[str.size() + 1];
+  char **
+  string_list_to_strv (string_list const& str)
+  {
+    char **ret = new char *[str.size() + 1];
 
-  for (string_list::size_type i = 0;
-       i < str.size();
-       ++i)
-    {
-      ret[i] = new char[str[i].length() + 1];
-      std::strcpy(ret[i], str[i].c_str());
-    }
-  ret[str.size()] = 0;
+    for (string_list::size_type i = 0;
+         i < str.size();
+         ++i)
+      {
+        ret[i] = new char[str[i].length() + 1];
+        std::strcpy(ret[i], str[i].c_str());
+      }
+    ret[str.size()] = 0;
 
-  return ret;
-}
+    return ret;
+  }
 
 
-void
-sbuild::strv_delete (char **strv)
-{
-  for (char **pos = strv; pos != 0 && *pos != 0; ++pos)
-    delete *pos;
-  delete[] strv;
-}
+  void
+  strv_delete (char **strv)
+  {
+    for (char **pos = strv; pos != 0 && *pos != 0; ++pos)
+      delete *pos;
+    delete[] strv;
+  }
 
-int
-sbuild::exec (std::string const& file,
-              string_list const& command,
-              environment const& env)
-{
-  char **argv = string_list_to_strv(command);
-  char **envp = env.get_strv();
-  int status;
+  int
+  exec (std::string const& file,
+        string_list const& command,
+        environment const& env)
+  {
+    char **argv = string_list_to_strv(command);
+    char **envp = env.get_strv();
+    int status;
 
-  if ((status = execve(file.c_str(), argv, envp)) != 0)
-    {
-      strv_delete(argv);
-      strv_delete(envp);
-    }
+    if ((status = execve(file.c_str(), argv, envp)) != 0)
+      {
+        strv_delete(argv);
+        strv_delete(envp);
+      }
 
-  return status;
-}
+    return status;
+  }
 
-sbuild::stat::stat (const char *file,
-                    bool        link):
-  file(file),
-  fd(0),
-  errorno(0),
-  status()
-{
-  if (link)
-    {
-      if (::lstat(file, &this->status) < 0)
-        this->errorno = errno;
-    }
-  else
-    {
-      if (::stat(file, &this->status) < 0)
-        this->errorno = errno;
-    }
-}
+  stat::stat (const char *file,
+              bool        link):
+    file(file),
+    fd(0),
+    errorno(0),
+    status()
+  {
+    if (link)
+      {
+        if (::lstat(file, &this->status) < 0)
+          this->errorno = errno;
+      }
+    else
+      {
+        if (::stat(file, &this->status) < 0)
+          this->errorno = errno;
+      }
+  }
 
-sbuild::stat::stat (std::string const& file,
-                    bool               link):
-  file(file),
-  fd(0),
-  errorno(0),
-  status()
-{
-  if (link)
-    {
-      if (::lstat(file.c_str(), &this->status) < 0)
-        this->errorno = errno;
-    }
-  else
-    {
-      if (::stat(file.c_str(), &this->status) < 0)
-        this->errorno = errno;
-    }
-}
+  stat::stat (std::string const& file,
+              bool               link):
+    file(file),
+    fd(0),
+    errorno(0),
+    status()
+  {
+    if (link)
+      {
+        if (::lstat(file.c_str(), &this->status) < 0)
+          this->errorno = errno;
+      }
+    else
+      {
+        if (::stat(file.c_str(), &this->status) < 0)
+          this->errorno = errno;
+      }
+  }
 
-sbuild::stat::stat (std::string const& file,
-                    int                fd):
-  file(file),
-  fd(fd),
-  errorno(0),
-  status()
-{
-  if (::fstat(fd, &this->status) < 0)
-    this->errorno = errno;
-}
+  stat::stat (std::string const& file,
+              int                fd):
+    file(file),
+    fd(fd),
+    errorno(0),
+    status()
+  {
+    if (::fstat(fd, &this->status) < 0)
+      this->errorno = errno;
+  }
 
-sbuild::stat::stat (int fd):
-  file(),
-  fd(fd),
-  errorno(0),
-  status()
-{
-  if (::fstat(fd, &this->status) < 0)
-    this->errorno = errno;
-}
+  stat::stat (int fd):
+    file(),
+    fd(fd),
+    errorno(0),
+    status()
+  {
+    if (::fstat(fd, &this->status) < 0)
+      this->errorno = errno;
+  }
 
-sbuild::stat::~stat ()
-{
-}
+  stat::~stat ()
+  {
+  }
 
-sbuild::passwd::passwd ():
-  ::passwd(),
-  buffer(),
-  valid(false)
-{
-  clear();
-}
+  passwd::passwd ():
+    ::passwd(),
+    buffer(),
+    valid(false)
+  {
+    clear();
+  }
 
-sbuild::passwd::passwd (uid_t uid):
-  ::passwd(),
-  buffer(),
-  valid(false)
-{
-  clear();
+  passwd::passwd (uid_t uid):
+    ::passwd(),
+    buffer(),
+    valid(false)
+  {
+    clear();
 
-  query_uid(uid);
-}
+    query_uid(uid);
+  }
 
-sbuild::passwd::passwd (const char *name):
-  ::passwd(),
-  buffer(),
-  valid(false)
-{
-  clear();
+  passwd::passwd (const char *name):
+    ::passwd(),
+    buffer(),
+    valid(false)
+  {
+    clear();
 
-  query_name(name);
-}
+    query_name(name);
+  }
 
-sbuild::passwd::passwd (std::string const& name):
-  ::passwd(),
-  buffer(),
-  valid(false)
-{
-  clear();
+  passwd::passwd (std::string const& name):
+    ::passwd(),
+    buffer(),
+    valid(false)
+  {
+    clear();
 
-  query_name(name);
-}
+    query_name(name);
+  }
 
-void
-sbuild::passwd::clear ()
-{
-  valid = false;
+  void
+  passwd::clear ()
+  {
+    valid = false;
 
-  buffer.clear();
+    buffer.clear();
 
-  ::passwd::pw_name = 0;
-  ::passwd::pw_passwd = 0;
-  ::passwd::pw_uid = 0;
-  ::passwd::pw_gid = 0;
-  ::passwd::pw_gecos = 0;
-  ::passwd::pw_dir = 0;
-  ::passwd::pw_shell = 0;
-}
+    ::passwd::pw_name = 0;
+    ::passwd::pw_passwd = 0;
+    ::passwd::pw_uid = 0;
+    ::passwd::pw_gid = 0;
+    ::passwd::pw_gecos = 0;
+    ::passwd::pw_dir = 0;
+    ::passwd::pw_shell = 0;
+  }
 
-void
-sbuild::passwd::query_uid (uid_t uid)
-{
-  buffer_type::size_type size = 1 << 7;
-  buffer.reserve(size);
-  int error;
+  void
+  passwd::query_uid (uid_t uid)
+  {
+    buffer_type::size_type size = 1 << 7;
+    buffer.reserve(size);
+    int error;
 
-  ::passwd *pwd_result;
+    ::passwd *pwd_result;
 
-  while ((error = getpwuid_r(uid, this,
-                             &buffer[0], buffer.capacity(),
-                             &pwd_result)))
-    {
-      size <<= 1;
-      buffer.reserve(size);
-    }
+    while ((error = getpwuid_r(uid, this,
+                               &buffer[0], buffer.capacity(),
+                               &pwd_result)))
+      {
+        size <<= 1;
+        buffer.reserve(size);
+      }
 
-  if (pwd_result)
-    valid = true;
-  else
-    errno = error;
-}
+    if (pwd_result)
+      valid = true;
+    else
+      errno = error;
+  }
 
-void
-sbuild::passwd::query_name (const char *name)
-{
-  buffer_type::size_type size = 1 << 8;
-  buffer.reserve(size);
-  int error;
+  void
+  passwd::query_name (const char *name)
+  {
+    buffer_type::size_type size = 1 << 8;
+    buffer.reserve(size);
+    int error;
 
-  ::passwd *pwd_result;
+    ::passwd *pwd_result;
 
-  while ((error = getpwnam_r(name, this,
-                             &buffer[0], buffer.capacity(),
-                             &pwd_result)))
-    {
-      size <<= 1;
-      buffer.reserve(size);
-    }
+    while ((error = getpwnam_r(name, this,
+                               &buffer[0], buffer.capacity(),
+                               &pwd_result)))
+      {
+        size <<= 1;
+        buffer.reserve(size);
+      }
 
-  if (pwd_result)
-    valid = true;
-  else
-    errno = error;
-}
+    if (pwd_result)
+      valid = true;
+    else
+      errno = error;
+  }
 
-void
-sbuild::passwd::query_name (std::string const& name)
-{
-  query_name(name.c_str());
-}
+  void
+  passwd::query_name (std::string const& name)
+  {
+    query_name(name.c_str());
+  }
 
-bool
-sbuild::passwd::operator ! () const
-{
-  return !valid;
-}
+  bool
+  passwd::operator ! () const
+  {
+    return !valid;
+  }
 
-sbuild::group::group ():
-  ::group(),
-  buffer(),
-  valid(false)
-{
-  clear();
-}
+  group::group ():
+    ::group(),
+    buffer(),
+    valid(false)
+  {
+    clear();
+  }
 
-sbuild::group::group (gid_t gid):
-  ::group(),
-  buffer(),
-  valid(false)
-{
-  clear();
+  group::group (gid_t gid):
+    ::group(),
+    buffer(),
+    valid(false)
+  {
+    clear();
 
-  query_gid(gid);
-}
+    query_gid(gid);
+  }
 
-sbuild::group::group (const char *name):
-  ::group(),
-  buffer(),
-  valid(false)
-{
-  clear();
+  group::group (const char *name):
+    ::group(),
+    buffer(),
+    valid(false)
+  {
+    clear();
 
-  query_name(name);
-}
+    query_name(name);
+  }
 
-sbuild::group::group (std::string const& name):
-  ::group(),
-  buffer(),
-  valid(false)
-{
-  clear();
+  group::group (std::string const& name):
+    ::group(),
+    buffer(),
+    valid(false)
+  {
+    clear();
 
-  query_name(name);
-}
+    query_name(name);
+  }
 
-void
-sbuild::group::clear ()
-{
-  valid = false;
+  void
+  group::clear ()
+  {
+    valid = false;
 
-  buffer.clear();
+    buffer.clear();
 
-  ::group::gr_name = 0;
-  ::group::gr_passwd = 0;
-  ::group::gr_gid = 0;
-  ::group::gr_mem = 0;
-}
+    ::group::gr_name = 0;
+    ::group::gr_passwd = 0;
+    ::group::gr_gid = 0;
+    ::group::gr_mem = 0;
+  }
 
-void
-sbuild::group::query_gid (gid_t gid)
-{
-  buffer_type::size_type size = 1 << 7;
-  buffer.reserve(size);
-  int error;
+  void
+  group::query_gid (gid_t gid)
+  {
+    buffer_type::size_type size = 1 << 7;
+    buffer.reserve(size);
+    int error;
 
-  ::group *grp_result;
+    ::group *grp_result;
 
-  while ((error = getgrgid_r(gid, this,
-                             &buffer[0], buffer.capacity(),
-                             &grp_result)))
-    {
-      size <<= 1;
-      buffer.reserve(size);
-    }
+    while ((error = getgrgid_r(gid, this,
+                               &buffer[0], buffer.capacity(),
+                               &grp_result)))
+      {
+        size <<= 1;
+        buffer.reserve(size);
+      }
 
-  if (grp_result)
-    valid = true;
-  else
-    errno = error;
-}
+    if (grp_result)
+      valid = true;
+    else
+      errno = error;
+  }
 
-void
-sbuild::group::query_name (const char *name)
-{
-  buffer_type::size_type size = 1 << 8;
-  buffer.reserve(size);
-  int error;
+  void
+  group::query_name (const char *name)
+  {
+    buffer_type::size_type size = 1 << 8;
+    buffer.reserve(size);
+    int error;
 
-  ::group *grp_result;
+    ::group *grp_result;
 
-  while ((error = getgrnam_r(name, this,
-                             &buffer[0], buffer.capacity(),
-                             &grp_result)))
-    {
-      size <<= 1;
-      buffer.reserve(size);
-    }
+    while ((error = getgrnam_r(name, this,
+                               &buffer[0], buffer.capacity(),
+                               &grp_result)))
+      {
+        size <<= 1;
+        buffer.reserve(size);
+      }
 
-  if (grp_result)
-    valid = true;
-  else
-    errno = error;
-}
+    if (grp_result)
+      valid = true;
+    else
+      errno = error;
+  }
 
-void
-sbuild::group::query_name (std::string const& name)
-{
-  query_name(name.c_str());
-}
+  void
+  group::query_name (std::string const& name)
+  {
+    query_name(name.c_str());
+  }
 
-bool
-sbuild::group::operator ! () const
-{
-  return !valid;
+  bool
+  group::operator ! () const
+  {
+    return !valid;
+  }
+
 }

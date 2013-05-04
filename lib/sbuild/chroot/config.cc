@@ -42,24 +42,23 @@
 
 using std::endl;
 using boost::format;
-using namespace sbuild;
-
-namespace
-{
-
-  bool
-  chroot_alphasort (chroot::chroot::ptr const& c1,
-                    chroot::chroot::ptr const& c2)
-  {
-    return c1->get_name() < c2->get_name();
-  }
-
-}
 
 namespace sbuild
 {
   namespace chroot
   {
+
+    namespace
+    {
+
+      bool
+      chroot_alphasort (chroot::chroot::ptr const& c1,
+                        chroot::chroot::ptr const& c2)
+      {
+        return c1->get_name() < c2->get_name();
+      }
+
+    }
 
     template<>
     error<config::error_code>::map_type

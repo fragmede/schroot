@@ -21,24 +21,27 @@
 #include <sbuild/types.h>
 #include <sbuild/i18n.h>
 
-using namespace sbuild;
-
-const char *
-sbuild::date_base::get_date_format () const
+namespace sbuild
 {
-  // TRANSLATORS: Format string for date representation:
-  // %d = day (number, e.g. 14)
-  // %b = month (three letters, e.g. Jul)
-  // %Y = year (four digits, e.g. 2006)
-  // If required, any of the standard strftime(3)
-  // format specifiers may be used instead, as long as
-  // the day, month and year are clearly displayed in
-  // the equivalent standard method for your locale.
-  return _("%d %b %Y");
-}
 
-const char *
-sbuild::isodate::get_date_format () const
-{
-  return "%Y-%m-%dT%H:%M:%SZ";
+  const char *
+  date_base::get_date_format () const
+  {
+    // TRANSLATORS: Format string for date representation:
+    // %d = day (number, e.g. 14)
+    // %b = month (three letters, e.g. Jul)
+    // %Y = year (four digits, e.g. 2006)
+    // If required, any of the standard strftime(3)
+    // format specifiers may be used instead, as long as
+    // the day, month and year are clearly displayed in
+    // the equivalent standard method for your locale.
+    return _("%d %b %Y");
+  }
+
+  const char *
+  isodate::get_date_format () const
+  {
+    return "%Y-%m-%dT%H:%M:%SZ";
+  }
+
 }

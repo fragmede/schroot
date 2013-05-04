@@ -20,37 +20,40 @@
 
 #include <sbuild/parse-value.h>
 
-using namespace sbuild;
-
-template<>
-error<parse_value_error_code>::map_type
-error<parse_value_error_code>::error_strings =
-  {
-    // TRANSLATORS: %1% = value (arbitrary text)
-    {BAD_VALUE, N_("Could not parse value ‘%1%’")}
-  };
-
-void
-sbuild::parse_value (std::string const& value,
-                     bool&              parsed_value)
+namespace sbuild
 {
-  if (value == "true" || value == "yes" || value == "1")
-    parsed_value = true;
-  else if (value == "false" || value == "no" || value == "0")
-    parsed_value = false;
-  else
+
+  template<>
+  error<parse_value_error_code>::map_type
+  error<parse_value_error_code>::error_strings =
     {
-      log_debug(DEBUG_NOTICE) << "parse error" << std::endl;
-      throw parse_value_error(value, BAD_VALUE);
-    }
+      // TRANSLATORS: %1% = value (arbitrary text)
+      {BAD_VALUE, N_("Could not parse value ‘%1%’")}
+    };
 
-  log_debug(DEBUG_NOTICE) << "value=" << parsed_value << std::endl;
-}
+  void
+  parse_value (std::string const& value,
+               bool&              parsed_value)
+  {
+    if (value == "true" || value == "yes" || value == "1")
+      parsed_value = true;
+    else if (value == "false" || value == "no" || value == "0")
+      parsed_value = false;
+    else
+      {
+        log_debug(DEBUG_NOTICE) << "parse error" << std::endl;
+        throw parse_value_error(value, BAD_VALUE);
+      }
 
-void
-sbuild::parse_value (std::string const& value,
-                     std::string&       parsed_value)
-{
-  parsed_value = value;
-  log_debug(DEBUG_NOTICE) << "value=" << parsed_value << std::endl;
+    log_debug(DEBUG_NOTICE) << "value=" << parsed_value << std::endl;
+  }
+
+  void
+  parse_value (std::string const& value,
+               std::string&       parsed_value)
+  {
+    parsed_value = value;
+    log_debug(DEBUG_NOTICE) << "value=" << parsed_value << std::endl;
+  }
+
 }

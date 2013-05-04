@@ -36,7 +36,6 @@
 using std::cerr;
 using std::endl;
 using boost::format;
-using namespace sbuild;
 
 #if defined(__LINUX_PAM__)
 #define PAM_TEXT_DOMAIN "Linux-PAM"
@@ -44,99 +43,99 @@ using namespace sbuild;
 #define PAM_TEXT_DOMAIN "SUNW_OST_SYSOSPAM"
 #endif
 
-namespace
-{
-
-  /* This is the glue to link PAM user interaction with pam_conv. */
-  int
-  pam_conv_hook (int                        num_msg,
-                 const struct pam_message **msgm,
-                 struct pam_response      **response,
-                 void                      *appdata_ptr)
-  {
-    log_debug(DEBUG_NOTICE) << "PAM conversation hook started" << endl;
-
-    try
-      {
-        if (appdata_ptr == 0)
-          return PAM_CONV_ERR;
-
-        auth::pam_conv *conv = static_cast<auth::pam_conv *>(appdata_ptr);
-        assert (conv != 0);
-
-        log_debug(DEBUG_INFO) << "Found PAM conversation handler" << endl;
-
-        /* Construct a message vector */
-        auth::pam_conv::message_list messages;
-        for (int i = 0; i < num_msg; ++i)
-          {
-            const struct ::pam_message *source = msgm[i];
-
-            auth::pam_message
-              message(static_cast<auth::pam_message::message_type>(source->msg_style),
-                      source->msg);
-
-            /* Replace PAM prompt */
-            if (message.message == dgettext(PAM_TEXT_DOMAIN, "Password: ") ||
-                message.message == dgettext(PAM_TEXT_DOMAIN, "Password:"))
-              {
-                std::string user = "unknown"; // Set in case auth is void
-                std::shared_ptr<auth::pam> auth = conv->get_auth();
-                assert(auth && auth.get() != 0); // Check auth is not void
-                if (auth && auth.get() != 0)
-                  user = auth->get_user();
-                format fmt(_("[schroot] password for %1%: "));
-                fmt % user;
-                message.message = fmt.str();
-              }
-
-            messages.push_back(message);
-          }
-
-        log_debug(DEBUG_INFO) << "Set PAM conversation message vector" << endl;
-
-        /* Do the conversation; an exception will be thrown on failure */
-        conv->conversation(messages);
-
-        log_debug(DEBUG_INFO) << "Run PAM conversation" << endl;
-
-        /* Copy response into **reponse */
-        struct pam_response *reply =
-          static_cast<struct pam_response *>
-          (malloc(sizeof(struct pam_response) * num_msg));
-
-        for (int i = 0; i < num_msg; ++i)
-          {
-            reply[i].resp_retcode = 0;
-            reply[i].resp = strdup(messages[i].response.c_str());
-          }
-
-        *response = reply;
-        reply = 0;
-
-        log_debug(DEBUG_INFO) << "Set PAM conversation reply" << endl;
-
-        return PAM_SUCCESS;
-      }
-    catch (std::exception const& e)
-      {
-        log_exception_error(e);
-      }
-    catch (...)
-      {
-        log_error() << _("An unknown exception occurred") << endl;
-      }
-
-    return PAM_CONV_ERR;
-  }
-
-  sbuild::feature feature_pam("PAM", N_("Pluggable Authentication Modules"));
-}
-
 namespace sbuild
 {
   namespace auth
   {
+
+    namespace
+    {
+
+      /* This is the glue to link PAM user interaction with pam_conv. */
+      int
+      pam_conv_hook (int                          num_msg,
+                     const struct ::pam_message **msgm,
+                     struct ::pam_response      **response,
+                     void                        *appdata_ptr)
+      {
+        log_debug(DEBUG_NOTICE) << "PAM conversation hook started" << endl;
+
+        try
+          {
+            if (appdata_ptr == 0)
+              return PAM_CONV_ERR;
+
+            pam_conv *conv = static_cast<pam_conv *>(appdata_ptr);
+            assert (conv != 0);
+
+            log_debug(DEBUG_INFO) << "Found PAM conversation handler" << endl;
+
+            /* Construct a message vector */
+            pam_conv::message_list messages;
+            for (int i = 0; i < num_msg; ++i)
+              {
+                const struct ::pam_message *source = msgm[i];
+
+                pam_message
+                  message(static_cast<pam_message::message_type>(source->msg_style),
+                          source->msg);
+
+                /* Replace PAM prompt */
+                if (message.message == dgettext(PAM_TEXT_DOMAIN, "Password: ") ||
+                    message.message == dgettext(PAM_TEXT_DOMAIN, "Password:"))
+                  {
+                    std::string user = "unknown"; // Set in case auth is void
+                    std::shared_ptr<pam> auth = conv->get_auth();
+                    assert(auth && auth.get() != 0); // Check auth is not void
+                    if (auth && auth.get() != 0)
+                      user = auth->get_user();
+                    format fmt(_("[schroot] password for %1%: "));
+                    fmt % user;
+                    message.message = fmt.str();
+                  }
+
+                messages.push_back(message);
+              }
+
+            log_debug(DEBUG_INFO) << "Set PAM conversation message vector" << endl;
+
+            /* Do the conversation; an exception will be thrown on failure */
+            conv->conversation(messages);
+
+            log_debug(DEBUG_INFO) << "Run PAM conversation" << endl;
+
+            /* Copy response into **reponse */
+            struct pam_response *reply =
+              static_cast<struct pam_response *>
+              (malloc(sizeof(struct pam_response) * num_msg));
+
+            for (int i = 0; i < num_msg; ++i)
+              {
+                reply[i].resp_retcode = 0;
+                reply[i].resp = strdup(messages[i].response.c_str());
+              }
+
+            *response = reply;
+            reply = 0;
+
+            log_debug(DEBUG_INFO) << "Set PAM conversation reply" << endl;
+
+            return PAM_SUCCESS;
+          }
+        catch (std::exception const& e)
+          {
+            log_exception_error(e);
+          }
+        catch (...)
+          {
+            log_error() << _("An unknown exception occurred") << endl;
+          }
+
+        return PAM_CONV_ERR;
+      }
+
+      sbuild::feature feature_pam("PAM", N_("Pluggable Authentication Modules"));
+    }
 
     pam::pam (std::string const& service_name):
       auth(service_name),

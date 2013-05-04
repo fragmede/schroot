@@ -20,8 +20,6 @@
 
 #include <sbuild/chroot/facet/storage.h>
 
-using namespace sbuild;
-
 namespace sbuild
 {
   namespace chroot

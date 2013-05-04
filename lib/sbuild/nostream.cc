@@ -18,4 +18,9 @@
 
 #include <sbuild/nostream.h>
 
-sbuild::nostream sbuild::cnull;
+namespace sbuild
+{
+
+  nostream cnull;
+
+}

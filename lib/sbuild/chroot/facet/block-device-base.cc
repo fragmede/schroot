@@ -28,8 +28,6 @@
 #include <cstring>
 #include <iostream>
 
-using namespace sbuild;
-
 namespace sbuild
 {
   namespace chroot

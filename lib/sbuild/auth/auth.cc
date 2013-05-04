@@ -36,7 +36,6 @@
 using std::cerr;
 using std::endl;
 using boost::format;
-using namespace sbuild;
 
 namespace sbuild
 {

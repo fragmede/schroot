@@ -28,46 +28,6 @@
 #include <boost/format.hpp>
 
 using boost::format;
-using namespace sbuild;
-
-namespace
-{
-
-  bool
-  validate_keyname(std::string const& key)
-  {
-    // Valid names consist of one (or more) namespaces which consist
-    // of [a-z][a-z0-9] followed by a . (namespace separator).  The
-    // key name following the separator is [a-z][a-z0-9-].  When
-    // converted to an environment variable, all alphabet characters
-    // are uppercased, and all periods and hyphens converted to
-    // underscores.
-    static sbuild::regex permitted("^([a-z][a-z0-9]*\\.)+[a-z][a-z0-9-]*$");
-
-    // These would permit clashes with existing setup environment
-    // variables, and potentially security issues if they were
-    // user-settable.
-    static sbuild::regex reserved("^(((auth|chroot|host|libexec|mount|session|status|sysconf)\\..*)|setup.data.dir)$");
-
-    return regex_search(key, permitted) && !regex_search(key, reserved);
-  }
-
-  std::string
-  envname(std::string const& key)
-  {
-    std::string ret(key);
-
-    static const std::ctype<char>& ct = std::use_facet<std::ctype<char> >(std::locale::classic());
-    for (auto& chr : ret)
-      {
-        chr = ct.toupper(chr);
-        if (chr == '-' || chr == '.')
-          chr = '_';
-      }
-    return ret;
-  }
-
-}
 
 namespace sbuild
 {
@@ -78,6 +38,40 @@ namespace sbuild
 
       namespace
       {
+
+        bool
+        validate_keyname(std::string const& key)
+        {
+          // Valid names consist of one (or more) namespaces which consist
+          // of [a-z][a-z0-9] followed by a . (namespace separator).  The
+          // key name following the separator is [a-z][a-z0-9-].  When
+          // converted to an environment variable, all alphabet characters
+          // are uppercased, and all periods and hyphens converted to
+          // underscores.
+          static sbuild::regex permitted("^([a-z][a-z0-9]*\\.)+[a-z][a-z0-9-]*$");
+
+          // These would permit clashes with existing setup environment
+          // variables, and potentially security issues if they were
+          // user-settable.
+          static sbuild::regex reserved("^(((auth|chroot|host|libexec|mount|session|status|sysconf)\\..*)|setup.data.dir)$");
+
+          return regex_search(key, permitted) && !regex_search(key, reserved);
+        }
+
+        std::string
+        envname(std::string const& key)
+        {
+          std::string ret(key);
+
+          static const std::ctype<char>& ct = std::use_facet<std::ctype<char> >(std::locale::classic());
+          for (auto& chr : ret)
+            {
+              chr = ct.toupper(chr);
+              if (chr == '-' || chr == '.')
+                chr = '_';
+            }
+          return ret;
+        }
 
         factory::facet_info userdata_info =
           {

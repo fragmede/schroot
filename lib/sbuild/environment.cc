@@ -23,147 +23,151 @@
 #include <cstring>
 
 using boost::format;
-using namespace sbuild;
 
-environment::environment ():
-  std::map<std::string,std::string>(),
-  filter()
+namespace sbuild
 {
-}
 
-environment::environment (char **environment):
-  std::map<std::string,std::string>()
-{
-  add(environment);
-}
+  environment::environment ():
+    std::map<std::string,std::string>(),
+    filter()
+  {
+  }
 
-environment::~environment ()
-{
-}
+  environment::environment (char **environment):
+    std::map<std::string,std::string>()
+  {
+    add(environment);
+  }
 
-void
-environment::set_filter (regex const& filter)
-{
-  this->filter = filter;
-}
+  environment::~environment ()
+  {
+  }
 
-regex const&
-environment::get_filter () const
-{
-  return this->filter;
-}
+  void
+  environment::set_filter (regex const& filter)
+  {
+    this->filter = filter;
+  }
 
-void
-environment::add (char **environment)
-{
-  if (environment)
-    {
-      for (char **ev = environment; ev != 0 && *ev != 0; ++ev)
-        add(std::string(*ev));
-    }
-}
+  regex const&
+  environment::get_filter () const
+  {
+    return this->filter;
+  }
 
-void
-environment::add (environment const& environment)
-{
-  for (const auto& env : environment)
-    add(env);
-}
+  void
+  environment::add (char **environment)
+  {
+    if (environment)
+      {
+        for (char **ev = environment; ev != 0 && *ev != 0; ++ev)
+          add(std::string(*ev));
+      }
+  }
 
-void
-environment::add (std::string const& value)
-{
-  std::string::size_type pos = value.find('=');
-  if (pos != std::string::npos && pos != 0)
-    {
-      std::string key = value.substr(0, pos);
-      std::string val;
-      if (pos < value.length())
-        val = value.substr(pos + 1);
-      add(std::make_pair(key, val));
-    }
-  else
-    {
-      add(std::make_pair(value, std::string()));
-    }
-}
+  void
+  environment::add (environment const& environment)
+  {
+    for (const auto& env : environment)
+      add(env);
+  }
 
-void
-environment::add (value_type const& value)
-{
-  remove(value);
-  if (!value.first.empty() && !value.second.empty())
-    {
-      if (this->filter.str().empty() ||
-          !regex_search(value.first, this->filter))
-        {
-          insert(value);
-          log_debug(DEBUG_NOTICE) << "Inserted into environment: "
-                                  << value.first << '=' << value.second
-                                  << std::endl;
-        }
-      else
-        log_debug(DEBUG_INFO) << "Filtered from environment: " << value.first
-                              << std::endl;
-    }
-}
+  void
+  environment::add (std::string const& value)
+  {
+    std::string::size_type pos = value.find('=');
+    if (pos != std::string::npos && pos != 0)
+      {
+        std::string key = value.substr(0, pos);
+        std::string val;
+        if (pos < value.length())
+          val = value.substr(pos + 1);
+        add(std::make_pair(key, val));
+      }
+    else
+      {
+        add(std::make_pair(value, std::string()));
+      }
+  }
 
-void
-environment::remove (char **environment)
-{
-  if (environment)
-    {
-      for (char **ev = environment; ev != 0 && *ev != 0; ++ev)
-        remove(std::string(*ev));
-    }
-}
+  void
+  environment::add (value_type const& value)
+  {
+    remove(value);
+    if (!value.first.empty() && !value.second.empty())
+      {
+        if (this->filter.str().empty() ||
+            !regex_search(value.first, this->filter))
+          {
+            insert(value);
+            log_debug(DEBUG_NOTICE) << "Inserted into environment: "
+                                    << value.first << '=' << value.second
+                                    << std::endl;
+          }
+        else
+          log_debug(DEBUG_INFO) << "Filtered from environment: " << value.first
+                                << std::endl;
+      }
+  }
 
-void
-environment::remove (environment const& environment)
-{
-  for (const auto& env : environment)
-    remove(env);
-}
+  void
+  environment::remove (char **environment)
+  {
+    if (environment)
+      {
+        for (char **ev = environment; ev != 0 && *ev != 0; ++ev)
+          remove(std::string(*ev));
+      }
+  }
 
-void
-environment::remove (std::string const& value)
-{
-  std::string::size_type pos = value.find('=');
-  if (pos != std::string::npos && pos != 0)
-    {
-      std::string key = value.substr(0, pos);
-      std::string val;
-      if (pos < value.length())
-        val = value.substr(pos + 1);
-      remove(std::make_pair(key, val));
-    }
-  else
-    {
-      remove(std::make_pair(value, std::string()));
-    }
-}
+  void
+  environment::remove (environment const& environment)
+  {
+    for (const auto& env : environment)
+      remove(env);
+  }
 
-void
-environment::remove (value_type const& value)
-{
-  iterator pos = find(value.first);
-  if (pos != end())
-    erase(pos);
-}
+  void
+  environment::remove (std::string const& value)
+  {
+    std::string::size_type pos = value.find('=');
+    if (pos != std::string::npos && pos != 0)
+      {
+        std::string key = value.substr(0, pos);
+        std::string val;
+        if (pos < value.length())
+          val = value.substr(pos + 1);
+        remove(std::make_pair(key, val));
+      }
+    else
+      {
+        remove(std::make_pair(value, std::string()));
+      }
+  }
 
-char **
-environment::get_strv () const
-{
-  char **ret = new char *[size() + 1];
+  void
+  environment::remove (value_type const& value)
+  {
+    iterator pos = find(value.first);
+    if (pos != end())
+      erase(pos);
+  }
 
-  size_type idx = 0;
-  for (const_iterator pos = begin(); pos != end(); ++pos, ++idx)
-    {
-      std::string envitem = pos->first + "=" + pos->second;
-      ret[idx] = new char[envitem.length() + 1];
-      std::strcpy(ret[idx], envitem.c_str());
-    }
-  ret[size()] = 0;
+  char **
+  environment::get_strv () const
+  {
+    char **ret = new char *[size() + 1];
 
-  return ret;
+    size_type idx = 0;
+    for (const_iterator pos = begin(); pos != end(); ++pos, ++idx)
+      {
+        std::string envitem = pos->first + "=" + pos->second;
+        ret[idx] = new char[envitem.length() + 1];
+        std::strcpy(ret[idx], envitem.c_str());
+      }
+    ret[size()] = 0;
+
+    return ret;
+  }
+
 }

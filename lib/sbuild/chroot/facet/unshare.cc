@@ -30,18 +30,7 @@
 #endif // SBUILD_FEATURE_UNSHARE
 
 using boost::format;
-using namespace sbuild;
 
-namespace
-{
-
-#ifdef SBUILD_FEATURE_UNSHARE
-  sbuild::feature feature_unshare
-  ("UNSHARE",
-   N_("Linux dissassociation of shared execution context"));
-#endif
-
-}
 
 namespace sbuild
 {
@@ -50,8 +39,15 @@ namespace sbuild
     namespace facet
     {
 
+
       namespace
       {
+
+#ifdef SBUILD_FEATURE_UNSHARE
+        feature feature_unshare
+        ("UNSHARE",
+         N_("Linux dissassociation of shared execution context"));
+#endif
 
         factory::facet_info unshare_info =
           {

@@ -23,33 +23,36 @@
 #include <sbuild/feature.h>
 #include <sbuild/i18n.h>
 
-using namespace sbuild;
-
-feature::feature(std::string const& feature,
-                 std::string const& description)
+namespace sbuild
 {
-  registered_features().insert(std::make_pair(feature, description));
-}
 
-feature::~feature()
-{
-}
+  feature::feature(std::string const& feature,
+                   std::string const& description)
+  {
+    registered_features().insert(std::make_pair(feature, description));
+  }
 
-std::ostream&
-feature::print_features(std::ostream& stream)
-{
-  boost::format fmt("  %1$-12s %2%\n");
+  feature::~feature()
+  {
+  }
 
-  std::map<std::string,std::string>& features = registered_features();
-  for (const auto& feature : features)
-    stream << fmt % feature.first % gettext(feature.second);
+  std::ostream&
+  feature::print_features(std::ostream& stream)
+  {
+    boost::format fmt("  %1$-12s %2%\n");
 
-  return stream;
-}
+    std::map<std::string,std::string>& features = registered_features();
+    for (const auto& feature : features)
+      stream << fmt % feature.first % gettext(feature.second);
 
-std::map<std::string,std::string>&
-feature::registered_features ()
-{
-  static std::map<std::string,std::string> features;
-  return features;
+    return stream;
+  }
+
+  std::map<std::string,std::string>&
+  feature::registered_features ()
+  {
+    static std::map<std::string,std::string> features;
+    return features;
+  }
+
 }

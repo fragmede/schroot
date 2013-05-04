@@ -30,14 +30,6 @@
 
 using boost::format;
 using std::endl;
-using namespace sbuild;
-
-namespace
-{
-
-  sbuild::feature feature_union("UNION", N_("Support for filesystem unioning"));
-
-}
 
 namespace sbuild
 {
@@ -48,6 +40,8 @@ namespace sbuild
 
       namespace
       {
+
+        feature feature_union("UNION", N_("Support for filesystem unioning"));
 
         factory::facet_info fsunion_info =
           {

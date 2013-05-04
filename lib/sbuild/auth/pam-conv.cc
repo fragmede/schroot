@@ -20,8 +20,6 @@
 
 #include <sbuild/auth/pam-conv.h>
 
-using namespace sbuild;
-
 namespace sbuild
 {
   namespace auth

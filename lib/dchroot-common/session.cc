@@ -37,34 +37,38 @@ using std::cout;
 using std::endl;
 using sbuild::_;
 using boost::format;
-using namespace dchroot_common;
 
-session::session (std::string const&  service,
-                  operation           operation,
-                  sbuild::session::chroot_list const& chroots):
-  sbuild::session(service, operation, chroots)
+namespace dchroot_common
 {
-}
 
-session::~session ()
-{
-}
+  session::session (std::string const&  service,
+                    operation           operation,
+                    sbuild::session::chroot_list const& chroots):
+    sbuild::session(service, operation, chroots)
+  {
+  }
 
-void
-session::run_impl ()
-{
-  if (get_auth()->get_ruid() != get_auth()->get_uid())
-    throw error(get_auth()->get_ruser(), get_auth()->get_user(), USER_SWITCH,
-                _("dchroot session restriction"));
+  session::~session ()
+  {
+  }
 
-  sbuild::session::run_impl();
-}
+  void
+  session::run_impl ()
+  {
+    if (get_auth()->get_ruid() != get_auth()->get_uid())
+      throw error(get_auth()->get_ruser(), get_auth()->get_user(), USER_SWITCH,
+                  _("dchroot session restriction"));
 
-sbuild::string_list
-session::get_command_directories (sbuild::chroot::chroot::ptr& session_chroot,
-                                  sbuild::environment const&   env) const
-{
-  // dchroot does not treat logins differently from commands with
-  // respect to the cwd inside the chroot.
-  return get_login_directories(session_chroot, env);
+    sbuild::session::run_impl();
+  }
+
+  sbuild::string_list
+  session::get_command_directories (sbuild::chroot::chroot::ptr& session_chroot,
+                                    sbuild::environment const&   env) const
+  {
+    // dchroot does not treat logins differently from commands with
+    // respect to the cwd inside the chroot.
+    return get_login_directories(session_chroot, env);
+  }
+
 }
