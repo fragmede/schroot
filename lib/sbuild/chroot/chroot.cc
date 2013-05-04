@@ -102,14 +102,10 @@ namespace sbuild
       message_verbosity(VERBOSITY_NORMAL),
       facets()
     {
-#ifdef SBUILD_FEATURE_PERSONALITY
-      add_facet(facet::personality::create());
-#endif // SBUILD_FEATURE_PERSONALITY
-#ifdef SBUILD_FEATURE_UNSHARE
-      add_facet(facet::unshare::create());
-#endif // SBUILD_FEATURE_UNSHARE
       add_facet(facet::session_clonable::create());
-      add_facet(facet::userdata::create());
+
+      for (auto& facet : facet::factory::create_auto())
+        add_facet_by_name(facet);
 
       set_profile(get_profile());
     }

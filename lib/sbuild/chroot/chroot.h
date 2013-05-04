@@ -622,10 +622,26 @@ namespace sbuild
        * Add a chroot facet.
        *
        * @param facet the facet to add.
+       * @param copy true if the facet has been copied, or false if
+       * this is a new instance.
        */
       template <typename T>
       void
-      add_facet (std::shared_ptr<T> facet);
+      add_facet (std::shared_ptr<T> facet,
+                 bool               copy = false);
+
+      /**
+       * Add a chroot facet by name (rather than type).  Any facet
+       * with the same name will be removed, prior to this facet being
+       * added.
+       *
+       * @param facet the facet to add.
+       * @param copy true if the facet has been copied, or false if
+       * this is a new instance.
+       */
+      void
+      add_facet_by_name (facet::facet::ptr facet,
+                         bool              copy = false);
 
       /**
        * Remove a chroot facet.  This is a templated method; use the
@@ -868,7 +884,8 @@ namespace sbuild
 
     template <typename T>
     void
-    chroot::add_facet (std::shared_ptr<T> facet)
+    chroot::add_facet (std::shared_ptr<T> facet,
+                       bool               copy)
     {
       facet_ptr new_facet = std::dynamic_pointer_cast<facet::facet>(facet);
       if (!new_facet)
@@ -880,8 +897,24 @@ namespace sbuild
             throw error(type_name<T>(), FACET_PRESENT);
         }
 
-      new_facet->set_chroot(*this, false);
+      new_facet->set_chroot(*this, copy);
       facets.push_back(new_facet);
+    }
+
+    inline void
+    chroot::add_facet_by_name (facet::facet::ptr facet,
+                               bool              copy)
+    {
+      for (facet_list::iterator lfacet = facets.begin();
+           lfacet != facets.end();)
+        {
+          facet_list::iterator current = lfacet++;
+          if ((*current)->get_name() == facet->get_name())
+              facets.erase(current);
+        }
+
+      facet->set_chroot(*this, copy);
+      facets.push_back(facet);
     }
 
     template <typename T>
