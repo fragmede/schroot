@@ -57,13 +57,17 @@ namespace sbuild
       }
 
       loopback::loopback ():
+        facet(),
         storage(),
+        session_setup(),
         filename()
       {
       }
 
       loopback::loopback (const loopback& rhs):
+        facet(rhs),
         storage(rhs),
+        session_setup(rhs),
         filename(rhs.filename)
       {
       }
@@ -76,7 +80,7 @@ namespace sbuild
       loopback::set_chroot (chroot& chroot,
                             bool    copy)
       {
-        storage::set_chroot(chroot);
+        facet::set_chroot(chroot, copy);
 
         if (!copy && !owner->get_facet<session_clonable>())
           owner->add_facet(session_clonable::create());
@@ -140,8 +144,6 @@ namespace sbuild
       void
       loopback::setup_env (environment& env) const
       {
-        storage::setup_env(env);
-
         env.add("CHROOT_FILE", get_filename());
       }
 
@@ -176,8 +178,6 @@ namespace sbuild
       void
       loopback::get_details (format_detail& detail) const
       {
-        storage::get_details(detail);
-
         if (!this->filename.empty())
           detail.add(_("File"), get_filename());
       }
@@ -185,16 +185,12 @@ namespace sbuild
       void
       loopback::get_used_keys (string_list& used_keys) const
       {
-        storage::get_used_keys(used_keys);
-
         used_keys.push_back("file");
       }
 
       void
       loopback::get_keyfile (keyfile& keyfile) const
       {
-        storage::get_keyfile(keyfile);
-
         keyfile::set_object_value(*this, &loopback::get_filename,
                                   keyfile, owner->get_name(), "file");
       }
@@ -202,8 +198,6 @@ namespace sbuild
       void
       loopback::set_keyfile (keyfile const& keyfile)
       {
-        storage::set_keyfile(keyfile);
-
         keyfile::get_object_value(*this, &loopback::set_filename,
                                   keyfile, owner->get_name(), "file",
                                   keyfile::PRIORITY_REQUIRED);

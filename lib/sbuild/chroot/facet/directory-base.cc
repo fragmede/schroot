@@ -35,12 +35,14 @@ namespace sbuild
     {
 
       directory_base::directory_base ():
+        facet(),
         storage(),
         directory()
       {
       }
 
       directory_base::directory_base (const directory_base& rhs):
+        facet(rhs),
         storage(rhs),
         directory(rhs.directory)
       {

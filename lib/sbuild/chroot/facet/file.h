@@ -20,6 +20,7 @@
 #define SBUILD_CHROOT_FACET_FILE_H
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/facet.h>
 #include <sbuild/chroot/facet/source-setup.h>
 #include <sbuild/chroot/facet/storage.h>
 
@@ -35,7 +36,9 @@ namespace sbuild
        *
        * The archive will be unpacked and repacked on demand.
        */
-      class file : public storage, public source_setup
+      class file : public facet,
+                   public storage,
+                   public source_setup
       {
       public:
         /// Exception type.

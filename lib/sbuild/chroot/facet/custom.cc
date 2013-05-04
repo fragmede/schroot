@@ -57,12 +57,14 @@ namespace sbuild
       }
 
       custom::custom ():
+        facet(),
         storage(),
         purgeable(false)
       {
       }
 
       custom::custom (const custom& rhs):
+        facet(rhs),
         storage(rhs),
         purgeable(rhs.purgeable)
       {
@@ -74,9 +76,9 @@ namespace sbuild
 
       void
       custom::set_chroot (chroot& chroot,
-                             bool    copy)
+                          bool    copy)
       {
-        storage::set_chroot(chroot);
+        facet::set_chroot(chroot, copy);
 
         if (!copy && !owner->get_facet<session_clonable>())
           owner->add_facet(session_clonable::create());
@@ -138,12 +140,6 @@ namespace sbuild
       }
 
       void
-      custom::setup_env (environment& env) const
-      {
-        storage::setup_env(env);
-      }
-
-      void
       custom::setup_lock (chroot::setup_type type,
                           bool               lock,
                           int                status)
@@ -174,16 +170,8 @@ namespace sbuild
       }
 
       void
-      custom::get_details (format_detail& detail) const
-      {
-        storage::get_details(detail);
-      }
-
-      void
       custom::get_used_keys (string_list& used_keys) const
       {
-        storage::get_used_keys(used_keys);
-
         used_keys.push_back("custom-cloneable");
         used_keys.push_back("custom-purgeable");
         used_keys.push_back("custom-source-cloneable");
@@ -192,8 +180,6 @@ namespace sbuild
       void
       custom::get_keyfile (keyfile& keyfile) const
       {
-        storage::get_keyfile(keyfile);
-
         keyfile::set_object_value(*this,
                                   &custom::get_session_purgeable,
                                   keyfile, owner->get_name(),
@@ -203,8 +189,6 @@ namespace sbuild
       void
       custom::set_keyfile (keyfile const& keyfile)
       {
-        storage::set_keyfile(keyfile);
-
         bool is_session = static_cast<bool>(owner->get_facet<session>());
 
         keyfile::get_object_value(*this, &custom::set_session_cloneable,

@@ -20,6 +20,7 @@
 #define SBUILD_CHROOT_FACET_BLOCK_DEVICE_BASE_H
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/facet.h>
 #include <sbuild/chroot/facet/storage.h>
 
 namespace sbuild
@@ -39,7 +40,8 @@ namespace sbuild
        * but this was changed when union support was introduced.  This
        * design prevents lvm-snapshot offering union based sessions.
        */
-      class block_device_base : public storage
+      class block_device_base : public facet,
+                                public storage
       {
       public:
         /// Exception type.

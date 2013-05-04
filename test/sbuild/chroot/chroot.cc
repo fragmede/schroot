@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/facet.h>
 #include <sbuild/chroot/facet/factory.h>
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/storage.h>
@@ -34,7 +35,8 @@
 
 using namespace CppUnit;
 
-class test_chroot_facet : public sbuild::chroot::facet::storage
+class test_chroot_facet : public sbuild::chroot::facet::facet,
+                          public sbuild::chroot::facet::storage
 {
 public:
   /// A shared_ptr to a chroot facet object.
@@ -46,12 +48,14 @@ public:
 protected:
   /// The constructor.
   test_chroot_facet ():
+    facet(),
     storage()
   {
   }
 
   /// The copy constructor.
   test_chroot_facet (const test_chroot_facet& rhs):
+    facet(rhs),
     storage(rhs)
   {
   }
@@ -60,7 +64,7 @@ protected:
   set_chroot (sbuild::chroot::chroot& chroot,
               bool                    copy)
   {
-    storage::set_chroot(chroot, copy);
+    facet::set_chroot(chroot, copy);
 
     if (!copy)
       owner->add_facet(sbuild::chroot::facet::session_clonable::create());

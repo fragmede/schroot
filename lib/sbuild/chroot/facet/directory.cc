@@ -82,7 +82,7 @@ namespace sbuild
       directory::set_chroot (chroot& chroot,
                              bool    copy)
       {
-        directory_base::set_chroot(chroot);
+        directory_base::set_chroot(chroot, copy);
 
         if (!copy && !owner->get_facet<session_clonable>())
           owner->add_facet(session_clonable::create());

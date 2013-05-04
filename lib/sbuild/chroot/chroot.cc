@@ -529,7 +529,9 @@ namespace sbuild
     std::string const&
     chroot::get_chroot_type () const
     {
-      return get_facet_strict<facet::storage>()->get_name();
+      facet::storage::const_ptr store = get_facet_strict<facet::storage>();
+      facet::facet::const_ptr facetptr = std::dynamic_pointer_cast<const facet::facet>(store);
+      return facetptr->get_name();
     }
 
     void

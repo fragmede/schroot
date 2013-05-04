@@ -57,6 +57,7 @@ namespace sbuild
       }
 
       file::file ():
+        facet(),
         storage(),
         filename(),
         location(),
@@ -65,7 +66,9 @@ namespace sbuild
       }
 
       file::file (const file& rhs):
+        facet(rhs),
         storage(rhs),
+        source_setup(rhs),
         filename(rhs.filename),
         location(rhs.location),
         repack(rhs.repack)
@@ -80,7 +83,7 @@ namespace sbuild
       file::set_chroot (chroot& chroot,
                         bool    copy)
       {
-        storage::set_chroot(chroot);
+        facet::set_chroot(chroot, copy);
 
         if (!copy && !owner->get_facet<session_clonable>())
           owner->add_facet(session_clonable::create());
@@ -163,8 +166,6 @@ namespace sbuild
       void
       file::setup_env (environment& env) const
       {
-        storage::setup_env(env);
-
         env.add("CHROOT_FILE", get_filename());
         env.add("CHROOT_LOCATION", get_location());
         env.add("CHROOT_FILE_REPACK", this->repack);
@@ -215,8 +216,6 @@ namespace sbuild
       void
       file::get_details (format_detail& detail) const
       {
-        storage::get_details(detail);
-
         if (!this->filename.empty())
           detail
             .add(_("File"), get_filename())
@@ -228,8 +227,6 @@ namespace sbuild
       void
       file::get_used_keys (string_list& used_keys) const
       {
-        storage::get_used_keys(used_keys);
-
         used_keys.push_back("file");
         used_keys.push_back("location");
         used_keys.push_back("file-repack");
@@ -238,8 +235,6 @@ namespace sbuild
       void
       file::get_keyfile (keyfile& keyfile) const
       {
-        storage::get_keyfile(keyfile);
-
         bool is_session = static_cast<bool>(owner->get_facet<session>());
 
         keyfile::set_object_value(*this, &file::get_filename,
@@ -257,8 +252,6 @@ namespace sbuild
       void
       file::set_keyfile (keyfile const& keyfile)
       {
-        storage::set_keyfile(keyfile);
-
         bool is_session = static_cast<bool>(owner->get_facet<session>());
 
         keyfile::get_object_value(*this, &file::set_filename,

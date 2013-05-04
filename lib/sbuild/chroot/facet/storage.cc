@@ -27,8 +27,7 @@ namespace sbuild
     namespace facet
     {
 
-      storage::storage ():
-        facet()
+      storage::storage ()
       {
       }
 

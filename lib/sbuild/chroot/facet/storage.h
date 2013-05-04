@@ -36,7 +36,7 @@ namespace sbuild
        * implementing storage methods, for example directories, LVM
        * snapshots, files, etc.
        */
-      class storage : public facet
+      class storage
       {
       public:
         /// A shared_ptr to a chroot storage object.
@@ -48,8 +48,6 @@ namespace sbuild
       protected:
         /// The constructor.
         storage();
-
-        friend class ::sbuild::chroot::chroot;
 
       public:
         /// The destructor.

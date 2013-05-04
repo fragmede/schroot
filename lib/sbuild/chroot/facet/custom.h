@@ -20,6 +20,7 @@
 #define SBUILD_CHROOT_FACET_CUSTOM_H
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/facet.h>
 #include <sbuild/chroot/facet/storage.h>
 
 namespace sbuild
@@ -39,7 +40,8 @@ namespace sbuild
        * infrastructural work.  It also makes schroot extensible without
        * requiring any C++ coding.
        */
-      class custom : public storage
+      class custom : public facet,
+                     public storage
       {
       public:
         /// Exception type.
@@ -120,9 +122,6 @@ namespace sbuild
         void
         set_source_cloneable (bool cloneable);
 
-        virtual void
-        setup_env (environment& env) const;
-
         std::string
         get_path () const;
 
@@ -134,9 +133,6 @@ namespace sbuild
         setup_lock (chroot::setup_type type,
                     bool               lock,
                     int                status);
-
-        virtual void
-        get_details (format_detail& detail) const;
 
         virtual void
         get_used_keys (string_list& used_keys) const;

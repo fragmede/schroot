@@ -36,6 +36,7 @@ namespace sbuild
     {
 
       block_device_base::block_device_base ():
+        facet(),
         storage(),
         device()
       {
@@ -43,6 +44,7 @@ namespace sbuild
 
       block_device_base::block_device_base
       (const block_device_base& rhs):
+        facet(rhs),
         storage(rhs),
         device(rhs.device)
       {
@@ -57,6 +59,7 @@ namespace sbuild
                                      bool    copy)
       {
         facet::set_chroot(chroot, copy);
+
         if (!copy && !this->owner->get_facet<mountable>())
           this->owner->add_facet(mountable::create());
       }

@@ -20,6 +20,7 @@
 #define SBUILD_CHROOT_FACET_DIRECTORY_BASE_H
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/facet.h>
 #include <sbuild/chroot/facet/storage.h>
 
 namespace sbuild
@@ -41,7 +42,8 @@ namespace sbuild
        * chroots don't run any setup scripts and basically just call
        * 'chroot' on a directory, they can't support union based sessions.
        */
-      class directory_base : public storage
+      class directory_base : public facet,
+                             public storage
       {
       public:
         /// Exception type.

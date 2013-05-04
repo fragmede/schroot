@@ -58,6 +58,7 @@ namespace sbuild
       }
 
       btrfs_snapshot::btrfs_snapshot ():
+        facet(),
         storage(),
         source_subvolume(),
         snapshot_directory(),
@@ -66,7 +67,10 @@ namespace sbuild
       }
 
       btrfs_snapshot::btrfs_snapshot (const btrfs_snapshot& rhs):
+        facet(rhs),
         storage(rhs),
+        session_setup(rhs),
+        source_setup(rhs),
         source_subvolume(rhs.source_subvolume),
         snapshot_directory(rhs.snapshot_directory),
         snapshot_name(rhs.snapshot_name)
@@ -81,7 +85,7 @@ namespace sbuild
       btrfs_snapshot::set_chroot (chroot& chroot,
                                   bool    copy)
       {
-        storage::set_chroot(chroot);
+        facet::set_chroot(chroot, copy);
 
         if (!copy && !owner->get_facet<session_clonable>())
           owner->add_facet(session_clonable::create());
@@ -162,8 +166,6 @@ namespace sbuild
       void
       btrfs_snapshot::setup_env (environment& env) const
       {
-        storage::setup_env(env);
-
         env.add("CHROOT_BTRFS_SOURCE_SUBVOLUME", get_source_subvolume());
         env.add("CHROOT_BTRFS_SNAPSHOT_DIRECTORY", get_snapshot_directory());
         env.add("CHROOT_BTRFS_SNAPSHOT_NAME", get_snapshot_name());
@@ -197,8 +199,6 @@ namespace sbuild
       void
       btrfs_snapshot::get_details (format_detail& detail) const
       {
-        storage::get_details(detail);
-
         if (!this->get_source_subvolume().empty())
           detail.add(_("Btrfs Source Subvolume"), get_source_subvolume());
         if (!this->get_snapshot_directory().empty())
@@ -210,8 +210,6 @@ namespace sbuild
       void
       btrfs_snapshot::get_used_keys (string_list& used_keys) const
       {
-        storage::get_used_keys(used_keys);
-
         used_keys.push_back("btrfs-source-subvolume");
         used_keys.push_back("btrfs-snapshot-directory");
         used_keys.push_back("btrfs-snapshot-name");
@@ -220,8 +218,6 @@ namespace sbuild
       void
       btrfs_snapshot::get_keyfile (keyfile& keyfile) const
       {
-        storage::get_keyfile(keyfile);
-
         bool issession = static_cast<bool>(owner->get_facet<session>());
 
         if (!issession)
@@ -246,8 +242,6 @@ namespace sbuild
       void
       btrfs_snapshot::set_keyfile (keyfile const& keyfile)
       {
-        storage::set_keyfile(keyfile);
-
         bool issession = static_cast<bool>(owner->get_facet<session>());
 
         keyfile::get_object_value(*this, &btrfs_snapshot::set_source_subvolume,

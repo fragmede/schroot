@@ -59,6 +59,8 @@ namespace sbuild
 
       lvm_snapshot::lvm_snapshot ():
         block_device_base(),
+        session_setup(),
+        source_setup(),
         snapshot_device(),
         snapshot_options()
       {
@@ -66,6 +68,8 @@ namespace sbuild
 
       lvm_snapshot::lvm_snapshot (const lvm_snapshot& rhs):
         block_device_base(rhs),
+        session_setup(rhs),
+        source_setup(rhs),
         snapshot_device(rhs.snapshot_device),
         snapshot_options(rhs.snapshot_options)
       {

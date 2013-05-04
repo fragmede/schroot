@@ -20,6 +20,7 @@
 #define SBUILD_CHROOT_FACET_LOOPBACK_H
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/facet.h>
 #include <sbuild/chroot/facet/session-setup.h>
 #include <sbuild/chroot/facet/storage.h>
 
@@ -35,7 +36,8 @@ namespace sbuild
        *
        * The file will be mounted on demand.
        */
-      class loopback : public storage,
+      class loopback : public facet,
+                       public storage,
                        public session_setup
       {
       public:

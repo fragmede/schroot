@@ -20,6 +20,7 @@
 #define SBUILD_CHROOT_FACET_BTRFS_SNAPSHOT_H
 
 #include <sbuild/chroot/chroot.h>
+#include <sbuild/chroot/facet/facet.h>
 #include <sbuild/chroot/facet/storage.h>
 #include <sbuild/chroot/facet/session-setup.h>
 #include <sbuild/chroot/facet/source-setup.h>
@@ -36,7 +37,8 @@ namespace sbuild
        *
        * A snapshot subvolume will be created and mounted on demand.
        */
-      class btrfs_snapshot : public storage,
+      class btrfs_snapshot : public facet,
+                             public storage,
                              public session_setup,
                              public source_setup
       {
