@@ -25,10 +25,6 @@
 #include <sbuild/chroot/facet/session-clonable.h>
 #include <sbuild/chroot/facet/session-setup.h>
 #include <sbuild/chroot/facet/source-clonable.h>
-#include <sbuild/chroot/plain.h>
-#ifdef SBUILD_FEATURE_BLOCKDEV
-#include <sbuild/chroot/facet/block-device-base.h>
-#endif
 #include "format-detail.h"
 
 #include <cassert>
@@ -137,21 +133,17 @@ namespace sbuild
           << format("Cloned session %1%")
           % clone->get_name() << endl;
 
-        /* If a chroot mount location has not yet been set, and the
-           chroot is not a plain chroot, set a mount location with the
-           session id.  Only set for non-plain chroots which run
-           setup scripts. */
-        {
-          std::shared_ptr<plain> plain(std::dynamic_pointer_cast<plain>(clone));
-
-          if (clone->get_mount_location().empty() && !plain)
-            {
-              log_debug(DEBUG_NOTICE) << "Setting mount location" << endl;
-              std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
-                                   session_id);
-              clone->set_mount_location(location);
-            }
-        }
+        /* If a chroot mount location has not yet been set, set a
+           mount location with the session id.  Only set for non-plain
+           chroots which run setup scripts (plain chroots don't use
+           this facet). */
+        if (clone->get_mount_location().empty())
+          {
+            log_debug(DEBUG_NOTICE) << "Setting mount location" << endl;
+            std::string location(std::string(SCHROOT_MOUNT_DIR) + "/" +
+                                 session_id);
+            clone->set_mount_location(location);
+          }
 
         log_debug(DEBUG_NOTICE)
           << format("Mount Location: %1%") % clone->get_mount_location()
