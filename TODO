@@ -43,7 +43,6 @@ POTENTIAL
 ** AuthMessage
 ** Session
 ** schroot::Options
-** schroot_releaselock::Options
 
 None of these are urgent and/or are difficult to test in an automated
 fashion.  expect might be useful for testing the PAM wrappers.
@@ -58,8 +57,6 @@ fashion.  expect might be useful for testing the PAM wrappers.
 
 * Unify fork/exec code into a spawn function.
 
-* Pass configured sysconfdir, pkglibexecdir prefix exec_prefix etc. to scripts.
-
 * Tests for chroots:
 
 ** -source chroots
@@ -72,8 +69,6 @@ fashion.  expect might be useful for testing the PAM wrappers.
 
   Similar to debug level, but for normal messages
   e.g. quiet/normal/verbose/extra verbose.
-
-* Testcase for chroot-loopback
 
 * Add a read-only mount option for union underlay (both for
   devices and bind mounts).
@@ -91,10 +86,6 @@ Define operator &= and |= for enum types defining | and & operators.
 
 Header include order: chroot-facet depends upon sbuild-chroot being
 included first.  Try to break this dependency.
-
-block-device used to allow sessions to work without writing out
-a session file; this will break across upgrades to the new
-version (since orphan mounts will not be accessible).
 
 --end-session --force should forcibly end "broken" sessions by
 manually umounting and purging mount and session directories and
