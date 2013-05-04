@@ -40,7 +40,7 @@ namespace sbuild
       namespace
       {
 
-        factory::facet_info mountable_info =
+        const factory::facet_info mountable_info =
           {
             "mountable",
             N_("Support for filesystem mounting"),
@@ -79,9 +79,7 @@ namespace sbuild
       std::string const&
       mountable::get_name () const
       {
-        static const std::string name("mountable");
-
-        return name;
+        return mountable_info.name;
       }
 
       std::string const&

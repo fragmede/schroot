@@ -105,7 +105,7 @@ public:
 namespace
 {
 
-  sbuild::chroot::facet::factory::facet_info test_info =
+  const sbuild::chroot::facet::factory::facet_info test_info =
     {
       "test",
       "Support for ‘test’ chroots",

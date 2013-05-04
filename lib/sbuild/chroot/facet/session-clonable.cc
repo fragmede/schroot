@@ -44,7 +44,7 @@ namespace sbuild
       namespace
       {
 
-        factory::facet_info session_clonable_info =
+        const factory::facet_info session_clonable_info =
           {
             "session-clonable",
             N_("Support for session chroot cloning"),
@@ -80,9 +80,7 @@ namespace sbuild
       std::string const&
       session_clonable::get_name () const
       {
-        static const std::string name("session-clonable");
-
-        return name;
+        return session_clonable_info.name;
       }
 
       chroot::ptr

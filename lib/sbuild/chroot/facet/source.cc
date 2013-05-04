@@ -37,7 +37,7 @@ namespace sbuild
       namespace
       {
 
-        factory::facet_info source_info =
+        const factory::facet_info source_info =
           {
             "source",
             N_("Support for source chroots"),
@@ -73,9 +73,7 @@ namespace sbuild
       std::string const&
       source::get_name () const
       {
-        static const std::string name("source");
-
-        return name;
+        return source_info.name;
       }
 
     }

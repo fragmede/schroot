@@ -44,7 +44,7 @@ namespace sbuild
       namespace
       {
 
-        factory::facet_info directory_info =
+        const factory::facet_info directory_info =
           {
             "directory",
             N_("Support for ‘directory’ chroots"),
@@ -96,9 +96,7 @@ namespace sbuild
       std::string const&
       directory::get_name () const
       {
-        static const std::string name("directory");
-
-        return name;
+        return directory_info.name;
       }
 
       directory::ptr

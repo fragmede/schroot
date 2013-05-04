@@ -45,7 +45,7 @@ namespace sbuild
       namespace
       {
 
-        factory::facet_info btrfs_snapshot_info =
+        const factory::facet_info btrfs_snapshot_info =
           {
             "btrfs-snapshot",
             N_("Support for ‘btrfs-snapshot’ chroots"),
@@ -93,9 +93,7 @@ namespace sbuild
       std::string const&
       btrfs_snapshot::get_name () const
       {
-        static const std::string name("btrfs-snapshot");
-
-        return name;
+        return btrfs_snapshot_info.name;
       }
 
       btrfs_snapshot::ptr

@@ -36,7 +36,7 @@ namespace sbuild
       namespace
       {
 
-        factory::facet_info personality_info =
+        const factory::facet_info personality_info =
           {
             "personality",
             N_("Linux kernel Application Binary Interface switching"),
@@ -73,9 +73,7 @@ namespace sbuild
       std::string const&
       personality::get_name () const
       {
-        static const std::string name("personality");
-
-        return name;
+        return personality_info.name;
       }
 
       sbuild::personality const&

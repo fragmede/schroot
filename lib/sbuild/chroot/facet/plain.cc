@@ -42,7 +42,7 @@ namespace sbuild
       namespace
       {
 
-        factory::facet_info plain_info =
+        const factory::facet_info plain_info =
           {
             "plain",
             N_("Support for ‘plain’ chroots"),
@@ -71,9 +71,7 @@ namespace sbuild
       std::string const&
       plain::get_name () const
       {
-        static const std::string name("plain");
-
-        return name;
+        return plain_info.name;
       }
 
       plain::ptr

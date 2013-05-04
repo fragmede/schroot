@@ -48,7 +48,7 @@ namespace sbuild
       namespace
       {
 
-        factory::facet_info session_info =
+        const factory::facet_info session_info =
           {
             "session",
             N_("Support for session chroots"),
@@ -86,9 +86,7 @@ namespace sbuild
       std::string const&
       session::get_name () const
       {
-        static const std::string name("session");
-
-        return name;
+        return session_info.name;
       }
 
       std::string const&

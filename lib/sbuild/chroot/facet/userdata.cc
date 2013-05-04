@@ -73,7 +73,7 @@ namespace sbuild
           return ret;
         }
 
-        factory::facet_info userdata_info =
+        const factory::facet_info userdata_info =
           {
             "userdata",
             N_("User setting of custom configuration parameters"),
@@ -130,9 +130,7 @@ namespace sbuild
       std::string const&
       userdata::get_name () const
       {
-        static const std::string name("userdata");
-
-        return name;
+        return userdata_info.name;
       }
 
       void

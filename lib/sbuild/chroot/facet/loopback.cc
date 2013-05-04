@@ -44,7 +44,7 @@ namespace sbuild
       namespace
       {
 
-        factory::facet_info loopback_info =
+        const factory::facet_info loopback_info =
           {
             "loopback",
             N_("Support for ‘loopback’ chroots"),
@@ -93,9 +93,7 @@ namespace sbuild
       std::string const&
       loopback::get_name () const
       {
-        static const std::string name("loopback");
-
-        return name;
+        return loopback_info.name;
       }
 
       loopback::ptr

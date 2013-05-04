@@ -44,7 +44,7 @@ namespace sbuild
       namespace
       {
 
-        factory::facet_info custom_info =
+        const factory::facet_info custom_info =
           {
             "custom",
             N_("Support for ‘custom’ chroots"),
@@ -85,9 +85,7 @@ namespace sbuild
       std::string const&
       custom::get_name () const
       {
-        static const std::string name("custom");
-
-        return name;
+        return custom_info.name;
       }
 
       custom::ptr

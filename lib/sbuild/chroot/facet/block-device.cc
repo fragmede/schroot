@@ -48,7 +48,7 @@ namespace sbuild
       namespace
       {
 
-        factory::facet_info block_device_info =
+        const factory::facet_info block_device_info =
           {
             "block-device",
             N_("Support for ‘block-device’ chroots"),
@@ -99,9 +99,7 @@ namespace sbuild
       std::string const&
       block_device::get_name () const
       {
-        static const std::string name("block-device");
-
-        return name;
+        return block_device_info.name;
       }
 
       block_device::ptr

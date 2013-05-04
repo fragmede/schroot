@@ -44,7 +44,7 @@ namespace sbuild
       namespace
       {
 
-        factory::facet_info file_info =
+        const factory::facet_info file_info =
           {
             "file",
             N_("Support for ‘file’ chroots"),
@@ -92,9 +92,7 @@ namespace sbuild
       std::string const&
       file::get_name () const
       {
-        static const std::string name("file");
-
-        return name;
+        return file_info.name;
       }
 
       file::ptr

@@ -44,7 +44,8 @@ namespace sbuild
 
       namespace
       {
-        factory::facet_info lvm_snapshot_info =
+
+        const factory::facet_info lvm_snapshot_info =
           {
             "lvm-snapshot",
             N_("Support for ‘lvm-snapshot’ chroots"),
@@ -90,9 +91,7 @@ namespace sbuild
       std::string const&
       lvm_snapshot::get_name () const
       {
-        static const std::string name("lvm-snapshot");
-
-        return name;
+        return lvm_snapshot_info.name;
       }
 
       lvm_snapshot::ptr

@@ -42,7 +42,7 @@ namespace sbuild
       namespace
       {
 
-        factory::facet_info source_clonable_info =
+        const factory::facet_info source_clonable_info =
           {
             "source-clonable",
             N_("Support for source chroot cloning"),
@@ -83,9 +83,7 @@ namespace sbuild
       std::string const&
       source_clonable::get_name () const
       {
-        static const std::string name("source-clonable");
-
-        return name;
+        return source_clonable_info.name;
       }
 
       bool

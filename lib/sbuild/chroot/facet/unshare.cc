@@ -45,7 +45,7 @@ namespace sbuild
         ("UNSHARE",
          N_("Linux dissassociation of shared execution context"));
 
-        factory::facet_info unshare_info =
+        const factory::facet_info unshare_info =
           {
             "unshare",
             N_("Linux dissassociation of shared execution context"),
@@ -94,9 +94,7 @@ namespace sbuild
       std::string const&
       unshare::get_name () const
       {
-        static const std::string name("unshare");
-
-        return name;
+        return unshare_info.name;
       }
 
       bool

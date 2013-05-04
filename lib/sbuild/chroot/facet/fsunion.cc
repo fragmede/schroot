@@ -43,9 +43,9 @@ namespace sbuild
 
         feature feature_union("UNION", N_("Support for filesystem unioning"));
 
-        factory::facet_info fsunion_info =
+        const factory::facet_info fsunion_info =
           {
-            "union",
+            "filesystem-union",
             N_("Support for filesystem unioning"),
             false,
             []() -> facet::ptr { return fsunion::create(); }
@@ -92,9 +92,7 @@ namespace sbuild
       std::string const&
       fsunion::get_name () const
       {
-        static const std::string name("union");
-
-        return name;
+        return fsunion_info.name;
       }
 
       bool
