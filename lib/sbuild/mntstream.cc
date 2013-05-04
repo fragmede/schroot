@@ -36,7 +36,7 @@ namespace sbuild
       {mntstream::MNT_READ,    N_("Failed to read mount file ‘%1%’")}
     };
 
-  mntstream::mntentry::mntentry (struct mntent const&  entry):
+  mntstream::mntentry::mntentry (const struct mntent&  entry):
     filesystem_name(entry.mnt_fsname),
     directory(entry.mnt_dir),
     type(entry.mnt_type),
@@ -47,7 +47,7 @@ namespace sbuild
   }
 
 
-  mntstream::mntstream(std::string const& file):
+  mntstream::mntstream(const std::string& file):
     file(),
     mntfile(0),
     data(),
@@ -64,7 +64,7 @@ namespace sbuild
   }
 
   void
-  mntstream::open(std::string const& file)
+  mntstream::open(const std::string& file)
   {
     this->mntfile = setmntent(file.c_str(), "r");
     if (this->mntfile == 0)

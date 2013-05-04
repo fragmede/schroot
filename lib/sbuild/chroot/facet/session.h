@@ -85,7 +85,7 @@ namespace sbuild
          * @param name the name.
          */
         void
-        set_original_name (std::string const& name);
+        set_original_name (const std::string& name);
 
         /**
          * Get the selected name of the chroot (alias used).
@@ -101,7 +101,7 @@ namespace sbuild
          * @param name the name.
          */
         void
-        set_selected_name (std::string const& name);
+        set_selected_name (const std::string& name);
 
         /**
          * Set up persistent session information.
@@ -124,7 +124,7 @@ namespace sbuild
         get_keyfile (keyfile& keyfile) const;
 
         virtual void
-        set_keyfile (keyfile const& keyfile);
+        set_keyfile (const keyfile& keyfile);
 
       private:
         /// Original chroot name prior to session cloning.

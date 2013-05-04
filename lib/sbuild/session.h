@@ -114,9 +114,9 @@ namespace sbuild
      * @param operation the session operation to perform.
      * @param chroots the chroots to act upon.
      */
-    session (std::string const& service,
+    session (const std::string& service,
              operation          operation,
-             chroot_list const& chroots);
+             const chroot_list& chroots);
 
     /// The destructor.
     virtual ~session ();
@@ -151,7 +151,7 @@ namespace sbuild
      * @param chroots a list of chroots.
      */
     void
-    set_chroots (chroot_list const& chroots);
+    set_chroots (const chroot_list& chroots);
 
     /**
      * Get the operation this session will perform.
@@ -185,7 +185,7 @@ namespace sbuild
      * @param session_id the session id.
      */
     void
-    set_session_id (std::string const& session_id);
+    set_session_id (const std::string& session_id);
 
     /**
      * Get the message verbosity.
@@ -202,7 +202,7 @@ namespace sbuild
      * @param verbosity the message verbosity.
      */
     void
-    set_verbosity (std::string const& verbosity);
+    set_verbosity (const std::string& verbosity);
 
     /**
      * Check if the environment should be preserved in the chroot.
@@ -234,7 +234,7 @@ namespace sbuild
      * @param shell true to preserve or false to clean.
      */
     void
-    set_shell_override (std::string const& shell);
+    set_shell_override (const std::string& shell);
 
     /**
      * Get user options.
@@ -250,7 +250,7 @@ namespace sbuild
      * @param user_options map of user options.
      */
     void
-    set_user_options (string_map const& user_options);
+    set_user_options (const string_map& user_options);
 
     /**
      * Get the force status of this session.
@@ -296,14 +296,14 @@ namespace sbuild
      * @returns true if the user is a member of group, otherwise false.
      */
     bool
-    is_group_member (std::string const& groupname) const;
+    is_group_member (const std::string& groupname) const;
 
   protected:
     /**
      * Get the chroot authentication properties the user is included in.
      */
     void
-    get_chroot_membership (chroot::chroot::ptr const& chroot,
+    get_chroot_membership (const chroot::chroot::ptr& chroot,
                            bool&                      in_users,
                            bool&                      in_root_users,
                            bool&                      in_groups,
@@ -316,7 +316,7 @@ namespace sbuild
      */
     virtual auth::auth::status
     get_chroot_auth_status (auth::auth::status         status,
-                            chroot::chroot::ptr const& chroot) const;
+                            const chroot::chroot::ptr& chroot) const;
 
   public:
     /**
@@ -357,7 +357,7 @@ namespace sbuild
      */
     virtual string_list
     get_login_directories (chroot::chroot::ptr& session_chroot,
-                           environment const&   env) const;
+                           const environment&   env) const;
 
     /**
      * Get a list of directories to change to when running a command
@@ -369,7 +369,7 @@ namespace sbuild
      */
     virtual string_list
     get_command_directories (chroot::chroot::ptr& session_chroot,
-                             environment const&   env) const;
+                             const environment&   env) const;
 
     /**
      * Get a list of candidate shells to run.  This is typically the
@@ -433,7 +433,7 @@ namespace sbuild
     get_user_command (chroot::chroot::ptr& session_chroot,
                       std::string&         file,
                       string_list&         command,
-                      environment const&   env) const;
+                      const environment&   env) const;
 
   private:
     /**

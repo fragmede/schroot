@@ -119,7 +119,7 @@ namespace sbuild
       }
 
       void
-      loopback::set_filename (std::string const& filename)
+      loopback::set_filename (const std::string& filename)
       {
         if (!is_absname(filename))
           throw error(filename, chroot::FILE_ABS);
@@ -196,7 +196,7 @@ namespace sbuild
       }
 
       void
-      loopback::set_keyfile (keyfile const& keyfile)
+      loopback::set_keyfile (const keyfile& keyfile)
       {
         keyfile::get_object_value(*this, &loopback::set_filename,
                                   keyfile, owner->get_name(), "file",
@@ -204,10 +204,10 @@ namespace sbuild
       }
 
       void
-      loopback::chroot_session_setup (chroot const&      parent,
-                                      std::string const& session_id,
-                                      std::string const& alias,
-                                      std::string const& user,
+      loopback::chroot_session_setup (const chroot&      parent,
+                                      const std::string& session_id,
+                                      const std::string& alias,
+                                      const std::string& user,
                                       bool               root)
       {
         // Loopback chroots need the mount device name specifying.

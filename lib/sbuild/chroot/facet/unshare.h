@@ -154,7 +154,7 @@ namespace sbuild
         get_keyfile (keyfile& keyfile) const;
 
         virtual void
-        set_keyfile (keyfile const& keyfile);
+        set_keyfile (const keyfile& keyfile);
 
       private:
         /// Unshare networking.

@@ -153,7 +153,7 @@ namespace sbuild
 #endif // SBUILD_FEATURE_UNION
               }
           }
-        catch (sbuild::stat::error const& e) // Failed to stat
+        catch (const sbuild::stat::error& e) // Failed to stat
           {
             // Don't throw if stopping a session and the device stat
             // failed.  This is because the setup scripts shouldn't fail
@@ -173,10 +173,10 @@ namespace sbuild
       }
 
       void
-      block_device::chroot_session_setup (chroot const&      parent,
-                                          std::string const& session_id,
-                                          std::string const& alias,
-                                          std::string const& user,
+      block_device::chroot_session_setup (const chroot&      parent,
+                                          const std::string& session_id,
+                                          const std::string& alias,
+                                          const std::string& user,
                                           bool               root)
       {
         // Block devices need the mount device name specifying.

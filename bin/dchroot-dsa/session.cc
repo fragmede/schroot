@@ -41,9 +41,9 @@ using boost::format;
 namespace dchroot_dsa
 {
 
-  session::session (std::string const&         service,
+  session::session (const std::string&         service,
                     operation                  operation,
-                    sbuild::session::chroot_list const& chroots):
+                    const sbuild::session::chroot_list& chroots):
     dchroot_common::session(service, operation, chroots)
   {
   }
@@ -54,11 +54,11 @@ namespace dchroot_dsa
 
   sbuild::string_list
   session::get_login_directories (sbuild::chroot::chroot::ptr& session_chroot,
-                                  sbuild::environment const&   env) const
+                                  const sbuild::environment&   env) const
   {
     sbuild::string_list ret;
 
-    std::string const& wd(get_auth()->get_wd());
+    const std::string& wd(get_auth()->get_wd());
     if (!wd.empty())
       {
         // Set specified working directory.
@@ -80,7 +80,7 @@ namespace dchroot_dsa
   session::get_user_command (sbuild::chroot::chroot::ptr& session_chroot,
                              std::string&                 file,
                              sbuild::string_list&         command,
-                             sbuild::environment const&   env) const
+                             const sbuild::environment&   env) const
   {
     std::string programstring = command[0];
     file = programstring;

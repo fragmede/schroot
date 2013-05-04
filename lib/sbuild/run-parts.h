@@ -67,7 +67,7 @@ namespace sbuild
      * @param abort_on_error stop executing scripts if one returns an error.
      * @param umask the umask to set when running scripts.
      */
-    run_parts (std::string const& directory,
+    run_parts (const std::string& directory,
                bool               lsb_mode = true,
                bool               abort_on_error = true,
                mode_t             umask = 022);
@@ -117,8 +117,8 @@ namespace sbuild
      * success, or the exit status of the last failing script.
      */
     int
-    run(string_list const& command,
-        environment const& env);
+    run(const string_list& command,
+        const environment& env);
 
     /**
      * Output the environment to an ostream.
@@ -131,7 +131,7 @@ namespace sbuild
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-                 run_parts const&                  rhs)
+                 const run_parts&                  rhs)
     {
       if (!rhs.reverse)
         {
@@ -159,9 +159,9 @@ namespace sbuild
      * @returns the return value of the execve system call on failure.
      */
     int
-    run_child(std::string const& file,
-              string_list const& command,
-              environment const& env);
+    run_child(const std::string& file,
+              const string_list& command,
+              const environment& env);
 
     /**
      * Wait for a child process to complete, and check its exit status.

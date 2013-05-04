@@ -98,10 +98,10 @@ namespace sbuild
         clone () const;
 
         virtual void
-        chroot_session_setup (chroot const&      parent,
-                              std::string const& session_id,
-                              std::string const& alias,
-                              std::string const& user,
+        chroot_session_setup (const chroot&      parent,
+                              const std::string& session_id,
+                              const std::string& alias,
+                              const std::string& user,
                               bool               root);
 
       protected:

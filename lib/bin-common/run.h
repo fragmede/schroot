@@ -56,7 +56,7 @@ namespace bin_common
           {
             std::locale::global(std::locale(""));
           }
-        catch (std::runtime_error const& e) // Invalid locale
+        catch (const std::runtime_error& e) // Invalid locale
           {
             std::locale::global(std::locale::classic());
           }
@@ -70,7 +70,7 @@ namespace bin_common
         main_type kit(opts);
         exit (kit.run(argc, argv));
       }
-    catch (std::exception const& e)
+    catch (const std::exception& e)
       {
         sbuild::log_exception_error(e);
         exit(EXIT_FAILURE);

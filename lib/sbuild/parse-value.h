@@ -44,7 +44,7 @@ namespace sbuild
    * @returns true on success, false on failure.
    */
   void
-  parse_value (std::string const& value,
+  parse_value (const std::string& value,
                bool&              parsed_value);
 
   /**
@@ -54,7 +54,7 @@ namespace sbuild
    * @returns true on success, false on failure.
    */
   void
-  parse_value (std::string const& value,
+  parse_value (const std::string& value,
                std::string&       parsed_value);
 
   /**
@@ -65,7 +65,7 @@ namespace sbuild
    */
   template <typename T>
   void
-  parse_value (std::string const& value,
+  parse_value (const std::string& value,
                T& parsed_value)
   {
     std::istringstream is(value);

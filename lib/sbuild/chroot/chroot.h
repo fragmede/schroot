@@ -127,7 +127,7 @@ namespace sbuild
        * @returns a shared_ptr to the new chroot.
        */
       static chroot::ptr
-      create (std::string const& type);
+      create (const std::string& type);
 
       /**
        * Copy the chroot.  This is a virtual copy constructor.
@@ -147,9 +147,9 @@ namespace sbuild
        * @returns a session chroot.
        */
       chroot::ptr
-      clone_session (std::string const& session_id,
-                     std::string const& alias,
-                     std::string const& user,
+      clone_session (const std::string& session_id,
+                     const std::string& alias,
+                     const std::string& user,
                      bool               root) const;
 
       /**
@@ -174,7 +174,7 @@ namespace sbuild
        * @param name the name.
        */
       void
-      set_name (std::string const& name);
+      set_name (const std::string& name);
 
       /**
        * Get the description of the chroot.
@@ -190,7 +190,7 @@ namespace sbuild
        * @param description the description.
        */
       void
-      set_description (std::string const& description);
+      set_description (const std::string& description);
 
       /**
        * Get the mount location of the chroot.
@@ -206,7 +206,7 @@ namespace sbuild
        * @param location the mount location.
        */
       void
-      set_mount_location (std::string const& location);
+      set_mount_location (const std::string& location);
 
     public:
       /**
@@ -235,7 +235,7 @@ namespace sbuild
        * @param users a list of users.
        */
       void
-      set_users (string_list const& users);
+      set_users (const string_list& users);
 
       /**
        * Get the groups allowed to access the chroot.
@@ -251,7 +251,7 @@ namespace sbuild
        * @param groups a list of groups.
        */
       void
-      set_groups (string_list const& groups);
+      set_groups (const string_list& groups);
 
       /**
        * Get the users allowed to access the chroot as root.  Members
@@ -271,7 +271,7 @@ namespace sbuild
        * @param users a list of users.
        */
       void
-      set_root_users (string_list const& users);
+      set_root_users (const string_list& users);
 
       /**
        * Get the groups allowed to access the chroot as root.  Members
@@ -291,7 +291,7 @@ namespace sbuild
        * @param groups a list of groups.
        */
       void
-      set_root_groups (string_list const& groups);
+      set_root_groups (const string_list& groups);
 
       /**
        * Get the aliases of the chroot.  These are alternative names for
@@ -309,7 +309,7 @@ namespace sbuild
        * @param aliases a list of names.
        */
       void
-      set_aliases (string_list const& aliases);
+      set_aliases (const string_list& aliases);
 
       /**
        * Check if the environment should be preserved in the chroot.
@@ -341,7 +341,7 @@ namespace sbuild
        * @param default_shell the default shell.
        */
       void
-      set_default_shell (std::string const& default_shell);
+      set_default_shell (const std::string& default_shell);
 
       /**
        * Get the environment filter of the chroot.  This is a POSIX
@@ -361,7 +361,7 @@ namespace sbuild
        * @param environment_filter the filter.
        */
       void
-      set_environment_filter (regex const& environment_filter);
+      set_environment_filter (const regex& environment_filter);
 
       /**
        * Get the activity status of the chroot.  The chroot is active if
@@ -415,7 +415,7 @@ namespace sbuild
        * @param script_config the script configuration file.
        */
       void
-      set_script_config (std::string const& script_config);
+      set_script_config (const std::string& script_config);
 
       /**
        * Get the configuration profile for the chroot.  This is a
@@ -435,7 +435,7 @@ namespace sbuild
        * @param profile the script configuration file.
        */
       void
-      set_profile (std::string const& profile);
+      set_profile (const std::string& profile);
 
       /**
        * Get the command_prefix for the chroot.  This is a command to
@@ -453,7 +453,7 @@ namespace sbuild
        * @param command_prefix the command prefix.
        */
       void
-      set_command_prefix (string_list const& command_prefix);
+      set_command_prefix (const string_list& command_prefix);
 
       /**
        * Get the message verbosity.
@@ -485,7 +485,7 @@ namespace sbuild
        * @param verbosity the verbosity level.
        */
       void
-      set_verbosity (std::string const& verbosity);
+      set_verbosity (const std::string& verbosity);
 
       /**
        * Get the type of the chroot.
@@ -697,7 +697,7 @@ namespace sbuild
        */
       friend std::ostream&
       operator << (std::ostream& stream,
-                   ptr const&    rhs)
+                   const ptr&    rhs)
       {
         rhs->print_details(stream);
         return stream;
@@ -712,7 +712,7 @@ namespace sbuild
        */
       friend
       keyfile const&
-      operator >> (keyfile const& keyfile,
+      operator >> (const keyfile& keyfile,
                    ptr&           rhs)
       {
         rhs->set_keyfile(keyfile);
@@ -729,7 +729,7 @@ namespace sbuild
       friend
       keyfile&
       operator << (keyfile&   keyfile,
-                   ptr const& rhs)
+                   const ptr& rhs)
       {
         rhs->get_keyfile(keyfile);
         return keyfile;
@@ -772,7 +772,7 @@ namespace sbuild
        * @param keyfile the keyfile to get the properties from.
        */
       void
-      set_keyfile (keyfile const& keyfile);
+      set_keyfile (const keyfile& keyfile);
 
       /**
        * Get a list of the keys used during keyfile parsing.

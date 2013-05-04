@@ -119,7 +119,7 @@ namespace sbuild
       }
 
       void
-      btrfs_snapshot::set_source_subvolume (std::string const& source_subvolume)
+      btrfs_snapshot::set_source_subvolume (const std::string& source_subvolume)
       {
         if (!is_absname(source_subvolume))
           throw error(source_subvolume, chroot::DIRECTORY_ABS);
@@ -134,7 +134,7 @@ namespace sbuild
       }
 
       void
-      btrfs_snapshot::set_snapshot_directory (std::string const& snapshot_directory)
+      btrfs_snapshot::set_snapshot_directory (const std::string& snapshot_directory)
       {
         if (!is_absname(snapshot_directory))
           throw error(source_subvolume, chroot::DIRECTORY_ABS);
@@ -149,7 +149,7 @@ namespace sbuild
       }
 
       void
-      btrfs_snapshot::set_snapshot_name (std::string const& snapshot_name)
+      btrfs_snapshot::set_snapshot_name (const std::string& snapshot_name)
       {
         if (!is_absname(snapshot_name))
           throw error(source_subvolume, chroot::DIRECTORY_ABS);
@@ -240,7 +240,7 @@ namespace sbuild
       }
 
       void
-      btrfs_snapshot::set_keyfile (keyfile const& keyfile)
+      btrfs_snapshot::set_keyfile (const keyfile& keyfile)
       {
         bool issession = static_cast<bool>(owner->get_facet<session>());
 
@@ -266,10 +266,10 @@ namespace sbuild
       }
 
       void
-      btrfs_snapshot::chroot_session_setup (chroot const&      parent,
-                                            std::string const& session_id,
-                                            std::string const& alias,
-                                            std::string const& user,
+      btrfs_snapshot::chroot_session_setup (const chroot&      parent,
+                                            const std::string& session_id,
+                                            const std::string& alias,
+                                            const std::string& user,
                                             bool               root)
       {
         // Btrfs snapshots need the snapshot name specifying.
@@ -282,7 +282,7 @@ namespace sbuild
       }
 
       void
-      btrfs_snapshot::chroot_source_setup (chroot const& parent)
+      btrfs_snapshot::chroot_source_setup (const chroot& parent)
       {
         storage::ptr source_directory(directory::create(*this));
         owner->replace_facet<storage>(source_directory);

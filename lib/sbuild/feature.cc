@@ -26,8 +26,8 @@
 namespace sbuild
 {
 
-  feature::feature(std::string const& feature,
-                   std::string const& description)
+  feature::feature(const std::string& feature,
+                   const std::string& description)
   {
     registered_features().insert(std::make_pair(feature, description));
   }

@@ -25,12 +25,12 @@
 namespace sbuild
 {
 
-  keyfile_writer::keyfile_writer(keyfile const& store):
+  keyfile_writer::keyfile_writer(const keyfile& store):
     store(store)
   {}
 
-  keyfile_writer::keyfile_writer (keyfile const&     store,
-                                  std::string const& file):
+  keyfile_writer::keyfile_writer (const keyfile&     store,
+                                  const std::string& file):
     keyfile_writer(store)
   {
     std::ofstream fs(file.c_str());
@@ -45,7 +45,7 @@ namespace sbuild
       }
   }
 
-  keyfile_writer::keyfile_writer (keyfile const& store,
+  keyfile_writer::keyfile_writer (const keyfile& store,
                                   std::ostream&  stream):
     keyfile_writer(store)
   {
@@ -88,7 +88,7 @@ namespace sbuild
   }
 
   void
-  sbuild::keyfile_writer::print_comment (keyfile::comment_type const& comment,
+  sbuild::keyfile_writer::print_comment (const keyfile::comment_type& comment,
                                          std::ostream&                stream)
   {
     std::string::size_type last_pos = 0;

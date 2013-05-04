@@ -117,7 +117,7 @@ namespace sbuild
       }
 
       void
-      lvm_snapshot::set_snapshot_device (std::string const& snapshot_device)
+      lvm_snapshot::set_snapshot_device (const std::string& snapshot_device)
       {
         if (!is_absname(snapshot_device))
           throw error(snapshot_device, chroot::DEVICE_ABS);
@@ -137,7 +137,7 @@ namespace sbuild
       }
 
       void
-      lvm_snapshot::set_snapshot_options (std::string const& snapshot_options)
+      lvm_snapshot::set_snapshot_options (const std::string& snapshot_options)
       {
         this->snapshot_options = snapshot_options;
       }
@@ -179,7 +179,7 @@ namespace sbuild
                     throw error(get_device(), chroot::DEVICE_NOTBLOCK);
                   }
               }
-            catch (sbuild::stat::error const& e) // Failed to stat
+            catch (const sbuild::stat::error& e) // Failed to stat
               {
                 // Don't throw if stopping a session and the device stat
                 // failed.  This is because the setup scripts shouldn't fail
@@ -251,7 +251,7 @@ namespace sbuild
       }
 
       void
-      lvm_snapshot::set_keyfile (keyfile const& keyfile)
+      lvm_snapshot::set_keyfile (const keyfile& keyfile)
       {
         block_device_base::set_keyfile(keyfile);
 
@@ -271,10 +271,10 @@ namespace sbuild
       }
 
       void
-      lvm_snapshot::chroot_session_setup (chroot const&      parent,
-                                          std::string const& session_id,
-                                          std::string const& alias,
-                                          std::string const& user,
+      lvm_snapshot::chroot_session_setup (const chroot&      parent,
+                                          const std::string& session_id,
+                                          const std::string& alias,
+                                          const std::string& user,
                                           bool               root)
       {
         // LVM devices need the snapshot device name specifying.
@@ -287,7 +287,7 @@ namespace sbuild
       }
 
       void
-      lvm_snapshot::chroot_source_setup (chroot const& parent)
+      lvm_snapshot::chroot_source_setup (const chroot& parent)
       {
         storage::ptr source_block(block_device::create(*this));
         owner->replace_facet<storage>(source_block);

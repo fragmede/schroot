@@ -152,14 +152,14 @@ namespace sbuild
   }
 
   sbuild::keyfile::key_list
-  sbuild::keyfile::get_keys (group_name_type const& group) const
+  sbuild::keyfile::get_keys (const group_name_type& group) const
   {
     key_list ret;
 
     const group_type *found_group = find_group(group);
     if (found_group)
       {
-        item_map_type const& items(std::get<1>(*found_group));
+        const item_map_type& items(std::get<1>(*found_group));
         for (const auto& item : items)
           ret.push_back(item.first);
       }
@@ -168,8 +168,8 @@ namespace sbuild
   }
 
   void
-  sbuild::keyfile::check_keys (group_name_type const& group,
-                               key_list const&        keys) const
+  sbuild::keyfile::check_keys (const group_name_type& group,
+                               const key_list&        keys) const
   {
     const string_list total(get_keys(group));
 
@@ -192,28 +192,28 @@ namespace sbuild
   }
 
   bool
-  sbuild::keyfile::has_group (group_name_type const& group) const
+  sbuild::keyfile::has_group (const group_name_type& group) const
   {
     return (find_group(group) != 0);
   }
 
   bool
-  sbuild::keyfile::has_key (group_name_type const& group,
-                            key_type const&        key) const
+  sbuild::keyfile::has_key (const group_name_type& group,
+                            const key_type&        key) const
   {
     return (find_item(group, key) != 0);
   }
 
   void
-  sbuild::keyfile::set_group (group_name_type const& group,
-                              comment_type const&    comment)
+  sbuild::keyfile::set_group (const group_name_type& group,
+                              const comment_type&    comment)
   {
     set_group(group, comment, 0);
   }
 
   void
-  sbuild::keyfile::set_group (group_name_type const& group,
-                              comment_type const&    comment,
+  sbuild::keyfile::set_group (const group_name_type& group,
+                              const comment_type&    comment,
                               size_type              line)
   {
     if (!has_group(group))
@@ -226,7 +226,7 @@ namespace sbuild
   }
 
   sbuild::keyfile::comment_type
-  sbuild::keyfile::get_comment (group_name_type const& group) const
+  sbuild::keyfile::get_comment (const group_name_type& group) const
   {
     const group_type *found_group = find_group(group);
     if (found_group)
@@ -236,8 +236,8 @@ namespace sbuild
   }
 
   sbuild::keyfile::comment_type
-  sbuild::keyfile::get_comment (group_name_type const& group,
-                                key_type const&        key) const
+  sbuild::keyfile::get_comment (const group_name_type& group,
+                                const key_type&        key) const
   {
     const item_type *found_item = find_item(group, key);
     if (found_item)
@@ -247,7 +247,7 @@ namespace sbuild
   }
 
   sbuild::keyfile::size_type
-  sbuild::keyfile::get_line (group_name_type const& group) const
+  sbuild::keyfile::get_line (const group_name_type& group) const
   {
     const group_type *found_group = find_group(group);
     if (found_group)
@@ -257,8 +257,8 @@ namespace sbuild
   }
 
   sbuild::keyfile::size_type
-  sbuild::keyfile::get_line (group_name_type const& group,
-                             key_type const&        key) const
+  sbuild::keyfile::get_line (const group_name_type& group,
+                             const key_type&        key) const
   {
     const item_type *found_item = find_item(group, key);
     if (found_item)
@@ -268,8 +268,8 @@ namespace sbuild
   }
 
   bool
-  sbuild::keyfile::get_locale_string (group_name_type const& group,
-                                      key_type const&        key,
+  sbuild::keyfile::get_locale_string (const group_name_type& group,
+                                      const key_type&        key,
                                       value_type&            value) const
   {
     std::string localename;
@@ -277,7 +277,7 @@ namespace sbuild
       {
         localename = std::locale("").name();
       }
-    catch (std::runtime_error const& e) // Invalid locale
+    catch (const std::runtime_error& e) // Invalid locale
       {
         localename = std::locale::classic().name();
       }
@@ -305,8 +305,8 @@ namespace sbuild
   }
 
   bool
-  sbuild::keyfile::get_locale_string (group_name_type const& group,
-                                      key_type const&        key,
+  sbuild::keyfile::get_locale_string (const group_name_type& group,
+                                      const key_type&        key,
                                       priority               priority,
                                       value_type&            value) const
   {
@@ -316,9 +316,9 @@ namespace sbuild
   }
 
   bool
-  sbuild::keyfile::get_locale_string (group_name_type const& group,
-                                      key_type const&        key,
-                                      std::string const&     locale,
+  sbuild::keyfile::get_locale_string (const group_name_type& group,
+                                      const key_type&        key,
+                                      const std::string&     locale,
                                       value_type&            value) const
   {
     std::string lkey = key + '[' + locale + ']';
@@ -326,9 +326,9 @@ namespace sbuild
   }
 
   bool
-  sbuild::keyfile::get_locale_string (group_name_type const& group,
-                                      key_type const&        key,
-                                      std::string const&     locale,
+  sbuild::keyfile::get_locale_string (const group_name_type& group,
+                                      const key_type&        key,
+                                      const std::string&     locale,
                                       priority               priority,
                                       value_type&            value) const
   {
@@ -338,7 +338,7 @@ namespace sbuild
   }
 
   void
-  sbuild::keyfile::remove_group (group_name_type const& group)
+  sbuild::keyfile::remove_group (const group_name_type& group)
   {
     group_map_type::iterator pos = this->groups.find(group);
     if (pos != this->groups.end())
@@ -346,8 +346,8 @@ namespace sbuild
   }
 
   void
-  sbuild::keyfile::remove_key (group_name_type const& group,
-                               key_type const&        key)
+  sbuild::keyfile::remove_key (const group_name_type& group,
+                               const key_type&        key)
   {
     group_type *found_group = find_group(group);
     if (found_group)
@@ -360,24 +360,24 @@ namespace sbuild
   }
 
   sbuild::keyfile&
-  sbuild::keyfile::operator += (keyfile const& rhs)
+  sbuild::keyfile::operator += (const keyfile& rhs)
   {
     for (const auto& gp : rhs.groups)
       {
-        group_type const& group = gp.second;
-        group_name_type const& groupname = std::get<0>(group);
-        comment_type const& comment = std::get<2>(group);
-        size_type const& line = std::get<3>(group);
+        const group_type& group = gp.second;
+        const group_name_type& groupname = std::get<0>(group);
+        const comment_type& comment = std::get<2>(group);
+        const size_type& line = std::get<3>(group);
         set_group(groupname, comment, line);
 
-        item_map_type const& items(std::get<1>(group));
+        const item_map_type& items(std::get<1>(group));
         for (const auto& it : items)
           {
-            item_type const& item = it.second;
-            key_type const& key(std::get<0>(item));
-            internal_value_type const& value(std::get<1>(item));
-            comment_type const& comment(std::get<2>(item));
-            size_type const& line(std::get<3>(item));
+            const item_type& item = it.second;
+            const key_type& key(std::get<0>(item));
+            const internal_value_type& value(std::get<1>(item));
+            const comment_type& comment(std::get<2>(item));
+            const size_type& line(std::get<3>(item));
             set_value(groupname, key, value, comment, line);
           }
       }
@@ -385,8 +385,8 @@ namespace sbuild
   }
 
   sbuild::keyfile
-  operator + (sbuild::keyfile const& lhs,
-              sbuild::keyfile const& rhs)
+  operator + (const sbuild::keyfile& lhs,
+              const sbuild::keyfile& rhs)
   {
     sbuild::keyfile ret(lhs);
     ret += rhs;
@@ -394,7 +394,7 @@ namespace sbuild
   }
 
   const sbuild::keyfile::group_type *
-  sbuild::keyfile::find_group (group_name_type const& group) const
+  sbuild::keyfile::find_group (const group_name_type& group) const
   {
     group_map_type::const_iterator pos = this->groups.find(group);
     if (pos != this->groups.end())
@@ -404,7 +404,7 @@ namespace sbuild
   }
 
   sbuild::keyfile::group_type *
-  sbuild::keyfile::find_group (group_name_type const& group)
+  sbuild::keyfile::find_group (const group_name_type& group)
   {
     group_map_type::iterator pos = this->groups.find(group);
     if (pos != this->groups.end())
@@ -414,13 +414,13 @@ namespace sbuild
   }
 
   const sbuild::keyfile::item_type *
-  sbuild::keyfile::find_item (group_name_type const& group,
-                              key_type const&        key) const
+  sbuild::keyfile::find_item (const group_name_type& group,
+                              const key_type&        key) const
   {
     const group_type *found_group = find_group(group);
     if (found_group)
       {
-        item_map_type const& items = std::get<1>(*found_group);
+        const item_map_type& items = std::get<1>(*found_group);
         item_map_type::const_iterator pos = items.find(key);
         if (pos != items.end())
           return &pos->second;
@@ -430,8 +430,8 @@ namespace sbuild
   }
 
   sbuild::keyfile::item_type *
-  sbuild::keyfile::find_item (group_name_type const& group,
-                              key_type const&        key)
+  sbuild::keyfile::find_item (const group_name_type& group,
+                              const key_type&        key)
   {
     group_type *found_group = find_group(group);
     if (found_group)
@@ -446,8 +446,8 @@ namespace sbuild
   }
 
   void
-  sbuild::keyfile::check_priority (group_name_type const& group,
-                                   key_type const&        key,
+  sbuild::keyfile::check_priority (const group_name_type& group,
+                                   const key_type&        key,
                                    priority               priority,
                                    bool                   valid) const
   {

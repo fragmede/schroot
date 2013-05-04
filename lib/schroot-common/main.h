@@ -59,8 +59,8 @@ namespace schroot_common
      * @param use_syslog whether to open a connection to the system
      * logger.
      */
-    main (std::string const&                 program_name,
-          std::string const&                 program_usage,
+    main (const std::string&                 program_name,
+          const std::string&                 program_usage,
           schroot_common::options::ptr&      options,
           bool               use_syslog);
 

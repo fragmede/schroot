@@ -187,9 +187,9 @@ namespace sbuild
       {session::USER_SWITCH,    N_("(%1%→%2%): User switching is not permitted")}
     };
 
-  session::session (std::string const&  service,
+  session::session (const std::string&  service,
                     operation           operation,
-                    chroot_list const&  chroots):
+                    const chroot_list&  chroots):
     authstat(
 #ifdef SBUILD_FEATURE_PAM
              auth::pam::create(service)
@@ -240,7 +240,7 @@ namespace sbuild
   }
 
   void
-  session::set_chroots (chroot_list const& chroots)
+  session::set_chroots (const chroot_list& chroots)
   {
     this->chroots = chroots;
   }
@@ -264,7 +264,7 @@ namespace sbuild
   }
 
   void
-  session::set_session_id (std::string const& session_id)
+  session::set_session_id (const std::string& session_id)
   {
     this->session_id = session_id;
   }
@@ -276,7 +276,7 @@ namespace sbuild
   }
 
   void
-  session::set_verbosity (std::string const& verbosity)
+  session::set_verbosity (const std::string& verbosity)
   {
     this->verbosity = verbosity;
   }
@@ -300,7 +300,7 @@ namespace sbuild
   }
 
   void
-  session::set_shell_override (std::string const& shell)
+  session::set_shell_override (const std::string& shell)
   {
     this->shell = shell;
   }
@@ -312,7 +312,7 @@ namespace sbuild
   }
 
   void
-  session::set_user_options (string_map const& user_options)
+  session::set_user_options (const string_map& user_options)
   {
     this->user_options = user_options;
   }
@@ -332,7 +332,7 @@ namespace sbuild
   void
   session::save_termios ()
   {
-    string_list const& command(this->authstat->get_command());
+    const string_list& command(this->authstat->get_command());
 
     this->termios_ok = false;
 
@@ -354,7 +354,7 @@ namespace sbuild
   void
   session::restore_termios ()
   {
-    string_list const& command(this->authstat->get_command());
+    const string_list& command(this->authstat->get_command());
 
     // Restore if running a login shell and have a controlling terminal,
     // and have previously saved the terminal state.
@@ -382,7 +382,7 @@ namespace sbuild
    * @returns true if the user is a member of group, otherwise false.
    */
   bool
-  session::is_group_member (std::string const& groupname) const
+  session::is_group_member (const std::string& groupname) const
   {
     errno = 0;
     sbuild::group grp(groupname);
@@ -430,16 +430,16 @@ namespace sbuild
   }
 
   void
-  session::get_chroot_membership (chroot::chroot::ptr const& chroot,
+  session::get_chroot_membership (const chroot::chroot::ptr& chroot,
                                   bool&                      in_users,
                                   bool&                      in_root_users,
                                   bool&                      in_groups,
                                   bool&                      in_root_groups) const
   {
-    string_list const& users = chroot->get_users();
-    string_list const& root_users = chroot->get_root_users();
-    string_list const& groups = chroot->get_groups();
-    string_list const& root_groups = chroot->get_root_groups();
+    const string_list& users = chroot->get_users();
+    const string_list& root_users = chroot->get_root_users();
+    const string_list& groups = chroot->get_groups();
+    const string_list& root_groups = chroot->get_root_groups();
 
     in_users = false;
     in_root_users = false;
@@ -480,7 +480,7 @@ namespace sbuild
 
   auth::auth::status
   session::get_chroot_auth_status (auth::auth::status         status,
-                                   chroot::chroot::ptr const& chroot) const
+                                   const chroot::chroot::ptr& chroot) const
   {
     bool in_users = false;
     bool in_root_users = false;
@@ -574,20 +574,20 @@ namespace sbuild
                already bailing out, and an error may already
                have been raised */
           }
-        catch (auth::auth::error const& e)
+        catch (const auth::auth::error& e)
           {
             try
               {
                 this->authstat->cred_delete();
               }
-            catch (auth::auth::error const& discard)
+            catch (const auth::auth::error& discard)
               {
               }
             throw;
           }
         this->authstat->cred_delete();
       }
-    catch (auth::auth::error const& e)
+    catch (const auth::auth::error& e)
       {
         try
           {
@@ -595,7 +595,7 @@ namespace sbuild
                and an error may already have been raised */
             this->authstat->stop();
           }
-        catch (auth::auth::error const& discard)
+        catch (const auth::auth::error& discard)
           {
           }
         throw;
@@ -733,7 +733,7 @@ namespace sbuild
                             save_termios();
                             run_chroot(chroot);
                           }
-                        catch (std::runtime_error const& e)
+                        catch (const std::runtime_error& e)
                           {
                             log_debug(DEBUG_WARNING)
                               << "Chroot session failed" << endl;
@@ -745,7 +745,7 @@ namespace sbuild
                         this->authstat->close_session();
                       }
                   }
-                catch (error const& e)
+                catch (const error& e)
                   {
                     log_debug(DEBUG_WARNING)
                       << "Chroot exec scripts or session failed" << endl;
@@ -757,7 +757,7 @@ namespace sbuild
                    error. */
                 setup_chroot(chroot, chroot::chroot::EXEC_STOP);
               }
-            catch (error const& e)
+            catch (const error& e)
               {
                 log_debug(DEBUG_WARNING)
                   << "Chroot setup scripts, exec scripts or session failed" << endl;
@@ -765,7 +765,7 @@ namespace sbuild
                   {
                     setup_chroot(chroot, chroot::chroot::SETUP_STOP);
                   }
-                catch (error const& discard)
+                catch (const error& discard)
                   {
                     log_debug(DEBUG_WARNING)
                       << "Chroot setup scripts failed during stop" << endl;
@@ -778,7 +778,7 @@ namespace sbuild
             setup_chroot(chroot, chroot::chroot::SETUP_STOP);
           }
       }
-    catch (error const& e)
+    catch (const error& e)
       {
         clear_sigterm_handler();
         clear_sigint_handler();
@@ -798,11 +798,11 @@ namespace sbuild
 
   string_list
   session::get_login_directories (chroot::chroot::ptr& session_chroot,
-                                  environment const&   env) const
+                                  const environment&   env) const
   {
     string_list ret;
 
-    std::string const& wd(this->authstat->get_wd());
+    const std::string& wd(this->authstat->get_wd());
     if (!wd.empty())
       {
         // Set specified working directory.
@@ -833,11 +833,11 @@ namespace sbuild
 
   string_list
   session::get_command_directories (chroot::chroot::ptr& session_chroot,
-                                    environment const&   env) const
+                                    const environment&   env) const
   {
     string_list ret;
 
-    std::string const& wd(this->authstat->get_wd());
+    const std::string& wd(this->authstat->get_wd());
     if (!wd.empty())
       // Set specified working directory.
       ret.push_back(wd);
@@ -867,7 +867,7 @@ namespace sbuild
         if (get_preserve_environment())
           {
             // $SHELL (if --preserve-environment used)
-            environment const& env(this->authstat->get_complete_environment());
+            const environment& env(this->authstat->get_complete_environment());
 
             std::string envshell;
             if (env.get("SHELL", envshell) &&
@@ -876,7 +876,7 @@ namespace sbuild
           }
 
         // passwd pw_shell
-        std::string const& shell = this->authstat->get_shell();
+        const std::string& shell = this->authstat->get_shell();
         if (!shell.empty())
           ret.push_back(shell);
 
@@ -907,7 +907,7 @@ namespace sbuild
             found_shell = shell;
             break;
           }
-        catch (std::runtime_error const& e)
+        catch (const std::runtime_error& e)
           {
             error e1(shell, SHELL, e.what());
             log_exception_warning(e1);
@@ -1027,7 +1027,7 @@ namespace sbuild
   session::get_user_command (chroot::chroot::ptr& session_chroot,
                              std::string&         file,
                              string_list&         command,
-                             environment const&   env) const
+                             const environment&   env) const
   {
     /* Search for program in path. */
     std::string path;
@@ -1112,7 +1112,7 @@ namespace sbuild
       {
         session_chroot->lock(setup_type);
       }
-    catch (chroot::chroot::error const& e)
+    catch (const chroot::chroot::error& e)
       {
         this->chroot_status = false;
         this->lock_status = false;
@@ -1121,7 +1121,7 @@ namespace sbuild
             // Release lock, which also removes session metadata.
             session_chroot->unlock(setup_type, 0);
           }
-        catch (chroot::chroot::error const& ignore)
+        catch (const chroot::chroot::error& ignore)
           {
           }
         throw error(session_chroot->get_name(), CHROOT_LOCK, e);
@@ -1215,7 +1215,7 @@ namespace sbuild
 
             _exit (status);
           }
-        catch (std::exception const& e)
+        catch (const std::exception& e)
           {
             log_exception_error(e);
           }
@@ -1235,7 +1235,7 @@ namespace sbuild
       {
         session_chroot->unlock(setup_type, exit_status);
       }
-    catch (chroot::chroot::error const& e)
+    catch (const chroot::chroot::error& e)
       {
         this->chroot_status = false;
         this->lock_status = false;
@@ -1509,7 +1509,7 @@ namespace sbuild
           {
             run_child(session_chroot);
           }
-        catch (std::runtime_error const& e)
+        catch (const std::runtime_error& e)
           {
             log_exception_error(e);
           }

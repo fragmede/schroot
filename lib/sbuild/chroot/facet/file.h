@@ -95,7 +95,7 @@ namespace sbuild
          * @param filename the filename.
          */
         void
-        set_filename (std::string const& filename);
+        set_filename (const std::string& filename);
 
         /**
          * Get the location.  This is a path to the chroot directory
@@ -113,7 +113,7 @@ namespace sbuild
          * @param location the location.
          */
         virtual void
-        set_location (std::string const& location);
+        set_location (const std::string& location);
 
         /**
          * Get the repack status.  This is true if the unpacked archive
@@ -159,10 +159,10 @@ namespace sbuild
         get_keyfile (keyfile& keyfile) const;
 
         virtual void
-        set_keyfile (keyfile const& keyfile);
+        set_keyfile (const keyfile& keyfile);
 
         virtual void
-        chroot_source_setup (chroot const& parent);
+        chroot_source_setup (const chroot& parent);
 
       private:
         /// The file to use.

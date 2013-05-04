@@ -141,7 +141,7 @@ namespace sbuild
     }
 
     chroot::ptr
-    chroot::create (std::string const& type)
+    chroot::create (const std::string& type)
     {
       facet::facet::ptr fac = facet::factory::create(type);
       facet::storage::ptr store = std::dynamic_pointer_cast<facet::storage>(fac);
@@ -165,9 +165,9 @@ namespace sbuild
     }
 
     chroot::ptr
-    chroot::clone_session (std::string const& session_id,
-                           std::string const& alias,
-                           std::string const& user,
+    chroot::clone_session (const std::string& session_id,
+                           const std::string& alias,
+                           const std::string& user,
                            bool               root) const
     {
       ptr session = 0;
@@ -201,7 +201,7 @@ namespace sbuild
     }
 
     void
-    chroot::set_name (std::string const& name)
+    chroot::set_name (const std::string& name)
     {
       std::string::size_type pos = name.find_first_of(config::namespace_separator);
       if (pos != std::string::npos)
@@ -231,7 +231,7 @@ namespace sbuild
     }
 
     void
-    chroot::set_description (std::string const& description)
+    chroot::set_description (const std::string& description)
     {
       this->description = description;
     }
@@ -243,7 +243,7 @@ namespace sbuild
     }
 
     void
-    chroot::set_mount_location (std::string const& location)
+    chroot::set_mount_location (const std::string& location)
     {
       if (!location.empty() && !is_absname(location))
         throw error(location, LOCATION_ABS);
@@ -263,7 +263,7 @@ namespace sbuild
     }
 
     void
-    chroot::set_users (string_list const& users)
+    chroot::set_users (const string_list& users)
     {
       this->users = users;
     }
@@ -275,7 +275,7 @@ namespace sbuild
     }
 
     void
-    chroot::set_groups (string_list const& groups)
+    chroot::set_groups (const string_list& groups)
     {
       this->groups = groups;
     }
@@ -287,7 +287,7 @@ namespace sbuild
     }
 
     void
-    chroot::set_root_users (string_list const& users)
+    chroot::set_root_users (const string_list& users)
     {
       this->root_users = users;
     }
@@ -299,7 +299,7 @@ namespace sbuild
     }
 
     void
-    chroot::set_root_groups (string_list const& groups)
+    chroot::set_root_groups (const string_list& groups)
     {
       this->root_groups = groups;
     }
@@ -311,7 +311,7 @@ namespace sbuild
     }
 
     void
-    chroot::set_aliases (string_list const& aliases)
+    chroot::set_aliases (const string_list& aliases)
     {
       for (const auto& alias : aliases)
         {
@@ -355,7 +355,7 @@ namespace sbuild
     }
 
     void
-    chroot::set_default_shell (std::string const& default_shell)
+    chroot::set_default_shell (const std::string& default_shell)
     {
       this->default_shell = default_shell;
     }
@@ -367,7 +367,7 @@ namespace sbuild
     }
 
     void
-    chroot::set_environment_filter (regex const& environment_filter)
+    chroot::set_environment_filter (const regex& environment_filter)
     {
       this->environment_filter = environment_filter;
     }
@@ -399,7 +399,7 @@ namespace sbuild
     }
 
     void
-    chroot::set_script_config (std::string const& script_config)
+    chroot::set_script_config (const std::string& script_config)
     {
       this->script_config = script_config;
 
@@ -424,7 +424,7 @@ namespace sbuild
     }
 
     void
-    chroot::set_profile (std::string const& profile)
+    chroot::set_profile (const std::string& profile)
     {
       this->profile = profile;
 
@@ -446,7 +446,7 @@ namespace sbuild
     }
 
     void
-    chroot::set_command_prefix (string_list const& command_prefix)
+    chroot::set_command_prefix (const string_list& command_prefix)
     {
       this->command_prefix = command_prefix;
     }
@@ -491,7 +491,7 @@ namespace sbuild
     }
 
     void
-    chroot::set_verbosity (std::string const& verbosity)
+    chroot::set_verbosity (const std::string& verbosity)
     {
       if (verbosity == "quiet")
         this->message_verbosity = VERBOSITY_QUIET;
@@ -764,7 +764,7 @@ namespace sbuild
     }
 
     void
-    chroot::set_keyfile (keyfile const& keyfile)
+    chroot::set_keyfile (const keyfile& keyfile)
     {
       bool session = static_cast<bool>(get_facet<facet::session>());
 

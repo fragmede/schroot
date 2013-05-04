@@ -71,7 +71,7 @@ namespace sbuild
       }
 
       void
-      block_device_base::set_device (std::string const& device)
+      block_device_base::set_device (const std::string& device)
       {
         if (!is_absname(device))
           throw error(device, chroot::DEVICE_ABS);
@@ -120,7 +120,7 @@ namespace sbuild
       }
 
       void
-      block_device_base::set_keyfile (keyfile const& keyfile)
+      block_device_base::set_keyfile (const keyfile& keyfile)
       {
         keyfile::get_object_value(*this, &block_device_base::set_device,
                                   keyfile, owner->get_name(), "device",

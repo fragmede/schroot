@@ -83,7 +83,7 @@ namespace sbuild
       }
 
       void
-      facet::set_keyfile (keyfile const& keyfile)
+      facet::set_keyfile (const keyfile& keyfile)
       {
       }
 

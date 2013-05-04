@@ -102,7 +102,7 @@ namespace sbuild
   }
 
   void
-  lock::set_timer(struct itimerval const& timer)
+  lock::set_timer(const struct itimerval& timer)
   {
     set_alarm();
 
@@ -202,7 +202,7 @@ namespace sbuild
 
         unset_timer();
       }
-    catch (error const& e)
+    catch (const error& e)
       {
         unset_timer();
         throw;

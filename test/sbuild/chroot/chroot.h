@@ -65,7 +65,7 @@ protected:
   std::string abs_testdata_dir;
 
 public:
-  test_chroot_base(std::string const& type):
+  test_chroot_base(const std::string& type):
     TestFixture(),
     type(type),
     chroot(),
@@ -267,7 +267,7 @@ public:
   }
 
   void setup_keyfile_chroot (sbuild::keyfile&   keyfile,
-                             std::string const& group)
+                             const std::string& group)
   {
     keyfile.set_value(group, "description", "test-description");
     keyfile.set_value(group, "aliases", "test-alias-1,test-alias-2");
@@ -298,7 +298,7 @@ public:
   }
 
   void setup_keyfile_session (sbuild::keyfile&   keyfile,
-                              std::string const& group)
+                              const std::string& group)
   {
     setup_keyfile_chroot(keyfile, group);
     keyfile.set_value(group, "original-name", "test-name");
@@ -310,13 +310,13 @@ public:
 
 #ifdef SBUILD_FEATURE_UNION
   void setup_keyfile_union_unconfigured (sbuild::keyfile&   keyfile,
-                                         std::string const& group)
+                                         const std::string& group)
   {
     keyfile.set_value(group, "union-type", "none");
   }
 
   void setup_keyfile_union_configured (sbuild::keyfile&   keyfile,
-                                       std::string const& group)
+                                       const std::string& group)
   {
     keyfile.set_value(group, "union-type", "aufs");
     keyfile.set_value(group, "union-mount-options", "union-mount-options");
@@ -325,7 +325,7 @@ public:
   }
 
   void setup_keyfile_union_session (sbuild::keyfile&   keyfile,
-                                    std::string const& group)
+                                    const std::string& group)
   {
     keyfile.set_value(group, "union-type", "aufs");
     keyfile.set_value(group, "union-mount-options", "union-mount-options");
@@ -335,14 +335,14 @@ public:
 #endif // SBUILD_FEATURE_UNION
 
   void setup_keyfile_session_clone (sbuild::keyfile&   keyfile,
-                                    std::string const& group)
+                                    const std::string& group)
   {
     keyfile.set_value(group, "description", chroot->get_description() + ' ' + _("(session chroot)"));
     keyfile.set_value(group, "aliases", "");
   }
 
   void setup_keyfile_source (sbuild::keyfile&   keyfile,
-                             std::string const& group)
+                             const std::string& group)
   {
     keyfile.set_value(group, "source-clone", "true");
     keyfile.set_value(group, "source-users", "suser1,suser2");
@@ -352,7 +352,7 @@ public:
   }
 
   void setup_keyfile_source_clone (sbuild::keyfile&   keyfile,
-                                   std::string const& group)
+                                   const std::string& group)
   {
     keyfile.set_value(group, "description", chroot->get_description() + ' ' + _("(source chroot)"));
     keyfile.set_value(group, "users", "suser1,suser2");
@@ -368,7 +368,7 @@ public:
   }
 
   void setup_keyfile_session_source_clone (sbuild::keyfile&   keyfile,
-                                           std::string const& group)
+                                           const std::string& group)
   {
     setup_keyfile_chroot(keyfile, group);
     keyfile.set_value(group, "name", "test-session-name");
@@ -541,8 +541,8 @@ public:
 
 template<class T>
 void test_list(T&                         itype,
-               sbuild::string_list const& list,
-               sbuild::string_list const& (T::*getter)(void) const,
+               const sbuild::string_list& list,
+               const sbuild::string_list& (T::*getter)(void) const,
                void (T::*setter)(sbuild::string_list const&))
 {
   // Set items from list.

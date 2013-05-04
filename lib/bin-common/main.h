@@ -50,9 +50,9 @@ namespace bin_common
      * @param use_syslog whether to open a connection to the system
      * logger.
      */
-    main (std::string const&  program_name,
-          std::string const&  program_usage,
-          options::ptr const& program_options,
+    main (const std::string&  program_name,
+          const std::string&  program_usage,
+          const options::ptr& program_options,
           bool                use_syslog);
 
     /// The destructor.

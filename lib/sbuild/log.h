@@ -99,7 +99,7 @@ namespace sbuild
    * @param e the exception to log.
    */
   void
-  log_exception_warning (std::exception const& e);
+  log_exception_warning (const std::exception& e);
 
   /**
    * Log an exception as an error.
@@ -107,7 +107,7 @@ namespace sbuild
    * @param e the exception to log.
    */
   void
-  log_exception_error (std::exception const& e);
+  log_exception_error (const std::exception& e);
 
   /**
    * Log an exception as a warning to the Controlling TTY.
@@ -115,7 +115,7 @@ namespace sbuild
    * @param e the exception to log.
    */
   void
-  log_ctty_exception_warning (std::exception const& e);
+  log_ctty_exception_warning (const std::exception& e);
 
   /**
    * Log an exception as an error to the Controlling TTY.
@@ -123,7 +123,7 @@ namespace sbuild
    * @param e the exception to log.
    */
   void
-  log_ctty_exception_error (std::exception const& e);
+  log_ctty_exception_error (const std::exception& e);
 
   /**
    * Log an unknown exception as an error.

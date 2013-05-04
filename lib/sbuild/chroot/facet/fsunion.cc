@@ -109,7 +109,7 @@ namespace sbuild
 
       void
       fsunion::set_union_overlay_directory
-      (std::string const& directory)
+      (const std::string& directory)
       {
         if (!is_absname(directory))
           throw error(directory, FSUNION_OVERLAY_ABS);
@@ -125,7 +125,7 @@ namespace sbuild
 
       void
       fsunion::set_union_underlay_directory
-      (std::string const& directory)
+      (const std::string& directory)
       {
         if (!is_absname(directory))
           throw error(directory, FSUNION_UNDERLAY_ABS);
@@ -140,7 +140,7 @@ namespace sbuild
       }
 
       void
-      fsunion::set_union_type (std::string const& type)
+      fsunion::set_union_type (const std::string& type)
       {
         if (type == "aufs" ||
             type == "overlayfs" ||
@@ -170,7 +170,7 @@ namespace sbuild
 
       void
       fsunion::set_union_mount_options
-      (std::string const& union_mount_options)
+      (const std::string& union_mount_options)
       {
         this->union_mount_options = union_mount_options;
       }
@@ -254,7 +254,7 @@ namespace sbuild
       }
 
       void
-      fsunion::set_keyfile (keyfile const& keyfile)
+      fsunion::set_keyfile (const keyfile& keyfile)
       {
         bool is_session = static_cast<bool>(owner->get_facet<session>());
 
@@ -285,10 +285,10 @@ namespace sbuild
       }
 
       void
-      fsunion::chroot_session_setup (chroot const&      parent,
-                                     std::string const& session_id,
-                                     std::string const& alias,
-                                     std::string const& user,
+      fsunion::chroot_session_setup (const chroot&      parent,
+                                     const std::string& session_id,
+                                     const std::string& alias,
+                                     const std::string& user,
                                      bool               root)
       {
         // If the parent did not have a union facet, then neither should we.
@@ -310,7 +310,7 @@ namespace sbuild
       }
 
       void
-      fsunion::chroot_source_setup (chroot const& parent)
+      fsunion::chroot_source_setup (const chroot& parent)
       {
         owner->remove_facet<fsunion>();
       }

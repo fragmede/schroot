@@ -42,22 +42,22 @@ namespace dchroot_dsa
      * @param operation the session operation to perform.
      * @param chroots the chroots to act upon.
      */
-    session (std::string const&         service,
+    session (const std::string&         service,
              operation                  operation,
-             sbuild::session::chroot_list const& chroots);
+             const sbuild::session::chroot_list& chroots);
 
     /// The destructor.
     virtual ~session ();
 
     virtual sbuild::string_list
     get_login_directories (sbuild::chroot::chroot::ptr& session_chroot,
-                           sbuild::environment const&   env) const;
+                           const sbuild::environment&   env) const;
 
     virtual void
     get_user_command (sbuild::chroot::chroot::ptr& session_chroot,
                       std::string&                 file,
                       sbuild::string_list&         command,
-                      sbuild::environment const&   env) const;
+                      const sbuild::environment&   env) const;
   };
 
 }

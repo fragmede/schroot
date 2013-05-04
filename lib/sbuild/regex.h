@@ -75,7 +75,7 @@ namespace sbuild
      *
      * @param pattern a regex
      */
-    regex (std::string const& pattern):
+    regex (const std::string& pattern):
       comp(pattern, std::regex::extended),
       rstr(pattern)
     {}
@@ -115,13 +115,13 @@ namespace sbuild
     }
 
     bool
-    compare (regex const& rhs) const
+    compare (const regex& rhs) const
     {
       return this->rstr != rhs.rstr;
     }
 
     bool
-    search (std::string const& str) const
+    search (const std::string& str) const
     {
       return std::regex_search(str, this->comp);
     }
@@ -163,7 +163,7 @@ namespace sbuild
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-                 regex const&                rhs)
+                 const regex&                rhs)
     {
       return stream << rhs.str();
     }
@@ -180,7 +180,7 @@ namespace sbuild
    */
   inline bool
   regex_search (const std::string& str,
-                regex const& regex)
+                const regex& regex)
   {
     return regex.search(str);
   }

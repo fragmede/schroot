@@ -39,7 +39,7 @@ namespace sbuild
   {}
 
   keyfile_reader::keyfile_reader (keyfile&           store,
-                                  std::string const& file):
+                                  const std::string& file):
     keyfile_reader(store)
   {
     std::ifstream fs(file.c_str());
@@ -109,7 +109,7 @@ namespace sbuild
   }
 
   void
-  keyfile_reader::parse_line (std::string const& line)
+  keyfile_reader::parse_line (const std::string& line)
   {
     if (comment_set == true)
       {

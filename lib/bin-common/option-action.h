@@ -50,7 +50,7 @@ namespace bin_common
      * @param action the action to add.
      */
     void
-    add (action_type const& action);
+    add (const action_type& action);
 
     /**
      * Get the default action.
@@ -65,7 +65,7 @@ namespace bin_common
      * @param action the action to set.
      */
     void
-    set_default (action_type const& action);
+    set_default (const action_type& action);
 
     /**
      * Get the action to perform.
@@ -83,7 +83,7 @@ namespace bin_common
      * main::run.
      */
     void
-    set (action_type const& action);
+    set (const action_type& action);
 
     /**
      * Check if an action is valid.
@@ -91,7 +91,7 @@ namespace bin_common
      * @returns if action is a valid action, otherwise false.
      */
     bool
-    valid (action_type const& action);
+    valid (const action_type& action);
 
     /**
      * Set an action.
@@ -99,7 +99,7 @@ namespace bin_common
      * @param action the action to set.
      * @returns the option_action object.
      */
-    option_action& operator = (action_type const& action)
+    option_action& operator = (const action_type& action)
     {
       set(action);
       return *this;
@@ -111,7 +111,7 @@ namespace bin_common
      * @param action the action to check.
      * @returns true if the same, otherwise false.
      */
-    bool operator == (action_type const& action)
+    bool operator == (const action_type& action)
     {
       if (get() == action)
         return true;
@@ -126,7 +126,7 @@ namespace bin_common
      * @param action the action to check.
      * @returns true if different, otherwise false.
      */
-    bool operator != (action_type const& action)
+    bool operator != (const action_type& action)
     {
       return !(*this == action);
     }

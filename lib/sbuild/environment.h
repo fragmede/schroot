@@ -64,7 +64,7 @@ namespace sbuild
      * @param filter the filter regex.
      */
     void
-    set_filter (regex const& filter);
+    set_filter (const regex& filter);
 
     /**
      * Get environment filter.
@@ -91,7 +91,7 @@ namespace sbuild
      * @param environment the environment variables to add.
      */
     void
-    add (environment const& environment);
+    add (const environment& environment);
 
     /**
      * Add environment variable.  Any existing variable sharing the
@@ -100,7 +100,7 @@ namespace sbuild
      * @param value the environment variable to add.
      */
     void
-    add (value_type const& value);
+    add (const value_type& value);
 
     /**
      * Add environment variable.  Any existing variable sharing the
@@ -110,8 +110,8 @@ namespace sbuild
      * @param value the environment variable value to add.
      */
     void
-    add (std::string const& name,
-         std::string const& value)
+    add (const std::string& name,
+         const std::string& value)
     {
       add(std::make_pair(name, value));
     }
@@ -125,7 +125,7 @@ namespace sbuild
      */
     template<typename T>
     void
-    add (std::string const& name,
+    add (const std::string& name,
          T const&           value)
     {
       std::ostringstream varstring;
@@ -142,7 +142,7 @@ namespace sbuild
      * in the form key=value.
      */
     void
-    add (std::string const& value);
+    add (const std::string& value);
 
     /**
      * Remove environment variables.  Any variables sharing the names
@@ -161,7 +161,7 @@ namespace sbuild
      * @param environment the environment variables to remove.
      */
     void
-    remove (environment const& environment);
+    remove (const environment& environment);
 
     /**
      * Remove environment variable.  Any variable sharing the name
@@ -170,7 +170,7 @@ namespace sbuild
      * @param value the environment variable to remove.
      */
     void
-    remove (std::string const& value);
+    remove (const std::string& value);
 
     /**
      * Remove environment variable.  Any variable sharing the name
@@ -179,7 +179,7 @@ namespace sbuild
      * @param value the environment variable to remove.
      */
     void
-    remove (value_type const& value);
+    remove (const value_type& value);
 
     /**
      * Get the value of an environment variable.
@@ -191,7 +191,7 @@ namespace sbuild
      */
     template <typename T>
     bool
-    get (std::string const& name,
+    get (const std::string& name,
          T&                 value) const
     {
       log_debug(DEBUG_INFO) << "Getting environment variable=" << name
@@ -204,7 +204,7 @@ namespace sbuild
               parse_value(pos->second, value);
               return true;
             }
-          catch (parse_value_error const& e)
+          catch (const parse_value_error& e)
             {
               log_warning() << boost::format("%1%: %2%\n")
                 % name % e.what();
@@ -262,7 +262,7 @@ namespace sbuild
      */
     template <typename T>
     friend environment
-    operator + (environment const& lhs,
+    operator + (const environment& lhs,
                 T const&           rhs)
     {
       environment ret(lhs);
@@ -279,7 +279,7 @@ namespace sbuild
      */
     template <typename T>
     friend environment
-    operator - (environment const& lhs,
+    operator - (const environment& lhs,
                 T const&           rhs)
     {
       environment ret(lhs);
@@ -298,7 +298,7 @@ namespace sbuild
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-                 environment const& rhs)
+                 const environment& rhs)
     {
       for (const auto& env : rhs)
         {

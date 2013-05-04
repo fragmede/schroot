@@ -26,7 +26,7 @@ namespace sbuild
   {
 
     pam_message::pam_message (message_type       type,
-                              std::string const& message):
+                              const std::string& message):
       type(type),
       message(message),
       response()

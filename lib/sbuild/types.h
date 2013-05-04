@@ -79,7 +79,7 @@ namespace sbuild
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-                 date_base const&                  dt)
+                 const date_base&                  dt)
     {
       std::ios_base::iostate err = std::ios_base::goodbit;
 
@@ -125,7 +125,7 @@ namespace sbuild
                 {
                   stream.setstate(std::ios::failbit);
                 }
-              catch (std::ios_base::failure const& discard)
+              catch (const std::ios_base::failure& discard)
                 {
                   flag = true;
                 }

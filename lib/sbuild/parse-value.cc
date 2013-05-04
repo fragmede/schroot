@@ -32,7 +32,7 @@ namespace sbuild
     };
 
   void
-  parse_value (std::string const& value,
+  parse_value (const std::string& value,
                bool&              parsed_value)
   {
     if (value == "true" || value == "yes" || value == "1")
@@ -49,7 +49,7 @@ namespace sbuild
   }
 
   void
-  parse_value (std::string const& value,
+  parse_value (const std::string& value,
                std::string&       parsed_value)
   {
     parsed_value = value;

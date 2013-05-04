@@ -41,9 +41,9 @@ using boost::format;
 namespace dchroot_common
 {
 
-  session::session (std::string const&  service,
+  session::session (const std::string&  service,
                     operation           operation,
-                    sbuild::session::chroot_list const& chroots):
+                    const sbuild::session::chroot_list& chroots):
     sbuild::session(service, operation, chroots)
   {
   }
@@ -64,7 +64,7 @@ namespace dchroot_common
 
   sbuild::string_list
   session::get_command_directories (sbuild::chroot::chroot::ptr& session_chroot,
-                                    sbuild::environment const&   env) const
+                                    const sbuild::environment&   env) const
   {
     // dchroot does not treat logins differently from commands with
     // respect to the cwd inside the chroot.

@@ -84,9 +84,9 @@ namespace sbuild
       }
 
       chroot::ptr
-      session_clonable::clone_session (std::string const& session_id,
-                                       std::string const& alias,
-                                       std::string const& user,
+      session_clonable::clone_session (const std::string& session_id,
+                                       const std::string& alias,
+                                       const std::string& user,
                                        bool               root) const
       {
         chroot::ptr clone = owner->clone();

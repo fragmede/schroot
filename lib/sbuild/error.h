@@ -41,7 +41,7 @@ namespace sbuild
      *
      * @param error the error message.
      */
-    error_base(std::string const& error):
+    error_base(const std::string& error):
       runtime_error(error),
       reason()
     {
@@ -53,8 +53,8 @@ namespace sbuild
      * @param error the error message.
      * @param reason further information about the error
      */
-    error_base(std::string const& error,
-               std::string const& reason):
+    error_base(const std::string& error,
+               const std::string& reason):
       runtime_error(error),
       reason(reason)
     {
@@ -93,7 +93,7 @@ namespace sbuild
      * @param reason further information about the error
      */
     void
-    set_reason (std::string const& reason)
+    set_reason (const std::string& reason)
     {
       this->reason = reason;
     }
@@ -120,7 +120,7 @@ namespace sbuild
      *
      * @param error the error message.
      */
-    error(std::string const& error):
+    error(const std::string& error):
       error_base(error)
     {
     }
@@ -131,8 +131,8 @@ namespace sbuild
      * @param error the error message.
      * @param reason further information about the error
      */
-    error(std::string const& error,
-          std::string const& reason):
+    error(const std::string& error,
+          const std::string& reason):
       error_base(error, reason)
     {
     }
@@ -199,7 +199,7 @@ namespace sbuild
     format_error (A const&                  context1,
                   B const&                  context2,
                   C const&                  context3,
-                  std::runtime_error const& error,
+                  const std::runtime_error& error,
                   D const&                  detail1,
                   E const&                  detail2,
                   F const&                  detail3);
@@ -236,7 +236,7 @@ namespace sbuild
      */
     static void
     add_detail(boost::format&        fmt,
-               std::nullptr_t const& value);
+               const std::nullptr_t& value);
 
     /**
      * Add detail to format string.
@@ -337,12 +337,12 @@ namespace sbuild
       {
         try
           {
-            sbuild::error_base const& eb(dynamic_cast<sbuild::error_base const&>(value));
+            const sbuild::error_base& eb(dynamic_cast<sbuild::error_base const&>(value));
             if (!reason.empty())
               reason += '\n';
             reason += eb.why();
           }
-        catch (std::bad_cast const& discard)
+        catch (const std::bad_cast& discard)
           {
           }
       }

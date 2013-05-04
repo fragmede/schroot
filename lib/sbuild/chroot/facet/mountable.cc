@@ -89,7 +89,7 @@ namespace sbuild
       }
 
       void
-      mountable::set_mount_device (std::string const& mount_device)
+      mountable::set_mount_device (const std::string& mount_device)
       {
         this->mount_device = mount_device;
       }
@@ -101,7 +101,7 @@ namespace sbuild
       }
 
       void
-      mountable::set_mount_options (std::string const& mount_options)
+      mountable::set_mount_options (const std::string& mount_options)
       {
         this->mount_options = mount_options;
       }
@@ -113,7 +113,7 @@ namespace sbuild
       }
 
       void
-      mountable::set_location (std::string const& location)
+      mountable::set_location (const std::string& location)
       {
         if (!location.empty() && !is_absname(location))
           throw chroot::error(location, chroot::LOCATION_ABS);
@@ -168,7 +168,7 @@ namespace sbuild
       }
 
       void
-      mountable::set_keyfile (keyfile const& keyfile)
+      mountable::set_keyfile (const keyfile& keyfile)
       {
         bool issession = static_cast<bool>(owner->get_facet<session>());
 

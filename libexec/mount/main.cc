@@ -76,7 +76,7 @@ namespace schroot_mount
   }
 
   std::string
-  main::resolve_path (std::string const& mountpoint)
+  main::resolve_path (const std::string& mountpoint)
   {
     // Ensure entry has a leading / to prevent security hole where
     // mountpoint might be outside the chroot.
@@ -164,7 +164,7 @@ namespace schroot_mount
                   {
                     boost::filesystem::create_directories(directory);
                   }
-                catch (std::exception const& e)
+                catch (const std::exception& e)
                   {
                     sbuild::log_exception_error(e);
                     exit(EXIT_FAILURE);
@@ -206,9 +206,9 @@ namespace schroot_mount
   }
 
   int
-  main::run_child (std::string const& file,
-                   sbuild::string_list const& command,
-                   sbuild::environment const& env)
+  main::run_child (const std::string& file,
+                   const sbuild::string_list& command,
+                   const sbuild::environment& env)
   {
     int exit_status = 0;
     pid_t pid;
@@ -229,7 +229,7 @@ namespace schroot_mount
             error e(file, EXEC, strerror(errno));
             sbuild::log_exception_error(e);
           }
-        catch (std::exception const& e)
+        catch (const std::exception& e)
           {
             sbuild::log_exception_error(e);
           }

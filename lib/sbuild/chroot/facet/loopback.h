@@ -95,7 +95,7 @@ namespace sbuild
          * @param filename the filename.
          */
         void
-        set_filename (std::string const& filename);
+        set_filename (const std::string& filename);
 
         virtual std::string
         get_path () const;
@@ -119,13 +119,13 @@ namespace sbuild
         get_keyfile (keyfile& keyfile) const;
 
         virtual void
-        set_keyfile (keyfile const& keyfile);
+        set_keyfile (const keyfile& keyfile);
 
         virtual void
-        chroot_session_setup (chroot const&      parent,
-                              std::string const& session_id,
-                              std::string const& alias,
-                              std::string const& user,
+        chroot_session_setup (const chroot&      parent,
+                              const std::string& session_id,
+                              const std::string& alias,
+                              const std::string& user,
                               bool               root);
 
       private:

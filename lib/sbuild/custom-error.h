@@ -184,7 +184,7 @@ namespace sbuild
      *
      * @param error the error.
      */
-    custom_error (std::runtime_error const& error):
+    custom_error (const std::runtime_error& error):
       sbuild::error<T>(sbuild::error<T>::format_error(nullptr, nullptr, nullptr, error, nullptr, nullptr, nullptr),
                        sbuild::error<T>::format_reason(nullptr, nullptr, nullptr, error, nullptr, nullptr, nullptr))
     {
@@ -195,7 +195,7 @@ namespace sbuild
      *
      * @param error the error.
      */
-    custom_error (error_base const& error):
+    custom_error (const error_base& error):
     sbuild::error<T>(sbuild::error<T>::format_error(nullptr, nullptr, nullptr, error, nullptr, nullptr, nullptr),
                      sbuild::error<T>::format_reason(nullptr, nullptr, nullptr, error, nullptr, nullptr, nullptr))
     {
@@ -209,7 +209,7 @@ namespace sbuild
      */
     template<typename C>
     custom_error (C const&                  context,
-                  std::runtime_error const& error):
+                  const std::runtime_error& error):
       sbuild::error<T>(sbuild::error<T>::format_error(context, nullptr, nullptr, error, nullptr, nullptr, nullptr),
                        sbuild::error<T>::format_reason(context, nullptr, nullptr, error, nullptr, nullptr, nullptr))
     {
@@ -223,7 +223,7 @@ namespace sbuild
      */
     template<typename C>
     custom_error (C const&          context,
-                  error_base const& error):
+                  const error_base& error):
       sbuild::error<T>(sbuild::error<T>::format_error(context, nullptr, nullptr, error, nullptr, nullptr, nullptr),
                        sbuild::error<T>::format_reason(context, nullptr, nullptr, error, nullptr, nullptr, nullptr))
     {

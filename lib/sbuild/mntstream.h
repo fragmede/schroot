@@ -73,7 +73,7 @@ namespace sbuild
        *
        * @param entry the mntent structure to wrap.
        */
-      mntentry (struct mntent const&  entry);
+      mntentry (const struct mntent&  entry);
 
       /// Name of mounted filesystem.
       std::string  filesystem_name;
@@ -94,7 +94,7 @@ namespace sbuild
      *
      * @param file the file to read.
      */
-    mntstream(std::string const& file);
+    mntstream(const std::string& file);
 
     /// The destructor.
     virtual ~mntstream();
@@ -109,7 +109,7 @@ namespace sbuild
      * @param file the file to read.
      * @see close()
      */
-    void open(std::string const& file);
+    void open(const std::string& file);
 
     /**
      * Close the mount file.  This uses the closemnt(3) call to

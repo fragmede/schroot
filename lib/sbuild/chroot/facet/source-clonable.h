@@ -107,7 +107,7 @@ namespace sbuild
          * @param users a list of users.
          */
         virtual void
-        set_source_users (string_list const& users);
+        set_source_users (const string_list& users);
 
         /**
          * Get the groups allowed to access the source chroot.
@@ -123,7 +123,7 @@ namespace sbuild
          * @param groups a list of groups.
          */
         virtual void
-        set_source_groups (string_list const& groups);
+        set_source_groups (const string_list& groups);
 
         /**
          * Get the users allowed to access the source chroot as root.
@@ -143,7 +143,7 @@ namespace sbuild
          * @param users a list of users.
          */
         virtual void
-        set_source_root_users (string_list const& users);
+        set_source_root_users (const string_list& users);
 
         /**
          * Get the groups allowed to access the source chroot as root.
@@ -163,7 +163,7 @@ namespace sbuild
          * @param groups a list of groups.
          */
         virtual void
-        set_source_root_groups (string_list const& groups);
+        set_source_root_groups (const string_list& groups);
 
         virtual session_flags
         get_session_flags () const;
@@ -178,7 +178,7 @@ namespace sbuild
         get_keyfile (keyfile& keyfile) const;
 
         virtual void
-        set_keyfile (keyfile const& keyfile);
+        set_keyfile (const keyfile& keyfile);
 
       private:
         /// Is source chroot cloning permitted?

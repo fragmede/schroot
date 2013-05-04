@@ -45,18 +45,18 @@ namespace sbuild
      * @param ctty true to log to the CTTY or false to log to cerr.
      */
     void
-    log_reason (std::exception const& e,
+    log_reason (const std::exception& e,
                 bool                  ctty)
     {
       try
         {
-          error_base const& eb(dynamic_cast<error_base const&>(e));
+          const error_base& eb(dynamic_cast<error_base const&>(e));
           string_list lines = split_string(eb.why(), "\n");
           for (const auto& line : lines)
             ctty ? log_ctty_info() : log_info()
               << line << std::endl;
         }
-      catch (std::bad_cast const& discard)
+      catch (const std::bad_cast& discard)
         {
         }
     }
@@ -67,7 +67,7 @@ namespace sbuild
      * @param e the exception to log.
      */
     void
-    log_exception_reason (std::exception const& e)
+    log_exception_reason (const std::exception& e)
     {
       log_reason(e, false);
     }
@@ -79,7 +79,7 @@ namespace sbuild
      * @param e the exception to log.
      */
     void
-    log_ctty_exception_reason (std::exception const& e)
+    log_ctty_exception_reason (const std::exception& e)
     {
       log_reason(e, true);
     }
@@ -140,28 +140,28 @@ namespace sbuild
   }
 
   void
-  log_exception_warning (std::exception const& e)
+  log_exception_warning (const std::exception& e)
   {
     log_warning() << e.what() << std::endl;
     log_exception_reason(e);
   }
 
   void
-  log_exception_error (std::exception const& e)
+  log_exception_error (const std::exception& e)
   {
     log_error() << e.what() << std::endl;
     log_exception_reason(e);
   }
 
   void
-  log_ctty_exception_warning (std::exception const& e)
+  log_ctty_exception_warning (const std::exception& e)
   {
     log_ctty_warning() << e.what() << std::endl;
     log_ctty_exception_reason(e);
   }
 
   void
-  log_ctty_exception_error (std::exception const& e)
+  log_ctty_exception_error (const std::exception& e)
   {
     log_ctty_error() << e.what() << std::endl;
     log_ctty_exception_reason(e);

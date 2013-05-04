@@ -40,7 +40,7 @@ namespace sbuild
      *
      * @param store the keyfile to operate with.
      */
-    keyfile_writer(keyfile const& store);
+    keyfile_writer(const keyfile& store);
 
     /**
      * The constructor.
@@ -48,8 +48,8 @@ namespace sbuild
      * @param store the keyfile to operate with.
      * @param file the file to load the configuration from.
      */
-    keyfile_writer (keyfile const&     store,
-                    std::string const& file);
+    keyfile_writer (const keyfile&     store,
+                    const std::string& file);
 
     /**
      * The constructor.
@@ -57,7 +57,7 @@ namespace sbuild
      * @param store the keyfile to operate with.
      * @param stream the stream to load the configuration from.
      */
-    keyfile_writer (keyfile const& store,
+    keyfile_writer (const keyfile& store,
                     std::ostream&  stream);
 
     /// The destructor.
@@ -74,7 +74,7 @@ namespace sbuild
 
   protected:
     /// The keyfile to operate with.
-    keyfile const& store;
+    const keyfile& store;
 
     /**
      * Print a comment to a stream.  The comment will have hash ('#')
@@ -88,7 +88,7 @@ namespace sbuild
      * log_exception_* functions and split_string.
      */
     static void
-    print_comment (keyfile::comment_type const& comment,
+    print_comment (const keyfile::comment_type& comment,
                    std::ostream&                stream);
 
     /**
@@ -101,7 +101,7 @@ namespace sbuild
     friend
     std::ostream&
     operator << (std::ostream& stream,
-                 keyfile_writer const& kp)
+                 const keyfile_writer& kp)
     {
       kp.write_stream(stream);
       return stream;

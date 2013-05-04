@@ -40,9 +40,9 @@ using sbuild::_;
 namespace bin_common
 {
 
-  main::main (std::string const&  program_name,
-              std::string const&  program_usage,
-              options::ptr const& program_options,
+  main::main (const std::string&  program_name,
+              const std::string&  program_usage,
+              const options::ptr& program_options,
               bool                use_syslog):
     program_name(program_name),
     program_usage(program_usage),
@@ -112,7 +112,7 @@ namespace bin_common
 
         return status;
       }
-    catch (std::exception const& e)
+    catch (const std::exception& e)
       {
         sbuild::log_exception_error(e);
 
@@ -125,7 +125,7 @@ namespace bin_common
               % argv[0]
               << endl;
           }
-        catch (std::bad_cast const& discard)
+        catch (const std::bad_cast& discard)
           {
           }
 

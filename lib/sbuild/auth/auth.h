@@ -110,7 +110,7 @@ namespace sbuild
        * This is passed to pam_start() when initialising PAM, and is
        * used to load the correct configuration file from /etc/pam.d.
        */
-      auth (std::string const& service_name);
+      auth (const std::string& service_name);
 
     public:
       /**
@@ -179,7 +179,7 @@ namespace sbuild
        * @param user the name to set.
        */
       void
-      set_user (std::string const& user);
+      set_user (const std::string& user);
 
     protected:
       /**
@@ -193,7 +193,7 @@ namespace sbuild
        * @param pwent user to set as a passwd entry.
        */
       void
-      set_user (passwd const& pwent);
+      set_user (const passwd& pwent);
 
     public:
       /**
@@ -213,7 +213,7 @@ namespace sbuild
        * item being a separate argument.
        */
       void
-      set_command (string_list const& command);
+      set_command (const string_list& command);
 
       /**
        * Get the home directory.  This is the $HOME to set in the session,
@@ -240,7 +240,7 @@ namespace sbuild
        * @param wd the current working directory.
        */
       void
-      set_wd (std::string const& wd);
+      set_wd (const std::string& wd);
 
       /**
        * Get the name of the shell.  This is the shell to run in the
@@ -276,7 +276,7 @@ namespace sbuild
        * @param environment an environment list.
        */
       void
-      set_user_environment (environment const& environment);
+      set_user_environment (const environment& environment);
 
       /**
        * Get the minimal environment.  This is essential environment
@@ -357,7 +357,7 @@ namespace sbuild
        * @param ruser the remote user name to set.
        */
       void
-      set_ruser (std::string const& ruser);
+      set_ruser (const std::string& ruser);
 
     protected:
       /**
@@ -371,7 +371,7 @@ namespace sbuild
        * @param rpwent remote user to set as a passwd entry.
        */
       void
-      set_ruser (passwd const& rpwent);
+      set_ruser (const passwd& rpwent);
     public:
 
       /**

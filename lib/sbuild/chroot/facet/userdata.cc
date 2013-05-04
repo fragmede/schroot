@@ -40,7 +40,7 @@ namespace sbuild
       {
 
         bool
-        validate_keyname(std::string const& key)
+        validate_keyname(const std::string& key)
         {
           // Valid names consist of one (or more) namespaces which consist
           // of [a-z][a-z0-9] followed by a . (namespace separator).  The
@@ -59,7 +59,7 @@ namespace sbuild
         }
 
         std::string
-        envname(std::string const& key)
+        envname(const std::string& key)
         {
           std::string ret(key);
 
@@ -192,7 +192,7 @@ namespace sbuild
       }
 
       bool
-      userdata::get_data (std::string const& key,
+      userdata::get_data (const std::string& key,
                           std::string& value) const
       {
         string_map::const_iterator pos = this->data.find(key);
@@ -203,8 +203,8 @@ namespace sbuild
       }
 
       void
-      userdata::set_system_data (std::string const& key,
-                                 std::string const& value)
+      userdata::set_system_data (const std::string& key,
+                                 const std::string& value)
       {
         string_map::const_iterator inserted = data.find(key);
         if (inserted == data.end()) // Requires uniqueness checking.
@@ -228,14 +228,14 @@ namespace sbuild
       }
 
       void
-      userdata::remove_data (std::string const& key)
+      userdata::remove_data (const std::string& key)
       {
         this->data.erase(key);
       }
 
       void
-      userdata::set_data (std::string const& key,
-                          std::string const& value)
+      userdata::set_data (const std::string& key,
+                          const std::string& value)
       {
         if (!validate_keyname(key))
           throw error(key, KEYNAME_INVALID);
@@ -244,20 +244,20 @@ namespace sbuild
       }
 
       void
-      userdata::set_data (string_map const& data)
+      userdata::set_data (const string_map& data)
       {
         for (const auto& elem : data)
           set_data(elem.first, elem.second);
       }
 
       void
-      userdata::set_user_data(string_map const&  data)
+      userdata::set_user_data(const string_map&  data)
       {
         set_data(data, this->user_modifiable_keys, false);
       }
 
       void
-      userdata::set_root_data(string_map const&  data)
+      userdata::set_root_data(const string_map&  data)
       {
         // root can use both user and root keys, so combine the sets.
         string_set modifiable_keys;
@@ -270,15 +270,15 @@ namespace sbuild
       }
 
       void
-      userdata::set_system_data(string_map const&  data)
+      userdata::set_system_data(const string_map&  data)
       {
         for (const auto& elem : data)
           set_system_data(elem.first, elem.second);
       }
 
       void
-      userdata::set_data(string_map const&  data,
-                         string_set const&  allowed_keys,
+      userdata::set_data(const string_map&  data,
+                         const string_set&  allowed_keys,
                          bool               root)
       {
         // Require the key to be present in order to set it.  This ensures
@@ -322,7 +322,7 @@ namespace sbuild
       }
 
       void
-      userdata::set_user_modifiable_keys (string_set const& keys)
+      userdata::set_user_modifiable_keys (const string_set& keys)
       {
         this->user_modifiable_keys = keys;
       }
@@ -334,7 +334,7 @@ namespace sbuild
       }
 
       void
-      userdata::set_root_modifiable_keys (string_set const& keys)
+      userdata::set_root_modifiable_keys (const string_set& keys)
       {
         this->root_modifiable_keys = keys;
       }
@@ -368,7 +368,7 @@ namespace sbuild
       }
 
       void
-      userdata::set_keyfile (keyfile const& keyfile)
+      userdata::set_keyfile (const keyfile& keyfile)
       {
         keyfile::get_object_set_value(*this,
                                       &userdata::set_user_modifiable_keys,
@@ -388,7 +388,7 @@ namespace sbuild
         // overridden by the user on the commandline.
         {
           string_list used_keys = owner->get_used_keys();
-          std::string const& group = owner->get_name();
+          const std::string& group = owner->get_name();
           const string_list total(keyfile.get_keys(group));
 
           const string_set a(total.begin(), total.end());
@@ -414,7 +414,7 @@ namespace sbuild
                   if (keyfile.get_value(get_name(), elem, value))
                     set_data(elem, value);
                 }
-              catch (std::runtime_error const& e)
+              catch (const std::runtime_error& e)
                 {
                   keyfile::size_type line = keyfile.get_line(group, elem);
                   keyfile::error w(line, group, elem,
@@ -422,7 +422,7 @@ namespace sbuild
 
                   try
                     {
-                      sbuild::error_base const& r =
+                      const sbuild::error_base& r =
                         dynamic_cast<sbuild::error_base const&>(e);
                       w.set_reason(r.get_reason());
                     }

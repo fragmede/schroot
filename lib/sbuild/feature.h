@@ -31,8 +31,8 @@ namespace sbuild
   class feature
   {
   public:
-    feature (std::string const& feature,
-             std::string const& description);
+    feature (const std::string& feature,
+             const std::string& description);
 
     ~feature ();
 

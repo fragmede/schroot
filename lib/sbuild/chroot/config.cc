@@ -52,8 +52,8 @@ namespace sbuild
     {
 
       bool
-      chroot_alphasort (chroot::chroot::ptr const& c1,
-                        chroot::chroot::ptr const& c2)
+      chroot_alphasort (const chroot::chroot::ptr& c1,
+                        const chroot::chroot::ptr& c2)
       {
         return c1->get_name() < c2->get_name();
       }
@@ -92,8 +92,8 @@ namespace sbuild
       this->namespaces.insert(std::make_pair(std::string("source"), chroot_map()));
     }
 
-    config::config (std::string const& chroot_namespace,
-                    std::string const& file):
+    config::config (const std::string& chroot_namespace,
+                    const std::string& file):
       namespaces(),
       aliases()
     {
@@ -109,8 +109,8 @@ namespace sbuild
     }
 
     void
-    config::add (std::string const& chroot_namespace,
-                 std::string const& location)
+    config::add (const std::string& chroot_namespace,
+                 const std::string& location)
     {
       /// @todo Remove and require explicit use of add_config_file or
       /// add_config_directory; the caller should be aware which is
@@ -122,8 +122,8 @@ namespace sbuild
     }
 
     void
-    config::add_config_file (std::string const& chroot_namespace,
-                             std::string const& file)
+    config::add_config_file (const std::string& chroot_namespace,
+                             const std::string& file)
     {
       log_debug(DEBUG_NOTICE) << "Loading config file: " << file << endl;
 
@@ -135,8 +135,8 @@ namespace sbuild
     }
 
     void
-    config::add_config_directory (std::string const& chroot_namespace,
-                                  std::string const& dir)
+    config::add_config_directory (const std::string& chroot_namespace,
+                                  const std::string& dir)
     {
       log_debug(DEBUG_NOTICE) << "Loading config directory: " << dir << endl;
 
@@ -170,7 +170,7 @@ namespace sbuild
               if (!stat(filename).is_regular())
                 throw error(filename, FILE_NOTREG);
             }
-          catch (std::runtime_error const& e)
+          catch (const std::runtime_error& e)
             {
               log_exception_warning(e);
               continue;
@@ -181,12 +181,12 @@ namespace sbuild
     }
 
     void
-    config::add (std::string const& chroot_namespace,
+    config::add (const std::string& chroot_namespace,
                  chroot::ptr&       chroot,
-                 keyfile const&     kconfig)
+                 const keyfile&     kconfig)
     {
-      std::string const& name(chroot->get_name());
-      std::string const& fullname(chroot_namespace + namespace_separator + chroot->get_name());
+      const std::string& name(chroot->get_name());
+      const std::string& fullname(chroot_namespace + namespace_separator + chroot->get_name());
 
       chroot_map& chroots = find_namespace(chroot_namespace);
 
@@ -210,7 +210,7 @@ namespace sbuild
             }
 
           // Set up aliases.
-          string_list const& aliases = chroot->get_aliases();
+          const string_list& aliases = chroot->get_aliases();
           for (const auto& alias : aliases)
             {
               try
@@ -254,7 +254,7 @@ namespace sbuild
                         }
                     }
                 }
-              catch (std::runtime_error const& e)
+              catch (const std::runtime_error& e)
                 {
                   log_exception_warning(e);
                 }
@@ -290,10 +290,10 @@ namespace sbuild
     }
 
     config::chroot_list
-    config::get_chroots (std::string const& chroot_namespace) const
+    config::get_chroots (const std::string& chroot_namespace) const
     {
       chroot_list ret;
-      chroot_map const& chroots = find_namespace(chroot_namespace);
+      const chroot_map& chroots = find_namespace(chroot_namespace);
 
       for (const auto& chroot : chroots)
         ret.push_back(chroot.second);
@@ -304,7 +304,7 @@ namespace sbuild
     }
 
     config::chroot_map&
-    config::find_namespace (std::string const& chroot_namespace)
+    config::find_namespace (const std::string& chroot_namespace)
     {
       chroot_namespace_map::iterator pos = this->namespaces.find(chroot_namespace);
 
@@ -315,7 +315,7 @@ namespace sbuild
     }
 
     config::chroot_map const&
-    config::find_namespace (std::string const& chroot_namespace) const
+    config::find_namespace (const std::string& chroot_namespace) const
     {
       chroot_namespace_map::const_iterator pos = this->namespaces.find(chroot_namespace);
 
@@ -326,7 +326,7 @@ namespace sbuild
     }
 
     const chroot::ptr
-    config::find_chroot (std::string const& name) const
+    config::find_chroot (const std::string& name) const
     {
       std::string chroot_namespace;
       std::string chroot_name;
@@ -337,8 +337,8 @@ namespace sbuild
     }
 
     const chroot::ptr
-    config::find_chroot (std::string const& namespace_hint,
-                         std::string const& name) const
+    config::find_chroot (const std::string& namespace_hint,
+                         const std::string& name) const
     {
       std::string chroot_namespace(namespace_hint);
       std::string chroot_name(name);
@@ -354,10 +354,10 @@ namespace sbuild
     }
 
     const chroot::ptr
-    config::find_chroot_in_namespace (std::string const& chroot_namespace,
-                                      std::string const& name) const
+    config::find_chroot_in_namespace (const std::string& chroot_namespace,
+                                      const std::string& name) const
     {
-      chroot_map const& chroots = find_namespace(chroot_namespace);
+      const chroot_map& chroots = find_namespace(chroot_namespace);
 
       log_debug(DEBUG_NOTICE) << "Looking for chroot " << name << " in namespace " << chroot_namespace << std::endl;
 
@@ -373,8 +373,8 @@ namespace sbuild
     }
 
     const chroot::ptr
-    config::find_alias (std::string const& namespace_hint,
-                        std::string const& name) const
+    config::find_alias (const std::string& namespace_hint,
+                        const std::string& name) const
     {
       std::string chroot_namespace(namespace_hint);
       std::string alias_name(name);
@@ -398,8 +398,8 @@ namespace sbuild
     }
 
     std::string
-    config::lookup_alias (std::string const& namespace_hint,
-                          std::string const& name) const
+    config::lookup_alias (const std::string& namespace_hint,
+                          const std::string& name) const
     {
       std::string chroot_namespace(namespace_hint);
       std::string alias_name(name);
@@ -426,10 +426,10 @@ namespace sbuild
     // TODO: Only printed aliases before...  Add variant which doesn't use
     // namespaces to get all namespaces.
     string_list
-    config::get_chroot_list (std::string const& chroot_namespace) const
+    config::get_chroot_list (const std::string& chroot_namespace) const
     {
       string_list ret;
-      chroot_map const& chroots = find_namespace(chroot_namespace);
+      const chroot_map& chroots = find_namespace(chroot_namespace);
 
       for (const auto& chroot : chroots)
         ret.push_back(chroot_namespace + namespace_separator + chroot.first);
@@ -440,7 +440,7 @@ namespace sbuild
     }
 
     string_list
-    config::get_alias_list (std::string const& chroot_namespace) const
+    config::get_alias_list (const std::string& chroot_namespace) const
     {
       string_list ret;
 
@@ -468,14 +468,14 @@ namespace sbuild
     {
       stream << _("Available chroots: ");
 
-      chroot_map const& chroots = find_namespace("chroot");
+      const chroot_map& chroots = find_namespace("chroot");
 
       for (chroot_map::const_iterator pos = chroots.begin();
            pos != chroots.end();
            ++pos)
         {
           stream << pos->second->get_name();
-          string_list const& aliases = pos->second->get_aliases();
+          const string_list& aliases = pos->second->get_aliases();
           if (!aliases.empty())
             {
               stream << " [";
@@ -498,8 +498,8 @@ namespace sbuild
     }
 
     config::chroot_map
-    config::validate_chroots (std::string const& namespace_hint,
-                              string_list const& chroots) const
+    config::validate_chroots (const std::string& namespace_hint,
+                              const string_list& chroots) const
     {
       string_list bad_chroots;
       chroot_map validated;
@@ -522,8 +522,8 @@ namespace sbuild
     }
 
     void
-    config::load_data (std::string const& chroot_namespace,
-                       std::string const& file)
+    config::load_data (const std::string& chroot_namespace,
+                       const std::string& file)
     {
       log_debug(DEBUG_NOTICE) << "Loading data file: " << file << endl;
 
@@ -567,14 +567,14 @@ namespace sbuild
           parse_data(chroot_namespace, input);
           lock.unset_lock();
         }
-      catch (std::runtime_error const& e)
+      catch (const std::runtime_error& e)
         {
           throw error(file, e);
         }
     }
 
     void
-    config::parse_data (std::string const& chroot_namespace,
+    config::parse_data (const std::string& chroot_namespace,
                         std::istream& stream)
     {
       /* Create key file */
@@ -585,11 +585,11 @@ namespace sbuild
     }
 
     void
-    config::load_keyfile (std::string const& chroot_namespace,
+    config::load_keyfile (const std::string& chroot_namespace,
                           keyfile& kconfig)
     {
       /* Create chroot objects from key file */
-      string_list const& groups = kconfig.get_groups();
+      const string_list& groups = kconfig.get_groups();
       for (const auto& group : groups)
         {
           std::string type = "plain"; // "plain" is the default type.
@@ -652,7 +652,7 @@ namespace sbuild
     }
 
     void
-    config::get_namespace(std::string const& name,
+    config::get_namespace(const std::string& name,
                           std::string&       chroot_namespace,
                           std::string&       chroot_name)
     {

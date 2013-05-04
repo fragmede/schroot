@@ -84,7 +84,7 @@ namespace sbuild
          * @param mount_device the mount device.
          */
         virtual void
-        set_mount_device (std::string const& mount_device);
+        set_mount_device (const std::string& mount_device);
 
         /**
          * Get the filesystem mount options of the chroot block device.
@@ -100,7 +100,7 @@ namespace sbuild
          * @param mount_options the mount options.
          */
         virtual void
-        set_mount_options (std::string const& mount_options);
+        set_mount_options (const std::string& mount_options);
 
         /**
          * Get the location.  This is a path to the chroot directory
@@ -118,7 +118,7 @@ namespace sbuild
          * @param location the location.
          */
         virtual void
-        set_location (std::string const& location);
+        set_location (const std::string& location);
 
         virtual void
         setup_env (environment& env) const;
@@ -133,7 +133,7 @@ namespace sbuild
         get_keyfile (keyfile& keyfile) const;
 
         virtual void
-        set_keyfile (keyfile const& keyfile);
+        set_keyfile (const keyfile& keyfile);
 
       private:
         /// The device to mount.

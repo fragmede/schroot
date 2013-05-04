@@ -96,7 +96,7 @@ namespace sbuild
       }
 
       void
-      session::set_original_name (std::string const& name)
+      session::set_original_name (const std::string& name)
       {
         this->original_chroot_name = name;
         this->selected_chroot_name = name;
@@ -109,7 +109,7 @@ namespace sbuild
       }
 
       void
-      session::set_selected_name (std::string const& name)
+      session::set_selected_name (const std::string& name)
       {
         std::string ns, shortname;
         config::get_namespace(name, ns, shortname);
@@ -142,7 +142,7 @@ namespace sbuild
               {
                 lock.set_lock(lock::LOCK_EXCLUSIVE, 2);
               }
-            catch (lock::error const& e)
+            catch (const lock::error& e)
               {
                 throw error(file, chroot::FILE_LOCK, e);
               }
@@ -155,7 +155,7 @@ namespace sbuild
               {
                 lock.unset_lock();
               }
-            catch (lock::error const& e)
+            catch (const lock::error& e)
               {
                 throw error(file, chroot::FILE_UNLOCK, e);
               }
@@ -215,7 +215,7 @@ namespace sbuild
       }
 
       void
-      session::set_keyfile (keyfile const& keyfile)
+      session::set_keyfile (const keyfile& keyfile)
       {
         keyfile::get_object_value(*this, &session::set_original_name,
                                   keyfile, owner->get_name(),

@@ -159,7 +159,7 @@ namespace sbuild
          * @param keyfile the keyfile to get the properties from.
          */
         virtual void
-        set_keyfile (keyfile const& keyfile);
+        set_keyfile (const keyfile& keyfile);
 
       protected:
         /// Chroot owning this facet.
@@ -173,8 +173,8 @@ namespace sbuild
        * @returns result of OR.
        */
       facet::session_flags
-      inline operator | (facet::session_flags const& lhs,
-                         facet::session_flags const& rhs)
+      inline operator | (const facet::session_flags& lhs,
+                         const facet::session_flags& rhs)
       {
         return static_cast<facet::session_flags>
           (static_cast<int>(lhs) | static_cast<int>(rhs));
@@ -187,8 +187,8 @@ namespace sbuild
        * @returns result of AND.
        */
       facet::session_flags
-      inline operator & (facet::session_flags const& lhs,
-                         facet::session_flags const& rhs)
+      inline operator & (const facet::session_flags& lhs,
+                         const facet::session_flags& rhs)
       {
         return static_cast<facet::session_flags>
           (static_cast<int>(lhs) & static_cast<int>(rhs));

@@ -99,13 +99,13 @@ public:
             sleep(4);
             this->lck->unset_lock();
           }
-        catch (std::exception const& e)
+        catch (const std::exception& e)
           {
             try
               {
                 this->lck->unset_lock();
               }
-            catch (std::exception const& ignore)
+            catch (const std::exception& ignore)
               {
               }
             std::cerr << "Child fail: " << e.what() << std::endl;
@@ -124,7 +124,7 @@ public:
             CPPUNIT_ASSERT(waitpid(pid, &status, 0) >= 0);
             CPPUNIT_ASSERT(WIFEXITED(status) && WEXITSTATUS(status) == 0);
           }
-        catch (std::exception const& e)
+        catch (const std::exception& e)
           {
             int status;
             waitpid(pid, &status, 0);

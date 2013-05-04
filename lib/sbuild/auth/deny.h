@@ -44,7 +44,7 @@ namespace sbuild
        * This is passed to pam_start() when initialising PAM, and is
        * used to load the correct configuration file from /etc/pam.d.
        */
-      deny (std::string const& service_name);
+      deny (const std::string& service_name);
 
     public:
       /**
@@ -62,7 +62,7 @@ namespace sbuild
        * @returns a shared pointer to the created object.
        */
       static auth::ptr
-      create (std::string const& service_name);
+      create (const std::string& service_name);
 
       /**
        * Get the PAM environment.  This is the environment as set by PAM

@@ -99,7 +99,7 @@ namespace sbuild
          * @param source_subvolume the source subvolume.
          */
         void
-        set_source_subvolume (std::string const& source_subvolume);
+        set_source_subvolume (const std::string& source_subvolume);
 
         /**
          * Get the snapshot directory.
@@ -115,7 +115,7 @@ namespace sbuild
          * @param snapshot_directory the snapshot directory.
          */
         void
-        set_snapshot_directory (std::string const& snapshot_directory);
+        set_snapshot_directory (const std::string& snapshot_directory);
 
         /**
          * Get the snapshot name.  This is used by "btrfs subvolume
@@ -133,7 +133,7 @@ namespace sbuild
          * @param snapshot_name the snapshot name.
          */
         void
-        set_snapshot_name (std::string const& snapshot_name);
+        set_snapshot_name (const std::string& snapshot_name);
 
         virtual std::string
         get_path () const;
@@ -160,17 +160,17 @@ namespace sbuild
         get_keyfile (keyfile& keyfile) const;
 
         virtual void
-        set_keyfile (keyfile const& keyfile);
+        set_keyfile (const keyfile& keyfile);
 
         virtual void
-        chroot_session_setup (chroot const&      parent,
-                              std::string const& session_id,
-                              std::string const& alias,
-                              std::string const& user,
+        chroot_session_setup (const chroot&      parent,
+                              const std::string& session_id,
+                              const std::string& alias,
+                              const std::string& user,
                               bool               root);
 
         virtual void
-        chroot_source_setup (chroot const& parent);
+        chroot_source_setup (const chroot& parent);
 
       private:
         /// Btrfs source subvolume

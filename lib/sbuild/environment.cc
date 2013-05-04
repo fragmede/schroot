@@ -44,7 +44,7 @@ namespace sbuild
   }
 
   void
-  environment::set_filter (regex const& filter)
+  environment::set_filter (const regex& filter)
   {
     this->filter = filter;
   }
@@ -66,14 +66,14 @@ namespace sbuild
   }
 
   void
-  environment::add (environment const& environment)
+  environment::add (const environment& environment)
   {
     for (const auto& env : environment)
       add(env);
   }
 
   void
-  environment::add (std::string const& value)
+  environment::add (const std::string& value)
   {
     std::string::size_type pos = value.find('=');
     if (pos != std::string::npos && pos != 0)
@@ -91,7 +91,7 @@ namespace sbuild
   }
 
   void
-  environment::add (value_type const& value)
+  environment::add (const value_type& value)
   {
     remove(value);
     if (!value.first.empty() && !value.second.empty())
@@ -121,14 +121,14 @@ namespace sbuild
   }
 
   void
-  environment::remove (environment const& environment)
+  environment::remove (const environment& environment)
   {
     for (const auto& env : environment)
       remove(env);
   }
 
   void
-  environment::remove (std::string const& value)
+  environment::remove (const std::string& value)
   {
     std::string::size_type pos = value.find('=');
     if (pos != std::string::npos && pos != 0)
@@ -146,7 +146,7 @@ namespace sbuild
   }
 
   void
-  environment::remove (value_type const& value)
+  environment::remove (const value_type& value)
   {
     iterator pos = find(value.first);
     if (pos != end())

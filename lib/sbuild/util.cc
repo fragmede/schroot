@@ -44,7 +44,7 @@ namespace sbuild
      * @param dup the duplicate character to check for.
      * @returns a string with any duplicates removed.
      */
-    std::string remove_duplicates (std::string const& str,
+    std::string remove_duplicates (const std::string& str,
                                    char               dup)
     {
       std::string ret;
@@ -141,7 +141,7 @@ namespace sbuild
   }
 
   bool
-  is_absname (std::string const& name)
+  is_absname (const std::string& name)
   {
     if (name.empty() || name[0] != '/')
       return false;
@@ -150,7 +150,7 @@ namespace sbuild
   }
 
   bool
-  is_valid_sessionname (std::string const& name)
+  is_valid_sessionname (const std::string& name)
   {
     bool match = false;
 
@@ -168,7 +168,7 @@ namespace sbuild
   }
 
   bool
-  is_valid_filename (std::string const& name,
+  is_valid_filename (const std::string& name,
                      bool               lsb_mode)
   {
     bool match = false;
@@ -235,8 +235,8 @@ namespace sbuild
   }
 
   std::string
-  string_list_to_string (string_list const& list,
-                         std::string const& separator)
+  string_list_to_string (const string_list& list,
+                         const std::string& separator)
   {
     std::string ret;
 
@@ -253,8 +253,8 @@ namespace sbuild
   }
 
   string_list
-  split_string (std::string const& value,
-                std::string const& separator)
+  split_string (const std::string& value,
+                const std::string& separator)
   {
     string_list ret;
 
@@ -283,8 +283,8 @@ namespace sbuild
   }
 
   string_list
-  split_string_strict (std::string const& value,
-                       std::string const& separator)
+  split_string_strict (const std::string& value,
+                       const std::string& separator)
   {
     string_list ret;
 
@@ -311,11 +311,11 @@ namespace sbuild
   }
 
   std::wstring
-  widen_string (std::string const& str,
+  widen_string (const std::string& str,
                 std::locale        locale)
   {
     typedef std::codecvt<wchar_t, char, mbstate_t> codecvt_type;
-    codecvt_type const& cvt = std::use_facet<codecvt_type>(locale);
+    const codecvt_type& cvt = std::use_facet<codecvt_type>(locale);
     mbstate_t state;
     const char *cbegin = str.data(), *cend = str.data() + str.size(), *cnext;
     wchar_t *wcnext;
@@ -358,11 +358,11 @@ namespace sbuild
   }
 
   std::string
-  narrow_string (std::wstring const& str,
+  narrow_string (const std::wstring& str,
                  std::locale         locale)
   {
     typedef std::codecvt<wchar_t, char, mbstate_t> codecvt_type;
-    codecvt_type const& cvt = std::use_facet<codecvt_type>(locale);
+    const codecvt_type& cvt = std::use_facet<codecvt_type>(locale);
     mbstate_t state;
     const wchar_t *wcbegin = str.data(), *wcend = str.data() + str.size(), *wcnext;
     char *cnext;
@@ -405,9 +405,9 @@ namespace sbuild
   }
 
   std::string
-  find_program_in_path (std::string const& program,
-                        std::string const& path,
-                        std::string const& prefix)
+  find_program_in_path (const std::string& program,
+                        const std::string& path,
+                        const std::string& prefix)
   {
     if (program.find_first_of('/') != std::string::npos)
       return program;
@@ -432,7 +432,7 @@ namespace sbuild
                 access (absname.c_str(), X_OK) == 0)
               return realname;
           }
-        catch (std::runtime_error const& e)
+        catch (const std::runtime_error& e)
           {
           }
       }
@@ -441,7 +441,7 @@ namespace sbuild
   }
 
   char **
-  string_list_to_strv (string_list const& str)
+  string_list_to_strv (const string_list& str)
   {
     char **ret = new char *[str.size() + 1];
 
@@ -467,9 +467,9 @@ namespace sbuild
   }
 
   int
-  exec (std::string const& file,
-        string_list const& command,
-        environment const& env)
+  exec (const std::string& file,
+        const string_list& command,
+        const environment& env)
   {
     char **argv = string_list_to_strv(command);
     char **envp = env.get_strv();
@@ -503,7 +503,7 @@ namespace sbuild
       }
   }
 
-  stat::stat (std::string const& file,
+  stat::stat (const std::string& file,
               bool               link):
     file(file),
     fd(0),
@@ -522,7 +522,7 @@ namespace sbuild
       }
   }
 
-  stat::stat (std::string const& file,
+  stat::stat (const std::string& file,
               int                fd):
     file(file),
     fd(fd),
@@ -575,7 +575,7 @@ namespace sbuild
     query_name(name);
   }
 
-  passwd::passwd (std::string const& name):
+  passwd::passwd (const std::string& name):
     ::passwd(),
     buffer(),
     valid(false)
@@ -648,7 +648,7 @@ namespace sbuild
   }
 
   void
-  passwd::query_name (std::string const& name)
+  passwd::query_name (const std::string& name)
   {
     query_name(name.c_str());
   }
@@ -687,7 +687,7 @@ namespace sbuild
     query_name(name);
   }
 
-  group::group (std::string const& name):
+  group::group (const std::string& name):
     ::group(),
     buffer(),
     valid(false)
@@ -757,7 +757,7 @@ namespace sbuild
   }
 
   void
-  group::query_name (std::string const& name)
+  group::query_name (const std::string& name)
   {
     query_name(name.c_str());
   }

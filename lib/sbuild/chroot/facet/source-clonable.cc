@@ -105,7 +105,7 @@ namespace sbuild
       }
 
       void
-      source_clonable::set_source_users (string_list const& source_users)
+      source_clonable::set_source_users (const string_list& source_users)
       {
         this->source_users = source_users;
       }
@@ -117,7 +117,7 @@ namespace sbuild
       }
 
       void
-      source_clonable::set_source_groups (string_list const& source_groups)
+      source_clonable::set_source_groups (const string_list& source_groups)
       {
         this->source_groups = source_groups;
       }
@@ -129,7 +129,7 @@ namespace sbuild
       }
 
       void
-      source_clonable::set_source_root_users (string_list const& users)
+      source_clonable::set_source_root_users (const string_list& users)
       {
         this->source_root_users = users;
       }
@@ -141,7 +141,7 @@ namespace sbuild
       }
 
       void
-      source_clonable::set_source_root_groups (string_list const& groups)
+      source_clonable::set_source_root_groups (const string_list& groups)
       {
         this->source_root_groups = groups;
       }
@@ -201,7 +201,7 @@ namespace sbuild
       }
 
       void
-      source_clonable::set_keyfile (keyfile const& keyfile)
+      source_clonable::set_keyfile (const keyfile& keyfile)
       {
         keyfile::get_object_value(*this, &source_clonable::set_source_clone,
                                   keyfile, owner->get_name(),

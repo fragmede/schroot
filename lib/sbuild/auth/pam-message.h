@@ -61,7 +61,7 @@ namespace sbuild
        * @param message the message to display.
        */
       pam_message (message_type       type,
-                   std::string const& message);
+                   const std::string& message);
 
       /// The destructor.
       virtual ~pam_message ();

@@ -86,7 +86,7 @@ namespace sbuild
     set_name("undefined");
   }
 
-  sbuild::personality::personality (std::string const& persona):
+  sbuild::personality::personality (const std::string& persona):
     persona_name("undefined"),
     persona(find_personality("undefined"))
   {
@@ -98,7 +98,7 @@ namespace sbuild
   }
 
   sbuild::personality::type
-  sbuild::personality::find_personality (std::string const& persona)
+  sbuild::personality::find_personality (const std::string& persona)
   {
     std::map<std::string,type>::const_iterator pos =
       personalities.find(persona);
@@ -130,7 +130,7 @@ namespace sbuild
   }
 
   void
-  sbuild::personality::set_name (std::string const& persona)
+  sbuild::personality::set_name (const std::string& persona)
   {
     this->persona_name = persona;
     this->persona = find_personality(persona);

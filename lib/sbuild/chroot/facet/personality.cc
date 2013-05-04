@@ -83,7 +83,7 @@ namespace sbuild
       }
 
       void
-      personality::set_persona (sbuild::personality const& persona)
+      personality::set_persona (const sbuild::personality& persona)
       {
         this->persona = persona;
       }
@@ -112,7 +112,7 @@ namespace sbuild
       }
 
       void
-      personality::set_keyfile (keyfile const& keyfile)
+      personality::set_keyfile (const keyfile& keyfile)
       {
         keyfile::get_object_value(*this, &personality::set_persona,
                                   keyfile, owner->get_name(), "personality",

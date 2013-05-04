@@ -83,7 +83,7 @@ namespace sbuild
          * @param device the device.
          */
         void
-        set_device (std::string const& device);
+        set_device (const std::string& device);
 
         virtual std::string
         get_path () const;
@@ -102,7 +102,7 @@ namespace sbuild
         get_keyfile (keyfile& keyfile) const;
 
         virtual void
-        set_keyfile (keyfile const& keyfile);
+        set_keyfile (const keyfile& keyfile);
 
         /// The block device to use.
         std::string device;

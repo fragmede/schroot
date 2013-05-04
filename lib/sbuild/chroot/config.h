@@ -88,8 +88,8 @@ namespace sbuild
        * @param file initialise using a configuration file or a whole
        * directory containing configuration files.
        */
-      config (std::string const& chroot_namespace,
-              std::string const& file);
+      config (const std::string& chroot_namespace,
+              const std::string& file);
 
       /// The destructor.
       virtual ~config ();
@@ -104,8 +104,8 @@ namespace sbuild
        * whole directory containing configuration files.
        */
       void
-      add (std::string const& chroot_namespace,
-           std::string const& location);
+      add (const std::string& chroot_namespace,
+           const std::string& location);
 
     private:
       /**
@@ -117,8 +117,8 @@ namespace sbuild
        * @param file the file to load.
        */
       void
-      add_config_file (std::string const& chroot_namespace,
-                       std::string const& file);
+      add_config_file (const std::string& chroot_namespace,
+                       const std::string& file);
 
       /**
        * Add a configuration directory.  The configuration files in the
@@ -129,8 +129,8 @@ namespace sbuild
        * @param dir the directory containing the files to load.
        */
       void
-      add_config_directory (std::string const& chroot_namespace,
-                            std::string const& dir);
+      add_config_directory (const std::string& chroot_namespace,
+                            const std::string& dir);
 
     protected:
       /**
@@ -145,9 +145,9 @@ namespace sbuild
        * @param kconfig the chroot configuration.
        */
       void
-      add (std::string const&   chroot_namespace,
+      add (const std::string&   chroot_namespace,
            chroot::chroot::ptr& chroot,
-           keyfile const&       kconfig);
+           const keyfile&       kconfig);
 
     public:
       /**
@@ -158,7 +158,7 @@ namespace sbuild
        * if no chroots are available.
        */
       chroot_list
-      get_chroots (std::string const& chroot_namespace) const;
+      get_chroots (const std::string& chroot_namespace) const;
 
     protected:
       /**
@@ -169,7 +169,7 @@ namespace sbuild
        * @returns the namespace.
        */
       chroot_map&
-      find_namespace (std::string const& chroot_namespace);
+      find_namespace (const std::string& chroot_namespace);
 
       /**
        * Find a chroot namespace.  If the namespace is not found, and
@@ -179,7 +179,7 @@ namespace sbuild
        * @returns the namespace.
        */
       chroot_map const&
-      find_namespace (std::string const& chroot_namespace) const;
+      find_namespace (const std::string& chroot_namespace) const;
 
     public:
       /**
@@ -190,7 +190,7 @@ namespace sbuild
        * @param chroot_name the name without any namespace
        */
       static void
-      get_namespace(std::string const& name,
+      get_namespace(const std::string& name,
                     std::string&       chroot_namespace,
                     std::string&       chroot_name);
 
@@ -202,7 +202,7 @@ namespace sbuild
        * @returns the chroot if found, otherwise 0.
        */
       const chroot::chroot::ptr
-      find_chroot (std::string const& name) const;
+      find_chroot (const std::string& name) const;
 
       /**
        * Find a chroot by its name.
@@ -213,8 +213,8 @@ namespace sbuild
        * @returns the chroot if found, otherwise 0.
        */
       const chroot::chroot::ptr
-      find_chroot (std::string const& namespace_hint,
-                   std::string const& name) const;
+      find_chroot (const std::string& namespace_hint,
+                   const std::string& name) const;
 
       /**
        * Find a chroot by its name in a specific namespace.
@@ -224,8 +224,8 @@ namespace sbuild
        * @returns the chroot if found, otherwise 0.
        */
       const chroot::chroot::ptr
-      find_chroot_in_namespace (std::string const& chroot_namespace,
-                                std::string const& name) const;
+      find_chroot_in_namespace (const std::string& chroot_namespace,
+                                const std::string& name) const;
 
       /**
        * Find a chroot by its name or an alias.
@@ -236,8 +236,8 @@ namespace sbuild
        * @returns the chroot if found, otherwise 0.
        */
       const chroot::chroot::ptr
-      find_alias (std::string const& namespace_hint,
-                  std::string const& name) const;
+      find_alias (const std::string& namespace_hint,
+                  const std::string& name) const;
 
       /**
        * Find the chroot name referred to by an alias.
@@ -248,8 +248,8 @@ namespace sbuild
        * @returns the chroot name if found, otherwise an empty string.
        */
       std::string
-      lookup_alias (std::string const& namespace_hint,
-                    std::string const& name) const;
+      lookup_alias (const std::string& namespace_hint,
+                    const std::string& name) const;
 
       /**
        * Get the names (including aliases) of all the available chroots,
@@ -260,7 +260,7 @@ namespace sbuild
        * available.
        */
       string_list
-      get_chroot_list (std::string const& chroot_namespace) const;
+      get_chroot_list (const std::string& chroot_namespace) const;
 
       /**
        * Get the names (including aliases) of all the available chroots,
@@ -271,7 +271,7 @@ namespace sbuild
        * available.
        */
       string_list
-      get_alias_list (std::string const& chroot_namespace) const;
+      get_alias_list (const std::string& chroot_namespace) const;
 
       /**
        * Print a single line of all the available chroots to the
@@ -295,8 +295,8 @@ namespace sbuild
        * @returns an alias-chroot mapping.
        */
       chroot_map
-      validate_chroots (std::string const& namespace_hint,
-                        string_list const& chroots) const;
+      validate_chroots (const std::string& namespace_hint,
+                        const string_list& chroots) const;
 
     private:
       /**
@@ -309,8 +309,8 @@ namespace sbuild
        * @param file the file to load.
        */
       void
-      load_data (std::string const& chroot_namespace,
-                 std::string const& file);
+      load_data (const std::string& chroot_namespace,
+                 const std::string& file);
 
     protected:
       /**
@@ -322,7 +322,7 @@ namespace sbuild
        * @param stream the data stream to parse.
        */
       virtual void
-      parse_data (std::string const& chroot_namespace,
+      parse_data (const std::string& chroot_namespace,
                   std::istream& stream);
 
       /**
@@ -334,7 +334,7 @@ namespace sbuild
        * @param kconfig the chroot configuration.
        */
       virtual void
-      load_keyfile (std::string const& chroot_namespace,
+      load_keyfile (const std::string& chroot_namespace,
                     keyfile& kconfig);
 
       /// A list of chroots (name->chroot mapping).

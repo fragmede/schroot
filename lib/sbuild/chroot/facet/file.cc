@@ -117,7 +117,7 @@ namespace sbuild
       }
 
       void
-      file::set_filename (std::string const& filename)
+      file::set_filename (const std::string& filename)
       {
         if (!is_absname(filename))
           throw error(filename, chroot::FILE_ABS);
@@ -132,7 +132,7 @@ namespace sbuild
       }
 
       void
-      file::set_location (std::string const& location)
+      file::set_location (const std::string& location)
       {
         if (!location.empty() && !is_absname(location))
           throw chroot::error(location, chroot::LOCATION_ABS);
@@ -250,7 +250,7 @@ namespace sbuild
       }
 
       void
-      file::set_keyfile (keyfile const& keyfile)
+      file::set_keyfile (const keyfile& keyfile)
       {
         bool is_session = static_cast<bool>(owner->get_facet<session>());
 
@@ -271,7 +271,7 @@ namespace sbuild
       }
 
       void
-      file::chroot_source_setup (chroot const& parent)
+      file::chroot_source_setup (const chroot& parent)
       {
         set_file_repack(true);
       }

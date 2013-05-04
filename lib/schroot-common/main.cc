@@ -61,8 +61,8 @@ namespace schroot_common
       {schroot_common::main::SESSION_INVALID,   N_("%1%: Invalid session name")}
     };
 
-  main::main (std::string const& program_name,
-              std::string const& program_usage,
+  main::main (const std::string& program_name,
+              const std::string& program_usage,
               options::ptr&      options,
               bool               use_syslog):
     bin_common::main(program_name, program_usage,
@@ -347,7 +347,7 @@ namespace schroot_common
         /* Run session. */
         this->session->run();
       }
-    catch (std::runtime_error const& e)
+    catch (const std::runtime_error& e)
       {
         if (!this->options->quiet)
           sbuild::log_exception_error(e);

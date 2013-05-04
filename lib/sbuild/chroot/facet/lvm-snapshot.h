@@ -93,7 +93,7 @@ namespace sbuild
          * @param snapshot_device the device name.
          */
         void
-        set_snapshot_device (std::string const& snapshot_device);
+        set_snapshot_device (const std::string& snapshot_device);
 
         /**
          * Get the logical volume snapshot options.  These are used by
@@ -111,7 +111,7 @@ namespace sbuild
          * @param snapshot_options the options.
          */
         void
-        set_snapshot_options (std::string const& snapshot_options);
+        set_snapshot_options (const std::string& snapshot_options);
 
         virtual void
         setup_env (environment& env) const;
@@ -135,17 +135,17 @@ namespace sbuild
         get_keyfile (keyfile& keyfile) const;
 
         virtual void
-        set_keyfile (keyfile const& keyfile);
+        set_keyfile (const keyfile& keyfile);
 
         virtual void
-        chroot_session_setup (chroot const&      parent,
-                              std::string const& session_id,
-                              std::string const& alias,
-                              std::string const& user,
+        chroot_session_setup (const chroot&      parent,
+                              const std::string& session_id,
+                              const std::string& alias,
+                              const std::string& user,
                               bool               root);
 
         virtual void
-        chroot_source_setup (chroot const& parent);
+        chroot_source_setup (const chroot& parent);
 
       private:
         /// LVM snapshot device name for lvcreate.

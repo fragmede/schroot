@@ -65,7 +65,7 @@ namespace sbuild
    * @returns the translated message.
    */
   inline const char *
-  gettext (std::string const& message)
+  gettext (const std::string& message)
   {
     return gettext(message.c_str());
   }

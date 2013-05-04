@@ -50,7 +50,7 @@ namespace bin_common
     class error : public std::runtime_error
     {
     public:
-      error(std::string const& error):
+      error(const std::string& error):
         runtime_error(error)
       {
       }

@@ -65,7 +65,7 @@ namespace sbuild
      *
      * @param persona the persona to set.
      */
-    personality (std::string const& persona);
+    personality (const std::string& persona);
 
     ///* The destructor.
     ~personality ();
@@ -75,7 +75,7 @@ namespace sbuild
      *
      * @returns the personality name.
      */
-    std::string const& get_name () const;
+    const std::string& get_name () const;
 
     /**
      * Set the name of the personality.
@@ -83,7 +83,7 @@ namespace sbuild
      * @param persona the persona to set.
      * @returns the personality name.
      */
-    void set_name (std::string const& persona);
+    void set_name (const std::string& persona);
 
     /**
      * Get the personality.
@@ -143,7 +143,7 @@ namespace sbuild
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-                 personality const&                rhs)
+                 const personality&                rhs)
     {
       return stream << find_personality(rhs.persona);
     }
@@ -158,7 +158,7 @@ namespace sbuild
      * found).
      */
     static type
-    find_personality (std::string const& persona);
+    find_personality (const std::string& persona);
 
     /**
      * Find a personality by number.

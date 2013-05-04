@@ -40,8 +40,8 @@ using sbuild::_;
 namespace dchroot_common
 {
 
-  main::main (std::string const&            program_name,
-              std::string const&            program_usage,
+  main::main (const std::string&            program_name,
+              const std::string&            program_usage,
               schroot_common::options::ptr& options):
     schroot_common::main(program_name, program_usage, options, true)
   {

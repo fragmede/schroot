@@ -50,7 +50,7 @@ namespace sbuild
       {run_parts::READ,       N_("Failed to read file descriptor")}
     };
 
-  run_parts::run_parts (std::string const& directory,
+  run_parts::run_parts (const std::string& directory,
                         bool               lsb_mode,
                         bool               abort_on_error,
                         mode_t             umask):
@@ -113,8 +113,8 @@ namespace sbuild
   }
 
   int
-  run_parts::run (string_list const& command,
-                  environment const& env)
+  run_parts::run (const string_list& command,
+                  const environment& env)
   {
     int exit_status = 0;
 
@@ -155,9 +155,9 @@ namespace sbuild
   }
 
   int
-  run_parts::run_child (std::string const& file,
-                        string_list const& command,
-                        environment const& env)
+  run_parts::run_child (const std::string& file,
+                        const string_list& command,
+                        const environment& env)
   {
     int stdout_pipe[2];
     int stderr_pipe[2];
@@ -207,7 +207,7 @@ namespace sbuild
                 error e(file, EXEC, strerror(errno));
                 log_exception_error(e);
               }
-            catch (std::exception const& e)
+            catch (const std::exception& e)
               {
                 log_exception_error(e);
               }
@@ -322,7 +322,7 @@ namespace sbuild
         close(stderr_pipe[0]);
         wait_for_child(pid, exit_status);
       }
-    catch (error const& e)
+    catch (const error& e)
       {
         close(stdout_pipe[0]);
         close(stdout_pipe[1]);

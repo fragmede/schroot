@@ -61,7 +61,7 @@ namespace sbuild
          * @param parent the parent of the cloned chroot.
          */
         virtual void
-        chroot_source_setup (chroot const& parent) = 0;
+        chroot_source_setup (const chroot& parent) = 0;
 
       };
 

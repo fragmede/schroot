@@ -77,9 +77,9 @@ namespace schroot_mount
      * @returns the return value of the execve system call on failure.
      */
     int
-    run_child(std::string const& file,
-              sbuild::string_list const& command,
-              sbuild::environment const& env);
+    run_child(const std::string& file,
+              const sbuild::string_list& command,
+              const sbuild::environment& env);
 
     /**
      * Ensure that the mountpoint is a valid absolute path inside the
@@ -93,7 +93,7 @@ namespace schroot_mount
      */
 
     std::string
-    resolve_path (std::string const& mountpoint);
+    resolve_path (const std::string& mountpoint);
 
     /**
      * Wait for a child process to complete, and check its exit status.

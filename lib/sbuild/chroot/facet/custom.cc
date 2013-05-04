@@ -187,7 +187,7 @@ namespace sbuild
       }
 
       void
-      custom::set_keyfile (keyfile const& keyfile)
+      custom::set_keyfile (const keyfile& keyfile)
       {
         bool is_session = static_cast<bool>(owner->get_facet<session>());
 

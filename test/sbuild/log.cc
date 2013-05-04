@@ -78,7 +78,7 @@ public:
 
   std::string
   debug(sbuild::debug_level level,
-        std::string const& msg)
+        const std::string& msg)
   {
     this->monitor->str("");
     sbuild::log_debug(level) << msg;

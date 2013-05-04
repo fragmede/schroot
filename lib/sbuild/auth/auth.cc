@@ -58,7 +58,7 @@ namespace sbuild
         {auth::auth::PAM_END,         N_("PAM failed to shut down cleanly")}
       };
 
-    auth::auth (std::string const& service_name):
+    auth::auth (const std::string& service_name):
       service(service_name),
       uid(getuid()),
       gid(getgid()),
@@ -86,7 +86,7 @@ namespace sbuild
         {
           stop();
         }
-      catch (error const& e)
+      catch (const error& e)
         {
           log_exception_error(e);
         }
@@ -114,7 +114,7 @@ namespace sbuild
     }
 
     void
-    auth::set_ruser (std::string const& ruser)
+    auth::set_ruser (const std::string& ruser)
     {
       passwd pwent(ruser);
       if (!pwent)
@@ -129,7 +129,7 @@ namespace sbuild
     }
 
     void
-    auth::set_ruser (passwd const& rpwent)
+    auth::set_ruser (const passwd& rpwent)
     {
       group grent(rpwent.pw_gid);
       if (!grent)
@@ -183,7 +183,7 @@ namespace sbuild
     }
 
     void
-    auth::set_user (std::string const& user)
+    auth::set_user (const std::string& user)
     {
       passwd pwent(user);
       if (!pwent)
@@ -198,7 +198,7 @@ namespace sbuild
     }
 
     void
-    auth::set_user (passwd const& pwent)
+    auth::set_user (const passwd& pwent)
     {
       this->uid = pwent.pw_uid;
       this->gid = pwent.pw_gid;
@@ -218,7 +218,7 @@ namespace sbuild
     }
 
     void
-    auth::set_command (string_list const& command)
+    auth::set_command (const string_list& command)
     {
       this->command = command;
     }
@@ -236,7 +236,7 @@ namespace sbuild
     }
 
     void
-    auth::set_wd (std::string const& wd)
+    auth::set_wd (const std::string& wd)
     {
       this->wd = wd;
     }
@@ -260,7 +260,7 @@ namespace sbuild
     }
 
     void
-    auth::set_user_environment (environment const& environment)
+    auth::set_user_environment (const environment& environment)
     {
       this->user_environment = environment;
     }

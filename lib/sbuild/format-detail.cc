@@ -27,7 +27,7 @@
 namespace sbuild
 {
 
-  format_detail::format_detail (std::string const& title,
+  format_detail::format_detail (const std::string& title,
                                 std::locale        locale):
     title(title),
     locale(locale),
@@ -40,8 +40,8 @@ namespace sbuild
   }
 
   format_detail&
-  format_detail::add (std::string const& name,
-                      std::string const& value)
+  format_detail::add (const std::string& name,
+                      const std::string& value)
   {
     for (const auto& item : this->items)
       {
@@ -63,7 +63,7 @@ namespace sbuild
   }
 
   format_detail&
-  format_detail::add (std::string const& name,
+  format_detail::add (const std::string& name,
                       bool               value)
   {
     const char *desc = 0;
@@ -76,8 +76,8 @@ namespace sbuild
   }
 
   format_detail&
-  format_detail::add (std::string const& name,
-                      string_list const& value)
+  format_detail::add (const std::string& name,
+                      const string_list& value)
   {
     return add(name, string_list_to_string(value, " "));
   }

@@ -57,8 +57,8 @@ namespace sbuild
      * @returns a reference to the format_detail object.
      */
     format_detail&
-    add (std::string const& name,
-         std::string const& value);
+    add (const std::string& name,
+         const std::string& value);
 
     /**
      * Add a name-value pair (bool specialisation).
@@ -68,7 +68,7 @@ namespace sbuild
      * @returns a reference to the format_detail object.
      */
     format_detail&
-    add (std::string const& name,
+    add (const std::string& name,
          bool               value);
 
     /**
@@ -79,8 +79,8 @@ namespace sbuild
      * @returns a reference to the format_detail object.
      */
     format_detail&
-    add (std::string const& name,
-         string_list const& value);
+    add (const std::string& name,
+         const string_list& value);
 
     /**
      * Add a name-value pair.
@@ -91,7 +91,7 @@ namespace sbuild
      */
     template<typename T>
     format_detail&
-    add (std::string const& name,
+    add (const std::string& name,
          T const&           value)
     {
       std::ostringstream varstring;
@@ -121,7 +121,7 @@ namespace sbuild
     friend
     std::basic_ostream<charT,traits>&
     operator << (std::basic_ostream<charT,traits>& stream,
-                 format_detail const& rhs)
+                 const format_detail& rhs)
     {
       std::locale loc = stream.getloc();
       int max_width = 0;

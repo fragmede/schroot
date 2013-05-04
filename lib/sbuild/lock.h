@@ -114,7 +114,7 @@ namespace sbuild
      * @param timer the timeout to set.
      */
     void
-    set_timer (struct itimerval const& timer);
+    set_timer (const struct itimerval& timer);
 
     /**
      * Remove any itimer currently set up.  This will clear any

@@ -133,7 +133,7 @@ inline std::string
 sbuild::error<T>::format_error (A const&   context1,
                                 B const&   context2,
                                 C const&   context3,
-                                std::runtime_error const& error,
+                                const std::runtime_error& error,
                                 D const&   detail1,
                                 E const&   detail2,
                                 F const&   detail3)
@@ -210,7 +210,7 @@ sbuild::error<T>::format_error (A const&   context1,
 template<typename T>
 inline void
 sbuild::error<T>::add_detail(boost::format&        fmt,
-                             std::nullptr_t const& value)
+                             const std::nullptr_t& value)
 {
   // Current versions of boost::format don't like being passed
   // nullptr.  Hence this specialisation.

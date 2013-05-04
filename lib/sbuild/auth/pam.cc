@@ -122,7 +122,7 @@ namespace sbuild
 
             return PAM_SUCCESS;
           }
-        catch (std::exception const& e)
+        catch (const std::exception& e)
           {
             log_exception_error(e);
           }
@@ -137,7 +137,7 @@ namespace sbuild
       sbuild::feature feature_pam("PAM", N_("Pluggable Authentication Modules"));
     }
 
-    pam::pam (std::string const& service_name):
+    pam::pam (const std::string& service_name):
       auth(service_name),
       pamh(0),
       conv()
@@ -151,14 +151,14 @@ namespace sbuild
         {
           stop();
         }
-      catch (error const& e)
+      catch (const error& e)
         {
           log_exception_error(e);
         }
     }
 
     auth::ptr
-    pam::create (std::string const& service_name)
+    pam::create (const std::string& service_name)
     {
       return ptr(new pam(service_name));
     }
@@ -264,7 +264,7 @@ namespace sbuild
               throw error(_("Set RHOST"), PAM, pam_strerror(pam_status));
             }
         }
-      catch (error const& e)
+      catch (const error& e)
         {
           delete[] hostname;
           hostname = 0;

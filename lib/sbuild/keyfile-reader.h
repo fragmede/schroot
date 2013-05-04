@@ -49,7 +49,7 @@ namespace sbuild
      * @param file the file to load the configuration from.
      */
     keyfile_reader (keyfile&           store,
-                    std::string const& file);
+                    const std::string& file);
 
     /**
      * The constructor.
@@ -91,7 +91,7 @@ namespace sbuild
      * @param line the line to parse.
      */
     virtual void
-    parse_line (std::string const& line);
+    parse_line (const std::string& line);
 
     /**
      * Stop processing input.  Any cleanup may be done here.  For

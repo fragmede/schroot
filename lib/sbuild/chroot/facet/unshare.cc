@@ -223,7 +223,7 @@ namespace sbuild
       }
 
       void
-      unshare::set_keyfile (keyfile const& keyfile)
+      unshare::set_keyfile (const keyfile& keyfile)
       {
         keyfile::get_object_value(*this, &unshare::set_unshare_net,
                                   keyfile, owner->get_name(), "unshare.net",

@@ -80,7 +80,7 @@ namespace sbuild
    * if name is empty.
    */
   bool
-  is_absname (std::string const& name);
+  is_absname (const std::string& name);
 
   /**
    * Check if a filename matches the allowed pattern(s).  This will
@@ -91,7 +91,7 @@ namespace sbuild
    * @returns true if it matches, false if not.
    */
   bool
-  is_valid_sessionname (std::string const& name);
+  is_valid_sessionname (const std::string& name);
 
   /**
    * Check if a filename matches the allowed pattern(s).  This will
@@ -103,7 +103,7 @@ namespace sbuild
    * @returns true if it matches, false if not.
    */
   bool
-  is_valid_filename (std::string const& name,
+  is_valid_filename (const std::string& name,
                      bool               lsb_mode = true);
 
   /**
@@ -133,8 +133,8 @@ namespace sbuild
    * @returns a string.
    */
   std::string
-  string_list_to_string (string_list const& list,
-                         std::string const& separator);
+  string_list_to_string (const string_list& list,
+                         const std::string& separator);
 
   /**
    * Split a string into a string_list.  The string is split using
@@ -187,8 +187,8 @@ namespace sbuild
    * @returns a string_list.
    */
   std::vector<std::string>
-  split_string (std::string const& value,
-                std::string const& separator);
+  split_string (const std::string& value,
+                const std::string& separator);
 
   /**
    * Split a string into a string_list.  The string is split using
@@ -246,8 +246,8 @@ namespace sbuild
    * @returns a string_list.
    */
   std::vector<std::string>
-  split_string_strict (std::string const& value,
-                       std::string const& separator);
+  split_string_strict (const std::string& value,
+                       const std::string& separator);
 
   /**
    * Widen a string.  The narrow string is converted into a wide
@@ -259,7 +259,7 @@ namespace sbuild
    * @returns a wide string.
    */
   std::wstring
-  widen_string (std::string const& str,
+  widen_string (const std::string& str,
                 std::locale        locale);
 
   /**
@@ -272,7 +272,7 @@ namespace sbuild
    * @returns a narrow string.
    */
   std::string
-  narrow_string (std::wstring const& str,
+  narrow_string (const std::wstring& str,
                  std::locale         locale);
 
   /**
@@ -286,9 +286,9 @@ namespace sbuild
    * the program could not be found.
    */
   std::string
-  find_program_in_path (std::string const& program,
-                        std::string const& path,
-                        std::string const& prefix);
+  find_program_in_path (const std::string& program,
+                        const std::string& path,
+                        const std::string& prefix);
 
   /**
    * Create a string vector from a string_list.  The strings in the
@@ -299,7 +299,7 @@ namespace sbuild
    * @returns a string vector.
    */
   char **
-  string_list_to_strv (string_list const& str);
+  string_list_to_strv (const string_list& str);
 
   /**
    * Delete a string vector.  The strings in the vector, as well as
@@ -322,9 +322,9 @@ namespace sbuild
    * @returns the return value of the execve system call on failure.
    */
   int
-  exec (std::string const& file,
-        string_list const& command,
-        environment const& env);
+  exec (const std::string& file,
+        const string_list& command,
+        const environment& env);
 
   /**
    * Get the type name of a type, demangled if possible.
@@ -409,7 +409,7 @@ namespace sbuild
      * @param file the filename to use.
      * @param link use lstat rather than stat (i.e. don't follow symlinks).
      */
-    stat (std::string const& file,
+    stat (const std::string& file,
           bool               link = false);
 
     /**
@@ -418,7 +418,7 @@ namespace sbuild
      * reporting).
      * @param fd the file descriptor to use.
      */
-    stat (std::string const& file,
+    stat (const std::string& file,
           int                fd);
 
     /**
@@ -455,7 +455,7 @@ namespace sbuild
      * stat(2).
      * @returns the stat struct.
      */
-    struct ::stat const& get_detail()
+    const struct ::stat& get_detail()
     { return this->status; }
 
     /**
@@ -629,8 +629,8 @@ namespace sbuild
    * @returns result of OR.
    */
   stat::mode_bits
-  inline operator | (stat::mode_bits const& lhs,
-                     stat::mode_bits const& rhs)
+  inline operator | (const stat::mode_bits& lhs,
+                     const stat::mode_bits& rhs)
   {
     return static_cast<stat::mode_bits>
       (static_cast<int>(lhs) | static_cast<int>(rhs));
@@ -643,8 +643,8 @@ namespace sbuild
    * @returns result of OR.
    */
   stat::mode_bits
-  inline operator | (mode_t const&          lhs,
-                     stat::mode_bits const& rhs)
+  inline operator | (const mode_t&          lhs,
+                     const stat::mode_bits& rhs)
   {
     return static_cast<stat::mode_bits>
       (lhs | static_cast<int>(rhs));
@@ -657,8 +657,8 @@ namespace sbuild
    * @returns result of OR.
    */
   stat::mode_bits
-  inline operator | (stat::mode_bits const& lhs,
-                     mode_t const&          rhs)
+  inline operator | (const stat::mode_bits& lhs,
+                     const mode_t&          rhs)
   {
     return static_cast<stat::mode_bits>
       (static_cast<int>(lhs) | rhs);
@@ -671,8 +671,8 @@ namespace sbuild
    * @returns result of AND.
    */
   stat::mode_bits
-  inline operator & (stat::mode_bits const& lhs,
-                     stat::mode_bits const& rhs)
+  inline operator & (const stat::mode_bits& lhs,
+                     const stat::mode_bits& rhs)
   {
     return static_cast<stat::mode_bits>
       (static_cast<int>(lhs) & static_cast<int>(rhs));
@@ -685,8 +685,8 @@ namespace sbuild
    * @returns result of AND.
    */
   stat::mode_bits
-  inline operator & (mode_t const&          lhs,
-                     stat::mode_bits const& rhs)
+  inline operator & (const mode_t&          lhs,
+                     const stat::mode_bits& rhs)
   {
     return static_cast<stat::mode_bits>
       (lhs & static_cast<int>(rhs));
@@ -699,8 +699,8 @@ namespace sbuild
    * @returns result of AND.
    */
   stat::mode_bits
-  inline operator & (stat::mode_bits const& lhs,
-                     mode_t const&          rhs)
+  inline operator & (const stat::mode_bits& lhs,
+                     const mode_t&          rhs)
   {
     return static_cast<stat::mode_bits>
       (static_cast<int>(lhs) & rhs);
@@ -772,7 +772,7 @@ namespace sbuild
      *
      * @param name the user name to search for.
      */
-    passwd (std::string const& name);
+    passwd (const std::string& name);
 
     /**
      * Clear search result.  The query result is undefined following
@@ -803,7 +803,7 @@ namespace sbuild
      * @param name the user name to search for.
      */
     void
-    query_name (std::string const& name);
+    query_name (const std::string& name);
 
     /**
      * Check if the query result is valid.
@@ -849,7 +849,7 @@ namespace sbuild
      *
      * @param name the group name to search for.
      */
-    group (std::string const& name);
+    group (const std::string& name);
 
     /**
      * Clear search result.  The query result is undefined following
@@ -880,7 +880,7 @@ namespace sbuild
      * @param name the group name to search for.
      */
     void
-    query_name (std::string const& name);
+    query_name (const std::string& name);
 
     /**
      * Check if the query result is valid.

@@ -93,12 +93,12 @@ namespace sbuild
         get_keyfile (keyfile& keyfile) const;
 
         virtual void
-        set_keyfile (keyfile const& keyfile);
+        set_keyfile (const keyfile& keyfile);
 
 
         template <typename T>
         bool
-        get_value (std::string const& key,
+        get_value (const std::string& key,
                    T&                 value) const
         {
           log_debug(DEBUG_INFO) << "Getting userdata key=" << key << std::endl;
@@ -110,7 +110,7 @@ namespace sbuild
                   parse_value(found_item->second, value);
                   return true;
                 }
-              catch (parse_value_error const& e)
+              catch (const parse_value_error& e)
                 {
                   error ep(key, PARSE_ERROR, e);
                   log_exception_warning(ep);
@@ -137,7 +137,7 @@ namespace sbuild
          * @returns true if found, false if not found.
          */
         bool
-        get_data (std::string const& key,
+        get_data (const std::string& key,
                   std::string&       value) const;
 
         /**
@@ -147,7 +147,7 @@ namespace sbuild
          * @param data the user data to set.
          */
         void
-        set_data (string_map const& data);
+        set_data (const string_map& data);
 
         /**
          * Set a single key-value pair.  Note that this method does not
@@ -157,8 +157,8 @@ namespace sbuild
          * @param value the value of the key.
          */
         void
-        set_data (std::string const& key,
-                  std::string const& value);
+        set_data (const std::string& key,
+                  const std::string& value);
 
         /**
          * Set a single key-value pair.  Note that this method does not
@@ -168,8 +168,8 @@ namespace sbuild
          * @param value the value of the key.
          */
         void
-        set_system_data (std::string const& key,
-                         std::string const& value);
+        set_system_data (const std::string& key,
+                         const std::string& value);
 
         /**
          * Remove a single key.  If present, the specified key is removed.
@@ -177,7 +177,7 @@ namespace sbuild
          * @param key the key to remove.
          */
         void
-        remove_data (std::string const& key);
+        remove_data (const std::string& key);
 
         /**
          * Get the set of keys allowed to be modified by a user.
@@ -193,7 +193,7 @@ namespace sbuild
          * @param keys a string set of keys.
          */
         void
-        set_user_modifiable_keys (string_set const& keys);
+        set_user_modifiable_keys (const string_set& keys);
 
         /**
          * Get the set of keys allowed to be modified by root.
@@ -209,7 +209,7 @@ namespace sbuild
          * @param keys a string set of keys.
          */
         void
-        set_root_modifiable_keys (string_set const& keys);
+        set_root_modifiable_keys (const string_set& keys);
 
         /**
          * Set data for the current user.  Only keys set using
@@ -219,7 +219,7 @@ namespace sbuild
          * @param string_map a map of key-value pairs.
          */
         void
-        set_user_data(string_map const&  data);
+        set_user_data(const string_map&  data);
 
         /**
          * Set data for root.  Only keys set using
@@ -229,7 +229,7 @@ namespace sbuild
          * @param data a map of key-value pairs.
          */
         void
-        set_root_data(string_map const&  data);
+        set_root_data(const string_map&  data);
 
         /**
          * Set data without user or root checks.
@@ -237,7 +237,7 @@ namespace sbuild
          * @param string_map a map of key-value pairs.
          */
         void
-        set_system_data(string_map const&  data);
+        set_system_data(const string_map&  data);
 
       private:
         /**
@@ -248,8 +248,8 @@ namespace sbuild
          * @param root whether or not the user is the root user.
          */
         void
-        set_data(string_map const&  data,
-                 string_set const&  allowed_keys,
+        set_data(const string_map&  data,
+                 const string_set&  allowed_keys,
                  bool               root);
 
         /// Mapping between user keys and values.

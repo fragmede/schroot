@@ -39,8 +39,8 @@ namespace dchroot_common
      * @param program_usage the program usage message.
      * @param options the command-line options to use.
      */
-    main (std::string const&            program_name,
-          std::string const&            program_usage,
+    main (const std::string&            program_name,
+          const std::string&            program_usage,
           schroot_common::options::ptr& options);
 
     /// The destructor.

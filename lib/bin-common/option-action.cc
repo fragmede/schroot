@@ -48,7 +48,7 @@ namespace bin_common
   }
 
   void
-  option_action::add (action_type const& action)
+  option_action::add (const action_type& action)
   {
     this->actions.insert(action);
   }
@@ -60,7 +60,7 @@ namespace bin_common
   }
 
   void
-  option_action::set_default (action_type const& action)
+  option_action::set_default (const action_type& action)
   {
     if (valid(action))
       this->default_action = action;
@@ -78,7 +78,7 @@ namespace bin_common
   }
 
   void
-  option_action::set (action_type const& action)
+  option_action::set (const action_type& action)
   {
     if (valid(action))
       {
@@ -93,7 +93,7 @@ namespace bin_common
   }
 
   bool
-  option_action::valid (action_type const& action)
+  option_action::valid (const action_type& action)
   {
     return this->actions.find(action) != this->actions.end();
   }

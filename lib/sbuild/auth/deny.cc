@@ -40,7 +40,7 @@ namespace sbuild
   namespace auth
   {
 
-    deny::deny (std::string const& service_name):
+    deny::deny (const std::string& service_name):
       auth(service_name),
       initialised(false)
     {
@@ -53,14 +53,14 @@ namespace sbuild
         {
           stop();
         }
-      catch (error const& e)
+      catch (const error& e)
         {
           log_exception_error(e);
         }
     }
 
     auth::ptr
-    deny::create (std::string const& service_name)
+    deny::create (const std::string& service_name)
     {
       return ptr(new deny(service_name));
     }

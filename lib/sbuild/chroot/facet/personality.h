@@ -77,7 +77,7 @@ namespace sbuild
          * @param persona the personality.
          */
         void
-        set_persona (sbuild::personality const& persona);
+        set_persona (const sbuild::personality& persona);
 
         virtual void
         get_details (format_detail& detail) const;
@@ -89,7 +89,7 @@ namespace sbuild
         get_keyfile (keyfile& keyfile) const;
 
         virtual void
-        set_keyfile (keyfile const& keyfile);
+        set_keyfile (const keyfile& keyfile);
 
       private:
         /// Process execution domain (Linux only).

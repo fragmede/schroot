@@ -77,7 +77,7 @@ namespace sbuild
          * @param directory the directory.
          */
         void
-        set_directory (std::string const& directory);
+        set_directory (const std::string& directory);
 
         virtual void
         setup_env (environment& env) const;
@@ -93,7 +93,7 @@ namespace sbuild
         get_keyfile (keyfile& keyfile) const;
 
         virtual void
-        set_keyfile (keyfile const& keyfile);
+        set_keyfile (const keyfile& keyfile);
 
         /// The directory to use.
         std::string directory;

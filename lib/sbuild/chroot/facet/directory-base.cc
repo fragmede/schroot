@@ -59,7 +59,7 @@ namespace sbuild
       }
 
       void
-      directory_base::set_directory (std::string const& directory)
+      directory_base::set_directory (const std::string& directory)
       {
         if (!is_absname(directory))
           throw chroot::error(directory, chroot::DIRECTORY_ABS);
@@ -94,7 +94,7 @@ namespace sbuild
       }
 
       void
-      directory_base::set_keyfile (keyfile const& keyfile)
+      directory_base::set_keyfile (const keyfile& keyfile)
       {
         // "directory" should be required, but we also accept "location" as
         // an alternative (but deprecated) variant.  Therefore, ensure by
