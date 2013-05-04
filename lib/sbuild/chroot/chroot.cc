@@ -159,6 +159,8 @@ namespace sbuild
     chroot::ptr
     chroot::clone () const
     {
+      get_facet_strict<facet::storage>();
+
       return ptr(new chroot(*this));
     }
 
