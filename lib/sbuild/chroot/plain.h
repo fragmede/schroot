@@ -44,9 +44,6 @@ namespace sbuild
     public:
       /// The destructor.
       virtual ~plain ();
-
-      virtual chroot::ptr
-      clone () const;
     };
 
   }

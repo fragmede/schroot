@@ -70,11 +70,5 @@ namespace sbuild
     {
     }
 
-    chroot::ptr
-    directory::clone () const
-    {
-      return ptr(new directory(*this));
-    }
-
   }
 }

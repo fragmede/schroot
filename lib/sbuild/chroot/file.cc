@@ -57,11 +57,5 @@ namespace sbuild
     {
     }
 
-    chroot::chroot::ptr
-    file::clone () const
-    {
-      return ptr(new file(*this));
-    }
-
   }
 }

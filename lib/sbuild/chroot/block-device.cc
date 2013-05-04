@@ -70,11 +70,5 @@ namespace sbuild
     }
 #endif // SBUILD_FEATURE_LVMSNAP
 
-    chroot::chroot::ptr
-    block_device::clone () const
-    {
-      return ptr(new block_device(*this));
-    }
-
   }
 }

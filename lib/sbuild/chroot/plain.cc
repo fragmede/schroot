@@ -48,11 +48,5 @@ namespace sbuild
     {
     }
 
-    chroot::ptr
-    plain::clone () const
-    {
-      return ptr(new plain(*this));
-    }
-
   }
 }

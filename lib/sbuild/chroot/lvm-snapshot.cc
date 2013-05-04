@@ -57,11 +57,5 @@ namespace sbuild
     {
     }
 
-    chroot::chroot::ptr
-    lvm_snapshot::clone () const
-    {
-      return ptr(new lvm_snapshot(*this));
-    }
-
   }
 }

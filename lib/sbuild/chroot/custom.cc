@@ -56,11 +56,5 @@ namespace sbuild
     {
     }
 
-    chroot::chroot::ptr
-    custom::clone () const
-    {
-      return ptr(new custom(*this));
-    }
-
   }
 }

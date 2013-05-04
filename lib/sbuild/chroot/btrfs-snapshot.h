@@ -44,9 +44,6 @@ namespace sbuild
     public:
       /// The destructor.
       virtual ~btrfs_snapshot ();
-
-      virtual chroot::ptr
-      clone () const;
     };
 
   }

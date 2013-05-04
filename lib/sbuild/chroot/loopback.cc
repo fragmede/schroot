@@ -61,11 +61,5 @@ namespace sbuild
     {
     }
 
-    chroot::chroot::ptr
-    loopback::clone () const
-    {
-      return ptr(new loopback(*this));
-    }
-
   }
 }

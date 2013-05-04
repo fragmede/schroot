@@ -59,9 +59,6 @@ namespace sbuild
     public:
       /// The destructor.
       virtual ~block_device ();
-
-      virtual chroot::ptr
-      clone () const;
     };
 
   }

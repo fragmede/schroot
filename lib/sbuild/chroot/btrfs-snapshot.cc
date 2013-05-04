@@ -57,11 +57,5 @@ namespace sbuild
     {
     }
 
-    chroot::chroot::ptr
-    btrfs_snapshot::clone () const
-    {
-      return ptr(new btrfs_snapshot(*this));
-    }
-
   }
 }

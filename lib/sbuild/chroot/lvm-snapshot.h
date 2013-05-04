@@ -45,9 +45,6 @@ namespace sbuild
     public:
       /// The destructor.
       virtual ~lvm_snapshot ();
-
-      virtual chroot::ptr
-      clone () const;
     };
 
   }

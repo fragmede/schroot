@@ -146,7 +146,7 @@ namespace sbuild
        *
        * @returns a shared_ptr to the new copy of the chroot.
        */
-      virtual chroot::ptr
+      chroot::ptr
       clone () const;
 
       /**
