@@ -14,7 +14,7 @@ schroot (1.7.0-1) experimental; urgency=low
   * libsbuild-1.7.0:
     - New package
     - Introduce a shared library.
-  * libsbuild-1.7.0-dev:
+  * libsbuild-1.7.0-dbg:
     - New package.
     - Shared library debugging symbols.
   * libsbuild-dev:
