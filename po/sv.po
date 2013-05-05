@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-04-02 23:26+0100\n"
+"POT-Creation-Date: 2013-05-05 00:58+0100\n"
 "PO-Revision-Date: 2010-01-16 15:44+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -15,215 +15,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
-msgid "Can't open file ‘%1%’"
-msgstr "Kan inte öppna filen \"%1%\""
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "line %1%: Deprecated key ‘%4%’ used"
-msgstr "rad %1% [%2%]: Utfasade nyckeln \"%4%\" används"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "Deprecated key ‘%4%’ used"
-msgstr "[%1%]: Den utfasade nyckeln \"%4%\" används"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "line %1%: Disallowed key ‘%4%’ used"
-msgstr "rad %1% [%2%]: Otillåtna nyckeln \"%4%\" används"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "Disallowed key ‘%4%’ used"
-msgstr "[%1%]: Den otillåtna nyckeln \"%4%\" används"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "line %1%: Duplicate key ‘%4%’"
-msgstr "rad %1% [%2%]: Dubblett av nyckeln \"%4%\""
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = line contents as read from the configuration file
-#, fuzzy, boost-format
-msgid "line %1%: Invalid line: “%4%”"
-msgstr "rad %1%: Ogiltig rad: \"%4%\""
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "line %1%: Required key ‘%4%’ is missing"
-msgstr "rad %1% [%2%]: Nödvändiga nyckeln \"%4%\" saknas"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "Required key ‘%4%’ is missing"
-msgstr "[%1%]: Nödvändiga nyckeln \"%4%\" saknas"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = line contents as read from the configuration file
-#, fuzzy, boost-format
-msgid "line %1%: No key specified: “%4%”"
-msgstr "rad %1%: Ingen nyckel angiven: \"%4%\""
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "line %1%: Obsolete key ‘%4%’ used"
-msgstr "rad %1% [%2%]: Föråldrade nyckeln \"%4%\" används"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "Obsolete key ‘%4%’ used"
-msgstr "[%1%]: Den föråldrade nyckeln \"%4%\" används"
-
-#. TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
-#. TRANSLATORS: %4% = additional details
-#, fuzzy, boost-format
-msgid "%2%: %4%"
-msgstr "[%1%]: %4%"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %3% = key name ("keyname=value" in configuration file)
-#. TRANSLATORS: %4% = additional details
-#, fuzzy, boost-format
-msgid "line %1%: %3%: %4%"
-msgstr "rad %1% [%2%]: %4%"
-
-msgid "This option will be removed in the future"
-msgstr "Den här flaggan kommer att tas bort i framtiden"
-
-msgid "This option has been removed, and no longer has any effect"
-msgstr "Den här flaggan har tagits bort och har inte längre någon effekt"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-msgid "[OPTION…] — build Debian packages from source"
-msgstr ""
-
-#, fuzzy
-msgid "Build options"
-msgstr "Dolda flaggor"
-
-#, fuzzy
-msgid "Package version options"
-msgstr "Session hanterad"
-
-#, fuzzy
-msgid "Build environment options"
-msgstr "Dolda flaggor"
-
-#, fuzzy
-msgid "User options"
-msgstr "Allmänna flaggor"
-
-msgid "Build dependency override options"
-msgstr ""
-
-#, fuzzy
-msgid "Special options"
-msgstr "Allmänna flaggor"
-
-msgid "Build source packages (default)"
-msgstr ""
-
-msgid "Don't log program output"
-msgstr ""
-
-msgid "Run in batch mode"
-msgstr ""
-
-msgid "dpkg-buildpackage option"
-msgstr ""
-
-msgid "dpkg-buildpackage options (space-separated)"
-msgstr ""
-
-msgid "Distribution to build for"
-msgstr ""
-
-msgid "Archive to build for"
-msgstr ""
-
-msgid "Build architecture"
-msgstr ""
-
-msgid "Build architecture \"all\" packages"
-msgstr ""
-
-msgid "Build a source package"
-msgstr ""
-
-msgid "Force building of a source package, irrespective of Debian version"
-msgstr ""
-
-msgid "Make a binary non-maintainer upload (changelog entry)"
-msgstr ""
-
-msgid "Make a binary non-maintainer upload (binNMU number)"
-msgstr ""
-
-msgid "Append version suffix"
-msgstr ""
-
-#, fuzzy
-msgid "Update chroot environment"
-msgstr "Chroot-miljö"
-
-#, fuzzy
-msgid "Chroot environment to build in"
-msgstr "Chroot-miljö"
-
-msgid "Purge build mode"
-msgstr ""
-
-msgid "Purge dependencies mode"
-msgstr ""
-
-msgid "Run setup hook script in chroot prior to building"
-msgstr ""
-
-msgid "GPG key identifier"
-msgstr ""
-
-msgid "Package maintainer"
-msgstr ""
-
-msgid "Package uploader"
-msgstr ""
-
-msgid "Add a build dependency"
-msgstr ""
-
-msgid "Add a build conflict"
-msgstr ""
-
-msgid "Add an architecture-independent build dependency"
-msgstr ""
-
-msgid "Add an architecture-independent build conflict"
-msgstr ""
-
-msgid "Specify algorithm for dependency checking"
-msgstr ""
-
-msgid "Build using the current GCC development snapshot"
-msgstr ""
-
-msgid "Package to build"
-msgstr ""
-
-msgid "--makebinNMU missing"
-msgstr ""
-
-msgid "--binNMU missing"
-msgstr ""
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
@@ -278,111 +69,6 @@ msgstr "--chroot och --all kan inte användas samtidigt"
 
 msgid "Using --chroots only"
 msgstr "Använder endast --chroots"
-
-msgid "dchroot session restriction"
-msgstr "sessionsbegränsning för dchroot"
-
-#. TRANSLATORS: %4% = file
-#, fuzzy, boost-format
-msgid "No chroots are defined in ‘%4%’"
-msgstr "Inga chrootmiljöer har definierats \"%4%\""
-
-#. TRANSLATORS: %4% = file
-#. TRANSLATORS: %5% = file
-#, fuzzy, boost-format
-msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
-msgstr "Inga chrootmiljöer har definierats i \"%4%\" eller \"%5%\""
-
-#. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
-msgid "The specified chroots are not defined in ‘%1%’"
-msgstr "De angivna chrootmiljöerna är inte definierade i \"%1%\""
-
-#, boost-format
-msgid "%1%: Invalid session name"
-msgstr ""
-
-#, fuzzy
-msgid "Available chroot types:"
-msgstr "Tillgängliga chroot: "
-
-msgid "Support for ‘block-device’ chroots"
-msgstr ""
-
-msgid "Support for ‘btrfs-snapshot’ chroots"
-msgstr ""
-
-msgid "Support for ‘custom’ chroots"
-msgstr ""
-
-msgid "Support for ‘directory’ chroots"
-msgstr ""
-
-msgid "Support for ‘file’ chroots"
-msgstr ""
-
-msgid "Support for ‘loopback’ chroots"
-msgstr ""
-
-msgid "Support for ‘lvm-snapshot’ chroots"
-msgstr ""
-
-msgid "Support for ‘plain’ chroots"
-msgstr ""
-
-#. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = current date
-#, boost-format
-msgid "schroot configuration generated by %1% %2% on %3%"
-msgstr "schroot-konfiguration genererad av %1% %2% den %3%"
-
-msgid "Chroot selection"
-msgstr "Val av chroot"
-
-msgid "Chroot environment"
-msgstr "Chroot-miljö"
-
-#, fuzzy
-msgid "Session actions"
-msgstr "Session hanterad"
-
-#, fuzzy
-msgid "Session options"
-msgstr "Session hanterad"
-
-msgid "List available chroots"
-msgstr "Lista tillgängliga chroot"
-
-msgid "Show information about selected chroots"
-msgstr "Visa information om valda chroot"
-
-msgid "Dump configuration of selected chroots"
-msgstr "Dumpa konfigurationen för valda chroot"
-
-msgid "Use specified chroot"
-msgstr "Använd angiven chroot"
-
-msgid "Command to run"
-msgstr "Kommando att köra"
-
-msgid "Exactly one chroot must be specified when beginning a session"
-msgstr "Endast en chroot får anges vid början av en session"
-
-msgid ""
-"--session-name is not permitted for the specified action; did you mean to "
-"use --chroot?"
-msgstr ""
-
-msgid "Unknown action specified"
-msgstr "Okänd åtgärd angiven"
-
-msgid "--session-name is not permitted for the specified action"
-msgstr ""
-
-#, fuzzy
-msgid "Invalid session name"
-msgstr "ogiltig grupp"
 
 msgid "Print location of selected chroots"
 msgstr "Skriv ut platsen för valda chroot"
@@ -503,57 +189,37 @@ msgstr "Aktivera felsökningsmeddelanden"
 msgid "Invalid debug level"
 msgstr "Ogiltig felsökningsnivå"
 
-#. TRANSLATORS: %1% = file
+msgid "dchroot session restriction"
+msgstr "sessionsbegränsning för dchroot"
+
+msgid "Failed to get hostname"
+msgstr "Misslyckades med att få värdnamn"
+
+#. TRANSLATORS: %1% = user name or user ID
 #, fuzzy, boost-format
-msgid "Failed to find ‘%1%’"
-msgstr "Misslyckades med att hitta chroot \"%1%\""
+msgid "User ‘%1%’ not found"
+msgstr "Användaren \"%1%\" hittades inte"
 
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — list mount points"
-msgstr "[FLAGGA...] - lista monteringspunkter"
-
-msgid "Mount"
-msgstr "Montera"
-
-msgid "Mountpoint to check (full path)"
-msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
-
-msgid "No mount point specified"
-msgstr "Ingen monteringspunkt angiven"
-
-msgid "Failed to fork child"
-msgstr "Misslyckades med att grena barnprocess"
-
-msgid "Wait for child failed"
-msgstr "Väntan på barnprocess misslyckades"
-
-#. TRANSLATORS: %1% = command name
-#. TRANSLATORS: %1% = command
+#. TRANSLATORS: %1% = group name or group ID
+#. TRANSLATORS: %1% = group name
 #, fuzzy, boost-format
-msgid "Failed to execute “%1%”"
-msgstr "Misslyckades med att starta \"%1%\""
+msgid "Group ‘%1%’ not found"
+msgstr "Gruppen \"%1%\" hittades inte"
 
-#, fuzzy, boost-format
-msgid "Failed to resolve path “%1%”"
-msgstr "Misslyckades med att starta \"%1%\""
+msgid "Authentication failed"
+msgstr "Autentisering misslyckades"
 
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — mount filesystems"
-msgstr "[FLAGGA...] - lista monteringspunkter"
+msgid "Access not authorised"
+msgstr "Åtkomst inte auktoriserad"
 
-msgid "An unknown exception occurred"
-msgstr "Ett okänt undantag inträffade"
+msgid "PAM is already initialised"
+msgstr "PAM är redan initierad"
 
-msgid "Perform a simulation of actions which would be taken"
+msgid "PAM error"
+msgstr "PAM-fel"
+
+msgid "PAM failed to shut down cleanly"
 msgstr ""
-
-#, fuzzy
-msgid "fstab file to read (full path)"
-msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
 
 #. TRANSLATORS: %1% = program name (PAM service name)
 #, boost-format
@@ -592,6 +258,9 @@ msgstr ""
 msgid "[schroot] password for %1%: "
 msgstr ""
 
+msgid "An unknown exception occurred"
+msgstr "Ett okänt undantag inträffade"
+
 #, fuzzy
 msgid "Pluggable Authentication Modules"
 msgstr "Autentisering misslyckades"
@@ -607,235 +276,6 @@ msgstr "Ställ in TTY"
 
 msgid "Set USER"
 msgstr "Ställ in USER"
-
-msgid "Failed to get hostname"
-msgstr "Misslyckades med att få värdnamn"
-
-#. TRANSLATORS: %1% = user name or user ID
-#, fuzzy, boost-format
-msgid "User ‘%1%’ not found"
-msgstr "Användaren \"%1%\" hittades inte"
-
-#. TRANSLATORS: %1% = group name or group ID
-#. TRANSLATORS: %1% = group name
-#, fuzzy, boost-format
-msgid "Group ‘%1%’ not found"
-msgstr "Gruppen \"%1%\" hittades inte"
-
-msgid "Authentication failed"
-msgstr "Autentisering misslyckades"
-
-msgid "Access not authorised"
-msgstr "Åtkomst inte auktoriserad"
-
-msgid "PAM is already initialised"
-msgstr "PAM är redan initierad"
-
-msgid "PAM error"
-msgstr "PAM-fel"
-
-msgid "PAM failed to shut down cleanly"
-msgstr ""
-
-msgid "Device"
-msgstr "Enhet"
-
-msgid "Btrfs Source Subvolume"
-msgstr ""
-
-#, fuzzy
-msgid "Btrfs Snapshot Directory"
-msgstr "Enhet för LVM-snapshot"
-
-msgid "Btrfs Snapshot Name"
-msgstr ""
-
-#. TRANSLATORS: %1% = chroot alias name
-#. TRANSLATORS: %4% = chroot name
-#, fuzzy, boost-format
-msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
-msgstr "Aliaset \"%1%\" är redan associerat med chrootmiljön \"%4%\""
-
-#. TRANSLATORS: %1% = chroot name
-#, boost-format
-msgid "%1%: Chroot not found"
-msgstr "%1%: Chroot hittades inte"
-
-#. TRANSLATORS: %1% = comma-separated list of chroot names
-#, boost-format
-msgid "%1%: Chroots not found"
-msgstr "%1%: Chrootmiljöer hittades inte"
-
-#. TRANSLATORS: %1% = chroot name
-#, fuzzy, boost-format
-msgid "A chroot or alias ‘%1%’ already exists with this name"
-msgstr "En chroot eller aliaset \"%1%\" finns redan med det här namnet"
-
-msgid "File is not a regular file"
-msgstr "Filen är inte en vanlig fil"
-
-msgid "Failed to open file"
-msgstr "Misslyckades med att öppna filen"
-
-msgid "File is not owned by user root"
-msgstr "Filen ägs inte av användaren root"
-
-msgid "File has write permissions for others"
-msgstr "Filen har skrivrättigheter för andra"
-
-#, fuzzy
-msgid "Invalid name"
-msgstr "ogiltig grupp"
-
-msgid "No such namespace"
-msgstr ""
-
-msgid "Duplicate names are not allowed"
-msgstr "Dubbleta namn tillåts inte"
-
-msgid "Available chroots: "
-msgstr "Tillgängliga chroot: "
-
-#, fuzzy
-msgid "Directory"
-msgstr "Katalog att använda"
-
-msgid "Mount Device"
-msgstr "Montera enhet"
-
-msgid "Mount Options"
-msgstr "Monteringsflaggor"
-
-msgid "Location"
-msgstr "Plats"
-
-#. TRANSLATORS: "Personality" is the Linux kernel personality
-#. (process execution domain).  See schroot.conf(5).
-msgid "Personality"
-msgstr "Personlighet"
-
-#, fuzzy
-msgid "(session chroot)"
-msgstr "(käll-chroot)"
-
-msgid "Original Chroot Name"
-msgstr ""
-
-#, fuzzy
-msgid "Selected Chroot Name"
-msgstr "Välj alla chroot"
-
-#, fuzzy
-msgid "Session ID"
-msgstr "Session"
-
-msgid "(source chroot)"
-msgstr "(käll-chroot)"
-
-msgid "Source Users"
-msgstr "Källanvändare"
-
-msgid "Source Groups"
-msgstr "Källgrupper"
-
-msgid "Source Root Users"
-msgstr "Källrootanvändare"
-
-msgid "Source Root Groups"
-msgstr "Källrotgrupper"
-
-msgid "Support for filesystem unioning"
-msgstr ""
-
-#. TRANSLATORS: %1% = chroot fs type
-#, fuzzy, boost-format
-msgid "Unknown filesystem union type ‘%1%’"
-msgstr "Okänd chroot-typ \"%1%\""
-
-#, fuzzy
-msgid "Union overlay must have an absolute path"
-msgstr "Filen måste ha en absolut sökväg"
-
-#, fuzzy
-msgid "Union underlay must have an absolute path"
-msgstr "Filen måste ha en absolut sökväg"
-
-#, fuzzy
-msgid "Filesystem Union Type"
-msgstr "Session hanterad"
-
-#, fuzzy
-msgid "Filesystem Union Mount Options"
-msgstr "Session hanterad"
-
-#, fuzzy
-msgid "Filesystem Union Overlay Directory"
-msgstr "Misslyckades med att öppna katalogen"
-
-#, fuzzy
-msgid "Filesystem Union Underlay Directory"
-msgstr "Misslyckades med att öppna katalogen"
-
-#, boost-format
-msgid "Environment variable ‘%1%’ is ambiguous"
-msgstr ""
-
-#, fuzzy, boost-format
-msgid "Configuration key ‘%1%’ is ambiguous"
-msgstr "[%1%]: Nödvändiga nyckeln \"%4%\" saknas"
-
-#, boost-format
-msgid "Configuration key ‘%1%’ is not permitted to be modified."
-msgstr ""
-
-#, boost-format
-msgid "Configuration key name ‘%1%’ is not a permitted name."
-msgstr ""
-
-#. TRANSLATORS: %1% = key name for which value parsing failed
-#. TRANSLATORS: %4% = additional details of error
-#, fuzzy, boost-format
-msgid "%1%: %4%"
-msgstr "[%1%]: %4%"
-
-#, boost-format
-msgid ""
-"Configuration keys additional to ‘%1%’ would set this setup script "
-"environment variable"
-msgstr ""
-
-msgid "User Modifiable Keys"
-msgstr ""
-
-msgid "Root Modifiable Keys"
-msgstr ""
-
-msgid "User Data"
-msgstr ""
-
-#, boost-format
-msgid ""
-"More than one configuration key would set the ‘%1%’ environment variable"
-msgstr ""
-
-msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
-msgstr ""
-
-msgid "The key is not present in user-modifiable-keys"
-msgstr ""
-
-msgid "File"
-msgstr "Fil"
-
-msgid "File Repack"
-msgstr "Filompackning"
-
-msgid "LVM Snapshot Device"
-msgstr "Enhet för LVM-snapshot"
-
-# Finns det ett svenskt ord för snapshot?
-msgid "LVM Snapshot Options"
-msgstr "Flaggor för LVM-snapshot"
 
 msgid "Chroot creation failed"
 msgstr "Skapandet av chroot misslyckades"
@@ -864,10 +304,16 @@ msgstr "Misslyckades med att låsa upp enheten"
 msgid "Directory must have an absolute path"
 msgstr "Enheten måste ha en absolut sökväg"
 
-msgid "Attempt to add object which is not a facet"
+#, boost-format
+msgid "Attempt to use facet ‘%1%’ which is not present"
 msgstr ""
 
-msgid "Attempt to add facet which is already in use"
+#, boost-format
+msgid "Attempt to add object ‘%1%’ which is not a facet"
+msgstr ""
+
+#, boost-format
+msgid "Attempt to add facet ‘%1%’ which is already in use"
 msgstr ""
 
 msgid "File must have an absolute path"
@@ -876,11 +322,24 @@ msgstr "Filen måste ha en absolut sökväg"
 msgid "Failed to acquire file lock"
 msgstr "Misslyckades med att skaffa enhetslås"
 
+msgid "File is not a regular file"
+msgstr "Filen är inte en vanlig fil"
+
+msgid "File is not owned by user root"
+msgstr "Filen ägs inte av användaren root"
+
+msgid "File has write permissions for others"
+msgstr "Filen har skrivrättigheter för andra"
+
 msgid "Failed to discard file lock"
 msgstr "Misslyckades med att kasta enhetslåset"
 
 msgid "Location must have an absolute path"
 msgstr "Platsen måste ha en absolut sökväg"
+
+#, fuzzy
+msgid "Invalid name"
+msgstr "ogiltig grupp"
 
 #, boost-format
 msgid "Could not set profile name from script configuration path ‘%1%’"
@@ -984,6 +443,259 @@ msgstr "Session"
 msgid "Source"
 msgstr "Källanvändare"
 
+#. TRANSLATORS: %1% = chroot alias name
+#. TRANSLATORS: %4% = chroot name
+#, fuzzy, boost-format
+msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
+msgstr "Aliaset \"%1%\" är redan associerat med chrootmiljön \"%4%\""
+
+#. TRANSLATORS: %1% = chroot name
+#, boost-format
+msgid "%1%: Chroot not found"
+msgstr "%1%: Chroot hittades inte"
+
+#. TRANSLATORS: %1% = comma-separated list of chroot names
+#, boost-format
+msgid "%1%: Chroots not found"
+msgstr "%1%: Chrootmiljöer hittades inte"
+
+#. TRANSLATORS: %1% = chroot name
+#, fuzzy, boost-format
+msgid "A chroot or alias ‘%1%’ already exists with this name"
+msgstr "En chroot eller aliaset \"%1%\" finns redan med det här namnet"
+
+msgid "Failed to open file"
+msgstr "Misslyckades med att öppna filen"
+
+msgid "No such namespace"
+msgstr ""
+
+msgid "Duplicate names are not allowed"
+msgstr "Dubbleta namn tillåts inte"
+
+msgid "Available chroots: "
+msgstr "Tillgängliga chroot: "
+
+msgid "Device"
+msgstr "Enhet"
+
+msgid "Support for ‘block-device’ chroots"
+msgstr ""
+
+msgid "Support for ‘btrfs-snapshot’ chroots"
+msgstr ""
+
+msgid "Btrfs Source Subvolume"
+msgstr ""
+
+#, fuzzy
+msgid "Btrfs Snapshot Directory"
+msgstr "Enhet för LVM-snapshot"
+
+msgid "Btrfs Snapshot Name"
+msgstr ""
+
+msgid "Support for ‘custom’ chroots"
+msgstr ""
+
+#, fuzzy
+msgid "Directory"
+msgstr "Katalog att använda"
+
+msgid "Support for ‘directory’ chroots"
+msgstr ""
+
+msgid "Support for ‘file’ chroots"
+msgstr ""
+
+msgid "File"
+msgstr "Fil"
+
+msgid "File Repack"
+msgstr "Filompackning"
+
+msgid "Location"
+msgstr "Plats"
+
+msgid "Support for filesystem unioning"
+msgstr ""
+
+#. TRANSLATORS: %1% = chroot fs type
+#, fuzzy, boost-format
+msgid "Unknown filesystem union type ‘%1%’"
+msgstr "Okänd chroot-typ \"%1%\""
+
+#, fuzzy
+msgid "Union overlay must have an absolute path"
+msgstr "Filen måste ha en absolut sökväg"
+
+#, fuzzy
+msgid "Union underlay must have an absolute path"
+msgstr "Filen måste ha en absolut sökväg"
+
+#, fuzzy
+msgid "Filesystem Union Type"
+msgstr "Session hanterad"
+
+#, fuzzy
+msgid "Filesystem Union Mount Options"
+msgstr "Session hanterad"
+
+#, fuzzy
+msgid "Filesystem Union Overlay Directory"
+msgstr "Misslyckades med att öppna katalogen"
+
+#, fuzzy
+msgid "Filesystem Union Underlay Directory"
+msgstr "Misslyckades med att öppna katalogen"
+
+msgid "Support for ‘loopback’ chroots"
+msgstr ""
+
+msgid "Support for ‘lvm-snapshot’ chroots"
+msgstr ""
+
+msgid "LVM Snapshot Device"
+msgstr "Enhet för LVM-snapshot"
+
+# Finns det ett svenskt ord för snapshot?
+msgid "LVM Snapshot Options"
+msgstr "Flaggor för LVM-snapshot"
+
+msgid "Support for filesystem mounting"
+msgstr ""
+
+msgid "Mount Device"
+msgstr "Montera enhet"
+
+msgid "Mount Options"
+msgstr "Monteringsflaggor"
+
+msgid "Linux kernel Application Binary Interface switching"
+msgstr ""
+
+#. TRANSLATORS: "Personality" is the Linux kernel personality
+#. (process execution domain).  See schroot.conf(5).
+msgid "Personality"
+msgstr "Personlighet"
+
+msgid "Support for ‘plain’ chroots"
+msgstr ""
+
+msgid "Support for session chroot cloning"
+msgstr ""
+
+#, fuzzy
+msgid "(session chroot)"
+msgstr "(käll-chroot)"
+
+#, fuzzy
+msgid "Support for session chroots"
+msgstr "(käll-chroot)"
+
+msgid "Original Chroot Name"
+msgstr ""
+
+#, fuzzy
+msgid "Selected Chroot Name"
+msgstr "Välj alla chroot"
+
+#, fuzzy
+msgid "Session ID"
+msgstr "Session"
+
+msgid "Support for source chroot cloning"
+msgstr ""
+
+msgid "Source Users"
+msgstr "Källanvändare"
+
+msgid "Source Groups"
+msgstr "Källgrupper"
+
+msgid "Source Root Users"
+msgstr "Källrootanvändare"
+
+msgid "Source Root Groups"
+msgstr "Källrotgrupper"
+
+msgid "(source chroot)"
+msgstr "(käll-chroot)"
+
+#, fuzzy
+msgid "Support for source chroots"
+msgstr "Välj alla chroot"
+
+msgid "Linux dissassociation of shared execution context"
+msgstr ""
+
+#, boost-format
+msgid "Could not unshare ‘%1%’ process execution context"
+msgstr ""
+
+msgid "Unshare Networking"
+msgstr ""
+
+msgid "Unshare System V IPC"
+msgstr ""
+
+msgid "Unshare System V Semaphores"
+msgstr ""
+
+msgid "Unshare UTS namespace"
+msgstr ""
+
+msgid "User setting of custom configuration parameters"
+msgstr ""
+
+#, boost-format
+msgid "Environment variable ‘%1%’ is ambiguous"
+msgstr ""
+
+#, fuzzy, boost-format
+msgid "Configuration key ‘%1%’ is ambiguous"
+msgstr "[%1%]: Nödvändiga nyckeln \"%4%\" saknas"
+
+#, boost-format
+msgid "Configuration key ‘%1%’ is not permitted to be modified."
+msgstr ""
+
+#, boost-format
+msgid "Configuration key name ‘%1%’ is not a permitted name."
+msgstr ""
+
+#. TRANSLATORS: %1% = key name for which value parsing failed
+#. TRANSLATORS: %4% = additional details of error
+#, fuzzy, boost-format
+msgid "%1%: %4%"
+msgstr "[%1%]: %4%"
+
+#, boost-format
+msgid ""
+"Configuration keys additional to ‘%1%’ would set this setup script "
+"environment variable"
+msgstr ""
+
+msgid "User Modifiable Keys"
+msgstr ""
+
+msgid "Root Modifiable Keys"
+msgstr ""
+
+msgid "User Data"
+msgstr ""
+
+#, boost-format
+msgid ""
+"More than one configuration key would set the ‘%1%’ environment variable"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys"
+msgstr ""
+
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr ""
 
@@ -1001,6 +713,10 @@ msgstr "falskt"
 #, boost-format
 msgid "─── %1% ───"
 msgstr ""
+
+#, fuzzy, boost-format
+msgid "Can't open file ‘%1%’"
+msgstr "Kan inte öppna filen \"%1%\""
 
 #, fuzzy, boost-format
 msgid "line %1% [%2%]: Deprecated key ‘%4%’ used"
@@ -1035,6 +751,10 @@ msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
 msgstr "rad %1% [%2%]: Otillåtna nyckeln \"%4%\" används"
 
 #, fuzzy, boost-format
+msgid "line %1%: Invalid line: “%4%”"
+msgstr "rad %1%: Ogiltig rad: \"%4%\""
+
+#, fuzzy, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"
 msgstr "rad %1% [%2%]: Nödvändiga nyckeln \"%4%\" saknas"
 
@@ -1045,6 +765,10 @@ msgstr "[%1%]: Nödvändiga nyckeln \"%4%\" saknas"
 #, fuzzy, boost-format
 msgid "line %1%: No group specified: “%4%”"
 msgstr "rad %1%: Ingen grupp angiven: \"%4%\""
+
+#, fuzzy, boost-format
+msgid "line %1%: No key specified: “%4%”"
+msgstr "rad %1%: Ingen nyckel angiven: \"%4%\""
 
 #, fuzzy, boost-format
 msgid "line %1% [%2%]: Obsolete key ‘%4%’ used"
@@ -1082,6 +806,9 @@ msgstr "Den här flaggan kommer att tas bort i framtiden"
 msgid ""
 "This option will be removed in the future; please update your configuration"
 msgstr "Den här flaggan kommer att tas bort i framtiden"
+
+msgid "This option has been removed, and no longer has any effect"
+msgstr "Den här flaggan har tagits bort och har inte längre någon effekt"
 
 msgid "Failed to set timeout handler"
 msgstr "Misslyckades med att ställa in hanterare för tidsgräns"
@@ -1163,9 +890,6 @@ msgstr "Misslyckades med att läsa katalogen \"%1%\""
 msgid "Could not parse value ‘%1%’"
 msgstr "Kunde inte tolka värdet \"%1%\""
 
-msgid "Linux kernel Application Binary Interface switching"
-msgstr ""
-
 #. TRANSLATORS: %1% = integer personality ID
 #, fuzzy, boost-format
 msgid "Personality ‘%1%’ is unknown"
@@ -1180,6 +904,19 @@ msgstr "Misslyckades med att ställa in personligheten \"%1%\""
 #, boost-format
 msgid "Valid personalities: %1%\n"
 msgstr "Giltiga personligheter: %1%\n"
+
+msgid "Failed to fork child"
+msgstr "Misslyckades med att grena barnprocess"
+
+msgid "Wait for child failed"
+msgstr "Väntan på barnprocess misslyckades"
+
+#. TRANSLATORS: %1% = command name
+#. TRANSLATORS: %1% = command
+#. TRANSLATORS: %1% = command name
+#, fuzzy, boost-format
+msgid "Failed to execute “%1%”"
+msgstr "Misslyckades med att starta \"%1%\""
 
 #, fuzzy
 msgid "Failed to create pipe"
@@ -1393,6 +1130,196 @@ msgstr "Misslyckades med att läsa status på filen"
 #, fuzzy
 msgid "Failed to stat file descriptor"
 msgstr "Misslyckades med att läsa status på filen"
+
+#. TRANSLATORS: %4% = file
+#, fuzzy, boost-format
+msgid "No chroots are defined in ‘%4%’"
+msgstr "Inga chrootmiljöer har definierats \"%4%\""
+
+#. TRANSLATORS: %4% = file
+#. TRANSLATORS: %5% = file
+#, fuzzy, boost-format
+msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
+msgstr "Inga chrootmiljöer har definierats i \"%4%\" eller \"%5%\""
+
+#. TRANSLATORS: %1% = file
+#, fuzzy, boost-format
+msgid "The specified chroots are not defined in ‘%1%’"
+msgstr "De angivna chrootmiljöerna är inte definierade i \"%1%\""
+
+#, boost-format
+msgid "%1%: Invalid session name"
+msgstr ""
+
+#, fuzzy
+msgid "Installed chroot facets:"
+msgstr "Tillgängliga chroot: "
+
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = current date
+#, boost-format
+msgid "schroot configuration generated by %1% %2% on %3%"
+msgstr "schroot-konfiguration genererad av %1% %2% den %3%"
+
+msgid "Chroot selection"
+msgstr "Val av chroot"
+
+msgid "Chroot environment"
+msgstr "Chroot-miljö"
+
+#, fuzzy
+msgid "Session actions"
+msgstr "Session hanterad"
+
+#, fuzzy
+msgid "Session options"
+msgstr "Session hanterad"
+
+msgid "List available chroots"
+msgstr "Lista tillgängliga chroot"
+
+msgid "Show information about selected chroots"
+msgstr "Visa information om valda chroot"
+
+msgid "Dump configuration of selected chroots"
+msgstr "Dumpa konfigurationen för valda chroot"
+
+msgid "Use specified chroot"
+msgstr "Använd angiven chroot"
+
+msgid "Command to run"
+msgstr "Kommando att köra"
+
+msgid "Exactly one chroot must be specified when beginning a session"
+msgstr "Endast en chroot får anges vid början av en session"
+
+msgid ""
+"--session-name is not permitted for the specified action; did you mean to "
+"use --chroot?"
+msgstr ""
+
+msgid "Unknown action specified"
+msgstr "Okänd åtgärd angiven"
+
+msgid "--session-name is not permitted for the specified action"
+msgstr ""
+
+#, fuzzy
+msgid "Invalid session name"
+msgstr "ogiltig grupp"
+
+#. TRANSLATORS: %1% = file
+#, fuzzy, boost-format
+msgid "Failed to find ‘%1%’"
+msgstr "Misslyckades med att hitta chroot \"%1%\""
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#, fuzzy
+msgid "[OPTION…] — list mount points"
+msgstr "[FLAGGA...] - lista monteringspunkter"
+
+msgid "Mount"
+msgstr "Montera"
+
+msgid "Mountpoint to check (full path)"
+msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
+
+msgid "No mount point specified"
+msgstr "Ingen monteringspunkt angiven"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
+msgstr "Misslyckades med att starta \"%1%\""
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#, fuzzy
+msgid "[OPTION…] — mount filesystems"
+msgstr "[FLAGGA...] - lista monteringspunkter"
+
+msgid "Perform a simulation of actions which would be taken"
+msgstr ""
+
+#, fuzzy
+msgid "fstab file to read (full path)"
+msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
+
+#, fuzzy
+#~ msgid "line %1%: Deprecated key ‘%4%’ used"
+#~ msgstr "rad %1% [%2%]: Utfasade nyckeln \"%4%\" används"
+
+#, fuzzy
+#~ msgid "Deprecated key ‘%4%’ used"
+#~ msgstr "[%1%]: Den utfasade nyckeln \"%4%\" används"
+
+#, fuzzy
+#~ msgid "line %1%: Disallowed key ‘%4%’ used"
+#~ msgstr "rad %1% [%2%]: Otillåtna nyckeln \"%4%\" används"
+
+#, fuzzy
+#~ msgid "Disallowed key ‘%4%’ used"
+#~ msgstr "[%1%]: Den otillåtna nyckeln \"%4%\" används"
+
+#, fuzzy
+#~ msgid "line %1%: Duplicate key ‘%4%’"
+#~ msgstr "rad %1% [%2%]: Dubblett av nyckeln \"%4%\""
+
+#, fuzzy
+#~ msgid "line %1%: Required key ‘%4%’ is missing"
+#~ msgstr "rad %1% [%2%]: Nödvändiga nyckeln \"%4%\" saknas"
+
+#, fuzzy
+#~ msgid "Required key ‘%4%’ is missing"
+#~ msgstr "[%1%]: Nödvändiga nyckeln \"%4%\" saknas"
+
+#, fuzzy
+#~ msgid "line %1%: Obsolete key ‘%4%’ used"
+#~ msgstr "rad %1% [%2%]: Föråldrade nyckeln \"%4%\" används"
+
+#, fuzzy
+#~ msgid "Obsolete key ‘%4%’ used"
+#~ msgstr "[%1%]: Den föråldrade nyckeln \"%4%\" används"
+
+#, fuzzy
+#~ msgid "%2%: %4%"
+#~ msgstr "[%1%]: %4%"
+
+#, fuzzy
+#~ msgid "line %1%: %3%: %4%"
+#~ msgstr "rad %1% [%2%]: %4%"
+
+#~ msgid "This option will be removed in the future"
+#~ msgstr "Den här flaggan kommer att tas bort i framtiden"
+
+#, fuzzy
+#~ msgid "Build options"
+#~ msgstr "Dolda flaggor"
+
+#, fuzzy
+#~ msgid "Package version options"
+#~ msgstr "Session hanterad"
+
+#, fuzzy
+#~ msgid "Build environment options"
+#~ msgstr "Dolda flaggor"
+
+#, fuzzy
+#~ msgid "User options"
+#~ msgstr "Allmänna flaggor"
+
+#, fuzzy
+#~ msgid "Special options"
+#~ msgstr "Allmänna flaggor"
+
+#, fuzzy
+#~ msgid "Update chroot environment"
+#~ msgstr "Chroot-miljö"
+
+#, fuzzy
+#~ msgid "Chroot environment to build in"
+#~ msgstr "Chroot-miljö"
 
 #~ msgid "Failed to release device lock (lock held by PID %4%)"
 #~ msgstr "Misslyckades med att släppa enhetslåset (låset hålls av pid %4%)"

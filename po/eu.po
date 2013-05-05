@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-04-02 23:26+0100\n"
+"POT-Creation-Date: 2013-05-05 00:58+0100\n"
 "PO-Revision-Date: 2010-01-16 15:43+0000\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <Librezale@librezale.org>\n"
@@ -16,223 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-
-#. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
-msgid "Can't open file ‘%1%’"
-msgstr "Ezin da '%1%' fitxategia ireki"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "line %1%: Deprecated key ‘%4%’ used"
-msgstr "%1% lerroa: Zaharkituriko'%4%' gakoa erabilia"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "Deprecated key ‘%4%’ used"
-msgstr "Zaharkituriko'%4%' gakoa erabilia"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "line %1%: Disallowed key ‘%4%’ used"
-msgstr "%1% lerroa: Ezgaituriko '%4%' gakoa erabilia"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "Disallowed key ‘%4%’ used"
-msgstr "Ezgaituriko '%4%' gakoa erabilia"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "line %1%: Duplicate key ‘%4%’"
-msgstr "%1% lerroa: Bikoizturiko '%4%' gakoa"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = line contents as read from the configuration file
-#, fuzzy, boost-format
-msgid "line %1%: Invalid line: “%4%”"
-msgstr "%1% lerroa: \"%4%\" lerro baliogabea"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "line %1%: Required key ‘%4%’ is missing"
-msgstr "%1% lerroa: Beharrezko '%4%' gakoa falta da"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "Required key ‘%4%’ is missing"
-msgstr "Beharrezko '%4%' gakoa falta da"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = line contents as read from the configuration file
-#, fuzzy, boost-format
-msgid "line %1%: No key specified: “%4%”"
-msgstr "%1% lerroa : Ez da gakorik ezarri: \"%4%\""
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "line %1%: Obsolete key ‘%4%’ used"
-msgstr "%1% lerroa: '%4%' gako zaharkitua erabilia"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "Obsolete key ‘%4%’ used"
-msgstr "Zaharkitutako '%4%' gakoa erabilia"
-
-#. TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
-#. TRANSLATORS: %4% = additional details
-#, boost-format
-msgid "%2%: %4%"
-msgstr "%2%: %4%"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %3% = key name ("keyname=value" in configuration file)
-#. TRANSLATORS: %4% = additional details
-#, boost-format
-msgid "line %1%: %3%: %4%"
-msgstr "%1% lerroa: %3%: %4%"
-
-msgid "This option will be removed in the future"
-msgstr "Aukera hau ezabatua izango da etorkizunean"
-
-msgid "This option has been removed, and no longer has any effect"
-msgstr "Aukera hau ezabatua izan da, eta ez du eraginik izango aurrerantzean"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — build Debian packages from source"
-msgstr "[AUKERA...] - eraiki Debian paketeak iturburutik"
-
-msgid "Build options"
-msgstr "Eraikitze aukerak"
-
-#, fuzzy
-msgid "Package version options"
-msgstr "Saio aukerak"
-
-#, fuzzy
-msgid "Build environment options"
-msgstr "Eraikitze aukerak"
-
-msgid "User options"
-msgstr "Erabiltzaile aukerak"
-
-msgid "Build dependency override options"
-msgstr ""
-
-msgid "Special options"
-msgstr "Aukera bereziakBerezia"
-
-msgid "Build source packages (default)"
-msgstr "Eraiki iturburu paketeak"
-
-msgid "Don't log program output"
-msgstr "Ez erregistratu programa irteera"
-
-msgid "Run in batch mode"
-msgstr ""
-
-msgid "dpkg-buildpackage option"
-msgstr ""
-
-msgid "dpkg-buildpackage options (space-separated)"
-msgstr ""
-
-msgid "Distribution to build for"
-msgstr "Eraiki banaketa honentzat"
-
-#, fuzzy
-msgid "Archive to build for"
-msgstr "Eraiki banaketa honentzat"
-
-#, fuzzy
-msgid "Build architecture"
-msgstr "Iturburu pakete bat eraikiArkitekturako pakete \"guztiak\" eraiki"
-
-msgid "Build architecture \"all\" packages"
-msgstr "Iturburu pakete bat eraikiArkitekturako pakete \"guztiak\" eraiki"
-
-msgid "Build a source package"
-msgstr "Iturburu pakete bat eraiki"
-
-msgid "Force building of a source package, irrespective of Debian version"
-msgstr ""
-"Iturburu paketeen eraikitzea behartu, Debian bertsioa kontutan hartu gabe"
-
-#, fuzzy
-msgid "Make a binary non-maintainer upload (changelog entry)"
-msgstr "Egin mantenu-gabeko bitar baten igoera"
-
-#, fuzzy
-msgid "Make a binary non-maintainer upload (binNMU number)"
-msgstr "Egin mantenu-gabeko bitar baten igoera"
-
-msgid "Append version suffix"
-msgstr ""
-
-#, fuzzy
-msgid "Update chroot environment"
-msgstr "Chroot ingurunea"
-
-#, fuzzy
-msgid "Chroot environment to build in"
-msgstr "Chroot ingurunea"
-
-#, fuzzy
-msgid "Purge build mode"
-msgstr "Garbitze modua"
-
-#, fuzzy
-msgid "Purge dependencies mode"
-msgstr "Garbitze modua"
-
-msgid "Run setup hook script in chroot prior to building"
-msgstr ""
-
-msgid "GPG key identifier"
-msgstr "GPG gako identifikatzailea"
-
-msgid "Package maintainer"
-msgstr "Paketea mantentzailea"
-
-msgid "Package uploader"
-msgstr "Pakete igotzailea"
-
-msgid "Add a build dependency"
-msgstr "Gehitu eraikitze dependentzi bat"
-
-#, fuzzy
-msgid "Add a build conflict"
-msgstr "Gehitu eraikitze dependentzi bat"
-
-#, fuzzy
-msgid "Add an architecture-independent build dependency"
-msgstr "Gehitu eraikitze dependentzi bat"
-
-msgid "Add an architecture-independent build conflict"
-msgstr ""
-
-msgid "Specify algorithm for dependency checking"
-msgstr ""
-
-msgid "Build using the current GCC development snapshot"
-msgstr "Uneko GCC garapen egoera-argazkia erabiliz eraiki"
-
-#, fuzzy
-msgid "Package to build"
-msgstr "Pakete igotzailea"
-
-msgid "--makebinNMU missing"
-msgstr ""
-
-msgid "--binNMU missing"
-msgstr ""
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
@@ -288,109 +71,6 @@ msgstr "--chroot eta --all ezin dira batera erabili"
 
 msgid "Using --chroots only"
 msgstr "--chroots bakarrik erabiltzen"
-
-msgid "dchroot session restriction"
-msgstr "dchroot saio murrizpenak"
-
-#. TRANSLATORS: %4% = file
-#, fuzzy, boost-format
-msgid "No chroots are defined in ‘%4%’"
-msgstr "Ez dago chroot definiturik '%4%'-en"
-
-#. TRANSLATORS: %4% = file
-#. TRANSLATORS: %5% = file
-#, fuzzy, boost-format
-msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
-msgstr "Ez dago chroot definiturik '%4%' edo '%5%'-en"
-
-#. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
-msgid "The specified chroots are not defined in ‘%1%’"
-msgstr "Ezarritako choot-ak ez daude %1%-en definiturik"
-
-#, fuzzy, boost-format
-msgid "%1%: Invalid session name"
-msgstr "%1%: ekintza baliogabea"
-
-#, fuzzy
-msgid "Available chroot types:"
-msgstr "Chroot erabilgarriak: "
-
-msgid "Support for ‘block-device’ chroots"
-msgstr ""
-
-msgid "Support for ‘btrfs-snapshot’ chroots"
-msgstr ""
-
-msgid "Support for ‘custom’ chroots"
-msgstr ""
-
-msgid "Support for ‘directory’ chroots"
-msgstr ""
-
-msgid "Support for ‘file’ chroots"
-msgstr ""
-
-msgid "Support for ‘loopback’ chroots"
-msgstr ""
-
-msgid "Support for ‘lvm-snapshot’ chroots"
-msgstr ""
-
-msgid "Support for ‘plain’ chroots"
-msgstr ""
-
-#. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = current date
-#, boost-format
-msgid "schroot configuration generated by %1% %2% on %3%"
-msgstr "%1% %2%-ek %3%-ean sortutako schroot konfigurazioa"
-
-msgid "Chroot selection"
-msgstr "Chroot hautaketa"
-
-msgid "Chroot environment"
-msgstr "Chroot ingurunea"
-
-msgid "Session actions"
-msgstr "Saio ekintzak"
-
-msgid "Session options"
-msgstr "Saio aukerak"
-
-msgid "List available chroots"
-msgstr "Zerrendatu chroot erabilgarriak"
-
-msgid "Show information about selected chroots"
-msgstr "Erakutsi hautatutako chroot-en informazio"
-
-msgid "Dump configuration of selected chroots"
-msgstr "Irauli hautatutako chroot-en konfigurazioa"
-
-msgid "Use specified chroot"
-msgstr "Erabili ezarritako chroot-a"
-
-msgid "Command to run"
-msgstr "Abiarazteko komandoa"
-
-msgid "Exactly one chroot must be specified when beginning a session"
-msgstr "Zehazki chroot bat zehaztu berhar da saioa hasterakoan"
-
-msgid ""
-"--session-name is not permitted for the specified action; did you mean to "
-"use --chroot?"
-msgstr ""
-
-msgid "Unknown action specified"
-msgstr "Ekintza ezezaguna zehaztua"
-
-msgid "--session-name is not permitted for the specified action"
-msgstr ""
-
-#, fuzzy
-msgid "Invalid session name"
-msgstr "%1%: ekintza baliogabea"
 
 msgid "Print location of selected chroots"
 msgstr "Inprimatu hautatutako chroot-en kokapena"
@@ -511,56 +191,37 @@ msgstr "Mezu arazpena gaitu"
 msgid "Invalid debug level"
 msgstr "Arazpen maila baliogabea"
 
-#. TRANSLATORS: %1% = file
+msgid "dchroot session restriction"
+msgstr "dchroot saio murrizpenak"
+
+msgid "Failed to get hostname"
+msgstr "Huts ostalari-izena eskuratzerakoan"
+
+#. TRANSLATORS: %1% = user name or user ID
 #, fuzzy, boost-format
-msgid "Failed to find ‘%1%’"
-msgstr "Huts '%1%' bilatzerakoan"
+msgid "User ‘%1%’ not found"
+msgstr "'%1%' erabiltzailea ez da aurkitu"
 
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — list mount points"
-msgstr "[AUKERA...] - list muntatze puntuak"
-
-msgid "Mount"
-msgstr "Muntatu"
-
-msgid "Mountpoint to check (full path)"
-msgstr "Egiaztatzeko muntatze puntua (bide osoa)"
-
-msgid "No mount point specified"
-msgstr "Ez da muntatze punturik zehaztu"
-
-msgid "Failed to fork child"
-msgstr "Huts egin du umea zatitzean"
-
-msgid "Wait for child failed"
-msgstr "Huts umea itxoitean"
-
-#. TRANSLATORS: %1% = command name
-#. TRANSLATORS: %1% = command
+#. TRANSLATORS: %1% = group name or group ID
+#. TRANSLATORS: %1% = group name
 #, fuzzy, boost-format
-msgid "Failed to execute “%1%”"
-msgstr "Huts egin du '%1%' exekutatzean"
+msgid "Group ‘%1%’ not found"
+msgstr "'%1%' taldea ez da aurkitu"
 
-#, fuzzy, boost-format
-msgid "Failed to resolve path “%1%”"
-msgstr "Huts egin du '%1%' exekutatzean"
+msgid "Authentication failed"
+msgstr "Huts egin du autentifikatzean."
 
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — mount filesystems"
-msgstr "[AUKERAK...] - muntatu fitxategi-sistemak"
+msgid "Access not authorised"
+msgstr "Sarrera ez da baimendu"
 
-msgid "An unknown exception occurred"
-msgstr "Salbuespen ezezagun bat gertatu da"
+msgid "PAM is already initialised"
+msgstr "PAM dagoeneko abiarazirik dago"
 
-msgid "Perform a simulation of actions which would be taken"
-msgstr "Egin egingo lirateken ekintzen simulazio bat"
+msgid "PAM error"
+msgstr "PAM errorea"
 
-msgid "fstab file to read (full path)"
-msgstr "irakurtzeko fstab fitxategia (bide osoa)"
+msgid "PAM failed to shut down cleanly"
+msgstr ""
 
 #. TRANSLATORS: %1% = program name (PAM service name)
 #, boost-format
@@ -599,6 +260,9 @@ msgstr ""
 msgid "[schroot] password for %1%: "
 msgstr ""
 
+msgid "An unknown exception occurred"
+msgstr "Salbuespen ezezagun bat gertatu da"
+
 #, fuzzy
 msgid "Pluggable Authentication Modules"
 msgstr "Huts egin du autentifikatzean."
@@ -614,234 +278,6 @@ msgstr "TTY ezarri "
 
 msgid "Set USER"
 msgstr "ERABILTZAILEA ezarri"
-
-msgid "Failed to get hostname"
-msgstr "Huts ostalari-izena eskuratzerakoan"
-
-#. TRANSLATORS: %1% = user name or user ID
-#, fuzzy, boost-format
-msgid "User ‘%1%’ not found"
-msgstr "'%1%' erabiltzailea ez da aurkitu"
-
-#. TRANSLATORS: %1% = group name or group ID
-#. TRANSLATORS: %1% = group name
-#, fuzzy, boost-format
-msgid "Group ‘%1%’ not found"
-msgstr "'%1%' taldea ez da aurkitu"
-
-msgid "Authentication failed"
-msgstr "Huts egin du autentifikatzean."
-
-msgid "Access not authorised"
-msgstr "Sarrera ez da baimendu"
-
-msgid "PAM is already initialised"
-msgstr "PAM dagoeneko abiarazirik dago"
-
-msgid "PAM error"
-msgstr "PAM errorea"
-
-msgid "PAM failed to shut down cleanly"
-msgstr ""
-
-msgid "Device"
-msgstr "Gailua"
-
-msgid "Btrfs Source Subvolume"
-msgstr ""
-
-#, fuzzy
-msgid "Btrfs Snapshot Directory"
-msgstr "LVM egoera-argazki gailua"
-
-msgid "Btrfs Snapshot Name"
-msgstr ""
-
-#. TRANSLATORS: %1% = chroot alias name
-#. TRANSLATORS: %4% = chroot name
-#, fuzzy, boost-format
-msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
-msgstr "'%1%' ezizena oraindik '%4%' chroot-arekin loturik dago"
-
-#. TRANSLATORS: %1% = chroot name
-#, boost-format
-msgid "%1%: Chroot not found"
-msgstr "%1%: ez da chroot-a aurkitu"
-
-#. TRANSLATORS: %1% = comma-separated list of chroot names
-#, boost-format
-msgid "%1%: Chroots not found"
-msgstr "%1%: Ez da chroot-ik aurkitu"
-
-#. TRANSLATORS: %1% = chroot name
-#, fuzzy, boost-format
-msgid "A chroot or alias ‘%1%’ already exists with this name"
-msgstr "'%1%' izeneko chroot edo ezizena  badago dagoeneko"
-
-msgid "File is not a regular file"
-msgstr "Fitxategia ez da fitxategia erregular bat"
-
-msgid "Failed to open file"
-msgstr "Huts egin du fitxategia irekitzean"
-
-msgid "File is not owned by user root"
-msgstr "Fitxategia ez da root erabiltzailearena"
-
-msgid "File has write permissions for others"
-msgstr "Fitxategiak beste batzuentzat idazketa baimenak ditu"
-
-#, fuzzy
-msgid "Invalid name"
-msgstr "%1%: ekintza baliogabea"
-
-msgid "No such namespace"
-msgstr ""
-
-msgid "Duplicate names are not allowed"
-msgstr "Izen bikoiztuak ez dira onartzen"
-
-msgid "Available chroots: "
-msgstr "Chroot erabilgarriak: "
-
-#, fuzzy
-msgid "Directory"
-msgstr "Erabiliko den direktorioa"
-
-msgid "Mount Device"
-msgstr "Muntatu gailua"
-
-msgid "Mount Options"
-msgstr "Muntatze aukerak"
-
-msgid "Location"
-msgstr "Kokalekua"
-
-#. TRANSLATORS: "Personality" is the Linux kernel personality
-#. (process execution domain).  See schroot.conf(5).
-msgid "Personality"
-msgstr "Pertsonalitatea"
-
-#, fuzzy
-msgid "(session chroot)"
-msgstr "(iturburu chroot-a)"
-
-msgid "Original Chroot Name"
-msgstr ""
-
-#, fuzzy
-msgid "Selected Chroot Name"
-msgstr "Chroot guztiak hautatu"
-
-#, fuzzy
-msgid "Session ID"
-msgstr "Saioa"
-
-msgid "(source chroot)"
-msgstr "(iturburu chroot-a)"
-
-msgid "Source Users"
-msgstr "Iturburua erabiltzaileak"
-
-msgid "Source Groups"
-msgstr "Iturburua taldeak"
-
-msgid "Source Root Users"
-msgstr "Iturburua erro erabiltzaileak"
-
-msgid "Source Root Groups"
-msgstr "Iturburu erro taldeak"
-
-msgid "Support for filesystem unioning"
-msgstr ""
-
-#. TRANSLATORS: %1% = chroot fs type
-#, fuzzy, boost-format
-msgid "Unknown filesystem union type ‘%1%’"
-msgstr "Chroot '%1%' mota ezezaguna"
-
-#, fuzzy
-msgid "Union overlay must have an absolute path"
-msgstr "Fitxategia bide absolutua izan behar du"
-
-#, fuzzy
-msgid "Union underlay must have an absolute path"
-msgstr "Fitxategia bide absolutua izan behar du"
-
-#, fuzzy
-msgid "Filesystem Union Type"
-msgstr "Saio aukerak"
-
-#, fuzzy
-msgid "Filesystem Union Mount Options"
-msgstr "Saio aukerak"
-
-#, fuzzy
-msgid "Filesystem Union Overlay Directory"
-msgstr "Saio aukerak"
-
-#, fuzzy
-msgid "Filesystem Union Underlay Directory"
-msgstr "Saio aukerak"
-
-#, boost-format
-msgid "Environment variable ‘%1%’ is ambiguous"
-msgstr ""
-
-#, fuzzy, boost-format
-msgid "Configuration key ‘%1%’ is ambiguous"
-msgstr "Beharrezko '%4%' gakoa falta da"
-
-#, boost-format
-msgid "Configuration key ‘%1%’ is not permitted to be modified."
-msgstr ""
-
-#, boost-format
-msgid "Configuration key name ‘%1%’ is not a permitted name."
-msgstr ""
-
-#. TRANSLATORS: %1% = key name for which value parsing failed
-#. TRANSLATORS: %4% = additional details of error
-#, fuzzy, boost-format
-msgid "%1%: %4%"
-msgstr "[%1%]: %4%"
-
-#, boost-format
-msgid ""
-"Configuration keys additional to ‘%1%’ would set this setup script "
-"environment variable"
-msgstr ""
-
-msgid "User Modifiable Keys"
-msgstr ""
-
-msgid "Root Modifiable Keys"
-msgstr ""
-
-msgid "User Data"
-msgstr ""
-
-#, boost-format
-msgid ""
-"More than one configuration key would set the ‘%1%’ environment variable"
-msgstr ""
-
-msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
-msgstr ""
-
-msgid "The key is not present in user-modifiable-keys"
-msgstr ""
-
-msgid "File"
-msgstr "Fitxategia"
-
-msgid "File Repack"
-msgstr "Fitxategi birpaketatzea"
-
-msgid "LVM Snapshot Device"
-msgstr "LVM egoera-argazki gailua"
-
-msgid "LVM Snapshot Options"
-msgstr "LVM egoera-argazki aukerak"
 
 msgid "Chroot creation failed"
 msgstr "Huts chroot-a sortzean"
@@ -870,10 +306,16 @@ msgstr "Huts egin du gailua desblokeatzean"
 msgid "Directory must have an absolute path"
 msgstr "Gailuak bide absolutu bat izan behar du"
 
-msgid "Attempt to add object which is not a facet"
+#, boost-format
+msgid "Attempt to use facet ‘%1%’ which is not present"
 msgstr ""
 
-msgid "Attempt to add facet which is already in use"
+#, boost-format
+msgid "Attempt to add object ‘%1%’ which is not a facet"
+msgstr ""
+
+#, boost-format
+msgid "Attempt to add facet ‘%1%’ which is already in use"
 msgstr ""
 
 msgid "File must have an absolute path"
@@ -882,11 +324,24 @@ msgstr "Fitxategia bide absolutua izan behar du"
 msgid "Failed to acquire file lock"
 msgstr "Huts egin du fitxategi blokeoa atzitzean"
 
+msgid "File is not a regular file"
+msgstr "Fitxategia ez da fitxategia erregular bat"
+
+msgid "File is not owned by user root"
+msgstr "Fitxategia ez da root erabiltzailearena"
+
+msgid "File has write permissions for others"
+msgstr "Fitxategiak beste batzuentzat idazketa baimenak ditu"
+
 msgid "Failed to discard file lock"
 msgstr "Huts egin du fitxategi blokeoa baztertzean"
 
 msgid "Location must have an absolute path"
 msgstr "Kokalekuak bide absolutua izan behar du"
+
+#, fuzzy
+msgid "Invalid name"
+msgstr "%1%: ekintza baliogabea"
 
 #, boost-format
 msgid "Could not set profile name from script configuration path ‘%1%’"
@@ -988,6 +443,258 @@ msgstr "Saioa"
 msgid "Source"
 msgstr "Iturburua erabiltzaileak"
 
+#. TRANSLATORS: %1% = chroot alias name
+#. TRANSLATORS: %4% = chroot name
+#, fuzzy, boost-format
+msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
+msgstr "'%1%' ezizena oraindik '%4%' chroot-arekin loturik dago"
+
+#. TRANSLATORS: %1% = chroot name
+#, boost-format
+msgid "%1%: Chroot not found"
+msgstr "%1%: ez da chroot-a aurkitu"
+
+#. TRANSLATORS: %1% = comma-separated list of chroot names
+#, boost-format
+msgid "%1%: Chroots not found"
+msgstr "%1%: Ez da chroot-ik aurkitu"
+
+#. TRANSLATORS: %1% = chroot name
+#, fuzzy, boost-format
+msgid "A chroot or alias ‘%1%’ already exists with this name"
+msgstr "'%1%' izeneko chroot edo ezizena  badago dagoeneko"
+
+msgid "Failed to open file"
+msgstr "Huts egin du fitxategia irekitzean"
+
+msgid "No such namespace"
+msgstr ""
+
+msgid "Duplicate names are not allowed"
+msgstr "Izen bikoiztuak ez dira onartzen"
+
+msgid "Available chroots: "
+msgstr "Chroot erabilgarriak: "
+
+msgid "Device"
+msgstr "Gailua"
+
+msgid "Support for ‘block-device’ chroots"
+msgstr ""
+
+msgid "Support for ‘btrfs-snapshot’ chroots"
+msgstr ""
+
+msgid "Btrfs Source Subvolume"
+msgstr ""
+
+#, fuzzy
+msgid "Btrfs Snapshot Directory"
+msgstr "LVM egoera-argazki gailua"
+
+msgid "Btrfs Snapshot Name"
+msgstr ""
+
+msgid "Support for ‘custom’ chroots"
+msgstr ""
+
+#, fuzzy
+msgid "Directory"
+msgstr "Erabiliko den direktorioa"
+
+msgid "Support for ‘directory’ chroots"
+msgstr ""
+
+msgid "Support for ‘file’ chroots"
+msgstr ""
+
+msgid "File"
+msgstr "Fitxategia"
+
+msgid "File Repack"
+msgstr "Fitxategi birpaketatzea"
+
+msgid "Location"
+msgstr "Kokalekua"
+
+msgid "Support for filesystem unioning"
+msgstr ""
+
+#. TRANSLATORS: %1% = chroot fs type
+#, fuzzy, boost-format
+msgid "Unknown filesystem union type ‘%1%’"
+msgstr "Chroot '%1%' mota ezezaguna"
+
+#, fuzzy
+msgid "Union overlay must have an absolute path"
+msgstr "Fitxategia bide absolutua izan behar du"
+
+#, fuzzy
+msgid "Union underlay must have an absolute path"
+msgstr "Fitxategia bide absolutua izan behar du"
+
+#, fuzzy
+msgid "Filesystem Union Type"
+msgstr "Saio aukerak"
+
+#, fuzzy
+msgid "Filesystem Union Mount Options"
+msgstr "Saio aukerak"
+
+#, fuzzy
+msgid "Filesystem Union Overlay Directory"
+msgstr "Saio aukerak"
+
+#, fuzzy
+msgid "Filesystem Union Underlay Directory"
+msgstr "Saio aukerak"
+
+msgid "Support for ‘loopback’ chroots"
+msgstr ""
+
+msgid "Support for ‘lvm-snapshot’ chroots"
+msgstr ""
+
+msgid "LVM Snapshot Device"
+msgstr "LVM egoera-argazki gailua"
+
+msgid "LVM Snapshot Options"
+msgstr "LVM egoera-argazki aukerak"
+
+msgid "Support for filesystem mounting"
+msgstr ""
+
+msgid "Mount Device"
+msgstr "Muntatu gailua"
+
+msgid "Mount Options"
+msgstr "Muntatze aukerak"
+
+msgid "Linux kernel Application Binary Interface switching"
+msgstr ""
+
+#. TRANSLATORS: "Personality" is the Linux kernel personality
+#. (process execution domain).  See schroot.conf(5).
+msgid "Personality"
+msgstr "Pertsonalitatea"
+
+msgid "Support for ‘plain’ chroots"
+msgstr ""
+
+msgid "Support for session chroot cloning"
+msgstr ""
+
+#, fuzzy
+msgid "(session chroot)"
+msgstr "(iturburu chroot-a)"
+
+#, fuzzy
+msgid "Support for session chroots"
+msgstr "(iturburu chroot-a)"
+
+msgid "Original Chroot Name"
+msgstr ""
+
+#, fuzzy
+msgid "Selected Chroot Name"
+msgstr "Chroot guztiak hautatu"
+
+#, fuzzy
+msgid "Session ID"
+msgstr "Saioa"
+
+msgid "Support for source chroot cloning"
+msgstr ""
+
+msgid "Source Users"
+msgstr "Iturburua erabiltzaileak"
+
+msgid "Source Groups"
+msgstr "Iturburua taldeak"
+
+msgid "Source Root Users"
+msgstr "Iturburua erro erabiltzaileak"
+
+msgid "Source Root Groups"
+msgstr "Iturburu erro taldeak"
+
+msgid "(source chroot)"
+msgstr "(iturburu chroot-a)"
+
+#, fuzzy
+msgid "Support for source chroots"
+msgstr "Chroot guztiak hautatu"
+
+msgid "Linux dissassociation of shared execution context"
+msgstr ""
+
+#, boost-format
+msgid "Could not unshare ‘%1%’ process execution context"
+msgstr ""
+
+msgid "Unshare Networking"
+msgstr ""
+
+msgid "Unshare System V IPC"
+msgstr ""
+
+msgid "Unshare System V Semaphores"
+msgstr ""
+
+msgid "Unshare UTS namespace"
+msgstr ""
+
+msgid "User setting of custom configuration parameters"
+msgstr ""
+
+#, boost-format
+msgid "Environment variable ‘%1%’ is ambiguous"
+msgstr ""
+
+#, fuzzy, boost-format
+msgid "Configuration key ‘%1%’ is ambiguous"
+msgstr "Beharrezko '%4%' gakoa falta da"
+
+#, boost-format
+msgid "Configuration key ‘%1%’ is not permitted to be modified."
+msgstr ""
+
+#, boost-format
+msgid "Configuration key name ‘%1%’ is not a permitted name."
+msgstr ""
+
+#. TRANSLATORS: %1% = key name for which value parsing failed
+#. TRANSLATORS: %4% = additional details of error
+#, fuzzy, boost-format
+msgid "%1%: %4%"
+msgstr "[%1%]: %4%"
+
+#, boost-format
+msgid ""
+"Configuration keys additional to ‘%1%’ would set this setup script "
+"environment variable"
+msgstr ""
+
+msgid "User Modifiable Keys"
+msgstr ""
+
+msgid "Root Modifiable Keys"
+msgstr ""
+
+msgid "User Data"
+msgstr ""
+
+#, boost-format
+msgid ""
+"More than one configuration key would set the ‘%1%’ environment variable"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys"
+msgstr ""
+
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr ""
 
@@ -1006,6 +713,10 @@ msgstr "gezurra"
 #, boost-format
 msgid "─── %1% ───"
 msgstr ""
+
+#, fuzzy, boost-format
+msgid "Can't open file ‘%1%’"
+msgstr "Ezin da '%1%' fitxategia ireki"
 
 #, fuzzy, boost-format
 msgid "line %1% [%2%]: Deprecated key ‘%4%’ used"
@@ -1040,6 +751,10 @@ msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
 msgstr "%1% lerroa [%2%]: Onartzen ez den '%4%' gakoa erabilia"
 
 #, fuzzy, boost-format
+msgid "line %1%: Invalid line: “%4%”"
+msgstr "%1% lerroa: \"%4%\" lerro baliogabea"
+
+#, fuzzy, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"
 msgstr "%1% lerroa [%2%]: Beharrezko '%4%' gakoa falta da"
 
@@ -1050,6 +765,10 @@ msgstr "[%1%]: Beharrezko '%4%' gakoa falta da"
 #, fuzzy, boost-format
 msgid "line %1%: No group specified: “%4%”"
 msgstr "%1% lerroa : Ez da talderik ezarri: \"%4%\""
+
+#, fuzzy, boost-format
+msgid "line %1%: No key specified: “%4%”"
+msgstr "%1% lerroa : Ez da gakorik ezarri: \"%4%\""
 
 #, fuzzy, boost-format
 msgid "line %1% [%2%]: Obsolete key ‘%4%’ used"
@@ -1087,6 +806,9 @@ msgstr "Aukera hau ezabatua izango da etorkizunean"
 msgid ""
 "This option will be removed in the future; please update your configuration"
 msgstr "Aukera hau ezabatua izango da etorkizunean"
+
+msgid "This option has been removed, and no longer has any effect"
+msgstr "Aukera hau ezabatua izan da, eta ez du eraginik izango aurrerantzean"
 
 msgid "Failed to set timeout handler"
 msgstr "Huts egin du denbora-muga kudeatzailea ezartzean"
@@ -1169,9 +891,6 @@ msgstr "Huts egin du muntaturiko '%1%' fitxategia irakurtzean"
 msgid "Could not parse value ‘%1%’"
 msgstr "Ezin da '%1%' analizatu"
 
-msgid "Linux kernel Application Binary Interface switching"
-msgstr ""
-
 #. TRANSLATORS: %1% = integer personality ID
 #, fuzzy, boost-format
 msgid "Personality ‘%1%’ is unknown"
@@ -1186,6 +905,19 @@ msgstr "Huts egin du '%1%' pertsonalitatea ezartzean"
 #, boost-format
 msgid "Valid personalities: %1%\n"
 msgstr "Baliozko pertsonalitateak: %1%\n"
+
+msgid "Failed to fork child"
+msgstr "Huts egin du umea zatitzean"
+
+msgid "Wait for child failed"
+msgstr "Huts umea itxoitean"
+
+#. TRANSLATORS: %1% = command name
+#. TRANSLATORS: %1% = command
+#. TRANSLATORS: %1% = command name
+#, fuzzy, boost-format
+msgid "Failed to execute “%1%”"
+msgstr "Huts egin du '%1%' exekutatzean"
 
 #, fuzzy
 msgid "Failed to create pipe"
@@ -1399,6 +1131,262 @@ msgstr "Huts egin du fitxategi egoera eskuratzean"
 
 msgid "Failed to stat file descriptor"
 msgstr "Huts egin du fitxategia deskriptorea egoera eskuratzean"
+
+#. TRANSLATORS: %4% = file
+#, fuzzy, boost-format
+msgid "No chroots are defined in ‘%4%’"
+msgstr "Ez dago chroot definiturik '%4%'-en"
+
+#. TRANSLATORS: %4% = file
+#. TRANSLATORS: %5% = file
+#, fuzzy, boost-format
+msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
+msgstr "Ez dago chroot definiturik '%4%' edo '%5%'-en"
+
+#. TRANSLATORS: %1% = file
+#, fuzzy, boost-format
+msgid "The specified chroots are not defined in ‘%1%’"
+msgstr "Ezarritako choot-ak ez daude %1%-en definiturik"
+
+#, fuzzy, boost-format
+msgid "%1%: Invalid session name"
+msgstr "%1%: ekintza baliogabea"
+
+#, fuzzy
+msgid "Installed chroot facets:"
+msgstr "Chroot erabilgarriak: "
+
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = current date
+#, boost-format
+msgid "schroot configuration generated by %1% %2% on %3%"
+msgstr "%1% %2%-ek %3%-ean sortutako schroot konfigurazioa"
+
+msgid "Chroot selection"
+msgstr "Chroot hautaketa"
+
+msgid "Chroot environment"
+msgstr "Chroot ingurunea"
+
+msgid "Session actions"
+msgstr "Saio ekintzak"
+
+msgid "Session options"
+msgstr "Saio aukerak"
+
+msgid "List available chroots"
+msgstr "Zerrendatu chroot erabilgarriak"
+
+msgid "Show information about selected chroots"
+msgstr "Erakutsi hautatutako chroot-en informazio"
+
+msgid "Dump configuration of selected chroots"
+msgstr "Irauli hautatutako chroot-en konfigurazioa"
+
+msgid "Use specified chroot"
+msgstr "Erabili ezarritako chroot-a"
+
+msgid "Command to run"
+msgstr "Abiarazteko komandoa"
+
+msgid "Exactly one chroot must be specified when beginning a session"
+msgstr "Zehazki chroot bat zehaztu berhar da saioa hasterakoan"
+
+msgid ""
+"--session-name is not permitted for the specified action; did you mean to "
+"use --chroot?"
+msgstr ""
+
+msgid "Unknown action specified"
+msgstr "Ekintza ezezaguna zehaztua"
+
+msgid "--session-name is not permitted for the specified action"
+msgstr ""
+
+#, fuzzy
+msgid "Invalid session name"
+msgstr "%1%: ekintza baliogabea"
+
+#. TRANSLATORS: %1% = file
+#, fuzzy, boost-format
+msgid "Failed to find ‘%1%’"
+msgstr "Huts '%1%' bilatzerakoan"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#, fuzzy
+msgid "[OPTION…] — list mount points"
+msgstr "[AUKERA...] - list muntatze puntuak"
+
+msgid "Mount"
+msgstr "Muntatu"
+
+msgid "Mountpoint to check (full path)"
+msgstr "Egiaztatzeko muntatze puntua (bide osoa)"
+
+msgid "No mount point specified"
+msgstr "Ez da muntatze punturik zehaztu"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
+msgstr "Huts egin du '%1%' exekutatzean"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#, fuzzy
+msgid "[OPTION…] — mount filesystems"
+msgstr "[AUKERAK...] - muntatu fitxategi-sistemak"
+
+msgid "Perform a simulation of actions which would be taken"
+msgstr "Egin egingo lirateken ekintzen simulazio bat"
+
+msgid "fstab file to read (full path)"
+msgstr "irakurtzeko fstab fitxategia (bide osoa)"
+
+#, fuzzy
+#~ msgid "line %1%: Deprecated key ‘%4%’ used"
+#~ msgstr "%1% lerroa: Zaharkituriko'%4%' gakoa erabilia"
+
+#, fuzzy
+#~ msgid "Deprecated key ‘%4%’ used"
+#~ msgstr "Zaharkituriko'%4%' gakoa erabilia"
+
+#, fuzzy
+#~ msgid "line %1%: Disallowed key ‘%4%’ used"
+#~ msgstr "%1% lerroa: Ezgaituriko '%4%' gakoa erabilia"
+
+#, fuzzy
+#~ msgid "Disallowed key ‘%4%’ used"
+#~ msgstr "Ezgaituriko '%4%' gakoa erabilia"
+
+#, fuzzy
+#~ msgid "line %1%: Duplicate key ‘%4%’"
+#~ msgstr "%1% lerroa: Bikoizturiko '%4%' gakoa"
+
+#, fuzzy
+#~ msgid "line %1%: Required key ‘%4%’ is missing"
+#~ msgstr "%1% lerroa: Beharrezko '%4%' gakoa falta da"
+
+#, fuzzy
+#~ msgid "Required key ‘%4%’ is missing"
+#~ msgstr "Beharrezko '%4%' gakoa falta da"
+
+#, fuzzy
+#~ msgid "line %1%: Obsolete key ‘%4%’ used"
+#~ msgstr "%1% lerroa: '%4%' gako zaharkitua erabilia"
+
+#, fuzzy
+#~ msgid "Obsolete key ‘%4%’ used"
+#~ msgstr "Zaharkitutako '%4%' gakoa erabilia"
+
+#~ msgid "%2%: %4%"
+#~ msgstr "%2%: %4%"
+
+#~ msgid "line %1%: %3%: %4%"
+#~ msgstr "%1% lerroa: %3%: %4%"
+
+#~ msgid "This option will be removed in the future"
+#~ msgstr "Aukera hau ezabatua izango da etorkizunean"
+
+#, fuzzy
+#~ msgid "[OPTION…] — build Debian packages from source"
+#~ msgstr "[AUKERA...] - eraiki Debian paketeak iturburutik"
+
+#~ msgid "Build options"
+#~ msgstr "Eraikitze aukerak"
+
+#, fuzzy
+#~ msgid "Package version options"
+#~ msgstr "Saio aukerak"
+
+#, fuzzy
+#~ msgid "Build environment options"
+#~ msgstr "Eraikitze aukerak"
+
+#~ msgid "User options"
+#~ msgstr "Erabiltzaile aukerak"
+
+#~ msgid "Special options"
+#~ msgstr "Aukera bereziakBerezia"
+
+#~ msgid "Build source packages (default)"
+#~ msgstr "Eraiki iturburu paketeak"
+
+#~ msgid "Don't log program output"
+#~ msgstr "Ez erregistratu programa irteera"
+
+#~ msgid "Distribution to build for"
+#~ msgstr "Eraiki banaketa honentzat"
+
+#, fuzzy
+#~ msgid "Archive to build for"
+#~ msgstr "Eraiki banaketa honentzat"
+
+#, fuzzy
+#~ msgid "Build architecture"
+#~ msgstr "Iturburu pakete bat eraikiArkitekturako pakete \"guztiak\" eraiki"
+
+#~ msgid "Build architecture \"all\" packages"
+#~ msgstr "Iturburu pakete bat eraikiArkitekturako pakete \"guztiak\" eraiki"
+
+#~ msgid "Build a source package"
+#~ msgstr "Iturburu pakete bat eraiki"
+
+#~ msgid "Force building of a source package, irrespective of Debian version"
+#~ msgstr ""
+#~ "Iturburu paketeen eraikitzea behartu, Debian bertsioa kontutan hartu gabe"
+
+#, fuzzy
+#~ msgid "Make a binary non-maintainer upload (changelog entry)"
+#~ msgstr "Egin mantenu-gabeko bitar baten igoera"
+
+#, fuzzy
+#~ msgid "Make a binary non-maintainer upload (binNMU number)"
+#~ msgstr "Egin mantenu-gabeko bitar baten igoera"
+
+#, fuzzy
+#~ msgid "Update chroot environment"
+#~ msgstr "Chroot ingurunea"
+
+#, fuzzy
+#~ msgid "Chroot environment to build in"
+#~ msgstr "Chroot ingurunea"
+
+#, fuzzy
+#~ msgid "Purge build mode"
+#~ msgstr "Garbitze modua"
+
+#, fuzzy
+#~ msgid "Purge dependencies mode"
+#~ msgstr "Garbitze modua"
+
+#~ msgid "GPG key identifier"
+#~ msgstr "GPG gako identifikatzailea"
+
+#~ msgid "Package maintainer"
+#~ msgstr "Paketea mantentzailea"
+
+#~ msgid "Package uploader"
+#~ msgstr "Pakete igotzailea"
+
+#~ msgid "Add a build dependency"
+#~ msgstr "Gehitu eraikitze dependentzi bat"
+
+#, fuzzy
+#~ msgid "Add a build conflict"
+#~ msgstr "Gehitu eraikitze dependentzi bat"
+
+#, fuzzy
+#~ msgid "Add an architecture-independent build dependency"
+#~ msgstr "Gehitu eraikitze dependentzi bat"
+
+#~ msgid "Build using the current GCC development snapshot"
+#~ msgstr "Uneko GCC garapen egoera-argazkia erabiliz eraiki"
+
+#, fuzzy
+#~ msgid "Package to build"
+#~ msgstr "Pakete igotzailea"
 
 #~ msgid "Failed to release device lock (lock held by PID %4%)"
 #~ msgstr ""

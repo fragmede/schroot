@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.6.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-04-02 23:26+0100\n"
+"POT-Creation-Date: 2013-05-05 00:58+0100\n"
 "PO-Revision-Date: 2012-05-31 17:34+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -26,216 +26,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#. TRANSLATORS: %1% = file
-#, boost-format
-msgid "Can't open file ‘%1%’"
-msgstr "Kan ikke åbne fil »%1%«"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Deprecated key ‘%4%’ used"
-msgstr "linje %1%: Deprecieret nøgle »%4%« brugt"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Deprecated key ‘%4%’ used"
-msgstr "Deprecieret nøgle »%4%« brugt"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Disallowed key ‘%4%’ used"
-msgstr "linje %1%: Ikke tilladt nøgle »%4%« brugt"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Disallowed key ‘%4%’ used"
-msgstr "Ikke tilladt nøgle »%4%« brugt"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Duplicate key ‘%4%’"
-msgstr "linje %1%: Duplikatnøgle »%4%«"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = line contents as read from the configuration file
-#, boost-format
-msgid "line %1%: Invalid line: “%4%”"
-msgstr "linje %1%: Ugyldig linje: »%4%«"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Required key ‘%4%’ is missing"
-msgstr "linje %1%: Påkrævet nøgle »%4%« mangler"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Required key ‘%4%’ is missing"
-msgstr "Påkrævet nøgle »%4%« mangler"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = line contents as read from the configuration file
-#, boost-format
-msgid "line %1%: No key specified: “%4%”"
-msgstr "linje %1%: Ingen nøgle angivet: »%4%«"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Obsolete key ‘%4%’ used"
-msgstr "linje %1%: Forældet nøgle »%4%« brugt"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Obsolete key ‘%4%’ used"
-msgstr "Forældet nøgle »%4%« brugt"
-
-#. TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
-#. TRANSLATORS: %4% = additional details
-#, boost-format
-msgid "%2%: %4%"
-msgstr "%2%: %4%"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %3% = key name ("keyname=value" in configuration file)
-#. TRANSLATORS: %4% = additional details
-#, boost-format
-msgid "line %1%: %3%: %4%"
-msgstr "linje %1%: %3%: %4%"
-
-msgid "This option will be removed in the future"
-msgstr "Denne indstilling vil blive fjernet i fremtiden"
-
-msgid "This option has been removed, and no longer has any effect"
-msgstr "Denne indstilling er blevet fjernet, og har ikke længere nogen effekt"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-msgid "[OPTION…] — build Debian packages from source"
-msgstr "[TILVALG…] — kompiler Debianpakker fra kilde"
-
-msgid "Build options"
-msgstr "Kompileringstilvalg"
-
-msgid "Package version options"
-msgstr "Tilvalg for pakkeversion"
-
-msgid "Build environment options"
-msgstr "Tilvalg for kompileringsmiljø"
-
-msgid "User options"
-msgstr "Brugertilvalg"
-
-msgid "Build dependency override options"
-msgstr "Overskrivningstilvalg for kompileringsafhængighed"
-
-msgid "Special options"
-msgstr "Specielle tilvalg"
-
-msgid "Build source packages (default)"
-msgstr "Kompiler kildepakker (standard)"
-
-msgid "Don't log program output"
-msgstr "Log ikke programuddata"
-
-msgid "Run in batch mode"
-msgstr "Kør i batchtilstand"
-
-# med stort?
-msgid "dpkg-buildpackage option"
-msgstr "Tilvalg for dpkg-buildpackage"
-
-# med stort?
-msgid "dpkg-buildpackage options (space-separated)"
-msgstr "Tilvalg for dpkg-buildpackage (mellemrumsadskilt)"
-
-# til eller for?
-msgid "Distribution to build for"
-msgstr "Distribution at kompilere til"
-
-# til eller for?
-msgid "Archive to build for"
-msgstr "Arkiv at kompilere til"
-
-msgid "Build architecture"
-msgstr "Kompileringsarkitektur"
-
-msgid "Build architecture \"all\" packages"
-msgstr "Kompileringsarkitektur »alle« pakker"
-
-msgid "Build a source package"
-msgstr "Kompiler en kildepakke"
-
-msgid "Force building of a source package, irrespective of Debian version"
-msgstr "Tving kompilering af en kildepakke, uafhængig af Debianversion"
-
-msgid "Make a binary non-maintainer upload (changelog entry)"
-msgstr "Lav en binær ikkevedligeholder overførsel (changelog-punkt)"
-
-msgid "Make a binary non-maintainer upload (binNMU number)"
-msgstr "Lav en binær ikkevedligeholder overførsel (binNMU-tal)"
-
-msgid "Append version suffix"
-msgstr "Tilføj versionssuffiks"
-
-msgid "Update chroot environment"
-msgstr "Opdater chrootmiljø"
-
-msgid "Chroot environment to build in"
-msgstr "Chrootmiljø at kompilere i"
-
-# Sådan som jeg forstår det er purge lidt mere dratisk en
-# fjern/remove. Men jeg ved ikke om det er nødvendigt med 
-# den forskel her.
-msgid "Purge build mode"
-msgstr "Fjern kompileringstilstand"
-
-msgid "Purge dependencies mode"
-msgstr "Fjern afhængighedstilstand"
-
-msgid "Run setup hook script in chroot prior to building"
-msgstr "Kør opsætningshookskript i chroot før kompilering"
-
-msgid "GPG key identifier"
-msgstr "GPG-nøgleidentifikator"
-
-msgid "Package maintainer"
-msgstr "Pakkevedligeholder"
-
-# måske overførselsperson
-msgid "Package uploader"
-msgstr "Pakkeoverfører"
-
-msgid "Add a build dependency"
-msgstr "Tilføj en kompileringsafhængighed"
-
-msgid "Add a build conflict"
-msgstr "Tilføj en kompileringskonflikt"
-
-msgid "Add an architecture-independent build dependency"
-msgstr "Tilføj en arkitekturuafhængig kompileringsafhængighed"
-
-msgid "Add an architecture-independent build conflict"
-msgstr "Tilføj en arkitekturuafhængig kompileringskonflikt"
-
-msgid "Specify algorithm for dependency checking"
-msgstr "Angiv algoritme for afhængighedstjek"
-
-msgid "Build using the current GCC development snapshot"
-msgstr "Kompiler med brug af det aktuelle GCC-udviklingsøjebliksbillede"
-
-msgid "Package to build"
-msgstr "Pakke at kompilere"
-
-msgid "--makebinNMU missing"
-msgstr "--makebinNMU mangler"
-
-msgid "--binNMU missing"
-msgstr "--binNMU mangler"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
@@ -290,110 +80,6 @@ msgstr "--chroot og --all kan ikke bruges samtidig"
 
 msgid "Using --chroots only"
 msgstr "Bruger kun --chroots"
-
-msgid "dchroot session restriction"
-msgstr "dchrootsessionsbegrænsning"
-
-#. TRANSLATORS: %4% = file
-#, boost-format
-msgid "No chroots are defined in ‘%4%’"
-msgstr "Ingen chroot'er er defineret i »%4%«"
-
-#. TRANSLATORS: %4% = file
-#. TRANSLATORS: %5% = file
-#, boost-format
-msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
-msgstr "Ingen chroot'er er defineret i »%4%« eller »%5%«"
-
-#. TRANSLATORS: %1% = file
-#, boost-format
-msgid "The specified chroots are not defined in ‘%1%’"
-msgstr "De angivne chroot'er er ikke defineret i »%1%«"
-
-#, boost-format
-msgid "%1%: Invalid session name"
-msgstr "%1%: Ugyldigt sessionsnavn"
-
-msgid "Available chroot types:"
-msgstr "Tilgængelige chroottyper:"
-
-msgid "Support for ‘block-device’ chroots"
-msgstr "Understøttelse af »block-device« chroot'er"
-
-msgid "Support for ‘btrfs-snapshot’ chroots"
-msgstr "Understøttelse af »btrfs-snapshot« chroot'er"
-
-msgid "Support for ‘custom’ chroots"
-msgstr "Understøttelse af »tilpassede« chroot'er"
-
-msgid "Support for ‘directory’ chroots"
-msgstr "Understøttelse af »directory« chroot'er"
-
-msgid "Support for ‘file’ chroots"
-msgstr "Understøttelse af »file« chroot'er"
-
-msgid "Support for ‘loopback’ chroots"
-msgstr "Understøttelse af »loopback« chroot'er"
-
-msgid "Support for ‘lvm-snapshot’ chroots"
-msgstr "Understøttelse af »lvm-snapshot« chroot'er"
-
-msgid "Support for ‘plain’ chroots"
-msgstr "Understøttelse af »plain« chroot'er"
-
-# måske schroot-konfiguration sådan at kommandonavnet er adskilt
-#. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = current date
-#, boost-format
-msgid "schroot configuration generated by %1% %2% on %3%"
-msgstr "schrootkonfiguration oprettet af %1% %2% den %3%"
-
-msgid "Chroot selection"
-msgstr "Chrootudvælgelse"
-
-msgid "Chroot environment"
-msgstr "Chrootmiljø"
-
-msgid "Session actions"
-msgstr "Sessionshandlinger"
-
-msgid "Session options"
-msgstr "Sessionstilvalg"
-
-msgid "List available chroots"
-msgstr "Vis tilgængelige chroot'er"
-
-msgid "Show information about selected chroots"
-msgstr "Vis information om valgte chroot'er"
-
-msgid "Dump configuration of selected chroots"
-msgstr "Dump konfiguration af valgte chroot'er"
-
-msgid "Use specified chroot"
-msgstr "Brug angivet chroot"
-
-msgid "Command to run"
-msgstr "Kommando at køre"
-
-msgid "Exactly one chroot must be specified when beginning a session"
-msgstr "Præcis en chroot skal angives, når en session påbegyndes"
-
-msgid ""
-"--session-name is not permitted for the specified action; did you mean to "
-"use --chroot?"
-msgstr ""
-"--session-name er ikke tilladt for den angivne handling; ønskede du at bruge "
-"--chroot?"
-
-msgid "Unknown action specified"
-msgstr "Ukendt handling angivet"
-
-msgid "--session-name is not permitted for the specified action"
-msgstr "--session-name er ikke tilladt for den angivne handling"
-
-msgid "Invalid session name"
-msgstr "Ugyldigt sessionsnavn"
 
 msgid "Print location of selected chroots"
 msgstr "Udskriv placering af valgte chroot'er"
@@ -510,54 +196,37 @@ msgstr "Aktiver fejlsøgningsbeskeder"
 msgid "Invalid debug level"
 msgstr "Ugyldigt fejlsøgningsniveau"
 
-#. TRANSLATORS: %1% = file
+msgid "dchroot session restriction"
+msgstr "dchrootsessionsbegrænsning"
+
+msgid "Failed to get hostname"
+msgstr "Kunne ikke indhente værtsnavn"
+
+#. TRANSLATORS: %1% = user name or user ID
 #, boost-format
-msgid "Failed to find ‘%1%’"
-msgstr "Kunne ikke finde »%1%«"
+msgid "User ‘%1%’ not found"
+msgstr "Bruger »%1%« ikke fundet"
 
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-msgid "[OPTION…] — list mount points"
-msgstr "[TILVALG…] — vis monteringspunkter"
-
-msgid "Mount"
-msgstr "Monter"
-
-msgid "Mountpoint to check (full path)"
-msgstr "Monteringspunkt at tjekke (fuld sti)"
-
-msgid "No mount point specified"
-msgstr "Intet monteringspunkt angivet"
-
-msgid "Failed to fork child"
-msgstr "Kunne ikke forgrene underproces"
-
-msgid "Wait for child failed"
-msgstr "Vent på underproces mislykkedes"
-
-#. TRANSLATORS: %1% = command name
-#. TRANSLATORS: %1% = command
+#. TRANSLATORS: %1% = group name or group ID
+#. TRANSLATORS: %1% = group name
 #, boost-format
-msgid "Failed to execute “%1%”"
-msgstr "Kunne ikke køre »%1%«"
+msgid "Group ‘%1%’ not found"
+msgstr "Gruppe »%1%« ikke fundet"
 
-#, fuzzy, boost-format
-msgid "Failed to resolve path “%1%”"
-msgstr "Kunne ikke køre »%1%«"
+msgid "Authentication failed"
+msgstr "Godkendelse mislykkedes"
 
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-msgid "[OPTION…] — mount filesystems"
-msgstr "[TILVALG…] — monter filsystemer"
+msgid "Access not authorised"
+msgstr "Adgang ikke autoriseret"
 
-msgid "An unknown exception occurred"
-msgstr "Der opstod en ukendt fejl"
+msgid "PAM is already initialised"
+msgstr "PAM er allerede initialiseret"
 
-msgid "Perform a simulation of actions which would be taken"
-msgstr "Udfør en simulering af handlinger som vil blive udført"
+msgid "PAM error"
+msgstr "PAM-fejl"
 
-msgid "fstab file to read (full path)"
-msgstr "fstba-fil at læse (fuld sti)"
+msgid "PAM failed to shut down cleanly"
+msgstr "PAM kunne ikke lukke pænt ned"
 
 #. TRANSLATORS: %1% = program name (PAM service name)
 #, boost-format
@@ -595,6 +264,9 @@ msgstr "Adgangskode:"
 msgid "[schroot] password for %1%: "
 msgstr "[schroot] adgangskode for %1%: "
 
+msgid "An unknown exception occurred"
+msgstr "Der opstod en ukendt fejl"
+
 # engelsk fejl plugable?
 msgid "Pluggable Authentication Modules"
 msgstr "Indstikbare godkendelsesmoduler"
@@ -610,226 +282,6 @@ msgstr "Angiv TTY"
 
 msgid "Set USER"
 msgstr "Angiv BRUGER"
-
-msgid "Failed to get hostname"
-msgstr "Kunne ikke indhente værtsnavn"
-
-#. TRANSLATORS: %1% = user name or user ID
-#, boost-format
-msgid "User ‘%1%’ not found"
-msgstr "Bruger »%1%« ikke fundet"
-
-#. TRANSLATORS: %1% = group name or group ID
-#. TRANSLATORS: %1% = group name
-#, boost-format
-msgid "Group ‘%1%’ not found"
-msgstr "Gruppe »%1%« ikke fundet"
-
-msgid "Authentication failed"
-msgstr "Godkendelse mislykkedes"
-
-msgid "Access not authorised"
-msgstr "Adgang ikke autoriseret"
-
-msgid "PAM is already initialised"
-msgstr "PAM er allerede initialiseret"
-
-msgid "PAM error"
-msgstr "PAM-fejl"
-
-msgid "PAM failed to shut down cleanly"
-msgstr "PAM kunne ikke lukke pænt ned"
-
-msgid "Device"
-msgstr "Enhed"
-
-msgid "Btrfs Source Subvolume"
-msgstr "Undervolume for Btrfs-kilde"
-
-msgid "Btrfs Snapshot Directory"
-msgstr "Mappe for Btrfs-øjebliksbillede"
-
-msgid "Btrfs Snapshot Name"
-msgstr "Navn for Btrfs-øjebliksbillede"
-
-#. TRANSLATORS: %1% = chroot alias name
-#. TRANSLATORS: %4% = chroot name
-#, boost-format
-msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
-msgstr "Alias »%1%« er allerede forbundet med »%4%« chroot"
-
-#. TRANSLATORS: %1% = chroot name
-#, boost-format
-msgid "%1%: Chroot not found"
-msgstr "%1%: Chroot ikke fundet"
-
-#. TRANSLATORS: %1% = comma-separated list of chroot names
-#, boost-format
-msgid "%1%: Chroots not found"
-msgstr "%1%: Chroot'er ikke fundet"
-
-#. TRANSLATORS: %1% = chroot name
-#, boost-format
-msgid "A chroot or alias ‘%1%’ already exists with this name"
-msgstr "En chroot eller alias »%1%« findes allerede med dette navn"
-
-msgid "File is not a regular file"
-msgstr "Fil er ikke en regulær fil"
-
-msgid "Failed to open file"
-msgstr "Kunne ikke åben fil"
-
-msgid "File is not owned by user root"
-msgstr "Fil er ikke ejet af brugerrod"
-
-msgid "File has write permissions for others"
-msgstr "Fil har skriverettigheder for andre"
-
-msgid "Invalid name"
-msgstr "Ugyldigt navn"
-
-msgid "No such namespace"
-msgstr "Intet sådant navnerum"
-
-msgid "Duplicate names are not allowed"
-msgstr "Ens navne er ikke tilladt"
-
-msgid "Available chroots: "
-msgstr "Tilgængelige chroot'er: "
-
-msgid "Directory"
-msgstr "Mappe"
-
-msgid "Mount Device"
-msgstr "Monter enhed"
-
-msgid "Mount Options"
-msgstr "Monter tilvalg"
-
-msgid "Location"
-msgstr "Sted"
-
-#. TRANSLATORS: "Personality" is the Linux kernel personality
-#. (process execution domain).  See schroot.conf(5).
-msgid "Personality"
-msgstr "Personalitet"
-
-msgid "(session chroot)"
-msgstr "(sessionschroot)"
-
-msgid "Original Chroot Name"
-msgstr "Oprindeligt Chrootnavn"
-
-msgid "Selected Chroot Name"
-msgstr "Valgt Chrootnavn"
-
-msgid "Session ID"
-msgstr "Session-id"
-
-msgid "(source chroot)"
-msgstr "(kildechroot)"
-
-msgid "Source Users"
-msgstr "Kildebrugere"
-
-msgid "Source Groups"
-msgstr "Kildegrupper"
-
-msgid "Source Root Users"
-msgstr "Kilderodbrugere"
-
-msgid "Source Root Groups"
-msgstr "Kilderootgrupper"
-
-msgid "Support for filesystem unioning"
-msgstr "Understøttelse af filsystemforening"
-
-#. TRANSLATORS: %1% = chroot fs type
-#, boost-format
-msgid "Unknown filesystem union type ‘%1%’"
-msgstr "Ukendt filsystemforeningstype »%1%«"
-
-msgid "Union overlay must have an absolute path"
-msgstr "Foreningsoverlægning skal have en absolut sti"
-
-msgid "Union underlay must have an absolute path"
-msgstr "Foreningsunderlægning skal have en absolut sti"
-
-msgid "Filesystem Union Type"
-msgstr "Foreningstype for filsystem"
-
-msgid "Filesystem Union Mount Options"
-msgstr "Tilvalg for filsystemets foreningsmontering"
-
-msgid "Filesystem Union Overlay Directory"
-msgstr "Mappe for filsystemets foreningsoverlægning"
-
-msgid "Filesystem Union Underlay Directory"
-msgstr "Mappe for filsystemets foreningsunderlægning"
-
-#, boost-format
-msgid "Environment variable ‘%1%’ is ambiguous"
-msgstr "Miljøvariabel »%1%« er tvetydig"
-
-#, boost-format
-msgid "Configuration key ‘%1%’ is ambiguous"
-msgstr "Konfigurationsnøgle »%1%« er tvetydig"
-
-#, boost-format
-msgid "Configuration key ‘%1%’ is not permitted to be modified."
-msgstr "Konfigurationsnøgle »%1%« har ikke tilladelse til at blive ændret."
-
-#, boost-format
-msgid "Configuration key name ‘%1%’ is not a permitted name."
-msgstr "Konfigurationsnøglenavnet »%1%« er ikke et tilladt navn."
-
-#. TRANSLATORS: %1% = key name for which value parsing failed
-#. TRANSLATORS: %4% = additional details of error
-#, fuzzy, boost-format
-msgid "%1%: %4%"
-msgstr "[%1%]: %4%"
-
-#, boost-format
-msgid ""
-"Configuration keys additional to ‘%1%’ would set this setup script "
-"environment variable"
-msgstr ""
-"Konfigurationsnøgler udover »%1%« vil angive dette opsætningsskripts "
-"miljøvariabel"
-
-msgid "User Modifiable Keys"
-msgstr "Nøgler der kan ændres af bruger"
-
-msgid "Root Modifiable Keys"
-msgstr "Nøgler der kan ændres af administrator (root)"
-
-msgid "User Data"
-msgstr "Brugerdata"
-
-#, boost-format
-msgid ""
-"More than one configuration key would set the ‘%1%’ environment variable"
-msgstr "Mere end en konfigurationsnøgle vil angive miljøvariablen »%1%«"
-
-msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
-msgstr ""
-"Nøglen er ikke til stede i nøgler-der-kan-ændres-af-brugeren eller nøgler-"
-"der-kan-ændres-af-root"
-
-msgid "The key is not present in user-modifiable-keys"
-msgstr "Nøglen er ikke til stede i nøgler-der-kan-ændres-af-brugeren"
-
-msgid "File"
-msgstr "Fil"
-
-msgid "File Repack"
-msgstr "Genpakning af fil"
-
-msgid "LVM Snapshot Device"
-msgstr "Øjebliksbilledenhed for LVM"
-
-msgid "LVM Snapshot Options"
-msgstr "Øjebliksbilledtilvalg for LVM"
 
 msgid "Chroot creation failed"
 msgstr "Chrootoprettelse mislykkedes"
@@ -857,10 +309,16 @@ msgstr "Kunne ikke låse enhed op"
 msgid "Directory must have an absolute path"
 msgstr "Mappe skal have en absolut sti"
 
-msgid "Attempt to add object which is not a facet"
+#, fuzzy, boost-format
+msgid "Attempt to use facet ‘%1%’ which is not present"
+msgstr "Forsøg at tilføje facet som allerede er i brug"
+
+#, fuzzy, boost-format
+msgid "Attempt to add object ‘%1%’ which is not a facet"
 msgstr "Forsøg at tilføje objekt som ikke er en facet"
 
-msgid "Attempt to add facet which is already in use"
+#, fuzzy, boost-format
+msgid "Attempt to add facet ‘%1%’ which is already in use"
 msgstr "Forsøg at tilføje facet som allerede er i brug"
 
 msgid "File must have an absolute path"
@@ -869,11 +327,23 @@ msgstr "Fil skal have en absolut sti"
 msgid "Failed to acquire file lock"
 msgstr "Kunne ikke opnå fillås"
 
+msgid "File is not a regular file"
+msgstr "Fil er ikke en regulær fil"
+
+msgid "File is not owned by user root"
+msgstr "Fil er ikke ejet af brugerrod"
+
+msgid "File has write permissions for others"
+msgstr "Fil har skriverettigheder for andre"
+
 msgid "Failed to discard file lock"
 msgstr "Kunne ikke fjerne fillås"
 
 msgid "Location must have an absolute path"
 msgstr "Sted skal have en absolut sti"
+
+msgid "Invalid name"
+msgstr "Ugyldigt navn"
 
 #, boost-format
 msgid "Could not set profile name from script configuration path ‘%1%’"
@@ -972,6 +442,258 @@ msgstr "Session"
 msgid "Source"
 msgstr "Kilde"
 
+#. TRANSLATORS: %1% = chroot alias name
+#. TRANSLATORS: %4% = chroot name
+#, boost-format
+msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
+msgstr "Alias »%1%« er allerede forbundet med »%4%« chroot"
+
+#. TRANSLATORS: %1% = chroot name
+#, boost-format
+msgid "%1%: Chroot not found"
+msgstr "%1%: Chroot ikke fundet"
+
+#. TRANSLATORS: %1% = comma-separated list of chroot names
+#, boost-format
+msgid "%1%: Chroots not found"
+msgstr "%1%: Chroot'er ikke fundet"
+
+#. TRANSLATORS: %1% = chroot name
+#, boost-format
+msgid "A chroot or alias ‘%1%’ already exists with this name"
+msgstr "En chroot eller alias »%1%« findes allerede med dette navn"
+
+msgid "Failed to open file"
+msgstr "Kunne ikke åben fil"
+
+msgid "No such namespace"
+msgstr "Intet sådant navnerum"
+
+msgid "Duplicate names are not allowed"
+msgstr "Ens navne er ikke tilladt"
+
+msgid "Available chroots: "
+msgstr "Tilgængelige chroot'er: "
+
+msgid "Device"
+msgstr "Enhed"
+
+msgid "Support for ‘block-device’ chroots"
+msgstr "Understøttelse af »block-device« chroot'er"
+
+msgid "Support for ‘btrfs-snapshot’ chroots"
+msgstr "Understøttelse af »btrfs-snapshot« chroot'er"
+
+msgid "Btrfs Source Subvolume"
+msgstr "Undervolume for Btrfs-kilde"
+
+msgid "Btrfs Snapshot Directory"
+msgstr "Mappe for Btrfs-øjebliksbillede"
+
+msgid "Btrfs Snapshot Name"
+msgstr "Navn for Btrfs-øjebliksbillede"
+
+msgid "Support for ‘custom’ chroots"
+msgstr "Understøttelse af »tilpassede« chroot'er"
+
+msgid "Directory"
+msgstr "Mappe"
+
+msgid "Support for ‘directory’ chroots"
+msgstr "Understøttelse af »directory« chroot'er"
+
+msgid "Support for ‘file’ chroots"
+msgstr "Understøttelse af »file« chroot'er"
+
+msgid "File"
+msgstr "Fil"
+
+msgid "File Repack"
+msgstr "Genpakning af fil"
+
+msgid "Location"
+msgstr "Sted"
+
+msgid "Support for filesystem unioning"
+msgstr "Understøttelse af filsystemforening"
+
+#. TRANSLATORS: %1% = chroot fs type
+#, boost-format
+msgid "Unknown filesystem union type ‘%1%’"
+msgstr "Ukendt filsystemforeningstype »%1%«"
+
+msgid "Union overlay must have an absolute path"
+msgstr "Foreningsoverlægning skal have en absolut sti"
+
+msgid "Union underlay must have an absolute path"
+msgstr "Foreningsunderlægning skal have en absolut sti"
+
+msgid "Filesystem Union Type"
+msgstr "Foreningstype for filsystem"
+
+msgid "Filesystem Union Mount Options"
+msgstr "Tilvalg for filsystemets foreningsmontering"
+
+msgid "Filesystem Union Overlay Directory"
+msgstr "Mappe for filsystemets foreningsoverlægning"
+
+msgid "Filesystem Union Underlay Directory"
+msgstr "Mappe for filsystemets foreningsunderlægning"
+
+msgid "Support for ‘loopback’ chroots"
+msgstr "Understøttelse af »loopback« chroot'er"
+
+msgid "Support for ‘lvm-snapshot’ chroots"
+msgstr "Understøttelse af »lvm-snapshot« chroot'er"
+
+msgid "LVM Snapshot Device"
+msgstr "Øjebliksbilledenhed for LVM"
+
+msgid "LVM Snapshot Options"
+msgstr "Øjebliksbilledtilvalg for LVM"
+
+#, fuzzy
+msgid "Support for filesystem mounting"
+msgstr "Understøttelse af filsystemforening"
+
+msgid "Mount Device"
+msgstr "Monter enhed"
+
+msgid "Mount Options"
+msgstr "Monter tilvalg"
+
+# ikke den fjerneste ide om hvad det her er!
+# http://en.wikipedia.org/wiki/Application_binary_interface
+# Så det handler om skift af den binære grænseflade til programmer.
+msgid "Linux kernel Application Binary Interface switching"
+msgstr "Skift af Linuxkernens binære programgrænseflade"
+
+#. TRANSLATORS: "Personality" is the Linux kernel personality
+#. (process execution domain).  See schroot.conf(5).
+msgid "Personality"
+msgstr "Personalitet"
+
+msgid "Support for ‘plain’ chroots"
+msgstr "Understøttelse af »plain« chroot'er"
+
+#, fuzzy
+msgid "Support for session chroot cloning"
+msgstr "Understøttelse af filsystemforening"
+
+msgid "(session chroot)"
+msgstr "(sessionschroot)"
+
+#, fuzzy
+msgid "Support for session chroots"
+msgstr "Understøttelse af »plain« chroot'er"
+
+msgid "Original Chroot Name"
+msgstr "Oprindeligt Chrootnavn"
+
+msgid "Selected Chroot Name"
+msgstr "Valgt Chrootnavn"
+
+msgid "Session ID"
+msgstr "Session-id"
+
+#, fuzzy
+msgid "Support for source chroot cloning"
+msgstr "Understøttelse af »tilpassede« chroot'er"
+
+msgid "Source Users"
+msgstr "Kildebrugere"
+
+msgid "Source Groups"
+msgstr "Kildegrupper"
+
+msgid "Source Root Users"
+msgstr "Kilderodbrugere"
+
+msgid "Source Root Groups"
+msgstr "Kilderootgrupper"
+
+msgid "(source chroot)"
+msgstr "(kildechroot)"
+
+#, fuzzy
+msgid "Support for source chroots"
+msgstr "Understøttelse af »tilpassede« chroot'er"
+
+msgid "Linux dissassociation of shared execution context"
+msgstr ""
+
+#, boost-format
+msgid "Could not unshare ‘%1%’ process execution context"
+msgstr ""
+
+msgid "Unshare Networking"
+msgstr ""
+
+msgid "Unshare System V IPC"
+msgstr ""
+
+msgid "Unshare System V Semaphores"
+msgstr ""
+
+#, fuzzy
+msgid "Unshare UTS namespace"
+msgstr "Intet sådant navnerum"
+
+msgid "User setting of custom configuration parameters"
+msgstr ""
+
+#, boost-format
+msgid "Environment variable ‘%1%’ is ambiguous"
+msgstr "Miljøvariabel »%1%« er tvetydig"
+
+#, boost-format
+msgid "Configuration key ‘%1%’ is ambiguous"
+msgstr "Konfigurationsnøgle »%1%« er tvetydig"
+
+#, boost-format
+msgid "Configuration key ‘%1%’ is not permitted to be modified."
+msgstr "Konfigurationsnøgle »%1%« har ikke tilladelse til at blive ændret."
+
+#, boost-format
+msgid "Configuration key name ‘%1%’ is not a permitted name."
+msgstr "Konfigurationsnøglenavnet »%1%« er ikke et tilladt navn."
+
+#. TRANSLATORS: %1% = key name for which value parsing failed
+#. TRANSLATORS: %4% = additional details of error
+#, fuzzy, boost-format
+msgid "%1%: %4%"
+msgstr "[%1%]: %4%"
+
+#, boost-format
+msgid ""
+"Configuration keys additional to ‘%1%’ would set this setup script "
+"environment variable"
+msgstr ""
+"Konfigurationsnøgler udover »%1%« vil angive dette opsætningsskripts "
+"miljøvariabel"
+
+msgid "User Modifiable Keys"
+msgstr "Nøgler der kan ændres af bruger"
+
+msgid "Root Modifiable Keys"
+msgstr "Nøgler der kan ændres af administrator (root)"
+
+msgid "User Data"
+msgstr "Brugerdata"
+
+#, boost-format
+msgid ""
+"More than one configuration key would set the ‘%1%’ environment variable"
+msgstr "Mere end en konfigurationsnøgle vil angive miljøvariablen »%1%«"
+
+msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
+msgstr ""
+"Nøglen er ikke til stede i nøgler-der-kan-ændres-af-brugeren eller nøgler-"
+"der-kan-ændres-af-root"
+
+msgid "The key is not present in user-modifiable-keys"
+msgstr "Nøglen er ikke til stede i nøgler-der-kan-ændres-af-brugeren"
+
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr "Den kontrollerende terminals luk-ved-kørsel-flag kunne ikke angives"
 
@@ -989,6 +711,10 @@ msgstr "falsk"
 #, boost-format
 msgid "─── %1% ───"
 msgstr "─── %1% ───"
+
+#, boost-format
+msgid "Can't open file ‘%1%’"
+msgstr "Kan ikke åbne fil »%1%«"
 
 #, boost-format
 msgid "line %1% [%2%]: Deprecated key ‘%4%’ used"
@@ -1023,6 +749,10 @@ msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
 msgstr "linje %1% [%2%]: Ikke tilladt nøgle »%4%« brugt"
 
 #, boost-format
+msgid "line %1%: Invalid line: “%4%”"
+msgstr "linje %1%: Ugyldig linje: »%4%«"
+
+#, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"
 msgstr "linje %1% [%2%]: Påkrævet nøgle »%4%« mangler"
 
@@ -1033,6 +763,10 @@ msgstr "[%1%]: Påkrævet nøgle »%4%« mangler"
 #, boost-format
 msgid "line %1%: No group specified: “%4%”"
 msgstr "linje %1%: Ingen gruppe angivet: »%4%«"
+
+#, boost-format
+msgid "line %1%: No key specified: “%4%”"
+msgstr "linje %1%: Ingen nøgle angivet: »%4%«"
 
 #, boost-format
 msgid "line %1% [%2%]: Obsolete key ‘%4%’ used"
@@ -1070,6 +804,9 @@ msgid ""
 msgstr ""
 "Dette tilvalg vil blive fjernet engang i fremtiden; opdater venligst din "
 "konfiguration"
+
+msgid "This option has been removed, and no longer has any effect"
+msgstr "Denne indstilling er blevet fjernet, og har ikke længere nogen effekt"
 
 msgid "Failed to set timeout handler"
 msgstr "Kunne ikke angive tidsudløbhåndtering"
@@ -1151,12 +888,6 @@ msgstr "Kunne ikke læse monteringsfil »%1%«"
 msgid "Could not parse value ‘%1%’"
 msgstr "Kunne ikke fortolke værdi »%1%«"
 
-# ikke den fjerneste ide om hvad det her er!
-# http://en.wikipedia.org/wiki/Application_binary_interface
-# Så det handler om skift af den binære grænseflade til programmer.
-msgid "Linux kernel Application Binary Interface switching"
-msgstr "Skift af Linuxkernens binære programgrænseflade"
-
 #. TRANSLATORS: %1% = integer personality ID
 #, boost-format
 msgid "Personality ‘%1%’ is unknown"
@@ -1171,6 +902,19 @@ msgstr "Kunne ikke angive personalitet »%1%«"
 #, boost-format
 msgid "Valid personalities: %1%\n"
 msgstr "Gyldige personaliteter: %1%\n"
+
+msgid "Failed to fork child"
+msgstr "Kunne ikke forgrene underproces"
+
+msgid "Wait for child failed"
+msgstr "Vent på underproces mislykkedes"
+
+#. TRANSLATORS: %1% = command name
+#. TRANSLATORS: %1% = command
+#. TRANSLATORS: %1% = command name
+#, boost-format
+msgid "Failed to execute “%1%”"
+msgstr "Kunne ikke køre »%1%«"
 
 msgid "Failed to create pipe"
 msgstr "Kunne ikke oprette datakanal"
@@ -1383,6 +1127,276 @@ msgstr "Kunne ikke stat fil"
 
 msgid "Failed to stat file descriptor"
 msgstr "Kunne ikke stat fildeskriptor"
+
+#. TRANSLATORS: %4% = file
+#, boost-format
+msgid "No chroots are defined in ‘%4%’"
+msgstr "Ingen chroot'er er defineret i »%4%«"
+
+#. TRANSLATORS: %4% = file
+#. TRANSLATORS: %5% = file
+#, boost-format
+msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
+msgstr "Ingen chroot'er er defineret i »%4%« eller »%5%«"
+
+#. TRANSLATORS: %1% = file
+#, boost-format
+msgid "The specified chroots are not defined in ‘%1%’"
+msgstr "De angivne chroot'er er ikke defineret i »%1%«"
+
+#, boost-format
+msgid "%1%: Invalid session name"
+msgstr "%1%: Ugyldigt sessionsnavn"
+
+#, fuzzy
+msgid "Installed chroot facets:"
+msgstr "Tilgængelige chroottyper:"
+
+# måske schroot-konfiguration sådan at kommandonavnet er adskilt
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = current date
+#, boost-format
+msgid "schroot configuration generated by %1% %2% on %3%"
+msgstr "schrootkonfiguration oprettet af %1% %2% den %3%"
+
+msgid "Chroot selection"
+msgstr "Chrootudvælgelse"
+
+msgid "Chroot environment"
+msgstr "Chrootmiljø"
+
+msgid "Session actions"
+msgstr "Sessionshandlinger"
+
+msgid "Session options"
+msgstr "Sessionstilvalg"
+
+msgid "List available chroots"
+msgstr "Vis tilgængelige chroot'er"
+
+msgid "Show information about selected chroots"
+msgstr "Vis information om valgte chroot'er"
+
+msgid "Dump configuration of selected chroots"
+msgstr "Dump konfiguration af valgte chroot'er"
+
+msgid "Use specified chroot"
+msgstr "Brug angivet chroot"
+
+msgid "Command to run"
+msgstr "Kommando at køre"
+
+msgid "Exactly one chroot must be specified when beginning a session"
+msgstr "Præcis en chroot skal angives, når en session påbegyndes"
+
+msgid ""
+"--session-name is not permitted for the specified action; did you mean to "
+"use --chroot?"
+msgstr ""
+"--session-name er ikke tilladt for den angivne handling; ønskede du at bruge "
+"--chroot?"
+
+msgid "Unknown action specified"
+msgstr "Ukendt handling angivet"
+
+msgid "--session-name is not permitted for the specified action"
+msgstr "--session-name er ikke tilladt for den angivne handling"
+
+msgid "Invalid session name"
+msgstr "Ugyldigt sessionsnavn"
+
+#. TRANSLATORS: %1% = file
+#, boost-format
+msgid "Failed to find ‘%1%’"
+msgstr "Kunne ikke finde »%1%«"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+msgid "[OPTION…] — list mount points"
+msgstr "[TILVALG…] — vis monteringspunkter"
+
+msgid "Mount"
+msgstr "Monter"
+
+msgid "Mountpoint to check (full path)"
+msgstr "Monteringspunkt at tjekke (fuld sti)"
+
+msgid "No mount point specified"
+msgstr "Intet monteringspunkt angivet"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
+msgstr "Kunne ikke køre »%1%«"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+msgid "[OPTION…] — mount filesystems"
+msgstr "[TILVALG…] — monter filsystemer"
+
+msgid "Perform a simulation of actions which would be taken"
+msgstr "Udfør en simulering af handlinger som vil blive udført"
+
+msgid "fstab file to read (full path)"
+msgstr "fstba-fil at læse (fuld sti)"
+
+#~ msgid "line %1%: Deprecated key ‘%4%’ used"
+#~ msgstr "linje %1%: Deprecieret nøgle »%4%« brugt"
+
+#~ msgid "Deprecated key ‘%4%’ used"
+#~ msgstr "Deprecieret nøgle »%4%« brugt"
+
+#~ msgid "line %1%: Disallowed key ‘%4%’ used"
+#~ msgstr "linje %1%: Ikke tilladt nøgle »%4%« brugt"
+
+#~ msgid "Disallowed key ‘%4%’ used"
+#~ msgstr "Ikke tilladt nøgle »%4%« brugt"
+
+#~ msgid "line %1%: Duplicate key ‘%4%’"
+#~ msgstr "linje %1%: Duplikatnøgle »%4%«"
+
+#~ msgid "line %1%: Required key ‘%4%’ is missing"
+#~ msgstr "linje %1%: Påkrævet nøgle »%4%« mangler"
+
+#~ msgid "Required key ‘%4%’ is missing"
+#~ msgstr "Påkrævet nøgle »%4%« mangler"
+
+#~ msgid "line %1%: Obsolete key ‘%4%’ used"
+#~ msgstr "linje %1%: Forældet nøgle »%4%« brugt"
+
+#~ msgid "Obsolete key ‘%4%’ used"
+#~ msgstr "Forældet nøgle »%4%« brugt"
+
+#~ msgid "%2%: %4%"
+#~ msgstr "%2%: %4%"
+
+#~ msgid "line %1%: %3%: %4%"
+#~ msgstr "linje %1%: %3%: %4%"
+
+#~ msgid "This option will be removed in the future"
+#~ msgstr "Denne indstilling vil blive fjernet i fremtiden"
+
+#~ msgid "[OPTION…] — build Debian packages from source"
+#~ msgstr "[TILVALG…] — kompiler Debianpakker fra kilde"
+
+#~ msgid "Build options"
+#~ msgstr "Kompileringstilvalg"
+
+#~ msgid "Package version options"
+#~ msgstr "Tilvalg for pakkeversion"
+
+#~ msgid "Build environment options"
+#~ msgstr "Tilvalg for kompileringsmiljø"
+
+#~ msgid "User options"
+#~ msgstr "Brugertilvalg"
+
+#~ msgid "Build dependency override options"
+#~ msgstr "Overskrivningstilvalg for kompileringsafhængighed"
+
+#~ msgid "Special options"
+#~ msgstr "Specielle tilvalg"
+
+#~ msgid "Build source packages (default)"
+#~ msgstr "Kompiler kildepakker (standard)"
+
+#~ msgid "Don't log program output"
+#~ msgstr "Log ikke programuddata"
+
+#~ msgid "Run in batch mode"
+#~ msgstr "Kør i batchtilstand"
+
+# med stort?
+#~ msgid "dpkg-buildpackage option"
+#~ msgstr "Tilvalg for dpkg-buildpackage"
+
+# med stort?
+#~ msgid "dpkg-buildpackage options (space-separated)"
+#~ msgstr "Tilvalg for dpkg-buildpackage (mellemrumsadskilt)"
+
+# til eller for?
+#~ msgid "Distribution to build for"
+#~ msgstr "Distribution at kompilere til"
+
+# til eller for?
+#~ msgid "Archive to build for"
+#~ msgstr "Arkiv at kompilere til"
+
+#~ msgid "Build architecture"
+#~ msgstr "Kompileringsarkitektur"
+
+#~ msgid "Build architecture \"all\" packages"
+#~ msgstr "Kompileringsarkitektur »alle« pakker"
+
+#~ msgid "Build a source package"
+#~ msgstr "Kompiler en kildepakke"
+
+#~ msgid "Force building of a source package, irrespective of Debian version"
+#~ msgstr "Tving kompilering af en kildepakke, uafhængig af Debianversion"
+
+#~ msgid "Make a binary non-maintainer upload (changelog entry)"
+#~ msgstr "Lav en binær ikkevedligeholder overførsel (changelog-punkt)"
+
+#~ msgid "Make a binary non-maintainer upload (binNMU number)"
+#~ msgstr "Lav en binær ikkevedligeholder overførsel (binNMU-tal)"
+
+#~ msgid "Append version suffix"
+#~ msgstr "Tilføj versionssuffiks"
+
+#~ msgid "Update chroot environment"
+#~ msgstr "Opdater chrootmiljø"
+
+#~ msgid "Chroot environment to build in"
+#~ msgstr "Chrootmiljø at kompilere i"
+
+# Sådan som jeg forstår det er purge lidt mere dratisk en
+# fjern/remove. Men jeg ved ikke om det er nødvendigt med 
+# den forskel her.
+#~ msgid "Purge build mode"
+#~ msgstr "Fjern kompileringstilstand"
+
+#~ msgid "Purge dependencies mode"
+#~ msgstr "Fjern afhængighedstilstand"
+
+#~ msgid "Run setup hook script in chroot prior to building"
+#~ msgstr "Kør opsætningshookskript i chroot før kompilering"
+
+#~ msgid "GPG key identifier"
+#~ msgstr "GPG-nøgleidentifikator"
+
+#~ msgid "Package maintainer"
+#~ msgstr "Pakkevedligeholder"
+
+# måske overførselsperson
+#~ msgid "Package uploader"
+#~ msgstr "Pakkeoverfører"
+
+#~ msgid "Add a build dependency"
+#~ msgstr "Tilføj en kompileringsafhængighed"
+
+#~ msgid "Add a build conflict"
+#~ msgstr "Tilføj en kompileringskonflikt"
+
+#~ msgid "Add an architecture-independent build dependency"
+#~ msgstr "Tilføj en arkitekturuafhængig kompileringsafhængighed"
+
+#~ msgid "Add an architecture-independent build conflict"
+#~ msgstr "Tilføj en arkitekturuafhængig kompileringskonflikt"
+
+#~ msgid "Specify algorithm for dependency checking"
+#~ msgstr "Angiv algoritme for afhængighedstjek"
+
+#~ msgid "Build using the current GCC development snapshot"
+#~ msgstr "Kompiler med brug af det aktuelle GCC-udviklingsøjebliksbillede"
+
+#~ msgid "Package to build"
+#~ msgstr "Pakke at kompilere"
+
+#~ msgid "--makebinNMU missing"
+#~ msgstr "--makebinNMU mangler"
+
+#~ msgid "--binNMU missing"
+#~ msgstr "--binNMU mangler"
 
 #~ msgid "Failed to release device lock (lock held by PID %4%)"
 #~ msgstr "Kunne ikke frigive enhedslås (låst af PID %4%)"

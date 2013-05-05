@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.6.0-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-04-02 23:26+0100\n"
+"POT-Creation-Date: 2013-05-05 00:58+0100\n"
 "PO-Revision-Date: 2012-06-06 17:33+0200\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -17,209 +17,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#. TRANSLATORS: %1% = file
-#, boost-format
-msgid "Can't open file ‘%1%’"
-msgstr "Datei »%1%« kann nicht geöffnet werden."
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Deprecated key ‘%4%’ used"
-msgstr "Zeile %1%: Missbilligtes Schlüsselwort »%4%« wurde verwendet"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Deprecated key ‘%4%’ used"
-msgstr "Missbilligtes Schlüsselwort »%4%« wurde verwendet"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Disallowed key ‘%4%’ used"
-msgstr "Zeile %1%: Unerlaubtes Schlüsselwort »%4%« wurde verwendet"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Disallowed key ‘%4%’ used"
-msgstr "Unerlaubtes Schlüsselwort »%4%« wurde verwendet"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Duplicate key ‘%4%’"
-msgstr "Zeile %1%: Gleichlautendes Schlüsselwort »%4%«"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = line contents as read from the configuration file
-#, boost-format
-msgid "line %1%: Invalid line: “%4%”"
-msgstr "Zeile: %1%: Ungültige Zeile: »%4%«"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Required key ‘%4%’ is missing"
-msgstr "Zeile %1%: Benötigtes Schlüsselwort »%4%« fehlt"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Required key ‘%4%’ is missing"
-msgstr "Benötigtes Schlüsselwort »%4%« fehlt"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = line contents as read from the configuration file
-#, boost-format
-msgid "line %1%: No key specified: “%4%”"
-msgstr "Zeile %1%: Kein Schlüsselwort angegeben: »%4%«"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Obsolete key ‘%4%’ used"
-msgstr "Zeile %1%: Veraltetes Schlüsselwort »%4%« wurde verwendet"
-
-# FIXME: Kann man diese Paare nicht zusammenfassen?
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Obsolete key ‘%4%’ used"
-msgstr "Veraltetes Schlüsselwort »%4%« wurde verwendet"
-
-#. TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
-#. TRANSLATORS: %4% = additional details
-#, boost-format
-msgid "%2%: %4%"
-msgstr "%2%: %4%"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %3% = key name ("keyname=value" in configuration file)
-#. TRANSLATORS: %4% = additional details
-#, boost-format
-msgid "line %1%: %3%: %4%"
-msgstr "Zeile %1%: %3%: %4%"
-
-msgid "This option will be removed in the future"
-msgstr "Diese Option wird in Zukunft entfernt werden."
-
-msgid "This option has been removed, and no longer has any effect"
-msgstr "Diese Option wurde entfernt und hat keine Auswirkungen mehr."
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-msgid "[OPTION…] — build Debian packages from source"
-msgstr "[OPTION…] - Debian-Pakete aus dem Quellcode bauen"
-
-msgid "Build options"
-msgstr "Bauoptionen"
-
-msgid "Package version options"
-msgstr "Paketversions-Optionen"
-
-msgid "Build environment options"
-msgstr "Bauumgebungs-Optionen"
-
-msgid "User options"
-msgstr "Benutzer-Optionen"
-
-msgid "Build dependency override options"
-msgstr "Bauabhängigkeits-Override-Optionen"
-
-msgid "Special options"
-msgstr "Spezielle Optionen"
-
-msgid "Build source packages (default)"
-msgstr "Quellpakete bauen (Standard)"
-
-msgid "Don't log program output"
-msgstr "Programmausgaben nicht protokollieren"
-
-msgid "Run in batch mode"
-msgstr "Im Stapelmodus laufen"
-
-msgid "dpkg-buildpackage option"
-msgstr "dpkg-buildpackage-Option"
-
-msgid "dpkg-buildpackage options (space-separated)"
-msgstr "dpkg-buildpackage-Optionen (durch Leerzeichen getrennt)"
-
-msgid "Distribution to build for"
-msgstr "Distribution, für die gebaut werden soll"
-
-msgid "Archive to build for"
-msgstr "Archiv, für das gebaut werden soll"
-
-msgid "Build architecture"
-msgstr "Bauarchitektur"
-
-msgid "Build architecture \"all\" packages"
-msgstr "Pakete der Bauarchitektur »all«"
-
-msgid "Build a source package"
-msgstr "Ein Quellpaket bauen"
-
-msgid "Force building of a source package, irrespective of Debian version"
-msgstr "Den Bau eines Quellpakets erzwingen, ungeachtet der Debian-Version"
-
-msgid "Make a binary non-maintainer upload (changelog entry)"
-msgstr "Einen binären Non-Maintainer-Upload durchführen (Changelog-Eintrag)"
-
-msgid "Make a binary non-maintainer upload (binNMU number)"
-msgstr "Einen binären Non-Maintainer-Upload durchführen (binNMU-Nummer)"
-
-msgid "Append version suffix"
-msgstr "Versionssuffix anhängen"
-
-msgid "Update chroot environment"
-msgstr "Chroot-Umgebung aktualisieren"
-
-msgid "Chroot environment to build in"
-msgstr "Chroot-Umgebung, in der gebaut wird"
-
-msgid "Purge build mode"
-msgstr "»Bau vollständig entfernen«-Modus"
-
-msgid "Purge dependencies mode"
-msgstr "»Abhängigkeiten vollständig entfernen«-Modus"
-
-msgid "Run setup hook script in chroot prior to building"
-msgstr "Einrichtungs-Hook-Skripte vor dem Bau im Chroot ausführen"
-
-msgid "GPG key identifier"
-msgstr "GPG-Schlüssel-Identifikator"
-
-msgid "Package maintainer"
-msgstr "Paketbetreuer"
-
-msgid "Package uploader"
-msgstr "Paket-Uploader"
-
-msgid "Add a build dependency"
-msgstr "Eine Bauabhängigkeit hinzufügen"
-
-msgid "Add a build conflict"
-msgstr "Einen Baukonflikt hinzufügen"
-
-msgid "Add an architecture-independent build dependency"
-msgstr "Eine architekturunabhängige Bauabhängigkeit hinzufügen"
-
-msgid "Add an architecture-independent build conflict"
-msgstr "Einen architekturunabhängigen Baukonflikt hinzufügen"
-
-msgid "Specify algorithm for dependency checking"
-msgstr "Einen Algorithmus für die Abhängigkeitsüberprüfung spezifizieren"
-
-msgid "Build using the current GCC development snapshot"
-msgstr "Unter Verwendung des aktuellen GCC-Entwicklerschnappschusses bauen"
-
-msgid "Package to build"
-msgstr "Zu bauendes Paket"
-
-msgid "--makebinNMU missing"
-msgstr "--makebinNMU fehlt"
-
-msgid "--binNMU missing"
-msgstr "--binNMU fehlt"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
@@ -276,111 +73,6 @@ msgstr "--chroot und --all dürfen nicht gleichzeitig verwendet werden."
 
 msgid "Using --chroots only"
 msgstr "Es wird nur --chroots verwendet."
-
-msgid "dchroot session restriction"
-msgstr "Sitzungseinschränkung für dchroot"
-
-#. TRANSLATORS: %4% = file
-#, boost-format
-msgid "No chroots are defined in ‘%4%’"
-msgstr "In »%4%« sind keine Chroots definiert."
-
-# FIXME: s/or/and/!??
-#. TRANSLATORS: %4% = file
-#. TRANSLATORS: %5% = file
-#, boost-format
-msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
-msgstr "In »%4%« oder »%5%« sind keine Chroots definiert."
-
-#. TRANSLATORS: %1% = file
-#, boost-format
-msgid "The specified chroots are not defined in ‘%1%’"
-msgstr "Die angegebenen Chroots sind nicht in »%1%« definiert."
-
-#, boost-format
-msgid "%1%: Invalid session name"
-msgstr "%1%: ungültiger Sitzungsname"
-
-msgid "Available chroot types:"
-msgstr "Verfügbare Chroot-Typen:"
-
-msgid "Support for ‘block-device’ chroots"
-msgstr "Unterstützung für »block-device«-Chroots"
-
-msgid "Support for ‘btrfs-snapshot’ chroots"
-msgstr "Unterstützung für »btrfs-snapshot«-Chroots"
-
-msgid "Support for ‘custom’ chroots"
-msgstr "Unterstützung für »custom«-Chroots"
-
-msgid "Support for ‘directory’ chroots"
-msgstr "Unterstützung für »directory«-Chroots"
-
-msgid "Support for ‘file’ chroots"
-msgstr "Unterstützung für »file«-Chroots"
-
-msgid "Support for ‘loopback’ chroots"
-msgstr "Unterstützung für »loopback«-Chroots"
-
-msgid "Support for ‘lvm-snapshot’ chroots"
-msgstr "Unterstützung für »lvm-snapshot«-Chroots"
-
-msgid "Support for ‘plain’ chroots"
-msgstr "Unterstützung für »plain«-Chroots"
-
-#. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = current date
-#, boost-format
-msgid "schroot configuration generated by %1% %2% on %3%"
-msgstr "schroot-Konfiguration erzeugt von %1% %2% am %3%"
-
-msgid "Chroot selection"
-msgstr "Chroot-Auswahl"
-
-msgid "Chroot environment"
-msgstr "Chroot-Umgebung"
-
-msgid "Session actions"
-msgstr "Sitzungsaktionen"
-
-msgid "Session options"
-msgstr "Sitzungsoptionen"
-
-msgid "List available chroots"
-msgstr "Verfügbare Chroots anzeigen"
-
-msgid "Show information about selected chroots"
-msgstr "Informationen über gewählte Chroots anzeigen"
-
-msgid "Dump configuration of selected chroots"
-msgstr "Konfiguration der gewählten Chroots ausgeben"
-
-msgid "Use specified chroot"
-msgstr "Angegebenen Chroot verwenden"
-
-msgid "Command to run"
-msgstr "Auszuführender Befehl"
-
-msgid "Exactly one chroot must be specified when beginning a session"
-msgstr ""
-"Genau ein Chroot muss angegeben werden, wenn eine Sitzung begonnen wird."
-
-msgid ""
-"--session-name is not permitted for the specified action; did you mean to "
-"use --chroot?"
-msgstr ""
-"--session-name ist für die angegebene Aktion nicht erlaubt. Möchten Sie --"
-"chroot verwenden?"
-
-msgid "Unknown action specified"
-msgstr "Unbekannte Aktion angegeben"
-
-msgid "--session-name is not permitted for the specified action"
-msgstr "--session-name ist für die angegebene Aktion nicht erlaubt."
-
-msgid "Invalid session name"
-msgstr "Ungültiger Sitzungsname"
 
 msgid "Print location of selected chroots"
 msgstr "Ort der gewählten Chroots ausgeben"
@@ -499,58 +191,37 @@ msgstr "Debugging-Meldungen aktivieren"
 msgid "Invalid debug level"
 msgstr "Ungültiger Debug-Level"
 
-#. TRANSLATORS: %1% = file
+msgid "dchroot session restriction"
+msgstr "Sitzungseinschränkung für dchroot"
+
+msgid "Failed to get hostname"
+msgstr "Bestimmung des Rechnernamens fehlgeschlagen"
+
+#. TRANSLATORS: %1% = user name or user ID
 #, boost-format
-msgid "Failed to find ‘%1%’"
-msgstr "»%1%« konnte nicht gefunden werden."
+msgid "User ‘%1%’ not found"
+msgstr "Benutzer »%1%« nicht gefunden"
 
-# CHECKME: stimmt "[OPTION …]" oder sollte es "[OPTIONEN …]" oder
-# "[OPTION…]" heißen?
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-msgid "[OPTION…] — list mount points"
-msgstr "[OPTION…] - Einbindungspunkte anzeigen"
-
-msgid "Mount"
-msgstr "Mount"
-
-msgid "Mountpoint to check (full path)"
-msgstr "Zu prüfender Einbindungspunkt (vollständiger Pfad)"
-
-msgid "No mount point specified"
-msgstr "Kein Einbindungspunkt angegeben"
-
-msgid "Failed to fork child"
-msgstr "Erzeugung von Kindprozess (fork) fehlgeschlagen"
-
-msgid "Wait for child failed"
-msgstr "Warten auf Kindprozess fehlgeschlagen"
-
-#. TRANSLATORS: %1% = command name
-#. TRANSLATORS: %1% = command
+#. TRANSLATORS: %1% = group name or group ID
+#. TRANSLATORS: %1% = group name
 #, boost-format
-msgid "Failed to execute “%1%”"
-msgstr "Ausführung von »%1%« fehlgeschlagen"
+msgid "Group ‘%1%’ not found"
+msgstr "Gruppe »%1%« nicht gefunden"
 
-#, fuzzy, boost-format
-msgid "Failed to resolve path “%1%”"
-msgstr "Ausführung von »%1%« fehlgeschlagen"
+msgid "Authentication failed"
+msgstr "Authentifizierung fehlgeschlagen"
 
-# CHECKME: stimmt "[OPTION …]" oder sollte es "[OPTIONEN …]" oder
-# "[OPTION…]" heißen?
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-msgid "[OPTION…] — mount filesystems"
-msgstr "[OPTION…] - Dateisysteme einbinden"
+msgid "Access not authorised"
+msgstr "Zugang nicht autorisiert"
 
-msgid "An unknown exception occurred"
-msgstr "Eine unbekannte Ausnahme ist aufgetreten."
+msgid "PAM is already initialised"
+msgstr "PAM ist bereits initialisiert."
 
-msgid "Perform a simulation of actions which would be taken"
-msgstr "Eine Simulation der durchzuführenden Aktionen starten"
+msgid "PAM error"
+msgstr "PAM-Fehler"
 
-msgid "fstab file to read (full path)"
-msgstr "Einzulesende fstab-Datei (vollständiger Pfad)"
+msgid "PAM failed to shut down cleanly"
+msgstr "PAM konnte nicht korrekt beendet werden."
 
 #. TRANSLATORS: %1% = program name (PAM service name)
 #, boost-format
@@ -589,6 +260,9 @@ msgstr "Passwort:"
 msgid "[schroot] password for %1%: "
 msgstr "[schroot] Passwort für %1%: "
 
+msgid "An unknown exception occurred"
+msgstr "Eine unbekannte Ausnahme ist aufgetreten."
+
 msgid "Pluggable Authentication Modules"
 msgstr "Pluggable-Authentication-Module"
 
@@ -604,239 +278,6 @@ msgstr "Setzen von TTY"
 
 msgid "Set USER"
 msgstr "Setzen von USER"
-
-msgid "Failed to get hostname"
-msgstr "Bestimmung des Rechnernamens fehlgeschlagen"
-
-#. TRANSLATORS: %1% = user name or user ID
-#, boost-format
-msgid "User ‘%1%’ not found"
-msgstr "Benutzer »%1%« nicht gefunden"
-
-#. TRANSLATORS: %1% = group name or group ID
-#. TRANSLATORS: %1% = group name
-#, boost-format
-msgid "Group ‘%1%’ not found"
-msgstr "Gruppe »%1%« nicht gefunden"
-
-msgid "Authentication failed"
-msgstr "Authentifizierung fehlgeschlagen"
-
-msgid "Access not authorised"
-msgstr "Zugang nicht autorisiert"
-
-msgid "PAM is already initialised"
-msgstr "PAM ist bereits initialisiert."
-
-msgid "PAM error"
-msgstr "PAM-Fehler"
-
-msgid "PAM failed to shut down cleanly"
-msgstr "PAM konnte nicht korrekt beendet werden."
-
-msgid "Device"
-msgstr "Gerät"
-
-msgid "Btrfs Source Subvolume"
-msgstr "Btrfs-Quell-Subvolume"
-
-msgid "Btrfs Snapshot Directory"
-msgstr "Btrfs-Schnappschuss-Verzeichnis"
-
-msgid "Btrfs Snapshot Name"
-msgstr "Btrfs-Schnappschuss-Name"
-
-#. TRANSLATORS: %1% = chroot alias name
-#. TRANSLATORS: %4% = chroot name
-#, boost-format
-msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
-msgstr "Der Alias »%1%« ist bereits dem Chroot »%4%« zugeordnet."
-
-#. TRANSLATORS: %1% = chroot name
-#, boost-format
-msgid "%1%: Chroot not found"
-msgstr "Chroot %1% nicht gefunden"
-
-#. TRANSLATORS: %1% = comma-separated list of chroot names
-#, boost-format
-msgid "%1%: Chroots not found"
-msgstr "Chroots %1% nicht gefunden"
-
-#. TRANSLATORS: %1% = chroot name
-#, boost-format
-msgid "A chroot or alias ‘%1%’ already exists with this name"
-msgstr "Ein Chroot oder Alias »%1%« existiert bereits mit diesem Namen."
-
-msgid "File is not a regular file"
-msgstr "Datei ist keine reguläre Datei."
-
-msgid "Failed to open file"
-msgstr "Öffnen der Datei fehlgeschlagen"
-
-msgid "File is not owned by user root"
-msgstr "Datei gehört nicht root."
-
-# CHECKME: oder "andere"?
-msgid "File has write permissions for others"
-msgstr "Datei hat Schreibrechte für Andere."
-
-msgid "Invalid name"
-msgstr "Ungültiger Name"
-
-msgid "No such namespace"
-msgstr "Kein solcher Namespace"
-
-msgid "Duplicate names are not allowed"
-msgstr "Gleichlautende Namen sind nicht erlaubt."
-
-msgid "Available chroots: "
-msgstr "Verfügbare Chroots: "
-
-msgid "Directory"
-msgstr "Verzeichnis"
-
-msgid "Mount Device"
-msgstr "Einzubindendes Gerät"
-
-msgid "Mount Options"
-msgstr "Einbindungsoptionen"
-
-msgid "Location"
-msgstr "Ort"
-
-#. TRANSLATORS: "Personality" is the Linux kernel personality
-#. (process execution domain).  See schroot.conf(5).
-msgid "Personality"
-msgstr "Persönlichkeit"
-
-msgid "(session chroot)"
-msgstr "(Sitzungs-Chroot)"
-
-msgid "Original Chroot Name"
-msgstr "Original-Chroot-Name"
-
-msgid "Selected Chroot Name"
-msgstr "Ausgewählter Chroot-Name"
-
-msgid "Session ID"
-msgstr "Sitzungs-ID"
-
-msgid "(source chroot)"
-msgstr "(Quell-Chroot)"
-
-# CHECKME
-msgid "Source Users"
-msgstr "Quellbenutzer"
-
-msgid "Source Groups"
-msgstr "Quellgruppen"
-
-msgid "Source Root Users"
-msgstr "Quell-Root-Benutzer"
-
-msgid "Source Root Groups"
-msgstr "Quell-Root-Gruppen"
-
-msgid "Support for filesystem unioning"
-msgstr "Unterstützung für Dateisystem-Verbindungen (filesystem union)"
-
-#. TRANSLATORS: %1% = chroot fs type
-#, boost-format
-msgid "Unknown filesystem union type ‘%1%’"
-msgstr "Unbekannter Dateisystem-Verbindungstyp (union type) »%1%«"
-
-msgid "Union overlay must have an absolute path"
-msgstr ""
-"Dateisystem-Verbindungsoberschicht (union overlay) benötigt einen absoluten "
-"Pfad."
-
-msgid "Union underlay must have an absolute path"
-msgstr ""
-"Dateisystem-Verbindungsunterschicht (union underlay) benötigt einen "
-"absoluten Pfad."
-
-msgid "Filesystem Union Type"
-msgstr "Dateisystem-Verbindungstyp (Union Type)"
-
-msgid "Filesystem Union Mount Options"
-msgstr "Einbindungsoptionen für Dateisystem-Verbindung (Union)"
-
-msgid "Filesystem Union Overlay Directory"
-msgstr ""
-"Verzeichnis für Dateisystem-Verbindungsoberschicht (Union Overlay Directory)"
-
-msgid "Filesystem Union Underlay Directory"
-msgstr ""
-"Verzeichnis für Dateisystem-Verbindungsunterschicht (Union Underlay "
-"Directory)"
-
-#, boost-format
-msgid "Environment variable ‘%1%’ is ambiguous"
-msgstr "Umgebungsvariable »%1%« ist mehrdeutig."
-
-#, boost-format
-msgid "Configuration key ‘%1%’ is ambiguous"
-msgstr "Konfigurationsschlüssel »%1%« ist mehrdeutig."
-
-#, boost-format
-msgid "Configuration key ‘%1%’ is not permitted to be modified."
-msgstr "Konfigurationsschlüssel »%1%« darf nicht verändert werden."
-
-#, boost-format
-msgid "Configuration key name ‘%1%’ is not a permitted name."
-msgstr "»%1%« ist als Name für einen Konfigurationsschlüssel nicht erlaubt."
-
-#. TRANSLATORS: %1% = key name for which value parsing failed
-#. TRANSLATORS: %4% = additional details of error
-#, fuzzy, boost-format
-msgid "%1%: %4%"
-msgstr "[%1%]: %4%"
-
-#, boost-format
-msgid ""
-"Configuration keys additional to ‘%1%’ would set this setup script "
-"environment variable"
-msgstr ""
-"Konfigurationsschlüssel zusätzlich zu »%1%« würden diese Einrichtungsskript-"
-"Umgebungsvariable setzen."
-
-msgid "User Modifiable Keys"
-msgstr "Durch Benutzer veränderbare Schlüssel"
-
-msgid "Root Modifiable Keys"
-msgstr "Durch Root veränderbare Schlüssel"
-
-msgid "User Data"
-msgstr "Benutzerdaten"
-
-#, boost-format
-msgid ""
-"More than one configuration key would set the ‘%1%’ environment variable"
-msgstr ""
-"Mehr als ein Konfigurationsschlüssel würde die »%1%«-Umgebungsvariable "
-"setzen."
-
-msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
-msgstr ""
-"Der Schlüssel ist weder in den durch Benutzer noch in den durch Root "
-"veränderbaren Schlüsseln vorhanden."
-
-msgid "The key is not present in user-modifiable-keys"
-msgstr ""
-"Der Schlüssel ist nicht in den durch Benutzer veränderbaren Schlüsseln "
-"vorhanden."
-
-msgid "File"
-msgstr "Datei"
-
-msgid "File Repack"
-msgstr "Datei neupacken"
-
-msgid "LVM Snapshot Device"
-msgstr "LVM-Schnappschuss-Gerät"
-
-msgid "LVM Snapshot Options"
-msgstr "LVM-Schnappschuss-Optionen"
 
 msgid "Chroot creation failed"
 msgstr "Chroot-Erzeugung fehlgeschlagen"
@@ -864,10 +305,16 @@ msgstr "Entsperren des Gerätes fehlgeschlagen"
 msgid "Directory must have an absolute path"
 msgstr "Das Verzeichnis benötigt einen absoluten Pfad."
 
-msgid "Attempt to add object which is not a facet"
+#, fuzzy, boost-format
+msgid "Attempt to use facet ‘%1%’ which is not present"
+msgstr "Es wurde versucht, einen bereits benutzten Aspekt hinzuzufügen."
+
+#, fuzzy, boost-format
+msgid "Attempt to add object ‘%1%’ which is not a facet"
 msgstr "Es wurde versucht, ein Objekt hinzuzufügen, das kein Aspekt ist."
 
-msgid "Attempt to add facet which is already in use"
+#, fuzzy, boost-format
+msgid "Attempt to add facet ‘%1%’ which is already in use"
 msgstr "Es wurde versucht, einen bereits benutzten Aspekt hinzuzufügen."
 
 msgid "File must have an absolute path"
@@ -877,11 +324,24 @@ msgstr "Die Datei benötigt einen absoluten Pfad."
 msgid "Failed to acquire file lock"
 msgstr "Sperren der Datei fehlgeschlagen"
 
+msgid "File is not a regular file"
+msgstr "Datei ist keine reguläre Datei."
+
+msgid "File is not owned by user root"
+msgstr "Datei gehört nicht root."
+
+# CHECKME: oder "andere"?
+msgid "File has write permissions for others"
+msgstr "Datei hat Schreibrechte für Andere."
+
 msgid "Failed to discard file lock"
 msgstr "Entsperren der Datei fehlgeschlagen"
 
 msgid "Location must have an absolute path"
 msgstr "Für den Ort wird ein absoluter Pfad benötigt."
+
+msgid "Invalid name"
+msgstr "Ungültiger Name"
 
 #, boost-format
 msgid "Could not set profile name from script configuration path ‘%1%’"
@@ -986,6 +446,267 @@ msgstr "Sitzung"
 msgid "Source"
 msgstr "Quelle"
 
+#. TRANSLATORS: %1% = chroot alias name
+#. TRANSLATORS: %4% = chroot name
+#, boost-format
+msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
+msgstr "Der Alias »%1%« ist bereits dem Chroot »%4%« zugeordnet."
+
+#. TRANSLATORS: %1% = chroot name
+#, boost-format
+msgid "%1%: Chroot not found"
+msgstr "Chroot %1% nicht gefunden"
+
+#. TRANSLATORS: %1% = comma-separated list of chroot names
+#, boost-format
+msgid "%1%: Chroots not found"
+msgstr "Chroots %1% nicht gefunden"
+
+#. TRANSLATORS: %1% = chroot name
+#, boost-format
+msgid "A chroot or alias ‘%1%’ already exists with this name"
+msgstr "Ein Chroot oder Alias »%1%« existiert bereits mit diesem Namen."
+
+msgid "Failed to open file"
+msgstr "Öffnen der Datei fehlgeschlagen"
+
+msgid "No such namespace"
+msgstr "Kein solcher Namespace"
+
+msgid "Duplicate names are not allowed"
+msgstr "Gleichlautende Namen sind nicht erlaubt."
+
+msgid "Available chroots: "
+msgstr "Verfügbare Chroots: "
+
+msgid "Device"
+msgstr "Gerät"
+
+msgid "Support for ‘block-device’ chroots"
+msgstr "Unterstützung für »block-device«-Chroots"
+
+msgid "Support for ‘btrfs-snapshot’ chroots"
+msgstr "Unterstützung für »btrfs-snapshot«-Chroots"
+
+msgid "Btrfs Source Subvolume"
+msgstr "Btrfs-Quell-Subvolume"
+
+msgid "Btrfs Snapshot Directory"
+msgstr "Btrfs-Schnappschuss-Verzeichnis"
+
+msgid "Btrfs Snapshot Name"
+msgstr "Btrfs-Schnappschuss-Name"
+
+msgid "Support for ‘custom’ chroots"
+msgstr "Unterstützung für »custom«-Chroots"
+
+msgid "Directory"
+msgstr "Verzeichnis"
+
+msgid "Support for ‘directory’ chroots"
+msgstr "Unterstützung für »directory«-Chroots"
+
+msgid "Support for ‘file’ chroots"
+msgstr "Unterstützung für »file«-Chroots"
+
+msgid "File"
+msgstr "Datei"
+
+msgid "File Repack"
+msgstr "Datei neupacken"
+
+msgid "Location"
+msgstr "Ort"
+
+msgid "Support for filesystem unioning"
+msgstr "Unterstützung für Dateisystem-Verbindungen (filesystem union)"
+
+#. TRANSLATORS: %1% = chroot fs type
+#, boost-format
+msgid "Unknown filesystem union type ‘%1%’"
+msgstr "Unbekannter Dateisystem-Verbindungstyp (union type) »%1%«"
+
+msgid "Union overlay must have an absolute path"
+msgstr ""
+"Dateisystem-Verbindungsoberschicht (union overlay) benötigt einen absoluten "
+"Pfad."
+
+msgid "Union underlay must have an absolute path"
+msgstr ""
+"Dateisystem-Verbindungsunterschicht (union underlay) benötigt einen "
+"absoluten Pfad."
+
+msgid "Filesystem Union Type"
+msgstr "Dateisystem-Verbindungstyp (Union Type)"
+
+msgid "Filesystem Union Mount Options"
+msgstr "Einbindungsoptionen für Dateisystem-Verbindung (Union)"
+
+msgid "Filesystem Union Overlay Directory"
+msgstr ""
+"Verzeichnis für Dateisystem-Verbindungsoberschicht (Union Overlay Directory)"
+
+msgid "Filesystem Union Underlay Directory"
+msgstr ""
+"Verzeichnis für Dateisystem-Verbindungsunterschicht (Union Underlay "
+"Directory)"
+
+msgid "Support for ‘loopback’ chroots"
+msgstr "Unterstützung für »loopback«-Chroots"
+
+msgid "Support for ‘lvm-snapshot’ chroots"
+msgstr "Unterstützung für »lvm-snapshot«-Chroots"
+
+msgid "LVM Snapshot Device"
+msgstr "LVM-Schnappschuss-Gerät"
+
+msgid "LVM Snapshot Options"
+msgstr "LVM-Schnappschuss-Optionen"
+
+#, fuzzy
+msgid "Support for filesystem mounting"
+msgstr "Unterstützung für Dateisystem-Verbindungen (filesystem union)"
+
+msgid "Mount Device"
+msgstr "Einzubindendes Gerät"
+
+msgid "Mount Options"
+msgstr "Einbindungsoptionen"
+
+msgid "Linux kernel Application Binary Interface switching"
+msgstr "Linux-Kernel-Applikation Binär-Interface-Umschaltung"
+
+#. TRANSLATORS: "Personality" is the Linux kernel personality
+#. (process execution domain).  See schroot.conf(5).
+msgid "Personality"
+msgstr "Persönlichkeit"
+
+msgid "Support for ‘plain’ chroots"
+msgstr "Unterstützung für »plain«-Chroots"
+
+#, fuzzy
+msgid "Support for session chroot cloning"
+msgstr "Unterstützung für Dateisystem-Verbindungen (filesystem union)"
+
+msgid "(session chroot)"
+msgstr "(Sitzungs-Chroot)"
+
+#, fuzzy
+msgid "Support for session chroots"
+msgstr "Unterstützung für »plain«-Chroots"
+
+msgid "Original Chroot Name"
+msgstr "Original-Chroot-Name"
+
+msgid "Selected Chroot Name"
+msgstr "Ausgewählter Chroot-Name"
+
+msgid "Session ID"
+msgstr "Sitzungs-ID"
+
+#, fuzzy
+msgid "Support for source chroot cloning"
+msgstr "Unterstützung für »custom«-Chroots"
+
+# CHECKME
+msgid "Source Users"
+msgstr "Quellbenutzer"
+
+msgid "Source Groups"
+msgstr "Quellgruppen"
+
+msgid "Source Root Users"
+msgstr "Quell-Root-Benutzer"
+
+msgid "Source Root Groups"
+msgstr "Quell-Root-Gruppen"
+
+msgid "(source chroot)"
+msgstr "(Quell-Chroot)"
+
+#, fuzzy
+msgid "Support for source chroots"
+msgstr "Unterstützung für »custom«-Chroots"
+
+msgid "Linux dissassociation of shared execution context"
+msgstr ""
+
+#, boost-format
+msgid "Could not unshare ‘%1%’ process execution context"
+msgstr ""
+
+msgid "Unshare Networking"
+msgstr ""
+
+msgid "Unshare System V IPC"
+msgstr ""
+
+msgid "Unshare System V Semaphores"
+msgstr ""
+
+#, fuzzy
+msgid "Unshare UTS namespace"
+msgstr "Kein solcher Namespace"
+
+msgid "User setting of custom configuration parameters"
+msgstr ""
+
+#, boost-format
+msgid "Environment variable ‘%1%’ is ambiguous"
+msgstr "Umgebungsvariable »%1%« ist mehrdeutig."
+
+#, boost-format
+msgid "Configuration key ‘%1%’ is ambiguous"
+msgstr "Konfigurationsschlüssel »%1%« ist mehrdeutig."
+
+#, boost-format
+msgid "Configuration key ‘%1%’ is not permitted to be modified."
+msgstr "Konfigurationsschlüssel »%1%« darf nicht verändert werden."
+
+#, boost-format
+msgid "Configuration key name ‘%1%’ is not a permitted name."
+msgstr "»%1%« ist als Name für einen Konfigurationsschlüssel nicht erlaubt."
+
+#. TRANSLATORS: %1% = key name for which value parsing failed
+#. TRANSLATORS: %4% = additional details of error
+#, fuzzy, boost-format
+msgid "%1%: %4%"
+msgstr "[%1%]: %4%"
+
+#, boost-format
+msgid ""
+"Configuration keys additional to ‘%1%’ would set this setup script "
+"environment variable"
+msgstr ""
+"Konfigurationsschlüssel zusätzlich zu »%1%« würden diese Einrichtungsskript-"
+"Umgebungsvariable setzen."
+
+msgid "User Modifiable Keys"
+msgstr "Durch Benutzer veränderbare Schlüssel"
+
+msgid "Root Modifiable Keys"
+msgstr "Durch Root veränderbare Schlüssel"
+
+msgid "User Data"
+msgstr "Benutzerdaten"
+
+#, boost-format
+msgid ""
+"More than one configuration key would set the ‘%1%’ environment variable"
+msgstr ""
+"Mehr als ein Konfigurationsschlüssel würde die »%1%«-Umgebungsvariable "
+"setzen."
+
+msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
+msgstr ""
+"Der Schlüssel ist weder in den durch Benutzer noch in den durch Root "
+"veränderbaren Schlüsseln vorhanden."
+
+msgid "The key is not present in user-modifiable-keys"
+msgstr ""
+"Der Schlüssel ist nicht in den durch Benutzer veränderbaren Schlüsseln "
+"vorhanden."
+
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr ""
 "Die Markierung Schließen-bei-Ausführung (close-on-execute flag) des "
@@ -1006,6 +727,10 @@ msgstr "falsch"
 #, boost-format
 msgid "─── %1% ───"
 msgstr "─── %1% ───"
+
+#, boost-format
+msgid "Can't open file ‘%1%’"
+msgstr "Datei »%1%« kann nicht geöffnet werden."
 
 #, boost-format
 msgid "line %1% [%2%]: Deprecated key ‘%4%’ used"
@@ -1040,6 +765,10 @@ msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
 msgstr "Zeile %1% [%2%]: Unerlaubter Schlüssel »%4%« wurde verwendet"
 
 #, boost-format
+msgid "line %1%: Invalid line: “%4%”"
+msgstr "Zeile: %1%: Ungültige Zeile: »%4%«"
+
+#, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"
 msgstr "Zeile %1% [%2%]: Benötigtes Schlüsselwort »%4%« fehlt"
 
@@ -1050,6 +779,10 @@ msgstr "[%1%]: Benötigtes Schlüsselwort »%4%« fehlt"
 #, boost-format
 msgid "line %1%: No group specified: “%4%”"
 msgstr "Zeile %1%: Keine Gruppe angegeben: »%4%«"
+
+#, boost-format
+msgid "line %1%: No key specified: “%4%”"
+msgstr "Zeile %1%: Kein Schlüsselwort angegeben: »%4%«"
 
 #, boost-format
 msgid "line %1% [%2%]: Obsolete key ‘%4%’ used"
@@ -1088,6 +821,9 @@ msgid ""
 msgstr ""
 "Diese Option wird in Zukunft entfernt werden; bitte aktualisieren Sie Ihre "
 "Konfiguration."
+
+msgid "This option has been removed, and no longer has any effect"
+msgstr "Diese Option wurde entfernt und hat keine Auswirkungen mehr."
 
 msgid "Failed to set timeout handler"
 msgstr ""
@@ -1172,9 +908,6 @@ msgstr "Lesen der Mount-Datei »%1%« fehlgeschlagen"
 msgid "Could not parse value ‘%1%’"
 msgstr "Wert »%1%« konnte nicht verarbeitet werden."
 
-msgid "Linux kernel Application Binary Interface switching"
-msgstr "Linux-Kernel-Applikation Binär-Interface-Umschaltung"
-
 #. TRANSLATORS: %1% = integer personality ID
 #, boost-format
 msgid "Personality ‘%1%’ is unknown"
@@ -1189,6 +922,19 @@ msgstr "Persönlichkeit »%1%« konnte nicht gesetzt werden."
 #, boost-format
 msgid "Valid personalities: %1%\n"
 msgstr "Gültige Persönlichkeiten: %1%\n"
+
+msgid "Failed to fork child"
+msgstr "Erzeugung von Kindprozess (fork) fehlgeschlagen"
+
+msgid "Wait for child failed"
+msgstr "Warten auf Kindprozess fehlgeschlagen"
+
+#. TRANSLATORS: %1% = command name
+#. TRANSLATORS: %1% = command
+#. TRANSLATORS: %1% = command name
+#, boost-format
+msgid "Failed to execute “%1%”"
+msgstr "Ausführung von »%1%« fehlgeschlagen"
 
 msgid "Failed to create pipe"
 msgstr "Erzeugen der Pipe (Weiterleitung) fehlgeschlagen"
@@ -1400,6 +1146,274 @@ msgstr "Datei konnte nicht mit »stat« abgefragt werden"
 
 msgid "Failed to stat file descriptor"
 msgstr "Dateideskriptor konnte nicht mit »stat« abgefragt werden."
+
+#. TRANSLATORS: %4% = file
+#, boost-format
+msgid "No chroots are defined in ‘%4%’"
+msgstr "In »%4%« sind keine Chroots definiert."
+
+# FIXME: s/or/and/!??
+#. TRANSLATORS: %4% = file
+#. TRANSLATORS: %5% = file
+#, boost-format
+msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
+msgstr "In »%4%« oder »%5%« sind keine Chroots definiert."
+
+#. TRANSLATORS: %1% = file
+#, boost-format
+msgid "The specified chroots are not defined in ‘%1%’"
+msgstr "Die angegebenen Chroots sind nicht in »%1%« definiert."
+
+#, boost-format
+msgid "%1%: Invalid session name"
+msgstr "%1%: ungültiger Sitzungsname"
+
+#, fuzzy
+msgid "Installed chroot facets:"
+msgstr "Verfügbare Chroot-Typen:"
+
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = current date
+#, boost-format
+msgid "schroot configuration generated by %1% %2% on %3%"
+msgstr "schroot-Konfiguration erzeugt von %1% %2% am %3%"
+
+msgid "Chroot selection"
+msgstr "Chroot-Auswahl"
+
+msgid "Chroot environment"
+msgstr "Chroot-Umgebung"
+
+msgid "Session actions"
+msgstr "Sitzungsaktionen"
+
+msgid "Session options"
+msgstr "Sitzungsoptionen"
+
+msgid "List available chroots"
+msgstr "Verfügbare Chroots anzeigen"
+
+msgid "Show information about selected chroots"
+msgstr "Informationen über gewählte Chroots anzeigen"
+
+msgid "Dump configuration of selected chroots"
+msgstr "Konfiguration der gewählten Chroots ausgeben"
+
+msgid "Use specified chroot"
+msgstr "Angegebenen Chroot verwenden"
+
+msgid "Command to run"
+msgstr "Auszuführender Befehl"
+
+msgid "Exactly one chroot must be specified when beginning a session"
+msgstr ""
+"Genau ein Chroot muss angegeben werden, wenn eine Sitzung begonnen wird."
+
+msgid ""
+"--session-name is not permitted for the specified action; did you mean to "
+"use --chroot?"
+msgstr ""
+"--session-name ist für die angegebene Aktion nicht erlaubt. Möchten Sie --"
+"chroot verwenden?"
+
+msgid "Unknown action specified"
+msgstr "Unbekannte Aktion angegeben"
+
+msgid "--session-name is not permitted for the specified action"
+msgstr "--session-name ist für die angegebene Aktion nicht erlaubt."
+
+msgid "Invalid session name"
+msgstr "Ungültiger Sitzungsname"
+
+#. TRANSLATORS: %1% = file
+#, boost-format
+msgid "Failed to find ‘%1%’"
+msgstr "»%1%« konnte nicht gefunden werden."
+
+# CHECKME: stimmt "[OPTION …]" oder sollte es "[OPTIONEN …]" oder
+# "[OPTION…]" heißen?
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+msgid "[OPTION…] — list mount points"
+msgstr "[OPTION…] - Einbindungspunkte anzeigen"
+
+msgid "Mount"
+msgstr "Mount"
+
+msgid "Mountpoint to check (full path)"
+msgstr "Zu prüfender Einbindungspunkt (vollständiger Pfad)"
+
+msgid "No mount point specified"
+msgstr "Kein Einbindungspunkt angegeben"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
+msgstr "Ausführung von »%1%« fehlgeschlagen"
+
+# CHECKME: stimmt "[OPTION …]" oder sollte es "[OPTIONEN …]" oder
+# "[OPTION…]" heißen?
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+msgid "[OPTION…] — mount filesystems"
+msgstr "[OPTION…] - Dateisysteme einbinden"
+
+msgid "Perform a simulation of actions which would be taken"
+msgstr "Eine Simulation der durchzuführenden Aktionen starten"
+
+msgid "fstab file to read (full path)"
+msgstr "Einzulesende fstab-Datei (vollständiger Pfad)"
+
+#~ msgid "line %1%: Deprecated key ‘%4%’ used"
+#~ msgstr "Zeile %1%: Missbilligtes Schlüsselwort »%4%« wurde verwendet"
+
+#~ msgid "Deprecated key ‘%4%’ used"
+#~ msgstr "Missbilligtes Schlüsselwort »%4%« wurde verwendet"
+
+#~ msgid "line %1%: Disallowed key ‘%4%’ used"
+#~ msgstr "Zeile %1%: Unerlaubtes Schlüsselwort »%4%« wurde verwendet"
+
+#~ msgid "Disallowed key ‘%4%’ used"
+#~ msgstr "Unerlaubtes Schlüsselwort »%4%« wurde verwendet"
+
+#~ msgid "line %1%: Duplicate key ‘%4%’"
+#~ msgstr "Zeile %1%: Gleichlautendes Schlüsselwort »%4%«"
+
+#~ msgid "line %1%: Required key ‘%4%’ is missing"
+#~ msgstr "Zeile %1%: Benötigtes Schlüsselwort »%4%« fehlt"
+
+#~ msgid "Required key ‘%4%’ is missing"
+#~ msgstr "Benötigtes Schlüsselwort »%4%« fehlt"
+
+#~ msgid "line %1%: Obsolete key ‘%4%’ used"
+#~ msgstr "Zeile %1%: Veraltetes Schlüsselwort »%4%« wurde verwendet"
+
+# FIXME: Kann man diese Paare nicht zusammenfassen?
+#~ msgid "Obsolete key ‘%4%’ used"
+#~ msgstr "Veraltetes Schlüsselwort »%4%« wurde verwendet"
+
+#~ msgid "%2%: %4%"
+#~ msgstr "%2%: %4%"
+
+#~ msgid "line %1%: %3%: %4%"
+#~ msgstr "Zeile %1%: %3%: %4%"
+
+#~ msgid "This option will be removed in the future"
+#~ msgstr "Diese Option wird in Zukunft entfernt werden."
+
+#~ msgid "[OPTION…] — build Debian packages from source"
+#~ msgstr "[OPTION…] - Debian-Pakete aus dem Quellcode bauen"
+
+#~ msgid "Build options"
+#~ msgstr "Bauoptionen"
+
+#~ msgid "Package version options"
+#~ msgstr "Paketversions-Optionen"
+
+#~ msgid "Build environment options"
+#~ msgstr "Bauumgebungs-Optionen"
+
+#~ msgid "User options"
+#~ msgstr "Benutzer-Optionen"
+
+#~ msgid "Build dependency override options"
+#~ msgstr "Bauabhängigkeits-Override-Optionen"
+
+#~ msgid "Special options"
+#~ msgstr "Spezielle Optionen"
+
+#~ msgid "Build source packages (default)"
+#~ msgstr "Quellpakete bauen (Standard)"
+
+#~ msgid "Don't log program output"
+#~ msgstr "Programmausgaben nicht protokollieren"
+
+#~ msgid "Run in batch mode"
+#~ msgstr "Im Stapelmodus laufen"
+
+#~ msgid "dpkg-buildpackage option"
+#~ msgstr "dpkg-buildpackage-Option"
+
+#~ msgid "dpkg-buildpackage options (space-separated)"
+#~ msgstr "dpkg-buildpackage-Optionen (durch Leerzeichen getrennt)"
+
+#~ msgid "Distribution to build for"
+#~ msgstr "Distribution, für die gebaut werden soll"
+
+#~ msgid "Archive to build for"
+#~ msgstr "Archiv, für das gebaut werden soll"
+
+#~ msgid "Build architecture"
+#~ msgstr "Bauarchitektur"
+
+#~ msgid "Build architecture \"all\" packages"
+#~ msgstr "Pakete der Bauarchitektur »all«"
+
+#~ msgid "Build a source package"
+#~ msgstr "Ein Quellpaket bauen"
+
+#~ msgid "Force building of a source package, irrespective of Debian version"
+#~ msgstr "Den Bau eines Quellpakets erzwingen, ungeachtet der Debian-Version"
+
+#~ msgid "Make a binary non-maintainer upload (changelog entry)"
+#~ msgstr "Einen binären Non-Maintainer-Upload durchführen (Changelog-Eintrag)"
+
+#~ msgid "Make a binary non-maintainer upload (binNMU number)"
+#~ msgstr "Einen binären Non-Maintainer-Upload durchführen (binNMU-Nummer)"
+
+#~ msgid "Append version suffix"
+#~ msgstr "Versionssuffix anhängen"
+
+#~ msgid "Update chroot environment"
+#~ msgstr "Chroot-Umgebung aktualisieren"
+
+#~ msgid "Chroot environment to build in"
+#~ msgstr "Chroot-Umgebung, in der gebaut wird"
+
+#~ msgid "Purge build mode"
+#~ msgstr "»Bau vollständig entfernen«-Modus"
+
+#~ msgid "Purge dependencies mode"
+#~ msgstr "»Abhängigkeiten vollständig entfernen«-Modus"
+
+#~ msgid "Run setup hook script in chroot prior to building"
+#~ msgstr "Einrichtungs-Hook-Skripte vor dem Bau im Chroot ausführen"
+
+#~ msgid "GPG key identifier"
+#~ msgstr "GPG-Schlüssel-Identifikator"
+
+#~ msgid "Package maintainer"
+#~ msgstr "Paketbetreuer"
+
+#~ msgid "Package uploader"
+#~ msgstr "Paket-Uploader"
+
+#~ msgid "Add a build dependency"
+#~ msgstr "Eine Bauabhängigkeit hinzufügen"
+
+#~ msgid "Add a build conflict"
+#~ msgstr "Einen Baukonflikt hinzufügen"
+
+#~ msgid "Add an architecture-independent build dependency"
+#~ msgstr "Eine architekturunabhängige Bauabhängigkeit hinzufügen"
+
+#~ msgid "Add an architecture-independent build conflict"
+#~ msgstr "Einen architekturunabhängigen Baukonflikt hinzufügen"
+
+#~ msgid "Specify algorithm for dependency checking"
+#~ msgstr "Einen Algorithmus für die Abhängigkeitsüberprüfung spezifizieren"
+
+#~ msgid "Build using the current GCC development snapshot"
+#~ msgstr "Unter Verwendung des aktuellen GCC-Entwicklerschnappschusses bauen"
+
+#~ msgid "Package to build"
+#~ msgstr "Zu bauendes Paket"
+
+#~ msgid "--makebinNMU missing"
+#~ msgstr "--makebinNMU fehlt"
+
+#~ msgid "--binNMU missing"
+#~ msgstr "--binNMU fehlt"
 
 #~ msgid "Failed to release device lock (lock held by PID %4%)"
 #~ msgstr ""

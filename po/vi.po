@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.12-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-04-02 23:26+0100\n"
+"POT-Creation-Date: 2013-05-05 00:58+0100\n"
 "PO-Revision-Date: 2010-09-28 22:16+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -16,212 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: LocFactoryEditor 1.8\n"
-
-#. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
-msgid "Can't open file ‘%1%’"
-msgstr "Không thể mở tập tin « %1% »"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "line %1%: Deprecated key ‘%4%’ used"
-msgstr "dòng %1%: dùng khoá bị phản đối « %4% »"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "Deprecated key ‘%4%’ used"
-msgstr "Dùng khoá bị phản đối « %4% »"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "line %1%: Disallowed key ‘%4%’ used"
-msgstr "dòng %1%: dùng khoá bị cấm « %4% »"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "Disallowed key ‘%4%’ used"
-msgstr "Dùng khoá bị cấm « %4% »"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "line %1%: Duplicate key ‘%4%’"
-msgstr "dòng %1%: khoá trùng « %4% »"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = line contents as read from the configuration file
-#, fuzzy, boost-format
-msgid "line %1%: Invalid line: “%4%”"
-msgstr "dòng %1%: dòng không hợp lệ: « %4% »"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "line %1%: Required key ‘%4%’ is missing"
-msgstr "dòng %1%: thiếu khoá cần thiết « %4% »"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "Required key ‘%4%’ is missing"
-msgstr "Thiếu khoá cần thiết « %4% »"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = line contents as read from the configuration file
-#, fuzzy, boost-format
-msgid "line %1%: No key specified: “%4%”"
-msgstr "dòng %1%: chưa xác định khoá: « %4% »"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "line %1%: Obsolete key ‘%4%’ used"
-msgstr "dòng %1%: dùng khoá cũ « %4% »"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, fuzzy, boost-format
-msgid "Obsolete key ‘%4%’ used"
-msgstr "Dùng khoá cũ « %4% »"
-
-#. TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
-#. TRANSLATORS: %4% = additional details
-#, boost-format
-msgid "%2%: %4%"
-msgstr "%2%: %4%"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %3% = key name ("keyname=value" in configuration file)
-#. TRANSLATORS: %4% = additional details
-#, boost-format
-msgid "line %1%: %3%: %4%"
-msgstr "dòng %1%: %3%: %4%"
-
-msgid "This option will be removed in the future"
-msgstr "Tùy chọn này sẽ bị gỡ bỏ trong tương lai"
-
-msgid "This option has been removed, and no longer has any effect"
-msgstr "Tùy chọn này đã bị gỡ bỏ nên không còn có tác động lại"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — build Debian packages from source"
-msgstr "[TÙY_CHỌN...] — xây dựng các gói Debian từ mã nguồn"
-
-msgid "Build options"
-msgstr "Tùy chọn xây dựng"
-
-msgid "Package version options"
-msgstr "Tùy chọn phiên bản gói"
-
-msgid "Build environment options"
-msgstr "Tùy chọn môi trường xây dựng"
-
-msgid "User options"
-msgstr "Tùy chọn người dùng"
-
-msgid "Build dependency override options"
-msgstr "Tuỳ chọn ghi đè lên quan hệ phụ thuộc khi xây dựng"
-
-msgid "Special options"
-msgstr "Tùy chọn đặc biệt"
-
-msgid "Build source packages (default)"
-msgstr "Xây dựng gói nguồn (mặc định)"
-
-msgid "Don't log program output"
-msgstr "Đừng ghi lưu kết xuất của chương trình"
-
-msgid "Run in batch mode"
-msgstr "Chạy ở chế độ bó"
-
-msgid "dpkg-buildpackage option"
-msgstr "Tuỳ chọn dpkg-buildpackage"
-
-msgid "dpkg-buildpackage options (space-separated)"
-msgstr "Các tuỳ chọn dpkg-buildpackage (định giới bằng dấu cách)"
-
-msgid "Distribution to build for"
-msgstr "Bản phát hành cho đó cần xây dựng"
-
-msgid "Archive to build for"
-msgstr "Kho cho đó cần xây dựng"
-
-msgid "Build architecture"
-msgstr "Kiến trúc xây dựng"
-
-msgid "Build architecture \"all\" packages"
-msgstr "Xây dựng các gói kiến trúc « all »"
-
-msgid "Build a source package"
-msgstr "Xây dựng một gói nguồn"
-
-msgid "Force building of a source package, irrespective of Debian version"
-msgstr "Ép buộc xây dựng một gọi nguồn, bất chấp phiên bản Debian"
-
-msgid "Make a binary non-maintainer upload (changelog entry)"
-msgstr ""
-"Làm việc tải lên nhị phân không phải nhà duy trì (mục nhập sổ theo dõi thay "
-"đổi)"
-
-msgid "Make a binary non-maintainer upload (binNMU number)"
-msgstr "Làm việc tải lên nhị phân không phải nhà duy trì (số binNMU)"
-
-msgid "Append version suffix"
-msgstr "Phụ thêm hậu tố phiên bản"
-
-msgid "Update chroot environment"
-msgstr "Cập nhật môi trường chroot"
-
-msgid "Chroot environment to build in"
-msgstr "Môi trường chroot trong đó cần xây dựng"
-
-msgid "Purge build mode"
-msgstr "Chế độ tẩy bản xây dựng"
-
-msgid "Purge dependencies mode"
-msgstr "Chế độ tẩy quan hệ phụ thuộc"
-
-msgid "Run setup hook script in chroot prior to building"
-msgstr "Chạy văn lệnh móc thiết lập trong chroot trước khi xây dựng"
-
-msgid "GPG key identifier"
-msgstr "Dấu nhận diện khoá GPG"
-
-msgid "Package maintainer"
-msgstr "Nhà duy trì gói"
-
-msgid "Package uploader"
-msgstr "Nhà tải lên gói"
-
-msgid "Add a build dependency"
-msgstr "Thêm một quan hệ phụ thuộc khi xây dựng"
-
-msgid "Add a build conflict"
-msgstr "Thêm một sự xung đột xây dựng"
-
-msgid "Add an architecture-independent build dependency"
-msgstr ""
-"Thêm một quan hệ phụ thuộc khi xây dựng mà không phụ thuộc vào kiến trúc"
-
-msgid "Add an architecture-independent build conflict"
-msgstr "Thêm một sự xung đột xây dựng không phụ thuộc vào kiến trúc"
-
-msgid "Specify algorithm for dependency checking"
-msgstr "Xác định thuật toán để kiểm tra quan hệ phụ thuộc"
-
-msgid "Build using the current GCC development snapshot"
-msgstr "Xây dựng dùng hiện trạng phát triển GCC hiện thời"
-
-msgid "Package to build"
-msgstr "Gói cần xây dựng"
-
-msgid "--makebinNMU missing"
-msgstr "--makebinNMU còn thiếu"
-
-msgid "--binNMU missing"
-msgstr "--binNMU còn thiếu"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
@@ -279,118 +73,6 @@ msgstr ""
 
 msgid "Using --chroots only"
 msgstr "Đang dùng chỉ tùy chọn « --chroots »"
-
-msgid "dchroot session restriction"
-msgstr "sự hạn chế phiên chạy dchroot"
-
-#. TRANSLATORS: %4% = file
-#, fuzzy, boost-format
-msgid "No chroots are defined in ‘%4%’"
-msgstr "Chưa định nghĩa chroot trong « %4% »"
-
-#. TRANSLATORS: %4% = file
-#. TRANSLATORS: %5% = file
-#, fuzzy, boost-format
-msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
-msgstr "Chưa định nghĩa chroot trong « %4% » hay trong « %5% »"
-
-#. TRANSLATORS: %1% = file
-#, fuzzy, boost-format
-msgid "The specified chroots are not defined in ‘%1%’"
-msgstr "Những chroot được ghi rõ chưa được định nghĩa trong « %1% »"
-
-#, boost-format
-msgid "%1%: Invalid session name"
-msgstr "%1%: tên buổi hợp không hợp lệ"
-
-msgid "Available chroot types:"
-msgstr "Kiểu chroot sẵn sàng:"
-
-#, fuzzy
-msgid "Support for ‘block-device’ chroots"
-msgstr "Hỗ trợ chroot kiểu thiết bị khối"
-
-#, fuzzy
-msgid "Support for ‘btrfs-snapshot’ chroots"
-msgstr "Hỗ trợ chroot kiểu « btrfs-snapshot »"
-
-#, fuzzy
-msgid "Support for ‘custom’ chroots"
-msgstr "Hỗ trợ chroot kiểu thư mục"
-
-#, fuzzy
-msgid "Support for ‘directory’ chroots"
-msgstr "Hỗ trợ chroot kiểu thư mục"
-
-#, fuzzy
-msgid "Support for ‘file’ chroots"
-msgstr "Hỗ trợ chroot kiểu tập tin"
-
-#, fuzzy
-msgid "Support for ‘loopback’ chroots"
-msgstr "Hỗ trợ chroot kiểu mạch nội bộ"
-
-#, fuzzy
-msgid "Support for ‘lvm-snapshot’ chroots"
-msgstr "Hỗ trợ chroot kiểu « lvm-snapshot »"
-
-#, fuzzy
-msgid "Support for ‘plain’ chroots"
-msgstr "Hỗ trợ chroot kiểu giản dị"
-
-#. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = current date
-#, boost-format
-msgid "schroot configuration generated by %1% %2% on %3%"
-msgstr "Cấu hình schroot do %1% %2% tạo ra vào %3%"
-
-msgid "Chroot selection"
-msgstr "Chọn chroot"
-
-msgid "Chroot environment"
-msgstr "Môi trường chroot"
-
-msgid "Session actions"
-msgstr "Hành động phiên chạy"
-
-msgid "Session options"
-msgstr "Tùy chọn phiên chạy"
-
-msgid "List available chroots"
-msgstr "Liệt kê các chroot sẵn sàng"
-
-msgid "Show information about selected chroots"
-msgstr "Hiện thông tin về các chroot được chọn"
-
-msgid "Dump configuration of selected chroots"
-msgstr "Đổ cấu hình của các chroot đã chọn"
-
-msgid "Use specified chroot"
-msgstr "Dùng chroot đã xác định"
-
-msgid "Command to run"
-msgstr "Lệnh cần chạy"
-
-msgid "Exactly one chroot must be specified when beginning a session"
-msgstr "Có thể ghi rõ chỉ một chroot khi khởi chạy phiên"
-
-msgid ""
-"--session-name is not permitted for the specified action; did you mean to "
-"use --chroot?"
-msgstr ""
-"« --session-name » không được phép cho hành động đã xác định: bạn dự định sử "
-"dụng « --chroot » không?"
-
-msgid "Unknown action specified"
-msgstr "Hành động không rõ được xác định"
-
-msgid "--session-name is not permitted for the specified action"
-msgstr ""
-"« --session-name » (tên buổi hợp) không được phép cho hành động đã xác định"
-
-msgid "Invalid session name"
-msgstr "Tên buổi hợp không hợp lệ"
 
 msgid "Print location of selected chroots"
 msgstr "In ra vị trí của các chroot đã chọn"
@@ -509,56 +191,37 @@ msgstr "Bật hiển thị các thông điệp gỡ lỗi"
 msgid "Invalid debug level"
 msgstr "Cấp gỡ lỗi không hợp lệ"
 
-#. TRANSLATORS: %1% = file
+msgid "dchroot session restriction"
+msgstr "sự hạn chế phiên chạy dchroot"
+
+msgid "Failed to get hostname"
+msgstr "Lỗi lấy tên máy"
+
+#. TRANSLATORS: %1% = user name or user ID
 #, fuzzy, boost-format
-msgid "Failed to find ‘%1%’"
-msgstr "Không tìm thấy « %1% »"
+msgid "User ‘%1%’ not found"
+msgstr "Không tìm thấy người dùng « %1% »"
 
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — list mount points"
-msgstr "[TÙY_CHỌN...] — liệt kê các điểm lắp"
-
-msgid "Mount"
-msgstr "Lắp"
-
-msgid "Mountpoint to check (full path)"
-msgstr "Điểm lắp cần kiểm tra (đường dẫn đầy đủ)"
-
-msgid "No mount point specified"
-msgstr "Chưa xác định điểm lắp"
-
-msgid "Failed to fork child"
-msgstr "Lỗi tạo tiến trình con"
-
-msgid "Wait for child failed"
-msgstr "Lỗi đợi tiến trình con"
-
-#. TRANSLATORS: %1% = command name
-#. TRANSLATORS: %1% = command
+#. TRANSLATORS: %1% = group name or group ID
+#. TRANSLATORS: %1% = group name
 #, fuzzy, boost-format
-msgid "Failed to execute “%1%”"
-msgstr "Lỗi thực hiện « %1% »"
+msgid "Group ‘%1%’ not found"
+msgstr "Không tìm thấy nhóm « %1% »"
 
-#, fuzzy, boost-format
-msgid "Failed to resolve path “%1%”"
-msgstr "Lỗi thực hiện « %1% »"
+msgid "Authentication failed"
+msgstr "Lỗi xác thực"
 
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — mount filesystems"
-msgstr "[TÙY_CHỌN...] — lắp hệ thống tập tin"
+msgid "Access not authorised"
+msgstr "Không có quyền truy cập"
 
-msgid "An unknown exception occurred"
-msgstr "Gặp ngoại lệ không rõ"
+msgid "PAM is already initialised"
+msgstr "PAM đã được sơ khởi"
 
-msgid "Perform a simulation of actions which would be taken"
-msgstr "Mô phỏng các hành động cần làm"
+msgid "PAM error"
+msgstr "Lỗi PAM"
 
-msgid "fstab file to read (full path)"
-msgstr "Tập tin fstab cần đọc (đường dẫn đầy đủ)"
+msgid "PAM failed to shut down cleanly"
+msgstr "PAM đã không tắt đúng"
 
 #. TRANSLATORS: %1% = program name (PAM service name)
 #, boost-format
@@ -597,6 +260,9 @@ msgstr "Mật khẩu :"
 msgid "[schroot] password for %1%: "
 msgstr "Mật khẩu [schroot] cho %1%: "
 
+msgid "An unknown exception occurred"
+msgstr "Gặp ngoại lệ không rõ"
+
 msgid "Pluggable Authentication Modules"
 msgstr "Mô-đun Xác thực Dễ Kết hợp"
 
@@ -611,225 +277,6 @@ msgstr "Đặt TTY"
 
 msgid "Set USER"
 msgstr "Đặt USER"
-
-msgid "Failed to get hostname"
-msgstr "Lỗi lấy tên máy"
-
-#. TRANSLATORS: %1% = user name or user ID
-#, fuzzy, boost-format
-msgid "User ‘%1%’ not found"
-msgstr "Không tìm thấy người dùng « %1% »"
-
-#. TRANSLATORS: %1% = group name or group ID
-#. TRANSLATORS: %1% = group name
-#, fuzzy, boost-format
-msgid "Group ‘%1%’ not found"
-msgstr "Không tìm thấy nhóm « %1% »"
-
-msgid "Authentication failed"
-msgstr "Lỗi xác thực"
-
-msgid "Access not authorised"
-msgstr "Không có quyền truy cập"
-
-msgid "PAM is already initialised"
-msgstr "PAM đã được sơ khởi"
-
-msgid "PAM error"
-msgstr "Lỗi PAM"
-
-msgid "PAM failed to shut down cleanly"
-msgstr "PAM đã không tắt đúng"
-
-msgid "Device"
-msgstr "Thiết bị"
-
-msgid "Btrfs Source Subvolume"
-msgstr ""
-
-#, fuzzy
-msgid "Btrfs Snapshot Directory"
-msgstr "Thiết bị hiện trạng Bộ Quản lý Khối tin Hợp lý"
-
-msgid "Btrfs Snapshot Name"
-msgstr ""
-
-#. TRANSLATORS: %1% = chroot alias name
-#. TRANSLATORS: %4% = chroot name
-#, fuzzy, boost-format
-msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
-msgstr "Bí danh « %1% » đã tương ứng với chroot « %4% »"
-
-#. TRANSLATORS: %1% = chroot name
-#, boost-format
-msgid "%1%: Chroot not found"
-msgstr "%1%: không tìm thấy chroot"
-
-#. TRANSLATORS: %1% = comma-separated list of chroot names
-#, boost-format
-msgid "%1%: Chroots not found"
-msgstr "%1%: không tìm thấy chroot"
-
-#. TRANSLATORS: %1% = chroot name
-#, fuzzy, boost-format
-msgid "A chroot or alias ‘%1%’ already exists with this name"
-msgstr "Một chroot hay bí danh « %1% » đã có tên này"
-
-msgid "File is not a regular file"
-msgstr "Tập tin không phải là tập tin chuẩn"
-
-msgid "Failed to open file"
-msgstr "Lỗi mở tập tin"
-
-msgid "File is not owned by user root"
-msgstr "Người dùng chủ không sở hữu tập tin này"
-
-msgid "File has write permissions for others"
-msgstr "Người khác có quyền ghi tập tin này"
-
-msgid "Invalid name"
-msgstr "Tên không hợp lệ"
-
-msgid "No such namespace"
-msgstr "Không có miền tên như vậy"
-
-msgid "Duplicate names are not allowed"
-msgstr "Không cho phép tên trùng"
-
-msgid "Available chroots: "
-msgstr "Các chroot sẵn sàng: "
-
-msgid "Directory"
-msgstr "Thư mục"
-
-msgid "Mount Device"
-msgstr "Thiết bị lắp"
-
-msgid "Mount Options"
-msgstr "Tùy chọn lắp"
-
-msgid "Location"
-msgstr "Vị trí"
-
-#. TRANSLATORS: "Personality" is the Linux kernel personality
-#. (process execution domain).  See schroot.conf(5).
-msgid "Personality"
-msgstr "Cá tính"
-
-#, fuzzy
-msgid "(session chroot)"
-msgstr "(chroot nguồn)"
-
-msgid "Original Chroot Name"
-msgstr ""
-
-#, fuzzy
-msgid "Selected Chroot Name"
-msgstr "Chọn mọi chroot"
-
-msgid "Session ID"
-msgstr "Mã phiên chạy"
-
-msgid "(source chroot)"
-msgstr "(chroot nguồn)"
-
-msgid "Source Users"
-msgstr "Người dùng nguồn"
-
-msgid "Source Groups"
-msgstr "Nhóm nguồn"
-
-msgid "Source Root Users"
-msgstr "Người dùng chủ nguồn"
-
-msgid "Source Root Groups"
-msgstr "Nhóm chủ nguồn"
-
-msgid "Support for filesystem unioning"
-msgstr "Hỗ trợ hệ thống tập tin thống nhất"
-
-#. TRANSLATORS: %1% = chroot fs type
-#, fuzzy, boost-format
-msgid "Unknown filesystem union type ‘%1%’"
-msgstr "Không rõ kiểu hợp hệ thống tập tin « %1% »"
-
-msgid "Union overlay must have an absolute path"
-msgstr "Phủ hợp phải có đường dẫn tuyệt đối"
-
-msgid "Union underlay must have an absolute path"
-msgstr "Lót hợp phải có đường dẫn tuyệt đối"
-
-msgid "Filesystem Union Type"
-msgstr "Kiểu hợp hệ thống tập tin"
-
-msgid "Filesystem Union Mount Options"
-msgstr "Tuỳ chọn lắp hợp hệ thống tập tin"
-
-msgid "Filesystem Union Overlay Directory"
-msgstr "Thư mục phủ hợp hệ thống tập tin"
-
-msgid "Filesystem Union Underlay Directory"
-msgstr "Thư mục lót hợp hệ thống tập tin"
-
-#, boost-format
-msgid "Environment variable ‘%1%’ is ambiguous"
-msgstr ""
-
-#, fuzzy, boost-format
-msgid "Configuration key ‘%1%’ is ambiguous"
-msgstr "Thiếu khoá cần thiết « %4% »"
-
-#, boost-format
-msgid "Configuration key ‘%1%’ is not permitted to be modified."
-msgstr ""
-
-#, boost-format
-msgid "Configuration key name ‘%1%’ is not a permitted name."
-msgstr ""
-
-#. TRANSLATORS: %1% = key name for which value parsing failed
-#. TRANSLATORS: %4% = additional details of error
-#, fuzzy, boost-format
-msgid "%1%: %4%"
-msgstr "[%1%]: %4%"
-
-#, boost-format
-msgid ""
-"Configuration keys additional to ‘%1%’ would set this setup script "
-"environment variable"
-msgstr ""
-
-msgid "User Modifiable Keys"
-msgstr ""
-
-msgid "Root Modifiable Keys"
-msgstr ""
-
-msgid "User Data"
-msgstr ""
-
-#, boost-format
-msgid ""
-"More than one configuration key would set the ‘%1%’ environment variable"
-msgstr ""
-
-msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
-msgstr ""
-
-msgid "The key is not present in user-modifiable-keys"
-msgstr ""
-
-msgid "File"
-msgstr "Tập tin"
-
-msgid "File Repack"
-msgstr "Nén lại tập tin"
-
-msgid "LVM Snapshot Device"
-msgstr "Thiết bị hiện trạng Bộ Quản lý Khối tin Hợp lý"
-
-msgid "LVM Snapshot Options"
-msgstr "Tùy chọn hiện trạng Bộ Quản lý Khối tin Hợp lý"
 
 msgid "Chroot creation failed"
 msgstr "Lỗi tạo chroot"
@@ -857,10 +304,16 @@ msgstr "Lỗi mở khoá thiết bị"
 msgid "Directory must have an absolute path"
 msgstr "Thư mục phải có đường dẫn tuyệt đối"
 
-msgid "Attempt to add object which is not a facet"
+#, fuzzy, boost-format
+msgid "Attempt to use facet ‘%1%’ which is not present"
+msgstr "Việc thử thêm một mặt (facet) đang được sử dụng"
+
+#, fuzzy, boost-format
+msgid "Attempt to add object ‘%1%’ which is not a facet"
 msgstr "Việc thử thêm một đối tượng không phải là mặt (facet)"
 
-msgid "Attempt to add facet which is already in use"
+#, fuzzy, boost-format
+msgid "Attempt to add facet ‘%1%’ which is already in use"
 msgstr "Việc thử thêm một mặt (facet) đang được sử dụng"
 
 msgid "File must have an absolute path"
@@ -869,11 +322,23 @@ msgstr "Tập tin phải có đường dẫn tuyệt đối"
 msgid "Failed to acquire file lock"
 msgstr "Lỗi giành khoá tập tin"
 
+msgid "File is not a regular file"
+msgstr "Tập tin không phải là tập tin chuẩn"
+
+msgid "File is not owned by user root"
+msgstr "Người dùng chủ không sở hữu tập tin này"
+
+msgid "File has write permissions for others"
+msgstr "Người khác có quyền ghi tập tin này"
+
 msgid "Failed to discard file lock"
 msgstr "Lỗi hủy khoá tập tin"
 
 msgid "Location must have an absolute path"
 msgstr "Vị trí phải có đường dẫn tuyệt đối"
+
+msgid "Invalid name"
+msgstr "Tên không hợp lệ"
 
 #, boost-format
 msgid "Could not set profile name from script configuration path ‘%1%’"
@@ -974,6 +439,262 @@ msgstr "Phiên chạy"
 msgid "Source"
 msgstr "Nguồn"
 
+#. TRANSLATORS: %1% = chroot alias name
+#. TRANSLATORS: %4% = chroot name
+#, fuzzy, boost-format
+msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
+msgstr "Bí danh « %1% » đã tương ứng với chroot « %4% »"
+
+#. TRANSLATORS: %1% = chroot name
+#, boost-format
+msgid "%1%: Chroot not found"
+msgstr "%1%: không tìm thấy chroot"
+
+#. TRANSLATORS: %1% = comma-separated list of chroot names
+#, boost-format
+msgid "%1%: Chroots not found"
+msgstr "%1%: không tìm thấy chroot"
+
+#. TRANSLATORS: %1% = chroot name
+#, fuzzy, boost-format
+msgid "A chroot or alias ‘%1%’ already exists with this name"
+msgstr "Một chroot hay bí danh « %1% » đã có tên này"
+
+msgid "Failed to open file"
+msgstr "Lỗi mở tập tin"
+
+msgid "No such namespace"
+msgstr "Không có miền tên như vậy"
+
+msgid "Duplicate names are not allowed"
+msgstr "Không cho phép tên trùng"
+
+msgid "Available chroots: "
+msgstr "Các chroot sẵn sàng: "
+
+msgid "Device"
+msgstr "Thiết bị"
+
+#, fuzzy
+msgid "Support for ‘block-device’ chroots"
+msgstr "Hỗ trợ chroot kiểu thiết bị khối"
+
+#, fuzzy
+msgid "Support for ‘btrfs-snapshot’ chroots"
+msgstr "Hỗ trợ chroot kiểu « btrfs-snapshot »"
+
+msgid "Btrfs Source Subvolume"
+msgstr ""
+
+#, fuzzy
+msgid "Btrfs Snapshot Directory"
+msgstr "Thiết bị hiện trạng Bộ Quản lý Khối tin Hợp lý"
+
+msgid "Btrfs Snapshot Name"
+msgstr ""
+
+#, fuzzy
+msgid "Support for ‘custom’ chroots"
+msgstr "Hỗ trợ chroot kiểu thư mục"
+
+msgid "Directory"
+msgstr "Thư mục"
+
+#, fuzzy
+msgid "Support for ‘directory’ chroots"
+msgstr "Hỗ trợ chroot kiểu thư mục"
+
+#, fuzzy
+msgid "Support for ‘file’ chroots"
+msgstr "Hỗ trợ chroot kiểu tập tin"
+
+msgid "File"
+msgstr "Tập tin"
+
+msgid "File Repack"
+msgstr "Nén lại tập tin"
+
+msgid "Location"
+msgstr "Vị trí"
+
+msgid "Support for filesystem unioning"
+msgstr "Hỗ trợ hệ thống tập tin thống nhất"
+
+#. TRANSLATORS: %1% = chroot fs type
+#, fuzzy, boost-format
+msgid "Unknown filesystem union type ‘%1%’"
+msgstr "Không rõ kiểu hợp hệ thống tập tin « %1% »"
+
+msgid "Union overlay must have an absolute path"
+msgstr "Phủ hợp phải có đường dẫn tuyệt đối"
+
+msgid "Union underlay must have an absolute path"
+msgstr "Lót hợp phải có đường dẫn tuyệt đối"
+
+msgid "Filesystem Union Type"
+msgstr "Kiểu hợp hệ thống tập tin"
+
+msgid "Filesystem Union Mount Options"
+msgstr "Tuỳ chọn lắp hợp hệ thống tập tin"
+
+msgid "Filesystem Union Overlay Directory"
+msgstr "Thư mục phủ hợp hệ thống tập tin"
+
+msgid "Filesystem Union Underlay Directory"
+msgstr "Thư mục lót hợp hệ thống tập tin"
+
+#, fuzzy
+msgid "Support for ‘loopback’ chroots"
+msgstr "Hỗ trợ chroot kiểu mạch nội bộ"
+
+#, fuzzy
+msgid "Support for ‘lvm-snapshot’ chroots"
+msgstr "Hỗ trợ chroot kiểu « lvm-snapshot »"
+
+msgid "LVM Snapshot Device"
+msgstr "Thiết bị hiện trạng Bộ Quản lý Khối tin Hợp lý"
+
+msgid "LVM Snapshot Options"
+msgstr "Tùy chọn hiện trạng Bộ Quản lý Khối tin Hợp lý"
+
+#, fuzzy
+msgid "Support for filesystem mounting"
+msgstr "Hỗ trợ hệ thống tập tin thống nhất"
+
+msgid "Mount Device"
+msgstr "Thiết bị lắp"
+
+msgid "Mount Options"
+msgstr "Tùy chọn lắp"
+
+msgid "Linux kernel Application Binary Interface switching"
+msgstr "Chuyển đổi Giao diện Nhị phân Ứng dụng hạt nhân Linux"
+
+#. TRANSLATORS: "Personality" is the Linux kernel personality
+#. (process execution domain).  See schroot.conf(5).
+msgid "Personality"
+msgstr "Cá tính"
+
+#, fuzzy
+msgid "Support for ‘plain’ chroots"
+msgstr "Hỗ trợ chroot kiểu giản dị"
+
+#, fuzzy
+msgid "Support for session chroot cloning"
+msgstr "Hỗ trợ hệ thống tập tin thống nhất"
+
+#, fuzzy
+msgid "(session chroot)"
+msgstr "(chroot nguồn)"
+
+#, fuzzy
+msgid "Support for session chroots"
+msgstr "Hỗ trợ chroot kiểu giản dị"
+
+msgid "Original Chroot Name"
+msgstr ""
+
+#, fuzzy
+msgid "Selected Chroot Name"
+msgstr "Chọn mọi chroot"
+
+msgid "Session ID"
+msgstr "Mã phiên chạy"
+
+#, fuzzy
+msgid "Support for source chroot cloning"
+msgstr "Hỗ trợ chroot kiểu thư mục"
+
+msgid "Source Users"
+msgstr "Người dùng nguồn"
+
+msgid "Source Groups"
+msgstr "Nhóm nguồn"
+
+msgid "Source Root Users"
+msgstr "Người dùng chủ nguồn"
+
+msgid "Source Root Groups"
+msgstr "Nhóm chủ nguồn"
+
+msgid "(source chroot)"
+msgstr "(chroot nguồn)"
+
+#, fuzzy
+msgid "Support for source chroots"
+msgstr "Hỗ trợ chroot kiểu thư mục"
+
+msgid "Linux dissassociation of shared execution context"
+msgstr ""
+
+#, boost-format
+msgid "Could not unshare ‘%1%’ process execution context"
+msgstr ""
+
+msgid "Unshare Networking"
+msgstr ""
+
+msgid "Unshare System V IPC"
+msgstr ""
+
+msgid "Unshare System V Semaphores"
+msgstr ""
+
+#, fuzzy
+msgid "Unshare UTS namespace"
+msgstr "Không có miền tên như vậy"
+
+msgid "User setting of custom configuration parameters"
+msgstr ""
+
+#, boost-format
+msgid "Environment variable ‘%1%’ is ambiguous"
+msgstr ""
+
+#, fuzzy, boost-format
+msgid "Configuration key ‘%1%’ is ambiguous"
+msgstr "Thiếu khoá cần thiết « %4% »"
+
+#, boost-format
+msgid "Configuration key ‘%1%’ is not permitted to be modified."
+msgstr ""
+
+#, boost-format
+msgid "Configuration key name ‘%1%’ is not a permitted name."
+msgstr ""
+
+#. TRANSLATORS: %1% = key name for which value parsing failed
+#. TRANSLATORS: %4% = additional details of error
+#, fuzzy, boost-format
+msgid "%1%: %4%"
+msgstr "[%1%]: %4%"
+
+#, boost-format
+msgid ""
+"Configuration keys additional to ‘%1%’ would set this setup script "
+"environment variable"
+msgstr ""
+
+msgid "User Modifiable Keys"
+msgstr ""
+
+msgid "Root Modifiable Keys"
+msgstr ""
+
+msgid "User Data"
+msgstr ""
+
+#, boost-format
+msgid ""
+"More than one configuration key would set the ‘%1%’ environment variable"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys"
+msgstr ""
+
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr ""
 "Không thể đặt cờ đóng khi thực hiện (close-on-execute) thiết bị điều khiển"
@@ -992,6 +713,10 @@ msgstr "sai"
 #, boost-format
 msgid "─── %1% ───"
 msgstr ""
+
+#, fuzzy, boost-format
+msgid "Can't open file ‘%1%’"
+msgstr "Không thể mở tập tin « %1% »"
 
 #, fuzzy, boost-format
 msgid "line %1% [%2%]: Deprecated key ‘%4%’ used"
@@ -1026,6 +751,10 @@ msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
 msgstr "dòng %1% [%2%]: dùng khoá bị cấm « %4% »"
 
 #, fuzzy, boost-format
+msgid "line %1%: Invalid line: “%4%”"
+msgstr "dòng %1%: dòng không hợp lệ: « %4% »"
+
+#, fuzzy, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"
 msgstr "dòng %1% [%2%]: khoá cần thiết « %4% » còn thiếu"
 
@@ -1036,6 +765,10 @@ msgstr "[%1%]: khoá cần thiết « %4% » còn thiếu"
 #, fuzzy, boost-format
 msgid "line %1%: No group specified: “%4%”"
 msgstr "dòng %1%: chưa xác định nhóm: « %4% »"
+
+#, fuzzy, boost-format
+msgid "line %1%: No key specified: “%4%”"
+msgstr "dòng %1%: chưa xác định khoá: « %4% »"
 
 #, fuzzy, boost-format
 msgid "line %1% [%2%]: Obsolete key ‘%4%’ used"
@@ -1071,6 +804,9 @@ msgstr "Tùy chọn này có thể nằm trong một phiên bản mới"
 msgid ""
 "This option will be removed in the future; please update your configuration"
 msgstr "Tùy chọn này sẽ bị gỡ bỏ trong tương lai; hãy cập nhật cấu hình"
+
+msgid "This option has been removed, and no longer has any effect"
+msgstr "Tùy chọn này đã bị gỡ bỏ nên không còn có tác động lại"
 
 msgid "Failed to set timeout handler"
 msgstr "Lỗi đặt bộ quản lý thời hạn"
@@ -1147,9 +883,6 @@ msgstr "Lỗi đọc tập tin lắp « %1% »"
 msgid "Could not parse value ‘%1%’"
 msgstr "Không thể phân tích giá trị « %1% »"
 
-msgid "Linux kernel Application Binary Interface switching"
-msgstr "Chuyển đổi Giao diện Nhị phân Ứng dụng hạt nhân Linux"
-
 #. TRANSLATORS: %1% = integer personality ID
 #, fuzzy, boost-format
 msgid "Personality ‘%1%’ is unknown"
@@ -1164,6 +897,19 @@ msgstr "Lỗi đặt cá tính « %1% »"
 #, boost-format
 msgid "Valid personalities: %1%\n"
 msgstr "Cá tính hợp lệ: %1%\n"
+
+msgid "Failed to fork child"
+msgstr "Lỗi tạo tiến trình con"
+
+msgid "Wait for child failed"
+msgstr "Lỗi đợi tiến trình con"
+
+#. TRANSLATORS: %1% = command name
+#. TRANSLATORS: %1% = command
+#. TRANSLATORS: %1% = command name
+#, fuzzy, boost-format
+msgid "Failed to execute “%1%”"
+msgstr "Lỗi thực hiện « %1% »"
 
 msgid "Failed to create pipe"
 msgstr "Lỗi tạo ống dẫn"
@@ -1373,6 +1119,283 @@ msgstr "Lỗi lấy trạng thái về tập tin này"
 
 msgid "Failed to stat file descriptor"
 msgstr "Lỗi lấy trạng thái về bộ mô tả tập tin"
+
+#. TRANSLATORS: %4% = file
+#, fuzzy, boost-format
+msgid "No chroots are defined in ‘%4%’"
+msgstr "Chưa định nghĩa chroot trong « %4% »"
+
+#. TRANSLATORS: %4% = file
+#. TRANSLATORS: %5% = file
+#, fuzzy, boost-format
+msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
+msgstr "Chưa định nghĩa chroot trong « %4% » hay trong « %5% »"
+
+#. TRANSLATORS: %1% = file
+#, fuzzy, boost-format
+msgid "The specified chroots are not defined in ‘%1%’"
+msgstr "Những chroot được ghi rõ chưa được định nghĩa trong « %1% »"
+
+#, boost-format
+msgid "%1%: Invalid session name"
+msgstr "%1%: tên buổi hợp không hợp lệ"
+
+#, fuzzy
+msgid "Installed chroot facets:"
+msgstr "Kiểu chroot sẵn sàng:"
+
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = current date
+#, boost-format
+msgid "schroot configuration generated by %1% %2% on %3%"
+msgstr "Cấu hình schroot do %1% %2% tạo ra vào %3%"
+
+msgid "Chroot selection"
+msgstr "Chọn chroot"
+
+msgid "Chroot environment"
+msgstr "Môi trường chroot"
+
+msgid "Session actions"
+msgstr "Hành động phiên chạy"
+
+msgid "Session options"
+msgstr "Tùy chọn phiên chạy"
+
+msgid "List available chroots"
+msgstr "Liệt kê các chroot sẵn sàng"
+
+msgid "Show information about selected chroots"
+msgstr "Hiện thông tin về các chroot được chọn"
+
+msgid "Dump configuration of selected chroots"
+msgstr "Đổ cấu hình của các chroot đã chọn"
+
+msgid "Use specified chroot"
+msgstr "Dùng chroot đã xác định"
+
+msgid "Command to run"
+msgstr "Lệnh cần chạy"
+
+msgid "Exactly one chroot must be specified when beginning a session"
+msgstr "Có thể ghi rõ chỉ một chroot khi khởi chạy phiên"
+
+msgid ""
+"--session-name is not permitted for the specified action; did you mean to "
+"use --chroot?"
+msgstr ""
+"« --session-name » không được phép cho hành động đã xác định: bạn dự định sử "
+"dụng « --chroot » không?"
+
+msgid "Unknown action specified"
+msgstr "Hành động không rõ được xác định"
+
+msgid "--session-name is not permitted for the specified action"
+msgstr ""
+"« --session-name » (tên buổi hợp) không được phép cho hành động đã xác định"
+
+msgid "Invalid session name"
+msgstr "Tên buổi hợp không hợp lệ"
+
+#. TRANSLATORS: %1% = file
+#, fuzzy, boost-format
+msgid "Failed to find ‘%1%’"
+msgstr "Không tìm thấy « %1% »"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#, fuzzy
+msgid "[OPTION…] — list mount points"
+msgstr "[TÙY_CHỌN...] — liệt kê các điểm lắp"
+
+msgid "Mount"
+msgstr "Lắp"
+
+msgid "Mountpoint to check (full path)"
+msgstr "Điểm lắp cần kiểm tra (đường dẫn đầy đủ)"
+
+msgid "No mount point specified"
+msgstr "Chưa xác định điểm lắp"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
+msgstr "Lỗi thực hiện « %1% »"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+#, fuzzy
+msgid "[OPTION…] — mount filesystems"
+msgstr "[TÙY_CHỌN...] — lắp hệ thống tập tin"
+
+msgid "Perform a simulation of actions which would be taken"
+msgstr "Mô phỏng các hành động cần làm"
+
+msgid "fstab file to read (full path)"
+msgstr "Tập tin fstab cần đọc (đường dẫn đầy đủ)"
+
+#, fuzzy
+#~ msgid "line %1%: Deprecated key ‘%4%’ used"
+#~ msgstr "dòng %1%: dùng khoá bị phản đối « %4% »"
+
+#, fuzzy
+#~ msgid "Deprecated key ‘%4%’ used"
+#~ msgstr "Dùng khoá bị phản đối « %4% »"
+
+#, fuzzy
+#~ msgid "line %1%: Disallowed key ‘%4%’ used"
+#~ msgstr "dòng %1%: dùng khoá bị cấm « %4% »"
+
+#, fuzzy
+#~ msgid "Disallowed key ‘%4%’ used"
+#~ msgstr "Dùng khoá bị cấm « %4% »"
+
+#, fuzzy
+#~ msgid "line %1%: Duplicate key ‘%4%’"
+#~ msgstr "dòng %1%: khoá trùng « %4% »"
+
+#, fuzzy
+#~ msgid "line %1%: Required key ‘%4%’ is missing"
+#~ msgstr "dòng %1%: thiếu khoá cần thiết « %4% »"
+
+#, fuzzy
+#~ msgid "Required key ‘%4%’ is missing"
+#~ msgstr "Thiếu khoá cần thiết « %4% »"
+
+#, fuzzy
+#~ msgid "line %1%: Obsolete key ‘%4%’ used"
+#~ msgstr "dòng %1%: dùng khoá cũ « %4% »"
+
+#, fuzzy
+#~ msgid "Obsolete key ‘%4%’ used"
+#~ msgstr "Dùng khoá cũ « %4% »"
+
+#~ msgid "%2%: %4%"
+#~ msgstr "%2%: %4%"
+
+#~ msgid "line %1%: %3%: %4%"
+#~ msgstr "dòng %1%: %3%: %4%"
+
+#~ msgid "This option will be removed in the future"
+#~ msgstr "Tùy chọn này sẽ bị gỡ bỏ trong tương lai"
+
+#, fuzzy
+#~ msgid "[OPTION…] — build Debian packages from source"
+#~ msgstr "[TÙY_CHỌN...] — xây dựng các gói Debian từ mã nguồn"
+
+#~ msgid "Build options"
+#~ msgstr "Tùy chọn xây dựng"
+
+#~ msgid "Package version options"
+#~ msgstr "Tùy chọn phiên bản gói"
+
+#~ msgid "Build environment options"
+#~ msgstr "Tùy chọn môi trường xây dựng"
+
+#~ msgid "User options"
+#~ msgstr "Tùy chọn người dùng"
+
+#~ msgid "Build dependency override options"
+#~ msgstr "Tuỳ chọn ghi đè lên quan hệ phụ thuộc khi xây dựng"
+
+#~ msgid "Special options"
+#~ msgstr "Tùy chọn đặc biệt"
+
+#~ msgid "Build source packages (default)"
+#~ msgstr "Xây dựng gói nguồn (mặc định)"
+
+#~ msgid "Don't log program output"
+#~ msgstr "Đừng ghi lưu kết xuất của chương trình"
+
+#~ msgid "Run in batch mode"
+#~ msgstr "Chạy ở chế độ bó"
+
+#~ msgid "dpkg-buildpackage option"
+#~ msgstr "Tuỳ chọn dpkg-buildpackage"
+
+#~ msgid "dpkg-buildpackage options (space-separated)"
+#~ msgstr "Các tuỳ chọn dpkg-buildpackage (định giới bằng dấu cách)"
+
+#~ msgid "Distribution to build for"
+#~ msgstr "Bản phát hành cho đó cần xây dựng"
+
+#~ msgid "Archive to build for"
+#~ msgstr "Kho cho đó cần xây dựng"
+
+#~ msgid "Build architecture"
+#~ msgstr "Kiến trúc xây dựng"
+
+#~ msgid "Build architecture \"all\" packages"
+#~ msgstr "Xây dựng các gói kiến trúc « all »"
+
+#~ msgid "Build a source package"
+#~ msgstr "Xây dựng một gói nguồn"
+
+#~ msgid "Force building of a source package, irrespective of Debian version"
+#~ msgstr "Ép buộc xây dựng một gọi nguồn, bất chấp phiên bản Debian"
+
+#~ msgid "Make a binary non-maintainer upload (changelog entry)"
+#~ msgstr ""
+#~ "Làm việc tải lên nhị phân không phải nhà duy trì (mục nhập sổ theo dõi "
+#~ "thay đổi)"
+
+#~ msgid "Make a binary non-maintainer upload (binNMU number)"
+#~ msgstr "Làm việc tải lên nhị phân không phải nhà duy trì (số binNMU)"
+
+#~ msgid "Append version suffix"
+#~ msgstr "Phụ thêm hậu tố phiên bản"
+
+#~ msgid "Update chroot environment"
+#~ msgstr "Cập nhật môi trường chroot"
+
+#~ msgid "Chroot environment to build in"
+#~ msgstr "Môi trường chroot trong đó cần xây dựng"
+
+#~ msgid "Purge build mode"
+#~ msgstr "Chế độ tẩy bản xây dựng"
+
+#~ msgid "Purge dependencies mode"
+#~ msgstr "Chế độ tẩy quan hệ phụ thuộc"
+
+#~ msgid "Run setup hook script in chroot prior to building"
+#~ msgstr "Chạy văn lệnh móc thiết lập trong chroot trước khi xây dựng"
+
+#~ msgid "GPG key identifier"
+#~ msgstr "Dấu nhận diện khoá GPG"
+
+#~ msgid "Package maintainer"
+#~ msgstr "Nhà duy trì gói"
+
+#~ msgid "Package uploader"
+#~ msgstr "Nhà tải lên gói"
+
+#~ msgid "Add a build dependency"
+#~ msgstr "Thêm một quan hệ phụ thuộc khi xây dựng"
+
+#~ msgid "Add a build conflict"
+#~ msgstr "Thêm một sự xung đột xây dựng"
+
+#~ msgid "Add an architecture-independent build dependency"
+#~ msgstr ""
+#~ "Thêm một quan hệ phụ thuộc khi xây dựng mà không phụ thuộc vào kiến trúc"
+
+#~ msgid "Add an architecture-independent build conflict"
+#~ msgstr "Thêm một sự xung đột xây dựng không phụ thuộc vào kiến trúc"
+
+#~ msgid "Specify algorithm for dependency checking"
+#~ msgstr "Xác định thuật toán để kiểm tra quan hệ phụ thuộc"
+
+#~ msgid "Build using the current GCC development snapshot"
+#~ msgstr "Xây dựng dùng hiện trạng phát triển GCC hiện thời"
+
+#~ msgid "Package to build"
+#~ msgstr "Gói cần xây dựng"
+
+#~ msgid "--makebinNMU missing"
+#~ msgstr "--makebinNMU còn thiếu"
+
+#~ msgid "--binNMU missing"
+#~ msgstr "--binNMU còn thiếu"
 
 #~ msgid "Failed to release device lock (lock held by PID %4%)"
 #~ msgstr "Lỗi nhả khoá thiết bị (khóa được giữ bởi PID %4%)"

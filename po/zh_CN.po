@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.5.2-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-04-02 23:26+0100\n"
+"POT-Creation-Date: 2013-05-05 00:58+0100\n"
 "PO-Revision-Date: 2012-02-15 19:54+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -14,208 +14,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#. TRANSLATORS: %1% = file
-#, boost-format
-msgid "Can't open file ‘%1%’"
-msgstr "无法打开文件“%1%”"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Deprecated key ‘%4%’ used"
-msgstr "第 %1% 行：使用了作废的密钥“%4%”"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Deprecated key ‘%4%’ used"
-msgstr "使用了作废的密钥“%4%”"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Disallowed key ‘%4%’ used"
-msgstr "第 %1% 行：使用了未经许可的密钥“%4%”"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Disallowed key ‘%4%’ used"
-msgstr "使用了未经许可的密钥“%4%”"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Duplicate key ‘%4%’"
-msgstr "第 %1% 行: 重复的密钥“%4%”"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = line contents as read from the configuration file
-#, boost-format
-msgid "line %1%: Invalid line: “%4%”"
-msgstr "第 %1% 行: 无效行: “%4%”"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Required key ‘%4%’ is missing"
-msgstr "第 %1% 行: 未找到所需的密钥“%4%”"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Required key ‘%4%’ is missing"
-msgstr "未找到所需的密钥“%4%”"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = line contents as read from the configuration file
-#, boost-format
-msgid "line %1%: No key specified: “%4%”"
-msgstr "第 %1% 行: 未指定密钥: “%4%”"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "line %1%: Obsolete key ‘%4%’ used"
-msgstr "第 %1% 行: 使用了过期的密钥“%4%”"
-
-#. TRANSLATORS: %4% = key name ("keyname=value" in configuration file)
-#, boost-format
-msgid "Obsolete key ‘%4%’ used"
-msgstr "使用了过期的密钥“%4%”"
-
-#. TRANSLATORS: %2% = key name ("keyname=value" in configuration file)
-#. TRANSLATORS: %4% = additional details
-#, boost-format
-msgid "%2%: %4%"
-msgstr "%2%: %4%"
-
-#. TRANSLATORS: %1% = line number in configuration file
-#. TRANSLATORS: %3% = key name ("keyname=value" in configuration file)
-#. TRANSLATORS: %4% = additional details
-#, boost-format
-msgid "line %1%: %3%: %4%"
-msgstr "行 %1%: %3%: %4%"
-
-msgid "This option will be removed in the future"
-msgstr "此选项将来会被删除"
-
-msgid "This option has been removed, and no longer has any effect"
-msgstr "此选项已经被删除，不再有任何影响"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-msgid "[OPTION…] — build Debian packages from source"
-msgstr "[选项...] - 从源码构建 Debian 包"
-
-msgid "Build options"
-msgstr "构建选项"
-
-msgid "Package version options"
-msgstr "软件包版本选项"
-
-msgid "Build environment options"
-msgstr "构建环境选项"
-
-msgid "User options"
-msgstr "用户选项"
-
-msgid "Build dependency override options"
-msgstr "构建依赖覆盖选项"
-
-msgid "Special options"
-msgstr "特殊选项"
-
-msgid "Build source packages (default)"
-msgstr "构建源码包(默认)"
-
-msgid "Don't log program output"
-msgstr "不要记录程序输出"
-
-msgid "Run in batch mode"
-msgstr "以批处理模式运行"
-
-msgid "dpkg-buildpackage option"
-msgstr "dpkg-buildpackage 选项"
-
-msgid "dpkg-buildpackage options (space-separated)"
-msgstr "dpkg-buildpackage 选项(空格分隔)"
-
-msgid "Distribution to build for"
-msgstr "要构建的发行版"
-
-msgid "Archive to build for"
-msgstr "要构建的存档版"
-
-msgid "Build architecture"
-msgstr "构建架构"
-
-msgid "Build architecture \"all\" packages"
-msgstr "构建“所有”架构的包"
-
-msgid "Build a source package"
-msgstr "构建一个源码包"
-
-msgid "Force building of a source package, irrespective of Debian version"
-msgstr "强制构建一个源码包，无视Debian 版本"
-
-msgid "Make a binary non-maintainer upload (changelog entry)"
-msgstr "制作一个二进制非维护者上传(changelog 记录)"
-
-msgid "Make a binary non-maintainer upload (binNMU number)"
-msgstr "制作一个二进制非维护者上传(binNMU 号)"
-
-msgid "Append version suffix"
-msgstr "添加版本后缀"
-
-msgid "Update chroot environment"
-msgstr "更新chroot 环境变量"
-
-msgid "Chroot environment to build in"
-msgstr "用以构建的chroot 环境变量"
-
-msgid "Purge build mode"
-msgstr "清除构建环境"
-
-msgid "Purge dependencies mode"
-msgstr "清除依赖性关系"
-
-msgid "Run setup hook script in chroot prior to building"
-msgstr "chroot 中在构建之前运行设置脚本"
-
-msgid "GPG key identifier"
-msgstr "GPG 密钥识别符"
-
-msgid "Package maintainer"
-msgstr "包维护者"
-
-msgid "Package uploader"
-msgstr "包上传者"
-
-msgid "Add a build dependency"
-msgstr "添加构建依赖性"
-
-msgid "Add a build conflict"
-msgstr "添加构建冲突"
-
-msgid "Add an architecture-independent build dependency"
-msgstr "添加架构无关的构建依赖性"
-
-msgid "Add an architecture-independent build conflict"
-msgstr "添加架构无关的构建冲突"
-
-msgid "Specify algorithm for dependency checking"
-msgstr "指定检查依赖性的算法"
-
-msgid "Build using the current GCC development snapshot"
-msgstr "用当前 GCC 开发快照构建"
-
-msgid "Package to build"
-msgstr "要构建的包"
-
-msgid "--makebinNMU missing"
-msgstr "缺少 --makebinNMU"
-
-msgid "--binNMU missing"
-msgstr "缺少 --binNMU"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026, and '-'
 #. is an em-dash.
@@ -268,108 +66,6 @@ msgstr "不能同时使用 --chroot 和 --all"
 
 msgid "Using --chroots only"
 msgstr "仅使用 --chroots"
-
-msgid "dchroot session restriction"
-msgstr "dchroot 会话限制"
-
-#. TRANSLATORS: %4% = file
-#, boost-format
-msgid "No chroots are defined in ‘%4%’"
-msgstr "“%4%”中未定义chroot 环境"
-
-#. TRANSLATORS: %4% = file
-#. TRANSLATORS: %5% = file
-#, boost-format
-msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
-msgstr "“%4%”或“%5%”中未定义chroot 环境"
-
-#. TRANSLATORS: %1% = file
-#, boost-format
-msgid "The specified chroots are not defined in ‘%1%’"
-msgstr "“%1%”中未定义所选chroot 环境"
-
-#, boost-format
-msgid "%1%: Invalid session name"
-msgstr "%1%: 非法会话名"
-
-msgid "Available chroot types:"
-msgstr "可用的chroot 类型："
-
-msgid "Support for ‘block-device’ chroots"
-msgstr "支持\"block-device\"的chroot 环境"
-
-msgid "Support for ‘btrfs-snapshot’ chroots"
-msgstr "支持\"btrfs-snapshot\"的chroot 环境"
-
-#, fuzzy
-msgid "Support for ‘custom’ chroots"
-msgstr "支持\"directory\"的chroot 环境"
-
-msgid "Support for ‘directory’ chroots"
-msgstr "支持\"directory\"的chroot 环境"
-
-msgid "Support for ‘file’ chroots"
-msgstr "支持\"file\"的chroot 环境"
-
-msgid "Support for ‘loopback’ chroots"
-msgstr "支持\"loopback\"的chroot 环境"
-
-msgid "Support for ‘lvm-snapshot’ chroots"
-msgstr "支持“lvm-snapshot”的chroot 环境"
-
-msgid "Support for ‘plain’ chroots"
-msgstr "支持\"plain\"的chroot 环境"
-
-#. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = current date
-#, boost-format
-msgid "schroot configuration generated by %1% %2% on %3%"
-msgstr "schroot 的配置由 %1% %2% 在 %3% 生成"
-
-msgid "Chroot selection"
-msgstr "Chroot 选择"
-
-msgid "Chroot environment"
-msgstr "Chroot 环境变量"
-
-msgid "Session actions"
-msgstr "会话操作"
-
-msgid "Session options"
-msgstr "会话选项"
-
-msgid "List available chroots"
-msgstr "列出可用的chroots"
-
-msgid "Show information about selected chroots"
-msgstr "显示选中的chroots 的信息"
-
-msgid "Dump configuration of selected chroots"
-msgstr "显示选中的chroots 的配置"
-
-msgid "Use specified chroot"
-msgstr "使用指定的chroot"
-
-msgid "Command to run"
-msgstr "要运行的命令"
-
-msgid "Exactly one chroot must be specified when beginning a session"
-msgstr "开始一个会话时必须明确指定一个chroot"
-
-msgid ""
-"--session-name is not permitted for the specified action; did you mean to "
-"use --chroot?"
-msgstr "指定操作不允许 --session-name；您打算用--chroot 吗？"
-
-msgid "Unknown action specified"
-msgstr "未知的操作定义"
-
-msgid "--session-name is not permitted for the specified action"
-msgstr "所指定的操作不允许使用 --session-name"
-
-msgid "Invalid session name"
-msgstr "非法会话名"
 
 msgid "Print location of selected chroots"
 msgstr "打印所选的chroots 的位置"
@@ -485,54 +181,37 @@ msgstr "开启调试信息"
 msgid "Invalid debug level"
 msgstr "无效的调试级别"
 
-#. TRANSLATORS: %1% = file
+msgid "dchroot session restriction"
+msgstr "dchroot 会话限制"
+
+msgid "Failed to get hostname"
+msgstr "无法获取主机名"
+
+#. TRANSLATORS: %1% = user name or user ID
 #, boost-format
-msgid "Failed to find ‘%1%’"
-msgstr "无法找到“%1%”"
+msgid "User ‘%1%’ not found"
+msgstr "未找到用户“%1%”"
 
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-msgid "[OPTION…] — list mount points"
-msgstr "[选项...] - 列出挂载选项"
-
-msgid "Mount"
-msgstr "挂载"
-
-msgid "Mountpoint to check (full path)"
-msgstr "检查挂载点(完整路径)"
-
-msgid "No mount point specified"
-msgstr "未指定挂载点"
-
-msgid "Failed to fork child"
-msgstr "无法派生子进程"
-
-msgid "Wait for child failed"
-msgstr "等待子进程出错"
-
-#. TRANSLATORS: %1% = command name
-#. TRANSLATORS: %1% = command
+#. TRANSLATORS: %1% = group name or group ID
+#. TRANSLATORS: %1% = group name
 #, boost-format
-msgid "Failed to execute “%1%”"
-msgstr "无法运行“%1%”"
+msgid "Group ‘%1%’ not found"
+msgstr "未找到用户组“%1%”"
 
-#, fuzzy, boost-format
-msgid "Failed to resolve path “%1%”"
-msgstr "无法运行“%1%”"
+msgid "Authentication failed"
+msgstr "授权错误"
 
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-msgid "[OPTION…] — mount filesystems"
-msgstr "[选项...] - 挂载文件系统"
+msgid "Access not authorised"
+msgstr "未授权访问"
 
-msgid "An unknown exception occurred"
-msgstr "发生了未知的异常"
+msgid "PAM is already initialised"
+msgstr "PAM 模块已被初始化"
 
-msgid "Perform a simulation of actions which would be taken"
-msgstr "对将要进行的操作实行一次模拟动作"
+msgid "PAM error"
+msgstr "PAM 模块错误"
 
-msgid "fstab file to read (full path)"
-msgstr "要读取的 fstab 文件(完整路径)"
+msgid "PAM failed to shut down cleanly"
+msgstr "PAM 模块无法正常关闭"
 
 #. TRANSLATORS: %1% = program name (PAM service name)
 #, boost-format
@@ -570,6 +249,9 @@ msgstr "密码："
 msgid "[schroot] password for %1%: "
 msgstr "%1% 的[schroot] 密码："
 
+msgid "An unknown exception occurred"
+msgstr "发生了未知的异常"
+
 msgid "Pluggable Authentication Modules"
 msgstr "插入式验证模块"
 
@@ -584,222 +266,6 @@ msgstr "设置 TTY"
 
 msgid "Set USER"
 msgstr "设置 USER"
-
-msgid "Failed to get hostname"
-msgstr "无法获取主机名"
-
-#. TRANSLATORS: %1% = user name or user ID
-#, boost-format
-msgid "User ‘%1%’ not found"
-msgstr "未找到用户“%1%”"
-
-#. TRANSLATORS: %1% = group name or group ID
-#. TRANSLATORS: %1% = group name
-#, boost-format
-msgid "Group ‘%1%’ not found"
-msgstr "未找到用户组“%1%”"
-
-msgid "Authentication failed"
-msgstr "授权错误"
-
-msgid "Access not authorised"
-msgstr "未授权访问"
-
-msgid "PAM is already initialised"
-msgstr "PAM 模块已被初始化"
-
-msgid "PAM error"
-msgstr "PAM 模块错误"
-
-msgid "PAM failed to shut down cleanly"
-msgstr "PAM 模块无法正常关闭"
-
-msgid "Device"
-msgstr "设备"
-
-msgid "Btrfs Source Subvolume"
-msgstr "Btrfs 子卷源"
-
-msgid "Btrfs Snapshot Directory"
-msgstr "Btrfs 快照目录"
-
-msgid "Btrfs Snapshot Name"
-msgstr "Btrfs 快照名称"
-
-#. TRANSLATORS: %1% = chroot alias name
-#. TRANSLATORS: %4% = chroot name
-#, boost-format
-msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
-msgstr "别名“%1%”已经与chroot“%4%”关联"
-
-#. TRANSLATORS: %1% = chroot name
-#, boost-format
-msgid "%1%: Chroot not found"
-msgstr "%1%: 未找到chroot"
-
-#. TRANSLATORS: %1% = comma-separated list of chroot names
-#, boost-format
-msgid "%1%: Chroots not found"
-msgstr "%1%: 未找到chroots"
-
-#. TRANSLATORS: %1% = chroot name
-#, boost-format
-msgid "A chroot or alias ‘%1%’ already exists with this name"
-msgstr "已有与“%1%”同名的chroot 或别名存在"
-
-msgid "File is not a regular file"
-msgstr "文件不是普通文件"
-
-msgid "Failed to open file"
-msgstr "无法打开文件"
-
-msgid "File is not owned by user root"
-msgstr "文件所有者不是 root 用户"
-
-msgid "File has write permissions for others"
-msgstr "其他用户拥有文件写权"
-
-msgid "Invalid name"
-msgstr "非法会话名"
-
-msgid "No such namespace"
-msgstr "不存在该名字空间"
-
-msgid "Duplicate names are not allowed"
-msgstr "不允许重复的名字"
-
-msgid "Available chroots: "
-msgstr "可用的chroots: "
-
-msgid "Directory"
-msgstr "目录"
-
-msgid "Mount Device"
-msgstr "挂载设备"
-
-msgid "Mount Options"
-msgstr "挂载选项"
-
-msgid "Location"
-msgstr "位置"
-
-#. TRANSLATORS: "Personality" is the Linux kernel personality
-#. (process execution domain).  See schroot.conf(5).
-msgid "Personality"
-msgstr "进程私有空间"
-
-msgid "(session chroot)"
-msgstr "(chroot 进程)"
-
-msgid "Original Chroot Name"
-msgstr "原Chroot 名称"
-
-msgid "Selected Chroot Name"
-msgstr "所选Chroot 名称"
-
-msgid "Session ID"
-msgstr "会话ID"
-
-msgid "(source chroot)"
-msgstr "(源chroot)"
-
-msgid "Source Users"
-msgstr "源用户"
-
-msgid "Source Groups"
-msgstr "源用户组"
-
-msgid "Source Root Users"
-msgstr "源根用户"
-
-msgid "Source Root Groups"
-msgstr "源根用户组"
-
-msgid "Support for filesystem unioning"
-msgstr "支持文件系统整合"
-
-#. TRANSLATORS: %1% = chroot fs type
-#, boost-format
-msgid "Unknown filesystem union type ‘%1%’"
-msgstr "未知的文件系统类型“%1%”"
-
-msgid "Union overlay must have an absolute path"
-msgstr "向上型整合必须带上绝对路径"
-
-msgid "Union underlay must have an absolute path"
-msgstr "向下型整合必须带上绝对路径"
-
-msgid "Filesystem Union Type"
-msgstr "联合文件系统类型"
-
-msgid "Filesystem Union Mount Options"
-msgstr "联合文件系统挂载选项"
-
-msgid "Filesystem Union Overlay Directory"
-msgstr "联合文件系统置于目录之上"
-
-msgid "Filesystem Union Underlay Directory"
-msgstr "联合文件系统置于目录之下"
-
-#, boost-format
-msgid "Environment variable ‘%1%’ is ambiguous"
-msgstr ""
-
-#, fuzzy, boost-format
-msgid "Configuration key ‘%1%’ is ambiguous"
-msgstr "未找到所需的密钥“%4%”"
-
-#, boost-format
-msgid "Configuration key ‘%1%’ is not permitted to be modified."
-msgstr ""
-
-#, boost-format
-msgid "Configuration key name ‘%1%’ is not a permitted name."
-msgstr ""
-
-#. TRANSLATORS: %1% = key name for which value parsing failed
-#. TRANSLATORS: %4% = additional details of error
-#, fuzzy, boost-format
-msgid "%1%: %4%"
-msgstr "[%1%]: %4%"
-
-#, boost-format
-msgid ""
-"Configuration keys additional to ‘%1%’ would set this setup script "
-"environment variable"
-msgstr ""
-
-msgid "User Modifiable Keys"
-msgstr ""
-
-msgid "Root Modifiable Keys"
-msgstr ""
-
-msgid "User Data"
-msgstr ""
-
-#, boost-format
-msgid ""
-"More than one configuration key would set the ‘%1%’ environment variable"
-msgstr ""
-
-msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
-msgstr ""
-
-msgid "The key is not present in user-modifiable-keys"
-msgstr ""
-
-msgid "File"
-msgstr "文件"
-
-msgid "File Repack"
-msgstr "重打包文件"
-
-msgid "LVM Snapshot Device"
-msgstr "LVM 快照设备"
-
-msgid "LVM Snapshot Options"
-msgstr "LVM 快照选项"
 
 msgid "Chroot creation failed"
 msgstr "创建chroot 环境失败"
@@ -827,10 +293,16 @@ msgstr "无法解锁设备"
 msgid "Directory must have an absolute path"
 msgstr "目录名必须带上绝对路径"
 
-msgid "Attempt to add object which is not a facet"
+#, fuzzy, boost-format
+msgid "Attempt to use facet ‘%1%’ which is not present"
+msgstr "尝试添加正在使用的facet"
+
+#, fuzzy, boost-format
+msgid "Attempt to add object ‘%1%’ which is not a facet"
 msgstr "尝试添加非facet 对象"
 
-msgid "Attempt to add facet which is already in use"
+#, fuzzy, boost-format
+msgid "Attempt to add facet ‘%1%’ which is already in use"
 msgstr "尝试添加正在使用的facet"
 
 msgid "File must have an absolute path"
@@ -839,11 +311,23 @@ msgstr "文件名必须带上绝对路径"
 msgid "Failed to acquire file lock"
 msgstr "无法获取文件锁"
 
+msgid "File is not a regular file"
+msgstr "文件不是普通文件"
+
+msgid "File is not owned by user root"
+msgstr "文件所有者不是 root 用户"
+
+msgid "File has write permissions for others"
+msgstr "其他用户拥有文件写权"
+
 msgid "Failed to discard file lock"
 msgstr "无法释放文件锁"
 
 msgid "Location must have an absolute path"
 msgstr "位置必须带上绝对路径"
+
+msgid "Invalid name"
+msgstr "非法会话名"
 
 #, boost-format
 msgid "Could not set profile name from script configuration path ‘%1%’"
@@ -943,6 +427,252 @@ msgstr "会话"
 msgid "Source"
 msgstr "源"
 
+#. TRANSLATORS: %1% = chroot alias name
+#. TRANSLATORS: %4% = chroot name
+#, boost-format
+msgid "Alias ‘%1%’ already associated with ‘%4%’ chroot"
+msgstr "别名“%1%”已经与chroot“%4%”关联"
+
+#. TRANSLATORS: %1% = chroot name
+#, boost-format
+msgid "%1%: Chroot not found"
+msgstr "%1%: 未找到chroot"
+
+#. TRANSLATORS: %1% = comma-separated list of chroot names
+#, boost-format
+msgid "%1%: Chroots not found"
+msgstr "%1%: 未找到chroots"
+
+#. TRANSLATORS: %1% = chroot name
+#, boost-format
+msgid "A chroot or alias ‘%1%’ already exists with this name"
+msgstr "已有与“%1%”同名的chroot 或别名存在"
+
+msgid "Failed to open file"
+msgstr "无法打开文件"
+
+msgid "No such namespace"
+msgstr "不存在该名字空间"
+
+msgid "Duplicate names are not allowed"
+msgstr "不允许重复的名字"
+
+msgid "Available chroots: "
+msgstr "可用的chroots: "
+
+msgid "Device"
+msgstr "设备"
+
+msgid "Support for ‘block-device’ chroots"
+msgstr "支持\"block-device\"的chroot 环境"
+
+msgid "Support for ‘btrfs-snapshot’ chroots"
+msgstr "支持\"btrfs-snapshot\"的chroot 环境"
+
+msgid "Btrfs Source Subvolume"
+msgstr "Btrfs 子卷源"
+
+msgid "Btrfs Snapshot Directory"
+msgstr "Btrfs 快照目录"
+
+msgid "Btrfs Snapshot Name"
+msgstr "Btrfs 快照名称"
+
+#, fuzzy
+msgid "Support for ‘custom’ chroots"
+msgstr "支持\"directory\"的chroot 环境"
+
+msgid "Directory"
+msgstr "目录"
+
+msgid "Support for ‘directory’ chroots"
+msgstr "支持\"directory\"的chroot 环境"
+
+msgid "Support for ‘file’ chroots"
+msgstr "支持\"file\"的chroot 环境"
+
+msgid "File"
+msgstr "文件"
+
+msgid "File Repack"
+msgstr "重打包文件"
+
+msgid "Location"
+msgstr "位置"
+
+msgid "Support for filesystem unioning"
+msgstr "支持文件系统整合"
+
+#. TRANSLATORS: %1% = chroot fs type
+#, boost-format
+msgid "Unknown filesystem union type ‘%1%’"
+msgstr "未知的文件系统类型“%1%”"
+
+msgid "Union overlay must have an absolute path"
+msgstr "向上型整合必须带上绝对路径"
+
+msgid "Union underlay must have an absolute path"
+msgstr "向下型整合必须带上绝对路径"
+
+msgid "Filesystem Union Type"
+msgstr "联合文件系统类型"
+
+msgid "Filesystem Union Mount Options"
+msgstr "联合文件系统挂载选项"
+
+msgid "Filesystem Union Overlay Directory"
+msgstr "联合文件系统置于目录之上"
+
+msgid "Filesystem Union Underlay Directory"
+msgstr "联合文件系统置于目录之下"
+
+msgid "Support for ‘loopback’ chroots"
+msgstr "支持\"loopback\"的chroot 环境"
+
+msgid "Support for ‘lvm-snapshot’ chroots"
+msgstr "支持“lvm-snapshot”的chroot 环境"
+
+msgid "LVM Snapshot Device"
+msgstr "LVM 快照设备"
+
+msgid "LVM Snapshot Options"
+msgstr "LVM 快照选项"
+
+#, fuzzy
+msgid "Support for filesystem mounting"
+msgstr "支持文件系统整合"
+
+msgid "Mount Device"
+msgstr "挂载设备"
+
+msgid "Mount Options"
+msgstr "挂载选项"
+
+msgid "Linux kernel Application Binary Interface switching"
+msgstr "Linux 内核二进制程序界面切换"
+
+#. TRANSLATORS: "Personality" is the Linux kernel personality
+#. (process execution domain).  See schroot.conf(5).
+msgid "Personality"
+msgstr "进程私有空间"
+
+msgid "Support for ‘plain’ chroots"
+msgstr "支持\"plain\"的chroot 环境"
+
+#, fuzzy
+msgid "Support for session chroot cloning"
+msgstr "支持文件系统整合"
+
+msgid "(session chroot)"
+msgstr "(chroot 进程)"
+
+#, fuzzy
+msgid "Support for session chroots"
+msgstr "支持\"plain\"的chroot 环境"
+
+msgid "Original Chroot Name"
+msgstr "原Chroot 名称"
+
+msgid "Selected Chroot Name"
+msgstr "所选Chroot 名称"
+
+msgid "Session ID"
+msgstr "会话ID"
+
+#, fuzzy
+msgid "Support for source chroot cloning"
+msgstr "支持\"directory\"的chroot 环境"
+
+msgid "Source Users"
+msgstr "源用户"
+
+msgid "Source Groups"
+msgstr "源用户组"
+
+msgid "Source Root Users"
+msgstr "源根用户"
+
+msgid "Source Root Groups"
+msgstr "源根用户组"
+
+msgid "(source chroot)"
+msgstr "(源chroot)"
+
+#, fuzzy
+msgid "Support for source chroots"
+msgstr "支持\"directory\"的chroot 环境"
+
+msgid "Linux dissassociation of shared execution context"
+msgstr ""
+
+#, boost-format
+msgid "Could not unshare ‘%1%’ process execution context"
+msgstr ""
+
+msgid "Unshare Networking"
+msgstr ""
+
+msgid "Unshare System V IPC"
+msgstr ""
+
+msgid "Unshare System V Semaphores"
+msgstr ""
+
+#, fuzzy
+msgid "Unshare UTS namespace"
+msgstr "不存在该名字空间"
+
+msgid "User setting of custom configuration parameters"
+msgstr ""
+
+#, boost-format
+msgid "Environment variable ‘%1%’ is ambiguous"
+msgstr ""
+
+#, fuzzy, boost-format
+msgid "Configuration key ‘%1%’ is ambiguous"
+msgstr "未找到所需的密钥“%4%”"
+
+#, boost-format
+msgid "Configuration key ‘%1%’ is not permitted to be modified."
+msgstr ""
+
+#, boost-format
+msgid "Configuration key name ‘%1%’ is not a permitted name."
+msgstr ""
+
+#. TRANSLATORS: %1% = key name for which value parsing failed
+#. TRANSLATORS: %4% = additional details of error
+#, fuzzy, boost-format
+msgid "%1%: %4%"
+msgstr "[%1%]: %4%"
+
+#, boost-format
+msgid ""
+"Configuration keys additional to ‘%1%’ would set this setup script "
+"environment variable"
+msgstr ""
+
+msgid "User Modifiable Keys"
+msgstr ""
+
+msgid "Root Modifiable Keys"
+msgstr ""
+
+msgid "User Data"
+msgstr ""
+
+#, boost-format
+msgid ""
+"More than one configuration key would set the ‘%1%’ environment variable"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys or root-modifiable-keys"
+msgstr ""
+
+msgid "The key is not present in user-modifiable-keys"
+msgstr ""
+
 msgid "The controlling terminal close-on-execute flag could not be set"
 msgstr "无法设置受控终端的 close-on-execute 标识"
 
@@ -960,6 +690,10 @@ msgstr "错误"
 #, boost-format
 msgid "─── %1% ───"
 msgstr "─── %1% ───"
+
+#, boost-format
+msgid "Can't open file ‘%1%’"
+msgstr "无法打开文件“%1%”"
 
 #, boost-format
 msgid "line %1% [%2%]: Deprecated key ‘%4%’ used"
@@ -994,6 +728,10 @@ msgid "line %1% [%2%]: Invalid key ‘%4%’ used"
 msgstr "行 %1% [%2%]: 使用了未经许可的的密钥 “%4%”"
 
 #, boost-format
+msgid "line %1%: Invalid line: “%4%”"
+msgstr "第 %1% 行: 无效行: “%4%”"
+
+#, boost-format
 msgid "line %1% [%2%]: Required key ‘%4%’ is missing"
 msgstr "行 %1% [%2%]: 未找到所需的密钥 “%4%”"
 
@@ -1004,6 +742,10 @@ msgstr "[%1%]: 未找到所需的密钥 “%4%”"
 #, boost-format
 msgid "line %1%: No group specified: “%4%”"
 msgstr "第 %1% 行: 未指定用户组: “%4%”"
+
+#, boost-format
+msgid "line %1%: No key specified: “%4%”"
+msgstr "第 %1% 行: 未指定密钥: “%4%”"
 
 #, boost-format
 msgid "line %1% [%2%]: Obsolete key ‘%4%’ used"
@@ -1039,6 +781,9 @@ msgstr "此选项会在新版本中实现"
 msgid ""
 "This option will be removed in the future; please update your configuration"
 msgstr "此选项将来会被删除；请更新您的配置文件"
+
+msgid "This option has been removed, and no longer has any effect"
+msgstr "此选项已经被删除，不再有任何影响"
 
 msgid "Failed to set timeout handler"
 msgstr "无法设置超时处理程序"
@@ -1115,9 +860,6 @@ msgstr "无法读取挂载文件“%1%”"
 msgid "Could not parse value ‘%1%’"
 msgstr "无法分析数值“%1%”"
 
-msgid "Linux kernel Application Binary Interface switching"
-msgstr "Linux 内核二进制程序界面切换"
-
 #. TRANSLATORS: %1% = integer personality ID
 #, boost-format
 msgid "Personality ‘%1%’ is unknown"
@@ -1132,6 +874,19 @@ msgstr "无法设置私有名“%1%”"
 #, boost-format
 msgid "Valid personalities: %1%\n"
 msgstr "合法的私有进程名: %1%\n"
+
+msgid "Failed to fork child"
+msgstr "无法派生子进程"
+
+msgid "Wait for child failed"
+msgstr "等待子进程出错"
+
+#. TRANSLATORS: %1% = command name
+#. TRANSLATORS: %1% = command
+#. TRANSLATORS: %1% = command name
+#, boost-format
+msgid "Failed to execute “%1%”"
+msgstr "无法运行“%1%”"
 
 msgid "Failed to create pipe"
 msgstr "无法创建管道"
@@ -1337,6 +1092,265 @@ msgstr "无法获取文件状态"
 
 msgid "Failed to stat file descriptor"
 msgstr "无法统计文件描述符"
+
+#. TRANSLATORS: %4% = file
+#, boost-format
+msgid "No chroots are defined in ‘%4%’"
+msgstr "“%4%”中未定义chroot 环境"
+
+#. TRANSLATORS: %4% = file
+#. TRANSLATORS: %5% = file
+#, boost-format
+msgid "No chroots are defined in ‘%4%’ or ‘%5%’"
+msgstr "“%4%”或“%5%”中未定义chroot 环境"
+
+#. TRANSLATORS: %1% = file
+#, boost-format
+msgid "The specified chroots are not defined in ‘%1%’"
+msgstr "“%1%”中未定义所选chroot 环境"
+
+#, boost-format
+msgid "%1%: Invalid session name"
+msgstr "%1%: 非法会话名"
+
+#, fuzzy
+msgid "Installed chroot facets:"
+msgstr "可用的chroot 类型："
+
+#. TRANSLATORS: %1% = program name
+#. TRANSLATORS: %2% = program version
+#. TRANSLATORS: %3% = current date
+#, boost-format
+msgid "schroot configuration generated by %1% %2% on %3%"
+msgstr "schroot 的配置由 %1% %2% 在 %3% 生成"
+
+msgid "Chroot selection"
+msgstr "Chroot 选择"
+
+msgid "Chroot environment"
+msgstr "Chroot 环境变量"
+
+msgid "Session actions"
+msgstr "会话操作"
+
+msgid "Session options"
+msgstr "会话选项"
+
+msgid "List available chroots"
+msgstr "列出可用的chroots"
+
+msgid "Show information about selected chroots"
+msgstr "显示选中的chroots 的信息"
+
+msgid "Dump configuration of selected chroots"
+msgstr "显示选中的chroots 的配置"
+
+msgid "Use specified chroot"
+msgstr "使用指定的chroot"
+
+msgid "Command to run"
+msgstr "要运行的命令"
+
+msgid "Exactly one chroot must be specified when beginning a session"
+msgstr "开始一个会话时必须明确指定一个chroot"
+
+msgid ""
+"--session-name is not permitted for the specified action; did you mean to "
+"use --chroot?"
+msgstr "指定操作不允许 --session-name；您打算用--chroot 吗？"
+
+msgid "Unknown action specified"
+msgstr "未知的操作定义"
+
+msgid "--session-name is not permitted for the specified action"
+msgstr "所指定的操作不允许使用 --session-name"
+
+msgid "Invalid session name"
+msgstr "非法会话名"
+
+#. TRANSLATORS: %1% = file
+#, boost-format
+msgid "Failed to find ‘%1%’"
+msgstr "无法找到“%1%”"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+msgid "[OPTION…] — list mount points"
+msgstr "[选项...] - 列出挂载选项"
+
+msgid "Mount"
+msgstr "挂载"
+
+msgid "Mountpoint to check (full path)"
+msgstr "检查挂载点(完整路径)"
+
+msgid "No mount point specified"
+msgstr "未指定挂载点"
+
+#, fuzzy, boost-format
+msgid "Failed to resolve path “%1%”"
+msgstr "无法运行“%1%”"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+msgid "[OPTION…] — mount filesystems"
+msgstr "[选项...] - 挂载文件系统"
+
+msgid "Perform a simulation of actions which would be taken"
+msgstr "对将要进行的操作实行一次模拟动作"
+
+msgid "fstab file to read (full path)"
+msgstr "要读取的 fstab 文件(完整路径)"
+
+#~ msgid "line %1%: Deprecated key ‘%4%’ used"
+#~ msgstr "第 %1% 行：使用了作废的密钥“%4%”"
+
+#~ msgid "Deprecated key ‘%4%’ used"
+#~ msgstr "使用了作废的密钥“%4%”"
+
+#~ msgid "line %1%: Disallowed key ‘%4%’ used"
+#~ msgstr "第 %1% 行：使用了未经许可的密钥“%4%”"
+
+#~ msgid "Disallowed key ‘%4%’ used"
+#~ msgstr "使用了未经许可的密钥“%4%”"
+
+#~ msgid "line %1%: Duplicate key ‘%4%’"
+#~ msgstr "第 %1% 行: 重复的密钥“%4%”"
+
+#~ msgid "line %1%: Required key ‘%4%’ is missing"
+#~ msgstr "第 %1% 行: 未找到所需的密钥“%4%”"
+
+#~ msgid "Required key ‘%4%’ is missing"
+#~ msgstr "未找到所需的密钥“%4%”"
+
+#~ msgid "line %1%: Obsolete key ‘%4%’ used"
+#~ msgstr "第 %1% 行: 使用了过期的密钥“%4%”"
+
+#~ msgid "Obsolete key ‘%4%’ used"
+#~ msgstr "使用了过期的密钥“%4%”"
+
+#~ msgid "%2%: %4%"
+#~ msgstr "%2%: %4%"
+
+#~ msgid "line %1%: %3%: %4%"
+#~ msgstr "行 %1%: %3%: %4%"
+
+#~ msgid "This option will be removed in the future"
+#~ msgstr "此选项将来会被删除"
+
+#~ msgid "[OPTION…] — build Debian packages from source"
+#~ msgstr "[选项...] - 从源码构建 Debian 包"
+
+#~ msgid "Build options"
+#~ msgstr "构建选项"
+
+#~ msgid "Package version options"
+#~ msgstr "软件包版本选项"
+
+#~ msgid "Build environment options"
+#~ msgstr "构建环境选项"
+
+#~ msgid "User options"
+#~ msgstr "用户选项"
+
+#~ msgid "Build dependency override options"
+#~ msgstr "构建依赖覆盖选项"
+
+#~ msgid "Special options"
+#~ msgstr "特殊选项"
+
+#~ msgid "Build source packages (default)"
+#~ msgstr "构建源码包(默认)"
+
+#~ msgid "Don't log program output"
+#~ msgstr "不要记录程序输出"
+
+#~ msgid "Run in batch mode"
+#~ msgstr "以批处理模式运行"
+
+#~ msgid "dpkg-buildpackage option"
+#~ msgstr "dpkg-buildpackage 选项"
+
+#~ msgid "dpkg-buildpackage options (space-separated)"
+#~ msgstr "dpkg-buildpackage 选项(空格分隔)"
+
+#~ msgid "Distribution to build for"
+#~ msgstr "要构建的发行版"
+
+#~ msgid "Archive to build for"
+#~ msgstr "要构建的存档版"
+
+#~ msgid "Build architecture"
+#~ msgstr "构建架构"
+
+#~ msgid "Build architecture \"all\" packages"
+#~ msgstr "构建“所有”架构的包"
+
+#~ msgid "Build a source package"
+#~ msgstr "构建一个源码包"
+
+#~ msgid "Force building of a source package, irrespective of Debian version"
+#~ msgstr "强制构建一个源码包，无视Debian 版本"
+
+#~ msgid "Make a binary non-maintainer upload (changelog entry)"
+#~ msgstr "制作一个二进制非维护者上传(changelog 记录)"
+
+#~ msgid "Make a binary non-maintainer upload (binNMU number)"
+#~ msgstr "制作一个二进制非维护者上传(binNMU 号)"
+
+#~ msgid "Append version suffix"
+#~ msgstr "添加版本后缀"
+
+#~ msgid "Update chroot environment"
+#~ msgstr "更新chroot 环境变量"
+
+#~ msgid "Chroot environment to build in"
+#~ msgstr "用以构建的chroot 环境变量"
+
+#~ msgid "Purge build mode"
+#~ msgstr "清除构建环境"
+
+#~ msgid "Purge dependencies mode"
+#~ msgstr "清除依赖性关系"
+
+#~ msgid "Run setup hook script in chroot prior to building"
+#~ msgstr "chroot 中在构建之前运行设置脚本"
+
+#~ msgid "GPG key identifier"
+#~ msgstr "GPG 密钥识别符"
+
+#~ msgid "Package maintainer"
+#~ msgstr "包维护者"
+
+#~ msgid "Package uploader"
+#~ msgstr "包上传者"
+
+#~ msgid "Add a build dependency"
+#~ msgstr "添加构建依赖性"
+
+#~ msgid "Add a build conflict"
+#~ msgstr "添加构建冲突"
+
+#~ msgid "Add an architecture-independent build dependency"
+#~ msgstr "添加架构无关的构建依赖性"
+
+#~ msgid "Add an architecture-independent build conflict"
+#~ msgstr "添加架构无关的构建冲突"
+
+#~ msgid "Specify algorithm for dependency checking"
+#~ msgstr "指定检查依赖性的算法"
+
+#~ msgid "Build using the current GCC development snapshot"
+#~ msgstr "用当前 GCC 开发快照构建"
+
+#~ msgid "Package to build"
+#~ msgstr "要构建的包"
+
+#~ msgid "--makebinNMU missing"
+#~ msgstr "缺少 --makebinNMU"
+
+#~ msgid "--binNMU missing"
+#~ msgstr "缺少 --binNMU"
 
 #~ msgid "Failed to release device lock (lock held by PID %4%)"
 #~ msgstr "无法释放设备锁(进程号为 %4% 的程序拥有锁权)"
