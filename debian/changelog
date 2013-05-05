@@ -1,11 +1,12 @@
-schroot (1.7.0-1) UNRELEASED; urgency=low
+schroot (1.7.0-1) experimental; urgency=low
 
   * New upstream development release.
   * schroot:
-    - Support for unsharing network devices has been added.
-      On linux, run schroot with "-o unshare.newnet=true", and
-      in the chroot, all networking will be isolated from the
-      host.  By default, only a localhost link is provided.
+    - Support for unsharing network devices has been added
+      (Closes: #637870).  On linux, run schroot with
+      "-o unshare.newnet=true", and in the chroot, all networking
+      will be isolated from the host.  By default, only a localhost
+      link is provided.
     - Support for "exec" scripts, removed in 1.4 and 1.6, has
       been re-added to support unsharing network devices.  These
       are regular setup scripts, called with an exec-start or
