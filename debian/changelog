@@ -26,7 +26,7 @@ schroot (1.7.0-1) experimental; urgency=low
     - Remove UUID support.
     - Support parallel= in DEB_BUILD_OPTIONS.
 
- -- Roger Leigh <rleigh@debian.org>  Sat, 21 Jul 2012 10:44:09 +0100
+ -- Roger Leigh <rleigh@debian.org>  Sun, 05 May 2013 11:33:16 +0100
 
 schroot (1.6.4-4) unstable; urgency=low
 
