@@ -81,13 +81,13 @@ CLEANFILES +=				\
 	man/schroot.pdf
 
 %.1: %.1.man $(EXPAND)
-	$(SOELIM) -I $(dir $<) -I "$(srcdir)" $< >$@
+	$(SOELIM) -I "$(dir $@)" -I "$(dir $<)" -I "$(srcdir)/man" $< >$@
 
 %.5: %.5.man $(EXPAND)
-	$(SOELIM) -I $(dir $<) -I "$(srcdir)" $< >$@
+	$(SOELIM) -I "$(dir $@)" -I "$(dir $<)" -I "$(srcdir)/man" $< >$@
 
 %.7: %.7.man $(EXPAND)
-	$(SOELIM) -I $(dir $<) -I "$(srcdir)" $< >$@
+	$(SOELIM) -I "$(dir $@)" -I "$(dir $<)" -I "$(srcdir)/man" $< >$@
 
 %.1.ps: %.1
 	groffer -Tps -man <$< >$@

@@ -201,4 +201,4 @@ EXTRA_DIST += 					\
 	test/cleanup-test-data
 
 clean-local::
-	test/cleanup-test-data
+	$(srcdir)/test/cleanup-test-data
