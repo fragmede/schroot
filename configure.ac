@@ -302,7 +302,26 @@ AC_DEFINE_UNQUOTED(SBUILD_HOST_CPU, ["$host_cpu"])
 
 # Checks for libraries.
 AM_PATH_CPPUNIT([1.10.0], [HAVE_CPPUNIT=yes])
-AM_CONDITIONAL([USE_UNIT_TESTS], [test -n "$HAVE_CPPUNIT"])
+
+AC_MSG_CHECKING([for gtest])
+GTEST_LIBS="-lgtest"
+saved_CFLAGS="${CFLAGS}"
+saved_LIBS="${LIBS}"
+CXXFLAGS="${saved_CXXFLAGS} ${PTHREAD_CFLAGS}"
+LIBS="${saved_LIBS} ${GTEST_LIBS} ${PTHREAD_LIBS}"
+AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <gtest/gtest.h>],
+                                [testing::InitGoogleTest(static_cast<int*>(0), static_cast<char**>(0)); return RUN_ALL_TESTS();])],
+                               [AC_MSG_RESULT([yes])
+                                HAVE_GTEST=true],
+                               [AC_MSG_RESULT([no])
+                                AC_MSG_WARN([libgtest (Google Test) not found; this is optional, needed to run the unit tests])
+                                GTEST_LIBS=""
+                                HAVE_GTEST=""])
+CXXFLAGS="${saved_CXXFLAGS}"
+LIBS="${saved_LIBS}"
+AC_SUBST([GTEST_LIBS])
+
+AM_CONDITIONAL([USE_UNIT_TESTS], [test -n "$HAVE_GTEST" && test -n "$HAVE_CPPUNIT"])
 
 SCHROOT_CFLAGS=""
 AC_SUBST([SCHROOT_CFLAGS])
