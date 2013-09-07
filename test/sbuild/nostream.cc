@@ -16,28 +16,13 @@
  *
  *********************************************************************/
 
+#include <gtest/gtest.h>
+
 #include <sbuild/nostream.h>
 
 #include <cstdlib>
 
-#include <cppunit/extensions/HelperMacros.h>
-
-using namespace CppUnit;
-
-class test_nostream : public TestCase
+TEST(NullOstream, Discard)
 {
-  CPPUNIT_TEST_SUITE(test_nostream);
-  CPPUNIT_TEST(test_stream);
-  CPPUNIT_TEST_SUITE_END();
-
-public:
-  test_nostream()
-  {}
-
-  void test_stream()
-  {
-    sbuild::cnull << "Discard";
-  }
-};
-
-CPPUNIT_TEST_SUITE_REGISTRATION(test_nostream);
+  sbuild::cnull << "Discard";
+}

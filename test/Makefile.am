@@ -160,7 +160,7 @@ test_sbuild_log_SOURCES = test/sbuild/log.cc
 test_sbuild_log_LDADD = lib/test/libtest.la
 
 test_sbuild_nostream_SOURCES = test/sbuild/nostream.cc
-test_sbuild_nostream_LDADD = lib/test/libtest.la
+test_sbuild_nostream_LDADD = lib/test/libtest2.la
 
 test_sbuild_parse_value_SOURCES = test/sbuild/parse-value.cc
 test_sbuild_parse_value_LDADD = lib/test/libtest.la
