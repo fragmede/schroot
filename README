@@ -32,6 +32,20 @@ gettext (0.16 or greater)
 doxygen
 po4a (>=0.40)
 
+To run the unit tests, you will optionally need:
+cmake
+cppunit
+gtest
+
+configure with GTEST_ROOT=/path/to/libgtest (it will be added as a
+linker -L option).  On Debian systems, which don't provide a
+precompiled libgtest, build a version for the build with, for
+example:
+  mkdir gtest
+  cd gtest; \
+    CXX="g++ -std=c++11" cmake /usr/src/gtest ; \
+    make VERBOSE=1
+  ./configure CXX="g++ -std=c++11" GTEST_ROOT="$(pwd)/gtest"
 
 Translation
 -----------
