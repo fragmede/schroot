@@ -85,7 +85,7 @@ AC_SUBST([SBUILD_INTERFACE_AGE])
 AC_SUBST([SBUILD_BINARY_AGE])
 
 dnl Initialise automake stuff.
-AM_INIT_AUTOMAKE([1.10 gnu -Wno-portability subdir-objects check-news dist-xz no-dist-gzip tar-pax])
+AM_INIT_AUTOMAKE([1.10 gnu -Wno-portability subdir-objects check-news dist-xz no-dist-gzip tar-pax serial-tests])
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 RELEASE_DATE='m4_esyscmd_s(date --date='m4_esyscmd_s([sed -ne '/^Release-Date:/{s/Release-Date:[[:space:]][[:space:]]*//p;q}' VERSION])' '+%s')'
 RELEASE_DATE_S='m4_esyscmd_s([sed -ne '/^Release-Date:/{s/Release-Date:[[:space:]][[:space:]]*//p;q}' VERSION])'
@@ -304,6 +304,9 @@ AC_DEFINE_UNQUOTED(SBUILD_HOST_CPU, ["$host_cpu"])
 AM_PATH_CPPUNIT([1.10.0], [HAVE_CPPUNIT=yes])
 
 AC_MSG_CHECKING([for gtest])
+if test -d "$GTEST_ROOT"; then
+  LDFLAGS="$LDFLAGS -L$GTEST_ROOT"
+fi
 GTEST_LIBS="-lgtest"
 saved_CFLAGS="${CFLAGS}"
 saved_LIBS="${LIBS}"
