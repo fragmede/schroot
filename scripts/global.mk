@@ -16,6 +16,8 @@
 #
 #####################################################################
 
+DEFAULT_INCLUDES=
+
 schroot_mountdir=$(localstatedir)/lib/$(PACKAGE)/mount
 schroot_sessiondir=$(localstatedir)/lib/$(PACKAGE)/session
 schroot_file_unpackdir=$(localstatedir)/lib/$(PACKAGE)/unpack
