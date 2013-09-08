@@ -260,8 +260,7 @@ if test -z "$LVCREATE" || test -z "$LVREMOVE"; then
 fi
 HAVE_BTRFS="yes"
 AC_PATH_PROG([BTRFS], [btrfs], [], [$PATH:/sbin:/usr/sbin])
-AC_PATH_PROG([BTRFSCTL], [btrfsctl], [], [$PATH:/sbin:/usr/sbin])
-if test -z "$BTRFS" || test -z "$BTRFSCTL"; then
+if test -z "$BTRFS"; then
   HAVE_BTRFS="no"
 fi
 HAVE_LOOPBACK="yes"
