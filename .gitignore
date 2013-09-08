@@ -28,3 +28,4 @@ build-stamp
 ChangeLog
 VERSION
 .gdb_history
+test-suite.log

@@ -20,4 +20,5 @@ sbuild/regex
 sbuild/run-parts
 sbuild/util
 bin-common/option-action
-
+*.log
+*.trs
