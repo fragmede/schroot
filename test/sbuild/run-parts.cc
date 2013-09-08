@@ -16,6 +16,8 @@
  *
  *********************************************************************/
 
+#include <gtest/gtest.h>
+
 #include <sbuild/nostream.h>
 #include <sbuild/run-parts.h>
 #include <sbuild/util.h>
@@ -25,108 +27,84 @@
 
 #include <boost/filesystem/operations.hpp>
 
-#include <cppunit/extensions/HelperMacros.h>
-
-using namespace CppUnit;
-
-class test_run_parts : public TestFixture
+class RunParts : public ::testing::Test
 {
-  CPPUNIT_TEST_SUITE(test_run_parts);
-  CPPUNIT_TEST(test_construction);
-  CPPUNIT_TEST_EXCEPTION(test_construction_fail, boost::filesystem::filesystem_error);
-  CPPUNIT_TEST(test_run);
-  CPPUNIT_TEST(test_run2);
-  CPPUNIT_TEST(test_run3);
-  CPPUNIT_TEST_SUITE_END();
-
+public:
   std::streambuf           *saved;
   sbuild::basic_nbuf<char> *monitor;
 
-public:
-  test_run_parts():
-    TestFixture()
-  {}
-
-  void setUp()
+  void SetUp()
   {
-    this->monitor = new sbuild::basic_nbuf<char>();
-    this->saved = std::cerr.std::ios::rdbuf(this->monitor);
+    monitor = new sbuild::basic_nbuf<char>();
+    saved = std::cerr.std::ios::rdbuf(monitor);
   }
 
-  void tearDown()
+  void TearDown()
   {
-    std::cerr.std::ios::rdbuf(this->saved);
-    delete this->monitor;
+    std::cerr.std::ios::rdbuf(saved);
+    delete monitor;
   }
-
-
-  virtual ~test_run_parts()
-  {}
-
-  void
-  test_construction()
-  {
-    sbuild::run_parts rp(TESTDATADIR "/run-parts.ex1");
-  }
-
-  void
-  test_construction_fail()
-  {
-    sbuild::run_parts rp(TESTDATADIR "/invalid_dir");
-  }
-
-  void test_run()
-  {
-    sbuild::run_parts rp(TESTDATADIR "/run-parts.ex1");
-
-    int status;
-
-    sbuild::string_list command;
-    sbuild::environment env(environ);
-
-    command.push_back("ok");
-    status = rp.run(command, env);
-    CPPUNIT_ASSERT(status == EXIT_SUCCESS);
-
-    command.clear();
-    command.push_back("fail");
-    status = rp.run(command, env);
-    CPPUNIT_ASSERT(status == EXIT_FAILURE);
-
-    command.clear();
-    command.push_back("fail2");
-    status = rp.run(command, env);
-    CPPUNIT_ASSERT(status == EXIT_FAILURE);
-  }
-
-  void test_run2()
-  {
-    sbuild::run_parts rp(TESTDATADIR "/run-parts.ex2");
-
-    int status;
-
-    sbuild::string_list command;
-    sbuild::environment env(environ);
-
-    command.push_back("ok");
-    status = rp.run(command, env);
-    CPPUNIT_ASSERT(status == EXIT_SUCCESS);
-  }
-
-  void test_run3()
-  {
-    sbuild::run_parts rp(TESTDATADIR "/run-parts.ex3");
-
-    int status;
-
-    sbuild::string_list command;
-    sbuild::environment env(environ);
-
-    command.push_back("ok");
-    status = rp.run(command, env);
-    CPPUNIT_ASSERT(status == EXIT_FAILURE);
-  }
-
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(test_run_parts);
+TEST_F(RunParts, Construct)
+{
+  ASSERT_NO_THROW(sbuild::run_parts rp(TESTDATADIR "/run-parts.ex1"));
+}
+
+TEST_F(RunParts, ConstructFail)
+{
+  ASSERT_THROW(sbuild::run_parts rp(TESTDATADIR "/invalid_dir"),
+               boost::filesystem::filesystem_error);
+}
+
+TEST_F(RunParts, Run1)
+{
+  sbuild::run_parts rp(TESTDATADIR "/run-parts.ex1");
+
+  int status;
+
+  sbuild::string_list command;
+  sbuild::environment env(environ);
+
+  command.push_back("ok");
+  status = rp.run(command, env);
+  ASSERT_EQ(status, EXIT_SUCCESS);
+
+  command.clear();
+  command.push_back("fail");
+  status = rp.run(command, env);
+  ASSERT_EQ(status, EXIT_FAILURE);
+
+  command.clear();
+  command.push_back("fail2");
+  status = rp.run(command, env);
+  ASSERT_EQ(status, EXIT_FAILURE);
+}
+
+TEST_F(RunParts, Run2)
+{
+  sbuild::run_parts rp(TESTDATADIR "/run-parts.ex2");
+
+  int status;
+
+  sbuild::string_list command;
+  sbuild::environment env(environ);
+
+  command.push_back("ok");
+  status = rp.run(command, env);
+  ASSERT_EQ(status, EXIT_SUCCESS);
+}
+
+TEST_F(RunParts, Run3)
+{
+  sbuild::run_parts rp(TESTDATADIR "/run-parts.ex3");
+
+  int status;
+
+  sbuild::string_list command;
+  sbuild::environment env(environ);
+
+  command.push_back("ok");
+  status = rp.run(command, env);
+  ASSERT_EQ(status, EXIT_FAILURE);
+}

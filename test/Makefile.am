@@ -172,7 +172,7 @@ test_sbuild_regex_SOURCES = test/sbuild/regex.cc
 test_sbuild_regex_LDADD = lib/test/libtest2.la
 
 test_sbuild_run_parts_SOURCES = test/sbuild/run-parts.cc
-test_sbuild_run_parts_LDADD = lib/test/libtest.la
+test_sbuild_run_parts_LDADD = lib/test/libtest2.la
 
 test_sbuild_util_SOURCES = test/sbuild/util.cc
 test_sbuild_util_LDADD = lib/test/libtest2.la
