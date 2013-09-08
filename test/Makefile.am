@@ -151,7 +151,7 @@ test_sbuild_environment_SOURCES = test/sbuild/environment.cc
 test_sbuild_environment_LDADD = lib/test/libtest2.la
 
 test_sbuild_keyfile_SOURCES = test/sbuild/keyfile.cc
-test_sbuild_keyfile_LDADD = lib/test/libtest.la
+test_sbuild_keyfile_LDADD = lib/test/libtest2.la
 
 test_sbuild_lock_SOURCES = test/sbuild/lock.cc
 test_sbuild_lock_LDADD = lib/test/libtest2.la
