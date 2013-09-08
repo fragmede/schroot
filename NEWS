@@ -10,10 +10,8 @@ configuration.
 
 * Major changes in 1.7.1:
 
-  1) The tests are being migrated from using CppUnit to Google Test
-     (gtest).  See the README for how to build with gtest.  Once all
-     the tests are converted, CppUnit support will be removed.  At
-     present, both are required.
+  1) The unit tests now use Google Test (gtest) instead of the older and
+     less powerful CppUnit.  See the README for how to build with gtest.
 
 * Major changes in 1.7.0:
 
