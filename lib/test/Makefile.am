@@ -17,14 +17,10 @@
 #####################################################################
 
 if USE_UNIT_TESTS
-noinst_LTLIBRARIES += lib/test/libtest.la lib/test/libtest2.la
+noinst_LTLIBRARIES += lib/test/libtest.la
 endif
 
 lib_test_libtest_la_SOURCES =	\
 	lib/test/testmain.cc
-lib_test_libtest_la_LIBADD = $(top_builddir)/lib/sbuild/libsbuild.la $(CPPUNIT_LIBS)
-
-lib_test_libtest2_la_SOURCES =	\
-	lib/test/gtestmain.cc
-lib_test_libtest2_la_LIBADD = $(top_builddir)/lib/sbuild/libsbuild.la $(GTEST_LIBS)
+lib_test_libtest_la_LIBADD = $(top_builddir)/lib/sbuild/libsbuild.la $(GTEST_LIBS)
 
