@@ -178,7 +178,7 @@ test_sbuild_util_SOURCES = test/sbuild/util.cc
 test_sbuild_util_LDADD = lib/test/libtest2.la
 
 test_bin_common_option_action_SOURCES = test/bin-common/option-action.cc
-test_bin_common_option_action_LDADD = $(top_builddir)/lib/bin-common/libbin-common.la lib/test/libtest.la
+test_bin_common_option_action_LDADD = $(top_builddir)/lib/bin-common/libbin-common.la lib/test/libtest2.la
 
 EXTRA_DIST += 					\
 	test/keyfile.ex1			\
