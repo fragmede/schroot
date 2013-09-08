@@ -53,7 +53,6 @@ debian/build/config.status: configure debian/build/gtest/libgtest.a
 	  --with-bash-completion-dir=/etc/bash_completion.d \
 	  $(LVMSNAP_OPTIONS) $(BTRFSSNAP_OPTIONS) \
 	  BTRFS=/sbin/btrfs \
-	  BTRFSCTL=/sbin/btrfsctl \
 	  LVCREATE=/sbin/lvcreate \
 	  LVREMOVE=/sbin/lvremove \
 	  CXX='g++ -std=gnu++11' \
