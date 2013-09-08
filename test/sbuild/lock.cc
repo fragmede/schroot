@@ -16,6 +16,8 @@
  *
  *********************************************************************/
 
+#include <gtest/gtest.h>
+
 #include <sbuild/lock.h>
 
 #include <iostream>
@@ -24,31 +26,29 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include <cppunit/extensions/HelperMacros.h>
-
-using namespace CppUnit;
-
-class test_file_lock : public TestFixture
+class FileLockParameters
 {
-  CPPUNIT_TEST_SUITE(test_file_lock);
-  CPPUNIT_TEST(test_none_none_lock);
-  CPPUNIT_TEST(test_none_shr_lock);
-  CPPUNIT_TEST(test_none_excl_lock);
-  CPPUNIT_TEST(test_shr_none_lock);
-  CPPUNIT_TEST(test_shr_shr_lock);
-  CPPUNIT_TEST_EXCEPTION(test_shr_excl_lock, sbuild::lock::error);
-  CPPUNIT_TEST(test_excl_none_lock);
-  CPPUNIT_TEST_EXCEPTION(test_excl_shr_lock, sbuild::lock::error);
-  CPPUNIT_TEST_EXCEPTION(test_excl_excl_lock, sbuild::lock::error);
-  CPPUNIT_TEST_SUITE_END();
+public:
+  sbuild::lock::type initial;
+  sbuild::lock::type establish;
+  bool willthrow;
 
-protected:
+  FileLockParameters(sbuild::lock::type initial,
+                     sbuild::lock::type establish,
+                     bool               willthrow):
+    initial(initial),
+    establish(establish),
+    willthrow(willthrow)
+  {}
+};
+
+class FileLock : public ::testing::TestWithParam<FileLockParameters>
+{
+public:
   int fd;
   sbuild::file_lock *lck;
 
-public:
-  test_file_lock():
-    TestFixture(),
+  FileLock():
     fd(-1),
     lck(0)
   {
@@ -56,127 +56,97 @@ public:
     unlink(TESTDATADIR "/filelock.ex1");
   }
 
-  virtual ~test_file_lock()
+  virtual ~FileLock()
   {}
 
-  void setUp()
+  void SetUp()
   {
-    this->fd = open(TESTDATADIR "/filelock.ex1", O_RDWR|O_EXCL|O_CREAT, 0600);
-    CPPUNIT_ASSERT(this->fd >= 0);
+    fd = open(TESTDATADIR "/filelock.ex1", O_RDWR|O_EXCL|O_CREAT, 0600);
+    ASSERT_GE(fd, 0);
 
-    ssize_t wsize = write(this->fd,
+    ssize_t wsize = write(fd,
                           "This file exists in order to test "
                           "sbuild::file_lock locking.\n", 61);
-    CPPUNIT_ASSERT(wsize == 61);
+    ASSERT_EQ(wsize, 61);
 
-    this->lck = new sbuild::file_lock(this->fd);
-    CPPUNIT_ASSERT(lck != 0);
+    lck = new sbuild::file_lock(fd);
+    ASSERT_NE(lck, nullptr);
   }
 
-  void tearDown()
+  void TearDown()
   {
-    CPPUNIT_ASSERT(lck != 0);
-    this->lck->unset_lock();
-    delete this->lck;
+    ASSERT_NE(lck, nullptr);
+    lck->unset_lock();
+    delete lck;
 
-    CPPUNIT_ASSERT(close(this->fd) == 0);
-    CPPUNIT_ASSERT(unlink(TESTDATADIR "/filelock.ex1") == 0);
-  }
-
-  void test(sbuild::lock::type initial,
-            sbuild::lock::type establish)
-  {
-    this->lck->unset_lock();
-    int pid = fork();
-    CPPUNIT_ASSERT(pid >= 0);
-    if (pid == 0)
-      {
-        try
-          {
-            this->lck->set_lock(initial, 1);
-            // Note: can cause unexpected success if < 4.  Set to 8 to
-            // allow for slow or heavily-loaded machines.
-            sleep(4);
-            this->lck->unset_lock();
-          }
-        catch (const std::exception& e)
-          {
-            try
-              {
-                this->lck->unset_lock();
-              }
-            catch (const std::exception& ignore)
-              {
-              }
-            std::cerr << "Child fail: " << e.what() << std::endl;
-            _exit(EXIT_FAILURE);
-          }
-        _exit(EXIT_SUCCESS);
-      }
-    else
-      {
-        try
-          {
-            sleep(2);
-            this->lck->set_lock(establish, 1);
-
-            int status;
-            CPPUNIT_ASSERT(waitpid(pid, &status, 0) >= 0);
-            CPPUNIT_ASSERT(WIFEXITED(status) && WEXITSTATUS(status) == 0);
-          }
-        catch (const std::exception& e)
-          {
-            int status;
-            waitpid(pid, &status, 0);
-            throw;
-          }
-      }
-  }
-
-  void test_none_none_lock()
-  {
-    test(sbuild::lock::LOCK_NONE, sbuild::lock::LOCK_NONE);
-  }
-
-  void test_none_shr_lock()
-  {
-    test(sbuild::lock::LOCK_NONE, sbuild::lock::LOCK_SHARED);
-  }
-
-  void test_none_excl_lock()
-  {
-    test(sbuild::lock::LOCK_NONE, sbuild::lock::LOCK_EXCLUSIVE);
-  }
-
-  void test_shr_none_lock()
-  {
-    test(sbuild::lock::LOCK_SHARED, sbuild::lock::LOCK_NONE);
-  }
-
-  void test_shr_shr_lock()
-  {
-    test(sbuild::lock::LOCK_SHARED, sbuild::lock::LOCK_SHARED);
-  }
-
-  void test_shr_excl_lock()
-  {
-    test(sbuild::lock::LOCK_SHARED, sbuild::lock::LOCK_EXCLUSIVE);
-  }
-
-  void test_excl_none_lock()
-  {
-    test(sbuild::lock::LOCK_EXCLUSIVE, sbuild::lock::LOCK_NONE);
-  }
-
-  void test_excl_shr_lock()
-  {
-    test(sbuild::lock::LOCK_EXCLUSIVE, sbuild::lock::LOCK_SHARED);
-  }
-
-  void test_excl_excl_lock()
-  {
-    test(sbuild::lock::LOCK_EXCLUSIVE, sbuild::lock::LOCK_EXCLUSIVE);
+    ASSERT_EQ(close(fd), 0);
+    ASSERT_EQ(unlink(TESTDATADIR "/filelock.ex1"), 0);
   }
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(test_file_lock);
+TEST_P(FileLock, Locking)
+{
+  const FileLockParameters& params = GetParam();
+
+  lck->unset_lock();
+  int pid = fork();
+  ASSERT_GE(pid, 0);
+  if (pid == 0)
+    {
+      try
+        {
+          lck->set_lock(params.initial, 1);
+          // Note: can cause unexpected success if < 4.  Set to 8 to
+          // allow for slow or heavily-loaded machines.
+          sleep(4);
+          lck->unset_lock();
+        }
+      catch (const std::exception& e)
+        {
+          try
+            {
+              lck->unset_lock();
+            }
+          catch (const std::exception& ignore)
+            {
+            }
+          std::cerr << "Child fail: " << e.what() << std::endl;
+            _exit(EXIT_FAILURE);
+        }
+      _exit(EXIT_SUCCESS);
+    }
+  else
+    {
+      try
+        {
+          sleep(2);
+          lck->set_lock(params.establish, 1);
+
+          int status;
+          ASSERT_GE(waitpid(pid, &status, 0), 0);
+          ASSERT_EQ(WIFEXITED(status) && WEXITSTATUS(status), 0);
+          ASSERT_FALSE(params.willthrow);
+        }
+      catch (const std::exception& e)
+        {
+          int status;
+          waitpid(pid, &status, 0);
+          ASSERT_TRUE(params.willthrow);
+        }
+    }
+}
+
+FileLockParameters params[] =
+  {
+    FileLockParameters(sbuild::lock::LOCK_NONE,      sbuild::lock::LOCK_NONE,      false),
+    FileLockParameters(sbuild::lock::LOCK_NONE,      sbuild::lock::LOCK_SHARED,    false),
+    FileLockParameters(sbuild::lock::LOCK_NONE,      sbuild::lock::LOCK_EXCLUSIVE, false),
+    FileLockParameters(sbuild::lock::LOCK_SHARED,    sbuild::lock::LOCK_NONE,      false),
+    FileLockParameters(sbuild::lock::LOCK_SHARED,    sbuild::lock::LOCK_SHARED,    false),
+    FileLockParameters(sbuild::lock::LOCK_SHARED,    sbuild::lock::LOCK_EXCLUSIVE, true),
+    FileLockParameters(sbuild::lock::LOCK_EXCLUSIVE, sbuild::lock::LOCK_NONE,      false),
+    FileLockParameters(sbuild::lock::LOCK_EXCLUSIVE, sbuild::lock::LOCK_SHARED,    true),
+    FileLockParameters(sbuild::lock::LOCK_EXCLUSIVE, sbuild::lock::LOCK_EXCLUSIVE, true)
+  };
+
+INSTANTIATE_TEST_CASE_P(LockVariants, FileLock, ::testing::ValuesIn(params));
