@@ -34,7 +34,6 @@ po4a (>=0.40)
 
 To run the unit tests, you will optionally need:
 cmake
-cppunit
 gtest
 
 configure with GTEST_ROOT=/path/to/libgtest (it will be added as a
