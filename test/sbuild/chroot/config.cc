@@ -16,6 +16,8 @@
  *
  *********************************************************************/
 
+#include <gtest/gtest.h>
+
 #include <sbuild/chroot/config.h>
 #include <sbuild/nostream.h>
 
@@ -23,188 +25,161 @@
 #include <sstream>
 #include <vector>
 
-#include <cppunit/extensions/HelperMacros.h>
-
-using namespace CppUnit;
-
-class test_config : public TestFixture
+class ChrootConfig : public ::testing::Test
 {
-  CPPUNIT_TEST_SUITE(test_config);
-  CPPUNIT_TEST(test_construction_file);
-  CPPUNIT_TEST(test_construction_dir);
-  CPPUNIT_TEST_EXCEPTION(test_construction_fail, sbuild::error_base);
-  CPPUNIT_TEST(test_add_file);
-  CPPUNIT_TEST(test_add_dir);
-  CPPUNIT_TEST_EXCEPTION(test_add_fail, sbuild::error_base);
-  CPPUNIT_TEST(test_get_chroots);
-  CPPUNIT_TEST(test_find_chroot);
-  CPPUNIT_TEST(test_find_alias);
-  CPPUNIT_TEST(test_get_chroot_list);
-  CPPUNIT_TEST(test_get_alias_list);
-  CPPUNIT_TEST(test_validate_chroots);
-  CPPUNIT_TEST_EXCEPTION(test_validate_chroots_fail, sbuild::error_base);
-  CPPUNIT_TEST_EXCEPTION(test_config_fail, sbuild::error_base);
-  CPPUNIT_TEST(test_config_deprecated);
-  CPPUNIT_TEST(test_config_valid);
-  CPPUNIT_TEST_SUITE_END();
-
-protected:
+public:
   sbuild::chroot::config *cf;
 
-public:
-  test_config():
-    TestFixture(),
-    cf()
+  ChrootConfig():
+    cf(nullptr)
   {}
 
-  virtual ~test_config()
-  {}
-
-  void setUp()
+  void SetUp()
   {
-    this->cf = new sbuild::chroot::config("chroot", TESTDATADIR "/config.ex1");
+    cf = new sbuild::chroot::config("chroot", TESTDATADIR "/config.ex1");
+    ASSERT_NE(cf, nullptr);
   }
 
-  void tearDown()
+  void TearDown()
   {
-    delete this->cf;
+    if (cf)
+      delete cf;
+    cf = nullptr;
   }
-
-  void test_construction_file()
-  {
-    sbuild::chroot::config c("chroot", TESTDATADIR "/config.ex1");
-  }
-
-  void test_construction_dir()
-  {
-    sbuild::chroot::config c("chroot", TESTDATADIR "/config.ex2");
-  }
-
-  void test_construction_fail()
-  {
-    sbuild::chroot::config c("chroot", TESTDATADIR "/config.nonexistent");
-  }
-
-  void test_construction_fail_wrong()
-  {
-    sbuild::chroot::config c("chroot", TESTDATADIR "/config.ex3");
-  }
-
-  void test_add_file()
-  {
-    sbuild::chroot::config c;
-    c.add("chroot", TESTDATADIR "/config.ex1");
-  }
-
-  void test_add_dir()
-  {
-    sbuild::chroot::config c;
-    c.add("chroot", TESTDATADIR "/config.ex2");
-  }
-
-  void test_add_fail()
-  {
-    sbuild::chroot::config c;
-    c.add("chroot", TESTDATADIR "/config.nonexistent");
-  }
-
-  void test_get_chroots()
-  {
-    CPPUNIT_ASSERT(this->cf->get_chroots("chroot").size() == 4);
-  }
-
-  void test_find_chroot()
-  {
-    sbuild::chroot::chroot::ptr chroot;
-
-    chroot = this->cf->find_chroot("chroot", "sid");
-    CPPUNIT_ASSERT((chroot));
-    CPPUNIT_ASSERT(chroot->get_name() == "sid");
-
-    chroot = this->cf->find_chroot("chroot", "stable");
-    CPPUNIT_ASSERT((!chroot));
-
-    chroot = this->cf->find_chroot("chroot", "invalid");
-    CPPUNIT_ASSERT((!chroot));
-  }
-
-  void test_find_alias()
-  {
-    sbuild::chroot::chroot::ptr chroot;
-
-    chroot = this->cf->find_alias("chroot", "sid");
-    CPPUNIT_ASSERT((chroot));
-    CPPUNIT_ASSERT(chroot->get_name() == "sid");
-
-    chroot = this->cf->find_alias("chroot", "stable");
-    CPPUNIT_ASSERT((chroot));
-    CPPUNIT_ASSERT(chroot->get_name() == "sarge");
-
-    chroot = this->cf->find_alias("chroot", "invalid");
-    CPPUNIT_ASSERT((!chroot));
-  }
-
-  void test_get_chroot_list()
-  {
-    sbuild::string_list chroots = this->cf->get_chroot_list("chroot");
-    CPPUNIT_ASSERT(chroots.size() == 4);
-    CPPUNIT_ASSERT(chroots[0] == "chroot:experimental");
-    CPPUNIT_ASSERT(chroots[1] == "chroot:sarge");
-    CPPUNIT_ASSERT(chroots[2] == "chroot:sid");
-    CPPUNIT_ASSERT(chroots[3] == "chroot:sid-local");
-  }
-
-  void test_get_alias_list()
-  {
-    sbuild::string_list chroots = this->cf->get_alias_list("chroot");
-    CPPUNIT_ASSERT(chroots.size() == 7);
-    CPPUNIT_ASSERT(chroots[0] == "chroot:default");
-    CPPUNIT_ASSERT(chroots[1] == "chroot:experimental");
-    CPPUNIT_ASSERT(chroots[2] == "chroot:sarge");
-    CPPUNIT_ASSERT(chroots[3] == "chroot:sid");
-    CPPUNIT_ASSERT(chroots[4] == "chroot:sid-local");
-    CPPUNIT_ASSERT(chroots[5] == "chroot:stable");
-    CPPUNIT_ASSERT(chroots[6] == "chroot:unstable");
-  }
-
-  void test_validate_chroots()
-  {
-    sbuild::string_list chroots;
-    chroots.push_back("default");
-    chroots.push_back("sarge");
-    chroots.push_back("unstable");
-
-    sbuild::chroot::config::chroot_map m = this->cf->validate_chroots("chroot", chroots);
-    assert(m.size() == 3);
-  }
-
-  void test_validate_chroots_fail()
-  {
-    sbuild::string_list chroots;
-    chroots.push_back("default");
-    chroots.push_back("invalid");
-    chroots.push_back("invalid2");
-    chroots.push_back("sarge");
-    chroots.push_back("unstable");
-
-    this->cf->validate_chroots("chroot", chroots);
-  }
-
-  void test_config_fail()
-  {
-    sbuild::chroot::config c("chroot", TESTDATADIR "/config-directory-fail.ex");
-  }
-
-  void test_config_deprecated()
-  {
-    sbuild::chroot::config c("chroot", TESTDATADIR "/config-directory-deprecated.ex");
-  }
-
-  void test_config_valid()
-  {
-    sbuild::chroot::config c("chroot", TESTDATADIR "/config-directory-valid.ex");
-  }
-
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(test_config);
+TEST_F(ChrootConfig, ConstructFile)
+{
+  ASSERT_NO_THROW(sbuild::chroot::config c("chroot", TESTDATADIR "/config.ex1"));
+}
+
+TEST_F(ChrootConfig, ConstructDirectory)
+{
+  ASSERT_NO_THROW(sbuild::chroot::config c("chroot", TESTDATADIR "/config.ex2"));
+}
+
+TEST_F(ChrootConfig, ConstructFailNonexistent)
+{
+  ASSERT_THROW(sbuild::chroot::config c("chroot", TESTDATADIR "/config.nonexistent"), sbuild::error_base);
+}
+
+TEST_F(ChrootConfig, ConstructFailInvalid)
+{
+  ASSERT_THROW(sbuild::chroot::config c("chroot", TESTDATADIR "/config.ex3"), sbuild::error_base);
+}
+
+TEST_F(ChrootConfig, AddFile)
+{
+  sbuild::chroot::config c;
+  c.add("chroot", TESTDATADIR "/config.ex1");
+}
+
+TEST_F(ChrootConfig, AddDirectory)
+{
+  sbuild::chroot::config c;
+  c.add("chroot", TESTDATADIR "/config.ex2");
+}
+
+TEST_F(ChrootConfig, AddFail)
+{
+  sbuild::chroot::config c;
+  ASSERT_THROW(c.add("chroot", TESTDATADIR "/config.nonexistent"), sbuild::error_base);
+}
+
+TEST_F(ChrootConfig, GetChroots)
+{
+  EXPECT_EQ(cf->get_chroots("chroot").size(), 4);
+}
+
+TEST_F(ChrootConfig, FindChroot)
+{
+  sbuild::chroot::chroot::ptr chroot;
+
+  EXPECT_NO_THROW(chroot = cf->find_chroot("chroot", "sid"));
+  EXPECT_NE(chroot, nullptr);
+  EXPECT_EQ(chroot->get_name(), "sid");
+
+  EXPECT_NO_THROW(chroot = cf->find_chroot("chroot", "stable"));
+  EXPECT_EQ(chroot, nullptr);
+
+  EXPECT_NO_THROW(chroot = cf->find_chroot("chroot", "invalid"));
+  EXPECT_EQ(chroot, nullptr);
+}
+
+TEST_F(ChrootConfig, FindAlias)
+{
+  sbuild::chroot::chroot::ptr chroot;
+
+  chroot = cf->find_alias("chroot", "sid");
+  EXPECT_NE(chroot, nullptr);
+  EXPECT_EQ(chroot->get_name(), "sid");
+
+  chroot = cf->find_alias("chroot", "stable");
+  EXPECT_NE(chroot, nullptr);
+  EXPECT_EQ(chroot->get_name(), "sarge");
+
+  chroot = cf->find_alias("chroot", "invalid");
+  EXPECT_EQ(chroot, nullptr);
+}
+
+TEST_F(ChrootConfig, GetChrootList)
+{
+  sbuild::string_list chroots = cf->get_chroot_list("chroot");
+  EXPECT_EQ(chroots.size(), 4);
+  EXPECT_EQ(chroots[0], "chroot:experimental");
+  EXPECT_EQ(chroots[1], "chroot:sarge");
+  EXPECT_EQ(chroots[2], "chroot:sid");
+  EXPECT_EQ(chroots[3], "chroot:sid-local");
+}
+
+TEST_F(ChrootConfig, GetAliasList)
+{
+  sbuild::string_list chroots = cf->get_alias_list("chroot");
+  EXPECT_EQ(chroots.size(), 7);
+  EXPECT_EQ(chroots[0], "chroot:default");
+  EXPECT_EQ(chroots[1], "chroot:experimental");
+  EXPECT_EQ(chroots[2], "chroot:sarge");
+  EXPECT_EQ(chroots[3], "chroot:sid");
+  EXPECT_EQ(chroots[4], "chroot:sid-local");
+  EXPECT_EQ(chroots[5], "chroot:stable");
+  EXPECT_EQ(chroots[6], "chroot:unstable");
+}
+
+TEST_F(ChrootConfig, ValidateChroots)
+{
+  sbuild::string_list chroots;
+  chroots.push_back("default");
+  chroots.push_back("sarge");
+  chroots.push_back("unstable");
+
+  sbuild::chroot::config::chroot_map m = cf->validate_chroots("chroot", chroots);
+  EXPECT_EQ(m.size(), 3);
+}
+
+TEST_F(ChrootConfig, ValidateChrootsFail)
+{
+  sbuild::string_list chroots;
+  chroots.push_back("default");
+  chroots.push_back("invalid");
+  chroots.push_back("invalid2");
+  chroots.push_back("sarge");
+  chroots.push_back("unstable");
+
+  EXPECT_THROW(cf->validate_chroots("chroot", chroots), sbuild::error_base);
+}
+
+TEST_F(ChrootConfig, ConfigFail)
+{
+  EXPECT_THROW(sbuild::chroot::config c("chroot", TESTDATADIR "/config-directory-fail.ex"),
+               sbuild::error_base);
+}
+
+TEST_F(ChrootConfig, ConfigDeprecated)
+{
+  EXPECT_NO_THROW(sbuild::chroot::config c("chroot", TESTDATADIR "/config-directory-deprecated.ex"));
+}
+
+TEST_F(ChrootConfig, ConfigValid)
+{
+  EXPECT_NO_THROW(sbuild::chroot::config c("chroot", TESTDATADIR "/config-directory-valid.ex"));
+}

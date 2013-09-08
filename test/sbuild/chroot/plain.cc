@@ -27,116 +27,99 @@
 #include <algorithm>
 #include <set>
 
-#include <cppunit/extensions/HelperMacros.h>
-
-using namespace CppUnit;
-
-class test_chroot_plain : public test_chroot_base
+class ChrootPlain : public ChrootBase
 {
-  CPPUNIT_TEST_SUITE(test_chroot_plain);
-  CPPUNIT_TEST(test_directory);
-  CPPUNIT_TEST(test_chroot_type);
-  CPPUNIT_TEST(test_setup_env);
-  CPPUNIT_TEST(test_setup_keyfile);
-  CPPUNIT_TEST(test_print_details);
-  CPPUNIT_TEST(test_print_config);
-  CPPUNIT_TEST(test_run_setup_scripts);
-  CPPUNIT_TEST_SUITE_END();
 
 public:
-  test_chroot_plain():
-    test_chroot_base("plain")
+  ChrootPlain():
+    ChrootBase("plain")
   {}
 
-  void setUp()
+  void SetUp()
   {
-    test_chroot_base::setUp();
-    CPPUNIT_ASSERT(chroot);
-    CPPUNIT_ASSERT(!session);
-    CPPUNIT_ASSERT(!source);
-    CPPUNIT_ASSERT(!session_source);
+    ChrootBase::SetUp();
+    ASSERT_NE(chroot, nullptr);
+    ASSERT_EQ(session, nullptr);
+    ASSERT_EQ(source, nullptr);
+    ASSERT_EQ(session_source, nullptr);
   }
 
   virtual void setup_chroot_props (sbuild::chroot::chroot::ptr& chroot)
   {
-    test_chroot_base::setup_chroot_props(chroot);
+    ChrootBase::setup_chroot_props(chroot);
 
     chroot->set_mount_location("");
 
     sbuild::chroot::facet::plain::ptr plfac = chroot->get_facet<sbuild::chroot::facet::plain>();
     plfac->set_directory("/srv/chroot/example-chroot");
   }
-
-  void
-  test_directory()
-  {
-    sbuild::chroot::facet::plain::ptr plfac = chroot->get_facet<sbuild::chroot::facet::plain>();
-    plfac->set_directory("/mnt/mount-location/example");
-    CPPUNIT_ASSERT(plfac->get_directory() == "/mnt/mount-location/example");
-    CPPUNIT_ASSERT(chroot->get_path() == "/mnt/mount-location/example");
-    CPPUNIT_ASSERT(chroot->get_mount_location() == "");
-  }
-
-  void test_chroot_type()
-  {
-    CPPUNIT_ASSERT(chroot->get_chroot_type() == "plain");
-  }
-
-  void test_setup_env()
-  {
-    sbuild::environment expected;
-    setup_env_chroot(expected);
-    expected.add("CHROOT_TYPE",           "plain");
-    expected.add("CHROOT_DIRECTORY",      "/srv/chroot/example-chroot");
-    expected.add("CHROOT_PATH",           "/srv/chroot/example-chroot");
-    expected.add("CHROOT_SESSION_CLONE",  "false");
-    expected.add("CHROOT_SESSION_CREATE", "false");
-    expected.add("CHROOT_SESSION_PURGE",  "false");
-
-    test_chroot_base::test_setup_env(chroot, expected);
-  }
-
-  void test_setup_keyfile()
-  {
-    sbuild::keyfile expected;
-    std::string group = chroot->get_name();
-    setup_keyfile_chroot(expected, group);
-    expected.set_value(group, "type", "plain");
-    expected.set_value(group, "directory", "/srv/chroot/example-chroot");
-
-    test_chroot_base::test_setup_keyfile
-      (chroot, expected, group);
-  }
-
-  void test_session_flags()
-  {
-    CPPUNIT_ASSERT(chroot->get_session_flags() ==
-                   sbuild::chroot::facet::facet::SESSION_NOFLAGS);
-  }
-
-  void test_print_details()
-  {
-    std::ostringstream os;
-    os << chroot;
-    // TODO: Compare output.
-    CPPUNIT_ASSERT(!os.str().empty());
-  }
-
-  void test_print_config()
-  {
-    std::ostringstream os;
-    sbuild::keyfile config;
-    config << chroot;
-    os << sbuild::keyfile_writer(config);
-    // TODO: Compare output.
-    CPPUNIT_ASSERT(!os.str().empty());
-  }
-
-  void test_run_setup_scripts()
-  {
-    CPPUNIT_ASSERT(!chroot->get_run_setup_scripts());
-  }
-
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(test_chroot_plain);
+TEST_F(ChrootPlain, Directory)
+{
+  sbuild::chroot::facet::plain::ptr plfac = chroot->get_facet<sbuild::chroot::facet::plain>();
+  plfac->set_directory("/mnt/mount-location/example");
+  ASSERT_EQ(plfac->get_directory(), "/mnt/mount-location/example");
+  ASSERT_EQ(chroot->get_path(), "/mnt/mount-location/example");
+  ASSERT_EQ(chroot->get_mount_location(), "");
+}
+
+TEST_F(ChrootPlain, Type)
+{
+  ASSERT_EQ(chroot->get_chroot_type(), "plain");
+}
+
+TEST_F(ChrootPlain, SetupEnv)
+{
+  sbuild::environment expected;
+  setup_env_chroot(expected);
+  expected.add("CHROOT_TYPE",           "plain");
+  expected.add("CHROOT_DIRECTORY",      "/srv/chroot/example-chroot");
+  expected.add("CHROOT_PATH",           "/srv/chroot/example-chroot");
+  expected.add("CHROOT_SESSION_CLONE",  "false");
+  expected.add("CHROOT_SESSION_CREATE", "false");
+  expected.add("CHROOT_SESSION_PURGE",  "false");
+
+  ChrootBase::test_setup_env(chroot, expected);
+}
+
+TEST_F(ChrootPlain, SetupKeyfile)
+{
+  sbuild::keyfile expected;
+  std::string group = chroot->get_name();
+  setup_keyfile_chroot(expected, group);
+  expected.set_value(group, "type", "plain");
+  expected.set_value(group, "directory", "/srv/chroot/example-chroot");
+
+  ChrootBase::test_setup_keyfile
+    (chroot, expected, group);
+}
+
+TEST_F(ChrootPlain, SessionFlags)
+{
+  ASSERT_EQ(chroot->get_session_flags(),
+            sbuild::chroot::facet::facet::SESSION_NOFLAGS);
+}
+
+TEST_F(ChrootPlain, PrintDetails)
+{
+  std::ostringstream os;
+  os << chroot;
+  // TODO: Compare output.
+  ASSERT_FALSE(os.str().empty());
+}
+
+TEST_F(ChrootPlain, PrintConfig)
+{
+  std::ostringstream os;
+  sbuild::keyfile config;
+  config << chroot;
+  os << sbuild::keyfile_writer(config);
+  // TODO: Compare output.
+  ASSERT_FALSE(os.str().empty());
+}
+
+TEST_F(ChrootPlain, RunSetupScripts)
+{
+  ASSERT_FALSE(chroot->get_run_setup_scripts());
+}

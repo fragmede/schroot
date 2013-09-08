@@ -94,58 +94,58 @@ test_sbuild_chroot_btrfssnap_sources =	\
 	test/sbuild/chroot/btrfs-snapshot.cc
 endif
 
-test_sbuild_chroot_chroot_SOURCES =		\
+test_sbuild_chroot_chroot_SOURCES =	\
 	test/sbuild/chroot/chroot.cc	\
 	test/sbuild/chroot/chroot.h
-test_sbuild_chroot_chroot_LDADD =  lib/test/libtest.la
+test_sbuild_chroot_chroot_LDADD =  lib/test/libtest2.la
 
 test_sbuild_chroot_plain_SOURCES =	\
 	test/sbuild/chroot/plain.cc	\
 	test/sbuild/chroot/chroot.h
-test_sbuild_chroot_plain_LDADD =  lib/test/libtest.la
+test_sbuild_chroot_plain_LDADD =  lib/test/libtest2.la
 
 test_sbuild_chroot_custom_SOURCES =   \
 	test/sbuild/chroot/custom.cc  \
 	test/sbuild/chroot/chroot.h
-test_sbuild_chroot_custom_LDADD =  lib/test/libtest.la
+test_sbuild_chroot_custom_LDADD =  lib/test/libtest2.la
 
 test_sbuild_chroot_file_SOURCES =	\
 	test/sbuild/chroot/file.cc	\
 	test/sbuild/chroot/chroot.h
-test_sbuild_chroot_file_LDADD =  lib/test/libtest.la
+test_sbuild_chroot_file_LDADD =  lib/test/libtest2.la
 
 test_sbuild_chroot_directory_SOURCES =	\
 	test/sbuild/chroot/directory.cc	\
 	test/sbuild/chroot/chroot.h
-test_sbuild_chroot_directory_LDADD =  lib/test/libtest.la
+test_sbuild_chroot_directory_LDADD =  lib/test/libtest2.la
 
 test_sbuild_chroot_block_device_SOURCES =		\
 	$(test_sbuild_chroot_blockdev_sources)	\
 	test/sbuild/chroot/chroot.h
-test_sbuild_chroot_block_device_LDADD =  lib/test/libtest.la
+test_sbuild_chroot_block_device_LDADD =  lib/test/libtest2.la
 
 test_sbuild_chroot_lvm_snapshot_SOURCES =		\
 	$(test_sbuild_chroot_lvmsnap_sources)	\
 	test/sbuild/chroot/chroot.h
-test_sbuild_chroot_lvm_snapshot_LDADD =  lib/test/libtest.la
+test_sbuild_chroot_lvm_snapshot_LDADD =  lib/test/libtest2.la
 
 test_sbuild_chroot_btrfs_snapshot_SOURCES =		\
 	$(test_sbuild_chroot_btrfssnap_sources)	\
 	test/sbuild/chroot/chroot.h
-test_sbuild_chroot_btrfs_snapshot_LDADD =  lib/test/libtest.la
+test_sbuild_chroot_btrfs_snapshot_LDADD =  lib/test/libtest2.la
 
 test_sbuild_chroot_loopback_SOURCES =		\
 	$(test_sbuild_chroot_loopback_sources)	\
 	test/sbuild/chroot/chroot.h
-test_sbuild_chroot_loopback_LDADD =  lib/test/libtest.la
+test_sbuild_chroot_loopback_LDADD =  lib/test/libtest2.la
 
 test_sbuild_chroot_facet_userdata_SOURCES =		\
 	test/sbuild/chroot/facet/userdata.cc		\
 	test/sbuild/chroot/chroot.h
-test_sbuild_chroot_facet_userdata_LDADD =  lib/test/libtest.la
+test_sbuild_chroot_facet_userdata_LDADD =  lib/test/libtest2.la
 
 test_sbuild_chroot_config_SOURCES = test/sbuild/chroot/config.cc
-test_sbuild_chroot_config_LDADD = lib/test/libtest.la
+test_sbuild_chroot_config_LDADD = lib/test/libtest2.la
 
 test_sbuild_environment_SOURCES = test/sbuild/environment.cc
 test_sbuild_environment_LDADD = lib/test/libtest2.la
