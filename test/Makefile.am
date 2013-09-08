@@ -166,7 +166,7 @@ test_sbuild_parse_value_SOURCES = test/sbuild/parse-value.cc
 test_sbuild_parse_value_LDADD = lib/test/libtest2.la
 
 test_sbuild_personality_SOURCES = test/sbuild/personality.cc
-test_sbuild_personality_LDADD = lib/test/libtest.la
+test_sbuild_personality_LDADD = lib/test/libtest2.la
 
 test_sbuild_regex_SOURCES = test/sbuild/regex.cc
 test_sbuild_regex_LDADD = lib/test/libtest2.la
