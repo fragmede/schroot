@@ -53,4 +53,6 @@ DEFS = $(LOCAL_DEFS) -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE \
 -DSCHROOT_SETUP_DATA_DIR=\"$(schroot_setupdatadir)\" \
 -DPACKAGE_LOCALE_DIR=\"$(localedir)\" \
 -DSCHROOT_DATA_DIR=\"$(schroot_datadir)\" \
--DSCHROOT_MODULE_DIR=\"$(schroot_moduledir)\"
+-DSCHROOT_MODULE_DIR=\"$(schroot_moduledir)\" \
+-DLOCALEDIR=\"$(localedir)\" \
+-DSCHROOT_LOCALE_DIR=\"$(localedir)\"

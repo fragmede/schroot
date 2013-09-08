@@ -61,7 +61,7 @@ namespace schroot_base
         std::cout.imbue(std::locale());
         std::cerr.imbue(std::locale());
 
-        bindtextdomain (SBUILD_MESSAGE_CATALOGUE, LOCALEDIR);
+        bindtextdomain (SBUILD_MESSAGE_CATALOGUE, SCHROOT_LOCALE_DIR);
         textdomain (SBUILD_MESSAGE_CATALOGUE);
 
         typename options_type::ptr opts(new options_type);
