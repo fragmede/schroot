@@ -51,4 +51,5 @@ DEFS = -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE \
 -DPACKAGE_LOCALE_DIR=\"$(localedir)\" \
 -DSCHROOT_DATA_DIR=\"$(schroot_datadir)\" \
 -DSCHROOT_MODULE_DIR=\"$(schroot_moduledir)\" \
--DLOCALEDIR=\"$(localedir)\"
+-DLOCALEDIR=\"$(localedir)\" \
+-DSCHROOT_LOCALE_DIR=\"$(localedir)\"

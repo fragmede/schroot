@@ -26,6 +26,8 @@
 #include <sstream>
 #include <vector>
 
+#include <config.h>
+
 class Keyfile : public ::testing::Test
 {
 protected:

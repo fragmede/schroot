@@ -128,7 +128,7 @@ man/config.man: Makefile
 	echo -e "$(CONFIG)" | sed -e 's/^[ ]//' > $@
 
 man-update-po:
-	if [ -n "$(PO4A)" ]; then $(PO4A) --package-name $(PACKAGE) --package-version $(VERSION) --copyright-holder "Roger Leigh <rleigh@debian.org>" "--srcdir=$(srcdir)" "--destdir=$(builddir)" "$(srcdir)/man/po4a.cfg"; fi
+	if [ -n "$(PO4A)" ]; then cd man && $(PO4A) --package-name $(PACKAGE) --package-version $(VERSION) --copyright-holder "Roger Leigh <rleigh@debian.org>" "--srcdir=$(abs_top_srcdir)/man" "--destdir=$(abs_top_builddir)/man" "$(abs_top_srcdir)/man/po4a.cfg"; fi
 
 dist-hook:: man-update-po
 

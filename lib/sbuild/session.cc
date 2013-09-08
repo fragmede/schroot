@@ -1171,11 +1171,21 @@ namespace sbuild
     env.add("DATA_DIR", SCHROOT_DATA_DIR);
     env.add("SETUP_DATA_DIR", SCHROOT_SETUP_DATA_DIR);
     env.add("PID", getpid());
+#ifdef SBUILD_HOST
     env.add("HOST", SBUILD_HOST);
+#endif // SBUILD_HOST
+#ifdef SBUILD_HOST_OS
     env.add("HOST_OS", SBUILD_HOST_OS);
+#endif // SBUILD_HOST_OS
+#ifdef SBUILD_HOST_VENDOR
     env.add("HOST_VENDOR", SBUILD_HOST_VENDOR);
+#endif // SBUILD_HOST_VENDOR
+#ifdef SBUILD_HOST_CPU
     env.add("HOST_CPU", SBUILD_HOST_CPU);
+#endif // SBUILD_HOST_CPU
+#ifdef SBUILD_PLATFORM
     env.add("PLATFORM", SBUILD_PLATFORM);
+#endif // SBUILD_PLATFORM
 
     env.add("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
 
