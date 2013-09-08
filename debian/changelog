@@ -1,7 +1,9 @@
 schroot (1.7.1-1) UNRELEASED; urgency=low
 
   * New upstream development release.
-  * debian/control: Add cmake and gtest build dependencies.
+  * debian/control:
+    - Add cmake and gtest build dependencies.
+    - Drop cppunit from build dependencies.
   * debian/rules:
     - Build and configure gtest support.
     - Drop BTRFSCTL, which is no longer used by configure.
