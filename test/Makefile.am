@@ -157,7 +157,7 @@ test_sbuild_lock_SOURCES = test/sbuild/lock.cc
 test_sbuild_lock_LDADD = lib/test/libtest2.la
 
 test_sbuild_log_SOURCES = test/sbuild/log.cc
-test_sbuild_log_LDADD = lib/test/libtest.la
+test_sbuild_log_LDADD = lib/test/libtest2.la
 
 test_sbuild_nostream_SOURCES = test/sbuild/nostream.cc
 test_sbuild_nostream_LDADD = lib/test/libtest2.la

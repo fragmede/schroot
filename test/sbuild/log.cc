@@ -16,144 +16,126 @@
  *
  *********************************************************************/
 
+#include <gtest/gtest.h>
+
 #include <sbuild/log.h>
 
 #include <iostream>
 #include <ios>
 #include <sstream>
 
-#include <cppunit/extensions/HelperMacros.h>
-
-using namespace CppUnit;
-
-class test_log : public TestFixture
+class Log : public ::testing::Test
 {
-  CPPUNIT_TEST_SUITE(test_log);
-  CPPUNIT_TEST(test_info);
-  CPPUNIT_TEST(test_warning);
-  CPPUNIT_TEST(test_error);
-  CPPUNIT_TEST(test_debug_none);
-  CPPUNIT_TEST(test_debug_notice);
-  CPPUNIT_TEST(test_debug_info);
-  CPPUNIT_TEST(test_debug_warning);
-  CPPUNIT_TEST(test_debug_critical);
-  CPPUNIT_TEST_SUITE_END();
-
+public:
   std::streambuf *saved;
   std::stringbuf *monitor;
 
-public:
-  test_log()
-  {}
-
-  void setUp()
+  void SetUp()
   {
-    this->monitor = new std::stringbuf();
-    this->saved = std::cerr.std::ios::rdbuf(this->monitor);
+    monitor = new std::stringbuf();
+    saved = std::cerr.std::ios::rdbuf(monitor);
   }
 
-  void tearDown()
+  void TearDown()
   {
-    std::cerr.std::ios::rdbuf(this->saved);
-    delete this->monitor;
-  }
-
-  void test_info()
-  {
-    sbuild::log_info() << "Discard me please";
-    CPPUNIT_ASSERT(this->monitor->str() == "I: Discard me please");
-  }
-
-  void test_warning()
-  {
-    sbuild::log_warning() << "Discard me please";
-    CPPUNIT_ASSERT(this->monitor->str() == "W: Discard me please");
-  }
-
-  void test_error()
-  {
-    sbuild::log_error() << "Discard me please";
-    CPPUNIT_ASSERT(this->monitor->str() == "E: Discard me please");
+    std::cerr.std::ios::rdbuf(saved);
+    delete monitor;
   }
 
   std::string
   debug(sbuild::debug_level level,
         const std::string& msg)
   {
-    this->monitor->str("");
+    monitor->str("");
     sbuild::log_debug(level) << msg;
-    return this->monitor->str();
-  }
-
-  void test_debug_none()
-  {
-    sbuild::debug_log_level = sbuild::DEBUG_NONE;
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_NONE,     "Discard me") == "");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_NOTICE,   "Discard me") == "");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_INFO,     "Discard me") == "");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_WARNING,  "Discard me") == "");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_CRITICAL, "Discard me") == "");
-  }
-
-  void test_debug_notice()
-  {
-    sbuild::debug_log_level = sbuild::DEBUG_NOTICE;
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_NONE,
-                         "Discard me") == "");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_NOTICE,
-                         "Discard me") == "D(1): Discard me");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_INFO,
-                         "Discard me") == "D(2): Discard me");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_WARNING,
-                         "Discard me") == "D(3): Discard me");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_CRITICAL,
-                         "Discard me") == "D(4): Discard me");
-  }
-
-  void test_debug_info()
-  {
-    sbuild::debug_log_level = sbuild::DEBUG_INFO;
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_NONE,
-                         "Discard me") == "");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_NOTICE,
-                         "Discard me") == "");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_INFO,
-                         "Discard me") == "D(2): Discard me");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_WARNING,
-                         "Discard me") == "D(3): Discard me");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_CRITICAL,
-                         "Discard me") == "D(4): Discard me");
-  }
-
-  void test_debug_warning()
-  {
-    sbuild::debug_log_level = sbuild::DEBUG_WARNING;
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_NONE,
-                         "Discard me") == "");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_NOTICE,
-                         "Discard me") == "");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_INFO,
-                         "Discard me") == "");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_WARNING,
-                         "Discard me") == "D(3): Discard me");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_CRITICAL,
-                         "Discard me") == "D(4): Discard me");
-  }
-
-  void test_debug_critical()
-  {
-    sbuild::debug_log_level = sbuild::DEBUG_CRITICAL;
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_NONE,
-                         "Discard me") == "");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_NOTICE,
-                         "Discard me") == "");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_INFO,
-                         "Discard me") == "");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_WARNING,
-                         "Discard me") == "");
-    CPPUNIT_ASSERT(debug(sbuild::DEBUG_CRITICAL,
-                         "Discard me") == "D(4): Discard me");
+    return monitor->str();
   }
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(test_log);
+TEST_F(Log, Info)
+{
+  sbuild::log_info() << "Discard me please";
+  ASSERT_EQ(monitor->str(), "I: Discard me please");
+}
+
+TEST_F(Log, Warning)
+{
+  sbuild::log_warning() << "Discard me please";
+  ASSERT_EQ(monitor->str(), "W: Discard me please");
+}
+
+TEST_F(Log, Error)
+{
+  sbuild::log_error() << "Discard me please";
+  ASSERT_EQ(monitor->str(), "E: Discard me please");
+}
+
+TEST_F(Log, DebugNone)
+{
+  sbuild::debug_log_level = sbuild::DEBUG_NONE;
+  ASSERT_EQ(debug(sbuild::DEBUG_NONE,     "Discard me"), "");
+  ASSERT_EQ(debug(sbuild::DEBUG_NOTICE,   "Discard me"), "");
+  ASSERT_EQ(debug(sbuild::DEBUG_INFO,     "Discard me"), "");
+  ASSERT_EQ(debug(sbuild::DEBUG_WARNING,  "Discard me"), "");
+  ASSERT_EQ(debug(sbuild::DEBUG_CRITICAL, "Discard me"), "");
+}
+
+TEST_F(Log, DebugNotice)
+{
+  sbuild::debug_log_level = sbuild::DEBUG_NOTICE;
+  ASSERT_EQ(debug(sbuild::DEBUG_NONE,
+                       "Discard me"), "");
+  ASSERT_EQ(debug(sbuild::DEBUG_NOTICE,
+                       "Discard me"), "D(1): Discard me");
+  ASSERT_EQ(debug(sbuild::DEBUG_INFO,
+                       "Discard me"), "D(2): Discard me");
+  ASSERT_EQ(debug(sbuild::DEBUG_WARNING,
+                       "Discard me"), "D(3): Discard me");
+  ASSERT_EQ(debug(sbuild::DEBUG_CRITICAL,
+                       "Discard me"), "D(4): Discard me");
+}
+
+TEST_F(Log, DebugInfo)
+{
+  sbuild::debug_log_level = sbuild::DEBUG_INFO;
+  ASSERT_EQ(debug(sbuild::DEBUG_NONE,
+                       "Discard me"), "");
+  ASSERT_EQ(debug(sbuild::DEBUG_NOTICE,
+                       "Discard me"), "");
+  ASSERT_EQ(debug(sbuild::DEBUG_INFO,
+                       "Discard me"), "D(2): Discard me");
+  ASSERT_EQ(debug(sbuild::DEBUG_WARNING,
+                       "Discard me"), "D(3): Discard me");
+  ASSERT_EQ(debug(sbuild::DEBUG_CRITICAL,
+                       "Discard me"), "D(4): Discard me");
+  }
+
+TEST_F(Log, DebugWarning)
+{
+  sbuild::debug_log_level = sbuild::DEBUG_WARNING;
+  ASSERT_EQ(debug(sbuild::DEBUG_NONE,
+                       "Discard me"), "");
+  ASSERT_EQ(debug(sbuild::DEBUG_NOTICE,
+                       "Discard me"), "");
+  ASSERT_EQ(debug(sbuild::DEBUG_INFO,
+                       "Discard me"), "");
+  ASSERT_EQ(debug(sbuild::DEBUG_WARNING,
+                       "Discard me"), "D(3): Discard me");
+  ASSERT_EQ(debug(sbuild::DEBUG_CRITICAL,
+                       "Discard me"), "D(4): Discard me");
+  }
+
+TEST_F(Log, DebugCritical)
+{
+  sbuild::debug_log_level = sbuild::DEBUG_CRITICAL;
+  ASSERT_EQ(debug(sbuild::DEBUG_NONE,
+                       "Discard me"), "");
+  ASSERT_EQ(debug(sbuild::DEBUG_NOTICE,
+                       "Discard me"), "");
+  ASSERT_EQ(debug(sbuild::DEBUG_INFO,
+                       "Discard me"), "");
+  ASSERT_EQ(debug(sbuild::DEBUG_WARNING,
+                       "Discard me"), "");
+  ASSERT_EQ(debug(sbuild::DEBUG_CRITICAL,
+                       "Discard me"), "D(4): Discard me");
+}
