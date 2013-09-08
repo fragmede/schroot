@@ -16,368 +16,309 @@
  *
  *********************************************************************/
 
+#include <gtest/gtest.h>
+
 #include <sbuild/environment.h>
 #include <sbuild/util.h>
 
 #include <iostream>
 #include <sstream>
 
-#include <cppunit/extensions/HelperMacros.h>
 
-using namespace CppUnit;
-
-class test_environment : public TestFixture
+class Environment : public ::testing::Test
 {
-  CPPUNIT_TEST_SUITE(test_environment);
-  CPPUNIT_TEST(test_construction);
-  CPPUNIT_TEST(test_add_strv);
-  CPPUNIT_TEST(test_add_env);
-  CPPUNIT_TEST(test_add_value);
-  CPPUNIT_TEST(test_add_string_pair);
-  CPPUNIT_TEST(test_add_template);
-  CPPUNIT_TEST(test_add_string);
-  CPPUNIT_TEST(test_add_empty_implicit_remove);
-  CPPUNIT_TEST(test_remove_strv);
-  CPPUNIT_TEST(test_remove_env);
-  CPPUNIT_TEST(test_remove_value);
-  CPPUNIT_TEST(test_remove_string);
-  CPPUNIT_TEST(test_get_value);
-  CPPUNIT_TEST(test_get_strv);
-  CPPUNIT_TEST(test_operator_plus);
-  CPPUNIT_TEST(test_operator_plus_equals);
-  CPPUNIT_TEST(test_operator_minus);
-  CPPUNIT_TEST(test_operator_minus_equals);
-  CPPUNIT_TEST(test_add_filter);
-  CPPUNIT_TEST(test_filter);
-  CPPUNIT_TEST(test_output);
-  CPPUNIT_TEST_SUITE_END();
-
-protected:
+public:
   sbuild::environment *env;
   sbuild::environment *half_env;
 
-public:
-  test_environment():
-    TestFixture(),
-    env()
-  {}
-
-  virtual ~test_environment()
-  {}
-
-  void setUp()
+  void SetUp()
   {
-    this->env = new sbuild::environment;
-    this->env->add(std::make_pair("TERM", "wy50"));
-    this->env->add(std::make_pair("SHELL", "/bin/sh"));
-    this->env->add(std::make_pair("USER", "root"));
-    this->env->add(std::make_pair("COLUMNS", "80"));
+    env = new sbuild::environment;
+    env->add(std::make_pair("TERM", "wy50"));
+    env->add(std::make_pair("SHELL", "/bin/sh"));
+    env->add(std::make_pair("USER", "root"));
+    env->add(std::make_pair("COLUMNS", "80"));
 
-    this->half_env = new sbuild::environment;
-    this->half_env->add(std::make_pair("TERM", "wy50"));
-    this->half_env->add(std::make_pair("USER", "root"));
+    half_env = new sbuild::environment;
+    half_env->add(std::make_pair("TERM", "wy50"));
+    half_env->add(std::make_pair("USER", "root"));
   }
 
-  static void add_examples(sbuild::environment& env)
+  void TearDown()
   {
-    sbuild::environment::size_type size = env.size();
-    env.add(std::make_pair("TERM", "wy50"));
-    env.add(std::make_pair("SHELL", "/bin/sh"));
-    env.add(std::make_pair("USER", "root"));
-    env.add(std::make_pair("COLUMNS", "80"));
-    CPPUNIT_ASSERT(env.size() == size + 4);
-  }
-
-  static void add_simple_examples(sbuild::environment& env)
-  {
-    sbuild::environment::size_type size = env.size();
-    env.add(std::make_pair("TERM", "wy50"));
-    env.add(std::make_pair("USER", "root"));
-    CPPUNIT_ASSERT(env.size() == size + 2);
-  }
-
-  void tearDown()
-  {
-    delete this->env;
-    delete this->half_env;
-  }
-
-  void
-  test_construction()
-  {
-    const char *items[] = {"TERM=wy50", "SHELL=/bin/sh",
-                           "USER=root", "COLUMNS=80", 0};
-    sbuild::environment e(const_cast<char **>(&items[0]));
-
-    CPPUNIT_ASSERT(e.size() == 4);
-
-    CPPUNIT_ASSERT(e == *this->env);
-  }
-
-  void
-  test_add_strv()
-  {
-    const char *items[] = {"TERM=wy50", "SHELL=/bin/sh",
-                           "USER=root", "COLUMNS=80", 0};
-    sbuild::environment e;
-    e.add(const_cast<char **>(&items[0]));
-
-    CPPUNIT_ASSERT(e.size() == 4);
-
-    CPPUNIT_ASSERT(e == *this->env);
-  }
-
-  void
-  test_add_env()
-  {
-    sbuild::environment e;
-    e.add(*this->env);
-
-    CPPUNIT_ASSERT(e == *this->env);
-  }
-
-  void
-  test_add_value()
-  {
-    sbuild::environment e;
-    e.add(sbuild::environment::value_type("TERM", "wy50"));
-    e.add(sbuild::environment::value_type("SHELL", "/bin/sh"));
-    e.add(sbuild::environment::value_type("USER", "root"));
-    e.add(sbuild::environment::value_type("COLUMNS", "80"));
-
-    CPPUNIT_ASSERT(e == *this->env);
-  }
-
-  void
-  test_add_string_pair()
-  {
-    sbuild::environment e;
-    e.add("TERM", "wy50");
-    e.add("SHELL", "/bin/sh");
-    e.add("USER", "root");
-    e.add("COLUMNS", "80");
-
-    CPPUNIT_ASSERT(e == *this->env);
-  }
-
-  void
-  test_add_template()
-  {
-    sbuild::environment e;
-    e.add("TERM", "wy50");
-    e.add("SHELL", "/bin/sh");
-    e.add("USER", std::string("root"));
-    e.add("COLUMNS", 80);
-
-    CPPUNIT_ASSERT(e == *this->env);
-  }
-
-  void
-  test_add_string()
-  {
-    sbuild::environment e;
-    e.add("TERM=wy50");
-    e.add("SHELL=/bin/sh");
-    e.add("USER=root");
-    e.add("COLUMNS=80");
-
-    CPPUNIT_ASSERT(e == *this->env);
-  }
-
-  void
-  test_add_empty_implicit_remove()
-  {
-    sbuild::environment e;
-    e.add("TERM=wy50");
-    e.add("USER=root");
-
-    this->env->add("COLUMNS=");
-    this->env->add(sbuild::environment::value_type("SHELL", ""));
-
-    CPPUNIT_ASSERT(this->env->size() == 2);
-    CPPUNIT_ASSERT(e == *this->env);
-  }
-
-  void
-  test_remove_strv()
-  {
-    const char *items[] = {"SHELL=/bin/bash",
-                           "COLUMNS=160", 0};
-    this->env->remove(const_cast<char **>(&items[0]));
-
-    CPPUNIT_ASSERT(this->env->size() == 2);
-    CPPUNIT_ASSERT(*this->env == *this->half_env);
-  }
-
-  void
-  test_remove_env()
-  {
-    sbuild::environment e;
-    e.add("SHELL=/bin/bash");
-    e.add("COLUMNS=160");
-
-    this->env->remove(e);
-
-    CPPUNIT_ASSERT(*this->env == *this->half_env);
-  }
-
-  void
-  test_remove_value()
-  {
-    this->env->remove(sbuild::environment::value_type("SHELL", "/bin/bash"));
-    this->env->remove(sbuild::environment::value_type("COLUMNS", "160"));
-
-    CPPUNIT_ASSERT(*this->env == *this->half_env);
-  }
-
-  void
-  test_remove_string()
-  {
-    this->env->remove("SHELL=/bin/bash");
-    this->env->remove("COLUMNS=160");
-
-    CPPUNIT_ASSERT(*this->env == *this->half_env);
-  }
-
-  void test_get_value()
-  {
-    std::string value;
-    CPPUNIT_ASSERT(this->env->get("TERM", value) && value == "wy50");
-    CPPUNIT_ASSERT(this->env->get("SHELL", value) && value == "/bin/sh");
-    CPPUNIT_ASSERT(this->env->get("USER", value) && value == "root");
-    CPPUNIT_ASSERT(this->env->get("COLUMNS", value) && value == "80");
-    // Check failure doesn't overwrite value.
-    CPPUNIT_ASSERT(!this->env->get("MUSTFAIL", value) && value == "80");
-
-    // Check getting templated types.
-    int tval;
-    CPPUNIT_ASSERT(this->env->get("COLUMNS", tval) && tval == 80);
-  }
-
-  void test_get_strv()
-  {
-    char **strv = this->env->get_strv();
-
-    int size = 0;
-    for (char **ev = strv; ev != 0 && *ev != 0; ++ev, ++size);
-
-    CPPUNIT_ASSERT(size == 4);
-    CPPUNIT_ASSERT(std::string(strv[0]) == "COLUMNS=80");
-    CPPUNIT_ASSERT(std::string(strv[1]) == "SHELL=/bin/sh");
-    CPPUNIT_ASSERT(std::string(strv[2]) == "TERM=wy50");
-    CPPUNIT_ASSERT(std::string(strv[3]) == "USER=root");
-
-    sbuild::strv_delete(strv);
-  }
-
-  void test_operator_plus()
-  {
-    sbuild::environment e;
-    e.add("SHELL=/bin/sh");
-    e.add("COLUMNS=80");
-
-    sbuild::environment result;
-    result = *this->half_env + e;
-    CPPUNIT_ASSERT(result == *this->env);
-
-    sbuild::environment e2;
-    e2 = *this->half_env + "SHELL=/bin/sh";
-    e2 = e2 + sbuild::environment::value_type("COLUMNS", "80");
-    CPPUNIT_ASSERT(e2 == *this->env);
-  }
-
-  void test_operator_plus_equals()
-  {
-    sbuild::environment e;
-    e.add("SHELL=/bin/sh");
-    e.add("COLUMNS=80");
-
-    sbuild::environment result(*this->half_env);
-    result += e;
-    CPPUNIT_ASSERT(result == *this->env);
-
-    sbuild::environment e2(*this->half_env);
-    e2 += "SHELL=/bin/sh";
-    // TODO: Why does calling direct fail?
-    sbuild::environment::value_type val("COLUMNS", "80");
-    e2 += val;
-    CPPUNIT_ASSERT(e2 == *this->env);
-  }
-
-  void test_operator_minus()
-  {
-    sbuild::environment e;
-    e.add("SHELL=/bin/sh");
-    e.add("COLUMNS=80");
-
-    sbuild::environment result;
-    result = *this->env - e;
-    CPPUNIT_ASSERT(result == *this->half_env);
-
-    sbuild::environment e2;
-    e2 = *this->env - "SHELL=/bin/sh";
-    e2 = e2 - sbuild::environment::value_type("COLUMNS", "80");
-    CPPUNIT_ASSERT(e2 == *this->half_env);
-  }
-
-  void test_operator_minus_equals()
-  {
-    sbuild::environment e;
-    e.add("SHELL=/bin/sh");
-    e.add("COLUMNS=80");
-
-    sbuild::environment result(*this->env);
-    result -= e;
-    CPPUNIT_ASSERT(result == *this->half_env);
-
-    sbuild::environment e2(*this->env);
-    e2 -= "SHELL=/bin/sh";
-    // TODO: Why does calling direct fail?
-    sbuild::environment::value_type val("COLUMNS", "80");
-    e2 -= val;
-    CPPUNIT_ASSERT(e2 == *this->half_env);
-  }
-
-  void test_add_filter()
-  {
-    sbuild::regex f("^FOO|BAR$");
-
-    sbuild::environment e;
-    e.set_filter(f);
-
-    CPPUNIT_ASSERT(f.compare(e.get_filter()) == 0);
-  }
-
-  void test_filter()
-  {
-    sbuild::regex f("^FOO|BAR$");
-
-    sbuild::environment e;
-    e.set_filter(f);
-
-    e.add("FOO=bar");
-    e.add("BAR=baz");
-    e.add("BAZ=bat");
-    e.add("BAT=bah");
-
-    std::string value;
-    CPPUNIT_ASSERT(e.get("FOO", value) == false);
-    CPPUNIT_ASSERT(e.get("BAR", value) == false);
-    CPPUNIT_ASSERT(e.get("BAZ", value) && value == "bat");
-    CPPUNIT_ASSERT(e.get("BAT", value) && value == "bah");
-  }
-
-  void test_output()
-  {
-    std::ostringstream os;
-    os << *this->env;
-
-    CPPUNIT_ASSERT(os.str() ==
-                   "COLUMNS=80\n"
-                   "SHELL=/bin/sh\n"
-                   "TERM=wy50\n"
-                   "USER=root\n");
+    delete env;
+    delete half_env;
   }
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(test_environment);
+
+TEST_F(Environment, Construction)
+{
+  const char *items[] = {"TERM=wy50", "SHELL=/bin/sh",
+                           "USER=root", "COLUMNS=80", 0};
+  sbuild::environment e(const_cast<char **>(&items[0]));
+
+  ASSERT_EQ(e.size(), 4);
+  ASSERT_EQ(e, *env);
+}
+
+TEST_F(Environment, AddStrv)
+{
+  const char *items[] = {"TERM=wy50", "SHELL=/bin/sh",
+                         "USER=root", "COLUMNS=80", 0};
+  sbuild::environment e;
+  e.add(const_cast<char **>(&items[0]));
+
+  ASSERT_EQ(e.size(),4);
+  ASSERT_EQ(e, *env);
+}
+
+TEST_F(Environment, AddEnvironment)
+{
+  sbuild::environment e;
+  e.add(*env);
+
+  ASSERT_EQ(e, *env);
+}
+
+TEST_F(Environment, AddValue)
+{
+  sbuild::environment e;
+  e.add(sbuild::environment::value_type("TERM", "wy50"));
+  e.add(sbuild::environment::value_type("SHELL", "/bin/sh"));
+  e.add(sbuild::environment::value_type("USER", "root"));
+  e.add(sbuild::environment::value_type("COLUMNS", "80"));
+
+  ASSERT_EQ(e, *env);
+}
+
+TEST_F(Environment, AddStringPair)
+{
+  sbuild::environment e;
+  e.add("TERM", "wy50");
+  e.add("SHELL", "/bin/sh");
+  e.add("USER", "root");
+  e.add("COLUMNS", "80");
+
+  ASSERT_EQ(e, *env);
+}
+
+TEST_F(Environment, AddTemplate)
+{
+  sbuild::environment e;
+  e.add("TERM", "wy50");
+  e.add("SHELL", "/bin/sh");
+  e.add("USER", std::string("root"));
+  e.add("COLUMNS", 80);
+
+  ASSERT_EQ(e, *env);
+}
+
+TEST_F(Environment, AddString)
+{
+  sbuild::environment e;
+  e.add("TERM=wy50");
+  e.add("SHELL=/bin/sh");
+  e.add("USER=root");
+  e.add("COLUMNS=80");
+
+  ASSERT_EQ(e, *env);
+}
+
+TEST_F(Environment, AddEmptyWithImplicitRemove)
+{
+  sbuild::environment e;
+  e.add("TERM=wy50");
+  e.add("USER=root");
+
+  env->add("COLUMNS=");
+  env->add(sbuild::environment::value_type("SHELL", ""));
+
+  ASSERT_EQ(env->size(), 2);
+  ASSERT_EQ(e, *env);
+}
+
+TEST_F(Environment, RemoveStrv)
+{
+  const char *items[] = {"SHELL=/bin/bash",
+                         "COLUMNS=160", 0};
+  env->remove(const_cast<char **>(&items[0]));
+
+  ASSERT_EQ(env->size(), 2);
+  ASSERT_EQ(*env, *half_env);
+}
+
+TEST_F(Environment, RemoveEnvironment)
+{
+  sbuild::environment e;
+  e.add("SHELL=/bin/bash");
+  e.add("COLUMNS=160");
+
+  env->remove(e);
+
+  ASSERT_EQ(*env, *half_env);
+}
+
+TEST_F(Environment, RemoveValue)
+{
+  env->remove(sbuild::environment::value_type("SHELL", "/bin/bash"));
+  env->remove(sbuild::environment::value_type("COLUMNS", "160"));
+
+  ASSERT_EQ(*env, *half_env);
+}
+
+TEST_F(Environment, RemoveString)
+{
+  env->remove("SHELL=/bin/bash");
+  env->remove("COLUMNS=160");
+
+  ASSERT_EQ(*env, *half_env);
+}
+
+TEST_F(Environment, GetValue)
+{
+  std::string value;
+  ASSERT_TRUE(env->get("TERM", value));
+  ASSERT_EQ(value,"wy50");
+  ASSERT_TRUE(env->get("SHELL", value));
+  ASSERT_EQ(value, "/bin/sh");
+  ASSERT_TRUE(env->get("USER", value));
+  ASSERT_EQ(value,"root");
+  ASSERT_TRUE(env->get("COLUMNS", value));
+  ASSERT_EQ(value, "80");
+  // Check failure doesn't overwrite value.
+  ASSERT_FALSE(env->get("MUSTFAIL", value));
+  ASSERT_EQ(value, "80");
+
+  // Check getting templated types.
+  int tval;
+  ASSERT_TRUE(env->get("COLUMNS", tval));
+  ASSERT_EQ(tval, 80);
+}
+
+TEST_F(Environment, GetStrv)
+{
+  char **strv = env->get_strv();
+
+  int size = 0;
+  for (char **ev = strv; ev != 0 && *ev != 0; ++ev, ++size);
+
+  ASSERT_EQ(size, 4);
+  ASSERT_EQ(std::string(strv[0]), "COLUMNS=80");
+  ASSERT_EQ(std::string(strv[1]), "SHELL=/bin/sh");
+  ASSERT_EQ(std::string(strv[2]), "TERM=wy50");
+  ASSERT_EQ(std::string(strv[3]), "USER=root");
+
+  sbuild::strv_delete(strv);
+}
+
+TEST_F(Environment, OperatorPlus)
+{
+  sbuild::environment e;
+  e.add("SHELL=/bin/sh");
+  e.add("COLUMNS=80");
+
+  sbuild::environment result;
+  result = *half_env + e;
+  ASSERT_EQ(result, *env);
+
+  sbuild::environment e2;
+  e2 = *half_env + "SHELL=/bin/sh";
+  e2 = e2 + sbuild::environment::value_type("COLUMNS", "80");
+  ASSERT_EQ(e2, *env);
+}
+
+TEST_F(Environment, OperatorPlusEquals)
+{
+  sbuild::environment e;
+  e.add("SHELL=/bin/sh");
+  e.add("COLUMNS=80");
+
+  sbuild::environment result(*half_env);
+  result += e;
+  ASSERT_EQ(result, *env);
+
+  sbuild::environment e2(*half_env);
+  e2 += "SHELL=/bin/sh";
+  // TODO: Why does calling direct fail?
+  sbuild::environment::value_type val("COLUMNS", "80");
+  e2 += val;
+  ASSERT_EQ(e2, *env);
+}
+
+TEST_F(Environment, OperatorMinus)
+{
+  sbuild::environment e;
+  e.add("SHELL=/bin/sh");
+  e.add("COLUMNS=80");
+
+  sbuild::environment result;
+  result = *env - e;
+  ASSERT_EQ(result, *half_env);
+
+  sbuild::environment e2;
+  e2 = *env - "SHELL=/bin/sh";
+  e2 = e2 - sbuild::environment::value_type("COLUMNS", "80");
+  ASSERT_EQ(e2, *half_env);
+}
+
+TEST_F(Environment, OperatorMinusEquals)
+{
+  sbuild::environment e;
+  e.add("SHELL=/bin/sh");
+  e.add("COLUMNS=80");
+
+  sbuild::environment result(*env);
+  result -= e;
+  ASSERT_EQ(result, *half_env);
+
+  sbuild::environment e2(*env);
+  e2 -= "SHELL=/bin/sh";
+  // TODO: Why does calling direct fail?
+  sbuild::environment::value_type val("COLUMNS", "80");
+  e2 -= val;
+  ASSERT_EQ(e2, *half_env);
+}
+
+TEST_F(Environment, AddFilter)
+{
+  sbuild::regex f("^FOO|BAR$");
+
+  sbuild::environment e;
+  e.set_filter(f);
+
+  ASSERT_EQ(f.compare(e.get_filter()), 0);
+}
+
+TEST_F(Environment, Filter)
+{
+  sbuild::regex f("^FOO|BAR$");
+
+  sbuild::environment e;
+  e.set_filter(f);
+
+  e.add("FOO=bar");
+  e.add("BAR=baz");
+  e.add("BAZ=bat");
+  e.add("BAT=bah");
+
+  std::string value;
+  ASSERT_FALSE(e.get("FOO", value));
+  ASSERT_FALSE(e.get("BAR", value));
+  ASSERT_TRUE(e.get("BAZ", value));
+  ASSERT_EQ(value, "bat");
+  ASSERT_TRUE(e.get("BAT", value));
+  ASSERT_EQ(value, "bah");
+}
+
+TEST_F(Environment, StreamOutput)
+{
+  std::ostringstream os;
+  os << *env;
+
+  ASSERT_EQ(os.str(),
+            "COLUMNS=80\n"
+            "SHELL=/bin/sh\n"
+            "TERM=wy50\n"
+            "USER=root\n");
+}

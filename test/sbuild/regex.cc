@@ -16,85 +16,52 @@
  *
  *********************************************************************/
 
+#include <gtest/gtest.h>
+
 #include <sbuild/regex.h>
 
 #include <iostream>
 #include <sstream>
 
-#include <cppunit/extensions/HelperMacros.h>
-
-using namespace CppUnit;
-
-class test_regex : public TestCase
+TEST(Regex, Construct)
 {
-  CPPUNIT_TEST_SUITE(test_regex);
-  CPPUNIT_TEST(test_construction);
-  CPPUNIT_TEST_EXCEPTION(test_construction_fail, std::regex_error);
-  CPPUNIT_TEST(test_output);
-  CPPUNIT_TEST(test_input);
-  CPPUNIT_TEST(test_match);
-  CPPUNIT_TEST_EXCEPTION(test_input_fail, std::regex_error);
-  CPPUNIT_TEST_SUITE_END();
+  EXPECT_NO_THROW(sbuild::regex r1);
 
-public:
-  test_regex()
-  {}
+  EXPECT_NO_THROW(sbuild::regex r2("foo"));
 
-  virtual ~test_regex()
-  {}
+  std::string p("foo|bar$");
+  EXPECT_NO_THROW(sbuild::regex r3(p));
 
-  void
-  test_construction()
-  {
-    sbuild::regex r1;
+  EXPECT_THROW(sbuild::regex r("[foo"), std::regex_error);
+}
 
-    sbuild::regex r2("foo");
+TEST(Regex, StreamOutput)
+{
+  sbuild::regex r("foo");
+  std::ostringstream o;
+  o << r;
+  ASSERT_EQ(r.str(),"foo");
+  ASSERT_EQ(o.str(),"foo");
+}
 
-    std::string p("foo|bar$");
-    sbuild::regex r3(p);
-  }
+TEST(Regex, StreamInput)
+{
+  sbuild::regex r;
+  std::istringstream i("foo");
+  i >> r;
+  ASSERT_EQ(r.str(),"foo");
+}
 
-  void
-  test_construction_fail()
-  {
-    sbuild::regex r("[foo");
-  }
+TEST(Regex, Match)
+{
+  sbuild::regex r("^[^:/,.][^:/,]*$");
+  ASSERT_TRUE(sbuild::regex_search("foobar", r));
+  ASSERT_FALSE(sbuild::regex_search(":fail:", r));
+}
 
-  void
-  test_output()
-  {
-    sbuild::regex r("foo");
-    std::ostringstream o;
-    o << r;
-    CPPUNIT_ASSERT(r.str() == "foo");
-    CPPUNIT_ASSERT(o.str() == "foo");
-  }
-
-  void
-  test_input()
-  {
-    sbuild::regex r;
-    std::istringstream i("foo");
-    i >> r;
-    std::cerr << "str='" << r.str() << "'" << std::endl;
-    CPPUNIT_ASSERT(r.str() == "foo");
-  }
-
-  void
-  test_match()
-  {
-    sbuild::regex r("^[^:/,.][^:/,]*$");
-    sbuild::regex_search("foobar", r);
-  }
-
-  void
-  test_input_fail()
-  {
-    sbuild::regex r;
-    std::istringstream i("([[invalid_regex");
-    i >> r;
-  }
-
-};
-
-CPPUNIT_TEST_SUITE_REGISTRATION(test_regex);
+TEST(Regex, StreamInputFail)
+{
+  sbuild::regex r;
+  std::istringstream i("([[invalid_regex");
+  EXPECT_THROW(i >> r, std::regex_error);
+}

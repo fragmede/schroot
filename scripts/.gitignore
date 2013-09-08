@@ -7,3 +7,5 @@ ltmain.sh
 missing
 mkinstalldirs
 po-notify
+compile
+test-driver

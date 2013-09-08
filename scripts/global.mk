@@ -16,6 +16,8 @@
 #
 #####################################################################
 
+DEFAULT_INCLUDES=
+
 schroot_mountdir=$(localstatedir)/lib/$(PACKAGE)/mount
 schroot_sessiondir=$(localstatedir)/lib/$(PACKAGE)/session
 schroot_file_unpackdir=$(localstatedir)/lib/$(PACKAGE)/unpack
@@ -29,7 +31,7 @@ schroot_setupdatadir=$(pkgdatadir)/setup
 SCHROOT_CONF=$(schroot_sysconfdir)/schroot.conf
 
 # Global options for use in all Makefiles.
-AM_CXXFLAGS = -I$(top_builddir)/lib -I$(top_srcdir)/lib -I$(top_srcdir)/libexec -I$(top_srcdir)/bin $(LOCAL_CXXFLAGS) $(PTHREAD_CFLAGS) -pedantic -Wall -Wcast-align -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
+AM_CXXFLAGS = -I$(top_builddir) -I$(top_srcdir) -I$(top_builddir)/lib -I$(top_srcdir)/lib -I$(top_srcdir)/libexec -I$(top_srcdir)/bin $(LOCAL_CXXFLAGS) $(PTHREAD_CFLAGS) -pedantic -Wall -Wcast-align -Wwrite-strings -Wswitch-default -Wcast-qual -Wunused-variable -Wredundant-decls -Wctor-dtor-privacy -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Woverloaded-virtual -fstrict-aliasing
 
 AM_LDFLAGS = $(LOCAL_LDFLAGS) $(PTHREAD_LIBS)
 

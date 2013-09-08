@@ -6,6 +6,7 @@ Uploaders: Roger Leigh <rleigh@debian.org>
 Build-Depends:
  debhelper (>= 9),
  autotools-dev,
+ cmake,
  pkg-config,
  libpam0g-dev,
  libboost-dev,
@@ -14,7 +15,7 @@ Build-Depends:
  libboost-regex-dev,
  libboost-filesystem-dev,
  gettext,
- libcppunit-dev,
+ libgtest-dev,
  groff-base,
  po4a (>= 0.40)
 Build-Depends-Indep:

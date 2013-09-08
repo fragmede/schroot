@@ -16,125 +16,79 @@
  *
  *********************************************************************/
 
+#include <gtest/gtest.h>
+
 #include <sbuild/personality.h>
 
 #include <iostream>
 #include <sstream>
 
-#include <cppunit/extensions/HelperMacros.h>
-
-using namespace CppUnit;
-
-class test_personality : public TestCase
+TEST(Personality, Construct1)
 {
-  CPPUNIT_TEST_SUITE(test_personality);
-  CPPUNIT_TEST(test_construction);
-  CPPUNIT_TEST_EXCEPTION(test_construction_fail, sbuild::personality::error);
-  CPPUNIT_TEST(test_output);
-  CPPUNIT_TEST(test_input);
-  CPPUNIT_TEST_EXCEPTION(test_input_fail, sbuild::personality::error);
-  CPPUNIT_TEST(test_set);
-  CPPUNIT_TEST_EXCEPTION(test_set_fail, sbuild::personality::error);
-  CPPUNIT_TEST_SUITE_END();
+  sbuild::personality p;
+  ASSERT_EQ(p.get_name(), "undefined");
+}
 
-public:
-  test_personality()
-  {}
+TEST(Personality, Construct2)
+{
+  sbuild::personality p("linux");
+  ASSERT_EQ(p.get_name(), "linux");
+}
 
-  virtual ~test_personality()
-  {}
+TEST(Personality, Construct3)
+{
+  ASSERT_THROW(sbuild::personality p("invalid_personality"), sbuild::personality::error);
+}
 
-  void
-  test_construction()
-  {
-    sbuild::personality p1;
-    CPPUNIT_ASSERT(p1.get_name() == "undefined");
+TEST(Personality, StreamOutput)
+{
+  sbuild::personality p("linux");
 
-#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
-    sbuild::personality p4("linux");
-    CPPUNIT_ASSERT(p4.get_name() == "linux");
-#endif
-  }
+  std::ostringstream os;
+  os << p;
 
-  void
-  test_construction_fail()
-  {
-    sbuild::personality p3("invalid_personality");
-  }
+  ASSERT_EQ(os.str(), "linux");
+}
 
-  void
-  test_output()
-  {
-#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
-    sbuild::personality p4("linux");
-#else
-    sbuild::personality p4;
-#endif
+TEST(Personality, StreamInput1)
+{
+  sbuild::personality p;
+  std::istringstream is("undefined");
+  ASSERT_NO_THROW(is >> p);
+  ASSERT_EQ(p.get_name(), "undefined");
+}
 
-    std::ostringstream ps4;
-    ps4 << p4;
+TEST(Personality, StreamInput2)
+{
+  sbuild::personality p;
+  std::istringstream is("linux");
+  ASSERT_NO_THROW(is >> p);
+  ASSERT_EQ(p.get_name(), "linux");
+}
 
-#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
-    CPPUNIT_ASSERT(ps4.str() == "linux");
-#else
-    CPPUNIT_ASSERT(ps4.str() == "undefined");
-#endif
-  }
+TEST(Personality, StreamInput3)
+{
+  sbuild::personality p;
+  std::istringstream is("invalid_personality");
+  ASSERT_THROW(is >> p, sbuild::personality::error);
+}
 
-  void
-  test_input()
-  {
-    sbuild::personality p2;
-    std::istringstream ps2("undefined");
-    ps2 >> p2;
-    CPPUNIT_ASSERT(p2.get_name() == "undefined");
+TEST(Personality, Set1)
+{
+  sbuild::personality p;
+  p.set_name("undefined");
+  ASSERT_EQ(p.get_name(), "undefined");
+}
 
-    sbuild::personality p4;
-#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
-    std::istringstream ps4("linux");
-#else
-    std::istringstream ps4("undefined");
-#endif
-    ps4 >> p4;
-#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
-    CPPUNIT_ASSERT(p4.get_name() == "linux");
-#else
-    CPPUNIT_ASSERT(p4.get_name() == "undefined");
-#endif
-  }
+TEST(Personality, Set2)
+{
+  sbuild::personality p;
+  p.set_name("linux");
+  ASSERT_EQ(p.get_name(), "linux");
+}
 
-  void
-  test_input_fail()
-  {
-    sbuild::personality p3;
-    std::istringstream ps3("invalid_personality");
-    ps3 >> p3;
-  }
-
-  void
-  test_set()
-  {
-    sbuild::personality p2;
-    p2.set_name("undefined");
-    CPPUNIT_ASSERT(p2.get_name() == "undefined");
-
-    sbuild::personality p4;
-#if defined(SBUILD_FEATURE_PERSONALITY) && defined (__linux__)
-    p4.set_name("linux");
-    CPPUNIT_ASSERT(p4.get_name() == "linux");
-#else
-    p4.set_name("undefined");
-    CPPUNIT_ASSERT(p4.get_name() == "undefined");
-#endif
-  }
-
-  void
-  test_set_fail()
-  {
-    sbuild::personality p3;
-    p3.set_name("invalid_personality");
-  }
-
-};
-
-CPPUNIT_TEST_SUITE_REGISTRATION(test_personality);
+TEST(Personality, Set3)
+{
+  sbuild::personality p;
+  ASSERT_THROW(p.set_name("invalid_personality"), sbuild::personality::error);
+}

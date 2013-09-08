@@ -85,7 +85,7 @@ AC_SUBST([SBUILD_INTERFACE_AGE])
 AC_SUBST([SBUILD_BINARY_AGE])
 
 dnl Initialise automake stuff.
-AM_INIT_AUTOMAKE([1.10 gnu -Wno-portability subdir-objects check-news dist-xz no-dist-gzip tar-pax])
+AM_INIT_AUTOMAKE([1.10 gnu -Wno-portability subdir-objects check-news dist-xz no-dist-gzip tar-pax serial-tests])
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 RELEASE_DATE='m4_esyscmd_s(date --date='m4_esyscmd_s([sed -ne '/^Release-Date:/{s/Release-Date:[[:space:]][[:space:]]*//p;q}' VERSION])' '+%s')'
 RELEASE_DATE_S='m4_esyscmd_s([sed -ne '/^Release-Date:/{s/Release-Date:[[:space:]][[:space:]]*//p;q}' VERSION])'
@@ -260,8 +260,7 @@ if test -z "$LVCREATE" || test -z "$LVREMOVE"; then
 fi
 HAVE_BTRFS="yes"
 AC_PATH_PROG([BTRFS], [btrfs], [], [$PATH:/sbin:/usr/sbin])
-AC_PATH_PROG([BTRFSCTL], [btrfsctl], [], [$PATH:/sbin:/usr/sbin])
-if test -z "$BTRFS" || test -z "$BTRFSCTL"; then
+if test -z "$BTRFS"; then
   HAVE_BTRFS="no"
 fi
 HAVE_LOOPBACK="yes"
@@ -301,8 +300,28 @@ AC_DEFINE_UNQUOTED(SBUILD_HOST_CPU, ["$host_cpu"])
 
 
 # Checks for libraries.
-AM_PATH_CPPUNIT([1.10.0], [HAVE_CPPUNIT=yes])
-AM_CONDITIONAL([USE_UNIT_TESTS], [test -n "$HAVE_CPPUNIT"])
+AC_MSG_CHECKING([for gtest])
+if test -d "$GTEST_ROOT"; then
+  LDFLAGS="$LDFLAGS -L$GTEST_ROOT"
+fi
+GTEST_LIBS="-lgtest"
+saved_CFLAGS="${CFLAGS}"
+saved_LIBS="${LIBS}"
+CXXFLAGS="${saved_CXXFLAGS} ${PTHREAD_CFLAGS}"
+LIBS="${saved_LIBS} ${GTEST_LIBS} ${PTHREAD_LIBS}"
+AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <gtest/gtest.h>],
+                                [testing::InitGoogleTest(static_cast<int*>(0), static_cast<char**>(0)); return RUN_ALL_TESTS();])],
+                               [AC_MSG_RESULT([yes])
+                                HAVE_GTEST=true],
+                               [AC_MSG_RESULT([no])
+                                AC_MSG_WARN([libgtest (Google Test) not found; this is optional, needed to run the unit tests])
+                                GTEST_LIBS=""
+                                HAVE_GTEST=""])
+CXXFLAGS="${saved_CXXFLAGS}"
+LIBS="${saved_LIBS}"
+AC_SUBST([GTEST_LIBS])
+
+AM_CONDITIONAL([USE_UNIT_TESTS], [test -n "$HAVE_GTEST"])
 
 SCHROOT_CFLAGS=""
 AC_SUBST([SCHROOT_CFLAGS])

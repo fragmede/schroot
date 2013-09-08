@@ -20,15 +20,11 @@
 
 #include <sbuild/log.h>
 
-#include <cstdlib>
-
-#include <cppunit/ui/text/TestRunner.h>
-#include <cppunit/extensions/TestFactoryRegistry.h>
-
-using namespace CppUnit;
+#include <gtest/gtest.h>
 
 int
-main()
+main(int   argc,
+     char *argv[])
 {
 #ifdef SBUILD_DEBUG
   sbuild::debug_log_level = sbuild::DEBUG_NOTICE;
@@ -36,12 +32,6 @@ main()
   sbuild::debug_log_level = sbuild::DEBUG_NONE;
 #endif
 
-  TextUi::TestRunner runner;
-
-  TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
-  runner.addTest(registry.makeTest());
-
-  bool ok = runner.run();
-
-  return (ok) ? EXIT_SUCCESS : EXIT_FAILURE;
+  testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }

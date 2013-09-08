@@ -22,5 +22,5 @@ endif
 
 lib_test_libtest_la_SOURCES =	\
 	lib/test/testmain.cc
-lib_test_libtest_la_LIBADD = $(top_builddir)/lib/sbuild/libsbuild.la $(CPPUNIT_LIBS)
+lib_test_libtest_la_LIBADD = $(top_builddir)/lib/sbuild/libsbuild.la $(GTEST_LIBS)
 

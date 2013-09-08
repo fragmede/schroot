@@ -41,21 +41,28 @@ DH_INSTALL_FILES = $(basename $(wildcard debian/*.install.in))
 
 override_dh_auto_configure: debian/build/config.status
 
-debian/build/config.status: configure
+debian/build/gtest/libgtest.a:
+	mkdir -p $(dir $@)
+	cd $(dir $@) ; \
+	  CXX="g++ -std=c++11" cmake /usr/src/gtest ; \
+	  make VERBOSE=1
+
+debian/build/config.status: configure debian/build/gtest/libgtest.a
 	dh_auto_configure -- \
 	  --enable-dchroot --enable-dchroot-dsa \
 	  --with-bash-completion-dir=/etc/bash_completion.d \
 	  $(LVMSNAP_OPTIONS) $(BTRFSSNAP_OPTIONS) \
 	  BTRFS=/sbin/btrfs \
-	  BTRFSCTL=/sbin/btrfsctl \
 	  LVCREATE=/sbin/lvcreate \
 	  LVREMOVE=/sbin/lvremove \
-	  CXX='g++ -std=gnu++11'
+	  CXX='g++ -std=gnu++11' \
+	  GTEST_ROOT="$(CURDIR)/debian/build/gtest"
 	dh_testdir
 
 override_dh_auto_clean:
 	dh_auto_clean
 	rm -f $(DH_INSTALL_FILES)
+	rm -rf debian/build
 	rm -rf debian/install
 
 override_dh_auto_build:
