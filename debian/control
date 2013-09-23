@@ -40,13 +40,13 @@ Description: common files for schroot
  This package provides translations for localisation of schroot
  programs.
 
-Package: libsbuild-1.7.0
+Package: libsbuild-1.7.1
 Architecture: any
 Section: libs
 Pre-Depends: multiarch-support
 Depends:
  ${shlibs:Depends}, ${misc:Depends},
-Suggests: libsbuild-1.7.0-dbg
+Suggests: libsbuild-1.7.1-dbg
 Description: shared library for the Debian source builder
  libsbuild provides facilities to manage and access chroots, as part of
  schroot.
@@ -65,11 +65,11 @@ Package: libsbuild-dev
 Architecture: any
 Section: libdevel
 Depends:
- ${shlibs:Depends}, ${misc:Depends},
- libsbuild-1.7.0 (= ${binary:Version}),
+ ${misc:Depends},
+ libsbuild-1.7.1 (= ${binary:Version}),
  pkg-config (>= 0.14.0)
 Suggests:
- libsbuild-1.7.0-dbg,
+ libsbuild-1.7.1-dbg,
  libsbuild-doc
 Description: development files for the Debian source builder
  libsbuild provides facilities to manage and access chroots, as part of
@@ -86,13 +86,13 @@ Description: development files for the Debian source builder
  This package contains the header files needed to develop applications
  which make use of sbuild.
 
-Package: libsbuild-1.7.0-dbg
+Package: libsbuild-1.7.1-dbg
 Architecture: any
 Section: debug
 Priority: extra
 Depends:
  ${misc:Depends},
- libsbuild-1.7.0 (= ${binary:Version}),
+ libsbuild-1.7.1 (= ${binary:Version}),
 Conflicts:
  schroot-dbg
 Description: Debugging symbols for the Debian source builder
