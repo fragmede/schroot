@@ -24,6 +24,8 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+#include <config.h>
+
 using namespace CppUnit;
 
 class test_keyfile : public TestFixture

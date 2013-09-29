@@ -27,6 +27,9 @@
 /* Set if the device locking with liblockdev is available */
 #undef SBUILD_FEATURE_DEVLOCK
 
+/* Set if NLS support is available */
+#undef SBUILD_FEATURE_NLS
+
 /* Set if PAM support is available */
 #undef SBUILD_FEATURE_PAM
 

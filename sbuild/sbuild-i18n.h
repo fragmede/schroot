@@ -26,7 +26,9 @@
 
 #include <sbuild/sbuild-config.h>
 
-#include <libintl.h>
+#ifdef SBUILD_FEATURE_NLS
+# include <libintl.h>
+#endif // SBUILD_FEATURE_NLS
 
 // Undefine macros which would interfere with our functions.
 #ifdef gettext
@@ -53,7 +55,11 @@ namespace sbuild
   inline const char *
   gettext (const char *message)
   {
+#ifdef SBUILD_FEATURE_NLS
     return dgettext (SBUILD_MESSAGE_CATALOGUE, message);
+#else
+    return message;
+#endif // SBUILD_FEATURE_NLS
   }
 
   /**

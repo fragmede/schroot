@@ -4,8 +4,8 @@ Priority: optional
 Maintainer: Debian buildd-tools Developers <buildd-tools-devel@lists.alioth.debian.org>
 Uploaders: Roger Leigh <rleigh@debian.org>
 Build-Depends:
+ cmake,
  debhelper (>= 9),
- autotools-dev,
  pkg-config,
  libpam0g-dev,
  uuid-dev [!kfreebsd-any],

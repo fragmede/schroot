@@ -30,6 +30,8 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+#include <config.h>
+
 using namespace CppUnit;
 
 class test_file_lock : public TestFixture

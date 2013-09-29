@@ -1,2 +1,4 @@
-debian/install/usr/bin/dchroot               usr/bin
-debian/install/usr/share/man/man1/dchroot.1  usr/share/man/man1
+debian/install/usr/bin/dchroot                  usr/bin
+debian/install/usr/share/man/man1/dchroot.1     usr/share/man/man1
+debian/install/usr/share/man/de/man1/dchroot.1  usr/share/man/de/man1
+debian/install/usr/share/man/fr/man1/dchroot.1  usr/share/man/fr/man1
