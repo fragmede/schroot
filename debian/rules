@@ -8,11 +8,11 @@ LIBDIR = usr/lib/$(DEB_HOST_MULTIARCH)
 LIBEXECDIR = $(LIBDIR)/schroot
 
 ifneq ($(DEB_HOST_ARCH_OS),linux)
-	LVMSNAP_OPTIONS = --disable-lvm-snapshot
-	BTRFSSNAP_OPTIONS = --disable-btrfs-snapshot
+	LVMSNAP_OPTIONS = -Dlvm-snapshot=OFF
+	BTRFSSNAP_OPTIONS = -Dbtrfs-snapshot=OFF
 else
-	LVMSNAP_OPTIONS = --enable-lvm-snapshot
-	BTRFSSNAP_OPTIONS = --enable-btrfs-snapshot
+	LVMSNAP_OPTIONS = -Dlvm-snapshot=ON
+	BTRFSSNAP_OPTIONS = -Dbtrfs-snapshot=ON
 endif
 
 CFLAGS = -Wall -g
@@ -23,7 +23,7 @@ else
 	CFLAGS += -O2
 endif
 
-DH_OPTIONS = --with autotools_dev --builddirectory=debian/build --parallel
+DH_OPTIONS = --buildsystem=cmake --builddirectory=debian/build --parallel
 
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
   NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
@@ -39,24 +39,31 @@ DH_INSTALL_FILES = $(basename $(wildcard debian/*.install.in))
 %.install: %.install.in
 	sed -e 's;@LIBDIR@;$(LIBDIR);g' -e 's;@LIBEXECDIR@;$(LIBEXECDIR);g' <$< >$@
 
-override_dh_auto_configure: debian/build/config.status
+override_dh_auto_configure: debian/build/CMakeCache.txt
 
 debian/build/gtest/libgtest.a:
 	mkdir -p $(dir $@)
 	cd $(dir $@) ; \
 	  CXX="g++ -std=c++11" cmake /usr/src/gtest ; \
-	  make VERBOSE=1
+	  $(MAKE) VERBOSE=1
 
-debian/build/config.status: configure debian/build/gtest/libgtest.a
-	dh_auto_configure -- \
-	  --enable-dchroot --enable-dchroot-dsa \
-	  --with-bash-completion-dir=/etc/bash_completion.d \
-	  $(LVMSNAP_OPTIONS) $(BTRFSSNAP_OPTIONS) \
-	  BTRFS=/sbin/btrfs \
-	  LVCREATE=/sbin/lvcreate \
-	  LVREMOVE=/sbin/lvremove \
-	  CXX='g++ -std=gnu++11' \
-	  GTEST_ROOT="$(CURDIR)/debian/build/gtest"
+debian/build/CMakeCache.txt: CMakeLists.txt debian/build/gtest/libgtest.a
+	mkdir -p $(dir $@)
+	cd $(dir $@) ; \
+          CXX="g++ -std=c++11" \
+          GTEST_ROOT="$(CURDIR)/debian/build/gtest" \
+	  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+	        -DCMAKE_INSTALL_SYSCONFDIR=/etc \
+	        -DCMAKE_INSTALL_LOCALSTATEDIR=/var \
+	        -DCMAKE_INSTALL_LIBEXECDIR=lib \
+	        -DSCHROOT_LIBEXEC_DIR=/$(LIBDIR)/schroot \
+	        -Ddebug=OFF -Ddchroot=ON -Ddchroot-dsa=ON \
+	        -Dbash_completion_dir=/etc/bash_completion.d \
+	        $(LVMSNAP_OPTIONS) $(BTRFSSNAP_OPTIONS) \
+	        -DBTRFS_EXECUTABLE=/sbin/btrfs \
+	        -DLVCREATE_EXECUTABLE=/sbin/lvcreate \
+	        -DLVREMOVE_EXECUTABLE=/sbin/lvremove \
+	        $(CURDIR)
 	dh_testdir
 
 override_dh_auto_clean:
@@ -67,10 +74,10 @@ override_dh_auto_clean:
 
 override_dh_auto_build:
 ifneq (,$(shell dh_listpackages -a 2>/dev/null))
-	$(MAKE) -C debian/build all V=1 PO4A=
+	$(MAKE) -C debian/build all VERBOSE=1
 endif
 ifneq (,$(shell dh_listpackages -i 2>/dev/null))
-	$(MAKE) -C debian/build doc V=1 PO4A=
+	$(MAKE) -C debian/build doc VERBOSE=1
 endif
 
 override_dh_auto_test:
@@ -94,7 +101,7 @@ install-arch: build-arch $(DH_INSTALL_FILES)
 	rm -rf $(CURDIR)/debian/dchroot-dsa/usr/share/doc/dchroot-dsa
 	ln -sf schroot $(CURDIR)/debian/dchroot-dsa/usr/share/doc/dchroot-dsa
 # Requires fakeroot, so tests need running here.
-	dh_auto_test
+	$(MAKE) -C debian/build test ARGS=-V
 
 install-indep: build-indep $(DH_INSTALL_FILES)
 	dh $@ $(DH_OPTIONS)
@@ -120,6 +127,6 @@ override_dh_installinit:
 	dh_installinit --no-start --update-rcd-params='defaults'
 
 override_dh_strip:
-	dh_strip --dbg-package=libsbuild-1.7.0-dbg
+	dh_strip --dbg-package=libsbuild-1.7.1-dbg
 
 .PHONY: override_dh_auto_configure override_dh_auto_clean override_dh_auto_build override_dh_auto_test override_dh_auto_install override_dh_installchangelogs override_dh_installinit override_dh_strip install-arch install-indep

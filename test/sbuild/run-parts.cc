@@ -27,6 +27,8 @@
 
 #include <boost/filesystem/operations.hpp>
 
+#include <config.h>
+
 class RunParts : public ::testing::Test
 {
 public:

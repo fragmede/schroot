@@ -364,6 +364,19 @@ AC_CHECK_FUNC([unshare],
               [UNSHARE_FUNC="no"])
 
 # Determine which features to enable.
+AC_MSG_CHECKING([whether to build NLS support])
+BUILD_NLS="yes"
+if test "$USE_NLS" = "no"; then
+  BUILD_NLS="no"
+fi
+AC_MSG_RESULT([$BUILD_NLS])
+
+AM_CONDITIONAL([BUILD_NLS], [test "$BUILD_NLS" = "yes"])
+AH_TEMPLATE(SBUILD_FEATURE_NLS, [Set if NLS support is present])
+if test "$BUILD_NLS" = "yes"; then
+  AC_DEFINE(SBUILD_FEATURE_NLS, 1)
+fi
+
 AC_MSG_CHECKING([whether to build unshare support])
 BUILD_UNSHARE="yes"
 if test "$UNSHARE_HEADER" = "no"; then

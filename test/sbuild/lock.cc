@@ -26,6 +26,8 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#include <config.h>
+
 class FileLockParameters
 {
 public:

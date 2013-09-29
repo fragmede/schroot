@@ -26,6 +26,7 @@ libboost-dev                 }
 libboost-program-options-dev } The Boost C++ libraries
 libboost-regex-dev           }
 groff (or troff) soelim
+cmake (required unless using the autotools configure script)
 
 If building from GIT, you will also need:
 gettext (0.16 or greater)
@@ -40,11 +41,25 @@ configure with GTEST_ROOT=/path/to/libgtest (it will be added as a
 linker -L option).  On Debian systems, which don't provide a
 precompiled libgtest, build a version for the build with, for
 example:
+
+  mkdir build
+  cd build
   mkdir gtest
-  cd gtest; \
+  (cd gtest; \
     CXX="g++ -std=c++11" cmake /usr/src/gtest ; \
-    make VERBOSE=1
-  ./configure CXX="g++ -std=c++11" GTEST_ROOT="$(pwd)/gtest"
+    make VERBOSE=1 \
+  )
+
+And then to build with cmake:
+
+  CXX="g++ -std=c++11" GTEST_ROOT="$(pwd)/gtest" cmake /path/to/schroot
+  make
+
+Or with autotools configure:
+
+  /path/to/schroot/configure CXX="g++ -std=c++11" GTEST_ROOT="$(pwd)/gtest"
+  make
+
 
 Translation
 -----------
@@ -53,20 +68,62 @@ If you would like to see the schroot messages output in your own
 language, please consider translating the pot file (po/schroot.pot).
 If you would like to see the schroot man pages in your own language,
 please consider translating the pot file
-(man/po4a/po/schroot-man.pot).
+(man/po/schroot-man.pot).
 
 
 Building and installation
 -------------------------
 
-Please see the INSTALL file for generic installation instructions.
-Note that the testsuite ("make check") should be run under fakeroot or
-real root in order to work correctly.  There are the following
-additional options:
+cmake
+^^^^^
 
-  --enable-dchroot:       Build dchroot for backward compatibility
-  --enable-dchroot-dsa:   Build DSA dchroot for backward compatibility
-  --enable-debug:         Enable debugging features
+Run "cmake -LH" to see basic configurable options.  The following basic
+options are supported:
+
+  btrfs-snapshot=(ON|OFF)  Enable support for btrfs snapshots (requires Btrfs)
+  dchroot=(ON|OFF)         Enable dchroot compatibility
+  dchroot-dsa=(ON|OFF)     Enable dchroot-dsa compatibility
+  debug=(ON|OFF)           Enable debugging messages
+  default_environment_filter=REGEX
+                           Default environment filter
+  doxygen=(ON|OFF)         Enable doxygen documentation
+  loopback=(ON|OFF)        Enable support for loopback mounts
+  lvm-snapshot=(ON|OFF)    Enable support for LVM snapshots (requires LVM)
+  nls=(ON|OFF)             Enable national language support (requires gettext)
+  pam=(ON|PFF)             Enable support for PAM authentication (requires libpam)
+  personality=(ON|OFF)     Enable personality support (Linux only)
+  test=(ON|OFF)            Enable unit tests
+  union=(ON|OFF)           Enable support for union mounts
+  unshare=(ON|OFF)         Enable unshare support (Linux only)
+
+cmake will autodetect and enable all available features by default,
+with the exception of dchroot and dchroot-dsa which require manually
+specifying, so these options are mostly useful for disabling features
+which are not required.
+
+Run "cmake -LA" to see all settable options.  CMAKE_INSTALL_PREFIX is
+the equivalent of the configure --prefix option.  Additionally,
+CMAKE_INSTALL_SYSCONFDIR, CMAKE_INSTALL_LOCALSTATEDIR,
+CMAKE_INSTALL_LIBDIR etc. provide the equivalent sysconfdir,
+localstatedir and libdir, etc. options.
+
+Run "make doc" to make the doxygen documentation.
+Run "make test" to run the testsuite.
+
+Note that the testsuite ("make test") should be run under fakeroot or
+real root in order to work correctly.
+
+
+autotools configure
+^^^^^^^^^^^^^^^^^^^
+
+Please see the INSTALL file for generic autotools configure
+installation instructions.  There are the following additional
+options:
+
+  --enable-dchroot        Build dchroot for backward compatibility
+  --enable-dchroot-dsa    Build DSA dchroot for backward compatibility
+  --enable-debug          Enable debugging features
                           (not recommended--use --debug at runtime instead)
   --enable-environment-filter
                           Enable default environment filtering (regex)
@@ -83,7 +140,10 @@ if supported by your system, so the above options should not usually
 be required.
 
 Run "make doc" to make the doxygen documentation.
+Run "make check" to run the testsuite.
 
+Note that the testsuite ("make check") should be run under fakeroot or
+real root in order to work correctly.
 
 Configuration
 -------------
