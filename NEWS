@@ -1,11 +1,37 @@
 NEWS                                                            -*- outline -*-
 ----
 
-Welcome to schroot 1.6.5.  Please read these release notes carefully.
+Welcome to schroot 1.6.6.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 1.6.6:
+
+  1) The build infrastructure has been converted to use cmake in place
+     of the existing autotools (autoconf/automake/libtool)
+     infrastructure.  Both the cmake and autotools builds will be
+     supported and maintained for the 1.6 stable releases; the
+     autotools build will most likely be dropped in the 1.7
+     development releases.  The cmake infrastructure implements all
+     the existing autotools functionality, plus some additional
+     capabilities (such as full support for translated manual pages).
+     It will be easier to maintain and update than the autotools code,
+     as well as being significantly more powerful.
+
+  2) BitBucket source repositories.  In addition to the Debian Alioth
+     repositories, I have created repositories at
+       https://bitbucket.org/rleigh-debian/schroot
+       https://bitbucket.org/rleigh-debian/schroot-dist
+     These mirror the Alioth repositories, but also permit using the
+     BitBucket pull request workflow to work on schroot and submit
+     patches as a more convienient alternative to the Debian BTS for
+     external contributors.  This is currently just a trial to see if
+     it's useful for others.
+
+  3) When using cmake, translated manual pages are built and
+     installed.  This is currently limited to fr and de manpages.
 
 * Major changes in 1.6.5:
 
