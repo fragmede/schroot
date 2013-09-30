@@ -16,8 +16,7 @@
 #
 #####################################################################
 
-include_directories(${GTEST_INCLUDE_DIR}
-                    ${PROJECT_SOURCE_DIR}/bin)
+include_directories(${PROJECT_SOURCE_DIR}/bin)
 
 set(test_sources
     testmain.cc)
