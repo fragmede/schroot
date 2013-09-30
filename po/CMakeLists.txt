@@ -28,10 +28,6 @@ if(BUILD_NLS)
   STRING(REGEX REPLACE "\n" ";" languages "${languages}")
   foreach(lang ${languages})
     set(po_files ${po_files} "${CMAKE_CURRENT_SOURCE_DIR}/${lang}.po")
-    set(gmo_files ${gmo_files} "${lang}.gmo")
-    install(FILES "${lang}.gmo"
-            DESTINATION "${SCHROOT_LOCALE_DIR}/${lang}/LC_MESSAGES"
-            RENAME "${domain}.mo")
   endforeach(lang)
 
   file(READ ${CMAKE_CURRENT_SOURCE_DIR}/POTFILES.in potfiles)
@@ -77,6 +73,10 @@ if(BUILD_NLS)
                          "${CMAKE_CURRENT_SOURCE_DIR}/${lang}.po"
                        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${lang}.po"
                        VERBATIM)
+    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${lang}.gmo"
+            DESTINATION "${SCHROOT_LOCALE_DIR}/${lang}/LC_MESSAGES"
+            RENAME "${domain}.mo")
+    set(gmo_files ${gmo_files} "${CMAKE_CURRENT_BINARY_DIR}/${lang}.gmo")
   endforeach(lang)
 
   add_custom_target(update-pot DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot")
@@ -85,7 +85,7 @@ if(GIT_RELEASE_ENABLE)
   add_dependencies(git-release update-pot update-po)
 endif(GIT_RELEASE_ENABLE)
 
-  add_custom_target(update-gmo DEPENDS ${gmo_files})
+  add_custom_target(update-gmo ALL DEPENDS ${gmo_files})
 
   add_custom_target(po-notify
                     COMMAND podebconf-report-po --call --withtranslators --noforce --podir=${CMAKE_CURRENT_SOURCE_DIR})
