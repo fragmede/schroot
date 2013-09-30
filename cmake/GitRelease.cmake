@@ -250,7 +250,7 @@
 cmake_policy(SET CMP0007 NEW)
 
 # Settings file used to pass configuration settings
-set(GIT_RELEASE_SETTINGS "${CMAKE_BINARY_DIR}/GitRelease.cmake")
+set(GIT_RELEASE_SETTINGS "${PROJECT_BINARY_DIR}/GitRelease.cmake")
 
 # When running in script mode, read the saved settings first
 if (CMAKE_SCRIPT_MODE_FILE)
@@ -730,18 +730,6 @@ function(git_rev_parse ref var)
 endfunction(git_rev_parse)
 
 function(git_archive_tree)
-  # TODO: Add full export.
-  file(REMOVE_RECURSE "${GIT_DIST_TMPDIR}")
-  file(MAKE_DIRECTORY "${GIT_DIST_TMPDIR}")
-  execute_process(COMMAND git archive --prefix "${GIT_DIST_NAME}/"
-                  -o "${GIT_DIST_TMPDIR}/tmp.tar" "${GIT_RELEASE_TAG_NAME}"
-                  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
-  execute_process(COMMAND tar -xf tmp.tar
-                  WORKING_DIRECTORY "${GIT_DIST_TMPDIR}")
-  file(REMOVE "${GIT_DIST_TMPDIR}/tmp.tar")
-endfunction(git_archive_tree)
-
-function(git_dist)
   git_release(OFF)
 
   git_rev_parse("${GIT_RELEASE_TAG_NAME}^{}" release_commit)
@@ -753,7 +741,14 @@ function(git_dist)
 
   git_check_clean()
 
-  git_archive_tree()
+  file(REMOVE_RECURSE "${GIT_DIST_TMPDIR}")
+  file(MAKE_DIRECTORY "${GIT_DIST_TMPDIR}")
+  execute_process(COMMAND git archive --prefix "${GIT_DIST_NAME}/"
+                  -o "${GIT_DIST_TMPDIR}/tmp.tar" "${GIT_RELEASE_TAG_NAME}"
+                  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+  execute_process(COMMAND tar -xf tmp.tar
+                  WORKING_DIRECTORY "${GIT_DIST_TMPDIR}")
+  file(REMOVE "${GIT_DIST_TMPDIR}/tmp.tar")
 
   git_release_version_from_git_tag("${GIT_RELEASE_TAG_NAME}" TRUE)
 
@@ -761,9 +756,7 @@ function(git_dist)
   if(GIT_VERSION_FILE_USE_COMPAT)
     git_release_version_to_file_compat("${GIT_DIST_ROOT}/${GIT_VERSION_FILE_COMPAT}")
   endif(GIT_VERSION_FILE_USE_COMPAT)
-
-  git_dist_generic()
-endfunction(git_dist)
+endfunction(git_archive_tree)
 
 # Make a distribution of an arbitrary release.
 #
@@ -777,7 +770,7 @@ endfunction(git_dist)
 # GIT_RELEASE_VERSION must match the release version.  GIT_DIST_BRANCH may also
 # require setting if not using the default.  GIT_RELEASE_TAG_NAME must
 # be set to the tag name of the existing release.
-function(git_dist_generic)
+function(git_dist)
   git_check_repo()
 
   execute_process(COMMAND git show-ref --tags -q ${GIT_DIST_TAG_NAME}
@@ -874,7 +867,7 @@ function(git_dist_generic)
   endif(tag_status GREATER 0)
 
   message(STATUS "${CMAKE_PROJECT_NAME} ${GIT_RELEASE_VERSION} distribution tagged as ${GIT_DIST_TAG_NAME}")
-endfunction(git_dist_generic)
+endfunction(git_dist)
 
 # Add targets if not in script mode
 if (NOT CMAKE_SCRIPT_MODE_FILE)
@@ -935,11 +928,20 @@ set(GIT_DIST_ROOT \"${GIT_DIST_ROOT}\")
   endif (GIT_RELEASE_ENABLE)
 
   if (GIT_DIST_ENABLE)
+    add_custom_target(git-distdir-archive
+                      COMMAND ${CMAKE_COMMAND} ${script_options}
+                              -D PROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR}
+                              -D git_release_command=git-distdir-archive
+                              -P ${CMAKE_CURRENT_LIST_FILE})
+
+    add_custom_target(git-distdir DEPENDS git-distdir-archive)
+
     add_custom_target(git-dist
                       COMMAND ${CMAKE_COMMAND} ${script_options}
                               -D PROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR}
                               -D git_release_command=git-dist
-                              -P ${CMAKE_CURRENT_LIST_FILE})
+                              -P ${CMAKE_CURRENT_LIST_FILE}
+                      DEPENDS git-distdir)
   endif (GIT_DIST_ENABLE)
 endif (NOT CMAKE_SCRIPT_MODE_FILE)
 
@@ -957,6 +959,10 @@ if (CMAKE_SCRIPT_MODE_FILE)
     if(git_release_command STREQUAL git-release)
       git_release(ON)
     endif(git_release_command STREQUAL git-release)
+
+    if(git_release_command STREQUAL git-distdir-archive)
+      git_archive_tree()
+    endif(git_release_command STREQUAL git-distdir-archive)
 
     if(git_release_command STREQUAL git-dist)
       git_dist()
