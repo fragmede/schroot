@@ -6,4 +6,5 @@ set -e
 rm -rf test/testdata
 mkdir test/testdata
 cp -r ${srcdir}/test/*.ex* test/testdata
+mkdir test/testdata/run-parts.ex2
 chown -R root:root test/testdata
