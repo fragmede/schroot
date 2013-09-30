@@ -351,3 +351,11 @@ add_custom_target(check-news
 if(GIT_RELEASE_ENABLE)
   add_dependencies(git-release check-news)
 endif(GIT_RELEASE_ENABLE)
+
+if(GIT_DIST_ENABLE)
+  add_custom_target(git-changelog
+                    COMMAND git log > ${GIT_DIST_ROOT}/ChangeLog
+                    DEPENDS git-distdir-archive
+                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+  add_dependencies(git-distdir git-changelog)
+endif(GIT_DIST_ENABLE)
