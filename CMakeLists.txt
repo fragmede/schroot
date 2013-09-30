@@ -16,6 +16,11 @@
 cmake_minimum_required(VERSION 2.8)
 
 project(schroot)
+
+if("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
+  message(FATAL_ERROR "In-tree builds are not supported; please run cmake from a separate build directory.")
+endif("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
+
 # Obtain version information from VERSION and/or git.
 set(GIT_VERSION_FILE "cmake/GitVersion.cmake"
     CACHE FILEPATH "Location of version metadata")
