@@ -25,13 +25,13 @@ if(BUILD_NLS)
   set(bug_address "Roger Leigh <rleigh@debian.org>")
 
   file(READ LINGUAS languages)
-  STRING(REGEX REPLACE "\n" ";" languages "${languages}")
+  string(REGEX REPLACE "\n" ";" languages "${languages}")
   foreach(lang ${languages})
     set(po_files ${po_files} "${CMAKE_CURRENT_SOURCE_DIR}/${lang}.po")
   endforeach(lang)
 
   file(READ ${CMAKE_CURRENT_SOURCE_DIR}/POTFILES.in potfiles)
-  STRING(REGEX REPLACE "\n" ";" potfiles "${potfiles}")
+  string(REGEX REPLACE "\n" ";" potfiles "${potfiles}")
   file(REMOVE ${CMAKE_CURRENT_BINARY_DIR}/POTFILES)
   foreach(file ${potfiles})
     set(translated_files ${translated_files} "${PROJECT_SOURCE_DIR}/${file}")
@@ -47,7 +47,15 @@ if(BUILD_NLS)
 
   # xgettext creates schroot.pot
   if(GIT_RELEASE_ENABLE)
-    # Always update potfile when dependencies change
+    # Always update potfile when dependencies change.  Don't change
+    # the date in the pot file, since this dirties the source
+    # directory, but do allow any other change.
+    message("grep '^\"POT-Creation-Date: ' '${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot' | sed -e 's;^\"POT-Creation-Date: \\(.*\\)\\\\n\";\\1;'")
+    execute_process(COMMAND sh -c "grep '^\"POT-Creation-Date: ' '${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot' | sed -e 's;^\"POT-Creation-Date: \\(.*\\)\\\\n\";\\1;'"
+                    OUTPUT_VARIABLE pot_date
+                    RESULT_VARIABLE grep_pot_status
+                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+    string(REGEX REPLACE "\n" "" pot_date "${pot_date}")
     add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot"
                        COMMAND xgettext --default-domain=${domain} --add-comments=TRANSLATORS:
                          ${xgettext_options} --files-from "${CMAKE_CURRENT_BINARY_DIR}/POTFILES"
@@ -55,6 +63,7 @@ if(BUILD_NLS)
                          --msgid-bugs-address=${bug_address}
                          -d "${domain}" -p "${CMAKE_CURRENT_SOURCE_DIR}"
                        COMMAND ${CMAKE_COMMAND} -E rename "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.po" "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot"
+                       COMMAND sed -i -e 's;^\"POT-Creation-Date: \\(.*\\)\\\\n\";\"POT-Creation-Date: ${pot_date}\\\\n\";' "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot"
                        DEPENDS ${translated_files}
                        VERBATIM)
     add_custom_target(update-pot DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot")
