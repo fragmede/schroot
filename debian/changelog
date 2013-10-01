@@ -4,6 +4,7 @@ schroot (1.7.1-1) UNRELEASED; urgency=low
   * debian/control:
     - Add cmake and gtest build dependencies.
     - Drop cppunit from build dependencies.
+    - Upgrade to Standards-Version 3.9.4 (no changes).
   * debian/rules:
     - Build and configure gtest support.
     - Drop BTRFSCTL, which is no longer used by configure.
