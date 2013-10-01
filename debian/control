@@ -5,7 +5,6 @@ Maintainer: Debian buildd-tools Developers <buildd-tools-devel@lists.alioth.debi
 Uploaders: Roger Leigh <rleigh@debian.org>
 Build-Depends:
  debhelper (>= 9),
- autotools-dev,
  cmake,
  pkg-config,
  libpam0g-dev,

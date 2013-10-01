@@ -1,11 +1,16 @@
 schroot (1.7.1-1) UNRELEASED; urgency=low
 
   * New upstream development release.
+  * This release now supports both autotools and cmake; switch to
+    cmake, which allows building and installation of translated
+    manual pages (Closes: #683959, #683137).
   * debian/control:
     - Add cmake and gtest build dependencies.
-    - Drop cppunit from build dependencies.
+    - Drop autotools-dev and cppunit build dependencies.
     - Upgrade to Standards-Version 3.9.4 (no changes).
   * debian/rules:
+    - Replace configure usage with cmake and convert logic for
+      configure options to use the cmake equivalents.
     - Build and configure gtest support.
     - Drop BTRFSCTL, which is no longer used by configure.
 
