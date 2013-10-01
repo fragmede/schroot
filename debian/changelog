@@ -13,6 +13,7 @@ schroot (1.7.1-1) UNRELEASED; urgency=low
       configure options to use the cmake equivalents.
     - Build and configure gtest support.
     - Drop BTRFSCTL, which is no longer used by configure.
+    - Parallel builds are now supported (Closes: #718638)
 
  -- Roger Leigh <rleigh@debian.org>  Sat, 07 Sep 2013 23:24:40 +0100
 
