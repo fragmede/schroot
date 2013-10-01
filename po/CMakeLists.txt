@@ -76,6 +76,7 @@ if(BUILD_NLS)
     add_custom_command(OUTPUT "${pofile}"
                        COMMAND msgmerge --update "${pofile}"
                          "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot"
+                       COMMAND touch "${pofile}"
                        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot"
                        VERBATIM)
   endforeach(pofile)
@@ -87,6 +88,7 @@ if(BUILD_NLS)
                        COMMAND ${CMAKE_COMMAND} -E remove "${CMAKE_CURRENT_BINARY_DIR}/${lang}.gmo"
                        COMMAND msgfmt -c --statistics -o "${CMAKE_CURRENT_BINARY_DIR}/${lang}.gmo"
                          "${CMAKE_CURRENT_SOURCE_DIR}/${lang}.po"
+                       COMMAND touch "${CMAKE_CURRENT_BINARY_DIR}/${lang}.gmo"
                        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${lang}.po"
                        VERBATIM)
     install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${lang}.gmo"
