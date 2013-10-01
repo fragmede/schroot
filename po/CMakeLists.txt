@@ -46,15 +46,30 @@ if(BUILD_NLS)
   endforeach(file ${translated_files})
 
   # xgettext creates schroot.pot
-  add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot"
-                     COMMAND xgettext --default-domain=${domain} --add-comments=TRANSLATORS:
-                       ${xgettext_options} --files-from "${CMAKE_CURRENT_BINARY_DIR}/POTFILES"
-                       --copyright-holder=${copyright_holder}
-                       --msgid-bugs-address=${bug_address}
-                       -d "${domain}" -p "${CMAKE_CURRENT_SOURCE_DIR}"
-                     COMMAND ${CMAKE_COMMAND} -E rename "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.po" "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot"
-                     DEPENDS ${translated_files}
-                     VERBATIM)
+  if(GIT_RELEASE_ENABLE)
+    # Always update potfile when dependencies change
+    add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot"
+                       COMMAND xgettext --default-domain=${domain} --add-comments=TRANSLATORS:
+                         ${xgettext_options} --files-from "${CMAKE_CURRENT_BINARY_DIR}/POTFILES"
+                         --copyright-holder=${copyright_holder}
+                         --msgid-bugs-address=${bug_address}
+                         -d "${domain}" -p "${CMAKE_CURRENT_SOURCE_DIR}"
+                       COMMAND ${CMAKE_COMMAND} -E rename "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.po" "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot"
+                       DEPENDS ${translated_files}
+                       VERBATIM)
+    add_custom_target(update-pot DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot")
+  else(GIT_RELEASE_ENABLE)
+    # Only update potfile manually
+    add_custom_target(update-pot
+                      COMMAND xgettext --default-domain=${domain} --add-comments=TRANSLATORS:
+                        ${xgettext_options} --files-from "${CMAKE_CURRENT_BINARY_DIR}/POTFILES"
+                        --copyright-holder=${copyright_holder}
+                        --msgid-bugs-address=${bug_address}
+                        -d "${domain}" -p "${CMAKE_CURRENT_SOURCE_DIR}"
+                      COMMAND ${CMAKE_COMMAND} -E rename "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.po" "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot"
+                      DEPENDS ${translated_files}
+                      VERBATIM)
+  endif(GIT_RELEASE_ENABLE)
 
   # msgmerge --update
   foreach(pofile ${po_files})
@@ -64,6 +79,7 @@ if(BUILD_NLS)
                        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot"
                        VERBATIM)
   endforeach(pofile)
+  add_custom_target(update-po DEPENDS ${po_files})
 
   # msgfmt
   foreach(lang ${languages})
@@ -79,8 +95,6 @@ if(BUILD_NLS)
     set(gmo_files ${gmo_files} "${CMAKE_CURRENT_BINARY_DIR}/${lang}.gmo")
   endforeach(lang)
 
-  add_custom_target(update-pot DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot")
-  add_custom_target(update-po DEPENDS ${po_files})
 if(GIT_RELEASE_ENABLE)
   add_dependencies(git-release update-pot update-po)
 endif(GIT_RELEASE_ENABLE)
