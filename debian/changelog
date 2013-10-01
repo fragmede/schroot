@@ -8,6 +8,8 @@ schroot (1.7.1-1) UNRELEASED; urgency=low
     - Add cmake and gtest build dependencies.
     - Drop autotools-dev and cppunit build dependencies.
     - Upgrade to Standards-Version 3.9.4 (no changes).
+    - Change library package suffix from -1.7.1 to 1.7.1 to match
+      cmake library versioning.
   * debian/rules:
     - Replace configure usage with cmake and convert logic for
       configure options to use the cmake equivalents.
