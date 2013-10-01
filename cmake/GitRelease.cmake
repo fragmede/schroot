@@ -267,6 +267,10 @@ set(GIT_VERSION_FILE_USE_COMPAT OFF
     CACHE BOOL "Create compatibility version file in distributed source tree")
 mark_as_advanced(FORCE GIT_VERSION_FILE GIT_VERSION_FILE_COMPAT GIT_VERSION_FILE_USE_COMPAT)
 
+# Release policy settings
+set(GIT_RELEASE_POLICY_FILE "GitReleasePolicy.cmake"
+    CACHE FILEPATH "Location of release policy configuration")
+
 # Release sanity checking
 set(GIT_RELEASE_CHECK_UNCOMMITTED ON
     CACHE BOOL "Check for uncommitted files in working tree")
@@ -584,6 +588,9 @@ set(GIT_DIST_ROOT ${GIT_DIST_TMPDIR}/${GIT_DIST_NAME}
 mark_as_advanced(FORCE GIT_DIST_BRANCH GIT_DIST_COMMIT_MESSAGE GIT_DIST_NAME GIT_DIST_TMPDIR GIT_DIST_ROOT)
 endif (NOT CMAKE_SCRIPT_MODE_FILE)
 
+if(EXISTS ${GIT_RELEASE_POLICY_FILE})
+  include("${GIT_RELEASE_POLICY_FILE}")
+endif(EXISTS ${GIT_RELEASE_POLICY_FILE})
 
 function(git_check_repo)
   if(NOT EXISTS ${PROJECT_SOURCE_DIR}/.git)

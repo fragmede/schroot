@@ -28,8 +28,8 @@ set(GIT_VERSION_FILE_COMPAT "VERSION"
     CACHE FILEPATH "Location of compatibility version metadata")
 set(GIT_VERSION_FILE_USE_COMPAT ON
     CACHE BOOL "Use compatibility version file")
-set(GIT_DIST_BRANCH distribution-${GIT_RELEASE_VERSION_MAJOR}.${GIT_RELEASE_VERSION_MINOR}
-    CACHE STRING "Distribution branch name")
+set(GIT_RELEASE_POLICY_FILE "cmake/GitReleasePolicy.cmake"
+    CACHE FILEPATH "Location of release policy configuration")
 include("${PROJECT_SOURCE_DIR}/cmake/GitRelease.cmake")
 
 set(VERSION ${GIT_RELEASE_VERSION})
