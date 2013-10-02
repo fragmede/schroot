@@ -25,7 +25,6 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.man.cmake
                ${CMAKE_CURRENT_BINARY_DIR}/config.man)
 
 set(common_dependencies
-    ${CMAKE_CURRENT_BINARY_DIR}/config.man
     authors.man
     copyright.man)
 
@@ -156,6 +155,7 @@ foreach(manpage_source ${manpage_sources})
                                > "${manpage}"
                        DEPENDS "${manpage_source_file}"
                                ${common_dependencies}
+                               ${CMAKE_CURRENT_BINARY_DIR}/config.man
                        VERBATIM)
     install(FILES "${manpage}"
             DESTINATION "${CMAKE_INSTALL_FULL_MANDIR}/${manpage_path}")
@@ -176,13 +176,13 @@ if(GROFFER_EXECUTABLE)
     set(manpages_ps ${manpages_ps} "${manpage}.ps")
     add_custom_command(OUTPUT "${manpage}.ps"
                        COMMAND ${GROFFER_EXECUTABLE} -K utf8 --ps -man --to-stdout "${manpage}" > "${manpage}.ps"
-                       DEPENDS "${manpage}" ${common_dependencies}
+                       DEPENDS "${manpage}" ${common_dependencies} ${CMAKE_CURRENT_BINARY_DIR}/config.man
                        VERBATIM)
 
     set(manpages_pdf ${manpages_pdf} "${manpage}.pdf")
     add_custom_command(OUTPUT "${manpage}.pdf"
                        COMMAND ${GROFFER_EXECUTABLE} -K utf8 --pdf -man --to-stdout "${manpage}" > "${manpage}.pdf"
-                       DEPENDS "${manpage}" ${common_dependencies}
+                       DEPENDS "${manpage}" ${common_dependencies} ${CMAKE_CURRENT_BINARY_DIR}/config.man
                        VERBATIM)
   endforeach(manpage)
 
