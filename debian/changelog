@@ -3,12 +3,13 @@ schroot (1.6.6-1) UNRELEASED; urgency=low
   * New upstream stable release.
   * This release now supports both autotools and cmake; switch to
     cmake, which allows building and installation of translated
-    manual pages (Closes: #683959, #683137).
+    manual pages (Closes: #683137, #683959, #695313).
   * debian/control:
     - Build-Depend on cmake, drop autotools-dev.
   * debian/rules:
     - Replace configure usage with cmake and convert logic for
       configure options to use the cmake equivalents.
+    - Parallel builds are now supported (Closes: #718638)
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 29 Sep 2013 22:58:09 +0100
 
