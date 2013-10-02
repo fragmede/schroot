@@ -1,9 +1,9 @@
-schroot (1.7.1-1) UNRELEASED; urgency=low
+schroot (1.7.1-1) experimental; urgency=low
 
   * New upstream development release.
   * This release now supports both autotools and cmake; switch to
     cmake, which allows building and installation of translated
-    manual pages (Closes: #683959, #683137).
+    manual pages (Closes: #683137, #683959, #695313).
   * debian/control:
     - Add cmake and gtest build dependencies.
     - Drop autotools-dev and cppunit build dependencies.
