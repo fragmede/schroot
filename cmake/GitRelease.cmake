@@ -837,7 +837,7 @@ function(git_dist)
   if (show_ref_status GREATER 0)
     set(newroot "(root-commit) ")
   else (show_ref_status GREATER 0)
-    set(commit_opts ${commit_opts} -p ${dist_parent})
+    set(commit_options ${commit_options} -p ${dist_parent})
   endif (show_ref_status GREATER 0)
 
   file(WRITE "${GIT_DIST_TMPDIR}/commit-message" "${GIT_DIST_COMMIT_MESSAGE}")
