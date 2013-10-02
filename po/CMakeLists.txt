@@ -50,7 +50,6 @@ if(BUILD_NLS)
     # Always update potfile when dependencies change.  Don't change
     # the date in the pot file, since this dirties the source
     # directory, but do allow any other change.
-    message("grep '^\"POT-Creation-Date: ' '${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot' | sed -e 's;^\"POT-Creation-Date: \\(.*\\)\\\\n\";\\1;'")
     execute_process(COMMAND sh -c "grep '^\"POT-Creation-Date: ' '${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot' | sed -e 's;^\"POT-Creation-Date: \\(.*\\)\\\\n\";\\1;'"
                     OUTPUT_VARIABLE pot_date
                     RESULT_VARIABLE grep_pot_status
@@ -63,7 +62,7 @@ if(BUILD_NLS)
                          --msgid-bugs-address=${bug_address}
                          -d "${domain}" -p "${CMAKE_CURRENT_SOURCE_DIR}"
                        COMMAND ${CMAKE_COMMAND} -E rename "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.po" "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot"
-                       COMMAND sed -i -e 's;^\"POT-Creation-Date: \\(.*\\)\\\\n\";\"POT-Creation-Date: ${pot_date}\\\\n\";' "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot"
+                       COMMAND sh -c "sed -i -e 's;^\"POT-Creation-Date: \\(.*\\)\\\\n\";\"POT-Creation-Date: ${pot_date}\\\\n\";' '${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot'"
                        DEPENDS ${translated_files}
                        VERBATIM)
     add_custom_target(update-pot DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${domain}.pot")
