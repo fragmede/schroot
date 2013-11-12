@@ -44,6 +44,17 @@ do_mount()
 
     info "$MOUNT_VERBOSE $1 $2 $3"
     mount $MOUNT_VERBOSE $1 "$2" "$3"
+
+    # Mark this mountpoint as private, some systems have / as a shared mountpoint.
+    # As an example, assume /home/m/ch is the chroot directory.
+    # schroot will mount -o bind /home/m/ch to /var/lib/schroot/mount/ch-123
+    # Afterwards, it will bind-mount /dev to /var/lib/schroot/mount/ch-123.
+    # With shared mountpoints, that mount will also show up in the original
+    # /home/m/ch. This is a problem once schroot mounted /home: the following
+    # mount of /tmp will show up in /var/lib/schroot/mount/ch-123/tmp,
+    # /home/m/ch/tmp and /home/m/ch/home/m/ch/tmp (!), which leads to failure
+    # on unmounting.
+    mount --make-private "$3"
 }
 
 # Unmount all filesystems under specified location
