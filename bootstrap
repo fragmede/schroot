@@ -5,6 +5,8 @@ set -e
 # Generate version information from git release tag
 
 [ -f ./scripts/git-version ] && ./scripts/git-version > VERSION
+[ -f ./scripts/git-version-cmake ] && ./scripts/git-version-cmake > cmake/GitVersion.cmake
+
 
 # To satisfy automake
 touch ChangeLog
