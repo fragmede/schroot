@@ -203,7 +203,6 @@ EXTRA_DIST = 				\
 	run-parts.ex1/10test1		\
 	run-parts.ex1/20test2		\
 	run-parts.ex1/30test3		\
-	run-parts.ex2			\
 	run-parts.ex3/50invalid		\
 	setup-test-data			\
 	cleanup-test-data
