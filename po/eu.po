@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-09-29 23:13+0100\n"
+"POT-Creation-Date: 2013-12-15 20:59+0000\n"
 "PO-Revision-Date: 2010-01-16 15:43+0000\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <Librezale@librezale.org>\n"
@@ -429,27 +429,6 @@ msgstr "Egin egingo lirateken ekintzen simulazio bat"
 
 msgid "fstab file to read (full path)"
 msgstr "irakurtzeko fstab fitxategia (bide osoa)"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — release a device lock"
-msgstr "[AUKERA...] - askatu gailu blokeoa"
-
-msgid "No PID specified; forcing release of lock"
-msgstr "Ez da PID-ik zehaztu, blokeo askatzea behartzen"
-
-msgid "Lock"
-msgstr "Blokeatu"
-
-msgid "Device to unlock (full path)"
-msgstr "Desblokeatzeko gailua (bide osoa)"
-
-msgid "Process ID owning the lock"
-msgstr "Prozesua IDa da blokeoaren jabea"
-
-msgid "No device specified"
-msgstr "Ez da gailurik ezarri"
 
 #. TRANSLATORS: %4% = file
 #, fuzzy, boost-format
@@ -1166,10 +1145,6 @@ msgstr ""
 "Huts egin du gailua desblokeatzean (denboraz kanpo %4% segundu ondoren; "
 "blokeoa %5% PID-ak mantendua)"
 
-#, fuzzy
-msgid "Device locking"
-msgstr "Gailua"
-
 #. TRANSLATORS: "I" is an abbreviation of "Information"
 msgid "I: "
 msgstr "I: "
@@ -1436,6 +1411,29 @@ msgstr "Huts egin du fitxategi egoera eskuratzean"
 
 msgid "Failed to stat file descriptor"
 msgstr "Huts egin du fitxategia deskriptorea egoera eskuratzean"
+
+#, fuzzy
+#~ msgid "[OPTION…] — release a device lock"
+#~ msgstr "[AUKERA...] - askatu gailu blokeoa"
+
+#~ msgid "No PID specified; forcing release of lock"
+#~ msgstr "Ez da PID-ik zehaztu, blokeo askatzea behartzen"
+
+#~ msgid "Lock"
+#~ msgstr "Blokeatu"
+
+#~ msgid "Device to unlock (full path)"
+#~ msgstr "Desblokeatzeko gailua (bide osoa)"
+
+#~ msgid "Process ID owning the lock"
+#~ msgstr "Prozesua IDa da blokeoaren jabea"
+
+#~ msgid "No device specified"
+#~ msgstr "Ez da gailurik ezarri"
+
+#, fuzzy
+#~ msgid "Device locking"
+#~ msgstr "Gailua"
 
 #~ msgid "No such chroot"
 #~ msgstr "Ez dago chroot hori"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.16-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-09-29 23:13+0100\n"
+"POT-Creation-Date: 2013-12-15 20:59+0000\n"
 "PO-Revision-Date: 2010-12-07 20:01+0100\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -420,28 +420,6 @@ msgstr "Esegue una simulazione delle azioni che verrebbero intraprese"
 
 msgid "fstab file to read (full path)"
 msgstr "fstab da leggere (percorso completo)"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — release a device lock"
-msgstr "[OPZIONE…] - rilascia il blocco su un device"
-
-msgid "No PID specified; forcing release of lock"
-msgstr ""
-"Non è stato specificato alcun PID. Viene forzato il rilascio del blocco"
-
-msgid "Lock"
-msgstr "Blocco"
-
-msgid "Device to unlock (full path)"
-msgstr "Device da sbloccare (percorso completo)"
-
-msgid "Process ID owning the lock"
-msgstr "ID del processo proprietario del blocco"
-
-msgid "No device specified"
-msgstr "Non è stato specificato alcun device"
 
 #. TRANSLATORS: %4% = file
 #, fuzzy, boost-format
@@ -1160,9 +1138,6 @@ msgstr ""
 "Impossibile sbloccare il device (dopo un'attesa di %4% secondi, il "
 "proprietario del blocco è il PID %5%)"
 
-msgid "Device locking"
-msgstr "Blocco del device"
-
 #. TRANSLATORS: "I" is an abbreviation of "Information"
 msgid "I: "
 msgstr "I: "
@@ -1426,6 +1401,29 @@ msgstr "Impossibile effettuare lo stat del file"
 
 msgid "Failed to stat file descriptor"
 msgstr "Impossibile effettuare lo stat del descrittore del file"
+
+#, fuzzy
+#~ msgid "[OPTION…] — release a device lock"
+#~ msgstr "[OPZIONE…] - rilascia il blocco su un device"
+
+#~ msgid "No PID specified; forcing release of lock"
+#~ msgstr ""
+#~ "Non è stato specificato alcun PID. Viene forzato il rilascio del blocco"
+
+#~ msgid "Lock"
+#~ msgstr "Blocco"
+
+#~ msgid "Device to unlock (full path)"
+#~ msgstr "Device da sbloccare (percorso completo)"
+
+#~ msgid "Process ID owning the lock"
+#~ msgstr "ID del processo proprietario del blocco"
+
+#~ msgid "No device specified"
+#~ msgstr "Non è stato specificato alcun device"
+
+#~ msgid "Device locking"
+#~ msgstr "Blocco del device"
 
 #~ msgid "No such chroot"
 #~ msgstr "Questo chroot non esiste"

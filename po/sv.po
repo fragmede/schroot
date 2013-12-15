@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-09-29 23:13+0100\n"
+"POT-Creation-Date: 2013-12-15 20:59+0000\n"
 "PO-Revision-Date: 2010-01-16 15:44+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -419,28 +419,6 @@ msgstr ""
 #, fuzzy
 msgid "fstab file to read (full path)"
 msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
-
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-#, fuzzy
-msgid "[OPTION…] — release a device lock"
-msgstr "[FLAGGA...] - släpp ett enhetslås"
-
-#, fuzzy
-msgid "No PID specified; forcing release of lock"
-msgstr "Ingen pid angiven; tvingar släpp av lås"
-
-msgid "Lock"
-msgstr "Lås"
-
-msgid "Device to unlock (full path)"
-msgstr "Enhet att låsa upp (full sökväg)"
-
-msgid "Process ID owning the lock"
-msgstr "Process-id som äger låset"
-
-msgid "No device specified"
-msgstr "Ingen enhet angiven"
 
 #. TRANSLATORS: %4% = file
 #, fuzzy, boost-format
@@ -1160,10 +1138,6 @@ msgstr ""
 "Misslyckades med att låsa upp enheten (tidsgränsen nådd efter %4% sekunder; "
 "låset hålls av pid %5%)"
 
-#, fuzzy
-msgid "Device locking"
-msgstr "Enhet"
-
 #. TRANSLATORS: "I" is an abbreviation of "Information"
 msgid "I: "
 msgstr "I: "
@@ -1430,6 +1404,30 @@ msgstr "Misslyckades med att läsa status på filen"
 #, fuzzy
 msgid "Failed to stat file descriptor"
 msgstr "Misslyckades med att läsa status på filen"
+
+#, fuzzy
+#~ msgid "[OPTION…] — release a device lock"
+#~ msgstr "[FLAGGA...] - släpp ett enhetslås"
+
+#, fuzzy
+#~ msgid "No PID specified; forcing release of lock"
+#~ msgstr "Ingen pid angiven; tvingar släpp av lås"
+
+#~ msgid "Lock"
+#~ msgstr "Lås"
+
+#~ msgid "Device to unlock (full path)"
+#~ msgstr "Enhet att låsa upp (full sökväg)"
+
+#~ msgid "Process ID owning the lock"
+#~ msgstr "Process-id som äger låset"
+
+#~ msgid "No device specified"
+#~ msgstr "Ingen enhet angiven"
+
+#, fuzzy
+#~ msgid "Device locking"
+#~ msgstr "Enhet"
 
 #~ msgid "No such chroot"
 #~ msgstr "Ingen sådan chroot"
