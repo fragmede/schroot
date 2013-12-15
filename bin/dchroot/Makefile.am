@@ -57,3 +57,5 @@ install-exec-hook:
 	if [ -f "$(DESTDIR)$(bindir)/dchroot" ]; then \
 	  chmod 4755 "$(DESTDIR)$(bindir)/dchroot"; \
 	fi
+
+EXTRA_DIST = CMakeLists.txt

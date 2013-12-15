@@ -25,5 +25,6 @@ pamdir = /etc/pam.d
 
 pam_DATA = schroot
 
-EXTRA_DIST = $(pam_DATA)
-
+EXTRA_DIST =		\
+	$(pam_DATA)	\
+	CMakeLists.txt

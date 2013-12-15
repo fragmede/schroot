@@ -37,3 +37,4 @@ schroot_mount_SOURCES =			\
 schroot_mount_LDADD = $(BOOST_FILESYSTEM_LIBS)			\
 	$(top_builddir)/bin/schroot-base/libschroot-base.la
 
+EXTRA_DIST = CMakeLists.txt

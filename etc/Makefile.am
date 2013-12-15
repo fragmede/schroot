@@ -58,6 +58,7 @@ clean-local:
 EXTRA_DIST =			\
 	$(schroot_sysconf_DATA)	\
 	genprofile		\
-	profile-templates
+	profile-templates	\
+	CMakeLists.txt
 
 .PHONY: profiles

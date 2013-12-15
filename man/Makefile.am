@@ -75,12 +75,14 @@ man_MANS =			\
 	$(dchroot_dsa_mans)	\
 	$(csbuild_mans)
 
-EXTRA_DIST =		\
-	$(MAN_FILES)	\
-	authors.man	\
-	copyright.man	\
-	po		\
-	po4a.cfg
+EXTRA_DIST =			\
+	$(MAN_FILES)		\
+	authors.man		\
+	copyright.man		\
+	po			\
+	po4a.cfg		\
+	CMakeLists.txt		\
+	config.man.cmake
 
 clean-local:
 	rm -rf translated *.ps *.pdf

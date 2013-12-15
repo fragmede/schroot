@@ -34,3 +34,5 @@ schroot_listmounts_SOURCES =		\
 	schroot-listmounts-options.cc	\
 	schroot-listmounts.cc
 schroot_listmounts_LDADD = $(top_builddir)/bin/schroot-base/libschroot-base.la
+
+EXTRA_DIST = CMakeLists.txt

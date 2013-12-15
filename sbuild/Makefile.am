@@ -223,3 +223,8 @@ pkgconfigdata_DATA = sbuild.pc
 libsbuild_version = -version-info $(SBUILD_CURRENT_INTERFACE):$(SBUILD_INTERFACE_AGE):$(SBUILD_BINARY_AGE)
 libsbuild_la_LDFLAGS = $(libsbuild_version) \
         -rpath $(libdir) -no-undefined
+
+EXTRA_DIST =			\
+	CMakeLists.txt		\
+	sbuild-config.h.cmake	\
+	sbuild.pc.cmake

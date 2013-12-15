@@ -43,7 +43,15 @@ EXTRA_DIST =				\
 	scripts/schroot_release.m4.in	\
 	m4				\
 	HACKING				\
-	VERSION
+	VERSION				\
+	CMakeLists.txt			\
+	cmake/boost-checks.cmake	\
+	cmake/GitRelease.cmake		\
+	cmake/GitReleasePolicy.cmake	\
+	cmake/GitVersion.cmake		\
+	cmake/regex-checks.cmake	\
+	po/CMakeLists.txt		\
+	config.h.cmake
 
 doc:
 	$(MAKE) -C doc doc

@@ -61,4 +61,9 @@ clean-local:
 	$(RM) -r sbuild
 	$(RM) -r schroot
 
+EXTRA_DIST =			\
+	CMakeLists.txt		\
+	sbuild.dox.cmake	\
+	schroot.dox.cmake
+
 .PHONY: doc sbuild schroot

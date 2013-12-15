@@ -46,5 +46,5 @@ install-exec-hook:
 
 EXTRA_DIST =					\
 	$(schroot_setupdata_DATA)		\
-	$(schroot_sysconf_setup_SCRIPTS)
-
+	$(schroot_sysconf_setup_SCRIPTS)	\
+	CMakeLists.txt

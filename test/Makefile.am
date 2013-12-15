@@ -205,7 +205,10 @@ EXTRA_DIST = 				\
 	run-parts.ex1/30test3		\
 	run-parts.ex3/50invalid		\
 	setup-test-data			\
-	cleanup-test-data
+	cleanup-test-data		\
+	CMakeLists.txt			\
+	setup-test-data.cmake		\
+	cleanup-test-data.cmake
 
 clean-local:
 	$(srcdir)/cleanup-test-data

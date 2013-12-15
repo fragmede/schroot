@@ -61,3 +61,4 @@ install-data-hook:
 	$(MKDIR_P) $(DESTDIR)$(schroot_overlaydir)
 	$(MKDIR_P) $(DESTDIR)$(schroot_underlaydir)
 
+EXTRA_DIST = CMakeLists.txt

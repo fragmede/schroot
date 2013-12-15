@@ -30,3 +30,5 @@ SUBDIRS =	 		\
 	dchroot			\
 	dchroot-dsa		\
 	csbuild
+
+EXTRA_DIST = CMakeLists.txt

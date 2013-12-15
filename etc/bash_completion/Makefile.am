@@ -25,4 +25,5 @@ bashcompletion_DATA =		\
 	schroot
 
 EXTRA_DIST =			\
-	$(bashcompletion_DATA)
+	$(bashcompletion_DATA)	\
+	CMakeLists.txt
