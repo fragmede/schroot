@@ -4,6 +4,8 @@ schroot (1.6.6-1) UNRELEASED; urgency=low
   * This release now supports both autotools and cmake; switch to
     cmake, which allows building and installation of translated
     manual pages (Closes: #683137, #683959, #695313).
+  * Updated translations:
+    - eu (Closes: #728227).  Thanks to Iñaki Larrañaga Murgoitio.
   * debian/control:
     - Build-Depend on cmake, drop autotools-dev.
     - Upgrade to Standards-Version 3.9.4 (no changes).
