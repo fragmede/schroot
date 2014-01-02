@@ -1,22 +1,22 @@
 # Translation of schroot in French.
-# Copyright © 2006-2008, 2010 Debian French l10n team <debian-l10n-french@lists.debian.org>
+# Copyright © 2006-2013 Debian French l10n team <debian-l10n-french@lists.debian.org>
 # This file is distributed under the same license as the schroot package.
 #
 # Nicolas François <nicolas.francois@centraliens.net>, 2006-2008.
-# Thomas Blein <tblein@tblein.eu>, 2010, 2012.
+# Thomas Blein <tblein@tblein.eu>, 2010, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-12-15 20:59+0000\n"
-"PO-Revision-Date: 2012-05-31 22:30+0200\n"
+"POT-Creation-Date: 2013-09-29 23:13+0100\n"
+"PO-Revision-Date: 2013-10-08 10:52+0200\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. TRANSLATORS: %1% = file
@@ -404,9 +404,9 @@ msgstr "Échec lors de l'attente du fils"
 msgid "Failed to execute “%1%”"
 msgstr "Échec lors de l'exécution de « %1% »"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to resolve path “%1%”"
-msgstr "Échec lors de l'exécution de « %1% »"
+msgstr "Échec lors de la résolution du chemin « %1% »"
 
 #. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
 #. and '-' is an em-dash.
@@ -421,6 +421,26 @@ msgstr "Faire une simulation des actions à effectuer"
 
 msgid "fstab file to read (full path)"
 msgstr "Fichier fstab à lire (chemin complet)"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+msgid "[OPTION…] — release a device lock"
+msgstr "[OPTION...] — déverrouillage de périphérique"
+
+msgid "No PID specified; forcing release of lock"
+msgstr "Aucun PID spécifié ; forçage du déverrouillage"
+
+msgid "Lock"
+msgstr "Verrou"
+
+msgid "Device to unlock (full path)"
+msgstr "Périphérique à déverrouiller (chemin complet)"
+
+msgid "Process ID owning the lock"
+msgstr "Identifiant du processus possédant le verrou"
+
+msgid "No device specified"
+msgstr "Aucun périphérique spécifié"
 
 #. TRANSLATORS: %4% = file
 #, boost-format
@@ -1132,6 +1152,9 @@ msgstr ""
 "Échec lors du déverrouillage du périphérique (délai expiré après %4% "
 "secondes ; le verrou est toujours tenu par le PID %5%)"
 
+msgid "Device locking"
+msgstr "Verrouillage du périphérique"
+
 #. TRANSLATORS: "I" is an abbreviation of "Information"
 msgid "I: "
 msgstr "I : "
@@ -1401,27 +1424,6 @@ msgstr "Échec lors de l'exécution de « stat » sur le fichier"
 
 msgid "Failed to stat file descriptor"
 msgstr "Échec lors de l'exécution de « stat » sur le descripteur de fichier"
-
-#~ msgid "[OPTION…] — release a device lock"
-#~ msgstr "[OPTION...] — déverrouillage de périphérique"
-
-#~ msgid "No PID specified; forcing release of lock"
-#~ msgstr "Aucun PID spécifié ; forçage du déverrouillage"
-
-#~ msgid "Lock"
-#~ msgstr "Verrou"
-
-#~ msgid "Device to unlock (full path)"
-#~ msgstr "Périphérique à déverrouiller (chemin complet)"
-
-#~ msgid "Process ID owning the lock"
-#~ msgstr "Identifiant du processus possédant le verrou"
-
-#~ msgid "No device specified"
-#~ msgstr "Aucun périphérique spécifié"
-
-#~ msgid "Device locking"
-#~ msgstr "Verrouillage du périphérique"
 
 #~ msgid "No such chroot"
 #~ msgstr "Le chroot spécifié n'existe pas"
