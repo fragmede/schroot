@@ -6,6 +6,7 @@ schroot (1.6.6-1) UNRELEASED; urgency=low
     manual pages (Closes: #683137, #683959, #695313).
   * Updated translations:
     - eu (Closes: #728227).  Thanks to Iñaki Larrañaga Murgoitio.
+    - fr (Closes: #729319).  Thanks to Thomas Blein.
   * debian/control:
     - Build-Depend on cmake, drop autotools-dev.
     - Upgrade to Standards-Version 3.9.4 (no changes).
