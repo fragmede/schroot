@@ -5,6 +5,8 @@ schroot (1.6.6-1) UNRELEASED; urgency=low
     cmake, which allows building and installation of translated
     manual pages (Closes: #683137, #683959, #695313).
   * Updated translations:
+    - da (Closes: #725736).  Thanks to Joe Hansen.
+    - de (Closes: #725608).  Thanks to Holger Wansing.
     - eu (Closes: #728227).  Thanks to Iñaki Larrañaga Murgoitio.
     - fr (Closes: #729319, #729317).  Thanks to Thomas Blein.
   * debian/control:
