@@ -1,4 +1,4 @@
-schroot (1.6.6-1) UNRELEASED; urgency=low
+schroot (1.6.6-1) unstable; urgency=low
 
   * New upstream stable release.
   * This release now supports both autotools and cmake; switch to
@@ -20,7 +20,7 @@ schroot (1.6.6-1) UNRELEASED; urgency=low
       configure options to use the cmake equivalents.
     - Parallel builds are now supported (Closes: #718638)
 
- -- Roger Leigh <rleigh@debian.org>  Sun, 29 Sep 2013 22:58:09 +0100
+ -- Roger Leigh <rleigh@debian.org>  Thu, 02 Jan 2014 20:57:15 +0000
 
 schroot (1.6.5-1) unstable; urgency=low
 
