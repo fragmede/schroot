@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the schroot package.
 # Jens Seidel <jensseidel@users.sf.net>, 2006, 2008, 2009.
 # Helge Kreutzmann <debian@helgefjell.de>, 2009.
-# Holger Wansing <linux@wansing-online.de>, 2009, 2010, 2012.
+# Holger Wansing <linux@wansing-online.de>, 2009, 2010, 2012, 2013.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: schroot 1.6.0-1\n"
+"Project-Id-Version: schroot 1.6.6-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-12-15 20:59+0000\n"
-"PO-Revision-Date: 2012-06-06 17:33+0200\n"
+"POT-Creation-Date: 2013-09-29 23:13+0100\n"
+"PO-Revision-Date: 2013-10-06 22:05+0200\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "Language: de\n"
@@ -400,9 +400,9 @@ msgstr "Warten auf Kindprozess fehlgeschlagen"
 msgid "Failed to execute “%1%”"
 msgstr "Ausführung von »%1%« fehlgeschlagen"
 
-#, fuzzy, boost-format
+#, boost-format
 msgid "Failed to resolve path “%1%”"
-msgstr "Ausführung von »%1%« fehlgeschlagen"
+msgstr "Auflösung von Pfad »%1%« fehlgeschlagen"
 
 # CHECKME: stimmt "[OPTION …]" oder sollte es "[OPTIONEN …]" oder
 # "[OPTION…]" heißen?
@@ -419,6 +419,26 @@ msgstr "Eine Simulation der durchzuführenden Aktionen starten"
 
 msgid "fstab file to read (full path)"
 msgstr "Einzulesende fstab-Datei (vollständiger Pfad)"
+
+#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+#. and '-' is an em-dash.
+msgid "[OPTION…] — release a device lock"
+msgstr "[OPTION…] - Gerätesperre freigeben"
+
+msgid "No PID specified; forcing release of lock"
+msgstr "Keine PID angegeben; Freigabe der Sperre wird erzwungen."
+
+msgid "Lock"
+msgstr "Sperre"
+
+msgid "Device to unlock (full path)"
+msgstr "Zu entsperrendes Gerät (vollständiger Pfad)"
+
+msgid "Process ID owning the lock"
+msgstr "ID des Prozesses, der die Sperre besitzt"
+
+msgid "No device specified"
+msgstr "Kein Gerät angegeben"
 
 #. TRANSLATORS: %4% = file
 #, boost-format
@@ -1148,6 +1168,9 @@ msgstr ""
 "Entsperren des Gerätes fehlgeschlagen (Zeitüberschreitung nach %4% Sekunden; "
 "Sperre wird von PID %5% gehalten)"
 
+msgid "Device locking"
+msgstr "Gerät sperren"
+
 #. TRANSLATORS: "I" is an abbreviation of "Information"
 msgid "I: "
 msgstr "I: "
@@ -1412,27 +1435,6 @@ msgstr "Datei konnte nicht mit »stat« abgefragt werden"
 
 msgid "Failed to stat file descriptor"
 msgstr "Dateideskriptor konnte nicht mit »stat« abgefragt werden."
-
-#~ msgid "[OPTION…] — release a device lock"
-#~ msgstr "[OPTION…] - Gerätesperre freigeben"
-
-#~ msgid "No PID specified; forcing release of lock"
-#~ msgstr "Keine PID angegeben; Freigabe der Sperre wird erzwungen."
-
-#~ msgid "Lock"
-#~ msgstr "Sperre"
-
-#~ msgid "Device to unlock (full path)"
-#~ msgstr "Zu entsperrendes Gerät (vollständiger Pfad)"
-
-#~ msgid "Process ID owning the lock"
-#~ msgstr "ID des Prozesses, der die Sperre besitzt"
-
-#~ msgid "No device specified"
-#~ msgstr "Kein Gerät angegeben"
-
-#~ msgid "Device locking"
-#~ msgstr "Gerät sperren"
 
 #~ msgid "No such chroot"
 #~ msgstr "Chroot nicht gefunden"
