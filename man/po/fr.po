@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-01-27 23:14+0000\n"
+"POT-Creation-Date: 2013-09-29 23:12+0100\n"
 "PO-Revision-Date: 2013-10-08 14:39+0200\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -35,9 +35,6 @@ msgstr "COPYRIGHT"
 
 #. type: Plain text
 #: copyright.man:3
-#| msgid ""
-#| "Copyright \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@debian.orgE<gt>"
-#| "\\fR"
 msgid ""
 "Copyright \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@debian.orgE<gt>\\fR"
 msgstr ""
@@ -300,9 +297,9 @@ msgid ""
 "users to maintain their own images)"
 msgstr ""
 "Prise en charge d'images multiples de systèmes dans une installation de "
-"cluster où modifier l'image de base est consommatrice de temps et/ou "
-"prendre en charge toutes les configurations requises par les utilisateurs "
-"est difficile : différents chroots peuvent prendre en charge toutes les "
+"cluster où modifier l'image de base est consommatrice de temps et/ou prendre "
+"en charge toutes les configurations requises par les utilisateurs est "
+"difficile : différents chroots peuvent prendre en charge toutes les "
 "configurations différentes requises, et l'accès peut être donné aux "
 "utilisateurs du cluster pour les chroots dont ils ont besoin (ce qui peut "
 "inclure des accès root pour les utilisateurs de confiance afin qu'ils "
@@ -589,8 +586,8 @@ msgid ""
 "chroots are selected, and are only listed once."
 msgstr ""
 "Ne pas sélectionner les alias en plus des chroots. Cela permet de s'assurer "
-"que seul les chroots réels sont sélectionnés et qu'ils ne sont listés "
-"qu'une seule fois."
+"que seul les chroots réels sont sélectionnés et qu'ils ne sont listés qu'une "
+"seule fois."
 
 #. type: SS
 #: schroot.1.man:181
@@ -1027,8 +1024,8 @@ msgstr ""
 "fournissent des clichés du chroot de type « copie en cas d'écriture » "
 "contrôlés par la session. Ils fournissent également un I<chroot source> pour "
 "permettre un accès facile au système de fichiers utilisé comme source de "
-"cliché. Ce sont des chroots réguliers également, juste désactivant le cliché. "
-"Pour un chroot nommé \\[lq]sid-snapshot\\[rq] (c'est-à-dire avec "
+"cliché. Ce sont des chroots réguliers également, juste désactivant le "
+"cliché. Pour un chroot nommé \\[lq]sid-snapshot\\[rq] (c'est-à-dire avec "
 "\\[lq]chroot:sid-snapshot\\[rq] comme nom complet qualifié), il y aura "
 "également un chroot source nommé \\[lq]source:sid-snapshot\\[rq]. Les "
 "versions précédentes de schroot fournissent des chroots source avec un "
@@ -1217,12 +1214,8 @@ msgstr "CWD \\[-E<gt>] passwd pw_dir\tT{\n"
 #. type: tbl table
 #: schroot.1.man:366
 #, no-wrap
-msgid ""
-"If CWD is nonexistent (or --preserve-environment is used and no $HOME "
-"exists)\n"
-msgstr ""
-"Si CWD n'existe pas (ou --preserve-environment est utilisé et aucun $HOME "
-"n'existe)\n"
+msgid "If CWD is nonexistent (or --preserve-environment is used and no $HOME exists)\n"
+msgstr "Si CWD n'existe pas (ou --preserve-environment est utilisé et aucun $HOME n'existe)\n"
 
 #. type: tbl table
 #: schroot.1.man:368 dchroot.1.man:175 dchroot.1.man:192 dchroot-dsa.1.man:155
@@ -1464,14 +1457,12 @@ msgstr "Changer d'utilisateur"
 msgid ""
 "% \\f[CB]schroot -c sid -u root\\fR\\[CR]\n"
 "Password:\n"
-"[sid chroot] (rleigh\\[-E<gt>]root) Running login shell: "
-"\\[lq]/bin/bash\\[rq]\n"
+"[sid chroot] (rleigh\\[-E<gt>]root) Running login shell: \\[lq]/bin/bash\\[rq]\n"
 "# \n"
 msgstr ""
 "% \\f[CB]schroot -c sid -u root\\fR\\[CR]\n"
 "Password:\n"
-"[sid chroot] (rleigh\\[-E<gt>]root) Running login shell: "
-"\\[lq]/bin/bash\\[rq]\n"
+"[sid chroot] (rleigh\\[-E<gt>]root) Running login shell: \\[lq]/bin/bash\\[rq]\n"
 "# \n"
 
 #. type: Plain text
@@ -1630,8 +1621,7 @@ msgstr ""
 #: schroot.1.man:577
 #, no-wrap
 msgid ""
-"% \\f[CB]schroot -i -c sid-snap-46195b04-0893-49bf-beb8-0d4ccc899f0f\\fR\\[CR]"
-"\n"
+"% \\f[CB]schroot -i -c sid-snap-46195b04-0893-49bf-beb8-0d4ccc899f0f\\fR\\[CR]\n"
 "  \\[em]\\[em]\\[em] Session \\[em]\\[em]\\[em]\n"
 "  Name                   sid-snap-46195b04-0893-49bf-beb8-0d\\e\n"
 "4ccc899f0f\n"
@@ -1667,8 +1657,7 @@ msgid ""
 "49bf-beb8-0d4ccc899f0f\n"
 "  LVM Snapshot Options   --size 2G -c 128\n"
 msgstr ""
-"% \\f[CB]schroot -i -c sid-snap-46195b04-0893-49bf-beb8-0d4ccc899f0f\\fR\\[CR]"
-"\n"
+"% \\f[CB]schroot -i -c sid-snap-46195b04-0893-49bf-beb8-0d4ccc899f0f\\fR\\[CR]\n"
 "  \\[em]\\[em]\\[em] Session \\[em]\\[em]\\[em]\n"
 "  Name                   sid-snap-46195b04-0893-49bf-beb8-0d\\e\n"
 "4ccc899f0f\n"
@@ -1748,12 +1737,10 @@ msgstr ""
 #: schroot.1.man:599
 #, no-wrap
 msgid ""
-"\\f[CR]% \\f[CB]schroot -e -c sid-snap-46195b04-0893-49bf-beb8-0d4ccc899f0f\\f"
-"[CB]\\[CR]\n"
+"\\f[CR]% \\f[CB]schroot -e -c sid-snap-46195b04-0893-49bf-beb8-0d4ccc899f0f\\f[CB]\\[CR]\n"
 "\\f[CR]% \\f[CB]schroot -e -c $SESSION\\f[CB]\\[CR]\\fR\n"
 msgstr ""
-"\\f[CR]% \\f[CB]schroot -e -c sid-snap-46195b04-0893-49bf-beb8-0d4ccc899f0f\\f"
-"[CB]\\[CR]\n"
+"\\f[CR]% \\f[CB]schroot -e -c sid-snap-46195b04-0893-49bf-beb8-0d4ccc899f0f\\f[CB]\\[CR]\n"
 "\\f[CR]% \\f[CB]schroot -e -c $SESSION\\f[CB]\\[CR]\\fR\n"
 
 #. type: Plain text
@@ -3279,14 +3266,6 @@ msgstr ""
 
 #. type: Plain text
 #: schroot.conf.5.man:134
-#| msgid ""
-#| "Note that the \\f[CI]profile\\fR key replaces the older \\f[CI]script-"
-#| "config\\fR key.  The \\f[CI]script-config\\fR key is exactly the same as "
-#| "\\f[CI]profile\\fR, but has \\[lq]I</config>\\[rq] appended to it.  The "
-#| "default filename is \\[oq]default/config\\[cq].  Either of these keys may "
-#| "be used.  If both are present, then \\f[CI]profile\\fR will take "
-#| "precedence.  \\f[CI]script-config\\fR is deprecated and will be removed "
-#| "in a future release."
 msgid ""
 "Note that the \\f[CI]profile\\fR key replaces the older \\f[CI]script-config"
 "\\fR key.  The \\f[CI]script-config\\fR key is exactly the same as "
@@ -3423,12 +3402,6 @@ msgstr "\\f[CBI]setup.fstab=\\f[CI]nom-de-fichier\\fR"
 
 #. type: Plain text
 #: schroot.conf.5.man:177
-#| msgid ""
-#| "The filesystem table file to be used to mount filesystems within the "
-#| "chroot.  The format of this file is the same as for I</etc/fstab>, "
-#| "documented in B<fstab>(5).  The only difference is that the mountpoint "
-#| "path I<fs_dir> is relative to the chroot, rather than the root.  Note "
-#| "that this is settable using the \\f[CI]setup.fstab\\fR key."
 msgid ""
 "The filesystem table file to be used to mount filesystems within the "
 "chroot.  The format of this file is the same as for I</etc/fstab>, "
@@ -3480,7 +3453,6 @@ msgstr ""
 #. type: TP
 #: schroot.conf.5.man:187
 #, no-wrap
-#| msgid "\\f[CBI]users=\\f[CI]user1,user2,...\\fR"
 msgid "\\f[CBI]setup.services=\\f[CI]service1,service2,...\\fR"
 msgstr "\\f[CBI]setup.services=\\f[CI]service1,service2,…\\fR"
 
@@ -3883,8 +3855,8 @@ msgstr ""
 "à partir d'un sous-volume Btrfs existant sur un système de fichiers Btrfs "
 "monté. Un cliché sera créé à partir de ce sous-volume source à la demande au "
 "démarrage d'une session et le cliché sera monté. À la fin de la session, le "
-"cliché sera démonté et supprimé. Ce type de chroot implémente les options "
-"de B<chroots source> (consultez \\[lq]I<Options de chroots source>\\[rq] ci-"
+"cliché sera démonté et supprimé. Ce type de chroot implémente les options de "
+"B<chroots source> (consultez \\[lq]I<Options de chroots source>\\[rq] ci-"
 "dessous). Notez qu'un chroot source correspondant (de type \\[oq]directory"
 "\\[cq]) sera créé pour chaque chroot de ce type ; c'est pour un accès "
 "commode au volume source. Les options supplémentaires suivantes sont "
@@ -4462,8 +4434,7 @@ msgstr ""
 #. type: TP
 #: schroot.conf.5.man:508
 #, no-wrap
-msgid ""
-"\\f[CBI]root-modifiable-keys=\\f[CI]key1,key2,..\\fR Set the keys which the"
+msgid "\\f[CBI]root-modifiable-keys=\\f[CI]key1,key2,..\\fR Set the keys which the"
 msgstr "\\f[CBI]root-modifiable-keys=\\f[CI]clé1,clé2,..\\fR"
 
 #. type: Plain text
@@ -4625,8 +4596,8 @@ msgid ""
 "are ignored.  Tildes are allowed anywhere else in the name."
 msgstr ""
 "Les noms de fichiers contenant des tildes finaux sont utilisés comme "
-"fichiers de sauvegarde par les éditeurs et ils sont ignorés. Les tildes "
-"sont autorisés partout ailleurs dans le nom."
+"fichiers de sauvegarde par les éditeurs et ils sont ignorés. Les tildes sont "
+"autorisés partout ailleurs dans le nom."
 
 #. type: TP
 #: schroot.conf.5.man:563
@@ -5090,8 +5061,7 @@ msgstr "CONFIGURATION"
 #: schroot-faq.7.man:25
 #, no-wrap
 msgid "Why is schroot overwriting configuration files in the chroot?"
-msgstr ""
-"Pourquoi schroot écrase-t-il des fichiers de configuration dans le chroot ?"
+msgstr "Pourquoi schroot écrase-t-il des fichiers de configuration dans le chroot ?"
 
 #. type: Plain text
 #: schroot-faq.7.man:34
@@ -5127,10 +5097,10 @@ msgid ""
 "the file containing the database list (I<\\*[SCHROOT_SYSCONF_DIR]/default/"
 "nssdatabases> by default)."
 msgstr ""
-"La solution de repli suggérée ici est de désactiver la copie. Cela peut "
-"être effectué en définissant la clé \\f[CI]setup.nssdatabases\\fR comme vide "
-"dans I<schroot.conf>. Dans les versions précédentes de schroot, c'était "
-"effectué en commentant le fichier NSSDATABASES pour le chroot (I<"
+"La solution de repli suggérée ici est de désactiver la copie. Cela peut être "
+"effectué en définissant la clé \\f[CI]setup.nssdatabases\\fR comme vide dans "
+"I<schroot.conf>. Dans les versions précédentes de schroot, c'était effectué "
+"en commentant le fichier NSSDATABASES pour le chroot (I<"
 "\\*[SCHROOT_SYSCONF_DIR]/default/config> par défaut). La liste de bases de "
 "données peut être également personnalisée en éditant le fichier contenant la "
 "liste des bases de données (I<\\*[SCHROOT_SYSCONF_DIR]/default/nssdatabases> "
@@ -5145,8 +5115,8 @@ msgid ""
 msgstr ""
 "Prochainement, nous travaillerons à un meilleur schéma pour garder les bases "
 "de données de l'hôte et du chroot synchronisées ce qui permettra des fusions "
-"d'entrée plutôt qu'un écrasement entier de la base de données et qui garderait "
-"les changements spécifiques du chroot."
+"d'entrée plutôt qu'un écrasement entier de la base de données et qui "
+"garderait les changements spécifiques du chroot."
 
 #. type: SS
 #: schroot-faq.7.man:46
@@ -5442,8 +5412,8 @@ msgid ""
 "the following steps:"
 msgstr ""
 "Cela lancera la commande I<commande> dans le chroot I<squeeze>. Alors qu'il "
-"n'est pas clair qu'une session est utilisée ici, schroot effectue en fait les "
-"étapes suivantes :"
+"n'est pas clair qu'une session est utilisée ici, schroot effectue en fait "
+"les étapes suivantes :"
 
 #. type: Plain text
 #: schroot-faq.7.man:159
@@ -5558,12 +5528,10 @@ msgstr ""
 #: schroot-faq.7.man:198
 #, no-wrap
 msgid ""
-"% \\f[CB]schroot --run-session -c squeeze-57a69547-e014-4f5d-a98b-f4f35a005307"
-" \\e\n"
+"% \\f[CB]schroot --run-session -c squeeze-57a69547-e014-4f5d-a98b-f4f35a005307 \\e\n"
 "  -- command1\\fR\\[CR]\n"
 msgstr ""
-"% \\f[CB]schroot --run-session -c squeeze-57a69547-e014-4f5d-a98b-f4f35a005307"
-" \\e\n"
+"% \\f[CB]schroot --run-session -c squeeze-57a69547-e014-4f5d-a98b-f4f35a005307 \\e\n"
 "  -- commande1\\fR\\[CR]\n"
 
 #. type: Plain text
@@ -5575,8 +5543,7 @@ msgstr "ou"
 #: schroot-faq.7.man:203
 #, no-wrap
 msgid "% \\f[CB]schroot --run-session -c \"$SESSION\" -- command1\\fR\\[CR]\n"
-msgstr ""
-"% \\f[CB]schroot --run-session -c \"$SESSION\" -- commande1\\fR\\[CR]\n"
+msgstr "% \\f[CB]schroot --run-session -c \"$SESSION\" -- commande1\\fR\\[CR]\n"
 
 #. type: Plain text
 #: schroot-faq.7.man:206
@@ -5611,12 +5578,8 @@ msgstr ""
 #. type: Plain text
 #: schroot-faq.7.man:217
 #, no-wrap
-msgid ""
-"% \\f[CB]schroot --end-session -c squeeze-57a69547-e014-4f5d-a98b-f4f35a005307"
-"\\fR\\[CR]\n"
-msgstr ""
-"% \\f[CB]schroot --end-session -c squeeze-57a69547-e014-4f5d-a98b-f4f35a005307"
-"\\fR\\[CR]\n"
+msgid "% \\f[CB]schroot --end-session -c squeeze-57a69547-e014-4f5d-a98b-f4f35a005307\\fR\\[CR]\n"
+msgstr "% \\f[CB]schroot --end-session -c squeeze-57a69547-e014-4f5d-a98b-f4f35a005307\\fR\\[CR]\n"
 
 #. type: Plain text
 #: schroot-faq.7.man:222
@@ -5710,10 +5673,8 @@ msgstr ""
 #. type: Plain text
 #: schroot-faq.7.man:249
 #, no-wrap
-msgid ""
-"% \\f[CB]git clone git://git.debian.org/git/buildd-tools/schroot\\fR\\[CR]\n"
-msgstr ""
-"% \\f[CB]git clone git://git.debian.org/git/buildd-tools/schroot\\fR\\[CR]\n"
+msgid "% \\f[CB]git clone git://git.debian.org/git/buildd-tools/schroot\\fR\\[CR]\n"
+msgstr "% \\f[CB]git clone git://git.debian.org/git/buildd-tools/schroot\\fR\\[CR]\n"
 
 #. type: Plain text
 #: schroot-faq.7.man:254
@@ -6096,11 +6057,8 @@ msgstr "Interpréteur de commande de connexion ou commande"
 #. type: tbl table
 #: dchroot.1.man:172
 #, no-wrap
-msgid ""
-"Normal behaviour (if --directory and I<--preserve-environment> are not\n"
-msgstr ""
-"Comportement normal (si ni I<--directory> ni I<--preserve-environment> ne "
-"sont\n"
+msgid "Normal behaviour (if --directory and I<--preserve-environment> are not\n"
+msgstr "Comportement normal (si ni I<--directory> ni I<--preserve-environment> ne sont\n"
 
 #. type: tbl table
 #: dchroot.1.man:173

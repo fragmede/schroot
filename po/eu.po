@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-09-29 23:13+0100\n"
+"POT-Creation-Date: 2013-12-15 20:59+0000\n"
 "PO-Revision-Date: 2013-10-29 19:56+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.org>\n"
@@ -315,8 +315,8 @@ msgid ""
 msgstr ""
 "Hau software librea da, begiratu iturburua kopiatze baldintzetarako.  EZ "
 "dago\n"
-"bermerik; ezta ere EGOKITASUNA MERKATURATZEKO edo HELBURU "
-"PARTIKULARRETARAKO ERABILTZEKO.\n"
+"bermerik; ezta ere EGOKITASUNA MERKATURATZEKO edo HELBURU PARTIKULARRETARAKO "
+"ERABILTZEKO.\n"
 
 msgid "Configured features:"
 msgstr "Konfiguratutako eginbideak:"
@@ -414,26 +414,6 @@ msgstr "Simulatu landuko liratekeen ekintzak"
 msgid "fstab file to read (full path)"
 msgstr "irakurtzeko fstab fitxategia (bide osoa)"
 
-#. TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-#. and '-' is an em-dash.
-msgid "[OPTION…] — release a device lock"
-msgstr "[AUKERA…] — askatu gailuaren blokeoa"
-
-msgid "No PID specified; forcing release of lock"
-msgstr "Ez da PIDrik zehaztu, blokeoa askatzea derrigortzen"
-
-msgid "Lock"
-msgstr "Blokeatu"
-
-msgid "Device to unlock (full path)"
-msgstr "Desblokeatzeko gailua (bide-izen osoa)"
-
-msgid "Process ID owning the lock"
-msgstr "Prozesuaren IDa (blokeoaren jabea)"
-
-msgid "No device specified"
-msgstr "Ez da gailurik zehaztu"
-
 #. TRANSLATORS: %4% = file
 #, boost-format
 msgid "No chroots are defined in ‘%4%’"
@@ -522,8 +502,8 @@ msgid ""
 "--session-name is not permitted for the specified action; did you mean to "
 "use --chroot?"
 msgstr ""
-"--session-name ez dago baimenduta zehaztutako ekintzan; "
-"--chroot erabiltzea nahi zenuen?"
+"--session-name ez dago baimenduta zehaztutako ekintzan; --chroot erabiltzea "
+"nahi zenuen?"
 
 msgid "Unknown action specified"
 msgstr "Ekintza ezezaguna zehaztuta"
@@ -734,8 +714,8 @@ msgstr "Baliogabeko izena"
 #, boost-format
 msgid "Could not set profile name from script configuration path ‘%1%’"
 msgstr ""
-"Ezin izan da profilaren izena '%1%' konfigurazioaren script-aren "
-"bide-izenetik ezarri"
+"Ezin izan da profilaren izena '%1%' konfigurazioaren script-aren bide-"
+"izenetik ezarri"
 
 #. TRANSLATORS: unlink refers to the C function which removes a file
 msgid "Failed to unlink session file"
@@ -959,8 +939,8 @@ msgid ""
 "Configuration keys additional to ‘%1%’ would set this setup script "
 "environment variable"
 msgstr ""
-"'%1%'(r)en konfigurazioko gako gehigarriek konfigurazio honen "
-"script-eko inguruneko aldagaia ezarriko lukete"
+"'%1%'(r)en konfigurazioko gako gehigarriek konfigurazio honen script-eko "
+"inguruneko aldagaia ezarriko lukete"
 
 msgid "User Modifiable Keys"
 msgstr "Erabiltzailearen gako eraldagarriak"
@@ -1119,8 +1099,8 @@ msgstr ""
 msgid ""
 "Failed to lock device (timed out after %4% seconds; lock held by PID %5%)"
 msgstr ""
-"Huts egin du gailua blokeatzean (denboraz kanpo %4% segundo ondoren; "
-"%5% PIDak dauka blokeatuta)"
+"Huts egin du gailua blokeatzean (denboraz kanpo %4% segundo ondoren; %5% "
+"PIDak dauka blokeatuta)"
 
 msgid "Failed to test device lock"
 msgstr "Huts egin du gailuaren blokeoa probatzean"
@@ -1131,11 +1111,8 @@ msgstr "Huts egin du gailuaren blokeoa probatzean"
 msgid ""
 "Failed to unlock device (timed out after %4% seconds; lock held by PID %5%)"
 msgstr ""
-"Huts egin du gailua desblokeatzean (denboraz kanpo %4% segundo ondoren; "
-"%5% PIDak dauka blokeatuta)"
-
-msgid "Device locking"
-msgstr "Gailuaren blokeoa"
+"Huts egin du gailua desblokeatzean (denboraz kanpo %4% segundo ondoren; %5% "
+"PIDak dauka blokeatuta)"
 
 #. TRANSLATORS: "I" is an abbreviation of "Information"
 msgid "I: "
@@ -1285,8 +1262,8 @@ msgstr "Huts egin du root-en baimenak kentzean"
 msgid ""
 "%1%: Chroot does not support setting a session ID; ignoring session ID ‘%4%’"
 msgstr ""
-"%1%: Chroot-ek ez du onartzen saioaren ID bat ezartzea; saioaren "
-"'%4%' IDari ez ikusi egiten"
+"%1%: Chroot-ek ez du onartzen saioaren ID bat ezartzea; saioaren '%4%' IDari "
+"ez ikusi egiten"
 
 #. TRANSLATORS: %1% = command
 #, boost-format
@@ -1401,6 +1378,27 @@ msgstr "Huts egin du fitxategi egoera eskuratzean"
 
 msgid "Failed to stat file descriptor"
 msgstr "Huts egin du fitxategiaren deskriptorearen egoera eskuratzean"
+
+#~ msgid "[OPTION…] — release a device lock"
+#~ msgstr "[AUKERA…] — askatu gailuaren blokeoa"
+
+#~ msgid "No PID specified; forcing release of lock"
+#~ msgstr "Ez da PIDrik zehaztu, blokeoa askatzea derrigortzen"
+
+#~ msgid "Lock"
+#~ msgstr "Blokeatu"
+
+#~ msgid "Device to unlock (full path)"
+#~ msgstr "Desblokeatzeko gailua (bide-izen osoa)"
+
+#~ msgid "Process ID owning the lock"
+#~ msgstr "Prozesuaren IDa (blokeoaren jabea)"
+
+#~ msgid "No device specified"
+#~ msgstr "Ez da gailurik zehaztu"
+
+#~ msgid "Device locking"
+#~ msgstr "Gailuaren blokeoa"
 
 #~ msgid "No such chroot"
 #~ msgstr "Ez dago chroot hori"
