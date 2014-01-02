@@ -1,3 +1,4 @@
+compile
 config.guess
 config.rpath
 config.sub
@@ -7,3 +8,4 @@ ltmain.sh
 missing
 mkinstalldirs
 po-notify
+test-driver
