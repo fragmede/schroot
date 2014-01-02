@@ -35,10 +35,10 @@ configuration.
 
   4) Support for device locking has been removed, along with the
      helper tool schroot-releaselock.  liblockdev is no longer
-     required for building and running schroot; this change was
+     required for building and running schroot. This change was
      backported from the 1.7.1 development release.  schroot's use of
      device locks was ineffectual at best, so should not result in
-     unsafe use of block devices, since we rely on lvcreate/ lvremove
+     unsafe use of block devices, since we rely on lvcreate/lvremove
      to do appropriate locking for us.  For plain block devices and
      source chroots, these are not session-capable and so locking is
      of little use here anyway.
