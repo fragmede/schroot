@@ -5,6 +5,4 @@
 *.pc
 *.gmo
 *.xz
-ChangeLog
-VERSION
 .gdb_history
