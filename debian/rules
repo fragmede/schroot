@@ -50,7 +50,6 @@ override_dh_auto_configure: debian/build/CMakeCache.txt
 debian/build/CMakeCache.txt: CMakeLists.txt
 	mkdir -p $(dir $@)
 	cd $(dir $@) ; \
-          CXX="g++ -std=c++11" \
           GTEST_ROOT="$(CURDIR)/debian/build/gtest" \
 	  cmake -DCMAKE_INSTALL_PREFIX=/usr \
 	        -DCMAKE_INSTALL_SYSCONFDIR=/etc \

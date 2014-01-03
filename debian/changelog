@@ -1,3 +1,12 @@
+schroot (1.6.7-1) UNRELEASED; urgency=low
+
+  * New upstream stable release.
+  * cmake build changes for portability with other GCC versions.
+  * debian/rules:
+    - Don't force the use of C++11, which isn't required.
+
+ -- Roger Leigh <rleigh@debian.org>  Fri, 03 Jan 2014 12:04:36 +0000
+
 schroot (1.6.6-1) unstable; urgency=low
 
   * New upstream stable release.
