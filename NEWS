@@ -1,11 +1,16 @@
 NEWS                                                            -*- outline -*-
 ----
 
-Welcome to schroot 1.6.6.  Please read these release notes carefully.
+Welcome to schroot 1.6.7.  Please read these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 1.6.7:
+
+  1) Fixes to the build infrastructure to work with older GCC versions,
+     which don't support C++11.
 
 * Major changes in 1.6.6:
 
