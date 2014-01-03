@@ -46,6 +46,7 @@ EXTRA_DIST =				\
 	VERSION				\
 	CMakeLists.txt			\
 	cmake/boost-checks.cmake	\
+	cmake/CompilerChecks.cmake	\
 	cmake/GitRelease.cmake		\
 	cmake/GitReleasePolicy.cmake	\
 	cmake/GitVersion.cmake		\
