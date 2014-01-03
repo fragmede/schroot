@@ -1,7 +1,9 @@
-schroot (1.6.7-1) UNRELEASED; urgency=low
+schroot (1.6.7-1) unstable; urgency=low
 
   * New upstream stable release.
-  * cmake build changes for portability with other GCC versions.
+  * cmake build changes for portability with other GCC versions and
+    to compile and link personality support correctly for non-Linux
+    architectures.
   * debian/rules:
     - Don't force the use of C++11, which isn't required.
 
