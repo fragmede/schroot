@@ -14,15 +14,11 @@ First, clone the git repositories:
 % cd schroot
 % git remote add origin-dist git://anonscm.debian.org/git/buildd-tools/schroot-dist
 % git fetch origin-dist
-% ./bootstrap
 
-schroot.dist is only required if you want to run "make dist-git"; this
+schroot-dist is only required if you want to run "make git-dist"; this
 repository is where the distribution branches are stored (from which
 the distribution tarballs are created with "git archive").  See
 "Releasing", below.
-
-./bootstrap is required to bootstrap the autotools.  Once this is done,
-you can run ./configure just like from the release tarball.
 
 
 Coding
@@ -43,17 +39,16 @@ Format strings
 
 The sources use boost::format for type-safe formatted output.  Make
 sure that the maximum number of options passed is the same as the
-highest %n% in the format string.
+highest %n% in the format string.  UTF-8 string literals are used
+in the sources.
 
-The following styles are used
+The following styles are used:
 
   Style                  Formatting                Syntax
   --------------------------------------------------------------------
-  Values                 Single quotes             '
-  Example text           Double quotes             \"
-  User input             Double quotes             \"
-
-These are transformed into proper UTF-8 quotes with gettext.
+  Values                 Single quotes             ‘’
+  Example text           Double quotes             “”
+  User input             Double quotes             “”
 
 
 Documentation
@@ -87,7 +82,7 @@ Releasing
 ---------
 
 The code must pass the testsuite:
-% make check
+% make test
 
 It must also pass some tests which must be run by hand:
 
@@ -111,8 +106,8 @@ In order to make a release, the following must be done:
 * Use a fresh clone or make sure the tree is pristine, including
   the debian directory (make sure it does not contain any build
   material, which could be packaged if present).
-* Make sure all generated files are up to date.  Run "make dist"
-  and/or "make -C po update-po" to update all translations.
+* Make sure all generated files are up to date.  Run "make"
+  and/or "make update-po" to update all translations.
   Commit any changes.
 * Ensure that the distribution branch is branched locally.  For
   example, if making a 1.6.x release, checkout
@@ -122,24 +117,25 @@ In order to make a release, the following must be done:
 
   If this is the first release in a stable series, e.g. 1.6.0,
   the local branch will be created automatically.
-* Make the release:
+* Make the release.  Run "cmake" as normal, but add the options:
 
-  % make release-git ENABLE_RELEASE_GIT=true
+  -DGIT_RELEASE_ENABLE=ON -DGIT_RELEASE_VERSION=${new_version}
+
+  This will provide a new "git-release" target.  If using make, run:
+
+  % make git-release
 
   You will be prompted for your GPG key passphrase in order to
   sign the release tag (release/schroot-$version).
-* Rebootstrap and reconfigure:
+* Double check that there are no modifed files.  If there are,
+  delete the release tag and start again.
+* Make the distribution.  Run "cmake" as normal, but add the option:
 
-  % ./bootstrap
-  % ./config.status --recheck
-  % make
+  -DGIT_DIST_ENABLE=ON
 
-  This will ensure the release metadata in VERSION is up to date (it's
-  generated from the release tag).  Double check that there are no
-  modifed files.  If there are, delete the release tag and start again.
-* Make the distribution:
+  This will provide a new "git-dist" target.  If using make, run:
 
-  % make dist-git ENABLE_DIST_GIT=true
+  % make git-dist
 
   You will again be prompted for your GPG key passphrase, to sign the
   distribution tag (distribution/schroot-$version).  This will also
