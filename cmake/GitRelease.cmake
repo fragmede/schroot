@@ -73,10 +73,6 @@
 #
 # Set GIT_VERSION_FILE, which is the location of a cmake script
 # relative to PROJECT_SOURCE_DIR.  The default is "version.cmake".
-# For backward compatibility with the preexisting autoconf/automake
-# implementation, GIT_VERSION_FILE_COMPAT may also be set, defaulting
-# to "VERSION"; this also needs GIT_VERSION_FILE_USE_COMPAT setting to
-# ON (default is OFF).
 #
 # When developing from git, no version file will be used; version
 # information will be obtained directly from git.  When using a
@@ -261,11 +257,7 @@ if (NOT CMAKE_SCRIPT_MODE_FILE)
 # Version file settings
 set(GIT_VERSION_FILE "GitVersion.cmake"
     CACHE FILEPATH "Relative path to cmake version file in distributed source tree")
-set(GIT_VERSION_FILE_COMPAT "VERSION"
-    CACHE FILEPATH "Relative path to compatibility version file in distributed source tree")
-set(GIT_VERSION_FILE_USE_COMPAT OFF
-    CACHE BOOL "Create compatibility version file in distributed source tree")
-mark_as_advanced(FORCE GIT_VERSION_FILE GIT_VERSION_FILE_COMPAT GIT_VERSION_FILE_USE_COMPAT)
+mark_as_advanced(FORCE GIT_VERSION_FILE)
 
 # Release policy settings
 set(GIT_RELEASE_POLICY_FILE "GitReleasePolicy.cmake"
@@ -319,46 +311,6 @@ function(git_release_version_split version major minor patch extra)
     set(${extra} "" PARENT_SCOPE)
   endif(version_valid)
 endfunction(git_release_version_split)
-
-function(git_release_version_from_file_compat git_version_file)
-  if(NOT EXISTS ${git_version_file})
-    message(FATAL_ERROR "git version file ${git_version_file} does not exist")
-  endif(NOT EXISTS ${git_version_file})
-  FILE(READ "${git_version_file}" VERSION_CONTENT)
-  STRING(REGEX REPLACE ";" "\\\\;" VERSION_CONTENT "${VERSION_CONTENT}")
-  STRING(REGEX REPLACE "\n" ";" VERSION_CONTENT "${VERSION_CONTENT}")
-
-  foreach(line ${VERSION_CONTENT})
-    string(REGEX MATCH "^([A-Z][a-zA-Z-]*): (.*)" line_valid ${line})
-    if(line_valid)
-      string(REGEX REPLACE "^([A-Z][a-zA-Z-]*): (.*)" "\\1;\\2" line_matches ${line})
-      list(GET line_matches 0 key)
-      list(GET line_matches 1 value)
-
-      if (${key} STREQUAL "Package")
-        if (NOT ${CMAKE_PROJECT_NAME} STREQUAL ${value})
-          message(FATAL_ERROR "Project name ${CMAKE_PROJECT_NAME} does not match name in ${git_version_file} (${value})")
-        endif (NOT ${CMAKE_PROJECT_NAME} STREQUAL ${value})
-        set(GIT_RELEASE_PACKAGE ${value} PARENT_SCOPE)
-      endif(${key} STREQUAL "Package")
-      if (${key} STREQUAL "Version")
-        set(GIT_RELEASE_VERSION ${value} PARENT_SCOPE)
-      endif(${key} STREQUAL "Version")
-      if (${key} STREQUAL "Release-Date")
-        set(GIT_RELEASE_DATE ${value} PARENT_SCOPE)
-      endif(${key} STREQUAL "Release-Date")
-      if (${key} STREQUAL "Release-Date-Unix")
-        set(GIT_RELEASE_DATE_UNIX ${value} PARENT_SCOPE)
-      endif(${key} STREQUAL "Release-Date-Unix")
-      if (${key} STREQUAL "Released-By")
-        set(GIT_RELEASE_BY ${value} PARENT_SCOPE)
-      endif(${key} STREQUAL "Released-By")
-      if (${key} STREQUAL "Git-Tag")
-        set(GIT_RELEASE_TAG ${value} PARENT_SCOPE)
-      endif(${key} STREQUAL "Git-Tag")
-    endif(line_valid)
-  endforeach(line)
-endfunction(git_release_version_from_file_compat)
 
 function(git_release_version_from_file git_version_file)
   include("${git_version_file}")
@@ -454,29 +406,6 @@ function(git_release_version_from_git tag_match)
   set(GIT_RELEASE_TAG ${GIT_RELEASE_TAG} PARENT_SCOPE)
 endfunction(git_release_version_from_git)
 
-function(git_release_version_to_file_compat git_version_file)
-  set(keys
-    "Package: ${CMAKE_PROJECT_NAME}"
-    "Version: ${GIT_RELEASE_VERSION}")
-  if (GIT_RELEASE_DATE)
-    set(keys ${keys} "Release-Date: ${GIT_RELEASE_DATE}")
-  endif (GIT_RELEASE_DATE)
-  if (GIT_RELEASE_DATE_UNIX)
-    set(keys ${keys} "Release-Date-Unix: ${GIT_RELEASE_DATE_UNIX}")
-  endif (GIT_RELEASE_DATE_UNIX)
-  if (GIT_RELEASE_BY)
-    set(keys ${keys} "Released-By: ${GIT_RELEASE_BY}")
-  endif (GIT_RELEASE_BY)
-  if (GIT_RELEASE_TAG)
-    set(keys ${keys} "Git-Tag: ${GIT_RELEASE_TAG}")
-  endif (GIT_RELEASE_TAG)
-  STRING(REGEX REPLACE ";" "\\n" keys "${keys}")
-
-  get_filename_component(dirname ${git_version_file} PATH)
-  file(MAKE_DIRECTORY "${dirname}")
-  file(WRITE "${git_version_file}" "${keys}\n")
-endfunction(git_release_version_to_file_compat)
-
 function(git_release_version_to_file git_version_file)
   set(lines
     "set(GIT_RELEASE_PACKAGE \"${CMAKE_PROJECT_NAME}\")")
@@ -515,13 +444,8 @@ function(git_release_version tag_match)
       message(STATUS "Reading release metadata from ${GIT_VERSION_FILE}")
       git_release_version_from_file("${PROJECT_SOURCE_DIR}/${GIT_VERSION_FILE}")
     else(EXISTS "${PROJECT_SOURCE_DIR}/${GIT_VERSION_FILE}")
-      if(GIT_VERSION_FILE_USE_COMPAT AND EXISTS "${PROJECT_SOURCE_DIR}/${GIT_VERSION_FILE_COMPAT}")
-      message(STATUS "Reading release metadata from ${GIT_VERSION_FILE_COMPAT}")
-        git_release_version_from_file_compat("${PROJECT_SOURCE_DIR}/${GIT_VERSION_FILE_COMPAT}")
-      else(GIT_VERSION_FILE_USE_COMPAT AND EXISTS "${PROJECT_SOURCE_DIR}/${GIT_VERSION_FILE_COMPAT}")
-        message(STATUS "Reading release metadata from git")
-        git_release_version_from_git("${tag_match}")
-      endif(GIT_VERSION_FILE_USE_COMPAT AND EXISTS "${PROJECT_SOURCE_DIR}/${GIT_VERSION_FILE_COMPAT}")
+      message(STATUS "Reading release metadata from git")
+      git_release_version_from_git("${tag_match}")
     endif(EXISTS "${PROJECT_SOURCE_DIR}/${GIT_VERSION_FILE}")
   endif(GIT_RELEASE_ENABLE OR GIT_DIST_ENABLE)
 
@@ -760,9 +684,6 @@ function(git_archive_tree)
   git_release_version_from_git_tag("${GIT_RELEASE_TAG_NAME}" TRUE)
 
   git_release_version_to_file("${GIT_DIST_ROOT}/${GIT_VERSION_FILE}")
-  if(GIT_VERSION_FILE_USE_COMPAT)
-    git_release_version_to_file_compat("${GIT_DIST_ROOT}/${GIT_VERSION_FILE_COMPAT}")
-  endif(GIT_VERSION_FILE_USE_COMPAT)
 endfunction(git_archive_tree)
 
 # Make a distribution of an arbitrary release.
@@ -889,8 +810,6 @@ if (NOT CMAKE_SCRIPT_MODE_FILE)
     # a standalone script file.
     file(WRITE "${GIT_RELEASE_SETTINGS}"
 "set(GIT_VERSION_FILE \"${GIT_VERSION_FILE}\")
-set(GIT_VERSION_FILE_COMPAT \"${GIT_VERSION_FILE_COMPAT}\")
-set(GIT_VERSION_FILE_USE_COMPAT \"${GIT_VERSION_FILE_USE_COMPAT}\")
 set(GIT_RELEASE_VERSION \"${GIT_RELEASE_VERSION}\")
 set(GIT_RELEASE_CHECK_UNCOMMITTED ${GIT_RELEASE_CHECK_UNCOMMITTED})
 set(GIT_RELEASE_CHECK_UNTRACKED ${GIT_RELEASE_CHECK_UNTRACKED})
