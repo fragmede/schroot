@@ -68,8 +68,8 @@ include(CheckIncludeFileCXX)
 include (CheckLibraryExists)
 include (CheckFunctionExists)
 
-include("cmake/boost-checks.cmake")
-include("cmake/regex-checks.cmake")
+include("cmake/BoostChecks.cmake")
+include("cmake/RegexChecks.cmake")
 
 # Configure dchroot and dchroot-dsa
 option(dchroot "Enable dchroot compatibility" OFF)
