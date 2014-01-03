@@ -42,9 +42,10 @@ Description: common files for schroot
 Package: libsbuild1.7.1
 Architecture: any
 Section: libs
-Pre-Depends: multiarch-support
+Pre-Depends: ${misc:Pre-Depends}
 Depends:
- ${shlibs:Depends}, ${misc:Depends},
+ ${shlibs:Depends},
+ ${misc:Depends}
 Suggests: libsbuild1.7.1-dbg
 Description: shared library for the Debian source builder
  libsbuild provides facilities to manage and access chroots, as part of

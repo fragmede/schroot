@@ -1,6 +1,8 @@
 schroot (1.7.2-1) UNRELEASED; urgency=medium
 
   * New upstream development release.
+  * debian/control:
+    - Correct multiarch-support pre-depends.
 
  -- Roger Leigh <rleigh@debian.org>  Fri, 03 Jan 2014 21:15:52 +0000
 
