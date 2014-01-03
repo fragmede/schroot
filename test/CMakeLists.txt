@@ -76,7 +76,10 @@ endif (BUILD_TESTS)
 
 if (BUILD_TESTS)
   add_executable(sbuild-chroot-chroot ${sbuild_chroot_chroot_sources})
-  target_link_libraries(sbuild-chroot-chroot sbuild testmain)
+  target_link_libraries(sbuild-chroot-chroot
+                        sbuild
+                        ${REGEX_LIBRARY}
+                        testmain)
   add_test(sbuild-chroot-chroot sbuild-chroot-chroot)
 endif (BUILD_TESTS)
 
@@ -100,7 +103,10 @@ set(sbuild_standard_sources
 
 if (BUILD_TESTS)
   add_executable(sbuild-standard ${sbuild_standard_sources})
-  target_link_libraries(sbuild-standard sbuild testmain)
+  target_link_libraries(sbuild-standard
+                        sbuild
+                        ${REGEX_LIBRARY}
+                        testmain)
   add_test(sbuild-standard sbuild-standard)
 endif (BUILD_TESTS)
 
@@ -128,7 +134,11 @@ set(sbuild_run_parts_sources
 
 if (BUILD_TESTS)
   add_executable(sbuild-run-parts ${sbuild_run_parts_sources})
-  target_link_libraries(sbuild-run-parts sbuild testmain)
+  target_link_libraries(sbuild-run-parts
+                        sbuild
+                        ${Boost_FILESYSTEM_LIBRARY_RELEASE}
+                        ${Boost_SYSTEM_LIBRARY_RELEASE}
+                        testmain)
   add_test(sbuild-run-parts sbuild-run-parts)
 endif (BUILD_TESTS)
 
