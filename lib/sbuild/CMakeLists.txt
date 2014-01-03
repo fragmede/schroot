@@ -221,12 +221,13 @@ add_library(sbuild SHARED
             ${public_chroot_facet_h_sources}
             ${public_chroot_facet_cc_sources})
 target_link_libraries(sbuild
-                      ${CMAKE_THREAD_LIBS_INIT}
-                      ${PAM_LIBRARY}
-                      ${REGEX_LIBRARY}
-                      ${Boost_IOSTREAMS_LIBRARY_RELEASE}
-                      ${Boost_FILESYSTEM_LIBRARY_RELEASE}
-                      ${Boost_SYSTEM_LIBRARY_RELEASE})
+                      PRIVATE
+                        ${CMAKE_THREAD_LIBS_INIT}
+                        ${PAM_LIBRARY}
+                        ${REGEX_LIBRARY}
+                        ${Boost_IOSTREAMS_LIBRARY_RELEASE}
+                        ${Boost_FILESYSTEM_LIBRARY_RELEASE}
+                        ${Boost_SYSTEM_LIBRARY_RELEASE})
 set_target_properties(sbuild PROPERTIES VERSION ${GIT_RELEASE_VERSION})
 
 set(pkgincludedir "${CMAKE_INSTALL_FULL_INCLUDEDIR}/sbuild")
