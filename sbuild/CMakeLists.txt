@@ -37,17 +37,6 @@ if(BUILD_PAM)
       sbuild-auth-pam-message.cc)
 endif(BUILD_PAM)
 
-if(BUILD_PERSONALITY)
-  set(public_personality_facet_h_sources
-      sbuild-chroot-facet-personality.h)
-  set(public_personality_facet_cc_sources
-      sbuild-chroot-facet-personality.cc)
-  set(public_personality_h_sources
-      sbuild-personality.h)
-  set(public_personality_cc_sources
-      sbuild-personality.cc)
-endif(BUILD_PERSONALITY)
-
 if(BUILD_BLOCKDEV)
   set(public_blockdev_base_h_sources
       sbuild-chroot-block-device-base.h)
@@ -112,13 +101,13 @@ set(public_h_sources
     sbuild-null.h
     sbuild-parse-error.h
     sbuild-parse-value.h
+    sbuild-personality.h
     sbuild-regex.h
     sbuild-run-parts.h
     sbuild-session.h
     sbuild-tr1types.h
     sbuild-types.h
-    sbuild-util.h
-    ${public_personality_h_sources})
+    sbuild-util.h)
 
 set(public_cc_sources
     sbuild-ctty.cc
@@ -132,11 +121,11 @@ set(public_cc_sources
     sbuild-nostream.cc
     sbuild-null.cc
     sbuild-parse-value.cc
+    sbuild-personality.cc
     sbuild-run-parts.cc
     sbuild-session.cc
     sbuild-types.cc
-    sbuild-util.cc
-    ${public_personality_cc_sources})
+    sbuild-util.cc)
 
 set(public_auth_h_sources
     sbuild-auth.h
@@ -179,23 +168,23 @@ set(public_chroot_cc_sources
 set(public_chroot_facet_h_sources
     sbuild-chroot-facet.h
     sbuild-chroot-facet-mountable.h
+    sbuild-chroot-facet-personality.h
     sbuild-chroot-facet-session.h
     sbuild-chroot-facet-session-clonable.h
     sbuild-chroot-facet-source.h
     sbuild-chroot-facet-source-clonable.h
     sbuild-chroot-facet-userdata.h
-    ${public_personality_facet_h_sources}
     ${public_union_h_sources}
     ${public_unshare_h_sources})
 
 set(public_chroot_facet_cc_sources
     sbuild-chroot-facet-mountable.cc
+    sbuild-chroot-facet-personality.cc
     sbuild-chroot-facet-session.cc
     sbuild-chroot-facet-session-clonable.cc
     sbuild-chroot-facet-source.cc
     sbuild-chroot-facet-source-clonable.cc
     sbuild-chroot-facet-userdata.cc
-    ${public_personality_facet_cc_sources}
     ${public_union_cc_sources}
     ${public_unshare_cc_sources})
 
