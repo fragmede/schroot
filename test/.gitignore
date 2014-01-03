@@ -1,9 +1,0 @@
-sbuild/chroot/chroot
-sbuild/chroot/config
-sbuild/keyfile
-sbuild/lock
-sbuild/run-parts
-sbuild/standard
-bin-common/option-action
-*.log
-*.trs

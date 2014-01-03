@@ -10,7 +10,8 @@ configuration.
 
 * Major changes in 1.7.2:
 
-  None.
+  1) Support for the autotools (autoconf/automake/libtool) has been
+     removed.  cmake is now required for building.
 
 * Major changes in 1.7.1:
 

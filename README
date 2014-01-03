@@ -26,7 +26,7 @@ libboost-dev                 }
 libboost-program-options-dev } The Boost C++ libraries
 libboost-regex-dev           }
 groff (or troff) soelim
-cmake (required unless using the autotools configure script)
+cmake
 
 If building from GIT, you will also need:
 gettext (0.16 or greater)
@@ -34,7 +34,6 @@ doxygen
 po4a (>=0.40)
 
 To run the unit tests, you will optionally need:
-cmake
 gtest
 
 configure with GTEST_ROOT=/path/to/libgtest (it will be added as a
@@ -50,14 +49,9 @@ example:
     make VERBOSE=1 \
   )
 
-And then to build with cmake:
+And then to build with:
 
   CXX="g++ -std=c++11" GTEST_ROOT="$(pwd)/gtest" cmake /path/to/schroot
-  make
-
-Or with autotools configure:
-
-  /path/to/schroot/configure CXX="g++ -std=c++11" GTEST_ROOT="$(pwd)/gtest"
   make
 
 
@@ -73,9 +67,6 @@ please consider translating the pot file
 
 Building and installation
 -------------------------
-
-cmake
-^^^^^
 
 Run "cmake -LH" to see basic configurable options.  The following basic
 options are supported:
@@ -113,37 +104,6 @@ Run "make test" to run the testsuite.
 Note that the testsuite ("make test") should be run under fakeroot or
 real root in order to work correctly.
 
-
-autotools configure
-^^^^^^^^^^^^^^^^^^^
-
-Please see the INSTALL file for generic autotools configure
-installation instructions.  There are the following additional
-options:
-
-  --enable-dchroot        Build dchroot for backward compatibility
-  --enable-dchroot-dsa    Build DSA dchroot for backward compatibility
-  --enable-debug          Enable debugging features
-                          (not recommended--use --debug at runtime instead)
-  --enable-environment-filter
-                          Enable default environment filtering (regex)
-  --enable-pam            Enable support for PAM authentication
-  --enable-block-device   Enable support for block devices
-  --enable-lvm-snapshot   Enable support for LVM snapshots
-  --enable-btrfs-snapshot Enable support for btrfs snapshots
-  --enable-loopback       Enable support for loopback mounts
-  --enable-union          Enable support for union mounts
-  --enable-doxygen        Enable doxygen documentation
-
-Normally configure will autodetect and enable the recommended options
-if supported by your system, so the above options should not usually
-be required.
-
-Run "make doc" to make the doxygen documentation.
-Run "make check" to run the testsuite.
-
-Note that the testsuite ("make check") should be run under fakeroot or
-real root in order to work correctly.
 
 Configuration
 -------------
