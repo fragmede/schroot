@@ -1,3 +1,11 @@
+schroot (1.6.8-1) UNRELEASED; urgency=medium
+
+  * New upstream stable release.
+  * debian/control:
+    - Upgrade to Standards-Version 3.9.5 (no changes).
+
+ -- Roger Leigh <rleigh@debian.org>  Sat, 04 Jan 2014 00:14:41 +0000
+
 schroot (1.6.7-1) unstable; urgency=low
 
   * New upstream stable release.
