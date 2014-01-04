@@ -1,4 +1,4 @@
-schroot (1.7.2-1) UNRELEASED; urgency=medium
+schroot (1.7.2-1) experimental; urgency=medium
 
   * New upstream development release.
   * debian/control:
