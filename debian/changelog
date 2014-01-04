@@ -4,6 +4,10 @@ schroot (1.7.2-1) UNRELEASED; urgency=medium
   * debian/control:
     - Correct multiarch-support pre-depends.
     - Upgrade to Standards-Version 3.9.5 (no changes).
+    - Build-Depend on g++-4.8.
+  * debian/rules:
+    - Build using g++-4.8, needed for C++11 compatibility until the
+      default compiler for all architectures supports C++11.
 
  -- Roger Leigh <rleigh@debian.org>  Fri, 03 Jan 2014 21:15:52 +0000
 

@@ -6,6 +6,7 @@ Uploaders: Roger Leigh <rleigh@debian.org>
 Build-Depends:
  debhelper (>= 9),
  cmake,
+ g++-4.8,
  pkg-config,
  libpam0g-dev,
  libboost-dev,

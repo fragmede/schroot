@@ -50,7 +50,7 @@ debian/build/gtest/libgtest.a:
 debian/build/CMakeCache.txt: CMakeLists.txt debian/build/gtest/libgtest.a
 	mkdir -p $(dir $@)
 	cd $(dir $@) ; \
-          CXX="g++ -std=c++11" \
+          CXX="g++-4.8 -std=c++11" \
           GTEST_ROOT="$(CURDIR)/debian/build/gtest" \
 	  cmake -DCMAKE_INSTALL_PREFIX=/usr \
 	        -DCMAKE_INSTALL_SYSCONFDIR=/etc \
