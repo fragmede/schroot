@@ -1,6 +1,8 @@
-schroot (1.6.8-1) UNRELEASED; urgency=medium
+schroot (1.6.8-1) unstable; urgency=medium
 
   * New upstream stable release.
+  * Removed unnecessary transitive linking.
+  * Syntax errors in the French manual pages corrected.
   * debian/control:
     - Upgrade to Standards-Version 3.9.5 (no changes).
 
