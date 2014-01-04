@@ -242,8 +242,50 @@
 # push them back to you; merging the changes back upstream is much
 # easier since the origin of the changes is fully described by the
 # dependency graph.
+#
+#
+# Archive configuration
+# ---------------------
+#
+# Making an archive of a distribution of a release requires
+# distributing first (as documented above).
+#
+# As for distributing, set GIT_DIST_ENABLE to ON.
+#
+# Archiving is customised using the following options:
+#
+# GIT_ARCHIVE_FORMATS
+#   A list of archive formats to generate using "git archive".
+#   Available options are "tar", "tar.gz", "tar.xz" and "zip";
+#   defaults to "tar.xz".
+#
+# GIT_ARCHIVE_NAME
+#   Naming scheme for the archive.  Defaults to ${GIT_DIST_NAME}.
+#
+# GIT_ARCHIVE_PREFIX
+#   Prefix to add to the path of all members of the archive.  Defaults
+#   to ${GIT_DIST_NAME}.
+#
+# GIT_ARCHIVE_SIGN
+#   Set to ON to create detached signatures for each archive, OFF to
+#   skip.  Defaults to ON.
+#
+# Archiving
+# ---------
+#
+# Run "cmake" as normal, but add the option:
+#
+#   -DGIT_DIST_ENABLE=ON
+#
+# This will provide a new "git-dist" target.  If using make, run:
+#
+#   make git-archive
+#
+# If archive signing is enabled, you'll be prompted for your key
+# passphrase.
 
 cmake_policy(SET CMP0007 NEW)
+cmake_policy(SET CMP0012 NEW)
 
 # Settings file used to pass configuration settings
 set(GIT_RELEASE_SETTINGS "${PROJECT_BINARY_DIR}/GitRelease.cmake")
@@ -510,6 +552,17 @@ set(GIT_DIST_TMPDIR ${PROJECT_BINARY_DIR}/GitRelease
 set(GIT_DIST_ROOT ${GIT_DIST_TMPDIR}/${GIT_DIST_NAME}
     CACHE STRING "Release directory to distribute; must include version number")
 mark_as_advanced(FORCE GIT_DIST_BRANCH GIT_DIST_COMMIT_MESSAGE GIT_DIST_NAME GIT_DIST_TMPDIR GIT_DIST_ROOT)
+
+# Archiving
+set(GIT_ARCHIVE_FORMATS "tar.xz"
+    CACHE STRING "Archive formats to generate")
+set(GIT_ARCHIVE_NAME "${GIT_DIST_NAME}"
+    CACHE STRING "Name of the archive; should include version number")
+set(GIT_ARCHIVE_PREFIX "${GIT_DIST_NAME}"
+    CACHE STRING "Path prefix for the archive; should include version number")
+set(GIT_ARCHIVE_SIGN ON
+    CACHE BOOL "Enable to sign archives with detached signature")
+mark_as_advanced(FORCE GIT_ARCHIVE_FORMATS GIT_ARCHIVE_NAME GIT_ARCHIVE_PREFIX GIT_ARCHIVE_SIGN)
 endif (NOT CMAKE_SCRIPT_MODE_FILE)
 
 if(EXISTS "${GIT_RELEASE_POLICY_FILE}")
@@ -688,11 +741,12 @@ endfunction(git_archive_tree)
 
 # Make a distribution of an arbitrary release.
 #
-# The same as git_dist, but this allows addition of any distribution
-# rather than just the release in the current working tree.  This rule
-# is intended for allowing retrospective addition of a project's
-# entire release history (driven by a shell script), for example.
-# See below for an example of how to do this.
+# This function allows addition of any distribution rather than just
+# the release in the current working tree, though it will typically be
+# used only for the current release.  For example, this may be used to
+# allowing retrospective addition of a project's entire release
+# history (driven by a shell script), for example.  See below for an
+# example of how to do this.
 #
 # GIT_DIST_ROOT must be set to specify the release to distribute and
 # GIT_RELEASE_VERSION must match the release version.  GIT_DIST_BRANCH may also
@@ -705,7 +759,8 @@ function(git_dist)
                   RESULT_VARIABLE show_ref_status
                   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
   if (show_ref_status EQUAL 0)
-    message(FATAL_ERROR "git dist tag ${GIT_DIST_TAG_NAME} already exists; not distributing")
+    message(WARNING "git dist tag ${GIT_DIST_TAG_NAME} already exists; not distributing")
+    return()
   endif (show_ref_status EQUAL 0)
 
   if (NOT GIT_DIST_ENABLE)
@@ -797,6 +852,73 @@ function(git_dist)
   message(STATUS "${CMAKE_PROJECT_NAME} ${GIT_RELEASE_VERSION} distribution tagged as ${GIT_DIST_TAG_NAME}")
 endfunction(git_dist)
 
+# Make a distribution archive of an arbitrary distribution.
+#
+# This function will use "git archive" to create an xz compressed
+# archive from a distribution tag.  GIT_DIST_TAG_NAME contains the tag
+# to archive.
+#
+# GIT_DIST_ROOT must be set to specify the release to distribute and
+# GIT_RELEASE_VERSION must match the release version.  GIT_DIST_BRANCH may also
+# require setting if not using the default.  GIT_RELEASE_TAG_NAME must
+# be set to the tag name of the existing release.
+function(git_dist_archive)
+  execute_process(COMMAND git show-ref --tags -q ${GIT_DIST_TAG_NAME}
+                  RESULT_VARIABLE show_ref_status
+                  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+  if (NOT show_ref_status EQUAL 0)
+    message(FATAL_ERROR "git dist tag ${GIT_DIST_TAG_NAME} does not exist; can't distribute archive")
+  endif (NOT show_ref_status EQUAL 0)
+
+  message(STATUS "Creating archives from ${GIT_DIST_TAG_NAME}:")
+
+  foreach(format ${GIT_ARCHIVE_FORMATS})
+    set (archive_name "${GIT_ARCHIVE_NAME}.${format}")
+    if (format STREQUAL zip)
+      set(baseformat zip)
+      unset(compression)
+    elseif(format STREQUAL tar)
+      set(baseformat tar)
+      unset(compression)
+    elseif(format STREQUAL tar.gz)
+      set(baseformat tar)
+      set(compression gzip)
+    elseif(format STREQUAL tar.xz)
+      set(baseformat tar)
+      set(compression xz)
+    else (format STREQUAL zip)
+      message(FATAL_ERROR "Unsupported archive format ${format}")
+    endif (format STREQUAL zip)
+
+    unset(compression_command)
+    if(compression)
+      set(compression_command
+          COMMAND "${compression}" "--best")
+    endif(compression)
+
+    execute_process(COMMAND git archive "--format=${baseformat}" "--prefix=${GIT_ARCHIVE_PREFIX}/" "${GIT_DIST_TAG_NAME}"
+                    ${compression_command}
+                    OUTPUT_FILE "${PROJECT_BINARY_DIR}/${archive_name}"
+                    RESULT_VARIABLE git_archive_status
+                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+    unset(ENV{GIT_WORK_TREE})
+    if(git_archive_status GREATER 0)
+      message(FATAL_ERROR "Failed to create archive")
+    endif(git_archive_status GREATER 0)
+
+    if(${GIT_ARCHIVE_SIGN})
+      execute_process(COMMAND gpg --sign --armor --detach "${archive_name}"
+                    RESULT_VARIABLE gpg_sign_status
+                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
+      if(gpg_sign_status GREATER 0)
+        message(FATAL_ERROR "Failed to sign archive")
+      endif(gpg_sign_status GREATER 0)
+    endif(${GIT_ARCHIVE_SIGN})
+
+    message(STATUS "  ${archive_name}")
+  endforeach(format)
+endfunction(git_dist_archive)
+
 # Add targets if not in script mode
 if (NOT CMAKE_SCRIPT_MODE_FILE)
 
@@ -828,6 +950,10 @@ set(GIT_DIST_COMMIT_MESSAGE \"${GIT_DIST_COMMIT_MESSAGE}\")
 set(GIT_DIST_NAME \"${GIT_DIST_NAME}\")
 set(GIT_DIST_TMPDIR \"${GIT_DIST_TMPDIR}\")
 set(GIT_DIST_ROOT \"${GIT_DIST_ROOT}\")
+set(GIT_ARCHIVE_FORMATS \"${GIT_ARCHIVE_FORMATS}\")
+set(GIT_ARCHIVE_NAME \"${GIT_ARCHIVE_NAME}\")
+set(GIT_ARCHIVE_PREFIX \"${GIT_ARCHIVE_PREFIX}\")
+set(GIT_ARCHIVE_SIGN \"${GIT_ARCHIVE_SIGN}\")
 ")
 
   # The following targets re-execute this script file with the above
@@ -868,6 +994,13 @@ set(GIT_DIST_ROOT \"${GIT_DIST_ROOT}\")
                               -D git_release_command=git-dist
                               -P ${CMAKE_CURRENT_LIST_FILE}
                       DEPENDS git-distdir)
+
+    add_custom_target(git-archive
+                      COMMAND ${CMAKE_COMMAND} ${script_options}
+                              -D PROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR}
+                              -D git_release_command=git-archive
+                              -P ${CMAKE_CURRENT_LIST_FILE}
+                      DEPENDS git-dist)
   endif (GIT_DIST_ENABLE)
 endif (NOT CMAKE_SCRIPT_MODE_FILE)
 
@@ -893,6 +1026,10 @@ if (CMAKE_SCRIPT_MODE_FILE)
     if(git_release_command STREQUAL git-dist)
       git_dist()
     endif(git_release_command STREQUAL git-dist)
+
+    if(git_release_command STREQUAL git-archive)
+      git_dist_archive()
+    endif(git_release_command STREQUAL git-archive)
   endif(git_release_command)
 endif (CMAKE_SCRIPT_MODE_FILE)
 
