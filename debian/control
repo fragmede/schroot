@@ -20,7 +20,7 @@ Build-Depends:
 Build-Depends-Indep:
  doxygen,
  graphviz
-Standards-Version: 3.9.4
+Standards-Version: 3.9.5
 Vcs-Browser: http://git.debian.org/?p=buildd-tools/schroot.git
 Vcs-Git: git://git.debian.org/git/buildd-tools/schroot
 
