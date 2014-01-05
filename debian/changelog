@@ -1,3 +1,9 @@
+schroot (1.7.2-2) experimental; urgency=medium
+
+  * debian/rules: Use g++-4.8 for all g++ invocations.
+
+ -- Roger Leigh <rleigh@debian.org>  Sun, 05 Jan 2014 19:56:41 +0000
+
 schroot (1.7.2-1) experimental; urgency=medium
 
   * New upstream development release.
