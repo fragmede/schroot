@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-05-05 00:58+0100\n"
+"POT-Creation-Date: 2013-09-25 12:24+0100\n"
 "PO-Revision-Date: 2010-01-16 15:44+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -118,11 +118,12 @@ msgid "Force operation, even if it fails"
 msgstr "Tvinga operation, även om den misslyckas"
 
 #. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = release date
+#. TRANSLATORS: %2% = distributor
+#. TRANSLATORS: %3% = program version
+#. TRANSLATORS: %4% = release date
 #, fuzzy, boost-format
-msgid "%1% (Debian sbuild) %2% (%3%)"
-msgstr "%1% (Debian sbuild) %2% (%3%)\n"
+msgid "%1% (%2%) %3% (%4%)"
+msgstr "[%1%] %2%: %3% \"%4%\""
 
 #. TRANSLATORS: %1% = copyright year (start)
 #. TRANSLATORS: %2% = copyright year (end)
@@ -1247,6 +1248,10 @@ msgid "fstab file to read (full path)"
 msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
 
 #, fuzzy
+#~ msgid "%1% (Debian sbuild) %2% (%3%)"
+#~ msgstr "%1% (Debian sbuild) %2% (%3%)\n"
+
+#, fuzzy
 #~ msgid "line %1%: Deprecated key ‘%4%’ used"
 #~ msgstr "rad %1% [%2%]: Utfasade nyckeln \"%4%\" används"
 
@@ -1550,9 +1555,6 @@ msgstr "Monteringspunkt att kontrollera (fullständig sökväg)"
 
 #~ msgid "[%1%]: %2%"
 #~ msgstr "[%1%]: %2%"
-
-#~ msgid "[%1%] %2%: %3% \"%4%\""
-#~ msgstr "[%1%] %2%: %3% \"%4%\""
 
 #~ msgid "[%1%] %2%: %3%"
 #~ msgstr "[%1%] %2%: %3%"

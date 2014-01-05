@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.4.16-1\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-05-05 00:58+0100\n"
+"POT-Creation-Date: 2013-09-25 12:24+0100\n"
 "PO-Revision-Date: 2010-12-07 20:01+0100\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -121,11 +121,12 @@ msgid "Force operation, even if it fails"
 msgstr "Forza l'operazione anche se non riesce"
 
 #. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = release date
+#. TRANSLATORS: %2% = distributor
+#. TRANSLATORS: %3% = program version
+#. TRANSLATORS: %4% = release date
 #, fuzzy, boost-format
-msgid "%1% (Debian sbuild) %2% (%3%)"
-msgstr "%1% (sbuild Debian) %2% (%3%)\n"
+msgid "%1% (%2%) %3% (%4%)"
+msgstr "riga %1% [%2%] %3%: %4%"
 
 #. TRANSLATORS: %1% = copyright year (start)
 #. TRANSLATORS: %2% = copyright year (end)
@@ -362,8 +363,8 @@ msgstr ""
 
 msgid "Naming restrictions are documented in schroot.conf(5)"
 msgstr ""
-"Le restrizioni relative alle denominazioni sono documentate in schroot.conf"
-"(5)"
+"Le restrizioni relative alle denominazioni sono documentate in schroot."
+"conf(5)"
 
 #, fuzzy, boost-format
 msgid "Namespace separator ‘%1%’ may not be used in an alias name"
@@ -1247,6 +1248,10 @@ msgstr "Esegue una simulazione delle azioni che verrebbero intraprese"
 
 msgid "fstab file to read (full path)"
 msgstr "fstab da leggere (percorso completo)"
+
+#, fuzzy
+#~ msgid "%1% (Debian sbuild) %2% (%3%)"
+#~ msgstr "%1% (sbuild Debian) %2% (%3%)\n"
 
 #, fuzzy
 #~ msgid "line %1%: Deprecated key ‘%4%’ used"

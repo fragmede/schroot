@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 0.1.2\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-05-05 00:58+0100\n"
+"POT-Creation-Date: 2013-09-25 12:24+0100\n"
 "PO-Revision-Date: 2013-05-05 01:00+0100\n"
 "Last-Translator: Roger Leigh <rleigh@debian.org>\n"
 "Language-Team: English <rleigh@debian.org>\n"
@@ -113,11 +113,12 @@ msgid "Force operation, even if it fails"
 msgstr "Force operation, even if it fails"
 
 #. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = release date
-#, boost-format
-msgid "%1% (Debian sbuild) %2% (%3%)"
-msgstr "%1% (Debian sbuild) %2% (%3%)"
+#. TRANSLATORS: %2% = distributor
+#. TRANSLATORS: %3% = program version
+#. TRANSLATORS: %4% = release date
+#, fuzzy, boost-format
+msgid "%1% (%2%) %3% (%4%)"
+msgstr "line %1% [%2%] %3%: %4%"
 
 #. TRANSLATORS: %1% = copyright year (start)
 #. TRANSLATORS: %2% = copyright year (end)
@@ -1202,6 +1203,9 @@ msgstr "Perform a simulation of actions which would be taken"
 
 msgid "fstab file to read (full path)"
 msgstr "fstab file to read (full path)"
+
+#~ msgid "%1% (Debian sbuild) %2% (%3%)"
+#~ msgstr "%1% (Debian sbuild) %2% (%3%)"
 
 #~ msgid "line %1%: Deprecated key ‘%4%’ used"
 #~ msgstr "line %1%: Deprecated key ‘%4%’ used"

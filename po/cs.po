@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
 "Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
-"POT-Creation-Date: 2013-05-05 00:58+0100\n"
+"POT-Creation-Date: 2013-09-25 12:24+0100\n"
 "PO-Revision-Date: 2010-07-11 18:39+0200\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -118,11 +118,12 @@ msgid "Force operation, even if it fails"
 msgstr "Vynutí operaci, i když selže"
 
 #. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = release date
+#. TRANSLATORS: %2% = distributor
+#. TRANSLATORS: %3% = program version
+#. TRANSLATORS: %4% = release date
 #, fuzzy, boost-format
-msgid "%1% (Debian sbuild) %2% (%3%)"
-msgstr "%1% (Debian sbuild) %2% (%3%)\n"
+msgid "%1% (%2%) %3% (%4%)"
+msgstr "řádek %1% [%2%] %3%: %4%"
 
 #. TRANSLATORS: %1% = copyright year (start)
 #. TRANSLATORS: %2% = copyright year (end)
@@ -1232,6 +1233,10 @@ msgstr "Simuluje akce, které se mají provést"
 
 msgid "fstab file to read (full path)"
 msgstr "Soubor fstab, který se má načíst (celá cesta)"
+
+#, fuzzy
+#~ msgid "%1% (Debian sbuild) %2% (%3%)"
+#~ msgstr "%1% (Debian sbuild) %2% (%3%)\n"
 
 #, fuzzy
 #~ msgid "line %1%: Deprecated key ‘%4%’ used"

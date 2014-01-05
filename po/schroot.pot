@@ -115,10 +115,11 @@ msgid "Force operation, even if it fails"
 msgstr ""
 
 #. TRANSLATORS: %1% = program name
-#. TRANSLATORS: %2% = program version
-#. TRANSLATORS: %3% = release date
+#. TRANSLATORS: %2% = distributor
+#. TRANSLATORS: %3% = program version
+#. TRANSLATORS: %4% = release date
 #, boost-format
-msgid "%1% (Debian sbuild) %2% (%3%)"
+msgid "%1% (%2%) %3% (%4%)"
 msgstr ""
 
 #. TRANSLATORS: %1% = copyright year (start)
