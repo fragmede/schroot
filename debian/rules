@@ -63,6 +63,7 @@ debian/build/CMakeCache.txt: CMakeLists.txt debian/build/gtest/libgtest.a
 	        -DBTRFS_EXECUTABLE=/sbin/btrfs \
 	        -DLVCREATE_EXECUTABLE=/sbin/lvcreate \
 	        -DLVREMOVE_EXECUTABLE=/sbin/lvremove \
+	        -Ddistributor=Debian \
 	        $(CURDIR)
 	dh_testdir
 

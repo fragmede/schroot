@@ -1,6 +1,8 @@
 schroot (1.7.3-1) UNRELEASED; urgency=medium
 
- * New upstream development release.
+  * New upstream development release.
+  * debian/rules:
+    - Set distributor=Debian when running cmake. 
 
  -- Roger Leigh <rleigh@debian.org>  Sun, 05 Jan 2014 22:57:14 +0000
 
