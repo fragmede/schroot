@@ -1,12 +1,16 @@
 NEWS                                                            -*- outline -*-
 ----
 
-Welcome to schroot 1.7.2.  This is a development release.  Please read
+Welcome to schroot 1.7.3.  This is a development release.  Please read
 these release notes carefully.
 
 Full installation instructions are provided in the INSTALL file.  The
 README file also contains more specific notes regarding building and
 configuration.
+
+* Major changes in 1.7.3:
+
+  None.
 
 * Major changes in 1.7.2:
 
