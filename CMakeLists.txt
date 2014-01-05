@@ -103,6 +103,14 @@ set(default_environment_filter "^(BASH_ENV|CDPATH|ENV|HOSTALIASES|IFS|KRB5_CONFI
     CACHE STRING "Default environment filter")
 set(SBUILD_DEFAULT_ENVIRONMENT_FILTER ${default_environment_filter})
 
+# Distributor
+set(distributor "Unknown"
+    CACHE STRING "Distributor of this build")
+set(DISTRIBUTOR "${distributor}")
+if(distributor STREQUAL Unknown)
+  set(DISTRIBUTOR_UNSET ON)
+endif(distributor STREQUAL Unknown)
+
 # bash completion directory
 set(bash_completion_dir "${CMAKE_INSTALL_SYSCONFDIR}/bash_completion.d"
     CACHE PATH "bash shell completion directory")

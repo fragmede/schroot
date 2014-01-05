@@ -11,6 +11,12 @@
    semantics */
 #cmakedefine BOOST_PROGRAM_OPTIONS_VALIDATION_ERROR_OLD 1
 
+/* Distributor name. */
+#cmakedefine DISTRIBUTOR "${DISTRIBUTOR}"
+
+/* Is distributor not set. */
+#cmakedefine DISTRIBUTOR_UNSET 1
+
 /* Define to 1 if translation of program messages to the user's native
    language is requested. */
 #cmakedefine ENABLE_NLS 1

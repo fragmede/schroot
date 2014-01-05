@@ -58,16 +58,27 @@ namespace bin_common
   void
   main::action_version (std::ostream& stream)
   {
+    format fmtr(
+#if DISTRIBUTOR_UNSET
     // TRANSLATORS: %1% = program name
-    // TRANSLATORS: %2% = program version
-    // TRANSLATORS: %3% = release date
-    format fmtr(_("%1% (Debian sbuild) %2% (%3%)"));
-    fmtr % this->program_name % VERSION % sbuild::gmdate(RELEASE_DATE);
+    // TRANSLATORS: %3% = program version
+    // TRANSLATORS: %4% = release date
+                "%1% %3% (%4%)"
+#else
+    // TRANSLATORS: %1% = program name
+    // TRANSLATORS: %2% = distributor
+    // TRANSLATORS: %3% = program version
+    // TRANSLATORS: %4% = release date
+                "%1% (%2%) %3% (%4%)"
+#endif
+                );
+    fmtr % this->program_name % DISTRIBUTOR % VERSION
+         % sbuild::gmdate(RELEASE_DATE);
 
     // TRANSLATORS: %1% = copyright year (start)
     // TRANSLATORS: %2% = copyright year (end)
     format fmtc(_("Copyright © %1%–%2% Roger Leigh"));
-    fmtc % "2004" % "2012";
+    fmtc % "2004" % "2014";
 
     stream << fmtr << '\n'
            << _("Written by Roger Leigh") << '\n' << '\n'

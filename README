@@ -96,7 +96,8 @@ Run "cmake -LA" to see all settable options.  CMAKE_INSTALL_PREFIX is
 the equivalent of the configure --prefix option.  Additionally,
 CMAKE_INSTALL_SYSCONFDIR, CMAKE_INSTALL_LOCALSTATEDIR,
 CMAKE_INSTALL_LIBDIR etc. provide the equivalent sysconfdir,
-localstatedir and libdir, etc. options.
+localstatedir and libdir, etc. options.  It is also possible to set
+the distributor name with -Ddistributor.
 
 Run "make doc" to make the doxygen documentation.
 Run "make test" to run the testsuite.
