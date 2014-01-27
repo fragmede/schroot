@@ -117,7 +117,7 @@
 #cmakedefine PACKAGE_TARNAME 1
 
 /* Define to the home page for this package. */
-#cmakedefine PACKAGE_URL 1 
+#cmakedefine PACKAGE_URL 1
 
 /* Define to the version of this package. */
 #cmakedefine PACKAGE_VERSION ${VERSION}
