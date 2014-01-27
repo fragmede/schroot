@@ -41,6 +41,8 @@ using boost::format;
 #define PAM_TEXT_DOMAIN "Linux-PAM"
 #elif defined(__sun__)
 #define PAM_TEXT_DOMAIN "SUNW_OST_SYSOSPAM"
+#elif defined(OPENPAM)
+#define PAM_TEXT_DOMAIN "OpenPAM"
 #endif
 
 namespace sbuild
