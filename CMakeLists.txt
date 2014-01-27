@@ -252,6 +252,21 @@ endif (DOXYGEN_EXECUTABLE)
 option(doxygen "Enable doxygen documentation" ${DOXYGEN_DEFAULT})
 set(BUILD_DOXYGEN ${doxygen})
 
+# Linux and BSD fstab parsing
+check_include_file_cxx(fstab.h FSTAB_HEADER)
+check_function_exists(setfstab FSTAB_FUNC)
+if (FSTAB_HEADER AND FSTAB_FUNC)
+  set(HAVE_FSTAB_FUNCTIONS TRUE)
+else (FSTAB_HEADER AND FSTAB_FUNC)
+  check_include_file_cxx(mntent.h MNTENT_HEADER)
+  check_function_exists(setmntent MNTENT_FUNC)
+  if (MNTENT_HEADER AND MNTENT_FUNC)
+    set(HAVE_MNTENT_FUNCTIONS TRUE)
+  else (MNTENT_HEADER AND MNTENT_FUNC)
+    message(FATAL_ERROR "No fstab parser available for this platform.")
+  endif (MNTENT_HEADER AND MNTENT_FUNC)
+endif (FSTAB_HEADER AND FSTAB_FUNC)
+
 # Namespace unshare feature
 # sched.h ==> UNSHARE_HEADER
 check_include_file_cxx (sched.h UNSHARE_HEADER)
