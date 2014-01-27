@@ -64,6 +64,7 @@ include(CheckIncludeFileCXX)
 # LIBRARY CHECKS
 include (CheckLibraryExists)
 include (CheckFunctionExists)
+include (CheckSymbolExists)
 
 include("cmake/BoostChecks.cmake")
 include("cmake/RegexChecks.cmake")
@@ -158,6 +159,9 @@ set(SCHROOT_CONF "${SCHROOT_SYSCONF_DIR}/schroot.conf")
 
 # Platform
 string(TOLOWER ${CMAKE_SYSTEM_NAME} SBUILD_PLATFORM)
+
+# Global environ
+check_symbol_exists(environ unistd.h HAVE_UNISTD_ENVIRON)
 
 # Localisation with gettext
 include(FindGettext)

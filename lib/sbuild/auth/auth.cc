@@ -33,6 +33,10 @@
 
 #include <boost/format.hpp>
 
+#ifndef HAVE_UNISTD_ENVIRON
+extern char **environ;
+#endif // HAVE_UNISTD_ENVIRON
+
 using std::cerr;
 using std::endl;
 using boost::format;
