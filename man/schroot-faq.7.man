@@ -15,7 +15,7 @@
 .\" <http://www.gnu.org/licenses/>.
 .\"
 .so config.man
-.TH SCHROOT-FAQ 7 "\*[RELEASE_DATE]" "Version \*[VERSION]" "Debian sbuild"
+.TH SCHROOT-FAQ 7 "\*[RELEASE_DATE]" "Version \*[VERSION]" "schroot Manual"
 .SH NAME
 schroot \- frequently asked questions
 .SH DESCRIPTION
@@ -249,14 +249,13 @@ latest sources from \f[CR]git://git.debian.org/git/buildd-tools/schroot\fP.
 .EE
 .LP
 The master branch containes the current development release.  Stable releases
-are found on branches, for example the 1.4 series of releases are on
-the schroot-1.4 branch.
+are found on branches, for example the 1.6 series of releases are on
+the schroot-1.6 branch.
 .so authors.man
 .so copyright.man
 .SH SEE ALSO
 .BR dchroot (1),
 .BR schroot (1),
-.BR sbuild (1),
 .BR schroot\-setup (5),
 .BR schroot.conf (5).
 .\"#

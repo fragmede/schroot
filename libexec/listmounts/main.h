@@ -23,61 +23,64 @@
 
 #include <libexec/listmounts/options.h>
 
-#include <sbuild/custom-error.h>
+#include <schroot/custom-error.h>
 
-/**
- * schroot-listmounts program components
- */
-namespace schroot_listmounts
+namespace bin
 {
-
   /**
-   * Frontend for schroot.  This class is used to "run" schroot.
+   * schroot-listmounts program components
    */
-  class main : public bin_common::main
+  namespace schroot_listmounts
   {
-  public:
-    /// Error codes.
-    enum error_code
-      {
-        FIND ///< Failed to find file.
-      };
-
-    /// Exception type.
-    typedef sbuild::custom_error<error_code> error;
 
     /**
-     * The constructor.
-     *
-     * @param options the command-line options to use.
+     * Frontend for schroot.  This class is used to "run" schroot.
      */
-    main (options::ptr& options);
+    class main : public bin::common::main
+    {
+    public:
+      /// Error codes.
+      enum error_code
+        {
+          FIND ///< Failed to find file.
+        };
 
-    /// The destructor.
-    virtual ~main ();
+      /// Exception type.
+      typedef schroot::custom_error<error_code> error;
 
-  private:
-    /**
-     * List mounts.
-     */
-    virtual void
-    action_listmounts ();
+      /**
+       * The constructor.
+       *
+       * @param options the command-line options to use.
+       */
+      main (options::ptr& options);
 
-  protected:
-    /**
-     * Run the program.
-     *
-     * @returns 0 on success, 1 on failure or the exit status of the
-     * chroot command.
-     */
-    virtual int
-    run_impl ();
+      /// The destructor.
+      virtual ~main ();
 
-  private:
-    /// The program options.
-    options::ptr opts;
-  };
+    private:
+      /**
+       * List mounts.
+       */
+      virtual void
+      action_listmounts ();
 
+    protected:
+      /**
+       * Run the program.
+       *
+       * @returns 0 on success, 1 on failure or the exit status of the
+       * chroot command.
+       */
+      virtual int
+      run_impl ();
+
+    private:
+      /// The program options.
+      options::ptr opts;
+    };
+
+  }
 }
 
 #endif /* LIBEXEC_LISTMOUNTS_MAIN_H */

@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include <sbuild/i18n.h>
-#include <sbuild/log.h>
+#include <schroot/i18n.h>
+#include <schroot/log.h>
 
 #include <bin-common/options.h>
 
@@ -31,144 +31,147 @@
 
 using std::endl;
 using boost::format;
-using sbuild::_;
+using schroot::_;
 namespace opt = boost::program_options;
 
-namespace bin_common
+namespace bin
 {
-
-  /// Display program help.
-  const options::action_type options::ACTION_HELP ("help");
-  /// Display program version.
-  const options::action_type options::ACTION_VERSION ("version");
-
-  options::options ():
-    action(),
-    quiet(false),
-    verbose(false),
-    actions(_("Actions")),
-    general(_("General options")),
-    hidden(_("Hidden options")),
-    positional(),
-    visible(),
-    global(),
-    vm()
+  namespace common
   {
-  }
 
-  options::~options ()
-  {
-  }
+    /// Display program help.
+    const options::action_type options::ACTION_HELP ("help");
+    /// Display program version.
+    const options::action_type options::ACTION_VERSION ("version");
 
-  boost::program_options::options_description const&
-  options::get_visible_options() const
-  {
-    return this->visible;
-  }
+    options::options ():
+      action(),
+      quiet(false),
+      verbose(false),
+      actions(_("Actions")),
+      general(_("General options")),
+      hidden(_("Hidden options")),
+      positional(),
+      visible(),
+      global(),
+      vm()
+    {
+    }
 
-  void
-  options::parse (int   argc,
-                  char *argv[])
-  {
-    add_options();
-    add_option_groups();
+    options::~options ()
+    {
+    }
 
-    opt::store(opt::command_line_parser(argc, argv).
-               options(global).positional(positional).run(), vm);
-    opt::notify(vm);
+    boost::program_options::options_description const&
+    options::get_visible_options() const
+    {
+      return this->visible;
+    }
 
-    check_options();
-    check_actions();
-  }
+    void
+    options::parse (int   argc,
+                    char *argv[])
+    {
+      add_options();
+      add_option_groups();
 
-  void
-  options::add_options ()
-  {
-    this->action.add(ACTION_HELP);
-    this->action.add(ACTION_VERSION);
+      opt::store(opt::command_line_parser(argc, argv).
+                 options(global).positional(positional).run(), vm);
+      opt::notify(vm);
 
-    actions.add_options()
-      ("help,h",
-       _("Show help options"))
-      ("version,V",
-       _("Print version information"));
+      check_options();
+      check_actions();
+    }
 
-    general.add_options()
-      ("quiet,q",
-       _("Show less output"))
-      ("verbose,v",
-       _("Show more output"));
+    void
+    options::add_options ()
+    {
+      this->action.add(ACTION_HELP);
+      this->action.add(ACTION_VERSION);
 
-    hidden.add_options()
-      ("debug", opt::value<std::string>(&this->debug_level),
-       _("Enable debugging messages"));
-  }
+      actions.add_options()
+        ("help,h",
+         _("Show help options"))
+        ("version,V",
+         _("Print version information"));
 
-  void
-  options::add_option_groups ()
-  {
+      general.add_options()
+        ("quiet,q",
+         _("Show less output"))
+        ("verbose,v",
+         _("Show more output"));
+
+      hidden.add_options()
+        ("debug", opt::value<std::string>(&this->debug_level),
+         _("Enable debugging messages"));
+    }
+
+    void
+    options::add_option_groups ()
+    {
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
-    if (!actions.options().empty())
+      if (!actions.options().empty())
 #else
-      if (!actions.primary_keys().empty())
+        if (!actions.primary_keys().empty())
 #endif
+          {
+            visible.add(actions);
+            global.add(actions);
+          }
+#ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
+      if (!general.options().empty())
+#else
+        if (!general.primary_keys().empty())
+#endif
+          {
+            visible.add(general);
+            global.add(general);
+          }
+#ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
+      if (!hidden.options().empty())
+#else
+        if (!hidden.primary_keys().empty())
+#endif
+          global.add(hidden);
+    }
+
+    void
+    options::check_options ()
+    {
+      if (vm.count("help"))
+        this->action = ACTION_HELP;
+
+      if (vm.count("version"))
+        this->action = ACTION_VERSION;
+
+      if (vm.count("quiet"))
+        this->quiet = true;
+      if (vm.count("verbose"))
+        this->verbose = true;
+
+      if (vm.count("debug"))
         {
-          visible.add(actions);
-          global.add(actions);
+          if (this->debug_level == "none")
+            schroot::debug_log_level = schroot::DEBUG_NONE;
+          else if (this->debug_level == "notice")
+            schroot::debug_log_level = schroot::DEBUG_NOTICE;
+          else if (this->debug_level == "info")
+            schroot::debug_log_level = schroot::DEBUG_INFO;
+          else if (this->debug_level == "warning")
+            schroot::debug_log_level = schroot::DEBUG_WARNING;
+          else if (this->debug_level == "critical")
+            schroot::debug_log_level = schroot::DEBUG_CRITICAL;
+          else
+            throw error(_("Invalid debug level"));
         }
-#ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
-    if (!general.options().empty())
-#else
-      if (!general.primary_keys().empty())
-#endif
-        {
-          visible.add(general);
-          global.add(general);
-        }
-#ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
-    if (!hidden.options().empty())
-#else
-      if (!hidden.primary_keys().empty())
-#endif
-        global.add(hidden);
+      else
+        schroot::debug_log_level = schroot::DEBUG_NONE;
+    }
+
+    void
+    options::check_actions ()
+    {
+    }
+
   }
-
-  void
-  options::check_options ()
-  {
-    if (vm.count("help"))
-      this->action = ACTION_HELP;
-
-    if (vm.count("version"))
-      this->action = ACTION_VERSION;
-
-    if (vm.count("quiet"))
-      this->quiet = true;
-    if (vm.count("verbose"))
-      this->verbose = true;
-
-    if (vm.count("debug"))
-      {
-        if (this->debug_level == "none")
-          sbuild::debug_log_level = sbuild::DEBUG_NONE;
-        else if (this->debug_level == "notice")
-          sbuild::debug_log_level = sbuild::DEBUG_NOTICE;
-        else if (this->debug_level == "info")
-          sbuild::debug_log_level = sbuild::DEBUG_INFO;
-        else if (this->debug_level == "warning")
-          sbuild::debug_log_level = sbuild::DEBUG_WARNING;
-        else if (this->debug_level == "critical")
-          sbuild::debug_log_level = sbuild::DEBUG_CRITICAL;
-        else
-          throw error(_("Invalid debug level"));
-      }
-    else
-      sbuild::debug_log_level = sbuild::DEBUG_NONE;
-  }
-
-  void
-  options::check_actions ()
-  {
-  }
-
 }

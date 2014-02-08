@@ -19,45 +19,48 @@
 #ifndef DCHROOT_COMMON_SESSION_H
 #define DCHROOT_COMMON_SESSION_H
 
-#include <sbuild/session.h>
+#include <schroot/session.h>
 
-namespace dchroot_common
+namespace bin
 {
-
-  /**
-   * Basic session handler for dchroot sessions.
-   *
-   * This class provides common session functionality for dchroot and
-   * dchroot-dsa, such as providing a schroot compatibility mode.  It
-   * also prevents user switching when running sessions, which is
-   * forbidden.
-   */
-  class session : public sbuild::session
+  namespace dchroot_common
   {
-  public:
+
     /**
-     * The constructor.
+     * Basic session handler for dchroot sessions.
      *
-     * @param service the PAM service name.
-     * @param operation the session operation to perform.
-     * @param chroots the chroots to act upon.
+     * This class provides common session functionality for dchroot and
+     * dchroot-dsa, such as providing a schroot compatibility mode.  It
+     * also prevents user switching when running sessions, which is
+     * forbidden.
      */
-    session (const std::string&         service,
-             operation                  operation,
-             const sbuild::session::chroot_list& chroots);
+    class session : public schroot::session
+    {
+    public:
+      /**
+       * The constructor.
+       *
+       * @param service the PAM service name.
+       * @param operation the session operation to perform.
+       * @param chroots the chroots to act upon.
+       */
+      session (const std::string&                   service,
+               operation                            operation,
+               const schroot::session::chroot_list& chroots);
 
-    /// The destructor.
-    virtual ~session ();
+      /// The destructor.
+      virtual ~session ();
 
-  protected:
-    virtual void
-    run_impl ();
+    protected:
+      virtual void
+      run_impl ();
 
-    virtual sbuild::string_list
-    get_command_directories (sbuild::chroot::chroot::ptr& session_chroot,
-                             const sbuild::environment&   env) const;
-  };
+      virtual schroot::string_list
+      get_command_directories (schroot::chroot::chroot::ptr& session_chroot,
+                               const schroot::environment&   env) const;
+    };
 
+  }
 }
 
 #endif /* DCHROOT_COMMON_SESSION_H */

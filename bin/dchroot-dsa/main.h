@@ -22,34 +22,37 @@
 #include <dchroot-common/main.h>
 #include <schroot-common/options.h>
 
-/**
- * dchroot-dsa program components.
- */
-namespace dchroot_dsa
+namespace bin
 {
-
   /**
-   * Frontend for dchroot-dsa.  This class is used to "run" dchroot-dsa.
+   * dchroot-dsa program components.
    */
-  class main : public dchroot_common::main
+  namespace dchroot_dsa
   {
-  public:
+
     /**
-     * The constructor.
-     *
-     * @param options the command-line options to use.
+     * Frontend for dchroot-dsa.  This class is used to "run" dchroot-dsa.
      */
-    main (schroot_common::options::ptr& options);
+    class main : public dchroot_common::main
+    {
+    public:
+      /**
+       * The constructor.
+       *
+       * @param options the command-line options to use.
+       */
+      main (schroot_common::options::ptr& options);
 
-    /// The destructor.
-    virtual ~main ();
+      /// The destructor.
+      virtual ~main ();
 
-  protected:
+    protected:
 
-    virtual void
-    create_session (sbuild::session::operation sess_op);
-  };
+      virtual void
+      create_session (schroot::session::operation sess_op);
+    };
 
+  }
 }
 
 #endif /* DCHROOT_DSA_MAIN_H */

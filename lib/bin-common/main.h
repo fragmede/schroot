@@ -30,83 +30,86 @@
  * parsing and common options, top-level error handling and a generic
  * method for program instantiation.
  */
-namespace bin_common
+namespace bin
 {
-
-  /**
-   * Frontend base for schroot programs.  This class is used to "run"
-   * schroot programs.  It contains functionality common to all
-   * programs, such as help and version output.
-   */
-  class main
+  namespace common
   {
-  public:
-    /**
-     * The constructor.
-     *
-     * @param program_name the program name.
-     * @param program_usage the program usage message.
-     * @param program_options the command-line options to use.
-     * @param use_syslog whether to open a connection to the system
-     * logger.
-     */
-    main (const std::string&  program_name,
-          const std::string&  program_usage,
-          const options::ptr& program_options,
-          bool                use_syslog);
-
-    /// The destructor.
-    virtual ~main ();
 
     /**
-     * Run the program.
-     *
-     * @param argc the number of arguments
-     * @param argv argument vector
-     * @returns 0 on success, 1 on failure or the exit status of the
-     * chroot command.
+     * Frontend base for schroot programs.  This class is used to "run"
+     * schroot programs.  It contains functionality common to all
+     * programs, such as help and version output.
      */
-    int
-    run (int   argc,
-         char *argv[]);
+    class main
+    {
+    public:
+      /**
+       * The constructor.
+       *
+       * @param program_name the program name.
+       * @param program_usage the program usage message.
+       * @param program_options the command-line options to use.
+       * @param use_syslog whether to open a connection to the system
+       * logger.
+       */
+      main (const std::string&  program_name,
+            const std::string&  program_usage,
+            const options::ptr& program_options,
+            bool                use_syslog);
 
-    /**
-     * Print help information.
-     *
-     * @param stream the stream to output to.
-     */
-    virtual void
-    action_help (std::ostream& stream);
+      /// The destructor.
+      virtual ~main ();
 
-    /**
-     * Print version information.
-     *
-     * @param stream the stream to output to.
-     */
-    virtual void
-    action_version (std::ostream& stream);
+      /**
+       * Run the program.
+       *
+       * @param argc the number of arguments
+       * @param argv argument vector
+       * @returns 0 on success, 1 on failure or the exit status of the
+       * chroot command.
+       */
+      int
+      run (int   argc,
+           char *argv[]);
 
-  protected:
-    /**
-     * Run the program.  This is the program-specific run method which
-     * must be implemented in a derived class.
-     *
-     * @returns 0 on success, 1 on failure or the exit status of the
-     * chroot command.
-     */
-    virtual int
-    run_impl () = 0;
+      /**
+       * Print help information.
+       *
+       * @param stream the stream to output to.
+       */
+      virtual void
+      action_help (std::ostream& stream);
 
-    /// The name of the program.
-    std::string  program_name;
-    /// The usage text of the program.
-    std::string  program_usage;
-    /// The program options.
-    options::ptr program_options;
-    /// Use syslog for message logging>
-    bool         use_syslog;
-  };
+      /**
+       * Print version information.
+       *
+       * @param stream the stream to output to.
+       */
+      virtual void
+      action_version (std::ostream& stream);
 
+    protected:
+      /**
+       * Run the program.  This is the program-specific run method which
+       * must be implemented in a derived class.
+       *
+       * @returns 0 on success, 1 on failure or the exit status of the
+       * chroot command.
+       */
+      virtual int
+      run_impl () = 0;
+
+      /// The name of the program.
+      std::string  program_name;
+      /// The usage text of the program.
+      std::string  program_usage;
+      /// The program options.
+      options::ptr program_options;
+      /// Use syslog for message logging>
+      bool         use_syslog;
+    };
+
+  }
 }
 
 #endif /* BIN_COMMON_MAIN_H */

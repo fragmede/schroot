@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <sbuild/i18n.h>
+#include <schroot/i18n.h>
 
 #include <libexec/listmounts/options.h>
 
@@ -30,65 +30,68 @@
 
 using std::endl;
 using boost::format;
-using sbuild::_;
+using schroot::_;
 namespace opt = boost::program_options;
 
-namespace schroot_listmounts
+namespace bin
 {
-
-  const options::action_type options::ACTION_LISTMOUNTS ("listmounts");
-
-  options::options ():
-    bin_common::options(),
-    mountpoint(),
-    mount(_("Mount"))
+  namespace schroot_listmounts
   {
-  }
 
-  options::~options ()
-  {
-  }
+    const options::action_type options::ACTION_LISTMOUNTS ("listmounts");
 
-  void
-  options::add_options ()
-  {
-    // Chain up to add basic options.
-    bin_common::options::add_options();
+    options::options ():
+      bin::common::options(),
+      mountpoint(),
+      mount(_("Mount"))
+    {
+    }
 
-    action.add(ACTION_LISTMOUNTS);
-    action.set_default(ACTION_LISTMOUNTS);
+    options::~options ()
+    {
+    }
 
-    mount.add_options()
-      ("mountpoint,m", opt::value<std::string>(&this->mountpoint),
-       _("Mountpoint to check (full path)"));
-  }
+    void
+    options::add_options ()
+    {
+      // Chain up to add basic options.
+      bin::common::options::add_options();
 
-  void
-  options::add_option_groups ()
-  {
-    // Chain up to add basic option groups.
-    bin_common::options::add_option_groups();
+      action.add(ACTION_LISTMOUNTS);
+      action.set_default(ACTION_LISTMOUNTS);
+
+      mount.add_options()
+        ("mountpoint,m", opt::value<std::string>(&this->mountpoint),
+         _("Mountpoint to check (full path)"));
+    }
+
+    void
+    options::add_option_groups ()
+    {
+      // Chain up to add basic option groups.
+      bin::common::options::add_option_groups();
 
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
-    if (!mount.options().empty())
+      if (!mount.options().empty())
 #else
-      if (!mount.primary_keys().empty())
+        if (!mount.primary_keys().empty())
 #endif
-        {
-          visible.add(mount);
-          global.add(mount);
-        }
+          {
+            visible.add(mount);
+            global.add(mount);
+          }
+    }
+
+    void
+    options::check_options ()
+    {
+      // Chain up to check basic options.
+      bin::common::options::check_options();
+
+      if (this->action == ACTION_LISTMOUNTS &&
+          this->mountpoint.empty())
+        throw error(_("No mount point specified"));
+    }
+
   }
-
-  void
-  options::check_options ()
-  {
-    // Chain up to check basic options.
-    bin_common::options::check_options();
-
-    if (this->action == ACTION_LISTMOUNTS &&
-        this->mountpoint.empty())
-      throw error(_("No mount point specified"));
-  }
-
 }

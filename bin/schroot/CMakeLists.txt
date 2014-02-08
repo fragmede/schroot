@@ -25,7 +25,7 @@ set(schroot_sources
 
 include_directories(${PROJECT_BINARY_DIR}/bin ${PROJECT_SOURCE_DIR}/bin)
 add_executable(schroot ${schroot_sources})
-target_link_libraries(schroot sbuild bin-common schroot-common)
+target_link_libraries(schroot libschroot bin-common schroot-common)
 
 install(TARGETS schroot RUNTIME
         DESTINATION ${CMAKE_INSTALL_FULL_BINDIR}

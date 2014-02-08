@@ -35,26 +35,29 @@
 
 using std::endl;
 using boost::format;
-using sbuild::_;
+using schroot::_;
 
-namespace dchroot_common
+namespace bin
 {
-
-  main::main (const std::string&            program_name,
-              const std::string&            program_usage,
-              schroot_common::options::ptr& options):
-    schroot_common::main(program_name, program_usage, options, true)
+  namespace dchroot_common
   {
-  }
 
-  main::~main ()
-  {
-  }
+    main::main (const std::string&            program_name,
+                const std::string&            program_usage,
+                schroot_common::options::ptr& options):
+      schroot_common::main(program_name, program_usage, options, true)
+    {
+    }
 
-  void
-  main::action_list ()
-  {
-    this->config->print_chroot_list_simple(std::cout);
-  }
+    main::~main ()
+    {
+    }
 
+    void
+    main::action_list ()
+    {
+      this->config->print_chroot_list_simple(std::cout);
+    }
+
+  }
 }

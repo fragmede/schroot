@@ -20,7 +20,7 @@
 
 #include <dchroot-dsa/options.h>
 
-#include <sbuild/util.h>
+#include <schroot/util.h>
 
 #include <cstdlib>
 #include <iostream>
@@ -29,83 +29,86 @@
 #include <boost/program_options.hpp>
 
 using std::endl;
-using sbuild::_;
+using schroot::_;
 using boost::format;
 namespace opt = boost::program_options;
 
-namespace dchroot_dsa
+namespace bin
 {
-
-  options::options ():
-    schroot_common::options()
+  namespace dchroot_dsa
   {
+
+    options::options ():
+      schroot_common::options()
+    {
+    }
+
+    options::~options ()
+    {
+    }
+
+    void
+    options::add_options ()
+    {
+      // Chain up to add general schroot options.
+      schroot_common::options::add_options();
+
+      actions.add_options()
+        ("listpaths,p",
+         _("Print paths to available chroots"));
+
+      chroot.add_options()
+        ("all,a",
+         _("Select all chroots"));
+
+      chrootenv.add_options()
+        ("directory,d", opt::value<std::string>(&this->directory),
+         _("Directory to use"));
+    }
+
+    void
+    options::check_options ()
+    {
+      // Chain up to check general schroot options.
+      schroot_common::options::check_options();
+
+      if (vm.count("listpaths"))
+        this->action = ACTION_LOCATION;
+
+      if (vm.count("all"))
+        {
+          this->all = false;
+          this->all_chroots = true;
+          this->all_sessions = false;
+        }
+
+      // Always preserve environment.
+      this->preserve = true;
+
+      // If no chroots specified, use the first non-option.
+      if (this->chroots.empty() && !this->command.empty())
+        {
+          this->chroots.push_back(this->command[0]);
+          this->command.erase(this->command.begin());
+        }
+
+      // dchroot-dsa only allows one command.
+      if (this->command.size() > 1)
+        throw error(_("Only one command may be specified"));
+
+      if (!this->command.empty() &&
+          !schroot::is_absname(this->command[0]))
+        throw error(_("Command must have an absolute path"));
+
+      if (this->chroots.empty() && !all_used() &&
+          (this->action != ACTION_CONFIG &&
+           this->action != ACTION_INFO &&
+           this->action != ACTION_LIST &&
+           this->action != ACTION_LOCATION &&
+           this->action != ACTION_HELP &&
+           this->action != ACTION_VERSION))
+        throw error(_("No chroot specified"));
+    }
+
   }
-
-  options::~options ()
-  {
-  }
-
-  void
-  options::add_options ()
-  {
-    // Chain up to add general schroot options.
-    schroot_common::options::add_options();
-
-    actions.add_options()
-      ("listpaths,p",
-       _("Print paths to available chroots"));
-
-    chroot.add_options()
-      ("all,a",
-       _("Select all chroots"));
-
-    chrootenv.add_options()
-      ("directory,d", opt::value<std::string>(&this->directory),
-       _("Directory to use"));
-  }
-
-  void
-  options::check_options ()
-  {
-    // Chain up to check general schroot options.
-    schroot_common::options::check_options();
-
-    if (vm.count("listpaths"))
-      this->action = ACTION_LOCATION;
-
-    if (vm.count("all"))
-      {
-        this->all = false;
-        this->all_chroots = true;
-        this->all_sessions = false;
-      }
-
-    // Always preserve environment.
-    this->preserve = true;
-
-    // If no chroots specified, use the first non-option.
-    if (this->chroots.empty() && !this->command.empty())
-      {
-        this->chroots.push_back(this->command[0]);
-        this->command.erase(this->command.begin());
-      }
-
-    // dchroot-dsa only allows one command.
-    if (this->command.size() > 1)
-      throw error(_("Only one command may be specified"));
-
-    if (!this->command.empty() &&
-        !sbuild::is_absname(this->command[0]))
-      throw error(_("Command must have an absolute path"));
-
-    if (this->chroots.empty() && !all_used() &&
-        (this->action != ACTION_CONFIG &&
-         this->action != ACTION_INFO &&
-         this->action != ACTION_LIST &&
-         this->action != ACTION_LOCATION &&
-         this->action != ACTION_HELP &&
-         this->action != ACTION_VERSION))
-      throw error(_("No chroot specified"));
-  }
-
 }

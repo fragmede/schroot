@@ -15,7 +15,7 @@
 .\" <http://www.gnu.org/licenses/>.
 .\"
 .so config.man
-.TH SCHROOT-SCRIPT-CONFIG 5 "\*[RELEASE_DATE]" "Version \*[VERSION]" "Debian sbuild"
+.TH SCHROOT-SCRIPT-CONFIG 5 "\*[RELEASE_DATE]" "Version \*[VERSION]" "schroot Manual"
 .SH NAME
 schroot-script-config \- schroot chroot setup script configuration
 .SH DESCRIPTION
@@ -71,7 +71,6 @@ each database.  Note that this is settable using the
 .so authors.man
 .so copyright.man
 .SH SEE ALSO
-.BR sbuild (1),
 .BR schroot (1),
 .BR sh (1),
 .BR schroot.conf (5),

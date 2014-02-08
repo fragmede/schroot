@@ -21,67 +21,70 @@
 
 #include <bin-common/options.h>
 
-#include <sbuild/config.h>
-#include <sbuild/log.h>
+#include <schroot/config.h>
+#include <schroot/log.h>
 
 #include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <string>
 
-namespace bin_common
+namespace bin
 {
-
-  /**
-   * Main routine.
-   *
-   * @param argc the number of arguments
-   * @param argv argument vector
-   *
-   * @returns 0 on success, 1 on failure or the exit status of the
-   * chroot command.
-   */
-  template<class O, class M>
-  static int
-  run (int   argc,
-       char *argv[])
+  namespace common
   {
-    typedef O options_type;
-    typedef M main_type;
 
-    try
-      {
-        // Set up locale.
-        try
-          {
-            std::locale::global(std::locale(""));
-          }
-        catch (const std::runtime_error& e) // Invalid locale
-          {
-            std::locale::global(std::locale::classic());
-          }
-        std::cout.imbue(std::locale());
-        std::cerr.imbue(std::locale());
+    /**
+     * Main routine.
+     *
+     * @param argc the number of arguments
+     * @param argv argument vector
+     *
+     * @returns 0 on success, 1 on failure or the exit status of the
+     * chroot command.
+     */
+    template<class O, class M>
+    static int
+    run (int   argc,
+         char *argv[])
+    {
+      typedef O options_type;
+      typedef M main_type;
 
-        sbuild::bindtextdomain (SBUILD_MESSAGE_CATALOGUE, SCHROOT_LOCALE_DIR);
-        sbuild::textdomain (SBUILD_MESSAGE_CATALOGUE);
+      try
+        {
+          // Set up locale.
+          try
+            {
+              std::locale::global(std::locale(""));
+            }
+          catch (const std::runtime_error& e) // Invalid locale
+            {
+              std::locale::global(std::locale::classic());
+            }
+          std::cout.imbue(std::locale());
+          std::cerr.imbue(std::locale());
 
-        typename options_type::ptr opts(new options_type);
-        main_type kit(opts);
-        exit (kit.run(argc, argv));
-      }
-    catch (const std::exception& e)
-      {
-        sbuild::log_exception_error(e);
-        exit(EXIT_FAILURE);
-      }
-    catch (...)
-      {
-        sbuild::log_unknown_exception_error();
-        exit(EXIT_FAILURE);
-      }
+          ::schroot::bindtextdomain (SCHROOT_MESSAGE_CATALOGUE, SCHROOT_LOCALE_DIR);
+          ::schroot::textdomain (SCHROOT_MESSAGE_CATALOGUE);
+
+          typename options_type::ptr opts(new options_type);
+          main_type kit(opts);
+          exit (kit.run(argc, argv));
+        }
+      catch (const std::exception& e)
+        {
+          ::schroot::log_exception_error(e);
+          exit(EXIT_FAILURE);
+        }
+      catch (...)
+        {
+          ::schroot::log_unknown_exception_error();
+          exit(EXIT_FAILURE);
+        }
+    }
+
   }
-
 }
 
 #endif /* BIN_COMMON_RUN_H */

@@ -86,9 +86,9 @@ endif(dchroot-dsa)
 
 # Configure debugging
 option(debug "Enable debugging messages" OFF)
-set(SBUILD_DEBUG 0)
+set(SCHROOT_DEBUG 0)
 if(debug)
-  set(SBUILD_DEBUG 1)
+  set(SCHROOT_DEBUG 1)
 endif(debug)
 
 # Configure debugging
@@ -102,7 +102,7 @@ set(BUILD_TESTS ${test})
 # Environment filter default
 set(default_environment_filter "^(BASH_ENV|CDPATH|ENV|HOSTALIASES|IFS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMAIN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TERMPATH)\$"
     CACHE STRING "Default environment filter")
-set(SBUILD_DEFAULT_ENVIRONMENT_FILTER ${default_environment_filter})
+set(SCHROOT_DEFAULT_ENVIRONMENT_FILTER ${default_environment_filter})
 
 # Distributor
 set(distributor "Unknown"
@@ -158,7 +158,7 @@ set(TESTDATADIR "${PROJECT_BINARY_DIR}/test/testdata")
 set(SCHROOT_CONF "${SCHROOT_SYSCONF_DIR}/schroot.conf")
 
 # Platform
-string(TOLOWER ${CMAKE_SYSTEM_NAME} SBUILD_PLATFORM)
+string(TOLOWER ${CMAKE_SYSTEM_NAME} SCHROOT_PLATFORM)
 
 # Global environ
 check_symbol_exists(environ unistd.h HAVE_UNISTD_ENVIRON)
@@ -172,7 +172,7 @@ if(GETTEXT_FOUND)
 endif(GETTEXT_FOUND)
 option(nls "Enable national language support (requires gettext)" ${NLS_DEFAULT})
 set(BUILD_NLS ${nls})
-set(SBUILD_FEATURE_NLS ${pam})
+set(SCHROOT_FEATURE_NLS ${pam})
 
 # PAM authentication feature
 check_include_file_cxx (security/pam_appl.h PAM_HEADER)
@@ -187,7 +187,7 @@ if(PAM_HEADER AND PAM_FUNC)
 endif(PAM_HEADER AND PAM_FUNC)
 option(pam "Enable support for PAM authentication (requires libpam)" ${PAM_DEFAULT})
 set(BUILD_PAM ${pam})
-set(SBUILD_FEATURE_PAM ${pam})
+set(SCHROOT_FEATURE_PAM ${pam})
 if(BUILD_PAM)
   set(PAM_LIBRARY pam)
 endif(BUILD_PAM)
@@ -204,7 +204,7 @@ if (LVCREATE_EXECUTABLE AND LVREMOVE_EXECUTABLE)
 endif (LVCREATE_EXECUTABLE AND LVREMOVE_EXECUTABLE)
 option(lvm-snapshot "Enable support for LVM snapshots (requires LVM)" ${LVMSNAP_DEFAULT})
 set(BUILD_LVMSNAP ${lvm-snapshot})
-set(SBUILD_FEATURE_LVMSNAP ${lvm-snapshot})
+set(SCHROOT_FEATURE_LVMSNAP ${lvm-snapshot})
 if (lvm-snapshot)
   set(BLOCKDEV_DEFAULT ON)
 endif(lvm-snapshot)
@@ -217,7 +217,7 @@ if (BTRFS_EXECUTABLE)
 endif (BTRFS_EXECUTABLE)
 option(btrfs-snapshot "Enable support for btrfs snapshots (requires Btrfs)" ${BTRFSSNAP_DEFAULT})
 set(BUILD_BTRFSSNAP ${btrfs-snapshot})
-set(SBUILD_FEATURE_BTRFSSNAP ${btrfs-snapshot})
+set(SCHROOT_FEATURE_BTRFSSNAP ${btrfs-snapshot})
 if (btrfs-snapshot)
   set(BLOCKDEV_DEFAULT ON)
 endif(btrfs-snapshot)
@@ -225,7 +225,7 @@ endif(btrfs-snapshot)
 # Block device mount feature
 option(block-device "Enable support for block devices" ${BLOCKDEV_DEFAULT})
 set(BUILD_BLOCKDEV ${block-device})
-set(SBUILD_FEATURE_BLOCKDEV ${block-device})
+set(SCHROOT_FEATURE_BLOCKDEV ${block-device})
 # Check for blockdev/lvmsnap option compatibility
 if(lvm-snapshot AND NOT block-device)
   message(FATAL_ERROR "block-device must be enabled when lvm-snapshot is enabled")
@@ -242,13 +242,13 @@ if (LOSETUP_EXECUTABLE)
 endif (LOSETUP_EXECUTABLE)
 option(loopback "Enable support for loopback mounts" ${LOOPBACK_DEFAULT})
 set(BUILD_LOOPBACK ${loopback})
-set(SBUILD_FEATURE_LOOPBACK ${loopback})
+set(SCHROOT_FEATURE_LOOPBACK ${loopback})
 
 # Filesystem union mount feature
 set(UNION_DEFAULT ON)
 option(union "Enable support for union mounts" ${UNION_DEFAULT})
 set(BUILD_UNION ${union})
-set(SBUILD_FEATURE_UNION ${union})
+set(SCHROOT_FEATURE_UNION ${union})
 
 # Doxygen documentation
 include(FindDoxygen)
@@ -285,7 +285,7 @@ if (UNSHARE_HEADER AND UNSHARE_FUNC)
 endif (UNSHARE_HEADER AND UNSHARE_FUNC)
 option(unshare "Enable unshare support (Linux only)" ${UNSHARE_DEFAULT})
 set(BUILD_UNSHARE ${unshare})
-set(SBUILD_FEATURE_UNSHARE ${unshare})
+set(SCHROOT_FEATURE_UNSHARE ${unshare})
 
 # Kernel personality feature
 # sys/personality.h ==> PERSONALITY_HEADER
@@ -297,7 +297,7 @@ if (PERSONALITY_HEADER AND PERSONALITY_FUNC)
 endif (PERSONALITY_HEADER AND PERSONALITY_FUNC)
 option(personality "Enable personality support (Linux only)" ${PERSONALITY_DEFAULT})
 set(BUILD_PERSONALITY ${personality})
-set(SBUILD_FEATURE_PERSONALITY ${personality})
+set(SCHROOT_FEATURE_PERSONALITY ${personality})
 
 # GENERATED FILES:
 configure_file(${PROJECT_SOURCE_DIR}/config.h.cmake ${PROJECT_BINARY_DIR}/config.h)
@@ -309,7 +309,7 @@ include_directories(${PROJECT_BINARY_DIR}/lib
 
 enable_testing()
 
-add_subdirectory(lib/sbuild)
+add_subdirectory(lib/schroot)
 add_subdirectory(lib/bin-common)
 add_subdirectory(lib/schroot-common)
 add_subdirectory(lib/dchroot-common)

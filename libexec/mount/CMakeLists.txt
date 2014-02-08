@@ -24,7 +24,7 @@ set(mount_sources
     mount.cc)
 
 add_executable(mount ${mount_sources})
-target_link_libraries(mount sbuild bin-common
+target_link_libraries(mount libschroot bin-common
                       ${Boost_FILESYSTEM_LIBRARY_RELEASE}
                       ${Boost_SYSTEM_LIBRARY_RELEASE})
 

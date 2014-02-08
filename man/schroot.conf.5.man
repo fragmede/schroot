@@ -15,7 +15,7 @@
 .\" <http://www.gnu.org/licenses/>.
 .\"
 .so config.man
-.TH SCHROOT.CONF 5 "\*[RELEASE_DATE]" "Version \*[VERSION]" "Debian sbuild"
+.TH SCHROOT.CONF 5 "\*[RELEASE_DATE]" "Version \*[VERSION]" "schroot Manual"
 .SH NAME
 schroot.conf \- chroot definition file for schroot
 .SH DESCRIPTION
@@ -721,7 +721,6 @@ named \fI\*[SCHROOT_SYSCONF_DIR]/nssdatabases\-defaults\fP.
 .so authors.man
 .so copyright.man
 .SH SEE ALSO
-.BR sbuild (1),
 .BR schroot (1),
 .BR schroot\-script\-config (5),
 .BR schroot\-faq (7),

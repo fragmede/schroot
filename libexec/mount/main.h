@@ -23,105 +23,108 @@
 
 #include <libexec/mount/options.h>
 
-#include <sbuild/custom-error.h>
-#include <sbuild/environment.h>
+#include <schroot/custom-error.h>
+#include <schroot/environment.h>
 
-/**
- * schroot-mount program components
- */
-namespace schroot_mount
+namespace bin
 {
-
   /**
-   * Frontend for schroot-mount.  This class is used to "run" schroot-mount.
+   * schroot-mount program components
    */
-  class main : public bin_common::main
+  namespace schroot_mount
   {
-  public:
-    /// Error codes.
-    enum error_code
-      {
-        CHILD_FORK, ///< Failed to fork child.
-        CHILD_WAIT, ///< Wait for child failed.
-        EXEC,       ///< Failed to execute.
-        REALPATH    ///< Failed to resolve path.
-      };
-
-    /// Exception type.
-    typedef sbuild::custom_error<error_code> error;
 
     /**
-     * The constructor.
-     *
-     * @param options the command-line options to use.
+     * Frontend for schroot-mount.  This class is used to "run" schroot-mount.
      */
-    main (options::ptr& options);
+    class main : public bin::common::main
+    {
+    public:
+      /// Error codes.
+      enum error_code
+        {
+          CHILD_FORK, ///< Failed to fork child.
+          CHILD_WAIT, ///< Wait for child failed.
+          EXEC,       ///< Failed to execute.
+          REALPATH    ///< Failed to resolve path.
+        };
 
-    /// The destructor.
-    virtual ~main ();
+      /// Exception type.
+      typedef schroot::custom_error<error_code> error;
 
-  private:
-    /**
-     * Mount filesystems.
-     */
-    virtual void
-    action_mount ();
+      /**
+       * The constructor.
+       *
+       * @param options the command-line options to use.
+       */
+      main (options::ptr& options);
 
-    /**
-     * Run the command specified by file (an absolute pathname), using
-     * command and env as the argv and environment, respectively.
-     *
-     * @param file the program to execute.
-     * @param command the arguments to pass to the executable.
-     * @param env the environment.
-     * @returns the return value of the execve system call on failure.
-     */
-    int
-    run_child(const std::string& file,
-              const sbuild::string_list& command,
-              const sbuild::environment& env);
+      /// The destructor.
+      virtual ~main ();
 
-    /**
-     * Ensure that the mountpoint is a valid absolute path inside the
-     * chroot.  This is to avoid absolute or relative symlinks
-     * pointing outside the chroot causing filesystems to be mounted
-     * on the host.  An exception will be thrown if it is not possible
-     * to resolve the path.
-     *
-     * @param mountpoint the mountpoint to check,
-     * @returns the validated path.
-     */
+    private:
+      /**
+       * Mount filesystems.
+       */
+      virtual void
+      action_mount ();
 
-    std::string
-    resolve_path (const std::string& mountpoint);
+      /**
+       * Run the command specified by file (an absolute pathname), using
+       * command and env as the argv and environment, respectively.
+       *
+       * @param file the program to execute.
+       * @param command the arguments to pass to the executable.
+       * @param env the environment.
+       * @returns the return value of the execve system call on failure.
+       */
+      int
+      run_child(const std::string&          file,
+                const schroot::string_list& command,
+                const schroot::environment& env);
 
-    /**
-     * Wait for a child process to complete, and check its exit status.
-     *
-     * An error will be thrown on failure.
-     *
-     * @param pid the pid to wait for.
-     * @param child_status the place to store the child exit status.
-     */
-    void
-    wait_for_child (pid_t pid,
-                    int&  child_status);
+      /**
+       * Ensure that the mountpoint is a valid absolute path inside the
+       * chroot.  This is to avoid absolute or relative symlinks
+       * pointing outside the chroot causing filesystems to be mounted
+       * on the host.  An exception will be thrown if it is not possible
+       * to resolve the path.
+       *
+       * @param mountpoint the mountpoint to check,
+       * @returns the validated path.
+       */
 
-  protected:
-    /**
-     * Run the program.
-     *
-     * @returns 0 on success, 1 on failure or the exit status of the
-     * chroot command.
-     */
-    virtual int
-    run_impl ();
+      std::string
+      resolve_path (const std::string& mountpoint);
 
-  private:
-    /// The program options.
-    options::ptr opts;
-  };
+      /**
+       * Wait for a child process to complete, and check its exit status.
+       *
+       * An error will be thrown on failure.
+       *
+       * @param pid the pid to wait for.
+       * @param child_status the place to store the child exit status.
+       */
+      void
+      wait_for_child (pid_t pid,
+                      int&  child_status);
 
+    protected:
+      /**
+       * Run the program.
+       *
+       * @returns 0 on success, 1 on failure or the exit status of the
+       * chroot command.
+       */
+      virtual int
+      run_impl ();
+
+    private:
+      /// The program options.
+      options::ptr opts;
+    };
+
+  }
 }
 
 #endif /* LIBEXEC_MOUNT_MAIN_H */

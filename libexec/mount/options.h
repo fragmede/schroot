@@ -23,50 +23,53 @@
 
 #include <string>
 
-namespace schroot_mount
+namespace bin
 {
-
-  /**
-   * schroot-mount command-line options.
-   */
-  class options : public bin_common::options
+  namespace schroot_mount
   {
-  public:
-    /// A shared_ptr to an options object.
-    typedef std::shared_ptr<options> ptr;
 
-    /// Begin, run and end a session.
-    static const action_type ACTION_MOUNT;
+    /**
+     * schroot-mount command-line options.
+     */
+    class options : public bin::common::options
+    {
+    public:
+      /// A shared_ptr to an options object.
+      typedef std::shared_ptr<options> ptr;
 
-    /// The constructor.
-    options ();
+      /// Begin, run and end a session.
+      static const action_type ACTION_MOUNT;
 
-    /// The destructor.
-    virtual ~options ();
+      /// The constructor.
+      options ();
 
-    /// Dry run.
-    bool dry_run;
+      /// The destructor.
+      virtual ~options ();
 
-    /// The fstab to read.
-    std::string fstab;
+      /// Dry run.
+      bool dry_run;
 
-    /// The mountpoint to check.
-    std::string mountpoint;
+      /// The fstab to read.
+      std::string fstab;
 
-  protected:
-    virtual void
-    add_options ();
+      /// The mountpoint to check.
+      std::string mountpoint;
 
-    virtual void
-    add_option_groups ();
+    protected:
+      virtual void
+      add_options ();
 
-    virtual void
-    check_options ();
+      virtual void
+      add_option_groups ();
 
-    /// Mount options group.
-    boost::program_options::options_description mount;
-  };
+      virtual void
+      check_options ();
 
+      /// Mount options group.
+      boost::program_options::options_description mount;
+    };
+
+  }
 }
 
 #endif /* LIBEXEC_MOUNT_OPTIONS_H */

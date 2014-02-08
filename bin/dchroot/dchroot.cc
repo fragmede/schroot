@@ -39,5 +39,5 @@ int
 main (int   argc,
       char *argv[])
 {
-  return bin_common::run<dchroot::options, dchroot::main>(argc, argv);
+  return bin::common::run<bin::dchroot::options, bin::dchroot::main>(argc, argv);
 }

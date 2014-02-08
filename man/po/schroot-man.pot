@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: schroot 1.6.7\n"
-"POT-Creation-Date: 2014-01-03 19:31+0000\n"
+"Project-Id-Version: schroot 1.7.2-31-g981b40a\n"
+"POT-Creation-Date: 2014-02-08 17:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgstr ""
 #. type: TH
 #: schroot.1.man:20 schroot-setup.5.man:18 schroot.conf.5.man:18 schroot-script-config.5.man:18 schroot-faq.7.man:18 dchroot.1.man:20 dchroot-dsa.1.man:20
 #, no-wrap
-msgid "Debian sbuild"
+msgid "schroot Manual"
 msgstr ""
 
 #. type: SH
@@ -1547,10 +1547,10 @@ msgid "SEE ALSO"
 msgstr ""
 
 #. type: Plain text
-#: schroot.1.man:701
+#: schroot.1.man:700
 msgid ""
-"B<dchroot>(1), B<sbuild>(1), B<chroot>(2), B<run-parts>(8), "
-"B<schroot-setup>(5), B<schroot-faq>(7), B<schroot.conf>(5)."
+"B<dchroot>(1), B<chroot>(2), B<run-parts>(8), B<schroot-setup>(5), "
+"B<schroot-faq>(7), B<schroot.conf>(5)."
 msgstr ""
 
 #. type: TH
@@ -3794,10 +3794,8 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot.conf.5.man:728
-msgid ""
-"B<sbuild>(1), B<schroot>(1), B<schroot-script-config>(5), B<schroot-faq>(7), "
-"B<mount>(8)."
+#: schroot.conf.5.man:727
+msgid "B<schroot>(1), B<schroot-script-config>(5), B<schroot-faq>(7), B<mount>(8)."
 msgstr ""
 
 #. type: TH
@@ -3910,10 +3908,8 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: schroot-script-config.5.man:78
-msgid ""
-"B<sbuild>(1), B<schroot>(1), B<sh>(1), B<schroot.conf>(5), "
-"B<schroot-setup>(5)."
+#: schroot-script-config.5.man:77
+msgid "B<schroot>(1), B<sh>(1), B<schroot.conf>(5), B<schroot-setup>(5)."
 msgstr ""
 
 #. type: TH
@@ -4413,15 +4409,13 @@ msgstr ""
 #: schroot-faq.7.man:254
 msgid ""
 "The master branch containes the current development release.  Stable "
-"releases are found on branches, for example the 1.4 series of releases are "
-"on the schroot-1.4 branch."
+"releases are found on branches, for example the 1.6 series of releases are "
+"on the schroot-1.6 branch."
 msgstr ""
 
 #. type: Plain text
-#: schroot-faq.7.man:261
-msgid ""
-"B<dchroot>(1), B<schroot>(1), B<sbuild>(1), B<schroot-setup>(5), "
-"B<schroot.conf>(5)."
+#: schroot-faq.7.man:260
+msgid "B<dchroot>(1), B<schroot>(1), B<schroot-setup>(5), B<schroot.conf>(5)."
 msgstr ""
 
 #. type: ds PROGRAM
@@ -4796,10 +4790,8 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: dchroot.1.man:284 dchroot-dsa.1.man:239
-msgid ""
-"B<schroot>(1), B<sbuild>(1), B<chroot>(2), B<schroot-setup>(5), "
-"B<schroot.conf>(5)."
+#: dchroot.1.man:283 dchroot-dsa.1.man:238
+msgid "B<schroot>(1), B<chroot>(2), B<schroot-setup>(5), B<schroot.conf>(5)."
 msgstr ""
 
 #. type: ds PROGRAM

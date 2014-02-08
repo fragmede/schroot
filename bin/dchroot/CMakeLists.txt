@@ -29,7 +29,7 @@ include_directories(${PROJECT_BINARY_DIR}/bin ${PROJECT_SOURCE_DIR}/bin)
 
 if(BUILD_DCHROOT)
   add_executable(dchroot ${dchroot_sources})
-  target_link_libraries(dchroot sbuild bin-common schroot-common dchroot-common)
+  target_link_libraries(dchroot libschroot bin-common schroot-common dchroot-common)
 
   install(TARGETS dchroot RUNTIME
           DESTINATION ${CMAKE_INSTALL_FULL_BINDIR}

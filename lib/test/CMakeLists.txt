@@ -21,5 +21,5 @@ set(test_sources
 
 if (BUILD_TESTS)
   add_library(testmain STATIC ${test_sources})
-  target_link_libraries(testmain sbuild ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+  target_link_libraries(testmain libschroot ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 endif (BUILD_TESTS)

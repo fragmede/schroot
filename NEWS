@@ -10,7 +10,11 @@ configuration.
 
 * Major changes in 1.7.3:
 
-  None.
+  1) The shared library has been renamed to "libschroot" rather than
+     the historical "libsbuild" and likewise the primary namespace is
+     now "schroot" rather than "sbuild".  To prevent conflicts with
+     the new namespace, all code intended for binary programs is in
+     the "bin" namespace.  There are no visible changes for end users.
 
 * Major changes in 1.7.2:
 

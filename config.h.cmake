@@ -129,49 +129,49 @@
 #cmakedefine RELEASE_DATE_S "${RELEASE_DATE_S}"
 
 /* Enable debugging */
-#cmakedefine SBUILD_DEBUG 1
+#cmakedefine SCHROOT_DEBUG 1
 
 /* Default regular expression used to filter user environment */
-#cmakedefine SBUILD_DEFAULT_ENVIRONMENT_FILTER "${SBUILD_DEFAULT_ENVIRONMENT_FILTER}"
+#cmakedefine SCHROOT_DEFAULT_ENVIRONMENT_FILTER "${SCHROOT_DEFAULT_ENVIRONMENT_FILTER}"
 
 /* Set if the block-device chroot type is present */
-#cmakedefine SBUILD_FEATURE_BLOCKDEV 1
+#cmakedefine SCHROOT_FEATURE_BLOCKDEV 1
 
 /* Set if the btrfs-snapshot chroot type is present */
-#cmakedefine SBUILD_FEATURE_BTRFSSNAP 1
+#cmakedefine SCHROOT_FEATURE_BTRFSSNAP 1
 
 /* Set if the loopback chroot type is present */
-#cmakedefine SBUILD_FEATURE_LOOPBACK 1
+#cmakedefine SCHROOT_FEATURE_LOOPBACK 1
 
 /* Set if the lvm-snapshot chroot type is present */
-#cmakedefine SBUILD_FEATURE_LVMSNAP 1
+#cmakedefine SCHROOT_FEATURE_LVMSNAP 1
 
 /* Set if PAM support is available */
-#cmakedefine SBUILD_FEATURE_PAM 1
+#cmakedefine SCHROOT_FEATURE_PAM 1
 
 /* Set if personality support is present */
-#cmakedefine SBUILD_FEATURE_PERSONALITY 1
+#cmakedefine SCHROOT_FEATURE_PERSONALITY 1
 
 /* Set if the union filesystem type is present */
-#cmakedefine SBUILD_FEATURE_UNION 1
+#cmakedefine SCHROOT_FEATURE_UNION 1
 
 /* Set if unshare support is present */
-#cmakedefine SBUILD_FEATURE_UNSHARE 1
+#cmakedefine SCHROOT_FEATURE_UNSHARE 1
 
 /* Host GNU architecture triplet */
-#cmakedefine SBUILD_HOST "${SBUILD_HOST}"
+#cmakedefine SCHROOT_HOST "${SCHROOT_HOST}"
 
 /* Host CPU */
-#cmakedefine SBUILD_HOST_CPU "${SBUILD_HOST_CPU}"
+#cmakedefine SCHROOT_HOST_CPU "${SCHROOT_HOST_CPU}"
 
 /* Host OS */
-#cmakedefine SBUILD_HOST_OS "${SBUILD_HOST_OS}"
+#cmakedefine SCHROOT_HOST_OS "${SCHROOT_HOST_OS}"
 
 /* Host vendor */
-#cmakedefine SBUILD_HOST_VENDOR "${SBUILD_HOST_VENDOR}"
+#cmakedefine SCHROOT_HOST_VENDOR "${SCHROOT_HOST_VENDOR}"
 
 /* Platform type, used to modify run-time platform-specific behaviour */
-#cmakedefine SBUILD_PLATFORM "${SBUILD_PLATFORM}"
+#cmakedefine SCHROOT_PLATFORM "${SCHROOT_PLATFORM}"
 
 /* Test data directory */
 #cmakedefine TESTDATADIR "${TESTDATADIR}"

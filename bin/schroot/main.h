@@ -23,41 +23,47 @@
 #include <schroot-common/options.h>
 
 /**
- * schroot program components.
+ * schroot binary components.
  */
-namespace schroot
+namespace bin
 {
-
   /**
-   * Frontend for schroot.  This class is used to "run" schroot.
+   * schroot program components.
    */
-  class main : public schroot_common::main
+  namespace schroot
   {
-  public:
-    /**
-     * The constructor.
-     *
-     * @param options the command-line options to use.
-     */
-    main (schroot_common::options::ptr& options);
-
-    /// The destructor.
-    virtual ~main ();
 
     /**
-     * List chroots.
+     * Frontend for schroot.  This class is used to "run" schroot.
      */
-    virtual void
-    action_list ();
+    class main : public schroot_common::main
+    {
+    public:
+      /**
+       * The constructor.
+       *
+       * @param options the command-line options to use.
+       */
+      main (schroot_common::options::ptr& options);
 
-  protected:
-    virtual void
-    create_session(sbuild::session::operation sess_op);
+      /// The destructor.
+      virtual ~main ();
 
-    virtual void
-    add_session_auth ();
-  };
+      /**
+       * List chroots.
+       */
+      virtual void
+      action_list ();
 
+    protected:
+      virtual void
+      create_session(::schroot::session::operation sess_op);
+
+      virtual void
+      add_session_auth ();
+    };
+
+  }
 }
 
 #endif /* SCHROOT_MAIN_H */

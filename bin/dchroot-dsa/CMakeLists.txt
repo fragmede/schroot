@@ -29,10 +29,10 @@ include_directories(${PROJECT_BINARY_DIR}/bin ${PROJECT_SOURCE_DIR}/bin)
 
 if(BUILD_DCHROOT_DSA)
   add_executable(dchroot-dsa ${dchroot_dsa_sources})
-  target_link_libraries(dchroot-dsa sbuild bin-common schroot-common dchroot-common)
+  target_link_libraries(dchroot-dsa libschroot bin-common schroot-common dchroot-common)
 
   install(TARGETS dchroot-dsa RUNTIME
-           DESTINATION ${CMAKE_INSTALL_FULL_BINDIR}
+          DESTINATION ${CMAKE_INSTALL_FULL_BINDIR}
           PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
                        GROUP_READ GROUP_EXECUTE
                       WORLD_READ WORLD_EXECUTE

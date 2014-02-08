@@ -17,7 +17,7 @@
 .\" <http://www.gnu.org/licenses/>.
 .\"
 .so config.man
-.TH SCHROOT 1 "\*[RELEASE_DATE]" "Version \*[VERSION]" "Debian sbuild"
+.TH SCHROOT 1 "\*[RELEASE_DATE]" "Version \*[VERSION]" "schroot Manual"
 .SH NAME
 schroot \- securely enter a chroot environment
 .SH SYNOPSIS
@@ -693,7 +693,6 @@ Directory used for unpacking file chroots.
 .so copyright.man
 .SH SEE ALSO
 .BR dchroot (1),
-.BR sbuild (1),
 .BR chroot (2),
 .BR run\-parts (8),
 .BR schroot\-setup (5),
