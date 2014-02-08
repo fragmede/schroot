@@ -40,5 +40,5 @@ main (int   argc,
       char *argv[])
 {
   return bin_common::run
-    <dchroot_dsa::options, dchroot_dsa::main>(argc, argv);
+    <bin::dchroot_dsa::options, bin::dchroot_dsa::main>(argc, argv);
 }
