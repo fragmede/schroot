@@ -84,7 +84,7 @@ Add checks for unsupported features in setup scripts.
 
 Define operator &= and |= for enum types defining | and & operators.
 
-Header include order: chroot-facet depends upon sbuild-chroot being
+Header include order: chroot-facet depends upon schroot-chroot being
 included first.  Try to break this dependency.
 
 --end-session --force should forcibly end "broken" sessions by
@@ -92,8 +92,8 @@ manually umounting and purging mount and session directories and
 metadata.
 
 Chroot validation does not distinguish between chroots and sessions.
-Also, sbuild::session uses find_alias to find chroots, but it should
-specifically look for either chroots or sessions (and potentially
-also source chroots).  Teach sbuild::chroot_config to treat all these
+Also, schroot::session uses find_alias to find chroots, but it should
+specifically look for either chroots or sessions (and potentially also
+source chroots).  Teach schroot::chroot::config to treat all these
 separately.  Aliases are only useful for SESSION_AUTOMATIC and BEGIN.
 
