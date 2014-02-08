@@ -249,8 +249,8 @@ latest sources from \f[CR]git://git.debian.org/git/buildd-tools/schroot\fP.
 .EE
 .LP
 The master branch containes the current development release.  Stable releases
-are found on branches, for example the 1.4 series of releases are on
-the schroot-1.4 branch.
+are found on branches, for example the 1.6 series of releases are on
+the schroot-1.6 branch.
 .so authors.man
 .so copyright.man
 .SH SEE ALSO
