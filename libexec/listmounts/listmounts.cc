@@ -41,5 +41,5 @@ main (int   argc,
       char *argv[])
 {
   return bin::common::run
-    <schroot_listmounts::options, schroot_listmounts::main>(argc, argv);
+    <bin::schroot_listmounts::options, bin::schroot_listmounts::main>(argc, argv);
 }

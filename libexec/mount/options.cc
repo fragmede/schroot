@@ -34,74 +34,77 @@ using boost::format;
 using schroot::_;
 namespace opt = boost::program_options;
 
-namespace schroot_mount
+namespace bin
 {
-
-  const options::action_type options::ACTION_MOUNT ("mount");
-
-  options::options ():
-    bin::common::options(),
-    dry_run(false),
-    fstab(),
-    mountpoint(),
-    mount(_("Mount"))
+  namespace schroot_mount
   {
-  }
 
-  options::~options ()
-  {
-  }
+    const options::action_type options::ACTION_MOUNT ("mount");
 
-  void
-  options::add_options ()
-  {
-    // Chain up to add basic options.
-    bin::common::options::add_options();
+    options::options ():
+      bin::common::options(),
+      dry_run(false),
+      fstab(),
+      mountpoint(),
+      mount(_("Mount"))
+    {
+    }
 
-    action.add(ACTION_MOUNT);
-    action.set_default(ACTION_MOUNT);
+    options::~options ()
+    {
+    }
+
+    void
+    options::add_options ()
+    {
+      // Chain up to add basic options.
+      bin::common::options::add_options();
+
+      action.add(ACTION_MOUNT);
+      action.set_default(ACTION_MOUNT);
 
 
-    mount.add_options()
-      ("dry-run,d",
-       _("Perform a simulation of actions which would be taken"))
-      ("fstab,f", opt::value<std::string>(&this->fstab),
-       _("fstab file to read (full path)"))
-      ("mountpoint,m", opt::value<std::string>(&this->mountpoint),
-       _("Mountpoint to check (full path)"));
-  }
+      mount.add_options()
+        ("dry-run,d",
+         _("Perform a simulation of actions which would be taken"))
+        ("fstab,f", opt::value<std::string>(&this->fstab),
+         _("fstab file to read (full path)"))
+        ("mountpoint,m", opt::value<std::string>(&this->mountpoint),
+         _("Mountpoint to check (full path)"));
+    }
 
-  void
-  options::add_option_groups ()
-  {
-    // Chain up to add basic option groups.
-    bin::common::options::add_option_groups();
+    void
+    options::add_option_groups ()
+    {
+      // Chain up to add basic option groups.
+      bin::common::options::add_option_groups();
 
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
-    if (!mount.options().empty())
+      if (!mount.options().empty())
 #else
-      if (!mount.primary_keys().empty())
+        if (!mount.primary_keys().empty())
 #endif
-        {
-          visible.add(mount);
-          global.add(mount);
-        }
+          {
+            visible.add(mount);
+            global.add(mount);
+          }
+    }
+
+    void
+    options::check_options ()
+    {
+      // Chain up to check basic options.
+      bin::common::options::check_options();
+
+      if (vm.count("dry-run"))
+        this->dry_run = true;
+
+      this->mountpoint = schroot::normalname(this->mountpoint);
+
+      if (this->action == ACTION_MOUNT &&
+          this->mountpoint.empty())
+        throw error(_("No mount point specified"));
+    }
+
   }
-
-  void
-  options::check_options ()
-  {
-    // Chain up to check basic options.
-    bin::common::options::check_options();
-
-    if (vm.count("dry-run"))
-      this->dry_run = true;
-
-    this->mountpoint = schroot::normalname(this->mountpoint);
-
-    if (this->action == ACTION_MOUNT &&
-        this->mountpoint.empty())
-      throw error(_("No mount point specified"));
-  }
-
 }
