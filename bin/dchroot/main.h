@@ -21,33 +21,36 @@
 
 #include <dchroot-common/main.h>
 
-/**
- * dchroot program components.
- */
-namespace dchroot
+namespace bin
 {
-
   /**
-   * Frontend for dchroot.  This class is used to "run" dchroot.
+   * dchroot program components.
    */
-  class main : public dchroot_common::main
+  namespace dchroot
   {
-  public:
+
     /**
-     * The constructor.
-     *
-     * @param options the command-line options to use.
+     * Frontend for dchroot.  This class is used to "run" dchroot.
      */
-    main (schroot_common::options::ptr& options);
+    class main : public dchroot_common::main
+    {
+    public:
+      /**
+       * The constructor.
+       *
+       * @param options the command-line options to use.
+       */
+      main (schroot_common::options::ptr& options);
 
-    /// The destructor.
-    virtual ~main ();
+      /// The destructor.
+      virtual ~main ();
 
-  protected:
-    virtual void
-    create_session (sbuild::session::operation sess_op);
-  };
+    protected:
+      virtual void
+      create_session (sbuild::session::operation sess_op);
+    };
 
+  }
 }
 
 #endif /* DCHROOT_MAIN_H */

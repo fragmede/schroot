@@ -21,29 +21,32 @@
 
 #include <schroot-common/options.h>
 
-namespace dchroot
+namespace bin
 {
-
-  /**
-   * dchroot command-line options.
-   */
-  class options : public schroot_common::options
+  namespace dchroot
   {
-  public:
-    /// The constructor.
-    options ();
 
-    /// The destructor.
-    virtual ~options ();
+    /**
+     * dchroot command-line options.
+     */
+    class options : public schroot_common::options
+    {
+    public:
+      /// The constructor.
+      options ();
 
-  protected:
-    virtual void
-    add_options ();
+      /// The destructor.
+      virtual ~options ();
 
-    virtual void
-    check_options ();
-  };
+    protected:
+      virtual void
+      add_options ();
 
+      virtual void
+      check_options ();
+    };
+
+  }
 }
 
 #endif /* DCHROOT_OPTIONS_H */
