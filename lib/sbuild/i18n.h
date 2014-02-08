@@ -48,6 +48,85 @@
 
 namespace sbuild
 {
+
+  /**
+   * Bind a text message domain.
+   *
+   * Note the returned directory may be altered from the directory
+   * requested.
+   *
+   * @param domain the text message domain.
+   * @param directory the directory containing the message catalogues.
+   * @returns the directory or null on failure.
+   *
+   * @todo Throw exception on failure.
+   */
+  inline const char *
+  bindtextdomain (const char *domain,
+                  const char *directory)
+  {
+#ifdef SBUILD_FEATURE_NLS
+    return ::bindtextdomain(domain, directory);
+#else
+    return directory;
+#endif // SBUILD_FEATURE_NLS
+  }
+
+  /**
+   * Bind a text message domain.
+   *
+   * Note the returned directory may be altered from the directory
+   * requested.
+   *
+   * @param domain the text message domain.
+   * @param directory the directory containing the message catalogues.
+   * @returns the directory or null on failure.
+   *
+   * @todo Throw exception on failure.
+   */
+  inline const char *
+  bindtextdomain (const std::string& domain,
+                  const std::string& directory)
+  {
+    return bindtextdomain(domain.c_str(), directory.c_str());
+  }
+
+  /**
+   * Set text message domain.
+   *
+   * Note the returned domain may differ from the domain requested.
+   *
+   * @param domain the text message domain.
+   * @returns the message domain set.
+   *
+   * @todo Throw exception on failure.
+   */
+  inline const char *
+  textdomain (const char *domain)
+  {
+#ifdef SBUILD_FEATURE_NLS
+    return ::textdomain(domain);
+#else
+    return domain;
+#endif // SBUILD_FEATURE_NLS
+  }
+
+  /**
+   * Set text message domain.
+   *
+   * Note the returned domain may differ from the domain requested.
+   *
+   * @param domain the text message domain.
+   * @returns the message domain set.
+   *
+   * @todo Throw exception on failure.
+   */
+  inline const char *
+  bindtextdomain (const std::string& domain)
+  {
+    return textdomain(domain.c_str());
+  }
+
   /**
    * Get a translated message.
    *
@@ -58,7 +137,7 @@ namespace sbuild
   gettext (const char *message)
   {
 #ifdef SBUILD_FEATURE_NLS
-    return dgettext (SBUILD_MESSAGE_CATALOGUE, message);
+    return ::dgettext (SBUILD_MESSAGE_CATALOGUE, message);
 #else
     return message;
 #endif // SBUILD_FEATURE_NLS
@@ -74,6 +153,52 @@ namespace sbuild
   gettext (const std::string& message)
   {
     return gettext(message.c_str());
+  }
+
+  /**
+   * Get a translated message from the specified message domain.
+   *
+   * @param domain the message domain.
+   * @param message the message to translate.
+   * @returns the translated message.
+   */
+  inline const char *
+  dgettext (const char *domain,
+            const char *message)
+  {
+#ifdef SBUILD_FEATURE_NLS
+    return ::dgettext (domain, message);
+#else
+    return message;
+#endif // SBUILD_FEATURE_NLS
+  }
+
+  /**
+   * Get a translated message from the specified message domain.
+   *
+   * @param domain the message domain.
+   * @param message the message to translate.
+   * @returns the translated message.
+   */
+  inline const char *
+  dgettext (const char        *domain,
+            const std::string& message)
+  {
+    return dgettext(domain, message.c_str());
+  }
+
+  /**
+   * Get a translated message from the specified message domain.
+   *
+   * @param domain the message domain.
+   * @param message the message to translate.
+   * @returns the translated message.
+   */
+  inline const char *
+  dgettext (const std::string& domain,
+            const std::string& message)
+  {
+    return dgettext(domain.c_str(), message.c_str());
   }
 
   /**

@@ -63,8 +63,8 @@ namespace bin_common
         std::cout.imbue(std::locale());
         std::cerr.imbue(std::locale());
 
-        bindtextdomain (SBUILD_MESSAGE_CATALOGUE, SCHROOT_LOCALE_DIR);
-        textdomain (SBUILD_MESSAGE_CATALOGUE);
+        sbuild::bindtextdomain (SBUILD_MESSAGE_CATALOGUE, SCHROOT_LOCALE_DIR);
+        sbuild::textdomain (SBUILD_MESSAGE_CATALOGUE);
 
         typename options_type::ptr opts(new options_type);
         main_type kit(opts);
