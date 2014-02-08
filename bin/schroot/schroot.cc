@@ -39,5 +39,5 @@ int
 main (int   argc,
       char *argv[])
 {
-  return bin_common::run<schroot::options, schroot::main>(argc, argv);
+  return bin_common::run<bin::schroot::options, bin::schroot::main>(argc, argv);
 }
