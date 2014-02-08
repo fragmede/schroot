@@ -22,35 +22,38 @@
 #include <schroot-common/main.h>
 #include <schroot-common/options.h>
 
-namespace dchroot_common
+namespace bin
 {
-
-  /**
-   * Frontend base class for dchroot.  This class contains frontend
-   * functionality common to dchroot and dchroot-dsa.
-   */
-  class main : public schroot_common::main
+  namespace dchroot_common
   {
-  public:
+
     /**
-     * The constructor.
-     *
-     * @param program_name the program name.
-     * @param program_usage the program usage message.
-     * @param options the command-line options to use.
+     * Frontend base class for dchroot.  This class contains frontend
+     * functionality common to dchroot and dchroot-dsa.
      */
-    main (const std::string&            program_name,
-          const std::string&            program_usage,
-          schroot_common::options::ptr& options);
+    class main : public schroot_common::main
+    {
+    public:
+      /**
+       * The constructor.
+       *
+       * @param program_name the program name.
+       * @param program_usage the program usage message.
+       * @param options the command-line options to use.
+       */
+      main (const std::string&            program_name,
+            const std::string&            program_usage,
+            schroot_common::options::ptr& options);
 
-    /// The destructor.
-    virtual ~main ();
+      /// The destructor.
+      virtual ~main ();
 
-  protected:
-    virtual void
-    action_list ();
-  };
+    protected:
+      virtual void
+      action_list ();
+    };
 
+  }
 }
 
 #endif /* DCHROOT_COMMON_MAIN_H */

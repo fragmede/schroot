@@ -38,6 +38,8 @@ using std::endl;
 using sbuild::_;
 using boost::format;
 
+namespace bin
+{
 namespace dchroot_common
 {
 
@@ -71,4 +73,5 @@ namespace dchroot_common
     return get_login_directories(session_chroot, env);
   }
 
+}
 }
