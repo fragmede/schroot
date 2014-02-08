@@ -721,7 +721,6 @@ named \fI\*[SCHROOT_SYSCONF_DIR]/nssdatabases\-defaults\fP.
 .so authors.man
 .so copyright.man
 .SH SEE ALSO
-.BR sbuild (1),
 .BR schroot (1),
 .BR schroot\-script\-config (5),
 .BR schroot\-faq (7),

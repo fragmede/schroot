@@ -278,7 +278,6 @@ independent implementation.
 .so copyright.man
 .SH SEE ALSO
 .BR schroot (1),
-.BR sbuild (1),
 .BR chroot (2),
 .BR schroot-setup (5),
 .BR schroot.conf (5).

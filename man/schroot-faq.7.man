@@ -256,7 +256,6 @@ the schroot-1.4 branch.
 .SH SEE ALSO
 .BR dchroot (1),
 .BR schroot (1),
-.BR sbuild (1),
 .BR schroot\-setup (5),
 .BR schroot.conf (5).
 .\"#
