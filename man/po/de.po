@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.6.6-1\n"
 "Report-Msgid-Bugs-To: schroot@packages.debian.org\n"
-"POT-Creation-Date: 2014-01-03 19:31+0000\n"
+"POT-Creation-Date: 2014-02-08 17:38+0000\n"
 "PO-Revision-Date: 2013-10-02 18:32+0100\n"
 "Last-Translator: Chris Leick <c.leick@vollbio.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -86,8 +86,8 @@ msgstr "Version \\*[VERSION]"
 #: schroot-script-config.5.man:18 schroot-faq.7.man:18 dchroot.1.man:20
 #: dchroot-dsa.1.man:20
 #, no-wrap
-msgid "Debian sbuild"
-msgstr "Debian-Sbuild"
+msgid "schroot Manual"
+msgstr ""
 
 #. type: SH
 #: schroot.1.man:21 schroot-setup.5.man:19 schroot.conf.5.man:19
@@ -2062,10 +2062,14 @@ msgstr "SIEHE AUCH"
 
 # FIXME wrong order
 #. type: Plain text
-#: schroot.1.man:701
+#: schroot.1.man:700
+#, fuzzy
+#| msgid ""
+#| "B<dchroot>(1), B<sbuild>(1), B<chroot>(2), B<run-parts>(8), B<schroot-"
+#| "setup>(5), B<schroot-faq>(7), B<schroot.conf>(5)."
 msgid ""
-"B<dchroot>(1), B<sbuild>(1), B<chroot>(2), B<run-parts>(8), B<schroot-"
-"setup>(5), B<schroot-faq>(7), B<schroot.conf>(5)."
+"B<dchroot>(1), B<chroot>(2), B<run-parts>(8), B<schroot-setup>(5), B<schroot-"
+"faq>(7), B<schroot.conf>(5)."
 msgstr ""
 "B<dchroot>(1), B<sbuild>(1), B<chroot>(2), B<schroot.conf>(5), B<schroot-"
 "setup>(5), B<schroot-faq>(7), B<run-parts>(8)"
@@ -4930,10 +4934,13 @@ msgstr ""
 "Definitionen enthalten."
 
 #. type: Plain text
-#: schroot.conf.5.man:728
+#: schroot.conf.5.man:727
+#, fuzzy
+#| msgid ""
+#| "B<sbuild>(1), B<schroot>(1), B<schroot-script-config>(5), B<schroot-"
+#| "faq>(7), B<mount>(8)."
 msgid ""
-"B<sbuild>(1), B<schroot>(1), B<schroot-script-config>(5), B<schroot-faq>(7), "
-"B<mount>(8)."
+"B<schroot>(1), B<schroot-script-config>(5), B<schroot-faq>(7), B<mount>(8)."
 msgstr ""
 "B<sbuild>(1), B<schroot>(1), B<schroot-script-config>(5), B<schroot-faq>(7), "
 "B<mount>(8)."
@@ -5096,10 +5103,12 @@ msgstr ""
 "kann."
 
 #. type: Plain text
-#: schroot-script-config.5.man:78
-msgid ""
-"B<sbuild>(1), B<schroot>(1), B<sh>(1), B<schroot.conf>(5), B<schroot-"
-"setup>(5)."
+#: schroot-script-config.5.man:77
+#, fuzzy
+#| msgid ""
+#| "B<sbuild>(1), B<schroot>(1), B<sh>(1), B<schroot.conf>(5), B<schroot-"
+#| "setup>(5)."
+msgid "B<schroot>(1), B<sh>(1), B<schroot.conf>(5), B<schroot-setup>(5)."
 msgstr ""
 "B<sbuild>(1), B<schroot>(1), B<sh>(1), B<schroot.conf>(5), B<schroot-"
 "setup>(5)."
@@ -5751,10 +5760,15 @@ msgstr "% \\f[CB]git clone git://git.debian.org/git/buildd-tools/schroot\\fR\\[C
 
 #. type: Plain text
 #: schroot-faq.7.man:254
+#, fuzzy
+#| msgid ""
+#| "The master branch containes the current development release.  Stable "
+#| "releases are found on branches, for example the 1.4 series of releases "
+#| "are on the schroot-1.4 branch."
 msgid ""
 "The master branch containes the current development release.  Stable "
-"releases are found on branches, for example the 1.4 series of releases are "
-"on the schroot-1.4 branch."
+"releases are found on branches, for example the 1.6 series of releases are "
+"on the schroot-1.6 branch."
 msgstr ""
 "Der Zweig »master« enthält die aktuelle Entwicklungsveröffentlichung. "
 "Stabile Veröffentlichungen werden in Zweigen gefunden, zum Beispiel liegen "
@@ -5762,10 +5776,12 @@ msgstr ""
 
 # FIXME wrong order
 #. type: Plain text
-#: schroot-faq.7.man:261
-msgid ""
-"B<dchroot>(1), B<schroot>(1), B<sbuild>(1), B<schroot-setup>(5), B<schroot."
-"conf>(5)."
+#: schroot-faq.7.man:260
+#, fuzzy
+#| msgid ""
+#| "B<dchroot>(1), B<schroot>(1), B<sbuild>(1), B<schroot-setup>(5), "
+#| "B<schroot.conf>(5)."
+msgid "B<dchroot>(1), B<schroot>(1), B<schroot-setup>(5), B<schroot.conf>(5)."
 msgstr ""
 "B<dchroot>(1), B<sbuild>(1), B<schroot>(1), B<schroot-setup>(5), B<schroot."
 "conf>(5)"
@@ -6264,10 +6280,12 @@ msgstr ""
 
 # FIXME wrong order
 #. type: Plain text
-#: dchroot.1.man:284 dchroot-dsa.1.man:239
-msgid ""
-"B<schroot>(1), B<sbuild>(1), B<chroot>(2), B<schroot-setup>(5), B<schroot."
-"conf>(5)."
+#: dchroot.1.man:283 dchroot-dsa.1.man:238
+#, fuzzy
+#| msgid ""
+#| "B<schroot>(1), B<sbuild>(1), B<chroot>(2), B<schroot-setup>(5), B<schroot."
+#| "conf>(5)."
+msgid "B<schroot>(1), B<chroot>(2), B<schroot-setup>(5), B<schroot.conf>(5)."
 msgstr ""
 "B<sbuild>(1), B<schroot>(1), B<chroot>(2), B<schroot-setup>(5), B<schroot."
 "conf>(5)."
@@ -6620,6 +6638,9 @@ msgstr ""
 "dsa>-Quellpaket, das ein von Ben Collins \\f[CR]E<lt>bcollins@debian.orgE<gt>"
 "\\fR und Martin Schulze \\f[CR]E<lt>joey@debian.orgE<gt>\\fR geschriebenes "
 "B<dchroot-dsa>-Paket bereitstellt."
+
+#~ msgid "Debian sbuild"
+#~ msgstr "Debian-Sbuild"
 
 # FIXME s/(5). /(5)/
 #~ msgid ""

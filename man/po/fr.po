@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-09-24 22:30+0100\n"
+"POT-Creation-Date: 2014-02-08 17:38+0000\n"
 "PO-Revision-Date: 2013-10-01 21:43+0100\n"
 "Last-Translator: Thomas Blein <tblein@tblein.eu>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -84,8 +84,8 @@ msgstr "Version \\*[VERSION]"
 #: schroot-script-config.5.man:18 schroot-faq.7.man:18 dchroot.1.man:20
 #: dchroot-dsa.1.man:20
 #, no-wrap
-msgid "Debian sbuild"
-msgstr "Debian sbuild"
+msgid "schroot Manual"
+msgstr ""
 
 #. type: SH
 #: schroot.1.man:21 schroot-setup.5.man:19 schroot.conf.5.man:19
@@ -122,7 +122,21 @@ msgid ""
 "B<--all-source-chroots> \\[or] B<--all-sessions>] [B<--exclude-aliases>]] "
 "[B<-o>\\[or]B<--option=>I<key=value>] [B<-->] [B<COMMAND> [ B<ARG1> "
 "[ B<ARG2> [ B<ARGn>]]]]"
-msgstr "B<schroot> [B<-h>\\[or]B<--help> \\[or] B<-V>\\[or]B<--version> \\[or] B<-l>\\[or]B<--list> \\[or] B<-i>\\[or]B<--info> \\[or] B<--config> \\[or] B<--location> \\[or] B<--automatic-session> \\[or] B<-b>\\[or]B<--begin-session> \\[or] B<--recover-session> \\[or] B<-r>\\[or]B<--run-session> \\[or] B<-e>\\[or]B<--end-session>] [B<-f>\\[or]B<--force>] [B<-n >I<nom-de-session>\\[or]B<--session-name=>I<nom-de-session>] [B<-d >I<répertoire>\\[or]B<--directory=>I<répertoire>] [B<-u >I<utilisateur>\\[or]B<--user=>I<utilisateur>] [B<-u >I<utilisateur>\\[or]B<--user=>I<utilisateur>] [B<-p>\\[or]B<--preserve-environment>][B<-s >I<shell>\\[or]B<--shell=>I<shell>] [B<-q> \\[or]B<--quiet> \\[or] B<-v>\\[or]B<--verbose>] [B<-c >I<chroot>\\[or]B<--chroot=>I<chroot> \\[or] B<--all> \\[or] B<--all-chroots> \\[or] B<--all-source-chroots> \\[or] B<--all-sessions>] \\[or] B<--exclude-aliases> [B<-o>\\[or]B<--option=>I<clé=valeur>]  [B<-->] [B<COMMANDE> [ B<ARG1> [ B<ARG2> [ B<ARGn>]]]]"
+msgstr ""
+"B<schroot> [B<-h>\\[or]B<--help> \\[or] B<-V>\\[or]B<--version> \\[or] B<-l>"
+"\\[or]B<--list> \\[or] B<-i>\\[or]B<--info> \\[or] B<--config> \\[or] B<--"
+"location> \\[or] B<--automatic-session> \\[or] B<-b>\\[or]B<--begin-session> "
+"\\[or] B<--recover-session> \\[or] B<-r>\\[or]B<--run-session> \\[or] B<-e>"
+"\\[or]B<--end-session>] [B<-f>\\[or]B<--force>] [B<-n >I<nom-de-session>"
+"\\[or]B<--session-name=>I<nom-de-session>] [B<-d >I<répertoire>\\[or]B<--"
+"directory=>I<répertoire>] [B<-u >I<utilisateur>\\[or]B<--"
+"user=>I<utilisateur>] [B<-u >I<utilisateur>\\[or]B<--user=>I<utilisateur>] "
+"[B<-p>\\[or]B<--preserve-environment>][B<-s >I<shell>\\[or]B<--"
+"shell=>I<shell>] [B<-q> \\[or]B<--quiet> \\[or] B<-v>\\[or]B<--verbose>] [B<-"
+"c >I<chroot>\\[or]B<--chroot=>I<chroot> \\[or] B<--all> \\[or] B<--all-"
+"chroots> \\[or] B<--all-source-chroots> \\[or] B<--all-sessions>] \\[or] B<--"
+"exclude-aliases> [B<-o>\\[or]B<--option=>I<clé=valeur>]  [B<-->] "
+"[B<COMMANDE> [ B<ARG1> [ B<ARG2> [ B<ARGn>]]]]"
 
 #. type: SH
 #: schroot.1.man:44 schroot-setup.5.man:21 schroot.conf.5.man:21
@@ -2052,10 +2066,14 @@ msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
 
 #. type: Plain text
-#: schroot.1.man:701
+#: schroot.1.man:700
+#, fuzzy
+#| msgid ""
+#| "B<dchroot>(1), B<sbuild>(1), B<chroot>(2), B<run-parts>(8), B<schroot-"
+#| "setup>(5), B<schroot-faq>(7), B<schroot.conf>(5)."
 msgid ""
-"B<dchroot>(1), B<sbuild>(1), B<chroot>(2), B<run-parts>(8), B<schroot-"
-"setup>(5), B<schroot-faq>(7), B<schroot.conf>(5)."
+"B<dchroot>(1), B<chroot>(2), B<run-parts>(8), B<schroot-setup>(5), B<schroot-"
+"faq>(7), B<schroot.conf>(5)."
 msgstr ""
 "B<dchroot>(1), B<sbuild>(1), B<chroot>(2), B<run-parts>(8), B<schroot-"
 "setup>(5), B<schroot-faq>(7), B<schroot.conf>(5)."
@@ -3183,7 +3201,13 @@ msgid ""
 "access without a password (but if a user or a group they belong to is in "
 "\\f[CI]users\\fR or \\f[CI]groups\\fR, respectively, they may gain access "
 "with a password).  See the section \\[lq]I<Security>\\[rq] below."
-msgstr "Une liste séparée par des virgules de groupes qui sont autorisés à devenir root dans le chroot B<sans mot de passe>. Si vide ou omis, aucun utilisateur ne sera autorisé à devenir root sans mot de passe (mais si un utilisateur ou un groupe auquel il appartient est dans \\f[CI]users\\fR ou \\f[CI]groups\\fR, respectivement, il peut obtenir un accès avec un mot de passe). Consultez la section \\[lq]I<Sécurité>\\[rq] ci-dessous."
+msgstr ""
+"Une liste séparée par des virgules de groupes qui sont autorisés à devenir "
+"root dans le chroot B<sans mot de passe>. Si vide ou omis, aucun utilisateur "
+"ne sera autorisé à devenir root sans mot de passe (mais si un utilisateur ou "
+"un groupe auquel il appartient est dans \\f[CI]users\\fR ou \\f[CI]groups"
+"\\fR, respectivement, il peut obtenir un accès avec un mot de passe). "
+"Consultez la section \\[lq]I<Sécurité>\\[rq] ci-dessous."
 
 #. type: TP
 #: schroot.conf.5.man:97
@@ -4314,7 +4338,10 @@ msgstr "\\f[CBI]union-underlay-directory\\f[CI]=répertoire\\fR"
 msgid ""
 "Specify the directory where the read-only underlying directories will be "
 "created.  The default is \\[oq]\\*[SCHROOT_UNDERLAY_DIR]\\[cq]."
-msgstr "Spécifier le répertoire où les répertoires de la sous-couche en lecture seule seront créés. Par défaut il s'agit de \\[oq]\\*[SCHROOT_UNDERLAY_DIR]\\[cq]."
+msgstr ""
+"Spécifier le répertoire où les répertoires de la sous-couche en lecture "
+"seule seront créés. Par défaut il s'agit de "
+"\\[oq]\\*[SCHROOT_UNDERLAY_DIR]\\[cq]."
 
 #. type: SS
 #: schroot.conf.5.man:473
@@ -4927,10 +4954,13 @@ msgstr ""
 "définitions de chroot."
 
 #. type: Plain text
-#: schroot.conf.5.man:728
+#: schroot.conf.5.man:727
+#, fuzzy
+#| msgid ""
+#| "B<sbuild>(1), B<schroot>(1), B<schroot-script-config>(5), B<schroot-"
+#| "faq>(7), B<mount>(8)."
 msgid ""
-"B<sbuild>(1), B<schroot>(1), B<schroot-script-config>(5), B<schroot-faq>(7), "
-"B<mount>(8)."
+"B<schroot>(1), B<schroot-script-config>(5), B<schroot-faq>(7), B<mount>(8)."
 msgstr ""
 "B<sbuild>(1), B<schroot>(1), B<schroot-script-config>(5), B<schroot-faq>(7), "
 "B<mount>(8)."
@@ -5095,10 +5125,12 @@ msgstr ""
 "nssdatabases\\fR."
 
 #. type: Plain text
-#: schroot-script-config.5.man:78
-msgid ""
-"B<sbuild>(1), B<schroot>(1), B<sh>(1), B<schroot.conf>(5), B<schroot-"
-"setup>(5)."
+#: schroot-script-config.5.man:77
+#, fuzzy
+#| msgid ""
+#| "B<sbuild>(1), B<schroot>(1), B<sh>(1), B<schroot.conf>(5), B<schroot-"
+#| "setup>(5)."
+msgid "B<schroot>(1), B<sh>(1), B<schroot.conf>(5), B<schroot-setup>(5)."
 msgstr ""
 "B<sbuild>(1), B<schroot>(1), B<sh>(1), B<schroot.conf>(5), B<schroot-"
 "setup>(5)."
@@ -5742,20 +5774,27 @@ msgstr "% \\f[CB]git clone git://git.debian.org/git/buildd-tools/schroot\\fR\\[C
 
 #. type: Plain text
 #: schroot-faq.7.man:254
+#, fuzzy
+#| msgid ""
+#| "The master branch containes the current development release.  Stable "
+#| "releases are found on branches, for example the 1.4 series of releases "
+#| "are on the schroot-1.4 branch."
 msgid ""
 "The master branch containes the current development release.  Stable "
-"releases are found on branches, for example the 1.4 series of releases are "
-"on the schroot-1.4 branch."
+"releases are found on branches, for example the 1.6 series of releases are "
+"on the schroot-1.6 branch."
 msgstr ""
 "La branche maîtresse contient la version de développement courante. Les "
 "versions stables peuvent être trouvées dans les branches. Par exemple la "
 "série de version 1.4 est la branche schroot-1.4."
 
 #. type: Plain text
-#: schroot-faq.7.man:261
-msgid ""
-"B<dchroot>(1), B<schroot>(1), B<sbuild>(1), B<schroot-setup>(5), B<schroot."
-"conf>(5)."
+#: schroot-faq.7.man:260
+#, fuzzy
+#| msgid ""
+#| "B<dchroot>(1), B<schroot>(1), B<sbuild>(1), B<schroot-setup>(5), "
+#| "B<schroot.conf>(5)."
+msgid "B<dchroot>(1), B<schroot>(1), B<schroot-setup>(5), B<schroot.conf>(5)."
 msgstr ""
 "B<dchroot>(1), B<schroot>(1), B<sbuild>(1), B<schroot-setup>(5), B<schroot."
 "conf>(5)."
@@ -5786,7 +5825,13 @@ msgid ""
 "environment>] [B<-q>\\[or]B<--quiet> \\[or] B<-v>\\[or]B<--verbose>] [B<-c "
 ">I<chroot>\\[or]B<--chroot=>I<chroot> \\[or] B<--all>] [B<COMMAND> [ B<ARG1> "
 "[ B<ARG2> [ B<ARGn>]]]]"
-msgstr "B<dchroot> [B<-h>\\[or]B<--help> \\[or] B<-V>\\[or]B<--version> \\[or] B<-l>\\[or]B<--list> \\[or] B<-i>\\[or]B<--info> \\[or] B<--config> \\[or] B<--location>] [B<--directory=>I<répertoire>] [B<-d>\\[or]B<--preserve-environment>] [B<-q>\\[or]B<--quiet> \\[or] B<-v>\\[or]B<--verbose>] [B<-c >I<chroot>\\[or]B<--chroot=>I<chroot> \\[or] B<--all>] [B<COMMANDE> [ B<ARG1> [ B<ARG2> [ B<ARGn>]]]]"
+msgstr ""
+"B<dchroot> [B<-h>\\[or]B<--help> \\[or] B<-V>\\[or]B<--version> \\[or] B<-l>"
+"\\[or]B<--list> \\[or] B<-i>\\[or]B<--info> \\[or] B<--config> \\[or] B<--"
+"location>] [B<--directory=>I<répertoire>] [B<-d>\\[or]B<--preserve-"
+"environment>] [B<-q>\\[or]B<--quiet> \\[or] B<-v>\\[or]B<--verbose>] [B<-c "
+">I<chroot>\\[or]B<--chroot=>I<chroot> \\[or] B<--all>] [B<COMMANDE> "
+"[ B<ARG1> [ B<ARG2> [ B<ARGn>]]]]"
 
 #. type: Plain text
 #: dchroot.1.man:38
@@ -6246,10 +6291,12 @@ msgstr ""
 "orgE<gt>\\fR, mais est une implémentation indépendante."
 
 #. type: Plain text
-#: dchroot.1.man:284 dchroot-dsa.1.man:239
-msgid ""
-"B<schroot>(1), B<sbuild>(1), B<chroot>(2), B<schroot-setup>(5), B<schroot."
-"conf>(5)."
+#: dchroot.1.man:283 dchroot-dsa.1.man:238
+#, fuzzy
+#| msgid ""
+#| "B<schroot>(1), B<sbuild>(1), B<chroot>(2), B<schroot-setup>(5), B<schroot."
+#| "conf>(5)."
+msgid "B<schroot>(1), B<chroot>(2), B<schroot-setup>(5), B<schroot.conf>(5)."
 msgstr ""
 "B<schroot>(1), B<sbuild>(1), B<chroot>(2), B<schroot-setup>(5), B<schroot."
 "conf>(5)."
@@ -6279,7 +6326,13 @@ msgid ""
 "B<-p>|B<--listpaths>] [B<-d >I<directory>\\[or]B<--directory=>I<directory>] "
 "[B<-q>\\[or]B<--quiet> \\[or] B<-v>\\[or]B<--verbose>] [B<-c >I<chroot>"
 "\\[or]B<--chroot=>I<chroot> \\[or] B<--all> \\[or] B<CHROOT]> [B<COMMAND>]"
-msgstr "B<dchroot-dsa> [B<-h>\\[or]B<--help> \\[or] B<-V>\\[or]B<--version> \\[or] B<-l>\\[or]B<--list> \\[or] B<-i>\\[or]B<--info> \\[or] B<--config> \\[or] B<-p>|B<--listpaths>] [B<-d >I<répertoire>\\[or]B<--directory=>I<répertoire>] [B<-q>\\[or]B<--quiet> \\[or] B<-v>\\[or]B<--verbose>] [B<-c >I<chroot>\\[or]B<--chroot=>I<chroot> \\[or] B<--all> \\[or] B<CHROOT]> [B<COMMANDE>]"
+msgstr ""
+"B<dchroot-dsa> [B<-h>\\[or]B<--help> \\[or] B<-V>\\[or]B<--version> \\[or] "
+"B<-l>\\[or]B<--list> \\[or] B<-i>\\[or]B<--info> \\[or] B<--config> \\[or] "
+"B<-p>|B<--listpaths>] [B<-d >I<répertoire>\\[or]B<--"
+"directory=>I<répertoire>] [B<-q>\\[or]B<--quiet> \\[or] B<-v>\\[or]B<--"
+"verbose>] [B<-c >I<chroot>\\[or]B<--chroot=>I<chroot> \\[or] B<--all> \\[or] "
+"B<CHROOT]> [B<COMMANDE>]"
 
 #. type: Plain text
 #: dchroot-dsa.1.man:37
@@ -6595,6 +6648,9 @@ msgstr ""
 "paquet source B<dchroot-dsa> qui fournit un paquet B<dchroot-dsa>, écrit par "
 "Ben Collins \\f[CR] E<lt>bcollins@debian.orgE<gt>\\fR et Martin Schulze "
 "\\f[CR]E<lt>joey@debian.orgE<gt>\\fR."
+
+#~ msgid "Debian sbuild"
+#~ msgstr "Debian sbuild"
 
 #~ msgid ""
 #~ "This file is deprecated, and no longer exists in the current schroot "
