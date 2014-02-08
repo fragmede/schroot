@@ -15,7 +15,7 @@
 .\" <http://www.gnu.org/licenses/>.
 .\"
 .so config.man
-.TH SCHROOT-FAQ 7 "\*[RELEASE_DATE]" "Version \*[VERSION]" "Debian sbuild"
+.TH SCHROOT-FAQ 7 "\*[RELEASE_DATE]" "Version \*[VERSION]" "schroot Manual"
 .SH NAME
 schroot \- frequently asked questions
 .SH DESCRIPTION
