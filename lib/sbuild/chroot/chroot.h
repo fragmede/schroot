@@ -836,7 +836,8 @@ namespace sbuild
 
       for (const auto& facet : facets)
         {
-          if (ret = std::dynamic_pointer_cast<T>(facet))
+          ret = std::dynamic_pointer_cast<T>(facet);
+          if (ret)
             break;
         }
 
@@ -851,7 +852,8 @@ namespace sbuild
 
       for (const auto& facet : facets)
         {
-          if (ret = std::dynamic_pointer_cast<T>(facet))
+          ret = std::dynamic_pointer_cast<T>(facet);
+          if (ret)
             break;
         }
 
