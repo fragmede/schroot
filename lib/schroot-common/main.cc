@@ -44,12 +44,12 @@ using boost::format;
 using sbuild::_;
 using sbuild::N_;
 
-namespace schroot_common
+namespace sbuild
 {
 
   template<>
-  sbuild::error<main::error_code>::map_type
-  sbuild::error<main::error_code>::error_strings =
+  error<schroot_common::main::error_code>::map_type
+  error<schroot_common::main::error_code>::error_strings =
     {
       // TRANSLATORS: %4% = file
       {schroot_common::main::CHROOT_FILE,       N_("No chroots are defined in ‘%4%’")},
@@ -60,6 +60,11 @@ namespace schroot_common
       {schroot_common::main::CHROOT_NOTDEFINED, N_("The specified chroots are not defined in ‘%1%’")},
       {schroot_common::main::SESSION_INVALID,   N_("%1%: Invalid session name")}
     };
+
+}
+
+namespace schroot_common
+{
 
   main::main (const std::string& program_name,
               const std::string& program_usage,

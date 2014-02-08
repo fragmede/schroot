@@ -48,40 +48,41 @@ using boost::format;
 
 namespace sbuild
 {
+
+  template<>
+  error<chroot::chroot::error_code>::map_type
+  error<chroot::chroot::error_code>::error_strings =
+    {
+      {chroot::chroot::CHROOT_CREATE,     N_("Chroot creation failed")},
+      {chroot::chroot::CHROOT_DEVICE,     N_("Device name not set")},
+      // TRANSLATORS: %1% = chroot type name
+      {chroot::chroot::CHROOT_TYPE,       N_("Unknown chroot type ‘%1%’")},
+      {chroot::chroot::DEVICE_ABS,        N_("Device must have an absolute path")},
+      {chroot::chroot::DEVICE_LOCK,       N_("Failed to lock device")},
+      {chroot::chroot::DEVICE_NOTBLOCK,   N_("File is not a block device")},
+      {chroot::chroot::DEVICE_UNLOCK,     N_("Failed to unlock device")},
+      {chroot::chroot::DIRECTORY_ABS,     N_("Directory must have an absolute path")},
+      {chroot::chroot::FACET_ABSENT,      N_("Attempt to use facet ‘%1%’ which is not present")},
+      {chroot::chroot::FACET_INVALID,     N_("Attempt to add object ‘%1%’ which is not a facet")},
+      {chroot::chroot::FACET_PRESENT,     N_("Attempt to add facet ‘%1%’ which is already in use")},
+      {chroot::chroot::FILE_ABS,          N_("File must have an absolute path")},
+      {chroot::chroot::FILE_LOCK,         N_("Failed to acquire file lock")},
+      {chroot::chroot::FILE_NOTREG,       N_("File is not a regular file")},
+      {chroot::chroot::FILE_OWNER,        N_("File is not owned by user root")},
+      {chroot::chroot::FILE_PERMS,        N_("File has write permissions for others")},
+      {chroot::chroot::FILE_UNLOCK,       N_("Failed to discard file lock")},
+      {chroot::chroot::LOCATION_ABS,      N_("Location must have an absolute path")},
+      {chroot::chroot::NAME_INVALID,      N_("Invalid name")},
+      {chroot::chroot::SCRIPT_CONFIG_CV,  N_("Could not set profile name from script configuration path ‘%1%’")},
+
+      // TRANSLATORS: unlink refers to the C function which removes a file
+      {chroot::chroot::SESSION_UNLINK,    N_("Failed to unlink session file")},
+      {chroot::chroot::SESSION_WRITE,     N_("Failed to write session file")},
+      {chroot::chroot::VERBOSITY_INVALID, N_("Message verbosity is invalid")}
+    };
+
   namespace chroot
   {
-
-    template<>
-    error<chroot::error_code>::map_type
-    error<chroot::error_code>::error_strings =
-      {
-        {chroot::chroot::CHROOT_CREATE,     N_("Chroot creation failed")},
-        {chroot::chroot::CHROOT_DEVICE,     N_("Device name not set")},
-        // TRANSLATORS: %1% = chroot type name
-        {chroot::chroot::CHROOT_TYPE,       N_("Unknown chroot type ‘%1%’")},
-        {chroot::chroot::DEVICE_ABS,        N_("Device must have an absolute path")},
-        {chroot::chroot::DEVICE_LOCK,       N_("Failed to lock device")},
-        {chroot::chroot::DEVICE_NOTBLOCK,   N_("File is not a block device")},
-        {chroot::chroot::DEVICE_UNLOCK,     N_("Failed to unlock device")},
-        {chroot::chroot::DIRECTORY_ABS,     N_("Directory must have an absolute path")},
-        {chroot::chroot::FACET_ABSENT,      N_("Attempt to use facet ‘%1%’ which is not present")},
-        {chroot::chroot::FACET_INVALID,     N_("Attempt to add object ‘%1%’ which is not a facet")},
-        {chroot::chroot::FACET_PRESENT,     N_("Attempt to add facet ‘%1%’ which is already in use")},
-        {chroot::chroot::FILE_ABS,          N_("File must have an absolute path")},
-        {chroot::chroot::FILE_LOCK,         N_("Failed to acquire file lock")},
-        {chroot::chroot::FILE_NOTREG,       N_("File is not a regular file")},
-        {chroot::chroot::FILE_OWNER,        N_("File is not owned by user root")},
-        {chroot::chroot::FILE_PERMS,        N_("File has write permissions for others")},
-        {chroot::chroot::FILE_UNLOCK,       N_("Failed to discard file lock")},
-        {chroot::chroot::LOCATION_ABS,      N_("Location must have an absolute path")},
-        {chroot::chroot::NAME_INVALID,      N_("Invalid name")},
-        {chroot::chroot::SCRIPT_CONFIG_CV,  N_("Could not set profile name from script configuration path ‘%1%’")},
-
-        // TRANSLATORS: unlink refers to the C function which removes a file
-        {chroot::chroot::SESSION_UNLINK,    N_("Failed to unlink session file")},
-        {chroot::chroot::SESSION_WRITE,     N_("Failed to write session file")},
-        {chroot::chroot::VERBOSITY_INVALID, N_("Message verbosity is invalid")}
-      };
 
     chroot::chroot ():
       name(),

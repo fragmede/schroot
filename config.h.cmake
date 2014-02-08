@@ -34,6 +34,12 @@
 /* Define to 1 if you have the <boost/type_traits.hpp> header file. */
 #cmakedefine HAVE_BOOST_TYPE_TRAITS_HPP 1
 
+/* Define to 1 if you have the <fstab.h> header file and setfstab(). */
+#cmakedefine HAVE_FSTAB_FUNCTIONS 1
+
+/* Define to 1 if you have the <mntent.h> header file and setmntent(). */
+#cmakedefine HAVE_MNTENT_FUNCTIONS 1
+
 /* Define if the GNU dcgettext() function is already present or preinstalled.
    */
 #cmakedefine HAVE_DCGETTEXT 1
@@ -111,7 +117,7 @@
 #cmakedefine PACKAGE_TARNAME 1
 
 /* Define to the home page for this package. */
-#cmakedefine PACKAGE_URL 1 
+#cmakedefine PACKAGE_URL 1
 
 /* Define to the version of this package. */
 #cmakedefine PACKAGE_VERSION ${VERSION}

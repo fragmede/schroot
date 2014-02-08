@@ -23,8 +23,47 @@
 #include <cerrno>
 #include <cstring>
 
+#ifdef HAVE_FSTAB_FUNCTIONS
+#include <fstab.h>
+#elif HAVE_MNTENT_FUNCTIONS
+#include <mntent.h>
+#endif
+
 namespace sbuild
 {
+
+  namespace
+  {
+
+#ifdef HAVE_FSTAB_FUNCTIONS
+    mntstream::mntentry
+    create_mntentry (const struct fstab& entry)
+    {
+      mntstream::mntentry newentry;
+      newentry.filesystem_name = entry.fs_spec;
+      newentry.directory = entry.fs_file;
+      newentry.type = entry.fs_vfstype;
+      newentry.options = entry.fs_mntops;
+      newentry.dump_frequency = entry.fs_freq;
+      newentry.fsck_pass = entry.fs_passno;
+      return newentry;
+    }
+#elif HAVE_MNTENT_FUNCTIONS
+    mntstream::mntentry
+    create_mntentry (const struct mntent& entry)
+    {
+      mntstream::mntentry newentry;
+      newentry.filesystem_name = entry.mnt_fsname;
+      newentry.directory = entry.mnt_dir;
+      newentry.type = entry.mnt_type;
+      newentry.options = entry.mnt_opts;
+      newentry.dump_frequency = entry.mnt_freq;
+      newentry.fsck_pass = entry.mnt_passno;
+      return newentry;
+    }
+#endif
+
+  }
 
   template<>
   error<mntstream::error_code>::map_type
@@ -35,17 +74,6 @@ namespace sbuild
       // TRANSLATORS: %1% = mount file name
       {mntstream::MNT_READ,    N_("Failed to read mount file ‘%1%’")}
     };
-
-  mntstream::mntentry::mntentry (const struct mntent&  entry):
-    filesystem_name(entry.mnt_fsname),
-    directory(entry.mnt_dir),
-    type(entry.mnt_type),
-    options(entry.mnt_opts),
-    dump_frequency(entry.mnt_freq),
-    fsck_pass(entry.mnt_passno)
-  {
-  }
-
 
   mntstream::mntstream(const std::string& file):
     file(),
@@ -66,6 +94,10 @@ namespace sbuild
   void
   mntstream::open(const std::string& file)
   {
+#ifdef HAVE_FSTAB_FUNCTIONS
+    this->mntfile = 0;
+    setfstab(file.c_str());
+#elif HAVE_MNTENT_FUNCTIONS
     this->mntfile = setmntent(file.c_str(), "r");
     if (this->mntfile == 0)
       {
@@ -74,6 +106,7 @@ namespace sbuild
         this->eof_status = true;
         throw error(file, MNT_OPEN, strerror(errno));
       }
+#endif
     this->file = file;
     this->error_status = false;
     this->eof_status = false;
@@ -85,14 +118,21 @@ namespace sbuild
   {
     int i;
 
+#if HAVE_MNTENT_FUNCTIONS
     if (this->mntfile == 0)
       return;
+#endif
 
     for (i = 0; i < quantity; ++i)
       {
-        struct mntent* entry;
         errno = 0;
+#ifdef HAVE_FSTAB_FUNCTIONS
+        struct fstab* entry;
+        entry = getfsent();
+#elif HAVE_MNTENT_FUNCTIONS
+        struct mntent* entry;
         entry = getmntent(mntfile);
+#endif
 
         if (entry == 0) // EOF or error
           {
@@ -105,7 +145,7 @@ namespace sbuild
             return;
           }
 
-        mntentry newentry(*entry); // make a mntentry
+        mntentry newentry(create_mntentry(*entry)); // make a mntentry
         this->data.push_back(newentry); // push onto the end of the list
       }
   }
@@ -113,10 +153,14 @@ namespace sbuild
   void
   mntstream::close()
   {
+    // don't throw an exception on failure -- it could be called in
+    // the destructor
+#ifdef HAVE_FSTAB_FUNCTIONS
+    endfsent();
+#elif HAVE_MNTENT_FUNCTIONS
     if (this->mntfile)
-      endmntent(this->mntfile); // don't throw an exception on failure
-    // -- it could be called in the
-    // destructor
+      endmntent(this->mntfile);
+#endif
     this->mntfile = 0;
     this->data.clear();    // clear all data
     this->file.clear();

@@ -45,6 +45,28 @@ using boost::format;
 
 namespace sbuild
 {
+
+  template<>
+  error<chroot::config::error_code>::map_type
+  error<chroot::config::error_code>::error_strings =
+    {
+      // TRANSLATORS: %1% = chroot alias name
+      // TRANSLATORS: %4% = chroot name
+      {chroot::config::ALIAS_EXIST,        N_("Alias ‘%1%’ already associated with ‘%4%’ chroot")},
+      // TRANSLATORS: %1% = chroot name
+      {chroot::config::CHROOT_NOTFOUND,    N_("%1%: Chroot not found")},
+      // TRANSLATORS: %1% = comma-separated list of chroot names
+      {chroot::config::CHROOTS_NOTFOUND,   N_("%1%: Chroots not found")},
+      // TRANSLATORS: %1% = chroot name
+      {chroot::config::CHROOT_EXIST,       N_("A chroot or alias ‘%1%’ already exists with this name")},
+      {chroot::config::FILE_NOTREG,        N_("File is not a regular file")},
+      {chroot::config::FILE_OPEN,          N_("Failed to open file")},
+      {chroot::config::FILE_OWNER,         N_("File is not owned by user root")},
+      {chroot::config::FILE_PERMS,         N_("File has write permissions for others")},
+      {chroot::config::NAME_INVALID,       N_("Invalid name")},
+      {chroot::config::NAMESPACE_NOTFOUND, N_("No such namespace")}
+    };
+
   namespace chroot
   {
 
@@ -59,27 +81,6 @@ namespace sbuild
       }
 
     }
-
-    template<>
-    error<config::error_code>::map_type
-    error<config::error_code>::error_strings =
-      {
-        // TRANSLATORS: %1% = chroot alias name
-        // TRANSLATORS: %4% = chroot name
-        {chroot::config::ALIAS_EXIST,        N_("Alias ‘%1%’ already associated with ‘%4%’ chroot")},
-        // TRANSLATORS: %1% = chroot name
-        {chroot::config::CHROOT_NOTFOUND,    N_("%1%: Chroot not found")},
-        // TRANSLATORS: %1% = comma-separated list of chroot names
-        {chroot::config::CHROOTS_NOTFOUND,   N_("%1%: Chroots not found")},
-        // TRANSLATORS: %1% = chroot name
-        {chroot::config::CHROOT_EXIST,       N_("A chroot or alias ‘%1%’ already exists with this name")},
-        {chroot::config::FILE_NOTREG,        N_("File is not a regular file")},
-        {chroot::config::FILE_OPEN,          N_("Failed to open file")},
-        {chroot::config::FILE_OWNER,         N_("File is not owned by user root")},
-        {chroot::config::FILE_PERMS,         N_("File has write permissions for others")},
-        {chroot::config::NAME_INVALID,       N_("Invalid name")},
-        {chroot::config::NAMESPACE_NOTFOUND, N_("No such namespace")}
-      };
 
     const std::string config::namespace_separator(":");
 

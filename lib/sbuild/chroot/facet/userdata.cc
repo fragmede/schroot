@@ -31,6 +31,24 @@ using boost::format;
 
 namespace sbuild
 {
+
+  template<>
+  error<chroot::facet::userdata::error_code>::map_type
+  error<chroot::facet::userdata::error_code>::error_strings =
+    {
+      {chroot::facet::userdata::ENV_AMBIGUOUS,
+       N_("Environment variable ‘%1%’ is ambiguous")},
+      {chroot::facet::userdata::KEY_AMBIGUOUS,
+       N_("Configuration key ‘%1%’ is ambiguous")},
+      {chroot::facet::userdata::KEY_DISALLOWED,
+       N_("Configuration key ‘%1%’ is not permitted to be modified.")},
+      {chroot::facet::userdata::KEYNAME_INVALID,
+       N_("Configuration key name ‘%1%’ is not a permitted name.")},
+      // TRANSLATORS: %1% = key name for which value parsing failed
+      // TRANSLATORS: %4% = additional details of error
+      {chroot::facet::userdata::PARSE_ERROR, N_("%1%: %4%")}
+    };
+
   namespace chroot
   {
     namespace facet
@@ -84,23 +102,6 @@ namespace sbuild
         factory userdata_register(userdata_info);
 
       }
-
-      template<>
-      error<userdata::error_code>::map_type
-      error<userdata::error_code>::error_strings =
-        {
-          {chroot::facet::userdata::ENV_AMBIGUOUS,
-           N_("Environment variable ‘%1%’ is ambiguous")},
-          {chroot::facet::userdata::KEY_AMBIGUOUS,
-           N_("Configuration key ‘%1%’ is ambiguous")},
-          {chroot::facet::userdata::KEY_DISALLOWED,
-           N_("Configuration key ‘%1%’ is not permitted to be modified.")},
-          {chroot::facet::userdata::KEYNAME_INVALID,
-           N_("Configuration key name ‘%1%’ is not a permitted name.")},
-          // TRANSLATORS: %1% = key name for which value parsing failed
-          // TRANSLATORS: %4% = additional details of error
-          {chroot::facet::userdata::PARSE_ERROR, N_("%1%: %4%")}
-        };
 
       userdata::userdata ():
         facet(),

@@ -24,7 +24,6 @@
 #include <sbuild/custom-error.h>
 
 #include <security/pam_appl.h>
-#include <security/pam_misc.h>
 
 namespace sbuild
 {

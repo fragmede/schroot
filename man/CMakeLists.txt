@@ -81,7 +81,7 @@ if(PO4A_EXECUTABLE)
                              "${CMAKE_CURRENT_SOURCE_DIR}/po4a.cfg"
                      VERBATIM)
 else(PO4A_EXECUTABLE)
-  warn("po4a not available; not translating manual pages")
+  message(WARNING "po4a not available; not translating manual pages")
 endif(PO4A_EXECUTABLE)
 
 set(manpage_sources

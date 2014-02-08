@@ -64,6 +64,7 @@ include(CheckIncludeFileCXX)
 # LIBRARY CHECKS
 include (CheckLibraryExists)
 include (CheckFunctionExists)
+include (CheckSymbolExists)
 
 include("cmake/BoostChecks.cmake")
 include("cmake/RegexChecks.cmake")
@@ -159,6 +160,9 @@ set(SCHROOT_CONF "${SCHROOT_SYSCONF_DIR}/schroot.conf")
 # Platform
 string(TOLOWER ${CMAKE_SYSTEM_NAME} SBUILD_PLATFORM)
 
+# Global environ
+check_symbol_exists(environ unistd.h HAVE_UNISTD_ENVIRON)
+
 # Localisation with gettext
 include(FindGettext)
 find_package(Gettext)
@@ -173,6 +177,10 @@ set(SBUILD_FEATURE_NLS ${pam})
 # PAM authentication feature
 check_include_file_cxx (security/pam_appl.h PAM_HEADER)
 check_library_exists(pam pam_authenticate "" PAM_FUNC)
+check_include_file_cxx (security/openpam.h OPENPAM_HEADER)
+check_library_exists(pam openpam_ttyconv "" OPENPAM_FUNC)
+check_include_file_cxx (security/pam_misc.h LINUXPAM_MISC_HEADER)
+check_library_exists(pam misc_conv "" LINUXPAM_MISC_FUNC)
 set(PAM_DEFAULT OFF)
 if(PAM_HEADER AND PAM_FUNC)
   set(PAM_DEFAULT ON)
@@ -251,6 +259,21 @@ if (DOXYGEN_EXECUTABLE)
 endif (DOXYGEN_EXECUTABLE)
 option(doxygen "Enable doxygen documentation" ${DOXYGEN_DEFAULT})
 set(BUILD_DOXYGEN ${doxygen})
+
+# Linux and BSD fstab parsing
+check_include_file_cxx(fstab.h FSTAB_HEADER)
+check_function_exists(setfstab FSTAB_FUNC)
+if (FSTAB_HEADER AND FSTAB_FUNC)
+  set(HAVE_FSTAB_FUNCTIONS TRUE)
+else (FSTAB_HEADER AND FSTAB_FUNC)
+  check_include_file_cxx(mntent.h MNTENT_HEADER)
+  check_function_exists(setmntent MNTENT_FUNC)
+  if (MNTENT_HEADER AND MNTENT_FUNC)
+    set(HAVE_MNTENT_FUNCTIONS TRUE)
+  else (MNTENT_HEADER AND MNTENT_FUNC)
+    message(FATAL_ERROR "No fstab parser available for this platform.")
+  endif (MNTENT_HEADER AND MNTENT_FUNC)
+endif (FSTAB_HEADER AND FSTAB_FUNC)
 
 # Namespace unshare feature
 # sched.h ==> UNSHARE_HEADER

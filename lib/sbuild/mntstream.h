@@ -27,21 +27,22 @@
 
 #include <stdio.h>
 #include <sys/types.h>
-#include <mntent.h>
 
 namespace sbuild
 {
 
   /**
-   * Access mounts.  This is a wrapper around the setmntent(3),
-   * getmntent(3) and endmntent(3) functions, which are used to read a
-   * stream of "mntents" through multiple getmntent() calls.
+   * Access mounts.  On FreeBSD, this is a wrapper around the
+   * setfstab(3), getfsent(3) and endfsent(3) functions.  On Linux,
+   * this is a wrapper around the setmntent(3), getmntent(3) and
+   * endmntent(3) functions.  A stream of "mntents" is read using
+   * repeated getfsend()/getmntent() calls.
    *
-   * mntstream calls setmntent() and endmntent() automatically, and
-   * represents each mntent as a mntstream::mntentry.  Like reading
-   * from and istream by pulling data out with the >> "extraction
-   * operator", mntentries are also extracted from the mntstream with
-   * the >> operator.
+   * mntstream calls setfstab()/setmntent() and endfsent()/endmntent()
+   * automatically, and represents each mntent as a
+   * mntstream::mntentry.  Like reading from an istream by pulling
+   * data out with the >> "extraction operator", mntentries are also
+   * extracted from the mntstream with the >> operator.
    */
   class mntstream
   {
@@ -57,23 +58,18 @@ namespace sbuild
     typedef sbuild::custom_error<error_code> error;
 
     /**
-     * An entry in a mntstream.  It is a wrapper around the mntent
-     * structure declared in mntent.h.  Unlike a mntent pointer returned
-     * by getmntent(3), a mntentry does not become invalid when the
-     * mntstream it was extracted from is destroyed.
+     * An entry in a mntstream.  It is a wrapper around the fstab
+     * structure declared in fstab.h or the mntent structure declared
+     * in mntent.h.  Unlike an fstab pointer returned by getfsent(3)
+     * or a mntent pointer returned by getmntent(3), a mntentry does
+     * not become invalid when the mntstream it was extracted from is
+     * destroyed.
      */
     struct mntentry
     {
       /// The constructor.
       mntentry ()
       {};
-
-      /**
-       * The contructor.
-       *
-       * @param entry the mntent structure to wrap.
-       */
-      mntentry (const struct mntent&  entry);
 
       /// Name of mounted filesystem.
       std::string  filesystem_name;
