@@ -1,5 +1,5 @@
 #! /bin/sh
-# postrm script for sbuild
+# postrm script for schroot
 #
 # see: dh_installdeb(1)
 

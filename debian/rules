@@ -107,8 +107,8 @@ install-arch: build-arch $(DH_INSTALL_FILES)
 install-indep: build-indep $(DH_INSTALL_FILES)
 	dh $@ $(DH_OPTIONS)
 # Remove cruft
-	find $(CURDIR)/debian/libsbuild-doc/usr/share/doc/libsbuild-doc -name '*.map' -print0 | xargs -0 rm -f
-	find $(CURDIR)/debian/libsbuild-doc/usr/share/doc/libsbuild-doc -name '*.md5' -print0 | xargs -0 rm -f
+	find $(CURDIR)/debian/libschroot-doc/usr/share/doc/libschroot-doc -name '*.map' -print0 | xargs -0 rm -f
+	find $(CURDIR)/debian/libschroot-doc/usr/share/doc/libschroot-doc -name '*.md5' -print0 | xargs -0 rm -f
 
 install: build $(DH_INSTALL_FILES)
 	dh $@ $(DH_OPTIONS)
@@ -128,6 +128,6 @@ override_dh_installinit:
 	dh_installinit --no-start --update-rcd-params='defaults'
 
 override_dh_strip:
-	dh_strip --dbg-package=libsbuild1.7.2-dbg
+	dh_strip --dbg-package=libschroot1.7.3-dbg
 
 .PHONY: override_dh_auto_configure override_dh_auto_clean override_dh_auto_build override_dh_auto_test override_dh_auto_install override_dh_installchangelogs override_dh_installinit override_dh_strip install-arch install-indep

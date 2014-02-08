@@ -40,16 +40,16 @@ Description: common files for schroot
  This package provides translations for localisation of schroot
  programs.
 
-Package: libsbuild1.7.2
+Package: libschroot1.7.3
 Architecture: any
 Section: libs
 Pre-Depends: ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
-Suggests: libsbuild1.7.2-dbg
+Suggests: libschroot1.7.3-dbg
 Description: shared library for the Debian source builder
- libsbuild provides facilities to manage and access chroots, as part of
+ libschroot provides facilities to manage and access chroots, as part of
  schroot.
  .
  schroot allows users to execute commands or interactive shells in
@@ -62,18 +62,18 @@ Description: shared library for the Debian source builder
  .
  This package contains the shared library.
 
-Package: libsbuild-dev
+Package: libschroot-dev
 Architecture: any
 Section: libdevel
 Depends:
  ${misc:Depends},
- libsbuild1.7.2 (= ${binary:Version}),
+ libschroot1.7.3 (= ${binary:Version}),
  pkg-config (>= 0.14.0)
 Suggests:
- libsbuild1.7.2-dbg,
- libsbuild-doc
+ libschroot1.7.3-dbg,
+ libschroot-doc
 Description: development files for the Debian source builder
- libsbuild provides facilities to manage and access chroots, as part of
+ libschroot provides facilities to manage and access chroots, as part of
  schroot.
  .
  schroot allows users to execute commands or interactive shells in
@@ -87,17 +87,17 @@ Description: development files for the Debian source builder
  This package contains the header files needed to develop applications
  which make use of sbuild.
 
-Package: libsbuild1.7.2-dbg
+Package: libschroot1.7.3-dbg
 Architecture: any
 Section: debug
 Priority: extra
 Depends:
  ${misc:Depends},
- libsbuild1.7.2 (= ${binary:Version}),
+ libschroot1.7.3 (= ${binary:Version}),
 Conflicts:
  schroot-dbg
 Description: Debugging symbols for the Debian source builder
- libsbuild provides facilities to manage and access chroots, as part of
+ libschroot provides facilities to manage and access chroots, as part of
  schroot.
  .
  schroot allows users to execute commands or interactive shells in
@@ -108,16 +108,16 @@ Description: Debugging symbols for the Debian source builder
  authentication and authorisation.  All operations are logged for
  security.
  .
- This package contains debugging symbols for the libsbuild package,
+ This package contains debugging symbols for the libschroot package,
  and dependent packages including schroot, dchroot and dchroot-dsa.
 
-Package: libsbuild-doc
+Package: libschroot-doc
 Architecture: all
 Section: doc
 Depends: ${misc:Depends}
-Suggests: libsbuild-dev
+Suggests: libschroot-dev
 Description: development documentation for the Debian source builder
- libsbuild provides facilities to manage and access chroots, as part of
+ libschroot provides facilities to manage and access chroots, as part of
  schroot.
  .
  schroot allows users to execute commands or interactive shells in
@@ -129,7 +129,7 @@ Description: development documentation for the Debian source builder
  security.
  .
  This package contains the API documentation needed to develop
- applications which make use of libsbuild.
+ applications which make use of libschroot.
 
 Package: schroot
 Architecture: any

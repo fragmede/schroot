@@ -4,8 +4,8 @@ dchroot-dsa
 dchroot
 files
 install
-libsbuild-dev
-libsbuild-doc
+libschroot-dev
+libschroot-doc
 schroot-common
 schroot
 schroot-dbg
