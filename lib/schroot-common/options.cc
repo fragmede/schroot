@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <sbuild/util.h>
+#include <schroot/util.h>
 
 #include <schroot-common/options.h>
 
@@ -31,7 +31,7 @@
 
 using std::endl;
 using boost::format;
-using sbuild::_;
+using schroot::_;
 namespace opt = boost::program_options;
 
 namespace bin
@@ -103,11 +103,11 @@ namespace bin
          _("Dump configuration of selected chroots"));
 
       chroot.add_options()
-        ("chroot,c", opt::value<sbuild::string_list>(&this->chroots),
+        ("chroot,c", opt::value<schroot::string_list>(&this->chroots),
          _("Use specified chroot"));
 
       hidden.add_options()
-        ("command", opt::value<sbuild::string_list>(&this->command),
+        ("command", opt::value<schroot::string_list>(&this->command),
          _("Command to run"));
 
       positional.add("command", -1);
@@ -180,18 +180,18 @@ namespace bin
 
       if (this->quiet && this->verbose)
         {
-          sbuild::log_warning()
+          schroot::log_warning()
             << _("--quiet and --verbose may not be used at the same time")
             << endl;
-          sbuild::log_info() << _("Using verbose output") << endl;
+          schroot::log_info() << _("Using verbose output") << endl;
         }
 
       if (!this->chroots.empty() && all_used())
         {
-          sbuild::log_warning()
+          schroot::log_warning()
             << _("--chroot and --all may not be used at the same time")
             << endl;
-          sbuild::log_info() << _("Using --chroots only") << endl;
+          schroot::log_info() << _("Using --chroots only") << endl;
           this->all = this->all_chroots = this->all_source_chroots = this->all_sessions = false;
         }
 
@@ -270,7 +270,7 @@ namespace bin
           (_("--session-name is not permitted for the specified action"));
 
       if (!this->session_name.empty() &&
-          !sbuild::is_valid_sessionname(this->session_name))
+          !schroot::is_valid_sessionname(this->session_name))
         throw error(_("Invalid session name"));
     }
 

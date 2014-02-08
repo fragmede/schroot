@@ -35,7 +35,7 @@
 
 using std::cout;
 using std::endl;
-using sbuild::_;
+using schroot::_;
 using boost::format;
 
 namespace bin
@@ -43,9 +43,9 @@ namespace bin
   namespace dchroot_dsa
   {
 
-    session::session (const std::string&         service,
-                      operation                  operation,
-                      const sbuild::session::chroot_list& chroots):
+    session::session (const std::string&                   service,
+                      operation                            operation,
+                      const schroot::session::chroot_list& chroots):
       dchroot_common::session(service, operation, chroots)
     {
     }
@@ -54,11 +54,11 @@ namespace bin
     {
     }
 
-    sbuild::string_list
-    session::get_login_directories (sbuild::chroot::chroot::ptr& session_chroot,
-                                    const sbuild::environment&   env) const
+    schroot::string_list
+    session::get_login_directories (schroot::chroot::chroot::ptr& session_chroot,
+                                    const schroot::environment&   env) const
     {
-      sbuild::string_list ret;
+      schroot::string_list ret;
 
       const std::string& wd(get_auth()->get_wd());
       if (!wd.empty())
@@ -79,19 +79,19 @@ namespace bin
     }
 
     void
-    session::get_user_command (sbuild::chroot::chroot::ptr& session_chroot,
-                               std::string&                 file,
-                               sbuild::string_list&         command,
-                               const sbuild::environment&   env) const
+    session::get_user_command (schroot::chroot::chroot::ptr& session_chroot,
+                               std::string&                  file,
+                               schroot::string_list&         command,
+                               const schroot::environment&   env) const
     {
       std::string programstring = command[0];
       file = programstring;
 
-      if (!sbuild::is_absname(file))
+      if (!schroot::is_absname(file))
         throw error(file, COMMAND_ABS);
 
-      std::string commandstring = sbuild::string_list_to_string(command, " ");
-      sbuild::log_debug(sbuild::DEBUG_NOTICE)
+      std::string commandstring = schroot::string_list_to_string(command, " ");
+      schroot::log_debug(schroot::DEBUG_NOTICE)
         << format("Running command: %1%") % commandstring << endl;
       if (get_auth()->get_uid() == 0 ||
           get_auth()->get_ruid() != get_auth()->get_uid())
@@ -101,7 +101,7 @@ namespace bin
                get_auth()->get_user().c_str(),
                commandstring.c_str());
 
-      if (session_chroot->get_verbosity() != sbuild::chroot::chroot::VERBOSITY_QUIET)
+      if (session_chroot->get_verbosity() != schroot::chroot::chroot::VERBOSITY_QUIET)
         {
           std::string format_string;
           // TRANSLATORS: %1% = chroot name
@@ -111,7 +111,7 @@ namespace bin
           format fmt(format_string);
           fmt % session_chroot->get_name()
             % programstring;
-          sbuild::log_info() << fmt << endl;
+          schroot::log_info() << fmt << endl;
         }
     }
 

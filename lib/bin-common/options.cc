@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include <sbuild/i18n.h>
-#include <sbuild/log.h>
+#include <schroot/i18n.h>
+#include <schroot/log.h>
 
 #include <bin-common/options.h>
 
@@ -31,7 +31,7 @@
 
 using std::endl;
 using boost::format;
-using sbuild::_;
+using schroot::_;
 namespace opt = boost::program_options;
 
 namespace bin
@@ -152,20 +152,20 @@ namespace bin
       if (vm.count("debug"))
         {
           if (this->debug_level == "none")
-            sbuild::debug_log_level = sbuild::DEBUG_NONE;
+            schroot::debug_log_level = schroot::DEBUG_NONE;
           else if (this->debug_level == "notice")
-            sbuild::debug_log_level = sbuild::DEBUG_NOTICE;
+            schroot::debug_log_level = schroot::DEBUG_NOTICE;
           else if (this->debug_level == "info")
-            sbuild::debug_log_level = sbuild::DEBUG_INFO;
+            schroot::debug_log_level = schroot::DEBUG_INFO;
           else if (this->debug_level == "warning")
-            sbuild::debug_log_level = sbuild::DEBUG_WARNING;
+            schroot::debug_log_level = schroot::DEBUG_WARNING;
           else if (this->debug_level == "critical")
-            sbuild::debug_log_level = sbuild::DEBUG_CRITICAL;
+            schroot::debug_log_level = schroot::DEBUG_CRITICAL;
           else
             throw error(_("Invalid debug level"));
         }
       else
-        sbuild::debug_log_level = sbuild::DEBUG_NONE;
+        schroot::debug_log_level = schroot::DEBUG_NONE;
     }
 
     void

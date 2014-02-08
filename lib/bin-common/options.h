@@ -19,7 +19,7 @@
 #ifndef BIN_COMMON_OPTIONS_H
 #define BIN_COMMON_OPTIONS_H
 
-#include <sbuild/types.h>
+#include <schroot/types.h>
 
 #include <bin-common/option-action.h>
 

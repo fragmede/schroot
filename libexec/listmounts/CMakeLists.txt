@@ -24,7 +24,7 @@ set(listmounts_sources
     listmounts.cc)
 
 add_executable(listmounts ${listmounts_sources})
-target_link_libraries(listmounts sbuild bin-common)
+target_link_libraries(listmounts libschroot bin-common)
 
 install(TARGETS listmounts RUNTIME
         DESTINATION ${SCHROOT_LIBEXEC_DIR})

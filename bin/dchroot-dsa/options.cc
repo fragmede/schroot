@@ -20,7 +20,7 @@
 
 #include <dchroot-dsa/options.h>
 
-#include <sbuild/util.h>
+#include <schroot/util.h>
 
 #include <cstdlib>
 #include <iostream>
@@ -29,7 +29,7 @@
 #include <boost/program_options.hpp>
 
 using std::endl;
-using sbuild::_;
+using schroot::_;
 using boost::format;
 namespace opt = boost::program_options;
 
@@ -97,7 +97,7 @@ namespace bin
         throw error(_("Only one command may be specified"));
 
       if (!this->command.empty() &&
-          !sbuild::is_absname(this->command[0]))
+          !schroot::is_absname(this->command[0]))
         throw error(_("Command must have an absolute path"));
 
       if (this->chroots.empty() && !all_used() &&

@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <sbuild/config.h>
+#include <schroot/config.h>
 
 #include <schroot/main.h>
 
@@ -34,7 +34,7 @@
 
 using std::endl;
 using boost::format;
-using sbuild::_;
+using schroot::_;
 
 namespace bin
 {
@@ -63,12 +63,12 @@ namespace bin
     }
 
     void
-    main::create_session(sbuild::session::operation sess_op)
+    main::create_session(::schroot::session::operation sess_op)
     {
-      sbuild::log_debug(sbuild::DEBUG_INFO) << "Creating schroot session" << endl;
+      ::schroot::log_debug(::schroot::DEBUG_INFO) << "Creating schroot session" << endl;
 
-      this->session = sbuild::session::ptr
-        (new sbuild::session("schroot", sess_op, this->chroot_objects));
+      this->session = ::schroot::session::ptr
+        (new ::schroot::session("schroot", sess_op, this->chroot_objects));
     }
 
     void

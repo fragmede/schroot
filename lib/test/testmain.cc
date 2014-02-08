@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <sbuild/log.h>
+#include <schroot/log.h>
 
 #include <gtest/gtest.h>
 
@@ -26,10 +26,10 @@ int
 main(int   argc,
      char *argv[])
 {
-#ifdef SBUILD_DEBUG
-  sbuild::debug_log_level = sbuild::DEBUG_NOTICE;
+#ifdef SCHROOT_DEBUG
+  schroot::debug_log_level = schroot::DEBUG_NOTICE;
 #else
-  sbuild::debug_log_level = sbuild::DEBUG_NONE;
+  schroot::debug_log_level = schroot::DEBUG_NONE;
 #endif
 
   testing::InitGoogleTest(&argc, argv);

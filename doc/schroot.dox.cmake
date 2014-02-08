@@ -654,14 +654,10 @@ WARN_LOGFILE           = schroot.log
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  = @PROJECT_SOURCE_DIR@/bin/dchroot \
-                         @PROJECT_SOURCE_DIR@/bin/dchroot-dsa \
-                         @PROJECT_SOURCE_DIR@/bin/schroot \
-                         @PROJECT_SOURCE_DIR@/lib/bin-common \
-                         @PROJECT_SOURCE_DIR@/lib/dchroot-common \
-                         @PROJECT_SOURCE_DIR@/lib/schroot-common \
-                         @PROJECT_SOURCE_DIR@/libexec/listmounts \
-                         @PROJECT_SOURCE_DIR@/libexec/mount
+INPUT                  = @PROJECT_SOURCE_DIR@/lib/schroot \
+                         @PROJECT_SOURCE_DIR@/lib/schroot/auth \
+                         @PROJECT_SOURCE_DIR@/lib/schroot/chroot \
+                         @PROJECT_SOURCE_DIR@/lib/schroot/chroot/facet
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -680,6 +676,7 @@ INPUT_ENCODING         = UTF-8
 # *.f90 *.f *.for *.vhd *.vhdl
 
 FILE_PATTERNS          = *.cc \
+                         *.tcc \
                          *.h
 
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories
@@ -1609,7 +1606,19 @@ INCLUDE_FILE_PATTERNS  =
 # undefined via #undef or recursively expanded use the := operator
 # instead of the = operator.
 
-PREDEFINED             =
+PREDEFINED             = SCHROOT_FEATURE_PAM \
+                         SCHROOT_FEATURE_PERSONALITY \
+                         SCHROOT_FEATURE_BLOCKDEV \
+                         SCHROOT_FEATURE_BTRFSSNAP \
+                         SCHROOT_FEATURE_LVMSNAP \
+                         SCHROOT_FEATURE_LOOPBACK \
+                         SCHROOT_FEATURE_UNION \
+                         HAVE_BOOST_FORMAT_HPP \
+                         HAVE_BOOST_PROGRAM_OPTIONS_HPP \
+                         HAVE_BOOST_SHARED_PTR_HPP \
+                         HAVE_BOOST_TUPLE_TUPLE_HPP \
+                         HAVE_TR1_MEMORY \
+                         HAVE_TR1_TUPLE
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.
@@ -1643,7 +1652,7 @@ SKIP_FUNCTION_MACROS   = YES
 # NOT include the path). If a tag file is not located in the directory in which
 # doxygen is run, you must also specify the path to the tagfile here.
 
-TAGFILES               = "sbuild/sbuild.tag = @CMAKE_CURRENT_BUILD_DIR@/sbuild/html"
+TAGFILES               =
 
 # When a file name is specified after GENERATE_TAGFILE, doxygen will create
 # a tag file that is based on the input files it reads.
@@ -1654,7 +1663,7 @@ GENERATE_TAGFILE       = schroot/schroot.tag
 # in the class index. If set to NO only the inherited external classes
 # will be listed.
 
-ALLEXTERNALS           = YES
+ALLEXTERNALS           = NO
 
 # If the EXTERNAL_GROUPS tag is set to YES all external groups will be listed
 # in the modules index. If set to NO, only the current project's groups will

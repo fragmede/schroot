@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include <sbuild/mntstream.h>
-#include <sbuild/util.h>
+#include <schroot/mntstream.h>
+#include <schroot/util.h>
 
 #include <libexec/mount/main.h>
 
@@ -43,15 +43,15 @@
 
 using std::endl;
 using boost::format;
-using sbuild::_;
-using sbuild::N_;
+using schroot::_;
+using schroot::N_;
 
 namespace schroot_mount
 {
 
   template<>
-  sbuild::error<main::error_code>::map_type
-  sbuild::error<main::error_code>::error_strings =
+  schroot::error<main::error_code>::map_type
+  schroot::error<main::error_code>::error_strings =
     {
       {schroot_mount::main::CHILD_FORK, N_("Failed to fork child")},
       {schroot_mount::main::CHILD_WAIT, N_("Wait for child failed")},
@@ -101,7 +101,7 @@ namespace schroot_mount
         bool link = false;
         try
           {
-            if (sbuild::stat(directory, true).is_link())
+            if (schroot::stat(directory, true).is_link())
               link = true;
           }
         catch (...)
@@ -112,13 +112,13 @@ namespace schroot_mount
         else
           {
             // Try validating the parent directory.
-            sbuild::string_list dirs = sbuild::split_string(mountpoint, "/");
+            schroot::string_list dirs = schroot::split_string(mountpoint, "/");
             if (dirs.size() > 1) // Recurse if possible, otherwise continue
               {
                 std::string saveddir = *dirs.rbegin();
                 dirs.pop_back();
 
-                std::string newpath(resolve_path(sbuild::string_list_to_string(dirs, "/")));
+                std::string newpath(resolve_path(schroot::string_list_to_string(dirs, "/")));
                 directory = newpath + "/" + saveddir;
               }
           }
@@ -142,9 +142,9 @@ namespace schroot_mount
   main::action_mount ()
   {
     // Check mounts.
-    sbuild::mntstream mounts(opts->fstab);
+    schroot::mntstream mounts(opts->fstab);
 
-    sbuild::mntstream::mntentry entry;
+    schroot::mntstream::mntentry entry;
 
     while (mounts >> entry)
       {
@@ -152,7 +152,7 @@ namespace schroot_mount
 
         if (!boost::filesystem::exists(directory))
           {
-            sbuild::log_debug(sbuild::DEBUG_INFO)
+            schroot::log_debug(schroot::DEBUG_INFO)
               << boost::format("Creating ‘%1%' in '%2%’")
               % entry.directory
               % opts->mountpoint
@@ -166,19 +166,19 @@ namespace schroot_mount
                   }
                 catch (const std::exception& e)
                   {
-                    sbuild::log_exception_error(e);
+                    schroot::log_exception_error(e);
                     exit(EXIT_FAILURE);
                   }
                 catch (...)
                   {
-                    sbuild::log_error()
+                    schroot::log_error()
                       << _("An unknown exception occurred") << std::endl;
                     exit(EXIT_FAILURE);
                   }
               }
           }
 
-        sbuild::log_debug(sbuild::DEBUG_INFO)
+        schroot::log_debug(schroot::DEBUG_INFO)
           << boost::format("Mounting ‘%1%’ on ‘%2%’")
           % entry.filesystem_name
           % directory
@@ -186,7 +186,7 @@ namespace schroot_mount
 
         if (!opts->dry_run)
           {
-            sbuild::string_list command;
+            schroot::string_list command;
             command.push_back("/bin/mount");
             if (opts->verbose)
               command.push_back("-v");
@@ -197,7 +197,7 @@ namespace schroot_mount
             command.push_back(entry.filesystem_name);
             command.push_back(directory);
 
-            int status = run_child(command[0], command, sbuild::environment());
+            int status = run_child(command[0], command, schroot::environment());
 
             if (status)
               exit(status);
@@ -206,9 +206,9 @@ namespace schroot_mount
   }
 
   int
-  main::run_child (const std::string& file,
-                   const sbuild::string_list& command,
-                   const sbuild::environment& env)
+  main::run_child (const std::string&          file,
+                   const schroot::string_list& command,
+                   const schroot::environment& env)
   {
     int exit_status = 0;
     pid_t pid;
@@ -221,21 +221,21 @@ namespace schroot_mount
       {
         try
           {
-            sbuild::log_debug(sbuild::DEBUG_INFO)
+            schroot::log_debug(schroot::DEBUG_INFO)
               << "mount_main: executing "
-              << sbuild::string_list_to_string(command, ", ")
+              << schroot::string_list_to_string(command, ", ")
               << std::endl;
             exec(file, command, env);
             error e(file, EXEC, strerror(errno));
-            sbuild::log_exception_error(e);
+            schroot::log_exception_error(e);
           }
         catch (const std::exception& e)
           {
-            sbuild::log_exception_error(e);
+            schroot::log_exception_error(e);
           }
         catch (...)
           {
-            sbuild::log_error()
+            schroot::log_error()
               << _("An unknown exception occurred") << std::endl;
           }
         _exit(EXIT_FAILURE);
@@ -246,12 +246,12 @@ namespace schroot_mount
       }
 
     if (exit_status)
-      sbuild::log_debug(sbuild::DEBUG_INFO)
+      schroot::log_debug(schroot::DEBUG_INFO)
         << "mount_main: " << file
         << " failed with status " << exit_status
         << std::endl;
     else
-      sbuild::log_debug(sbuild::DEBUG_INFO)
+      schroot::log_debug(schroot::DEBUG_INFO)
         << "mount_main: " << file
         << " succeeded"
         << std::endl;

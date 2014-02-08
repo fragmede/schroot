@@ -23,8 +23,8 @@
 
 #include <libexec/mount/options.h>
 
-#include <sbuild/custom-error.h>
-#include <sbuild/environment.h>
+#include <schroot/custom-error.h>
+#include <schroot/environment.h>
 
 /**
  * schroot-mount program components
@@ -48,7 +48,7 @@ namespace schroot_mount
       };
 
     /// Exception type.
-    typedef sbuild::custom_error<error_code> error;
+    typedef schroot::custom_error<error_code> error;
 
     /**
      * The constructor.
@@ -77,9 +77,9 @@ namespace schroot_mount
      * @returns the return value of the execve system call on failure.
      */
     int
-    run_child(const std::string& file,
-              const sbuild::string_list& command,
-              const sbuild::environment& env);
+    run_child(const std::string&          file,
+              const schroot::string_list& command,
+              const schroot::environment& env);
 
     /**
      * Ensure that the mountpoint is a valid absolute path inside the

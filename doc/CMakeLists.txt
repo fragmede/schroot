@@ -17,18 +17,10 @@
 #####################################################################
 
 if(BUILD_DOXYGEN)
-  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sbuild.dox.cmake
-                 ${CMAKE_CURRENT_BINARY_DIR}/sbuild.dox @ONLY)
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/schroot.dox.cmake
                  ${CMAKE_CURRENT_BINARY_DIR}/schroot.dox @ONLY)
-
-  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/sbuild.log
-                     COMMAND ${CMAKE_COMMAND} -E remove_directory sbuild
-                     COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/sbuild.dox
-                     COMMAND ${CMAKE_COMMAND} -E echo "══════════ UNDOCUMENTED CODE ══════════"
-                     COMMAND cat ${CMAKE_CURRENT_BINARY_DIR}/sbuild.log
-                     COMMAND ${CMAKE_COMMAND} -E echo "═════════ END UNDOCUMENTED CODE ═══════"
-                     DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/sbuild.dox)
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/schroot-bin.dox.cmake
+                 ${CMAKE_CURRENT_BINARY_DIR}/schroot-bin.dox @ONLY)
 
   add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/schroot.log
                      COMMAND ${CMAKE_COMMAND} -E remove_directory schroot
@@ -38,5 +30,13 @@ if(BUILD_DOXYGEN)
                      COMMAND ${CMAKE_COMMAND} -E echo "═════════ END UNDOCUMENTED CODE ═══════"
                      DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/schroot.dox)
 
-  add_custom_target(doc DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/sbuild.log ${CMAKE_CURRENT_BINARY_DIR}/schroot.log)
+  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/schroot-bin.log
+                     COMMAND ${CMAKE_COMMAND} -E remove_directory schroot-bin
+                     COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/schroot-bin.dox
+                     COMMAND ${CMAKE_COMMAND} -E echo "══════════ UNDOCUMENTED CODE ══════════"
+                     COMMAND cat ${CMAKE_CURRENT_BINARY_DIR}/schroot-bin.log
+                     COMMAND ${CMAKE_COMMAND} -E echo "═════════ END UNDOCUMENTED CODE ═══════"
+                     DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/schroot-bin.dox)
+
+  add_custom_target(doc DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/schroot.log ${CMAKE_CURRENT_BINARY_DIR}/schroot-bin.log)
 endif(BUILD_DOXYGEN)

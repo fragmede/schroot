@@ -23,7 +23,7 @@
 
 #include <libexec/listmounts/options.h>
 
-#include <sbuild/custom-error.h>
+#include <schroot/custom-error.h>
 
 /**
  * schroot-listmounts program components
@@ -44,7 +44,7 @@ namespace schroot_listmounts
       };
 
     /// Exception type.
-    typedef sbuild::custom_error<error_code> error;
+    typedef schroot::custom_error<error_code> error;
 
     /**
      * The constructor.

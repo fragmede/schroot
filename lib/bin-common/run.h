@@ -21,8 +21,8 @@
 
 #include <bin-common/options.h>
 
-#include <sbuild/config.h>
-#include <sbuild/log.h>
+#include <schroot/config.h>
+#include <schroot/log.h>
 
 #include <cstdlib>
 #include <exception>
@@ -65,8 +65,8 @@ namespace bin
           std::cout.imbue(std::locale());
           std::cerr.imbue(std::locale());
 
-          sbuild::bindtextdomain (SBUILD_MESSAGE_CATALOGUE, SCHROOT_LOCALE_DIR);
-          sbuild::textdomain (SBUILD_MESSAGE_CATALOGUE);
+          ::schroot::bindtextdomain (SCHROOT_MESSAGE_CATALOGUE, SCHROOT_LOCALE_DIR);
+          ::schroot::textdomain (SCHROOT_MESSAGE_CATALOGUE);
 
           typename options_type::ptr opts(new options_type);
           main_type kit(opts);
@@ -74,12 +74,12 @@ namespace bin
         }
       catch (const std::exception& e)
         {
-          sbuild::log_exception_error(e);
+          ::schroot::log_exception_error(e);
           exit(EXIT_FAILURE);
         }
       catch (...)
         {
-          sbuild::log_unknown_exception_error();
+          ::schroot::log_unknown_exception_error();
           exit(EXIT_FAILURE);
         }
     }

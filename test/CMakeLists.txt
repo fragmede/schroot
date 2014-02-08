@@ -19,8 +19,8 @@
 include_directories(${GTEST_INCLUDE_DIR}
                     ${PROJECT_SOURCE_DIR}/bin)
 
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/sbuild)
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/sbuild/chroot)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/schroot)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/schroot/chroot)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin-common)
 
 set(srcdir ${PROJECT_SOURCE_DIR})
@@ -30,42 +30,42 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cleanup-test-data
                ${CMAKE_CURRENT_BINARY_DIR}/cleanup-test-data)
 
 if(BUILD_BLOCKDEV)
-  set(sbuild_chroot_blockdev_sources
-      sbuild/chroot/block-device.cc)
+  set(schroot_chroot_blockdev_sources
+      schroot/chroot/block-device.cc)
 endif(BUILD_BLOCKDEV)
 
 if(BUILD_LOOPBACK)
-  set(sbuild_chroot_loopback_sources
-      sbuild/chroot/loopback.cc)
+  set(schroot_chroot_loopback_sources
+      schroot/chroot/loopback.cc)
 endif(BUILD_LOOPBACK)
 
 if(BUILD_LVMSNAP)
-  set(sbuild_chroot_lvmsnap_sources
-      sbuild/chroot/lvm-snapshot.cc)
+  set(schroot_chroot_lvmsnap_sources
+      schroot/chroot/lvm-snapshot.cc)
 endif(BUILD_LVMSNAP)
 
 if(BUILD_BTRFSSNAP)
-  set(sbuild_chroot_btrfssnap_sources
-      sbuild/chroot/btrfs-snapshot.cc)
+  set(schroot_chroot_btrfssnap_sources
+      schroot/chroot/btrfs-snapshot.cc)
 endif(BUILD_BTRFSSNAP)
 
 if(BUILD_PERSONALITY)
-  set(sbuild_personality_sources
-    sbuild/personality.cc)
+  set(schroot_personality_sources
+    schroot/personality.cc)
 endif(BUILD_PERSONALITY)
 
-set(sbuild_chroot_chroot_sources
-    sbuild/chroot/chroot.h
-    sbuild/chroot/chroot.cc
-    sbuild/chroot/plain.cc
-    sbuild/chroot/custom.cc
-    sbuild/chroot/file.cc
-    sbuild/chroot/directory.cc
-    ${sbuild_chroot_blockdev_sources}
-    ${sbuild_chroot_lvmsnap_sources}
-    ${sbuild_chroot_btrfssnap_sources}
-    ${sbuild_chroot_loopback_sources}
-    sbuild/chroot/facet/userdata.cc)
+set(schroot_chroot_chroot_sources
+    schroot/chroot/chroot.h
+    schroot/chroot/chroot.cc
+    schroot/chroot/plain.cc
+    schroot/chroot/custom.cc
+    schroot/chroot/file.cc
+    schroot/chroot/directory.cc
+    ${schroot_chroot_blockdev_sources}
+    ${schroot_chroot_lvmsnap_sources}
+    ${schroot_chroot_btrfssnap_sources}
+    ${schroot_chroot_loopback_sources}
+    schroot/chroot/facet/userdata.cc)
 
 if (BUILD_TESTS)
   add_test(NAME setup-test-data
@@ -74,71 +74,71 @@ if (BUILD_TESTS)
 endif (BUILD_TESTS)
 
 if (BUILD_TESTS)
-  add_executable(sbuild/chroot/chroot ${sbuild_chroot_chroot_sources})
-  target_link_libraries(sbuild/chroot/chroot
-                        sbuild
+  add_executable(schroot/chroot/chroot ${schroot_chroot_chroot_sources})
+  target_link_libraries(schroot/chroot/chroot
+                        libschroot
                         testmain
                         ${REGEX_LIBRARY})
-  add_test(sbuild/chroot/chroot sbuild/chroot/chroot)
+  add_test(schroot/chroot/chroot schroot/chroot/chroot)
 endif (BUILD_TESTS)
 
-set(sbuild_chroot_config_sources
-    sbuild/chroot/config.cc)
+set(schroot_chroot_config_sources
+    schroot/chroot/config.cc)
 
 if (BUILD_TESTS)
-  add_executable(sbuild/chroot/config ${sbuild_chroot_config_sources})
-  target_link_libraries(sbuild/chroot/config sbuild testmain)
-  add_test(sbuild/chroot/config sbuild/chroot/config)
+  add_executable(schroot/chroot/config ${schroot_chroot_config_sources})
+  target_link_libraries(schroot/chroot/config libschroot testmain)
+  add_test(schroot/chroot/config schroot/chroot/config)
 endif (BUILD_TESTS)
 
-set(sbuild_standard_sources
-    sbuild/environment.cc
-    sbuild/log.cc
-    sbuild/nostream.cc
-    sbuild/parse-value.cc
-    ${sbuild_personality_sources}
-    sbuild/regex.cc
-    sbuild/util.cc)
+set(schroot_standard_sources
+    schroot/environment.cc
+    schroot/log.cc
+    schroot/nostream.cc
+    schroot/parse-value.cc
+    ${schroot_personality_sources}
+    schroot/regex.cc
+    schroot/util.cc)
 
 if (BUILD_TESTS)
-  add_executable(sbuild/standard ${sbuild_standard_sources})
-  target_link_libraries(sbuild/standard
-                        sbuild
+  add_executable(schroot/standard ${schroot_standard_sources})
+  target_link_libraries(schroot/standard
+                        libschroot
                         ${REGEX_LIBRARY}
                         testmain)
-  add_test(sbuild/standard sbuild/standard)
+  add_test(schroot/standard schroot/standard)
 endif (BUILD_TESTS)
 
-set(sbuild_keyfile_sources
-    sbuild/keyfile.cc)
+set(schroot_keyfile_sources
+    schroot/keyfile.cc)
 
 if (BUILD_TESTS)
-  add_executable(sbuild/keyfile ${sbuild_keyfile_sources})
-  target_link_libraries(sbuild/keyfile sbuild testmain)
-  add_test(sbuild/keyfile sbuild/keyfile)
+  add_executable(schroot/keyfile ${schroot_keyfile_sources})
+  target_link_libraries(schroot/keyfile libschroot testmain)
+  add_test(schroot/keyfile schroot/keyfile)
 endif (BUILD_TESTS)
 
-set(sbuild_lock_sources
-    sbuild/lock.cc)
+set(schroot_lock_sources
+    schroot/lock.cc)
 
 if (BUILD_TESTS)
-  add_executable(sbuild/lock ${sbuild_lock_sources})
-  target_link_libraries(sbuild/lock sbuild testmain)
+  add_executable(schroot/lock ${schroot_lock_sources})
+  target_link_libraries(schroot/lock libschroot testmain)
   # lock is excluded, because it is timing dependent and can fail
   # randomly on slow or heavily-loaded systems.
 endif (BUILD_TESTS)
 
-set(sbuild_run_parts_sources
-    sbuild/run-parts.cc)
+set(schroot_run_parts_sources
+    schroot/run-parts.cc)
 
 if (BUILD_TESTS)
-  add_executable(sbuild/run-parts ${sbuild_run_parts_sources})
-  target_link_libraries(sbuild/run-parts
-                        sbuild
+  add_executable(schroot/run-parts ${schroot_run_parts_sources})
+  target_link_libraries(schroot/run-parts
+                        libschroot
                         ${Boost_FILESYSTEM_LIBRARY_RELEASE}
                         ${Boost_SYSTEM_LIBRARY_RELEASE}
                         testmain)
-  add_test(sbuild/run-parts sbuild/run-parts)
+  add_test(schroot/run-parts schroot/run-parts)
 endif (BUILD_TESTS)
 
 set(bin_common_option_action_sources

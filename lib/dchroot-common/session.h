@@ -19,7 +19,7 @@
 #ifndef DCHROOT_COMMON_SESSION_H
 #define DCHROOT_COMMON_SESSION_H
 
-#include <sbuild/session.h>
+#include <schroot/session.h>
 
 namespace bin
 {
@@ -34,7 +34,7 @@ namespace bin
      * also prevents user switching when running sessions, which is
      * forbidden.
      */
-    class session : public sbuild::session
+    class session : public schroot::session
     {
     public:
       /**
@@ -44,9 +44,9 @@ namespace bin
        * @param operation the session operation to perform.
        * @param chroots the chroots to act upon.
        */
-      session (const std::string&         service,
-               operation                  operation,
-               const sbuild::session::chroot_list& chroots);
+      session (const std::string&                   service,
+               operation                            operation,
+               const schroot::session::chroot_list& chroots);
 
       /// The destructor.
       virtual ~session ();
@@ -55,9 +55,9 @@ namespace bin
       virtual void
       run_impl ();
 
-      virtual sbuild::string_list
-      get_command_directories (sbuild::chroot::chroot::ptr& session_chroot,
-                               const sbuild::environment&   env) const;
+      virtual schroot::string_list
+      get_command_directories (schroot::chroot::chroot::ptr& session_chroot,
+                               const schroot::environment&   env) const;
     };
 
   }

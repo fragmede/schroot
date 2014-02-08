@@ -1,8 +1,8 @@
-sbuild.dox
-sbuild.log
-sbuild
 schroot.dox
 schroot.log
 schroot
+schroot-bin.dox
+schroot-bin.log
+schroot-bin
 *.pdf
 *.ps

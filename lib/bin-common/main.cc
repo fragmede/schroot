@@ -18,10 +18,10 @@
 
 #include <config.h>
 
-#include <sbuild/i18n.h>
-#include <sbuild/log.h>
-#include <sbuild/types.h>
-#include <sbuild/feature.h>
+#include <schroot/i18n.h>
+#include <schroot/log.h>
+#include <schroot/types.h>
+#include <schroot/feature.h>
 
 #include <bin-common/main.h>
 
@@ -35,7 +35,7 @@
 
 using std::endl;
 using boost::format;
-using sbuild::_;
+using schroot::_;
 
 namespace bin
 {
@@ -75,7 +75,7 @@ namespace bin
 #endif
                   );
       fmtr % this->program_name % DISTRIBUTOR % VERSION
-        % sbuild::gmdate(RELEASE_DATE);
+        % schroot::gmdate(RELEASE_DATE);
 
       // TRANSLATORS: %1% = copyright year (start)
       // TRANSLATORS: %2% = copyright year (end)
@@ -89,7 +89,7 @@ namespace bin
                   "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n")
              << '\n'
              << _("Configured features:") << '\n';
-      sbuild::feature::print_features(stream);
+      schroot::feature::print_features(stream);
       stream << std::flush;
     }
 
@@ -112,8 +112,8 @@ namespace bin
         {
           this->program_options->parse(argc, argv);
 
-#ifdef SBUILD_DEBUG
-          sbuild::debug_log_level = sbuild::DEBUG_CRITICAL;
+#ifdef SCHROOT_DEBUG
+          schroot::debug_log_level = schroot::DEBUG_CRITICAL;
 #endif
 
           if (this->use_syslog)
@@ -127,12 +127,12 @@ namespace bin
         }
       catch (const std::exception& e)
         {
-          sbuild::log_exception_error(e);
+          schroot::log_exception_error(e);
 
           try
             {
               dynamic_cast<bin::common::options::error const&>(e);
-              sbuild::log_info()
+              schroot::log_info()
                 // TRANSLATORS: %1% = program name
                 << format(_("Run “%1% --help” to list usage example and all available options"))
                 % argv[0]

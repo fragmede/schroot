@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include <sbuild/i18n.h>
-#include <sbuild/util.h>
+#include <schroot/i18n.h>
+#include <schroot/util.h>
 
 #include <libexec/mount/options.h>
 
@@ -31,7 +31,7 @@
 
 using std::endl;
 using boost::format;
-using sbuild::_;
+using schroot::_;
 namespace opt = boost::program_options;
 
 namespace schroot_mount
@@ -97,7 +97,7 @@ namespace schroot_mount
     if (vm.count("dry-run"))
       this->dry_run = true;
 
-    this->mountpoint = sbuild::normalname(this->mountpoint);
+    this->mountpoint = schroot::normalname(this->mountpoint);
 
     if (this->action == ACTION_MOUNT &&
         this->mountpoint.empty())

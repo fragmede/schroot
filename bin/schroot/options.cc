@@ -28,7 +28,7 @@
 
 using std::endl;
 using boost::format;
-using sbuild::_;
+using schroot::_;
 namespace opt = boost::program_options;
 
 namespace bin
@@ -76,7 +76,7 @@ namespace bin
          _("Username (default current user)"))
         ("preserve-environment,p",
          _("Preserve user environment"))
-        ("option,o", opt::value<sbuild::string_list>(&this->useroptions),
+        ("option,o", opt::value<::schroot::string_list>(&this->useroptions),
          _("Set option"));
 
       session_actions.add_options()

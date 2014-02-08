@@ -35,7 +35,7 @@
 
 using std::cout;
 using std::endl;
-using sbuild::_;
+using schroot::_;
 using boost::format;
 
 namespace bin
@@ -43,10 +43,10 @@ namespace bin
 namespace dchroot_common
 {
 
-  session::session (const std::string&  service,
-                    operation           operation,
-                    const sbuild::session::chroot_list& chroots):
-    sbuild::session(service, operation, chroots)
+  session::session (const std::string&                   service,
+                    operation                            operation,
+                    const schroot::session::chroot_list& chroots):
+    schroot::session(service, operation, chroots)
   {
   }
 
@@ -61,12 +61,12 @@ namespace dchroot_common
       throw error(get_auth()->get_ruser(), get_auth()->get_user(), USER_SWITCH,
                   _("dchroot session restriction"));
 
-    sbuild::session::run_impl();
+    schroot::session::run_impl();
   }
 
-  sbuild::string_list
-  session::get_command_directories (sbuild::chroot::chroot::ptr& session_chroot,
-                                    const sbuild::environment&   env) const
+  schroot::string_list
+  session::get_command_directories (schroot::chroot::chroot::ptr& session_chroot,
+                                    const schroot::environment&   env) const
   {
     // dchroot does not treat logins differently from commands with
     // respect to the cwd inside the chroot.

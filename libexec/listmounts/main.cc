@@ -18,8 +18,8 @@
 
 #include <config.h>
 
-#include <sbuild/mntstream.h>
-#include <sbuild/util.h>
+#include <schroot/mntstream.h>
+#include <schroot/util.h>
 
 #include <libexec/listmounts/main.h>
 
@@ -39,15 +39,15 @@
 
 using std::endl;
 using boost::format;
-using sbuild::_;
-using sbuild::N_;
+using schroot::_;
+using schroot::N_;
 
 namespace schroot_listmounts
 {
 
   template<>
-  sbuild::error<main::error_code>::map_type
-  sbuild::error<main::error_code>::error_strings =
+  schroot::error<main::error_code>::map_type
+  schroot::error<main::error_code>::error_strings =
     {
       // TRANSLATORS: %1% = file
       {schroot_listmounts::main::FIND,  N_("Failed to find ‘%1%’")}
@@ -71,7 +71,7 @@ namespace schroot_listmounts
   void
   main::action_listmounts ()
   {
-    std::string to_find = sbuild::normalname(this->opts->mountpoint);
+    std::string to_find = schroot::normalname(this->opts->mountpoint);
 
     {
       // NOTE: This is a non-standard GNU extension.
@@ -85,9 +85,9 @@ namespace schroot_listmounts
     }
 
     // Check mounts.
-    sbuild::mntstream mounts("/proc/mounts");
-    sbuild::mntstream::mntentry entry;
-    sbuild::string_list mountlist;
+    schroot::mntstream mounts("/proc/mounts");
+    schroot::mntstream::mntentry entry;
+    schroot::string_list mountlist;
 
     while (mounts >> entry)
       {
@@ -102,7 +102,7 @@ namespace schroot_listmounts
           mountlist.push_back(mount_dir);
       }
 
-    for (sbuild::string_list::const_reverse_iterator mount = mountlist.rbegin();
+    for (schroot::string_list::const_reverse_iterator mount = mountlist.rbegin();
          mount != mountlist.rend();
          ++mount)
       std::cout << *mount << '\n';

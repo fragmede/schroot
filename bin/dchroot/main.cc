@@ -33,7 +33,7 @@
 #include <boost/format.hpp>
 
 using std::endl;
-using sbuild::_;
+using schroot::_;
 using boost::format;
 
 namespace bin
@@ -55,11 +55,11 @@ namespace bin
     }
 
     void
-    main::create_session (sbuild::session::operation sess_op)
+    main::create_session (schroot::session::operation sess_op)
     {
-      sbuild::log_debug(sbuild::DEBUG_INFO) << "Creating dchroot session" << endl;
+      schroot::log_debug(schroot::DEBUG_INFO) << "Creating dchroot session" << endl;
 
-      this->session = sbuild::session::ptr
+      this->session = schroot::session::ptr
         (new dchroot::session("schroot",
                               sess_op,
                               this->chroot_objects));

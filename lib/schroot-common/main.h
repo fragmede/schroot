@@ -22,8 +22,8 @@
 #include <bin-common/main.h>
 #include <schroot-common/options.h>
 
-#include <sbuild/chroot/config.h>
-#include <sbuild/custom-error.h>
+#include <schroot/chroot/config.h>
+#include <schroot/custom-error.h>
 
 namespace bin
 {
@@ -48,9 +48,9 @@ namespace bin
         };
 
       /// Exception type.
-      typedef sbuild::custom_error<error_code> error;
+      typedef schroot::custom_error<error_code> error;
 
-      typedef sbuild::chroot::config::chroot_map chroot_map;
+      typedef schroot::chroot::config::chroot_map chroot_map;
 
       /**
        * The constructor.
@@ -127,7 +127,7 @@ namespace bin
        * @param sess_op the session operation to perform.
        */
       virtual void
-      create_session (sbuild::session::operation sess_op) = 0;
+      create_session (schroot::session::operation sess_op) = 0;
 
       /**
        * Add PAM authentication handler to the session.
@@ -137,17 +137,17 @@ namespace bin
 
     protected:
       /// The program options.
-      schroot_common::options::ptr options;
+      schroot_common::options::ptr  options;
       /// The chroot configuration.
-      sbuild::chroot::config::ptr  config;
+      schroot::chroot::config::ptr  config;
       /// The chroots to use (original names or aliases).
-      sbuild::string_list          chroot_names;
+      schroot::string_list          chroot_names;
       /// The chroots to use (alias to chroot mapping).
-      chroot_map                   chroots;
+      chroot_map                    chroots;
       /// The chroots to use (for session).
-      sbuild::session::chroot_list chroot_objects;
+      schroot::session::chroot_list chroot_objects;
       /// The session.
-      sbuild::session::ptr         session;
+      schroot::session::ptr         session;
     };
 
   }

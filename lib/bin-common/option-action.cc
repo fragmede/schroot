@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <sbuild/i18n.h>
+#include <schroot/i18n.h>
 
 #include <bin-common/option-action.h>
 #include <bin-common/options.h>
@@ -30,7 +30,7 @@
 
 using std::endl;
 using boost::format;
-using sbuild::_;
+using schroot::_;
 namespace opt = boost::program_options;
 
 namespace bin

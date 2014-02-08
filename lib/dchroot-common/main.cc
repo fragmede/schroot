@@ -35,7 +35,7 @@
 
 using std::endl;
 using boost::format;
-using sbuild::_;
+using schroot::_;
 
 namespace bin
 {

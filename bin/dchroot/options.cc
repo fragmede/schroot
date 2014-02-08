@@ -27,7 +27,7 @@
 #include <boost/program_options.hpp>
 
 using std::endl;
-using sbuild::_;
+using schroot::_;
 using boost::format;
 namespace opt = boost::program_options;
 
@@ -91,18 +91,18 @@ namespace bin
 
       if (this->quiet && this->verbose)
         {
-          sbuild::log_warning()
+          schroot::log_warning()
             << _("--quiet and --verbose may not be used at the same time")
             << endl;
-          sbuild::log_info() << _("Using verbose output") << endl;
+          schroot::log_info() << _("Using verbose output") << endl;
         }
 
       if (!this->chroots.empty() && all_used())
         {
-          sbuild::log_warning()
+          schroot::log_warning()
             << _("--chroot and --all may not be used at the same time")
             << endl;
-          sbuild::log_info() << _("Using --chroots only") << endl;
+          schroot::log_info() << _("Using --chroots only") << endl;
           this->all = this->all_chroots = this->all_sessions = false;
         }
 

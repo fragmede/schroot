@@ -57,7 +57,7 @@ namespace bin
 
     protected:
       virtual void
-      create_session(sbuild::session::operation sess_op);
+      create_session(::schroot::session::operation sess_op);
 
       virtual void
       add_session_auth ();

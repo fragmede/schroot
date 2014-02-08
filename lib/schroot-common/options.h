@@ -19,8 +19,8 @@
 #ifndef SCHROOT_COMMON_OPTIONS_H
 #define SCHROOT_COMMON_OPTIONS_H
 
-#include <sbuild/session.h>
-#include <sbuild/types.h>
+#include <schroot/session.h>
+#include <schroot/types.h>
 
 #include <bin-common/options.h>
 
@@ -73,11 +73,11 @@ namespace bin
       virtual ~options ();
 
       /// Chroots to use.
-      sbuild::string_list  chroots;
+      schroot::string_list  chroots;
       /// Chroot to print path.
       std::string          chroot_path;
       /// Command to run.
-      sbuild::string_list  command;
+      schroot::string_list  command;
       /// Directory to use.
       std::string          directory;
       /// Shell to use.
@@ -105,9 +105,9 @@ namespace bin
       /// Force session operations.
       bool                 session_force;
       /// Options as a key=value list.
-      sbuild::string_list  useroptions;
+      schroot::string_list  useroptions;
       /// Options in a string-string map.
-      sbuild::string_map   useroptions_map;
+      schroot::string_map   useroptions_map;
 
     protected:
       /**
