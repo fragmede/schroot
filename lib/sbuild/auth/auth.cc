@@ -43,24 +43,25 @@ using boost::format;
 
 namespace sbuild
 {
+
+  template<>
+  error<auth::auth::error_code>::map_type
+  error<auth::auth::error_code>::error_strings =
+    {
+      {auth::auth::HOSTNAME,        N_("Failed to get hostname")},
+      // TRANSLATORS: %1% = user name or user ID
+      {auth::auth::USER,            N_("User ‘%1%’ not found")},
+      // TRANSLATORS: %1% = group name or group ID
+      {auth::auth::GROUP,           N_("Group ‘%1%’ not found")},
+      {auth::auth::AUTHENTICATION,  N_("Authentication failed")},
+      {auth::auth::AUTHORISATION,   N_("Access not authorised")},
+      {auth::auth::PAM_DOUBLE_INIT, N_("PAM is already initialised")},
+      {auth::auth::PAM,             N_("PAM error")},
+      {auth::auth::PAM_END,         N_("PAM failed to shut down cleanly")}
+    };
+
   namespace auth
   {
-
-    template<>
-    error<auth::error_code>::map_type
-    error<auth::error_code>::error_strings =
-      {
-        {auth::auth::HOSTNAME,        N_("Failed to get hostname")},
-        // TRANSLATORS: %1% = user name or user ID
-        {auth::auth::USER,            N_("User ‘%1%’ not found")},
-        // TRANSLATORS: %1% = group name or group ID
-        {auth::auth::GROUP,           N_("Group ‘%1%’ not found")},
-        {auth::auth::AUTHENTICATION,  N_("Authentication failed")},
-        {auth::auth::AUTHORISATION,   N_("Access not authorised")},
-        {auth::auth::PAM_DOUBLE_INIT, N_("PAM is already initialised")},
-        {auth::auth::PAM,             N_("PAM error")},
-        {auth::auth::PAM_END,         N_("PAM failed to shut down cleanly")}
-      };
 
     auth::auth (const std::string& service_name):
       service(service_name),

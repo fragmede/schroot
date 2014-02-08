@@ -97,21 +97,22 @@ namespace
 
 namespace sbuild
 {
+
+  template<>
+  error<auth::pam_conv_tty::error_code>::map_type
+  error<auth::pam_conv_tty::error_code>::error_strings =
+    {
+      {auth::pam_conv_tty::CTTY,            N_("No controlling terminal")},
+      {auth::pam_conv_tty::TIMEOUT,         N_("Timed out")},
+      // TRANSLATORS: Please use an ellipsis e.g. U+2026
+      {auth::pam_conv_tty::TIMEOUT_PENDING, N_("Time is running out…")},
+      {auth::pam_conv_tty::TERMIOS,         N_("Failed to get terminal settings")},
+      // TRANSLATORS: %1% = integer
+      {auth::pam_conv_tty::CONV_TYPE,       N_("Unsupported conversation type ‘%1%’")}
+    };
+
   namespace auth
   {
-
-    template<>
-    error<pam_conv_tty::error_code>::map_type
-    error<pam_conv_tty::error_code>::error_strings =
-      {
-        {auth::pam_conv_tty::CTTY,            N_("No controlling terminal")},
-        {auth::pam_conv_tty::TIMEOUT,         N_("Timed out")},
-        // TRANSLATORS: Please use an ellipsis e.g. U+2026
-        {auth::pam_conv_tty::TIMEOUT_PENDING, N_("Time is running out…")},
-        {auth::pam_conv_tty::TERMIOS,         N_("Failed to get terminal settings")},
-        // TRANSLATORS: %1% = integer
-        {auth::pam_conv_tty::CONV_TYPE,       N_("Unsupported conversation type ‘%1%’")}
-      };
 
     pam_conv_tty::pam_conv_tty (auth_ptr auth):
       auth(weak_auth_ptr(auth)),

@@ -33,6 +33,17 @@ using std::endl;
 
 namespace sbuild
 {
+
+  template<>
+  error<chroot::facet::fsunion::error_code>::map_type
+  error<chroot::facet::fsunion::error_code>::error_strings =
+    {
+      // TRANSLATORS: %1% = chroot fs type
+      {chroot::facet::fsunion::FSUNION_TYPE_UNKNOWN, N_("Unknown filesystem union type ‘%1%’")},
+      {chroot::facet::fsunion::FSUNION_OVERLAY_ABS,  N_("Union overlay must have an absolute path")},
+      {chroot::facet::fsunion::FSUNION_UNDERLAY_ABS, N_("Union underlay must have an absolute path")}
+    };
+
   namespace chroot
   {
     namespace facet
@@ -54,16 +65,6 @@ namespace sbuild
         factory fsunion_register(fsunion_info);
 
       }
-
-      template<>
-      error<fsunion::error_code>::map_type
-      error<fsunion::error_code>::error_strings =
-        {
-          // TRANSLATORS: %1% = chroot fs type
-          {chroot::facet::fsunion::FSUNION_TYPE_UNKNOWN, N_("Unknown filesystem union type ‘%1%’")},
-          {chroot::facet::fsunion::FSUNION_OVERLAY_ABS,  N_("Union overlay must have an absolute path")},
-          {chroot::facet::fsunion::FSUNION_UNDERLAY_ABS, N_("Union underlay must have an absolute path")}
-        };
 
       fsunion::fsunion ():
         facet(),
