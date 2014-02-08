@@ -40,7 +40,7 @@ namespace schroot_mount
   const options::action_type options::ACTION_MOUNT ("mount");
 
   options::options ():
-    bin_common::options(),
+    bin::common::options(),
     dry_run(false),
     fstab(),
     mountpoint(),
@@ -56,7 +56,7 @@ namespace schroot_mount
   options::add_options ()
   {
     // Chain up to add basic options.
-    bin_common::options::add_options();
+    bin::common::options::add_options();
 
     action.add(ACTION_MOUNT);
     action.set_default(ACTION_MOUNT);
@@ -75,7 +75,7 @@ namespace schroot_mount
   options::add_option_groups ()
   {
     // Chain up to add basic option groups.
-    bin_common::options::add_option_groups();
+    bin::common::options::add_option_groups();
 
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
     if (!mount.options().empty())
@@ -92,7 +92,7 @@ namespace schroot_mount
   options::check_options ()
   {
     // Chain up to check basic options.
-    bin_common::options::check_options();
+    bin::common::options::check_options();
 
     if (vm.count("dry-run"))
       this->dry_run = true;

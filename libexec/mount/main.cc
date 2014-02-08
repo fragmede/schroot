@@ -61,12 +61,12 @@ namespace schroot_mount
     };
 
   main::main (options::ptr& options):
-    bin_common::main("schroot-mount",
-                     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-                     // and '-' is an em-dash.
-                     _("[OPTION…] — mount filesystems"),
-                     options,
-                     false),
+    bin::common::main("schroot-mount",
+                      // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+                      // and '-' is an em-dash.
+                      _("[OPTION…] — mount filesystems"),
+                      options,
+                      false),
     opts(options)
   {
   }

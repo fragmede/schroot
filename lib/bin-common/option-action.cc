@@ -33,69 +33,72 @@ using boost::format;
 using sbuild::_;
 namespace opt = boost::program_options;
 
-namespace bin_common
+namespace bin
 {
-
-  option_action::option_action ():
-    default_action(),
-    current_action(),
-    actions()
+  namespace common
   {
-  }
 
-  option_action::~option_action ()
-  {
-  }
+    option_action::option_action ():
+      default_action(),
+      current_action(),
+      actions()
+    {
+    }
 
-  void
-  option_action::add (const action_type& action)
-  {
-    this->actions.insert(action);
-  }
+    option_action::~option_action ()
+    {
+    }
 
-  option_action::action_type const&
-  option_action::get_default ()
-  {
-    return this->default_action;
-  }
+    void
+    option_action::add (const action_type& action)
+    {
+      this->actions.insert(action);
+    }
 
-  void
-  option_action::set_default (const action_type& action)
-  {
-    if (valid(action))
-      this->default_action = action;
-    else
-      throw bin_common::options::error((format(_("%1%: invalid action")) % action).str());
-  }
-
-  option_action::action_type const&
-  option_action::get ()
-  {
-    if (this->current_action != "")
-      return this->current_action;
-    else
+    option_action::action_type const&
+    option_action::get_default ()
+    {
       return this->default_action;
-  }
+    }
 
-  void
-  option_action::set (const action_type& action)
-  {
-    if (valid(action))
-      {
-        if (this->current_action == "")
-          this->current_action = action;
-        else
-          throw bin_common::options::error
-            (_("Only one action may be specified"));
-      }
-    else
-      throw bin_common::options::error((format(_("%1%: invalid action")) % action).str());
-  }
+    void
+    option_action::set_default (const action_type& action)
+    {
+      if (valid(action))
+        this->default_action = action;
+      else
+        throw bin::common::options::error((format(_("%1%: invalid action")) % action).str());
+    }
 
-  bool
-  option_action::valid (const action_type& action)
-  {
-    return this->actions.find(action) != this->actions.end();
-  }
+    option_action::action_type const&
+    option_action::get ()
+    {
+      if (this->current_action != "")
+        return this->current_action;
+      else
+        return this->default_action;
+    }
 
+    void
+    option_action::set (const action_type& action)
+    {
+      if (valid(action))
+        {
+          if (this->current_action == "")
+            this->current_action = action;
+          else
+            throw bin::common::options::error
+              (_("Only one action may be specified"));
+        }
+      else
+        throw bin::common::options::error((format(_("%1%: invalid action")) % action).str());
+    }
+
+    bool
+    option_action::valid (const action_type& action)
+    {
+      return this->actions.find(action) != this->actions.end();
+    }
+
+  }
 }

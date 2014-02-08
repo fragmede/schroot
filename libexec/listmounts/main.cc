@@ -54,12 +54,12 @@ namespace schroot_listmounts
     };
 
   main::main (options::ptr& options):
-    bin_common::main("schroot-listmounts",
-                     // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
-                     // and '-' is an em-dash.
-                     _("[OPTION…] — list mount points"),
-                     options,
-                     false),
+    bin::common::main("schroot-listmounts",
+                      // TRANSLATORS: '...' is an ellipsis e.g. U+2026,
+                      // and '-' is an em-dash.
+                      _("[OPTION…] — list mount points"),
+                      options,
+                      false),
     opts(options)
   {
   }

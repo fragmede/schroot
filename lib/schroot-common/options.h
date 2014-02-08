@@ -41,7 +41,7 @@ namespace bin
      * behaviour.  This class contains functionality and options common
      * to all schroot programs (schroot, dchroot, dchroot-dsa).
      */
-    class options : public bin_common::options
+    class options : public bin::common::options
     {
     public:
       /// Begin, run and end a session.

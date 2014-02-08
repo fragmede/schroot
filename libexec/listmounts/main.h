@@ -34,7 +34,7 @@ namespace schroot_listmounts
   /**
    * Frontend for schroot.  This class is used to "run" schroot.
    */
-  class main : public bin_common::main
+  class main : public bin::common::main
   {
   public:
     /// Error codes.

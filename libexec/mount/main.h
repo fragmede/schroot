@@ -35,7 +35,7 @@ namespace schroot_mount
   /**
    * Frontend for schroot-mount.  This class is used to "run" schroot-mount.
    */
-  class main : public bin_common::main
+  class main : public bin::common::main
   {
   public:
     /// Error codes.

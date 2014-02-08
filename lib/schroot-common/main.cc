@@ -72,9 +72,9 @@ namespace bin
                 const std::string& program_usage,
                 options::ptr&      options,
                 bool               use_syslog):
-      bin_common::main(program_name, program_usage,
-                       std::static_pointer_cast<bin_common::options>(options),
-                       use_syslog),
+      bin::common::main(program_name, program_usage,
+                        std::static_pointer_cast<bin::common::options>(options),
+                        use_syslog),
       options(options)
     {
     }
@@ -86,7 +86,7 @@ namespace bin
     void
     main::action_version (std::ostream& stream)
     {
-      bin_common::main::action_version(stream);
+      bin::common::main::action_version(stream);
 
       stream << '\n'
              << _("Installed chroot facets:")

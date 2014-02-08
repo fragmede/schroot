@@ -29,7 +29,7 @@ namespace schroot_listmounts
   /**
    * schroot-listmounts command-line options.
    */
-  class options : public bin_common::options
+  class options : public bin::common::options
   {
   public:
     /// A shared_ptr to an options object.

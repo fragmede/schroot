@@ -23,7 +23,7 @@
 
 #include <iostream>
 
-using bin_common::option_action;
+using bin::common::option_action;
 
 
 class OptionAction : public ::testing::Test
@@ -72,7 +72,7 @@ TEST_F(OptionAction, DefaultFail)
 {
   add_examples(*action);
 
-  ASSERT_THROW(action->set_default("invalid"), bin_common::options::error);
+  ASSERT_THROW(action->set_default("invalid"), bin::common::options::error);
 }
 
 TEST_F(OptionAction, Current)
@@ -95,7 +95,7 @@ TEST_F(OptionAction, CurrentFail)
 {
   add_examples(*action);
 
-  ASSERT_THROW(action->set("invalid"), bin_common::options::error);
+  ASSERT_THROW(action->set("invalid"), bin::common::options::error);
 }
 
 TEST_F(OptionAction, CurrentFailMultipleSet)
@@ -103,7 +103,7 @@ TEST_F(OptionAction, CurrentFailMultipleSet)
   add_examples(*action);
 
   ASSERT_NO_THROW(action->set("list"));
-  ASSERT_THROW(action->set("info"), bin_common::options::error);
+  ASSERT_THROW(action->set("info"), bin::common::options::error);
 }
 
 TEST_F(OptionAction, Operators)
@@ -122,5 +122,5 @@ TEST_F(OptionAction, OperatorsFailMultipleSet)
   add_examples(*action);
 
   ASSERT_NO_THROW(*action = "list");
-  ASSERT_THROW(*action = "config", bin_common::options::error);
+  ASSERT_THROW(*action = "config", bin::common::options::error);
 }

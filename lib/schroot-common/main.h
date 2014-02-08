@@ -35,7 +35,7 @@ namespace bin
      * schroot programs.  This class contains functionality common to
      * all schroot programs (schroot, dchroot, dchroot-dsa).
      */
-    class main : public bin_common::main
+    class main : public bin::common::main
     {
     public:
       /// Error codes.

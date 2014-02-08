@@ -50,7 +50,7 @@ namespace bin
     const options::action_type options::ACTION_CONFIG ("config");
 
     options::options ():
-      bin_common::options (),
+      bin::common::options (),
       chroots(),
       command(),
       directory(),
@@ -81,7 +81,7 @@ namespace bin
     options::add_options ()
     {
       // Chain up to add basic options.
-      bin_common::options::add_options();
+      bin::common::options::add_options();
 
       action.add(ACTION_SESSION_AUTO);
       action.set_default(ACTION_SESSION_AUTO);
@@ -117,7 +117,7 @@ namespace bin
     options::add_option_groups ()
     {
       // Chain up to add basic option groups.
-      bin_common::options::add_option_groups();
+      bin::common::options::add_option_groups();
 
 #ifndef BOOST_PROGRAM_OPTIONS_DESCRIPTION_OLD
       if (!chroot.options().empty())
@@ -162,7 +162,7 @@ namespace bin
     options::check_options ()
     {
       // Chain up to check basic options.
-      bin_common::options::check_options();
+      bin::common::options::check_options();
 
       if (vm.count("list"))
         this->action = ACTION_LIST;
@@ -176,7 +176,7 @@ namespace bin
     options::check_actions ()
     {
       // Chain up to check basic actions.
-      bin_common::options::check_actions();
+      bin::common::options::check_actions();
 
       if (this->quiet && this->verbose)
         {

@@ -40,6 +40,6 @@ int
 main (int   argc,
       char *argv[])
 {
-  return bin_common::run
+  return bin::common::run
     <schroot_listmounts::options, schroot_listmounts::main>(argc, argv);
 }
