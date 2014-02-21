@@ -39,8 +39,6 @@
 #include <boost/format.hpp>
 #include <boost/filesystem.hpp>
 
-#include <mntent.h>
-
 using std::endl;
 using boost::format;
 using schroot::_;
