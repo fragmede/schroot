@@ -1,0 +1,1 @@
+%\ \f[CB]rm\ \*[SCHROOT_SESSION_DIR]/my\-session\fP\[CR]

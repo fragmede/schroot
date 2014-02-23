@@ -1,0 +1,2 @@
+% \f[CB]schroot \-\-run\-session \-c squeeze\-57a69547\-e014\-4f5d\-a98b\-f4f35a005307 \\
+  \-\- command1\fP\[CR]

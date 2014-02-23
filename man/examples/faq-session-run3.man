@@ -1,0 +1,3 @@
+% \f[CB]schroot \-\-run\-session \-c "$SESSION" \-\- command2\fP\[CR]
+% \f[CB]schroot \-\-run\-session \-c "$SESSION" \-\- command3\fP\[CR]
+% \f[CB]schroot \-\-run\-session \-c "$SESSION" \-\- command4\fP\[CR]

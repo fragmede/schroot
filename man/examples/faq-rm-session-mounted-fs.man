@@ -1,0 +1,2 @@
+%\ \f[CB]\*[SCHROOT_LIBEXEC_DIR]/schroot\-listmounts\ \-m\ \\
+  \*[SCHROOT_MOUNT_DIR]/my\-session\fP\[CR]

@@ -1,0 +1,1 @@
+% \f[CB]schroot \-\-run\-session \-c "$SESSION" \-\- command1\fP\[CR]
