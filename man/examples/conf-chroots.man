@@ -1,0 +1,42 @@
+# Sample configuration
+
+[sid]
+type=plain
+description=Debian unstable
+description[fr_FR]=Debian instable
+directory=/srv/chroot/sid
+priority=3
+users=jim
+groups=sbuild
+root\-users=rleigh
+aliases=unstable,default
+
+[etch]
+type=block\-device
+description=Debian testing (32\-bit)
+priority=2
+groups=users
+#groups=sbuild\-security
+aliases=testing
+device=/dev/hda_vg/etch_chroot
+mount\-options=\-o atime
+personality=linux32
+
+[sid\-file]
+type=file
+description=Debian sid file\-based chroot
+priority=3
+groups=sbuild
+file=/srv/chroots/sid.tar.gz
+
+[sid\-snapshot]
+type=lvm\-snapshot
+description=Debian unstable LVM snapshot
+priority=3
+groups=sbuild
+users=rleigh
+source\-root\-users=rleigh
+source\-root\-groups=admin
+device=/dev/hda_vg/sid_chroot
+mount\-options=\-o atime,sync,user_xattr
+lvm\-snapshot\-options=\-\-size 2G
