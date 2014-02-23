@@ -1,0 +1,4 @@
+% \f[CB]schroot \-c sid \-u root\fP\[CR]
+Password:
+[sid chroot] (rleigh\[->]root) Running login shell: \[lq]/bin/bash\[rq]
+# 

@@ -1,0 +1,14 @@
+% \f[CB]schroot \-c sid /bin/ls\fP\[CR]
+[sid chroot] Running command: \[lq]/bin/ls\[rq]
+CVS          sbuild\-chroot.c   sbuild\-session.h  schroot.conf.5
+Makefile     sbuild\-chroot.h   schroot.1         schroot.conf.5.in
+Makefile.am  sbuild\-config.c   schroot.1.in
+Makefile.in  sbuild\-config.h   schroot.c
+pam          sbuild\-session.c  schroot.conf
+% \f[CB]schroot \-c sid \-\- ls \-1 | head \-n 5\fP\[CR]
+[sid chroot] Running command: \[lq]ls \-1\[rq]
+ABOUT\-NLS
+AUTHORS
+COPYING
+ChangeLog
+INSTALL

@@ -1,0 +1,2 @@
+% \f[CB]schroot \-b \-c sid\-snap\fP\[CR]
+sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f

@@ -1,0 +1,35 @@
+% \f[CB]schroot \-i \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\[CR]
+  \[em]\[em]\[em] Session \[em]\[em]\[em]
+  Name                   sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d\\
+4ccc899f0f
+  Description            Debian sid snapshot
+  Type                   lvm\-snapshot
+  Priority               3
+  Users                  maks rleigh
+  Groups                 sbuild
+  Root Users
+  Root Groups            root sbuild
+  Aliases
+  Environment Filter     ^(BASH_ENV|CDPATH|ENV|HOSTALIASES|I\\
+FS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMA\\
+IN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TE\\
+RMPATH)$
+  Run Setup Scripts      true
+  Script Configuration   script\-defaults
+  Session Managed        true
+  Personality            linux
+  Mount Location         /var/lib/schroot/mount/sid\-snap\-461\\
+95b04\-0893\-49bf\-beb8\-0d4ccc899f0f
+  Path                   /var/lib/schroot/mount/sid\-snap\-461\\
+95b04\-0893\-49bf\-beb8\-0d4ccc899f0f
+  Mount Device           /dev/hda_vg/sid\-snap\-46195b04\-0893\-\\
+49bf\-beb8\-0d4ccc899f0f
+  Device                 /dev/hda_vg/sid_chroot
+  Mount Options          \-o atime,async,user_xattr
+  Source Users
+  Source Groups          root rleigh
+  Source Root Users
+  Source Root Groups     root rleigh
+  LVM Snapshot Device    /dev/hda_vg/sid\-snap\-46195b04\-0893\-\\
+49bf\-beb8\-0d4ccc899f0f
+  LVM Snapshot Options   \-\-size 2G \-c 128

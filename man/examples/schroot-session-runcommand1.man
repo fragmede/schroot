@@ -1,0 +1,9 @@
+% \f[CB]schroot \-r \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f \-\- \\
+  uname \-sr\fP\[CR]
+I: [sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f chroot] Running \\
+command: \[lq]uname \-sr\[rq]
+Linux 2.6.18\-3\-powerpc
+% \f[CB]schroot \-r \-c $SESSION \-\- uname \-sr\fP\[CR]
+I: [sid\-snap\-fe170af9\-d9be\-4800\-b1bd\-de275858b938 chroot] Running \\
+command: \[lq]uname \-sr\[rq]
+Linux 2.6.18\-3\-powerpc

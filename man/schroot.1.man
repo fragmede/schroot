@@ -407,56 +407,18 @@ for the session.
 .SH EXAMPLES
 .SS List available chroots
 .EX
-% \f[CB]schroot \-l\fP\[CR]
-chroot:default
-chroot:etch
-chroot:sid
-chroot:testing
-chroot:unstable
+.so examples/schroot-list.man
 .EE
 .SS Get information about a chroot
 .EX
-% \f[CB]schroot \-i \-c sid\fP\[CR]
-  \[em]\[em]\[em] Chroot \[em]\[em]\[em]
-  Name                   sid
-  Description            Debian sid (unstable)
-  Type                   plain
-  Priority               3
-  Users                  rleigh
-  Groups                 sbuild
-  Root Users
-  Root Groups            sbuild
-  Aliases                unstable unstable\-sbuild unstable\-p
-owerpc\-sbuild
-  Environment Filter     ^(BASH_ENV|CDPATH|ENV|HOSTALIASES|I\\
-FS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMA\\
-IN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TE\\
-RMPATH)$
-  Run Setup Scripts      true
-  Script Configuration   script\-defaults
-  Session Managed        true
-  Personality            linux32
-  Location               /srv/chroot/sid
+.so examples/schroot-info.man
 .EE
 .LP
 Use \fI\-\-all\fP or \fI\-c\fP multiple times to use all or multiple chroots,
 respectively.
 .SS Running commands in a chroot
 .EX
-% \f[CB]schroot \-c sid /bin/ls\fP\[CR]
-[sid chroot] Running command: \[lq]/bin/ls\[rq]
-CVS          sbuild\-chroot.c   sbuild\-session.h  schroot.conf.5
-Makefile     sbuild\-chroot.h   schroot.1         schroot.conf.5.in
-Makefile.am  sbuild\-config.c   schroot.1.in
-Makefile.in  sbuild\-config.h   schroot.c
-pam          sbuild\-session.c  schroot.conf
-% \f[CB]schroot \-c sid \-\- ls \-1 | head \-n 5\fP\[CR]
-[sid chroot] Running command: \[lq]ls \-1\[rq]
-ABOUT\-NLS
-AUTHORS
-COPYING
-ChangeLog
-INSTALL
+.so examples/schroot-command.man
 .EE
 .LP
 Use \fI\-\-\fP to allow options beginning with \[oq]\-\[cq] or \[oq]\-\-\[cq]
@@ -468,10 +430,7 @@ as required; the data will be the same as if the command was run directly on
 the host system.
 .SS Switching users
 .EX
-% \f[CB]schroot \-c sid \-u root\fP\[CR]
-Password:
-[sid chroot] (rleigh\[->]root) Running login shell: \[lq]/bin/bash\[rq]
-# 
+.so examples/schroot-userswitch.man
 .EE
 .LP
 If the user \[oq]rleigh\[cq] was in \f[CI]root\-users\fP in
@@ -489,32 +448,7 @@ strictly necessary.
 Let's start by looking at a session-capable chroot:
 .PP
 .EX
-% \f[CB]schroot \-i \-c sid\-snap\fP\[CR]
-  \[em]\[em]\[em] Chroot \[em]\[em]\[em]
-  Name                   sid\-snap
-  Description            Debian sid snapshot
-  Type                   lvm\-snapshot
-  Priority               3
-  Users                  maks rleigh
-  Groups                 sbuild
-  Root Users
-  Root Groups            root sbuild
-  Aliases
-  Environment Filter     ^(BASH_ENV|CDPATH|ENV|HOSTALIASES|I\\
-FS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMA\\
-IN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TE\\
-RMPATH)$
-  Run Setup Scripts      true
-  Script Configuration   script\-defaults
-  Session Managed        true
-  Personality            linux
-  Device                 /dev/hda_vg/sid_chroot
-  Mount Options          \-o atime,async,user_xattr
-  Source Users
-  Source Groups          root rleigh
-  Source Root Users
-  Source Root Groups     root rleigh
-  LVM Snapshot Options   \-\-size 2G \-c 128
+.so examples/schroot-session-chrootinfo.man
 .EE
 .PP
 Note that the \fISession Managed\fP option is set to \[oq]true\[cq].  This is a
@@ -522,88 +456,41 @@ requirement in order to use session management, and is supported by most chroot
 types.  Next, we will create a new session:
 .PP
 .EX
-% \f[CB]schroot \-b \-c sid\-snap\fP\[CR]
-sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f
+.so examples/schroot-session-create1.man
 .EE
 .PP
 The session ID of the newly-created session is returned on standard output.  It
 is common to store it like this:
 .PP
 .EX
-% \f[CB]SESSION=$(schroot \-b \-c sid\-snap)\fP\[CR]
-% \f[CB]echo $SESSION\fP\[CR]
-sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f
+.so examples/schroot-session-create2.man
 .EE
 .PP
 The session may be used just like any normal chroot.  This is what the session
 looks like:
 .PP
 .EX
-% \f[CB]schroot \-i \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\[CR]
-  \[em]\[em]\[em] Session \[em]\[em]\[em]
-  Name                   sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d\\
-4ccc899f0f
-  Description            Debian sid snapshot
-  Type                   lvm\-snapshot
-  Priority               3
-  Users                  maks rleigh
-  Groups                 sbuild
-  Root Users
-  Root Groups            root sbuild
-  Aliases
-  Environment Filter     ^(BASH_ENV|CDPATH|ENV|HOSTALIASES|I\\
-FS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMA\\
-IN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TE\\
-RMPATH)$
-  Run Setup Scripts      true
-  Script Configuration   script\-defaults
-  Session Managed        true
-  Personality            linux
-  Mount Location         /var/lib/schroot/mount/sid\-snap\-461\\
-95b04\-0893\-49bf\-beb8\-0d4ccc899f0f
-  Path                   /var/lib/schroot/mount/sid\-snap\-461\\
-95b04\-0893\-49bf\-beb8\-0d4ccc899f0f
-  Mount Device           /dev/hda_vg/sid\-snap\-46195b04\-0893\-\\
-49bf\-beb8\-0d4ccc899f0f
-  Device                 /dev/hda_vg/sid_chroot
-  Mount Options          \-o atime,async,user_xattr
-  Source Users
-  Source Groups          root rleigh
-  Source Root Users
-  Source Root Groups     root rleigh
-  LVM Snapshot Device    /dev/hda_vg/sid\-snap\-46195b04\-0893\-\\
-49bf\-beb8\-0d4ccc899f0f
-  LVM Snapshot Options   \-\-size 2G \-c 128
+.so examples/schroot-session-sessioninfo.man
 .EE
 .PP
 Now the session has been created, commands may be run in it:
 .PP
 .EX
-% \f[CB]schroot \-r \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f \-\- \\
-  uname \-sr\fP\[CR]
-I: [sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f chroot] Running \\
-command: \[lq]uname \-sr\[rq]
-Linux 2.6.18\-3\-powerpc
-% \f[CB]schroot \-r \-c $SESSION \-\- uname \-sr\fP\[CR]
-I: [sid\-snap\-fe170af9\-d9be\-4800\-b1bd\-de275858b938 chroot] Running \\
-command: \[lq]uname \-sr\[rq]
-Linux 2.6.18\-3\-powerpc
+.so examples/schroot-session-runcommand.man
 .EE
 .PP
 When all the commands to run in the session have been performed, the session
 may be ended:
 .PP
 .EX
-\f[CR]% \f[CB]schroot \-e \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\fP\[CR]
-\f[CR]% \f[CB]schroot \-e \-c $SESSION\fP\fP\[CR]
+.so examples/schroot-session-end.man
 .EE
 .PP
 Finally, the session names can be long and unwieldy.  A name may be specified
 instead of using the automatically generated session ID:
 .PP
 .EX
-\f[CR]% \f[CB]schroot \-b \-c sid\-snap \-n my\-session\-name\fP\fP\[CR]
-\f[CR]my\-session\-name\fP
+.so examples/schroot-session-createname.man
 .EE
 .SH TROUBLESHOOTING
 If something is not working, and it's not clear from the error messages what is

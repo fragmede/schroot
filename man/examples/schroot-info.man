@@ -1,0 +1,21 @@
+% \f[CB]schroot \-i \-c sid\fP\[CR]
+  \[em]\[em]\[em] Chroot \[em]\[em]\[em]
+  Name                   sid
+  Description            Debian sid (unstable)
+  Type                   plain
+  Priority               3
+  Users                  rleigh
+  Groups                 sbuild
+  Root Users
+  Root Groups            sbuild
+  Aliases                unstable unstable\-sbuild unstable\-p
+owerpc\-sbuild
+  Environment Filter     ^(BASH_ENV|CDPATH|ENV|HOSTALIASES|I\\
+FS|KRB5_CONFIG|KRBCONFDIR|KRBTKFILE|KRB_CONF|LD_.*|LOCALDOMA\\
+IN|NLSPATH|PATH_LOCALE|RES_OPTIONS|TERMINFO|TERMINFO_DIRS|TE\\
+RMPATH)$
+  Run Setup Scripts      true
+  Script Configuration   script\-defaults
+  Session Managed        true
+  Personality            linux32
+  Location               /srv/chroot/sid

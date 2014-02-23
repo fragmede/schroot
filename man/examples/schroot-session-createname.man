@@ -1,0 +1,2 @@
+\f[CR]% \f[CB]schroot \-b \-c sid\-snap \-n my\-session\-name\fP\fP\[CR]
+\f[CR]my\-session\-name\fP

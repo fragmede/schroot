@@ -1,0 +1,2 @@
+\f[CR]% \f[CB]schroot \-e \-c sid\-snap\-46195b04\-0893\-49bf\-beb8\-0d4ccc899f0f\fP\fP\[CR]
+\f[CR]% \f[CB]schroot \-e \-c $SESSION\fP\fP\[CR]
