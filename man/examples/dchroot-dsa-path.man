@@ -1,0 +1,3 @@
+$ \f[CB]dchroot\-dsa \-\-listpaths\fP\[CR]
+/srv/chroot/sid
+/srv/chroot/wheezy
