@@ -1,0 +1,2 @@
+$ \f[CB]dchroot \-p sid\fP\[CR]
+/srv/chroot/sid
