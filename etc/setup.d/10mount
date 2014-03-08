@@ -136,8 +136,8 @@ if [ "$CHROOT_TYPE" = "directory" ] \
 
     if [ $STAGE = "setup-start" ] || [ $STAGE = "setup-recover" ]; then
 
-        case "$HOST_OS" in
-            freebsd* | k*bsd*-gnu) :
+        case "$(uname -s)" in
+            *FreeBSD) :
                 BINDOPT="-t nullfs"
                 ;;
             *):
@@ -166,8 +166,8 @@ if [ "$CHROOT_TYPE" = "directory" ] \
                     fatal "File '$CHROOT_FILE' does not exist"
             fi
 
-            case "$HOST_OS" in
-                freebsd* | k*bsd*-gnu):
+            case "$(uname -s)" in
+                *FreeBSD):
                     LOOP_DEVICE="/dev/$(/sbin/mdconfig -a -t vnode -f "$CHROOT_FILE")"
                     CHROOT_MOUNT_DEVICE="$LOOP_DEVICE"
                     ;;
