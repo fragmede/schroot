@@ -62,8 +62,8 @@ if [ "$CHROOT_TYPE" = "custom" ] && [ -n "$CUSTOM_DIR" ]; then
 
         info "CUSTOM SETUP using $CUSTOM_DIR"
 
-        case "$HOST_OS" in
-            freebsd* | k*bsd*-gnu) :
+        case "$(uname -s)" in
+            *FreeBSD) :
                 BINDOPT="-t nullfs"
                 ;;
             *):

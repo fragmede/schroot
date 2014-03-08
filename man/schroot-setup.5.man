@@ -58,18 +58,6 @@ CHROOT_NAME
 The chroot name.  Note that this is the name of the orignal chroot before
 session creation; you probably want SESSION_ID.
 .TP
-HOST
-.TP
-HOST_OS
-.TP
-HOST_VENDOR
-.TP
-HOST_CPU
-The host system architecture schroot is running upon.  This may be used to
-introduce architecture-specific behaviour into the setup scripts where
-required.  HOST is the GNU triplet for the architecture, while HOST_OS,
-HOST_VENDOR and HOST_CPU are the component parts of the triplet.
-.TP
 LIBEXEC_DIR
 The directory under which helper programs are located.
 .TP
