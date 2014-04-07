@@ -1,4 +1,4 @@
-schroot (1.6.9-1) UNRELEASED; urgency=medium
+schroot (1.6.9-1) unstable; urgency=medium
 
   * debian/rules:
     - Pass CPPFLAGS through to cmake (Closes: #742701, cf. #653916).
