@@ -4,6 +4,8 @@ schroot (1.6.9-1) UNRELEASED; urgency=medium
     - Pass CPPFLAGS through to cmake (Closes: #742701, cf. #653916).
     - Enables all hardening features.  Thanks to Colin Watson for this
       patch.
+  * setup.d: Correctly detect FreeBSD systems, in particular fixing
+    nullfs mounts (Closes: #740427).
 
  -- Roger Leigh <rleigh@debian.org>  Mon, 07 Apr 2014 20:03:51 +0100
 
