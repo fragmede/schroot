@@ -8,6 +8,9 @@ schroot (1.6.9-1) UNRELEASED; urgency=medium
     nullfs mounts (Closes: #740427).
   * etc/bash_completion/schroot: Make bash completion work for colon
     values (Closes: #696543).  Thanks to Peter Wu for this patch.
+  * etc/setup.d/10mount: Work around systemd breaking bind mounts
+    (Closes: #726375).  Thanks to Michael Stapelberg for the initial
+    patch, which was reworked to make it Linux-only.
 
  -- Roger Leigh <rleigh@debian.org>  Mon, 07 Apr 2014 20:03:51 +0100
 
