@@ -1,3 +1,12 @@
+schroot (1.6.9-1) UNRELEASED; urgency=medium
+
+  * debian/rules:
+    - Pass CPPFLAGS through to cmake (Closes: #742701, cf. #653916).
+    - Enables all hardening features.  Thanks to Colin Watson for this
+      patch.
+
+ -- Roger Leigh <rleigh@debian.org>  Mon, 07 Apr 2014 20:03:51 +0100
+
 schroot (1.6.8-1) unstable; urgency=medium
 
   * New upstream stable release.
