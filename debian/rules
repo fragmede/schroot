@@ -21,13 +21,9 @@ else
 	UUID_OPTIONS = -Duuid=OFF
 endif
 
-CFLAGS = -Wall -g
-
-ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-	CFLAGS += -O0
-else
-	CFLAGS += -O2
-endif
+export DEB_CFLAGS_MAINT_APPEND := -Wall
+export DEB_CXXFLAGS_MAINT_APPEND := -Wall
+export DEB_BUILD_MAINT_OPTIONS := hardening=+all
 
 DH_OPTIONS = --buildsystem=cmake --builddirectory=debian/build --parallel
 
@@ -50,7 +46,9 @@ override_dh_auto_configure: debian/build/CMakeCache.txt
 debian/build/CMakeCache.txt: CMakeLists.txt
 	mkdir -p $(dir $@)
 	cd $(dir $@) ; \
-          GTEST_ROOT="$(CURDIR)/debian/build/gtest" \
+	  GTEST_ROOT="$(CURDIR)/debian/build/gtest" \
+	  CFLAGS="$(CFLAGS) $(CPPFLAGS)" \
+	  CXXFLAGS="$(CXXFLAGS) $(CPPFLAGS)" \
 	  cmake -DCMAKE_INSTALL_PREFIX=/usr \
 	        -DCMAKE_INSTALL_SYSCONFDIR=/etc \
 	        -DCMAKE_INSTALL_LOCALSTATEDIR=/var \
