@@ -6,6 +6,8 @@ schroot (1.6.9-1) UNRELEASED; urgency=medium
       patch.
   * setup.d: Correctly detect FreeBSD systems, in particular fixing
     nullfs mounts (Closes: #740427).
+  * etc/bash_completion/schroot: Make bash completion work for colon
+    values (Closes: #696543).  Thanks to Peter Wu for this patch.
 
  -- Roger Leigh <rleigh@debian.org>  Mon, 07 Apr 2014 20:03:51 +0100
 
