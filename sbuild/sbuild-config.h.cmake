@@ -69,6 +69,12 @@
 /* Define to 1 if you have the <regex> header file and std::regex. */
 #cmakedefine HAVE_REGEX_REGEX 1
 
+/* Set if the <tr1/regex> header file includes std::tr1::regex */
+#cmakedefine HAVE_TR1_REGEX 1
+
+/* Set if the <boost/regex.hpp> header file includes boost::regex */
+#cmakedefine HAVE_BOOST_REGEX 1
+
 /* Default regular expression used to filter user environment */
 #cmakedefine SBUILD_DEFAULT_ENVIRONMENT_FILTER "${SBUILD_DEFAULT_ENVIRONMENT_FILTER}"
 
