@@ -24,23 +24,27 @@
 #include <string>
 
 #include <schroot/config.h>
-#ifdef HAVE_REGEX_REGEX
-# include <regex>
-#elif HAVE_TR1_REGEX_REGEX
-# include <tr1/regex>
+# ifdef HAVE_REGEX_REGEX
+#  include <regex>
+# elif HAVE_TR1_REGEX
+#  include <tr1/regex.hpp>
 namespace std {
   using std::tr1::regex;
   using std::tr1::regex_error;
+  using std::tr1::regex_match;
   using std::tr1::regex_search;
 }
-#else
-# include <boost/regex.hpp>
+# elif HAVE_BOOST_REGEX
+#  include <boost/regex.hpp>
 namespace std {
   using boost::regex;
   using boost::regex_error;
+  using boost::regex_match;
   using boost::regex_search;
 }
-#endif
+# else
+#  error An regex implementation is not available
+# endif
 
 namespace schroot
 {

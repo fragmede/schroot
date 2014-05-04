@@ -405,7 +405,7 @@ namespace schroot
           for (const auto& elem : unused)
             {
               // Skip language-specific key variants.
-              static regex description_keys("\\[.*\\]$");
+              static regex description_keys("\\[.*]$");
               if (regex_search(elem, description_keys))
                 continue;
 

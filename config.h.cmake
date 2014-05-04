@@ -68,6 +68,12 @@
 /* Set if the <regex> header file includes std::regex */
 #cmakedefine HAVE_REGEX_REGEX 1
 
+/* Set if the <tr1/regex> header file includes std::tr1::regex */
+#cmakedefine HAVE_TR1_REGEX 1
+
+/* Set if the <boost/regex.hpp> header file includes boost::regex */
+#cmakedefine HAVE_BOOST_REGEX 1
+
 /* Define to 1 if you have the <sched.h> header file. */
 #cmakedefine HAVE_SCHED_H 1
 
