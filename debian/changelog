@@ -1,3 +1,12 @@
+schroot (1.6.10-1) UNRELEASED; urgency=medium
+
+  * New upstream stable release.
+  * Fix building with GCC 4.9 (Closes: #746905):
+    - detect and use C++11 <regex> when available.
+    - correct invalid extended regex.
+
+ -- Roger Leigh <rleigh@debian.org>  Mon, 05 May 2014 20:14:52 +0100
+
 schroot (1.6.9-1) unstable; urgency=medium
 
   * debian/rules:
