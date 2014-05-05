@@ -1,4 +1,4 @@
-schroot (1.6.10-1) UNRELEASED; urgency=medium
+schroot (1.6.10-1) unstable; urgency=medium
 
   * New upstream stable release.
   * Fix building with GCC 4.9 (Closes: #746905):
