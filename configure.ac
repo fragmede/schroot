@@ -689,6 +689,7 @@ fi
 
 dnl Note the use of quadrigraphs to quote [ and ] in regexes.
 AH_TEMPLATE(HAVE_REGEX_REGEX, [Set if the <regex> header file includes std::regex])
+AH_TEMPLATE(HAVE_BOOST_REGEX, [Set if the <boost/regex.hpp> header file includes boost::regex])
 AC_MSG_CHECKING([for std::regex])
 define([testprog], [AC_LANG_PROGRAM([#include <regex>],
                                    [std::regex foo("^foo@<:@bar@:>@$");
@@ -703,8 +704,7 @@ define([testprog], [AC_LANG_PROGRAM([#include <regex>],
                                     std::regex bar("^foo@<:@bar@:>@$", std::regex::extended);])])
 AC_LINK_IFELSE(testprog,
   [AC_MSG_RESULT([broken])],
-  [AC_MSG_RESULT([no])
-   AC_MSG_RESULT([no])])
+  [AC_MSG_RESULT([no])])
    AC_MSG_CHECKING([for boost::regex in -lboost_regex])
    saved_LIBS="${LIBS}"
    LIBS="${saved_LIBS} -lboost_regex"
@@ -713,11 +713,13 @@ AC_LINK_IFELSE(testprog,
                                     boost::regex bar("^foo@<:@bar@:>@$", boost::regex::extended);])])
    AC_LINK_IFELSE(testprog,
                   [AC_MSG_RESULT([yes])
+                   AC_DEFINE(HAVE_BOOST_REGEX, 1)
                    BOOST_LIBS="${BOOST_LIBS} -lboost_regex"],
                   [LIBS="${saved_LIBS} -lboost_regex-mt"
                    AC_LINK_IFELSE(testprog,
                           [AC_MSG_RESULT([yes])
-                    BOOST_LIBS="${BOOST_LIBS} -lboost_regex-mt"],
+                           AC_DEFINE(HAVE_BOOST_REGEX, 1)
+                           BOOST_LIBS="${BOOST_LIBS} -lboost_regex-mt"],
                           [AC_MSG_RESULT([no])
                     AC_MSG_FAILURE([libboost_regex (Boost C++ Libraries) is not installed, but is required by schroot])])])
    LIBS="${saved_LIBS}"

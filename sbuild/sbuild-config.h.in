@@ -75,6 +75,9 @@
 /* Define to 1 if you have the <regex> header file and std::regex. */
 #undef HAVE_REGEX_REGEX
 
+/* Define to 1 if you have the <boost/regex.hpp> header file and boost::regex. */
+#undef HAVE_BOOST_REGEX
+
 /* Default regular expression used to filter user environment */
 #undef SBUILD_DEFAULT_ENVIRONMENT_FILTER
 

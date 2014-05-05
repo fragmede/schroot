@@ -898,7 +898,7 @@ sbuild::chroot::set_keyfile (chroot&        chroot,
        pos != keys.end();
        ++pos)
     {
-      static regex description_keys("^description\\[.*\\]$");
+      static regex description_keys("^description\\[.*]$");
       if (regex_search(*pos, description_keys))
         used_keys.push_back(*pos);
     }
