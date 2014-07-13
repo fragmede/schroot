@@ -93,6 +93,10 @@ Set to \[oq]true\[cq] if a session will be cloned, otherwise \[oq]false\[cq].
 CHROOT_SESSION_PURGE
 Set to \[oq]true\[cq] if a session will be purged, otherwise \[oq]false\[cq].
 .TP
+CHROOT_SESSION_SOURCE
+Set to \[oq]true\[cq] if a session will be created from a source chroot,
+otherwise \[oq]false\[cq].
+.TP
 CHROOT_TYPE
 The type of the chroot.  This is useful for restricting a setup task to
 particular types of chroot (e.g. only block devices or LVM snapshots).
