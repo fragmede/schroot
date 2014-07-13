@@ -85,6 +85,7 @@ namespace schroot
   {
 
     chroot::chroot ():
+      std::enable_shared_from_this<chroot>(),
       name(),
       description(),
       users(),
@@ -110,6 +111,7 @@ namespace schroot
     }
 
     chroot::chroot (const chroot& rhs):
+      std::enable_shared_from_this<chroot>(),
       name(rhs.name),
       description(rhs.description),
       users(rhs.users),
