@@ -22,6 +22,7 @@
 #include <schroot/chroot/config.h>
 #include <schroot/chroot/facet/factory.h>
 #include <schroot/chroot/facet/session.h>
+#include <schroot/chroot/facet/source.h>
 #include <schroot/keyfile-writer.h>
 #include <schroot/lock.h>
 #include <schroot/fdstream.h>
@@ -60,10 +61,11 @@ namespace schroot
 
       }
 
-      session::session ():
+      session::session (const chroot::ptr& parent_chroot):
         facet(),
         original_chroot_name(),
-        selected_chroot_name()
+        selected_chroot_name(),
+        parent_chroot(parent_chroot)
       {
       }
 
@@ -74,7 +76,13 @@ namespace schroot
       session::ptr
       session::create ()
       {
-        return ptr(new session());
+        return ptr(new session(chroot::ptr()));
+      }
+
+      session::ptr
+      session::create (const chroot::ptr& parent_chroot)
+      {
+        return ptr(new session(parent_chroot));
       }
 
       facet::ptr
@@ -114,6 +122,12 @@ namespace schroot
         std::string ns, shortname;
         config::get_namespace(name, ns, shortname);
         this->selected_chroot_name = shortname;
+      }
+
+      const chroot::ptr&
+      session::get_parent_chroot() const
+      {
+        return parent_chroot;
       }
 
       void
@@ -165,6 +179,17 @@ namespace schroot
             if (unlink(file.c_str()) != 0)
               throw error(file, chroot::SESSION_UNLINK, strerror(errno));
           }
+      }
+
+      facet::session_flags
+      session::get_session_flags () const
+      {
+        session_flags flags = SESSION_NOFLAGS;
+
+        if (parent_chroot && parent_chroot->get_facet<source>())
+          flags = flags | SESSION_SOURCE;
+
+        return flags;
       }
 
       void

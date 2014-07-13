@@ -50,7 +50,7 @@ namespace schroot
 
       private:
         /// The constructor.
-        session ();
+        session (const chroot::ptr& parent_chroot);
 
       public:
         /// The destructor.
@@ -63,6 +63,16 @@ namespace schroot
          */
         static ptr
         create ();
+
+        /**
+         * Create a chroot facet.
+         *
+         * @param parent_chroot the chroot from which this session was
+         * cloned.
+         * @returns a shared_ptr to the new chroot facet.
+         */
+        static ptr
+        create (const chroot::ptr& parent_chroot);
 
         virtual facet::ptr
         clone () const;
@@ -104,12 +114,24 @@ namespace schroot
         set_selected_name (const std::string& name);
 
         /**
+         * Get parent chroot.
+         *
+         * @returns a pointer to the chroot; may be null if no parent
+         * exists.
+         */
+        const chroot::ptr&
+        get_parent_chroot() const;
+
+        /**
          * Set up persistent session information.
          *
          * @param start true if starting, or false if ending a session.
          */
         void
         setup_session_info (bool start);
+
+        virtual session_flags
+        get_session_flags () const;
 
         virtual void
         setup_env (environment& env) const;
@@ -131,6 +153,8 @@ namespace schroot
         std::string  original_chroot_name;
         /// Selected chroot name.
         std::string  selected_chroot_name;
+        /// Parent chroot.
+        const chroot::ptr parent_chroot;
       };
 
     }

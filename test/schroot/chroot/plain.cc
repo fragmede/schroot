@@ -79,6 +79,7 @@ TEST_F(ChrootPlain, SetupEnv)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "false");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
 
   ChrootBase::test_setup_env(chroot, expected);
 }

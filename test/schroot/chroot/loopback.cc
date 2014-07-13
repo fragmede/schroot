@@ -121,6 +121,7 @@ TEST_F(ChrootLoopback, SetupEnv)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "true");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
 #ifdef SCHROOT_FEATURE_UNION
   expected.add("CHROOT_UNION_TYPE",     "none");
 #endif // SCHROOT_FEATURE_UNION
@@ -139,6 +140,7 @@ TEST_F(ChrootLoopback, SetupEnvSession)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "false");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
   expected.add("CHROOT_MOUNT_DEVICE",   loopback_file);
 
 #ifdef SCHROOT_FEATURE_UNION
@@ -157,6 +159,7 @@ TEST_F(ChrootLoopback, SetupEnvUnion)
   expected.add("CHROOT_SESSION_CLONE",  "true");
   expected.add("CHROOT_SESSION_CREATE", "true");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
   expected.add("CHROOT_UNION_TYPE",     "aufs");
   expected.add("CHROOT_UNION_MOUNT_OPTIONS",      "union-mount-options");
   expected.add("CHROOT_UNION_OVERLAY_DIRECTORY",  "/overlay");
@@ -176,6 +179,7 @@ TEST_F(ChrootLoopback, SetupEnvSessionUnion)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "false");
   expected.add("CHROOT_SESSION_PURGE",  "true");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
   expected.add("CHROOT_MOUNT_DEVICE",   loopback_file);
   expected.add("CHROOT_UNION_TYPE",     "aufs");
   expected.add("CHROOT_UNION_MOUNT_OPTIONS",      "union-mount-options");
@@ -194,6 +198,7 @@ TEST_F(ChrootLoopback, SetupEnvSourceUnion)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "true");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
 
   ChrootBase::test_setup_env(source_union, expected);
 }
@@ -211,6 +216,7 @@ TEST_F(ChrootLoopback, SetupEnvSessionSourceUnion)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "false");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "true");
 
   ChrootBase::test_setup_env(session_source_union, expected);
 }

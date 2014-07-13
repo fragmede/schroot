@@ -117,6 +117,7 @@ TEST_F(ChrootBlockDevice, SetupEnv)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "true");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
 #ifdef SCHROOT_FEATURE_UNION
   expected.add("CHROOT_UNION_TYPE",     "none");
 #endif // SCHROOT_FEATURE_UNION
@@ -134,6 +135,7 @@ TEST_F(ChrootBlockDevice, SetupEnvSession)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "false");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
   expected.add("CHROOT_MOUNT_DEVICE",   "/dev/testdev");
 #ifdef SCHROOT_FEATURE_UNION
   expected.add("CHROOT_UNION_TYPE",     "none");
@@ -149,6 +151,7 @@ TEST_F(ChrootBlockDevice, SetupEnvUnion)
   expected.add("CHROOT_SESSION_CLONE",  "true");
   expected.add("CHROOT_SESSION_CREATE", "true");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
   expected.add("CHROOT_UNION_TYPE",     "aufs");
   expected.add("CHROOT_UNION_MOUNT_OPTIONS",      "union-mount-options");
   expected.add("CHROOT_UNION_OVERLAY_DIRECTORY",  "/overlay");
@@ -167,6 +170,7 @@ TEST_F(ChrootBlockDevice, SetupEnvSessionUnion)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "false");
   expected.add("CHROOT_SESSION_PURGE",  "true");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
   expected.add("CHROOT_MOUNT_DEVICE",   "/dev/testdev");
   expected.add("CHROOT_UNION_TYPE",     "aufs");
   expected.add("CHROOT_UNION_MOUNT_OPTIONS",      "union-mount-options");
@@ -185,8 +189,26 @@ TEST_F(ChrootBlockDevice, SetupEnvSourceUnion)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "true");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
 
   ChrootBase::test_setup_env(source_union, expected);
+}
+
+TEST_F(ChrootBlockDevice, SetupEnvSessionSourceUnion)
+{
+  schroot::environment expected;
+  setup_env_gen(expected);
+
+  expected.add("SESSION_ID",            "test-session-name");
+  expected.add("CHROOT_ALIAS",          "test-session-name");
+  expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot) (session chroot)"));
+  expected.add("CHROOT_SESSION_CLONE",  "false");
+  expected.add("CHROOT_SESSION_CREATE", "false");
+  expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "true");
+  expected.add("CHROOT_MOUNT_DEVICE",   "/dev/testdev");
+
+  ChrootBase::test_setup_env(session_source_union, expected);
 }
 #endif // SCHROOT_FEATURE_UNION
 

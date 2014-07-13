@@ -235,6 +235,7 @@ TEST_F(Chroot, ScriptConfig)
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_SESSION_SOURCE", "false");
     expected.add("CHROOT_SCRIPT_CONFIG",  schroot::normalname(std::string(SCHROOT_SYSCONF_DIR) + "/desktop/config"));
 
     schroot::environment observed;
@@ -289,6 +290,7 @@ TEST_F(Chroot, SetupEnvironment)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "true");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
 
   schroot::environment observed;
   chroot->setup_env(observed);

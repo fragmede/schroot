@@ -122,6 +122,7 @@ TEST_F(BtrfsSnapshot, SetupEnv)
   expected.add("CHROOT_SESSION_CLONE",  "true");
   expected.add("CHROOT_SESSION_CREATE", "true");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
 
   ChrootBase::test_setup_env(chroot, expected);
 }
@@ -140,6 +141,7 @@ TEST_F(BtrfsSnapshot, SetupEnvSession)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "false");
   expected.add("CHROOT_SESSION_PURGE",  "true");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
 
   ChrootBase::test_setup_env(session, expected);
 }
@@ -155,6 +157,7 @@ TEST_F(BtrfsSnapshot, SetupEnvSource)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "true");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
 
   ChrootBase::test_setup_env(source, expected);
 }
@@ -164,14 +167,17 @@ TEST_F(BtrfsSnapshot, SetupEnvSessionSource)
   schroot::environment expected;
   setup_env_gen(expected);
   expected.add("CHROOT_TYPE",           "directory");
+  expected.add("SESSION_ID",            "test-session-name");
   expected.add("CHROOT_NAME",           "test-name");
-  expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot)"));
+  expected.add("CHROOT_ALIAS",          "test-session-name");
+  expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot)") + ' ' + _("(session chroot)"));
   expected.add("CHROOT_DIRECTORY",       "/srv/chroot/sid");
   expected.add("CHROOT_SESSION_CLONE",  "false");
-  expected.add("CHROOT_SESSION_CREATE", "true");
+  expected.add("CHROOT_SESSION_CREATE", "false");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "true");
 
-  ChrootBase::test_setup_env(source, expected);
+  ChrootBase::test_setup_env(session_source, expected);
 }
 
 TEST_F(BtrfsSnapshot, SetupKeyfile)
@@ -254,6 +260,9 @@ TEST_F(BtrfsSnapshot, SessionFlags)
   /// probably happen and be tested for independently).
   ASSERT_EQ(source->get_session_flags(),
             (schroot::chroot::facet::facet::SESSION_CREATE));
+
+  ASSERT_EQ(session_source->get_session_flags(),
+            (schroot::chroot::facet::facet::SESSION_SOURCE));
 }
 
 TEST_F(BtrfsSnapshot, PrintDetails)

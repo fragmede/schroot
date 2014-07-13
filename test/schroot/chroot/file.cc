@@ -73,6 +73,7 @@ public:
     expected.add("CHROOT_SESSION_CLONE",   "true");
     expected.add("CHROOT_SESSION_CREATE",  "true");
     expected.add("CHROOT_SESSION_PURGE",   "false");
+    expected.add("CHROOT_SESSION_SOURCE",  "false");
 
     ChrootBase::test_setup_env(chroot, expected);
   }
@@ -136,6 +137,7 @@ TEST_F(ChrootFile, SetupEnv)
   expected.add("CHROOT_SESSION_CLONE",  "true");
   expected.add("CHROOT_SESSION_CREATE", "true");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
 
   ChrootBase::test_setup_env(chroot, expected);
 }
@@ -151,6 +153,7 @@ TEST_F(ChrootFile, SetupEnvSession)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "false");
   expected.add("CHROOT_SESSION_PURGE",  "true");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
 
   ChrootBase::test_setup_env(session, expected);
 }
@@ -164,6 +167,7 @@ TEST_F(ChrootFile, SetupSource)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "true");
   expected.add("CHROOT_SESSION_PURGE",  "false");
+  expected.add("CHROOT_SESSION_SOURCE", "false");
 
   ChrootBase::test_setup_env(source, expected);
 }
@@ -179,6 +183,7 @@ TEST_F(ChrootFile, SetupEnvSessionSource)
   expected.add("CHROOT_SESSION_CLONE",  "false");
   expected.add("CHROOT_SESSION_CREATE", "false");
   expected.add("CHROOT_SESSION_PURGE",  "true");
+  expected.add("CHROOT_SESSION_SOURCE", "true");
 
   ChrootBase::test_setup_env(session_source, expected);
 }
