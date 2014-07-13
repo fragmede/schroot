@@ -16,6 +16,10 @@ configuration.
      the new namespace, all code intended for binary programs is in
      the "bin" namespace.  There are no visible changes for end users.
 
+  2) The CHROOT_SESSION_SOURCE environment variable has been added to
+     allow setup scripts to determine if they are running in a
+     session for a source chroot.
+
 * Major changes in 1.7.2:
 
   1) Support for the autotools (autoconf/automake/libtool) has been
