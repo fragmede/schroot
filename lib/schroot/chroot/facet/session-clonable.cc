@@ -95,7 +95,7 @@ namespace schroot
         clone->remove_facet<session_clonable>();
         // Disable source cloning.
         clone->remove_facet<source_clonable>();
-        clone->add_facet(session::create());
+        clone->add_facet(session::create(owner->shared_from_this()));
 
         // Disable session, delete aliases.
         session::ptr psess(clone->get_facet<session>());

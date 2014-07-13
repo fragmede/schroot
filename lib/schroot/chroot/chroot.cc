@@ -559,6 +559,8 @@ namespace schroot
               static_cast<bool>(get_session_flags() & facet::facet::SESSION_CLONE));
       env.add("CHROOT_SESSION_PURGE",
               static_cast<bool>(get_session_flags() & facet::facet::SESSION_PURGE));
+      env.add("CHROOT_SESSION_SOURCE",
+              static_cast<bool>(get_session_flags() & facet::facet::SESSION_SOURCE));
 
       for (const auto& facet : facets)
         facet->setup_env(env);
