@@ -105,6 +105,7 @@ error<sbuild::chroot::error_code>::error_strings
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
 sbuild::chroot::chroot ():
+  std::enable_shared_from_this<chroot>(),
   name(),
   description(),
   users(),
@@ -132,6 +133,7 @@ sbuild::chroot::chroot ():
 }
 
 sbuild::chroot::chroot (const chroot& rhs):
+  std::enable_shared_from_this<chroot>(),
   name(rhs.name),
   description(rhs.description),
   users(rhs.users),

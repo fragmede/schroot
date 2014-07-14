@@ -42,7 +42,7 @@ namespace sbuild
    * configuration file, and may be initialised directly from an open
    * keyfile.
    */
-  class chroot
+  class chroot : public std::enable_shared_from_this<chroot>
   {
   public:
     /// Type of setup to perform.
