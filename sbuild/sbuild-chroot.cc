@@ -566,6 +566,8 @@ sbuild::chroot::setup_env (chroot const& chroot,
           static_cast<bool>(chroot.get_session_flags() & SESSION_CLONE));
   env.add("CHROOT_SESSION_PURGE",
           static_cast<bool>(chroot.get_session_flags() & SESSION_PURGE));
+  env.add("CHROOT_SESSION_SOURCE",
+          static_cast<bool>(chroot.get_session_flags() & SESSION_SOURCE));
 }
 
 void

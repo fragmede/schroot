@@ -111,6 +111,7 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_SESSION_SOURCE", "false");
     expected.add("CUSTOM_DIRECTORY",      "/srv/chroots/sid");
     expected.add("CUSTOM_OPTIONS",        "foobar");
   }

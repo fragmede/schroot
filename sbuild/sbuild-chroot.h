@@ -59,7 +59,8 @@ namespace sbuild
         SESSION_NOFLAGS = 0,      ///< No flags are set.
         SESSION_CREATE  = 1 << 0, ///< The chroot supports session creation.
         SESSION_CLONE   = 1 << 1, ///< The chroot supports cloning.
-        SESSION_PURGE   = 1 << 2  ///< The chroot should be purged.
+        SESSION_PURGE   = 1 << 2, ///< The chroot should be purged.
+        SESSION_SOURCE  = 1 << 3  ///< The chroot is a source chroot.
       };
 
     /// Message verbosity.

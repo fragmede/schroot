@@ -90,7 +90,7 @@ chroot_facet_session_clonable::clone_session_setup (chroot const&      parent,
   clone->remove_facet<chroot_facet_session_clonable>();
   // Disable source cloning.
   clone->remove_facet<chroot_facet_source_clonable>();
-  clone->add_facet(chroot_facet_session::create());
+  clone->add_facet(chroot_facet_session::create(owner->shared_from_this()));
 
   // Disable session, delete aliases.
   chroot_facet_session::ptr psess(clone->get_facet<chroot_facet_session>());
