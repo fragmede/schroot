@@ -21,7 +21,7 @@
 #include "sbuild-chroot.h"
 #include "sbuild-chroot-config.h"
 #include "sbuild-chroot-facet-session.h"
-#include "sbuild-chroot-facet-source-clonable.h"
+#include "sbuild-chroot-facet-source.h"
 #include "sbuild-chroot-plain.h"
 #ifdef SBUILD_FEATURE_LVMSNAP
 #include "sbuild-chroot-lvm-snapshot.h"
@@ -39,10 +39,11 @@ using boost::format;
 using std::endl;
 using namespace sbuild;
 
-chroot_facet_session::chroot_facet_session ():
+chroot_facet_session::chroot_facet_session (const chroot::ptr& parent_chroot):
   chroot_facet(),
   original_chroot_name(),
-  selected_chroot_name()
+  selected_chroot_name(),
+  parent_chroot(parent_chroot)
 {
 }
 
@@ -53,7 +54,13 @@ chroot_facet_session::~chroot_facet_session ()
 chroot_facet_session::ptr
 chroot_facet_session::create ()
 {
-  return ptr(new chroot_facet_session());
+  return ptr(new chroot_facet_session(chroot::ptr()));
+}
+
+chroot_facet_session::ptr
+chroot_facet_session::create (const chroot::ptr& parent_chroot)
+{
+  return ptr(new chroot_facet_session(parent_chroot));
 }
 
 chroot_facet::ptr
@@ -97,6 +104,12 @@ chroot_facet_session::set_selected_name (std::string const& name)
   this->selected_chroot_name = shortname;
 }
 
+const chroot::ptr&
+chroot_facet_session::get_parent_chroot() const
+{
+  return parent_chroot;
+}
+
 void
 chroot_facet_session::setup_env (chroot const& chroot,
                                  environment&  env) const
@@ -113,7 +126,12 @@ chroot_facet_session::setup_env (chroot const& chroot,
 sbuild::chroot::session_flags
 chroot_facet_session::get_session_flags (chroot const& chroot) const
 {
-  return chroot::SESSION_NOFLAGS;
+  sbuild::chroot::session_flags flags = sbuild::chroot::SESSION_NOFLAGS;
+
+  if (parent_chroot && parent_chroot->get_facet<chroot_facet_source>())
+    flags = flags | sbuild::chroot::SESSION_SOURCE;
+
+  return flags;
 }
 
 void

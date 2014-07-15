@@ -166,6 +166,7 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "true");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_SESSION_SOURCE", "false");
 
     test_chroot_base<chroot_btrfs_snapshot>::test_setup_env(chroot, expected);
   }
@@ -186,6 +187,7 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "true");
+    expected.add("CHROOT_SESSION_SOURCE", "false");
 
     test_chroot_base<chroot_btrfs_snapshot>::test_setup_env(session, expected);
   }
@@ -201,6 +203,7 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_SESSION_SOURCE", "false");
 
     test_chroot_base<chroot_btrfs_snapshot>::test_setup_env(source, expected);
   }
@@ -210,14 +213,17 @@ public:
     sbuild::environment expected;
     setup_env_gen(expected);
     expected.add("CHROOT_TYPE",           "directory");
+    expected.add("SESSION_ID",            "test-session-name");
     expected.add("CHROOT_NAME",           "test-name");
-    expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot)"));
+    expected.add("CHROOT_ALIAS",          "test-session-name");
+    expected.add("CHROOT_DESCRIPTION",     chroot->get_description() + ' ' + _("(source chroot)") + ' ' + _("(session chroot)"));
     expected.add("CHROOT_DIRECTORY",       "/srv/chroot/sid");
     expected.add("CHROOT_SESSION_CLONE",  "false");
-    expected.add("CHROOT_SESSION_CREATE", "true");
+    expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_SESSION_SOURCE", "true");
 
-    test_chroot_base<chroot_btrfs_snapshot>::test_setup_env(source, expected);
+    test_chroot_base<chroot_btrfs_snapshot>::test_setup_env(session_source, expected);
   }
 
   void setup_keyfile_btrfs(sbuild::keyfile &expected, std::string group)

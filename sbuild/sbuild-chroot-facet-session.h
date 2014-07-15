@@ -42,8 +42,12 @@ namespace sbuild
     typedef std::shared_ptr<const chroot_facet_session> const_ptr;
 
   private:
-    /// The constructor.
-    chroot_facet_session ();
+    /** The constructor.
+     *
+     * @param parent_chroot the chroot from which this session was
+     * cloned.
+     */
+    chroot_facet_session (const chroot::ptr& parent_chroot);
 
   public:
     /// The destructor.
@@ -56,6 +60,16 @@ namespace sbuild
      */
     static ptr
     create ();
+
+    /**
+     * Create a chroot facet.
+     *
+     * @param parent_chroot the chroot from which this session was
+     * cloned.
+     * @returns a shared_ptr to the new chroot facet.
+     */
+    static ptr
+    create (const chroot::ptr& parent_chroot);
 
     virtual chroot_facet::ptr
     clone () const;
@@ -96,6 +110,15 @@ namespace sbuild
     void
     set_selected_name (std::string const& name);
 
+    /**
+     * Get parent chroot.
+     *
+     * @returns a pointer to the chroot; may be null if no parent
+     * exists.
+     */
+    const chroot::ptr&
+    get_parent_chroot() const;
+
     virtual void
     setup_env (chroot const& chroot,
                environment&  env) const;
@@ -121,6 +144,8 @@ namespace sbuild
     std::string  original_chroot_name;
     /// Selected chroot name.
     std::string  selected_chroot_name;
+    /// Parent chroot.
+    const chroot::ptr parent_chroot;
   };
 
 }

@@ -104,6 +104,7 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_SESSION_SOURCE", "false");
 
     test_chroot_base<chroot_plain>::test_setup_env(chroot, expected);
   }

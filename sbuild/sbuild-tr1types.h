@@ -39,6 +39,7 @@ namespace std {
     using std::tr1::static_pointer_cast;
     using std::tr1::const_pointer_cast;
     using std::tr1::dynamic_pointer_cast;
+    using std::tr1::enable_shared_from_this;
 }
 # elif HAVE_BOOST_SHARED_PTR_HPP
 #  include <boost/shared_ptr.hpp>
@@ -48,6 +49,7 @@ namespace std {
     using boost::static_pointer_cast;
     using boost::const_pointer_cast;
     using boost::dynamic_pointer_cast;
+    using boost::enable_shared_from_this;
 }
 # else
 #  error A shared_ptr implementation is not available

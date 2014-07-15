@@ -151,6 +151,7 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_SESSION_SOURCE", "false");
 #ifdef SBUILD_FEATURE_UNION
     expected.add("CHROOT_UNION_TYPE",     "none");
 #endif // SBUILD_FEATURE_UNION
@@ -169,6 +170,7 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_SESSION_SOURCE", "false");
     expected.add("CHROOT_MOUNT_DEVICE",   loopback_file);
 
 #ifdef SBUILD_FEATURE_UNION
@@ -187,6 +189,7 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "true");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_SESSION_SOURCE", "false");
     expected.add("CHROOT_UNION_TYPE",     "aufs");
     expected.add("CHROOT_UNION_MOUNT_OPTIONS",      "union-mount-options");
     expected.add("CHROOT_UNION_OVERLAY_DIRECTORY",  "/overlay");
@@ -206,6 +209,7 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "true");
+    expected.add("CHROOT_SESSION_SOURCE", "false");
     expected.add("CHROOT_MOUNT_DEVICE",   loopback_file);
     expected.add("CHROOT_UNION_TYPE",     "aufs");
     expected.add("CHROOT_UNION_MOUNT_OPTIONS",      "union-mount-options");
@@ -224,6 +228,7 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "true");
     expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_SESSION_SOURCE", "false");
 
     test_chroot_base<chroot_loopback>::test_setup_env(source_union, expected);
   }
@@ -241,6 +246,7 @@ public:
     expected.add("CHROOT_SESSION_CLONE",  "false");
     expected.add("CHROOT_SESSION_CREATE", "false");
     expected.add("CHROOT_SESSION_PURGE",  "false");
+    expected.add("CHROOT_SESSION_SOURCE", "true");
 
     test_chroot_base<chroot_loopback>::test_setup_env(session_source_union, expected);
   }

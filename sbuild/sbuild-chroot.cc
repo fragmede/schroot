@@ -105,6 +105,7 @@ error<sbuild::chroot::error_code>::error_strings
  init_errors + (sizeof(init_errors) / sizeof(init_errors[0])));
 
 sbuild::chroot::chroot ():
+  std::enable_shared_from_this<chroot>(),
   name(),
   description(),
   users(),
@@ -132,6 +133,7 @@ sbuild::chroot::chroot ():
 }
 
 sbuild::chroot::chroot (const chroot& rhs):
+  std::enable_shared_from_this<chroot>(),
   name(rhs.name),
   description(rhs.description),
   users(rhs.users),
@@ -564,6 +566,8 @@ sbuild::chroot::setup_env (chroot const& chroot,
           static_cast<bool>(chroot.get_session_flags() & SESSION_CLONE));
   env.add("CHROOT_SESSION_PURGE",
           static_cast<bool>(chroot.get_session_flags() & SESSION_PURGE));
+  env.add("CHROOT_SESSION_SOURCE",
+          static_cast<bool>(chroot.get_session_flags() & SESSION_SOURCE));
 }
 
 void
