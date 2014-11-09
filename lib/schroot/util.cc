@@ -612,7 +612,7 @@ namespace schroot
 
     while ((error = getpwuid_r(uid, this,
                                &buffer[0], buffer.capacity(),
-                               &pwd_result)))
+                               &pwd_result)) == ERANGE)
       {
         size <<= 1;
         buffer.reserve(size);
@@ -635,7 +635,7 @@ namespace schroot
 
     while ((error = getpwnam_r(name, this,
                                &buffer[0], buffer.capacity(),
-                               &pwd_result)))
+                               &pwd_result)) == ERANGE)
       {
         size <<= 1;
         buffer.reserve(size);
@@ -721,7 +721,7 @@ namespace schroot
 
     while ((error = getgrgid_r(gid, this,
                                &buffer[0], buffer.capacity(),
-                               &grp_result)))
+                               &grp_result)) == ERANGE)
       {
         size <<= 1;
         buffer.reserve(size);
@@ -744,7 +744,7 @@ namespace schroot
 
     while ((error = getgrnam_r(name, this,
                                &buffer[0], buffer.capacity(),
-                               &grp_result)))
+                               &grp_result)) == ERANGE)
       {
         size <<= 1;
         buffer.reserve(size);
