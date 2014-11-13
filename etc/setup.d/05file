@@ -32,6 +32,12 @@ check_filetype()
         filetype="tgz"
     elif echo "$CHROOT_FILE" | egrep -q '(\.tar\.bz2|\.tbz)$'; then
         filetype="tbz"
+    elif echo "$CHROOT_FILE" | egrep -q '(\.tar\.xz|\.txz)$'; then
+        filetype="txz"
+    elif echo "$CHROOT_FILE" | egrep -q '(\.tar\.lzo|\.tzo)$'; then
+        filetype="tzo"
+    elif echo "$CHROOT_FILE" | egrep -q '(\.tar\.lz4|\.tlz4)$'; then
+        filetype="tlz4"
     else
         fatal "Unsupported filetype for $CHROOT_FILE"
     fi
@@ -50,6 +56,12 @@ unpack_file()
         tar $TAR_VERBOSE -xzf "$CHROOT_FILE"
     elif [ "$filetype" = "tbz" ]; then
         tar $TAR_VERBOSE -xjf "$CHROOT_FILE"
+    elif [ "$filetype" = "txz" ]; then
+        tar $TAR_VERBOSE -xJf "$CHROOT_FILE"
+    elif [ "$filetype" = "tzo" ]; then
+        tar $TAR_VERBOSE --lzop -xf "$CHROOT_FILE"
+    elif [ "$filetype" = "tlz4" ]; then
+        lz4 -cd "$CHROOT_FILE" | tar $TAR_VERBOSE -x
     else
         fatal "Unsupported filetype for $CHROOT_FILE"
     fi
@@ -68,6 +80,12 @@ repack_file()
         tar $TAR_VERBOSE -czf "$NEWFILE" .
     elif [ "$filetype" = "tbz" ]; then
         tar $TAR_VERBOSE -cjf "$NEWFILE" .
+    elif [ "$filetype" = "txz" ]; then
+        tar $TAR_VERBOSE -cJf "$NEWFILE" .
+    elif [ "$filetype" = "tzo" ]; then
+        tar $TAR_VERBOSE --lzop -cf "$NEWFILE" .
+    elif [ "$filetype" = "tlz4" ]; then
+        tar $TAR_VERBOSE -c . | lz4 > "$NEWFILE"
     else
         fatal "Unsupported filetype for $CHROOT_FILE"
     fi
