@@ -22,9 +22,13 @@ Federico Di Gregorio    <fog@debian.org>
 
 Aurelien Jarno <aurel32@debian.org>
         GNU/kFreeBSD and FreeBSD porting.
+        Additional compression formats.
 
 Roger Leigh             <rleigh@debian.org>
         Architecture, Coding, Documentation.
+
+Felipe Sateler          <fsateler@debian.org>
+        apt cache sychronisation.
 
 Nathaniel W. Turner     <nate@houseofnate.net>
         Addition of correct SIGINT handling when running setup
