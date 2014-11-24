@@ -13,6 +13,9 @@ configuration.
      allow setup scripts to determine if they are running in a
      session for a source chroot.
 
+  2) Support for the XZ, LZO and LZ4 compression formats has been
+     added for file-based chroots.
+
 * Major changes in 1.6.10:
 
   None.
