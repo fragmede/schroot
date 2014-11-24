@@ -125,7 +125,7 @@ Breaks:
  sbuild (<< 0.62.6),
 # We need the --find option of update-binfmts
  binfmt-support (<< 2.0.1)
-Suggests: debootstrap, lvm2, btrfs-tools, aufs-modules | unionfs-modules, qemu-user-static
+Suggests: debootstrap, lvm2, btrfs-tools, aufs-tools | unionfs-fuse, qemu-user-static
 Description: Execute commands in a chroot environment
  schroot allows users to execute commands or interactive shells in
  different chroots.  Any number of named chroots may be created, and

@@ -8,8 +8,10 @@ schroot (1.6.11-1) UNRELEASED; urgency=medium
     Aurelien Jarno for this patch.
   * schroot.init: Switch Should-Start from lvm to lvm2 to work
     around systemd brokenness (Closes: #759393).
-  * debian/control: Add versioned depends on cmake >= 2.8.12
-    (Closes: #757936). 
+  * debian/control:
+    - Add versioned depends on cmake >= 2.8.12 (Closes: #757936). 
+    - Replace "aufs-modules | unionfs-modules" which are no longer
+      available with "aufs-tools | unionfs-fuse" (Closes: #754748).
 
  -- Roger Leigh <rleigh@debian.org>  Tue, 15 Jul 2014 20:20:30 +0100
 
