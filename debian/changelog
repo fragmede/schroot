@@ -6,6 +6,8 @@ schroot (1.6.11-1) UNRELEASED; urgency=medium
   * Support for the XZ, LZO and LZ4 compression formats has been
     added for file-based chroots (Closes: #768091).  Thanks to
     Aurelien Jarno for this patch.
+  * schroot.init: Switch Should-Start from lvm to lvm2 to work
+    around systemd brokenness (Closes: #759393).
 
  -- Roger Leigh <rleigh@debian.org>  Tue, 15 Jul 2014 20:20:30 +0100
 
