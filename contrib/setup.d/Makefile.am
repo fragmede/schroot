@@ -24,7 +24,8 @@ include $(top_srcdir)/scripts/global.mk
 noinst_SCRIPTS =	\
 	05customdir	\
 	09fsck		\
-	10mount-ssh
+	10mount-ssh	\
+	52aptcache
 
 EXTRA_DIST =			\
 	$(noinst_SCRIPTS)

@@ -1,0 +1,46 @@
+#!/bin/sh
+# Copyright © 2014  Felipe Sateler <fsateler@debian.org>
+#
+# schroot is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# schroot is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see
+# <http://www.gnu.org/licenses/>.
+#
+#####################################################################
+# 52aptcache: Copy apt-cache contents to and from a chroot.
+# Copy the apt cache from the host into the chroot on session start.
+# Copy the apt cache from the chroot to the host on session end.
+#####################################################################
+
+set -e
+
+. "$SETUP_DATA_DIR/common-data"
+. "$SETUP_DATA_DIR/common-functions"
+. "$SETUP_DATA_DIR/common-config"
+
+APTCACHE=/var/cache/apt/archives/
+
+case "$STAGE" in
+	setup-start|setup-recover)
+		if ls ${APTCACHE} | grep -q 'deb$' ; then
+			info "Copying apt cache contents into chroot"
+			cp ${APTCACHE}/*.deb "${CHROOT_PATH}/${APTCACHE}"
+		fi
+		;;
+	setup-stop)
+		if [ -d "${CHROOT_PATH}/${APTCACHE}" ] ; then
+			find "${CHROOT_PATH}/${APTCACHE}" -maxdepth 1 -name '*.deb' -exec \
+				cp --no-clobber '{}' ${APTCACHE} ';'
+		fi
+		;;
+esac
+
