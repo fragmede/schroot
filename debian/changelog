@@ -3,6 +3,8 @@ schroot (1.6.11-1) UNRELEASED; urgency=medium
   * New upstream stable release.
   * CHROOT_SESSION_SOURCE added to allow setup scripts to determine
     if they are running in a source chroot session (Closes: #718127).
+  * Move SCHROOT_MOUNT_DIR to /var/run/schroot/mount from
+    /var/lib/schroot/mount (Closes: #762597).
   * Support for the XZ, LZO and LZ4 compression formats has been
     added for file-based chroots (Closes: #768091).  Thanks to
     Aurelien Jarno for this patch.

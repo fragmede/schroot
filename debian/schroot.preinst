@@ -59,6 +59,11 @@ install|upgrade)
             [ -L "$link" ] && rm -f "$link"
         done
     fi
+    if dpkg --compare-versions "$2" lt "1.6.11-1"; then
+        if [ ! -e /var/run/schroot ]; then
+            ln -s /var/lib/schroot /var/run/schroot
+        fi
+    fi
 esac
 
 # dh_installdeb will replace this with shell code automatically
