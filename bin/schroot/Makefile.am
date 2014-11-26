@@ -55,7 +55,6 @@ install-exec-hook:
 
 install-data-hook:
 	$(MKDIR_P) $(DESTDIR)$(schroot_sysconf_chrootdir)
-	$(MKDIR_P) $(DESTDIR)$(schroot_mountdir)
 	$(MKDIR_P) $(DESTDIR)$(schroot_sessiondir)
 	$(MKDIR_P) $(DESTDIR)$(schroot_file_unpackdir)
 	$(MKDIR_P) $(DESTDIR)$(schroot_overlaydir)
