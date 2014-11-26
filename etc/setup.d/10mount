@@ -136,21 +136,13 @@ if [ "$VERBOSE" = "verbose" ]; then
 #  FSCK_VERBOSE="-V"
 fi
 
-if [ -e /var/run/schroot ]; then
-    if [ ! -d /var/run/schroot ]; then
-        error "/var/run/schroot is not a directory"
+if [ -e "$MOUNT_DIR" ]; then
+    if [ ! -d "$MOUNT_DIR" ]; then
+        error "$MOUNT_DIR is not a directory"
         exit 1
     fi
 else
-    mkdir -m 0700 /var/run/schroot
-fi
-if [ -e /var/run/schroot/mount ]; then
-    if [ ! -d /var/run/schroot/mount ]; then
-        error "/var/run/schroot/mount is not a directory"
-        exit 1
-    fi
-else
-    mkdir -m 0700 /var/run/schroot/mount
+    mkdir -m 0755 -p "$MOUNT_DIR"
 fi
 
 if [ "$CHROOT_TYPE" = "directory" ] \
