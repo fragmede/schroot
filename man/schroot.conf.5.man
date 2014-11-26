@@ -272,7 +272,7 @@ of updating. These additional options are also implemented:
 \f[CBI]file=\fP\f[CI]filename\fP
 The file containing the archived chroot environment (mandatory).  This must be
 a tar (tape archive), optionally compressed with gzip, bzip2, xz, lzop or lz4.
-The file extensions used to determine the type are are \fI.tar\fP,
+The file extensions used to determine the type are \fI.tar\fP,
 \fI.tar.gz\fP, \fI.tar.bz2\fP, \fI.tar.xz\fP, \fI.tar.lzop\fP, \fI.tar.lz4\fP,
 \fI.tgz\fP, \fI.tbz\fP, \fI.txz\fP, \fI.tzo\fP and \fI.tlz4\fP.  This file must
 be owned by the root user, and not be writable by other.  Note that zip

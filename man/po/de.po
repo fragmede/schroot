@@ -1,14 +1,14 @@
 # German po4a translation of the schroot manpage.
 # Copyright (C) 2005-2008 Roger Leigh, 2006 Andreas Bombe, 2007-2008 Kees Cook.
 # This file is distributed under the same license as the schroot package.
-# Translation by Chris Leick <c.leick@vollbio.de> 2012, 2013.
+# Translation by Chris Leick <c.leick@vollbio.de> 2012-2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: schroot 1.6.6-1\n"
+"Project-Id-Version: schroot 1.6.11-1\n"
 "Report-Msgid-Bugs-To: schroot@packages.debian.org\n"
 "POT-Creation-Date: 2014-11-24 14:52+0000\n"
-"PO-Revision-Date: 2013-10-02 18:32+0100\n"
+"PO-Revision-Date: 2014-14-25 21:21+0100\n"
 "Last-Translator: Chris Leick <c.leick@vollbio.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "Language: de\n"
@@ -2333,22 +2333,18 @@ msgstr ""
 
 #. type: TP
 #: schroot-setup.5.man:95
-#, fuzzy, no-wrap
-#| msgid "CHROOT_SESSION_PURGE"
+#, no-wrap
 msgid "CHROOT_SESSION_SOURCE"
-msgstr "CHROOT_SESSION_PURGE"
+msgstr "CHROOT_SESSION_SOURCE"
 
 #. type: Plain text
 #: schroot-setup.5.man:99
-#, fuzzy
-#| msgid ""
-#| "Set to \\[oq]true\\[cq] if a session will be created, otherwise "
-#| "\\[oq]false\\[cq]."
 msgid ""
 "Set to \\[oq]true\\[cq] if a session will be created from a source chroot, "
 "otherwise \\[oq]false\\[cq]."
 msgstr ""
-"auf »true« gesetzt, falls eine Sitzung erstellt wird, andernfalls auf »false«"
+"auf »true« gesetzt, falls eine Sitzung von einer Source-Chroot wird erstellt, "
+"andernfalls auf »false«"
 
 #. type: TP
 #: schroot-setup.5.man:99
@@ -3681,19 +3677,10 @@ msgstr "\\f[CBI]file=\\f[CI]Dateiname\\fR"
 
 #. type: Plain text
 #: schroot.conf.5.man:281
-#, fuzzy
-#| msgid ""
-#| "The file containing the archived chroot environment (mandatory).  This "
-#| "must be a tar (tape archive), optionally compressed with gzip or bzip2.  "
-#| "The file extensions used to determine the type are are I<.tar>, I<.tar."
-#| "gz>, I<.tar.bz2>, I<.tgz>, and I<.tbz>.  This file must be owned by the "
-#| "root user, and not be writable by other.  Note that zip archives are no "
-#| "longer supported; zip was not able to archive named pipes and device "
-#| "nodes, so was not suitable for archiving chroots."
 msgid ""
 "The file containing the archived chroot environment (mandatory).  This must "
 "be a tar (tape archive), optionally compressed with gzip, bzip2, xz, lzop or "
-"lz4.  The file extensions used to determine the type are are I<.tar>, I<.tar."
+"lz4.  The file extensions used to determine the type are I<.tar>, I<.tar."
 "gz>, I<.tar.bz2>, I<.tar.xz>, I<.tar.lzop>, I<.tar.lz4>, I<.tgz>, I<.tbz>, "
 "I<.txz>, I<.tzo> and I<.tlz4>.  This file must be owned by the root user, "
 "and not be writable by other.  Note that zip archives are no longer "
@@ -3701,13 +3688,14 @@ msgid ""
 "not suitable for archiving chroots."
 msgstr ""
 "die Datei, die die (verbindliche) archivierte Chroot-Umgebung enthält. Dies "
-"muss ein Tar (Bandarchiv) sein, das wahlweise mit Gzip oder Bzip2 "
-"komprimiert ist. Die Dateierweiterungen, die zur Bestimmung des Typs benutzt "
-"werden, sind I<.tar>, I<.tar.gz>, I<.tar.bz2>, I<.tgz> und I<.tbz>. Diese "
-"Datei muss dem Benutzer Root gehören und darf nicht von anderen beschreibbar "
-"sein. Beachten Sie, dass Zip-Archive nicht länger unterstützt werden; Zip "
-"war nicht in der Lage, benannte Weiterleitungen und Geräteknoten zu "
-"archivieren und daher nicht zur Archivierung von Chroots geeignet."
+"muss ein Tar (Bandarchiv) sein, das wahlweise mit Gzip, Bzip2, Xz, Lzop oder "
+"Lz4 komprimiert ist. Die Dateierweiterungen, die zur Bestimmung des Typs "
+"benutzt werden, sind I<.tar>, I<.tar.gz>, I<.tar.bz2>, I<.tar.xz>, "
+"I<.tar.lzop>, I<.tar.lz4>, I<.tgz>, I<.tbz>, I<.txz>, I<.tzo> und I<.tlz4>. "
+"Diese Datei muss dem Benutzer Root gehören und darf nicht von anderen "
+"beschreibbar sein. Beachten Sie, dass Zip-Archive nicht länger unterstützt "
+"werden; Zip war nicht in der Lage, benannte Weiterleitungen und Geräteknoten "
+"zu archivieren und daher nicht zur Archivierung von Chroots geeignet."
 
 #. type: TP
 #: schroot.conf.5.man:281 schroot.conf.5.man:428
