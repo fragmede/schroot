@@ -136,6 +136,23 @@ if [ "$VERBOSE" = "verbose" ]; then
 #  FSCK_VERBOSE="-V"
 fi
 
+if [ -e /var/run/schroot ]; then
+    if [ ! -d /var/run/schroot ]; then
+        error "/var/run/schroot is not a directory"
+        exit 1
+    fi
+else
+    mkdir -m 0700 /var/run/schroot
+fi
+if [ -e /var/run/schroot/mount ]; then
+    if [ ! -d /var/run/schroot/mount ]; then
+        error "/var/run/schroot/mount is not a directory"
+        exit 1
+    fi
+else
+    mkdir -m 0700 /var/run/schroot/mount
+fi
+
 if [ "$CHROOT_TYPE" = "directory" ] \
     || [ "$CHROOT_TYPE" = "file" ] \
     || [ "$CHROOT_TYPE" = "loopback" ] \

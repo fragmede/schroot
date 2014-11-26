@@ -19,7 +19,7 @@
 #
 #####################################################################
 
-schroot_mountdir=$(localstatedir)/lib/$(PACKAGE)/mount
+schroot_mountdir=$(localstatedir)/run/$(PACKAGE)/mount
 schroot_sessiondir=$(localstatedir)/lib/$(PACKAGE)/session
 schroot_file_unpackdir=$(localstatedir)/lib/$(PACKAGE)/unpack
 schroot_overlaydir=$(localstatedir)/lib/$(PACKAGE)/union/overlay

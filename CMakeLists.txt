@@ -127,7 +127,7 @@ set(bash_completion_dir "${CMAKE_INSTALL_SYSCONFDIR}/bash_completion.d"
 # schroot directories
 set(SCHROOT_LOCALE_DIR "${CMAKE_INSTALL_FULL_LOCALEDIR}"
     CACHE PATH "Locale directory")
-set(SCHROOT_MOUNT_DIR "${CMAKE_INSTALL_FULL_LOCALSTATEDIR}/lib/${CMAKE_PROJECT_NAME}/mount"
+set(SCHROOT_MOUNT_DIR "${CMAKE_INSTALL_FULL_LOCALSTATEDIR}/run/${CMAKE_PROJECT_NAME}/mount"
     CACHE PATH "Directory under which mount chroots")
 set(SCHROOT_SESSION_DIR "${CMAKE_INSTALL_FULL_LOCALSTATEDIR}/lib/${CMAKE_PROJECT_NAME}/session"
     CACHE PATH "Directory for storing session metadata")
