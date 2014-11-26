@@ -16,6 +16,11 @@ configuration.
   2) Support for the XZ, LZO and LZ4 compression formats has been
      added for file-based chroots.
 
+  3) SCHROOT_MOUNT_DIR has been moved from /var/lib/schroot/mount to
+     /var/run/schroot/mount.  Make a symlink from /var/run/schroot
+     to /var/lib/schroot to access existing sessions prior to
+     rebooting (/var/run will be used from the next boot).
+
 * Major changes in 1.6.10:
 
   None.
