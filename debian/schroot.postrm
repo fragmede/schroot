@@ -56,6 +56,13 @@ case "$1" in
         ;;
 
     remove)
+        # These are directories left over from old sessions.  We don't
+        # remove recursively to guard against purging any user data which
+        # may inadvertently be remaining mounted under the session
+        # directories, so just try a simple rmdir for safety.
+        for dir in $(find /var/lib/schroot/mount -maxdepth 1 -type d | tac); do
+            rmdir "$dir" || echo "Failed to remove session mount directory $dir: Please check for any stray mounts or data under this directory and remove by hand." >&2
+        done
         ;;
 
     purge|disappear)
