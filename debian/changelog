@@ -9,7 +9,7 @@ schroot (1.6.11-1) UNRELEASED; urgency=medium
     added for file-based chroots (Closes: #768091).  Thanks to
     Aurelien Jarno for this patch.
   * Updated translations:
-    - da.  Thanks to Joe Dalton.
+    - Add da manpages.  Thanks to Joe Dalton.
     - de manpages (Closes: #771001).  Thanks to Chris Leick.
   * schroot.init: Switch Should-Start from lvm to lvm2 to work
     around systemd brokenness (Closes: #759393).
