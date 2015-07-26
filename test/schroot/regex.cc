@@ -59,6 +59,22 @@ TEST(Regex, Match)
   ASSERT_FALSE(schroot::regex_search(":fail:", r));
 }
 
+TEST(Regex, MatchBracket1)
+{
+  schroot::regex r("^[a-z0-9][a-z0-9-]*$");
+  ASSERT_TRUE(schroot::regex_search("foobar", r));
+  ASSERT_TRUE(schroot::regex_search("a-", r));
+  ASSERT_FALSE(schroot::regex_search("-a", r));
+}
+
+TEST(Regex, MatchBracket2)
+{
+  schroot::regex r("^[a-z0-9][-a-z0-9]*$");
+  ASSERT_TRUE(schroot::regex_search("foobar", r));
+  ASSERT_TRUE(schroot::regex_search("a-", r));
+  ASSERT_FALSE(schroot::regex_search("-a", r));
+}
+
 TEST(Regex, StreamInputFail)
 {
   schroot::regex r;
