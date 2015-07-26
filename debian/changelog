@@ -1,5 +1,6 @@
 schroot (1.6.11-1) UNRELEASED; urgency=medium
 
+  [ Roger Leigh ]
   * New upstream stable release.
   * CHROOT_SESSION_SOURCE added to allow setup scripts to determine
     if they are running in a source chroot session (Closes: #718127).
@@ -18,8 +19,9 @@ schroot (1.6.11-1) UNRELEASED; urgency=medium
     - Add versioned depends on cmake >= 2.8.12 (Closes: #757936). 
     - Replace "aufs-modules | unionfs-modules" which are no longer
       available with "aufs-tools | unionfs-fuse" (Closes: #754748).
+    - Update Vcs-* with github URLs to replace use of Alioth.
 
- -- Roger Leigh <rleigh@debian.org>  Tue, 15 Jul 2014 20:20:30 +0100
+ -- Roger Leigh <rleigh@codelibre.net>  Tue, 15 Jul 2014 20:20:30 +0100
 
 schroot (1.6.10-1) unstable; urgency=medium
 

@@ -22,8 +22,8 @@ Build-Depends-Indep:
  doxygen,
  graphviz
 Standards-Version: 3.9.5
-Vcs-Browser: http://git.debian.org/?p=buildd-tools/schroot.git
-Vcs-Git: git://git.debian.org/git/buildd-tools/schroot
+Vcs-Browser: https://github.com/codelibre-net/schroot
+Vcs-Git: https://github.com/codelibre-net/schroot.git
 
 Package: schroot-common
 Architecture: all
