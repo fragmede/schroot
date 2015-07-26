@@ -209,6 +209,14 @@ if [ "$CHROOT_TYPE" = "directory" ] \
     elif [ $STAGE = "setup-stop" ]; then
 
         do_umount_all "$CHROOT_MOUNT_LOCATION"
+        # If CHROOT_TYPE is "file", _UNPACK_DIR is bindmounted
+        # on _MOUNT_LOCATION, and thus due to #763932, currently
+        # bindmounts-on-bindmounts show up on hurd-i386 as bindmounts on source
+        # device i.e. _UNPACK_DIR.
+        if [ "$CHROOT_TYPE" = "file" -a "$(uname -s)" = "GNU" ]; then
+            do_umount_all "${CHROOT_FILE_UNPACK_DIR}/${SESSION_ID}"
+        fi
+
         if [ "$CREATE_UNION" = "yes" ]; then
             do_umount_all "$CHROOT_UNION_UNDERLAY_DIRECTORY"
         fi
