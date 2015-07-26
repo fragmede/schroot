@@ -33,6 +33,8 @@ class test_regex : public TestCase
   CPPUNIT_TEST(test_output);
   CPPUNIT_TEST(test_input);
   CPPUNIT_TEST(test_match);
+  CPPUNIT_TEST(test_match_bracket1);
+  CPPUNIT_TEST(test_match_bracket2);
   CPPUNIT_TEST_EXCEPTION(test_input_fail, std::regex_error);
   CPPUNIT_TEST_SUITE_END();
 
@@ -85,6 +87,24 @@ public:
   {
     sbuild::regex r("^[^:/,.][^:/,]*$");
     sbuild::regex_search("foobar", r);
+  }
+
+  void
+  test_match_bracket1()
+  {
+    sbuild::regex r("^[a-z0-9][a-z0-9-]*$");
+    CPPUNIT_ASSERT(sbuild::regex_search("foobar", r));
+    CPPUNIT_ASSERT(sbuild::regex_search("a-", r));
+    CPPUNIT_ASSERT(!sbuild::regex_search("-a", r));
+  }
+
+  void
+  test_match_bracket2()
+  {
+    sbuild::regex r("^[a-z0-9][-a-z0-9]*$");
+    CPPUNIT_ASSERT(sbuild::regex_search("foobar", r));
+    CPPUNIT_ASSERT(sbuild::regex_search("a-", r));
+    CPPUNIT_ASSERT(!sbuild::regex_search("-a", r));
   }
 
   void
