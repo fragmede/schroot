@@ -93,7 +93,7 @@ public:
   test_construction_stream()
   {
     std::ifstream strm(TESTDATADIR "/keyfile.ex1");
-    CPPUNIT_ASSERT(strm);
+    CPPUNIT_ASSERT(!!strm);
     sbuild::keyfile k(strm);
   }
 
