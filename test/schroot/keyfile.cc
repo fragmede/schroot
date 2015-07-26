@@ -69,7 +69,7 @@ TEST_F(Keyfile, ConstructFile)
 TEST_F(Keyfile, ConstructStream)
 {
   std::ifstream strm(TESTDATADIR "/keyfile.ex1");
-  ASSERT_TRUE(strm);
+  ASSERT_TRUE(!!strm);
   schroot::keyfile k;
   ASSERT_NO_THROW(schroot::keyfile_reader(k, strm));
 }
