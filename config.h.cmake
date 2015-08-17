@@ -149,9 +149,6 @@
 /* Set if the loopback chroot type is present */
 #cmakedefine SCHROOT_FEATURE_LOOPBACK 1
 
-/* Set if the lvm-snapshot chroot type is present */
-#cmakedefine SCHROOT_FEATURE_LVMSNAP 1
-
 /* Set if PAM support is available */
 #cmakedefine SCHROOT_FEATURE_PAM 1
 

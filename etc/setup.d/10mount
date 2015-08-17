@@ -125,7 +125,6 @@ if [ "$CHROOT_TYPE" = "directory" ] \
     || [ "$CHROOT_TYPE" = "file" ] \
     || [ "$CHROOT_TYPE" = "loopback" ] \
     || [ "$CHROOT_TYPE" = "block-device" ] \
-    || [ "$CHROOT_TYPE" = "lvm-snapshot" ] \
     || [ "$CHROOT_TYPE" = "btrfs-snapshot" ]; then
 
     if [ "${CHROOT_UNION_TYPE:-none}" != "none" ]; then

@@ -39,11 +39,6 @@ if(BUILD_LOOPBACK)
       schroot/chroot/loopback.cc)
 endif(BUILD_LOOPBACK)
 
-if(BUILD_LVMSNAP)
-  set(schroot_chroot_lvmsnap_sources
-      schroot/chroot/lvm-snapshot.cc)
-endif(BUILD_LVMSNAP)
-
 if(BUILD_BTRFSSNAP)
   set(schroot_chroot_btrfssnap_sources
       schroot/chroot/btrfs-snapshot.cc)
@@ -62,7 +57,6 @@ set(schroot_chroot_chroot_sources
     schroot/chroot/file.cc
     schroot/chroot/directory.cc
     ${schroot_chroot_blockdev_sources}
-    ${schroot_chroot_lvmsnap_sources}
     ${schroot_chroot_btrfssnap_sources}
     ${schroot_chroot_loopback_sources}
     schroot/chroot/facet/userdata.cc)

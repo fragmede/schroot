@@ -30,13 +30,12 @@ groups=sbuild
 file=/srv/chroots/sid.tar.gz
 
 [sid\-snapshot]
-type=lvm\-snapshot
+type=btrfs\-snapshot
 description=Debian unstable LVM snapshot
 priority=3
 groups=sbuild
 users=rleigh
 source\-root\-users=rleigh
 source\-root\-groups=admin
-device=/dev/hda_vg/sid_chroot
-mount\-options=\-o atime,sync,user_xattr
-lvm\-snapshot\-options=\-\-size 2G
+btrfs\-source\-subvolume=/srv/chroots/sid-snap
+btrfs\-snapshot\-directory=/srv/chroots/snapshots

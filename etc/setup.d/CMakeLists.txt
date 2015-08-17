@@ -25,7 +25,6 @@ set(setup_scripts
     00check
     05file
     05btrfs
-    05lvm
     05union
     10mount
     15binfmt

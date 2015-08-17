@@ -192,22 +192,8 @@ if(BUILD_PAM)
   set(PAM_LIBRARY pam)
 endif(BUILD_PAM)
 
-# Set early, so it can be overridden by lvm-snapshot and block-device
+# Set early, so it can be overridden by block-device
 set(BLOCKDEV_DEFAULT ON)
-
-# LVM snapshot mount feature
-find_program(LVCREATE_EXECUTABLE lvcreate PATHS /sbin /usr/sbin /usr/local/sbin)
-find_program(LVREMOVE_EXECUTABLE lvremove PATHS /sbin /usr/sbin /usr/local/sbin)
-set(LVMSNAP_DEFAULT OFF)
-if (LVCREATE_EXECUTABLE AND LVREMOVE_EXECUTABLE)
-  set (LVMSNAP_DEFAULT ON)
-endif (LVCREATE_EXECUTABLE AND LVREMOVE_EXECUTABLE)
-option(lvm-snapshot "Enable support for LVM snapshots (requires LVM)" ${LVMSNAP_DEFAULT})
-set(BUILD_LVMSNAP ${lvm-snapshot})
-set(SCHROOT_FEATURE_LVMSNAP ${lvm-snapshot})
-if (lvm-snapshot)
-  set(BLOCKDEV_DEFAULT ON)
-endif(lvm-snapshot)
 
 # Btrfs snapshot mount feature
 find_program(BTRFS_EXECUTABLE btrfs PATHS /sbin /usr/sbin /usr/local/sbin)
@@ -226,10 +212,6 @@ endif(btrfs-snapshot)
 option(block-device "Enable support for block devices" ${BLOCKDEV_DEFAULT})
 set(BUILD_BLOCKDEV ${block-device})
 set(SCHROOT_FEATURE_BLOCKDEV ${block-device})
-# Check for blockdev/lvmsnap option compatibility
-if(lvm-snapshot AND NOT block-device)
-  message(FATAL_ERROR "block-device must be enabled when lvm-snapshot is enabled")
-endif(lvm-snapshot AND NOT block-device)
 if(btrfs-snapshot AND NOT block-device)
   message(FATAL_ERROR "block-device must be enabled when btrfs-snapshot is enabled")
 endif(btrfs-snapshot AND NOT block-device)

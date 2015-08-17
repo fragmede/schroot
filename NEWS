@@ -20,6 +20,16 @@ configuration.
      allow setup scripts to determine if they are running in a
      session for a source chroot.
 
+  3) The lvm-snapshot chroot type has been removed.  The data in
+     lvm-snapshot source chroots may continue to be used by switching
+     to the block-device chroot type.  This has been removed due to
+     long-term problems with udev causing race conditions when
+     creating and removing snapshots, as well as deficiencies in the
+     handling of space in the source and snapshot volumes.  The
+     file and btrfs-snapshot chroot types can provide similar snapshot
+     capabilities without the race conditions or space management
+     issues.
+
 * Major changes in 1.7.2:
 
   1) Support for the autotools (autoconf/automake/libtool) has been

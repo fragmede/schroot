@@ -35,10 +35,6 @@ namespace schroot
        *
        * This class doesn't implement a chroot (get_chroot_type
        * is not implemented).
-       *
-       * Originally lvm-snapshot inherited from the block-device chroot,
-       * but this was changed when union support was introduced.  This
-       * design prevents lvm-snapshot offering union based sessions.
        */
       class block_device_base : public facet,
                                 public storage

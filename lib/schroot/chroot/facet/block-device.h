@@ -21,7 +21,6 @@
 
 #include <schroot/config.h>
 #include <schroot/chroot/facet/block-device-base.h>
-#include <schroot/chroot/facet/lvm-snapshot.h>
 #include <schroot/chroot/facet/mountable.h>
 #include <schroot/chroot/facet/session-setup.h>
 
@@ -54,19 +53,11 @@ namespace schroot
         /// The copy constructor.
         block_device (const block_device& rhs);
 
-#ifdef SCHROOT_FEATURE_LVMSNAP
-        /// The copy constructor.
-        block_device (const lvm_snapshot& rhs);
-#endif
-
         void
         set_chroot (chroot& chroot,
                     bool    copy);
 
         friend class chroot;
-#ifdef SCHROOT_FEATURE_LVMSNAP
-        friend class lvm_snapshot;
-#endif
 
       public:
         /// The destructor.
@@ -82,17 +73,6 @@ namespace schroot
          */
         static ptr
         create ();
-
-        /**
-         * Create a chroot facet copied from an LVM snapshot.
-         *
-         * @param rhs the LVM snapshot to copy.
-         * @returns a shared_ptr to the new chroot facet.
-         */
-#ifdef SCHROOT_FEATURE_LVMSNAP
-        static ptr
-        create (const lvm_snapshot& rhs);
-#endif // SCHROOT_FEATURE_LVMSNAP
 
         virtual facet::ptr
         clone () const;
