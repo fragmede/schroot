@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.6.6-1\n"
 "Report-Msgid-Bugs-To: schroot@packages.debian.org\n"
-"POT-Creation-Date: 2014-02-23 15:02+0000\n"
+"POT-Creation-Date: 2015-08-18 15:48-0700\n"
 "PO-Revision-Date: 2013-10-02 18:32+0100\n"
 "Last-Translator: Chris Leick <c.leick@vollbio.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -38,12 +38,14 @@ msgstr "COPYRIGHT"
 #: copyright.man:3
 #, fuzzy
 #| msgid ""
-#| "Copyright \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@codelibre.netE<gt>"
-#| "\\fR"
+#| "Copyright \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@codelibre."
+#| "netE<gt>\\fR"
 msgid ""
-"Copyright \\(co 2005-2013 Roger Leigh \\f[CR]E<lt>rleigh@codelibre.netE<gt>\\fR"
+"Copyright \\(co 2005-2013 Roger Leigh \\f[CR]E<lt>rleigh@codelibre.netE<gt>"
+"\\fR"
 msgstr ""
-"Copyright \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@codelibre.netE<gt>\\fR"
+"Copyright \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@codelibre.netE<gt>"
+"\\fR"
 
 # http://www.gnu.de/documents/gpl.de.html
 #. type: Plain text
@@ -67,32 +69,28 @@ msgstr "SCHROOT"
 
 #. type: TH
 #: schroot.1.man:20 schroot-setup.5.man:18 schroot.conf.5.man:18
-#: schroot-script-config.5.man:18 schroot-faq.7.man:18 dchroot.1.man:20
-#: dchroot-dsa.1.man:20
+#: schroot-script-config.5.man:18 schroot-faq.7.man:18
 #, no-wrap
 msgid "\\*[RELEASE_DATE]"
 msgstr "\\*[RELEASE_DATE]"
 
 #. type: TH
 #: schroot.1.man:20 schroot-setup.5.man:18 schroot.conf.5.man:18
-#: schroot-script-config.5.man:18 schroot-faq.7.man:18 dchroot.1.man:20
-#: dchroot-dsa.1.man:20
+#: schroot-script-config.5.man:18 schroot-faq.7.man:18
 #, no-wrap
 msgid "Version \\*[VERSION]"
 msgstr "Version \\*[VERSION]"
 
 #. type: TH
 #: schroot.1.man:20 schroot-setup.5.man:18 schroot.conf.5.man:18
-#: schroot-script-config.5.man:18 schroot-faq.7.man:18 dchroot.1.man:20
-#: dchroot-dsa.1.man:20
+#: schroot-script-config.5.man:18 schroot-faq.7.man:18
 #, no-wrap
 msgid "schroot Manual"
 msgstr ""
 
 #. type: SH
 #: schroot.1.man:21 schroot-setup.5.man:19 schroot.conf.5.man:19
-#: schroot-script-config.5.man:19 schroot-faq.7.man:19 dchroot.1.man:21
-#: dchroot-dsa.1.man:21
+#: schroot-script-config.5.man:19 schroot-faq.7.man:19
 #, no-wrap
 msgid "NAME"
 msgstr "BEZEICHNUNG"
@@ -103,7 +101,7 @@ msgid "schroot - securely enter a chroot environment"
 msgstr "schroot - eine Chroot-Umgebung sicher betreten"
 
 #. type: SH
-#: schroot.1.man:23 dchroot.1.man:23 dchroot-dsa.1.man:23
+#: schroot.1.man:23
 #, no-wrap
 msgid "SYNOPSIS"
 msgstr "ÜBERSICHT"
@@ -141,8 +139,7 @@ msgstr ""
 
 #. type: SH
 #: schroot.1.man:44 schroot-setup.5.man:21 schroot.conf.5.man:21
-#: schroot-script-config.5.man:21 schroot-faq.7.man:21 dchroot.1.man:34
-#: dchroot-dsa.1.man:33
+#: schroot-script-config.5.man:21 schroot-faq.7.man:21
 #, no-wrap
 msgid "DESCRIPTION"
 msgstr "BESCHREIBUNG"
@@ -234,13 +231,10 @@ msgstr ""
 #: schroot.1.man:71 schroot.1.man:75 schroot.1.man:78 schroot.1.man:81
 #: schroot.1.man:83 schroot.1.man:88 schroot.conf.5.man:477
 #: schroot.conf.5.man:480 schroot.conf.5.man:483 schroot.conf.5.man:486
-#: schroot-faq.7.man:122 schroot-faq.7.man:127 schroot-faq.7.man:132
-#: schroot-faq.7.man:134 schroot-faq.7.man:136 schroot-faq.7.man:153
-#: schroot-faq.7.man:158 schroot-faq.7.man:160 schroot-faq.7.man:162
-#: schroot-faq.7.man:164 dchroot.1.man:121 dchroot.1.man:123 dchroot.1.man:128
-#: dchroot.1.man:135 dchroot.1.man:144 dchroot.1.man:146 dchroot-dsa.1.man:112
-#: dchroot-dsa.1.man:119 dchroot-dsa.1.man:121 dchroot-dsa.1.man:129
-#: dchroot-dsa.1.man:131
+#: schroot-faq.7.man:120 schroot-faq.7.man:125 schroot-faq.7.man:130
+#: schroot-faq.7.man:132 schroot-faq.7.man:134 schroot-faq.7.man:151
+#: schroot-faq.7.man:156 schroot-faq.7.man:158 schroot-faq.7.man:160
+#: schroot-faq.7.man:162
 #, no-wrap
 msgid "\\[bu]"
 msgstr "\\[bu]"
@@ -361,7 +355,7 @@ msgstr ""
 "Chroots wird ausführlicher in B<schroot.conf>(5) behandelt."
 
 #. type: SH
-#: schroot.1.man:118 dchroot.1.man:59 dchroot-dsa.1.man:56
+#: schroot.1.man:118
 #, no-wrap
 msgid "OPTIONS"
 msgstr "OPTIONEN"
@@ -378,40 +372,40 @@ msgid "Actions"
 msgstr "Aktionen"
 
 #. type: TP
-#: schroot.1.man:121 dchroot.1.man:62 dchroot-dsa.1.man:59
+#: schroot.1.man:121
 #, no-wrap
 msgid "B<-h>, B<--help>"
 msgstr "B<-h>, B<--help>"
 
 #. type: Plain text
-#: schroot.1.man:124 dchroot.1.man:65 dchroot-dsa.1.man:62
+#: schroot.1.man:124
 msgid "Show help summary."
 msgstr "zeigt eine Zusammenfassung der Hilfe."
 
 #. type: TP
-#: schroot.1.man:124 dchroot.1.man:114 dchroot-dsa.1.man:106
+#: schroot.1.man:124
 #, no-wrap
 msgid "B<-V>, B<--version>"
 msgstr "B<-V>, B<--version>"
 
 #. type: Plain text
-#: schroot.1.man:127 dchroot.1.man:117 dchroot-dsa.1.man:109
+#: schroot.1.man:127
 msgid "Print version information."
 msgstr "gibt Versionsinformationen aus."
 
 #. type: TP
-#: schroot.1.man:127 dchroot.1.man:72 dchroot-dsa.1.man:72
+#: schroot.1.man:127
 #, no-wrap
 msgid "B<-l>, B<--list>"
 msgstr "B<-l>, B<--list>"
 
 #. type: Plain text
-#: schroot.1.man:130 dchroot.1.man:75 dchroot-dsa.1.man:75
+#: schroot.1.man:130
 msgid "List all available chroots."
 msgstr "führt alle verfügbaren Chroots auf."
 
 #. type: TP
-#: schroot.1.man:130 dchroot.1.man:75 dchroot-dsa.1.man:75
+#: schroot.1.man:130
 #, no-wrap
 msgid "B<-i>, B<--info>"
 msgstr "B<-i>, B<--info>"
@@ -422,7 +416,7 @@ msgid "Print detailed information about the specified chroots."
 msgstr "gibt detaillierte Informationen über die angegebenen Chroots aus."
 
 #. type: TP
-#: schroot.1.man:133 dchroot.1.man:82 dchroot-dsa.1.man:82
+#: schroot.1.man:133
 #, no-wrap
 msgid "B<--config>"
 msgstr "B<--config>"
@@ -462,18 +456,18 @@ msgid "General options"
 msgstr "Allgemeine Optionen"
 
 #. type: TP
-#: schroot.1.man:144 dchroot.1.man:107 dchroot-dsa.1.man:98
+#: schroot.1.man:144
 #, no-wrap
 msgid "B<-q>, B<--quiet>"
 msgstr "B<-q>, B<--quiet>"
 
 #. type: Plain text
-#: schroot.1.man:147 dchroot.1.man:110
+#: schroot.1.man:147
 msgid "Print only essential messages."
 msgstr "gibt nur wichtige Nachrichten aus."
 
 #. type: TP
-#: schroot.1.man:147 dchroot.1.man:110 dchroot-dsa.1.man:102
+#: schroot.1.man:147
 #, no-wrap
 msgid "B<-v>, B<--verbose>"
 msgstr "B<-v>, B<--verbose>"
@@ -490,7 +484,7 @@ msgid "Chroot selection"
 msgstr "Chroot-Auswahl"
 
 #. type: TP
-#: schroot.1.man:151 dchroot.1.man:68 dchroot-dsa.1.man:66
+#: schroot.1.man:151
 #, no-wrap
 msgid "B<-c>, B<--chroot=>I<chroot>"
 msgstr "B<-c>, B<--chroot=>I<Chroot>"
@@ -510,7 +504,7 @@ msgstr ""
 "»I<Chroot-Namensräume>«."
 
 #. type: TP
-#: schroot.1.man:157 dchroot.1.man:65 dchroot-dsa.1.man:62
+#: schroot.1.man:157
 #, no-wrap
 msgid "B<-a>, B<--all>"
 msgstr "B<-a>, B<--all>"
@@ -600,7 +594,7 @@ msgid "Chroot environment"
 msgstr "Chroot-Umgebung"
 
 #. type: TP
-#: schroot.1.man:182 dchroot-dsa.1.man:88
+#: schroot.1.man:182
 #, no-wrap
 msgid "B<-d>, B<--directory=>I<directory>"
 msgstr "B<-d>, B<--directory=>I<Verzeichnis>"
@@ -1114,7 +1108,7 @@ msgstr ""
 "nützlich, wenn eine Chroot zum Beispiel zum Bauen von Paketen benutzt wird."
 
 #. type: SH
-#: schroot.1.man:342 dchroot.1.man:154 dchroot-dsa.1.man:137
+#: schroot.1.man:342
 #, no-wrap
 msgid "DIRECTORY FALLBACKS"
 msgstr "RESERVEVERZEICHNISSE"
@@ -1150,31 +1144,25 @@ msgid "Login shell"
 msgstr "Login-Shell"
 
 #. type: tbl table
-#: schroot.1.man:356 schroot.1.man:379 schroot.1.man:395 dchroot.1.man:169
-#: dchroot.1.man:187 dchroot.1.man:204 dchroot-dsa.1.man:152
-#: dchroot-dsa.1.man:169
+#: schroot.1.man:356 schroot.1.man:379 schroot.1.man:395
 #, no-wrap
 msgid "Transition\n"
 msgstr "Übergang\n"
 
 #. type: tbl table
-#: schroot.1.man:357 schroot.1.man:380 schroot.1.man:396 dchroot.1.man:170
-#: dchroot.1.man:188 dchroot.1.man:205 dchroot-dsa.1.man:153
-#: dchroot-dsa.1.man:170
+#: schroot.1.man:357 schroot.1.man:380 schroot.1.man:396
 #, no-wrap
 msgid "(Host \\[-E<gt>] Chroot)\tComment\n"
 msgstr "(Rechner \\[-E<gt>] Chroot)\tKommentar\n"
 
 #. type: tbl table
-#: schroot.1.man:358 schroot.1.man:381 schroot.1.man:397 dchroot.1.man:171
-#: dchroot.1.man:189 dchroot.1.man:206 dchroot-dsa.1.man:154
-#: dchroot-dsa.1.man:171
+#: schroot.1.man:358 schroot.1.man:381 schroot.1.man:397
 #, no-wrap
 msgid "_\n"
 msgstr "_\n"
 
 #. type: tbl table
-#: schroot.1.man:359 schroot.1.man:382 dchroot.1.man:190
+#: schroot.1.man:359 schroot.1.man:382
 #, no-wrap
 msgid "CWD \\[-E<gt>] CWD\tT{\n"
 msgstr "CWD \\[-E<gt>] CWD\tT{\n"
@@ -1187,10 +1175,7 @@ msgstr "normales Verhalten (falls I<--directory> nicht benutzt wird)\n"
 
 #. type: tbl table
 #: schroot.1.man:361 schroot.1.man:364 schroot.1.man:367 schroot.1.man:370
-#: schroot.1.man:373 schroot.1.man:384 schroot.1.man:387 dchroot.1.man:175
-#: dchroot.1.man:178 dchroot.1.man:181 dchroot.1.man:192 dchroot.1.man:195
-#: dchroot.1.man:198 dchroot-dsa.1.man:157 dchroot-dsa.1.man:160
-#: dchroot-dsa.1.man:163
+#: schroot.1.man:373 schroot.1.man:384 schroot.1.man:387
 #, no-wrap
 msgid "T}\n"
 msgstr "T}\n"
@@ -1208,7 +1193,7 @@ msgid "If CWD is nonexistent and --preserve-environment is used\n"
 msgstr "falls CWD nicht existiert und --preserve-environment benutzt wird\n"
 
 #. type: tbl table
-#: schroot.1.man:365 dchroot.1.man:172 dchroot-dsa.1.man:155
+#: schroot.1.man:365
 #, no-wrap
 msgid "CWD \\[-E<gt>] passwd pw_dir\tT{\n"
 msgstr "CWD \\[-E<gt>] Passwort Passwortverzeichnis\tT{\n"
@@ -1220,7 +1205,7 @@ msgid "If CWD is nonexistent (or --preserve-environment is used and no $HOME exi
 msgstr "falls CWD nicht existiert (oder --preserve-environment benutzt wird und $HOME nicht existiert)\n"
 
 #. type: tbl table
-#: schroot.1.man:368 dchroot.1.man:176 dchroot.1.man:193 dchroot-dsa.1.man:158
+#: schroot.1.man:368
 #, no-wrap
 msgid "CWD \\[-E<gt>] /\tT{\n"
 msgstr "CWD \\[-E<gt>] /\tT{\n"
@@ -1232,14 +1217,13 @@ msgid "None of the above exist\n"
 msgstr "keins davon existiert\n"
 
 #. type: tbl table
-#: schroot.1.man:371 schroot.1.man:385 dchroot.1.man:179 dchroot.1.man:196
-#: dchroot-dsa.1.man:161
+#: schroot.1.man:371 schroot.1.man:385
 #, no-wrap
 msgid "B<FAIL>\tT{\n"
 msgstr "B<FAIL>\tT{\n"
 
 #. type: tbl table
-#: schroot.1.man:372 dchroot.1.man:180 dchroot.1.man:197 dchroot-dsa.1.man:162
+#: schroot.1.man:372
 #, no-wrap
 msgid "If / is nonexistent\n"
 msgstr "falls / nicht existiert\n"
@@ -1251,44 +1235,44 @@ msgid "Command"
 msgstr "Befehl"
 
 #. type: tbl table
-#: schroot.1.man:386 dchroot.1.man:194
+#: schroot.1.man:386
 #, no-wrap
 msgid "If CWD is nonexistent\n"
 msgstr "falls CWD nicht existiert\n"
 
 #. type: Plain text
-#: schroot.1.man:391 schroot.1.man:403 dchroot.1.man:212 dchroot-dsa.1.man:177
+#: schroot.1.man:391 schroot.1.man:403
 msgid "No fallbacks should exist under any circumstances."
 msgstr ""
 "Unter irgendwelchen Umständen kann es vorkommen, dass keine Reserve "
 "existiert."
 
 #. type: SS
-#: schroot.1.man:391 dchroot.1.man:200 dchroot-dsa.1.man:165
+#: schroot.1.man:391
 #, no-wrap
 msgid "--directory used"
 msgstr "--directory benutzt"
 
 #. type: tbl table
-#: schroot.1.man:398 dchroot.1.man:207 dchroot-dsa.1.man:172
+#: schroot.1.man:398
 #, no-wrap
 msgid "CWD \\[-E<gt>] DIR\tNormal behaviour\n"
 msgstr "CWD \\[-E<gt>] DIR\tnormales Verhalten\n"
 
 #. type: tbl table
-#: schroot.1.man:399 dchroot.1.man:208 dchroot-dsa.1.man:173
+#: schroot.1.man:399
 #, no-wrap
 msgid "B<FAIL>\tIf DIR is nonexistent\n"
 msgstr "B<FAIL>\tfalls DIR nicht existiert\n"
 
 #. type: SS
-#: schroot.1.man:403 dchroot.1.man:212 dchroot-dsa.1.man:177
+#: schroot.1.man:403
 #, no-wrap
 msgid "Debugging"
 msgstr "Fehlersuche"
 
 #. type: Plain text
-#: schroot.1.man:407 dchroot.1.man:216 dchroot-dsa.1.man:181
+#: schroot.1.man:407
 msgid ""
 "Note that I<--debug=notice> will show the internal fallback list computed "
 "for the session."
@@ -1297,7 +1281,7 @@ msgstr ""
 "wird, die für diese Sitzung berechnet wurde."
 
 #. type: SH
-#: schroot.1.man:407 dchroot.1.man:216 dchroot-dsa.1.man:181
+#: schroot.1.man:407
 #, no-wrap
 msgid "EXAMPLES"
 msgstr "BEISPIELE"
@@ -1453,13 +1437,13 @@ msgstr ""
 "werden."
 
 #. type: SH
-#: schroot.1.man:495 dchroot.1.man:256 dchroot-dsa.1.man:210
+#: schroot.1.man:495
 #, no-wrap
 msgid "TROUBLESHOOTING"
 msgstr "FEHLERBEHEBUNG"
 
 #. type: Plain text
-#: schroot.1.man:502 dchroot.1.man:263 dchroot-dsa.1.man:217
+#: schroot.1.man:502
 msgid ""
 "If something is not working, and it's not clear from the error messages what "
 "is wrong, try using the B<--debug=>I<level> option to turn on debugging "
@@ -1476,7 +1460,7 @@ msgstr ""
 "Schweregrad desto mehr wird ausgegeben."
 
 #. type: Plain text
-#: schroot.1.man:505 dchroot.1.man:266 dchroot-dsa.1.man:220
+#: schroot.1.man:505
 msgid ""
 "If you are still having trouble, the developers may be contacted on the "
 "mailing list:"
@@ -1485,23 +1469,23 @@ msgstr ""
 "Mailingliste kontaktiert werden:"
 
 #. type: Plain text
-#: schroot.1.man:507 dchroot.1.man:268 dchroot-dsa.1.man:222
+#: schroot.1.man:507
 msgid "\\f[CR]Debian\\ buildd-tools\\ Developers\\fR"
 msgstr "\\f[CR]Debian-Buildd-Tools-Entwickler\\fR"
 
 #. type: Plain text
-#: schroot.1.man:509 dchroot.1.man:270 dchroot-dsa.1.man:224
+#: schroot.1.man:509
 msgid "\\f[CR]E<lt>buildd-tools-devel@lists.alioth.debian.orgE<gt>\\fR"
 msgstr "\\f[CR]E<lt>buildd-tools-devel@lists.alioth.debian.orgE<gt>\\fR"
 
 #. type: SH
-#: schroot.1.man:509 dchroot.1.man:270 dchroot-dsa.1.man:224
+#: schroot.1.man:509
 #, no-wrap
 msgid "BUGS"
 msgstr "FEHLER"
 
 #. type: Plain text
-#: schroot.1.man:517 dchroot.1.man:278 dchroot-dsa.1.man:232
+#: schroot.1.man:517
 msgid ""
 "On the B<mips> and B<mipsel> architectures, Linux kernels up to and "
 "including at least version 2.6.17 have broken B<personality>(2)  support, "
@@ -1566,8 +1550,7 @@ msgstr ""
 "unter B<schroot.conf>(5)."
 
 #. type: SH
-#: schroot.1.man:536 schroot-setup.5.man:199 schroot.conf.5.man:640
-#: dchroot.1.man:278 dchroot-dsa.1.man:232
+#: schroot.1.man:536 schroot-setup.5.man:191 schroot.conf.5.man:640
 #, no-wrap
 msgid "FILES"
 msgstr "DATEIEN"
@@ -1579,8 +1562,7 @@ msgid "Configuration files"
 msgstr "Konfigurationsdateien"
 
 #. type: TP
-#: schroot.1.man:538 schroot.conf.5.man:642 dchroot.1.man:279
-#: dchroot-dsa.1.man:233
+#: schroot.1.man:538 schroot.conf.5.man:642
 #, no-wrap
 msgid "\\f[BI]\\*[SCHROOT_CONF]\\fR"
 msgstr "\\f[BI]\\*[SCHROOT_CONF]\\fR"
@@ -1737,23 +1719,22 @@ msgid "Directory used for unpacking file chroots."
 msgstr "Verzeichnis, das zum Entpacken von Datei-Chroots benutzt wird"
 
 #. type: SH
-#: schroot.1.man:581 schroot-setup.5.man:267 schroot.conf.5.man:680
-#: schroot-script-config.5.man:73 schroot-faq.7.man:248 dchroot.1.man:289
-#: dchroot-dsa.1.man:245
+#: schroot.1.man:581 schroot-setup.5.man:259 schroot.conf.5.man:680
+#: schroot-script-config.5.man:73 schroot-faq.7.man:246
 #, no-wrap
 msgid "SEE ALSO"
 msgstr "SIEHE AUCH"
 
 # FIXME wrong order
 #. type: Plain text
-#: schroot.1.man:587
+#: schroot.1.man:586
 #, fuzzy
 #| msgid ""
 #| "B<dchroot>(1), B<sbuild>(1), B<chroot>(2), B<run-parts>(8), B<schroot-"
 #| "setup>(5), B<schroot-faq>(7), B<schroot.conf>(5)."
 msgid ""
-"B<dchroot>(1), B<chroot>(2), B<run-parts>(8), B<schroot-setup>(5), B<schroot-"
-"faq>(7), B<schroot.conf>(5)."
+"B<chroot>(2), B<run-parts>(8), B<schroot-setup>(5), B<schroot-faq>(7), "
+"B<schroot.conf>(5)."
 msgstr ""
 "B<dchroot>(1), B<sbuild>(1), B<chroot>(2), B<schroot.conf>(5), B<schroot-"
 "setup>(5), B<schroot-faq>(7), B<run-parts>(8)"
@@ -1877,7 +1858,7 @@ msgstr ""
 "ausgeführt wird"
 
 #. type: TP
-#: schroot-setup.5.man:56 schroot-setup.5.man:111
+#: schroot-setup.5.man:56 schroot-setup.5.man:103
 #, no-wrap
 msgid "CHROOT_NAME"
 msgstr "CHROOT_NAME"
@@ -1894,60 +1875,22 @@ msgstr ""
 #. type: TP
 #: schroot-setup.5.man:60
 #, no-wrap
-msgid "HOST"
-msgstr "HOST"
-
-#. type: TP
-#: schroot-setup.5.man:62
-#, no-wrap
-msgid "HOST_OS"
-msgstr "HOST_OS"
-
-#. type: TP
-#: schroot-setup.5.man:64
-#, no-wrap
-msgid "HOST_VENDOR"
-msgstr "HOST_VENDOR"
-
-#. type: TP
-#: schroot-setup.5.man:66
-#, no-wrap
-msgid "HOST_CPU"
-msgstr "HOST_CPU"
-
-#. type: Plain text
-#: schroot-setup.5.man:72
-msgid ""
-"The host system architecture schroot is running upon.  This may be used to "
-"introduce architecture-specific behaviour into the setup scripts where "
-"required.  HOST is the GNU triplet for the architecture, while HOST_OS, "
-"HOST_VENDOR and HOST_CPU are the component parts of the triplet."
-msgstr ""
-"die Systemarchitektur des Rechners, auf dem Schroot läuft. Dies kann benutzt "
-"werden, um ein architekturspezifisches Verhalten in den Einrichtungsskripten "
-"einzuleiten, wo dies benötigt wird. HOST ist die Rechnerdreiergruppe , wobei "
-"HOST_OS, HOST_VENDOR und HOST_CPU die Komponenten der Dreiergruppe "
-"darstellen."
-
-#. type: TP
-#: schroot-setup.5.man:72
-#, no-wrap
 msgid "LIBEXEC_DIR"
 msgstr "LIBEXEC_DIR"
 
 #. type: Plain text
-#: schroot-setup.5.man:75
+#: schroot-setup.5.man:63
 msgid "The directory under which helper programs are located."
 msgstr "das Verzeichnis, in dem Hilfsprogramme liegen"
 
 #. type: TP
-#: schroot-setup.5.man:75
+#: schroot-setup.5.man:63
 #, no-wrap
 msgid "MOUNT_DIR"
 msgstr "MOUNT_DIR"
 
 #. type: Plain text
-#: schroot-setup.5.man:79
+#: schroot-setup.5.man:67
 msgid ""
 "The directory under which non-filesystem chroots are mounted (e.g. block "
 "devices and LVM snapshots)."
@@ -1956,24 +1899,24 @@ msgstr ""
 "Blockspeichergeräte oder LVM-Schnappschüsse)"
 
 #. type: TP
-#: schroot-setup.5.man:79
+#: schroot-setup.5.man:67
 #, no-wrap
 msgid "PID"
 msgstr "PID"
 
 #. type: Plain text
-#: schroot-setup.5.man:82
+#: schroot-setup.5.man:70
 msgid "The process ID of the schroot process."
 msgstr "die Prozesskennung des Schroot-Prozesses"
 
 #. type: TP
-#: schroot-setup.5.man:82
+#: schroot-setup.5.man:70
 #, no-wrap
 msgid "PLATFORM"
 msgstr "PLATFORM"
 
 #. type: Plain text
-#: schroot-setup.5.man:89
+#: schroot-setup.5.man:77
 msgid ""
 "The operating system platform schroot is running upon.  This may be used to "
 "introduce platform-specific behaviour into the setup scripts where "
@@ -1990,24 +1933,24 @@ msgstr ""
 "zwischen unterschiedlichen Architekturen identisch sein."
 
 #. type: TP
-#: schroot-setup.5.man:89
+#: schroot-setup.5.man:77
 #, no-wrap
 msgid "SESSION_ID"
 msgstr "SESSION_ID"
 
 #. type: Plain text
-#: schroot-setup.5.man:92
+#: schroot-setup.5.man:80
 msgid "The session identifier."
 msgstr "die Sitzungskennung"
 
 #. type: TP
-#: schroot-setup.5.man:92
+#: schroot-setup.5.man:80
 #, no-wrap
 msgid "VERBOSE"
 msgstr "VERBOSE"
 
 #. type: Plain text
-#: schroot-setup.5.man:98
+#: schroot-setup.5.man:86
 msgid ""
 "Set to \\[oq]quiet\\[cq] if only error messages should be printed, "
 "\\[oq]normal\\[cq] if other messages may be printed as well, and "
@@ -2020,13 +1963,13 @@ msgstr ""
 "aufgerufen."
 
 #. type: TP
-#: schroot-setup.5.man:98
+#: schroot-setup.5.man:86
 #, no-wrap
 msgid "CHROOT_SESSION_CREATE"
 msgstr "CHROOT_SESSION_CREATE"
 
 #. type: Plain text
-#: schroot-setup.5.man:101
+#: schroot-setup.5.man:89
 msgid ""
 "Set to \\[oq]true\\[cq] if a session will be created, otherwise \\[oq]false"
 "\\[cq]."
@@ -2034,13 +1977,13 @@ msgstr ""
 "auf »true« gesetzt, falls eine Sitzung erstellt wird, andernfalls auf »false«"
 
 #. type: TP
-#: schroot-setup.5.man:101
+#: schroot-setup.5.man:89
 #, no-wrap
 msgid "CHROOT_SESSION_CLONE"
 msgstr "CHROOT_SESSION_CLONE"
 
 #. type: Plain text
-#: schroot-setup.5.man:104
+#: schroot-setup.5.man:92
 msgid ""
 "Set to \\[oq]true\\[cq] if a session will be cloned, otherwise \\[oq]false"
 "\\[cq]."
@@ -2048,13 +1991,13 @@ msgstr ""
 "auf »true« gesetzt, falls eine Sitzung geklont wird, andernfalls auf »false«"
 
 #. type: TP
-#: schroot-setup.5.man:104
+#: schroot-setup.5.man:92
 #, no-wrap
 msgid "CHROOT_SESSION_PURGE"
 msgstr "CHROOT_SESSION_PURGE"
 
 #. type: Plain text
-#: schroot-setup.5.man:107
+#: schroot-setup.5.man:95
 msgid ""
 "Set to \\[oq]true\\[cq] if a session will be purged, otherwise \\[oq]false"
 "\\[cq]."
@@ -2063,13 +2006,32 @@ msgstr ""
 "andernfalls auf »false«"
 
 #. type: TP
-#: schroot-setup.5.man:107
+#: schroot-setup.5.man:95
+#, fuzzy, no-wrap
+#| msgid "CHROOT_SESSION_PURGE"
+msgid "CHROOT_SESSION_SOURCE"
+msgstr "CHROOT_SESSION_PURGE"
+
+#. type: Plain text
+#: schroot-setup.5.man:99
+#, fuzzy
+#| msgid ""
+#| "Set to \\[oq]true\\[cq] if a session will be created, otherwise "
+#| "\\[oq]false\\[cq]."
+msgid ""
+"Set to \\[oq]true\\[cq] if a session will be created from a source chroot, "
+"otherwise \\[oq]false\\[cq]."
+msgstr ""
+"auf »true« gesetzt, falls eine Sitzung erstellt wird, andernfalls auf »false«"
+
+#. type: TP
+#: schroot-setup.5.man:99
 #, no-wrap
 msgid "CHROOT_TYPE"
 msgstr "CHROOT_TYPE"
 
 #. type: Plain text
-#: schroot-setup.5.man:111
+#: schroot-setup.5.man:103
 msgid ""
 "The type of the chroot.  This is useful for restricting a setup task to "
 "particular types of chroot (e.g. only block devices or LVM snapshots)."
@@ -2079,7 +2041,7 @@ msgstr ""
 "Schnappschüsse)."
 
 #. type: Plain text
-#: schroot-setup.5.man:115
+#: schroot-setup.5.man:107
 msgid ""
 "The name of the chroot.  This is useful for restricting a setup task to a "
 "particular chroot, or set of chroots."
@@ -2088,13 +2050,13 @@ msgstr ""
 "bestimmte Chroot oder einen Satz von Chroots einzuschränken."
 
 #. type: TP
-#: schroot-setup.5.man:115
+#: schroot-setup.5.man:107
 #, no-wrap
 msgid "CHROOT_ALIAS"
 msgstr "CHROOT_ALIAS"
 
 #. type: Plain text
-#: schroot-setup.5.man:122
+#: schroot-setup.5.man:114
 msgid ""
 "The name of the alias used to select the chroot.  This is useful for "
 "specialising a setup task based upon one of its alternative alias names, or "
@@ -2110,24 +2072,24 @@ msgstr ""
 "Experimental-Alias für eine Unstable-Chroot."
 
 #. type: TP
-#: schroot-setup.5.man:122
+#: schroot-setup.5.man:114
 #, no-wrap
 msgid "CHROOT_DESCRIPTION"
 msgstr "CHROOT_DESCRIPTION"
 
 #. type: Plain text
-#: schroot-setup.5.man:125
+#: schroot-setup.5.man:117
 msgid "The description of the chroot."
 msgstr "die Beschreibung der Chroot"
 
 #. type: TP
-#: schroot-setup.5.man:125
+#: schroot-setup.5.man:117
 #, no-wrap
 msgid "CHROOT_MOUNT_LOCATION"
 msgstr "CHROOT_MOUNT_LOCATION"
 
 #. type: Plain text
-#: schroot-setup.5.man:129
+#: schroot-setup.5.man:121
 msgid ""
 "The location to mount the chroot.  It is used for mount point creation and "
 "mounting."
@@ -2136,13 +2098,13 @@ msgstr ""
 "Einhängen von Einhängepunkten benutzt."
 
 #. type: TP
-#: schroot-setup.5.man:129 schroot-setup.5.man:159
+#: schroot-setup.5.man:121 schroot-setup.5.man:151
 #, no-wrap
 msgid "CHROOT_LOCATION"
 msgstr "CHROOT_LOCATION"
 
 #. type: Plain text
-#: schroot-setup.5.man:133
+#: schroot-setup.5.man:125
 msgid ""
 "The location of the chroot inside the mount point.  This is to allow "
 "multiple chroots on a single filesystem.  Set for all mountable chroot types."
@@ -2152,13 +2114,13 @@ msgstr ""
 "einhängbaren Chroot-Typen gesetzt."
 
 #. type: TP
-#: schroot-setup.5.man:133
+#: schroot-setup.5.man:125
 #, no-wrap
 msgid "CHROOT_PATH"
 msgstr "CHROOT_PATH"
 
 #. type: Plain text
-#: schroot-setup.5.man:138
+#: schroot-setup.5.man:130
 msgid ""
 "The absolute path to the chroot.  This is typically CHROOT_MOUNT_LOCATION "
 "and CHROOT_LOCATION concatenated together.  This is the path which should be "
@@ -2169,41 +2131,41 @@ msgstr ""
 "auf die Chroots benutzt werden sollte."
 
 #. type: SS
-#: schroot-setup.5.man:138
+#: schroot-setup.5.man:130
 #, no-wrap
 msgid "Plain and directory chroot variables"
 msgstr "einfache und Verzeichnis-Chroot-Variablen"
 
 #. type: Plain text
-#: schroot-setup.5.man:140
+#: schroot-setup.5.man:132
 msgid "These chroot types use only general variables."
 msgstr "Diese Chroot-Typen verwenden nur allgemeine Variablen."
 
 #. type: SS
-#: schroot-setup.5.man:140
+#: schroot-setup.5.man:132
 #, no-wrap
 msgid "File variables"
 msgstr "Dateivariablen"
 
 #. type: TP
-#: schroot-setup.5.man:141
+#: schroot-setup.5.man:133
 #, no-wrap
 msgid "CHROOT_FILE"
 msgstr "CHROOT_FILE"
 
 #. type: Plain text
-#: schroot-setup.5.man:144
+#: schroot-setup.5.man:136
 msgid "The file containing the chroot files."
 msgstr "die Datei, die die Chroot-Dateien anthält"
 
 #. type: TP
-#: schroot-setup.5.man:144
+#: schroot-setup.5.man:136
 #, no-wrap
 msgid "CHROOT_FILE_REPACK"
 msgstr "CHROOT_FILE_REPACK"
 
 #. type: Plain text
-#: schroot-setup.5.man:148
+#: schroot-setup.5.man:140
 msgid ""
 "Set to \\[oq]true\\[cq] to repack the chroot into an archive file on ending "
 "a session, otherwise \\[oq]false\\[cq]."
@@ -2212,42 +2174,42 @@ msgstr ""
 "Archivdatei zu packen, andernfalls auf »false«"
 
 #. type: SS
-#: schroot-setup.5.man:148
+#: schroot-setup.5.man:140
 #, no-wrap
 msgid "Mountable chroot variables"
 msgstr "einhängbare Chroot-Variablen"
 
 #. type: Plain text
-#: schroot-setup.5.man:151
+#: schroot-setup.5.man:143
 msgid "These variables are only set for directly mountable chroot types."
 msgstr ""
 "Diese Variablen werden nur für direkt einhängbare Chroot-Typen gesetzt."
 
 #. type: TP
-#: schroot-setup.5.man:151
+#: schroot-setup.5.man:143
 #, no-wrap
 msgid "CHROOT_MOUNT_DEVICE"
 msgstr "CHROOT_MOUNT_DEVICE"
 
 # FIXME s/  mounting.//
 #. type: Plain text
-#: schroot-setup.5.man:155
+#: schroot-setup.5.man:147
 msgid "The device to mount containing the chroot.  mounting."
 msgstr "das einzuhängende Gerät, das die Chroot enthält"
 
 #. type: TP
-#: schroot-setup.5.man:155
+#: schroot-setup.5.man:147
 #, no-wrap
 msgid "CHROOT_MOUNT_OPTIONS"
 msgstr "CHROOT_MOUNT_OPTIONS"
 
 #. type: Plain text
-#: schroot-setup.5.man:159
+#: schroot-setup.5.man:151
 msgid "Options to pass to B<mount>(8)."
 msgstr "Optionen, die an B<mount>(8) weitergereicht werden"
 
 #. type: Plain text
-#: schroot-setup.5.man:163
+#: schroot-setup.5.man:155
 msgid ""
 "The location of the chroot inside the mount point.  This allows the "
 "existence of multiple chroots on a single filesystem."
@@ -2256,70 +2218,70 @@ msgstr ""
 "Existenz mehrerer Chroots auf einem einzelnen Dateisystem."
 
 #. type: SS
-#: schroot-setup.5.man:163
+#: schroot-setup.5.man:155
 #, no-wrap
 msgid "Filesystem union variables"
 msgstr "vereinte Dateisystemvariablen"
 
 #. type: TP
-#: schroot-setup.5.man:164
+#: schroot-setup.5.man:156
 #, no-wrap
 msgid "CHROOT_UNION_TYPE"
 msgstr "CHROOT_UNION_TYPE"
 
 #. type: Plain text
-#: schroot-setup.5.man:167
+#: schroot-setup.5.man:159
 msgid "Union filesystem type."
 msgstr "vereinter Dateisystemtyp"
 
 #. type: TP
-#: schroot-setup.5.man:167
+#: schroot-setup.5.man:159
 #, no-wrap
 msgid "CHROOT_UNION_MOUNT_OPTIONS"
 msgstr "CHROOT_UNION_MOUNT_OPTIONS"
 
 #. type: Plain text
-#: schroot-setup.5.man:170
+#: schroot-setup.5.man:162
 msgid "Union filesystem mount options."
 msgstr "vereinte Dateisystemeinhängeoptionen"
 
 #. type: TP
-#: schroot-setup.5.man:170
+#: schroot-setup.5.man:162
 #, no-wrap
 msgid "CHROOT_UNION_OVERLAY_DIRECTORY"
 msgstr "CHROOT_UNION_OVERLAY_DIRECTORY"
 
 #. type: Plain text
-#: schroot-setup.5.man:173
+#: schroot-setup.5.man:165
 msgid "Union filesystem overlay directory (writable)."
 msgstr "vereintes dateisystemüberlagerndes (beschreibbares) Verzeichnis"
 
 #. type: TP
-#: schroot-setup.5.man:173
+#: schroot-setup.5.man:165
 #, no-wrap
 msgid "CHROOT_UNION_UNDERLAY_DIRECTORY"
 msgstr "CHROOT_UNION_UNDERLAY_DIRECTORY"
 
 #. type: Plain text
-#: schroot-setup.5.man:176
+#: schroot-setup.5.man:168
 msgid "Union filesystem underlay directory (read-only)."
 msgstr "vereintes unter dem Dateisystem liegendes (nur lesbares) Verzeichnis"
 
 #. type: SS
-#: schroot-setup.5.man:176
+#: schroot-setup.5.man:168
 #, no-wrap
 msgid "Block device variables"
 msgstr "Variablen für Blockspeichergeräte"
 
 #. type: TP
-#: schroot-setup.5.man:177
+#: schroot-setup.5.man:169
 #, no-wrap
 msgid "CHROOT_DEVICE"
 msgstr "CHROOT_DEVICE"
 
 # FIXME s/an/for a/
 #. type: Plain text
-#: schroot-setup.5.man:182
+#: schroot-setup.5.man:174
 msgid ""
 "The device containing the chroot root filesystem.  This is usually, but not "
 "necessarily, the device which will be mounted.  For example, an LVM snapshot "
@@ -2331,53 +2293,53 @@ msgstr ""
 "sein."
 
 #. type: SS
-#: schroot-setup.5.man:182
+#: schroot-setup.5.man:174
 #, no-wrap
 msgid "LVM snapshot variables"
 msgstr "LVM-Schnappschussvariablen"
 
 #. type: TP
-#: schroot-setup.5.man:183
+#: schroot-setup.5.man:175
 #, no-wrap
 msgid "CHROOT_LVM_SNAPSHOT_NAME"
 msgstr "CHROOT_LVM_SNAPSHOT_NAME"
 
 #. type: Plain text
-#: schroot-setup.5.man:187
+#: schroot-setup.5.man:179
 msgid "Snapshot name to pass to B<lvcreate>(8)."
 msgstr "Schnappschussname, der an B<lvcreate>(8) weitergereicht wird"
 
 #. type: TP
-#: schroot-setup.5.man:187
+#: schroot-setup.5.man:179
 #, no-wrap
 msgid "CHROOT_LVM_SNAPSHOT_DEVICE"
 msgstr "CHROOT_LVM_SNAPSHOT_DEVICE"
 
 #. type: Plain text
-#: schroot-setup.5.man:190
+#: schroot-setup.5.man:182
 msgid "The name of the LVM snapshot device."
 msgstr "der Names des LVM-Schnappschuss-Geräts"
 
 #. type: TP
-#: schroot-setup.5.man:190
+#: schroot-setup.5.man:182
 #, no-wrap
 msgid "CHROOT_LVM_SNAPSHOT_OPTIONS"
 msgstr "CHROOT_LVM_SNAPSHOT_OPTIONS"
 
 #. type: Plain text
-#: schroot-setup.5.man:194
+#: schroot-setup.5.man:186
 msgid "Options to pass to B<lvcreate>(8)."
 msgstr "Optionen, die an B<lvcreate>(8) übergeben werden"
 
 # SS = SubSection (Überschrift)
 #. type: SS
-#: schroot-setup.5.man:194
+#: schroot-setup.5.man:186
 #, no-wrap
 msgid "Custom variables"
 msgstr "Benutzerdefinierte Variablen"
 
 #. type: Plain text
-#: schroot-setup.5.man:199
+#: schroot-setup.5.man:191
 msgid ""
 "Custom keys set in I<schroot.conf> will be uppercased and set in the "
 "environment as described in B<schroot.conf>(5)."
@@ -2387,13 +2349,13 @@ msgstr ""
 "beschrieben."
 
 #. type: SS
-#: schroot-setup.5.man:200 schroot.conf.5.man:651
+#: schroot-setup.5.man:192 schroot.conf.5.man:651
 #, no-wrap
 msgid "Setup script configuration"
 msgstr "Einrichtungsskriptkonfiguration"
 
 #. type: Plain text
-#: schroot-setup.5.man:203 schroot.conf.5.man:654
+#: schroot-setup.5.man:195 schroot.conf.5.man:654
 msgid ""
 "The directory \\f[BI]\\*[SCHROOT_SYSCONF_DIR]/default\\fR contains the "
 "default settings used by setup scripts."
@@ -2402,13 +2364,13 @@ msgstr ""
 "Einrichtungsskripten benutzten Standardeinstellungen."
 
 #. type: TP
-#: schroot-setup.5.man:203 schroot.conf.5.man:654
+#: schroot-setup.5.man:195 schroot.conf.5.man:654
 #, no-wrap
 msgid "\\f[BI]config\\fR"
 msgstr "\\f[BI]config\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:211 schroot.conf.5.man:662
+#: schroot-setup.5.man:203 schroot.conf.5.man:662
 msgid ""
 "Main configuration file read by setup scripts.  The format of this file is "
 "described in B<schroot-script-config>(5).  This is the default value for the "
@@ -2423,13 +2385,13 @@ msgstr ""
 "die folgenden Werte wird standardmäßig verwiesen:"
 
 #. type: TP
-#: schroot-setup.5.man:211 schroot.conf.5.man:662
+#: schroot-setup.5.man:203 schroot.conf.5.man:662
 #, no-wrap
 msgid "\\f[BI]copyfiles\\fR"
 msgstr "\\f[BI]copyfiles\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:215 schroot.conf.5.man:666
+#: schroot-setup.5.man:207 schroot.conf.5.man:666
 msgid ""
 "A list of files to copy into the chroot from the host system.  Note that "
 "this was formerly named I<\\*[SCHROOT_SYSCONF_DIR]/copyfiles-defaults>."
@@ -2439,13 +2401,13 @@ msgstr ""
 "defaults> hieß."
 
 #. type: TP
-#: schroot-setup.5.man:215 schroot.conf.5.man:666
+#: schroot-setup.5.man:207 schroot.conf.5.man:666
 #, no-wrap
 msgid "\\f[BI]fstab\\fR"
 msgstr "\\f[BI]fstab\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:222 schroot.conf.5.man:673
+#: schroot-setup.5.man:214 schroot.conf.5.man:673
 msgid ""
 "A file in the format decribed in B<fstab>(5), used to mount filesystems "
 "inside the chroot.  The mount location is relative to the root of the "
@@ -2458,13 +2420,13 @@ msgstr ""
 "\\*[SCHROOT_SYSCONF_DIR]/mount-defaults> hieß."
 
 #. type: TP
-#: schroot-setup.5.man:222 schroot.conf.5.man:673
+#: schroot-setup.5.man:214 schroot.conf.5.man:673
 #, no-wrap
 msgid "\\f[BI]nssdatabases\\fR"
 msgstr "\\f[BI]nssdatabases\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:227 schroot.conf.5.man:678
+#: schroot-setup.5.man:219 schroot.conf.5.man:678
 msgid ""
 "System databases (as described in I</etc/nsswitch.conf> on GNU/Linux "
 "systems) to copy into the chroot from the host.  Note that this was formerly "
@@ -2475,13 +2437,13 @@ msgstr ""
 "dass diese früher I<\\*[SCHROOT_SYSCONF_DIR]/nssdatabases-defaults> hieß."
 
 #. type: SS
-#: schroot-setup.5.man:227
+#: schroot-setup.5.man:219
 #, no-wrap
 msgid "Setup scripts"
 msgstr "Einrichtungsskripte"
 
 #. type: Plain text
-#: schroot-setup.5.man:229
+#: schroot-setup.5.man:221
 msgid ""
 "The directory \\f[BI]\\*[SCHROOT_CONF_SETUP_D]\\fR contains the chroot setup "
 "scripts."
@@ -2490,70 +2452,70 @@ msgstr ""
 "Einrichtungsskripte."
 
 #. type: TP
-#: schroot-setup.5.man:229
+#: schroot-setup.5.man:221
 #, no-wrap
 msgid "\\f[BI]00check\\fR"
 msgstr "\\f[BI]00check\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:232
+#: schroot-setup.5.man:224
 msgid "Print debugging diagnostics and perform basic sanity checking."
 msgstr ""
 "gibt Fehlersuchdiagnosen aus und führt einfache Plausibilitätsprüfungen "
 "durch."
 
 #. type: TP
-#: schroot-setup.5.man:232
+#: schroot-setup.5.man:224
 #, no-wrap
 msgid "\\f[BI]05file\\fR"
 msgstr "\\f[BI]05file\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:235
+#: schroot-setup.5.man:227
 msgid "Unpack, clean up, and repack file-based chroots."
 msgstr "entpackt, räumt auf und packt dateibasierte Chroots erneut."
 
 #. type: TP
-#: schroot-setup.5.man:235
+#: schroot-setup.5.man:227
 #, no-wrap
 msgid "\\f[BI]05fsunion\\fR"
 msgstr "\\f[BI]05fsunion\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:238
+#: schroot-setup.5.man:230
 msgid "Create and remove union filesystems."
 msgstr "erstellt und entfernt vereinte Dateisysteme."
 
 #. type: TP
-#: schroot-setup.5.man:238
+#: schroot-setup.5.man:230
 #, no-wrap
 msgid "\\f[BI]05lvm\\fR"
 msgstr "\\f[BI]05lvm\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:241
+#: schroot-setup.5.man:233
 msgid "Create and remove LVM snapshots."
 msgstr "erstellt und entfernt LVM-Schnappschüsse."
 
 #. type: TP
-#: schroot-setup.5.man:241
+#: schroot-setup.5.man:233
 #, no-wrap
 msgid "\\f[BI]10mount\\fR"
 msgstr "\\f[BI]10mount\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:244
+#: schroot-setup.5.man:236
 msgid "Mount and unmount filesystems."
 msgstr "hängt Dateisysteme ein und aus."
 
 #. type: TP
-#: schroot-setup.5.man:244
+#: schroot-setup.5.man:236
 #, no-wrap
 msgid "\\f[BI]15binfmt\\fR"
 msgstr "\\f[BI]15binfmt\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:249
+#: schroot-setup.5.man:241
 msgid ""
 "Sets up the QEMU user emulator using binfmt-support.  This permits a chroot "
 "for a different CPU architecture to be used transparently, providing an "
@@ -2565,13 +2527,13 @@ msgstr ""
 "Emulation bietet."
 
 #. type: TP
-#: schroot-setup.5.man:249
+#: schroot-setup.5.man:241
 #, no-wrap
 msgid "\\f[BI]15killprocs\\fR"
 msgstr "\\f[BI]15killprocs\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:253
+#: schroot-setup.5.man:245
 msgid ""
 "Kill processes still running inside the chroot when ending a session, which "
 "would prevent unmounting of filesystems and cleanup of any other resources."
@@ -2581,13 +2543,13 @@ msgstr ""
 "anderer Ressourcen verhindern würde."
 
 #. type: TP
-#: schroot-setup.5.man:253
+#: schroot-setup.5.man:245
 #, no-wrap
 msgid "\\f[BI]20copyfiles\\fR"
 msgstr "\\f[BI]20copyfiles\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:257
+#: schroot-setup.5.man:249
 msgid ""
 "Copy files from the host system into the chroot.  Configure networking by "
 "copying I<hosts> and I<resolv.conf>, for example."
@@ -2596,13 +2558,13 @@ msgstr ""
 "zum Beispiel durch Kopieren von I<hosts> und I<resolv.conf>."
 
 #. type: TP
-#: schroot-setup.5.man:257
+#: schroot-setup.5.man:249
 #, no-wrap
 msgid "\\f[BI]20nssdatabases\\fR"
 msgstr "\\f[BI]20nssdatabases\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:261
+#: schroot-setup.5.man:253
 msgid ""
 "Configure system databases by copying passwd, shadow, group etc. into the "
 "chroot."
@@ -2611,13 +2573,13 @@ msgstr ""
 "»group« etc. in die Chroot."
 
 #. type: TP
-#: schroot-setup.5.man:261
+#: schroot-setup.5.man:253
 #, no-wrap
 msgid "\\f[BI]50chrootname\\fR"
 msgstr "\\f[BI]50chrootname\\fR"
 
 #. type: Plain text
-#: schroot-setup.5.man:265
+#: schroot-setup.5.man:257
 msgid ""
 "Set the chroot name (I</etc/debian_chroot>) in the chroot.  This may be used "
 "by the shell prompt to display the current chroot."
@@ -2627,7 +2589,7 @@ msgstr ""
 "anzuzeigen."
 
 #. type: Plain text
-#: schroot-setup.5.man:272
+#: schroot-setup.5.man:264
 msgid ""
 "B<schroot>(1), B<fstab>(5), B<schroot.conf>(5), B<schroot-script-config>(5), "
 "B<run-parts>(8)."
@@ -4694,7 +4656,7 @@ msgstr ""
 "die Konfiguration und Benutzung von Schroot ab."
 
 #. type: SH
-#: schroot-faq.7.man:24 dchroot-dsa.1.man:109
+#: schroot-faq.7.man:24
 #, no-wrap
 msgid "CONFIGURATION"
 msgstr "KONFIGURATION"
@@ -4766,15 +4728,24 @@ msgid "Should I use the plain or directory chroot type?"
 msgstr "Soll ich einen einfachen oder einen Verzeichnis-Chroot-typ verwenden?"
 
 #. type: Plain text
-#: schroot-faq.7.man:57
+#: schroot-faq.7.man:55
+#, fuzzy
+#| msgid ""
+#| "These two chroot types are basically equivalent, since they are both just "
+#| "directories in the filesystem.  plain is very simple and does not perform "
+#| "any setup tasks; the only reason you would want to use it is if you're "
+#| "upgrading from a program such as B<dchroot(1)> or B<chroot(8)> which "
+#| "don't do anything other than running a command or shell in a directory.  "
+#| "On the other hand, directory chroots do run setup scripts, which can "
+#| "mount additional filesystems and do other setup tasks."
 msgid ""
 "These two chroot types are basically equivalent, since they are both just "
 "directories in the filesystem.  plain is very simple and does not perform "
 "any setup tasks; the only reason you would want to use it is if you're "
-"upgrading from a program such as B<dchroot(1)> or B<chroot(8)> which don't "
-"do anything other than running a command or shell in a directory.  On the "
-"other hand, directory chroots do run setup scripts, which can mount "
-"additional filesystems and do other setup tasks."
+"upgrading from a program such as B<chroot(8)> which does not do anything "
+"other than running a command or shell in a directory.  On the other hand, "
+"directory chroots do run setup scripts, which can mount additional "
+"filesystems and do other setup tasks."
 msgstr ""
 "Diese beiden Chroot-Typen sind im Grunde identisch, da sie beide nur "
 "Verzeichnisse im Dateisystem sind. »plain« ist sehr einfach und führt keine "
@@ -4786,19 +4757,19 @@ msgstr ""
 "Dateisysteme einhängen und andere Einrichtungsaufgaben erledigen können."
 
 #. type: SH
-#: schroot-faq.7.man:57
+#: schroot-faq.7.man:55
 #, no-wrap
 msgid "ADVANCED CONFIGURATION"
 msgstr "FORTGESCHRITTENE KONFIGURATION"
 
 #. type: SS
-#: schroot-faq.7.man:58
+#: schroot-faq.7.man:56
 #, no-wrap
 msgid "What are snapshots and unions?"
 msgstr "Was sind Schnappschüsse und Unions?"
 
 #. type: Plain text
-#: schroot-faq.7.man:70
+#: schroot-faq.7.man:68
 msgid ""
 "Some chroot types support I<cloning>.  This means when you start a session, "
 "you get a I<copy> of the chroot which lasts just for the lifetime of the "
@@ -4825,7 +4796,7 @@ msgstr ""
 "nächsten Bauen wechselwirken."
 
 #. type: Plain text
-#: schroot-faq.7.man:80
+#: schroot-faq.7.man:78
 msgid ""
 "The most commonly-used snapshotting method is to use LVM snapshots (chroot "
 "type \\[oq]lvm-snapshot\\[cq]).  In this case the chroot must exist on an "
@@ -4848,7 +4819,7 @@ msgstr ""
 "Methode wird, wenn es reift."
 
 #. type: Plain text
-#: schroot-faq.7.man:87
+#: schroot-faq.7.man:85
 msgid ""
 "Unions are an alternative to snapshots.  In this situation, instead of "
 "creating a copy of the chroot filesystem, we overlay a read-write temporary "
@@ -4867,19 +4838,19 @@ msgstr ""
 "daher sind LVM-Schnappschüsse derzeit immer noch die empfohlene Methode."
 
 #. type: SH
-#: schroot-faq.7.man:87
+#: schroot-faq.7.man:85
 #, no-wrap
 msgid "USAGE"
 msgstr "AUFRUF"
 
 #. type: SS
-#: schroot-faq.7.man:88
+#: schroot-faq.7.man:86
 #, no-wrap
 msgid "Can I run a d\\[ae]mons in a chroot?"
 msgstr "Wie kann ich D\\[ae]mons in einer Chroot ausführen?"
 
 #. type: Plain text
-#: schroot-faq.7.man:92
+#: schroot-faq.7.man:90
 msgid ""
 "A common problem is trying to run a d\\[ae]mon in a chroot, and finding that "
 "this doesn't work.  Typically, the d\\[ae]mon is killed shortly after it "
@@ -4890,7 +4861,7 @@ msgstr ""
 "wurde der D\\[ae]mon kurz nach dem Start gekillt."
 
 #. type: Plain text
-#: schroot-faq.7.man:102
+#: schroot-faq.7.man:100
 msgid ""
 "When schroot runs, it begins a session, runs the specified command or shell, "
 "waits for the command or shell to exit, and then it ends the session.  For a "
@@ -4917,7 +4888,7 @@ msgstr ""
 
 # FIXME s/daemon/d\\[ae]mon/
 #. type: Plain text
-#: schroot-faq.7.man:108
+#: schroot-faq.7.man:106
 msgid ""
 "In consequence, it's not possible to run a d\\[ae]mon I<directly> with "
 "schroot.  You can however do it if you create a session with I<--begin-"
@@ -4933,13 +4904,13 @@ msgstr ""
 "benötigen."
 
 #. type: SS
-#: schroot-faq.7.man:108
+#: schroot-faq.7.man:106
 #, no-wrap
 msgid "How do I manually cleaning up a broken session?"
 msgstr "Wie kann ich eine kaputte Sitzung von Hand aufräumen?"
 
 #. type: Plain text
-#: schroot-faq.7.man:119
+#: schroot-faq.7.man:117
 msgid ""
 "Occasionally, it may be necessary to manually clean up sessions.  If "
 "something changes on your system which causes the setup scripts to fail when "
@@ -4961,33 +4932,33 @@ msgstr ""
 "darunter eingehängte Dateisysteme gibt) und dann auch gelöscht werden."
 
 #. type: Plain text
-#: schroot-faq.7.man:122
+#: schroot-faq.7.man:120
 msgid "For example, to remove a session named I<my-session> by hand:"
 msgstr ""
 "Um zum Beispiel die Sitzung mit Namen I<meine-Sitzung> von Hand zu entfernen:"
 
 #. type: Plain text
-#: schroot-faq.7.man:124
+#: schroot-faq.7.man:122
 msgid "Remove the session configuration file"
 msgstr "die Konfigurationsdatei der Sitzung entfernen"
 
 #. type: Plain text
-#: schroot-faq.7.man:129
+#: schroot-faq.7.man:127
 msgid "Check for mounted filesystems"
 msgstr "auf eingehängte Dateisysteme prüfen"
 
 #. type: Plain text
-#: schroot-faq.7.man:134
+#: schroot-faq.7.man:132
 msgid "Unmount any mounted filesystems"
 msgstr "eingehängte Dateisysteme aushängen"
 
 #. type: Plain text
-#: schroot-faq.7.man:136
+#: schroot-faq.7.man:134
 msgid "Remove I<\\*[SCHROOT_MOUNT_DIR]/my-session>"
 msgstr "I<\\*[SCHROOT_MOUNT_DIR]/meine-Sitzung> entfernen"
 
 #. type: Plain text
-#: schroot-faq.7.man:139
+#: schroot-faq.7.man:137
 msgid ""
 "Repeat for the other directories such as I<\\*[SCHROOT_UNDERLAY_DIR]>, I<"
 "\\*[SCHROOT_OVERLAY_DIR]> and I<\\*[SCHROOT_FILE_UNPACK_DIR]>"
@@ -4996,7 +4967,7 @@ msgstr ""
 "\\*[SCHROOT_OVERLAY_DIR]> und I<\\*[SCHROOT_FILE_UNPACK_DIR]> wiederholen"
 
 #. type: Plain text
-#: schroot-faq.7.man:143
+#: schroot-faq.7.man:141
 msgid ""
 "B<NOTE:> Do not remove any directories without checking if there are any "
 "filesystems mounted below them, since filesystems such as I</home> could "
@@ -5008,24 +4979,24 @@ msgstr ""
 "tun, könnte zum Verlust unwiederbringlicher Daten führen."
 
 #. type: SH
-#: schroot-faq.7.man:143
+#: schroot-faq.7.man:141
 #, no-wrap
 msgid "ADVANCED USAGE"
 msgstr "FORTGESCHRITTENE BENUTZUNG"
 
 #. type: SS
-#: schroot-faq.7.man:144
+#: schroot-faq.7.man:142
 #, no-wrap
 msgid "How do I use sessions?"
 msgstr "Wie verwende ich Sitzungen?"
 
 #. type: Plain text
-#: schroot-faq.7.man:146
+#: schroot-faq.7.man:144
 msgid "In normal use, running a command might look like this:"
 msgstr "Im normalen Betrieb führen Sie einen Befehl ähnlich diesem aus:"
 
 #. type: Plain text
-#: schroot-faq.7.man:153
+#: schroot-faq.7.man:151
 msgid ""
 "which would run the command I<command> in the I<squeeze> chroot.  While it's "
 "not apparent that a session is being used here, schroot is actually doing "
@@ -5036,7 +5007,7 @@ msgstr ""
 "unternimmt Schroot die folgenden Schritte:"
 
 #. type: Plain text
-#: schroot-faq.7.man:158
+#: schroot-faq.7.man:156
 msgid ""
 "Creating a session using the I<squeeze> chroot.  This will be automatically "
 "given a unique name, such as I<squeeze-57a69547-e014-4f5d-a98b-"
@@ -5048,7 +5019,7 @@ msgstr ""
 "möchten."
 
 #. type: Plain text
-#: schroot-faq.7.man:160
+#: schroot-faq.7.man:158
 msgid ""
 "Setup scripts are run to create the session chroot and configure it for you"
 msgstr ""
@@ -5056,23 +5027,23 @@ msgstr ""
 "richten sie Ihnen ein."
 
 #. type: Plain text
-#: schroot-faq.7.man:162
+#: schroot-faq.7.man:160
 msgid "The command I<command> is run inside the session chroot"
 msgstr "Der Befehl  I<Befehl> wird innerhalb der Sitzungs-Chroot ausgeführt."
 
 #. type: Plain text
-#: schroot-faq.7.man:164
+#: schroot-faq.7.man:162
 msgid "Setup scripts are run to clean up the session chroot"
 msgstr ""
 "Zum Aufräumen der Sitzungs-Chroot werden Einrichtungsskripte ausgeführt."
 
 #. type: Plain text
-#: schroot-faq.7.man:166
+#: schroot-faq.7.man:164
 msgid "The session is deleted"
 msgstr "Die Sitzung wird gelöscht."
 
 #. type: Plain text
-#: schroot-faq.7.man:178
+#: schroot-faq.7.man:176
 msgid ""
 "Now, if you wanted to run more than one command, you could run a shell and "
 "run them interactively, or you could put them into shell script and run that "
@@ -5103,7 +5074,7 @@ msgstr ""
 "einzelnen Befehl. Dies ist ziemlich einfach:"
 
 #. type: Plain text
-#: schroot-faq.7.man:185
+#: schroot-faq.7.man:183
 msgid ""
 "This created a new session based upon the I<squeeze> chroot.  The unique "
 "name for the session, the session ID, was printed to standard output, so we "
@@ -5115,7 +5086,7 @@ msgstr ""
 "gesichert werden wie hier:"
 
 #. type: Plain text
-#: schroot-faq.7.man:191
+#: schroot-faq.7.man:189
 msgid ""
 "Now we have created the session and got the session ID, we can run commands "
 "in it using the session ID:"
@@ -5124,29 +5095,29 @@ msgstr ""
 "Befehle mittels der Sitzungskennung ausgeführt werden:"
 
 #. type: Plain text
-#: schroot-faq.7.man:196 schroot-faq.7.man:213
+#: schroot-faq.7.man:194 schroot-faq.7.man:211
 msgid "or"
 msgstr "oder"
 
 #. type: Plain text
-#: schroot-faq.7.man:201
+#: schroot-faq.7.man:199
 msgid "and then as many more commands as we like"
 msgstr "und dann so viele andere Befehle wie gewünscht"
 
 #. type: Plain text
-#: schroot-faq.7.man:206
+#: schroot-faq.7.man:204
 msgid "etc."
 msgstr "etc."
 
 #. type: Plain text
-#: schroot-faq.7.man:208
+#: schroot-faq.7.man:206
 msgid ""
 "When we are done with the session, we can remove it with I<--end-session>:"
 msgstr ""
 "Wenn die Sitzung vorüber ist, kann sie mit I<--end-session> entfernt werden:"
 
 #. type: Plain text
-#: schroot-faq.7.man:219
+#: schroot-faq.7.man:217
 msgid ""
 "Since the automatically generated session names can be long and unwieldy, "
 "the I<--session-name> option allows you to provide you own name:"
@@ -5156,19 +5127,19 @@ msgstr ""
 "vergeben:"
 
 #. type: SH
-#: schroot-faq.7.man:223
+#: schroot-faq.7.man:221
 #, no-wrap
 msgid "CONTRIBUTING"
 msgstr "MITWIRKEN"
 
 #. type: SS
-#: schroot-faq.7.man:224
+#: schroot-faq.7.man:222
 #, no-wrap
 msgid "Getting help and getting involved"
 msgstr "Hilfe erhalten und einbezogen werden"
 
 #. type: Plain text
-#: schroot-faq.7.man:231
+#: schroot-faq.7.man:229
 msgid ""
 "The mailing list \\f[CR]E<lt>buildd-tools-devel@lists.alioth.debian.orgE<gt>"
 "\\fR is used for both user support and development discussion.  The list may "
@@ -5185,13 +5156,13 @@ msgstr ""
 "debian.org/mailman/listinfo/buildd-tools-devel\\fR."
 
 #. type: SS
-#: schroot-faq.7.man:231
+#: schroot-faq.7.man:229
 #, no-wrap
 msgid "Reporting bugs"
 msgstr "Fehler melden"
 
 #. type: Plain text
-#: schroot-faq.7.man:236
+#: schroot-faq.7.man:234
 msgid ""
 "On Debian systems, bugs may be reported using the B<reportbug>(1)  tool, or "
 "alternatively by mailing \\f[CR]E<lt>submit@bugs.debian.orgE<gt>\\fR (see "
@@ -5203,13 +5174,13 @@ msgstr ""
 "\\f[CR]http://bugs.debian.org\\fR)."
 
 #. type: SS
-#: schroot-faq.7.man:236
+#: schroot-faq.7.man:234
 #, no-wrap
 msgid "Getting the latest sources"
 msgstr "Bezug der neusten Quellen"
 
 #. type: Plain text
-#: schroot-faq.7.man:239
+#: schroot-faq.7.man:237
 msgid ""
 "schroot is maintained in the git version control system.  You can get the "
 "latest sources from \\f[CR]git://git.debian.org/git/buildd-tools/schroot\\fR."
@@ -5219,7 +5190,7 @@ msgstr ""
 "\\fR beziehen."
 
 #. type: Plain text
-#: schroot-faq.7.man:246
+#: schroot-faq.7.man:244
 #, fuzzy
 #| msgid ""
 #| "The master branch containes the current development release.  Stable "
@@ -5236,850 +5207,689 @@ msgstr ""
 
 # FIXME wrong order
 #. type: Plain text
-#: schroot-faq.7.man:252
-#, fuzzy
-#| msgid ""
-#| "B<dchroot>(1), B<schroot>(1), B<sbuild>(1), B<schroot-setup>(5), "
-#| "B<schroot.conf>(5)."
-msgid "B<dchroot>(1), B<schroot>(1), B<schroot-setup>(5), B<schroot.conf>(5)."
-msgstr ""
-"B<dchroot>(1), B<sbuild>(1), B<schroot>(1), B<schroot-setup>(5), B<schroot."
-"conf>(5)"
-
-#. type: ds PROGRAM
-#: dchroot.1.man:19
-#, no-wrap
-msgid "dchroot"
-msgstr "dchroot"
-
-#. type: TH
-#: dchroot.1.man:20
-#, no-wrap
-msgid "DCHROOT"
-msgstr "DCHROOT"
-
-#. type: Plain text
-#: dchroot.1.man:23
-msgid "dchroot - enter a chroot environment"
-msgstr "dchroot - in eine Chroot-Umgebung gelangen"
-
-#. type: Plain text
-#: dchroot.1.man:34
-msgid ""
-"B<dchroot> [B<-h>\\[or]B<--help> \\[or] B<-V>\\[or]B<--version> \\[or] B<-l>"
-"\\[or]B<--list> \\[or] B<-i>\\[or]B<--info> \\[or] B<--config> \\[or] B<--"
-"location>] [B<--directory=>I<directory>] [B<-d>\\[or]B<--preserve-"
-"environment>] [B<-q>\\[or]B<--quiet> \\[or] B<-v>\\[or]B<--verbose>] [B<-c "
-">I<chroot>\\[or]B<--chroot=>I<chroot> \\[or] B<--all>] [B<COMMAND> [ B<ARG1> "
-"[ B<ARG2> [ B<ARGn>]]]]"
-msgstr ""
-"B<dchroot> [B<-h>\\[or]B<--help> \\[or] B<-V>\\[or]B<--version> \\[or] B<-l>"
-"\\[or]B<--list> \\[or] B<-i>\\[or]B<--info> \\[or] B<--config> \\[or] B<--"
-"location>] [B<--directory=>I<Verzeichnis>] [B<-d>\\[or]B<--preserve-"
-"environment>] [B<-q>\\[or]B<--quiet> \\[or] B<-v>\\[or]B<--verbose>] [B<-c "
-">I<Chroot>\\[or]B<--chroot=>I<Chroot> \\[or] B<--all>] [B<BEFEHL> [ B<ARG1> "
-"[ B<ARG2> [ B<ARGn>]]]]"
-
-#. type: Plain text
-#: dchroot.1.man:38
-msgid ""
-"B<dchroot> allows the user to run a command or a login shell in a chroot "
-"environment.  If no command is specified, a login shell will be started in "
-"the user's home directory inside the chroot."
-msgstr ""
-"B<dchroot> ermöglicht dem Benutzer, einen Befehl oder eine Login-Shell in "
-"einer Chroot-Umgebung auszuführen. Falls kein Befehl angegeben wurde, wird "
-"eine Login-Shell im Home-Verzeichnis des Benutzers innerhalb der Chroot "
-"gestartet."
-
-#. type: Plain text
-#: dchroot.1.man:46
-#, fuzzy
-#| msgid ""
-#| "The command is one or more arguments which will be run in the user's "
-#| "default shell using its I<-c> option.  As a result, shell code may be "
-#| "embedded in this argument.  If multiple command options are used, they "
-#| "are concatenated together, separated by spaces.  Users should be aware of "
-#| "the shell quoting issues this presents, and should use B<schroot> if "
-#| "necessary, which does not have any quoting issues."
-msgid ""
-"The command is one or more arguments which will be run in the user's default "
-"shell using its I<-c> option.  As a result, shell code may be embedded in "
-"this argument.  If multiple command options are used, they are concatenated "
-"together, separated by spaces.  Users should be aware of the shell quoting "
-"issues this presents, and should use B<schroot>(1)  if necessary, which does "
-"not have any quoting issues."
-msgstr ""
-"Der Befehl besteht aus einem oder mehreren Argumenten, die in der Standard-"
-"Shell des Benutzers mittels der Option I<-c> ausgeführt werden. Dadurch kann "
-"Shell-Code in dieses Argument eingebettet werden. Falls mehrere "
-"Befehlsoptionen benutzt werden, können sie durch Leerzeichen getrennt "
-"verbunden werden. Benutzer sollten darüber Bescheid wissen, dass dies "
-"Maskierungsprobleme der Shell mit sich bringt und, falls nötig, B<schroot> "
-"verwenden, das derlei Probleme nicht hat."
-
-#. type: Plain text
-#: dchroot.1.man:49 dchroot-dsa.1.man:48
-#, fuzzy
-#| msgid ""
-#| "The directory the command or login shell is run in depends upon the "
-#| "context.  See I<--directory> option below for a complete description."
-msgid ""
-"The directory the command or login shell is run in depends upon the "
-"context.  See the I<--directory> option below for a complete description."
-msgstr ""
-"Das Verzeichnis, in dem der Befehl oder die Login-Shell ausgeführt wird, "
-"hängt vom Kontext ab. Eine vollständige Beschreibung finden Sie nachfolgend "
-"unter der Option I<--directory>."
-
-#. type: Plain text
-#: dchroot.1.man:56
-msgid ""
-"This version of dchroot is a compatibility wrapper around the B<schroot>(1)  "
-"program.  It is provided for backward compatibility with the dchroot command-"
-"line options, but schroot is recommended for future use.  See the section "
-"\\[lq]I<Incompatibilities>\\[rq] below for known incompatibilities with "
-"older versions of dchroot."
-msgstr ""
-"Diese Version von Dchroot ist ein Kompatibilitäts-Wrapper um das Programm "
-"B<schroot>(1). Es wird für die Rückwärtskompatibilität mit den "
-"Befehlszeilenoptionen von Dchroot benutzt, für die zukünftige Nutzung wird "
-"aber Schroot empfohlen. Lesen Sie den nachfolgenden Abschnitt "
-"»I<Inkompatibilitäten>«, um etwas über bekannte Inkompatibilitäten mit "
-"älteren Versionen von Dchroot zu erfahren."
-
-#. type: Plain text
-#: dchroot.1.man:59
-msgid ""
-"If no chroot is specified, the chroot name or alias \\[oq]default\\[cq] will "
-"be used as a fallback."
-msgstr ""
-"Falls keine Chroot angegeben wurde, wird der Chroot-Name oder -Alias "
-"»default« als Ausweichmöglichkeit genommen."
-
-#. type: Plain text
-#: dchroot.1.man:61
-msgid "B<dchroot> accepts the following options:"
-msgstr "B<dchroot> akzeptiert die folgenden Optionen:"
-
-#. type: SS
-#: dchroot.1.man:61 dchroot-dsa.1.man:58
-#, no-wrap
-msgid "Basic options"
-msgstr "Grundlegende Optionen"
-
-#. type: Plain text
-#: dchroot.1.man:68
-msgid "Select all chroots."
-msgstr "alle Chroots auswählen"
-
-#. type: Plain text
-#: dchroot.1.man:72
-msgid ""
-"Specify a chroot to use.  This option may be used multiple times to specify "
-"more than one chroot, in which case its effect is similar to I<--all>."
-msgstr ""
-"gibt eine Chroot an, die benutzt werden soll. Diese Option kann mehrfach "
-"verwendet werden, um mehr als eine Chroot anzugeben. In diesem Fall wirkt "
-"sie sich ähnlich wie I<--all> aus."
-
-#. type: Plain text
-#: dchroot.1.man:79
-msgid ""
-"Print detailed information about the specified chroots.  Note that earlier "
-"versions of dchroot did not include this option."
-msgstr ""
-"gibt detaillierte Informationen über die angegebenen Chroots aus. Beachten "
-"Sie, dass ältere Versionen von Dchroot diese Option nicht enthielten."
-
-#. type: TP
-#: dchroot.1.man:79
-#, no-wrap
-msgid "B<-p>, B<--path>"
-msgstr "B<-p>, B<--path>"
-
-#. type: Plain text
-#: dchroot.1.man:82
-msgid "Print location (path) of the specified chroots."
-msgstr "gibt den Speicherort (Pfad) der angegebenen Chroots aus."
-
-#. type: Plain text
-#: dchroot.1.man:88
-msgid ""
-"Print configuration of the specified chroots.  This is useful for testing "
-"that the configuration in use is the same as the configuration file.  Any "
-"comments in the original file will be missing.  Note that earlier versions "
-"of dchroot did not include this option."
-msgstr ""
-"gibt die Konfigurationen der angegebenen Chroots aus. Dies ist nützlich, um "
-"zu testen, ob die benutzte Konfiguration die selbe wie die in der "
-"Konfigurationsdatei ist. Sämtliche Kommentare der Originaldatei werden "
-"fehlen. Beachten Sie, dass ältere Versionen von Dchroot diese Option nicht "
-"enthielten."
-
-#. type: TP
-#: dchroot.1.man:88
-#, no-wrap
-msgid "B<--directory=>I<directory>"
-msgstr "B<--directory=>I<Verzeichnis>"
-
-#. type: Plain text
-#: dchroot.1.man:93
-msgid ""
-"Change to I<directory> inside the chroot before running the command or login "
-"shell.  If I<directory> is not available, dchroot will exit with an error "
-"status."
-msgstr ""
-"wechselt in das I<Verzeichnis> innerhalb der Chroot, bevor der Befehl oder "
-"die Login-Shell ausgeführt wird. Falls das I<Verzeichnis> nicht verfügbar "
-"ist, wird Dchroot mit einem Fehlerstatus beendet."
-
-#. type: Plain text
-#: dchroot.1.man:102
-msgid ""
-"The default behaviour is as follows (all directory paths are inside the "
-"chroot).  Unless the I<--preserve-environment> option is used to preserve "
-"the environment, the login shell or command will run in the user's home "
-"directory, or I</> if the home directory is not available.  When the I<--"
-"preserve-environment> option is used, it will attempt to use the current "
-"working directory, again falling back to I</> if it is not accessible.  If "
-"none of the directories are available, dchroot will exit with an error "
-"status."
-msgstr ""
-"Das Standardverhalten ist wie folgt (alle Verzeichnispfade liegen innerhalb "
-"der Chroot): Sofern nicht die Option I<--preserve-environment> zum Erhalt "
-"der Umgebung benutzt wird, wird die Login-Shell oder der Befehl im Home-"
-"Verzeichnis des Benutzers oder I</> ausgeführt, falls das Home-Verzeichnis "
-"nicht verfügbar ist. Wenn die Option I<--preserve-environment> benutzt wird, "
-"wird es versuchen, das aktuelle Arbeitsverzeichnis zu verwenden, wiederum "
-"mit I</> als Ausweichmöglichkeit, falls es nicht verfügbar ist. Wenn keines "
-"der Verzeichnisse verfügbar ist, wird Dchroot mit einem Fehlerstatus beendet."
-
-#. type: TP
-#: dchroot.1.man:102
-#, no-wrap
-msgid "B<-d>, B<--preserve-environment>"
-msgstr "B<-d>, B<--preserve-environment>"
-
-#. type: Plain text
-#: dchroot.1.man:107
-msgid ""
-"Preserve the user's environment inside the chroot environment.  The default "
-"is to use a clean environment; this option copies the entire user "
-"environment and sets it in the session."
-msgstr ""
-"bewahrt die Umgebung des Benutzers innerhalb der Chroot auf. Standardmäßig "
-"wird eine saubere Umgebung benutzt. Diese Option kopiert die ganze Umgebung "
-"des Benutzers und setzt sie in der Sitzung."
-
-#. type: Plain text
-#: dchroot.1.man:114
-msgid ""
-"Print all messages.  Note that earlier versions of dchroot did not include "
-"this option."
-msgstr ""
-"gibt alle Nachrichten aus. Beachten Sie, dass ältere Versionen von Dchroot "
-"diese Option nicht enthielten."
-
-#. type: Plain text
-#: dchroot.1.man:119
-msgid "Note that earlier versions of dchroot did not provide long options."
-msgstr ""
-"Beachten Sie, dass ältere Versionen von Dchroot keine langen Optionen "
-"bereitstellten."
-
-#. type: SH
-#: dchroot.1.man:119 dchroot-dsa.1.man:110
-#, no-wrap
-msgid "INCOMPATIBILITIES"
-msgstr "INKOMPATIBILITÄTEN"
-
-#. type: SS
-#: dchroot.1.man:120
-#, no-wrap
-msgid "Debian dchroot prior to version 0.99.0"
-msgstr "Debian-Dchroot vor Version 0.99.0"
-
-#. type: Plain text
-#: dchroot.1.man:123 dchroot-dsa.1.man:121
-msgid "Log messages are worded and formatted differently."
-msgstr "Protokollnachrichten sind unterschiedlich formuliert und formatiert."
-
-#. type: Plain text
-#: dchroot.1.man:128
-msgid ""
-"B<su>(1)  is no longer used to run commands in the chroot; this is done by "
-"dchroot internally.  This change may cause subtle differences.  If you find "
-"an incompatibility, please report it so it may be corrected."
-msgstr ""
-"B<su>(1) wird nicht länger zum Ausführen von Befehlen in der Chroot benutzt. "
-"Dies wird durch Dchroot intern erledigt. Diese Änderung kann kann subtile "
-"Unterschiede verursachen. Falls Sie eine Inkompatibilität entdecken, melden "
-"Sie diese bitte, damit sie korrigiert werden kann."
-
-#. type: Plain text
-#: dchroot.1.man:134
-msgid ""
-"dchroot provides a restricted subset of the functionality implemented by "
-"B<schroot>, but is still schroot underneath.  Thus dchroot is still subject "
-"to schroot security checking, including PAM authentication and "
-"authorisation, and session management, for example, and hence may behave "
-"slightly differently to older dchroot versions in some circumstances."
-msgstr ""
-"Dchroot stellt eine eingeschränkte Untermenge der durch B<schroot> "
-"umgesetzten Funktionalität bereit, liegt aber immer noch unter Schroot. "
-"Daher ist Dchroot immer noch Gegenstand der Schroot-Sicherheitsprüfung, "
-"einschließlich PAM-Authentifizierung, Autorisierung und zum Beispiel "
-"Sitzungsverwaltung und kann sich daher unter manchen Umständen gegenüber "
-"älteren Dchroot-Version leicht anders verhalten."
-
-#. type: SS
-#: dchroot.1.man:134 dchroot-dsa.1.man:111
-#, no-wrap
-msgid "Debian dchroot prior to version 1.5.1"
-msgstr "Debian-Dchroot vor Version 1.5.1"
-
-#. type: Plain text
-#: dchroot.1.man:141
-msgid ""
-"This version of dchroot uses I<schroot.conf> to store the configuration for "
-"available chroots, rather than the I<dchroot.conf> file used historically.  "
-"dchroot supported automatic migration of I<dchroot.conf> to the I<schroot."
-"conf> keyfile format with its I<--config> option from versions 0.2.2 to "
-"1.5.0; support for the old format is now no longer available."
-msgstr ""
-"Diese Version von Dchroot benutzt I<schroot.conf>, um die Konfiguration für "
-"verfügbare Chroots zu speichern, anstatt der geschichtlich benutzten Datei "
-"I<dchroot.conf>. Dchroot unterstützt die automatische Migration der "
-"I<dchroot.conf> in das I<schroot.conf>-Schlüsseldateiformat mit seiner "
-"Option I<--config> aus Versionen von 0.2.2 bis 1.5.0. Die Unterstützung für "
-"das alte Format ist nun nicht länger verfügebar."
-
-#. type: SS
-#: dchroot.1.man:141 dchroot-dsa.1.man:118
-#, no-wrap
-msgid "DSA dchroot"
-msgstr "DSA-Dchroot"
-
-#. type: Plain text
-#: dchroot.1.man:144
-msgid ""
-"Machines run by the Debian System Administrators for the Debian Project have "
-"a B<dchroot-dsa> package which provides an alternate dchroot implementation."
-msgstr ""
-"Von Debian-Systemadministratoren für das Debian-Projekt betriebene Rechner "
-"haben ein B<dchroot-dsa>-Paket, das eine alternative Dchroot-Umsetzung "
-"bereitstellt."
-
-#. type: Plain text
-#: dchroot.1.man:146 dchroot-dsa.1.man:131
-msgid "All the above incompatibilities apply."
-msgstr "alle obigen Inkompatibilitäten treffen zu"
-
-#. type: Plain text
-#: dchroot.1.man:154
-msgid ""
-"This version of dchroot has incompatible command-line options, and while "
-"some of those options are supported or have equivalent options by a "
-"different name, the I<-c> option is not required to specify a chroot, and "
-"this version of dchroot cannot implement this behaviour in a backward-"
-"compatible manner (because if I<-c> is omitted, the default chroot is "
-"used).  DSA dchroot uses the first non-option as the chroot to use, only "
-"allowing one chroot to be used at once."
-msgstr ""
-"Diese Version von Dchroot hat inkompatible Befehlszeilenoptionen und obwohl "
-"einige dieser Optionen unterstützt werden oder sie entsprechende Optionen "
-"mit einem anderen Namen hat, wird die Option I<-c> nicht benötigt, um eine "
-"Chroot anzugeben. Diese Version von Dchroot kann dieses Verhalten nicht in "
-"einer rückwärtskompatiblen Weise umsetzen (da die Standard-Chroot benutzt "
-"wird, falls I<-c> weggelassen wird). DSA-Dchroot verwendet das Erste, das "
-"keine Option ist, als Chroot, wobei nur eine Chroot auf einmal benutzt "
-"werden darf."
-
-#. type: Plain text
-#: dchroot.1.man:165
-msgid ""
-"dchroot will select an appropriate directory to use within the chroot based "
-"upon whether the I<--directory> or I<--preserve-environment> options are "
-"used.  When explicitly specifying a directory, only one directory will be "
-"used for safety and consistency, while for a login shell or command several "
-"possibilities may be tried.  Note that due to multiple fallbacks being "
-"considered for commands, it is dangerous to run commands using dchroot; use "
-"schroot instead.  The following subsections list the fallback sequence for "
-"each case.  CWD is the current working directory, DIR is the directory "
-"specified with I<--directory>."
-msgstr ""
-"Dchroot wird ein geeignetes Verzeichnis zur Verwendung innerhalb der Chroot "
-"auswählen, abhängig davon, ob die Optionen I<--directory> oder I<--preserve-"
-"environment> benutzt werden. Wenn ein Verzeichnis explizit angegeben wird, "
-"wird wegen der Sicherheit und Konsistenz nur ein Verzeichnis verwendet, "
-"während für eine Login-Shell oder einen Befehl mehrere Möglichkeiten "
-"ausprobiert werden können. Beachten Sie, dass es, da mehrere "
-"Ausweichmöglichkeiten für Befehle berücksichtigt werden, gefährlich ist, "
-"Befehle mittels Dchroot auszuführen. Benutzen Sie stattdessen Schroot. Die "
-"folgenden Unterabschnitte führen die Abfolge der Ausweichmöglichkeiten für "
-"jeden Fall auf. CWD ist das aktuelle Arbeitsverzeichnis, VERZ ist das mit "
-"I<--directory> angegebene Verzeichnis."
-
-#. type: SS
-#: dchroot.1.man:165 dchroot-dsa.1.man:148
-#, no-wrap
-msgid "Login shell or command"
-msgstr "Login-Shell oder Befehl"
-
-#. type: tbl table
-#: dchroot.1.man:173
-#, no-wrap
-msgid "Normal behaviour (if --directory and I<--preserve-environment> are not\n"
-msgstr "normales Verhalten (falls --directory und I<--preserve-environment>\n"
-
-#. type: tbl table
-#: dchroot.1.man:174
-#, no-wrap
-msgid "used)\n"
-msgstr "benutzt werden)\n"
-
-#. type: tbl table
-#: dchroot.1.man:177 dchroot-dsa.1.man:159
-#, no-wrap
-msgid "If passwd pw_dir is nonexistent\n"
-msgstr "falls »passwd pw_dir« nicht existiert\n"
-
-#. type: SS
-#: dchroot.1.man:183
-#, no-wrap
-msgid "--preserve-environment used"
-msgstr "--preserve-environment benutzt"
-
-#. type: tbl table
-#: dchroot.1.man:191
-#, no-wrap
-msgid "Normal behaviour (if I<--preserve-environment> used)\n"
-msgstr "normales Verhalten (falls I<--preserve-environment> benutzt wird)\n"
-
-#. type: Plain text
-#: dchroot.1.man:219 dchroot-dsa.1.man:184
-#, fuzzy
-#| msgid "List all available chroots."
-msgid "Listing of all available chroots:"
-msgstr "führt alle verfügbaren Chroots auf."
-
-#. type: Plain text
-#: dchroot.1.man:224 dchroot-dsa.1.man:189
-#, fuzzy
-#| msgid ""
-#| "Running 32-bit programs using a 32-bit chroot on a 64-bit host system"
-msgid "Finding the path to the chroot on the host system:"
-msgstr ""
-"Ausführen von 32-Bit-Programmen mittels einer 32-Bit-Chroot auf einem 64-Bit-"
-"Wirtsystem"
-
-#. type: Plain text
-#: dchroot.1.man:230 dchroot-dsa.1.man:195
-msgid "Determining the host architecture inside the chroot using B<uname>(1):"
-msgstr ""
-
-#. type: Plain text
-#: dchroot.1.man:237
-msgid ""
-"Note the differences in quoting here.  In the first case, the separate "
-"command and argument are concatenated together to give the same command as "
-"the second case."
-msgstr ""
-
-#. type: Plain text
-#: dchroot.1.man:239
-msgid "Running a complex shell command:"
-msgstr ""
-
-#. type: Plain text
-#: dchroot.1.man:243
-msgid "All commands are concatenated and run via the shell."
-msgstr ""
-
-# war Anmelde-Shell, aus Konsitenzgründen mit Programmübersetzung geändert
-#. type: Plain text
-#: dchroot.1.man:245 dchroot-dsa.1.man:202
-#, fuzzy
-#| msgid "Login shell"
-msgid "Running a login shell:"
-msgstr "Login-Shell"
-
-#. type: Plain text
-#: dchroot.1.man:256
-msgid ""
-"Use I<--> to allow options beginning with \\[oq]-\\[cq] or \\[oq]--\\[cq] in "
-"the command to run in the chroot.  This prevents them being interpreted as "
-"options for dchroot itself.  Note that the top line was echoed to standard "
-"error, and the remaining lines to standard output.  This is intentional, so "
-"that program output from commands run in the chroot may be piped and "
-"redirected as required; the data will be the same as if the command was run "
-"directly on the host system."
-msgstr ""
-"Benutzen Sie I<-->, um zu ermöglichen, dass Optionen, die mit »-« oder »--« "
-"im Befehl beginnen, in der Chroot ausgeführt werden. Dies schützt sie davor, "
-"als Optionen für Dchroot selbst interpretiert zu werden. Beachten Sie, dass "
-"die erste Zeile auf der Standardfehlerausgabe und die restlichen auf der "
-"Standardausgabe wiedergegeben werden. Dies ist beabsichtigt, damit "
-"Programmausgaben von in der Chroot ausgeführten Befehlen nach Bedarf weiter- "
-"und umgeleitet werden können. Die Daten werden die selben wie bei der "
-"Ausführung des Befehls direkt auf dem Wirtsystem sein."
-
-#. type: Plain text
-#: dchroot.1.man:283 dchroot-dsa.1.man:237
-msgid ""
-"The system-wide B<schroot> definition file.  This file must be owned by the "
-"root user, and not be writable by other."
-msgstr ""
-"die systemweite B<schroot>-Definitionsdatei. Diese Datei muss dem Benutzer "
-"Root gehören und darf nicht durch andere beschreibbar sein."
-
-#. type: Plain text
-#: dchroot.1.man:288
-msgid ""
-"This implementation of dchroot uses the same command-line options as the "
-"original B<dchroot> by David Kimdon \\f[CR]E<lt>dwhedon@debian.orgE<gt>\\fR, "
-"but is an independent implementation."
-msgstr ""
-"Diese Umsetzung von Dchroot verwendet die selben Befehlszeilenoptionen wie "
-"das Original-B<dchroot> von David Kimdon \\f[CR]E<lt>dwhedon@debian.orgE<gt>"
-"\\fR, ist aber eine unabhängige Umsetzung."
-
-# FIXME wrong order
-#. type: Plain text
-#: dchroot.1.man:293 dchroot-dsa.1.man:249
+#: schroot-faq.7.man:249
 #, fuzzy
 #| msgid ""
 #| "B<schroot>(1), B<sbuild>(1), B<chroot>(2), B<schroot-setup>(5), B<schroot."
 #| "conf>(5)."
-msgid "B<schroot>(1), B<chroot>(2), B<schroot-setup>(5), B<schroot.conf>(5)."
+msgid "B<schroot>(1), B<schroot-setup>(5), B<schroot.conf>(5)."
 msgstr ""
 "B<sbuild>(1), B<schroot>(1), B<chroot>(2), B<schroot-setup>(5), B<schroot."
 "conf>(5)."
 
-#. type: ds PROGRAM
-#: dchroot-dsa.1.man:19
-#, no-wrap
-msgid "dchroot-dsa"
-msgstr "dchroot-dsa"
+#~ msgid "HOST"
+#~ msgstr "HOST"
 
-#. type: TH
-#: dchroot-dsa.1.man:20
-#, no-wrap
-msgid "DCHROOT-DSA"
-msgstr "DCHROOT-DSA"
+#~ msgid "HOST_OS"
+#~ msgstr "HOST_OS"
 
-#. type: Plain text
-#: dchroot-dsa.1.man:23
-msgid "dchroot-dsa - enter a chroot environment"
-msgstr "dchroot-dsa - in eine Chroot-Umgebung gelangen"
+#~ msgid "HOST_VENDOR"
+#~ msgstr "HOST_VENDOR"
 
-#. type: Plain text
-#: dchroot-dsa.1.man:33
-msgid ""
-"B<dchroot-dsa> [B<-h>\\[or]B<--help> \\[or] B<-V>\\[or]B<--version> \\[or] "
-"B<-l>\\[or]B<--list> \\[or] B<-i>\\[or]B<--info> \\[or] B<--config> \\[or] "
-"B<-p>|B<--listpaths>] [B<-d >I<directory>\\[or]B<--directory=>I<directory>] "
-"[B<-q>\\[or]B<--quiet> \\[or] B<-v>\\[or]B<--verbose>] [B<-c >I<chroot>"
-"\\[or]B<--chroot=>I<chroot> \\[or] B<--all> \\[or] B<CHROOT]> [B<COMMAND>]"
-msgstr ""
-"B<dchroot-dsa> [B<-h>\\[or]B<--help> \\[or] B<-V>\\[or]B<--version> \\[or] "
-"B<-l>\\[or]B<--list> \\[or] B<-i>\\[or]B<--info> \\[or] B<--config> \\[or] "
-"B<-p>|B<--listpaths>] [B<-d >I<Verzeichnis>\\[or]B<--"
-"directory=>I<Verzeichnis>] [B<-q>\\[or]B<--quiet> \\[or] B<-v>\\[or]B<--"
-"verbose>] [B<-c >I<Chroot>\\[or]B<--chroot=>I<Chroot> \\[or] B<--all> \\[or] "
-"B<CHROOT]> [B<BEFEHL>]"
+#~ msgid "HOST_CPU"
+#~ msgstr "HOST_CPU"
 
-#. type: Plain text
-#: dchroot-dsa.1.man:37
-msgid ""
-"B<dchroot-dsa> allows the user to run a command or a login shell in a chroot "
-"environment.  If no command is specified, a login shell will be started in "
-"the user's home directory inside the chroot."
-msgstr ""
-"B<dchroot-dsa> erlaubt dem Anwender einen Befehl oder eine Login-Shell in "
-"einer Chroot-Umgebung auszuführen. Falls kein Befehl angegeben wurde, wird "
-"eine Login-Shell im Home-Verzeichnis des Benutzers innerhalb der Chroot "
-"gestartet."
+#~ msgid ""
+#~ "The host system architecture schroot is running upon.  This may be used "
+#~ "to introduce architecture-specific behaviour into the setup scripts where "
+#~ "required.  HOST is the GNU triplet for the architecture, while HOST_OS, "
+#~ "HOST_VENDOR and HOST_CPU are the component parts of the triplet."
+#~ msgstr ""
+#~ "die Systemarchitektur des Rechners, auf dem Schroot läuft. Dies kann "
+#~ "benutzt werden, um ein architekturspezifisches Verhalten in den "
+#~ "Einrichtungsskripten einzuleiten, wo dies benötigt wird. HOST ist die "
+#~ "Rechnerdreiergruppe , wobei HOST_OS, HOST_VENDOR und HOST_CPU die "
+#~ "Komponenten der Dreiergruppe darstellen."
 
-#. type: Plain text
-#: dchroot-dsa.1.man:39
-msgid "The user's environment will be preserved inside the chroot."
-msgstr "Die Umgebung des Benutzers wird innerhalb der Chroot erhalten."
-
-#. type: Plain text
-#: dchroot-dsa.1.man:45
+# FIXME wrong order
 #, fuzzy
-#| msgid ""
-#| "The command is one or more arguments which will be run in the user's "
-#| "default shell using its I<-c> option.  As a result, shell code may be "
-#| "embedded in this argument.  If multiple command options are used, they "
-#| "are concatenated together, separated by spaces.  Users should be aware of "
-#| "the shell quoting issues this presents, and should use B<schroot> if "
-#| "necessary, which does not have any quoting issues."
-msgid ""
-"The command is a single argument which must be an absolute path to the "
-"program.  Additional options are not permitted.  Users should be aware of "
-"the the limitations this presents, and should use B<schroot>(1)  if "
-"necessary, which does not impose any restrictions upon using options."
-msgstr ""
-"Der Befehl besteht aus einem oder mehreren Argumenten, die in der Standard-"
-"Shell des Benutzers mittels der Option I<-c> ausgeführt werden. Dadurch kann "
-"Shell-Code in dieses Argument eingebettet werden. Falls mehrere "
-"Befehlsoptionen benutzt werden, können sie durch Leerzeichen getrennt "
-"verbunden werden. Benutzer sollten darüber Bescheid wissen, dass dies "
-"Maskierungsprobleme der Shell mit sich bringt und, falls nötig, B<schroot> "
-"verwenden, das derlei Probleme nicht hat."
+#~| msgid ""
+#~| "B<dchroot>(1), B<schroot>(1), B<sbuild>(1), B<schroot-setup>(5), "
+#~| "B<schroot.conf>(5)."
+#~ msgid ""
+#~ "B<dchroot>(1), B<schroot>(1), B<schroot-setup>(5), B<schroot.conf>(5)."
+#~ msgstr ""
+#~ "B<dchroot>(1), B<sbuild>(1), B<schroot>(1), B<schroot-setup>(5), "
+#~ "B<schroot.conf>(5)"
 
-#. type: Plain text
-#: dchroot-dsa.1.man:55
-msgid ""
-"This version of dchroot-dsa is a compatibility wrapper around the "
-"B<schroot>(1)  program.  It is provided for backward compatibility with the "
-"dchroot-dsa command-line options, but schroot is recommended for future "
-"use.  See the section \\[lq]I<Incompatibilities>\\[rq] below for known "
-"incompatibilities with older versions of dchroot-dsa."
-msgstr ""
-"Diese Version von Dchroot-dsa ist ein Kompatibilitäts-Wrapper um das "
-"Programm B<schroot>(1). Es wird für die Rückwärtskompatibilität mit den "
-"Befehlszeilenoptionen von Dchroot-dsa benutzt, für die zukünftige Nutzung "
-"wird aber Schroot empfohlen. Lesen Sie den nachfolgenden Abschnitt "
-"»I<Inkompatibilitäten>«, um etwas über bekannte Inkompatibilitäten mit "
-"älteren Versionen von Dchroot-dsa zu erfahren."
+#~ msgid "dchroot"
+#~ msgstr "dchroot"
 
-#. type: Plain text
-#: dchroot-dsa.1.man:58
-msgid "B<dchroot-dsa> accepts the following options:"
-msgstr "B<dchroot-dsa> akzeptiert die folgenden Optionen:"
+#~ msgid "DCHROOT"
+#~ msgstr "DCHROOT"
 
-#. type: Plain text
-#: dchroot-dsa.1.man:66
-msgid ""
-"Select all chroots.  Note that earlier versions of dchroot-dsa did not "
-"include this option."
-msgstr ""
-"wählt alle Chroots aus. Beachten Sie, dass ältere Versionen von Dchroot-dsa "
-"diese Option nicht enthielten."
+#~ msgid "dchroot - enter a chroot environment"
+#~ msgstr "dchroot - in eine Chroot-Umgebung gelangen"
 
-#. type: Plain text
-#: dchroot-dsa.1.man:72
-msgid ""
-"Specify a chroot to use.  This option may be used multiple times to specify "
-"more than one chroot, in which case its effect is similar to I<--all>.  If "
-"this option is not used, the first non-option argument specified the chroot "
-"to use.  Note that earlier versions of dchroot-dsa did not include this "
-"option."
-msgstr ""
-"gibt eine Chroot an, die benutzt werden soll. Diese Option kann mehrfach "
-"verwendet werden, um mehr als eine Chroot anzugeben. In diesem Fall wirkt "
-"sie sich ähnlich wie I<--all> aus. Falls diese Option nicht benutzt wird, "
-"gibt das erste Argument, das keine Option ist, die zu benutzende Chroot an. "
-"Beachten Sie, dass ältere Versionen von Dchroot-dsa diese Option nicht "
-"enthielten."
+#~ msgid ""
+#~ "B<dchroot> [B<-h>\\[or]B<--help> \\[or] B<-V>\\[or]B<--version> \\[or] B<-"
+#~ "l>\\[or]B<--list> \\[or] B<-i>\\[or]B<--info> \\[or] B<--config> \\[or] "
+#~ "B<--location>] [B<--directory=>I<directory>] [B<-d>\\[or]B<--preserve-"
+#~ "environment>] [B<-q>\\[or]B<--quiet> \\[or] B<-v>\\[or]B<--verbose>] [B<-"
+#~ "c >I<chroot>\\[or]B<--chroot=>I<chroot> \\[or] B<--all>] [B<COMMAND> "
+#~ "[ B<ARG1> [ B<ARG2> [ B<ARGn>]]]]"
+#~ msgstr ""
+#~ "B<dchroot> [B<-h>\\[or]B<--help> \\[or] B<-V>\\[or]B<--version> \\[or] B<-"
+#~ "l>\\[or]B<--list> \\[or] B<-i>\\[or]B<--info> \\[or] B<--config> \\[or] "
+#~ "B<--location>] [B<--directory=>I<Verzeichnis>] [B<-d>\\[or]B<--preserve-"
+#~ "environment>] [B<-q>\\[or]B<--quiet> \\[or] B<-v>\\[or]B<--verbose>] [B<-"
+#~ "c >I<Chroot>\\[or]B<--chroot=>I<Chroot> \\[or] B<--all>] [B<BEFEHL> "
+#~ "[ B<ARG1> [ B<ARG2> [ B<ARGn>]]]]"
 
-#. type: Plain text
-#: dchroot-dsa.1.man:79
-msgid ""
-"Print detailed information about the available chroots.  Note that earlier "
-"versions of dchroot-dsa did not include this option."
-msgstr ""
-"gibt detaillierte Informationen über die verfügbaren Chroots aus. Beachten "
-"Sie, dass ältere Versionen von Dchroot-dsa diese Option nicht enthielten."
+#~ msgid ""
+#~ "B<dchroot> allows the user to run a command or a login shell in a chroot "
+#~ "environment.  If no command is specified, a login shell will be started "
+#~ "in the user's home directory inside the chroot."
+#~ msgstr ""
+#~ "B<dchroot> ermöglicht dem Benutzer, einen Befehl oder eine Login-Shell in "
+#~ "einer Chroot-Umgebung auszuführen. Falls kein Befehl angegeben wurde, "
+#~ "wird eine Login-Shell im Home-Verzeichnis des Benutzers innerhalb der "
+#~ "Chroot gestartet."
 
-#. type: TP
-#: dchroot-dsa.1.man:79
-#, no-wrap
-msgid "B<-p>, B<--listpaths>"
-msgstr "B<-p>, B<--listpaths>"
+#, fuzzy
+#~| msgid ""
+#~| "The command is one or more arguments which will be run in the user's "
+#~| "default shell using its I<-c> option.  As a result, shell code may be "
+#~| "embedded in this argument.  If multiple command options are used, they "
+#~| "are concatenated together, separated by spaces.  Users should be aware "
+#~| "of the shell quoting issues this presents, and should use B<schroot> if "
+#~| "necessary, which does not have any quoting issues."
+#~ msgid ""
+#~ "The command is one or more arguments which will be run in the user's "
+#~ "default shell using its I<-c> option.  As a result, shell code may be "
+#~ "embedded in this argument.  If multiple command options are used, they "
+#~ "are concatenated together, separated by spaces.  Users should be aware of "
+#~ "the shell quoting issues this presents, and should use B<schroot>(1)  if "
+#~ "necessary, which does not have any quoting issues."
+#~ msgstr ""
+#~ "Der Befehl besteht aus einem oder mehreren Argumenten, die in der "
+#~ "Standard-Shell des Benutzers mittels der Option I<-c> ausgeführt werden. "
+#~ "Dadurch kann Shell-Code in dieses Argument eingebettet werden. Falls "
+#~ "mehrere Befehlsoptionen benutzt werden, können sie durch Leerzeichen "
+#~ "getrennt verbunden werden. Benutzer sollten darüber Bescheid wissen, dass "
+#~ "dies Maskierungsprobleme der Shell mit sich bringt und, falls nötig, "
+#~ "B<schroot> verwenden, das derlei Probleme nicht hat."
 
-#. type: Plain text
-#: dchroot-dsa.1.man:82
-msgid "Print absolute locations (paths) of the available chroots."
-msgstr "gibt absolute Speicherorte (Pfade) der verfügbaren Chroots aus."
+#, fuzzy
+#~| msgid ""
+#~| "The directory the command or login shell is run in depends upon the "
+#~| "context.  See I<--directory> option below for a complete description."
+#~ msgid ""
+#~ "The directory the command or login shell is run in depends upon the "
+#~ "context.  See the I<--directory> option below for a complete description."
+#~ msgstr ""
+#~ "Das Verzeichnis, in dem der Befehl oder die Login-Shell ausgeführt wird, "
+#~ "hängt vom Kontext ab. Eine vollständige Beschreibung finden Sie "
+#~ "nachfolgend unter der Option I<--directory>."
 
-#. type: Plain text
-#: dchroot-dsa.1.man:88
-msgid ""
-"Print configuration of the available chroots.  This is useful for testing "
-"that the configuration in use is the same as the configuration file.  Any "
-"comments in the original file will be missing.  Note that earlier versions "
-"of dchroot-dsa did not include this option."
-msgstr ""
-"gibt die Konfiguration der verfügbaren Chroots aus. Dies ist nützlich, um zu "
-"testen, ob die benutzte Konfiguration die selbe wie die in der "
-"Konfigurationsdatei ist. Sämtliche Kommentare der Originaldatei werden "
-"fehlen. Beachten Sie, dass ältere Versionen von Dchroot-dsa diese Option "
-"nicht enthielten."
+#~ msgid ""
+#~ "This version of dchroot is a compatibility wrapper around the "
+#~ "B<schroot>(1)  program.  It is provided for backward compatibility with "
+#~ "the dchroot command-line options, but schroot is recommended for future "
+#~ "use.  See the section \\[lq]I<Incompatibilities>\\[rq] below for known "
+#~ "incompatibilities with older versions of dchroot."
+#~ msgstr ""
+#~ "Diese Version von Dchroot ist ein Kompatibilitäts-Wrapper um das Programm "
+#~ "B<schroot>(1). Es wird für die Rückwärtskompatibilität mit den "
+#~ "Befehlszeilenoptionen von Dchroot benutzt, für die zukünftige Nutzung "
+#~ "wird aber Schroot empfohlen. Lesen Sie den nachfolgenden Abschnitt "
+#~ "»I<Inkompatibilitäten>«, um etwas über bekannte Inkompatibilitäten mit "
+#~ "älteren Versionen von Dchroot zu erfahren."
 
-#. type: Plain text
-#: dchroot-dsa.1.man:93
-msgid ""
-"Change to I<directory> inside the chroot before running the command or login "
-"shell.  If I<directory> is not available, dchroot-dsa will exit with an "
-"error status."
-msgstr ""
-"wechselt nach I<Verzeichnis> innerhalb der Chroot, bevor der Befehl oder die "
-"Login-Shell ausgeführt wird. Falls I<Verzeichnis> nicht verfügbar ist, wird "
-"Dchroot-dsa mit einem Fehlerstatus beendet."
+#~ msgid ""
+#~ "If no chroot is specified, the chroot name or alias \\[oq]default\\[cq] "
+#~ "will be used as a fallback."
+#~ msgstr ""
+#~ "Falls keine Chroot angegeben wurde, wird der Chroot-Name oder -Alias "
+#~ "»default« als Ausweichmöglichkeit genommen."
 
-#. type: Plain text
-#: dchroot-dsa.1.man:98
-msgid ""
-"The default behaviour (all directory paths are inside the chroot) is to run "
-"the login shell or command in the user's home directory, or I</> if the home "
-"directory is not available.  If none of the directories are available, "
-"dchroot-dsa will exit with an error status."
-msgstr ""
-"Das Standardverhalten (alle Verzeichnispfade liegen innerhalb der Chroot) "
-"ist, die Login-Shell oder den Befehl im Home-Verzeichnis des Benutzers oder "
-"I</> auszuführen, falls das Home-Verzeichnis nicht verfügbar ist. Falls "
-"keines der Verzeichnisse verfügbar ist, wird Dchroot-dsa mit einem "
-"Fehlerstatus beendet."
+#~ msgid "B<dchroot> accepts the following options:"
+#~ msgstr "B<dchroot> akzeptiert die folgenden Optionen:"
 
-#. type: Plain text
-#: dchroot-dsa.1.man:102
-msgid ""
-"Print only essential messages.  Note that earlier versions of dchroot-dsa "
-"did not include this option."
-msgstr ""
-"gibt nur wichtige Meldungen aus. Beachten Sie, dass ältere Versionen von "
-"Dchroot-dsa diese Option nicht enthielten."
+#~ msgid "Basic options"
+#~ msgstr "Grundlegende Optionen"
 
-#. type: Plain text
-#: dchroot-dsa.1.man:106
-msgid ""
-"Print all messages.  Note that earlier versions of dchroot-dsa did not "
-"include this option."
-msgstr ""
-"gibt alle Meldungen aus. Beachten Sie, dass ältere Versionen von Dchroot-dsa "
-"diese Option nicht enthielten."
+#~ msgid "Select all chroots."
+#~ msgstr "alle Chroots auswählen"
 
-#. type: Plain text
-#: dchroot-dsa.1.man:118
-msgid ""
-"This version of dchroot-dsa uses I<schroot.conf> to store the configuration "
-"for available chroots, rather than the I<dchroot.conf> file used "
-"historically.  dchroot-dsa supported automatic migration of I<dchroot.conf> "
-"to the I<schroot.conf> keyfile format with its I<--config> option from "
-"versions 0.2.2 to 1.5.0; support for the old format is now no longer "
-"available."
-msgstr ""
-"Diese Version von Dchroot-dsa benutzt I<schroot.conf>, um die Konfiguration "
-"für verfügbare Chroots zu speichern, anstatt der geschichtlich benutzten "
-"Datei I<dchroot.conf>. Dchroot-dsa unterstützt die automatische Migration "
-"der I<dchroot.conf> in das I<schroot.conf>-Schlüsseldateiformat mit seiner "
-"Option I<--config> aus Versionen von 0.2.2 bis 1.5.0. Die Unterstützung für "
-"das alte Format ist nun nicht länger verfügbar."
+#~ msgid ""
+#~ "Specify a chroot to use.  This option may be used multiple times to "
+#~ "specify more than one chroot, in which case its effect is similar to I<--"
+#~ "all>."
+#~ msgstr ""
+#~ "gibt eine Chroot an, die benutzt werden soll. Diese Option kann mehrfach "
+#~ "verwendet werden, um mehr als eine Chroot anzugeben. In diesem Fall wirkt "
+#~ "sie sich ähnlich wie I<--all> aus."
 
-#. type: Plain text
-#: dchroot-dsa.1.man:127
-msgid ""
-"dchroot-dsa provides a restricted subset of the functionality implemented by "
-"B<schroot>, but is still schroot underneath.  Thus dchroot-dsa is still "
-"subject to schroot security checking, including PAM authentication and "
-"authorisation, and session management, for example, and hence may behave "
-"slightly differently to earlier versions of dchroot-dsa in some "
-"circumstances."
-msgstr ""
-"Dchroot-dsa stellt eine eingeschränkte Untermenge der durch B<schroot> "
-"umgesetzten Funktionalität bereit, liegt aber immer noch unter Schroot. "
-"Daher ist Dchroot-dsa immer noch Gegenstand der Schroot-Sicherheitsprüfung, "
-"einschließlich PAM-Authentifizierung, Autorisierung und zum Beispiel "
-"Sitzungsverwaltung und kann sich daher unter manchen Umständen gegenüber "
-"älteren Dchroot-dsa-Version leicht anders verhalten."
+#~ msgid ""
+#~ "Print detailed information about the specified chroots.  Note that "
+#~ "earlier versions of dchroot did not include this option."
+#~ msgstr ""
+#~ "gibt detaillierte Informationen über die angegebenen Chroots aus. "
+#~ "Beachten Sie, dass ältere Versionen von Dchroot diese Option nicht "
+#~ "enthielten."
 
-#. type: SS
-#: dchroot-dsa.1.man:127
-#, no-wrap
-msgid "Debian dchroot"
-msgstr "Debian-Dchroot"
+#~ msgid "B<-p>, B<--path>"
+#~ msgstr "B<-p>, B<--path>"
 
-#. type: Plain text
-#: dchroot-dsa.1.man:129
-msgid "A B<dchroot> package provides an alternative dchroot implementation."
-msgstr "Ein B<dchroot>-Paket stellt eine alternative Dchroot-Umsetzung bereit."
+#~ msgid "Print location (path) of the specified chroots."
+#~ msgstr "gibt den Speicherort (Pfad) der angegebenen Chroots aus."
 
-#. type: Plain text
-#: dchroot-dsa.1.man:137
-msgid ""
-"This version of dchroot has incompatible command-line options, and while "
-"some of those options are supported or have equivalent options by a "
-"different name, the I<-c> option is required to specify a chroot.  It also "
-"allows a shell script to be used as the option instead of a single absolute "
-"path, and allows multiple command options instead of a single option."
-msgstr ""
-"Diese Version von Dchroot hat inkompatible Befehlszeilenoptionen und obwohl "
-"einige dieser Optionen unterstützt werden oder sie entsprechende Optionen "
-"mit einem anderen Namen hat, wird die Option I<-c> nicht benötigt, um eine "
-"Chroot anzugeben. Sie erlaubt außerdem die Benutzung eines Shell-Skripts als "
-"Option anstelle eines einzelnen absoluten Pfades und mehrere Optionen "
-"anstelle einer einzelnen Option."
+#~ msgid ""
+#~ "Print configuration of the specified chroots.  This is useful for testing "
+#~ "that the configuration in use is the same as the configuration file.  Any "
+#~ "comments in the original file will be missing.  Note that earlier "
+#~ "versions of dchroot did not include this option."
+#~ msgstr ""
+#~ "gibt die Konfigurationen der angegebenen Chroots aus. Dies ist nützlich, "
+#~ "um zu testen, ob die benutzte Konfiguration die selbe wie die in der "
+#~ "Konfigurationsdatei ist. Sämtliche Kommentare der Originaldatei werden "
+#~ "fehlen. Beachten Sie, dass ältere Versionen von Dchroot diese Option "
+#~ "nicht enthielten."
 
-#. type: Plain text
-#: dchroot-dsa.1.man:148
-msgid ""
-"dchroot-dsa will select an appropriate directory to use within the chroot "
-"based upon whether the I<--directory> option is used.  When explicitly "
-"specifying a directory, only one directory will be used for safety and "
-"consistency, while for a login shell or command several possibilities may be "
-"tried.  Note that due to multiple fallbacks being considered for commands, "
-"it is dangerous to run commands using dchroot-dsa; use schroot instead.  The "
-"following subsections list the fallback sequence for each case.  CWD is the "
-"current working directory, DIR is the directory specified with I<--"
-"directory>."
-msgstr ""
-"Dchroot-dsa wird ein geeignetes Verzeichnis zur Verwendung innerhalb der "
-"Chroot auswählen, abhängig davon, ob die Option I<--directory> benutzt wird. "
-"Wenn ein Verzeichnis explizit angegeben wird, wird wegen der Sicherheit und "
-"Konsistenz nur ein Verzeichnis verwendet, während für eine Login-Shell oder "
-"einen Befehl mehrere Möglichkeiten ausprobiert werden können. Beachten Sie, "
-"dass es, da mehrere Ausweichmöglichkeiten für Befehle berücksichtigt werden, "
-"gefährlich ist, Befehle mittels Dchroot-dsa auszuführen. Benutzen Sie "
-"stattdessen Schroot. Die folgenden Unterabschnitte führen die Abfolge der "
-"Ausweichmöglichkeiten für jeden Fall auf. CWD ist das aktuelle "
-"Arbeitsverzeichnis, VERZ ist das mit I<--directory> angegebene Verzeichnis."
+#~ msgid "B<--directory=>I<directory>"
+#~ msgstr "B<--directory=>I<Verzeichnis>"
 
-#. type: tbl table
-#: dchroot-dsa.1.man:156
-#, no-wrap
-msgid "Normal behaviour (if --directory is not used)\n"
-msgstr "normales Verhalten (falls nicht --directory benutzt wird)\n"
+#~ msgid ""
+#~ "Change to I<directory> inside the chroot before running the command or "
+#~ "login shell.  If I<directory> is not available, dchroot will exit with an "
+#~ "error status."
+#~ msgstr ""
+#~ "wechselt in das I<Verzeichnis> innerhalb der Chroot, bevor der Befehl "
+#~ "oder die Login-Shell ausgeführt wird. Falls das I<Verzeichnis> nicht "
+#~ "verfügbar ist, wird Dchroot mit einem Fehlerstatus beendet."
 
-#. type: Plain text
-#: dchroot-dsa.1.man:200
-msgid "Note that while a command may be run, passing options is not supported."
-msgstr ""
+#~ msgid ""
+#~ "The default behaviour is as follows (all directory paths are inside the "
+#~ "chroot).  Unless the I<--preserve-environment> option is used to preserve "
+#~ "the environment, the login shell or command will run in the user's home "
+#~ "directory, or I</> if the home directory is not available.  When the I<--"
+#~ "preserve-environment> option is used, it will attempt to use the current "
+#~ "working directory, again falling back to I</> if it is not accessible.  "
+#~ "If none of the directories are available, dchroot will exit with an error "
+#~ "status."
+#~ msgstr ""
+#~ "Das Standardverhalten ist wie folgt (alle Verzeichnispfade liegen "
+#~ "innerhalb der Chroot): Sofern nicht die Option I<--preserve-environment> "
+#~ "zum Erhalt der Umgebung benutzt wird, wird die Login-Shell oder der "
+#~ "Befehl im Home-Verzeichnis des Benutzers oder I</> ausgeführt, falls das "
+#~ "Home-Verzeichnis nicht verfügbar ist. Wenn die Option I<--preserve-"
+#~ "environment> benutzt wird, wird es versuchen, das aktuelle "
+#~ "Arbeitsverzeichnis zu verwenden, wiederum mit I</> als "
+#~ "Ausweichmöglichkeit, falls es nicht verfügbar ist. Wenn keines der "
+#~ "Verzeichnisse verfügbar ist, wird Dchroot mit einem Fehlerstatus beendet."
 
-#. type: Plain text
-#: dchroot-dsa.1.man:210
-msgid ""
-"Note that the top line was echoed to standard error, and the remaining lines "
-"to standard output.  This is intentional, so that program output from "
-"commands run in the chroot may be piped and redirected as required; the data "
-"will be the same as if the command was run directly on the host system."
-msgstr ""
-"Beachten Sie, dass die erste Zeile auf der Standardfehlerausgabe und die "
-"restlichen auf der Standardausgabe wiedergegeben werden. Dies ist "
-"beabsichtigt, damit Programmausgaben von in der Chroot ausgeführten Befehlen "
-"nach Bedarf weiter- und umgeleitet werden können. Die Daten werden die "
-"selben wie bei der direkten Ausführung des Befehls auf dem Wirtsystem sein."
+#~ msgid "B<-d>, B<--preserve-environment>"
+#~ msgstr "B<-d>, B<--preserve-environment>"
 
-#. type: Plain text
-#: dchroot-dsa.1.man:244
-msgid ""
-"This implementation of dchroot-dsa uses the same command-line options as the "
-"B<dchroot> found on machines run by the Debian System Administrators for the "
-"Debian Project.  These machines have a B<dchroot-dsa> source package which "
-"provides a B<dchroot-dsa> package, written by Ben Collins "
-"\\f[CR]E<lt>bcollins@debian.orgE<gt>\\fR and Martin Schulze "
-"\\f[CR]E<lt>joey@debian.orgE<gt>\\fR."
-msgstr ""
-"Diese Umsetzung von Dchroot-dsa verwendet die selben Befehlszeilenoptionen "
-"wie das auf von Debian-Systemadministratoren für das Debian-Projekt "
-"betriebenen Rechnern gefundene B<dchroot>. Diese Rechner haben ein B<dchroot-"
-"dsa>-Quellpaket, das ein von Ben Collins \\f[CR]E<lt>bcollins@debian.orgE<gt>"
-"\\fR und Martin Schulze \\f[CR]E<lt>joey@debian.orgE<gt>\\fR geschriebenes "
-"B<dchroot-dsa>-Paket bereitstellt."
+#~ msgid ""
+#~ "Preserve the user's environment inside the chroot environment.  The "
+#~ "default is to use a clean environment; this option copies the entire user "
+#~ "environment and sets it in the session."
+#~ msgstr ""
+#~ "bewahrt die Umgebung des Benutzers innerhalb der Chroot auf. "
+#~ "Standardmäßig wird eine saubere Umgebung benutzt. Diese Option kopiert "
+#~ "die ganze Umgebung des Benutzers und setzt sie in der Sitzung."
+
+#~ msgid ""
+#~ "Print all messages.  Note that earlier versions of dchroot did not "
+#~ "include this option."
+#~ msgstr ""
+#~ "gibt alle Nachrichten aus. Beachten Sie, dass ältere Versionen von "
+#~ "Dchroot diese Option nicht enthielten."
+
+#~ msgid "Note that earlier versions of dchroot did not provide long options."
+#~ msgstr ""
+#~ "Beachten Sie, dass ältere Versionen von Dchroot keine langen Optionen "
+#~ "bereitstellten."
+
+#~ msgid "INCOMPATIBILITIES"
+#~ msgstr "INKOMPATIBILITÄTEN"
+
+#~ msgid "Debian dchroot prior to version 0.99.0"
+#~ msgstr "Debian-Dchroot vor Version 0.99.0"
+
+#~ msgid "Log messages are worded and formatted differently."
+#~ msgstr ""
+#~ "Protokollnachrichten sind unterschiedlich formuliert und formatiert."
+
+#~ msgid ""
+#~ "B<su>(1)  is no longer used to run commands in the chroot; this is done "
+#~ "by dchroot internally.  This change may cause subtle differences.  If you "
+#~ "find an incompatibility, please report it so it may be corrected."
+#~ msgstr ""
+#~ "B<su>(1) wird nicht länger zum Ausführen von Befehlen in der Chroot "
+#~ "benutzt. Dies wird durch Dchroot intern erledigt. Diese Änderung kann "
+#~ "kann subtile Unterschiede verursachen. Falls Sie eine Inkompatibilität "
+#~ "entdecken, melden Sie diese bitte, damit sie korrigiert werden kann."
+
+#~ msgid ""
+#~ "dchroot provides a restricted subset of the functionality implemented by "
+#~ "B<schroot>, but is still schroot underneath.  Thus dchroot is still "
+#~ "subject to schroot security checking, including PAM authentication and "
+#~ "authorisation, and session management, for example, and hence may behave "
+#~ "slightly differently to older dchroot versions in some circumstances."
+#~ msgstr ""
+#~ "Dchroot stellt eine eingeschränkte Untermenge der durch B<schroot> "
+#~ "umgesetzten Funktionalität bereit, liegt aber immer noch unter Schroot. "
+#~ "Daher ist Dchroot immer noch Gegenstand der Schroot-Sicherheitsprüfung, "
+#~ "einschließlich PAM-Authentifizierung, Autorisierung und zum Beispiel "
+#~ "Sitzungsverwaltung und kann sich daher unter manchen Umständen gegenüber "
+#~ "älteren Dchroot-Version leicht anders verhalten."
+
+#~ msgid "Debian dchroot prior to version 1.5.1"
+#~ msgstr "Debian-Dchroot vor Version 1.5.1"
+
+#~ msgid ""
+#~ "This version of dchroot uses I<schroot.conf> to store the configuration "
+#~ "for available chroots, rather than the I<dchroot.conf> file used "
+#~ "historically.  dchroot supported automatic migration of I<dchroot.conf> "
+#~ "to the I<schroot.conf> keyfile format with its I<--config> option from "
+#~ "versions 0.2.2 to 1.5.0; support for the old format is now no longer "
+#~ "available."
+#~ msgstr ""
+#~ "Diese Version von Dchroot benutzt I<schroot.conf>, um die Konfiguration "
+#~ "für verfügbare Chroots zu speichern, anstatt der geschichtlich benutzten "
+#~ "Datei I<dchroot.conf>. Dchroot unterstützt die automatische Migration der "
+#~ "I<dchroot.conf> in das I<schroot.conf>-Schlüsseldateiformat mit seiner "
+#~ "Option I<--config> aus Versionen von 0.2.2 bis 1.5.0. Die Unterstützung "
+#~ "für das alte Format ist nun nicht länger verfügebar."
+
+#~ msgid "DSA dchroot"
+#~ msgstr "DSA-Dchroot"
+
+#~ msgid ""
+#~ "Machines run by the Debian System Administrators for the Debian Project "
+#~ "have a B<dchroot-dsa> package which provides an alternate dchroot "
+#~ "implementation."
+#~ msgstr ""
+#~ "Von Debian-Systemadministratoren für das Debian-Projekt betriebene "
+#~ "Rechner haben ein B<dchroot-dsa>-Paket, das eine alternative Dchroot-"
+#~ "Umsetzung bereitstellt."
+
+#~ msgid "All the above incompatibilities apply."
+#~ msgstr "alle obigen Inkompatibilitäten treffen zu"
+
+#~ msgid ""
+#~ "This version of dchroot has incompatible command-line options, and while "
+#~ "some of those options are supported or have equivalent options by a "
+#~ "different name, the I<-c> option is not required to specify a chroot, and "
+#~ "this version of dchroot cannot implement this behaviour in a backward-"
+#~ "compatible manner (because if I<-c> is omitted, the default chroot is "
+#~ "used).  DSA dchroot uses the first non-option as the chroot to use, only "
+#~ "allowing one chroot to be used at once."
+#~ msgstr ""
+#~ "Diese Version von Dchroot hat inkompatible Befehlszeilenoptionen und "
+#~ "obwohl einige dieser Optionen unterstützt werden oder sie entsprechende "
+#~ "Optionen mit einem anderen Namen hat, wird die Option I<-c> nicht "
+#~ "benötigt, um eine Chroot anzugeben. Diese Version von Dchroot kann dieses "
+#~ "Verhalten nicht in einer rückwärtskompatiblen Weise umsetzen (da die "
+#~ "Standard-Chroot benutzt wird, falls I<-c> weggelassen wird). DSA-Dchroot "
+#~ "verwendet das Erste, das keine Option ist, als Chroot, wobei nur eine "
+#~ "Chroot auf einmal benutzt werden darf."
+
+#~ msgid ""
+#~ "dchroot will select an appropriate directory to use within the chroot "
+#~ "based upon whether the I<--directory> or I<--preserve-environment> "
+#~ "options are used.  When explicitly specifying a directory, only one "
+#~ "directory will be used for safety and consistency, while for a login "
+#~ "shell or command several possibilities may be tried.  Note that due to "
+#~ "multiple fallbacks being considered for commands, it is dangerous to run "
+#~ "commands using dchroot; use schroot instead.  The following subsections "
+#~ "list the fallback sequence for each case.  CWD is the current working "
+#~ "directory, DIR is the directory specified with I<--directory>."
+#~ msgstr ""
+#~ "Dchroot wird ein geeignetes Verzeichnis zur Verwendung innerhalb der "
+#~ "Chroot auswählen, abhängig davon, ob die Optionen I<--directory> oder I<--"
+#~ "preserve-environment> benutzt werden. Wenn ein Verzeichnis explizit "
+#~ "angegeben wird, wird wegen der Sicherheit und Konsistenz nur ein "
+#~ "Verzeichnis verwendet, während für eine Login-Shell oder einen Befehl "
+#~ "mehrere Möglichkeiten ausprobiert werden können. Beachten Sie, dass es, "
+#~ "da mehrere Ausweichmöglichkeiten für Befehle berücksichtigt werden, "
+#~ "gefährlich ist, Befehle mittels Dchroot auszuführen. Benutzen Sie "
+#~ "stattdessen Schroot. Die folgenden Unterabschnitte führen die Abfolge der "
+#~ "Ausweichmöglichkeiten für jeden Fall auf. CWD ist das aktuelle "
+#~ "Arbeitsverzeichnis, VERZ ist das mit I<--directory> angegebene "
+#~ "Verzeichnis."
+
+#~ msgid "Login shell or command"
+#~ msgstr "Login-Shell oder Befehl"
+
+#~ msgid "Normal behaviour (if --directory and I<--preserve-environment> are not\n"
+#~ msgstr "normales Verhalten (falls --directory und I<--preserve-environment>\n"
+
+#~ msgid "used)\n"
+#~ msgstr "benutzt werden)\n"
+
+#~ msgid "If passwd pw_dir is nonexistent\n"
+#~ msgstr "falls »passwd pw_dir« nicht existiert\n"
+
+#~ msgid "--preserve-environment used"
+#~ msgstr "--preserve-environment benutzt"
+
+#~ msgid "Normal behaviour (if I<--preserve-environment> used)\n"
+#~ msgstr "normales Verhalten (falls I<--preserve-environment> benutzt wird)\n"
+
+#, fuzzy
+#~| msgid "List all available chroots."
+#~ msgid "Listing of all available chroots:"
+#~ msgstr "führt alle verfügbaren Chroots auf."
+
+#, fuzzy
+#~| msgid ""
+#~| "Running 32-bit programs using a 32-bit chroot on a 64-bit host system"
+#~ msgid "Finding the path to the chroot on the host system:"
+#~ msgstr ""
+#~ "Ausführen von 32-Bit-Programmen mittels einer 32-Bit-Chroot auf einem 64-"
+#~ "Bit-Wirtsystem"
+
+# war Anmelde-Shell, aus Konsitenzgründen mit Programmübersetzung geändert
+#, fuzzy
+#~| msgid "Login shell"
+#~ msgid "Running a login shell:"
+#~ msgstr "Login-Shell"
+
+#~ msgid ""
+#~ "Use I<--> to allow options beginning with \\[oq]-\\[cq] or \\[oq]--\\[cq] "
+#~ "in the command to run in the chroot.  This prevents them being "
+#~ "interpreted as options for dchroot itself.  Note that the top line was "
+#~ "echoed to standard error, and the remaining lines to standard output.  "
+#~ "This is intentional, so that program output from commands run in the "
+#~ "chroot may be piped and redirected as required; the data will be the same "
+#~ "as if the command was run directly on the host system."
+#~ msgstr ""
+#~ "Benutzen Sie I<-->, um zu ermöglichen, dass Optionen, die mit »-« oder "
+#~ "»--« im Befehl beginnen, in der Chroot ausgeführt werden. Dies schützt "
+#~ "sie davor, als Optionen für Dchroot selbst interpretiert zu werden. "
+#~ "Beachten Sie, dass die erste Zeile auf der Standardfehlerausgabe und die "
+#~ "restlichen auf der Standardausgabe wiedergegeben werden. Dies ist "
+#~ "beabsichtigt, damit Programmausgaben von in der Chroot ausgeführten "
+#~ "Befehlen nach Bedarf weiter- und umgeleitet werden können. Die Daten "
+#~ "werden die selben wie bei der Ausführung des Befehls direkt auf dem "
+#~ "Wirtsystem sein."
+
+#~ msgid ""
+#~ "The system-wide B<schroot> definition file.  This file must be owned by "
+#~ "the root user, and not be writable by other."
+#~ msgstr ""
+#~ "die systemweite B<schroot>-Definitionsdatei. Diese Datei muss dem "
+#~ "Benutzer Root gehören und darf nicht durch andere beschreibbar sein."
+
+#~ msgid ""
+#~ "This implementation of dchroot uses the same command-line options as the "
+#~ "original B<dchroot> by David Kimdon \\f[CR]E<lt>dwhedon@debian.orgE<gt>"
+#~ "\\fR, but is an independent implementation."
+#~ msgstr ""
+#~ "Diese Umsetzung von Dchroot verwendet die selben Befehlszeilenoptionen "
+#~ "wie das Original-B<dchroot> von David Kimdon \\f[CR]E<lt>dwhedon@debian."
+#~ "orgE<gt>\\fR, ist aber eine unabhängige Umsetzung."
+
+#~ msgid "dchroot-dsa"
+#~ msgstr "dchroot-dsa"
+
+#~ msgid "DCHROOT-DSA"
+#~ msgstr "DCHROOT-DSA"
+
+#~ msgid "dchroot-dsa - enter a chroot environment"
+#~ msgstr "dchroot-dsa - in eine Chroot-Umgebung gelangen"
+
+#~ msgid ""
+#~ "B<dchroot-dsa> [B<-h>\\[or]B<--help> \\[or] B<-V>\\[or]B<--version> "
+#~ "\\[or] B<-l>\\[or]B<--list> \\[or] B<-i>\\[or]B<--info> \\[or] B<--"
+#~ "config> \\[or] B<-p>|B<--listpaths>] [B<-d >I<directory>\\[or]B<--"
+#~ "directory=>I<directory>] [B<-q>\\[or]B<--quiet> \\[or] B<-v>\\[or]B<--"
+#~ "verbose>] [B<-c >I<chroot>\\[or]B<--chroot=>I<chroot> \\[or] B<--all> "
+#~ "\\[or] B<CHROOT]> [B<COMMAND>]"
+#~ msgstr ""
+#~ "B<dchroot-dsa> [B<-h>\\[or]B<--help> \\[or] B<-V>\\[or]B<--version> "
+#~ "\\[or] B<-l>\\[or]B<--list> \\[or] B<-i>\\[or]B<--info> \\[or] B<--"
+#~ "config> \\[or] B<-p>|B<--listpaths>] [B<-d >I<Verzeichnis>\\[or]B<--"
+#~ "directory=>I<Verzeichnis>] [B<-q>\\[or]B<--quiet> \\[or] B<-v>\\[or]B<--"
+#~ "verbose>] [B<-c >I<Chroot>\\[or]B<--chroot=>I<Chroot> \\[or] B<--all> "
+#~ "\\[or] B<CHROOT]> [B<BEFEHL>]"
+
+#~ msgid ""
+#~ "B<dchroot-dsa> allows the user to run a command or a login shell in a "
+#~ "chroot environment.  If no command is specified, a login shell will be "
+#~ "started in the user's home directory inside the chroot."
+#~ msgstr ""
+#~ "B<dchroot-dsa> erlaubt dem Anwender einen Befehl oder eine Login-Shell in "
+#~ "einer Chroot-Umgebung auszuführen. Falls kein Befehl angegeben wurde, "
+#~ "wird eine Login-Shell im Home-Verzeichnis des Benutzers innerhalb der "
+#~ "Chroot gestartet."
+
+#~ msgid "The user's environment will be preserved inside the chroot."
+#~ msgstr "Die Umgebung des Benutzers wird innerhalb der Chroot erhalten."
+
+#, fuzzy
+#~| msgid ""
+#~| "The command is one or more arguments which will be run in the user's "
+#~| "default shell using its I<-c> option.  As a result, shell code may be "
+#~| "embedded in this argument.  If multiple command options are used, they "
+#~| "are concatenated together, separated by spaces.  Users should be aware "
+#~| "of the shell quoting issues this presents, and should use B<schroot> if "
+#~| "necessary, which does not have any quoting issues."
+#~ msgid ""
+#~ "The command is a single argument which must be an absolute path to the "
+#~ "program.  Additional options are not permitted.  Users should be aware of "
+#~ "the the limitations this presents, and should use B<schroot>(1)  if "
+#~ "necessary, which does not impose any restrictions upon using options."
+#~ msgstr ""
+#~ "Der Befehl besteht aus einem oder mehreren Argumenten, die in der "
+#~ "Standard-Shell des Benutzers mittels der Option I<-c> ausgeführt werden. "
+#~ "Dadurch kann Shell-Code in dieses Argument eingebettet werden. Falls "
+#~ "mehrere Befehlsoptionen benutzt werden, können sie durch Leerzeichen "
+#~ "getrennt verbunden werden. Benutzer sollten darüber Bescheid wissen, dass "
+#~ "dies Maskierungsprobleme der Shell mit sich bringt und, falls nötig, "
+#~ "B<schroot> verwenden, das derlei Probleme nicht hat."
+
+#~ msgid ""
+#~ "This version of dchroot-dsa is a compatibility wrapper around the "
+#~ "B<schroot>(1)  program.  It is provided for backward compatibility with "
+#~ "the dchroot-dsa command-line options, but schroot is recommended for "
+#~ "future use.  See the section \\[lq]I<Incompatibilities>\\[rq] below for "
+#~ "known incompatibilities with older versions of dchroot-dsa."
+#~ msgstr ""
+#~ "Diese Version von Dchroot-dsa ist ein Kompatibilitäts-Wrapper um das "
+#~ "Programm B<schroot>(1). Es wird für die Rückwärtskompatibilität mit den "
+#~ "Befehlszeilenoptionen von Dchroot-dsa benutzt, für die zukünftige Nutzung "
+#~ "wird aber Schroot empfohlen. Lesen Sie den nachfolgenden Abschnitt "
+#~ "»I<Inkompatibilitäten>«, um etwas über bekannte Inkompatibilitäten mit "
+#~ "älteren Versionen von Dchroot-dsa zu erfahren."
+
+#~ msgid "B<dchroot-dsa> accepts the following options:"
+#~ msgstr "B<dchroot-dsa> akzeptiert die folgenden Optionen:"
+
+#~ msgid ""
+#~ "Select all chroots.  Note that earlier versions of dchroot-dsa did not "
+#~ "include this option."
+#~ msgstr ""
+#~ "wählt alle Chroots aus. Beachten Sie, dass ältere Versionen von Dchroot-"
+#~ "dsa diese Option nicht enthielten."
+
+#~ msgid ""
+#~ "Specify a chroot to use.  This option may be used multiple times to "
+#~ "specify more than one chroot, in which case its effect is similar to I<--"
+#~ "all>.  If this option is not used, the first non-option argument "
+#~ "specified the chroot to use.  Note that earlier versions of dchroot-dsa "
+#~ "did not include this option."
+#~ msgstr ""
+#~ "gibt eine Chroot an, die benutzt werden soll. Diese Option kann mehrfach "
+#~ "verwendet werden, um mehr als eine Chroot anzugeben. In diesem Fall wirkt "
+#~ "sie sich ähnlich wie I<--all> aus. Falls diese Option nicht benutzt wird, "
+#~ "gibt das erste Argument, das keine Option ist, die zu benutzende Chroot "
+#~ "an. Beachten Sie, dass ältere Versionen von Dchroot-dsa diese Option "
+#~ "nicht enthielten."
+
+#~ msgid ""
+#~ "Print detailed information about the available chroots.  Note that "
+#~ "earlier versions of dchroot-dsa did not include this option."
+#~ msgstr ""
+#~ "gibt detaillierte Informationen über die verfügbaren Chroots aus. "
+#~ "Beachten Sie, dass ältere Versionen von Dchroot-dsa diese Option nicht "
+#~ "enthielten."
+
+#~ msgid "B<-p>, B<--listpaths>"
+#~ msgstr "B<-p>, B<--listpaths>"
+
+#~ msgid "Print absolute locations (paths) of the available chroots."
+#~ msgstr "gibt absolute Speicherorte (Pfade) der verfügbaren Chroots aus."
+
+#~ msgid ""
+#~ "Print configuration of the available chroots.  This is useful for testing "
+#~ "that the configuration in use is the same as the configuration file.  Any "
+#~ "comments in the original file will be missing.  Note that earlier "
+#~ "versions of dchroot-dsa did not include this option."
+#~ msgstr ""
+#~ "gibt die Konfiguration der verfügbaren Chroots aus. Dies ist nützlich, um "
+#~ "zu testen, ob die benutzte Konfiguration die selbe wie die in der "
+#~ "Konfigurationsdatei ist. Sämtliche Kommentare der Originaldatei werden "
+#~ "fehlen. Beachten Sie, dass ältere Versionen von Dchroot-dsa diese Option "
+#~ "nicht enthielten."
+
+#~ msgid ""
+#~ "Change to I<directory> inside the chroot before running the command or "
+#~ "login shell.  If I<directory> is not available, dchroot-dsa will exit "
+#~ "with an error status."
+#~ msgstr ""
+#~ "wechselt nach I<Verzeichnis> innerhalb der Chroot, bevor der Befehl oder "
+#~ "die Login-Shell ausgeführt wird. Falls I<Verzeichnis> nicht verfügbar "
+#~ "ist, wird Dchroot-dsa mit einem Fehlerstatus beendet."
+
+#~ msgid ""
+#~ "The default behaviour (all directory paths are inside the chroot) is to "
+#~ "run the login shell or command in the user's home directory, or I</> if "
+#~ "the home directory is not available.  If none of the directories are "
+#~ "available, dchroot-dsa will exit with an error status."
+#~ msgstr ""
+#~ "Das Standardverhalten (alle Verzeichnispfade liegen innerhalb der Chroot) "
+#~ "ist, die Login-Shell oder den Befehl im Home-Verzeichnis des Benutzers "
+#~ "oder I</> auszuführen, falls das Home-Verzeichnis nicht verfügbar ist. "
+#~ "Falls keines der Verzeichnisse verfügbar ist, wird Dchroot-dsa mit einem "
+#~ "Fehlerstatus beendet."
+
+#~ msgid ""
+#~ "Print only essential messages.  Note that earlier versions of dchroot-dsa "
+#~ "did not include this option."
+#~ msgstr ""
+#~ "gibt nur wichtige Meldungen aus. Beachten Sie, dass ältere Versionen von "
+#~ "Dchroot-dsa diese Option nicht enthielten."
+
+#~ msgid ""
+#~ "Print all messages.  Note that earlier versions of dchroot-dsa did not "
+#~ "include this option."
+#~ msgstr ""
+#~ "gibt alle Meldungen aus. Beachten Sie, dass ältere Versionen von Dchroot-"
+#~ "dsa diese Option nicht enthielten."
+
+#~ msgid ""
+#~ "This version of dchroot-dsa uses I<schroot.conf> to store the "
+#~ "configuration for available chroots, rather than the I<dchroot.conf> file "
+#~ "used historically.  dchroot-dsa supported automatic migration of "
+#~ "I<dchroot.conf> to the I<schroot.conf> keyfile format with its I<--"
+#~ "config> option from versions 0.2.2 to 1.5.0; support for the old format "
+#~ "is now no longer available."
+#~ msgstr ""
+#~ "Diese Version von Dchroot-dsa benutzt I<schroot.conf>, um die "
+#~ "Konfiguration für verfügbare Chroots zu speichern, anstatt der "
+#~ "geschichtlich benutzten Datei I<dchroot.conf>. Dchroot-dsa unterstützt "
+#~ "die automatische Migration der I<dchroot.conf> in das I<schroot.conf>-"
+#~ "Schlüsseldateiformat mit seiner Option I<--config> aus Versionen von "
+#~ "0.2.2 bis 1.5.0. Die Unterstützung für das alte Format ist nun nicht "
+#~ "länger verfügbar."
+
+#~ msgid ""
+#~ "dchroot-dsa provides a restricted subset of the functionality implemented "
+#~ "by B<schroot>, but is still schroot underneath.  Thus dchroot-dsa is "
+#~ "still subject to schroot security checking, including PAM authentication "
+#~ "and authorisation, and session management, for example, and hence may "
+#~ "behave slightly differently to earlier versions of dchroot-dsa in some "
+#~ "circumstances."
+#~ msgstr ""
+#~ "Dchroot-dsa stellt eine eingeschränkte Untermenge der durch B<schroot> "
+#~ "umgesetzten Funktionalität bereit, liegt aber immer noch unter Schroot. "
+#~ "Daher ist Dchroot-dsa immer noch Gegenstand der Schroot-"
+#~ "Sicherheitsprüfung, einschließlich PAM-Authentifizierung, Autorisierung "
+#~ "und zum Beispiel Sitzungsverwaltung und kann sich daher unter manchen "
+#~ "Umständen gegenüber älteren Dchroot-dsa-Version leicht anders verhalten."
+
+#~ msgid "Debian dchroot"
+#~ msgstr "Debian-Dchroot"
+
+#~ msgid "A B<dchroot> package provides an alternative dchroot implementation."
+#~ msgstr ""
+#~ "Ein B<dchroot>-Paket stellt eine alternative Dchroot-Umsetzung bereit."
+
+#~ msgid ""
+#~ "This version of dchroot has incompatible command-line options, and while "
+#~ "some of those options are supported or have equivalent options by a "
+#~ "different name, the I<-c> option is required to specify a chroot.  It "
+#~ "also allows a shell script to be used as the option instead of a single "
+#~ "absolute path, and allows multiple command options instead of a single "
+#~ "option."
+#~ msgstr ""
+#~ "Diese Version von Dchroot hat inkompatible Befehlszeilenoptionen und "
+#~ "obwohl einige dieser Optionen unterstützt werden oder sie entsprechende "
+#~ "Optionen mit einem anderen Namen hat, wird die Option I<-c> nicht "
+#~ "benötigt, um eine Chroot anzugeben. Sie erlaubt außerdem die Benutzung "
+#~ "eines Shell-Skripts als Option anstelle eines einzelnen absoluten Pfades "
+#~ "und mehrere Optionen anstelle einer einzelnen Option."
+
+#~ msgid ""
+#~ "dchroot-dsa will select an appropriate directory to use within the chroot "
+#~ "based upon whether the I<--directory> option is used.  When explicitly "
+#~ "specifying a directory, only one directory will be used for safety and "
+#~ "consistency, while for a login shell or command several possibilities may "
+#~ "be tried.  Note that due to multiple fallbacks being considered for "
+#~ "commands, it is dangerous to run commands using dchroot-dsa; use schroot "
+#~ "instead.  The following subsections list the fallback sequence for each "
+#~ "case.  CWD is the current working directory, DIR is the directory "
+#~ "specified with I<--directory>."
+#~ msgstr ""
+#~ "Dchroot-dsa wird ein geeignetes Verzeichnis zur Verwendung innerhalb der "
+#~ "Chroot auswählen, abhängig davon, ob die Option I<--directory> benutzt "
+#~ "wird. Wenn ein Verzeichnis explizit angegeben wird, wird wegen der "
+#~ "Sicherheit und Konsistenz nur ein Verzeichnis verwendet, während für eine "
+#~ "Login-Shell oder einen Befehl mehrere Möglichkeiten ausprobiert werden "
+#~ "können. Beachten Sie, dass es, da mehrere Ausweichmöglichkeiten für "
+#~ "Befehle berücksichtigt werden, gefährlich ist, Befehle mittels Dchroot-"
+#~ "dsa auszuführen. Benutzen Sie stattdessen Schroot. Die folgenden "
+#~ "Unterabschnitte führen die Abfolge der Ausweichmöglichkeiten für jeden "
+#~ "Fall auf. CWD ist das aktuelle Arbeitsverzeichnis, VERZ ist das mit I<--"
+#~ "directory> angegebene Verzeichnis."
+
+#~ msgid "Normal behaviour (if --directory is not used)\n"
+#~ msgstr "normales Verhalten (falls nicht --directory benutzt wird)\n"
+
+#~ msgid ""
+#~ "Note that the top line was echoed to standard error, and the remaining "
+#~ "lines to standard output.  This is intentional, so that program output "
+#~ "from commands run in the chroot may be piped and redirected as required; "
+#~ "the data will be the same as if the command was run directly on the host "
+#~ "system."
+#~ msgstr ""
+#~ "Beachten Sie, dass die erste Zeile auf der Standardfehlerausgabe und die "
+#~ "restlichen auf der Standardausgabe wiedergegeben werden. Dies ist "
+#~ "beabsichtigt, damit Programmausgaben von in der Chroot ausgeführten "
+#~ "Befehlen nach Bedarf weiter- und umgeleitet werden können. Die Daten "
+#~ "werden die selben wie bei der direkten Ausführung des Befehls auf dem "
+#~ "Wirtsystem sein."
+
+#~ msgid ""
+#~ "This implementation of dchroot-dsa uses the same command-line options as "
+#~ "the B<dchroot> found on machines run by the Debian System Administrators "
+#~ "for the Debian Project.  These machines have a B<dchroot-dsa> source "
+#~ "package which provides a B<dchroot-dsa> package, written by Ben Collins "
+#~ "\\f[CR]E<lt>bcollins@debian.orgE<gt>\\fR and Martin Schulze "
+#~ "\\f[CR]E<lt>joey@debian.orgE<gt>\\fR."
+#~ msgstr ""
+#~ "Diese Umsetzung von Dchroot-dsa verwendet die selben "
+#~ "Befehlszeilenoptionen wie das auf von Debian-Systemadministratoren für "
+#~ "das Debian-Projekt betriebenen Rechnern gefundene B<dchroot>. Diese "
+#~ "Rechner haben ein B<dchroot-dsa>-Quellpaket, das ein von Ben Collins "
+#~ "\\f[CR]E<lt>bcollins@debian.orgE<gt>\\fR und Martin Schulze "
+#~ "\\f[CR]E<lt>joey@debian.orgE<gt>\\fR geschriebenes B<dchroot-dsa>-Paket "
+#~ "bereitstellt."
 
 #~ msgid ""
 #~ "% \\f[CB]schroot --begin-session -c squeeze\\fR\\[CR]\n"
@@ -6098,14 +5908,18 @@ msgstr ""
 #~ "squeeze-57a69547-e014-4f5d-a98b-f4f35a005307\n"
 
 #~ msgid ""
-#~ "% \\f[CB]schroot --run-session -c squeeze-57a69547-e014-4f5d-a98b-f4f35a005307 \\e\n"
+#~ "% \\f[CB]schroot --run-session -c squeeze-57a69547-e014-4f5d-a98b-"
+#~ "f4f35a005307 \\e\n"
 #~ "  -- command1\\fR\\[CR]\n"
 #~ msgstr ""
-#~ "% \\f[CB]schroot --run-session -c squeeze-57a69547-e014-4f5d-a98b-f4f35a005307 \\e\n"
+#~ "% \\f[CB]schroot --run-session -c squeeze-57a69547-e014-4f5d-a98b-"
+#~ "f4f35a005307 \\e\n"
 #~ "  -- Befehl1\\fR\\[CR]\n"
 
-#~ msgid "% \\f[CB]schroot --run-session -c \"$SESSION\" -- command1\\fR\\[CR]\n"
-#~ msgstr "% \\f[CB]schroot --run-session -c \"$SESSION\" -- Befehl1\\fR\\[CR]\n"
+#~ msgid ""
+#~ "% \\f[CB]schroot --run-session -c \"$SESSION\" -- command1\\fR\\[CR]\n"
+#~ msgstr ""
+#~ "% \\f[CB]schroot --run-session -c \"$SESSION\" -- Befehl1\\fR\\[CR]\n"
 
 #~ msgid ""
 #~ "% \\f[CB]schroot --run-session -c \"$SESSION\" -- command2\\fR\\[CR]\n"
@@ -6116,21 +5930,31 @@ msgstr ""
 #~ "% \\f[CB]schroot --run-session -c \"$SESSION\" -- Befehl3\\fR\\[CR]\n"
 #~ "% \\f[CB]schroot --run-session -c \"$SESSION\" -- Befehl4\\fR\\[CR]\n"
 
-#~ msgid "% \\f[CB]schroot --end-session -c squeeze-57a69547-e014-4f5d-a98b-f4f35a005307\\fR\\[CR]\n"
-#~ msgstr "% \\f[CB]schroot --end-session -c squeeze-57a69547-e014-4f5d-a98b-f4f35a005307\\fR\\[CR]\n"
+#~ msgid ""
+#~ "% \\f[CB]schroot --end-session -c squeeze-57a69547-e014-4f5d-a98b-"
+#~ "f4f35a005307\\fR\\[CR]\n"
+#~ msgstr ""
+#~ "% \\f[CB]schroot --end-session -c squeeze-57a69547-e014-4f5d-a98b-"
+#~ "f4f35a005307\\fR\\[CR]\n"
 
 #~ msgid "% \\f[CB]schroot --end-session -c \"$SESSION\"\\fR\\[CR]\n"
 #~ msgstr "% \\f[CB]schroot --end-session -c \"$SESSION\"\\fR\\[CR]\n"
 
 #~ msgid ""
-#~ "% \\f[CB]schroot --begin-session -c squeeze --session-name my-name\\fR\\[CR]\n"
+#~ "% \\f[CB]schroot --begin-session -c squeeze --session-name my-name\\fR"
+#~ "\\[CR]\n"
 #~ "my-name\n"
 #~ msgstr ""
-#~ "% \\f[CB]schroot --begin-session -c squeeze --session-name mein-name\\fR\\[CR]\n"
+#~ "% \\f[CB]schroot --begin-session -c squeeze --session-name mein-name\\fR"
+#~ "\\[CR]\n"
 #~ "mein-name\n"
 
-#~ msgid "% \\f[CB]git clone git://git.debian.org/git/buildd-tools/schroot\\fR\\[CR]\n"
-#~ msgstr "% \\f[CB]git clone git://git.debian.org/git/buildd-tools/schroot\\fR\\[CR]\n"
+#~ msgid ""
+#~ "% \\f[CB]git clone git://git.debian.org/git/buildd-tools/schroot\\fR"
+#~ "\\[CR]\n"
+#~ msgstr ""
+#~ "% \\f[CB]git clone git://git.debian.org/git/buildd-tools/schroot\\fR"
+#~ "\\[CR]\n"
 
 #~ msgid ""
 #~ "%\\ \\f[CB]\\*[SCHROOT_LIBEXEC_DIR]/schroot-listmounts\\ -m\\ \\e\n"
