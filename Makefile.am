@@ -39,7 +39,6 @@ dist-hook:
 
 EXTRA_DIST =				\
 	bootstrap			\
-	debian				\
 	scripts/schroot_release.m4.in	\
 	m4				\
 	HACKING				\
