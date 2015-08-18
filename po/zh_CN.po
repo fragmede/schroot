@@ -1,11 +1,11 @@
 # Chinese translations for schroot package.
-# Copyright (C) 2008 Roger Leigh <rleigh@debian.org>
+# Copyright (C) 2008 Roger Leigh <rleigh@codelibre.net>
 # This file is distributed under the same license as the schroot package.
 # Ji ZhengYu <zhengyuji@gmail.com>, 2008, 2009, 2010, 2011, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.5.2-1\n"
-"Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
+"Report-Msgid-Bugs-To: Roger Leigh <rleigh@codelibre.net>\n"
 "POT-Creation-Date: 2013-09-25 12:24+0100\n"
 "PO-Revision-Date: 2012-02-15 19:54+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"

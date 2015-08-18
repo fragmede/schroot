@@ -1,4 +1,4 @@
-# Copyright © 2004-2013  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2013  Roger Leigh <rleigh@codelibre.net>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -21,8 +21,8 @@ if(BUILD_NLS)
   set(domain schroot)
   set(xgettext_options --keyword=_ --keyword=N_ --from-code=UTF-8
       --boost --no-location)
-  set(copyright_holder "Roger Leigh <rleigh@debian.org>")
-  set(bug_address "Roger Leigh <rleigh@debian.org>")
+  set(copyright_holder "Roger Leigh <rleigh@codelibre.net>")
+  set(bug_address "Roger Leigh <rleigh@codelibre.net>")
 
   file(READ LINGUAS languages)
   string(REGEX REPLACE "\n" ";" languages "${languages}")

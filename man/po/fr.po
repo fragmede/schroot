@@ -37,12 +37,12 @@ msgstr "COPYRIGHT"
 #: copyright.man:3
 #, fuzzy
 #| msgid ""
-#| "Copyright \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@debian.orgE<gt>"
+#| "Copyright \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@codelibre.netE<gt>"
 #| "\\fR"
 msgid ""
-"Copyright \\(co 2005-2013 Roger Leigh \\f[CR]E<lt>rleigh@debian.orgE<gt>\\fR"
+"Copyright \\(co 2005-2013 Roger Leigh \\f[CR]E<lt>rleigh@codelibre.netE<gt>\\fR"
 msgstr ""
-"Copyright \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@debian.orgE<gt>\\fR"
+"Copyright \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@codelibre.netE<gt>\\fR"
 
 #. type: Plain text
 #: copyright.man:7

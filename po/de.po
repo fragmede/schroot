@@ -1,5 +1,5 @@
 # German translation of schroot.
-# Copyright © 2006-2007 Roger Leigh <rleigh@debian.org>
+# Copyright © 2006-2007 Roger Leigh <rleigh@codelibre.net>
 # This file is distributed under the same license as the schroot package.
 # Jens Seidel <jensseidel@users.sf.net>, 2006, 2008, 2009.
 # Helge Kreutzmann <debian@helgefjell.de>, 2009.
@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.6.0-1\n"
-"Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
+"Report-Msgid-Bugs-To: Roger Leigh <rleigh@codelibre.net>\n"
 "POT-Creation-Date: 2013-09-25 12:24+0100\n"
 "PO-Revision-Date: 2012-06-06 17:33+0200\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
