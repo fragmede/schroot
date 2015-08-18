@@ -1,4 +1,4 @@
-/* Copyright © 2006-2007  Roger Leigh <rleigh@debian.org>
+/* Copyright © 2006-2007  Roger Leigh <rleigh@codelibre.net>
  *
  * schroot is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by

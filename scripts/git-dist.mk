@@ -1,7 +1,7 @@
 # Automake support for git-based release and distribution management
 #
 #
-# Copyright © 2009-2010  Roger Leigh <rleigh@debian.org>
+# Copyright © 2009-2010  Roger Leigh <rleigh@codelibre.net>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

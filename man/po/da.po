@@ -1,5 +1,5 @@
 # Danish translation schroot.
-# Copyright (C) 2014 Roger Leigh <rleigh@debian.org>
+# Copyright (C) 2014 Roger Leigh <rleigh@codelibre.net>
 # This file is distributed under the same license as the schroot package.
 # Joe Hansen <joedalton2@yahoo.dk>, 2013, 2014.
 #
@@ -48,9 +48,9 @@ msgstr "OPHAVSRET"
 #. type: Plain text
 #: copyright.man:3
 msgid ""
-"Copyright \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@debian.orgE<gt>\\fR"
+"Copyright \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@codelibre.netE<gt>\\fR"
 msgstr ""
-"Ophavsret \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@debian.orgE<gt>\\fR"
+"Ophavsret \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@codelibre.netE<gt>\\fR"
 
 #. type: Plain text
 #: copyright.man:7
