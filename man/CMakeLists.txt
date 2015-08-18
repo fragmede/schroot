@@ -1,4 +1,4 @@
-# Copyright © 2004-2013  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2013  Roger Leigh <rleigh@codelibre.net>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -50,7 +50,7 @@ endforeach(lang)
 set(po4a_command
     ${PO4A_EXECUTABLE} --package-name ${CMAKE_PROJECT_NAME}
     --package-version ${GIT_RELEASE_VERSION}
-    --copyright-holder "Roger Leigh <rleigh@debian.org>"
+    --copyright-holder "Roger Leigh <rleigh@codelibre.net>"
     "--srcdir=${CMAKE_CURRENT_SOURCE_DIR}"
     "--destdir=${CMAKE_CURRENT_BINARY_DIR}"
     "${CMAKE_CURRENT_SOURCE_DIR}/po4a.cfg")

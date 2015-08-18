@@ -1,5 +1,5 @@
 #                                                              -*- Autoconf -*-
-# Copyright © 2004-2009  Roger Leigh <rleigh@debian.org>
+# Copyright © 2004-2009  Roger Leigh <rleigh@codelibre.net>
 #
 # schroot is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ AC_CONFIG_HEADER([sbuild/sbuild-config.h])
 
 AC_COPYRIGHT(
 [
-Copyright © 2004-2009  Roger Leigh <rleigh@debian.org>
+Copyright © 2004-2009  Roger Leigh <rleigh@codelibre.net>
 
 Parts of this configure script come from the 'configure.ac' file, and
 are not based on freely-redistributable m4 macros; you can

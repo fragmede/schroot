@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE
-# Copyright (C) YEAR Roger Leigh <rleigh@debian.org>
+# Copyright (C) YEAR Roger Leigh <rleigh@codelibre.net>
 # This file is distributed under the same license as the schroot package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -35,7 +35,7 @@ msgstr ""
 
 #. type: Plain text
 #: copyright.man:3
-msgid "Copyright \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@debian.orgE<gt>\\fR"
+msgid "Copyright \\(co 2005-2012 Roger Leigh \\f[CR]E<lt>rleigh@codelibre.netE<gt>\\fR"
 msgstr ""
 
 #. type: Plain text

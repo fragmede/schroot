@@ -53,7 +53,7 @@
 /*
  * sbuild-chroot-helper.c:
  * Securely enter a chroot and exec a login shell or user command
- * Copyright © 2002,2005  Roger Leigh <rleigh@debian.org>
+ * Copyright © 2002,2005  Roger Leigh <rleigh@codelibre.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
