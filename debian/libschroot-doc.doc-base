@@ -1,9 +1,0 @@
-Document: libschroot-doxygen-doc
-Title: schroot API reference
-Author: Roger Leigh
-Abstract: A Doxygen-generated API reference for schroot.
-Section: Programming/C++
-
-Format: HTML
-Index: /usr/share/doc/libschroot-doc/html/index.html
-Files: /usr/share/doc/libschroot-doc/html/*
