@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright © 2005-2007  Roger Leigh <rleigh@debian.org>
+# Copyright © 2005-2007  Roger Leigh <rleigh@codelibre.net>
 # Copyright © 2008-2009  Martin F. Krafft <madduck@debian.org>
 #
 # schroot is free software: you can redistribute it and/or modify it

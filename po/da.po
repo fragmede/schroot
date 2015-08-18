@@ -1,5 +1,5 @@
 # Danish translation schroot.
-# Copyright (C) 2012 Roger Leigh <rleigh@debian.org> & Joe Hansen.
+# Copyright (C) 2012 Roger Leigh <rleigh@codelibre.net> & Joe Hansen.
 # This file is distributed under the same license as the schroot package.
 # Joe Hansen <joedalton2@yahoo.dk>, 2010, 2012.
 # Korrekturlæst Kenneth og Ask, 2010.
@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.6.0-1\n"
-"Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
+"Report-Msgid-Bugs-To: Roger Leigh <rleigh@codelibre.net>\n"
 "POT-Creation-Date: 2013-09-25 12:24+0100\n"
 "PO-Revision-Date: 2012-05-31 17:34+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"

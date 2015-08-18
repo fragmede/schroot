@@ -1,12 +1,12 @@
 # Czech translation of schroot.
-# Copyright © 2006-2007 Roger Leigh <rleigh@debian.org>
+# Copyright © 2006-2007 Roger Leigh <rleigh@codelibre.net>
 # This file is distributed under the same license as the schroot package.
 # Miroslav Kure <kurem@debian.cz>, 2006-2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: schroot\n"
-"Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
+"Report-Msgid-Bugs-To: Roger Leigh <rleigh@codelibre.net>\n"
 "POT-Creation-Date: 2013-09-25 12:24+0100\n"
 "PO-Revision-Date: 2010-07-11 18:39+0200\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"

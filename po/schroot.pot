@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Roger Leigh <rleigh@debian.org>
+# Copyright (C) YEAR Roger Leigh <rleigh@codelibre.net>
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: Roger Leigh <rleigh@debian.org>\n"
+"Report-Msgid-Bugs-To: Roger Leigh <rleigh@codelibre.net>\n"
 "POT-Creation-Date: 2013-09-25 12:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
