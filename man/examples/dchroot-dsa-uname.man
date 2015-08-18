@@ -1,2 +1,0 @@
-$ \f[CB]dchroot\-dsa \-q sid \-\- /bin/uname\fP\[CR]
-Linux

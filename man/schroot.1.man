@@ -579,7 +579,6 @@ Directory used for unpacking file chroots.
 .so authors.man
 .so copyright.man
 .SH SEE ALSO
-.BR dchroot (1),
 .BR chroot (2),
 .BR run\-parts (8),
 .BR schroot\-setup (5),

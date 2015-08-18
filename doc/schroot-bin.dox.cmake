@@ -654,9 +654,7 @@ WARN_LOGFILE           = schroot-bin.log
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  = @PROJECT_SOURCE_DIR@/bin/dchroot \
-                         @PROJECT_SOURCE_DIR@/bin/dchroot-dsa \
-                         @PROJECT_SOURCE_DIR@/bin/schroot \
+INPUT                  = @PROJECT_SOURCE_DIR@/bin/schroot \
                          @PROJECT_SOURCE_DIR@/lib/bin-common \
                          @PROJECT_SOURCE_DIR@/lib/dchroot-common \
                          @PROJECT_SOURCE_DIR@/lib/schroot-common \

@@ -1,4 +1,0 @@
-$ \f[CB]dchroot \-q \-c sid \-\- uname \-smr\fP\[CR]
-Linux 3.12-1-amd64 x86_64
-$ \f[CB]dchroot \-q \-c sid \-\- "uname \-smr"\fP\[CR]
-Linux 3.12-1-amd64 x86_64

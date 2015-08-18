@@ -47,8 +47,6 @@ POTENTIAL
 None of these are urgent and/or are difficult to test in an automated
 fashion.  expect might be useful for testing the PAM wrappers.
 
-* Add tests for dchroot and dchroot-dsa classes.
-
 * Line reporting while parsing config files misses file name.
 
   log_warning() is used, because we don't throw an exception.  The
