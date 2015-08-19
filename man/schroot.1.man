@@ -500,12 +500,8 @@ messages.  This gives a great deal more information.  Valid debug levels are
 \[oq]critical\[cq] in order of increasing severity.  The lower the severity
 level, the more output.
 .PP
-If you are still having trouble, the developers may be contacted on the mailing
-list:
-.br
-\f[CR]Debian\ buildd-tools\ Developers
-.br
-<buildd-tools-devel@lists.alioth.debian.org>\fP
+If you are still having trouble, the developers may be contacted by creating
+an issue at \f[CR]https://github.com/codelibre-net/schroot/issues\fP.
 .SH BUGS
 On the \fBmips\fP and \fBmipsel\fP architectures, Linux kernels up to and
 including at least version 2.6.17 have broken

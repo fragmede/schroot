@@ -10,12 +10,12 @@ Building from git
 
 First, clone the git repositories:
 
-% git clone git://anonscm.debian.org/git/buildd-tools/schroot
+% git clone https://github.com/codelibre-net/schroot.git
 % cd schroot
-% git remote add origin-dist git://anonscm.debian.org/git/buildd-tools/schroot-dist
-% git fetch origin-dist
+% git remote add origin-dist1x https://github.com/codelibre-net/schroot-dist-1x.git
+% git fetch origin-dist1x
 
-schroot-dist is only required if you want to run "make git-dist"; this
+schroot-dist1x is only required if you want to run "make git-dist"; this
 repository is where the distribution branches are stored (from which
 the distribution tarballs are created with "git archive").  See
 "Releasing", below.
@@ -111,9 +111,9 @@ In order to make a release, the following must be done:
   Commit any changes.
 * Ensure that the distribution branch is branched locally.  For
   example, if making a 1.6.x release, checkout
-  origin-dist/distribution-1.6 as distribution-1.6 e.g.
+  origin-dist1x/distribution-1.6 as distribution-1.6 e.g.
 
-  % git checkout -b distribution-1.6 origin-dist/distribution-1.6
+  % git checkout -b distribution-1.6 origin-dist1x/distribution-1.6
 
   If this is the first release in a stable series, e.g. 1.6.0,
   the local branch will be created automatically.
@@ -151,5 +151,5 @@ In order to make a release, the following must be done:
 
   % git push origin $branch
   % git push origin release/schroot-$version
-  % git push origin-dist distribution-x.y
-  % git push origin-dist distribution/schroot-$version
+  % git push origin-dist1x distribution-x.y
+  % git push origin-dist1x distribution/schroot-$version

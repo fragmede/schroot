@@ -220,20 +220,17 @@ Since the automatically generated session names can be long and unwieldy, the
 .EE
 .SH CONTRIBUTING
 .SS Getting help and getting involved
-The mailing list \f[CR]<buildd-tools-devel@lists.alioth.debian.org>\fP is used
-for both user support and development discussion.  The list may be subscribed
-to from the project website at
-\f[CR]https://alioth.debian.org/projects/buildd-tools/\fP or the Mailman list
-interface at
-\f[CR]http://lists.alioth.debian.org/mailman/listinfo/buildd-tools-devel\fP.
+Configuration and usage questions, and other support issues may be created at
+\f[CR]https://github.com/codelibre-net/schroot/issues\fP.
+.SS Submitting patches
+Please open a pull request against the appropriate branch of
+\f[CR]https://github.com/codelibre-net/schroot\fP.
 .SS Reporting bugs
-On Debian systems, bugs may be reported using the
-.BR reportbug (1)
-tool, or alternatively by mailing \f[CR]<submit@bugs.debian.org>\fP (see
-\f[CR]http://bugs.debian.org\fP for details on how to do that).
+Bugs may be reported at
+\f[CR]https://github.com/codelibre-net/schroot/issues\fP.
 .SS Getting the latest sources
 schroot is maintained in the git version control system.  You can get the
-latest sources from \f[CR]git://git.debian.org/git/buildd-tools/schroot\fP.
+latest sources from \f[CR]https://github.com/codelibre-net/schroot.git\fP.
 .EX
 .so examples/faq-git-clone.man
 .EE
