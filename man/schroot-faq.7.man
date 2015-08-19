@@ -48,12 +48,10 @@ These two chroot types are basically equivalent, since they are both just
 directories in the filesystem.  plain is very simple and does not perform any
 setup tasks; the only reason you would
 want to use it is if you're upgrading from a program such as
-.BR dchroot(1)
-or
 .BR chroot(8)
-which don't do anything other than running a command or shell in a directory.
-On the other hand, directory chroots do run setup scripts, which can mount
-additional filesystems and do other setup tasks.
+which does not do anything other than running a command or shell in a
+directory.  On the other hand, directory chroots do run setup scripts, which
+can mount additional filesystems and do other setup tasks.
 .SH ADVANCED CONFIGURATION
 .SS What are snapshots and unions?
 Some chroot types support \fIcloning\fP.  This means when you start a session,
@@ -246,7 +244,6 @@ the schroot-1.6 branch.
 .so authors.man
 .so copyright.man
 .SH SEE ALSO
-.BR dchroot (1),
 .BR schroot (1),
 .BR schroot\-setup (5),
 .BR schroot.conf (5).

@@ -11,9 +11,6 @@ system.  As always, this boils down to trust.  Don't give chroot root
 access to users you would not trust with root access to the host
 system.
 
-For compatibility with existing tools and scripts, wrapper binaries
-for dchroot and DSA dchroot are provided.
-
 
 Build Dependencies
 ------------------
@@ -72,8 +69,6 @@ Run "cmake -LH" to see basic configurable options.  The following basic
 options are supported:
 
   btrfs-snapshot=(ON|OFF)  Enable support for btrfs snapshots (requires Btrfs)
-  dchroot=(ON|OFF)         Enable dchroot compatibility
-  dchroot-dsa=(ON|OFF)     Enable dchroot-dsa compatibility
   debug=(ON|OFF)           Enable debugging messages
   default_environment_filter=REGEX
                            Default environment filter
@@ -87,9 +82,8 @@ options are supported:
   unshare=(ON|OFF)         Enable unshare support (Linux only)
 
 cmake will autodetect and enable all available features by default,
-with the exception of dchroot and dchroot-dsa which require manually
-specifying, so these options are mostly useful for disabling features
-which are not required.
+so these options are mostly useful for disabling features which are
+not required.
 
 Run "cmake -LA" to see all settable options.  CMAKE_INSTALL_PREFIX is
 the equivalent of the configure --prefix option.  Additionally,

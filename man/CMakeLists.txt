@@ -29,8 +29,6 @@ set(common_dependencies
     copyright.man)
 
 set(manpage_sources
-    dchroot.1.man
-    dchroot-dsa.1.man
     schroot.1.man
     schroot-setup.5.man
     schroot.conf.5.man
@@ -114,19 +112,6 @@ foreach(manpage_source ${manpage_sources})
       set(manpage_source_file "${CMAKE_CURRENT_SOURCE_DIR}/${manpage_source}")
     endif (is_manpage)
   endif(is_translation)
-
-  if(pagename AND NOT BUILD_DCHROOT)
-    string(REGEX MATCH "^dchroot\$" dchroot_match ${pagename})
-    if (dchroot_match)
-      unset(pagename)
-    endif (dchroot_match)
-  endif(pagename AND NOT BUILD_DCHROOT)
-  if(pagename AND NOT BUILD_DCHROOT_DSA)
-    string(REGEX MATCH "^dchroot-dsa\$" dchroot_dsa_match ${pagename})
-    if (dchroot_dsa_match)
-      unset(pagename)
-    endif (dchroot_dsa_match)
-  endif(pagename AND NOT BUILD_DCHROOT_DSA)
 
   if(pagename)
     # Filter out manpages which should not be built or installed.  We

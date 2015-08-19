@@ -1,3 +1,0 @@
-$ \f[CB]dchroot \-v \-c sid\fP\[CR]
-I: [sid chroot] Running login shell: \[oq]/bin/bash\[cq]
-$ 

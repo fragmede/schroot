@@ -1,5 +1,0 @@
-$ \f[CB]dchroot -q -c sid "ls -1 / | tac | head -n 4"\fP\[CR]
-var
-usr
-tmp
-sys
