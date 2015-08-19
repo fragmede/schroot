@@ -19,7 +19,6 @@
 #include <config.h>
 
 #include <schroot/chroot/facet/block-device.h>
-#include <schroot/chroot/facet/lvm-snapshot.h>
 #include <schroot/chroot/facet/factory.h>
 #include <schroot/chroot/facet/session.h>
 #include <schroot/chroot/facet/session-clonable.h>
@@ -74,13 +73,6 @@ namespace schroot
       {
       }
 
-#ifdef SCHROOT_FEATURE_LVMSNAP
-      block_device::block_device (const lvm_snapshot& rhs):
-        block_device_base(rhs)
-      {
-      }
-#endif // SCHROOT_FEATURE_LVMSNAP
-
       void
       block_device::set_chroot (chroot& chroot,
                                 bool    copy)
@@ -107,14 +99,6 @@ namespace schroot
       {
         return ptr(new block_device());
       }
-
-#ifdef SCHROOT_FEATURE_LVMSNAP
-      block_device::ptr
-      block_device::create (const lvm_snapshot& rhs)
-      {
-        return ptr(new block_device(rhs));
-      }
-#endif // SCHROOT_FEATURE_LVMSNAP
 
       facet::ptr
       block_device::clone () const

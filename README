@@ -79,7 +79,6 @@ options are supported:
                            Default environment filter
   doxygen=(ON|OFF)         Enable doxygen documentation
   loopback=(ON|OFF)        Enable support for loopback mounts
-  lvm-snapshot=(ON|OFF)    Enable support for LVM snapshots (requires LVM)
   nls=(ON|OFF)             Enable national language support (requires gettext)
   pam=(ON|PFF)             Enable support for PAM authentication (requires libpam)
   personality=(ON|OFF)     Enable personality support (Linux only)

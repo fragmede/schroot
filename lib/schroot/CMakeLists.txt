@@ -57,17 +57,6 @@ if(BUILD_BLOCKDEV)
       chroot/facet/block-device.cc)
 endif(BUILD_BLOCKDEV)
 
-if(BUILD_LVMSNAP)
-  set(public_blockdev_base_h_sources
-      chroot/facet/block-device-base.h)
-  set(public_blockdev_base_cc_sources
-      chroot/facet/block-device-base.cc)
-  set(public_lvmsnap_h_sources
-      chroot/facet/lvm-snapshot.h)
-  set(public_lvmsnap_cc_sources
-      chroot/facet/lvm-snapshot.cc)
-endif(BUILD_LVMSNAP)
-
 if(BUILD_BTRFSSNAP)
   set(public_btrfssnap_h_sources
       chroot/facet/btrfs-snapshot.h)
@@ -178,7 +167,6 @@ set(public_chroot_facet_h_sources
     chroot/facet/userdata.h
     ${public_blockdev_base_h_sources}
     ${public_blockdev_h_sources}
-    ${public_lvmsnap_h_sources}
     ${public_btrfssnap_h_sources}
     ${public_loopback_h_sources}
     ${public_personality_facet_h_sources}
@@ -204,7 +192,6 @@ set(public_chroot_facet_cc_sources
     chroot/facet/userdata.cc
     ${public_blockdev_base_cc_sources}
     ${public_blockdev_cc_sources}
-    ${public_lvmsnap_cc_sources}
     ${public_btrfssnap_cc_sources}
     ${public_loopback_cc_sources}
     ${public_personality_facet_cc_sources}
