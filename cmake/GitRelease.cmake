@@ -21,7 +21,7 @@
 #
 # This facility is a cmake reimplementation of an earlier
 # autoconf/automake version from
-# http://anonscm.debian.org/gitweb/?p=buildd-tools/schroot.git;a=blob;f=scripts/git-dist.mk;hb=refs/heads/schroot-1.6
+# https://github.com/codelibre-net/schroot/blob/schroot-1.6/scripts/git-dist.mk
 # but is further generalised and is rather more configurable, and
 # integrates quite seamlessly with cmake.
 #

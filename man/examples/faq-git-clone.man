@@ -1,1 +1,1 @@
-% \f[CB]git clone git://git.debian.org/git/buildd-tools/schroot\fP\[CR]
+% \f[CB]git clone https://github.com/codelibre-net/schroot.git\fP\[CR]

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: schroot 1.6.6-1\n"
 "Report-Msgid-Bugs-To: schroot@packages.debian.org\n"
-"POT-Creation-Date: 2015-08-18 15:48-0700\n"
+"POT-Creation-Date: 2015-08-19 14:27-0700\n"
 "PO-Revision-Date: 2013-10-02 18:32+0100\n"
 "Last-Translator: Chris Leick <c.leick@vollbio.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -1461,31 +1461,25 @@ msgstr ""
 
 #. type: Plain text
 #: schroot.1.man:505
+#, fuzzy
+#| msgid ""
+#| "If you are still having trouble, the developers may be contacted on the "
+#| "mailing list:"
 msgid ""
-"If you are still having trouble, the developers may be contacted on the "
-"mailing list:"
+"If you are still having trouble, the developers may be contacted by creating "
+"an issue at \\f[CR]https://github.com/codelibre-net/schroot/issues\\fR."
 msgstr ""
 "Falls Sie immer noch Schwierigkeiten haben, können die Entwickler auf der "
 "Mailingliste kontaktiert werden:"
 
-#. type: Plain text
-#: schroot.1.man:507
-msgid "\\f[CR]Debian\\ buildd-tools\\ Developers\\fR"
-msgstr "\\f[CR]Debian-Buildd-Tools-Entwickler\\fR"
-
-#. type: Plain text
-#: schroot.1.man:509
-msgid "\\f[CR]E<lt>buildd-tools-devel@lists.alioth.debian.orgE<gt>\\fR"
-msgstr "\\f[CR]E<lt>buildd-tools-devel@lists.alioth.debian.orgE<gt>\\fR"
-
 #. type: SH
-#: schroot.1.man:509
+#: schroot.1.man:505
 #, no-wrap
 msgid "BUGS"
 msgstr "FEHLER"
 
 #. type: Plain text
-#: schroot.1.man:517
+#: schroot.1.man:513
 msgid ""
 "On the B<mips> and B<mipsel> architectures, Linux kernels up to and "
 "including at least version 2.6.17 have broken B<personality>(2)  support, "
@@ -1502,13 +1496,13 @@ msgstr ""
 "ein Upgrade auf einen aktuelleren Kernel durch."
 
 #. type: SH
-#: schroot.1.man:517 schroot-setup.5.man:51 schroot-script-config.5.man:34
+#: schroot.1.man:513 schroot-setup.5.man:51 schroot-script-config.5.man:34
 #, no-wrap
 msgid "ENVIRONMENT"
 msgstr "UMGEBUNGSVARIABLEN"
 
 #. type: Plain text
-#: schroot.1.man:527
+#: schroot.1.man:523
 msgid ""
 "By default, the environment is not preserved, and the following environment "
 "variables are defined: HOME, LOGNAME, PATH, SHELL, TERM (preserved if "
@@ -1532,7 +1526,7 @@ msgstr ""
 "ausgewählte Chroot identifiziert wird, an."
 
 #. type: Plain text
-#: schroot.1.man:536
+#: schroot.1.man:532
 msgid ""
 "The following, potentially dangerous, environment variables are removed for "
 "safety by default: BASH_ENV, CDPATH, ENV, HOSTALIASES, IFS, KRB5_CONFIG, "
@@ -1550,25 +1544,25 @@ msgstr ""
 "unter B<schroot.conf>(5)."
 
 #. type: SH
-#: schroot.1.man:536 schroot-setup.5.man:191 schroot.conf.5.man:640
+#: schroot.1.man:532 schroot-setup.5.man:191 schroot.conf.5.man:640
 #, no-wrap
 msgid "FILES"
 msgstr "DATEIEN"
 
 #. type: SS
-#: schroot.1.man:537
+#: schroot.1.man:533
 #, no-wrap
 msgid "Configuration files"
 msgstr "Konfigurationsdateien"
 
 #. type: TP
-#: schroot.1.man:538 schroot.conf.5.man:642
+#: schroot.1.man:534 schroot.conf.5.man:642
 #, no-wrap
 msgid "\\f[BI]\\*[SCHROOT_CONF]\\fR"
 msgstr "\\f[BI]\\*[SCHROOT_CONF]\\fR"
 
 #. type: Plain text
-#: schroot.1.man:542 schroot.conf.5.man:646
+#: schroot.1.man:538 schroot.conf.5.man:646
 msgid ""
 "The system-wide chroot definition file.  This file must be owned by the root "
 "user, and not be writable by other."
@@ -1577,13 +1571,13 @@ msgstr ""
 "gehören und darf nicht durch andere beschreibbar sein."
 
 #. type: TP
-#: schroot.1.man:542 schroot.conf.5.man:646
+#: schroot.1.man:538 schroot.conf.5.man:646
 #, no-wrap
 msgid "\\f[BI]\\*[SCHROOT_CONF_CHROOT_D]\\fR"
 msgstr "\\f[BI]\\*[SCHROOT_CONF_CHROOT_D]\\fR"
 
 #. type: Plain text
-#: schroot.1.man:550
+#: schroot.1.man:546
 msgid ""
 "Additional chroot definitions may be placed in files under this directory.  "
 "They are treated in exactly that same manner as I<\\*[SCHROOT_CONF]>.  Each "
@@ -1599,13 +1593,13 @@ msgstr ""
 "I<--lsbsysinit> gestartet wird."
 
 #. type: TP
-#: schroot.1.man:550
+#: schroot.1.man:546
 #, no-wrap
 msgid "\\f[BI]\\*[SCHROOT_CONF_SETUP_D]\\fR"
 msgstr "\\f[BI]\\*[SCHROOT_CONF_SETUP_D]\\fR"
 
 #. type: Plain text
-#: schroot.1.man:554
+#: schroot.1.man:550
 msgid ""
 "The system-wide chroot setup script directories.  See B<schroot-setup>(5)."
 msgstr ""
@@ -1613,42 +1607,42 @@ msgstr ""
 "B<schroot-setup>(5)."
 
 #. type: TP
-#: schroot.1.man:554
+#: schroot.1.man:550
 #, no-wrap
 msgid "\\f[BI]/etc/pam.d/schroot\\fR"
 msgstr "\\f[BI]/etc/pam.d/schroot\\fR"
 
 #. type: Plain text
-#: schroot.1.man:557
+#: schroot.1.man:553
 msgid "PAM configuration."
 msgstr "PAM-Konfiguration"
 
 #. type: SS
-#: schroot.1.man:557
+#: schroot.1.man:553
 #, no-wrap
 msgid "System directories"
 msgstr "Systemverzeichnisse"
 
 #. type: TP
-#: schroot.1.man:558
+#: schroot.1.man:554
 #, no-wrap
 msgid "\\f[BI]\\*[SCHROOT_LIBEXEC_DIR]\\fR"
 msgstr "\\f[BI]\\*[SCHROOT_LIBEXEC_DIR]\\fR"
 
 #. type: Plain text
-#: schroot.1.man:561
+#: schroot.1.man:557
 msgid "Directory containing helper programs used by setup scripts."
 msgstr ""
 "Verzeichnis, das von Einrichtungsskripten benutzte Hilfsprogramme enthält"
 
 #. type: SS
-#: schroot.1.man:561
+#: schroot.1.man:557
 #, no-wrap
 msgid "Session directories"
 msgstr "Sitzungsverzeichnisse"
 
 #. type: Plain text
-#: schroot.1.man:564
+#: schroot.1.man:560
 msgid ""
 "Each directory contains a directory or file with the name of each session.  "
 "Not all chroot types make use of all the following directories."
@@ -1657,77 +1651,77 @@ msgstr ""
 "jeder Sitzung. Nicht alle Chroot-Typen benutzen alle folgenden Verzeichnisse."
 
 #. type: TP
-#: schroot.1.man:564
+#: schroot.1.man:560
 #, no-wrap
 msgid "\\f[BI]\\*[SCHROOT_SESSION_DIR]\\fR"
 msgstr "\\f[BI]\\*[SCHROOT_SESSION_DIR]\\fR"
 
 #. type: Plain text
-#: schroot.1.man:567
+#: schroot.1.man:563
 msgid "Directory containing the session configuration for each active session."
 msgstr ""
 "Verzeichnis, das die Sitzungskonfiguration für jede aktive Sitzung enthält"
 
 #. type: TP
-#: schroot.1.man:567
+#: schroot.1.man:563
 #, no-wrap
 msgid "\\f[BI]\\*[SCHROOT_MOUNT_DIR]\\fR"
 msgstr "\\f[BI]\\*[SCHROOT_MOUNT_DIR]\\fR"
 
 #. type: Plain text
-#: schroot.1.man:570
+#: schroot.1.man:566
 msgid "Directory used to mount the filesystems used by each active session."
 msgstr ""
 "Verzeichnis, das zum Einhängen der durch jede aktive Sitzung benutzten "
 "Dateisysteme verwendet wird"
 
 #. type: TP
-#: schroot.1.man:570
+#: schroot.1.man:566
 #, no-wrap
 msgid "\\f[BI]\\*[SCHROOT_UNDERLAY_DIR]\\fR"
 msgstr "\\f[BI]\\*[SCHROOT_UNDERLAY_DIR]\\fR"
 
 #. type: Plain text
-#: schroot.1.man:573
+#: schroot.1.man:569
 msgid "Directory used for filesystem union source (underlay)."
 msgstr ""
 "Verzeichnis, das für vereinte (darunterliegende) Dateisystemquellen benutzt "
 "wird"
 
 #. type: TP
-#: schroot.1.man:573
+#: schroot.1.man:569
 #, no-wrap
 msgid "\\f[BI]\\*[SCHROOT_OVERLAY_DIR]\\fR"
 msgstr "\\f[BI]\\*[SCHROOT_OVERLAY_DIR]\\fR"
 
 #. type: Plain text
-#: schroot.1.man:576
+#: schroot.1.man:572
 msgid "Directory used for filesystem union writeable overlay."
 msgstr ""
 "Verzeichnis, das für vereinte beschreibbare Dateisystemeinblendungen benutzt "
 "wird"
 
 #. type: TP
-#: schroot.1.man:576
+#: schroot.1.man:572
 #, no-wrap
 msgid "\\f[BI]\\*[SCHROOT_FILE_UNPACK_DIR]\\fR"
 msgstr "\\f[BI]\\*[SCHROOT_FILE_UNPACK_DIR]\\fR"
 
 #. type: Plain text
-#: schroot.1.man:579
+#: schroot.1.man:575
 msgid "Directory used for unpacking file chroots."
 msgstr "Verzeichnis, das zum Entpacken von Datei-Chroots benutzt wird"
 
 #. type: SH
-#: schroot.1.man:581 schroot-setup.5.man:259 schroot.conf.5.man:680
-#: schroot-script-config.5.man:73 schroot-faq.7.man:246
+#: schroot.1.man:577 schroot-setup.5.man:259 schroot.conf.5.man:680
+#: schroot-script-config.5.man:73 schroot-faq.7.man:243
 #, no-wrap
 msgid "SEE ALSO"
 msgstr "SIEHE AUCH"
 
 # FIXME wrong order
 #. type: Plain text
-#: schroot.1.man:586
+#: schroot.1.man:582
 #, fuzzy
 #| msgid ""
 #| "B<dchroot>(1), B<sbuild>(1), B<chroot>(2), B<run-parts>(8), B<schroot-"
@@ -5139,58 +5133,61 @@ msgid "Getting help and getting involved"
 msgstr "Hilfe erhalten und einbezogen werden"
 
 #. type: Plain text
-#: schroot-faq.7.man:229
+#: schroot-faq.7.man:225
 msgid ""
-"The mailing list \\f[CR]E<lt>buildd-tools-devel@lists.alioth.debian.orgE<gt>"
-"\\fR is used for both user support and development discussion.  The list may "
-"be subscribed to from the project website at \\f[CR]https://alioth.debian."
-"org/projects/buildd-tools/\\fR or the Mailman list interface at "
-"\\f[CR]http://lists.alioth.debian.org/mailman/listinfo/buildd-tools-devel"
-"\\fR."
+"Configuration and usage questions, and other support issues may be created "
+"at \\f[CR]https://github.com/codelibre-net/schroot/issues\\fR."
 msgstr ""
-"Die Mailingliste \\f[CR]E<lt>buildd-tools-devel@lists.alioth.debian.orgE<gt>"
-"\\fR wird sowohl für Anwenderunterstützung als auch Diskussionen über die "
-"Entwicklung benutzt. Die Liste kann über die Projektseite unter "
-"\\f[CR]https://alioth.debian.org/projects/buildd-tools/\\fR abonniert werden "
-"oder über die Mailman-Listenschnittstelle unter \\f[CR]http://lists.alioth."
-"debian.org/mailman/listinfo/buildd-tools-devel\\fR."
 
 #. type: SS
-#: schroot-faq.7.man:229
+#: schroot-faq.7.man:225
+#, no-wrap
+msgid "Submitting patches"
+msgstr ""
+
+#. type: Plain text
+#: schroot-faq.7.man:228
+msgid ""
+"Please open a pull request against the appropriate branch of \\f[CR]https://"
+"github.com/codelibre-net/schroot\\fR."
+msgstr ""
+
+#. type: SS
+#: schroot-faq.7.man:228
 #, no-wrap
 msgid "Reporting bugs"
 msgstr "Fehler melden"
 
 #. type: Plain text
-#: schroot-faq.7.man:234
+#: schroot-faq.7.man:231
 msgid ""
-"On Debian systems, bugs may be reported using the B<reportbug>(1)  tool, or "
-"alternatively by mailing \\f[CR]E<lt>submit@bugs.debian.orgE<gt>\\fR (see "
-"\\f[CR]http://bugs.debian.org\\fR for details on how to do that)."
+"Bugs may be reported at \\f[CR]https://github.com/codelibre-net/schroot/"
+"issues\\fR."
 msgstr ""
-"Auf Debian-Systemen können Fehler unter Benutzung des Werkzeugs "
-"B<reportbug>(1) oder per Mail an \\f[CR]E<lt>submit@bugs.debian.orgE<gt>\\fR "
-"gemeldet werden (Einzelheiten darüber, wie das geht, finden Sie unter "
-"\\f[CR]http://bugs.debian.org\\fR)."
 
 #. type: SS
-#: schroot-faq.7.man:234
+#: schroot-faq.7.man:231
 #, no-wrap
 msgid "Getting the latest sources"
 msgstr "Bezug der neusten Quellen"
 
 #. type: Plain text
-#: schroot-faq.7.man:237
+#: schroot-faq.7.man:234
+#, fuzzy
+#| msgid ""
+#| "schroot is maintained in the git version control system.  You can get the "
+#| "latest sources from \\f[CR]git://git.debian.org/git/buildd-tools/schroot"
+#| "\\fR."
 msgid ""
 "schroot is maintained in the git version control system.  You can get the "
-"latest sources from \\f[CR]git://git.debian.org/git/buildd-tools/schroot\\fR."
+"latest sources from \\f[CR]https://github.com/codelibre-net/schroot.git\\fR."
 msgstr ""
 "Schroot wird über das Versionskontrollsystem Git verwaltet. Sie können die "
 "neusten Quellen über \\f[CR]git://git.debian.org/git/buildd-tools/schroot"
 "\\fR beziehen."
 
 #. type: Plain text
-#: schroot-faq.7.man:244
+#: schroot-faq.7.man:241
 #, fuzzy
 #| msgid ""
 #| "The master branch containes the current development release.  Stable "
@@ -5207,7 +5204,7 @@ msgstr ""
 
 # FIXME wrong order
 #. type: Plain text
-#: schroot-faq.7.man:249
+#: schroot-faq.7.man:246
 #, fuzzy
 #| msgid ""
 #| "B<schroot>(1), B<sbuild>(1), B<chroot>(2), B<schroot-setup>(5), B<schroot."
@@ -5216,6 +5213,37 @@ msgid "B<schroot>(1), B<schroot-setup>(5), B<schroot.conf>(5)."
 msgstr ""
 "B<sbuild>(1), B<schroot>(1), B<chroot>(2), B<schroot-setup>(5), B<schroot."
 "conf>(5)."
+
+#~ msgid "\\f[CR]Debian\\ buildd-tools\\ Developers\\fR"
+#~ msgstr "\\f[CR]Debian-Buildd-Tools-Entwickler\\fR"
+
+#~ msgid "\\f[CR]E<lt>buildd-tools-devel@lists.alioth.debian.orgE<gt>\\fR"
+#~ msgstr "\\f[CR]E<lt>buildd-tools-devel@lists.alioth.debian.orgE<gt>\\fR"
+
+#~ msgid ""
+#~ "The mailing list \\f[CR]E<lt>buildd-tools-devel@lists.alioth.debian."
+#~ "orgE<gt>\\fR is used for both user support and development discussion.  "
+#~ "The list may be subscribed to from the project website at \\f[CR]https://"
+#~ "alioth.debian.org/projects/buildd-tools/\\fR or the Mailman list "
+#~ "interface at \\f[CR]http://lists.alioth.debian.org/mailman/listinfo/"
+#~ "buildd-tools-devel\\fR."
+#~ msgstr ""
+#~ "Die Mailingliste \\f[CR]E<lt>buildd-tools-devel@lists.alioth.debian."
+#~ "orgE<gt>\\fR wird sowohl für Anwenderunterstützung als auch Diskussionen "
+#~ "über die Entwicklung benutzt. Die Liste kann über die Projektseite unter "
+#~ "\\f[CR]https://alioth.debian.org/projects/buildd-tools/\\fR abonniert "
+#~ "werden oder über die Mailman-Listenschnittstelle unter \\f[CR]http://"
+#~ "lists.alioth.debian.org/mailman/listinfo/buildd-tools-devel\\fR."
+
+#~ msgid ""
+#~ "On Debian systems, bugs may be reported using the B<reportbug>(1)  tool, "
+#~ "or alternatively by mailing \\f[CR]E<lt>submit@bugs.debian.orgE<gt>\\fR "
+#~ "(see \\f[CR]http://bugs.debian.org\\fR for details on how to do that)."
+#~ msgstr ""
+#~ "Auf Debian-Systemen können Fehler unter Benutzung des Werkzeugs "
+#~ "B<reportbug>(1) oder per Mail an \\f[CR]E<lt>submit@bugs.debian.orgE<gt>"
+#~ "\\fR gemeldet werden (Einzelheiten darüber, wie das geht, finden Sie "
+#~ "unter \\f[CR]http://bugs.debian.org\\fR)."
 
 #~ msgid "HOST"
 #~ msgstr "HOST"
@@ -5555,8 +5583,10 @@ msgstr ""
 #~ msgid "Login shell or command"
 #~ msgstr "Login-Shell oder Befehl"
 
-#~ msgid "Normal behaviour (if --directory and I<--preserve-environment> are not\n"
-#~ msgstr "normales Verhalten (falls --directory und I<--preserve-environment>\n"
+#~ msgid ""
+#~ "Normal behaviour (if --directory and I<--preserve-environment> are not\n"
+#~ msgstr ""
+#~ "normales Verhalten (falls --directory und I<--preserve-environment>\n"
 
 #~ msgid "used)\n"
 #~ msgstr "benutzt werden)\n"
