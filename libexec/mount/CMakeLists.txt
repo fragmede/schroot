@@ -26,7 +26,8 @@ set(mount_sources
 add_executable(mount ${mount_sources})
 target_link_libraries(mount libschroot bin-common
                       ${Boost_FILESYSTEM_LIBRARY_RELEASE}
-                      ${Boost_SYSTEM_LIBRARY_RELEASE})
+                      ${Boost_SYSTEM_LIBRARY_RELEASE}
+                      ${Intl_LIBRARIES})
 
 install(TARGETS mount RUNTIME
         DESTINATION ${SCHROOT_LIBEXEC_DIR})

@@ -18,6 +18,8 @@
 
 #include <config.h>
 
+#include <schroot/session.h>
+
 #include <schroot/main.h>
 #include <schroot/options.h>
 

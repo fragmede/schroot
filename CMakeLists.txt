@@ -13,8 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-cmake_minimum_required(VERSION 2.8.12)
-cmake_policy(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.2.0)
+cmake_policy(VERSION 3.2.0)
 
 project(schroot)
 
@@ -151,6 +151,7 @@ check_symbol_exists(environ unistd.h HAVE_UNISTD_ENVIRON)
 # Localisation with gettext
 include(FindGettext)
 find_package(Gettext)
+find_package(Intl)
 set(NLS_DEFAULT OFF)
 if(GETTEXT_FOUND)
   set(NLS_DEFAULT ON)
@@ -269,7 +270,9 @@ set(SCHROOT_FEATURE_PERSONALITY ${personality})
 # GENERATED FILES:
 configure_file(${PROJECT_SOURCE_DIR}/config.h.cmake ${PROJECT_BINARY_DIR}/config.h)
 
-include_directories(${PROJECT_BINARY_DIR}/lib
+include_directories(${Boost_INCLUDE_DIRS}
+                    ${Intl_INCLUDE_DIRS}
+                    ${PROJECT_BINARY_DIR}/lib
                     ${PROJECT_SOURCE_DIR}/lib
                     ${PROJECT_BINARY_DIR}
                     ${PROJECT_SOURCE_DIR})
@@ -278,7 +281,6 @@ enable_testing()
 
 add_subdirectory(lib/schroot)
 add_subdirectory(lib/bin-common)
-add_subdirectory(lib/schroot-common)
 add_subdirectory(lib/test)
 add_subdirectory(bin/schroot)
 add_subdirectory(libexec/listmounts)

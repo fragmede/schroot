@@ -19,8 +19,11 @@
 #ifndef SCHROOT_MAIN_H
 #define SCHROOT_MAIN_H
 
-#include <schroot-common/main.h>
-#include <schroot-common/options.h>
+#include <bin-common/main.h>
+#include <bin/schroot/options.h>
+
+#include <schroot/chroot/config.h>
+#include <schroot/custom-error.h>
 
 /**
  * schroot binary components.
@@ -36,18 +39,35 @@ namespace bin
     /**
      * Frontend for schroot.  This class is used to "run" schroot.
      */
-    class main : public schroot_common::main
+    class main : public bin::common::main
     {
     public:
+      /// Error codes.
+      enum error_code
+        {
+          CHROOT_FILE,       ///< No chroots are defined in ....
+          CHROOT_FILE2,      ///< No chroots are defined in ... or ....
+          CHROOT_NOTDEFINED, ///< The specified chroots are not defined.
+          SESSION_INVALID    ///< Invalid session name.
+        };
+
+      /// Exception type.
+      typedef ::schroot::custom_error<error_code> error;
+
+      typedef ::schroot::chroot::config::chroot_map chroot_map;
+
       /**
        * The constructor.
        *
        * @param options the command-line options to use.
        */
-      main (schroot_common::options::ptr& options);
+      main (options::ptr& options);
 
       /// The destructor.
       virtual ~main ();
+
+      virtual void
+      action_version (std::ostream& stream);
 
       /**
        * List chroots.
@@ -55,12 +75,76 @@ namespace bin
       virtual void
       action_list ();
 
-    protected:
+      /**
+       * Print detailed information about chroots.
+       */
       virtual void
-      create_session(::schroot::session::operation sess_op);
+      action_info ();
 
+      /**
+       * Print location of chroots.
+       */
+      virtual void
+      action_location ();
+
+      /**
+       * Dump configuration file for chroots.
+       */
+      virtual void
+      action_config ();
+
+    protected:
+      /**
+       * Run the program.  This is the program-specific run method which
+       * must be implemented in a derived class.
+       *
+       * @returns 0 on success, 1 on failure or the exit status of the
+       * chroot command.
+       */
+      virtual int
+      run_impl ();
+
+      /**
+       * Get a list of chroots based on the specified options (--all, --chroot).
+       *
+       * @returns a list of chroots.
+       */
+      void
+      get_chroot_options ();
+
+      /**
+       * Load configuration.
+       */
+      virtual void
+      load_config ();
+
+      /**
+       * Create a session.  This sets the session member.
+       *
+       * @param sess_op the session operation to perform.
+       */
+      virtual void
+      create_session (::schroot::session::operation sess_op);
+
+      /**
+       * Add PAM authentication handler to the session.
+       */
       virtual void
       add_session_auth ();
+
+    private:
+      /// The program options.
+      options::ptr                    opts;
+      /// The chroot configuration.
+      ::schroot::chroot::config::ptr  config;
+      /// The chroots to use (original names or aliases).
+      ::schroot::string_list          chroot_names;
+      /// The chroots to use (alias to chroot mapping).
+      chroot_map                      chroots;
+      /// The chroots to use (for session).
+      ::schroot::session::chroot_list chroot_objects;
+      /// The session.
+      ::schroot::session::ptr         session;
     };
 
   }

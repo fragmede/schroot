@@ -207,6 +207,9 @@ add_library(libschroot SHARED
             ${public_chroot_cc_sources}
             ${public_chroot_facet_h_sources}
             ${public_chroot_facet_cc_sources})
+target_compile_features(libschroot
+                        INTERFACE cxx_generalized_initializers
+                        PUBLIC cxx_generalized_initializers)
 target_link_libraries(libschroot
                       PRIVATE
                         ${CMAKE_THREAD_LIBS_INIT}
@@ -214,7 +217,8 @@ target_link_libraries(libschroot
                         ${REGEX_LIBRARY}
                         ${Boost_IOSTREAMS_LIBRARY_RELEASE}
                         ${Boost_FILESYSTEM_LIBRARY_RELEASE}
-                        ${Boost_SYSTEM_LIBRARY_RELEASE})
+                        ${Boost_SYSTEM_LIBRARY_RELEASE}
+                        ${Intl_LIBRARIES})
 set_target_properties(libschroot PROPERTIES
                       OUTPUT_NAME schroot
                       VERSION ${GIT_RELEASE_VERSION})
