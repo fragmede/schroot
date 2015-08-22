@@ -80,7 +80,7 @@ namespace bin
       // TRANSLATORS: %1% = copyright year (start)
       // TRANSLATORS: %2% = copyright year (end)
       format fmtc(_("Copyright © %1%–%2% Roger Leigh"));
-      fmtc % "2004" % "2014";
+      fmtc % "2004" % "2015";
 
       stream << fmtr << '\n'
              << _("Written by Roger Leigh") << '\n' << '\n'

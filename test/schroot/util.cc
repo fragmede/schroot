@@ -18,6 +18,8 @@
 
 #include <gtest/gtest.h>
 
+#include <boost/filesystem.hpp>
+
 #include <schroot/util.h>
 
 #include <cstdlib>
@@ -69,5 +71,7 @@ TEST(Util, FindProgramInPath)
 {
   std::string path("/usr/local/bin:/usr/bin:/bin");
   ASSERT_EQ(schroot::find_program_in_path("sh", path, ""), "/bin/sh");
-  ASSERT_EQ(schroot::find_program_in_path("sed", path, ""), "/bin/sed");
+
+  boost::filesystem::path sed(schroot::find_program_in_path("sed", path, ""));
+  ASSERT_EQ(boost::filesystem::path("sed"), sed.filename());
 }

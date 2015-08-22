@@ -26,4 +26,7 @@ set(bin_common_sources
     run.h)
 
 add_library(bin-common STATIC ${bin_common_sources})
+target_compile_features(bin-common
+                        INTERFACE cxx_generalized_initializers cxx_nullptr
+                        PUBLIC cxx_generalized_initializers cxx_nullptr)
 target_link_libraries(bin-common ${Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE})

@@ -19,7 +19,7 @@
 #ifndef SCHROOT_OPTIONS_H
 #define SCHROOT_OPTIONS_H
 
-#include <schroot-common/options.h>
+#include <bin-common/options.h>
 
 namespace bin
 {
@@ -29,21 +29,107 @@ namespace bin
     /**
      * schroot command-line options.
      */
-    class options : public schroot_common::options
+    class options : public bin::common::options
     {
     public:
+      /// Begin, run and end a session.
+      static const action_type ACTION_SESSION_AUTO;
+      /// Begin a session.
+      static const action_type ACTION_SESSION_BEGIN;
+      /// Recover an existing session.
+      static const action_type ACTION_SESSION_RECOVER;
+      /// Run an existing session.
+      static const action_type ACTION_SESSION_RUN;
+      /// End an existing session.
+      static const action_type ACTION_SESSION_END;
+      /// Display a list of chroots.
+      static const action_type ACTION_LIST;
+      /// Display chroot information.
+      static const action_type ACTION_INFO;
+      /// Display chroot location information.
+      static const action_type ACTION_LOCATION;
+      /// Display chroot configuration.
+      static const action_type ACTION_CONFIG;
+
+      /// A shared_ptr to an options object.
+      typedef std::shared_ptr<options> ptr;
+
       /// The constructor.
       options ();
 
       /// The destructor.
       virtual ~options ();
 
+      /// Chroots to use.
+      ::schroot::string_list  chroots;
+      /// Chroot to print path.
+      std::string             chroot_path;
+      /// Command to run.
+      ::schroot::string_list  command;
+      /// Directory to use.
+      std::string             directory;
+      /// Shell to use.
+      std::string             shell;
+      /// User to run as.
+      std::string             user;
+      /// Preserve environment.
+      bool                    preserve;
+      /// Use all chroots and sessions.
+      bool                    all;
+      /// Use all chroots.
+      bool                    all_chroots;
+      /// Use all sessions.
+      bool                    all_sessions;
+      /// Use all source_chroots.
+      bool                    all_source_chroots;
+      /// Exclude aliases in output.
+      bool                    exclude_aliases;
+      /// Load chroots.
+      bool                    load_chroots;
+      /// Load sessions.
+      bool                    load_sessions;
+      /// Session name.
+      std::string             session_name;
+      /// Force session operations.
+      bool                    session_force;
+      /// Options as a key=value list.
+      ::schroot::string_list  useroptions;
+      /// Options in a string-string map.
+      ::schroot::string_map   useroptions_map;
+
     protected:
+      /**
+       * Check if any of the --all options have been used.
+       *
+       * @returns true if any of the options have been used, otherwise
+       * false.
+       */
+      bool
+      all_used () const
+      {
+        return (this->all || this->all_chroots || this->all_source_chroots || this->all_sessions);
+      }
+
       virtual void
       add_options ();
 
       virtual void
+      add_option_groups ();
+
+      virtual void
       check_options ();
+
+      virtual void
+      check_actions ();
+
+      /// Chroot options group.
+      boost::program_options::options_description chroot;
+      /// Chroot environment options group.
+      boost::program_options::options_description chrootenv;
+      /// Session actions group.
+      boost::program_options::options_description session_actions;
+      /// Session options group.
+      boost::program_options::options_description session_options;
     };
 
   }

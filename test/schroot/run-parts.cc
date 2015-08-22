@@ -29,10 +29,12 @@
 
 #include <config.h>
 
+extern char **environ;
+
 class RunParts : public ::testing::Test
 {
 public:
-  std::streambuf           *saved;
+  std::streambuf            *saved;
   schroot::basic_nbuf<char> *monitor;
 
   void SetUp()
