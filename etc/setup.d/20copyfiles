@@ -63,10 +63,10 @@ copy_file()
         # Copy only if files are different
         if [ "$COPY" = "true" ]; then
             if [ -f "$1" ]; then
-                cp --preserve=all $CP_VERBOSE "$1" "$2"
+                cp --remove-destination --preserve=all $CP_VERBOSE "$1" "$2"
             else
                 # Copy non-regular file directly
-                cp -a $CP_VERBOSE "$1" "$2"
+                cp --remove-destination -a $CP_VERBOSE "$1" "$2"
             fi
         fi
 
